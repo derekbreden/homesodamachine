@@ -4664,9 +4664,11 @@ def c14_mount_half() -> tuple:
 # wall on, so the inlet crosses it on that same one and the four mating axes the customer meets
 # stand on one line — the cord goes in level with the tubes rather than under them.
 #
-# THE COLUMN IS A MOUNT DATUM. The inlet, its cutout, its two screws and its seating plane stand
-# at X=69; the collar is derived around that placement and never feeds back into it.
-C14_STATION = (69.0, deck_storey())
+# THE COLUMN IS THE CEILING CORBEL'S CLEAR DATUM. The inlet, its cutout, its two screws and its
+# seating plane share the X station the fixed enclosure strip states. At that station the exact
+# moulded rim keeps one assembly-clearance millimetre from the complete wall-rooted 45° wedge;
+# the Z station stays on the top port row.
+C14_STATION = (_enc.c14_station_x, deck_storey())
 
 
 def c14_seat_y() -> float:
@@ -4711,12 +4713,12 @@ def c14_cutout():
 
 
 _stated.state(
-    "c14-surround", "The C14 flange is wrapped without moving its established mount",
+    "c14-surround", "The C14 flange is wrapped at its ceiling-clear mount",
     "3 mm in XZ, 3 mm beyond the flange's Y- edge, a 9 mm entry relief, and one rooted "
     "profile corbel",
     (_enc.c14_collar_wall >= 3.0 and _enc.c14_collar_extension >= 3.0
      and _enc.c14_insertion_relief >= 9.0
-     and C14_STATION[0] == 69.0 and abs(c14_seat_y() - 458.75) < 1e-9),
+     and C14_STATION[0] == _enc.c14_station_x and abs(c14_seat_y() - 458.75) < 1e-9),
     f"station x {C14_STATION[0]:g}, seat y {c14_seat_y():.2f}, screws "
     f"{c14_stations()[0][0]:g}/{c14_stations()[1][0]:g}; the exact-profile pocket keeps "
     f"{_enc.c14_collar_wall:g} mm around the flange and continues "
@@ -7200,6 +7202,34 @@ def check_c14_collar(pieces: dict, box) -> Bound:
             f"back-top, and {backing_missing:.4f} mm³ of the straight wall backing is absent."])))
 
 
+def check_c14_ceiling_corbel(c14, box) -> Bound:
+    """The purchased inlet against the complete +X ceiling-strip corbel.
+
+    This is the unrelieved production wedge, not a bounding box reconstructed beside it. The
+    inlet's X station is justified by this one gap: if the moulded rim moves into the wedge the
+    answer is to move that shared station, not to restore a short material-rooted ceiling band.
+    `ceiling_corbel_at` is read at the rim as well, so a stale relief row cannot make the solid
+    comparison vacuously clear by deleting the wedge it is meant to prove."""
+    c14 = c14.val() if hasattr(c14, "val") else c14
+    corbel = _enc._back_top_ceiling_corbel(box.inner, box.y_joint, +1.0)
+    gap = _clearing.gap(c14, corbel, 5.0)
+    b = c14.BoundingBox()
+    y = min(max((b.ymin + b.ymax) / 2.0, _cpanel.fore_y), _cpanel.aft_y)
+    kept = _enc.ceiling_corbel_at(b.xmax, y)
+    want = _card.CLEARANCE_FLOOR
+    ok = gap >= want - 1e-6 and kept > 1e-6
+    return record_bound(Bound(
+        "c14-ceiling-corbel-clear",
+        "The C14 stands clear of the complete wall-rooted ceiling corbel",
+        ok,
+        f"{gap:.3f} mm exact air; {kept:.3f} mm of corbel kept at the rim",
+        f"at least {want:g} mm exact air and a nonzero unrelieved wedge at the rim",
+        ([] if ok else [
+            f"the C14 leaves {gap:.3f} mm to the full +X ceiling corbel and "
+            f"`ceiling_corbel_at` keeps {kept:.3f} mm at its rim; move the shared X station "
+            "inboard until the exact moulding clears instead of cutting a support-taking band."])))
+
+
 def check_ceiling_retention(back_top, panel) -> Bound:
     """Both headless keeper screws cross the empty dado mouths only after the panel is home.
 
@@ -7748,6 +7778,7 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     # The collar, tunnel, corbel and crown are one fixed back-top feature. Read that ownership
     # before the slide check admits its matching aft-open panel pocket into the moving field.
     check_c14_collar(pieces, box)
+    check_c14_ceiling_corbel(_solids(a)["c14-inlet"][0], box)
     # Installed clearance is not insertion clearance: the panel traverses the whole rear
     # column before it reaches this pose. Read the deeper field's continuous sweep against the
     # fixed piece, including the C14 ownership split that makes the aft end pass.

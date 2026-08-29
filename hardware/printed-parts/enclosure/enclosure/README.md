@@ -709,6 +709,12 @@ width, carried between the tunnel's two flanks. Nothing on the piece stands outs
 silhouette: the receptacle's two heat-sets go into the tunnel's fore face, from inside the box,
 and the back of the machine is flat.
 
+The inlet's X station is 2.1 mm inboard of the nominal rear-panel column. Its exact moulded rim
+there keeps about one millimetre from the complete +X ceiling-strip corbel, so that wall-rooted
+45° wedge continues over the inlet without a relief band or a short support stack. The aperture,
+tunnel, collar and both screw stations all follow the same X datum; its Z remains aligned with
+the other top-row ports.
+
 ## ASSE anchor
 
 A stepped anchor on the −X wall that the ASSE 1022 chain lies in
@@ -1365,9 +1371,9 @@ The rows are measured against the placed solids and not against their boxes, and
 the difference is most of what they say — a strip read off boxes is a strip with no
 corbel left in it. The ground bar's stack gives up the +X strip from
 [5 mm](GROUND_CEILING_KEEP) of run outward over its band, and the raised relay from
-[3 mm](RELAY_CEILING_KEEP), standing 2.45 and 2.00 mm off the crown under them. The C14 is the sharpest of them — its box says the
-receptacle is under this strip for the last 31 mm of it, and the casting is in the
-corbel for **two**, the moulded rim round the aperture and nothing else on the part.
+[3 mm](RELAY_CEILING_KEEP), standing 2.45 and 2.00 mm off the crown under them. The
+C14 keeps the complete +X wedge: its shared X datum places the moulded rim about one
+millimetre inboard of the corbel, while its Z remains on the top port row.
 
 **The tap-water chain takes four rows**, because what it occupies is four different
 things. Against the full wedge, the metal inside the corbel is run 1.50…14.09 over
