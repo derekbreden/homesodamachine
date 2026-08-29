@@ -703,7 +703,7 @@
   },
   {
    "id": "c14-surround",
-   "label": "The C14 flange is wrapped without moving its established mount",
+   "label": "The C14 flange is wrapped at its ceiling-clear mount",
    "kind": "gate",
    "status": "pass",
    "value": "holds",
@@ -1023,8 +1023,18 @@
    "label": "One fixed back-top surround encloses and carries the C14 up to the ceiling",
    "kind": "gate",
    "status": "pass",
-   "value": "8761.669 mm\u00b3 feature over a 10.25 mm corbel; 0.0000 mm\u00b3 missing from back-top, 0.0000 mm\u00b3 in panel, 0.0000 mm\u00b3 in bores; 75.932 mm\u00b2 ceiling land with 0.0000 mm\u00b3 unsupported; 13.00 mm straight flange insertion with 0.0000 mm\u00b3 obstruction; 2950.856 mm\u00b3 straight wall backing with 0.0000 mm\u00b3 missing",
+   "value": "8761.669 mm\u00b3 feature over a 10.25 mm corbel; 0.0000 mm\u00b3 missing from back-top, 0.0000 mm\u00b3 in panel, 0.0000 mm\u00b3 in bores; 80.657 mm\u00b2 ceiling land with 0.0000 mm\u00b3 unsupported; 13.00 mm straight flange insertion with 0.0000 mm\u00b3 obstruction; 2950.856 mm\u00b3 straight wall backing with 0.0000 mm\u00b3 missing",
    "target": "the complete opened collar, tunnel, corbel and crown in fixed back-top alone; no C14 material in the panel or its bores, the show skin bearing on the crown, and the exact flange profile translating through its Y- entry relief without touching fixed material; the seating face's opened outer profile backed straight to the wall",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "c14-ceiling-corbel-clear",
+   "label": "The C14 stands clear of the complete wall-rooted ceiling corbel",
+   "kind": "gate",
+   "status": "pass",
+   "value": "1.047 mm exact air; 12.285 mm of corbel kept at the rim",
+   "target": "at least 1 mm exact air and a nonzero unrelieved wedge at the rim",
    "detail": [],
    "active": true
   },
