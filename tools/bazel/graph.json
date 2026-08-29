@@ -5913,7 +5913,10 @@
       "hardware/assembly/cards/fonts/IBMPlexSans-400-700-normal-latin.woff2",
       "hardware/assembly/cards/fonts/OFL.txt",
       "hardware/quickstart/00-mount.html",
-      "hardware/quickstart/01-connect.html",
+      "hardware/quickstart/01-water-off.html",
+      "hardware/quickstart/02-water-tee-braided.html",
+      "hardware/quickstart/03-water-tee-inline.html",
+      "hardware/quickstart/04-connect.html",
       "hardware/quickstart/_build.py",
       "hardware/quickstart/art/colors.css",
       "hardware/quickstart/art/connect-rear-connected.png",
@@ -5922,6 +5925,12 @@
       "hardware/quickstart/art/mount-lowered-clean.png",
       "hardware/quickstart/art/mount-under-slide-clean.png",
       "hardware/quickstart/art/mount-under-tighten-clean.png",
+      "hardware/quickstart/plumbing/art/plumbing-pre-tee.png",
+      "hardware/quickstart/plumbing/art/plumbing-tee-installed.png",
+      "hardware/quickstart/plumbing/art/plumbing-valve-off.png",
+      "hardware/quickstart/plumbing/art/plumbing-valve-on.png",
+      "hardware/quickstart/plumbing/modern/art/modern-inline-tee-after.png",
+      "hardware/quickstart/plumbing/modern/art/modern-inline-tee-before.png",
       "hardware/quickstart/quick-start.cover.png",
       "hardware/quickstart/quick-start.pdf.json",
       "hardware/quickstart/style.css",
@@ -5959,8 +5968,10 @@
       "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
       "hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py",
       "hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step",
+      "hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step",
       "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-a.step",
       "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step",
+      "hardware/printed-parts/faucet/tube-collar/tube-collar-water.step",
       "hardware/printed-parts/faucet/tube-collar/tube_collar.py",
       "hardware/quickstart/_cad_art.py",
       "hardware/quickstart/art/connect-rear-connected.png",
@@ -6024,6 +6035,51 @@
       "hardware/quickstart/art/mount-tighten.png",
       "hardware/quickstart/art/mount-under-slide-clean.png",
       "hardware/quickstart/art/mount-under-tighten-clean.png"
+    ]
+  },
+  "hardware/quickstart/plumbing/modern/render_modern_tee.py": {
+    "reads": [
+      "hardware/quickstart/plumbing/modern/art/modern-inline-tee-after.png",
+      "hardware/quickstart/plumbing/modern/art/modern-inline-tee-before.png",
+      "hardware/quickstart/plumbing/modern/render_modern_tee.py",
+      "hardware/reference/tee-connector/tee-connector.step",
+      "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_mesh_payload.py",
+      "hardware/scripts/_run_lock.py",
+      "tools/render/render-step-posed.js"
+    ],
+    "rewritten": [],
+    "writes": [
+      "hardware/quickstart/plumbing/modern/art/modern-inline-tee-after.png",
+      "hardware/quickstart/plumbing/modern/art/modern-inline-tee-before.png"
+    ]
+  },
+  "hardware/quickstart/plumbing/plumbing_scenes.py": {
+    "reads": [
+      "hardware/quickstart/plumbing/art/plumbing-pre-tee.png",
+      "hardware/quickstart/plumbing/art/plumbing-tee-installed.png",
+      "hardware/quickstart/plumbing/art/plumbing-valve-off.png",
+      "hardware/quickstart/plumbing/art/plumbing-valve-on.png",
+      "hardware/quickstart/plumbing/out/plumbing-pre-tee.step",
+      "hardware/quickstart/plumbing/out/plumbing-tee-installed.step",
+      "hardware/quickstart/plumbing/out/plumbing-valve-off.step",
+      "hardware/quickstart/plumbing/out/plumbing-valve-on.step",
+      "hardware/quickstart/plumbing/plumbing_scenes.py",
+      "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_mesh_payload.py",
+      "hardware/scripts/_run_lock.py",
+      "tools/render/render-step-posed.js"
+    ],
+    "rewritten": [],
+    "writes": [
+      "hardware/quickstart/plumbing/art/plumbing-pre-tee.png",
+      "hardware/quickstart/plumbing/art/plumbing-tee-installed.png",
+      "hardware/quickstart/plumbing/art/plumbing-valve-off.png",
+      "hardware/quickstart/plumbing/art/plumbing-valve-on.png",
+      "hardware/quickstart/plumbing/out/plumbing-pre-tee.step",
+      "hardware/quickstart/plumbing/out/plumbing-tee-installed.step",
+      "hardware/quickstart/plumbing/out/plumbing-valve-off.step",
+      "hardware/quickstart/plumbing/out/plumbing-valve-on.step"
     ]
   },
   "hardware/quickstart/quickstart_art.py": {

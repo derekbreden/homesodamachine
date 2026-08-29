@@ -72,6 +72,10 @@ CONNECT_TARGET = (-6.0, 630.0, 370.0)
 CONNECT_ORTHO_SPAN = 180.0
 CONNECT_RENDER_SIZE = "1600x1800"
 CONNECT_OPEN_GAP = 160.0
+# One literal crop is applied to both fixed-camera frames. It preserves every collar and insertion
+# tip in Before, cuts only the intentionally continuing routed ends, and keeps invariant appliance
+# geometry in the same pixel coordinates in both final PNGs.
+CONNECT_CROP = (0, 650, 1350, 1800)
 
 sys.path.insert(0, str(HARDWARE / "scripts"))
 os.environ.setdefault("HSM_NO_BUILD_LOCK", "1")
@@ -592,8 +596,15 @@ def _build_connection_steps(work: Path) -> dict[str, Path]:
     """
     note_read(MACHINE_FACTS)
     facts = json.loads(MACHINE_FACTS.read_text())
-    for which in ("carb", "flavor-a", "flavor-b"):
-        note_read(TUBE_COLLAR_DIR / f"tube-collar-{which}.step")
+    collar_steps = {
+        "tap": "water",
+        "co2": "co2",
+        "carb": "carb",
+        "flavor-a": "flavor-a",
+        "flavor-b": "flavor-b",
+    }
+    for collar_step in collar_steps.values():
+        note_read(TUBE_COLLAR_DIR / f"tube-collar-{collar_step}.step")
 
     machine = cq.Assembly.load(str(MACHINE_STEP))
 
@@ -632,9 +643,12 @@ def _build_connection_steps(work: Path) -> dict[str, Path]:
     tube_black_a = cq.Color(0.025, 0.027, 0.031, 1.0)
     tube_black_b = cq.Color(0.115, 0.12, 0.13, 1.0)
     collar_blue = cq.Color(0.055, 0.34, 0.84, 1.0)
+    collar_red = cq.Color(0.84, 0.055, 0.055, 1.0)
+    collar_white = cq.Color(0.94, 0.945, 0.955, 1.0)
     collar_black_a = cq.Color(0.02, 0.022, 0.026, 1.0)
     collar_black_b = cq.Color(0.105, 0.11, 0.12, 1.0)
     collar_word = cq.Color(0.94, 0.945, 0.955, 1.0)
+    collar_word_black = cq.Color(0.025, 0.027, 0.031, 1.0)
     ribbon_gray = cq.Color(0.47, 0.49, 0.53, 1.0)
     ribbon_edge = cq.Color(0.22, 0.23, 0.26, 1.0)
     plug_body = cq.Color(0.72, 0.74, 0.78, 1.0)
@@ -666,7 +680,10 @@ def _build_connection_steps(work: Path) -> dict[str, Path]:
         return cq.Solid.sweep(profile, [], path, makeSolid=True, isFrenet=True)
 
     def split_collar(which: str):
-        loaded = cq.importers.importStep(str(TUBE_COLLAR_DIR / f"tube-collar-{which}.step")).val()
+        collar_step = collar_steps[which]
+        loaded = cq.importers.importStep(
+            str(TUBE_COLLAR_DIR / f"tube-collar-{collar_step}.step")
+        ).val()
         solids = list(loaded.Solids())
         body = max(solids, key=lambda solid: solid.Volume())
         words = cq.Compound.makeCompound([solid for solid in solids if solid is not body])
@@ -693,9 +710,15 @@ def _build_connection_steps(work: Path) -> dict[str, Path]:
         "flavor-b": tube_black_b,
     }
     collar_colors = {
+        "tap": collar_white,
         "carb": collar_blue,
+        "co2": collar_red,
         "flavor-a": collar_black_a,
         "flavor-b": collar_black_b,
+    }
+    collar_word_colors = {
+        which: collar_word_black if which == "tap" else collar_word
+        for which in collar_colors
     }
     # The bare tails stay straight through their collars, then flex into the compact end of the
     # common umbilical.  These target points preserve five distinct solids all the way out of the
@@ -709,22 +732,18 @@ def _build_connection_steps(work: Path) -> dict[str, Path]:
     }
 
     umbilical = cq.Assembly(name="customer-field-leads-wall-end")
-    # The exact TAP and CO2 collars travel with their customer tubes. Their short source stubs are
-    # replaced with the same useful field length and routed tail treatment as the faucet leads.
-    customer_collar_names = {
-        "tube-collar-water",
-        "tube-collar-water-word",
-        "tube-collar-co2",
-        "tube-collar-co2-word",
-    }
-    for child in machine.children:
-        if child.name in customer_collar_names:
-            umbilical.add(child)
 
     straight_end_y = 560.0
     pack_y = 626.0
-    tail_y = 660.0
-    collar_y = 524.0
+    # The customer-routed side is deliberately longer than the fixed viewport: after the compact
+    # fan-out, every lead continues beyond the picture instead of ending in a second visible free
+    # face.  In the detached state the only visible ends are therefore the six ends the customer
+    # is about to insert; in the connected state there are no loose ends at all.
+    tail_y = 940.0
+    # All five 30 mm collars use the insertion tip as their datum.  The near face sits 47.5 mm
+    # behind that tip and the far face 77.5 mm behind it, matching the production bare-tail rule
+    # despite CO2's port living on a slightly different Y plane from the four push-fit stations.
+    collar_tip_setback = 47.5
     tube_radius = 6.35 / 2.0
     for which in ("tap", "co2", "carb", "flavor-a", "flavor-b"):
         x, tube_start_y, z = stations[which]
@@ -745,19 +764,18 @@ def _build_connection_steps(work: Path) -> dict[str, Path]:
             name=f"wall-end-tube-{which}",
             color=tube_colors[which],
         )
-        if which in collar_colors:
-            collar, words = split_collar(which)
-            move = (x, collar_y, z)
-            umbilical.add(
-                collar.translate(move),
-                name=f"wall-end-collar-{which}",
-                color=collar_colors[which],
-            )
-            umbilical.add(
-                words.translate(move),
-                name=f"wall-end-collar-{which}-word",
-                color=collar_word,
-            )
+        collar, words = split_collar(which)
+        move = (x, tube_start_y + collar_tip_setback, z)
+        umbilical.add(
+            collar.translate(move),
+            name=f"wall-end-collar-{which}",
+            color=collar_colors[which],
+        )
+        umbilical.add(
+            words.translate(move),
+            name=f"wall-end-collar-{which}-word",
+            color=collar_word_colors[which],
+        )
 
     # The jack's face is the enclosure's exact +Y outer plane.  Its opening is centred 1 mm below
     # the keystone show-face station in the production reference model.
@@ -1008,6 +1026,19 @@ def _shave_under_render_frame(path: Path, margin: int) -> None:
     note_write(path)
 
 
+def _crop_registered_connection(path: Path) -> None:
+    """Apply the same fixed viewport crop to both rear-connection states."""
+    with Image.open(path) as image:
+        if image.size != tuple(map(int, CONNECT_RENDER_SIZE.split("x"))):
+            raise ValueError(
+                f"expected {CONNECT_RENDER_SIZE} rear render, found {image.width}x{image.height}: {path}"
+            )
+        cropped = image.crop(CONNECT_CROP)
+        cropped.save(path, format="PNG", compress_level=9, optimize=False)
+    _canonicalize_png(path)
+    note_write(path)
+
+
 def main(*, mount_studies: bool = False) -> None:
     ART.mkdir(parents=True, exist_ok=True)
     OUT.mkdir(parents=True, exist_ok=True)
@@ -1131,6 +1162,8 @@ def main(*, mount_studies: bool = False) -> None:
                 _shave_render_frame(output, MOUNT_FRAME_SHAVE)
             elif job in under_mount_jobs:
                 _shave_under_render_frame(output, UNDER_MOUNT_FRAME_SHAVE)
+            elif job in connect_jobs:
+                _crop_registered_connection(output)
             note_write(output)
 
         if not mount_studies:
