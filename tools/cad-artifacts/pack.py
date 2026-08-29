@@ -67,6 +67,7 @@ NOT_BUNDLED_DIRS = (
     "hardware/assembly/cards/fonts",         # faces the renderer embeds, not a thing it writes
     "hardware/assembly/cards/tools/img",     # the rack's photo stock, named by ASIN, drawn by no rule
     "hardware/quickstart/out",               # where a mount study lands; no rule declares one
+    "hardware/quickstart/plumbing/out",      # the scene renderer's workings beside its STEPs
     "hardware/quickstart/studies",           # drawn by hand; the graph declares none of it
 )
 
