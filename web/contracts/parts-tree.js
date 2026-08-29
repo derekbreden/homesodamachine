@@ -54,11 +54,23 @@
 // in `parts.js` never reaches a browser a person is looking at: it reaches a CAD
 // build, as a mount that never happens and a two-minute timeout on a scene.
 
-// WHERE A BUILD PUTS ITS WORKINGS. `assembly/scenes/out/` is where
-// render_scenes.py lays a scene down on its way to the GLB beside it, and
-// `quickstart/out/` is where the mount studies land. .gitignore holds both; a
-// machine that has run either carries it and the repository does not.
-export const EXCLUDED_DIRS = ["assembly/scenes/out", "quickstart/out"];
+// WHERE A BUILD PUTS ITS WORKINGS. A generator lays its scene, study or plot
+// down in an `out/` beside itself on the way to the artifact it publishes: a
+// machine that has run one carries it and the repository does not. .gitignore is
+// what says so, and this list is every `out/` .gitignore holds under hardware/ —
+// the two agree because `parts-tree.test.js` fails when they stop agreeing, which
+// is the check a directory added here would otherwise wait for someone to notice.
+// A build that has never run on this machine leaves its directory absent, so an
+// entry naming nothing is the normal state and not a stale line.
+export const EXCLUDED_DIRS = [
+  "assembly/cards/out",
+  "assembly/cards/tools/out",
+  "assembly/scenes/out",
+  "pcb/pcba/out",
+  "quickstart/out",
+  "quickstart/plumbing/out",
+  "quickstart/studies/first-power-link/out",
+];
 
 export const ASSEMBLIES = [
   {
