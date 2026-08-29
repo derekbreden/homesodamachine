@@ -21,12 +21,12 @@ compression nut, screw, wrench, or routine line cut is part of this path.  A
 damaged tube end still needs to be remade square before reuse, but that repair
 is outside the normal sequence shown here.
 
-Every household/tap-water tube uses the same white LLDPE material.  Modeled
-lighting and recessed dark bores keep the white geometry legible in color and
-grayscale without suggesting different tube types or printed patterns.  The
-PP0208E is black polypropylene.  Every tube, fitting, valve, handle, bore, and
-moving collet is 3D geometry; the page supplies its own instructional text and
-action arrows.
+Every household/tap-water tube and the existing white push connector use the
+same neutral-white instruction material.  Modeled lighting and recessed dark
+bores keep the white geometry legible in color and grayscale without
+suggesting different tube types or printed patterns.  The PP0208E is black
+polypropylene.  Every tube, fitting, valve, handle, bore, and moving collet is
+3D geometry; the page supplies its own instructional text and action arrows.
 
 ## Regenerate
 
@@ -54,12 +54,12 @@ Two extra comparison states are retained for visual development:
 - `art/modern-tee-tug-check.png` — the white branch pulled outward 3.2 mm while
   it remains inside its gripping envelope.
 
-Every output is a 2000 × 1100 RGBA PNG with a transparent canvas.  The renderer
-uses a temporary warm-neutral matte to protect the light fitting surfaces,
-then clears only the matte connected to the picture edge.  The ON/OFF pair,
-release trio, and tee sequence each use their own fixed orthographic camera,
-target, span, and canvas.  Persistent scene geometry is registered within each
-group.  Long tubes leave the crop, so no arbitrary remote tube end appears.
+Every output is a 2000 × 1100 RGBA PNG with a true transparent canvas emitted
+directly by the 3D renderer; no color-key or flood-fill operation can remove a
+white fitting surface.  The ON/OFF pair, release trio, and tee sequence each
+use their own fixed orthographic camera, target, span, and canvas.  Persistent
+scene geometry is registered within each group.  Long tubes leave the crop,
+so no arbitrary remote tube end appears.
 
 ## Held geometry
 

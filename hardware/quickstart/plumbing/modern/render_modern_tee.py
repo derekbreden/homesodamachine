@@ -28,7 +28,6 @@ from __future__ import annotations
 
 import json
 import os
-import shutil
 import subprocess
 import sys
 import tempfile
@@ -44,6 +43,7 @@ HARDWARE = next(parent for parent in HERE.parents if parent.name == "hardware")
 ROOT = HARDWARE.parent
 ART = HERE / "art"
 RENDERER = ROOT / "tools" / "render" / "render-step-posed.js"
+VIEWER_SCENE = ROOT / "web" / "public" / "js" / "viewer" / "scene.js"
 
 os.environ.setdefault("HSM_NO_BUILD_LOCK", "1")
 sys.path.insert(0, str(HARDWARE / "scripts"))
@@ -87,14 +87,14 @@ TEE_RIGHT_FACE = TEE_X + PP0208_REACH
 TEE_BRANCH_FACE_Z = AXIS_Z - PP0208_REACH
 
 
-# Every household/tap-water tube uses the same white LLDPE material.  Modeled
-# lighting and recessed bore witnesses preserve the geometry in print without
-# implying that the customer needs multiple tube types.
-C_WATER_TUBE = cq.Color(0.90, 0.92, 0.93, 1.0)
+# Every household/tap-water tube and the existing white push connector use one
+# neutral-white instruction material.  Its midtone is held below clipped white
+# so the shared studio light can shape the parts without implying multiple tube
+# types; highlights still land white on the page.
+C_WATER_WHITE = cq.Color(0.82, 0.84, 0.85, 1.0)
 C_CUT_BORE = cq.Color(0.065, 0.075, 0.085, 1.0)
 C_TEE_BODY = cq.Color(0.035, 0.040, 0.045, 1.0)
 C_TEE_COLLET = cq.Color(0.085, 0.090, 0.100, 1.0)
-C_UNION = cq.Color(0.88, 0.88, 0.85, 1.0)
 C_VALVE_BODY = cq.Color(0.60, 0.39, 0.13, 1.0)
 C_VALVE_SHOULDER = cq.Color(0.78, 0.55, 0.20, 1.0)
 C_HANDLE = cq.Color(0.035, 0.27, 0.73, 1.0)
@@ -112,10 +112,10 @@ WATER_VIEW = View((1.05, -1.72, 0.72), (-25.0, 8.0, 105.0), 104.0)
 RELEASE_VIEW = View((0.58, -1.58, 0.66), (-80.0, 0.0, 40.0), 30.0)
 TEE_VIEW = View((0.62, -1.58, 0.72), (-25.0, 0.0, 12.0), 52.0)
 RENDER_SIZE = "2000x1100"
-# The shared renderer needs an opaque clear color.  This deliberately distinct
-# matte is removed from the connected picture edge after rendering; it is not
-# part of the published scene.
-RENDER_MATTE = "#f3f0ea"
+# Transparent rendering still carries a nominal clear color.  Matching the
+# guide field keeps any browser-level edge RGB neutral, though alpha—not color
+# keying—is what separates the scene from the page.
+RENDER_CLEAR = "#eef0f2"
 
 
 def _vector(values) -> cq.Vector:
@@ -340,7 +340,7 @@ def _add_union(
 ) -> None:
     for index, part in enumerate(_canonical_union_parts(pressed_right=pressed_right), start=1):
         posed = part.rotate((0, 0, 0), (0, 1, 0), 90.0).translate(center)
-        _add(scene, posed, f"existing-pp0408w-{index}", C_UNION)
+        _add(scene, posed, f"existing-pp0408w-{index}", C_WATER_WHITE)
 
 
 def _add_source_line(scene: cq.Assembly) -> None:
@@ -349,7 +349,7 @@ def _add_source_line(scene: cq.Assembly) -> None:
         scene,
         _tube((-SCENE_END, 0.0, AXIS_Z), (stop_x, 0.0, AXIS_Z)),
         "existing-source-lldpe",
-        C_WATER_TUBE,
+        C_WATER_WHITE,
     )
 
 
@@ -368,7 +368,7 @@ def _add_original_line(scene: cq.Assembly, *, destination: str) -> None:
         scene,
         _tube((start_x, 0.0, AXIS_Z), (SCENE_END, 0.0, AXIS_Z)),
         "existing-downstream-lldpe",
-        C_WATER_TUBE,
+        C_WATER_WHITE,
     )
     if destination.endswith("free"):
         _add(
@@ -386,7 +386,7 @@ def _add_jumper(scene: cq.Assembly) -> None:
         scene,
         _tube((start_x, 0.0, AXIS_Z), (stop_x, 0.0, AXIS_Z)),
         "supplied-lldpe-jumper",
-        C_WATER_TUBE,
+        C_WATER_WHITE,
     )
     _add(
         scene,
@@ -401,7 +401,7 @@ def _add_staged_branch(scene: cq.Assembly) -> None:
         scene,
         _branch(BRANCH_FREE_Z, open_end=True),
         "filter-to-appliance-branch",
-        C_WATER_TUBE,
+        C_WATER_WHITE,
     )
     _add(
         scene,
@@ -414,7 +414,7 @@ def _add_staged_branch(scene: cq.Assembly) -> None:
 def _add_connected_branch(scene: cq.Assembly, *, tugged: bool = False) -> None:
     insertion = PP0208_INSERTION - (3.2 if tugged else 0.0)
     start_z = TEE_BRANCH_FACE_Z + insertion
-    _add(scene, _branch(start_z), "filter-to-appliance-branch", C_WATER_TUBE)
+    _add(scene, _branch(start_z), "filter-to-appliance-branch", C_WATER_WHITE)
 
 
 def build_release_ready() -> cq.Assembly:
@@ -544,14 +544,14 @@ def _add_modern_shutoff(scene: cq.Assembly, *, on: bool) -> None:
     wide_union_right = WIDE_UNION_X + UNION_REACH
     _add(scene, _tube((-SCENE_END, 0.0, WIDE_AXIS_Z),
                       (valve_left_face + 5.0, 0.0, WIDE_AXIS_Z)),
-         "household-source-lldpe", C_WATER_TUBE)
+         "household-source-lldpe", C_WATER_WHITE)
     _add(scene, _tube((valve_right_face - 5.0, 0.0, WIDE_AXIS_Z),
                       (wide_union_left + UNION_INSERTION, 0.0, WIDE_AXIS_Z)),
-         "household-line-before-union", C_WATER_TUBE)
+         "household-line-before-union", C_WATER_WHITE)
     _add_union(scene, center=(WIDE_UNION_X, 0.0, WIDE_AXIS_Z), pressed_right=False)
     _add(scene, _tube((wide_union_right - UNION_INSERTION, 0.0, WIDE_AXIS_Z),
                       (SCENE_END, 0.0, WIDE_AXIS_Z)),
-         "household-line-after-union", C_WATER_TUBE)
+         "household-line-after-union", C_WATER_WHITE)
 
 
 def build_water_on() -> cq.Assembly:
@@ -600,44 +600,6 @@ def _canonicalize_png(path: Path) -> None:
         rgba.save(path, format="PNG", compress_level=9, optimize=False)
 
 
-def _clear_connected_matte(path: Path) -> None:
-    """Clear only the render matte connected to the picture edge.
-
-    A global color-to-alpha operation would also erase the light union and
-    filter tube.  Flood-filling alpha from a one-pixel matte border removes the
-    outside field while preserving enclosed light surfaces and highlights.
-    """
-    magick = shutil.which("magick") or shutil.which("convert")
-    if not magick:
-        raise RuntimeError("ImageMagick is required to clear CAD picture mattes")
-    primitive = "alpha" if Path(magick).name == "magick" else "matte"
-    subprocess.run(
-        [
-            magick,
-            str(path),
-            "-bordercolor",
-            RENDER_MATTE,
-            "-border",
-            "1",
-            "-alpha",
-            "set",
-            "-channel",
-            "RGBA",
-            "-fuzz",
-            "3%",
-            "-fill",
-            "none",
-            "-draw",
-            f"{primitive} 0,0 floodfill",
-            "-shave",
-            "1x1",
-            "-strip",
-            str(path),
-        ],
-        check=True,
-    )
-
-
 def _job(step: Path, output: Path, view: View) -> dict:
     return {
         "step": str(step.relative_to(HARDWARE)),
@@ -647,12 +609,13 @@ def _job(step: Path, output: Path, view: View) -> dict:
         "target": view.target,
         "size": RENDER_SIZE,
         "span": view.span,
-        "bg": RENDER_MATTE,
+        "bg": RENDER_CLEAR,
         "trim": False,
         "solid": True,
         "ortho": True,
         "ground": False,
         "fog": False,
+        "transparent": True,
     }
 
 
@@ -661,6 +624,7 @@ def main() -> None:
     _pp0208e_bounds_hold()
     note_read(union_ref.STEP)
     note_read(RENDERER)
+    note_read(VIEWER_SCENE)
     ART.mkdir(parents=True, exist_ok=True)
 
     outputs: list[Path] = []
@@ -683,7 +647,6 @@ def main() -> None:
             check=True,
         )
         for output in outputs:
-            _clear_connected_matte(output)
             _canonicalize_png(output)
             note_write(output)
 
