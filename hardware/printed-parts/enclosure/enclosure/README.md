@@ -716,6 +716,14 @@ there keeps about one millimetre from the complete +X ceiling-strip corbel, so t
 tunnel, collar and both screw stations all follow the same X datum; its Z remains aligned with
 the other top-row ports.
 
+The **PRV chase's two lowest roofs lean from the −X wall too**. Where its open exterior groove
+becomes the closed fall, the roof rises inward across the exact
+[3 mm](VENT_GROOVE_ROOF) show-skin section at 45°. At the Z seam the top piece's rib begins on
+the rim and rises along a second 45° X plane for the full [8 mm](VENT_RIB_BASE) from the grown
+flank to the cold-core lip. The lip keeps [3.1 mm](VENT_RIB_LAND) of solid land below the square
+mouth. Neither level leaves a horizontal face for a short support tree, while the exterior
+groove edge, the square passage and the back slide's opening remain on their own datums.
+
 ## ASSE anchor
 
 A stepped anchor on the −X wall that the ASSE 1022 chain lies in

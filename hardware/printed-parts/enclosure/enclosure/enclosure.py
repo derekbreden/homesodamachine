@@ -6357,6 +6357,16 @@ def _vent_chase(solid, inner, outer, stations, y0, y1, z0, z1):
             sy - half, sy + half,
             ((root_x, sz + half), (rib_x, sz + half),
              (rib_x, cap_root + roof_run), (root_x, cap_root))))
+        # THE TOP RIB ROOTS ON THE WALL AT ITS FLOOR. Its underside begins on `rim` at the
+        # actual flank face and rises one-for-one to the lip, where more than
+        # `vent_rib_wall` remains below the square mouth. The complete projection therefore
+        # grows from wall stock. Applied to `rib` before the piece band is selected, this
+        # profiles the top share; the bottom share is clipped below `rim` afterward.
+        rib = rib.cut(_xz_prism(
+            sy - half - 1.0, sy + half + 1.0,
+            ((root_x, rim - 1.0), (rib_x + 1.0, rim - 1.0),
+             (rib_x + 1.0, rim + (rib_x + 1.0 - root_x)),
+             (root_x, rim))))
         # THE RIB KEEPS OUT OF THE JOINT'S BAND AND THE DUCT DOES NOT, because one of them
         # is material and the other is air. Over the seam's own storey the joint reaches
         # `rail_reach_in + slide_slip` inboard of the flank — head, foot, arm and channel —
@@ -6385,8 +6395,14 @@ def _vent_chase(solid, inner, outer, stations, y0, y1, z0, z1):
                                      (floor_x, mouth_bot),           # \ the floor, straight down
                                      (floor_x, ramp_top),            # /  behind duct and groove
                                      (outer[0] - 1.0, ramp_bot - over),   # the ramp, run out
-                                     (outer[0] - 1.0, groove_top),   # the groove's open side
-                                     (inner[0], groove_top),         # under the rim the skin
+                                     # The groove's open side closes on a 45-degree X roof.
+                                     # Its visible root stays at `groove_top` on the show face;
+                                     # the one-millimetre cutter overrun starts one lower, and
+                                     # the inner point rises by the wall's exact three-millimetre
+                                     # section, making the complete down-facing transition
+                                     # support-free.
+                                     (outer[0] - 1.0, groove_top - 1.0),
+                                     (inner[0], groove_top + (inner[0] - outer[0])),
                                      (inner[0], rim),                # is the duct's west face;
                                      (liner_x, rim),                 # above it the liner is,
                                      (liner_x, mouth_top)]))         # and the rib roofs the duct
@@ -8602,6 +8618,13 @@ def main():
                   if (cx < 0.0) == (sx > 0.0) and lo <= cy <= hi)
         return abs(y1 - y0) - rail_stop_len - cut
     back_len = sorted(_borne(r) for r in back_runs)
+    if box.pack.vent_chase:
+        _vent_x, _vent_y, _vent_z = box.pack.vent_chase[0]
+        vent_rib_base = _vent_x - back_top_flank_face()[0]
+        vent_rib_land = ((_vent_z - vent_channel_w / 2.0)
+                         - (z_seam + z_rise + vent_rib_base))
+    else:
+        vent_rib_base = vent_rib_land = None
     variables = {
         "SLIDE_SLIP": f"{slide_slip:g} mm",
         "HOOK_LAP": f"{hook_lap:g} mm",
@@ -8616,6 +8639,11 @@ def main():
         "BACK_RAIL_FOOT": f"{back_rail_foot:.4g} mm",
         "BACK_RAIL_INBOARD": f"{back_rail_inboard:.4g} mm",
         "VENT_CHANNEL_W": f"{vent_channel_w:g} mm",
+        "VENT_GROOVE_ROOF": f"{box.inner[0] - box.outer[0]:.4g} mm",
+        "VENT_RIB_BASE": (f"{vent_rib_base:.4g} mm" if vent_rib_base is not None
+                          else "no station"),
+        "VENT_RIB_LAND": (f"{vent_rib_land:.4g} mm" if vent_rib_land is not None
+                          else "no station"),
         "RAIL_RUN_FRONT": f"{_borne(front_runs[0]):.0f} mm",
         "RAIL_RUN_BACK": f"{back_len[-1]:.0f} mm",
         "RAIL_RUN_BACK_W": f"{back_len[0]:.0f} mm",
