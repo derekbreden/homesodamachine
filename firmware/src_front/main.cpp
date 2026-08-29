@@ -251,12 +251,23 @@ static uint32_t frameDoneTimeouts = 0;
 // details opened to the east of it. One column, one width, four pages — so
 // moving between them moves only what changed.
 #define ANCHOR_GAP     16
-#define ANCHOR_Y       PANE_BODY_Y
 #define BACK_BTN       58                      // the back control's height
 #define BACK_W         FLAVOR_ANCHOR_W         // and its width: the column's
+#define BACK_FOOT      ((PANE_HEAD_H - BACK_BTN) / 2 + BACK_BTN)
 #define DETAIL_X       (FLAVOR_ANCHOR_W + ANCHOR_GAP)
 #define DETAIL_W       (PANE_W - 2 * PANE_PAD - DETAIL_X)
-static_assert(FLAVOR_ANCHOR_H <= PANE_H - ANCHOR_Y, "the anchor must fit under the back button");
+
+// UNDER THE BACK BUTTON IS NOT THE SAME AS AGAINST IT. Both columns of a detail
+// page end on one line, and that line is the pane's — as far above the floor as
+// a standing message needs, not wherever the anchor's height happens to reach.
+// The anchor hangs from it, which leaves the same air above the picture as
+// below it and stops the page from stacking itself against the back button with
+// its slack all in a heap at the bottom.
+#define DETAIL_MSG_GAP 12
+#define DETAIL_FLOOR   (PANE_H - TEXT_H_20 - DETAIL_MSG_GAP)
+#define ANCHOR_Y       (DETAIL_FLOOR - FLAVOR_ANCHOR_H)
+static_assert(ANCHOR_Y > BACK_FOOT, "the anchor must clear the back button");
+static_assert(DETAIL_FLOOR <= PANE_H, "both columns must end inside the pane");
 
 // The flavor's own page: ratio, then every logo it could wear.
 #define RATIO_CARD_H  130
@@ -462,6 +473,7 @@ static lv_obj_t *homeFlavorArtObj[2];
 static lv_obj_t *flvTileBtn[FLAVOR_IMAGE_COUNT];
 static lv_obj_t *flvTileStrip = NULL;
 static lv_obj_t *flvTileLeft = NULL, *flvTileRight = NULL;
+static lv_obj_t *flvTileLeftMark = NULL, *flvTileRightMark = NULL;
 static lv_obj_t *flvTileTrack = NULL, *flvTileThumb = NULL;
 static lv_obj_t *homeFlavorCard[2];
 static lv_obj_t *homeFlavorRatio[2];
@@ -2816,13 +2828,22 @@ static void tileStripAffordance() {
   lv_obj_set_width(flvTileThumb, thumbW);
   lv_obj_align(flvTileThumb, LV_ALIGN_LEFT_MID, off, 0);
 
-  struct { lv_obj_t *b; bool on; } ends[2] = {{flvTileLeft, before > 0},
-                                              {flvTileRight, after > 0}};
+  // AN ARROW AT THE END OF ITS TRAVEL SINKS INTO THE PAGE AND DOES NOT ANSWER.
+  // Not LV_STATE_DISABLED: the default theme styles that state with a colour
+  // filter, which outweighs a colour set here for the default state and is
+  // inherited by the glyph — so the spent arrow came out brighter than the live
+  // one, on a panel that is meant to be dark. Clearing CLICKABLE refuses the
+  // press instead and leaves every colour ours.
+  struct { lv_obj_t *b; lv_obj_t *mark; bool on; } ends[2] = {
+      {flvTileLeft, flvTileLeftMark, before > 0},
+      {flvTileRight, flvTileRightMark, after > 0}};
   for (auto &e : ends) {
     if (!e.b) continue;
-    if (e.on) lv_obj_clear_state(e.b, LV_STATE_DISABLED);
-    else      lv_obj_add_state(e.b, LV_STATE_DISABLED);
-    lv_obj_set_style_bg_color(e.b, lv_color_hex(e.on ? COL_CARD_ON : COL_CARD), 0);
+    if (e.on) lv_obj_add_flag(e.b, LV_OBJ_FLAG_CLICKABLE);
+    else      lv_obj_clear_flag(e.b, LV_OBJ_FLAG_CLICKABLE);
+    lv_obj_set_style_bg_color(e.b, e.on ? lv_color_hex(COL_CARD_ON) : THEME_BG, LV_PART_MAIN);
+    if (e.mark)
+      lv_obj_set_style_text_color(e.mark, lv_color_hex(e.on ? COL_TEXT : COL_OFF), LV_PART_MAIN);
   }
 }
 
@@ -3220,12 +3241,14 @@ static void buildFlavor(lv_obj_t *page) {
   flvTileLeft = mkBtn(det, TILE_ARROW_W, TILE_BTN_H, COL_CARD_ON);
   lv_obj_align(flvTileLeft, LV_ALIGN_TOP_LEFT, DETAIL_X, TILE_STRIP_Y);
   lv_obj_add_event_cb(flvTileLeft, tileStripPageCb, ACT_EVENT, (void *)(intptr_t)-1);
-  lv_obj_center(mkText(flvTileLeft, LV_SYMBOL_LEFT, &lv_font_montserrat_40, COL_TEXT));
+  flvTileLeftMark = mkText(flvTileLeft, LV_SYMBOL_LEFT, &lv_font_montserrat_40, COL_TEXT);
+  lv_obj_center(flvTileLeftMark);
 
   flvTileRight = mkBtn(det, TILE_ARROW_W, TILE_BTN_H, COL_CARD_ON);
   lv_obj_align(flvTileRight, LV_ALIGN_TOP_RIGHT, 0, TILE_STRIP_Y);
   lv_obj_add_event_cb(flvTileRight, tileStripPageCb, ACT_EVENT, (void *)(intptr_t)1);
-  lv_obj_center(mkText(flvTileRight, LV_SYMBOL_RIGHT, &lv_font_montserrat_40, COL_TEXT));
+  flvTileRightMark = mkText(flvTileRight, LV_SYMBOL_RIGHT, &lv_font_montserrat_40, COL_TEXT);
+  lv_obj_center(flvTileRightMark);
 
   flvTileTrack = lv_obj_create(det);
   lv_obj_set_size(flvTileTrack, TILE_STRIP_W, TILE_TRACK_H);
@@ -3284,7 +3307,7 @@ static void buildFlavorPicker(lv_obj_t *view, const char *title,
 #define DETAIL_BODY_LINES  3
 #define DETAIL_BODY_Y      PANE_BODY_Y
 #define DETAIL_ACT_Y       (DETAIL_BODY_Y + DETAIL_BODY_LINES * TEXT_H_20 + 28)
-#define DETAIL_ACT_ROOM    (ANCHOR_Y + FLAVOR_ANCHOR_H - DETAIL_ACT_Y)
+#define DETAIL_ACT_ROOM    (DETAIL_FLOOR - DETAIL_ACT_Y)
 #define CONFIRM_ACT_H      120
 
 // A line of prose in that column, wrapped to it and centred over it.
@@ -3306,12 +3329,12 @@ static lv_obj_t *buildConfirm(lv_obj_t *page, const char *word, const char *body
   mkAnchor(v);
   mkDetailBody(v, body);
 
-  // Centred in what the column has left, rather than pushed to the top of it:
-  // a target this size wants air around it, and committing is not the thing to
-  // put under a wandering thumb.
+  // On the line the column ends on, which is the line the anchor ends on: the
+  // page's one commitment sits level with the face it is about. Air above it
+  // rather than around it, so it is still not under a wandering thumb.
   lv_obj_t *go = mkBtn(v, DETAIL_W, CONFIRM_ACT_H, COL_ACCENT);
   lv_obj_align(go, LV_ALIGN_TOP_LEFT, DETAIL_X,
-               DETAIL_ACT_Y + (DETAIL_ACT_ROOM - CONFIRM_ACT_H) / 2);
+               DETAIL_ACT_Y + DETAIL_ACT_ROOM - CONFIRM_ACT_H);
   lv_obj_clear_flag(go, LV_OBJ_FLAG_PRESS_LOCK);   // slide off to change your mind
   lv_obj_add_event_cb(go, cb, LV_EVENT_CLICKED, NULL);
   lv_obj_center(mkText(go, action, &lv_font_montserrat_28, COL_TEXT));
@@ -3329,8 +3352,8 @@ static void buildService(lv_obj_t *page) {
                     primePickCb);
   svcView[SVC_PRIME_PICK] = pick;
 
-  // The hold pad. It fills the column to the foot of the anchor because it is
-  // meant to be found without looking.
+  // The hold pad. It fills the column to the line both columns end on, because
+  // it is meant to be found without looking.
   lv_obj_t *hold = mkView(page);
   mkBack(hold, svcBackCb, (void *)(intptr_t)SVC_PRIME_PICK);
   mkDetailTitle(hold, "PRIME");
