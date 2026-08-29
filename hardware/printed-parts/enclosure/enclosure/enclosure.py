@@ -1182,7 +1182,8 @@ front_bottom_flank_t = 9.0
 # the solid is cut on. Stated as (station, sx, y0, y1, keep, out): whose relief it is, which flank
 # it stands on, the band it takes, and THE RUN BAND IT GIVES UP — everything from `keep` out to
 # `out`. Inboard of `keep` and outboard of `out` the strip keeps its corbel; between them it is
-# the top wall's own section alone and takes print support.
+# the top wall's own section alone and takes print support unless a stated Y gable closes that
+# short band from its two intact ends.
 #
 # A RELIEF IS A BAND AND NOT A CUT-OFF because a body is a band. Where a fitting stands hard
 # against the panel's edge the two are the same thing — `out` is the strip's whole run and what is
@@ -1199,6 +1200,11 @@ front_bottom_flank_t = 9.0
 #
 #   relay-1        y 252.50..322.50, in to |x| 86.50, gives up 3..22    (box y 252.5..322.5)
 #   ground-stack   y 327.68..340.32, in to |x| 86.45, gives up 5..22    (box y 325..343, x 84.45)
+#
+# THE GROUND ROW CLOSES AGAIN FROM ITS TWO Y ENDS. The ring stack is short enough in Y for the
+# intact wall corbel immediately fore and aft of it to carry a pair of 45 degree roof planes to
+# a ridge over the stack's centre. The X relief still gives the purchased body its exact room,
+# but there is no horizontal roof left over that room and therefore no support body on its crown.
 #
 # THE C14 KEEPS THE COMPLETE +X WEDGE. Its X station is struck 2.1 mm inboard of the nominal
 # rear-panel column, which leaves the purchased moulded rim one millimetre clear of the exact
@@ -1244,6 +1250,14 @@ back_top_ceiling_reliefs = (
     ("asse1022-tie-fore", -1.0, 358.0, 364.5, 0.0, _RAIL),
     ("asse1022-tie-aft",  -1.0, 384.0, 390.5, 0.0, _RAIL),
 )
+
+# Relief bands whose flat ceiling is filled back with two 45 degree planes rooted in the intact
+# X corbel at their Y ends. The value is the ridge Y. A body belongs here only when its exact
+# placed solid clears that roof; `ground-ceiling-gable` reads this one back against the purchased
+# stack and against the finished back-top piece.
+back_top_ceiling_gables = {"ground-stack": 334.0}
+
+
 @functools.lru_cache(maxsize=1)
 def _ceiling():
     """The slide-in ceiling panel, as a module — the part that STATES this joint's mating
@@ -4905,6 +4919,34 @@ def _back_top_ceiling_corbel(inner, y_joint, sx):
         [(sx * cp.dado_blind_x, iz1), (wall_x, iz1), (wall_x, iz1 - fore_deep)]))
 
 
+def _back_top_ceiling_relief_gables(inner, who):
+    """The two 45 degree roof prisms which close one named ceiling relief in Y.
+
+    The relief still removes the X-wall corbel where the purchased body stands. This solid fills
+    the resulting flat roof from both untouched Y ends to a zero-area ridge, so its first layers
+    root in the wall corbel and every following layer advances at 45 degrees. Keeping this as a
+    production helper lets the assembly gate compare the exact same solid to the exact body.
+    """
+    try:
+        ridge = back_top_ceiling_gables[who]
+        _name, sx, y0, y1, keep, out = next(
+            row for row in back_top_ceiling_reliefs if row[0] == who)
+    except (KeyError, StopIteration) as exc:
+        raise ValueError(f"{who!r} has no stated back-top ceiling relief gable") from exc
+    cp = _ceiling()
+    iz1 = inner[5]
+    wall_x = back_top_flank_face()[1 if sx > 0.0 else 0]
+    xa = sx * (cp.panel_half_w + keep)
+    xb = sx * min(cp.panel_half_w + out, abs(wall_x))
+    x0, x1 = min(xa, xb), max(xa, xb)
+    return (
+        _yz_prism(x0, x1, [
+            (y0, iz1 - (ridge - y0)), (ridge, iz1), (y0, iz1)]),
+        _yz_prism(x0, x1, [
+            (ridge, iz1), (y1, iz1 - (y1 - ridge)), (y1, iz1)]),
+    )
+
+
 def _back_top_ceiling(solid, inner, y_joint):
     """WHAT BACK-TOP KEEPS OF ITS CEILING, and what it gives the slide-in panel — the field taken
     away between the two side strips, each strip corbelled and relieved where a body stands in it,
@@ -4967,6 +5009,9 @@ def _back_top_ceiling(solid, inner, y_joint):
             outb = sx * (abs(wall_x) + 1.0 if out >= deep - 1e-9 else half + out)
             corbel = corbel.cut(_ybox(min(kept, outb), max(kept, outb), y0, y1,
                                       iz1 - deep - 1.0, iz1 + 1.0))
+            if who in back_top_ceiling_gables:
+                for roof in _back_top_ceiling_relief_gables(inner, who):
+                    corbel = corbel.fuse(roof)
         solid = solid.fuse(corbel)
 
     # THE DADO, one down each strip's inboard face, on the section the panel states. It is cut

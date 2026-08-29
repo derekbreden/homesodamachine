@@ -1357,7 +1357,7 @@ back by `ceiling_corbel_at(x, y)` — the same shape `back_top_wall_reliefs` and
 names the fitting, the flank, the depth band it covers, and **the run band it
 gives up** — everything from `keep` out to `out`. Inboard of `keep` and outboard
 of `out` the strip keeps its corbel; between them it is the top wall's own section
-alone and takes print support.
+alone and takes print support unless that short row carries a stated two-sided Y gable.
 
 **A relief is a band because a body is a band.** Where a fitting stands hard
 against the panel's edge the two are the same thing: `out` is the strip's whole
@@ -1369,10 +1369,13 @@ width hanging.
 
 The rows are measured against the placed solids and not against their boxes, and
 the difference is most of what they say — a strip read off boxes is a strip with no
-corbel left in it. The ground bar's stack gives up the +X strip from
-[5 mm](GROUND_CEILING_KEEP) of run outward over its band, and the raised relay from
-[3 mm](RELAY_CEILING_KEEP), standing 2.45 and 2.00 mm off the crown under them. The
-C14 keeps the complete +X wedge: its shared X datum places the moulded rim about one
+corbel left in it. The raised relay gives up the +X strip from
+[3 mm](RELAY_CEILING_KEEP) of run outward over its band, standing 2.45 mm off the crown
+under it. The ground bar's shorter band gives up the X wedge around the purchased stack,
+then closes again on two 45° planes from the intact wall corbel at its Y ends to a ridge over
+the stack's centre. The stack stands 0.25 mm below the nominal stack floor and keeps more than
+one millimetre of exact air from those planes, so there is no horizontal support roof over it.
+The C14 keeps the complete +X wedge: its shared X datum places the moulded rim about one
 millimetre inboard of the corbel, while its Z remains on the top port row.
 
 **The tap-water chain takes four rows**, because what it occupies is four different
