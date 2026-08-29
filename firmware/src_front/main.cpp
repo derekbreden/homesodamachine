@@ -35,16 +35,17 @@ extern "C" const lv_font_t front_icons_96;
 // The flavor marks are deliberately static artwork. Choose's selection refresh
 // changes only on actual main board state transitions, so these do not
 // participate in the background link polling that formerly disturbed a card.
-// Every logo is carried at both sizes: the 240 a Choose card shows, and the 96
-// the picker grid shows, baked rather than scaled under LVGL at draw time.
+// Every logo is carried at every size it is drawn at: the 240 a Choose card
+// shows, and the 86x160 the picker strip shows, baked rather than scaled under
+// LVGL at draw time.
 #include "images/flavor0_card.h"
 #include "images/flavor1_card.h"
 #include "images/flavor2_card.h"
 #include "images/flavor3_card.h"
-#include "images/flavor0_thumb.h"
-#include "images/flavor1_thumb.h"
-#include "images/flavor2_thumb.h"
-#include "images/flavor3_thumb.h"
+#include "images/flavor0_tile.h"
+#include "images/flavor1_tile.h"
+#include "images/flavor2_tile.h"
+#include "images/flavor3_tile.h"
 #include "images/flavor0_mid.h"
 #include "images/flavor1_mid.h"
 #include "images/flavor2_mid.h"
@@ -58,7 +59,11 @@ extern "C" const lv_font_t front_icons_96;
 #define ANIM_FRAME_MS    100   // ~10 fps, matches the config display
 #define LOGO_SIZE        360
 #define FLAVOR_ART_SIZE    240
-#define FLAVOR_THUMB_SIZE   96
+// The picker tile is the faucet's own shape at half scale — choosing a face
+// here is choosing what that glass will wear, and a square says nothing about
+// how a photograph sits in a tall one.
+#define FLAVOR_TILE_W       86
+#define FLAVOR_TILE_H      160
 #define FLAVOR_HEAD_SIZE    60
 #define FLAVOR_MID_SIZE    120
 // Logos a channel can be given: FLAVOR_ART_FACTORY compiled in and permanent,
@@ -238,11 +243,16 @@ static uint32_t frameDoneTimeouts = 0;
 
 // The flavor's own page: ratio, then every logo it could wear.
 #define RATIO_CARD_H  130
-#define THUMB_BTN     104
-#define THUMB_GAP      10
-#define THUMB_PER_ROW   5
+// A tile is the picture plus the ring that says it is the chosen one. The strip
+// runs off the right of the pane and is dragged: eight faces at this size do
+// not fit across 610 px, and shrinking them until they do is how the tall shape
+// stops being readable at the moment it is meant to be read.
+#define TILE_PAD        5
+#define TILE_BTN_W    (FLAVOR_TILE_W + 2 * TILE_PAD)
+#define TILE_BTN_H    (FLAVOR_TILE_H + 2 * TILE_PAD)
+#define TILE_GAP       12
 #define IMAGE_LABEL_Y (PANE_BODY_Y + RATIO_CARD_H + 12)
-#define THUMB_GRID_Y  (IMAGE_LABEL_Y + TEXT_H_20 + 8)
+#define TILE_STRIP_Y  (IMAGE_LABEL_Y + TEXT_H_20 + 8)
 #define PANE_PAD  16
 
 // ── Pages ──
@@ -317,14 +327,14 @@ static uint8_t flavorImage[2] = {0, 1};
 static bool flavorArtAsked = false;
 
 static lv_img_dsc_t flavorArt[FLAVOR_IMAGE_COUNT];
-static lv_img_dsc_t flavorThumb[FLAVOR_IMAGE_COUNT];
+static lv_img_dsc_t flavorTile[FLAVOR_IMAGE_COUNT];
 static lv_img_dsc_t flavorHead[FLAVOR_IMAGE_COUNT];
 static lv_img_dsc_t flavorMid[FLAVOR_IMAGE_COUNT];
 static const uint16_t *flavorArtPixels[FLAVOR_FACTORY_COUNT] = {
     flavor0_card, flavor1_card, flavor2_card, flavor3_card,
 };
-static const uint16_t *flavorThumbPixels[FLAVOR_FACTORY_COUNT] = {
-    flavor0_thumb, flavor1_thumb, flavor2_thumb, flavor3_thumb,
+static const uint16_t *flavorTilePixels[FLAVOR_FACTORY_COUNT] = {
+    flavor0_tile, flavor1_tile, flavor2_tile, flavor3_tile,
 };
 static const uint16_t *flavorHeadPixels[FLAVOR_FACTORY_COUNT] = {
     flavor0_head, flavor1_head, flavor2_head, flavor3_head,
@@ -337,12 +347,12 @@ static const uint16_t *flavorMidPixels[FLAVOR_FACTORY_COUNT] = {
 // them. A custom picture arrives already resampled to every one of them, so
 // nothing here scales anything at draw time.
 static const ImageSize kLogoSizes[] = {
-    {FLAVOR_ART_SIZE,   FLAVOR_ART_SIZE,   0},
-    {FLAVOR_THUMB_SIZE, FLAVOR_THUMB_SIZE, 0},
-    {FLAVOR_HEAD_SIZE,  FLAVOR_HEAD_SIZE,  0},
-    {FLAVOR_MID_SIZE,   FLAVOR_MID_SIZE,   0},
+    {FLAVOR_ART_SIZE,  FLAVOR_ART_SIZE,  0},
+    {FLAVOR_TILE_W,    FLAVOR_TILE_H,    0},
+    {FLAVOR_HEAD_SIZE, FLAVOR_HEAD_SIZE, 0},
+    {FLAVOR_MID_SIZE,  FLAVOR_MID_SIZE,  0},
 };
-enum { LOGO_CARD = 0, LOGO_THUMB = 1, LOGO_HEAD = 2, LOGO_MID = 3 };
+enum { LOGO_CARD = 0, LOGO_TILE = 1, LOGO_HEAD = 2, LOGO_MID = 3 };
 
 // Which logo an index resolves to. A custom index whose slot is empty falls
 // back to the factory logo of the same channel: a picture can be removed from
@@ -371,23 +381,24 @@ static void bindFlavorLogos() {
   struct Bound {
     lv_img_dsc_t    *dsc;
     const uint16_t **factory;
-    lv_coord_t       size;
+    lv_coord_t       w;
+    lv_coord_t       h;
     uint8_t          rendition;
   };
   const Bound bound[] = {
-      {flavorArt,   flavorArtPixels,   FLAVOR_ART_SIZE,   LOGO_CARD},
-      {flavorThumb, flavorThumbPixels, FLAVOR_THUMB_SIZE, LOGO_THUMB},
-      {flavorHead,  flavorHeadPixels,  FLAVOR_HEAD_SIZE,  LOGO_HEAD},
-      {flavorMid,   flavorMidPixels,   FLAVOR_MID_SIZE,   LOGO_MID},
+      {flavorArt,  flavorArtPixels,  FLAVOR_ART_SIZE,  FLAVOR_ART_SIZE,  LOGO_CARD},
+      {flavorTile, flavorTilePixels, FLAVOR_TILE_W,    FLAVOR_TILE_H,    LOGO_TILE},
+      {flavorHead, flavorHeadPixels, FLAVOR_HEAD_SIZE, FLAVOR_HEAD_SIZE, LOGO_HEAD},
+      {flavorMid,  flavorMidPixels,  FLAVOR_MID_SIZE,  FLAVOR_MID_SIZE,  LOGO_MID},
   };
 
   for (const Bound &b : bound) {
     for (uint8_t i = 0; i < FLAVOR_IMAGE_COUNT; ++i) {
       b.dsc[i].header.cf = LV_IMG_CF_TRUE_COLOR;
       b.dsc[i].header.always_zero = 0;
-      b.dsc[i].header.w = b.size;
-      b.dsc[i].header.h = b.size;
-      b.dsc[i].data_size = (uint32_t)b.size * b.size * sizeof(uint16_t);
+      b.dsc[i].header.w = b.w;
+      b.dsc[i].header.h = b.h;
+      b.dsc[i].data_size = (uint32_t)b.w * b.h * sizeof(uint16_t);
       const uint16_t *px = (i < FLAVOR_FACTORY_COUNT)
                                ? b.factory[i]
                                : imageStorePixels(flavorArtCustomSlot(i), b.rendition);
@@ -407,7 +418,8 @@ static lv_obj_t *selImg[FLAVOR_IMG_SLOTS];
 static const lv_img_dsc_t *selImgSet[FLAVOR_IMG_SLOTS];
 static uint8_t   selImgCount = 0;
 static lv_obj_t *homeFlavorArtObj[2];
-static lv_obj_t *flvThumbBtn[FLAVOR_IMAGE_COUNT];
+static lv_obj_t *flvTileBtn[FLAVOR_IMAGE_COUNT];
+static lv_obj_t *flvTileStrip = NULL;
 static lv_obj_t *homeFlavorCard[2];
 static lv_obj_t *homeFlavorBadge[2];
 static lv_obj_t *homeFlavorBadgeText[2];
@@ -1981,22 +1993,30 @@ static void refreshFlavorImages() {
   // A slot with no picture in it is not a choice and not information — it is
   // an empty frame asking to be understood. Only the faces that exist are laid
   // out, and they close up rather than leaving gaps where the rest would be.
-  const lv_coord_t rowW = THUMB_PER_ROW * THUMB_BTN + (THUMB_PER_ROW - 1) * THUMB_GAP;
-  const lv_coord_t x0 = (PANE_W - 2 * PANE_PAD - rowW) / 2;
   uint8_t shown = 0;
   for (int i = 0; i < FLAVOR_IMAGE_COUNT; i++) {
-    if (!flvThumbBtn[i]) continue;
-    if (!flavorArtAvailable((uint8_t)i)) {
-      lv_obj_add_flag(flvThumbBtn[i], LV_OBJ_FLAG_HIDDEN);
-      continue;
-    }
-    lv_obj_clear_flag(flvThumbBtn[i], LV_OBJ_FLAG_HIDDEN);
-    lv_obj_set_pos(flvThumbBtn[i], x0 + (shown % THUMB_PER_ROW) * (THUMB_BTN + THUMB_GAP),
-                                   (shown / THUMB_PER_ROW) * (THUMB_BTN + THUMB_GAP));
+    if (!flvTileBtn[i]) continue;
+    const bool have = flavorArtAvailable((uint8_t)i);
+    if (have) lv_obj_clear_flag(flvTileBtn[i], LV_OBJ_FLAG_HIDDEN);
+    else      lv_obj_add_flag(flvTileBtn[i], LV_OBJ_FLAG_HIDDEN);
+    if (!have) continue;
     ++shown;
     lv_obj_set_style_bg_color(
-        flvThumbBtn[i],
+        flvTileBtn[i],
         lv_color_hex(i == flavorImage[flavorSel] ? COL_ACCENT : COL_CARD), 0);
+  }
+  // Fewer faces than the strip is wide is not a strip: they centre, so the four
+  // a machine ships with read as a row rather than as the left end of something
+  // that runs off the screen. Add a fifth and they start from the left and the
+  // strip begins to scroll, which is the same rule either way.
+  const lv_coord_t rowW = shown ? (lv_coord_t)(shown * TILE_BTN_W + (shown - 1) * TILE_GAP) : 0;
+  const lv_coord_t room = PANE_W - 2 * PANE_PAD;
+  const lv_coord_t x0 = rowW < room ? (lv_coord_t)((room - rowW) / 2) : 0;
+  uint8_t at = 0;
+  for (int i = 0; i < FLAVOR_IMAGE_COUNT; i++) {
+    if (!flvTileBtn[i] || lv_obj_has_flag(flvTileBtn[i], LV_OBJ_FLAG_HIDDEN)) continue;
+    lv_obj_set_pos(flvTileBtn[i], x0 + at * (TILE_BTN_W + TILE_GAP), 0);
+    ++at;
   }
 }
 
@@ -2948,30 +2968,28 @@ static void buildFlavor(lv_obj_t *page) {
   lv_obj_align(mkText(det, "IMAGE", &lv_font_montserrat_20, COL_DIM),
                LV_ALIGN_TOP_LEFT, 0, IMAGE_LABEL_Y);
 
-  // A wrapping row of logos, two rows deep before it scrolls. Positions are set
-  // here rather than by a layout, the way every other surface on this panel is.
-  lv_obj_t *grid = lv_obj_create(det);
-  lv_obj_set_size(grid, PANE_W - 2 * PANE_PAD, PANE_H - THUMB_GRID_Y);
-  lv_obj_align(grid, LV_ALIGN_TOP_MID, 0, THUMB_GRID_Y);
-  lv_obj_set_style_bg_opa(grid, LV_OPA_TRANSP, 0);
-  lv_obj_set_style_border_width(grid, 0, 0);
-  lv_obj_set_style_pad_all(grid, 0, 0);
-  lv_obj_set_scroll_dir(grid, LV_DIR_VER);
-  lv_obj_set_scrollbar_mode(grid, LV_SCROLLBAR_MODE_AUTO);
+  // One row of faces, dragged sideways. Positions are set here rather than by a
+  // layout, the way every other surface on this panel is.
+  lv_obj_t *strip = lv_obj_create(det);
+  lv_obj_set_size(strip, PANE_W - 2 * PANE_PAD, TILE_BTN_H);
+  lv_obj_align(strip, LV_ALIGN_TOP_MID, 0, TILE_STRIP_Y);
+  lv_obj_set_style_bg_opa(strip, LV_OPA_TRANSP, 0);
+  lv_obj_set_style_border_width(strip, 0, 0);
+  lv_obj_set_style_pad_all(strip, 0, 0);
+  lv_obj_set_scroll_dir(strip, LV_DIR_HOR);
+  lv_obj_set_scrollbar_mode(strip, LV_SCROLLBAR_MODE_AUTO);
+  flvTileStrip = strip;
 
-  const lv_coord_t rowW = THUMB_PER_ROW * THUMB_BTN + (THUMB_PER_ROW - 1) * THUMB_GAP;
-  const lv_coord_t x0 = (PANE_W - 2 * PANE_PAD - rowW) / 2;
   for (int i = 0; i < FLAVOR_IMAGE_COUNT; i++) {
-    lv_obj_t *t = mkBtn(grid, THUMB_BTN, THUMB_BTN, COL_CARD);
-    lv_obj_set_pos(t, x0 + (i % THUMB_PER_ROW) * (THUMB_BTN + THUMB_GAP),
-                      (i / THUMB_PER_ROW) * (THUMB_BTN + THUMB_GAP));
-    lv_obj_set_style_pad_all(t, 4, 0);
+    lv_obj_t *t = mkBtn(strip, TILE_BTN_W, TILE_BTN_H, COL_CARD);
+    lv_obj_set_pos(t, i * (TILE_BTN_W + TILE_GAP), 0);
+    lv_obj_set_style_pad_all(t, TILE_PAD, 0);
     lv_obj_add_event_cb(t, imagePickCb, ACT_EVENT, (void *)(intptr_t)i);
     lv_obj_t *img = lv_img_create(t);
-    lv_img_set_src(img, &flavorThumb[i]);
+    lv_img_set_src(img, &flavorTile[i]);
     lv_obj_center(img);
     lv_obj_clear_flag(img, LV_OBJ_FLAG_SCROLLABLE | LV_OBJ_FLAG_CLICKABLE);
-    flvThumbBtn[i] = t;
+    flvTileBtn[i] = t;
   }
 
   flvView[FLV_DETAIL] = det;
@@ -3122,6 +3140,13 @@ static void showFlavor(FlavorView v) {
   showOnly(flvView, FLV_COUNT, v);
   refreshFlavorText();
   refreshFlavorImages();
+  // Opening the strip on a face that has been scrolled off it is opening a
+  // picker that does not say what is currently chosen. Only on the way in —
+  // once someone is dragging, where they have got to is theirs.
+  const uint8_t sel = flavorImage[flavorSel];
+  if (flvTileStrip && sel < FLAVOR_IMAGE_COUNT && flvTileBtn[sel] &&
+      !lv_obj_has_flag(flvTileBtn[sel], LV_OBJ_FLAG_HIDDEN))
+    lv_obj_scroll_to_view(flvTileBtn[sel], LV_ANIM_OFF);
 }
 
 static void showService(ServiceView v) {

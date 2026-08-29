@@ -322,11 +322,18 @@ constexpr uint8_t IMAGE_BUNDLE_ENCLOSURE_AT    = 1;   // first enclosure renditi
 constexpr uint8_t IMAGE_BUNDLE_ENCLOSURE_COUNT = 4;
 
 // index 0: the faucet fills its whole glass.
-// index 1..4: the enclosure's card, thumb, head and mid, in the order it binds.
+// index 1..4: the enclosure's card, tile, head and mid, in the order it binds.
+//
+// THE PICKER TILE IS THE FAUCET'S OWN SHAPE, HALVED. Choosing a face on the
+// enclosure is choosing what the faucet will wear, and a square thumbnail
+// answers a different question than the one being asked — a photograph that
+// reads well cropped square can lose its subject entirely in a tall glass. So
+// the tile is 43:80 exactly, the faucet at half scale, cut from the same
+// portrait window the faucet's own rendition comes from.
 constexpr ImageRenditionSpec IMAGE_BUNDLE[IMAGE_BUNDLE_COUNT] = {
     {172, 320},
     {240, 240},
-    { 96,  96},
+    { 86, 160},
     { 60,  60},
     {120, 120},
 };
