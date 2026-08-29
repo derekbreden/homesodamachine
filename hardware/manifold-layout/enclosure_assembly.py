@@ -2149,14 +2149,18 @@ def check_east_bosses_print(stations, pieces: dict) -> Bound:
         if not ok:
             bad.append(rows[-1])
     exposed = sum(1 for _station, _ok, _missing, _circle, floors in rows if floors == 1)
-    bridges = sum(1 for station, *_rest in rows if station[3] > station[2] + 1e-6)
+    held_back = sum(1 for station, *_rest in rows if station[3] > station[2] + 1e-6)
+    splits = sum(1 for station, *_rest in rows
+                 if station[3] > station[2] + 1e-6 and len(station) > 4 and station[4])
+    plain_setbacks = held_back - splits
     return record_bound(Bound(
         "east-bosses-print",
         "Every power-column station is printed as a D stem on its derived corbel",
         bool(rows) and not bad,
         f"{len(rows) - len(bad)}/{len(rows)} additions present, no Ø7 round free edge; "
         f"{exposed} exposed D floors and {len(rows) - exposed} merged into wall stock; "
-        f"{len(rows) - bridges} full corbels and {bridges} flat bridges",
+        f"{len(rows) - held_back} full-width corbels, {splits} blocker-profiled split corbels"
+        + (f", {plain_setbacks} fully held-back corbels" if plain_setbacks else ""),
         "all 17 D fills and wedges contained in back-top, with no complete outer circle",
         [f"y {station[0]:.3f}, z {station[1]:.3f}: {missing:.5f} mm³ missing, "
          f"full circle={circle}, floor edges={floors}"
@@ -5328,7 +5332,7 @@ def wago_wells(row, cluster, over):
 # itself the stilt it stood on.
 
 def wall_mounts(*mounted, blockers=()):
-    """The +X wall's boss stations, as `(y, z, tip, web_tip)`.
+    """The +X wall's boss stations, as `(y, z, tip, web_tip, clear_bands)`.
 
     `mounted` is one `(name, carry, holes)` per body. Each hole is carried through the
     placement `seat_body` handed back from the body's own Z = 0 mounting plane, so `(y, z)` is
@@ -5337,8 +5341,11 @@ def wall_mounts(*mounted, blockers=()):
     A full-width 45 degree corbel is offered from that same plane to the wall. `blockers` is the
     installed pack, as `(name, solid)` pairs. If a solid crosses the offered wedge, `web_tip`
     is put one `east_boss_corbel_clear` beyond that solid's exact outermost X; the D stem is
-    checked separately and still reaches the body's hole. This makes moving a body change its
-    support rather than preserving either an arbitrary round pipe or a typed exception."""
+    checked separately and still reaches the body's hole. The overlap's exact Y projection,
+    with the same clearance, is subtracted from the boss width and every clear band keeps the
+    full wall-rooted wedge. A narrow blocker on one side therefore cannot turn the entire boss
+    into a short flat bridge. Moving or reshaping a body changes this support without a typed
+    exception."""
     blockers = tuple(blockers)
     wall_x = _enc.interior_x()[1]
     out, held = [], []
@@ -5371,7 +5378,31 @@ def wall_mounts(*mounted, blockers=()):
             if web_hits:
                 web_tip = max(box(body).xmax for _name, body, _volume in web_hits)
                 web_tip += _enc.east_boss_corbel_clear
-                station = (sy, sz, tip, web_tip)
+                # Keep the full corbel on every part of this boss's width that the exact
+                # collision does not occupy. The clearance is struck from the INTERSECTION,
+                # not the blocker's whole bounding box: a board-wide representative pin field
+                # that only reaches one side of a corner boss must not erase the other side.
+                offered = _enc._east_boss_corbel(wall_x, (sy, sz, tip, tip))
+                clear_bands = [(sy - _enc.mount_boss_dia / 2.0,
+                                sy + _enc.mount_boss_dia / 2.0)]
+                for _name, body, _volume in web_hits:
+                    overlap = offered.intersect(body)
+                    if overlap.Volume() <= 1e-6:
+                        continue
+                    ob = box(overlap)
+                    cut_lo = ob.ymin - _enc.east_boss_corbel_clear
+                    cut_hi = ob.ymax + _enc.east_boss_corbel_clear
+                    next_bands = []
+                    for band_lo, band_hi in clear_bands:
+                        if cut_hi <= band_lo or cut_lo >= band_hi:
+                            next_bands.append((band_lo, band_hi))
+                            continue
+                        if cut_lo > band_lo + 1e-6:
+                            next_bands.append((band_lo, min(cut_lo, band_hi)))
+                        if cut_hi < band_hi - 1e-6:
+                            next_bands.append((max(cut_hi, band_lo), band_hi))
+                    clear_bands = next_bands
+                station = (sy, sz, tip, web_tip, tuple(clear_bands))
                 remaining = hits(_enc._east_boss_corbel(wall_x, station))
                 if remaining:
                     names = ", ".join(name for name, _body, _volume in remaining)
@@ -5379,7 +5410,8 @@ def wall_mounts(*mounted, blockers=()):
                         f"the {owner} mount at y={sy:g}, z={sz:g} still crosses {names} "
                         f"after its object-derived corbel setback to x={web_tip:g}")
                 held.append((owner, sy, sz, web_tip - tip,
-                             tuple(name for name, _body, _volume in web_hits)))
+                             tuple(name for name, _body, _volume in web_hits),
+                             tuple(clear_bands)))
             out.append(station)
 
     # All added support material — the D-fill corners and the wedge — stays out of every
@@ -5397,14 +5429,15 @@ def wall_mounts(*mounted, blockers=()):
         "east-boss-corbels",
         "Every +X-wall power-column boss has a flat D stem and a body-clear 45 degree corbel",
         not bad,
-        f"{len(out) - len(bad)}/{len(out)} clear; {full} reach their mounting face and "
-        f"{len(held)} use body-derived setbacks",
+        f"{len(out) - len(bad)}/{len(out)} clear; {full} reach their mounting face across "
+        f"their whole width and {len(held)} use blocker-profiled split corbels",
         "one clear D-stem corbel per mounting hole",
         ([f"boss {station} crosses `{name}` by {volume:.4f} mm³"
           for station, name, volume in bad]
-         + [f"`{owner}` y {sy:.3f}, z {sz:.3f}: {setback:.3f} mm flat bridge past "
-            f"{', '.join(names)}"
-            for owner, sy, sz, setback, names in held])))
+         + [f"`{owner}` y {sy:.3f}, z {sz:.3f}: {setback:.3f} mm setback past "
+            f"{', '.join(names)}, full wall-rooted wing(s) "
+            + ", ".join(f"y {lo:.3f}..{hi:.3f}" for lo, hi in bands)
+            for owner, sy, sz, setback, names, bands in held])))
     return tuple(out)
 
 
