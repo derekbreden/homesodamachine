@@ -1,25 +1,26 @@
 # Unboxing and quick start
 
-The current public artifact is a development installation-planning reference on `/drawings`. It is
-an in-house visual iteration, not the customer carton guide.
+The public installation quick start on `/drawings` is a five-sheet visual guide for in-house print
+review. It is not carton-release documentation.
 
-The single-sided landscape 11 x 17 in sheet identifies the complete factory faucet and umbilical,
-shows the current cabinet-space reservations, and uses detached badges to match factory-tail words
-with rear labels. The SIG-6 ribbon is shown as part of the physically assembled and fitted faucet
-assembly.
+The sequence keeps dry faucet work first, closes the household cold-water valve immediately before
+opening the supply line, presents the two shipped tee configurations as mutually exclusive paths,
+and finishes at the appliance rear panel. The white water branch passes through the supplied filter
+before reaching `TAP`.
 
-The step-by-step installation sheet uses the confirmed carton state: donor washer and nut retained
-and factory-preloaded before the blue tube connection, the complete assembly lowered through the
-prepared opening, the open under-counter plate slid laterally into the captive stack, and the
-same donor nut tightened. The finished customer quick start will combine that literal mount
-sequence with the remaining inspectable install and first-use scenes.
+The first sheet uses four registered faucet models to show lowering, seating, sliding the open
+under-counter plate around the attached tubes, and hand-tightening the retained nut. The next three
+sheets use registered 3D plumbing scenes for the cold-water valve, the common 3/8-inch braided-hose
+tee, and the alternative existing-1/4-inch-line push-fit tee. The last sheet preserves the paired
+rear views before and after all five tubes and the RJ11 signal lead are connected.
 
 ## Print review
 
-Print `quick-start.pdf` landscape, 11 x 17 in, color, actual size for in-house Epson iteration. The
-current planning reference stays out of the customer-documentation packet until the step-by-step
-sequence replaces it.
+Print `hardware/quickstart/quick-start.pdf` landscape, 11 x 17 inches, color, and actual size. Check
+the same pages at quarter scale and in grayscale. Object identity, valve state, open mating faces,
+collar words, both black flavor tubes, and the before/connected distinction must remain legible
+without color.
 
-Object identity, space reservations, label identities, and the factory-fitted SIG-6 state must
-remain legible in grayscale. Specifications, maintenance, warranty, and regulatory copy live
-outside this visual guide.
+Specifications, maintenance, warranty, regulatory copy, powered commissioning, filter flushing,
+and first-pour instructions live outside this visual installation guide until their released
+procedures are complete.

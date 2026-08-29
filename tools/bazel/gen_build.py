@@ -64,6 +64,8 @@ _NODE_RUNTIME_CONSUMERS = {
     "hardware/assembly/cards/tools/_build.py": ":render-card-runtime",
     "hardware/quickstart/_build.py": ":render-card-runtime",
     "hardware/quickstart/quickstart_art.py": ":render-step-posed-runtime",
+    "hardware/quickstart/plumbing/modern/render_modern_tee.py": ":render-step-posed-runtime",
+    "hardware/quickstart/plumbing/plumbing_scenes.py": ":render-step-posed-runtime",
 }
 _NODE_RUNTIME_SUPPORT = {
     ":render-card-runtime": {

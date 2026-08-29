@@ -1,10 +1,10 @@
-"""Build the two-sheet, 11 x 17 in Home Soda Machine installation quick start.
+"""Build the five-sheet, 11 x 17 in Home Soda Machine installation quick start.
 
-Product-derived artwork is a separate build step in ``quickstart_art.py``. Keeping it separate means a
-layout or copy edit rerenders only these sheets; CAD and firmware changes rebuild the artwork
-first through the Bazel dependency graph.
+Product-derived artwork is generated separately by ``quickstart_art.py`` and the two plumbing
+scene generators. Keeping artwork separate means a layout or copy edit rerenders only these
+sheets; CAD and firmware changes rebuild the pictures first through the Bazel dependency graph.
 
-    quick-start.pdf         two print-ready 11 x 17 in pages
+    quick-start.pdf         five print-ready 11 x 17 in pages
     quick-start.cover.png   the installation sheet for the drawings shelf
     quick-start.pdf.json    document metadata for homesodamachine.com/drawings
 
@@ -36,12 +36,18 @@ SIDECAR = HERE / "quick-start.pdf.json"
 sys.path.insert(0, str(HARDWARE / "scripts"))
 from _cadq_export import export_pdf, note_read, note_write  # noqa: E402
 
-TITLE = "Faucet installation quick start"
+TITLE = "Home Soda Machine installation quick start"
 CANVAS_W, CANVAS_H = 2550, 1650
 COVER_W = 800
 
 FONTS = tuple((HARDWARE / "assembly" / "cards" / "fonts").glob("*.woff2"))
-PAGES = (HERE / "00-mount.html", HERE / "01-connect.html")
+PAGES = (
+    HERE / "00-mount.html",
+    HERE / "01-water-off.html",
+    HERE / "02-water-tee-braided.html",
+    HERE / "03-water-tee-inline.html",
+    HERE / "04-connect.html",
+)
 RENDER_PAGE_TIMEOUT_SECONDS = 180
 # A cold-browser probe and each kept sheet have their own tighter deadlines below. This outer
 # process cap is deliberately roomier: it is the final guard around browser launches and cleanup,
@@ -56,6 +62,12 @@ PAGE_ASSETS = (
     HERE / "art" / "mount-lowered-clean.png",
     HERE / "art" / "mount-under-slide-clean.png",
     HERE / "art" / "mount-under-tighten-clean.png",
+    HERE / "plumbing" / "art" / "plumbing-pre-tee.png",
+    HERE / "plumbing" / "art" / "plumbing-tee-installed.png",
+    HERE / "plumbing" / "art" / "plumbing-valve-off.png",
+    HERE / "plumbing" / "art" / "plumbing-valve-on.png",
+    HERE / "plumbing" / "modern" / "art" / "modern-inline-tee-after.png",
+    HERE / "plumbing" / "modern" / "art" / "modern-inline-tee-before.png",
 )
 
 
@@ -105,7 +117,7 @@ def render_pages() -> int:
     except subprocess.TimeoutExpired:
         print(
             "quick start renderer exceeded its "
-            f"{RENDER_ACTION_TIMEOUT_SECONDS} s two-sheet action deadline",
+            f"{RENDER_ACTION_TIMEOUT_SECONDS} s five-sheet action deadline",
             file=sys.stderr,
         )
         return 124
@@ -141,7 +153,7 @@ def bind() -> int:
     write_cover(OUT / f"{order[0]}.png")
     sidecar = {
         "title": TITLE,
-        "subtitle": "Owner installation quick start - two 11 x 17 in sheets",
+        "subtitle": "Owner installation quick start - five 11 x 17 in sheets",
         "pages": len(order),
         "cover": COVER.name,
         "cover_size": [COVER_W, COVER_W * CANVAS_H // CANVAS_W],

@@ -1,101 +1,70 @@
-# Faucet + umbilical installation quick start
+# Home Soda Machine installation quick start
 
-`00-mount.html` and `01-connect.html` are two single-sided landscape 11 x 17 in owner-installation
-sheets. They publish together as `quick-start.pdf` on `/drawings` and print at actual size on the
-Epson for in-house review.
+Five single-sided landscape 11 x 17 inch sheets publish together as `quick-start.pdf` on
+`/drawings`. The guide is a visual installation sequence:
 
-The two sheets form one physical story:
+1. mount the complete factory faucet assembly;
+2. close the under-sink cold-water valve;
+3. add the brass tee where the home has a 3/8-inch braided faucet hose;
+4. add the black push-fit tee where the home has an existing 1/4-inch plastic line;
+5. connect the five tubes and RJ11 signal lead to the appliance rear panel.
 
-1. Mount the complete factory faucet assembly through the prepared countertop opening.
-2. Connect its three tubes and RJ11 signal lead, plus the tap-water and CO2 supply tubes, to the
-   appliance rear panel.
+The two tee sheets are alternatives. The installer uses only the sheet that matches the existing
+cold-water connection. In either path, the new white tube continues through the supplied filter
+before it reaches the appliance `TAP` inlet.
 
-Four registered model states tell the mounting story. Two registered model states show the rear
-connections before and after installation. Words identify only the action and endpoint; modeled
-product geometry carries the instruction.
+## Faucet mount
 
-## Confirmed installation facts
+Four registered model states show one physical story: lower the complete factory assembly through
+the prepared opening, seat it, slide the open under-counter plate around the attached tubes, and
+hand-tighten the retained nut. The exact same 220 x 72 mm countertop window appears in every
+state. It is long on the plate's slide axis and narrow across the real under-sink working space.
+The retracted plate stays visibly clear of the washer and nut before it moves.
 
-The faucet, three tubes, braided sleeve, and fitted SIG-6 ribbon remain one factory assembly. The
-retained donor washer and nut fit the donor shank and are factory-preloaded before the blue soda
-umbilical tube is connected. Field installation lowers that complete assembly through the prepared opening,
-slides the open under-counter plate laterally into the captive donor stack, and
-hand-tightens the same retained nut.
+## Cold-water connection
 
-The registered mount pictures preserve this order:
+`plumbing/plumbing_scenes.py` models the common 3/8-inch braided-hose installation as four states
+in one coordinate frame: valve open, valve closed, hose removed with the tee and new branch staged,
+and tee installed with both lines connected. The finished wall, copper stub, escutcheon, valve,
+braided hose, brass compression fittings, and white 1/4-inch branch are CAD solids. One fixed
+2000 x 1100 orthographic viewport keeps invariant geometry registered in every state.
 
-1. faucet base and gasket;
-2. countertop;
-3. open stainless under-counter plate;
-4. retained donor washer;
-5. retained donor nut;
-6. threaded shank and the three tube tails.
+`plumbing/modern/render_modern_tee.py` models the alternative existing-1/4-inch-line installation.
+The checked-in PP0208E reference solid sits between two square-cut ends, and the new white branch
+occupies its third port. Before and connected states share one 2000 x 1100 orthographic viewport.
 
-At the appliance, the user pulls the machine forward until its rear face is accessible at the
-cabinet face. The three factory tubes carry 350 mm of installer-trim allowance. Each tail is laid
-to its physical port and cut square below its retained collar with the supplied Mudder cutter.
-The square end pushes directly into the PP1208E fitting to the internal hard stop, then receives a
-pull-back tug that sets the collet.
+## Appliance rear connections
+
+The rear sheet contains exactly two registered states: all six customer leads clear of the rear
+face, and all six fully seated. The five tube collars are production solids. Each 30 mm collar
+starts 47.5 mm behind its insertion tip and ends 77.5 mm behind it. The routed ends of every tube
+and the RJ11 ribbon continue out of the common crop, so the connected state contains no visible
+loose distal ends.
 
 The physical endpoint rule is:
 
-- red `CO2` supply to the red `CO2` inlet;
-- white tap-water supply to the white `TAP` inlet;
-- blue `SODA` tail to the blue `SODA` port;
-- either black `FLAVOR` tail to either black `FLAVOR` port;
-- flat SIG-6 ribbon's RJ11 plug to the square signal jack.
-
-SIG-6 remains part of the same routed assembly and arrives with its RJ11 plug factory-fitted. It is
-not one of the three tubes being trimmed or pushed into the round rear ports.
-
-## Picture contract
-
-The mount sheet uses one below-counter three-quarter camera for all four states. The upper image
-locates the complete recognizable faucet in the kitchen-scale event. The lower image magnifies the
-same registered frame at the countertop stack. Only the complete assembly moves down, only the
-under-counter plate moves sideways, and the final cue turns the same retained nut. In the approach
-frame the plate stands clear of the retained washer before it moves. The exact same 220 x 72 mm
-countertop solid and opening appear in all four frames, so the lower views read as the underside of
-the upper views. That window is long on the plate's slide axis and narrow across it, preserving the
-full support behind the retracted plate while showing the constrained under-sink working direction.
-
-The connection sheet carries exactly two physical scenes from the same tight rear-panel camera:
-
-1. the appliance with the red CO2 tube, white tap-water tube, blue soda tube, two black flavor
-   tubes, and RJ11 signal lead modeled entirely clear of the enclosure silhouette;
-2. the same appliance with all six leads fully seated.
-
-The enclosure, camera, scale, lighting, and crop remain registered between the two states. An
-oblique rear camera foreshortens the appliance's +Y face, so the large physical +Y withdrawal
-projects into a compact white gap while every free lead still clears the enclosure silhouette.
-The page preserves that common render scale but lays out each scene by its visible content bounds:
-equal outer margins and a transition arrow centered in the actual white gap, without allowing the
-connected render's unused frame area to push its appliance toward the gutter. The lower enclosure
-is outside the viewport so the ports and lead ends dominate each column; a clean white field
-carries no floor, contact shadow, gradient, or distance fog. The five tube collars are production
-solids with their modeled lettering. The RJ11 body, boot,
-latch, contacts, and ribbon are CAD solids. Tube end faces, routing bends, port labels, and signal
-jack remain physical model geometry. No connector, tube, cord, leader, or callout is drawn over a
-render; the small transition arrow in the page gutter is the only overlay.
+- red `CO2` supply to `CO2`;
+- filtered white tap-water supply to `TAP`;
+- blue faucet tail to `SODA`;
+- both black faucet tails to the two `FLAVOR` ports;
+- RJ11 plug to the signal jack.
 
 ## Build
 
 From the repository root:
 
 ```sh
-# Rebuild product-derived PNGs after faucet, rear-port, or artwork-generator changes.
+# Faucet and appliance-rear CAD artwork.
 tools/cad-venv/bin/python hardware/quickstart/quickstart_art.py
 
-# Rebuild the PDF after an HTML or CSS edit.
+# Both under-sink tee alternatives.
+tools/cad-venv/bin/python hardware/quickstart/plumbing/plumbing_scenes.py
+tools/cad-venv/bin/python hardware/quickstart/plumbing/modern/render_modern_tee.py
+
+# Five rendered sheets and the bound PDF.
 tools/cad-venv/bin/python hardware/quickstart/_build.py
 ```
 
-The two steps are separate build targets. A layout-only iteration consumes generated artwork
-without rebuilding CAD. `connect-rear-open.png` and `connect-rear-connected.png` use fixed frame
-anchors and one camera definition so every rear-panel feature remains in the same printed
-position. The publisher's pinned CAD environment is the byte authority for generated artwork and
-the bound PDF; local runs remain visual previews because native OCCT tessellation differs by host.
-
-`out/00-mount.png`, `out/01-connect.png`, and their page PDFs are the full-resolution 150 px/in
-sheet renders. Inspect both pages at actual size, in grayscale, at quarter scale, and with the
-captions covered before publication.
+The PDF is 17 x 11 inches with five pages. Review every page at actual size, at quarter scale, and
+in grayscale. The three text levels are the page title, scene caption, and one supporting line;
+modeled geometry carries connector identity, valve state, fitting pose, and tube routing.
