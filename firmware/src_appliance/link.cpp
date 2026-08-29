@@ -624,7 +624,18 @@ bool linkWifiApMode(uint8_t mode) {
     while ((long)(millis() - deadline) < 0) {
         unsigned long until = millis() + 400;
         while ((long)(millis() - until) < 0) { j9.service(); delay(2); }
-        if (!linkWifiAsk(2)) continue;
+        if (!linkWifiAsk(2)) {
+            // Taking the radio away is what ends in a reboot on that board,
+            // because its panel only comes back on one. So a display that has
+            // stopped answering is not running an AP — waiting for it to say so
+            // is waiting for a board that is in its bootloader, and calling that
+            // a stuck radio is a false alarm on the one console anybody reads.
+            if (!on) {
+                Serial.println("\nWIFI:AP down — the display is restarting, which is how it comes back");
+                return true;
+            }
+            continue;
+        }
         if ((bool)wifiApState.up == on) {
             Serial.printf("\nWIFI:AP %s\n",
                           on ? "up as '" WIFI_BENCH_SSID "', channel 6, sinking on port 5001"
