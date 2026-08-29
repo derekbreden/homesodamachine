@@ -3,18 +3,22 @@ import SwiftUI
 // ────────────────────────────────────────────────────────────
 // Choosing what part of a photograph the machine gets.
 //
-// TWO CROPS COME OUT OF ONE GESTURE, AND THEN THE SECOND ONE MOVES. The faucet
-// fills a tall 172x320 glass and the enclosure wears a square card, so a
-// photograph has to give up two different rectangles. Asking for two crops in a
-// row would be answering the hardware's problem with someone's time — so the
-// tall window is positioned first, and the square the enclosure takes rides
-// inside it on a handle of its own.
+// TWO RECTANGLES COME OUT OF ONE PHOTOGRAPH. The faucet fills a tall 172x320
+// glass and the front display wears a square card, so a picture has to give up
+// two different shapes. They want different things out of it: a face composed
+// for the tall glass sits high in the frame, and the square that flatters the
+// same face is neither the middle of that glass nor the same distance away.
 //
-// It has to move independently, because the two rectangles want different
-// things out of the same photograph. A face centred for the tall glass sits
-// near its top; the square that flatters it is not the square in the middle.
-// Both are visible the whole time, and neither is committed until both look
-// right.
+// ONE IS FRAMED AT A TIME AND BOTH ARE ALWAYS VISIBLE. The big window is
+// whichever shape is being framed, with the whole surface to pan and pinch on;
+// the two previews under it are the finished faces, live, and tapping one makes
+// it the window. Nothing about the second shape is a second screen, and nothing
+// about it is a smaller version of the first one's gestures.
+//
+// THE SQUARE FOLLOWS UNTIL SOMEONE FRAMES IT. Left alone it is the square
+// inscribed in the faucet's frame, so the two faces stay recognisably the same
+// picture and one gesture still answers the whole question. It detaches the
+// moment it is touched, and a button on its preview puts it back.
 //
 // Nothing is resampled here. This produces the two rectangles at full source
 // resolution and ImageBundle does every reduction from those, once.
@@ -30,24 +34,38 @@ struct ImageCropView: View {
     let onUse: (ImageCrop) -> Void
     let onCancel: () -> Void
 
-    @State private var scale: CGFloat = 1
-    @State private var committedScale: CGFloat = 1
-    @State private var offset: CGSize = .zero
-    @State private var committedOffset: CGSize = .zero
-    // Where the enclosure's square sits inside the faucet's frame, as the
-    // fraction of its travel from top to bottom. Centred until someone moves it.
-    @State private var squarePos: CGFloat = 0.5
-    @State private var committedSquarePos: CGFloat = 0.5
+    /// Which shape the window is currently showing.
+    private enum Face: Hashable { case faucet, display }
 
-    private let aspect: CGFloat = 172.0 / 320.0
+    /// Where one rectangle sits on the photograph. Scale 1 is the largest
+    /// rectangle of that shape the photograph can give, so it means the same
+    /// thing to both of them; centre is a fraction of the source, so it survives
+    /// a change of scale and of window size.
+    private struct Framing: Equatable {
+        var scale: CGFloat = 1
+        var center = CGPoint(x: 0.5, y: 0.5)
+    }
+
+    @State private var active: Face = .faucet
+    @State private var tall = Framing()
+    @State private var square = Framing()
+    @State private var squareFollows = true
+    /// The framing a gesture started from, so pan and pinch of the same touch
+    /// are both measured against one fixed thing rather than against each other.
+    @State private var gestureBase: Framing?
+
+    private let tallAspect: CGFloat = 172.0 / 320.0
 
     var body: some View {
         GeometryReader { geo in
-            // The window is as tall as will fit with room for the controls, and
-            // as wide as the faucet's aspect makes it.
-            let wh = min(geo.size.height - 210, geo.size.width / aspect)
-            let ww = wh * aspect
-            let window = CGSize(width: ww, height: wh)
+            // The window is the largest rectangle of the active shape that fits
+            // in what the titles, the previews and the buttons leave. The band
+            // it sits in is the taller shape's height whichever shape is in it,
+            // so switching faces moves the window's edges and nothing else —
+            // the previews and the buttons are where they were.
+            let room = CGSize(width: geo.size.width - 48, height: geo.size.height - 340)
+            let window = fit(aspect(active), in: room)
+            let band = fit(tallAspect, in: room).height
 
             ZStack {
                 Theme.background.ignoresSafeArea()
@@ -58,91 +76,31 @@ struct ImageCropView: View {
                         .foregroundStyle(Theme.textPrimary)
                         .padding(.top, 24)
 
-                    Text("The tall frame is the faucet. Drag the handle to choose\nwhat the front display shows.")
+                    Text("Tap either face to frame it. Drag to move, pinch to zoom.")
                         .font(.system(size: 13))
                         .foregroundStyle(Theme.textSecondary)
                         .multilineTextAlignment(.center)
                         .padding(.top, 6)
+                        .padding(.horizontal, 24)
 
-                    Spacer(minLength: 12)
+                    Spacer(minLength: 8)
 
-                    ZStack {
-                        Image(uiImage: image)
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: baseW(window), height: baseH(window))
-                            .scaleEffect(scale)
-                            .offset(offset)
-                            .frame(width: window.width, height: window.height)
-                            .clipped()
-
-                        // Everything the enclosure will not see, dimmed. The
-                        // square reads as the second picture rather than as a
-                        // line drawn over the first.
-                        Color.black.opacity(0.42)
-                            .mask(
-                                ZStack {
-                                    Rectangle()
-                                    Rectangle()
-                                        .frame(width: window.width, height: window.width)
-                                        .offset(y: squareOffset(window))
-                                        .blendMode(.destinationOut)
-                                }
-                                .compositingGroup()
-                            )
-                            .allowsHitTesting(false)
-
-                        Rectangle()
-                            .strokeBorder(Color.white.opacity(0.9), lineWidth: 1.5)
-                            .frame(width: window.width, height: window.width)
-                            .offset(y: squareOffset(window))
-                            .allowsHitTesting(false)
-
-                        // The handle that moves it. Everything outside the
-                        // handle pans the photograph, so the two gestures never
-                        // have to guess which one was meant.
-                        Capsule()
-                            .fill(Color.white.opacity(0.95))
-                            .frame(width: 44, height: 5)
-                            .shadow(radius: 3)
-                            .offset(y: squareOffset(window) + window.width / 2 - 3)
-                            .contentShape(Rectangle().inset(by: -22))
-                            .gesture(
-                                DragGesture()
-                                    .onChanged { v in
-                                        squarePos = clampPos(committedSquarePos
-                                            + v.translation.height / max(1, travel(window)))
-                                    }
-                                    .onEnded { _ in committedSquarePos = squarePos }
-                            )
-
-                        Rectangle()
-                            .strokeBorder(Color.white.opacity(0.55), lineWidth: 2)
-                            .frame(width: window.width, height: window.height)
-                            .allowsHitTesting(false)
-                    }
-                    .frame(width: window.width, height: window.height)
-                    .contentShape(Rectangle())
-                    .gesture(
-                        SimultaneousGesture(
-                            DragGesture()
-                                .onChanged { v in
-                                    offset = CGSize(width: committedOffset.width + v.translation.width,
-                                                    height: committedOffset.height + v.translation.height)
-                                }
-                                .onEnded { _ in committedOffset = clamped(offset, window) ; offset = committedOffset },
-                            MagnificationGesture()
-                                .onChanged { m in scale = max(1, committedScale * m) }
-                                .onEnded { _ in
-                                    committedScale = max(1, scale)
-                                    scale = committedScale
-                                    committedOffset = clamped(offset, window)
-                                    offset = committedOffset
-                                }
+                    view(of: active, size: window)
+                        .overlay(
+                            Rectangle()
+                                .strokeBorder(Color.white.opacity(0.55), lineWidth: 2)
                         )
-                    )
+                        .contentShape(Rectangle())
+                        .gesture(gesture(window))
+                        .frame(height: band)
 
-                    Spacer(minLength: 12)
+                    Spacer(minLength: 8)
+
+                    HStack(alignment: .top, spacing: 26) {
+                        preview(.faucet)
+                        preview(.display)
+                    }
+                    .padding(.bottom, 4)
 
                     HStack(spacing: 12) {
                         Button("Cancel", action: onCancel)
@@ -151,7 +109,7 @@ struct ImageCropView: View {
                             .frame(maxWidth: .infinity)
                             .padding(.vertical, 14)
 
-                        Button("Use This") { onUse(crop(window)) }
+                        Button("Use This") { onUse(crop()) }
                             .font(.system(size: 16, weight: .medium))
                             .foregroundStyle(Theme.textPrimary)
                             .frame(maxWidth: .infinity)
@@ -160,72 +118,189 @@ struct ImageCropView: View {
                             .cornerRadius(12)
                     }
                     .padding(.horizontal, 24)
+                    .padding(.top, 12)
                     .padding(.bottom, 28)
                 }
             }
         }
     }
 
-    /// How far the square can travel inside the frame, in points.
-    private func travel(_ window: CGSize) -> CGFloat { window.height - window.width }
+    // ── The two faces, under the window ───────────────────────────────────
+    // Each is the rendition itself at a size you can judge, not a diagram of
+    // where a rectangle sits. The one being framed is lit; the other is the
+    // answer you are getting for free.
 
-    /// Its centre, measured from the frame's centre.
-    private func squareOffset(_ window: CGSize) -> CGFloat {
-        (squarePos - 0.5) * travel(window)
+    private func preview(_ face: Face) -> some View {
+        let side: CGFloat = 96
+        let size = CGSize(width: side * aspect(face), height: side)
+        let on = active == face
+
+        return VStack(spacing: 6) {
+            view(of: face, size: size)
+                .clipShape(RoundedRectangle(cornerRadius: 8))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 8)
+                        .stroke(on ? Color.white : Color.white.opacity(0.22),
+                                lineWidth: on ? 2 : 1)
+                )
+                .opacity(on ? 1 : 0.55)
+                .overlay(alignment: .topLeading) {
+                    // Only ever on the square, and only once it is on its own:
+                    // the way back to following the faucet, which is otherwise
+                    // a framing someone would have to rebuild by hand.
+                    if face == .display && !squareFollows {
+                        Button { squareFollows = true; square = Framing() } label: {
+                            Image(systemName: "arrow.uturn.backward.circle.fill")
+                                .font(.system(size: 18))
+                                .symbolRenderingMode(.palette)
+                                .foregroundStyle(.white, .black.opacity(0.5))
+                        }
+                        .buttonStyle(.plain)
+                        .padding(5)
+                    }
+                }
+
+            Text(face == .faucet ? "Faucet" : "Front display")
+                .font(.system(size: 11, weight: on ? .medium : .regular))
+                .foregroundStyle(on ? Theme.textPrimary : Theme.textSecondary)
+        }
+        .contentShape(Rectangle())
+        .onTapGesture { withAnimation(.easeInOut(duration: 0.18)) { active = face } }
     }
 
-    private func clampPos(_ v: CGFloat) -> CGFloat { min(max(v, 0), 1) }
+    // ── Drawing a rectangle of the photograph ─────────────────────────────
+    // One function draws the window and both previews, so a preview cannot
+    // drift from what the window says — it is the same crop at another size.
 
-    // ── The displayed geometry ────────────────────────────────────────────
-    // Aspect-fill against the window, which is the smallest scale that leaves
-    // no gap. Everything below is measured from it.
-    private func fill(_ window: CGSize) -> CGFloat {
-        max(window.width / image.size.width, window.height / image.size.height)
+    private func view(of face: Face, size: CGSize) -> some View {
+        let r = rect(framing(face), aspect: aspect(face))
+        let k = size.width / max(r.width, 1)     // display points per source pixel
+
+        return Image(uiImage: image)
+            .resizable()
+            .frame(width: image.size.width * k, height: image.size.height * k)
+            .offset(x: (image.size.width / 2 - r.midX) * k,
+                    y: (image.size.height / 2 - r.midY) * k)
+            .frame(width: size.width, height: size.height)
+            .clipped()
     }
-    private func baseW(_ window: CGSize) -> CGFloat { image.size.width * fill(window) }
-    private func baseH(_ window: CGSize) -> CGFloat { image.size.height * fill(window) }
 
-    /// Keep the window covered: the picture cannot be dragged off its own edge.
-    private func clamped(_ o: CGSize, _ window: CGSize) -> CGSize {
-        let w = baseW(window) * scale, h = baseH(window) * scale
-        let slackX = max(0, (w - window.width) / 2)
-        let slackY = max(0, (h - window.height) / 2)
-        return CGSize(width: min(max(o.width, -slackX), slackX),
-                      height: min(max(o.height, -slackY), slackY))
+    // ── The gesture ───────────────────────────────────────────────────────
+    // Pan and pinch, on the whole window, applied to whichever shape is in it.
+    // There is no second gesture surface, because there is no longer a second
+    // rectangle sharing this one.
+
+    private func gesture(_ window: CGSize) -> some Gesture {
+        SimultaneousGesture(DragGesture(minimumDistance: 0), MagnificationGesture())
+            .onChanged { v in
+                let base = gestureBase ?? framing(active)
+                if gestureBase == nil { gestureBase = base }
+
+                var f = base
+                if let m = v.second {
+                    f.scale = min(max(base.scale * m, 1), maxScale(active))
+                }
+                if let d = v.first {
+                    // Measured at the scale this frame is drawn at, so a pinch
+                    // and a drag in one touch track the finger rather than
+                    // fighting over it.
+                    let k = window.width / max(rect(f, aspect: aspect(active)).width, 1)
+                    f.center = CGPoint(
+                        x: base.center.x - d.translation.width / (k * image.size.width),
+                        y: base.center.y - d.translation.height / (k * image.size.height))
+                }
+                set(f)
+            }
+            .onEnded { _ in gestureBase = nil }
+    }
+
+    /// Framing the active shape is what detaches the square from the faucet.
+    private func set(_ f: Framing) {
+        switch active {
+        case .faucet:
+            tall = clamp(f, aspect: tallAspect)
+        case .display:
+            square = clamp(f, aspect: 1)
+            squareFollows = false
+        }
+    }
+
+    // ── Geometry ──────────────────────────────────────────────────────────
+
+    private func aspect(_ face: Face) -> CGFloat { face == .faucet ? tallAspect : 1 }
+
+    private func framing(_ face: Face) -> Framing {
+        face == .faucet ? tall : effectiveSquare
+    }
+
+    /// Where the square sits while it is following: the one inscribed in the
+    /// faucet's frame. That is the same picture the glass wears, squared — what
+    /// someone who only framed the tall shape was asking for.
+    private var effectiveSquare: Framing {
+        guard squareFollows else { return square }
+        let t = rect(tall, aspect: tallAspect)
+        let maxSide = min(image.size.width, image.size.height)
+        return Framing(scale: maxSide / max(t.width, 1),
+                       center: CGPoint(x: t.midX / image.size.width,
+                                       y: t.midY / image.size.height))
+    }
+
+    /// The rectangle a framing selects, in the source's own pixels.
+    private func rect(_ f: Framing, aspect a: CGFloat) -> CGRect {
+        let (w, h) = extent(f, aspect: a)
+        let c = center(f, w, h)
+        return CGRect(x: c.x - w / 2, y: c.y - h / 2, width: w, height: h)
+    }
+
+    private func extent(_ f: Framing, aspect a: CGFloat) -> (CGFloat, CGFloat) {
+        let w = min(image.size.width, image.size.height * a) / max(f.scale, 1)
+        return (w, w / a)
+    }
+
+    /// Kept inside the photograph: no crop has an edge off the picture.
+    private func center(_ f: Framing, _ w: CGFloat, _ h: CGFloat) -> CGPoint {
+        CGPoint(x: min(max(f.center.x * image.size.width, w / 2), image.size.width - w / 2),
+                y: min(max(f.center.y * image.size.height, h / 2), image.size.height - h / 2))
+    }
+
+    private func clamp(_ f: Framing, aspect a: CGFloat) -> Framing {
+        let (w, h) = extent(f, aspect: a)
+        let c = center(f, w, h)
+        return Framing(scale: f.scale,
+                       center: CGPoint(x: c.x / image.size.width, y: c.y / image.size.height))
+    }
+
+    /// A photograph cannot be zoomed past its own resolution: the tightest crop
+    /// allowed is the one that still fills the rendition it feeds.
+    private func maxScale(_ face: Face) -> CGFloat {
+        let a = aspect(face)
+        let widest = min(image.size.width, image.size.height * a)
+        return max(1, widest / (face == .faucet ? 172 : 240))
+    }
+
+    private func fit(_ a: CGFloat, in room: CGSize) -> CGSize {
+        let h = min(room.height, room.width / a)
+        return CGSize(width: h * a, height: h)
     }
 
     // ── Back to the source's own pixels ───────────────────────────────────
-    private func crop(_ window: CGSize) -> ImageCrop {
-        let s = fill(window) * scale                    // source px -> display px
-        let o = clamped(offset, window)
 
-        // The window's top-left, in the source's pixels.
-        let x = (image.size.width  * s / 2 - window.width  / 2 - o.width)  / s
-        let y = (image.size.height * s / 2 - window.height / 2 - o.height) / s
-        let portrait = CGRect(x: x, y: y, width: window.width / s, height: window.height / s)
-
-        // The square is where it was left, not where the middle is.
-        let side = window.width / s
-        let square = CGRect(x: portrait.midX - side / 2,
-                            y: portrait.minY + (portrait.height - side) * squarePos,
-                            width: side, height: side)
-
-        return ImageCrop(portrait: cut(portrait), square: cut(square))
-    }
-
-    /// One rectangle of the source, upright and at full resolution.
-    private func cut(_ rect: CGRect) -> UIImage {
+    private func crop() -> ImageCrop {
+        // Through UIImage once, so an EXIF-rotated camera photo is upright
+        // before either rectangle is measured against it.
         let format = UIGraphicsImageRendererFormat()
         format.scale = 1
         format.opaque = true
-
-        // Through UIImage once, so an EXIF-rotated camera photo is upright
-        // before anything is measured against it.
         let upright = UIGraphicsImageRenderer(size: image.size, format: format).image { _ in
             image.draw(in: CGRect(origin: .zero, size: image.size))
         }
-        guard let cg = upright.cgImage else { return image }
+        return ImageCrop(portrait: cut(rect(tall, aspect: tallAspect), from: upright),
+                         square: cut(rect(effectiveSquare, aspect: 1), from: upright))
+    }
 
+    /// One rectangle of the source, at full resolution.
+    private func cut(_ rect: CGRect, from upright: UIImage) -> UIImage {
+        guard let cg = upright.cgImage else { return image }
         let px = CGFloat(cg.width) / image.size.width
         let inPixels = CGRect(x: rect.minX * px, y: rect.minY * px,
                               width: rect.width * px, height: rect.height * px)
