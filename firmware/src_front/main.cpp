@@ -271,6 +271,11 @@ static_assert(DETAIL_FLOOR <= PANE_H, "both columns must end inside the pane");
 
 // The flavor's own page: ratio, then every logo it could wear.
 #define RATIO_CARD_H  130
+// The range the base's SET:Fn_RATIO accepts, and so the range the two steppers
+// can reach. Named because a control that stops has to stop at the same number
+// the clamp does, or it lies in one direction or the other.
+#define RATIO_MIN       6
+#define RATIO_MAX      24
 // A tile is the picture plus the ring that says it is the chosen one. The strip
 // runs off the right of the column and is dragged: eight faces at this size do
 // not fit beside the anchor, and shrinking them until they do is how the tall
@@ -297,6 +302,12 @@ static_assert(DETAIL_FLOOR <= PANE_H, "both columns must end inside the pane");
 // wide: a step longer than the view skips a face past whoever is looking for it.
 #define TILE_PAGE_PX  (2 * (TILE_BTN_W + TILE_GAP))
 static_assert(TILE_PAGE_PX <= TILE_STRIP_W, "an arrow must not step past the view it moves");
+// The faces a machine ships with already overrun the view, and a custom one
+// only lengthens the row: the strip scrolls from its first tile onward, and
+// the arrows and track are never furniture.
+static_assert(FLAVOR_FACTORY_COUNT * TILE_BTN_W + (FLAVOR_FACTORY_COUNT - 1) * TILE_GAP >
+                  TILE_STRIP_W,
+              "the shipped row must overrun the strip the arrows scroll");
 
 // ── Pages ──
 // Every page is built once and lives for the life of the firmware; switching hides one and
@@ -487,6 +498,8 @@ static lv_obj_t *homeFlavorBadgeText[2];
 static int8_t homeFlavorShown = -2;
 
 static lv_obj_t *flvDetailRatio;
+static lv_obj_t *flvRatioMinus = NULL, *flvRatioPlus = NULL;
+static lv_obj_t *flvRatioMinusMark = NULL, *flvRatioPlusMark = NULL;
 static lv_obj_t *primePad, *primePadLbl, *primeMsg;
 static lv_indev_t *touchInput = nullptr;
 static lv_obj_t *cleanMsg, *fillMsg;
@@ -2073,29 +2086,20 @@ static void refreshFlavorImages() {
   // A slot with no picture in it is not a choice and not information — it is
   // an empty frame asking to be understood. Only the faces that exist are laid
   // out, and they close up rather than leaving gaps where the rest would be.
-  uint8_t shown = 0;
   for (int i = 0; i < FLAVOR_IMAGE_COUNT; i++) {
     if (!flvTileBtn[i]) continue;
     const bool have = flavorArtAvailable((uint8_t)i);
     if (have) lv_obj_clear_flag(flvTileBtn[i], LV_OBJ_FLAG_HIDDEN);
     else      lv_obj_add_flag(flvTileBtn[i], LV_OBJ_FLAG_HIDDEN);
     if (!have) continue;
-    ++shown;
     lv_obj_set_style_bg_color(
         flvTileBtn[i],
         lv_color_hex(i == flavorImage[flavorSel] ? COL_ACCENT : COL_CARD), 0);
   }
-  // Fewer faces than the strip is wide is not a strip: they centre, so the four
-  // a machine ships with read as a row rather than as the left end of something
-  // that runs off the screen. Add a fifth and they start from the left and the
-  // strip begins to scroll, which is the same rule either way.
-  const lv_coord_t rowW = shown ? (lv_coord_t)(shown * TILE_BTN_W + (shown - 1) * TILE_GAP) : 0;
-  const lv_coord_t room = TILE_STRIP_W;
-  const lv_coord_t x0 = rowW < room ? (lv_coord_t)((room - rowW) / 2) : 0;
   uint8_t at = 0;
   for (int i = 0; i < FLAVOR_IMAGE_COUNT; i++) {
     if (!flvTileBtn[i] || lv_obj_has_flag(flvTileBtn[i], LV_OBJ_FLAG_HIDDEN)) continue;
-    lv_obj_set_pos(flvTileBtn[i], x0 + at * (TILE_BTN_W + TILE_GAP), 0);
+    lv_obj_set_pos(flvTileBtn[i], at * (TILE_BTN_W + TILE_GAP), 0);
     ++at;
   }
   tileStripAffordance();
@@ -2108,6 +2112,24 @@ static void refreshFlavorText() {
     if (homeFlavorRatio[i]) lv_label_set_text(homeFlavorRatio[i], r[i]);
   }
   if (flvDetailRatio) lv_label_set_text(flvDetailRatio, r[flavorSel & 1]);
+
+  // A STEPPER AT THE END OF ITS RANGE SAYS SO. Silently clamping a press is a
+  // control that answers, sounds like it answered, and changed nothing — so
+  // these stop the way every spent control on this panel stops: sunk into the
+  // card they sit on, their mark dim, and not clickable. Not LV_STATE_DISABLED,
+  // whose theme style would light them brighter than the live one.
+  const uint8_t ratio = flavorRatio[flavorSel & 1];
+  struct { lv_obj_t *b; lv_obj_t *mark; bool on; } steps[2] = {
+      {flvRatioMinus, flvRatioMinusMark, ratio > RATIO_MIN},
+      {flvRatioPlus,  flvRatioPlusMark,  ratio < RATIO_MAX}};
+  for (auto &t : steps) {
+    if (!t.b) continue;
+    if (t.on) lv_obj_add_flag(t.b, LV_OBJ_FLAG_CLICKABLE);
+    else      lv_obj_clear_flag(t.b, LV_OBJ_FLAG_CLICKABLE);
+    lv_obj_set_style_bg_color(t.b, lv_color_hex(t.on ? COL_CARD_ON : COL_CARD), LV_PART_MAIN);
+    if (t.mark)
+      lv_obj_set_style_text_color(t.mark, lv_color_hex(t.on ? COL_TEXT : COL_OFF), LV_PART_MAIN);
+  }
 }
 
 static void refreshHomeSelection() {
@@ -2972,8 +2994,8 @@ static void fillStartCb(lv_event_t *e) {
 
 static void ratioStepCb(lv_event_t *e) {
   int r = flavorRatio[flavorSel] + (int)(intptr_t)lv_event_get_user_data(e);
-  if (r < 6)  r = 6;    // the range the base's SET:Fn_RATIO accepts
-  if (r > 24) r = 24;
+  if (r < RATIO_MIN) r = RATIO_MIN;
+  if (r > RATIO_MAX) r = RATIO_MAX;
   flavorRatio[flavorSel] = (uint8_t)r;
   refreshFlavorText();
 }
@@ -3193,14 +3215,16 @@ static void buildFlavor(lv_obj_t *page) {
   lv_obj_t *row = mkCard(det, DETAIL_W, RATIO_CARD_H);
   lv_obj_align(row, LV_ALIGN_TOP_LEFT, DETAIL_X, PANE_BODY_Y);
   lv_obj_align(mkText(row, "RATIO", &lv_font_montserrat_20, COL_DIM), LV_ALIGN_TOP_LEFT, 0, 0);
-  lv_obj_t *minus = mkBtn(row, 84, 72, COL_CARD_ON);
-  lv_obj_align(minus, LV_ALIGN_BOTTOM_LEFT, 0, 0);
-  lv_obj_add_event_cb(minus, ratioStepCb, ACT_EVENT, (void *)(intptr_t)-1);
-  lv_obj_center(mkText(minus, LV_SYMBOL_MINUS, &lv_font_montserrat_28, COL_TEXT));
-  lv_obj_t *plus = mkBtn(row, 84, 72, COL_CARD_ON);
-  lv_obj_align(plus, LV_ALIGN_BOTTOM_RIGHT, 0, 0);
-  lv_obj_add_event_cb(plus, ratioStepCb, ACT_EVENT, (void *)(intptr_t)1);
-  lv_obj_center(mkText(plus, LV_SYMBOL_PLUS, &lv_font_montserrat_28, COL_TEXT));
+  flvRatioMinus = mkBtn(row, 84, 72, COL_CARD_ON);
+  lv_obj_align(flvRatioMinus, LV_ALIGN_BOTTOM_LEFT, 0, 0);
+  lv_obj_add_event_cb(flvRatioMinus, ratioStepCb, ACT_EVENT, (void *)(intptr_t)-1);
+  flvRatioMinusMark = mkText(flvRatioMinus, LV_SYMBOL_MINUS, &lv_font_montserrat_28, COL_TEXT);
+  lv_obj_center(flvRatioMinusMark);
+  flvRatioPlus = mkBtn(row, 84, 72, COL_CARD_ON);
+  lv_obj_align(flvRatioPlus, LV_ALIGN_BOTTOM_RIGHT, 0, 0);
+  lv_obj_add_event_cb(flvRatioPlus, ratioStepCb, ACT_EVENT, (void *)(intptr_t)1);
+  flvRatioPlusMark = mkText(flvRatioPlus, LV_SYMBOL_PLUS, &lv_font_montserrat_28, COL_TEXT);
+  lv_obj_center(flvRatioPlusMark);
   flvDetailRatio = mkText(row, "1:12", &lv_font_montserrat_48, COL_TEXT);
   lv_obj_align(flvDetailRatio, LV_ALIGN_BOTTOM_MID, 0, -12);
 
