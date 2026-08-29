@@ -127,8 +127,17 @@ body {
   object-position: center center;
 }
 
+.mount-scene-lower figure {
+  overflow: visible;
+}
+
 .mount-scene-lower figure > img {
-  object-position: 50% 46%;
+  position: absolute;
+  left: 0;
+  top: -40px;
+  width: 100%;
+  height: calc(100% + 40px);
+  object-position: 50% 50%;
 }
 
 .lower-arrow {
