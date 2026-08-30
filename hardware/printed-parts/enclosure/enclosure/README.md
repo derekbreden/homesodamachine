@@ -425,17 +425,16 @@ the choice:
 The datum is a groove centre on **x = 0**, the plane the whole machine is struck about, so the
 field is symmetric in x whatever its pitch.
 
-**The box has a second run, indoors.** What the field is struck along is a RAIL, and the outer
-plan is one of them; the bay's storey is the other. With the pump cartridge in, that storey
-shows the two narrow mouth returns outboard of the cavity planes and the **wings** of the tee
-wall behind the drawer. `_bay_storey_segments` walks the complete open-box plan from one mouth
-edge to the other: [350.62 mm](STOREY_RUN) over the storey at z
-[177.8..281 mm](STOREY_BAND), five straight runs with the two open flanks represented as air,
-with its own datum on **x = 0** at the tee wall and the same
-[5.1285 mm](FLUTE_PITCH) pitch — so a groove lands on the machine's plane of symmetry inside as
-it does outside. It does not close, because a storey open at its mouth is not a loop; a run's
-two ends are edges like any other and the field ramps out on them, which is what keeps the
-flutes off the mouth arris.
+**The box has a second field indoors.** What the field is struck along is a RAIL, and the outer
+plan is one of them. With the pump cartridge in, the bay storey shows the two narrow mouth
+returns outboard of the cavity planes and the **wings** of the tee wall behind the drawer; those
+three actual surfaces are three open rails. `_bay_storey_segments` carries their one global
+arc coordinate from one mouth edge to the other: [350.62 mm](STOREY_RUN) over the storey at z
+[177.8..281 mm](STOREY_BAND), with the two open flanks represented as air that advances the
+phase but is never cut. The datum remains **x = 0** at the tee wall and the pitch remains
+[5.1285 mm](FLUTE_PITCH), so a groove lands on the machine's plane of symmetry inside as it
+does outside. Each real surface is open; its two ends are edges like any other and the field
+ramps out on them, which keeps the flutes off every mouth and window arris.
 
 **And a body berthed in the room is an edge too.** Inside a storey the piece has material at
 the rail in places the drawer and its steel stand in front of, and a face another body beds
