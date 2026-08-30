@@ -427,16 +427,15 @@ field is symmetric in x whatever its pitch.
 
 **The box has a second field indoors.** What the field is struck along is a RAIL, and the outer
 plan is one of them. With the pump cartridge in, the bay storey shows the two narrow mouth
-returns outboard of the cavity planes and the **wings** of the tee wall behind the drawer; those
-three actual surfaces are three open rails. `_bay_storey_segments` carries their one global
-arc coordinate from one mouth edge to the other: [350.62 mm](STOREY_RUN) over the storey at z
-[177.8..281 mm](STOREY_BAND), with the two open flanks represented as air that advances the
-phase but is never cut. The central phase segment spans the complete box width, but its real
-tee-wall rail stops at the two interior flank planes; the outboard margins meet the exterior
-field and carry no second cutter. The datum remains **x = 0** at the tee wall and the pitch
-remains [5.1285 mm](FLUTE_PITCH), so a groove lands on the machine's plane of symmetry inside
-as it does outside. Each real surface is open; its two ends are edges like any other and the
-field ramps out on them, which keeps the flutes off every mouth and window arris.
+returns outboard of the cavity planes; those two actual surfaces are two open rails.
+`_bay_storey_segments` carries their one global arc coordinate from one mouth edge to the other:
+[350.62 mm](STOREY_RUN) over the storey at z [177.8..281 mm](STOREY_BAND). The two open flanks
+and the lower tee face advance the phase but carry no cutter: the former are air, the latter is
+berthed or hidden, and the upper closure face stands on another Y plane. The datum remains
+**x = 0** and the pitch remains [5.1285 mm](FLUTE_PITCH), so both ledges retain the machine's
+inside phase. Each real surface is open; its two ends are edges like any other and the field
+ramps to zero on them, as it does at both Z ends of the band, which keeps cutter caps off every
+mouth and window arris.
 
 **And a body berthed in the room is an edge too.** Inside a storey the piece has material at
 the rail in places the drawer and its steel stand in front of, and a face another body beds

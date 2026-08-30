@@ -244,13 +244,12 @@ column_corners = ((-1, -1), (1, -1), (-1, 1), (1, 1))
 # the whole machine is struck about. Whatever `flute_count` is, the half-perimeter carries
 # the same grooves the other way round.
 #
-# AND THE BOX HAS A SECOND FIELD, INDOORS. The bay's storey shows two mouth ledges and the tee
-# wall behind the drawer where the drawer does not reach it. Those three actual surfaces are
-# three open rails; `_bay_storey_segments` carries their one global phase path across the two
-# intervening window spans, which are air and never cutter paths. All three are struck at THIS
-# pitch from a datum on the same x = 0, so a groove lands on the machine's plane of symmetry
-# inside as it does outside. `flute_rails` is where the box says which runs it has, and
-# `flute_skin.py` reads nothing else about any of them.
+# AND THE BOX HAS A SECOND FIELD, INDOORS. The bay's storey shows two mouth ledges, and those
+# two actual surfaces are two open rails. `_bay_storey_segments` carries their one global phase
+# path across the intervening open flanks and hidden tee span, which are never cutter paths.
+# Both are struck at THIS pitch from a datum on the same x = 0, so their phase remains the
+# machine's phase inside as it is outside. `flute_rails` is where the box says which runs it
+# has, and `flute_skin.py` reads nothing else about either of them.
 flute_count = 260
 # THE DEPTH IS THE COUPON'S. the corner coupon at `c14bb2fff` cut this into a `wall`-thick standing wall
 # and printed it; going deeper is a new question, not a free one.
@@ -2939,9 +2938,9 @@ def _bay_storey_segments(inner, outer, bay, plate):
     ITS TWO LONG OUTBOARD STRETCHES ARE AIR. From the front-wall interior plane to the tee wall
     the side wall is cut away over this whole storey (`_bay_cut`), so these two segments carry
     the global arc coordinate across each window but never become flute rails. The central
-    segment likewise carries the phase to the exterior planes, while its actual show face stops
-    at the two interior flank planes. `flute_rails` strikes three separate open runs on the two
-    mouth ledges and that trimmed central tee wall.
+    segment carries phase across the lower tee face, which is berthed or hidden; above it the
+    final closure face is on another Y plane. `flute_rails` therefore strikes only two separate
+    open runs, one on each actual mouth ledge.
 
     AND IT DOES NOT CLOSE. What lies between the two mouth edges is the drawer, not a surface; a run
     stops at its own two ends and the field ramps out on them the way it ramps out on any edge,
@@ -3046,11 +3045,10 @@ def plan_at(s, outer):
 def flute_rails(box, berthed=()):
     """Every run this box's field is struck along.
 
-    THE OUTER PLAN IS ONE OF THEM. The bay storey's two mouth ledges and central tee wall are
-    three more open rails; its two intervening window spans are air and only advance the global
-    arc coordinate (`_bay_storey_segments`). Every surface is struck at the same `flute_pitch`
-    from a datum on x = 0, so each puts a groove on the plane the machine is struck about and
-    neither is told the other exists.
+    THE OUTER PLAN IS ONE OF THEM. The bay storey's two mouth ledges are two more open rails;
+    its intervening windows and hidden tee span only advance the global arc coordinate
+    (`_bay_storey_segments`). Every surface is struck at the same `flute_pitch` from a datum on
+    x = 0, so each keeps the same phase and neither is told the other exists.
 
     `berthed` is what the assembly stands in that storey — the lower cradle, top clamp and steel
     plate. What a fitted body hides is not show face and gets no flutes
@@ -3062,27 +3060,18 @@ def flute_rails(box, berthed=()):
         segments = _bay_storey_segments(box.inner, outer, box.pump_bay, box.pack.collet_plate)
         run = sum(length for _kind, length, _data in segments)
         cursor = -run / 2.0
-        # Segments 1 and 3 cross the two open flanks. They preserve the phase between the three
-        # real surfaces but are not themselves cutter paths: late-fused guide cheeks can stand
-        # on their opposite side, and an inside rail crossing that air would cut those exterior
-        # faces. Each real surface is open, so its two actual free edges fade normally.
+        # Segments 1 and 3 cross the two open flanks, and segment 2 crosses the lower tee face
+        # hidden by the installed cartridge/plate. They preserve phase between the two real
+        # mouth ledges but are not cutter paths: late-fused guide and cap faces stand on their
+        # opposite sides. Each ledge is open, so its two actual free edges fade normally.
         for index, segment in enumerate(segments):
             length = segment[1]
-            if index in (0, 2, 4):
+            if index in (0, 4):
                 start = cursor
                 one = (segment,)
-                if index == 2:
-                    # The global segment remains the complete box width so x=0 keeps phase zero.
-                    # Its real bay-facing surface ends on the two interior flank planes; the
-                    # outboard margins meet the exterior field and are not cutter paths.
-                    x0, x1 = bay_x_span(box.inner)
-                    trim = x0 - outer[0]
-                    _kind, _length, ((_px, py), tangent, normal) = segment
-                    one = (("line", x1 - x0, ((x0, py), tangent, normal)),)
-                    start += trim
                 rails.append(_flute_skin.Rail(
                     at=lambda s, one=one, start=start: _walk(one, s - start),
-                    length=one[0][1], start=start, closed=False,
+                    length=length, start=start, closed=False,
                     band=bay_storey_z(box.pump_bay), berthed=tuple(berthed),
                     mouth=(0.0, -1.0)))
             cursor += length
