@@ -5119,26 +5119,28 @@ def cap_screw_ys(inner, plate):
 def _pump_drop_voids(box):
     """The two straight Z insertion wells through the lower cradle.
 
-    BELOW THE BRACKET the well is the head's square with `cap_pump_air` on every plumb face.
-    The outlet-side band widens to the measured fitting span and remains open upward, because
-    those fittings travel through every higher Z station while a pump is lowered.
+    BELOW THE BRACKET the well is `pump_tray.drop_well` on `cap_pump_air` — the two-piece
+    bench case's own cavity, the solid `kamoer_kphm400.build_head` clips this pump to, carried
+    up its axis so every station stands as open as the widest one under it. It brings the
+    case's figures with it: 56 mm across at the narrow half, 64 at the centre, 70 at the
+    outlet face where the fittings stand, the corner radii, and the 45 degree faces at both
+    `pump_case.flank_ramp_bands` that the head lands on. The outlet-side band runs on aft to
+    the block's own face at `cap_slot_half`, and stands open to the top.
 
     ABOVE THE BRACKET the well is the clamp collar's complete 70 mm footprint with
     `clamp_drop_air` on every face. That one opening passes the stamped bracket, the fittings,
     the pump and then the complete clamp. The two bridge slots continue the same path through
     the centre spine. At the seat the upper wells stop exactly on the bracket plane, leaving
-    the smaller head opening below and therefore a land under the bracket on its three closed
+    the case's own room below and therefore a land under the bracket on its three closed
     sides."""
     trays, plate = box.pack.pump_trays, box.pack.collet_plate
     split = cap_split_z(trays)
-    floor = bay_floor_z(trays)[1]
     top = box.pump_bay[2] + 1.0
-    head = _tray.head_half + cap_pump_air
     collar = _tray.half_width() + clamp_drop_air
     out = []
     for cx, cy, cz in trays:
-        lower = _ybox(cx - head, cx + head, cy - head, cy + head,
-                      floor - 1.0, split + 0.001)
+        lower = _tray.drop_well(cap_pump_air).val().moved(
+            cq.Location(cq.Vector(cx, cy, cz)))
         outlet_face = cy + _tray.head_half - _tray.outlet_relief
         sill = cz - _tray.head_depth + _tray.outlet_relief_run
         fittings = _ybox(cx - cap_slot_half, cx + cap_slot_half,
