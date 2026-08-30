@@ -57,13 +57,13 @@
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 512 of 1000 free, the next cut wants 3, and the whole lock reads by name in 115.9 MB against 117.2 MB of bundle",
+      "note": "check_release_room: 499 of 1000 free, the next cut wants 3, and the whole lock reads by name in 115.8 MB against 117.1 MB of bundle",
       "status": "ok"
     },
     {
       "check": "tools/check_web_tests.py",
-      "note": "check_web_tests: web's suite passes",
-      "status": "ok"
+      "note": "cd web && npm test",
+      "status": "red"
     },
     {
       "check": "tools/bazel/check_build_file.py",
@@ -82,7 +82,7 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 0 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 267 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 4 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 267 member(s) keep their provenance",
       "status": "ok"
     }
   ],
@@ -92,6 +92,10 @@
       "  tools/publish_now.py answers to selftest and selftests.json does not name it",
       "      tools/cad-venv/bin/python tools/bazel/trace_inputs.py --selftests tools/publish_now.py",
       "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
+    ],
+    "tools/check_web_tests.py": [
+      "the suite did not finish within 300s",
+      "  cd web && npm test"
     ]
   },
   "green": false
