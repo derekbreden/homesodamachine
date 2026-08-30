@@ -2937,8 +2937,10 @@ def _bay_storey_segments(inner, outer, bay, plate):
 
     ITS TWO LONG OUTBOARD STRETCHES ARE AIR. From the front-wall interior plane to the tee wall
     the side wall is cut away over this whole storey (`_bay_cut`), so these two segments carry
-    the global arc coordinate across each window but never become flute rails. `flute_rails`
-    strikes three separate open runs on the two mouth ledges and the central tee wall.
+    the global arc coordinate across each window but never become flute rails. The central
+    segment likewise carries the phase to the exterior planes, while its actual show face stops
+    at the two interior flank planes. `flute_rails` strikes three separate open runs on the two
+    mouth ledges and that trimmed central tee wall.
 
     AND IT DOES NOT CLOSE. What lies between the two mouth edges is the drawer, not a surface; a run
     stops at its own two ends and the field ramps out on them the way it ramps out on any edge,
@@ -3073,11 +3075,20 @@ def flute_rails(box, berthed=()):
         for index, segment in enumerate(segments):
             length = segment[1]
             if index in (0, 2, 4):
-                one = (segment,)
                 start = cursor
+                one = (segment,)
+                if index == 2:
+                    # The global segment remains the complete box width so x=0 keeps phase zero.
+                    # Its real bay-facing surface ends on the two interior flank planes; the
+                    # outboard margins meet the exterior field and are not cutter paths.
+                    x0, x1 = bay_x_span(box.inner)
+                    trim = x0 - outer[0]
+                    _kind, _length, ((_px, py), tangent, normal) = segment
+                    one = (("line", x1 - x0, ((x0, py), tangent, normal)),)
+                    start += trim
                 rails.append(_flute_skin.Rail(
                     at=lambda s, one=one, start=start: _walk(one, s - start),
-                    length=length, start=start, closed=False,
+                    length=one[0][1], start=start, closed=False,
                     band=bay_storey_z(box.pump_bay), berthed=tuple(berthed),
                     mouth=(0.0, -1.0)))
             cursor += length

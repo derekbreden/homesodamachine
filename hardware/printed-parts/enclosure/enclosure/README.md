@@ -431,10 +431,12 @@ returns outboard of the cavity planes and the **wings** of the tee wall behind t
 three actual surfaces are three open rails. `_bay_storey_segments` carries their one global
 arc coordinate from one mouth edge to the other: [350.62 mm](STOREY_RUN) over the storey at z
 [177.8..281 mm](STOREY_BAND), with the two open flanks represented as air that advances the
-phase but is never cut. The datum remains **x = 0** at the tee wall and the pitch remains
-[5.1285 mm](FLUTE_PITCH), so a groove lands on the machine's plane of symmetry inside as it
-does outside. Each real surface is open; its two ends are edges like any other and the field
-ramps out on them, which keeps the flutes off every mouth and window arris.
+phase but is never cut. The central phase segment spans the complete box width, but its real
+tee-wall rail stops at the two interior flank planes; the outboard margins meet the exterior
+field and carry no second cutter. The datum remains **x = 0** at the tee wall and the pitch
+remains [5.1285 mm](FLUTE_PITCH), so a groove lands on the machine's plane of symmetry inside
+as it does outside. Each real surface is open; its two ends are edges like any other and the
+field ramps out on them, which keeps the flutes off every mouth and window arris.
 
 **And a body berthed in the room is an edge too.** Inside a storey the piece has material at
 the rail in places the drawer and its steel stand in front of, and a face another body beds
