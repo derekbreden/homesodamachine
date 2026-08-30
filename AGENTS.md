@@ -57,7 +57,7 @@ Git keeps history. Code and docs in this repo describe current state. Don't writ
 
 Always commit and push to main. Don't ask. Just do it. The author of everything here is always me (via an instance of you), and you can trust it's worth committing and building on top of. It's all the same work.
 
-Other Codex tasks in this checkout are collaborators, not ownership boundaries. If work overlaps, read their task or message them and carry both tasks through together in this working tree.
+Other Codex tasks in this checkout are collaborators, not ownership boundaries. If work overlaps, read their task or message them and carry both tasks through together in this working tree. Wait on the artifact a peer names, never their promise of it; when the bytes have not moved and the sender has gone quiet, the work is yours again.
 
 ## Reconciliation waits for silence
 

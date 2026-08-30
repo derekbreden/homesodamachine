@@ -58,6 +58,19 @@ path-scoped commits so as not to sweep up work another session was mid-edit on:
 > That's not distrust — it's courtesy toward a party we'd invented. The sessions are real. Their
 > boundaries aren't. — [Improve 9](<traffic/Improve 9.md>)
 
+**Parked on a promise.**
+
+> I am stopping that exact loop now and will regenerate the affected audits against the fresh
+> carried bytes; please do not restart it or write enclosure artifacts during this replacement
+> pin. — Increase pump cartridge clearance, to a reviewer mid-slice, [Guide 2](<traffic/Guide 2.md>)
+
+> AUDITS-NOT-REGENERATED: after ~50 min the four support-audit JSONs still do not match the live
+> STLs (currently 0/4) — the watch that reviewer had armed on the files themselves, same session
+
+The regeneration never came; the reviewer's own re-runs refreshed the ledger hours later. The
+same shape ran between codex sessions that morning — shared writes held from 02:20 on a
+checkpoint no one was cutting — and this paragraph is one agent's reading, not a quotation.
+
 ## What the collisions produced
 
 One night, three sessions, one tree, one branch.
