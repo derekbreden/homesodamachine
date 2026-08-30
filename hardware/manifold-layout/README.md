@@ -158,8 +158,10 @@ Two figures in [`manifold_layout.py`](manifold_layout.py) are the study's own ra
 part's. `BUTT` is the tube left outside a pair of butted quick-connects, and it is 0.
 
 `BARB_STANDOFF` is the exposed tube between each pump barb and its anchor tee's branch collet,
-and it is [5.7](BARB_STANDOFF) mm — **the collet plate's berth**. Both pumps ride out of the box
-on their own pump cartridge and these four runs are what release. A laser-cut 1/8" 316 flat stands on
+and it is [11.85](BARB_STANDOFF) mm. Its first [6.15](PUMP_PROUD) mm carries the pump and its
+barb plane forward with the proud cartridge; the remaining [5.7](BARB_PLATE_BERTH) mm is
+**the collet plate's berth**. Both pumps ride out of the box on their own pump cartridge and
+these four runs are what release. A laser-cut 1/8" 316 flat stands on
 edge in the gap with one large hole per tube — wide enough to pass the Ø6.35 tube, narrow enough
 to catch the collet nose. So
 pulling the pump cartridge draws the anchor tees forward against the steel and the tubes come out of

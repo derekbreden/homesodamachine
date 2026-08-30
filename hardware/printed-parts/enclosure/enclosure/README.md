@@ -963,9 +963,11 @@ itself, and `check_tube_seated` reads the three run anchors the same way.
 **The pumps leave through one large lower cradle.** `enclosure-pump-cartridge`
 (`build_pump_cartridge`) owns the complete removable front wall, the filled body behind it,
 the plate stop and both hand pulls. It reaches from the bay sill to the lintel and rides the
-bay floor. Its outer shell follows the complete 215 mm enclosure silhouette, including both
-rounded front corners and side skins, while its filled body reaches both cavity planes. The
-front display-support columns have no section anywhere in this withdrawal span.
+bay floor. Its outer shell keeps the complete 215 mm enclosure width, including both rounded
+front corners and side skins, and stands [6.15 mm](PUMP_PROUD) proud of the fixed front face.
+The same [3.9 mm](PUMP_FACE_SKIN) face section follows the pumps forward. Its filled body
+reaches both cavity planes, and the front display-support columns have no section anywhere in
+this withdrawal span.
 
 **Each pump drops into that cradle from Z+.** Two straight wells pass the motor, boss, stamped
 bracket, head and tube fittings at every insertion station. Below `cap_split_z`, the head well
@@ -993,11 +995,16 @@ the bracket and full fitting envelope, `top-clamp-drops-on` includes that otherw
 steel bracket, and `pump-clamped-in-cradle` reads printed bearing below and above all three
 closed bracket sides.
 
-**Each fitting opening is [69.55 mm](CAP_TUBE_OPEN) wide.** The complete pump measures
-[69.25 mm](CAP_TUBE_PART) across the two tube-side fittings, its widest X dimension, and the
-cradle gives that span [0.15 mm](CAP_TUBE_AIR) running clearance at each outer edge. The slot
-runs from below the outlet-relief sill through the complete vertical insertion path. No column,
-rib or nominal head-width opening narrows it.
+**Each of the four fitting openings is [12.55 mm](CAP_TUBE_OPEN) wide.** A fitting is
+[12.25 mm](CAP_TUBE_PART), the two on each pump stand [57 mm](CAP_TUBE_PITCH) apart, and the
+pair's complete outside span is [69.55 mm](CAP_TUBE_SPAN). Each passage carries
+[0.15 mm](CAP_TUBE_AIR) running clearance per side from below the outlet-relief sill through
+the complete vertical insertion path. Printed wall remains between and outside the passages.
+
+The pumps, face and their barb planes stand [6.15 mm](PUMP_PROUD) forward together. The pump
+case wells therefore stop one running slip ahead of the cartridge's aft face, leaving a nominal
+[6 mm](PUMP_PULL_WALL) Y+ wall for the hand pulls to load while the cartridge releases the
+four collets.
 
 Nothing latches the cartridge in the enclosure. The four barb tubes gripped in the anchor
 tees' branch collets retain it, and the **collet plate** releases them: a laser-cut flat of
@@ -1084,19 +1091,19 @@ higher. `bay-floor-bedded` reads the floor whole on the bed and that land whole 
 
 **The wall over the steel is what stops it** (`_plate_cap`). A plate dropped in from Z+ needs
 its own lane left open above it for the whole of its height — that is what a drop-in is — and
-fed up from the seam plane it needs no room over its head at all. Except for the two local
-loaded-bracket passages, the lane above the steel is filled from the top edge to the bay's
-ceiling at [281 mm](PLATE_CAP_TOP).
+fed up from the seam plane it needs no room over its head at all. The lane above the steel is
+filled from the top edge to the bay's ceiling at [281 mm](PLATE_CAP_TOP).
 [1 mm](PLATE_CAP_LAND) of that is flat, taken off the tee wall's fore face at
 [216.5 mm](PLATE_CAP_Z): the top edge comes up onto it and stops, and **that land is the
 plate's Z datum** — the only stop in this joint, and the reason the outline needs no shoulder.
 Fore of the land the underside **rakes at 45°** to `plate_guide_fore_y`, the same plane the two
 fixed cheeks keep for their whole height, because the lane under it is air at print time and a
 square ceiling `PLATE_T` wide would be a ledge hanging off the tee wall for the width of the
-machine. Two bracket-width notches cross only the lower corbel; each starts one
-`clamp_drop_air` fore of that plane and closes on its own 45° roof. The steel's flat stop land,
-both fixed cheeks and the centre web remain whole. Outside those two bracket rooms the pump
-cartridge's back lands `cap_kiss` fore of printed wall above and steel below.
+machine. Its complete front edge holds the nominal corbel height z
+[221.865 mm](PLATE_CAP_FORE_Z), continuously across X; the forward pump station leaves the
+loaded brackets 0.78 mm clear of that edge. The steel's flat stop land and both fixed cheeks
+remain whole, and the pump cartridge's back lands `cap_kiss` fore of printed wall above and
+steel below.
 
 **The guides are two stationary L sections** (`_plate_fore_guides`) standing fore of the
 plate's outer tails and returning around its ends into the fixed side-wall stock aft of the
@@ -1157,15 +1164,17 @@ so what runs down the face drains out (`_sill_wash`); the lintel over the openin
 carries the facet and the display on a stated ligament (`bay-under-display`).
 `heads-sweep-out` reads each head's path to the front against the piece it passes
 through, and `pump-cartridge-sweep-out` reads the complete lower-cradle and top-clamp envelopes.
-The removable shell follows the enclosure's rounded plan while the filled block behind it
-reaches both cavity planes. Front-bottom's front lip drops across the whole flat span
+The removable shell follows the enclosure's rounded plan with its front plane
+[6.15 mm](PUMP_PROUD) proud while the filled block behind it reaches both cavity planes.
+Front-bottom's front lip drops across the whole flat span
 (`_front_flat_lip_drop`) — the floor stands in that band and the heads run down through
 it — and the front wall below keeps its single `front_wall` section from slab to seam.
 The face keeps [0.5 mm](PUMP_CARTRIDGE_CLEARANCE) of Z clearance at the sill and lintel. There
 is no X inset or X/Z taper.
 
-**The front wall is `front_wall` thick — a face a user hauls on — and grows inward,**
-the exterior and the facet standing where the appliance's stated depth put them. What
+**The fixed front wall is `front_wall` thick and grows inward.** The removable pump face is the
+load-bearing exception: it stands [6.15 mm](PUMP_PROUD) proud with [3.9 mm](PUMP_FACE_SKIN) over
+each head relief and [6 mm](PUMP_PULL_WALL) behind the seated pump wells. What
 noses into the section gets a 45°-chamfered relief (`_front_relief_cuts`): one stated
 pocket across the compressor, floored on its own kiss, and one pocket per pump in the
 lower cradle's face, floored where the pump head and bracket insertion well puts its root
