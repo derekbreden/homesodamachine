@@ -15,7 +15,7 @@ the tip on the tops of the texture:
 | other plate, 0.2 mm | +0.01 |
 | other plate, 0.4 mm | — |
 
-Negative lowers. This tree stands a flat **+0.01 to +0.15 mm** over those values on every
+Negative lowers. This tree stands a flat **+0.01 to +0.20 mm** over those values on every
 branch, so the figure holds whichever plate the project is set to. At +0.02, textured PEI
 with the 0.4 mm nozzle comes to a trim of 0.00 — Bambu's texture compensation off, the nozzle
 where homing and the bed mesh put it.
@@ -30,7 +30,7 @@ at the prints here, the more I think I might be wrong and we might need a .01."*
 
 ## The carriers
 
-[`z-trim-0.01.3mf`](z-trim-0.01.3mf) through [`z-trim-0.15.3mf`](z-trim-0.15.3mf) are empty
+[`z-trim-0.01.3mf`](z-trim-0.01.3mf) through [`z-trim-0.20.3mf`](z-trim-0.20.3mf) are empty
 plates, one per value, carrying nothing but the printer profile — `Bambu Lab H2C 0.4 nozzle`
 with `machine_start_gcode` as its one setting modified from system, on the `Polymaker PET-GF
 @BBL H2C` slot over a textured PEI plate. Open one in Bambu Studio and save the printer preset
@@ -38,7 +38,7 @@ it loads modified.
 
 Each carrier adds the value in its name to all four stock branches, so
 `z-trim-0.07.3mf` on a textured plate with the 0.4 mm nozzle emits `G29.1 Z{0.05}` — stock
-−0.02 plus 0.07. The files run 0.01 to 0.15 in 0.01 steps.
+−0.02 plus 0.07. The files run 0.01 to 0.20 in 0.01 steps.
 
 What the committed files stand on — [`petgf.3mf`](petgf.3mf) is the PET-GF 0.4 mm working
 profile, whichever models are loaded into it at the time:
