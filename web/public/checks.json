@@ -17,8 +17,8 @@
     },
     {
       "check": "hardware/scripts/check_flutes.py",
-      "note": "✓ every payload stands within the budget its print was cut to",
-      "status": "ok"
+      "note": "bazel build //:flute-payload && tools/cad-venv/bin/python tools/bazel/sync_tree.py --write --targets //:flute-payload",
+      "status": "red"
     },
     {
       "check": "hardware/scripts/check_ledger.py",
@@ -27,8 +27,8 @@
     },
     {
       "check": "hardware/scripts/check_payloads.py",
-      "note": "payloads: 19 solid(s) cut from the bytes beside them, 11 scene(s) at the finishes this tree states",
-      "status": "ok"
+      "note": "tools/cad-venv/bin/python hardware/scripts/flute_payload.py",
+      "status": "red"
     },
     {
       "check": "hardware/scripts/check_pinmap.py",
@@ -93,9 +93,29 @@
   ],
   "detail": {
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds 2dcf0d8c255f87673cb115defb74bb95 for the 107 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 4e71738d8f8e43df474b03d54f369618 here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was taken from a different tree — it holds 2dcf0d8c255f87673cb115defb74bb95 for the 107 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at e7ef06bc8778546efccd08fda69695fe here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
+    ],
+    "hardware/scripts/check_flutes.py": [
+      "4 payload(s) were cut from a STEP that is no longer the one beside them:",
+      "  ✗ enclosure-front-bottom — the viewer draws this file, and it is another machine's",
+      "  ✗ enclosure-front-top — the viewer draws this file, and it is another machine's",
+      "  ✗ enclosure-pump-cap — the viewer draws this file, and it is another machine's",
+      "  ✗ enclosure-pump-cartridge — the viewer draws this file, and it is another machine's",
+      "  the flute cut is what puts the surface back:",
+      "    bazel build //:flute-payload && tools/cad-venv/bin/python tools/bazel/sync_tree.py --write --targets //:flute-payload"
+    ],
+    "hardware/scripts/check_payloads.py": [
+      "4 solid(s) whose surface is not in the payload beside them:",
+      "    hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh — cut from other bytes than the solid holds",
+      "    hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh — cut from other bytes than the solid holds",
+      "    hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh — cut from other bytes than the solid holds",
+      "    hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh — cut from other bytes than the solid holds",
+      "  the run that cuts a solid writes the payload beside it:",
+      "    tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/enclosure.py",
+      "  and the enclosure's flutes go back into those payloads after:",
+      "    tools/cad-venv/bin/python hardware/scripts/flute_payload.py"
     ]
   },
   "green": false
