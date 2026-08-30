@@ -63,7 +63,7 @@ Several sessions work this tree at once, all on main, all committing. A dirty fi
 
 So: don't go read-only on sight of someone else's edit, don't narrow a commit to dodge their hunks, and don't end a turn offering to wait for the tree to settle. Commit your own work in small pieces as it lands. The collisions here are between running programs and the artifacts they produce, and meeting them live is what surfaces them — a merge would not.
 
-Wait on the inputs your work reads, never on a clean tree: with sessions live `git status` is never empty, so a wait armed on it never fires. `tools/bazel/graph.json` names what each generator reads. A file that parses and has not been written in a minute is one you can read.
+Wait on the inputs your work reads, never on a clean tree: with sessions live `git status` is never empty, so a wait armed on it never fires. `tools/bazel/graph.json` names what each generator reads. A file that parses and has not been written in a minute is one you can read. A peer's promise is not an input either: arm the wait on the artifact it names, and when the bytes have not moved and the sender has gone quiet, the work is yours again.
 
 `calibration/Traffic.md` is the record — five sessions of this, and what the collisions produced.
 
