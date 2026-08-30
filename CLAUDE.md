@@ -22,6 +22,17 @@ See `marketing/target-market.md` for details.
 
 Run scripts with the project's CadQuery venv: `tools/cad-venv/bin/python`.
 
+That venv is `.gitignore`d and one machine's own, so the import shim it reads at startup is
+tracked separately and copied in — the same way the venv is built rather than committed:
+
+```
+tools/cad-venv/bin/python tools/cad-venv-site/install.py
+```
+
+`--check` says whether this checkout's interpreter has it. Without it every CAD process loads
+VTK, which nothing here draws with, and pays 145 MB and two seconds for it; the solids are
+byte-identical either way, so a tree that has not run it is slow and not wrong.
+
 See `hardware/printed-parts/faucet/faucet-shell/faucet_shell.py` for patterns to follow, and its companion `faucet_shell.md` for the idioms those patterns embody.
 
 ## Firmware
@@ -51,6 +62,27 @@ So: don't go read-only on sight of someone else's edit, don't narrow a commit to
 Wait on the inputs your work reads, never on a clean tree: with sessions live `git status` is never empty, so a wait armed on it never fires. `tools/bazel/graph.json` names what each generator reads. A file that parses and has not been written in a minute is one you can read.
 
 `calibration/Traffic.md` is the record — five sessions of this, and what the collisions produced.
+
+## Reconciliation waits for silence
+
+Iterate fast while I'm responding: make the change, show me the result, show me on
+homesodamachine.com. Don't reconcile first. When I go quiet, that is when you reconcile — run the
+full derive, resync the ledger, the docs and the deck, close whatever is behind. The moment I ask
+for anything, stop reconciling and come back. A commit is a checkpoint, not a claim that
+everything downstream of it is current.
+
+There is no final release to hold work for. Publish each iteration as it becomes coherent and put
+it in front of me; work held back for a ceremonial cut is work nobody has reviewed.
+
+## A check costs the loop
+
+Nothing goes into the build that makes it slower. A gate that turns a five-minute derive into a
+twenty-minute one has cost more than it can return: the review here is my eye on the drawn part,
+and time added between an edit and that look is taken from the only reviewer that finds these
+defects. Prove a change by deriving it and looking at it. Existing gates stay and get faster where
+they can; a new one earns its wall time against the loop it slows, and one that cannot is not
+written. [`hardware/ledger/build-time.md`](/hardware/ledger/build-time.md) prices what a run
+takes, and `_build_time.py --check` names a generator coming in slower than its row.
 
 ## Calibration
 
