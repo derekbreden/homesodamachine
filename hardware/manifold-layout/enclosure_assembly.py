@@ -2291,13 +2291,11 @@ def check_cartridge_architecture(pieces) -> Bound:
 
 
 def check_cartridge_full_front_wall(pieces, shell) -> Bound:
-    """Whether the cradle owns the untapered front wall above its lower bed ramps.
+    """Whether the cradle owns the untapered front wall from its flat bed to the lintel.
 
     The front-wall target stops at the intentional upper pump/clamp well's foremost Y face.
-    The two side targets stop before either hand pocket. They describe only material assigned
-    to the full-width cradle after its three lower 45-degree ramps reach the show faces: no
-    pump opening, grip, guide notch or horizontal running clearance is counted as missing
-    stock."""
+    The two side targets stop before either hand pocket. No pump opening, grip, guide notch or
+    horizontal running clearance is counted as missing stock."""
     cradle = pieces.get("pump-cartridge")
     fixed = pieces.get("front-top")
     if cradle is None or fixed is None:
@@ -2305,8 +2303,7 @@ def check_cartridge_full_front_wall(pieces, shell) -> Bound:
     cradle = cradle.val() if hasattr(cradle, "val") else cradle
     fixed = fixed.val() if hasattr(fixed, "val") else fixed
     inner, outer, bay = shell.inner, shell.outer, shell.pump_bay
-    z0 = (_enc.bay_floor_z(shell.pack.pump_trays)[1]
-          + _enc.pump_cartridge_lower_ramp_rise(inner, outer))
+    z0 = _enc.bay_floor_z(shell.pack.pump_trays)[1]
     z1 = bay[2] - _enc.face_reveal
     edge = _enc._cap_x_span(bay)[1]
     y1 = _enc.plate_guide_notch_fore_y(shell.pack.collet_plate)

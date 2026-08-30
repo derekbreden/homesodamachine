@@ -1064,15 +1064,11 @@ wall vertical and supported, nothing anywhere in it overhanging. The opening run
 collet plate to the tee wall's fore face**, where it ends on printed section rather than on a
 free edge.
 
-**The lower cradle grows from its bed before it fills the complete exterior width.** Its filled
-interior bears directly on the floor. From that bedded rectangle, the proud front rises outward
-in Y and the two flanks rise outward in X at 45°; the three wall-normal ramps meet as hips in
-the rounded front corners. The last reaches the show face [5.1 mm](PUMP_LOWER_RAMP_RISE) above
-the bed. Every ramp begins on the bed plane without a vertical starter strip. Above them the
-cradle keeps the complete untapered exterior width through the 0.5 mm lintel reveal, while the
-opening below the outward-growing show faces remains empty for the drawer's straight Y
-withdrawal. Only the grip pockets and two aft guide notches otherwise depart from that outline;
-the small clamp sits wholly inside the wells above.
+**The lower cradle's complete exterior stands on its flat bed.** Its proud front, both rounded
+corners and both exterior flanks continue plumb to that plane as one uninterrupted silhouette,
+without a lower inset, bevel, starter strip or shelf. It keeps that complete outline through the
+0.5 mm lintel reveal. Only the grip pockets and two aft guide notches otherwise depart from the
+outline; the top clamp sits wholly inside the wells above.
 
 ## The bay floor
 
@@ -1186,8 +1182,9 @@ filled block behind it reaches both cavity planes.
 Front-bottom's front lip drops across the whole flat span
 (`_front_flat_lip_drop`) — the floor stands in that band and the heads run down through
 it — and the front wall below keeps its single `front_wall` section from slab to seam.
-The face keeps [0.5 mm](PUMP_CARTRIDGE_CLEARANCE) of Z clearance below the lintel; its lower
-front and flank ramps begin on the bed. There is no X inset or X/Z taper above those ramps.
+The face keeps [0.5 mm](PUMP_CARTRIDGE_CLEARANCE) of Z clearance below the lintel. Its complete
+front, rounded corners and exterior flanks stand plumb from the flat bed with no lower inset or
+taper.
 
 **The fixed front wall is `front_wall` thick and grows inward.** The removable pump face is the
 load-bearing exception: it stands [7.35 mm](PUMP_PROUD) proud with
@@ -1236,9 +1233,9 @@ The fitted opening's exact source dimensions and section readings are in
 uses those case profiles to shape the broad pressing base and cut the boss and can rooms from
 one service clamp.
 
-**The lower cradle prints on its Z− floor.** Its filled body rises from that bed and carries
-the front and both flank skins outward on their three lower 45° ramps; the two pull roofs also
-climb at 45° and the pump wells remain open above. The top clamp's complete
+**The lower cradle prints on its Z− floor.** Its filled body, proud front, rounded corners and
+both flank skins rise plumb from that bed; the two pull roofs climb at 45° and the pump wells
+remain open above. The top clamp's complete
 field begins on one broad Z− bed face. Its only internal down-facing transitions are the two
 functional boss-to-can shoulders, 19 mm above that face and open through the fitted bores for
 support removal. Both screw heads remain accessible from the top.
@@ -1246,7 +1243,7 @@ support removal. Both screw heads remain accessible from the top.
 `clamp-locates-pumps` reads the octagonal collar against each drawn boss;
 `cradle-pulls-on-tube-axis` reads open hand pockets and whole pulling ledges; and
 `pump-cartridge-lower-cradle` verifies that both exported pieces are single solids and the
-full-height cradle is the majority of the printed assembly.
+cradle carries the foremost show face.
 
 ## Display housing
 
