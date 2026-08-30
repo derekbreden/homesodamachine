@@ -412,8 +412,8 @@ the choice:
 - **`flute-hides-seam`** puts the **Y seam inside a groove** — the one straight line running the
   full height of both side walls, landing [0.1 mm](FLUTE_SEAM_MISS) off a groove's centre, in
   the shadow that is already there rather than on a land.
-- **`flute-clears-jamb`** is the opposite ask and the right one for the bay: its jamb and the
-  pump cartridge edge inside it fall on a LAND. A rim landing in a groove is an arris tapering to
+- **`flute-clears-jamb`** is the opposite ask and the right one for the bay: each mouth arris
+  and the pump cartridge edge inside it fall on a LAND. A rim landing in a groove is an arris tapering to
   nothing on the groove's floor, and a wedge that fine at a 0.42 mm bead prints ragged — on the
   one line the user looks straight at.
 
@@ -421,16 +421,16 @@ The datum is a groove centre on **x = 0**, the plane the whole machine is struck
 field is symmetric in x whatever its pitch.
 
 **The box has a second run, indoors.** What the field is struck along is a RAIL, and the outer
-plan is one of them; the bay's storey is the other. With the pump cartridge in, that storey still
-shows two of its own surfaces — each corner post's face across the bay, which is the corner
-relief's congruent twin (`_column_fairing`), and the **wings** of the tee wall behind the
-drawer, out where the drawer does not reach. `_bay_storey_segments` walks them: jamb to jamb,
-[350.62 mm](STOREY_RUN) over the storey at z [177.8..281 mm](STOREY_BAND), two quarter turns and
-five straight runs, with its own datum on **x = 0** at the tee wall and the same
+plan is one of them; the bay's storey is the other. With the pump cartridge in, that storey
+shows the two narrow mouth returns outboard of the cavity planes and the **wings** of the tee
+wall behind the drawer. `_bay_storey_segments` walks the complete open-box plan from one mouth
+edge to the other: [350.62 mm](STOREY_RUN) over the storey at z
+[177.8..281 mm](STOREY_BAND), five straight runs with the two open flanks represented as air,
+with its own datum on **x = 0** at the tee wall and the same
 [5.1285 mm](FLUTE_PITCH) pitch — so a groove lands on the machine's plane of symmetry inside as
 it does outside. It does not close, because a storey open at its mouth is not a loop; a run's
 two ends are edges like any other and the field ramps out on them, which is what keeps the
-flutes off the jamb's own arris.
+flutes off the mouth arris.
 
 **And a body berthed in the room is an edge too.** Inside a storey the piece has material at
 the rail in places the drawer and its steel stand in front of, and a face another body beds
@@ -588,27 +588,15 @@ A wall's inner face is **flat only past that landing**, so anything ROOTED on it
 tunnel is the one that does, and `enclosure_assembly.c14_flat_column` is the column that
 leaves it whole on the flat.
 
-**Across the pump bay the turn is swung from the jamb** (`_column_fairing`), because there the
-two faces the arc has to land on are not the inner faces. The jamb stands one `post_along`
-inboard of the interior corner and the flank opening ends [12 mm](COLUMN_ALONG) aft of
-`front_plane_y`, and a turn swung from the corner reaches neither: it leaves a ledge of
-`post_along` less the radius standing on the front wall's inner face, runs sixty degrees of its
-own quarter, and is cut off by the flank's section — five surfaces and four creases across the
-one face a hand meets reaching into the bay. Swung from the jamb the same radius is **tangent at
-both ends**, and neither end is fitted: the lower lands on the front wall's inner plane and the
-upper on the flank opening's own end face, because the opening ends one radius aft of the front
-plane. The face is one surface, and the post reads round inside the way it reads round out.
+**The pump-cartridge storey has no front display-support columns in its withdrawal span.**
+`bay_x_span` reaches the two side-wall interior planes, and `_front_column_opening` removes the
+columns' complete inboard lobes from the bay floor through the lintel. `_flank_opening` carries
+that opening aft along both sides. The exterior rounded skins and their Z-seam bands remain
+outboard of the cavity planes, and the lintel carries the display facet into those skins.
 
-The disc's inboard extreme **is** `bay_x_span`, so the pump cartridge keeps its running fit at the
-single station the two touch and more of it at every other — the opening is never narrowed by
-this.
-
-**That face is fluted, the same way the relief outside it is** — the two are congruent quarter
-turns, so the field crosses one exactly as it crosses the other, and the post reads as one
-treatment wrapping it. Where the turn lands on the flank it leaves [5.676 mm](COLUMN_FACE_LAND)
-of section with a groove cut into each side of it, and what stands between the two is
-[3.276 mm](COLUMN_FACE_LIGAMENT) — the thinnest station on the post and what
-**`column-face-backed`** reads.
+The cartridge keeps [0.5 mm](PUMP_CARTRIDGE_CLEARANCE) per side inside that opening. Its full
+width is therefore the cavity width less 1 mm, including the flank grips; no fixed front jamb
+occupies the X span available to either pump.
 
 A column is the cavity's own shape (`enclosure._cavity`), not a feature bolted into
 it, so everything held inside the cavity meets one the way it meets a wall: the
@@ -917,11 +905,12 @@ itself, and `check_tube_seated` reads the three run anchors the same way.
 
 ## The pump cartridge and its bay
 
-**The pumps slide out of the front of the box.** The front wall's flat span — corner
-column to corner column, sill to lintel — and the storey both pumps stand in come out
-of front-top as the **pump cartridge** (`build_pump_cartridge`): the face, the block behind
-it, both trays and both pumps, riding the bay's own floor. It stops at `bay_x_span` at
-every height, so the corner posts it slides between are untouched.
+**The pumps slide out of the front of the box.** The complete cavity span between the two
+side-wall interior planes, sill to lintel, and the storey both pumps stand in come out of
+front-top as the **pump cartridge** (`build_pump_cartridge`): the face, the block behind it,
+both trays and both pumps, riding the bay's own floor. The cartridge stands one
+`bay_face_slip` inside `bay_x_span` at every height; the front display-support columns have
+no inboard section in its withdrawal path.
 
 **It is a block, and it parts on the pump's own bracket plane.** What the bay leaves
 between the face and the collet plate is filled — sparse infill under a printed skin —
@@ -952,14 +941,15 @@ the two wedge cheeks rather than asking the floor's slot to take the
 whole overturning moment.
 
 **The cap's aft face is open for the four made-up tubes.** One straight slot per pump rises
-from the head's outlet-relief sill to the split, so the cap can come up onto a pump whose
-tubes are already attached. It begins fore on the relieved outlet face itself and is
+from [0.15 mm](CAP_TUBE_AIR) below the head's outlet-relief sill to the split, so the cap can
+come up onto a pump whose tubes are already attached. Its fore boundary stands the same
+0.15 mm ahead of the relieved outlet face. The nominal fitting opening is
 [69.55 mm](CAP_TUBE_SPAN) across — the complete pump's own [69.25 mm](CAP_TUBE_PART) at the
-two tube fittings, which is its widest dimension anywhere, plus [0.15 mm](CAP_TUBE_AIR) of
-running clearance per side. Inboard the slot runs on to the screw lane's wall rather than
-leave the 1.2 mm rib the two figures would otherwise strand there. The wall below its sill
-and the pump's four flank seats remain whole: the fittings pass without taking any of the
-surfaces that carry the head.
+two tube fittings, which is its widest dimension anywhere, plus 0.15 mm of running clearance
+per side. Inboard the slot runs on to the screw lane's wall, making the physical opening
+[70.775 mm](CAP_TUBE_OPEN) on this layout and avoiding a 1.2 mm unsupported rib. The outboard edge stays
+exactly 0.15 mm beyond the measured fitting. The wall under the relieved sill and the pump's
+four flank seats remain whole.
 
 **THE TEE TRAVELS AND THE VALVE DOES NOT.** `release-travel` offers each anchor tee the
 whole stroke and reports what it hits — a motion, where every other bound on that card
@@ -988,34 +978,27 @@ storeys; the whole figure is under [Pump trays](#pump-trays) below.
 
 ## The flank openings
 
-**Both flanks open across the pump cartridge's own storey** (`_flank_opening`). The corner
-posts frame their fore ends; two narrow fixed plate guides occupy only the aft outer
-edges, beyond the pump cartridge's whole X sweep. Each guide is a wedge in plan, standing
+**Both flanks open across the pump cartridge's own storey** (`_flank_opening`). The openings
+begin on the front plane with no display-support post inboard of the side-wall planes. Two
+narrow fixed plate guides occupy the aft outer edges and overlap the collet plate's tails; the
+cartridge carries one local aft-corner notch round each guide. Each guide is a wedge in plan, standing
 [3 mm](PLATE_GUIDE_WEDGE) further fore at the fixed side wall than at its inboard face:
 the section carrying the plate's moment is deepest where the cheek is rooted in that wall.
 It leaves [23.9 mm](PLATE_GRIP_BASE_OPEN) of the lower grip's [24 mm](GRIP_RUN) entrance
 open at the inboard face and [20.9 mm](PLATE_GRIP_OPEN) at the outer wall. The rake is the
 guide's whole height, so the cheek is one prism — every face a plane, every wall vertical
-and supported, nothing anywhere in it overhanging. A column here is the whole of the box's
-corner — the side wall's own section, the front wall's, and the quarter-round between
-them, one post. So the opening does not begin at the exterior: it begins where that post's
-arc lands on the side wall's inner face, [12 mm](COLUMN_ALONG) aft of `front_plane_y`, and
-runs from there **past the collet plate to the tee wall's fore face**. Ending it on the
-plate's fore face left the plate's own thickness of side wall standing behind the opening
-— a band one `wall` deep and the whole storey tall, whose only job was to be the outboard
-end of a berth the plate already keeps its own end air off. It ends on printed section now
-instead of on a free edge of its own.
+and supported, nothing anywhere in it overhanging. The opening runs **past the collet plate
+to the tee wall's fore face**, where it ends on printed section rather than on a free edge.
 
 **Its floor is the seam's cap**, one `wall` over the rim (`_rim_cap`). Front-top's side wall
 under that plane is the skin the seam closes on at the mouth, so an opening cut
 there would be a seam that does not close; between the two planes stands the cap. The flat
-span's sill runs lower because the pump heads leave under it, and the two meet in a step at
-the post.
+span's sill runs lower because the pump heads leave under it, while the side-wall seam remains
+entirely outboard of the cavity plane.
 
-**The pump cartridge stays between the jambs.** It is the flat span and what stands behind it,
-out to `bay_x_span` and no further at any height. The posts stand in this piece's own
-withdrawal path, so nothing of it reaches their x, and the front of the box outboard of
-the bay is theirs.
+**The pump cartridge fills the bay width.** Its face, deck, cap and both grip ledges run to
+one `bay_face_slip` inside each side-wall interior plane. Only the two aft guide notches depart
+from that outline.
 
 ## The bay floor
 
@@ -1106,21 +1089,19 @@ bay; above and below it this wall does, so what stands behind the berth the pump
 leaves is a wall rather than the cavity. The Z seam passes it the way it passes the
 floor, on the rail channels' own deep lane (`_z_rail_channels`).
 
-The **bay** is the opening all that leaves through (`_bay_cut`): jamb to jamb between
-the corner columns' cusps, from the floor's own top up past the motor cans' crowns
-(`pump_bay`, struck off the placed cans), and both flanks over the rim. The flat span's
-sill runs wall to wall, washed fore
+The **bay** is the opening all that leaves through (`_bay_cut`): side-wall interior plane to
+side-wall interior plane, from the floor's own top up past the motor cans' crowns
+(`pump_bay`, struck off the placed cans), and both flanks over the rim. The sill runs wall to wall, washed fore
 so what runs down the face drains out (`_sill_wash`); the lintel over the opening
 carries the facet and the display on a stated ligament (`bay-under-display`).
 `heads-sweep-out` reads each head's path to the front against the piece it passes
-through, and `pump-cartridge-sweep-out` reads the complete pump cartridge and cap envelopes. The
-mouth is square in plan between the box's rounded outer columns: rounding only the fore
-mouth let the face seat at home but caught the square filled block behind it during
-withdrawal. Front-bottom's front lip drops across the whole flat span
+through, and `pump-cartridge-sweep-out` reads the complete pump cartridge and cap envelopes.
+The mouth is square in plan through the complete filled-block sweep while the exterior corner
+skins remain rounded. Front-bottom's front lip drops across the whole flat span
 (`_front_flat_lip_drop`) — the floor stands in that band and the heads run down through
 it — and the front wall below keeps its single `front_wall` section from slab to seam.
 The face rides its opening on [0.5 mm](PUMP_CARTRIDGE_CLEARANCE) per-side clearance
-in both X and Z: `bay_face_slip` at the jambs and `face_reveal` at the sill and lintel.
+in both X and Z: `bay_face_slip` at the side-wall planes and `face_reveal` at the sill and lintel.
 
 **The front wall is `front_wall` thick — a face a user hauls on — and grows inward,**
 the exterior and the facet standing where the appliance's stated depth put them. What
@@ -1179,25 +1160,23 @@ by one.
 
 **A tray is a cantilever off the pump cartridge's face, and `_pump_tray_webs`' own boxes close
 the deck.** One web between the two trays and the across-runs to the deck's edges —
-each the trays' own plate thick and in that plate's own band, cropped to the jambs'
+each the trays' own plate thick and in that plate's own band, cropped to the bay's
 sweep air, so the deck comes out **one plate** whose edge strips ride the bay's
 rails. The webs to the side walls and the aft web onto a valve tray are not drawn here:
 the rails standing on the floor carry the deck instead, and its aft edge stops two
 millimetres short of the collet plate, and the cap's aft face one storey down is what lands on the steel.
 
 **A hand pulls on the two flanks, and each carries a grip** (`_flank_grip`). Front-top's
-own flanks are cut away over this whole storey, so the pump cartridge's sides stand in the
-open with only the corner posts in front of them — and a post stops
-[12 mm](COLUMN_ALONG) aft of the front plane. A grip is a **pocket struck inboard out of
-the block**, [24 mm](GRIP_RUN) fore-and-aft, set down one `grip_aft` off the block's own
+own flanks and display-support columns are cut away over this whole storey, so the pump
+cartridge's sides and grip entrances stand open from the front plane. A grip is a **pocket
+struck inboard out of the block**, [24 mm](GRIP_RUN) fore-and-aft, set down one `grip_aft` off the block's own
 aft face so its ledge stands at [48.54 mm](GRIP_LEDGE). **Its fore wall is that ledge** —
 a +Y face four fingers hook forward onto, with the block from `pump_relief_floor` to it
 behind them.
 
-**A ledge is a travel.** The pocket rides fore with the piece as it comes out, and past
-the post's own aft plane it is in the post's shadow with the hand that was in it standing
-on the post. Ledge to that plane is [34.54 mm](GRIP_TRAVEL), which is what one pull
-draws the assembly.
+**A ledge is a travel.** The pocket rides fore with the piece as it comes out. Ledge to the
+front wall's interior plane is [34.54 mm](GRIP_TRAVEL), which is what one pull draws the
+assembly before the hand reaches the enclosure front.
 
 **It is one pocket across both pieces** (`_grip_bands`). The deck keeps the band over
 `cap_split_z` — [57.75 mm](GRIP_RISE) tall at its mouth, one [3 mm](GRIP_SILL) tray/web
@@ -1238,7 +1217,7 @@ the plan says where the raked ledge stands at each depth, and neither is a fitte
 **Every grip is removed material.** Nothing of this piece stands proud of the front
 wall's own exterior plane, so the bench keeps its reading: the pre-test inspection in
 [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) §1 takes the
-pump cartridge's face standing flush in its bay, jamb to jamb, as the tell-tale for the four
+pump cartridge's face standing flush in its bay, side to side, as the tell-tale for the four
 barb tubes home in their collets.
 
 Printed on its Z− face, the pose every piece of this box takes: the block's underside is

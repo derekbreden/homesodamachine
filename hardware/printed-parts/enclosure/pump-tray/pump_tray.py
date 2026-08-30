@@ -85,6 +85,9 @@ bracket_t = _kp.bracket_t
 # leaves between the room and whatever closes the cap aft, and its height is the run.
 outlet_relief = _kp.outlet_relief
 outlet_relief_run = _kp.outlet_relief_run
+# The complete pump's widest X span, across the two tube fittings on its outlet face. This is
+# not the head body's width; it is what a cap opening has to pass at that one face.
+outlet_half = _kp.outlet_span_x / 2.0
 # The case's own footprint, half of it — what its base plate and the foot of its ramp reach.
 case_half = _pc.footprint_half_extent
 # And that base plate's own thickness. It is the band a tray meets its neighbours in: every web
