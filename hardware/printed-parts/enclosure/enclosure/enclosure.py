@@ -1574,12 +1574,13 @@ plate_guide_wedge = 3.0      # the cheek's extra section at the fixed outer wall
 # Nothing under the head carries it; the front of each head remains one millimetre over the
 # bay floor and the bracket puts the load into the block around the well.
 #
-# THE TOP CAP IS A CLAMP. One filled field spans both pump heads. The two stamped brackets,
-# complete boss octagons and motor cans are cut from that field, leaving the case-derived
-# locating walls and pressing lands wherever the pumps allow material. One joined recess opens
-# down from the crown around both centre screw stations; the individual counterbores continue
-# from its floor to the M3 seats. Those screws run DOWN into heat-sets in the cradle, so the cap
-# captures both brackets without becoming a second thing the hand pulls on.
+# THE TOP CAP IS A CLAMP. One filled field spans both pump heads and begins on the stamped
+# brackets' upper face. The complete boss octagons and motor cans are cut from that field,
+# leaving the case-derived locating walls and pressing lands wherever the pumps allow material.
+# One joined recess opens down from the crown around both centre screw stations; the individual
+# counterbores continue from its floor to the M3 seats. Those screws run DOWN into heat-sets in
+# the cradle, so the cap captures both brackets without becoming a second thing the hand pulls
+# on.
 #
 # BOTH PARTS INSTALL IN Z. With the clamp off, the widest section of a pump — its stamped
 # bracket and the 69.25 mm tube-side fitting span — has a straight open path from the top of
@@ -1589,12 +1590,13 @@ plate_guide_wedge = 3.0      # the cheek's extra section at the fixed outer wall
 cap_pump_air = 0.4           # running air round the head in the cradle's lower well
 cap_tube_air = 0.15          # per-face air round the measured tube-fitting opening
 cap_slot_half = _tray.outlet_half + cap_tube_air
+clamp_rise = 40.0            # complete top clamp, bracket top to crown
 cap_web_land = 4.0           # clamp section under each recessed M3 head
-cap_web_t = head_cbore_depth + cap_web_land
+cap_web_t = head_cbore_depth + cap_web_land  # bracket datum to retained access-well floor
 cap_screw_off = 18.0         # the two screws fore/aft of the centre access-well midpoint
 clamp_bridge_half_y = 6.0    # access well past each screw axis, fore and aft
 clamp_bridge_overlap = 2.0   # access-well edge into each pump opening's inner margin
-clamp_drop_air = 0.2         # per face, clamp footprint and bracket through the cradle well
+clamp_drop_air = 0.2         # clamp footprint and bracket air through the cradle well
 
 # --- THE HAND PULLS ONLY THE LOWER CRADLE -----------------------------------
 #
@@ -1609,7 +1611,8 @@ clamp_drop_air = 0.2         # per face, clamp footprint and bracket through the
 # feature at all.
 pull_depth = 18.0            # fingertip reach inboard from each exposed flank
 pull_run = 22.0              # fore/aft opening behind the ledge
-pull_rise = 24.0             # opening height, centred on the tube axes
+pull_rise = 48.0             # complete side-mouth height, including the 45-degree roof
+pull_floor_below_tubes = 12.0  # bed-rooted stock first; then the tube plane inside the mouth
 pull_aft = 4.0               # material between the opening and the plate-stop face
 
 
@@ -5007,11 +5010,21 @@ def _pump_cartridge_face_region(inner, outer, bay, pump_trays, plate):
 
 
 def cap_split_z(pump_trays):
-    """The top clamp's seat — the pump's own stamped BRACKET plane.
+    """The stamped bracket's lower bearing plane.
 
-    The lower cradle carries the bracket from below. The clamp's conformal collar begins on
-    this plane, takes the boss above it and presses the same bracket down onto the cradle."""
+    The lower cradle carries the bracket from below; its top clamp presses from the bracket's
+    opposite face."""
     return min(cz for _cx, _cy, cz in pump_trays)
+
+
+def cap_base_z(pump_trays):
+    """The top clamp's broad Z-minus face, on the stamped bracket's upper face."""
+    return cap_split_z(pump_trays) + _tray.bracket_t
+
+
+def cap_access_z(pump_trays):
+    """The joined screw-access well's retained floor above the bracket datum."""
+    return cap_split_z(pump_trays) + cap_web_t
 
 
 def _clamp_bridge_edge(pump_trays):
@@ -5044,11 +5057,12 @@ def _pump_drop_voids(box):
     the block's own face at `cap_slot_half`, and stands open to the top.
 
     ABOVE THE BRACKET the well is each pump opening's complete 70 mm footprint with
-    `clamp_drop_air` on every face. That one opening passes the stamped bracket, the fittings,
-    the pump and then the complete clamp. One full-Y centre clearance joins those openings and
-    follows every part of the clamp's filled centre field through the cradle. At the seat the
-    upper wells stop exactly on the bracket plane, leaving the case's own room below and
-    therefore a land under the bracket on its three closed sides."""
+    `clamp_drop_air`; its exterior X face continues the lower case room's larger
+    `cap_pump_air`, so their junction has no ledge. That one opening passes the stamped bracket,
+    the fittings, the pump and then the complete clamp. One full-Y centre clearance joins those
+    openings and follows every part of the clamp's filled centre field through the cradle. At
+    the seat the upper wells stop exactly on the bracket plane, leaving the case's own room
+    below and therefore a land under the bracket on its three closed sides."""
     trays, plate = box.pack.pump_trays, box.pack.collet_plate
     split = cap_split_z(trays)
     top = box.pump_bay[2] + 1.0
@@ -5063,7 +5077,17 @@ def _pump_drop_voids(box):
         fittings = _ybox(cx - cap_slot_half, cx + cap_slot_half,
                          outlet_face - cap_tube_air, _block_aft(plate) + 1.0,
                          sill - cap_tube_air, top)
-        upper = _ybox(cx - collar, cx + collar,
+        # The case-derived lower well carries the larger `cap_pump_air` at its exterior flank.
+        # Carry that same edge through the upper storey instead of leaving a 0.2 mm down-facing
+        # shelf where the two voids meet. The centre-facing edge still follows the clamp's own
+        # tighter insertion air and the joined centre gate.
+        upper_x0 = cx - collar
+        upper_x1 = cx + collar
+        if cx < 0.0:
+            upper_x0 = cx - _tray.half_width() - cap_pump_air
+        else:
+            upper_x1 = cx + _tray.half_width() + cap_pump_air
+        upper = _ybox(upper_x0, upper_x1,
                       cy - _tray.half_width() - clamp_drop_air,
                       cy + _tray.far_reach() + clamp_drop_air,
                       split - 0.001, top)
@@ -5102,13 +5126,15 @@ def _pull_center_z(plate):
 def _cradle_pulls(box):
     """The two new hand pockets, both cut wholly from the lower cradle.
 
-    Their fore wall is the pulling ledge and their vertical midpoint is the tube-axis plane.
-    At the inboard wall the pocket has `pull_rise - pull_depth` of plumb height, then its roof
-    climbs at 45 degrees to the open flank. Nothing is split across the clamp joint."""
+    Their fore wall is the pulling ledge. The floor stays `pull_floor_below_tubes` under the
+    tube-axis plane, leaving a bed-rooted lower ligament; at the inboard wall the pocket has
+    `pull_rise - pull_depth` of plumb finger room, then its roof climbs at 45 degrees to the
+    open flank. Nothing is split across the clamp joint."""
     edge = _cap_x_span(box.pump_bay)[1]
     deep = edge - pull_depth
     z_mid = _pull_center_z(box.pack.collet_plate)
-    z0, z1 = z_mid - pull_rise / 2.0, z_mid + pull_rise / 2.0
+    z0 = z_mid - pull_floor_below_tubes
+    z1 = z0 + pull_rise
     if pull_depth >= pull_rise:
         raise ValueError(
             f"a {pull_depth:g} mm-deep cradle pull has no printable roof inside its "
@@ -5132,6 +5158,8 @@ def pump_cartridge_figures(box):
     y1 = _block_aft(plate) - pull_aft
     y0 = y1 - pull_run
     z_mid = _pull_center_z(plate)
+    pull_floor = z_mid - pull_floor_below_tubes
+    pull_top = pull_floor + pull_rise
     clamp_edge = max(abs(cx) + _tray.half_width() for cx, _cy, _cz in trays)
     clamp_fore = min(cy - _tray.half_width() for _cx, cy, _cz in trays)
     clamp_aft = plate_guide_fore_y(plate) - cap_kiss
@@ -5139,16 +5167,24 @@ def pump_cartridge_figures(box):
         "PULL_RISE": f"{pull_rise:.4g} mm",
         "PULL_RUN": f"{pull_run:.4g} mm",
         "PULL_DEPTH": f"{pull_depth:.4g} mm",
+        "PULL_PLUMB": f"{(pull_rise - pull_depth):.4g} mm",
+        "PULL_FLOOR_Z": f"{pull_floor:.5g} mm",
+        "PULL_TOP_Z": f"{pull_top:.5g} mm",
+        "PULL_FLOOR_LIGAMENT": f"{(pull_floor - bay_floor_z(trays)[1]):.4g} mm",
         "PULL_CENTER_Z": f"{z_mid:.5g} mm",
         "PULL_LEDGE": f"{y0:.4g} mm",
         "PULL_TRAVEL": f"{y0 - box.inner[2]:.4g} mm",
         "CLAMP_SPAN": f"{2.0 * clamp_edge:.4g} mm",
-        "CLAMP_RISE": f"{_tray.depth():.4g} mm",
+        "CLAMP_RISE": f"{clamp_rise:.4g} mm",
+        "CLAMP_BASE_Z": f"{cap_base_z(trays):.5g} mm",
+        "CLAMP_CROWN_Z": f"{(cap_base_z(trays) + clamp_rise):.5g} mm",
+        "CLAMP_ACCESS_FLOOR_Z": f"{cap_access_z(trays):.5g} mm",
+        "CLAMP_ACCESS_BASE": f"{(cap_access_z(trays) - cap_base_z(trays)):.4g} mm",
+        "CLAMP_HEAD_LAND": f"{cap_web_land:.4g} mm",
         "CLAMP_ACCESS_W": f"{2.0 * _clamp_bridge_edge(trays):.4g} mm",
         "CLAMP_ACCESS_RUN": f"{(max(cap_screw_ys(box.inner, plate))
                                  - min(cap_screw_ys(box.inner, plate))
                                  + 2.0 * clamp_bridge_half_y):.4g} mm",
-        "CLAMP_SUPPORT_RAIL": f"{(_tray.half_width() - _tray.bracket_half):.4g} mm",
         "CLAMP_FRONT_SKIN": f"{(clamp_fore - clamp_drop_air - box.outer[2]):.4g} mm",
         "CLAMP_AFT_WALL": f"{(clamp_aft - max(cy + _tray.boss_half
                                                 for _cx, cy, _cz in trays)):.4g} mm",
@@ -5497,33 +5533,22 @@ def _pump_cartridge_gross(box, halves_cache=None):
 def _pump_clamp_gross(box, halves_cache=None):
     """One filled clamp field, cut only where its two fitted pumps and access well require.
 
-    The field spans both case-derived collar envelopes from the bracket plane to their common
-    crown. Each stamped bracket opens its bottom, each complete case-profile octagon locates a
-    boss, and each motor can opens the final three millimetres. The centre-facing bracket edge
-    alone receives insertion air, leaving the two bottom support rails at the outer edges. A
-    single joined recess reaches down around both top-access M3 heads."""
+    The field begins as one broad Z-minus face on top of both stamped brackets. Each complete
+    case-profile octagon locates a boss, and each motor can opens the remaining height. There
+    is no shallow bracket pocket or narrow rail under the field: the bracket itself lies below
+    the print. A single joined recess reaches down around both top-access M3 heads."""
     if halves_cache is not None and "pump-clamp-gross" in halves_cache:
         return halves_cache["pump-clamp-gross"]
     trays, plate = box.pack.pump_trays, box.pack.collet_plate
     split = cap_split_z(trays)
-    crown = split + _tray.depth()
+    base = cap_base_z(trays)
+    crown = base + clamp_rise
     fore = min(cy - _tray.half_width() for _cx, cy, _cz in trays)
     aft = plate_guide_fore_y(plate) - cap_kiss
     x0 = min(cx - _tray.half_width() for cx, _cy, _cz in trays)
     x1 = max(cx + _tray.half_width() for cx, _cy, _cz in trays)
-    solid = _ybox(x0, x1, fore, aft, split, crown)
+    solid = _ybox(x0, x1, fore, aft, base, crown)
     for cx, cy, cz in trays:
-        bx0, bx1 = cx - _tray.bracket_half, cx + _tray.bracket_half
-        if cx < 0.0:
-            bx1 += clamp_drop_air
-        else:
-            bx0 -= clamp_drop_air
-        # The bracket's own fore edge stops 0.7 mm inside the clamp field. That matches the two
-        # outer X support rails and leaves 3.105 mm of cradle skin ahead of the complete clamp
-        # during its Z drop. Only the centre-facing X edge grows by the insertion air.
-        solid = solid.cut(_ybox(
-            bx0, bx1, cy - _tray.bracket_half, cy + _tray.bracket_half,
-            split - 0.05, split + _tray.bracket_t + 0.05))
         solid = solid.cut(_tray.boss_room(0.0).moved(
             cq.Location(cq.Vector(cx, cy, split))))
         solid = solid.cut(_zcyl(
@@ -5535,7 +5560,7 @@ def _pump_clamp_gross(box, halves_cache=None):
     solid = solid.cut(_ybox(
         -edge, edge,
         min(ys) - clamp_bridge_half_y, max(ys) + clamp_bridge_half_y,
-        split + cap_web_t, crown + 1.0))
+        cap_access_z(trays), crown + 1.0))
     if halves_cache is not None:
         halves_cache["pump-clamp-gross"] = solid
     return solid
@@ -5544,17 +5569,19 @@ def _pump_clamp_gross(box, halves_cache=None):
 def _cap_screws(inner, plate, pump_trays):
     """The clamp's top-down screw bores and the cradle's downward heat-set bores.
 
-    Each recessed M3 head leaves `cap_web_land` under its seat. The M3×10 then crosses that
-    land and runs into a heat-set opened from the cradle's bracket plane; the bore continues
-    under the four-millimetre insert for the screw's remaining reach."""
+    Each recessed M3 head leaves `cap_web_land` under its seat. The M3×10 crosses that land,
+    the stamped-bracket-height service gap, and takes the complete four-millimetre heat-set
+    opened from the cradle's bracket plane."""
     split = cap_split_z(pump_trays)
-    top, seat = split + cap_web_t, split + cap_web_land
-    tip = split - (screw_len - cap_web_land) - 0.5
+    base = cap_base_z(pump_trays)
+    top, seat = cap_access_z(pump_trays), base + cap_web_land
+    screw_tip = seat - screw_len
+    bore_tip = min(screw_tip, split - heatset_len) - 0.5
     clear, sets = [], []
     for y in cap_screw_ys(inner, plate):
-        clear.append(_zcyl(screw_clear_dia / 2.0, 0.0, y, split - 0.1, top + 1.0)
+        clear.append(_zcyl(screw_clear_dia / 2.0, 0.0, y, base - 0.1, top + 1.0)
                      .fuse(_zcyl(head_cbore_dia / 2.0, 0.0, y, seat, top + 1.0)))
-        sets.append(_zcyl(heatset_dia / 2.0, 0.0, y, tip, split + 0.1))
+        sets.append(_zcyl(heatset_dia / 2.0, 0.0, y, bore_tip, split + 0.1))
     return clear, sets
 
 
@@ -6884,13 +6911,35 @@ def _digiten_bore(x_axis, z_axis, r, y0, y1, reach):
 # thick is that material: a seat sunk into it leaves nothing standing off its face. Which is the
 # whole point on this piece — it prints the plate VERTICAL, so a boss on it would be a Ø13.2
 # cylinder cantilevered into air with its own underside to bridge, and there are thirty-two of
-# them. Sunk, the seat is a blind hole in solid material and the port's channel a notch running
-# up the plate's own section: no overhang in the feature and no support in it to pick out.
+# them. Sunk, the port's channel is a notch running up the plate's own section. The socket is
+# still a horizontal blind bore, though, and a round crown on that axis has no layer under it:
+# `_valve_socket_cutters` carries its complete circular post room into the same tangent roof as
+# every other horizontal bore on this box.
 #
 # NOTHING FASTENS A VALVE TO IT. The four corner posts press into their sockets and the valve's
 # own round body boss lands on the plate's face, which is what sets its height — the same
 # bargain the cold core's cap lid strikes under its own three valves, whose thinner lid stands
 # the bosses instead.
+def _valve_socket_cutters(plane, sign, seat_x, seat_z):
+    """One tray seat's four complete post rooms with support-free roofs, in world coordinates.
+
+    `valve_seat` owns the nominal socket: its radius, corner inset and axial floor/top. Turning
+    that seat onto a Y deck puts its socket axes on Y and maps a local `(dx, dy)` corner to
+    `(seat_x + dx, seat_z - sign*dy)`. The whole nominal circle remains inside `_teardrop_y`;
+    only the unsupported world-Z crown is opened above its tangent points. Thus every round post
+    still enters to the same floor and bears on the same lower and lateral arcs, while none of
+    the thirty-two crowns asks the slicer for a separate interface island.
+    """
+    along = sorted((plane + sign * _seat.socket_floor_z,
+                    plane + sign * (_seat.seat_top_z + 1.0)))
+    return tuple(
+        _teardrop_y(_seat.socket_radius, seat_x + dx, seat_z - sign * dz,
+                    along[0], along[1])
+        for dx in (-_seat.corner_inset, _seat.corner_inset)
+        for dz in (-_seat.corner_inset, _seat.corner_inset)
+    )
+
+
 def _valve_trays(solid, inner, stations, y0, y1, z0, z1, wall_aft_y=None):
     """Every valve tray whose deck falls in the depth and height band this piece owns.
 
@@ -6902,9 +6951,11 @@ def _valve_trays(solid, inner, stations, y0, y1, z0, z1, wall_aft_y=None):
     THE SEATS ARE SUNK AND SO IS THE PORT'S OWN CHANNEL. The plate is a socket and a wall thick
     (`valve_tray.THICK`), which is the material a boss would have been, so nothing is fused onto
     its face: the sockets and the channel are CUT, and the face itself is the plane the valve's
-    round body boss lands on. Everything is struck in the valve's own frame at `plane`, its
-    mounting plane, and turned onto the deck — the plate's face follows from `SEAT` and is not
-    the datum anything here is placed on.
+    round body boss lands on. A socket's nominal circle is carried whole into a tangent
+    world-Z roof by `_valve_socket_cutters`, because the plate stands on Z and its bore lies on
+    Y. Everything is struck in the valve's own frame at `plane`, its mounting plane, and turned
+    onto the deck — the plate's face follows from `SEAT` and is not the datum anything here is
+    placed on.
 
     A PLATE THAT OUTRUNS ITS OWN WALL IS CORBELLED AT THE ROOT. `wall_aft_y` is
     `collet_plate_spec`'s own `wall_aft_y` — the tee wall's aft face, the plane wall support
@@ -6968,7 +7019,8 @@ def _valve_trays(solid, inner, stations, y0, y1, z0, z1, wall_aft_y=None):
         for sx, sz in seats:
             at = cq.Location(cq.Vector(sx, plane, sz))
             solid = solid.cut(_valve_tray.build_body_clearance().val().moved(turn).moved(at))
-            solid = solid.cut(_seat.build_sockets().val().moved(turn).moved(at))
+            for socket in _valve_socket_cutters(plane, sign, sx, sz):
+                solid = solid.cut(socket)
             chan = (_valve_tray.height() if not footed else max(
                 _valve_tray.height(), 2.0 * (sz - foot_z0))) + 2.0 * wedge_depth
             solid = solid.cut(_valve_tray.build_port_channel(chan + 2.0)

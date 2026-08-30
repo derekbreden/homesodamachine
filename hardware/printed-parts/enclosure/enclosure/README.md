@@ -969,14 +969,17 @@ the stamped bracket on −Y and both X sides; +Y remains open for the fittings. 
 from that bracket directly into the lower cradle and then into the bay floor.
 
 **The second printed piece is only the top clamp.** `enclosure-pump-cap`
-(`build_pump_cap`) is [167.1 mm](CLAMP_SPAN) across and [24 mm](CLAMP_RISE) high. One filled
-field spans both pump heads from their clean fore envelope to the aft wall. Two fitted openings
-clear the measured [2 mm](CLAMP_BRACKET_T) stamped brackets, wrap both bosses with the pump
-case's exact octagonal bore, and leave one shoulder around each motor can. A single
+(`build_pump_cap`) is [167.1 mm](CLAMP_SPAN) across and [40 mm](CLAMP_RISE) high. Its broad
+Z− face stands at z [218.75 mm](CLAMP_BASE_Z), on the upper face of each measured
+[2 mm](CLAMP_BRACKET_T) stamped bracket, and the crown stands at z
+[258.75 mm](CLAMP_CROWN_Z). One filled field spans both pump heads from their clean fore
+envelope to the aft wall. Two fitted openings wrap both bosses with the pump case's exact
+octagonal bore and leave one shoulder around each motor can. A single
 [31.14 mm](CLAMP_ACCESS_W) × [48 mm](CLAMP_ACCESS_RUN) top recess joins the two screw stations;
-the individual counterbores continue from its floor through [8 mm](CLAMP_WEB) of material to
-the head seats. The two M3s run into heat-set inserts in the cradle. The clamp carries no front
-wall, plate stop or hand pull.
+its retained floor stands at z [224.75 mm](CLAMP_ACCESS_FLOOR_Z), [6 mm](CLAMP_ACCESS_BASE)
+above the broad print face. The individual counterbores continue to head seats which keep
+[4 mm](CLAMP_HEAD_LAND) of printed land underneath. The two M3s run into heat-set inserts in
+the cradle. The clamp carries no front wall, plate stop or hand pull.
 
 The service sequence follows those two load paths. Withdraw the assembled cartridge by its
 cradle pulls; back out the two clamp screws; lift off the clamp; then lift either complete pump
@@ -1015,13 +1018,15 @@ derived** — no body in this model has any compliance in it, so no bound reache
 **The cradle's aft face is the stop.** Its body stands through the plate's complete band, and
 `pump-cradle-stops-on-plate` reads both the bearing area and the `cap_kiss` air at full seat.
 
-**Both pulls belong to the cradle and act on the tube-centre plane.** Each side pocket is
-[18 mm](PULL_DEPTH) deep, [22 mm](PULL_RUN) fore/aft and [24 mm](PULL_RISE) high, centred at
-z [188.25 mm](PULL_CENTER_Z), the common centre elevation of all four tubes. Its fore wall is
-the pulling ledge at y [49.54 mm](PULL_LEDGE); that gives [35.54 mm](PULL_TRAVEL) of useful
-withdrawal before the ledge reaches the enclosure front. A 45° roof makes the standing print
-self-supporting. Pulling force enters the one load-bearing cradle; the clamp has no separate
-grip to split the load or invite a second tug.
+**Both pulls belong to the cradle and surround the tube-centre plane.** Each side pocket is
+[18 mm](PULL_DEPTH) deep, [22 mm](PULL_RUN) fore/aft and [48 mm](PULL_RISE) high. Its floor at
+z [176.25 mm](PULL_FLOOR_Z) leaves [9.38 mm](PULL_FLOOR_LIGAMENT) of bed-rooted cradle below
+it and puts the common tube elevation, z [188.25 mm](PULL_CENTER_Z), 12 mm inside the mouth.
+At the deepest fingertip wall the straight vertical opening is [30 mm](PULL_PLUMB) high; its
+roof then climbs at 45° to the open flank and reaches z [224.25 mm](PULL_TOP_Z). The fore wall
+is the pulling ledge at y [49.54 mm](PULL_LEDGE); that gives [35.54 mm](PULL_TRAVEL) of useful
+withdrawal before the ledge reaches the enclosure front. Pulling force enters the one
+load-bearing cradle; the clamp has no separate grip to split the load or invite a second tug.
 
 ## The full-width opening
 
@@ -1164,19 +1169,20 @@ surface, region by region.
 
 The geometry in `printed-parts/enclosure/pump-tray/` supplies the two fitted openings in the
 small top clamp. The clamp begins as one rectangular field over both pumps. Each stamped
-bracket, exact pump-case octagon and motor-can bore is then cut from that field, leaving the
-case-derived locating walls, pressing lands and can shoulders wherever a pump does not occupy
-the material. It is one printed `enclosure-pump-cap`, not separate collars or fastener pieces.
+bracket's upper face is the field's broad base plane. The exact pump-case octagon and motor-can
+bore are cut from it, leaving the case-derived locating walls, pressing lands and can shoulders
+wherever a pump does not occupy the material. It is one printed `enclosure-pump-cap`, not
+separate collars or fastener pieces.
 
 **The bracket divides bearing from location.** The lower cradle bears under three sides of the
-68.6 mm stamped bracket. The clamp has a 2 mm-deep pocket for the bracket itself and filled
-stock above it. Past that steel, the case-derived octagon engages the white boss over the rest
-of its run and the shoulder surrounds the can. Thus the cradle takes weight, the clamp prevents
-lift, and the octagon fixes X, Y and yaw. The bottom pocket stops
-[0.7 mm](CLAMP_SUPPORT_RAIL) inside the clamp's fore and two outer X faces, leaving three
-matched printable support rails. The clamp's vertical drop keeps
-[3.105 mm](CLAMP_FRONT_SKIN) of cradle skin ahead of that fore rail. A
-[2.53 mm](CLAMP_AFT_WALL) wall remains aft of each octagon to locate the boss against +Y.
+68.6 mm stamped bracket, and the clamp's complete broad base lands on its upper face. The
+bracket remains wholly below the printed cap: every cap wall grows directly from one common
+Z− plane, with no shallow pocket ceiling or narrow perimeter foot. Above that steel, the
+case-derived octagon engages the white boss over its complete run and the shoulder surrounds
+the can. Thus the cradle takes weight, the clamp prevents lift, and the octagon fixes X, Y and
+yaw. The clamp's vertical drop keeps [3.105 mm](CLAMP_FRONT_SKIN) of cradle skin ahead of its
+fore face. A [2.53 mm](CLAMP_AFT_WALL) wall remains aft of each octagon to locate the boss
+against +Y.
 
 **Two M3 close one clamp onto one cradle.** Both screw heads are accessible from above in the
 single joined centre recess. Their heat-set inserts open upward in the cradle spine. Back both
@@ -1186,11 +1192,14 @@ field has one unobstructed vertical path. No zip tie or hidden underside fastene
 
 The fitted opening's exact source dimensions and section readings are in
 [`pump-tray/README.md`](/hardware/printed-parts/enclosure/pump-tray/README.md). The enclosure
-uses those case profiles to cut the bracket, boss and can rooms from one service clamp.
+uses those case profiles to shape the broad pressing base and cut the boss and can rooms from
+one service clamp.
 
 **The lower cradle prints on its Z− floor.** Its front wall and filled body rise from that bed;
-the two pull roofs climb at 45° and the pump wells remain open above. The top clamp prints as a
-separate shallow part with both screw heads on its accessible top face.
+the two pull roofs climb at 45° and the pump wells remain open above. The top clamp's complete
+field begins on one broad Z− bed face. Its only internal down-facing transitions are the two
+functional boss-to-can shoulders, 19 mm above that face and open through the fitted bores for
+support removal. Both screw heads remain accessible from the top.
 
 `clamp-locates-pumps` reads the octagonal collar against each drawn boss;
 `cradle-pulls-on-tube-axis` reads open hand pockets and whole pulling ledges; and

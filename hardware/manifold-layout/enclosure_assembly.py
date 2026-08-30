@@ -2272,7 +2272,7 @@ def check_cartridge_architecture(pieces) -> Bound:
     share = cv / (cv + kv)
     cb, kb = box(cradle), box(clamp)
     one_each = len(cradle.Solids()) == 1 and len(clamp.Solids()) == 1
-    full_face = cb.zlen > 4.0 * kb.zlen
+    full_face = cb.zlen > 2.0 * kb.zlen
     ok = share > 0.5 and one_each and full_face
     return record_bound(Bound(
         "pump-cartridge-lower-cradle", "The cartridge is a large lower cradle with a small top clamp",

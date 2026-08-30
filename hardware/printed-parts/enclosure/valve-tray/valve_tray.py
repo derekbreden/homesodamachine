@@ -29,10 +29,11 @@ A SEAT'S FOUR BOSSES ARE SQUARE, so a quarter turn carries one onto itself: a va
 locates it and never turns the print.
 
 In the piece's own print orientation the plate stands vertical, wall to wall, and NOTHING
-stands off it: a socket is a blind hole in solid material and a port channel is a notch that
-runs up the plate's own section. There is no overhang in this part and no support in it to pick
-out — which is what the thickness buys, a boss on a standing plate being a cylinder cantilevered
-into air.
+stands off it: the port channel is a notch that runs up the plate's own section, while
+`enclosure._valve_socket_cutters` carries each horizontal socket's complete round post room into
+a tangent teardrop roof. There is no unsupported crown and no support in the thirty-two sockets
+to pick out — which is what the thickness and roof buy, a boss on a standing plate being a
+cylinder cantilevered into air.
 
 Run:
     tools/cad-venv/bin/python hardware/printed-parts/enclosure/valve-tray/valve_tray.py
@@ -67,7 +68,8 @@ from docgen import substitute_md                          # noqa: E402
 # round body boss lands on. What the plate spends is thickness, and what it buys back is the
 # print: `enclosure-front-top` stands this plate vertical, so a boss on it is a Ø13.2 cylinder
 # cantilevered off a wall into air, with its own underside to bridge and its root standing on
-# nothing. A socket bored into a face is a hole in solid material and has neither.
+# nothing. The sunk socket has no external underside; enclosure gives its horizontal round
+# crown the tangent roof that keeps the internal bore support-free.
 #
 # The plate's thickness: one socket, and one wall of floor behind it.
 THICK = _seat.socket_depth() + _seat.wall

@@ -6,9 +6,9 @@ and a cylindrical tower over the bore that the motor can turns in. Cut the tower
 `SHOULDER` over the boss and the remaining fitted surfaces are the collar source.
 
 Both collar sources are fused into the small top clamp (`enclosure.build_pump_cap`). The
-enclosure builder clears the omitted stamped bracket through its measured thickness, restores
-one complete pressing plate above it, and joins the two collars with screw bridges. NO COLLAR
-SHIPS AS A PART.
+enclosure builder starts the clamp on the omitted stamped bracket's upper face, restores one
+complete pressing plate there, and joins the two collars with screw bridges. NO COLLAR SHIPS
+AS A PART.
 
     ACROSS  the case's own footprint
     ALONG   the case's own footprint, cut back to the face it roots on
@@ -253,7 +253,7 @@ def selftest() -> int:
     """The tray against the pump it takes and the case it is cut out of."""
     fails = []
     # The collar footprint must cover the stamped bracket so the enclosure can restore a
-    # complete pressing annulus above its pocket.
+    # complete pressing annulus on its upper face.
     if half_width() < bracket_half:
         fails.append(f"the collar runs {half_width():.3f} mm off the axis and the bracket reaches "
                      f"{bracket_half:.3f} — the pressing annulus cannot cover it")

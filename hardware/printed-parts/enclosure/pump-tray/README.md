@@ -22,10 +22,9 @@ The flavour manifold carries two KPHM600 pumps, so the top clamp contains
 ## How it becomes the clamp
 
 `enclosure._pump_clamp_gross` places one collar source on each pump axis. The pump reference
-does not draw the black stamped bracket, so the enclosure builder cuts its complete measured
-square through the bracket's 2 mm maximum thickness. It restores one [3](PLATE) mm
-pressing section above that pocket, re-cuts the boss's exact octagon, and joins both collars
-with two centre screw bridges.
+does not draw the black stamped bracket, so the enclosure builder starts the complete clamp
+field on that bracket's measured upper face. The field supplies the pressing section there,
+re-cuts the boss's exact octagon, and joins both collars with two centre screw bridges.
 
 The finished clamp therefore has three distinct contacts:
 
@@ -46,7 +45,7 @@ sides.
 
 ## Print
 
-Both collars print inside the shallow top clamp. Their ramps and octagonal walls grow from the
+Both collars print inside the top clamp. Their ramps and octagonal walls grow from the
 pressing plate; the two screw heads remain accessible from above. PETG, the clamp's own stock
 ([`bom.md`](/hardware/ledger/bom.md) §7).
 
