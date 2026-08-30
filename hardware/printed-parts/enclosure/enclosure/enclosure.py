@@ -1607,6 +1607,10 @@ cap_pump_air = 0.4           # running air round the head in the cradle's lower 
 cap_tube_air = 0.15          # per-face air round the measured tube-fitting opening
 cap_slot_half = _tray.outlet_half + cap_tube_air  # complete two-fitting envelope, per pump
 cap_fitting_half = _tray.fitting_w / 2.0 + cap_tube_air
+# The exterior fitting section begins 0.080 mm aft of the case-derived lower well at their
+# tangent. Carry that identical section through the join and the ordinary 0.1 mm Boolean
+# overcut; all of this run is inside the already-open well.
+cap_fitting_join_run = 0.080 + 0.1
 cap_web_land = 4.0           # clamp section under each recessed M3 head
 cap_web_t = head_cbore_depth + cap_web_land  # bracket datum to retained access-well floor
 cap_screw_off = 18.0         # the two screws fore/aft of the centre access-well midpoint
@@ -5205,9 +5209,11 @@ def _pump_drop_voids(box):
         fittings = None
         for sx in (-1.0, 1.0):
             hx = cx + sx * _tray.outlet_pitch / 2.0
-            y0, y1 = outlet_face - cap_tube_air, _block_aft(plate) + 1.0
+            fitted_y0, y1 = outlet_face - cap_tube_air, _block_aft(plate) + 1.0
+            exterior = (sx > 0.0) == (cx > 0.0)
+            y0 = fitted_y0 - cap_fitting_join_run if exterior else fitted_y0
             circle = _ycyl(cap_fitting_half, hx, outlet_axis, y0, y1)
-            if (sx > 0.0) == (cx > 0.0):
+            if exterior:
                 # The exterior shaft meets the wider upper well through one 45-degree X/Z
                 # flare above the circle's tangent. Its centre-facing side stays on the fitted
                 # opening; its outer side reaches the upper-well edge and remains there. This
