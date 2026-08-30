@@ -49,7 +49,7 @@ M_NEOFIT_ACETAL = cq.Color(0.14, 0.14, 0.15)   # neoFit's black acetal bulkhead 
 # swatch the flavour chips are cut to.
 M_PETG_BLACK = cq.Color(*(c / 255.0 for c in _rear.chip_color("flavor")))
 # Polymaker Fiberon PET-GF15 black, the stock every surface a customer sees prints in
-# (`ledger/bom.md` §7): the four quadrants, the pump cartridge and the cap under it, the ceiling
+# (`ledger/bom.md` §7): the four quadrants, the lower pump cradle and its top clamp, the ceiling
 # panel, the display cover plate, the faucet shell's two pieces and the above-counter plate.
 # The cold core's five foam bodies come off the same stock — the shell and its four caps and
 # lids — so the two biggest plates in the build run one spool.

@@ -129,12 +129,11 @@ PARTS = {
         "enclosure/enclosure/enclosure-front-top.step",
     ],
     # THE FIFTH PIECE OF THE BOX, and the one that leaves it loaded: the front wall's flat
-    # span and the block behind it that both pumps stand in come off the plate as one solid
-    # (`enclosure.build_pump_cartridge`), and the cap that closes on both heads comes off it as a
-    # second (`enclosure.build_pump_cap`). ONE ROW FOR THE PAIR, because they are screwed
-    # together on the bench and ride as one. A pump tray is the pump cartridge's own material,
-    # so nothing stands under a pump that ships on its own — the valve trays' bargain below.
-    "Enclosure — pump cartridge + cap (one set)": [
+    # span and the large lower cradle behind it come off the plate as one solid
+    # (`enclosure.build_pump_cartridge`); the small top clamp comes off as a second
+    # (`enclosure.build_pump_cap`). ONE ROW FOR THE PAIR, because they are screwed together
+    # on the bench and ride as one. The two case-derived collars are clamp material, not parts.
+    "Enclosure — pump cartridge + clamp (one set)": [
         "enclosure/enclosure/enclosure-pump-cartridge.step",
         "enclosure/enclosure/enclosure-pump-cap.step",
     ],

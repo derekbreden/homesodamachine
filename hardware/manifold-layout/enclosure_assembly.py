@@ -1188,17 +1188,17 @@ def check_valve_trays_hold(pieces: dict, placed: dict) -> Bound:
          for n, v, p, s, g in rows]))
 
 
-# --- the flavour manifold's pump trays --------------------------------------
+# --- the flavour manifold's pump stations ----------------------------------
 #
-# ONE PLATE PER KAMOER (`pump_tray`). A tray lies flat on the +Z face of its pump's head with
-# that head's own rear boss standing up through the octagon cut in it, and runs from the pump's
-# axis to the front wall it is printed off.
+# ONE STATION PER KAMOER. The point lies on the +Z face of its pump's head, where the stamped
+# bracket bears in the lower cradle and the small top clamp's case-derived collar closes over
+# the boss. The `pump_trays` field name is retained at the enclosure boundary.
 #
-# NOTHING BELOW IS A STATION. Which way a pump stands and where the face its tray lies on is are
-# read off the placed bodies at every build, the way a valve deck's plane is.
-#   Which face of a pump its tray takes is read off ITS OWN MOTOR CAN. The can stands on the
+# NOTHING BELOW IS A CHOSEN STATION. Which way a pump stands and where its bracket plane lies
+# are read off the placed bodies at every build, the way a valve deck's plane is.
+#   Which face of a pump the clamp takes is read off ITS OWN MOTOR CAN. The can stands on the
 # boss and the boss on the head, so the axis from the head's centre to the can's IS the pump's
-# depth axis, and the head's face at the far end of it is the face the plate lies on.
+# depth axis, and the head's face at the far end of it is the bracket datum.
 #
 # How far off contact a pump under its tray may read — the same figure every seat on this card
 # is held to, the ASSE anchor's, the flow-meter anchors' and both valve trays'.
@@ -1223,9 +1223,9 @@ def _pump_up(placed: dict, head: str) -> tuple:
 
 
 def pump_tray_seats(placed: dict) -> dict:
-    """The trays the box stands, `head -> (axis, sign, centre)`.
+    """The pump stations the cartridge uses, `head -> (axis, sign, centre)`.
 
-    `centre` is the world point the pump's own axis meets the face its tray lies on: the head's
+    `centre` is the world point the pump's own axis meets its bracket datum: the head's
     centre in the two axes across the pump, and the head's own face in the third."""
     out = {}
     for head in sorted(placed):
@@ -1241,10 +1241,10 @@ def pump_tray_seats(placed: dict) -> dict:
 
 
 def pump_tray_stations(placed: dict) -> tuple:
-    """Every pump as `enclosure.Pack.pump_trays` — one world `centre` each.
+    """Every pump as legacy `enclosure.Pack.pump_trays` — one world `centre` each.
 
-    This is the whole of what the wall is handed: how far a plate runs to the wall is the box's
-    own figure, and its depth, its margin and the two storeys it wraps are `pump_tray`'s."""
+    This is the whole of what the cartridge builder is handed; its cradle, clamp and clearances
+    are enclosure and `pump_tray` figures."""
     out = []
     for head, (axis, sign, centre) in sorted(pump_tray_seats(placed).items()):
         if (axis, sign) != (2, 1.0):
@@ -1258,71 +1258,71 @@ def pump_tray_stations(placed: dict) -> tuple:
 
 
 def pump_tray_plans(a=None, shell=None) -> dict:
-    """`head -> root` — how far each tray runs off its pump's axis to the wall it stands on,
-    which is what `pump_tray` draws one from.
+    """`head -> root` — legacy diagnostic reach from each pump axis to the bay relief floor.
 
     `a` and `shell` are a machine and its box somebody already stood; without them this stands
     one. The heads are read out by name, so a whole assembly answers what `machine` does."""
     if a is None or shell is None:
         a, _p, shell = machine()
     placed = {n: s for n, (s, _c) in _solids(a).items()}
-    # A tray roots on the pump cartridge face's own pump relief, whose floor is the plane the
-    # wrap rule struck (`enclosure.pump_relief_floor`), not on the interior wall plane.
+    # The cartridge reaches the pump relief floor struck by the front-wall wrap rule, not the
+    # interior wall plane.
     return {head: round(centre[1] - _enc.pump_relief_floor, 6)
             for head, (_axis, _sign, centre) in pump_tray_seats(placed).items()}
 
 
-def check_cap_laps_bracket(pieces: dict, placed: dict) -> Bound:
-    """Whether the cap has material under every pump's bracket, on the three sides that close.
+def check_pump_capture(pieces: dict, placed: dict) -> Bound:
+    """Whether every pump bracket is between the lower cradle and the top clamp.
 
-    The bracket steadies a pump: `bracket_w` across against a head of `head_w`, sitting in the
-    plane the cap parts from the pump cartridge on. What it bears on is the cap's own top face, in
-    the annulus between the head's void and the bracket's edge. `kamoer_kphm400` states that
-    lip and draws none of it, so this reads the printed piece rather than the pump: one probe
-    per side, a `wall` deep under the split, and a side with no material under it is a corner
-    of the bracket hanging over the head's own opening.
+    The stamped bracket is stated but not drawn by `kamoer_kphm400`. Its 68.6 mm square stands
+    proud of the 62.61 mm head at the head-to-boss plane. The cradle's lower well clears the
+    head and leaves the annulus under the bracket; the clamp collar begins above the same plane
+    and covers that annulus. Probe both printed pieces on the three closed sides of each pump.
 
-    THE AFT SIDE IS OPEN AT THIS PLANE AND IT IS NOT READ. `enclosure.build_pump_cap` gives up
-    its aft face from the barbs' own level to the split, so a made-up tube can come down it as
-    the cap rises; the split is where the bracket sits, so the lap there is gone by that
-    decision and reading for it would be reading for the thing given up. WHAT CARRIES A PUMP
-    IS NOT THIS LAP EITHER: the head stands on the four flank seats `pump_tray.head_room` cuts
-    for it, and the lap only keeps the part square on them — three sides do that, and the
-    fourth was 0.525 mm wide."""
-    cap = pieces.get("pump-cap")
-    if cap is None:
+    The +Y side is the fitting side and remains open through the vertical drop path. The other
+    three sides carry the pump weight and the clamp load as an opposed pair."""
+    clamp = pieces.get("pump-cap")
+    cradle = pieces.get("pump-cartridge")
+    if clamp is None or cradle is None:
         return record_bound(Bound(
-            "pump-cap-laps-bracket", "The cap has material under every pump's bracket", True,
-            "no cap in this box", "material under all four sides of each bracket", []))
-    solid = cap.val() if hasattr(cap, "val") else cap
+            "pump-clamped-in-cradle", "Each pump is captured between cradle and top clamp", True,
+            "no pump cartridge in this box", "both printed pieces on each bracket", []))
+    clamp = clamp.val() if hasattr(clamp, "val") else clamp
+    cradle = cradle.val() if hasattr(cradle, "val") else cradle
     stations = tuple(c for _h, (_a, _s, c) in sorted(pump_tray_seats(placed).items()))
     split = _enc.cap_split_z(stations)
     inner = _tray.head_half + _enc.cap_pump_air
     outer = _tray.bracket_half
     rows, worst = [], None
     for cx, cy, _cz in stations:
-        for name, box in (
+        for name, plan in (
                 ("+X", (cx + inner, cx + outer, cy - inner, cy + inner)),
                 ("-X", (cx - outer, cx - inner, cy - inner, cy + inner)),
                 ("-Y", (cx - inner, cx + inner, cy - outer, cy - inner))):
-            probe = _enc._ybox(box[0], box[1], box[2], box[3], split - _enc.wall, split)
-            vol = solid.intersect(probe).Volume()
-            worst = vol if worst is None else min(worst, vol)
-            rows.append((f"({cx:+.1f}) {name}", vol))
-    bad = [r for r in rows if r[1] <= 0.0]
+            under = _enc._ybox(plan[0], plan[1], plan[2], plan[3],
+                               split - _enc.wall, split)
+            over = _enc._ybox(plan[0], plan[1], plan[2], plan[3],
+                              split + _tray.bracket_t,
+                              split + _tray.bracket_t + _tray.PLATE)
+            lower = cradle.intersect(under).Volume()
+            upper = clamp.intersect(over).Volume()
+            least = min(lower, upper)
+            worst = least if worst is None else min(worst, least)
+            rows.append((f"({cx:+.1f}) {name}", lower, upper))
+    bad = [r for r in rows if min(r[1:]) <= 0.0]
     return record_bound(Bound(
-        "pump-cap-laps-bracket", "The cap has material under every pump's bracket", not bad,
-        f"{len(rows) - len(bad)}/{len(rows)} closed sides land, least {worst:.1f} mm³",
-        "material under the three closed sides of each bracket (the aft face is open)",
-        [f"{who}: the cap has {vol:.1f} mm³ under this side of the bracket — the lip that "
-         f"carries the pump hangs over the head's own opening here" for who, vol in bad]))
+        "pump-clamped-in-cradle", "Each pump is captured between cradle and top clamp", not bad,
+        f"{len(rows) - len(bad)}/{len(rows)} closed sides captured, least {worst:.1f} mm³",
+        "cradle below and clamp above all three closed sides of both brackets",
+        [f"{who}: cradle {lower:.1f} mm³ below, clamp {upper:.1f} mm³ above"
+         for who, lower, upper in bad]))
 
 
 def check_cap_passes_tubes(pieces: dict, placed: dict, plate: dict) -> Bound:
-    """Whether the fittings' mouth and each barb tube leave through the cap opening.
+    """Whether the fittings and barb tubes pass the cradle's vertical outlet openings.
 
-    `enclosure.build_pump_cap` opens its aft face as one slot over each head and bores nothing
-    for the four tubes. THAT IS A CLAIM ABOUT THE BARB PITCH AND NOTHING ELSE HERE READS IT:
+    The lower cradle opens one 69.55 mm band over each outlet face and bores nothing for the
+    four tubes. THAT IS A CLAIM ABOUT THE BARB PITCH AND NOTHING ELSE HERE READS IT:
     the tubes are stationed off the placed pumps, while the opening is struck on the complete
     pump's own widest span across its two tube FITTINGS (`kamoer_kphm400.outlet_span_x`) and
     one `cap_tube_air` per side. Those are two measurements of the same face taken
@@ -1336,11 +1336,11 @@ def check_cap_passes_tubes(pieces: dict, placed: dict, plate: dict) -> Bound:
     measured fitting width plus `cap_tube_air` enters the cap from the relieved outlet face and
     sill; its intersection with the printed solid must be empty. The tube rides INSIDE the
     fitting that carries it, so what it is owed here is no less than the fitting's own air."""
-    cap = pieces.get("pump-cap")
-    if cap is None:
+    cradle = pieces.get("pump-cartridge")
+    if cradle is None:
         return record_bound(Bound(
-            "cap-passes-tubes", "Each barb tube leaves the cap through its opening", True,
-            "no cap in this box", "every tube inside the opening it leaves by", []))
+            "cradle-passes-fittings", "Each fitting passes the cradle's outlet opening", True,
+            "no cradle in this box", "every fitting inside its vertical opening", []))
     edge = _enc.cap_slot_half
     r = ml.TUBE_D / 2.0
     rows, mouths, worst = [], [], None
@@ -1355,7 +1355,7 @@ def check_cap_passes_tubes(pieces: dict, placed: dict, plate: dict) -> Bound:
     # Stay a hair inside every requested face: a boundary shared with the cutter is air but
     # has zero volume, while this gauge asks whether any printed section occupies the opening.
     gauge_inset = 1e-4
-    cap = cap.val() if hasattr(cap, "val") else cap
+    cradle = cradle.val() if hasattr(cradle, "val") else cradle
     for cx, cy, cz in stations:
         outlet_face = cy + _tray.head_half - _tray.outlet_relief
         sill = cz - _tray.head_depth + _tray.outlet_relief_run
@@ -1364,42 +1364,48 @@ def check_cap_passes_tubes(pieces: dict, placed: dict, plate: dict) -> Bound:
             outlet_face - _enc.cap_tube_air + gauge_inset,
             outlet_face + _enc.cap_tube_air,
             sill - _enc.cap_tube_air + gauge_inset, cz)
-        mouths.append((f"({cx:+.1f}) fitting mouth", cap.intersect(gauge).Volume()))
+        mouths.append((f"({cx:+.1f}) fitting mouth", cradle.intersect(gauge).Volume()))
     bad = [row for row in rows if row[1] < _enc.cap_tube_air - 1e-9]
     blocked = [row for row in mouths if row[1] > 1e-6]
     return record_bound(Bound(
-        "cap-passes-tubes", "Each fitting and barb tube leaves the cap through its opening",
+        "cradle-passes-fittings", "Each fitting passes the cradle's outlet opening",
         not bad and not blocked,
         (f"{len(rows) - len(bad)}/{len(rows)} tubes clear, least {worst:.3f} mm off the edge; "
          f"{len(mouths) - len(blocked)}/{len(mouths)} fitting mouths open"),
         f"at least {_enc.cap_tube_air:g} mm round every Ø{ml.TUBE_D:g} tube at the "
-        "opening's two outer edges and no cap material in either fitting-mouth gauge",
+        "opening's two outer edges and no cradle material in either fitting-mouth gauge",
         ([f"{who}: the tube has {air:.2f} mm to the opening's edge, under the "
           f"{_enc.cap_tube_air:g} mm the fitting beside it gets — the barb pitch and the "
           "fitting span disagree, so re-read one of them on the part" for who, air in bad]
-         + [f"{who}: {bite:.3f} mm³ of cap occupies the measured 69.25 mm fitting span "
+         + [f"{who}: {bite:.3f} mm³ of cradle occupies the measured 69.25 mm fitting span "
             f"with {_enc.cap_tube_air:g} mm air round its mouth"
             for who, bite in blocked])))
 
 
 def check_trays_hold(pieces: dict, placed: dict) -> Bound:
-    """Whether every pump is standing in the tray its head's face lies against.
+    """Whether the top clamp's conformal collars land on both pumps.
 
-    Read as the tray is: the plate lands on the head's +Z face all the way round the boss it
-    takes, so the pump and the printed piece TOUCH. Anything else is a plate drawn beside a pump
-    rather than on it."""
+    Each collar's pressing plate lands on the stamped bracket, its octagonal wall takes the
+    boss above that bracket and its shoulder surrounds the motor can. The lower cradle
+    intentionally has running air around the head, so this reading is against the clamp alone."""
     rows, worst = [], 0.0
-    solids = [p.val() if hasattr(p, "val") else p for p in pieces.values()]
+    clamp = pieces.get("pump-cap")
+    if clamp is None:
+        return record_bound(Bound(
+            "clamp-locates-pumps", "The top clamp locates both pumps", True,
+            "no pump clamp in this box", "each pump touching its conformal collar", []))
+    clamp = clamp.val() if hasattr(clamp, "val") else clamp
     for head, (_axis, _sign, centre) in sorted(pump_tray_seats(placed).items()):
-        gap = min(_clearing.gap(placed[head], piece, 1.0) for piece in solids)
+        boss = head.replace("-head", "-boss")
+        gap = _clearing.gap(placed[boss], clamp, 1.0)
         worst = max(worst, gap)
         rows.append((head, centre, gap))
     bad = [r for r in rows if r[2] > PUMP_TRAY_SLIP]
     return record_bound(Bound(
-        "trays-hold", "Every pump is standing in its printed tray", not bad,
+        "clamp-locates-pumps", "The top clamp locates both pumps", not bad,
         f"{len(rows) - len(bad)}/{len(rows)} pumps seated, furthest off {worst:.3f} mm",
-        f"every pump within {PUMP_TRAY_SLIP:g} mm of the plate on it",
-        [f"{h:14} axis ({c[0]:8.3f}, {c[1]:8.3f}) face z {c[2]:8.3f}   off {g:.4f}"
+        f"every boss within {PUMP_TRAY_SLIP:g} mm of its octagonal collar",
+        [f"{h:14} axis ({c[0]:8.3f}, {c[1]:8.3f}) bracket z {c[2]:8.3f}   off {g:.4f}"
          for h, c, g in rows]))
 
 
@@ -1417,7 +1423,7 @@ def check_trays_hold(pieces: dict, placed: dict) -> Bound:
 # forward
 # until each collet's nose lands on the steel — the body keeps coming, the nose is held,
 # the grip opens, and the tubes draw out through the holes they entered by. Pushing the
-# pump cartridge home threads them back into the same collets, the cap's own aft face landing on
+# pump cartridge home threads them back into the same collets, the cradle's own aft face landing on
 # the plate's fore face, the tees braced by the deck lattice their own butted valves hang
 # them from. The user's two hands are the whole mechanism: one pulls the pump cartridge, the
 # other braces the box, and the box carries the brace to this plate through the floor.
@@ -1992,14 +1998,14 @@ def check_pump_columns_open(pieces, shell) -> Bound:
 
 
 def check_cap_stop(pieces, spec) -> Bound:
-    """Whether the cap's aft face actually lands on the collet plate's fore face.
+    """Whether the lower cradle's aft face lands on the collet plate's fore face.
 
-    A STOP THAT DOES NOT TOUCH WHAT IT STOPS IS NOT A STOP. The cap is the piece whose
-    storey stands against the steel, and the face it presents is the whole of the stop, so
-    this reads both halves of that: the AREA standing against the plate's own band one
+    A STOP THAT DOES NOT TOUCH WHAT IT STOPS IS NOT A STOP. The cradle is the piece the hand
+    pulls and the pumps ride in, so its own aft face is the stop. Read both halves of that:
+    the AREA standing against the plate's own band one
     `cap_kiss` off its fore face, and that the kiss itself is air — a face through the steel
     is no better than one that misses it."""
-    cart = pieces["pump-cap"]
+    cart = pieces["pump-cartridge"]
     cart = cart.val() if hasattr(cart, "val") else cart
     probe = 0.4
     band = (spec["x0"], spec["x1"], spec["z0"], spec["z1"])
@@ -2011,9 +2017,9 @@ def check_cap_stop(pieces, spec) -> Bound:
     bite = kiss.intersect(cart).Volume()
     ok = area > 1e-6 and bite <= 1e-6
     return record_bound(Bound(
-        "pump-cap-stops-on-plate", "The cap's aft face lands on the collet plate", ok,
+        "pump-cradle-stops-on-plate", "The cradle's aft face lands on the collet plate", ok,
         f"{area:.1f} mm² on the steel, {bite:.3f} mm³ inside the kiss",
-        f"the cap's face on the plate's and `cap_kiss` {_enc.cap_kiss:g} mm of air at it",
+        f"the cradle's face on the plate's and `cap_kiss` {_enc.cap_kiss:g} mm of air at it",
         ([] if ok else
          ([f"no pad stands against the plate's band z {spec['z0']:g}..{spec['z1']:g} — the "
            f"pump cartridge has no aft stop against the steel and nothing but the anchor tees "
@@ -2052,14 +2058,14 @@ def check_head_sweep(solids: dict, pieces) -> Bound:
 
 
 def check_pump_cartridge_sweep(pieces) -> Bound:
-    """Whether the two printed pump cartridge pieces can pass bodily through the front mouth.
+    """Whether the lower cradle and top clamp can pass bodily through the front mouth.
 
     A PUMP-HEAD SWEEP IS NOT A DRAWER SWEEP. The head is smaller than the filled block that
     carries it, and a mouth can clear both heads while a reveal or fixed guide catches the
     block behind the face. Translate each actual printed solid from home until its aft face is
     outside the enclosure, checking at intervals no larger than half the stated running fit.
-    The actual solid matters: the cap's printable side tapers and the cartridge's two fixed-
-    guide notches are exterior passage geometry, not internal voids to fill into a box.
+    The actual solids matter: the cradle's printable side taper and fixed-guide notches are
+    exterior passage geometry, not internal voids to fill into a box.
     """
     front = pieces["front-top"]
     front = front.val() if hasattr(front, "val") else front
@@ -2084,7 +2090,7 @@ def check_pump_cartridge_sweep(pieces) -> Bound:
     ok = worst <= 1e-3
     return record_bound(Bound(
         "pump-cartridge-sweep-out",
-        "The complete pump cartridge and cap pass through the bay mouth",
+        "The complete pump cradle and clamp pass through the bay mouth",
         ok,
         (f"{len(rows)} pieces, {sum(n for _name, n, _v, _at in rows)} motion stations, "
          f"most in the way {worst:.3f} mm³"),
@@ -2092,6 +2098,160 @@ def check_pump_cartridge_sweep(pieces) -> Bound:
         ([] if ok else [
             f"{name} meets {volume:.3f} mm³ of front-top at y shift {at:.3f} mm"
             for name, _steps, volume, at in rows if volume > 1e-3])))
+
+
+def _pump_bracket(station):
+    """The measured stamped bracket omitted from the pump reference solids."""
+    cx, cy, cz = station
+    return _enc._ybox(
+        cx - _tray.bracket_half, cx + _tray.bracket_half,
+        cy - _tray.bracket_half, cy + _tray.bracket_half,
+        cz, cz + _tray.bracket_t)
+
+
+def _pump_drop_probe(head, placed, station, plate):
+    """One pump's drawn bodies plus the bracket and fitting gauges its model omits."""
+    names = (head, head.replace("-head", "-boss"), head.replace("-head", "-motor"))
+    bodies = [placed[name] for name in names]
+    cx, cy, cz = station
+    bracket = _pump_bracket(station)
+    outlet_face = cy + _tray.head_half - _tray.outlet_relief
+    sill = cz - _tray.head_depth + _tray.outlet_relief_run
+    fitting = _enc._ybox(
+        cx - _enc.cap_slot_half, cx + _enc.cap_slot_half,
+        outlet_face - _enc.cap_tube_air, plate["fore_y"] + 0.5,
+        sill - _enc.cap_tube_air, cz)
+    return cq.Compound.makeCompound([*bodies, bracket, fitting])
+
+
+def check_pumps_drop_into_cradle(pieces, placed, plate) -> Bound:
+    """Whether each complete pump lowers vertically into the load-bearing cradle.
+
+    The Kamoer model omits its stamped bracket and tube fittings, so the moving probe adds
+    both stated envelopes. Translate that complete probe from its seated station until its
+    lowest point is above the cradle, sampling no farther apart than half the drawer fit.
+    The top clamp is absent during this operation."""
+    cradle = pieces.get("pump-cartridge")
+    if cradle is None:
+        return record_bound(Bound(
+            "pumps-drop-into-cradle", "Both pumps drop vertically into the lower cradle", True,
+            "no pump cradle in this box", "both pump insertion sweeps clear", []))
+    cradle = cradle.val() if hasattr(cradle, "val") else cradle
+    stations = pump_tray_seats(placed)
+    step_max = _enc.bay_face_slip / 2.0
+    rows = []
+    for head, (_axis, _sign, station) in sorted(stations.items()):
+        probe = _pump_drop_probe(head, placed, station, plate)
+        travel = box(cradle).zmax - box(probe).zmin + 1.0
+        steps = max(1, math.ceil(travel / step_max))
+        worst, at = 0.0, 0.0
+        for i in range(steps + 1):
+            shift = travel * i / steps
+            moved = probe.moved(cq.Location(cq.Vector(0.0, 0.0, shift)))
+            volume = moved.intersect(cradle).Volume()
+            if volume > worst:
+                worst, at = volume, shift
+        rows.append((head, steps + 1, worst, at))
+    worst = max((r[2] for r in rows), default=0.0)
+    ok = worst <= 1e-3
+    return record_bound(Bound(
+        "pumps-drop-into-cradle", "Both pumps drop vertically into the lower cradle", ok,
+        f"{len(rows)} pumps, {sum(r[1] for r in rows)} stations, most in the way {worst:.3f} mm³",
+        f"pump, bracket and 69.55 mm fitting span clear every {step_max:g} mm or less",
+        [f"{name} meets {volume:.3f} mm³ of cradle at z shift {at:.3f} mm"
+         for name, _steps, volume, at in rows if volume > 1e-3]))
+
+
+def check_clamp_drops_on(pieces, placed) -> Bound:
+    """Whether the complete top clamp lowers over both pumps and into the cradle."""
+    clamp = pieces.get("pump-cap")
+    cradle = pieces.get("pump-cartridge")
+    if clamp is None or cradle is None:
+        return record_bound(Bound(
+            "top-clamp-drops-on", "The top clamp lowers over both pumps", True,
+            "no pump cartridge in this box", "the clamp's complete Z sweep clear", []))
+    clamp = clamp.val() if hasattr(clamp, "val") else clamp
+    cradle = cradle.val() if hasattr(cradle, "val") else cradle
+    pumps = [solid for name, solid in placed.items()
+             if name.startswith("pump-") and name.endswith(("-head", "-boss", "-motor"))]
+    pumps.extend(_pump_bracket(station)
+                 for _head, (_axis, _sign, station) in sorted(pump_tray_seats(placed).items()))
+    travel = box(cradle).zmax - box(clamp).zmin + 1.0
+    step_max = _enc.bay_face_slip / 2.0
+    steps = max(1, math.ceil(travel / step_max))
+    worst, at, into = 0.0, 0.0, ""
+    for i in range(steps + 1):
+        shift = travel * i / steps
+        moved = clamp.moved(cq.Location(cq.Vector(0.0, 0.0, shift)))
+        hits = [("cradle", moved.intersect(cradle).Volume())]
+        hits.extend(("pump", moved.intersect(pump).Volume()) for pump in pumps)
+        who, volume = max(hits, key=lambda item: item[1])
+        if volume > worst:
+            worst, at, into = volume, shift, who
+    ok = worst <= 1e-3
+    return record_bound(Bound(
+        "top-clamp-drops-on", "The top clamp lowers over both pumps", ok,
+        f"{steps + 1} stations, most in the way {worst:.3f} mm³",
+        f"clamp clear of both pumps and cradle every {step_max:g} mm or less",
+        ([] if ok else [
+            f"the clamp meets {worst:.3f} mm³ of {into} at z shift {at:.3f} mm"])))
+
+
+def check_cartridge_architecture(pieces) -> Bound:
+    """Whether the lower cradle is the cartridge and the top clamp is the small second piece."""
+    cradle = pieces.get("pump-cartridge")
+    clamp = pieces.get("pump-cap")
+    if cradle is None or clamp is None:
+        return None
+    cradle = cradle.val() if hasattr(cradle, "val") else cradle
+    clamp = clamp.val() if hasattr(clamp, "val") else clamp
+    cv, kv = cradle.Volume(), clamp.Volume()
+    share = cv / (cv + kv)
+    cb, kb = box(cradle), box(clamp)
+    one_each = len(cradle.Solids()) == 1 and len(clamp.Solids()) == 1
+    full_face = cb.zlen > 4.0 * kb.zlen
+    ok = share > 0.5 and one_each and full_face
+    return record_bound(Bound(
+        "pump-cartridge-lower-cradle", "The cartridge is a large lower cradle with a small top clamp",
+        ok,
+        f"cradle {share * 100:.1f}% of printed volume, {cb.zlen:.1f} mm high; clamp {kb.zlen:.1f} mm",
+        "one solid each, the cradle a majority of volume and carrying the full-height face",
+        ([] if ok else [
+            f"cradle {cv / 1000.0:.1f} cm³, clamp {kv / 1000.0:.1f} cm³, "
+            f"heights {cb.zlen:.1f}/{kb.zlen:.1f} mm, solids "
+            f"{len(cradle.Solids())}/{len(clamp.Solids())}"])))
+
+
+def check_cradle_pulls(pieces, shell) -> Bound:
+    """Whether both pull ledges are present on the common tube-centre plane."""
+    cradle = pieces.get("pump-cartridge")
+    if cradle is None:
+        return None
+    cradle = cradle.val() if hasattr(cradle, "val") else cradle
+    plate = shell.pack.collet_plate
+    z = _enc._pull_center_z(plate)
+    edge = _enc._cap_x_span(shell.pump_bay)[1]
+    y1 = _enc._block_aft(plate) - _enc.pull_aft
+    y0 = y1 - _enc.pull_run
+    rows = []
+    for label, sx in (("X+", +1.0), ("X-", -1.0)):
+        # The cutter deliberately runs 0.2 mm past the nominal flank so it opens the
+        # pocket cleanly.  The ledge probe belongs wholly inside the designed face;
+        # counting that runout air as ledge stock makes an exact edge read 97.8% full.
+        xa, xb = sorted((sx * (edge - _enc.pull_depth / 2.0), sx * (edge - 0.2)))
+        opening = _enc._ybox(xa, xb, y0 + 0.5, y1 - 0.5, z - 1.0, z + 1.0)
+        ledge = _enc._ybox(xa, xb, y0 - 1.0, y0, z - 1.0, z + 1.0)
+        bite = opening.intersect(cradle).Volume()
+        land = ledge.intersect(cradle).Volume() / ledge.Volume()
+        rows.append((label, bite, land))
+    bad = [r for r in rows if r[1] > 1e-6 or r[2] < 1.0 - 1e-6]
+    return record_bound(Bound(
+        "cradle-pulls-on-tube-axis", "Both cradle pulls act at the tube-centre elevation",
+        not bad,
+        f"{len(rows) - len(bad)}/{len(rows)} ledges whole at z {z:.3f} mm",
+        "an open pocket and whole fore ledge on both flanks at the four tube centres",
+        [f"{name}: opening bite {bite:.3f} mm³, ledge {land * 100:.1f}% solid"
+         for name, bite, land in bad]))
 
 
 # What a standing post's annulus may read short by. A post is fused as one cylinder and bored
@@ -6654,9 +6814,8 @@ def build_pack() -> cq.Assembly:
     # columns its seats stand on are the placed valves', and nothing here is a chosen number.
     # `enclosure._valve_trays` is what fuses each plate into the piece that owns its band.
     a.valve_trays = valve_tray_stations({n: s for n, s, _c in stood})
-    # AND THE TWO PUMP TRAYS' STATIONS, on the faces the fold left each Kamoer's head standing
-    # its boss off. Read straight off the pack the same way: the point a plate lies on is the
-    # placed pump's own, and how far it runs to the wall is the box's.
+    # AND THE TWO PUMP STATIONS, on the faces the fold left each Kamoer's head standing its boss
+    # off. Read straight off the pack the same way; the lower cradle and top clamp consume them.
     a.pump_trays = pump_tray_stations({n: s for n, s, _c in stood})
     # AND THE COLLET PLATE, in the berth `BARB_STANDOFF` opened between the barbs and the
     # anchor tees' branch collets — the steel the pump cartridge's four grips release against.
@@ -8319,9 +8478,10 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     # same reading, one storey forward: a plate drawn beside a valve rather than under it is a
     # plate nothing on this card would otherwise name.
     check_valve_trays_hold(pieces, a.pack_solids)
-    # And each pump against the piece whose plate lies on its head, one storey up from those.
+    # And each pump against the small top clamp whose collar takes its boss, then that clamp
+    # and the load-bearing cradle on the two faces of its stamped bracket.
     check_trays_hold(pieces, a.pack_solids)
-    check_cap_laps_bracket(pieces, a.pack_solids)
+    check_pump_capture(pieces, a.pack_solids)
     check_cap_passes_tubes(pieces, a.pack_solids, box.pack.collet_plate)
     # And the one line in that piece a nozzle would otherwise have to begin in air, against the
     # rib built to carry it — a reading of whether a body can be LAID, not of where it stands.
@@ -8336,6 +8496,8 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     # And the two posts that storey leaves standing either side of it — a reading of whether
     # section is PRESENT, which every clearance check on this card passes by definition.
     check_pump_columns_open(pieces, box)
+    check_cartridge_architecture(pieces)
+    check_cradle_pulls(pieces, box)
     # And whether the release those figures serve can actually happen — the one reading on
     # this card that asks a body to move rather than asking where it is.
     check_release_travel(pieces, a.pack_solids, box.pack.collet_plate)
@@ -8348,9 +8510,11 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     # the nozzle to lay anything in — the one reading here the solid itself cannot give.
     check_panel_web()
     check_head_sweep(a.pack_solids, pieces)
+    check_pumps_drop_into_cradle(pieces, a.pack_solids, box.pack.collet_plate)
+    check_clamp_drops_on(pieces, a.pack_solids)
     check_pump_cartridge_sweep(pieces)
-    # And the pump cartridge's own joint with what it lands against: the cap's aft face on the
-    # steel.
+    # And the pump cartridge's own joint with what it lands against: the cradle's aft face on
+    # the steel.
     check_cap_stop(pieces, box.pack.collet_plate)
     # And every floor post against the piece that grows it: a station outside every piece's
     # own Y column is not printed.
