@@ -23,9 +23,9 @@
   },
   "inputs": {
     "gcode": "plate_1.gcode",
-    "gcode_sha256": "f69695052d7ec0a91246148bae3160958d1c68bf860fbfb6f0c0c019eeb5a6a3",
-    "model": "bazel-bin/out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
-    "model_sha256": "b7bc48af4d4215c006c3c66ae7578b6e7d2dd1f63feb5aff0587d59e96eec3e6",
+    "gcode_sha256": "c0a9c5dd2fb4dd63f528b28f18f1d1aeea1757f07d54ee3e47795dc452a05966",
+    "model": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+    "model_sha256": "62ee1a39826541acc4b1d273c902f550fe8a3617dfd10d5fffe2d9c14a8bead5",
     "profile": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top-petgf.3mf",
     "profile_sha256": "99abeeb25ce51dfa0b2a40dec920d4cc14b5c8501eb02096cd531394b479a41e"
   },
