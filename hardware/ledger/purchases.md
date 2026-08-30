@@ -82,6 +82,12 @@ Stainless carbonator fabrication: 316 SS round-tube body + 1/4" laser-cut 316 SS
 | Noga NG8150 heavy-duty deburr tool with 10 S10 HSS swivel blades — hand deburr of the 316L tube cut ends (ID + OD edges) ahead of end-plate insertion into the 0.005" radial slip fit | [B001O62V56](https://www.amazon.com/dp/B001O62V56) | 1 | $20.38 | 112-0844221-1512225 | 2026-07-18 | 2026-07-22 | ACQUIRED |
 | JNB Pro countersink bits, 5-pc 1/4"–3/4", 82° M35 HSS 5 % cobalt, 1/4" shank — chamfer the 7/16" tap-drill holes in the 316L end-cap plates on the WEN 4208T ahead of NPT tapping | [B09C4X5R8F](https://www.amazon.com/dp/B09C4X5R8F) | 1 pk (5) | $27.78 | 112-0844221-1512225 | 2026-07-18 | 2026-07-22 | ACQUIRED |
 | 3M Scotch-Brite 7447 general-purpose hand pad, very fine, 6" × 9", aluminum oxide, 20-pack — abrasive weld-surface prep on the tube bore band and end-plate outer face | [B000LPN3WQ](https://www.amazon.com/dp/B000LPN3WQ) | 1 pk (20) | $22.95 | 112-1826837-9445804 | 2026-07-18 | 2026-07-19 | ACQUIRED |
+| STEPPERONLINE 1-axis CNC kit — NEMA 23 stepper, 1.9 N·m / 269 oz·in + DM542T 1.0–4.2 A, 20–50 VDC step/dir driver; cap-weld tube rotator drive | [B089Y8H8L5](https://www.amazon.com/dp/B089Y8H8L5) | 1 kit | $53.61 | 112-6362998-4945816 | 2026-08-29 | — | ON-ORDER |
+| BTF-LIGHTING 24 V 4 A 96 W Class 2 power adapter, ETL listed, 5.5 × 2.1 mm DC plug + included female barrel-to-wire connector; cap-weld tube rotator supply | [B0D2XZCGL5](https://www.amazon.com/dp/B0D2XZCGL5) | 1 | $28.95 | 112-6362998-4945816 | 2026-08-29 | — | ON-ORDER |
+| HimaPro 50122 cordless cast-aluminum deadman foot pedal, SPDT NO/NC, 15 A, IP65; rotation-enable input | [B0CYYYHL31](https://www.amazon.com/dp/B0CYYYHL31) | 1 | $39.67 | 112-8958234-5634623 | 2026-08-29 | — | ON-ORDER |
+| uxcell HTD-5M timing pulley, 20 teeth × 15 mm belt, 6.35 mm bore; motor pulley for cap-weld tube rotator | [B0747KM7MN](https://www.amazon.com/dp/B0747KM7MN) | 1 | $10.18 | 112-8958234-5634623 | 2026-08-29 | — | ON-ORDER |
+| uxcell HTD-5M closed-loop timing belt, 110 teeth / 550 mm pitch length × 15 mm width; cap-weld tube rotator | [B0CXPM3KTP](https://www.amazon.com/dp/B0CXPM3KTP) | 1 | $9.43 | 112-8958234-5634623 | 2026-08-29 | — | ON-ORDER |
+| Neoteck 0.03" / 0.0005" dial test indicator + 90 lb / 40 kg magnetic base set; tube radial and end-cap face runout inspection | [B09W2R3SCD](https://www.amazon.com/dp/B09W2R3SCD) | 1 set | $43.96 | 112-8958234-5634623 | 2026-08-29 | — | ON-ORDER |
 
 ## 2. CO2 subsystem
 
@@ -644,16 +650,6 @@ Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C funne
 | Part | Notes |
 |---|---|
 | **Google Pixel 10a unlocked Android phone, 128 GB Obsidian (2026 model)** | Android development handset for the soda-machine app's Android side (`android/`). [B0GHRHXVN1](https://www.amazon.com/dp/B0GHRHXVN1). |
-| **CHANCS TYD-50 synchronous motor, ~2.4 RPM ($13.88)** | The $18 proof that gates everything else below — one fixed line-locked speed under a lazy-susan bearing, to find out whether a continuous lap beats the tacked fill ([weld-rotation-rig.md](/hardware/assembly/weld-rotation-rig.md) open item 1). [B07J651C8N](https://www.amazon.com/dp/B07J651C8N). |
-| **4" lazy-susan turntable bearings, 2-pk ($6.48)** | Carries the part over the TYD-50 in the proof rig. [B09V87HXG5](https://www.amazon.com/dp/B09V87HXG5). |
-| **Neoteck 0.0005" dial test indicator + 90 lb magnetic base ($40.99)** | **Not optional and not deferred** — runout is the cap-weld rig's failure mode (R3 ≤ 0.25 mm, R4 ≤ 0.3 mm) and no instrument in [tools.md](/hardware/ledger/tools.md) reads it today. A lever-type test indicator is the right one for a bore and an OD. [B09W2R3SCD](https://www.amazon.com/dp/B09W2R3SCD). |
-| **HV6 6" horizontal/vertical rotary table, 150 mm, 90:1 worm, MT2 bore, 4 T-slots ($199.99)** | The rotation for the cap-weld rig — a NEMA 23 goes on the worm shaft in place of the handwheel. Released only by the proof above. [B0GPJ884VS](https://www.amazon.com/dp/B0GPJ884VS); the HHIP [B093CCLTHJ](https://www.amazon.com/dp/B093CCLTHJ) ($350.99) is the fallback if this one's worm arrives stiff. |
-| **STEPPERONLINE NEMA 23 stepper, 2.8 A, 1.24 N·m ($25.99)** | Drives the worm. 1.24 N·m against the 0.17 N·m a stuck wire reflects through 90:1 — seven times over. [B00PNEPF5I](https://www.amazon.com/dp/B00PNEPF5I). |
-| **DM542 stepper driver ($20.88) + Mean Well NDR-120-24 DIN supply ($32.90)** | Step/dir from an ESP32; 24 V is ample at the 371 steps/s the nominal weld speed asks for. [B08GCFNQF2](https://www.amazon.com/dp/B08GCFNQF2), [B0C6STVR3M](https://www.amazon.com/dp/B0C6STVR3M). |
-| **MGN12 linear rail + MGN12H carriage, 100 mm ($14.99)** | The head's fast axis, mounted at 45° parallel to the beam. [B0D9D6DM6S](https://www.amazon.com/dp/B0D9D6DM6S). |
-| **Push-pull toggle clamp, 32 mm plunger stroke, 2-pk ($14.89)** | Stop, over-centre latch and release lever in one part for the head's plunge. 32 mm sits inside the 25–50 mm the retract wants. [B073SB5BLY](https://www.amazon.com/dp/B073SB5BLY). |
-| **Iverntech 4040 T-slot extrusion, 500 mm, 2-pk ($38.99)** | The head column. [B0DRFZZT2N](https://www.amazon.com/dp/B0DRFZZT2N). |
-| **Tinned copper ground braid, 1/2", 8 ft ($17.99)** | Rides the rotating fixture plate so the work lead never wears a moving clamp (R7). [B0BBZNLJB4](https://www.amazon.com/dp/B0BBZNLJB4). |
 | **Smooth-On XTC-3D 3D-print smoothing epoxy, 6.4 oz (~$19.99) — optional** | Self-leveling epoxy base coat under the §21 core's clear-acrylic seal, only if the 0.08 mm core texture still telegraphs through the acrylic alone. Fills/seals; not the release face. [B01BKSLI9M](https://www.amazon.com/dp/B01BKSLI9M). |
 
 ---
@@ -665,10 +661,10 @@ Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C funne
 | ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$32,293.71](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$5,437.54](LEDGER_LABOR) |
 | ACQUIRED (combined) | [$37,731.25](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$929.49](LEDGER_ON_ORDER) |
+| ON-ORDER | [$1,115.29](LEDGER_ON_ORDER) |
 | MISSING — paid, not received (§1 copper bar) | [$42.89](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$38,703.63](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$38,889.43](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 

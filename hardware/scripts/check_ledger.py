@@ -106,16 +106,6 @@ ASIN = re.compile(r"\bB0[A-Z0-9]{8}\b")
 ASIN_WAIVED = {
     "B0F42MT8JX": "refrigerant-loop.md donor table — the generic alternative to "
                   "the costed Frigidaire EFIC117-SS, listed as 'both verified topology'",
-    "B0GPJ884VS": "weld-rotation-rig.md's pick — the rig is gated on its own open "
-                  "item 1 (whether a continuous lap beats the tacked fill), so "
-                  "nothing is ordered and the tools total must not move. Carried "
-                  "as a planned purchase in purchases.md 'Still needed'",
-    "B07B2RTBGZ": "weld-rotation-rig.md option A1, named to rule out — a 6:1 belt "
-                  "back-drives under the torque a stuck wire puts at the bead",
-    "B07B2SL9SD": "weld-rotation-rig.md option A1, named to rule out — the 50:1 "
-                  "works and costs double the pick",
-    "B093CCLTHJ": "weld-rotation-rig.md's contingency if the picked worm arrives "
-                  "stiff; bought only in that case, like the Supco drier spare",
 }
 
 for token in sorted({m for text in CORPUS.values() for m in ASIN.findall(text)}):
@@ -155,7 +145,7 @@ NOT_A_BRAND = {
     # Names that are not a part anyone stocks: cable/thread spec designators,
     # shipping carriers, phone OSes, and ledger status words.
     "UL2464", "FNPT", "FedEx", "Android", "International", "Generic",
-    "Status", "Zero",
+    "Status", "Zero", "SPDT",
 }
 
 brands: set[str] = set()
@@ -181,12 +171,6 @@ BRAND_WAIVED = {
             "'External / user-supplied (not shipped)'",
     "Mountain": "flavor concentrate is user-supplied, per bom.md "
                 "'External / user-supplied (not shipped)'",
-    "CHANCS": "weld-rotation-rig.md's proof-rig synchronous motor — carried in "
-              "purchases.md 'Still needed', not bought, so no bom/tools line yet",
-    "DM542": "weld-rotation-rig.md's stepper driver — carried in purchases.md "
-             "'Still needed', not bought, so no bom/tools line yet",
-    "MGN12": "weld-rotation-rig.md's head-axis rail — carried in purchases.md "
-             "'Still needed', not bought, so no bom/tools line yet",
 }
 
 corpus_text = "\n".join(CORPUS.values())

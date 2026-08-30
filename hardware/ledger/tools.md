@@ -41,6 +41,7 @@ For per-unit BOM parts, see [bom.md](/hardware/ledger/bom.md). For non-BOM/non-t
 | Tool | Source | Notes | $ |
 |---|---|---|---:|
 | **XLaserlab X1 Pro** | XLaserlab order #XLaserlab3271, [purchases.md §16](/hardware/ledger/purchases.md) | Handheld 3-in-1 laser welder / cleaner / cutter. Ultimate Pack with single wire feeder. Production weld station for the carbonator's 316L end-cap-to-tube joins. Vendor: xlaserlab.com. | [$3,899.00](T_X1PRO) |
+| **Cap-weld tube rotator** | STEPPERONLINE [NEMA 23 + DM542T](https://www.amazon.com/dp/B089Y8H8L5), BTF-LIGHTING [24 V supply](https://www.amazon.com/dp/B0D2XZCGL5), HimaPro [deadman pedal](https://www.amazon.com/dp/B0CYYYHL31), uxcell [20T pulley](https://www.amazon.com/dp/B0747KM7MN) + [550 mm belt](https://www.amazon.com/dp/B0CXPM3KTP), Neoteck [test indicator](https://www.amazon.com/dp/B09W2R3SCD), [purchases.md §1](/hardware/ledger/purchases.md) | PET-GF 5-inch-tube fixture with a 20T:90T drive, counted 380° lap, 5–15 mm/s stored travel setpoint, pedal deadman, replaceable ID/OD nest, adjustable jaws, stationary C110 work contact, and the shared acquired ESP32 + ULN2803A control stack on its 5 V adapter. Build and qualification gates: [`weld-rotation-rig.md`](/hardware/assembly/weld-rotation-rig.md). | [$185.80](T_WELD_ROTATOR) |
 | **Airgas argon size-80 cylinder + RHP400 regulator** | Airgas #8162013342, [purchases.md §1](/hardware/ledger/purchases.md), [B008HQ6GXO](https://www.amazon.com/dp/B008HQ6GXO) | Owned cylinder (not exchange/lease), CGA-580 fitting. Shielding gas for X1 Pro and braze-loop argon purge. Refill via Airgas Lincoln NE branch. | [$399.31](T_ARGON_CYL) |
 | **RX Weld argon regulator / flowmeter** | [B08P5BNHBX](https://www.amazon.com/dp/B08P5BNHBX), [purchases.md §1](/hardware/ledger/purchases.md) | Argon delivery for welding (separate from the RHP400 used for refrigeration brazing purge). | [$31.09](T_RXWELD) |
 | **Weldpro 3-Tier Welding Cart** | [B08G5CW3DY](https://www.amazon.com/dp/B08G5CW3DY), [purchases.md §1](/hardware/ledger/purchases.md) | Mobile cart for the X1 Pro welder + argon cylinder. | [$193.04](T_WELD_CART) |
@@ -198,7 +199,7 @@ it is now on the abrasive path, so **the left hotend is the bottleneck hotend**
 
 ## Tools total
 
-Total acquired tooling: **[$15,205.39](TOOLS_TOTAL)**
+Total acquired tooling: **[$15,391.19](TOOLS_TOTAL)**
 
 ## Open items
 

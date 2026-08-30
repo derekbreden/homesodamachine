@@ -1,12 +1,9 @@
-"""Doc-sync driver for hardware/assembly/weld-rotation-rig.md.
+"""Update derived figures in hardware/assembly/weld-rotation-rig.md.
 
-The rig's whole specification is one circle: the corner the plate and the bore
-leave when the plate seats to its recess. So every figure in that document —
-the lap length, the table speed at each travel speed, the fillet each leaves,
-the heat a lap costs — is derived here from the tube's bore and the plate's
-seat, and from nothing typed twice.
-
-`v = ωR` is the only conversion the rig performs, and R is the bore radius.
+The weld path, printed pulley, purchased pulley and controller all reduce to
+one circular interface. This script reads the same CadQuery-free interface as
+the printable fixture and derives every speed, pulse count and lap time in the
+assembly procedure from it.
 
 Run: tools/cad-venv/bin/python hardware/assembly/_weld_rotation_rig_sync.py
 """
@@ -15,171 +12,127 @@ import math
 import sys
 from pathlib import Path
 
+
 _here = Path(__file__).resolve().parent
 _repo = next(p for p in _here.parents if (p / "tools" / "docgen").is_dir())
 _hw = next(p for p in _here.parents if p.name == "hardware")
+_rotator = _hw / "printed-parts" / "fixtures" / "weld-rotator"
 sys.path.insert(0, str(_repo / "tools"))
 sys.path.insert(0, str(_hw / "cut-parts" / "carbonation" / "endcaps-circular"))
 sys.path.insert(0, str(_here))
+sys.path.insert(0, str(_rotator))
 
-from _pressure_vessel_sync import carbonator_rod_len, plate_recess  # noqa: E402
+import _rotator_interface as interface  # noqa: E402
+from _pressure_vessel_sync import carbonator_rod_len  # noqa: E402
 from docgen import substitute_md  # noqa: E402
 from endcap_circular_dxf import disc_diameter, disc_thickness, tube_id  # noqa: E402
 
+
 MM_PER_IN = 25.4
+TUBE_LENGTH = 6.0 * MM_PER_IN
+ROD_DIAMETER = 0.125 * MM_PER_IN
+DENSITY_316L = 7.98e-3  # g/mm³
 
-TUBE_OD_IN = 5.000
-TUBE_LEN = 152.4          # mm — the cut length the vessel is built from
-ROD_DIA = 0.125 * MM_PER_IN
-
-# 316L. Density is the handbook value; specific heat is what turns a lap's
-# energy into the bulk temperature rise the thin wall actually sees.
-DENSITY = 7.98e-3         # g/mm³
-SPECIFIC_HEAT = 0.50      # J/g·K
-
-# The machine, at the recipe in pressure-vessel.md step 3.
-LASER_W = 700.0
-POWER_FRACTION = 0.60
-WIRE_DIA = 0.030 * MM_PER_IN     # ER316L .030
-WIRE_FEED = 12.0                 # mm/s — step 3's recipe
-
-# The travel speeds the doc tabulates, and the one it is written around.
-SPEEDS = [5, 6, 8, 10, 12, 15, 20]
-V_NOM = 8.0
-
-# The head's own axis. The beam bisects the corner at 45° from vertical, and the
-# slide is built parallel to it so travel changes standoff and nothing else.
-# The retract only has to leave; the clearance below is what it leaves by.
-PLUNGE_ANGLE = 45.0       # ° from vertical
-RETRACT = 30.0            # mm of slide travel at the exit
-NOZZLE_STANDOFF = 10.0    # mm — nozzle tip above the plate face at weld height
-OVERLAP_DEG = 20.0        # ° of lap past 360°
-
-# What a stuck wire can pull against. ER316L is the weld metal's own strength;
-# the wire near a puddle is annealed and hotter, so this is an upper bound on
-# what the drivetrain has to be unable to notice.
-WIRE_TENSILE = 550.0      # MPa
-TACKS = 8                 # the bisecting pattern's count — and the fill's segments
-
-# The X1 Pro's single wire feeder, vendor-published range. The recipe's ratio is
-# what holds a fillet leg constant, and the feeder's span is what lets travel
-# speed and fillet size come apart across the whole window.
-FEED_MIN = 2.0            # mm/s
-FEED_MAX = 50.0           # mm/s
-RATIO_NOM = WIRE_FEED / V_NOM
-
-# The reduction between the motor and the table, on the pick.
-GEAR_RATIO = 90
-STEPS_REV = 200           # 1.8° NEMA 23, full steps
-
-# A synchronous rotisserie motor is line-locked, so on 60 Hz it sits at the top
-# of its plate rating — which is what the cheap proof would actually run at.
-TYD_RPM = 2.4
-
-bead_diameter = tube_id * MM_PER_IN
-bead_radius = bead_diameter / 2
-bead_circumference = math.pi * bead_diameter
-wire_area = math.pi * WIRE_DIA ** 2 / 4
+WIRE_DIAMETER = 0.030 * MM_PER_IN
+WIRE_FEED = 12.0
+SPEEDS = (5, 6, 8, 10, 12, 15)
 
 
-def rpm(v: float) -> float:
-    """Table speed for a travel speed at the bead — v = ωR, R the bore radius."""
-    return v * 60.0 / bead_circumference
+def fillet_leg(travel_mm_s: float) -> float:
+    wire_area = math.pi * WIRE_DIAMETER ** 2 / 4.0
+    return math.sqrt(2.0 * wire_area * WIRE_FEED / travel_mm_s)
 
 
-def fillet_leg(v: float, feed: float = WIRE_FEED) -> float:
-    """Leg of the triangular fillet a travel speed leaves at a given wire feed.
-
-    Deposit per mm of travel is the wire's own section times how much wire
-    arrives per mm; a triangle of that area has legs of √(2A). This is the
-    number a hand cannot hold and a turned part hands you.
-    """
-    return math.sqrt(2 * (feed / v) * wire_area)
+def cylinder_mass(diameter: float, length: float) -> float:
+    return math.pi * diameter ** 2 / 4.0 * length * DENSITY_316L
 
 
-def _cylinder_mass(diameter: float, length: float) -> float:
-    return math.pi * diameter ** 2 / 4 * length * DENSITY
-
-
-def masses() -> tuple[float, float]:
-    """Grams turned at step 3 (tube + one plate) and step 5 (tube + two + rod)."""
-    tube_od = TUBE_OD_IN * MM_PER_IN
-    tube = (math.pi / 4) * (tube_od ** 2 - bead_diameter ** 2) * TUBE_LEN * DENSITY
-    plate = _cylinder_mass(disc_diameter * MM_PER_IN, disc_thickness * MM_PER_IN)
-    rod = _cylinder_mass(ROD_DIA, carbonator_rod_len)
-    return tube + plate, tube + 2 * plate + rod
+def rotating_masses() -> tuple[float, float]:
+    tube = (
+        math.pi / 4.0 * (interface.TUBE_OD ** 2 - interface.TUBE_ID ** 2)
+        * TUBE_LENGTH * DENSITY_316L
+    )
+    plate = cylinder_mass(disc_diameter * MM_PER_IN,
+                          disc_thickness * MM_PER_IN)
+    rod = cylinder_mass(ROD_DIAMETER, carbonator_rod_len)
+    return tube + plate, tube + 2.0 * plate + rod
 
 
 def main():
-    m_s3, m_s5 = masses()
-    beam_w = LASER_W * POWER_FRACTION
-    lap_energy = beam_w * (bead_circumference / V_NOM)
+    canonical_id = tube_id * MM_PER_IN
+    if abs(canonical_id - interface.TUBE_ID) > 1e-6:
+        raise ValueError(
+            f"rotator tube ID {interface.TUBE_ID} disagrees with end-cap "
+            f"geometry {canonical_id}"
+        )
 
-    retract_z = RETRACT * math.cos(math.radians(PLUNGE_ANGLE))
-    deg_s = 360.0 * V_NOM / bead_circumference
+    mass_first, mass_second = rotating_masses()
+    wire_area = math.pi * WIRE_DIAMETER ** 2 / 4.0
+    overlap_length = (
+        interface.bead_circumference() * interface.OVERLAP_DEGREES / 360.0
+    )
+    nominal_lap_s = (
+        interface.bead_circumference()
+        * (360.0 + interface.OVERLAP_DEGREES) / 360.0
+        / interface.TRAVEL_NOMINAL
+    )
 
     variables = {
-        "RECESS": f"{plate_recess:.2f} mm",
-        "PLUNGE_ANGLE": f"{PLUNGE_ANGLE:.0f}\u00b0",
-        # A vertical slide under a leaning head moves the landing point radially
-        # by tan(lean) per mm; a slide along the beam moves it not at all.
-        "VERT_COUPLE": f"{math.tan(math.radians(PLUNGE_ANGLE)):.2f} mm",
-        "RETRACT": f"{RETRACT:.0f} mm",
-        "RETRACT_Z": f"{retract_z:.1f} mm",
-        "NOZZLE_STANDOFF": f"{NOZZLE_STANDOFF:.0f} mm",
-        "EXIT_CLEAR": f"{retract_z + NOZZLE_STANDOFF - plate_recess:.1f} mm",
-        "ANGLE_1DEG": f"{NOZZLE_STANDOFF * math.tan(math.radians(1)):.2f} mm",
-        "OVERLAP_DEG": f"{OVERLAP_DEG:.0f}\u00b0",
-        "DEG_S": f"{deg_s:.1f}\u00b0/s",
-        "OVERLAP_S": f"{OVERLAP_DEG / deg_s:.1f} s",
-        "OVERLAP_MM": f"{bead_circumference * OVERLAP_DEG / 360:.1f} mm",
-        "TRIP_1S": f"{deg_s:.1f}\u00b0",
-        "TRIP_1S_MM": f"{bead_circumference * deg_s / 360:.1f} mm",
-        "LAP_380": f"{bead_circumference * (360 + OVERLAP_DEG) / 360 / V_NOM:.1f} s",
-        "SEG_MM": f"{bead_circumference / TACKS:.1f} mm",
-        "SEG_S": f"{bead_circumference / TACKS / V_NOM:.1f} s",
-        "WIRE_BREAK": f"{wire_area * WIRE_TENSILE:.0f} N",
-        "DRAG_TORQUE": f"{wire_area * WIRE_TENSILE * bead_radius / 1000:.1f} N\u00b7m",
-        "FEED_RANGE": f"{FEED_MIN:.0f} \u2013 {FEED_MAX:.0f} mm/s",
-        "RATIO_NOM": f"{RATIO_NOM:.2f}",
-        "FEED_15": f"{RATIO_NOM * 15:.1f} mm/s",
-        "FEED_15_PCT": f"{RATIO_NOM * 15 / FEED_MAX * 100:.0f}%",
-        "V_FEED_MAX": f"{FEED_MAX / RATIO_NOM:.1f} mm/s",
-        "RPM_FEED_MAX": f"{rpm(FEED_MAX / RATIO_NOM):.2f} RPM",
-        "RPM_FEED_MIN": f"{rpm(FEED_MIN / RATIO_NOM):.2f} RPM",
-        # The pick's drivetrain, and what a stuck wire reflects back through it.
-        "WORM_RPM": f"{rpm(V_NOM) * GEAR_RATIO:.0f} RPM",
-        "WORM_STEPS": f"{rpm(V_NOM) * GEAR_RATIO / 60 * STEPS_REV:.0f} steps/s",
-        "STEP_DEG": f"{360 / (STEPS_REV * GEAR_RATIO):.3f}\u00b0",
-        "STEP_MM": f"{bead_circumference / (STEPS_REV * GEAR_RATIO):.3f} mm",
-        "REFLECT_90": f"{wire_area * WIRE_TENSILE * bead_radius / 1000 / GEAR_RATIO:.2f} N\u00b7m",
-        "REFLECT_6": f"{wire_area * WIRE_TENSILE * bead_radius / 1000 / 6:.2f} N\u00b7m",
-        "RAMP_MM": f"{bead_circumference * deg_s / 360:.1f} mm",
-        "BEAD_D": f"{bead_diameter:.2f} mm",
-        "BEAD_C": f"{bead_circumference:.2f} mm",
-        "MASS_S3": f"{m_s3 / 1000:.2f} kg",
-        "MASS_S5": f"{m_s5 / 1000:.2f} kg",
-        "V_NOM": f"{V_NOM:.0f} mm/s",
-        "WIRE_NOM": f"{WIRE_FEED:.0f} mm/s",
+        "BEAD_D": f"{interface.TUBE_ID:.2f} mm",
+        "BEAD_C": f"{interface.bead_circumference():.2f} mm",
+        "RECESS": f"{interface.ENDCAP_RECESS:.2f} mm",
+        "SERVICE_BORE": f"{interface.SERVICE_BORE_DIAMETER:.0f} mm",
+        "BASE_CLEARANCE": f"{interface.BASE_CLEARANCE:.0f} mm",
+        "MASS_FIRST": f"{mass_first / 1000.0:.2f} kg",
+        "MASS_SECOND": f"{mass_second / 1000.0:.2f} kg",
+        "SPEED_MIN": f"{interface.TRAVEL_MIN:.0f} mm/s",
+        "SPEED_NOM": f"{interface.TRAVEL_NOMINAL:.0f} mm/s",
+        "SPEED_MAX": f"{interface.TRAVEL_MAX:.0f} mm/s",
+        "RPM_WINDOW": (
+            f"{interface.table_rpm(interface.TRAVEL_MIN):.3f}–"
+            f"{interface.table_rpm(interface.TRAVEL_MAX):.3f} rpm"
+        ),
+        "RPM_NOM": f"{interface.table_rpm(interface.TRAVEL_NOMINAL):.3f} rpm",
+        "MOTOR_RPM_NOM": f"{interface.motor_rpm(interface.TRAVEL_NOMINAL):.3f} rpm",
+        "PULSE_HZ_NOM": f"{interface.pulse_hz(interface.TRAVEL_NOMINAL):.1f} Hz",
+        "RATIO": f"{interface.drive_ratio():.1f}:1",
+        "BELT_CENTER": f"{interface.belt_center_distance():.1f} mm",
+        "SMALL_WRAP": f"{interface.small_pulley_wrap_degrees():.1f}°",
+        "SMALL_WRAP_TEETH": (
+            f"{interface.small_pulley_wrap_degrees() / 360.0 * interface.MOTOR_PULLEY_TEETH:.1f}"
+        ),
+        "TABLE_PULSES": f"{interface.table_pulses_per_rev():,}",
+        "LAP_PULSES": (
+            f"{interface.pulses_for_degrees(360.0 + interface.OVERLAP_DEGREES):,}"
+        ),
+        "INDEX_PULSES": f"{interface.pulses_for_degrees(45.0):,}",
+        "TABLE_STEP_DEG": f"{360.0 / interface.table_pulses_per_rev():.3f}°",
+        "TABLE_STEP_MM": (
+            f"{interface.bead_circumference() / interface.table_pulses_per_rev():.3f} mm"
+        ),
+        "OVERLAP_DEG": f"{interface.OVERLAP_DEGREES:.0f}°",
+        "OVERLAP_MM": f"{overlap_length:.1f} mm",
+        "LAP_NOM": f"{nominal_lap_s:.1f} s",
+        "WIRE_FEED": f"{WIRE_FEED:.0f} mm/s",
         "WIRE_AREA": f"{wire_area:.3f} mm²",
-        "RPM_NOM": f"{rpm(V_NOM):.3f} RPM",
-        "RPM_WINDOW": f"{rpm(SPEEDS[0]):.2f} – {rpm(SPEEDS[-2]):.2f} RPM",
-        "V_TYD": f"{TYD_RPM / 60 * bead_circumference:.1f} mm/s",
-        "HEAT_MM": f"{beam_w / V_NOM:.1f} J/mm",
-        "HEAT_LAP": f"{lap_energy / 1000:.1f} kJ",
-        "HEAT_DT": f"{lap_energy / (m_s3 * SPECIFIC_HEAT):.0f} K",
+        "FILLET_NOM": f"{fillet_leg(interface.TRAVEL_NOMINAL):.2f} mm",
     }
-    for v in SPEEDS:
-        variables[f"RPM_{v}"] = f"{rpm(v):.3f} RPM"
-        variables[f"REV_{v}"] = f"{bead_circumference / v:.1f} s"
-        variables[f"LEG_{v}"] = f"{fillet_leg(v):.2f} mm"
+    for speed in SPEEDS:
+        variables[f"RPM_{speed}"] = f"{interface.table_rpm(speed):.3f}"
+        variables[f"REV_{speed}"] = f"{interface.bead_circumference() / speed:.1f}"
+        variables[f"LAP_{speed}"] = (
+            f"{interface.bead_circumference() * (360.0 + interface.OVERLAP_DEGREES) / 360.0 / speed:.1f}"
+        )
+        variables[f"PULSE_{speed}"] = f"{interface.pulse_hz(speed):.1f}"
+        variables[f"LEG_{speed}"] = f"{fillet_leg(speed):.2f}"
 
     substitute_md(_here / "weld-rotation-rig.md", variables)
     print(
-        f"bead {bead_circumference:.2f} mm  "
-        f"nominal {rpm(V_NOM):.3f} RPM / {bead_circumference / V_NOM:.1f} s  "
-        f"leg {fillet_leg(V_NOM):.2f} mm  "
-        f"mass {m_s3 / 1000:.2f}/{m_s5 / 1000:.2f} kg"
+        f"bead {interface.bead_circumference():.2f} mm; "
+        f"nominal {interface.table_rpm(interface.TRAVEL_NOMINAL):.3f} rpm, "
+        f"{interface.pulse_hz(interface.TRAVEL_NOMINAL):.1f} Hz, "
+        f"{nominal_lap_s:.1f} s / "
+        f"{interface.pulses_for_degrees(380):,} pulses"
     )
 
 
