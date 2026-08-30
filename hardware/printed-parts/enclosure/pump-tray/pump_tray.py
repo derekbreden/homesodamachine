@@ -74,6 +74,10 @@ outlet_relief_run = _kp.outlet_relief_run
 # The complete pump's widest X span, across the two tube fittings on its outlet face. This is
 # not the head body's width; it is what the cradle opening passes at that one face.
 outlet_half = _kp.outlet_span_x / 2.0
+# The two individual fittings within that complete span. The enclosure opens one straight
+# passage for each fitting and carries printed wall between them.
+outlet_pitch = _kp.barb_pitch
+fitting_w = _kp.fitting_w
 # The case's own footprint, half of it — what its base plate and the foot of its ramp reach.
 case_half = _pc.footprint_half_extent
 # And that base plate's own thickness. The enclosure restores this whole section above the
