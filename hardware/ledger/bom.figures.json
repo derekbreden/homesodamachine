@@ -40,7 +40,7 @@
     "PLATE_CORNERS": "4",
     "PLATE_HOLES": "4",
     "PLATE_HOLE_D": "\u00d88",
-    "PLATE_PLAN": "195.70 \u00d7 56.49 mm",
+    "PLATE_PLAN": "188.00 \u00d7 56.49 mm",
     "PP1208E_INLET": "1",
     "PP1208E_PANEL": "3",
     "PP1208E_TOTAL": "4",
@@ -79,7 +79,7 @@
     "WR1110_LOOP": "84.1 mm"
   },
   "/hardware/scripts/_bom_totals.py": {
-    "BOM_GRAND": "$1,406.98",
+    "BOM_GRAND": "$1,407.72",
     "BOM_SEC1": "$175.03",
     "BOM_SEC11": "$33.85",
     "BOM_SEC12": "$37.50",
@@ -90,7 +90,7 @@
     "BOM_SEC4": "$96.56",
     "BOM_SEC5": "$142.25",
     "BOM_SEC6": "$15.62",
-    "BOM_SEC7": "$154.24",
+    "BOM_SEC7": "$154.98",
     "BOM_SEC8": "$241.27",
     "BOM_SEC9": "$60.29"
   }
