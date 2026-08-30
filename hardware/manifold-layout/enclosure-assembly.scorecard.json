@@ -1039,12 +1039,42 @@
    "active": true
   },
   {
+   "id": "ceiling-panel-section",
+   "label": "The removable ceiling is an eleven-millimetre relieved plate with a whole show skin",
+   "kind": "gate",
+   "status": "pass",
+   "value": "11.0 mm envelope to z 344.0; 0.0000 mm\u00b3 show skin missing, 0.0000 mm\u00b3 clean growth missing; 9 body roofs, least 3.500 mm over asse1022-assembly; 3 tie approaches, least 480.4 mm\u00b3 open",
+   "target": "z 355 exterior, z 352 pack lane, z 349 fixed face and z 344 panel underside; a whole three-millimetre show skin, the exact nine body reliefs with at least one wall over each, three open tie approaches and one valid solid with one outer shell",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "ceiling-rail-capture",
+   "label": "Both six-by-six ceiling tongues are captured in grown fixed-strip dados",
+   "kind": "gate",
+   "status": "pass",
+   "value": "6.00 \u00d7 6.00 mm tongues; 0.15 mm slip; 3.00/2.85 mm lower/upper ligaments; 0.0000 mm\u00b3 home clash, 0.025 mm\u00b3 least X/Z catch, 0.0000 mm\u00b3 worst missing rail or ligament",
+   "target": "both complete tongues clear at home, meet fixed material after one clearance-plus-0.25 millimetre displacement in X, Z+ and Z-, and retain at least 3.00 mm below and 2.80 mm above the dado's blind end",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "back-top-ceiling-growth",
+   "label": "Back-top's fixed ceiling strips keep their three-millimetre inward growth",
+   "kind": "gate",
+   "status": "pass",
+   "value": "6.0 mm fixed face; clean shell missing 0.0000 mm\u00b3; c14-inlet 1.047\u21921.000 mm, relay-1 2.000\u21922.000 mm, ground-stack 0.682\u21920.682 mm, asse1022-assembly 0.580\u21920.580 mm, bulkhead-water 0.747\u21920.747 mm",
+   "target": "six millimetres from the unchanged exterior, the exact added shell on both clean strips, and body air within 0.05 mm of the established corbel, never below one millimetre unless that body's established feature was already closer, after exact one-millimetre growth-only reliefs",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "c14-ceiling-corbel-clear",
    "label": "The C14 stands clear of the complete wall-rooted ceiling corbel",
    "kind": "gate",
    "status": "pass",
-   "value": "1.047 mm exact air; 12.285 mm of corbel kept at the rim",
-   "target": "at least 1 mm exact air and a nonzero unrelieved wedge at the rim",
+   "value": "1.000 mm exact air; 12.285 mm of corbel kept at the rim",
+   "target": "at least 1 mm exact air and a nonzero established wedge at the rim",
    "detail": [],
    "active": true
   },
@@ -1070,11 +1100,11 @@
   },
   {
    "id": "ceiling-panel-slides-in",
-   "label": "The deep ceiling panel and rails slide through back-top",
+   "label": "The complete deep ceiling panel slides through back-top",
    "kind": "gate",
    "status": "pass",
-   "value": "0.000 mm\u00b3 of unpocketed fixed back-top in its continuous sweep; C14 pocket missing 0.0000 mm\u00b3 and open aft",
-   "target": "no unpocketed fixed material in the field-and-rail complete Y sweep, with every fixed rear feature which reaches it wholly inside an aft-open running-clearance pocket",
+   "value": "0.000 mm\u00b3 in the continuous field-and-rail sweep; 0.000 mm\u00b3 worst lower-furniture overlap over 262 exact stations at y shift -261.00; C14 pocket missing 0.0000 mm\u00b3 and open aft",
+   "target": "no unpocketed fixed material in the field-and-rail complete Y sweep, with every fixed rear feature which reaches it wholly inside an aft-open running-clearance pocket, and no fixed material in any lower printed-furniture pose at one-millimetre spacing",
    "detail": [],
    "active": true
   },
@@ -1083,8 +1113,8 @@
    "label": "Two transverse keepers block both ceiling tongues at the open dado mouths",
    "kind": "gate",
    "status": "pass",
-   "value": "0.15 mm home air; at 0.90 mm Y\u2212, tongue engagement 3.434/3.434 mm\u00b3; home clash 0.0000, fixed clash 0.0000, socket stock 0.0000, land missing 0.0000, roof missing 0.0000 mm\u00b3",
-   "target": "both M3 cross-pins clear at home, catch their own tongue after the stated fore air, and run in round, teardrop-roofed fixed sockets with a complete lower heat-set land and at least 0.75 mm of PET-GF over the apex",
+   "value": "0.15 mm home air; at 0.90 mm Y\u2212, tongue engagement 5.890/5.890 mm\u00b3; home clash 0.0000, fixed clash 0.0000, socket stock 0.0000, land missing 0.0000, roof missing 0.0000 mm\u00b3; 5.60 mm X / 2.00 mm Z engagement",
+   "target": "both M3 cross-pins clear at home, catch their own tongue after the stated fore air, and run in round, teardrop-roofed fixed sockets with a complete lower heat-set land and at least 0.75 mm of PET-GF over the apex; the established y 234.35, z 351.50, x 79.90/86.65/91.90/92.90 stations and 5.60 by 2.00 mm tongue engagement",
    "detail": [],
    "active": true
   },
