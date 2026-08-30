@@ -3056,37 +3056,71 @@ static void ratioStepCb(lv_event_t *e) {
 // that the machine is deliberately busy while the modal names the reason. The
 // object is built once and reused by boot, filling, cleaning, and any future
 // operation that must withhold the rest of the UI.
-// ── Alignment target ──────────────────────────────────────────────────────
+// ── Alignment target ─────────────────────────────────────
 // A wake that comes up shifted moves the whole image by an amount no counter on
-// this board can read, because the ST7262 reports nothing. This draws a ruler
-// the panel itself carries: eight 10 px bands around the edge, outermost first,
-// so the outermost band still visible at an edge is how many pixels that edge
-// lost. Each edge names itself in framebuffer coordinates, so a photograph of a
-// shifted wake measures itself whichever way the board happens to be sitting.
-#define ALIGN_BAND_PX    10
-#define ALIGN_BAND_COUNT 8
-#define ALIGN_HOLD_MS    8000
+// this board can read, because the ST7262 reports nothing. So the panel carries
+// its own ruler, and the two axes need very different things from it.
+//
+// x ran off the end of the first target -- every band gone at one edge, so it
+// lost at least 80 px. y landed inside blue with no green beside it, which is
+// somewhere in 20..29 and wants finer marks than 10 px to pin down. So the axes
+// get separate rulers that meet nowhere: left and right carry 240 px of 10 px
+// bands and measure x, top and bottom carry 120 px of 5 px bands and measure y.
+//
+// Eight hues cannot span either range, so the hue repeats and the tier dims --
+// the same eight at 55% is eight bands further in, at 28% is sixteen. Brightness
+// survives being read off the glass better than a ninth and tenth colour would.
+#define ALIGN_HOLD_MS   8000
+#define ALIGN_X_BAND_PX 10
+#define ALIGN_Y_BAND_PX 5
+#define ALIGN_X_BANDS   24   // 240 px of reach along a scan line
+#define ALIGN_Y_BANDS   24   // 120 px of reach down the frame
+#define ALIGN_FIELD_X   (ALIGN_X_BANDS * ALIGN_X_BAND_PX)
+#define ALIGN_FIELD_Y   (ALIGN_Y_BANDS * ALIGN_Y_BAND_PX)
 
-static const uint32_t kAlignBand[ALIGN_BAND_COUNT] = {
-    0xFF0000,  //  0  red
-    0x00FF00,  // 10  green
-    0x0000FF,  // 20  blue
-    0xFFFF00,  // 30  yellow
-    0xFFFFFF,  // 40  white
-    0xFF00FF,  // 50  magenta
-    0x00FFFF,  // 60  cyan
-    0xFF8000,  // 70  orange
+static const uint32_t kAlignHue[8] = {
+    0xFF0000,  // red
+    0x00FF00,  // green
+    0x0000FF,  // blue
+    0xFFFF00,  // yellow
+    0xFFFFFF,  // white
+    0xFF00FF,  // magenta
+    0x00FFFF,  // cyan
+    0xFF8000,  // orange
 };
 
 static lv_obj_t *alignScreen = nullptr;
 static unsigned long alignHideDue = 0;
 
-static lv_obj_t *alignLabel(lv_obj_t *parent, const char *text, lv_coord_t x, lv_coord_t y) {
+static uint32_t alignTint(int band) {
+  static const int kScale[3] = {100, 55, 28};
+  const uint32_t hue = kAlignHue[band % 8];
+  const int tier = (band / 8) < 3 ? (band / 8) : 2;
+  const int n = kScale[tier];
+  const uint32_t r = (((hue >> 16) & 0xFF) * n) / 100;
+  const uint32_t g = (((hue >> 8) & 0xFF) * n) / 100;
+  const uint32_t b = ((hue & 0xFF) * n) / 100;
+  return (r << 16) | (g << 8) | b;
+}
+
+static void alignBand(lv_obj_t *parent, int band,
+                      lv_coord_t x, lv_coord_t y, lv_coord_t w, lv_coord_t h) {
+  lv_obj_t *b = lv_obj_create(parent);
+  lv_obj_set_size(b, w, h);
+  lv_obj_set_pos(b, x, y);
+  lv_obj_set_style_bg_color(b, lv_color_hex(alignTint(band)), 0);
+  lv_obj_set_style_bg_opa(b, LV_OPA_COVER, 0);
+  lv_obj_set_style_border_width(b, 0, 0);
+  lv_obj_set_style_radius(b, 0, 0);
+  lv_obj_set_style_pad_all(b, 0, 0);
+  lv_obj_clear_flag(b, LV_OBJ_FLAG_SCROLLABLE);
+}
+
+static void alignLabel(lv_obj_t *parent, const char *text, lv_coord_t x, lv_coord_t y) {
   lv_obj_t *l = lv_label_create(parent);
   lv_label_set_text(l, text);
   lv_obj_set_style_text_color(l, lv_color_hex(0xFFFFFF), 0);
   lv_obj_set_pos(l, x, y);
-  return l;
 }
 
 static void buildAlignTarget(lv_obj_t *scr) {
@@ -3100,25 +3134,26 @@ static void buildAlignTarget(lv_obj_t *scr) {
   lv_obj_set_style_pad_all(alignScreen, 0, 0);
   lv_obj_clear_flag(alignScreen, LV_OBJ_FLAG_SCROLLABLE);
 
-  // Concentric rings, each painted over the last, leaving 10 px of every colour
-  // showing. Band k starts at k*10 px in from every edge.
-  for (int k = 0; k < ALIGN_BAND_COUNT; k++) {
-    const lv_coord_t inset = (lv_coord_t)(k * ALIGN_BAND_PX);
-    lv_obj_t *b = lv_obj_create(alignScreen);
-    lv_obj_set_size(b, SCREEN_W - 2 * inset, SCREEN_H - 2 * inset);
-    lv_obj_set_pos(b, inset, inset);
-    lv_obj_set_style_bg_color(b, lv_color_hex(kAlignBand[k]), 0);
-    lv_obj_set_style_bg_opa(b, LV_OPA_COVER, 0);
-    lv_obj_set_style_border_width(b, 0, 0);
-    lv_obj_set_style_radius(b, 0, 0);
-    lv_obj_set_style_pad_all(b, 0, 0);
-    lv_obj_clear_flag(b, LV_OBJ_FLAG_SCROLLABLE);
+  // x: full-height strips in from each end of a scan line.
+  for (int k = 0; k < ALIGN_X_BANDS; k++) {
+    const lv_coord_t w = ALIGN_X_BAND_PX;
+    alignBand(alignScreen, k, (lv_coord_t)(k * w), 0, w, SCREEN_H);
+    alignBand(alignScreen, k, (lv_coord_t)(SCREEN_W - (k + 1) * w), 0, w, SCREEN_H);
   }
 
-  const lv_coord_t edge = (lv_coord_t)(ALIGN_BAND_COUNT * ALIGN_BAND_PX);
+  // y: strips in from the first and last line, kept between the x rulers so the
+  // two never overlap and no corner has to be interpreted.
+  const lv_coord_t midX = ALIGN_FIELD_X;
+  const lv_coord_t midW = SCREEN_W - 2 * ALIGN_FIELD_X;
+  for (int k = 0; k < ALIGN_Y_BANDS; k++) {
+    const lv_coord_t h = ALIGN_Y_BAND_PX;
+    alignBand(alignScreen, k, midX, (lv_coord_t)(k * h), midW, h);
+    alignBand(alignScreen, k, midX, (lv_coord_t)(SCREEN_H - (k + 1) * h), midW, h);
+  }
+
   lv_obj_t *field = lv_obj_create(alignScreen);
-  lv_obj_set_size(field, SCREEN_W - 2 * edge, SCREEN_H - 2 * edge);
-  lv_obj_set_pos(field, edge, edge);
+  lv_obj_set_size(field, midW, SCREEN_H - 2 * ALIGN_FIELD_Y);
+  lv_obj_set_pos(field, midX, ALIGN_FIELD_Y);
   lv_obj_set_style_bg_color(field, lv_color_hex(0x101010), 0);
   lv_obj_set_style_bg_opa(field, LV_OPA_COVER, 0);
   lv_obj_set_style_border_width(field, 0, 0);
@@ -3126,22 +3161,20 @@ static void buildAlignTarget(lv_obj_t *scr) {
   lv_obj_set_style_pad_all(field, 0, 0);
   lv_obj_clear_flag(field, LV_OBJ_FLAG_SCROLLABLE);
 
-  // Named in framebuffer coordinates: x runs along a scan line, y counts lines.
-  alignLabel(field, "y = 0   FIRST LINE", 210, 12);
-  alignLabel(field, "y = 479   LAST LINE", 210, 286);
-  alignLabel(field, "x = 0\nFIRST\nPIXEL", 12, 130);
-  alignLabel(field, "x = 799\nLAST\nPIXEL", 540, 130);
   alignLabel(field,
-             "BANDS ARE 10 px, OUTERMOST FIRST\n\n"
-             "  0 red     40 white\n"
-             " 10 green   50 magenta\n"
-             " 20 blue    60 cyan\n"
-             " 30 yellow  70 orange\n\n"
-             "The outermost band still showing at an\n"
-             "edge is how many pixels that edge lost.\n"
-             "All four red = no shift.\n\n"
+             "LEFT+RIGHT = x, 10 px bands\n"
+             "TOP+BOTTOM = y,  5 px bands\n\n"
+             "hue: red grn blu yel\n"
+             "     wht mag cyn org\n"
+             "DIMMER  = +8 bands in\n"
+             "DIMMEST = +16 bands in\n\n"
+             "x: dimRED 80  dimBLU 100\n"
+             "   dimWHT 120 dimCYN 140\n"
+             "y: wht 20  mag 25  cyn 30\n\n"
+             "outermost band still visible\n"
+             "at an edge = px that edge lost\n"
              FW_VERSION,
-             150, 60);
+             8, 6);
 }
 
 static void alignTargetShow() {
