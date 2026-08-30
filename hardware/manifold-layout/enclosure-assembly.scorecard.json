@@ -1,5 +1,5 @@
 {
- "gatesPass": false,
+ "gatesPass": true,
  "size": [
   {
    "id": "enclosure",
@@ -1192,31 +1192,22 @@
   },
   {
    "id": "plate-carried",
-   "label": "The collet plate has front-bottom under it the whole way in",
+   "label": "Front-bottom carries both ends of the installed collet plate",
    "kind": "gate",
-   "status": "fail",
-   "value": "10/12 bands whole, worst 72.2%",
-   "target": "a shelf under both ends of the steel, unbroken from 14 to 78.81, one 0.2 under the seam plane",
-   "detail": [
-    "-X y 14..25: 72.2% solid",
-    "+X y 14..25: 72.2% solid",
-    "the steel rides this shelf in from the front wall and rests on it at home. A gap in it is a station where the plate has nothing under it, and the plate is held by nothing else in either piece"
-   ],
+   "status": "pass",
+   "value": "2/2 ends whole, worst 100.0%",
+   "target": "a shelf under both ends of the steel across y 75.635..78.81, one 0.2 under the seam plane",
+   "detail": [],
    "active": true
   },
   {
-   "id": "column-face-lands",
-   "label": "The column's turn lands on the flank opening, and the wall behind it stands",
+   "id": "pump-columns-open",
+   "label": "The display-support columns leave the pump withdrawal span",
    "kind": "gate",
-   "status": "fail",
-   "value": "X- 0.0% solid, face at -116.500; X+ 0.0% solid, face at 116.500",
-   "target": "solid to the landing, face within 0.2 mm of -115.405 / 115.405",
-   "detail": [
-    "X-: the wall outboard of the landing is 0.0% solid \u2014 material taken from it collides with nothing and shows on no other reading",
-    "X+: the wall outboard of the landing is 0.0% solid \u2014 material taken from it collides with nothing and shows on no other reading",
-    "X-: the face stands at -116.500 where a turn of 12 tangent to y=26 puts it at -115.405, 1.095 off",
-    "X+: the face stands at 116.500 where a turn of 12 tangent to y=26 puts it at 115.405, 1.095 off"
-   ],
+   "status": "pass",
+   "value": "2 column quadrants probed, most material in the way 0.000 mm\u00b3",
+   "target": "no front-top material inside either former column quadrant",
+   "detail": [],
    "active": true
   },
   {
@@ -1294,13 +1285,10 @@
    "id": "pump-cartridge-sweep-out",
    "label": "The complete pump cartridge and cap pass through the bay mouth",
    "kind": "gate",
-   "status": "fail",
-   "value": "2 pieces, most in the way 13760.039 mm\u00b3",
-   "target": "no front-top material in either complete withdrawal envelope",
-   "detail": [
-    "pump-cartridge meets 13760.039 mm\u00b3 of front-top between its installed aft face and the exterior \u2014 the pump heads can clear while the filled drawer still binds",
-    "pump-cap meets 6143.339 mm\u00b3 of front-top between its installed aft face and the exterior \u2014 the pump heads can clear while the filled drawer still binds"
-   ],
+   "status": "pass",
+   "value": "2 pieces, 576 motion stations, most in the way 0.000 mm\u00b3",
+   "target": "no front-top material at motion intervals no larger than 0.25 mm",
+   "detail": [],
    "active": true
   },
   {
