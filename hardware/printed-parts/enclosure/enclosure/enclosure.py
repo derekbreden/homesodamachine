@@ -1574,11 +1574,12 @@ plate_guide_wedge = 3.0      # the cheek's extra section at the fixed outer wall
 # Nothing under the head carries it; the front of each head remains one millimetre over the
 # bay floor and the bracket puts the load into the block around the well.
 #
-# THE TOP CAP IS A CLAMP. Two conformal `pump_tray` collars descend over the motor cans, take
-# the bosses on their complete octagons and leave one shoulder round each can. Two narrow
-# bridges join those collars across the empty centre lane. Their M3 screws run DOWN into
-# heat-sets in the cradle, so the cap captures the brackets without becoming a second thing
-# the hand pulls on.
+# THE TOP CAP IS A CLAMP. One filled field spans both pump heads. The two stamped brackets,
+# complete boss octagons and motor cans are cut from that field, leaving the case-derived
+# locating walls and pressing lands wherever the pumps allow material. One joined recess opens
+# down from the crown around both centre screw stations; the individual counterbores continue
+# from its floor to the M3 seats. Those screws run DOWN into heat-sets in the cradle, so the cap
+# captures both brackets without becoming a second thing the hand pulls on.
 #
 # BOTH PARTS INSTALL IN Z. With the clamp off, the widest section of a pump — its stamped
 # bracket and the 69.25 mm tube-side fitting span — has a straight open path from the top of
@@ -1590,10 +1591,10 @@ cap_tube_air = 0.15          # per-face air round the measured tube-fitting open
 cap_slot_half = _tray.outlet_half + cap_tube_air
 cap_web_land = 4.0           # clamp section under each recessed M3 head
 cap_web_t = head_cbore_depth + cap_web_land
-cap_screw_off = 18.0         # the two bridges and screws fore/aft of the lane midpoint
-clamp_bridge_half_y = 6.0    # half the bridge's fore/aft width at each screw
-clamp_bridge_overlap = 2.0   # bridge overlap into each collar's base plate
-clamp_drop_air = fits.slip   # per face, clamp footprint and bracket through the cradle well
+cap_screw_off = 18.0         # the two screws fore/aft of the centre access-well midpoint
+clamp_bridge_half_y = 6.0    # access well past each screw axis, fore and aft
+clamp_bridge_overlap = 2.0   # access-well edge into each pump opening's inner margin
+clamp_drop_air = 0.2         # per face, clamp footprint and bracket through the cradle well
 
 # --- THE HAND PULLS ONLY THE LOWER CRADLE -----------------------------------
 #
@@ -5000,26 +5001,17 @@ def cap_split_z(pump_trays):
 
 
 def _clamp_bridge_edge(pump_trays):
-    """How far each clamp bridge overlaps the two collar plates from the centre lane."""
+    """The joined screw-access well's X edge, overlapping both pump openings."""
     inner = min(abs(cx) - _tray.half_width() for cx, _cy, _cz in pump_trays)
     if inner <= 0.0:
         raise ValueError(
-            "the two pump collars overlap across the centre lane, leaving no lane for the "
-            "top-clamp screws")
+            "the two pump openings overlap across the centre lane, leaving no filled field "
+            "for the top-clamp screws")
     return inner + clamp_bridge_overlap
 
 
-def _clamp_bridge_foot_edge(pump_trays):
-    """The bridge width below the bracket tops, clear of both stamped inner edges."""
-    edge = min(abs(cx) - _tray.bracket_half for cx, _cy, _cz in pump_trays)
-    if edge <= clamp_drop_air:
-        raise ValueError(
-            "the two stamped pump brackets leave no centre lane for the clamp feet")
-    return edge - clamp_drop_air
-
-
 def cap_screw_ys(inner, plate):
-    """The top clamp's two screw/bridge stations, fore and aft of the lane midpoint.
+    """The top clamp's two screw stations, fore and aft of the access-well midpoint.
 
     Both stand between the pumps, clear of their bosses, fittings and tubes."""
     mid = (inner[2] + (plate["fore_y"] - 2.0)) / 2.0
@@ -5037,16 +5029,17 @@ def _pump_drop_voids(box):
     `pump_case.flank_ramp_bands` that the head lands on. The outlet-side band runs on aft to
     the block's own face at `cap_slot_half`, and stands open to the top.
 
-    ABOVE THE BRACKET the well is the clamp collar's complete 70 mm footprint with
+    ABOVE THE BRACKET the well is each pump opening's complete 70 mm footprint with
     `clamp_drop_air` on every face. That one opening passes the stamped bracket, the fittings,
-    the pump and then the complete clamp. The two bridge slots continue the same path through
-    the centre spine. At the seat the upper wells stop exactly on the bracket plane, leaving
-    the case's own room below and therefore a land under the bracket on its three closed
-    sides."""
+    the pump and then the complete clamp. One full-Y centre clearance joins those openings and
+    follows every part of the clamp's filled centre field through the cradle. At the seat the
+    upper wells stop exactly on the bracket plane, leaving the case's own room below and
+    therefore a land under the bracket on its three closed sides."""
     trays, plate = box.pack.pump_trays, box.pack.collet_plate
     split = cap_split_z(trays)
     top = box.pump_bay[2] + 1.0
     collar = _tray.half_width() + clamp_drop_air
+    fore = min(cy - _tray.half_width() for _cx, cy, _cz in trays)
     lower_source = _tray.drop_well(cap_pump_air).val()
     out = []
     for cx, cy, cz in trays:
@@ -5056,19 +5049,17 @@ def _pump_drop_voids(box):
         fittings = _ybox(cx - cap_slot_half, cx + cap_slot_half,
                          outlet_face - cap_tube_air, _block_aft(plate) + 1.0,
                          sill - cap_tube_air, top)
-        root = cy - pump_relief_floor
         upper = _ybox(cx - collar, cx + collar,
-                      cy - root - clamp_drop_air,
+                      cy - _tray.half_width() - clamp_drop_air,
                       cy + _tray.far_reach() + clamp_drop_air,
                       split - 0.001, top)
         out.append(lower.fuse(fittings).fuse(upper))
 
-    bridge = _clamp_bridge_edge(trays) + clamp_drop_air
-    for y in cap_screw_ys(box.inner, plate):
-        out.append(_ybox(-bridge, bridge,
-                         y - clamp_bridge_half_y - clamp_drop_air,
-                         y + clamp_bridge_half_y + clamp_drop_air,
-                         split - 0.001, top))
+    edge = _clamp_bridge_edge(trays)
+    aft = plate_guide_fore_y(plate) - cap_kiss
+    out.append(_ybox(-(edge + clamp_drop_air), edge + clamp_drop_air,
+                     fore - clamp_drop_air, aft + clamp_drop_air,
+                     split - 0.001, top))
     return out
 
 
@@ -5128,6 +5119,8 @@ def pump_cartridge_figures(box):
     y0 = y1 - pull_run
     z_mid = _pull_center_z(plate)
     clamp_edge = max(abs(cx) + _tray.half_width() for cx, _cy, _cz in trays)
+    clamp_fore = min(cy - _tray.half_width() for _cx, cy, _cz in trays)
+    clamp_aft = plate_guide_fore_y(plate) - cap_kiss
     return {
         "PULL_RISE": f"{pull_rise:.4g} mm",
         "PULL_RUN": f"{pull_run:.4g} mm",
@@ -5137,7 +5130,14 @@ def pump_cartridge_figures(box):
         "PULL_TRAVEL": f"{y0 - box.inner[2]:.4g} mm",
         "CLAMP_SPAN": f"{2.0 * clamp_edge:.4g} mm",
         "CLAMP_RISE": f"{_tray.depth():.4g} mm",
-        "CLAMP_BRIDGE": f"{2.0 * clamp_bridge_half_y:.4g} mm",
+        "CLAMP_ACCESS_W": f"{2.0 * _clamp_bridge_edge(trays):.4g} mm",
+        "CLAMP_ACCESS_RUN": f"{(max(cap_screw_ys(box.inner, plate))
+                                 - min(cap_screw_ys(box.inner, plate))
+                                 + 2.0 * clamp_bridge_half_y):.4g} mm",
+        "CLAMP_SUPPORT_RAIL": f"{(_tray.half_width() - _tray.bracket_half):.4g} mm",
+        "CLAMP_FRONT_SKIN": f"{(clamp_fore - clamp_drop_air - box.outer[2]):.4g} mm",
+        "CLAMP_AFT_WALL": f"{(clamp_aft - max(cy + _tray.boss_half
+                                                for _cx, cy, _cz in trays)):.4g} mm",
         "CLAMP_WEB": f"{cap_web_t:.4g} mm",
         "CLAMP_BRACKET_T": f"{_tray.bracket_t:.4g} mm",
         "CAP_TUBE_SPAN": f"{2.0 * cap_slot_half:.4g} mm",
@@ -5481,54 +5481,47 @@ def _pump_cartridge_gross(box, halves_cache=None):
 
 
 def _pump_clamp_gross(box, halves_cache=None):
-    """The two conformal pump collars and their two centre bridges as one top clamp.
+    """One filled clamp field, cut only where its two fitted pumps and access well require.
 
-    Each collar is the pump case's plate, octagon wall and one shoulder round the motor can.
-    It begins on the bracket plane and is clipped at the cradle's aft stop. Two raised bridges
-    overlap both collar plates and carry the top-access M3 heads."""
+    The field spans both case-derived collar envelopes from the bracket plane to their common
+    crown. Each stamped bracket opens its bottom, each complete case-profile octagon locates a
+    boss, and each motor can opens the final three millimetres. The centre-facing bracket edge
+    alone receives insertion air, leaving the two bottom support rails at the outer edges. A
+    single joined recess reaches down around both top-access M3 heads."""
     if halves_cache is not None and "pump-clamp-gross" in halves_cache:
         return halves_cache["pump-clamp-gross"]
     trays, plate = box.pack.pump_trays, box.pack.collet_plate
     split = cap_split_z(trays)
-    solid = None
+    crown = split + _tray.depth()
+    fore = min(cy - _tray.half_width() for _cx, cy, _cz in trays)
+    aft = plate_guide_fore_y(plate) - cap_kiss
+    x0 = min(cx - _tray.half_width() for cx, _cy, _cz in trays)
+    x1 = max(cx + _tray.half_width() for cx, _cy, _cz in trays)
+    solid = _ybox(x0, x1, fore, aft, split, crown)
     for cx, cy, cz in trays:
-        root = cy - pump_relief_floor
-        collar = _tray.build_pump_tray(root).val()
+        bx0, bx1 = cx - _tray.bracket_half, cx + _tray.bracket_half
+        if cx < 0.0:
+            bx1 += clamp_drop_air
+        else:
+            bx0 -= clamp_drop_air
+        # The bracket's own fore edge stops 0.7 mm inside the clamp field. That matches the two
+        # outer X support rails and leaves 3.105 mm of cradle skin ahead of the complete clamp
+        # during its Z drop. Only the centre-facing X edge grows by the insertion air.
+        solid = solid.cut(_ybox(
+            bx0, bx1, cy - _tray.bracket_half, cy + _tray.bracket_half,
+            split - 0.05, split + _tray.bracket_t + 0.05))
+        solid = solid.cut(_tray.boss_room(0.0).moved(
+            cq.Location(cq.Vector(cx, cy, split))))
+        solid = solid.cut(_zcyl(
+            _tray.can_half, cx, cy,
+            split + _tray.boss_depth - 0.1, crown + 1.0))
 
-        # THE STAMPED BRACKET IS REAL STEEL EVEN THOUGH THE PUMP REFERENCE DOES NOT DRAW IT.
-        # Clear its complete measured square through its full worst-case thickness. Above
-        # that pocket, restore one complete plate section and re-cut the boss's own octagon:
-        # the clamp presses the bracket from above with a three-millimetre annulus while its
-        # long octagonal walls locate the boss above the bracket.
-        press = _ybox(-_tray.half_width(), _tray.half_width(),
-                      -root, _tray.far_reach(),
-                      _tray.bracket_t, _tray.bracket_t + _tray.PLATE)
-        press = press.cut(_tray.boss_room(0.0))
-        bracket = _ybox(-_tray.bracket_half, _tray.bracket_half,
-                        -_tray.bracket_half, _tray.bracket_half,
-                        -0.1, _tray.bracket_t)
-        collar = collar.fuse(press).cut(bracket)
-        collar = collar.moved(cq.Location(cq.Vector(cx, cy, cz)))
-        solid = collar if solid is None else solid.fuse(collar)
+    ys = cap_screw_ys(box.inner, plate)
     edge = _clamp_bridge_edge(trays)
-    foot_edge = _clamp_bridge_foot_edge(trays)
-    for y in cap_screw_ys(box.inner, plate):
-        # Below the bracket tops the bridge is a narrow foot in the clear centre lane. Above
-        # them it steps outward to overlap both collar plates. The step both joins the clamp
-        # into one solid and keeps real stamped steel out of the screw bridges.
-        bridge = _ybox(-foot_edge, foot_edge,
-                       y - clamp_bridge_half_y, y + clamp_bridge_half_y,
-                       split, split + _tray.bracket_t)
-        bridge = bridge.fuse(_ybox(
-            -edge, edge, y - clamp_bridge_half_y, y + clamp_bridge_half_y,
-            split + _tray.bracket_t, split + cap_web_t))
-        solid = solid.fuse(bridge)
-    x0, x1 = _cap_x_span(box.pump_bay)
-    # The clamp's whole storey stands over the steel's top edge, so its back answers to
-    # `_plate_cap`'s wall rather than to the plate (`plate_guide_fore_y`).
-    solid = solid.intersect(_ybox(x0, x1, box.outer[2],
-                                  plate_guide_fore_y(plate) - cap_kiss,
-                                  split - 0.1, split + _tray.depth() + 0.1))
+    solid = solid.cut(_ybox(
+        -edge, edge,
+        min(ys) - clamp_bridge_half_y, max(ys) + clamp_bridge_half_y,
+        split + cap_web_t, crown + 1.0))
     if halves_cache is not None:
         halves_cache["pump-clamp-gross"] = solid
     return solid
@@ -5552,12 +5545,12 @@ def _cap_screws(inner, plate, pump_trays):
 
 
 def build_pump_cap(box, halves_cache=None):
-    """THE TOP CLAMP: two pump collars tied by two screw bridges.
+    """THE TOP CLAMP: one filled field fitted around both pump heads.
 
-    It lowers over both motor cans after the pumps stand in the cradle. Each collar takes its
-    boss on the complete octagon and closes with one shoulder round the can; the base plate
-    presses the stamped bracket onto the cradle land. The bridges put both M3 heads between
-    the pumps, accessible from above. This piece carries no front wall, plate stop or pull."""
+    It lowers over both motor cans after the pumps stand in the cradle. Each opening takes its
+    boss on the complete case-profile octagon and closes with one shoulder round the can; the
+    bottom field presses both stamped brackets onto the cradle lands. One joined recess reaches
+    both M3 heads from above. This piece carries no front wall, plate stop or pull."""
     inner, plate = box.inner, box.pack.collet_plate
     solid = _pump_clamp_gross(box, halves_cache)
     for bore in _cap_screws(inner, plate, box.pack.pump_trays)[0]:

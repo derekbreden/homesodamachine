@@ -916,12 +916,14 @@ the stamped bracket on −Y and both X sides; +Y remains open for the fittings. 
 from that bracket directly into the lower cradle and then into the bay floor.
 
 **The second printed piece is only the top clamp.** `enclosure-pump-cap`
-(`build_pump_cap`) is [167.1 mm](CLAMP_SPAN) across and [24 mm](CLAMP_RISE) high: one conformal
-collar per pump, joined by two [12 mm](CLAMP_BRIDGE) fore/aft bridges in the centre lane. Each
-collar clears the measured [2 mm](CLAMP_BRACKET_T) stamped-bracket thickness, puts one full
-plate section on its top face, wraps the boss with the pump case's octagonal bore, and leaves
-one shoulder around the motor can. Two top-access M3 screws pass through [8 mm](CLAMP_WEB) webs
-into heat-set inserts in the cradle. The clamp carries no front wall, plate stop or hand pull.
+(`build_pump_cap`) is [167.1 mm](CLAMP_SPAN) across and [24 mm](CLAMP_RISE) high. One filled
+field spans both pump heads from their clean fore envelope to the aft wall. Two fitted openings
+clear the measured [2 mm](CLAMP_BRACKET_T) stamped brackets, wrap both bosses with the pump
+case's exact octagonal bore, and leave one shoulder around each motor can. A single
+[31.14 mm](CLAMP_ACCESS_W) × [48 mm](CLAMP_ACCESS_RUN) top recess joins the two screw stations;
+the individual counterbores continue from its floor through [8 mm](CLAMP_WEB) of material to
+the head seats. The two M3s run into heat-set inserts in the cradle. The clamp carries no front
+wall, plate stop or hand pull.
 
 The service sequence follows those two load paths. Withdraw the assembled cartridge by its
 cradle pulls; back out the two clamp screws; lift off the clamp; then lift either complete pump
@@ -1102,28 +1104,33 @@ its rails and the fuse clamp stands clear behind it — so the wall keeps its fu
 across the rest of the front. `box-front` reads every placed body against the relieved
 surface, region by region.
 
-## Pump clamp collars
+## Pump clamp field
 
-The geometry in `printed-parts/enclosure/pump-tray/` supplies the two conformal collars in
-the small top clamp. Each begins with the pump case's plate, 45° ramp, octagonal boss wall and
-one shoulder around the motor can. It is fused into `enclosure-pump-cap`, never emitted as a
-separate printed part.
+The geometry in `printed-parts/enclosure/pump-tray/` supplies the two fitted openings in the
+small top clamp. The clamp begins as one rectangular field over both pumps. Each stamped
+bracket, exact pump-case octagon and motor-can bore is then cut from that field, leaving the
+case-derived locating walls, pressing lands and can shoulders wherever a pump does not occupy
+the material. It is one printed `enclosure-pump-cap`, not separate collars or fastener pieces.
 
 **The bracket divides bearing from location.** The lower cradle bears under three sides of the
-68.6 mm stamped bracket. The clamp has a 2 mm-deep square pocket for the bracket itself and a
-three-millimetre pressing annulus above it. Past that steel, the case-derived octagon engages
-the white boss over the rest of its run and the shoulder surrounds the can. Thus the cradle
-takes weight, the clamp prevents lift, and the octagon fixes X, Y and yaw.
+68.6 mm stamped bracket. The clamp has a 2 mm-deep pocket for the bracket itself and filled
+stock above it. Past that steel, the case-derived octagon engages the white boss over the rest
+of its run and the shoulder surrounds the can. Thus the cradle takes weight, the clamp prevents
+lift, and the octagon fixes X, Y and yaw. The bottom pocket stops
+[0.7 mm](CLAMP_SUPPORT_RAIL) inside the clamp's fore and two outer X faces, leaving three
+matched printable support rails. The clamp's vertical drop keeps
+[3.105 mm](CLAMP_FRONT_SKIN) of cradle skin ahead of that fore rail. A
+[2.53 mm](CLAMP_AFT_WALL) wall remains aft of each octagon to locate the boss against +Y.
 
 **Two M3 close one clamp onto one cradle.** Both screw heads are accessible from above in the
-centre bridges. Their heat-set inserts open upward in the cradle spine. Back both screws out
-and the entire clamp lifts in Z; either pump then follows through the same straight well. No
-zip tie or hidden underside fastener closes a pump.
+single joined centre recess. Their heat-set inserts open upward in the cradle spine. Back both
+screws out and the entire clamp lifts in Z; either pump then follows through the same straight
+well. The cradle's centre clearance spans the clamp's complete fore/aft depth, so the filled
+field has one unobstructed vertical path. No zip tie or hidden underside fastener closes a pump.
 
-The collar's exact source dimensions and section readings are in
+The fitted opening's exact source dimensions and section readings are in
 [`pump-tray/README.md`](/hardware/printed-parts/enclosure/pump-tray/README.md). The enclosure
-adds only the bracket pocket, pressing plate and two bridges needed to make both collars one
-service clamp.
+uses those case profiles to cut the bracket, boss and can rooms from one service clamp.
 
 **The lower cradle prints on its Z− floor.** Its front wall and filled body rise from that bed;
 the two pull roofs climb at 45° and the pump wells remain open above. The top clamp prints as a
