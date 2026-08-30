@@ -6,7 +6,7 @@
    "label": "the printed box, outside face to outside face",
    "min": [
     -107.5,
-    5.0,
+    -1.15,
     -6.0
    ],
    "max": [
@@ -16,7 +16,7 @@
    ],
    "mm": [
     215.0,
-    462.0,
+    468.15,
     361.0
    ]
   },
@@ -25,7 +25,7 @@
    "label": "every placed body, the box around them included",
    "min": [
     -113.5,
-    5.0,
+    -1.15,
     -6.0
    ],
    "max": [
@@ -35,7 +35,7 @@
    ],
    "mm": [
     221.0,
-    526.891,
+    533.041,
     367.0
    ]
   }
@@ -149,8 +149,6 @@
     "suction-chain \u2014 foam-assembly: 0.200 mm \u2014 seated against it",
     "seaflo-pump \u2014 bulkhead-flavor-a: 1.004 mm",
     "carb-1 \u2014 suction-chain: 1.025 mm",
-    "pump-a-head \u2014 collet-plate: 1.025 mm",
-    "pump-b-head \u2014 collet-plate: 1.025 mm",
     "keystone-jack \u2014 bulkhead-ring-flavor-a: 1.052 mm",
     "water-3 \u2014 enclosure-front-top: 1.126 mm",
     "water-3 \u2014 enclosure-back-top: 1.126 mm",
@@ -786,7 +784,7 @@
    "label": "The standoff holds the plate off the barbs",
    "kind": "gate",
    "status": "pass",
-   "value": "1.03 mm between the barb plane and the steel",
+   "value": "7.17 mm between the barb plane and the steel",
    "target": "at least 0.7 mm \u2014 `manifold_layout.BARB_STANDOFF` is the whole berth",
    "detail": [],
    "active": true
@@ -1148,8 +1146,8 @@
    "detail": [
     "valve-tray-aft     valve-v-c    y-plane  171.080 -Z   off 0.1990",
     "valve-tray-aft     valve-v-d    y-plane  171.080 -Z   off 0.1990",
-    "valve-tray-aft     valve-v-g    y-plane  171.080 -Z   off 0.1991",
-    "valve-tray-aft     valve-v-j    y-plane  171.080 -Z   off 0.1991",
+    "valve-tray-aft     valve-v-g    y-plane  171.080 -Z   off 0.1990",
+    "valve-tray-aft     valve-v-j    y-plane  171.080 -Z   off 0.1990",
     "valve-tray-fore    valve-v-e    y-plane   89.080 +Z   off 0.1990",
     "valve-tray-fore    valve-v-f    y-plane   89.080 +Z   off 0.1990",
     "valve-tray-fore    valve-v-h    y-plane   89.080 +Z   off 0.1990",
@@ -1165,8 +1163,8 @@
    "value": "2/2 pumps seated, furthest off 0.000 mm",
    "target": "every boss within 0.2 mm of its octagonal collar",
    "detail": [
-    "pump-a-head    axis (  48.570,   43.305) bracket z  216.745   off 0.0000",
-    "pump-b-head    axis ( -48.570,   43.305) bracket z  216.745   off 0.0000"
+    "pump-a-head    axis (  48.570,   37.155) bracket z  216.745   off 0.0000",
+    "pump-b-head    axis ( -48.570,   37.155) bracket z  216.745   off 0.0000"
    ],
    "active": true
   },
@@ -1195,8 +1193,8 @@
    "label": "Each fitting passes the cradle's outlet opening",
    "kind": "gate",
    "status": "pass",
-   "value": "4/4 tubes clear, least 3.100 mm off the edge; 2/2 fitting mouths open",
-   "target": "at least 0.15 mm round every \u00d86.35 tube at the opening's two outer edges and no cradle material in either fitting-mouth gauge",
+   "value": "4/4 fittings clear, least 0.150 mm off the edge",
+   "target": "at least 0.15 mm round every fitting on its placed barb axis",
    "detail": [],
    "active": true
   },
@@ -1255,7 +1253,7 @@
    "label": "The cartridge is a large lower cradle with a small top clamp",
    "kind": "gate",
    "status": "pass",
-   "value": "cradle 88.4% of printed volume, 113.6 mm high; clamp 24.0 mm",
+   "value": "cradle 65.9% of printed volume, 113.6 mm high; clamp 40.0 mm",
    "target": "one solid each, the cradle a majority of volume and carrying the full-height face",
    "detail": [],
    "active": true
@@ -1300,13 +1298,14 @@
    "label": "An anchor tee is backed against the push that seats its tube",
    "kind": "gate",
    "status": "pass",
-   "value": "4/4 tees stopped going aft",
-   "target": "every anchor tee landing on printed material before it can travel aft",
+   "value": "4/4 tees stopped going aft; 3.000 x 3.000 mm side pads",
+   "target": "every anchor tee landing on printed material before it can travel aft, on two side pads at least 3 mm wide and deep",
    "detail": [
-    "Y-C   tee-y-c        backed by front-top,      10.0 mm3 at 3.289 mm",
-    "Y-D   tee-y-d        backed by front-top,      10.0 mm3 at 3.289 mm",
-    "Y-F   tee-y-f        backed by front-top,      10.0 mm3 at 3.289 mm",
-    "Y-G   tee-y-g        backed by front-top,      10.0 mm3 at 3.289 mm"
+    "pads 3.000 mm wide x 3.000 mm deep, set back 0.270 mm; collar bite 0.1665 mm; release-side air 0.0500 mm",
+    "Y-C   tee-y-c        backed by front-top,       3.1 mm3 at 3.289 mm",
+    "Y-D   tee-y-d        backed by front-top,       3.1 mm3 at 3.289 mm",
+    "Y-F   tee-y-f        backed by front-top,       3.1 mm3 at 3.289 mm",
+    "Y-G   tee-y-g        backed by front-top,       3.1 mm3 at 3.289 mm"
    ],
    "active": true
   },
@@ -1357,7 +1356,7 @@
    "kind": "gate",
    "status": "pass",
    "value": "2 pumps, 934 stations, most in the way 0.000 mm\u00b3",
-   "target": "pump, bracket and 69.55 mm fitting span clear every 0.25 mm or less",
+   "target": "pump, bracket and four fitting passages clear every 0.25 mm or less",
    "detail": [],
    "active": true
   },
@@ -1366,7 +1365,7 @@
    "label": "The top clamp lowers over both pumps",
    "kind": "gate",
    "status": "pass",
-   "value": "261 stations, most in the way 0.000 mm\u00b3",
+   "value": "253 stations, most in the way 0.000 mm\u00b3",
    "target": "clamp clear of both pumps and cradle every 0.25 mm or less",
    "detail": [],
    "active": true
@@ -1376,7 +1375,7 @@
    "label": "The complete pump cradle and clamp pass through the bay mouth",
    "kind": "gate",
    "status": "pass",
-   "value": "2 pieces, 576 motion stations, most in the way 0.000 mm\u00b3",
+   "value": "2 pieces, 563 motion stations, most in the way 0.000 mm\u00b3",
    "target": "no front-top material at motion intervals no larger than 0.25 mm",
    "detail": [],
    "active": true
@@ -1386,7 +1385,7 @@
    "label": "The cradle's aft face lands on the collet plate",
    "kind": "gate",
    "status": "pass",
-   "value": "2350.1 mm\u00b2 on the steel, 0.000 mm\u00b3 inside the kiss",
+   "value": "7016.5 mm\u00b2 on the steel, 0.000 mm\u00b3 inside the kiss",
    "target": "the cradle's face on the plate's and `cap_kiss` 0.1 mm of air at it",
    "detail": [],
    "active": true
@@ -1452,10 +1451,10 @@
    "label": "No mullion the condenser's vents leave stands free for more than one slot segment",
    "kind": "gate",
    "status": "pass",
-   "value": "tallest of 176 openings is 24.5000 mm, on a 2.0285 mm mullion \u2014 12.1:1",
+   "value": "tallest of 168 openings is 24.5000 mm, on a 2.0285 mm mullion \u2014 12.1:1",
    "target": "at most 24.5000 mm, the segment 3 transoms leave in a 110 mm band",
    "detail": [
-    "\u2212X intake  88 openings 24.5000\u201324.5000 mm tall in 22 slots",
+    "\u2212X intake  80 openings 24.5000\u201324.5000 mm tall in 20 slots",
     "+X exhaust 88 openings 24.5000\u201324.5000 mm tall in 22 slots",
     "the band is z 31..141 \u2014 the fan's own footprint, 22 mm up from the block's base and 5 down from its crown",
     "transom 1 of 3: z 55.5..59.5, 4 mm of unpierced wall tying every mullion and both jambs",
@@ -1469,10 +1468,10 @@
    "label": "Every mullion the condenser's vents leave carries the exterior's four wall loops",
    "kind": "gate",
    "status": "pass",
-   "value": "thinnest of 42 mullions is 2.0285 mm across, on a 5.2416 mm section",
+   "value": "thinnest of 40 mullions is 2.0285 mm across, on a 5.2416 mm section",
    "target": "at least 1.74 mm across, the loops the profile lays",
    "detail": [
-    "\u2212X intake  22 slots 3.1000\u20133.1000 mm, 21 mullions 2.0285\u20132.0285 mm, 62.61 cm\u00b2 free over the fan's own band",
+    "\u2212X intake  20 slots 3.1000\u20133.1000 mm, 19 mullions 2.0285\u20137.1569 mm, 56.92 cm\u00b2 free over the fan's own band",
     "+X exhaust 22 slots 3.1000\u20133.1000 mm, 21 mullions 2.0285\u20132.0285 mm, 62.61 cm\u00b2 free over the fan's own band"
    ],
    "active": true
