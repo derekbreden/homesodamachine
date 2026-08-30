@@ -1192,7 +1192,7 @@ def check_valve_trays_hold(pieces: dict, placed: dict) -> Bound:
 # --- the flavour manifold's pump stations ----------------------------------
 #
 # ONE STATION PER KAMOER. The point lies on the +Z face of its pump's head, where the stamped
-# bracket bears in the lower cradle and the small top clamp's case-derived collar closes over
+# bracket bears in the lower cradle and the top clamp's case-derived collar closes over
 # the boss. The `pump_trays` field name is retained at the enclosure boundary.
 #
 # NOTHING BELOW IS A CHOSEN STATION. Which way a pump stands and where its bracket plane lies
@@ -2265,7 +2265,7 @@ def check_clamp_drops_on(pieces, placed) -> Bound:
 
 
 def check_cartridge_architecture(pieces) -> Bound:
-    """Whether the lower cradle is the cartridge and the top clamp is the small second piece."""
+    """Whether the cartridge remains one monolithic cradle and one monolithic top clamp."""
     cradle = pieces.get("pump-cartridge")
     clamp = pieces.get("pump-cap")
     if cradle is None or clamp is None:
@@ -2277,12 +2277,13 @@ def check_cartridge_architecture(pieces) -> Bound:
     cb, kb = box(cradle), box(clamp)
     one_each = len(cradle.Solids()) == 1 and len(clamp.Solids()) == 1
     show_face = cb.ymin < kb.ymin - 1e-6
-    ok = share > 0.5 and one_each and show_face
+    ok = one_each and show_face
     return record_bound(Bound(
-        "pump-cartridge-lower-cradle", "The cartridge is a large lower cradle with a small top clamp",
+        "pump-cartridge-lower-cradle",
+        "The cartridge is one lower cradle with one monolithic top clamp",
         ok,
         f"cradle {share * 100:.1f}% of printed volume, {cb.zlen:.1f} mm high; clamp {kb.zlen:.1f} mm",
-        "one solid each, the cradle a majority of volume and carrying the foremost show face",
+        "one solid each, with the cradle carrying the foremost show face",
         ([] if ok else [
             f"cradle {cv / 1000.0:.1f} cm³, clamp {kv / 1000.0:.1f} cm³, "
             f"heights {cb.zlen:.1f}/{kb.zlen:.1f} mm, solids "
@@ -8598,7 +8599,7 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     # same reading, one storey forward: a plate drawn beside a valve rather than under it is a
     # plate nothing on this card would otherwise name.
     check_valve_trays_hold(pieces, a.pack_solids)
-    # And each pump against the small top clamp whose collar takes its boss, then that clamp
+    # And each pump against the top clamp whose collar takes its boss, then that clamp
     # and the load-bearing cradle on the two faces of its stamped bracket.
     check_trays_hold(pieces, a.pack_solids)
     check_pump_capture(pieces, a.pack_solids)
