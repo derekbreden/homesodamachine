@@ -165,6 +165,18 @@ Settings:
   `seam_position` aligned; `fuzzy_skin` none
 - Slicer 02.08.02.61; first-layer time 700 s
 
+### Support-removal audit
+
+The current fluted back-top STL, substituted into a temporary copy of the production project
+above and sliced by BambuStudio 02.08.02.61, has **3 connected support bodies** reaching **21
+interface islands**. All three start at print z 0.20 on the bed; none starts on model material.
+Their shortest base-to-first-interface build-ups are **92.16, 103.44 and 190.80 mm**, so there
+are no bodies in the under-5, 5–10 or 10–15 mm bands and the first interface is at print z
+**92.36 mm**. The hashed toolpath reading is
+[`enclosure-back-top.support-audit.json`](enclosure-back-top.support-audit.json); the three
+retained bodies and the geometric reason for each are named in
+[`support-audit.json`](support-audit.json).
+
 The snapshot carries the **+0.02 mm first-layer z-trim**
 ([z-trim.md](/hardware/printed-parts/z-trim.md)) — `G29.1 Z{0.0}` on this plate and nozzle
 against Bambu's stock `Z{-0.02}`. The run above is the stock compensation.
