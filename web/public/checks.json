@@ -16,11 +16,6 @@
       "status": "ok"
     },
     {
-      "check": "hardware/scripts/check_flutes.py",
-      "note": "✓ every payload stands within the budget its print was cut to",
-      "status": "ok"
-    },
-    {
       "check": "hardware/scripts/check_ledger.py",
       "note": "✓ every part the instructions name is carried by bom.md or tools.md, and every procedure has a driver.",
       "status": "ok"
@@ -57,12 +52,12 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 1410 tracked, 267 fetched solids, 53 tags",
+      "note": "paths: every reference lands — 1419 tracked, 267 fetched solids, 53 tags",
       "status": "ok"
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 545 of 1000 free, the next cut wants 3, and the whole lock reads by name in 113.9 MB against 115.2 MB of bundle",
+      "note": "check_release_room: 512 of 1000 free, the next cut wants 3, and the whole lock reads by name in 115.9 MB against 117.2 MB of bundle",
       "status": "ok"
     },
     {
@@ -72,8 +67,8 @@
     },
     {
       "check": "tools/bazel/check_build_file.py",
-      "note": "check_build_file: BUILD.bazel is what the graph writes",
-      "status": "ok"
+      "note": "tools/cad-venv/bin/python tools/bazel/gen_build.py",
+      "status": "red"
     },
     {
       "check": "tools/bazel/check_ci_targets.py",
@@ -87,10 +82,17 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 252 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 267 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 0 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 267 member(s) keep their provenance",
       "status": "ok"
     }
   ],
-  "detail": {},
-  "green": true
+  "detail": {
+    "tools/bazel/check_build_file.py": [
+      "BUILD.bazel is not what the graph would write now:",
+      "  tools/publish_now.py answers to selftest and selftests.json does not name it",
+      "      tools/cad-venv/bin/python tools/bazel/trace_inputs.py --selftests tools/publish_now.py",
+      "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
+    ]
+  },
+  "green": false
 }
