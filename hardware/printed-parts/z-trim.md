@@ -15,7 +15,7 @@ the tip on the tops of the texture:
 | other plate, 0.2 mm | +0.01 |
 | other plate, 0.4 mm | — |
 
-Negative lowers. This tree stands a flat **+0.01 to +0.06 mm** over those values on every
+Negative lowers. This tree stands a flat **+0.01 to +0.07 mm** over those values on every
 branch, so the figure holds whichever plate the project is set to. At +0.02, textured PEI
 with the 0.4 mm nozzle comes to a trim of 0.00 — Bambu's texture compensation off, the nozzle
 where homing and the bed mesh put it.
@@ -30,7 +30,7 @@ at the prints here, the more I think I might be wrong and we might need a .01."*
 
 ## The carriers
 
-[`z-trim-0.01.3mf`](z-trim-0.01.3mf) through [`z-trim-0.06.3mf`](z-trim-0.06.3mf) are empty
+[`z-trim-0.01.3mf`](z-trim-0.01.3mf) through [`z-trim-0.07.3mf`](z-trim-0.07.3mf) are empty
 plates, one per value, carrying nothing but the printer profile — `Bambu Lab H2C 0.4 nozzle`
 with `machine_start_gcode` as its one setting modified from system, on the `Polymaker PET-GF
 @BBL H2C` slot over a textured PEI plate. Open one in Bambu Studio and save the printer preset
@@ -44,6 +44,7 @@ it loads modified.
 | [`z-trim-0.04.3mf`](z-trim-0.04.3mf) | 0.03 | 0.02 | 0.05 | 0.04 |
 | [`z-trim-0.05.3mf`](z-trim-0.05.3mf) | 0.04 | 0.03 | 0.06 | 0.05 |
 | [`z-trim-0.06.3mf`](z-trim-0.06.3mf) | 0.05 | 0.04 | 0.07 | 0.06 |
+| [`z-trim-0.07.3mf`](z-trim-0.07.3mf) | 0.06 | 0.05 | 0.08 | 0.07 |
 
 What the committed files stand on — [`petgf.3mf`](petgf.3mf) is the PET-GF 0.4 mm working
 profile, whichever models are loaded into it at the time:
@@ -52,6 +53,26 @@ profile, whichever models are loaded into it at the time:
 | --- | --- | --- |
 | [`petgf.3mf`](petgf.3mf) | +0.03 | `Bambu Lab H2C 0.4 nozzle 03 first layer by agent` |
 | [`enclosure/enclosure/enclosure-back-top-petgf.3mf`](/hardware/printed-parts/enclosure/enclosure/enclosure-back-top-petgf.3mf) | +0.02 | `Bambu Lab H2C 0.4 nozzle`, the start G-code its one project override |
+
+## What else touches Z
+
+The start block, in order: the bed mesh over the first layer's bounding box (`G29.20 A3`,
+`G29 A1` and `G29 A2 … R`), then `G28 R`, then `G28.140 S0` to calibrate the pre-extrude z
+pos, then the plate-type block that sets the trim, then `M983.4 S1` deformation compensation
+and `G29.2 S1` position compensation on, then the nozzle-load line with `G28.14 R0` restoring
+the pre-extrude position, and `G29.99` last before the print.
+
+Nothing after the plate-type block sets `G29.1` again, and everything that re-derives Z — the
+mesh, the homing, the pre-extrude calibration — runs before it. `layer_change_gcode`,
+`change_filament_gcode`, `time_lapse_gcode` and `wrapping_detection_gcode` hold no `G28`,
+`G29` or `G92` at all, and the end block's only `G92` is `G92 E0`. Bambu's own textured-plate
+compensation is this same command in this same block, so a machine that discarded the trim
+would discard the stock −0.02 with it.
+
+The mesh is measured fresh each print, over the bounding box of that plate's own first layer.
+
+[`z-trim-0.30-probe.3mf`](z-trim-0.30-probe.3mf) is the isolation print: +0.30 mm over stock,
+ten times the sweep's step, more than a 0.2 mm first layer can reach the plate through.
 
 ## Reading it back
 
