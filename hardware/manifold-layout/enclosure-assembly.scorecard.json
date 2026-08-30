@@ -1245,8 +1245,18 @@
    "label": "The cartridge is a large lower cradle with a small top clamp",
    "kind": "gate",
    "status": "pass",
-   "value": "cradle 87.4% of printed volume, 113.6 mm high; clamp 24.0 mm",
+   "value": "cradle 88.5% of printed volume, 113.6 mm high; clamp 24.0 mm",
    "target": "one solid each, the cradle a majority of volume and carrying the full-height face",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "pump-cartridge-full-front-wall",
+   "label": "The cradle owns the full-width front wall with no side taper",
+   "kind": "gate",
+   "status": "pass",
+   "value": "x -107.500..107.500; missing 0.000 mm\u00b3; fixed front-top 0.000 mm\u00b3",
+   "target": "x -107.500..107.500, full stock z 167.365..280.495, and no fixed front-top in that band",
    "detail": [],
    "active": true
   },
@@ -1748,8 +1758,8 @@
    "active": true
   },
   {
-   "id": "pump-bay-full-width",
-   "label": "The pump bay reaches both side-wall interior planes",
+   "id": "pump-bay-cavity-throat",
+   "label": "The pump bay throat reaches both cavity side planes",
    "kind": "gate",
    "status": "pass",
    "value": "bay x -104.500..104.500, cavity x -104.500..104.500",

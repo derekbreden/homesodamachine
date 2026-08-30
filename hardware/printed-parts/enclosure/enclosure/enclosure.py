@@ -1372,10 +1372,10 @@ relief_chamfer = _interface.relief_chamfer  # every relief ceiling rises at this
 # --- front-top's own ±X section ----------------------------------------------
 #
 # THE ONE WALL ON THIS BOX THAT IS NOT `wall`, and the only piece that carries it. front-top is
-# the piece a hand works: the pump cartridge is hauled out through its face, both its flanks are cut
-# away over that pump cartridge's whole storey (`_flank_opening`), and what is left stands 195 mm tall
-# on a seam rim it prints mouth-down on. A 3 mm skin either side of that opening is the section
-# holding the two ends of the piece together.
+# the piece a hand works: the pump cartridge is hauled out through its face, and `_bay_cut`
+# removes the complete front and flank band the cartridge owns. What is left stands 195 mm tall
+# on a seam rim it prints mouth-down on; the wall aft of the collet plate and the lintel over
+# the cradle keep its two flanks joined.
 #
 # IT IS TAKEN INWARD, and that is the whole of why nothing else on this box moves. The exterior
 # is `appliance_width`, the silhouette a counter appliance is judged by, and it stands where it
@@ -1513,35 +1513,33 @@ rail_reach_in = (max(front_top_flank_t, back_top_flank_t) - wall) + slide_slip +
 # tails land on the guides' heads. Front-bottom's mouth then closes under the foot, so what
 # holds the plate in the machine is the seam itself.
 #
-# The BAY is the opening all that leaves through: the complete cavity width between the two
-# side-wall interior planes, from the floor's top up past the motor cans' crowns. The two
-# display-support columns have no inboard section through this storey; the floor's own top is
-# the sill, washed fore so what runs down the face runs out, and the wall over the bay is the
-# lintel carrying the facet and display into the exterior side skins. Front-bottom's front lip
-# drops across the same span because the floor stands in that band.
+# The BAY is the opening all that leaves through: the complete exterior front-wall width from
+# the floor's top up past the motor cans' crowns. The two display-support columns and both fixed
+# side skins are absent through this storey; the floor's own top is the sill, washed fore so
+# what runs down the face runs out, and the wall over the bay is the lintel carrying the facet
+# and display. Front-bottom's front lip drops across the cavity span because the floor stands
+# in that band.
 #
-# BOTH FLANKS OPEN ACROSS THE SAME STOREY (`_flank_opening`). The opening takes the two front
-# corner columns with it and runs to the side walls' interior planes; at the aft outer edges,
+# BOTH FLANKS OPEN AS PART OF THAT SAME `_bay_cut`. The opening takes the two front corner
+# columns and the exterior side skins with it; at the aft outer edges,
 # two narrow fixed plate guides overlap the steel's tails and the cartridge carries local
 # notches round them (`_plate_fore_guides`, `_plate_guide_notches`). Its floor is the Z-seam
-# rim: under that plane the side wall is the outer register front-bottom's lip telescopes into.
+# floor: the installed cradle closes the front-top opening over the seam furniture below it.
 #
-# THE PUMP CARTRIDGE TAKES THE WHOLE CAVITY WIDTH. Its square fill runs to one
-# `bay_face_slip` inside the side-wall planes, while its fore face is clipped by the enclosure's
-# rounded exterior. The bay mouth and both open flanks are that complete withdrawal sweep, so
-# the rounded front corners carry no fixed column through this storey.
+# THE PUMP CARTRIDGE TAKES THE WHOLE FRONT-WALL WIDTH. Its outer skin follows the enclosure's
+# rounded silhouette all the way to both exterior side faces, at every height between the sill
+# and lintel. Its filled interior reaches the side-wall planes and bears on the bay floor. The
+# only departures from that full-width, full-height envelope are the two hand pockets, the pump
+# wells, the aft guide notches and `face_reveal` at the two horizontal seams.
 bay_crown_air = 1.7          # bay top over the tallest motor can's crown
-bay_face_slip = 0.5          # pump cartridge inside the front opening, per side in X and Z
-face_reveal = bay_face_slip  # the same running fit at the sill and under the lintel
-# THE MOUTH IS SQUARE IN PLAN BECAUSE THE WHOLE BLOCK PASSES IT. A round on its fore standing
-# arrises admits the rounded drawer face at home but not the square fill behind that face: as
-# the drawer moves, the fill reaches the round and binds. The outside box keeps its rounded
-# skins; the opening between their interior planes is the straight guide a sliding block
-# requires.
+face_reveal = 0.5            # Z clearance at the sill and under the lintel
+pump_bay_side_air = 0.5      # pump-body air inside each cavity throat plane
+sweep_step_max = 0.25        # largest interval in pump, clamp and withdrawal motion proofs
 sill_wash = 1.4              # the sill's top face falls this much fore, so the reveal drains
-# THE LOWER CRADLE HAS ONE OUTLINE. Its face and filled body stand `bay_face_slip` inside
-# the side-wall planes and `face_reveal` under the lintel. The smaller clamp remains inside
-# the cradle's two vertical wells throughout insertion and withdrawal.
+# THE LOWER CRADLE HAS ONE RECTANGULAR Z OUTLINE. The exterior shell reaches the appliance's
+# complete plan silhouette and its filled body reaches both cavity planes without a side taper.
+# The smaller clamp remains inside the cradle's two vertical wells throughout insertion and
+# withdrawal.
 cap_kiss = 0.1               # the cradle's aft face off the collet plate's, at full seat
 # THE STEEL'S OWN AIR, on every edge it presents to printed material. `fits.slip` is the
 # figure for a printed face on a printed face; this is the figure for the one part of this
@@ -1550,8 +1548,8 @@ cap_kiss = 0.1               # the cradle's aft face off the collet plate's, at 
 steel_air = 0.2
 plate_slot_slip = steel_air  # air fore and aft of the collet plate in the floor's slot, and
                              # across it too: the slot's ends are what locate the steel in X,
-                             # because over `seam_cap_z` the flank it would otherwise stand
-                             # against is opened whole (`_flank_opening`)
+                             # because the flank it would otherwise stand against is opened
+                             # whole by `_bay_cut`
 # Each fixed fore cheek overlaps this much of the collet plate's unperforated outer tail. The
 # full-width pump cartridge clears those cheeks in two aft-corner notches instead of spending
 # its whole X span inside them.
@@ -1590,9 +1588,6 @@ plate_guide_wedge = 3.0      # the cheek's extra section at the fixed outer wall
 cap_pump_air = 0.4           # running air round the head in the cradle's lower well
 cap_tube_air = 0.15          # per-face air round the measured tube-fitting opening
 cap_slot_half = _tray.outlet_half + cap_tube_air
-# At the floor the cradle keeps two walls outboard of the fitting openings, then grows to the
-# bay's full width at 45 degrees before the pull band.
-cap_tube_return = 2.0 * wall
 cap_web_land = 4.0           # clamp section under each recessed M3 head
 cap_web_t = head_cbore_depth + cap_web_land
 cap_screw_off = 18.0         # the two bridges and screws fore/aft of the lane midpoint
@@ -2652,19 +2647,20 @@ def _dims(pack):
         ([] if miss <= flute_seam_miss else [
             f"the Y seam lands {miss:.4f} mm off the nearest groove centre, which puts the "
             f"joint on a land where it is a line on a flat. Retune `flute_count`"])))
-    # AND THE PUMP BAY TAKES THE COMPLETE CAVITY WIDTH. Its mouth edges are the side-wall
-    # planes, not a pair of front corner columns, so the cartridge gains the whole inboard
-    # reach those columns would occupy while the exterior side skins remain outboard.
+    # AND THE PUMP BAY'S INTERIOR THROAT TAKES THE COMPLETE CAVITY WIDTH. The removable
+    # cartridge continues out through both former side skins; this bound names only the
+    # unobstructed interior planes, while `pump-cartridge-full-front-wall` reads ownership of
+    # the complete exterior front-wall band from the built solids.
     bx0, bx1 = bay_x_span(inner)
     record_bound(Bound(
-        "pump-bay-full-width", "The pump bay reaches both side-wall interior planes",
+        "pump-bay-cavity-throat", "The pump bay throat reaches both cavity side planes",
         abs(bx0 - inner[0]) <= stated_bound_tol and abs(bx1 - inner[1]) <= stated_bound_tol,
         f"bay x {bx0:.3f}..{bx1:.3f}, cavity x {inner[0]:.3f}..{inner[1]:.3f}",
         "the same two planes",
         ([] if (abs(bx0 - inner[0]) <= stated_bound_tol
                 and abs(bx1 - inner[1]) <= stated_bound_tol) else [
-            "a fixed front jamb still stands inside a side-wall plane and takes width from "
-            "the cartridge. Carry `bay_x_span` to the cavity's complete X span"])))
+            "a fixed jamb stands inside a cavity plane and narrows the withdrawal throat. "
+            "Carry `bay_x_span` to the cavity's complete X span"])))
     facet_back = housing_back_y(outer)
     record_bound(Bound(
         "y-seam-clears-facet", "The Y seam stands behind the display housing",
@@ -2922,7 +2918,7 @@ def _bay_storey_segments(inner, outer, bay, plate):
     the segments read from one mouth edge straight through to the other.
 
     ITS TWO LONG OUTBOARD STRETCHES ARE AIR. From the front-wall interior plane to the tee wall
-    the side wall is cut away over this whole storey (`_flank_opening`), so the walk crosses
+    the side wall is cut away over this whole storey (`_bay_cut`), so the walk crosses
     the window rather than a surface and the piece simply answers that it has no material
     there.
 
@@ -2944,13 +2940,13 @@ def _bay_storey_segments(inner, outer, bay, plate):
 
 
 def seam_cap_z():
-    """THE PLANE THE Z SEAM'S OWN FURNITURE TOPS OUT UNDER — the seam's cap (`_rim_cap`),
-    one `wall` over the lip rim.
+    """THE PLANE THE Z SEAM'S OWN FURNITURE TOPS OUT UNDER, one `wall` over the lip rim.
 
     Under it stand the lip, the rail heads, the stop blocks and every lane the top piece
     sweeps them in; over it front-bottom stands nothing at all. So it is the plane a body
     riding in front-top has to be above before it may reach out to the side wall, and the
-    floor the flank opening and the bay's storey are struck on."""
+    floor the bay's interior flute storey is struck on. Across the removable front band the
+    cradle replaces this closure; aft of the opening the ordinary seam furniture remains."""
     return z_seam + z_rise + wall
 
 
@@ -2968,7 +2964,7 @@ def plate_step_in():
 
     AND IT IS HELD OFF BY THAT EVERYWHERE. The plate rides in front-top through the whole of
     the front column's slide, so the complete rectangle clears the rail envelope. Over
-    `seam_cap_z` the flank beside it is opened whole (`_flank_opening`), while the bay floor's
+    `seam_cap_z` the flank beside it is opened whole by `_bay_cut`, while the bay floor's
     slot locates both ends in X one `plate_slot_slip` away. The four pack-struck holes keep
     their X/Z datums; the unperforated tails end at the clearance plane this function states.
 
@@ -2998,12 +2994,11 @@ def plate_outline(plate):
 
 
 def bay_storey_z(bay):
-    """The storey the pump cartridge slides through — the seam's own ceiling (`_rim_cap`) up to the
-    bay's top.
+    """The interior bay-surround band carrying its own flute run.
 
-    Both flanks and the inboard portions of both front display-support columns stand open
-    across it (`_flank_opening`, `_front_column_opening`), and it is the height band the
-    storey's own run of flutes exists over."""
+    The removable cradle itself begins lower, on the bay floor. This narrower band begins at
+    the seam furniture's ceiling because that is where an exposed interior surround exists
+    behind the installed cradle."""
     return seam_cap_z(), bay[2]
 
 
@@ -4288,17 +4283,10 @@ def _back_bottom_flank_skin(inner, y_joint, zj):
 def bay_x_span(inner):
     """The bay's two mouth edges: the side walls' interior planes.
 
-    The pump-cartridge storey carries no front corner columns. The opening consumes their
-    complete inboard reach, and the cartridge keeps `bay_face_slip` to the two side-wall
-    planes while the enclosure's exterior skin continues outboard of them."""
+    The pump-cartridge storey carries no front corner columns. This is the interior throat;
+    the removable cradle continues through the former side skins to the appliance's exterior
+    planes (`_cap_x_span`)."""
     return inner[0], inner[1]
-
-
-def _soffit_c(outer):
-    """The display housing's soffit as the constant of its own 45° plane, z = y + c —
-    the facet's back plane, `display_facet_thickness` behind the face along its normal."""
-    _a, _n, origin, _dy, _dz = _facet_geom(outer)
-    return (origin[2] - origin[1]) - display_facet_thickness * math.sqrt(2.0)
 
 
 def _pump_relief_regions(pump_trays):
@@ -4392,66 +4380,29 @@ def _sill_wash(inner, outer, z_sill):
                       (inner[2] + 0.1, z_sill + 0.001)])
 
 
+def _pump_full_width_band(inner, outer, bay, pump_trays, y_aft, z_inset=0.0):
+    """The complete removable front-wall band, clipped only by the appliance silhouette.
+
+    It begins on the outside of the front face, runs aft to `y_aft`, and owns both former
+    front-top side skins as well as the flat face between them. `z_inset` is zero for the fixed
+    piece's opening and `face_reveal` for the cradle skin, leaving that skin one running gap
+    above the sill and below the lintel without narrowing it in X."""
+    z0 = bay_floor_z(pump_trays)[1] + z_inset
+    z1 = bay[2] - z_inset
+    return _rounded_outer(outer).intersect(
+        _ybox(outer[0] - 1.0, outer[1] + 1.0,
+              outer[2] - 1.0, y_aft, z0, z1))
+
+
 def _bay_cut(inner, outer, bay, pump_trays, plate):
-    """The bay's opening through front-top: the complete cavity width from the floor's own
-    top to the bay top, both flanks over the rim (`_flank_opening`), the front columns' inboard
-    lobes below that rim (`_front_column_opening`), and the soffit wedge's share where the
-    facet slab leans into the cans' path above the cavity ceiling line."""
-    bx0, bx1, top = bay
-    c = _soffit_c(outer)
-    wall_box = _bay_mouth(inner, outer, bay, pump_trays, 0.0)
-    wedge_box = _ybox(bx0, bx1, inner[2] + 0.4, top - c + 1.5,
-                      inner[2] + c - 1.5, top)
-    return (wall_box.fuse(wedge_box)
-            .fuse(_front_column_opening(inner, bay_floor_z(pump_trays)[1], top))
-            .fuse(_flank_opening(inner, plate["aft_y"], *bay_storey_z(bay))))
+    """The bay's opening through front-top: the complete exterior width and complete cradle
+    height, from the bay floor to the bay top and from the show face to the steel's aft face.
 
-
-def _front_column_opening(inner, z0, z1):
-    """The inboard lobes of the two front corner columns, removed through the cradle band.
-
-    The full flank opening begins on the seam cap and leaves the exterior side skins below it
-    for the Z joint. A corner column reaches one `column_round` into the cavity on both axes,
-    so below that opening this smaller cut takes only the column's cavity-side quadrant. The
-    cradle's 45° widening face then passes while the side-wall skin and the rail band outboard of
-    `inner[0]` / `inner[1]` remain whole."""
-    out = None
-    for x_in, sx in ((inner[0], +1.0), (inner[1], -1.0)):
-        cusp = x_in + sx * column_round
-        cut = _ybox(min(x_in, cusp), max(x_in, cusp),
-                    inner[2], inner[2] + column_round, z0, z1)
-        out = cut if out is None else out.fuse(cut)
-    return out
-
-
-def _rim_cap(inner, outer, plate, zj):
-    """THE SEAM'S CEILING, both flanks — a `wall`-thick slab bedded on the lip rim, from the
-    exterior face to the side-wall interior plane, front wall back to the collet plate's fore
-    face.
-
-    Everything the Z seam carries stands under it: the lip rim, the boss's flat crown, the
-    channel the pin rides down. Those all top out on ONE plane, because `lip_len` is derived
-    (`plug_dia/2 + socket_r`) to land the boss's far face on the rim — so the cap beds on the
-    whole of it at once rather than bridging anything.
-
-    IT STOPS ON THE CAVITY PLANE. `bay_x_span` is the pump cartridge's own span and this is what
-    stands outboard of it, so nothing of the cap is ever in the withdrawal path. AFT IT STOPS ON THE
-    PLATE'S FORE FACE, and not because the opening over it does — the opening runs on past to
-    the tee wall. It stops there because the steel's own berth is what is aft of it: the cap
-    is the last printed thing under the plate's end, and a millimetre more of it is a
-    millimetre the plate cannot come down through.
-
-    AND THE SILHOUETTE TAKES ITS OUTBOARD END. Struck as a rectangle it reaches the exterior
-    plane, which the box's front corners do not — `corner_round` has turned away from it by
-    then — so the slab is cut to `_rounded_outer` and the corner it ends on is the box's own,
-    not a square one standing proud of it."""
-    bx0, bx1 = bay_x_span(inner)
-    rim = zj + z_rise
-    out = None
-    for x0, x1 in ((outer[0], bx0), (bx1, outer[1])):
-        slab = _ybox(x0, x1, inner[2], plate["fore_y"], rim, rim + wall)
-        out = slab if out is None else out.fuse(slab)
-    return out.intersect(_rounded_outer(outer))
+    The lower cradle replaces every part of the fixed front wall and both fixed side skins in
+    this band. The plate guides are added after this cut and the cradle carries their two local
+    aft notches."""
+    return _pump_full_width_band(
+        inner, outer, bay, pump_trays, plate["aft_y"], z_inset=0.0)
 
 
 def _plate_fore_guides(inner, outer, bay, plate, pump_trays):
@@ -4581,46 +4532,6 @@ def _plate_cap(inner, plate, bay):
     return _yz_prism(inner[0], inner[1], (
         (aft, z_land), (land, z_land), (fore, z_land + (land - fore)),
         (fore, bay[2]), (aft, bay[2])))
-
-
-def _flank_opening(inner, y_aft, z0, z1):
-    """Front-top's ±X faces, open across the pump cartridge's own storey.
-
-    THIS CUT OPENS THEM WHOLE. After it, `_plate_fore_guides` puts back only two narrow
-    stationary cheeks at the aft outer edges; the cartridge carries local notches round them
-    because those cheeks answer the release plate and not the opening. At the fore end the cut
-    meets the front-wall opening on the side walls' interior planes, so no corner column crosses
-    this storey.
-
-    IT IS CUT TO THE FACE THIS PIECE ACTUALLY LEAVES and not to `interior_x`: front-top's
-    flanks carry `front_top_flank_t` (`front_top_flank_face`), so an opening struck on the
-    box's own interior plane would stop on air and leave the section this piece added standing
-    across the storey it is meant to open.
-
-    It begins on `front_plane_y`, where the front wall hands the cavity to the two flanks, and
-    runs from there to the TEE WALL's fore face. Nothing of the box stands in it after that.
-
-    IT RUNS PAST THE PLATE AND STOPS ON THE WALL BEHIND IT. Ending on `plate["fore_y"]` left
-    the plate's own thickness of side wall standing aft of the opening — a band one `wall`
-    deep and the whole storey tall, whose only job was to be the outboard end of a berth the
-    plate's own ends already stop `plate_step_in` short of. `plate["aft_y"]` is where the
-    section behind it starts, so the opening ends on printed wall rather than on a free edge
-    of its own, and the plate's ends stand in the opening the way everything else in this
-    storey does.
-    ITS FLOOR IS THE SEAM'S CAP (`_rim_cap`), one `wall` over the rim. Under the rim
-    front-bottom's tongue laps this wall's inner face and an opening cut there is a seam that
-    does not close; between the two planes stands the cap, and cutting THAT would open the
-    seam's cavity to the storey it is meant to be shut off from."""
-    out = None
-    for x_in, sx in ((inner[0], +1.0), (inner[1], -1.0)):
-        x_out = x_in - sx * (wall + 1.0)
-        # The corner column reaches one `column_round` INBOARD of the side-wall plane. The
-        # opening takes that whole lobe, not merely the flank stock ending on `x_face`.
-        x_cusp = x_in + sx * column_round
-        box = _ybox(min(x_cusp, x_out), max(x_cusp, x_out),
-                    inner[2], y_aft, z0, z1)
-        out = box if out is None else out.fuse(box)
-    return out
 
 
 def _front_top_flanks(inner, outer, box, y_joint, zj):
@@ -5053,32 +4964,15 @@ def _back_top_ceiling(solid, inner, y_joint, box):
     return solid
 
 
-def _bay_mouth(inner, outer, bay, pump_trays, inset):
-    """The bay's opening as one square-plan prism through the front wall, `inset` inside the
-    opening on every edge.
-
-    ONE FIGURE CUTS THE OPENING AND SHAPES WHAT FILLS IT. The opening takes `inset` 0 and the
-    pump cartridge takes `bay_face_slip`, which is also `face_reveal`, so face and fill are this
-    outline offset uniformly in X and Z.
-
-    THE PLAN CORNERS ARE SQUARE BECAUSE THIS IS A SLIDE PATH. Every Y station of the filled
-    block crosses the mouth's fore edge, while the box's exterior corner skins keep their round
-    outboard of the side-wall interior planes."""
-    bx0, bx1, top = bay
-    x0, x1 = bx0 + inset, bx1 - inset
-    z0, z1 = bay_floor_z(pump_trays)[1] + inset, top - inset
-    return _ybox(x0, x1, outer[2] - 1.0, inner[2] + 0.5, z0, z1)
-
-
 def _pump_cartridge_face_region(inner, outer, bay, pump_trays, plate):
-    """The bay region the pump cartridge's face keeps: the same figures one slip and one reveal
-    smaller, so the face rides its opening on stated air."""
-    bx0, bx1, top = bay
-    fx0, fx1 = bx0 + bay_face_slip, bx1 - bay_face_slip
-    z1 = top - face_reveal
-    c = _soffit_c(outer)
-    return (_bay_mouth(inner, outer, bay, pump_trays, bay_face_slip)
-            .fuse(_ybox(fx0, fx1, inner[2] + 0.4, z1 - c + 1.5, inner[2] + c - 1.5, z1)))
+    """The exterior shell the lower cradle owns.
+
+    It spans the complete rounded front and both side skins through the cradle's own aft stop.
+    Only the two horizontal seams take a reveal; the fixed plate guides occupy the short band
+    behind that stop and fit the cradle's two local notches."""
+    return _pump_full_width_band(
+        inner, outer, bay, pump_trays, _block_aft(plate),
+        z_inset=face_reveal)
 
 
 def cap_split_z(pump_trays):
@@ -5168,35 +5062,10 @@ def _block_aft(plate):
 
 
 def _cap_x_span(bay):
-    """The lower cradle's full-width edges, one running clearance inside the bay."""
+    """The lower cradle's exterior side faces: the appliance's complete stated width."""
     _bx0, bx1, _top = bay
-    edge = bx1 - bay_face_slip
+    edge = bx1 + wall
     return -edge, edge
-
-
-def _cap_lower_half(pump_trays):
-    """Half the cradle's width at its floor: fitting opening plus two walls."""
-    return max(abs(cx) + cap_slot_half for cx, _cy, _cz in pump_trays) + cap_tube_return
-
-
-def _cap_side_envelope(box):
-    """The lower cradle's printable X/Z outline through its complete height.
-
-    At the floor it clears the enclosure's Z-seam furniture while keeping `cap_tube_return`
-    outboard of each 69.55 mm tube opening. Each side then walks out one-for-one in Z until it
-    reaches the full-width cartridge edge and remains there through the front wall and motor
-    storey. The cradle prints on this floor, so both outward walks are 45° faces every layer
-    grows on."""
-    edge = _cap_x_span(box.pump_bay)[1]
-    lower = _cap_lower_half(box.pack.pump_trays)
-    z0 = bay_floor_z(box.pack.pump_trays)[1]
-    z_full = z0 + edge - lower
-    z1 = box.pump_bay[2] + 1.0
-    return _xz_prism(box.outer[2] - 1.0, box.y_joint, (
-        (-lower, z0 - 1.0), (lower, z0 - 1.0),
-        (lower, z0), (edge, z_full), (edge, z1),
-        (-edge, z1), (-edge, z_full), (-lower, z0),
-    ))
 
 
 def _pull_center_z(plate):
@@ -5260,6 +5129,7 @@ def pump_cartridge_figures(box):
         "CAP_TUBE_PART": f"{2.0 * _tray.outlet_half:.4g} mm",
         "CAP_TUBE_AIR": f"{cap_tube_air:.4g} mm",
         "CRADLE_EDGE": f"{edge:.4g} mm",
+        "CRADLE_WIDE": f"{2.0 * edge:.4g} mm",
         "PLATE_SLOT_LEAD": f"{plate_slot_lead:.4g} mm",
         "PLATE_CAP_LAND": f"{plate_cap_land:.4g} mm",
         "PLATE_STEP_IN": f"{plate_step_in():.4g} mm",
@@ -5332,11 +5202,11 @@ def _bay_floor(inner, y_joint, plate, pump_trays):
     the rail channel, cut last, is what opens its flank bands for the slide.
 
     AT THE TWO SIDE-WALL PLANES THE SHELL STANDS TO THE RIM. The pump cartridge sweeps the
-    complete cavity width, so there is no separate floor strip outboard of it; the exterior
-    side skins carry the Z-seam rim and its cap (`_rim_cap`) at those two edges.
+    complete cavity width, so there is no separate floor strip outboard of it; the installed
+    cradle closes the opening out to both exterior side faces above this floor.
 
     AND ITS SLOT'S TWO ENDS ARE WHAT LOCATE THE STEEL ACROSS. Over `seam_cap_z` the flank the
-    plate's ends would otherwise stand against is opened whole (`_flank_opening`), so the ends
+    plate's ends would otherwise stand against is opened whole by `_bay_cut`, so the ends
     reach into that opening and touch nothing; here, in the floor, they run one
     `plate_slot_slip` off each end of a slot cut in solid material. This is the only station
     in the machine that holds the plate in X."""
@@ -5540,7 +5410,7 @@ def build_pump_cartridge(box, halves_cache=None):
     Both side pulls are cut from this piece at the tube-centre elevation. The clamp has no
     pull feature. Two heat-set bores open upward from the centre spine for the clamp screws."""
     inner, plate = box.inner, box.pack.collet_plate
-    solid = _pump_cartridge_gross(box, halves_cache).intersect(_cap_side_envelope(box))
+    solid = _pump_cartridge_gross(box, halves_cache)
     for void in _pump_drop_voids(box):
         solid = solid.cut(void)
     for pull in _cradle_pulls(box):
@@ -5572,12 +5442,14 @@ def _pump_cartridge_gross(box, halves_cache=None):
     face = _pump_cartridge_face_region(inner, outer, bay, box.pack.pump_trays, plate)
     solid = half.val().intersect(face)
     bx0, bx1, top = bay
-    dx0, dx1 = bx0 + bay_face_slip, bx1 - bay_face_slip
     aft = _block_aft(plate)
     floor_top = bay_floor_z(box.pack.pump_trays)[1]
-    fill = _ybox(dx0, dx1, pump_relief_floor, aft, floor_top, top - face_reveal)
+    # The filled body bears on the floor and reaches both cavity planes. The exterior shell
+    # begins one reveal above it and continues to the appliance's full side faces, so there is
+    # no X taper and no fixed side skin framing the cradle.
+    fill = _ybox(bx0, bx1, pump_relief_floor, aft, floor_top, top - face_reveal)
     solid = solid.fuse(fill).intersect(face.fuse(
-        _ybox(dx0, dx1, outer[2], aft, floor_top, top)))
+        _ybox(bx0, bx1, outer[2], aft, floor_top, top)))
     for notch in _plate_guide_notches(bay, plate, box.pack.pump_trays):
         solid = solid.cut(notch)
     if halves_cache is not None:
@@ -7856,9 +7728,6 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     # The bay's opening, after every fuse that stands near it: what leaves through it is
     # the pump cartridge, and what it takes from this piece is what `build_pump_cartridge` keeps.
     if y_side == "front" and z_side == "top" and box.pump_bay:
-        # The seam's ceiling first: the opening's floor is this slab's top, so it has to be
-        # standing before the opening is cut or the cut would take the plane it stands on.
-        piece = piece.fuse(_rim_cap(inner, outer, box.pack.collet_plate, z_seam))
         piece = piece.cut(_bay_cut(inner, outer, box.pump_bay, box.pack.pump_trays,
                                    box.pack.collet_plate))
         # And the sill it leaves — the floor's own top — washed fore, so what runs down the
@@ -8192,7 +8061,14 @@ def _export_pieces(pieces, assy):
         # AND THE SHOW SURFACES ARE FLUTED HERE, in the mesh, on the way to the bed. See
         # `flute_skin.py` for why they are not in the solid.
         berthed = [m for other, m in bodies.items() if other != name] + steel
-        mesh = _flute_skin.flute(bodies[name], flute_rails(box, berthed),
+        rails = flute_rails(box, berthed)
+        # The full-width cradle now owns the enclosure's exterior front and side skins. Its
+        # show surface therefore takes the closed OUTER field only. The second rail is the
+        # fixed bay surround's inward-facing field; applying both to the cradle makes the two
+        # cutter families meet at its rounded top corner and leaves a four-face STL edge.
+        if name == "pump-cartridge":
+            rails = rails[:1]
+        mesh = _flute_skin.flute(bodies[name], rails,
                                  flute_pitch(outer), flute_depth, flute_rise)
         # WHAT IS CHECKED IS WHAT COMES OUT. A piece tessellates with a handful of edges
         # carrying four faces rather than two — the solid touching itself along a line, which is
@@ -8360,7 +8236,7 @@ def main():
         vent_rib_base = vent_rib_land = None
     variables = {
         "SLIDE_SLIP": f"{slide_slip:g} mm",
-        "PUMP_CARTRIDGE_CLEARANCE": f"{bay_face_slip:g} mm",
+        "PUMP_CARTRIDGE_CLEARANCE": f"{face_reveal:g} mm",
         "HOOK_LAP": f"{hook_lap:g} mm",
         "FRONT_HOOK_LAP": f"{front_hook_lap:g} mm",
         "BACK_HOOK_LAP": f"{back_hook_lap:g} mm",
