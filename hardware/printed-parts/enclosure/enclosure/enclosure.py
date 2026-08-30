@@ -244,12 +244,13 @@ column_corners = ((-1, -1), (1, -1), (-1, 1), (1, 1))
 # the whole machine is struck about. Whatever `flute_count` is, the half-perimeter carries
 # the same grooves the other way round.
 #
-# AND THE BOX HAS A SECOND RUN, INDOORS. The bay's storey shows the tee wall behind the drawer
-# out where the drawer does not reach it, joined to the mouth by the two open-flank walks. That run is walked by
-# `_bay_storey_segments` and it does not close, because a storey open at its mouth is not a
-# loop. It is struck at THIS pitch from a datum on the same x = 0, so a groove lands on the
-# machine's plane of symmetry inside as it does outside. `flute_rails` is where the box says
-# which runs it has, and `flute_skin.py` reads nothing else about either of them.
+# AND THE BOX HAS A SECOND FIELD, INDOORS. The bay's storey shows two mouth ledges and the tee
+# wall behind the drawer where the drawer does not reach it. Those three actual surfaces are
+# three open rails; `_bay_storey_segments` carries their one global phase path across the two
+# intervening window spans, which are air and never cutter paths. All three are struck at THIS
+# pitch from a datum on the same x = 0, so a groove lands on the machine's plane of symmetry
+# inside as it does outside. `flute_rails` is where the box says which runs it has, and
+# `flute_skin.py` reads nothing else about any of them.
 flute_count = 260
 # THE DEPTH IS THE COUPON'S. the corner coupon at `c14bb2fff` cut this into a `wall`-thick standing wall
 # and printed it; going deeper is a new question, not a free one.
