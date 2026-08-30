@@ -2,5 +2,5 @@
   "thickness_mm": 3.175,
   "material": "316 stainless steel",
   "process": "laser-cut",
-  "notes": "0.125\" 316, SendCutSend, mill finish 2B, add deburring. Thickness tolerance +.001\"/-.010\" — the tight positive half is what keeps a max-thickness plate seating between the tee wall's fore face and the slot's own, and the negative half is `enclosure_assembly.PLATE_T_UNDER`, which the release stroke carries as lost motion. Tumbling is unavailable: max tumble part is 4\" x 7\" and this plate is 7.705\" long. Deburring is available (min 1\" x 3\") and is bought — the four holes pass LLDPE tube on every pump service, and assembly runs a bare finger down the seated top edge."
+  "notes": "0.125\" 316, SendCutSend, mill finish 2B, add deburring. Thickness tolerance +.001\"/-.010\" — the tight positive half is what keeps a max-thickness plate seating between the tee wall's fore face and the slot's own, and the negative half is `enclosure_assembly.PLATE_T_UNDER`, which the release stroke carries as lost motion. Tumbling is unavailable: max tumble part is 4\" x 7\" and this plate is 7.874\" long. Deburring is available (min 1\" x 3\") and is bought — the four holes pass LLDPE tube on every pump service, and assembly runs a bare finger down the seated top edge."
 }
