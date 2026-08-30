@@ -9,9 +9,10 @@ cutter as the ordinary producer without drawing another enclosure piece or an as
 
     tools/cad-venv/bin/python hardware/scripts/materialize_pump_cartridge.py
 
-All three siblings are completed in a temporary directory and seated together only after the
-printed STL has passed the ordinary producer's own slicer-facing reading.  A killed run therefore
-leaves the current visible triplet intact.
+All three siblings are completed in a temporary directory and seated only after the printed STL
+has passed the ordinary producer's own slicer-facing reading.  They seat STEP, STL, then payload:
+an interruption may leave the first one or two current while the payload stays held, but the
+publisher then sees no changed payload and defers instead of exposing a mixed triplet.
 """
 
 from __future__ import annotations
@@ -124,7 +125,7 @@ def materialize(output: Path = _OUTPUT) -> dict:
 
         siblings = (step, stl, payload)
         hashes = {path.name: _sha256(path) for path in siblings}
-        moved = [_seat(path, output / path.name) for path in siblings]
+        moved = {path.name: _seat(path, output / path.name) for path in siblings}
         seated = time.perf_counter()
 
     timings = {
@@ -140,7 +141,7 @@ def materialize(output: Path = _OUTPUT) -> dict:
     print("pump cartridge only:")
     print("  " + "  ".join(f"{name} {seconds:.2f}s" for name, seconds in timings.items()))
     for name in (f"{stem}.step", f"{stem}.stl", f"{stem}.step.mesh"):
-        print(f"  {'updated' if moved[(step.name, stl.name, payload.name).index(name)] else 'held':7s} "
+        print(f"  {'updated' if moved[name] else 'held':7s} "
               f"{name}: {hashes[name]}")
     print(f"  {len(written.faces):,} STL facets; payload src={step_sha}")
     return {"hashes": hashes, "timings": timings, "facets": len(written.faces),
