@@ -979,23 +979,18 @@ the stamped bracket on −Y and both X sides; +Y remains open for the fittings. 
 from that bracket directly into the lower cradle and then into the bay floor.
 
 **The second printed piece is only the top clamp.** `enclosure-pump-cap`
-(`build_pump_cap`) is [167.1 mm](CLAMP_SPAN) across. Its broad clamp field is
-[40 mm](CLAMP_RISE) high, with its Z− face at z [218.75 mm](CLAMP_BASE_Z) on the upper face
-of each measured
-[2 mm](CLAMP_BRACKET_T) stamped bracket, and the crown stands at z
-[258.75 mm](CLAMP_CROWN_Z). One filled field spans both pump heads from their clean fore
-envelope to the aft wall. Two fitted openings wrap both bosses with the pump case's exact
-octagonal bore and leave one shoulder around each motor can. A single
+(`build_pump_cap`) is [167.1 mm](CLAMP_SPAN) across and [61.75 mm](CLAMP_RISE) high. Its Z− face
+stands at z [218.75 mm](CLAMP_BASE_Z) on the upper face of each measured
+[2 mm](CLAMP_BRACKET_T) stamped bracket. One filled field spans both pump heads from their clean
+fore envelope to the aft wall and reaches one common crown at z
+[280.5 mm](CLAMP_CROWN_Z), one running reveal below the bay lintel. Two fitted openings wrap
+both bosses with the pump case's exact octagonal bore and leave one shoulder around each motor
+can. A single
 [31.14 mm](CLAMP_ACCESS_W) × [48 mm](CLAMP_ACCESS_RUN) top recess joins the two screw stations;
 its retained floor stands at z [224.75 mm](CLAMP_ACCESS_FLOOR_Z), [6 mm](CLAMP_ACCESS_BASE)
 above the broad print face. The individual counterbores continue to head seats which keep
-[4 mm](CLAMP_HEAD_LAND) of printed land underneath. One straight
-[3 mm](CLAMP_FORE_WALL_DEPTH) fore wall spans [167.14 mm](CLAMP_FORE_WALL_SPAN) and continues
-from that same base to z [280.5 mm](CLAMP_FORE_WALL_TOP), one
-[0.4 mm](CLAMP_FORE_WALL_X_AIR) X fit and [0.2 mm](CLAMP_FORE_WALL_Y_AIR) Y fit inside the
-cradle's upper opening. It fills the interior behind the cradle's top edge as stock of the
-single [61.75 mm](CLAMP_OVERALL_RISE)-high removable cap. The two M3s run into heat-set inserts
-in the cradle. The clamp carries no show face, plate stop or hand pull.
+[4 mm](CLAMP_HEAD_LAND) of printed land underneath. The two M3s run into heat-set inserts in the
+cradle. The clamp carries no show face, plate stop or hand pull.
 
 The service sequence follows those two load paths. Withdraw the assembled cartridge by its
 cradle pulls before any Z service; back out the two clamp screws on the withdrawn cartridge;
@@ -1211,10 +1206,10 @@ surface, region by region.
 
 ## Pump clamp field
 
-The geometry in `printed-parts/enclosure/pump-tray/` supplies the two fitted openings in the
-small top clamp. The clamp begins as one rectangular field over both pumps. Each stamped
-bracket's upper face is the field's broad base plane. The exact pump-case octagon and motor-can
-bore are cut from it, leaving the case-derived locating walls, pressing lands and can shoulders
+The geometry in `printed-parts/enclosure/pump-tray/` supplies the two fitted openings in the top
+clamp. The clamp is one rectangular field over both pumps, from each stamped bracket's upper
+face to the common crown below the bay lintel. The exact pump-case octagon and motor-can bore
+are cut from it, leaving the case-derived locating walls, pressing lands and can shoulders
 wherever a pump does not occupy the material. It is one printed `enclosure-pump-cap`, not
 separate collars or fastener pieces.
 

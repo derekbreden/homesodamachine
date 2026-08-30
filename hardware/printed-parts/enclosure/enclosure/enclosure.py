@@ -1507,7 +1507,7 @@ rail_reach_in = (max(front_top_flank_t, back_top_flank_t) - wall) + slide_slip +
 #
 # THE PUMPS SLIDE OUT OF THE FRONT OF THE BOX. The front wall's flat span — corner column to
 # corner column — and the large lower cradle come out of front-top as one piece, the PUMP
-# CARTRIDGE. Both pumps drop into that cradle and a small top clamp closes on their stamped
+# CARTRIDGE. Both pumps drop into that cradle and one top clamp closes on their stamped
 # brackets. The assembled cartridge rides the bay floor and nothing latches it: four barb tubes gripped in the
 # anchor tees' branch collets are the retention, and the collet plate
 # (`enclosure_assembly.build_collet_plate`) is the release — pull the pump cartridge and the tees
@@ -1581,7 +1581,7 @@ plate_shelf_t = 1.2          # that shelf's own section at its inboard edge, bef
 plate_guide_wedge = 3.0      # the cheek's extra section at the fixed outer wall, raked away
                              # to nothing at its inboard face over the guide's whole height
 
-# --- THE PUMP CARTRIDGE IS A CRADLE WITH A SMALL TOP CLAMP ------------------
+# --- THE PUMP CARTRIDGE IS ONE CRADLE AND ONE TOP CLAMP ---------------------
 #
 # THE LOWER CRADLE IS THE CARTRIDGE. It owns the complete front face, the full-height block
 # behind it, the plate stop, both bracket lands and both hand pulls. Each pump drops through
@@ -1589,10 +1589,11 @@ plate_guide_wedge = 3.0      # the cheek's extra section at the fixed outer wall
 # Nothing under the head carries it; the front of each head remains one millimetre over the
 # bay floor and the bracket puts the load into the block around the well.
 #
-# THE TOP CAP IS A CLAMP. One filled field spans both pump heads and begins on the stamped
-# brackets' upper face. The complete boss octagons and motor cans are cut from that field,
-# leaving the case-derived locating walls and pressing lands wherever the pumps allow material.
-# One joined recess opens down from the crown around both centre screw stations; the individual
+# THE TOP CAP IS A CLAMP. One filled field spans both pump heads, begins on the stamped
+# brackets' upper face and reaches the cradle's common top plane over its complete fore/aft
+# depth. The complete boss octagons and motor cans are cut from that field, leaving the
+# case-derived locating walls and pressing lands wherever the pumps allow material. One joined
+# recess opens down from the crown around both centre screw stations; the individual
 # counterbores continue from its floor to the M3 seats. Those screws run DOWN into heat-sets in
 # the cradle, so the cap captures both brackets without becoming a second thing the hand pulls
 # on.
@@ -1606,7 +1607,6 @@ cap_pump_air = 0.4           # running air round the head in the cradle's lower 
 cap_tube_air = 0.15          # per-face air round the measured tube-fitting opening
 cap_slot_half = _tray.outlet_half + cap_tube_air  # complete two-fitting envelope, per pump
 cap_fitting_half = _tray.fitting_w / 2.0 + cap_tube_air
-clamp_rise = 40.0            # complete top clamp, bracket top to crown
 cap_web_land = 4.0           # clamp section under each recessed M3 head
 cap_web_t = head_cbore_depth + cap_web_land  # bracket datum to retained access-well floor
 cap_screw_off = 18.0         # the two screws fore/aft of the centre access-well midpoint
@@ -5191,6 +5191,11 @@ def cap_base_z(pump_trays):
     return cap_split_z(pump_trays) + _tray.bracket_t
 
 
+def cap_crown_z(box):
+    """The complete top clamp's common crown, one running reveal below the bay lintel."""
+    return box.pump_bay[2] - face_reveal
+
+
 def cap_access_z(pump_trays):
     """The joined screw-access well's retained floor above the bracket datum."""
     return cap_split_z(pump_trays) + cap_web_t
@@ -5204,11 +5209,6 @@ def _clamp_bridge_edge(pump_trays):
             "the two pump openings overlap across the centre lane, leaving no filled field "
             "for the top-clamp screws")
     return inner + clamp_bridge_overlap
-
-
-def _cap_fore_wall_edge(pump_trays):
-    """Each X edge shared by the cap's gross field and its straight fore wall."""
-    return max(abs(cx) + _tray.half_width() for cx, _cy, _cz in pump_trays)
 
 
 def cap_screw_ys(inner, plate):
@@ -5355,6 +5355,8 @@ def pump_cartridge_figures(box):
     clamp_edge = max(abs(cx) + _tray.half_width() for cx, _cy, _cz in trays)
     clamp_fore = min(cy - _tray.half_width() for _cx, cy, _cz in trays)
     clamp_aft = plate_guide_fore_y(plate) - cap_kiss
+    clamp_base = cap_base_z(trays)
+    clamp_crown = cap_crown_z(box)
     return {
         "PULL_RISE": f"{pull_rise:.4g} mm",
         "PULL_RUN": f"{pull_run:.4g} mm",
@@ -5368,17 +5370,11 @@ def pump_cartridge_figures(box):
         "PULL_AFT_FACE": f"{y1:.4g} mm",
         "PULL_TRAVEL": f"{y0 - box.inner[2]:.4g} mm",
         "CLAMP_SPAN": f"{2.0 * clamp_edge:.4g} mm",
-        "CLAMP_RISE": f"{clamp_rise:.4g} mm",
-        "CLAMP_OVERALL_RISE": f"{(bay[2] - face_reveal - cap_base_z(trays)):.5g} mm",
-        "CLAMP_BASE_Z": f"{cap_base_z(trays):.5g} mm",
-        "CLAMP_CROWN_Z": f"{(cap_base_z(trays) + clamp_rise):.5g} mm",
-        "CLAMP_FORE_WALL_SPAN": f"{(2.0 * _cap_fore_wall_edge(trays)):.5g} mm",
-        "CLAMP_FORE_WALL_TOP": f"{(bay[2] - face_reveal):.5g} mm",
-        "CLAMP_FORE_WALL_DEPTH": f"{wall:.4g} mm",
-        "CLAMP_FORE_WALL_X_AIR": f"{cap_pump_air:.4g} mm",
-        "CLAMP_FORE_WALL_Y_AIR": f"{clamp_drop_air:.4g} mm",
+        "CLAMP_RISE": f"{(clamp_crown - clamp_base):.5g} mm",
+        "CLAMP_BASE_Z": f"{clamp_base:.5g} mm",
+        "CLAMP_CROWN_Z": f"{clamp_crown:.5g} mm",
         "CLAMP_ACCESS_FLOOR_Z": f"{cap_access_z(trays):.5g} mm",
-        "CLAMP_ACCESS_BASE": f"{(cap_access_z(trays) - cap_base_z(trays)):.4g} mm",
+        "CLAMP_ACCESS_BASE": f"{(cap_access_z(trays) - clamp_base):.4g} mm",
         "CLAMP_HEAD_LAND": f"{cap_web_land:.4g} mm",
         "CLAMP_ACCESS_W": f"{2.0 * _clamp_bridge_edge(trays):.4g} mm",
         "CLAMP_ACCESS_RUN": f"{(max(cap_screw_ys(box.inner, plate))
@@ -5736,7 +5732,7 @@ def _pump_cartridge_gross(box, halves_cache=None):
 
     The detachable face is kept whole from the bay sill to its lintel and fused to one filled
     block back to the collet-plate stop. Pump and clamp openings are cuts in this one body;
-    the small top clamp is built independently from the conformal collars it needs."""
+    the top clamp is built independently from the conformal collars it needs."""
     inner, outer = box.inner, box.outer
     bay, plate = box.pump_bay, box.pack.collet_plate
     if not bay or not plate:
@@ -5790,16 +5786,14 @@ def _pump_clamp_gross(box, halves_cache=None):
     The field begins as one broad Z-minus face on top of both stamped brackets. Each complete
     case-profile octagon locates a boss, and each motor can opens the remaining height. There
     is no shallow bracket pocket or narrow rail under the field: the bracket itself lies below
-    the print. A single joined recess reaches down around both top-access M3 heads. The cap's
-    one straight fore wall continues from that same base to the cradle's top plane on the
-    gross field's own X edges. It fills the interior behind the cradle edge while remaining
-    part of the one cap that installs after the pumps."""
+    the print. The complete field reaches one common crown below the bay lintel. A single joined
+    recess reaches down around both top-access M3 heads."""
     if halves_cache is not None and "pump-clamp-gross" in halves_cache:
         return halves_cache["pump-clamp-gross"]
     trays, plate = box.pack.pump_trays, box.pack.collet_plate
     split = cap_split_z(trays)
     base = cap_base_z(trays)
-    crown = base + clamp_rise
+    crown = cap_crown_z(box)
     fore = min(cy - _tray.half_width() for _cx, cy, _cz in trays)
     aft = plate_guide_fore_y(plate) - cap_kiss
     x0 = min(cx - _tray.half_width() for cx, _cy, _cz in trays)
@@ -5818,10 +5812,6 @@ def _pump_clamp_gross(box, halves_cache=None):
         -edge, edge,
         min(ys) - clamp_bridge_half_y, max(ys) + clamp_bridge_half_y,
         cap_access_z(trays), crown + 1.0))
-    fore_edge = _cap_fore_wall_edge(trays)
-    solid = solid.fuse(_ybox(
-        -fore_edge, fore_edge, fore, fore + wall,
-        base, box.pump_bay[2] - face_reveal))
     if halves_cache is not None:
         halves_cache["pump-clamp-gross"] = solid
     return solid
@@ -5852,9 +5842,8 @@ def build_pump_cap(box, halves_cache=None):
     With the cartridge withdrawn from the enclosure, it lowers over both motor cans after the
     pumps stand in the cradle. Each opening takes its boss on the complete case-profile octagon
     and closes with one shoulder round the can; the bottom field presses both stamped brackets
-    onto the cradle lands. One joined recess reaches both M3 heads from above. Its one straight
-    fore wall continues to the cradle's top plane and fills the interior behind that edge. This
-    piece carries no show face, plate stop or pull."""
+    onto the cradle lands. The whole field reaches the cradle's top plane, and one joined recess
+    reaches both M3 heads from above. This piece carries no show face, plate stop or pull."""
     inner, plate = box.inner, box.pack.collet_plate
     solid = _pump_clamp_gross(box, halves_cache)
     for bore in _cap_screws(inner, plate, box.pack.pump_trays)[0]:
