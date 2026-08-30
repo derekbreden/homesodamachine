@@ -17,8 +17,8 @@
     },
     {
       "check": "hardware/scripts/check_flutes.py",
-      "note": "bazel build //:flute-payload && tools/cad-venv/bin/python tools/bazel/sync_tree.py --write --targets //:flute-payload",
-      "status": "red"
+      "note": "✓ every payload stands within the budget its print was cut to",
+      "status": "ok"
     },
     {
       "check": "hardware/scripts/check_ledger.py",
@@ -27,8 +27,8 @@
     },
     {
       "check": "hardware/scripts/check_payloads.py",
-      "note": "tools/cad-venv/bin/python hardware/scripts/flute_payload.py",
-      "status": "red"
+      "note": "payloads: 19 solid(s) cut from the bytes beside them, 11 scene(s) at the finishes this tree states",
+      "status": "ok"
     },
     {
       "check": "hardware/scripts/check_pinmap.py",
@@ -62,13 +62,13 @@
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 375 of 1000 free, the next cut wants 3, and the whole lock reads by name in 123.3 MB against 124.7 MB of bundle",
+      "note": "check_release_room: 368 of 1000 free, the next cut wants 3, and the whole lock reads by name in 121.9 MB against 123.3 MB of bundle",
       "status": "ok"
     },
     {
       "check": "tools/check_web_tests.py",
-      "note": "check_web_tests: web's suite passes",
-      "status": "ok"
+      "note": "cd web && npm test",
+      "status": "red"
     },
     {
       "check": "tools/bazel/check_build_file.py",
@@ -87,31 +87,21 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 254 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 267 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 256 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 267 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds 53bb58f3e687d89a54543eb21789272e for the 107 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at def53efe7f26370fd8d9445cd78e78d4 here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was measured off a different enclosure-assembly.step — it holds 619b430060f573bffad0a1cc55083965, enclosure-assembly.step here is 7b5629405537083edf238458577cb46c",
+      "  enclosure-assembly.facts.json was taken from a different tree — it holds 53bb58f3e687d89a54543eb21789272e for the 107 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at def53efe7f26370fd8d9445cd78e78d4 here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ],
-    "hardware/scripts/check_flutes.py": [
-      "2 payload(s) were cut from a STEP that is no longer the one beside them:",
-      "  ✗ enclosure-front-top — the viewer draws this file, and it is another machine's",
-      "  ✗ enclosure-pump-cartridge — the viewer draws this file, and it is another machine's",
-      "  the flute cut is what puts the surface back:",
-      "    bazel build //:flute-payload && tools/cad-venv/bin/python tools/bazel/sync_tree.py --write --targets //:flute-payload"
-    ],
-    "hardware/scripts/check_payloads.py": [
-      "2 solid(s) whose surface is not in the payload beside them:",
-      "    hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh — cut from other bytes than the solid holds",
-      "    hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh — cut from other bytes than the solid holds",
-      "  the run that cuts a solid writes the payload beside it:",
-      "    tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/enclosure.py",
-      "  and the enclosure's flutes go back into those payloads after:",
-      "    tools/cad-venv/bin/python hardware/scripts/flute_payload.py"
+    "tools/check_web_tests.py": [
+      "1 test(s) in web/ fail:",
+      "    the artifact lock pins every committed viewer scorecard",
+      "  cd web && npm test"
     ]
   },
   "green": false
