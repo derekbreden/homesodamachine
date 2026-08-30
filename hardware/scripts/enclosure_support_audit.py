@@ -87,8 +87,101 @@ def _sha256(path: Path) -> str:
     return h.hexdigest()
 
 
+def _transform_values(value: str | None) -> list[float]:
+    return [float(v) for v in
+            (value or "1 0 0 0 1 0 0 0 1 0 0 0").split()]
+
+
+def _matrix_multiply(a: list[float], b: list[float]) -> list[float]:
+    return [sum(a[row * 3 + k] * b[k * 3 + col] for k in range(3))
+            for row in range(3) for col in range(3)]
+
+
+def _row_multiply(point: tuple[float, float, float] | list[float],
+                  matrix: list[float]) -> tuple[float, float, float]:
+    return tuple(sum(point[row] * matrix[row * 3 + col] for row in range(3))
+                 for col in range(3))
+
+
+def _affine_compose(first: list[float], second: list[float]) -> list[float]:
+    """The 3MF row-vector transform which applies ``first`` and then ``second``."""
+    matrix = _matrix_multiply(first[:9], second[:9])
+    translated = _row_multiply(first[9:12], second[:9])
+    return matrix + [translated[i] + second[9 + i] for i in range(3)]
+
+
+def _matrix_inverse(matrix: list[float]) -> list[float]:
+    a, b, c, d, e, f, g, h, i = matrix
+    det = a * (e * i - f * h) - b * (d * i - f * g) + c * (d * h - e * g)
+    if abs(det) <= 1e-12:
+        raise RuntimeError("the profile has a singular object transform")
+    return [
+        (e * i - f * h) / det, (c * h - b * i) / det, (b * f - c * e) / det,
+        (f * g - d * i) / det, (a * i - c * g) / det, (c * d - a * f) / det,
+        (d * h - e * g) / det, (b * g - a * h) / det, (a * e - b * d) / det,
+    ]
+
+
+def _affine_apply(point: tuple[float, float, float] | list[float],
+                  transform: list[float]) -> tuple[float, float, float]:
+    rotated = _row_multiply(point, transform[:9])
+    return tuple(rotated[i] + transform[9 + i] for i in range(3))
+
+
+def _affine_inverse(transform: list[float]) -> list[float]:
+    matrix = _matrix_inverse(transform[:9])
+    translated = _row_multiply([-v for v in transform[9:12]], matrix)
+    return matrix + list(translated)
+
+
+def _metadata_values(payload: bytes, keys: set[str]) -> dict[str, str]:
+    root = ET.fromstring(payload)
+    return {element.attrib["key"]: element.attrib["value"]
+            for element in root.iter("metadata")
+            if element.attrib.get("key") in keys}
+
+
+def _replace_metadata_values(payload: bytes, values: dict[str, str]) -> bytes:
+    for key, value in values.items():
+        pattern = (rb'(<metadata\b[^>]*\bkey="' + re.escape(key.encode())
+                   + rb'"[^>]*\bvalue=")[^"]*(")')
+        payload, count = re.subn(pattern, rb'\g<1>' + value.encode() + rb'\2', payload,
+                                 count=1)
+        if count != 1:
+            raise RuntimeError(f"the project has no replaceable {key} metadata")
+    return payload
+
+
+def _reseat_build_item(model_payload: bytes, object_payload: bytes) -> tuple[bytes, float]:
+    """Move a replacement object's lowest transformed vertex back onto plate Z zero."""
+    model_root = ET.fromstring(model_payload)
+    item = next(element for element in model_root.iter() if element.tag.endswith("}item"))
+    component = next(element for element in model_root.iter()
+                     if element.tag.endswith("}component"))
+    build = _transform_values(item.attrib.get("transform"))
+    component_transform = _transform_values(component.attrib.get("transform"))
+    combined = _affine_compose(component_transform, build)
+
+    object_root = ET.fromstring(object_payload)
+    lowest = min(_affine_apply(tuple(float(vertex.attrib[axis]) for axis in "xyz"),
+                               combined)[2]
+                 for vertex in object_root.iter() if vertex.tag.endswith("}vertex"))
+    shift = -lowest if abs(lowest) > 1e-6 else 0.0
+    if not shift:
+        return model_payload, shift
+    old = item.attrib["transform"].encode()
+    build[11] += shift
+    new = " ".join(f"{value:.12g}" for value in build).encode()
+    pattern = rb'(<item\b[^>]*\btransform=")' + re.escape(old) + rb'(")'
+    model_payload, count = re.subn(pattern, rb'\g<1>' + new + rb'\2', model_payload,
+                                   count=1)
+    if count != 1:
+        raise RuntimeError("the project has no replaceable build-item transform")
+    return model_payload, shift
+
+
 def _current_profile_slice(model: Path, profile: Path, slicer: Path,
-                           directory: Path) -> Path:
+                           directory: Path) -> tuple[Path, Path, float]:
     """Put ``model`` into a temporary copy of ``profile`` and slice its exact settings.
 
     Loading a project's JSON with ``--load-settings`` is not equivalent: Bambu rejects settings
@@ -119,11 +212,20 @@ def _current_profile_slice(model: Path, profile: Path, slicer: Path,
 
         new_settings = current.read("Metadata/model_settings.config")
         face_count = re.search(rb'<metadata face_count="(\d+)"', new_settings)
+        offset_keys = {"source_offset_x", "source_offset_y", "source_offset_z"}
+        source_offsets = _metadata_values(new_settings, offset_keys)
+        if source_offsets.keys() != offset_keys:
+            missing = ", ".join(sorted(offset_keys - source_offsets.keys()))
+            raise RuntimeError(f"the replacement project has no {missing} metadata")
+        build_model = template.read("3D/3dmodel.model")
+        build_model, bed_shift = _reseat_build_item(build_model, new_object)
         with zipfile.ZipFile(current_project, "w", compression=zipfile.ZIP_DEFLATED,
                              compresslevel=6) as output:
             for info in template.infolist():
                 if info.filename == template_object:
                     payload = new_object
+                elif info.filename == "3D/3dmodel.model":
+                    payload = build_model
                 else:
                     payload = template.read(info.filename)
                     if info.filename == "Metadata/model_settings.config" and face_count:
@@ -133,6 +235,7 @@ def _current_profile_slice(model: Path, profile: Path, slicer: Path,
                         payload = re.sub(rb'<mesh_stat face_count="\d+"',
                                          b'<mesh_stat face_count="' + face_count.group(1) + b'"',
                                          payload)
+                        payload = _replace_metadata_values(payload, source_offsets)
                 output.writestr(info, payload)
 
     output_dir = directory / "slice"
@@ -143,11 +246,11 @@ def _current_profile_slice(model: Path, profile: Path, slicer: Path,
     gcodes = sorted(output_dir.glob("plate_*.gcode"))
     if len(gcodes) != 1:
         raise RuntimeError(f"expected one plate G-code, found {len(gcodes)} in {output_dir}")
-    return gcodes[0]
+    return gcodes[0], current_project, bed_shift
 
 
-def _profile_cad_offset(profile: Path | None) -> tuple[float, float, float] | None:
-    """Translation from plate coordinates back into the CAD frame stored by a Bambu project."""
+def _profile_cad_transform(profile: Path | None) -> list[float] | None:
+    """Full row-vector transform from plate coordinates back into the CAD frame."""
     if profile is None:
         return None
     with zipfile.ZipFile(profile) as project:
@@ -159,15 +262,27 @@ def _profile_cad_offset(profile: Path | None) -> tuple[float, float, float] | No
                 source[key[-1]] = float(metadata.attrib["value"])
         model = ET.fromstring(project.read("3D/3dmodel.model"))
         item = next(element for element in model.iter() if element.tag.endswith("}item"))
-        build = [float(value) for value in item.attrib["transform"].split()]
+        build = _transform_values(item.attrib.get("transform"))
         component = next(element for element in model.iter()
                          if element.tag.endswith("}component"))
-        component_transform = [float(value) for value in
-                               component.attrib.get("transform", "1 0 0 0 1 0 0 0 1 0 0 0").split()]
+        component_transform = _transform_values(component.attrib.get("transform"))
     if len(source) != 3 or len(build) != 12 or len(component_transform) != 12:
         return None
-    return tuple(source[axis] - build[9 + i] - component_transform[9 + i]
-                 for i, axis in enumerate("xyz"))
+    local_to_plate = _affine_compose(component_transform, build)
+    plate_to_local = _affine_inverse(local_to_plate)
+    plate_to_cad = list(plate_to_local)
+    for i, axis in enumerate("xyz"):
+        plate_to_cad[9 + i] += source[axis]
+    return plate_to_cad
+
+
+def _transform_bbox(bbox: list[float], transform: list[float]) -> list[float]:
+    points = [_affine_apply((x, y, z), transform)
+              for x in (bbox[0], bbox[3])
+              for y in (bbox[1], bbox[4])
+              for z in (bbox[2], bbox[5])]
+    return [round(min(point[axis] for point in points), 3) for axis in range(3)] + [
+        round(max(point[axis] for point in points), 3) for axis in range(3)]
 
 
 def _q(value: float) -> int:
@@ -252,7 +367,8 @@ def _merge_bbox(a: list[float], b: list[float]) -> list[float]:
 
 
 def audit(gcode: Path, piece: str, model: Path | None = None,
-          profile: Path | None = None) -> dict:
+          profile: Path | None = None, coordinate_profile: Path | None = None,
+          bed_reseat_mm: float | None = None) -> dict:
     tree_set, island_set = DisjointSet(), DisjointSet()
     tree_nodes: list[LayerNode] = []
     island_nodes: list[LayerNode] = []
@@ -270,7 +386,7 @@ def audit(gcode: Path, piece: str, model: Path | None = None,
     feature = ""
     settings = {}
     slicer_version = None
-    cad_offset = _profile_cad_offset(profile)
+    cad_transform = _profile_cad_transform(coordinate_profile or profile)
 
     def finish_layer() -> None:
         nonlocal previous_tree, previous_island, first_layer_z
@@ -422,15 +538,11 @@ def audit(gcode: Path, piece: str, model: Path | None = None,
             "build_up_mm": round(build, 3),
             "bbox_xy_mm": row["bbox_xy_mm"],
         })
-        if cad_offset:
-            interfaces[-1]["bbox_cad_xyz_mm"] = [
-                round(row["bbox_xy_mm"][0] + cad_offset[0], 2),
-                round(row["bbox_xy_mm"][1] + cad_offset[1], 2),
-                round(row["first_z_mm"] + cad_offset[2], 3),
-                round(row["bbox_xy_mm"][2] + cad_offset[0], 2),
-                round(row["bbox_xy_mm"][3] + cad_offset[1], 2),
-                round(row["last_z_mm"] + cad_offset[2], 3),
-            ]
+        if cad_transform:
+            interfaces[-1]["bbox_cad_xyz_mm"] = _transform_bbox([
+                row["bbox_xy_mm"][0], row["bbox_xy_mm"][1], row["first_z_mm"],
+                row["bbox_xy_mm"][2], row["bbox_xy_mm"][3], row["last_z_mm"],
+            ], cad_transform)
 
     by_tree: dict[int, list[dict]] = defaultdict(list)
     for interface in interfaces:
@@ -453,15 +565,11 @@ def audit(gcode: Path, piece: str, model: Path | None = None,
             "bbox_xy_mm": row["bbox_xy_mm"],
             "interfaces": [contact["id"] for contact in contacts],
         })
-        if cad_offset:
-            trees[-1]["bbox_cad_xyz_mm"] = [
-                round(row["bbox_xy_mm"][0] + cad_offset[0], 2),
-                round(row["bbox_xy_mm"][1] + cad_offset[1], 2),
-                round(row["base_z_mm"] + cad_offset[2], 3),
-                round(row["bbox_xy_mm"][2] + cad_offset[0], 2),
-                round(row["bbox_xy_mm"][3] + cad_offset[1], 2),
-                round(row["top_z_mm"] + cad_offset[2], 3),
-            ]
+        if cad_transform:
+            trees[-1]["bbox_cad_xyz_mm"] = _transform_bbox([
+                row["bbox_xy_mm"][0], row["bbox_xy_mm"][1], row["base_z_mm"],
+                row["bbox_xy_mm"][2], row["bbox_xy_mm"][3], row["top_z_mm"],
+            ], cad_transform)
     trees.sort(key=lambda row: int(row["id"].split("-")[1]))
 
     buckets = {"under_5_mm": 0, "5_to_10_mm": 0, "10_to_15_mm": 0, "15_mm_or_more": 0}
@@ -471,6 +579,18 @@ def audit(gcode: Path, piece: str, model: Path | None = None,
                "5_to_10_mm" if value < DECENT_MM else
                "10_to_15_mm" if value < SATURATED_MM else "15_mm_or_more")
         buckets[key] += 1
+
+    coordinate_frame = None
+    if cad_transform:
+        coordinate_frame = {
+            "plate_to_cad_transform": [round(value, 9) for value in cad_transform],
+        }
+        identity = [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0]
+        if all(abs(cad_transform[i] - identity[i]) <= 1e-7 for i in range(9)):
+            coordinate_frame["plate_to_cad_translation_mm"] = [
+                round(value, 6) for value in cad_transform[9:12]]
+        if bed_reseat_mm is not None:
+            coordinate_frame["replacement_mesh_bed_reseat_mm"] = round(bed_reseat_mm, 6)
 
     result = {
         "schema": 1,
@@ -483,8 +603,7 @@ def audit(gcode: Path, piece: str, model: Path | None = None,
             "profile_sha256": _sha256(profile) if profile else None,
         },
         "slicer": slicer_version,
-        "coordinate_frame": ({"plate_to_cad_translation_mm": [round(v, 6) for v in cad_offset]}
-                             if cad_offset else None),
+        "coordinate_frame": coordinate_frame,
         "slicer_settings": settings,
         "policy": {
             "support_count": "minimize connected bodies which reach an interface",
@@ -543,6 +662,14 @@ G1 X11 Y0 E1
     assert result["summary"]["model_rooted_bodies"] == 1, result
     assert result["summary"]["build_up_buckets"]["under_5_mm"] == 1, result
     assert result["summary"]["build_up_buckets"]["5_to_10_mm"] == 1, result
+    forward = [0.0, 1.0, 0.0, -1.0, 0.0, 0.0, 0.0, 0.0, 1.0,
+               10.0, 20.0, 30.0]
+    point = (4.0, 5.0, 6.0)
+    assert all(abs(a - b) <= 1e-9 for a, b in
+               zip(_affine_apply(_affine_apply(point, forward), _affine_inverse(forward)),
+                   point))
+    assert _transform_bbox([0, 0, 0, 2, 3, 4], forward) == [
+        7.0, 20.0, 30.0, 10.0, 22.0, 34.0]
     print("support audit selftest: pass")
 
 
@@ -575,8 +702,10 @@ def main() -> None:
             parser.error(f"not a file: {path}")
     if args.slice_current:
         with tempfile.TemporaryDirectory(prefix="enclosure-support-audit-") as directory:
-            gcode = _current_profile_slice(args.model, args.profile, args.slicer, Path(directory))
-            result = audit(gcode, args.piece, args.model, args.profile)
+            gcode, coordinate_profile, bed_reseat = _current_profile_slice(
+                args.model, args.profile, args.slicer, Path(directory))
+            result = audit(gcode, args.piece, args.model, args.profile,
+                           coordinate_profile, bed_reseat)
     else:
         result = audit(args.gcode, args.piece, args.model, args.profile)
     encoded = json.dumps(result, indent=2, sort_keys=True) + "\n"

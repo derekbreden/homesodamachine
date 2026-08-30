@@ -1,0 +1,139 @@
+{
+  "coordinate_frame": {
+    "plate_to_cad_transform": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      -165.0,
+      -50.974998474,
+      160.0
+    ],
+    "plate_to_cad_translation_mm": [
+      -165.0,
+      -50.974998,
+      160.0
+    ],
+    "replacement_mesh_bed_reseat_mm": -5.0
+  },
+  "inputs": {
+    "gcode": "plate_1.gcode",
+    "gcode_sha256": "f69695052d7ec0a91246148bae3160958d1c68bf860fbfb6f0c0c019eeb5a6a3",
+    "model": "bazel-bin/out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+    "model_sha256": "b7bc48af4d4215c006c3c66ae7578b6e7d2dd1f63feb5aff0587d59e96eec3e6",
+    "profile": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top-petgf.3mf",
+    "profile_sha256": "99abeeb25ce51dfa0b2a40dec920d4cc14b5c8501eb02096cd531394b479a41e"
+  },
+  "interfaces": [
+    {
+      "bbox_cad_xyz_mm": [
+        -103.8,
+        75.425,
+        215.8,
+        103.8,
+        78.225,
+        216.2
+      ],
+      "bbox_xy_mm": [
+        61.2,
+        126.4,
+        268.8,
+        129.2
+      ],
+      "build_up_mm": 55.6,
+      "first_z_mm": 55.8,
+      "id": "interface-1",
+      "last_z_mm": 56.2,
+      "tree": "tree-1"
+    },
+    {
+      "bbox_cad_xyz_mm": [
+        -107.8,
+        4.625,
+        280.4,
+        107.4,
+        70.225,
+        280.8
+      ],
+      "bbox_xy_mm": [
+        57.2,
+        55.6,
+        272.4,
+        121.2
+      ],
+      "build_up_mm": 120.2,
+      "first_z_mm": 120.4,
+      "id": "interface-2",
+      "last_z_mm": 120.8,
+      "tree": "tree-1"
+    }
+  ],
+  "piece": "enclosure-front-top",
+  "policy": {
+    "build_up_mm": {
+      "decent_from": 10.0,
+      "defect_under": 5.0,
+      "preference_saturates_at": 15.0
+    },
+    "preferred_root": "bed",
+    "root_and_build_up_are_independent": true,
+    "support_count": "minimize connected bodies which reach an interface"
+  },
+  "schema": 1,
+  "slicer": "BambuStudio 02.08.02.61",
+  "slicer_settings": {
+    "layer_height": "0.2",
+    "support_interface_spacing": "0.5",
+    "support_interface_top_layers": "2",
+    "support_on_build_plate_only": "0",
+    "support_threshold_angle": "30",
+    "support_top_z_distance": "0.2",
+    "support_type": "tree(auto)"
+  },
+  "summary": {
+    "bed_rooted_bodies": 1,
+    "build_up_buckets": {
+      "10_to_15_mm": 0,
+      "15_mm_or_more": 1,
+      "5_to_10_mm": 0,
+      "under_5_mm": 0
+    },
+    "interface_islands": 2,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": 55.6,
+    "support_bodies": 1
+  },
+  "trees": [
+    {
+      "base_z_mm": 0.2,
+      "bbox_cad_xyz_mm": [
+        -131.8,
+        -21.375,
+        160.2,
+        134.2,
+        100.225,
+        280.8
+      ],
+      "bbox_xy_mm": [
+        33.2,
+        29.6,
+        299.2,
+        151.2
+      ],
+      "first_interface_z_mm": 55.8,
+      "id": "tree-1",
+      "interfaces": [
+        "interface-1",
+        "interface-2"
+      ],
+      "root": "bed",
+      "shortest_build_up_mm": 55.6,
+      "top_z_mm": 120.8
+    }
+  ]
+}

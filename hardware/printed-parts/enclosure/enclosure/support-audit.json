@@ -52,9 +52,23 @@
       "reason": "No committed production-profile 3MF is named for this piece."
     },
     "enclosure-front-top": {
-      "status": "audit-required",
+      "status": "audited",
       "profile": "enclosure-front-top-petgf.3mf",
-      "reason": "A production profile exists, but no source-matching support audit is recorded."
+      "result": "enclosure-front-top.support-audit.json",
+      "support_bodies": [
+        {
+          "tree": "tree-1",
+          "name": "collet-plate stop and pump-bay lintel tree",
+          "first_contacts_cad_xyz_mm": [
+            [-103.8, 75.425, 215.8, 103.8, 78.225, 216.2],
+            [-107.8, 4.625, 280.4, 107.4, 70.225, 280.8]
+          ],
+          "root": "bed",
+          "build_up_mm": 55.6,
+          "interface_islands": 2,
+          "rationale": "The lower contact carries the exact 1 mm flat land that stops the steel collet plate and defines its Z datum; its fore edge is already raked at 45 degrees. The upper contact is the lintel that closes the full-width removable pump-cartridge bay while carrying the display above it. A support-free gable across that deep opening would occupy the rectangular cartridge-withdrawal or display envelope. The two contacts share one long bed-rooted tree, so neither hides a separate short or material-rooted support."
+        }
+      ]
     },
     "enclosure-pump-cap": {
       "status": "profile-required",
