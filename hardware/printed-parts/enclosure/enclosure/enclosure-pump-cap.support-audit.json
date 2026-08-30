@@ -19,13 +19,13 @@
       -122.755,
       218.744995
     ],
-    "replacement_mesh_bed_reseat_mm": 0.0
+    "replacement_mesh_bed_reseat_mm": 10.875
   },
   "inputs": {
     "gcode": "plate_1.gcode",
-    "gcode_sha256": "01ec014c991d921aad6cba1f4f95eb7b8f8ee37cf64d0e9c06627310acd718ff",
+    "gcode_sha256": "a9d745ca01b45f298e0a78bef75e0c0cf453e00b9bdd9bf445d42c05b009fc0e",
     "model": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
-    "model_sha256": "67e7b03fe2712feb27b6403bd74d24be0c33c96f484cce72bc31d9dceac94776",
+    "model_sha256": "460f8c62159d78f21bd93194e9418bf2d0f926e2856f17327d982a53e212d9eb",
     "profile": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap-petgf.3mf",
     "profile_sha256": "d50dd6389b9202491a5e71567ffc2f962acb484c4924a46088783e0ccf3208fa"
   },
