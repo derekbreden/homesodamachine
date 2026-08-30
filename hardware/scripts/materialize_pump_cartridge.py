@@ -30,6 +30,11 @@ _HERE = Path(__file__).resolve()
 _ROOT = next(p for p in _HERE.parents if (p / "tools" / "docgen").is_dir())
 _ENCLOSURE = _ROOT / "hardware" / "printed-parts" / "enclosure" / "enclosure"
 _OUTPUT = _ENCLOSURE
+_BOXES = (
+    _ROOT / "hardware" / "manifold-layout" / "enclosure-box.json",
+    _ROOT / "bazel-bin" / "out" / "enclosure-box" / "hardware" / "manifold-layout"
+    / "enclosure-box.json",
+)
 
 
 def _sha256(path: Path) -> str:
@@ -48,6 +53,25 @@ def _seat(source: Path, target: Path) -> bool:
     return True
 
 
+def _declared_box(box_spec, enc):
+    """The first existing declared Box this source can read, with its path.
+
+    A carried Box may trail a source checkpoint while the most recent completed producer output
+    remains in bazel-bin.  Shape/schema validation belongs to `_box_spec.read`; this path never
+    runs the placement producer to repair an old document.
+    """
+    refused = []
+    for path in _BOXES:
+        try:
+            box, bounds = box_spec.read(
+                enc.Box, enc.Bound, (enc.Pack, enc.PortField, enc.Nameplate), path=path)
+            return box, bounds, path
+        except (FileNotFoundError, ValueError) as error:
+            refused.append(f"{path.relative_to(_ROOT)}: {error}")
+    raise ValueError("no existing enclosure-box declaration matches this source:\n  "
+                     + "\n  ".join(refused))
+
+
 def materialize(output: Path = _OUTPUT) -> dict:
     started = time.perf_counter()
     scripts = _ROOT / "hardware" / "scripts"
@@ -60,8 +84,7 @@ def materialize(output: Path = _OUTPUT) -> dict:
     import flute_payload
 
     imported = time.perf_counter()
-    box, bounds = _box_spec.read(
-        enc.Box, enc.Bound, (enc.Pack, enc.PortField, enc.Nameplate))
+    box, bounds, box_path = _declared_box(_box_spec, enc)
     enc.BOUNDS[:] = bounds
     described = time.perf_counter()
 
@@ -139,6 +162,7 @@ def materialize(output: Path = _OUTPUT) -> dict:
         "total": seated - started,
     }
     print("pump cartridge only:")
+    print(f"  box {_sha256(box_path)}  {box_path.relative_to(_ROOT)}")
     print("  " + "  ".join(f"{name} {seconds:.2f}s" for name, seconds in timings.items()))
     for name in (f"{stem}.step", f"{stem}.stl", f"{stem}.step.mesh"):
         print(f"  {'updated' if moved[name] else 'held':7s} "
