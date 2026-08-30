@@ -75,7 +75,7 @@ Stainless carbonator fabrication: 316 SS round-tube body + 1/4" laser-cut 316 SS
 | SendCutSend order SV07U813 — 304 SS 0.060" racetrack end-cap blanks ×4 (plan-B spare) | sendcutsend.com | 4 | $45.52 | — | — | — | ACQUIRED |
 | SendCutSend order SP54G453 — 304 SS 0.048" body half-sheets ×10 (plan-B spare) | sendcutsend.com | 10 | $134.38 | — | — | — | ACQUIRED |
 | SendCutSend order S064D925 — 0.060" 316 SS Touch-Flo under-counter plates | sendcutsend.com | 10 | $36.29 | — | — | 2026-05-14 | ACQUIRED |
-| SendCutSend order S4177511 — 0.060" 316 SS Touch-Flo under-counter plates | sendcutsend.com | 23 | $34.78 | — | 2026-06-18 | — | ON-ORDER (placed Jun 18, 2026; invoice dated Jun 19; paid Visa, in production) |
+| SendCutSend order S4177511 — 0.060" 316 SS Touch-Flo under-counter plates | sendcutsend.com | 23 | $34.78 | — | 2026-06-18 | 2026-06-24 | ACQUIRED |
 | Cantesco P101S-A red visible dye penetrant, solvent-removable aerosol — dye-penetrant (PT) leak/crack inspection of the end-cap closure fillet welds before hydro (step 6) | [B00T46ZH5E](https://www.amazon.com/dp/B00T46ZH5E) | 1 | $24.45 | 112-1089976-3089830 | 2026-06-16 | 2026-06-17 | ACQUIRED |
 | Cantesco D101-A non-aqueous wet developer, white, 12 oz aerosol — PT developer that draws the penetrant back out of a defect as a visible indication | [B008BJCOLK](https://www.amazon.com/dp/B008BJCOLK) | 1 | $15.88 | 112-9519199-9509821 | 2026-06-16 | 2026-06-17 | ACQUIRED |
 | Cleanroom wipes, 9" × 9", cellulose/polyester Grade A 68 GSM, lint-free (150 pcs) — controlled PT penetrant wipe-off (dampened with the already-owned isopropyl alcohol, not sprayed) + low-lint surface for reading indications | [B0GD16CMYL](https://www.amazon.com/dp/B0GD16CMYL) | 1 pk (150) | $17.15 | 112-1089976-3089830 | 2026-06-16 | 2026-06-17 | ACQUIRED |
@@ -208,7 +208,7 @@ Peristaltic pumps, solenoids, silicone delivery tubing, barb fittings, bladders,
 | MALIDA 1/8" NPT × 1/4" tube elbow/straight push-fit | [B09MY72KQ7](https://www.amazon.com/dp/B09MY72KQ7) | 1 pk | $8.57 | 114-5604599-8333023 | 2026-03-16 | — | ACQUIRED |
 | John Guest PP2308E two-way divider, black polypropylene 1/4" | [freshwatersystems.com](https://www.freshwatersystems.com/products/john-guest-two-way-divider-black-polypropylene-1-4) | 2 bags (20 dividers) | $88.43 | — | — | 2026-05-14 | ACQUIRED |
 | John Guest PP0208E union tee, black polypropylene 1/4" (manifold Tees, Y-A/B/C/D/F/G) | [freshwatersystems.com](https://www.freshwatersystems.com/products/john-guest-union-tee-black-polypropylene-1-4) | 2 bags (20 tees) | $59.99 | — | — | 2026-06-10 | ACQUIRED (order WEBFWS100681220) |
-| John Guest PP0308E union elbow, black polypropylene 1/4" (the funnel drain's joint, one per unit in bom.md §8; the rest shop stock — the placed manifold turns no line on a fitting) | [freshwatersystems.com](https://www.freshwatersystems.com/products/john-guest-union-elbow-black-polypropylene-1-4) | 3 bags (30 elbows) | $68.49 | — | 2026-06-20 | — | ON-ORDER (placed Jun 20, order WEBFWS100684731) |
+| Fresh Water Systems order WEBFWS100684731 — John Guest PP0308E union elbow, black polypropylene 1/4" (the funnel drain's joint, one per unit in bom.md §8; the rest shop stock — the placed manifold turns no line on a fitting) | [freshwatersystems.com](https://www.freshwatersystems.com/products/john-guest-union-elbow-black-polypropylene-1-4) | 3 bags (30 elbows) | $68.49 | — | 2026-06-20 | 2026-06-24 | ACQUIRED |
 | John Guest Speedfit PP1208E 1/4" OD black polypropylene push-to-connect bulkhead union, 10-pack | [B00JYFU8MM](https://www.amazon.com/dp/B00JYFU8MM) | 1 pk (10) | $24.79 | 112-6407862-0653853 | 2026-05-11 | 2026-05-12 | ACQUIRED |
 | PureSec 1/4" RO push-to-connect 90° elbow bulkhead, white polypropylene, 5-pack | [B0968K4JRN](https://www.amazon.com/dp/B0968K4JRN) | 1 pk (5) | $11.79 | 112-0924482-7189013 | 2026-05-28 | 2026-05-29 | ACQUIRED |
 | uxcell silicone flat washer, ⌀16 ID × ⌀24 OD × 3 mm, clear, 10-pack — reservoir bulkhead wet-side face seal | [B07D23JJMR](https://www.amazon.com/dp/B07D23JJMR) | 1 pk (10) | $7.50 | 112-8819640-4433810 | 2026-06-07 | 2026-06-08 | ACQUIRED |
@@ -241,7 +241,7 @@ Ice-maker donor units and copper coil for the chill loop.
 | Fiberglass Supply Depot 2 lb-density 2-part expanding pour foam, closed-cell PU (quart kit) | [B08R7TX8QJ](https://www.amazon.com/dp/B08R7TX8QJ) | 1 kit | $42.89 | 112-5359790-0932202 | 2026-05-15 | 2026-05-16 | ACQUIRED |
 | HiLetgo DS18B20 waterproof 1-wire temperature probe, 1 m SS sheath (5 pk) | [B00M1PM55K](https://www.amazon.com/dp/B00M1PM55K) | 1 pk | $11.79 | 112-8868344-2270629 | 2026-04-21 | 2026-04-22 | ACQUIRED (superseded in the design by the bare-TO-92 probes below — SS-sheath form kept as bench spares) |
 | TIEXYE DS18B20 TO-92 1-wire temperature sensor (10-pk) — **carbonator-wall probe** stock, family 0x28. (sold by ZXXP; $8.59 item + $0.62 tax, free Prime ship) | [B0FKG3HT9Q](https://www.amazon.com/dp/B0FKG3HT9Q) | 1 pk (10) | $9.21 | 112-1487355-1949808 | 2026-07-11 | 2026-07-14 | ACQUIRED |
-| DigiKey DS18S20+ TO-92 1-wire temperature sensor (×10) — **evaporator-coil / freeze-protect probe** stock, family 0x10 (distinct from the DS18B20 carbonator probe so firmware disambiguates by family code). DigiKey Salesorder #100335720 / Web Order #373967986, placed July 11, 2026; DS18S20+-ND @ $7.239 × 10 = $72.39 + $5.79 tariff + $8.49 FedEx Ground + $6.28 tax, Apple Pay | [DS18S20+-ND](https://www.digikey.com/en/products/detail/analog-devices-inc-maxim-integrated/DS18S20/1017697) | 10 | $92.95 | — | 2026-07-11 | — | ON-ORDER (processing) |
+| DigiKey DS18S20+ TO-92 1-wire temperature sensor (×10) — **evaporator-coil / freeze-protect probe** stock, family 0x10 (distinct from the DS18B20 carbonator probe so firmware disambiguates by family code). DigiKey Salesorder #100335720 / Web Order #373967986, placed July 11, 2026; DS18S20+-ND @ $7.239 × 10 = $72.39 + $5.79 tariff + $8.49 FedEx Ground + $6.28 tax, Apple Pay | [DS18S20+-ND](https://www.digikey.com/en/products/detail/analog-devices-inc-maxim-integrated/DS18S20/1017697) | 10 | $92.95 | — | 2026-07-11 | 2026-07-15 | ACQUIRED |
 | Supco D111 replacement filter-drier, 1/4" × 1/4" sweat, XH-9 | [B00DM8KGXS](https://www.amazon.com/dp/B00DM8KGXS) | 1 | $11.95 | 112-0442030-7315464 | 2026-04-22 | 2026-04-23 | ACQUIRED |
 | Supco SUD8358 UV-dye filter-drier, 1/4" × 1/4" | [B009AX2O5W](https://www.amazon.com/dp/B009AX2O5W) | 1 | $13.40 | 112-8685000-6226628 | 2026-04-22 | 2026-04-23 | ACQUIRED |
 | Mastercool 70025 cap-tube cutter | [B00NY1YHHE](https://www.amazon.com/dp/B00NY1YHHE) | 1 | $15.74 | 112-5034335-5564260 | 2026-04-22 | 2026-04-23 | ACQUIRED |
@@ -660,10 +660,10 @@ Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C funne
 
 | Status | $ |
 |---|---|
-| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$32,425.38](LEDGER_ACQUIRED_HW) |
+| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$32,621.60](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$5,437.54](LEDGER_LABOR) |
-| ACQUIRED (combined) | [$37,862.92](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$1,280.96](LEDGER_ON_ORDER) |
+| ACQUIRED (combined) | [$38,059.14](LEDGER_ACQUIRED_COMBINED) |
+| ON-ORDER | [$1,084.74](LEDGER_ON_ORDER) |
 | MISSING — paid, not received (§1 copper bar) | [$42.89](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
 | **Grand total — cash outlay** | [$39,186.77](LEDGER_GRAND_TOTAL) |
@@ -672,12 +672,12 @@ ACQUIRED hardware by section:
 
 | § | Section | $ |
 |---|---|---|
-| 1 | Carbonator fabrication | [$4,326.68](LEDGER_SEC1) |
+| 1 | Carbonator fabrication | [$4,361.46](LEDGER_SEC1) |
 | 2 | CO2 subsystem (incl. Lillium prototype carbonator $1,129) | [$1,834.42](LEDGER_SEC2) |
 | 3 | Water supply + backflow prevention | [$889.15](LEDGER_SEC3) |
 | 4 | Carbonator plumbing | [$225.27](LEDGER_SEC4) |
-| 5 | Flavor subsystem | [$1,381.25](LEDGER_SEC5) |
-| 6 | Refrigeration | [$1,891.95](LEDGER_SEC6) |
+| 5 | Flavor subsystem | [$1,449.74](LEDGER_SEC5) |
+| 6 | Refrigeration | [$1,984.90](LEDGER_SEC6) |
 | 7 | Dispensing end | [$237.65](LEDGER_SEC7) |
 | 8 | Electronics — controllers | [$1,785.01](LEDGER_SEC8) |
 | 9 | Electronics — I/O, drivers, sensors, power | [$1,431.58](LEDGER_SEC9) |
