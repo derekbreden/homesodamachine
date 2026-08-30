@@ -1,5 +1,5 @@
 {
- "gatesPass": true,
+ "gatesPass": false,
  "size": [
   {
    "id": "enclosure",
@@ -438,6 +438,16 @@
    "status": "pass",
    "value": "holds",
    "target": "a bore reaching 62.55 mm or past it",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "kamoer-notches-on-barbs",
+   "label": "The case's arch notches stand on the part's own barbs",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "the two stations on one plane",
    "detail": [],
    "active": true
   },
@@ -1135,18 +1145,18 @@
    "label": "The cap has material under every pump's bracket",
    "kind": "gate",
    "status": "pass",
-   "value": "6/6 closed sides land, least 485.1 mm\u00b3",
+   "value": "6/6 closed sides land, least 473.2 mm\u00b3",
    "target": "material under the three closed sides of each bracket (the aft face is open)",
    "detail": [],
    "active": true
   },
   {
    "id": "cap-passes-tubes",
-   "label": "Each barb tube leaves the cap through its opening",
+   "label": "Each fitting and barb tube leaves the cap through its opening",
    "kind": "gate",
    "status": "pass",
-   "value": "4/4 clear, least 1.030 mm off the edge",
-   "target": "at least 1 mm round every \u00d86.35 tube at the opening's two outer edges",
+   "value": "4/4 tubes clear, least 3.100 mm off the edge; 2/2 fitting mouths open",
+   "target": "at least 0.15 mm round every \u00d86.35 tube at the opening's two outer edges and no cap material in either fitting-mouth gauge",
    "detail": [],
    "active": true
   },
@@ -1184,20 +1194,29 @@
    "id": "plate-carried",
    "label": "The collet plate has front-bottom under it the whole way in",
    "kind": "gate",
-   "status": "pass",
-   "value": "12/12 bands whole, worst 100.0%",
+   "status": "fail",
+   "value": "10/12 bands whole, worst 72.2%",
    "target": "a shelf under both ends of the steel, unbroken from 14 to 78.81, one 0.2 under the seam plane",
-   "detail": [],
+   "detail": [
+    "-X y 14..25: 72.2% solid",
+    "+X y 14..25: 72.2% solid",
+    "the steel rides this shelf in from the front wall and rests on it at home. A gap in it is a station where the plate has nothing under it, and the plate is held by nothing else in either piece"
+   ],
    "active": true
   },
   {
    "id": "column-face-lands",
    "label": "The column's turn lands on the flank opening, and the wall behind it stands",
    "kind": "gate",
-   "status": "pass",
-   "value": "X- 100.0% solid, face at -100.730; X+ 100.0% solid, face at 100.730",
-   "target": "solid to the landing, face within 0.2 mm of -100.729 / 100.729",
-   "detail": [],
+   "status": "fail",
+   "value": "X- 0.0% solid, face at -116.500; X+ 0.0% solid, face at 116.500",
+   "target": "solid to the landing, face within 0.2 mm of -115.405 / 115.405",
+   "detail": [
+    "X-: the wall outboard of the landing is 0.0% solid \u2014 material taken from it collides with nothing and shows on no other reading",
+    "X+: the wall outboard of the landing is 0.0% solid \u2014 material taken from it collides with nothing and shows on no other reading",
+    "X-: the face stands at -116.500 where a turn of 12 tangent to y=26 puts it at -115.405, 1.095 off",
+    "X+: the face stands at 116.500 where a turn of 12 tangent to y=26 puts it at 115.405, 1.095 off"
+   ],
    "active": true
   },
   {
@@ -1275,10 +1294,13 @@
    "id": "pump-cartridge-sweep-out",
    "label": "The complete pump cartridge and cap pass through the bay mouth",
    "kind": "gate",
-   "status": "pass",
-   "value": "2 pieces, most in the way 0.000 mm\u00b3",
+   "status": "fail",
+   "value": "2 pieces, most in the way 13760.039 mm\u00b3",
    "target": "no front-top material in either complete withdrawal envelope",
-   "detail": [],
+   "detail": [
+    "pump-cartridge meets 13760.039 mm\u00b3 of front-top between its installed aft face and the exterior \u2014 the pump heads can clear while the filled drawer still binds",
+    "pump-cap meets 6143.339 mm\u00b3 of front-top between its installed aft face and the exterior \u2014 the pump heads can clear while the filled drawer still binds"
+   ],
    "active": true
   },
   {
@@ -1286,7 +1308,7 @@
    "label": "The cap's aft face lands on the collet plate",
    "kind": "gate",
    "status": "pass",
-   "value": "3097.8 mm\u00b2 on the steel, 0.000 mm\u00b3 inside the kiss",
+   "value": "2657.7 mm\u00b2 on the steel, 0.000 mm\u00b3 inside the kiss",
    "target": "the cap's face on the plate's and `cap_kiss` 0.1 mm of air at it",
    "detail": [],
    "active": true
@@ -1325,11 +1347,11 @@
    "target": "a wall-rooted roof over each open fore groove and a bored boss under each aft one",
    "detail": [
     "fore flange at z   9.000, under its groove   standing   (98.7% of the probe)",
-    "fore flange at z   9.000, on its 45\u00b0 roof    standing   (92.7% of the probe)",
+    "fore flange at z   9.000, on its 45\u00b0 roof    standing   (92.5% of the probe)",
     "fore flange at z   9.000, 1.00 mm open       standing   (100.0% of the probe)",
     "fore flange at z   9.000, 45\u00b0 roof relief open standing   (100.0% of the probe)",
     "fore flange at z 145.600, under its groove   standing   (98.7% of the probe)",
-    "fore flange at z 145.600, on its 45\u00b0 roof    standing   (92.7% of the probe)",
+    "fore flange at z 145.600, on its 45\u00b0 roof    standing   (92.5% of the probe)",
     "fore flange at z 145.600, 1.00 mm open       standing   (100.0% of the probe)",
     "fore flange at z 145.600, 45\u00b0 roof relief open standing   (100.0% of the probe)",
     "aft boss under the hole at z   9.000         standing   (67.3% of the probe)",
@@ -1632,7 +1654,7 @@
    "label": "Every fluted face keeps a whole wall behind its grooves",
    "kind": "gate",
    "status": "pass",
-   "value": "thinnest of 13 stated sections is 3.0000 mm",
+   "value": "thinnest of 12 stated sections is 3.0000 mm",
    "target": "at least 3 mm",
    "detail": [],
    "active": true
@@ -1668,22 +1690,12 @@
    "active": true
   },
   {
-   "id": "column-face-backed",
-   "label": "The column's face keeps a wall where its turn lands on the flank",
+   "id": "pump-bay-full-width",
+   "label": "The pump bay reaches both side-wall interior planes",
    "kind": "gate",
    "status": "pass",
-   "value": "5.6760 mm of section, 3.2760 between the two grooves",
-   "target": "at least 3 mm",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "flute-clears-jamb",
-   "label": "The bay's arrises stand on plain wall, not in a groove",
-   "kind": "gate",
-   "status": "pass",
-   "value": "least clearance 0.1403 mm",
-   "target": "clear of every groove",
+   "value": "bay x -104.500..104.500, cavity x -104.500..104.500",
+   "target": "the same two planes",
    "detail": [],
    "active": true
   },
