@@ -158,3 +158,4 @@ hardware/assembly/scenes/glb/
 # Fetched at deploy from the release firmware/firmware.lock.json names
 # (web/scripts/fetch-firmware.mjs). The lock is committed; the images are not.
 web/public/firmware/
+.panelcam/
