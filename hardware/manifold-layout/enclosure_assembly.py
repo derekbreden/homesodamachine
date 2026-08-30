@@ -2172,13 +2172,12 @@ def _pump_drop_probe(head, placed, station, plate):
     cx, cy, cz = station
     bracket = _pump_bracket(station)
     outlet_face = cy + _tray.head_half - _tray.outlet_relief
-    sill = cz - _tray.head_depth + _tray.outlet_relief_run
+    outlet_axis = cz + _tray.outlet_axis_z
     fittings = [
-        _enc._ybox(
-            cx + sx * _tray.outlet_pitch / 2.0 - _enc.cap_fitting_half,
-            cx + sx * _tray.outlet_pitch / 2.0 + _enc.cap_fitting_half,
-            outlet_face - _enc.cap_tube_air, plate["fore_y"] + 0.5,
-            sill - _enc.cap_tube_air, cz)
+        _enc._ycyl(
+            _tray.fitting_w / 2.0,
+            cx + sx * _tray.outlet_pitch / 2.0, outlet_axis,
+            outlet_face - _enc.cap_tube_air, plate["fore_y"] + 0.5)
         for sx in (-1.0, 1.0)]
     return cq.Compound.makeCompound([*bodies, bracket, *fittings])
 
@@ -2222,12 +2221,17 @@ def check_pumps_drop_into_cradle(pieces, placed, plate) -> Bound:
 
 
 def check_clamp_drops_on(pieces, placed) -> Bound:
-    """Whether the complete top clamp lowers over both pumps and into the cradle."""
+    """Whether the complete top clamp lowers over both pumps on the withdrawn cartridge.
+
+    This reads only the clamp, pumps and cradle. The service sequence withdraws the complete
+    cartridge in Y before this Z motion; the fixed enclosure lintel is not an in-situ cap
+    passage."""
     clamp = pieces.get("pump-cap")
     cradle = pieces.get("pump-cartridge")
     if clamp is None or cradle is None:
         return record_bound(Bound(
-            "top-clamp-drops-on", "The top clamp lowers over both pumps", True,
+            "top-clamp-drops-on",
+            "The withdrawn cartridge's top clamp lowers over both pumps", True,
             "no pump cartridge in this box", "the clamp's complete Z sweep clear", []))
     clamp = clamp.val() if hasattr(clamp, "val") else clamp
     cradle = cradle.val() if hasattr(cradle, "val") else cradle
@@ -2252,7 +2256,8 @@ def check_clamp_drops_on(pieces, placed) -> Bound:
             worst, at, into = volume, shift, who
     ok = worst <= 1e-3
     return record_bound(Bound(
-        "top-clamp-drops-on", "The top clamp lowers over both pumps", ok,
+        "top-clamp-drops-on",
+        "The withdrawn cartridge's top clamp lowers over both pumps", ok,
         f"{steps + 1} stations, most in the way {worst:.3f} mm³",
         f"clamp clear of both pumps and cradle every {step_max:g} mm or less",
         ([] if ok else [
@@ -2271,13 +2276,13 @@ def check_cartridge_architecture(pieces) -> Bound:
     share = cv / (cv + kv)
     cb, kb = box(cradle), box(clamp)
     one_each = len(cradle.Solids()) == 1 and len(clamp.Solids()) == 1
-    full_face = cb.zlen > 2.0 * kb.zlen
-    ok = share > 0.5 and one_each and full_face
+    show_face = cb.ymin < kb.ymin - 1e-6
+    ok = share > 0.5 and one_each and show_face
     return record_bound(Bound(
         "pump-cartridge-lower-cradle", "The cartridge is a large lower cradle with a small top clamp",
         ok,
         f"cradle {share * 100:.1f}% of printed volume, {cb.zlen:.1f} mm high; clamp {kb.zlen:.1f} mm",
-        "one solid each, the cradle a majority of volume and carrying the full-height face",
+        "one solid each, the cradle a majority of volume and carrying the foremost show face",
         ([] if ok else [
             f"cradle {cv / 1000.0:.1f} cm³, clamp {kv / 1000.0:.1f} cm³, "
             f"heights {cb.zlen:.1f}/{kb.zlen:.1f} mm, solids "
@@ -2303,7 +2308,7 @@ def check_cartridge_full_front_wall(pieces, shell) -> Bound:
           + _enc.pump_cartridge_lower_ramp_rise(inner, outer))
     z1 = bay[2] - _enc.face_reveal
     edge = _enc._cap_x_span(bay)[1]
-    y1 = _enc._block_aft(shell.pack.collet_plate) - _enc.pull_aft
+    y1 = _enc.plate_guide_notch_fore_y(shell.pack.collet_plate)
     y0 = y1 - _enc.pull_run
     front_aft = (min(cy - _tray.half_width()
                      for _cx, cy, _cz in shell.pack.pump_trays)
@@ -2346,7 +2351,7 @@ def check_cradle_pulls(pieces, shell) -> Bound:
     plate = shell.pack.collet_plate
     z = _enc._pull_center_z(plate)
     edge = _enc._cap_x_span(shell.pump_bay)[1]
-    y1 = _enc._block_aft(plate) - _enc.pull_aft
+    y1 = _enc.plate_guide_notch_fore_y(plate)
     y0 = y1 - _enc.pull_run
     rows = []
     for label, sx in (("X+", +1.0), ("X-", -1.0)):

@@ -78,6 +78,10 @@ outlet_half = _kp.outlet_span_x / 2.0
 # passage for each fitting and carries printed wall between them.
 outlet_pitch = _kp.barb_pitch
 fitting_w = _kp.fitting_w
+# The fitting axes' height in the pump frame. `pump_case.cut_arch_notches` splits its circular
+# outlets on this plane; the enclosure's fitted half-wrap keeps this centre and takes its radius
+# from `fitting_w` plus running air.
+outlet_axis_z = _kp.arch_plane_z
 # The case's own footprint, half of it — what its base plate and the foot of its ramp reach.
 case_half = _pc.footprint_half_extent
 # And that base plate's own thickness. The enclosure restores this whole section above the
