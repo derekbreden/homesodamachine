@@ -1322,7 +1322,7 @@ wall's full width, because the facet in front of it spans the machine and there 
 nothing beside it to leave room for. The frame's two side strips on the front top are
 corbelled (`_ceiling_corbels`): a 45° underside off each ±X wall to nothing at the
 opening's edge. Over the seam's ceiling tongue a funnel-side ramp rises from the top
-collar's chain face and a wall-side ramp rises from the socket cap to the plug tip, so
+collar's chain face and a wall-side ramp rises from the plug tip to the socket cap, so
 the complete tongue and every ceiling layer land on the one below. THE FUNNEL IS WHERE
 THE USER POURS, so that
 plane stands as far forward as the wall lets it — which is the display housing's own
