@@ -247,6 +247,23 @@ absolute `MSG_FLAVOR_SELECT`; retries reuse the token and are silent. The main b
 answers every query or selection with its authoritative value and persistence flags.
 This polling turn also carries faucet-originated changes from J3 to this display.
 
+The main board answers and never volunteers, so everything it has to say — a pump
+that finished, a prime that timed out, both glasses waking — waits for a turn this
+board's poll gives it. A pair that stops carrying therefore silences the machine
+rather than only this screen, and it stops carrying no less readily while this glass
+is dark. So the transport watchdog is armed by a transmission rather than by the
+backlight: the first frame sent into a silence dates it, anything arriving clears it,
+and three seconds unanswered rebuilds `Serial1` and both pads. It shares the prime
+path's 2 s backoff, since both reinit the same pair.
+
+Idle is the one piece of main board state that moves with nobody touching anything,
+so it is asked for again every 5 s rather than once per link session — an announcement
+that lost its turn is otherwise gone, and a glass would hold the wrong answer until
+something else changed. A press here is presence the main board keeps for both glasses;
+`MSG_TOUCH` is repeated until an idle state comes back agreeing the machine is awake,
+and until it does, the dark is held off so a sleep published before the touch was heard
+cannot undo the wake.
+
 ## The interface
 
 A 190 px rail down the left carries four 110 px targets — **CHOOSE · PRIME · FILL ·
