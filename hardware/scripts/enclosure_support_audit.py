@@ -24,6 +24,7 @@ import hashlib
 import json
 import math
 import re
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -141,17 +142,6 @@ def _metadata_values(payload: bytes, keys: set[str]) -> dict[str, str]:
             if element.attrib.get("key") in keys}
 
 
-def _replace_metadata_values(payload: bytes, values: dict[str, str]) -> bytes:
-    for key, value in values.items():
-        pattern = (rb'(<metadata\b[^>]*\bkey="' + re.escape(key.encode())
-                   + rb'"[^>]*\bvalue=")[^"]*(")')
-        payload, count = re.subn(pattern, rb'\g<1>' + value.encode() + rb'\2', payload,
-                                 count=1)
-        if count != 1:
-            raise RuntimeError(f"the project has no replaceable {key} metadata")
-    return payload
-
-
 def _reseat_build_item(model_payload: bytes, object_payload: bytes) -> tuple[bytes, float]:
     """Move a replacement object's lowest transformed vertex back onto plate Z zero."""
     model_root = ET.fromstring(model_payload)
@@ -211,7 +201,10 @@ def _current_profile_slice(model: Path, profile: Path, slicer: Path,
         new_object = new_object.replace(new_uuid.group(1), old_uuid.group(1), 1)
 
         new_settings = current.read("Metadata/model_settings.config")
-        face_count = re.search(rb'<metadata face_count="(\d+)"', new_settings)
+        object_settings = re.search(
+            rb'  <object\b[^>]*>.*?  </object>', new_settings, flags=re.DOTALL)
+        if not object_settings:
+            raise RuntimeError("the replacement project has no object settings")
         offset_keys = {"source_offset_x", "source_offset_y", "source_offset_z"}
         source_offsets = _metadata_values(new_settings, offset_keys)
         if source_offsets.keys() != offset_keys:
@@ -228,14 +221,12 @@ def _current_profile_slice(model: Path, profile: Path, slicer: Path,
                     payload = build_model
                 else:
                     payload = template.read(info.filename)
-                    if info.filename == "Metadata/model_settings.config" and face_count:
-                        payload = re.sub(rb'<metadata face_count="\d+"',
-                                         b'<metadata face_count="' + face_count.group(1) + b'"',
-                                         payload)
-                        payload = re.sub(rb'<mesh_stat face_count="\d+"',
-                                         b'<mesh_stat face_count="' + face_count.group(1) + b'"',
-                                         payload)
-                        payload = _replace_metadata_values(payload, source_offsets)
+                    if info.filename == "Metadata/model_settings.config":
+                        payload, count = re.subn(
+                            rb'  <object\b[^>]*>.*?  </object>', object_settings.group(0),
+                            payload, count=1, flags=re.DOTALL)
+                        if count != 1:
+                            raise RuntimeError("the profile has no replaceable object settings")
                 output.writestr(info, payload)
 
     output_dir = directory / "slice"
@@ -525,19 +516,31 @@ def audit(gcode: Path, piece: str, model: Path | None = None,
     interfaces = []
     for row in sorted(island_groups.values(), key=lambda item: (item["first_z_mm"],
                                                                  item["bbox_xy_mm"])):
-        owners = sorted(root for root in row.pop("tree_roots") if root in tree_number)
+        owners = sorted((root for root in row.pop("tree_roots") if root in tree_number),
+                        key=lambda root: tree_number[root])
         if not owners:
             continue
-        tree = owners[0]
-        build = row["first_z_mm"] - tree_groups[tree]["base_z_mm"]
-        interfaces.append({
+        tree_ids = [f"tree-{tree_number[root]}" for root in owners]
+        interface = {
             "id": f"interface-{len(interfaces) + 1}",
-            "tree": f"tree-{tree_number[tree]}",
             "first_z_mm": round(row["first_z_mm"], 3),
             "last_z_mm": round(row["last_z_mm"], 3),
-            "build_up_mm": round(build, 3),
             "bbox_xy_mm": row["bbox_xy_mm"],
-        })
+        }
+        if len(owners) == 1:
+            interface["tree"] = tree_ids[0]
+            interface["build_up_mm"] = round(
+                row["first_z_mm"] - tree_groups[owners[0]]["base_z_mm"], 3)
+        else:
+            # An interface island is a contact-region reading, not necessarily one connected
+            # support body. Two independently removable trees can reach different passes of
+            # the same surface island; keep the island singular and name every body feeding it.
+            interface["trees"] = tree_ids
+            interface["build_up_by_tree_mm"] = {
+                tree_id: round(row["first_z_mm"] - tree_groups[root]["base_z_mm"], 3)
+                for root, tree_id in zip(owners, tree_ids)
+            }
+        interfaces.append(interface)
         if cad_transform:
             interfaces[-1]["bbox_cad_xyz_mm"] = _transform_bbox([
                 row["bbox_xy_mm"][0], row["bbox_xy_mm"][1], row["first_z_mm"],
@@ -546,7 +549,9 @@ def audit(gcode: Path, piece: str, model: Path | None = None,
 
     by_tree: dict[int, list[dict]] = defaultdict(list)
     for interface in interfaces:
-        by_tree[int(interface["tree"].split("-")[1])].append(interface)
+        owners = ([interface["tree"]] if "tree" in interface else interface["trees"])
+        for owner in owners:
+            by_tree[int(owner.split("-")[1])].append(interface)
     trees = []
     for root in reaching:
         number = tree_number[root]
@@ -662,6 +667,36 @@ G1 X11 Y0 E1
     assert result["summary"]["model_rooted_bodies"] == 1, result
     assert result["summary"]["build_up_buckets"]["under_5_mm"] == 1, result
     assert result["summary"]["build_up_buckets"]["5_to_10_mm"] == 1, result
+
+    shared_fixture = """G90
+M83
+; Z_HEIGHT: 0.2
+; FEATURE: Support
+G1 X20 Y0
+G1 X21 Y0 E1
+G1 X22.5 Y0
+G1 X23.5 Y0 E1
+; Z_HEIGHT: 0.4
+; FEATURE: Support
+G1 X20 Y0
+G1 X21 Y0 E1
+G1 X22.5 Y0
+G1 X23.5 Y0 E1
+; FEATURE: Support interface
+G1 X20 Y0
+G1 X21 Y0 E1
+G1 X22.5 Y0
+G1 X23.5 Y0 E1
+"""
+    with tempfile.TemporaryDirectory() as directory:
+        path = Path(directory) / "shared-interface.gcode"
+        path.write_text(shared_fixture)
+        shared = audit(path, "shared-interface")
+    assert shared["summary"]["support_bodies"] == 2, shared
+    assert shared["summary"]["interface_islands"] == 1, shared
+    assert shared["interfaces"][0]["trees"] == ["tree-1", "tree-2"], shared
+    assert all(tree["interfaces"] == ["interface-1"] for tree in shared["trees"]), shared
+
     forward = [0.0, 1.0, 0.0, -1.0, 0.0, 0.0, 0.0, 0.0, 1.0,
                10.0, 20.0, 30.0]
     point = (4.0, 5.0, 6.0)
@@ -681,6 +716,8 @@ def main() -> None:
     parser.add_argument("--profile", type=Path)
     parser.add_argument("--slice-current", action="store_true",
                         help="slice --model through a temporary mesh-refreshed copy of --profile")
+    parser.add_argument("--refreshed-profile-out", type=Path,
+                        help="retain that mesh-refreshed production profile (with --slice-current)")
     parser.add_argument("--slicer", type=Path, default=_DEFAULT_SLICER)
     parser.add_argument("--json-out", type=Path)
     parser.add_argument("--selftest", action="store_true")
@@ -692,6 +729,8 @@ def main() -> None:
         parser.error("--piece is required unless --selftest is used")
     if args.slice_current and args.gcode:
         parser.error("use either --gcode or --slice-current, not both")
+    if args.refreshed_profile_out and not args.slice_current:
+        parser.error("--refreshed-profile-out requires --slice-current")
     if args.slice_current and (not args.model or not args.profile):
         parser.error("--slice-current requires --model and --profile")
     if not args.slice_current and not args.gcode:
@@ -706,6 +745,8 @@ def main() -> None:
                 args.model, args.profile, args.slicer, Path(directory))
             result = audit(gcode, args.piece, args.model, args.profile,
                            coordinate_profile, bed_reseat)
+            if args.refreshed_profile_out:
+                shutil.copyfile(coordinate_profile, args.refreshed_profile_out)
     else:
         result = audit(args.gcode, args.piece, args.model, args.profile)
     encoded = json.dumps(result, indent=2, sort_keys=True) + "\n"
