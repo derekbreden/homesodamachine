@@ -583,7 +583,8 @@ remain hard constraints.
 Placed components and printed features are design variables when those constraints still pass.
 If a blocker leaves a separate short or material-rooted support, moving the smallest sensible
 feature or component enough to remove that contact is part of the audit; crowded assemblies are
-not shifted speculatively. Every support which remains in a production slice is named with its
+not shifted speculatively. The raised relay in [back-top's ceiling](#back-tops-ceiling) is this
+clause worked once. Every support which remains in a production slice is named with its
 piece, contact region, root kind, build-up and the geometric or functional reason it cannot be
 removed. This policy applies to every printable part in the enclosure assembly, not only the
 four shell quadrants.

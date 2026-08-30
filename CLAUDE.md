@@ -35,6 +35,8 @@ byte-identical either way, so a tree that has not run it is slow and not wrong.
 
 See `hardware/printed-parts/faucet/faucet-shell/faucet_shell.py` for patterns to follow, and its companion `faucet_shell.md` for the idioms those patterns embody.
 
+See `hardware/printed-parts/AGENTS.md` before shaping any printed part — what a part is made of, the drawn mesh that reviews it, and where the support policy lives.
+
 ## Firmware
 
 The appliance's controller is `firmware/src_appliance/`, on the PCBA's own WROOM. Its front-face display is `firmware/src_front/`, and the two talk over J9. Seven trees, one per board: `firmware/README.md` says which runs where.
