@@ -5088,12 +5088,58 @@ def _pump_cartridge_face_region(inner, outer, bay, pump_trays, plate):
 
     It spans the complete rounded front and both side skins through the cradle's own aft stop.
     Its front face stands `pump_cartridge_proud` ahead of the fixed enclosure; the same corner
-    radius returns into the unchanged side planes. Only the two horizontal seams take a reveal;
-    the fixed plate guides occupy the short band behind that stop and fit the cradle's two local
-    notches."""
-    return _pump_full_width_band(
-        inner, _pump_cartridge_outer(outer), bay, pump_trays, _block_aft(plate),
-        z_inset=face_reveal)
+    radius returns into the unchanged side planes. At the lower seam the front grows outward in
+    Y and both flanks grow outward in X at 45 degrees from the floor-bedded filled body. The
+    three ramps meet as hips in the rounded front corners: every lower skin follows the wall it
+    belongs to, while the opening remains the complete withdrawal envelope and the installed
+    drawer keeps `face_reveal` above the sill. The fixed plate guides occupy the short band
+    behind the stop and fit the cradle's two local notches."""
+    proud = _pump_cartridge_outer(outer)
+    face = _pump_full_width_band(
+        inner, proud, bay, pump_trays, _block_aft(plate), z_inset=face_reveal)
+    bx0, bx1 = bay_x_span(inner)
+    floor = bay_floor_z(pump_trays)[1]
+    low, over = floor - 1.0, 1.0
+
+    # THE LOWER REVEAL IS A PRINTED RAMP, NOT A FLOATING SHELF. The filled cradle reaches the
+    # bed over `bx0..bx1`, from `pump_relief_floor` aft. Outside that rectangle an untrimmed show
+    # skin begins as one horizontal face only `face_reveal` above the bed and asks for four
+    # zero-height slicer supports, including one rooted on the model. Cut that underside back
+    # one millimetre in plan for every millimetre it rises. The front
+    # cutter is Y/Z, the flank cutters X/Z, and applying both at a rounded corner leaves their
+    # natural hip. The half-millimetre running reveal remains at every root; no fixed sill is
+    # added under it, because this drawer must translate in Y through the complete opening.
+    front = _yz_prism(proud[0] - over, proud[1] + over, [
+        (proud[2] - over, low),
+        (pump_relief_floor, low),
+        (pump_relief_floor, floor + face_reveal),
+        (proud[2] - over,
+         floor + face_reveal + pump_relief_floor - (proud[2] - over)),
+    ])
+    x_plus = _xz_prism(proud[2] - over, _block_aft(plate) + over, [
+        (bx1, low),
+        (proud[1] + over, low),
+        (proud[1] + over, floor + face_reveal + proud[1] + over - bx1),
+        (bx1, floor + face_reveal),
+    ])
+    x_minus = _xz_prism(proud[2] - over, _block_aft(plate) + over, [
+        (proud[0] - over, low),
+        (bx0, low),
+        (bx0, floor + face_reveal),
+        (proud[0] - over, floor + face_reveal + bx0 - (proud[0] - over)),
+    ])
+    return face.cut(front).cut(x_plus).cut(x_minus)
+
+
+def pump_cartridge_lower_ramp_rise(inner, outer):
+    """Height from the cradle's bed to its last lower 45-degree exterior ramp."""
+    proud = _pump_cartridge_outer(outer)
+    bx0, bx1 = bay_x_span(inner)
+    return face_reveal + max(
+        pump_relief_floor - proud[2],
+        proud[1] - bx1,
+        bx0 - proud[0],
+    )
 
 
 def cap_split_z(pump_trays):
@@ -5290,6 +5336,7 @@ def pump_cartridge_figures(box):
         "PUMP_PULL_WALL": f"{pump_pull_wall:.4g} mm",
         "PUMP_PROUD": f"{pump_cartridge_proud:.4g} mm",
         "PUMP_FACE_SKIN": f"{pump_face_skin:.4g} mm",
+        "PUMP_LOWER_RAMP_RISE": f"{pump_cartridge_lower_ramp_rise(box.inner, box.outer):.4g} mm",
         "CRADLE_EDGE": f"{edge:.4g} mm",
         "CRADLE_WIDE": f"{2.0 * edge:.4g} mm",
         "PLATE_SLOT_LEAD": f"{plate_slot_lead:.4g} mm",
@@ -5652,8 +5699,9 @@ def _pump_cartridge_gross(box, halves_cache=None):
     aft = _block_aft(plate)
     floor_top = bay_floor_z(box.pack.pump_trays)[1]
     # The filled body bears on the floor and reaches both cavity planes. The exterior shell
-    # begins one reveal above it and continues to the appliance's full side faces, so there is
-    # no X taper and no fixed side skin framing the cradle.
+    # begins one reveal above it at those roots, grows out to the appliance's full front and
+    # side faces on the lower 45-degree ramps, then keeps the full untapered outline above them.
+    # No fixed side skin frames the cradle.
     fill = _ybox(bx0, bx1, pump_relief_floor, aft, floor_top, top - face_reveal)
     solid = solid.fuse(fill).intersect(face.fuse(
         _ybox(bx0, bx1, pump_cartridge_front_y, aft, floor_top, top)))
