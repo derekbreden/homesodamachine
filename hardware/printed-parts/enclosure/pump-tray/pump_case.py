@@ -566,17 +566,73 @@ def flank_ramp_bands():
             (aft_top, aft_top - lower_ramp_height))
 
 
-def cavity():
+def cavity(air=0.0):
     """THE ROOM THE CASE LEAVES A HEAD — the skirt's interior and the lower extension's, as
-    one solid in the case's own world frame.
+    one solid in the case's own world frame, opened `air` on every face.
 
     It is not a prism.  `flank_ramp_bands` is where it closes in, and a head shaped to it
     (`kamoer_kphm400.build_head`) carries a 45 degree face on each side at each band, looking
-    down and outboard. The complete two-piece bench case closes on those fitted faces."""
-    skirt = loft_profile_stack(0, skirt_z_steps, skirt_inner_profiles)
+    down and outboard. The complete two-piece bench case closes on those fitted faces.
+
+    AND IT IS NOT SQUARE IN PLAN EITHER. The skirt is split in Y and its two halves are
+    different widths: `skirt_narrow_half_extent` on -Y and `skirt_wide_half_extent` on +Y,
+    which is the OUTLET side.  The flare is a HALF-EXTENT and not a Y offset, so the wide half
+    stands further out ACROSS as well — 70.0 mm of room at the outlet face, 64.0 at the centre,
+    56.0 at the narrow end.  The complete pump stands widest at that same outlet face, across
+    its two tube fittings (`kamoer_kphm400.outlet_span_x`).
+
+    `air` grows every face by walking the profile stack out, so the running fit is struck the
+    way the case's own wall is and every radius opens with it."""
+    offset = skirt_wall - air
+    skirt = loft_profile_stack(0, skirt_z_steps, _skirt_profile_set(offset))
     lower = loft_profile_stack(skirt_bottom_z, lower_z_steps(),
-                               _lower_profile_set(skirt_wall))
+                               _lower_profile_set(offset))
     return skirt.union(lower)
+
+
+def drop_well(air=0.0):
+    """THE ROOM A PUMP NEEDS TO BE LOWERED THROUGH, not just to stand in — `cavity` swept
+    along its own axis toward the crown, in the case's world frame.
+
+    Every station stands at least as open as the widest one under it: 70.0 mm from the flared
+    outlet band up through the crown, and `cavity`'s own figure below that band.
+
+    THE SWEEP IS EACH LEVEL'S OWN OUTLINE CARRIED UP TO THE CROWN. `_stack_levels` is every Z
+    the cavity states a section on and `_stack_profiles` the outline standing there; a prism of
+    each, run from its own level to the crown, unions to the swept volume. The loft between two
+    levels interpolates every coordinate monotonically, so each section between them already
+    lies inside the union of the two — the stated levels are the whole of it.
+
+    `cavity`'s fitted faces stand under their own bands and this leaves them there."""
+    solid = cavity(air)
+    for z, profile in zip(_stack_levels(), _stack_profiles(skirt_wall - air)):
+        if z >= -1e-9:
+            continue
+        # Struck the way `loft_profile_stack` strikes the same outlines: a profile is stated
+        # about the origin and stands on the footprint's own centre.
+        solid = solid.union(
+            WorldWorkplane(xy_plane_z_up).workplane(offset=z).center(center_x, center_y)
+            .polyline(profile).close().extrude(-z))
+    return solid
+
+
+def _stack_levels():
+    """Every Z the cavity states a cross-section on, crown first — the skirt's five and the
+    lower extension's four, which share the plane between them."""
+    out, z = [0.0], 0.0
+    for dz in skirt_z_steps:
+        z += dz
+        out.append(z)
+    for dz in lower_z_steps():
+        z += dz
+        out.append(z)
+    return out
+
+
+def _stack_profiles(offset):
+    """The outlines that stand on `_stack_levels`, in the same order. The lower extension's
+    first profile IS the skirt's last, so it is not repeated."""
+    return list(_skirt_profile_set(offset)) + list(_lower_profile_set(offset))[1:]
 
 
 def build_lower_extension():

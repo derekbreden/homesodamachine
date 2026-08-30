@@ -106,6 +106,39 @@ def far_reach() -> float:
     return case_half
 
 
+def _in_pump_frame(solid):
+    """One of `pump_case`'s own solids carried into this module's frame — the case states its
+    footprint from a corner and this module states everything off the pump's axis."""
+    return solid.translate((-_pc.center_x, -_pc.center_y, 0.0))
+
+
+def head_room(air: float):
+    """THE ROOM THE CASE LEAVES A HEAD, struck `air` off it — `pump_case.cavity` in this
+    module's frame.
+
+    IT IS ASYMMETRIC IN Y AND THE TWO HALVES ARE DIFFERENT WIDTHS ACROSS.
+    `pump_case.skirt_narrow_half_extent` on -Y, `skirt_base_half_extent` at the centre,
+    `skirt_wide_half_extent` on +Y, which is the OUTLET side: 56 mm across at the narrow end,
+    64 at the centre, 70 at the outlet face. The complete pump stands widest at that same
+    face, across its two tube fittings (`kamoer_kphm400.outlet_span_x`, 69.25).
+
+    THE FITTED FACES COME WITH IT. `pump_case.flank_ramp_bands` are the two levels this solid
+    closes in over, and `kamoer_kphm400.build_head` clips the pump to this same solid — so the
+    45 degree faces the part carries are this figure's own, on both sides at both bands, and
+    what takes this room lands on them."""
+    return _in_pump_frame(_pc.cavity(air))
+
+
+def drop_well(air: float):
+    """THE ROOM A PUMP IS LOWERED THROUGH, struck `air` off the case — `pump_case.drop_well`
+    in this module's frame.
+
+    `head_room` carried along the pump's own axis toward the crown, so every station stands at
+    least as open as the widest one under it: 70 mm from the outlet band up through the crown,
+    and `head_room`'s own figure below that band, where nothing under is wider."""
+    return _in_pump_frame(_pc.drop_well(air))
+
+
 def boss_room(air: float):
     """The room the clamp's pressing plate leaves one boss, in this module's frame — the
     case's own bore struck `air` off it over the boss's whole depth.
