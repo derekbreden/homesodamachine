@@ -1508,9 +1508,9 @@ rail_reach_in = (max(front_top_flank_t, back_top_flank_t) - wall) + slide_slip +
 # THE PUMPS SLIDE OUT OF THE FRONT OF THE BOX. The front wall's flat span — corner column to
 # corner column — and the large lower cradle come out of front-top as one piece, the PUMP
 # CARTRIDGE. Both pumps drop into that cradle and one top clamp closes on their stamped
-# brackets. The cradle's filled bearing block rides the bay floor while its exterior face keeps
-# one flat running reveal above the sill. Nothing latches it: four barb tubes gripped in the
-# anchor tees' branch collets are the retention, and the collet plate
+# brackets. The cradle's filled bearing block rides the bay floor while the fixed shell perimeter
+# steps down to leave one flat running reveal under its exterior face. Nothing latches it: four
+# barb tubes gripped in the anchor tees' branch collets are the retention, and the collet plate
 # (`enclosure_assembly.build_collet_plate`) is the release — pull the pump cartridge and the tees
 # come with it until their collets press the plate, the tubes come free, and the pumps are
 # in your hand. Pushing it home threads the four tubes back through the plate's holes into
@@ -1542,12 +1542,13 @@ rail_reach_in = (max(front_top_flank_t, back_top_flank_t) - wall) + slide_slip +
 # floor: the installed cradle closes the front-top opening over the seam furniture below it.
 #
 # THE PUMP CARTRIDGE TAKES THE WHOLE FRONT-WALL WIDTH. Its outer skin follows the enclosure's
-# rounded silhouette all the way to both exterior side faces, between equal flat reveals above
-# the sill and below the lintel. Its filled interior reaches the side-wall planes and bears on
-# the bay floor. The only departures from that full-width envelope are the two hand pockets,
+# rounded silhouette all the way to both exterior side faces. Its lower edge shares the filled
+# block's bed plane, the stationary sill is recessed `face_reveal` under it, and its crown keeps
+# the same flat gap below the lintel. Its filled interior reaches the side-wall planes and bears
+# on the bay floor. The only departures from that full-width envelope are the two hand pockets,
 # the pump wells and the aft guide notches.
 bay_crown_air = 1.7          # bay top over the tallest motor can's crown
-face_reveal = 0.5            # equal flat Z clearance above the sill and below the lintel
+face_reveal = 0.5            # flat Z clearance at the stationary sill and upper lintel
 pump_bay_side_air = 0.5      # pump-body air inside each cavity throat plane
 sweep_step_max = 0.25        # largest interval in pump, clamp and withdrawal motion proofs
 # THE LOWER CRADLE HAS ONE RECTANGULAR Z OUTLINE. The exterior shell reaches the appliance's
@@ -4362,9 +4363,9 @@ def _pump_relief_regions(pump_trays):
     head's hang under the station to the collar's crown over it; floored on
     `pump_relief_floor`, the plane the cradle's aft body reaches.
 
-    ITS OWN Z0 IS THE LOWEST PLANE THE PUMP CARTRIDGE'S FILLED BEARING BLOCK REACHES, so the
-    bay floor's top is struck on it (`bay_floor_z`). The exterior face begins one
-    `face_reveal` above that flat sill."""
+    ITS OWN Z0 IS THE LOWEST PLANE THE PUMP CARTRIDGE'S FILLED BEARING BLOCK AND EXTERIOR FACE
+    REACH, so the bay floor's top is struck on it (`bay_floor_z`). `_bay_cut` recesses only the
+    fixed shell perimeter below that plane for the lower running gap."""
     out = []
     for cx, _cy, cz in pump_trays:
         hw = _tray.half_width() + 1.0
@@ -4517,10 +4518,23 @@ def _bay_cut(inner, outer, bay, pump_trays, plate):
     height, from the bay floor to the bay top and from the show face to the steel's aft face.
 
     The lower cradle replaces every part of the fixed front wall and both fixed side skins in
-    this band. The plate guides are added after this cut and the cradle carries their two local
-    aft notches."""
-    return _pump_full_width_band(
+    this band. At its lower edge the fixed shell perimeter steps down by `face_reveal`, while
+    the interior bay floor stays at the cradle's bearing plane. The cartridge can therefore
+    begin on one print-bed plane and still keep the same visible running gap at the stationary
+    sill. The plate guides are added after this cut and the cradle carries their two local aft
+    notches."""
+    opening = _pump_full_width_band(
         inner, outer, bay, pump_trays, plate["aft_y"], lower_inset=0.0)
+    floor = bay_floor_z(pump_trays)[1]
+    proud = _pump_cartridge_outer(outer)
+    lower_aft = plate_guide_notch_fore_y(plate)
+    lower = _pump_full_width_band(
+        inner, proud, bay, pump_trays, lower_aft,
+        lower_inset=-face_reveal, upper_inset=bay[2] - floor)
+    bearing = _ybox(
+        inner[0], inner[1], inner[2], lower_aft + 1.0,
+        floor - face_reveal - 1.0, floor + 1.0)
+    return opening.fuse(lower.cut(bearing))
 
 
 def _plate_fore_guides(inner, outer, bay, plate, pump_trays):
@@ -5120,13 +5134,15 @@ def _pump_cartridge_face_region(inner, outer, bay, pump_trays, plate):
     It spans the complete rounded front and both side skins through the cradle's own aft stop.
     Its show face stands `pump_show_proud` ahead of the fixed enclosure while the pumps remain
     on `pump_cartridge_proud`; the same corner radius returns into the unchanged side planes.
-    That complete plan continues plumb between equal flat `face_reveal` gaps above the sill and
-    below the lintel, without a bevel, ramp, starter strip or shelf. The fixed plate guides
-    occupy the short band behind the stop and fit the cradle's two local notches."""
+    That complete plan begins on the cradle's own bed plane and continues plumb to one flat
+    `face_reveal` below the lintel, without a bevel, ramp, starter strip or shelf. The matching
+    lower running gap is cut into the fixed shell perimeter by `_bay_cut`, outside the interior
+    bearing floor. The fixed plate guides occupy the short band behind the stop and fit the
+    cradle's two local notches."""
     proud = _pump_cartridge_outer(outer)
     return _pump_full_width_band(
         inner, proud, bay, pump_trays, _block_aft(plate),
-        lower_inset=face_reveal, upper_inset=face_reveal)
+        lower_inset=0.0, upper_inset=face_reveal)
 
 
 def cap_split_z(pump_trays):
@@ -5376,8 +5392,9 @@ def bay_floor_z(pump_trays):
     struck there lies on the bed and nothing under it hangs. What sets its section is the
     only thing over it: the pump cartridge's own pump reliefs floor on
     `_pump_relief_regions`' z0, one millimetre under the heads, and the floor's top is that
-    plane. That top is one flat sill; the removable exterior face begins `face_reveal` above
-    it while the filled block behind remains seated."""
+    plane. That top remains the filled block's flat bearing sill. The removable exterior face
+    begins on the same bed plane; `_bay_cut` takes `face_reveal` from only the fixed shell
+    perimeter below it, leaving the interior bearing whole."""
     return z_seam, min(z0 for _x0, _x1, z0, _z1, _floor in _pump_relief_regions(pump_trays))
 
 
@@ -5666,12 +5683,12 @@ def _unified(solid):
 def build_pump_cartridge(box, halves_cache=None):
     """THE LOWER CRADLE: the complete front face and the load-bearing cartridge body.
 
-    Its filled block rides the bay floor from sill to plate while its exterior face keeps a
-    flat reveal above the sill, presents its own aft face to the collet plate, and remains one
-    piece through the complete removable front-wall height. Two open wells admit the pumps and
-    top clamp in Z. Below the bracket plane those wells close to the head clearance, leaving
-    the stamped brackets on three cradle lands; four fitting-sized passages stay open through
-    the whole drop path while the aft pull wall remains between them.
+    Its filled block rides the bay floor from sill to plate while its exterior face begins on
+    the same bed plane over a recessed fixed sill, presents its own aft face to the collet plate,
+    and remains one piece through the complete removable front-wall height. Two open wells admit
+    the pumps and top clamp in Z. Below the bracket plane those wells close to the head
+    clearance, leaving the stamped brackets on three cradle lands; four fitting-sized passages
+    stay open through the whole drop path while the aft pull wall remains between them.
 
     Both side pulls are cut from this piece at the tube-centre elevation. The clamp has no
     pull feature. Two heat-set bores open upward from the centre spine for the clamp screws."""
@@ -5689,10 +5706,10 @@ def build_pump_cartridge(box, halves_cache=None):
 def _pump_cartridge_gross(box, halves_cache=None):
     """The lower cradle before its pump wells, hand pulls and clamp fasteners are cut.
 
-    The detachable face is kept whole between equal flat sill and lintel reveals and fused to
-    one filled block bearing on the bay floor back to the collet-plate stop. Pump and clamp
-    openings are cuts in this one body; the top clamp is built independently from the
-    conformal collars it needs."""
+    The detachable face begins with its filled block on one common bed plane, above the fixed
+    sill's recessed running gap, and ends one flat reveal below the lintel. It bears on the bay
+    floor back to the collet-plate stop. Pump and clamp openings are cuts in this one body; the
+    top clamp is built independently from the conformal collars it needs."""
     inner, outer = box.inner, box.outer
     bay, plate = box.pump_bay, box.pack.collet_plate
     if not bay or not plate:
@@ -5720,8 +5737,9 @@ def _pump_cartridge_gross(box, halves_cache=None):
     aft = _block_aft(plate)
     floor_top = bay_floor_z(box.pack.pump_trays)[1]
     # The filled body bears on the floor and reaches both cavity planes. The exterior shell's
-    # complete proud front, rounded corners and side faces begin one flat reveal above that sill
-    # and stand plumb from there. No fixed side skin frames the cradle.
+    # complete proud front, rounded corners and side faces begin on that same bed plane and stand
+    # plumb from there. The lower running gap is in the fixed shell perimeter, outside this
+    # bearing floor. No fixed side skin frames the cradle.
     fill = _ybox(bx0, bx1, pump_relief_floor, aft, floor_top, top - face_reveal)
     solid = solid.fuse(fill).intersect(face.fuse(
         _ybox(bx0, bx1, pump_cartridge_front_y, aft, floor_top, top)))
