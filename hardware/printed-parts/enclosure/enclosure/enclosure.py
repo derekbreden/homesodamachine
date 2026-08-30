@@ -4436,11 +4436,16 @@ def _plate_fore_guides(inner, outer, bay, plate, pump_trays):
     flank opening.
 
     THE HEAD CLOSES THE CHANNEL OVER THE STEEL'S TAIL. Over each of them the head reaches aft
-    from the cheek to the tee wall's fore face and stands from the steel's own top edge to the
-    same ceiling: what `_plate_cap` does across the middle, this does at the ends, and here it
-    is a square land rather than a raked one because the cheek is standing under its fore
-    side. That underside spans `PLATE_T + plate_slot_slip` between two standing walls, the
-    cheek fore and the tee wall aft."""
+    to the tee wall's fore face and stands from the steel's own top edge to the same ceiling:
+    what `_plate_cap` does across the middle, this does at the ends, and here it is a square
+    land rather than a raked one because the cheek is standing under its fore side. That
+    underside spans `PLATE_T + plate_slot_slip` between two standing walls, the cheek fore and
+    the tee wall aft.
+
+    AND IT STANDS ON THE CHEEK'S OWN FORE PLANE, `y_front`, so the cheek's inboard face is ONE
+    plane the whole storey — from the bay floor to the ceiling, at `x_inner`, on `y_front`.
+    What is fore of the steel's top edge there is the head's, and it is the same section the
+    cheek carries under it."""
     guide_x0, guide_x1 = plate_guide_inner_xs(plate)
     y_back = plate["fore_y"] - plate_slot_slip
     y_front = y_back - wall
@@ -4457,9 +4462,20 @@ def _plate_fore_guides(inner, outer, bay, plate, pump_trays):
             (x_inner, y_front), (x_inner, y_back),
             (spine_inner, y_back), (spine_inner, spine_aft),
             (x_outer, spine_aft), (x_outer, y_front - plate_guide_wedge)))
-        head = _ybox(hx0, hx1, y_back, plate["aft_y"], z_stop, z1)  # the tail's own cap
+        head = _ybox(hx0, hx1, y_front, plate["aft_y"], z_stop, z1)  # the tail's own cap
         out = guide.fuse(head) if out is None else out.fuse(guide).fuse(head)
     return out
+
+
+def plate_guide_fore_y(plate):
+    """THE BAY'S AFT WALL OVER THE STEEL'S TOP EDGE — one plane, wall to wall.
+
+    `plate_slot_slip` and one `wall` fore of the plate's own fore face: the plane
+    `_plate_fore_guides` already stands its two cheeks on, carried across the middle by
+    `_plate_cap` and out over each tail by that guide's own head. Above the steel there is no
+    steel behind it, so what a hand and the drawer meet across the whole storey is this one
+    surface from the bay floor to the ceiling."""
+    return plate["fore_y"] - plate_slot_slip - wall
 
 
 def plate_guide_inner_xs(plate):
@@ -4521,13 +4537,13 @@ def _plate_cap(inner, plate, bay):
     a surface the print grows into off the wall it stands on, and the lowest line of it sits
     directly over the steel's aft top arris, which is the arris the land is already on.
 
-    AND ITS FORE FACE IS THE STEEL'S OWN. Above the rake the wall stands on `plate["fore_y"]`
-    — the plane the plate presents — so the pump cartridge's back, which is `cap_kiss` fore of
-    that plane at every height, lands on printed wall over the storey where there is no steel
-    behind it and on steel below. One face, top to bottom, where the block used to run its
-    whole upper half against open air."""
+    AND ITS FORE FACE IS `plate_guide_fore_y`, the plane the two fixed cheeks already stand
+    on. Above the steel's top edge the wall runs out to that plane wall to wall, so the cheeks,
+    their heads and this cap present the drawer ONE surface across the whole storey with no
+    arris at either cheek. The pump cartridge's back stands `cap_kiss` fore of it there, and
+    `cap_kiss` fore of the steel below."""
     z_land = plate["z1"]
-    fore, aft = plate["fore_y"], plate["aft_y"]
+    fore, aft = plate_guide_fore_y(plate), plate["aft_y"]
     land = aft - plate_cap_land
     return _yz_prism(inner[0], inner[1], (
         (aft, z_land), (land, z_land), (fore, z_land + (land - fore)),
@@ -5450,6 +5466,13 @@ def _pump_cartridge_gross(box, halves_cache=None):
     fill = _ybox(bx0, bx1, pump_relief_floor, aft, floor_top, top - face_reveal)
     solid = solid.fuse(fill).intersect(face.fuse(
         _ybox(bx0, bx1, outer[2], aft, floor_top, top)))
+    # AND ITS BACK FOLLOWS WHAT IS BEHIND IT. Below the steel's top edge that is the plate,
+    # and the stop is `_block_aft`. Above it there is no steel and the box's own wall stands
+    # `plate_guide_fore_y` (`_plate_cap`), so the drawer keeps the same `cap_kiss` to a wall
+    # one storey up that it keeps to the plate one storey down.
+    solid = solid.cut(_ybox(bx0 - 1.0, bx1 + 1.0,
+                            plate_guide_fore_y(plate) - cap_kiss, aft + 1.0,
+                            plate["z1"], top + 1.0))
     for notch in _plate_guide_notches(bay, plate, box.pack.pump_trays):
         solid = solid.cut(notch)
     if halves_cache is not None:
@@ -5501,7 +5524,10 @@ def _pump_clamp_gross(box, halves_cache=None):
             split + _tray.bracket_t, split + cap_web_t))
         solid = solid.fuse(bridge)
     x0, x1 = _cap_x_span(box.pump_bay)
-    solid = solid.intersect(_ybox(x0, x1, box.outer[2], _block_aft(plate),
+    # The clamp's whole storey stands over the steel's top edge, so its back answers to
+    # `_plate_cap`'s wall rather than to the plate (`plate_guide_fore_y`).
+    solid = solid.intersect(_ybox(x0, x1, box.outer[2],
+                                  plate_guide_fore_y(plate) - cap_kiss,
                                   split - 0.1, split + _tray.depth() + 0.1))
     if halves_cache is not None:
         halves_cache["pump-clamp-gross"] = solid
