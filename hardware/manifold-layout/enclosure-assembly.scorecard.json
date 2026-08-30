@@ -6,7 +6,7 @@
    "label": "the printed box, outside face to outside face",
    "min": [
     -107.5,
-    -1.15,
+    -2.35,
     -6.0
    ],
    "max": [
@@ -16,7 +16,7 @@
    ],
    "mm": [
     215.0,
-    468.15,
+    469.35,
     361.0
    ]
   },
@@ -25,7 +25,7 @@
    "label": "every placed body, the box around them included",
    "min": [
     -113.5,
-    -1.15,
+    -2.35,
     -6.0
    ],
    "max": [
@@ -35,7 +35,7 @@
    ],
    "mm": [
     221.0,
-    533.041,
+    534.241,
     367.0
    ]
   }
@@ -1253,8 +1253,8 @@
    "label": "The cartridge is a large lower cradle with a small top clamp",
    "kind": "gate",
    "status": "pass",
-   "value": "cradle 65.8% of printed volume, 113.6 mm high; clamp 40.0 mm",
-   "target": "one solid each, the cradle a majority of volume and carrying the full-height face",
+   "value": "cradle 66.0% of printed volume, 113.6 mm high; clamp 61.8 mm",
+   "target": "one solid each, the cradle a majority of volume and carrying the foremost show face",
    "detail": [],
    "active": true
   },
@@ -1264,7 +1264,7 @@
    "kind": "gate",
    "status": "pass",
    "value": "x -107.500..107.500; missing 0.000 mm\u00b3; fixed front-top 0.000 mm\u00b3",
-   "target": "x -107.500..107.500, full stock z 171.265..280.495, and no fixed front-top in that band",
+   "target": "x -107.500..107.500, full stock z 171.965..280.495, and no fixed front-top in that band",
    "detail": [],
    "active": true
   },
@@ -1362,7 +1362,7 @@
   },
   {
    "id": "top-clamp-drops-on",
-   "label": "The top clamp lowers over both pumps",
+   "label": "The withdrawn cartridge's top clamp lowers over both pumps",
    "kind": "gate",
    "status": "pass",
    "value": "253 stations, most in the way 0.000 mm\u00b3",
@@ -1385,7 +1385,7 @@
    "label": "The cradle's aft face lands on the collet plate",
    "kind": "gate",
    "status": "pass",
-   "value": "7016.5 mm\u00b2 on the steel, 0.000 mm\u00b3 inside the kiss",
+   "value": "7133.0 mm\u00b2 on the steel, 0.000 mm\u00b3 inside the kiss",
    "target": "the cradle's face on the plate's and `cap_kiss` 0.1 mm of air at it",
    "detail": [],
    "active": true
