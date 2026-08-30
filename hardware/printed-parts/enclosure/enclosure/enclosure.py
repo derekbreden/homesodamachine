@@ -1569,8 +1569,8 @@ plate_slot_slip = steel_air  # air fore and aft of the collet plate in the floor
 plate_guide_tail_land = 10.0
 plate_guide_x_air = 1.0      # cartridge-notch air inboard of each fixed guide cheek
 plate_slot_lead = 1.0        # 45 degree flare on the slot's Z− mouth, leading the steel in
-plate_end_stock = 4.3        # printed X return from either slot end to the cavity-side wall;
-                             # the enclosure's 3 mm outer wall continues beyond that plane
+plate_end_stock = 4.3        # continuous printed X return from either slot end to the
+                             # cavity-side wall; the 3 mm outer wall continues beyond it
 plate_cap_land = 1.0         # the flat the steel's top edge lands on, taken off the tee wall's
                              # fore face — the plate's Z datum, wall to wall (`_plate_cap`)
 plate_shelf_land = 3.0       # front-bottom's shelf inboard of the steel's END, per end — the
@@ -4545,9 +4545,11 @@ def _plate_fore_guides(inner, outer, bay, plate, pump_trays):
     `plate_guide_x_air` inboard of it. Fore of those notches the drawer still takes the whole
     cavity width, including both grip ledges.
 
-    EACH CHEEK RETURNS ROUND THE PLATE'S END, and the three-millimetre spine outside the
-    plate's stated end runs one wall aft of the plate into fixed side-wall stock beyond the
-    flank opening.
+    EACH CHEEK RETURNS IMMEDIATELY OUTSIDE THE PLATE'S SLOT. At the slot-end plane — one
+    `plate_slot_slip` beyond the cut steel — the same prism turns aft past the plate and
+    carries the complete `plate_end_stock` band into the outer wall. That return stands from
+    the bay floor through the whole storey: there is no horizontal shelf at the floor and no
+    open column left over from a plate inserted from the other direction.
 
     THE HEAD CLOSES THE CHANNEL OVER THE STEEL'S TAIL. Over each of them the head reaches aft
     to the tee wall's fore face and stands from the steel's own top edge to the same ceiling:
@@ -4561,20 +4563,22 @@ def _plate_fore_guides(inner, outer, bay, plate, pump_trays):
     What is fore of the steel's top edge there is the head's, and it is the same section the
     cheek carries under it."""
     guide_x0, guide_x1 = plate_guide_inner_xs(plate)
+    slot_x0 = plate["x0"] - plate_slot_slip
+    slot_x1 = plate["x1"] + plate_slot_slip
     y_back = plate["fore_y"] - plate_slot_slip
     y_front = y_back - wall
     z0 = bay_floor_z(pump_trays)[1] - 1.0
     z_stop = plate["z1"]
     z1 = bay_storey_z(bay)[1]
     out = None
-    for (x_inner, x_outer, spine_inner), (hx0, hx1) in zip(
-            ((guide_x0, outer[0], inner[0]),
-             (guide_x1, outer[1], inner[1])),
+    for (x_inner, x_outer, return_inner), (hx0, hx1) in zip(
+            ((guide_x0, outer[0], slot_x0),
+             (guide_x1, outer[1], slot_x1)),
             plate_head_spans(inner, plate)):
         spine_aft = plate["aft_y"] + wall
         guide = _xy_prism(z0, z1, (
             (x_inner, y_front), (x_inner, y_back),
-            (spine_inner, y_back), (spine_inner, spine_aft),
+            (return_inner, y_back), (return_inner, spine_aft),
             (x_outer, spine_aft), (x_outer, y_front - plate_guide_wedge)))
         head = _ybox(hx0, hx1, y_front, plate["aft_y"], z_stop, z1)  # the tail's own cap
         out = guide.fuse(head) if out is None else out.fuse(guide).fuse(head)
