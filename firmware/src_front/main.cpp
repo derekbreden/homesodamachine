@@ -630,6 +630,19 @@ static volatile uint32_t panelVsyncWriteErrors = 0;
 #define PANEL_VSYNC_ACTION_WINDOW_CYCLES \
   (PANEL_VSYNC_ACTION_WINDOW_US * PANEL_CPU_CYCLES_PER_US)
 
+// A shifted wake displaces the image by exactly 25 lines and 80 px, measured off
+// the panel's own ruler. That is 25 * 976 + 80 = 24,480 pixel clocks, or 1.53 ms
+// -- not a porch, not any geometry in this file, but a delay that fits inside
+// this panel's 2.14 ms vertical blank. The only thing this firmware does inside
+// that blank is the CH422G write that raises EXIO2, which is DISP.
+//
+// So: if the panel takes its frame origin from the DISP edge instead of from
+// VSYNC, moving that edge moves the whole image with it. One raster line is 976
+// pclk at 16 MHz, so holding DISP exactly 16 lines longer predicts y goes 25 ->
+// 41 while x stays at 80. If the image does not move, the panel is not taking
+// its origin from this edge and the mechanism is somewhere else entirely.
+#define PANEL_DISP_PROBE_US 976
+
 // ════════════════════════════════════════════════════════════
 //  CH422G expander
 // ════════════════════════════════════════════════════════════
@@ -825,6 +838,13 @@ static void panelVsyncTask(void *arg) {
       i2cGive();
       panelVsyncLateRetries++;
       continue;
+    }
+
+    if (action == PANEL_VSYNC_ENABLE_DISPLAY && PANEL_DISP_PROBE_US) {
+      const uint32_t began = esp_cpu_get_cycle_count();
+      const uint32_t want = (uint32_t)PANEL_DISP_PROBE_US * PANEL_CPU_CYCLES_PER_US;
+      while ((uint32_t)(esp_cpu_get_cycle_count() - began) < want) {
+      }
     }
 
     bool ok = false;
