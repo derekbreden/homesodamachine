@@ -7,12 +7,22 @@
     "objects": "s-"
   },
   "source": {
-    "commit": "bf90d457ec6fcce3f374d1d1d33e12ec665d090f"
+    "commit": "87897231212d2f4c0285df5a7d4c6c9a91800338"
   },
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, or that rule would not cut.",
     "paths": [
+      "firmware/README.md",
+      "firmware/lib/weld_rotator_policy/weld_rotator_policy.h",
+      "firmware/src_weld_rotator/README.md",
+      "firmware/src_weld_rotator/main.cpp",
+      "firmware/test/README.md",
+      "firmware/test/test_weld_rotator_policy/test_weld_rotator_policy.cpp",
+      "hardware/ledger/purchases.orders.json",
+      "hardware/printed-parts/fixtures/weld-rotator/_rotator_interface.py",
+      "hardware/printed-parts/fixtures/weld-rotator/weld_rotator.py",
       "hardware/printed-parts/petgf.3mf",
+      "platformio.ini",
       "result.json",
       "tmp/pdfs/connect-connected-detail-fixed.png",
       "tmp/pdfs/connect-detail-fixed.png",
