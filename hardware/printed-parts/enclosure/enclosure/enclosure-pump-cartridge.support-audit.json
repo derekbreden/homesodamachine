@@ -23,35 +23,13 @@
   },
   "inputs": {
     "gcode": "plate_1.gcode",
-    "gcode_sha256": "e3a407cf6a7d988cda8ae771a5166cad46df697d8a0dcea189ca6fb59950cc09",
+    "gcode_sha256": "df948ad2b1f5f60f9d9d0674dc2fb3d08e15536d0939e5fbcc01eb82e2c144e7",
     "model": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
-    "model_sha256": "3dc8abbdff0548065b2a2c2251dd67aac27d3f5afba6c83a99e6ea1331d0d282",
+    "model_sha256": "43bec5623251bb906a4c73748e1c4ca76955bd8aefc8bc97bcc043bcebbc69a5",
     "profile": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge-petgf.3mf",
     "profile_sha256": "10f9a5824beb674ca0868137659211da5703d6626b73a335388ec471efc91c40"
   },
-  "interfaces": [
-    {
-      "bbox_cad_xyz_mm": [
-        -107.4,
-        -2.207,
-        167.065,
-        107.4,
-        69.393,
-        167.265
-      ],
-      "bbox_xy_mm": [
-        57.6,
-        121.2,
-        272.4,
-        192.8
-      ],
-      "build_up_mm": 0.0,
-      "first_z_mm": 0.2,
-      "id": "interface-1",
-      "last_z_mm": 0.4,
-      "tree": "tree-1"
-    }
-  ],
+  "interfaces": [],
   "piece": "enclosure-pump-cartridge",
   "policy": {
     "build_up_mm": {
@@ -75,43 +53,17 @@
     "support_type": "tree(auto)"
   },
   "summary": {
-    "bed_rooted_bodies": 1,
+    "bed_rooted_bodies": 0,
     "build_up_buckets": {
       "10_to_15_mm": 0,
       "15_mm_or_more": 0,
       "5_to_10_mm": 0,
-      "under_5_mm": 1
+      "under_5_mm": 0
     },
-    "interface_islands": 1,
+    "interface_islands": 0,
     "model_rooted_bodies": 0,
-    "shortest_build_up_mm": 0.0,
-    "support_bodies": 1
+    "shortest_build_up_mm": null,
+    "support_bodies": 0
   },
-  "trees": [
-    {
-      "base_z_mm": 0.2,
-      "bbox_cad_xyz_mm": [
-        -107.4,
-        -2.207,
-        167.065,
-        107.4,
-        69.393,
-        167.265
-      ],
-      "bbox_xy_mm": [
-        57.6,
-        121.2,
-        272.4,
-        192.8
-      ],
-      "first_interface_z_mm": 0.2,
-      "id": "tree-1",
-      "interfaces": [
-        "interface-1"
-      ],
-      "root": "bed",
-      "shortest_build_up_mm": 0.0,
-      "top_z_mm": 0.4
-    }
-  ]
+  "trees": []
 }
