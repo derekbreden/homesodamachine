@@ -6,6 +6,15 @@
 #   tools/panelcam.sh shot faucet          # one frame of the 1.47
 #   tools/panelcam.sh shot front --full    # the same frame uncropped, to re-aim the rig
 #   tools/panelcam.sh auth                 # whether this process may open a camera at all
+#   tools/panelcam.sh controls             # what the attached camera lets a program change
+#   tools/panelcam.sh set absolute_focus 120
+#
+# ZOOM IS A CROP AND FOCUS IS A CONTROL, and they are not the same kind of thing. macOS
+# AVFoundation publishes neither: `lensPosition`, `videoZoomFactor` and every
+# `isFocusModeSupported` come back unavailable or false on this platform, so nothing Apple
+# offers moves a lens. UVC control transfers do, and `uvcc` carries them — which is why focus
+# and exposure are set through `set` and zoom is not. Framing is bought in sensor pixels once
+# and spent per shot in `--crop`, so it costs no motor and cannot drift.
 #
 # A TARGET IS A CAMERA AND A CROP, and the crop is the point. A photograph of the machine is
 # not a reading of its panel: the panel is a tenth of the frame, off-centre, and every shot
@@ -80,15 +89,31 @@ target_field() {   # target field -> value
     die "target '$1' has no '$2' in $(basename "$CONF")"
 }
 
+uvcc() { npx --yes uvcc "$@"; }
+
+cmd_controls() {
+  # The one command that settles what a camera actually implements. A module advertising
+  # autofocus may or may not publish absolute_focus; this is the answer, not the listing.
+  uvcc export
+}
+
+cmd_set() {
+  local control="${1:?usage: panelcam.sh set <control> <value>}"
+  local value="${2:?usage: panelcam.sh set <control> <value>}"
+  uvcc set "$control" "$value"
+  uvcc get "$control"
+}
+
 cmd_shot() {
   local target="${1:-}"; shift || true
   [ -n "$target" ] || die "usage: panelcam.sh shot <target> [--full] [--out FILE]"
 
-  local full=0 out=""
+  local full=0 out="" crop_override=""
   while [ $# -gt 0 ]; do
     case "$1" in
       --full) full=1; shift ;;
       --out)  out="${2:?--out needs a path}"; shift 2 ;;
+      --crop) crop_override="${2:?--crop needs w:h:x:y}"; shift 2 ;;
       *) die "unknown option $1" ;;
     esac
   done
@@ -98,7 +123,7 @@ cmd_shot() {
   local device size crop
   device="$(target_field "$target" device)"
   size="$(target_field "$target" size)"
-  crop="$(target_field "$target" crop)"
+  crop="${crop_override:-$(target_field "$target" crop)}"
 
   mkdir -p "$OUT_DIR"
   out="${out:-$OUT_DIR/$target.png}"
@@ -114,9 +139,11 @@ cmd_shot() {
 }
 
 case "${1:-}" in
-  list) shift; cmd_list "$@" ;;
-  shot) shift; cmd_shot "$@" ;;
-  auth) shift; cmd_auth "$@" ;;
-  ask)  shift; cmd_ask "$@" ;;
-  *) sed -n '2,25p' "${BASH_SOURCE[0]}" | sed 's/^# \{0,1\}//'; exit 1 ;;
+  list)     shift; cmd_list "$@" ;;
+  controls) shift; cmd_controls "$@" ;;
+  set)      shift; cmd_set "$@" ;;
+  shot)     shift; cmd_shot "$@" ;;
+  auth)     shift; cmd_auth "$@" ;;
+  ask)      shift; cmd_ask "$@" ;;
+  *) sed -n '2,33p' "${BASH_SOURCE[0]}" | sed 's/^# \{0,1\}//'; exit 1 ;;
 esac
