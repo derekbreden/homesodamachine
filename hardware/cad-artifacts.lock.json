@@ -7,7 +7,7 @@
     "objects": "s-"
   },
   "source": {
-    "commit": "d42aa9789ba981a3e6061caf19c3a370d3773d6a"
+    "commit": "ec7016931ed3cb57d66d110ea95ff4c38be5febf"
   },
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, or that rule would not cut.",
@@ -266,12 +266,29 @@
       "tmp/quickstart-white-tubes/scenes.png"
     ],
     "members": [
+      "hardware/assembly/scenes/glb/front-top.glb",
+      "hardware/assembly/scenes/glb/pump-cartridge.glb",
       "hardware/faucet-layout/faucet-assembly.step.mesh",
-      "hardware/quickstart/art/mount-slide.png",
-      "hardware/quickstart/plumbing/art/plumbing-pre-tee.png",
-      "hardware/quickstart/plumbing/art/plumbing-tee-installed.png",
-      "hardware/quickstart/plumbing/art/plumbing-valve-off.png",
-      "hardware/quickstart/plumbing/art/plumbing-valve-on.png"
+      "hardware/manifold-layout/enclosure-assembly.step",
+      "hardware/manifold-layout/enclosure-assembly.step.mesh",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
+      "hardware/printed-parts/enclosure/enclosure/enclosure.step",
+      "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
+      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh",
+      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
+      "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh",
+      "hardware/quickstart/art/mount-slide.png"
     ]
   },
   "bundle": {
