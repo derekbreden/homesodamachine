@@ -2300,7 +2300,7 @@ def check_cartridge_full_front_wall(pieces, shell) -> Bound:
     cradle = cradle.val() if hasattr(cradle, "val") else cradle
     fixed = fixed.val() if hasattr(fixed, "val") else fixed
     inner, outer, bay = shell.inner, shell.outer, shell.pump_bay
-    z0 = _enc.bay_floor_z(shell.pack.pump_trays)[1] + _enc.face_reveal
+    z0 = _enc.bay_floor_z(shell.pack.pump_trays)[1]
     z1 = bay[2] - _enc.face_reveal
     edge = _enc._cap_x_span(bay)[1]
     y1 = _enc.plate_guide_notch_fore_y(shell.pack.collet_plate)

@@ -972,7 +972,8 @@ itself, and `check_tube_seated` reads the three run anchors the same way.
 **The pumps leave through one large lower cradle.** `enclosure-pump-cartridge`
 (`build_pump_cartridge`) owns the complete removable front wall, the filled body behind it,
 the plate stop and both hand pulls. Its filled bearing block rides the bay floor; its exterior
-face spans between equal flat 0.5 mm reveals above the sill and below the lintel. Its outer shell
+face begins on that same bed plane above a 0.5 mm recess in the fixed sill and ends 0.5 mm below
+the lintel. Its outer shell
 keeps the complete 215 mm enclosure width, including both rounded front corners and side skins,
 and its show plane stands [7.35 mm](PUMP_PROUD) proud of the fixed front face. The pumps and
 barbs remain [6.15 mm](PUMP_STATION_PROUD) proud; the show plane's additional
@@ -1071,11 +1072,12 @@ wall vertical and supported, nothing anywhere in it overhanging. The opening run
 collet plate to the tee wall's fore face**, where it ends on printed section rather than on a
 free edge.
 
-**The lower cradle's complete exterior spans two flat reveals.** Its proud front, both rounded
-corners and both exterior flanks begin 0.5 mm above the flat sill and continue plumb as one
-uninterrupted silhouette to 0.5 mm below the lintel, without a bevel, ramp, starter strip or
-shelf. Only the grip pockets and two aft guide notches otherwise depart from the outline; the
-top clamp sits wholly inside the wells above.
+**The lower cradle's complete exterior is one bed-rooted wall.** Its proud front, both rounded
+corners and both exterior flanks begin with the filled block on one plane and continue plumb as
+one uninterrupted silhouette to 0.5 mm below the lintel, without a bevel, ramp, starter strip or
+shelf. The fixed shell perimeter is recessed 0.5 mm below that lower edge while the interior bay
+floor remains at the bearing plane. Only the grip pockets and two aft guide notches otherwise
+depart from the outline; the top clamp sits wholly inside the wells above.
 
 ## The bay floor
 
@@ -1085,8 +1087,8 @@ interior face aft past the collet plate, and everything in this storey stands on
 struck there lies on the bed with nothing under it to hang, and what sets its section
 is the only thing over it: the pump cartridge's filled bearing block reaches down to the plane
 its own pump reliefs floor on, one millimetre under the heads, and the floor's top is that plane
-(`bay_floor_z`). The top is a flat sill. The removable exterior face begins 0.5 mm above it,
-while the filled block behind remains seated on it.
+(`bay_floor_z`). The interior top is a flat bearing sill. The removable exterior face begins on
+the same plane, while the fixed shell perimeter is recessed 0.5 mm below it for the running gap.
 `bay-floor-bedded` reads the floor's whole plan solid on the bed, less the two lanes that
 pass through it: the rails' own channels and the collet plate's slot.
 
@@ -1181,9 +1183,9 @@ filled block behind it reaches both cavity planes.
 Front-bottom's front lip drops across the whole flat span
 (`_front_flat_lip_drop`) — the floor stands in that band and the heads run down through
 it — and the front wall below keeps its single `front_wall` section from slab to seam.
-The face keeps [0.5 mm](PUMP_CARTRIDGE_CLEARANCE) of Z clearance above the sill and below the
-lintel. Its complete front, rounded corners and exterior flanks stand plumb between those two
-flat gaps with no taper.
+The face keeps [0.5 mm](PUMP_CARTRIDGE_CLEARANCE) of Z clearance over the recessed stationary
+sill and below the lintel. Its complete front, rounded corners and exterior flanks stand plumb
+between those two flat gaps with no taper.
 
 **The fixed front wall is `front_wall` thick and grows inward.** The removable pump face is the
 load-bearing exception: it stands [7.35 mm](PUMP_PROUD) proud with
@@ -1232,8 +1234,8 @@ The fitted opening's exact source dimensions and section readings are in
 uses those case profiles to shape the broad pressing base and cut the boss and can rooms from
 one service clamp.
 
-**The lower cradle prints on its Z− floor.** Its filled bearing block begins on that bed; the
-proud front, rounded corners and both flank skins begin 0.5 mm above it and rise plumb. The two
+**The lower cradle prints on its Z− floor.** Its filled bearing block, proud front, rounded
+corners and both flank skins begin together on that bed and rise plumb. The two
 pull roofs climb at 45° and the pump wells remain open above. The top clamp's complete
 field begins on one broad Z− bed face. Its only internal down-facing transitions are the two
 functional boss-to-can shoulders, 19 mm above that face and open through the fitted bores for
