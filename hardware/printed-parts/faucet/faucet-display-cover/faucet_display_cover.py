@@ -23,11 +23,15 @@ down `display_cover_hook_travel` up-gooseneck of home, where the toe
 clears the roof, and pushed toward the spout until the riser stops
 against the roof's face. Then the screw, which is what keeps it there.
 
-IT PRINTS FACE DOWN. The outer face lies on the bed and every step in
-the body faces up from there. The hanging features are the annular
-ledge at the counterbore and the toe's top face — the one that bears
-up against the roof, which is flat because a ramp there would let the
-hook cam out under the screw's own clearance.
+IT PRINTS STANDING ON THE TIP END. The s = 0 end face is the bed and
+the outer face rises from it as a wall, so the show surface carries no
+support scars. What hangs is the ladder of down-gooseneck faces: the
+pocket's north ceiling takes the one tall tower the print needs, the
+window's north wall takes the slot's own, and the riser's and toe's
+south faces — short, and in the hook's crevice — are filmed by the
+same connected tower and leave with it in one pull. The toe's top face
+is flat rather than ramped on purpose: a ramp there would let the hook
+cam out under the screw's own clearance.
 
 Frame: the shell's own tip frame — s is distance up-gooseneck from the
 tip end along the tip axis, n is distance from the water-tube centerline
@@ -205,16 +209,32 @@ def build_display_cover() -> cq.Workplane:
     return build_plate_outer().cut(build_plate_inner_cut())
 
 
-def bed_face(cover: cq.Workplane) -> tuple:
+def show_face(cover: cq.Workplane) -> tuple:
     """(count, area) of the faces lying in the plate's outer plane with
-    the tip's own normal — what the plate stands on when it prints face
-    down. One face, or the orientation is not what this file claims."""
+    the tip's own normal — the wall a hand meets. One face, or the
+    outside does not read as one surface."""
     tip_end, _, n_hat = _tip_frame()
     on_plane = []
     for f in cover.val().Faces():
         c = f.Center()
         depth = (cq.Vector(c.x, c.y, c.z) - tip_end).dot(n_hat)
         if abs(depth - plate_n_top) < 1e-6 and abs(abs(f.normalAt(c).dot(n_hat)) - 1.0) < 1e-6:
+            on_plane.append(f)
+    return len(on_plane), sum(f.Area() for f in on_plane)
+
+
+def bed_face(cover: cq.Workplane) -> tuple:
+    """(count, area) of the faces lying in the tip-end plane looking
+    down-gooseneck — what the plate stands on in print. One face, or
+    the orientation is not what this file claims."""
+    tip_end, s_hat, _ = _tip_frame()
+    on_plane = []
+    for f in cover.val().Faces():
+        if f.geomType() != "PLANE":
+            continue
+        c = f.Center()
+        depth = (cq.Vector(c.x, c.y, c.z) - tip_end).dot(s_hat)
+        if abs(depth) < 1e-6 and abs(f.normalAt(c).dot(s_hat) + 1.0) < 1e-6:
             on_plane.append(f)
     return len(on_plane), sum(f.Area() for f in on_plane)
 
@@ -231,16 +251,19 @@ def selftest() -> int:
         )
     if window_corner_r <= 0.0:
         fails.append("the bezel's lap has eaten the window's corner radius")
-    count, area = bed_face(cover)
+    count, area = show_face(cover)
     if count != 1:
         fails.append(f"{count} faces lie in the plate's outer plane, not one")
+    bed_count, bed_area = bed_face(cover)
+    if bed_count != 1:
+        fails.append(f"{bed_count} faces stand in the tip-end plane, not one")
     for f in fails:
         print(f"FAIL {f}")
     if not fails:
         print(
             f"ok  faucet-display-cover  window {window_x:.4g} x {window_s:.4g},"
-            f" bed face {area:.0f} mm\u00b2, M3 x {display_cover_screw_len:g}"
-            f" biting {thread_reach:.2f}"
+            f" show face {area:.0f} mm\u00b2 on a {bed_area:.0f} mm\u00b2 bed,"
+            f" M3 x {display_cover_screw_len:g} biting {thread_reach:.2f}"
         )
     return 1 if fails else 0
 
@@ -252,11 +275,13 @@ def main():
     export_assembly(one_body(cover, out.stem, C_FAUCET_BLACK), str(out))
     print(f"-> {out.name}")
 
-    count, bed_area = bed_face(cover)
+    show_count, show_area = show_face(cover)
+    bed_count, bed_area = bed_face(cover)
     print(f"  outer face {2.0 * plate_half_x:.4g} \u00d7 {plate_s_north:.4g} mm,"
           f" {plate_thickness:.4g} thick at the screw")
     print(f"  window {window_x:.4g} \u00d7 {window_s:.4g} mm, r{window_corner_r:.4g}")
-    print(f"  bed face {bed_area:.0f} mm\u00b2 over {count} face(s)")
+    print(f"  show face {show_area:.0f} mm\u00b2 over {show_count} face(s),"
+          f" bed face {bed_area:.0f} mm\u00b2 over {bed_count}")
     print(f"  M3 \u00d7 {display_cover_screw_len:g} through {land_under_head:.4g} of land,"
           f" {thread_reach:.4g} into the insert")
     print(f"  volume {cover.val().Volume():.0f} mm\u00b3")
@@ -303,6 +328,11 @@ def main():
         "THREAD_REACH": f"{thread_reach:.4g} mm",
         "CBORE_LEDGE": f"{cbore_ledge:.4g} mm",
         "BED_AREA": f"{bed_area:.0f} mm\u00b2",
+        "SHOW_AREA": f"{show_area:.0f} mm\u00b2",
+        "HOOK_S0": f"{display_cover_hook_s0:.4g} mm",
+        "STEM_S0": f"{display_cover_stem_s0:.4g} mm",
+        "WINDOW_S_NORTH": f"{window_s_north:.4g} mm",
+        "POCKET_S_TOP": f"{display_s_top:.4g} mm",
     }
     substitute_md(out_dir / "README.md", variables=variables)
     print("-> README.md")

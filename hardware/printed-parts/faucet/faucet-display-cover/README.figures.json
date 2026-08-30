@@ -1,11 +1,10 @@
 {
   "/hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py": {
-    "BED_AREA": "905 mm\u00b2",
+    "BED_AREA": "201 mm\u00b2",
     "BEZEL_N_BOTTOM": "22.35 mm",
     "BEZEL_THICKNESS": "1.86 mm",
     "CBORE_DEPTH": "3.2 mm",
     "CBORE_DIA": "6.15 mm",
-    "CBORE_LEDGE": "1.125 mm",
     "CHIN": "9.84 mm",
     "COVER_LAP": "2 mm",
     "COVER_OVER_FACE": "0.1 mm",
@@ -18,6 +17,7 @@
     "HOOK_N1": "14.8",
     "HOOK_N_TOP": "14.65",
     "HOOK_RELIEF": "0.5 mm",
+    "HOOK_S0": "2.01 mm",
     "HOOK_T": "2.25 mm",
     "HOOK_TRAVEL": "2.01 mm",
     "HOOK_X": "13 mm",
@@ -27,18 +27,22 @@
     "PLATE_N_TOP": "24.21 mm",
     "PLATE_THICKNESS": "7.01 mm",
     "PLATE_X": "28.72 mm",
+    "POCKET_S_TOP": "52.59 mm",
     "ROOF_T": "2.4 mm",
     "SCREW_LEN": "8 mm",
     "SCREW_S": "56.45 mm",
     "SHANK_DIA": "3.9 mm",
+    "SHOW_AREA": "905 mm\u00b2",
     "SKIRT_DEPTH": "5.15 mm",
     "SKIRT_HALF_X": "12.5 mm",
+    "STEM_S0": "3.72 mm",
     "S_BOTTOM": "7.59 mm",
     "THREAD_REACH": "4.19 mm",
     "WINDOW_CORNER_R": "3.75 mm",
     "WINDOW_END_MARGIN": "3.785 mm",
     "WINDOW_S": "40.5 mm",
     "WINDOW_SIDE_MARGIN": "1.375 mm",
+    "WINDOW_S_NORTH": "50.34 mm",
     "WINDOW_X": "20.5 mm"
   }
 }
