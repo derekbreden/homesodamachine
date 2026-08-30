@@ -62,7 +62,7 @@
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 482 of 1000 free, the next cut wants 3, and the whole lock reads by name in 120.5 MB against 121.8 MB of bundle",
+      "note": "check_release_room: 477 of 1000 free, the next cut wants 3, and the whole lock reads by name in 120.5 MB against 121.8 MB of bundle",
       "status": "ok"
     },
     {
@@ -93,7 +93,7 @@
   ],
   "detail": {
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds 2dcf0d8c255f87673cb115defb74bb95 for the 107 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 91860243f2c55f15b33dc23f06405ab9 here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was taken from a different tree — it holds 2dcf0d8c255f87673cb115defb74bb95 for the 107 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at e66d8bde4b5f8e44180c615ee1ba24aa here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ],
