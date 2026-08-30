@@ -1250,21 +1250,21 @@
   },
   {
    "id": "pump-cartridge-lower-cradle",
-   "label": "The cartridge is a large lower cradle with a small top clamp",
+   "label": "The cartridge is one lower cradle with one monolithic top clamp",
    "kind": "gate",
    "status": "pass",
-   "value": "cradle 66.0% of printed volume, 113.6 mm high; clamp 61.8 mm",
-   "target": "one solid each, the cradle a majority of volume and carrying the foremost show face",
+   "value": "cradle 56.3% of printed volume, 113.6 mm high; clamp 61.8 mm",
+   "target": "one solid each, with the cradle carrying the foremost show face",
    "detail": [],
    "active": true
   },
   {
    "id": "pump-cartridge-full-front-wall",
-   "label": "The cradle owns the full-width front wall above its bed ramps",
+   "label": "The cradle owns the full-width front wall between its flat reveals",
    "kind": "gate",
    "status": "pass",
    "value": "x -107.500..107.500; missing 0.000 mm\u00b3; fixed front-top 0.000 mm\u00b3",
-   "target": "x -107.500..107.500, full stock z 171.965..280.495, and no fixed front-top in that band",
+   "target": "x -107.500..107.500, full stock z 167.365..280.495, and no fixed front-top in that band",
    "detail": [],
    "active": true
   },
