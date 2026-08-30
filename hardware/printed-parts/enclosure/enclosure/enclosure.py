@@ -3551,16 +3551,17 @@ def _ceiling_corbels(solid, inner, outer, centre, y_joint):
 
     The corbel runs the housing's back plane to the Y-seam furniture's fore face, and a
     second one carries the lip's ceiling tongue, struck one `wall` lower on the tongue's
-    own underside: it roots on the ceiling collar's own chain-deep face — the column the
-    collar's web already carries — and rides with the tongue into the mouth it
-    telescopes into. The collar band itself (chain-deep at the wall) is the collar's own
-    D, fill and web."""
+    own underside: its funnel-side span roots on the ceiling collar's chain-deep face and
+    its wall-side span rises from the socket cap to the plug tip. Together they carry the
+    whole tongue into the mouth it telescopes into; the collar band itself is the collar's
+    own D, fill and web."""
     cx, _cy = centre
     hole_x0, hole_x1 = cx - _funnel.collar_w / 2.0, cx + _funnel.collar_w / 2.0
     iz1 = inner[5]
     y0 = housing_back_y(outer)
     yb = _y_boss(y_joint)
-    for hole_x, wall_x in ((hole_x1, inner[1]), (hole_x0, inner[0])):
+    for hole_x, wall_x, sx in ((hole_x1, inner[1], -1.0),
+                               (hole_x0, inner[0], +1.0)):
         deep = abs(wall_x - hole_x)
         solid = solid.fuse(_xz_prism(y0, yb - socket_r,
                                      [(hole_x, iz1), (wall_x, iz1),
@@ -3570,6 +3571,10 @@ def _ceiling_corbels(solid, inner, outer, centre, y_joint):
         solid = solid.fuse(_xz_prism(yb - socket_r, y_joint + lip_len,
                                      [(hole_x, tz), (chain, tz),
                                       (chain, tz - abs(chain - hole_x))]))
+        _xs, x_tip, _xh, x_cap = _boss_x(wall_x - sx * wall, sx)
+        solid = solid.fuse(_xz_prism(yb - socket_r, y_joint + lip_len,
+                                     [(x_tip, tz), (x_cap, tz),
+                                      (x_tip, tz - abs(x_cap - x_tip))]))
     return solid
 
 
@@ -3736,9 +3741,11 @@ def _front_cuts(x_in, x_ext, sx, z_boss, y_boss, y_joint):
     it down to its seat, and the heat-set pocket at the deep end. Open at the rim, so it
     is a slide path and not a pocket.
 
-    THE SEAT AND THE CHANNEL ARE ONE PRISM. The channel was always struck at the bore's
-    axis carrying the bore's width; squared, there is nothing left to distinguish them and
-    the plug rides one section its whole travel.
+    THE SEAT AND THE CHANNEL ARE ONE CONTINUOUS SLOT. The channel is struck at the bore's
+    axis carrying the bore's width, so the plug rides one section its whole travel. Above
+    its square pass envelope the cutter rises 45 degrees in X to the inboard tip: that adds
+    plug clearance while replacing the slot's horizontal printed roof with a self-supporting
+    one.
 
     The slip lives on the +Y (slide-in) side: the slot is shifted +slip/2 so its −Y wall
     registers on the plug's −Y face at the mouth, instead of overshooting past the seam.
@@ -3748,8 +3755,13 @@ def _front_cuts(x_in, x_ext, sx, z_boss, y_boss, y_joint):
     bore_y = y_boss + split_slip / 2.0
     heat = _xcyl(heatset_dia / 2.0, y_boss, z_boss, x_tip, x_heat)
     bx0, bx1 = sorted((x_in, x_tip))
-    slot = _ybox(bx0, bx1, bore_y - b, y_joint + lip_len + 1.0,
-                 z_boss - b, z_boss + b)
+    y0, y1 = bore_y - b, y_joint + lip_len + 1.0
+    roof = z_boss + b
+    slot = _ybox(bx0, bx1, y0, y1, z_boss - b, roof)
+    slot = slot.fuse(_xz_prism(
+        y0, y1,
+        [(x_in, roof), (x_tip, roof),
+         (x_tip, roof + abs(x_tip - x_in))]))
     return slot.fuse(heat)
 
 
@@ -5376,6 +5388,7 @@ def _plate_slot(inner, plate, z_top):
 
 tee_stop_pad_depth = wall
 tee_stop_pad_width = wall
+tee_stop_pad_setback = 0.270
 
 
 def _tee_wall(inner, y_joint, plate, bay):
@@ -5385,10 +5398,12 @@ def _tee_wall(inner, y_joint, plate, bay):
     A BORE HOLDS ITS TEE ACROSS ITS OWN AXIS AND LEAVES IT free along the release direction.
     Each arm carries a round collar (`tee_connector.branch_collar`), so the wall keeps the
     collar-clear bore everywhere except for two side pads outside the exact arm passage. The
-    pads are one `wall` wide and one `wall` deep, bed-rooted from the seam plane; their small
-    radial bite stops the purchased collar against an insertion push without making a thin
-    annular diaphragm. What a tee otherwise hangs from is the valve butted onto its run, two
-    joints away and answering to a press fit; what it stands in is this.
+    pads are one `wall` wide and one `wall` deep, bed-rooted from the seam plane. They begin
+    `tee_stop_pad_setback` aft of the collar's nominal inboard plane, clear of its real blended
+    shoulder over the complete release; their small radial bite stops the purchased collar
+    after that take-up without making a thin annular diaphragm. What a tee otherwise hangs
+    from is the valve butted onto its run, two joints away and answering to a press fit; what
+    it stands in is this.
 
     ITS FORE FACE IS THE STEEL'S AFT FACE, struck once as one figure
     (`enclosure_assembly.collet_plate_spec`). The plate stands in front of it, so every
@@ -5507,14 +5522,14 @@ def _teardrop_x(r, y, z, x0, x1):
 def _tee_bore(plate, hx, hz):
     """One tee's complete collar-clear bore through the wall and its stop-pad storey.
 
-    The old stepped cylinder left only `wall_aft_y - collar_in_y` of annular material behind
-    the collar: 1.666 mm. Carry the large, support-free bore through the complete three-
-    millimetre pad depth instead. `_tee_stop_pads` then restores only two bed-rooted side
-    columns and `_tee_arm_bore` gives their inner faces the exact arm passage."""
+    The large, support-free bore continues through the complete three-millimetre pad depth,
+    so no narrow annulus remains behind the collar. `_tee_stop_pads` restores only two
+    bed-rooted side columns and `_tee_arm_bore` gives their inner faces the exact arm
+    passage."""
     return _teardrop_y(
         plate["bore_r"], hx, hz,
         plate["aft_y"] - 1.0,
-        plate["collar_in_y"] + tee_stop_pad_depth + 1.0)
+        plate["collar_in_y"] + tee_stop_pad_setback + tee_stop_pad_depth + 1.0)
 
 
 def _tee_stop_pads(plate, hx, hz):
@@ -5522,10 +5537,11 @@ def _tee_stop_pads(plate, hx, hz):
 
     Their inner X faces are tangent to the arm passage. Their top is where the collar-clear
     circle reaches that X, so the complete collar contact is caught without inventing an
-    arbitrary ledge; their feet run to `z_seam`, the bed face of front-top. Each pad is
+    arbitrary ledge; their feet run to `z_seam`, the bed face of front-top. Their Y storey
+    begins beyond the connector's collar/arm blend by `tee_stop_pad_setback`. Each pad is
     grossed slightly into the final arm cutter so that cutter, not a coincident box face,
     establishes the finished passage."""
-    y0 = plate["collar_in_y"]
+    y0 = plate["collar_in_y"] + tee_stop_pad_setback
     y1 = y0 + tee_stop_pad_depth
     ra, ro = plate["arm_bore_r"], plate["bore_r"]
     z1 = hz + math.sqrt(ro * ro - ra * ra)
@@ -5541,7 +5557,7 @@ def _tee_stop_pads(plate, hx, hz):
 
 def _tee_arm_bore(plate, hx, hz):
     """The exact arm passage recut through the two gross stop pads."""
-    y0 = plate["collar_in_y"]
+    y0 = plate["collar_in_y"] + tee_stop_pad_setback
     y1 = y0 + tee_stop_pad_depth
     return _teardrop_y(plate["arm_bore_r"], hx, hz, y0 - 1.0, y1 + 1.0)
 
