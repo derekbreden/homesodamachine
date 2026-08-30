@@ -1381,65 +1381,34 @@ def check_pump_case_room(pieces: dict, placed: dict) -> Bound:
 def check_cap_passes_tubes(pieces: dict, placed: dict, plate: dict) -> Bound:
     """Whether the fittings and barb tubes pass the cradle's vertical outlet openings.
 
-    The lower cradle opens one 69.55 mm band over each outlet face and bores nothing for the
-    four tubes. THAT IS A CLAIM ABOUT THE BARB PITCH AND NOTHING ELSE HERE READS IT:
-    the tubes are stationed off the placed pumps, while the opening is struck on the complete
-    pump's own widest span across its two tube FITTINGS (`kamoer_kphm400.outlet_span_x`) and
-    one `cap_tube_air` per side. Those are two measurements of the same face taken
-    independently — the fittings' outer edges and the barbs' centres — so a wider pitch or a
-    fatter tube can walk into the web without another card saying so. A bore struck to catch
-    it would lap that web by a fraction of its radius and feather the section to nothing at
-    the two levels it grazed, which is why there is no bore.
-
-    Read two ways. The tube's own outer wall is compared with the opening's outer X edge, per
-    barb, on the axis the opening is struck on. At each pump, a rectangular gauge spanning the
-    measured fitting width plus `cap_tube_air` enters the cap from the relieved outlet face and
-    sill; its intersection with the printed solid must be empty. The tube rides INSIDE the
-    fitting that carries it, so what it is owed here is no less than the fitting's own air."""
+    The lower cradle opens one fitting-sized passage on each placed barb axis. Each arithmetic
+    envelope is the measured fitting width plus `cap_tube_air`; the wall between and outside
+    the four passages is deliberately retained. The tube rides inside the fitting, so clearing
+    that complete envelope also clears the tube. The existing insertion sweep reads the solids."""
     cradle = pieces.get("pump-cartridge")
     if cradle is None:
         return record_bound(Bound(
             "cradle-passes-fittings", "Each fitting passes the cradle's outlet opening", True,
             "no cradle in this box", "every fitting inside its vertical opening", []))
-    edge = _enc.cap_slot_half
-    r = ml.TUBE_D / 2.0
-    rows, mouths, worst = [], [], None
+    edge = _enc.cap_fitting_half
+    rows, worst = [], None
     stations = tuple(c for _h, (_a, _s, c) in sorted(pump_tray_seats(placed).items()))
     for cx, _cy, _cz in stations:
         for hx, _hz in plate["holes"]:
             if (hx > 0.0) != (cx > 0.0):
                 continue
-            air = edge - (abs(hx - cx) + r)
+            expected = cx + (-1.0 if hx < cx else 1.0) * _tray.outlet_pitch / 2.0
+            air = edge - _tray.fitting_w / 2.0 - abs(hx - expected)
             worst = air if worst is None else min(worst, air)
             rows.append((f"({cx:+.1f}) barb x {hx:+.2f}", air))
-    # Stay a hair inside every requested face: a boundary shared with the cutter is air but
-    # has zero volume, while this gauge asks whether any printed section occupies the opening.
-    gauge_inset = 1e-4
-    cradle = cradle.val() if hasattr(cradle, "val") else cradle
-    for cx, cy, cz in stations:
-        outlet_face = cy + _tray.head_half - _tray.outlet_relief
-        sill = cz - _tray.head_depth + _tray.outlet_relief_run
-        gauge = _enc._ybox(
-            cx - edge + gauge_inset, cx + edge - gauge_inset,
-            outlet_face - _enc.cap_tube_air + gauge_inset,
-            outlet_face + _enc.cap_tube_air,
-            sill - _enc.cap_tube_air + gauge_inset, cz)
-        mouths.append((f"({cx:+.1f}) fitting mouth", cradle.intersect(gauge).Volume()))
     bad = [row for row in rows if row[1] < _enc.cap_tube_air - 1e-9]
-    blocked = [row for row in mouths if row[1] > 1e-6]
     return record_bound(Bound(
         "cradle-passes-fittings", "Each fitting passes the cradle's outlet opening",
-        not bad and not blocked,
-        (f"{len(rows) - len(bad)}/{len(rows)} tubes clear, least {worst:.3f} mm off the edge; "
-         f"{len(mouths) - len(blocked)}/{len(mouths)} fitting mouths open"),
-        f"at least {_enc.cap_tube_air:g} mm round every Ø{ml.TUBE_D:g} tube at the "
-        "opening's two outer edges and no cradle material in either fitting-mouth gauge",
-        ([f"{who}: the tube has {air:.2f} mm to the opening's edge, under the "
-          f"{_enc.cap_tube_air:g} mm the fitting beside it gets — the barb pitch and the "
-          "fitting span disagree, so re-read one of them on the part" for who, air in bad]
-         + [f"{who}: {bite:.3f} mm³ of cradle occupies the measured 69.25 mm fitting span "
-            f"with {_enc.cap_tube_air:g} mm air round its mouth"
-            for who, bite in blocked])))
+        not bad,
+        f"{len(rows) - len(bad)}/{len(rows)} fittings clear, least {worst:.3f} mm off the edge",
+        f"at least {_enc.cap_tube_air:g} mm round every fitting on its placed barb axis",
+        [f"{who}: the fitting has {air:.2f} mm to its opening edge, under "
+         f"{_enc.cap_tube_air:g} mm" for who, air in bad]))
 
 
 def check_trays_hold(pieces: dict, placed: dict) -> Bound:
@@ -2201,11 +2170,14 @@ def _pump_drop_probe(head, placed, station, plate):
     bracket = _pump_bracket(station)
     outlet_face = cy + _tray.head_half - _tray.outlet_relief
     sill = cz - _tray.head_depth + _tray.outlet_relief_run
-    fitting = _enc._ybox(
-        cx - _enc.cap_slot_half, cx + _enc.cap_slot_half,
-        outlet_face - _enc.cap_tube_air, plate["fore_y"] + 0.5,
-        sill - _enc.cap_tube_air, cz)
-    return cq.Compound.makeCompound([*bodies, bracket, fitting])
+    fittings = [
+        _enc._ybox(
+            cx + sx * _tray.outlet_pitch / 2.0 - _enc.cap_fitting_half,
+            cx + sx * _tray.outlet_pitch / 2.0 + _enc.cap_fitting_half,
+            outlet_face - _enc.cap_tube_air, plate["fore_y"] + 0.5,
+            sill - _enc.cap_tube_air, cz)
+        for sx in (-1.0, 1.0)]
+    return cq.Compound.makeCompound([*bodies, bracket, *fittings])
 
 
 def check_pumps_drop_into_cradle(pieces, placed, plate) -> Bound:
@@ -2241,7 +2213,7 @@ def check_pumps_drop_into_cradle(pieces, placed, plate) -> Bound:
     return record_bound(Bound(
         "pumps-drop-into-cradle", "Both pumps drop vertically into the lower cradle", ok,
         f"{len(rows)} pumps, {sum(r[1] for r in rows)} stations, most in the way {worst:.3f} mm³",
-        f"pump, bracket and 69.55 mm fitting span clear every {step_max:g} mm or less",
+        f"pump, bracket and four fitting passages clear every {step_max:g} mm or less",
         [f"{name} meets {volume:.3f} mm³ of cradle at z shift {at:.3f} mm"
          for name, _steps, volume, at in rows if volume > 1e-3]))
 
@@ -2329,14 +2301,15 @@ def check_cartridge_full_front_wall(pieces, shell) -> Bound:
     y1 = _enc._block_aft(shell.pack.collet_plate) - _enc.pull_aft
     y0 = y1 - _enc.pull_run
 
-    silhouette = _enc._rounded_outer(outer)
+    silhouette = _enc._rounded_outer(_enc._pump_cartridge_outer(outer))
     front = silhouette.intersect(_enc._ybox(
-        -edge - 1.0, edge + 1.0, outer[2] - 1.0,
+        -edge - 1.0, edge + 1.0, _enc.pump_cartridge_front_y - 1.0,
         _enc.pump_relief_floor - _enc.clamp_drop_air,
         z0, z1))
     side = silhouette.intersect(
-        _enc._ybox(-edge - 1.0, inner[0], outer[2] - 1.0, y0, z0, z1)
-        .fuse(_enc._ybox(inner[1], edge + 1.0, outer[2] - 1.0, y0, z0, z1)))
+        _enc._ybox(-edge - 1.0, inner[0], _enc.pump_cartridge_front_y - 1.0, y0, z0, z1)
+        .fuse(_enc._ybox(inner[1], edge + 1.0,
+                         _enc.pump_cartridge_front_y - 1.0, y0, z0, z1)))
     target = front.fuse(side)
     missing = target.cut(cradle).Volume()
     fixed_left = target.intersect(fixed).Volume()

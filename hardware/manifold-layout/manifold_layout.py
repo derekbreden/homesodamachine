@@ -65,11 +65,11 @@ draw collets are mouths of this study and leave on their own axes. Everything el
 collet butted to collet.
 
 `BUTT` is the tube left OUTSIDE a pair of butted quick-connects, and it is 0 — there is still
-tube in both collets, there is none between them. `BARB_STANDOFF` is the same figure where a
-tee meets a pump barb, and it is the COLLET PLATE'S BERTH: a barb is not a quick-connect, the
-four runs off the barbs are what the pump cartridge releases against, and the steel that stops their
-collets stands in this gap. The deck's height rides on it one for one, and so does what the two
-source runs have left to step in.
+tube in both collets, there is none between them. `BARB_STANDOFF` is the exposed run where a
+tee meets a pump barb: `pump_cartridge_proud` follows the pump out to its load-bearing wall and
+`BARB_PLATE_BERTH` carries the collet plate that releases it. A barb is not a quick-connect;
+the four runs off the barbs are what the pump cartridge releases against. The deck's height
+rides on the complete run one for one, and so does what the two source runs have left to step in.
 
 The envelope, the deck, the two tube lengths, the mirror check and the clash check are in
 `README.md`, written back by this file, and printed by every run.
@@ -102,6 +102,7 @@ for _p in (_hw / "scripts",
            _hw / "reference" / "y-divider",
            _hw / "reference" / "kamoer-kphm400",
            _hw / "printed-parts" / "cadlib",
+           _hw / "printed-parts" / "enclosure" / "enclosure",
            _hw / "printed-parts" / "enclosure" / "pump-tray"):
     sys.path.insert(0, str(_p))
 sys.path.insert(0, str(_tools))
@@ -121,6 +122,7 @@ import _routing                                       # noqa: E402
 import _stated_bounds as _bounds                      # noqa: E402
 import _boxes                                         # noqa: E402
 import _overlap                                       # noqa: E402
+import _enclosure_interface as _enc_if                # noqa: E402
 
 ELBOW_STEP = _hw / "reference" / "elbow-connector" / "elbow-connector.step"
 TEE_STEP = _hw / "reference" / "tee-connector" / "tee-connector.step"
@@ -159,13 +161,12 @@ MOTOR_L = kp.motor_end_z - kp.octagon_top_z  # the can, boss's rear face to the 
 
 # --- The study's own figures, all four free --------------------------------
 BUTT = 0.0            # tube left outside a pair of butted quick-connects
-BARB_STANDOFF = 5.7   # exposed tube between each barb and its anchor tee's branch collet — the
-                      # collet plate's berth. The pumps ride the pump cartridge out of the box and
-                      # these four runs are what release: the plate stands in this gap, stops
-                      # the collets as the pump cartridge pulls the tees forward, and the tubes come
-                      # free. Steel and its two airs is what the figure is
-                      # (`enclosure_assembly.PLATE_T + PLATE_REST_GAP`, and a millimetre off
-                      # the barbs' own plane), and the deck rides on it one for one.
+BARB_PLATE_BERTH = 5.7  # steel, its two airs and the millimetre off the barbs' own plane
+PUMP_BARB_Z = HEAD_W - _enc_if.pump_cartridge_proud
+# The complete exposed run between a pump barb and its anchor tee's branch collet. Its fore
+# portion follows the proud pump; its aft portion is the steel plate's working berth. The deck
+# stays where it is because the longer tube exactly returns what the pump station moves forward.
+BARB_STANDOFF = BARB_PLATE_BERTH + _enc_if.pump_cartridge_proud
 CROSSBAR = 0.0        # exposed tube between Y-A's and Y-B's branches. At 0 the two fittings
                       # meet face to face across the mirror plane and no tube is drawn.
 # The two lanes one pump hands out. At `BARB_PITCH` each tee sits on its own barb and the
@@ -186,7 +187,7 @@ LIMB_STEP = (BARB_PITCH - LIMB_PITCH) / 2.0  # how far a tee steps toward its pu
 # `atan(LIMB_STEP / climb)`, so the climb the skew allows is the floor under the lead.
 BARB_LEAD_FLOOR = LIMB_STEP / math.tan(math.radians(FLAVOR_SKEW))
 BARB_LEAD = BARB_LEAD_FLOOR + BARB_STANDOFF
-DECK_Z = HEAD_W + BARB_LEAD + TEE_BRANCH     # the LOWER deck's port-axis height
+DECK_Z = PUMP_BARB_Z + BARB_LEAD + TEE_BRANCH  # the LOWER deck's port-axis height
 STUB = MIN_BEND                              # what a free mouth is drawn reaching, so the
                                              # first corner past it has a leg to seat in
 
@@ -308,7 +309,7 @@ def barb_station(tee: str) -> tuple:
     """A pump barb's collet plane, in world. It stands on the head's crown at the limb's own
     y, offset `BARB_PITCH/2` either side of the pump's centre."""
     px, side = BARB_OF[tee]
-    return (px + side * BARB_PITCH / 2.0, 0.0, HEAD_W)
+    return (px + side * BARB_PITCH / 2.0, 0.0, PUMP_BARB_Z)
 
 
 def body_name(chain: str) -> str:
@@ -847,7 +848,7 @@ def build_pump(px: float):
         for axis, deg in PUMP_TURNS:
             solid = solid.rotate(cq.Vector(0, 0, 0), cq.Vector(*axis), deg)
         parts.append(solid.translate(cq.Vector(
-            px + kp.cx, y0 - kp.head_front_z, HEAD_W - kp.body_y_face)))
+            px + kp.cx, y0 - kp.head_front_z, PUMP_BARB_Z - kp.body_y_face)))
     return parts[0], parts[1], parts[2]
 
 
@@ -1209,7 +1210,7 @@ def report(assy: cq.Assembly) -> dict:
     print(f"          X {reach.xlen:7.2f}   Y {reach.ylen:7.2f}   Z {reach.zlen:7.2f}    "
           f"({reach.xlen * reach.ylen * reach.zlen / 1e6:.2f} L)   with one {STUB:g} mm mouth "
           f"stub on each of the {len(MOUTHS)}")
-    print(f"deck at z {DECK_Z:.2f}, {DECK_Z - VALVE_PORT_Z - HEAD_W:.2f} mm over the pump heads; "
+    print(f"deck at z {DECK_Z:.2f}, {DECK_Z - VALVE_PORT_Z - PUMP_BARB_Z:.2f} mm over the pump heads; "
           f"each mm of BARB_LEAD lifts it one")
     print(f"LIMB_PITCH {LIMB_PITCH:g} of a {BARB_PITCH:g} barb pitch — each tee stands "
           f"{LIMB_STEP:.2f} mm off its barb's column on a {BARB_LEAD:.2f} mm lead, which is the "
@@ -1296,12 +1297,14 @@ def main():
             "STEP_FLOOR": f"{two_arc_floor(MIN_BEND, SOURCE_JOG):.2f}",
             "HAIRPIN_COUNT": str(hairpins_drawn()),
             "BARB_STANDOFF": f"{BARB_STANDOFF:g}",
+            "BARB_PLATE_BERTH": f"{BARB_PLATE_BERTH:g}",
+            "PUMP_PROUD": f"{_enc_if.pump_cartridge_proud:g}",
             "STEP_SPREAD": f"{SOURCE_SPREAD['V-A']:g}",
             "STEP_CROSS_A": f"{math.hypot(*source_cross('V-A')):.2f}",
             "STEP_ANGLE_A": f"{math.degrees(source_step('V-A')[0]):.3f}",
             "STEP_STRAIGHT_A": f"{source_step('V-A')[1]:.2f}",
             "STEP_LEN_A": f"{source_step('V-A')[2]:.2f}",
-            "DECK_GAP": f"{DECK_Z - VALVE_PORT_Z - HEAD_W:.2f}",
+            "DECK_GAP": f"{DECK_Z - VALVE_PORT_Z - PUMP_BARB_Z:.2f}",
             "CROSSBAR": f"{CROSSBAR:.2f}",
             "TEE_COUNT": str(sum(1 for n in P if n.startswith("Y-"))),
             "TEE_COUNT2": str(sum(1 for n in P if n.startswith("Y-"))),
