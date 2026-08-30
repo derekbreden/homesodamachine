@@ -91,15 +91,24 @@ target_field() {   # target field -> value
 
 uvcc() { npx --yes uvcc "$@"; }
 
+require_uvc() {
+  # With no UVC device attached, uvcc throws out of its constructor. Say so in one line.
+  local found; found="$(uvcc devices 2>/dev/null | tr -d '[:space:]')"
+  [ -n "$found" ] && [ "$found" != "[]" ] && return 0
+  die "no USB UVC camera attached — uvcc sees none. (The built-in and Continuity cameras are not UVC.)"
+}
+
 cmd_controls() {
   # The one command that settles what a camera actually implements. A module advertising
   # autofocus may or may not publish absolute_focus; this is the answer, not the listing.
+  require_uvc
   uvcc export
 }
 
 cmd_set() {
   local control="${1:?usage: panelcam.sh set <control> <value>}"
   local value="${2:?usage: panelcam.sh set <control> <value>}"
+  require_uvc
   uvcc set "$control" "$value"
   uvcc get "$control"
 }
