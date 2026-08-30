@@ -4,6 +4,8 @@
     tools/cad-venv/bin/python tools/checks.py            every check, a line each
     tools/cad-venv/bin/python tools/checks.py --list     name them and run none
     tools/cad-venv/bin/python tools/checks.py --json P   write the verdict to P as well
+    tools/cad-venv/bin/python tools/checks.py --interactive
+                                                     omit checks that take the CAD build lock
 
 FOUND BY GLOB, NOT BY LIST. `check_*.py` under `hardware/scripts/`, `tools/` and `tools/bazel/`
 is the whole set, so a check added tomorrow is run tomorrow. A list is a second place to
@@ -36,6 +38,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 DIRS = ("hardware/scripts", "tools", "tools/bazel")
 PY = ROOT / "tools" / "cad-venv" / "bin" / "python"
+
+# Post-commit is the visual loop, not reconciliation. This check opens every fluted mesh and may
+# take the global CAD lock for minutes; it remains in the ordinary all-checks run and is omitted
+# only when the detached interactive reader explicitly asks for that path.
+INTERACTIVE_OMITS = {"hardware/scripts/check_flutes.py"}
 
 
 def checks() -> list:
@@ -80,9 +87,13 @@ def main(argv) -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--list", action="store_true", help="name them and run none")
     ap.add_argument("--json", metavar="PATH", help="also write the verdict here, clock-free")
+    ap.add_argument("--interactive", action="store_true",
+                    help="omit checks that take the CAD build lock from the visual loop")
     args = ap.parse_args(argv)
 
     found = checks()
+    if args.interactive:
+        found = [rel for rel in found if rel not in INTERACTIVE_OMITS]
     if args.list:
         for c in found:
             print(f"  {c}")
