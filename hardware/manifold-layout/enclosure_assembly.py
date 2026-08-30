@@ -1319,7 +1319,7 @@ def check_cap_laps_bracket(pieces: dict, placed: dict) -> Bound:
 
 
 def check_cap_passes_tubes(pieces: dict, placed: dict, plate: dict) -> Bound:
-    """Whether each barb tube leaves the cap through the opening rather than through material.
+    """Whether the fittings' mouth and each barb tube leave through the cap opening.
 
     `enclosure.build_pump_cap` opens its aft face as one slot over each head and bores nothing
     for the four tubes. THAT IS A CLAIM ABOUT THE BARB PITCH AND NOTHING ELSE HERE READS IT:
@@ -1331,9 +1331,11 @@ def check_cap_passes_tubes(pieces: dict, placed: dict, plate: dict) -> Bound:
     it would lap that web by a fraction of its radius and feather the section to nothing at
     the two levels it grazed, which is why there is no bore.
 
-    Read as the tube's own outer wall against the opening's edge, per barb, on the axis the
-    opening is struck on. The tube rides INSIDE the fitting that carries it, so what it is
-    owed here is no less than the fitting's own `cap_tube_air`."""
+    Read two ways. The tube's own outer wall is compared with the opening's outer X edge, per
+    barb, on the axis the opening is struck on. At each pump, a rectangular gauge spanning the
+    measured fitting width plus `cap_tube_air` enters the cap from the relieved outlet face and
+    sill; its intersection with the printed solid must be empty. The tube rides INSIDE the
+    fitting that carries it, so what it is owed here is no less than the fitting's own air."""
     cap = pieces.get("pump-cap")
     if cap is None:
         return record_bound(Bound(
@@ -1341,23 +1343,43 @@ def check_cap_passes_tubes(pieces: dict, placed: dict, plate: dict) -> Bound:
             "no cap in this box", "every tube inside the opening it leaves by", []))
     edge = _enc.cap_slot_half
     r = ml.TUBE_D / 2.0
-    rows, worst = [], None
-    for cx, _cy, _cz in (c for _h, (_a, _s, c) in sorted(pump_tray_seats(placed).items())):
+    rows, mouths, worst = [], [], None
+    stations = tuple(c for _h, (_a, _s, c) in sorted(pump_tray_seats(placed).items()))
+    for cx, _cy, _cz in stations:
         for hx, _hz in plate["holes"]:
             if (hx > 0.0) != (cx > 0.0):
                 continue
             air = edge - (abs(hx - cx) + r)
             worst = air if worst is None else min(worst, air)
             rows.append((f"({cx:+.1f}) barb x {hx:+.2f}", air))
+    # Stay a hair inside every requested face: a boundary shared with the cutter is air but
+    # has zero volume, while this gauge asks whether any printed section occupies the opening.
+    gauge_inset = 1e-4
+    cap = cap.val() if hasattr(cap, "val") else cap
+    for cx, cy, cz in stations:
+        outlet_face = cy + _tray.head_half - _tray.outlet_relief
+        sill = cz - _tray.head_depth + _tray.outlet_relief_run
+        gauge = _enc._ybox(
+            cx - edge + gauge_inset, cx + edge - gauge_inset,
+            outlet_face - _enc.cap_tube_air + gauge_inset,
+            outlet_face + _enc.cap_tube_air,
+            sill - _enc.cap_tube_air + gauge_inset, cz)
+        mouths.append((f"({cx:+.1f}) fitting mouth", cap.intersect(gauge).Volume()))
     bad = [row for row in rows if row[1] < _enc.cap_tube_air - 1e-9]
+    blocked = [row for row in mouths if row[1] > 1e-6]
     return record_bound(Bound(
-        "cap-passes-tubes", "Each barb tube leaves the cap through its opening", not bad,
-        f"{len(rows) - len(bad)}/{len(rows)} clear, least {worst:.3f} mm off the edge",
+        "cap-passes-tubes", "Each fitting and barb tube leaves the cap through its opening",
+        not bad and not blocked,
+        (f"{len(rows) - len(bad)}/{len(rows)} tubes clear, least {worst:.3f} mm off the edge; "
+         f"{len(mouths) - len(blocked)}/{len(mouths)} fitting mouths open"),
         f"at least {_enc.cap_tube_air:g} mm round every Ø{ml.TUBE_D:g} tube at the "
-        "opening's two outer edges",
-        [f"{who}: the tube has {air:.2f} mm to the opening's edge, under the "
-         f"{_enc.cap_tube_air:g} mm the fitting beside it gets — the barb pitch and the "
-         "fitting span disagree, so re-read one of them on the part" for who, air in bad]))
+        "opening's two outer edges and no cap material in either fitting-mouth gauge",
+        ([f"{who}: the tube has {air:.2f} mm to the opening's edge, under the "
+          f"{_enc.cap_tube_air:g} mm the fitting beside it gets — the barb pitch and the "
+          "fitting span disagree, so re-read one of them on the part" for who, air in bad]
+         + [f"{who}: {bite:.3f} mm³ of cap occupies the measured 69.25 mm fitting span "
+            f"with {_enc.cap_tube_air:g} mm air round its mouth"
+            for who, bite in blocked])))
 
 
 def check_trays_hold(pieces: dict, placed: dict) -> Bound:
@@ -1844,18 +1866,17 @@ def check_insertion_backing(pieces, placed, spec) -> Bound:
 
 
 def check_plate_carried(pieces, shell) -> Bound:
-    """Whether front-bottom is under the collet plate — the whole way in, not just at home.
+    """Whether front-bottom carries both ends of the collet plate at its installed footprint.
 
     NOTHING IN FRONT-TOP HOLDS THE STEEL DOWN. It goes in through that piece's bed face and
     `enclosure._plate_cap`'s land is over it, not under it, so what stops the plate falling
     back out the way it came is the piece the mouth closes onto. `enclosure._plate_shelf` is
     the two shelves that do it, and this is the reading of them.
 
-    IT IS READ DOWN THE WHOLE FRONT RUN and not only at the home station, because the plate
-    hangs within one `enclosure.steel_air` of that shelf for the whole of the front column's
-    travel: the steel cannot step up onto a ledge that begins where it stops — it would meet
-    that ledge's fore face and stop the slide. A shelf with a hole in it anywhere between the
-    front wall and the plate's own aft plane is a shelf the plate drops off partway home.
+    THE PLATE ENTERS IN Z THROUGH FRONT-TOP'S BED FACE. Its Y footprint is only the steel's
+    `fore_y..aft_y` thickness at the installed station; it does not traverse the pump bay in Y.
+    The display-column opening may therefore consume the shelf's fore root without taking
+    bearing from the steel. What must be whole is the shelf under each actual plate end.
 
     AND IT IS READ UNDER THE SHELF'S OWN TOP, not under the seam mouth. The shelf stands one
     `enclosure.steel_air` below that plane, because it OPPOSES `enclosure._plate_cap`'s land
@@ -1864,35 +1885,30 @@ def check_plate_carried(pieces, shell) -> Bound:
     would read the flank beside the shelf and pass on material that is not carrying anything.
 
     The probe is a slab one probe under the shelf's top, under each end of the steel from its
-    end plane `enclosure.plate_shelf_land` inboard, taken in bands down the run so a gap
-    reports where it is rather than as an average."""
+    end plane `enclosure.plate_shelf_land` inboard, across the steel's complete Y thickness."""
     spec = shell.pack.collet_plate
     fb = pieces["front-bottom"]
     fb = fb.val() if hasattr(fb, "val") else fb
     probe, land = 0.5, _enc.plate_shelf_land
-    y0, y1 = shell.inner[2], spec["aft_y"]
-    rows, step = [], (y1 - y0) / 6.0
-    for i in range(6):
-        ya, yb = y0 + i * step, y0 + (i + 1) * step
-        for sx, x0, x1 in (("-X", spec["x0"], spec["x0"] + land),
-                           ("+X", spec["x1"] - land, spec["x1"])):
-            top = _enc.z_seam - _enc.steel_air
-            plug = _enc._ybox(min(x0, x1), max(x0, x1), ya, yb, top - probe, top)
-            rows.append((f"{sx} y {ya:.0f}..{yb:.0f}",
-                         plug.intersect(fb).Volume() / plug.Volume()))
+    y0, y1 = spec["fore_y"], spec["aft_y"]
+    rows = []
+    for sx, x0, x1 in (("-X", spec["x0"], spec["x0"] + land),
+                       ("+X", spec["x1"] - land, spec["x1"])):
+        top = _enc.z_seam - _enc.steel_air
+        plug = _enc._ybox(min(x0, x1), max(x0, x1), y0, y1, top - probe, top)
+        rows.append((sx, plug.intersect(fb).Volume() / plug.Volume()))
     worst = min(g for _n, g in rows)
     ok = worst >= 1.0 - 1e-6
     return record_bound(Bound(
-        "plate-carried", "The collet plate has front-bottom under it the whole way in", ok,
-        f"{sum(1 for _n, g in rows if g >= 1.0 - 1e-6)}/{len(rows)} bands whole, "
+        "plate-carried", "Front-bottom carries both ends of the installed collet plate", ok,
+        f"{sum(1 for _n, g in rows if g >= 1.0 - 1e-6)}/{len(rows)} ends whole, "
         f"worst {worst * 100:.1f}%",
-        f"a shelf under both ends of the steel, unbroken from {y0:g} to {y1:g}, one "
+        f"a shelf under both ends of the steel across y {y0:g}..{y1:g}, one "
         f"{_enc.steel_air:g} under the seam plane",
         ([] if ok else
          [f"{n}: {g * 100:.1f}% solid" for n, g in rows if g < 1.0 - 1e-6]
-         + ["the steel rides this shelf in from the front wall and rests on it at home. A "
-            "gap in it is a station where the plate has nothing under it, and the plate is "
-            "held by nothing else in either piece"])))
+         + ["the steel enters through front-top's Z− face and rests on these two lands. A "
+            "gap here leaves one end of the installed plate unsupported"])))
 
 
 def check_bay_floor(pieces, shell) -> Bound:
@@ -1942,69 +1958,37 @@ def check_bay_floor(pieces, shell) -> Bound:
             f"floor runs {z_bed:g} to {top:g}"])))
 
 
-def check_column_face(pieces, shell) -> Bound:
-    """Whether the front columns' face across the bay is the turn it is drawn as, and whether
-    the side wall behind it is still there.
+def check_pump_columns_open(pieces, shell) -> Bound:
+    """Whether both front display-support columns are absent from the pump withdrawal span.
 
-    A WALL THAT VANISHES MAKES NOTHING INTERSECT. Every other reading on this card asks
-    whether two things collide, and taking material AWAY passes all of them: the piece pairs
-    still read 0.0 mm3, the meshes still come back watertight, the bed still fits. So this
-    reads presence, not clearance, at the one station where the column's face is thinnest —
-    the plane the flank opening ends on, `front_plane_y + enclosure._column_along()`, which
-    the turn is tangent to.
-
-    Two readings on the one solid. FIRST, THE WALL: a probe slab just forward of that plane,
-    from the exterior face in to where the turn lands, is that piece's section between this
-    corner and the outside of the machine, and full means it stands. SECOND, THE LANDING: the
-    inboard-most material in the same slab is where the face is, and a turn of `column_round`
-    tangent to the plane sweeps `sqrt(2 * column_round * probe)` inboard over the slab's own
-    depth — so the expected station is the landing plus that sweep, and it is arithmetic off
-    the radius rather than a figure fitted to what came out. A face that stops short of its
-    landing reads inboard of it; a face swung from anywhere but the jamb does not obey the
-    sweep at all."""
+    `enclosure._front_column_opening` removes each column's complete cavity-side quadrant
+    below the seam cap, and `_flank_opening` continues that clearance above it. Probe those two
+    former column volumes from the bay floor to the lintel. Any material there narrows the full
+    cavity-width cartridge path even when its installed pose happens not to intersect it."""
     bay = shell.pump_bay
     if not bay:
         return None
-    bx0, bx1, bay_top = bay
-    r = _enc.column_round
-    y_land = _enc.front_plane_y + _enc._column_along()
-    # BETWEEN the storey's own ends and not on them. The seam's cap closes this corner one
-    # `wall` under the opening's floor and the bay's soffit closes it at the top, and both
-    # stand full to the jamb — so a slab taken ON either plane reads the thing on the far side
-    # of it rather than the post, and one micron of that reaches the whole reading.
-    edge = 1.0
-    z0 = _enc.seam_cap_z() + edge
-    z1 = bay_top - edge
-    probe = 0.05
-    sweep = math.sqrt(2.0 * r * probe)
+    _bx0, _bx1, bay_top = bay
+    z0 = _enc.bay_floor_z(shell.pack.pump_trays)[1] + 0.1
+    z1 = bay_top - 0.1
     ft = pieces["front-top"]
     ft = ft.val() if hasattr(ft, "val") else ft
     rows = []
-    for label, bx, ex, sx in (("X-", bx0, shell.outer[0], -1.0),
-                              ("X+", bx1, shell.outer[1], +1.0)):
-        land = bx + sx * r                       # where the turn meets the opening's end plane
-        keep = _enc._ybox(min(land, ex), max(land, ex), y_land - probe, y_land, z0, z1)
-        full = keep.intersect(ft).Volume() / keep.Volume()
-        lane = _enc._ybox(min(land, bx), max(land, bx), y_land - probe, y_land, z0, z1)
-        got = lane.intersect(ft)
-        face = (got.BoundingBox().xmax if sx < 0 else got.BoundingBox().xmin) \
-            if got.Volume() > 1e-9 else land
-        rows.append((label, full, face, land - sx * sweep))
-    slip = 0.2
-    ok = all(f >= 1.0 - 1e-6 and abs(face - want) <= slip for _l, f, face, want in rows)
+    for label, x_in, sx in (("X-", shell.inner[0], +1.0),
+                            ("X+", shell.inner[1], -1.0)):
+        cusp = x_in + sx * _enc.column_round
+        former = _enc._ybox(min(x_in, cusp), max(x_in, cusp),
+                            shell.inner[2], shell.inner[2] + _enc.column_round, z0, z1)
+        rows.append((label, former.intersect(ft).Volume()))
+    worst = max(volume for _label, volume in rows)
+    ok = worst <= 1e-3
     return record_bound(Bound(
-        "column-face-lands", "The column's turn lands on the flank opening, and the wall "
-        "behind it stands", ok,
-        "; ".join(f"{l} {f * 100:.1f}% solid, face at {face:.3f}" for l, f, face, _w in rows),
-        f"solid to the landing, face within {slip:g} mm of "
-        f"{rows[0][3]:.3f} / {rows[1][3]:.3f}",
-        ([] if ok else
-         [f"{l}: the wall outboard of the landing is {f * 100:.1f}% solid — material taken "
-          f"from it collides with nothing and shows on no other reading"
-          for l, f, _face, _w in rows if f < 1.0 - 1e-6]
-         + [f"{l}: the face stands at {face:.3f} where a turn of {r:g} tangent to "
-            f"y={y_land:g} puts it at {want:.3f}, {abs(face - want):.3f} off"
-            for l, _f, face, want in rows if abs(face - want) > slip])))
+        "pump-columns-open", "The display-support columns leave the pump withdrawal span",
+        ok,
+        f"2 column quadrants probed, most material in the way {worst:.3f} mm³",
+        "no front-top material inside either former column quadrant",
+        [f"{label}: {volume:.3f} mm³ remains in the cartridge path"
+         for label, volume in rows if volume > 1e-3]))
 
 
 def check_cap_stop(pieces, spec) -> Bound:
@@ -2071,34 +2055,43 @@ def check_pump_cartridge_sweep(pieces) -> Bound:
     """Whether the two printed pump cartridge pieces can pass bodily through the front mouth.
 
     A PUMP-HEAD SWEEP IS NOT A DRAWER SWEEP. The head is smaller than the filled block that
-    carries it, and a mouth can clear both heads while a reveal, rounded plan corner or jamb
-    catches the block behind the face. Sweep each piece's complete bounding envelope from its
-    installed aft face through the exterior plane. This is intentionally conservative: every
-    bit of air cut inside the block is treated as material, because the opening owes clearance
-    to the block's outer envelope rather than to its pump voids.
+    carries it, and a mouth can clear both heads while a reveal or fixed guide catches the
+    block behind the face. Translate each actual printed solid from home until its aft face is
+    outside the enclosure, checking at intervals no larger than half the stated running fit.
+    The actual solid matters: the cap's printable side tapers and the cartridge's two fixed-
+    guide notches are exterior passage geometry, not internal voids to fill into a box.
     """
     front = pieces["front-top"]
     front = front.val() if hasattr(front, "val") else front
     y_out = _enc.front_plane_y - _enc.front_wall - 1.0
     rows = []
+    step_max = _enc.bay_face_slip / 2.0
     for name in ("pump-cartridge", "pump-cap"):
         body = pieces[name]
         body = body.val() if hasattr(body, "val") else body
         b = box(body)
-        sweep = _enc._ybox(b.xmin, b.xmax, y_out, b.ymax, b.zmin, b.zmax)
-        rows.append((name, sweep.intersect(front).Volume()))
-    worst = max(v for _name, v in rows)
+        travel = max(0.0, b.ymax - y_out)
+        steps = max(1, math.ceil(travel / step_max))
+        worst, at = 0.0, 0.0
+        for i in range(steps + 1):
+            shift = -travel * i / steps
+            moved = body.moved(cq.Location(cq.Vector(0.0, shift, 0.0)))
+            volume = moved.intersect(front).Volume()
+            if volume > worst:
+                worst, at = volume, shift
+        rows.append((name, steps + 1, worst, at))
+    worst = max(v for _name, _steps, v, _at in rows)
     ok = worst <= 1e-3
     return record_bound(Bound(
         "pump-cartridge-sweep-out",
         "The complete pump cartridge and cap pass through the bay mouth",
         ok,
-        f"{len(rows)} pieces, most in the way {worst:.3f} mm³",
-        "no front-top material in either complete withdrawal envelope",
+        (f"{len(rows)} pieces, {sum(n for _name, n, _v, _at in rows)} motion stations, "
+         f"most in the way {worst:.3f} mm³"),
+        f"no front-top material at motion intervals no larger than {step_max:g} mm",
         ([] if ok else [
-            f"{name} meets {volume:.3f} mm³ of front-top between its installed aft face and "
-            "the exterior — the pump heads can clear while the filled drawer still binds"
-            for name, volume in rows if volume > 1e-3])))
+            f"{name} meets {volume:.3f} mm³ of front-top at y shift {at:.3f} mm"
+            for name, _steps, volume, at in rows if volume > 1e-3])))
 
 
 # What a standing post's annulus may read short by. A post is fused as one cylinder and bored
@@ -8040,7 +8033,7 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     check_plate_carried(pieces, box)
     # And the two posts that storey leaves standing either side of it — a reading of whether
     # section is PRESENT, which every clearance check on this card passes by definition.
-    check_column_face(pieces, box)
+    check_pump_columns_open(pieces, box)
     # And whether the release those figures serve can actually happen — the one reading on
     # this card that asks a body to move rather than asking where it is.
     check_release_travel(pieces, a.pack_solids, box.pack.collet_plate)
