@@ -1,5 +1,5 @@
 {
- "gatesPass": true,
+ "gatesPass": false,
  "size": [
   {
    "id": "enclosure",
@@ -1174,9 +1174,26 @@
    "id": "pump-clamped-in-cradle",
    "label": "Each pump is captured between cradle and top clamp",
    "kind": "gate",
+   "status": "fail",
+   "value": "0/6 case-derived bearing sides whole, least 99.8%",
+   "target": "the complete old-case bearing annulus printed below and above all three closed sides",
+   "detail": [
+    "(+48.6) +X: case-derived probe 64.6 mm\u00b3, cradle 99.8% below, clamp 100.0% above",
+    "(+48.6) -X: case-derived probe 64.6 mm\u00b3, cradle 99.8% below, clamp 100.0% above",
+    "(+48.6) -Y: case-derived probe 129.3 mm\u00b3, cradle 99.8% below, clamp 100.0% above",
+    "(-48.6) +X: case-derived probe 64.6 mm\u00b3, cradle 99.8% below, clamp 100.0% above",
+    "(-48.6) -X: case-derived probe 64.6 mm\u00b3, cradle 99.8% below, clamp 100.0% above",
+    "(-48.6) -Y: case-derived probe 129.3 mm\u00b3, cradle 99.8% below, clamp 100.0% above"
+   ],
+   "active": true
+  },
+  {
+   "id": "cradle-follows-pump-case",
+   "label": "The cradle follows the old pump-case cavity",
+   "kind": "gate",
    "status": "pass",
-   "value": "6/6 closed sides captured, least 473.1 mm\u00b3",
-   "target": "cradle below and clamp above all three closed sides of both brackets",
+   "value": "2/2 exact rooms and sweeps open, outlet room 70.800 mm for 69.550 mm required; most bite 0.000 mm\u00b3",
+   "target": "the old case's asymmetric cavity and nonzero drop sweep wholly empty, with at least the measured fitting span plus 0.15 mm per side",
    "detail": [],
    "active": true
   },
@@ -1245,18 +1262,8 @@
    "label": "The cartridge is a large lower cradle with a small top clamp",
    "kind": "gate",
    "status": "pass",
-   "value": "cradle 88.5% of printed volume, 113.6 mm high; clamp 24.0 mm",
+   "value": "cradle 87.3% of printed volume, 113.6 mm high; clamp 24.0 mm",
    "target": "one solid each, the cradle a majority of volume and carrying the full-height face",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "pump-cartridge-full-front-wall",
-   "label": "The cradle owns the full-width front wall with no side taper",
-   "kind": "gate",
-   "status": "pass",
-   "value": "x -107.500..107.500; missing 0.000 mm\u00b3; fixed front-top 0.000 mm\u00b3",
-   "target": "x -107.500..107.500, full stock z 167.365..280.495, and no fixed front-top in that band",
    "detail": [],
    "active": true
   },
@@ -1345,10 +1352,13 @@
    "id": "pumps-drop-into-cradle",
    "label": "Both pumps drop vertically into the lower cradle",
    "kind": "gate",
-   "status": "pass",
-   "value": "2 pumps, 912 stations, most in the way 0.000 mm\u00b3",
+   "status": "fail",
+   "value": "2 pumps, 934 stations, most in the way 0.253 mm\u00b3",
    "target": "pump, bracket and 69.55 mm fitting span clear every 0.25 mm or less",
-   "detail": [],
+   "detail": [
+    "pump-a-head meets 0.253 mm\u00b3 of cradle at z shift 7.234 mm",
+    "pump-b-head meets 0.253 mm\u00b3 of cradle at z shift 17.961 mm"
+   ],
    "active": true
   },
   {
@@ -1376,7 +1386,7 @@
    "label": "The cradle's aft face lands on the collet plate",
    "kind": "gate",
    "status": "pass",
-   "value": "3799.2 mm\u00b2 on the steel, 0.000 mm\u00b3 inside the kiss",
+   "value": "2350.1 mm\u00b2 on the steel, 0.000 mm\u00b3 inside the kiss",
    "target": "the cradle's face on the plate's and `cap_kiss` 0.1 mm of air at it",
    "detail": [],
    "active": true
@@ -1758,8 +1768,8 @@
    "active": true
   },
   {
-   "id": "pump-bay-cavity-throat",
-   "label": "The pump bay throat reaches both cavity side planes",
+   "id": "pump-bay-full-width",
+   "label": "The pump bay reaches both side-wall interior planes",
    "kind": "gate",
    "status": "pass",
    "value": "bay x -104.500..104.500, cavity x -104.500..104.500",
