@@ -1520,14 +1520,14 @@ def collet_plate_spec(mcarry, tray_stations) -> dict:
     # fore face, so the two are one figure and cannot be struck apart. What the wall reads is
     # the arm the tee carries through it. `CAP_NEAR` is where the collar the bore journals on
     # begins, so the wall must reach past that at rest or a bore holds nothing — and
-    # `collar_in_y` is that station in the world, which is where the BORE STEPS. Fore of it the
-    # bore takes the collar, which is what it journals. Aft of that station the collar-clear
-    # opening continues everywhere except for two bed-rooted side pads, each one wall wide and
-    # deep; their inner faces are the exact arm passage (`ARM_R` plus its stated air). The
-    # purchased collar lands on those two broad columns instead of on a thin complete annulus.
-    # They are the tee's AFT stop, and cost the release nothing because release travels the
-    # other way. A tube pushed into a branch collet therefore seats against printed backing
-    # instead of moving the tee out of its path.
+    # `collar_in_y` is that nominal station in the world. The collar-clear opening continues
+    # through it everywhere except for two bed-rooted side pads, each one wall wide and deep;
+    # their inner faces are the exact arm passage (`ARM_R` plus its stated air). The pads begin
+    # `tee_stop_pad_setback` aft of that plane so the harvested connector's real collar/arm
+    # blend clears them over the whole release. The purchased collar then lands on those two
+    # broad columns. They are the tee's AFT stop, and cost the release nothing because release
+    # travels the other way. A tube pushed into a branch collet therefore seats against printed
+    # backing instead of moving the tee out of its path.
     #
     # THE WALL DOES NOT RESTRAIN THE TEE ALONG ITS OWN AXIS, and its aft face is struck so
     # that it cannot. A tee travels WITHIN this wall: the collar runs in its bore and the
@@ -1578,8 +1578,9 @@ def collet_plate_spec(mcarry, tray_stations) -> dict:
             "arm_bore_r": arm_bore_r,
             "stop_pad_depth": _enc.tee_stop_pad_depth,
             "stop_pad_width": _enc.tee_stop_pad_width,
+            "stop_pad_setback": _enc.tee_stop_pad_setback,
             "stop_collar_bite": round(tee.BARREL_R - arm_bore_r, 6),
-            "stop_release_side_air": round(arm_bore_r - tee.HALF_W, 6),
+            "stop_release_side_air": round(arm_bore_r - tee.ARM_R, 6),
             "stroke": round(stroke, 6),
             "stroke_ceiling": round(PLATE_REST_GAP + tee.COLLET_PROUD, 6)}
 
@@ -1899,13 +1900,15 @@ def check_insertion_backing(pieces, placed, spec) -> Bound:
             bad.append(tee)
     pad_depth = spec["stop_pad_depth"]
     pad_width = spec["stop_pad_width"]
+    pad_setback = spec["stop_pad_setback"]
     collar_bite = spec["stop_collar_bite"]
     release_air = spec["stop_release_side_air"]
     section_ok = (pad_depth >= _enc.wall - 1e-9
                   and pad_width >= _enc.wall - 1e-9
                   and collar_bite > 0.0
                   and release_air > 0.0)
-    detail = [f"pads {pad_width:.3f} mm wide x {pad_depth:.3f} mm deep; "
+    detail = [f"pads {pad_width:.3f} mm wide x {pad_depth:.3f} mm deep, "
+              f"set back {pad_setback:.3f} mm; "
               f"collar bite {collar_bite:.4f} mm; release-side air {release_air:.4f} mm"]
     if not section_ok:
         detail.append("PAD SECTION FAIL — the insertion stop lacks a complete wall load path "
@@ -2284,10 +2287,10 @@ def check_cartridge_architecture(pieces) -> Bound:
 def check_cartridge_full_front_wall(pieces, shell) -> Bound:
     """Whether the cradle owns the complete untapered front wall and both former side skins.
 
-    The front-wall target stops one clamp-drop clearance fore of `pump_relief_floor`, before
-    either pump well begins. The two side targets stop before either hand pocket. They describe
-    only material assigned to the full-width, full-height cradle: no pump opening, grip,
-    guide notch or horizontal running clearance is counted as missing stock."""
+    The front-wall target stops at the intentional upper pump/clamp well's foremost Y face.
+    The two side targets stop before either hand pocket. They describe only material assigned
+    to the full-width, full-height cradle: no pump opening, grip, guide notch or horizontal
+    running clearance is counted as missing stock."""
     cradle = pieces.get("pump-cartridge")
     fixed = pieces.get("front-top")
     if cradle is None or fixed is None:
@@ -2300,12 +2303,14 @@ def check_cartridge_full_front_wall(pieces, shell) -> Bound:
     edge = _enc._cap_x_span(bay)[1]
     y1 = _enc._block_aft(shell.pack.collet_plate) - _enc.pull_aft
     y0 = y1 - _enc.pull_run
+    front_aft = (min(cy - _tray.half_width()
+                     for _cx, cy, _cz in shell.pack.pump_trays)
+                 - _enc.clamp_drop_air)
 
     silhouette = _enc._rounded_outer(_enc._pump_cartridge_outer(outer))
     front = silhouette.intersect(_enc._ybox(
         -edge - 1.0, edge + 1.0, _enc.pump_cartridge_front_y - 1.0,
-        _enc.pump_relief_floor - _enc.clamp_drop_air,
-        z0, z1))
+        front_aft, z0, z1))
     side = silhouette.intersect(
         _enc._ybox(-edge - 1.0, inner[0], _enc.pump_cartridge_front_y - 1.0, y0, z0, z1)
         .fuse(_enc._ybox(inner[1], edge + 1.0,
