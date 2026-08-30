@@ -279,15 +279,14 @@ def _tie_reliefs(box):
     raw = structural_stock()
     pockets = []
     if meter_anchors:
-        x_axis, z_axis, seat_r, bands = meter_anchors
+        x_axis, _z_axis, seat_r, bands = meter_anchors
         reach = seat_r + _enc.flow_meter_anchor_wall + _enc.tie_cav_buffer
-        crown = z_axis + seat_r + _enc.wall
         for by0, by1 in bands:
             mid = (by0 + by1) / 2.0
             tie = _slab(
                 x_axis - reach, x_axis + reach,
                 mid - _enc.tie_cav_w / 2.0, mid + _enc.tie_cav_w / 2.0,
-                crown, underside_z + 0.1)
+                structural_under_z - 0.1, underside_z + 0.1)
             if raw.intersect(tie).Volume() > 1e-6:
                 pockets.append(tie)
     for mid, u, n, seat_r in ribs:
