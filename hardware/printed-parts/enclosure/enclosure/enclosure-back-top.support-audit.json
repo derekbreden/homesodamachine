@@ -1,16 +1,31 @@
 {
   "coordinate_frame": {
+    "plate_to_cad_transform": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      -165.0,
+      173.5,
+      160.0
+    ],
     "plate_to_cad_translation_mm": [
       -165.0,
       173.5,
       160.0
-    ]
+    ],
+    "replacement_mesh_bed_reseat_mm": 0.0
   },
   "inputs": {
     "gcode": "plate_1.gcode",
-    "gcode_sha256": "3b2fa97a2f0fabf02e13c86ef4e07f753590381e7078f473399efd40b96f7388",
+    "gcode_sha256": "6dbfc357b8e788436ae8b2a9cd32f717400c60508b96f609edba35bd4f5dcc90",
     "model": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
-    "model_sha256": "ab6f2226fe03af87c24a9d2620687c803f6c03e3357be7b282deb7aad4994bc4",
+    "model_sha256": "a170890b52686a32eeac06c832c3f7974b1b5916a6569ecc29b8b617677874f6",
     "profile": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top-petgf.3mf",
     "profile_sha256": "bc245255d23536df28e124935975c0fb93c9e38d163dafd1cb12051c1fc89ff6"
   },
