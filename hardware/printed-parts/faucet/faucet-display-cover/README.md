@@ -95,20 +95,30 @@ head wall the cradle already had.
   plate down onto the shell's land and keep it from sliding back off the hook.
   The skirt bottoms on the land before the bezel touches the device.
 
-## It prints face down
+## It prints standing on the tip end
 
-The outer face lies on the bed and every step in the body faces up from there —
-the skirt, the riser, the bezel's underside. Two features hang: the annular
-ledge at the counterbore, [1.125 mm](CBORE_LEDGE) wide, which bridges; and the
-toe's top face, [1.86 mm](HOOK_LAP) of ledge off the riser, which is the face
-that bears up against the roof. It is flat rather than ramped on purpose — a
+The tip-end face is the bed — [201 mm²](BED_AREA) over one face — and the outer
+face rises from it as a [905 mm²](SHOW_AREA) wall, so the show surface carries
+no support scars, and the counterbore's ledge and the bezel's underside stand
+as walls beside it. Every face that hangs looks down the gooseneck:
+
+| s | face | support |
+|---|---|---|
+| [52.59 mm](POCKET_S_TOP) | the pocket's north ceiling | the one tall tower the print needs |
+| [50.34 mm](WINDOW_S_NORTH) | the window's north wall | the window slot's own |
+| [3.72 mm](STEM_S0) | the riser's south face | filmed by the pocket tower it adjoins |
+| [2.01 mm](HOOK_S0) | the toe's south face | the same tower's foot |
+
+The two short faces would read as defects by the enclosure's support numbers —
+under 5 mm, in the hook's crevice — and cost nothing here: their films grow
+from the same connected void as the pocket's tower, and one pull on the tower
+takes them out with it. The toe's top face stays flat rather than ramped — a
 ramp there would let the hook cam out under the screw's own shank clearance.
 The shell pays nothing for the matching face: the roof's underside looks straight
 down the cradle's normal, which in the tip's print orientation is
 [35°](MAX_PRINT_OVERHANG), the same its swept flanks carry.
-Bed face: [905 mm²](BED_AREA) over one face, which
-`faucet_display_cover.py selftest` checks by measuring the built solid rather
-than arguing from these figures.
+`faucet_display_cover.py selftest` measures the show face and the bed face off
+the built solid rather than arguing from these figures.
 
 Same spool as the shell it sits on — Polymaker Fiberon PET-GF15 black
 ([bom.md §7](/hardware/ledger/bom.md)).
