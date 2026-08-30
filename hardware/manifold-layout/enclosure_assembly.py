@@ -1552,12 +1552,13 @@ def collet_plate_spec(mcarry, tray_stations) -> dict:
     # the arm the tee carries through it. `CAP_NEAR` is where the collar the bore journals on
     # begins, so the wall must reach past that at rest or a bore holds nothing — and
     # `collar_in_y` is that station in the world, which is where the BORE STEPS. Fore of it the
-    # bore takes the collar, which is what it journals; aft of it the bore takes the ARM alone,
-    # `ARM_R` being what the tee stands between its collar and its body. The collar cannot pass
-    # into the smaller of the two, so it lands on the ring between them, and that ring is the
-    # tee's AFT stop. It costs the release nothing, the release travelling the other way. It is
-    # the stop this machine has never had: a tube pushed into a branch collet pushes the tee
-    # AFT, and until now nothing took that push but friction.
+    # bore takes the collar, which is what it journals. Aft of that station the collar-clear
+    # opening continues everywhere except for two bed-rooted side pads, each one wall wide and
+    # deep; their inner faces are the exact arm passage (`ARM_R` plus its stated air). The
+    # purchased collar lands on those two broad columns instead of on a thin complete annulus.
+    # They are the tee's AFT stop, and cost the release nothing because release travels the
+    # other way. A tube pushed into a branch collet therefore seats against printed backing
+    # instead of moving the tee out of its path.
     #
     # THE WALL DOES NOT RESTRAIN THE TEE ALONG ITS OWN AXIS, and its aft face is struck so
     # that it cannot. A tee travels WITHIN this wall: the collar runs in its bore and the
@@ -1594,6 +1595,7 @@ def collet_plate_spec(mcarry, tray_stations) -> dict:
     tee = ml.tee
     branch_face = faces[0]
     stroke = PLATE_REST_GAP + PLATE_LOST_MOTION + _jgu.COLLET_TRAVEL
+    arm_bore_r = round(tee.ARM_R + TEE_WALL_ARM_SLIP / 2.0, 6)
     return {"holes": tuple(sorted(holes)),
             "aft_y": round(aft, 6), "fore_y": round(aft - PLATE_T, 6),
             "z0": round(z0, 6), "z1": z1,
@@ -1604,7 +1606,11 @@ def collet_plate_spec(mcarry, tray_stations) -> dict:
             "collar_in_y": round(branch_face + tee.BRANCH_REACH - tee.CAP_NEAR, 6),
             "collar_r": tee.BARREL_R,
             "bore_r": round(tee.BARREL_R + TEE_WALL_BORE_SLIP, 6),
-            "arm_bore_r": round(tee.ARM_R + TEE_WALL_ARM_SLIP / 2.0, 6),
+            "arm_bore_r": arm_bore_r,
+            "stop_pad_depth": _enc.tee_stop_pad_depth,
+            "stop_pad_width": _enc.tee_stop_pad_width,
+            "stop_collar_bite": round(tee.BARREL_R - arm_bore_r, 6),
+            "stop_release_side_air": round(arm_bore_r - tee.HALF_W, 6),
             "stroke": round(stroke, 6),
             "stroke_ceiling": round(PLATE_REST_GAP + tee.COLLET_PROUD, 6)}
 
@@ -1896,11 +1902,13 @@ def check_insertion_backing(pieces, placed, spec) -> Bound:
     (The tee is a harvested solid and states no insertion depth of its own; the figure named
     here is the concept, not another fitting's constant.)
 
-    What backs it is the step in the wall's own bore (`enclosure._tee_bore`): fore of the
-    collar's rest station the bore takes the collar, aft of it only the narrower arm, and the
-    collar lands on the ring between. So this bound wants each tee STOPPED rather than free —
-    a reading of zero here is the pass, and travel is the failure. It is the one bound on this
-    card whose success is an interference."""
+    What backs it is the pair of bed-rooted side pads in the wall's own bore
+    (`enclosure._tee_stop_pads`): their inner faces follow the narrower arm passage and the
+    collar lands on their small radial bite. The existing solid reading proves the stop; the
+    arithmetic here also requires each load path to keep one complete wall of width and depth.
+    So this bound wants each tee STOPPED rather than free — a reading of zero here is the pass,
+    and travel is the failure. It is the one bound on this card whose success is an
+    interference."""
     probe = spec["stroke"]
     solids = {n: (q.val() if hasattr(q, "val") else q) for n, q in pieces.items()}
     rows, bad = [], []
@@ -1920,15 +1928,31 @@ def check_insertion_backing(pieces, placed, spec) -> Bound:
         rows.append((tee, name, worst, into))
         if worst <= 1e-6:
             bad.append(tee)
+    pad_depth = spec["stop_pad_depth"]
+    pad_width = spec["stop_pad_width"]
+    collar_bite = spec["stop_collar_bite"]
+    release_air = spec["stop_release_side_air"]
+    section_ok = (pad_depth >= _enc.wall - 1e-9
+                  and pad_width >= _enc.wall - 1e-9
+                  and collar_bite > 0.0
+                  and release_air > 0.0)
+    detail = [f"pads {pad_width:.3f} mm wide x {pad_depth:.3f} mm deep; "
+              f"collar bite {collar_bite:.4f} mm; release-side air {release_air:.4f} mm"]
+    if not section_ok:
+        detail.append("PAD SECTION FAIL — the insertion stop lacks a complete wall load path "
+                      "or enters the released tee's side envelope")
     return record_bound(Bound(
         "insertion-backing", "An anchor tee is backed against the push that seats its tube",
-        not bad,
-        f"{len(rows) - len(bad)}/{len(rows)} tees stopped going aft",
-        "every anchor tee landing on printed material before it can travel aft",
-        [f"{t:5} {n:14} " + (f"backed by {i}, {v:9.1f} mm3 at {probe:.3f} mm"
-                             if v > 1e-6 else
-                             "FREE — nothing takes the tube's own insertion push")
-         for t, n, v, i in rows]))
+        not bad and section_ok,
+        f"{len(rows) - len(bad)}/{len(rows)} tees stopped going aft; "
+        f"{pad_width:.3f} x {pad_depth:.3f} mm side pads",
+        "every anchor tee landing on printed material before it can travel aft, on two "
+        f"side pads at least {_enc.wall:g} mm wide and deep",
+        detail + [f"{t:5} {n:14} " +
+                  (f"backed by {i}, {v:9.1f} mm3 at {probe:.3f} mm"
+                   if v > 1e-6 else
+                   "FREE — nothing takes the tube's own insertion push")
+                  for t, n, v, i in rows]))
 
 
 def check_plate_carried(pieces, shell) -> Bound:
