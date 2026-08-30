@@ -63,7 +63,9 @@ which is upward on the printer.
 Three anchor zip-tie approaches enter the deeper field: the two DIGITEN bands
 and the WR1110 barrel's run. Their existing footprints are returned as
 [3](TIE_RELIEF_N) local pockets before the anchor furniture is fused, so every
-loop can still descend on both sides of its body. `tie-channels` reads all ten
+loop can still descend on both sides of its body. The two new meter approaches
+open through the structural underside rather than ending as trapped internal
+cavities; the finished panel is one solid with one outer shell. `tie-channels` reads all ten
 finished tie paths against all enclosure pieces and requires 0% filled; the
 panel-section gate separately requires all three approach pockets to leave real
 air in the grown field.
