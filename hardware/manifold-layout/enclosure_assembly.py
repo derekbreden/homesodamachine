@@ -1446,8 +1446,8 @@ def check_trays_hold(pieces: dict, placed: dict) -> Bound:
 # and aft over the floor's whole section, and its own TOP EDGE lands wall to wall on the
 # wall over it (`enclosure._plate_cap`), which is what stops it going in. IT GOES IN THROUGH FRONT-TOP'S OWN Z− FACE, the
 # seam plane the piece beds on, before the front column closes. Its ends stand
-# `enclosure.plate_step_in` off the side walls at every height — the band the Z seam's joint
-# takes down each flank over the whole of the front slide. Four holes pass
+# `enclosure.plate_step_in` off the cavity-side walls at every height, leaving a continuous
+# printed return beyond the insertion slot. Four holes pass
 # the barb tubes and nothing wider. Pull the pump cartridge and the gripped tubes drag the tees
 # forward
 # until each collet's nose lands on the steel — the body keeps coming, the nose is held,
@@ -1486,17 +1486,14 @@ def collet_plate_spec(mcarry, tray_stations) -> dict:
     (`enclosure._plate_fore_guides`).
 
     ACROSS IT IS ONE WIDTH, AND IT IS A RECTANGLE. Each end stands `enclosure.plate_step_in`
-    off its side wall at EVERY height, because the plate rides in front-top through the whole
-    of the front column's slide and the band `rail_reach_in` off each flank belongs to the
-    joint — groove, arm and head — down the whole of that travel. Held off by the deepest thing
-    it ever passes, it is held off by that everywhere, and then there is nothing to step.
+    off its cavity-side wall at EVERY height: one `plate_slot_slip` of cutting air and one
+    `plate_end_stock` printed return. The plate enters on Z through front-top's bed face and
+    the slot keeps this same X span throughout; the front-column rail run begins aft of the
+    tee wall and does not consume the plate's tail width.
 
     SO THE PART HAS NO NOTCH IN IT AT ALL. What stops it is its own TOP EDGE, landing wall to
-    wall on `enclosure._plate_cap`'s land, so nothing else has to be a stop; the slot through
-    the bay floor is one width, and its two ends are what locate the steel across. Running the
-    ends wider over `seam_cap_z` bought nothing to be located BY — the flank there is opened
-    whole by `enclosure._bay_cut` and the steel reached into the opening. The laser
-    cuts four corners and four holes."""
+    wall on `enclosure._plate_cap`'s land, while the slot's two constant ends locate it in X
+    from mouth to cap. The laser cuts four corners and four holes."""
     holes, faces = [], []
     for t in sorted(ml.BARB_OF):
         (px, py, pz), _axis = mcarry(ml.branch_port(t))
