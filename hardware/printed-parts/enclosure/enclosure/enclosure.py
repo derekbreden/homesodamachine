@@ -5031,10 +5031,10 @@ def _pump_drop_voids(box):
     split = cap_split_z(trays)
     top = box.pump_bay[2] + 1.0
     collar = _tray.half_width() + clamp_drop_air
+    lower_source = _tray.drop_well(cap_pump_air).val()
     out = []
     for cx, cy, cz in trays:
-        lower = _tray.drop_well(cap_pump_air).val().moved(
-            cq.Location(cq.Vector(cx, cy, cz)))
+        lower = lower_source.moved(cq.Location(cq.Vector(cx, cy, cz)))
         outlet_face = cy + _tray.head_half - _tray.outlet_relief
         sill = cz - _tray.head_depth + _tray.outlet_relief_run
         fittings = _ybox(cx - cap_slot_half, cx + cap_slot_half,

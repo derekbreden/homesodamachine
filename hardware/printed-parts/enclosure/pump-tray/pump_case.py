@@ -108,6 +108,12 @@ cutter_half_extent = max(case_outer_x, case_outer_y) / 2 + 5.0
 # Slop added to cut depths so they pierce cleanly through sibling solid
 # boundaries.
 overcut = 0.1
+# Largest Z interval between sections carried into the pump's vertical insertion sweep. The
+# asymmetric seam walks in X and Y between its stated loft levels, so the two endpoint outlines
+# alone do not contain every interpolated section. This is also the enclosure assembly's largest
+# interval between physical insertion probes; with 0.4 mm running air it leaves more clearance
+# than the largest lateral chord between samples.
+drop_sweep_step = 0.25
 # Polygonization count per quarter-circle for round-corner profiles.
 arc_segments = 8
 
@@ -597,15 +603,16 @@ def drop_well(air=0.0):
     Every station stands at least as open as the widest one under it: 70.0 mm from the flared
     outlet band up through the crown, and `cavity`'s own figure below that band.
 
-    THE SWEEP IS EACH LEVEL'S OWN OUTLINE CARRIED UP TO THE CROWN. `_stack_levels` is every Z
-    the cavity states a section on and `_stack_profiles` the outline standing there; a prism of
-    each, run from its own level to the crown, unions to the swept volume. The loft between two
-    levels interpolates every coordinate monotonically, so each section between them already
-    lies inside the union of the two — the stated levels are the whole of it.
+    THE SWEEP IS EACH OUTLINE CARRIED UP TO THE CROWN. `_stack_levels` is every Z the cavity
+    states a section on and `_stack_profiles` the outline standing there. Where adjacent
+    outlines differ, `_drop_sweep_sections` also carries their ruled interpolation at no more
+    than `drop_sweep_step` intervals. That intermediate section matters at the diagonal seam:
+    its vertices walk sideways as well as inward, and the union of the two endpoint prisms
+    leaves a pair of small crescent gaps that a real head catches on while being lowered.
 
     `cavity`'s fitted faces stand under their own bands and this leaves them there."""
     solid = cavity(air)
-    for z, profile in zip(_stack_levels(), _stack_profiles(skirt_wall - air)):
+    for z, profile in _drop_sweep_sections(skirt_wall - air):
         if z >= -1e-9:
             continue
         # Struck the way `loft_profile_stack` strikes the same outlines: a profile is stated
@@ -614,6 +621,31 @@ def drop_well(air=0.0):
             WorldWorkplane(xy_plane_z_up).workplane(offset=z).center(center_x, center_y)
             .polyline(profile).close().extrude(-z))
     return solid
+
+
+def _drop_sweep_sections(offset):
+    """Every stated and interpolated profile the vertical insertion sweep carries upward.
+
+    `loft_profile_stack(..., ruled=True)` linearly interpolates corresponding vertices. A
+    constant pair needs only its shared endpoint. A changing pair is sampled at a maximum
+    `drop_sweep_step` in Z, which bounds the unsampled lateral chord below the head's running
+    air and matches the independent assembly motion proof's interval."""
+    levels = _stack_levels()
+    profiles = _stack_profiles(offset)
+    out = list(zip(levels, profiles))
+    for za, zb, pa, pb in zip(levels, levels[1:], profiles, profiles[1:]):
+        if pa == pb:
+            continue
+        count = max(1, math.ceil(abs(zb - za) / drop_sweep_step))
+        for i in range(1, count):
+            t = i / count
+            out.append((
+                za + (zb - za) * t,
+                [((1.0 - t) * a[0] + t * b[0],
+                  (1.0 - t) * a[1] + t * b[1])
+                 for a, b in zip(pa, pb)],
+            ))
+    return sorted(out, key=lambda item: item[0], reverse=True)
 
 
 def _stack_levels():

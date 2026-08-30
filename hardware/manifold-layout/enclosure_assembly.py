@@ -72,6 +72,7 @@ Run it
 """
 
 import collections
+import functools
 import math
 import os
 import sys
@@ -1271,13 +1272,27 @@ def pump_tray_plans(a=None, shell=None) -> dict:
             for head, (_axis, _sign, centre) in pump_tray_seats(placed).items()}
 
 
+@functools.lru_cache(maxsize=None)
+def _pump_case_room_source(air: float, swept: bool):
+    """One case-derived pump room in the pump frame, built once per clearance."""
+    room = _tray.drop_well(air) if swept else _tray.head_room(air)
+    return room.val() if hasattr(room, "val") else room
+
+
+def _pump_case_room(station, air: float, swept: bool):
+    """One case-derived pump room carried onto an assembly station."""
+    return _pump_case_room_source(air, swept).moved(
+        cq.Location(cq.Vector(*station)))
+
+
 def check_pump_capture(pieces: dict, placed: dict) -> Bound:
     """Whether every pump bracket is between the lower cradle and the top clamp.
 
     The stamped bracket is stated but not drawn by `kamoer_kphm400`. Its 68.6 mm square stands
-    proud of the 62.61 mm head at the head-to-boss plane. The cradle's lower well clears the
-    head and leaves the annulus under the bracket; the clamp collar begins above the same plane
-    and covers that annulus. Probe both printed pieces on the three closed sides of each pump.
+    proud of the case-derived head room at the head-to-boss plane. The cradle's lower well
+    leaves the exact difference between that room and the bracket as a bearing annulus; the
+    clamp collar begins above the same plane and covers that annulus. Probe both printed pieces
+    on the three closed sides of each pump.
 
     The +Y side is the fitting side and remains open through the vertical drop path. The other
     three sides carry the pump weight and the clamp load as an opposed pair."""
@@ -1291,31 +1306,76 @@ def check_pump_capture(pieces: dict, placed: dict) -> Bound:
     cradle = cradle.val() if hasattr(cradle, "val") else cradle
     stations = tuple(c for _h, (_a, _s, c) in sorted(pump_tray_seats(placed).items()))
     split = _enc.cap_split_z(stations)
-    inner = _tray.head_half + _enc.cap_pump_air
     outer = _tray.bracket_half
-    rows, worst = [], None
+    probe_t = 0.5
+    probe_gap = 0.01
+    rows, worst = [], 1.0
     for cx, cy, _cz in stations:
+        room = _pump_case_room((cx, cy, split), _enc.cap_pump_air, swept=True)
         for name, plan in (
-                ("+X", (cx + inner, cx + outer, cy - inner, cy + inner)),
-                ("-X", (cx - outer, cx - inner, cy - inner, cy + inner)),
-                ("-Y", (cx - inner, cx + inner, cy - outer, cy - inner))):
-            under = _enc._ybox(plan[0], plan[1], plan[2], plan[3],
-                               split - _enc.wall, split)
-            over = _enc._ybox(plan[0], plan[1], plan[2], plan[3],
-                              split + _tray.bracket_t,
-                              split + _tray.bracket_t + _tray.PLATE)
-            lower = cradle.intersect(under).Volume()
-            upper = clamp.intersect(over).Volume()
-            least = min(lower, upper)
-            worst = least if worst is None else min(worst, least)
-            rows.append((f"({cx:+.1f}) {name}", lower, upper))
-    bad = [r for r in rows if min(r[1:]) <= 0.0]
+                ("+X", (cx, cx + outer, cy - outer, cy)),
+                ("-X", (cx - outer, cx, cy - outer, cy)),
+                ("-Y", (cx - outer, cx + outer, cy - outer, cy))):
+            under = _enc._ybox(
+                plan[0], plan[1], plan[2], plan[3],
+                split - probe_gap - probe_t, split - probe_gap).cut(room)
+            expected = under.Volume()
+            over = under.moved(cq.Location(cq.Vector(
+                0.0, 0.0, probe_t + _tray.bracket_t + 2.0 * probe_gap)))
+            lower = cradle.intersect(under).Volume() / expected if expected > 0.0 else 0.0
+            upper = clamp.intersect(over).Volume() / expected if expected > 0.0 else 0.0
+            worst = min(worst, lower, upper)
+            rows.append((f"({cx:+.1f}) {name}", expected, lower, upper))
+    bad = [r for r in rows if r[1] <= 1e-6 or min(r[2:]) < 0.999]
     return record_bound(Bound(
         "pump-clamped-in-cradle", "Each pump is captured between cradle and top clamp", not bad,
-        f"{len(rows) - len(bad)}/{len(rows)} closed sides captured, least {worst:.1f} mm³",
-        "cradle below and clamp above all three closed sides of both brackets",
-        [f"{who}: cradle {lower:.1f} mm³ below, clamp {upper:.1f} mm³ above"
-         for who, lower, upper in bad]))
+        f"{len(rows) - len(bad)}/{len(rows)} closed sides captured, least {100.0 * worst:.2f}%",
+        "the complete exact bearing mask in cradle below and clamp above all three closed sides",
+        [f"{who}: {area:.1f} mm³ mask, cradle {100.0 * lower:.2f}%, "
+         f"clamp {100.0 * upper:.2f}%"
+         for who, area, lower, upper in bad]))
+
+
+def check_pump_case_room(pieces: dict, placed: dict) -> Bound:
+    """Whether the cradle cuts the old case's fitted room and complete insertion sweep.
+
+    The fitted room is not the pump head's nominal square: it carries the old case's rounded,
+    asymmetric sections and reaches 70 mm across at the outlet band. The swept room carries
+    each of those sections upward, which is the physical envelope a head occupies while it is
+    lowered into the cradle."""
+    cradle = pieces.get("pump-cartridge")
+    if cradle is None:
+        return record_bound(Bound(
+            "cradle-follows-pump-case", "The cradle follows the old pump case's fitted room",
+            True, "no pump cradle in this box", "the exact fitted and swept rooms open", []))
+    cradle = cradle.val() if hasattr(cradle, "val") else cradle
+    stations = tuple(c for _h, (_a, _s, c) in sorted(pump_tray_seats(placed).items()))
+    fitted_source = _pump_case_room_source(_enc.cap_pump_air, False)
+    swept_source = _pump_case_room_source(_enc.cap_pump_air, True)
+    width = box(fitted_source).xlen
+    required = 2.0 * _enc.cap_slot_half
+    extra = swept_source.cut(fitted_source).Volume()
+    rows = []
+    for station in stations:
+        fitted = _pump_case_room(station, _enc.cap_pump_air, swept=False)
+        swept = _pump_case_room(station, _enc.cap_pump_air, swept=True)
+        rows.append((station[0], cradle.intersect(fitted).Volume(),
+                     cradle.intersect(swept).Volume()))
+    clean = [row for row in rows if max(row[1:]) <= 1e-3]
+    ok = len(clean) == len(rows) and width >= required - 1e-9 and extra > 1e-3
+    return record_bound(Bound(
+        "cradle-follows-pump-case", "The cradle follows the old pump case's fitted room", ok,
+        (f"{len(clean)}/{len(rows)} exact rooms/sweeps open, outlet width {width:.3f} mm; "
+         f"sweep adds {extra:.1f} mm³"),
+        f"zero cradle bite and at least the {required:.3f} mm fitting opening",
+        ([f"pump x {cx:+.1f}: fitted room bite {fitted:.6f} mm³, "
+          f"swept room bite {swept:.6f} mm³"
+          for cx, fitted, swept in rows if max(fitted, swept) > 1e-3]
+         + ([] if width >= required - 1e-9 else [
+             f"the case-derived outlet room is {width:.3f} mm across, "
+             f"{required - width:.3f} mm short of the fitting opening"])
+         + ([] if extra > 1e-3 else [
+             "the insertion room is only the seated cavity; no vertical sweep was added"]))))
 
 
 def check_cap_passes_tubes(pieces: dict, placed: dict, plate: dict) -> Bound:
@@ -2109,9 +2169,10 @@ def _pump_bracket(station):
 
 
 def _pump_drop_probe(head, placed, station, plate):
-    """One pump's drawn bodies plus the bracket and fitting gauges its model omits."""
-    names = (head, head.replace("-head", "-boss"), head.replace("-head", "-motor"))
-    bodies = [placed[name] for name in names]
+    """One pump's case-sized head plus its drawn boss, motor, bracket and fittings."""
+    names = (head.replace("-head", "-boss"), head.replace("-head", "-motor"))
+    bodies = [_pump_case_room(station, 0.0, swept=False),
+              *(placed[name] for name in names)]
     cx, cy, cz = station
     bracket = _pump_bracket(station)
     outlet_face = cy + _tray.head_half - _tray.outlet_relief
@@ -2171,10 +2232,13 @@ def check_clamp_drops_on(pieces, placed) -> Bound:
             "no pump cartridge in this box", "the clamp's complete Z sweep clear", []))
     clamp = clamp.val() if hasattr(clamp, "val") else clamp
     cradle = cradle.val() if hasattr(cradle, "val") else cradle
+    stations = pump_tray_seats(placed)
     pumps = [solid for name, solid in placed.items()
-             if name.startswith("pump-") and name.endswith(("-head", "-boss", "-motor"))]
+             if name.startswith("pump-") and name.endswith(("-boss", "-motor"))]
+    pumps.extend(_pump_case_room(station, 0.0, swept=False)
+                 for _head, (_axis, _sign, station) in sorted(stations.items()))
     pumps.extend(_pump_bracket(station)
-                 for _head, (_axis, _sign, station) in sorted(pump_tray_seats(placed).items()))
+                 for _head, (_axis, _sign, station) in sorted(stations.items()))
     travel = box(cradle).zmax - box(clamp).zmin + 1.0
     step_max = _enc.sweep_step_max
     steps = max(1, math.ceil(travel / step_max))
@@ -8529,6 +8593,7 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     # and the load-bearing cradle on the two faces of its stamped bracket.
     check_trays_hold(pieces, a.pack_solids)
     check_pump_capture(pieces, a.pack_solids)
+    check_pump_case_room(pieces, a.pack_solids)
     check_cap_passes_tubes(pieces, a.pack_solids, box.pack.collet_plate)
     # And the one line in that piece a nozzle would otherwise have to begin in air, against the
     # rib built to carry it — a reading of whether a body can be LAID, not of where it stands.
