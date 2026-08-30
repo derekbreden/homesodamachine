@@ -4101,7 +4101,11 @@ def _z_rail_channels(inner, y_joint, zj, col, plate, chase=()):
     standing in it — and nothing aft of the run is left to be swept around, which is
     what lets the run reach its own structural limit instead of a horizon. The
     tongue crosses the seam at full section ABOVE THE GABLE, which is the height the
-    Y telescope actually bears on.
+    Y telescope actually bears on. At the front column's Y/Z crossing the ordinary
+    outboard half-gable cannot stop on the tongue's slipped outer face: that would leave
+    a 0.7 mm wall standing from the bed to the roof. Its complete dependent half rises
+    aft at 45 degrees from the supported Y-joint face instead, opening that remnant and
+    returning the tongue as one printable corbel above it.
     The cut is CLIPPED to `_rail_keep`, so at a corner it
     stops one `wall` inside the exterior round instead of slotting the show skin. The
     channels occupy only the inboard portion of their full-section feet and leave a complete
@@ -4130,6 +4134,30 @@ def _z_rail_channels(inner, y_joint, zj, col, plate, chase=()):
             void = void.fuse(_xz_prism(stop, lane_aft, [
                 (x_open, zj - 1.0), (x_d, zj - 1.0), (x_d, z_roof),
                 (x_peak, z_peak), (x_open, z_roof)]))
+        if col == "front":
+            # THE TWO SEAMS CROSS HERE. Front-top's Y tongue ends one running-fit slip
+            # inside `x_in`, while this channel's standing wall ends at `x_open`; below
+            # the ordinary roof the difference is a free 0.7 mm strip, not a bearing
+            # surface. Open it all the way to `x_in`, whose clip in `_rail_keep` leaves
+            # the complete exterior wall fore of the joint.
+            #
+            # THE OUTBOARD HALF-GABLE COMES WITH IT. That roof formerly grew from the
+            # thin strip, so removing only the strip would leave the gable's first lines
+            # unsupported. Shear the whole dependent half upward one-for-one in Y from
+            # the full wall at `y_joint`. At that root its section is exactly the old
+            # half-gable and strip cap; aft of it every returning line lies on the line
+            # before it. The untouched inboard half keeps its support from its own side.
+            rise = lane_aft - y_joint
+            floor = zj - 1.0 - rise
+            crossing = _xz_prism(y_joint, lane_aft, [
+                (x_peak, floor), (x_in, floor), (x_in, z_roof),
+                (x_open, z_roof), (x_peak, z_peak)])
+            crossing = crossing.transformGeometry(cq.Matrix([
+                [1.0, 0.0, 0.0, 0.0],
+                [0.0, 1.0, 0.0, 0.0],
+                [0.0, 1.0, 1.0, -y_joint],
+            ]))
+            void = void.fuse(crossing)
         void = void.intersect(keep)
         out = void if out is None else out.fuse(void)
     return out
@@ -5312,14 +5340,20 @@ def _plate_slot(inner, plate, z_top):
     return foot.fuse(_ybox(inner[0], inner[1], y0, y1, seat, z_top))
 
 
+tee_stop_pad_depth = wall
+tee_stop_pad_width = wall
+
+
 def _tee_wall(inner, y_joint, plate, bay):
     """THE WALL THE ANCHOR TEES STAND IN: front-top's own section behind the collet plate,
     wall to wall and the whole height of the bay, with one bore per tee.
 
-    A BORE HOLDS ITS TEE ACROSS ITS OWN AXIS AND LEAVES IT FREE ALONG IT. Each arm carries a
-    round collar (`tee_connector.branch_collar`) and the bore closes on that, so a tee is
-    located in X and Z by printed material and free in Y — which is the one direction the
-    release moves it. What a tee otherwise hangs from is the valve butted onto its run, two
+    A BORE HOLDS ITS TEE ACROSS ITS OWN AXIS AND LEAVES IT free along the release direction.
+    Each arm carries a round collar (`tee_connector.branch_collar`), so the wall keeps the
+    collar-clear bore everywhere except for two side pads outside the exact arm passage. The
+    pads are one `wall` wide and one `wall` deep, bed-rooted from the seam plane; their small
+    radial bite stops the purchased collar against an insertion push without making a thin
+    annular diaphragm. What a tee otherwise hangs from is the valve butted onto its run, two
     joints away and answering to a press fit; what it stands in is this.
 
     ITS FORE FACE IS THE STEEL'S AFT FACE, struck once as one figure
@@ -5327,12 +5361,12 @@ def _tee_wall(inner, y_joint, plate, bay):
     bore is stopped at its fore mouth by steel and the collet nose that lands there lands on
     steel and not on plastic.
 
-    ITS AFT FACE STOPS SHORT OF THE TEE, ON PURPOSE. A tee travels WITHIN this wall, and the
-    wall is not allowed to be what ends that travel: the face stands one whole stroke plus
+    ITS BROAD AFT FACE STOPS SHORT OF THE TEE, ON PURPOSE. A tee travels WITHIN this wall, and
+    the wall is not allowed to be what ends that travel: the face stands one whole stroke plus
     `TEE_WALL_BODY_AIR` fore of the tee's own body, so at full release there is still air
-    between the two. Depth past that plane is not the wall's to take — it is the tee's, and a
-    wall standing in it lands the tee's shoulder before the grip has opened. What the wall
-    holds is the collar, across the bore; what stops the tee is the steel, and nothing else.
+    between the two. Only the two narrow side pads continue aft, outside the released body's
+    exact X envelope. The steel stops the tee foreward during release; those pads stop its
+    collar aft during tube insertion.
 
     AND IT IS THE BAY'S BACK. Over the plate's own band the steel closes the bay; above and
     below it nothing does, and the berth the pump cartridge leaves looks into the cavity. This
@@ -5345,6 +5379,8 @@ def _tee_wall(inner, y_joint, plate, bay):
     slab = _ybox(inner[0], inner[1], plate["aft_y"], plate["wall_aft_y"], z_seam, bay[2])
     for hx, hz in plate["holes"]:
         slab = slab.cut(_tee_bore(plate, hx, hz))
+        slab = slab.fuse(_tee_stop_pads(plate, hx, hz))
+        slab = slab.cut(_tee_arm_bore(plate, hx, hz))
     return slab
 
 
@@ -5435,21 +5471,45 @@ def _teardrop_x(r, y, z, x0, x1):
 
 
 def _tee_bore(plate, hx, hz):
-    """One tee's bore through that wall, teardropped (`_teardrop_y`) because this piece beds on
-    the seam plane and a bore on Y lies horizontal in it.
+    """One tee's complete collar-clear bore through the wall and its stop-pad storey.
 
-    AND IT STEPS. Fore of `collar_in_y` it is bored for the COLLAR, which is what it journals;
-    aft of that station for the ARM alone, which is narrower. The collar cannot pass into the
-    smaller bore, so the ring between the two is what the tee rests against — its aft stop, and
-    the reason a tube can be pushed into its branch collet without driving the tee out of the
-    way. The release travels the other direction and never touches it."""
-    y0, y1 = plate["aft_y"] - 1.0, plate["wall_aft_y"] + 1.0
-    cut = None
-    for r, a, b in ((plate["bore_r"], y0, plate["collar_in_y"]),
-                    (plate["arm_bore_r"], plate["collar_in_y"], y1)):
-        part = _teardrop_y(r, hx, hz, a, b)
-        cut = part if cut is None else cut.fuse(part)
-    return cut
+    The old stepped cylinder left only `wall_aft_y - collar_in_y` of annular material behind
+    the collar: 1.666 mm. Carry the large, support-free bore through the complete three-
+    millimetre pad depth instead. `_tee_stop_pads` then restores only two bed-rooted side
+    columns and `_tee_arm_bore` gives their inner faces the exact arm passage."""
+    return _teardrop_y(
+        plate["bore_r"], hx, hz,
+        plate["aft_y"] - 1.0,
+        plate["collar_in_y"] + tee_stop_pad_depth + 1.0)
+
+
+def _tee_stop_pads(plate, hx, hz):
+    """Two exact three-by-three side columns backing one tee's collar.
+
+    Their inner X faces are tangent to the arm passage. Their top is where the collar-clear
+    circle reaches that X, so the complete collar contact is caught without inventing an
+    arbitrary ledge; their feet run to `z_seam`, the bed face of front-top. Each pad is
+    grossed slightly into the final arm cutter so that cutter, not a coincident box face,
+    establishes the finished passage."""
+    y0 = plate["collar_in_y"]
+    y1 = y0 + tee_stop_pad_depth
+    ra, ro = plate["arm_bore_r"], plate["bore_r"]
+    z1 = hz + math.sqrt(ro * ro - ra * ra)
+    gross = 0.1
+    out = None
+    for sx in (-1.0, +1.0):
+        xa = hx + sx * (ra - gross)
+        xb = hx + sx * (ra + tee_stop_pad_width)
+        pad = _ybox(min(xa, xb), max(xa, xb), y0, y1, z_seam, z1)
+        out = pad if out is None else out.fuse(pad)
+    return out
+
+
+def _tee_arm_bore(plate, hx, hz):
+    """The exact arm passage recut through the two gross stop pads."""
+    y0 = plate["collar_in_y"]
+    y1 = y0 + tee_stop_pad_depth
+    return _teardrop_y(plate["arm_bore_r"], hx, hz, y0 - 1.0, y1 + 1.0)
 
 
 def _unified(solid):
@@ -6520,7 +6580,34 @@ def vent_measure(solid, outer, airway, sx):
             "band": (bz0, bz1)}
 
 
-def _flank_vents(solid, inner, outer, airway, y0, y1, z0, z1):
+def _vent_clears_west_chute(sx, y, west_cradle):
+    """Whether one complete groove stays at least one wall from the MQ-6 chute.
+
+    The chute is cut only from front-bottom's added inner skin. A vent in the next groove can
+    therefore leave an unnamed strip of that skin between its slot jamb and the chute edge even
+    though both openings are individually valid. Keep that whole groove solid when the strip
+    would be thinner than `wall`; opening further into the chute would trade the nib for a leak
+    in the sensor well. Grooves crossing the chute itself remain vents, because there is no
+    intervening material to protect."""
+    if sx > 0.0 or not west_cradle:
+        return True
+    slot_lo = y - reeding.pierce_width / 2.0
+    slot_hi = y + reeding.pierce_width / 2.0
+    chute_half = mq6_can_yz / 2.0 + mq6_slot_press
+    for _x, cy, _z in west_cradle:
+        chute_lo, chute_hi = cy - chute_half, cy + chute_half
+        if slot_hi <= chute_lo:
+            gap = chute_lo - slot_hi
+        elif chute_hi <= slot_lo:
+            gap = slot_lo - chute_hi
+        else:
+            continue
+        if gap < wall - stated_bound_tol:
+            return False
+    return True
+
+
+def _flank_vents(solid, inner, outer, airway, y0, y1, z0, z1, west_cradle=()):
     """The condenser's INTAKE and EXHAUST cut into a piece's ±X flanks, for the piece whose
     bands hold the block's airway.
 
@@ -6541,6 +6628,11 @@ def _flank_vents(solid, inner, outer, airway, y0, y1, z0, z1):
     land in one course, that aperture stays fluted wall too. Two adjacent openings are a grille;
     one isolated slit is the same accidental-looking nick the full-segment rule removes in Z.
 
+    NO THIN STRIP BESIDE THE MQ-6 CHUTE. On the intake flank the two grooves whose slot jambs
+    would stop less than one wall from that chute remain whole for every course. The chute keeps
+    its fitted outline and the wall keeps complete stock; neither opening is widened into the
+    other merely to erase their narrow intersection.
+
     LAST OF THE FLANK'S WORK, after every rail, fin, pod and pocket either wall carries — because
     a slot is air, air a later step fuses back in is not a slot, and because what decides where
     each slot stops is what the piece has standing on that face when the cut is made."""
@@ -6551,6 +6643,8 @@ def _flank_vents(solid, inner, outer, airway, y0, y1, z0, z1):
         return solid
     runs = {}
     for sx, y in vent_grooves(outer, airway):
+        if not _vent_clears_west_chute(sx, y, west_cradle):
+            continue
         got = _vent_runs(solid, outer, airway, sx, y)
         runs.setdefault(sx, []).append((y, got))
     courses = vent_segments(airway)
@@ -7843,7 +7937,8 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     # a relief is: they are air, and air a later step fuses back in is not a vent. What stops
     # each slot is read off the piece as it stands HERE — every rail, fin, pod, pocket and
     # relief on those two flanks already in it.
-    piece = _flank_vents(piece, inner, outer, box.pack.cond_airway, ylo, yhi, zlo, zhi)
+    piece = _flank_vents(piece, inner, outer, box.pack.cond_airway, ylo, yhi, zlo, zhi,
+                         box.pack.west_cradle)
     if z_side == "top":
         # THE SLIDE'S OWN CARVING, after everything a top piece fuses. The channel is cut
         # through whatever now stands in the rail's lane — the foot slabs, the flank

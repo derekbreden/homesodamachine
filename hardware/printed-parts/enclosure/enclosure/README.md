@@ -206,9 +206,12 @@ sweep along; the top piece stands off that whole band and its pillar regrows abo
 and the sweep aft of it**: what a station of the sliding piece has to clear is the head,
 so behind the stop block the lane is carried at **full section right off the front piece's
 aft end**, through the Y-seam tongue's own flank segment and past its tip. The flank's
-mouth band comes out as one unbroken rebate with no blunt face standing in it, and the
-tongue crosses the seam at full section **above the gable** — which is the height the Y
-telescope bears on.
+mouth band comes out as one unbroken rebate with no blunt face standing in it. At the
+front column's Y/Z crossing, the channel opens all the way through the tongue's slipped
+outer face below its roof: the outboard half-gable rises aft at 45° from the full wall on
+the Y-joint plane, carrying its own support path with it. There is no 0.7 mm strip standing
+from the bed between the two clearances. The tongue returns at full section **above that
+ramp** — which is the height the Y telescope bears on.
 
 **And the slide is proved, not asserted.** `_report_slide` sweeps each built top from full
 entry to home against its built bottom — a ladder of stations, dense where the joint
@@ -500,10 +503,12 @@ is asked, groove by groove, what stands ROOTED on its inner face, probing one
 [3 mm](VENT_CLEAR) wall inward and keeping that same margin past both jambs and both ends. The
 transoms are the opening vocabulary: if a root's margin enters one course, that whole segment
 stays solid and fluted rather than becoming a one-off short slit. A single opening marooned past
-such a land stays wall too. The MQ-6's cradle is not one of the roots the intake answers for: its
-two posts stop at the card's crown and the band starts one fan inset over the block's base, so the
-whole cradle stands under the vent with clearance to spare. All [88](VENT_RUNS_IN) intake openings are
-the full [24.5 mm](VENT_SHORTEST) segment; [0](VENT_SHORT) have a different height.
+such a land stays wall too. The MQ-6's two posts stop below the vent band, but its can chute is
+cut through the added inner flank skin beside it. The two intake grooves whose jambs would leave
+less than one 3 mm wall to that chute remain completely solid in every course; the chute is not
+widened into a vent, and no 1.261 or 1.981 mm strip survives between the two openings. All
+[88](VENT_RUNS_IN) realized intake openings are the full [24.5 mm](VENT_SHORTEST) segment;
+[0](VENT_SHORT) have a different height.
 
 **[3](VENT_TRANSOMS) transom bands cross that vent, and they are why it prints.** A mullion is
 [2.0285 mm](VENT_MULLION) across. Pierced clean over the whole band it would stand
@@ -1132,8 +1137,13 @@ one figure with the plate (`enclosure_assembly.collet_plate_spec`), so every bor
 stopped at its fore mouth by steel and the nose that lands there lands on steel; the
 plate bears back on the wall across its whole face. Its aft face stands one whole stroke
 plus `TEE_WALL_BODY_AIR` fore of the tee's own body, so at the end of the stroke there is
-still air behind the tee — depth past that plane is the tee's and not the wall's to take. What
-the wall holds is the collar, across the bore; what stops the tee is the steel.
+still air behind the tee — depth past that plane is the tee's and not the wall's to take.
+The collar-clear bore therefore continues through that broad face instead of leaving a
+1.666 mm annular diaphragm. Two side pads per tee provide the aft insertion stop: each is
+exactly 3 mm wide and 3 mm deep, rises from the front-top bed plane, and begins outside the
+arm's exact release envelope. The arm passage is recut through them, leaving only the
+purchased collar's radial bite on two full-section printed columns. The steel stops the tee
+foreward during release; these pads stop it aft while a tube is seated.
 
 **That wall is also the bay's back.** Over the plate's own band the steel closes the
 bay; above and below it this wall does, so what stands behind the berth the pump cartridge
