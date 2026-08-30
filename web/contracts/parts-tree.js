@@ -140,12 +140,15 @@ export const PURCHASED = [
 ];
 
 // MADE IN ORDER TO MAKE THE MACHINE, OR A PICTURE OF IT — never part of it. The
-// moulds, mandrels and gauges a bench works from; the soft parts modelled beside
-// their host without a seat in it; and the bench scenes, each a picture of a group
-// of bodies rather than a body. Claimed ahead of the sweep, so a tooling directory
+// fixtures namespace is tooling by definition, so adding another bench fixture
+// does not demand a fictitious seat in the appliance. Moulds, mandrels and gauges
+// that live beside their host remain named here because their path alone does not
+// distinguish them from product parts. Bench scenes are pictures of groups of
+// bodies rather than bodies. Claimed ahead of the sweep, so a tooling directory
 // standing inside a part directory comes out of it.
 export const TOOLING = [
   "assembly/scenes/glb",
+  "printed-parts/fixtures",
   "printed-parts/cold-core/coil-mandrel",
   "printed-parts/zone-c/funnel-mold",
 ];
