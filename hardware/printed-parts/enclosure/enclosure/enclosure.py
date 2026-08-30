@@ -1562,15 +1562,16 @@ cap_kiss = 0.1               # the cradle's aft face off the collet plate's, at 
 # support residue and no elephant's foot, and bought to a lead time.
 steel_air = 0.2
 plate_slot_slip = steel_air  # air fore and aft of the collet plate in the floor's slot, and
-                             # across it too: the slot's ends are what locate the steel in X,
-                             # because the flank it would otherwise stand against is opened
-                             # whole by `_bay_cut`
-# Each fixed fore cheek overlaps this much of the collet plate's unperforated outer tail. The
-# full-width pump cartridge clears those cheeks in two aft-corner notches instead of spending
-# its whole X span inside them.
-plate_guide_tail_land = 4.0
+                             # across it too: the slot's constant ends locate the steel in X
+                             # and leave `plate_end_stock` printed beyond them
+# Each fixed fore cheek overlaps this much of the collet plate's unperforated outer tail. Ten
+# millimetres of steel face bears on each cheek; the full-width pump cartridge clears them in
+# two local aft-corner notches instead of spending its whole X span inside them.
+plate_guide_tail_land = 10.0
 plate_guide_x_air = 1.0      # cartridge-notch air inboard of each fixed guide cheek
 plate_slot_lead = 1.0        # 45 degree flare on the slot's Z− mouth, leading the steel in
+plate_end_stock = 4.3        # printed X return from either slot end to the cavity-side wall;
+                             # the enclosure's 3 mm outer wall continues beyond that plane
 plate_cap_land = 1.0         # the flat the steel's top edge lands on, taken off the tee wall's
                              # fore face — the plate's Z datum, wall to wall (`_plate_cap`)
 plate_shelf_land = 3.0       # front-bottom's shelf inboard of the steel's END, per end — the
@@ -2971,28 +2972,21 @@ def seam_cap_z():
 
 
 def plate_step_in():
-    """HOW FAR EACH END OF THE COLLET PLATE STANDS IN FROM THE SIDE WALL — at every height,
-    because the plate has one width and no step in it.
+    """HOW FAR EACH END OF THE COLLET PLATE STANDS IN FROM THE CAVITY-SIDE WALL.
 
-    ITS BOTTOM EDGE IS `z_seam` ITSELF, so the steel stands in the Z SEAM'S OWN STOREY, and
-    that storey belongs to the joint: `rail_reach_in` off `interior_x` is what the
-    groove, the arm and the head take down both columns, and a body standing on it keeps out
-    of that band. One `slide_slip` outboard of the joint's reach is the channel the top piece
-    cuts for it; one `steel_air` inboard of that is the plate's, so the plan of the lane holds
-    three faces and the steel takes the innermost — and the two figures are two figures
-    because the face on each side of that last one is a different material.
+    THE PLATE COMES THROUGH FRONT-TOP'S Z− FACE. It has no X travel and its slot has no
+    reason to open into the side-wall bays above the lead-in. The steel therefore takes the
+    cavity width less one substantial printed return at each end: `plate_end_stock` of solid
+    between the slot and `interior_x`, plus `plate_slot_slip` between that solid and the cut
+    steel. On this box that puts the plate ends at x = ±100.000, the slot ends at ±100.200,
+    4.300 mm of printed material inboard of each cavity wall, and the enclosure's own 3 mm
+    wall beyond it.
 
-    AND IT IS HELD OFF BY THAT EVERYWHERE. The plate rides in front-top through the whole of
-    the front column's slide, so the complete rectangle clears the rail envelope. Over
-    `seam_cap_z` the flank beside it is opened whole by `_bay_cut`, while the bay floor's
-    slot locates both ends in X one `plate_slot_slip` away. The four pack-struck holes keep
-    their X/Z datums; the unperforated tails end at the clearance plane this function states.
-
-    AND THIS PLATE IS WHAT SETS THE FRONT RUN'S OPEN END: `_z_rail_runs` starts that
-    column's rail on the plate's own tee wall (`wall_aft_y`). Keeping the joint's whole
-    reach is what leaves those two free of each other — the tee wall can carry the run's
-    open end wherever it lands and the steel is already clear of the plan it lands in."""
-    return rail_reach_in + slide_slip + steel_air
+    THE RECTANGLE KEEPS THAT WIDTH OVER ITS WHOLE HEIGHT. Its four holes remain on their
+    pack-struck X/Z datums, while each widened unperforated tail bears on ten millimetres of
+    fixed Y− cheek. The front column's rails begin aft of the tee wall; the plate and its
+    insertion slot stand fore of that run and do not spend their width on rail clearance."""
+    return plate_end_stock + plate_slot_slip
 
 
 def plate_outline(plate):
@@ -4300,13 +4294,10 @@ def _plate_shelf(inner, plate, zj):
     to `front_bottom_flank_face`. This brings that face in the last few millimetres, under the
     plate's own ends.
 
-    THE TWO BEARING PLANES ARE LESS THAN A MILLIMETRE APART. The flank's face is one `LIP_UNDERWALL` off
-    `interior_x` and the steel's end is `plate_step_in` off it — the joint's own reach plus two
-    slips, which is what the plate has to keep clear of down the whole of the front slide. The
-    two planes pass within a millimetre of each other and neither may move: the wall is the
-    section the seam's furniture stands on, and the steel is already the innermost of the three
-    faces in the joint's lane. So the shelf is what closes that gap, and it is the only new
-    material either piece needs.
+    EACH END HAS ONE CONTINUOUS BEARING LAND. The widened steel reaches 1.5 mm into the flank's
+    own section; `plate_shelf_land` continues another 1.5 mm inboard from that face. Together
+    the standing wall and this shelf carry the outer three millimetres of the plate at each
+    end, with no isolated pad and no edge supported on a line.
 
     ITS FORE EXTENSION ROOTS IT IN THE FLANK. The plate itself enters in Z through front-top's
     bed face and occupies only `plate["fore_y"]..plate["aft_y"]`; both actual end footprints
@@ -5460,13 +5451,13 @@ def _bay_floor(inner, y_joint, plate, pump_trays):
     return slab.cut(_plate_slot(inner, plate, rim + 1.0))
 
 
-def _plate_slot(inner, plate, z_top):
-    """THE COLLET PLATE'S OWN SLOT — THE STEEL'S OWN SECTION AND NOTHING NARROWER.
+def _plate_slot(_inner, plate, z_top):
+    """THE COLLET PLATE'S OWN SLOT — ONE RECTANGULAR X SPAN THROUGH THE WHOLE FLOOR.
 
     Fore and aft it is the steel, `plate_slot_slip` off each face, at every height. ACROSS, it
-    is the steel's own width — `plate_step_in` off each wall, the same at every height because
-    the outline is a rectangle — up to the floor's top, and the WALLS' above it, where the
-    floor has ended and the slot has nothing left to be cut in.
+    is the steel's own width plus `plate_slot_slip` at both ends, the same from the Z− mouth
+    through the floor and every fixed wall the lane crosses. The 4.3 mm returns between those
+    ends and `interior_x` remain printed material; the slot never expands sideways into them.
 
     IT HOLDS NOTHING BACK. What stops the steel is its own top edge on `_plate_cap`, one
     storey up and wall to wall, so this slot is a lane and not a seat: no step in it, no
@@ -5476,12 +5467,13 @@ def _plate_slot(inner, plate, z_top):
     long face and closes back onto the steel's own width over the same rise — the lead's two
     faces leaning in at the angle a print climbing off its bed carries them at."""
     y0, y1 = plate["fore_y"] - plate_slot_slip, plate["aft_y"] + plate_slot_slip
+    x0, x1 = plate["x0"] - plate_slot_slip, plate["x1"] + plate_slot_slip
     lead, mouth, seat = plate_slot_lead, z_seam, plate["seat_z"]
-    foot = _yz_prism(plate["x0"] - plate_slot_slip, plate["x1"] + plate_slot_slip, (
+    foot = _yz_prism(x0, x1, (
         (y0 - lead, mouth - 1.0), (y1 + lead, mouth - 1.0),
         (y1 + lead, mouth), (y1, mouth + lead), (y1, seat),
         (y0, seat), (y0, mouth + lead), (y0 - lead, mouth)))
-    return foot.fuse(_ybox(inner[0], inner[1], y0, y1, seat, z_top))
+    return foot.fuse(_ybox(x0, x1, y0, y1, seat, z_top))
 
 
 tee_stop_pad_depth = wall

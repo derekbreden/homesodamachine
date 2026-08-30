@@ -1096,15 +1096,15 @@ The **collet plate goes in through the Z− face**, which is the seam face front
 on and the face this piece beds on. Its slot (`_plate_slot`) passes through the floor and opens
 on that plane, `plate_slot_slip` off the steel fore and aft at every height, and the mouth
 flares [1 mm](PLATE_SLOT_LEAD) at 45° so the steel finds it — a lead that leans in as the print
-climbs off the bed. **Across, the slot is the steel's own section and nothing narrower** — the
-floor holds the plate fore and aft and holds it back not at all. Nothing in this storey is a
-stop: the steel goes clean through and comes up until its own **top edge** lands a storey
-higher. `bay-floor-bedded` reads the floor whole on the bed and that land whole over the edge.
+climbs off the bed. **Across, the slot is one rectangle for its whole height**: the steel plus
+0.2 mm air at each end, stopping at x = ±100.2. A 4.3 mm printed return remains between either
+slot end and the cavity-side wall, followed by the enclosure's 3 mm outer wall. The floor holds
+the plate fore and aft and holds it back not at all; the steel goes clean through and comes up
+until its own **top edge** lands a storey higher. `bay-floor-bedded` reads the floor whole on
+the bed and that land whole over the edge.
 
-**The wall over the steel is what stops it** (`_plate_cap`). A plate dropped in from Z+ needs
-its own lane left open above it for the whole of its height — that is what a drop-in is — and
-fed up from the seam plane it needs no room over its head at all. The lane above the steel is
-filled from the top edge to the bay's ceiling at [281 mm](PLATE_CAP_TOP).
+**The wall over the steel is what stops it** (`_plate_cap`). The lane above the seated top
+edge is filled from that edge to the bay's ceiling at [281 mm](PLATE_CAP_TOP).
 [1 mm](PLATE_CAP_LAND) of that is flat, taken off the tee wall's fore face at
 [216.5 mm](PLATE_CAP_Z): the top edge comes up onto it and stops, and **that land is the
 plate's Z datum** — the only stop in this joint, and the reason the outline needs no shoulder.
@@ -1121,30 +1121,20 @@ steel below.
 plate's outer tails and returning around its ends into the fixed side-wall stock aft of the
 plate. The tee wall is the channel's aft face and the guides its fore face, so the steel
 cannot pitch forward when the four collet noses load it after the pump cartridge has begun
-moving. Each cheek is a wedge in plan, [3 mm](PLATE_GUIDE_WEDGE) deeper at the fixed wall it
-is rooted in than at its inboard face, and it **stands the whole storey** — to the same ceiling
-the cap does, so it is a post between two slabs rather than a fin off the floor, and the flank
-opening gets an aft jamb for its full height. Over each tail its head carries the cap's own
-land out to the side wall, spanning `PLATE_T + plate_slot_slip` between two standing walls.
+moving. Each cheek bears on 10 mm of the plate's Y− face, is a wedge in plan
+[3 mm](PLATE_GUIDE_WEDGE) deeper at the fixed wall than at its inboard face, and **stands the
+whole storey** — to the same ceiling the cap does, so it is a post between two slabs rather
+than a fin off the floor, and the flank opening gets an aft jamb for its full height. Over
+each tail its head carries the cap's own land out to the side wall, spanning
+`PLATE_T + plate_slot_slip` between two standing walls.
 
 **The steel is a rectangle.** The band's bottom is the **seam plane** — it fills the slot to
 its mouth — and its top is whatever puts the four collet holes **centred** in the band
-(`plate-holes-centred`). Each end stands [10.5 mm](PLATE_STEP_IN) off its side wall at **every**
-height: the plate rides in front-top through the whole of the front column's slide, and the
-band `rail_reach_in` off each flank belongs to the joint — groove, arm and head — down that
-whole travel, which `z-slide-front-lanes` is the reading of. Held off by the deepest thing it
-ever passes, it is held off by that everywhere, and there is nothing left to step. The four
-collet holes keep their pack-struck X/Z datums; only the unperforated outer tails end at this
-clearance plane.
-
-**There is no notch in the part.** A notch is a thing something else stands in, and after the
-flip nothing stands in this one: the stop is the top edge on the cap's land, so the outline
-owes it no shoulder; the lane the bottom edge needs is the lane the whole part travels, so the
-ends owe the joint no step. Running them wider over [177.8 mm](PLATE_STEP_Z) would buy nothing
-to be located by either — the flank there is opened whole (`_bay_cut`) and the ends reach
-into the opening. **What locates the steel across is the bay floor's slot**, one
-`plate_slot_slip` off each end, the only station in the machine that holds it in X. Four
-corners and four holes: `build_collet_plate` writes them into `collet-plate.dxf`.
+(`plate-holes-centred`). Each end stands [4.5 mm](PLATE_STEP_IN) off its cavity-side wall at
+**every** height, putting the steel at x = ±100.0 and leaving 10 mm of each unperforated tail
+on its fixed Y− cheek. **What locates the steel across is the bay floor's constant-width
+slot**, one `plate_slot_slip` off each end from the mouth to the cap. The plate has four
+corners and four holes; `build_collet_plate` writes that outline into `collet-plate.dxf`.
 
 The **wall behind the steel is struck on the same four collets** (`_tee_wall`).
 Front-top stands a section of its own material aft of the plate, wall to wall and the

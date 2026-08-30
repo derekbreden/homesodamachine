@@ -489,6 +489,7 @@ General shop equipment supporting fabrication, assembly, and teardown. Not proje
 | Polymaker Fiberon PET-CF17, 1.75 mm × 3 kg, Black | [B0DJNVQJX9](https://www.amazon.com/dp/B0DJNVQJX9) | 1 | $117.96 | 114-7618665-2979463 | 2026-06-13 | 2026-06-15 | ACQUIRED |
 | Polymaker Fiberon PET-GF15, 1.75 mm × 3 kg, Black. 15 % glass-fiber PET, $26.81/kg | [B0FBWGTW9W](https://www.amazon.com/dp/B0FBWGTW9W) | 1 | $80.43 | 112-1974343-4486643 | 2026-08-09 | 2026-08-11 | ACQUIRED |
 | Polymaker Fiberon PET-GF15, 1.75 mm × 3 kg, Black — **the exterior's production stock** ([bom.md §7](/hardware/ledger/bom.md)). 9 kg on one invoice: $69.99 ea × 3 + $15.21 NE tax, shipping waived, = **$25.02/kg**, the figure §7 prices every exterior row at | [B0FBWGTW9W](https://www.amazon.com/dp/B0FBWGTW9W) | 3 | $225.18 | 112-3920877-6075462 | 2026-08-23 | 2026-08-24 | ACQUIRED |
+| Polymaker order #188663 — Fiberon PET-GF15, 1.75 mm × 3 kg, Black. Bought direct from polymaker.com rather than Amazon: $74.99 ea × 2 + $7.99 USPS Ground Advantage, no tax, = **$26.33/kg** | polymaker.com | 2 | $157.97 | — | 2026-08-29 | — | ON-ORDER |
 | SunTop food-contact-compliant PETG, 1.75 mm × 1 kg, Clear/Transparent | [B0FP34MJ94](https://www.amazon.com/dp/B0FP34MJ94) | 2 | $49.32 | 112-1471049-5385066 | 2026-05-17 | 2026-05-18 | ACQUIRED |
 | Elmer's disappearing purple school glue sticks, washable, 6 g × 12 — print-bed adhesion/release layer | [B003ULCZ7M](https://www.amazon.com/dp/B003ULCZ7M) | 1 pk (12) | $7.38 | 114-9764609-4555460 | 2026-03-22 | 2026-03-24 | ACQUIRED |
 | Koala resin-coated 4×6 glossy photo paper, 72lb, 100 sheets — print stock for the 4×6 sequence deck ([assembly/cards/](/hardware/assembly/cards/README.md)), borderless on the ET-8550 (`4x6.Fullbleed`) | [B073WWB1HS](https://www.amazon.com/dp/B073WWB1HS) | 1 pk (100) | $13.92 | 112-4209023-0725839 | 2026-07-24 | 2026-07-25 | ACQUIRED |
@@ -532,7 +533,7 @@ Bench soldering capability for through-hole, wire-to-pad (pogo pin leads), and g
 
 ## 15. 3D printing equipment and filaments (Bambu Lab direct)
 
-All purchased direct from us.store.bambulab.com (not via Amazon). Covers the printer itself (H2C AMS Combo), AMS expansion units (AMS HT × 2, AMS 2 Pro), hotends / nozzles / build plate, vision encoder, PTFE adapters, and every filament refill since the printer arrived. §13 holds the separate Amazon-sold filaments (SpoolHaus PEBA, Siraya Tech Flex TPU) — kept separate because the vendor and receipt trail are distinct.
+All purchased direct from us.store.bambulab.com (not via Amazon). Covers the printer itself (H2C AMS Combo), AMS expansion units (AMS HT × 2, AMS 2 Pro), hotends / nozzles / build plate, vision encoder, PTFE adapters, and every filament refill since the printer arrived. §13 holds the non-Bambu filaments (SpoolHaus PEBA, Siraya Tech Flex TPU, the Polymaker Fiberon grades) — kept separate because the vendor and receipt trail are distinct.
 
 Receipts grouped by order; each line in the table is one shipment. See Bambu Lab order history for the per-SKU breakdown.
 
@@ -566,9 +567,10 @@ Receipts grouped by order; each line in the table is one shipment. See Bambu Lab
 | 2026-05-25 | us735568811268960257 | PETG Basic Black 30105 ×10 + PETG Translucent Clear 32101 ×10 (1 kg refills, bulk) | $278.72 | ACQUIRED (delivered May 29) |
 | 2026-06-10 | us741350370718978049 | Induction Heating Assembly - Right ×1 (H2C / H2C Laser) + shipping + tax | $71.83 | ACQUIRED (delivered Jun 15) |
 | 2026-06-17 | us743915395468910593 | PETG Basic Black 30105 ×10 + PETG Translucent Clear 32101 ×10 (1 kg refills, bulk) | $224.04 | ACQUIRED (delivered Jun 20) |
-| 2026-08-11 | us763714278409691137 | PETG Basic Black 30105 refill ×7 (bulk, $81.85) + PETG Basic on spool ×3 — White 30106, Navy Blue 30604, Red 30201 ($13.64 ea) (1 kg each) + NE tax $8.90 | $131.67 | ON-ORDER |
+| 2026-08-11 | us763714278409691137 | PETG Basic Black 30105 refill ×7 (bulk, $81.85) + PETG Basic on spool ×3 — White 30106, Navy Blue 30604, Red 30201 ($13.64 ea) (1 kg each) + NE tax $8.90 | $131.67 | ACQUIRED (delivered Aug 14) |
 | 2026-08-19 | us766639627317551105 | H2C Induction Hotend (Right), 0.2 mm stainless ×2 + Tungsten Carbide Hotend (H2/P2S/X2D; H2C Left), 0.4 mm ×1 + NE tax | $182.29 | ACQUIRED (the 0.4 TC is the exterior's nozzle — [tools.md](/hardware/ledger/tools.md)) |
-| **§15 subtotal — 19 orders (17 ACQUIRED, 2 ON-ORDER)** | | | **ACQUIRED $8,677.34 + ON-ORDER $313.96** | |
+| 2026-08-30 | us770658156626939905 | Bambu Textured PEI Plate (H2C) ×2 ($109.98) + Mag-Alloy Scraper ×1 ($16.99, add-ons deal −$3.00) + Bambu Scraper 3 pcs ×1 ($2.99, add-ons deal −$1.00) + NE tax $9.41, shipping waived | $139.37 | ON-ORDER |
+| **§15 subtotal — 20 orders (19 ACQUIRED, 1 ON-ORDER)** | | | **ACQUIRED $8,991.30 + ON-ORDER $139.37** | |
 
 ## 16. Laser welding / cleaning / cutting
 
@@ -658,13 +660,13 @@ Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C funne
 
 | Status | $ |
 |---|---|
-| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$32,293.71](LEDGER_ACQUIRED_HW) |
+| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$32,425.38](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$5,437.54](LEDGER_LABOR) |
-| ACQUIRED (combined) | [$37,731.25](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$1,115.29](LEDGER_ON_ORDER) |
+| ACQUIRED (combined) | [$37,862.92](LEDGER_ACQUIRED_COMBINED) |
+| ON-ORDER | [$1,280.96](LEDGER_ON_ORDER) |
 | MISSING — paid, not received (§1 copper bar) | [$42.89](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$38,889.43](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$39,186.77](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
@@ -684,7 +686,7 @@ ACQUIRED hardware by section:
 | 12 | Shop / bench infrastructure | [$1,153.07](LEDGER_SEC12) |
 | 13 | Printing consumables | [$1,872.08](LEDGER_SEC13) |
 | 14 | Soldering + small-signal tools | [$803.87](LEDGER_SEC14) |
-| 15 | 3D printing equipment + filaments (Bambu direct) | [$8,859.63](LEDGER_SEC15) |
+| 15 | 3D printing equipment + filaments (Bambu direct) | [$8,991.30](LEDGER_SEC15) |
 | 16 | Laser welding / cleaning / cutting | [$3,899.00](LEDGER_SEC16) |
 | 17 | Domain / infrastructure | [$732.18](LEDGER_SEC17) |
 | 19 | Video / marketing capture | [$139.69](LEDGER_SEC19) |
