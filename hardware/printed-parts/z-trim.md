@@ -15,7 +15,7 @@ the tip on the tops of the texture:
 | other plate, 0.2 mm | +0.01 |
 | other plate, 0.4 mm | — |
 
-Negative lowers. This tree stands a flat **+0.01 to +0.03 mm** over those values on every
+Negative lowers. This tree stands a flat **+0.01 to +0.05 mm** over those values on every
 branch, so the figure holds whichever plate the project is set to. At +0.02, textured PEI
 with the 0.4 mm nozzle comes to a trim of 0.00 — Bambu's texture compensation off, the nozzle
 where homing and the bed mesh put it.
@@ -30,17 +30,19 @@ at the prints here, the more I think I might be wrong and we might need a .01."*
 
 ## The carriers
 
-[`z-trim-0.01.3mf`](z-trim-0.01.3mf), [`z-trim-0.02.3mf`](z-trim-0.02.3mf) and
-[`z-trim-0.03.3mf`](z-trim-0.03.3mf) are empty plates that carry nothing but the printer
-profile — `Bambu Lab H2C 0.4 nozzle` with `machine_start_gcode` as its one setting modified
-from system, on the `Polymaker PET-GF @BBL H2C` slot over a textured PEI plate. Open one in
-Bambu Studio and save the printer preset it loads modified.
+[`z-trim-0.01.3mf`](z-trim-0.01.3mf) through [`z-trim-0.05.3mf`](z-trim-0.05.3mf) are empty
+plates, one per value, carrying nothing but the printer profile — `Bambu Lab H2C 0.4 nozzle`
+with `machine_start_gcode` as its one setting modified from system, on the `Polymaker PET-GF
+@BBL H2C` slot over a textured PEI plate. Open one in Bambu Studio and save the printer preset
+it loads modified.
 
 | carrier | textured 0.2 | textured 0.4 | other 0.2 | other 0.4 |
 | --- | --- | --- | --- | --- |
 | [`z-trim-0.01.3mf`](z-trim-0.01.3mf) | 0.0 | −0.01 | 0.02 | 0.01 |
 | [`z-trim-0.02.3mf`](z-trim-0.02.3mf) | 0.01 | 0.0 | 0.03 | 0.02 |
 | [`z-trim-0.03.3mf`](z-trim-0.03.3mf) | 0.02 | 0.01 | 0.04 | 0.03 |
+| [`z-trim-0.04.3mf`](z-trim-0.04.3mf) | 0.03 | 0.02 | 0.05 | 0.04 |
+| [`z-trim-0.05.3mf`](z-trim-0.05.3mf) | 0.04 | 0.03 | 0.06 | 0.05 |
 
 What the committed files stand on — [`petgf.3mf`](petgf.3mf) is the PET-GF 0.4 mm working
 profile, whichever models are loaded into it at the time:
