@@ -7,11 +7,12 @@
     "objects": "s-"
   },
   "source": {
-    "commit": "9e4739d37df8ac2f89ad4736e112237ddba61eaa"
+    "commit": "2d61ce0e85a84910bfcacc8e7a2ea3cbc6265741"
   },
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, or that rule would not cut.",
     "paths": [
+      "hardware/manifold-layout/enclosure_assembly.py",
       "hardware/printed-parts/petgf.3mf",
       "result.json",
       "tmp/pdfs/connect-connected-detail-fixed.png",
