@@ -1120,11 +1120,13 @@ loaded brackets 0.78 mm clear of that edge. The steel's flat stop land and both 
 remain whole, and the pump cartridge's back lands `cap_kiss` fore of printed wall above and
 steel below.
 
-**The guides are two stationary L sections** (`_plate_fore_guides`) standing fore of the
-plate's outer tails and returning around its ends into the fixed side-wall stock aft of the
-plate. The tee wall is the channel's aft face and the guides its fore face, so the steel
-cannot pitch forward when the four collet noses load it after the pump cartridge has begun
-moving. Each cheek bears on 10 mm of the plate's Y− face, is a wedge in plan
+**The guides are two stationary single prisms** (`_plate_fore_guides`) standing fore of the
+plate's outer tails. Immediately outside either slot end at x = ±100.2, each prism turns aft
+past the steel and fills the complete 4.3 mm band to the cavity-side wall, then fuses into the
+3 mm outer wall. That return stands from the bay floor through the whole storey, with no shelf
+or open column above it. The tee wall is the channel's aft face and the guides its fore face,
+so the steel cannot pitch forward when the four collet noses load it after the pump cartridge
+has begun moving. Each cheek bears on 10 mm of the plate's Y− face, is a wedge in plan
 [3 mm](PLATE_GUIDE_WEDGE) deeper at the fixed wall than at its inboard face, and **stands the
 whole storey** — to the same ceiling the cap does, so it is a post between two slabs rather
 than a fin off the floor, and the flank opening gets an aft jamb for its full height. Over
