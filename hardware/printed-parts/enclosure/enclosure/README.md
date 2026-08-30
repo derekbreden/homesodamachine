@@ -571,6 +571,9 @@ The two other costs remain **independent readings**, not terms collapsed into a 
   support are therefore reported as two different compromises rather than traded against one
   another invisibly.
 
+A candidate which removes a whole separate support that was both short and rooted on model
+material wins on every count at once, and is the strongest fix the audit can name.
+
 Down-facing geometry is changed before support is accepted. A corbel, chamfer or tangent
 teardrop follows the exact feature it carries and reaches its whole supported face; it is not a
 generic triangle merely placed nearby. A feature on a wall preferentially ramps along that
