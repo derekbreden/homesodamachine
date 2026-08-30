@@ -2291,7 +2291,7 @@ def check_cartridge_architecture(pieces) -> Bound:
 
 
 def check_cartridge_full_front_wall(pieces, shell) -> Bound:
-    """Whether the cradle owns the untapered front wall from its flat bed to the lintel.
+    """Whether the cradle owns the untapered front wall between its two flat reveals.
 
     The front-wall target stops at the intentional upper pump/clamp well's foremost Y face.
     The two side targets stop before either hand pocket. No pump opening, grip, guide notch or
@@ -2303,7 +2303,7 @@ def check_cartridge_full_front_wall(pieces, shell) -> Bound:
     cradle = cradle.val() if hasattr(cradle, "val") else cradle
     fixed = fixed.val() if hasattr(fixed, "val") else fixed
     inner, outer, bay = shell.inner, shell.outer, shell.pump_bay
-    z0 = _enc.bay_floor_z(shell.pack.pump_trays)[1]
+    z0 = _enc.bay_floor_z(shell.pack.pump_trays)[1] + _enc.face_reveal
     z1 = bay[2] - _enc.face_reveal
     edge = _enc._cap_x_span(bay)[1]
     y1 = _enc.plate_guide_notch_fore_y(shell.pack.collet_plate)
@@ -2328,7 +2328,7 @@ def check_cartridge_full_front_wall(pieces, shell) -> Bound:
     ok = missing <= 1e-3 and fixed_left <= 1e-3 and full_width
     return record_bound(Bound(
         "pump-cartridge-full-front-wall",
-        "The cradle owns the full-width front wall above its bed ramps",
+        "The cradle owns the full-width front wall between its flat reveals",
         ok,
         f"x {cb.xmin:.3f}..{cb.xmax:.3f}; missing {missing:.3f} mm³; "
         f"fixed front-top {fixed_left:.3f} mm³",
@@ -2336,7 +2336,7 @@ def check_cartridge_full_front_wall(pieces, shell) -> Bound:
         "and no fixed front-top in that band",
         ([] if ok else [
             f"the full front/side target is missing {missing:.3f} mm³ from the cradle and "
-            f"still contains {fixed_left:.3f} mm³ of front-top. Above the lower bed ramps, "
+            f"still contains {fixed_left:.3f} mm³ of front-top. Between the two flat reveals, "
             "keep the untapered front and both exterior side skins on the cradle"])))
 
 
