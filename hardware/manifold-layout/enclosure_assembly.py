@@ -1323,14 +1323,17 @@ def check_cap_passes_tubes(pieces: dict, placed: dict, plate: dict) -> Bound:
 
     `enclosure.build_pump_cap` opens its aft face as one slot over each head and bores nothing
     for the four tubes. THAT IS A CLAIM ABOUT THE BARB PITCH AND NOTHING ELSE HERE READS IT:
-    the tubes are stationed off the placed pumps, while the opening starts at `head_half` and
-    carries `cap_tube_relief` past the room at both edges. A wider pitch or a fatter tube can
-    therefore walk into the web without another card saying so. A bore struck to catch it
-    would lap that web by a fraction of its radius and feather the section to nothing at the
-    two levels it grazed, which is why there is no bore.
+    the tubes are stationed off the placed pumps, while the opening is struck on the complete
+    pump's own widest span across its two tube FITTINGS (`kamoer_kphm400.outlet_span_x`) and
+    one `cap_tube_air` per side. Those are two measurements of the same face taken
+    independently — the fittings' outer edges and the barbs' centres — so a wider pitch or a
+    fatter tube can walk into the web without another card saying so. A bore struck to catch
+    it would lap that web by a fraction of its radius and feather the section to nothing at
+    the two levels it grazed, which is why there is no bore.
 
     Read as the tube's own outer wall against the opening's edge, per barb, on the axis the
-    opening is struck on."""
+    opening is struck on. The tube rides INSIDE the fitting that carries it, so what it is
+    owed here is no less than the fitting's own `cap_tube_air`."""
     cap = pieces.get("pump-cap")
     if cap is None:
         return record_bound(Bound(
@@ -1346,15 +1349,15 @@ def check_cap_passes_tubes(pieces: dict, placed: dict, plate: dict) -> Bound:
             air = edge - (abs(hx - cx) + r)
             worst = air if worst is None else min(worst, air)
             rows.append((f"({cx:+.1f}) barb x {hx:+.2f}", air))
-    bad = [row for row in rows if row[1] < _enc.cap_tube_relief - 1e-9]
+    bad = [row for row in rows if row[1] < _enc.cap_tube_air - 1e-9]
     return record_bound(Bound(
         "cap-passes-tubes", "Each barb tube leaves the cap through its opening", not bad,
         f"{len(rows) - len(bad)}/{len(rows)} clear, least {worst:.3f} mm off the edge",
-        f"at least {_enc.cap_tube_relief:g} mm round every Ø{ml.TUBE_D:g} tube at the "
+        f"at least {_enc.cap_tube_air:g} mm round every Ø{ml.TUBE_D:g} tube at the "
         "opening's two outer edges",
         [f"{who}: the tube has {air:.2f} mm to the opening's edge, under the "
-         f"{_enc.cap_tube_relief:g} mm printed running clearance — carry the slot's edge "
-         "farther without opening the flank seat" for who, air in bad]))
+         f"{_enc.cap_tube_air:g} mm the fitting beside it gets — the barb pitch and the "
+         "fitting span disagree, so re-read one of them on the part" for who, air in bad]))
 
 
 def check_trays_hold(pieces: dict, placed: dict) -> Bound:
