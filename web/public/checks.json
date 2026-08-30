@@ -47,22 +47,22 @@
     },
     {
       "check": "hardware/scripts/check_step_colours.py",
-      "note": "step colours: 101/101 carry the colour of what they are made of",
+      "note": "step colours: 116/116 carry the colour of what they are made of",
       "status": "ok"
     },
     {
       "check": "hardware/scripts/check_tracked.py",
-      "note": "57/57 artifacts have their record in the index",
+      "note": "58/58 artifacts have their record in the index",
       "status": "ok"
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 1387 tracked, 252 fetched solids, 53 tags",
+      "note": "paths: every reference lands — 1395 tracked, 267 fetched solids, 53 tags",
       "status": "ok"
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 459 of 1000 free, the next cut wants 3, and the whole lock reads by name in 120.5 MB against 121.8 MB of bundle",
+      "note": "check_release_room: 381 of 1000 free, the next cut wants 3, and the whole lock reads by name in 128.1 MB against 129.4 MB of bundle",
       "status": "ok"
     },
     {
@@ -82,30 +82,32 @@
     },
     {
       "check": "tools/bazel/check_declared_imports.py",
-      "note": "check_declared_imports: every step holds what it imports, over 176 source(s) the graph names",
+      "note": "check_declared_imports: every step holds what it imports, over 178 source(s) the graph names",
       "status": "ok"
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 259 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 252 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 253 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 267 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds 012bb6a89334f9eb704e84b50209b8b5 for the 107 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at a2532e9ad5c0dfcf0697587bf846e5b2 here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was taken from a different tree — it holds 53bb58f3e687d89a54543eb21789272e for the 107 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 3dd096fda364f736378569beb0d300b7 here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ],
     "hardware/scripts/check_flutes.py": [
-      "1 payload(s) were cut from a STEP that is no longer the one beside them:",
-      "  ✗ enclosure-pump-cap — the viewer draws this file, and it is another machine's",
+      "2 payload(s) were cut from a STEP that is no longer the one beside them:",
+      "  ✗ enclosure-front-top — the viewer draws this file, and it is another machine's",
+      "  ✗ enclosure-pump-cartridge — the viewer draws this file, and it is another machine's",
       "  the flute cut is what puts the surface back:",
       "    bazel build //:flute-payload && tools/cad-venv/bin/python tools/bazel/sync_tree.py --write --targets //:flute-payload"
     ],
     "hardware/scripts/check_payloads.py": [
-      "1 solid(s) whose surface is not in the payload beside them:",
-      "    hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh — cut from other bytes than the solid holds",
+      "2 solid(s) whose surface is not in the payload beside them:",
+      "    hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh — cut from other bytes than the solid holds",
+      "    hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh — cut from other bytes than the solid holds",
       "  the run that cuts a solid writes the payload beside it:",
       "    tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/enclosure.py",
       "  and the enclosure's flutes go back into those payloads after:",
