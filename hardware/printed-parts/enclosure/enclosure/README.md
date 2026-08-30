@@ -1341,6 +1341,14 @@ wide, and between them the [159 mm](CEILING_PANEL_W) channel the
 — a separate part, printed flat on the bed and **slid in** through the Y-seam
 mouth before back-top meets another quadrant.
 
+The exterior top remains z 355 and the rear storey's established pack lane
+remains z 352. The fixed strips carry a [6 mm](BACK_TOP_CEILING_T) physical
+section inward to z 349, while the removable panel carries an
+[11 mm](CEILING_PANEL_T) structural envelope inward to z 344. Those are
+piece-owned faces: no body, port, anchor or exterior plane moves to fund them.
+The fixed corbel is consequently the established 45° wedge plus an exact
+[3 mm](BACK_TOP_CEILING_GROWTH) parallel shell below it.
+
 Each strip is **corbelled** the way front-top's two are either side of the throat
 (`_ceiling_corbels`): a 45° underside rising off the flank face to nothing at the
 panel's edge, so every ceiling layer lands on the one below it. The corbel is
@@ -1372,14 +1380,21 @@ under it. The ground bar's shorter band gives up the X wedge around the purchase
 then closes again on two 45° planes from the intact wall corbel at its Y ends to a ridge over
 the stack's centre. The stack stands 0.25 mm below the nominal stack floor and keeps more than
 one millimetre of exact air from those planes, so there is no horizontal support roof over it.
-The C14 keeps the complete +X wedge: its shared X datum places the moulded rim about one
-millimetre inboard of the corbel, while its Z remains on the top port row.
+The C14 keeps the complete established +X wedge: its shared X datum places the
+moulded rim about one millimetre inboard of that corbel, while its Z remains on
+the top port row. Its moulding, the relay and the ground stack reach only the
+new three-millimetre shell. `ceiling_growth_reliefs` withholds that shell over
+each exact placed-body plan plus 1 mm, clipped to the fixed strip, while leaving
+the older wedge and its existing run-band/gable treatment intact. At the C14
+this leaves exactly 1 mm of air; the relay retains 2 mm and the ground stack's
+pre-existing closest feature retains its same 0.682 mm, while its printable
+gable remains 1.162 mm clear.
 
 **The tap-water chain takes four rows**, because what it occupies is four different
 things. Against the full wedge, the metal inside the corbel is run 1.50…14.09 over
 y 354…394 — the Multiplex barrel, its crown one `DECK_CEILING_CLEAR` under the
 ceiling — and run 4.67…5.42 over y 394…424, three quarters of a millimetre of run
-in a strip 22 wide. **1,275 mm³ of a 17,182 mm³ corbel, and none of it outboard of
+in a strip 19 wide. **1,275 mm³ of a 12,816 mm³ established corbel, and none of it outboard of
 run 14.09.** So the outboard run goes back, and those two rows give up 0…16 and 0…7.
 
 What still gives up the whole run is **the two tie bands**. Each zip tie is a closed
@@ -1396,6 +1411,13 @@ the length of the piece with its tongues in these two grooves. It is cut open at
 both ends — a millimetre into the field at its mouth, its own depth into the back
 wall at its blind end — because a groove ending exactly on either plane leaves the
 strip and the thing it runs out on meeting along a line.
+
+The current tongue is [6 mm](CEILING_TONGUE_T) square and its dado is
+[6.15 mm](CEILING_DADO_DEPTH) deep. The ground-stack gable begins on the fixed
+side of that deeper blind wall; allowing the old roof to extend into the moving
+lane would merely let the dado cutter erase its inboard edge. Both complete
+body-free rail bands are read after the cut by `ceiling-rail-capture`, including
+the lower and upper ligaments and X/Z capture in the finished solids.
 
 **The ramp is the field's, and the last `depth` is a run-out.** Beside the field the
 dado's roof rises to the show face at the mouth, and both the rise and the millimetre
@@ -1416,9 +1438,12 @@ Y− withdrawal directly. The panel slides through first, with both stations emp
 then each M3×12 is driven OUTBOARD from the empty field into a horizontal ruthex
 M3 short buried in the fixed corbel.
 
-The insert's guide begins at the dado's blind wall and steps down to its Ø4 knurl
-bore only where the existing 45° wedge has a full `boss_ligament` around its lower
-bearing land. Both horizontal cuts retain their complete nominal circles and open
+The insert's guide retains its established inboard face inside the deeper dado
+and steps down to its Ø4 knurl bore only where the existing 45° wedge has a full
+`boss_ligament` around its lower bearing land. That extra guide length clears the
+small roof wedge the longer blind wall otherwise leaves over the round keeper,
+without moving the keeper axis, insert or screw end. Both horizontal cuts retain
+their complete nominal circles and open
 above them into the same 36° tangent teardrop used by the enclosure's other X-axis
 bores, so neither leaves a circular crown for support. At least three 0.24 mm PET-GF
 layers remain over the insert roof. No boss, pier or pad is fused under the ceiling.
@@ -1426,9 +1451,14 @@ The moving panel carries no socket and no bore. One millimetre of empty bore bey
 the insert keeps the cup point off the blind PET-GF end. In service the tongue bears
 on the steel pin and the pin bears in the fixed strip around its own short tunnel;
 neither appliance show face is opened.
-`ceiling-panel-slides-in` reads the sweep before the pins exist, and
+`ceiling-panel-section` reads the 11 mm envelope, complete show skin, all nine
+body roofs and all three tie-approach pockets. `back-top-ceiling-growth` reads
+both clean fixed shells and the three exact growth-only body yields.
+`ceiling-panel-slides-in` reads the continuous field-and-rail sweep plus the six
+hanging furniture solids at one-millimetre stations before the pins exist, and
 `ceiling-dado-mouth-keepers` then proves both pins clear at home and catch their
-own tongue after the dado's 0.15 mm fore air is spent.
+own tongue over 5.60 mm in X and 2.00 mm in Z after the dado's 0.15 mm fore air
+is spent, without moving their established world coordinates.
 
 **Everything rooted on the ceiling over that field hangs off the panel**: the
 flow meter's two anchors and the three ribs bored for `carb-1`,

@@ -2,9 +2,10 @@
 
 In the BOX'S OWN FRAME, not a frame of its own: every plane this part stands on is a
 plane the box states about itself, and a second copy of any of them is a second machine.
-Its 3 mm show skin spans the interior ceiling datum and its top face IS the appliance's top
-surface. A broad 8 mm structural field descends into the room, relieved only where the placed
-bodies and a zip tie approach need that volume.
+Its 3 mm show skin spans the established pack ceiling lane and its top face IS the appliance's
+top surface. A broad 11 mm structural field descends into the room, relieved only where the
+placed bodies and their zip-tie approaches need that volume. The fixed side strips present a
+separate 6 mm physical face without moving the lane any body was placed from.
 
 WHY IT IS A SEPARATE PART. enclosure-back-top prints mouth-down on its seam rim with the
 build axis +Z (`enclosure.py`'s module docstring), so a ceiling printed in that piece is
@@ -16,8 +17,8 @@ telescopes in.
 
 WHAT THE PIECE KEEPS is the two side strips either side of this panel, `rail_run` wide,
 and it is those strips that carry the dado this panel's tongues run in — a drawer bottom
-in a dado. Each tongue is a wall-square rail centred on the interior ceiling datum, with
-half its section rooted in the structural field and half in the show skin. The strips' own
+in a dado. Each tongue is a 6 mm square rail centred on the fixed strips' physical face, wholly
+rooted in the structural field and finishing at the established pack lane. The strips' own
 section, the run of their corbels and the two transverse keeper sockets are back-top's;
 what this file states is the MATING FIGURES they are cut to (`dado`, `retainer_stations`,
 `fore_y`, `aft_y`, `panel_half_w`, `underside_z`).
@@ -27,7 +28,7 @@ Plan:
   * WIDTH is `funnel.collar_w`, whole. The throat's opening is that wide and this
     panel's edges are collinear with it, so the ceiling reads as ONE channel down the
     machine — funnel in the front of it, panel filling the rest — rather than as a lid
-    with a hole beside it. The visible skin grows into an 8 mm structural field on the
+    with a hole beside it. The visible skin grows into an 11 mm structural field on the
     interior side; rounded pockets leave the exact headroom the purchased bodies need.
   * FORE EDGE is the collar's own aft edge, and it is load-bearing: the funnel's brim
     overhangs the collar by `funnel.brim_overhang` and lands on this panel's first
@@ -77,19 +78,21 @@ import funnel as _funnel
 
 # --- the planes the box states, and the panel that fills them ----------------
 
-# The top wall's inner face, off the appliance's own stated height — the same arithmetic
+# The pack's established ceiling lane, off the appliance's own stated height — the same arithmetic
 # `enclosure_assembly.interior_ceiling` takes, and the plane the WHOLE rear storey hangs
 # from: `deck_storey` is this less the tap-water chain's crown and its tie clearance, and
-# every port, receptacle, axis and anchor on that deck is placed off it. The panel's
-# underside lies ON it and nothing below moves.
+# every port, receptacle, axis and anchor on that deck is placed off it. Nothing below moves.
 underside_z = _enc.appliance_height - _enc.floor_t - _enc.wall
 # The show face — the appliance's top surface. The panel carries the top wall's own
 # section, so this is one `wall` over the interior ceiling and the exterior top face both.
 show_z = underside_z + _enc.wall
+# The fixed strips' physical interior face. It is distinct from `underside_z`: the latter is
+# the immutable pack/furniture lane, while this is the six-millimetre printed ceiling section.
+fixed_under_z = show_z - _enc.back_top_ceiling_t
 # The broad interior field absorbs the roots of the meter and tube furniture.
 # It is sparse infill rather than a solid billet in the stated print profile; the CAD states the
 # load path and the slicer states how that envelope is filled.
-structural_t = 8.0
+structural_t = 11.0
 structural_under_z = show_z - structural_t
 relief_corner_r = 3.0
 
@@ -133,11 +136,11 @@ brim_seat = _funnel.brim_overhang
 
 # --- the tongue and the dado it runs in --------------------------------------
 #
-# THE RAIL STRADDLES THE INTERIOR CEILING DATUM. Half its wall-square section roots in the broad
-# structural field and half in the show skin, so the whole 3 x 3 section is joined to both parts
-# of the panel rather than hanging from the skin alone. Outboard, back-top's corbel grows one
-# millimetre deeper for every millimetre of run. At the dado's blind end that gives the captured
-# rail a lower ligament as well as the show-skin lip above it.
+# THE RAIL FILLS THE GROWN FIXED SECTION. Its six-millimetre square is centred on the fixed
+# strip's physical face, wholly rooted in the broad structural field and finishing at the
+# established furniture lane. Outboard, back-top's corbel grows one millimetre deeper for every
+# millimetre of run. At the dado's blind end that gives the captured rail a full lower ligament
+# as well as the show-skin lip above it.
 #
 # THE DADO'S ROOF RISES AT `relief_chamfer` FROM THE BLIND END TO THE MOUTH, the way every
 # relief ceiling on this box does — a roof left flat would hang over the slot in a piece
@@ -146,21 +149,20 @@ brim_seat = _funnel.brim_overhang
 # clearance is struck on all four faces of the square rail.
 dado_slip = fits.slip   # printed-fit clearance on each face of the tongue — a slide fit
                         # down the whole `depth` of groove, not a press
-# One top-wall section in both directions makes the tongue a 9 mm2 rail. Its Z centre is the
-# ceiling datum, which puts half the root in the 8 mm field and half in the 3 mm show skin.
-tongue_t = _enc.wall
-tongue_reach = _enc.wall
-tongue_floor_z = underside_z - tongue_t / 2.0
-tongue_roof_z = underside_z + tongue_t / 2.0
+# One grown fixed section in both directions makes the tongue a 36 mm2 rail.
+tongue_t = _enc.back_top_ceiling_t
+tongue_reach = _enc.back_top_ceiling_t
+tongue_floor_z = fixed_under_z - tongue_t / 2.0
+tongue_roof_z = fixed_under_z + tongue_t / 2.0
 dado_depth = tongue_reach + dado_slip
 
 dado_floor_z = tongue_floor_z - dado_slip
 dado_roof_z = tongue_roof_z + dado_slip       # at the blind end; it climbs inboard
 dado_mouth_x = panel_half_w                    # the rail's inboard face
 dado_blind_x = panel_half_w + dado_depth
-# The fixed corbel's lower face at this run is `underside_z - dado_depth`; what remains below the
+# The fixed corbel's lower face at this run is `fixed_under_z - dado_depth`; what remains below the
 # groove and above it are the two ligaments that capture the rail at the blind end.
-dado_lower_ligament = dado_floor_z - (underside_z - dado_depth)
+dado_lower_ligament = dado_floor_z - (fixed_under_z - dado_depth)
 lip_t = show_z - dado_roof_z
 
 
@@ -188,14 +190,17 @@ retainer_screw_d = 3.0
 retainer_screw_len = 12.0
 retainer_clearance = dado_slip
 retainer_y = fore_y - retainer_screw_d / 2.0 - retainer_clearance
-# High in the 3 mm tongue, but under a full ligament of show skin around the horizontal insert.
-retainer_z = tongue_floor_z + 1.0
+# The proven keeper axis remains in the established world lane. The larger tongue grows around
+# it: its upper two millimetres cross the pin while its full six-millimetre reach bears in X.
+retainer_z = underside_z - 0.5
 retainer_approach_d = _enc.heatset_dia + 2.0 * dado_slip
-# At the insert's inner face the corbel's 45° underside leaves the standard boss ligament below
-# the Ø4 bore. The bore then runs outboard for the insert's own full depth.
-retainer_insert_face_x = (
-    dado_blind_x + underside_z
-    - (retainer_z - _enc.heatset_dia / 2.0 - _enc.boss_ligament))
+# The six-millimetre dado reaches farther outboard than the original keeper guide did. Keep that
+# guide's proven inboard face: it opens the short wedge between the rising dado roof and the
+# pin's round crown without moving the insert, screw end or keeper axis.
+retainer_guide_face_x = panel_half_w + _enc.wall + dado_slip
+# The insert begins one blind-end relief past the deeper dado. This keeps the established insert,
+# bore and screw-end world coordinates while the tongue grows through them.
+retainer_insert_face_x = dado_blind_x + _enc.mount_bore_relief
 retainer_insert_end_x = retainer_insert_face_x + _enc.heatset_depth
 # The bore carries on past the insert by the same blind-end relief every M3 wall mount keeps.
 # The cup point can therefore use the whole insert without bottoming on PET-GF and jacking the
@@ -234,13 +239,13 @@ def _slab(x0, x1, y0, y1, z0, z1):
 
 
 def structural_stock():
-    """The ceiling's unrelieved 8 mm load field, inside the 3 mm show skin."""
+    """The ceiling's unrelieved eleven-millimetre envelope below the show face."""
     return _slab(-panel_half_w, panel_half_w, fore_y, aft_y,
                  structural_under_z, underside_z)
 
 
 def rail_stock(y0=fore_y, y1=aft_y):
-    """Both exact wall-square rails over one Y band, without their printed-fit clearance."""
+    """Both exact six-millimetre-square rails over one Y band, before printed-fit clearance."""
     rails = None
     for sx in (-1.0, 1.0):
         edge = sx * panel_half_w
@@ -269,10 +274,22 @@ def _rounded_slab(x0, x1, y0, y1, z0, z1, radius=relief_corner_r):
 
 def _tie_reliefs(box):
     """Full anchor footprints whose existing zip tie approach enters the deeper field."""
-    _meter_anchors, ribs = _enc.ceiling_stations(
+    meter_anchors, ribs = _enc.ceiling_stations(
         box.pack.flow_meter_anchors, box.pack.tube_anchors, panel=True)
     raw = structural_stock()
     pockets = []
+    if meter_anchors:
+        x_axis, z_axis, seat_r, bands = meter_anchors
+        reach = seat_r + _enc.flow_meter_anchor_wall + _enc.tie_cav_buffer
+        crown = z_axis + seat_r + _enc.wall
+        for by0, by1 in bands:
+            mid = (by0 + by1) / 2.0
+            tie = _slab(
+                x_axis - reach, x_axis + reach,
+                mid - _enc.tie_cav_w / 2.0, mid + _enc.tie_cav_w / 2.0,
+                crown, underside_z + 0.1)
+            if raw.intersect(tie).Volume() > 1e-6:
+                pockets.append(tie)
     for mid, u, n, seat_r in ribs:
         origin = tuple(mid[k] - u[k] * _enc.tube_anchor_len / 2.0 for k in range(3))
         crown = seat_r + _enc.wall
@@ -311,7 +328,7 @@ def _relieved_stock(box):
 def build(box=None):
     """The panel as one solid: show skin, relieved structural field, tongues and furniture.
 
-    THE 8 MM FIELD IS THE STRUCTURE. Its downward-open pockets are struck from the purchased
+    THE 11 MM FIELD IS THE STRUCTURE. Its downward-open pockets are struck from the purchased
     bodies' intersections with the unrelieved stock, so the broad remainder carries load in two
     dimensions while most furniture roots disappear into it. A box-less build keeps the stock
     whole; the machine build hands in the exact relief stations.
@@ -485,6 +502,9 @@ def main():
             "PANEL_AFT": f"{aft_y:g}",
             "PANEL_UNDER": f"{underside_z:g}",
             "PANEL_SHOW": f"{show_z:g}",
+            "FIXED_UNDER": f"{fixed_under_z:g}",
+            "FIXED_T": f"{_enc.back_top_ceiling_t:g} mm",
+            "CEILING_GROWTH": f"{_enc.back_top_ceiling_growth:g} mm",
             "PANEL_BBOX_X": f"{b.xlen:g} mm",
             "RAIL_RUN": f"{rail_run:g} mm",
             "TONGUE_T": f"{tongue_t:g} mm",
@@ -507,6 +527,7 @@ def main():
             "RETAINER_OVERLAP": f"{retainer_tongue_overlap:g} mm",
             "RETAINER_INSERT_FACE": f"{retainer_insert_face_x:g}",
             "RETAINER_INSERT_END": f"{retainer_insert_end_x:g}",
+            "RETAINER_GUIDE_FACE": f"{retainer_guide_face_x:g}",
             "RETAINER_TIP_AIR": f"{_enc.mount_bore_relief:g} mm",
             "RETAINER_APPROACH_D": f"{retainer_approach_d:g} mm",
             "HEATSET": f"{_enc.heatset_depth:g} mm",

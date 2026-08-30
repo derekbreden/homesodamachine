@@ -7025,32 +7025,74 @@ OUTBOARD = tuple(name(Y_WALL_FITTINGS[station][2])
 # and one above the hit is the roof clearance.
 CEILING_RELIEF_BODIES = (
     "c14-inlet", "keystone-jack", "asse1022-assembly", "co2-inlet",
-    "bulkhead-water", "bulkhead-carb", "digiten-flow",
+    "bulkhead-water", "bulkhead-carb", "digiten-flow", "relay-1", "ground-stack",
+    "wr1110", "gasher-co2",
 )
 CEILING_RELIEF_PLAN_SLIP = 2.0
 CEILING_RELIEF_Z_CLEAR = 1.0
 
+# These three purchased bodies reach the fixed +X strip's added three-millimetre growth. Their
+# established, printable corbel remains; only the new shell is locally withheld over the exact
+# placed plan plus one assembly-clearance millimetre.
+CEILING_GROWTH_RELIEF_BODIES = (
+    ("c14-inlet", +1.0),
+    ("relay-1", +1.0),
+    ("ground-stack", +1.0),
+)
+CEILING_GROWTH_RELIEF_SLIP = 1.0
+
 
 def ceiling_reliefs(placed: dict) -> tuple:
-    """Body-derived pockets in the ceiling panel's unrelieved field and rails."""
+    """Body-derived pockets in the ceiling panel's unrelieved field and rails.
+
+    A body less than one clearance below the raw field still earns a pocket: translating the
+    exact solid upward by that clearance exposes the plan which would otherwise be a near miss,
+    while the pocket roof remains the actual body's crown plus the same clearance.
+    """
     raw = _cpanel.structural_stock().fuse(_cpanel.rail_stock())
     reliefs = []
     for name in CEILING_RELIEF_BODIES:
         if name not in placed:
             continue
-        hit = raw.intersect(placed[name][0])
-        if hit.Volume() <= 1e-6:
+        body = placed[name][0]
+        hits = [hit for hit in (
+            raw.intersect(body),
+            raw.intersect(body.translate((0.0, 0.0, CEILING_RELIEF_Z_CLEAR))),
+        ) if hit.Volume() > 1e-6]
+        if not hits:
             continue
-        b = hit.BoundingBox()
+        boxes = [hit.BoundingBox() for hit in hits]
+        body_top = body.BoundingBox().zmax
         reliefs.append((
             name,
-            b.xmin - CEILING_RELIEF_PLAN_SLIP,
-            b.xmax + CEILING_RELIEF_PLAN_SLIP,
-            b.ymin - CEILING_RELIEF_PLAN_SLIP,
-            b.ymax + CEILING_RELIEF_PLAN_SLIP,
-            min(_cpanel.underside_z, b.zmax + CEILING_RELIEF_Z_CLEAR),
+            min(b.xmin for b in boxes) - CEILING_RELIEF_PLAN_SLIP,
+            max(b.xmax for b in boxes) + CEILING_RELIEF_PLAN_SLIP,
+            min(b.ymin for b in boxes) - CEILING_RELIEF_PLAN_SLIP,
+            max(b.ymax for b in boxes) + CEILING_RELIEF_PLAN_SLIP,
+            min(_cpanel.underside_z, body_top + CEILING_RELIEF_Z_CLEAR),
         ))
     return tuple(reliefs)
+
+
+def ceiling_growth_reliefs(placed: dict) -> tuple:
+    """Exact fixed-strip plans where the added ceiling growth yields to a purchased body."""
+    fx0, fx1 = _enc.back_top_flank_face()
+    rows = []
+    for name, sx in CEILING_GROWTH_RELIEF_BODIES:
+        if name not in placed:
+            continue
+        b = placed[name][0].BoundingBox()
+        if sx > 0.0:
+            x0 = max(_cpanel.panel_half_w, b.xmin - CEILING_GROWTH_RELIEF_SLIP)
+            x1 = min(fx1, b.xmax + CEILING_GROWTH_RELIEF_SLIP)
+        else:
+            x0 = max(fx0, b.xmin - CEILING_GROWTH_RELIEF_SLIP)
+            x1 = min(-_cpanel.panel_half_w, b.xmax + CEILING_GROWTH_RELIEF_SLIP)
+        y0 = max(_cpanel.fore_y, b.ymin - CEILING_GROWTH_RELIEF_SLIP)
+        y1 = min(_cpanel.aft_y, b.ymax + CEILING_GROWTH_RELIEF_SLIP)
+        if x1 > x0 + 1e-9 and y1 > y0 + 1e-9:
+            rows.append((name, sx, x0, x1, y0, y1))
+    return tuple(rows)
 
 
 def pack(a: cq.Assembly = None) -> "_enc.Pack":
@@ -7082,6 +7124,7 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
                      flow_meter_anchors=a.digiten_anchors,
                      tube_anchors=a.tube_anchors + a.body_anchors,
                      ceiling_reliefs=ceiling_reliefs(placed),
+                     ceiling_growth_reliefs=ceiling_growth_reliefs(placed),
                      port_field=y_wall_field(a.wall_stations),
                      nameplate=nameplate_cut(placed["foam-assembly"][0]),
                      keystone=a.keystone_station,
@@ -7120,16 +7163,23 @@ def check_through_wall_headroom(a, shell) -> Bound:
             + ", ".join(f"{n} {z:.2f}" for n, z in sorted(over))])))
 
 
-def check_ceiling_panel_insertion(back_top, box) -> Bound:
-    """Whether the ceiling's deeper field and rails can slide through back-top's open Y seam.
+def check_ceiling_panel_insertion(back_top, panel, box) -> Bound:
+    """Whether the complete ceiling panel can slide through back-top's open Y seam.
 
     This is a continuous motion bound, represented conservatively by the whole prism swept
     from the first pose with the panel aft edge at the seam through the installed pose. The C14
     surround and any keystone material high enough to reach the sweep are the fixed features
     admitted into that prism: a matching panel pocket keeps each reaching XZ section open
     through the panel's aft edge. Everything else in the swept prism is an obstruction even
-    when the installed pose is clear."""
+    when the installed pose is clear.
+
+    The field prism cannot describe the five printed anchor populations hanging below it, so
+    their exact remainder is also advanced over the same travel at no more than one-millimetre
+    stations. The continuous prism fences every fixed edge at and above the field; the sampled
+    exact furniture check proves that the lower geometry which rides with it has the same path.
+    """
     fixed = back_top.val() if hasattr(back_top, "val") else back_top
+    moving = panel.val() if hasattr(panel, "val") else panel
     sweep = _cpanel.insertion_sweep()
     panel_stock = _cpanel.structural_stock().fuse(_cpanel.rail_stock())
     admitted = (
@@ -7154,20 +7204,245 @@ def check_ceiling_panel_insertion(back_top, box) -> Bound:
         pockets_ok = pockets_ok and missing <= 1e-3 and open_
         fixed = fixed.cut(feature)
     volume = sweep.intersect(fixed).Volume()
-    ok = volume <= 1e-3 and pockets_ok
+
+    show_skin = _cpanel._slab(
+        -_cpanel.panel_half_w, _cpanel.panel_half_w,
+        _cpanel.fore_y, _cpanel.aft_y, _cpanel.underside_z, _cpanel.show_z)
+    furniture = moving.cut(show_skin.fuse(panel_stock))
+    first_dy = box.y_joint - _cpanel.aft_y
+    sample_n = max(1, math.ceil(abs(first_dy) / 1.0))
+    furniture_worst = 0.0
+    furniture_at = first_dy
+    for i in range(sample_n + 1):
+        dy = first_dy * (1.0 - i / sample_n)
+        overlap = furniture.translate(cq.Vector(0.0, dy, 0.0)).intersect(fixed).Volume()
+        if overlap > furniture_worst:
+            furniture_worst, furniture_at = overlap, dy
+
+    ok = volume <= 1e-3 and furniture_worst <= 1e-3 and pockets_ok
     pocket_reading = "; ".join(
         f"{name} pocket missing {missing:.4f} mm³ and {'open' if open_ else 'closed'} aft"
         for name, missing, open_ in pocket_rows)
     return record_bound(Bound(
-        "ceiling-panel-slides-in", "The deep ceiling panel and rails slide through back-top",
-        ok, (f"{volume:.3f} mm³ of unpocketed fixed back-top in its continuous sweep"
+        "ceiling-panel-slides-in", "The complete deep ceiling panel slides through back-top",
+        ok, (f"{volume:.3f} mm³ in the continuous field-and-rail sweep; "
+             f"{furniture_worst:.3f} mm³ worst lower-furniture overlap over "
+             f"{sample_n + 1} exact stations at y shift {furniture_at:.2f}"
              + (f"; {pocket_reading}" if pocket_reading else "")),
         "no unpocketed fixed material in the field-and-rail complete Y sweep, with every fixed "
-        "rear feature which reaches it wholly inside an aft-open running-clearance pocket",
+        "rear feature which reaches it wholly inside an aft-open running-clearance pocket, and "
+        "no fixed material in any lower printed-furniture pose at one-millimetre spacing",
         ([] if ok else [
             f"{volume:.3f} mm³ of back-top stands outside the admitted pockets in the panel's "
-            "insertion prism; " + (pocket_reading or "no admitted feature reaches the sweep")
-            + ". A clear installed pose does not show that the ceiling can reach it."])))
+            f"insertion prism and the hanging furniture reaches {furniture_worst:.3f} mm³ at "
+            f"y shift {furniture_at:.2f}; "
+            + (pocket_reading or "no admitted feature reaches the sweep")
+            + ". A clear installed pose does not show that the complete ceiling can reach it."])))
+
+
+def check_ceiling_panel_section(panel, box) -> Bound:
+    """Read the removable ceiling's whole grown section, relief roofs and tie approaches."""
+    moving = panel.val() if hasattr(panel, "val") else panel
+    tol = 1e-6
+    datums = (
+        ("show face", _cpanel.show_z, box.outer[5]),
+        ("pack lane", _cpanel.underside_z, box.inner[5]),
+        ("fixed physical face", _cpanel.fixed_under_z, box.outer[5] - 2.0 * _enc.wall),
+        ("structural underside", _cpanel.structural_under_z, box.outer[5] - 11.0),
+        ("structural depth", _cpanel.structural_t, 11.0),
+    )
+    datum_bad = [(name, got, want) for name, got, want in datums if abs(got - want) > tol]
+
+    show = _cpanel._slab(
+        -_cpanel.panel_half_w, _cpanel.panel_half_w,
+        _cpanel.fore_y, _cpanel.aft_y, _cpanel.underside_z, _cpanel.show_z)
+    show_missing = show.cut(moving).Volume()
+
+    # Two body-free coupons prove the added lower three millimetres is real material on both
+    # halves of the broad field, rather than merely a deeper bounding box made by furniture.
+    coupon_missing = 0.0
+    for x0, x1 in ((-40.0, -20.0), (20.0, 40.0)):
+        coupon = _cpanel._slab(
+            x0, x1, 345.0, 350.0,
+            _cpanel.structural_under_z + 0.2, _cpanel.underside_z - 0.2)
+        coupon_missing += coupon.cut(moving).Volume()
+
+    expected_reliefs = {
+        "c14-inlet", "asse1022-assembly", "co2-inlet", "bulkhead-water",
+        "bulkhead-carb", "digiten-flow", "relay-1", "wr1110", "gasher-co2",
+    }
+    relief_names = {row[0] for row in box.pack.ceiling_reliefs}
+    relief_bad = sorted(expected_reliefs ^ relief_names)
+    roof_left = [(_cpanel.show_z - row[5], row[0]) for row in box.pack.ceiling_reliefs]
+    least_roof, least_name = min(roof_left, default=(float("inf"), "none"))
+
+    tie_pockets = _cpanel._tie_reliefs(box)
+    raw_field = _cpanel.structural_stock()
+    tie_air = [pocket.intersect(raw_field).cut(moving).Volume() for pocket in tie_pockets]
+    one_body = moving.isValid() and len(moving.Solids()) == 1
+    ok = (not datum_bad and show_missing <= 1e-3 and coupon_missing <= 1e-3
+          and not relief_bad and least_roof >= _enc.wall - 1e-6
+          and len(tie_pockets) == 3 and min(tie_air, default=0.0) >= 1.0 and one_body)
+    return record_bound(Bound(
+        "ceiling-panel-section",
+        "The removable ceiling is an eleven-millimetre relieved plate with a whole show skin",
+        ok,
+        f"{_cpanel.structural_t:.1f} mm envelope to z {_cpanel.structural_under_z:.1f}; "
+        f"{show_missing:.4f} mm³ show skin missing, {coupon_missing:.4f} mm³ clean growth missing; "
+        f"{len(relief_names)} body roofs, least {least_roof:.3f} mm over {least_name}; "
+        f"{len(tie_pockets)} tie approaches, least {min(tie_air, default=0.0):.1f} mm³ open",
+        "z 355 exterior, z 352 pack lane, z 349 fixed face and z 344 panel underside; a whole "
+        "three-millimetre show skin, the exact nine body reliefs with at least one wall over "
+        "each, three open tie approaches and one valid solid",
+        ([] if ok else [
+            f"datum faults {datum_bad}; show skin missing {show_missing:.4f} mm³; clean grown "
+            f"coupons missing {coupon_missing:.4f} mm³; relief-name difference {relief_bad}; "
+            f"least roof {least_roof:.3f} mm over {least_name}; {len(tie_pockets)} tie pockets "
+            f"leave air {tie_air}; valid single solid {one_body}. The panel may yield "
+            "only in placed-body and zip-tie pockets; it cannot spend its exterior skin or the "
+            "clean lower section."])))
+
+
+def check_ceiling_rail_capture(back_top, panel) -> Bound:
+    """Read both six-millimetre tongues in their actual fixed-strip dados."""
+    fixed = back_top.val() if hasattr(back_top, "val") else back_top
+    moving = panel.val() if hasattr(panel, "val") else panel
+    shove = _cpanel.dado_slip + 0.25
+    rows = []
+    for sx in (-1.0, +1.0):
+        # The long ASSE crown necessarily opens the -X rail aft; the relay does the same on +X
+        # forward. Read each rail in its own body-free band rather than declaring either local,
+        # explicitly pocketed interruption to be the section of the whole joint.
+        y0, y1 = ((285.0, 290.0) if sx < 0.0 else (345.0, 350.0))
+        edge = sx * _cpanel.panel_half_w
+        rail = _cpanel._slab(
+            min(edge, edge + sx * _cpanel.tongue_reach),
+            max(edge, edge + sx * _cpanel.tongue_reach),
+            y0, y1, _cpanel.tongue_floor_z, _cpanel.tongue_roof_z)
+        rail_missing = rail.cut(moving).Volume()
+        home = rail.intersect(fixed).Volume()
+        down = rail.translate(cq.Vector(0.0, 0.0, -shove)).intersect(fixed).Volume()
+        up = rail.translate(cq.Vector(0.0, 0.0, shove)).intersect(fixed).Volume()
+        out = rail.translate(cq.Vector(sx * shove, 0.0, 0.0)).intersect(fixed).Volume()
+
+        blind = sx * _cpanel.dado_blind_x
+        xa, xb = sorted((blind - sx * 0.15, blind - sx * 0.05))
+        lower = _cpanel._slab(
+            xa, xb, y0, y1,
+            _cpanel.fixed_under_z - (_cpanel.dado_depth - 0.5) + 0.65,
+            _cpanel.dado_floor_z - 0.2)
+        upper = _cpanel._slab(
+            xa, xb, y0, y1,
+            _cpanel.dado_roof_z + 0.4, _cpanel.show_z - 0.2)
+        rows.append((sx, rail_missing, home, down, up, out,
+                     lower.cut(fixed).Volume(), upper.cut(fixed).Volume()))
+
+    bad = [row for row in rows if (row[1] > 1e-3 or row[2] > 1e-3
+                                    or min(row[3:6]) <= 1e-3
+                                    or max(row[6:8]) > 1e-3)]
+    section_ok = (
+        abs(_cpanel.tongue_t - 6.0) <= 1e-9
+        and abs(_cpanel.tongue_reach - 6.0) <= 1e-9
+        and _cpanel.dado_lower_ligament >= _enc.wall - 1e-9
+        and _cpanel.lip_t >= 2.8 - 1e-9)
+    ok = not bad and section_ok
+    least_catch = min((min(row[3:6]) for row in rows), default=0.0)
+    worst_missing = max((max(row[1], row[6], row[7]) for row in rows), default=0.0)
+    worst_home = max((row[2] for row in rows), default=0.0)
+    return record_bound(Bound(
+        "ceiling-rail-capture",
+        "Both six-by-six ceiling tongues are captured in grown fixed-strip dados",
+        ok,
+        f"6.00 × 6.00 mm tongues; {_cpanel.dado_slip:.2f} mm slip; "
+        f"{_cpanel.dado_lower_ligament:.2f}/{_cpanel.lip_t:.2f} mm lower/upper ligaments; "
+        f"{worst_home:.4f} mm³ home clash, {least_catch:.3f} mm³ least X/Z catch, "
+        f"{worst_missing:.4f} mm³ worst missing rail or ligament",
+        "both complete tongues clear at home, meet fixed material after one clearance-plus-0.25 "
+        "millimetre displacement in X, Z+ and Z-, and retain at least 3.00 mm below and 2.80 mm "
+        "above the dado's blind end",
+        ([] if ok else [
+            f"rail rows {rows}; section constants read {_cpanel.tongue_t:.3f} × "
+            f"{_cpanel.tongue_reach:.3f} mm with {_cpanel.dado_lower_ligament:.3f}/"
+            f"{_cpanel.lip_t:.3f} mm ligaments. A deeper panel without all three catches is a "
+            "larger loose lid, not a stronger captured ceiling."])))
+
+
+def check_back_top_ceiling_growth(back_top, placed: dict, box) -> Bound:
+    """Read the added fixed-strip shell, its exact local yields and the bodies below it."""
+    fixed = back_top.val() if hasattr(back_top, "val") else back_top
+    expected_names = {name for name, _sx in CEILING_GROWTH_RELIEF_BODIES}
+    rows = box.pack.ceiling_growth_reliefs
+    row_names = {row[0] for row in rows}
+    row_bad = sorted(expected_names ^ row_names)
+
+    coordinate_bad = []
+    for name, sx, x0, x1, y0, y1 in rows:
+        body = placed[name][0]
+        body = body.val() if hasattr(body, "val") else body
+        b = body.BoundingBox()
+        fx0, fx1 = _enc.back_top_flank_face()
+        want = (
+            max(_cpanel.panel_half_w, b.xmin - CEILING_GROWTH_RELIEF_SLIP),
+            min(fx1, b.xmax + CEILING_GROWTH_RELIEF_SLIP),
+            max(_cpanel.fore_y, b.ymin - CEILING_GROWTH_RELIEF_SLIP),
+            min(_cpanel.aft_y, b.ymax + CEILING_GROWTH_RELIEF_SLIP),
+        ) if sx > 0.0 else (
+            max(fx0, b.xmin - CEILING_GROWTH_RELIEF_SLIP),
+            min(-_cpanel.panel_half_w, b.xmax + CEILING_GROWTH_RELIEF_SLIP),
+            max(_cpanel.fore_y, b.ymin - CEILING_GROWTH_RELIEF_SLIP),
+            min(_cpanel.aft_y, b.ymax + CEILING_GROWTH_RELIEF_SLIP),
+        )
+        got = (x0, x1, y0, y1)
+        if any(abs(a - b_) > 1e-6 for a, b_ in zip(got, want)):
+            coordinate_bad.append((name, got, want))
+
+    # At an unobstructed band, beyond the dado's blind wall, both sides must contain the exact
+    # added shell. This catches a nominal `fixed_under_z` change which never reached the B-rep.
+    growth_missing = []
+    for sx in (-1.0, +1.0):
+        wall_x = _enc.back_top_flank_face()[1 if sx > 0.0 else 0]
+        xa, xb = sorted((sx * (_cpanel.dado_blind_x + 1.0), wall_x - sx * 0.5))
+        band = _enc._ybox(
+            xa, xb, 240.0, 245.0,
+            _cpanel.fixed_under_z - _cpanel.rail_run - 1.0, _cpanel.underside_z + 1.0)
+        growth = _enc._back_top_ceiling_growth(box.inner, box.y_joint, sx).intersect(band)
+        growth_missing.append(growth.cut(fixed).Volume())
+
+    gaps = []
+    for name, sx in CEILING_GROWTH_RELIEF_BODIES:
+        body = placed[name][0]
+        body = body.val() if hasattr(body, "val") else body
+        corbel = _enc._back_top_ceiling_for_pack(box.inner, box.y_joint, sx, box)
+        established = _enc._back_top_ceiling_for_pack(
+            box.inner, box.y_joint, sx, box, grown=False)
+        gaps.append((name,
+                     _clearing.gap(body, established, 5.0),
+                     _clearing.gap(body, corbel, 5.0)))
+    gap_tol = 0.05
+    clearance_kept = all(
+        grown >= min(established, _card.CLEARANCE_FLOOR) - 1e-6
+        and grown >= established - gap_tol - 1e-6
+        for _name, established, grown in gaps)
+    ok = (not row_bad and not coordinate_bad
+          and max(growth_missing, default=0.0) <= 1e-3
+          and clearance_kept
+          and abs(_enc.back_top_ceiling_growth - 3.0) <= 1e-9)
+    return record_bound(Bound(
+        "back-top-ceiling-growth",
+        "Back-top's fixed ceiling strips keep their three-millimetre inward growth",
+        ok,
+        f"{_enc.back_top_ceiling_t:.1f} mm fixed face; clean shell missing "
+        f"{max(growth_missing, default=0.0):.4f} mm³; "
+        + ", ".join(f"{name} {old:.3f}→{grown:.3f} mm" for name, old, grown in gaps),
+        "six millimetres from the unchanged exterior, the exact added shell on both clean "
+        "strips, and body air within 0.05 mm of the established corbel, never below one "
+        "millimetre unless that body's established feature was already closer, after exact "
+        "one-millimetre growth-only reliefs",
+        ([] if ok else [
+            f"growth rows differ by name {row_bad} or coordinates {coordinate_bad}; clean shell "
+            f"missing is {growth_missing}; body gaps are {gaps}; fixed growth is "
+            f"{_enc.back_top_ceiling_growth:.3f} mm. Preserve the established corbels and give "
+            "up only the added shell over the placed body's own plan."])))
 
 
 def check_c14_collar(pieces: dict, box) -> Bound:
@@ -7259,17 +7534,18 @@ def check_c14_collar(pieces: dict, box) -> Bound:
 def check_c14_ceiling_corbel(c14, box) -> Bound:
     """The purchased inlet against the complete +X ceiling-strip corbel.
 
-    This is the unrelieved production wedge, not a bounding box reconstructed beside it. The
-    inlet's X station is justified by this one gap: if the moulded rim moves into the wedge the
-    answer is to move that shared station, not to restore a short material-rooted ceiling band.
-    `ceiling_corbel_at` is read at the rim as well, so a stale relief row cannot make the solid
-    comparison vacuously clear by deleting the wedge it is meant to prove."""
+    This is the exact grown production wedge, with only its added shell withheld on the C14's
+    placed plan—not a bounding box reconstructed beside it. The complete established wedge must
+    remain, and the new shell owes the moulding one assembly-clearance millimetre.
+    `ceiling_corbel_at` is read at the rim as well, so a stale row cannot make the comparison
+    vacuously clear by deleting the support it is meant to preserve."""
     c14 = c14.val() if hasattr(c14, "val") else c14
-    corbel = _enc._back_top_ceiling_corbel(box.inner, box.y_joint, +1.0)
+    corbel = _enc._back_top_ceiling_grown_for_pack(
+        box.inner, box.y_joint, +1.0, box.pack.ceiling_growth_reliefs)
     gap = _clearing.gap(c14, corbel, 5.0)
     b = c14.BoundingBox()
     y = min(max((b.ymin + b.ymax) / 2.0, _cpanel.fore_y), _cpanel.aft_y)
-    kept = _enc.ceiling_corbel_at(b.xmax, y)
+    kept = _enc.ceiling_corbel_at(b.xmax, y, box.pack.ceiling_growth_reliefs)
     want = _card.CLEARANCE_FLOOR
     ok = gap >= want - 1e-6 and kept > 1e-6
     return record_bound(Bound(
@@ -7277,7 +7553,7 @@ def check_c14_ceiling_corbel(c14, box) -> Bound:
         "The C14 stands clear of the complete wall-rooted ceiling corbel",
         ok,
         f"{gap:.3f} mm exact air; {kept:.3f} mm of corbel kept at the rim",
-        f"at least {want:g} mm exact air and a nonzero unrelieved wedge at the rim",
+        f"at least {want:g} mm exact air and a nonzero established wedge at the rim",
         ([] if ok else [
             f"the C14 leaves {gap:.3f} mm to the full +X ceiling corbel and "
             f"`ceiling_corbel_at` keeps {kept:.3f} mm at its rim; move the shared X station "
@@ -7450,7 +7726,7 @@ def check_ceiling_retention(back_top, panel) -> Bound:
     roof_skin = 0.75
     angle = math.radians(_enc.teardrop_roof_angle)
     for sx, cy, cz in _cpanel.retainer_stations():
-        guide0, guide1 = sorted((sx * _cpanel.dado_blind_x,
+        guide0, guide1 = sorted((sx * _cpanel.retainer_guide_face_x,
                                   sx * _cpanel.retainer_insert_face_x))
         bore0, bore1 = sorted((sx * _cpanel.retainer_insert_face_x,
                                sx * _cpanel.retainer_bore_end_x))
@@ -7488,8 +7764,23 @@ def check_ceiling_retention(back_top, panel) -> Bound:
     lands_whole = max(land_missing, default=0.0) <= 1e-3
     roofs_whole = max(roof_missing, default=0.0) <= 1e-3
     both_catch = len(caught) == 2 and min(caught) >= 1.0
+    world = (
+        (_cpanel.retainer_y, 234.35),
+        (_cpanel.retainer_z, 351.50),
+        (_cpanel.retainer_insert_face_x, 86.65),
+        (_cpanel.retainer_insert_end_x, 91.90),
+        (_cpanel.retainer_bore_end_x, 92.90),
+        (_cpanel.retainer_screw_inner_x, 79.90),
+        (_cpanel.retainer_tongue_overlap, 5.60),
+    )
+    world_exact = all(abs(got - want) <= 1e-6 for got, want in world)
+    vertical_overlap = max(0.0, min(
+        _cpanel.tongue_roof_z, _cpanel.retainer_z + _cpanel.retainer_screw_d / 2.0)
+        - max(_cpanel.tongue_floor_z,
+              _cpanel.retainer_z - _cpanel.retainer_screw_d / 2.0))
+    engagement_exact = abs(vertical_overlap - 2.0) <= 1e-6
     ok = (home_clear and pin_paths_clear and sockets_clear and lands_whole and roofs_whole
-          and both_catch)
+          and both_catch and world_exact and engagement_exact)
     return record_bound(Bound(
         "ceiling-dado-mouth-keepers",
         "Two transverse keepers block both ceiling tongues at the open dado mouths",
@@ -7499,14 +7790,17 @@ def check_ceiling_retention(back_top, panel) -> Bound:
          f"{max(home, default=0.0):.4f}, fixed clash {max(fixed_clash, default=0.0):.4f}, "
          f"socket stock {max(socket_occupied, default=0.0):.4f}, land missing "
          f"{max(land_missing, default=0.0):.4f}, roof missing "
-         f"{max(roof_missing, default=0.0):.4f} mm³"),
+         f"{max(roof_missing, default=0.0):.4f} mm³; "
+         f"{_cpanel.retainer_tongue_overlap:.2f} mm X / {vertical_overlap:.2f} mm Z engagement"),
         "both M3 cross-pins clear at home, catch their own tongue after the stated fore air, "
         "and run in round, teardrop-roofed fixed sockets with a complete lower heat-set land "
-        f"and at least {roof_skin:g} mm of PET-GF over the apex",
+        f"and at least {roof_skin:g} mm of PET-GF over the apex; the established y 234.35, "
+        "z 351.50, x 79.90/86.65/91.90/92.90 stations and 5.60 by 2.00 mm tongue engagement",
         ([] if ok else [
             f"the keeper pair reads home {home}, caught {caught}, fixed clash {fixed_clash}, "
             f"socket stock {tuple(socket_occupied)}, land missing {tuple(land_missing)}. "
-            f"roof missing {tuple(roof_missing)}. "
+            f"roof missing {tuple(roof_missing)}; exact stations {world_exact}, vertical "
+            f"engagement {vertical_overlap:.3f} mm. "
             "Each pin is installed only after the panel reaches its +Y stop; put its axis "
             "immediately ahead of the tongue, keep the guide open through the fixed corbel, "
             "and leave the round passage, lower insert land and printable roof in back-top."])))
@@ -7997,13 +8291,18 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     # The collar, tunnel, corbel and crown are one fixed back-top feature. Read that ownership
     # before the slide check admits its matching aft-open panel pocket into the moving field.
     check_c14_collar(pieces, box)
-    check_c14_ceiling_corbel(_solids(a)["c14-inlet"][0], box)
-    check_ground_ceiling_gable(_solids(a)["ground-stack"][0], pieces, box)
+    placed_solids = _solids(a)
+    check_ceiling_panel_section(pieces["ceiling-panel"], box)
+    check_ceiling_rail_capture(pieces["back-top"], pieces["ceiling-panel"])
+    check_back_top_ceiling_growth(pieces["back-top"], placed_solids, box)
+    check_c14_ceiling_corbel(placed_solids["c14-inlet"][0], box)
+    check_ground_ceiling_gable(placed_solids["ground-stack"][0], pieces, box)
     check_prv_chase_corbels(pieces, box)
     # Installed clearance is not insertion clearance: the panel traverses the whole rear
     # column before it reaches this pose. Read the deeper field's continuous sweep against the
     # fixed piece, including the C14 ownership split that makes the aft end pass.
-    check_ceiling_panel_insertion(pieces["back-top"], box)
+    check_ceiling_panel_insertion(
+        pieces["back-top"], pieces["ceiling-panel"], box)
     # THEN THE KEEPERS EXIST. One headless screw crosses each empty dado mouth only after the
     # panel has reached the rear wall, so the insertion sweep stays empty and both tongue ends
     # acquire a direct fixed stop against Y− withdrawal.
