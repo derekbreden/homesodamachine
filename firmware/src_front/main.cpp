@@ -356,6 +356,8 @@ static bool primeLinkOwnsJ9();
 static void primeSessionService();
 static void lockScreenShow(const char *kicker, const char *title, const char *body);
 static void lockScreenHide();
+static void alignTargetShow();
+static void alignTargetHide();
 
 // ── UI objects ──
 static lv_obj_t *lockScreen, *lockLogoImg, *lockKicker, *lockTitle, *lockBody;
@@ -1019,23 +1021,11 @@ static bool gt911ReadTouch(uint16_t *x, uint16_t *y) {
 // reuse is synchronized from on_frame_buf_complete instead. A panel wake stays
 // dark until reset and DISP have each crossed a real vertical blank and complete
 // frames have crossed while the panel re-acquires the stream.
-// How long the panel gets to re-acquire the stream before DISP is raised. One
-// frame is 32.2 ms at 976x528 and 16 MHz, so 12 frames is 387 ms and the 600 ms
-// floor is what actually gates a wake.
-//
-// This budget is deliberately far past any plausible requirement. Two panels
-// running this identical firmware disagree about it: one showed no shifted wake
-// in days, the other shows one in five wakes out of seven. Nothing on the board
-// can measure the difference — the ST7262 is write-only and reports no lock — so
-// the only way to learn whether acquisition time is the variable at all is to
-// give it more than it could possibly need and see whether the shift stops. A
-// wake costs about 800 ms here, which is too slow to keep; the number to tune
-// down to is on the other side of that answer.
 #define WAKE_QUIET_MS 200
 #define WAKE_RESET_LOW_MS 20
-#define WAKE_RESET_RECOVERY_MS 600
-#define WAKE_FRAME_COUNT 12
-#define WAKE_FRAME_WAIT_MS 2000
+#define WAKE_RESET_RECOVERY_MS 120
+#define WAKE_FRAME_COUNT 4
+#define WAKE_FRAME_WAIT_MS 500
 static unsigned long animResumeDue = 0;
 
 // LCD_RST is the ST7262's, on CH422G EXIO3. EXIO2 is both panel DISP and the
@@ -1070,6 +1060,7 @@ static void panelKickComplete(unsigned long now) {
   animResumeDue = now + WAKE_QUIET_MS;
   kickStage = 0;
   kickCompleted++;
+  alignTargetShow();
 }
 
 static void panelKick() {
@@ -3065,6 +3056,107 @@ static void ratioStepCb(lv_event_t *e) {
 // that the machine is deliberately busy while the modal names the reason. The
 // object is built once and reused by boot, filling, cleaning, and any future
 // operation that must withhold the rest of the UI.
+// ── Alignment target ──────────────────────────────────────────────────────
+// A wake that comes up shifted moves the whole image by an amount no counter on
+// this board can read, because the ST7262 reports nothing. This draws a ruler
+// the panel itself carries: eight 10 px bands around the edge, outermost first,
+// so the outermost band still visible at an edge is how many pixels that edge
+// lost. Each edge names itself in framebuffer coordinates, so a photograph of a
+// shifted wake measures itself whichever way the board happens to be sitting.
+#define ALIGN_BAND_PX    10
+#define ALIGN_BAND_COUNT 8
+#define ALIGN_HOLD_MS    8000
+
+static const uint32_t kAlignBand[ALIGN_BAND_COUNT] = {
+    0xFF0000,  //  0  red
+    0x00FF00,  // 10  green
+    0x0000FF,  // 20  blue
+    0xFFFF00,  // 30  yellow
+    0xFFFFFF,  // 40  white
+    0xFF00FF,  // 50  magenta
+    0x00FFFF,  // 60  cyan
+    0xFF8000,  // 70  orange
+};
+
+static lv_obj_t *alignScreen = nullptr;
+static unsigned long alignHideDue = 0;
+
+static lv_obj_t *alignLabel(lv_obj_t *parent, const char *text, lv_coord_t x, lv_coord_t y) {
+  lv_obj_t *l = lv_label_create(parent);
+  lv_label_set_text(l, text);
+  lv_obj_set_style_text_color(l, lv_color_hex(0xFFFFFF), 0);
+  lv_obj_set_pos(l, x, y);
+  return l;
+}
+
+static void buildAlignTarget(lv_obj_t *scr) {
+  alignScreen = lv_obj_create(scr);
+  lv_obj_set_size(alignScreen, SCREEN_W, SCREEN_H);
+  lv_obj_set_pos(alignScreen, 0, 0);
+  lv_obj_set_style_bg_color(alignScreen, lv_color_hex(0x000000), 0);
+  lv_obj_set_style_bg_opa(alignScreen, LV_OPA_COVER, 0);
+  lv_obj_set_style_border_width(alignScreen, 0, 0);
+  lv_obj_set_style_radius(alignScreen, 0, 0);
+  lv_obj_set_style_pad_all(alignScreen, 0, 0);
+  lv_obj_clear_flag(alignScreen, LV_OBJ_FLAG_SCROLLABLE);
+
+  // Concentric rings, each painted over the last, leaving 10 px of every colour
+  // showing. Band k starts at k*10 px in from every edge.
+  for (int k = 0; k < ALIGN_BAND_COUNT; k++) {
+    const lv_coord_t inset = (lv_coord_t)(k * ALIGN_BAND_PX);
+    lv_obj_t *b = lv_obj_create(alignScreen);
+    lv_obj_set_size(b, SCREEN_W - 2 * inset, SCREEN_H - 2 * inset);
+    lv_obj_set_pos(b, inset, inset);
+    lv_obj_set_style_bg_color(b, lv_color_hex(kAlignBand[k]), 0);
+    lv_obj_set_style_bg_opa(b, LV_OPA_COVER, 0);
+    lv_obj_set_style_border_width(b, 0, 0);
+    lv_obj_set_style_radius(b, 0, 0);
+    lv_obj_set_style_pad_all(b, 0, 0);
+    lv_obj_clear_flag(b, LV_OBJ_FLAG_SCROLLABLE);
+  }
+
+  const lv_coord_t edge = (lv_coord_t)(ALIGN_BAND_COUNT * ALIGN_BAND_PX);
+  lv_obj_t *field = lv_obj_create(alignScreen);
+  lv_obj_set_size(field, SCREEN_W - 2 * edge, SCREEN_H - 2 * edge);
+  lv_obj_set_pos(field, edge, edge);
+  lv_obj_set_style_bg_color(field, lv_color_hex(0x101010), 0);
+  lv_obj_set_style_bg_opa(field, LV_OPA_COVER, 0);
+  lv_obj_set_style_border_width(field, 0, 0);
+  lv_obj_set_style_radius(field, 0, 0);
+  lv_obj_set_style_pad_all(field, 0, 0);
+  lv_obj_clear_flag(field, LV_OBJ_FLAG_SCROLLABLE);
+
+  // Named in framebuffer coordinates: x runs along a scan line, y counts lines.
+  alignLabel(field, "y = 0   FIRST LINE", 210, 12);
+  alignLabel(field, "y = 479   LAST LINE", 210, 286);
+  alignLabel(field, "x = 0\nFIRST\nPIXEL", 12, 130);
+  alignLabel(field, "x = 799\nLAST\nPIXEL", 540, 130);
+  alignLabel(field,
+             "BANDS ARE 10 px, OUTERMOST FIRST\n\n"
+             "  0 red     40 white\n"
+             " 10 green   50 magenta\n"
+             " 20 blue    60 cyan\n"
+             " 30 yellow  70 orange\n\n"
+             "The outermost band still showing at an\n"
+             "edge is how many pixels that edge lost.\n"
+             "All four red = no shift.\n\n"
+             FW_VERSION,
+             150, 60);
+}
+
+static void alignTargetShow() {
+  if (!alignScreen) return;
+  lv_obj_clear_flag(alignScreen, LV_OBJ_FLAG_HIDDEN);
+  lv_obj_move_foreground(alignScreen);
+  alignHideDue = millis() + ALIGN_HOLD_MS;
+}
+
+static void alignTargetHide() {
+  if (!alignScreen) return;
+  lv_obj_add_flag(alignScreen, LV_OBJ_FLAG_HIDDEN);
+  alignHideDue = 0;
+}
+
 static void buildLockScreen(lv_obj_t *scr) {
   lockScreen = lv_obj_create(scr);
   lv_obj_set_size(lockScreen, SCREEN_W, SCREEN_H);
@@ -3682,6 +3774,8 @@ static void buildUi() {
   // After the panes so it draws above them, before the lock so that still covers it.
   buildSettingsButton(scr);
   buildLockScreen(scr);
+  buildAlignTarget(scr);
+  alignTargetHide();
 
   uiReady = true;
   refreshFlavorText();
@@ -4204,6 +4298,8 @@ void loop() {
       }
     }
   }
+
+  if (alignHideDue && millis() >= alignHideDue) alignTargetHide();
 
   if (animResumeDue && millis() >= animResumeDue) {
     animResumeDue = 0;
