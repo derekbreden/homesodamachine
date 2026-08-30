@@ -1466,7 +1466,7 @@ def collet_plate_spec(mcarry, tray_stations) -> dict:
     wall on `enclosure._plate_cap`'s land, so nothing else has to be a stop; the slot through
     the bay floor is one width, and its two ends are what locate the steel across. Running the
     ends wider over `seam_cap_z` bought nothing to be located BY — the flank there is opened
-    whole (`enclosure._flank_opening`) and the steel reached into the opening. The laser
+    whole by `enclosure._bay_cut` and the steel reached into the opening. The laser
     cuts four corners and four holes."""
     holes, faces = [], []
     for t in sorted(ml.BARB_OF):
@@ -1967,10 +1967,9 @@ def check_bay_floor(pieces, shell) -> Bound:
 def check_pump_columns_open(pieces, shell) -> Bound:
     """Whether both front display-support columns are absent from the pump withdrawal span.
 
-    `enclosure._front_column_opening` removes each column's complete cavity-side quadrant
-    below the seam cap, and `_flank_opening` continues that clearance above it. Probe those two
-    former column volumes from the bay floor to the lintel. Any material there narrows the full
-    cavity-width cartridge path even when its installed pose happens not to intersect it."""
+    `enclosure._bay_cut` removes the complete front and side band in one operation. These two
+    narrower probes retain an explicit check at the former column stations from the bay floor
+    to the lintel; `pump-cartridge-full-front-wall` checks the entire exterior ownership."""
     bay = shell.pump_bay
     if not bay:
         return None
@@ -2063,15 +2062,15 @@ def check_pump_cartridge_sweep(pieces) -> Bound:
     A PUMP-HEAD SWEEP IS NOT A DRAWER SWEEP. The head is smaller than the filled block that
     carries it, and a mouth can clear both heads while a reveal or fixed guide catches the
     block behind the face. Translate each actual printed solid from home until its aft face is
-    outside the enclosure, checking at intervals no larger than half the stated running fit.
-    The actual solids matter: the cradle's printable side taper and fixed-guide notches are
-    exterior passage geometry, not internal voids to fill into a box.
+    outside the enclosure, checking at intervals no larger than `sweep_step_max`.
+    The actual solids matter: the cradle's full exterior shell and fixed-guide notches are
+    passage geometry, not internal voids to replace with a bounding box.
     """
     front = pieces["front-top"]
     front = front.val() if hasattr(front, "val") else front
     y_out = _enc.front_plane_y - _enc.front_wall - 1.0
     rows = []
-    step_max = _enc.bay_face_slip / 2.0
+    step_max = _enc.sweep_step_max
     for name in ("pump-cartridge", "pump-cap"):
         body = pieces[name]
         body = body.val() if hasattr(body, "val") else body
@@ -2138,7 +2137,7 @@ def check_pumps_drop_into_cradle(pieces, placed, plate) -> Bound:
             "no pump cradle in this box", "both pump insertion sweeps clear", []))
     cradle = cradle.val() if hasattr(cradle, "val") else cradle
     stations = pump_tray_seats(placed)
-    step_max = _enc.bay_face_slip / 2.0
+    step_max = _enc.sweep_step_max
     rows = []
     for head, (_axis, _sign, station) in sorted(stations.items()):
         probe = _pump_drop_probe(head, placed, station, plate)
@@ -2177,7 +2176,7 @@ def check_clamp_drops_on(pieces, placed) -> Bound:
     pumps.extend(_pump_bracket(station)
                  for _head, (_axis, _sign, station) in sorted(pump_tray_seats(placed).items()))
     travel = box(cradle).zmax - box(clamp).zmin + 1.0
-    step_max = _enc.bay_face_slip / 2.0
+    step_max = _enc.sweep_step_max
     steps = max(1, math.ceil(travel / step_max))
     worst, at, into = 0.0, 0.0, ""
     for i in range(steps + 1):
@@ -2220,6 +2219,54 @@ def check_cartridge_architecture(pieces) -> Bound:
             f"cradle {cv / 1000.0:.1f} cm³, clamp {kv / 1000.0:.1f} cm³, "
             f"heights {cb.zlen:.1f}/{kb.zlen:.1f} mm, solids "
             f"{len(cradle.Solids())}/{len(clamp.Solids())}"])))
+
+
+def check_cartridge_full_front_wall(pieces, shell) -> Bound:
+    """Whether the cradle owns the complete untapered front wall and both former side skins.
+
+    The front-wall target stops one clamp-drop clearance fore of `pump_relief_floor`, before
+    either pump well begins. The two side targets stop before either hand pocket. They describe
+    only material assigned to the full-width, full-height cradle: no pump opening, grip,
+    guide notch or horizontal running clearance is counted as missing stock."""
+    cradle = pieces.get("pump-cartridge")
+    fixed = pieces.get("front-top")
+    if cradle is None or fixed is None:
+        return None
+    cradle = cradle.val() if hasattr(cradle, "val") else cradle
+    fixed = fixed.val() if hasattr(fixed, "val") else fixed
+    inner, outer, bay = shell.inner, shell.outer, shell.pump_bay
+    z0 = _enc.bay_floor_z(shell.pack.pump_trays)[1] + _enc.face_reveal
+    z1 = bay[2] - _enc.face_reveal
+    edge = _enc._cap_x_span(bay)[1]
+    y1 = _enc._block_aft(shell.pack.collet_plate) - _enc.pull_aft
+    y0 = y1 - _enc.pull_run
+
+    silhouette = _enc._rounded_outer(outer)
+    front = silhouette.intersect(_enc._ybox(
+        -edge - 1.0, edge + 1.0, outer[2] - 1.0,
+        _enc.pump_relief_floor - _enc.clamp_drop_air,
+        z0, z1))
+    side = silhouette.intersect(
+        _enc._ybox(-edge - 1.0, inner[0], outer[2] - 1.0, y0, z0, z1)
+        .fuse(_enc._ybox(inner[1], edge + 1.0, outer[2] - 1.0, y0, z0, z1)))
+    target = front.fuse(side)
+    missing = target.cut(cradle).Volume()
+    fixed_left = target.intersect(fixed).Volume()
+    cb = box(cradle)
+    full_width = abs(cb.xmin + edge) <= 1e-6 and abs(cb.xmax - edge) <= 1e-6
+    ok = missing <= 1e-3 and fixed_left <= 1e-3 and full_width
+    return record_bound(Bound(
+        "pump-cartridge-full-front-wall",
+        "The cradle owns the full-width front wall with no side taper",
+        ok,
+        f"x {cb.xmin:.3f}..{cb.xmax:.3f}; missing {missing:.3f} mm³; "
+        f"fixed front-top {fixed_left:.3f} mm³",
+        f"x {-edge:.3f}..{edge:.3f}, full stock z {z0:.3f}..{z1:.3f}, "
+        "and no fixed front-top in that band",
+        ([] if ok else [
+            f"the full front/side target is missing {missing:.3f} mm³ from the cradle and "
+            f"still contains {fixed_left:.3f} mm³ of front-top. Remove any X/Z taper and "
+            "transfer both exterior side skins to the cradle"])))
 
 
 def check_cradle_pulls(pieces, shell) -> Bound:
@@ -8199,10 +8246,10 @@ def check_pumps_in_bay(placed: dict, shell) -> Bound:
                 msgs.append(f"{n} stands {b.ymin - _enc.pump_relief_floor:.2f} mm off its "
                             f"relief's floor — under the millimetre the pass-by keeps")
         margin = min(b.xmin - bx0, bx1 - b.xmax)
-        rows.append((n, margin - _enc.bay_face_slip))
-        if margin < _enc.bay_face_slip - 1e-6:
+        rows.append((n, margin - _enc.pump_bay_side_air))
+        if margin < _enc.pump_bay_side_air - 1e-6:
             msgs.append(f"{n} stands {margin:.2f} mm inside a jamb — the block's own edge is "
-                        f"`bay_face_slip` {_enc.bay_face_slip:g} in from the jamb, and what "
+                        f"`pump_bay_side_air` {_enc.pump_bay_side_air:g} in from the jamb, and what "
                         f"the block carries has to stand inside that")
         if b.zmax > top - _enc.bay_crown_air + 1e-6:
             msgs.append(f"{n} crowns at z {b.zmax:.2f} against a bay top of {top:.2f}")
@@ -8497,6 +8544,7 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     # section is PRESENT, which every clearance check on this card passes by definition.
     check_pump_columns_open(pieces, box)
     check_cartridge_architecture(pieces)
+    check_cartridge_full_front_wall(pieces, box)
     check_cradle_pulls(pieces, box)
     # And whether the release those figures serve can actually happen — the one reading on
     # this card that asks a body to move rather than asking where it is.

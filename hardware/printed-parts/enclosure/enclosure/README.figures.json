@@ -39,6 +39,7 @@
     "CORE_STOP_WEB": "6 mm",
     "CORE_STOP_WIDE": "38 mm",
     "COUPON_PITCH": "5 mm",
+    "CRADLE_WIDE": "215 mm",
     "DISPLAY_FACET_SLOPE": "87.5 mm",
     "DISPLAY_FACET_X": "158 mm",
     "FLOOR_T": "6 mm",

@@ -588,15 +588,12 @@ A wall's inner face is **flat only past that landing**, so anything ROOTED on it
 tunnel is the one that does, and `enclosure_assembly.c14_flat_column` is the column that
 leaves it whole on the flat.
 
-**The pump-cartridge storey has no front display-support columns in its withdrawal span.**
-`bay_x_span` reaches the two side-wall interior planes, and `_front_column_opening` removes the
-columns' complete inboard lobes from the bay floor through the lintel. `_flank_opening` carries
-that opening aft along both sides. The exterior rounded skins and their Z-seam bands remain
-outboard of the cavity planes, and the lintel carries the display facet into those skins.
-
-The cartridge keeps [0.5 mm](PUMP_CARTRIDGE_CLEARANCE) per side inside that opening. Its full
-width is therefore the cavity width less 1 mm, including the flank grips; no fixed front jamb
-occupies the X span available to either pump.
+**The pump-cartridge storey has no fixed front-top frame in its withdrawal span.** `_bay_cut`
+removes the complete exterior front-wall band, both rounded corners and both side skins from
+the bay floor through the lintel, then continues aft to the collet plate. The installed cradle
+owns that same [215 mm](CRADLE_WIDE) exterior width. Its outline is vertical in Z: there is
+no 45° narrowing toward the sill. Only the two hand pockets and aft guide notches interrupt
+that width, and [0.5 mm](PUMP_CARTRIDGE_CLEARANCE) of reveal remains at the sill and lintel.
 
 A column is the cavity's own shape (`enclosure._cavity`), not a feature bolted into
 it, so everything held inside the cavity meets one the way it meets a wall: the
@@ -908,8 +905,9 @@ itself, and `check_tube_seated` reads the three run anchors the same way.
 **The pumps leave through one large lower cradle.** `enclosure-pump-cartridge`
 (`build_pump_cartridge`) owns the complete removable front wall, the filled body behind it,
 the plate stop and both hand pulls. It reaches from the bay sill to the lintel and rides the
-bay floor one `bay_face_slip` inside the side-wall planes. The front display-support columns
-have no inboard section anywhere in this withdrawal span.
+bay floor. Its outer shell follows the complete 215 mm enclosure silhouette, including both
+rounded front corners and side skins, while its filled body reaches both cavity planes. The
+front display-support columns have no section anywhere in this withdrawal span.
 
 **Each pump drops into that cradle from Z+.** Two straight wells pass the motor, boss, stamped
 bracket, head and tube fittings at every insertion station. Below `cap_split_z`, the head well
@@ -970,28 +968,25 @@ withdrawal before the ledge reaches the enclosure front. A 45° roof makes the s
 self-supporting. Pulling force enters the one load-bearing cradle; the clamp has no separate
 grip to split the load or invite a second tug.
 
-## The flank openings
+## The full-width opening
 
-**Both flanks open across the lower cradle's storey** (`_flank_opening`). The openings
-begin on the front plane with no display-support post inboard of the side-wall planes. Two
-narrow fixed plate guides occupy the aft outer edges and overlap the collet plate's tails; the
-cartridge carries one local aft-corner notch round each guide. Each guide is a wedge in plan, standing
+**One opening spans the entire lower-cradle storey** (`_bay_cut`), from exterior side face to
+exterior side face and from the bay floor to the lintel. No fixed `enclosure-front-top` skin,
+rim cap or display-support post remains in that band. Two narrow fixed plate guides are added
+back only at the aft outer edges and overlap the collet plate's tails; the cartridge carries
+one local aft-corner notch round each guide. Each guide is a wedge in plan, standing
 [3 mm](PLATE_GUIDE_WEDGE) further fore at the fixed side wall than at its inboard face:
 the section carrying the plate's moment is deepest where the cheek is rooted in that wall.
 The guide stands aft of the cradle pull and the cartridge carries a local notch around it.
 The rake is the guide's whole height, so the cheek is one prism — every face a plane, every
-wall vertical and supported, nothing anywhere in it overhanging. The opening runs **past the collet plate
-to the tee wall's fore face**, where it ends on printed section rather than on a free edge.
+wall vertical and supported, nothing anywhere in it overhanging. The opening runs **past the
+collet plate to the tee wall's fore face**, where it ends on printed section rather than on a
+free edge.
 
-**Its floor is the seam's cap**, one `wall` over the rim (`_rim_cap`). Front-top's side wall
-under that plane is the skin the seam closes on at the mouth, so an opening cut
-there would be a seam that does not close; between the two planes stands the cap. The flat
-span's sill runs lower because the pump heads leave under it, while the side-wall seam remains
-entirely outboard of the cavity plane.
-
-**The lower cradle fills the bay width.** Its face, body and both pull ledges run to one
-`bay_face_slip` inside each side-wall interior plane. Only the two aft guide notches depart
-from that outline; the small clamp sits wholly inside the wells above.
+**The lower cradle fills the complete exterior width at every height.** Its front face and
+side skins end only at the 0.5 mm sill and lintel reveals; its filled interior bears directly
+on the floor. There is no tapered X/Z envelope. Only the grip pockets and two aft guide notches
+depart from that outline; the small clamp sits wholly inside the wells above.
 
 ## The bay floor
 
@@ -1059,7 +1054,7 @@ clearance plane.
 flip nothing stands in this one: the stop is the top edge on the cap's land, so the outline
 owes it no shoulder; the lane the bottom edge needs is the lane the whole part travels, so the
 ends owe the joint no step. Running them wider over [177.8 mm](PLATE_STEP_Z) would buy nothing
-to be located by either — the flank there is opened whole (`_flank_opening`) and the ends reach
+to be located by either — the flank there is opened whole (`_bay_cut`) and the ends reach
 into the opening. **What locates the steel across is the bay floor's slot**, one
 `plate_slot_slip` off each end, the only station in the machine that holds it in X. Four
 corners and four holes: `build_collet_plate` writes them into `collet-plate.dxf`.
@@ -1082,19 +1077,19 @@ bay; above and below it this wall does, so what stands behind the berth the pump
 leaves is a wall rather than the cavity. The Z seam passes it the way it passes the
 floor, on the rail channels' own deep lane (`_z_rail_channels`).
 
-The **bay** is the opening all that leaves through (`_bay_cut`): side-wall interior plane to
-side-wall interior plane, from the floor's own top up past the motor cans' crowns
-(`pump_bay`, struck off the placed cans), and both flanks over the rim. The sill runs wall to wall, washed fore
+The **bay** is the opening all that leaves through (`_bay_cut`): exterior side face to exterior
+side face, from the floor's own top up past the motor cans' crowns (`pump_bay`, struck off the
+placed cans), and aft to the steel. The sill runs wall to wall, washed fore
 so what runs down the face drains out (`_sill_wash`); the lintel over the opening
 carries the facet and the display on a stated ligament (`bay-under-display`).
 `heads-sweep-out` reads each head's path to the front against the piece it passes
 through, and `pump-cartridge-sweep-out` reads the complete lower-cradle and top-clamp envelopes.
-The mouth is square in plan through the complete filled-block sweep while the exterior corner
-skins remain rounded. Front-bottom's front lip drops across the whole flat span
+The removable shell follows the enclosure's rounded plan while the filled block behind it
+reaches both cavity planes. Front-bottom's front lip drops across the whole flat span
 (`_front_flat_lip_drop`) — the floor stands in that band and the heads run down through
 it — and the front wall below keeps its single `front_wall` section from slab to seam.
-The face rides its opening on [0.5 mm](PUMP_CARTRIDGE_CLEARANCE) per-side clearance
-in both X and Z: `bay_face_slip` at the side-wall planes and `face_reveal` at the sill and lintel.
+The face keeps [0.5 mm](PUMP_CARTRIDGE_CLEARANCE) of Z clearance at the sill and lintel. There
+is no X inset or X/Z taper.
 
 **The front wall is `front_wall` thick — a face a user hauls on — and grows inward,**
 the exterior and the facet standing where the appliance's stated depth put them. What
