@@ -517,8 +517,8 @@ def bundle_bore() -> float:
     return bundle_girth() / math.pi
 
 
-# [2.4541 mm](SLEEVE_CENTER_Y) behind the Westbrass's axis — the pack's own centre of area, which is what
-# a collar's flag is turned away from. Ø[31.66 mm](SLEEVE_BORE) is what the braid opens to over it
+# [2.4444 mm](SLEEVE_CENTER_Y) behind the Westbrass's axis — the pack's own centre of area, which is what
+# a collar's flag is turned away from. Ø[31.06 mm](SLEEVE_BORE) is what the braid opens to over it
 # — a 1" nominal PET braid that expands 50% (`ledger/bom.md` §11; the wall above is the figure the
 # assembly draws it at).
 sleeve_center_y = _hull_face(cable_lane).Center().y
