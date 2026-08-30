@@ -1,9 +1,9 @@
 # Pump replacement
 
 The BPT tube around each Kamoer KPHM600's rotor is a consumable and a pump is replaced as a
-unit. Both pumps ride `enclosure-pump-cartridge`, the printed piece whose face fills the bay in
-the front wall: pull the face against a braced box and both heads come out on its deck. No
-quadrant comes off and nothing is unscrewed.
+unit. Both pumps ride in `enclosure-pump-cartridge`, the large lower cradle whose full-height
+face fills the bay in the front wall. Pull that cradle against a braced box and both pumps and
+their small top clamp come out together. No enclosure quadrant comes off.
 
 [4](JOINT_COUNT) joints part, all four on the flavor path, and the technician opens none of
 them — the collet plate opens all four as the cartridge is pulled. No joint on the water, CO2
@@ -19,7 +19,7 @@ gooseneck's tip. The user's part is a container under the faucet.
 
 | Rides out on `enclosure-pump-cartridge` | Stays |
 |---|---|
-| Both Kamoer pumps, [2](CART_PUMPS) heads in the deck's printed trays ([`pump-tray/`](/hardware/printed-parts/enclosure/pump-tray/README.md)) | [8](TRAY_VALVES) valves — V-C…V-J, on the two valve trays ([`valve-tray/`](/hardware/printed-parts/enclosure/valve-tray/README.md)) |
+| Both Kamoer pumps, [2](CART_PUMPS) stamped brackets bearing in the lower cradle and both bosses located by the top clamp ([`pump-tray/`](/hardware/printed-parts/enclosure/pump-tray/README.md)) | [8](TRAY_VALVES) valves — V-C…V-J, on the two valve trays ([`valve-tray/`](/hardware/printed-parts/enclosure/valve-tray/README.md)) |
 | The four barb tubes, on the barbs they were pushed onto | [3](CAP_VALVES) valves — V-A, V-B, V-K, in the cold core's lid cradles (`_cold_core_interface.cap_cradles`) |
 | Both DC-5 spade pairs, once they are off the motor tabs | All [6](BOX_TEES) PP0208E tees — each butts a valve that stays |
 | | The collet plate, in the slot through the bay floor, and the printed wall behind it the four tees stand in (`enclosure._tee_wall`) |
@@ -54,7 +54,7 @@ is drawn on — the container under the faucet is the only one the procedure ask
 ## How the plate lets go
 
 The collet plate is a laser-cut 1/8" 316 flat ([`/hardware/manifold-layout/`](/hardware/manifold-layout/README.md)
-`collet-plate.dxf`), [195.7](PLATE_SPAN) mm wall to wall and [3.175](PLATE_T) mm thick, standing
+`collet-plate.dxf`), [188](PLATE_SPAN) mm wall to wall and [3.175](PLATE_T) mm thick, standing
 on edge in a slot that passes clean through the bay floor and opens on front-top's own Z− face.
 The slot holds nothing back: it locates the steel fore and aft over the floor's whole section
 and is the same width the whole way, because the plate is a plain rectangle. What stops it is
@@ -95,7 +95,7 @@ Pull the cartridge and the gripped tubes drag the tees forward [1.5](REST_GAP) m
 running in its own bore — until each nose lands on that land. The body keeps coming, the nose
 is held, the grip opens, and the tube draws out through the hole it entered by. Push the
 cartridge home and the same four tubes thread the same four holes back into the same collets,
-the cap's own aft face landing on the plate's fore face as the last one bottoms. **The user's two hands are the whole mechanism**:
+the cradle's own aft face landing on the plate's fore face as the last one bottoms. **The user's two hands are the whole mechanism**:
 one pulls the cartridge, the other braces the box, and the box carries that brace to the plate
 through its fixed wall and the two wedge cheeks. There is no cartridge lock and no tool in
 this pump-replacement motion.
@@ -130,21 +130,20 @@ States"; this doc names the order they run in.
 **1. Run dry mode.** A container under the faucet — states 2 and 4 send a slug of air and residual
 syrup out the gooseneck.
 
-**2. Pull the cartridge.** Hook the pulling hand into either recessed flank grip and brace
-the box with the other hand. Pull on the grip's raked fore ledge and draw the cartridge
-straight forward along the bay floor it rides: the [4](JOINT_COUNT_2) joints let go
-against the plate in the first few millimetres, and the rest of the stroke is the deck coming
-out of the bay. Pull the two DC-5 spade pairs off the motor tabs and set the cartridge
-face-down on the bench.
+**2. Pull the cartridge.** Hook the pulling hand into either recessed cradle pocket at the
+tube-centre elevation and brace the box with the other hand. Pull on its fore ledge and draw
+the cradle straight forward along the bay floor: the [4](JOINT_COUNT_2) joints let go against
+the plate in the first few millimetres, and the rest of the stroke is the cradle leaving the
+bay. Pull the two DC-5 spade pairs off the motor tabs and stand the cradle on its bottom floor.
 
-**3. Unscrew the cap, then swap the pumps.** Back out the [2](CAP_SCREWS)
-M3×[10](CAP_SCREW_LEN) on the lane between the pumps and lift the cap away — it closes on both
-heads and it is the only thing holding either up, so nothing else has to be cut or released.
-Then lift each boss out of its [53 mm](PUMP_SOCKET) octagon bore. The new pump goes in the same
-way: boss lowered until the head's crown lands all the way round, cap back on, both screws drawn
-up. **What carries a pump is its own stamped bracket**, lapping the cap's top face all round the
-head — so a cap that will not sit down flat is a pump that is not seated, and forcing the screws
-puts the load on the block instead of the bracket. Tug-test each pump once the cap is closed.
+**3. Unscrew the top clamp, then swap the pumps.** Back out the [2](CAP_SCREWS)
+M3×[10](CAP_SCREW_LEN) between the pumps and lift the complete clamp straight up. Then lift
+each pump out of its cradle well. Lower each replacement until three sides of its stamped
+bracket lie flat on the cradle lands, lower the clamp until its two octagonal collars surround
+the bosses and its pressing plates meet the bracket tops, then draw both screws down evenly.
+The brackets carry pump weight into the cradle; the clamp prevents lift and fixes X, Y and yaw.
+If it does not sit flat, lift and reseat the pump instead of using a screw to force it. Tug-test
+each pump once the clamp is closed.
 
 **4. Land 1/4" OD LLDPE in the new heads** — the tube runs around the rotor, and the LLDPE goes
 **into the tube's own bore** at each of its two ends, not onto the moulded barb. Zip-tie the tube
@@ -154,19 +153,19 @@ load-bearing here** — this joint takes the release tension when the cartridge 
 tug-test each of the four before the deck goes back in.
 
 **5. Push the cartridge home.** Spade pairs back on the motor tabs first — they are unreachable
-once the deck is in. Then the deck onto its ledges, the four tubes through the plate's holes
-and into the branch collets, and a firm push on the face with one hand bracing the box. The
-cap's face landing on the steel is the seat: a face standing proud of the wall is a tube that has
-not gone home.
+once the cradle is in. Then set the cradle on the bay floor, feed the four tubes through the
+plate holes and into the branch collets, and push firmly on the face with one hand bracing the
+box. The cradle's aft face landing on the steel is the seat: a face standing proud of the wall
+is a tube that has not gone home.
 
 **6. Re-prime.** Both channels through the funnel-fill path, then a dispense on each until it
 runs clean.
 
 ## Output condition
 
-- Both pumps replaced, each standing in the cartridge with the cap closed on its bracket, tug-tested
+- Both pumps replaced, each bracket bearing in the lower cradle with the top clamp closed, tug-tested
 - Four fresh barb tubes on the barbs and all [4](JOINT_COUNT_4) joints threaded home, the
-  cartridge's face flush in the bay and the cap's aft face on the steel
+  cartridge's face flush in the bay and the cradle's aft face on the steel
 - Both channels re-primed and dispensing clean
 - No joint on the water, CO2 or carbonated-water path opened; the carbonator never depressurised
 

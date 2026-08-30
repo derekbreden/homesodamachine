@@ -438,7 +438,7 @@ against is not one anybody finishes. `flute_skin._shadow_mask` asks, at every st
 a berthed body stands between that face and the storey's mouth — the same question the show
 mask asks, asked of the other bodies — so the tee wall carries flutes only where the pump cartridge
 leaves it visible, and the plate's own bearing band is left plain. Nothing is listed: the
-pump cartridge, its cap and the collet plate are simply what the assembly stands there.
+lower cradle, top clamp and collet plate are simply what the assembly stands there.
 
 **Nothing may relieve into the outermost [3 mm](FLUTE_BACKING) of a fluted face.** The exterior
 profile ([print-log.md](print-log.md)) lays two wall loops a side at 0.42 and 0.45, so one
@@ -905,51 +905,47 @@ itself, and `check_tube_seated` reads the three run anchors the same way.
 
 ## The pump cartridge and its bay
 
-**The pumps slide out of the front of the box.** The complete cavity span between the two
-side-wall interior planes, sill to lintel, and the storey both pumps stand in come out of
-front-top as the **pump cartridge** (`build_pump_cartridge`): the face, the block behind it,
-both trays and both pumps, riding the bay's own floor. The cartridge stands one
-`bay_face_slip` inside `bay_x_span` at every height; the front display-support columns have
-no inboard section in its withdrawal path.
+**The pumps leave through one large lower cradle.** `enclosure-pump-cartridge`
+(`build_pump_cartridge`) owns the complete removable front wall, the filled body behind it,
+the plate stop and both hand pulls. It reaches from the bay sill to the lintel and rides the
+bay floor one `bay_face_slip` inside the side-wall planes. The front display-support columns
+have no inboard section anywhere in this withdrawal span.
 
-**It is a block, and it parts on the pump's own bracket plane.** What the bay leaves
-between the face and the collet plate is filled — sparse infill under a printed skin —
-and the two Kamoers are voids in that fill. The split is `cap_split_z`, the head-to-boss
-junction the pump tray's plate already lands on: over it the block is the pump cartridge and
-each pump stands in the pump tray that bores its boss; under it the block is
-**`enclosure-pump-cap`** (`build_pump_cap`), one piece closing on both heads. What
-carries a pump is the stamped bracket it holds in that plane — `bracket_w` across
-against a head of `head_w` — lapping the cap's top face all round the head's opening,
-with two M3 on the lane between the pumps drawing the cap up onto the block
-(`_cap_screws`). The motor cans open through the block's ceiling and each head's front
-face through the cap's underside: the bay top stands `bay_crown_air` over the crowns and
-the sill one millimetre under the faces, so what the block covers is what there is room
-to cover. Nothing latches the pump cartridge. The four barb tubes
-gripped in the anchor tees' branch collets are the pump cartridge retention, and the **collet plate**
-is the release: a laser-cut flat of 1/8" 316
-(`enclosure_assembly.build_collet_plate`, `collet-plate.dxf`) standing one rest gap
-fore of the four collets in the slot through the bay floor. Four large holes pass the tubes and
-nothing wider. Pull the pump cartridge and the gripped tubes drag the tees forward, each tee
-running in its own bore in the wall behind the steel and held across its collar while
-free along its axis, until each collet's nose lands on the steel — the body keeps
-coming, the nose is held, the grip opens, and the tubes draw out through the holes they
-entered by. Push it home and the tubes thread back into the same collets, the cap's own
-aft face landing on the plate's own fore face, the tees square in those same bores and
-braced by the valves their runs butt into, each of those in a valve-tray seat. One hand
-pulls, the other braces the box; the box carries the brace through its fixed wall and
-the two wedge cheeks rather than asking the floor's slot to take the
-whole overturning moment.
+**Each pump drops into that cradle from Z+.** Two straight wells pass the motor, boss, stamped
+bracket, head and tube fittings at every insertion station. Below `cap_split_z`, the head well
+closes to `cap_pump_air` around the moulded head. That leaves a continuous cradle land under
+the stamped bracket on −Y and both X sides; +Y remains open for the fittings. Pump weight goes
+from that bracket directly into the lower cradle and then into the bay floor.
 
-**The cap's aft face is open for the four made-up tubes.** One straight slot per pump rises
-from [0.15 mm](CAP_TUBE_AIR) below the head's outlet-relief sill to the split, so the cap can
-come up onto a pump whose tubes are already attached. Its fore boundary stands the same
-0.15 mm ahead of the relieved outlet face. The nominal fitting opening is
-[69.55 mm](CAP_TUBE_SPAN) across — the complete pump's own [69.25 mm](CAP_TUBE_PART) at the
-two tube fittings, which is its widest dimension anywhere, plus 0.15 mm of running clearance
-per side. Inboard the slot runs on to the screw lane's wall, making the physical opening
-[70.775 mm](CAP_TUBE_OPEN) on this layout and avoiding a 1.2 mm unsupported rib. The outboard edge stays
-exactly 0.15 mm beyond the measured fitting. The wall under the relieved sill and the pump's
-four flank seats remain whole.
+**The second printed piece is only the top clamp.** `enclosure-pump-cap`
+(`build_pump_cap`) is [167.1 mm](CLAMP_SPAN) across and [24 mm](CLAMP_RISE) high: one conformal
+collar per pump, joined by two [12 mm](CLAMP_BRIDGE) fore/aft bridges in the centre lane. Each
+collar clears the measured [2 mm](CLAMP_BRACKET_T) stamped-bracket thickness, puts one full
+plate section on its top face, wraps the boss with the pump case's octagonal bore, and leaves
+one shoulder around the motor can. Two top-access M3 screws pass through [8 mm](CLAMP_WEB) webs
+into heat-set inserts in the cradle. The clamp carries no front wall, plate stop or hand pull.
+
+The service sequence follows those two load paths. Withdraw the assembled cartridge by its
+cradle pulls; back out the two clamp screws; lift off the clamp; then lift either complete pump
+straight up. Assembly is the reverse. `pumps-drop-into-cradle` samples each pump together with
+the bracket and full fitting envelope, `top-clamp-drops-on` includes that otherwise-undrawn
+steel bracket, and `pump-clamped-in-cradle` reads printed bearing below and above all three
+closed bracket sides.
+
+**Each fitting opening is [69.55 mm](CAP_TUBE_OPEN) wide.** The complete pump measures
+[69.25 mm](CAP_TUBE_PART) across the two tube-side fittings, its widest X dimension, and the
+cradle gives that span [0.15 mm](CAP_TUBE_AIR) running clearance at each outer edge. The slot
+runs from below the outlet-relief sill through the complete vertical insertion path. No column,
+rib or nominal head-width opening narrows it.
+
+Nothing latches the cartridge in the enclosure. The four barb tubes gripped in the anchor
+tees' branch collets retain it, and the **collet plate** releases them: a laser-cut flat of
+1/8" 316 (`enclosure_assembly.build_collet_plate`, `collet-plate.dxf`) standing one rest gap
+fore of the four collets in the bay floor. Pull the cradle and the tubes draw the tees forward
+until their collet noses land on the steel; the cradle continues, the collets open, and the
+tubes pass back through the four plate holes. Push it home and the tubes enter the same collets
+while the cradle's aft face lands `cap_kiss` fore of the plate. One hand pulls the cradle and
+the other braces the box; fixed wedge cheeks carry the plate's reaction into the side walls.
 
 **THE TEE TRAVELS AND THE VALVE DOES NOT.** `release-travel` offers each anchor tee the
 whole stroke and reports what it hits — a motion, where every other bound on that card
@@ -963,31 +959,28 @@ collet drives its tee aft and the step in the wall's bore is what stops it. **Th
 derived** — no body in this model has any compliance in it, so no bound reaches that premise;
 `check_release_travel`'s docstring is where it is marked and why.
 
-**What lands on the steel is the cap's own aft face.** The cap's whole storey stands
-under the plate's top, so the face it presents to the steel is the piece's own — nothing
-hangs off anything to reach it — and `cap_kiss` is the air left at that face when the
-pump cartridge is home. `pump-cap-stops-on-plate` reads the area standing against the plate's band
-and that the kiss itself is air.
+**The cradle's aft face is the stop.** Its body stands through the plate's complete band, and
+`pump-cradle-stops-on-plate` reads both the bearing area and the `cap_kiss` air at full seat.
 
-**Its two flanks carry the lower band of the hand's own pocket**, on the same ledge and
-the same aft wall the pump cartridge's band stands on — [16 mm](GRIP_CAP_DEEP) of relief
-over [38.94 mm](GRIP_CAP_RISE) of height, a fingertip's curl into a flank that has the
-section to give it. The
-piece comes out screwed to the pump cartridge and a hand on the assembly finds relief at both
-storeys; the whole figure is under [Pump trays](#pump-trays) below.
+**Both pulls belong to the cradle and act on the tube-centre plane.** Each side pocket is
+[18 mm](PULL_DEPTH) deep, [22 mm](PULL_RUN) fore/aft and [24 mm](PULL_RISE) high, centred at
+z [188.25 mm](PULL_CENTER_Z), the common centre elevation of all four tubes. Its fore wall is
+the pulling ledge at y [49.54 mm](PULL_LEDGE); that gives [35.54 mm](PULL_TRAVEL) of useful
+withdrawal before the ledge reaches the enclosure front. A 45° roof makes the standing print
+self-supporting. Pulling force enters the one load-bearing cradle; the clamp has no separate
+grip to split the load or invite a second tug.
 
 ## The flank openings
 
-**Both flanks open across the pump cartridge's own storey** (`_flank_opening`). The openings
+**Both flanks open across the lower cradle's storey** (`_flank_opening`). The openings
 begin on the front plane with no display-support post inboard of the side-wall planes. Two
 narrow fixed plate guides occupy the aft outer edges and overlap the collet plate's tails; the
 cartridge carries one local aft-corner notch round each guide. Each guide is a wedge in plan, standing
 [3 mm](PLATE_GUIDE_WEDGE) further fore at the fixed side wall than at its inboard face:
 the section carrying the plate's moment is deepest where the cheek is rooted in that wall.
-It leaves [23.9 mm](PLATE_GRIP_BASE_OPEN) of the lower grip's [24 mm](GRIP_RUN) entrance
-open at the inboard face and [20.9 mm](PLATE_GRIP_OPEN) at the outer wall. The rake is the
-guide's whole height, so the cheek is one prism — every face a plane, every wall vertical
-and supported, nothing anywhere in it overhanging. The opening runs **past the collet plate
+The guide stands aft of the cradle pull and the cartridge carries a local notch around it.
+The rake is the guide's whole height, so the cheek is one prism — every face a plane, every
+wall vertical and supported, nothing anywhere in it overhanging. The opening runs **past the collet plate
 to the tee wall's fore face**, where it ends on printed section rather than on a free edge.
 
 **Its floor is the seam's cap**, one `wall` over the rim (`_rim_cap`). Front-top's side wall
@@ -996,9 +989,9 @@ there would be a seam that does not close; between the two planes stands the cap
 span's sill runs lower because the pump heads leave under it, while the side-wall seam remains
 entirely outboard of the cavity plane.
 
-**The pump cartridge fills the bay width.** Its face, deck, cap and both grip ledges run to
-one `bay_face_slip` inside each side-wall interior plane. Only the two aft guide notches depart
-from that outline.
+**The lower cradle fills the bay width.** Its face, body and both pull ledges run to one
+`bay_face_slip` inside each side-wall interior plane. Only the two aft guide notches depart
+from that outline; the small clamp sits wholly inside the wells above.
 
 ## The bay floor
 
@@ -1095,7 +1088,7 @@ side-wall interior plane, from the floor's own top up past the motor cans' crown
 so what runs down the face drains out (`_sill_wash`); the lintel over the opening
 carries the facet and the display on a stated ligament (`bay-under-display`).
 `heads-sweep-out` reads each head's path to the front against the piece it passes
-through, and `pump-cartridge-sweep-out` reads the complete pump cartridge and cap envelopes.
+through, and `pump-cartridge-sweep-out` reads the complete lower-cradle and top-clamp envelopes.
 The mouth is square in plan through the complete filled-block sweep while the exterior corner
 skins remain rounded. Front-bottom's front lip drops across the whole flat span
 (`_front_flat_lip_drop`) — the floor stands in that band and the heads run down through
@@ -1107,124 +1100,44 @@ in both X and Z: `bay_face_slip` at the side-wall planes and `face_reveal` at th
 the exterior and the facet standing where the appliance's stated depth put them. What
 noses into the section gets a 45°-chamfered relief (`_front_relief_cuts`): one stated
 pocket across the compressor, floored on its own kiss, and one pocket per pump in the
-pump cartridge's face, floored where the pump tray's own wrap rule puts its root
+lower cradle's face, floored where the pump head and bracket insertion well puts its root
 (`pump_relief_floor`). The compressor is the only body in the refrigeration stratum
 standing fore of the wall's interior plane — the condenser bears on that plane through
 its rails and the fuse clamp stands clear behind it — so the wall keeps its full section
 across the rest of the front. `box-front` reads every placed body against the relieved
 surface, region by region.
 
-## Pump trays
+## Pump clamp collars
 
-The pump cartridge's deck carries one per Kamoer (rooted on the pump reliefs' floor, off
-`enclosure_assembly.pump_tray_stations`), and it is **the two-piece pump case with its
-cylinder cut off**. `pump-tray/pump_case.py` draws that case; its base is a
-plate on the head's crown, a 45° ramp off the plate, an octagon bore wall standing in
-the ramp, and a cylindrical tower over the bore. Cut the tower off above the bore and
-cut down to one shoulder over it, and the four surfaces that were fitted on the part
-are the four that hold it. `printed-parts/enclosure/pump-tray/` owns what the cut adds.
+The geometry in `printed-parts/enclosure/pump-tray/` supplies the two conformal collars in
+the small top clamp. Each begins with the pump case's plate, 45° ramp, octagonal boss wall and
+one shoulder around the motor can. It is fused into `enclosure-pump-cap`, never emitted as a
+separate printed part.
 
-**It wraps two storeys of the pump, and that is why it is a case and not a plate.** The
-base plate lands on the head's own crown and wraps its top edge; the bore wall takes
-the boss on each of its eight faces and both its ledges, over the boss's whole depth;
-and the shoulder the cut tower leaves lands on the boss's crown and wraps that edge
-too. No plate reaches both — they stand a bore's depth apart. The can rises out of the
-tower's own bore and the tray never touches it.
+**The bracket divides bearing from location.** The lower cradle bears under three sides of the
+68.6 mm stamped bracket. The clamp has a 2 mm-deep square pocket for the bracket itself and a
+three-millimetre pressing annulus above it. Past that steel, the case-derived octagon engages
+the white boss over the rest of its run and the shoulder surrounds the can. Thus the cradle
+takes weight, the clamp prevents lift, and the octagon fixes X, Y and yaw.
 
-**The bore is the whole of the location.** A pump is held in X, in Y and in yaw by the
-octagon alone; nothing about where one sits is a number this wall chose. Plate on the
-head's crown, shoulder on the boss's, bore on the boss's flanks — each a plane or a
-shared wall, so a tray and the pump it takes share no volume.
+**Two M3 close one clamp onto one cradle.** Both screw heads are accessible from above in the
+centre bridges. Their heat-set inserts open upward in the cradle spine. Back both screws out
+and the entire clamp lifts in Z; either pump then follows through the same straight well. No
+zip tie or hidden underside fastener closes a pump.
 
-**The cap is the load path and the tray is the seat.** A pump hangs UNDER its tray, so
-what the tray takes is plan, clock and every moment, and none of the weight. That stands
-one storey down: the head's flanks ramp in twice on the way out of the case's cavity
-(`pump_case.flank_ramp_bands`), leaving four 45° faces looking down and outboard, and
-`build_pump_cap` keeps the wedge under every one of them (`pump_tray.head_room` closes
-the void back in wherever the case closed in on the part). So the pump stands on the
-flanks the case that printed it held it by.
+The collar's exact source dimensions and section readings are in
+[`pump-tray/README.md`](/hardware/printed-parts/enclosure/pump-tray/README.md). The enclosure
+adds only the bracket pocket, pressing plate and two bridges needed to make both collars one
+service clamp.
 
-**The bracket is the stop against lifting off them.** The stamped steel plate the part
-carries at the head-to-motor junction stands proud of the head all the way round, in the
-very plane the tray's plate lands on and the cap parts on (`cap_split_z`). That lip lands
-on the cap's own top face all round the head's opening — `kamoer_kphm400` states it and
-draws none of it — so a pump cannot rise off its seats without taking the cap with it.
+**The lower cradle prints on its Z− floor.** Its front wall and filled body rise from that bed;
+the two pull roofs climb at 45° and the pump wells remain open above. The top clamp prints as a
+separate shallow part with both screw heads on its accessible top face.
 
-**Two M3 shut the seat, and they are the whole of the fastening.** They run up the lane
-between the pumps (`cap_band_x`, the one column of the piece with no pump and no barb in
-it), heads down in counterbores under that lane's flat ceiling, each pulling through
-`cap_web_land` of cap and landing in a ruthex M3 short in the block above the split
-(`_cap_screws`). Back both out, lift the cap away, and each boss comes straight up out of
-its octagon bore. **No tray is cut for a zip tie**, and nothing on either pump is closed
-by one.
-
-**A tray is a cantilever off the pump cartridge's face, and `_pump_tray_webs`' own boxes close
-the deck.** One web between the two trays and the across-runs to the deck's edges —
-each the trays' own plate thick and in that plate's own band, cropped to the bay's
-sweep air, so the deck comes out **one plate** whose edge strips ride the bay's
-rails. The webs to the side walls and the aft web onto a valve tray are not drawn here:
-the rails standing on the floor carry the deck instead, and its aft edge stops two
-millimetres short of the collet plate, and the cap's aft face one storey down is what lands on the steel.
-
-**A hand pulls on the two flanks, and each carries a grip** (`_flank_grip`). Front-top's
-own flanks and display-support columns are cut away over this whole storey, so the pump
-cartridge's sides and grip entrances stand open from the front plane. A grip is a **pocket
-struck inboard out of the block**, [24 mm](GRIP_RUN) fore-and-aft, set down one `grip_aft` off the block's own
-aft face so its ledge stands at [48.54 mm](GRIP_LEDGE). **Its fore wall is that ledge** —
-a +Y face four fingers hook forward onto, with the block from `pump_relief_floor` to it
-behind them.
-
-**A ledge is a travel.** The pocket rides fore with the piece as it comes out. Ledge to the
-front wall's interior plane is [34.54 mm](GRIP_TRAVEL), which is what one pull draws the
-assembly before the hand reaches the enclosure front.
-
-**It is one pocket across both pieces** (`_grip_bands`). The deck keeps the band over
-`cap_split_z` — [57.75 mm](GRIP_RISE) tall at its mouth, one [3 mm](GRIP_SILL) tray/web
-plate under it on the rail its edge strip bears on and one whole `wall` over it under the
-ceiling the motor cans open through. The cap keeps the band under that plane,
-[38.94 mm](GRIP_CAP_RISE) up from the flank opening's own floor, below which the box's
-side wall closes back in and a hand reaching through the opening cannot get to the piece
-at all. That band is not roofed: it ends on the split, which is where the cap stops being
-material. Same ledge and same aft wall in both, so the two pieces a hand takes out together
-present it one face.
-
-**It goes as deep as a fingertip curls, not as deep as the block allows.**
-[16 mm](GRIP_REACH) (`grip_reach`) inboard of the flank, at every storey and in both
-pieces — [16 mm](GRIP_CAP_DEEP) on the cap and [16 mm](GRIP_DEEP) on the deck. The bay is
-the cavity's whole width, so what the pump leaves out here is more than twenty millimetres
-at every height, and a pocket struck to that is a hole a hand reaches through rather than a
-ledge it pulls on.
-
-**The pump is still the limit where the pump is close.** Each storey's floor stands on the
-reach or on the pump's own room plus that piece's section, whichever is shallower: under the
-split the head's square reaches `pump_tray.head_half` and one `cap_pump_air` off the axis;
-over it the boss's octagon reaches `boss_half`; over the crown the bore reaches `can_half`
-and one `cap_pump_air`. The deck keeps a [6 mm](GRIP_BACK) rib between its pocket floor and
-the boss/can room and the cap one [3 mm](GRIP_CAP_BACK) wall between its floor and the head
-room; on this box the reach is the shallower figure at all three, so the pocket has one back
-plane and no step. Where a storey does bind, the pocket **walks out at `relief_chamfer`** —
-ramped, the first layer over the step still lands on the rim the layer under it keeps.
-
-**The ledge is raked in plan, [1 in 3](GRIP_RAKE)** (`grip_rake`) — standing further fore
-the further inboard it runs, [5.333 mm](GRIP_RAKE_FORE) of fall across the deepest pocket.
-The normal it presents to a fingertip carries a third of itself inboard, so the harder a
-hand pulls the harder it is drawn toward the centre of the piece and down into the pocket.
-The one edge this pocket has no wall on is the open flank, and inboard is the way away
-from it. The solid is the **Y-prism of `_grip_section` met by the Z-prism of its plan**:
-the section says how deep the pocket is at each height and carries the 45 degree ceiling,
-the plan says where the raked ledge stands at each depth, and neither is a fitted surface.
-
-**Every grip is removed material.** Nothing of this piece stands proud of the front
-wall's own exterior plane, so the bench keeps its reading: the pre-test inspection in
-[`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) §1 takes the
-pump cartridge's face standing flush in its bay, side to side, as the tell-tale for the four
-barb tubes home in their collets.
-
-Printed on its Z− face, the pose every piece of this box takes: the block's underside is
-one plane on the bed, the face stands up off it, and every pocket rises as a plateau's
-absence. What hangs is whatever looks DOWN — a grip's own ceiling, which rises at
-`relief_chamfer` to the flank, and the pump reliefs' ceilings, which rise the same way to
-theirs. `enclosure_assembly.check_trays_hold` reads each pump against the tray on it.
+`clamp-locates-pumps` reads the octagonal collar against each drawn boss;
+`cradle-pulls-on-tube-axis` reads open hand pockets and whole pulling ledges; and
+`pump-cartridge-lower-cradle` verifies that both exported pieces are single solids and the
+full-height cradle is the majority of the printed assembly.
 
 ## Display housing
 

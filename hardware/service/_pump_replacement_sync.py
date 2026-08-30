@@ -29,8 +29,8 @@ import _facts                                          # noqa: E402  — the pla
 import _routing as R                                   # noqa: E402  — the stock every run is drawn on
 import _scorecard as _sc                               # noqa: E402  — what fastens each body
 import manifold_layout as _ml                          # noqa: E402  — the segment and mouth tables
-import pump_tray as _tray                              # noqa: E402  — the bore the boss lifts out of
-import enclosure as _enc                               # noqa: E402  — the cap, its screws and the split
+import pump_tray as _tray                              # noqa: E402  — the clamp collar the boss lifts out of
+import enclosure as _enc                               # noqa: E402  — the cradle, top clamp and screws
 from _cold_core_interface import cap_cradles           # noqa: E402  — the valves the core's lid holds
 
 from docgen import substitute_md                       # noqa: E402
@@ -51,9 +51,9 @@ EXPECTED = ("fluid-11", "fluid-12", "fluid-21", "fluid-22")
 def holder(name: str, decked: frozenset):
     """The enclosure piece that holds one body, through whatever it rides.
 
-    A pump head stands in a tray printed on the cartridge's own deck, and `_facts.pump_trays`
-    is the seat the last build found under each head — so a head in that table is held by the
-    piece that rides out and by nothing the box screws down. A tee is fastened by nothing of
+    A pump's bracket bears in the cartridge's lower cradle, and `_facts.pump_trays` records the
+    conformal clamp collar found on each boss — so a head in that table is held by the piece
+    that rides out and by nothing the box screws down. A tee is fastened by nothing of
     its own: its collets make up onto a valve's, face to face on one stub, so what holds it is
     the seat under the valve it butts (`_scorecard.TEE_BUTTS`)."""
     if name in decked:
@@ -69,8 +69,8 @@ def holder(name: str, decked: frozenset):
 def rides(tag: str, decked: frozenset) -> bool:
     """Whether the body one `SEGMENTS` endpoint stands on leaves the box on the cartridge.
 
-    A pump barb is not a body — the head under it is, and the tray on the cartridge's deck is
-    what that head stands in."""
+    A pump barb is not a body — the head under it is, and its bracket bears in the cartridge's
+    lower cradle."""
     name = f"pump-{tag[-1].lower()}-head" if tag.startswith("P-") else _ml.body_name(tag)
     return holder(name, decked) == RIDES_OUT
 
@@ -104,9 +104,9 @@ def bored() -> tuple:
 def main():
     f = _facts.read()
     od = R.stock_of("fluid", 6.35).od
-    # THE BODIES THE CARTRIDGE'S DECK CARRIES, off the last build rather than named here.
+    # THE BODIES THE CRADLE CARRIES, off the last build rather than named here.
     # `_facts.pump_trays` is `enclosure_assembly.pump_tray_plans` written down — one row per
-    # head the machine found a printed tray under, and the trays are the cartridge's.
+    # head the machine found in a conformal clamp collar.
     decked = frozenset(f.pump_trays)
 
     found = parting(decked)
@@ -170,10 +170,10 @@ def main():
         "BARB_AIR":   f"{barb_air:.4g}",
         "REST_GAP":   f"{rest_gap:.4g}",
         "TUBE_OD":    f"{od:.4g} mm",
-        # The socket the boss lifts out of, off the module that draws the tray. `internal-plumbing`
+        # The collar the boss lifts out of, off the module that draws the clamp. `internal-plumbing`
         # quotes the same figure for putting a pump in.
         "PUMP_SOCKET": f"{2 * _tray.boss_half:.4g} mm",
-        # THE CAP AND THE SCREWS THAT HOLD IT, the joint a swap opens before a pump is
+        # THE TOP CLAMP AND THE SCREWS THAT HOLD IT, the joint a swap opens before a pump is
         # reachable at all. Counted off the module that cuts both the clearance bores and the
         # heat-set seats, so a screw added there is a screw this procedure names.
         "CAP_SCREWS": f"{len(_enc.cap_screw_ys(f.box.inner, f.box.collet_plate))}",
