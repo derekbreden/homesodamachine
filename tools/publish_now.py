@@ -116,12 +116,14 @@ def _sha256(path: Path) -> str:
 
 
 def enclosure_drift(root: Path = None) -> tuple:
-    """`(changed enclosure members, changed piece payloads)` against the current lock.
+    """`(changed piece-triplet members, changed piece payloads)` against the current lock.
 
     SOURCE IS NOT A CUT. A source-only checkpoint leaves mutually stamped old STEP/STL/payload
     bytes on disk, and `surfaces()` correctly says those old siblings agree with each other. The
     visual path needs a stronger entrance: at least one piece payload must differ from the lock
-    before that surface can stand in for the source change.
+    before that surface can stand in for the source change. Aggregate viewer hosts are outputs of
+    the graft and deliberately absent here: counting one would make a completed graft block its
+    own publication.
     """
     root = root or ROOT
     try:
@@ -133,11 +135,14 @@ def enclosure_drift(root: Path = None) -> tuple:
     current = {
         path.relative_to(root).as_posix(): path
         for path in directory.iterdir()
-        if path.is_file() and path.name.endswith((".step", ".stl", ".step.mesh"))
+        if (path.is_file()
+            and path.name.startswith("enclosure-")
+            and path.name.endswith((".step", ".stl", ".step.mesh")))
     } if directory.is_dir() else {}
     locked = {
         rel for rel in held
         if rel.startswith("hardware/printed-parts/enclosure/enclosure/")
+        and Path(rel).name.startswith("enclosure-")
         and rel.endswith((".step", ".stl", ".step.mesh"))
     }
     changed = sorted(
@@ -157,10 +162,10 @@ def enclosure_source_owed(targets: list) -> bool:
 
 
 def enclosure_release_plan(targets: list, root: Path = None) -> tuple:
-    """`(action, changed piece payloads)`, where action is unrelated, defer, or graft."""
+    """`(action, changed piece payloads)`, where action is held, defer, or graft."""
     moved, payloads = enclosure_drift(root)
     if not enclosure_source_owed(targets) and not moved:
-        return "unrelated", []
+        return "held", []
     return ("graft", payloads) if payloads else ("defer", [])
 
 
@@ -323,17 +328,22 @@ def selftest() -> int:
 
         hold("a source-only enclosure checkpoint waits for fresh piece bytes",
              enclosure_release_plan(["//:enclosure"], root), ("defer", []))
-        hold("the nonexistent broad flute label grants no held publication",
-             enclosure_release_plan(["//:flute-payload"], root), ("unrelated", []))
+        hold("the nonexistent broad flute label requests no enclosure graft",
+             enclosure_release_plan(["//:flute-payload"], root), ("held", []))
 
         paths["step"].write_bytes(b"new step")
         hold("changed STEP without a changed piece payload still waits",
              enclosure_release_plan([], root), ("defer", []))
         paths["step"].write_bytes(b"step")
 
-        paths["host"].write_bytes(b"new grafted host")
-        hold("a grafted host alone cannot vouch for current piece geometry",
+        paths["stl"].write_bytes(b"new stl")
+        hold("changed STL without a changed piece payload still waits",
              enclosure_release_plan([], root), ("defer", []))
+        paths["stl"].write_bytes(b"stl")
+
+        paths["host"].write_bytes(b"new grafted host")
+        hold("a grafted host alone remains publishable held output",
+             enclosure_release_plan([], root), ("held", []))
         paths["host"].write_bytes(b"host")
 
         paths["payload"].write_bytes(b"new payload")
@@ -341,8 +351,8 @@ def selftest() -> int:
         hold("a changed carried piece payload admits the graft-only refresh",
              enclosure_release_plan([], root), ("graft", [payload_rel]))
 
-    print(f"publish-now selftest {holds}/5")
-    return 0 if holds == 5 else 1
+    print(f"publish-now selftest {holds}/6")
+    return 0 if holds == 6 else 1
 
 
 def main(argv) -> int:
