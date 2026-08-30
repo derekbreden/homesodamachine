@@ -1057,10 +1057,15 @@ wall vertical and supported, nothing anywhere in it overhanging. The opening run
 collet plate to the tee wall's fore face**, where it ends on printed section rather than on a
 free edge.
 
-**The lower cradle fills the complete exterior width at every height.** Its front face and
-side skins end only at the 0.5 mm sill and lintel reveals; its filled interior bears directly
-on the floor. There is no tapered X/Z envelope. Only the grip pockets and two aft guide notches
-depart from that outline; the small clamp sits wholly inside the wells above.
+**The lower cradle grows from its bed before it fills the complete exterior width.** Its filled
+interior bears directly on the floor. From that bedded rectangle, the proud front rises outward
+in Y and the two flanks rise outward in X at 45°; the three wall-normal ramps meet as hips in
+the rounded front corners. The last reaches the show face [4.4 mm](PUMP_LOWER_RAMP_RISE) above
+the bed. Above it the cradle keeps the complete untapered exterior width through the 0.5 mm
+lintel reveal. The lower roots retain the same 0.5 mm sill clearance, while the opening below
+the outward-growing show faces remains empty for the drawer's straight Y withdrawal. Only the
+grip pockets and two aft guide notches otherwise depart from that outline; the small clamp sits
+wholly inside the wells above.
 
 ## The bay floor
 
@@ -1218,8 +1223,9 @@ The fitted opening's exact source dimensions and section readings are in
 uses those case profiles to shape the broad pressing base and cut the boss and can rooms from
 one service clamp.
 
-**The lower cradle prints on its Z− floor.** Its front wall and filled body rise from that bed;
-the two pull roofs climb at 45° and the pump wells remain open above. The top clamp's complete
+**The lower cradle prints on its Z− floor.** Its filled body rises from that bed and carries
+the front and both flank skins outward on their three lower 45° ramps; the two pull roofs also
+climb at 45° and the pump wells remain open above. The top clamp's complete
 field begins on one broad Z− bed face. Its only internal down-facing transitions are the two
 functional boss-to-can shoulders, 19 mm above that face and open through the fitted bores for
 support removal. Both screw heads remain accessible from the top.

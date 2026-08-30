@@ -93,6 +93,7 @@
     "PULL_TRAVEL": "35.54 mm",
     "PUMP_CARTRIDGE_CLEARANCE": "0.5 mm",
     "PUMP_FACE_SKIN": "3.9 mm",
+    "PUMP_LOWER_RAMP_RISE": "4.4 mm",
     "PUMP_PROUD": "6.15 mm",
     "PUMP_PULL_WALL": "6 mm",
     "RAIL_REACH": "10.2 mm",
