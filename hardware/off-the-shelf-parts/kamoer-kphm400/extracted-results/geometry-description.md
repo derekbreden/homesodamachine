@@ -27,6 +27,8 @@ Viewed from the front (tube connector face), the pump head is nearly square with
   - White plastic barbed connectors for BPT tubing (4.8mm ID / 8.0mm OD)
   - Offset from center — one above center, one below (or left/right depending on orientation)
   - Barb protrusion from bracket surface: 34.54mm — the barbs extend 34.54mm forward of the mounting bracket face, within the 48.88mm full pump head depth
+  - Connector pitch: 57.0mm centre to centre, symmetric about the head's own axis
+  - Widest span across the pair: 69.25mm outer edge to outer edge, so each fitting is 12.25mm across. THIS IS THE PART'S WIDEST DIMENSION — wider than the 62.61mm head and wider than the 68.6mm bracket — and it is what any holder brought on over the fittings has to pass
   - Tubing fit: the barbs are not what the machine lands on. 1/4" OD LLDPE goes **into the BPT tube itself**, straight into the bore the barb would otherwise fill, and the tube is zip-tied down onto the LLDPE. At this tube's 4.8 mm ID the LLDPE's 6.35 mm OD is an interference fit and the zip tie only backs it up. No silicone adapter
 
 ### Section 2: Pump Head Body (Y = 0 to ~48mm)
@@ -78,6 +80,8 @@ Viewed from the front (tube connector face), the pump head is nearly square with
 | Pump head dimension across bracket | 51.68mm |
 | Pump head depth, side view | 48.88mm |
 | Barb protrusion from bracket surface | 34.54mm |
+| Tube connector pitch, centre to centre | 57.0mm |
+| Widest X span across the two tube fittings | 69.25mm |
 | Motor body diameter | 35.73mm |
 | Height across tube connectors / partial assembly span | 82.82mm |
 
@@ -132,5 +136,4 @@ VIEW OF THE JUNCTION FACE (looking at the pump from the motor side):
 
 ## Unspecified
 
-1. **Tube connector exit positions:** Exact X/Z positions of the two tube stubs on the front face.
-2. **Bracket-to-pump-head attachment:** Whether the bracket separates from the pump head or is fixed.
+1. **Bracket-to-pump-head attachment:** Whether the bracket separates from the pump head or is fixed.
