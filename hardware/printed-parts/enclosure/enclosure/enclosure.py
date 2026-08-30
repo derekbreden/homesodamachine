@@ -1045,9 +1045,16 @@ back_top_wall_t = 6.0
 # collar (`enclosure_assembly.check_c14_ceiling_corbel` reads the air off the unrelieved wedge).
 # The cutout, tunnel, collar, both screws and the wall relief below all read this one name.
 c14_station_x = 66.9
+# The wall relief ends inside the rounded tunnel on both X sides.  That retained overlap is
+# structural stock, not running air: it makes the wall and the R3 tunnel one unambiguous solid
+# through the rounded upper corners instead of enclosing a sub-nozzle air pocket at an exactly
+# tangent square-cut/round-fill boundary.  The aperture and both insert stations lie inside the
+# relieved field and their cutters still run after the tunnel is fused.
+c14_wall_relief_overlap = 0.3
 back_top_wall_reliefs = (
     ("co2-inlet", 2.65, 336.21, 30.0, 30.0),      # the neoFit's nut, across its corners
-    ("c14-inlet", c14_station_x, 336.21, 47.0, 35.15),  # the established tunnel footprint
+    ("c14-inlet", c14_station_x, 336.21,
+     47.0 - 2.0 * c14_wall_relief_overlap, 35.15),
 )
 
 # --- what stands on that relief: the C14's tunnel ------------------------------
@@ -7524,9 +7531,9 @@ def _c14_tunnel_geometry(inner, outer, stations, ports, z0, z1):
     `c14_collar_wall` beyond that everywhere in XZ. It wraps the flange's whole thickness and
     continues `c14_collar_extension` further inboard. A sheared copy of that outer profile spans
     from the open mouth to the wall: both end ears therefore root in the unrelieved wall outside
-    the 47 mm tunnel relief without turning the tunnel itself into a 56.77 mm block. The pocket
-    stops at the fore face — the plane the flange bears on does not move, and neither does either
-    insert.
+    the wall relief, while that relief stops `c14_wall_relief_overlap` inside each side of the
+    rounded tunnel so the two are fused stock rather than tangent shells. The pocket stops at the
+    fore face — the plane the flange bears on does not move, and neither does either insert.
 
     THE SEATING FACE HAS A STRAIGHT BACKING TO THE WALL. The same outer profile runs unsheared
     from `fore` to `aft`, filling the space above the print corbel at this short joint. The C14
@@ -7570,7 +7577,7 @@ def _c14_tunnel_geometry(inner, outer, stations, ports, z0, z1):
             raise ValueError(
                 f"the C14's station at (x {sx:.4g}, z {sz:.4g}) stands on "
                 f"{back_wall_t_at(sx, sz):.2f} mm of wall and the aperture it straddles on "
-                f"{cap:.2f} — one relief no longer covers this tunnel's whole footprint, so an "
+                f"{cap:.2f} — one relief no longer covers this tunnel's fastening field, so an "
                 f"insert would bottom on a plane the tunnel does not root on.")
     aft = outer[3] - cap
     fore = aft - c14_tunnel_len
