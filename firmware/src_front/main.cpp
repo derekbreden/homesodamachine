@@ -864,8 +864,15 @@ static bool panelInit() {
   cfg.timings.h_res = SCREEN_W;
   cfg.timings.v_res = SCREEN_H;
   cfg.timings.hsync_pulse_width = 48;
-  cfg.timings.hsync_back_porch  = 88;
-  cfg.timings.hsync_front_porch = 40;
+  // The horizontal blanking is split 48/80 rather than 88/40, holding the line
+  // at 976 pclk so neither the 16 MHz clock nor the 31 Hz frame changes. A wake
+  // that comes up shifted puts the image one front porch late in both axes —
+  // 40 px of black at the left, the rightmost 40 lost — and 40 is what the front
+  // porch was. Widening only this axis reads the panel's answer directly: the
+  // horizontal offset moves to 80 if the panel is starting its active window on
+  // the front porch, and the untouched vertical stays where it is either way.
+  cfg.timings.hsync_back_porch  = 48;
+  cfg.timings.hsync_front_porch = 80;
   cfg.timings.vsync_pulse_width = 3;
   cfg.timings.vsync_back_porch  = 32;
   cfg.timings.vsync_front_porch = 13;
