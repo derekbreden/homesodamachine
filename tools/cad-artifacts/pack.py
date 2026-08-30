@@ -3,6 +3,8 @@
 
     tools/cad-venv/bin/python tools/cad-artifacts/pack.py            # what the bundle holds
     tools/cad-venv/bin/python tools/cad-artifacts/pack.py --write    # build it, upload it, pin it
+    tools/cad-venv/bin/python tools/cad-artifacts/pack.py --write --publish-held
+                                                                    # upload the bytes on disk
     tools/cad-venv/bin/python tools/cad-artifacts/pack.py --check    # 0 = the lock names this tree
     tools/cad-venv/bin/python tools/cad-artifacts/pack.py --prune    # remove retired locked outputs
     tools/cad-venv/bin/python tools/cad-artifacts/pack.py --room     # what room the release has left
@@ -324,6 +326,14 @@ def _head(root: Path) -> str:
                           capture_output=True, text=True, check=True).stdout.strip()
 
 
+def publication_source(held: dict, head: str, publish_held: bool):
+    """The source field for a cut: prior proof for held bytes, current HEAD after reconcile."""
+    if not publish_held:
+        return {"commit": head}
+    prior = held.get("source", {})
+    return dict(prior) if prior.get("commit") else None
+
+
 def _dirty_artifact_reach(root: Path) -> tuple:
     """`(artifact rules the tree's edits reach, edits nothing bounds, every edit either way)`.
 
@@ -357,7 +367,7 @@ def _dirty_artifact_reach(root: Path) -> tuple:
     return sorted(reached), sorted(everywhere | unlabelled), sorted(moved)
 
 
-def unproven(dirty: list, members) -> dict:
+def unproven(dirty: list, members, targets=()) -> dict:
     """What a publication could not put under `source.commit`, as the lock carries it.
 
     THE BUNDLE SHIPS WHAT THIS DISK HOLDS. A member whose rule an uncommitted path reaches, or
@@ -365,17 +375,23 @@ def unproven(dirty: list, members) -> dict:
     the site is for — and this is the lock saying which members those were, so a reader asking
     where a solid came from gets an answer rather than an assumption.
 
-    `paths` is empty where nothing was uncommitted and a rule simply would not cut. Empty is the
-    ordinary answer, and then `source.commit` describes every member on its own.
+    `paths` is empty where nothing was uncommitted and a rule simply would not cut. `targets`
+    persists rules deliberately deferred by an interactive publication, so the ordinary
+    reconciliation path still owes them after the held bytes have acquired their own lock.
+    Empty is the ordinary answer, and then `source.commit` describes every member on its own.
     """
-    if not members:
+    if not members and not targets:
         return {}
-    return {
+    out = {
         "_": "source.commit does not describe these members: an uncommitted path below reaches"
-             " the rule that cuts one, or that rule would not cut.",
+             " the rule that cuts one, its rule would not cut, or an interactive publication"
+             " explicitly deferred that rule.",
         "paths": sorted(dirty),
         "members": sorted(members),
     }
+    if targets:
+        out["targets"] = sorted(set(targets))
+    return out
 
 
 def _members_of_targets(root: Path, labels: set) -> set:
@@ -403,15 +419,19 @@ def _members_of_targets(root: Path, labels: set) -> set:
 
 
 def _owed_artifact_targets(root: Path) -> list:
-    """Artifact rules changed since the source commit the lock proves."""
-    source = read_lock(root).get("source", {}).get("commit", "")
+    """Artifact rules changed since the source commit, plus explicitly deferred rules."""
+    held = read_lock(root)
+    source = held.get("source", {}).get("commit", "")
+    deferred = set(held.get("unproven", {}).get("targets", ()))
     script = root / "tools" / "bazel" / "affected.py"
     args = ([sys.executable, str(script), "--base", source, "--head", "HEAD", "--artifacts"]
             if source else [sys.executable, str(script), "--all-artifacts"])
     run = subprocess.run(args, cwd=str(root), capture_output=True, text=True)
     if run.returncode != 0:
         raise SystemExit(f"could not establish artifact debt:\n{run.stderr}")
-    return sorted({line for line in run.stdout.splitlines() if line.startswith("//:")})
+    return sorted(deferred | {
+        line for line in run.stdout.splitlines() if line.startswith("//:")
+    })
 
 
 def _behind(root: Path, targets: list) -> bool:
@@ -1105,6 +1125,9 @@ def main(argv) -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("mode", nargs="?", choices=["selftest"])
     ap.add_argument("--write", action="store_true", help="build, upload and pin")
+    ap.add_argument("--publish-held", action="store_true",
+                    help="with --write, publish bytes already on disk without cutting their "
+                         "producer rules")
     ap.add_argument("--check", action="store_true", help="1 if the lock does not name this tree")
     ap.add_argument("--prune", action="store_true",
                     help="remove locked members no longer declared by the build graph")
@@ -1120,6 +1143,8 @@ def main(argv) -> int:
                     help="with --prune, confirm graph retirements lacking source evidence")
     args = ap.parse_args(argv)
 
+    if args.publish_held and not args.write:
+        ap.error("--publish-held is only valid with --write")
     if args.mode == "selftest":
         return selftest()
     if args.room:
@@ -1200,12 +1225,25 @@ def main(argv) -> int:
                         if held.get("sidecars", {}).get(rel) != digest}
     changed_targets, unowned = _targets_for_members(
         _ROOT, changed_members | changed_sidecars)
+    deferred = set()
     if args.write:
-        # A rule an uncommitted edit reaches has nothing at HEAD to be cut against, and the
-        # record is what says so; the rest are cut and carried here.
-        would_not_cut, unheld = carry_the_cut(
-            _ROOT, sorted((set(owed) | set(changed_targets)) - quarantined))
-        quarantined |= set(would_not_cut)
+        target_debt = set(owed) | set(changed_targets)
+        if args.publish_held:
+            # THE POST-COMMIT PATH PUBLISHES THE CUT ALREADY STANDING ON THIS MACHINE. Mapping a
+            # grafted assembly payload back to its canonical producer is still useful provenance,
+            # but asking Bazel for that producer here puts the whole motion scorecard back in the
+            # visual-release path. Persist the labels instead; plain `--write` owes them next time.
+            deferred = target_debt | quarantined
+            quarantined |= deferred
+            would_not_cut, unheld = [], set()
+            if deferred:
+                print(f"publishing held bytes; {len(deferred)} producer target(s) stay owed")
+        else:
+            # A rule an uncommitted edit reaches has nothing at HEAD to be cut against, and the
+            # record is what says so; the rest are cut and carried here.
+            would_not_cut, unheld = carry_the_cut(
+                _ROOT, sorted(target_debt - quarantined))
+            quarantined |= set(would_not_cut)
         # The carry writes bazel-bin into the tree, so the bytes this pins are read after it.
         rels = solids(_ROOT)
         now = hashes(_ROOT, rels)
@@ -1217,7 +1255,10 @@ def main(argv) -> int:
     unproven_members = (set(now) if unbounded else (
         _members_of_targets(_ROOT, quarantined) | set(unowned) | set(loose) | unheld
         | {line.split(" ", 1)[0] for line in hollow}) & set(now))
-    unproven_now = unproven(dirty, unproven_members) if args.write else {}
+    unheld_targets = set(_targets_for_members(_ROOT, set(unheld))[0])
+    unproven_targets = quarantined | unheld_targets
+    unproven_now = (unproven(dirty, unproven_members, unproven_targets)
+                    if args.write else {})
     if unproven_now:
         print(f"{len(unproven_members)} of {len(now)} member(s) are outside "
               f"{_head(_ROOT)[:12]}, and the lock records them")
@@ -1226,6 +1267,12 @@ def main(argv) -> int:
     same_solids = held.get("solids") == now
     same_sidecars = held.get("sidecars") == sidecar_now
     if same_solids and same_sidecars:
+        # A SOURCE CHANGE WITH NO MATERIALIZED BYTES IS THE RECONCILER'S WORK. Advancing the
+        # source or adding a debt-only lock here makes the interactive path hide that source
+        # range from the runner without putting anything new in front of the user.
+        if args.publish_held:
+            print("no unpublished bytes are held; leaving producer debt to reconciliation")
+            return 0
         if args.write:
             release = held.get("release", {})
             bundle = held.get("bundle", {})
@@ -1300,7 +1347,11 @@ def main(argv) -> int:
                 if digest != bundle.get("sha256"):
                     raise SystemExit("equal member hashes built a different bundle digest")
                 upload(_ROOT, path, release["asset"], digest, path.stat().st_size)
-        held["source"] = {"commit": _head(_ROOT)}
+        source = publication_source(held, _head(_ROOT), args.publish_held)
+        if source:
+            held["source"] = source
+        else:
+            held.pop("source", None)
         held["sidecars"] = sidecar_now
         _write_lock(_with_record(held, unproven_now))
         print(f"pinned current scorecards without rebuilding {release['asset']}")
@@ -1313,6 +1364,14 @@ def main(argv) -> int:
         digest = build(_ROOT, rels, bundle)
         size = bundle.stat().st_size
         data = lock_for(_ROOT, rels, digest, size, now, sidecar_now, unproven_now)
+        # Keep the last reconciled source as the affected-target base. The held member hashes
+        # describe what is visible now; `unproven.targets` names what must still be cut, and a
+        # plain publication advances this field once those bytes have been built and carried.
+        source = publication_source(held, _head(_ROOT), args.publish_held)
+        if source:
+            data["source"] = source
+        else:
+            data.pop("source", None)
         print(f"bundle {data['release']['asset']} — {size / 1e6:.1f} MB "
               f"({100 * size / total:.0f}% of the tree's bytes)")
         # THIS CUT'S OWN BUNDLE PLUS EVERY MEMBER THAT MOVED, asked for before a byte goes up.
@@ -1454,7 +1513,8 @@ def selftest() -> int:
         # A publication under way beside somebody's open file. Both members still ship;
         # what the record adds is which uncommitted paths reach them.
         note = ("source.commit does not describe these members: an uncommitted path below"
-                " reaches the rule that cuts one, or that rule would not cut.")
+                " reaches the rule that cuts one, its rule would not cut, or an interactive"
+                " publication explicitly deferred that rule.")
         hold("the record names the edits and the members they reach",
              unproven(["hardware/manifold-layout/enclosure_assembly.py"],
                       {"b.step", "a.step"}),
@@ -1464,6 +1524,25 @@ def selftest() -> int:
         hold("a member of a rule that would not cut is recorded with no path to name",
              unproven([], {"a.step"}),
              {"_": note, "paths": [], "members": ["a.step"]})
+        hold("an interactive cut persists the exact producer debt",
+             unproven([], {"a.step"}, {"//:enclosure-assembly", "//:enclosure"}),
+             {"_": note, "paths": [], "members": ["a.step"],
+              "targets": ["//:enclosure", "//:enclosure-assembly"]})
+        hold("a deferred rule remains debt even when it owns no bundled member",
+             unproven([], set(), {"//:scene-only"}),
+             {"_": note, "paths": [], "members": [], "targets": ["//:scene-only"]})
+        held_cut = {"source": {"commit": "old"},
+                    "unproven": unproven([], {"a.step"}, {"//:enclosure"}),
+                    "solids": {"a.step": "sha"}}
+        hold("a held publication preserves the last reconciled source",
+             publication_source(held_cut, "new", True), {"commit": "old"})
+        reconciled = dict(held_cut)
+        reconciled["source"] = publication_source(held_cut, "new", False)
+        hold("an ordinary reconciliation advances source and clears persisted targets",
+             _with_record(reconciled, {}),
+             {"source": {"commit": "new"}, "solids": {"a.step": "sha"}})
+        hold("held bytes without prior source proof do not acquire it",
+             publication_source({}, "new", True), None)
         hold("and a tree that cut everything at HEAD writes no record at all",
              unproven([], set()), {})
         hold("the record is seated on the commit it qualifies",
@@ -1511,8 +1590,8 @@ def selftest() -> int:
     hold("nothing to send when the release holds every hash",
          objects_to_send(list(twins), twins, {"h1", "h2"}), [])
 
-    print(f"pack selftest {holds}/24")
-    return 0 if holds == 24 else 1
+    print(f"pack selftest {holds}/29")
+    return 0 if holds == 29 else 1
 
 
 if __name__ == "__main__":
