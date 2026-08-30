@@ -1166,6 +1166,13 @@ front_bottom_flank_t = 9.0
 
 # --- back-top's own ceiling ---------------------------------------------------
 #
+# THE REAR CEILING HAS ITS OWN PHYSICAL FACE, the same way this piece's grown flanks do. The
+# box's established interior-ceiling lane remains where the packed bodies, ports and anchor
+# stations were laid out; the printed strip carries another wall inward from that lane. The
+# appliance's exterior top face and every packed world datum therefore stay fixed.
+back_top_ceiling_t = 2.0 * wall
+back_top_ceiling_growth = back_top_ceiling_t - wall
+#
 # WHAT THIS PIECE KEEPS OF ITS CEILING is the two side strips either side of the slide-in panel
 # (`../ceiling-panel/ceiling_panel.py`), `rail_run` wide, and each is CORBELLED the way front-top's
 # two are either side of the throat (`_ceiling_corbels`): a 45 degree underside rising off the
@@ -1267,7 +1274,7 @@ def _ceiling():
     return ceiling_panel
 
 
-def ceiling_corbel_at(x, y):
+def ceiling_corbel_at(x, y, growth_reliefs=()):
     """How deep back-top's ceiling strip hangs below the ceiling plane at one station — the
     corbel's own reach under the top wall's section.
 
@@ -1280,7 +1287,12 @@ def ceiling_corbel_at(x, y):
     for _who, sx, y0, y1, keep, out in back_top_ceiling_reliefs:
         if sx * x > 0.0 and y0 <= y <= y1 and keep < run <= out:
             return 0.0
-    return run
+    grown = back_top_ceiling_growth
+    for _who, rsx, x0, x1, y0, y1 in growth_reliefs:
+        if rsx * x > 0.0 and x0 <= x <= x1 and y0 <= y <= y1:
+            grown = 0.0                    # the established wedge remains; only growth leaves
+            break
+    return grown + run
 
 
 def ceiling_stations(digiten, anchors, panel: bool):
@@ -1771,6 +1783,9 @@ def documented(box):
 #                 one `(name, x0, x1, y0, y1, pocket_top_z)` each. The plan is the body's exact
 #                 intersection with that field plus assembly slip; the last number is the roof
 #                 left over it. This is geometry struck by the pack, not another placement.
+#   ceiling_growth_reliefs  the exact plan bands where fixed purchased bodies need the added
+#                 three-millimetre ceiling-strip growth removed while retaining the established
+#                 printable wedge below them, one `(name, side, x0, x1, y0, y1)` each
 #   port_field    the pockets the +Y wall of back-top's outer face carries and the bosses behind them,
 #                 (proud, rim, pockets) — how deep a pocket is cut and how far its boss stands
 #                 inboard, the wall the field keeps around each chip, and one (x, z, width,
@@ -1805,10 +1820,39 @@ Pack = namedtuple(
     "Pack", "placed front_ports back_ports east_ports west_ports funnel pan_sleeve c14 "
             "east_bosses side_wells floor_bosses west_cradle cond_cradle cond_mount "
             "cond_airway asse_cradle flow_meter_anchors tube_anchors ceiling_reliefs "
+            "ceiling_growth_reliefs "
             "port_field nameplate keystone "
             "valve_trays pump_trays core_stops core_holds vent_chase collet_plate")
-Pack.__new__.__defaults__ = ((), (), (), (), None, (), ((), ()), (), (), (), (), (), (),
-                             None, (), (), (), (), (), None, None, (), (), (), (), (), None)
+Pack.__new__.__defaults__ = (
+    (),             # front_ports
+    (),             # back_ports
+    (),             # east_ports
+    (),             # west_ports
+    None,           # funnel
+    (),             # pan_sleeve
+    ((), ()),       # c14
+    (),             # east_bosses
+    (),             # side_wells
+    (),             # floor_bosses
+    (),             # west_cradle
+    (),             # cond_cradle
+    (),             # cond_mount
+    None,           # cond_airway
+    (),             # asse_cradle
+    (),             # flow_meter_anchors
+    (),             # tube_anchors
+    (),             # ceiling_reliefs
+    (),             # ceiling_growth_reliefs
+    (),             # port_field
+    None,           # nameplate
+    None,           # keystone
+    (),             # valve_trays
+    (),             # pump_trays
+    (),             # core_stops
+    (),             # core_holds
+    (),             # vent_chase
+    None,           # collet_plate
+)
 
 
 # --- the bounds this box states ---------------------------------------------
@@ -4858,24 +4902,58 @@ def _back_top_flanks(inner, outer, box, y_joint, zj):
     return band.cut(relief) if relief is not None else band
 
 
-def _back_top_ceiling_corbel(inner, y_joint, sx):
-    """One complete, unrelieved back-top ceiling-strip corbel.
+def _back_top_ceiling_corbel_at(inner, y_joint, sx, face_z):
+    """One complete back-top ceiling-strip corbel on the physical face handed in."""
+    cp = _ceiling()
+    lane_z = inner[5]
+    half, wall_x = cp.panel_half_w, back_top_flank_face()[1 if sx > 0.0 else 0]
+    edge, deep = sx * half, abs(wall_x) - half
 
-    The main run rises from the nominal flank face to the slide-in panel's edge. Ahead of the
+    def section(edge_x, depth):
+        points = [(edge_x, face_z)]
+        if face_z < lane_z - 1e-9:
+            points.append((edge_x, lane_z))
+        points.extend(((wall_x, lane_z), (wall_x, face_z - depth)))
+        return points
+
+    corbel = _xz_prism(cp.fore_y, cp.aft_y, section(edge, deep))
+    fore_deep = abs(wall_x) - cp.dado_blind_x
+    return corbel.fuse(_xz_prism(
+        back_top_flank_start(y_joint), cp.fore_y,
+        section(sx * cp.dado_blind_x, fore_deep)))
+
+
+def _back_top_ceiling_corbel(inner, y_joint, sx):
+    """One complete, grown and unrelieved back-top ceiling-strip corbel.
+
+    The main run rises from the six-millimetre physical face to the slide-in panel's edge. Ahead of the
     panel it follows the dado's blind edge instead, ending at the first plane the Y telescope
     cannot reach. `_back_top_ceiling` cuts only the named body bands from this exact solid, and
     the assembly clearance gates use it unchanged when a placed body is expected to need no
     relief at all."""
+    return _back_top_ceiling_corbel_at(inner, y_joint, sx, _ceiling().fixed_under_z)
+
+
+def _back_top_ceiling_growth(inner, y_joint, sx):
+    """Only the three-millimetre shell added below the established printable corbel."""
+    grown = _back_top_ceiling_corbel(inner, y_joint, sx)
+    established = _back_top_ceiling_corbel_at(inner, y_joint, sx, inner[5])
+    return grown.cut(established)
+
+
+def _back_top_ceiling_grown_for_pack(inner, y_joint, sx, growth_reliefs):
+    """The grown corbel after exact placed-body plans withhold only its added shell."""
     cp = _ceiling()
-    iz1 = inner[5]
-    half, wall_x = cp.panel_half_w, back_top_flank_face()[1 if sx > 0.0 else 0]
-    edge, deep = sx * half, abs(wall_x) - half
-    corbel = _xz_prism(cp.fore_y, cp.aft_y,
-                       [(edge, iz1), (wall_x, iz1), (wall_x, iz1 - deep)])
-    fore_deep = abs(wall_x) - cp.dado_blind_x
-    return corbel.fuse(_xz_prism(
-        back_top_flank_start(y_joint), cp.fore_y,
-        [(sx * cp.dado_blind_x, iz1), (wall_x, iz1), (wall_x, iz1 - fore_deep)]))
+    wall_x = back_top_flank_face()[1 if sx > 0.0 else 0]
+    deep = abs(wall_x) - cp.panel_half_w
+    corbel = _back_top_ceiling_corbel(inner, y_joint, sx)
+    growth = _back_top_ceiling_growth(inner, y_joint, sx)
+    for _who, rsx, x0, x1, y0, y1 in growth_reliefs:
+        if rsx == sx:
+            corbel = corbel.cut(growth.intersect(_ybox(
+                x0, x1, y0, y1,
+                cp.fixed_under_z - deep - 1.0, inner[5] + 1.0)))
+    return corbel
 
 
 def _back_top_ceiling_relief_gables(inner, who):
@@ -4895,7 +4973,10 @@ def _back_top_ceiling_relief_gables(inner, who):
     cp = _ceiling()
     iz1 = inner[5]
     wall_x = back_top_flank_face()[1 if sx > 0.0 else 0]
-    xa = sx * (cp.panel_half_w + keep)
+    # A six-millimetre tongue moves the dado's blind wall through the old gable's inboard edge.
+    # The printable roof begins on the fixed side of that groove: leaving the nominal gable in
+    # the moving lane would only let the later dado cutter silently remove it.
+    xa = sx * max(cp.panel_half_w + keep, cp.dado_blind_x)
     xb = sx * min(cp.panel_half_w + out, abs(wall_x))
     x0, x1 = min(xa, xb), max(xa, xb)
     return (
@@ -4906,7 +4987,44 @@ def _back_top_ceiling_relief_gables(inner, who):
     )
 
 
-def _back_top_ceiling(solid, inner, y_joint):
+def _back_top_ceiling_for_pack(inner, y_joint, sx, box, *, grown=True):
+    """One finished fixed-strip corbel, with growth and every named relief applied.
+
+    This is the production solid before unrelated back-top furniture cuts it. Keeping the
+    complete ceiling operation in one helper gives the assembly gates the same exact B-rep the
+    piece receives: the established wedge, its added three-millimetre shell, local growth-only
+    body pockets, the older run-band reliefs and their printable Y gables.
+    """
+    cp = _ceiling()
+    wall_x = back_top_flank_face()[1 if sx > 0.0 else 0]
+    deep = abs(wall_x) - cp.panel_half_w
+    corbel = (_back_top_ceiling_grown_for_pack(
+        inner, y_joint, sx, box.pack.ceiling_growth_reliefs)
+        if grown else _back_top_ceiling_corbel_at(inner, y_joint, sx, inner[5]))
+    for who, rsx, y0, y1, keep, out in back_top_ceiling_reliefs:
+        if rsx != sx:
+            continue
+        if not 0.0 <= keep <= out <= deep + 1e-9:
+            raise ValueError(
+                f"_back_top_ceiling: the {who} relief gives up the run band {keep:g}..{out:g} "
+                f"of a strip that is {deep:g} mm wide. A relief takes a BAND of the run and "
+                "leaves the strip either side of it, so both figures stand between nothing "
+                "and `ceiling_panel.rail_run` and the inboard one comes first.")
+        # A band reaching the strip's own edge is cut a millimetre past it, so the corbel and
+        # the wall it roots on never meet along a coincident plane.
+        kept = sx * (cp.panel_half_w + keep)
+        outb = sx * (abs(wall_x) + 1.0 if out >= deep - 1e-9
+                     else cp.panel_half_w + out)
+        corbel = corbel.cut(_ybox(
+            min(kept, outb), max(kept, outb), y0, y1,
+            cp.fixed_under_z - deep - 1.0, inner[5] + 1.0))
+        if who in back_top_ceiling_gables:
+            for roof in _back_top_ceiling_relief_gables(inner, who):
+                corbel = corbel.fuse(roof)
+    return corbel
+
+
+def _back_top_ceiling(solid, inner, y_joint, box):
     """WHAT BACK-TOP KEEPS OF ITS CEILING, and what it gives the slide-in panel — the field taken
     away between the two side strips, each strip corbelled and relieved where a body stands in it,
     the panel's dado down each strip's inboard face, and a transverse keeper socket immediately
@@ -4932,13 +5050,13 @@ def _back_top_ceiling(solid, inner, y_joint):
     them. The panel crosses these stations before the pins exist; the two screws are installed
     only after its aft edge has reached the +Y wall."""
     cp = _ceiling()
-    iz1 = inner[5]
-    half, flanks = cp.panel_half_w, back_top_flank_face()
+    half = cp.panel_half_w
     mouth_x, blind_x, floor_z, roof_z, chamfer = cp.dado()
 
     # THE FIELD. The panel carries the top wall's own section over its whole footprint, so what
     # this piece gives up is exactly that footprint and nothing under it.
-    solid = solid.cut(_ybox(-half, half, cp.fore_y, cp.aft_y, iz1, cp.show_z + 1.0))
+    solid = solid.cut(_ybox(
+        -half, half, cp.fore_y, cp.aft_y, cp.fixed_under_z, cp.show_z + 1.0))
 
     # THE TWO STRIPS. Each corbel is cut to its reliefs BEFORE it is fused, so a relief takes the
     # corbel and never the anchor, the flank section or the wall standing behind it.
@@ -4950,28 +5068,8 @@ def _back_top_ceiling(solid, inner, y_joint):
     # (`back_top_flank_start`), which is the first plane the closing front half never lands on —
     # ahead of that the ceiling is the mouth the front lip telescopes through, and a corbel there
     # would be drawn inside the lip's own lane.
-    for sx, wall_x in ((+1.0, flanks[1]), (-1.0, flanks[0])):
-        deep = abs(wall_x) - half
-        corbel = _back_top_ceiling_corbel(inner, y_joint, sx)
-        for who, rsx, y0, y1, keep, out in back_top_ceiling_reliefs:
-            if rsx != sx:
-                continue
-            if not 0.0 <= keep <= out <= deep + 1e-9:
-                raise ValueError(
-                    f"_back_top_ceiling: the {who} relief gives up the run band {keep:g}..{out:g} "
-                    f"of a strip that is {deep:g} mm wide. A relief takes a BAND of the run and "
-                    f"leaves the strip either side of it, so both figures stand between nothing "
-                    f"and `ceiling_panel.rail_run` and the inboard one comes first.")
-            # A band reaching the strip's own edge is cut a millimetre past it, so the corbel and
-            # the wall it roots on never meet along a coincident plane.
-            kept = sx * (half + keep)
-            outb = sx * (abs(wall_x) + 1.0 if out >= deep - 1e-9 else half + out)
-            corbel = corbel.cut(_ybox(min(kept, outb), max(kept, outb), y0, y1,
-                                      iz1 - deep - 1.0, iz1 + 1.0))
-            if who in back_top_ceiling_gables:
-                for roof in _back_top_ceiling_relief_gables(inner, who):
-                    corbel = corbel.fuse(roof)
-        solid = solid.fuse(corbel)
+    for sx in (+1.0, -1.0):
+        solid = solid.fuse(_back_top_ceiling_for_pack(inner, y_joint, sx, box))
 
     # THE DADO, one down each strip's inboard face, on the section the panel states. It is cut
     # OPEN at both ends: its mouth one millimetre into the field, which is the panel's own lane,
@@ -5012,7 +5110,7 @@ def _back_top_ceiling(solid, inner, y_joint):
     # field. A headless screw later occupies the same axis, crossing the wall-square rail lane
     # immediately ahead of the panel; no fixed material crosses that lane.
     for sx, cy, cz in cp.retainer_stations():
-        guide0, guide1 = sorted((sx * cp.dado_blind_x,
+        guide0, guide1 = sorted((sx * cp.retainer_guide_face_x,
                                   sx * cp.retainer_insert_face_x))
         bore0, bore1 = sorted((sx * cp.retainer_insert_face_x,
                                sx * cp.retainer_bore_end_x))
@@ -8025,7 +8123,7 @@ def build_piece(box, y_side, z_side, halves_cache=None):
             # between them. Here for the same reason the two sections above are: the ASSE anchor's V,
             # the chain's bores, the wells and every bore below are cut AFTER this, so each is
             # cut out of what the corbel left rather than filling a pocket back in.
-            piece = _back_top_ceiling(piece, inner, y_joint)
+            piece = _back_top_ceiling(piece, inner, y_joint, box)
     piece = piece.intersect(_rounded_outer(outer))
     # THE COLUMN RELIEFS' CEILINGS, ahead of every fuse this piece makes. The pockets are cut
     # last, where a relief has to be; the 45° walk their ceilings take into the column is cut
@@ -8783,6 +8881,11 @@ def main():
         # panel, the channel the panel fills, and the most any relief still leaves corbelled.
         "CEILING_STRIP": f"{_ceiling().rail_run:.4g} mm",
         "CEILING_PANEL_W": f"{_ceiling().panel_w:.4g} mm",
+        "BACK_TOP_CEILING_T": f"{back_top_ceiling_t:.4g} mm",
+        "BACK_TOP_CEILING_GROWTH": f"{back_top_ceiling_growth:.4g} mm",
+        "CEILING_PANEL_T": f"{_ceiling().structural_t:.4g} mm",
+        "CEILING_TONGUE_T": f"{_ceiling().tongue_t:.4g} mm",
+        "CEILING_DADO_DEPTH": f"{_ceiling().dado_depth:.4g} mm",
         "CEILING_KEEP": f"{max(r[4] for r in back_top_ceiling_reliefs):.4g} mm",
         "RELAY_CEILING_KEEP": f"{next(r[4] for r in back_top_ceiling_reliefs
                                         if r[0] == 'relay-1'):.4g} mm",
