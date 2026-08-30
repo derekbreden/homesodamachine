@@ -131,6 +131,17 @@ test("tooling comes out of the directory an assembly otherwise sweeps whole", ()
   assert.deepEqual(names(byId(tree, "cold-core-assembly").inside), ["foam-shell"]);
 });
 
+test("the fixtures namespace is tooling without per-fixture seating", () => {
+  const tree = seatParts({
+    steps: [
+      "printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step",
+      "printed-parts/fixtures/future-jig/future-jig.step",
+    ],
+  });
+  assert.deepEqual(names(tree.tooling), ["future-jig", "weld-rotator-assembly"]);
+  assert.deepEqual(tree.unseated, []);
+});
+
 test("an excluded directory is not browsed", () => {
   const tree = seatParts({ steps: ["assembly/scenes/out/cold-core.step"] });
   assert.deepEqual(tree.unseated, []);
