@@ -2260,6 +2260,135 @@ def check_clamp_drops_on(pieces, placed) -> Bound:
             f"the clamp meets {worst:.3f} mm³ of {into} at z shift {at:.3f} mm"])))
 
 
+def check_clamp_field(pieces, shell) -> tuple[Bound, Bound, Bound]:
+    """Whether the top clamp is the stated filled field, access reach and printable section.
+
+    A one-solid reading alone cannot distinguish the filled clamp from the former pair of
+    collars joined by two small bridges. Reconstruct the allowed complement independently:
+    one full pump-pair field, minus only the two bracket/boss/can rooms, one joined access
+    recess and the two screw passages. Comparing both set differences catches missing stock
+    as well as an opening that failed to reach a purchased body.
+
+    The access void is read separately as a body. Its rectangular crown recess overlaps both
+    counterbores, so the union must be exactly one connected reach from either screw head to
+    the open top. The 6 mm service gauges stop at the head seats; below those seats the stated
+    3.9 mm screw-clearance shaft is intentionally narrower than the driver.
+
+    Finally read the three small sections which make this shallow Z-floor print deliberate:
+    matching 0.7 mm fore/outer bracket rails, one nominal wall of cradle skin ahead of the
+    dropping clamp, and the clipped but complete aft boss wall. The last is the 2.53 mm left
+    between the fixed cheek plane and the pump's exact 53 mm octagonal room; eroding it opens
+    the +Y locator, while demanding the pump-tray source's nominal 3 mm would move the pump or
+    cross the fixed wall.
+    """
+    clamp = pieces.get("pump-cap")
+    if clamp is None:
+        empty = record_bound(Bound(
+            "pump-clamp-filled-field", "The top clamp is solid except for its stated rooms",
+            True, "no pump clamp in this box", "one exact filled clamp field", []))
+        access = record_bound(Bound(
+            "pump-clamp-access-reach", "One top recess reaches both clamp screws", True,
+            "no pump clamp in this box", "one connected access void and two clear drivers", []))
+        section = record_bound(Bound(
+            "pump-clamp-print-sections", "The clamp and cradle retain their printable sections",
+            True, "no pump clamp in this box", "the three support rails and both wall sections", []))
+        return empty, access, section
+
+    clamp = clamp.val() if hasattr(clamp, "val") else clamp
+    trays, plate = shell.pack.pump_trays, shell.pack.collet_plate
+    split = _enc.cap_split_z(trays)
+    crown = split + _tray.depth()
+    fore = min(cy - _tray.half_width() for _cx, cy, _cz in trays)
+    aft = _enc.plate_guide_fore_y(plate) - _enc.cap_kiss
+    x0 = min(cx - _tray.half_width() for cx, _cy, _cz in trays)
+    x1 = max(cx + _tray.half_width() for cx, _cy, _cz in trays)
+    gross = _enc._ybox(x0, x1, fore, aft, split, crown)
+    expected = gross
+    for cx, cy, _cz in trays:
+        bx0, bx1 = cx - _tray.bracket_half, cx + _tray.bracket_half
+        if cx < 0.0:
+            bx1 += _enc.clamp_drop_air
+        else:
+            bx0 -= _enc.clamp_drop_air
+        expected = expected.cut(_enc._ybox(
+            bx0, bx1,
+            cy - _tray.bracket_half, cy + _tray.bracket_half,
+            split - 0.05, split + _tray.bracket_t + 0.05))
+        expected = expected.cut(_tray.boss_room(0.0).moved(
+            cq.Location(cq.Vector(cx, cy, split))))
+        expected = expected.cut(_enc._zcyl(
+            _tray.can_half, cx, cy,
+            split + _tray.boss_depth - 0.1, crown + 1.0))
+
+    ys = _enc.cap_screw_ys(shell.inner, plate)
+    edge = _enc._clamp_bridge_edge(trays)
+    access_void = _enc._ybox(
+        -edge, edge,
+        min(ys) - _enc.clamp_bridge_half_y,
+        max(ys) + _enc.clamp_bridge_half_y,
+        split + _enc.cap_web_t, crown + 1.0)
+    expected = expected.cut(access_void)
+    screw_voids = _enc._cap_screws(shell.inner, plate, trays)[0]
+    complete_access = access_void
+    for bore in screw_voids:
+        expected = expected.cut(bore)
+        complete_access = complete_access.fuse(bore)
+    complete_access = complete_access.intersect(gross)
+
+    missing = expected.cut(clamp).Volume()
+    extra = clamp.cut(expected).Volume()
+    actual_volume, expected_volume = clamp.Volume(), expected.Volume()
+    one_solid = len(clamp.Solids()) == 1
+    exact = missing <= 1e-3 and extra <= 1e-3
+    field_ok = one_solid and exact
+    field = record_bound(Bound(
+        "pump-clamp-filled-field", "The top clamp is solid except for its stated rooms",
+        field_ok,
+        (f"{actual_volume / 1000.0:.3f} cm³ in {len(clamp.Solids())} solid; "
+         f"missing {missing:.6f}, extra {extra:.6f} mm³"),
+        f"one {expected_volume / 1000.0:.3f} cm³ field with no unstated opening or stock",
+        ([] if field_ok else [
+            f"the independently reconstructed fitted field differs by {missing:.6f} mm³ "
+            f"missing and {extra:.6f} mm³ extra; it has {len(clamp.Solids())} solids"])))
+
+    connected = len(complete_access.Solids()) == 1
+    access_bite = clamp.intersect(complete_access).Volume()
+    seat = split + _enc.cap_web_land
+    driver_rows = []
+    for y in ys:
+        driver = _enc._zcyl(3.0, 0.0, y, seat, crown + 1.0)
+        driver_rows.append((y, clamp.intersect(driver).Volume()))
+    worst_driver = max((bite for _y, bite in driver_rows), default=0.0)
+    access_ok = connected and access_bite <= 1e-3 and worst_driver <= 1e-3
+    access = record_bound(Bound(
+        "pump-clamp-access-reach", "One top recess reaches both clamp screws", access_ok,
+        (f"{len(complete_access.Solids())} connected void; access bite {access_bite:.6f} mm³, "
+         f"worst Ø6 driver bite {worst_driver:.6f} mm³"),
+        "one joined crown recess overlapping both counterbores and both Ø6 mm driver paths clear",
+        ([] if access_ok else [
+            f"the access construction has {len(complete_access.Solids())} connected components "
+            f"and meets {access_bite:.6f} mm³ of clamp",
+            *[f"the Ø6 mm driver at y {y:.4f} meets {bite:.6f} mm³ of clamp"
+              for y, bite in driver_rows if bite > 1e-3]])))
+
+    support = _tray.half_width() - _tray.bracket_half
+    front_skin = fore - _enc.clamp_drop_air - shell.outer[2]
+    aft_wall = aft - max(cy + _tray.boss_half for _cx, cy, _cz in trays)
+    air_exact = abs(_enc.clamp_drop_air - 0.2) <= 1e-9
+    section_ok = (support >= 0.7 - 1e-9 and front_skin >= _enc.wall - 1e-9
+                  and aft_wall >= 2.5 - 1e-9 and air_exact)
+    section = record_bound(Bound(
+        "pump-clamp-print-sections", "The clamp and cradle retain their printable sections",
+        section_ok,
+        (f"rails {support:.3f} mm, front skin {front_skin:.3f} mm, "
+         f"aft boss wall {aft_wall:.3f} mm; drop air {_enc.clamp_drop_air:.3f} mm"),
+        "0.7 mm matched rails, at least one wall ahead, 2.5 mm aft locator, 0.2 mm drop air",
+        ([] if section_ok else [
+            f"the clamp reads {support:.3f}/{front_skin:.3f}/{aft_wall:.3f} mm at its "
+            f"support/front/aft sections and {_enc.clamp_drop_air:.3f} mm drop air"])))
+    return field, access, section
+
+
 def check_cartridge_architecture(pieces) -> Bound:
     """Whether the lower cradle is the cartridge and the top clamp is the small second piece."""
     cradle = pieces.get("pump-cartridge")
@@ -8609,6 +8738,7 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     # section is PRESENT, which every clearance check on this card passes by definition.
     check_pump_columns_open(pieces, box)
     check_cartridge_architecture(pieces)
+    check_clamp_field(pieces, box)
     check_cartridge_full_front_wall(pieces, box)
     check_cradle_pulls(pieces, box)
     # And whether the release those figures serve can actually happen — the one reading on
