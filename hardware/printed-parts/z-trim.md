@@ -82,6 +82,18 @@ peaks, a plate whose valleys are shallower or whose peaks are more worn takes mo
 first layer into itself. A trim value belongs to a plate, not to the machine and not to the
 material, and the plates need marking for a value to be carried against one.
 
+## What the machine receives
+
+`BambuStudio --slice 0 --outputdir <dir> petgf.3mf` renders a plate headlessly, conditionals
+already resolved. The emitted G-code holds one `G29.1 Z0 ; clear z-trim value first` near the
+top and exactly one value line — `G29.1 Z0.02 ; for Textured PEI Plate` for a profile
+carrying 0.04, the taken branch and no other. After it, only `G29.2 S1`, `G28.14 R0`,
+`G29.2 S0`, `G29.2 S1` and `G29.99`; no second trim.
+
+Slicing the same plate at 0.02 and at 0.20 and diffing the two G-codes leaves that one line
+changed, plus seam-order noise. No layer Z moves, no flow, no speed, no temperature. Whatever
+the trim does or does not do on the plate, the slicer is not the part that varies.
+
 ## Reading it back
 
 The trim is firmware-side. The slicer does not model `G29.1`, so a plate sliced with one
