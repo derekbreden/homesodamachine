@@ -4467,6 +4467,21 @@ def _pump_cartridge_front_flute_rail(outer):
         start=-front_run / 2.0, closed=False)
 
 
+def _pump_cartridge_side_flute_rail(outer):
+    """The enclosure-phase field on the cartridge's two outer side faces.
+
+    This open run starts at the +X front tangency, walks round the back of the box and ends at
+    the -X front tangency. The proud-front rail carries the translated face and its two corner
+    turns; the short returns between those turns and this run stay plain. The box's fixed front
+    plane passes through the proud cartridge and is therefore not a surface of this rail."""
+    segments = _plan_segments(outer)
+    start = sum(length for _kind, length, _data in segments[:2])
+    length = sum(length for _kind, length, _data in segments[2:7])
+    return _flute_skin.Rail(
+        at=lambda s: plan_at(s, outer), length=length,
+        start=start, closed=False)
+
+
 def _bay_cut(inner, outer, bay, pump_trays, plate):
     """The bay's opening through front-top: the complete exterior width and complete cradle
     height, from the bay floor to the bay top and from the show face to the steel's aft face.
@@ -8302,12 +8317,15 @@ def _export_pieces(pieces, assy):
         # `flute_skin.py` for why they are not in the solid.
         berthed = [m for other, m in bodies.items() if other != name] + steel
         rails = flute_rails(box, berthed)
-        # The full-width cradle now owns the enclosure's exterior front and side skins. Its
-        # show surface therefore takes the closed OUTER field only. The second rail is the
-        # fixed bay surround's inward-facing field; applying both to the cradle makes the two
-        # cutter families meet at its rounded top corner and leaves a four-face STL edge.
-        if name == "pump-cartridge":
-            rails = [rails[0], _pump_cartridge_front_flute_rail(outer)]
+        # The top clamp is an interior mechanical part and carries no show field. The
+        # full-width cradle owns the translated front face and both outer flanks: its proud
+        # rail carries the face and front corners, while the enclosure-phase side rail starts
+        # only at their old tangencies. No rail is struck on the fixed front plane inside it.
+        if name == "pump-cap":
+            rails = []
+        elif name == "pump-cartridge":
+            rails = [_pump_cartridge_side_flute_rail(outer),
+                     _pump_cartridge_front_flute_rail(outer)]
         mesh = _flute_skin.flute(bodies[name], rails,
                                  flute_pitch(outer), flute_depth, flute_rise)
         # WHAT IS CHECKED IS WHAT COMES OUT. A piece tessellates with a handful of edges
