@@ -17,8 +17,8 @@
     },
     {
       "check": "hardware/scripts/check_flutes.py",
-      "note": "bazel build //:flute-payload && tools/cad-venv/bin/python tools/bazel/sync_tree.py --write --targets //:flute-payload",
-      "status": "red"
+      "note": "✓ every payload stands within the budget its print was cut to",
+      "status": "ok"
     },
     {
       "check": "hardware/scripts/check_ledger.py",
@@ -27,8 +27,8 @@
     },
     {
       "check": "hardware/scripts/check_payloads.py",
-      "note": "tools/cad-venv/bin/python hardware/scripts/flute_payload.py",
-      "status": "red"
+      "note": "payloads: 19 solid(s) cut from the bytes beside them, 11 scene(s) at the finishes this tree states",
+      "status": "ok"
     },
     {
       "check": "hardware/scripts/check_pinmap.py",
@@ -57,12 +57,12 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 1395 tracked, 267 fetched solids, 53 tags",
+      "note": "paths: every reference lands — 1401 tracked, 267 fetched solids, 53 tags",
       "status": "ok"
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 347 of 1000 free, the next cut wants 3, and the whole lock reads by name in 124.1 MB against 125.5 MB of bundle",
+      "note": "check_release_room: 655 of 1000 free, the next cut wants 11, and the whole lock reads by name in 113.8 MB against 125.5 MB of bundle",
       "status": "ok"
     },
     {
@@ -87,33 +87,16 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 253 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 267 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 254 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 267 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds e848f9c8f249deecc9ac6b9db4af05d5 for the 107 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 59a2a598fb864753f31fa4493eb35ac5 here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was measured off a different enclosure-assembly.step — it holds 25cbb8023f422019fd854dee71f85c7a, enclosure-assembly.step here is 2f877e55bedc46ddb34b3310f68c3301",
+      "  enclosure-assembly.facts.json was taken from a different tree — it holds e848f9c8f249deecc9ac6b9db4af05d5 for the 107 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 42d5ba1550ba869943f26669ce80a02f here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
-    ],
-    "hardware/scripts/check_flutes.py": [
-      "3 payload(s) were cut from a STEP that is no longer the one beside them:",
-      "  ✗ enclosure-front-top — the viewer draws this file, and it is another machine's",
-      "  ✗ enclosure-pump-cap — the viewer draws this file, and it is another machine's",
-      "  ✗ enclosure-pump-cartridge — the viewer draws this file, and it is another machine's",
-      "  the flute cut is what puts the surface back:",
-      "    bazel build //:flute-payload && tools/cad-venv/bin/python tools/bazel/sync_tree.py --write --targets //:flute-payload"
-    ],
-    "hardware/scripts/check_payloads.py": [
-      "3 solid(s) whose surface is not in the payload beside them:",
-      "    hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh — cut from other bytes than the solid holds",
-      "    hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh — cut from other bytes than the solid holds",
-      "    hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh — cut from other bytes than the solid holds",
-      "  the run that cuts a solid writes the payload beside it:",
-      "    tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/enclosure.py",
-      "  and the enclosure's flutes go back into those payloads after:",
-      "    tools/cad-venv/bin/python hardware/scripts/flute_payload.py"
     ]
   },
   "green": false
