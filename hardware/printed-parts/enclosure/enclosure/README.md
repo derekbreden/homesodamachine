@@ -543,6 +543,59 @@ the same bay, x −76.1 to 33.9 and up to z 135, and the condenser's intake face
 air drawn through the −X flank reaches the finstack through a 10.6 mm slot between the two
 bodies. Neither is a question the vent geometry settles.
 
+## Support-removal strategy
+
+The enclosure is optimized for **how its supports come out**, not for the smallest total
+overhang area. A production-profile slice reports both the connected support bodies which reach
+the model and their separate interface islands: the former is the number of things a hand has to
+remove, while the latter keeps a branching tree from hiding several distinct contact regions.
+Fewer connected supports comes first. Supported area and support volume are only tie-breakers
+after that topology.
+
+The two other costs remain **independent readings**, not terms collapsed into a score:
+
+- A support's useful build-up is the vertical distance from its own base to its first model
+  interface. Under **5 mm** is a defect, **5–10 mm** is marginal, and **10 mm or more** is a decent
+  length for the support to establish itself. Improvement is capped at **15 mm**: more length is
+  harmless, but earns no further preference.
+- A support rooted on model material is a defect of its own. A support rooted on the print bed is
+  preferred irrespective of its length. A short bed-rooted support and a long material-rooted
+  support are therefore reported as two different compromises rather than traded against one
+  another invisibly.
+
+Down-facing geometry is changed before support is accepted. A corbel, chamfer or tangent
+teardrop follows the exact feature it carries and reaches its whole supported face; it is not a
+generic triangle merely placed nearby. A feature on a wall preferentially ramps along that
+wall's normal — an X ramp from an X wall and a Y ramp from a Y wall — because the wall is the
+root that already prints. The corresponding exact solid, passage, clearance and motion gates
+remain hard constraints.
+
+Placed components and printed features are design variables when those constraints still pass.
+If a blocker leaves a separate short or material-rooted support, moving the smallest sensible
+feature or component enough to remove that contact is part of the audit; crowded assemblies are
+not shifted speculatively. Every support which remains in a production slice is named with its
+piece, contact region, root kind, build-up and the geometric or functional reason it cannot be
+removed. This policy applies to every printable part in the enclosure assembly, not only the
+four shell quadrants.
+
+[`support-audit.json`](support-audit.json) is the coverage and retained-support ledger. An
+`audit-required` or `profile-required` piece is visible unfinished work, not permission to borrow
+another piece's settings. [`enclosure_support_audit.py`](/hardware/scripts/enclosure_support_audit.py)
+reads an exported Bambu G-code directly, or refreshes only the mesh in a temporary copy of the
+named production project before slicing it:
+
+```sh
+python3 hardware/scripts/enclosure_support_audit.py \
+  --piece enclosure-back-top --slice-current \
+  --model hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl \
+  --profile hardware/printed-parts/enclosure/enclosure/enclosure-back-top-petgf.3mf \
+  --json-out hardware/printed-parts/enclosure/enclosure/enclosure-back-top.support-audit.json
+```
+
+The result carries the model, profile and derived G-code hashes, the slicer's support settings,
+all interface islands and both plate and CAD coordinates. The ledger supplies the human reason
+for each connected body that remains.
+
 ## Print orientation + corner relief
 
 Every piece prints on its **Z− face** — the bottom pieces floor-down on the
