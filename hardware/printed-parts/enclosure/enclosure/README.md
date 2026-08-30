@@ -966,10 +966,11 @@ itself, and `check_tube_seated` reads the three run anchors the same way.
 (`build_pump_cartridge`) owns the complete removable front wall, the filled body behind it,
 the plate stop and both hand pulls. It reaches from the bay sill to the lintel and rides the
 bay floor. Its outer shell keeps the complete 215 mm enclosure width, including both rounded
-front corners and side skins, and stands [6.15 mm](PUMP_PROUD) proud of the fixed front face.
-The same [3.9 mm](PUMP_FACE_SKIN) face section follows the pumps forward. Its filled body
-reaches both cavity planes, and the front display-support columns have no section anywhere in
-this withdrawal span.
+front corners and side skins, and its show plane stands [7.35 mm](PUMP_PROUD) proud of the fixed
+front face. The pumps and barbs remain [6.15 mm](PUMP_STATION_PROUD) proud; the show plane's
+additional [1.2 mm](PUMP_SHOW_GROWTH) is one complete flute depth. Its filled body reaches both
+cavity planes, and the front display-support columns have no section anywhere in this
+withdrawal span.
 
 **Each pump drops into that cradle from Z+.** Two straight wells pass the motor, boss, stamped
 bracket, head and tube fittings at every insertion station. Below `cap_split_z`, the head well
@@ -978,8 +979,9 @@ the stamped bracket on −Y and both X sides; +Y remains open for the fittings. 
 from that bracket directly into the lower cradle and then into the bay floor.
 
 **The second printed piece is only the top clamp.** `enclosure-pump-cap`
-(`build_pump_cap`) is [167.1 mm](CLAMP_SPAN) across and [40 mm](CLAMP_RISE) high. Its broad
-Z− face stands at z [218.75 mm](CLAMP_BASE_Z), on the upper face of each measured
+(`build_pump_cap`) is [167.1 mm](CLAMP_SPAN) across. Its broad clamp field is
+[40 mm](CLAMP_RISE) high, with its Z− face at z [218.75 mm](CLAMP_BASE_Z) on the upper face
+of each measured
 [2 mm](CLAMP_BRACKET_T) stamped bracket, and the crown stands at z
 [258.75 mm](CLAMP_CROWN_Z). One filled field spans both pump heads from their clean fore
 envelope to the aft wall. Two fitted openings wrap both bosses with the pump case's exact
@@ -987,26 +989,34 @@ octagonal bore and leave one shoulder around each motor can. A single
 [31.14 mm](CLAMP_ACCESS_W) × [48 mm](CLAMP_ACCESS_RUN) top recess joins the two screw stations;
 its retained floor stands at z [224.75 mm](CLAMP_ACCESS_FLOOR_Z), [6 mm](CLAMP_ACCESS_BASE)
 above the broad print face. The individual counterbores continue to head seats which keep
-[4 mm](CLAMP_HEAD_LAND) of printed land underneath. The two M3s run into heat-set inserts in
-the cradle. The clamp carries no front wall, plate stop or hand pull.
+[4 mm](CLAMP_HEAD_LAND) of printed land underneath. One straight
+[3 mm](CLAMP_FORE_WALL_DEPTH) fore wall spans [167.14 mm](CLAMP_FORE_WALL_SPAN) and continues
+from that same base to z [280.5 mm](CLAMP_FORE_WALL_TOP), one
+[0.4 mm](CLAMP_FORE_WALL_X_AIR) X fit and [0.2 mm](CLAMP_FORE_WALL_Y_AIR) Y fit inside the
+cradle's upper opening. It fills the interior behind the cradle's top edge as stock of the
+single [61.75 mm](CLAMP_OVERALL_RISE)-high removable cap. The two M3s run into heat-set inserts
+in the cradle. The clamp carries no show face, plate stop or hand pull.
 
 The service sequence follows those two load paths. Withdraw the assembled cartridge by its
-cradle pulls; back out the two clamp screws; lift off the clamp; then lift either complete pump
-straight up. Assembly is the reverse. `pumps-drop-into-cradle` samples each pump together with
-the bracket and full fitting envelope, `top-clamp-drops-on` includes that otherwise-undrawn
-steel bracket, and `pump-clamped-in-cradle` reads printed bearing below and above all three
-closed bracket sides.
+cradle pulls before any Z service; back out the two clamp screws on the withdrawn cartridge;
+lift off the clamp; then lift either complete pump straight up. Assembly is the reverse on the
+bench, followed by straight Y insertion. `pumps-drop-into-cradle` samples each pump together
+with the bracket and full fitting envelope, `top-clamp-drops-on` includes that otherwise-undrawn
+steel bracket and the cradle but not the fixed enclosure, and `pump-clamped-in-cradle` reads
+printed bearing below and above all three closed bracket sides.
 
-**Each of the four fitting openings is [12.55 mm](CAP_TUBE_OPEN) wide.** A fitting is
+**Each of the four fitting openings begins [12.55 mm](CAP_TUBE_OPEN) wide.** A fitting is
 [12.25 mm](CAP_TUBE_PART), the two on each pump stand [57 mm](CAP_TUBE_PITCH) apart, and the
 pair's complete outside span is [69.55 mm](CAP_TUBE_SPAN). Each passage carries
-[0.15 mm](CAP_TUBE_AIR) running clearance per side from below the outlet-relief sill through
-the complete vertical insertion path. Printed wall remains between and outside the passages.
+[0.15 mm](CAP_TUBE_AIR) running clearance per side. Its circular lower half is centered on the
+pump-case barb axis and a shaft continues from that tangent through the complete vertical
+insertion path. Each exterior shaft flares at 45° to the wider upper-well edge; each interior
+shaft stays at the fitted width. Printed wall remains between and outside the passages.
 
-The pumps, face and their barb planes stand [6.15 mm](PUMP_PROUD) forward together. The pump
-case wells therefore stop one running slip ahead of the cartridge's aft face, leaving a nominal
-[6 mm](PUMP_PULL_WALL) Y+ wall for the hand pulls to load while the cartridge releases the
-four collets.
+The pumps and their barb planes stand [6.15 mm](PUMP_STATION_PROUD) forward. The show face
+stands one flute depth farther out at [7.35 mm](PUMP_PROUD), without moving the pump wells or
+their aft stop. The wells therefore leave the nominal [6 mm](PUMP_PULL_WALL) Y+ wall for the
+hand pulls to load while the cartridge releases the four collets.
 
 Nothing latches the cartridge in the enclosure. The four barb tubes gripped in the anchor
 tees' branch collets retain it, and the **collet plate** releases them: a laser-cut flat of
@@ -1037,10 +1047,12 @@ derived** — no body in this model has any compliance in it, so no bound reache
 z [176.25 mm](PULL_FLOOR_Z) leaves [9.38 mm](PULL_FLOOR_LIGAMENT) of bed-rooted cradle below
 it and puts the common tube elevation, z [188.25 mm](PULL_CENTER_Z), 12 mm inside the mouth.
 At the deepest fingertip wall the straight vertical opening is [30 mm](PULL_PLUMB) high; its
-roof then climbs at 45° to the open flank and reaches z [224.25 mm](PULL_TOP_Z). The fore wall
-is the pulling ledge at y [49.54 mm](PULL_LEDGE); that gives [35.54 mm](PULL_TRAVEL) of useful
-withdrawal before the ledge reaches the enclosure front. Pulling force enters the one
-load-bearing cradle; the clamp has no separate grip to split the load or invite a second tug.
+roof then climbs at 45° to the open flank and reaches z [224.25 mm](PULL_TOP_Z). The opening's
+aft face shares the guide-notch plane at y [69.285 mm](PULL_AFT_FACE), so its whole 22 mm run
+is exposed; the fore wall is the pulling ledge at y [47.285 mm](PULL_LEDGE). That leaves
+[33.285 mm](PULL_TRAVEL) of cartridge withdrawal before the ledge reaches the enclosure front.
+Pulling force enters the one load-bearing cradle; the clamp has no separate grip to split the
+load or invite a second tug.
 
 ## The full-width opening
 
@@ -1060,12 +1072,12 @@ free edge.
 **The lower cradle grows from its bed before it fills the complete exterior width.** Its filled
 interior bears directly on the floor. From that bedded rectangle, the proud front rises outward
 in Y and the two flanks rise outward in X at 45°; the three wall-normal ramps meet as hips in
-the rounded front corners. The last reaches the show face [4.4 mm](PUMP_LOWER_RAMP_RISE) above
-the bed. Above it the cradle keeps the complete untapered exterior width through the 0.5 mm
-lintel reveal. The lower roots retain the same 0.5 mm sill clearance, while the opening below
-the outward-growing show faces remains empty for the drawer's straight Y withdrawal. Only the
-grip pockets and two aft guide notches otherwise depart from that outline; the small clamp sits
-wholly inside the wells above.
+the rounded front corners. The last reaches the show face [5.1 mm](PUMP_LOWER_RAMP_RISE) above
+the bed. Every ramp begins on the bed plane without a vertical starter strip. Above them the
+cradle keeps the complete untapered exterior width through the 0.5 mm lintel reveal, while the
+opening below the outward-growing show faces remains empty for the drawer's straight Y
+withdrawal. Only the grip pockets and two aft guide notches otherwise depart from that outline;
+the small clamp sits wholly inside the wells above.
 
 ## The bay floor
 
@@ -1174,16 +1186,20 @@ carries the facet and the display on a stated ligament (`bay-under-display`).
 `heads-sweep-out` reads each head's path to the front against the piece it passes
 through, and `pump-cartridge-sweep-out` reads the complete lower-cradle and top-clamp envelopes.
 The removable shell follows the enclosure's rounded plan with its front plane
-[6.15 mm](PUMP_PROUD) proud while the filled block behind it reaches both cavity planes.
+[7.35 mm](PUMP_PROUD) proud while the pumps remain [6.15 mm](PUMP_STATION_PROUD) proud and the
+filled block behind it reaches both cavity planes.
 Front-bottom's front lip drops across the whole flat span
 (`_front_flat_lip_drop`) — the floor stands in that band and the heads run down through
 it — and the front wall below keeps its single `front_wall` section from slab to seam.
-The face keeps [0.5 mm](PUMP_CARTRIDGE_CLEARANCE) of Z clearance at the sill and lintel. There
-is no X inset or X/Z taper.
+The face keeps [0.5 mm](PUMP_CARTRIDGE_CLEARANCE) of Z clearance below the lintel; its lower
+front and flank ramps begin on the bed. There is no X inset or X/Z taper above those ramps.
 
 **The fixed front wall is `front_wall` thick and grows inward.** The removable pump face is the
-load-bearing exception: it stands [6.15 mm](PUMP_PROUD) proud with [3.9 mm](PUMP_FACE_SKIN) over
-each head relief and [6 mm](PUMP_PULL_WALL) behind the seated pump wells. What
+load-bearing exception: it stands [7.35 mm](PUMP_PROUD) proud with
+[5.1 mm](PUMP_FACE_SKIN) of smooth stock over each lower head relief and
+[6 mm](PUMP_PULL_WALL) behind the seated pump wells. Over the upper insertion wells its smooth
+section is [4.305 mm](PUMP_UPPER_SMOOTH_SKIN); the same uninterrupted full-depth flute field as
+the enclosure leaves [3.105 mm](PUMP_UPPER_FLUTED_SKIN) in the finished printable mesh. What
 noses into the section gets a 45°-chamfered relief (`_front_relief_cuts`): one stated
 pocket across the compressor, floored on its own kiss, and one pocket per pump in the
 lower cradle's face, floored where the pump head and bracket insertion well puts its root
@@ -1208,15 +1224,17 @@ bracket remains wholly below the printed cap: every cap wall grows directly from
 Z− plane, with no shallow pocket ceiling or narrow perimeter foot. Above that steel, the
 case-derived octagon engages the white boss over its complete run and the shoulder surrounds
 the can. Thus the cradle takes weight, the clamp prevents lift, and the octagon fixes X, Y and
-yaw. The clamp's vertical drop keeps [3.105 mm](CLAMP_FRONT_SKIN) of cradle skin ahead of its
-fore face. A [8.68 mm](CLAMP_AFT_WALL) wall remains aft of each octagon to locate the boss
+yaw. With the cartridge withdrawn, the clamp's vertical path keeps
+[4.305 mm](CLAMP_FRONT_SKIN) of smooth cradle skin ahead of its fore face. A
+[8.68 mm](CLAMP_AFT_WALL) wall remains aft of each octagon to locate the boss
 against +Y.
 
 **Two M3 close one clamp onto one cradle.** Both screw heads are accessible from above in the
-single joined centre recess. Their heat-set inserts open upward in the cradle spine. Back both
-screws out and the entire clamp lifts in Z; either pump then follows through the same straight
-well. The cradle's centre clearance spans the clamp's complete fore/aft depth, so the filled
-field has one unobstructed vertical path. No zip tie or hidden underside fastener closes a pump.
+single joined centre recess. Their heat-set inserts open upward in the cradle spine. Once the
+complete cartridge is withdrawn in Y, back both screws out and the entire clamp lifts in Z;
+either pump then follows through the same straight well. The cradle's centre clearance spans
+the clamp's complete fore/aft depth, so the filled field has one unobstructed bench-service
+path. No zip tie or hidden underside fastener closes a pump.
 
 The fitted opening's exact source dimensions and section readings are in
 [`pump-tray/README.md`](/hardware/printed-parts/enclosure/pump-tray/README.md). The enclosure
