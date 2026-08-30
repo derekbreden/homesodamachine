@@ -74,6 +74,20 @@ The mesh is measured fresh each print, over the bounding box of that plate's own
 [`z-trim-0.30-probe.3mf`](z-trim-0.30-probe.3mf) is the isolation print: +0.30 mm over stock,
 ten times the sweep's step, more than a 0.2 mm first layer can reach the plate through.
 
+## The plate is a variable
+
+Two H2Cs, two 0.4 mm tungsten nozzles, two textured PEI plates. Derek: *"it seems one of the
+confounding variables is which textured PEI plate is used. One of the plates is consistently
+getting more melty pressed in material from first layer into plate, and is taking more lift
+to get away from."*
+
+Homing touches the peaks of the texture — Bambu's own comment on the block says the trim is
+there because *"the nozzle was touching topmost of the texture when homing"*. Plate thickness
+therefore cancels at the touch-off and texture geometry does not: at the same gap above the
+peaks, a plate whose valleys are shallower or whose peaks are more worn takes more of the
+first layer into itself. A trim value belongs to a plate, not to the machine and not to the
+material, and the plates need marking for a value to be carried against one.
+
 ## Reading it back
 
 The trim is firmware-side. The slicer does not model `G29.1`, so a plate sliced with one
