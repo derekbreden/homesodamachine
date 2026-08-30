@@ -181,10 +181,12 @@ def _current_profile_slice(model: Path, profile: Path, slicer: Path,
     process, printer, filament and plate setting remains the profile's own.
     """
     mesh_project = directory / "current-mesh.3mf"
+    # Bambu writes a result.json ledger into the directory it is invoked from; both runs are
+    # anchored in this run's own temporary directory so the ledger dies with it.
     subprocess.run([
-        str(slicer), "--export-3mf", str(mesh_project), "--arrange", "0", "--orient", "0",
-        str(model),
-    ], check=True)
+        str(slicer.resolve()), "--export-3mf", str(mesh_project), "--arrange", "0",
+        "--orient", "0", str(model.resolve()),
+    ], check=True, cwd=directory)
 
     current_project = directory / "current-profile.3mf"
     with zipfile.ZipFile(profile) as template, zipfile.ZipFile(mesh_project) as current:
@@ -232,8 +234,9 @@ def _current_profile_slice(model: Path, profile: Path, slicer: Path,
     output_dir = directory / "slice"
     output_dir.mkdir()
     subprocess.run([
-        str(slicer), "--slice", "0", "--outputdir", str(output_dir), str(current_project),
-    ], check=True)
+        str(slicer.resolve()), "--slice", "0", "--outputdir", str(output_dir),
+        str(current_project),
+    ], check=True, cwd=directory)
     gcodes = sorted(output_dir.glob("plate_*.gcode"))
     if len(gcodes) != 1:
         raise RuntimeError(f"expected one plate G-code, found {len(gcodes)} in {output_dir}")
