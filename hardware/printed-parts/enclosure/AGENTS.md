@@ -11,3 +11,8 @@ supported area at the expense of removal count, hide multiple contact islands in
 count, treat a placed component as immovable without checking, or resolve one support defect by
 silently creating another. Keep support build-up and model-versus-bed rooting as independent
 readings when candidate designs trade one against the other.
+
+The support audit is design and reconciliation evidence, not a build or publication gate. Run it
+when support topology is the question, or while the interactive visual loop is quiet. Keep it out
+of the normal derive/publish path and never delay a coherent visual iteration for a production
+slice. The root build-latency rule applies equally to exact assembly gates.

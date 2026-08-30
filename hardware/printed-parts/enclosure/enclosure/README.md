@@ -590,10 +590,13 @@ removed. This policy applies to every printable part in the enclosure assembly, 
 four shell quadrants.
 
 [`support-audit.json`](support-audit.json) is the coverage and retained-support ledger. An
-`audit-required` or `profile-required` piece is visible unfinished work, not permission to borrow
-another piece's settings. [`enclosure_support_audit.py`](/hardware/scripts/enclosure_support_audit.py)
-reads an exported Bambu G-code directly, or refreshes only the mesh in a temporary copy of the
-named production project before slicing it:
+`audit-required` or `profile-required` piece is visible work for the support campaign, not a
+publication blocker and not permission to borrow another piece's settings. The audit is a design
+and quiet-time reconciliation tool; it is not part of the normal build or publish path and never
+holds a coherent visual iteration for a production slice.
+[`enclosure_support_audit.py`](/hardware/scripts/enclosure_support_audit.py) reads an exported
+Bambu G-code directly, or refreshes only the mesh in a temporary copy of the named production
+project before slicing it:
 
 ```sh
 python3 hardware/scripts/enclosure_support_audit.py \

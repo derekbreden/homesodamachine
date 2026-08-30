@@ -35,7 +35,9 @@ byte-identical either way, so a tree that has not run it is slow and not wrong.
 
 See `hardware/printed-parts/faucet/faucet-shell/faucet_shell.py` for patterns to follow, and its companion `faucet_shell.md` for the idioms those patterns embody.
 
-See `hardware/printed-parts/AGENTS.md` before shaping any printed part — what a part is made of, the drawn mesh that reviews it, and where the support policy lives.
+See `hardware/printed-parts/AGENTS.md` before shaping any printed part — current function and
+assembly ownership, the visual review loop, the roles of STEP, STL and viewer payload, and the
+scope of the enclosure support policy live there.
 
 ## Firmware
 
@@ -65,15 +67,24 @@ full derive, resync the ledger, the docs and the deck, close whatever is behind.
 for anything, stop reconciling and come back. A commit is a checkpoint, not a claim that
 everything downstream of it is current.
 
-There is no final release to hold work for. Publish each iteration as it becomes coherent and put
-it in front of me; work held back for a ceremonial cut is work nobody has reviewed.
+There is no terminal release to hold work for. A release is one coherent iteration in the active
+review loop: publish it as soon as it is visually inspectable, inspect the live result yourself,
+find related defects, coordinate or make their fixes, and publish the next coherent iteration.
+Keep that loop moving while I respond; do not save a group of reviewable changes for one final
+cut.
 
-## A check costs the loop
+## Keep the visual loop fast
 
-Nothing goes into the build that makes it slower. A gate that turns a five-minute derive into a
-twenty-minute one has cost more than it can return: the review here is my eye on the drawn part,
-and time added between an edit and that look is taken from the only reviewer that finds these
-defects. Prove a change by deriving it and looking at it. Existing gates stay and get faster where
-they can; a new one earns its wall time against the loop it slows, and one that cannot is not
-written. [`hardware/ledger/build-time.md`](/hardware/ledger/build-time.md) prices what a run
-takes, and `_build_time.py --check` names a generator coming in slower than its row.
+Do not add a check, audit, validation or bookkeeping step to the normal build, derive or publish
+path if it increases wall time at all. Rigor does not earn an exception. Existing gates have no
+exemption either: make a slow one faster, move it outside the ordinary iteration, or remove it.
+Focused temporary probes may answer a question without becoming a permanent tax on every later
+change.
+
+The fast review is shared visual work: agents derive and inspect the current printable surface
+and assembled context, and I review the live result. Automated checks do not replace either eye,
+and a check which delays the next look reduces the review that finds these defects. Use the
+smallest coherent derive, look at it, publish it, and continue the loop.
+[`hardware/ledger/build-time.md`](/hardware/ledger/build-time.md) prices what a run takes, and
+`_build_time.py --check` names a generator coming in slower than its row. A row is a ceiling to
+reduce, not a budget to spend.
