@@ -2,12 +2,12 @@
   "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed \u2014 web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
   "release": {
     "tag": "cad-artifacts",
-    "asset": "cad-ec0363042df46ca7.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-ec0363042df46ca7.tar.gz",
+    "asset": "cad-6480680ea193eb0c.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-6480680ea193eb0c.tar.gz",
     "objects": "s-"
   },
   "source": {
-    "commit": "dacc5ff13cccd8075f77728433a98f29dd8db1e6"
+    "commit": "0578b69489a33eb332074a323cc63b5fe849daed"
   },
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, or that rule would not cut.",
@@ -538,8 +538,8 @@
     ]
   },
   "bundle": {
-    "sha256": "ec0363042df46ca7420fd67e9f430e975d6bb23cf7a16290af06b5b55d769088",
-    "bytes": 124661198,
+    "sha256": "6480680ea193eb0c97fbcfb92afd948a27610b2b2fa3a80421bb3d3cc8eb8987",
+    "bytes": 118145176,
     "solids": 267
   },
   "solids": {
@@ -628,8 +628,8 @@
     "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step": "bb6d47d7641a9759e444da2f68ea12d48ddcc19f36bcfcd4227414a5d75d538a",
     "hardware/faucet-layout/faucet-assembly.step": "f0cfe4395ced9167017cb2188064e2f28ec9bfb99abb07d2c8432f93f4ab65a4",
     "hardware/faucet-layout/faucet-assembly.step.mesh": "874fcd5150deceb80d3c422aedcb37c3d9fec87e16ecd6d958fa98792f75968b",
-    "hardware/manifold-layout/enclosure-assembly.step": "79730bc55f618fb5c1b62239bf2bc1eeabd7c19ea0d01f700644b87085b5c26a",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "523e55aa47573fde746e352ee607cbc7fbbc668c9b560c8c9b0af244c5386001",
+    "hardware/manifold-layout/enclosure-assembly.step": "03df583c2eb867194b4d9ebb072a23870524d2028eb0d3ebf66b98ff5a7dc668",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "f11ca433c7101c5a6f342c19d011fd89da2af907524e2198c7e7e09d6f31fb22",
     "hardware/manifold-layout/manifold-layout.step": "b1ec5c322c80216d7bda15940c767ff696c351f88ce7c9725acaf9a1533bd120",
     "hardware/manifold-layout/manifold-layout.step.mesh": "1d64c534e6f94d485621e4bfc1b256a6adb3da044f094b7bd5e47bccaa31326f",
     "hardware/pcb/pcba/out/pcba.glb": "819d2d6a51579a8c3ee66bcb9432075bc50ca77cf129bd828ea538b8fc72b767",
