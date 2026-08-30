@@ -106,14 +106,14 @@
       "support_bodies": [
         {
           "tree": "tree-1",
-          "name": "full-footprint first-layer film",
+          "name": "exterior-band reveal film",
           "first_contacts_cad_xyz_mm": [
             [-107.4, -2.207, 167.065, 107.4, 69.393, 167.265]
           ],
           "root": "bed",
           "build_up_mm": 0.0,
           "interface_islands": 1,
-          "rationale": "Unresolved: the piece's first body layer stands one layer above the plate and the slicer films the whole footprint under it. The piece's Z- datum and the production project's stored seat disagree by that layer; the film is a seat to reconcile, not a support to keep."
+          "rationale": "The exterior band's horizontal underside stands the accepted 0.5 mm reveal above the bearing block, whose minimum the project transform seats exactly on the plate. The automatic-support slice films that gap with a single layer that peels in one piece; the reveal is deliberate and the geometry is not in question - the cartridge profile's automatic-support setting is."
         }
       ]
     }
