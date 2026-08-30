@@ -278,6 +278,11 @@ _collet_x = [x for x, _ in _collet_ring]
 _collet_z = [z for _, z in _collet_ring]
 _collet_w = max(_collet_x) - min(_collet_x)
 _collet_h = max(_collet_z) - min(_collet_z)
+_collet_length_in = _collet_w / 25.4
+_collet_area_in2 = _collet_w * _collet_h / 25.4 ** 2
+_collet_stock_in = _ea.PLATE_T / 25.4
+_collet_volume_in3 = _collet_area_in2 * _collet_stock_in
+_collet_cost = 6.29 * _collet_volume_in3 + 1.89
 # AND WHETHER IT IS STILL PLAIN. Zero is the whole of "no notch", and nothing else is: a closed
 # outline lies inside the rectangle it is measured across, so equal areas leave it nowhere to be
 # but ON that rectangle. A bite out of an edge, a chamfered corner and a stepped end each take
@@ -452,6 +457,10 @@ def main():
         # the assembly, each driver reading the same outline, so `docgen.lint` holds the two
         # sentences together rather than letting the ledger and the bench count differently.
         "PLATE_PLAN": f"{_collet_w:.2f} × {_collet_h:.2f} mm",
+        "PLATE_LENGTH_IN": f"{_collet_length_in:.3f}",
+        "PLATE_AREA": f"{_collet_area_in2:.2f}",
+        "PLATE_VOLUME": f"{_collet_volume_in3:.2f}",
+        "PLATE_COST": f"${_collet_cost:.2f}",
         "PLATE_CORNERS": f"{len(_collet_ring)}",
         "PLATE_HOLES": f"{len(_collet_plate['holes'])}",
         "PLATE_HOLE_D": f"Ø{_collet_plate['hole_d']:g}",
