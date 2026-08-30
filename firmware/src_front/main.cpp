@@ -630,18 +630,6 @@ static volatile uint32_t panelVsyncWriteErrors = 0;
 #define PANEL_VSYNC_ACTION_WINDOW_CYCLES \
   (PANEL_VSYNC_ACTION_WINDOW_US * PANEL_CPU_CYCLES_PER_US)
 
-// A shifted wake displaces the image by exactly 25 lines and 80 px, measured off
-// the panel's own ruler. That is 25 * 976 + 80 = 24,480 pixel clocks, or 1.53 ms
-// -- not a porch, not any geometry in this file, but a delay that fits inside
-// this panel's 2.14 ms vertical blank. The only thing this firmware does inside
-// that blank is the CH422G write that raises EXIO2, which is DISP.
-//
-// So: if the panel takes its frame origin from the DISP edge instead of from
-// VSYNC, moving that edge moves the whole image with it. One raster line is 976
-// pclk at 16 MHz, so holding DISP exactly 16 lines longer predicts y goes 25 ->
-// 41 while x stays at 80. If the image does not move, the panel is not taking
-// its origin from this edge and the mechanism is somewhere else entirely.
-#define PANEL_DISP_PROBE_US 976
 
 // ════════════════════════════════════════════════════════════
 //  CH422G expander
@@ -838,13 +826,6 @@ static void panelVsyncTask(void *arg) {
       i2cGive();
       panelVsyncLateRetries++;
       continue;
-    }
-
-    if (action == PANEL_VSYNC_ENABLE_DISPLAY && PANEL_DISP_PROBE_US) {
-      const uint32_t began = esp_cpu_get_cycle_count();
-      const uint32_t want = (uint32_t)PANEL_DISP_PROBE_US * PANEL_CPU_CYCLES_PER_US;
-      while ((uint32_t)(esp_cpu_get_cycle_count() - began) < want) {
-      }
     }
 
     bool ok = false;
@@ -3111,6 +3092,8 @@ static const uint32_t kAlignHue[8] = {
 
 static lv_obj_t *alignScreen = nullptr;
 static unsigned long alignHideDue = 0;
+static unsigned long alignRealignDue = 0;
+#define ALIGN_REALIGN_MS 4000
 
 static uint32_t alignTint(int band) {
   static const int kScale[3] = {100, 55, 28};
@@ -3191,6 +3174,8 @@ static void buildAlignTarget(lv_obj_t *scr) {
              "x: dimRED 80  dimBLU 100\n"
              "   dimWHT 120 dimCYN 140\n"
              "y: wht 20  mag 25  cyn 30\n\n"
+             "REALIGN RUNS AT 4 s --\n"
+             "watch for the image to jump\n\n"
              "outermost band still visible\n"
              "at an edge = px that edge lost\n"
              FW_VERSION,
@@ -3202,6 +3187,7 @@ static void alignTargetShow() {
   lv_obj_clear_flag(alignScreen, LV_OBJ_FLAG_HIDDEN);
   lv_obj_move_foreground(alignScreen);
   alignHideDue = millis() + ALIGN_HOLD_MS;
+  alignRealignDue = millis() + ALIGN_REALIGN_MS;
 }
 
 static void alignTargetHide() {
@@ -4350,6 +4336,16 @@ void loop() {
         }
       }
     }
+  }
+
+  // Nothing in the panel-control path moves this image: not either porch, not a
+  // longer acquisition, not the DISP edge. So ask the other side of the wire.
+  // esp_lcd_rgb_panel_restart() resynchronizes the GDMA to the scan, and it runs
+  // here, in the middle of the target, so one wake shows the before and the after
+  // and no two wakes have to be compared.
+  if (alignRealignDue && millis() >= alignRealignDue) {
+    alignRealignDue = 0;
+    panelRealign();
   }
 
   if (alignHideDue && millis() >= alignHideDue) alignTargetHide();
