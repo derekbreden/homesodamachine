@@ -7,11 +7,13 @@
     "objects": "s-"
   },
   "source": {
-    "commit": "b349eaf28b9d94dd2bfbda0066547cafe6d64ba4"
+    "commit": "c57e157ba9200760060813570dec6b2b1c5f38e9"
   },
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, or that rule would not cut.",
     "paths": [
+      "hardware/printed-parts/enclosure/enclosure/enclosure.py",
+      "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
       "hardware/printed-parts/petgf.3mf",
       "result.json",
       "tmp/pdfs/connect-connected-detail-fixed.png",
