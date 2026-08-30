@@ -2,12 +2,12 @@
   "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed \u2014 web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
   "release": {
     "tag": "cad-artifacts",
-    "asset": "cad-a4ff294eb3ddfe6f.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-a4ff294eb3ddfe6f.tar.gz",
+    "asset": "cad-b830d0c019d37472.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-b830d0c019d37472.tar.gz",
     "objects": "s-"
   },
   "source": {
-    "commit": "daa305758ab94916f982a34a5cf2b3010ab9882f"
+    "commit": "d49c664aa5c4c8023f0ff16b761be389fd04db9b"
   },
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, or that rule would not cut.",
@@ -18,6 +18,7 @@
       "firmware/src_weld_rotator/main.cpp",
       "firmware/test/README.md",
       "firmware/test/test_weld_rotator_policy/test_weld_rotator_policy.cpp",
+      "hardware/assembly/_weld_rotation_rig_sync.py",
       "hardware/ledger/purchases.orders.json",
       "hardware/printed-parts/fixtures/weld-rotator/_rotator_interface.py",
       "hardware/printed-parts/fixtures/weld-rotator/weld_rotator.py",
@@ -544,8 +545,8 @@
     ]
   },
   "bundle": {
-    "sha256": "a4ff294eb3ddfe6f8c56fe1afed2982fd8a92581d790e31515c675f0ba517c55",
-    "bytes": 127639118,
+    "sha256": "b830d0c019d37472e4eccbbe5ec75c366a003ffbb2494477ccba1e819392cbeb",
+    "bytes": 127641170,
     "solids": 264
   },
   "solids": {
@@ -717,18 +718,18 @@
     "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-a.step": "3e46e32e36dd9dd61fd576b4243b280583e9da4feb54be357946f2f573a089a1",
     "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step": "01713593b16ef5c5c8a029ab4be0c0ed1a44b8af703f0b30c45e525a64b7b54b",
     "hardware/printed-parts/faucet/tube-collar/tube-collar-water.step": "b43b018ddf706b9a197370259e41337109a35d0746fc57843ac919ba61345af1",
-    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step": "790c71a3c117c818a332e72237a6ae532ada0a26e027814619f5d1fa27f3d900",
+    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step": "53e43defa1cd8f5c2eabd0143a8a6110f7b741ae3b6c3deb9405d981781c03cf",
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ball-cage.step": "8b8043556910ec6e7bc12e2e0cd2d83f033b56f8aa6bf36c134f6c97ad115e94",
-    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base.step": "f575023fbfb6e1172a937289c961dc997ea1df24beba8919fe3d979162b51d96",
+    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base.step": "71dfe03a87539fdb5616a39cff4c8856159cb089c12a8239780f0ff517f5cf5e",
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-arm.step": "a7e11e66d70e4e5dbd3208e77534363f28f6e3a40f219de41307d2fc9013d5aa",
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-shoe.step": "5dcd1448419568297edf2d6578f08f0706a76a15e7ab9e20d51c234d99aacbe4",
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-tower.step": "29642aec70ae7e93f728d78558c445de22f72e8df9cb776ac9927a7a2b53e7eb",
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-jaw-cap.step": "04e65abf7b1ec82aa008e01441427b1b583616e3f50dcf39ff0513c05ee78c27",
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-tower.step": "d60b64b2725d1e7fc127a783cfdbb5a460ec8b0fa5bc7579d9bdfc133df35b89",
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-pulley-coupon.step": "74afc16520905175bfbd755ac5c0557ddc325db4fab0e9686f82284e8b5e4e84",
-    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-retainer.step": "6b35136489d4c827a42fb5389c6b176d07014ebb6eb2ea3aaac837b5dbfcbba3",
+    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-retainer.step": "f56fff4cbdfa9f38162dfeca77e0301ed693ab54d0ee8f81f9b8a9478f85e1e2",
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-tube-nest.step": "ab84430ad10e165a5e8309da4ee28c8719f969981621bdac84ba443f5c5f5f22",
-    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-turntable-90t.step": "d3cd394b7e5aa8baa1c2b0ddead883f6441ce399e815a14cc401848b98117cee",
+    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-turntable-90t.step": "8d085c8bdc38bc8273107b521f7afc03a0f7ef79842db0119ac536de7b87c7c7",
     "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step": "bf565cc10c5b79c75a58b3addf25ddc52fda6e8b49d437345cc03aefd680eb53",
     "hardware/printed-parts/zone-c/funnel-mold/funnel-mold-assembly.step": "7377096649838bdc060cf1f03bae2cedc09eb0c897fe7678c812c682b74500c8",
     "hardware/printed-parts/zone-c/funnel-mold/funnel-mold-cavity.step": "ac6a325d9efefcc3062bb4c20c64f0257b11c7b84b2b805a41741e325d6153a0",
