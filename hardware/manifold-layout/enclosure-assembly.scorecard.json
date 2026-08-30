@@ -1183,7 +1183,7 @@
    "label": "The cradle follows the old pump case's fitted room",
    "kind": "gate",
    "status": "pass",
-   "value": "2/2 exact rooms/sweeps open, outlet width 70.800 mm; sweep adds 4086.2 mm\u00b3",
+   "value": "2/2 exact rooms/sweeps open, outlet width 70.800 mm; sweep adds 4021.6 mm\u00b3",
    "target": "zero cradle bite and at least the 69.550 mm fitting opening",
    "detail": [],
    "active": true
@@ -1264,7 +1264,7 @@
    "kind": "gate",
    "status": "pass",
    "value": "x -107.500..107.500; missing 0.000 mm\u00b3; fixed front-top 0.000 mm\u00b3",
-   "target": "x -107.500..107.500, full stock z 167.365..280.495, and no fixed front-top in that band",
+   "target": "x -107.500..107.500, full stock z 166.865..280.495, and no fixed front-top in that band",
    "detail": [],
    "active": true
   },
