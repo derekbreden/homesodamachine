@@ -1346,7 +1346,7 @@ def ceiling_stations(digiten, anchors, panel: bool):
 # does — and it grows INWARD: the exterior stays where the appliance's stated depth put it
 # and the interior face stands here. What noses into the section gets a RELIEF, 45°-chamfered
 # like every pocket on this box (`front_reliefs`): the refrigeration stratum keeps the face it
-# was packed against, and each pump tray roots on a pocket floor struck by its own wrap rule.
+# was packed against, and the pump bay roots on pocket floors struck by its own wrap rule.
 # `box-front` reads the pack against the relieved surface, region by region, not one plane.
 front_wall = 9.0
 front_plane_y = 14.0
@@ -1361,7 +1361,7 @@ front_plane_y = 14.0
 # between the two bodies, so a can packed back to `front_plane_y` lands its aft corner in it.
 # Stated as (x0, x1, z0, z1, floor).
 fridge_relief = (-78.0, 36.0, -1.0, 148.0, 11.0)
-# And each pump's relief in the pump cartridge face, floored where the tray's own wrap rule wants
+# And each pump's relief in the cradle face, floored where the head insertion well wants
 # its root: `pump_tray` demands root ≥ head_half + MARGIN off the pump's axis, and the floor
 # is what the root is struck to. The face over a pump keeps this floor less the exterior
 # plane (`front_plane_y − front_wall`) of section, which is the thinnest the user-facing
@@ -1491,14 +1491,14 @@ rail_reach_in = (max(front_top_flank_t, back_top_flank_t) - wall) + slide_slip +
 # --- THE PUMP BAY AND ITS PUMP CARTRIDGE ------------------------------------------
 #
 # THE PUMPS SLIDE OUT OF THE FRONT OF THE BOX. The front wall's flat span — corner column to
-# corner column — and the tray storey that hangs the pumps come out of front-top as one
-# piece, the PUMP CARTRIDGE: the face, the block, both trays, both pumps. It rides the floor
-# standing on the bay's floor and nothing latches it: the four barb tubes gripped in the
+# corner column — and the large lower cradle come out of front-top as one piece, the PUMP
+# CARTRIDGE. Both pumps drop into that cradle and a small top clamp closes on their stamped
+# brackets. The assembled cartridge rides the bay floor and nothing latches it: four barb tubes gripped in the
 # anchor tees' branch collets are the retention, and the collet plate
 # (`enclosure_assembly.build_collet_plate`) is the release — pull the pump cartridge and the tees
 # come with it until their collets press the plate, the tubes come free, and the pumps are
 # in your hand. Pushing it home threads the four tubes back through the plate's holes into
-# the same collets, the cap's own aft face landing on the plate's.
+# the same collets, the cradle's own aft face landing on the plate's.
 #
 # FRONT-TOP CARRIES A FLOOR ACROSS THE BAY (`_bay_floor`), and everything in this storey
 # slides across it. THE FLOOR IS THIS PIECE'S FIRST LAYERS — front-top beds on the seam
@@ -1539,11 +1539,10 @@ face_reveal = bay_face_slip  # the same running fit at the sill and under the li
 # skins; the opening between their interior planes is the straight guide a sliding block
 # requires.
 sill_wash = 1.4              # the sill's top face falls this much fore, so the reveal drains
-# THE PUMP CARTRIDGE HAS ONE OUTLINE AND NOT TWO. Face, deck and cap all stand `bay_face_slip`
-# inside the side-wall planes and `face_reveal` under the lintel, because they are one printed
-# block and the thing that has to pass the opening is the block. What the face fits through,
-# the block behind it fits through.
-cap_kiss = 0.1               # the cap's aft face off the collet plate's, at full seat
+# THE LOWER CRADLE HAS ONE OUTLINE. Its face and filled body stand `bay_face_slip` inside
+# the side-wall planes and `face_reveal` under the lintel. The smaller clamp remains inside
+# the cradle's two vertical wells throughout insertion and withdrawal.
+cap_kiss = 0.1               # the cradle's aft face off the collet plate's, at full seat
 # THE STEEL'S OWN AIR, on every edge it presents to printed material. `fits.slip` is the
 # figure for a printed face on a printed face; this is the figure for the one part of this
 # box that is cut rather than printed — 1/8" 316 off a fiber laser, square-edged, carrying no
@@ -1569,119 +1568,53 @@ plate_shelf_t = 1.2          # that shelf's own section at its inboard edge, bef
 plate_guide_wedge = 3.0      # the cheek's extra section at the fixed outer wall, raked away
                              # to nothing at its inboard face over the guide's whole height
 
-# --- THE PUMP CARTRIDGE IS A BLOCK, AND IT PARTS ON THE BRACKET PLANE -------------
+# --- THE PUMP CARTRIDGE IS A CRADLE WITH A SMALL TOP CLAMP ------------------
 #
-# THE PUMP CARTRIDGE IS SOLID AND THE PUMPS STAND IN IT. What the bay leaves between the face and
-# the collet plate is filled, sparse infill under a printed skin, and the two Kamoers are
-# voids in that fill. A block reads and carries as one object in the hand, which is what a
-# part a user hauls on wants to be.
+# THE LOWER CRADLE IS THE CARTRIDGE. It owns the complete front face, the full-height block
+# behind it, the plate stop, both bracket lands and both hand pulls. Each pump drops through
+# its open well until the stamped bracket at the head-to-boss junction lands on the cradle.
+# Nothing under the head carries it; the front of each head remains one millimetre over the
+# bay floor and the bracket puts the load into the block around the well.
 #
-# IT PARTS ON THE PUMP'S OWN BRACKET PLANE (`cap_split_z`) — the head-to-boss junction, the
-# plane the tray's plate already lands on. Above it the block is `enclosure-pump-cartridge`
-# and each pump stands in the tray that takes its boss; below it the block is
-# `enclosure-pump-cap`, one piece for both pumps, and what it closes on is each head. The
-# cap's top face IS that plane, so the stamped bracket the part carries there — `bracket_w`
-# across against a head of `head_w`, standing proud all round — lands on the cap's own
-# material and the screws carry it.
+# THE TOP CAP IS A CLAMP. Two conformal `pump_tray` collars descend over the motor cans, take
+# the bosses on their complete octagons and leave one shoulder round each can. Two narrow
+# bridges join those collars across the empty centre lane. Their M3 screws run DOWN into
+# heat-sets in the cradle, so the cap captures the brackets without becoming a second thing
+# the hand pulls on.
 #
-# AND THE HEAD IS CARRIED BY ITS OWN FLANKS, not by that lip alone. The part's flanks ramp in
-# twice on the way down — `pump_case.flank_ramp_bands`, the two levels the case that printed
-# and held this pump closed on it — leaving a 45 degree face on each side at each band, four
-# faces looking down and outboard. The cap keeps the wedge under every one of them
-# (`pump_tray.head_room`), so the weight stands on the flanks and the lip over it only keeps
-# the part from lifting off them. Nothing reaches under a head's FRONT face, which stands one
-# millimetre over the bay floor's own top.
-#
-# The motor cans open through the block's ceiling: the bay top stands `bay_crown_air` over
-# their crowns and the display facet sets that plane. The head's front face opens through the
-# cap's underside at the sill. Those are the two open faces of the filled block.
-#
-# THE SCREWS RUN UP THE LANE BETWEEN THE PUMPS. `cap_band_x` is that lane — the column the
-# front wall never relieved — and it is the one column of this piece with no pump, no barb
-# tube and no fitting in it at any height. The cap gives up its fill there and keeps
-# `cap_web_t`, so a screw crosses one web into a heat-set in the block above it and the
-# driver comes up the lane the fill gave up.
-#
-# AND THAT WEB CARRIES ITS HEADS DOWN IN COUNTERBORES, like every other cap screw on this
-# box. A head standing proud stands in the one lane a driver has to come up, and the section
-# drawing these two pieces together was the four millimetres the screw pulled through and
-# nothing else. Sinking the head adds its own `head_cbore_depth` to the web and takes none of
-# it off the screw — `screw_len` is stated UNDER the head, so the same M3×10 crosses the same
-# `cap_web_land` and lands the same depth in the same insert. The lane keeps a flat ceiling
-# and the joint gets twice the section.
-#
-# ITS WALL IS THE RELIEF'S OWN JAMB and not a
-# figure struck off anything: that jamb is already a step in this piece's fore face, and a
-# lane walled anywhere outboard of it leaves the strip between the two standing alone —
-# 1.3 mm of rib at one figure, six tenths of web at another. On the jamb the two are one
-# plane, nothing thin is left, and what stands against a pump's room is the relief's own slip.
-cap_pump_air = 0.4           # air round a pump body where the block closes on it
-# THE TUBE DOES NOT SHARE THE BODY'S RUNNING FIT. The complete pump is 69.25 mm across at the
-# two tube fittings, and this opening keeps 0.15 mm past every face it opens on: per side in X,
-# fore of the relieved outlet face and below its sill. The fittings pass the cap without taking
-# any of the four flank seats that carry the head.
-cap_tube_air = 0.15          # running clearance round the measured tube-fitting opening
+# BOTH PARTS INSTALL IN Z. With the clamp off, the widest section of a pump — its stamped
+# bracket and the 69.25 mm tube-side fitting span — has a straight open path from the top of
+# the cradle to its seat. The clamp follows the same path over the cans. Its plate footprint
+# is therefore the well above the bracket plane; below that plane the smaller head room leaves
+# the bracket's three closed sides standing on material.
+cap_pump_air = 0.4           # running air round the head in the cradle's lower well
+cap_tube_air = 0.15          # per-face air round the measured tube-fitting opening
 cap_slot_half = _tray.outlet_half + cap_tube_air
-# The cap keeps two whole walls outboard of that opening at its floor. From there its sides
-# climb out at 45° to the cartridge's full width, passing the Z-seam furniture without giving
-# up the grip depth at the tube storey.
+# At the floor the cradle keeps two walls outboard of the fitting openings, then grows to the
+# bay's full width at 45 degrees before the pull band.
 cap_tube_return = 2.0 * wall
-cap_web_land = 4.0           # what a screw pulls through, over its own head's counterbore
-cap_web_t = head_cbore_depth + cap_web_land   # the cap's whole section across that lane
-cap_screw_off = 18.0         # each screw off the lane's own mid-depth, fore and aft
+cap_web_land = 4.0           # clamp section under each recessed M3 head
+cap_web_t = head_cbore_depth + cap_web_land
+cap_screw_off = 18.0         # the two bridges and screws fore/aft of the lane midpoint
+clamp_bridge_half_y = 6.0    # half the bridge's fore/aft width at each screw
+clamp_bridge_overlap = 2.0   # bridge overlap into each collar's base plate
+clamp_drop_air = fits.slip   # per face, clamp footprint and bracket through the cradle well
 
-# --- AND THE HAND PULLS ON ITS TWO FLANKS -----------------------------------
+# --- THE HAND PULLS ONLY THE LOWER CRADLE -----------------------------------
 #
-# BOTH ±X FLANKS ARE THE HAND'S, AND NOTHING ELSE IS. The face carries the flute field and
-# the bay's own reveal; the flanks carry no field at all, and front-top's own flank is cut
-# away over this whole storey (`_flank_opening`), so what stands in that opening is the
-# pump cartridge's side with the room in front of it. The display-support columns are absent
-# through this storey, so the opening begins on the front plane and a grip is struck into the
-# exposed cartridge flank (`_flank_grip`).
+# ONE PAIR OF SIDE PULLS IS CUT INTO THAT ONE PIECE. Their centre plane is not chosen from
+# the block: it is the four tube centres in the collet plate, because those four collets are
+# the resistance the hand is overcoming. Pulling on that plane produces translation instead
+# of pitching the cartridge against its rails.
 #
-# A GRIP IS REMOVED MATERIAL. Nothing of this piece stands proud of
-# `front_plane_y - front_wall`, and the bench reads that plane: the pre-test inspection in
-# `hardware/assembly/acceptance-and-burn-in.md` takes this face standing flush in its bay,
-# side to side, as the tell-tale for four barb tubes home in their collets.
-#
-# WHAT THE HAND GETS IS A +Y FACE. The pocket's FORE WALL is the ledge four fingers hook
-# forward onto, with the block from `pump_relief_floor` to that plane behind it.
-#
-# A LEDGE IS A TRAVEL. What a hand draws this piece by is the distance from the ledge to the
-# front wall's interior plane. The pocket is set down against the block's AFT face, one
-# `grip_aft` off it, and the ledge follows from `grip_run`; `GRIP_TRAVEL` is the figure that
-# comes out before the hand reaches the enclosure front.
-#
-# AND IT IS AS DEEP AS A FINGERTIP CURLS, NOT AS DEEP AS THE BLOCK ALLOWS (`grip_reach`). The
-# bay is the cavity's whole width and the block behind this flank is more than twenty
-# millimetres of section at every storey, so what the pump leaves is no longer a bound on
-# anything — a pocket struck to it is a hole a hand reaches through rather than a ledge a hand
-# pulls on. The reach is the hand's figure and the pocket stands on it at every height.
-#
-# THE PUMP IS STILL THE LIMIT WHERE THE PUMP IS CLOSE (`_grip_storeys`). Under the split the
-# room it takes is the head's own square, `pump_tray.head_half` and one `cap_pump_air` off the
-# axis; over it the boss reaches `boss_half`; over the crown the can reaches `can_half` and one
-# `cap_pump_air`, a whole octagon-to-bore step further inboard. Each storey's floor stands at
-# whichever is the shallower of the reach and that room plus its own section, so a box that
-# ever brings a pump back out to this flank gets the walked profile back with no other edit,
-# and the pocket walks out at `relief_chamfer` wherever the two differ.
-#
-# IT IS THE SAME POCKET IN BOTH PIECES: the deck keeps what is over `cap_split_z` and the cap
-# what is under it, the way every other figure this block is cut from parts on that plane.
-grip_reach = 16.0            # how far inboard a grip cuts from the flank — a fingertip's curl
-grip_run = 24.0              # a grip's opening fore and aft — a finger's width and its curl
-grip_sill = _tray.PLATE      # the whole tray/web plate left under the deck's grip
-grip_head = wall             # and over it, one whole wall under the open motor-can ceiling
-grip_back = 2.0 * wall       # deck section between the grip floor and the pump's room
-grip_cap_back = wall         # cap section between its grip floor and the pump head's room
-grip_aft = wall              # and between its aft wall and the face that lands on the steel
-# THE LEDGE IS RAKED IN PLAN, ONE IN THREE. It stands further FORE the further INBOARD it
-# runs, so the normal it presents to a fingertip carries a third of itself INBOARD: the
-# harder a hand pulls, the harder it is drawn toward the centre of the piece and down into
-# the pocket. The one edge this pocket has no wall on is the open flank, and inboard is the
-# way away from it. It costs `grip_rake` times the pocket's own reach of block fore of the
-# ledge, out of the forty millimetres standing there.
-grip_rake = 1.0 / 3.0        # the ledge's fall in Y per millimetre it runs inboard
+# Each pull is a plain, stout pocket in an exposed ±X flank. Fingers enter from the side and
+# hook the pocket's fore wall; its roof rises one-for-one to the open flank, so it prints
+# without a flat bridge. The pocket is entirely in the cradle and the top clamp has no hand
+# feature at all.
+pull_depth = 18.0            # fingertip reach inboard from each exposed flank
+pull_run = 22.0              # fore/aft opening behind the ledge
+pull_rise = 24.0             # opening height, centred on the tube axes
+pull_aft = 4.0               # material between the opening and the plate-stop face
 
 
 # The whole description of one box — what `build_pieces` cuts the four pieces from: the pack it
@@ -1802,10 +1735,10 @@ def documented(box):
 #                 it, and one (x, z) per valve. A valve tray is a plate wall to wall carrying one
 #                 four-boss `valve_seat` per valve (`valve_tray`), and it is this piece's own
 #                 material the way the ASSE anchor and the flow-meter anchors are
-#   pump_trays    the flavour manifold's two pumps, one world `centre` each — the point a pump's
-#                 own axis meets the +Z face of its head, which is `pump_case`'s own base plane.
-#                 A pump tray is that case with its cylinder cut off (`pump_tray`), run from the
-#                 axis to the front wall, and it is this piece's own material like a valve tray
+#   pump_trays    the flavour manifold's two pump stations, one world `centre` each — the point
+#                 a pump's own axis meets the +Z face of its head. The legacy field name is kept
+#                 at the assembly boundary; the lower cradle and top clamp are built from these
+#                 stations and from `pump_tray`'s case-derived collar section
 #   core_stops    the cold core's two front corners, one (cx, cy, r, tip) each — the centre and
 #                 radius of the core's own corner round, and the plane the block over it reaches
 #   core_holds    the cold core's two hold-downs, one (x0, x1, aft, crown) each — the lane on the
@@ -2508,8 +2441,8 @@ def _dims(pack):
     # not pack, and a plate standing ON the rim is a touch with no volume in it. This reads
     # the wall-to-wall storeys off the same stations the pieces build them from. The bay's
     # floor is the one span that does stand on the rim and answers elsewhere
-    # (`enclosure_assembly.check_bay_floor`); the trays' storey roots on the pump cartridge, so
-    # no wall of this box carries it.
+    # (`enclosure_assembly.check_bay_floor`); the pump clamp's collar storey belongs to the
+    # removable assembly, so no fixed wall carries it.
     rim = max(splits) + z_rise
     decks = [mz - _valve_tray.height() / 2.0
              for _plane, _sign, seats in pack.valve_trays
@@ -3109,7 +3042,7 @@ def flute_rails(box, berthed=()):
     `flute_pitch` from a datum on x = 0, so each puts a groove on the plane the machine is
     struck about and neither is told the other exists.
 
-    `berthed` is what the assembly stands in that storey — the pump cartridge, its cap, the steel
+    `berthed` is what the assembly stands in that storey — the lower cradle, top clamp and steel
     plate. What a fitted body hides is not show face and gets no flutes
     (`flute_skin._shadow_mask`); which of them hides what is measured, not listed."""
     outer = box.outer
@@ -4370,9 +4303,9 @@ def _soffit_c(outer):
 
 def _pump_relief_regions(pump_trays):
     """One pocket per pump in the front wall's section, as (x0, x1, z0, z1, floor), struck
-    off its own tray station — across, the tray's own half-width and a slip; in height, the
-    head's hang under the station to the tray's crown over it; floored on
-    `pump_relief_floor`, the plane the tray's root is struck to.
+    off its station — across, the clamp collar's own half-width and a slip; in height, the
+    head's hang under the station to the collar's crown over it; floored on
+    `pump_relief_floor`, the plane the cradle's aft body reaches.
 
     ITS OWN Z0 IS THE LOWEST PLANE THE PUMP CARTRIDGE REACHES, so the bay floor's top is struck
     on it (`bay_floor_z`) and the sill and the face's bottom reveal come off one figure."""
@@ -4397,7 +4330,7 @@ def _front_relief_cuts(inner, pump_trays, slip=0.0):
 
     `slip` closes each pocket in by that much on all four of its standing faces and
     stands its floor that much aft — the outline a piece standing in these pockets is
-    held off the wall by, which is what `_cap_room` takes."""
+    held off the wall by, which is what the cartridge face follows."""
     iy0 = inner[2]
     cuts = []
     for x0, x1, z0, z1, floor in _front_relief_regions(pump_trays):
@@ -4475,12 +4408,12 @@ def _bay_cut(inner, outer, bay, pump_trays, plate):
 
 
 def _front_column_opening(inner, z0, z1):
-    """The inboard lobes of the two front corner columns, removed through the pump-cap band.
+    """The inboard lobes of the two front corner columns, removed through the cradle band.
 
     The full flank opening begins on the seam cap and leaves the exterior side skins below it
     for the Z joint. A corner column reaches one `column_round` into the cavity on both axes,
     so below that opening this smaller cut takes only the column's cavity-side quadrant. The
-    cap's 45° widening face then passes while the side-wall skin and the rail band outboard of
+    cradle's 45° widening face then passes while the side-wall skin and the rail band outboard of
     `inner[0]` / `inner[1]` remain whole."""
     out = None
     for x_in, sx in ((inner[0], +1.0), (inner[1], -1.0)):
@@ -5149,102 +5082,114 @@ def _pump_cartridge_face_region(inner, outer, bay, pump_trays, plate):
 
 
 def cap_split_z(pump_trays):
-    """The plane the pump cartridge parts on — the pump's own BRACKET plane.
+    """The top clamp's seat — the pump's own stamped BRACKET plane.
 
-    `pump_tray` roots each tray's plate on the head's crown, which `kamoer_kphm400` calls
-    `base_plane_z`: the head-to-boss junction, and the plane the part's stamped bracket sits
-    in. Above it a pump is boss and can, held by the tray that bores them; below it a pump is
-    head, and what closes on it is the cap. Taking the split there means the piece that holds
-    the pump up and the lip it holds it by are on one plane instead of two."""
+    The lower cradle carries the bracket from below. The clamp's conformal collar begins on
+    this plane, takes the boss above it and presses the same bracket down onto the cradle."""
     return min(cz for _cx, _cy, cz in pump_trays)
 
 
-def cap_band_x(pump_trays):
-    """The screw lane between the two heads, as (x0, x1) — the inboard jamb of each pump's
-    own relief in the front wall, so the lane's wall and the fore face's step are one plane.
+def _clamp_bridge_edge(pump_trays):
+    """How far each clamp bridge overlaps the two collar plates from the centre lane."""
+    inner = min(abs(cx) - _tray.half_width() for cx, _cy, _cz in pump_trays)
+    if inner <= 0.0:
+        raise ValueError(
+            "the two pump collars overlap across the centre lane, leaving no lane for the "
+            "top-clamp screws")
+    return inner + clamp_bridge_overlap
 
-    THIS IS THE ONE COLUMN OF THE PUMP CARTRIDGE WITH NOTHING IN IT AT ANY HEIGHT. No pump, no
-    barb tube, no fitting: the inboard barbs stand outboard of it and their tubes leave aft
-    of the block entirely. So it is where the cap gives up its fill, where a screw crosses,
-    and where a driver reaches the screw's head."""
-    edge = min(min(abs(x0), abs(x1))
-               for x0, x1, *_rest in _pump_relief_regions(pump_trays))
-    return -edge, edge
+
+def _clamp_bridge_foot_edge(pump_trays):
+    """The bridge width below the bracket tops, clear of both stamped inner edges."""
+    edge = min(abs(cx) - _tray.bracket_half for cx, _cy, _cz in pump_trays)
+    if edge <= clamp_drop_air:
+        raise ValueError(
+            "the two stamped pump brackets leave no centre lane for the clamp feet")
+    return edge - clamp_drop_air
 
 
 def cap_screw_ys(inner, plate):
-    """The two screws' own Y, fore and aft of the lane's mid-depth.
+    """The top clamp's two screw/bridge stations, fore and aft of the lane midpoint.
 
-    The lane runs from the front wall's interior face to the block's aft edge, and a pair
-    struck `cap_screw_off` either side of its middle puts both in material the block carries
-    on both faces of the split."""
+    Both stand between the pumps, clear of their bosses, fittings and tubes."""
     mid = (inner[2] + (plate["fore_y"] - 2.0)) / 2.0
     return mid - cap_screw_off, mid + cap_screw_off
 
 
-def _pump_voids(pump_trays, z_top):
-    """What each pump takes out of the block, one figure per storey it stands in.
+def _pump_drop_voids(box):
+    """The two straight Z insertion wells through the lower cradle.
 
-    BELOW THE SPLIT the head is a square prism on the pump's own axis, `cap_pump_air` round
-    it, opening out of the cap's underside — the head's front face stands one millimetre over
-    the bay floor and no section fits there, so what would be a floor under it is the air the
-    part shows through instead. IT IS NOT A PRISM: `pump_tray.head_room` closes it back in
-    wherever the case closed in on the part, unbroken from the crown to the cap's own floor,
-    so the head's four ramped flanks land on this piece and the pump stands on them.
+    BELOW THE BRACKET the well is the head's square with `cap_pump_air` on every plumb face.
+    The outlet-side band widens to the measured fitting span and remains open upward, because
+    those fittings travel through every higher Z station while a pump is lowered.
 
-    ABOVE THE SPLIT there are two more, one per storey the part carries: the boss over the
-    split to its own crown, and the can from that crown up through the ceiling, so the can
-    opens out of the block's top. THE BOSS IS TAKEN OUT ON ITS OWN OCTAGON
-    (`pump_tray.boss_room`) and not on a box round it — a box leaves its four corners standing
-    outside everything fused back after, sealed under the can and over the tray's ramp.
-
-    ALL THREE ARE CUT FROM THE FILL AND THE TRAY IS FUSED AFTER. A tray conforms to the boss on
-    the case's own figure and carries the air that fit belongs to; a void struck here is the
-    block's, and the tray puts its own material back inside it."""
+    ABOVE THE BRACKET the well is the clamp collar's complete 70 mm footprint with
+    `clamp_drop_air` on every face. That one opening passes the stamped bracket, the fittings,
+    the pump and then the complete clamp. The two bridge slots continue the same path through
+    the centre spine. At the seat the upper wells stop exactly on the bracket plane, leaving
+    the smaller head opening below and therefore a land under the bracket on its three closed
+    sides."""
+    trays, plate = box.pack.pump_trays, box.pack.collet_plate
+    split = cap_split_z(trays)
+    floor = bay_floor_z(trays)[1]
+    top = box.pump_bay[2] + 1.0
+    head = _tray.head_half + cap_pump_air
+    collar = _tray.half_width() + clamp_drop_air
     out = []
-    can_r = _tray.can_half + cap_pump_air
-    room = _tray.head_room(cap_pump_air, _tray.head_depth + 1.0)
-    boss = _tray.boss_room(cap_pump_air)
-    for cx, cy, cz in pump_trays:
-        at = cq.Location(cq.Vector(cx, cy, cz))
-        out.append(room.moved(at))
-        out.append(boss.moved(at))
-        out.append(_zcyl(can_r, cx, cy, cz + _tray.boss_depth, z_top + 1.0))
+    for cx, cy, cz in trays:
+        lower = _ybox(cx - head, cx + head, cy - head, cy + head,
+                      floor - 1.0, split + 0.001)
+        outlet_face = cy + _tray.head_half - _tray.outlet_relief
+        sill = cz - _tray.head_depth + _tray.outlet_relief_run
+        fittings = _ybox(cx - cap_slot_half, cx + cap_slot_half,
+                         outlet_face - cap_tube_air, _block_aft(plate) + 1.0,
+                         sill - cap_tube_air, top)
+        root = cy - pump_relief_floor
+        upper = _ybox(cx - collar, cx + collar,
+                      cy - root - clamp_drop_air,
+                      cy + _tray.far_reach() + clamp_drop_air,
+                      split - 0.001, top)
+        out.append(lower.fuse(fittings).fuse(upper))
+
+    bridge = _clamp_bridge_edge(trays) + clamp_drop_air
+    for y in cap_screw_ys(box.inner, plate):
+        out.append(_ybox(-bridge, bridge,
+                         y - clamp_bridge_half_y - clamp_drop_air,
+                         y + clamp_bridge_half_y + clamp_drop_air,
+                         split - 0.001, top))
     return out
 
 
 def _block_aft(plate):
-    """The plane BOTH storeys of this block present to the steel — `cap_kiss` fore of the
-    collet plate's own face, and the same figure for the deck and the cap."""
+    """The lower cradle's stop plane, `cap_kiss` fore of the collet plate."""
     return plate["fore_y"] - cap_kiss
 
 
 def _cap_x_span(bay):
-    """The cap's two full-width edges — the deck's own, one running clearance inside the
-    side-wall interior planes."""
+    """The lower cradle's full-width edges, one running clearance inside the bay."""
     _bx0, bx1, _top = bay
     edge = bx1 - bay_face_slip
     return -edge, edge
 
 
 def _cap_lower_half(pump_trays):
-    """Half the cap's width at its floor: the outboard tube-opening edge plus two walls."""
+    """Half the cradle's width at its floor: fitting opening plus two walls."""
     return max(abs(cx) + cap_slot_half for cx, _cy, _cz in pump_trays) + cap_tube_return
 
 
 def _cap_side_envelope(box):
-    """The cap's printable X/Z outline below the full-width grip storey.
+    """The lower cradle's printable X/Z outline through its complete height.
 
     At the floor it clears the enclosure's Z-seam furniture while keeping `cap_tube_return`
     outboard of each 69.55 mm tube opening. Each side then walks out one-for-one in Z until it
-    reaches the full-width cartridge edge. The cap prints on this floor, so both outward walks
-    are 45° faces every layer grows on; over them the grip occupies the complete width opened
-    through the front display-support columns."""
+    reaches the full-width cartridge edge and remains there through the front wall and motor
+    storey. The cradle prints on this floor, so both outward walks are 45° faces every layer
+    grows on."""
     edge = _cap_x_span(box.pump_bay)[1]
     lower = _cap_lower_half(box.pack.pump_trays)
     z0 = bay_floor_z(box.pack.pump_trays)[1]
     z_full = z0 + edge - lower
-    z1 = cap_split_z(box.pack.pump_trays) + 1.0
+    z1 = box.pump_bay[2] + 1.0
     return _xz_prism(box.outer[2] - 1.0, box.y_joint, (
         (-lower, z0 - 1.0), (lower, z0 - 1.0),
         (lower, z0), (edge, z_full), (edge, z1),
@@ -5252,220 +5197,67 @@ def _cap_side_envelope(box):
     ))
 
 
-def _grip_storeys(pump_trays, z_floor, z_top):
-    """The storeys a flank grip is struck through, ascending, as (z0, z1, x_room) — the plane
-    the pump's own room reaches OUTBOARD at that height, taken on the outboard pump's station.
-
-    THREE, AND THE SPLIT IS NOT ONE OF THEM. What sets a pocket's depth is the pump behind it,
-    and the pump does not know where the two pieces part: the head storey runs from the cap's
-    own floor to `cap_split_z` and the boss storey up from that same plane, so a pocket struck
-    across both is one figure with a step in it and each piece keeps its own share.
-
-    THE HEAD IS THE SHALLOW ONE. `pump_tray.head_room` closes back in wherever the case closed
-    on the part, but its outboard extreme is the head's own square struck `cap_pump_air` off —
-    `head_half` and that air, which stands a whole `boss_half - head_half` further OUTBOARD
-    than the storey over it, and so it is the one storey whose room could ever bind a pocket
-    struck to `grip_reach`.
-
-    THE BOSS'S CROWN IS WHERE THE OTHER TWO PART. Under it the room is the octagon
-    `_pump_voids` takes out on `pump_tray.boss_room` and the tray's own bore wall gives back,
-    so what stands against a pocket there is the case's own line, `boss_half` off the axis.
-    Over it the room is the can's bore alone, `cap_pump_air` off `can_half`.
-
-    AN OCTAGON'S FLAT IS ITS OWN OUTBOARD EXTREME. Its two neighbouring vertices stand on that
-    same plane and every other one inboard of it, so `boss_half` bounds the figure and not just
-    its four faces — the corners come no nearer than the flats."""
-    cz = min(cz for _cx, _cy, cz in pump_trays)
-    station = max(abs(cx) for cx, _cy, _cz in pump_trays)
-    crown = cz + _tray.boss_depth
-    return ((z_floor, cz, station + _tray.head_half + cap_pump_air),
-            (cz, crown, station + _tray.boss_half),
-            (crown, z_top, station + _tray.can_half + cap_pump_air))
-
-
-def _grip_back(edge, zf, zc, storeys, back_t):
-    """The polyline a grip's own BACK stands on, (x, z) from the sill up, on the +X flank.
-
-    EACH STOREY'S FLOOR STANDS ON `grip_reach`, OR ON THE ROOM THE PUMP TAKES OVER IT PLUS ONE
-    `back_t`, WHICHEVER IS SHALLOWER. The reach is the hand's own figure and it is what decides
-    on this box, where the flank has section to spare at every storey; the pump's room is the
-    limit that takes over wherever a pump stands close enough to make the reach unaffordable.
-    The deck keeps `grip_back`; the cap keeps `grip_cap_back`, because the pocket floor is an
-    ordinary wall round the head rather than the rail-bearing deck strip.
-
-    WHERE THE TWO STOREYS AGREE THERE IS NO STEP AND NONE IS DRAWN. A step of zero height is
-    two coincident points in the polyline, which is a segment of no length for every consumer
-    of this profile to trip over.
-
-    AND IT WALKS OUT TO IT AT `relief_chamfer`. What stands between the pocket and the pump is
-    a rib, and over a crown that rib moves inboard by the whole octagon-to-bore step. Ramped,
-    the first layer over the crown still lands on the rim the layer under it keeps, and the
-    pocket takes its extra depth over the next few, every one landing on the one below."""
-    pts, prev = [], None
-    for z0, z1, x_room in storeys:
-        z_start, z_end = max(z0, zf), min(z1, zc)
-        if z_end <= z_start:
-            continue
-        back = max(x_room + back_t, edge - grip_reach)
-        if prev is None:
-            pts.append((back, z_start))
-        elif back < prev - 1e-9:
-            pts.append((prev, z_start))
-            pts.append((back, z_start + (prev - back)))
-        elif back > prev + 1e-9:
-            raise ValueError(
-                f"a flank grip's storey at z {z0:g} leaves LESS room than the one under it "
-                f"({back:g} against {prev:g}) — the pocket would have to move outboard going "
-                "up, and its own back would be the thing standing on air")
-        prev = back
-        if z1 >= zc:
-            break
-    if not pts:
+def _pull_center_z(plate):
+    """The common Z of the four tube holes in the collet plate."""
+    zs = [z for _x, z in plate["holes"]]
+    if not zs or max(zs) - min(zs) > 1e-6:
         raise ValueError(
-            "a flank grip found no storey of the block to stand in — the pump's own trays "
-            "are what say where its floor steps, and this box states none over the grip's "
-            "own band")
-    return pts
+            "the pump cartridge's side pulls require one tube-centre elevation, but the "
+            f"collet plate carries {zs}")
+    return sum(zs) / len(zs)
 
 
-def _grip_section(edge, zf, zc, storeys, roofed, back_t):
-    """One grip's own (x, z) section on the +X flank: the sill, the back (`_grip_back`), the
-    ceiling, and the mouth.
+def _cradle_pulls(box):
+    """The two new hand pockets, both cut wholly from the lower cradle.
 
-    ITS CEILING RISES AT `relief_chamfer` TO THE MOUTH, the way every relief cut in a standing
-    wall on this box does. The piece prints bottom-down, so that ceiling is a span looking
-    down; swung up 45 degrees to the flank face, every layer over the pocket lands on the one
-    below. The Y ends and the floor are drawn in XY and stand as they are.
-
-    UNLESS THE POCKET'S OWN TOP IS THE PIECE'S TOP, which is what `roofed` says. The cap's
-    band ends on `cap_split_z`, the plane where the cap stops being material at all, and there
-    the section runs straight out past the band — the pocket opens through that face the way
-    it opens through the flank.
-
-    The section runs one millimetre past the flank at both ends, so the cut opens through the
-    face rather than landing on it."""
-    over = 1.0
-    back = _grip_back(edge, zf, zc, storeys, back_t)
-    x_top, z_top = back[-1]
-    if not roofed:
-        return ([(edge + over, zf)] + back
-                + [(x_top, zc + over), (edge + over, zc + over)])
-    ceiling = zc - (edge - x_top)
-    if ceiling < z_top:
+    Their fore wall is the pulling ledge and their vertical midpoint is the tube-axis plane.
+    At the inboard wall the pocket has `pull_rise - pull_depth` of plumb height, then its roof
+    climbs at 45 degrees to the open flank. Nothing is split across the clamp joint."""
+    edge = _cap_x_span(box.pump_bay)[1]
+    deep = edge - pull_depth
+    z_mid = _pull_center_z(box.pack.collet_plate)
+    z0, z1 = z_mid - pull_rise / 2.0, z_mid + pull_rise / 2.0
+    if pull_depth >= pull_rise:
         raise ValueError(
-            f"a flank grip's ceiling lands at z {ceiling:g}, under the top of its own back at "
-            f"{z_top:g} — the pocket is deeper than its opening is tall, and the 45 degree "
-            "rise has nowhere to start")
-    return ([(edge + over, zf)] + back
-            + [(x_top, ceiling), (edge + over, zc + over)])
-
-
-def _grip_bands(bay, pump_trays):
-    """Each piece's share of the pocket as (zf, zc, roofed, back_t).
-
-    ONE POCKET, TWO PIECES, AND THE BLOCK BETWEEN THEM IS THE DECK'S BEARING STRIP. The deck's
-    edge strips ride the bay's rails in the tray plate's own band over `cap_split_z`, so
-    `grip_sill` of block stands there and the pocket picks up again above it. Under the split
-    the cap's share runs to the FLANK OPENING'S OWN FLOOR: below that plane the box's side
-    wall closes back in and a hand reaching into the opening cannot get to the piece at all.
-
-    THE CAP'S BAND ENDS ON THE SPLIT, WHICH IS THE CAP'S OWN TOP FACE, so it takes no roof.
-    Its floor keeps one ordinary `wall` round the pump head. The deck's ends one `grip_head`
-    under the ceiling the motor cans open through, with the piece standing on above it, and
-    takes one; its floor keeps the doubled section that continues the bearing strip."""
-    split = cap_split_z(pump_trays)
-    return ((bay_storey_z(bay)[0], split, False, grip_cap_back),
-            (split + grip_sill, bay[2] - face_reveal - grip_head, True, grip_back))
-
-
-def _flank_grip(bay, pump_trays, plate, band):
-    """THE HAND'S OWN POCKET IN EACH ±X FLANK over one `_grip_bands` band — one solid per
-    side, to cut out of the piece that band belongs to.
-
-    ITS FORE WALL IS THE LEDGE. Four fingers reach in through the flank opening, curl inboard
-    into the pocket and pull FORE on that face, whose outward normal is +Y and whose rake is
-    `grip_rake` — struck at the same two Y planes in both bands, so the two pieces present one
-    ledge and one aft wall to the hand that takes them out together.
-
-    ITS OPENING IS THE BAND, and inboard it is `_grip_section` — as deep as the pump leaves it
-    at every height. Fore and aft it is `grip_run`, set down one `grip_aft` off the block's own
-    aft face.
-
-    IT IS THE Y-PRISM OF THE SECTION MET BY THE Z-PRISM OF THE PLAN. The section says how deep
-    the pocket is at each height and carries the 45 degree ceiling; the plan says where the
-    raked ledge stands at each depth. Neither is a fitted surface and their intersection is
-    the pocket.
-
-    WHAT IT HANDS BACK IS CUT AND NEVER FUSED. A grip is depth taken out of the block, so
-    nothing of either piece moves fore of the plane its face already stands on — the plane the
-    bench reads flush for four barb tubes home in their collets."""
-    zf, zc, roofed, back_t = band
-    over = 1.0
-    edge = _cap_x_span(bay)[1]
-    storeys = _grip_storeys(pump_trays, bay_floor_z(pump_trays)[1],
-                            bay[2] - face_reveal)
-    y1 = _block_aft(plate) - grip_aft
-    y0 = y1 - grip_run
-    section = _grip_section(edge, zf, zc, storeys, roofed, back_t)
-    x_deep = min(x for x, _z in section) - over
-    reach = edge - x_deep
-    if y0 - grip_rake * reach <= pump_relief_floor:
-        raise ValueError(
-            f"a flank grip's raked ledge reaches y {y0 - grip_rake * reach:g} at its deepest, "
-            f"through the block's own fore face at {pump_relief_floor:g} — the rake has eaten "
-            "the run, and what is left is a hole out the front of the piece")
+            f"a {pull_depth:g} mm-deep cradle pull has no printable roof inside its "
+            f"{pull_rise:g} mm opening")
+    y1 = _block_aft(box.pack.collet_plate) - pull_aft
+    y0 = y1 - pull_run
     out = []
     for sx in (+1.0, -1.0):
-        prism = _xz_prism(y0 - grip_rake * reach, y1,
-                          [(sx * x, z) for x, z in section])
-        plan = _xy_prism(zf - over, zc + 2.0 * over, (
-            (sx * (edge + over), y0 + grip_rake * over),
-            (sx * x_deep, y0 - grip_rake * reach),
-            (sx * x_deep, y1),
-            (sx * (edge + over), y1)))
-        out.append(prism.intersect(plan))
+        section = ((sx * (edge + 1.0), z0), (sx * deep, z0),
+                   (sx * deep, z1 - pull_depth), (sx * (edge + 1.0), z1 + 1.0))
+        out.append(_xz_prism(y0, y1, section))
     return out
 
 
-def grip_figures(box):
-    """What a flank grip comes to on this box, for the docs to read — its two bands, the
-    depth it reaches at each of the pump's own storeys, and the travel its ledge buys. Empty
-    on a box with no bay, which is a box with no pump cartridge to carry a grip."""
+def pump_cartridge_figures(box):
+    """The cradle, clamp, fitting opening and pull dimensions written into the docs."""
     if not (box.pump_bay and box.pack.pump_trays):
         return {}
     bay, trays, plate = box.pump_bay, box.pack.pump_trays, box.pack.collet_plate
     edge = _cap_x_span(bay)[1]
-    storeys = _grip_storeys(trays, bay_floor_z(trays)[1], bay[2] - face_reveal)
-    cap_band, deck_band = _grip_bands(bay, trays)
-    tube_lane = cap_band_x(trays)
-    tube_opens = [((max(cx + cap_slot_half, tube_lane[0]) - (cx - cap_slot_half))
-                   if cx < 0.0 else
-                   ((cx + cap_slot_half) - min(cx - cap_slot_half, tube_lane[1])))
-                  for cx, _cy, _cz in trays]
-    y1 = _block_aft(plate) - grip_aft
-    y0 = y1 - grip_run
-    deep = edge - max(storeys[-1][2] + grip_back, edge - grip_reach)
-    cap_deep = edge - max(storeys[0][2] + grip_cap_back, edge - grip_reach)
-    guide_y_inner = plate["fore_y"] - plate_slot_slip - wall
+    y1 = _block_aft(plate) - pull_aft
+    y0 = y1 - pull_run
+    z_mid = _pull_center_z(plate)
+    clamp_edge = max(abs(cx) + _tray.half_width() for cx, _cy, _cz in trays)
     return {
-        "GRIP_RISE": f"{deck_band[1] - deck_band[0]:.4g} mm",
-        "GRIP_CAP_RISE": f"{cap_band[1] - cap_band[0]:.4g} mm",
-        "GRIP_SILL": f"{grip_sill:.4g} mm",
-        "GRIP_RUN": f"{grip_run:.4g} mm",
-        "GRIP_DEEP": f"{deep:.4g} mm",
-        "GRIP_SHALLOW": f"{edge - (storeys[1][2] + grip_back):.4g} mm",
-        "GRIP_CAP_DEEP": f"{cap_deep:.4g} mm",
-        "GRIP_REACH": f"{grip_reach:.4g} mm",
-        "GRIP_BACK": f"{grip_back:.4g} mm",
-        "GRIP_CAP_BACK": f"{grip_cap_back:.4g} mm",
+        "PULL_RISE": f"{pull_rise:.4g} mm",
+        "PULL_RUN": f"{pull_run:.4g} mm",
+        "PULL_DEPTH": f"{pull_depth:.4g} mm",
+        "PULL_CENTER_Z": f"{z_mid:.5g} mm",
+        "PULL_LEDGE": f"{y0:.4g} mm",
+        "PULL_TRAVEL": f"{y0 - box.inner[2]:.4g} mm",
+        "CLAMP_SPAN": f"{2.0 * clamp_edge:.4g} mm",
+        "CLAMP_RISE": f"{_tray.depth():.4g} mm",
+        "CLAMP_BRIDGE": f"{2.0 * clamp_bridge_half_y:.4g} mm",
+        "CLAMP_WEB": f"{cap_web_t:.4g} mm",
+        "CLAMP_BRACKET_T": f"{_tray.bracket_t:.4g} mm",
         "CAP_TUBE_SPAN": f"{2.0 * cap_slot_half:.4g} mm",
-        "CAP_TUBE_OPEN": f"{min(tube_opens):.5g} mm",
+        "CAP_TUBE_OPEN": f"{2.0 * cap_slot_half:.5g} mm",
         "CAP_TUBE_PART": f"{2.0 * _tray.outlet_half:.4g} mm",
         "CAP_TUBE_AIR": f"{cap_tube_air:.4g} mm",
-        "GRIP_LEDGE": f"{y0:.4g} mm",
-        "GRIP_TRAVEL": f"{y0 - box.inner[2]:.4g} mm",
-        "GRIP_RAKE": f"1 in {1.0 / grip_rake:.4g}",
-        "GRIP_RAKE_FORE": f"{grip_rake * deep:.4g} mm",
+        "CRADLE_EDGE": f"{edge:.4g} mm",
         "PLATE_SLOT_LEAD": f"{plate_slot_lead:.4g} mm",
         "PLATE_CAP_LAND": f"{plate_cap_land:.4g} mm",
         "PLATE_STEP_IN": f"{plate_step_in():.4g} mm",
@@ -5473,8 +5265,6 @@ def grip_figures(box):
         "PLATE_GUIDE_WEDGE": f"{plate_guide_wedge:.4g} mm",
         "PLATE_CAP_Z": f"{plate['z1']:.4g} mm",
         "PLATE_CAP_TOP": f"{bay[2]:.4g} mm",
-        "PLATE_GRIP_BASE_OPEN": f"{guide_y_inner - y0:.4g} mm",
-        "PLATE_GRIP_OPEN": f"{guide_y_inner - plate_guide_wedge - y0:.4g} mm",
     }
 
 
@@ -5737,57 +5527,33 @@ def _unified(solid):
 
 
 def build_pump_cartridge(box, halves_cache=None):
-    """THE PUMP CARTRIDGE: the bay's face and the tray deck behind it, one printed piece.
+    """THE LOWER CRADLE: the complete front face and the load-bearing cartridge body.
 
-    The face is the front half's own material inside `_pump_cartridge_face_region` — the full
-    cavity span, one slip inside the opening the bay cut removes from front-top, pump reliefs
-    and all — so the opening and the thing that fills it come out of one figure. It stops one
-    `bay_face_slip` inside `bay_x_span` at every height. The deck is the two pump trays rooted
-    on the reliefs' floor, webbed across by `_pump_tray_webs`' own boxes.
+    It rides the bay floor from sill to plate, presents its own aft face to the collet plate,
+    and remains one piece through the complete height of the removable front wall. Two open
+    wells admit the pumps and top clamp in Z. Below the bracket plane those wells close to the
+    head clearance, leaving the stamped brackets on three cradle lands; the fitting bands stay
+    69.55 mm open through the whole drop path.
 
-    WHAT A HAND PULLS ON IS ITS TWO FLANKS. Front-top's own flanks are cut away over this
-    storey, so the piece's sides stand in the open and each carries a grip (`_flank_grip`) —
-    a pocket struck inboard out of the block, as deep as the pump behind it leaves it, whose
-    fore wall is the raked ledge four fingers hook forward onto. This piece carries the band
-    over `cap_split_z` and the cap the band under it, one ledge across the two.
-
-    WHAT STOPS IT ON THE STEEL IS THE CAP'S OWN AFT FACE, one storey down — this piece owns
-    no feature below `cap_split_z`. Printed on its Z− face, the pose every piece of this box
-    takes: the block's underside is one plane on the bed and the face stands up off it, so
-    what hangs is whatever looks DOWN, and every ceiling cut into it rises at
-    `relief_chamfer` to its own mouth."""
-    inner, outer, plate = box.inner, box.outer, box.pack.collet_plate
-    solid = _pump_cartridge_gross(box, halves_cache).cut(_cap_room(box))
-    # ITS BOTTOM IS ONE PLANE, AND THAT PLANE IS THE FACE'S OWN SILL REVEAL. Where no head
-    # noses in, the front wall's section runs back to `front_plane_y`, and that section is
-    # still the face — but the fill under the split carried it down onto the bay floor while
-    # the face beside it stood one `face_reveal` up, so the piece's underside stepped and a
-    # riser of exactly `face_reveal` ran along every band to carry the step. What rides the
-    # floor is the cap; nothing of this piece reaches below the reveal that keeps its face
-    # off the sill.
-    floor_top = bay_floor_z(box.pack.pump_trays)[1]
-    solid = solid.cut(_ybox(outer[0] - 1.0, outer[1] + 1.0, outer[2] - 1.0, box.y_joint,
-                            outer[4] - 1.0, floor_top + face_reveal))
-    for grip in _flank_grip(box.pump_bay, box.pack.pump_trays, plate,
-                            _grip_bands(box.pump_bay, box.pack.pump_trays)[1]):
-        solid = solid.cut(grip)
+    Both side pulls are cut from this piece at the tube-centre elevation. The clamp has no
+    pull feature. Two heat-set bores open upward from the centre spine for the clamp screws."""
+    inner, plate = box.inner, box.pack.collet_plate
+    solid = _pump_cartridge_gross(box, halves_cache).intersect(_cap_side_envelope(box))
+    for void in _pump_drop_voids(box):
+        solid = solid.cut(void)
+    for pull in _cradle_pulls(box):
+        solid = solid.cut(pull)
     for bore in _cap_screws(inner, plate, box.pack.pump_trays)[1]:
         solid = solid.cut(bore)
     return _unified(solid)
 
 
 def _pump_cartridge_gross(box, halves_cache=None):
-    """THE PUMP CARTRIDGE AND ITS CAP AS ONE SOLID, before `cap_split_z` parts them.
+    """The lower cradle before its pump wells, hand pulls and clamp fasteners are cut.
 
-    The bay's own room, FILLED. The face comes out of the front
-    half's own material, the two trays root on the reliefs' floor and web across, and then
-    the block takes everything between the face and the collet plate that no pump stands in
-    — the deck's own width, both sides of the split. `_pump_voids` cuts the pumps out last,
-    so each can opens through the ceiling and each head through the underside.
-
-    ONE FIGURE, TWO PIECES. `build_pump_cartridge` keeps what is over the split and
-    `build_pump_cap` what is under it, so the joint is a plane through one solid rather than
-    two solids drawn to meet on one."""
+    The detachable face is kept whole from the bay sill to its lintel and fused to one filled
+    block back to the collet-plate stop. Pump and clamp openings are cuts in this one body;
+    the small top clamp is built independently from the conformal collars it needs."""
     inner, outer = box.inner, box.outer
     bay, plate = box.pump_bay, box.pack.collet_plate
     if not bay or not plate:
@@ -5805,36 +5571,11 @@ def _pump_cartridge_gross(box, halves_cache=None):
     solid = half.val().intersect(face)
     bx0, bx1, top = bay
     dx0, dx1 = bx0 + bay_face_slip, bx1 - bay_face_slip
-    cx0, cx1 = _cap_x_span(bay)
-    # THE CAP'S OWN AFT FACE IS THE STOP. Its whole storey stands under the plate's top, so
-    # the face it presents to the steel is the piece's own — no pad hangs off anything to
-    # reach it — and `cap_kiss` is the air left at that face when the pump cartridge is home.
-    #
-    # BOTH STOREYS PRESENT THAT SAME FACE. The deck stood further fore than the cap for no
-    # stated reason, which put a step across the block's whole back and a ledge at the split
-    # to carry it. One plane for both is one face against the steel and no ledge at all.
-    deck_aft = cap_aft = _block_aft(plate)
-    split = cap_split_z(box.pack.pump_trays)
+    aft = _block_aft(plate)
     floor_top = bay_floor_z(box.pack.pump_trays)[1]
-    # The fill, both sides of the split. It starts on `pump_relief_floor` — the plane the
-    # front wall presents wherever a head noses into it, and the surface the face carries
-    # across the whole of both pockets. Under the split it beds on the bay floor's own top,
-    # because the piece that comes out of it there is the cap and the cap is what rides
-    # that plane; `build_pump_cartridge` takes its own share back to the face's sill reveal.
-    # THE FILL BEHIND THE FACE IS SQUARE, and so is the mouth by the time it reaches it: the
-    # round is on the fore verticals only and has run out by `pump_relief_floor`.
-    solid = solid.fuse(_ybox(dx0, dx1, pump_relief_floor, deck_aft, split,
-                             top - face_reveal))
-    solid = solid.fuse(_ybox(cx0, cx1, pump_relief_floor, cap_aft, floor_top,
-                             split))
-    for void in _pump_voids(box.pack.pump_trays, top):
-        solid = solid.cut(void)
-    for cx, cy, cz in box.pack.pump_trays:
-        tray = _tray.build_pump_tray(cy - pump_relief_floor).val()
-        solid = solid.fuse(tray.moved(cq.Location(cq.Vector(cx, cy, cz))))
-    solid = _pump_tray_webs(solid, inner, box.pack.pump_trays, (), 0.0, 1e4, -1e4, 1e4)
-    solid = solid.intersect(
-        face.fuse(_ybox(dx0, dx1, outer[2], cap_aft, floor_top, top)))
+    fill = _ybox(dx0, dx1, pump_relief_floor, aft, floor_top, top - face_reveal)
+    solid = solid.fuse(fill).intersect(face.fuse(
+        _ybox(dx0, dx1, outer[2], aft, floor_top, top)))
     for notch in _plate_guide_notches(bay, plate, box.pack.pump_trays):
         solid = solid.cut(notch)
     if halves_cache is not None:
@@ -5842,128 +5583,83 @@ def _pump_cartridge_gross(box, halves_cache=None):
     return solid
 
 
-def _cap_room(box, slip=0.0):
-    """Everything under the split AND BEHIND THE FACE — the volume `build_pump_cap` keeps and
-    `build_pump_cartridge` gives up.
+def _pump_clamp_gross(box, halves_cache=None):
+    """The two conformal pump collars and their two centre bridges as one top clamp.
 
-    THE FACE IS NEVER SPLIT. It is the front of the machine, sill to lintel, and it comes off
-    the plate whole on the piece a hand pulls; what parts on `cap_split_z` is the block behind
-    it. So this room is cut back by the front wall's own section — the relieved section, so a
-    pump pocket's floor is where the cap begins over that pump and the face's own skin stays
-    ahead of it.
+    Each collar is the pump case's plate, octagon wall and one shoulder round the motor can.
+    It begins on the bracket plane and is clipped at the cradle's aft stop. Two raised bridges
+    overlap both collar plates and carry the top-access M3 heads."""
+    if halves_cache is not None and "pump-clamp-gross" in halves_cache:
+        return halves_cache["pump-clamp-gross"]
+    trays, plate = box.pack.pump_trays, box.pack.collet_plate
+    split = cap_split_z(trays)
+    solid = None
+    for cx, cy, cz in trays:
+        root = cy - pump_relief_floor
+        collar = _tray.build_pump_tray(root).val()
 
-    THE TWO PIECES TAKE TWO ROOMS, AND `slip` IS THE WHOLE DIFFERENCE. The cartridge gives up
-    the room struck on the wall itself; the cap keeps the room struck on that wall opened one
-    `fits.slip`, so the band between the two rooms is air on the piece the cap rises past —
-    every standing face of every pocket it fills, and the floor its own fore face lands on.
-    `cap_split_z` is not opened: the screws close on that plane and it is where this joint
-    decides the pump's height."""
-    outer, inner = box.outer, box.inner
-    room = _ybox(outer[0] - 1.0, outer[1] + 1.0, outer[2] - 1.0, box.y_joint,
-                 outer[4] - 1.0, cap_split_z(box.pack.pump_trays))
-    wall_solid = _ybox(outer[0] - 1.0, outer[1] + 1.0, outer[2] - 1.0, front_plane_y + slip,
-                       outer[4] - 1.0, outer[5] + 1.0)
-    for cutter in _front_relief_cuts(inner, box.pack.pump_trays, slip):
-        wall_solid = wall_solid.cut(cutter)
-    return room.cut(wall_solid)
+        # THE STAMPED BRACKET IS REAL STEEL EVEN THOUGH THE PUMP REFERENCE DOES NOT DRAW IT.
+        # Clear its complete measured square through its full worst-case thickness. Above
+        # that pocket, restore one complete plate section and re-cut the boss's own octagon:
+        # the clamp presses the bracket from above with a three-millimetre annulus while its
+        # long octagonal walls locate the boss above the bracket.
+        press = _ybox(-_tray.half_width(), _tray.half_width(),
+                      -root, _tray.far_reach(),
+                      _tray.bracket_t, _tray.bracket_t + _tray.PLATE)
+        press = press.cut(_tray.boss_room(0.0))
+        bracket = _ybox(-_tray.bracket_half, _tray.bracket_half,
+                        -_tray.bracket_half, _tray.bracket_half,
+                        -0.1, _tray.bracket_t)
+        collar = collar.fuse(press).cut(bracket)
+        collar = collar.moved(cq.Location(cq.Vector(cx, cy, cz)))
+        solid = collar if solid is None else solid.fuse(collar)
+    edge = _clamp_bridge_edge(trays)
+    foot_edge = _clamp_bridge_foot_edge(trays)
+    for y in cap_screw_ys(box.inner, plate):
+        # Below the bracket tops the bridge is a narrow foot in the clear centre lane. Above
+        # them it steps outward to overlap both collar plates. The step both joins the clamp
+        # into one solid and keeps real stamped steel out of the screw bridges.
+        bridge = _ybox(-foot_edge, foot_edge,
+                       y - clamp_bridge_half_y, y + clamp_bridge_half_y,
+                       split, split + _tray.bracket_t)
+        bridge = bridge.fuse(_ybox(
+            -edge, edge, y - clamp_bridge_half_y, y + clamp_bridge_half_y,
+            split + _tray.bracket_t, split + cap_web_t))
+        solid = solid.fuse(bridge)
+    x0, x1 = _cap_x_span(box.pump_bay)
+    solid = solid.intersect(_ybox(x0, x1, box.outer[2], _block_aft(plate),
+                                  split - 0.1, split + _tray.depth() + 0.1))
+    if halves_cache is not None:
+        halves_cache["pump-clamp-gross"] = solid
+    return solid
 
 
 def _cap_screws(inner, plate, pump_trays):
-    """The two screws that draw the cap up onto the block, on the lane's own centreline —
-    as (clearance bores, heat-set bores).
+    """The clamp's top-down screw bores and the cradle's downward heat-set bores.
 
-    THE HEAD IS DOWN IN A COUNTERBORE and the lane keeps a flat ceiling. `head_cbore_dia` by
-    `head_cbore_depth` is the seat every cap screw on this box takes, and `screw_len` is
-    stated UNDER the head — so the counterbore costs the screw nothing: it pulls through
-    `cap_web_land` of cap either way and lands the same depth in a ruthex M3 heat-set in the
-    block above it. What the sinking buys is the web, which is the land AND the counterbore's
-    own walls where it was the land alone.
-
-    The heat-set's bore carries the thread past the insert, because the screw is longer than
-    land and insert together."""
+    Each recessed M3 head leaves `cap_web_land` under its seat. The M3×10 then crosses that
+    land and runs into a heat-set opened from the cradle's bracket plane; the bore continues
+    under the four-millimetre insert for the screw's remaining reach."""
     split = cap_split_z(pump_trays)
-    under, seat = split - cap_web_t, split - cap_web_land
+    top, seat = split + cap_web_t, split + cap_web_land
+    tip = split - (screw_len - cap_web_land) - 0.5
     clear, sets = [], []
     for y in cap_screw_ys(inner, plate):
-        clear.append(_zcyl(screw_clear_dia / 2.0, 0.0, y, under - 1.0, split + 0.1)
-                     .fuse(_zcyl(head_cbore_dia / 2.0, 0.0, y, under - 1.0, seat)))
-        sets.append(_zcyl(heatset_dia / 2.0, 0.0, y, split - 0.1,
-                          split + screw_len - cap_web_land + 0.5))
+        clear.append(_zcyl(screw_clear_dia / 2.0, 0.0, y, split - 0.1, top + 1.0)
+                     .fuse(_zcyl(head_cbore_dia / 2.0, 0.0, y, seat, top + 1.0)))
+        sets.append(_zcyl(heatset_dia / 2.0, 0.0, y, tip, split + 0.1))
     return clear, sets
 
 
 def build_pump_cap(box, halves_cache=None):
-    """THE PUMP CAP: what closes on both heads and screws up onto the pump cartridge.
+    """THE TOP CLAMP: two pump collars tied by two screw bridges.
 
-    It is the pump cartridge's own solid under `cap_split_z` — one piece for two pumps. WHAT
-    HOLDS A PUMP UP IS THE FOUR WEDGES IT CLOSES INTO THAT HEAD'S FLANKS: the part
-    ramps in on each side at each of `pump_case.flank_ramp_bands`, and this piece keeps the
-    material under all four of those 45 degree faces, so the load stands on the flanks the
-    case that printed this pump held it by. Its top face takes the rest: the stamped bracket
-    the part carries in that same plane stands `bracket_w` across against a head of `head_w`,
-    so it laps this piece all round the head's void and the two screws hold the seat shut.
-    Nothing reaches under a head's front face, which stands one millimetre over the bay
-    floor's top.
-
-    THE UNDERSIDE IT DOES NOT DRAW, because the head's front face stands one millimetre over
-    the bay floor and no section fits there. THE AFT FACE IT DRAWS AS FAR AS THE BARBS, and
-    gives up the storey over them so the tubes can come down it.
-
-    IT GIVES UP THE LANE BETWEEN THE PUMPS and keeps `cap_web_t` over it, so the screws are
-    short and their heads are down in counterbores with a flat ceiling round them.
-
-    AND ITS TWO FLANKS CARRY THE LOWER BAND OF THE HAND'S OWN POCKET (`_flank_grip`), on the
-    same ledge and the same aft wall the deck's band stands on. What the head leaves out there
-    has a `grip_reach` fingertip pocket and keeps one `grip_cap_back` wall round the head: the
-    piece comes out screwed to the pump cartridge and a hand pulling the assembly finds relief
-    at both storeys. Printed on its Z− face, the same pose the pump cartridge takes."""
+    It lowers over both motor cans after the pumps stand in the cradle. Each collar takes its
+    boss on the complete octagon and closes with one shoulder round the can; the base plate
+    presses the stamped bracket onto the cradle land. The bridges put both M3 heads between
+    the pumps, accessible from above. This piece carries no front wall, plate stop or pull."""
     inner, plate = box.inner, box.pack.collet_plate
-    solid = _pump_cartridge_gross(box, halves_cache).intersect(_cap_room(box, fits.slip))
-    solid = solid.intersect(_cap_side_envelope(box))
-    split = cap_split_z(box.pack.pump_trays)
-    bx0, bx1 = cap_band_x(box.pack.pump_trays)
-    solid = solid.cut(_ybox(bx0, bx1, front_plane_y, plate["fore_y"],
-                            bay_floor_z(box.pack.pump_trays)[1] - 1.0, split - cap_web_t))
-    # ONE SLOT PER PUMP IN THE AFT FACE, AND ITS TWO TUBES COME DOWN IT. This piece is brought
-    # UP onto a seated pump, so a tube already made up into its collet travels DOWN the aft
-    # face as the cap rises — through a bore it cannot travel at all, and the cap could only
-    # ever go on with all four joints broken. So the face is open from the barbs' own level to
-    # the split: a tube drops into the slot from above and the cap comes up past it.
-    #
-    # ONE SLOT, NOT TWO. A pump's two barbs stand at its head's own two edges, so a slot cut
-    # for each would take both edges of the face and leave the span between them hanging off
-    # nothing — 0.525 mm of skin, 49 mm across, standing 28 mm on its own. The slot is the
-    # whole square between them and the face keeps what it can carry.
-    #
-    # ITS SILL IS THE WALL'S OWN CROWN — where the head's outlet relief ends and the part
-    # comes back out to the face its barbs stand on. Under that line the block has section to
-    # stand a wall in and does; over it there is none, and the tube wants the room anyway. It
-    # clears the lowest tube by 4.6 mm, which is the fall's own doing and not a figure struck
-    # for it. Fore-to-aft the cut begins `cap_tube_air` FORE of the relieved outlet face, the
-    # plane the complete 69.25 mm fitting span occupies, and its floor stands the same amount
-    # below the relief sill. Across, that clearance gives the measured span 0.15 mm per side.
-    # These two small overruns put the physical mouth wholly inside the relief rather than on
-    # either cutter boundary. The slot stays one opening and keeps the wall below its sill; a
-    # round bore here would lap the room's wall and leave the web feathering to nothing at the
-    # two levels it grazes.
-    #
-    # AND INBOARD IT RUNS ALL THE WAY TO THE LANE. `cap_slot_half` is struck on the fitting span
-    # and the lane's wall is struck on the front wall's relief jamb, and the two land 1.2 mm
-    # apart — a rib that fine, standing the slot's whole height with the lane's own void behind
-    # it, is a bead of plastic on a wall of air. The slot takes it, so what stands between a
-    # fitting's room and the screws' lane is nothing at all, and the lane's wall goes on being
-    # the one plane it always was under the sill.
-    # `enclosure_assembly.check_cap_passes_tubes` reads the resulting air off the placed barbs.
-    for cx, cy, cz in box.pack.pump_trays:
-        sill = cz - _tray.head_depth + _tray.outlet_relief_run
-        outlet_face = cy + _tray.head_half - _tray.outlet_relief
-        x0, x1 = cx - cap_slot_half, cx + cap_slot_half
-        x0, x1 = (x0, max(x1, bx0)) if cx < 0.0 else (min(x0, bx1), x1)
-        solid = solid.cut(_ybox(x0, x1, outlet_face - cap_tube_air,
-                                plate["fore_y"] + 1.0, sill - cap_tube_air, cz + 0.1))
-    for grip in _flank_grip(box.pump_bay, box.pack.pump_trays, plate,
-                            _grip_bands(box.pump_bay, box.pack.pump_trays)[0]):
-        solid = solid.cut(grip)
+    solid = _pump_clamp_gross(box, halves_cache)
     for bore in _cap_screws(inner, plate, box.pack.pump_trays)[0]:
         solid = solid.cut(bore)
     return _unified(solid)
@@ -7373,74 +7069,6 @@ def _valve_trays(solid, inner, stations, y0, y1, z0, z1, wall_aft_y=None):
     return solid
 
 
-# --- the flavour manifold's pump trays --------------------------------------
-#
-# A TRAY IS THE PUMP CASE WITH ITS CYLINDER CUT OFF — `pump_case`'s base plate, its ramp, its
-# octagon bore wall and one shoulder of its tower, so it wraps the head's crown AND the boss's.
-# `pump_tray` states what that cut adds and draws one in the pump's own frame; `build_pump_cartridge`
-# roots it on the pump cartridge's face and fuses it into that piece.
-#
-# THE ZIP TIES ARE WHAT HOLD A PUMP UP. It hangs under its tray, so two close round it and the
-# tray together through the plate's four channels, reaching under the bracket the part carries at
-# that crown — the meter's bargain, on the heaviest body either wall carries.
-#
-# A TRAY IS A CANTILEVER OFF THE PUMP CARTRIDGE'S FACE AND NOTHING ELSE, and one web between the two
-# trays and the across-runs to the deck's own edges are what it meets. Each is the trays' own
-# plate — `pump_tray.PLATE` thick, in that plate's own band — so the storey comes out one plate,
-# and its edge strips ride the bay's rails. The webs to the side walls and the aft web onto a
-# valve tray are not drawn: the rails carry the deck instead, and its aft edge stops short of the
-# collet plate, and the cap's own aft face one storey down is what lands on the steel.
-def _pump_tray_webs(solid, inner, stations, valve_trays, y0, y1, z0, z1):
-    """The webs that tie every pump tray in this piece's band to what stands beside it.
-
-    The trays stand their plates on ONE storey — they are the same pump on one deck — so the
-    band is theirs and every web is a box in it. Across, the gaps are what the plates leave
-    between the two interior faces; aft, it is what one leaves in front of the nearest valve tray
-    plate crossing that same band."""
-    live = [(cx, cy, cz) for cx, cy, cz in stations
-            if (y0 <= inner[2] and cy + _tray.far_reach() <= y1
-                and z0 <= cz and cz + _tray.depth() <= z1)]
-    if not live:
-        return solid
-    storey = {(round(cy, 6), round(cz, 6)) for _cx, cy, cz in live}
-    if len(storey) != 1:
-        raise ValueError(
-            f"_pump_tray_webs: the trays in this piece stand on {len(storey)} storeys ({storey}). A "
-            f"web is one box in one band, so trays on their own decks each want their own.")
-    cy, cz = storey.pop()
-    zb0, zb1 = cz, cz + _tray.PLATE
-    far, hw = cy + _tray.far_reach(), _tray.half_width()
-    # A WEB IS THE AIR BETWEEN A TRAY AND WHAT IT REACHES, and the air stops where the cavity
-    # does. Its standing corners are relieved for the print bed (`corner_round`), so a box run to
-    # the nominal interior planes stands OUTSIDE the shell at every corner it reaches. Each web
-    # is clipped to the cavity itself rather than to those planes.
-    cavity = _round_z(_ybox(*inner), corner_round - wall)
-    # ACROSS: the wall, each tray's two flanks in turn, and the far wall. What the pairs leave
-    # between them is exactly the air, so a tray that grows closes its own web rather than
-    # overlapping it.
-    edges = ([inner[0]]
-             + [v for cx in sorted(cx for cx, _y, _z in live) for v in (cx - hw, cx + hw)]
-             + [inner[1]])
-    for a, b in zip(edges[0::2], edges[1::2]):
-        if b - a > 1e-9:
-            solid = solid.fuse(_ybox(a, b, inner[2], far, zb0, zb1).intersect(cavity))
-    # AND AFT onto the nearest valve tray that crosses this same band — its own near face, so
-    # the two meet plane to plane and the web is the gap and not a millimetre more.
-    reach = None
-    for plane, sign, seats in valve_trays:
-        zs = [z for _x, z in seats]
-        mid_z, half = (min(zs) + max(zs)) / 2.0, _valve_tray.height() / 2.0
-        if mid_z + half <= zb0 or mid_z - half >= zb1:
-            continue                       # a tray on another storey is not this web's
-        face = plane - sign * _valve_tray.SEAT
-        near = min(face, face - sign * _valve_tray.THICK)
-        if near >= far - 1e-9 and (reach is None or near < reach):
-            reach = near
-    if reach is not None and reach - far > 1e-9:
-        solid = solid.fuse(_ybox(inner[0], inner[1], far, reach, zb0, zb1).intersect(cavity))
-    return solid
-
-
 def _flow_meter_anchors(solid, roots, station, y0, y1, z0, z1):
     """The flow meter's two anchors hung off the top wall, for the piece that owns the ceiling.
 
@@ -8203,11 +7831,9 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         piece = piece.fuse(_ridge_wall(inner, outer, box.pack.collet_plate, box.pump_bay))
     piece = _valve_trays(piece, inner, box.pack.valve_trays, ylo, yhi, zlo, zhi,
                          wall_aft_y=(box.pack.collet_plate["wall_aft_y"] if box.pack.collet_plate else None))
-    # The pump trays are the pump cartridge's (`build_pump_cartridge`); what this piece carries for
-    # them is the bay's own furniture — the floor across the front and the seat the collet
-    # plate drops into — and then the opening itself, cut last of the wall's work.
+    # The pump cradle and clamp are removable; what this fixed piece carries for them is the
+    # bay's floor and the seat the collet plate drops into, followed by the opening itself.
     if y_side == "front" and z_side == "top" and box.pump_bay and box.pack.collet_plate:
-        tray_z = min(cz for _cx, _cy, cz in box.pack.pump_trays)
         piece = piece.fuse(_bay_floor(inner, y_joint, box.pack.collet_plate, box.pack.pump_trays))
     # And the runs' own anchors, on whichever face each one stands nearest. Last, for the same
     # reason the ASSE anchor is: every one of these is a rib with a cavity cut through it.
@@ -8914,7 +8540,7 @@ def main():
         "SOCKET_OD": f"{2.0 * socket_r:.4g} mm",
         "BOX_SIZE": (f"{bo[1] - bo[0]:.0f} × {bo[3] - bo[2]:.0f} × "
                      f"{bo[5] - bo[4]:.0f} mm"),
-        **grip_figures(box),
+        **pump_cartridge_figures(box),
     }
     substitute_py_comments(
         Path(__file__),

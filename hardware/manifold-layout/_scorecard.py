@@ -427,16 +427,11 @@ MOUNTS = (
     ("valve-v-f", "enclosure-front-top", "bosses"),
     ("valve-v-h", "enclosure-front-top", "bosses"),
     ("valve-v-i", "enclosure-front-top", "bosses"),
-    # AND BOTH PUMPS STAND IN A CASE THAT IS TWO PRINTED PIECES — the pump cartridge and the
-    # cap screwed under it, parting on the pump's own bracket plane
-    # (`enclosure.cap_split_z`). Above that plane the pump cartridge is a block the pump stands in,
-    # and its tray takes the boss on the octagon bore and the boss's crown on a shoulder of
-    # tower; below it the cap closes on the head. What carries the pump is the stamped bracket
-    # the part holds in that same plane, `bracket_w` across against a head of `head_w`: it laps
-    # the cap's top face all round the head, and two M3×10 on the lane between the pumps draw
-    # the cap up onto the block (`enclosure._cap_screws`, read by `trays-hold`). The surfaces
-    # that fit the part in `pump-tray/pump_case.py` fit it here, closed on screws. The whole
-    # case rides out of the front bay with both pumps aboard.
+    # BOTH PUMPS STAND IN THE LARGE LOWER CRADLE. Three sides of each stamped bracket bear on
+    # cradle lands; the +Y side stays open for the tube fittings. A small clamp screws down from
+    # above, presses both brackets and locates both bosses in case-derived octagonal collars
+    # (`enclosure._cap_screws`, read by `pump-clamped-in-cradle` and `clamp-locates-pumps`).
+    # The assembled cradle and clamp ride out of the front bay with both pumps aboard.
     ("pump-a-head", "enclosure-pump-cartridge", "case"),
     ("pump-b-head", "enclosure-pump-cartridge", "case"),
 )

@@ -260,13 +260,12 @@ display_cover_screws_per_build = display_cover_inserts_per_build
 ceiling_panel_inserts_per_build = len(_ceil.retainer_stations())
 ceiling_panel_screws_per_build = ceiling_panel_inserts_per_build
 
-# The pump cap's two, read off the lane they run up. ONE CAP CLOSES ON BOTH PUMP HEADS
-# (`enclosure.build_pump_cap`) and `cap_screw_ys` strikes a pair either side of that lane's
-# mid-depth, so it is two screws and two inserts however many pumps hang under it. They are
-# the box's M3 x 10 — `enclosure.screw_len` is the under-head length every cap screw here
-# takes, and the head sinks into a counterbore that costs the screw nothing. These are the
-# whole of what holds a pump: the tray is the seat, the cap is the load path, and four
-# assembly documents now say so.
+# The pump clamp's two, read off its centre bridges. ONE TOP CLAMP CLOSES ON BOTH STAMPED
+# BRACKETS (`enclosure.build_pump_cap`) and `cap_screw_ys` strikes a pair either side of the
+# lane's mid-depth, so it is two screws and two inserts however many pumps the cradle carries.
+# They are the box's M3 x 10 — `enclosure.screw_len` is the under-head length and each head
+# sinks into a top-access counterbore. The lower cradle carries pump weight; these screws keep
+# the clamp pressed onto the brackets.
 pump_cap_inserts_per_build = len(_enc.cap_screw_ys(_f.box["inner"], _f.box["collet_plate"]))
 pump_cap_screws_per_build = pump_cap_inserts_per_build
 
@@ -322,7 +321,7 @@ m3x8_per_build = (shelf_short_screws_per_build + cond_screws_per_build
                   + nameplate_screws_per_build + display_cover_screws_per_build
                   + faucet_display_cover_screws_per_build)
 
-# And every M3 x 10: the ground-stack clamp's one, the pump cap's two, and the enclosure's four
+# And every M3 x 10: the ground-stack clamp's one, the pump clamp's two, and the enclosure's four
 # seam screws. The ceiling's pair are headless M3 x 12 keepers on their own row.
 m3x10_per_build = (shelf_long_screws_per_build + pump_cap_screws_per_build
                    + enclosure_seam_screws_per_build)

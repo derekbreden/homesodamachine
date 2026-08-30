@@ -226,30 +226,19 @@ SCENES = (
              "takes the funnel and the front bay takes the pump cartridge both pumps ride, and "
              "each is filled with the box standing.",
     ),
-    # THE UNIT THAT FILLS THAT BAY, and the one scene here rooted on TWO printed pieces of one
-    # block: the pump cartridge over the pump's own bracket plane and the cap under it. Nothing in
-    # the tables holds the cap — its two screws draw it up onto the block it was cut from — so
-    # it stands beside the pump cartridge as a root rather than as something the pump cartridge carries.
-    #
-    # A QUARTER TURN, NOT A HALF. Face-down is the pose this piece prints in and the pose it is
-    # worked in, and a turn about X is what lays that face on the bench: the block's ceiling
-    # comes round to the room, both pumps' axes lie across the bench, and the four barb stubs
-    # stand straight up off the aft edge. A half turn would lay it on its ceiling instead.
+    # THE UNIT THAT FILLS THAT BAY, rooted on its two printed pieces: the full-height lower
+    # cradle and the small top clamp. It is worked upright, the same way it stands in the bay,
+    # because both complete pumps drop along +Z into the cradle before the clamp comes down.
     Scene(
         "pump-cartridge", "Pump cartridge",
         roots=("enclosure-pump-cartridge", "enclosure-pump-cap"), inner=(),
-        flip=((1, 0, 0), 90.0), also=(), later=(),
-        # Over the ceiling, which is the side both pumps show through — a can standing in its
-        # bore is the whole of "that pump is in". Swung onto the +X flank far enough to open
-        # the return, and lifted enough to carry the aft edge and its four stubs in one frame.
+        flip=None, also=(), later=(),
         cam=(0.9, -0.75, 0.55), up=(0, 0, 1), zoom=2.9, look="centre",
-        note="Face-down, the pose it prints in and the pose it is worked in: the outer skin on "
-             "the bench, the block standing off it, and the four barb stubs up off the aft edge "
-             "where a hand pushes them on. Both motor cans open through the ceiling, which is "
-             "the face turned to the room; the cap is the far half and the split runs round the "
-             "block on the pump's own bracket plane. Nothing on this unit is screwed to the box "
-             "— those four stubs, gripped in the anchor tees, are the whole of what holds it "
-             "in.",
+        note="Upright on its lower cradle, the same pose in which it is assembled and installed: "
+             "both complete pumps drop through straight wells until their stamped brackets bear "
+             "on the cradle, then the small top clamp lowers over both octagonal bosses and takes "
+             "two screws. Nothing on this unit is screwed to the box — the four tube stubs, "
+             "gripped in the anchor tees, are the whole of what holds it in.",
     ),
     # THE PAIR IS WORKED FLAT ON A BENCH, so the camera is a person standing over it: nearly
     # down the lid's own normal, leaned just far enough onto the near edge that a valve and

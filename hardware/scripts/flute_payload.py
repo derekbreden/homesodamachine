@@ -142,8 +142,7 @@ def simplify_within(printed, bound):
     """`printed` collapsed as far as the ladder reaches while staying inside `bound`.
 
     Returns the mesh and the reading it was accepted on. A piece already inside the budget at
-    full size — the pump cap is 1,704 facets — comes back untouched, because the last rung of
-    the ladder is no reduction at all."""
+    full size comes back untouched, because the last rung of the ladder is no reduction at all."""
     import fast_simplification
 
     v32 = printed.vertices.astype(np.float32)

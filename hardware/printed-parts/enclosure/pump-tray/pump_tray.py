@@ -1,33 +1,22 @@
-"""A PUMP TRAY IS THE PUMP CASE WITH ITS CYLINDER CUT OFF, and it is a wall of the enclosure.
+"""A PUMP CLAMP COLLAR IS THE PUMP CASE WITH ITS CYLINDER CUT OFF.
 
-One per Kamoer. `pump_case` draws a two-piece case for this pump; its BASE is a plate on the
-head's crown, a 45° ramp off that plate, an octagonal bore wall standing in the ramp, and a
-cylindrical tower over the bore that the motor can turns in. Cut the tower off above the bore and
-cut down to one `SHOULDER` over it, and what is left is the tray: the same four surfaces, still
-conforming to the same pump.
+One per Kamoer. `pump_case` draws a two-piece case for this pump; its base is a plate on the
+head-to-boss plane, a 45° ramp off that plate, an octagonal bore wall standing in the ramp,
+and a cylindrical tower over the bore that the motor can turns in. Cut the tower to one
+`SHOULDER` over the boss and the remaining fitted surfaces are the collar source.
 
-WHAT IT COVERS IS TWO STOREYS OF THE PUMP, NOT ONE. The base plate lands on the head's own +Z
-face and wraps its top edge all the way round; the ramp climbs off that plate; the bore wall
-takes the boss on each of its eight faces and both its ledges; and the shoulder the cut tower
-leaves lands on the boss's crown and wraps ITS top edge. The can rises out of the tower's own
-bore and the tray never touches it.
-
-It is the pump cartridge's own material (`enclosure.build_pump_cartridge`), fused onto its deck the
-way the ASSE anchor and the flow-meter anchors are fused onto their walls, one per pump off
-the stations `enclosure_assembly.pump_tray_stations` reads off the placed pumps, rooted on the
-face's own pump relief. NO TRAY SHIPS AS A PART.
+Both collar sources are fused into the small top clamp (`enclosure.build_pump_cap`). The
+enclosure builder clears the omitted stamped bracket through its measured thickness, restores
+one complete pressing plate above it, and joins the two collars with screw bridges. NO COLLAR
+SHIPS AS A PART.
 
     ACROSS  the case's own footprint
     ALONG   the case's own footprint, cut back to the face it roots on
     DEEP    the bore's whole run on the boss, and one `SHOULDER` of tower over its crown
 
-THE CAP IS THE LOAD PATH AND THIS TRAY IS THE SEAT. A pump stands in the tray in plan and in
-clock, and what holds it up is one storey down: the head's own flanks ramp in twice on the way
-out of the cavity, and `enclosure.build_pump_cap` keeps the wedge under all four of those faces
-(`head_room`). Over them the BRACKET the part carries at this crown (`kamoer_kphm400.bracket_w`,
-stated there and drawn by nobody) laps that cap's top face all round the head's opening, and the
-two M3 that draw the cap up hold the seat shut. So this tray takes plan, clock and every moment,
-the flanks take the weight, and the lip keeps the part from lifting off them.
+THE LOWER CRADLE IS THE LOAD PATH. Its lands bear under three sides of the stamped bracket.
+The top clamp presses the bracket down and this collar locates the boss in plan and clock;
+its octagonal bore takes the boss above the bracket and its shoulder surrounds the can.
 
 This module states what the tray adds over the case and draws one in its own frame; `enclosure`
 turns it onto a pump and fuses it. The frame is the pump's, as `kamoer_kphm400` draws it:
@@ -36,8 +25,8 @@ turns it onto a pump and fuses it. The frame is the pump's, as `kamoer_kphm400` 
   X = across the tray. Y = along it, and `root` is the way it runs to the wall.
   Origin is the pump's own axis on that face.
 
-Printed face-down in the cartridge the deck stands as a wall off the face, and the ramp, bore
-wall and shoulder grow off the plate's own section — nothing of the tray hangs.
+Printed as part of the shallow clamp, the ramp, bore wall and shoulder grow off the pressing
+plate's own section.
 
 Run:
     tools/cad-venv/bin/python hardware/printed-parts/enclosure/pump-tray/pump_tray.py
@@ -65,34 +54,30 @@ from docgen import substitute_md                          # noqa: E402
 # --- what the pump brings ----------------------------------------------------
 # The head's square, half of it: how far its crown reaches off the pump's axis.
 head_half = _kp.head_w / 2.0
-# How far the head hangs under that crown, into the cap that closes on it.
+# How far the head hangs below the bracket plane, into the lower cradle.
 head_depth = _kp.head_depth
 # The boss's octagon, half of it at the flats.
 boss_half = _pc.bore_half_span
-# The boss's whole run off the head's crown — the bore wall's depth.
+# The boss's whole run off the bracket plane — the bore wall's depth.
 boss_depth = _pc.bore_bottom_z
 # The bore the case turns the can in, half of it — what rises out of the shoulder.
 can_half = _pc.cylinder_id / 2.0
-# The mounting bracket the part carries at that same crown, stated by `kamoer_kphm400` and drawn
-# by nobody. It stands proud of the head all the way round, in the plane the plate lands on and
-# the plane the cap parts on, and THAT LIP IS WHAT THE CAP'S TOP FACE LAPS — the stop against a
-# pump lifting off the flank seats `head_room` cuts for it.
+# The mounting bracket the part carries at that plane, stated by `kamoer_kphm400` and drawn by
+# nobody. It stands proud of the head all the way round. The cradle bears below it and the
+# clamp's restored pressing plate lands above it.
 bracket_half = _kp.bracket_w / 2.0
 bracket_t = _kp.bracket_t
 # The fall the head's outlet side takes under its barbs, and how far up off its front face it
-# holds it — `kamoer_kphm400` states both. NOTHING OF THE PART IS IN THAT ROOM, so a cap can
-# stand a wall in it and reach in behind the head: the wall's own section is what the fall
-# leaves between the room and whatever closes the cap aft, and its height is the run.
+# holds it — figures the lower cradle uses for its vertical fitting opening.
 outlet_relief = _kp.outlet_relief
 outlet_relief_run = _kp.outlet_relief_run
 # The complete pump's widest X span, across the two tube fittings on its outlet face. This is
-# not the head body's width; it is what a cap opening has to pass at that one face.
+# not the head body's width; it is what the cradle opening passes at that one face.
 outlet_half = _kp.outlet_span_x / 2.0
 # The case's own footprint, half of it — what its base plate and the foot of its ramp reach.
 case_half = _pc.footprint_half_extent
-# And that base plate's own thickness. It is the band a tray meets its neighbours in: every web
-# `enclosure._pump_tray_webs` runs to a wall, to the other tray or aft onto the valve tray is this
-# thick and stands in this band, so the whole storey reads as one plate.
+# And that base plate's own thickness. The enclosure restores this whole section above the
+# stamped bracket before joining both collars into the clamp.
 PLATE = _pc.base_thickness
 
 # --- what the tray adds over the case it is cut out of -----------------------
@@ -121,87 +106,16 @@ def far_reach() -> float:
     return case_half
 
 
-# --- what carries a head, one storey under the crown -------------------------
-# THE HEAD'S FLANKS RAMP IN TWICE ON THE WAY DOWN, and the case stood in both ramps. The skirt
-# tapers its NARROW half and the lower extension ramps its WIDE half — `pump_case`'s own
-# `flank_ramp_bands` — and `kamoer_kphm400` clips the head to that cavity, so on each side, at
-# each band, the part carries a 45 degree face LOOKING DOWN AND OUTBOARD. Four faces on one
-# head. A wedge under each of them carries the pump: the load stands on the flanks, and the
-# bracket lip over it only keeps the part from lifting off them.
-
-def head_room(air: float, depth: float):
-    """THE ROOM A CAP LEAVES ONE HEAD, in this module's frame — from the crown down `depth`.
-
-    The head's own square struck `air` off it, CLOSED BACK IN WHEREVER THE CASE CLOSED IN ON
-    THE PART. `pump_case.cavity` is that closing, and the part is clipped to it, so the room
-    follows the same walls the whole way down: the four 45 degree faces the clip leaves the
-    head land on this piece's own material, and the plumb flank under each of them is the same
-    wall carried on. Nothing about it is banded — a pocket that opens back out under a seat is
-    a pocket the part can rock in.
-
-    THE RAMPS PRESS AND THE PLUMB FLANKS CLEAR. A seat is a wedge and the room takes the
-    case's surface there to the micron. A plumb flank only locates, and drawn to the micron it
-    is 56 mm of press for two M3 to pull a pump through — so the room takes `air` back on
-    those — AND IT TAKES IT ALL THE WAY UP, so a seat ends where it meets its own flank and
-    nowhere else. Held off until the taper's foot the air kept the ramp its last four tenths
-    and paid for them with a shelf: a step of exactly `air`, facing down, one extrusion wide
-    and twenty-six long, standing where the two walls should simply have met. A seat is long
-    enough without it.
-
-    AND PAST THE CASE'S STRAIGHT RUN THE WALLS RUN ON STRAIGHT. The case rounds its corners on
-    `corner_r` and the part is clipped to that, so the head's flanks — seats and all — end at
-    that straight run and its corners turn away inboard of the room's own. Followed out there
-    the arc would stand in the room's corner as a facetted nub, stepping every time the
-    profile changed level, against a part nowhere near it; OPENED out there instead, every
-    flank would stop short of the room's own end and leave the aft wall standing on nothing
-    for the last few millimetres. So the room carries the case's flat on to its ends rather
-    than either — the same section it has at the straight run, held to the corner — and a
-    flank runs the room's whole depth into the wall that closes it.
-
-    AND IT GIVES UP THE OUTLET RELIEF WHOLE, WITH NO AIR IN IT. Under the barbs the part
-    falls back off the face they stand on (`outlet_relief`) and holds that fall for
-    `outlet_relief_run` up from its front face, so the room stops on the part's own line there
-    rather than `air` off it. What the block puts in the room it gives up is a wall that
-    reaches in behind the head — the fall is barely what the wall needs, and air taken out of
-    it comes off the wall's section."""
-    half = head_half + air
-    room = cq.Solid.makeBox(2 * half, 2 * half, depth, cq.Vector(-half, -half, -depth))
-    cavity = _pc.cavity().val().translate(cq.Vector(-_pc.center_x, -_pc.center_y, 0.0))
-    open_to = [cavity]
-    plumb_half = _pc.skirt_narrow_half_extent - _pc.skirt_wall + air
-    open_to.append(cq.Solid.makeBox(2 * plumb_half, 2 * half, depth,
-                                    cq.Vector(-plumb_half, -half, -depth)))
-    straight = _pc.skirt_base_half_extent - _pc.corner_r
-    for sy in (-1.0, 1.0):
-        y0 = straight if sy > 0 else -half
-        band = cq.Solid.makeBox(2 * half, half - straight, depth,
-                                cq.Vector(-half, y0, -depth))
-        carried = cavity.translate(cq.Vector(0.0, sy * (half - straight), 0.0))
-        open_to.append(carried.intersect(band))
-    whole = open_to[0]
-    for part in open_to[1:]:
-        whole = whole.fuse(part)
-    room = room.intersect(whole)
-    relief = cq.Solid.makeBox(2 * half, half - (head_half - outlet_relief),
-                              depth - head_depth + outlet_relief_run,
-                              cq.Vector(-half, head_half - outlet_relief, -depth))
-    return room.cut(relief)
-
-
 def boss_room(air: float):
-    """THE ROOM A BLOCK LEAVES ONE BOSS, in this module's frame — the case's own bore struck
-    `air` off it, the bore's whole depth off the head's crown.
+    """The room the clamp's pressing plate leaves one boss, in this module's frame — the
+    case's own bore struck `air` off it over the boss's whole depth.
 
     IT IS THE BORE'S FIGURE AND NOT A BOX ROUND IT. The boss is an octagon with a ledge on
     four of its faces, and a block that took a square out for it left the square's four
     corners standing outside everything that goes back in: the tray's ramp closes them
     underneath, the tray's bore wall and tower wall them inboard, and the block's own fill
-    caps them where the can begins. Four sealed pockets a pump, in a piece that is otherwise
-    solid — nothing can reach them and nothing was ever meant to be in them.
-
-    The tray is fused after this and carries the fit, so what this leaves is coarse by
-    intent: `air` off the part at every face, and the tray takes it back to the case's own
-    line where it bears."""
+    closes them where the can begins. The octagonal collar walls, rather than this cutter,
+    carry the fitted location."""
     return (cq.Workplane("XY")
             .polyline(_pc.offset_polygon(_pc.bore_profile, air)).close()
             .extrude(boss_depth).val())
@@ -294,7 +208,7 @@ def storeys(root: float) -> tuple:
 
 
 def trays_of_machine(facts):
-    """The trays the enclosure stands, as `{name: root}` — one off each placed pump, as the
+    """The collar sources the enclosure places, as `{name: root}` — one off each pump, as the
     artifact carries them from the run that stood the machine.
 
     The doc-only `main` hands in the artifact and imports the assembly that decides it. Keeping
@@ -305,12 +219,11 @@ def trays_of_machine(facts):
 def selftest() -> int:
     """The tray against the pump it takes and the case it is cut out of."""
     fails = []
-    # THE CAP IS WHAT CARRIES A PUMP, and the lip it lands on is the bracket's, in the plane
-    # this tray's plate lands on. The tray reaches past that lip, so the bracket is captured
-    # between the two pieces.
+    # The collar footprint must cover the stamped bracket so the enclosure can restore a
+    # complete pressing annulus above its pocket.
     if half_width() < bracket_half:
-        fails.append(f"the tray runs {half_width():.3f} mm off the axis and the bracket reaches "
-                     f"{bracket_half:.3f} — the lip stands outside the case that closes on it")
+        fails.append(f"the collar runs {half_width():.3f} mm off the axis and the bracket reaches "
+                     f"{bracket_half:.3f} — the pressing annulus cannot cover it")
     if can_half >= boss_half:
         fails.append(f"the can's bore reaches {can_half:g} mm and the boss's octagon "
                      f"{boss_half:g} — the shoulder lands on nothing")
@@ -360,7 +273,7 @@ def main():
     import _facts                                               # noqa: PLC0415
 
     trays = trays_of_machine(_facts.read())
-    print(f"Pump tray — {len(trays)} stood on the pump cartridge: {', '.join(sorted(trays))}")
+    print(f"Pump clamp collar — {len(trays)} fused into the top clamp: {', '.join(sorted(trays))}")
     total, storey = 0.0, (0.0, 0.0)
     for name, root in sorted(trays.items()):
         solid = build_pump_tray(root).val()
@@ -380,6 +293,7 @@ def main():
             "TRAY_W": f"{2 * half_width():g}",
             "TRAY_L": f"{root + far_reach():g}",
             "TRAY_D": f"{depth():g}",
+            "PLATE": f"{PLATE:g}",
             "SHOULDER": f"{SHOULDER:g}",
             "CAN_BORE": f"{2 * can_half:g}",
             "TRAY_MARGIN": f"{MARGIN:g}",

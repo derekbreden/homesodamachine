@@ -5,13 +5,13 @@ committed `.3mf` snapshots.
 
 Geometry: the six-piece box from
 [`enclosure.py`](/hardware/printed-parts/enclosure/enclosure/enclosure.py) — four quadrants,
-the pump cartridge and the cap screwed under it, one piece per plate — sizes in
+the lower pump cradle and its top clamp, one piece per plate — sizes in
 [README.md](README.md), which the generator writes.
 
 ## The PETG exterior profile (settings per [`enclosure-front-top-0.4mm-16hours.3mf`](enclosure-front-top-0.4mm-16hours.3mf))
 
 The geometry every exterior piece is cut to, sliced in PETG — the four quadrants, the pump
-cartridge, and the cap screwed under it. The front-top, the largest of them, takes **16
+lower pump cradle, and its top clamp. The front-top, the largest of them, takes **16
 hours** on it. That figure is the slice's own, carried in the file's name; the archive holds
 no g-code to read it back off, and it is the one measured print rate
 [machine-time.md](/hardware/ledger/machine-time.md) §1 stands the exterior on. The stock the
