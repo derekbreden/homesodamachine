@@ -50,7 +50,7 @@ draws the leaning tube each barb then needs to reach its tee.
                           back   (every mouth)
 ```
 
-The lower deck's port axes sit at z [88.38](DECK_Z2), [14.47](DECK_GAP) mm over the pump heads'
+The lower deck's port axes sit at z [88.38](DECK_Z2), [20.62](DECK_GAP) mm over the pump heads'
 crowns; the folded deck's at z [147.78](UPPER_Z2). The two inner limbs leave
 [5.89](INNER_GAP) mm between their valve bodies across the mirror plane.
 
@@ -149,10 +149,10 @@ V-I-O and V-H-I for B — on the lower.
 
 ## Envelope
 
-[188](ENV_X) × [169](ENV_Y) × [241](ENV_Z) mm — [7.64](ENV_L) L of bounding box over the
+[188](ENV_X) × [169](ENV_Y) × [247](ENV_Z) mm — [7.83](ENV_L) L of bounding box over the
 bodies and the tube between them, with [0](CLASHES) pairs of placed solids sharing volume.
 Add one [14](STUB_LEN) mm mouth stub on each of the [8](MOUTH_COUNT2) and it is
-[188](REACH_X) × [169](REACH_Y) × [255](REACH_Z).
+[188](REACH_X) × [169](REACH_Y) × [261](REACH_Z).
 
 Two figures in [`manifold_layout.py`](manifold_layout.py) are the study's own rather than any
 part's. `BUTT` is the tube left outside a pair of butted quick-connects, and it is 0.
