@@ -1021,16 +1021,19 @@ higher. `bay-floor-bedded` reads the floor whole on the bed and that land whole 
 
 **The wall over the steel is what stops it** (`_plate_cap`). A plate dropped in from Z+ needs
 its own lane left open above it for the whole of its height — that is what a drop-in is — and
-fed up from the seam plane it needs no room over its head at all. So the lane above the steel
-is filled, wall to wall, from the top edge to the bay's ceiling at [281 mm](PLATE_CAP_TOP).
+fed up from the seam plane it needs no room over its head at all. Except for the two local
+loaded-bracket passages, the lane above the steel is filled from the top edge to the bay's
+ceiling at [281 mm](PLATE_CAP_TOP).
 [1 mm](PLATE_CAP_LAND) of that is flat, taken off the tee wall's fore face at
 [216.5 mm](PLATE_CAP_Z): the top edge comes up onto it and stops, and **that land is the
 plate's Z datum** — the only stop in this joint, and the reason the outline needs no shoulder.
-Fore of the land the underside **rakes at 45°** to the steel's own fore plane, because the lane
-under it is air at print time and a square ceiling `PLATE_T` wide would be a ledge hanging off
-the tee wall for the width of the machine. Over the rake the wall stands on the steel's own
-face, so the pump cartridge's back — `cap_kiss` fore of that plane at every height — lands on
-printed wall where there is no steel behind it and on steel below, one face top to bottom.
+Fore of the land the underside **rakes at 45°** to `plate_guide_fore_y`, the same plane the two
+fixed cheeks keep for their whole height, because the lane under it is air at print time and a
+square ceiling `PLATE_T` wide would be a ledge hanging off the tee wall for the width of the
+machine. Two bracket-width notches cross only the lower corbel; each starts one
+`clamp_drop_air` fore of that plane and closes on its own 45° roof. The steel's flat stop land,
+both fixed cheeks and the centre web remain whole. Outside those two bracket rooms the pump
+cartridge's back lands `cap_kiss` fore of printed wall above and steel below.
 
 **The guides are two stationary L sections** (`_plate_fore_guides`) standing fore of the
 plate's outer tails and returning around its ends into the fixed side-wall stock aft of the

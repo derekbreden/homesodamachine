@@ -4472,10 +4472,10 @@ def plate_guide_fore_y(plate):
     """THE BAY'S AFT WALL OVER THE STEEL'S TOP EDGE — one plane, wall to wall.
 
     `plate_slot_slip` and one `wall` fore of the plate's own fore face: the plane
-    `_plate_fore_guides` already stands its two cheeks on, carried across the middle by
-    `_plate_cap` and out over each tail by that guide's own head. Above the steel there is no
-    steel behind it, so what a hand and the drawer meet across the whole storey is this one
-    surface from the bay floor to the ceiling."""
+    `_plate_fore_guides` stands both cheeks on for their whole height, carried across the
+    middle by `_plate_cap` above its printable 45° underside and out over each tail by that
+    guide's own head. The cheeks therefore keep this face from the bay floor to the ceiling;
+    the middle wall reaches the same plane where its corbel ends."""
     return plate["fore_y"] - plate_slot_slip - wall
 
 
@@ -4516,9 +4516,9 @@ def _plate_guide_notches(bay, plate, pump_trays):
     )
 
 
-def _plate_cap(inner, plate, bay):
-    """THE WALL OVER THE COLLET PLATE: the steel's own lane filled from its top edge to the
-    bay's ceiling, wall to wall, standing on the tee wall's fore face.
+def _plate_cap(inner, plate, bay, pump_trays):
+    """THE WALL OVER THE COLLET PLATE: the steel's lane filled from its top edge to the bay's
+    ceiling except at the two loaded-bracket passages, standing on the tee wall's fore face.
 
     THE STEEL COMES IN THROUGH THE BED FACE, so what is over it is the box's to keep. A plate
     dropped in from Z+ needs its lane open above it for the whole of its own height — that is
@@ -4532,23 +4532,37 @@ def _plate_cap(inner, plate, bay):
     shoulder. Over the two tails `_plate_fore_guides`' heads carry that same plane out to the
     side walls, so the seat is one continuous land from wall to wall.
 
-    FORE OF THE LAND ITS UNDERSIDE RAKES AT 45°, to `plate["fore_y"]`. The lane under it is
-    air at print time — the steel is not in the piece yet — so a square ceiling `PLATE_T` wide
-    would be a ledge hanging off the tee wall for the whole width of the machine. Raked, it is
-    a surface the print grows into off the wall it stands on, and the lowest line of it sits
-    directly over the steel's aft top arris, which is the arris the land is already on.
+    FORE OF THE LAND ITS UNDERSIDE RAKES AT 45°, to `plate_guide_fore_y`. The lane under it
+    is air at print time — the steel is not in the piece yet — so a square ceiling `PLATE_T`
+    wide would be a ledge hanging off the tee wall for the whole width of the machine. Raked,
+    it is a surface the print grows into off the wall it stands on, and the lowest line of it
+    sits directly over the steel's aft top arris, which is the arris the land is already on.
+
+    THE TWO STAMPED BRACKETS PASS THROUGH LOCAL NOTCHES in the lower corbel. Each notch is the
+    bracket's own X span plus `clamp_drop_air`, begins the same air fore of the wall face and
+    closes on a 45° roof. They do not reach the steel's flat stop land, either fixed cheek, or
+    the centre web between the pumps.
 
     AND ITS FORE FACE IS `plate_guide_fore_y`, the plane the two fixed cheeks already stand
-    on. Above the steel's top edge the wall runs out to that plane wall to wall, so the cheeks,
-    their heads and this cap present the drawer ONE surface across the whole storey with no
-    arris at either cheek. The pump cartridge's back stands `cap_kiss` fore of it there, and
-    `cap_kiss` fore of the steel below."""
+    on. The cheeks, their heads and the cap above the two local notch roofs present the drawer
+    one surface with no arris at either cheek. The pump cartridge's back stands `cap_kiss`
+    fore of it there, and `cap_kiss` fore of the steel below."""
     z_land = plate["z1"]
     fore, aft = plate_guide_fore_y(plate), plate["aft_y"]
     land = aft - plate_cap_land
-    return _yz_prism(inner[0], inner[1], (
+    cap = _yz_prism(inner[0], inner[1], (
         (aft, z_land), (land, z_land), (fore, z_land + (land - fore)),
         (fore, bay[2]), (aft, bay[2])))
+    reliefs = []
+    for cx, _cy, cz in pump_trays:
+        half_x = _tray.bracket_half + clamp_drop_air
+        relief_fore = fore - clamp_drop_air
+        relief_top = cz + _tray.bracket_t + clamp_drop_air
+        reliefs.append(_yz_prism(cx - half_x, cx + half_x, (
+            (relief_fore, z_land - 1.0), (land, z_land - 1.0),
+            (land, relief_top),
+            (relief_fore, relief_top + (land - relief_fore)))))
+    return cap.cut(*reliefs)
 
 
 def _front_top_flanks(inner, outer, box, y_joint, zj):
@@ -7757,9 +7771,10 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         # these cheeks intentionally stand at the opening's aft outer edges.
         piece = piece.fuse(_plate_fore_guides(
             inner, outer, box.pump_bay, box.pack.collet_plate, box.pack.pump_trays))
-        # And the wall over the steel, wall to wall — the land its top edge stops on, and the
-        # section that fills the lane a Z+ drop-in would have had to leave open above it.
-        piece = piece.fuse(_plate_cap(inner, box.pack.collet_plate, box.pump_bay))
+        # And the wall over the steel — the full-width land its top edge stops on, and the
+        # section round the two loaded-bracket passages which fills the rest of the lane.
+        piece = piece.fuse(_plate_cap(
+            inner, box.pack.collet_plate, box.pump_bay, box.pack.pump_trays))
     # And then the columns give up whatever the pack stands in them (`_column_relief`), which is
     # last of everything: a relief is air, and air a later step fuses back in is not a relief.
     # Clipped to the pillar — the column AND the lip's skin wrapping it (`_column_pillar`) —
