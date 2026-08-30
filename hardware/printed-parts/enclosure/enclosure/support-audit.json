@@ -71,12 +71,39 @@
       ]
     },
     "enclosure-pump-cap": {
-      "status": "profile-required",
-      "reason": "No committed production-profile 3MF is named for this piece."
+      "status": "audited",
+      "profile": "enclosure-pump-cap-petgf.3mf",
+      "result": "enclosure-pump-cap.support-audit.json",
+      "support_bodies": [
+        {
+          "tree": "tree-1",
+          "name": "X- pump boss-bearing shoulder",
+          "first_contacts_cad_xyz_mm": [
+            [-74.6, 11.245, 237.345, -22.6, 62.845, 237.545]
+          ],
+          "root": "bed",
+          "build_up_mm": 18.4,
+          "interface_islands": 1,
+          "rationale": "The flat annular shoulder bears axially on the fitted pump boss while the complete octagonal wall locates X, Y and yaw. Chamfering the shoulder would trade away bearing area rather than remove an accidental overhang; its centre bore remains open for direct support removal."
+        },
+        {
+          "tree": "tree-2",
+          "name": "X+ pump boss-bearing shoulder",
+          "first_contacts_cad_xyz_mm": [
+            [22.6, 11.245, 237.345, 74.6, 62.845, 237.545]
+          ],
+          "root": "bed",
+          "build_up_mm": 18.4,
+          "interface_islands": 1,
+          "rationale": "The flat annular shoulder bears axially on the fitted pump boss while the complete octagonal wall locates X, Y and yaw. Chamfering the shoulder would trade away bearing area rather than remove an accidental overhang; its centre bore remains open for direct support removal."
+        }
+      ]
     },
     "enclosure-pump-cartridge": {
-      "status": "profile-required",
-      "reason": "No committed production-profile 3MF is named for this piece."
+      "status": "audited",
+      "profile": "enclosure-pump-cartridge-petgf.3mf",
+      "result": "enclosure-pump-cartridge.support-audit.json",
+      "support_bodies": []
     }
   }
 }
