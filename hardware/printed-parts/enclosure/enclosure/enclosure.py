@@ -2922,8 +2922,7 @@ def _plan_segments(outer):
 
 
 def _bay_storey_segments(inner, outer, bay, plate):
-    """The run round the INSIDE of the bay's storey, walked from the −X mouth edge to the +X
-    one — the surfaces that storey shows once the pump cartridge is in it.
+    """The phase path round the INSIDE of the bay's storey, from −X mouth edge to +X.
 
     IT IS THE OPEN BOX'S PLAN WALKED INDOORS. Material on the left, so the normal it hands
     back points into the room: the two front-wall cut edges, the two open flanks and the tee
@@ -2936,9 +2935,9 @@ def _bay_storey_segments(inner, outer, bay, plate):
     the segments read from one mouth edge straight through to the other.
 
     ITS TWO LONG OUTBOARD STRETCHES ARE AIR. From the front-wall interior plane to the tee wall
-    the side wall is cut away over this whole storey (`_bay_cut`), so the walk crosses
-    the window rather than a surface and the piece simply answers that it has no material
-    there.
+    the side wall is cut away over this whole storey (`_bay_cut`), so these two segments carry
+    the global arc coordinate across each window but never become flute rails. `flute_rails`
+    strikes three separate open runs on the two mouth ledges and the central tee wall.
 
     AND IT DOES NOT CLOSE. What lies between the two mouth edges is the drawer, not a surface; a run
     stops at its own two ends and the field ramps out on them the way it ramps out on any edge,
@@ -3050,10 +3049,11 @@ def plan_at(s, outer):
 def flute_rails(box, berthed=()):
     """Every run this box's field is struck along.
 
-    THE OUTER PLAN IS ONE OF THEM, and the bay's storey is the other — the surfaces that
-    storey shows with the drawer in it (`_bay_storey_segments`). Both are struck at the same
-    `flute_pitch` from a datum on x = 0, so each puts a groove on the plane the machine is
-    struck about and neither is told the other exists.
+    THE OUTER PLAN IS ONE OF THEM. The bay storey's two mouth ledges and central tee wall are
+    three more open rails; its two intervening window spans are air and only advance the global
+    arc coordinate (`_bay_storey_segments`). Every surface is struck at the same `flute_pitch`
+    from a datum on x = 0, so each puts a groove on the plane the machine is struck about and
+    neither is told the other exists.
 
     `berthed` is what the assembly stands in that storey — the lower cradle, top clamp and steel
     plate. What a fitted body hides is not show face and gets no flutes
@@ -3064,10 +3064,22 @@ def flute_rails(box, berthed=()):
     if box.pump_bay and box.pack.collet_plate:
         segments = _bay_storey_segments(box.inner, outer, box.pump_bay, box.pack.collet_plate)
         run = sum(length for _kind, length, _data in segments)
-        rails.append(_flute_skin.Rail(
-            at=lambda s: _walk(segments, s + run / 2.0), length=run, start=-run / 2.0,
-            closed=False, band=bay_storey_z(box.pump_bay), berthed=tuple(berthed),
-            mouth=(0.0, -1.0)))
+        cursor = -run / 2.0
+        # Segments 1 and 3 cross the two open flanks. They preserve the phase between the three
+        # real surfaces but are not themselves cutter paths: late-fused guide cheeks can stand
+        # on their opposite side, and an inside rail crossing that air would cut those exterior
+        # faces. Each real surface is open, so its two actual free edges fade normally.
+        for index, segment in enumerate(segments):
+            length = segment[1]
+            if index in (0, 2, 4):
+                one = (segment,)
+                start = cursor
+                rails.append(_flute_skin.Rail(
+                    at=lambda s, one=one, start=start: _walk(one, s - start),
+                    length=length, start=start, closed=False,
+                    band=bay_storey_z(box.pump_bay), berthed=tuple(berthed),
+                    mouth=(0.0, -1.0)))
+            cursor += length
     return rails
 
 
@@ -8624,7 +8636,7 @@ def main():
         "FLUTE_RISE": f"{flute_rise:.4g} mm",
         "FLUTE_STEPS": f"{flute_fade_steps:d}",
         "FLUTE_RAMP": f"{math.degrees(math.atan(1.5 * flute_depth / flute_rise)):.3g}°",
-        # The box's second run of flutes, round the inside of the bay's storey.
+        # The bay storey's complete phase path, including its two uncut air spans.
         "STOREY_RUN": (
             f"{sum(l for _k, l, _d in _bay_storey_segments(box.inner, bo, box.pump_bay, box.pack.collet_plate)):.5g} mm"
             if box.pump_bay and box.pack.collet_plate else "no bay on this pack"),
