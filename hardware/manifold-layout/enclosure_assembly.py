@@ -7031,13 +7031,15 @@ CEILING_RELIEF_BODIES = (
 CEILING_RELIEF_PLAN_SLIP = 2.0
 CEILING_RELIEF_Z_CLEAR = 1.0
 
-# These three purchased bodies reach the fixed +X strip's added three-millimetre growth. Their
-# established, printable corbel remains; only the new shell is locally withheld over the exact
-# placed plan plus one assembly-clearance millimetre.
+# These purchased bodies reach a fixed strip's added three-millimetre growth. Their established,
+# printable corbel remains; only the new shell is locally withheld over the exact placed plan
+# plus one assembly-clearance millimetre.
 CEILING_GROWTH_RELIEF_BODIES = (
     ("c14-inlet", +1.0),
     ("relay-1", +1.0),
     ("ground-stack", +1.0),
+    ("asse1022-assembly", -1.0),
+    ("bulkhead-water", -1.0),
 )
 CEILING_GROWTH_RELIEF_SLIP = 1.0
 

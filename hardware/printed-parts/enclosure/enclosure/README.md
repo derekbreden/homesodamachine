@@ -1382,9 +1382,10 @@ the stack's centre. The stack stands 0.25 mm below the nominal stack floor and k
 one millimetre of exact air from those planes, so there is no horizontal support roof over it.
 The C14 keeps the complete established +X wedge: its shared X datum places the
 moulded rim about one millimetre inboard of that corbel, while its Z remains on
-the top port row. Its moulding, the relay and the ground stack reach only the
-new three-millimetre shell. `ceiling_growth_reliefs` withholds that shell over
-each exact placed-body plan plus 1 mm, clipped to the fixed strip, while leaving
+the top port row. Its moulding, the relay, the ground stack, the ASSE body and
+the water bulkhead reach only the new three-millimetre shell.
+`ceiling_growth_reliefs` withholds that shell over each exact placed-body plan
+plus 1 mm, clipped to the fixed strip, while leaving
 the older wedge and its existing run-band/gable treatment intact. At the C14
 this leaves exactly 1 mm of air; the relay retains 2 mm and the ground stack's
 pre-existing closest feature retains its same 0.682 mm, while its printable
