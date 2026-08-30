@@ -100,7 +100,9 @@ Each level stands the pin's own face **[13 mm](BOSS_END_CLEAR)** off the end wal
 under. The back plug's full-width underside runs to its inboard tip on a 45° wall-rooted
 corbel. The front lip's slide channel gives up the matching profile one `fits.slip` lower,
 so the square registration faces and full insertion travel remain while neither half leaves
-a support contact in the pin slot. Both ends are fenced — nearer its wall, the lower collar's
+a support contact in the pin slot. Its square pass envelope stays whole and its roof then
+rises 45° in X to the inboard tip, adding clearance rather than taking any from the plug.
+Both ends are fenced — nearer its wall, the lower collar's
 carve leaves a corner of the front lip in the back half's register; further from it, the upper
 collar's 45° underside comes down the −X wall into `fluid-1`'s lane.
 
@@ -507,7 +509,7 @@ such a land stays wall too. The MQ-6's two posts stop below the vent band, but i
 cut through the added inner flank skin beside it. The two intake grooves whose jambs would leave
 less than one 3 mm wall to that chute remain completely solid in every course; the chute is not
 widened into a vent, and no 1.261 or 1.981 mm strip survives between the two openings. All
-[88](VENT_RUNS_IN) realized intake openings are the full [24.5 mm](VENT_SHORTEST) segment;
+[80](VENT_RUNS_IN) realized intake openings are the full [24.5 mm](VENT_SHORTEST) segment;
 [0](VENT_SHORT) have a different height.
 
 **[3](VENT_TRANSOMS) transom bands cross that vent, and they are why it prints.** A mullion is
@@ -531,7 +533,7 @@ climbs, and the ceiling closes at exactly the angle the box supports nothing ste
 
 | | slots | openings | thinnest mullion | tallest opening | free area |
 |---|---|---|---|---|---|
-| −X intake | [22](VENT_SLOTS_IN) | [88](VENT_RUNS_IN) | [2.0285 mm](VENT_MEAS_MULLION) | [24.5 mm](VENT_TOWER_IN) | [62.6 cm²](VENT_OPEN_IN) |
+| −X intake | [20](VENT_SLOTS_IN) | [80](VENT_RUNS_IN) | [2.0285 mm](VENT_MEAS_MULLION) | [24.5 mm](VENT_TOWER_IN) | [56.9 cm²](VENT_OPEN_IN) |
 | +X exhaust | [22](VENT_SLOTS_OUT) | [88](VENT_RUNS_OUT) | [2.0285 mm](VENT_MEAS_MULLION) | [24.5 mm](VENT_TOWER_OUT) | [62.6 cm²](VENT_OPEN_OUT) |
 
 Both read off the built piece at the flank's mid-section, over the fan's own band. A pierced field
@@ -1147,10 +1149,12 @@ plus `TEE_WALL_BODY_AIR` fore of the tee's own body, so at the end of the stroke
 still air behind the tee — depth past that plane is the tee's and not the wall's to take.
 The collar-clear bore therefore continues through that broad face instead of leaving a
 1.666 mm annular diaphragm. Two side pads per tee provide the aft insertion stop: each is
-exactly 3 mm wide and 3 mm deep, rises from the front-top bed plane, and begins outside the
-arm's exact release envelope. The arm passage is recut through them, leaving only the
-purchased collar's radial bite on two full-section printed columns. The steel stops the tee
-foreward during release; these pads stop it aft while a tube is seated.
+exactly 3 mm wide and 3 mm deep, rises from the front-top bed plane, and begins 0.270 mm aft
+of the collar's nominal inboard plane. That setback clears the real collar/arm blend over
+the complete release and leaves about 0.057 mm of insertion take-up before the collar lands.
+The arm passage is recut through them with 0.050 mm radial air, leaving the purchased
+collar's radial bite on two full-section printed columns. The steel stops the tee foreward
+during release; these pads stop it aft while a tube is seated.
 
 **That wall is also the bay's back.** Over the plate's own band the steel closes the
 bay; above and below it this wall does, so what stands behind the berth the pump cartridge
@@ -1200,7 +1204,7 @@ Z− plane, with no shallow pocket ceiling or narrow perimeter foot. Above that 
 case-derived octagon engages the white boss over its complete run and the shoulder surrounds
 the can. Thus the cradle takes weight, the clamp prevents lift, and the octagon fixes X, Y and
 yaw. The clamp's vertical drop keeps [3.105 mm](CLAMP_FRONT_SKIN) of cradle skin ahead of its
-fore face. A [2.53 mm](CLAMP_AFT_WALL) wall remains aft of each octagon to locate the boss
+fore face. A [8.68 mm](CLAMP_AFT_WALL) wall remains aft of each octagon to locate the boss
 against +Y.
 
 **Two M3 close one clamp onto one cradle.** Both screw heads are accessible from above in the
@@ -1317,9 +1321,10 @@ The funnel stands on the box's own stated **`funnel_front_y`** and takes the top
 wall's full width, because the facet in front of it spans the machine and there is
 nothing beside it to leave room for. The frame's two side strips on the front top are
 corbelled (`_ceiling_corbels`): a 45° underside off each ±X wall to nothing at the
-opening's edge, and over the seam's ceiling tongue off the top collar's own chain
-face, so the piece printing on its mouth lays every ceiling layer on the one below
-it. THE FUNNEL IS WHERE THE USER POURS, so that
+opening's edge. Over the seam's ceiling tongue a funnel-side ramp rises from the top
+collar's chain face and a wall-side ramp rises from the socket cap to the plug tip, so
+the complete tongue and every ceiling layer land on the one below. THE FUNNEL IS WHERE
+THE USER POURS, so that
 plane stands as far forward as the wall lets it — which is the display housing's own
 back cut — and what fences THAT is the brim rather than the throat: the flange
 overhangs the collar and has to land on top wall, and the top wall begins at the
