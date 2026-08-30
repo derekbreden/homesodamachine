@@ -144,6 +144,10 @@ TOOLS = [
     ("MNPT air plug", "T_MSTYLE_PLUG", A("B000PDWI4S")),
     ("NPT hex nipple", "T_HEX_NIPPLE", A("B07P7ZRZMD")),
     ("XLaserlab X1 Pro", "T_X1PRO", L(contains="XLaserlab X1 Pro", section="16")),
+    ("Cap-weld tube rotator", "T_WELD_ROTATOR", SUM([
+        A("B089Y8H8L5"), A("B0D2XZCGL5"), A("B0CYYYHL31"),
+        A("B0747KM7MN"), A("B0CXPM3KTP"), A("B09W2R3SCD"),
+    ])),
     ("argon size-80 cylinder + RHP400", "T_ARGON_CYL", L(contains="argon size-80 cylinder", section="1")),
     ("RX Weld argon regulator", "T_RXWELD", A("B08P5BNHBX")),
     ("Welding Cart", "T_WELD_CART", A("B08G5CW3DY")),

@@ -13,7 +13,9 @@ the dispense/refill exclusion, every possible off-before-on valve-mask transitio
 prime/timed-pump deadlines shared with the J9 protocol. `test_pcba_expanders` checks the
 logical-to-physical valve map, safe MCP23017 initialization, active-low reed decoding,
 cross-expander break-before-make writes, and fail-park behavior. They run on the build host
-and are safe with every USB device connected.
+and are safe with every USB device connected. `test_weld_rotator_policy` checks the purchased
+20T:90T drive ratio, speed envelope, exact 380-degree lap count, boot-held pedal lockout,
+deadman release, and jog/lap state transitions.
 
 Board builds remain separate because they compile different source trees:
 
@@ -22,6 +24,7 @@ pio run -e appliance
 pio run -e esp32s3_front
 pio run -e esp32s3_faucet
 pio run -e pcba_bench
+pio run -e weld_rotator
 ```
 
 Building does not open a serial port. Uploading and monitoring do; name the port whenever

@@ -1,0 +1,28 @@
+{
+  "/hardware/printed-parts/fixtures/weld-rotator/weld_rotator.py": {
+    "WR_BALLS": "36",
+    "WR_BALL_D": "10",
+    "WR_BALL_PITCH": "14.4",
+    "WR_BALL_RACE": "165",
+    "WR_BASE_CLEARANCE": "24",
+    "WR_BASE_X": "300",
+    "WR_BASE_Y": "250",
+    "WR_BASE_Z": "12",
+    "WR_CENTER": "125.1",
+    "WR_MOTOR_TEETH": "20",
+    "WR_NEST_OD": "150",
+    "WR_OUTER_BORE": "127.80",
+    "WR_OUTER_CLEAR": "0.40",
+    "WR_PILOT_CLEAR": "0.20",
+    "WR_PILOT_H": "4.5",
+    "WR_PILOT_OD": "123.30",
+    "WR_RATIO": "4.5:1",
+    "WR_RECESS": "6.35",
+    "WR_RETAINER_POCKET": "126",
+    "WR_SERVICE_BORE": "90",
+    "WR_TABLE_TEETH": "90",
+    "WR_TUBE_TOP": "212.4",
+    "WR_TUBE_TOP_BENCH": "236.4",
+    "WR_WRAP": "127.1\u00b0"
+  }
+}
