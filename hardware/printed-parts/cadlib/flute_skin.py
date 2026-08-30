@@ -435,6 +435,15 @@ def _rail_cutter(mesh, rail):
     depth = _depth_field(s, mask, rail.closed)
     if depth.max() <= 0.0:
         return None
+    # A CUTTER CAP RETURNS TO THE NOMINAL SURFACE. The padded distance field fades toward an
+    # edge, but its first sampled cell still has one grid step of depth. On an open rail that
+    # leaves a standing end-cap slab; on a banded rail it leaves the same slab at both Z caps.
+    # Those caps can intersect an adjacent field or a late-fused face and become a printable
+    # knife. Zeroing the boundary stations closes the cutter on the surface it was cut from.
+    if not rail.closed:
+        depth[[0, -1], :] = 0.0
+    if rail.band is not None:
+        depth[:, [0, -1]] = 0.0
     depth, rows, point, normal = _thin(depth, rows, s, point, normal)
     if rail.band is None:
         # THE CUTTER IS CAPPED IN AIR, past both ends of the piece. The field is already nothing
