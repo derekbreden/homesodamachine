@@ -2,16 +2,17 @@
   "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed \u2014 web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
   "release": {
     "tag": "cad-artifacts",
-    "asset": "cad-9c1eabf2b0232cbc.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-9c1eabf2b0232cbc.tar.gz",
+    "asset": "cad-62d3ac316460112c.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-62d3ac316460112c.tar.gz",
     "objects": "s-"
   },
   "source": {
-    "commit": "7b2f06243b347910ada1c049f23bb05f9867699d"
+    "commit": "d74e19e08b6d7e670f753bf8e9a0053b4df7afaa"
   },
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, or that rule would not cut.",
     "paths": [
+      "hardware/manifold-layout/enclosure-assembly.facts.json",
       "hardware/manifold-layout/enclosure_assembly.py",
       "hardware/printed-parts/enclosure/enclosure/README.figures.json",
       "hardware/printed-parts/enclosure/enclosure/README.md",
@@ -527,8 +528,8 @@
     ]
   },
   "bundle": {
-    "sha256": "9c1eabf2b0232cbc9f592f598a92c79e7611cf6c9f76f8ff5b75760c3010cb02",
-    "bytes": 115335292,
+    "sha256": "62d3ac316460112c7e89f3e0e12803377b93c8d7d1064e4c7bd9e05383c73621",
+    "bytes": 121783048,
     "solids": 252
   },
   "solids": {
@@ -610,15 +611,15 @@
     "hardware/assembly/scenes/glb/cold-core.glb": "d7e6c0f12c0d829fd73d0ca4c76aad991a32f5d2b241827770276ade0e51fe31",
     "hardware/assembly/scenes/glb/en04-stratum.glb": "ae875c780d95a8060eb3958a402750406a4cc1a68d4170ea4232851113535a88",
     "hardware/assembly/scenes/glb/en06-column.glb": "f1dc5d0f8261cb7e3a28ed6a9b1f5fdab3f92f88031e4396464fe324b710aa81",
-    "hardware/assembly/scenes/glb/front-top.glb": "3ed5e09fb2bba46dfbde7630ca79329cab039f48c4de71864d8269ecb92a48af",
+    "hardware/assembly/scenes/glb/front-top.glb": "cd7d4a0d8fd9de8ffa77aa4475882c270ed5af5b55461de08aad487d3adb1b19",
     "hardware/assembly/scenes/glb/funnel-drain.glb": "120682675217620676dd3ecbcbd1ef540aa0a42a05fc6f3e01491c2af1e86587",
-    "hardware/assembly/scenes/glb/pump-cartridge.glb": "f87ee3ff14d8a9d5a4254b71774e25bfa74dde5af4aad1afa3cd7b13052a06b7",
+    "hardware/assembly/scenes/glb/pump-cartridge.glb": "815ec7c297b2b335a28ac23e36815431670854a6e9684e637a11de290ab73fec",
     "hardware/cold-core-layout/cold-core-assembly.step": "f1feba15c4b3ff8950ea2dc39a9cababa3771d8a0c17435229f218ec203370b4",
     "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step": "bb6d47d7641a9759e444da2f68ea12d48ddcc19f36bcfcd4227414a5d75d538a",
     "hardware/faucet-layout/faucet-assembly.step": "f0cfe4395ced9167017cb2188064e2f28ec9bfb99abb07d2c8432f93f4ab65a4",
     "hardware/faucet-layout/faucet-assembly.step.mesh": "874fcd5150deceb80d3c422aedcb37c3d9fec87e16ecd6d958fa98792f75968b",
     "hardware/manifold-layout/enclosure-assembly.step": "0299dd7943ea49aa51c0d01143bf60eb56f3606f8ac988f902c61f47d37d6b3e",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "d6d4b5af172d24575e0697a8f1595bff3416f5f6fdee3cbc6d6e194f6da72c19",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "6214af7db6fd1fcbf89b559da7d4561502b1ef95ab7505f41a427e16f743af66",
     "hardware/manifold-layout/manifold-layout.step": "b1ec5c322c80216d7bda15940c767ff696c351f88ce7c9725acaf9a1533bd120",
     "hardware/manifold-layout/manifold-layout.step.mesh": "1d64c534e6f94d485621e4bfc1b256a6adb3da044f094b7bd5e47bccaa31326f",
     "hardware/pcb/pcba/out/pcba.glb": "819d2d6a51579a8c3ee66bcb9432075bc50ca77cf129bd828ea538b8fc72b767",
@@ -670,19 +671,19 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": "bfb6d671d6721c2a2c892e5e30f519d6a457ac86e642c44594306247e2bc618b",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "e4ca3b17fe4232995b6bc8d29c75b184386898b4c2fb9567c47c93e67e4e2dba",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "9805908f2436545a1638f898e0cf63e9e9faeafc16a0a92ba8aa2674c9441edc",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": "ddc1fbf30926e0b9be0fe9f28e3c194c98b0ea3696f82d16ab71dbac6e5aca14",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": "62a2838d102db7e76b04926d43065429df0350386f327b29bafb5c4fb367e38a",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "93cf9d007b6ab9839b3f626b1842658f8f97dd25ad94b489052e04ab0064c17e",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "544cd2a27cfa79e52e88b04443cb93995f4cbcf067c566db404b7ac226546ae7",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": "28b03cff7d7adba5ea9783c1e47d5392d15e47ea61b0b49ea699485ff8738b93",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": "73bb47ca6810ac803840e4611cefba225653a65af7bf99c1871ad29f87f3d22e",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "bf67636f6fe01187142839815e56354c3b628809caf4787a1710ea8f7c57bdcb",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": "bbba9d8e82ebde8087fe674724d7c72356797fb361899777ebdc1fe8fcbe2a66",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh": "0406e532e48762280c189a295cd789eea71711ce27e9de4a8afb882f80904130",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl": "b663cd9a15d6fdb0f1b3ebca037a0337efecd9441c8a2df60ad751eec244d02e",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": "ba888e27f1e5f7c34600843052f2b03a965088ac5b1c7163cea29acbf1a1a89d",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh": "edf77a29e073ab9ad1eab0cec65b3bc58b0f31a2a525673ed322fd72779eae70",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl": "cddf867d6eddd1eced8dbabd07cb9c70c087723e3634f9e5c16a6eec14dddf2d",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step": "20f4fa9f0164bca97a55622a8c2707eeafb901433d806df91ece93e8abfec8b9",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh": "e79617a79aeb738d5d920b58eeb97a286fa8c316bcc2ea508e70c6f0677b1ca0",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh": "e2f2de830f1c70bb6defacdc1d893db3fd166317cc3f7ac426bdaae455161437",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl": "8b45b5c58317b2403dcc8840429a65b283a9bb32e249ec9e13e5a62944bf4e42",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.step": "03d1ac4d8581f316a7b171ec234a5f1752901ff90604c72de61851d61dac0c64",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": "a232e1bfc9d678911e46d2a2ee032cb79bdaaa3755e54473096bd102974f67fb",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step": "57c904ff93550889bc9964954eb702f9e0df1e9d16b2d56add3b6f3166988349",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": "64dde29e8e675788187df1b448faf2712dfbbdf0b0fa3a5558b6814fc0c7a676",
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.step": "5477d83388b6cfa83526ca245d66c182ac7599cd875f21d8a1b504ad985cdd01",
     "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step": "3e9f081c0c468cd3ddfe3186df20f947cd4d052ae4c0dcfd075f334a89853f8c",
     "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step": "87fd848ad51a18bd85248a779d44eebda7c83710e6850e02204b30f01cdee413",
@@ -787,7 +788,7 @@
   },
   "sidecars": {
     "hardware/cold-core-layout/cold-core-assembly.scorecard.json": "d568d340536ee45b28c1ed73ab3160730bcd55fb3c9f2b6f870b83203eecd274",
-    "hardware/manifold-layout/enclosure-assembly.scorecard.json": "a298f9fc79f0adc16322a8ff226449c46aecbe5a73d8dac7775485f65345b893",
+    "hardware/manifold-layout/enclosure-assembly.scorecard.json": "c26c9c70b19f93efcc850904307692b33859852482f0d733bafb86c94e94622d",
     "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.scorecard.json": "d568d340536ee45b28c1ed73ab3160730bcd55fb3c9f2b6f870b83203eecd274"
   }
 }
