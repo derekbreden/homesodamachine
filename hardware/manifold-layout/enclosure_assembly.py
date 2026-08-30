@@ -7279,7 +7279,8 @@ def check_ceiling_panel_section(panel, box) -> Bound:
     tie_pockets = _cpanel._tie_reliefs(box)
     raw_field = _cpanel.structural_stock()
     tie_air = [pocket.intersect(raw_field).cut(moving).Volume() for pocket in tie_pockets]
-    one_body = moving.isValid() and len(moving.Solids()) == 1
+    one_body = (moving.isValid() and len(moving.Solids()) == 1
+                and len(moving.Shells()) == 1)
     ok = (not datum_bad and show_missing <= 1e-3 and coupon_missing <= 1e-3
           and not relief_bad and least_roof >= _enc.wall - 1e-6
           and len(tie_pockets) == 3 and min(tie_air, default=0.0) >= 1.0 and one_body)
@@ -7293,7 +7294,7 @@ def check_ceiling_panel_section(panel, box) -> Bound:
         f"{len(tie_pockets)} tie approaches, least {min(tie_air, default=0.0):.1f} mm³ open",
         "z 355 exterior, z 352 pack lane, z 349 fixed face and z 344 panel underside; a whole "
         "three-millimetre show skin, the exact nine body reliefs with at least one wall over "
-        "each, three open tie approaches and one valid solid",
+        "each, three open tie approaches and one valid solid with one outer shell",
         ([] if ok else [
             f"datum faults {datum_bad}; show skin missing {show_missing:.4f} mm³; clean grown "
             f"coupons missing {coupon_missing:.4f} mm³; relief-name difference {relief_bad}; "
