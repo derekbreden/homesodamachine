@@ -864,15 +864,8 @@ static bool panelInit() {
   cfg.timings.h_res = SCREEN_W;
   cfg.timings.v_res = SCREEN_H;
   cfg.timings.hsync_pulse_width = 48;
-  // The horizontal blanking is split 48/80 rather than 88/40, holding the line
-  // at 976 pclk so neither the 16 MHz clock nor the 31 Hz frame changes. A wake
-  // that comes up shifted puts the image one front porch late in both axes —
-  // 40 px of black at the left, the rightmost 40 lost — and 40 is what the front
-  // porch was. Widening only this axis reads the panel's answer directly: the
-  // horizontal offset moves to 80 if the panel is starting its active window on
-  // the front porch, and the untouched vertical stays where it is either way.
-  cfg.timings.hsync_back_porch  = 48;
-  cfg.timings.hsync_front_porch = 80;
+  cfg.timings.hsync_back_porch  = 88;
+  cfg.timings.hsync_front_porch = 40;
   cfg.timings.vsync_pulse_width = 3;
   cfg.timings.vsync_back_porch  = 32;
   cfg.timings.vsync_front_porch = 13;
@@ -1026,11 +1019,23 @@ static bool gt911ReadTouch(uint16_t *x, uint16_t *y) {
 // reuse is synchronized from on_frame_buf_complete instead. A panel wake stays
 // dark until reset and DISP have each crossed a real vertical blank and complete
 // frames have crossed while the panel re-acquires the stream.
+// How long the panel gets to re-acquire the stream before DISP is raised. One
+// frame is 32.2 ms at 976x528 and 16 MHz, so 12 frames is 387 ms and the 600 ms
+// floor is what actually gates a wake.
+//
+// This budget is deliberately far past any plausible requirement. Two panels
+// running this identical firmware disagree about it: one showed no shifted wake
+// in days, the other shows one in five wakes out of seven. Nothing on the board
+// can measure the difference — the ST7262 is write-only and reports no lock — so
+// the only way to learn whether acquisition time is the variable at all is to
+// give it more than it could possibly need and see whether the shift stops. A
+// wake costs about 800 ms here, which is too slow to keep; the number to tune
+// down to is on the other side of that answer.
 #define WAKE_QUIET_MS 200
 #define WAKE_RESET_LOW_MS 20
-#define WAKE_RESET_RECOVERY_MS 120
-#define WAKE_FRAME_COUNT 4
-#define WAKE_FRAME_WAIT_MS 500
+#define WAKE_RESET_RECOVERY_MS 600
+#define WAKE_FRAME_COUNT 12
+#define WAKE_FRAME_WAIT_MS 2000
 static unsigned long animResumeDue = 0;
 
 // LCD_RST is the ST7262's, on CH422G EXIO3. EXIO2 is both panel DISP and the
