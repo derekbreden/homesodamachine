@@ -1158,35 +1158,35 @@
    "active": true
   },
   {
-   "id": "trays-hold",
-   "label": "Every pump is standing in its printed tray",
+   "id": "clamp-locates-pumps",
+   "label": "The top clamp locates both pumps",
    "kind": "gate",
    "status": "pass",
    "value": "2/2 pumps seated, furthest off 0.000 mm",
-   "target": "every pump within 0.2 mm of the plate on it",
+   "target": "every boss within 0.2 mm of its octagonal collar",
    "detail": [
-    "pump-a-head    axis (  48.570,   43.305) face z  216.745   off 0.0000",
-    "pump-b-head    axis ( -48.570,   43.305) face z  216.745   off 0.0000"
+    "pump-a-head    axis (  48.570,   43.305) bracket z  216.745   off 0.0000",
+    "pump-b-head    axis ( -48.570,   43.305) bracket z  216.745   off 0.0000"
    ],
    "active": true
   },
   {
-   "id": "pump-cap-laps-bracket",
-   "label": "The cap has material under every pump's bracket",
+   "id": "pump-clamped-in-cradle",
+   "label": "Each pump is captured between cradle and top clamp",
    "kind": "gate",
    "status": "pass",
-   "value": "6/6 closed sides land, least 473.2 mm\u00b3",
-   "target": "material under the three closed sides of each bracket (the aft face is open)",
+   "value": "6/6 closed sides captured, least 473.1 mm\u00b3",
+   "target": "cradle below and clamp above all three closed sides of both brackets",
    "detail": [],
    "active": true
   },
   {
-   "id": "cap-passes-tubes",
-   "label": "Each fitting and barb tube leaves the cap through its opening",
+   "id": "cradle-passes-fittings",
+   "label": "Each fitting passes the cradle's outlet opening",
    "kind": "gate",
    "status": "pass",
    "value": "4/4 tubes clear, least 3.100 mm off the edge; 2/2 fitting mouths open",
-   "target": "at least 0.15 mm round every \u00d86.35 tube at the opening's two outer edges and no cap material in either fitting-mouth gauge",
+   "target": "at least 0.15 mm round every \u00d86.35 tube at the opening's two outer edges and no cradle material in either fitting-mouth gauge",
    "detail": [],
    "active": true
   },
@@ -1237,6 +1237,26 @@
    "status": "pass",
    "value": "2 column quadrants probed, most material in the way 0.000 mm\u00b3",
    "target": "no front-top material inside either former column quadrant",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "pump-cartridge-lower-cradle",
+   "label": "The cartridge is a large lower cradle with a small top clamp",
+   "kind": "gate",
+   "status": "pass",
+   "value": "cradle 87.4% of printed volume, 113.6 mm high; clamp 24.0 mm",
+   "target": "one solid each, the cradle a majority of volume and carrying the full-height face",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "cradle-pulls-on-tube-axis",
+   "label": "Both cradle pulls act at the tube-centre elevation",
+   "kind": "gate",
+   "status": "pass",
+   "value": "2/2 ledges whole at z 188.245 mm",
+   "target": "an open pocket and whole fore ledge on both flanks at the four tube centres",
    "detail": [],
    "active": true
   },
@@ -1312,8 +1332,28 @@
    "active": true
   },
   {
+   "id": "pumps-drop-into-cradle",
+   "label": "Both pumps drop vertically into the lower cradle",
+   "kind": "gate",
+   "status": "pass",
+   "value": "2 pumps, 912 stations, most in the way 0.000 mm\u00b3",
+   "target": "pump, bracket and 69.55 mm fitting span clear every 0.25 mm or less",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "top-clamp-drops-on",
+   "label": "The top clamp lowers over both pumps",
+   "kind": "gate",
+   "status": "pass",
+   "value": "261 stations, most in the way 0.000 mm\u00b3",
+   "target": "clamp clear of both pumps and cradle every 0.25 mm or less",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "pump-cartridge-sweep-out",
-   "label": "The complete pump cartridge and cap pass through the bay mouth",
+   "label": "The complete pump cradle and clamp pass through the bay mouth",
    "kind": "gate",
    "status": "pass",
    "value": "2 pieces, 576 motion stations, most in the way 0.000 mm\u00b3",
@@ -1322,12 +1362,12 @@
    "active": true
   },
   {
-   "id": "pump-cap-stops-on-plate",
-   "label": "The cap's aft face lands on the collet plate",
+   "id": "pump-cradle-stops-on-plate",
+   "label": "The cradle's aft face lands on the collet plate",
    "kind": "gate",
    "status": "pass",
-   "value": "2657.7 mm\u00b2 on the steel, 0.000 mm\u00b3 inside the kiss",
-   "target": "the cap's face on the plate's and `cap_kiss` 0.1 mm of air at it",
+   "value": "3799.2 mm\u00b2 on the steel, 0.000 mm\u00b3 inside the kiss",
+   "target": "the cradle's face on the plate's and `cap_kiss` 0.1 mm of air at it",
    "detail": [],
    "active": true
   },
