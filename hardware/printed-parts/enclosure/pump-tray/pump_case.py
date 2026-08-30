@@ -108,12 +108,6 @@ cutter_half_extent = max(case_outer_x, case_outer_y) / 2 + 5.0
 # Slop added to cut depths so they pierce cleanly through sibling solid
 # boundaries.
 overcut = 0.1
-# Largest Z interval between sections carried into the pump's vertical insertion sweep. The
-# asymmetric seam walks in X and Y between its stated loft levels, so the two endpoint outlines
-# alone do not contain every interpolated section. This is also the enclosure assembly's largest
-# interval between physical insertion probes; with 0.4 mm running air it leaves more clearance
-# than the largest lateral chord between samples.
-drop_sweep_step = 0.25
 # Polygonization count per quarter-circle for round-corner profiles.
 arc_segments = 8
 
@@ -285,7 +279,10 @@ def split_skirt_profile(wide_half_extent, wide_radius,
                         transition_y_plus=None, transition_y_minus=None,
                         wide_half_extent_y=None, narrow_half_extent_y=None,
                         n=arc_segments):
-    """Asymmetric profile: wider on +Y, narrower on -Y, with diagonal transitions."""
+    """Asymmetric profile: wider on +Y, narrower on -Y, with diagonal transitions.
+
+    A symmetric profile has one exact transition vertex on each side. The diagonal is born
+    from that point at the next loft level; it is not approximated by a short edge."""
     wide_radius = max(wide_radius, 0.01)
     narrow_radius = max(narrow_radius, 0.01)
     if wide_half_extent_y is None:
@@ -298,7 +295,7 @@ def split_skirt_profile(wide_half_extent, wide_radius,
     narrow_corner_center_y = narrow_half_extent_y - narrow_radius
 
     if transition_y_plus is None:
-        transition_y_plus = max((wide_half_extent - narrow_half_extent) / 2, 0.01)
+        transition_y_plus = (wide_half_extent - narrow_half_extent) / 2
     if transition_y_minus is None:
         transition_y_minus = -transition_y_plus
 
@@ -313,8 +310,11 @@ def split_skirt_profile(wide_half_extent, wide_radius,
         pts.append((-wide_corner_center_x + wide_radius * math.cos(a),
                     wide_corner_center_y + wide_radius * math.sin(a)))
 
-    pts.append((-wide_half_extent, transition_y_plus))
-    pts.append((-narrow_half_extent, transition_y_minus))
+    wide_transition = (-wide_half_extent, transition_y_plus)
+    narrow_transition = (-narrow_half_extent, transition_y_minus)
+    pts.append(wide_transition)
+    if narrow_transition != wide_transition:
+        pts.append(narrow_transition)
 
     for i in range(n + 1):
         a = math.radians(180 + 90 * i / n)
@@ -325,8 +325,11 @@ def split_skirt_profile(wide_half_extent, wide_radius,
         pts.append((narrow_corner_center_x + narrow_radius * math.cos(a),
                     -narrow_corner_center_y + narrow_radius * math.sin(a)))
 
-    pts.append((narrow_half_extent, transition_y_minus))
-    pts.append((wide_half_extent, transition_y_plus))
+    narrow_transition = (narrow_half_extent, transition_y_minus)
+    wide_transition = (wide_half_extent, transition_y_plus)
+    pts.append(narrow_transition)
+    if wide_transition != narrow_transition:
+        pts.append(wide_transition)
 
     return pts
 
@@ -360,11 +363,9 @@ skirt_narrow_straight_height = (
     - (skirt_narrow_taper_per_side - skirt_wide_flare_per_side)
 )
 
-# Transition Y coordinates (the +/- Y endpoints of the diagonal seam wall
-# at each profile's Z level). They keep the seam wall in the vertical
-# plane X + Y = -skirt_base_half_extent at every Z as the +Y half flares
-# and the -Y half tapers at different rates.
-skirt_transition_y_symmetric = (0.01, -0.01)
+# Transition Y coordinates at the two genuinely split profiles. Together with each symmetric
+# profile's one exact collapse point, they keep the seam wall in one vertical 45-degree plane
+# as the +Y half flares and the -Y half tapers at different rates.
 skirt_transition_y_mid = (skirt_wide_flare_per_side, -skirt_wide_flare_per_side)
 skirt_transition_y_end = (skirt_wide_flare_per_side, -skirt_narrow_taper_per_side)
 skirt_transition_y_end_plus = skirt_transition_y_end[0]
@@ -414,7 +415,7 @@ def _skirt_profile_set(wall_offset):
     mid_narrow_he = skirt_mid_narrow_half_extent - wall_offset
     radius = corner_r - wall_offset
 
-    ty_symmetric_plus, ty_symmetric_minus = skirt_transition_y_symmetric
+    ty_symmetric = seam_y_shift
     ty_mid_plus = skirt_transition_y_mid[0] + seam_y_shift
     ty_mid_minus = skirt_transition_y_mid[1] + seam_y_shift
     ty_end_plus = skirt_transition_y_end[0] + seam_y_shift
@@ -422,7 +423,7 @@ def _skirt_profile_set(wall_offset):
 
     symmetric = split_skirt_profile(
         base_he, radius, base_he, radius,
-        ty_symmetric_plus, ty_symmetric_minus,
+        ty_symmetric, ty_symmetric,
     )
     mid = split_skirt_profile(
         wide_he, radius, mid_narrow_he, radius,
@@ -489,23 +490,74 @@ def cut_bore_cavity(solid):
 
 
 def loft_profile_stack(start_world_z, z_steps, profiles, overcut_last_step=False):
-    """Loft a stack of profiles at successive world-Z levels.
+    """Loft a stack of skirt profiles at successive world-Z levels.
 
     start_world_z: world Z of the first profile.
     z_steps: signed world-Z deltas between consecutive profiles.
     overcut_last_step: extend the last delta by overcut in the same
         direction as the loft's travel, so a cut profile pierces cleanly
         through a sibling solid boundary.
+
+    The symmetric outline has one transition vertex on each side; the asymmetric outline has
+    the two ends of its diagonal. That is a real topology change: one vertex opens into one edge.
+    OpenCascade's generic through-sections loft cannot make the ruled solid from unequal wires,
+    so state that correspondence directly. Every ordinary edge makes one ruled face; at each
+    transition the collapsed vertex and the next outline's edge make one triangle. Top, bottom
+    and those side faces are one shell — no epsilon edge and no Boolean seam between half-solids.
     """
-    wp = (WorldWorkplane(xy_plane_z_up)
-          .workplane(offset=start_world_z)
-          .center(center_x, center_y)
-          .polyline(profiles[0]).close())
+    if len(profiles) != len(z_steps) + 1:
+        raise ValueError("a profile stack needs one more outline than Z steps")
+
+    levels = []
+    z = start_world_z
+    levels.append([cq.Vector(center_x + x, center_y + y, z) for x, y in profiles[0]])
     for i, (step, profile) in enumerate(zip(z_steps, profiles[1:])):
         is_last = i == len(z_steps) - 1
         extra = math.copysign(overcut, step) if (overcut_last_step and is_last) else 0
-        wp = wp.workplane(offset=step + extra).polyline(profile).close()
-    return wp.loft(ruled=True)
+        z += step + extra
+        levels.append([cq.Vector(center_x + x, center_y + y, z) for x, y in profile])
+
+    def closed_wire(points):
+        return cq.Wire.makePolygon(points, close=True)
+
+    faces = [cq.Face.makeFromWires(closed_wire(levels[0])),
+             cq.Face.makeFromWires(closed_wire(levels[-1]))]
+    collapsed_count = 4 * (arc_segments + 1) + 2
+    split_count = collapsed_count + 2
+    collapse_i = 2 * (arc_segments + 1)
+
+    def aligned(points):
+        if len(points) == split_count:
+            return points
+        if len(points) != collapsed_count:
+            raise ValueError(
+                f"a skirt outline has {len(points)} vertices, expected "
+                f"{collapsed_count} collapsed or {split_count} split")
+        # Repeat each collapsed point only in this correspondence list. No edge is made from
+        # either repetition: `_side_face` below turns its mate into the one triangular face.
+        return (points[:collapse_i + 1] + [points[collapse_i]]
+                + points[collapse_i + 1:] + [points[-1]])
+
+    def side_face(a0, a1, b0, b1):
+        if (a1 - a0).Length < 1e-10:
+            return cq.Face.makeFromWires(closed_wire((a0, b0, b1)))
+        if (b1 - b0).Length < 1e-10:
+            return cq.Face.makeFromWires(closed_wire((a0, a1, b0)))
+        return cq.Face.makeRuledSurface(cq.Edge.makeLine(a0, a1),
+                                        cq.Edge.makeLine(b0, b1))
+
+    for upper, lower in zip(levels, levels[1:]):
+        a, b = aligned(upper), aligned(lower)
+        for i in range(split_count):
+            j = (i + 1) % split_count
+            faces.append(side_face(a[i], a[j], b[i], b[j]))
+
+    solid = cq.Solid.makeSolid(cq.Shell.makeShell(faces)).fix()
+    if not solid.isValid() or len(solid.Solids()) != 1:
+        raise ValueError("the exact skirt loft did not make one valid solid")
+    # Keep the project wrapper at the API boundary so later unions/cuts unwrap their operands
+    # before CadQuery's strict Workplane type check.
+    return WorldWorkplane(cq.Workplane(obj=solid))
 
 
 def build_skirt():
@@ -540,12 +592,14 @@ def build_tower():
 
 def _lower_profile_set(wall_offset):
     """Four lower-extension cross-section profiles, top to bottom of lower section."""
+    seam_y_shift = wall_offset * (math.sqrt(2) - 1)
     narrow_he = skirt_narrow_half_extent - wall_offset
     base_he = skirt_base_half_extent - wall_offset
     radius = corner_r - wall_offset
+    ty_end_minus = skirt_transition_y_end[1] + seam_y_shift
     narrow_symmetric = split_skirt_profile(
         narrow_he, radius, narrow_he, radius,
-        0.01, -0.01,
+        ty_end_minus, ty_end_minus,
         wide_half_extent_y=base_he, narrow_half_extent_y=base_he,
     )
     top = _skirt_profile_set(wall_offset)[-1]
@@ -603,16 +657,16 @@ def drop_well(air=0.0):
     Every station stands at least as open as the widest one under it: 70.0 mm from the flared
     outlet band up through the crown, and `cavity`'s own figure below that band.
 
-    THE SWEEP IS EACH OUTLINE CARRIED UP TO THE CROWN. `_stack_levels` is every Z the cavity
-    states a section on and `_stack_profiles` the outline standing there. Where adjacent
-    outlines differ, `_drop_sweep_sections` also carries their ruled interpolation at no more
-    than `drop_sweep_step` intervals. That intermediate section matters at the diagonal seam:
-    its vertices walk sideways as well as inward, and the union of the two endpoint prisms
-    leaves a pair of small crescent gaps that a real head catches on while being lowered.
+    THE SWEEP IS EACH STATED OUTLINE CARRIED UP TO THE CROWN. `_stack_levels` is every Z the
+    cavity states a section on and `_stack_profiles` the outline standing there. Between them
+    each half changes monotonically and their exact collapse/transition vertices stay on one
+    fixed 45-degree seam plane. The ruled cavity carries that change through its own band; once
+    a half reaches its extremal stated outline, that outline's crown prism carries it through
+    the rest of the insertion path. No sampled staircase stands in the fitting openings.
 
     `cavity`'s fitted faces stand under their own bands and this leaves them there."""
     solid = cavity(air)
-    for z, profile in _drop_sweep_sections(skirt_wall - air):
+    for z, profile in zip(_stack_levels(), _stack_profiles(skirt_wall - air)):
         if z >= -1e-9:
             continue
         # Struck the way `loft_profile_stack` strikes the same outlines: a profile is stated
@@ -621,31 +675,6 @@ def drop_well(air=0.0):
             WorldWorkplane(xy_plane_z_up).workplane(offset=z).center(center_x, center_y)
             .polyline(profile).close().extrude(-z))
     return solid
-
-
-def _drop_sweep_sections(offset):
-    """Every stated and interpolated profile the vertical insertion sweep carries upward.
-
-    `loft_profile_stack(..., ruled=True)` linearly interpolates corresponding vertices. A
-    constant pair needs only its shared endpoint. A changing pair is sampled at a maximum
-    `drop_sweep_step` in Z, which bounds the unsampled lateral chord below the head's running
-    air and matches the independent assembly motion proof's interval."""
-    levels = _stack_levels()
-    profiles = _stack_profiles(offset)
-    out = list(zip(levels, profiles))
-    for za, zb, pa, pb in zip(levels, levels[1:], profiles, profiles[1:]):
-        if pa == pb:
-            continue
-        count = max(1, math.ceil(abs(zb - za) / drop_sweep_step))
-        for i in range(1, count):
-            t = i / count
-            out.append((
-                za + (zb - za) * t,
-                [((1.0 - t) * a[0] + t * b[0],
-                  (1.0 - t) * a[1] + t * b[1])
-                 for a, b in zip(pa, pb)],
-            ))
-    return sorted(out, key=lambda item: item[0], reverse=True)
 
 
 def _stack_levels():
