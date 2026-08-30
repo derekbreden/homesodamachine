@@ -425,7 +425,7 @@ plan is one of them; the bay's storey is the other. With the pump cartridge in, 
 shows two of its own surfaces — each corner post's face across the bay, which is the corner
 relief's congruent twin (`_column_fairing`), and the **wings** of the tee wall behind the
 drawer, out where the drawer does not reach. `_bay_storey_segments` walks them: jamb to jamb,
-[369.67 mm](STOREY_RUN) over the storey at z [177.8..281 mm](STOREY_BAND), two quarter turns and
+[350.62 mm](STOREY_RUN) over the storey at z [177.8..281 mm](STOREY_BAND), two quarter turns and
 five straight runs, with its own datum on **x = 0** at the tee wall and the same
 [5.1285 mm](FLUTE_PITCH) pitch — so a groove lands on the machine's plane of symmetry inside as
 it does outside. It does not close, because a storey open at its mouth is not a loop; a run's
@@ -953,10 +953,13 @@ whole overturning moment.
 
 **The cap's aft face is open for the four made-up tubes.** One straight slot per pump rises
 from the head's outlet-relief sill to the split, so the cap can come up onto a pump whose
-tubes are already attached. The slot follows the head room fore and aft, but its two outer
-edges carry [1 mm](CAP_TUBE_RELIEF) past that room. That leaves at least one millimetre of
-printed running clearance at every Ø6.35 tube. The reliefs are narrow extensions of the one
-slot; the wall below its sill and the pump's flank seats remain whole.
+tubes are already attached. It begins fore on the relieved outlet face itself and is
+[69.55 mm](CAP_TUBE_SPAN) across — the complete pump's own [69.25 mm](CAP_TUBE_PART) at the
+two tube fittings, which is its widest dimension anywhere, plus [0.15 mm](CAP_TUBE_AIR) of
+running clearance per side. Inboard the slot runs on to the screw lane's wall rather than
+leave the 1.2 mm rib the two figures would otherwise strand there. The wall below its sill
+and the pump's four flank seats remain whole: the fittings pass without taking any of the
+surfaces that carry the head.
 
 **THE TEE TRAVELS AND THE VALVE DOES NOT.** `release-travel` offers each anchor tee the
 whole stroke and reports what it hits — a motion, where every other bound on that card
@@ -977,8 +980,9 @@ pump cartridge is home. `pump-cap-stops-on-plate` reads the area standing agains
 and that the kiss itself is air.
 
 **Its two flanks carry the lower band of the hand's own pocket**, on the same ledge and
-the same aft wall the pump cartridge's band stands on — [6.049 mm](GRIP_CAP_DEEP) of relief
-over [38.94 mm](GRIP_CAP_RISE) of height, which is what the head leaves out there. The
+the same aft wall the pump cartridge's band stands on — [16 mm](GRIP_CAP_DEEP) of relief
+over [38.94 mm](GRIP_CAP_RISE) of height, a fingertip's curl into a flank that has the
+section to give it. The
 piece comes out screwed to the pump cartridge and a hand on the assembly finds relief at both
 storeys; the whole figure is under [Pump trays](#pump-trays) below.
 
@@ -1192,7 +1196,7 @@ behind them.
 
 **A ledge is a travel.** The pocket rides fore with the piece as it comes out, and past
 the post's own aft plane it is in the post's shadow with the hand that was in it standing
-on the post. Ledge to that plane is [22.54 mm](GRIP_TRAVEL), which is what one pull
+on the post. Ledge to that plane is [34.54 mm](GRIP_TRAVEL), which is what one pull
 draws the assembly.
 
 **It is one pocket across both pieces** (`_grip_bands`). The deck keeps the band over
@@ -1205,20 +1209,25 @@ at all. That band is not roofed: it ends on the split, which is where the cap st
 material. Same ledge and same aft wall in both, so the two pieces a hand takes out together
 present it one face.
 
-**It goes as deep as the pump leaves it, storey by storey.** Under the split the head's
-own square reaches `pump_tray.head_half` and one `cap_pump_air` off the axis, and the
-cap's pocket is [6.049 mm](GRIP_CAP_DEEP) — nine millimetres of flank stand out there and
-that is what they come to. Over the split the boss's octagon reaches `boss_half` and the
-pocket is [8.254 mm](GRIP_SHALLOW); over the crown the bore reaches `can_half` and one
-`cap_pump_air`, and it is [15.85 mm](GRIP_DEEP). The deck keeps a [6 mm](GRIP_BACK) rib
-between its pocket floor and the boss/can room. The cap keeps one [3 mm](GRIP_CAP_BACK)
-wall between its pocket floor and the head room, leaving the rest of that flank to the hand.
-Between the boss and the can the deck pocket **walks out at `relief_chamfer`**: over a crown
-that rib moves inboard by the whole octagon-to-bore step, and ramped, the first layer over
-the crown still lands on the rim the layer under it keeps.
+**It goes as deep as a fingertip curls, not as deep as the block allows.**
+[16 mm](GRIP_REACH) (`grip_reach`) inboard of the flank, at every storey and in both
+pieces — [16 mm](GRIP_CAP_DEEP) on the cap and [16 mm](GRIP_DEEP) on the deck. The bay is
+the cavity's whole width, so what the pump leaves out here is more than twenty millimetres
+at every height, and a pocket struck to that is a hole a hand reaches through rather than a
+ledge it pulls on.
+
+**The pump is still the limit where the pump is close.** Each storey's floor stands on the
+reach or on the pump's own room plus that piece's section, whichever is shallower: under the
+split the head's square reaches `pump_tray.head_half` and one `cap_pump_air` off the axis;
+over it the boss's octagon reaches `boss_half`; over the crown the bore reaches `can_half`
+and one `cap_pump_air`. The deck keeps a [6 mm](GRIP_BACK) rib between its pocket floor and
+the boss/can room and the cap one [3 mm](GRIP_CAP_BACK) wall between its floor and the head
+room; on this box the reach is the shallower figure at all three, so the pocket has one back
+plane and no step. Where a storey does bind, the pocket **walks out at `relief_chamfer`** —
+ramped, the first layer over the step still lands on the rim the layer under it keeps.
 
 **The ledge is raked in plan, [1 in 3](GRIP_RAKE)** (`grip_rake`) — standing further fore
-the further inboard it runs, [5.285 mm](GRIP_RAKE_FORE) of fall across the deepest pocket.
+the further inboard it runs, [5.333 mm](GRIP_RAKE_FORE) of fall across the deepest pocket.
 The normal it presents to a fingertip carries a third of itself inboard, so the harder a
 hand pulls the harder it is drawn toward the centre of the piece and down into the pocket.
 The one edge this pocket has no wall on is the open flank, and inboard is the way away
