@@ -51,10 +51,14 @@ arch_plane_z = pc.skirt_bottom_z                 # skirt-bottom plane: outlet-po
 tower_top_z = (pc.bore_bottom_z + pc.tower_height
                - pc.tower_cap_thickness)         # tower bore far face — the motor's headroom
 y_face = pc.pos_y_face_y                          # case +Y outer footprint face
-# Outlet-port X positions on the +Y face (mirrors cut_arch_notches) — where the
-# pump's two barbs cross the wall and fittings attach.
-arch_xs = (pc.corner_r + pc.arch_radius - 4.0,
-           pc.footprint_x - pc.corner_r - pc.arch_radius + 4.0)
+# Outlet-port X positions on the +Y face — where the pump's two barbs cross the wall and
+# fittings attach. THE PITCH IS THE PART'S AND NOT THE CASE'S: `barb_pitch` is calipered across
+# the two fitting centres, and these stations are struck off it about the footprint centre.
+# `pump_case` arrives at the same two numbers from its own corner and notch radii, which is
+# what `kamoer-notches-on-barbs` reads — a case retrimmed at either radius moves its notches
+# and this figure stays where the part put it.
+barb_pitch = 57.0                                # centre to centre across the two outlet barbs
+arch_xs = (cx - barb_pitch / 2.0, cx + barb_pitch / 2.0)
 
 # --- Datasheet-nominal dimensions (external spec; geometry-description.md) --
 head_w = 62.61               # square pump-head body, width and height
@@ -78,6 +82,13 @@ bracket_z = base_plane_z     # the junction face it sits on — the head's rear,
 # and it is confirmed as barely: a consumer taking a hold in it takes the whole of it.
 outlet_relief = 2.075        # how far the outlet side stands fore of `body_y_face`, under the barbs
 outlet_relief_run = 12.585   # how far up off the head's own front face it holds that fall
+# The widest X span at the outlet tubes, calipered on the complete pump. The moulded head is
+# narrower than the two tube fittings at this one face, so any holder that passes the pump over
+# the fittings reads this figure rather than `head_w`.
+outlet_span_x = 69.25
+# What one fitting is across, which is the span less the pitch between them — the figure a slot
+# struck on `outlet_span_x` is actually passing at each of its two outer edges.
+fitting_w = outlet_span_x - barb_pitch
 
 # --- Axial seams (case frame; -Z = head front, +Z = motor rear) -------------
 head_front_z = base_plane_z - head_depth         # head front (clipped to cavity)
@@ -119,6 +130,19 @@ _bounds.state(
     tower_top_z >= motor_end_z,
     f"the motor ends at {motor_end_z:g} mm and the tower bore stops at {tower_top_z:g}, "
     f"so the can bottoms out {motor_end_z - tower_top_z:g} mm before the pump is home.")
+# AND THE CASE'S NOTCHES STAND ON THE PART'S BARBS. `cut_arch_notches` places them off
+# `corner_r` and `arch_radius`, the barbs are stationed off `barb_pitch`, and the two arrive at
+# the same pair from opposite ends. Nothing but this row holds them together: retrim either
+# radius and the case's notches walk off the part's outlets with no other reading to say so.
+_case_notch_xs = (pc.corner_r + pc.arch_radius - 4.0,
+                  pc.footprint_x - pc.corner_r - pc.arch_radius + 4.0)
+_notch_off = max(abs(a - b) for a, b in zip(arch_xs, _case_notch_xs))
+_bounds.state(
+    "kamoer-notches-on-barbs", "The case's arch notches stand on the part's own barbs",
+    "the two stations on one plane",
+    _notch_off <= 1e-9,
+    f"the case cuts its notches at {_case_notch_xs} and the part's barbs stand at {arch_xs}, "
+    f"{_notch_off:g} mm apart. Strike `cut_arch_notches` off `barb_pitch`.")
 
 
 def _zcyl(r, z0, z1, ox=cx, oy=cy):
