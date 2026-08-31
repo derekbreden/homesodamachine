@@ -27,8 +27,7 @@ inlet on the compressor's discharge stub, the outlet on the cold core's
 evaporator-inlet station — so the only thing left between them is the lane, and each
 is crossed as one straight length of tube.
 [`enclosure_assembly.refrigerant_joints()`](/hardware/manifold-layout/enclosure_assembly.py) measures
-both at every build — a mating on its two stations, a tube on both its mouths — and
-`check_refrigerant_joints` reds the `refrigerant-joints` gate if either opens. The fan
+both at every build — a mating on its two stations, a tube on both its mouths. The fan
 is on the face its air leaves by.
 
 `stations_hold()` holds all three to the box this module draws: each stands on

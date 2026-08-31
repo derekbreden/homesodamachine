@@ -39,8 +39,7 @@ at the tap-water bulkhead and its 1/4" PTC collet forward onto the 1/4" LLDPE ru
 the water-split; there is no roll, so the vent hangs as it is built, dropping its
 column straight into the ASSE drip pan under it. `enclosure_assembly.check_vent_lands` is where
 that landing is made: the pan's floor, rim and the chain's underside are struck on
-one set of numbers, so the drip falls exactly the gap the pan was drawn for, and a
-pose that put the tip outside the coves reds the `vent-lands` gate. The pack seats the chain and
+one set of numbers, so the drip falls exactly the gap the pan was drawn for. The pack seats the chain and
 reads all three terminals off that seat, so a length changed in any of the five parts
 moves the machine's ports with it.
 

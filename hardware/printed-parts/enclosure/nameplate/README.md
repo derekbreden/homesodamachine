@@ -72,9 +72,7 @@ would read as a V-groove round the plate instead of a flush inlay. The angle is
 SeaFlo's aft disc comes down to z 266.4, both standing one `enclosure.wall` off this wall. The
 plate's horizontal centreline is therefore the lowest line that leaves the corbel one millimetre
 over the cap; the pump's rounded aft disc leaves more at the west screw and the PSU leaves more
-at the east one. `nameplate-support-clearance` measures both complete production supports, not
-their envelopes. `enclosure_assembly.nameplate_screw_line` is the figure; `nameplate-field` on
-the build card is the reading.
+at the east one. `enclosure_assembly.nameplate_screw_line` is the figure.
 
 **The squared lower half is part of the corbel.** It gives the wedge one full-width face to carry
 while the upper half remains the standard M3 boss section around the insert. The two screw

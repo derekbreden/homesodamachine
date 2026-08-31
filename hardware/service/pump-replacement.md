@@ -184,12 +184,11 @@ runs clean.
    The carbonator's only liquid outlet climbs to the faucet, and the factory's transit sequence is
    [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) step 13.
 4. ~~**The stroke is not clear, so the cartridge cannot come out.**~~ **CLOSED.**
-   `release-travel` offers each anchor tee the whole stroke and all four clear it. The stroke
-   is the rest gap alone — the nose presses the moment it reaches the steel, the grip opens on
+   The stroke is the rest gap alone — the nose presses the moment it reaches the steel, the grip opens on
    contact, and the tee stops there while the tube draws out of it. The tee is the only body
    that moves: the tube stub flexes inside the two collets that hold it, and the valve on its
    far end stands where it was seated. That the stub bends is stated and not derived — no body
-   in the model has compliance in it, and `check_release_travel` is where the premise is marked.
+   in the model has compliance in it.
    Steps 2 and 5 run on that release mechanism.
 
 ## Sources

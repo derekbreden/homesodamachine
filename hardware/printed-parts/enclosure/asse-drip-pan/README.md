@@ -54,9 +54,7 @@ backstop takes what the rim leaves, which `enclosure_assembly.check_pan_lane` me
 against the pump's casting. In Y the pump's discharge bounds it and the vent does not:
 `enclosure_assembly.pan_front_y` strikes the **sleeve's** forward face on the barb's own aft
 edge, by what a hose leaving that barb needs. The vent then falls where the
-chain's own standoff from the +Y wall of back-top leaves it, and
-`enclosure_assembly.check_vent_lands` reads its tip back against the floor those two leave,
-reporting where the drip lands as the `vent-lands` gate row.
+chain's own standoff from the +Y wall of back-top leaves it.
 
 ## What the floor carries, and how high the walls stand
 

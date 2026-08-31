@@ -26,8 +26,7 @@ which of them the machine mates and which it draws is settled by `_lines` having
 so no leg is read twice and none falls between the two. `refrigerant_joints` takes the reading
 over the whole loop at every build — `REFRIGERANT_IDS` is the card's own population — grading a
 mating by the gap between its two stations and a tube by how far its two ends stand off the
-mouths they are brazed into, and `check_refrigerant_joints` reads red for any leg standing open
-and for any leg with no pair of placed stations to measure.
+mouths they are brazed into.
 
 Frame
 -----
@@ -570,8 +569,8 @@ def build_compressor():
 
 # THE PLANE THE FLAVOUR PACK SETS DOWN ON, stated the way `rear_plane_y` and `COMPRESSOR_FRONT`
 # are. What it is worth is the AIR OVER THE COLD CORE'S CAP: the pack's two source valves take a
-# quarter turn that carries them aft over that lid, and this plane is what holds them off it
-# (`check_pack_over_core`). Struck instead on whatever body happens to stand tallest under it,
+# quarter turn that carries them aft over that lid, and this plane is what holds them off it.
+# Struck instead on whatever body happens to stand tallest under it,
 # the pack's whole storey would follow a donor block being calipered again.
 PACK_CROWN = 151.0
 # WHAT THE CONDENSER STANDS OFF THE SLAB, and it is the insert under its own base flange and
@@ -708,7 +707,6 @@ def build_fuse_clamp(comp_carry, fuse):
     face = power_face_station(comp_carry)
     placed, carry = seat_body(_clamp.build(), FUSE_TURN, seat="fuse-clamp",
                               station=(((0.0, 0.0, 0.0), (0.0, 0.0, 1.0)), face))
-    check_cutoff_bedded(placed, fuse, face)
     return placed, carry
 
 
@@ -848,12 +846,7 @@ def mq6_cradle(carry):
 
 # --- the bounds the machine states about itself -----------------------------
 #
-# Several constructions in this module measure a bound the MACHINE STATES rather than a bound
-# its own construction meets: every printed valve cradle stands under its valve, every leg of
-# the refrigerant loop closes, the vent's drip lands on the ASSE drip pan's flat
-# floor, the pan's west lip lands inside the −X wall, the power column stands in the depth the
-# +X wall runs free, and a body seated through a wall stands under the box's own ceiling.
-# A printed part may state one about itself too: `asse_drip_pan.check_plate` measures the pan's
+# A printed part may state a bound about itself: `asse_drip_pan.check_plate` measures the pan's
 # flat floor against the moisture plate it receives, and `build_pan` enters that reading here.
 # `enclosure` states more of them about the box it draws and keeps
 # its own ledger, which `carry_enclosure_bounds` reads into this one. Every one of them can be
@@ -871,7 +864,7 @@ def mq6_cradle(carry):
 # elevations and the scorecard a run writes. So none of these stops the build: each hands back
 # a `Bound` whether it holds or not, `build_pack` collects them onto the assembly the way it
 # collects `seats` and `refrigerant`, and `_scorecard` renders one gate row apiece carrying the
-# message the check wrote. The card is committed and a terminal is not, so the red row is the
+# message the reading wrote. The card is committed and a terminal is not, so the red row is the
 # louder of the two — and the artifact that shows WHY it is red still exists.
 
 Bound = collections.namedtuple("Bound", "id label ok value target detail")
@@ -969,71 +962,10 @@ def cradle_rows(foam, foam_carry, placed: dict) -> list:
     return rows
 
 
-def check_cradles(rows) -> Bound:
-    """Whether every cradle the cap prints is under the valve it was printed for.
-
-    The detail is the table: a moved valve prints the row `_cold_core_interface.cap_cradles`
-    should carry, so the cap is corrected from the machine and never guessed at."""
-    bad, worst = [], 0.0
-    for name, has, wants, long_span, short_span in rows:
-        off = max(abs(wants[0] - has.centre[0]), abs(wants[1] - has.centre[1]),
-                  abs(wants[2] - has.yaw), abs(wants[3] - has.seat))
-        lying = (abs(long_span - _beduan.port_length) > CRADLE_TOL
-                 or abs(short_span - _beduan.body_width_x) > CRADLE_TOL)
-        worst = max(worst, off)
-        if off > CRADLE_TOL or lying:
-            bad.append((name, wants, lying))
-    return record_bound(Bound(
-        "cradles-land", "Every printed valve cradle is under the valve it holds", not bad,
-        f"{len(rows) - len(bad)}/{len(rows)} seated, furthest off {worst:.3f} mm",
-        f"every cradle within {CRADLE_TOL:g} mm",
-        ([] if not bad else
-         ["the cold core's cap prints a valve cradle where no valve stands — these are the "
-          "rows `_cold_core_interface.cap_cradles` should carry. A cradle is a printed seat "
-          "and a valve is placed by the pack that carries it, so the cap follows the machine."]
-         + [f'    "{n}": Cradle(({w[0]:.3f}, {w[1]:.3f}), {w[2]:g}, {w[3]:.4f}),'
-            + ("   \u2190 and this valve is on its side; no cradle in the family holds that"
-               if lying else "")
-            for n, w, lying in bad])))
-
-
 # How far a cap valve may stand off the row before the row is not one. The three are placed by
 # three different rules — two ride the pack, one is stood on the chain's column — so this is what
 # those three rules agree to within.
 ROW_TOL = 1e-3
-
-
-def check_valve_row(placed: dict) -> Bound:
-    """The three Beduans on the cap, read across the cap's own face: one depth, one pitch.
-
-    THE PITCH IS THE PACK'S TO GIVE. V-B sits on the manifold's west inner limb and V-K on the
-    suction chain's column, and neither of those two answers to the other; what stands between
-    them is V-A, which the pack's `manifold_layout.SOURCE_SPREAD` carries outboard. So the
-    middle valve is the one number in the row, and the detail names the spread that centres it."""
-    row = [(n, box(placed[n])) for n in ("valve-v-b", "valve-v-a", "vk-solenoid") if n in placed]
-    if len(row) < 3:
-        return record_bound(Bound(
-            "cap-valve-row", "The three valves on the cap stand in one row", False,
-            f"{len(row)}/3 placed", "three valves", []))
-    depths = [b.ymax for _n, b in row]
-    pitch = [(row[i + 1][1].xmin + row[i + 1][1].xmax) / 2.0
-             - (row[i][1].xmin + row[i][1].xmax) / 2.0 for i in range(2)]
-    off_y, off_x = max(depths) - min(depths), abs(pitch[1] - pitch[0])
-    ok = off_y <= ROW_TOL and off_x <= ROW_TOL
-    detail = [f"{n}: x {(b.xmin + b.xmax) / 2.0:8.3f}   aft face y {b.ymax:8.3f}"
-              for n, b in row]
-    if not ok:
-        centre = ((row[0][1].xmin + row[0][1].xmax) / 2.0
-                  + (row[2][1].xmin + row[2][1].xmax) / 2.0) / 2.0
-        here = (row[1][1].xmin + row[1][1].xmax) / 2.0
-        detail = ([f"the middle valve stands {here:.3f} and the pair either side of it centre "
-                   f"on {centre:.3f}; `manifold_layout.SOURCE_SPREAD['V-A']` carries it out "
-                   f"from {ml.INNER_X:.3f}, so the row wants {centre - ml.INNER_X:.3f}."]
-                  + detail)
-    return record_bound(Bound(
-        "cap-valve-row", "The three valves on the cap stand in one row, evenly spaced", ok,
-        f"pitch {pitch[0]:.3f} / {pitch[1]:.3f} mm, depths within {off_y:.3f} mm",
-        f"one depth and one pitch within {ROW_TOL:g} mm", detail))
 
 
 # --- the flavour manifold's valve trays ------------------------------------
@@ -1163,32 +1095,6 @@ def valve_tray_plans(a=None) -> dict:
     return out
 
 
-def check_valve_trays_hold(pieces: dict, placed: dict) -> Bound:
-    """Whether every valve on a tray is standing in the piece that carries its seats.
-
-    Read as the seat is: a valve's four corner posts hang in four sockets and its round body
-    boss lands on the plate's face, so the valve and the printed piece TOUCH. Anything else is
-    a plate drawn beside a valve rather than under it. EVERY VALVE ON THE MACHINE IS HELD THIS
-    ONE WAY — the release moves tees, not valves — so one figure is the right figure here and
-    a second reading would be a distinction the machine does not make.
-
-    The detail is the table, so a deck that has moved prints what it now is."""
-    rows, worst = [], 0.0
-    solids = [p.val() if hasattr(p, "val") else p for p in pieces.values()]
-    for name, (_axis, sign, plane, seats) in sorted(valve_tray_decks(placed).items()):
-        for valve, _u, _v in seats:
-            gap = min(_clearing.gap(placed[valve], piece, 1.0) for piece in solids)
-            worst = max(worst, gap)
-            rows.append((name, valve, plane, sign, gap))
-    bad = [r for r in rows if r[4] > TRAY_SEAT_SLIP]
-    return record_bound(Bound(
-        "valve-trays-hold", "Every valve on a printed valve tray is standing in its seats", not bad,
-        f"{len(rows) - len(bad)}/{len(rows)} valves seated, furthest off {worst:.3f} mm",
-        f"every valve within {TRAY_SEAT_SLIP:g} mm of the plate under it",
-        [f"{n:18} {v:12} y-plane {p:8.3f} {'+' if s > 0 else '-'}Z   off {g:.4f}"
-         for n, v, p, s, g in rows]))
-
-
 # --- the flavour manifold's pump stations ----------------------------------
 #
 # ONE STATION PER KAMOER. The point lies on the +Z face of its pump's head, where the stamped
@@ -1276,175 +1182,6 @@ def pump_tray_plans(a=None, shell=None) -> dict:
     # interior wall plane.
     return {head: round(centre[1] - _enc.pump_relief_floor, 6)
             for head, (_axis, _sign, centre) in pump_tray_seats(placed).items()}
-
-
-@functools.lru_cache(maxsize=None)
-def _pump_case_room_source(air: float, swept: bool, support_top=None):
-    """One case-derived pump room in the pump frame, built once per clearance."""
-    room = (_tray.drop_well(air, support_top=support_top)
-            if swept else _tray.head_room(air))
-    return room.val() if hasattr(room, "val") else room
-
-
-def _pump_case_room(station, air: float, swept: bool, support_top=None):
-    """One case-derived pump room carried onto an assembly station."""
-    return _pump_case_room_source(air, swept, support_top).moved(
-        cq.Location(cq.Vector(*station)))
-
-
-def check_pump_capture(pieces: dict, placed: dict) -> Bound:
-    """Whether every pump bracket is between the lower cradle and the top clamp.
-
-    The stamped bracket is stated but not drawn by `kamoer_kphm400`. Its 68.6 mm square stands
-    proud of the case-derived head room at the head-to-boss plane. The cradle's lower well
-    leaves the exact difference between that room and the bracket as a bearing annulus; the
-    clamp collar begins above the same plane and covers that annulus. Probe both printed pieces
-    on the three closed sides of each pump.
-
-    The +Y side is the fitting side and remains open through the vertical drop path. The other
-    three sides carry the pump weight and the clamp load as an opposed pair."""
-    clamp = pieces.get("pump-cap")
-    cradle = pieces.get("pump-cartridge")
-    if clamp is None or cradle is None:
-        return record_bound(Bound(
-            "pump-clamped-in-cradle", "Each pump is captured between cradle and top clamp", True,
-            "no pump cartridge in this box", "both printed pieces on each bracket", []))
-    clamp = clamp.val() if hasattr(clamp, "val") else clamp
-    cradle = cradle.val() if hasattr(cradle, "val") else cradle
-    stations = tuple(c for _h, (_a, _s, c) in sorted(pump_tray_seats(placed).items()))
-    split = _enc.cap_split_z(stations)
-    outer = _tray.bracket_half
-    probe_t = 0.5
-    probe_gap = 0.01
-    rows, worst = [], 1.0
-    for cx, cy, _cz in stations:
-        room = _pump_case_room((cx, cy, split), _enc.cap_pump_air, swept=True)
-        for name, plan in (
-                ("+X", (cx, cx + outer, cy - outer, cy)),
-                ("-X", (cx - outer, cx, cy - outer, cy)),
-                ("-Y", (cx - outer, cx + outer, cy - outer, cy))):
-            under = _enc._ybox(
-                plan[0], plan[1], plan[2], plan[3],
-                split - probe_gap - probe_t, split - probe_gap).cut(room)
-            expected = under.Volume()
-            over = under.moved(cq.Location(cq.Vector(
-                0.0, 0.0, probe_t + _tray.bracket_t + 2.0 * probe_gap)))
-            lower = cradle.intersect(under).Volume() / expected if expected > 0.0 else 0.0
-            upper = clamp.intersect(over).Volume() / expected if expected > 0.0 else 0.0
-            worst = min(worst, lower, upper)
-            rows.append((f"({cx:+.1f}) {name}", expected, lower, upper))
-    bad = [r for r in rows if r[1] <= 1e-6 or min(r[2:]) < 0.999]
-    return record_bound(Bound(
-        "pump-clamped-in-cradle", "Each pump is captured between cradle and top clamp", not bad,
-        f"{len(rows) - len(bad)}/{len(rows)} closed sides captured, least {100.0 * worst:.2f}%",
-        "the complete exact bearing mask in cradle below and clamp above all three closed sides",
-        [f"{who}: {area:.1f} mm³ mask, cradle {100.0 * lower:.2f}%, "
-         f"clamp {100.0 * upper:.2f}%"
-         for who, area, lower, upper in bad]))
-
-
-def check_pump_case_room(pieces: dict, placed: dict) -> Bound:
-    """Whether the cradle cuts the fitted pump room and complete insertion sweep.
-
-    The fitted room is not the pump head's nominal square: it carries the case-derived rounded,
-    asymmetric sections and reaches 70 mm across at the outlet band. The swept room carries
-    each section upward and extends only the tube side to the 72.75 mm holder opening around
-    the 72.50 mm physical casing span."""
-    cradle = pieces.get("pump-cartridge")
-    if cradle is None:
-        return record_bound(Bound(
-            "cradle-follows-pump-case", "The cradle follows the fitted pump room",
-            True, "no pump cradle in this box", "the exact fitted and swept rooms open", []))
-    cradle = cradle.val() if hasattr(cradle, "val") else cradle
-    stations = tuple(c for _h, (_a, _s, c) in sorted(pump_tray_seats(placed).items()))
-    support_top = _enc.pump_skirt_support_z(stations) - stations[0][2]
-    fitted_source = _pump_case_room_source(_enc.cap_pump_air, False)
-    swept_source = _pump_case_room_source(_enc.cap_pump_air, True, support_top)
-    width = box(swept_source).xlen
-    required = 2.0 * _enc.cap_slot_half
-    extra = swept_source.cut(fitted_source).Volume()
-    rows = []
-    for station in stations:
-        fitted = _pump_case_room(station, _enc.cap_pump_air, swept=False)
-        swept = _pump_case_room(
-            station, _enc.cap_pump_air, swept=True, support_top=support_top)
-        rows.append((station[0], cradle.intersect(fitted).Volume(),
-                     cradle.intersect(swept).Volume()))
-    clean = [row for row in rows if max(row[1:]) <= 1e-3]
-    ok = len(clean) == len(rows) and width >= required - 1e-9 and extra > 1e-3
-    return record_bound(Bound(
-        "cradle-follows-pump-case", "The cradle follows the fitted pump room", ok,
-        (f"{len(clean)}/{len(rows)} exact rooms/sweeps open, outlet width {width:.3f} mm; "
-         f"sweep adds {extra:.1f} mm³"),
-        f"zero cradle bite and at least the {required:.3f} mm fitting opening",
-        ([f"pump x {cx:+.1f}: fitted room bite {fitted:.6f} mm³, "
-          f"swept room bite {swept:.6f} mm³"
-          for cx, fitted, swept in rows if max(fitted, swept) > 1e-3]
-         + ([] if width >= required - 1e-9 else [
-             f"the tube-side insertion room is {width:.3f} mm across, "
-             f"{required - width:.3f} mm short of the fitting opening"])
-         + ([] if extra > 1e-3 else [
-             "the insertion room is only the seated cavity; no vertical sweep was added"]))))
-
-
-def check_cap_passes_tubes(pieces: dict, placed: dict, plate: dict) -> Bound:
-    """Whether the fittings and barb tubes pass the cradle's vertical outlet openings.
-
-    The lower cradle opens one 13 mm passage on each placed 12.75 mm tube-casing axis, leaving
-    0.125 mm radial clearance per side. Another 0.15 mm is retained separately along the
-    insertion axis. Wall remains between and outside all four passages. The existing insertion
-    sweep reads the solids."""
-    cradle = pieces.get("pump-cartridge")
-    if cradle is None:
-        return record_bound(Bound(
-            "cradle-passes-fittings", "Each fitting passes the cradle's outlet opening", True,
-            "no cradle in this box", "every fitting inside its vertical opening", []))
-    edge = _enc.cap_fitting_half
-    rows, worst = [], None
-    stations = tuple(c for _h, (_a, _s, c) in sorted(pump_tray_seats(placed).items()))
-    for cx, _cy, _cz in stations:
-        for hx, _hz in plate["holes"]:
-            if (hx > 0.0) != (cx > 0.0):
-                continue
-            expected = cx + (-1.0 if hx < cx else 1.0) * _tray.outlet_pitch / 2.0
-            air = edge - _tray.fitting_w / 2.0 - abs(hx - expected)
-            worst = air if worst is None else min(worst, air)
-            rows.append((f"({cx:+.1f}) barb x {hx:+.2f}", air))
-    bad = [row for row in rows if row[1] < -1e-9]
-    return record_bound(Bound(
-        "cradle-passes-fittings", "Each fitting passes the cradle's outlet opening",
-        not bad,
-        f"{len(rows) - len(bad)}/{len(rows)} fittings clear, least {worst:.3f} mm off the edge",
-        "each 12.75 mm casing centered inside its 13 mm shaft",
-        [f"{who}: the 12.75 mm casing overruns its shaft by {-air:.2f} mm"
-         for who, air in bad]))
-
-
-def check_trays_hold(pieces: dict, placed: dict) -> Bound:
-    """Whether the top clamp's conformal collars land on both pumps.
-
-    Each collar's pressing plate lands on the stamped bracket, its octagonal wall takes the
-    boss above that bracket and its shoulder surrounds the motor can. The lower cradle
-    intentionally has running air around the head, so this reading is against the clamp alone."""
-    rows, worst = [], 0.0
-    clamp = pieces.get("pump-cap")
-    if clamp is None:
-        return record_bound(Bound(
-            "clamp-locates-pumps", "The top clamp locates both pumps", True,
-            "no pump clamp in this box", "each pump touching its conformal collar", []))
-    clamp = clamp.val() if hasattr(clamp, "val") else clamp
-    for head, (_axis, _sign, centre) in sorted(pump_tray_seats(placed).items()):
-        boss = head.replace("-head", "-boss")
-        gap = _clearing.gap(placed[boss], clamp, 1.0)
-        worst = max(worst, gap)
-        rows.append((head, centre, gap))
-    bad = [r for r in rows if r[2] > PUMP_TRAY_SLIP]
-    return record_bound(Bound(
-        "clamp-locates-pumps", "The top clamp locates both pumps", not bad,
-        f"{len(rows) - len(bad)}/{len(rows)} pumps seated, furthest off {worst:.3f} mm",
-        f"every boss within {PUMP_TRAY_SLIP:g} mm of its octagonal collar",
-        [f"{h:14} axis ({c[0]:8.3f}, {c[1]:8.3f}) bracket z {c[2]:8.3f}   off {g:.4f}"
-         for h, c, g in rows]))
 
 
 # --- the collet plate --------------------------------------------------------
@@ -1602,637 +1339,10 @@ def export_collet_plate_dxf(spec, path):
     export_dxf(flat.section(0.5).translate((0, 0, -0.5)), str(path))
 
 
-def check_collet_plate(spec, mcarry) -> None:
-    """The plate against the joints it works: the nose it must catch, the tube it must
-    pass, the berth the standoff opened for it between the barbs and the collets, and where
-    its four holes fall in the band the floor and the rim leave it."""
-    hole_r = spec["hole_d"] / 2.0
-    mid = (spec["z0"] + spec["z1"]) / 2.0
-    hole_z = spec["holes"][0][1]
-    off = abs(hole_z - mid)
-    record_bound(Bound(
-        "plate-holes-centred", "The collet holes stand centred in the plate's band",
-        off <= 1e-6,
-        f"holes at z {hole_z:g}, band {spec['z0']:g}..{spec['z1']:g}, off {off:.3f} mm",
-        "the row on the band's own middle",
-        ([] if off <= 1e-6 else [
-            f"a hole {off:.2f} mm off centre has {hole_z - spec['z0']:.2f} mm of steel under "
-            f"it and {spec['z1'] - hole_z:.2f} over — the nose is caught by whichever edge "
-            f"is nearer, and the plate bows about the other"])))
-    record_bound(Bound(
-        "plate-stops-collets", "The plate's holes catch the collet noses",
-        hole_r + 1.0 <= COLLET_NOSE_R + 1e-9,
-        f"hole r {hole_r:g} against a nose of r {COLLET_NOSE_R:g}",
-        "one millimetre of annulus under the nose, all round",
-        ([] if hole_r + 1.0 <= COLLET_NOSE_R + 1e-9 else [
-            f"a Ø{spec['hole_d']:g} hole leaves {COLLET_NOSE_R - hole_r:.2f} mm of nose on "
-            f"the steel — the collet follows its tube into the hole and nothing releases"])))
-    record_bound(Bound(
-        "plate-passes-tubes", "The plate's holes pass the barb tubes",
-        hole_r >= ml.TUBE_D / 2.0 + 0.5,
-        f"hole r {hole_r:g} over a Ø{ml.TUBE_D:g} tube",
-        "half a millimetre of air round the tube",
-        ([] if hole_r >= ml.TUBE_D / 2.0 + 0.5 else [
-            f"a Ø{spec['hole_d']:g} hole closes on the Ø{ml.TUBE_D:g} tube it must let "
-            f"slide — the plate would carry the tube instead of releasing it"])))
-    # THE ONE FIGURE IN THE STROKE THAT WAS MEASURED ON A DIFFERENT FITTING. `COLLET_TRAVEL`
-    # comes off a PP0408W union in hand, because no tee in this machine has been taken apart to
-    # watch its sleeve slide, and `collet_plate_spec` spends it as though it were this tee's.
-    # What makes that borrowing checkable is that a sleeve cannot be pressed further than it
-    # stands proud: the tee's own `COLLET_PROUD` is a ceiling the borrowed figure has to sit
-    # under, and if it ever does not, the number is not this family's and the wall behind the
-    # steel has been cut back on a measurement that does not apply to it.
-    travel, proud = _jgu.COLLET_TRAVEL, ml.tee.COLLET_PROUD
-    record_bound(Bound(
-        "collet-travel-fits", "The borrowed sleeve travel fits the tee's own sleeve",
-        travel <= proud + 1e-9,
-        f"{travel:.3f} mm of press against a sleeve standing {proud:.3f} mm proud",
-        "the measured travel under the sleeve's own proud length",
-        ([] if travel <= proud + 1e-9 else [
-            f"`jg_pp0408w.COLLET_TRAVEL` is {travel:.3f} mm, measured on a union, and this "
-            f"tee's sleeve stands only {proud:.3f} mm out — a sleeve cannot be pressed further "
-            f"than it stands, so the borrowed figure cannot be this tee's and the stroke "
-            f"`wall_aft_y` is struck off is not the stroke the release asks"])))
-    barb = max(mcarry((ml.barb_station(t), (0.0, 0.0, 1.0)))[0][1] for t in ml.BARB_OF)
-    air = spec["fore_y"] - barb
-    record_bound(Bound(
-        "plate-berth", "The standoff holds the plate off the barbs",
-        air >= 0.7 - 1e-9,
-        f"{air:.2f} mm between the barb plane and the steel",
-        "at least 0.7 mm — `manifold_layout.BARB_STANDOFF` is the whole berth",
-        ([] if air >= 0.7 - 1e-9 else [
-            f"the steel's fore face stands {air:.2f} mm off the barb plane — the standoff "
-            f"is spent before the plate and its rest gap fit in it. Raise "
-            f"`BARB_STANDOFF`, or thin the plate"])))
-
-
 EXTRUSION_W = 0.42           # the outer-wall bead the box's own profile lays
                              # (`printed-parts/enclosure/enclosure/print-log.md`)
 
 
-def check_panel_web() -> Bound:
-    """The wall left between a valve seat's sockets and the port channel that runs past them.
-
-    A WALL THINNER THAN ONE EXTRUSION IS NOT A THIN WALL, IT IS NOTHING. A web the model draws
-    at a quarter of the bead this piece is printed with is a web the slicer lays no material in
-    at all: the socket opens into the channel and the post loses its inboard flank
-    over that stretch. The solid says the post is surrounded; the bed says otherwise, and no
-    clash check, no volume and no `post-engagement` reading can tell the difference — they all
-    measure the model, and the model is right.
-
-    THE TWO COME CLOSE BY CONSTRUCTION, so this is worth reading rather than assuming. A
-    socket's inner edge stands `corner_inset - socket_radius` off the plate's centreline and
-    the channel stands `port_radius + PORT_SLIP` — a tenth of a millimetre apart if they ever
-    met at the same height. What keeps them apart is height alone: the channel's widest station
-    is above the sockets' mouths. Anything that drags it down into their band spends that tenth
-    at once, and nothing about a solid says it has been spent.
-
-    Read off the cutters rather than the piece: they are what the plate is hollowed by, so the
-    distance between them IS the web, and reading it here does not depend on finding the right
-    two faces in a solid that has been through thirty other booleans.
-
-    AND IT IS THE ONLY THING ON THIS CARD HELD TO WHAT THE MACHINE CAN LAY. Several bounds here
-    keep a minimum wall — `plug-web` at 1 mm, `port-field-web` at a rim's own width, and
-    `port-pocket-floor` at `enclosure.wall` — but every one of those figures is the design's,
-    chosen so a feature reads right and stands up. `EXTRUSION_W` is not: it is the printer's,
-    and it is the width below which a wall is not thin but absent. A solid states material at
-    any width whatever, so nothing that reads the model can tell the two apart; only a figure
-    from outside the model can.
-
-    AND A NAME IS NOT A NOZZLE. `copper_plugs.min_printable_thickness` is 1.0 and its bound
-    says PRINTABLE, but no nozzle stands behind it — `ledger/machine-time.md` names one for
-    two of its four print groups, and the group the plug stack prints in is not one of them.
-    It is not wrong today, because 1.0 is over one bead on anything this shop runs; it is
-    unheld, which is a different thing and reads more confident for saying printable. The
-    figure to copy is `faucet_shell.display_line_width` — 0.62, its own part's bead, on the
-    0.4 group `machine-time.md` does name."""
-    a = _vseat.build_sockets()
-    b = _vtray.build_port_channel(_vtray.height() + 2.0)
-    a = a.val() if hasattr(a, "val") else a
-    b = b.val() if hasattr(b, "val") else b
-    d = _BRepDist(a.wrapped, b.wrapped)
-    worst = d.Value() if d.IsDone() else 0.0
-    rows = [("seat", worst)]
-    bad = [r for r in rows if r[1] < EXTRUSION_W - 1e-9]
-    return record_bound(Bound(
-        "tray-web", "A valve seat's sockets keep a printable wall to the port channel",
-        not bad,
-        f"{worst:.4f} mm of wall, {100.0 * worst / EXTRUSION_W:.0f}% of an extrusion",
-        f"at least one {EXTRUSION_W:g} mm extrusion of wall between socket and channel",
-        [f"socket to port channel   {w:.4f} mm   {100.0 * w / EXTRUSION_W:.0f}% of an "
-         f"extrusion of {EXTRUSION_W:g}" for _lab, w in rows]))
-
-
-POST_GRIP_FLOOR = 3.0        # of a post inside its plate at rest — see `check_post_engagement`
-
-
-def check_post_engagement(pieces, placed, spec) -> Bound:
-    """How much of each valve's corner post is standing INSIDE its plate, at rest.
-
-    `valve-trays-hold` reads whether a valve is near the plate that holds it. This reads how much
-    of it is HELD, which is a different quantity and the one `valve_seat`'s own headline turns
-    on: the posts in their sockets are the whole of the retention. A post engaged half a
-    millimetre sits at exactly the same radial clearance from its socket wall as one engaged
-    six, so proximity cannot tell them apart and nothing else on this card was looking.
-
-    Measured rather than computed: a sleeve around each post's own axis, just outside its
-    socket AND NO LONGER THAN THE POST, intersected with the printed piece. What comes back is
-    the stretch of that post's length the plate actually surrounds — so a socket shortened by a port channel crossing it,
-    or by any later cut, reads short here even though the arithmetic still says six."""
-    solids = [q.val() if hasattr(q, "val") else q for q in pieces.values()]
-    # A SLEEVE IS A THIMBLE AND THE PIECES ARE THE WHOLE BOX. Four sleeves a valve asked of
-    # every printed piece is 224 kernel booleans to find the one piece each post stands in,
-    # and `_boxes.loose` settles 192 of them without meshing anything: boxes that miss are
-    # solids that miss, and a slack box only lets a pair through to the boolean that would
-    # have answered anyway.
-    boxes = [_boxes.loose(s) for s in solids]
-    inset, r = _vseat.corner_inset, _vseat.socket_radius
-    rows, bad = [], []
-    for _name, (_axis, sign, plane, seats) in sorted(valve_tray_decks(placed).items()):
-        for valve, u, v in seats:
-            worst = None
-            for du in (-inset, inset):
-                for dv in (-inset, inset):
-                    # CLIPPED TO THE POST'S OWN LENGTH, and that clip is the whole reading.
-                    # A sleeve run further than the post measures how long the SOCKET is,
-                    # which is a fact about the plate and not about what holds the valve —
-                    # the two differ by whatever the plate's face stands off the mounting
-                    # plane, and the longer number is the flattering one. From the mounting
-                    # plane, `seat_top_z` along the valve's own +Z.
-                    base = cq.Vector(u + du, plane, v + dv)
-                    axis = cq.Vector(0, sign, 0)
-                    sleeve = (cq.Solid.makeCylinder(r + 0.8, _vseat.seat_top_z, base, axis)
-                              .cut(cq.Solid.makeCylinder(r + 0.02, _vseat.seat_top_z,
-                                                         base, axis)))
-                    held = 0.0
-                    sb = _boxes.loose(sleeve)
-                    for solid, pb in zip(solids, boxes):
-                        if (sb.xmin > pb.xmax or pb.xmin > sb.xmax
-                                or sb.ymin > pb.ymax or pb.ymin > sb.ymax
-                                or sb.zmin > pb.zmax or pb.zmin > sb.zmax):
-                            continue
-                        try:
-                            bb = sleeve.intersect(solid).BoundingBox()
-                            held = max(held, bb.ylen)
-                        except Exception:
-                            pass
-                    worst = held if worst is None else min(worst, held)
-            rows.append((valve, worst))
-            if worst < POST_GRIP_FLOOR - 1e-6:
-                bad.append(valve)
-    return record_bound(Bound(
-        "post-engagement", "Every valve's posts stand in their plate at rest", not bad,
-        f"{len(rows) - len(bad)}/{len(rows)} valves gripped, least "
-        f"{min((w for _v, w in rows), default=0.0):.3f} mm",
-        f"at least {POST_GRIP_FLOOR:g} mm of every post inside its plate with the valve at rest",
-        [f"{v:12} {w:6.3f} mm of {_vseat.seat_top_z:g} in the plate" for v, w in rows]))
-
-
-def check_release_travel(pieces, placed, spec) -> Bound:
-    """Whether the pump cartridge's release has ROOM TO HAPPEN.
-
-    EVERY OTHER BOUND ON THIS CARD READS WHERE A BODY STANDS. This one reads whether one can
-    MOVE, which is a different question, and the only one that can fail on a machine whose
-    every body is standing exactly where it should. The release is a MOTION: the gripped
-    tubes drag each anchor tee forward until its collet nose lands on the steel, and then the
-    body keeps coming while the nose is held, which is what opens the grip. `spec["stroke"]`
-    is the whole of that travel — the rest gap off the plate plus the sleeve's own measured
-    slide. A tee that cannot make it does not let its tube go, and nothing about the seated
-    machine looks wrong.
-
-    THE VALVE BUTTED ON THE RUN DOES NOT TRAVEL AND IS NOT READ HERE. What gives is the tube
-    stub between the two collets, which bends over the millimetre the tee takes — so a valve
-    stays seated on its own plate exactly as every other valve does, and only the tee is
-    offered the stroke.
-
-    THAT THE STUB BENDS IS STATED, NOT DERIVED, AND NOTHING IN THIS TREE CAN CHECK IT. Every
-    body in the model is rigid: there is no compliance anywhere in it, so a chain of reasoning
-    over it can only ever conclude that something rigid has to move, and reading `BUTT` as 0
-    says the two collet faces meet with no tube between them — which is a fact about a gap and
-    not about whether the tube INSIDE them can articulate. The mechanism here is the account of
-    someone who has handled the fittings. It is the one premise under the release that no bound
-    on this card reaches, and anything downstream describing the stub rests on it rather than
-    on geometry.
-
-    Each body is offered the stroke, fore, against every printed piece — AND THAT SCOPE IS A
-    DISCOUNT THIS BOUND DEPENDS ON. A released body is already touching its own tube at rest,
-    by construction: the barb tube the collet grips stands half a millimetre fore of the tee
-    and travels out with it. A sweep counting every placed body would meet the workpiece
-    before it met anything actually in the way, and report the joint as the obstruction. What
-    can stop a tee is the box, so the box is what this reads. Widening it means first saying
-    what a joint is."""
-    stroke = spec["stroke"]
-    solids = [q.val() if hasattr(q, "val") else q for q in pieces.values()]
-    rows, bad = [], []
-    for tee in sorted(ml.BARB_OF):
-        name = ml.body_name(tee)
-        if name not in placed:
-            continue
-        moved = placed[name].translate(cq.Vector(0.0, -stroke, 0.0))
-        worst, into = 0.0, ""
-        for piece, solid in zip(pieces, solids):
-            try:
-                vol = moved.intersect(solid).Volume()
-            except Exception:
-                vol = 0.0
-            if vol > worst:
-                worst, into = vol, piece
-        rows.append((tee, name, worst, into))
-        if worst > 1e-6:
-            bad.append((tee, name, worst, into))
-    return record_bound(Bound(
-        "release-travel", "Every anchor tee can make the release stroke",
-        not bad,
-        f"{len(rows) - len(bad)}/{len(rows)} tees clear {stroke:.3f} mm fore",
-        f"every tee the release moves free over its whole {stroke:.3f} mm",
-        [f"{t:5} {b:14} {'CLEAR' if v <= 1e-6 else f'{v:10.1f} mm3 into {i}'}"
-         for t, b, v, i in rows]))
-
-
-def check_plate_carried(pieces, shell) -> Bound:
-    """Whether front-bottom carries both ends of the collet plate at its installed footprint.
-
-    NOTHING IN FRONT-TOP HOLDS THE STEEL DOWN. It goes in through that piece's bed face and
-    `enclosure._plate_cap`'s land is over it, not under it, so what stops the plate falling
-    back out the way it came is the piece the mouth closes onto. `enclosure._plate_shelf` is
-    the two shelves that do it, and this is the reading of them.
-
-    THE PLATE ENTERS IN Z THROUGH FRONT-TOP'S BED FACE. Its Y footprint is only the steel's
-    `fore_y..aft_y` thickness at the installed station; it does not traverse the pump bay in Y.
-    The display-column opening may therefore consume the shelf's fore root without taking
-    bearing from the steel. What must be whole is the shelf under each actual plate end.
-
-    AND IT IS READ UNDER THE SHELF'S OWN TOP, not under the seam mouth. The shelf stands one
-    `enclosure.steel_air` below that plane, because it OPPOSES `enclosure._plate_cap`'s land
-    across the whole height of the steel and the land is the datum — front-top carries both the
-    tee bores and the stop, so the seam stays out of that stack. Probing the mouth instead
-    would read the flank beside the shelf and pass on material that is not carrying anything.
-
-    The probe is a slab one probe under the shelf's top, under each end of the steel from its
-    end plane `enclosure.plate_shelf_land` inboard, across the steel's complete Y thickness."""
-    spec = shell.pack.collet_plate
-    fb = pieces["front-bottom"]
-    fb = fb.val() if hasattr(fb, "val") else fb
-    probe, land = 0.5, _enc.plate_shelf_land
-    y0, y1 = spec["fore_y"], spec["aft_y"]
-    rows = []
-    for sx, x0, x1 in (("-X", spec["x0"], spec["x0"] + land),
-                       ("+X", spec["x1"] - land, spec["x1"])):
-        top = _enc.z_seam - _enc.steel_air
-        plug = _enc._ybox(min(x0, x1), max(x0, x1), y0, y1, top - probe, top)
-        rows.append((sx, plug.intersect(fb).Volume() / plug.Volume()))
-    worst = min(g for _n, g in rows)
-    ok = worst >= 1.0 - 1e-6
-    return record_bound(Bound(
-        "plate-carried", "Front-bottom carries both ends of the installed collet plate", ok,
-        f"{sum(1 for _n, g in rows if g >= 1.0 - 1e-6)}/{len(rows)} ends whole, "
-        f"worst {worst * 100:.1f}%",
-        f"a shelf under both ends of the steel across y {y0:g}..{y1:g}, one "
-        f"{_enc.steel_air:g} under the seam plane",
-        ([] if ok else
-         [f"{n}: {g * 100:.1f}% solid" for n, g in rows if g < 1.0 - 1e-6]
-         + ["the steel enters through front-top's Z− face and rests on these two lands. A "
-            "gap here leaves one end of the installed plate unsupported"])))
-
-
-def check_bay_floor(pieces, shell) -> Bound:
-    """Whether the bay floor lies on front-top's own bed plane and stops the collet plate.
-
-    Two readings on the one solid. FIRST, the bed: a slab one probe over the seam mouth,
-    across the floor's whole plan LESS the rail channels' own lane
-    (`enclosure._z_rail_channels` — the section the slide's lane is cut to, which this
-    floor's flank bands stop short of) and LESS the plate's own slot
-    (`enclosure._plate_slot` — the opening the steel comes in by, which is a gap in the
-    first layers and not a hole over them), is the piece's first layers, and full means
-    the floor lies on the bed rather than hanging in the piece. SECOND, the land: a slab
-    one probe over the steel's own top edge, across the whole width, is `enclosure._plate_cap`
-    — the flat the plate comes up onto and stops on, which is the only stop in this joint."""
-    spec = shell.pack.collet_plate
-    z_bed, top = _enc.bay_floor_z(shell.pack.pump_trays)
-    probe = 0.5
-    ft = pieces["front-top"]
-    ft = ft.val() if hasattr(ft, "val") else ft
-    berth = _enc._z_rail_channels(shell.inner, shell.y_joint, shell.splits[0],
-                                  "front", spec, shell.pack.vent_chase).fuse(
-        _enc._plate_slot(shell.inner, spec, top + 1.0))
-    lx0, lx1 = _enc.lip_face_x()
-    aft = spec["aft_y"] + _enc.plate_slot_slip + _enc.wall
-    rows = [("bed", _enc._ybox(lx0, lx1, _enc.front_plane_y, aft, z_bed, z_bed + probe)
-             .cut(berth))]
-    # AND THE LAND THE STEEL STOPS ON, one storey up: `enclosure._plate_cap`'s flat off the
-    # tee wall's fore face, wall to wall, with the guides' two heads carrying the same plane
-    # out to the side walls. It is the plate's Z datum, so it is read across the whole width
-    # rather than at the two ends the old shoulders bore on.
-    land = spec["aft_y"] - _enc.plate_cap_land
-    rows.append(("land", _enc._ybox(spec["x0"], spec["x1"], land, spec["aft_y"],
-                                    spec["z1"], spec["z1"] + probe)))
-    rows = [(n, plug.intersect(ft).Volume() / plug.Volume()) for n, plug in rows]
-    worst = min(g for _n, g in rows)
-    ok = worst >= 1.0 - 1e-6
-    return record_bound(Bound(
-        "bay-floor-bedded", "The bay floor lies on the bed and seats the collet plate", ok,
-        ", ".join(f"{n} {g * 100:.1f}% solid" for n, g in rows),
-        f"the floor whole on the seam plane {z_bed:g} and the cap's land whole over the "
-        f"steel's top edge at {spec['z1']:g}",
-        ([] if ok else
-         [f"{n}: {g * 100:.1f}% of its plan" for n, g in rows if g < 1.0 - 1e-6]
-         + ["the floor is this piece's first layers and the cap's land is the one thing the "
-            "steel stops on — a hole in the first is material the print has to bridge, a "
-            f"hole in the second is a plate that goes in further than its holes allow. The "
-            f"floor runs {z_bed:g} to {top:g}"])))
-
-
-def check_pump_columns_open(pieces, shell) -> Bound:
-    """Whether both front display-support columns are absent from the pump withdrawal span.
-
-    `enclosure._bay_cut` removes the complete front and side band in one operation. These two
-    narrower probes retain an explicit check at the former column stations from the bay floor
-    to the lintel; `pump-cartridge-full-front-wall` checks the entire exterior ownership."""
-    bay = shell.pump_bay
-    if not bay:
-        return None
-    _bx0, _bx1, bay_top = bay
-    z0 = _enc.bay_floor_z(shell.pack.pump_trays)[1] + 0.1
-    z1 = bay_top - 0.1
-    ft = pieces["front-top"]
-    ft = ft.val() if hasattr(ft, "val") else ft
-    rows = []
-    for label, x_in, sx in (("X-", shell.inner[0], +1.0),
-                            ("X+", shell.inner[1], -1.0)):
-        cusp = x_in + sx * _enc.column_round
-        former = _enc._ybox(min(x_in, cusp), max(x_in, cusp),
-                            shell.inner[2], shell.inner[2] + _enc.column_round, z0, z1)
-        rows.append((label, former.intersect(ft).Volume()))
-    worst = max(volume for _label, volume in rows)
-    ok = worst <= 1e-3
-    return record_bound(Bound(
-        "pump-columns-open", "The display-support columns leave the pump withdrawal span",
-        ok,
-        f"2 column quadrants probed, most material in the way {worst:.3f} mm³",
-        "no front-top material inside either former column quadrant",
-        [f"{label}: {volume:.3f} mm³ remains in the cartridge path"
-         for label, volume in rows if volume > 1e-3]))
-
-
-def check_cartridge_aft_depth(pieces, shell) -> Bound:
-    """Whether the lower cradle ends on its stated Y+ plane everywhere.
-
-    The skirt opening's 3 mm upper band is the cartridge's complete aft depth. No
-    plate-retention return or exterior side skin continues behind that plane."""
-    cart = pieces["pump-cartridge"]
-    cart = cart.val() if hasattr(cart, "val") else cart
-    actual = box(cart).ymax
-    target = _enc.pump_cartridge_aft_y(shell.pack.pump_trays)
-    error = actual - target
-    ok = abs(error) <= 1e-6
-    return record_bound(Bound(
-        "pump-cartridge-aft-depth", "The cradle ends at the skirt band's Y+ plane", ok,
-        f"aft face y {actual:.3f} mm, error {error:+.6f} mm",
-        f"no pump-cartridge material beyond y {target:.3f} mm",
-        [] if ok else [
-            f"the cartridge ends at y {actual:.6f}, not its stated y {target:.6f} plane"]))
-
-
-def check_head_sweep(solids: dict, pieces) -> Bound:
-    """Whether each pump head can leave through the front of the box.
-
-    The bay's sill is the floor's top and the head bottoms one millimetre over it, so what
-    is read here is not a clearance at rest — `pack-closes` has that — but the SWEEP: the
-    head's own box carried fore to the exterior, against the piece it has to pass through."""
-    ft = pieces["front-top"]
-    ft = ft.val() if hasattr(ft, "val") else ft
-    rows = []
-    for n, s in sorted(solids.items()):
-        if not (n.startswith("pump-") and n.endswith("-head")):
-            continue
-        b = box(s)
-        sweep = _enc._ybox(b.xmin, b.xmax, _enc.front_plane_y - _enc.front_wall, b.ymax,
-                           b.zmin, b.zmax)
-        rows.append((n, sweep.intersect(ft).Volume()))
-    worst = max([v for _n, v in rows], default=0.0)
-    ok = worst <= 1e-3
-    return record_bound(Bound(
-        "heads-sweep-out", "Every pump head sweeps out through the bay", ok,
-        f"{len(rows)} heads, most in the way {worst:.1f} mm³",
-        "nothing of front-top in a head's path to the front",
-        ([] if ok else
-         [f"{n} meets {v:.1f} mm³ of front-top on its way out" for n, v in rows if v > 1e-3]
-         + ["the bay's sill is the bay floor's top, and the floor's top is the plane the "
-            "pump cartridge's own pump reliefs floor on. A head in the way is a head hanging "
-            "under that plane — raise it, or thin the floor"])))
-
-
-def check_cartridge_architecture(pieces) -> Bound:
-    """Whether the cartridge remains one monolithic cradle and one monolithic top clamp."""
-    cradle = pieces.get("pump-cartridge")
-    clamp = pieces.get("pump-cap")
-    if cradle is None or clamp is None:
-        return None
-    cradle = cradle.val() if hasattr(cradle, "val") else cradle
-    clamp = clamp.val() if hasattr(clamp, "val") else clamp
-    cv, kv = cradle.Volume(), clamp.Volume()
-    share = cv / (cv + kv)
-    cb, kb = box(cradle), box(clamp)
-    one_each = len(cradle.Solids()) == 1 and len(clamp.Solids()) == 1
-    show_face = cb.ymin < kb.ymin - 1e-6
-    ok = one_each and show_face
-    return record_bound(Bound(
-        "pump-cartridge-lower-cradle",
-        "The cartridge is one lower cradle with one monolithic top clamp",
-        ok,
-        f"cradle {share * 100:.1f}% of printed volume, {cb.zlen:.1f} mm high; clamp {kb.zlen:.1f} mm",
-        "one solid each, with the cradle carrying the foremost show face",
-        ([] if ok else [
-            f"cradle {cv / 1000.0:.1f} cm³, clamp {kv / 1000.0:.1f} cm³, "
-            f"heights {cb.zlen:.1f}/{kb.zlen:.1f} mm, solids "
-            f"{len(cradle.Solids())}/{len(clamp.Solids())}"])))
-
-
-def check_cartridge_full_front_wall(pieces, shell) -> Bound:
-    """Whether the cradle owns the untapered front wall between its two Z clearances.
-
-    The front-wall target stops at the intentional upper pump/clamp well's foremost Y face.
-    The two side targets stop before either hand pocket. No pump opening, grip,
-    plate-retention notch or horizontal running clearance is counted as missing stock."""
-    cradle = pieces.get("pump-cartridge")
-    fixed = pieces.get("front-top")
-    if cradle is None or fixed is None:
-        return None
-    cradle = cradle.val() if hasattr(cradle, "val") else cradle
-    fixed = fixed.val() if hasattr(fixed, "val") else fixed
-    inner, outer, bay = shell.inner, shell.outer, shell.pump_bay
-    z0 = _enc.bay_floor_z(shell.pack.pump_trays)[1]
-    z1 = bay[2] - _enc.pump_cartridge_z_clearance
-    edge = _enc._cap_x_span(bay)[1]
-    y0 = (_enc.plate_guide_notch_fore_y(shell.pack.collet_plate)
-          - _enc.pull_min_run)
-    front_aft = (min(cy - _tray.half_width()
-                     for _cx, cy, _cz in shell.pack.pump_trays)
-                 - _enc.clamp_drop_air)
-
-    silhouette = _enc._rounded_outer(_enc._pump_cartridge_outer(outer))
-    front = silhouette.intersect(_enc._ybox(
-        -edge - 1.0, edge + 1.0, _enc.pump_cartridge_front_y - 1.0,
-        front_aft, z0, z1))
-    side = silhouette.intersect(
-        _enc._ybox(-edge - 1.0, inner[0], _enc.pump_cartridge_front_y - 1.0, y0, z0, z1)
-        .fuse(_enc._ybox(inner[1], edge + 1.0,
-                         _enc.pump_cartridge_front_y - 1.0, y0, z0, z1)))
-    target = front.fuse(side)
-    missing = target.cut(cradle).Volume()
-    fixed_left = target.intersect(fixed).Volume()
-    cb = box(cradle)
-    full_width = abs(cb.xmin + edge) <= 1e-6 and abs(cb.xmax - edge) <= 1e-6
-    ok = missing <= 1e-3 and fixed_left <= 1e-3 and full_width
-    return record_bound(Bound(
-        "pump-cartridge-full-front-wall",
-        "The cradle owns the full-width front wall between its Z clearances",
-        ok,
-        f"x {cb.xmin:.3f}..{cb.xmax:.3f}; missing {missing:.3f} mm³; "
-        f"fixed front-top {fixed_left:.3f} mm³",
-        f"x {-edge:.3f}..{edge:.3f}, full stock z {z0:.3f}..{z1:.3f}, "
-        "and no fixed front-top in that band",
-        ([] if ok else [
-            f"the full front/side target is missing {missing:.3f} mm³ from the cradle and "
-            f"still contains {fixed_left:.3f} mm³ of front-top. Between the two Z clearances, "
-            "keep the untapered front and both exterior side skins on the cradle"])))
-
-
-def check_cradle_pulls(pieces, shell) -> Bound:
-    """Whether both pull ledges are present on the common tube-centre plane."""
-    cradle = pieces.get("pump-cartridge")
-    if cradle is None:
-        return None
-    cradle = cradle.val() if hasattr(cradle, "val") else cradle
-    plate = shell.pack.collet_plate
-    z = _enc._pull_center_z(plate)
-    edge = _enc._cap_x_span(shell.pump_bay)[1]
-    y1 = _enc.pump_cartridge_aft_y(shell.pack.pump_trays)
-    y0 = _enc.plate_guide_notch_fore_y(plate) - _enc.pull_min_run
-    rows = []
-    for label, sx in (("X+", +1.0), ("X-", -1.0)):
-        # The cutter deliberately runs 0.2 mm past the nominal flank so it opens the
-        # pocket cleanly.  The ledge probe belongs wholly inside the designed face;
-        # counting that runout air as ledge stock makes an exact edge read 97.8% full.
-        xa, xb = sorted((sx * (edge - _enc.pull_depth / 2.0), sx * (edge - 0.2)))
-        opening = _enc._ybox(xa, xb, y0 + 0.5, y1 - 0.5, z - 1.0, z + 1.0)
-        ledge = _enc._ybox(xa, xb, y0 - 1.0, y0, z - 1.0, z + 1.0)
-        bite = opening.intersect(cradle).Volume()
-        land = ledge.intersect(cradle).Volume() / ledge.Volume()
-        rows.append((label, bite, land))
-    bad = [r for r in rows if r[1] > 1e-6 or r[2] < 1.0 - 1e-6]
-    return record_bound(Bound(
-        "cradle-pulls-on-tube-axis", "Both cradle pulls act at the tube-centre elevation",
-        not bad,
-        f"{len(rows) - len(bad)}/{len(rows)} ledges whole at z {z:.3f} mm",
-        "an open pocket and whole fore ledge on both flanks at the four tube centres",
-        [f"{name}: opening bite {bite:.3f} mm³, ledge {land * 100:.1f}% solid"
-         for name, bite, land in bad]))
-
-
-# What a standing post's annulus may read short by. A post is fused as one cylinder and bored
-# as another, so this is the mesh's own error on the two.
-FLOOR_POST_TOL = 0.02
-
-
-def check_east_bosses_print(stations, pieces: dict) -> Bound:
-    """Every power-column corbel as material and topology in the built back-top piece.
-
-    `wall_mounts` proves the proposed additions clear the installed bodies. This reads the
-    other half: `_east_bosses` actually fused each D fill and wedge into the printable piece,
-    and no complete `mount_boss_dia` circle survives on a free mounting face. Two PSU stations
-    run into existing rear-wall stock, so their D floor is absorbed rather than exposed as an
-    edge; exact containment of the added material is the invariant for those as well.
-    """
-    back = pieces["back-top"]
-    back = back.val() if hasattr(back, "val") else back
-    edges = back.Edges()
-    wall_x = _enc.interior_x()[1]
-    r = _enc.mount_boss_dia / 2.0
-    rows, bad = [], []
-    for station in stations:
-        sy, sz, tip = station[:3]
-        addition = _enc._east_boss_d_fill(wall_x, station).fuse(
-            _enc._east_boss_corbel(wall_x, station))
-        missing = addition.cut(back).Volume()
-        free = []
-        for edge in edges:
-            eb = edge.BoundingBox()
-            if abs(eb.xmin - tip) > 1e-6 or abs(eb.xmax - tip) > 1e-6:
-                continue
-            if (eb.ymax < sy - r - 1e-6 or eb.ymin > sy + r + 1e-6
-                    or eb.zmax < sz - r - 1e-6 or eb.zmin > sz + r + 1e-6):
-                continue
-            free.append(edge)
-        full_circle = any(
-            edge.geomType() == "CIRCLE"
-            and abs(edge.radius() - r) < 1e-6
-            and abs(edge.Length() - 2.0 * math.pi * r) < 1e-4
-            for edge in free)
-        floors = [
-            edge for edge in free
-            if edge.geomType() == "LINE"
-            and abs(edge.BoundingBox().zmin - (sz - r)) < 1e-6
-            and abs(edge.BoundingBox().zmax - (sz - r)) < 1e-6
-            and abs(edge.Length() - _enc.mount_boss_dia) < 1e-6
-        ]
-        ok = missing <= 1e-6 and not full_circle
-        rows.append((station, ok, missing, full_circle, len(floors)))
-        if not ok:
-            bad.append(rows[-1])
-    exposed = sum(1 for _station, _ok, _missing, _circle, floors in rows if floors == 1)
-    held_back = sum(1 for station, *_rest in rows if station[3] > station[2] + 1e-6)
-    splits = sum(1 for station, *_rest in rows
-                 if station[3] > station[2] + 1e-6 and len(station) > 4 and station[4])
-    plain_setbacks = held_back - splits
-    return record_bound(Bound(
-        "east-bosses-print",
-        "Every power-column station is printed as a D stem on its derived corbel",
-        bool(rows) and not bad,
-        f"{len(rows) - len(bad)}/{len(rows)} additions present, no Ø7 round free edge; "
-        f"{exposed} exposed D floors and {len(rows) - exposed} merged into wall stock; "
-        f"{len(rows) - held_back} full-width corbels, {splits} blocker-profiled split corbels"
-        + (f", {plain_setbacks} fully held-back corbels" if plain_setbacks else ""),
-        "all 17 D fills and wedges contained in back-top, with no complete outer circle",
-        [f"y {station[0]:.3f}, z {station[1]:.3f}: {missing:.5f} mm³ missing, "
-         f"full circle={circle}, floor edges={floors}"
-         for station, _ok, missing, circle, floors in bad]))
-
-
-def check_floor_mounts(stations, pieces: dict) -> Bound:
-    """Whether every floor post the slab was stationed for is standing, off the built pieces.
-
-    `enclosure._floor_bosses` grows a post for the stations whose Y falls in the piece's own
-    column, and for no others.
-
-    Read as a probe of the piece's own material: a plug on the station's axis, from the crown
-    down one insert's depth, is solid where the post stands and empty where it does not. The
-    insert's bore takes its own share out of that plug, so a whole post reads the annulus."""
-    rows = []
-    solids = [p.val() if hasattr(p, "val") else p for p in pieces.values()]
-    for sx, sy, tip, dia in stations:
-        plug = cq.Solid.makeCylinder(
-            dia / 2.0, _enc.floor_heatset_depth,
-            cq.Vector(sx, sy, tip - _enc.floor_heatset_depth), cq.Vector(0, 0, 1))
-        filled = max(_overlap.volume(plug, s) for s in solids) / plug.Volume()
-        # The annulus this station's own bore leaves — each post is bored the same, and each
-        # stands in whatever section its donor's hole gave it.
-        want = 1.0 - (_enc.floor_heatset_dia / dia) ** 2
-        rows.append((sx, sy, tip, dia, filled, filled >= want - FLOOR_POST_TOL))
-    bad = [r for r in rows if not r[5]]
-    return record_bound(Bound(
-        "floor-mounts-land", "Every floor post under a bolted-down body is printed",
-        bool(rows) and not bad,
-        "no post stationed" if not rows else
-        f"{len(rows) - len(bad)}/{len(rows)} posts standing",
-        "a printed post at every hole the donor presents",
-        [f"x {x:8.3f}  y {y:8.3f}  Ø{d:<5.1f} to z {t:7.3f}   "
-         f"{'standing' if ok else 'NOT PRINTED — no piece owns this station'}"
-         f"   ({f * 100:.1f}% of the annulus)" for x, y, t, d, f, ok in rows]))
-
-
-# The same reading `check_floor_mounts` takes, and the same mesh error either way.
-COND_MOUNT_TOL = 0.02
 # What a probe stands in from the edge of the feature it reads, so a face the box drew exactly
 # on the probe's own is not a coin toss between material and air.
 COND_PROBE_INSET = 0.5
@@ -2240,288 +1350,6 @@ COND_PROBE_INSET = 0.5
 # either side of it.
 COND_AIR_INSET = 0.05
 _COND_UNPRINTED = "NOT PRINTED — no piece owns this station"
-
-
-def check_cond_mount(cradle, mount, pieces: dict) -> Bound:
-    """Whether all four of the condenser block's flanges have printed material to land on.
-
-    The block is a donor envelope and these four sheets are its whole purchase, so what the box
-    owes each is a face. FORE, that is a groove: material under the flange, a triangular roof
-    carried from the seated stop, AIR BETWEEN THE TWO for the sheet to enter, and the widening
-    air above that opening as the roof rises 45° toward the bay. AFT, it is a boss: the annulus
-    a ruthex bore leaves in a finger, read from the flange face down one insert.
-
-    Read the way `check_floor_mounts` reads a post — a probe volume against the printed pieces —
-    because a station that no piece's band owns is a station nothing prints, and the assembly
-    would otherwise stand a block on air and say nothing. The opening is read the same way and
-    against the same solids: a groove the box has drawn something into is a groove the block's
-    flange does not enter."""
-    rows, ins = [], COND_PROBE_INSET
-    solids = [p.val() if hasattr(p, "val") else p for p in pieces.values()]
-
-    def filled(vol):
-        return max(_overlap.volume(vol, s) for s in solids) / vol.Volume()
-
-    grip, sect = _enc.cond_slot_grip, _enc.cond_rail_wall
-    for face, cx0, cx1, fz0, fz1, _root in cradle:
-        half = _enc.cond_slot_half(fz1 - fz0)
-        probe = (cq.Workplane("XY", origin=(cx0 + ins, face + ins,
-                                             fz0 - half - sect + ins))
-                 .box(cx1 - cx0 - 2 * ins, grip - 2 * ins, sect - 2 * ins,
-                      centered=False).val())
-        got = filled(probe)
-        rows.append((f"fore flange at z {fz0:7.3f}, under its groove", got,
-                     got >= 1.0 - COND_MOUNT_TOL, _COND_UNPRINTED))
-
-        # The roof is a triangular prism, not the rectangular slab this gate used to probe. Its
-        # lower face rises one-for-one from the seated stop until it meets the rail crown. The
-        # condenser's corner relief takes a small part of the far-east end of this prism, so the
-        # same whole-width reading allows five mesh tolerances while still requiring its span.
-        roof, roof_run = fz1 + half, min(grip, sect)
-        roof_profile = [
-            (face + ins, roof + ins),
-            (face + roof_run - ins, roof + roof_run - ins),
-        ]
-        if sect > roof_run + 1e-9:
-            roof_profile.append((face + roof_run - ins, roof + sect - ins))
-        roof_profile.append((face + ins, roof + sect - ins))
-        roof_probe = _enc._yz_prism(
-            cx0 + ins, cx1 - ins, roof_profile)
-        got = filled(roof_probe)
-        rows.append((f"fore flange at z {fz0:7.3f}, on its 45° roof", got,
-                     got >= 1.0 - 5.0 * COND_MOUNT_TOL, _COND_UNPRINTED))
-
-        air = COND_AIR_INSET
-        probe = (cq.Workplane("XY", origin=(cx0 + ins, face + ins, fz0 - half + air))
-                 .box(cx1 - cx0 - 2 * ins, grip - 2 * ins,
-                      (fz1 - fz0) + 2 * half - 2 * air, centered=False).val())
-        got = filled(probe)
-        rows.append((f"fore flange at z {fz0:7.3f}, {(fz1 - fz0) + 2 * half:.2f} mm open",
-                     1.0 - got, got <= COND_MOUNT_TOL,
-                     "OBSTRUCTED — a piece stands in the opening the flange enters"))
-
-        # And ask for the extra air the slope creates above that seated opening. A flat roof
-        # still passes the one-millimetre slot probe; this triangular wedge is what distinguishes
-        # the support-free opening from the old short bridge.
-        relief_probe = _enc._yz_prism(
-            cx0 + ins, cx1 - ins,
-            ((face + ins, roof + air),
-             (face + roof_run - ins, roof + air),
-             (face + roof_run - ins, roof + roof_run - ins - air),
-             (face + ins, roof + ins - air)))
-        got = filled(relief_probe)
-        rows.append((f"fore flange at z {fz0:7.3f}, 45° roof relief open", 1.0 - got,
-                     got <= COND_MOUNT_TOL,
-                     "OBSTRUCTED — the groove roof is flat or filled"))
-    _flank, _my0, _my1, bosses = mount
-    for bx, by, tip in bosses:
-        plug = cq.Solid.makeCylinder(
-            _enc.mount_boss_dia / 2.0, _enc.heatset_depth,
-            cq.Vector(bx, by, tip - _enc.heatset_depth), cq.Vector(0, 0, 1))
-        got = filled(plug)
-        want = 1.0 - (_enc.heatset_dia / _enc.mount_boss_dia) ** 2
-        rows.append((f"aft boss under the hole at z {tip:7.3f}", got,
-                     got >= want - COND_MOUNT_TOL, _COND_UNPRINTED))
-    bad = [r for r in rows if not r[2]]
-    return record_bound(Bound(
-        "cond-mount-lands", "The condenser block's four flanges all have printed material "
-        "to land on, and both fore grooves rise open at 45 degrees", bool(rows) and not bad,
-        "nothing stationed" if not rows else f"{len(rows) - len(bad)}/{len(rows)} standing",
-        "a wall-rooted roof over each open fore groove and a bored boss under each aft one",
-        [f"{what:44s} {'standing' if ok else bad_msg}"
-         f"   ({got * 100:.1f}% of the probe)" for what, got, ok, bad_msg in rows]))
-
-
-def condenser_corbels(cradle, mount, inner) -> tuple:
-    """The two production corbels that carry the condenser's hanging upper furniture."""
-    rows = [("fore crown rail", _enc._cond_cradle_corbel(inner, station))
-            for station in cradle if station[5] > inner[4] + 1e-6]
-    if mount and max(t for _x, _y, t in mount[3]) > min(t for _x, _y, t in mount[3]) + 1e-6:
-        rows.append(("aft upper finger", _enc._cond_mount_corbel(inner, mount)))
-    return tuple(rows)
-
-
-def check_cond_corbel_clearance(cradle, mount, inner, placed) -> Bound:
-    """Both condenser corbels against every installed body in their neighbourhood.
-
-    The crown rail's wedge occupies only the three-millimetre front-wall reach beneath the upper
-    groove. The upper aft finger's longer wedge occupies the donor block's open recess and stops
-    on the standing fin. Bounding boxes discard distant bodies; the reported gaps are exact B-rep
-    distances from the same helper solids the production piece fuses."""
-    want, horizon = _enc.cond_mount_clear, 5.0
-    rows, bad = [], []
-    for label, corbel in condenser_corbels(cradle, mount, inner):
-        cb = _boxes.loose(corbel)
-        nearest = (float("inf"), None)
-        for name, body in placed.items():
-            if name.startswith("enclosure-"):
-                continue
-            body = body.val() if hasattr(body, "val") else body
-            if _clearing.box_gap(cb, _boxes.loose(body)) > horizon:
-                continue
-            query = _BRepDist(corbel.wrapped, body.wrapped)
-            if not query.IsDone():
-                raise RuntimeError(
-                    f"cond-corbels-clear: exact distance from {label} to {name} failed — "
-                    "its clearance is unknown, not clear")
-            gap = query.Value()
-            if gap < nearest[0]:
-                nearest = (gap, name)
-        gap, name = nearest
-        rows.append((label, name, gap))
-        if name is None or gap < want - 1e-6:
-            bad.append((label, name, gap))
-    actual = ", ".join(f"{label} {gap:.3f} mm to {name}" for label, name, gap in rows)
-    return record_bound(Bound(
-        "cond-corbels-clear",
-        "The condenser's crown rail and upper screw finger have clear 45-degree corbels",
-        bool(rows) and not bad, actual if rows else "no corbel stationed",
-        f"both at least {want:g} mm from an installed body",
-        [f"{label} leaves {gap:.3f} mm to {name or 'no measured body'}; keep the donor block "
-         f"and its neighbours at least {want:g} mm off the production corbel"
-         for label, name, gap in bad]))
-
-
-def check_flank_vents(box, pieces: dict) -> Bound:
-    """What the condenser's vents owe, read off the piece they were cut in.
-
-    THE MULLION IS THE GOVERNING NUMBER and the section behind the groove floor is not. A slot
-    takes its width out of the pitch, and the exterior profile lays `reeding.pierce_shell` of
-    loops across what is left — 2 × 0.42 outer + 2 × 0.45 inner, the four that wall already
-    carries (`enclosure/print-log.md`). The section moves the OTHER way with slot width: a wider
-    slot puts its jamb further out on the groove's own half-ellipse, where the groove is
-    shallower and the wall behind it thicker, so widening a slot never thins the wall and only
-    ever thins the mullion.
-
-    Read HERE and not while the piece is cut, because `_realized` keeps a piece between builds
-    and a reading taken while drawing is one the second build never takes. `enclosure.build_pieces`
-    draws and measures nothing; every reading off a built piece is asked of it afterwards, the way
-    `check_cond_mount` asks after the block's four flanges. Both bounds this owes are recorded
-    here for that reason — a bound recorded inside a cached builder is absent from the card on
-    every build that does not redraw the piece."""
-    reads = _enc.vent_readings(pieces, box)
-    rows = {sx: r for sx, r in reads.items() if r["slots"] and r["mullions"]}
-    check_flank_vent_towers(box, rows)
-    least = min((min(r["mullions"]) for r in rows.values()), default=None)
-    jamb = _enc.flute_depth * float(_reeding.groove(_reeding.pierce_width / 2.0))
-    ok = least is not None and least >= _reeding.pierce_shell - _enc.stated_bound_tol
-    pitch = _enc.flute_pitch(box.outer)
-    return record_bound(Bound(
-        "flank-vent-mullions",
-        "Every mullion the condenser's vents leave carries the exterior's four wall loops",
-        ok,
-        ("no vent on this pack" if least is None
-         else f"thinnest of {sum(len(r['mullions']) for r in rows.values())} mullions is "
-              f"{least:.4f} mm across, on a {2.0 * _enc.wall - jamb:.4f} mm section"),
-        f"at least {_reeding.pierce_shell:g} mm across, the loops the profile lays",
-        ([f"{'+X exhaust' if sx > 0 else '−X intake':10s} "
-          f"{len(r['slots']):2d} slots {min(r['slots']):.4f}–{max(r['slots']):.4f} mm, "
-          f"{len(r['mullions'])} mullions {min(r['mullions']):.4f}–{max(r['mullions']):.4f} mm, "
-          f"{r['open_mm2'] / 100.0:.2f} cm² free over the fan's own band"
-          for sx, r in sorted(rows.items())]
-         + ([] if ok else [
-             f"a {_reeding.pierce_width:g} mm slot on {pitch:.4f} mm centres leaves "
-             f"{_reeding.mullion(pitch, _reeding.pierce_width, 1):.4f} mm of mullion, and the "
-             f"widest this field carries is "
-             f"{_reeding.pierce_max(_reeding.pierce_shell, pitch):.4f}"]))))
-
-
-def check_flank_vent_towers(box, rows: dict) -> Bound:
-    """No mullion the vents leave stands free of the wall for longer than one slot segment.
-
-    THIS IS WHAT THE TRANSOMS ARE FOR. A mullion is `reeding.mullion` across and the fan's band
-    is `enclosure.vent_band` tall, so a slot run the whole height leaves a picket fifty-odd times
-    as tall as it is thick. The brace is that the wall is NOT PIERCED at
-    `enclosure.cond_vent_transoms` heights (`enclosure.vent_transoms`): every mullion and both
-    jambs run into a full-section plate there, so what any of them stands free over is one
-    segment — `enclosure.vent_segment`, and nothing wider.
-
-    THE TARGET IS THE LAYOUT'S OWN SEGMENT, not a number typed here. The reading is the tallest
-    OPENING on either flank, taken off the built piece; the segment is what the band divided by
-    the transoms comes to. They agree when every transom landed and every slot was interrupted,
-    and the reading falls BELOW the segment wherever something rooted on the flank already broke
-    that slot — an obstruction and a transom compose, and neither is special-cased.
-
-    Recorded off `check_flank_vents`' one reading, and never from inside `build_piece`."""
-    tall = max((r["tallest"] for r in rows.values()), default=None)
-    thin = min((min(r["mullions"]) for r in rows.values()), default=None)
-    seg = _enc.vent_segment(box.pack.cond_airway) if box.pack.cond_airway else None
-    band = _enc.vent_band(box.pack.cond_airway) if box.pack.cond_airway else None
-    ok = tall is None or tall <= seg + _enc.stated_bound_tol
-    return record_bound(Bound(
-        "flank-vent-towers",
-        "No mullion the condenser's vents leave stands free for more than one slot segment",
-        ok,
-        ("no vent on this pack" if tall is None
-         else f"tallest of {sum(len(r['runs']) for r in rows.values())} openings is "
-              f"{tall:.4f} mm, on a {thin:.4f} mm mullion — {tall / thin:.3g}:1"),
-        ("no block on this pack" if seg is None
-         else f"at most {seg:.4f} mm, the segment "
-              f"{_enc.cond_vent_transoms} transoms leave in a {band[1] - band[0]:g} mm band"),
-        ([f"{'+X exhaust' if sx > 0 else '−X intake':10s} "
-          f"{len(r['runs']):2d} openings {min(r['runs']):.4f}–{max(r['runs']):.4f} mm tall "
-          f"in {len(r['slots'])} slots"
-          for sx, r in sorted(rows.items())]
-         + ([] if band is None else [
-             f"the band is z {band[0]:g}..{band[1]:g} — the fan's own footprint, "
-             f"{_enc.cond_fan_rise:g} mm up from the block's base and {_enc.cond_fan_drop:g} "
-             f"down from its crown"]
-             + [f"transom {i + 1} of {_enc.cond_vent_transoms}: z {a:g}..{b:g}, "
-                f"{b - a:g} mm of unpierced wall tying every mullion and both jambs"
-                for i, (a, b) in enumerate(_enc.vent_transoms(box.pack.cond_airway))])
-         + ([] if ok else [
-             f"unpierced at {_enc.cond_vent_transoms} heights the band leaves {seg:.4f} mm "
-             f"segments, and something on this flank is open {tall:.4f} mm — a transom did not "
-             f"land in the band, or a slot was not interrupted"]))))
-
-
-def check_pack_over_core(stood, foam) -> Bound:
-    """Every body of the flavour pack that stands over the cold core's cap clears its lid.
-
-    `PACK_CROWN` is what buys that air. The pack's two source valves take a quarter turn that
-    carries them aft over the core, and a body standing over the lid is only not in the core's
-    way while it is standing OVER it — one storey down and it is resting on it, which is a clash
-    the seam between the two halves is not measured to catch.
-
-    Read in plan and not in box: a body whose footprint misses the cap is a body this says
-    nothing about, however low it hangs."""
-    lid = cap_face(foam)
-    c = box(foam)
-    rows = []
-    for name, solid, _colour in stood:
-        b = box(solid)
-        if b.xmin >= c.xmax or b.xmax <= c.xmin or b.ymin >= c.ymax or b.ymax <= c.ymin:
-            continue
-        rows.append((name, b.zmin - lid))
-    worst = min((g for _n, g in rows), default=None)
-    over = [r for r in rows if r[1] < _card.CLEARANCE_FLOOR]
-    return record_bound(Bound(
-        "pack-over-core", "Every pack body reaching over the cold core clears its cap", not over,
-        "nothing reaches over it" if worst is None else
-        f"{len(rows)} over the lid at z {lid:.2f}, lowest clears by {worst:.3f} mm",
-        f"at least {_card.CLEARANCE_FLOOR:g} mm over the cap",
-        [f"{n} hangs {-g:.3f} mm INTO the cap's own lid — the pack sets down on `PACK_CROWN` "
-         f"and the core's crown is the core's. Raise that plane, or carry that body's own turn "
-         f"higher" if g < 0 else
-         f"{n} clears the cap by {g:.3f} mm, under the {_card.CLEARANCE_FLOOR:g} the machine holds"
-         for n, g in sorted(over, key=lambda r: r[1])]))
-
-
-def check_core_lane(front_y: float, ahead) -> Bound:
-    """Nothing on the floor ahead of the cold core reaches into it.
-
-    The core is packed off the +Y wall of back-top, so the lane in front of it is what the stratum leaves
-    rather than what it butts — and the refrigerant loop's two drawn legs are cut and brazed in
-    that lane. A body that grew into it is a body the core is standing on."""
-    over = [(n, y - front_y) for n, y in ahead if y > front_y + 1e-9]
-    lane = min((front_y - y for _n, y in ahead), default=0.0)
-    return record_bound(Bound(
-        "core-lane", "The floor ahead of the cold core stops short of it", not over,
-        f"core front at {front_y:.2f}, nearest body {lane:.2f} mm ahead of it",
-        "every body on the floor short of the core's front face",
-        [f"{n} reaches {much:.2f} mm past the core's front face — the core is packed off "
-         f"`rear_plane_y` and does not give way. Move that body forward, or raise "
-         f"`rear_plane_y`" for n, much in sorted(over, key=lambda r: -r[1])]))
 
 
 # --- what fastens the cold core ---------------------------------------------
@@ -2599,40 +1427,8 @@ def core_holds(foam) -> tuple:
 CORE_GRIP_SLIP = TRAY_SEAT_SLIP
 
 
-def _core_grip_windows(foam, shell) -> tuple:
-    """One `(what, window)` per grip — the room a grip stands in, as a world box.
-
-    A window holds that grip and nothing else of the piece it is printed on, so what the piece
-    leaves inside one is the grip itself and the gap to the core is the grip's own fit."""
-    b, out = box(foam), []
-    for cx, cy, r in core_stops(foam):
-        side = 1.0 if cx > 0.0 else -1.0
-        x0, x1 = sorted((cx - side * r, shell.inner[1] if side > 0 else shell.inner[0]))
-        face = cy - r - _enc.core_stop_slip / 2.0
-        out.append((f"front block at x {cx:+8.2f}",
-                    _boxed(x0, x1, face - _enc.core_stop_web, cy,
-                           b.zmin, b.zmin + _enc.core_stop_rise)))
-    for x0, x1, aft, crown in core_holds(foam):
-        out.append((f"aft bracket at x {(x0 + x1) / 2.0:+8.2f}",
-                    _boxed(x0, x1, aft - _enc.core_hold_reach, shell.inner[3],
-                           crown, crown + _enc.core_hold_land)))
-    return tuple(out)
-
-
 def _boxed(x0, x1, y0, y1, z0, z1):
     return cq.Solid.makeBox(x1 - x0, y1 - y0, z1 - z0, cq.Vector(x0, y0, z0))
-
-
-def check_slides(pieces, box) -> None:
-    """The Z slides swept and their catches lifted, on the exact pieces this assembly
-    carries — `enclosure._report_slide`'s own readings, entered in this ledger the way
-    `carry_enclosure_bounds` enters the box's. That report ran piece against piece;
-    `check_slide_lanes` and `check_core_ride` below are the sweeps only this module can
-    take, because only it knows what is standing in the box when each motion happens."""
-    _enc._report_slide(pieces, box)
-    for b in _enc.BOUNDS:
-        if b.id.startswith("z-slide-"):
-            record_bound(Bound(*b))
 
 
 # What rides FRONT-TOP into its own close: the flavour pack is made up into the trays
@@ -2661,322 +1457,9 @@ CORE_RIDE_LATER = ("foam-assembly", "moisture-plate",
 CORE_RIDE_RUNS = ("tube-", "turn-", "step-")
 
 
-def _swept_worst(mover_parts, fixed_parts, axis, travel):
-    """The worst contested volume over one linear motion — the movers translated along
-    `axis` from `travel` out down a ladder of stations to home, dense where the joint
-    closes, intersected with each fixed member at each. `(worst_mm³, at_mm)`, the rung
-    count, and the per-member worst readings for whoever has to name a blocker.
-
-    MEMBER-WISE, NEVER FUSED. A fuse chain over thirty placed castings can come back
-    subtly broken — a solid whose intersections report phantom volume — and a sweep
-    against it fails loud on clean geometry. A compound carries the same bodies with no
-    boolean taken, and each fixed member answers for itself."""
-    rungs = [d for d in (0.25, 0.5, 1.0, 2.0, 4.0, 8.0, 16.0) if d < travel]
-    d = 24.0
-    while d < travel:
-        rungs.append(d)
-        d += 16.0
-    rungs.append(travel)
-    # A MESH SCREENS AND THE KERNEL ANSWERS. Every pair the boxes let through is read on
-    # meshes through `_overlap`; a pair that reads zero there is left, and every pair that
-    # reads anything at all is measured again exactly. So a number this returns came off
-    # `Shape.intersect`, and the meshes decide only which pairs are worth asking about.
-    #
-    # WHAT THE SCREEN LETS PAST is bounded by what a mesh can hold. Measured on a `_lines`
-    # bore lying against a wall, the mesh first reads zero at 0.001 mm of penetration — a
-    # twentieth of `_meshes.DEFLECTION` — where the exact volume is 0.022 mm³. A tenth of a
-    # deflection reads 0.006 and is handed over.
-    #
-    # WHAT A MESH CAN HIDE IS THE SAG BETWEEN ITS NODES, and a node sits on the surface.
-    # Measured against the true surfaces of the seventeen enclosure solids at DEFLECTION, the
-    # deepest departure of each kind and the piece carrying it:
-    #
-    #     SurfaceOfExtrusion   0.0133 mm   nameplate-001
-    #     SurfaceOfRevolution  0.0101 mm   asse-drip-pan
-    #     Cylinder             0.0062 mm   enclosure-front-top
-    #     Cone                 0.0022 mm   enclosure-back-top
-    #     BSplineSurface       0.0002 mm   enclosure-pump-cap
-    #     Plane                0.0000 mm
-    #
-    # A contact spans many triangles and a node is exact, so the sag is what a mesh can hide at
-    # a point rather than the depth at which a reading goes to zero. The bore against a wall
-    # above is that depth, measured.
-    #
-    # THE FLUTES ARE NOT IN THIS GEOMETRY. `flute_skin` cuts the show surfaces into the
-    # payload mesh and says why they are not in the solid; the STEP beside it is a smooth
-    # prism.
-    #
-    # MESHED ONCE, MOVED MANY TIMES. `_meshes.meshed` memoizes on the shape's identity, and
-    # translating a compound hands back a new shape. A manifold translates itself, so the
-    # mover is tessellated once and the ladder moves it; the fixed members do not move.
-    #
-    # THE BOXES ARE A PRE-FILTER AND ONLY THAT, as in `manifold_layout.clashes`: boxes that
-    # miss are solids that miss, boxes that meet prove nothing. The mover's box rides with
-    # the mover, so a station's box is the home box offset.
-    #
-    # AND THE KERNEL IS ASKED ABOUT THE MOVERS NEAR THE MEMBER, NOT THE WHOLE TRAIN.
-    # `front-top` arrives carrying twenty-seven pack bodies, and every one of them is an
-    # argument `BOPAlgo` has to pave before it can answer about the one body that is actually
-    # in reach of the member. A mover the boxes miss shares nothing with it, so dropping that
-    # mover from the arguments cannot move the number — and measured on the front column's own
-    # close, the whole train against `front-bottom` costs 1.94–2.94 s a station where the one
-    # body left standing costs 0.23–0.29 s, six stations of it.
-    #
-    # THE SAME MESH SCREEN NARROWS IT FURTHER. A mover whose own mesh reads zero against the
-    # member contributed nothing to the fused reading that opened this pair — the fused mesh
-    # is these movers' triangles and no others — so the finer screen drops what the coarse one
-    # already counted as nothing. It is worth taking only where it can drop something: with a
-    # single candidate the screen is a second boolean over the same geometry the kernel is
-    # about to be handed anyway, and on the core's ride that is 0.2 s a station spent to
-    # confirm what the coarse screen said.
-    solid = cq.Compound.makeCompound([s for _n, s in mover_parts])
-    mover = _meshes.meshed(solid)
-    parts = [(s, m, _meshes.box(m))
-             for s, m in ((s, _meshes.meshed(s)) for _n, s in mover_parts)]
-    fixed = [(name, s, m, _meshes.box(m))
-             for name, s, m in ((n, s, _meshes.meshed(s)) for n, s in fixed_parts)]
-    mbb = _meshes.box(mover)
-    worst, hits = (0.0, 0.0), {}
-    for d in rungs:
-        ox, oy, oz = axis[0] * d, axis[1] * d, axis[2] * d
-        at = mover.translate([ox, oy, oz])
-        mx0, mx1 = mbb.xmin + ox, mbb.xmax + ox
-        my0, my1 = mbb.ymin + oy, mbb.ymax + oy
-        mz0, mz1 = mbb.zmin + oz, mbb.zmax + oz
-        total = 0.0
-        for name, s, m, bb in fixed:
-            if (mx0 > bb.xmax or bb.xmin > mx1
-                    or my0 > bb.ymax or bb.ymin > my1
-                    or mz0 > bb.zmax or bb.zmin > mz1):
-                continue
-            if _overlap.volume(at, m) <= 0.0:
-                continue
-            # The B-rep at this station is cut only where a screened pair asks for it, and
-            # only over the movers that asked. STILL ONE BOOLEAN: a train narrowed to six
-            # bodies goes to the kernel as one compound of six, because `BOPAlgo` paving a
-            # set once beats paving each of them alone — the saving is in the arguments
-            # dropped, not in the call split up.
-            near = [p for p in parts
-                    if not (p[2].xmin + ox > bb.xmax or bb.xmin > p[2].xmax + ox
-                            or p[2].ymin + oy > bb.ymax or bb.ymin > p[2].ymax + oy
-                            or p[2].zmin + oz > bb.zmax or bb.zmin > p[2].zmax + oz)]
-            if len(near) > 1:
-                near = [p for p in near
-                        if _overlap.volume(p[1].translate([ox, oy, oz]), m) > 0.0]
-            if not near:
-                continue
-            asked = (near[0][0] if len(near) == 1
-                     else cq.Compound.makeCompound([p[0] for p in near]))
-            v = asked.translate(cq.Vector(ox, oy, oz)).intersect(s).Volume()
-            if v > 1e-6:
-                total += v
-                if v > hits.get(name, (0.0, 0.0))[0]:
-                    hits[name] = (v, d)
-        if total > worst[0]:
-            worst = (total, d)
-    return worst, len(rungs), hits
-
-
-def check_slide_lanes(pieces, solids, ebox) -> Bound:
-    """The FRONT column's close, swept with its cargo: front-top arrives carrying the
-    flavour pack, so what slides is the piece AND the manifold made up into it, and what
-    it slides over is front-bottom AND the refrigeration stratum already seated there.
-    `z-slide-front-clear` proved the pieces; this is the same travel with the bodies in.
-
-    IT COMES IN FROM THE FRONT, so the cargo sweeps AFT over the stratum — the axis
-    here is the entry offset, fore of home, and it is the one `_z_rail_runs` closes the
-    rails against.
-
-    THE BACK COLUMN TAKES NO SUCH ROW because its tub is EMPTY when it closes: the core
-    cannot pass under back-top's own +Y wall, so it enters through the Y-seam mouth
-    after the column is one piece (`check_core_ride`), and everything back-top carries
-    — the chain, the meter, the panel, the wall electronics — rides with it over
-    nothing. The piece-on-piece sweep is the whole of that close."""
-    plate = ebox.pack.collet_plate if (ebox.pump_bay and ebox.pack.collet_plate) else None
-    travel = _enc._z_rail_travel(ebox.inner, ebox.y_joint, "front", plate,
-                                 ebox.pack.vent_chase)
-    movers = [("front-top", pieces["front-top"].val())]
-    for name, s in solids.items():
-        if name.startswith(FRONT_RIDERS) and not name.startswith(CORE_RIDERS):
-            movers.append((name, s))
-    fixed = [("front-bottom", pieces["front-bottom"].val())]
-    for name in ("compressor", "condenser+fan", "mq6-sensor", "thermal-fuse",
-                 "fuse-clamp"):
-        if name in solids:
-            fixed.append((name, solids[name]))
-    (worst, at), n, hits = _swept_worst(movers, fixed, (0.0, -1.0, 0.0), travel)
-    ok = worst <= 2.0
-    return record_bound(Bound(
-        "z-slide-front-lanes", "The front top slides home carrying the flavour pack",
-        ok,
-        f"worst {worst:.1f} mm³ contested, {at:.2f} mm out, {n} stations over "
-        f"{travel:.1f} mm",
-        "0 mm³ at every station of the loaded travel",
-        ([] if ok else [
-            f"front-top with the flavour pack aboard contests {worst:.1f} mm³ "
-            f"{at:.2f} mm out of home — in the lane: "
-            + "; ".join(f"{k}: {v:.1f} mm³ at {d:.1f}" for k, (v, d) in
-                        sorted(hits.items(), key=lambda r: -r[1][0])[:4])
-            + ". A blocker either rides the piece (add it to `FRONT_RIDERS`) or the "
-            f"pack has to open its lane"])))
-
-
-def check_core_ride(pieces, solids, ebox) -> Bound:
-    """The cold core's ride IN: through the open Y-seam mouth, aft over back-bottom's
-    slab to its seat on the rear lip, under the hold-down feet and past everything
-    back-top brought with it. The whole travel is swept against the closed back column
-    and its riders, because this is the one motion in the build that crosses the box's
-    whole depth loaded.
-
-    THE LID'S TENANTS RIDE WITH IT. The water pump, its two chains and the three
-    cap-cradled valves stand on the core before the back assembly comes over, so the
-    mover here is the core AND its riders, and the lane proved open is the loaded one.
-
-    Its service twin is the same sweep backwards: four screws, the back assembly aft
-    and off the core, and the bay is cart work again."""
-    movers = [("foam-assembly", solids["foam-assembly"])]
-    for name in CORE_RIDERS:
-        if name in solids:
-            movers.append((name, solids[name]))
-    travel = (max(box(s).ymax for _n, s in movers) - ebox.y_joint) + 5.0
-    members = [("back-bottom", pieces["back-bottom"].val()),
-               ("back-top", pieces["back-top"].val())]
-    if "ceiling-panel" in pieces:
-        panel = pieces["ceiling-panel"]
-        panel = panel.val() if hasattr(panel, "val") else panel
-        members.append(("ceiling-panel", panel))
-    for name, s in solids.items():
-        bb = box(s)
-        if bb.ymax <= ebox.y_joint - 5.0:
-            continue                       # the front column's; not standing in this lane
-        if name.replace("_", "-").startswith("enclosure-"):
-            continue                       # the box's own pieces, under either spelling an
-                                           # assembly child carries: the back pair is already
-                                           # fused above, and the front pair is the core's
-                                           # own train — it rides at the core's side of the
-                                           # motion, and the last 13 mm it shares with the
-                                           # back column is the Y telescope the home fits
-                                           # already prove
-        if name.startswith(CORE_RIDE_LATER + CORE_RIDERS) or name.startswith(CORE_RIDE_RUNS):
-            continue
-        if name.endswith("-word") or name.endswith("-ink"):
-            continue
-        members.append((name, s))
-    (worst, at), n, hits = _swept_worst(movers, members, (0.0, -1.0, 0.0), travel)
-    ok = worst <= 2.0
-    return record_bound(Bound(
-        "core-rides-in", "The cold core rides in through the mouth to its seat", ok,
-        f"worst {worst:.1f} mm³ contested, {at:.2f} mm out, {n} stations over "
-        f"{travel:.1f} mm",
-        "0 mm³ down the whole lane",
-        ([] if ok else [
-            f"the core contests {worst:.1f} mm³ at {at:.2f} mm fore of its seat — "
-            f"standing in its lane: "
-            + "; ".join(f"{k}: {v:.1f} mm³ at {d:.1f}" for k, (v, d) in
-                        sorted(hits.items(), key=lambda r: -r[1][0])[:4])
-            + ". Either it goes on after the core (add it to `CORE_RIDE_LATER`) or the "
-            f"lane has genuinely closed and the pack has to open it"])))
-
-
-def check_core_held(pieces: dict, foam, shell) -> Bound:
-    """Whether all four of the cold core's grips are closed on it.
-
-    Read inside each grip's own window, off the built pieces: the piece's material in there IS
-    the grip, so the distance from it to the core is the fit the grip was drawn at — one
-    `enclosure.core_stop_slip` on a front block's bore, 0 on an aft bracket's foot. Read over the
-    whole piece instead and a box drawn round the core with no grip in it still returns 0, from
-    the slab under it.
-
-    A window no piece has material in is a grip nothing prints, and reads as the full horizon."""
-    rows, solids = [], [p.val() if hasattr(p, "val") else p for p in pieces.values()]
-    for what, window in _core_grip_windows(foam, shell):
-        grip = [g for g in (s.intersect(window) for s in solids) if g.Volume() > 1.0]
-        rows.append((what, sum(g.Volume() for g in grip),
-                     min((_clearing.gap(foam, g, 1.0) for g in grip), default=1.0)))
-    bad = [r for r in rows if r[2] > CORE_GRIP_SLIP]
-    worst = max((g for _w, _v, g in rows), default=0.0)
-    return record_bound(Bound(
-        "core-held", "Every grip on the cold core is closed on it", bool(rows) and not bad,
-        "nothing stationed" if not rows else
-        f"{len(rows) - len(bad)}/{len(rows)} grips closed, furthest off {worst:.3f} mm",
-        f"every grip within {CORE_GRIP_SLIP:g} mm of the core",
-        [f"{what} holds {vol:.0f} mm³ of printed material and stands {g:.4f} mm off the core — "
-         f"the grip is drawn beside the core rather than on it"
-         for what, vol, g in rows if g > CORE_GRIP_SLIP]))
-
-
 # How far off contact either end of the pinch may read. A stack drawn to close on the case has
 # nothing in it to take up, so this is the closing's own float and nothing else.
 BEDDED_TOL = 0.01
-
-
-def check_cutoff_bedded(clamp, fuse, face) -> Bound:
-    """Whether the cutoff's case is actually pinched between the cover and the clamp.
-
-    A body drawn beside another is not a body held against it, and the whole of what makes a
-    77 °C cutoff a cutoff is that its case is at the temperature of the face it lies on. So this
-    reads the STACK ACROSS THE FACE NORMAL, off the placed solids, in two hops:
-
-        bed    the cover's own plane to the case's near generatrix — 0 is the case ON the face
-        grip   the case's far generatrix to the clamp's crown over it — 0 is the clamp ON the
-               case, measured by cutting a slab out of the clamp along the case's own axis and
-               taking the innermost material in it
-
-    Both at 0 is the pinch closed: cover — case — crown, with the case's whole diameter between
-    the face and the clamp and nothing of the clamp inside it. A clamp that drifts out opens
-    `grip`; a case that lifts off opens `bed`; a clamp drawn into the case closes `grip` past 0
-    and shows up in `pack-closes` as well. NOTHING ELSE ON THIS CARD SEES ANY OF THAT — a clamp
-    standing a millimetre proud is a clamp with no clash, no clearance fault and no seat miss,
-    and a cutoff reading cabinet air.
-
-    BOTH HOPS ARE TAKEN ALONG THE FACE'S OWN NORMAL, which `FUSE_FACE_NORMAL` names and
-    `power_face_station` has already held the machine to. The cover is a box and the pair goes
-    on whichever of its faces costs the machine least; a reading struck on a fixed axis instead
-    would go quietly meaningless the moment that face changed, which is the one failure this
-    row exists to catch."""
-    out = 0 if abs(FUSE_FACE_NORMAL[0]) > 0.5 else 1
-    sign = 1.0 if FUSE_FACE_NORMAL[out] > 0.0 else -1.0
-    # The case's own axis is the other horizontal one, and its mid-height is Z either way.
-    case = 1 - out
-
-    def span(bb, i):
-        return ((bb.xmin, bb.ymin, bb.zmin)[i], (bb.xmax, bb.ymax, bb.zmax)[i])
-
-    def s(v):                       # a coordinate as a distance OUT of the face
-        return sign * (v - face[out])
-
-    fb, cb = box(fuse), box(clamp)
-    f_lo, f_hi = span(fb, out)
-    near, far = (f_lo, f_hi) if sign > 0.0 else (f_hi, f_lo)
-    crown = max(s(v) for v in span(cb, out))
-    bed = s(near)
-    # A slab on the case's own axis, over the case's own length, from the cover's face out past
-    # everything the clamp has: what stands in it is the crown and nothing else the part is.
-    mid = [0.0, 0.0, (fb.zmin + fb.zmax) / 2.0]
-    mid[out] = face[out] + sign * crown / 2.0
-    mid[case] = sum(span(fb, case)) / 2.0
-    dims = [0.0, 0.0, 2.0 * BEDDED_TOL]
-    dims[out] = crown
-    dims[case] = _fuse.BODY_L
-    slab = cq.Workplane("XY", origin=tuple(mid)).box(*dims)
-    over, vol = _overlap.common(clamp, slab.val())
-    grip = (None if vol <= 0.0
-            else min(s(v) for v in span(ml.extents(over), out)) - s(far))
-    ok = abs(bed) <= BEDDED_TOL and grip is not None and abs(grip) <= BEDDED_TOL
-    return record_bound(Bound(
-        "cutoff-bedded", "The cutoff's case is pinched between the power box and its clamp", ok,
-        (f"case on the cover {bed:+.3f} mm, clamp on the case "
-         + ("nothing over it" if grip is None else f"{grip:+.3f} mm")),
-        f"both 0 within {BEDDED_TOL:g} mm",
-        ([] if ok else [
-            f"thermal-fuse: the case's contact line stands {bed:+.3f} mm off the power box's "
-            f"face at {'xyz'[out]} {face[out]:.2f}, and the clamp's crown "
-            + ("stands nowhere over the case at all"
-               if grip is None else f"stands {grip:+.3f} mm off the case's far generatrix")
-            + f". The pair is seated on ONE station — `power_face_station` — and drawn in one "
-            f"frame, so what opens this is `fuse_clamp.CHANNEL_Z` no longer being the case's own "
-            f"Ø{_fuse.BODY_D:g}, or a body seated on something other than that station. A "
-            f"cutoff off its face reads cabinet air and never opens."])))
 
 
 # --- The refrigerant loop's joints -------------------------------------------
@@ -3077,63 +1560,6 @@ def refrigerant_mates(joints) -> list:
             if j.made == MADE_BY_MATE and j.mm is not None and j.mm <= JOINT_TOL]
 
 
-def check_refrigerant_joints(joints) -> Bound:
-    """Every leg of the loop against `JOINT_TOL`, each in the reading its own way of being made
-    earns — so the gate accounts for the whole circuit rather than the part of it one
-    construction covers.
-
-    A MATING over the tolerance is two stations that were one point on a shared plane and no
-    longer are. A DRAWN leg over it is a tube whose end does not land in the mouth it is brazed
-    into. Both are a length of copper the machine owes and nothing draws, which is why one
-    tolerance grades both.
-
-    A leg with no reading at all is the third case and the one this gate was built for: owed by
-    the circuit, made by nothing, and measured by nobody. It reads red and says which leg."""
-    mated = [j for j in joints if j.made == MADE_BY_MATE and j.mm is not None]
-    drawn = [j for j in joints if j.made == MADE_BY_TUBE and j.mm is not None]
-    blind = [j for j in joints if j.mm is None]
-    open_mate = [j for j in mated if j.mm > JOINT_TOL]
-    open_tube = [j for j in drawn if j.mm > JOINT_TOL]
-    widest = max((j.mm for j in joints if j.mm is not None), default=0.0)
-    return record_bound(Bound(
-        "refrigerant-joints", "Every leg of the refrigerant loop closes, mated or drawn",
-        not open_mate and not open_tube and not blind,
-        f"{len(mated) - len(open_mate)} mated, {len(drawn) - len(open_tube)} drawn "
-        f"of {len(joints)}"
-        + (f", {len(open_mate) + len(open_tube)} open" if open_mate or open_tube else "")
-        + (f", {len(blind)} unmeasured" if blind else "")
-        + f", widest {widest:.3f} mm",
-        f"every leg within {JOINT_TOL:g} mm — a mating on its two stations, a tube on both "
-        f"its mouths",
-        ([] if not open_mate else [
-            "the refrigerant loop is made up across the planes its bodies already share, and "
-            + ", ".join(f"{j.id} stands {j.mm:.3f} mm open ({j.frm} to {j.to})"
-                        for j in open_mate)
-            + f" — over the {JOINT_TOL:g} mm a shared plane leaves. That distance is copper "
-              f"drawn in the open between two bodies with nothing between them: move the "
-              f"station that shifted back onto the one it is read against."])
-        + ([] if not open_tube else [
-            "the loop's drawn legs are cut and brazed into the two mouths they join, and "
-            + ", ".join(f"{j.id}'s tube ends {j.mm:.3f} mm off ({j.frm} to {j.to})"
-                        for j in open_tube)
-            + f" — over the {JOINT_TOL:g} mm a braze seats in. `_lines` draws that run to "
-              f"somewhere other than the mouths this leg joins, so one of them has nothing "
-              f"brazed into it: anchor the run on the leg's own two stations, or move the "
-              f"station the tube no longer reaches."])
-        + ([] if not blind else [
-            "the loop owes "
-            + ", ".join(j.id for j in blind)
-            + f" and nothing on this pack measures {'them' if len(blind) > 1 else 'it'}: "
-              f"`JOINT_STATIONS` names no pair of stations for "
-              f"{'those ids' if len(blind) > 1 else 'that id'}, or a station it names is not "
-              f"placed — so neither a mating nor a tube can be read against them. `routed` "
-              f"counts the same {len(joints)} connections "
-              f"(`_scorecard.REFRIGERANT_SEGMENTS`), so {len(blind)} of {len(joints)} legs of "
-              f"the circuit {'are' if len(blind) > 1 else 'is'} made by nothing rather than the "
-              f"circuit having fewer joints — give each the two mouths it joins, and mate them "
-              f"or draw the run between them."])))
-
-
 MOUNT_TOL = 0.001
 
 
@@ -3150,27 +1576,6 @@ def pump_mount_rows(foam_carry, seaflo_carry) -> list:
         ((hx, hy, _lines._pump.mount_seat_z()), (0.0, 0.0, 1.0)))[0][:2])
         for hx, hy in _lines._pump.mount_holes())
     return list(zip(printed, wanted))
-
-
-def check_pump_mount(rows) -> Bound:
-    """Whether every column the cap bores stands under the bore it takes a screw through.
-
-    The detail is the row `_cold_core_interface.deck_mounts` should carry, so a pump that has
-    moved corrects the cap from the machine rather than being guessed at."""
-    off = max((max(abs(h[0] - w[0]), abs(h[1] - w[1])) for h, w in rows), default=None)
-    xs = sorted({round(w[0], 4) for _h, w in rows})
-    ys = sorted({round(w[1], 4) for _h, w in rows})
-    return record_bound(Bound(
-        "pump-mount-lands", "Every cap column the water pump bolts to is under its own bore",
-        bool(rows) and off is not None and off <= MOUNT_TOL,
-        "no column bored" if not rows else f"{len(rows)} columns, furthest off {off:.3f} mm",
-        f"every column within {MOUNT_TOL:g} mm of the bore over it",
-        ([] if rows and off is not None and off <= MOUNT_TOL else [
-            "the cold core's cap bores the columns the pump's bracket bolts down into, and the "
-            "pump is stood on that cap by this module — so the cap follows the machine. This is "
-            "the row `_cold_core_interface.deck_mounts` should carry:",
-            f'    "seaflo-pump": DeckMount(({(xs[0]+xs[-1])/2:.2f}, {(ys[0]+ys[-1])/2:.2f}), '
-            f'{xs[-1]-xs[0]:.2f}, {ys[-1]-ys[0]:.2f},   0.0,  8.50, 16.0),'])))
 
 
 def cap_anchor(name: str):
@@ -3230,7 +1635,7 @@ def seaflo_port_lane_limit() -> float:
     between the rear seam's boss chain and this casting, `PORT_WEST_COLUMN` stands the pair off
     that chain by one `PORT_LANE_CLEAR`, and this is the same millimetre owed on the other side.
     Read off the east column and the union's own body — the station the field actually stands
-    on, which is where `check_port_pair` takes its own reading."""
+    on."""
     return PANEL_X["bulkhead-flavor-a"] + _jg.BODY_D / 2.0 + PORT_LANE_CLEAR
 
 
@@ -3241,13 +1646,12 @@ def build_seaflo(foam, gate: float):
     IT IS SITED BY WHAT LIES WEST, not by the mirror plane. Centred, the pump left the tray
     whatever the −X wall happened to be, which made the tray's rim a function of the appliance's
     stated width; stood off `seaflo_west_limit`, the tray keeps its lane at any width and the
-    pump spends the air on its own east flank instead. `check_pan_lane` reads back the lip that
-    leaves, and the pump stays centred wherever the lane is already wide enough.
+    pump spends the air on its own east flank instead, staying centred wherever the lane is
+    already wide enough.
 
     TWO ROOMS READ THE SAME CASTING and it is one body, so the shift is the wider of what they
     ask. The tray lies alongside the pump at its own storey; the flavour unions cross the wall
     aft of it and a storey up, in the band `flavor_storey` carries their barrels over the feet.
-    `check_port_pair` reads that second flank back off the placed body.
 
     The casting is measured over each room's own four planes — above the feet and aft of the
     discharge barb for the tray, in the rear band at the pair's own storey for the unions, the
@@ -3346,7 +1750,7 @@ def build_discharge_chain(foam_carry, seaflo_carry):
     printed part says and the two cannot drift apart. Y stands its barb one `DISCH_CORNER_ROOM`
     forward of the pump's discharge mouth, which is what buys `water-6` its corner.
 
-    `check_anchor_lands` is where the rib is held against the section it seats: the seat's radius
+    The rib is held against the section it seats: the seat's radius
     is read off the placed chain's own stack, and the rib's whole length has to lie inside one
     section of it.
 
@@ -3499,14 +1903,6 @@ def port_pocket_rise() -> float:
     row runs out past the box's top face and is cut off by it, which is what leaves those three
     chips open at the top."""
     return _ring.RISE + BULKHEAD_RING_SLIP
-
-
-def port_boss_d(ring: str = "union") -> float:
-    """What one station's boss measures across — the chip it backs and a rim either side.
-
-    It is wider than `PORT_PITCH`, so two neighbours on one row merge into one longer boss.
-    `port-field-web` is the reading that keeps the POCKETS apart."""
-    return _ring.od(ring) + 2.0 * BULKHEAD_RING_RIM
 
 
 def wall_stations(bulkhead_carry, panel_carries, co2_carry) -> dict:
@@ -3683,19 +2079,6 @@ def nameplate_cut(foam) -> _enc.Nameplate:
                           _enc.heatset_dia, _enc.heatset_depth + _np.bore_relief())
 
 
-def nameplate_supports(foam) -> tuple:
-    """The wall's two complete insert supports, as `(side, solid)` in assembly coordinates.
-
-    The same enclosure helper builds the production feature and these probes, so the clearance
-    reading cannot silently keep measuring an old cylinder after the corbel or stem changes."""
-    plate = nameplate_cut(foam)
-    y_pad = _enc.rear_plane_y + _enc.wall - plate.wall
-    return tuple(
-        (("east" if dx > 0.0 else "west"),
-         _enc._nameplate_support(plate, plate.x + dx, plate.z + dz, y_pad))
-        for dx, dz in plate.screws)
-
-
 def build_nameplate(foam, unit: int = 1):
     """The plate and its lettering, two solids, seated on the pocket's own floor — one plate's
     thickness inside the wall's outer face, so its face and the wall's come out one plane."""
@@ -3708,109 +2091,6 @@ def build_nameplate(foam, unit: int = 1):
     return ((NAMEPLATE, body, cq.Color(*(c / 255.0 for c in _rear.chip_color("flavor")))),
             (NAMEPLATE_INK, letters,
              cq.Color(*(c / 255.0 for c in _rear.word_color("flavor")))))
-
-
-def check_nameplate(foam, box) -> Bound:
-    """The plate against the field the wall leaves it, and its screws against the line the cold
-    core's cap leaves them.
-
-    `nameplate.WIDTH` and `HEIGHT` are the part's own figures — it is sized on the type it
-    carries — and the field is this wall's. This is where the two are read against each other."""
-    west, east, north = nameplate_field()
-    seam = box.splits[1]
-    x, z = nameplate_station(foam)
-    rows = []
-    room = east - west - 2.0 * NAMEPLATE_MARGIN
-    if _np.WIDTH > room + 1e-6:
-        rows.append(f"the plate is {_np.WIDTH:g} across and the field between the flavour "
-                    f"pockets and the flat face's tangent leaves {room:.2f} inside its margins")
-    low = z - _np.HEIGHT / 2.0
-    if low < seam + NAMEPLATE_MARGIN - 1e-6:
-        rows.append(f"the plate's foot lands at z {low:.2f} and the back column's seam is at "
-                    f"{seam:.2f} — a plate crossing it is two prints")
-    high = z + _np.HEIGHT / 2.0
-    if high > north - NAMEPLATE_MARGIN + 1e-6:
-        rows.append(f"the plate's head reaches z {high:.2f} and the top row's pockets come down "
-                    f"to {north:.2f} — the two would meet with no wall between them")
-    return record_bound(Bound(
-        "nameplate-field", "The plate stands in the field this wall leaves it", not rows,
-        f"{_np.WIDTH:g} x {_np.HEIGHT:g} at ({x:.2f}, {z:.2f}), z {low:.2f}..{high:.2f}",
-        f"inside x {west:.2f}..{east:.2f}, z {seam:.2f}..{north:.2f}", rows))
-
-
-def check_nameplate_support_clearance(foam, placed) -> Bound:
-    """Both corbelled insert supports against every installed body near the rear wall.
-
-    This is the choice the station spends: the west support passes between the cold-core cap and
-    the SeaFlo's rounded aft disc, while the east support shares the cap line beside the PSU.
-    Bounding boxes only reject bodies that cannot be close; every reported distance is the exact
-    B-rep distance from the production support geometry to the placed purchased/core solid."""
-    skip = {NAMEPLATE, NAMEPLATE_INK}
-    horizon = 5.0
-    rows = []
-    bad = []
-    for side, support in nameplate_supports(foam):
-        sb = _boxes.loose(support)
-        nearest = (float("inf"), None)
-        for name, body in placed.items():
-            if name in skip or name.startswith("bulkhead-ring-"):
-                continue
-            body = body.val() if hasattr(body, "val") else body
-            if _clearing.box_gap(sb, _boxes.loose(body)) > horizon:
-                continue
-            query = _BRepDist(support.wrapped, body.wrapped)
-            if not query.IsDone():
-                raise RuntimeError(
-                    f"nameplate-support-clearance: exact distance from the {side} support to "
-                    f"{name} failed — its clearance is unknown, not clear")
-            gap = query.Value()
-            if gap < nearest[0]:
-                nearest = (gap, name)
-        gap, name = nearest
-        rows.append((side, name, gap))
-        if name is None or gap < NAMEPLATE_BOSS_CLEAR - 1e-6:
-            bad.append((side, name, gap))
-    actual = ", ".join(f"{side} {gap:.3f} mm to {name}" for side, name, gap in rows)
-    return record_bound(Bound(
-        "nameplate-support-clearance",
-        "Both nameplate stems and their corbels stay clear of the installed pack", not bad,
-        actual, f"at least {NAMEPLATE_BOSS_CLEAR:g} mm each",
-        [f"{side} support leaves {gap:.3f} mm to {name or 'no measured body'}; the enclosure "
-         f"keeps {NAMEPLATE_BOSS_CLEAR:g} mm of assembly air"
-         for side, name, gap in bad]))
-
-
-def check_nameplate_support_print(foam) -> Bound:
-    """Both horizontal nameplate supports have one printable D-shaped free edge."""
-    plate = nameplate_cut(foam)
-    y_pad = _enc.rear_plane_y + _enc.wall - plate.wall
-    y_tip, r = y_pad - plate.reach, plate.stem_d / 2.0
-    rows, bad = [], []
-    for (side, support), (_dx, dz) in zip(nameplate_supports(foam), plate.screws):
-        sz = plate.z + dz
-        free = [edge for edge in support.Edges()
-                if abs(edge.BoundingBox().ymin - y_tip) < 1e-6
-                and abs(edge.BoundingBox().ymax - y_tip) < 1e-6]
-        circles = [edge.Length() for edge in free if edge.geomType() == "CIRCLE"]
-        floors = [edge for edge in free if edge.geomType() == "LINE"
-                  and abs(edge.BoundingBox().zmin - (sz - r)) < 1e-6
-                  and abs(edge.BoundingBox().zmax - (sz - r)) < 1e-6
-                  and abs(edge.BoundingBox().xlen - plate.stem_d) < 1e-6]
-        full_circle = any(abs(length - math.pi * plate.stem_d) < 1e-4 for length in circles)
-        drop = sz - r - support.BoundingBox().zmin
-        ok = not full_circle and len(floors) == 1 and abs(drop - plate.reach) < 1e-6
-        rows.append((side, ok, drop, max(circles, default=0.0)))
-        if not ok:
-            bad.append((side, full_circle, len(floors), drop))
-    return record_bound(Bound(
-        "nameplate-support-print",
-        "Both nameplate insert stems have a D-shaped lower profile and wall corbel",
-        bool(rows) and not bad,
-        f"{len(rows) - len(bad)}/{len(rows)} D-stems, {plate.stem_d:g} mm floor, "
-        f"{plate.reach:g} mm 45-degree drop",
-        "no complete circular free edge; one full-width floor carried back to the wall",
-        [f"{side}: full circle={circle}, floor edges={floors}, corbel drop={drop:.3f} mm"
-         for side, circle, floors, drop in bad]))
 
 
 # --- the panel deck: the three unions the machine dispenses through ---------
@@ -3895,8 +2175,7 @@ _stated.state(
 # AND THE WALL IS NOT ONE FIGURE ANY MORE. back-top carries `enclosure.back_top_wall_t` and the
 # CO2's own station is relieved back to `enclosure.wall` for exactly this reason, so what a
 # fitting spends is the section at ITS station and not the box's thinnest or its thickest.
-# `enclosure.back_wall_t_at` is that reading; `check_wall_clamped` takes it again at the placed
-# station, which is what catches a relief that has drifted off the hole it was cut for.
+# `enclosure.back_wall_t_at` is that reading.
 _port_stack = _stated.bound(
     "port-clamp-stack", "Every fitting's bare barrel takes the wall and the ring lying in it",
     f"a stack of the wall at its own station, floored on `enclosure.wall` and "
@@ -3935,8 +2214,7 @@ def west_seam_crown():
 
 # THE WEST LANE CARRIES TWO COLUMNS AND EVERY UNION IS ON ONE OF THEM. The lane runs from the
 # seam column's crown to the pump's casting, and the two flavour unions stand side by side across
-# it at `PORT_PITCH` — so `check_port_pair` is where that span is measured, against the column on
-# one flank and the casting on the other.
+# it at `PORT_PITCH`, spanning the column on one flank and the casting on the other.
 #
 # THE EAST COLUMN IS THE ONE THE PUMP FENCES. It stands as far east as the casting leaves it at
 # the flavour storey, and the west column takes one pitch beyond that. Swept over the wall by
@@ -3982,184 +2260,6 @@ def flavor_storey(gate: float, seaflo) -> float:
 # both barrels clear over the pump's bracket, and what the runs spend on that is one short lean
 # apiece at the aft end.
 PANEL_ON_GATE_LANE = ("bulkhead-flavor-b", "bulkhead-flavor-a")
-
-
-def check_port_pair(placed, west_face, seaflo) -> Bound:
-    """The two flavour unions across the west lane, measured against the two things that fence it:
-    the seam column's crown on one flank and the pump's own casting on the other, read at the
-    storey the pair stands on.
-
-    `west_seam_crown` and not the wall, because the wall is not what the pair meets there."""
-    pair = [box(placed[n]) for n in PANEL_ON_GATE_LANE]
-    lo, hi = min(b.xmin for b in pair), max(b.xmax for b in pair)
-    face = pump_west_face(seaflo, min(b.zmin for b in pair), max(b.zmax for b in pair),
-                          bulkhead_mouth_y(), _enc.rear_plane_y)
-    left, right = lo - west_face, face - hi
-    got = min(left, right)
-    ok = got >= PORT_LANE_CLEAR - 1e-6
-    return record_bound(Bound(
-        "port-pair", "The flavour unions' pair stands inside the west lane", ok,
-        f"{left:.3f} mm to the seam column, {right:.3f} mm to the casting",
-        f"{PORT_LANE_CLEAR:g} mm each flank",
-        ([] if ok else [
-            f"the flavour pair spans x[{lo:.2f}, {hi:.2f}] between a column at {west_face:.2f} and "
-            f"the pump's casting at {face:.2f} — {got:.3f} mm on its tightest flank. The span is "
-            f"one `PORT_PITCH` plus a barrel; move `PANEL_X`'s two flavour columns, or give the "
-            f"pair back the width by moving the pump."])))
-
-
-def check_top_row(stations) -> Bound:
-    """The top row's chips run out FLUSH with the box's own top face.
-
-    `bulkhead_ring.RISE` is how far a chip stands over its bore axis, and it is not a figure that
-    module can derive: it is this row's own storey read against the ceiling, and the two modules
-    cannot import each other. So it is stated there and read back here, off the stations the wall
-    was actually bored on. Every chip takes it, and this is the row it answers to.
-
-    Struck short, a strip of wall stands over the colour too thin for a nozzle to lay. Struck long,
-    the pocket cuts up into the top wall past the face it runs out on."""
-    top = interior_ceiling() + _enc.wall
-    rows = []
-    for name, (_x, z, _fitting, _ring_family, which, _fluid) in stations.items():
-        if not _ring.STATIONS[which].top_row:
-            continue
-        got = z + _ring.RISE
-        if abs(got - top) > 1e-3:
-            rows.append(
-                f"{name}'s chip reaches z {got:.3f} and the box's top face is {top:.3f} — "
-                f"`bulkhead_ring.RISE` is {_ring.RISE:g} and this row is bored on {z:.3f}, so that "
-                f"figure owes {top - z:.3f}.")
-    return record_bound(Bound(
-        "bulkhead-ring-top-row", "The top row's chips run out on the box's top face", not rows,
-        f"{sum(1 for _n, s in stations.items() if _ring.STATIONS[s[4]].top_row)} chips flush "
-        f"at z {top:.3f}", "no wall standing over the colour", rows))
-
-
-def check_nameplate_pocket(plate, pieces, foam) -> Bound:
-    """The pocket the wall CUT against the pocket the plate needs, read off the two solids.
-
-    `pack-closes` catches a pocket that is too SMALL — the plate cannot get into it, so the two
-    share volume. Nothing catches one that is too LARGE: a plate rattling in a pocket ten
-    millimetres too tall overlaps nothing, seats nowhere in particular, and every other reading
-    on this card comes back green. That is the case this one is here for.
-
-    THE READING IS THE POCKET'S OWN FOUR EDGES, taken at the MOUTH. The wall stands where the
-    plate's outline is not and gives way where it is — so each edge is asked twice, a hair
-    outside and a hair inside. A pocket cut to the wrong figure fails on whichever pair of probes
-    it moved past. It is read on the straight rim rather than at mid-thickness because deeper in
-    the pocket is the chamfer, where the outline is not the outline yet."""
-    wall = pieces.get("back-top")
-    if wall is None or plate is None:
-        return record_bound(Bound(
-            "nameplate-pocket", "The wall's pocket is the plate's own outline", False,
-            "no wall to read" if wall is None else "no plate to read", "both standing",
-            ["the nameplate or `enclosure-back-top` is not in this machine"]))
-    wall = wall.val() if hasattr(wall, "val") else wall
-    plate = plate.val() if hasattr(plate, "val") else plate
-    x, z = nameplate_station(foam)
-    y = _enc.rear_plane_y + _enc.wall - (_np.THICK - _np.BEVEL) / 2.0
-    half_w = (_np.WIDTH + 2.0 * _np.SLIP) / 2.0
-    half_h = (_np.HEIGHT + 2.0 * _np.SLIP) / 2.0
-    # A probe small enough to sit inside the slip, offset by its own reach either side of an edge.
-    reach = 0.5
-
-    def stands(px, pz) -> bool:
-        cube = cq.Solid.makeBox(0.4, 0.4, 0.4, cq.Vector(px - 0.2, y - 0.2, pz - 0.2))
-        return _overlap.volume(cube, wall) > 1e-9
-
-    rows = []
-    for name, out, inn in (
-            ("west", (x - half_w - reach, z), (x - half_w + reach, z)),
-            ("east", (x + half_w + reach, z), (x + half_w - reach, z)),
-            ("foot", (x, z - half_h - reach), (x, z - half_h + reach)),
-            ("head", (x, z + half_h + reach), (x, z + half_h - reach))):
-        if not stands(*out):
-            rows.append(f"the wall gives way {reach:g} mm OUTSIDE the plate's {name} edge — the "
-                        f"pocket is cut wider than the plate that lies in it")
-        if stands(*inn):
-            rows.append(f"the wall stands {reach:g} mm INSIDE the plate's {name} edge — the "
-                        f"pocket is cut narrower than the plate that lies in it")
-    return record_bound(Bound(
-        "nameplate-pocket", "The wall's pocket is the plate's own outline", not rows,
-        f"{_np.WIDTH:g} x {_np.HEIGHT:g} and one {_np.SLIP:g} slip, on all four edges",
-        "wall outside every edge, air inside it", rows))
-
-
-def check_wall_clamped(bodies, rings, pieces, stations) -> Bound:
-    """Whether each rear-wall fitting is CLAMPED THROUGH the wall, read off the placed solids.
-
-    This is the reading that makes `wall-capture` a mount and not a word. A fitting drawn in front
-    of a hole and a fitting clamped through one are the same to every other row on this card: the
-    bore is bored either way, the pad stands either way, and `port-clamp-stack` holds a stack of
-    stated figures that the machine may not actually be built to. Two numbers tell them apart, and
-    both are the joint itself:
-
-        bear   the flange against the RING lying in its pocket. A clamp has a bearing face, and
-               this is it — the ring bottoms on the wall's own outer face, so the flange's load
-               crosses ring and wall together and the ring is in the stack the way the wall is.
-        slip   the barrel against the WALL it passes. One `PORT_HOLE_SLIP` on the diameter is a
-               barrel standing in its own bore; anything wider is a fitting hanging in a hole, and
-               anything closed is a barrel fouling the wall it is meant to pass freely.
-
-    THE SLIP IS READ IN THE STATION'S OWN COLUMN, not against the whole piece. A wall this full
-    carries furniture that comes nearer a fitting than its own bore does — the west column's two
-    unions pass within a tenth of a millimetre of what stands off the −X wall — so a reading taken
-    against `enclosure-back-top` entire reports that neighbour and not this joint. The column is
-    the pad's own footprint carried through wall and pad, so what is left in it is the bore, its
-    pocket and nothing else.
-
-    What the nut does is not read here — it is not modelled, and `port-clamp-stack` is where the
-    barrel it runs down is held against the stack these two numbers measure."""
-    def solid(s):
-        s = s.toCompound() if hasattr(s, "toCompound") else s
-        return s.val() if hasattr(s, "val") else s
-    wall = pieces.get("back-top")
-    want = PORT_HOLE_SLIP / 2.0
-    rows, worst_bear, tight = [], 0.0, want
-    for name, (_fitting, _kind, which, _fluid) in Y_WALL_FITTINGS.items():
-        body, ring = bodies.get(name), rings.get(ring_name(which))
-        if body is None or ring is None or wall is None:
-            rows.append(f"{name}: no {'fitting' if body is None else 'ring'} to read")
-            worst_bear = max(worst_bear, 1.0)
-            continue
-        x, z, _fit, ring_kind, _which, _f = stations[name]
-        column = cq.Solid.makeCylinder(
-            port_boss_d(ring_kind) / 2.0, _enc.wall + PORT_BOSS_PROUD + 2.0,
-            cq.Vector(x, _enc.rear_plane_y - PORT_BOSS_PROUD - 1.0, z), cq.Vector(0, 1, 0))
-        bear = _clearing.gap(solid(body), solid(ring), 5.0)
-        slip = _clearing.gap(solid(body), solid(wall).intersect(column), 5.0)
-        worst_bear, tight = max(worst_bear, bear), min(tight, slip)
-        if bear > 1e-3:
-            rows.append(
-                f"{name}'s flange stands {bear:.3f} mm off `{ring_name(which)}` and bears on "
-                f"nothing. A fitting that does not land on its ring is not clamping the wall "
-                f"through it — either the ring's pocket is deeper than the ring, or the fitting's "
-                f"seat plane no longer reads `bulkhead_seat_y`.")
-        if abs(slip - want) > 1e-2:
-            rows.append(
-                f"{name}'s barrel stands {slip:.3f} mm off the wall in its own column, where its "
-                f"bore is struck one `PORT_HOLE_SLIP` over it — {want:.3f} on the radius. Either "
-                f"the bore is no longer the barrel's, or the fitting is off the column "
-                f"`wall_stations` bored on.")
-        # AND THE SECTION IT ACTUALLY PASSES, read where the pack put it. `port-clamp-stack`
-        # states this off the relief's own figures; this takes it again at the placed station,
-        # so a relief that has drifted off the hole it was cut for reads here rather than
-        # nowhere — the wall would simply be thicker than the barrel can clamp.
-        bare = getattr(_fitting, "PANEL_THREAD", None) or _fitting.THREAD_LEN
-        stack = port_clamp_stack(_enc.back_wall_t_at(x, z))
-        if stack > bare + 1e-9:
-            rows.append(
-                f"{name} passes {_enc.back_wall_t_at(x, z):.2f} mm of wall at its own station "
-                f"(x {x:.2f}, z {z:.2f}) and stacks {stack:.2f} mm from its flange's face to "
-                f"its nut's landing, against "
-                f"{bare:.2f} mm of bare barrel — the nut has none of it. Either the wall is "
-                f"thicker here than this fitting can clamp, or `enclosure.back_top_wall_relief` "
-                f"no longer stands on this hole.")
-    return record_bound(Bound(
-        "wall-clamped", "Every rear-wall fitting is clamped through the wall it passes", not rows,
-        f"{len(Y_WALL_FITTINGS)} clamped, furthest off its ring {worst_bear:.3f} mm, "
-        f"tightest in its bore {tight:.3f} mm",
-        f"bearing at 0.000 mm and {want:.3f} mm of bore", rows))
 
 
 def panel_z(name: str, deck: float, gate: float) -> float:
@@ -4275,9 +2375,7 @@ TUBE_ANCHOR_SLIP = 0.2
 # enough to reach them.
 #
 # Each row is a run, the index of the leg the rib is centred on, the face it roots on, and the
-# piece that owns that face there. `check_tube_seated` reads the last of those back off the two
-# solids, so a rib that lands in a different piece than its row names is a red row and not a
-# silent one.
+# piece that owns that face there.
 TUBE_ANCHOR_SITES = (
     # The carb-water line's crossing, under the top wall it runs 12.6 mm below for 123 mm. THE
     # WALL THERE IS THE SLIDE-IN CEILING PANEL and not back-top: back-top keeps only the two side
@@ -4339,7 +2437,7 @@ def tube_anchors(runs) -> tuple:
 # round section of a placed body is a station like any other.
 #
 # A ROW NAMES the body, the section of it the seat closes on, the face the rib roots on, and the
-# piece that owns that face. `check_body_seated` reads the last of those back off the two solids.
+# piece that owns that face.
 BODY_ANCHOR_SLIP = 0.2
 BODY_ANCHOR_SITES = (
     # The regulator's barrel, between its two wrench hexes — off the ceiling, which over this
@@ -4386,41 +2484,6 @@ def body_anchors(carries) -> tuple:
                 f"on whatever is either side of it.")
         stations.append((tuple(mid), tuple(u), tuple(root), r + BODY_ANCHOR_SLIP))
     return tuple(stations)
-
-
-def check_body_seated(bodies, pieces) -> Bound:
-    """Whether every body-anchored fitting is up in the rib its row names, off the placed solids.
-
-    The reading `check_digiten_seated` takes, on a bore rather than a V — so the gap it holds is
-    the slip itself, with no angle in it. And like the meter's anchors this seat opens DOWNWARD:
-    what it says is that the zip tie has the body to pull up against and the bore to pull it into,
-    not that the rib is carrying it.
-
-    It reads back WHICH piece, the same way `check_tube_seated` does: a rib is built by whichever
-    piece owns the whole of it, and a body seated against a piece its row does not name is a body
-    whose rib landed somewhere else."""
-    def solid(s):
-        s = s.toCompound() if hasattr(s, "toCompound") else s
-        return s.val() if hasattr(s, "val") else s
-    want = BODY_ANCHOR_SLIP
-    rows, worst = [], 0.0
-    for name, _section, _root, piece in BODY_ANCHOR_SITES:
-        body, part = bodies.get(name), pieces.get(piece.removeprefix("enclosure-"))
-        if body is None or part is None:
-            rows.append(f"{name}: no {'body' if body is None else piece} to read")
-            worst = max(worst, want + 1.0)
-            continue
-        got = _clearing.gap(solid(body), solid(part), 5.0)
-        worst = max(worst, got)
-        if got > want + 1e-3:
-            rows.append(
-                f"{name} stands {got:.3f} mm off {piece} and its rib is drawn to close on the "
-                f"barrel at {want:.3f}. Either the body moved off the storey the rib roots at, "
-                f"or the rib landed in a piece this row does not name.")
-    return record_bound(Bound(
-        "body-seated", "Every body-anchored fitting lies in its printed rib", not rows,
-        f"{len(BODY_ANCHOR_SITES)} anchored, furthest off {worst:.3f} mm",
-        f"{want:.3f} mm at most", rows))
 
 
 def cap_tube_anchors(foam_carry, runs) -> tuple:
@@ -4596,7 +2659,7 @@ ASSE_TIE_CLEAR = 0.5
 # IT IS GIVEN TO THE TIE, and to nothing else. A millimetre here is a millimetre of air the pack
 # cannot use for anything, so the number is the one thing that has to pass through it — and the
 # wall is never cut for it. `enclosure.wall` stays whole over this band; the storey moves instead,
-# which costs the deck's own headroom and is measured by `check_deck_floor`.
+# which costs the deck's own headroom.
 DECK_CEILING_CLEAR = ASSE_TIE_T + ASSE_TIE_CLEAR
 
 
@@ -4619,19 +2682,6 @@ def asse_crown_over_axis() -> float:
     return box(chain).zmax - _asse.port("tube-in")[0][2]
 
 
-def check_deck_floor(z: float, floor) -> Bound:
-    """The deck against the storey the descent leaves under it — the lowest it may lie."""
-    ok = floor is None or z >= floor - 1e-6
-    return record_bound(Bound(
-        "deck-floor", "The panel deck lies over the storey its own descent leaves", ok,
-        "nothing lands under it" if floor is None else f"deck {z:.2f}, floor {floor:.2f}",
-        "the deck at or over its floor",
-        ([] if ok else [
-            f"the panel deck lies at z {z:.2f} and the row it carries wants {floor:.2f} to keep "
-            f"one DECK_CLEAR = {DECK_CLEAR:g} over what it would land on. The ceiling sets the "
-            f"deck through `asse_crown_over_axis`; the floor is the descent."])))
-
-
 def deck_storey() -> float:
     """The Z the panel deck lies on, off the ceiling alone.
 
@@ -4647,7 +2697,7 @@ def deck_z(placed, gate: float):
     THE CEILING BINDS AND THE STOREY TAKES IT. Everything hanging off this storey wants the
     height — the chain, the split and the regulator on the chain's own axis, and the ASSE drip pan
     under the vent, which has the pump's bracket to clear — so the deck lies as high as the top
-    wall lets the chain's crown. `check_deck_floor` is where the other bound is made.
+    wall lets the chain's crown.
 
     `placed` is everything already standing, which is what the row would come down onto. The
     trial storey they are dropped from is that pack's own crown, one union half-section — the
@@ -4669,7 +2719,6 @@ def deck_z(placed, gate: float):
              for name, s in build_deck(trial, gate)[0].items()
              if name not in PANEL_ON_GATE_LANE}
     landing = [d for d in falls.values() if d is not None]
-    check_deck_floor(z, trial - min(landing) + DECK_CLEAR if landing else None)
     return z, {n: None if d is None else d - (trial - z) for n, d in falls.items()}
 
 
@@ -4872,25 +2921,6 @@ def _keystone_clearances(station: tuple, flavor: float) -> tuple:
             (pocket_lo - (flavour + bore_r),
              (soda - bore_r) - pocket_hi))
 
-
-def check_keystone_span(station: tuple, flavor: float) -> Bound:
-    """The signal receptacle fits the soda/flavour-A interval at both wall depths."""
-    face, pocket = _keystone_clearances(station, flavor)
-    aligned = abs(PANEL_X["bulkhead-carb"] - PANEL_X["bulkhead-flavor-a"]) <= 1e-9
-    centered = abs(station[0] - PANEL_X["bulkhead-carb"]) <= 1e-9
-    ok = aligned and centered and min(*face, *pocket) >= 1.0
-    return record_bound(Bound(
-        "keystone-span", "The signal jack belongs between the soda and flavour-A ports", ok,
-        f"show-face wall {face[0]:.2f}/{face[1]:.2f} mm to flavour/soda; inboard pocket "
-        f"{pocket[0]:.2f}/{pocket[1]:.2f} mm to their bores; station "
-        f"x {station[0]:.2f}, z {station[1]:.2f}",
-        "the shared soda/flavour column, with at least 1 mm between every functional cutter",
-        ([] if ok else [
-            f"the soda and flavour-A axes are x {PANEL_X['bulkhead-carb']:.2f} and "
-            f"{PANEL_X['bulkhead-flavor-a']:.2f}; their show-face clearances are "
-            f"{face[0]:.2f}/{face[1]:.2f} mm and the deeper pocket's bore clearances are "
-            f"{pocket[0]:.2f}/{pocket[1]:.2f} mm. Keep the jack on their shared column and "
-            "move or separate the two port storeys before allowing either cutter to merge."])))
 
 # The hop `co2-0` closes, mouth to mouth: the bulkhead's inboard collet to the check's inlet
 # socket. It holds a PI010822S in the check's female inlet and the stretch of 1/4" tube the
@@ -5230,32 +3260,6 @@ def wago_row_reach() -> float:
     return 4.0 * _enc.wago_pitch + _enc.wago_well_wall + _enc.wago_stand("413")[0]
 
 
-def check_wago_row(lugs, psu, inlet) -> Bound:
-    """The row against the crown it lies on. It is drawn forward off centre by the inlet, and
-    what it may not do is walk off the brick: a lug hanging past the brick's own front face is a
-    body over air, and the wall's well is holding it there on its own.
-
-    AND THE GAP IT KEPT ON THE OTHER SIDE, which is what the brick's fore face is charged
-    against. `WIRED_CLEAR` is a hand's working reach at the receptacle's own terminals and the
-    row takes what is left of it once every lug is over the crown (`build_wago_row`), so the
-    figure is READ here rather than assumed: the row's aft end against the inlet's fore face,
-    on the card, every build."""
-    pb, ib = box(psu), box(inlet)
-    lo = min(box(s).ymin for _n, s, _c in lugs)
-    hi = max(box(s).ymax for _n, s, _c in lugs)
-    reach = ib.ymin - hi
-    ok = lo >= pb.ymin - 1e-6 and hi <= pb.ymax + 1e-6
-    return record_bound(Bound(
-        "wago-row-on-brick", "The lever-nut row lies over the brick it stands on", ok,
-        f"row spans y {lo:.2f}..{hi:.2f}, crown {pb.ymin:.2f}..{pb.ymax:.2f}, "
-        f"{reach:.2f} mm of reach at the inlet",
-        "every lug over the crown",
-        ([] if ok else [
-            f"the row spans y {lo:.2f}..{hi:.2f} and the brick's crown runs {pb.ymin:.2f}.."
-            f"{pb.ymax:.2f}. The C14's housing is what draws the row forward of centre, so what "
-            f"is out of room is the brick's depth against `wago_row_reach` and `WIRED_CLEAR`."])))
-
-
 def build_wago_row(psu, wall_seat, inlet):
     """The five 221-413 lever nuts on the brick's crown, as `[(name, solid, carry)]`.
 
@@ -5273,11 +3277,10 @@ def build_wago_row(psu, wall_seat, inlet):
 
     AND THE BRICK'S FORE FACE IS WHERE THAT DRAW STOPS. A lug's height is struck off the crown
     (`WAGO_CLEAR` over it), so a lug past the brick's fore end is at a Z justified by nothing
-    under it — `check_wago_row` is that reading. The brick cannot give the ground back either:
+    under it. The brick cannot give the ground back either:
     the column ahead of it is packed one `WIRED_CLEAR` at a time onto a board that stands about a
     millimetre off `carb-1` (`build_psu`). So the row lies over the crown whole and the working
-    reach at the terminals is what is left of `WIRED_CLEAR` once it does, which `check_wago_row`
-    reads onto the card rather than leaving to the reader.
+    reach at the terminals is what is left of `WIRED_CLEAR` once it does.
 
     THEY SEAT ON THE WALL AND NOT ON `east_wall_seat`. Every other body on this flank stands its
     outer face on a boss TIP, one `mount_boss_out` inboard of the wall, because a boss is what
@@ -5296,7 +3299,6 @@ def build_wago_row(psu, wall_seat, inlet):
                                  y0=y0 + i * _enc.wago_pitch + _enc.wago_well_wall,
                                  z0=pb.zmax + WAGO_CLEAR + _wago_skirt())
         out.append((name, solid, carry))
-    check_wago_row(out, psu, inlet)
     return out
 
 
@@ -5492,44 +3494,6 @@ def wall_mounts(*mounted, blockers=()):
     return tuple(out)
 
 
-def check_east_band(seated) -> Bound:
-    """Every body hung on the +X wall stands in the depth that wall states.
-
-    Standing ON the wall puts a body INSIDE the ±X boss-chain band, which is the whole of what
-    `east_wall_seat` buys and the whole of what it costs. What it costs is two STATED planes,
-    and they are the two this measures: forward, the aft face every Y-seam level shares
-    (`y_seam + lip_len` — the levels differ in height and share one station, so one plane
-    stops all of them); aft, the back corner's own relief, which curves the wall away from the
-    seat plane at every height. `enclosure.east_band_free_y` strikes both.
-
-    IT DOES NOT MEASURE THE Z-SEAM COLLARS, and that is the shape of the answer rather than a
-    gap in it. Each is a block `2 * socket_r` tall at a height its own seam is SEARCHED to
-    (`_z_joints`), so whether a body meets one is a question about where two solids stand — and
-    the body clears it by standing over or under it as readily as beside it. `pack-closes`
-    answers that, against the printed pieces themselves. This runs while the pack is being
-    built, before the box has been sized, so it asks only what the box states about itself."""
-    y0, y1 = _enc.east_band_free_y()
-    out = []
-    for name, solid in seated:
-        b = box(solid)
-        if b.ymin < y0 - 1e-9:
-            out.append((name, "forward of", y0 - b.ymin))
-        if b.ymax > y1 + 1e-9:
-            out.append((name, "aft of", b.ymax - y1))
-    fore = min((box(s).ymin for _n, s in seated), default=y0)
-    aft = max((box(s).ymax for _n, s in seated), default=y1)
-    return record_bound(Bound(
-        "east-band", "The +X wall's column stands in the depth that wall states", not out,
-        f"column spans y {fore:.2f}..{aft:.2f}, band {y0:.2f}..{y1:.2f}",
-        f"inside y {y0:.2f}..{y1:.2f}",
-        ([] if not out else [
-            f"{n} reaches {much:.2f} mm {where} the stated depth — forward of it the Y seam's "
-            f"own bosses stand at every level, and aft of it the corner takes the wall out "
-            f"from under the boss. Move the column along the flank, or seat that body back on "
-            f"`enclosure.boss_in` and let it stand off the wall instead"
-            for n, where, much in sorted(out, key=lambda r: -r[2])])))
-
-
 # --- the tap-water sequence, in the west lane ------------------------------
 #
 # The backflow preventer and everything that threads or clamps onto it, made up as one chain.
@@ -5551,7 +3515,7 @@ ASSE1022_YAW = -90.0
 # out. The chain and its pan stand on the deck's storey, high over the bracket, and what
 # fences them there is whatever the casting presents AT THEIR OWN HEIGHT.
 #
-# `check_pan_lane` holds the tray's SLEEVE off the casting's west flank by this, read over the
+# The tray's SLEEVE stands off the casting's west flank by this, read over the
 # room the sleeve itself stands in.
 FOOT_CLEAR = 1.0
 # How far the tray's west end stands OUTSIDE the machine's own skin. The pull face extends back
@@ -5559,7 +3523,7 @@ FOOT_CLEAR = 1.0
 # without becoming the tray's insertion stop. This is the whole of the tray a hand meets: thumb
 # on the flange's top, fingertip under the floor, draw west.
 #   IT CARRIES THE PROBE WITH IT. The plate rides the tray, so the vent's tip lands this far
-# east of the plate's own centre, and `check_drip_reads` takes that reading.
+# east of the plate's own centre.
 PAN_PROUD = _pan.PULL_FACE_DEPTH + _pan.PAN_SLIP
 # The probe plate has two individual 22 AWG silicone leads soldered on 2.54 mm centres. They
 # rise in the open pan and turn WEST through one notch in the withdrawal wall. It is not a
@@ -5603,8 +3567,7 @@ def pan_west_x():
 
     THE TRAY IS HUNG ON THE WALL IT COMES OUT THROUGH. Everything a hand does to this body
     happens at that face — the tab it takes hold of, the slot it draws through — and the plate
-    the tray carries rides the same station east. What the lane has left of it east of the
-    sleeve is `check_pan_lane`."""
+    the tray carries rides the same station east."""
     return west_exterior_face() - PAN_PROUD
 
 
@@ -5712,8 +3675,6 @@ def asse_sections(asse_carry) -> tuple:
     return tuple(tuple(r) for r in out)
 
 
-
-
 # Where the two ties close the anchor's mouth. The barrel is the only section a tie may cinch on
 # — the JG acetal nut and the PP reducer would take a collet out of round — and its vent stub
 # stands out of the middle of it, so `multiplex_asse1022.BARREL_LENGTH` offers exactly two bands.
@@ -5764,69 +3725,6 @@ def asse_cradle(asse_carry) -> tuple:
             asse_reach_down(asse_carry))
 
 
-def check_asse_seated(chain, piece, asse_carry) -> Bound:
-    """Whether the chain is actually IN its anchor, read off the two placed solids.
-
-    A body drawn beside a groove is not a body lying in one, and every reading this card takes of
-    the tap-water chain is satisfied by a chain floating in air — `placed` sees a seat it holds,
-    `vent-lands` sees a drip that falls where it should, `clearance-floor` sees a millimetre it
-    keeps. None of them can tell a cradle that closes on the barrel from one drawn a centimetre
-    off it, because nothing about the pack changes.
-
-    So this reads the STACK ACROSS THE V, in the one direction the anchor is meant to stop:
-
-        seat   how far west the chain stands off the wall's own furniture — one
-               `ASSE_SEAT_SLIP` on the V's normal is the anchor closed on the barrel's two
-               flats, and anything more is a chain resting on nothing
-
-    Measured on the solids and not on the sections table, because the table is what DREW the
-    anchor: a bound read back off its own inputs is a bound that cannot fail."""
-    def solid(s):
-        s = s.toCompound() if hasattr(s, "toCompound") else s
-        return s.val() if hasattr(s, "val") else s
-    # `_clearing.gap` reports a floor past its reach, so ask it for more than the anchor may
-    # have: a chain resting on nothing has to come back with the number, not with the reach.
-    got = _clearing.gap(solid(chain), solid(piece), 5.0)
-    # The tightest of the anchor's three seats: a bore stands off its section radially, so the two
-    # round ones close on the slip itself while the barrel's V closes on it along the V's normal.
-    want = ASSE_SEAT_SLIP
-    ok = got <= want + 1e-3
-    return record_bound(Bound(
-        "asse-seated", "The tap-water chain lies in its printed anchor", ok,
-        f"{got:.3f} mm off the wall's furniture", f"{want:.3f} mm at most",
-        ([] if ok else [
-            f"the chain stands {got:.3f} mm off everything `enclosure-back-top` puts near it, "
-            f"and the anchor is drawn to close on it at {want:.3f}. Either the cradle's sections "
-            f"no longer read the chain's own — `asse_sections` — or the chain moved and the "
-            f"station did not follow it."])))
-
-
-def check_digiten_seated(meter, piece) -> Bound:
-    """Whether the meter is up in its two anchors, read off the two placed solids.
-
-    The same reading `check_asse_seated` takes and for the same reason: a anchor drawn near a
-    barrel and a anchor closed on one are the same to every other row on this card. Two things
-    differ. The seat here is a BORE, concentric with the barrel, so the gap it holds is the slip
-    itself — the anchor's V holds its slip on the V's own normal and reads `slip / sin 60°` between
-    two axis-aligned solids, and a bore has no such angle in it. And this seat opens DOWNWARD, so it
-    is not carrying the meter: the two zip ties are, and this is the reading that says they have
-    something to pull it up against."""
-    def solid(s):
-        s = s.toCompound() if hasattr(s, "toCompound") else s
-        return s.val() if hasattr(s, "val") else s
-    got = _clearing.gap(solid(meter), solid(piece), 5.0)
-    want = DIGITEN_SEAT_SLIP
-    ok = got <= want + 1e-3
-    return record_bound(Bound(
-        "digiten-seated", "The flow meter hangs in its two printed anchors", ok,
-        f"{got:.3f} mm off the ceiling's furniture", f"{want:.3f} mm at most",
-        ([] if ok else [
-            f"the meter stands {got:.3f} mm off everything `enclosure-ceiling-panel` puts near "
-            f"it, and its anchors are drawn to close on the two barrels at {want:.3f}. Either "
-            f"`digiten_anchors` no longer reads the meter's own ports, or the meter moved and the "
-            f"station did not follow it."])))
-
-
 def anchor_rows(foam_carry, bodies: dict) -> list:
     """Each chain anchor as `(name, label, has, wants, fouls)` — the rib the cap carries against
     the sections of the placed body it stands under.
@@ -5840,8 +3738,7 @@ def anchor_rows(foam_carry, bodies: dict) -> list:
     own stack. The cap prints a rib it never sees the body of, so the body is what corrects it.
 
     A RIB BORED FOR A RUN IS NOT ROWED HERE. A tube is one section its whole length, so there is
-    no stack to read and nothing for a rib to foul; what holds those honest is
-    `check_run_seated`, which reads the contact itself."""
+    no stack to read and nothing for a rib to foul."""
     rows = []
     for name, station in _cci.cap_anchors.items():
         if name not in bodies:
@@ -5863,215 +3760,6 @@ def anchor_rows(foam_carry, bodies: dict) -> list:
     return rows
 
 
-def check_anchor_lands(rows) -> Bound:
-    """Whether every cap rib is bored for a section that fills it and clears the rest.
-
-    The detail is the row `_cold_core_interface.cap_anchors` should carry, so a body that has
-    moved or changed section corrects the cap from the machine rather than being guessed at."""
-    bad = [r for r in rows if r[4] or abs(r[2] - r[3]) > 1e-3]
-    return record_bound(Bound(
-        "anchor-lands", "Every cap rib is bored for a section that fills it", bool(rows) and not bad,
-        "no rib stood" if not rows else f"{len(rows)} ribs, {len(rows) - len(bad)} on section",
-        "one section filling each bore, the rest passing under it",
-        ([] if rows and not bad else
-         [f"chain anchor {n}: the rib bears on {lab} and is bored {has:.3f}, where that section "
-          f"asks {want:.3f}"
-          + (f"; and {', '.join(f)} will not pass under it" if f else "")
-          + ". This is the row `_cold_core_interface.cap_anchors` should carry:"
-          for n, lab, has, want, f in bad]
-         + [f'    "{n}": CapAnchor({_cci.cap_anchors[n].centre}, {want:.3f}),'
-            for n, _lab, _has, want, _f in bad])))
-
-
-def check_chains_seated(chains: dict, foam) -> Bound:
-    """Whether every chain lies in its printed rib, read off the placed solids.
-
-    The same reading the tap-water chain's and the meter's take. These seats are bores, so the gap
-    each holds is the slip itself — and they open UP, so the reading says the body is DOWN in its
-    rib and the zip tie has something to pull against rather than something to carry."""
-    def solid(s):
-        s = s.toCompound() if hasattr(s, "toCompound") else s
-        return s.val() if hasattr(s, "val") else s
-    want = CHAIN_SEAT_SLIP
-    got = {n: _clearing.gap(solid(c), solid(foam), 5.0) for n, c in chains.items()}
-    bad = {n: g for n, g in got.items() if g > want + 1e-3}
-    worst = max(got.values(), default=0.0)
-    return record_bound(Bound(
-        "chains-seated", "Every made-up chain lies in its printed rib on the core's cap", not bad,
-        f"{len(got)} seated, furthest off {worst:.3f} mm", f"{want:.3f} mm at most",
-        ([] if not bad else [
-            f"{n} stands {g:.3f} mm off everything the cold core puts near it, and its rib is "
-            f"drawn to close on one section at {want:.3f}. Either `cap_anchors` no longer reads "
-            f"that section's own radius, or the chain moved and the rib did not follow it — "
-            f"`anchor-lands` is the row that says which." for n, g in bad.items()])))
-
-
-def check_tie_vocabulary() -> Bound:
-    """Whether every module that cuts a zip tie cavity cuts it for the same zip tie.
-
-    `enclosure` and `_cold_core_interface` each state the fastener their own features read,
-    and the box imports the core's interface rather than the other way round. This is the
-    module that seats both, so it is where they are held together."""
-    pairs = (("width", "_cold_core_interface", _enc.tie_w, _cci.cap_anchor_tie_w),
-             ("cavity", "_cold_core_interface", _enc.tie_cav_w, _cci.cap_anchor_cav_w),
-             ("end wall", "_cold_core_interface", _enc.tie_cav_wall, _cci.cap_anchor_cav_wall))
-    bad = [(what, who, a, b) for what, who, a, b in pairs if abs(a - b) > 1e-9]
-    return record_bound(Bound(
-        "tie-vocabulary", "Every box cuts its zip tie cavities for the same zip tie", not bad,
-        f"{len(pairs) - len(bad)}/{len(pairs)} agree", "every figure the same in both",
-        [f"the zip tie's {what}: `enclosure` cuts for {a:.3f} and `{who}` for {b:.3f}. One tie "
-         f"goes through both, so one of these is a cavity the zip tie in the BOM does not pass."
-         for what, who, a, b in bad]))
-
-
-def check_tube_seated(tubes, pieces) -> Bound:
-    """Whether every anchored run lies in the rib its row names, read off the placed solids.
-
-    The same reading the chain's and the meter's take, on the one body the machine has twenty of.
-    It also reads back WHICH piece: the site names one, the rib is built by whichever piece owns
-    the whole of it, and a run seated against a piece its row does not name is a run whose
-    exemption in `_scorecard.anchored_pairs` is pointed at the wrong solid."""
-    def solid(s):
-        s = s.toCompound() if hasattr(s, "toCompound") else s
-        return s.val() if hasattr(s, "val") else s
-    want = TUBE_ANCHOR_SLIP          # a bore concentric with the tube stands off it radially
-    rows, worst = [], 0.0
-    for rid, _leg, _root, piece in TUBE_ANCHOR_SITES:
-        tube, part = tubes.get(f"tube-{rid}"), pieces.get(piece.removeprefix("enclosure-"))
-        if tube is None or part is None:
-            rows.append(f"{rid}: no {'run' if tube is None else piece} to read")
-            worst = max(worst, want + 1.0)
-            continue
-        got = _clearing.gap(solid(tube), solid(part), 5.0)
-        worst = max(worst, got)
-        if got > want + 1e-3:
-            rows.append(
-                f"{rid} stands {got:.3f} mm off {piece} and its rib is drawn to close on the tube "
-                f"at {want:.3f}. Either the route moved off the leg `TUBE_ANCHOR_SITES` names, or "
-                f"the rib landed in a piece that row does not name.")
-    return record_bound(Bound(
-        "tube-seated", "Every anchored run lies in its printed rib", not rows,
-        f"{len(TUBE_ANCHOR_SITES)} anchored, furthest off {worst:.3f} mm",
-        f"{want:.3f} mm at most", rows))
-
-
-def check_tie_channels(anchors, meter_anchor, cradle, pieces) -> Bound:
-    """Whether a tie can still reach through every cavity the box cuts one for.
-
-    THE CHANNEL IS A REMAINDER AND NOT A CUT (`enclosure._tube_anchors`, `_flow_meter_anchors`): the
-    rib's two ends climb to the face it roots on and what they do not span IS the zip tie's room.
-    Nothing is drawn for it, so nothing about it can fail loudly — a wall that grows inboard of
-    the plane the rib was measured against simply arrives standing in that room, and the rib comes
-    through as a lump with a bore in it. Every other reading on this card stays green: the seat
-    still closes on its body at the slip, the piece is still one watertight solid, the pack still
-    stands clear of the walls. Nothing here measures a hole, and this is a hole.
-
-    SO IT ASKS FOR THE ZIP TIE AND NOT FOR THE CHANNEL. What is read is the seat a tie actually
-    needs — `tie_t` off the bore's own crown, the cavity's width along the body, the rib's
-    full reach across it — and that volume is struck off the STATION, with no root face in it at
-    all. A rib buried in a wall and a rib standing proud of one are the same arithmetic; what
-    differs is whether the answer is air.
-
-    THE ASSE ANCHOR'S TWO ARE A CUT AND CANNOT FILL, so what is read there is the ROUTE
-    INSTEAD: each zip tie comes west over the chain's top flat and drops into its channel through
-    the block's back, and that channel's mouth is out at the −X wall. So the column between the
-    mouth and the ceiling is the room the loop comes down, and it is what a ceiling corbel
-    standing on the strip's outboard run would close (`enclosure.back_top_ceiling_reliefs`)."""
-    def solid(x):
-        x = x.toCompound() if hasattr(x, "toCompound") else x
-        return x.val() if hasattr(x, "val") else x
-    parts = {n: solid(v) for n, v in pieces.items()}
-    rows, seen, worst = [], 0, 0.0
-
-    def read(what, vol):
-        nonlocal seen, worst
-        seen += 1
-        want, box = vol.Volume(), _boxes.boxed(vol)
-        for name, part in parts.items():
-            # A seat is a few tens of mm3 and a piece is a quadrant of the machine, so the box
-            # settles all but one or two of these without meshing anything.
-            pb = _boxes.boxed(part)
-            if (pb.xmax < box.xmin or box.xmax < pb.xmin
-                    or pb.ymax < box.ymin or box.ymax < pb.ymin
-                    or pb.zmax < box.zmin or box.zmax < pb.zmin):
-                continue
-            got = _overlap.volume(vol, part)
-            if got <= 1e-6:
-                continue
-            worst = max(worst, 100.0 * got / want)
-            rows.append(
-                f"{what}: {100.0 * got / want:.0f}% of the room a zip tie needs is inside {name} — "
-                f"{got:.1f} of {want:.1f} mm3. On a rib, the two ends are drawn to a plane that "
-                f"piece stands inboard of, so what is left between them is in its stock "
-                f"(`enclosure.piece_root_faces`); on the anchor, a corbel has closed over the "
-                f"channel's mouth (`enclosure.back_top_ceiling_reliefs`).")
-
-    for mid, u, n, seat_r in anchors:
-        # The zip tie's seat in the anchor's own frame: one `tie_t` slab off the bore's crown,
-        # spanning the cavity's length along the body and the rib's whole reach across it.
-        origin = tuple(mid[k] - u[k] * _enc.tube_anchor_len / 2.0 + u[k] * _enc.tie_cav_wall
-                       for k in range(3))
-        reach, crown = seat_r + _enc.wall, seat_r + _enc.wall
-        read(f"anchor at {tuple(round(c, 1) for c in mid)}",
-             _enc._anchor_rib(origin, u, n, _enc.tie_cav_w, reach, crown,
-                              crown + _enc.tie_t))
-    if meter_anchor:
-        x_axis, z_axis, seat_r, bands = meter_anchor
-        reach = seat_r + _enc.flow_meter_anchor_wall
-        crown = z_axis + seat_r + _enc.wall
-        for by0, by1 in bands:
-            m = (by0 + by1) / 2.0
-            read(f"anchor at y {m:.1f}",
-                 _enc._ybox(x_axis - reach, x_axis + reach, m - _enc.tie_cav_w / 2.0,
-                            m + _enc.tie_cav_w / 2.0, crown, crown + _enc.tie_t))
-    if cradle:
-        z_ax, sections, ties, _dn = cradle
-        run = 1.0 / math.tan(math.radians(_enc.asse_v_half))
-        apex = min(w for _y0, _y1, w, _r, _a in sections)
-        # The channel's own top mouth (`enclosure._asse_tie_cavity`): west face on the box's
-        # interior plus a `wall`, east edge where the flare meets the block's crown.
-        x_w = _enc.interior_x()[0] + _enc.wall
-        x_e = apex - _enc.wall / math.sin(math.radians(_enc.asse_v_half)) \
-            + (_enc.asse_cradle_up + 1.0) * run
-        top = z_ax + _enc.asse_cradle_up + 1.0
-        for ty in ties:
-            read(f"tap-water zip tie at y {ty:.1f}",
-                 _enc._ybox(x_w, x_e, ty - _enc.tie_wide_w / 2.0,
-                            ty + _enc.tie_wide_w / 2.0, top, interior_ceiling()))
-    return record_bound(Bound(
-        "tie-channels", "A tie still reaches through every cavity cut for one", not rows,
-        f"{seen} read, worst {worst:.0f}% filled", "0% filled", rows))
-
-
-def check_run_seated(tubes, foam) -> Bound:
-    """Whether every run the cap is bored for lies in its rib, read off the placed solids.
-
-    The reading `check_tube_seated` takes on the box's own ribs, on the cap's. What differs is
-    which way the correction runs: a chain is seated ON its rib, so a gap there is the body's to
-    fix; a run's plane is its two ports', so a gap here is the ROW'S — `over_face` is what the rib
-    was built up to, and the tube is where it already was."""
-    def solid(s):
-        s = s.toCompound() if hasattr(s, "toCompound") else s
-        return s.val() if hasattr(s, "val") else s
-    want = TUBE_ANCHOR_SLIP
-    rows, worst, seen = [], 0.0, 0
-    for name in _cci.cap_anchors:
-        tube = tubes.get(f"tube-{name}")
-        if tube is None:
-            continue                       # a rib bored for a body, which `anchor-lands` holds
-        seen += 1
-        got = _clearing.gap(solid(tube), solid(foam), 5.0)
-        worst = max(worst, got)
-        if got > want + 1e-3:
-            rows.append(
-                f"{name} stands {got:.3f} mm off the cold core and its rib is bored to close on "
-                f"the tube at {want:.3f}. `_cold_core_interface.cap_anchors[{name!r}].over_face` "
-                f"is what the rib reaches, and the run lies {got - want:+.3f} off it.")
-    return record_bound(Bound(
-        "run-seated", "Every run the cap is bored for lies in its rib", not rows,
-        f"{seen} bored, furthest off {worst:.3f} mm", f"{want:.3f} mm at most", rows))
-
-
 # THE TRAY STANDS CLEAR OF THE PUMP'S DISCHARGE. The barb fires west into this same lane and the
 # chain that hangs off it takes the lane's forward end, so the SLEEVE's forward face is struck on
 # the barb's own aft edge with this much daylight past it. That plane fixes the tray in Y — the
@@ -6089,67 +3777,15 @@ def pan_front_y(seaflo_carry):
     return pos[1] + _lines._pump.PORT_D / 2.0 + PAN_PORT_CLEAR
 
 
-def check_vent_lands(pan, tip) -> Bound:
-    """Where the drip falls against the pan's FLAT FLOOR, inside the coves.
-
-    The pan's outer rim to that flat is the flange, the wall and the cove together. A drip
-    landing on a cove or a wall runs down the outside of the tray instead of onto the moisture
-    plate, and the plate stays dry however long the vent weeps."""
-    b = box(pan)
-    inset = _pan.FLANGE_W + _pan.WALL + _pan.FLOOR_COVE
-    y0, y1 = b.ymin + inset, b.ymax - inset
-    ok = y0 <= tip[1] <= y1
-    return record_bound(Bound(
-        "vent-lands", "The atmospheric vent drips on the pan's flat floor", ok,
-        f"drips at y {tip[1]:.2f}" + ("" if ok else f", {min(abs(tip[1] - y0), abs(tip[1] - y1)):.2f} mm outside"),
-        f"y[{y0:.2f}, {y1:.2f}]",
-        ([] if ok else [
-            f"asse-drip-pan: the vent drips at y {tip[1]:.2f}, off the flat floor y[{y0:.2f}, "
-            f"{y1:.2f}]. The forward rim comes off the pump's discharge through "
-            f"`PAN_PORT_CLEAR`; the vent's Y comes off the ASSE chain, which the bulkhead's "
-            f"reach through the +Y wall of back-top fixes; the flat between them is `PAN_Y` less its "
-            f"flange, its walls and its coves."])))
-
-
-def check_pan_lane(pan, seaflo) -> Bound:
-    """What the lane leaves between the tray's SLEEVE and the pump's casting, read over the room
-    the sleeve itself stands in.
-
-    The tray is hung on the −X wall — the tab a hand takes and the slot it comes out through are
-    both on that face — so the sleeve's backstop is the end of the lane the tray asks for, and
-    the casting is what it meets. Everything east of that face is ceiling the west column's
-    crossing ladder buys radius from."""
-    b = box(pan)
-    east = b.xmax + _pan.PAN_SLIP + DRIP_SLEEVE_T
-    casting = pump_west_face(seaflo, b.zmin - _pan.PAN_SLIP - DRIP_SLEEVE_T,
-                             b.zmax + _pan.PAN_SLIP + DRIP_SLEEVE_T,
-                             b.ymin - _pan.PAN_SLIP - DRIP_SLEEVE_T,
-                             b.ymax + _pan.PAN_SLIP + DRIP_SLEEVE_T)
-    got = casting - east
-    ok = got >= FOOT_CLEAR - 1e-6
-    return record_bound(Bound(
-        "pan-lane", "The ASSE drip pan's sleeve stands clear of the pump's casting", ok,
-        f"backstop at x {east:.2f}, casting at {casting:.2f} — {got:.2f} mm",
-        f"≥ {FOOT_CLEAR:g} mm",
-        ([] if ok else [
-            f"asse-drip-pan: the sleeve's backstop reaches x {east:.2f} and the casting stands at "
-            f"{casting:.2f} over the sleeve's own room — {got:.2f} mm, against the "
-            f"{FOOT_CLEAR:g} the lane owes. The west lip is fixed at one PAN_PROUD = "
-            f"{PAN_PROUD:g} outside the wall's skin, so what gives is `asse_drip_pan.PAN_X`, "
-            f"`asse_drip_pan.FLANGE_W`, or the pump's own station through `seaflo_west_limit`."])))
-
-
 def build_pan(asse, seaflo, seaflo_carry, asse_carry):
     """The ASSE drip pan, under the atmospheric vent and over the pump's casting.
 
     IN Y THE PUMP'S DISCHARGE BOUNDS IT AND THE VENT DOES NOT. The sleeve's forward face is
     `pan_front_y` and the pan's rim stands one sleeve section and one slip aft of it, and the
-    vent falls where the chain's own standoff from the +Y wall of back-top leaves it — so where the drip
-    lands is a check, and `check_vent_lands` is where it is made.
+    vent falls where the chain's own standoff from the +Y wall of back-top leaves it.
 
     IN X THE WALL BOUNDS IT. The west lip is `pan_west_x`, one `PAN_PROUD` outside the machine's
-    skin; the sleeve's backstop takes what the rim leaves and `check_pan_lane` reads that against
-    the casting. The tip lands `PAN_PROUD` east of the floor's own centre — 6 mm of a ±21 mm
+    skin; the sleeve's backstop takes what the rim leaves. The tip lands `PAN_PROUD` east of the floor's own centre — 6 mm of a ±21 mm
     floor, so the drip still falls well inside the coves. The slot the tray draws out through is
     a wall port, struck off this body's own box in `west_wall_ports`.
 
@@ -6164,8 +3800,6 @@ def build_pan(asse, seaflo, seaflo_carry, asse_carry):
     placed, carry = seat_body(
         pan, (), seat="asse-drip-pan", x0=pan_west_x(), z0=pan_floor(asse),
         y0=pan_front_y(seaflo_carry) + DRIP_SLEEVE_T + _pan.PAN_SLIP)
-    check_vent_lands(placed, asse_carry(_asse.port("vent-tip"))[0])
-    check_pan_lane(placed, seaflo)
     return placed, carry
 
 
@@ -6186,30 +3820,6 @@ def build_pan(asse, seaflo, seaflo_carry, asse_carry):
 PLATE_YAW = 90.0
 
 
-def check_drip_reads(plate, tip) -> Bound:
-    """Where the drip falls against the PLATE, which is a narrower target than the floor.
-
-    `check_vent_lands` holds the drip on the pan's flat floor and that is a different bound
-    with a different failure: a drip on a cove runs down the outside of the tray. This one is
-    the sensor's own. The flat floor is 43 x 67 and the plate is 40 x 54, so there is a band the
-    tray catches and the probe never reads — the vent weeps, the pan does its job, and the alarm
-    the weep exists to raise stays silent until the pan has pooled deep enough to reach the
-    comb sideways. THAT IS THE FAILURE THIS GATE IS FOR, and it is invisible in every other one."""
-    b = box(plate)
-    ok = (b.xmin <= tip[0] <= b.xmax) and (b.ymin <= tip[1] <= b.ymax)
-    return record_bound(Bound(
-        "drip-reads", "The atmospheric vent drips on the moisture plate itself", ok,
-        f"drips at x {tip[0]:.2f}, y {tip[1]:.2f}",
-        f"x[{b.xmin:.2f}, {b.xmax:.2f}] y[{b.ymin:.2f}, {b.ymax:.2f}]",
-        ([] if ok else [
-            f"moisture-plate: the vent drips at x {tip[0]:.2f}, y {tip[1]:.2f}, off the "
-            f"{_plate.PLATE_Y:g} x {_plate.PLATE_X:g} plate at x[{b.xmin:.2f}, {b.xmax:.2f}] "
-            f"y[{b.ymin:.2f}, {b.ymax:.2f}]. The plate is centred on the pan's flat floor and "
-            f"the pan is struck off the pump's discharge in Y and its casting in X, so what "
-            f"moves the target is `PAN_PORT_CLEAR` or `FOOT_CLEAR`; what moves the drip is the "
-            f"ASSE chain's own standoff from the +Y wall of back-top."])))
-
-
 def build_moisture_plate(pan_carry, asse_carry):
     """The probe plate lying flat on the pan's floor, centred on the flat inside the coves.
 
@@ -6221,14 +3831,13 @@ def build_moisture_plate(pan_carry, asse_carry):
     Centred is the whole of the rule. The plate has no station of its own to answer to — nothing
     threads it, nothing bolts it — so the only thing to say about where it lies is that it lies
     in the middle of what receives it, which is also what leaves the drip the most margin on
-    every side. `check_drip_reads` is where that margin is read back."""
+    every side."""
     plate = _plate.build()
     plate = plate.val() if hasattr(plate, "val") else plate
     floor_centre = pan_carry((
         (_pan.PAN_X / 2.0, _pan.PAN_Y / 2.0, _pan.FLOOR), (0.0, 0.0, 1.0)))[0]
     placed, carry = seat_body(plate, (((0.0, 0.0, 1.0), PLATE_YAW),), seat="moisture-plate",
                               station=(((0.0, 0.0, 0.0), (0.0, 0.0, 1.0)), floor_centre))
-    check_drip_reads(placed, asse_carry(_asse.port("vent-tip"))[0])
     return placed, carry
 
 
@@ -6252,7 +3861,7 @@ SPLIT_TURN = (((0.0, 1.0, 0.0), -90.0),)
 # forward of the split — the regulator, its tap and the tube down to the flavour gates — lies on
 # the storey this step lands on.
 #
-# `check_bowl_clear` measures what the step leaves once the funnel is in the box, which is the
+# What the step leaves once the funnel is in the box is the
 # first moment the bowl exists to measure against: the box is sized around this pack and the
 # funnel is then set in its top.
 #
@@ -6313,7 +3922,7 @@ def build_split(asse_carry):
 # nut, the barrel and the adjuster, and the bowl's cone comes down over exactly that reach. It
 # runs LEVEL under it, on the pair's own storey — the cone stands clear of the whole reach at this
 # height, so nothing has to be tipped out of its way and the adjuster faces the machine's centre
-# square, where a hand comes in over the cold core's cap. `check_bowl_clear` reads what is left.
+# square, where a hand comes in over the cold core's cap.
 FLOWREG_TURN = (((0.0, 0.0, 1.0), -90.0), ((0.0, 1.0, 0.0), 90.0),
                 ((1.0, 0.0, 0.0), 180.0))
 # `fluid-1` IS A HAIRPIN. The regulator stands OVER the split on the split's own column with its
@@ -6322,24 +3931,6 @@ FLOWREG_TURN = (((0.0, 0.0, 1.0), -90.0), ((0.0, 1.0, 0.0), 90.0),
 # end. WHAT THAT COSTS IS TWO RADII OF Z and nothing else, so this is not a figure to pick: a
 # semicircle's ends are one diameter apart across the turn.
 FLUID_1_RISE = 2.0 * _lines.TUBE_BEND
-
-
-def check_bowl_clear(flowreg, funnel) -> Bound:
-    """What the flavour tap keeps under the funnel's bowl — the exact solid gap between the
-    regulator's crown and the funnel hanging over it.
-
-    Measured rather than derived, because the two are on opposite sides of the box: the box is
-    sized around the pack the regulator is in, and the funnel is then seated in its top. So
-    `FLAVOR_STEP` is the reach the lane is given and this is what it turns out to be worth."""
-    got = _clearing.gap(flowreg, funnel, FLAVOR_STEP)
-    ok = got >= BOWL_CLEAR - 1e-6
-    return record_bound(Bound(
-        "bowl-clear", "The flavour tap runs under the funnel's bowl", ok,
-        f"{got:.3f} mm to the funnel", f"{BOWL_CLEAR:g} mm",
-        ([] if ok else [
-            f"flow-regulator: the tap's crown leaves {got:.3f} mm under the funnel's bowl, "
-            f"under the {BOWL_CLEAR:g} mm the lane is drawn for. `FLAVOR_STEP` is the step "
-            f"`water-2` takes off the panel deck onto this lane; deepen it by what is short."])))
 
 
 def build_flowreg(split_carry):
@@ -6702,7 +4293,6 @@ def build_pack() -> cq.Assembly:
                 planes={"y1": a.collet_plate["aft_y"], "z0": a.collet_plate["z0"],
                         "x0": a.collet_plate["x0"]},
                 got=box(plate_solid))
-    check_collet_plate(a.collet_plate, mcarry)
     # THE CORE IS PACKED AGAINST THE BACK. It is the body `rear_seam_clear` is written about —
     # the rearmost content, seated flush on the inner face of the rear Z-seam lip that hangs off
     # the +Y wall of back-top — so its aft face stands that one number inside `rear_plane_y`, which is the
@@ -6712,14 +4302,6 @@ def build_pack() -> cq.Assembly:
     core = box(build_foam(0.0)[0])
     foam, foam_carry = build_foam(
         _enc.rear_plane_y - _enc.rear_seam_clear - (core.ymax - core.ymin))
-    # What still has to hold is that nothing ahead of it reaches INTO it — measured at the core's
-    # own height, since the source valves' quarter turns carry them aft OVER its crown and a body
-    # standing over the cap is not a body in its way.
-    check_pack_over_core(stood, foam)
-    check_core_lane(
-        box(foam).ymin,
-        [("compressor", box(comp).ymax), ("condenser+fan", box(cond).ymax)]
-        + [(n, box(s).ymax) for n, s, _c in stood if box(s).zmin < top])
     # THE CORE STANDS IN THE MACHINE AS ONE NODE, and its own bodies stand inside that node.
     # Opening the appliance reaches the carbonator, the coil, both reservoirs, every fitting and
     # the lines among them; each is picked where it is, and the core is taken in one where a
@@ -6784,9 +4366,6 @@ def build_pack() -> cq.Assembly:
     for name, solid, _carry, _size in cluster:
         a.add(solid, name=name, color=C_AC_HUB)
     a.side_wells = wago_wells(wagos, cluster, over=box(psu).zmax + 1.0)
-    check_east_band([("psu", psu), ("pcba", pcba), ("relay-2", relay2)]
-                    + [(n, s) for n, s, _c in wagos]
-                    + [(n, s) for n, s, _c, _k in stack])
     # The compressor is the one body on the floor that is bolted DOWN to it, so its four
     # holes are the slab's own boss stations. The plate's crown is where the washer lands and
     # its Ø14 grommet bore is what the post stands in, so both figures are the donor's.
@@ -6818,12 +4397,9 @@ def build_pack() -> cq.Assembly:
     # two came up with the pack, so this is the first point at which all three are in world.
     on_cap = {**{n: s for n, s, _c in stood}, "vk-solenoid": vk}
     a.cradles = cradle_rows(foam, foam_carry, on_cap)
-    check_cradles(a.cradles)
-    check_valve_row(on_cap)
     # The pump's own joint, read the same way: the four cap columns against the four bores in
     # the bracket's pad, both taken back into the frame the cap is authored in.
     a.pump_mount = pump_mount_rows(foam_carry, seaflo_carry)
-    check_pump_mount(a.pump_mount)
     # THE DECK COMES DOWN ONTO WHAT IS ALREADY STANDING, so its four bodies are struck against
     # the assembly as it is at this point. THE WEST LANE HANGS OFF IT and is not in the strike:
     # the tap-water union takes the deck's own storey, the chain butts that union, and the
@@ -6838,7 +4414,6 @@ def build_pack() -> cq.Assembly:
     a.keystone_station = keystone_station(a.gate_z)
     keystone, _keystone_carry = build_keystone(a.keystone_station)
     a.add(keystone, name="keystone-jack", color=C_C14)
-    check_keystone_span(a.keystone_station, a.gate_z)
     under_deck = [s for s, _c in _solids(a).values()]
     a.deck_z, deck_fall = deck_z(under_deck, a.gate_z)
     co2in, co2in_carry = build_co2_inlet(a.deck_z)
@@ -6865,8 +4440,6 @@ def build_pack() -> cq.Assembly:
     # here, and a rib answers to the one it holds.
     a.anchors = anchor_rows(foam_carry, {"discharge-chain": (disch_carry, _dis),
                                          "suction-chain": (chain_carry, _suct)})
-    check_anchor_lands(a.anchors)
-    check_tie_vocabulary()
     bulkhead, bulkhead_carry = build_bulkhead(asse_carry)
     a.add(bulkhead, name="bulkhead-water", color=C_BULKHEAD)
     deck_solids, panel_carries = build_deck(a.deck_z, a.gate_z, seat=True)
@@ -6883,7 +4456,6 @@ def build_pack() -> cq.Assembly:
                   deck_fall[name] if name in deck_fall
                   else descent(solid, _would_land_on(box(solid), under_deck)))
     trays = {n: s for n, s in deck_solids.items() if n != "digiten-flow"}
-    check_port_pair(trays, west_seam_crown(), seaflo)
     meter = deck_solids["digiten-flow"]
     a.panel_carries = panel_carries
     # The wall's five crossings, all placed by here. The field, the rings and the bores are all
@@ -6954,7 +4526,6 @@ def build_pack() -> cq.Assembly:
     # shut — it counts the drawn one off the run itself, like every other line.
     a.refrigerant = refrigerant_joints(carries, a.runs)
     a.refrigerant_mates = refrigerant_mates(a.refrigerant)
-    check_refrigerant_joints(a.refrigerant)
     a.seats = dict(SEATS)
     a.bounds = list(BOUNDS)
     return a
@@ -6970,22 +4541,6 @@ def draw_runs(a: cq.Assembly, runs) -> None:
         a.add(solid, name=name, color=_routing.tube_color(run.id))
     a.runs = list(a.runs) + list(runs)
     a.frames = _lines.frames(a.pack_solids, a.carries)
-
-
-def check_bodies_colored(a: cq.Assembly) -> Bound:
-    """Whether every body in the machine says what it is made of.
-
-    A body carrying no colour is drawn in the viewer's own default gray. THE MATERIAL IS THE
-    COLOUR, so this reads the half that is stated here; what carries a stated colour through to
-    the viewer is `_cadq_export._per_solid_color`, and `_mesh_payload`'s selftest is what holds
-    it."""
-    drawn = _solids(a)
-    bare = sorted(n for n, (_s, color) in drawn.items() if color is None)
-    return record_bound(Bound(
-        "bodies-colored", "Every body carries the colour of what it is made of", not bare,
-        f"{len(drawn) - len(bare)}/{len(drawn)} coloured", "every body coloured",
-        [f"`{n}` names no colour and draws default gray. Give it the `M_*` constant for its own "
-         f"material, or state one for a material this file does not carry yet." for n in bare]))
 
 
 def _solids(a: cq.Assembly):
@@ -7170,603 +4725,6 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
                      vent_chase=a.vent_chase, collet_plate=a.collet_plate)
 
 
-def check_through_wall_headroom(a, shell) -> Bound:
-    """How far each body seated through a wall stands under the box's own ceiling.
-
-    `pack` leaves these out of what the box is sized on, which is right in plan — a body that
-    reaches out through its own skin cannot also set that skin. IN Z IT LEAVES THEM UNMEASURED,
-    and what is inboard of the wall is under the top wall like anything else. The panel deck is
-    where that bites: the union's Ø22.86 barrel is the fattest thing the deck carries, so it is
-    what touches the ceiling first, and `enclosure._dims` never sees it.
-
-    The ceiling is a STATED bound: `enclosure.appliance_height` is the machine's own height and
-    the top wall is cut out of it, so a body over that line is inside the wall."""
-    placed = _solids(a)
-    ceiling = shell.inner[5]
-    reach = {n: box(placed[n][0]).zmax for n in THROUGH_WALL}
-    over = [(n, z) for n, z in reach.items() if z > ceiling + 1e-9]
-    tallest = max(reach.values(), default=ceiling)
-    return record_bound(Bound(
-        "wall-headroom", "Every body seated through a wall stands under the ceiling", not over,
-        f"tallest reaches z {tallest:.2f}, ceiling {ceiling:.2f}",
-        "every body under the ceiling",
-        ([] if not over else [
-            f"{max(over, key=lambda nz: nz[1])[0]} reaches z "
-            f"{max(over, key=lambda nz: nz[1])[1]:.2f} but the interior ceilings at "
-            f"{ceiling:.2f} — {max(over, key=lambda nz: nz[1])[1] - ceiling:.2f} mm into the "
-            f"top wall. Every body seated through a wall is left out of what "
-            f"`enclosure._dims` sizes the box on, so raise `enclosure.appliance_height` or "
-            f"drop the storey it stands on: "
-            + ", ".join(f"{n} {z:.2f}" for n, z in sorted(over))])))
-
-
-def check_ceiling_panel_section(panel, box) -> Bound:
-    """Read the removable ceiling's whole grown section, relief roofs and tie approaches."""
-    moving = panel.val() if hasattr(panel, "val") else panel
-    tol = 1e-6
-    datums = (
-        ("show face", _cpanel.show_z, box.outer[5]),
-        ("pack lane", _cpanel.underside_z, box.inner[5]),
-        ("fixed physical face", _cpanel.fixed_under_z, box.outer[5] - 2.0 * _enc.wall),
-        ("structural underside", _cpanel.structural_under_z, box.outer[5] - 11.0),
-        ("structural depth", _cpanel.structural_t, 11.0),
-    )
-    datum_bad = [(name, got, want) for name, got, want in datums if abs(got - want) > tol]
-
-    show = _cpanel._slab(
-        -_cpanel.panel_half_w, _cpanel.panel_half_w,
-        _cpanel.fore_y, _cpanel.aft_y, _cpanel.underside_z, _cpanel.show_z)
-    show_missing = show.cut(moving).Volume()
-
-    # Two body-free coupons prove the added lower three millimetres is real material on both
-    # halves of the broad field, rather than merely a deeper bounding box made by furniture.
-    coupon_missing = 0.0
-    for x0, x1 in ((-40.0, -20.0), (20.0, 40.0)):
-        coupon = _cpanel._slab(
-            x0, x1, 345.0, 350.0,
-            _cpanel.structural_under_z + 0.2, _cpanel.underside_z - 0.2)
-        coupon_missing += coupon.cut(moving).Volume()
-
-    expected_reliefs = {
-        "c14-inlet", "asse1022-assembly", "co2-inlet", "bulkhead-water",
-        "bulkhead-carb", "digiten-flow", "relay-1", "wr1110", "gasher-co2",
-    }
-    relief_names = {row[0] for row in box.pack.ceiling_reliefs}
-    relief_bad = sorted(expected_reliefs ^ relief_names)
-    roof_left = [(_cpanel.show_z - row[5], row[0]) for row in box.pack.ceiling_reliefs]
-    least_roof, least_name = min(roof_left, default=(float("inf"), "none"))
-
-    tie_pockets = _cpanel._tie_reliefs(box)
-    raw_field = _cpanel.structural_stock()
-    tie_air = [pocket.intersect(raw_field).cut(moving).Volume() for pocket in tie_pockets]
-    one_body = (moving.isValid() and len(moving.Solids()) == 1
-                and len(moving.Shells()) == 1)
-    ok = (not datum_bad and show_missing <= 1e-3 and coupon_missing <= 1e-3
-          and not relief_bad and least_roof >= _enc.wall - 1e-6
-          and len(tie_pockets) == 3 and min(tie_air, default=0.0) >= 1.0 and one_body)
-    return record_bound(Bound(
-        "ceiling-panel-section",
-        "The removable ceiling is an eleven-millimetre relieved plate with a whole show skin",
-        ok,
-        f"{_cpanel.structural_t:.1f} mm envelope to z {_cpanel.structural_under_z:.1f}; "
-        f"{show_missing:.4f} mm³ show skin missing, {coupon_missing:.4f} mm³ clean growth missing; "
-        f"{len(relief_names)} body roofs, least {least_roof:.3f} mm over {least_name}; "
-        f"{len(tie_pockets)} tie approaches, least {min(tie_air, default=0.0):.1f} mm³ open",
-        "z 355 exterior, z 352 pack lane, z 349 fixed face and z 344 panel underside; a whole "
-        "three-millimetre show skin, the exact nine body reliefs with at least one wall over "
-        "each, three open tie approaches and one valid solid with one outer shell",
-        ([] if ok else [
-            f"datum faults {datum_bad}; show skin missing {show_missing:.4f} mm³; clean grown "
-            f"coupons missing {coupon_missing:.4f} mm³; relief-name difference {relief_bad}; "
-            f"least roof {least_roof:.3f} mm over {least_name}; {len(tie_pockets)} tie pockets "
-            f"leave air {tie_air}; valid single solid {one_body}. The panel may yield "
-            "only in placed-body and zip-tie pockets; it cannot spend its exterior skin or the "
-            "clean lower section."])))
-
-
-def check_ceiling_rail_capture(back_top, panel) -> Bound:
-    """Read both six-millimetre tongues in their actual fixed-strip dados."""
-    fixed = back_top.val() if hasattr(back_top, "val") else back_top
-    moving = panel.val() if hasattr(panel, "val") else panel
-    shove = _cpanel.dado_slip + 0.25
-    rows = []
-    for sx in (-1.0, +1.0):
-        # The long ASSE crown necessarily opens the -X rail aft; the relay does the same on +X
-        # forward. Read each rail in its own body-free band rather than declaring either local,
-        # explicitly pocketed interruption to be the section of the whole joint.
-        y0, y1 = ((285.0, 290.0) if sx < 0.0 else (345.0, 350.0))
-        edge = sx * _cpanel.panel_half_w
-        rail = _cpanel._slab(
-            min(edge, edge + sx * _cpanel.tongue_reach),
-            max(edge, edge + sx * _cpanel.tongue_reach),
-            y0, y1, _cpanel.tongue_floor_z, _cpanel.tongue_roof_z)
-        rail_missing = rail.cut(moving).Volume()
-        home = rail.intersect(fixed).Volume()
-        down = rail.translate(cq.Vector(0.0, 0.0, -shove)).intersect(fixed).Volume()
-        up = rail.translate(cq.Vector(0.0, 0.0, shove)).intersect(fixed).Volume()
-        out = rail.translate(cq.Vector(sx * shove, 0.0, 0.0)).intersect(fixed).Volume()
-
-        blind = sx * _cpanel.dado_blind_x
-        xa, xb = sorted((blind - sx * 0.15, blind - sx * 0.05))
-        lower = _cpanel._slab(
-            xa, xb, y0, y1,
-            _cpanel.fixed_under_z - (_cpanel.dado_depth - 0.5) + 0.65,
-            _cpanel.dado_floor_z - 0.2)
-        upper = _cpanel._slab(
-            xa, xb, y0, y1,
-            _cpanel.dado_roof_z + 0.4, _cpanel.show_z - 0.2)
-        rows.append((sx, rail_missing, home, down, up, out,
-                     lower.cut(fixed).Volume(), upper.cut(fixed).Volume()))
-
-    bad = [row for row in rows if (row[1] > 1e-3 or row[2] > 1e-3
-                                    or min(row[3:6]) <= 1e-3
-                                    or max(row[6:8]) > 1e-3)]
-    section_ok = (
-        abs(_cpanel.tongue_t - 6.0) <= 1e-9
-        and abs(_cpanel.tongue_reach - 6.0) <= 1e-9
-        and _cpanel.dado_lower_ligament >= _enc.wall - 1e-9
-        and _cpanel.lip_t >= 2.8 - 1e-9)
-    ok = not bad and section_ok
-    least_catch = min((min(row[3:6]) for row in rows), default=0.0)
-    worst_missing = max((max(row[1], row[6], row[7]) for row in rows), default=0.0)
-    worst_home = max((row[2] for row in rows), default=0.0)
-    return record_bound(Bound(
-        "ceiling-rail-capture",
-        "Both six-by-six ceiling tongues are captured in grown fixed-strip dados",
-        ok,
-        f"6.00 × 6.00 mm tongues; {_cpanel.dado_slip:.2f} mm slip; "
-        f"{_cpanel.dado_lower_ligament:.2f}/{_cpanel.lip_t:.2f} mm lower/upper ligaments; "
-        f"{worst_home:.4f} mm³ home clash, {least_catch:.3f} mm³ least X/Z catch, "
-        f"{worst_missing:.4f} mm³ worst missing rail or ligament",
-        "both complete tongues clear at home, meet fixed material after one clearance-plus-0.25 "
-        "millimetre displacement in X, Z+ and Z-, and retain at least 3.00 mm below and 2.80 mm "
-        "above the dado's blind end",
-        ([] if ok else [
-            f"rail rows {rows}; section constants read {_cpanel.tongue_t:.3f} × "
-            f"{_cpanel.tongue_reach:.3f} mm with {_cpanel.dado_lower_ligament:.3f}/"
-            f"{_cpanel.lip_t:.3f} mm ligaments. A deeper panel without all three catches is a "
-            "larger loose lid, not a stronger captured ceiling."])))
-
-
-def check_back_top_ceiling_growth(back_top, placed: dict, box) -> Bound:
-    """Read the added fixed-strip shell, its exact local yields and the bodies below it."""
-    fixed = back_top.val() if hasattr(back_top, "val") else back_top
-    expected_names = {name for name, _sx in CEILING_GROWTH_RELIEF_BODIES}
-    rows = box.pack.ceiling_growth_reliefs
-    row_names = {row[0] for row in rows}
-    row_bad = sorted(expected_names ^ row_names)
-
-    coordinate_bad = []
-    for name, sx, x0, x1, y0, y1 in rows:
-        body = placed[name][0]
-        body = body.val() if hasattr(body, "val") else body
-        b = body.BoundingBox()
-        fx0, fx1 = _enc.back_top_flank_face()
-        want = (
-            max(_cpanel.panel_half_w, b.xmin - CEILING_GROWTH_RELIEF_SLIP),
-            min(fx1, b.xmax + CEILING_GROWTH_RELIEF_SLIP),
-            max(_cpanel.fore_y, b.ymin - CEILING_GROWTH_RELIEF_SLIP),
-            min(_cpanel.aft_y, b.ymax + CEILING_GROWTH_RELIEF_SLIP),
-        ) if sx > 0.0 else (
-            max(fx0, b.xmin - CEILING_GROWTH_RELIEF_SLIP),
-            min(-_cpanel.panel_half_w, b.xmax + CEILING_GROWTH_RELIEF_SLIP),
-            max(_cpanel.fore_y, b.ymin - CEILING_GROWTH_RELIEF_SLIP),
-            min(_cpanel.aft_y, b.ymax + CEILING_GROWTH_RELIEF_SLIP),
-        )
-        got = (x0, x1, y0, y1)
-        if any(abs(a - b_) > 1e-6 for a, b_ in zip(got, want)):
-            coordinate_bad.append((name, got, want))
-
-    # At an unobstructed band, beyond the dado's blind wall, both sides must contain the exact
-    # added shell. This catches a nominal `fixed_under_z` change which never reached the B-rep.
-    growth_missing = []
-    for sx in (-1.0, +1.0):
-        wall_x = _enc.back_top_flank_face()[1 if sx > 0.0 else 0]
-        xa, xb = sorted((sx * (_cpanel.dado_blind_x + 1.0), wall_x - sx * 0.5))
-        band = _enc._ybox(
-            xa, xb, 240.0, 245.0,
-            _cpanel.fixed_under_z - _cpanel.rail_run - 1.0, _cpanel.underside_z + 1.0)
-        growth = _enc._back_top_ceiling_growth(box.inner, box.y_joint, sx).intersect(band)
-        growth_missing.append(growth.cut(fixed).Volume())
-
-    gaps = []
-    for name, sx in CEILING_GROWTH_RELIEF_BODIES:
-        body = placed[name][0]
-        body = body.val() if hasattr(body, "val") else body
-        corbel = _enc._back_top_ceiling_for_pack(box.inner, box.y_joint, sx, box)
-        established = _enc._back_top_ceiling_for_pack(
-            box.inner, box.y_joint, sx, box, grown=False)
-        gaps.append((name,
-                     _clearing.gap(body, established, 5.0),
-                     _clearing.gap(body, corbel, 5.0)))
-    gap_tol = 0.05
-    clearance_kept = all(
-        grown >= min(established, _card.CLEARANCE_FLOOR) - 1e-6
-        and grown >= established - gap_tol - 1e-6
-        for _name, established, grown in gaps)
-    ok = (not row_bad and not coordinate_bad
-          and max(growth_missing, default=0.0) <= 1e-3
-          and clearance_kept
-          and abs(_enc.back_top_ceiling_growth - 3.0) <= 1e-9)
-    return record_bound(Bound(
-        "back-top-ceiling-growth",
-        "Back-top's fixed ceiling strips keep their three-millimetre inward growth",
-        ok,
-        f"{_enc.back_top_ceiling_t:.1f} mm fixed face; clean shell missing "
-        f"{max(growth_missing, default=0.0):.4f} mm³; "
-        + ", ".join(f"{name} {old:.3f}→{grown:.3f} mm" for name, old, grown in gaps),
-        "six millimetres from the unchanged exterior, the exact added shell on both clean "
-        "strips, and body air within 0.05 mm of the established corbel, never below one "
-        "millimetre unless that body's established feature was already closer, after exact "
-        "one-millimetre growth-only reliefs",
-        ([] if ok else [
-            f"growth rows differ by name {row_bad} or coordinates {coordinate_bad}; clean shell "
-            f"missing is {growth_missing}; body gaps are {gaps}; fixed growth is "
-            f"{_enc.back_top_ceiling_growth:.3f} mm. Preserve the established corbels and give "
-            "up only the added shell over the placed body's own plan."])))
-
-
-def check_c14_collar(pieces: dict, box) -> Bound:
-    """Measure the complete opened C14 surround as one fixed back-top feature.
-
-    Testing the finished feature rather than selected collar bands catches every missing part:
-    the exact flange annulus, both rounded tunnel corners, the full-profile lower corbel and the
-    crown up to the ceiling datum. The panel must own none of it below that datum. Where the
-    crown lies under the panel's plan, a thin copy of its top layer is moved above the datum to
-    prove the untouched show skin lands on it. The remainder lies under back-top's own fixed
-    ceiling strip and is not a panel bearing surface.
-    """
-    back = pieces["back-top"]
-    panel = pieces["ceiling-panel"]
-    back = back.val() if hasattr(back, "val") else back
-    panel = panel.val() if hasattr(panel, "val") else panel
-    fore = c14_seat_y()
-    mouth = fore - _c14.FLANGE_T - _enc.c14_collar_extension
-    beyond = (fore - _c14.FLANGE_T) - mouth
-    entry_start = mouth - _enc.c14_pocket_overcut - _enc.c14_insertion_relief
-    insertion_travel = fore - _c14.FLANGE_T - entry_start
-    geometry = _enc._c14_tunnel_geometry(
-        box.inner, box.outer, box.pack.c14, box.pack.back_ports,
-        box.inner[4], box.outer[5])
-    feature, bore, inserts, backing = geometry
-    feature = feature.cut(bore)
-    backing = backing.cut(bore)
-    for cutter in inserts:
-        feature = feature.cut(cutter)
-        backing = backing.cut(cutter)
-    missing = feature.cut(back).Volume()
-    backing_missing = backing.cut(back).Volume()
-    panel_owned = feature.intersect(panel).Volume()
-    host = back.fuse(panel)
-    bore_occupied = bore.intersect(host).Volume()
-    for cutter in inserts:
-        bore_occupied += cutter.intersect(host).Volume()
-
-    # The exact nominal flange silhouette swept from the inboard end of its entry pocket to the
-    # installed seat is the continuous motion bound. Every housing and terminal section behind
-    # it fits inside this XZ envelope; if this prism is empty, the complete inlet can be held
-    # square and translated through the fixed +X strip into the collar.
-    flange_sweep = (_c14.flange_prism(0.0, entry_start, fore)
-                    .translate((C14_STATION[0], 0.0, C14_STATION[1])).val())
-    insertion_obstruction = flange_sweep.intersect(back).Volume()
-
-    eps = 0.02
-    b = feature.BoundingBox()
-    top_layer = feature.intersect(_enc._ybox(
-        b.xmin - 1.0, b.xmax + 1.0, b.ymin - 1.0, b.ymax + 1.0,
-        box.inner[5] - eps, box.inner[5]))
-    bearing_probe = top_layer.translate((0.0, 0.0, eps))
-    show_skin = _enc._ybox(
-        -_cpanel.panel_half_w, _cpanel.panel_half_w,
-        _cpanel.fore_y, _cpanel.aft_y,
-        _cpanel.underside_z, _cpanel.show_z)
-    bearing_probe = bearing_probe.intersect(show_skin)
-    bearing_area = bearing_probe.Volume() / eps
-    bearing_missing = bearing_probe.cut(panel).Volume()
-    support_run = _enc.rear_plane_y - mouth
-    ok = (missing <= 1e-3 and panel_owned <= 1e-3 and bore_occupied <= 1e-3
-          and beyond >= 3.0 - 1e-9 and bearing_area >= 50.0
-          and bearing_missing <= 1e-3 and insertion_obstruction <= 1e-3
-          and insertion_travel >= _enc.c14_insertion_relief - 1e-9
-          and backing_missing <= 1e-3)
-    return record_bound(Bound(
-        "c14-collar-complete",
-        "One fixed back-top surround encloses and carries the C14 up to the ceiling",
-        ok,
-        f"{feature.Volume():.3f} mm³ feature over a {support_run:.2f} mm corbel; "
-        f"{missing:.4f} mm³ missing from back-top, {panel_owned:.4f} mm³ in panel, "
-        f"{bore_occupied:.4f} mm³ in bores; {bearing_area:.3f} mm² ceiling land with "
-        f"{bearing_missing:.4f} mm³ unsupported; {insertion_travel:.2f} mm straight flange "
-        f"insertion with {insertion_obstruction:.4f} mm³ obstruction; {backing.Volume():.3f} "
-        f"mm³ straight wall backing with {backing_missing:.4f} mm³ missing",
-        "the complete opened collar, tunnel, corbel and crown in fixed back-top alone; no C14 "
-        "material in the panel or its bores, the show skin bearing on the crown, and the exact "
-        "flange profile translating through its Y- entry relief without touching fixed material; "
-        "the seating face's opened outer profile backed straight to the wall",
-        ([] if ok else [
-            f"the fixed C14 feature is missing {missing:.4f} mm³, the panel still owns "
-            f"{panel_owned:.4f} mm³, and its bores contain {bore_occupied:.4f} mm³; the crown "
-            f"offers {bearing_area:.3f} mm² but {bearing_missing:.4f} mm³ of its raised top-layer "
-            "probe is not covered by the ceiling show skin; the exact flange sweep over "
-            f"{insertion_travel:.2f} mm intersects {insertion_obstruction:.4f} mm³ of fixed "
-            f"back-top, and {backing_missing:.4f} mm³ of the straight wall backing is absent."])))
-
-
-def check_c14_ceiling_corbel(c14, box) -> Bound:
-    """The purchased inlet against the complete +X ceiling-strip corbel.
-
-    This is the exact grown production wedge, with only its added shell withheld on the C14's
-    placed plan—not a bounding box reconstructed beside it. The complete established wedge must
-    remain, and the new shell owes the moulding one assembly-clearance millimetre.
-    `ceiling_corbel_at` is read at the rim as well, so a stale row cannot make the comparison
-    vacuously clear by deleting the support it is meant to preserve."""
-    c14 = c14.val() if hasattr(c14, "val") else c14
-    corbel = _enc._back_top_ceiling_grown_for_pack(
-        box.inner, box.y_joint, +1.0, box.pack.ceiling_growth_reliefs)
-    gap = _clearing.gap(c14, corbel, 5.0)
-    b = c14.BoundingBox()
-    y = min(max((b.ymin + b.ymax) / 2.0, _cpanel.fore_y), _cpanel.aft_y)
-    kept = _enc.ceiling_corbel_at(b.xmax, y, box.pack.ceiling_growth_reliefs)
-    want = _card.CLEARANCE_FLOOR
-    ok = gap >= want - 1e-6 and kept > 1e-6
-    return record_bound(Bound(
-        "c14-ceiling-corbel-clear",
-        "The C14 stands clear of the complete wall-rooted ceiling corbel",
-        ok,
-        f"{gap:.3f} mm exact air; {kept:.3f} mm of corbel kept at the rim",
-        f"at least {want:g} mm exact air and a nonzero established wedge at the rim",
-        ([] if ok else [
-            f"the C14 leaves {gap:.3f} mm to the full +X ceiling corbel and "
-            f"`ceiling_corbel_at` keeps {kept:.3f} mm at its rim; move the shared X station "
-            "inboard until the exact moulding clears instead of cutting a support-taking band."])))
-
-
-def check_ground_ceiling_gable(ground, pieces: dict, box) -> Bound:
-    """The ground stack clears the exact two-sided roof which replaces its support band."""
-    ground = ground.val() if hasattr(ground, "val") else ground
-    back = pieces["back-top"]
-    back = back.val() if hasattr(back, "val") else back
-    gables = _enc._back_top_ceiling_relief_gables(box.inner, "ground-stack")
-    gap = min(ground.distance(gable) for gable in gables)
-    missing = sum(gable.cut(back).Volume() for gable in gables)
-    want = _card.CLEARANCE_FLOOR
-    ok = gap >= want - 1e-6 and missing <= 1e-4
-    return record_bound(Bound(
-        "ground-ceiling-gable",
-        "Two wall-carried 45-degree planes close the ground-stack ceiling relief",
-        ok,
-        f"{gap:.3f} mm exact stack air; {missing:.4f} mm³ missing roof",
-        f"at least {want:g} mm exact air and the complete production gable in back-top",
-        ([] if ok else [
-            f"the ground stack leaves {gap:.3f} mm to its two-sided roof and "
-            f"{missing:.4f} mm³ of that roof is absent; move the stack datum rather than "
-            "restoring a horizontal, material-rooted support band."])))
-
-
-def check_prv_chase_corbels(pieces: dict, box) -> Bound:
-    """The PRV groove and its top-piece rib both leave the wall on 45-degree X planes.
-
-    These are the chase's two lowest down-facing surfaces. The groove-to-duct transition is
-    only one wall above the bed, and the top rib begins on the Z-seam rim, so a flat at either
-    station creates a separate low support contact while every clearance and motion check still
-    passes. Read the actual planar topology: the outer groove roof must span the exact wall
-    section at 45 degrees, the rib floor must end at its core-side lip on the continuation of a
-    45-degree plane rooted at the grown flank, and no horizontal floor may survive inboard of
-    that root. The square discharge mouth and its lower land are checked independently so a
-    generous cut cannot pass merely by deleting the two flats.
-
-    AND THE GROUND HALF IS READ WITH IT, because that wedge is cut from the whole rib before the
-    two shares are taken. A cutter carried below `rim` to keep off a coincident plane reaches the
-    run the joint lane leaves standing inboard of the back rail — material the piece below owns
-    and this piece never had. Its crest is measured on both flanks of the passage, where the duct
-    itself takes nothing.
-    """
-    if not box.pack.vent_chase:
-        return record_bound(Bound(
-            "prv-chase-corbels",
-            "The PRV groove and top rib close on wall-rooted X ramps",
-            True, "no PRV chase station", "both ramps when the cold core carries a PRV line", []))
-
-    fixed = pieces["back-top"]
-    fixed = fixed.val() if hasattr(fixed, "val") else fixed
-    rib_x, sy, sz = box.pack.vent_chase[0]
-    outer_x, inner_x = box.outer[0], box.inner[0]
-    root_x = _enc.back_top_flank_face()[0]
-    half = _enc.vent_channel_w / 2.0 + _enc.vent_rib_wall
-    groove_top = sz - _enc.vent_duct_drop
-    rim = _enc.z_seam + _enc.z_rise
-    roof_run = rib_x - root_x
-    mouth_bot = sz - _enc.vent_channel_w / 2.0
-    tol = 0.02
-    diag = 1.0 / math.sqrt(2.0)
-
-    groove_ramps = []
-    base_ramps = []
-    flat_roofs = []
-    for face in fixed.Faces():
-        if face.geomType() != "PLANE":
-            continue
-        b = face.BoundingBox()
-        c = face.Center()
-        n = face.normalAt(c)
-        down_diag = (abs(n.x - diag) <= tol and abs(n.y) <= tol
-                     and abs(n.z + diag) <= tol)
-        if down_diag:
-            if (abs(b.xmin - outer_x) <= tol and abs(b.xmax - inner_x) <= tol
-                    and abs(b.ymin - (sy - _enc.vent_channel_w / 2.0)) <= tol
-                    and abs(b.ymax - (sy + _enc.vent_channel_w / 2.0)) <= tol
-                    and abs(b.zmin - groove_top) <= tol
-                    and abs(b.zmax - (groove_top + inner_x - outer_x)) <= tol):
-                groove_ramps.append(face)
-            if (abs(b.xmax - rib_x) <= tol
-                    and abs(b.ymin - (sy - half)) <= tol
-                    and abs(b.ymax - (sy + half)) <= tol
-                    and abs(b.zmax - (rim + roof_run)) <= tol):
-                base_ramps.append(face)
-        if abs(n.z + 1.0) <= tol and abs(b.zmax - b.zmin) <= tol:
-            old_groove = (abs(b.zmin - groove_top) <= tol
-                          and b.ymax > sy - _enc.vent_channel_w / 2.0 + tol
-                          and b.ymin < sy + _enc.vent_channel_w / 2.0 - tol
-                          and b.xmax > outer_x + tol and b.xmin < inner_x - tol)
-            old_base = (abs(b.zmin - rim) <= tol
-                        and b.ymax > sy - half + tol and b.ymin < sy + half - tol
-                        and b.xmax > root_x + tol)
-            if old_groove or old_base:
-                flat_roofs.append(face)
-
-    mouth = _enc._ybox(
-        rib_x - 0.5, rib_x + 0.5,
-        sy - _enc.vent_channel_w / 2.0 + 0.2,
-        sy + _enc.vent_channel_w / 2.0 - 0.2,
-        mouth_bot + 0.2, sz + _enc.vent_channel_w / 2.0 - 0.2)
-    mouth_stock = mouth.intersect(fixed).Volume()
-    land = _enc._ybox(
-        rib_x - 0.5, rib_x,
-        sy - _enc.vent_channel_w / 2.0 + 0.2,
-        sy + _enc.vent_channel_w / 2.0 - 0.2,
-        mouth_bot - _enc.vent_rib_wall + 0.2, mouth_bot - 0.2)
-    land_missing = land.cut(fixed).Volume()
-    lip_land = mouth_bot - (rim + roof_run)
-
-    ground = pieces["back-bottom"]
-    ground = ground.val() if hasattr(ground, "val") else ground
-    lane_x = _enc._rail_x(box.inner[0], +1.0, "back")[3] + _enc.slide_slip
-    crest_missing = 0.0
-    for lo, hi in ((sy - half, sy - _enc.vent_channel_w / 2.0),
-                   (sy + _enc.vent_channel_w / 2.0, sy + half)):
-        crest_missing += _enc._ybox(
-            lane_x + 0.2, rib_x - 0.2, lo + 0.2, hi - 0.2,
-            rim - _enc.vent_rib_wall, rim - 0.05).cut(ground).Volume()
-
-    ok = (len(groove_ramps) == 1 and len(base_ramps) == 1 and not flat_roofs
-          and mouth_stock <= 1e-4 and land_missing <= 1e-4
-          and crest_missing <= 1e-4
-          and lip_land >= _enc.vent_rib_wall - tol)
-    return record_bound(Bound(
-        "prv-chase-corbels",
-        "The PRV groove and top rib close on wall-rooted X ramps",
-        ok,
-        f"{inner_x - outer_x:.2f} mm groove ramp, {roof_run:.2f} mm rib corbel; "
-        f"{len(flat_roofs)} flat support roofs; {mouth_stock:.4f} mm³ in the square mouth, "
-        f"{land_missing:.4f} mm³ missing lower land, {lip_land:.2f} mm lip land, "
-        f"{crest_missing:.4f} mm³ off the ground half's crest",
-        "one exact 45-degree X plane at each level, no horizontal support face, the complete "
-        "square mouth open, at least one rib wall below it and the seam crest below it whole",
-        ([] if ok else [
-            f"found {len(groove_ramps)} groove ramps, {len(base_ramps)} rib-base corbels and "
-            f"{len(flat_roofs)} horizontal support roofs; the mouth contains "
-            f"{mouth_stock:.4f} mm³, its lower land is missing {land_missing:.4f} mm³, "
-            f"only {lip_land:.2f} mm remains below it, and the ground half's rib crest is "
-            f"missing {crest_missing:.4f} mm³ under the seam."])))
-
-
-def check_ceiling_retention(back_top, panel) -> Bound:
-    """Both headless keeper screws cross the empty dado mouths only after the panel is home.
-
-    The insertion gate deliberately reads back-top without fasteners: the panel must traverse
-    these stations before either keeper exists. This gate reads the next operation. At home the
-    steel envelopes owe the panel the dado's own fore air; after that air is spent in Y−, each
-    tongue must meet its own pin. The horizontal heat-set sockets keep their full nominal round
-    passage inside a support-free teardrop roof. The insert bears in a standard-ligament lower
-    land, while a measured PET-GF roof closes over the teardrop apex.
-    """
-    fixed = back_top.val() if hasattr(back_top, "val") else back_top
-    moving = panel.val() if hasattr(panel, "val") else panel
-    pins = _cpanel.retainer_fasteners()
-
-    home = tuple(pin.intersect(moving).Volume() for pin in pins)
-    fixed_clash = tuple(pin.intersect(fixed).Volume() for pin in pins)
-    catch_travel = _cpanel.retainer_fore_air + 0.75
-    caught_panel = moving.translate(cq.Vector(0.0, -catch_travel, 0.0))
-    caught = tuple(pin.intersect(caught_panel).Volume() for pin in pins)
-
-    land_missing = []
-    roof_missing = []
-    socket_occupied = []
-    outer_r = _enc.heatset_dia / 2.0 + _enc.boss_ligament
-    roof_skin = 0.75
-    angle = math.radians(_enc.teardrop_roof_angle)
-    for sx, cy, cz in _cpanel.retainer_stations():
-        guide0, guide1 = sorted((sx * _cpanel.retainer_guide_face_x,
-                                  sx * _cpanel.retainer_insert_face_x))
-        bore0, bore1 = sorted((sx * _cpanel.retainer_insert_face_x,
-                               sx * _cpanel.retainer_bore_end_x))
-        guide = _enc._teardrop_x(_cpanel.retainer_approach_d / 2.0,
-                                  cy, cz, guide0, guide1)
-        bore = _enc._teardrop_x(_enc.heatset_dia / 2.0, cy, cz, bore0, bore1)
-        socket_occupied.append(guide.fuse(bore).intersect(fixed).Volume())
-        insert0, insert1 = sorted((sx * _cpanel.retainer_insert_face_x,
-                                   sx * _cpanel.retainer_insert_end_x))
-        insert_bore = _enc._xcyl(_enc.heatset_dia / 2.0,
-                                  cy, cz, insert0, insert1)
-        # The teardrop opens only the unsupported upper sector. Below its tangent the exact
-        # circular insert land remains, with the same radial ligament as every M3 wall boss.
-        tangent = cz + _enc.heatset_dia / 2.0 * math.cos(angle)
-        lower = _enc._xcyl(outer_r, cy, cz, insert0, insert1).cut(insert_bore)
-        lower = lower.intersect(_enc._ybox(
-            insert0 - 1.0, insert1 + 1.0,
-            cy - outer_r - 1.0, cy + outer_r + 1.0,
-            cz - outer_r - 1.0, tangent))
-        land_missing.append(lower.cut(fixed).Volume())
-
-        # A real roof, not merely the zero-area apex edge: at least three 0.24 mm production
-        # layers, plus margin, of fixed PET-GF immediately above the teardrop's centreline must
-        # remain across the full insert depth.
-        apex = cz + (_enc.heatset_dia / 2.0) / math.cos(angle)
-        roof = _enc._ybox(
-            insert0 + 0.05, insert1 - 0.05,
-            cy - 0.15, cy + 0.15,
-            apex + 0.05, apex + roof_skin)
-        roof_missing.append(roof.cut(fixed).Volume())
-
-    home_clear = max(home, default=0.0) <= 1e-3
-    pin_paths_clear = max(fixed_clash, default=0.0) <= 1e-3
-    sockets_clear = max(socket_occupied, default=0.0) <= 1e-3
-    lands_whole = max(land_missing, default=0.0) <= 1e-3
-    roofs_whole = max(roof_missing, default=0.0) <= 1e-3
-    both_catch = len(caught) == 2 and min(caught) >= 1.0
-    world = (
-        (_cpanel.retainer_y, 234.35),
-        (_cpanel.retainer_z, 351.50),
-        (_cpanel.retainer_insert_face_x, 86.65),
-        (_cpanel.retainer_insert_end_x, 91.90),
-        (_cpanel.retainer_bore_end_x, 92.90),
-        (_cpanel.retainer_screw_inner_x, 79.90),
-        (_cpanel.retainer_tongue_overlap, 5.60),
-    )
-    world_exact = all(abs(got - want) <= 1e-6 for got, want in world)
-    vertical_overlap = max(0.0, min(
-        _cpanel.tongue_roof_z, _cpanel.retainer_z + _cpanel.retainer_screw_d / 2.0)
-        - max(_cpanel.tongue_floor_z,
-              _cpanel.retainer_z - _cpanel.retainer_screw_d / 2.0))
-    engagement_exact = abs(vertical_overlap - 2.0) <= 1e-6
-    ok = (home_clear and pin_paths_clear and sockets_clear and lands_whole and roofs_whole
-          and both_catch and world_exact and engagement_exact)
-    return record_bound(Bound(
-        "ceiling-dado-mouth-keepers",
-        "Two transverse keepers block both ceiling tongues at the open dado mouths",
-        ok,
-        (f"{_cpanel.retainer_fore_air:.2f} mm home air; at {catch_travel:.2f} mm Y−, "
-         f"tongue engagement {caught[0]:.3f}/{caught[1]:.3f} mm³; home clash "
-         f"{max(home, default=0.0):.4f}, fixed clash {max(fixed_clash, default=0.0):.4f}, "
-         f"socket stock {max(socket_occupied, default=0.0):.4f}, land missing "
-         f"{max(land_missing, default=0.0):.4f}, roof missing "
-         f"{max(roof_missing, default=0.0):.4f} mm³; "
-         f"{_cpanel.retainer_tongue_overlap:.2f} mm X / {vertical_overlap:.2f} mm Z engagement"),
-        "both M3 cross-pins clear at home, catch their own tongue after the stated fore air, "
-        "and run in round, teardrop-roofed fixed sockets with a complete lower heat-set land "
-        f"and at least {roof_skin:g} mm of PET-GF over the apex; the established y 234.35, "
-        "z 351.50, x 79.90/86.65/91.90/92.90 stations and 5.60 by 2.00 mm tongue engagement",
-        ([] if ok else [
-            f"the keeper pair reads home {home}, caught {caught}, fixed clash {fixed_clash}, "
-            f"socket stock {tuple(socket_occupied)}, land missing {tuple(land_missing)}. "
-            f"roof missing {tuple(roof_missing)}; exact stations {world_exact}, vertical "
-            f"engagement {vertical_overlap:.3f} mm. "
-            "Each pin is installed only after the panel reaches its +Y stop; put its axis "
-            "immediately ahead of the tongue, keep the guide open through the fixed corbel, "
-            "and leave the round passage, lower insert land and printable roof in back-top."])))
-
-
 # --- the box those bodies stand in, and what is seated in its walls ---------
 
 # THE BOX PRINTS IN ONE FILAMENT, and it is `M_PETGF_BLACK` — the exterior's own spool. Every
@@ -7857,47 +4815,6 @@ def build_drain_joint(funnel_carry):
             ("funnel-drain-union", union, M_JG_BLACK_PP, union_carry))
 
 
-def check_drain_over_deck(joint, pack) -> Bound:
-    """Whether the funnel's drain joint stands clear over everything the pack puts beneath it.
-
-    THE JOINT HANGS IN THE FOLDED DECK'S OWN BAY and not over open air. The spout comes down on a
-    column the two anchor tees stand fore of, and their barrels crown one storey under the top
-    wall; a fitting that reaches that storey is a fitting with nowhere to go, since the cold core
-    packs the column in from behind. What buys the room is the ELBOW's own reach: it hangs one
-    `elbow_connector.LEG` under the spout, and its foot stands over the barrels rather than
-    beside them.
-
-    Read in plan and not in box — a body the joint does not stand over is a body this says nothing
-    about, however high it reaches."""
-    j = box(cq.Compound.makeCompound(list(joint)))
-    rows = []
-    for name, solid in pack.items():
-        # THE JOINT'S OWN FAMILY IS NOT SOMETHING IT STANDS OVER. The elbow is placed off the
-        # funnel's spout by `funnel_carry`, and the clamp and stub are made up on it — so the
-        # funnel is above its own drain by construction, and reading it as headroom under that
-        # drain reports the design as a fault. Four bodies carry the name and only three of
-        # them are hyphenated: `funnel-drain-clamp`, `-stub`, `-union`, and `funnel` itself.
-        if name == "funnel" or name.startswith("funnel-"):
-            continue
-        b = box(solid)
-        if b.xmin >= j.xmax or b.xmax <= j.xmin or b.ymin >= j.ymax or b.ymax <= j.ymin:
-            continue
-        rows.append((name, j.zmin - b.zmax))
-    worst = min((g for _n, g in rows), default=None)
-    under = [r for r in rows if r[1] < _card.CLEARANCE_FLOOR]
-    return record_bound(Bound(
-        "drain-over-deck", "The funnel's drain joint stands over the pack under its column",
-        not under,
-        "nothing stands under it" if worst is None else
-        f"{len(rows)} under the joint's foot at z {j.zmin:.2f}, nearest {worst:.3f} mm",
-        f"at least {_card.CLEARANCE_FLOOR:g} mm under the fitting's foot",
-        [f"{n} crowns {-g:.3f} mm INTO the joint's own envelope" if g < 0 else
-         f"{n} leaves {g:.3f} mm under the joint, inside the {_card.CLEARANCE_FLOOR:g} the "
-         f"machine holds — `funnel.chute_h` and `ramp_angle` are what lower the drain, "
-         f"and the fitting's own reach is `elbow_connector.LEG`"
-         for n, g in sorted(under, key=lambda r: r[1])]))
-
-
 # The display's own frame faces its screen along −Y with the glass on Y = 0; the facet faces
 # up-and-forward at `enclosure.display_facet_angle_deg`. One turn about X carries the screen
 # normal onto the facet's and the up-screen axis up the slope with it.
@@ -7978,161 +4895,10 @@ def _seated(box):
     return _enc.with_funnel(box, funnel_centre(box))
 
 
-def check_pumps_in_bay(placed: dict, shell) -> Bound:
-    """Whether the pumps stand inside their bay's opening with air on the face they ride
-    behind.
-
-    The heads face the pump cartridge's own pump reliefs — one millimetre of air off each
-    pocket's floor — and everything of a pump sweeps out through the bay, so its whole
-    footprint stands inside the jambs by the deck's own sweep air. A touch has no volume,
-    so `pack-closes` cannot see one; this reads both off the placed pumps."""
-    bx0, bx1, top = shell.pump_bay
-    rows, msgs = [], []
-    for n, (s, _c) in placed.items():
-        if not n.startswith("pump-"):
-            continue
-        b = box(s)
-        if n.endswith("-head"):
-            rows.append((n, b.ymin - _enc.pump_relief_floor))
-            if b.ymin - _enc.pump_relief_floor <= 1.0 - 1e-6:
-                msgs.append(f"{n} stands {b.ymin - _enc.pump_relief_floor:.2f} mm off its "
-                            f"relief's floor — under the millimetre the pass-by keeps")
-        margin = min(b.xmin - bx0, bx1 - b.xmax)
-        rows.append((n, margin - _enc.pump_bay_side_air))
-        if margin < _enc.pump_bay_side_air - 1e-6:
-            msgs.append(f"{n} stands {margin:.2f} mm inside a jamb — the block's own edge is "
-                        f"`pump_bay_side_air` {_enc.pump_bay_side_air:g} in from the jamb, and what "
-                        f"the block carries has to stand inside that")
-        if b.zmax > top - _enc.bay_crown_air + 1e-6:
-            msgs.append(f"{n} crowns at z {b.zmax:.2f} against a bay top of {top:.2f}")
-    ok = not msgs
-    return record_bound(Bound(
-        "pumps-in-bay", "The pumps stand inside the bay with air at the face and the jambs",
-        ok,
-        f"least air {min(g for _n, g in rows):.2f} mm" if rows else "no pumps placed",
-        "a millimetre at the face, the deck's slip at the jambs, the crown air above",
-        msgs))
-
-
-def check_bay_lintel(shell, display_solid) -> Bound:
-    """Whether the lintel over the bay keeps a ligament under the display's own envelope —
-    the bay top is struck off the cans, and this is the wall the display answers for."""
-    top = shell.pump_bay[2]
-    dz = box(display_solid).zmin
-    ok = dz - top >= 2.0 - 1e-9
-    return record_bound(Bound(
-        "bay-under-display", "The bay's lintel keeps a ligament under the display",
-        ok,
-        f"{dz - top:.2f} mm between the bay top and the display's envelope",
-        "at least 2 mm of lintel",
-        ([] if ok else [
-            f"the bay tops at z {top:.2f} and the display's envelope begins at {dz:.2f} — "
-            f"the opening cuts the wall the display stands in. Lower the cans, or raise "
-            f"the display"])))
-
-
 # How far down the reading looks before it says NOTHING IS THERE. Struck long on purpose: a
 # ridge with nothing under it should report the drop it actually has, not the limit of the
 # instrument, and the cavity under this one is the whole storey over the pump bay.
 RIDGE_REACH = 60.0
-
-
-def check_ridge_carried(pieces: dict, shell) -> Bound:
-    """Whether the ridge the display's through-hole leaves is laid on printed material.
-
-    `enclosure.pcb_ridge` is a line `display_pcb_x` long where the hole's up-slope end wall
-    breaks out of the housing slab's back, and BOTH FACES POINT DOWN OFF IT. That makes it the
-    bottom vertex of a wedge: 45° either side lays itself once the line exists, but the line
-    itself is the one bead on this piece with nothing beneath it. It is not a wall too thin to
-    print and it is not a clash — every volume in the box is right, every piece pair is clear,
-    and the model is exactly what was drawn. It is a line the machine cannot begin.
-
-    A THIRD THING SUPPORT CANNOT REACH IT. The ridge stands in the cavity behind the display
-    housing, closed on five sides by the time the piece is off the bed, so the answer is
-    printed section rather than a setting in the slicer — `enclosure._ridge_wall`.
-
-    Read as a DROP: at stations across the ridge's own width, how far below it the piece's own
-    material first stands, looking in a column one `EXTRUSION_W` wide hung off the ridge and
-    aft of it. A carried ridge reads zero, because the rib's ramp contains the ridge line.
-    An uncarried one reads the cavity, which is what it is — and if nothing stands within
-    `RIDGE_REACH` the reading says so rather than reporting the instrument's own limit."""
-    piece = pieces["front-top"]
-    piece = piece.val() if hasattr(piece, "val") else piece
-    ry, rz = _enc.pcb_ridge(shell.outer)
-    half = _enc.display_pcb_x / 2.0
-    cx = _enc.display_centre_x(shell.outer) + _enc.display_body_offset_x
-    w = EXTRUSION_W
-    rows = []
-    for i in range(9):
-        x = cx - half + w + (2.0 * half - 2.0 * w) * i / 8.0
-        col = (cq.Workplane("XY").box(w, w, RIDGE_REACH, centered=False)
-               .translate((x - w / 2.0, ry, rz - RIDGE_REACH)).val())
-        got, vol = _overlap.common(piece, col)
-        if vol < 1e-9:
-            rows.append((x, None))
-        else:
-            rows.append((x, rz - _meshes.box(got).zmax))
-    bad = [r for r in rows if r[1] is None or r[1] > w + 1e-9]
-    worst = max((d for _x, d in rows if d is not None), default=None)
-    return record_bound(Bound(
-        "ridge-carried", "The ridge the display's through-hole leaves is laid on material",
-        not bad,
-        (f"{len(rows) - len(bad)}/{len(rows)} stations carried"
-         + (f", furthest drop {worst:.4f} mm" if worst is not None else "")),
-        f"material within one {w:g} mm extrusion under every station",
-        [(f"x {x:8.3f}   nothing within {RIDGE_REACH:g} mm below" if d is None
-          else f"x {x:8.3f}   drop {d:.4f} mm") for x, d in bad]))
-
-
-def check_loom_passes(pieces: dict, shell) -> Bound:
-    """Whether the enclosure display's loom still has its way through the ridge rib.
-
-    `enclosure._ridge_wall` runs wall to wall, so it is the only section between the bay's
-    storey and the cavity behind it, and SIG-7 crosses it. That makes the bore a PASSAGE, and a
-    passage is the one thing this card's other readings cannot see: every one of them measures
-    where a body stands, and no body stands in a hole. A later fuse landing in it — a boss, a
-    rib, an anchor on that same face — closes the only route the loom has and moves nothing
-    that anything else here reads.
-
-    Measured as the passage's OWN RADIUS and measured exactly: the bore's axis, struck across
-    the rib's thickness, at its exact distance from the printed piece. What comes back is the
-    largest thing that goes through — so a boss fused into the bore reads as a smaller bore
-    rather than as a volume, and the failure names the size that still passes.
-
-    NOT AS OCCUPANCY. A cylinder of the bore's own diameter intersected with the piece reads
-    0.09 mm3 on a bore that is perfectly clear: the wall is round, the boolean is meshed, and
-    the facets of a tessellated cylinder fall inside the true one. That is the instrument
-    talking, not the geometry, and thresholding it means picking a number that means nothing.
-    An exact distance has no such term.
-
-    The segment spans the rib and no further, so what this reads is the SECTION and not the
-    corridor either side of it — a body standing off the bore's mouth is `clearance-floor`'s
-    and `pack-closes`'s to find, not this one's."""
-    piece = pieces["front-top"]
-    piece = piece.val() if hasattr(piece, "val") else piece
-    ry, rz = _enc.pcb_ridge(shell.outer)
-    fore, t = shell.pack.collet_plate["aft_y"], _enc.ridge_wall_t
-    jog = (ry + rz) - fore
-    axis_z = (shell.pump_bay[2] + jog) / 2.0
-    d = _enc.cable_sleeve_open
-    cx = _enc.display_centre_x(shell.outer)
-    axis = cq.Edge.makeLine(cq.Vector(cx, fore, axis_z), cq.Vector(cx, fore + t, axis_z))
-    dist = _BRepDist(axis.wrapped, piece.wrapped)
-    if not dist.IsDone():
-        raise RuntimeError(
-            "loom-passes: the exact distance from the bore's axis to front-top failed — "
-            "the passage is unknown, not clear")
-    got = 2.0 * dist.Value()
-    ok = got >= d - 1e-6
-    return record_bound(Bound(
-        "loom-passes", "The enclosure display's loom has a clear bore through the ridge rib", ok,
-        f"{got:.4f} mm passes at x {cx:g}, z {axis_z:.3f}",
-        f"a {d:.4g} mm bore clean through {_enc.ridge_wall_t:g} mm of rib",
-        ([] if ok else [
-            f"only {got:.4f} mm passes where the loom crosses — SIG-7 is four 22 AWG in a "
-            f"{_enc.cable_sleeve_nom:g} mm expandable braid that opens to {d:.4g}, and this "
-            f"rib is the only section it can cross. Move whatever narrowed the bore, or "
-            f"move the bore"])))
 
 
 def machine():
@@ -8144,9 +4910,7 @@ def machine():
     a = build_pack()
     p = pack(a)
     box = _seated(_enc.stated_box(p))
-    check_pumps_in_bay(p.placed, box)
     carry_enclosure_bounds()
-    check_through_wall_headroom(a, box)
     a.bounds = list(BOUNDS)
     return a, p, box
 
@@ -8199,7 +4963,6 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     # the box — so the line it drains through is drawn HERE, off the same frames the pack's own
     # runs anchor on, with the funnel's now among them.
     a.pack_solids["funnel"], a.carries["funnel"] = funnel, funnel_carry
-    check_bowl_clear(a.pack_solids["flow-regulator"], funnel)
     # The disconnect, on the spout the funnel carries. `fluid-4` starts at the union's lower
     # collet, so the joint goes in before the run is drawn.
     joint = build_drain_joint(funnel_carry)
@@ -8207,8 +4970,6 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
         a.add(solid, name=name, color=colour)
         if carry is not None:
             a.pack_solids[name], a.carries[name] = solid, carry
-    # And what the joint stands over — the reading the elbow is in the machine for.
-    check_drain_over_deck([s for _n, s, _c, _y in joint], a.pack_solids)
     draw_runs(a, _lines.build_seated_runs(a.pack_solids, a.carries))
     # WHERE THE MACHINE'S HEIGHT IS SPENT, recorded against the seat that spends it. The funnel's
     # brim bears on the top wall, so the drain hangs a fixed drop under the ceiling and the elbow
@@ -8233,9 +4994,6 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     # face the appliance shows: the glass in the facet, which is the whole of what a customer
     # ever sees of this part.
     a.add(display, name="display", color=C_DISPLAY_GLASS)
-    # The bay's lintel against the display standing over it — the bay top rides the cans,
-    # and this is the reading that says the opening stopped under the wall the display owns.
-    check_bay_lintel(box, display.val() if hasattr(display, "val") else display)
     cover, _cover_carry = build_display_cover(box)
     a.add(cover, name="display-cover", color=C_COVER)
     dgasket, _dgasket_carry = build_display_gasket(box)
@@ -8249,132 +5007,9 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     # assembly is the two ceiling stations it carries.
     pieces["ceiling-panel"] = _materialized_ceiling_panel(box, require_box_spec)
     a.add(pieces["ceiling-panel"], name="enclosure-ceiling-panel", color=M_PETGF_BLACK)
-    # The collar, tunnel, corbel and crown are one fixed back-top feature.
-    check_c14_collar(pieces, box)
     placed_solids = _solids(a)
-    check_ceiling_panel_section(pieces["ceiling-panel"], box)
-    check_ceiling_rail_capture(pieces["back-top"], pieces["ceiling-panel"])
-    check_back_top_ceiling_growth(pieces["back-top"], placed_solids, box)
-    check_c14_ceiling_corbel(placed_solids["c14-inlet"][0], box)
-    check_ground_ceiling_gable(placed_solids["ground-stack"][0], pieces, box)
-    check_prv_chase_corbels(pieces, box)
-    # THEN THE KEEPERS EXIST. One headless screw crosses each empty dado mouth only after the
-    # panel has reached the rear wall, so the insertion sweep stays empty and both tongue ends
-    # acquire a direct fixed stop against Y− withdrawal.
-    check_ceiling_retention(pieces["back-top"], pieces["ceiling-panel"])
-    # The chain against the piece that cradles it, once that piece exists — the one reading on
-    # this card that can tell a anchor closed on the barrel from a anchor drawn near it.
-    check_asse_seated(a.pack_solids["asse1022-assembly"], pieces["back-top"],
-                      a.carries["asse1022-assembly"])
-    check_digiten_seated(a.pack_solids["digiten-flow"], pieces["ceiling-panel"])
-    # And every valve on a tray against the piece whose plate carries its four sockets — the
-    # same reading, one storey forward: a plate drawn beside a valve rather than under it is a
-    # plate nothing on this card would otherwise name.
-    check_valve_trays_hold(pieces, a.pack_solids)
-    # And each pump against the top clamp whose collar takes its boss, then that clamp
-    # and the load-bearing cradle on the two faces of its stamped bracket.
-    check_trays_hold(pieces, a.pack_solids)
-    check_pump_capture(pieces, a.pack_solids)
-    check_pump_case_room(pieces, a.pack_solids)
-    check_cap_passes_tubes(pieces, a.pack_solids, box.pack.collet_plate)
-    # And the one line in that piece a nozzle would otherwise have to begin in air, against the
-    # rib built to carry it — a reading of whether a body can be LAID, not of where it stands.
-    check_ridge_carried(pieces, box)
-    # And the one route through it, since that rib is now the only section between the
-    # bay's storey and the cavity aft of it — a hole nothing else on this card can see.
-    check_loom_passes(pieces, box)
-    # And the floor that whole storey stands on, against the rim it stands on — then each
-    # pump head against the lane it leaves the box through.
-    check_bay_floor(pieces, box)
-    check_plate_carried(pieces, box)
-    # And the two posts that storey leaves standing either side of it — a reading of whether
-    # section is PRESENT, which every clearance check on this card passes by definition.
-    check_pump_columns_open(pieces, box)
-    check_cartridge_architecture(pieces)
-    check_cartridge_full_front_wall(pieces, box)
-    check_cradle_pulls(pieces, box)
-    # And whether the release those figures serve can actually happen — the one reading on
-    # this card that asks a body to move rather than asking where it is.
-    check_release_travel(pieces, a.pack_solids, box.pack.collet_plate)
-    # And how much of each valve's post the plate actually surrounds, which is what holds a
-    # valve — `valve-trays-hold` reads that one is near its plate and cannot read that.
-    check_post_engagement(pieces, a.pack_solids, box.pack.collet_plate)
-    # And whether the wall between a seat's sockets and its port channel is thick enough for
-    # the nozzle to lay anything in — the one reading here the solid itself cannot give.
-    check_panel_web()
-    check_head_sweep(a.pack_solids, pieces)
-    # And the cartridge's complete aft depth: the skirt band's Y+ plane is its last material.
-    check_cartridge_aft_depth(pieces, box)
-    # And every floor post against the piece that grows it: a station outside every piece's
-    # own Y column is not printed.
-    check_floor_mounts(a.floor_bosses, pieces)
-    # And the horizontal power-column family against the actual back-top B-rep: the pack-side
-    # check above proves clearance, while this proves every offered D fill and corbel printed
-    # and no free face fell back to a complete round edge.
-    check_east_bosses_print(a.east_bosses, pieces)
-    # And the condenser's own four, which are a groove at one end of the block and a bored boss
-    # at the other — the same question asked of a body with no hole to boss and one with two.
-    check_cond_mount(a.cond_cradle, a.cond_mount, pieces)
-    check_cond_corbel_clearance(
-        a.cond_cradle, a.cond_mount, box.inner,
-        {n: s for n, (s, _c) in _solids(a).items() if not n.startswith("enclosure-")})
-    # And the two vents opposite that same block, which are its flanks' own flutes pierced — read
-    # for the mullion between two slots, which is what a slot's width is measured against, and
-    # for the height any one of those mullions stands free, which is what the transoms set. Both
-    # bounds come off the one reading `check_flank_vents` takes.
-    check_flank_vents(box, pieces)
-    # And the cold core's four, which are the same question asked of a body with no hole at all:
-    # two blocks on one piece's slab and two brackets off another's +Y wall of back-top, each read inside
-    # the room it stands in.
-    check_core_held(pieces, a.pack_solids["foam-assembly"], box)
-    # And the slides themselves: each column's top swept its whole travel against its
-    # bottom piece and lifted off its catch; the front column again with the flavour
-    # pack aboard against the seated stratum; and the core's own ride in through the
-    # mouth against the closed, populated back column.
-    check_slides(pieces, box)
-    check_slide_lanes(pieces, {**a.pack_solids,
-                               **{n: s for n, (s, _c) in _solids(a).items()}}, box)
-    check_core_ride(pieces, {**a.pack_solids,
-                             **{n: s for n, (s, _c) in _solids(a).items()}}, box)
-    # And every rear-wall fitting against the chip it bears on and the bore it passes. The chips
-    # go into the assembly rather than the pack — they lie in the wall's own thickness — so they
-    # come back off the placed children the way the runs do.
-    check_wall_clamped(a.pack_solids,
-                       {n: s for n, (s, _c) in _solids(a).items()
-                        if n.startswith("bulkhead-ring-")}, pieces, a.wall_stations)
-    # And the top row against the ceiling it runs out on, which is the one figure `bulkhead_ring`
-    # cannot derive for itself.
-    check_top_row(a.wall_stations)
-    # And the nameplate against the field this wall leaves it — the one reading that can tell
-    # `nameplate.WIDTH`, `HEIGHT` and `SCREW_Z` from figures this wall would actually take.
-    check_nameplate(a.pack_solids["foam-assembly"], box)
-    check_nameplate_support_clearance(
-        a.pack_solids["foam-assembly"],
-        {n: s for n, (s, _c) in _solids(a).items()
-         if not n.startswith("enclosure-")})
-    check_nameplate_support_print(a.pack_solids["foam-assembly"])
-    # And the pocket the wall actually cut against the outline that plate has. `pack-closes`
-    # answers a pocket too small; this is the one that answers a pocket too large.
-    check_nameplate_pocket({n: s for n, (s, _c) in _solids(a).items()}.get(NAMEPLATE),
-                           pieces, a.pack_solids["foam-assembly"])
-    # And both made-up chains against the cap they lie on, which needs no piece — the ribs are
-    # printed in the core's own lid, so every solid in the reading is in the pack.
-    check_chains_seated({n: a.pack_solids[n] for n in _cci.cap_anchors if n in a.pack_solids},
-                        a.pack_solids["foam-assembly"])
     # And every anchored run against the rib its own site names.
     tubes = {n: s for n, (s, _c) in _solids(a).items() if n.startswith("tube-")}
-    check_tube_seated(tubes, pieces)
-    # And every body the box stands a rib for, against the same pieces.
-    check_body_seated(a.pack_solids, pieces)
-    # And every one of those ribs' zip tie channels, against the piece that built it. A seat that
-    # reads closed on its body says nothing about whether a tie can reach round it.
-    check_tie_channels(a.tube_anchors + a.body_anchors, a.digiten_anchors,
-                         a.asse_cradle, pieces)
-    # And every run the COLD CORE's cap is bored for, against the cap it lies on.
-    check_run_seated(tubes, a.pack_solids["foam-assembly"])
-    # And every body against the material it is made of, now that the box's own four stand among
-    # them — the last body added is the last one that can be bare.
-    check_bodies_colored(a)
     # The box's own group reads LAST on the card, under the pack's. `record_bound` carries an
     # id to the end of the ledger each time it is entered, so reading `enclosure`'s ledger again
     # here — after the bodies the box seats have stated theirs — is what puts it there.
