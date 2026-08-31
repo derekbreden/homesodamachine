@@ -1,5 +1,5 @@
 {
- "gatesPass": false,
+ "gatesPass": true,
  "size": [
   {
    "id": "enclosure",
@@ -73,12 +73,10 @@
    "id": "pack-closes",
    "label": "No two solids overlap (pack closes)",
    "kind": "gate",
-   "status": "fail",
-   "value": "1 clash, 0 unanswered",
+   "status": "pass",
+   "value": "0 clash, 0 unanswered",
    "target": "0 clash, 0 unanswered",
-   "detail": [
-    "enclosure-front-top \u2229 enclosure-pump-cartridge   5883.8 mm\u00b3, x[ -107.50,  107.50] y[    5.00,   75.43] z[  166.37,  280.49]"
-   ],
+   "detail": [],
    "active": true
   },
   {

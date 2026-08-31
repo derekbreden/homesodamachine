@@ -18,7 +18,7 @@ about the hinge the four barb tees' front collets stand on.
 | | |
 |---|---|
 | 10 × valve | Beduan 12 V NC solenoid ([`reference/beduan-solenoid`](/hardware/reference/beduan-solenoid/README.md)) — [59](VALVE_LEN) mm collet face to collet face, straight through, port axis [11.3](VALVE_PORT_Z) mm over its own mounting plane. Two of them pack no closer than [34.25](VALVE_PITCH) mm. |
-| 2 × pump | Kamoer KPHM400 ([`reference/kamoer-kphm400`](/hardware/reference/kamoer-kphm400/)) — two barbs [57](BARB_PITCH) mm apart on one face, both facing the same way, [20.38](BARB_INSET) mm back from the head's front face. |
+| 2 × pump | Kamoer KPHM400 ([`reference/kamoer-kphm400`](/hardware/reference/kamoer-kphm400/)) — two barbs [59.75](BARB_PITCH) mm apart on one face, both facing the same way, [20.38](BARB_INSET) mm back from the head's front face. |
 | [6](TEE_COUNT2) × tee | John Guest PP0208E ([`reference/tee-connector`](/hardware/reference/tee-connector/README.md)) — run collets [20.07](TEE_RUN) mm either side of the body centre, [40.14](TEE_SPAN) mm end to end, branch reaching the same distance. |
 | 0 × Y-divider | Its two outlets stand [14.7](DIVIDER_PITCH) mm apart ([`reference/y-divider`](/hardware/reference/y-divider/README.md)). |
 | [4](TUBE_COUNT2) × tube | 1/4" OD LLDPE, all straight — the four the collet plate's berth opens between each pump barb and its anchor tee. |
@@ -33,7 +33,7 @@ height, 0 at the pumps' own floor; the valves stand on two decks above them, at 
 ## Four limbs, folded in two
 
 A tee dropped on a pump barb by its BRANCH puts its RUN across the head's face, so each pump
-hands out two parallel lanes [57](BARB_PITCH2) mm apart, one branch reach off its own skin.
+hands out two parallel lanes [59.75](BARB_PITCH2) mm apart, one branch reach off its own skin.
 Every valve is straight through and every junction's run takes two valve ports, so a lane is
 one line of valves and tees butted collet to collet, front to back. `LIMB_PITCH` is that
 spacing and it is a knob: `HSM_LIMB_PITCH=<mm>` steps both tees toward the pump's axis and
@@ -41,16 +41,16 @@ draws the leaning tube each barb then needs to reach its tee.
 
 ```
                           `|` = the hinge; everything left of it is folded up and over
-    A2   x [-77.07](LIMB_OUT_XW)          V-G | Y-D · V-F
+    A2   x [-79.82](LIMB_OUT_XW)          V-G | Y-D · V-F
     A1   x [-20.07](LIMB_IN_XW)    V-A · Y-A · V-C | Y-C · V-E
     ─────────────────────────────────────────────────────────  mirror plane
     B1   x [+20.07](LIMB_IN_XE)    V-B · Y-B · V-D | Y-F · V-H
-    B2   x [+77.07](LIMB_OUT_XE)          V-J | Y-G · V-I
+    B2   x [+79.82](LIMB_OUT_XE)          V-J | Y-G · V-I
                             ↓
                           back   (every mouth)
 ```
 
-The lower deck's port axes sit at z [88.38](DECK_Z2), [20.62](DECK_GAP) mm over the pump heads'
+The lower deck's port axes sit at z [88.38](DECK_Z2), [15.75](DECK_GAP) mm over the pump heads'
 crowns; the folded deck's at z [147.78](UPPER_Z2). The two inner limbs leave
 [5.89](INNER_GAP) mm between their valve bodies across the mirror plane.
 
@@ -149,16 +149,16 @@ V-I-O and V-H-I for B — on the lower.
 
 ## Envelope
 
-[188](ENV_X) × [169](ENV_Y) × [247](ENV_Z) mm — [7.83](ENV_L) L of bounding box over the
+[194](ENV_X) × [169](ENV_Y) × [242](ENV_Z) mm — [7.90](ENV_L) L of bounding box over the
 bodies and the tube between them, with [0](CLASHES) pairs of placed solids sharing volume.
 Add one [14](STUB_LEN) mm mouth stub on each of the [8](MOUTH_COUNT2) and it is
-[188](REACH_X) × [169](REACH_Y) × [261](REACH_Z).
+[194](REACH_X) × [169](REACH_Y) × [256](REACH_Z).
 
 Two figures in [`manifold_layout.py`](manifold_layout.py) are the study's own rather than any
 part's. `BUTT` is the tube left outside a pair of butted quick-connects, and it is 0.
 
 `BARB_STANDOFF` is the exposed tube between each pump barb and its anchor tee's branch collet,
-and it is [11.85](BARB_STANDOFF) mm. Its first [6.15](PUMP_PROUD) mm carries the pump and its
+and it is [6.98](BARB_STANDOFF) mm. Its first [1.28](PUMP_PROUD) mm carries the pump and its
 barb plane forward with the proud cartridge; the remaining [5.7](BARB_PLATE_BERTH) mm is
 **the collet plate's berth**. Both pumps ride out of the box on their own pump cartridge and
 these four runs are what release. A laser-cut 1/8" 316 flat stands on
