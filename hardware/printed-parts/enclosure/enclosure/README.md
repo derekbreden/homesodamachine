@@ -660,7 +660,8 @@ removes the complete exterior front-wall band, both rounded corners and both sid
 the bay floor through the lintel, then continues aft to the collet plate. The installed cradle
 owns that same [215 mm](CRADLE_WIDE) exterior width. Its outline is vertical in Z: there is
 no 45° narrowing toward the sill. Only the two hand pockets and aft guide notches interrupt
-that width, and [0.5 mm](PUMP_CARTRIDGE_CLEARANCE) of reveal remains at the sill and lintel.
+that width. The cartridge has [0.5 mm](PUMP_CARTRIDGE_Z_CLEARANCE) of functional Z clearance
+above the sill and below the lintel; it has no cosmetic reveal or corresponding X/Y inset.
 
 A column is the cavity's own shape (`enclosure._cavity`), not a feature bolted into
 it, so everything held inside the cavity meets one the way it meets a wall: the
@@ -986,15 +987,20 @@ closes to `cap_pump_air` around the moulded head. That leaves a continuous cradl
 the stamped bracket on −Y and both X sides; +Y remains open for the fittings. Pump weight goes
 from that bracket directly into the lower cradle and then into the bay floor.
 
+The head's [8 mm](PUMP_SKIRT_DEPTH) skirt stands over one flat horizontal land at z
+[208.594 mm](PUMP_SKIRT_SUPPORT_Z). The [0.15 mm](PUMP_SKIRT_SUPPORT_AIR) difference between
+the skirt bottom and that land is Z clearance. The land keeps the skirt's existing X/Y plan;
+there is no slanted substitute for it.
+
 **The second printed piece is the top clamp.** `enclosure-pump-cap`
-(`build_pump_cap`) is [167.1 mm](CLAMP_SPAN) across and [61.75 mm](CLAMP_RISE) high. Its Z− face
+(`build_pump_cap`) is [169.9 mm](CLAMP_SPAN) across and [61.75 mm](CLAMP_RISE) high. Its Z− face
 stands at z [218.75 mm](CLAMP_BASE_Z) on the upper face of each measured
 [2 mm](CLAMP_BRACKET_T) stamped bracket. One filled field spans both pump heads from their clean
 fore envelope to the aft wall and reaches one common crown at z
-[280.5 mm](CLAMP_CROWN_Z), one running reveal below the bay lintel. Two fitted openings wrap
+[280.5 mm](CLAMP_CROWN_Z), with 0.5 mm Z clearance below the bay lintel. Two fitted openings wrap
 both bosses with the pump case's exact octagonal bore and leave one shoulder around each motor
 can. A single
-[31.14 mm](CLAMP_ACCESS_W) × [48 mm](CLAMP_ACCESS_RUN) top recess joins the two screw stations;
+[33.89 mm](CLAMP_ACCESS_W) × [48 mm](CLAMP_ACCESS_RUN) top recess joins the two screw stations;
 its retained floor stands at z [224.75 mm](CLAMP_ACCESS_FLOOR_Z), [6 mm](CLAMP_ACCESS_BASE)
 above the broad print face. The individual counterbores continue to head seats which keep
 [4 mm](CLAMP_HEAD_LAND) of printed land underneath. The two M3s run into heat-set inserts in the
@@ -1008,13 +1014,15 @@ with the bracket and full fitting envelope, `top-clamp-drops-on` includes that o
 steel bracket and the cradle but not the fixed enclosure, and `pump-clamped-in-cradle` reads
 printed bearing below and above all three closed bracket sides.
 
-**Each of the four fitting openings begins [12.55 mm](CAP_TUBE_OPEN) wide.** A fitting is
-[12.25 mm](CAP_TUBE_PART), the two on each pump stand [57 mm](CAP_TUBE_PITCH) apart, and the
-pair's complete outside span is [69.55 mm](CAP_TUBE_SPAN). Each passage carries
-[0.15 mm](CAP_TUBE_AIR) running clearance per side. Its circular lower half is centered on the
-pump-case barb axis and a shaft continues from that tangent through the complete vertical
-insertion path. Each exterior shaft flares at 45° to the wider upper-well edge; each interior
-shaft stays at the fitted width. Printed wall remains between and outside the passages.
+**Each of the four tube-casing openings is [13 mm](CAP_TUBE_OPEN) wide** around a
+[12.75 mm](CAP_TUBE_PART) casing, leaving 0.125 mm per side. The two casing axes on each pump
+stand [59.75 mm](CAP_TUBE_PITCH) apart. The physical pair spans
+[72.5 mm](CAP_TUBE_PART_SPAN), while its holder openings span
+[72.75 mm](CAP_TUBE_OPEN_SPAN). Each passage begins
+[0.15 mm](CAP_TUBE_AXIAL_AIR) before the casing face along Y. Its circular lower half is
+centered on the casing axis and a straight 13 mm shaft continues through the complete vertical
+insertion path. The shafts, tube-side case room and upper well share the same outer X planes;
+printed wall remains between and outside the passages.
 
 The pumps and their barb planes stand [6.15 mm](PUMP_STATION_PROUD) forward. The show face
 stands one flute depth farther out at [7.35 mm](PUMP_PROUD), without moving the pump wells or
@@ -1185,7 +1193,7 @@ filled block behind it reaches both cavity planes.
 Front-bottom's front lip drops across the whole flat span
 (`_front_flat_lip_drop`) — the floor stands in that band and the heads run down through
 it — and the front wall below keeps its single `front_wall` section from slab to seam.
-The face keeps [0.5 mm](PUMP_CARTRIDGE_CLEARANCE) of Z clearance over the recessed stationary
+The face keeps [0.5 mm](PUMP_CARTRIDGE_Z_CLEARANCE) of Z clearance over the recessed stationary
 sill and below the lintel. Its complete front, rounded corners and exterior flanks stand plumb
 between those two flat gaps with no taper.
 

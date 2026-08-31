@@ -1273,15 +1273,16 @@ def pump_tray_plans(a=None, shell=None) -> dict:
 
 
 @functools.lru_cache(maxsize=None)
-def _pump_case_room_source(air: float, swept: bool):
+def _pump_case_room_source(air: float, swept: bool, support_top=None):
     """One case-derived pump room in the pump frame, built once per clearance."""
-    room = _tray.drop_well(air) if swept else _tray.head_room(air)
+    room = (_tray.drop_well(air, support_top=support_top)
+            if swept else _tray.head_room(air))
     return room.val() if hasattr(room, "val") else room
 
 
-def _pump_case_room(station, air: float, swept: bool):
+def _pump_case_room(station, air: float, swept: bool, support_top=None):
     """One case-derived pump room carried onto an assembly station."""
-    return _pump_case_room_source(air, swept).moved(
+    return _pump_case_room_source(air, swept, support_top).moved(
         cq.Location(cq.Vector(*station)))
 
 
@@ -1337,34 +1338,36 @@ def check_pump_capture(pieces: dict, placed: dict) -> Bound:
 
 
 def check_pump_case_room(pieces: dict, placed: dict) -> Bound:
-    """Whether the cradle cuts the old case's fitted room and complete insertion sweep.
+    """Whether the cradle cuts the fitted pump room and complete insertion sweep.
 
-    The fitted room is not the pump head's nominal square: it carries the old case's rounded,
+    The fitted room is not the pump head's nominal square: it carries the case-derived rounded,
     asymmetric sections and reaches 70 mm across at the outlet band. The swept room carries
-    each of those sections upward, which is the physical envelope a head occupies while it is
-    lowered into the cradle."""
+    each section upward and extends only the tube side to the 72.75 mm holder opening around
+    the 72.50 mm physical casing span."""
     cradle = pieces.get("pump-cartridge")
     if cradle is None:
         return record_bound(Bound(
-            "cradle-follows-pump-case", "The cradle follows the old pump case's fitted room",
+            "cradle-follows-pump-case", "The cradle follows the fitted pump room",
             True, "no pump cradle in this box", "the exact fitted and swept rooms open", []))
     cradle = cradle.val() if hasattr(cradle, "val") else cradle
     stations = tuple(c for _h, (_a, _s, c) in sorted(pump_tray_seats(placed).items()))
+    support_top = _enc.pump_skirt_support_z(stations) - stations[0][2]
     fitted_source = _pump_case_room_source(_enc.cap_pump_air, False)
-    swept_source = _pump_case_room_source(_enc.cap_pump_air, True)
-    width = box(fitted_source).xlen
+    swept_source = _pump_case_room_source(_enc.cap_pump_air, True, support_top)
+    width = box(swept_source).xlen
     required = 2.0 * _enc.cap_slot_half
     extra = swept_source.cut(fitted_source).Volume()
     rows = []
     for station in stations:
         fitted = _pump_case_room(station, _enc.cap_pump_air, swept=False)
-        swept = _pump_case_room(station, _enc.cap_pump_air, swept=True)
+        swept = _pump_case_room(
+            station, _enc.cap_pump_air, swept=True, support_top=support_top)
         rows.append((station[0], cradle.intersect(fitted).Volume(),
                      cradle.intersect(swept).Volume()))
     clean = [row for row in rows if max(row[1:]) <= 1e-3]
     ok = len(clean) == len(rows) and width >= required - 1e-9 and extra > 1e-3
     return record_bound(Bound(
-        "cradle-follows-pump-case", "The cradle follows the old pump case's fitted room", ok,
+        "cradle-follows-pump-case", "The cradle follows the fitted pump room", ok,
         (f"{len(clean)}/{len(rows)} exact rooms/sweeps open, outlet width {width:.3f} mm; "
          f"sweep adds {extra:.1f} mm³"),
         f"zero cradle bite and at least the {required:.3f} mm fitting opening",
@@ -1372,7 +1375,7 @@ def check_pump_case_room(pieces: dict, placed: dict) -> Bound:
           f"swept room bite {swept:.6f} mm³"
           for cx, fitted, swept in rows if max(fitted, swept) > 1e-3]
          + ([] if width >= required - 1e-9 else [
-             f"the case-derived outlet room is {width:.3f} mm across, "
+             f"the tube-side insertion room is {width:.3f} mm across, "
              f"{required - width:.3f} mm short of the fitting opening"])
          + ([] if extra > 1e-3 else [
              "the insertion room is only the seated cavity; no vertical sweep was added"]))))
@@ -1381,10 +1384,10 @@ def check_pump_case_room(pieces: dict, placed: dict) -> Bound:
 def check_cap_passes_tubes(pieces: dict, placed: dict, plate: dict) -> Bound:
     """Whether the fittings and barb tubes pass the cradle's vertical outlet openings.
 
-    The lower cradle opens one fitting-sized passage on each placed barb axis. Each arithmetic
-    envelope is the measured fitting width plus `cap_tube_air`; the wall between and outside
-    the four passages is deliberately retained. The tube rides inside the fitting, so clearing
-    that complete envelope also clears the tube. The existing insertion sweep reads the solids."""
+    The lower cradle opens one 13 mm passage on each placed 12.75 mm tube-casing axis, leaving
+    0.125 mm radial clearance per side. Another 0.15 mm is retained separately along the
+    insertion axis. Wall remains between and outside all four passages. The existing insertion
+    sweep reads the solids."""
     cradle = pieces.get("pump-cartridge")
     if cradle is None:
         return record_bound(Bound(
@@ -1401,14 +1404,14 @@ def check_cap_passes_tubes(pieces: dict, placed: dict, plate: dict) -> Bound:
             air = edge - _tray.fitting_w / 2.0 - abs(hx - expected)
             worst = air if worst is None else min(worst, air)
             rows.append((f"({cx:+.1f}) barb x {hx:+.2f}", air))
-    bad = [row for row in rows if row[1] < _enc.cap_tube_air - 1e-9]
+    bad = [row for row in rows if row[1] < -1e-9]
     return record_bound(Bound(
         "cradle-passes-fittings", "Each fitting passes the cradle's outlet opening",
         not bad,
         f"{len(rows) - len(bad)}/{len(rows)} fittings clear, least {worst:.3f} mm off the edge",
-        f"at least {_enc.cap_tube_air:g} mm round every fitting on its placed barb axis",
-        [f"{who}: the fitting has {air:.2f} mm to its opening edge, under "
-         f"{_enc.cap_tube_air:g} mm" for who, air in bad]))
+        "each 12.75 mm casing centered inside its 13 mm shaft",
+        [f"{who}: the 12.75 mm casing overruns its shaft by {-air:.2f} mm"
+         for who, air in bad]))
 
 
 def check_trays_hold(pieces: dict, placed: dict) -> Bound:
@@ -2113,7 +2116,7 @@ def check_pump_cartridge_sweep(pieces) -> Bound:
     """Whether the lower cradle and top clamp can pass bodily through the front mouth.
 
     A PUMP-HEAD SWEEP IS NOT A DRAWER SWEEP. The head is smaller than the filled block that
-    carries it, and a mouth can clear both heads while a reveal or fixed guide catches the
+    carries it, and a mouth can clear both heads while a fixed guide catches the
     block behind the face. Translate each actual printed solid from home until its aft face is
     outside the enclosure, checking at intervals no larger than `sweep_step_max`.
     The actual solids matter: the cradle's full exterior shell and fixed-guide notches are
@@ -2174,7 +2177,7 @@ def _pump_drop_probe(head, placed, station, plate):
         _enc._ycyl(
             _tray.fitting_w / 2.0,
             cx + sx * _tray.outlet_pitch / 2.0, outlet_axis,
-            outlet_face - _enc.cap_tube_air, plate["fore_y"] + 0.5)
+            outlet_face - _enc.cap_tube_axial_air, plate["fore_y"] + 0.5)
         for sx in (-1.0, 1.0)]
     return cq.Compound.makeCompound([*bodies, bracket, *fittings])
 
@@ -2288,7 +2291,7 @@ def check_cartridge_architecture(pieces) -> Bound:
 
 
 def check_cartridge_full_front_wall(pieces, shell) -> Bound:
-    """Whether the cradle owns the untapered front wall between its two flat reveals.
+    """Whether the cradle owns the untapered front wall between its two Z clearances.
 
     The front-wall target stops at the intentional upper pump/clamp well's foremost Y face.
     The two side targets stop before either hand pocket. No pump opening, grip, guide notch or
@@ -2301,7 +2304,7 @@ def check_cartridge_full_front_wall(pieces, shell) -> Bound:
     fixed = fixed.val() if hasattr(fixed, "val") else fixed
     inner, outer, bay = shell.inner, shell.outer, shell.pump_bay
     z0 = _enc.bay_floor_z(shell.pack.pump_trays)[1]
-    z1 = bay[2] - _enc.face_reveal
+    z1 = bay[2] - _enc.pump_cartridge_z_clearance
     edge = _enc._cap_x_span(bay)[1]
     y1 = _enc.plate_guide_notch_fore_y(shell.pack.collet_plate)
     y0 = y1 - _enc.pull_run
@@ -2325,7 +2328,7 @@ def check_cartridge_full_front_wall(pieces, shell) -> Bound:
     ok = missing <= 1e-3 and fixed_left <= 1e-3 and full_width
     return record_bound(Bound(
         "pump-cartridge-full-front-wall",
-        "The cradle owns the full-width front wall between its flat reveals",
+        "The cradle owns the full-width front wall between its Z clearances",
         ok,
         f"x {cb.xmin:.3f}..{cb.xmax:.3f}; missing {missing:.3f} mm³; "
         f"fixed front-top {fixed_left:.3f} mm³",
@@ -2333,7 +2336,7 @@ def check_cartridge_full_front_wall(pieces, shell) -> Bound:
         "and no fixed front-top in that band",
         ([] if ok else [
             f"the full front/side target is missing {missing:.3f} mm³ from the cradle and "
-            f"still contains {fixed_left:.3f} mm³ of front-top. Between the two flat reveals, "
+            f"still contains {fixed_left:.3f} mm³ of front-top. Between the two Z clearances, "
             "keep the untapered front and both exterior side skins on the cradle"])))
 
 
