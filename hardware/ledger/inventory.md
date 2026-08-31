@@ -116,6 +116,7 @@ Used during fabrication but not allocated per-unit in bom.md. Welding practice s
 | **Hgnova 1064 nm laser protective lens (15 pc)** | [B0FF38DY1Z](https://www.amazon.com/dp/B0FF38DY1Z), [purchases.md §1](/hardware/ledger/purchases.md) | Replacement protective windows for the X1 Pro welding head; consumable after splatter/contamination. |
 | **3M Scotch-Brite Maroon hand pads (20 pk)** | [B07CGPCTHT](https://www.amazon.com/dp/B07CGPCTHT), [purchases.md §6](/hardware/ledger/purchases.md) | Cleaning 1/4" ACR copper OD + fitting sockets prior to braze. |
 | **Shineboc wet/dry sanding sponge set (20 pc)** | [B0D8ZC6HKY](https://www.amazon.com/dp/B0D8ZC6HKY), [purchases.md §13](/hardware/ledger/purchases.md) | Foam-backed silicon-carbide; post-print finishing of fibre-filled parts at the support-contact zones. |
+| **Amazon Basics LR44 alkaline button cell (6 pk)** | [B07JLBCH8L](https://www.amazon.com/dp/B07JLBCH8L), [purchases.md §12](/hardware/ledger/purchases.md) | Cells for the NEIKO 01407A caliper. Its readings are the source of the caliper-photo measurements in the printed parts' `raw-images/` directories ([measure-from-drawings](/tools/measure-from-drawings/README.md)), so a dead cell stops CAD calibration rather than merely a measurement. |
 
 ## Prototype / test-bench
 

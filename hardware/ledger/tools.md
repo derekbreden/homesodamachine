@@ -186,6 +186,9 @@ it is now on the abrasive path, so **the left hotend is the bottleneck hotend**
 |---|---|---|---:|
 | **VEVOR adjustable 48" workbench (×2)** | [B0FCD13KKQ](https://www.amazon.com/dp/B0FCD13KKQ), [purchases.md §12](/hardware/ledger/purchases.md) | Power outlet, wheels, pegboard, 2000 lb load each. | [$345.28](T_WORKBENCH) |
 | **NEIKO 01407A digital caliper** | [B000GSLKIW](https://www.amazon.com/dp/B000GSLKIW), [purchases.md §12](/hardware/ledger/purchases.md) | 0–6", stainless, inch/fraction/mm LCD. Bench metrology for CAD reference measurements. | [$27.23](T_CALIPER) |
+| **ELP 16MP autofocus USB camera (panelcam)** | [B0BX6DSQ6C](https://www.amazon.com/dp/B0BX6DSQ6C), [purchases.md §12](/hardware/ledger/purchases.md) | ELP-USB16MP01-KAF68. IMX298, 4656×3496 stills at 10 fps MJPG, 30 fps at 1080p, 68° no-distortion lens, metal case, UVC. The bench's own eye on the enclosure's 4.3" 800×480 panel, driven by [`tools/panelcam.sh`](/tools/panelcam.sh). At ~30 cm the 68° frame spans ~405 mm, laying ~1090 px across the panel's own 800 — so a target is framed by cropping sensor pixels, never by zooming. Focus and exposure are commanded over `uvcc`; macOS AVFoundation publishes neither on this platform. | [$78.28](T_PANELCAM) |
+| **SMALLRIG 9.8" magic arm + super clamp** | [B087T4T8D5](https://www.amazon.com/dp/B087T4T8D5), [purchases.md §12](/hardware/ledger/purchases.md) | Friction-locking articulating arm, 1/4"-20 and 3/8" threads. Aims the panelcam at the enclosure's front face. The rectangle recorded in `panelcam.targets.conf` is a reading of one panel only while the arm holds that aim, so the mount is half the instrument. | [$21.44](T_MAGIC_ARM) |
+| **Anker 332 5-in-1 USB-C hub** | [B0BQLLB61B](https://www.amazon.com/dp/B0BQLLB61B), [purchases.md §12](/hardware/ledger/purchases.md) | 1× USB-C 5 Gbps data, 2× USB-A 5 Gbps, 1× HDMI 4K@30, 1× USB-C 100 W PD-IN (charge only, no data). 85 W pass-through, charger not included. Fans one of the M3 Air's two USB-C ports out to the boards and the panelcam. Bus-powered for data: the boards' loads run off the MeanWell 12 V, leaving the camera's ~250 mA as the only real draw. **Three data ports**, so the three boards and the camera do not all sit on it at once. | [$19.29](T_USB_HUB) |
 | **Ultra Duster canned air (10 oz, 4-pack)** | [B07JRBR1MM](https://www.amazon.com/dp/B07JRBR1MM), [purchases.md §1](/hardware/ledger/purchases.md) | Chip blowoff for freshly-tapped NPT threads; general shop use. Consumable. | [$24.51](T_DUSTER) |
 | **DeWalt DWFP55130 (200 PSI compressor)** | owned, predates project, *not on ledger* | Air supply for the Milton 727 post-validation pneumatic leak check. | [—](T_DEWALT) |
 | **Husky 41257HOM Tru-Match coupler kit** | owned, predates project, *not on ledger* | 19-pc accessory kit; hose-end coupler mating to Milton M-style plugs. | [—](T_HUSKY) |
@@ -199,7 +202,7 @@ it is now on the abrasive path, so **the left hotend is the bottleneck hotend**
 
 ## Tools total
 
-Total acquired tooling: **[$15,391.19](TOOLS_TOTAL)**
+Total acquired tooling: **[$15,510.20](TOOLS_TOTAL)**
 
 ## Open items
 
