@@ -61,20 +61,15 @@ function numAfter(text, re) {
   return m ? parseFloat(m[1]) : null;
 }
 
-// The content root the viewer serves, as it stands in a repo-relative path.
-// Copy-all `file:` lines carry it; the viewer's own paths are what is left
-// after it.
-// WHICH SURFACE A PICTURE CAME OFF, said the same way wherever it is said. The page draws
-// the `.step.mesh` beside a STEP whenever there is one and reads the STEP only when there is
-// not (`step.js`), and for `pack.BUNDLED_PAYLOAD_DIRS` those are deliberately different
-// surfaces — the enclosure's and the cold core's flutes are cut into the payload
+// WHICH SURFACE A PICTURE CAME OFF, on hover over the thing that names the picture. The page
+// draws the `.step.mesh` beside a STEP whenever there is one and reads the STEP only when
+// there is not (`step.js`), and for `pack.BUNDLED_PAYLOAD_DIRS` those are deliberately
+// different surfaces — the enclosure's and the cold core's flutes are cut into the payload
 // (`hardware/scripts/flute_payload.py`) and are in no solid.
 //
-// SO A NAME ALONE IS NOT AN ANSWER, and the route says `step:` because that is the piece the
-// walk names, not because a STEP is what was drawn. A reader told only the STEP's name goes
-// looking for the flutes in a file that does not hold them, finds none, and concludes either
-// that the model is broken or that the fluting never landed. The breadcrumb carries this on
-// the open model and the edge picker carries it on every pick.
+// A tooltip is where a sentence costs nothing: it is read when someone wants it and is gone
+// when they don't. A pick is not — it is pasted into a conversation, and a sentence there
+// rides on every line anybody sends.
 
 export function surfaceText(file, surface) {
   const name = file.split("/").pop();
@@ -83,6 +78,9 @@ export function surfaceText(file, surface) {
     : `${name} — the STEP itself; no payload stood beside it`;
 }
 
+// The content root the viewer serves, as it stands in a repo-relative path.
+// Copy-all `file:` lines carry it; the viewer's own paths are what is left
+// after it.
 export const CONTENT_ROOT = "hardware";
 
 // `root` is the seam node:test comes in through.

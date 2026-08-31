@@ -85,12 +85,11 @@ test("parses a whole copy-all blob with file, solid, faces, click", () => {
   assert.deepEqual(cyl.dir, { x: 0, y: 0.766, z: -0.643 });
 });
 
-test("a surface: line names which surface and parses to nothing", () => {
-  // The blob states whether the numbers came off the STEP or off the `.step.mesh`
-  // beside it, because under `pack.BUNDLED_PAYLOAD_DIRS` those are different
-  // surfaces — the enclosure's flutes are in the payload and in no solid. The line
-  // is for the reader; it holds no coordinates and must add no pick, and the picks
-  // around it must come out exactly as they do without it.
+test("a surface: line parses to nothing", () => {
+  // The picker composes no such line, but every pick copied before it stopped still
+  // carries one, and those get pasted back into the find box for years. It holds no
+  // coordinates and must add no pick, and the picks around it must come out exactly
+  // as they do without it.
   const withSurface = [
     "file: hardware/manifold-layout/enclosure-assembly.step",
     "surface: enclosure-assembly.step.mesh — drawn from this, not the STEP above; " +
@@ -348,8 +347,8 @@ test("the content root round-trips a copy blob", () => {
 });
 
 // WHAT THE PICTURE CAME OFF. The route says `step:` and the crumb says `.step`, and for the
-// fluted pieces the payload beside the solid is what was drawn. Both the breadcrumb and the
-// edge picker say so through this one function, so a drift between them is a failure here.
+// fluted pieces the payload beside the solid is what was drawn. The chrome says which, and
+// why, in the hover text `surfaceText` composes — a pick carries no such line.
 test("surfaceText names the payload when the payload is what was drawn", () => {
   const drawn = surfaceText("manifold-layout/enclosure-assembly.step", "mesh");
   assert.match(drawn, /^enclosure-assembly\.step\.mesh — /);
@@ -368,3 +367,4 @@ test("surfaceText reads an unknown surface as the STEP rather than claiming a pa
     assert.match(surfaceText("a/b.step", surface), /the STEP itself/);
   }
 });
+

@@ -290,7 +290,7 @@ async function fetchMeshes(file, headers) {
 // the piece's name, and for the fluted pieces the payload beside the solid is what was drawn.
 // Only this function knows which of the two it read, and it knows it here — the breadcrumb and
 // the pill are built before the fetch lands, so a title set there would state a surface nobody
-// had chosen yet. `surfaceText` is the one sentence, shared with the edge picker.
+// had chosen yet. `surfaceText` is the sentence, said on hover where there is room for it.
 function nameSurface(file, surface) {
   const wrapper = state.currentCadWrapper;
   if (!wrapper) return;                      // headless: no chrome to name
