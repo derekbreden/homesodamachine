@@ -1057,14 +1057,13 @@ reads where a body stands — and all four clear it. The stroke is the rest gap 
 more: the nose presses the moment it reaches the steel, the grip opens on contact, the tee
 stops there, and the tube draws out of it. What gives over that millimetre and a half is
 the tube stub itself, flexing inside the two collets that hold it — the valve standing on
-the far end of that stub never moves, and no valve is read here. Its sibling
-`check_insertion_backing` reads the other direction, where a tube pushed into a branch
-collet drives its tee aft and the step in the wall's bore is what stops it. **That the stub bends is stated and not
-derived** — no body in this model has any compliance in it, so no bound reaches that premise;
+the far end of that stub never moves, and no valve is read here. **That the stub bends is
+stated and not derived** — no body in this model has any compliance in it, so no bound reaches
+that premise;
 `check_release_travel`'s docstring is where it is marked and why.
 
 **The cradle ends at the skirt band's aft edge.** `pump-cartridge-aft-depth` reads the complete
-solid against y [70.565 mm](PUMP_CARTRIDGE_AFT_Y), so a plate-retention return, side skin or stop pad
+solid against y [70.565 mm](PUMP_CARTRIDGE_AFT_Y), so a plate-retention return or side skin
 cannot survive behind that plane.
 
 **Both pulls belong to the cradle and surround the tube-centre plane.** Each side pocket is
@@ -1181,14 +1180,7 @@ stopped at its fore mouth by steel and the nose that lands there lands on steel;
 plate bears back on the wall across its whole face. Its aft face stands one whole stroke
 plus `TEE_WALL_BODY_AIR` fore of the tee's own body, so at the end of the stroke there is
 still air behind the tee — depth past that plane is the tee's and not the wall's to take.
-The collar-clear bore therefore continues through that broad face instead of leaving a
-1.666 mm annular diaphragm. Two side pads per tee provide the aft insertion stop: each is
-exactly 3 mm wide and 3 mm deep, rises from the front-top bed plane, and begins 0.270 mm aft
-of the collar's nominal inboard plane. That setback clears the real collar/arm blend over
-the complete release and leaves about 0.057 mm of insertion take-up before the collar lands.
-The arm passage is recut through them with 0.050 mm radial air, leaving the purchased
-collar's radial bite on two full-section printed columns. The steel stops the tee foreward
-during release; these pads stop it aft while a tube is seated.
+The collar-clear bore continues through that broad face.
 
 **That wall is also the bay's back.** Over the plate's own band the steel closes the
 bay; above and below it this wall does, so what stands behind the berth the pump cartridge

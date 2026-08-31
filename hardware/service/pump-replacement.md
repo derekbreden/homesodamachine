@@ -189,10 +189,8 @@ runs clean.
    contact, and the tee stops there while the tube draws out of it. The tee is the only body
    that moves: the tube stub flexes inside the two collets that hold it, and the valve on its
    far end stands where it was seated. That the stub bends is stated and not derived — no body
-   in the model has compliance in it, and `check_release_travel` is where the premise is marked. `check_insertion_backing` reads the other direction: a
-   tube pushed into a branch collet drives its tee aft, and the step in the wall's own bore
-   takes the collar, so a joint seats to depth instead of shoving the tee out of the tube's
-   path. Steps 2 and 5 run on the two of them.
+   in the model has compliance in it, and `check_release_travel` is where the premise is marked.
+   Steps 2 and 5 run on that release mechanism.
 
 ## Sources
 [value](NAME) texts are updated by:

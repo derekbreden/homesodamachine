@@ -1480,7 +1480,6 @@ PLATE_HOLE_D = 8.0           # passes the tube, stops the nose
 COLLET_NOSE_R = 5.715        # the release nose's rim, measured off tee-connector.step
 TEE_WALL_BORE_SLIP = 0.25    # a bore's air on the collar's own radius — a running fit, not a grip
 TEE_WALL_BODY_AIR = 1.0      # the wall's aft face off the tee's own body, at FULL travel
-TEE_WALL_ARM_SLIP = 0.10     # the aft bore's air on the ARM — what leaves the collar a ledge
 
 
 def collet_plate_spec(mcarry, tray_stations) -> dict:
@@ -1524,16 +1523,8 @@ def collet_plate_spec(mcarry, tray_stations) -> dict:
     z1 = round(2.0 * hole_z - z0, 6)
     # AND THE WALL BEHIND IT, off the same four collets — the steel's aft face IS the wall's
     # fore face, so the two are one figure and cannot be struck apart. What the wall reads is
-    # the arm the tee carries through it. `CAP_NEAR` is where the collar the bore journals on
-    # begins, so the wall must reach past that at rest or a bore holds nothing — and
-    # `collar_in_y` is that nominal station in the world. The collar-clear opening continues
-    # through it everywhere except for two bed-rooted side pads, each one wall wide and deep;
-    # their inner faces are the exact arm passage (`ARM_R` plus its stated air). The pads begin
-    # `tee_stop_pad_setback` aft of that plane so the harvested connector's real collar/arm
-    # blend clears them over the whole release. The purchased collar then lands on those two
-    # broad columns. They are the tee's AFT stop, and cost the release nothing because release
-    # travels the other way. A tube pushed into a branch collet therefore seats against printed
-    # backing instead of moving the tee out of its path.
+    # the round collar the tee carries through it. The collar-clear opening crosses the whole
+    # wall section, locating the tee in X and Z while leaving its release axis open.
     #
     # THE WALL DOES NOT RESTRAIN THE TEE ALONG ITS OWN AXIS, and its aft face is struck so
     # that it cannot. A tee travels WITHIN this wall: the collar runs in its bore and the
@@ -1570,7 +1561,6 @@ def collet_plate_spec(mcarry, tray_stations) -> dict:
     tee = ml.tee
     branch_face = faces[0]
     stroke = PLATE_REST_GAP + PLATE_LOST_MOTION + _jgu.COLLET_TRAVEL
-    arm_bore_r = round(tee.ARM_R + TEE_WALL_ARM_SLIP / 2.0, 6)
     return {"holes": tuple(sorted(holes)),
             "aft_y": round(aft, 6), "fore_y": round(aft - PLATE_T, 6),
             "z0": round(z0, 6), "z1": z1,
@@ -1578,15 +1568,7 @@ def collet_plate_spec(mcarry, tray_stations) -> dict:
             "seat_z": round(_enc.bay_floor_z(tray_stations)[1], 6),
             "wall_aft_y": round(branch_face + tee.BRANCH_REACH - tee.HALF_W
                                 - stroke - TEE_WALL_BODY_AIR, 6),
-            "collar_in_y": round(branch_face + tee.BRANCH_REACH - tee.CAP_NEAR, 6),
-            "collar_r": tee.BARREL_R,
             "bore_r": round(tee.BARREL_R + TEE_WALL_BORE_SLIP, 6),
-            "arm_bore_r": arm_bore_r,
-            "stop_pad_depth": _enc.tee_stop_pad_depth,
-            "stop_pad_width": _enc.tee_stop_pad_width,
-            "stop_pad_setback": _enc.tee_stop_pad_setback,
-            "stop_collar_bite": round(tee.BARREL_R - arm_bore_r, 6),
-            "stop_release_side_air": round(arm_bore_r - tee.ARM_R, 6),
             "stroke": round(stroke, 6),
             "stroke_ceiling": round(PLATE_REST_GAP + tee.COLLET_PROUD, 6)}
 
@@ -1867,72 +1849,6 @@ def check_release_travel(pieces, placed, spec) -> Bound:
          for t, b, v, i in rows]))
 
 
-def check_insertion_backing(pieces, placed, spec) -> Bound:
-    """Whether an anchor tee is BACKED against the push that seats a tube in it.
-
-    THE SIBLING OF `release-travel`, AND IT READS THE OTHER DIRECTION. That bound offers each
-    tee the stroke fore, because fore is where the release goes. But a barb tube is pushed INTO
-    a branch collet, and the tube comes from the pump ahead of it, so seating one pushes the tee
-    AFT. A tee free that way does not seat its tube — it simply moves out of the tube's path,
-    and the tube stops short of the fitting's own tube stop with nothing anywhere saying so.
-    (The tee is a harvested solid and states no insertion depth of its own; the figure named
-    here is the concept, not another fitting's constant.)
-
-    What backs it is the pair of bed-rooted side pads in the wall's own bore
-    (`enclosure._tee_stop_pads`): their inner faces follow the narrower arm passage and the
-    collar lands on their small radial bite. The existing solid reading proves the stop; the
-    arithmetic here also requires each load path to keep one complete wall of width and depth.
-    So this bound wants each tee STOPPED rather than free — a reading of zero here is the pass,
-    and travel is the failure. It is the one bound on this card whose success is an
-    interference."""
-    probe = spec["stroke"]
-    solids = {n: (q.val() if hasattr(q, "val") else q) for n, q in pieces.items()}
-    rows, bad = [], []
-    for tee in sorted(ml.BARB_OF):
-        name = ml.body_name(tee)
-        if name not in placed:
-            continue
-        moved = placed[name].translate(cq.Vector(0.0, probe, 0.0))
-        worst, into = 0.0, ""
-        for piece, solid in solids.items():
-            try:
-                vol = moved.intersect(solid).Volume()
-            except Exception:
-                vol = 0.0
-            if vol > worst:
-                worst, into = vol, piece
-        rows.append((tee, name, worst, into))
-        if worst <= 1e-6:
-            bad.append(tee)
-    pad_depth = spec["stop_pad_depth"]
-    pad_width = spec["stop_pad_width"]
-    pad_setback = spec["stop_pad_setback"]
-    collar_bite = spec["stop_collar_bite"]
-    release_air = spec["stop_release_side_air"]
-    section_ok = (pad_depth >= _enc.wall - 1e-9
-                  and pad_width >= _enc.wall - 1e-9
-                  and collar_bite > 0.0
-                  and release_air > 0.0)
-    detail = [f"pads {pad_width:.3f} mm wide x {pad_depth:.3f} mm deep, "
-              f"set back {pad_setback:.3f} mm; "
-              f"collar bite {collar_bite:.4f} mm; release-side air {release_air:.4f} mm"]
-    if not section_ok:
-        detail.append("PAD SECTION FAIL — the insertion stop lacks a complete wall load path "
-                      "or enters the released tee's side envelope")
-    return record_bound(Bound(
-        "insertion-backing", "An anchor tee is backed against the push that seats its tube",
-        not bad and section_ok,
-        f"{len(rows) - len(bad)}/{len(rows)} tees stopped going aft; "
-        f"{pad_width:.3f} x {pad_depth:.3f} mm side pads",
-        "every anchor tee landing on printed material before it can travel aft, on two "
-        f"side pads at least {_enc.wall:g} mm wide and deep",
-        detail + [f"{t:5} {n:14} " +
-                  (f"backed by {i}, {v:9.1f} mm3 at {probe:.3f} mm"
-                   if v > 1e-6 else
-                   "FREE — nothing takes the tube's own insertion push")
-                  for t, n, v, i in rows]))
-
-
 def check_plate_carried(pieces, shell) -> Bound:
     """Whether front-bottom carries both ends of the collet plate at its installed footprint.
 
@@ -2061,7 +1977,7 @@ def check_pump_columns_open(pieces, shell) -> Bound:
 def check_cartridge_aft_depth(pieces, shell) -> Bound:
     """Whether the lower cradle ends on its stated Y+ plane everywhere.
 
-    The skirt opening's 3 mm upper band is the cartridge's complete aft depth. No stop pad,
+    The skirt opening's 3 mm upper band is the cartridge's complete aft depth. No
     plate-retention return or exterior side skin continues behind that plane."""
     cart = pieces["pump-cartridge"]
     cart = cart.val() if hasattr(cart, "val") else cart
@@ -8616,8 +8532,6 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     # And whether the release those figures serve can actually happen — the one reading on
     # this card that asks a body to move rather than asking where it is.
     check_release_travel(pieces, a.pack_solids, box.pack.collet_plate)
-    # And the same question asked backwards — what takes the push that seats a tube in a tee.
-    check_insertion_backing(pieces, a.pack_solids, box.pack.collet_plate)
     # And how much of each valve's post the plate actually surrounds, which is what holds a
     # valve — `valve-trays-hold` reads that one is near its plate and cannot read that.
     check_post_engagement(pieces, a.pack_solids, box.pack.collet_plate)

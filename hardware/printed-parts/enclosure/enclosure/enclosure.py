@@ -5533,25 +5533,14 @@ def _plate_slot(_inner, plate, z_top):
     return _ybox(x0, x1, y0, y1, z_seam - 1.0, z_top).fuse(_plate_lead(plate))
 
 
-tee_stop_pad_depth = wall
-tee_stop_pad_width = wall
-tee_stop_pad_setback = 0.270
-
-
 def _tee_wall(inner, y_joint, plate, bay):
     """THE WALL THE ANCHOR TEES STAND IN: front-top's own section behind the collet plate,
     wall to wall and the whole height of the bay, with one bore per tee.
 
     A BORE HOLDS ITS TEE ACROSS ITS OWN AXIS AND LEAVES IT free along the release direction.
-    Each arm carries a round collar (`tee_connector.branch_collar`), so the wall keeps the
-    collar-clear bore everywhere except for two side pads outside the exact arm passage. The
-    pads are one `wall` wide and one `wall` deep, standing over the collar's own band and
-    corbelled back to this wall's aft face at 45 degrees under it. They begin
-    `tee_stop_pad_setback` aft of the collar's nominal inboard plane, clear of its real blended
-    shoulder over the complete release; their small radial bite stops the purchased collar
-    after that take-up without making a thin annular diaphragm. What a tee otherwise hangs
-    from is the valve butted onto its run, two joints away and answering to a press fit; what
-    it stands in is this.
+    Each arm carries a round collar (`tee_connector.branch_collar`), so one collar-clear bore
+    passes through the wall's complete section. Printed material locates that collar in X and Z;
+    the open bore leaves Y to the release motion.
 
     ITS FORE FACE IS THE STEEL'S AFT FACE, struck once as one figure
     (`enclosure_assembly.collet_plate_spec`). The plate stands in front of it, so every
@@ -5561,9 +5550,7 @@ def _tee_wall(inner, y_joint, plate, bay):
     ITS BROAD AFT FACE STOPS SHORT OF THE TEE, ON PURPOSE. A tee travels WITHIN this wall, and
     the wall is not allowed to be what ends that travel: the face stands one whole stroke plus
     `TEE_WALL_BODY_AIR` fore of the tee's own body, so at full release there is still air
-    between the two. Only the two narrow side pads continue aft, outside the released body's
-    exact X envelope. The steel stops the tee foreward during release; those pads stop its
-    collar aft during tube insertion.
+    between the two. The collar-clear bore opens directly through that face.
 
     AND IT IS THE BAY'S BACK. Over the plate's own band the steel closes the bay; above and
     below it nothing does, and the berth the pump cartridge leaves looks into the cavity. This
@@ -5577,8 +5564,6 @@ def _tee_wall(inner, y_joint, plate, bay):
     slab = slab.cut(_plate_lead(plate))
     for hx, hz in plate["holes"]:
         slab = slab.cut(_tee_bore(plate, hx, hz))
-        slab = slab.fuse(_tee_stop_pads(plate, hx, hz))
-        slab = slab.cut(_tee_arm_bore(plate, hx, hz))
     return slab
 
 
@@ -5691,50 +5676,11 @@ def _teardrop_x(r, y, z, x0, x1):
 
 
 def _tee_bore(plate, hx, hz):
-    """One tee's complete collar-clear bore through the wall and its stop-pad storey.
-
-    The large, support-free bore continues through the complete three-millimetre pad depth,
-    so no narrow annulus remains behind the collar. `_tee_stop_pads` restores only two
-    corbelled side pads over the collar's own band and `_tee_arm_bore` gives their inner faces
-    the exact arm passage."""
+    """One tee's support-free collar-clear bore through the wall's complete section."""
     return _teardrop_y(
         plate["bore_r"], hx, hz,
         plate["aft_y"] - 1.0,
-        plate["collar_in_y"] + tee_stop_pad_setback + tee_stop_pad_depth + 1.0)
-
-
-def _tee_stop_pads(plate, hx, hz):
-    """Two exact three-by-three side pads backing one tee's collar.
-
-    Their inner X faces are tangent to the arm passage. A PAD IS THE COLLAR'S OWN BAND. The
-    collar-clear circle reaches the pad's X at `hz` plus and minus `sqrt(ro^2 - ra^2)`, so the
-    whole of the contact lies between those two heights and the pad stands over exactly them —
-    the complete collar contact caught without inventing an arbitrary ledge. Under the lower
-    one the pad's own depth walks back to the tee wall's aft face at 45 degrees, which is what
-    carries it on a piece bedded at `z_seam`. Their Y storey begins beyond the connector's
-    collar/arm blend by `tee_stop_pad_setback`. Each pad is grossed slightly into the final arm
-    cutter so that cutter, not a coincident box face, establishes the finished passage."""
-    y0 = plate["collar_in_y"] + tee_stop_pad_setback
-    y1 = y0 + tee_stop_pad_depth
-    ra, ro = plate["arm_bore_r"], plate["bore_r"]
-    reach = math.sqrt(ro * ro - ra * ra)
-    z0, z1 = hz - reach, hz + reach
-    gross = 0.1
-    out = None
-    for sx in (-1.0, +1.0):
-        xa = hx + sx * (ra - gross)
-        xb = hx + sx * (ra + tee_stop_pad_width)
-        pad = _yz_prism(min(xa, xb), max(xa, xb),
-                        [(y0, z1), (y1, z1), (y1, z0), (y0, z0 - (y1 - y0))])
-        out = pad if out is None else out.fuse(pad)
-    return out
-
-
-def _tee_arm_bore(plate, hx, hz):
-    """The exact arm passage recut through the two gross stop pads."""
-    y0 = plate["collar_in_y"] + tee_stop_pad_setback
-    y1 = y0 + tee_stop_pad_depth
-    return _teardrop_y(plate["arm_bore_r"], hx, hz, y0 - 1.0, y1 + 1.0)
+        plate["wall_aft_y"] + 1.0)
 
 
 def _unified(solid):
