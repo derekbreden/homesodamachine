@@ -1023,9 +1023,7 @@ cradle. The clamp carries no show face, plate stop or hand pull.
 The service sequence follows those two load paths. Withdraw the assembled cartridge by its
 cradle pulls before any Z service; back out the two clamp screws on the withdrawn cartridge;
 lift off the clamp; then lift either complete pump straight up. Assembly is the reverse on the
-bench, followed by straight Y insertion. `pumps-drop-into-cradle` samples each pump together
-with the bracket and full fitting envelope, `top-clamp-drops-on` includes that otherwise-undrawn
-steel bracket and the cradle but not the fixed enclosure, and `pump-clamped-in-cradle` reads
+bench, followed by straight Y insertion. `pump-clamped-in-cradle` reads
 printed bearing below and above all three closed bracket sides.
 
 **Each of the four tube-casing openings is [13 mm](CAP_TUBE_OPEN) wide** around a
@@ -1192,7 +1190,7 @@ side face, from the floor's own top up past the motor cans' crowns (`pump_bay`, 
 placed cans), and aft to the steel. The flat sill runs wall to wall; the lintel over the opening
 carries the facet and the display on a stated ligament (`bay-under-display`).
 `heads-sweep-out` reads each head's path to the front against the piece it passes
-through, and `pump-cartridge-sweep-out` reads the complete lower-cradle and top-clamp envelopes.
+through.
 The removable shell follows the enclosure's rounded plan with its front plane
 [7.35 mm](PUMP_PROUD) proud while the pumps remain [6.15 mm](PUMP_STATION_PROUD) proud and the
 filled block behind it reaches both cavity planes.
@@ -1492,9 +1490,7 @@ neither appliance show face is opened.
 `ceiling-panel-section` reads the 11 mm envelope, complete show skin, all nine
 body roofs and all three tie-approach pockets. `back-top-ceiling-growth` reads
 both clean fixed shells and the three exact growth-only body yields.
-`ceiling-panel-slides-in` reads the continuous field-and-rail sweep plus the six
-hanging furniture solids at one-millimetre stations before the pins exist, and
-`ceiling-dado-mouth-keepers` then proves both pins clear at home and catch their
+`ceiling-dado-mouth-keepers` proves both pins clear at home and catch their
 own tongue over 5.60 mm in X and 2.00 mm in Z after the dado's 0.15 mm fore air
 is spent, without moving their established world coordinates.
 
