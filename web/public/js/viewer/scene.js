@@ -75,6 +75,11 @@ controls.dynamicDampingFactor = 0.12;
 // camera and target about that point keeps it under the pointer; moving the
 // target toward it makes the same point the natural pivot for the next orbit.
 //
+// A floor dolly rides on that scale: each zoomed frame also translates camera
+// and target together, a fixed fraction of the model's radius per unit of
+// fractional zoom. Zoom slows against a surface, holds a floor speed, crosses
+// to the far side, and the wheel tick after crossing re-picks there.
+//
 // This wraps the one TrackballControls internal that actually scales `_eye`.
 // The importmap pins three@0.170.0, the same exact build whose gesture internals
 // dropStalledGesture() uses below.
@@ -85,6 +90,9 @@ const _surfaceForward = new THREE.Vector3();
 const _surfaceOffset = new THREE.Vector3();
 const _surfaceTargetBeforeZoom = new THREE.Vector3();
 const TRACKBALL_ZOOM_STATE = 1;
+// One wheel notch spent against a surface dollies the rig about an eightieth
+// of the model's radius.
+const ZOOM_FLOOR_RATIO = 0.05;
 let surfaceZoomActive = false;
 
 function visibleInGroup(object, group) {
@@ -134,19 +142,40 @@ controls._zoomCamera = function surfaceAwareZoomCamera() {
   const distanceBefore = this._eye.length();
   _surfaceTargetBeforeZoom.copy(this.target);
   trackballZoomCamera();
-  if (!surfaceZoomActive || !this.object.isPerspectiveCamera || !(distanceBefore > 0)) return;
+  if (!this.object.isPerspectiveCamera || !(distanceBefore > 0)) return;
 
-  const scale = this._eye.length() / distanceBefore;
+  const distanceAfter = this._eye.length();
+  const scale = distanceAfter / distanceBefore;
   if (!Number.isFinite(scale) || Math.abs(scale - 1) < 1e-12) return;
 
-  // Trackball has already scaled `_eye` about target. Translating target by
-  // this amount makes the resulting camera + target identical to scaling both
-  // about the picked surface point. update() applies target + `_eye` to the
-  // camera immediately after this method returns.
-  _surfaceOffset.copy(_surfaceAnchor)
-    .sub(_surfaceTargetBeforeZoom)
-    .multiplyScalar(1 - scale);
-  this.target.add(_surfaceOffset);
+  if (surfaceZoomActive) {
+    // Trackball has already scaled `_eye` about target. Translating target by
+    // this amount makes the resulting camera + target identical to scaling both
+    // about the picked surface point. update() applies target + `_eye` to the
+    // camera immediately after this method returns.
+    _surfaceOffset.copy(_surfaceAnchor)
+      .sub(_surfaceTargetBeforeZoom)
+      .multiplyScalar(1 - scale);
+    this.target.add(_surfaceOffset);
+  }
+
+  // Floor dolly: translating only `target` moves the camera with it — update()
+  // re-derives the camera as target + `_eye`. A step along the camera-to-anchor
+  // line holds the anchor's projection fixed beneath the pointer; within one
+  // step of the anchor that line degenerates, and the step runs down the view
+  // direction instead, through the surface.
+  const radius = _depthSphere.radius; // measured per mounted group by updateDepthRange()
+  if (!(radius > 0) || !(distanceAfter > 0)) return;
+  const floorStep = ZOOM_FLOOR_RATIO * radius * (1 - scale);
+  _surfaceForward.copy(this._eye).divideScalar(-distanceAfter);
+  if (surfaceZoomActive) {
+    _surfaceOffset.copy(_surfaceAnchor).sub(this.target).sub(this._eye);
+    if (_surfaceOffset.dot(_surfaceForward) > Math.abs(floorStep)) {
+      this.target.addScaledVector(_surfaceOffset, floorStep / _surfaceOffset.length());
+      return;
+    }
+  }
+  this.target.addScaledVector(_surfaceForward, floorStep);
 };
 
 // Capture runs before TrackballControls' own target-phase handlers, so the new
