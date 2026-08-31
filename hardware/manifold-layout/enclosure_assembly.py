@@ -2205,8 +2205,8 @@ def check_cartridge_full_front_wall(pieces, shell) -> Bound:
     """Whether the cradle owns the untapered front wall between its two Z clearances.
 
     The front-wall target stops at the intentional upper pump/clamp well's foremost Y face.
-    The two side targets stop before either hand pocket. No pump opening, grip, guide notch or
-    horizontal running clearance is counted as missing stock."""
+    The two side targets stop before either hand pocket. No pump opening, grip,
+    plate-retention notch or horizontal running clearance is counted as missing stock."""
     cradle = pieces.get("pump-cartridge")
     fixed = pieces.get("front-top")
     if cradle is None or fixed is None:
@@ -2217,8 +2217,8 @@ def check_cartridge_full_front_wall(pieces, shell) -> Bound:
     z0 = _enc.bay_floor_z(shell.pack.pump_trays)[1]
     z1 = bay[2] - _enc.pump_cartridge_z_clearance
     edge = _enc._cap_x_span(bay)[1]
-    y1 = _enc.plate_guide_notch_fore_y(shell.pack.collet_plate)
-    y0 = y1 - _enc.pull_run
+    y0 = (_enc.plate_guide_notch_fore_y(shell.pack.collet_plate)
+          - _enc.pull_min_run)
     front_aft = (min(cy - _tray.half_width()
                      for _cx, cy, _cz in shell.pack.pump_trays)
                  - _enc.clamp_drop_air)
@@ -2260,8 +2260,8 @@ def check_cradle_pulls(pieces, shell) -> Bound:
     plate = shell.pack.collet_plate
     z = _enc._pull_center_z(plate)
     edge = _enc._cap_x_span(shell.pump_bay)[1]
-    y1 = _enc.plate_guide_notch_fore_y(plate)
-    y0 = y1 - _enc.pull_run
+    y1 = _enc.pump_cartridge_aft_y(shell.pack.pump_trays)
+    y0 = _enc.plate_guide_notch_fore_y(plate) - _enc.pull_min_run
     rows = []
     for label, sx in (("X+", +1.0), ("X-", -1.0)):
         # The cutter deliberately runs 0.2 mm past the nominal flank so it opens the

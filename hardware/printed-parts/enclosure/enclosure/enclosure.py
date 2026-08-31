@@ -1547,7 +1547,7 @@ rail_reach_in = (max(front_top_flank_t, back_top_flank_t) - wall) + slide_slip +
 # block's bed plane, 0.5 mm above the stationary sill, and its crown keeps the same Z clearance
 # below the lintel. Its filled interior reaches the side-wall planes and bears
 # on the bay floor. The only departures from that full-width envelope are the two hand pockets,
-# the pump wells and the aft guide notches.
+# the pump wells and the aft plate-retention notches.
 bay_crown_air = 1.7          # bay top over the tallest motor can's crown
 pump_cartridge_z_clearance = 0.5  # Z air above the fixed sill and below the fixed lintel; this
                                   # is not an X/Y inset or a cosmetic surface offset
@@ -1568,9 +1568,9 @@ plate_slot_slip = steel_air  # air fore and aft of the collet plate in the floor
                              # and leave `plate_end_stock` printed beyond them
 # Each fixed fore cheek overlaps this much of the collet plate's unperforated outer tail. Ten
 # millimetres of steel face bears on each cheek; the full-width pump cartridge clears them in
-# two local aft-corner notches instead of spending its whole X span inside them.
+# two local aft-corner notches instead of spending its whole X span inside them. Each notch
+# follows the cheek's own plan rake one `fits.slip` fore of it.
 plate_guide_tail_land = 10.0
-plate_guide_x_air = 1.0      # cartridge-notch air inboard of each plate-retention cheek
 plate_slot_lead = 1.0        # 45 degree flare at the plate lane's Z− mouth, taken out of
                              # the tee wall's fore face (`_plate_lead`) and not the floor's
 plate_end_stock = 4.3        # continuous printed X return from either slot end to the
@@ -1631,7 +1631,7 @@ clamp_drop_air = 0.2         # clamp footprint and bracket air through the cradl
 # without a flat bridge. The pocket is entirely in the cradle and the top clamp has no hand
 # feature at all.
 pull_depth = 18.0            # fingertip reach inboard from each exposed flank
-pull_run = 22.0              # fore/aft opening behind the ledge
+pull_min_run = 22.0          # clear opening from the ledge to the retention clearance's Y− tip
 pull_rise = 48.0             # complete side-mouth height, including the 45-degree roof
 pull_floor_below_tubes = 12.0  # bed-rooted stock first; then the tube plane inside the mouth
 
@@ -4561,10 +4561,10 @@ def _plate_fore_guides(inner, outer, bay, plate, pump_trays):
     the top of the steel, so height is section where the moment is: taken to the bay's own
     ceiling it is a post between two slabs rather than a fin cantilevered off the floor, and
     it gives the flank opening the aft jamb that opening otherwise has only up to the plate.
-    The full-width pump cartridge carries an aft-corner notch round each cheek, one
-    `plate_guide_x_air` inboard of it. Fore of those notches the drawer still takes the whole
-    cavity width, including both grip ledges. Any guidance they incidentally give the cartridge
-    is not their function.
+    The full-width pump cartridge carries an aft-corner notch round each cheek. Its edge follows
+    the cheek's exact rake one `fits.slip` fore of it; fore of those notches the drawer still
+    takes the whole cavity width, including both grip ledges. Any guidance the cheeks
+    incidentally give the cartridge is not their function.
 
     EACH CHEEK RETURNS IMMEDIATELY OUTSIDE THE PLATE'S SLOT. At the slot-end plane — one
     `plate_slot_slip` beyond the cut steel — the same prism turns aft past the plate and
@@ -4618,7 +4618,7 @@ def plate_guide_fore_y(plate):
 
 
 def plate_guide_notch_fore_y(plate):
-    """The fore edge of the cradle's clearance round each plate-retention cheek."""
+    """The outermost Y− edge of the cradle's raked plate-retention clearance."""
     return plate_guide_fore_y(plate) - plate_guide_wedge - fits.slip
 
 
@@ -4637,21 +4637,34 @@ def plate_head_spans(inner, plate):
     return [(inner[0], guide_x0), (guide_x1, inner[1])]
 
 
-def _plate_retention_clearance_notches(bay, plate, pump_trays):
-    """Two corner clearances for the plate-retention heads in the cartridge's aft 1.28 mm.
+def _plate_retention_clearance_notches(outer, bay, plate, pump_trays):
+    """Two raked corner clearances for the fixed plate-retention cheeks.
 
-    Both boxes stop with the cartridge on ``pump_cartridge_aft_y``. They remove only the two
-    retention-feature overlaps and do not restore stock behind the skirt band's Y+ plane. The
-    fixed material retains the stainless plate; guiding the cartridge is not its function."""
-    edge0, edge1 = _cap_x_span(bay)
+    Each four-sided prism follows its cheek's exact plan angle, shifted one ``fits.slip``
+    toward Y−. The cartridge's Y=``pump_cartridge_aft_y`` plane truncates that rake, so only
+    the actual corner overlap is removed; no rectangular slot runs to the cheek's inboard X
+    face. The fixed material retains the stainless plate. Any guidance it incidentally gives
+    the cartridge is not its function."""
     guide_x0, guide_x1 = plate_guide_inner_xs(plate)
-    y_front = plate_guide_notch_fore_y(plate)
+    y_inner = plate_guide_fore_y(plate) - fits.slip
     y_aft = pump_cartridge_aft_y(pump_trays) + 1.0
     z0 = bay_floor_z(pump_trays)[1] - 1.0
     z1 = bay[2] + 1.0
+    run = outer[1] - guide_x1
+    if run <= 0.0:
+        raise ValueError("a plate-retention cheek needs positive X run to the outer wall")
+    rake = plate_guide_wedge / run
+    left_outer = outer[0] - 1.0
+    right_outer = outer[1] + 1.0
+    left_outer_y = y_inner - rake * (guide_x0 - left_outer)
+    right_outer_y = y_inner - rake * (right_outer - guide_x1)
     return (
-        _ybox(edge0 - 1.0, guide_x0 + plate_guide_x_air, y_front, y_aft, z0, z1),
-        _ybox(guide_x1 - plate_guide_x_air, edge1 + 1.0, y_front, y_aft, z0, z1),
+        _xy_prism(z0, z1, (
+            (left_outer, left_outer_y), (guide_x0, y_inner),
+            (guide_x0, y_aft), (left_outer, y_aft))),
+        _xy_prism(z0, z1, (
+            (guide_x1, y_inner), (right_outer, right_outer_y),
+            (right_outer, y_aft), (guide_x1, y_aft))),
     )
 
 
@@ -5318,8 +5331,10 @@ def _cradle_pulls(box):
         raise ValueError(
             f"a {pull_depth:g} mm-deep cradle pull has no printable roof inside its "
             f"{pull_rise:g} mm opening")
-    y1 = plate_guide_notch_fore_y(box.pack.collet_plate)
-    y0 = y1 - pull_run
+    y0 = plate_guide_notch_fore_y(box.pack.collet_plate) - pull_min_run
+    # Open through the cartridge's actual aft plane. Ending this cutter on the former
+    # rectangular-notch plane left a broad, unnecessary Y-normal wall across each pocket.
+    y1 = pump_cartridge_aft_y(box.pack.pump_trays) + 1.0
     out = []
     for sx in (+1.0, -1.0):
         section = ((sx * (edge + 1.0), z0), (sx * deep, z0),
@@ -5334,8 +5349,8 @@ def pump_cartridge_figures(box):
         return {}
     bay, trays, plate = box.pump_bay, box.pack.pump_trays, box.pack.collet_plate
     edge = _cap_x_span(bay)[1]
-    y1 = plate_guide_notch_fore_y(plate)
-    y0 = y1 - pull_run
+    y0 = plate_guide_notch_fore_y(plate) - pull_min_run
+    y1 = pump_cartridge_aft_y(trays)
     z_mid = _pull_center_z(plate)
     pull_floor = z_mid - pull_floor_below_tubes
     pull_top = pull_floor + pull_rise
@@ -5346,7 +5361,7 @@ def pump_cartridge_figures(box):
     clamp_crown = cap_crown_z(box)
     return {
         "PULL_RISE": f"{pull_rise:.4g} mm",
-        "PULL_RUN": f"{pull_run:.4g} mm",
+        "PULL_RUN": f"{(y1 - y0):.4g} mm",
         "PULL_DEPTH": f"{pull_depth:.4g} mm",
         "PULL_PLUMB": f"{(pull_rise - pull_depth):.4g} mm",
         "PULL_FLOOR_Z": f"{pull_floor:.5g} mm",
@@ -5354,7 +5369,7 @@ def pump_cartridge_figures(box):
         "PULL_FLOOR_LIGAMENT": f"{(pull_floor - bay_floor_z(trays)[1]):.4g} mm",
         "PULL_CENTER_Z": f"{z_mid:.5g} mm",
         "PULL_LEDGE": f"{y0:.4g} mm",
-        "PULL_AFT_FACE": f"{y1:.4g} mm",
+        "PULL_AFT_OPEN": f"{y1:.4g} mm",
         "PULL_TRAVEL": f"{y0 - box.inner[2]:.4g} mm",
         "CLAMP_SPAN": f"{2.0 * clamp_edge:.4g} mm",
         "CLAMP_RISE": f"{(clamp_crown - clamp_base):.5g} mm",
@@ -5760,7 +5775,8 @@ def _pump_cartridge_gross(box, halves_cache=None):
         floor_top, top - pump_cartridge_z_clearance)
     solid = solid.fuse(fill).intersect(face.fuse(
         _ybox(bx0, bx1, pump_cartridge_front_y, aft, floor_top, top)))
-    for notch in _plate_retention_clearance_notches(bay, plate, box.pack.pump_trays):
+    for notch in _plate_retention_clearance_notches(
+            outer, bay, plate, box.pack.pump_trays):
         solid = solid.cut(notch)
     if halves_cache is not None:
         halves_cache["pump-cartridge-gross"] = solid

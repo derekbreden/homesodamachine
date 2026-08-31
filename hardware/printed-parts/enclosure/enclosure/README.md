@@ -1067,13 +1067,13 @@ solid against y [70.565 mm](PUMP_CARTRIDGE_AFT_Y), so a plate-retention return o
 cannot survive behind that plane.
 
 **Both pulls belong to the cradle and surround the tube-centre plane.** Each side pocket is
-[18 mm](PULL_DEPTH) deep, [22 mm](PULL_RUN) fore/aft and [48 mm](PULL_RISE) high. Its floor at
+[18 mm](PULL_DEPTH) deep, [23.28 mm](PULL_RUN) fore/aft and [48 mm](PULL_RISE) high. Its floor at
 z [176.25 mm](PULL_FLOOR_Z) leaves [9.88 mm](PULL_FLOOR_LIGAMENT) of bed-rooted cradle below
 it and puts the common tube elevation, z [188.25 mm](PULL_CENTER_Z), 12 mm inside the mouth.
 At the deepest fingertip wall the straight vertical opening is [30 mm](PULL_PLUMB) high; its
-roof then climbs at 45° to the open flank and reaches z [224.25 mm](PULL_TOP_Z). The opening's
-aft face shares the guide-notch plane at y [69.28 mm](PULL_AFT_FACE), so its whole 22 mm run
-is exposed; the fore wall is the pulling ledge at y [47.28 mm](PULL_LEDGE). That leaves
+roof then climbs at 45° to the open flank and reaches z [224.25 mm](PULL_TOP_Z). The opening
+runs through the cartridge's aft edge at y [70.565 mm](PULL_AFT_OPEN), so no separate Y-normal
+wall closes it; the fore wall is the pulling ledge at y [47.28 mm](PULL_LEDGE). That leaves
 [33.28 mm](PULL_TRAVEL) of cartridge withdrawal before the ledge reaches the enclosure front.
 Pulling force enters the one load-bearing cradle; the clamp has no separate grip to split the
 load or invite a second tug.
