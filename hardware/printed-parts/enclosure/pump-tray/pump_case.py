@@ -76,8 +76,11 @@ snap_zone_width = 20.0
 snap_wall_height = 9.0
 snap_deflection = 1.0
 
-# Arch notches
-arch_radius = 4.5
+# Tube-casing arch notches: 13 mm openings on the physical casings' 59.75 mm pitch.
+arch_radius = 6.5
+arch_pitch = 59.75
+arch_hole_xs = (center_x - arch_pitch / 2.0,
+                center_x + arch_pitch / 2.0)
 
 
 # Outer envelope of the assembled case, including the snaps and tubes
@@ -626,6 +629,55 @@ def flank_ramp_bands():
             (aft_top, aft_top - lower_ramp_height))
 
 
+def _profile_prism(profile, z0, z1):
+    """One stated case profile carried vertically between two exact Z planes."""
+    return (WorldWorkplane(xy_plane_z_up)
+            .workplane(offset=z0)
+            .center(center_x, center_y)
+            .polyline(profile).close()
+            .extrude(z1 - z0))
+
+
+def stepped_skirt_cavity(air, support_z):
+    """The head room with the narrow-side skirt transition made as one flat step.
+
+    Above ``support_z`` the room keeps the skirt's symmetric upper outline. Below it the room
+    immediately takes the completed split outline and retains that outline to the lower
+    extension. Their difference is the exact plan of the former 45-degree narrow-side flank,
+    now a horizontal land on ``support_z``.
+    """
+    if not skirt_bottom_z < support_z < 0.0:
+        raise ValueError(
+            f"a skirt support at {support_z:g} must lie between "
+            f"{skirt_bottom_z:g} and 0 mm")
+    offset = skirt_wall - air
+    upper = _skirt_profile_set(offset)[1]
+    lower = _skirt_profile_set(offset)[3]
+    room = cavity(air).val()
+    lower_mask = _profile_prism(
+        lower, lower_cap_top_z - overcut, support_z).val()
+    lower_room = room.intersect(lower_mask)
+    upper_room = _profile_prism(upper, support_z, 0.0).val()
+    return cq.Workplane(obj=upper_room.fuse(lower_room))
+
+
+def stepped_skirt_drop_well(air, support_z):
+    """``stepped_skirt_cavity`` swept toward the bracket plane for Z insertion."""
+    offset = skirt_wall - air
+    upper = _skirt_profile_set(offset)[1]
+    lower = _skirt_profile_set(offset)[3]
+    swept = drop_well(air).val()
+    lower_mask = _profile_prism(
+        lower, lower_cap_top_z - overcut, support_z).val()
+    lower_room = swept.intersect(lower_mask)
+    # The completed split outline is wider on +Y than the upper outline. Carry that side
+    # upward as the physical lower skirt does during insertion; on -Y it is contained and the
+    # flat support land remains intact.
+    upper_room = _profile_prism(upper, support_z, 0.0).union(
+        _profile_prism(lower, support_z, 0.0)).val()
+    return cq.Workplane(obj=upper_room.fuse(lower_room))
+
+
 def cavity(air=0.0):
     """THE ROOM THE CASE LEAVES A HEAD — the skirt's interior and the lower extension's, as
     one solid in the case's own world frame, opened `air` on every face.
@@ -719,10 +771,6 @@ def build_lower_extension():
 
 def cut_arch_notches(combined):
     """Semicircular notches on the +Y face for wire routing."""
-    arch_hole_xs = [
-        corner_r + arch_radius - 4,
-        footprint_x - corner_r - arch_radius + 4,
-    ]
     arch_cut_depth = skirt_wall + wall_thickness
     for ax in arch_hole_xs:
         arch_cutter = (
