@@ -2,8 +2,8 @@
   "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed \u2014 web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
   "release": {
     "tag": "cad-artifacts",
-    "asset": "cad-c5c383e378cfae2f.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-c5c383e378cfae2f.tar.gz",
+    "asset": "cad-840441ac951ddc85.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-840441ac951ddc85.tar.gz",
     "objects": "s-"
   },
   "source": {
@@ -243,8 +243,8 @@
     ]
   },
   "bundle": {
-    "sha256": "c5c383e378cfae2fa4497a9bf7f46c3440f711d753bc6e6094fbf132247bcf2d",
-    "bytes": 116423586,
+    "sha256": "840441ac951ddc850419ed60d3d46cf95ae35a577cbf65a832e7e972efd9d4aa",
+    "bytes": 116416405,
     "solids": 267
   },
   "solids": {
@@ -326,15 +326,15 @@
     "hardware/assembly/scenes/glb/cold-core.glb": "9c83d134d02cd70158827dead1b2c7238ff3f6bd183699704249089c3172f51b",
     "hardware/assembly/scenes/glb/en04-stratum.glb": "1a7da7b97a804666eb4d8809d75cd538d0ad89b1cccb1155c63be3c797b5161b",
     "hardware/assembly/scenes/glb/en06-column.glb": "f1dc5d0f8261cb7e3a28ed6a9b1f5fdab3f92f88031e4396464fe324b710aa81",
-    "hardware/assembly/scenes/glb/front-top.glb": "6af09f0205c619d58d8e9a4ddc08a92cbb5512b2c42c637b0ea7468181173517",
+    "hardware/assembly/scenes/glb/front-top.glb": "6a3a626620bffa0c9c4f30cf9aabf8d1bfbe300731f9790865295e7f1adf851e",
     "hardware/assembly/scenes/glb/funnel-drain.glb": "270e1087f47c5550913fe692388d022144aba3531108f0057758aff6f9c34f18",
     "hardware/assembly/scenes/glb/pump-cartridge.glb": "c9540d25b23c108a9290b438b11844c3d3f24b46214034458d753c513e37f77c",
     "hardware/cold-core-layout/cold-core-assembly.step": "f1feba15c4b3ff8950ea2dc39a9cababa3771d8a0c17435229f218ec203370b4",
     "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step": "bb6d47d7641a9759e444da2f68ea12d48ddcc19f36bcfcd4227414a5d75d538a",
     "hardware/faucet-layout/faucet-assembly.step": "f0cfe4395ced9167017cb2188064e2f28ec9bfb99abb07d2c8432f93f4ab65a4",
     "hardware/faucet-layout/faucet-assembly.step.mesh": "c2d3f40b1d81247ea55bb282ddc3059532d5ab70aadb23b186df1f74d38db023",
-    "hardware/manifold-layout/enclosure-assembly.step": "18dae2a14ab76c45fef9bfdea2bcff0ea4550852386ea23866f38c8cf17890f0",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "28b019cc2beaede49301c39c4ffe214421ee9c91bf45d1a82f8b61887d04a471",
+    "hardware/manifold-layout/enclosure-assembly.step": "369e6a62a55b7269e7afab1a68a17543a7d4d7a32ef88888136518b34d122e76",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "af537914f4045d32bf50404d560d271dbe5bcd235d33a27f7d241d384a94b6f2",
     "hardware/manifold-layout/manifold-layout.step": "445e978539521ff9347930de751464a565daa31e52a0027f7448770ed7da4e7f",
     "hardware/manifold-layout/manifold-layout.step.mesh": "3690b827f30165439dd51fa2075f9e0615be62f65870ecbb1ba1b0591e2d810d",
     "hardware/pcb/pcba/out/pcba.glb": "819d2d6a51579a8c3ee66bcb9432075bc50ca77cf129bd828ea538b8fc72b767",
