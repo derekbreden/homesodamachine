@@ -54,7 +54,7 @@ import { HSM_EVENTS } from "/contracts/client-events.js";
 import { scene, camera, renderer } from "./scene.js";
 import { state } from "./state.js";
 import { isXrayEnabled } from "./xray.js";
-import { fnum, fpt, formatFace, surfaceText, CONTENT_ROOT } from "./pick-format.js";
+import { fnum, fpt, formatFace, CONTENT_ROOT } from "./pick-format.js";
 import { roundFitMeasured } from "./round-fit.js";
 import { makePanelCollapse } from "./tool-rail.js";
 
@@ -726,12 +726,6 @@ function repoPath(file) {
 }
 function headerName(file) { return file.split("/").pop().replace(/\.step$/i, ""); }
 
-// WHICH SURFACE THE NUMBERS ABOVE CAME OFF — `surfaceText` in pick-format.js, which the
-// breadcrumb names the open model with too. One sentence, said in both places.
-function surfaceOfOpen(file) {
-  return surfaceText(file, state.mountedDetail && state.mountedDetail.surface);
-}
-
 // The clicked component's name, or null when there's none worth showing. Only
 // assemblies carry real component names; single-solid STEPs get a generic occt
 // translator string, which is noise. One helper so the panel row and the copy
@@ -746,7 +740,6 @@ function allText(sel) {
   const file = currentFile();
   if (file) {
     lines.push(`file: ${repoPath(file)}`);
-    lines.push(`surface: ${surfaceOfOpen(file)}`);
   }
   const solid = solidName(sel);
   if (solid) {
