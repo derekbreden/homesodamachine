@@ -622,10 +622,10 @@ static volatile uint32_t panelVsyncLateRetries = 0;
 static volatile uint32_t panelVsyncWriteErrors = 0;
 
 // The board runs at a fixed 240 MHz (PM is disabled in this firmware core).
-// VSYNC_END starts a 32-line back porch, about 1.95 ms at the panel timing.
-// Reserve its latter half for the 100-kHz CH422G transfer instead of gambling
-// that a task delayed by an interrupt can still finish before active pixels.
-#define PANEL_VSYNC_ACTION_WINDOW_US 900
+// VSYNC_END starts the 8-line back porch, about 410 us at the panel timing.
+// The shared I2C bus runs at 400 kHz, so keep the CH422G write inside the first
+// 300 us and retry next frame if the task did not start promptly.
+#define PANEL_VSYNC_ACTION_WINDOW_US 300
 #define PANEL_CPU_CYCLES_PER_US       240
 #define PANEL_VSYNC_ACTION_WINDOW_CYCLES \
   (PANEL_VSYNC_ACTION_WINDOW_US * PANEL_CPU_CYCLES_PER_US)
@@ -705,6 +705,7 @@ static bool panelReleaseResetNow() {
 // flash of uninitialized framebuffer).
 static void ch422gBringUp() {
   Wire.begin(I2C_SDA, I2C_SCL);
+  Wire.setClock(400000);  // CH422G and GT911 both support Fast-mode I2C
   ch422gWrite(CH422G_MODE, 0x01);  // EXIO0..7 -> push-pull output
 
   // Assert both resets low (SD held deselected), then release high.
@@ -860,28 +861,18 @@ static bool panelInit() {
 
   esp_lcd_rgb_panel_config_t cfg = {};
   cfg.clk_src = LCD_CLK_SRC_DEFAULT;
-  // 16 MHz. The porches below are the panel's, and it does not lock to them at 14: the
-  // repaint measured 105 ms instead of 117 and the screen stayed blank, backlight lit and
-  // LVGL still cycling frames into a buffer nothing was drawing.
+  // Waveshare's 800x480 ST7262 timing. HSYNC and VSYNC idle high (their zeroed
+  // flag state), while pixels are latched on the falling PCLK edge.
   cfg.timings.pclk_hz = 16 * 1000 * 1000;
   cfg.timings.h_res = SCREEN_W;
   cfg.timings.v_res = SCREEN_H;
-  cfg.timings.hsync_pulse_width = 48;
-  // Measured displacement is 80 px in x against a back porch of 88, and the one
-  // early probe that moved this image at all had cut this number. Nothing else
-  // in the panel-control path moves it: not the front porch, not a longer
-  // acquisition, not the DISP edge, not a GDMA restart. So move this number on
-  // its own, and upward, so a displacement that follows it lands at 120 rather
-  // than somewhere near zero where it could hide. The vertical is untouched and
-  // y stays at 25 either way.
-  cfg.timings.hsync_back_porch  = 128;
-  cfg.timings.hsync_front_porch = 40;
-  cfg.timings.vsync_pulse_width = 3;
-  cfg.timings.vsync_back_porch  = 32;
-  cfg.timings.vsync_front_porch = 13;
+  cfg.timings.hsync_pulse_width = 4;
+  cfg.timings.hsync_back_porch  = 8;
+  cfg.timings.hsync_front_porch = 8;
+  cfg.timings.vsync_pulse_width = 4;
+  cfg.timings.vsync_back_porch  = 8;
+  cfg.timings.vsync_front_porch = 8;
   cfg.timings.flags.pclk_active_neg = 1;  // 4.3B: data latched on the falling edge
-  cfg.timings.flags.hsync_idle_low  = 1;  // polarity 0
-  cfg.timings.flags.vsync_idle_low  = 1;
   cfg.data_width = 16;
   cfg.bits_per_pixel = 16;
   cfg.num_fbs = 2;                  // double framebuffer — kills content tearing

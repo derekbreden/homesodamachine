@@ -109,9 +109,9 @@ physical RESET or V12 cycle before it can be upgraded.
 
 ## Pin map (fixed by the board)
 
-Verified against the Waveshare wiki, the Arduino_GFX board example, and a
-working ESPHome config. Several RGB lines are ESP32-S3 strapping/special pins
-(GPIO0/3/45/46) committed to the panel — do not repurpose them.
+Verified against Waveshare's 4.3B schematic and board support. Several RGB
+lines are ESP32-S3 strapping/special pins (GPIO0/3/45/46) committed to the
+panel — do not repurpose them.
 
 | Function | GPIO |
 |---|---|
@@ -122,8 +122,10 @@ working ESPHome config. Several RGB lines are ESP32-S3 strapping/special pins
 | Shared I²C (SDA / SCL) | 8 / 9 |
 | Touch INT (GT911) | 4 |
 
-Panel timings: HSYNC fp/pw/bp = 40/48/88, VSYNC fp/pw/bp = 13/3/32, both
-polarities 0, `pclk_active_neg=1`, prefer 16 MHz.
+Panel timings: HSYNC fp/pw/bp = 8/4/8, VSYNC fp/pw/bp = 8/4/8, both syncs
+idle high, `pclk_active_neg=1`, 16 MHz. The shared CH422G/GT911 bus runs at
+400 kHz so a display-control write fits inside the eight-line vertical back
+porch.
 
 ### CH422G I/O expander
 
@@ -161,9 +163,10 @@ ladder above). The difference from the faucet display is the backlight itself:
   logo are therefore display-local, and the durable home for both is the main board,
   where the faucet's own selection already lives.
 - The faucet fades its backlight with PWM. This board's backlight is a *digital*
-  line on the CH422G (EXIO2) — on/off only, no PWM, and I²C is too slow to fake
-  it. So the idle state is a clean backlight-off (which genuinely cuts panel
-  power), not a rendered dim. Instant off, instant on.
+  line on the CH422G (EXIO2) — on/off only, no PWM. EXIO2 drives both the LED
+  converter and the panel's DISP input; panel VCC remains at 3.3 V while the
+  glass is dark. So the idle state is a clean backlight/DISP off, not a rendered
+  dim.
 - Touch is the GT911 on the shared I²C bus. Its address (`0x5D`/`0x14`) depends
   on reset timing, so it's probed at init; reset is released via CH422G EXIO1,
   INT is GPIO4. It's registered as an LVGL pointer indev, so it's ready for the
