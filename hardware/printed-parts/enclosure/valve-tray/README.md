@@ -60,8 +60,7 @@ above the socket's own top, so arithmetic answers for a cylinder that is not the
 material, so they come off the enclosure exterior's own bead of [0.42](TRAY_EXTRUSION) mm
 ([`enclosure/print-log.md`](/hardware/printed-parts/enclosure/enclosure/print-log.md)), and the
 web is [265](TRAY_WEB_PCT)% of one. A wall thinner than a bead is not a thin wall, it is
-absent, and a solid states material at any width — so `tray-web` is the one check on this
-plate that reads what the machine can lay rather than what the model draws.
+absent, and a solid states material at any width.
 
 ## Where the two go
 
@@ -69,7 +68,7 @@ Read off the placed valves at every build, never stated — `manifold_layout` fo
 [`enclosure_assembly.py`](/hardware/manifold-layout/enclosure_assembly.py) stands it on the
 refrigeration base's crown, so where a deck lands is that stack's arithmetic. `valve_tray_decks`
 groups the valves no cap cradle holds by the plane each stands on and hands back one tray per
-plane, and the `valve-trays-hold` gate reads every valve against the plate under it.
+plane.
 
 | tray | valves | stands |
 |---|---|---|
@@ -89,14 +88,6 @@ thickness buys: a boss on a standing plate is a Ø13.2 cylinder cantilevered int
 own underside to bridge and its root standing on nothing, and this plate carries thirty-two of
 them. PETG, the piece's own stock ([`bom.md`](/hardware/ledger/bom.md) §7, in the front-pieces
 row).
-
-## Open items
-
-1. **`tray-web` is the only bound on this plate that reads what a nozzle can lay.** Everything
-   else about it — the sockets' clearance, the channel's floor, the seats' pitch, the margin past
-   the last seat — is read against a solid, and a solid states material at any width. The plate
-   comes off one [0.42](TRAY_EXTRUSION) mm bead, so a feature the model draws thinner than one
-   reads green in every check but that one. `EXTRUSION_W` is named once in the whole tree.
 
 ## Files
 

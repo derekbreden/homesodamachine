@@ -66,7 +66,7 @@ over the condenser's fin crown, and the rim under the forward valve tray's
 wall-to-wall span (`z-seam-under-deck` — a plate roots on a wall only above the rim;
 its foot runs below, inset on the lip's own face). The ring's front segment across
 the flat span is the bay's (`_front_flat_lip_drop`): the bay floor stands in that band
-and the pump heads run down through it on their way out (`heads-sweep-out`), so the
+and the pump heads run down through it on their way out, so the
 flat front carries no lip there at any height.
 `main()` prints each seam, how it landed, and the band the bed allowed it.
 
@@ -219,9 +219,6 @@ ramp** — which is the height the Y telescope bears on.
 entry to home against its built bottom — a ladder of stations, dense where the joint
 closes — and lifts it a millimetre off its catch: `z-slide-front-clear`,
 `z-slide-back-clear`, and the two `-catch` rows carry the readings on the scorecard.
-`z-slide-front-lanes` runs the front sweep again loaded — the piece with the flavour pack
-aboard, against the seated refrigeration stratum — and `core-rides-in` sweeps the cold
-core's own entry (below).
 
 **What makes all of that fit is the band the walls keep.** A body standing on the
 floor slab spans the interior wall to wall, so a body laid on a wall's face would
@@ -289,8 +286,7 @@ crosses only the inboard side of the offered wedge. Those two corbels begin 1 mm
 blocker only across its Y projection; each clear outer side still carries a wall-rooted 45° wing
 all the way to the mounting face. Their D stems remain whole across the holes. `east-boss-corbels`
 reads all 17 additions back against the installed bodies and records both the full-width and
-blocker-profiled populations; `east-bosses-print` reads the built back-top and rejects a missing
-wedge or any complete Ø7 free edge.
+blocker-profiled populations.
 
 ## Condenser cradle
 
@@ -301,8 +297,7 @@ not: each carries its entire down-facing plane on a 45° corbel rooted on the wa
 from (`_cond_cradle_corbel`, `_cond_mount_corbel`).
 
 The crown wedge is only the rail's [3 mm](COND_SLOT_GRIP) reach. The aft wedge is longer, but it
-lies wholly in the donor block's open end recess and stops on the fin's west face. Both are read
-against the installed solids by `cond-corbels-clear`; the condenser stays fixed and the closer
+lies wholly in the donor block's open end recess and stops on the fin's west face. The condenser stays fixed and the closer
 one keeps `cond_mount_clear` of assembly air.
 
 Each fore-flange groove keeps its exact [1 mm](COND_SLOT_OPEN) opening at the seated wall stop,
@@ -362,13 +357,11 @@ Four features, two mirror pairs, and nothing on either that is not a face of the
   band, taken on both flanks so the pair is a mirror.
 
 The slab takes the weight and the +Y wall takes the aft, so the four between them close every
-direction the core could go. `enclosure_assembly.check_core_held` reads each inside its own
-window off the built pieces (`core-held`).
+direction the core could go.
 
 **The core enters from ahead, and only from ahead.** The back column closes empty — its
 +Y wall cannot pass over a seated core — so the core rides in through the open Y-seam
-mouth, aft over the slab to its seat, the crown sliding under the brackets' eased feet
-(`core-rides-in` sweeps the whole lane). The front assembly then slides aft onto it and
+mouth, aft over the slab to its seat, the crown sliding under the brackets' eased feet. The front assembly then slides aft onto it and
 the corner blocks' pockets — the core's own plan outline offset one `split_slip` — close
 on the front face at the slip.
 
@@ -483,7 +476,6 @@ half-ellipse where the groove is shallower, so the flank behind a jamb is
 thins the wall and only ever thins the mullion.
 The coupon at `c14bb2fff` printed this scheme beside the ceiling slot and a full-groove-width slot
 down alternate grooves, on a section of this same flank at this same pitch.
-**`flank-vent-mullions`** reads every mullion off the built piece.
 
 **Every groove, and the stations are the field's own.** `vent_grooves` walks `flute_centres` and
 asks `plan_at` where each one landed, so a slot is struck at a groove centre by construction and
@@ -538,8 +530,7 @@ climbs, and the ceiling closes at exactly the angle the box supports nothing ste
 
 Both read off the built piece at the flank's mid-section, over the fan's own band. A pierced field
 is [60.4 %](VENT_OPEN_PCT) open where every slot runs; the readings above are what the band came
-out at with the transoms, the hips and the intake's rail in it. **`flank-vent-towers`** is the
-reading the bed cares about: the tallest opening on either flank is [24.5 mm](VENT_TOWER) on a
+out at with the transoms, the hips and the intake's rail in it. The tallest opening on either flank is [24.5 mm](VENT_TOWER) on a
 [2.0285 mm](VENT_MEAS_MULLION) mullion, which is [12.1:1](VENT_ASPECT).
 
 **Two things this does not answer.** There is **no thermal spec anywhere in this repo** — no CFM,
@@ -764,7 +755,7 @@ silhouette: the receptacle's two heat-sets go into the tunnel's fore face, from 
 and the back of the machine is flat.
 
 The inlet stands on the column where its exact moulded rim clears the complete +X ceiling-strip
-corbel — `c14-ceiling-corbel-clear` reads about a millimetre of air between the two — so that
+corbel — about a millimetre of air stands between the two — so that
 wall-rooted 45° wedge continues over the inlet without a relief band or a short support stack.
 The aperture, tunnel, collar and both screw stations all follow that one X datum; its Z remains
 aligned with the other top-row ports.
@@ -939,15 +930,6 @@ back-top's 9 mm flank occupies the room their zip-tie cavities use, so those two
 reliefs return only the ribs' footprints to `interior_x` while the nominal flank stays whole
 around them.
 
-**And the channel is read back** (`enclosure_assembly.check_tie_channels`,
-`tie-channels` on the card). A remainder cannot fail loudly: a wall standing in
-one arrives as a rib with a bore and nothing else wrong — the seat still closes on
-its body at the slip, the piece is still one watertight solid, the pack still
-stands clear. Nothing else on that card measures a hole. So this reading asks for
-the zip tie and not the channel: `tie_t` off the bore's own crown, the
-cavity's width along the body, the rib's full reach across it, struck off the
-station with no root face in it, and it has to come back air.
-
 **The regulator's rib** is the one bored for a fitting. The WR1110 lies fore and aft
 on the panel deck one column east of the carb union, and the section under the rib is
 the **⌀19 barrel between its two wrench hexes** — the two hexes stand on made-up NPT
@@ -1023,8 +1005,7 @@ cradle. The clamp carries no show face, plate stop or hand pull.
 The service sequence follows those two load paths. Withdraw the assembled cartridge by its
 cradle pulls before any Z service; back out the two clamp screws on the withdrawn cartridge;
 lift off the clamp; then lift either complete pump straight up. Assembly is the reverse on the
-bench, followed by straight Y insertion. `pump-clamped-in-cradle` reads
-printed bearing below and above all three closed bracket sides.
+bench, followed by straight Y insertion.
 
 **Each of the four tube-casing openings is [13 mm](CAP_TUBE_OPEN) wide** around a
 [12.75 mm](CAP_TUBE_PART) casing, leaving 0.125 mm per side. The two casing axes on each pump
@@ -1049,19 +1030,14 @@ tubes pass back through the four plate holes. Push it home and the tubes enter t
 and bottom in them. One hand pulls the cradle and the other braces the box; fixed wedge cheeks
 carry the plate's reaction into the side walls.
 
-**THE TEE TRAVELS AND THE VALVE DOES NOT.** `release-travel` offers each anchor tee the
-whole stroke and reports what it hits — a motion, where every other bound on that card
-reads where a body stands — and all four clear it. The stroke is the rest gap and nothing
+**THE TEE TRAVELS AND THE VALVE DOES NOT.** The stroke is the rest gap and nothing
 more: the nose presses the moment it reaches the steel, the grip opens on contact, the tee
 stops there, and the tube draws out of it. What gives over that millimetre and a half is
 the tube stub itself, flexing inside the two collets that hold it — the valve standing on
 the far end of that stub never moves, and no valve is read here. **That the stub bends is
-stated and not derived** — no body in this model has any compliance in it, so no bound reaches
-that premise;
-`check_release_travel`'s docstring is where it is marked and why.
+stated and not derived** — no body in this model has any compliance in it.
 
-**The cradle ends at the skirt band's aft edge.** `pump-cartridge-aft-depth` reads the complete
-solid against y [70.565 mm](PUMP_CARTRIDGE_AFT_Y), so a plate-retention return or side skin
+**The cradle ends at the skirt band's aft edge**, y [70.565 mm](PUMP_CARTRIDGE_AFT_Y): a plate-retention return or side skin
 cannot survive behind that plane.
 
 **Both pulls belong to the cradle and surround the tube-centre plane.** Each side pocket is
@@ -1108,8 +1084,6 @@ is the only thing over it: the pump cartridge's filled bearing block reaches dow
 its own pump reliefs floor on, one millimetre under the heads, and the floor's top is that plane
 (`bay_floor_z`). The interior top is a flat bearing sill. The removable exterior face begins on
 the same plane, while the fixed shell perimeter is recessed 0.5 mm below it for the running gap.
-`bay-floor-bedded` reads the floor's whole plan solid on the bed, less the two lanes that
-pass through it: the rails' own channels and the collet plate's slot.
 
 **One pocket per collar passes the Z seam**, and nothing else does.
 Front-bottom's side lip is given up over this whole run (`_flank_lip_drop`) — round both
@@ -1129,8 +1103,7 @@ keep the steel's 0.2 mm air from the bed face to the seat. **Across, the slot is
 0.2 mm air at each end, stopping at x = ±100.2. A 4.3 mm printed return remains between either
 slot end and the cavity-side wall, followed by the enclosure's 3 mm outer wall. The floor holds
 the plate fore and aft and holds it back not at all; the steel goes clean through and comes up
-until its own **top edge** lands a storey higher. `bay-floor-bedded` reads the floor whole on
-the bed and that land whole over the edge.
+until its own **top edge** lands a storey higher.
 
 **The wall over the steel is what stops it** (`_plate_cap`). The lane above the seated top
 edge is filled from that edge to the bay's ceiling at [281 mm](PLATE_CAP_TOP).
@@ -1160,8 +1133,7 @@ each tail its head carries the cap's own land out to the side wall, spanning
 give the pump cartridge is not their purpose.
 
 **The steel is a rectangle.** The band's bottom is the **seam plane** — it fills the slot to
-its mouth — and its top is whatever puts the four collet holes **centred** in the band
-(`plate-holes-centred`). Each end stands [4.5 mm](PLATE_STEP_IN) off its cavity-side wall at
+its mouth — and its top is whatever puts the four collet holes **centred** in the band. Each end stands [4.5 mm](PLATE_STEP_IN) off its cavity-side wall at
 **every** height, putting the steel at x = ±100.0 and leaving 10 mm of each unperforated tail
 on its fixed Y− cheek. **What locates the steel across is the bay floor's constant-width
 slot**, one `plate_slot_slip` off each end from the mouth to the cap. The plate has four
@@ -1188,9 +1160,7 @@ floor, on the rail channels' own deep lane (`_z_rail_channels`).
 The **bay** is the opening all that leaves through (`_bay_cut`): exterior side face to exterior
 side face, from the floor's own top up past the motor cans' crowns (`pump_bay`, struck off the
 placed cans), and aft to the steel. The flat sill runs wall to wall; the lintel over the opening
-carries the facet and the display on a stated ligament (`bay-under-display`).
-`heads-sweep-out` reads each head's path to the front against the piece it passes
-through.
+carries the facet and the display on a stated ligament.
 The removable shell follows the enclosure's rounded plan with its front plane
 [7.35 mm](PUMP_PROUD) proud while the pumps remain [6.15 mm](PUMP_STATION_PROUD) proud and the
 filled block behind it reaches both cavity planes.
@@ -1255,11 +1225,6 @@ field begins on one broad Z− bed face. Its only internal down-facing transitio
 functional boss-to-can shoulders, 19 mm above that face and open through the fitted bores for
 support removal. Both screw heads remain accessible from the top.
 
-`clamp-locates-pumps` reads the octagonal collar against each drawn boss;
-`cradle-pulls-on-tube-axis` reads open hand pockets and whole pulling ledges; and
-`pump-cartridge-lower-cradle` verifies that both exported pieces are single solids and the
-cradle carries the foremost show face.
-
 ## Display housing
 
 A flat 45° facet chamfers the **whole top-front arris**, wall to wall, and carries
@@ -1315,7 +1280,7 @@ the plane the display's body already lies against — the rib presents the part 
 its hole presents, and no new fit. Where the two meet is read, not chosen. The jog is also
 what keeps the rib clear: run straight up it would stand in the funnel's throat, and slanted
 straight from crown to line it would run into the display's body where that stands proud
-of the soffit. `ridge-carried` reads the drop from the line to the material beneath it.
+of the soffit.
 
 **Running it to the flanks closes the storey, and one thing crosses.** The rib lands in the
 side walls rather than ending in free air over the tee wall's crown, which leaves it the only
@@ -1451,9 +1416,7 @@ strip and the thing it runs out on meeting along a line.
 The current tongue is [6 mm](CEILING_TONGUE_T) square and its dado is
 [6.15 mm](CEILING_DADO_DEPTH) deep. The ground-stack gable begins on the fixed
 side of that deeper blind wall; allowing the old roof to extend into the moving
-lane would merely let the dado cutter erase its inboard edge. Both complete
-body-free rail bands are read after the cut by `ceiling-rail-capture`, including
-the lower and upper ligaments and X/Z capture in the finished solids.
+lane would merely let the dado cutter erase its inboard edge.
 
 **The ramp is the field's, and the last `depth` is a run-out.** Beside the field the
 dado's roof rises to the show face at the mouth, and both the rise and the millimetre
@@ -1487,12 +1450,6 @@ The moving panel carries no socket and no bore. One millimetre of empty bore bey
 the insert keeps the cup point off the blind PET-GF end. In service the tongue bears
 on the steel pin and the pin bears in the fixed strip around its own short tunnel;
 neither appliance show face is opened.
-`ceiling-panel-section` reads the 11 mm envelope, complete show skin, all nine
-body roofs and all three tie-approach pockets. `back-top-ceiling-growth` reads
-both clean fixed shells and the three exact growth-only body yields.
-`ceiling-dado-mouth-keepers` proves both pins clear at home and catch their
-own tongue over 5.60 mm in X and 2.00 mm in Z after the dado's 0.15 mm fore air
-is spent, without moving their established world coordinates.
 
 **Everything rooted on the ceiling over that field hangs off the panel**: the
 flow meter's two anchors and the three ribs bored for `carb-1`,

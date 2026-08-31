@@ -65,10 +65,7 @@ and the WR1110 barrel's run. Their existing footprints are returned as
 [3](TIE_RELIEF_N) local pockets before the anchor furniture is fused, so every
 loop can still descend on both sides of its body. The two new meter approaches
 open through the structural underside rather than ending as trapped internal
-cavities; the finished panel is one solid with one outer shell. `tie-channels` reads all ten
-finished tie paths against all enclosure pieces and requires 0% filled; the
-panel-section gate separately requires all three approach pockets to leave real
-air in the grown field.
+cavities; the finished panel is one solid with one outer shell.
 
 The fixed C14 surround reaches into the aft end of the field. It belongs wholly
 to back-top; this panel carries a constant-section running pocket open through
@@ -105,10 +102,7 @@ a dado.
 
 The rail is locally pocketed only where a placed body already occupies its lower
 section: the long ASSE crown on −X and the relay on +X. The opposite spans remain
-the full 6 × 6 mm section, and each side keeps a complete body-free capture band.
-`ceiling-rail-capture` reads those two bands from the finished solids: zero home
-clash, fixed contact after one clearance-plus-0.25 mm displacement outboard,
-upward or downward, and the complete 3.00/2.85 mm blind-end ligaments. A pocket
+the full 6 × 6 mm section, and each side keeps a complete body-free capture band. A pocket
 therefore cannot turn either whole dado into an uncaptured channel.
 
 ## The brim, and the two keepers
@@ -145,9 +139,7 @@ with at least three 0.24 mm production layers of fixed PET-GF required over the 
 
 The panel carries no insert, socket, counterbore or local pad. When it tries to
 move fore, each tongue bears on a steel cross-pin and each pin bears directly in
-the fixed strip. `ceiling-dado-mouth-keepers` checks both sides independently:
-clear at home, caught after the stated fore air, empty socket, complete insert
-lower land, printable roof and the exact established world coordinates.
+the fixed strip.
 
 ## What hangs off it
 

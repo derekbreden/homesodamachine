@@ -57,9 +57,7 @@ open on the other five, over the can's own metal and clear of the machine's dept
 [`fuse-clamp`](/hardware/printed-parts/refrigeration/fuse-clamp/), seated on the same
 station with the same turn: the case lies in a channel whose crown lands on
 the outboard generatrix, so it is pinched between the cover and the clamp with its
-whole diameter between the two. `enclosure_assembly.check_cutoff_bedded` measures
-both ends of that stack off the placed solids and is the `cutoff-bedded` row on the
-enclosure scorecard. The channel is open at both ends and the fuse threads out along
+whole diameter between the two. The channel is open at both ends and the fuse threads out along
 it, which is what replacing a one-shot part is.
 
 ## Regenerate

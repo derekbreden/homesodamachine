@@ -11,8 +11,7 @@ spout where a straight union hangs its whole length, which keeps the joint out o
 the folded deck's own storey. `elbow_connector.py` beside this file states the
 figures the machine spaces it by and holds them to the STEP;
 [`manifold-layout/enclosure_assembly.py`](/hardware/manifold-layout/enclosure_assembly.py)
-`build_drain_joint` places it, and `drain-over-deck` on the machine's scorecard
-is what reads its foot against the pack beneath it.
+`build_drain_joint` places it.
 
 `elbow-connector.step` is **McMaster 51055K136**, a 1/4" push-to-connect
 drinking-water elbow — simply a STEP that happened to be available, used as a

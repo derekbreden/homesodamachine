@@ -146,8 +146,7 @@ def _split_placed(a) -> tuple:
 # of its stations are one point read twice and the copper between them is the length of the union;
 # a leg made in COPPER is a run `_lines` draws, and what it owes is the gap between the tube's two
 # ends and the mouths they are brazed into. `enclosure_assembly.refrigerant_joints` takes whichever
-# reading the machine earned over all three at every build, `check_refrigerant_joints` reads red
-# for any leg standing open and for any with no pair of placed stations to measure, and
+# reading the machine earned over all three at every build, and
 # `load_connections` counts as MATED only the matings that shut — a drawn leg it counts off the
 # run, like every other line.
 REFRIGERANT_SEGMENTS = (
@@ -356,8 +355,7 @@ MOUNTS = (
     # EVERY FITTING ON THE +Y WALL OF BACK-TOP IS CLAMPED THROUGH IT. The flange lands on the ring in its
     # pad, the barrel passes a bore struck one `PORT_HOLE_SLIP` over it, and the fitting's own nut
     # draws up on the inside — so the printed material is the clamped member and the joint is a
-    # thread made up on it. `enclosure_assembly.check_wall_clamped` reads both faces of that off
-    # the placed solids, and `port-clamp-stack` holds the barrel against what the stack spends.
+    # thread made up on it.
     ("bulkhead-water", "enclosure-back-top", "wall-capture"),
     ("c14-inlet", "enclosure-back-top", "bosses"),
     ("keystone-jack", "enclosure-back-top", "snap-capture"),
@@ -380,7 +378,7 @@ MOUNTS = (
     # every side its outline has and shut in by a flange whose bore is narrower than it is. What
     # holds it is that pocket: the same bargain the lever nuts strike in their wells, with a placed
     # body's flange over the mouth. The three on the top row are fenced on three sides and open at
-    # the ceiling, which `enclosure_assembly.check_top_row` is what reads.
+    # the ceiling.
     ("bulkhead-ring-water", "enclosure-back-top", "well"),
     ("bulkhead-ring-carb", "enclosure-back-top", "well"),
     ("bulkhead-ring-co2", "enclosure-back-top", "well"),
@@ -670,8 +668,7 @@ MADE_UP = (
 
 # Ports that open to ATMOSPHERE rather than onto a line. Nothing is ever bent onto one, so a bend
 # radius is the wrong thing to ask of it — what the vent owes is that its drip falls on the pan's
-# flat floor, and `enclosure_assembly.check_vent_lands` measures where it falls and reports it as
-# the `vent-lands` gate row.
+# flat floor.
 TERMINI = ("asse1022-assembly.vent-tip",)
 
 
@@ -687,7 +684,6 @@ TOUCHING_OK = {frozenset(p) for p in (
     # THE THREE VALVES IN THE CAP'S OWN CRADLES. A press fit is a contact by construction: the
     # bosses' sockets take the valve's four corner posts on `valve_seat.socket_clearance` and
     # its round boss lands on the boss tops, so the pair reads 0 and it is the joint working.
-    # `enclosure_assembly.check_cradles` is what holds each of them over its own cradle.
     ("foam-assembly", "vk-solenoid"),
     ("foam-assembly", "valve-v-a"),
     ("foam-assembly", "valve-v-b"),
@@ -703,12 +699,10 @@ TOUCHING_OK = {frozenset(p) for p in (
     # `display_gasket.thickness` IS this distance, taken off the same two depths.
     ("display-cover", "display"),
     # AND THE EIGHT IN THE TWO VALVE TRAYS' — the same seat and the same press, on a plate the
-    # front-top piece carries instead of a lid. `enclosure_assembly.check_valve_trays_hold` is what
-    # reads each valve against that plate.
+    # front-top piece carries instead of a lid.
     *(("enclosure-front-top", f"valve-v-{v}") for v in "cdefghij"),
     # BOTH MADE-UP CHAINS IN THE RIBS THAT LID STANDS. A bore closed on a section reads its own
-    # slip, and that reading IS the seat holding: `enclosure_assembly.check_chains_seated` takes
-    # it, and `anchor-lands` holds each rib over the section it is bored for.
+    # slip, and that reading IS the seat holding.
     ("foam-assembly", "discharge-chain"),
     ("foam-assembly", "suction-chain"),
     # THE PROBE PLATE LIES ON THE PAN'S FLOOR, which is the whole of what it does: a plate
@@ -726,8 +720,6 @@ TOUCHING_OK = {frozenset(p) for p in (
     # AND THE CLAMP CLOSES THAT CONTACT. Its channel's crown lands on the case's outboard
     # generatrix and its head lies flat on the cover, so it reads 0 against both — the pinch is
     # cover, case, crown, with the case's whole diameter between the two.
-    # `enclosure_assembly.check_cutoff_bedded` measures both ends of that stack and is the only
-    # row on this card that can see a clamp standing proud of the thing it holds.
     ("compressor", "fuse-clamp"),
     ("thermal-fuse", "fuse-clamp"),
     # A RING IN ITS PAD, UNDER THE FLANGE THAT SHUTS IT IN. Every flange is narrower than the
@@ -1252,7 +1244,7 @@ def part_clearances(a, runs=()) -> list[tuple]:
     `pack-closes`'s reading, and there is no clearance to hold. It IS in the run pass: a run
     passing a wall owes it the same millimetre it owes anything else, and the one contact
     between the two that is by intent is an ANCHOR, which is declared as such
-    (`anchored_pairs`) and read back by `check_tube_seated`.
+    (`anchored_pairs`).
 
     NEITHER IS A PAIR INSIDE THE FLAVOUR MANIFOLD. `manifold_layout` arranges that pack on its
     own hairpins and reports its own inner gap; this module seats it as one thing, so what is
@@ -1319,9 +1311,8 @@ def anchored_pairs() -> set:
     """Every run one of the box's own ribs seats, as the pair `run_clearances` reads.
 
     A rib closes on its tube at `enclosure_assembly.TUBE_ANCHOR_SLIP`, under the floor by
-    construction, and `check_tube_seated` is what holds that contact to the figure the seat is
-    drawn at. A rib bored for a BODY never matches here: this set is read in the run pass, where
-    the names are runs, and `enclosure_assembly.check_body_seated` is what holds those."""
+    construction. A rib bored for a BODY never matches here: this set is read in the run pass,
+    where the names are runs."""
     import enclosure_assembly as _ea
     pairs = {frozenset((rid, piece)) for rid, _leg, _root, piece in _ea.TUBE_ANCHOR_SITES}
     # And the cold core's own ribs. A row there may be bored for a RUN rather than a body, and
