@@ -1015,7 +1015,10 @@ stand [59.75 mm](CAP_TUBE_PITCH) apart. The physical pair spans
 [0.15 mm](CAP_TUBE_AXIAL_AIR) before the casing face along Y. Its circular lower half is
 centered on the casing axis and a straight 13 mm shaft continues through the complete vertical
 insertion path. The shafts, tube-side case room and upper well share the same outer X planes;
-printed wall remains between and outside the passages.
+printed wall remains between and outside the passages. The full-width upper wells end together
+at y [72.535 mm](PUMP_UPPER_WELL_AFT). Past that plane only the four individual shafts continue:
+the closed middle span on each pump and the centre span between the pumps all carry the same
+cap-following reinforcement to the cartridge's aft edge.
 
 The pumps and their barb planes stand [1.28 mm](PUMP_STATION_PROUD) forward. The show face
 stands one flute depth farther out at [2.48 mm](PUMP_PROUD), without moving the pump wells or

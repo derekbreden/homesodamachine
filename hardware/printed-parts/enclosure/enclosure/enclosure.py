@@ -4506,6 +4506,15 @@ def _pump_upper_well_fore_y(pump_trays):
     return min(pump_fore, backing_fore)
 
 
+def _pump_upper_well_aft_y(plate):
+    """The common Y+ wall of the two full-width upper insertion wells.
+
+    It stands one drop clearance behind the clamp's aft face. Past this plane only the four
+    fitted tube-casing shafts continue; the closed middle of each pump and the centre span
+    between pumps therefore keep the same cap-following reinforcement."""
+    return plate_guide_fore_y(plate) - cap_kiss + clamp_drop_air
+
+
 def _pump_cartridge_front_flute_rail(outer):
     """The proud face and its two front corner returns, on the enclosure's flute datum.
 
@@ -5265,11 +5274,12 @@ def _pump_drop_voids(box):
     tube-side case room and the upper well share one 72.75 mm opening boundary. The wall between
     and outside them remains printed stock.
 
-    ABOVE THE BRACKET the well continues each pump's 72.75 mm opening span around the
-    72.50 mm physical tube-casing span. That one opening passes the stamped bracket,
-    the fittings, the pump and then the complete clamp. One full-Y centre clearance joins those
-    openings and follows every part of the clamp's filled centre field through the cradle. At
-    the seat the upper wells stop exactly on the bracket plane, leaving the case's own room
+    ABOVE THE BRACKET each 72.75 mm well passes the stamped bracket, pump and complete clamp.
+    It stops one drop clearance behind the clamp. From there the four individual 13 mm shafts
+    alone continue through the aft band, so the closed middle of each pump carries the same
+    cap-following reinforcement as the centre span between pumps. One full-Y centre clearance
+    joins the two wells through the clamp's filled centre field and stops on that same plane.
+    At the seat the upper wells stop exactly on the bracket plane, leaving the case's own room
     below and therefore a land under the bracket on its three closed sides."""
     trays, plate = box.pack.pump_trays, box.pack.collet_plate
     drop_start = cap_drop_start_z(trays)
@@ -5300,14 +5310,13 @@ def _pump_drop_voids(box):
         upper_x0, upper_x1 = _pump_upper_x_span(cx)
         upper = _ybox(upper_x0, upper_x1,
                       _pump_upper_well_fore_y(trays),
-                      cy + _tray.far_reach() + clamp_drop_air,
+                      _pump_upper_well_aft_y(plate),
                       drop_start, top)
         out.append(lower.fuse(fittings).fuse(upper))
 
     edge = _clamp_bridge_edge(trays)
-    aft = plate_guide_fore_y(plate) - cap_kiss
     out.append(_ybox(-(edge + clamp_drop_air), edge + clamp_drop_air,
-                     fore - clamp_drop_air, aft + clamp_drop_air,
+                     fore - clamp_drop_air, _pump_upper_well_aft_y(plate),
                      drop_start, top))
     return out
 
@@ -5441,6 +5450,7 @@ def pump_cartridge_figures(box):
         "PUMP_FACE_BACKING": f"{pump_face_backing:.4g} mm",
         "PUMP_UPPER_SMOOTH_SKIN": f"{_pump_front_smooth_skin(trays):.4g} mm",
         "PUMP_UPPER_FLUTED_SKIN": f"{(_pump_front_smooth_skin(trays) - flute_depth):.4g} mm",
+        "PUMP_UPPER_WELL_AFT": f"{_pump_upper_well_aft_y(plate):.6g} mm",
         "CRADLE_EDGE": f"{edge:.4g} mm",
         "CRADLE_WIDE": f"{2.0 * edge:.4g} mm",
         "PLATE_SLOT_LEAD": f"{plate_slot_lead:.4g} mm",
