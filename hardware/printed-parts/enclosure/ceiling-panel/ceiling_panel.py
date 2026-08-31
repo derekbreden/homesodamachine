@@ -256,14 +256,6 @@ def rail_stock(y0=fore_y, y1=aft_y):
     return rails
 
 
-def insertion_sweep():
-    """The structural field and both rails swept continuously through back-top's Y seam."""
-    first_y = fore_y - (aft_y - _enc.y_seam)
-    sweep = _slab(-panel_half_w, panel_half_w, first_y, aft_y,
-                  structural_under_z, underside_z)
-    return sweep.fuse(rail_stock(first_y, aft_y))
-
-
 def _rounded_slab(x0, x1, y0, y1, z0, z1, radius=relief_corner_r):
     solid = _slab(x0, x1, y0, y1, z0, z1)
     radius = min(radius, (x1 - x0) / 3.0, (y1 - y0) / 3.0)

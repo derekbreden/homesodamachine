@@ -74,9 +74,7 @@ The fixed C14 surround reaches into the aft end of the field. It belongs wholly
 to back-top; this panel carries a constant-section running pocket open through
 its aft edge, so the fixed crown enters that pocket as the panel reaches home.
 The RJ11 receptacle stands lower between SODA and FLAVOR-A and does not reach
-this panel. `ceiling-panel-slides-in` checks the complete field-and-rail sweep
-from the open Y seam to the installed stop rather than checking only the final
-pose.
+this panel.
 
 ## The rails
 

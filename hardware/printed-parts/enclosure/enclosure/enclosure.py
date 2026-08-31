@@ -1552,7 +1552,6 @@ bay_crown_air = 1.7          # bay top over the tallest motor can's crown
 pump_cartridge_z_clearance = 0.5  # Z air above the fixed sill and below the fixed lintel; this
                                   # is not an X/Y inset or a cosmetic surface offset
 pump_bay_side_air = 0.5      # pump-body air inside each cavity throat plane
-sweep_step_max = 0.25        # largest interval in pump, clamp and withdrawal motion proofs
 # THE LOWER CRADLE HAS ONE RECTANGULAR Z OUTLINE. The exterior shell reaches the appliance's
 # complete plan silhouette and its filled body reaches both cavity planes without a side taper.
 # The monolithic clamp remains inside the cradle's two vertical wells throughout insertion and
