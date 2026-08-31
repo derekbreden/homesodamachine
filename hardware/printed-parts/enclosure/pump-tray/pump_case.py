@@ -44,6 +44,9 @@ skirt_wall = wall_thickness
 skirt_wide_flare_per_side = 3.0
 skirt_narrow_taper_per_side = 4.0
 skirt_wide_straight_height = 4.5
+# The pump's skirt overhangs the narrower body by this much on the two X flanks. The cartridge
+# joins them across Y- on the measured 5 mm land and supports all three on one horizontal plane.
+skirt_support_band = skirt_narrow_taper_per_side
 
 # Pump bore
 bore_square_side = 43.0
@@ -638,13 +641,27 @@ def _profile_prism(profile, z0, z1):
             .extrude(z1 - z0))
 
 
-def stepped_skirt_cavity(air, support_z):
-    """The head room with the narrow-side skirt transition made as one flat step.
+def _stepped_skirt_y_mask(z0, z1, body_y_bounds):
+    """The one rectangular Y interval occupied by the body below the skirt."""
+    y_min, y_max = body_y_bounds
+    if not y_min < y_max:
+        raise ValueError(f"bad skirt-body Y interval {body_y_bounds}")
+    x0 = center_x - cutter_half_extent
+    return (cq.Workplane("XY")
+            .box(2.0 * cutter_half_extent,
+                 y_max - y_min,
+                 z1 - z0, centered=False)
+            .translate((x0, center_y + y_min, z0)))
+
+
+def stepped_skirt_cavity(air, support_z, body_y_bounds, skirt_y_max):
+    """The head room with the skirt transition made as one flat three-sided step.
 
     Above ``support_z`` the room keeps the skirt's symmetric upper outline. Below it the room
-    immediately takes the completed split outline and retains that outline to the lower
-    extension. Their difference is the exact plan of the former 45-degree narrow-side flank,
-    now a horizontal land on ``support_z``.
+    immediately takes the narrower body outline and retains that outline to the lower extension.
+    Their difference is one continuous land on the X-, X+ and Y- flanks at ``support_z``:
+    4 mm on X and 5 mm on Y-. Closing the measured ``body_y_bounds`` adds the 3.482 mm Y+ land;
+    the cartridge's separate tube passages later leave only its centre bridge.
     """
     if not skirt_bottom_z < support_z < 0.0:
         raise ValueError(
@@ -656,12 +673,16 @@ def stepped_skirt_cavity(air, support_z):
     room = cavity(air).val()
     lower_mask = _profile_prism(
         lower, lower_cap_top_z - overcut, support_z).val()
-    lower_room = room.intersect(lower_mask)
-    upper_room = _profile_prism(upper, support_z, 0.0).val()
+    y_mask = _stepped_skirt_y_mask(
+        lower_cap_top_z - overcut, support_z, body_y_bounds).val()
+    lower_room = room.intersect(lower_mask).intersect(y_mask)
+    upper_room = _profile_prism(upper, support_z, 0.0).val().intersect(
+        _stepped_skirt_y_mask(
+            support_z, 0.0, (-cutter_half_extent, skirt_y_max)).val())
     return cq.Workplane(obj=upper_room.fuse(lower_room))
 
 
-def stepped_skirt_drop_well(air, support_z):
+def stepped_skirt_drop_well(air, support_z, body_y_bounds, skirt_y_max):
     """``stepped_skirt_cavity`` swept toward the bracket plane for Z insertion."""
     offset = skirt_wall - air
     upper = _skirt_profile_set(offset)[1]
@@ -669,12 +690,16 @@ def stepped_skirt_drop_well(air, support_z):
     swept = drop_well(air).val()
     lower_mask = _profile_prism(
         lower, lower_cap_top_z - overcut, support_z).val()
-    lower_room = swept.intersect(lower_mask)
+    y_mask = _stepped_skirt_y_mask(
+        lower_cap_top_z - overcut, support_z, body_y_bounds).val()
+    lower_room = swept.intersect(lower_mask).intersect(y_mask)
     # The completed split outline is wider on +Y than the upper outline. Carry that side
     # upward as the physical lower skirt does during insertion; on -Y it is contained and the
     # flat support land remains intact.
     upper_room = _profile_prism(upper, support_z, 0.0).union(
-        _profile_prism(lower, support_z, 0.0)).val()
+        _profile_prism(lower, support_z, 0.0)).val().intersect(
+            _stepped_skirt_y_mask(
+                support_z, 0.0, (-cutter_half_extent, skirt_y_max)).val())
     return cq.Workplane(obj=upper_room.fuse(lower_room))
 
 

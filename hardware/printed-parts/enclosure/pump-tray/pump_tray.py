@@ -82,6 +82,20 @@ fitting_w = _kp.tube_casing_w
 shaft_w = _kp.shaft_w
 skirt_depth = _kp.skirt_depth
 skirt_support_air = _kp.skirt_support_air
+skirt_support_band = _pc.skirt_support_band
+skirt_body_y = _kp.skirt_body_y
+skirt_support_xy_air = _kp.skirt_support_xy_air
+skirt_body_open_y = skirt_body_y + 2.0 * skirt_support_xy_air
+skirt_body_open_y_bounds = (
+    _kp.skirt_body_y_min - skirt_support_xy_air,
+    _kp.skirt_body_y_max + skirt_support_xy_air,
+)
+skirt_y = _kp.skirt_y
+skirt_y_plus_air = _kp.skirt_y_plus_air
+skirt_open_y_max = _kp.skirt_y_max + skirt_y_plus_air
+skirt_upper_band = _kp.skirt_upper_band
+skirt_support_y_minus = _kp.skirt_support_y_minus
+skirt_support_y_plus = _kp.skirt_support_y_plus
 # The fitting axes' height in the pump frame. `pump_case.cut_arch_notches` splits its circular
 # outlets on this plane; the enclosure's fitted half-wrap keeps this centre and takes its radius
 # from the physical `fitting_w`; the straight shaft itself uses `shaft_w`.
@@ -138,15 +152,17 @@ def head_room(air: float):
     THE FITTED FACES COME WITH IT. The narrow-side skirt transition is one horizontal step
     8 mm below the bracket plane; `kamoer_kphm400.build_head` clips the pump to this same
     figure. The lower extension keeps its case-derived sections below that step."""
-    return _in_pump_frame(_pc.stepped_skirt_cavity(air, -skirt_depth))
+    return _in_pump_frame(_pc.stepped_skirt_cavity(
+        air, -skirt_depth, skirt_body_open_y_bounds, skirt_open_y_max))
 
 
 def _outlet_span_extensions(air: float):
     """The two X strips which carry the tube-side room to its 72.75 mm opening envelope.
 
-    The case-derived body room already reaches its wide-half edge.  The tube casings alone
-    continue from that edge to ``outlet_open_half``; keeping the middle closed preserves the
-    printed web between their two individual shafts.
+    The matching circle-and-shaft cutters begin at ``outlet_passage_start_y`` and overlap these
+    strips over their whole run. Together they make one tangent opening without the former
+    0.975 mm face on the tube-axis plane. Keeping the middle closed preserves the printed web
+    between the two passages.
     """
     offset = _pc.skirt_wall - air
     body_half = _pc.skirt_wide_half_extent - offset
@@ -156,8 +172,7 @@ def _outlet_span_extensions(air: float):
             f"{2.0 * body_half:g} mm case-derived outlet room")
     if outlet_open_half <= body_half + 1e-9:
         return None
-    seam_shift = offset * (2.0 ** 0.5 - 1.0)
-    y0 = _pc.skirt_transition_y_end_plus + seam_shift
+    y0 = outlet_passage_start_y(air)
     y1 = body_half
     z0, z1 = outlet_axis_z, 0.0
 
@@ -170,18 +185,28 @@ def _outlet_span_extensions(air: float):
         slab(body_half, outlet_open_half))
 
 
+def outlet_passage_start_y(air: float):
+    """The tube-side seam where each complete circle-and-shaft passage begins."""
+    offset = _pc.skirt_wall - air
+    seam_shift = offset * (2.0 ** 0.5 - 1.0)
+    return _pc.skirt_transition_y_end_plus + seam_shift
+
+
 def drop_well(air: float, support_top: float = None):
     """THE ROOM A PUMP IS LOWERED THROUGH, struck `air` off the case — `pump_case.drop_well`
     in this module's frame.
 
     The 8 mm skirt lands over one flat horizontal support plane, with ``skirt_support_air``
-    below it.  The narrower body continues through that land.  Above the tube axis the two
-    outer case-room edges continue straight to the same 72.75 mm boundary as the two 13 mm
-    shafts; no flare or fractional X step remains between them.
+    below it. A continuous ``skirt_support_band`` land holds its X-, X+ and Y- flanks. The
+    measured 54 mm body passes through a 54.3 mm Y opening, leaving 5 mm of land on Y- and
+    3.482 mm on Y+; there the two tube passages leave support only between their inside edges.
+    Those passages continue to the same 72.75 mm boundary as the upper well, with no flare or
+    fractional X step.
     """
     if support_top is None:
         support_top = -(skirt_depth + skirt_support_air)
-    room = _in_pump_frame(_pc.stepped_skirt_drop_well(air, support_top))
+    room = _in_pump_frame(_pc.stepped_skirt_drop_well(
+        air, support_top, skirt_body_open_y_bounds, skirt_open_y_max))
     extensions = _outlet_span_extensions(air)
     return room if extensions is None else room.union(extensions)
 
