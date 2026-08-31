@@ -74,13 +74,17 @@ outlet_relief_run = _kp.outlet_relief_run
 # The complete pump's widest X span, across the two tube fittings on its outlet face. This is
 # not the head body's width; it is what the cradle opening passes at that one face.
 outlet_half = _kp.outlet_span_x / 2.0
+outlet_open_half = _kp.outlet_open_span_x / 2.0
 # The two individual fittings within that complete span. The enclosure opens one straight
 # passage for each fitting and carries printed wall between them.
 outlet_pitch = _kp.barb_pitch
-fitting_w = _kp.fitting_w
+fitting_w = _kp.tube_casing_w
+shaft_w = _kp.shaft_w
+skirt_depth = _kp.skirt_depth
+skirt_support_air = _kp.skirt_support_air
 # The fitting axes' height in the pump frame. `pump_case.cut_arch_notches` splits its circular
 # outlets on this plane; the enclosure's fitted half-wrap keeps this centre and takes its radius
-# from `fitting_w` plus running air.
+# from the physical `fitting_w`; the straight shaft itself uses `shaft_w`.
 outlet_axis_z = _kp.arch_plane_z
 # The case's own footprint, half of it — what its base plate and the foot of its ramp reach.
 case_half = _pc.footprint_half_extent
@@ -128,23 +132,58 @@ def head_room(air: float):
     `pump_case.skirt_narrow_half_extent` on -Y, `skirt_base_half_extent` at the centre,
     `skirt_wide_half_extent` on +Y, which is the OUTLET side: 56 mm across at the narrow end,
     64 at the centre, 70 at the outlet face. The complete pump stands widest at that same
-    face, across its two tube fittings (`kamoer_kphm400.outlet_span_x`, 69.25).
+    face. The built-in tube casings stand outside that body room on their own 72.50 mm physical
+    span; the holder's 13 mm openings span 72.75 mm.
 
-    THE FITTED FACES COME WITH IT. `pump_case.flank_ramp_bands` are the two levels this solid
-    closes in over, and `kamoer_kphm400.build_head` clips the pump to this same solid — so the
-    45 degree faces the part carries are this figure's own, on both sides at both bands, and
-    what takes this room lands on them."""
-    return _in_pump_frame(_pc.cavity(air))
+    THE FITTED FACES COME WITH IT. The narrow-side skirt transition is one horizontal step
+    8 mm below the bracket plane; `kamoer_kphm400.build_head` clips the pump to this same
+    figure. The lower extension keeps its case-derived sections below that step."""
+    return _in_pump_frame(_pc.stepped_skirt_cavity(air, -skirt_depth))
 
 
-def drop_well(air: float):
+def _outlet_span_extensions(air: float):
+    """The two X strips which carry the tube-side room to its 72.75 mm opening envelope.
+
+    The case-derived body room already reaches its wide-half edge.  The tube casings alone
+    continue from that edge to ``outlet_open_half``; keeping the middle closed preserves the
+    printed web between their two individual shafts.
+    """
+    offset = _pc.skirt_wall - air
+    body_half = _pc.skirt_wide_half_extent - offset
+    if outlet_open_half < body_half - 1e-9:
+        raise ValueError(
+            f"the {2.0 * outlet_open_half:g} mm tube opening is narrower than the "
+            f"{2.0 * body_half:g} mm case-derived outlet room")
+    if outlet_open_half <= body_half + 1e-9:
+        return None
+    seam_shift = offset * (2.0 ** 0.5 - 1.0)
+    y0 = _pc.skirt_transition_y_end_plus + seam_shift
+    y1 = body_half
+    z0, z1 = outlet_axis_z, 0.0
+
+    def slab(x0, x1):
+        return (cq.Workplane("XY")
+                .box(x1 - x0, y1 - y0, z1 - z0, centered=False)
+                .translate((x0, y0, z0)))
+
+    return slab(-outlet_open_half, -body_half).union(
+        slab(body_half, outlet_open_half))
+
+
+def drop_well(air: float, support_top: float = None):
     """THE ROOM A PUMP IS LOWERED THROUGH, struck `air` off the case — `pump_case.drop_well`
     in this module's frame.
 
-    `head_room` carried along the pump's own axis toward the crown, so every station stands at
-    least as open as the widest one under it: 70 mm from the outlet band up through the crown,
-    and `head_room`'s own figure below that band, where nothing under is wider."""
-    return _in_pump_frame(_pc.drop_well(air))
+    The 8 mm skirt lands over one flat horizontal support plane, with ``skirt_support_air``
+    below it.  The narrower body continues through that land.  Above the tube axis the two
+    outer case-room edges continue straight to the same 72.75 mm boundary as the two 13 mm
+    shafts; no flare or fractional X step remains between them.
+    """
+    if support_top is None:
+        support_top = -(skirt_depth + skirt_support_air)
+    room = _in_pump_frame(_pc.stepped_skirt_drop_well(air, support_top))
+    extensions = _outlet_span_extensions(air)
+    return room if extensions is None else room.union(extensions)
 
 
 def boss_room(air: float):

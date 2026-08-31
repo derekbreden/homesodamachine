@@ -142,9 +142,9 @@
     "display \u2014 display-cover: 0.150 mm \u2014 seated against it",
     "carb-1 \u2014 enclosure-ceiling-panel: 0.199 mm \u2014 seated against it",
     "co2-2 \u2014 enclosure-ceiling-panel: 0.199 mm \u2014 seated against it",
-    "fluid-28 \u2014 enclosure-back-top: 0.199 mm \u2014 seated against it",
-    "fluid-18 \u2014 foam-assembly: 0.199 mm \u2014 seated against it",
     "water-3 \u2014 foam-assembly: 0.199 mm \u2014 seated against it",
+    "fluid-28 \u2014 enclosure-back-top: 0.199 mm \u2014 seated against it",
+    "fluid-18 \u2014 foam-assembly: 0.200 mm \u2014 seated against it",
     "discharge-chain \u2014 foam-assembly: 0.200 mm \u2014 seated against it",
     "suction-chain \u2014 foam-assembly: 0.200 mm \u2014 seated against it",
     "seaflo-pump \u2014 bulkhead-flavor-a: 1.004 mm",
@@ -172,8 +172,8 @@
     "fluid-1 \u2014 enclosure-front-top: 1.655 mm",
     "fluid-4 \u2014 coil-v-b: 1.695 mm",
     "wago-reeds-b \u2014 foam-assembly: 1.700 mm",
-    "fluid-18 \u2014 coil-v-a: 1.710 mm",
     "fluid-14 \u2014 valve-v-a: 1.710 mm",
+    "fluid-18 \u2014 coil-v-a: 1.711 mm",
     "water-3 \u2014 fluid-26: 1.751 mm",
     "funnel-drain-stub \u2014 funnel-drain-clamp: 1.999 mm"
    ],
@@ -495,7 +495,7 @@
    "kind": "gate",
    "status": "pass",
    "value": "holds",
-   "target": "LIMB_PITCH at or under 57 mm",
+   "target": "LIMB_PITCH at or under 59.75 mm",
    "detail": [],
    "active": true
   },
@@ -1163,8 +1163,8 @@
    "value": "2/2 pumps seated, furthest off 0.000 mm",
    "target": "every boss within 0.2 mm of its octagonal collar",
    "detail": [
-    "pump-a-head    axis (  48.570,   37.155) bracket z  216.745   off 0.0000",
-    "pump-b-head    axis ( -48.570,   37.155) bracket z  216.745   off 0.0000"
+    "pump-a-head    axis (  49.945,   37.155) bracket z  216.745   off 0.0000",
+    "pump-b-head    axis ( -49.945,   37.155) bracket z  216.745   off 0.0000"
    ],
    "active": true
   },
@@ -1180,11 +1180,11 @@
   },
   {
    "id": "cradle-follows-pump-case",
-   "label": "The cradle follows the old pump case's fitted room",
+   "label": "The cradle follows the fitted pump room",
    "kind": "gate",
    "status": "pass",
-   "value": "2/2 exact rooms/sweeps open, outlet width 70.800 mm; sweep adds 4021.6 mm\u00b3",
-   "target": "zero cradle bite and at least the 69.550 mm fitting opening",
+   "value": "2/2 exact rooms/sweeps open, outlet width 72.750 mm; sweep adds 5800.4 mm\u00b3",
+   "target": "zero cradle bite and at least the 72.750 mm fitting opening",
    "detail": [],
    "active": true
   },
@@ -1193,8 +1193,8 @@
    "label": "Each fitting passes the cradle's outlet opening",
    "kind": "gate",
    "status": "pass",
-   "value": "4/4 fittings clear, least 0.150 mm off the edge",
-   "target": "at least 0.15 mm round every fitting on its placed barb axis",
+   "value": "4/4 fittings clear, least 0.125 mm off the edge",
+   "target": "each 12.75 mm casing centered inside its 13 mm shaft",
    "detail": [],
    "active": true
   },
@@ -1253,14 +1253,14 @@
    "label": "The cartridge is one lower cradle with one monolithic top clamp",
    "kind": "gate",
    "status": "pass",
-   "value": "cradle 56.5% of printed volume, 114.1 mm high; clamp 61.8 mm",
+   "value": "cradle 55.6% of printed volume, 114.1 mm high; clamp 61.8 mm",
    "target": "one solid each, with the cradle carrying the foremost show face",
    "detail": [],
    "active": true
   },
   {
    "id": "pump-cartridge-full-front-wall",
-   "label": "The cradle owns the full-width front wall between its flat reveals",
+   "label": "The cradle owns the full-width front wall between its Z clearances",
    "kind": "gate",
    "status": "pass",
    "value": "x -107.500..107.500; missing 0.000 mm\u00b3; fixed front-top 0.000 mm\u00b3",
@@ -1385,7 +1385,7 @@
    "label": "The cradle's aft face lands on the collet plate",
    "kind": "gate",
    "status": "pass",
-   "value": "7222.0 mm\u00b2 on the steel, 0.000 mm\u00b3 inside the kiss",
+   "value": "7188.0 mm\u00b2 on the steel, 0.000 mm\u00b3 inside the kiss",
    "target": "the cradle's face on the plate's and `cap_kiss` 0.1 mm of air at it",
    "detail": [],
    "active": true
@@ -1651,7 +1651,7 @@
    "label": "The front column's lip ring is clear at the seam height",
    "kind": "gate",
    "status": "pass",
-   "value": "seam at 160.00, lane 150.65..239.86",
+   "value": "seam at 160.00, lane 150.65..166.75",
    "target": "a lane containing it",
    "detail": [],
    "active": true
