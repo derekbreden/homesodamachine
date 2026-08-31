@@ -440,8 +440,8 @@
    "active": true
   },
   {
-   "id": "kamoer-notches-on-barbs",
-   "label": "The case's arch notches stand on the part's own barbs",
+   "id": "kamoer-notches-on-tube-casings",
+   "label": "The case's arch notches stand on the part's own tube casings",
    "kind": "gate",
    "status": "pass",
    "value": "holds",
@@ -1183,7 +1183,7 @@
    "label": "The cradle follows the fitted pump room",
    "kind": "gate",
    "status": "pass",
-   "value": "2/2 exact rooms/sweeps open, outlet width 72.750 mm; sweep adds 5800.4 mm\u00b3",
+   "value": "2/2 exact rooms/sweeps open, outlet width 72.750 mm; sweep adds 5308.4 mm\u00b3",
    "target": "zero cradle bite and at least the 72.750 mm fitting opening",
    "detail": [],
    "active": true
@@ -1253,7 +1253,7 @@
    "label": "The cartridge is one lower cradle with one monolithic top clamp",
    "kind": "gate",
    "status": "pass",
-   "value": "cradle 55.6% of printed volume, 114.1 mm high; clamp 61.8 mm",
+   "value": "cradle 56.2% of printed volume, 114.1 mm high; clamp 61.8 mm",
    "target": "one solid each, with the cradle carrying the foremost show face",
    "detail": [],
    "active": true
@@ -1290,22 +1290,6 @@
     "Y-D   tee-y-d        CLEAR",
     "Y-F   tee-y-f        CLEAR",
     "Y-G   tee-y-g        CLEAR"
-   ],
-   "active": true
-  },
-  {
-   "id": "insertion-backing",
-   "label": "An anchor tee is backed against the push that seats its tube",
-   "kind": "gate",
-   "status": "pass",
-   "value": "4/4 tees stopped going aft; 3.000 x 3.000 mm side pads",
-   "target": "every anchor tee landing on printed material before it can travel aft, on two side pads at least 3 mm wide and deep",
-   "detail": [
-    "pads 3.000 mm wide x 3.000 mm deep, set back 0.270 mm; collar bite 0.1665 mm; release-side air 0.0500 mm",
-    "Y-C   tee-y-c        backed by front-top,       3.1 mm3 at 3.289 mm",
-    "Y-D   tee-y-d        backed by front-top,       3.1 mm3 at 3.289 mm",
-    "Y-F   tee-y-f        backed by front-top,       3.1 mm3 at 3.289 mm",
-    "Y-G   tee-y-g        backed by front-top,       3.1 mm3 at 3.289 mm"
    ],
    "active": true
   },
@@ -1375,18 +1359,18 @@
    "label": "The complete pump cradle and clamp pass through the bay mouth",
    "kind": "gate",
    "status": "pass",
-   "value": "2 pieces, 563 motion stations, most in the way 0.000 mm\u00b3",
+   "value": "2 pieces, 543 motion stations, most in the way 0.000 mm\u00b3",
    "target": "no front-top material at motion intervals no larger than 0.25 mm",
    "detail": [],
    "active": true
   },
   {
-   "id": "pump-cradle-stops-on-plate",
-   "label": "The cradle's aft face lands on the collet plate",
+   "id": "pump-cartridge-aft-depth",
+   "label": "The cradle ends at the skirt band's Y+ plane",
    "kind": "gate",
    "status": "pass",
-   "value": "7188.0 mm\u00b2 on the steel, 0.000 mm\u00b3 inside the kiss",
-   "target": "the cradle's face on the plate's and `cap_kiss` 0.1 mm of air at it",
+   "value": "aft face y 70.565 mm, error +0.000000 mm",
+   "target": "no pump-cartridge material beyond y 70.565 mm",
    "detail": [],
    "active": true
   },
