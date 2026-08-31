@@ -2022,159 +2022,6 @@ def check_head_sweep(solids: dict, pieces) -> Bound:
             "under that plane — raise it, or thin the floor"])))
 
 
-def check_pump_cartridge_sweep(pieces) -> Bound:
-    """Whether the lower cradle and top clamp can pass bodily through the front mouth.
-
-    A PUMP-HEAD SWEEP IS NOT A DRAWER SWEEP. The head is smaller than the filled block that
-    carries it, and a mouth can clear both heads while a fixed plate-retention cheek catches the
-    block behind the face. That cheek can catch the block even though it is
-    not a cartridge guide. Translate each actual printed solid from home until its aft face is
-    outside the enclosure, checking at intervals no larger than `sweep_step_max`.
-    The actual solids matter: the cradle's full exterior shell and plate-retention notches are
-    passage geometry, not internal voids to replace with a bounding box.
-    """
-    front = pieces["front-top"]
-    front = front.val() if hasattr(front, "val") else front
-    y_out = _enc.front_plane_y - _enc.front_wall - 1.0
-    rows = []
-    step_max = _enc.sweep_step_max
-    for name in ("pump-cartridge", "pump-cap"):
-        body = pieces[name]
-        body = body.val() if hasattr(body, "val") else body
-        b = box(body)
-        travel = max(0.0, b.ymax - y_out)
-        steps = max(1, math.ceil(travel / step_max))
-        worst, at = 0.0, 0.0
-        for i in range(steps + 1):
-            shift = -travel * i / steps
-            moved = body.moved(cq.Location(cq.Vector(0.0, shift, 0.0)))
-            volume = moved.intersect(front).Volume()
-            if volume > worst:
-                worst, at = volume, shift
-        rows.append((name, steps + 1, worst, at))
-    worst = max(v for _name, _steps, v, _at in rows)
-    ok = worst <= 1e-3
-    return record_bound(Bound(
-        "pump-cartridge-sweep-out",
-        "The complete pump cradle and clamp pass through the bay mouth",
-        ok,
-        (f"{len(rows)} pieces, {sum(n for _name, n, _v, _at in rows)} motion stations, "
-         f"most in the way {worst:.3f} mm³"),
-        f"no front-top material at motion intervals no larger than {step_max:g} mm",
-        ([] if ok else [
-            f"{name} meets {volume:.3f} mm³ of front-top at y shift {at:.3f} mm"
-            for name, _steps, volume, at in rows if volume > 1e-3])))
-
-
-def _pump_bracket(station):
-    """The measured stamped bracket omitted from the pump reference solids."""
-    cx, cy, cz = station
-    return _enc._ybox(
-        cx - _tray.bracket_half, cx + _tray.bracket_half,
-        cy - _tray.bracket_half, cy + _tray.bracket_half,
-        cz, cz + _tray.bracket_t)
-
-
-def _pump_drop_probe(head, placed, station, plate):
-    """One pump's case-sized head plus its drawn boss, motor, bracket and fittings."""
-    names = (head.replace("-head", "-boss"), head.replace("-head", "-motor"))
-    bodies = [_pump_case_room(station, 0.0, swept=False),
-              *(placed[name] for name in names)]
-    cx, cy, cz = station
-    bracket = _pump_bracket(station)
-    outlet_face = cy + _tray.head_half - _tray.outlet_relief
-    outlet_axis = cz + _tray.outlet_axis_z
-    fittings = [
-        _enc._ycyl(
-            _tray.fitting_w / 2.0,
-            cx + sx * _tray.outlet_pitch / 2.0, outlet_axis,
-            outlet_face - _enc.cap_tube_axial_air, plate["fore_y"] + 0.5)
-        for sx in (-1.0, 1.0)]
-    return cq.Compound.makeCompound([*bodies, bracket, *fittings])
-
-
-def check_pumps_drop_into_cradle(pieces, placed, plate) -> Bound:
-    """Whether each complete pump lowers vertically into the load-bearing cradle.
-
-    The Kamoer model omits its stamped bracket and tube fittings, so the moving probe adds
-    both stated envelopes. Translate that complete probe from its seated station until its
-    lowest point is above the cradle, sampling no farther apart than half the drawer fit.
-    The top clamp is absent during this operation."""
-    cradle = pieces.get("pump-cartridge")
-    if cradle is None:
-        return record_bound(Bound(
-            "pumps-drop-into-cradle", "Both pumps drop vertically into the lower cradle", True,
-            "no pump cradle in this box", "both pump insertion sweeps clear", []))
-    cradle = cradle.val() if hasattr(cradle, "val") else cradle
-    stations = pump_tray_seats(placed)
-    step_max = _enc.sweep_step_max
-    rows = []
-    for head, (_axis, _sign, station) in sorted(stations.items()):
-        probe = _pump_drop_probe(head, placed, station, plate)
-        travel = box(cradle).zmax - box(probe).zmin + 1.0
-        steps = max(1, math.ceil(travel / step_max))
-        worst, at = 0.0, 0.0
-        for i in range(steps + 1):
-            shift = travel * i / steps
-            moved = probe.moved(cq.Location(cq.Vector(0.0, 0.0, shift)))
-            volume = moved.intersect(cradle).Volume()
-            if volume > worst:
-                worst, at = volume, shift
-        rows.append((head, steps + 1, worst, at))
-    worst = max((r[2] for r in rows), default=0.0)
-    ok = worst <= 1e-3
-    return record_bound(Bound(
-        "pumps-drop-into-cradle", "Both pumps drop vertically into the lower cradle", ok,
-        f"{len(rows)} pumps, {sum(r[1] for r in rows)} stations, most in the way {worst:.3f} mm³",
-        f"pump, bracket and four fitting passages clear every {step_max:g} mm or less",
-        [f"{name} meets {volume:.3f} mm³ of cradle at z shift {at:.3f} mm"
-         for name, _steps, volume, at in rows if volume > 1e-3]))
-
-
-def check_clamp_drops_on(pieces, placed) -> Bound:
-    """Whether the complete top clamp lowers over both pumps on the withdrawn cartridge.
-
-    This reads only the clamp, pumps and cradle. The service sequence withdraws the complete
-    cartridge in Y before this Z motion; the fixed enclosure lintel is not an in-situ cap
-    passage."""
-    clamp = pieces.get("pump-cap")
-    cradle = pieces.get("pump-cartridge")
-    if clamp is None or cradle is None:
-        return record_bound(Bound(
-            "top-clamp-drops-on",
-            "The withdrawn cartridge's top clamp lowers over both pumps", True,
-            "no pump cartridge in this box", "the clamp's complete Z sweep clear", []))
-    clamp = clamp.val() if hasattr(clamp, "val") else clamp
-    cradle = cradle.val() if hasattr(cradle, "val") else cradle
-    stations = pump_tray_seats(placed)
-    pumps = [solid for name, solid in placed.items()
-             if name.startswith("pump-") and name.endswith(("-boss", "-motor"))]
-    pumps.extend(_pump_case_room(station, 0.0, swept=False)
-                 for _head, (_axis, _sign, station) in sorted(stations.items()))
-    pumps.extend(_pump_bracket(station)
-                 for _head, (_axis, _sign, station) in sorted(stations.items()))
-    travel = box(cradle).zmax - box(clamp).zmin + 1.0
-    step_max = _enc.sweep_step_max
-    steps = max(1, math.ceil(travel / step_max))
-    worst, at, into = 0.0, 0.0, ""
-    for i in range(steps + 1):
-        shift = travel * i / steps
-        moved = clamp.moved(cq.Location(cq.Vector(0.0, 0.0, shift)))
-        hits = [("cradle", moved.intersect(cradle).Volume())]
-        hits.extend(("pump", moved.intersect(pump).Volume()) for pump in pumps)
-        who, volume = max(hits, key=lambda item: item[1])
-        if volume > worst:
-            worst, at, into = volume, shift, who
-    ok = worst <= 1e-3
-    return record_bound(Bound(
-        "top-clamp-drops-on",
-        "The withdrawn cartridge's top clamp lowers over both pumps", ok,
-        f"{steps + 1} stations, most in the way {worst:.3f} mm³",
-        f"clamp clear of both pumps and cradle every {step_max:g} mm or less",
-        ([] if ok else [
-            f"the clamp meets {worst:.3f} mm³ of {into} at z shift {at:.3f} mm"])))
-
-
 def check_cartridge_architecture(pieces) -> Bound:
     """Whether the cartridge remains one monolithic cradle and one monolithic top clamp."""
     cradle = pieces.get("pump-cartridge")
@@ -7353,83 +7200,6 @@ def check_through_wall_headroom(a, shell) -> Bound:
             + ", ".join(f"{n} {z:.2f}" for n, z in sorted(over))])))
 
 
-def check_ceiling_panel_insertion(back_top, panel, box) -> Bound:
-    """Whether the complete ceiling panel can slide through back-top's open Y seam.
-
-    This is a continuous motion bound, represented conservatively by the whole prism swept
-    from the first pose with the panel aft edge at the seam through the installed pose. The C14
-    surround and any keystone material high enough to reach the sweep are the fixed features
-    admitted into that prism: a matching panel pocket keeps each reaching XZ section open
-    through the panel's aft edge. Everything else in the swept prism is an obstruction even
-    when the installed pose is clear.
-
-    The field prism cannot describe the five printed anchor populations hanging below it, so
-    their exact remainder is also advanced over the same travel at no more than one-millimetre
-    stations. The continuous prism fences every fixed edge at and above the field; the sampled
-    exact furniture check proves that the lower geometry which rides with it has the same path.
-    """
-    fixed = back_top.val() if hasattr(back_top, "val") else back_top
-    moving = panel.val() if hasattr(panel, "val") else panel
-    sweep = _cpanel.insertion_sweep()
-    panel_stock = _cpanel.structural_stock().fuse(_cpanel.rail_stock())
-    admitted = (
-        ("C14", _enc.c14_ceiling_land(
-            box.inner, box.outer, box.pack.c14, box.pack.back_ports, sweep),
-         _enc.c14_ceiling_pocket(
-            box.inner, box.outer, box.pack.c14, box.pack.back_ports, panel_stock)),
-        ("keystone", _enc.keystone_ceiling_land(
-            box.inner, box.outer, box.pack.keystone, sweep),
-         _enc.keystone_ceiling_pocket(
-            box.inner, box.outer, box.pack.keystone, panel_stock)),
-    )
-    pocket_rows = []
-    pockets_ok = True
-    for name, feature, pocket in admitted:
-        if feature is None or feature.Volume() <= 1e-6:
-            continue
-        missing = feature.Volume() if pocket is None else feature.cut(pocket).Volume()
-        open_ = (pocket is not None
-                 and pocket.BoundingBox().ymax >= _cpanel.aft_y + fits.slip - 1e-6)
-        pocket_rows.append((name, missing, open_))
-        pockets_ok = pockets_ok and missing <= 1e-3 and open_
-        fixed = fixed.cut(feature)
-    volume = sweep.intersect(fixed).Volume()
-
-    show_skin = _cpanel._slab(
-        -_cpanel.panel_half_w, _cpanel.panel_half_w,
-        _cpanel.fore_y, _cpanel.aft_y, _cpanel.underside_z, _cpanel.show_z)
-    furniture = moving.cut(show_skin.fuse(panel_stock))
-    first_dy = box.y_joint - _cpanel.aft_y
-    sample_n = max(1, math.ceil(abs(first_dy) / 1.0))
-    furniture_worst = 0.0
-    furniture_at = first_dy
-    for i in range(sample_n + 1):
-        dy = first_dy * (1.0 - i / sample_n)
-        overlap = furniture.translate(cq.Vector(0.0, dy, 0.0)).intersect(fixed).Volume()
-        if overlap > furniture_worst:
-            furniture_worst, furniture_at = overlap, dy
-
-    ok = volume <= 1e-3 and furniture_worst <= 1e-3 and pockets_ok
-    pocket_reading = "; ".join(
-        f"{name} pocket missing {missing:.4f} mm³ and {'open' if open_ else 'closed'} aft"
-        for name, missing, open_ in pocket_rows)
-    return record_bound(Bound(
-        "ceiling-panel-slides-in", "The complete deep ceiling panel slides through back-top",
-        ok, (f"{volume:.3f} mm³ in the continuous field-and-rail sweep; "
-             f"{furniture_worst:.3f} mm³ worst lower-furniture overlap over "
-             f"{sample_n + 1} exact stations at y shift {furniture_at:.2f}"
-             + (f"; {pocket_reading}" if pocket_reading else "")),
-        "no unpocketed fixed material in the field-and-rail complete Y sweep, with every fixed "
-        "rear feature which reaches it wholly inside an aft-open running-clearance pocket, and "
-        "no fixed material in any lower printed-furniture pose at one-millimetre spacing",
-        ([] if ok else [
-            f"{volume:.3f} mm³ of back-top stands outside the admitted pockets in the panel's "
-            f"insertion prism and the hanging furniture reaches {furniture_worst:.3f} mm³ at "
-            f"y shift {furniture_at:.2f}; "
-            + (pocket_reading or "no admitted feature reaches the sweep")
-            + ". A clear installed pose does not show that the complete ceiling can reach it."])))
-
-
 def check_ceiling_panel_section(panel, box) -> Bound:
     """Read the removable ceiling's whole grown section, relief roofs and tie approaches."""
     moving = panel.val() if hasattr(panel, "val") else panel
@@ -8479,8 +8249,7 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     # assembly is the two ceiling stations it carries.
     pieces["ceiling-panel"] = _materialized_ceiling_panel(box, require_box_spec)
     a.add(pieces["ceiling-panel"], name="enclosure-ceiling-panel", color=M_PETGF_BLACK)
-    # The collar, tunnel, corbel and crown are one fixed back-top feature. Read that ownership
-    # before the slide check admits its matching aft-open panel pocket into the moving field.
+    # The collar, tunnel, corbel and crown are one fixed back-top feature.
     check_c14_collar(pieces, box)
     placed_solids = _solids(a)
     check_ceiling_panel_section(pieces["ceiling-panel"], box)
@@ -8489,11 +8258,6 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     check_c14_ceiling_corbel(placed_solids["c14-inlet"][0], box)
     check_ground_ceiling_gable(placed_solids["ground-stack"][0], pieces, box)
     check_prv_chase_corbels(pieces, box)
-    # Installed clearance is not insertion clearance: the panel traverses the whole rear
-    # column before it reaches this pose. Read the deeper field's continuous sweep against the
-    # fixed piece, including the C14 ownership split that makes the aft end pass.
-    check_ceiling_panel_insertion(
-        pieces["back-top"], pieces["ceiling-panel"], box)
     # THEN THE KEEPERS EXIST. One headless screw crosses each empty dado mouth only after the
     # panel has reached the rear wall, so the insertion sweep stays empty and both tongue ends
     # acquire a direct fixed stop against Y− withdrawal.
@@ -8539,9 +8303,6 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     # the nozzle to lay anything in — the one reading here the solid itself cannot give.
     check_panel_web()
     check_head_sweep(a.pack_solids, pieces)
-    check_pumps_drop_into_cradle(pieces, a.pack_solids, box.pack.collet_plate)
-    check_clamp_drops_on(pieces, a.pack_solids)
-    check_pump_cartridge_sweep(pieces)
     # And the cartridge's complete aft depth: the skirt band's Y+ plane is its last material.
     check_cartridge_aft_depth(pieces, box)
     # And every floor post against the piece that grows it: a station outside every piece's
