@@ -60,7 +60,7 @@
           "tree": "tree-1",
           "name": "collet-plate stop and pump-bay lintel tree",
           "first_contacts_cad_xyz_mm": [
-            [-103.8, 75.425, 215.8, 103.8, 78.225, 216.2],
+            [-99.4, 75.425, 215.8, 99.4, 78.225, 216.2],
             [-107.8, 4.625, 280.4, 107.4, 70.225, 280.8]
           ],
           "root": "bed",
