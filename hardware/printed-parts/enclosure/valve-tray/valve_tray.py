@@ -195,12 +195,17 @@ def build_body_clearance():
     cylinder and a grown box, independent of where their faces meet, so there is no seam for an
     offset to reason about. `PORT_SLIP` is reused rather than a second clearance figure: it is
     already this file's own answer for how much air a fused feature owes the valve's real
-    geometry."""
+    geometry.
+
+    GROWN SIDEWAYS AND UPWARD ONLY. The boss stands on the landing plane, so the cylinder's
+    floor is that plane (`valve_seat.seat_top_z`) exactly: a slip carried back past it is a
+    disk of the plate's own face, and the plate is the one thing at a station that is meant to
+    be there."""
     slip = PORT_SLIP
     body = (cq.Workplane("XY")
-            .workplane(offset=_valve.boss_z_range[0] - slip)
+            .workplane(offset=_seat.seat_top_z)
             .circle(_valve.body_radius + slip)
-            .extrude(_valve.boss_z_range[1] - _valve.boss_z_range[0] + 2.0 * slip))
+            .extrude(_valve.boss_z_range[1] - _seat.seat_top_z + slip))
     top_box = (cq.Workplane("XY")
                .workplane(offset=_valve.top_box_z_range[0] - slip)
                .box(_valve.body_width_x + 2.0 * slip, _valve.body_width + 2.0 * slip,
