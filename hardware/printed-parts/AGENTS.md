@@ -35,11 +35,16 @@ helper, adjacent transitions, and the other pieces where the construction occurs
 ## Agents own visual review
 
 An agent shaping a part is also one of its visual reviewers. For every coherent iteration, derive
-the smallest affected outputs, inspect the isolated printable shape and the assembled context,
-and look beyond the coordinates Derek supplied for repetitions and related defects. Publish that
-coherent iteration while the review is active, inspect the served result, route findings to the
-agents whose work they touch, fix them, and look again. A selected edge is an example of what to
-learn to see, not the boundary of the work.
+the smallest affected outputs: the piece's own generator cuts its STEP, STL and payload (the pump
+cartridge has a dedicated materializer, `hardware/scripts/materialize_pump_cartridge.py`), and
+`tools/publish_now.py` grafts the changed piece payload into the enclosure and appliance payloads
+and tells the site — no appliance stood, no Bazel waited on. Inspect the isolated printable shape
+and the served assembled context, and look beyond the coordinates Derek supplied for repetitions
+and related defects. Publish that coherent iteration while the review is active, inspect the
+served result, route findings to the agents whose work they touch, fix them, and look again.
+`enclosure_assembly.py` stands the whole appliance and is the reconciliation path: it answers a
+body moved in the pack, and it does not gate a look at a surface. A selected edge is an example
+of what to learn to see, not the boundary of the work.
 
 ## Know what each representation shows
 
