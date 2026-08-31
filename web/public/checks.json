@@ -7,7 +7,7 @@
     },
     {
       "check": "hardware/scripts/check_facts_current.py",
-      "note": "and carry no digest for the tree they were taken from — the next run of the generator writes one",
+      "note": "and the 107 sources behind them stand where they stood when it was written",
       "status": "ok"
     },
     {
@@ -42,8 +42,8 @@
     },
     {
       "check": "hardware/scripts/check_step_colours.py",
-      "note": "step colours: 116/116 carry the colour of what they are made of",
-      "status": "ok"
+      "note": "A generator hands its solid to `_materials.one_body` and exports the assembly.",
+      "status": "red"
     },
     {
       "check": "hardware/scripts/check_tracked.py",
@@ -52,18 +52,18 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 1427 tracked, 267 fetched solids, 53 tags",
+      "note": "paths: every reference lands — 1427 tracked, 268 fetched solids, 53 tags",
       "status": "ok"
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 492 of 1000 free, the next cut wants 3, and the whole lock reads by name in 115.5 MB against 116.8 MB of bundle",
+      "note": "check_release_room: 469 of 1000 free, the next cut wants 3, and the whole lock reads by name in 115.4 MB against 116.7 MB of bundle",
       "status": "ok"
     },
     {
       "check": "tools/check_web_tests.py",
-      "note": "cd web && npm test",
-      "status": "red"
+      "note": "check_web_tests: web's suite passes",
+      "status": "ok"
     },
     {
       "check": "tools/bazel/check_build_file.py",
@@ -82,21 +82,22 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 2 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 268 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 1 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 268 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
+    "hardware/scripts/check_step_colours.py": [
+      "step colours: 116/117 carry the colour of what they are made of",
+      "  1 STEP(s) name no colour, so /3d and their own cards draw them at the viewer's blue-grey:",
+      "    hardware/.front-top-review.rXoUlW/front-top-candidate.step",
+      "  A generator hands its solid to `_materials.one_body` and exports the assembly."
+    ],
     "tools/bazel/check_build_file.py": [
       "BUILD.bazel is not what the graph would write now:",
       "  tools/publish_now.py answers to selftest and selftests.json does not name it",
       "      tools/cad-venv/bin/python tools/bazel/trace_inputs.py --selftests tools/publish_now.py",
       "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
-    ],
-    "tools/check_web_tests.py": [
-      "1 test(s) in web/ fail:",
-      "    the artifact lock pins every committed viewer scorecard",
-      "  cd web && npm test"
     ]
   },
   "green": false
