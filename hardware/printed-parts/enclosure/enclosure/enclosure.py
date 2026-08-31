@@ -4509,10 +4509,11 @@ def _pump_upper_well_fore_y(pump_trays):
 def _pump_upper_well_aft_y(plate):
     """The common Y+ wall of the two full-width upper insertion wells.
 
-    It stands one drop clearance behind the clamp's aft face. Past this plane only the four
-    fitted tube-casing shafts continue; the closed middle of each pump and the centre span
-    between pumps therefore keep the same cap-following reinforcement."""
-    return plate_guide_fore_y(plate) - cap_kiss + clamp_drop_air
+    It is the plate cap's nominal fore plane, which is also the skirt support band's Y− edge.
+    The clamp ends one ``cap_kiss`` fore of it. Past this plane only the four fitted tube-casing
+    shafts continue; the closed middle of each pump and the centre span between pumps therefore
+    keep the same cap-following reinforcement without a fractional flat between two datums."""
+    return plate_guide_fore_y(plate)
 
 
 def _pump_cartridge_front_flute_rail(outer):
@@ -5277,14 +5278,13 @@ def _pump_drop_voids(box):
     ABOVE THE BRACKET each 72.75 mm well passes the stamped bracket, pump and complete clamp.
     It stops one drop clearance behind the clamp. From there the four individual 13 mm shafts
     alone continue through the aft band, so the closed middle of each pump carries the same
-    cap-following reinforcement as the centre span between pumps. One full-Y centre clearance
-    joins the two wells through the clamp's filled centre field and stops on that same plane.
+    cap-following reinforcement as the centre span between pumps. One centre clearance joins the
+    two wells through the clamp's filled centre field, on the wells' own fore and aft planes.
     At the seat the upper wells stop exactly on the bracket plane, leaving the case's own room
     below and therefore a land under the bracket on its three closed sides."""
     trays, plate = box.pack.pump_trays, box.pack.collet_plate
     drop_start = cap_drop_start_z(trays)
     top = box.pump_bay[2] + 1.0
-    fore = min(cy - _tray.half_width() for _cx, cy, _cz in trays)
     support_top = pump_skirt_support_z(trays) - min(cz for _cx, _cy, cz in trays)
     lower_source = _tray.drop_well(cap_pump_air, support_top=support_top).val()
     out = []
@@ -5316,7 +5316,7 @@ def _pump_drop_voids(box):
 
     edge = _clamp_bridge_edge(trays)
     out.append(_ybox(-(edge + clamp_drop_air), edge + clamp_drop_air,
-                     fore - clamp_drop_air, _pump_upper_well_aft_y(plate),
+                     _pump_upper_well_fore_y(trays), _pump_upper_well_aft_y(plate),
                      drop_start, top))
     return out
 
