@@ -180,3 +180,54 @@ test("/3d zoom reaches the picked rear surface and leaves it as the orbit focus"
     await page.close().catch(() => {});
   }
 });
+
+test("/3d zoom crosses a picked surface instead of stalling against it", async () => {
+  const page = await browser.newPage();
+  const file = "printed-parts/enclosure/enclosure/enclosure-back-top.step";
+  try {
+    await page.goto(`${baseUrl}/3d#step:${encodeURIComponent(file)}`, {
+      waitUntil: "domcontentloaded",
+    });
+    await page.waitForFunction(
+      (wanted) => window.__hsm?.mountedStepFile === wanted && window.__hsm.currentGroup,
+      { timeout: 30_000 },
+      file,
+    );
+
+    // The centre ray from the default framing lands on the model's nearest
+    // surface. Wheel toward it until the camera stands on its far side.
+    const before = await page.evaluate(() => {
+      const h = window.__hsm;
+      const ray = new h.THREE.Raycaster();
+      ray.setFromCamera(new h.THREE.Vector2(0, 0), h.camera);
+      const hit = ray.intersectObject(h.currentGroup, true)
+        .find((x) => x.face && x.object.isMesh && x.object.visible);
+      if (!hit) return null;
+      const rect = h.renderer.domElement.getBoundingClientRect();
+      const forward = h.camera.getWorldDirection(new h.THREE.Vector3());
+      return {
+        point: hit.point.toArray(),
+        forward: forward.toArray(),
+        client: [rect.left + rect.width / 2, rect.top + rect.height / 2],
+        beyond: hit.point.clone().sub(h.camera.position).dot(forward),
+      };
+    });
+    assert.ok(before && before.beyond > 0, "the centre ray should hit a surface ahead of the camera");
+
+    await page.mouse.move(...before.client);
+    let travelled = -before.beyond;
+    for (let i = 0; i < 40 && !(travelled > 1); i++) {
+      await page.mouse.wheel({ deltaY: -300 });
+      await new Promise((resolve) => setTimeout(resolve, 150));
+      travelled = await page.evaluate(({ point, forward }) => {
+        const h = window.__hsm;
+        return h.camera.position.clone().sub(new h.THREE.Vector3(...point))
+          .dot(new h.THREE.Vector3(...forward));
+      }, before);
+    }
+    assert.ok(travelled > 1,
+      `camera should pass the picked surface's plane; stalled ${(-travelled).toFixed(2)}mm short`);
+  } finally {
+    await page.close().catch(() => {});
+  }
+});
