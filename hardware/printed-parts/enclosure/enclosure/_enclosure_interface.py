@@ -16,12 +16,11 @@ import fits  # noqa: E402
 wall = 3.0
 rear_seam_clear = 3.0
 
-# THE PUMP CARTRIDGE'S WORKING STROKE. The lower cradle has to stand this much wall behind
-# each seated pump before its aft stop reaches the collet plate. Moving the pump and the face
-# together by the wall plus one running slip keeps the head's existing face clearance while
-# giving the hand a printed section to pull the pump against.
-pump_pull_wall = 6.0
-pump_cartridge_proud = pump_pull_wall + fits.slip
+# THE PUMP CARTRIDGE'S FORE/AFT DATUM. The pump station stands this far ahead of the fixed
+# enclosure face. With the measured 54 mm pump body and its three-millimetre Y+ skirt band,
+# that station puts the cartridge's centre span one steel running clearance ahead of the
+# collet plate while the plate-retention cheeks trim only its two outer corners.
+pump_cartridge_proud = 1.28
 
 # THE FIELD THE BOX'S SHOW FACES CARRY, in the two figures a piece that does NOT carry it still
 # has to know. The fade is driven by how far a station stands from the nearest edge of the show

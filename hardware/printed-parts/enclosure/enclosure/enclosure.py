@@ -171,7 +171,6 @@ import _enclosure_interface as _interface
 
 # Shell parameters.
 wall = _interface.wall      # PETG wall thickness
-pump_pull_wall = _interface.pump_pull_wall
 pump_cartridge_proud = _interface.pump_cartridge_proud
 # THE FLOOR SLAB IS NOT A WALL AND IS NOT ONE WALL THICK. It is the face the machine's whole
 # mass stands on, the face a body bolted DOWN rather than hung on a flank is anchored to
@@ -1370,9 +1369,8 @@ front_plane_y = 14.0
 # between the two bodies, so a can packed back to `front_plane_y` lands its aft corner in it.
 # Stated as (x0, x1, z0, z1, floor).
 fridge_relief = (-78.0, 36.0, -1.0, 148.0, 11.0)
-# And each pump's relief in the cradle face. Its floor follows the pump station: behind the
-# pumps, that travel leaves `pump_pull_wall` of printed aft wall for the cartridge to carry
-# when its pulls draw the pumps against the collet plate.
+# And each pump's relief in the cradle face. Its floor follows the pump station, keeping the
+# same lower-head face section as the pump moves toward the collet plate.
 pump_relief_skin = 3.9
 pump_station_front_y = front_plane_y - front_wall - pump_cartridge_proud
 # The complete flute field continues over the removable show face. One full groove depth moves
@@ -1617,6 +1615,7 @@ cap_screw_off = 18.0         # the two screws fore/aft of the centre access-well
 clamp_bridge_half_y = 6.0    # access well past each screw axis, fore and aft
 clamp_bridge_overlap = 2.0   # access-well edge into each pump opening's inner margin
 clamp_drop_air = 0.2         # clamp footprint and bracket air through the cradle well
+pump_face_backing = wall     # least printed stock behind the deepest front-face flute
 
 # --- THE HAND PULLS ONLY THE LOWER CRADLE -----------------------------------
 #
@@ -4491,9 +4490,20 @@ def _pump_upper_x_span(cx):
 
 
 def _pump_front_smooth_skin(pump_trays):
-    """Smooth stock between the proud face and the upper insertion wells."""
-    well_fore = min(cy - _tray.half_width() for _cx, cy, _cz in pump_trays) - clamp_drop_air
-    return well_fore - pump_cartridge_front_y
+    """Smooth stock between the proud face and the upper insertion wells.
+
+    The cut reaches forward far enough to leave exactly ``pump_face_backing`` behind the
+    deepest flute. The pump-derived well may already reach farther forward, in which case it
+    remains the controlling face."""
+    return _pump_upper_well_fore_y(pump_trays) - pump_cartridge_front_y
+
+
+def _pump_upper_well_fore_y(pump_trays):
+    """The Y− plane of the upper insertion well, including the front-face minimum stock."""
+    pump_fore = (min(cy - _tray.half_width() for _cx, cy, _cz in pump_trays)
+                 - clamp_drop_air)
+    backing_fore = pump_cartridge_front_y + flute_depth + pump_face_backing
+    return min(pump_fore, backing_fore)
 
 
 def _pump_cartridge_front_flute_rail(outer):
@@ -4639,13 +4649,14 @@ def plate_head_spans(inner, plate):
 def _plate_retention_clearance_notches(outer, bay, plate, pump_trays):
     """Two raked corner clearances for the fixed plate-retention cheeks.
 
-    Each four-sided prism follows its cheek's exact plan angle, shifted one ``fits.slip``
-    toward Y−. The cartridge's Y=``pump_cartridge_aft_y`` plane truncates that rake, so only
-    the actual corner overlap is removed; no rectangular slot runs to the cheek's inboard X
-    face. The fixed material retains the stainless plate. Any guidance it incidentally gives
-    the cartridge is not its function."""
+    Each four-sided prism carries one uninterrupted rake from the hand pocket's inboard wall
+    to the enclosure's rounded outer edge. At the inboard wall it begins on the fixed cheek's
+    Y− plane; across the cheek it opens into the same running clearance the fixed outer root
+    needs. The cartridge's Y=``pump_cartridge_aft_y`` plane truncates the cutter only outside
+    that rake. The fixed material retains the stainless plate. Any guidance it incidentally
+    gives the cartridge is not its function."""
     guide_x0, guide_x1 = plate_guide_inner_xs(plate)
-    y_inner = plate_guide_fore_y(plate) - fits.slip
+    y_inner = plate_guide_fore_y(plate)
     y_aft = pump_cartridge_aft_y(pump_trays) + 1.0
     z0 = bay_floor_z(pump_trays)[1] - 1.0
     z1 = bay[2] + 1.0
@@ -4655,15 +4666,19 @@ def _plate_retention_clearance_notches(outer, bay, plate, pump_trays):
     rake = plate_guide_wedge / run
     left_outer = outer[0] - 1.0
     right_outer = outer[1] + 1.0
-    left_outer_y = y_inner - rake * (guide_x0 - left_outer)
-    right_outer_y = y_inner - rake * (right_outer - guide_x1)
+    cheek_y = plate_guide_fore_y(plate) - fits.slip
+    left_outer_y = cheek_y - rake * (guide_x0 - left_outer)
+    right_outer_y = cheek_y - rake * (right_outer - guide_x1)
+    edge = _cap_x_span(bay)[1]
+    left_inner = -edge + pull_depth
+    right_inner = edge - pull_depth
     return (
         _xy_prism(z0, z1, (
-            (left_outer, left_outer_y), (guide_x0, y_inner),
-            (guide_x0, y_aft), (left_outer, y_aft))),
+            (left_outer, left_outer_y), (left_inner, y_inner),
+            (left_inner, y_aft), (left_outer, y_aft))),
         _xy_prism(z0, z1, (
-            (guide_x1, y_inner), (right_outer, right_outer_y),
-            (right_outer, y_aft), (guide_x1, y_aft))),
+            (right_inner, y_inner), (right_outer, right_outer_y),
+            (right_outer, y_aft), (right_inner, y_aft))),
     )
 
 
@@ -5284,7 +5299,7 @@ def _pump_drop_voids(box):
         # The upper well carries the same exact tube-pair boundary as the lower room and shafts.
         upper_x0, upper_x1 = _pump_upper_x_span(cx)
         upper = _ybox(upper_x0, upper_x1,
-                      cy - _tray.half_width() - clamp_drop_air,
+                      _pump_upper_well_fore_y(trays),
                       cy + _tray.far_reach() + clamp_drop_air,
                       drop_start, top)
         out.append(lower.fuse(fittings).fuse(upper))
@@ -5419,11 +5434,11 @@ def pump_cartridge_figures(box):
             f"{(trays[0][1] + _tray.skirt_open_y_max
                   + _tray.skirt_upper_band):.6g} mm",
         "PUMP_CARTRIDGE_AFT_Y": f"{pump_cartridge_aft_y(trays):.6g} mm",
-        "PUMP_PULL_WALL": f"{pump_pull_wall:.4g} mm",
         "PUMP_PROUD": f"{pump_show_proud:.4g} mm",
         "PUMP_STATION_PROUD": f"{pump_cartridge_proud:.4g} mm",
         "PUMP_SHOW_GROWTH": f"{pump_show_growth:.4g} mm",
         "PUMP_FACE_SKIN": f"{(pump_relief_floor - pump_cartridge_front_y):.4g} mm",
+        "PUMP_FACE_BACKING": f"{pump_face_backing:.4g} mm",
         "PUMP_UPPER_SMOOTH_SKIN": f"{_pump_front_smooth_skin(trays):.4g} mm",
         "PUMP_UPPER_FLUTED_SKIN": f"{(_pump_front_smooth_skin(trays) - flute_depth):.4g} mm",
         "CRADLE_EDGE": f"{edge:.4g} mm",
@@ -5774,6 +5789,12 @@ def _pump_cartridge_gross(box, halves_cache=None):
         floor_top, top - pump_cartridge_z_clearance)
     solid = solid.fuse(fill).intersect(face.fuse(
         _ybox(bx0, bx1, pump_cartridge_front_y, aft, floor_top, top)))
+    # Above the steel, front-top keeps one fixed 45-degree cap over the plate. The lower cradle
+    # reaches aft around the pump openings, so its three remaining upper webs follow that cap
+    # one running kiss fore of it instead of occupying the same volume. The cap remains fixed:
+    # it must retain the plate while the cartridge and its pumps are withdrawn.
+    solid = solid.cut(_plate_cap(inner, plate, bay, box.pack.pump_trays).translate(
+        cq.Vector(0.0, -cap_kiss, 0.0)))
     for notch in _plate_retention_clearance_notches(
             outer, bay, plate, box.pack.pump_trays):
         solid = solid.cut(notch)
