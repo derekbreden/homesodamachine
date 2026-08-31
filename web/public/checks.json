@@ -22,8 +22,8 @@
     },
     {
       "check": "hardware/scripts/check_payloads.py",
-      "note": "payloads: 19 solid(s) cut from the bytes beside them, 11 scene(s) at the finishes this tree states",
-      "status": "ok"
+      "note": "hardware/printed-parts/enclosure/enclosure/.enclosure-pump-cartridge-7z9bz7mx/enclosure-pump-cartridge.step.mesh — declared by nobody",
+      "status": "red"
     },
     {
       "check": "hardware/scripts/check_pinmap.py",
@@ -82,11 +82,15 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 0 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 267 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 6 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 267 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
+    "hardware/scripts/check_payloads.py": [
+      "1 solid(s) the bundle serves a payload for that no rule produces:",
+      "    hardware/printed-parts/enclosure/enclosure/.enclosure-pump-cartridge-7z9bz7mx/enclosure-pump-cartridge.step.mesh — declared by nobody"
+    ],
     "tools/bazel/check_build_file.py": [
       "BUILD.bazel is not what the graph would write now:",
       "  tools/publish_now.py answers to selftest and selftests.json does not name it",
