@@ -1141,17 +1141,17 @@
    "label": "Every valve on a printed valve tray is standing in its seats",
    "kind": "gate",
    "status": "pass",
-   "value": "8/8 valves seated, furthest off 0.199 mm",
+   "value": "8/8 valves seated, furthest off 0.000 mm",
    "target": "every valve within 0.2 mm of the plate under it",
    "detail": [
-    "valve-tray-aft     valve-v-c    y-plane  171.080 -Z   off 0.1990",
-    "valve-tray-aft     valve-v-d    y-plane  171.080 -Z   off 0.1990",
-    "valve-tray-aft     valve-v-g    y-plane  171.080 -Z   off 0.1990",
-    "valve-tray-aft     valve-v-j    y-plane  171.080 -Z   off 0.1990",
-    "valve-tray-fore    valve-v-e    y-plane   89.080 +Z   off 0.1990",
-    "valve-tray-fore    valve-v-f    y-plane   89.080 +Z   off 0.1990",
-    "valve-tray-fore    valve-v-h    y-plane   89.080 +Z   off 0.1990",
-    "valve-tray-fore    valve-v-i    y-plane   89.080 +Z   off 0.1990"
+    "valve-tray-aft     valve-v-c    y-plane  171.080 -Z   off 0.0000",
+    "valve-tray-aft     valve-v-d    y-plane  171.080 -Z   off 0.0000",
+    "valve-tray-aft     valve-v-g    y-plane  171.080 -Z   off 0.0000",
+    "valve-tray-aft     valve-v-j    y-plane  171.080 -Z   off 0.0000",
+    "valve-tray-fore    valve-v-e    y-plane   89.080 +Z   off 0.0000",
+    "valve-tray-fore    valve-v-f    y-plane   89.080 +Z   off 0.0000",
+    "valve-tray-fore    valve-v-h    y-plane   89.080 +Z   off 0.0000",
+    "valve-tray-fore    valve-v-i    y-plane   89.080 +Z   off 0.0000"
    ],
    "active": true
   },
@@ -1253,7 +1253,7 @@
    "label": "The cartridge is one lower cradle with one monolithic top clamp",
    "kind": "gate",
    "status": "pass",
-   "value": "cradle 56.3% of printed volume, 113.6 mm high; clamp 61.8 mm",
+   "value": "cradle 56.5% of printed volume, 114.1 mm high; clamp 61.8 mm",
    "target": "one solid each, with the cradle carrying the foremost show face",
    "detail": [],
    "active": true
@@ -1264,7 +1264,7 @@
    "kind": "gate",
    "status": "pass",
    "value": "x -107.500..107.500; missing 0.000 mm\u00b3; fixed front-top 0.000 mm\u00b3",
-   "target": "x -107.500..107.500, full stock z 166.865..280.495, and no fixed front-top in that band",
+   "target": "x -107.500..107.500, full stock z 166.365..280.495, and no fixed front-top in that band",
    "detail": [],
    "active": true
   },
@@ -1385,7 +1385,7 @@
    "label": "The cradle's aft face lands on the collet plate",
    "kind": "gate",
    "status": "pass",
-   "value": "7133.0 mm\u00b2 on the steel, 0.000 mm\u00b3 inside the kiss",
+   "value": "7222.0 mm\u00b2 on the steel, 0.000 mm\u00b3 inside the kiss",
    "target": "the cradle's face on the plate's and `cap_kiss` 0.1 mm of air at it",
    "detail": [],
    "active": true
