@@ -210,6 +210,12 @@ def _drawn(shape, deflection: float):
             "a solid tessellated to no triangles — it cannot be measured against anything, and "
             "an unmeasured body is not an absent one")
     verts, tris = _weld(verts, tris)
+    # Most BReps arrive closed. Let the same native reader that ultimately consumes this mesh
+    # answer that first; only a rejected mesh needs the boundary census and missing-face patch.
+    # This preserves the triangles byte for byte on the ordinary path and avoids walking every
+    # edge of every swept compound merely to discover that there is no hole.
+    if Manifold(Mesh(verts.astype(np.float32), tris)).status() == Error.NoError:
+        return verts, tris
     return verts, _close(verts, tris)
 
 
@@ -285,11 +291,10 @@ def _close(verts, tris):
     two rings meet at T-junctions that leave the hole exactly as open as it was; a ring taken
     from the boundary is made of vertices the neighbours already share."""
     # A closed body carries every edge twice, once each way round. An edge whose reverse is
-    # missing is a rim.
-    directed = set()
-    for a, b, c in tris:
-        directed.update(((a, b), (b, c), (c, a)))
-    open_edges = {u: v for u, v in directed if (v, u) not in directed}
+    # missing is a rim. Keep that whole census in NumPy: the appliance's swept compounds carry
+    # millions of directed edges, while Python is needed only to walk the usually tiny boundary.
+    # A uint64 holds the two uint32 vertex ids exactly, without per-edge tuple objects.
+    open_edges = _open_edges(tris)
     if not open_edges:
         return tris
 
@@ -328,6 +333,25 @@ def _close(verts, tris):
         for a, b, c in np.asarray(manifold3d.triangulate([f.astype(np.float64) for f in flat])):
             patches.append((index[a], index[c], index[b]))
     return np.vstack([tris, np.array(patches, dtype=np.uint32)]) if patches else tris
+
+
+def _open_edges(tris):
+    """The directed boundary of an oriented uint32 triangle mesh, as ``start: end``."""
+    if not len(tris):
+        return {}
+    packed = np.empty(len(tris) * 3, dtype=np.uint64)
+    for offset, (start, end) in enumerate(((0, 1), (1, 2), (2, 0))):
+        packed[offset::3] = tris[:, start].astype(np.uint64) << np.uint64(32)
+        packed[offset::3] |= tris[:, end]
+    directed = np.unique(packed)
+    low = np.uint64(0xffffffff)
+    reverse = ((directed & low) << np.uint64(32)) | (directed >> np.uint64(32))
+    positions = np.searchsorted(directed, reverse)
+    paired = positions < len(directed)
+    inside = np.flatnonzero(paired)
+    paired[inside] = directed[positions[inside]] == reverse[inside]
+    boundary = directed[~paired]
+    return {int(edge >> np.uint64(32)): int(edge & low) for edge in boundary}
 
 
 def _ring_normal(pts):
@@ -429,6 +453,15 @@ def selftest():
         raise AssertionError("an open sheet was accepted as a body — the guard in `_manifold` "
                              "reads a status that no longer means what it did")
     yield "an unclosed mesh is rejected rather than measured as empty"
+
+    # The large-mesh boundary path carries the directed-edge answer without materializing Python
+    # tuples for internal edges. The diagonal appears both ways and drops; the square's four rim
+    # edges remain in their winding order.
+    open_square = np.array([[0, 1, 2], [0, 2, 3]], dtype=np.uint32)
+    rim = _open_edges(open_square)
+    if rim != {0: 1, 1: 2, 2: 3, 3: 0}:
+        raise AssertionError(f"an open square's directed rim is {rim}, not its four outer edges")
+    yield "the vector edge census finds only an open mesh's directed rim"
 
     # THE WHOLE OF THE KEPT MESH RESTS ON THIS: a body meshed in its own frame and then moved is
     # the body meshed where it stands. The seat is a turn and a shift together, so neither is
