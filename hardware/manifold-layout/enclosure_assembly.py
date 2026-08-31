@@ -1226,15 +1226,21 @@ def _pump_up(placed: dict, head: str) -> tuple:
 def pump_tray_seats(placed: dict) -> dict:
     """The pump stations the cartridge uses, `head -> (axis, sign, centre)`.
 
-    `centre` is the world point the pump's own axis meets its bracket datum: the head's
-    centre in the two axes across the pump, and the head's own face in the third."""
+    `centre` is the world point the pump's own axis meets its bracket datum: the motor can's
+    cylindrical axis in the two directions across the pump, and the head's own face in the
+    depth direction. The head is not assumed symmetric about that axis; its measured skirt and
+    outlet-side relief are allowed to give it an asymmetric bounding box."""
     out = {}
     for head in sorted(placed):
         if not (head.startswith("pump-") and head.endswith("-head")):
             continue
         axis, sign = _pump_up(placed, head)
+        can = head.replace("-head", "-motor")
         b = box(placed[head])
-        centre = [(b.xmin + b.xmax) / 2.0, (b.ymin + b.ymax) / 2.0, (b.zmin + b.zmax) / 2.0]
+        cb = box(placed[can])
+        centre = [(cb.xmin + cb.xmax) / 2.0,
+                  (cb.ymin + cb.ymax) / 2.0,
+                  (cb.zmin + cb.zmax) / 2.0]
         centre[axis] = ([b.xmax, b.ymax, b.zmax] if sign > 0
                         else [b.xmin, b.ymin, b.zmin])[axis]
         out[head] = (axis, sign, tuple(round(c, 6) for c in centre))
@@ -2052,35 +2058,23 @@ def check_pump_columns_open(pieces, shell) -> Bound:
          for label, volume in rows if volume > 1e-3]))
 
 
-def check_cap_stop(pieces, spec) -> Bound:
-    """Whether the lower cradle's aft face lands on the collet plate's fore face.
+def check_cartridge_aft_depth(pieces, shell) -> Bound:
+    """Whether the lower cradle ends on its stated Y+ plane everywhere.
 
-    A STOP THAT DOES NOT TOUCH WHAT IT STOPS IS NOT A STOP. The cradle is the piece the hand
-    pulls and the pumps ride in, so its own aft face is the stop. Read both halves of that:
-    the AREA standing against the plate's own band one
-    `cap_kiss` off its fore face, and that the kiss itself is air — a face through the steel
-    is no better than one that misses it."""
+    The skirt opening's 3 mm upper band is the cartridge's complete aft depth. No stop pad,
+    plate-retention return or exterior side skin continues behind that plane."""
     cart = pieces["pump-cartridge"]
     cart = cart.val() if hasattr(cart, "val") else cart
-    probe = 0.4
-    band = (spec["x0"], spec["x1"], spec["z0"], spec["z1"])
-    land = _enc._ybox(band[0], band[1], spec["fore_y"] - _enc.cap_kiss - probe,
-                      spec["fore_y"] - _enc.cap_kiss, band[2], band[3])
-    kiss = _enc._ybox(band[0], band[1], spec["fore_y"] - _enc.cap_kiss,
-                      spec["fore_y"], band[2], band[3])
-    area = land.intersect(cart).Volume() / probe
-    bite = kiss.intersect(cart).Volume()
-    ok = area > 1e-6 and bite <= 1e-6
+    actual = box(cart).ymax
+    target = _enc.pump_cartridge_aft_y(shell.pack.pump_trays)
+    error = actual - target
+    ok = abs(error) <= 1e-6
     return record_bound(Bound(
-        "pump-cradle-stops-on-plate", "The cradle's aft face lands on the collet plate", ok,
-        f"{area:.1f} mm² on the steel, {bite:.3f} mm³ inside the kiss",
-        f"the cradle's face on the plate's and `cap_kiss` {_enc.cap_kiss:g} mm of air at it",
-        ([] if ok else
-         ([f"no pad stands against the plate's band z {spec['z0']:g}..{spec['z1']:g} — the "
-           f"pump cartridge has no aft stop against the steel and nothing but the anchor tees "
-           f"limits how far it pushes home"] if area <= 1e-6 else [])
-         + ([f"{bite:.2f} mm³ of the pump cartridge stands inside the kiss — the pad is through "
-             f"the steel, not on it"] if bite > 1e-6 else []))))
+        "pump-cartridge-aft-depth", "The cradle ends at the skirt band's Y+ plane", ok,
+        f"aft face y {actual:.3f} mm, error {error:+.6f} mm",
+        f"no pump-cartridge material beyond y {target:.3f} mm",
+        [] if ok else [
+            f"the cartridge ends at y {actual:.6f}, not its stated y {target:.6f} plane"]))
 
 
 def check_head_sweep(solids: dict, pieces) -> Bound:
@@ -2116,10 +2110,11 @@ def check_pump_cartridge_sweep(pieces) -> Bound:
     """Whether the lower cradle and top clamp can pass bodily through the front mouth.
 
     A PUMP-HEAD SWEEP IS NOT A DRAWER SWEEP. The head is smaller than the filled block that
-    carries it, and a mouth can clear both heads while a fixed guide catches the
-    block behind the face. Translate each actual printed solid from home until its aft face is
+    carries it, and a mouth can clear both heads while a fixed plate-retention cheek catches the
+    block behind the face. That cheek can catch the block even though it is
+    not a cartridge guide. Translate each actual printed solid from home until its aft face is
     outside the enclosure, checking at intervals no larger than `sweep_step_max`.
-    The actual solids matter: the cradle's full exterior shell and fixed-guide notches are
+    The actual solids matter: the cradle's full exterior shell and plate-retention notches are
     passage geometry, not internal voids to replace with a bounding box.
     """
     front = pieces["front-top"]
@@ -8633,9 +8628,8 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     check_pumps_drop_into_cradle(pieces, a.pack_solids, box.pack.collet_plate)
     check_clamp_drops_on(pieces, a.pack_solids)
     check_pump_cartridge_sweep(pieces)
-    # And the pump cartridge's own joint with what it lands against: the cradle's aft face on
-    # the steel.
-    check_cap_stop(pieces, box.pack.collet_plate)
+    # And the cartridge's complete aft depth: the skirt band's Y+ plane is its last material.
+    check_cartridge_aft_depth(pieces, box)
     # And every floor post against the piece that grows it: a station outside every piece's
     # own Y column is not printed.
     check_floor_mounts(a.floor_bosses, pieces)

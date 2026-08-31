@@ -36,6 +36,8 @@ Viewed from the front (tube connector face), the pump head is nearly square with
 - Black plastic housing containing the peristaltic roller mechanism
 - Cross-section roughly square with rounded corners, ~62.6mm x ~62.6mm
 - Pump head body depth: 48.88mm
+- Skirt-supported body span between the two Y flanks: 54.0mm
+- Skirt span between its Y flanks: 62.5mm
 
 ### Section 3: Mounting Bracket (Y ≈ 48mm)
 - Black stamped metal bracket plate at the junction face between pump head and motor
@@ -84,6 +86,8 @@ Viewed from the front (tube connector face), the pump head is nearly square with
 | Tube-casing pitch, centre to centre | 59.75mm |
 | Tube-casing width | 12.75mm each; 13.0mm holder opening |
 | Widest X span across the two tube casings | 72.50mm |
+| Skirt-supported body span along holder Y | 54.0mm |
+| Skirt span along holder Y | 62.5mm |
 | Motor body diameter | 35.73mm |
 | Height across tube connectors / partial assembly span | 82.82mm |
 
