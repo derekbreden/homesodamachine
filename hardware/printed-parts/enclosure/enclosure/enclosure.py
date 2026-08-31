@@ -3601,7 +3601,10 @@ def _ceiling_corbels(solid, inner, outer, centre, y_joint, y_bosses=()):
                                      [(hole_x, tz), (chain, tz),
                                       (chain, tz - abs(chain - hole_x))]))
         _xs, x_tip, _xh, x_cap = _boss_x(wall_x - sx * wall, sx)
-        by0, by1 = yb - socket_r + split_slip / 2.0, y_joint + lip_len
+        # THE BOSS CORBEL STANDS ON THE COLLAR'S WHOLE CROWN. The half-slip belongs
+        # to the plug's slide path, not to this solid collar; both sections share
+        # `yb - socket_r` as their fore face, with no half-slip land between them.
+        by0, by1 = yb - socket_r, y_joint + lip_len
         walk = tz - abs(x_cap - x_tip)
         crown = max((z_boss + socket_r for x_in, _x_ext, bsx, z_boss in y_bosses
                      if x_in == wall_x and bsx == sx and z_boss + socket_r < tz),
