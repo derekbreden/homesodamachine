@@ -34,14 +34,25 @@ helper, adjacent transitions, and the other pieces where the construction occurs
 
 ## Agents own visual review
 
-An agent shaping a part is also one of its visual reviewers. For every coherent iteration, derive
-the smallest affected outputs: the piece's own generator cuts its STEP, STL and payload (the pump
-cartridge has a dedicated materializer, `hardware/scripts/materialize_pump_cartridge.py`), and
-`tools/publish_now.py` grafts the changed piece payload into the enclosure and appliance payloads
-and tells the site — no appliance stood, no Bazel waited on. Inspect the isolated printable shape
-and the served assembled context, and look beyond the coordinates Derek supplied for repetitions
-and related defects. Publish that coherent iteration while the review is active, inspect the
-served result, route findings to the agents whose work they touch, fix them, and look again.
+An agent shaping a part is also one of its visual reviewers, and review begins at the first
+attempt. The first shape that builds is published before anything else is done about it — not the
+finished iteration, the first one:
+
+    tools/cad-venv/bin/python hardware/scripts/materialize_pump_cartridge.py
+    tools/cad-venv/bin/python tools/publish_now.py
+
+The piece's own generator cuts its STEP, STL and payload (the pump cartridge has the dedicated
+materializer above), and `publish_now.py` grafts the changed piece payload into both viewer
+hosts — the enclosure aggregate and the appliance assembly — and tells the site. Minutes, no
+appliance stood, no Bazel waited on. Derek reviews the first attempt in both frames, isolated
+piece and served assembled context, while the remaining work continues; more iterations after
+the publish are the normal case, and holding the first look until they finish is the defect.
+
+A pasted pick asks for changed geometry, not for detection of its category. Decode it, echo the
+identification, fix the construction, publish, and answer with the served surface — never with a
+new checker, audit, or anything else standing between an edit and the next look. Inspect the
+served result yourself, look beyond the coordinates Derek supplied for repetitions and related
+defects, route findings to the agents whose work they touch, fix them, and publish again.
 `enclosure_assembly.py` stands the whole appliance and is the reconciliation path: it answers a
 body moved in the pack, and it does not gate a look at a surface. A selected edge is an example
 of what to learn to see, not the boundary of the work.
