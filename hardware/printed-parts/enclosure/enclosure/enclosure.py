@@ -1543,12 +1543,13 @@ rail_reach_in = (max(front_top_flank_t, back_top_flank_t) - wall) + slide_slip +
 #
 # THE PUMP CARTRIDGE TAKES THE WHOLE FRONT-WALL WIDTH. Its outer skin follows the enclosure's
 # rounded silhouette all the way to both exterior side faces. Its lower edge shares the filled
-# block's bed plane, the stationary sill is recessed `face_reveal` under it, and its crown keeps
-# the same flat gap below the lintel. Its filled interior reaches the side-wall planes and bears
+# block's bed plane, which is the stationary sill's plane too, and its crown keeps a flat
+# `face_reveal` gap below the lintel. Its filled interior reaches the side-wall planes and bears
 # on the bay floor. The only departures from that full-width envelope are the two hand pockets,
 # the pump wells and the aft guide notches.
 bay_crown_air = 1.7          # bay top over the tallest motor can's crown
-face_reveal = 0.5            # flat Z clearance at the stationary sill and upper lintel
+face_reveal = 0.5            # flat Z clearance under the lintel, and what the bay floor's top
+                             # stands under the pump reliefs' own floor
 pump_bay_side_air = 0.5      # pump-body air inside each cavity throat plane
 sweep_step_max = 0.25        # largest interval in pump, clamp and withdrawal motion proofs
 # THE LOWER CRADLE HAS ONE RECTANGULAR Z OUTLINE. The exterior shell reaches the appliance's
@@ -1569,7 +1570,8 @@ plate_slot_slip = steel_air  # air fore and aft of the collet plate in the floor
 # two local aft-corner notches instead of spending its whole X span inside them.
 plate_guide_tail_land = 10.0
 plate_guide_x_air = 1.0      # cartridge-notch air inboard of each fixed guide cheek
-plate_slot_lead = 1.0        # 45 degree flare on the slot's Z− mouth, leading the steel in
+plate_slot_lead = 1.0        # 45 degree flare at the plate lane's Z− mouth, taken out of
+                             # the tee wall's fore face (`_plate_lead`) and not the floor's
 plate_end_stock = 4.3        # continuous printed X return from either slot end to the
                              # cavity-side wall; the 3 mm outer wall continues beyond it
 plate_cap_land = 1.0         # the flat the steel's top edge lands on, taken off the tee wall's
@@ -3565,7 +3567,7 @@ def _funnel_cut(inner, outer, centre):
     return _ybox(x0, x1, y0, y1, inner[5] - wall - 1.0, outer[5] + 1.0)
 
 
-def _ceiling_corbels(solid, inner, outer, centre, y_joint):
+def _ceiling_corbels(solid, inner, outer, centre, y_joint, y_bosses=()):
     """The flat ceiling's two side strips on a top piece, corbelled: a 45° underside
     rising off each ±X wall to nothing at the funnel opening's edge, so a top piece —
     printing mouth-down — lays every ceiling layer on the one below it. The strip's own
@@ -3574,9 +3576,14 @@ def _ceiling_corbels(solid, inner, outer, centre, y_joint):
     The corbel runs the housing's back plane to the Y-seam furniture's fore face, and a
     second one carries the lip's ceiling tongue, struck one `wall` lower on the tongue's
     own underside: its funnel-side span roots on the ceiling collar's chain-deep face and
-    its wall-side span rises from the plug tip to the socket cap. Together they carry the
-    whole tongue into the mouth it telescopes into; the collar band itself is the collar's
-    own D, fill and web."""
+    its wall-side span reaches the plug tip. Together they carry the whole tongue into the
+    mouth it telescopes into; the collar band itself is the collar's own D, fill and web.
+
+    OVER THE BOSS THE TONGUE STANDS ON THE COLLAR. The socket collar is a box `2 * socket_r`
+    about its bore, so its crown is a flat land the whole width of the boss and the whole
+    depth of the lip, one `socket_r` over the level the wall was pinned at, and the tongue's
+    section runs straight up off it. Where a wall carries no pinned level under the tongue
+    the 45° walk from the plug tip is what roots it."""
     cx, _cy = centre
     hole_x0, hole_x1 = cx - _funnel.collar_w / 2.0, cx + _funnel.collar_w / 2.0
     iz1 = inner[5]
@@ -3594,10 +3601,17 @@ def _ceiling_corbels(solid, inner, outer, centre, y_joint):
                                      [(hole_x, tz), (chain, tz),
                                       (chain, tz - abs(chain - hole_x))]))
         _xs, x_tip, _xh, x_cap = _boss_x(wall_x - sx * wall, sx)
-        solid = solid.fuse(_xz_prism(yb - socket_r + split_slip / 2.0,
-                                     y_joint + lip_len,
-                                     [(x_tip, tz), (x_cap, tz),
-                                      (x_tip, tz - abs(x_cap - x_tip))]))
+        by0, by1 = yb - socket_r + split_slip / 2.0, y_joint + lip_len
+        walk = tz - abs(x_cap - x_tip)
+        crown = max((z_boss + socket_r for x_in, _x_ext, bsx, z_boss in y_bosses
+                     if x_in == wall_x and bsx == sx and z_boss + socket_r < tz),
+                    default=walk)
+        if crown > walk:
+            solid = solid.fuse(_ybox(min(x_tip, x_cap), max(x_tip, x_cap),
+                                     by0, by1, crown, tz))
+        else:
+            solid = solid.fuse(_xz_prism(by0, by1,
+                                         [(x_tip, tz), (x_cap, tz), (x_tip, walk)]))
     return solid
 
 
@@ -3849,10 +3863,11 @@ def _y_lip_channel(inner, y_joint, bosses):
     the tongue at that section and this is what holds it there. `_z_rail_channels` is
     the same cut on the other seam.
 
-    THE FOUR COLLARS STAND OUT OF ITS FLANKS. `_front_socket`'s outboard face is what
-    each screw pulls the back wall onto, and four of them across two walls are what
-    locates this joint in X. The collars keep that face; the lip runs clear of the wall
-    between them, and their crowns are carved with everything else.
+    THE FOUR COLLARS STAND OUT OF ITS FLANKS. Fore of the mouth each collar roots on the
+    box's interior face; through the overlap it finishes on the tongue's slipped outer face,
+    the surface which actually enters the back half. Four broad collars across two walls locate
+    this joint in X. The lip runs clear of the wall between them, and their crowns are carved
+    with everything else; no one-running-fit strip continues past the tongue beside a collar.
 
     THE PIN CORBELS TRAVEL IN THIS CHANNEL TOO. Each back pin's lower face rises 45°
     from its wall to its inboard tip. The matching cut runs the lip's whole travel and
@@ -3866,7 +3881,8 @@ def _y_lip_channel(inner, y_joint, bosses):
     yb = _y_boss(y_joint)
     for x_in, x_ext, sx, z_boss in bosses:
         _xs, _xt, _xh, x_cap = _boss_x(x_ext, sx)
-        xa, xb = sorted((x_in, x_cap))
+        tongue_face = x_in + sx * fits.slip
+        xa, xb = sorted((tongue_face, x_cap))
         flanks = flanks.cut(_ybox(xa, xb, yb - socket_r, yb + socket_r,
                                   z_boss - socket_r, z_boss + socket_r))
         _xs, x_tip, _xh, _xc = _boss_x(x_ext, sx)
@@ -4176,9 +4192,12 @@ def _z_rail_channels(inner, y_joint, zj, col, plate, chase=()):
         if col == "front":
             # THE TWO SEAMS CROSS HERE. Front-top's Y tongue ends one running-fit slip
             # inside `x_in`, while this channel's standing wall ends at `x_open`; below
-            # the ordinary roof the difference is a free 0.7 mm strip, not a bearing
-            # surface. Open it all the way to `x_in`, whose clip in `_rail_keep` leaves
-            # the complete exterior wall fore of the joint.
+            # the ordinary roof the difference is free stock, not a bearing surface. Open
+            # the outboard half all the way to `x_in`, whose clip in `_rail_keep` leaves
+            # the complete exterior wall fore of the joint. Carry the inboard boundary to
+            # `x_f`, the established interior face of that wall: stopping at the gable's
+            # peak leaves the narrow strip between the peak and the wall face standing as
+            # a separate sheet through the tongue.
             #
             # THE OUTBOARD HALF-GABLE COMES WITH IT. That roof formerly grew from the
             # thin strip, so removing only the strip would leave the gable's first lines
@@ -4189,8 +4208,8 @@ def _z_rail_channels(inner, y_joint, zj, col, plate, chase=()):
             rise = lane_aft - y_joint
             floor = zj - 1.0 - rise
             crossing = _xz_prism(y_joint, lane_aft, [
-                (x_peak, floor), (x_in, floor), (x_in, z_roof),
-                (x_open, z_roof), (x_peak, z_peak)])
+                (x_f, floor), (x_in, floor), (x_in, z_roof),
+                (x_open, z_roof), (x_peak, z_peak), (x_f, z_peak)])
             crossing = crossing.transformGeometry(cq.Matrix([
                 [1.0, 0.0, 0.0, 0.0],
                 [0.0, 1.0, 0.0, 0.0],
@@ -4518,23 +4537,12 @@ def _bay_cut(inner, outer, bay, pump_trays, plate):
     height, from the bay floor to the bay top and from the show face to the steel's aft face.
 
     The lower cradle replaces every part of the fixed front wall and both fixed side skins in
-    this band. At its lower edge the fixed shell perimeter steps down by `face_reveal`, while
-    the interior bay floor stays at the cradle's bearing plane. The cartridge can therefore
-    begin on one print-bed plane and still keep the same visible running gap at the stationary
-    sill. The plate guides are added after this cut and the cradle carries their two local aft
-    notches."""
-    opening = _pump_full_width_band(
+    this band. The opening's own lower edge is `bay_floor_z`'s top, which is the plane the
+    cradle beds on and the plane the fixed shell perimeter stops on — the cartridge begins on
+    one print-bed plane and the sill it stands over is that same plane. The plate guides are
+    added after this cut and the cradle carries their two local aft notches."""
+    return _pump_full_width_band(
         inner, outer, bay, pump_trays, plate["aft_y"], lower_inset=0.0)
-    floor = bay_floor_z(pump_trays)[1]
-    proud = _pump_cartridge_outer(outer)
-    lower_aft = plate_guide_notch_fore_y(plate)
-    lower = _pump_full_width_band(
-        inner, proud, bay, pump_trays, lower_aft,
-        lower_inset=-face_reveal, upper_inset=bay[2] - floor)
-    bearing = _ybox(
-        inner[0], inner[1], inner[2], lower_aft + 1.0,
-        floor - face_reveal - 1.0, floor + 1.0)
-    return opening.fuse(lower.cut(bearing))
 
 
 def _plate_fore_guides(inner, outer, bay, plate, pump_trays):
@@ -4698,6 +4706,29 @@ def _plate_cap(inner, plate, bay, pump_trays):
         (fore, bay[2]), (aft, bay[2])))
 
 
+def _front_top_flank_bedding_cut(inner, y0, y1, zj):
+    """The air under front-top's two grown flank faces over one Y band.
+
+    Each physical flank begins on the seam rim at the box's interior face and rises at 45
+    degrees to its own six-millimetre-inboard face. Below that start the room side is open all
+    the way to the bed. Material belonging to another construction may meet the face, but may
+    not continue below either part of that boundary as a second, offset skin. Keeping the exact
+    two prisms in one helper lets the flank itself, the Y tongue and a wall-to-wall valve tray
+    all finish on the same planes."""
+    ix0, ix1 = inner[0], inner[1]
+    fx0, fx1 = front_top_flank_face()
+    rim = zj + z_rise
+    out = None
+    for x_in, x_face in ((ix0, fx0), (ix1, fx1)):
+        cut = _xz_prism(y0, y1, [
+            (x_in, zj - 1.0), (x_face, zj - 1.0),
+            (x_face, rim + abs(x_face - x_in)),
+            (x_in, rim),
+        ])
+        out = cut if out is None else out.fuse(cut)
+    return out
+
+
 def _front_top_flanks(inner, outer, box, y_joint, zj):
     """THE SECTION FRONT-TOP'S ±X WALLS CARRY BEYOND `wall`, standing inboard of `interior_x`
     (`front_top_flank_t`). Fused before any of this piece's flank furniture, so a pocket, a
@@ -4719,18 +4750,17 @@ def _front_top_flanks(inner, outer, box, y_joint, zj):
     plate = box.pack.collet_plate
     y0, y1 = outer[2] - 1.0, y_joint + lip_len
     rim = zj + z_rise
-    depth = front_top_flank_t - wall
     band = None
     for x_in, x_face in ((ix0, fx0), (ix1, fx1)):
         seg = _ybox(min(x_in, x_face), max(x_in, x_face), y0, y1, rim, iz1)
-        # AND ITS UNDERSIDE RISES AT `relief_chamfer` INSTEAD OF HANGING. This piece beds on
-        # its own seam rim and builds in +Z, so a section square at the rim would put a
-        # `depth`-wide ledge over the tongue's lane pointing straight at the plate — the
-        # soffit `_lip_underwall` exists one storey down to avoid. Taken back at 45° it is a
-        # wall the print grows into off the flank it stands on.
-        seg = seg.cut(_xz_prism(y0 - 1.0, y1 + 1.0,
-                                [(x_in, rim), (x_face, rim), (x_face, rim + depth)]))
         band = seg if band is None else band.fuse(seg)
+    # AND ITS UNDERSIDE RISES AT `relief_chamfer` INSTEAD OF HANGING. This piece beds on
+    # its own seam rim and builds in +Z, so a section square at the rim would put a
+    # `depth`-wide ledge over the tongue's lane pointing straight at the plate — the
+    # soffit `_lip_underwall` exists one storey down to avoid. Taken back at 45° it is a
+    # wall the print grows into off the flank it stands on. The same helper finishes every
+    # construction which meets this face.
+    band = band.cut(_front_top_flank_bedding_cut(inner, y0 - 1.0, y1 + 1.0, zj))
     # The steel's own berth, up to its top edge and no further: over that plane the lane is
     # `_plate_cap`'s and this section may stand in it.
     band = band.cut(_ybox(ix0 - 1.0, ix1 + 1.0, plate["fore_y"], plate["aft_y"],
@@ -5391,11 +5421,15 @@ def bay_floor_z(pump_trays):
     THE FLOOR IS THIS PIECE'S FIRST LAYERS. Front-top beds on the seam plane, so a floor
     struck there lies on the bed and nothing under it hangs. What sets its section is the
     only thing over it: the pump cartridge's own pump reliefs floor on
-    `_pump_relief_regions`' z0, one millimetre under the heads, and the floor's top is that
-    plane. That top remains the filled block's flat bearing sill. The removable exterior face
-    begins on the same bed plane; `_bay_cut` takes `face_reveal` from only the fixed shell
-    perimeter below it, leaving the interior bearing whole."""
-    return z_seam, min(z0 for _x0, _x1, z0, _z1, _floor in _pump_relief_regions(pump_trays))
+    `_pump_relief_regions`' z0, one millimetre under the heads, and the floor's top is one
+    `face_reveal` under that plane.
+
+    AND IT IS ONE PLANE ACROSS THE WHOLE MOUTH. The filled block's flat bearing sill, the
+    stationary sill the fixed shell perimeter stops on, and the removable exterior face's own
+    bed plane are all this figure, so the bay's floor reads flat from the front wall's section
+    through to the collet plate's slot."""
+    return z_seam, (min(z0 for _x0, _x1, z0, _z1, _floor in _pump_relief_regions(pump_trays))
+                    - face_reveal)
 
 
 def _flank_lip_drop(inner, plate, y_joint, zj):
@@ -5479,17 +5513,13 @@ def _plate_slot(_inner, plate, z_top):
     storey up and wall to wall, so this slot is a lane and not a seat: no step in it, no
     shoulder standing at the mouth, and the same section from the bed face to the floor's top.
 
-    Its mouth is the seam plane, where the opening stands one `plate_slot_lead` wider on each
-    long face and closes back onto the steel's own width over the same rise — the lead's two
-    faces leaning in at the angle a print climbing off its bed carries them at."""
+    AND ITS MOUTH IS SQUARE ON THE FORE FACE, which stands at `plate_slot_slip` off the steel
+    from the bed face to the seat. What eases the steel in is taken off the lane's aft side
+    alone (`_plate_lead`), and the floor gives that flare up here because its own section runs
+    aft of the slot over the ground the flare stands in."""
     y0, y1 = plate["fore_y"] - plate_slot_slip, plate["aft_y"] + plate_slot_slip
     x0, x1 = plate["x0"] - plate_slot_slip, plate["x1"] + plate_slot_slip
-    lead, mouth, seat = plate_slot_lead, z_seam, plate["seat_z"]
-    foot = _yz_prism(x0, x1, (
-        (y0 - lead, mouth - 1.0), (y1 + lead, mouth - 1.0),
-        (y1 + lead, mouth), (y1, mouth + lead), (y1, seat),
-        (y0, seat), (y0, mouth + lead), (y0 - lead, mouth)))
-    return foot.fuse(_ybox(x0, x1, y0, y1, seat, z_top))
+    return _ybox(x0, x1, y0, y1, z_seam - 1.0, z_top).fuse(_plate_lead(plate))
 
 
 tee_stop_pad_depth = wall
@@ -5504,7 +5534,8 @@ def _tee_wall(inner, y_joint, plate, bay):
     A BORE HOLDS ITS TEE ACROSS ITS OWN AXIS AND LEAVES IT free along the release direction.
     Each arm carries a round collar (`tee_connector.branch_collar`), so the wall keeps the
     collar-clear bore everywhere except for two side pads outside the exact arm passage. The
-    pads are one `wall` wide and one `wall` deep, bed-rooted from the seam plane. They begin
+    pads are one `wall` wide and one `wall` deep, standing over the collar's own band and
+    corbelled back to this wall's aft face at 45 degrees under it. They begin
     `tee_stop_pad_setback` aft of the collar's nominal inboard plane, clear of its real blended
     shoulder over the complete release; their small radial bite stops the purchased collar
     after that take-up without making a thin annular diaphragm. What a tee otherwise hangs
@@ -5532,11 +5563,34 @@ def _tee_wall(inner, y_joint, plate, bay):
     run there — so the cut that carries the slide runs away from this wall and never reaches
     into its two feet."""
     slab = _ybox(inner[0], inner[1], plate["aft_y"], plate["wall_aft_y"], z_seam, bay[2])
+    slab = slab.cut(_plate_lead(plate))
     for hx, hz in plate["holes"]:
         slab = slab.cut(_tee_bore(plate, hx, hz))
         slab = slab.fuse(_tee_stop_pads(plate, hx, hz))
         slab = slab.cut(_tee_arm_bore(plate, hx, hz))
     return slab
+
+
+def _plate_lead(plate):
+    """THE FLARE THAT LEADS THE STEEL INTO ITS LANE, taken off the lane's AFT side.
+
+    At the seam plane the lane's aft wall stands `plate_slot_lead` back off the steel's own
+    plane and closes onto it over the same rise, so the mouth is that much wider than the lane
+    it opens into and the face a print climbing off its bed lays there is at 45 degrees. Above
+    the flare the wall is the steel's plane again, which is what every bore through it is
+    stopped on.
+
+    BOTH BODIES ON THAT SIDE GIVE IT UP. The tee wall's fore face IS the lane's aft wall
+    (`_tee_wall`), and the bay floor carries its own section aft of the slot over the same
+    ground (`_plate_slot`) — so this one cutter is what each of them takes.
+
+    IT IS THE SLOT'S OWN X SPAN. Outside the steel's ends the wall carries `plate_end_stock`
+    into the side walls and there is nothing there to lead in."""
+    aft, lead = plate["aft_y"], plate_slot_lead
+    return _yz_prism(plate["x0"] - plate_slot_slip, plate["x1"] + plate_slot_slip,
+                     [(aft - 1.0, z_seam - 1.0), (aft + lead, z_seam - 1.0),
+                      (aft + lead, z_seam), (aft, z_seam + lead),
+                      (aft - 1.0, z_seam + lead)])
 
 
 def _ridge_wall(inner, outer, plate, bay):
@@ -5630,8 +5684,8 @@ def _tee_bore(plate, hx, hz):
 
     The large, support-free bore continues through the complete three-millimetre pad depth,
     so no narrow annulus remains behind the collar. `_tee_stop_pads` restores only two
-    bed-rooted side columns and `_tee_arm_bore` gives their inner faces the exact arm
-    passage."""
+    corbelled side pads over the collar's own band and `_tee_arm_bore` gives their inner faces
+    the exact arm passage."""
     return _teardrop_y(
         plate["bore_r"], hx, hz,
         plate["aft_y"] - 1.0,
@@ -5639,24 +5693,28 @@ def _tee_bore(plate, hx, hz):
 
 
 def _tee_stop_pads(plate, hx, hz):
-    """Two exact three-by-three side columns backing one tee's collar.
+    """Two exact three-by-three side pads backing one tee's collar.
 
-    Their inner X faces are tangent to the arm passage. Their top is where the collar-clear
-    circle reaches that X, so the complete collar contact is caught without inventing an
-    arbitrary ledge; their feet run to `z_seam`, the bed face of front-top. Their Y storey
-    begins beyond the connector's collar/arm blend by `tee_stop_pad_setback`. Each pad is
-    grossed slightly into the final arm cutter so that cutter, not a coincident box face,
-    establishes the finished passage."""
+    Their inner X faces are tangent to the arm passage. A PAD IS THE COLLAR'S OWN BAND. The
+    collar-clear circle reaches the pad's X at `hz` plus and minus `sqrt(ro^2 - ra^2)`, so the
+    whole of the contact lies between those two heights and the pad stands over exactly them —
+    the complete collar contact caught without inventing an arbitrary ledge. Under the lower
+    one the pad's own depth walks back to the tee wall's aft face at 45 degrees, which is what
+    carries it on a piece bedded at `z_seam`. Their Y storey begins beyond the connector's
+    collar/arm blend by `tee_stop_pad_setback`. Each pad is grossed slightly into the final arm
+    cutter so that cutter, not a coincident box face, establishes the finished passage."""
     y0 = plate["collar_in_y"] + tee_stop_pad_setback
     y1 = y0 + tee_stop_pad_depth
     ra, ro = plate["arm_bore_r"], plate["bore_r"]
-    z1 = hz + math.sqrt(ro * ro - ra * ra)
+    reach = math.sqrt(ro * ro - ra * ra)
+    z0, z1 = hz - reach, hz + reach
     gross = 0.1
     out = None
     for sx in (-1.0, +1.0):
         xa = hx + sx * (ra - gross)
         xb = hx + sx * (ra + tee_stop_pad_width)
-        pad = _ybox(min(xa, xb), max(xa, xb), y0, y1, z_seam, z1)
+        pad = _yz_prism(min(xa, xb), max(xa, xb),
+                        [(y0, z1), (y1, z1), (y1, z0), (y0, z0 - (y1 - y0))])
         out = pad if out is None else out.fuse(pad)
     return out
 
@@ -7203,7 +7261,8 @@ def _valve_socket_cutters(plane, sign, seat_x, seat_z):
     )
 
 
-def _valve_trays(solid, inner, stations, y0, y1, z0, z1, wall_aft_y=None):
+def _valve_trays(solid, inner, stations, y0, y1, z0, z1,
+                 wall_aft_y=None, flank_bed_z=None):
     """Every valve tray whose deck falls in the depth and height band this piece owns.
 
     Each station is `(plane, sign, seats)`: the world Y the deck's valves stand their mounting
@@ -7243,7 +7302,12 @@ def _valve_trays(solid, inner, stations, y0, y1, z0, z1, wall_aft_y=None):
     AS FAR AS THE PLATE'S OWN FLOOR — its length is struck to reach the plate, which is all a
     port ever used to graze. `wedge_depth` is carried into it below so the same channel reaches
     the corbel's own floor too: a wall the corbel roots on stands nowhere near a valve's port,
-    so this only ever lengthens the channel where the root corbel actually adds one."""
+    so this only ever lengthens the channel where the root corbel actually adds one.
+
+    THE WALL-TO-WALL PLATE ENDS ON FRONT-TOP'S OWN FLANK BEDDING PLANES. `flank_bed_z` is that
+    piece's bed face when this tray belongs to it. The tray crosses the two grown flank sections,
+    but it does not grow a second skin below either 45-degree underside; its plate, foot and any
+    root corbel are trimmed as one feature before they join the enclosure."""
     for plane, sign, seats in stations:
         zs = [z for _x, z in seats]
         mid_z = (min(zs) + max(zs)) / 2.0
@@ -7254,12 +7318,12 @@ def _valve_trays(solid, inner, stations, y0, y1, z0, z1, wall_aft_y=None):
         # outboard of that.
         face = plane - sign * _valve_tray.SEAT
         near, far = sorted((face, face - sign * _valve_tray.THICK))
-        solid = solid.fuse(_ybox(inner[0], inner[1], near, far, mid_z - half, mid_z + half))
+        tray = _ybox(inner[0], inner[1], near, far, mid_z - half, mid_z + half)
         floor = mid_z - half
         wedge_depth = 0.0
         if wall_aft_y is not None and near < wall_aft_y < far:
             wedge_depth = far - wall_aft_y
-            solid = solid.fuse(_yz_prism(inner[0], inner[1], [
+            tray = tray.fuse(_yz_prism(inner[0], inner[1], [
                 (far, floor), (wall_aft_y, floor), (wall_aft_y, floor - wedge_depth),
             ]))
         # THE PLATE'S FOOT: the plate's own whole section carried down to the piece's bed
@@ -7276,7 +7340,11 @@ def _valve_trays(solid, inner, stations, y0, y1, z0, z1, wall_aft_y=None):
         footed = sign < 0 and foot_z0 < mid_z - half - 1e-9
         if footed:
             lx0, lx1 = lip_face_x()
-            solid = solid.fuse(_ybox(lx0, lx1, near, far, foot_z0, mid_z - half))
+            tray = tray.fuse(_ybox(lx0, lx1, near, far, foot_z0, mid_z - half))
+        if flank_bed_z is not None:
+            tray = tray.cut(_front_top_flank_bedding_cut(
+                inner, near - 1.0, far + 1.0, flank_bed_z))
+        solid = solid.fuse(tray)
         turn = cq.Location(cq.Vector(0, 0, 0), cq.Vector(1, 0, 0),
                            -90.0 if sign > 0 else 90.0)
         for sx, sz in seats:
@@ -7954,6 +8022,12 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         # which is what leaves a lever nut bottoming exactly where it bottomed before.
         if y_side == "front" and box.pack.collet_plate:
             piece = piece.fuse(_front_top_flanks(inner, outer, box, y_joint, zj))
+            # The Y tongue is part of these same two flanks. Its shoulder and slipped overlap
+            # continue through the seam, but their bed-facing edge stays on the flank's one
+            # established 45-degree plane; no separate strip or end cap hangs below it where
+            # the Z-rail channel crosses the tongue.
+            piece = piece.cut(_front_top_flank_bedding_cut(
+                inner, y_joint - wall - 1.0, y_joint + lip_len + 1.0, zj))
         # AND BACK-TOP'S OWN, first of everything that piece does to its flanks, for the same
         # reason: the wells and the +X bosses below are struck on `interior_x` and cut after
         # this, so each is cut out of the whole section rather than out of the skin it replaced.
@@ -8051,8 +8125,11 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         # through-hole leaves across the housing's back. With the wall, because it stands on
         # it — and after the facet's own cuts, which the half took before it was split.
         piece = piece.fuse(_ridge_wall(inner, outer, box.pack.collet_plate, box.pump_bay))
-    piece = _valve_trays(piece, inner, box.pack.valve_trays, ylo, yhi, zlo, zhi,
-                         wall_aft_y=(box.pack.collet_plate["wall_aft_y"] if box.pack.collet_plate else None))
+    piece = _valve_trays(
+        piece, inner, box.pack.valve_trays, ylo, yhi, zlo, zhi,
+        wall_aft_y=(box.pack.collet_plate["wall_aft_y"] if box.pack.collet_plate else None),
+        flank_bed_z=(zj if (y_side, z_side) == ("front", "top") else None),
+    )
     # The pump cradle and clamp are removable; what this fixed piece carries for them is the
     # bay's floor and the seat the collet plate drops into, followed by the opening itself.
     if y_side == "front" and z_side == "top" and box.pump_bay and box.pack.collet_plate:
@@ -8072,7 +8149,7 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     # And the flat ceiling's two strips over the funnel opening's flanks, on the front
     # top alone — the piece whose ceiling is nothing but those strips.
     if y_side == "front" and z_side == "top" and box.pack.funnel:
-        piece = _ceiling_corbels(piece, inner, outer, box.pack.funnel, y_joint)
+        piece = _ceiling_corbels(piece, inner, outer, box.pack.funnel, y_joint, box.y_bosses)
     # The bay's opening, after every fuse that stands near it: what leaves through it is
     # the pump cartridge, and what it takes from this piece is what `build_pump_cartridge` keeps.
     if y_side == "front" and z_side == "top" and box.pump_bay:

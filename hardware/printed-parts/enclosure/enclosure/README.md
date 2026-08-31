@@ -1047,7 +1047,7 @@ derived** — no body in this model has any compliance in it, so no bound reache
 
 **Both pulls belong to the cradle and surround the tube-centre plane.** Each side pocket is
 [18 mm](PULL_DEPTH) deep, [22 mm](PULL_RUN) fore/aft and [48 mm](PULL_RISE) high. Its floor at
-z [176.25 mm](PULL_FLOOR_Z) leaves [9.38 mm](PULL_FLOOR_LIGAMENT) of bed-rooted cradle below
+z [176.25 mm](PULL_FLOOR_Z) leaves [9.88 mm](PULL_FLOOR_LIGAMENT) of bed-rooted cradle below
 it and puts the common tube elevation, z [188.25 mm](PULL_CENTER_Z), 12 mm inside the mouth.
 At the deepest fingertip wall the straight vertical opening is [30 mm](PULL_PLUMB) high; its
 roof then climbs at 45° to the open flank and reaches z [224.25 mm](PULL_TOP_Z). The opening's
@@ -1103,8 +1103,10 @@ is untouched.
 The **collet plate goes in through the Z− face**, which is the seam face front-bottom mates
 on and the face this piece beds on. Its slot (`_plate_slot`) passes through the floor and opens
 on that plane, `plate_slot_slip` off the steel fore and aft at every height, and the mouth
-flares [1 mm](PLATE_SLOT_LEAD) at 45° so the steel finds it — a lead that leans in as the print
-climbs off the bed. **Across, the slot is one rectangle for its whole height**: the steel plus
+is square on both faces. What flares [1 mm](PLATE_SLOT_LEAD) at 45° so the steel finds it is the
+**tee wall's fore face** on the far side of the lane (`_plate_lead`), which stands that much back
+at the seam plane and closes onto the steel's plane over the same rise. The floor's own two faces
+keep the steel's 0.2 mm air from the bed face to the seat. **Across, the slot is one rectangle for its whole height**: the steel plus
 0.2 mm air at each end, stopping at x = ±100.2. A 4.3 mm printed return remains between either
 slot end and the cavity-side wall, followed by the enclosure's 3 mm outer wall. The floor holds
 the plate fore and aft and holds it back not at all; the steel goes clean through and comes up
