@@ -1,14 +1,33 @@
 {
   "_meta": {
-    "source": "amazon.com order history, year-2026 filter: full scrape 2026-08-15 plus individually verified orders through 2026-08-29",
-    "orders": 322,
-    "ordered/total": "ordered present for all 322; total present for 319 — the three cancelled orders were never charged",
+    "source": "amazon.com order history, year-2026 filter: full scrape 2026-08-15 plus individually verified orders through 2026-08-31",
+    "orders": 324,
+    "ordered/total": "ordered present for all 324; total present for 321 — the three cancelled orders were never charged",
     "delivered": "present only where Amazon still shows a shipment banner — orders from roughly mid-April 2026 on; Amazon stops exposing it for older orders, and their detail pages do not carry it either",
-    "subtotal/shipping/tax": "present only for the 17 invoices opened during the 2026-08-15 reconciliation and the two 2026-08-29 orders verified individually; not scraped for the rest",
+    "subtotal/shipping/tax": "present only for the 17 invoices opened during the 2026-08-15 reconciliation and the four orders verified individually on 2026-08-29 and 2026-08-31; not scraped for the rest",
     "project": "true = a purchases.md row names this order. false = household/pet/yard/garage/cancelled, with `why`. null = flagged for a human call.",
     "nonproject_amount": "on a mixed order, the dollars on the invoice that belong to no ledger row. Expected ledger sum = total - nonproject_amount."
   },
   "orders": {
+    "112-5197027-7255407": {
+      "ordered": "2026-08-31",
+      "subtotal": 43.47,
+      "shipping": 2.99,
+      "promotion": -2.99,
+      "tax": 3.15,
+      "total": 46.62,
+      "in_transit": true,
+      "project": true
+    },
+    "112-1724757-6949801": {
+      "ordered": "2026-08-31",
+      "subtotal": 72.99,
+      "shipping": 0.0,
+      "tax": 5.29,
+      "total": 78.28,
+      "in_transit": true,
+      "project": true
+    },
     "112-8958234-5634623": {
       "ordered": "2026-08-29",
       "subtotal": 96.26,
