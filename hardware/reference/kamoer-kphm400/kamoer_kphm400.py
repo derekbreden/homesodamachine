@@ -63,6 +63,22 @@ outlet_open_span_x = barb_pitch + shaft_w
 arch_xs = (cx - barb_pitch / 2.0, cx + barb_pitch / 2.0)
 skirt_depth = 8.0
 skirt_support_air = 0.15
+# The skirt's measured Y span and +Y holder clearance. Its +Y face is 30.11 mm from the pump
+# axis; the cartridge opens 0.30 mm beyond it and carries only 3 mm of upper band behind that.
+skirt_y = 62.5
+skirt_y_max = 30.11
+skirt_y_plus_air = 0.30
+skirt_upper_band = 3.0
+# The lower head body between the two skirt overhangs, measured along Y in the pump frame.
+# Its holder room is 54.3 mm: 54 mm of body plus 0.15 mm per face. Place that room so the
+# case-profile land is 5 mm on Y- and the remaining rectangular land is 3.482 mm on Y+.
+skirt_body_y = 54.0
+skirt_support_xy_air = 0.15
+skirt_support_y_minus = 5.0
+skirt_support_y_plus = 3.482
+skirt_body_y_max = (
+    skirt_y_max + skirt_y_plus_air - skirt_support_y_plus - skirt_support_xy_air)
+skirt_body_y_min = skirt_body_y_max - skirt_body_y
 
 # --- Datasheet-nominal dimensions (external spec; geometry-description.md) --
 head_w = 62.61               # square pump-head body, width and height
@@ -165,7 +181,10 @@ def build_head():
                    centered=(True, False, False))
               .translate((cx, body_y_face - outlet_relief, head_front_z))
               .val())
-    head = box.intersect(pc.stepped_skirt_cavity(0.0, -skirt_depth).val()).cut(relief)
+    head = box.intersect(pc.stepped_skirt_cavity(
+        0.0, -skirt_depth,
+        (skirt_body_y_min, skirt_body_y_max),
+        skirt_y_max).val()).cut(relief)
     return cq.Workplane(obj=head)
 
 

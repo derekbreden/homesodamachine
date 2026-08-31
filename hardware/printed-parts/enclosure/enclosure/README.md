@@ -972,7 +972,7 @@ itself, and `check_tube_seated` reads the three run anchors the same way.
 
 **The pumps leave through one large lower cradle.** `enclosure-pump-cartridge`
 (`build_pump_cartridge`) owns the complete removable front wall, the filled body behind it,
-the plate stop and both hand pulls. Its filled bearing block rides the bay floor; its exterior
+and both hand pulls. Its filled bearing block rides the bay floor; its exterior
 face begins on that same bed plane above a 0.5 mm recess in the fixed sill and ends 0.5 mm below
 the lintel. Its outer shell
 keeps the complete 215 mm enclosure width, including both rounded front corners and side skins,
@@ -990,7 +990,21 @@ from that bracket directly into the lower cradle and then into the bay floor.
 The head's [8 mm](PUMP_SKIRT_DEPTH) skirt stands over one flat horizontal land at z
 [208.594 mm](PUMP_SKIRT_SUPPORT_Z). The [0.15 mm](PUMP_SKIRT_SUPPORT_AIR) difference between
 the skirt bottom and that land is Z clearance. The land keeps the skirt's existing X/Y plan;
-there is no slanted substitute for it.
+there is no slanted substitute for it. It is continuous across the X−, Y− and X+ flanks, with
+[5 mm](PUMP_SKIRT_Y_MINUS_LAND) under Y−. The
+measured [54 mm](PUMP_SKIRT_BODY_Y) body has [0.15 mm](PUMP_SKIRT_XY_AIR) per-face clearance
+in a [54.3 mm](PUMP_SKIRT_OPEN_Y) Y opening, from y
+[9.783 mm](PUMP_SKIRT_BODY_Y_MINUS_EDGE) to y
+[64.083 mm](PUMP_SKIRT_BODY_Y_PLUS_EDGE). On Y+ the same land continues only between the two
+tube-casing passages. The skirt itself spans [62.5 mm](PUMP_SKIRT_Y), from y
+[4.765 mm](PUMP_SKIRT_Y_MINUS_EDGE) to y [67.265 mm](PUMP_SKIRT_Y_PLUS_EDGE); its opening ends
+at y [67.565 mm](PUMP_SKIRT_Y_PLUS_OPEN_EDGE), leaving
+[0.3 mm](PUMP_SKIRT_Y_PLUS_AIR) around the skirt and
+[3.482 mm](PUMP_SKIRT_Y_PLUS_LAND) of supporting land back to the body opening. Only
+[3 mm](PUMP_SKIRT_UPPER_BAND) of upper band remains behind
+that opening, ending at y [70.565 mm](PUMP_SKIRT_UPPER_BAND_AFT). That same
+[70.565 mm](PUMP_CARTRIDGE_AFT_Y) plane is the complete cartridge's Y+ edge; no lower-cradle
+stock continues behind it.
 
 **The second printed piece is the top clamp.** `enclosure-pump-cap`
 (`build_pump_cap`) is [169.9 mm](CLAMP_SPAN) across and [61.75 mm](CLAMP_RISE) high. Its Z− face
@@ -1026,8 +1040,7 @@ printed wall remains between and outside the passages.
 
 The pumps and their barb planes stand [6.15 mm](PUMP_STATION_PROUD) forward. The show face
 stands one flute depth farther out at [7.35 mm](PUMP_PROUD), without moving the pump wells or
-their aft stop. The wells therefore leave the nominal [6 mm](PUMP_PULL_WALL) Y+ wall for the
-hand pulls to load while the cartridge releases the four collets.
+their Y+ edge.
 
 Nothing latches the cartridge in the enclosure. The four barb tubes gripped in the anchor
 tees' branch collets retain it, and the **collet plate** releases them: a laser-cut flat of
@@ -1035,8 +1048,8 @@ tees' branch collets retain it, and the **collet plate** releases them: a laser-
 fore of the four collets in the bay floor. Pull the cradle and the tubes draw the tees forward
 until their collet noses land on the steel; the cradle continues, the collets open, and the
 tubes pass back through the four plate holes. Push it home and the tubes enter the same collets
-while the cradle's aft face lands `cap_kiss` fore of the plate. One hand pulls the cradle and
-the other braces the box; fixed wedge cheeks carry the plate's reaction into the side walls.
+and bottom in them. One hand pulls the cradle and the other braces the box; fixed wedge cheeks
+carry the plate's reaction into the side walls.
 
 **THE TEE TRAVELS AND THE VALVE DOES NOT.** `release-travel` offers each anchor tee the
 whole stroke and reports what it hits — a motion, where every other bound on that card
@@ -1050,8 +1063,9 @@ collet drives its tee aft and the step in the wall's bore is what stops it. **Th
 derived** — no body in this model has any compliance in it, so no bound reaches that premise;
 `check_release_travel`'s docstring is where it is marked and why.
 
-**The cradle's aft face is the stop.** Its body stands through the plate's complete band, and
-`pump-cradle-stops-on-plate` reads both the bearing area and the `cap_kiss` air at full seat.
+**The cradle ends at the skirt band's aft edge.** `pump-cartridge-aft-depth` reads the complete
+solid against y [70.565 mm](PUMP_CARTRIDGE_AFT_Y), so a plate-retention return, side skin or stop pad
+cannot survive behind that plane.
 
 **Both pulls belong to the cradle and surround the tube-centre plane.** Each side pocket is
 [18 mm](PULL_DEPTH) deep, [22 mm](PULL_RUN) fore/aft and [48 mm](PULL_RISE) high. Its floor at
@@ -1069,13 +1083,13 @@ load or invite a second tug.
 
 **One opening spans the entire lower-cradle storey** (`_bay_cut`), from exterior side face to
 exterior side face and from the bay floor to the lintel. No fixed `enclosure-front-top` skin,
-rim cap or display-support post remains in that band. Two narrow fixed plate guides are added
+rim cap or display-support post remains in that band. Two narrow fixed plate-retention cheeks are added
 back only at the aft outer edges and overlap the collet plate's tails; the cartridge carries
-one local aft-corner notch round each guide. Each guide is a wedge in plan, standing
+one local aft-corner notch round each cheek. Each cheek is a wedge in plan, standing
 [3 mm](PLATE_GUIDE_WEDGE) further fore at the fixed side wall than at its inboard face:
 the section carrying the plate's moment is deepest where the cheek is rooted in that wall.
-The guide stands aft of the cradle pull and the cartridge carries a local notch around it.
-The rake is the guide's whole height, so the cheek is one prism — every face a plane, every
+The cheek stands aft of the cradle pull and the cartridge carries a local notch around it.
+The rake is the cheek's whole height, so it is one prism — every face a plane, every
 wall vertical and supported, nothing anywhere in it overhanging. The opening runs **past the
 collet plate to the tee wall's fore face**, where it ends on printed section rather than on a
 free edge.
@@ -1084,7 +1098,7 @@ free edge.
 corners and both exterior flanks begin with the filled block on one plane and continue plumb as
 one uninterrupted silhouette to 0.5 mm below the lintel, without a bevel, ramp, starter strip or
 shelf. The fixed shell perimeter is recessed 0.5 mm below that lower edge while the interior bay
-floor remains at the bearing plane. Only the grip pockets and two aft guide notches otherwise
+floor remains at the bearing plane. Only the grip pockets and two aft plate-retention notches otherwise
 depart from the outline; the top clamp sits wholly inside the wells above.
 
 ## The bay floor
@@ -1131,22 +1145,22 @@ fixed cheeks keep for their whole height, because the lane under it is air at pr
 square ceiling `PLATE_T` wide would be a ledge hanging off the tee wall for the width of the
 machine. Its complete front edge holds the nominal corbel height z
 [221.865 mm](PLATE_CAP_FORE_Z), continuously across X; the forward pump station leaves the
-loaded brackets 0.78 mm clear of that edge. The steel's flat stop land and both fixed cheeks
-remain whole, and the pump cartridge's back lands `cap_kiss` fore of printed wall above and
-steel below.
+loaded brackets 0.78 mm clear of that edge. The steel's flat stop land and both fixed
+plate-retention cheeks remain whole.
 
-**The guides are two stationary single prisms** (`_plate_fore_guides`) standing fore of the
+**The plate retainers are two stationary single prisms** (`_plate_fore_guides`) standing fore of the
 plate's outer tails. Immediately outside either slot end at x = ±100.2, each prism turns aft
 past the steel and fills the complete 4.3 mm band to the cavity-side wall, then fuses into the
 3 mm outer wall. That return stands from the bay floor through the whole storey, with no shelf
-or open column above it. The tee wall is the channel's aft face and the guides its fore face,
+or open column above it. The tee wall is the channel's aft face and the retainers its fore face,
 so the steel cannot pitch forward when the four collet noses load it after the pump cartridge
 has begun moving. Each cheek bears on 10 mm of the plate's Y− face, is a wedge in plan
 [3 mm](PLATE_GUIDE_WEDGE) deeper at the fixed wall than at its inboard face, and **stands the
 whole storey** — to the same ceiling the cap does, so it is a post between two slabs rather
 than a fin off the floor, and the flank opening gets an aft jamb for its full height. Over
 each tail its head carries the cap's own land out to the side wall, spanning
-`PLATE_T + plate_slot_slip` between two standing walls.
+`PLATE_T + plate_slot_slip` between two standing walls. Any guidance these cheeks incidentally
+give the pump cartridge is not their purpose.
 
 **The steel is a rectangle.** The band's bottom is the **seam plane** — it fills the slot to
 its mouth — and its top is whatever puts the four collet holes **centred** in the band
