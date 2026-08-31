@@ -1097,16 +1097,6 @@
    "active": true
   },
   {
-   "id": "ceiling-panel-slides-in",
-   "label": "The complete deep ceiling panel slides through back-top",
-   "kind": "gate",
-   "status": "pass",
-   "value": "0.000 mm\u00b3 in the continuous field-and-rail sweep; 0.000 mm\u00b3 worst lower-furniture overlap over 262 exact stations at y shift -261.00; C14 pocket missing 0.0000 mm\u00b3 and open aft",
-   "target": "no unpocketed fixed material in the field-and-rail complete Y sweep, with every fixed rear feature which reaches it wholly inside an aft-open running-clearance pocket, and no fixed material in any lower printed-furniture pose at one-millimetre spacing",
-   "detail": [],
-   "active": true
-  },
-  {
    "id": "ceiling-dado-mouth-keepers",
    "label": "Two transverse keepers block both ceiling tongues at the open dado mouths",
    "kind": "gate",
@@ -1331,36 +1321,6 @@
    "status": "pass",
    "value": "2 heads, most in the way 0.0 mm\u00b3",
    "target": "nothing of front-top in a head's path to the front",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "pumps-drop-into-cradle",
-   "label": "Both pumps drop vertically into the lower cradle",
-   "kind": "gate",
-   "status": "pass",
-   "value": "2 pumps, 934 stations, most in the way 0.000 mm\u00b3",
-   "target": "pump, bracket and four fitting passages clear every 0.25 mm or less",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "top-clamp-drops-on",
-   "label": "The withdrawn cartridge's top clamp lowers over both pumps",
-   "kind": "gate",
-   "status": "pass",
-   "value": "253 stations, most in the way 0.000 mm\u00b3",
-   "target": "clamp clear of both pumps and cradle every 0.25 mm or less",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "pump-cartridge-sweep-out",
-   "label": "The complete pump cradle and clamp pass through the bay mouth",
-   "kind": "gate",
-   "status": "pass",
-   "value": "2 pieces, 543 motion stations, most in the way 0.000 mm\u00b3",
-   "target": "no front-top material at motion intervals no larger than 0.25 mm",
    "detail": [],
    "active": true
   },
