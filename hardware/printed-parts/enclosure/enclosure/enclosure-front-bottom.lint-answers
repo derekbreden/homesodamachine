@@ -11,3 +11,20 @@ click: x=93.500 y=15.825 z=148.825
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
 click: x=-100.925 y=140.116 z=168.850
 click: x=100.925 y=140.116 z=168.850
+
+[ceiling] The lower Y-seam socket collars' square crowns — each collar keeps complete structural stock over the plug's square slide slot and blind heat-set pocket, so the pin registers and the screw bears on a full section. These two faces are deliberately flat bearing crowns around the cross-pins; changing them into pitched roofs would erase the slot's square pass envelope. They require removable bed-rooted support, and the production-profile support audit remains required for this piece.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
+click: x=-101.425 y=206.525 z=23.050
+click: x=101.425 y=206.525 z=23.050
+
+[slope] The Y-seam floor tongue's full-width 45-degree scarf nose — this is the bed-side face of the six-millimetre floor overlap, not a corbel hanging from either X wall. The tongue's broad underside is on the print bed and this face rises one millimetre per millimetre from it, leaving the cold-core bearing surface flat while lapping the front and back floor slabs.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
+click: x=0.000 y=209.838 z=-3.000
+
+[slope] The condenser flank vents' 45-degree closing hips — each is a 1.55-millimetre run-out inside its groove's shadow, made by the void cutter rather than an added wall ledge. At the sill material recedes as the standing print climbs, and at the ceiling each opening closes at the enclosure's supported 45-degree relief angle; the lint pairs these YZ hip faces with a remote X wall even though they do not hang from that wall.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
+click: x=0.000 y=98.307 z=54.725
+click: x=0.000 y=98.307 z=83.225
+click: x=0.000 y=98.307 z=111.725
+click: x=0.000 y=98.307 z=140.225
+click: x=0.000 y=76.243 z=140.225
