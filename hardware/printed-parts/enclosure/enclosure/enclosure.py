@@ -3751,7 +3751,6 @@ def _back_plug(x_ext, sx, z_boss, y_joint):
     carries its lower face from the wall to the pin's inboard tip. `_y_lip_channel` takes
     the same profile, one `fits.slip` lower, out of the front socket's whole travel."""
     _xs, x_tip, _xh, _xc = _boss_x(x_ext, sx)
-    y_boss = _y_boss(y_joint)
     r = plug_dia / 2.0
     y0, y1 = _y_corner_back(rear_plane_y, y_joint)
     x_in = x_ext + sx * wall
