@@ -3218,13 +3218,6 @@ STACK_CLEAR = (_enc.mount_boss_dia / 2.0
 # back-top slice. Two millimetres leaves the same one-millimetre body air
 # `east_boss_corbel_clear` strikes in X against a 45-degree wedge.
 RELAY1_CORBEL_LIFT = 2.0
-# The ring stack's ceiling relief is short enough to close with two 45-degree Y roof planes.
-# A quarter millimetre below the nominal stack floor leaves those production planes more than
-# one exact assembly-clearance millimetre from the purchased stack while retaining five
-# millimetres over relay #2. Its wall bosses follow the same placed datum.
-GROUND_CEILING_DROP = 0.25
-
-
 # Relay #2 stands the same body ON END: a further quarter about X carries its long axis from
 # fore-and-aft onto Z, so it presents 17 mm of depth to the band instead of 70. That is the only
 # way a third body fits between the main board and the brick, and standing it costs nothing — its
@@ -3361,7 +3354,7 @@ def build_stack(psu, pcba, wagos, wall_seat):
     stud, stud_carry = seat_body(import_step(str(GND_STACK_STEP)).val(), RELAY_TURN,
                                  seat="ground-stack", x1=wall_seat,
                                  y0=box(relay1).ymax + STACK_CLEAR,
-                                 z0=stack_floor - GROUND_CEILING_DROP)
+                                 z0=stack_floor)
     out.append(("ground-stack", stud, C_GND, stud_carry))
     return out
 
@@ -4651,7 +4644,6 @@ CEILING_RELIEF_Z_CLEAR = 1.0
 CEILING_GROWTH_RELIEF_BODIES = (
     ("c14-inlet", +1.0),
     ("relay-1", +1.0),
-    ("ground-stack", +1.0),
     ("asse1022-assembly", -1.0),
     ("bulkhead-water", -1.0),
 )

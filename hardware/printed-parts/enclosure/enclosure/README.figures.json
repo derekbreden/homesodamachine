@@ -69,6 +69,7 @@
     "FRONT_RAIL_INBOARD": "10.15 mm",
     "FRONT_TOP_FLANK": "9 mm",
     "FRONT_TOP_FLANK_GROWN": "6 mm",
+    "GROUND_CEILING_KEEP": "3 mm",
     "HOOK_FOOT": "8.7 mm",
     "HOOK_NECK": "8.85 mm",
     "LIP_UNDERWALL": "6 mm",
