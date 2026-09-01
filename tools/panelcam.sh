@@ -27,16 +27,19 @@
 # still ramping, so `-frames:v 1` returns a black rectangle or a blown one. This discards the
 # ramp and keeps a settled frame.
 #
-# PERMISSION IS THE WHOLE GAME. macOS gates the camera per responsible process, and a shell
-# that has never asked sits at notDetermined — where ffmpeg blocks forever on a prompt nobody
-# can answer. `auth` reports that state before a capture spends a minute finding it out.
+# THE FRAME IS TAKEN BY AN APP, BECAUSE ONLY AN APP MAY TAKE IT. macOS grants the camera to a
+# process it can raise a prompt for, and a shell is not one: ffmpeg here blocks forever on a
+# dialog nobody can answer. `panelcam-shot/PanelCamShot.app` is a bundle TCC can name, launched
+# through `open` so launchd is the responsible process — it opens the camera, writes a PNG and
+# exits, and this reads the file. The permission belongs to the app; this shell never needs it.
+# `auth` still reports the shell's own state, which stays notDetermined and no longer matters.
 
 set -euo pipefail
 
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 CONF="$HERE/panelcam.targets.conf"
 OUT_DIR="${PANELCAM_OUT:-$HERE/../.panelcam}"
-WARMUP="${PANELCAM_WARMUP:-16}"      # frames discarded before the one that is kept
+APP="$HERE/panelcam-shot/PanelCamShot.app"
 
 die() { echo "panelcam: $*" >&2; exit 1; }
 
@@ -121,22 +124,28 @@ cmd_shot() {
     esac
   done
 
-  require_auth
-
-  local device size crop
-  device="$(target_field "$target" device)"
-  size="$(target_field "$target" size)"
+  local match warmup raw
+  match="$(target_field "$target" match)"
+  warmup="$(target_field "$target" warmup)"
   crop="${crop_override:-$(target_field "$target" crop)}"
+
+  [ -d "$APP" ] || die "no $APP — build it once with panelcam-shot/build.sh"
 
   mkdir -p "$OUT_DIR"
   out="${out:-$OUT_DIR/$target.png}"
+  raw="$OUT_DIR/$target.raw.png"
+  rm -f "$raw"
 
-  local vf="select=gte(n\\,$WARMUP)"
-  [ "$full" -eq 1 ] || vf="$vf,crop=$crop"
+  # `open` returns as soon as the app exits; it forwards no output, so the app keeps its own log.
+  open -W "$APP" --args "$raw" "$match" "$warmup"
+  [ -f "$raw" ] || die "no frame — $(tail -1 "$HOME/.panelcam-shot.log" 2>/dev/null || echo 'the app wrote no log')"
 
-  ffmpeg -hide_banner -loglevel error \
-    -f avfoundation -framerate 30 -video_size "$size" -i "$device" \
-    -vf "$vf" -vsync 0 -frames:v 1 -y "$out"
+  if [ "$full" -eq 1 ]; then
+    mv "$raw" "$out"
+  else
+    ffmpeg -hide_banner -loglevel error -i "$raw" -vf "crop=$crop" -y "$out"
+    rm -f "$raw"
+  fi
 
   echo "$out"
 }
