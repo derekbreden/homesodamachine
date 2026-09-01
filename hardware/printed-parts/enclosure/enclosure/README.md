@@ -284,13 +284,13 @@ own mounting face, so no round pipe is left bridging between a generic support b
 part.
 
 `enclosure_assembly.wall_mounts` offers that corbel all the way to every mounting face and
-intersects the offered material with the installed pack. Fifteen fit across their complete
-width. At the two upper holes of relay #2, the module's conservative underside pin envelope
-crosses only the inboard side of the offered wedge. Those two corbels begin 1 mm past the exact
-blocker only across its Y projection; each clear outer side still carries a wall-rooted 45° wing
-all the way to the mounting face. Their D stems remain whole across the holes. `east-boss-corbels`
-reads all 17 additions back against the installed bodies and records both the full-width and
-blocker-profiled populations.
+intersects the offered material with the installed pack. Fourteen fit across their complete
+width. At the main board's upper forward hole and the two upper holes of relay #2, the boards'
+conservative underside pin envelopes cross only the inboard side of the offered wedge. Those
+three corbels begin 1 mm past the exact blocker only across its Y projection; each clear outer
+side still carries a wall-rooted 45° wing all the way to the mounting face. Their D stems remain
+whole across the holes. `east-boss-corbels` reads all 17 additions back against the installed
+bodies and records both the full-width and blocker-profiled populations.
 
 ## Condenser cradle
 
@@ -1373,8 +1373,8 @@ back by `ceiling_corbel_at(x, y)` — the same shape `back_top_wall_reliefs` and
 `back_wall_t_at` take one storey down, keyed on (x, y) rather than (x, z). A row
 names the fitting, the flank, the depth band it covers, and **the run band it
 gives up** — everything from `keep` out to `out`. Inboard of `keep` and outboard
-of `out` the strip keeps its corbel; between them it is the top wall's own section
-alone and takes print support unless that short row carries a stated two-sided Y gable.
+of `out` the strip keeps its corbel; between them the corbel is absent and only
+the top wall's own section remains.
 
 **A relief is a band because a body is a band.** Where a fitting stands hard
 against the panel's edge the two are the same thing: `out` is the strip's whole
@@ -1384,24 +1384,19 @@ of the strip, taking everything outboard of it as well throws away the one part 
 the corbel that roots on the flank and carries itself, and leaves the strip's whole
 width hanging.
 
-The rows are measured against the placed solids and not against their boxes, and
-the difference is most of what they say — a strip read off boxes is a strip with no
-corbel left in it. The raised relay gives up the +X strip from
-[3 mm](RELAY_CEILING_KEEP) of run outward over its band, standing 2.45 mm off the crown
-under it. The ground bar's shorter band gives up the X wedge around the purchased stack,
-then closes again on two 45° planes from the intact wall corbel at its Y ends to a ridge over
-the stack's centre. The stack stands 0.25 mm below the nominal stack floor and keeps more than
-one millimetre of exact air from those planes, so there is no horizontal support roof over it.
+The raised relay gives up the +X strip from [3 mm](RELAY_CEILING_KEEP) of run
+outward over its complete band. The neighboring ground stack uses the same plain,
+unroofed cut: its complete placed plan plus 1 mm, y 324…344, gives up the corbel
+from [3 mm](GROUND_CEILING_KEEP) of run outward. Nothing is fused back above
+either purchased body.
 The C14 keeps the complete established +X wedge: its shared X datum places the
 moulded rim about one millimetre inboard of that corbel, while its Z remains on
-the top port row. Its moulding, the relay, the ground stack, the ASSE body and
+the top port row. Its moulding, the relay, the ASSE body and
 the water bulkhead reach only the new three-millimetre shell.
 `ceiling_growth_reliefs` withholds that shell over each exact placed-body plan
 plus 1 mm, clipped to the fixed strip, while leaving
-the older wedge and its existing run-band/gable treatment intact. At the C14
-this leaves exactly 1 mm of air; the relay retains 2 mm and the ground stack's
-pre-existing closest feature retains its same 0.682 mm, while its printable
-gable remains 1.162 mm clear.
+the older wedge and its existing run-band treatment intact. At the C14 this
+leaves exactly 1 mm of air and the relay retains 2 mm.
 
 **The tap-water chain takes four rows**, because what it occupies is four different
 things. Against the full wedge, the metal inside the corbel is run 1.50…14.09 over
@@ -1426,9 +1421,7 @@ wall at its blind end — because a groove ending exactly on either plane leaves
 strip and the thing it runs out on meeting along a line.
 
 The current tongue is [6 mm](CEILING_TONGUE_T) square and its dado is
-[6.15 mm](CEILING_DADO_DEPTH) deep. The ground-stack gable begins on the fixed
-side of that deeper blind wall; allowing the old roof to extend into the moving
-lane would merely let the dado cutter erase its inboard edge.
+[6.15 mm](CEILING_DADO_DEPTH) deep.
 
 **The ramp is the field's, and the last `depth` is a run-out.** Beside the field the
 dado's roof rises to the show face at the mouth, and both the rise and the millimetre
