@@ -14,20 +14,39 @@
 # host application — the same unpromptable process as before, and the same instant denial.
 # Under `open`, launchd is the responsible process and the bundle answers for itself.
 #
-# The signature is ad-hoc, so it is the binary's own hash. Rebuilding changes it, macOS sees a
-# different app, and the grant has to be given again — expected, and the reason this script is
-# not run on every capture.
+# SIGN WITH A STABLE IDENTITY SO THE GRANT SURVIVES A REBUILD. TCC keys the camera permission to
+# the code's designated requirement. An ad-hoc signature is the binary's own hash, so every
+# rebuild is a new identity and a fresh prompt — which is why approving this once was never once.
+# A Development (or Developer ID) certificate keys the requirement to the team and bundle id
+# instead, both of which hold across rebuilds, so the grant is given a single time. This picks up
+# such an identity from the login keychain automatically and falls back to ad-hoc only when there
+# is none — in which case the every-rebuild reprompt returns.
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 APP="$HERE/PanelCamShot.app"
 
+# First code-signing identity in the keychain: a Developer ID Application if present, else an
+# Apple Development cert. Either is stable across rebuilds; both beat ad-hoc here.
+IDENTITY="$(security find-identity -v -p codesigning 2>/dev/null \
+  | awk -F'"' '/Developer ID Application/{print $2; found=1} END{exit !found}')" || \
+IDENTITY="$(security find-identity -v -p codesigning 2>/dev/null \
+  | awk -F'"' '/Apple Development/{print $2; exit}')" || true
+
 rm -rf "$APP"
 mkdir -p "$APP/Contents/MacOS"
 cp "$HERE/Info.plist" "$APP/Contents/Info.plist"
 swiftc -O "$HERE/main.swift" -o "$APP/Contents/MacOS/PanelCamShot"
-codesign --force --sign - "$APP"
 
-echo "built $APP"
-echo "first run raises the camera prompt; answer it once:"
-echo "  open -W \"$APP\" --args /tmp/panelcam-probe.png 16MP 20"
+if [ -n "${IDENTITY:-}" ]; then
+  codesign --force --timestamp=none --sign "$IDENTITY" "$APP"
+  echo "built $APP"
+  echo "signed as: $IDENTITY"
+  echo "the grant survives rebuilds; you are prompted only the first time this identity is used."
+else
+  codesign --force --sign - "$APP"
+  echo "built $APP (ad-hoc: no signing identity found)"
+  echo "WARNING: ad-hoc signature changes every build, so macOS reprompts for the camera each rebuild."
+fi
+echo "first run raises the camera prompt if the identity is new; answer it once:"
+echo "  open -W \"$APP\" --args --out /tmp/panelcam-probe.png --match 16MP --mode probe"

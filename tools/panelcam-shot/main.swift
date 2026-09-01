@@ -1,103 +1,136 @@
 import AVFoundation
 import AppKit
-import CoreImage
+import CoreMediaIO
 
-// `open` does not forward a bundle's stdout or stderr anywhere, and the bundle has to be started
-// by `open` for TCC to attribute the prompt to it. So the only account of a run that reaches the
-// caller is the one the app writes down itself.
+// `open` forwards neither stdout nor stderr, so the app keeps its own log.
 let logURL = URL(fileURLWithPath: NSHomeDirectory()).appendingPathComponent(".panelcam-shot.log")
 func note(_ s: String) {
   let line = "\(ISO8601DateFormatter().string(from: Date()))  \(s)\n"
-  if let h = try? FileHandle(forWritingTo: logURL) { h.seekToEndOfFile(); h.write(line.data(using: .utf8)!); try? h.close() }
+  if let h = try? FileHandle(forWritingTo: logURL) { h.seekToEndOfFile(); try? h.write(contentsOf: line.data(using: .utf8)!); try? h.close() }
   else { try? line.write(to: logURL, atomically: true, encoding: .utf8) }
   FileHandle.standardError.write(line.data(using: .utf8)!)
 }
 func fail(_ s: String, _ code: Int32) -> Never { note("FAIL \(s)"); exit(code) }
 
-let args = CommandLine.arguments
-guard args.count >= 2 else { fail("usage: PanelCamShot <out.png> [device-name-substring] [warmup]", 2) }
-let outPath = args[1]
-let want = args.count > 2 ? args[2] : ""
-let warmup = args.count > 3 ? Int(args[3]) ?? 16 : 16
-// macOS governs delivered size by session preset, not by activeFormat, and refuses
-// inputPriority outright — so which preset is in force IS the resolution. Passing it in makes
-// that testable without a rebuild, and a rebuild is a re-approval of the camera grant.
-// "-" is an explicitly empty argument. `open --args` drops empty strings, which silently
-// shifts every argument after them into the wrong slot.
-func arg(_ i: Int) -> String { let v = args.count > i ? args[i] : ""; return v == "-" ? "" : v }
-let presetArg = arg(4)
-// "photo" uses AVCapturePhotoOutput, the stills API, which is not bound by the video path's
-// scaling; anything else keeps the video-frame path.
-let usePhoto = arg(5) == "photo"
-// A requested "WxH" picks that format instead of the widest, so the ceiling can be found by
-// walking up the list rather than inferred from one failure at the top of it.
-let wantFormat = arg(6)
-// How many frames past the warm-up are scored before the best is kept.
-let candidates = Int(arg(7)) ?? 12
-
-// KEEP THE SHARPEST FRAME, DO NOT KEEP THE Nth. This camera's autofocus goes on hunting with
-// auto_focus set to 0 — absolute_focus written mid-stream comes back changed, 480 in and 370
-// out — so which frame is in focus is not something the caller can time. Every frame after the
-// warm-up is scored and only the best is kept, which turns the hunting from a defect into a
-// sample: somewhere in the sweep the lens passes through focus, and that pass is the picture.
-final class Grabber: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
-  var seen = 0
-  var scored = 0
-  var best = -1.0
-  let sem = DispatchSemaphore(value: 0)
-  var image: CGImage?
-  let ctx = CIContext()
-
-  // Sum of squared horizontal luma differences on a coarse grid — an in-focus edge steps harder
-  // than a blurred one. Normalised by mean so a brighter frame does not simply win.
-  private func sharpness(_ pb: CVPixelBuffer) -> Double {
-    CVPixelBufferLockBaseAddress(pb, .readOnly)
-    defer { CVPixelBufferUnlockBaseAddress(pb, .readOnly) }
-    guard let base = CVPixelBufferGetBaseAddress(pb) else { return 0 }
-    let w = CVPixelBufferGetWidth(pb), h = CVPixelBufferGetHeight(pb)
-    let stride = CVPixelBufferGetBytesPerRow(pb)
-    let p = base.assumingMemoryBound(to: UInt8.self)
-    var energy = 0.0, sum = 0.0, n = 0.0
-    var y = h / 4
-    while y < h * 3 / 4 { var x = w / 4
-      while x < w * 3 / 4 - 2 {
-        let i = y * stride + x * 4              // BGRA
-        let a = Double(p[i]) + Double(p[i + 1]) + Double(p[i + 2])
-        let j = i + 8
-        let b = Double(p[j]) + Double(p[j + 1]) + Double(p[j + 2])
-        let d = a - b
-        energy += d * d; sum += a; n += 1
-        x += 2
-      }
-      y += 2
-    }
-    guard n > 0, sum > 0 else { return 0 }
-    let mean = sum / n
-    return (energy / n) / (mean * mean)
+var opts = [String: String]()
+do {
+  let a = Array(CommandLine.arguments.dropFirst())
+  var i = 0
+  while i < a.count {
+    let t = a[i]
+    if t.hasPrefix("--") {
+      let key = String(t.dropFirst(2))
+      if i + 1 < a.count && !a[i + 1].hasPrefix("--") { opts[key] = a[i + 1]; i += 2 }
+      else { opts[key] = "true"; i += 1 }
+    } else { i += 1 }
   }
+}
+func opt(_ k: String, _ d: String = "") -> String { opts[k] ?? d }
 
-  func captureOutput(_ o: AVCaptureOutput, didOutput sb: CMSampleBuffer, from c: AVCaptureConnection) {
-    seen += 1
-    guard seen >= warmup, let pb = CMSampleBufferGetImageBuffer(sb) else { return }
-    let sc = sharpness(pb)
-    if sc > best {
-      best = sc
-      let ci = CIImage(cvPixelBuffer: pb)
-      image = ctx.createCGImage(ci, from: ci.extent)
+let outPath = opt("out")
+let want = opt("match")
+let listOnly = opt("list") == "true"
+let wantFormat = opt("format", "4656x3496")
+let settle = Double(opt("settle", "9")) ?? 9          // seconds of frames scored
+let stabilize = Double(opt("stabilize", "1.5")) ?? 1.5  // stream running, before the controls go in
+let focusSettle = Double(opt("focus-settle", "2")) ?? 2 // controls in, before scoring starts
+let targetScore = Double(opt("target", "0.05")) ?? 0.05   // a frame this sharp ends the search
+let maxSeconds = Double(opt("max", "40")) ?? 40            // and this is how long it may look
+let uvcSpec = opt("uvc")
+let uvcNode = opt("uvc-node")
+let uvcJs = opt("uvc-js")
+
+if !listOnly && outPath.isEmpty { fail("need --out", 2) }
+
+// The panel is a fifth of the frame and the rest is unlit countertop. --score names the rectangle
+// the score is taken over.
+var scoreRect: (w: Int, h: Int, x: Int, y: Int)?
+do {
+  let f = opt("score").split(separator: ":").compactMap { Int($0) }
+  if f.count == 4 { scoreRect = (f[0], f[1], f[2], f[3]) }
+}
+
+// Laplacian energy over mean squared: rises with the fine detail an in-focus lens resolves, and
+// does not rise with brightness.
+func score(_ p: UnsafePointer<UInt8>, _ w: Int, _ h: Int, _ stride: Int, _ px: Int) -> Double {
+  let r = scoreRect ?? (w / 2, h / 2, w / 4, h / 4)
+  let x0 = max(1, min(r.x, w - 3)), y0 = max(1, min(r.y, h - 3))
+  let x1 = min(w - 2, x0 + r.w), y1 = min(h - 2, y0 + r.h)
+  var energy = 0.0, sum = 0.0, n = 0.0
+  var y = y0
+  while y < y1 {
+    var x = x0
+    while x < x1 {
+      let c = y * stride + x * px
+      let lap = -4 * Double(p[c])
+        + Double(p[c - px]) + Double(p[c + px])
+        + Double(p[c - stride]) + Double(p[c + stride])
+      energy += lap * lap; sum += Double(p[c]); n += 1
+      x += 2
     }
-    scored += 1
-    if scored >= candidates { sem.signal() }
+    y += 2
   }
+  guard n > 0, sum > 0 else { return 0 }
+  let mean = sum / n
+  return (energy / n) / (mean * mean)
+}
+
+// The luma plane is one byte per pixel and needs no conversion, so every frame can be scored at
+// the rate they arrive.
+func scoreLuma(_ pb: CVPixelBuffer) -> Double {
+  CVPixelBufferLockBaseAddress(pb, .readOnly)
+  defer { CVPixelBufferUnlockBaseAddress(pb, .readOnly) }
+  if CVPixelBufferIsPlanar(pb) {
+    guard let base = CVPixelBufferGetBaseAddressOfPlane(pb, 0) else { return 0 }
+    return score(base.assumingMemoryBound(to: UInt8.self),
+                 CVPixelBufferGetWidthOfPlane(pb, 0), CVPixelBufferGetHeightOfPlane(pb, 0),
+                 CVPixelBufferGetBytesPerRowOfPlane(pb, 0), 1)
+  }
+  guard let base = CVPixelBufferGetBaseAddress(pb) else { return 0 }
+  let bpp = CVPixelBufferGetBytesPerRow(pb) / max(1, CVPixelBufferGetWidth(pb))
+  return score(base.assumingMemoryBound(to: UInt8.self),
+               CVPixelBufferGetWidth(pb), CVPixelBufferGetHeight(pb),
+               CVPixelBufferGetBytesPerRow(pb), max(1, bpp))
+}
+
+let ciContext = CIContext(options: nil)
+
+// A sample arrives either as pixels the driver has already decoded or as the camera's own JPEG.
+func imageFrom(_ sb: CMSampleBuffer) -> CGImage? {
+  if let pb = CMSampleBufferGetImageBuffer(sb) {
+    let ci = CIImage(cvPixelBuffer: pb)
+    return ciContext.createCGImage(ci, from: ci.extent)
+  }
+  guard let bb = CMSampleBufferGetDataBuffer(sb) else { return nil }
+  var len = 0
+  var ptr: UnsafeMutablePointer<Int8>?
+  guard CMBlockBufferGetDataPointer(bb, atOffset: 0, lengthAtOffsetOut: nil,
+                                    totalLengthOut: &len, dataPointerOut: &ptr) == kCMBlockBufferNoErr,
+        let p = ptr, len > 4 else { return nil }
+  let data = Data(bytes: p, count: len)
+  guard let src = CGImageSourceCreateWithData(data as CFData, nil) else { return nil }
+  return CGImageSourceCreateImageAtIndex(src, 0, nil)
+}
+
+// Opening the stream returns focus and exposure to auto and the camera keeps moving them after, so
+// the controls are held for as long as the stream is open.
+var holdProc: Process?
+func holdUVC(_ spec: String) {
+  guard !spec.isEmpty, !uvcNode.isEmpty, !uvcJs.isEmpty else { note("uvc skipped"); return }
+  let p = Process()
+  p.executableURL = URL(fileURLWithPath: uvcNode)
+  p.arguments = [uvcJs, "hold", spec, "120"]
+  p.standardOutput = FileHandle.nullDevice
+  p.standardError = FileHandle.nullDevice
+  do { try p.run(); holdProc = p; note("uvc held: \(spec)") }
+  catch { note("uvc hold failed: \(error.localizedDescription)") }
 }
 
 let names = [0: "notDetermined", 1: "restricted", 2: "denied", 3: "authorized"]
 let before = AVCaptureDevice.authorizationStatus(for: .video)
 
-// COME FORWARD ONLY TO ASK. The prompt is a window and belongs to a foreground app: left as a
-// background process this asks correctly and the dialog opens behind whatever the user is
-// looking at, which reads exactly like no dialog at all. But every later capture is a silent
-// background errand, and activating for those steals the keyboard from whoever is typing —
-// once per photograph. Grant already given, stay out of the way.
+// The prompt is a window and belongs to a foreground app. Once the grant is given the app stays in
+// the background, where a capture takes no one's keyboard.
 let nsApp = NSApplication.shared
 if before == .notDetermined {
   nsApp.setActivationPolicy(.regular)
@@ -105,118 +138,196 @@ if before == .notDetermined {
 } else {
   nsApp.setActivationPolicy(.accessory)
 }
-note("start out=\(outPath) want='\(want)' warmup=\(warmup) preset='\(presetArg)' auth=\(names[before.rawValue] ?? "?")")
-
-// requestAccess raises the prompt; from inside a bundle macOS has something to attribute it to.
-final class Snapper: NSObject, AVCapturePhotoCaptureDelegate {
-  let sem = DispatchSemaphore(value: 0); var data: Data?
-  func photoOutput(_ o: AVCapturePhotoOutput, didFinishProcessingPhoto p: AVCapturePhoto, error: Error?) {
-    if let e = error { note("photo error \(e.localizedDescription)") }
-    data = p.fileDataRepresentation()
-    sem.signal()
-  }
-}
+note("start out=\(outPath) want='\(want)' format=\(wantFormat) auth=\(names[before.rawValue] ?? "?")")
 
 let gate = DispatchSemaphore(value: 0)
 var granted = false
 AVCaptureDevice.requestAccess(for: .video) { ok in granted = ok; gate.signal() }
-// An ad-hoc signature is the binary's own hash, so every rebuild is a new app to TCC and the
-// grant has to be given again. The prompt therefore has to outlast a walk away from the desk:
-// a capture that fails because nobody was in the room teaches nothing and costs the click twice.
 if gate.wait(timeout: .now() + 3600) == .timedOut { fail("no answer to the camera prompt in 1 h", 3) }
-note("requestAccess -> \(granted) (auth now \(names[AVCaptureDevice.authorizationStatus(for: .video).rawValue] ?? "?"))")
 guard granted else { fail("camera access denied", 3) }
 
-let devices = AVCaptureDevice.DiscoverySession(
-  deviceTypes: [.builtInWideAngleCamera, .external, .continuityCamera],
-  mediaType: .video, position: .unspecified).devices
-guard let dev = want.isEmpty ? devices.first
-      : devices.first(where: { $0.localizedName.lowercased().contains(want.lowercased()) }) else {
-  fail("no camera matching '\(want)'; saw \(devices.map{$0.localizedName})", 4) }
-note("device \(dev.localizedName)")
+func cmioAddr(_ sel: Int) -> CMIOObjectPropertyAddress {
+  CMIOObjectPropertyAddress(mSelector: CMIOObjectPropertySelector(sel),
+                            mScope: CMIOObjectPropertyScope(kCMIOObjectPropertyScopeGlobal),
+                            mElement: CMIOObjectPropertyElement(kCMIOObjectPropertyElementMain))
+}
 
-let session = AVCaptureSession()
-guard let input = try? AVCaptureDeviceInput(device: dev), session.canAddInput(input) else { fail("cannot add input", 5) }
-session.addInput(input)
+func cmioIDs(_ obj: CMIOObjectID, _ sel: Int) -> [CMIOObjectID] {
+  var addr = cmioAddr(sel)
+  var size: UInt32 = 0
+  guard CMIOObjectGetPropertyDataSize(obj, &addr, 0, nil, &size) == 0, size > 0 else { return [] }
+  var out = [CMIOObjectID](repeating: 0, count: Int(size) / MemoryLayout<CMIOObjectID>.size)
+  var used: UInt32 = 0
+  let st = out.withUnsafeMutableBytes { raw -> OSStatus in
+    CMIOObjectGetPropertyData(obj, &addr, 0, nil, size, &used, raw.baseAddress!)
+  }
+  return st == 0 ? out : []
+}
 
-let grabber = Grabber()
-let snapper = Snapper()
-let photoOut = AVCapturePhotoOutput()
-let out = AVCaptureVideoDataOutput()
-if usePhoto {
-  guard session.canAddOutput(photoOut) else { fail("cannot add photo output", 6) }
-  session.addOutput(photoOut)
+func cmioString(_ obj: CMIOObjectID, _ sel: Int) -> String {
+  var addr = cmioAddr(sel)
+  var value: Unmanaged<CFString>?
+  var used: UInt32 = 0
+  let st = withUnsafeMutablePointer(to: &value) { p -> OSStatus in
+    CMIOObjectGetPropertyData(obj, &addr, 0, nil, UInt32(MemoryLayout<Unmanaged<CFString>?>.size), &used, p)
+  }
+  guard st == 0, let v = value else { return "" }
+  return v.takeRetainedValue() as String
+}
+
+func cmioFormats(_ stream: CMIOStreamID) -> [CMFormatDescription] {
+  var addr = cmioAddr(Int(kCMIOStreamPropertyFormatDescriptions))
+  var value: Unmanaged<CFArray>?
+  var used: UInt32 = 0
+  let st = withUnsafeMutablePointer(to: &value) { p -> OSStatus in
+    CMIOObjectGetPropertyData(stream, &addr, 0, nil, UInt32(MemoryLayout<Unmanaged<CFArray>?>.size), &used, p)
+  }
+  guard st == 0, let v = value else { return [] }
+  return (v.takeRetainedValue() as? [CMFormatDescription]) ?? []
+}
+
+func cmioSetFormat(_ stream: CMIOStreamID, _ fmt: CMFormatDescription) -> OSStatus {
+  var addr = cmioAddr(Int(kCMIOStreamPropertyFormatDescription))
+  var raw = Unmanaged.passUnretained(fmt).toOpaque()
+  return CMIOObjectSetPropertyData(stream, &addr, 0, nil,
+                                   UInt32(MemoryLayout<UnsafeMutableRawPointer>.size), &raw)
+}
+
+func fourCC(_ v: FourCharCode) -> String {
+  let b = [UInt8((v >> 24) & 255), UInt8((v >> 16) & 255), UInt8((v >> 8) & 255), UInt8(v & 255)]
+  return String(bytes: b, encoding: .ascii) ?? "\(v)"
+}
+func dims(_ f: CMFormatDescription) -> CMVideoDimensions { CMVideoFormatDescriptionGetDimensions(f) }
+
+let system = CMIOObjectID(kCMIOObjectSystemObject)
+var chosen: CMIOObjectID?
+var chosenName = ""
+for d in cmioIDs(system, Int(kCMIOHardwarePropertyDevices)) {
+  let name = cmioString(d, Int(kCMIOObjectPropertyName))
+  if want.isEmpty || name.lowercased().contains(want.lowercased()) { chosen = d; chosenName = name }
+}
+guard let deviceID = chosen else { fail("no camera matching '\(want)'", 10) }
+note("device \(chosenName)")
+
+guard let streamID = cmioIDs(deviceID, Int(kCMIODevicePropertyStreams)).first else {
+  fail("device publishes no stream", 11) }
+
+let formats = cmioFormats(streamID)
+guard !formats.isEmpty else { fail("stream publishes no formats", 12) }
+if listOnly {
+  for f in formats { note("  \(dims(f).width)x\(dims(f).height) \(fourCC(CMFormatDescriptionGetMediaSubType(f)))") }
+  exit(0)
+}
+
+let parts = wantFormat.split(separator: "x").compactMap { Int32($0) }
+guard parts.count == 2 else { fail("--format wants WxH", 13) }
+let matching = formats.filter { dims($0).width == parts[0] && dims($0).height == parts[1] }
+guard let fmt = matching.first else {
+  fail("no format \(wantFormat); have \(formats.map { "\(dims($0).width)x\(dims($0).height)" })", 13) }
+
+let setStatus = cmioSetFormat(streamID, fmt)
+note("format \(dims(fmt).width)x\(dims(fmt).height) \(fourCC(CMFormatDescriptionGetMediaSubType(fmt))) status \(setStatus)")
+
+var queueRef: Unmanaged<CMSimpleQueue>?
+let qst = CMIOStreamCopyBufferQueue(streamID, { _, _, _ in }, nil, &queueRef)
+guard qst == 0, let queue = queueRef?.takeRetainedValue() else { fail("no buffer queue (status \(qst))", 14) }
+
+let started = CMIODeviceStartStream(deviceID, streamID)
+guard started == 0 else { fail("stream would not start (status \(started))", 15) }
+
+var best = -1.0
+var bestImage: CGImage?
+var seen = 0, scored = 0
+var hist = [String: Int]()
+
+// The lens travels the whole time the stream is open, whatever auto_focus is set to, so the frame
+// that is in focus is one of the ones it passes through. Every frame is scored and the sharpest
+// kept; a frame only becomes an image when it beats the one held.
+func drain(for seconds: Double, scoring: Bool) {
+  let deadline = Date().addingTimeInterval(seconds)
+  while Date() < deadline {
+    guard let raw = CMSimpleQueueDequeue(queue) else { usleep(3000); continue }
+    let sb = Unmanaged<CMSampleBuffer>.fromOpaque(raw).takeRetainedValue()
+    seen += 1
+    if let f = CMSampleBufferGetFormatDescription(sb) {
+      let d = dims(f)
+      hist["\(d.width)x\(d.height)", default: 0] += 1
+    }
+    guard scoring, let pb = CMSampleBufferGetImageBuffer(sb) else { continue }
+    let sc = scoreLuma(pb)
+    scored += 1
+    if sc > best, let img = imageFrom(sb) { best = sc; bestImage = img }
+  }
+}
+
+func uvcRun(_ args: [String]) -> String? {
+  guard !uvcNode.isEmpty, !uvcJs.isEmpty else { return nil }
+  let p = Process()
+  p.executableURL = URL(fileURLWithPath: uvcNode)
+  p.arguments = [uvcJs] + args
+  let pipe = Pipe()
+  p.standardOutput = pipe
+  p.standardError = FileHandle.nullDevice
+  do { try p.run() } catch { return nil }
+  let d = pipe.fileHandleForReading.readDataToEndOfFile()
+  p.waitUntilExit()
+  return String(data: d, encoding: .utf8)?.trimmingCharacters(in: .whitespacesAndNewlines)
+}
+
+// absolute_focus reads back the number last written while the lens stands somewhere else: held at
+// 420 and 580 this panel measures 752 and 697, held at 500 and 660 it measures 126 and 130. The
+// range is walked, every frame is scored, and the sharpest is kept. The value that produced it is
+// reported.
+var bestFocus = ""
+func bracketFocus(_ lo: Int, _ hi: Int, _ step: Int, dwell: Double) {
+  var v = lo
+  while v <= hi {
+    _ = uvcRun(["set", "absolute_focus", String(v)])
+    drain(for: dwell, scoring: false)
+    let before = best
+    drain(for: dwell, scoring: true)
+    if best > before { bestFocus = String(v) }
+    v += step
+  }
+}
+
+var focusRange: (lo: Int, hi: Int, step: Int)?
+do {
+  let f = opt("focus-range").split(separator: ":").compactMap { Int($0) }
+  if f.count == 3, f[2] > 0 { focusRange = (f[0], f[1], f[2]) }
+}
+
+// The bracket owns the lens, so the held controls are everything except the one being walked.
+var holdSpec = uvcSpec
+if focusRange != nil {
+  holdSpec = uvcSpec.split(separator: ",").filter { !$0.hasPrefix("absolute_focus=") }.joined(separator: ",")
+}
+
+drain(for: stabilize, scoring: false)
+holdUVC(holdSpec)
+drain(for: focusSettle, scoring: false)
+// About one pass in three ends soft where its neighbours end sharp — 0.090, 0.010, 0.099 on the
+// same panel, under autofocus and under the bracket alike. Passes repeat until a frame reaches
+// --target, or --max seconds have gone.
+if let r = focusRange {
+  let deadline = Date().addingTimeInterval(maxSeconds)
+  var passes = 0
+  repeat {
+    passes += 1
+    bracketFocus(r.lo, r.hi, r.step, dwell: settle)
+  } while best < targetScore && Date() < deadline
+  note("focus bracket \(r.lo)..\(r.hi) step \(r.step) -> best at \(bestFocus) in \(passes) pass(es)")
 } else {
-  // BGRA so the scorer has one byte layout to read. The preset governs size, not this, so
-  // asking for a pixel format costs no resolution.
-  out.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_32BGRA]
-  out.setSampleBufferDelegate(grabber, queue: DispatchQueue(label: "panelcam"))
-  guard session.canAddOutput(out) else { fail("cannot add output", 6) }
-  session.addOutput(out)
+  let deadline = Date().addingTimeInterval(maxSeconds)
+  repeat { drain(for: settle, scoring: true) } while best < targetScore && Date() < deadline
 }
-// A preset is a promise about a shape, not about the sensor, and the session applies one
-// whenever its outputs change: set activeFormat before addOutput and addOutput puts it back,
-// which is how 4656x3496 was selected and 1920x1080 arrived. Assigning activeFormat is itself
-// what switches the session to input priority, so it has to happen after the graph is built.
-session.beginConfiguration()
-// Without this the session keeps applying a preset of its own over activeFormat, and the
-// assignment below is accepted, reads back, and is then quietly overridden: activeFormat says
-// 4656x3496 while 1920x1080 is delivered. On macOS the preset has to be stood down by name.
-// AVCaptureSession.Preset.inputPriority is marked unavailable on macOS, but the underlying
-// string constant is what the session actually compares against, and it honours it.
-// THE PRESET IS THE RESOLUTION, and activeFormat is not. Every format asked for on this camera
-// — 1600x1200 through 4656x3496 — came back as 1920x1080, because that is what the default
-// .high preset means; the format is honoured for what the sensor reads out and the session then
-// scales to the preset. macOS refuses .inputPriority outright, so the only lever is to name the
-// largest preset the session will take.
-let ladder = presetArg.isEmpty
-  ? ["AVCaptureSessionPreset3840x2160", "AVCaptureSessionPresetHigh"]
-  : [presetArg]
-for name in ladder {
-  let p = AVCaptureSession.Preset(rawValue: name)
-  if session.canSetSessionPreset(p) { session.sessionPreset = p; break }
-  note("preset \(name) refused")
-}
-let dimsOf = { (f: AVCaptureDevice.Format) -> CMVideoDimensions in
-  CMVideoFormatDescriptionGetDimensions(f.formatDescription) }
-var widest = dev.formats.max { a, b in
-  dimsOf(a).width * dimsOf(a).height < dimsOf(b).width * dimsOf(b).height }
-if !wantFormat.isEmpty {
-  let parts = wantFormat.split(separator: "x").compactMap { Int32($0) }
-  if parts.count == 2,
-     let f = dev.formats.first(where: { dimsOf($0).width == parts[0] && dimsOf($0).height == parts[1] }) {
-    widest = f
-  } else { note("no format \(wantFormat); keeping the widest") }
-}
-if let f = widest, (try? dev.lockForConfiguration()) != nil {
-  dev.activeFormat = f
-  dev.unlockForConfiguration()
-}
-session.commitConfiguration()
-let dims = CMVideoFormatDescriptionGetDimensions(dev.activeFormat.formatDescription)
-note("format \(dims.width)x\(dims.height) of \(dev.formats.count) offered, preset \(session.sessionPreset.rawValue)")
 
-session.startRunning()
-
-if usePhoto {
-  // Defaults only. Asking for a size the output does not publish throws an ObjC exception the
-  // Swift side cannot catch, and the process aborts with nothing written down.
-  let ps = AVCapturePhotoSettings()
-  note("photo codecs \(photoOut.availablePhotoCodecTypes.map { $0.rawValue })")
-  Thread.sleep(forTimeInterval: 1.5)          // let exposure settle before the one exposure taken
-  photoOut.capturePhoto(with: ps, delegate: snapper)
-  if snapper.sem.wait(timeout: .now() + 60) == .timedOut { session.stopRunning(); fail("no photo", 7) }
-  session.stopRunning()
-  guard let d = snapper.data, let rep = NSBitmapImageRep(data: d) else { fail("no photo data", 8) }
-  guard let png = rep.representation(using: .png, properties: [:]) else { fail("png encode", 9) }
-  try png.write(to: URL(fileURLWithPath: outPath))
-  note("OK \(dev.localizedName) \(rep.pixelsWide)x\(rep.pixelsHigh) -> \(outPath)")
-} else {
-  if grabber.sem.wait(timeout: .now() + 60) == .timedOut { session.stopRunning(); fail("no frame after \(grabber.seen) delivered, \(grabber.scored) scored", 7) }
-  session.stopRunning()
-  guard let cg = grabber.image else { fail("no image from frame", 8) }
-  let rep = NSBitmapImageRep(cgImage: cg)
-  guard let png = rep.representation(using: .png, properties: [:]) else { fail("png encode", 9) }
-  try png.write(to: URL(fileURLWithPath: outPath))
-  note("OK \(dev.localizedName) \(cg.width)x\(cg.height) best=\(String(format: "%.4f", grabber.best)) of \(grabber.scored) -> \(outPath)")
-}
+_ = CMIODeviceStopStream(deviceID, streamID)
+holdProc?.terminate()
+let seenDims = hist.sorted { $0.value > $1.value }.map { "\($0.key)×\($0.value)" }.joined(separator: " ")
+guard let img = bestImage else { fail("no frame kept; saw [\(seenDims)]", 16) }
+guard let png = NSBitmapImageRep(cgImage: img).representation(using: .png, properties: [:]) else {
+  fail("png encode", 9) }
+do { try png.write(to: URL(fileURLWithPath: outPath)) }
+catch { fail("write \(outPath): \(error.localizedDescription)", 17) }
+note("OK \(chosenName) \(img.width)x\(img.height) best=\(String(format: "%.5f", best)) of \(scored) scored, \(seen) seen -> \(outPath)")
