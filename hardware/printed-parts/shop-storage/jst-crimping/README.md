@@ -116,8 +116,9 @@ generator asserts zero overlap and zero gap at those seated interfaces.
 
 The generator asserts one solid per printed part, the H2C build envelope, all
 five seated interfaces, the public tool-envelope clearances, the full spool
-envelope, and the drawer/spool/top-shelf vertical clearances. Physical fit has
-not yet been print-verified.
+envelope, the drawer's pull path, and the drawer/spool/top-shelf vertical
+clearances. STL tessellations of all five parts return no open geometry-lint
+findings. Physical fit has not yet been print-verified.
 
 ## Sources
 [value](NAME) texts are updated by:
