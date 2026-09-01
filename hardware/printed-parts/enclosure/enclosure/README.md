@@ -499,9 +499,10 @@ transoms are the opening vocabulary: if a root's margin enters one course, that 
 stays solid and fluted rather than becoming a one-off short slit. A single opening marooned past
 such a land stays wall too. The MQ-6's two posts stop below the vent band, but its can chute is
 cut through the added inner flank skin beside it. The two intake grooves whose jambs would leave
-less than one 3 mm wall to that chute remain completely solid in every course; the chute is not
+less than one 3 mm wall to that chute stay solid through the courses the chute reaches, and vent
+like any other above it, there being no chute up there to leave a strip against; the chute is not
 widened into a vent, and no 1.261 or 1.981 mm strip survives between the two openings. All
-[80](VENT_RUNS_IN) realized intake openings are the full [24.5 mm](VENT_SHORTEST) segment;
+[85](VENT_RUNS_IN) realized intake openings are the full [24.5 mm](VENT_SHORTEST) segment;
 [0](VENT_SHORT) have a different height.
 
 **[3](VENT_TRANSOMS) transom bands cross that vent, and they are why it prints.** A mullion is
@@ -525,7 +526,7 @@ climbs, and the ceiling closes at exactly the angle the box supports nothing ste
 
 | | slots | openings | thinnest mullion | tallest opening | free area |
 |---|---|---|---|---|---|
-| −X intake | [20](VENT_SLOTS_IN) | [80](VENT_RUNS_IN) | [2.0285 mm](VENT_MEAS_MULLION) | [24.5 mm](VENT_TOWER_IN) | [56.9 cm²](VENT_OPEN_IN) |
+| −X intake | [22](VENT_SLOTS_IN) | [85](VENT_RUNS_IN) | [2.0285 mm](VENT_MEAS_MULLION) | [24.5 mm](VENT_TOWER_IN) | [60.5 cm²](VENT_OPEN_IN) |
 | +X exhaust | [22](VENT_SLOTS_OUT) | [88](VENT_RUNS_OUT) | [2.0285 mm](VENT_MEAS_MULLION) | [24.5 mm](VENT_TOWER_OUT) | [62.6 cm²](VENT_OPEN_OUT) |
 
 Both read off the built piece at the flank's mid-section, over the fan's own band. A pierced field
