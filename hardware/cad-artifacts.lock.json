@@ -2,8 +2,8 @@
   "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed \u2014 web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
   "release": {
     "tag": "cad-artifacts",
-    "asset": "cad-66e0308b98c582f9.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-66e0308b98c582f9.tar.gz",
+    "asset": "cad-51b1afd747d0ebb5.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-51b1afd747d0ebb5.tar.gz",
     "objects": "s-"
   },
   "source": {
@@ -12,7 +12,7 @@
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, its rule would not cut, or an interactive publication explicitly deferred that rule.",
     "paths": [
-      "hardware/manifold-layout/enclosure_assembly.py",
+      "hardware/printed-parts/enclosure/enclosure/README.md",
       "hardware/printed-parts/enclosure/enclosure/enclosure.py"
     ],
     "members": [
@@ -246,8 +246,8 @@
     ]
   },
   "bundle": {
-    "sha256": "66e0308b98c582f95e2fa83a1dc29e35810afd873118bcf5f9ffe14c6e05614f",
-    "bytes": 115831241,
+    "sha256": "51b1afd747d0ebb50189b6693be780576238638dfad9d214ca203c2f5123c879",
+    "bytes": 115792281,
     "solids": 267
   },
   "solids": {
@@ -321,23 +321,23 @@
     "hardware/assembly/cards/img/wago-column.png.scene.json": "9d69a93aea3b6ed7f4367c413b16d67efe4b1d732252ccf67ed128b61b4ac262",
     "hardware/assembly/cards/img/water-split.png": "4024c8960b690a3535d1632a533c962c35aa3c8c9213585e053497d65bce32c7",
     "hardware/assembly/cards/img/water-split.png.scene.json": "1a6116c4c11f6027728701d4b15da653fe79a13e0f5a4cc693412cbc3b9fccc5",
-    "hardware/assembly/scenes/glb/back-half.glb": "fdea3516cc19855eadc82f10c3ca13bef895454408df6e2305c907ef74c701ac",
-    "hardware/assembly/scenes/glb/back-top.glb": "6813f2e7071961ac281391c58dc91ab9b1bfde20e0574c6e06ef113a25cecd77",
+    "hardware/assembly/scenes/glb/back-half.glb": "bcde9678101433d5918e6df0f4c3b08bf5f0dc92a8c28b4bed7528550d53c5b6",
+    "hardware/assembly/scenes/glb/back-top.glb": "ba78d7b8386ef145b0d6f8a9628a93d6275dfb5026b0fdb9fb40ec56f9917b5e",
     "hardware/assembly/scenes/glb/cap-lid-fill.glb": "b776e3892e0a5ce79236db4c0be953309611dc5fb50ed419ec0fd1cd318f97db",
     "hardware/assembly/scenes/glb/cap-lid.glb": "c590277913a157e48c009ee1539b27f0929209c6aadd247130469ff4bc8e5f3f",
     "hardware/assembly/scenes/glb/cold-core-open.glb": "93a145189aa96053f5a2c5d6193efcab738b3d03e2ad52391d5569b23531a32c",
     "hardware/assembly/scenes/glb/cold-core.glb": "b6c2a4c9b6622f13a152051a4e33afcdb9bd89099f4ef85d7331d0256b9e97fe",
     "hardware/assembly/scenes/glb/en04-stratum.glb": "dea1c9dbc48bdb9ba767b1853d3f0f8109bc9e697fb1753981855a3ec1b1ac4d",
     "hardware/assembly/scenes/glb/en06-column.glb": "f14f7725301a28341dcaf4dbd1d63deff86f510f4f332c16accf55999bcd7cc6",
-    "hardware/assembly/scenes/glb/front-top.glb": "eed3771cfc53bb0c218bccaaa89335f5d89d36acf4cecd1603317c24f3bec024",
+    "hardware/assembly/scenes/glb/front-top.glb": "e7ca2dee419d9129037e5fc48abd8ecc22716e90fb8754a10063c37b560e2b73",
     "hardware/assembly/scenes/glb/funnel-drain.glb": "898e87e7704c85774276a6889fad0f00f04b92e155d4053e370542814deccbc8",
     "hardware/assembly/scenes/glb/pump-cartridge.glb": "07004d2be27d59568b6de2b049eb065292e21168acd8202fabd058c5a8649329",
     "hardware/cold-core-layout/cold-core-assembly.step": "f1feba15c4b3ff8950ea2dc39a9cababa3771d8a0c17435229f218ec203370b4",
     "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step": "bb6d47d7641a9759e444da2f68ea12d48ddcc19f36bcfcd4227414a5d75d538a",
     "hardware/faucet-layout/faucet-assembly.step": "f0cfe4395ced9167017cb2188064e2f28ec9bfb99abb07d2c8432f93f4ab65a4",
     "hardware/faucet-layout/faucet-assembly.step.mesh": "c2d3f40b1d81247ea55bb282ddc3059532d5ab70aadb23b186df1f74d38db023",
-    "hardware/manifold-layout/enclosure-assembly.step": "9a514e4e2ccca93333065a68d7e4f7c5d1eb29f848294cea56115e0009e90cc5",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "54916ddac6c157a5f246ff99ff35d5ad10ff54018c193d68c5f949e596fad84d",
+    "hardware/manifold-layout/enclosure-assembly.step": "3dadaaedc5f2ed170ba9fdad29ca25e057e677e0e71ac11d50f3a08432f545aa",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "6b79fd59dd1f2861dfed9aa29a37b96268b309a5920cd767bed2da733d1f6bdd",
     "hardware/manifold-layout/manifold-layout.step": "f73566fd48f1e2ef62c0d75fec3aa7f2346ccdc123a467694f453e5064855732",
     "hardware/manifold-layout/manifold-layout.step.mesh": "7b2d185823a74661e4cb3a31f055a919fa835449fed081b083eff91c4f916ff5",
     "hardware/pcb/pcba/out/pcba.glb": "819d2d6a51579a8c3ee66bcb9432075bc50ca77cf129bd828ea538b8fc72b767",
