@@ -1,0 +1,4 @@
+[step] The pump-cap's disconnected boss-location flats and centre access-recess wall — y=68.525 exists only on the two fitted octagonal boss rooms, while y=67.8175 is the joined screw-access recess wall at the centre. The actual faces have 29.094 mm of X air between them and never overlap; the detector pairs the boss components' combined bounding box across that empty centre span with the recess wall. The outer flats locate both pump bosses against +Y, and the centre wall terminates the top-access recess beyond the aft M3.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step
+click: x=49.945 y=68.525 z=231.245
+click: x=0.000 y=67.817 z=231.245

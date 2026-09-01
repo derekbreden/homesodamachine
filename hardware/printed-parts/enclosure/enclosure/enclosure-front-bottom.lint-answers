@@ -6,3 +6,8 @@ click: x=97.500 y=20.633 z=77.500
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
 click: x=93.500 y=15.825 z=12.225
 click: x=93.500 y=15.825 z=148.825
+
+[ceiling] The front Z-slide heads' square catches — each bottom rail overlaps the top's full-section foot by 5.00 mm and keeps 0.15 mm of running air, so its flat underside stands at z=160.00 + 8.70 + 0.15 = 168.85. Lifting the seated top lands its flat foot on this face along the whole rail, holding the screwless bottom-to-top seam against lift with full-face bearing. The arm already returns to the wall on its 45-degree under-flare; pitching this bearing face would turn the catch into a cam and give up the joint's square-catch contract.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
+click: x=-100.925 y=140.116 z=168.850
+click: x=100.925 y=140.116 z=168.850
