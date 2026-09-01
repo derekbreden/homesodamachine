@@ -32,6 +32,8 @@ casadi==3.7.2
 cffi==2.0.0
 charset-normalizer==3.4.7
 contourpy==1.3.3
+cqgridfinity==0.5.7
+cqkit==0.5.8
 cssselect2==0.9.0
 cycler==0.12.1
 Cython==3.2.9
