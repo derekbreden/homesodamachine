@@ -223,7 +223,7 @@ def main():
         # And what the steel keeps off a PRINTED face — its own figure and not `fits.slip`,
         # which is printed-on-printed. The plate settles this far onto front-bottom's shelves,
         # because that face opposes the cap's land and the land is the datum.
-        "STEEL_AIR": f"{_enc.steel_air:.4g} mm",
+        "PLATE_LAND": f"{_enc.plate_step_in() - _enc.wall + _enc.plate_foot_reach:.4g} mm",
         # The STATED width — the bound itself and not a measurement of the box built to it, so
         # the doc quotes what `enclosure` declares rather than what the pieces came out at.
         "APPLIANCE_W": f"{_enc.appliance_width:.4g} mm",
