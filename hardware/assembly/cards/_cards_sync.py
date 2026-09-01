@@ -159,7 +159,7 @@ def enclosure(m: Machine):
     # brings back-top down with its ceiling already in. THE FOUR ARE HELD FOUR
     # DIFFERENT WAYS — a quadrant is cross-pinned, the pump cartridge slides and is pinned by
     # nothing, the cap is screwed to the pump cartridge on the bench, the ceiling panel rides
-    # a dado down each of back-top's flanks and is blocked by two transverse keepers — so a piece
+    # as a fitted slide in the dado down each of back-top's flanks — so a piece
     # added or renamed has no number in these sentences to drift, and this is the only
     # thing that can put them back.
     assert pieces == ["back-bottom", "back-top", "ceiling-panel", "front-bottom",
