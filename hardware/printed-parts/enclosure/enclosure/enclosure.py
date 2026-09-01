@@ -1272,8 +1272,8 @@ back_top_ceiling_growth = back_top_ceiling_t - wall
 # WHAT STILL TAKES THE WHOLE RUN IS THE SHARED TIE CHANNEL. Each zip tie is a closed loop that comes
 # west over the chain's top flat in the `DECK_CEILING_CLEAR` lane and drops into the cavity through
 # the anchor's back — and that cavity's top mouth is out at the wall (`_asse_tie_cavity`), so a
-# corbel standing over the outboard run would roof the opening. The one relief spans both tie bands
-# and the room between them, matching the one support-removable channel through the anchor.
+# corbel standing over the outboard run would roof the opening. `back_top_ceiling_reliefs_for`
+# derives that relief from the same channel span, leaving no ledge between the two cuts.
 # The run the side strip actually has: the nominal flank face to the panel's own edge. A thicker
 # flank spends its added section outboard and shortens only the exposed corbel; the panel and the
 # appliance silhouette do not move.
@@ -1287,12 +1287,22 @@ back_top_ceiling_reliefs = (
     # the relay beside it.
     ("relay-1",        +1.0, 250.0, 325.0, 3.0, _RAIL),  # the relay's crown, mid-strip
     ("ground-stack",   +1.0, 324.0, 344.0, 3.0, _RAIL),  # the +X ground stack's complete plan
-    # The tap-water chain's three. The barrel and the body give up what they stand in; the shared
-    # tie channel gives up the whole run, so its cavity opens on air out to the wall.
+    # The tap-water chain's body rows. The barrel and the body give up what they stand in; the
+    # shared tie channel's exact derived row is appended by `back_top_ceiling_reliefs_for`.
     ("asse1022-barrel",   -1.0, 354.0, 394.0, 0.0, 16.0),
     ("asse1022-body",     -1.0, 394.0, 424.5, 0.0,  7.0),
-    ("asse1022-tie-channel", -1.0, 358.0, 390.5, 0.0, _RAIL),
 )
+
+
+def back_top_ceiling_reliefs_for(asse_cradle=None):
+    """The fixed-strip reliefs, with the shared tie channel on its exact derived Y span."""
+    reliefs = back_top_ceiling_reliefs
+    if asse_cradle:
+        _z_axis, _sections, ties, _dn = asse_cradle
+        tie_y0, tie_y1 = _asse_tie_channel_span(ties)
+        reliefs += (("asse1022-tie-channel", -1.0, tie_y0, tie_y1, 0.0, _RAIL),)
+    return reliefs
+
 
 @functools.lru_cache(maxsize=1)
 def _ceiling():
@@ -1306,7 +1316,7 @@ def _ceiling():
     return ceiling_panel
 
 
-def ceiling_corbel_at(x, y, growth_reliefs=()):
+def ceiling_corbel_at(x, y, growth_reliefs=(), asse_cradle=None):
     """How deep back-top's ceiling strip hangs below the ceiling plane at one station — the
     corbel's own reach under the top wall's section.
 
@@ -1316,7 +1326,7 @@ def ceiling_corbel_at(x, y, growth_reliefs=()):
     run = abs(x) - _ceiling().panel_half_w
     if run <= 0.0:
         return 0.0                         # the panel's own field — no strip, and no corbel
-    for _who, sx, y0, y1, keep, out in back_top_ceiling_reliefs:
+    for _who, sx, y0, y1, keep, out in back_top_ceiling_reliefs_for(asse_cradle):
         if sx * x > 0.0 and y0 <= y <= y1 and keep < run <= out:
             return 0.0
     grown = back_top_ceiling_growth
@@ -1327,7 +1337,7 @@ def ceiling_corbel_at(x, y, growth_reliefs=()):
     return grown + run
 
 
-def ceiling_stations(digiten, anchors, panel: bool):
+def ceiling_stations(digiten, anchors, panel: bool, asse_cradle=None):
     """Which of the ceiling's own stations each side of that joint builds — the slide-in panel's
     when `panel`, back-top's otherwise.
 
@@ -1362,7 +1372,7 @@ def ceiling_stations(digiten, anchors, panel: bool):
             plans.append((meter_anchors[0],
                           (meter_anchors[3][0][0] + meter_anchors[3][-1][1]) / 2.0))
         for station in plans:
-            deep = ceiling_corbel_at(*station)
+            deep = ceiling_corbel_at(*station, asse_cradle=asse_cradle)
             if deep > 0.0:
                 raise ValueError(
                     f"ceiling_stations: a rib rooted on the ceiling stands at x {station[0]:.2f}, "
@@ -4996,7 +5006,7 @@ def _back_top_flank_relief_cut(box):
     Its span comes from the placed cradle's two tie bands, so the added flank stock gives up the
     one continuous mouth from the cavity's own west edge to the nominal face. It runs to the
     ceiling and needs no roof: the ceiling-strip corbel gives up the same span in
-    `back_top_ceiling_reliefs`."""
+    `back_top_ceiling_reliefs_for`."""
     faces, floors = back_top_flank_face(), lip_face_x()
     out = None
     for _who, side, y0, y1, z0, z1 in back_top_flank_reliefs:
@@ -5138,7 +5148,7 @@ def _back_top_ceiling_for_pack(inner, y_joint, sx, box, *, grown=True):
     corbel = (_back_top_ceiling_grown_for_pack(
         inner, y_joint, sx, box.pack.ceiling_growth_reliefs)
         if grown else _back_top_ceiling_corbel_at(inner, y_joint, sx, inner[5]))
-    for who, rsx, y0, y1, keep, out in back_top_ceiling_reliefs:
+    for who, rsx, y0, y1, keep, out in back_top_ceiling_reliefs_for(box.pack.asse_cradle):
         if rsx != sx:
             continue
         if not 0.0 <= keep <= out <= deep + 1e-9:
@@ -7073,8 +7083,8 @@ asse_cradle_lip = 4.0       # block carried past the flanks, so the V cut is nev
 # ONE CHANNEL SPANS BOTH ZIP TIE BANDS. Its fore and aft ends stand half `tie_cav_wide_w` beyond
 # the corresponding tie centre, and the volume between them is open. The slicer's support under
 # this horizontal passage is therefore one continuous body a hand can reach along the full span.
-# The ceiling over the same span gives up its corbel (`back_top_ceiling_reliefs`) so the support
-# remains continuous at the top mouth.
+# The ceiling over the same span gives up its corbel (`back_top_ceiling_reliefs_for`) so the
+# support remains continuous at the top mouth.
 #
 # ITS TWO FLANKS ARE BOTH ONE `wall`. The cavity is what is LEFT between them — a `wall` off the
 # anchor on the east and a `wall` off the side wall's own inner face on the west — so its width is
@@ -8184,7 +8194,9 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     # room its two ends leave under the face it stops on, so the plane they are drawn to has to be
     # the plane this piece puts there (`piece_root_faces`).
     roots = piece_root_faces(inner, y_side, z_side)
-    meter_anchors, ribs = ceiling_stations(box.pack.flow_meter_anchors, box.pack.tube_anchors, panel=False)
+    meter_anchors, ribs = ceiling_stations(
+        box.pack.flow_meter_anchors, box.pack.tube_anchors, panel=False,
+        asse_cradle=box.pack.asse_cradle)
     piece = _flow_meter_anchors(piece, roots, meter_anchors, ylo, yhi, zlo, zhi)
     # And the flavour manifold's valve trays, on whichever piece owns each deck's band. A plate
     # wall to wall with its seats standing on it, so it goes on after the wells and the bosses
