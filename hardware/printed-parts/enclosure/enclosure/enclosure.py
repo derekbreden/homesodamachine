@@ -4272,6 +4272,20 @@ def _lip_underwall(inner, y_joint, zj):
                      inner[4], zj)
 
 
+def mq6_chute_reach(sz):
+    """How high the MQ-6's can ever rides in front-bottom's west skin, off its own station —
+    `(the top of the can's sweep, the apex of the gable closed over it)`.
+
+    THE CARD IS ONLY HELD TO THE CHUTE'S X ONCE ITS FOOT IS IN THE POSTS' GROOVES, and a groove
+    opens at the post's crown one half card above the station, so the can's highest ride is with
+    the card's foot at that mouth — one whole `mq6_card_z` above where it seats. The gable over
+    it closes at 45° in one more can radius. Read by the skin that cuts the chute and by the vent
+    that has to stay a wall from it, so neither can drift off the other."""
+    half = mq6_can_yz / 2.0 + mq6_slot_press
+    crown = sz + mq6_card_z + half
+    return crown, crown + half
+
+
 def _front_bottom_flank_skin(inner, west_cradle, y_joint, zj):
     """The extra skin inboard of front-bottom's two flanks, slab to seam mouth, WELLED on the
     west where the MQ-6's can reaches into it.
@@ -4301,11 +4315,11 @@ def _front_bottom_flank_skin(inner, west_cradle, y_joint, zj):
     west = _ybox(lx0, fx0, inner[2], y_joint, inner[4], zj)
     half = mq6_can_yz / 2.0 + mq6_slot_press
     for _sx, sy, sz in west_cradle:
-        crown = sz + mq6_card_z + half
+        crown, apex = mq6_chute_reach(sz)
         west = west.cut(_ybox(lx0 - 1.0, fx0 + 1.0,
                               sy - half, sy + half, sz - half, crown))
         west = west.cut(_yz_prism(lx0 - 1.0, fx0 + 1.0,
-                                  ((sy - half, crown), (sy + half, crown), (sy, crown + half))))
+                                  ((sy - half, crown), (sy + half, crown), (sy, apex))))
     return west.fuse(_ybox(fx1, lx1, inner[2], y_joint, inner[4], zj))
 
 
@@ -6803,21 +6817,28 @@ def vent_measure(solid, outer, airway, sx):
             "band": (bz0, bz1)}
 
 
-def _vent_clears_west_chute(sx, y, west_cradle):
-    """Whether one complete groove stays at least one wall from the MQ-6 chute.
+def _vent_chute_courses(sx, y, west_cradle, airway):
+    """The courses one groove gives up to the MQ-6 chute — the ones the chute is actually IN.
 
     The chute is cut only from front-bottom's added inner skin. A vent in the next groove can
     therefore leave an unnamed strip of that skin between its slot jamb and the chute edge even
-    though both openings are individually valid. Keep that whole groove solid when the strip
-    would be thinner than `wall`; opening further into the chute would trade the nib for a leak
-    in the sensor well. Grooves crossing the chute itself remain vents, because there is no
-    intervening material to protect."""
+    though both openings are individually valid, so where the strip would be thinner than `wall`
+    the groove stays solid rather than opening further into the chute and trading the nib for a
+    leak in the sensor well. Grooves crossing the chute itself keep their vents, because there is
+    no intervening material to protect.
+
+    AND IT IS A HEIGHT AND NOT THE WHOLE COLUMN. What the strip is thin BESIDE is the chute, and
+    `mq6_chute_reach` says where that stops — one card above the can's seat and a radius of gable
+    over it. Above that the skin is whole across this groove and the next, so a course up there
+    gives up nothing to a feature it does not reach; only the courses the chute's own clearance
+    enters stay solid."""
     if sx > 0.0 or not west_cradle:
-        return True
+        return ()
     slot_lo = y - reeding.pierce_width / 2.0
     slot_hi = y + reeding.pierce_width / 2.0
     chute_half = mq6_can_yz / 2.0 + mq6_slot_press
-    for _x, cy, _z in west_cradle:
+    blocked = []
+    for _x, cy, cz in west_cradle:
         chute_lo, chute_hi = cy - chute_half, cy + chute_half
         if slot_hi <= chute_lo:
             gap = chute_lo - slot_hi
@@ -6826,8 +6847,10 @@ def _vent_clears_west_chute(sx, y, west_cradle):
         else:
             continue
         if gap < wall - stated_bound_tol:
-            return False
-    return True
+            top = mq6_chute_reach(cz)[1] + cond_vent_clear
+            blocked.extend(course for course in vent_segments(airway)
+                           if course[0] < top - stated_bound_tol)
+    return tuple(blocked)
 
 
 def _flank_vents(solid, inner, outer, airway, y0, y1, z0, z1, west_cradle=()):
@@ -6852,9 +6875,10 @@ def _flank_vents(solid, inner, outer, airway, y0, y1, z0, z1, west_cradle=()):
     one isolated slit is the same accidental-looking nick the full-segment rule removes in Z.
 
     NO THIN STRIP BESIDE THE MQ-6 CHUTE. On the intake flank the two grooves whose slot jambs
-    would stop less than one wall from that chute remain whole for every course. The chute keeps
-    its fitted outline and the wall keeps complete stock; neither opening is widened into the
-    other merely to erase their narrow intersection.
+    would stop less than one wall from that chute stay whole through the courses the chute
+    reaches. The chute keeps its fitted outline and the wall keeps complete stock; neither
+    opening is widened into the other merely to erase their narrow intersection — and above the
+    chute both grooves vent like any other, there being nothing up there to leave a strip against.
 
     LAST OF THE FLANK'S WORK, after every rail, fin, pod and pocket either wall carries — because
     a slot is air, air a later step fuses back in is not a slot, and because what decides where
@@ -6866,9 +6890,9 @@ def _flank_vents(solid, inner, outer, airway, y0, y1, z0, z1, west_cradle=()):
         return solid
     runs = {}
     for sx, y in vent_grooves(outer, airway):
-        if not _vent_clears_west_chute(sx, y, west_cradle):
-            continue
-        got = _vent_runs(solid, outer, airway, sx, y)
+        blocked = _vent_chute_courses(sx, y, west_cradle, airway)
+        got = tuple(course for course in _vent_runs(solid, outer, airway, sx, y)
+                    if course not in blocked)
         runs.setdefault(sx, []).append((y, got))
     courses = vent_segments(airway)
     for sx, columns in runs.items():
