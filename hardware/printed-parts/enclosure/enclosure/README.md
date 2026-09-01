@@ -770,10 +770,12 @@ aligned with the other top-row ports.
 
 The **PRV chase's roofs lean from the −X wall too**. Where its open exterior groove
 becomes the closed fall, the roof rises inward across the exact
-[3 mm](VENT_GROOVE_ROOF) show-skin section at 45°. At the Z seam the top piece's rib begins on
-the rim and rises along a second 45° X plane for the full [8 mm](VENT_RIB_BASE) from the grown
-flank to the cold-core lip. Above it, the closed passage's roof is one X plane from its liner
-inside the flank through the wall and out to that same lip. The lip keeps
+[3 mm](VENT_GROOVE_ROOF) show-skin section at 45°. At the Z seam the top piece's rib beds on
+the flank band's own 45° plane off the seam rim; where that plane crosses the rail channel's
+east gable the underside follows the gable down, then rises one-for-one to the cold-core lip
+on the slope struck over the [8 mm](VENT_RIB_BASE) from the grown flank to that lip. Above it,
+the closed passage's roof is one X plane from its liner inside the flank through the wall and
+out to the same lip. The lip keeps
 [3.1 mm](VENT_RIB_LAND) of solid land below the square mouth. None leaves a horizontal face for
 a short support tree, while the exterior groove edge, the square passage and the back slide's
 opening remain on their own datums.
