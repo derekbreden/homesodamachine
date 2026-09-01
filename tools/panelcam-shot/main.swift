@@ -31,15 +31,21 @@ final class Grabber: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
   }
 }
 
-// The prompt is a window, and a window belongs to an app that is running in the foreground.
-// Left as a background process this asks correctly and the dialog opens behind whatever the
-// user is looking at, which reads exactly like no dialog at all.
-let nsApp = NSApplication.shared
-nsApp.setActivationPolicy(.regular)
-nsApp.activate(ignoringOtherApps: true)
-
 let names = [0: "notDetermined", 1: "restricted", 2: "denied", 3: "authorized"]
 let before = AVCaptureDevice.authorizationStatus(for: .video)
+
+// COME FORWARD ONLY TO ASK. The prompt is a window and belongs to a foreground app: left as a
+// background process this asks correctly and the dialog opens behind whatever the user is
+// looking at, which reads exactly like no dialog at all. But every later capture is a silent
+// background errand, and activating for those steals the keyboard from whoever is typing —
+// once per photograph. Grant already given, stay out of the way.
+let nsApp = NSApplication.shared
+if before == .notDetermined {
+  nsApp.setActivationPolicy(.regular)
+  nsApp.activate(ignoringOtherApps: true)
+} else {
+  nsApp.setActivationPolicy(.accessory)
+}
 note("start out=\(outPath) want='\(want)' warmup=\(warmup) auth=\(names[before.rawValue] ?? "?")")
 
 // requestAccess raises the prompt; from inside a bundle macOS has something to attribute it to.
