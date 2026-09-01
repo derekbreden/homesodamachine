@@ -156,23 +156,32 @@ def head_room(air: float):
         air, -skirt_depth, skirt_body_open_y_bounds, skirt_open_y_max))
 
 
-def _outlet_span_extensions(air: float):
-    """The two X strips which carry the tube-side room to its 72.75 mm opening envelope.
+def outlet_fore_miter(air: float):
+    """The passages' fore-seam figures, one set for every construction that closes them.
 
-    The matching circle-and-shaft cutters begin at ``outlet_passage_start_y`` and overlap these
-    strips over their whole run. Together they make one tangent opening without the former
-    0.975 mm face on the tube-axis plane. Keeping the middle closed preserves the printed web
-    between the two passages.
-    """
+    ``(body_half, y0, outlet_open_half, y_open)``: the case-derived tube-side room edge, the
+    seam where each passage begins, the 72.75 mm envelope's half-span, and the y where the
+    flare's own 45 degree seam plane, carried past the room edge, reaches that envelope."""
     offset = _pc.skirt_wall - air
     body_half = _pc.skirt_wide_half_extent - offset
     if outlet_open_half < body_half - 1e-9:
         raise ValueError(
             f"the {2.0 * outlet_open_half:g} mm tube opening is narrower than the "
             f"{2.0 * body_half:g} mm case-derived outlet room")
-    if outlet_open_half <= body_half + 1e-9:
-        return None
     y0 = outlet_passage_start_y(air)
+    return body_half, y0, outlet_open_half, y0 + (outlet_open_half - body_half)
+
+
+def _outlet_span_extensions(air: float):
+    """The two X strips which carry the tube-side room to its 72.75 mm opening envelope.
+
+    The matching circle-and-shaft cutters begin at ``outlet_passage_start_y`` and overlap these
+    strips over their whole run: one tangent opening. Keeping the middle closed preserves the
+    printed web between the two passages.
+    """
+    body_half, y0, open_half, _y_open = outlet_fore_miter(air)
+    if open_half <= body_half + 1e-9:
+        return None
     y1 = body_half
     z0, z1 = outlet_axis_z, 0.0
 
@@ -181,8 +190,8 @@ def _outlet_span_extensions(air: float):
                 .box(x1 - x0, y1 - y0, z1 - z0, centered=False)
                 .translate((x0, y0, z0)))
 
-    return slab(-outlet_open_half, -body_half).union(
-        slab(body_half, outlet_open_half))
+    return slab(-open_half, -body_half).union(
+        slab(body_half, open_half))
 
 
 def outlet_passage_start_y(air: float):
