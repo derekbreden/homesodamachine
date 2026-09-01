@@ -1,0 +1,13 @@
+{
+  "/hardware/printed-parts/shop-storage/jst-crimping/jst_crimping_tower.py": {
+    "DRAWER_CELL": "34.7 mm x 34.4 mm",
+    "FOOTPRINT": "126 mm x 126 mm",
+    "H2C_ENVELOPE": "325 x 320 x 320 mm",
+    "POPULATED_HEIGHT": "367.0 mm",
+    "PRINTED_TOWER_HEIGHT": "221.5 mm",
+    "SPOOL_DRAWER_CLEAR": "9.3 mm",
+    "SPOOL_ENVELOPE": "diameter 99.1 mm x 88.9 mm",
+    "SPOOL_TOP_CLEAR": "11.6 mm",
+    "TALLEST_PART": "161.2 mm"
+  }
+}
