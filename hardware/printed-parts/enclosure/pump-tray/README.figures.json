@@ -3,12 +3,9 @@
     "BOSS_DEPTH": "21",
     "BRACKET_W": "68.6",
     "CAN_BORE": "37",
-    "CAN_DIA": "35.73",
     "CASE_W": "70",
     "HEAD_D": "48.88",
     "HEAD_W": "62.61",
-    "ON_CROWN": "1752",
-    "ON_HEAD": "3218",
     "RAMP_H": "18",
     "SHOULDER": "3",
     "SOCKET_LEDGE": "1.5",
@@ -16,8 +13,6 @@
     "TRAY_COUNT": "2",
     "TRAY_D": "24",
     "TRAY_L": "69.405",
-    "TRAY_MARGIN": "3",
-    "TRAY_VOL": "89.96",
     "TRAY_W": "70"
   }
 }
