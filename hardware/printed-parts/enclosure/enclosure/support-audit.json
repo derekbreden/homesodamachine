@@ -12,31 +12,31 @@
       "support_bodies": [
         {
           "tree": "tree-1",
-          "name": "west core-hold and service-furniture tree",
+          "name": "lead-notch and west service-furniture tree",
           "first_contacts_cad_xyz_mm": [
-            [-67.0, 449.5, 252.36, -57.0, 460.3, 252.84]
+            [-107.4, 365.5, 303.24, -104.6, 369.5, 303.72]
           ],
           "root": "bed",
-          "build_up_mm": 92.16,
-          "interface_islands": 7,
-          "rationale": "The first contact carries the cold core's west aft hold-down soffit over its insertion lane; the west-strip and rear-wall contacts above it join the same removable body. A pillar in that lane blocks the core ride, and the retained tree grows from the bed through the open box."
+          "build_up_mm": 143.04,
+          "interface_islands": 3,
+          "rationale": "The ASSE pan sleeve's flat lead-notch roof is the first contact. It shares the support body required by the west-wall service and ceiling-strip contacts above it, adding one interface island without adding a connected support body. The combined tree grows from the bed through the open enclosure."
         },
         {
           "tree": "tree-2",
           "name": "forward west service-furniture tree",
           "first_contacts_cad_xyz_mm": [
-            [-102.2, 251.1, 279.72, -91.4, 253.1, 280.2]
+            [-101.4, 251.1, 279.72, -91.4, 253.1, 280.2]
           ],
           "root": "bed",
           "build_up_mm": 119.52,
           "interface_islands": 7,
-          "rationale": "The ASSE pan sleeve's remaining floor lies beyond the wall-rooted corbel, and the anchor and west-wall service furniture above it must keep the pan withdrawal and tie-channel lanes open. Their contacts share one bed-rooted tree instead of separate material-rooted bodies."
+          "rationale": "The west-wall service contacts in this forward depth band keep the routing, anchor and seam-clearance lanes open. Their seven interfaces share one bed-rooted tree instead of separate stacks rooted on the wall furniture."
         },
         {
           "tree": "tree-3",
           "name": "middle west service-furniture tree",
           "first_contacts_cad_xyz_mm": [
-            [-97.8, 280.7, 263.64, -78.2, 292.3, 264.12]
+            [-97.8, 280.7, 263.64, -77.4, 292.3, 264.12]
           ],
           "root": "bed",
           "build_up_mm": 103.44,
@@ -45,26 +45,30 @@
         },
         {
           "tree": "tree-4",
-          "name": "east core-hold, rear-wall and Wago-roof tree",
+          "name": "core-holds, pan sleeve and rear-wall service tree",
           "first_contacts_cad_xyz_mm": [
+            [-67.0, 449.5, 252.36, -57.0, 460.3, 252.84],
             [58.2, 449.9, 252.36, 67.0, 460.3, 252.84]
           ],
           "root": "bed",
           "build_up_mm": 92.16,
           "interface_islands": 10,
-          "rationale": "The first contact carries the cold core's east aft hold-down soffit over its insertion lane; the east rear-wall contacts above it join the same removable body. Each of the five Wago wells keeps one complete flat ceiling that grips its lever nut, so the slicer retains exactly one interface island in each pocket on this same bed-rooted tree. The wells' wall and ceiling corbels remain simple and self-supporting."
+          "rationale": "The first two contacts carry the cold core's aft hold-down soffits over its insertion lane. The ASSE pan sleeve's remaining floor and the rear-wall service contacts above them join the same removable body. A pillar in the core lane blocks insertion, and the retained tree grows from the bed through the open enclosure."
         },
         {
           "tree": "tree-5",
-          "name": "east ceiling-strip tree",
+          "name": "east Wago-roof and ceiling-strip tree",
           "first_contacts_cad_xyz_mm": [
-            [85.8, 199.9, 351.0, 103.8, 214.3, 351.48],
-            [85.8, 250.7, 351.0, 97.8, 324.3, 351.48]
+            [95.4, 352.3, 329.16, 103.8, 359.5, 329.64],
+            [95.4, 368.3, 329.16, 103.8, 375.5, 329.64],
+            [95.4, 384.7, 329.16, 103.8, 391.9, 329.64],
+            [95.4, 401.1, 329.16, 103.8, 408.3, 329.64],
+            [95.4, 417.1, 329.16, 103.8, 424.3, 329.64]
           ],
           "root": "bed",
-          "build_up_mm": 190.8,
-          "interface_islands": 2,
-          "rationale": "The +X Y-seam tongue and the constrained ceiling-strip reliefs must remain open to the mating piece and the power-column furniture. They form one long tree from the bed rather than short stacks on the seam or wall features."
+          "build_up_mm": 168.96,
+          "interface_islands": 7,
+          "rationale": "Each of the five Wago wells keeps one complete flat ceiling that grips its lever nut. Those five contacts and the two +X ceiling-strip contacts form one bed-rooted tree instead of short stacks on the wall furniture or seam."
         }
       ]
     },

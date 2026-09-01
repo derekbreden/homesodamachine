@@ -703,21 +703,22 @@ a one-wall-long 45° scarf nose. The back half's matching wedge also grows from 
 bed, so the cold-core bearing plane carries no supported surface. The side-wall
 segments, vertical to the bed, are free.
 
-The **ASSE drip pan's sleeve** in the back-top piece has one supported surface: its floor beyond
-the wall-rooted `pan_sleeve_corbel`. The tray is longer than a 45° wedge from that one wall can
-carry, and nothing stands under its east half to root a second wedge. That remaining soffit is
-reached from the print bed through the open enclosure rather than from material just below it.
+The **ASSE drip pan's sleeve** in the back-top piece has two supported surfaces: its floor beyond
+the wall-rooted `pan_sleeve_corbel`, and the moisture-probe lead notch's flat roof described
+below. The tray is longer than a 45° wedge from that one wall can carry, and nothing stands under
+its east half to root a second wedge. That remaining soffit is reached from the print bed through
+the open enclosure rather than from material just below it.
 
 The rim rebate's lid closes differently. Its four strips rise at 45° into the already-open tray
 mouth: from the exterior skin on the west, the fore and aft jambs, and the sleeve's east backstop.
 The exterior slot and seated flange gap keep their stated planes; only free clearance above the
 inserted rim grows toward the mouth. The rebate therefore leaves no short, material-rooted roof.
 
-The exception in that lid is the moisture probe's **open-top lead notch** through the
+The exception in that lid is the moisture probe's **flat-roofed lead notch** through the
 −X withdrawal wall. The leads rise in the pan's existing open mouth and turn west
-through this short notch, which is centred on their installed Y station. Because the
-notch opens upward it adds no bridge and traps no support; because it cuts the sleeve
-rather than the pan, the pan remains watertight.
+through this short notch, which is centred on their installed Y station. Its stated top
+closes the short exterior-wall crossing in one horizontal plane. The sleeve already has
+supported faces in this region, and the pan itself remains whole and watertight.
 
 The **ASSE anchor** one storey above it carries its full underside on a 45° corbel rooted on
 the −X wall and tapering to the deepest section's V foot. Its two 60° seat flanks stand 30°
