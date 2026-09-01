@@ -5681,7 +5681,7 @@ def _plate_lead(plate):
                       (aft - 1.0, z_seam + lead)])
 
 
-def _ridge_wall(inner, outer, plate, bay):
+def _ridge_wall(inner, outer, plate, bay, funnel=None):
     """THE RIB THAT CARRIES THE RIDGE: front-top's own section from the tee wall's crown up to
     the display housing's back, wall to wall, standing under `pcb_ridge` over the whole of it.
 
@@ -5698,11 +5698,14 @@ def _ridge_wall(inner, outer, plate, bay):
     part the surface its hole presents and no new fit. The two meet where they meet; that
     corner is read, not chosen.
 
-    ITS AFT FACE IS THOSE TWO OFFSET ONE `ridge_wall_t`, and its top is the slab's own back —
-    struck on that plane rather than into it, so the rib and the housing meet on one figure.
-    The jog is what keeps it off the funnel: a rib of this section run straight up would stand
-    in the funnel's throat, and one slanted straight from crown to ridge would run into the
-    display's own body where it stands proud of the slab.
+    ITS AFT FACE IS THOSE TWO OFFSET ONE `ridge_wall_t`. Its roof is ONE PLANE from that face's
+    wall-to-wall crown to the funnel opening's front underside edge. Across X, the ceiling
+    corbels absorb the plane into their own 45-degree undersides, so the roof begins on
+    front-top's two flank faces and finishes on the opening's exact width.
+
+    The roof's buried outline steps one boolean overlap into the housing and ceiling. Those
+    surfaces therefore meet through volume; the only cavity-side boundary is the one plane
+    between the crown and funnel edges.
 
     IT RUNS WALL TO WALL AND NOT THE RIDGE'S OWN LENGTH. What it carries is `display_pcb_x` of
     line, but a rib ending in free air at each end of that line would stand on the tee wall's
@@ -5724,14 +5727,30 @@ def _ridge_wall(inner, outer, plate, bay):
     ramp, back = ry + rz, rz - ry     # the hole's end wall, y + z; the slab's back, z - y
     d = t * math.sqrt(2.0)            # that ramp offset one thickness, along Y
     jog = ramp - fore                 # where the fore face leaves the bay's plane for the ramp
+    slab_back = ((ramp + d - back) / 2.0, (ramp + d + back) / 2.0)
+    aft_crown = (fore + t, ramp + d - (fore + t))
     slab = _yz_prism(
         inner[0], inner[1],
         [(fore, foot),                                          # the bay's back, on the crown
          (fore, jog),                                           # where it meets the end wall
          (ry, rz),                                              # the ridge
-         ((ramp + d - back) / 2.0, (ramp + d + back) / 2.0),    # the top face's aft end
-         (fore + t, ramp + d - (fore + t)),                     # the aft face's own jog
+         slab_back,                                             # the slab back
+         aft_crown,                                             # the aft face's crown
          (fore + t, foot)])
+    if funnel is not None:
+        funnel_front = _funnel_hole(funnel)[2]
+        housing_back = housing_back_y(outer)
+        ceiling = inner[5]
+        overlap = 0.1
+        roof = _yz_prism(
+            inner[0], inner[1],
+            [(slab_back[0] - overlap, slab_back[1]),
+             (housing_back - overlap, housing_back + back),
+             (housing_back - overlap, ceiling + overlap),
+             (funnel_front - overlap, ceiling + overlap),
+             (funnel_front, ceiling),
+             aft_crown])
+        slab = slab.fuse(roof)
     return slab.cut(_teardrop_y(cable_sleeve_open / 2.0, display_centre_x(outer),
                                 (foot + jog) / 2.0, fore - 1.0, fore + t + 1.0))
 
@@ -8223,7 +8242,8 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         # And the rib that stands on that wall's crown, carrying the ridge the display's
         # through-hole leaves across the housing's back. With the wall, because it stands on
         # it — and after the facet's own cuts, which the half took before it was split.
-        piece = piece.fuse(_ridge_wall(inner, outer, box.pack.collet_plate, box.pump_bay))
+        piece = piece.fuse(_ridge_wall(
+            inner, outer, box.pack.collet_plate, box.pump_bay, box.pack.funnel))
     piece = _valve_trays(
         piece, inner, box.pack.valve_trays, ylo, yhi, zlo, zhi,
         wall_aft_y=(box.pack.collet_plate["wall_aft_y"] if box.pack.collet_plate else None),

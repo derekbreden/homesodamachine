@@ -1291,11 +1291,13 @@ that same back plane, **wall to wall**, under the line over the whole of it. **I
 is two planes the box already has and no third one**: below the jog, the bay's own back
 carried straight up off the crown, so the storey over the bay reads as the same plane the
 bay does; above it, the hole's own end wall carried on past the soffit, which is 45° and is
-the plane the display's body already lies against — the rib presents the part the surface
-its hole presents, and no new fit. Where the two meet is read, not chosen. The jog is also
-what keeps the rib clear: run straight up it would stand in the funnel's throat, and slanted
-straight from crown to line it would run into the display's body where that stands proud
-of the soffit.
+the plane the display's body already lies against. Where the two meet is read, not chosen.
+
+The rib's cavity-side roof is **one flat plane** from its wall-to-wall aft crown to the
+funnel opening's complete front underside edge. At the crown it spans front-top's two flank
+faces; toward the opening the ceiling corbels absorb its sides, and it finishes on the
+opening's exact 159 mm width. Its material-side outline is buried into the display housing
+and ceiling, so the crown-to-opening plane is the whole visible transition.
 
 **Running it to the flanks closes the storey, and one thing crosses.** The rib lands in the
 side walls rather than ending in free air over the tee wall's crown, which leaves it the only
