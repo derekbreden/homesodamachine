@@ -5,3 +5,12 @@ click: x=99.850 y=371.950 z=331.800
 click: x=99.850 y=388.200 z=331.800
 click: x=99.850 y=404.450 z=331.800
 click: x=99.850 y=420.700 z=331.800
+
+[step] The CO2 nut land — `port_clamp_stack` keeps wall plus chip (5.00 mm) at the relieved station, so the land stands exactly one retained millimetre inside the wall field. The transition between the two is a drafted skirt (`station_land_draft`), and both planes are stated datums: the wall field at y=461 and the neoFit nut's land at y=462.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=2.650 y=462.000 z=335.710
+
+[sliver] The nameplate mouth's intentional 1.5 mm square remainder — THICK 4.5 minus BEVEL 3 = 1.5. The flush square mouth is the stated contract; these are its physical top and bottom rims, not overlap residue.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=38.160 y=466.250 z=296.085
+click: x=38.160 y=466.250 z=229.715

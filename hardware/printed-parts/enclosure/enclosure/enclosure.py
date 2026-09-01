@@ -1060,6 +1060,13 @@ back_top_wall_reliefs = (
     ("c14-inlet", c14_station_x, 336.21,
      47.0 - 2.0 * c14_wall_relief_overlap, 35.15),
 )
+# THE LAND'S SKIRT RUNS TWO MILLIMETRES IN PLAN FOR THE ONE IT FALLS. A relieved port station
+# keeps its whole clamped stack and gives back only the last millimetre to the nut land, down a
+# drafted skirt (`_back_top_wall_relief_cut`). Two-to-one is past the lint's ligament bar — a
+# 45° skirt on a one-millimetre fall is a 1.414 mm face, which is a strip — and in the print's
+# frame every face of it stands steeper than the 45° floor. The roof keeps the relief's own
+# `relief_chamfer` line unchanged.
+station_land_draft = 2.0
 
 # --- what stands on that relief: the C14's tunnel ------------------------------
 #
@@ -1788,13 +1795,15 @@ def documented(box):
 #   ceiling_growth_reliefs  the exact plan bands where fixed purchased bodies need the added
 #                 three-millimetre ceiling-strip growth removed while retaining the established
 #                 printable wedge below them, one `(name, side, x0, x1, y0, y1)` each
-#   port_field    the pockets the +Y wall of back-top's outer face carries and the bosses behind them,
-#                 (proud, rim, pockets) — how deep a pocket is cut and how far its boss stands
-#                 inboard, the wall the field keeps around each chip, and one (x, z, width,
-#                 rise) per pocket. A pocket is a D on its back: a half circle below the bore's
-#                 axis and a rectangle above it, so it takes its chip one way up and no other.
-#                 The boss is that shape one rim larger, and makes back exactly what the pocket
-#                 took, so the wall keeps its whole thickness under every chip
+#   port_field    the pockets the +Y wall of back-top's outer face carries and the nut lands
+#                 behind them, (proud, rim, pockets) — how deep a pocket is cut and how far a
+#                 relieved station's retained land stands inboard, the wall the field keeps
+#                 around each chip (`enclosure_assembly.PORT_FIELD_WEB` reads it), and one
+#                 (x, z, width, rise) per pocket. A pocket is a D on its back: a half circle
+#                 below the bore's axis and a rectangle above it, so it takes its chip one way
+#                 up and no other. A station's relief bottoms one `proud` short of the wall it
+#                 gives back (`_back_top_wall_relief_cut`), so the wall keeps its whole
+#                 thickness under every chip
 #   nameplate     the plate's own pocket on that same face, and the two screw bosses behind it —
 #                 its station and outline, the two stations on it, and everything one screw
 #                 costs the wall: the pad's pocket, the collar round it, the stem under that and
@@ -3420,55 +3429,32 @@ def _port_chip(px, pz, width, rise, y0, y1):
             .fuse(_ybox(px - r, px + r, y0, y1, pz, pz + rise)))
 
 
-def _port_field(solid, field, ports, outer, y_outer, zlo, zhi, wall_at=None):
-    """The pocket each port chip lies in, cut INTO a ±Y wall's outer face, and the boss standing
-    behind it on the inner one — one pair per station.
+def _port_field(solid, field, ports, y_outer, wall_at=None):
+    """The pocket each port chip lies in, cut INTO the +Y wall's outer face — what the customer
+    meets is a flush face: colour and wall in one plane, with no pad standing off it.
 
-    THE POCKET IS `proud` DEEP AND THE BOSS IS `proud` TALL, so the boss makes back exactly what
-    the pocket took and the stock under every chip is the wall's own full thickness. What the
-    customer meets is a flush face: colour and wall in one plane, with no pad standing off it.
+    THE STOCK UNDER EVERY CHIP IS THE WALL'S OWN. The pocket is `proud` deep, and a station
+    standing in a relieved band keeps `wall` and the chip's own `proud` as retained stock,
+    bottoming on the nut land the wall's relief is cut to (`_back_top_wall_relief_cut`) — so
+    there is nothing to fuse here. `enclosure_assembly.PORT_FIELD_WEB` is the reading that
+    keeps the POCKETS apart.
 
-    THE BOSS IS `rim` LARGER THAN THE CHIP ALL ROUND, and at this pitch two neighbours on one row
-    run into each other and fuse into one longer boss. `enclosure_assembly.PORT_FIELD_WEB` is the
-    reading that keeps the POCKETS apart.
-
-    A boss goes on after the clip, on whichever piece holds its Z — `zlo..zhi` is that piece's
-    band — and is clipped to the print silhouette, which is what runs the top row's three out into
-    the top wall instead of standing them past it. The pocket is cut on every piece it reaches, so
-    one straddling the seam is cut on both halves of it. Everything the wall carries through a
-    station it carries through that station's boss too, so `ports` is bored here across the boss's
-    own depth: the wall's holes are the wall's, and these are the bosses'."""
+    The pocket is cut on every piece it reaches, so one straddling the seam is cut on both
+    halves of it. Everything the wall carries through a station it carries through that
+    station's land too, so `ports` is bored here past the deepest land: the wall's holes cross
+    every station whole."""
     if field is None:
         return solid
-    ox0, ox1, _oy0, _oy1, _oz0, _oz1 = outer
-    silhouette = _rounded_outer(outer)
     at = (lambda _x, _z: wall) if wall_at is None else wall_at
     deep = y_outer
-    for px, pz, width, rise in field.pockets:
-        # THE BOSS MAKES BACK WHAT THE POCKET TOOK, AND NO MORE. `proud` is what a chip's pocket
-        # costs a `wall`-thick face; a wall carrying more section than that has already made it
-        # back, and a boss standing proud of THAT is a boss standing in the room — which is
-        # where the water pump and the cold core are. Read at the station, because this wall is
-        # not one thickness (`back_wall_t_at`).
+    for px, pz, _width, _rise in field.pockets:
+        # WHAT THIS LOOP OWES THE BORES BELOW IS ONLY HOW FAR INBOARD A LAND CAN STAND.
+        # `proud` is what a chip's pocket costs a `wall`-thick face; a wall carrying more
+        # section than that has already made it back and keeps its bare inner face. Read at
+        # the station, because this wall is not one thickness (`back_wall_t_at`).
         t = at(px, pz)
-        y_inner = y_outer - t
         proud = max(0.0, field.proud - (t - wall))
-        deep = min(deep, y_inner - proud)
-        if proud <= 1e-9:
-            continue
-        boss_y0 = y_inner - proud
-        band = _ybox(ox0 - 1.0, ox1 + 1.0, boss_y0, y_inner, zlo, zhi)
-        boss = _port_chip(px, pz, width + 2.0 * field.rim, rise + field.rim, boss_y0, y_inner)
-        # The boss is a D below its bore's axis, on a 45° web run down the wall — squared
-        # and webbed the way every boss on this box is, so its underside prints off the
-        # wall it stands on.
-        w2 = width / 2.0 + field.rim
-        zb = pz - w2
-        boss = boss.fuse(_ybox(px - w2, px + w2, boss_y0, y_inner, zb, pz))
-        boss = boss.fuse(_yz_prism(px - w2, px + w2,
-                                   [(y_inner, zb), (boss_y0, zb),
-                                    (y_inner, zb - proud)]))
-        solid = solid.fuse(boss.intersect(silhouette).intersect(band))
+        deep = min(deep, (y_outer - t) - proud)
     for px, pz, width, rise in field.pockets:
         solid = solid.cut(_port_chip(px, pz, width, rise,
                                      y_outer - field.proud, y_outer + 1.0))
@@ -4985,25 +4971,55 @@ def _back_top_wall(inner, outer, box, zj):
     # The wall's own holes, bored in `build_back_half` before this stood here.
     for cutter in _port_cuts(box.pack.back_ports, iy1 - 5.0, outer[3] + 5.0):
         band = band.cut(cutter)
-    return band.cut(_back_top_wall_relief_cut())
+    return band.cut(_back_top_wall_relief_cut(box.pack.port_field))
 
 
-def _back_top_wall_relief_cut():
-    """Every station's relief, floored on `rear_plane_y` with its roof rising at
-    `relief_chamfer` to the mouth — what clamps on this face lands on the section it always had.
+def _back_top_wall_relief_cut(field):
+    """Every station's relief. One hosting no port station is the whole extra section given
+    back — floored on `rear_plane_y`, its roof rising at `relief_chamfer` to the mouth — so
+    what clamps on that face lands on the section it always had (the C14's tunnel roots on
+    exactly that emptied plane).
+
+    A RELIEF WITH A PORT STATION IN IT IS A NUT LAND AND NOT A POCKET. What the CO2 station
+    needs is `port_clamp_stack` and not `wall`: the wall keeps the whole clamped section —
+    `wall` of skin plus the chip's own `field.proud` — and gives back only the last millimetre
+    down to the land, as ONE drafted plug from the wall's own face to the land's outline. Its
+    sides and floor run `station_land_draft` in plan for the depth they fall; its roof keeps
+    the relief's own `relief_chamfer` line. Cut as one solid, there is no emptied pocket for a
+    boss to make back, so the one-millimetre perimeter ledge a boss-in-pocket leaves cannot
+    exist.
 
     THE ROOF IS THE ONLY FACE THAT NEEDS THE ANGLE, the same way the pump reliefs' ceilings do:
-    back-top prints mouth-down on its seam rim and builds in +Z, so the pocket's floor is printed
-    on and its two sides are vertical, and what would be laid over air is the run at the top."""
+    back-top prints mouth-down on its seam rim and builds in +Z, so a pocket's floor is printed
+    on and its sides stand on their own section, and what would be laid over air is the run at
+    the top."""
     face, floor = back_top_wall_face(), rear_plane_y
     depth = floor - face
+    pockets = field.pockets if field is not None else ()
     out = None
     for _who, rx, rz, wx, wz in back_top_wall_reliefs:
         hx, hz = wx / 2.0, wz / 2.0
-        cut = _ybox(rx - hx, rx + hx, face, floor, rz - hz, rz + hz - depth)
-        cut = cut.fuse(_yz_prism(rx - hx, rx + hx,
-                                 [(face, rz + hz - depth), (floor, rz + hz - depth),
-                                  (face, rz + hz)]))
+        landed = any(abs(px - rx) <= hx and abs(pz - rz) <= hz
+                     for px, pz, _w, _r in pockets)
+        if landed:
+            land_y = floor - field.proud
+            fall = land_y - face                # the retained stock's one millimetre
+            d = station_land_draft
+            x0, x1, z0, z1 = rx - hx, rx + hx, rz - hz, rz + hz - fall
+
+            def ring(y, g, gt):
+                return cq.Wire.makePolygon(
+                    [cq.Vector(x0 - g, y, z0 - g), cq.Vector(x1 + g, y, z0 - g),
+                     cq.Vector(x1 + g, y, z1 + gt), cq.Vector(x0 - g, y, z1 + gt)],
+                    close=True)
+            cut = cq.Solid.makeLoft(
+                [ring(face - 1.0, d, fall), ring(face, d, fall), ring(land_y, 0.0, 0.0)],
+                True)
+        else:
+            cut = _ybox(rx - hx, rx + hx, face, floor, rz - hz, rz + hz - depth)
+            cut = cut.fuse(_yz_prism(rx - hx, rx + hx,
+                                     [(face, rz + hz - depth), (floor, rz + hz - depth),
+                                      (face, rz + hz)]))
         out = cut if out is None else out.fuse(cut)
     return out
 
@@ -5240,14 +5256,35 @@ def _back_top_ceiling(solid, inner, y_joint, box):
     # thick, where beside the field that same section is the lip that feathers to nothing.
     slope, depth = math.tan(math.radians(chamfer)), blind_x - mouth_x
     over = 1.0
+    # THE +X GROOVE ENDS ON THE C14'S OWN ROOM. The surround stands in that strip's last
+    # stretch and the panel's tongue is already cut back on the same room
+    # (`c14_ceiling_pocket`), so a groove carried to the wall there serves no tongue and would
+    # cross the surround's relief and bore. Cut to the room instead, the groove's end wall is
+    # the collar's own mouth plane — one slip aft of the shortened tongue's tip — and the
+    # blind run-out into the +Y wall is not cut at all: nothing of the dado remains for the
+    # relief or the bore to cross. The -X strip holds no surround and keeps the whole groove,
+    # run-out and all.
+    room = (_c14_running_room(box.outer, box.pack.c14, box.pack.back_ports,
+                              _c14_mouth_y(box.outer, box.pack.c14, box.pack.back_ports),
+                              box.outer[3] + depth + 1.0)
+            if box.pack.c14 else None)
+    rb = None if room is None else room.BoundingBox()
     for sx in (+1.0, -1.0):
-        solid = solid.cut(_xz_prism(y_joint, cp.aft_y, [
+        groove = _xz_prism(y_joint, cp.aft_y, [
             (sx * (mouth_x - over), floor_z),
             (sx * blind_x, floor_z),
             (sx * blind_x, roof_z),
-            (sx * (mouth_x - over), roof_z + (depth + over) * slope)]))
-        solid = solid.cut(_ybox(min(sx * mouth_x, sx * blind_x), max(sx * mouth_x, sx * blind_x),
-                                cp.aft_y, cp.aft_y + depth, floor_z, roof_z))
+            (sx * (mouth_x - over), roof_z + (depth + over) * slope)])
+        clipped = rb is not None and (
+            rb.xmin <= max(sx * mouth_x, sx * blind_x)
+            and rb.xmax >= min(sx * mouth_x, sx * blind_x))
+        if clipped:
+            groove = groove.cut(room)
+        solid = solid.cut(groove)
+        if not clipped:
+            solid = solid.cut(_ybox(
+                min(sx * mouth_x, sx * blind_x), max(sx * mouth_x, sx * blind_x),
+                cp.aft_y, cp.aft_y + depth, floor_z, roof_z))
     return solid
 
 
@@ -7904,6 +7941,33 @@ def _c14_tunnel_geometry(inner, outer, stations, ports, z0, z1):
     return feature, bore, inserts, collar_backing
 
 
+def _c14_mouth_y(outer, stations, ports):
+    """The collar's open mouth — the fore plane of the whole fixed surround."""
+    cx, cz, _wx, _wz, _r = _c14_aperture(stations, ports)
+    aft = outer[3] - back_wall_t_at(cx, cz)
+    return aft - c14_tunnel_len - _c14.FLANGE_T - c14_collar_extension
+
+
+def _c14_running_room(outer, stations, ports, y0, y1):
+    """The C14 surround's aft-open running room: the R3 tunnel rectangle and the exact collar
+    profile, each one `fits.slip` out, carried as ONE constant XZ section from `y0` clear past
+    `y1`.
+
+    STATED ONCE FOR BOTH SIDES OF THE JOINT. `c14_ceiling_pocket` opens this room under the
+    sliding panel from one slip fore of the mouth; `_back_top_ceiling` ends the +X groove's own
+    cutters on it from the mouth itself, so the panel's shortened tongue stops one slip fore of
+    the groove's end. The overlap of rail, dado and surround is owned by one solid, and the
+    fixed side and the sliding side cannot disagree about where it is."""
+    cx, cz, wx, wz, _r = _c14_aperture(stations, ports)
+    hx, hz = c14_mount_half(wx, wz, max(abs(sx - cx) for sx, _sz in stations))
+    slip = fits.slip
+    room = _rect_cut_y(cx, cz, 2.0 * (hx + slip), 2.0 * (hz + slip), c14_tunnel_r + slip,
+                       y0, y1)
+    return room.fuse(_c14.flange_prism(
+        c14_collar_slip + c14_collar_wall + slip, y0, y1)
+        .translate((cx, 0.0, cz)).val())
+
+
 def c14_ceiling_land(inner, outer, stations, ports, stock):
     """The fixed C14 surround that reaches the ceiling panel's underside.
 
@@ -7938,21 +8002,11 @@ def c14_ceiling_pocket(inner, outer, stations, ports, stock):
     for cutter in inserts:
         opened = opened.cut(cutter)
 
-    cx, cz, wx, wz, _r = _c14_aperture(stations, ports)
-    cap = back_wall_t_at(cx, cz)
-    aft = outer[3] - cap
-    fore = aft - c14_tunnel_len
-    mouth = fore - _c14.FLANGE_T - c14_collar_extension
-    hx, hz = c14_mount_half(wx, wz, max(abs(sx - cx) for sx, _sz in stations))
+    mouth = _c14_mouth_y(outer, stations, ports)
     slip = fits.slip
-    y1 = stock.BoundingBox().ymax + 1.0
-    tunnel_room = _rect_cut_y(
-        cx, cz, 2.0 * (hx + slip), 2.0 * (hz + slip), c14_tunnel_r + slip,
-        mouth - slip, y1)
-    collar_room = (_c14.flange_prism(
-        c14_collar_slip + c14_collar_wall + slip, mouth - slip, y1)
-        .translate((cx, 0.0, cz)).val())
     b = stock.BoundingBox()
+    y1 = b.ymax + 1.0
+    room = _c14_running_room(outer, stations, ports, mouth - slip, y1)
     under_skin = _ybox(
         b.xmin - 1.0, b.xmax + 1.0, mouth - slip, y1,
         b.zmin - 1.0, inner[5])
@@ -7961,7 +8015,7 @@ def c14_ceiling_pocket(inner, outer, stations, ports, stock):
     # printed material simply because the clearance reconstruction was not changed with it.
     # Do not clip this cutter back to `stock`: its extra millimetre past `stock.ymax` is what
     # makes the aft mouth an overcut instead of a coincident-face boolean at the panel edge.
-    return tunnel_room.fuse(collar_room).fuse(opened).intersect(under_skin)
+    return room.fuse(opened).intersect(under_skin)
 
 
 def _keystone_receptacle_geometry(inner, outer, station, z0, z1):
@@ -8195,11 +8249,10 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     zlo, zhi = _piece_bands(box, f"{y_side}-{z_side}")[2:]
     if y_side == "back":
         rear = back_top_wall_face() if z_side == "top" else None
-        # The port field, INSIDE the print silhouette: its pockets are cut into the wall's outer
-        # face and its bosses stand off the inner one, so the face the customer meets is flush.
-        # The bosses carry the face's own through-holes across their depth, so a bore that
-        # crosses the wall crosses them too.
-        piece = _port_field(piece, box.pack.port_field, box.pack.back_ports, outer, oy1, zlo, zhi,
+        # The port field: its pockets are cut into the wall's outer face, so the face the
+        # customer meets is flush, and its bores run past the deepest nut land — a bore that
+        # crosses the wall crosses the whole station.
+        piece = _port_field(piece, box.pack.port_field, box.pack.back_ports, oy1,
                             None if rear is None else back_wall_t_at)
         # And the C14's tunnel, on whichever piece holds its two stations. Last on this wall
         # because its bore reaches further inboard than the field's own cutters do — those run
