@@ -1869,11 +1869,12 @@ BULKHEAD_RING_SLIP = fits.slip
 # thing holding one colour off the next — `port-field-web` reads the pitch against it. Inboard it
 # is how far the boss reaches past the chip it backs.
 BULKHEAD_RING_RIM = 3.0
-# How far the boss stands INBOARD off the wall's inner face WHERE THE WALL HAS NOT ALREADY MADE
-# THE POCKET BACK, and it is the chip's own thickness: exactly what the pocket took out of the
-# outer face. `enclosure._port_field` stands `max(0, this - (t - enclosure.wall))` of it, so a
-# station relieved to `enclosure.wall` gets the whole boss and one carrying `back_top_wall_t`
-# gets none — either way the stock under the chip comes to `enclosure.wall` or better.
+# How far the nut land stands INBOARD of the wall's inner plane WHERE THE WALL HAS NOT ALREADY
+# MADE THE POCKET BACK, and it is the chip's own thickness: exactly what the pocket took out of
+# the outer face. A station relieved for its nut keeps `max(0, this - (t - enclosure.wall))` of
+# retained stock past that plane — `enclosure._back_top_wall_relief_cut` bottoms its drafted
+# plug on the land — and one carrying `back_top_wall_t` keeps its bare inner face. Either way
+# the stock under the chip comes to `enclosure.wall` or better.
 PORT_BOSS_PROUD = _ring.THICK
 
 
@@ -1885,12 +1886,13 @@ def port_clamp_stack(t: float) -> float:
     the chip lies flush in a pocket cut one `bulkhead_ring.THICK` into it, so the flange bears on
     one plane and nothing of the chip stands outboard of the wall to be added to the stack.
 
-    AND THE NUT LANDS ON THE BOSS ONLY WHERE THERE IS ONE. What it spans is the chip, the stock
-    left under it and `PORT_BOSS_PROUD` of boss — and that boss is only what the wall has not
-    already made back, so a wall carrying more than `enclosure.wall` stands none and the nut lands
-    on its bare inner face. The stack is the section itself there, and `enclosure.wall` plus the
-    whole boss where the section is `enclosure.wall`: a RELIEVED station stacks more than it
-    carries, and a thick one stacks exactly what it carries."""
+    AND THE NUT LANDS ON RETAINED STOCK ONLY WHERE THE WALL KEEPS SOME. What it spans is the
+    chip, the stock left under it and `PORT_BOSS_PROUD` of retained land — and that land is only
+    what the wall has not already made back, so a wall carrying more than `enclosure.wall`
+    retains none and the nut lands on its bare inner face. The stack is the section itself
+    there, and `enclosure.wall` plus the whole land where the wall figure is `enclosure.wall`:
+    a RELIEVED station stacks more than `back_wall_t_at` names, and a thick one stacks exactly
+    what it carries."""
     return max(t, _enc.wall + PORT_BOSS_PROUD)
 def port_pocket_d(ring: str = "union") -> float:
     """What one station's pocket measures ACROSS — the chip's own width and the slip it takes in
@@ -1922,8 +1924,9 @@ def wall_stations(bulkhead_carry, panel_carries, co2_carry) -> dict:
 
 def y_wall_field(stations):
     """The pocket each chip lies in, as `enclosure.Pack.port_field` — one per station, not one field
-    across them. `enclosure._port_field` cuts each into the wall's outer face and stands a boss one
-    `BULKHEAD_RING_RIM` larger on the inner one."""
+    across them. `enclosure._port_field` cuts each into the wall's outer face; a station relieved
+    for its nut keeps the land under it as retained wall stock, and `BULKHEAD_RING_RIM` is the
+    wall the field keeps round every chip (`port-field-web` reads the pitch against it)."""
     return _enc.PortField(PORT_BOSS_PROUD, BULKHEAD_RING_RIM,
                           tuple((x, z, port_pocket_d(ring), port_pocket_rise())
                                 for x, z, _fitting, ring, _which, _fluid in stations.values()))
