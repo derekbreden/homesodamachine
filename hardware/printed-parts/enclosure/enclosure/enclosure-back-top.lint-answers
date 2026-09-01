@@ -1,0 +1,7 @@
+[ceiling] Five +X power-row Wago well roofs — complete retention ceilings at the five explicitly flat-roofed stations. Each roof merges into the simple ceiling corbel above it; the production profile gives each one interface island on an existing bed-rooted support tree.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=99.850 y=355.700 z=331.800
+click: x=99.850 y=371.950 z=331.800
+click: x=99.850 y=388.200 z=331.800
+click: x=99.850 y=404.450 z=331.800
+click: x=99.850 y=420.700 z=331.800
