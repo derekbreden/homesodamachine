@@ -1358,17 +1358,21 @@ def ceiling_stations(digiten, anchors, panel: bool):
 # `box-front` reads the pack against the relieved surface, region by region, not one plane.
 front_wall = 9.0
 front_plane_y = 14.0
-# The refrigeration stratum's relief: one stated pocket across THE COMPRESSOR ALONE, floored on
-# the face it packs to. It is the only body in this stratum that stands fore of the front wall's
-# own interior plane — the condenser bears on that plane through its rails and the fuse clamp
-# stands clear behind it — so the wall keeps its full `front_wall` section everywhere else along
-# the front.
+# The refrigeration stratum's reliefs: two stated pockets over what THE COMPRESSOR ALONE
+# carries fore of the front wall's own interior plane — its plate's front strip and its power
+# box, each floored on the face the can packs to. The shell's belly never reaches the wall,
+# the condenser bears on the plane through its rails and
+# the fuse clamp stands clear behind it — so the wall keeps its full `front_wall` section
+# everywhere else along the front, including over and between these pockets.
 #
 # WHAT KEEPS THE CAN OUT HERE is the −X core stop: `_core_stops` stands a floor block
 # `core_stop_web` ahead of the cold core's front face, which spends all but 0.9 mm of the room
 # between the two bodies, so a can packed back to `front_plane_y` lands its aft corner in it.
 # Stated as (x0, x1, z0, z1, floor).
-fridge_relief = (-78.0, 36.0, -1.0, 148.0, 11.0)
+fridge_reliefs = (
+    (-71.0, 29.0, -1.0, 17.0, 11.0),   # the plate's front strip
+    (-45.5, 3.5, 28.0, 77.0, 11.0),    # the power box
+)
 # And each pump's relief in the cradle face. Its floor follows the pump station, keeping the
 # same lower-head face section as the pump moves toward the collet plate.
 pump_relief_skin = 3.9
@@ -2549,7 +2553,7 @@ def _dims(pack):
     # would follow that body too, holding every clearance between the two constant.
     regions = _front_relief_regions(pack.pump_trays)
     front_rows = sorted(
-        (b.ymin - _front_floor(regions, b), name)
+        (b.ymin - _front_floor(regions, b, name), name)
         for name, b in zip(placed.keys(), bbs))
     front_ok = front_rows[0][0] >= -stated_bound_tol
     record_bound(Bound(
@@ -4394,8 +4398,8 @@ def _pump_relief_regions(pump_trays):
 
 def _front_relief_regions(pump_trays):
     """Every region the front wall's section is relieved over: the stated refrigeration
-    bay and the pumps' own pockets."""
-    return [fridge_relief] + _pump_relief_regions(pump_trays)
+    pockets and the pumps' own."""
+    return list(fridge_reliefs) + _pump_relief_regions(pump_trays)
 
 
 def _front_relief_cuts(inner, pump_trays, slip=0.0):
@@ -4418,10 +4422,14 @@ def _front_relief_cuts(inner, pump_trays, slip=0.0):
     return cuts
 
 
-def _front_floor(regions, b):
+def _front_floor(regions, b, name=""):
     """The front-wall surface one placed body faces: the deepest relief whose region holds
-    its whole (x, z) footprint, or the interior plane itself."""
+    its whole (x, z) footprint, or the interior plane itself. The compressor answers to the
+    stated `fridge_reliefs` — its bbox spans both pockets while only its plate strip and
+    power box cross the plane — which is the stated kiss `box-front` reads at 0.00."""
     floors = [front_plane_y]
+    if name == "compressor":
+        floors += [floor for _x0, _x1, _z0, _z1, floor in fridge_reliefs]
     for x0, x1, z0, z1, floor in regions:
         if (b.xmin >= x0 - 1e-6 and b.xmax <= x1 + 1e-6
                 and b.zmin >= z0 - 1e-6 and b.zmax <= z1 + 1e-6):
@@ -5166,24 +5174,6 @@ def _back_top_ceiling(solid, inner, y_joint, box):
             (sx * (mouth_x - over), roof_z + (depth + over) * slope)]))
         solid = solid.cut(_ybox(min(sx * mouth_x, sx * blind_x), max(sx * mouth_x, sx * blind_x),
                                 cp.aft_y, cp.aft_y + depth, floor_z, roof_z))
-
-    # THE TWO HORIZONTAL INSERT SOCKETS. The guide is large enough to pass a ruthex short from
-    # the open field and steps down to the insert's Ø4 knurl bore only where the existing corbel
-    # has `boss_ligament` below it. Both cuts keep their complete nominal circles and add the same
-    # tangent 36-degree roof every other horizontal X bore in this standing print takes: the
-    # insert and screw still pass in a round bore, while no circular crown asks the slicer for a
-    # short support grown from the dado below. The bore continues one `mount_bore_relief` past the
-    # insert, so the keeper's cup point cannot bottom on PET-GF and jack the pin back into the
-    # field. A headless screw later occupies the same axis, crossing the wall-square rail lane
-    # immediately ahead of the panel; no fixed material crosses that lane.
-    for sx, cy, cz in cp.retainer_stations():
-        guide0, guide1 = sorted((sx * cp.retainer_guide_face_x,
-                                  sx * cp.retainer_insert_face_x))
-        bore0, bore1 = sorted((sx * cp.retainer_insert_face_x,
-                               sx * cp.retainer_bore_end_x))
-        solid = solid.cut(_teardrop_x(cp.retainer_approach_d / 2.0,
-                                      cy, cz, guide0, guide1))
-        solid = solid.cut(_teardrop_x(heatset_dia / 2.0, cy, cz, bore0, bore1))
     return solid
 
 
@@ -6519,7 +6509,7 @@ def _west_cradle(solid, inner, stations, y0, y1, z0, z1):
 def _cond_cradle_corbel(inner, station):
     """The crown rail's full-width 45° underside, rooted on the front wall."""
     face, cx0, cx1, fz0, fz1, root = station
-    root_y = min([front_plane_y] + [f for rx0, rx1, rz0, rz1, f in (fridge_relief,)
+    root_y = min([front_plane_y] + [f for rx0, rx1, rz0, rz1, f in fridge_reliefs
                                     if cx0 >= rx0 - 1e-6 and cx1 <= rx1 + 1e-6
                                     and rz0 <= (fz0 + fz1) / 2.0 <= rz1])
     free_y = face + cond_slot_grip
@@ -6556,7 +6546,7 @@ def _cond_cradle(solid, inner, stations, y0, y1, z0, z1):
         half = cond_slot_half(fz1 - fz0)
         # The rail roots on the wall surface actually behind the block, which is the front
         # wall's own interior plane where no relief is struck over this station's span.
-        root_y = min([front_plane_y] + [f for rx0, rx1, rz0, rz1, f in (fridge_relief,)
+        root_y = min([front_plane_y] + [f for rx0, rx1, rz0, rz1, f in fridge_reliefs
                                         if cx0 >= rx0 - 1e-6 and cx1 <= rx1 + 1e-6
                                         and rz0 <= (fz0 + fz1) / 2.0 <= rz1])
         solid = solid.fuse(_ybox(cx0, cx1, root_y, face + cond_slot_grip,
