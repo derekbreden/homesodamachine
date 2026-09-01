@@ -2,8 +2,8 @@
   "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed \u2014 web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
   "release": {
     "tag": "cad-artifacts",
-    "asset": "cad-bc241528bcb89147.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-bc241528bcb89147.tar.gz",
+    "asset": "cad-f1903d8aac59ea56.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-f1903d8aac59ea56.tar.gz",
     "objects": "s-"
   },
   "source": {
@@ -11,7 +11,9 @@
   },
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, its rule would not cut, or an interactive publication explicitly deferred that rule.",
-    "paths": [],
+    "paths": [
+      "hardware/printed-parts/shop-storage/jst-crimping/jst_crimping_tower.py"
+    ],
     "members": [
       "hardware/assembly/scenes/glb/back-half.glb",
       "hardware/assembly/scenes/glb/back-top.glb",
@@ -250,8 +252,8 @@
     ]
   },
   "bundle": {
-    "sha256": "bc241528bcb89147193f9b338dc2d6903e4f2b16c8f40145f2e8d58aa5c40cc4",
-    "bytes": 116851082,
+    "sha256": "f1903d8aac59ea56ad0806c36f37964123cb040e3c3e2021e2ed75ad35f3708a",
+    "bytes": 117062808,
     "solids": 273
   },
   "solids": {
@@ -341,7 +343,7 @@
     "hardware/faucet-layout/faucet-assembly.step": "f0cfe4395ced9167017cb2188064e2f28ec9bfb99abb07d2c8432f93f4ab65a4",
     "hardware/faucet-layout/faucet-assembly.step.mesh": "c2d3f40b1d81247ea55bb282ddc3059532d5ab70aadb23b186df1f74d38db023",
     "hardware/manifold-layout/enclosure-assembly.step": "3dadaaedc5f2ed170ba9fdad29ca25e057e677e0e71ac11d50f3a08432f545aa",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "34463042f85e05f686dbd08a12687b1f567e30e296eac9094737bf3c27523de8",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "cae4be5d48619753bc41195a7539e7df95aeca47df98531bb7d7112b5c8abb82",
     "hardware/manifold-layout/manifold-layout.step": "f73566fd48f1e2ef62c0d75fec3aa7f2346ccdc123a467694f453e5064855732",
     "hardware/manifold-layout/manifold-layout.step.mesh": "7b2d185823a74661e4cb3a31f055a919fa835449fed081b083eff91c4f916ff5",
     "hardware/pcb/pcba/out/pcba.glb": "819d2d6a51579a8c3ee66bcb9432075bc50ca77cf129bd828ea538b8fc72b767",
@@ -392,20 +394,20 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "915f35756bcc56c6f95b73094ac0cd9eb8a50f6cf99bef64629f1dd9df19a5f2",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": "feadb9879c563c8415e967cd5830feaae8b46e67bf34738afe776ae6c7839283",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "5ec21828da73867da13457484957d0a3ab5c8cc15c3e132784e8ef5db8f13543",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "529ad796bedd7f8417ac450302d721b709cf7534d9da88b2173fb50821195a5e",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": "6aea04e80cbaf9856337f4c1613e3fc6ccd51b64452a217beef755b9b890d0a2",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "b14f2fe971a55433ef180591dc4ffe0549488b6e0f3053d3151c75882ec862ff",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "5ebbbb80ba32d340cb84081cbbfd087944625168018a9ab09835a13dc8bd1471",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": "b044e10408cd6bf32723c102556e6797fbb5db6fe663be61af35b5f354925c64",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "12022401b3beb9d4d46e3a0b16fca6f294b18eb71ead8cc35387867da08b5cf8",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "b8d94e3a5d5dbc63c8ee7e56a8ba0f4915e9c0c0bc668e844725230624f23180",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": "160e87b9e9d8d6e53f271c99db5dcb23617d90ba19186478d89a34356506f39f",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "3855c74183cfce892a09ad66308c0008cc9748abfff60f4f86ab78f313361cf1",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "1ab7c1be4e0c34f1886b9108e7cd57a8fe306797fe57d3e63ad94b3d6609787f",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": "cfcb38b09c9eda45e63ad450eddeb64e3371087fded05ce19287342e808b0bd2",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "ff98a95b7e35dc408e86b24c7d640aefb4e9ea187a426fb1a21b4e8ca4004485",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": "bec2fd6c6423805650e312d04e670ad0bfc5c63b5df2e1cbade71248d0c1c3b1",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh": "cc8e71f126a57123158219dc1c30e6cdcb00650f8b432410c206d6f38f8d4a2a",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl": "721305ea0d9bd49c86465647ee8a03a2a9797418c3c2d4ed2b96673aaa260509",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step": "229505717a0f599d418af4711d3711b12e8a3191f0b8b1aa95d9081be0c4210c",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh": "0be9ba2001bbfd17064f453abafb250fb05167e0cd0587035931298975ebcd8e",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl": "3f423990dbb73244c7234ade78aa53b7766e4d285c80276d321c8f7c384285af",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.step": "e5ff65527dc20476b19ac5daa8bb42abc1dc45ee445fddea34abe3ee0a3a90c3",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": "fd48af61d6326a7254060f7c556edd4fe34a37a826cd7f1d5ff918e322e500ea",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step": "0291337d8838b8462815f40d1b26c67d9f149355235c0209a1af03d614f7f57a",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh": "cc918f20382a0ff09ad0ed2db1f91fd588d644ae6f6a6cc22a426ed244d2b22f",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl": "99b9cd5810ea8c156158e4c412cb703eaa2c49562f9dba46aedf972fe12cb8ce",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step": "e6a41aaaddc626adeff5ba04f8cb4dc273cddec0a2c012dec2da944350dd772e",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": "d29361421c56bde79e0465553bd3e59505096ae49e70e56cab82db7c6c203811",
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.step": "5477d83388b6cfa83526ca245d66c182ac7599cd875f21d8a1b504ad985cdd01",
     "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step": "3e9f081c0c468cd3ddfe3186df20f947cd4d052ae4c0dcfd075f334a89853f8c",
     "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step": "87fd848ad51a18bd85248a779d44eebda7c83710e6850e02204b30f01cdee413",
@@ -441,10 +443,10 @@
     "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step": "bf565cc10c5b79c75a58b3addf25ddc52fda6e8b49d437345cc03aefd680eb53",
     "hardware/printed-parts/shop-storage/jst-crimping/consumables-drawer.step": "eb367ba2289ffa4c32a851d5baea0e6ca76501ac91655f10184ed7177957edfe",
     "hardware/printed-parts/shop-storage/jst-crimping/gridfinity-shelf.step": "ccb82b5ab48534e4083610989ffd70b1b228b3fcb2d12919093908d26fe8312c",
-    "hardware/printed-parts/shop-storage/jst-crimping/jst-crimping-tower.step": "d9bbcf0ca2648908ab6e6facedaf0f9aa27367400b49936ed9e4de7a825845f1",
-    "hardware/printed-parts/shop-storage/jst-crimping/spool-shelf.step": "973f761a86483591141eb4ce33d39c2dc2ea9fadc1bff873754a51fb6d3dcdbb",
-    "hardware/printed-parts/shop-storage/jst-crimping/tool-rack.step": "40bb02b304a1cd4cfc96b0ee7a320d2e1a6263f97171b564b5803520467162fd",
-    "hardware/printed-parts/shop-storage/jst-crimping/tower-base.step": "ee65b4372840f5b59a3861f67456847c791894af9af37b0d4671fc9c2215b442",
+    "hardware/printed-parts/shop-storage/jst-crimping/jst-crimping-tower.step": "9af720f7f648bf46ce73ba5dc23ce968b086553be3f2e09b3ae4db3e29c2eb6a",
+    "hardware/printed-parts/shop-storage/jst-crimping/spool-shelf.step": "d8c32660f09f981f3fabf025f6296c71913bb405785411470bf11cef48af1b07",
+    "hardware/printed-parts/shop-storage/jst-crimping/tool-rack.step": "cee6e706f74c76c4b24fb648ccfe8d090bb6b97e7ad0be82ebe8c39c6eb22782",
+    "hardware/printed-parts/shop-storage/jst-crimping/tower-base.step": "3a1ab10814a75d7661abe73300fd2fffb4dba2722831c88d3ad78846c6f5dbaf",
     "hardware/printed-parts/zone-c/funnel-mold/funnel-mold-assembly.step": "7377096649838bdc060cf1f03bae2cedc09eb0c897fe7678c812c682b74500c8",
     "hardware/printed-parts/zone-c/funnel-mold/funnel-mold-cavity.step": "ac6a325d9efefcc3062bb4c20c64f0257b11c7b84b2b805a41741e325d6153a0",
     "hardware/printed-parts/zone-c/funnel-mold/funnel-mold-core.step": "ae511a799047f530680480a761078a84c65aa461ff86f96646472a1d2e0b7847",
