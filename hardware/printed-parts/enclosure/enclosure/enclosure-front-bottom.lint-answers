@@ -1,0 +1,8 @@
+[step] The condenser corner-pocket curtain — the pocket's +X side stands at x=97.5, the condenser block's own flank with no slip toward the wall, and the cavity flank stands at x=98.5, so one millimetre of pillar skin separates the two stated planes and the block's corner seats against material rather than the wall's face. The 139 mm footprint and the empty-air click are the detector merging both stations' side faces into one bounding box whose midpoint holds no geometry; a lint fix for that class is chipped separately (task_b486a87c) and this entry is the stopgap record.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
+click: x=97.500 y=20.633 z=77.500
+
+[step] The groove roof and the pocket ceiling walk — two stated 45° datums 0.495 mm apart on the normal: the roof rises one-for-one off the seated stop at fz1 + half (z=9.7 and z=146.3), and the column pocket's ceiling walk rises one-for-one off the room top one insertion slip over the flange (z=10.4 and z=147.0). The 0.7 mm between the two figures is the slip over the groove's own opening, read across parallel planes as 0.7/√2.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
+click: x=93.500 y=15.825 z=12.225
+click: x=93.500 y=15.825 z=148.825
