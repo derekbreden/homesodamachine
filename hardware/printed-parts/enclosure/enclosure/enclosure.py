@@ -526,6 +526,13 @@ boss_ligament = _interface.boss_ligament
 # behind it. Most corbels reach their mounting face; this is spent only where the body itself
 # crosses the otherwise printable 45 degree wedge.
 east_boss_corbel_clear = 1.0
+# HOW FAR A BODY HAS TO STAND OFF THE WALL BEFORE A BOSS IS WORTH STANDING, and it is the ring
+# the insert already needs. A stem shorter than `boss_ligament` comes out thinner in X than the
+# material it is made of is in section: its D-fill corners, its 45 degree wedge and its free face
+# are all under that figure, so what the slicer lays on the wall is a step and a sliver round it
+# rather than a boss. Below it the WALL IS THE MOUNTING FACE — the body's screw closes the air it
+# was standing in — and the insert seats in the wall's own section.
+east_boss_min_stand = boss_ligament
 # Air past the screw tip at the bore's blind end, so a screw longer than the insert has
 # somewhere to go rather than bottoming on printed material.
 mount_bore_relief = _interface.mount_bore_relief
@@ -6207,15 +6214,23 @@ def _east_bosses(solid, inner, outer, stations, y0, y1, z0, z1):
         sy, sz, tip = station[:3]
         if not (y0 <= sy <= y1 and z0 <= sz <= z1):
             continue
-        solid = solid.fuse(_east_boss_support(inner[1], station))
+        # A STATION STANDING UNDER `east_boss_min_stand` OFF THE WALL GROWS NOTHING. The body is
+        # already on the wall to within the air its own screw closes, so the wall is its mounting
+        # face: a stem struck for that much would be a fraction-of-a-millimetre step across the
+        # flank with a sliver edge round it, and its wedge would be shorter still. The bore is
+        # then struck from the wall's own face and seats the insert in the wall's section.
+        face = inner[1]
+        if inner[1] - tip >= east_boss_min_stand - stated_bound_tol:
+            solid = solid.fuse(_east_boss_support(inner[1], station))
+            face = tip
         # AND THE BORE STOPS WHERE THE SURFACE SAYS, not where the plane does. Run its full
         # relief it ends on `interior_x`, which is one `wall` behind the flat and less than
         # that behind a corner round — and a flute is cut into that same surface, so a station
         # standing on the turn would put a groove over an insert with too little between them.
         # It gives up relief before it gives up `flute_backing`; `boss-bore-seats` reads what
         # is left against the insert's own depth.
-        solid = solid.cut(_xcyl(heatset_dia / 2.0, sy, sz, tip,
-                                east_boss_bore_end(sy, tip, outer)))
+        solid = solid.cut(_xcyl(heatset_dia / 2.0, sy, sz, face,
+                                east_boss_bore_end(sy, face, outer)))
     return solid
 
 
