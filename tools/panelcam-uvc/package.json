@@ -1,0 +1,11 @@
+{
+  "name": "homesodamachine-panelcam-uvc",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "usb": "^2.16.0"
+  }
+}
