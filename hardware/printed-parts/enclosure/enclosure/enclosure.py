@@ -4282,9 +4282,17 @@ def _front_bottom_flank_skin(inner, west_cradle, y_joint, zj):
     (`enclosure_assembly.mq6_cradle`), opened one `mq6_slot_press` round, and the can bottoms on
     `lip_face_x` at the back of it.
 
-    AND IT IS A CHUTE, not a pocket. The card comes down into its posts from above, carrying the
-    can with it, so the well runs from the can's seat clear up to the seam mouth: a well closed
-    over the can's crown is a well the can cannot enter. Cut here rather than left to the cradle,
+    AND IT IS A CHUTE, not a pocket — THE CAN'S OWN SWEEP AND NOT A MILLIMETRE OVER IT. The card
+    comes down into its posts from above carrying the can with it, so a well closed over the
+    seated can's crown is a well the can cannot enter. WHAT SETS THE TOP IS WHERE THAT DESCENT
+    STARTS BEING HELD TO THIS X: the card is loose in the bay's lane until its foot enters the
+    grooves, and a groove opens at the post's crown one half card above the station — so the
+    highest the can ever rides in this skin is with the card's foot at that mouth, one whole
+    `mq6_card_z` above where it seats. Above that the card is in an open hand and the skin is
+    skin. AND THE ROOF IS A 45° GABLE off the same station, so the closure prints in layers with
+    nothing bridged and a can brought down early meets a lead-in rather than a lip. The posts
+    reject a card turned round on their own — the can would stand into their east cheeks — so
+    nothing up here was orienting anything. Cut here rather than left to the cradle,
     because what the cradle builds is posts standing on a face and this is the face they stand
     on. THE EAST STRIP NEEDS NO WELL: the only body against that flank is the condenser's block,
     and the block is stood off this very face."""
@@ -4293,8 +4301,11 @@ def _front_bottom_flank_skin(inner, west_cradle, y_joint, zj):
     west = _ybox(lx0, fx0, inner[2], y_joint, inner[4], zj)
     half = mq6_can_yz / 2.0 + mq6_slot_press
     for _sx, sy, sz in west_cradle:
+        crown = sz + mq6_card_z + half
         west = west.cut(_ybox(lx0 - 1.0, fx0 + 1.0,
-                              sy - half, sy + half, sz - half, zj + 1.0))
+                              sy - half, sy + half, sz - half, crown))
+        west = west.cut(_yz_prism(lx0 - 1.0, fx0 + 1.0,
+                                  ((sy - half, crown), (sy + half, crown), (sy, crown + half))))
     return west.fuse(_ybox(fx1, lx1, inner[2], y_joint, inner[4], zj))
 
 
