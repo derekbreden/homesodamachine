@@ -1016,7 +1016,7 @@ stand [59.75 mm](CAP_TUBE_PITCH) apart. The physical pair spans
 centered on the casing axis and a straight 13 mm shaft continues through the complete vertical
 insertion path. The shafts, tube-side case room and upper well share the same outer X planes;
 printed wall remains between and outside the passages. The full-width upper wells end together
-at y [72.535 mm](PUMP_UPPER_WELL_AFT). Past that plane only the four individual shafts continue:
+at y [72.435 mm](PUMP_UPPER_WELL_AFT). Past that plane only the four individual shafts continue:
 the closed middle span on each pump and the centre span between the pumps all carry the same
 cap-following reinforcement to the cartridge's aft edge.
 
