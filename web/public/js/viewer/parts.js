@@ -48,14 +48,16 @@ function renderAssembly(assembly) {
 export function buildPartsSection(gridEl, { steps, dxfs, glbs }) {
   const tree = seatParts({ steps, dxfs, glbs });
 
-  // The directories holding files nothing claimed. Nothing below the two cards is
-  // drawn, so this warning is the whole visible half of that gate.
+  // The directories holding files no assembly, purchased, or tooling root claimed.
+  // Nothing below the two cards is drawn, so this warning is the visible half of
+  // that gate.
   if (tree.unseated.length) {
     const warn = document.createElement("div");
     warn.className = "grid-warn";
-    warn.innerHTML = `<b>Not seated:</b><ul>` +
-      tree.unseated.map((d) => `<li><code>${esc(d)}</code> stands in no assembly — ` +
-        `place it in <code>contracts/parts-tree.js</code></li>`).join("") + `</ul>`;
+    warn.innerHTML = `<b>Unclassified CAD:</b><ul>` +
+      tree.unseated.map((d) => `<li><code>${esc(d)}</code> has no appliance, purchased, ` +
+        `or workshop classification — classify it in <code>contracts/parts-tree.js</code></li>`)
+        .join("") + `</ul>`;
     gridEl.appendChild(warn);
   }
 
