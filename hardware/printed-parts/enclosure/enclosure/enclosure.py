@@ -4289,6 +4289,42 @@ def mq6_chute_reach(sz):
     return crown, crown + skin
 
 
+def _mq6_chute(sy, sz):
+    """The MQ-6 can's exact straight-drop envelope through front-bottom's west skin.
+
+    In the wall's YZ section the round can sweeps through one card height, so the opening is a
+    CAPSULE: two semicircles joined by the can centre's vertical travel.  It is not the capsule's
+    rectangular bounding box — those four corners are air no installed or moving part occupies.
+
+    Across X, the wall-side section is that exact capsule.  At the skin's inboard face only its
+    upper boundary has risen by the skin depth, making the printed ceiling a 45-degree roof while
+    leaving the can's lower and side clearance where the can itself earns it.  The two repeated
+    end sections merely carry the cut cleanly through both faces of the skin."""
+    lx0, _lx1 = lip_face_x()
+    fx0, _fx1 = front_bottom_flank_face()
+    half = mq6_can_yz / 2.0 + mq6_slot_press
+    travel = mq6_card_z
+    rise = fx0 - lx0
+
+    def profile(workplane, roof_rise):
+        top_axis = sz + travel + roof_rise
+        return (
+            workplane
+            .moveTo(sy - half, sz)
+            .lineTo(sy - half, top_axis)
+            .threePointArc((sy, top_axis + half), (sy + half, top_axis))
+            .lineTo(sy + half, sz)
+            .threePointArc((sy, sz - half), (sy - half, sz))
+            .close()
+        )
+
+    chute = profile(cq.Workplane("YZ", origin=(lx0 - 1.0, 0.0, 0.0)), 0.0)
+    chute = profile(chute.workplane(offset=1.0), 0.0)
+    chute = profile(chute.workplane(offset=rise), rise)
+    chute = profile(chute.workplane(offset=1.0), rise)
+    return chute.loft(ruled=True).val()
+
+
 def _front_bottom_flank_skin(inner, west_cradle, y_joint, zj):
     """The extra skin inboard of front-bottom's two flanks, slab to seam mouth, WELLED on the
     west where the MQ-6's can reaches into it.
@@ -4306,27 +4342,23 @@ def _front_bottom_flank_skin(inner, west_cradle, y_joint, zj):
     grooves, and a groove opens at the post's crown one half card above the station — so the
     highest the can ever rides in this skin is with the card's foot at that mouth, one whole
     `mq6_card_z` above where it seats. Above that the card is in an open hand and the skin is
-    skin. AND THE ROOF CROSSES THE SKIN, NOT THE CAN. The opening is nineteen millimetres across
-    the can in Y but only three millimetres through this added skin in X. Its wall-side edge
-    starts on the top of the can's sweep and rises at 45° to the skin's inboard face, closing in
-    those three millimetres. Every layer therefore grows off the wall below it, while a Y gable
-    would spend one needless can radius in height and leave flat three-millimetre bridges where
-    the vent slots intersected it. The posts reject a card turned round on their own — the can
-    would stand into their east cheeks — so nothing up here was orienting anything. Cut here
-    rather than left to the cradle,
+    skin. THE SECTION IS THE ROUND CAN'S SWEPT CAPSULE, not the rectangle around it: the four
+    corners of that rectangle clear no installed or moving part. AND THE ROOF CROSSES THE SKIN,
+    NOT THE CAN. The opening is nineteen millimetres across the can in Y but only three
+    millimetres through this added skin in X. Its wall-side capsule starts on the exact top of
+    the can's sweep; only that upper boundary rises at 45° to the skin's inboard face. Every
+    layer therefore grows off the wall below it, while a Y gable would spend one needless can
+    radius in height and leave flat three-millimetre bridges where the vent slots intersected
+    it. The posts reject a card turned round on their own — the can would stand into their east
+    cheeks — so nothing up here was orienting anything. Cut here rather than left to the cradle,
     because what the cradle builds is posts standing on a face and this is the face they stand
     on. THE EAST STRIP NEEDS NO WELL: the only body against that flank is the condenser's block,
     and the block is stood off this very face."""
     lx0, lx1 = lip_face_x()
     fx0, fx1 = front_bottom_flank_face()
     west = _ybox(lx0, fx0, inner[2], y_joint, inner[4], zj)
-    half = mq6_can_yz / 2.0 + mq6_slot_press
     for _sx, sy, sz in west_cradle:
-        crown, roof = mq6_chute_reach(sz)
-        west = west.cut(_xz_prism(sy - half, sy + half, (
-            (lx0 - 1.0, sz - half), (fx0 + 1.0, sz - half),
-            (fx0 + 1.0, roof + 1.0), (fx0, roof),
-            (lx0, crown), (lx0 - 1.0, crown))))
+        west = west.cut(_mq6_chute(sy, sz))
     return west.fuse(_ybox(fx1, lx1, inner[2], y_joint, inner[4], zj))
 
 
