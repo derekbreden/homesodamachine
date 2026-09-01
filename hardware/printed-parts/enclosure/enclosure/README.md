@@ -1007,7 +1007,7 @@ stands at z [218.75 mm](CLAMP_BASE_Z) on the upper face of each measured
 fore envelope to the aft wall and reaches one common crown at z
 [280.5 mm](CLAMP_CROWN_Z), with 0.5 mm Z clearance below the bay lintel. Two fitted openings wrap
 both bosses with the pump case's exact octagonal bore and leave one shoulder around each motor
-can. A single
+can. Both fitted openings stand [1 mm](CLAMP_PUMP_Y_SHIFT) toward Y− within the clamp. A single
 [33.89 mm](CLAMP_ACCESS_W) × [48 mm](CLAMP_ACCESS_RUN) top recess joins the two screw stations;
 its retained floor stands at z [224.75 mm](CLAMP_ACCESS_FLOOR_Z), [6 mm](CLAMP_ACCESS_BASE)
 above the broad print face. The individual counterbores continue to head seats which keep
@@ -1220,7 +1220,7 @@ case-derived octagon engages the white boss over its complete run and the should
 the can. Thus the cradle takes weight, the clamp prevents lift, and the octagon fixes X, Y and
 yaw. With the cartridge withdrawn, the clamp's vertical path keeps
 [4.305 mm](CLAMP_FRONT_SKIN) of smooth cradle skin ahead of its fore face. A
-[3.81 mm](CLAMP_AFT_WALL) wall remains aft of each octagon to locate the boss
+[4.81 mm](CLAMP_AFT_WALL) wall remains aft of each octagon to locate the boss
 against +Y.
 
 **Two M3 close one clamp onto one cradle.** Both screw heads are accessible from above in the

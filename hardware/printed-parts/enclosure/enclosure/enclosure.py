@@ -1680,6 +1680,7 @@ cap_screw_off = 18.0         # the two screws fore/aft of the centre access-well
 clamp_bridge_half_y = 6.0    # access well past each screw axis, fore and aft
 clamp_bridge_overlap = 2.0   # access-well edge into each pump opening's inner margin
 clamp_drop_air = 0.2         # clamp footprint and bracket air through the cradle well
+clamp_pump_y_shift = -1.0    # fitted octagon and motor-can openings within the clamp
 pump_face_backing = wall     # least printed stock behind the deepest front-face flute
 
 # --- THE HAND PULLS ONLY THE LOWER CRADLE -----------------------------------
@@ -5581,6 +5582,7 @@ def pump_cartridge_figures(box):
         "CLAMP_RISE": f"{(clamp_crown - clamp_base):.5g} mm",
         "CLAMP_BASE_Z": f"{clamp_base:.5g} mm",
         "CLAMP_CROWN_Z": f"{clamp_crown:.5g} mm",
+        "CLAMP_PUMP_Y_SHIFT": f"{abs(clamp_pump_y_shift):.4g} mm",
         "CLAMP_ACCESS_FLOOR_Z": f"{cap_access_z(trays):.5g} mm",
         "CLAMP_ACCESS_BASE": f"{(cap_access_z(trays) - clamp_base):.4g} mm",
         "CLAMP_HEAD_LAND": f"{cap_web_land:.4g} mm",
@@ -5589,7 +5591,7 @@ def pump_cartridge_figures(box):
                                  - min(cap_screw_ys(box.inner, plate))
                                  + 2.0 * clamp_bridge_half_y):.4g} mm",
         "CLAMP_FRONT_SKIN": f"{(clamp_fore - clamp_drop_air - pump_cartridge_front_y):.4g} mm",
-        "CLAMP_AFT_WALL": f"{(clamp_aft - max(cy + _tray.boss_half
+        "CLAMP_AFT_WALL": f"{(clamp_aft - max(cy + clamp_pump_y_shift + _tray.boss_half
                                                 for _cx, cy, _cz in trays)):.4g} mm",
         "CLAMP_WEB": f"{cap_web_t:.4g} mm",
         "CLAMP_BRACKET_T": f"{_tray.bracket_t:.4g} mm",
@@ -6022,10 +6024,11 @@ def _pump_clamp_gross(box, halves_cache=None):
     x1 = max(cx + _tray.half_width() for cx, _cy, _cz in trays)
     solid = _ybox(x0, x1, fore, aft, base, crown)
     for cx, cy, cz in trays:
+        opening_y = cy + clamp_pump_y_shift
         solid = solid.cut(_tray.boss_room(0.0).moved(
-            cq.Location(cq.Vector(cx, cy, split))))
+            cq.Location(cq.Vector(cx, opening_y, split))))
         solid = solid.cut(_zcyl(
-            _tray.can_half, cx, cy,
+            _tray.can_half, cx, opening_y,
             split + _tray.boss_depth - 0.1, crown + 1.0))
 
     ys = cap_screw_ys(box.inner, plate)
