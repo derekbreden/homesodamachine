@@ -52,8 +52,8 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 1428 tracked, 267 fetched solids, 53 tags",
-      "status": "ok"
+      "note": "2 reference(s) name a path nothing holds.",
+      "status": "red"
     },
     {
       "check": "tools/check_release_room.py",
@@ -92,6 +92,11 @@
       "  tools/publish_now.py answers to selftest and selftests.json does not name it",
       "      tools/cad-venv/bin/python tools/bazel/trace_inputs.py --selftests tools/publish_now.py",
       "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
+    ],
+    "tools/check_paths.py": [
+      "hardware/manifold-layout/_scorecard.py:878 — calibration/Fences.md is held nowhere, and no tag is named for it",
+      "  tools/render/render-view.js:21 — calibration/Fences.md is held nowhere, and no tag is named for it",
+      "2 reference(s) name a path nothing holds."
     ]
   },
   "green": false
