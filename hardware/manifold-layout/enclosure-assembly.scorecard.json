@@ -1,5 +1,5 @@
 {
- "gatesPass": true,
+ "gatesPass": false,
  "size": [
   {
    "id": "enclosure",
@@ -73,10 +73,16 @@
    "id": "pack-closes",
    "label": "No two solids overlap (pack closes)",
    "kind": "gate",
-   "status": "pass",
-   "value": "0 clash, 0 unanswered",
+   "status": "fail",
+   "value": "5 clash, 0 unanswered",
    "target": "0 clash, 0 unanswered",
-   "detail": [],
+   "detail": [
+    "pump-a-boss \u2229 enclosure-pump-cap   1007.0 mm\u00b3, x[   23.44,   76.44] y[   15.52,   68.53] z[  218.74,  237.74]",
+    "pump-a-motor \u2229 enclosure-pump-cap   320.3 mm\u00b3, x[   35.92,   63.97] y[   53.09,   59.88] z[  237.74,  279.30]",
+    "pump-b-boss \u2229 enclosure-pump-cap   1007.0 mm\u00b3, x[  -76.44,  -23.44] y[   15.52,   68.53] z[  218.74,  237.74]",
+    "pump-b-motor \u2229 enclosure-pump-cap   320.3 mm\u00b3, x[  -63.97,  -35.92] y[   53.09,   59.88] z[  237.74,  279.30]",
+    "funnel \u2229 enclosure-front-top   2764.2 mm\u00b3, x[  -86.50,   86.50] y[   70.00,  200.00] z[  338.96,  355.00]"
+   ],
    "active": true
   },
   {
