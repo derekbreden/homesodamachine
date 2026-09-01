@@ -12,6 +12,9 @@ Format truth lives in web/public/js/viewer/pick-format.js (the
 viewer's parser + matcher); web/tests/pick-format.test.js round-trips
 this module's demo output through that parser.
 
+pick_read.py is this module's other direction: pick text pasted back,
+answered from the STL — what the print holds where the click landed.
+
 Compose from geometry:
 
     import sys
