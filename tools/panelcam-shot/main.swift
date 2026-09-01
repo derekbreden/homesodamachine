@@ -46,7 +46,10 @@ note("start out=\(outPath) want='\(want)' warmup=\(warmup) auth=\(names[before.r
 let gate = DispatchSemaphore(value: 0)
 var granted = false
 AVCaptureDevice.requestAccess(for: .video) { ok in granted = ok; gate.signal() }
-if gate.wait(timeout: .now() + 600) == .timedOut { fail("no answer to the camera prompt in 600 s", 3) }
+// An ad-hoc signature is the binary's own hash, so every rebuild is a new app to TCC and the
+// grant has to be given again. The prompt therefore has to outlast a walk away from the desk:
+// a capture that fails because nobody was in the room teaches nothing and costs the click twice.
+if gate.wait(timeout: .now() + 3600) == .timedOut { fail("no answer to the camera prompt in 1 h", 3) }
 note("requestAccess -> \(granted) (auth now \(names[AVCaptureDevice.authorizationStatus(for: .video).rawValue] ?? "?"))")
 guard granted else { fail("camera access denied", 3) }
 
@@ -62,9 +65,17 @@ let session = AVCaptureSession()
 guard let input = try? AVCaptureDeviceInput(device: dev), session.canAddInput(input) else { fail("cannot add input", 5) }
 session.addInput(input)
 
-// A preset is a promise about a shape, not about the sensor: .high on this camera hands back
-// 1280x720 and the panel arrives with fewer pixels across it than it has of its own. Framing is
-// a crop out of the largest format the device will give, so take the largest format.
+let out = AVCaptureVideoDataOutput()
+out.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_32BGRA]
+let grabber = Grabber()
+out.setSampleBufferDelegate(grabber, queue: DispatchQueue(label: "panelcam"))
+guard session.canAddOutput(out) else { fail("cannot add output", 6) }
+session.addOutput(out)
+// A preset is a promise about a shape, not about the sensor, and the session applies one
+// whenever its outputs change: set activeFormat before addOutput and addOutput puts it back,
+// which is how 4656x3496 was selected and 1920x1080 arrived. Assigning activeFormat is itself
+// what switches the session to input priority, so it has to happen after the graph is built.
+session.beginConfiguration()
 let widest = dev.formats.max { a, b in
   let d = { (f: AVCaptureDevice.Format) -> Int32 in
     let x = CMVideoFormatDescriptionGetDimensions(f.formatDescription); return x.width * x.height }
@@ -74,14 +85,10 @@ if let f = widest, (try? dev.lockForConfiguration()) != nil {
   dev.activeFormat = f
   dev.unlockForConfiguration()
 }
+session.commitConfiguration()
 let dims = CMVideoFormatDescriptionGetDimensions(dev.activeFormat.formatDescription)
 note("format \(dims.width)x\(dims.height) of \(dev.formats.count) offered")
-let out = AVCaptureVideoDataOutput()
-out.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_32BGRA]
-let grabber = Grabber()
-out.setSampleBufferDelegate(grabber, queue: DispatchQueue(label: "panelcam"))
-guard session.canAddOutput(out) else { fail("cannot add output", 6) }
-session.addOutput(out)
+
 session.startRunning()
 
 if grabber.sem.wait(timeout: .now() + 20) == .timedOut { session.stopRunning(); fail("no frame after \(grabber.seen) delivered", 7) }
