@@ -172,6 +172,30 @@ def outlet_fore_miter(air: float):
     return body_half, y0, outlet_open_half, y0 + (outlet_open_half - body_half)
 
 
+def outlet_under_tangent(air: float):
+    """The passages' under-circle joint figures, one set for the construction that opens it.
+
+    ``(seam_z, u_wall, u_q, z_q)``: the case lower ramp's seam plane under the tube-side room,
+    how far that room's edge stands outboard of each tube axis, and where the plane rising
+    from the seam edge tangent to the r = ``shaft_w``/2 circular opening touches it — the
+    steep outer tangent, the one planar shelf-free joint between the room's seam and the
+    circle. ``u`` figures stand outboard of a tube axis; ``z`` figures are this frame's own."""
+    body_half, _y0, _open_half, _y_open = outlet_fore_miter(air)
+    r = shaft_w / 2.0
+    seam_z = _pc.skirt_bottom_z - _pc.lower_footprint_straight
+    u_wall = body_half - outlet_pitch / 2.0
+    rise = outlet_axis_z - seam_z
+    reach_sq = u_wall * u_wall + rise * rise
+    if reach_sq <= r * r:
+        raise ValueError(
+            f"the room edge stands {reach_sq ** 0.5:.3f} mm off a tube axis, inside its "
+            f"{r:g} mm opening — no tangent plane joins the seam to the circle")
+    run = (reach_sq - r * r) ** 0.5
+    u_q = r * (r * u_wall + run * rise) / reach_sq
+    z_q = outlet_axis_z + r * (run * u_wall - r * rise) / reach_sq
+    return seam_z, u_wall, u_q, z_q
+
+
 def _outlet_span_extensions(air: float):
     """The two X strips which carry the tube-side room to its 72.75 mm opening envelope.
 

@@ -5413,6 +5413,28 @@ def _outlet_fore_miter_wedges(cx, cy, cz):
     return out
 
 
+def _outlet_under_tangent_wedges(cx, cy, cz):
+    """Both passages' under-circle joints for one pump: the steep tangent plane from the case
+    lower ramp's seam edge to each circular opening, over the tube-side room's own Y run.
+
+    Fused into the pump's lower void before the fore miters close it; between the room's seam
+    and each circle the opening's outboard boundary is this one plane — tangent to the circle,
+    standing on the ramp's own seam, with no wall-plane band between them."""
+    seam_z, u_wall, u_q, z_q = _tray.outlet_under_tangent(cap_pump_air)
+    y0 = cy + _tray.outlet_passage_start_y(cap_pump_air)
+    y1 = cy + _tray.skirt_body_open_y_bounds[1]
+    out = []
+    for sx in (-1.0, 1.0):
+        hx = cx + sx * _tray.outlet_pitch / 2.0
+        wall = hx + sx * u_wall
+        out.append(_xz_prism(y0, y1, [
+            (wall, cz + seam_z),
+            (hx + sx * u_q, cz + z_q),
+            (wall - sx * 1.0, cz + z_q),
+            (wall - sx * 1.0, cz + seam_z)]))
+    return out
+
+
 def _pump_drop_voids(box):
     """The two straight Z insertion wells through the lower cradle.
 
@@ -5427,7 +5449,9 @@ def _pump_drop_voids(box):
     its tube axis and a straight 13 mm shaft above it. The two shafts' outside edges, the
     tube-side case room and the upper well share one 72.75 mm opening boundary. Each passage's
     fore end closes on the flare's own 45 degree seam plane, run from the body room's edge out
-    to that boundary. The wall between and outside them remains printed stock.
+    to that boundary; under each circle, the room's seam edge joins it on one steep tangent
+    plane standing on the case ramp's own seam. The wall between and outside them remains
+    printed stock.
 
     ABOVE THE BRACKET each 72.75 mm well passes the stamped bracket, pump and complete clamp.
     It stops one drop clearance behind the clamp. From there the four individual 13 mm shafts
@@ -5467,6 +5491,8 @@ def _pump_drop_voids(box):
                       _pump_upper_well_aft_y(plate),
                       drop_start, top)
         body = lower.fuse(fittings)
+        for wedge in _outlet_under_tangent_wedges(cx, cy, cz):
+            body = body.fuse(wedge)
         for wedge in _outlet_fore_miter_wedges(cx, cy, cz):
             body = body.cut(wedge)
         out.append(body.fuse(upper))
