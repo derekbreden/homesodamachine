@@ -7,14 +7,15 @@
 #   tools/panelcam.sh shot front --full    # the same frame uncropped, to re-aim the rig
 #   tools/panelcam.sh auth                 # whether this process may open a camera at all
 #   tools/panelcam.sh controls             # what the attached camera lets a program change
-#   tools/panelcam.sh set absolute_focus 120
+#   tools/panelcam.sh get absolute_focus
+#   tools/panelcam.sh set auto_focus 0     # then set absolute_focus, and it stays put
 #
 # ZOOM IS A CROP AND FOCUS IS A CONTROL, and they are not the same kind of thing. macOS
 # AVFoundation publishes neither: `lensPosition`, `videoZoomFactor` and every
 # `isFocusModeSupported` come back unavailable or false on this platform, so nothing Apple
-# offers moves a lens. UVC control transfers do, and `uvcc` carries them — which is why focus
-# and exposure are set through `set` and zoom is not. Framing is bought in sensor pixels once
-# and spent per shot in `--crop`, so it costs no motor and cannot drift.
+# offers moves a lens. UVC control transfers do, and `panelcam-uvc/uvc.js` carries them — which
+# is why focus and exposure are set through `set` and zoom is not. Framing is bought in sensor
+# pixels once and spent per shot in `--crop`, so it costs no motor and cannot drift.
 #
 # A TARGET IS A CAMERA AND A CROP, and the crop is the point. A photograph of the machine is
 # not a reading of its panel: the panel is a tenth of the frame, off-centre, and every shot
@@ -89,28 +90,21 @@ target_field() {   # target field -> value
     die "target '$1' has no '$2' in $(basename "$CONF")"
 }
 
-uvcc() { npx --yes uvcc "$@"; }
-
-require_uvc() {
-  # With no UVC device attached, uvcc throws out of its constructor. Say so in one line.
-  local found; found="$(uvcc devices 2>/dev/null | tr -d '[:space:]')"
-  [ -n "$found" ] && [ "$found" != "[]" ] && return 0
-  die "no USB UVC camera attached — uvcc sees none. (The built-in and Continuity cameras are not UVC.)"
-}
+# Control goes to the camera's own unit ids, read from its descriptors. `uvcc` guesses those ids
+# and every control on the ELP stalls; uvc.js reads them and every control answers.
+uvc() { node "$HERE/panelcam-uvc/uvc.js" "$@"; }
 
 cmd_controls() {
-  # The one command that settles what a camera actually implements. A module advertising
-  # autofocus may or may not publish absolute_focus; this is the answer, not the listing.
-  require_uvc
-  uvcc export
+  # The one command that settles what a camera actually implements, with each value and its
+  # range. A module advertising autofocus may or may not publish absolute_focus.
+  uvc show
 }
 
+cmd_get() { uvc get "${1:?usage: panelcam.sh get <control>}"; }
+
 cmd_set() {
-  local control="${1:?usage: panelcam.sh set <control> <value>}"
-  local value="${2:?usage: panelcam.sh set <control> <value>}"
-  require_uvc
-  uvcc set "$control" "$value"
-  uvcc get "$control"
+  uvc set "${1:?usage: panelcam.sh set <control> <value>}" \
+          "${2:?usage: panelcam.sh set <control> <value>}"
 }
 
 cmd_shot() {
@@ -150,6 +144,7 @@ cmd_shot() {
 case "${1:-}" in
   list)     shift; cmd_list "$@" ;;
   controls) shift; cmd_controls "$@" ;;
+  get)      shift; cmd_get "$@" ;;
   set)      shift; cmd_set "$@" ;;
   shot)     shift; cmd_shot "$@" ;;
   auth)     shift; cmd_auth "$@" ;;
