@@ -1,5 +1,5 @@
 {
- "gatesPass": false,
+ "gatesPass": true,
  "size": [
   {
    "id": "enclosure",
@@ -73,12 +73,10 @@
    "id": "pack-closes",
    "label": "No two solids overlap (pack closes)",
    "kind": "gate",
-   "status": "fail",
-   "value": "1 clash, 0 unanswered",
+   "status": "pass",
+   "value": "0 clash, 0 unanswered",
    "target": "0 clash, 0 unanswered",
-   "detail": [
-    "funnel \u2229 enclosure-front-top   2764.2 mm\u00b3, x[  -86.50,   86.50] y[   70.00,  200.00] z[  338.96,  355.00]"
-   ],
+   "detail": [],
    "active": true
   },
   {
