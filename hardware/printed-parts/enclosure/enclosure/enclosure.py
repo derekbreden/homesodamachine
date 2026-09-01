@@ -5313,6 +5313,25 @@ def cap_screw_ys(inner, plate):
     return mid - cap_screw_off, mid + cap_screw_off
 
 
+def _outlet_fore_miter_wedges(cx, cy, cz):
+    """Both passages' fore closures for one pump: the wide flare's own 45 degree seam plane,
+    carried from the body room's edge to the 72.75 mm opening envelope on each side.
+
+    Cut from the pump's fused lower void; the opening's fore boundary is the room's own
+    flare plane, one plane from the narrow half out to the envelope."""
+    body_half, y0, open_half, _y_open = _tray.outlet_fore_miter(cap_pump_air)
+    z0 = cz + _tray.outlet_axis_z - cap_fitting_half - 1.0
+    reach = open_half + 1.0
+    out = []
+    for sx in (-1.0, 1.0):
+        out.append(_xy_prism(z0, cz, [
+            (cx + sx * body_half, cy + y0),
+            (cx + sx * reach, cy + y0 + (reach - body_half)),
+            (cx + sx * reach, cy + y0 - 1.0),
+            (cx + sx * body_half, cy + y0 - 1.0)]))
+    return out
+
+
 def _pump_drop_voids(box):
     """The two straight Z insertion wells through the lower cradle.
 
@@ -5325,8 +5344,9 @@ def _pump_drop_voids(box):
     between the two tube passages. From that outlet face, two individual
     fitting passages run aft to the block's own face. Each keeps a circular lower half around
     its tube axis and a straight 13 mm shaft above it. The two shafts' outside edges, the
-    tube-side case room and the upper well share one 72.75 mm opening boundary. The wall between
-    and outside them remains printed stock.
+    tube-side case room and the upper well share one 72.75 mm opening boundary. Each passage's
+    fore end closes on the flare's own 45 degree seam plane, run from the body room's edge out
+    to that boundary. The wall between and outside them remains printed stock.
 
     ABOVE THE BRACKET each 72.75 mm well passes the stamped bracket, pump and complete clamp.
     It stops one drop clearance behind the clamp. From there the four individual 13 mm shafts
@@ -5349,8 +5369,8 @@ def _pump_drop_voids(box):
         for sx in (-1.0, 1.0):
             hx = cx + sx * _tray.outlet_pitch / 2.0
             # Carry the complete circle-and-shaft passage through the tube-side body room.
-            # Its overlap with that room is free volume, but it joins the 13 mm tangent to the
-            # 72.75 mm upper boundary without the old 0.975 mm face on the tube-axis plane.
+            # Its overlap with that room is free volume; the circle joins the 13 mm shaft
+            # tangent to the 72.75 mm upper boundary.
             y0 = cy + _tray.outlet_passage_start_y(cap_pump_air)
             y1 = pump_cartridge_aft_y(trays) + 1.0
             circle = _ycyl(cap_fitting_half, hx, outlet_axis, y0, y1)
@@ -5365,7 +5385,10 @@ def _pump_drop_voids(box):
                       _pump_upper_well_fore_y(trays),
                       _pump_upper_well_aft_y(plate),
                       drop_start, top)
-        out.append(lower.fuse(fittings).fuse(upper))
+        body = lower.fuse(fittings)
+        for wedge in _outlet_fore_miter_wedges(cx, cy, cz):
+            body = body.cut(wedge)
+        out.append(body.fuse(upper))
 
     edge = _clamp_bridge_edge(trays)
     out.append(_ybox(-(edge + clamp_drop_air), edge + clamp_drop_air,
