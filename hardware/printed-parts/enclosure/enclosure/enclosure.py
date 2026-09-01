@@ -4443,7 +4443,9 @@ def _front_flat_lip_drop(inner, zj):
     THE BAY FLOOR STANDS IN THIS BAND AND THE PUMP HEADS RUN DOWN THROUGH IT ON THEIR WAY
     OUT, so the flat span cannot carry a lip there at any height. Below the seam the wall is
     one `front_wall` section, slab to mouth. The exterior corner skins keep their wraps and
-    the front Z-joint closes in those skins rather than in an inboard pump-bay jamb."""
+    the front Z-joint closes in those skins rather than in an inboard pump-bay jamb: the bay
+    throat reaches both cavity side planes, so the two front pillars are subtracted from this
+    cut rather than from the span it is struck on."""
     bx0, bx1 = bay_x_span(inner)
     # EVERY FACE OF THIS CUT IS THE SKIN'S OWN, not a hair past it. The skin (`_lip_band`)
     # stands exactly one `wall` proud of the cavity face and bears on the slab, so a cut struck
@@ -4459,9 +4461,13 @@ def _front_flat_lip_drop(inner, zj):
     # non-manifold edge and what a slicer refuses the file for. Aft the same rule reads off
     # the cavity — an overshoot there runs out at the jamb, where the wall has already turned,
     # and leaves faces of no width at all, six edges under a micron.
-    return _ybox(bx0, bx1,
+    drop = _ybox(bx0, bx1,
                  inner[2], inner[2] + wall,
                  inner[4], zj + z_rise + 1.0)
+    for sx, sy in column_corners:
+        if sy < 0:
+            drop = drop.cut(_column_pillar(inner, sx, sy, zj))
+    return drop
 
 
 def _pump_full_width_band(inner, outer, bay, pump_trays, y_aft,
