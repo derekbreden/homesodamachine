@@ -78,6 +78,17 @@ makes it. Then regenerate the affected STEP, STL and payload and inspect both th
 assembly. A clean STEP does not dismiss a defect present in the printable STL. A payload-only
 artifact calls for a payload fix, not a speculative change to sound print geometry.
 
+Simplification moves a coordinate; it does not invent a feature. The payload's edges are its
+30° creases (`flute_payload.CREASE_DEG`), and a reduction is accepted only while every point of
+the printed mesh stands inside the deflection budget — so an edge that can be clicked is a
+surface that is there, and only its last decimal is the mesh's. Answer the surface. A reading
+that disagrees with the solid names a place to look in the STL; it is never a reason to doubt
+the click, and a tolerance is never advice to hand back.
+
+A docstring stating an intent does not establish that the geometry serves it. Re-derive the
+intent's own arithmetic before deferring to it: the bound a comment defends is often wider than
+the bound its reason earns, and the surplus is the defect.
+
 ## Supports
 
 Every printable piece in the enclosure assembly follows **Support-removal strategy** in
