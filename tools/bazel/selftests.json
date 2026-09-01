@@ -791,6 +791,11 @@
     "tools/bazel/graph.json",
     "tools/docgen/__init__.py"
   ],
+  "hardware/scripts/pick_read.py": [
+    "hardware/scripts/_mesh_payload.py",
+    "hardware/scripts/flute_payload.py",
+    "hardware/scripts/pick_read.py"
+  ],
   "hardware/scripts/probe.py": [
     "hardware/manifold-layout/_lines.py",
     "hardware/manifold-layout/_scorecard.py",
