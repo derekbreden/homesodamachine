@@ -3783,10 +3783,9 @@ def _front_cuts(x_in, x_ext, sx, z_boss, y_boss, y_joint):
     is a slide path and not a pocket.
 
     THE SEAT AND THE CHANNEL ARE ONE CONTINUOUS SLOT. The channel is struck at the bore's
-    axis carrying the bore's width, so the plug rides one section its whole travel. Above
-    its square pass envelope the cutter rises 45 degrees in X to the inboard tip: that adds
-    plug clearance while replacing the slot's horizontal printed roof with a self-supporting
-    one.
+    axis carrying the bore's width, so the plug rides one section its whole travel. Its flat
+    roof is the square pass envelope's own ceiling, leaving the collar's complete structural
+    stock above it.
 
     The slip lives on the +Y (slide-in) side: the slot is shifted +slip/2 so its −Y wall
     registers on the plug's −Y face at the mouth, instead of overshooting past the seam.
@@ -3799,10 +3798,6 @@ def _front_cuts(x_in, x_ext, sx, z_boss, y_boss, y_joint):
     y0, y1 = bore_y - b, y_joint + lip_len + 1.0
     roof = z_boss + b
     slot = _ybox(bx0, bx1, y0, y1, z_boss - b, roof)
-    slot = slot.fuse(_xz_prism(
-        y0, y1,
-        [(x_in, roof), (x_tip, roof),
-         (x_tip, roof + abs(x_tip - x_in))]))
     return slot.fuse(heat)
 
 
@@ -6338,13 +6333,11 @@ def _vent_chase(solid, inner, outer, stations, y0, y1, z0, z1):
     of the wall is still standing outboard of it. The mouth is `vent_channel_w` square, on the
     tube's own axis, and its lip is the rib's east face — the face that lands on the core.
 
-    INSIDE THE FLANK ITS CEILING IS A 45° HIP off the channel's own two jambs, so the hidden
-    tunnel closes course by course rather than bridging. At the flank's interior face that hip
-    has reached its apex and leaves a solid transom over the whole opening. THE EXPOSED ROOF
-    RAMPS FROM THAT WALL IN X: one millimetre up for every millimetre it reaches to the core,
-    with the rib's cap parallel above it. The chase therefore follows the box's wall-furniture
-    rule wherever it is actually furniture, while the buried part uses its jambs where no wall
-    root crosses the opening.
+    THE TUNNEL'S CEILING IS ONE 45° X RAMP FROM THE −X WALL TO THE CORE. It begins at the
+    square passage's roof on the liner inside the flank, then rises one millimetre in Z for every
+    millimetre it advances in X through the wall and across the exposed rib. The cap follows that
+    same plane one structural section above it. The wall is the root that already prints, so no
+    part of this X-wall feature slopes in Y from the channel's jambs.
 
     NEITHER THE RIB NOR THE PASSAGE CROSSES THE SEAM. They part on different planes and for
     different reasons, and between them nothing of one piece stands in the other's travel.
@@ -6396,9 +6389,9 @@ def _vent_chase(solid, inner, outer, stations, y0, y1, z0, z1):
                                           / ramp_depth)
         rim = z_seam + z_rise                       # the back column's own; the chase is its
         liner_x = inner[0] + slide_slip + vent_rib_wall
-        hip = vent_channel_w / 2.0                  # the buried 45° close on the channel half-width
+        passage_half = vent_channel_w / 2.0
         root_x = back_top_flank_face()[0]           # the exposed rib's actual wall root
-        roof_root = mouth_top + hip                 # the buried hip's apex, solid all across above
+        roof_root = mouth_top + (root_x - liner_x)  # one X ramp from the square passage's liner
         roof_run = rib_x - root_x
         if roof_run <= 0.0:
             raise ValueError(
@@ -6407,12 +6400,10 @@ def _vent_chase(solid, inner, outer, stations, y0, y1, z0, z1):
         rib = _xz_prism(sy - half, sy + half,
                         [(inner[0], sz + half), (rib_x, sz + half),
                          (rib_x, ramp_top), (inner[0], rib_end)])
-        # THE EXPOSED CAP RAMPS FROM THE WALL. At `root_x` the buried hip has already reached
-        # `roof_root`, so material stands across the channel's whole width and the ramp has a real
-        # root rather than a first layer bridging between its jambs. It then rises in X to the
-        # core's flank, with the same four millimetres of vertical roof section the old parallel
-        # Y hips kept. The lower rectangle is already inside `rib`; including it here makes this
-        # one closed wedge before the two are fused.
+        # THE CAP FOLLOWS THE PASSAGE'S X RAMP. At `root_x` the roof has already climbed through
+        # the flank from `liner_x`, so material stands across the channel's whole width and the
+        # exposed rib continues the same wall-normal plane to the core. The lower rectangle is
+        # already inside `rib`; including it here makes this one closed wedge before the two fuse.
         cap_root = roof_root + 2.0 * vent_rib_wall
         rib = rib.fuse(_xz_prism(
             sy - half, sy + half,
@@ -6471,22 +6462,13 @@ def _vent_chase(solid, inner, outer, stations, y0, y1, z0, z1):
                                      (inner[0], rim),                # is the duct's west face;
                                      (liner_x, rim),                 # above it the liner is,
                                      (liner_x, mouth_top)]))         # and the rib roofs the duct
-        # THE BURIED ROOF CLOSES FROM ITS JAMBS. The flat square would otherwise bridge between
-        # them inside the flank, so this short part keeps the compact Y hip up to the wall's actual
-        # interior face. There the hip's apex is the transom the exposed ramp roots on.
-        solid = solid.cut(_yz_prism(
-            liner_x, root_x,
-            ((sy - hip, mouth_top), (sy, roof_root), (sy + hip, mouth_top))))
-        # AND THE EXPOSED ROOF LEANS IN X FROM THAT WALL. Its root is the buried hip's apex, where
-        # the wall is solid over the opening's full width; from there every layer advances one
-        # millimetre toward the core for every millimetre it rises. The square passage remains the
-        # minimum section, then gains headroom toward the lip rather than carrying a Y gable out
-        # over an eight-millimetre wall-rooted projection.
+        # ONE WALL-NORMAL ROOF THROUGH THE FLANK AND THE EXPOSED RIB. The square passage keeps its
+        # complete section at `liner_x`; from there every layer advances one millimetre toward the
+        # core for every millimetre it rises. There is no separate Y hip inside the X wall.
         solid = solid.cut(_xz_prism(
-            sy - hip, sy + hip,
-            ((root_x, mouth_top), (rib_x + 1.0, mouth_top),
-             (rib_x + 1.0, roof_root + (rib_x + 1.0 - root_x)),
-             (root_x, roof_root))))
+            sy - passage_half, sy + passage_half,
+            ((liner_x, mouth_top), (rib_x + 1.0, mouth_top),
+             (rib_x + 1.0, mouth_top + (rib_x + 1.0 - liner_x)))))
     return solid
 
 
