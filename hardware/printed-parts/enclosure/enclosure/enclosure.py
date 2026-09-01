@@ -36,7 +36,8 @@ short face across the machine instead of its 283 mm long one. The pack is placed
     bottom pieces), the top pair under the ceiling. Each boss is on an X axis:
     the screw drives in from the left/right EXTERIOR face. The BACK piece
     carries the PLUG (faucet mounting-plate idiom): a square prism reaching
-    inward from the wall with a screw clearance through it. The FRONT piece's
+    inward from the wall with a screw clearance through it, carried aft into
+    the back piece's full-thickness flank. The FRONT piece's
     lip carries the SOCKET (faucet shell-bottom idiom): a collar slotted to
     receive the plug, open on its +Y face so the plug drops in as the pieces
     close, with a ruthex M3 heat-set at the deep end.
@@ -1441,6 +1442,16 @@ z_joint_clear = 3.0
 # telescopes never share a wall surface.
 z_lip_y_margin = 2.0
 
+
+def back_flank_start(y_joint):
+    """The first Y plane carrying either back piece's full-thickness flank.
+
+    Both back flanks begin past BOTH telescopes. The front half's Y lip runs to
+    `y_joint + lip_len`; `z_lip_y_margin` past that rim is the first plane the closing
+    front half never lands on. Back-bottom's added skin, back-top's nominal section and
+    every seam feature which roots in that section all meet this one plane."""
+    return y_joint + lip_len + z_lip_y_margin
+
 # THE Z SEAMS SLIDE HOME, AND TAKE NO SCREW. Each top piece enters off the end of the box
 # it stands at and slides the length of its own column — front-top fore of home over the
 # front wall's own plane and aft to its stop, back-top aft of home over the rear wall's and
@@ -2129,10 +2140,13 @@ def _y_corner(inner, y_joint):
 
 
 def _y_corner_back(iy1, y_joint):
-    """The Y extent of the BACK half's plug — one plug radius either side of the
-    bore axis, so it stands on the seam mouth and runs one plug diameter aft of
-    it."""
-    return _y_boss(y_joint) - plug_dia / 2.0, min(iy1, _y_boss(y_joint) + plug_dia / 2.0)
+    """The Y extent of the BACK half's plug, from the seam mouth into the physical flank.
+
+    Its forward `plug_dia` is the square registration pin inside the front socket. The
+    rest carries that same section aft to `back_flank_start`, where both back pieces'
+    thickened flank begins, so the boss emerges from the wall it belongs to instead of
+    ending in front of it."""
+    return y_joint, min(iy1, back_flank_start(y_joint))
 
 
 def wall_band_corner_y(reach):
@@ -2252,7 +2266,9 @@ def seam_bosses(inner, y_joint, splits):
     the band the pack keeps covers them. A row per column says so, at the run each column's
     rail actually takes."""
     r = socket_r
-    yb0, yb1 = _y_corner(inner, y_joint)
+    front_y0, front_y1 = _y_corner(inner, y_joint)
+    back_y0, back_y1 = _y_corner_back(inner[3], y_joint)
+    yb0, yb1 = min(front_y0, back_y0), max(front_y1, back_y1)
     out = [(yb0, yb1, z - r, z + r)
            for _x_in, _x_ext, _sx, z in _bosses(inner, y_joint)]
     for col, zj in (("front", splits[0]), ("back", splits[1])):
@@ -3630,10 +3646,10 @@ def _ceiling_corbels(solid, inner, outer, centre, y_joint, y_bosses=()):
 # drives in from the ±X exterior; outboard→inboard the joint reads: head
 # counterbore, then the pin body (screw_len − heatset_depth of material the shank
 # crosses), then the heat-set, then a one-wall cap.
-#   * BACK half = PIN: a `plug_dia` square prism from the ±X exterior to the
-#     heat-set, seating in the socket's slot. Sized to the screw SHANK, not the head
-#     (the head sits in the wall counterbore); screw-clearance + head counterbore
-#     bored in.
+#   * BACK half = PIN: a `plug_dia` square registration section from the ±X exterior
+#     to the heat-set, seating in the socket's slot and continuing aft until it roots in
+#     the back pieces' full-thickness flank. Sized to the screw SHANK, not the head (the
+#     head sits in the wall counterbore); screw-clearance + head counterbore bored in.
 #   * FRONT lip = SOCKET: a collar round the slot — one `wall` of material and no
 #     more — bored to receive the round pin (slide fit) with the heat-set + cap at
 #     the deep inboard end.
@@ -3720,11 +3736,14 @@ def _boss_x(x_ext, sx, length=None):
     return x_seat, x_tip, x_heat, x_cap
 
 
-def _back_plug(x_ext, sx, z_boss, y_boss):
-    """BACK pin: a `plug_dia` SQUARE prism from the ±X exterior to the heat-set, where
-    it registers in the front socket's slot. Its −Y face stands on the seam mouth, and
-    the wall it drives through carries it — the pin is that wall's own material for
-    the first `wall` of its length and a stub of the same section beyond.
+def _back_plug(x_ext, sx, z_boss, y_joint):
+    """BACK pin: a SQUARE prism from the ±X exterior to the heat-set, where its forward
+    `plug_dia` registers in the front socket's slot. Its −Y face stands on the seam mouth;
+    aft of the socket it continues to `back_flank_start`, making the boss one uninterrupted
+    root into the full-thickness back flank.
+
+    The wall it drives through carries it — the pin is that wall's own material for the first
+    `wall` of its X length and a stub of the same section beyond.
 
     IT IS A BOX AND NOT A PIPE — the box's one boss section. A pipe meets the mouth on
     the line where it grazes it and closes on a crown laid over its own axis. The square
@@ -3732,13 +3751,15 @@ def _back_plug(x_ext, sx, z_boss, y_boss):
     carries its lower face from the wall to the pin's inboard tip. `_y_lip_channel` takes
     the same profile, one `fits.slip` lower, out of the front socket's whole travel."""
     _xs, x_tip, _xh, _xc = _boss_x(x_ext, sx)
+    y_boss = _y_boss(y_joint)
     r = plug_dia / 2.0
+    y0, y1 = _y_corner_back(rear_plane_y, y_joint)
     x_in = x_ext + sx * wall
     xa, xb = sorted((x_ext, x_tip))
-    pin = _ybox(xa, xb, y_boss - r, y_boss + r, z_boss - r, z_boss + r)
+    pin = _ybox(xa, xb, y0, y1, z_boss - r, z_boss + r)
     floor = z_boss - r
     drop = abs(x_tip - x_in)
-    corbel = _xz_prism(y_boss - r, y_boss + r,
+    corbel = _xz_prism(y0, y1,
                        [(x_in, floor), (x_tip, floor), (x_in, floor - drop)])
     return pin.fuse(corbel)
 
@@ -4412,7 +4433,7 @@ def _back_bottom_flank_skin(inner, y_joint, zj):
     past the joint, and a skin struck on the joint itself is a skin drawn through it."""
     lx0, lx1 = lip_face_x()
     fx0, fx1 = back_bottom_flank_face()
-    y0 = y_joint + lip_len + z_lip_y_margin
+    y0 = back_flank_start(y_joint)
     return (_ybox(lx0, fx0, y0, inner[3], inner[4], zj)
             .fuse(_ybox(fx1, lx1, y0, inner[3], inner[4], zj)))
 
@@ -4938,14 +4959,6 @@ def _back_top_wall_relief_cut():
     return out
 
 
-def back_top_flank_start(y_joint):
-    """Where back-top's own flank section begins — past BOTH telescopes, so it costs the seams
-    nothing. The front half's Y lip runs to `y_joint + lip_len` on this wall surface
-    (`_front_lip`); `z_lip_y_margin` past that rim is the first plane the closing front half
-    never lands on, and everything this piece stands on its own flank starts there."""
-    return y_joint + lip_len + z_lip_y_margin
-
-
 def _back_top_flank_relief_cut(box):
     """The named pockets in back-top's nominal ±X section.
 
@@ -4991,8 +5004,8 @@ def _back_top_flanks(inner, outer, box, y_joint, zj):
     step. In Z the nominal band starts over the hooked rail's rim, the way `_back_top_wall`
     does; below it `_z_rail_feet` carries the full nominal section from the seam mouth to the
     caught face, with the arm and its broad back-column head placed at that face's inboard edge.
-    The channel cut runs last and opens exactly that moving profile. Every Y-seam screw stands
-    fore of this Y, so none of its plug or socket geometry grows.
+    The channel cut runs last and opens exactly that moving profile. Every back plug reaches
+    this Y plane, so its registration section roots directly in the full-thickness flank.
 
     AND THE PAN'S SLEEVE KEEPS ITS BLOCK. The ASSE drip pan withdraws through this flank, and the
     pack states the sleeve as one box rooted on the wall's own inner face with the berth cut back
@@ -5001,7 +5014,7 @@ def _back_top_flanks(inner, outer, box, y_joint, zj):
     instead of this one."""
     ix0, ix1, _iy0, iy1, _iz0, iz1 = inner
     fx0, fx1 = back_top_flank_face()
-    y0, rim = back_top_flank_start(y_joint), zj + z_rise
+    y0, rim = back_flank_start(y_joint), zj + z_rise
     depth = back_top_flank_t - wall
     band = None
     for x_in, x_face in ((ix0, fx0), (ix1, fx1)):
@@ -5049,7 +5062,7 @@ def _back_top_ceiling_corbel_at(inner, y_joint, sx, face_z):
     corbel = _xz_prism(cp.fore_y, cp.aft_y, section(edge, deep))
     fore_deep = abs(wall_x) - cp.dado_blind_x
     return corbel.fuse(_xz_prism(
-        back_top_flank_start(y_joint), cp.fore_y,
+        back_flank_start(y_joint), cp.fore_y,
         section(sx * cp.dado_blind_x, fore_deep)))
 
 
@@ -5186,7 +5199,7 @@ def _back_top_ceiling(solid, inner, y_joint, box):
     # There is no panel beside it there and no field to take away: the top wall fore of `fore_y`
     # is what the dado's own cut leaves of it, so that plane is the strip's inboard edge and the
     # wedge is struck from it. It stops fore where the flank section does
-    # (`back_top_flank_start`), which is the first plane the closing front half never lands on —
+    # (`back_flank_start`), which is the first plane the closing front half never lands on —
     # ahead of that the ceiling is the mouth the front lip telescopes through, and a corbel there
     # would be drawn inside the lip's own lane.
     for sx in (+1.0, -1.0):
@@ -5979,9 +5992,10 @@ def build_back_half(box):
     yb = _y_boss(y_joint)
     bosses = box.y_bosses
     # One plug per level, standing on the back mouth off the wall it drives through.
-    # The corner ahead of that mouth is the front lip's, whole.
+    # The corner ahead of that mouth is the front lip's, whole; aft, the plug runs through
+    # that lip's socket and into the full-thickness flank carrying it.
     for x_in, x_ext, sx, z_boss in bosses:
-        back = back.fuse(_back_plug(x_ext, sx, z_boss, yb))
+        back = back.fuse(_back_plug(x_ext, sx, z_boss, y_joint))
     # Clip any corner feature that pokes past the rounded print silhouette.
     back = back.intersect(_rounded_outer(outer))
     for x_in, x_ext, sx, z_boss in bosses:
