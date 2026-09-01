@@ -3029,11 +3029,20 @@ _ROUTED: set = set()
 
 def east_wall_seat():
     """The plane a body hung on the east wall stands its outer face on: one complete mounting
-    boss inboard of the box's base interior plane.
+    boss inboard of the box's BASE interior plane.
 
     Read off the wall and not off whichever body is widest on the floor. The boss is built on
     the wall, so a body that seats on the boss's own tip seats on the wall whatever else is
-    packed beside it — and a narrower body arriving on the floor moves neither."""
+    packed beside it — and a narrower body arriving on the floor moves neither.
+
+    AND THE PLANE IT IS STRUCK ON IS THE BOX'S, NOT THE PIECE'S. Every east-wall body lands on
+    back-top, whose flank stands `back_top_flank_t` where the box carries one `wall`
+    (`enclosure.back_top_flank_face`, 98.5 against `interior_x`'s 104.5) — so this seat is one
+    boss inboard of a plane six millimetres outboard of the face the body actually meets, and
+    what it leaves between body and wall is 0.25 mm rather than a boss. `enclosure._east_bosses`
+    reads the piece's own face and builds no stem for a stand that short, so those bodies bolt
+    flat to the flank with their inserts in its own section. Struck on the face that is there
+    this plane would be 92.25, which is a different packing and not a different comment."""
     return _enc.interior_x()[1] - _enc.mount_boss_out
 
 
@@ -3232,6 +3241,17 @@ WAGO_TURN = (((1.0, 0.0, 0.0), 90.0), ((0.0, 1.0, 0.0), -90.0))
 WAGO_TURN_WEST = (((1.0, 0.0, 0.0), 90.0), ((0.0, 1.0, 0.0), 90.0))
 # What the Wago row stands off the brick's crown, and what the relay above it stands off the row.
 WAGO_CLEAR = STACK_CLEAR
+# The plane below the row's well corbels is one millimetre over the brick's crown. A well starts
+# at `interior_x`, but back-top's nine-millimetre flank already fills the outboard part of its
+# reach; the wedge only has to carry what emerges inboard of that actual face. At the nominal
+# row height `WAGO_CLEAR - WAGO_CORBEL_FLOOR_CLEAR` of that 45° drop exists. Lift the row by the
+# balance, which is 1.8 mm here, and the exposed underside reaches the clear plane exactly.
+WAGO_CORBEL_FLOOR_CLEAR = 1.0
+WAGO_CORBEL_LIFT = (
+    _enc.wago_engage("413")
+    - (_enc.back_top_flank_t - _enc.wall)
+    - (WAGO_CLEAR - WAGO_CORBEL_FLOOR_CLEAR)
+)
 
 
 def _wago_skirt(size="413"):
@@ -3266,7 +3286,9 @@ def build_wago_row(psu, wall_seat, inlet):
     They are the only bodies on this flank that no boss holds: each presses into a well printed
     on the wall itself (`enclosure._side_wells`), so what locates them is the wall, and what this
     places is the lug that goes in it. The row runs fore and aft on the brick's own depth, one
-    `WAGO_CLEAR` over its crown.
+    `WAGO_CLEAR + WAGO_CORBEL_LIFT` over its crown. The lift completes the well's own 45°
+    underside where it emerges from back-top's actual flank, and carries its full roof into the
+    ceiling corbel above as one simple union.
 
     WHERE ON THAT CROWN IS THE INLET'S TO SAY. Centred is where five wells sit squarest on the
     body under them, and that is where the row goes — unless the C14 reaches into the span, and
@@ -3276,8 +3298,8 @@ def build_wago_row(psu, wall_seat, inlet):
     is further forward.
 
     AND THE BRICK'S FORE FACE IS WHERE THAT DRAW STOPS. A lug's height is struck off the crown
-    (`WAGO_CLEAR` over it), so a lug past the brick's fore end is at a Z justified by nothing
-    under it. The brick cannot give the ground back either:
+    (`WAGO_CLEAR + WAGO_CORBEL_LIFT` over it), so a lug past the brick's fore end is at a Z
+    justified by nothing under it. The brick cannot give the ground back either:
     the column ahead of it is packed one `WIRED_CLEAR` at a time onto a board that stands about a
     millimetre off `carb-1` (`build_psu`). So the row lies over the crown whole and the working
     reach at the terminals is what is left of `WIRED_CLEAR` once it does.
@@ -3297,7 +3319,8 @@ def build_wago_row(psu, wall_seat, inlet):
         solid, carry = seat_body(import_step(str(wago_step("413"))).val(), WAGO_TURN,
                                  seat=name, x1=_enc.interior_x()[1],
                                  y0=y0 + i * _enc.wago_pitch + _enc.wago_well_wall,
-                                 z0=pb.zmax + WAGO_CLEAR + _wago_skirt())
+                                 z0=(pb.zmax + WAGO_CLEAR + WAGO_CORBEL_LIFT
+                                     + _wago_skirt()))
         out.append((name, solid, carry))
     return out
 
@@ -4365,7 +4388,8 @@ def build_pack() -> cq.Assembly:
     cluster = build_cluster_wagos()
     for name, solid, _carry, _size in cluster:
         a.add(solid, name=name, color=C_AC_HUB)
-    a.side_wells = wago_wells(wagos, cluster, over=box(psu).zmax + 1.0)
+    a.side_wells = wago_wells(
+        wagos, cluster, over=box(psu).zmax + WAGO_CORBEL_FLOOR_CLEAR)
     # The compressor is the one body on the floor that is bolted DOWN to it, so its four
     # holes are the slab's own boss stations. The plate's crown is where the washer lands and
     # its Ø14 grommet bore is what the post stands in, so both figures are the donor's.
