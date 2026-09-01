@@ -3,7 +3,8 @@ pieces (front/back × bottom/top) that telescope and cross-pin together.
 
 WIDTH, HEIGHT and DEPTH are all BOUNDS, not consequences — `appliance_width` struck
 symmetric about x = 0, `appliance_height` from the floor slab's underside to the top
-wall's outer face, and `rear_plane_y` from the front wall to the back. The contents do
+wall's outer face, and `rear_plane_y` fixing the back while the front wall reaches the
+pump cartridge's plane from its interior datum. The contents do
 not set them; they have to fit inside, and `_dims` measures every one of them against
 the pack and enters the reading in `BOUNDS`. The box comes out at its stated size
 either way, so a pack that overran it gets a wall drawn through it.
@@ -172,7 +173,7 @@ import _enclosure_interface as _interface
 
 # Shell parameters.
 wall = _interface.wall      # PETG wall thickness
-pump_cartridge_proud = _interface.pump_cartridge_proud
+pump_station_lead = _interface.pump_station_lead
 pump_station_drop = _interface.pump_station_drop
 # THE FLOOR SLAB IS NOT A WALL AND IS NOT ONE WALL THICK. It is the face the machine's whole
 # mass stands on, the face a body bolted DOWN rather than hung on a flank is anchored to
@@ -1404,15 +1405,19 @@ def ceiling_stations(digiten, anchors, panel: bool, asse_cradle=None):
     return meter_anchors, ribs
 
 
-# And the interior FRONT PLANE, holding the other end. The front wall is `front_wall` thick —
-# the face a user hauls the pump cartridge out by, so it carries section the way the facet
-# does — and it grows INWARD: the exterior stays where the appliance's stated depth put it
-# and the interior face stands here. What noses into the section gets a RELIEF, 45°-chamfered
-# like every pocket on this box (`front_reliefs`): the refrigeration stratum keeps the face it
-# was packed against, and the pump bay roots on pocket floors struck by its own wrap rule.
-# `box-front` reads the pack against the relieved surface, region by region, not one plane.
+# And the interior FRONT PLANE, holding the other end. The front wall is `front_wall` thick and
+# its exterior is the pump cartridge's show plane. The flavour pack stands far enough aft that
+# one full flute depth fits between that plane and the pump-pocket datum, so the removable face
+# needs no step outside the fixed wall. What noses into the section gets a RELIEF, 45°-chamfered
+# like every pocket on this box
+# (`front_reliefs`): the refrigeration stratum keeps the face it was packed against, and the
+# pump bay roots on pocket floors struck by its own wrap rule. `box-front` reads the pack against
+# the relieved surface, region by region, not one plane.
 front_wall = 9.0
 front_plane_y = 14.0
+# One full groove depth stands ahead of the pump pocket datum so the groove floors, not their
+# peaks, retain the pocket's complete printable backing.
+pump_show_growth = flute_depth
 # The refrigeration stratum's reliefs: two stated pockets over what THE COMPRESSOR ALONE
 # carries fore of the front wall's own interior plane — its plate's front strip and its power
 # box, each floored on the face the can packs to. The shell's belly never reaches the wall,
@@ -1429,15 +1434,10 @@ fridge_reliefs = (
     (-45.5, 3.5, 28.0, 77.0, 11.0),    # the power box
 )
 # And each pump's relief in the cradle face. Its floor follows the pump station, keeping the
-# same lower-head face section as the pump moves toward the collet plate.
+# complete lower-head face section between the flute floors and the pocket.
 pump_relief_skin = 3.9
-pump_station_front_y = front_plane_y - front_wall - pump_cartridge_proud
-# The complete flute field continues over the removable show face. One full groove depth moves
-# that surface ahead of the pump datum, so its groove floors land on `pump_station_front_y`
-# while the pumps, fitting axes, relief floor and aft pull wall remain on their own stations.
-pump_show_growth = flute_depth
-pump_show_proud = pump_cartridge_proud + pump_show_growth
-pump_cartridge_front_y = front_plane_y - front_wall - pump_show_proud
+pump_cartridge_front_y = front_plane_y - front_wall
+pump_station_front_y = pump_cartridge_front_y + pump_show_growth
 pump_relief_floor = pump_station_front_y + pump_relief_skin
 relief_chamfer = _interface.relief_chamfer  # every relief ceiling rises at this angle to the mouth
 
@@ -2718,6 +2718,20 @@ def _dims(pack):
     ox0, ox1 = ix0 - wall, ix1 + wall
     oy0, oy1 = iy0 - front_wall, iy1 + wall
     outer = (ox0, ox1, oy0, oy1, iz0 - floor_t, iz1 + wall)
+    # THE REMOVABLE FRONT IS THE FRONT OF THE APPLIANCE. Its show plane and the fixed walls
+    # above and below the bay share one Y coordinate; the pump-to-deck lead is room inside the
+    # wall, not a step outside it. Read the two independently so changing either construction
+    # cannot quietly bring the protrusion back.
+    pump_face_offset = outer[2] - pump_cartridge_front_y
+    record_bound(Bound(
+        "pump-cartridge-flush", "The pump cartridge is flush with the fixed front face",
+        abs(pump_face_offset) <= stated_bound_tol,
+        f"cartridge y {pump_cartridge_front_y:.3f}, fixed face y {outer[2]:.3f}",
+        "the same plane",
+        ([] if abs(pump_face_offset) <= stated_bound_tol else [
+            f"the cartridge stands {pump_face_offset:.3f} mm ahead of the fixed front face. "
+            "Seat the complete flavour pack at its common depth and carry the enclosure front "
+            "to `pump_cartridge_front_y`"])))
     # The one thing the Y seam cannot do is cut the display housing: the facet is a
     # solid surface chamfered into the top-front arris and it prints as part of the
     # front-top piece, so the seam stands behind its back plane.
@@ -4700,14 +4714,12 @@ def _pump_full_width_band(inner, outer, bay, pump_trays, y_aft,
 
 
 def _pump_cartridge_outer(outer):
-    """The lower cradle's proud plan silhouette.
+    """The lower cradle's plan silhouette, flush with the fixed enclosure.
 
-    Only the show plane moves. Both X faces, the rear of the appliance and the corner radius
-    remain the enclosure's, so the proud face returns into the existing side skins without a
-    width change or an extra corner. The pump station stays on `pump_cartridge_proud`; this
-    surface carries one additional full flute depth ahead of it."""
-    return (outer[0], outer[1], outer[2] - pump_show_proud,
-            outer[3], outer[4], outer[5])
+    The front wall reaches the cartridge's show plane, so the same outline supplies its front,
+    rounded corners and side faces. The pump station remains one flute depth behind that plane;
+    the field's groove floors therefore retain the pocket's complete printable backing."""
+    return outer
 
 
 def _pump_upper_x_span(cx):
@@ -4716,7 +4728,7 @@ def _pump_upper_x_span(cx):
 
 
 def _pump_front_smooth_skin(pump_trays):
-    """Smooth stock between the proud face and the upper insertion wells.
+    """Smooth stock between the flush face and the upper insertion wells.
 
     The cut reaches forward far enough to leave exactly ``pump_face_backing`` behind the
     deepest flute. The pump-derived well may already reach farther forward, in which case it
@@ -4743,17 +4755,15 @@ def _pump_upper_well_aft_y(plate):
 
 
 def _pump_cartridge_front_flute_rail(outer):
-    """The proud face and its two front corner returns, on the enclosure's flute datum.
+    """The flush face and its two front corner turns, on the enclosure's flute datum.
 
-    The fixed outer rail still cuts the unchanged side planes from their original tangencies
-    aft. This open rail covers only the translated face and corners; the short plain side
-    returns between them state the cartridge's proud step without shifting the fixed walls'
-    groove phase. The show plane stands one complete groove depth ahead of the pump datum, so
-    this rail carries the same uninterrupted full-depth field as the rest of the enclosure."""
-    proud = _pump_cartridge_outer(outer)
-    front_run = (proud[1] - proud[0] - 2.0 * corner_round) + math.pi * corner_round
+    This open rail covers the front half of the same plan the fixed walls carry. The side rail
+    takes over at both tangencies, so the cartridge retains the enclosure's phase without a
+    translated step or a plain return."""
+    face = _pump_cartridge_outer(outer)
+    front_run = (face[1] - face[0] - 2.0 * corner_round) + math.pi * corner_round
     return _flute_skin.Rail(
-        at=lambda s: plan_at(s, proud), length=front_run,
+        at=lambda s: plan_at(s, face), length=front_run,
         start=-front_run / 2.0, closed=False)
 
 
@@ -4761,9 +4771,8 @@ def _pump_cartridge_side_flute_rail(outer):
     """The enclosure-phase field on the cartridge's two outer side faces.
 
     This open run starts at the +X front tangency, walks round the back of the box and ends at
-    the -X front tangency. The proud-front rail carries the translated face and its two corner
-    turns; the short returns between those turns and this run stay plain. The box's fixed front
-    plane passes through the proud cartridge and is therefore not a surface of this rail."""
+    the -X front tangency. The front rail carries the face and its two corner turns; this rail
+    carries the two cartridge flank bands on the same unbroken plan and phase."""
     segments = _plan_segments(outer)
     start = sum(length for _kind, length, _data in segments[:2])
     length = sum(length for _kind, length, _data in segments[2:7])
@@ -5399,9 +5408,9 @@ def _pump_cartridge_face_region(inner, outer, bay, pump_trays):
     """The exterior shell the lower cradle owns.
 
     It spans the complete rounded front and both side skins through the cradle's Y+ edge.
-    Its show face stands `pump_show_proud` ahead of the fixed enclosure while the pumps remain
-    on `pump_cartridge_proud`; the same corner radius returns into the unchanged side planes.
-    That complete plan begins on the cradle's own bed plane and continues plumb to one flat
+    Its show face shares the fixed enclosure's front plane, with one flute depth between that
+    plane and the pump pocket datum. The same corner radius returns into the side planes. That
+    complete plan begins on the cradle's own bed plane and continues plumb to one flat
     `pump_cartridge_z_clearance` below the lintel, without a bevel, ramp, starter strip or shelf.
     The matching lower Z clearance is cut into the fixed shell perimeter by `_bay_cut`, outside
     the interior bearing floor."""
@@ -5721,8 +5730,8 @@ def pump_cartridge_figures(box):
             f"{(trays[0][1] + _tray.skirt_open_y_max
                   + _tray.skirt_upper_band):.6g} mm",
         "PUMP_CARTRIDGE_AFT_Y": f"{pump_cartridge_aft_y(trays):.6g} mm",
-        "PUMP_PROUD": f"{pump_show_proud:.4g} mm",
-        "PUMP_STATION_PROUD": f"{pump_cartridge_proud:.4g} mm",
+        "PUMP_FACE_OFFSET": f"{(box.outer[2] - pump_cartridge_front_y):.4g} mm",
+        "PUMP_STATION_LEAD": f"{pump_station_lead:.4g} mm",
         "PUMP_SHOW_GROWTH": f"{pump_show_growth:.4g} mm",
         "PUMP_FACE_SKIN": f"{(pump_relief_floor - pump_cartridge_front_y):.4g} mm",
         "PUMP_FACE_BACKING": f"{pump_face_backing:.4g} mm",
@@ -6066,9 +6075,9 @@ def _pump_cartridge_gross(box, halves_cache=None):
         if halves_cache is not None:
             halves_cache["front"] = half
     face = _pump_cartridge_face_region(inner, outer, bay, box.pack.pump_trays)
-    # Keep every cut and relief the fixed half already gives the band, then add only the proud
-    # nose. The nose overlaps the old rounded corners through their side tangencies, so it joins
-    # them with volume rather than meeting either flank on a line.
+    # Keep every cut and relief the fixed half already gives the band, then restore the complete
+    # front nose through the bay cut. It overlaps both rounded corners through their side
+    # tangencies, so it joins them with volume rather than meeting either flank on a line.
     solid = half.val().intersect(face)
     nose = face.intersect(_ybox(
         outer[0] - 1.0, outer[1] + 1.0,
@@ -6079,7 +6088,7 @@ def _pump_cartridge_gross(box, halves_cache=None):
     aft = pump_cartridge_aft_y(box.pack.pump_trays)
     floor_top = bay_floor_z(box.pack.pump_trays)[1]
     # The filled body bears on the floor and reaches both cavity planes. The exterior shell's
-    # complete proud front, rounded corners and side faces begin on that same bed plane and stand
+    # complete flush front, rounded corners and side faces begin on that same bed plane and stand
     # plumb from there. The lower running gap is in the fixed shell perimeter, outside this
     # bearing floor. No fixed side skin frames the cradle.
     fill = _ybox(
@@ -8922,9 +8931,9 @@ def _export_pieces(pieces, assy):
         berthed = [m for other, m in bodies.items() if other != name] + steel
         rails = flute_rails(box, berthed)
         # The top clamp is an interior mechanical part and carries no show field. The
-        # full-width cradle owns the translated front face and both outer flanks: its proud
-        # rail carries the face and front corners, while the enclosure-phase side rail starts
-        # only at their old tangencies. No rail is struck on the fixed front plane inside it.
+        # full-width cradle owns the flush front face and both outer flanks: its front rail
+        # carries the face and front corners, while the enclosure-phase side rail starts at
+        # their tangencies. No rail is struck on the fixed front plane inside it.
         if name == "pump-cap":
             rails = []
         elif name == "pump-cartridge":
@@ -9284,8 +9293,9 @@ def main():
         "TEARDROP_ROOF": f"{teardrop_roof_angle:.4g}°",
         "SOCKET_BORE": f"{socket_bore_dia:.4g} mm",
         "SOCKET_OD": f"{2.0 * socket_r:.4g} mm",
-        "BOX_SIZE": (f"{bo[1] - bo[0]:.0f} × {bo[3] - bo[2]:.0f} × "
-                     f"{bo[5] - bo[4]:.0f} mm"),
+        "BOX_SIZE": (f"{bo[1] - bo[0]:.6g} × {bo[3] - bo[2]:.6g} × "
+                     f"{bo[5] - bo[4]:.6g} mm"),
+        "FRONT_WALL": f"{front_wall:.4g} mm",
         **pump_cartridge_figures(box),
     }
     substitute_py_comments(

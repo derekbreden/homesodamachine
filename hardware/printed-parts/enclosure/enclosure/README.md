@@ -168,7 +168,7 @@ band. Each catch lies wholly over its six-millimetre foot and keeps a complete e
 outside its channel.
 
 **Lifting a seated top lands each foot's flat top face on its head's flat underside,
-along both whole runs** — [102 mm](RAIL_RUN_FRONT) per flank on the front column,
+along both whole runs** — [99 mm](RAIL_RUN_FRONT) per flank on the front column,
 [233 mm](RAIL_RUN_BACK) and [221 mm](RAIL_RUN_BACK_W) on the back — horizontal printed
 face on horizontal printed face, square faces bearing full from the first micron. The two
 back flanks differ by the PRV passage: it crosses the −X run and takes
@@ -426,7 +426,7 @@ field is symmetric in x whatever its pitch.
 plan is one of them. With the pump cartridge in, the bay storey shows the two narrow mouth
 returns outboard of the cavity planes; those two actual surfaces are two open rails.
 `_bay_storey_segments` carries their one global arc coordinate from one mouth edge to the other:
-[350.62 mm](STOREY_RUN) over the storey at z [177.8..282 mm](STOREY_BAND). The two open flanks
+[355.58 mm](STOREY_RUN) over the storey at z [177.8..282 mm](STOREY_BAND). The two open flanks
 and the lower tee face advance the phase but carry no cutter: the former are air, the latter is
 berthed or hidden, and the upper closure face stands on another Y plane. The datum remains
 **x = 0** and the pitch remains [5.1285 mm](FLUTE_PITCH), so both ledges retain the machine's
@@ -972,9 +972,11 @@ the lintel. The bed plane is z [165.365 mm](PUMP_CARTRIDGE_BOTTOM_Z), the crown 
 [281.495 mm](PUMP_CARTRIDGE_TOP_Z), and the complete removable face is
 [116.13 mm](PUMP_CARTRIDGE_RISE) high. Its outer shell
 keeps the complete 215 mm enclosure width, including both rounded front corners and side skins,
-and its show plane stands [2.48 mm](PUMP_PROUD) proud of the fixed front face. The pumps and
-barbs remain [1.28 mm](PUMP_STATION_PROUD) proud; the show plane's additional
-[1.2 mm](PUMP_SHOW_GROWTH) is one complete flute depth. Its filled body reaches both cavity
+and its show plane shares the fixed front face at [0 mm](PUMP_FACE_OFFSET) offset. The complete
+flavour pack stands behind that plane with the pumps, barbs, tees, plate, valves and their
+internal tubes keeping one rigid arrangement. Inside it, the moving pump ends retain their
+[1.28 mm](PUMP_STATION_LEAD) lead over the fixed tee deck; the show plane stands one complete
+[1.2 mm](PUMP_SHOW_GROWTH) flute depth ahead of the pump-pocket datum. Its filled body reaches both cavity
 planes, and the front display-support columns have no section anywhere in this withdrawal span.
 
 The two pump stations carry a [2 mm](PUMP_STATION_DROP) downward world-Z service offset. The
@@ -998,16 +1000,16 @@ there is no slanted substitute for it. It is continuous across the X−, Y− an
 [5 mm](PUMP_SKIRT_Y_MINUS_LAND) under Y−. The
 measured [54 mm](PUMP_SKIRT_BODY_Y) body has [0.15 mm](PUMP_SKIRT_XY_AIR) per-face clearance
 in a [54.3 mm](PUMP_SKIRT_OPEN_Y) Y opening, from y
-[14.653 mm](PUMP_SKIRT_BODY_Y_MINUS_EDGE) to y
-[68.953 mm](PUMP_SKIRT_BODY_Y_PLUS_EDGE). On Y+ the same land continues only between the two
+[17.133 mm](PUMP_SKIRT_BODY_Y_MINUS_EDGE) to y
+[71.433 mm](PUMP_SKIRT_BODY_Y_PLUS_EDGE). On Y+ the same land continues only between the two
 tube-casing passages. The skirt itself spans [62.5 mm](PUMP_SKIRT_Y), from y
-[9.635 mm](PUMP_SKIRT_Y_MINUS_EDGE) to y [72.135 mm](PUMP_SKIRT_Y_PLUS_EDGE); its opening ends
-at y [72.435 mm](PUMP_SKIRT_Y_PLUS_OPEN_EDGE), leaving
+[12.115 mm](PUMP_SKIRT_Y_MINUS_EDGE) to y [74.615 mm](PUMP_SKIRT_Y_PLUS_EDGE); its opening ends
+at y [74.915 mm](PUMP_SKIRT_Y_PLUS_OPEN_EDGE), leaving
 [0.3 mm](PUMP_SKIRT_Y_PLUS_AIR) around the skirt and
 [3.482 mm](PUMP_SKIRT_Y_PLUS_LAND) of supporting land back to the body opening. Only
 [3 mm](PUMP_SKIRT_UPPER_BAND) of upper band remains behind
-that opening, ending at y [75.435 mm](PUMP_SKIRT_UPPER_BAND_AFT). That same
-[75.435 mm](PUMP_CARTRIDGE_AFT_Y) plane is the complete cartridge's Y+ edge; no lower-cradle
+that opening, ending at y [77.915 mm](PUMP_SKIRT_UPPER_BAND_AFT). That same
+[77.915 mm](PUMP_CARTRIDGE_AFT_Y) plane is the complete cartridge's Y+ edge; no lower-cradle
 stock continues behind it.
 
 **The second printed piece is the top clamp.** `enclosure-pump-cap`
@@ -1040,13 +1042,14 @@ stand [59.75 mm](CAP_TUBE_PITCH) apart. The physical pair spans
 centered on the casing axis and a straight 13 mm shaft continues through the complete vertical
 insertion path. The shafts, tube-side case room and upper well share the same outer X planes;
 printed wall remains between and outside the passages. The full-width upper wells end together
-at y [72.435 mm](PUMP_UPPER_WELL_AFT). Past that plane only the four individual shafts continue:
+at y [74.915 mm](PUMP_UPPER_WELL_AFT). Past that plane only the four individual shafts continue:
 the closed middle span on each pump and the centre span between the pumps all carry the same
 cap-following reinforcement to the cartridge's aft edge.
 
-The pumps and their barb planes stand [1.28 mm](PUMP_STATION_PROUD) forward. The show face
-stands one flute depth farther out at [2.48 mm](PUMP_PROUD), without moving the pump wells or
-their Y+ edge.
+The four short barb runs retain [1.28 mm](PUMP_STATION_LEAD) of moving-end lead before the
+plate berth. The show face shares the fixed front plane at [0 mm](PUMP_FACE_OFFSET) offset and
+stands one flute depth ahead of the pump-pocket datum. The pump wells and their Y+ edge occupy
+the complete flavour pack's common station.
 
 Nothing latches the cartridge in the enclosure. The four barb tubes gripped in the anchor
 tees' branch collets retain it, and the **collet plate** releases them: a laser-cut flat of
@@ -1067,7 +1070,7 @@ the tube stub itself, flexing inside the two collets that hold it — the valve 
 the far end of that stub never moves, and no valve is read here. **That the stub bends is
 stated and not derived** — no body in this model has any compliance in it.
 
-**The cradle ends at the skirt band's aft edge**, y [75.435 mm](PUMP_CARTRIDGE_AFT_Y): a plate-retention return or side skin
+**The cradle ends at the skirt band's aft edge**, y [77.915 mm](PUMP_CARTRIDGE_AFT_Y): a plate-retention return or side skin
 cannot survive behind that plane.
 
 **Both pulls belong to the cradle and surround the tube-centre plane.** Each side pocket is
@@ -1076,9 +1079,9 @@ z [176.25 mm](PULL_FLOOR_Z) leaves [10.88 mm](PULL_FLOOR_LIGAMENT) of bed-rooted
 it and puts the common tube elevation, z [188.25 mm](PULL_CENTER_Z), 12 mm inside the mouth.
 At the deepest fingertip wall the straight vertical opening is [30 mm](PULL_PLUMB) high; its
 roof then climbs at 45° to the open flank and reaches z [224.25 mm](PULL_TOP_Z). The opening
-runs through the cartridge's aft edge at y [75.44 mm](PULL_AFT_OPEN), so no separate Y-normal
-wall closes it; the fore wall is the pulling ledge at y [47.28 mm](PULL_LEDGE). That leaves
-[33.28 mm](PULL_TRAVEL) of cartridge withdrawal before the ledge reaches the enclosure front.
+runs through the cartridge's aft edge at y [77.92 mm](PULL_AFT_OPEN), so no separate Y-normal
+wall closes it; the fore wall is the pulling ledge at y [49.76 mm](PULL_LEDGE). That leaves
+[35.76 mm](PULL_TRAVEL) of cartridge withdrawal before the ledge reaches the enclosure front.
 Pulling force enters the one load-bearing cradle; the clamp has no separate grip to split the
 load or invite a second tug.
 
@@ -1097,7 +1100,7 @@ wall vertical and supported, nothing anywhere in it overhanging. The opening run
 collet plate to the tee wall's fore face**, where it ends on printed section rather than on a
 free edge.
 
-**The lower cradle's complete exterior is one bed-rooted wall.** Its proud front, both rounded
+**The lower cradle's complete exterior is one bed-rooted wall.** Its flush front, both rounded
 corners and both exterior flanks begin with the filled block on one plane and continue plumb as
 one uninterrupted silhouette to 0.5 mm below the lintel, without a bevel, ramp, starter strip or
 shelf. The fixed shell perimeter is recessed 0.5 mm below that lower edge while the interior bay
@@ -1193,9 +1196,10 @@ side face, from the floor's own top at z [165.365 mm](PUMP_BAY_FLOOR_Z) to the f
 [1 mm](PUMP_BAY_ROOF_RELIEF) upward from its pump-neutral roof datum and keeps
 [4.7 mm](PUMP_MOTOR_LINTEL_AIR) over the installed motor crowns. The flat sill runs wall to
 wall; the lintel carries the facet and the display on a stated ligament.
-The removable shell follows the enclosure's rounded plan with its front plane
-[2.48 mm](PUMP_PROUD) proud while the pumps remain [1.28 mm](PUMP_STATION_PROUD) proud and the
-filled block behind it reaches both cavity planes.
+The removable shell follows the enclosure's rounded plan with its front plane flush at
+[0 mm](PUMP_FACE_OFFSET) offset. The moving pump ends keep their
+[1.28 mm](PUMP_STATION_LEAD) lead over the fixed tee deck, and the filled block behind the
+face reaches both cavity planes.
 Front-bottom's front lip drops across the whole flat span
 (`_front_flat_lip_drop`) — the floor stands in that band and the heads run down through
 it — and the front wall below keeps its single `front_wall` section from slab to seam.
@@ -1203,8 +1207,8 @@ The face keeps [0.5 mm](PUMP_CARTRIDGE_Z_CLEARANCE) of Z clearance over the rece
 sill and below the lintel. Its complete front, rounded corners and exterior flanks stand plumb
 between those two flat gaps with no taper.
 
-**The fixed front wall is `front_wall` thick and grows inward.** The removable pump face is the
-load-bearing exception: it stands [2.48 mm](PUMP_PROUD) proud with
+**The fixed front wall is [9 mm](FRONT_WALL) thick and grows inward.** The complete flavour
+pack stands far enough aft for the removable pump face to share that plane while keeping
 [5.1 mm](PUMP_FACE_SKIN) of smooth stock over each lower head relief. Over the upper insertion
 wells the cut reaches forward to leave [4.2 mm](PUMP_UPPER_SMOOTH_SKIN) of smooth section; the
 same uninterrupted full-depth flute field as the enclosure leaves exactly
@@ -1252,7 +1256,7 @@ The fitted opening's exact source dimensions and section readings are in
 uses those case profiles to shape the broad pressing base and cut the boss and can rooms from
 one service clamp.
 
-**The lower cradle prints on its Z− floor.** Its filled bearing block, proud front, rounded
+**The lower cradle prints on its Z− floor.** Its filled bearing block, flush front, rounded
 corners and both flank skins begin together on that bed and rise plumb. The two
 pull roofs climb at 45° and the pump wells remain open above. The top clamp's complete
 field begins on one broad Z− bed face. Its only internal down-facing transitions are the two
