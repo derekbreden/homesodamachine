@@ -14,3 +14,7 @@ click: x=2.650 y=462.000 z=335.710
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=38.160 y=466.250 z=296.085
 click: x=38.160 y=466.250 z=229.715
+
+[slope] The PRV top share's underside crossing the rail channel — between the flank bedding plane and the rib's lip slope it follows the channel's own east gable, the same 45° roof plane the channel carves wherever it meets material. The strip lies on the rib's two 2 mm jamb bands beside the passage and prints as every channel gable does; a level foot under it would stand a step back inside the channel's swept section.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-97.775 y=319.500 z=178.525
