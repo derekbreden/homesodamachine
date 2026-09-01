@@ -67,6 +67,9 @@ can_half = _pc.cylinder_id / 2.0
 # clamp's restored pressing plate lands above it.
 bracket_half = _kp.bracket_w / 2.0
 bracket_t = _kp.bracket_t
+# The motor can's far face above the bracket datum. The enclosure's removable clamp follows
+# the pump rather than the fixed bay lintel, so its common crown is struck from this reach.
+motor_crown = _kp.motor_end_z
 # The fall the head's outlet side takes under its barbs, and how far up off its front face it
 # holds it — figures the lower cradle uses for its vertical fitting opening.
 outlet_relief = _kp.outlet_relief

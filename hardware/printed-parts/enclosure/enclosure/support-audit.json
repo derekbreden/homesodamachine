@@ -60,7 +60,7 @@
           "name": "collet-plate stop and pump-bay lintel tree",
           "first_contacts_cad_xyz_mm": [
             [-99.4, 75.425, 215.8, 99.4, 78.225, 216.2],
-            [-107.8, 4.625, 280.4, 107.4, 70.225, 280.8]
+            [-107.8, 4.625, 281.4, 107.8, 70.225, 281.8]
           ],
           "root": "bed",
           "build_up_mm": 55.6,
@@ -100,7 +100,7 @@
           "tree": "tree-1",
           "name": "X- pump boss-bearing shoulder",
           "first_contacts_cad_xyz_mm": [
-            [-75.8, 15.28, 237.345, -24.2, 66.88, 237.545]
+            [-75.8, 15.28, 235.345, -24.2, 66.88, 235.545]
           ],
           "root": "bed",
           "build_up_mm": 18.4,
@@ -111,7 +111,7 @@
           "tree": "tree-2",
           "name": "X+ pump boss-bearing shoulder",
           "first_contacts_cad_xyz_mm": [
-            [24.2, 15.28, 237.345, 75.8, 66.88, 237.545]
+            [24.2, 15.28, 235.345, 75.8, 66.88, 235.545]
           ],
           "root": "bed",
           "build_up_mm": 18.4,

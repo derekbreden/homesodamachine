@@ -41,10 +41,10 @@ fails rather than letting it drift.
 
 | Joint | Cartridge end | Staying end | Exposed tube | Air-filled by |
 |---|---|---|---|---|
-| `fluid-11` | pump A's suction barb | Y-C's branch collet | [11.9](LEN_11) mm | states 1 and 2 |
-| `fluid-12` | pump A's discharge barb | Y-D's branch collet | [11.9](LEN_12) mm | states 1 and 2 |
-| `fluid-21` | pump B's suction barb | Y-F's branch collet | [11.9](LEN_21) mm | states 3 and 4 |
-| `fluid-22` | pump B's discharge barb | Y-G's branch collet | [11.9](LEN_22) mm | states 3 and 4 |
+| `fluid-11` | pump A's suction barb | Y-C's branch collet | [7.3](LEN_11) mm | states 1 and 2 |
+| `fluid-12` | pump A's discharge barb | Y-D's branch collet | [7.3](LEN_12) mm | states 1 and 2 |
+| `fluid-21` | pump B's suction barb | Y-F's branch collet | [7.3](LEN_21) mm | states 3 and 4 |
+| `fluid-22` | pump B's discharge barb | Y-G's branch collet | [7.3](LEN_22) mm | states 3 and 4 |
 
 **Every joint that parts is one the dry cycle sweeps.** Each of the four stands between a pump
 and a tee on that pump's own channel, so either state that runs a pump carries air across both
@@ -73,8 +73,8 @@ never touches the steel** — it is inside the closed front column, and nothing 
 procedure opens that.
 
 Seated, the steel stands in the berth between the barbs and the collets, and that berth is
-spent three ways: [7.175](BARB_AIR) mm of air off the barb plane, the plate's own
-[3.175](PLATE_T) mm, and [1.5](REST_GAP) mm of nose air under the four branch collet faces.
+spent three ways: [3.18](BARB_AIR) mm of air off the barb plane, the plate's own
+[3.175](PLATE_T) mm, and [2.375](REST_GAP) mm of nose air under the four branch collet faces.
 Its four large holes stand on the four branch collets' own axes and each is bored to two figures
 at once — wide enough to pass the Ø[6.35 mm](TUBE_OD) tube it has to let slide, narrow enough
 to leave land under the collet nose it has to stop. Nothing else is cut in it.
@@ -91,7 +91,7 @@ and the nose that lands there lands on steel and not on plastic. Its aft face st
 stroke plus `TEE_WALL_BODY_AIR` fore of the tee's own body, so at full release there is still
 air behind the tee: what the wall holds is the collar, and what stops the tee is the steel.
 
-Pull the cartridge and the gripped tubes drag the tees forward [1.5](REST_GAP) mm — each tee
+Pull the cartridge and the gripped tubes drag the tees forward [2.375](REST_GAP) mm — each tee
 running in its own bore — until each nose lands on that land. The body keeps coming, the nose
 is held, the grip opens, and the tube draws out through the hole it entered by. Push the
 cartridge home and the same four tubes thread the same four holes back into the same collets,
