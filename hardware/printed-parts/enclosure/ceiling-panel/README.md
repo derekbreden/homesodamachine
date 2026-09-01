@@ -105,7 +105,7 @@ section: the long ASSE crown on −X and the relay on +X. The opposite spans rem
 the full 6 × 6 mm section, and each side keeps a complete body-free capture band. A pocket
 therefore cannot turn either whole dado into an uncaptured channel.
 
-## The brim, and the two keepers
+## The brim and the fitted slide
 
 The funnel's brim lands ON this panel. The flange overhangs the collar and
 covers the first [7 mm](BRIM_SEAT) of show face, inside the
@@ -113,33 +113,10 @@ covers the first [7 mm](BRIM_SEAT) of show face, inside the
 which is why the fore edge is load-bearing and why the fore [10 mm](BRIM_MARGIN)
 is not a place to put an opening.
 
-The long dados already constrain X and Z, and the +Y wall is the panel's home
-stop. The only unrestrained motion is back toward the open Y− mouth. Two
-[M3x12](RETAINER_LEN) headless socket set screws block that motion directly:
-one crosses each empty dado at y = [234.35](RETAINER_Y), z =
-[351.5](RETAINER_Z), immediately ahead of the tongue's fore face.
-
-The panel reaches the rear stop before either keeper exists. Each screw is then
-driven outboard from the empty field into a [5.25 mm](HEATSET) ruthex M3 short
-buried horizontally in back-top's existing corbel. Its socket end remains in
-the rail lane and crosses [5.6 mm](RETAINER_OVERLAP) of the
-[6 mm](TONGUE_T) tongue in X and 2 mm of it in Z; its
-aft crown leaves the same [0.15 mm](RETAINER_AIR) fore air as the dado's printed
-slide fit. The insert runs x = ±[86.65](RETAINER_INSERT_FACE)..±[91.9](RETAINER_INSERT_END),
-reached through a [4.3 mm](RETAINER_APPROACH_D) guide beginning at the proven
-x = ±[82.65](RETAINER_GUIDE_FACE) face. The deeper dado's blind wall lies farther
-outboard; retaining this inboard guide face clears the new roof wedge without
-moving the insert, screw end or keeper axis.
-The Ø4 bore continues [1 mm](RETAINER_TIP_AIR) past the insert, so the cup point
-cannot bottom on PET-GF and jack the pin back into the field. The fixed strip
-carries the standard radial ligament around the insert's lower bearing land without
-any added boss. The guide and insert socket retain their complete nominal round
-passages and open only above them into the enclosure's 36° tangent teardrop roof,
-with at least three 0.24 mm production layers of fixed PET-GF required over the apex.
-
-The panel carries no insert, socket, counterbore or local pad. When it tries to
-move fore, each tongue bears on a steel cross-pin and each pin bears directly in
-the fixed strip.
+The long dados constrain X and Z over the panel's complete depth and provide the
+fitted sliding contact. The panel slides aft until its edge lands on the +Y wall,
+which is its home stop. Its uninterrupted tongues and the fixed strips carry no
+insert, socket, cross-pin or other separate keeper hardware.
 
 ## What hangs off it
 
@@ -163,17 +140,11 @@ flat plate.
 
 ## Fitting it
 
-1. Feed a ruthex M3 short through each dado-mouth guide and heat-set it outboard
-   into the horizontal socket in back-top's fixed corbel.
-2. Slide the panel aft through back-top's Y-seam mouth, tongues in the dados,
+1. Slide the panel aft through back-top's Y-seam mouth, tongues in the dados,
    until its aft edge lands on the +Y wall.
-3. From the still-empty field, drive one [M3x12](RETAINER_LEN) headless keeper
-   outboard into each insert until its socket end reaches the stated rail-lane
-   depth. The screw crosses the dado ahead of the tongue; it does not enter the
-   panel.
-4. Lay the meter into its two anchors and each run into its rib, and zip tie them.
+2. Lay the meter into its two anchors and each run into its rib, and zip tie them.
    Then lower the populated piece onto the machine.
-5. Drop the funnel in. Its collar fills the throat immediately ahead of the
+3. Drop the funnel in. Its collar fills the throat immediately ahead of the
    panel; the panel's show face remains uninterrupted behind it.
 
 ## Regenerate

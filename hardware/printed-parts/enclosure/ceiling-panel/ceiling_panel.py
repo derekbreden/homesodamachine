@@ -19,9 +19,8 @@ WHAT THE PIECE KEEPS is the two side strips either side of this panel, `rail_run
 and it is those strips that carry the dado this panel's tongues run in — a drawer bottom
 in a dado. Each tongue is a 6 mm square rail centred on the fixed strips' physical face, wholly
 rooted in the structural field and finishing at the established pack lane. The strips' own
-section, the run of their corbels and the two transverse keeper sockets are back-top's;
-what this file states is the MATING FIGURES they are cut to (`dado`, `retainer_stations`,
-`fore_y`, `aft_y`, `panel_half_w`, `underside_z`).
+section, the run of their corbels and the dados are back-top's; what this file states is the
+MATING FIGURES they are cut to (`dado`, `fore_y`, `aft_y`, `panel_half_w`, `underside_z`).
 
 Plan:
 
@@ -33,15 +32,14 @@ Plan:
   * FORE EDGE is the collar's own aft edge, and it is load-bearing: the funnel's brim
     overhangs the collar by `funnel.brim_overhang` and lands on this panel's first
     `brim_overhang` of show face, inside the `brim_margin` of top wall that
-    `enclosure_assembly`'s `funnel-brim-margin` asks at that free edge. Immediately ahead
-    of the two tongue ends, headless transverse screws cross the empty dado mouths after
-    this part is home; the show face and the panel field stay whole.
+    `enclosure_assembly`'s `funnel-brim-margin` asks at that free edge. The show face and
+    the panel field stay whole.
   * AFT EDGE is back-top's own back-wall face, which is the panel's stop. Rounded pockets
     preserve the C14, both upper umbilical unions, the CO2 neoFit and the tap-water chain;
     the field between them carries continuously to the wall.
 
-The two transverse keepers block the tongue ends against the slide. Aft of them the dados
-hold the panel down and the +Y wall holds it in, so nothing on the panel is fastened.
+The two continuous dados hold the panel in X and Z and provide the fitted sliding contact;
+the +Y wall is its home stop. The panel and fixed strips carry no separate keeper hardware.
 
 AND EVERY RIB ROOTED ON THE CEILING OVER THIS FIELD IS THIS PART'S. The flow meter's two
 anchors and the three anchors bored for `carb-1`, `co2-2` and the WR1110's barrel hang from
@@ -172,64 +170,6 @@ def dado():
     mirror. The roof is struck at the blind end and rises at `chamfer_deg` to the mouth,
     where it runs out on the show face."""
     return (dado_mouth_x, dado_blind_x, dado_floor_z, dado_roof_z, _enc.relief_chamfer)
-
-
-# --- the two transverse keepers at the dado mouths --------------------------
-#
-# THE PANEL ALREADY HAS THREE OF ITS FOUR RESTRAINTS. The two long dados carry X and Z; the +Y
-# wall is its home stop. Only travel back toward the open Y− mouth remains, so the retainer is a
-# pair of cross-pins immediately ahead of the two tongue ends — not a second vertical clamp
-# system hung under the field.
-#
-# Each pin is an M3 × 12 headless socket set screw driven OUTBOARD from the empty field after the
-# panel is home. It crosses most of the tongue section and lands for the full heat-set depth in a
-# horizontal insert buried in back-top's existing corbel. The approach tunnel is only a guide for
-# the insert and the screw; no printed boss is added. In service the tongue bears on the steel pin
-# and the pin bears directly in the fixed strip around it.
-retainer_screw_d = 3.0
-retainer_screw_len = 12.0
-retainer_clearance = dado_slip
-retainer_y = fore_y - retainer_screw_d / 2.0 - retainer_clearance
-# The proven keeper axis remains in the established world lane. The larger tongue grows around
-# it: its upper two millimetres cross the pin while its full six-millimetre reach bears in X.
-retainer_z = underside_z - 0.5
-retainer_approach_d = _enc.heatset_dia + 2.0 * dado_slip
-# The six-millimetre dado reaches farther outboard than the original keeper guide did. Keep that
-# guide's proven inboard face: it opens the short wedge between the rising dado roof and the
-# pin's round crown without moving the insert, screw end or keeper axis.
-retainer_guide_face_x = panel_half_w + _enc.wall + dado_slip
-# The insert begins one blind-end relief past the deeper dado. This keeps the established insert,
-# bore and screw-end world coordinates while the tongue grows through them.
-retainer_insert_face_x = dado_blind_x + _enc.mount_bore_relief
-retainer_insert_end_x = retainer_insert_face_x + _enc.heatset_depth
-# The bore carries on past the insert by the same blind-end relief every M3 wall mount keeps.
-# The cup point can therefore use the whole insert without bottoming on PET-GF and jacking the
-# pin back into the field. The screw's socket end consequently stops inside the wall-square
-# tongue lane, leaving the inboard edge open for the hex key.
-retainer_bore_end_x = retainer_insert_end_x + _enc.mount_bore_relief
-retainer_screw_inner_x = retainer_insert_end_x - retainer_screw_len
-retainer_tongue_overlap = panel_half_w + tongue_reach - retainer_screw_inner_x
-retainer_fore_air = fore_y - (retainer_y + retainer_screw_d / 2.0)
-
-
-def retainer_stations():
-    """The two headless keeper axes as `(side, y, z)` in the box's frame.
-
-    `side` points outboard along the screw: −1 on the −X dado and +1 on the +X dado. Back-top
-    cuts the horizontal insert sockets on these axes; the installed fasteners cross the empty
-    dado mouths immediately ahead of this panel's tongue ends.
-    """
-    return ((-1.0, retainer_y, retainer_z), (+1.0, retainer_y, retainer_z))
-
-
-def retainer_fasteners():
-    """The two installed M3 keeper envelopes, one cylinder across each dado mouth."""
-    pins = []
-    for sx, cy, cz in retainer_stations():
-        x0, x1 = sorted((sx * retainer_screw_inner_x, sx * retainer_insert_end_x))
-        pins.append(cq.Solid.makeCylinder(
-            retainer_screw_d / 2.0, x1 - x0, cq.Vector(x0, cy, cz), cq.Vector(1, 0, 0)))
-    return tuple(pins)
 
 
 # --- primitives -------------------------------------------------------------
@@ -413,25 +353,6 @@ def main():
             f"the ceiling panel came through as {solids} solid(s) in {shells} shell(s) — a "
             f"slide-in lid is one body, and a second one is a tongue or socket that missed "
             f"the field it was fused to")
-    if retainer_screw_inner_x < dado_mouth_x - 1e-9:
-        raise ValueError(
-            f"the transverse keeper's socket end reaches x {retainer_screw_inner_x:.2f}, "
-            f"past the dado mouth at x {dado_mouth_x:.2f}. It must stay inside the rail lane "
-            "so no steel projects into the ceiling field")
-    if retainer_tongue_overlap < retainer_screw_d / 2.0 - 1e-9:
-        raise ValueError(
-            f"the transverse keeper crosses only {retainer_tongue_overlap:.2f} mm of the "
-            f"{tongue_reach:g} mm tongue. Lengthen the M3 keeper or bring its fixed insert "
-            "inboard")
-    if retainer_fore_air < dado_slip - 1e-9:
-        raise ValueError(
-            f"the transverse keepers leave {retainer_fore_air:.2f} mm ahead of the panel, "
-            f"less than the dado's {dado_slip:g} mm slide clearance")
-    if retainer_bore_end_x > panel_half_w + rail_run - _enc.boss_ligament + 1e-9:
-        raise ValueError(
-            f"the transverse keeper bore ends at x {retainer_bore_end_x:.2f}, leaving "
-            f"less than {_enc.boss_ligament:g} mm before the fixed strip ends at "
-            f"x {panel_half_w + rail_run:.2f}")
     if min(dado_lower_ligament, lip_t) <= 0.0:
         raise ValueError(
             f"the ceiling rail's dado leaves {dado_lower_ligament:.2f} mm below and "
@@ -460,11 +381,6 @@ def main():
           f"ligaments {dado_lower_ligament:.2f} below / {lip_t:.2f} above at the blind end")
     print(f"  rails:   {rail_run:g} mm side strip each side, "
           f"back-top flank face at +-{_enc.back_top_flank_face()[1]:g}")
-    print(f"  keepers: two headless M3x{retainer_screw_len:g}, axes y {retainer_y:g}, "
-          f"z {retainer_z:g}, crossing {retainer_tongue_overlap:.2f} mm of each tongue; "
-          f"{retainer_fore_air:.2f} mm fore air, inserts x "
-          f"+-{retainer_insert_face_x:g}..+-{retainer_insert_end_x:g} in fixed back-top, "
-          f"{_enc.mount_bore_relief:g} mm cup-point relief")
     print(f"  brim:    lands y {fore_y:g}..{fore_y + brim_seat:g} on the show face")
     meter_anchors, ribs = _enc.ceiling_stations(
         box.pack.flow_meter_anchors, box.pack.tube_anchors, panel=True)
@@ -510,18 +426,6 @@ def main():
             "DADO_LOWER_LIGAMENT": f"{dado_lower_ligament:g} mm",
             "LIP_T": f"{lip_t:g} mm",
             "CHAMFER": f"{_enc.relief_chamfer:g}°",
-            "RETAINER_Y": f"{retainer_y:g}",
-            "RETAINER_Z": f"{retainer_z:g}",
-            "RETAINER_LEN": f"M3x{retainer_screw_len:g}",
-            "RETAINER_D": f"{retainer_screw_d:g} mm",
-            "RETAINER_AIR": f"{retainer_fore_air:g} mm",
-            "RETAINER_OVERLAP": f"{retainer_tongue_overlap:g} mm",
-            "RETAINER_INSERT_FACE": f"{retainer_insert_face_x:g}",
-            "RETAINER_INSERT_END": f"{retainer_insert_end_x:g}",
-            "RETAINER_GUIDE_FACE": f"{retainer_guide_face_x:g}",
-            "RETAINER_TIP_AIR": f"{_enc.mount_bore_relief:g} mm",
-            "RETAINER_APPROACH_D": f"{retainer_approach_d:g} mm",
-            "HEATSET": f"{_enc.heatset_depth:g} mm",
             "BRIM_SEAT": f"{brim_seat:g} mm",
             "BRIM_MARGIN": f"{_funnel.brim_margin:g} mm",
             "BED_X": f"{_enc.H2C_X:g} mm",

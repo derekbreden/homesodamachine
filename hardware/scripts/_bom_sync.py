@@ -33,7 +33,6 @@ import enclosure_assembly as _ea  # noqa: F401  — holds the closure these docs
 import ground_ring_stack as _gnd  # on the path once `enclosure_assembly` is imported
 import enclosure as _enc  # likewise
 import nameplate as _np  # likewise
-import ceiling_panel as _ceil  # likewise
 import digiten_flow_sensor as _digiten  # likewise — the arm the meter's anchors bore for
 
 # The placed pack, for the counts that are the machine's rather than a part's — off the
@@ -254,12 +253,6 @@ display_cover_inserts_per_build = len(display_cover_stations)
 # nameplate's two are, reaching the land, the insert and the relief bored under it.
 display_cover_screws_per_build = display_cover_inserts_per_build
 
-# The ceiling panel's two transverse keepers, read off the panel's mating stations. The inserts
-# are horizontal in back-top's fixed corbels and each M3 x 12 headless screw is driven outboard
-# across an empty dado mouth after the panel reaches its +Y stop.
-ceiling_panel_inserts_per_build = len(_ceil.retainer_stations())
-ceiling_panel_screws_per_build = ceiling_panel_inserts_per_build
-
 # The pump clamp's two, read off its centre bridges. ONE TOP CLAMP CLOSES ON BOTH STAMPED
 # BRACKETS (`enclosure.build_pump_cap`) and `cap_screw_ys` strikes a pair either side of the
 # lane's mid-depth, so it is two screws and two inserts however many pumps the cradle carries.
@@ -327,7 +320,7 @@ m3x8_per_build = (shelf_short_screws_per_build + cond_screws_per_build
                   + faucet_display_cover_screws_per_build)
 
 # And every M3 x 10: the ground-stack clamp's one, the pump clamp's two, and the enclosure's four
-# seam screws. The ceiling's pair are headless M3 x 12 keepers on their own row.
+# seam screws.
 m3x10_per_build = (shelf_long_screws_per_build + pump_cap_screws_per_build
                    + enclosure_seam_screws_per_build)
 
@@ -335,7 +328,6 @@ m3x10_per_build = (shelf_long_screws_per_build + pump_cap_screws_per_build
 # stainless M3 x 12 is a different row — the reservoir caps' wetted-zone hardware — and
 # is not counted here.)
 m3x12_per_build = touchflo_screws_per_build
-ceiling_set_screws_per_build = ceiling_panel_screws_per_build
 
 # Combined heat-set insert count across the appliance, by thread.
 total_m3_inserts_per_build = (
@@ -347,7 +339,6 @@ total_m3_inserts_per_build = (
     + nameplate_inserts_per_build
     + display_cover_inserts_per_build
     + faucet_display_cover_inserts_per_build
-    + ceiling_panel_inserts_per_build
     + pump_cap_inserts_per_build
     + enclosure_seam_inserts_per_build
 )
@@ -366,7 +357,6 @@ total_m3_screws_per_build = (
     + nameplate_screws_per_build
     + display_cover_screws_per_build
     + faucet_display_cover_screws_per_build
-    + ceiling_panel_screws_per_build
     + pump_cap_screws_per_build
     + enclosure_seam_screws_per_build
 )
@@ -500,11 +490,8 @@ def main():
         "SHELF_SCREWS_M3X10": f"{shelf_long_screws_per_build:.4g}",
         "M3X10_TOTAL": f"{m3x10_per_build:.4g}",
         "M3X12_TOTAL": f"{m3x12_per_build:.4g}",
-        "M3X12_SET_TOTAL": f"{ceiling_set_screws_per_build:.4g}",
         "SEAM_SCREWS": f"{enclosure_seam_screws_per_build:.4g}",
         "SEAM_INSERTS": f"{enclosure_seam_inserts_per_build:.4g}",
-        "CEILING_INSERTS": f"{ceiling_panel_inserts_per_build:.4g}",
-        "CEILING_SCREWS": f"{ceiling_panel_screws_per_build:.4g}",
         "PUMP_CAP_INSERTS": f"{pump_cap_inserts_per_build:.4g}",
         "PUMP_CAP_SCREWS": f"{pump_cap_screws_per_build:.4g}",
         "FLOOR_INSERTS": f"{floor_inserts_per_build:.4g}",
@@ -569,7 +556,6 @@ def main():
             "SHELF_SCREWS": f"{shelf_screws_per_build:.4g}",
             "COND_SCREWS": f"{cond_screws_per_build:.4g}",
             "DISPLAY_COVER_SCREWS": f"{display_cover_screws_per_build:.4g}",
-            "CEILING_SCREWS": f"{ceiling_panel_screws_per_build:.4g}",
             "PUMP_CAP_SCREWS": f"{pump_cap_screws_per_build:.4g}",
             "NAMEPLATE_SCREWS": f"{nameplate_screws_per_build:.4g}",
             "FLOOR_SCREWS": f"{floor_screws_per_build:.4g}",

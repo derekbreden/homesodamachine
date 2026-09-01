@@ -5108,8 +5108,7 @@ def _back_top_ceiling_for_pack(inner, y_joint, sx, box, *, grown=True):
 def _back_top_ceiling(solid, inner, y_joint, box):
     """WHAT BACK-TOP KEEPS OF ITS CEILING, and what it gives the slide-in panel — the field taken
     away between the two side strips, each strip corbelled and relieved where a body stands in it,
-    the panel's dado down each strip's inboard face, and a transverse keeper socket immediately
-    ahead of each tongue end.
+    and the panel's dado down each strip's inboard face.
 
     FUSED AND CUT BEFORE THIS PIECE'S OWN FURNITURE, the way its two sections are: the ASSE anchor's V,
     the chain's bores, the Wago wells and every bore below are cut AFTER this, so each is cut out
@@ -5119,17 +5118,9 @@ def _back_top_ceiling(solid, inner, y_joint, box):
     is slid the length of the piece with its tongues in these two grooves, before back-top meets
     another quadrant. So the groove starts on the seam plane, not on the panel's own fore edge.
 
-    THE KEEPER IS A CROSS-PIN, NOT A CLAMP. The dados already carry X and Z and the +Y wall is the
-    home stop; only travel back toward the open mouth remains. Once the panel is home, one
-    headless M3 screw is driven outboard across each empty dado mouth into a horizontal heat-set
-    buried in the existing corbel. The tongue bears on the steel pin, and the pin bears directly
-    in the fixed strip around its approach tunnel. Nothing hangs below the field, nothing is
-    added to the moving panel, and both show faces remain whole.
-
-    THE INSERTS ENTER FROM THE SAME OPEN FIELD. Their larger guide tunnels start at the dado's
-    blind wall and step down to the knurl bores where the corbel has the standard ligament around
-    them. The panel crosses these stations before the pins exist; the two screws are installed
-    only after its aft edge has reached the +Y wall."""
+    THE DADOS ARE THE PANEL'S COMPLETE FIT. Their continuous printed faces carry X and Z over the
+    panel's full depth and the +Y wall is its home stop. The panel, fixed strips and show faces
+    remain whole, with no separate keeper socket, tunnel, insert or fastener."""
     cp = _ceiling()
     half = cp.panel_half_w
     mouth_x, blind_x, floor_z, roof_z, chamfer = cp.dado()

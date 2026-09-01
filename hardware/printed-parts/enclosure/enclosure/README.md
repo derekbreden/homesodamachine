@@ -1181,8 +1181,9 @@ wells the cut reaches forward to leave [4.2 mm](PUMP_UPPER_SMOOTH_SKIN) of smoot
 same uninterrupted full-depth flute field as the enclosure leaves exactly
 [3 mm](PUMP_UPPER_FLUTED_SKIN) of finished printable backing, the
 [3 mm](PUMP_FACE_BACKING) front-face minimum. What
-noses into the section gets a 45°-chamfered relief (`_front_relief_cuts`): one stated
-pocket across the compressor, floored on its own kiss, and one pocket per pump in the
+noses into the section gets a 45°-chamfered relief (`_front_relief_cuts`): two stated
+compressor pockets following the mounting plate's front strip and the power box, both floored
+on the can's own kiss, and one pocket per pump in the
 lower cradle's face, floored where the pump head and bracket insertion well puts its root
 (`pump_relief_floor`). The compressor is the only body in the refrigeration stratum
 standing fore of the wall's interior plane — the condenser bears on that plane through
@@ -1434,26 +1435,11 @@ straight through the top wall. So the last `depth` is **the groove's run-out**, 
 takes the blind end's own section carried square through — floor to roof, with the rest
 of the top wall bridging the mouth plane over it.
 
-**Two transverse keepers close the only direction the dado leaves open.** The
-long grooves already carry the panel in X and Z and the +Y wall stops it at home,
-so a headless M3 cross-pin stands immediately ahead of each tongue end and blocks
-Y− withdrawal directly. The panel slides through first, with both stations empty;
-then each M3×12 is driven OUTBOARD from the empty field into a horizontal ruthex
-M3 short buried in the fixed corbel.
-
-The insert's guide retains its established inboard face inside the deeper dado
-and steps down to its Ø4 knurl bore only where the existing 45° wedge has a full
-`boss_ligament` around its lower bearing land. That extra guide length clears the
-small roof wedge the longer blind wall otherwise leaves over the round keeper,
-without moving the keeper axis, insert or screw end. Both horizontal cuts retain
-their complete nominal circles and open
-above them into the same 36° tangent teardrop used by the enclosure's other X-axis
-bores, so neither leaves a circular crown for support. At least three 0.24 mm PET-GF
-layers remain over the insert roof. No boss, pier or pad is fused under the ceiling.
-The moving panel carries no socket and no bore. One millimetre of empty bore beyond
-the insert keeps the cup point off the blind PET-GF end. In service the tongue bears
-on the steel pin and the pin bears in the fixed strip around its own short tunnel;
-neither appliance show face is opened.
+**The two dados are the panel's complete fit.** Their continuous printed faces carry
+the panel in X and Z over its full depth and the +Y wall stops it at home. The panel
+slides through the open Y− mouth before the front column closes. Its tongues and the
+fixed corbels remain uninterrupted: no keeper socket, tunnel, insert or fastener is
+part of this joint, and neither appliance show face is opened.
 
 **Everything rooted on the ceiling over that field hangs off the panel**: the
 flow meter's two anchors and the three ribs bored for `carb-1`,
