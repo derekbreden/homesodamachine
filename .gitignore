@@ -159,3 +159,4 @@ hardware/assembly/scenes/glb/
 # (web/scripts/fetch-firmware.mjs). The lock is committed; the images are not.
 web/public/firmware/
 .panelcam/
+tools/panelcam-shot/PanelCamShot.app/
