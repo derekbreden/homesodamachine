@@ -5884,6 +5884,40 @@
       "hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py"
     ]
   },
+  "hardware/printed-parts/shop-storage/jst-crimping/jst_crimping_tower.py": {
+    "reads": [
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+      "hardware/printed-parts/shop-storage/jst-crimping/README.figures.json",
+      "hardware/printed-parts/shop-storage/jst-crimping/README.md",
+      "hardware/printed-parts/shop-storage/jst-crimping/consumables-drawer.step",
+      "hardware/printed-parts/shop-storage/jst-crimping/gridfinity-shelf.step",
+      "hardware/printed-parts/shop-storage/jst-crimping/jst-crimping-tower.step",
+      "hardware/printed-parts/shop-storage/jst-crimping/jst_crimping_tower.py",
+      "hardware/printed-parts/shop-storage/jst-crimping/spool-shelf.step",
+      "hardware/printed-parts/shop-storage/jst-crimping/tool-rack.step",
+      "hardware/printed-parts/shop-storage/jst-crimping/tower-base.step",
+      "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_materials.py",
+      "hardware/scripts/_mesh_payload.py",
+      "hardware/scripts/_realized.py",
+      "hardware/scripts/_run_lock.py",
+      "tools/docgen/__init__.py"
+    ],
+    "rewritten": [
+      "hardware/printed-parts/shop-storage/jst-crimping/README.figures.json",
+      "hardware/printed-parts/shop-storage/jst-crimping/README.md"
+    ],
+    "writes": [
+      "hardware/printed-parts/shop-storage/jst-crimping/README.figures.json",
+      "hardware/printed-parts/shop-storage/jst-crimping/README.md",
+      "hardware/printed-parts/shop-storage/jst-crimping/consumables-drawer.step",
+      "hardware/printed-parts/shop-storage/jst-crimping/gridfinity-shelf.step",
+      "hardware/printed-parts/shop-storage/jst-crimping/jst-crimping-tower.step",
+      "hardware/printed-parts/shop-storage/jst-crimping/spool-shelf.step",
+      "hardware/printed-parts/shop-storage/jst-crimping/tool-rack.step",
+      "hardware/printed-parts/shop-storage/jst-crimping/tower-base.step"
+    ]
+  },
   "hardware/printed-parts/valve-seat/valve_seat.py": {
     "reads": [
       "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
