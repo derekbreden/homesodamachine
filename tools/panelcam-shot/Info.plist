@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+  <key>CFBundleName</key><string>PanelCamShot</string>
+  <key>CFBundleIdentifier</key><string>com.homesodamachine.panelcamshot</string>
+  <key>CFBundleExecutable</key><string>PanelCamShot</string>
+  <key>CFBundlePackageType</key><string>APPL</string>
+  <key>CFBundleVersion</key><string>1</string>
+  <key>NSCameraUsageDescription</key><string>Reads the appliance enclosure display on the bench.</string>
+</dict></plist>
