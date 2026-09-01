@@ -478,10 +478,10 @@ funnel_front_ledge = 0.0
 # Split + boss parameters — every dimension sized to its function, nothing
 # inherited from the faucet. The seam is a Y plane; the front half's full-wall
 # rear lip telescopes into the back; four corner bosses cross-pin the seam with
-# M3 screws from the ±X exterior. Each boss is a round pin registering in the
+# M3 screws from the ±X exterior. Each boss is a square pin registering in the
 # front socket bore, meeting the back half's own corner web along its whole +Y
-# side. The screw spans the head seat to the front heat-set, so the pin body is
-# screw_len − heatset_depth long.
+# side. The pin's inboard face is the full-thickness back flank's own face; the
+# M3x10 span left inboard of that plane is the front heat-set's pilot.
 split_slip = 2.0 * fits.slip # diametral slide fit, plug into socket bore
 # What a 45 degree lap gives up along the axis it is driven home on, so the two raked faces
 # stand one `fits.slip` apart where they pass.
@@ -495,7 +495,7 @@ socket_bore_dia = plug_dia + split_slip          # 10.2 — slide fit over the p
 socket_r = socket_bore_dia / 2.0 + wall          # pod half-size: one wall around the bore
 heatset_dia = _interface.heatset_dia  # ruthex M3 short heat-set
 heatset_len = 4.0            # ruthex RX-M3Sx4.0 brass body, set flush at its opening
-heatset_depth = _interface.heatset_depth
+heatset_depth = _interface.heatset_depth  # general M3 pilot; the Y seam derives its own below
 socket_cap = wall            # one wall capping the insert's deep end
 # HOW FAR THE PIN'S OWN FACE STANDS OFF THE END WALL IT PINS UNDER. A full-width 45-degree
 # corbel carries each back plug's underside from its wall to its inboard tip, and the front
@@ -1151,6 +1151,41 @@ back_top_flank_reliefs = (
 # section on the overlap over back-top's foot. What the strip leaves at the rim is a step facing
 # UP, on a piece that prints floor-down — the one direction a step costs nothing.
 back_bottom_flank_t = 9.0
+
+
+def back_seam_flank_t():
+    """The common X section whose interior face both back pieces hand the Y-seam plugs.
+
+    One plug crosses each Z seam level, so it has one inboard X face. Both pieces carrying
+    that face therefore owe the same physical flank section; a mismatch is a joint with no
+    plane on which the plug can finish flush."""
+    if abs(back_top_flank_t - back_bottom_flank_t) > stated_bound_tol:
+        raise ValueError(
+            f"the Y-seam plug cannot finish on both back flanks: back-top is "
+            f"{back_top_flank_t:g} mm and back-bottom is {back_bottom_flank_t:g} mm")
+    return back_bottom_flank_t
+
+
+# THE BACK PLUG ENDS ON THE PHYSICAL FULL-THICKNESS FLANK FACE. From either ±X exterior
+# face to that plane is `back_seam_flank_t`; the head counterbore spends its depth first and
+# leaves `seam_pin_shank_len` of solid registration pin under the screw shank. The remainder
+# of the M3x10 span is the front socket's heat-set pilot: the complete four-millimetre insert
+# plus the same one-millimetre screw-tip relief every wall-mounted M3 boss is owed. The cap's
+# inboard plane therefore stays on the screw stack's own datum while the plug and its 45°
+# corbel land exactly flush with the wall that roots them.
+seam_pin_shank_len = back_seam_flank_t() - head_cbore_depth
+seam_heatset_depth = screw_len - seam_pin_shank_len
+seam_heatset_relief = seam_heatset_depth - heatset_len
+if seam_pin_shank_len <= 0.0:
+    raise ValueError(
+        f"the {head_cbore_depth:g} mm Y-seam head seat consumes the whole "
+        f"{back_seam_flank_t():g} mm back flank")
+if seam_heatset_relief < mount_bore_relief - stated_bound_tol:
+    raise ValueError(
+        f"the Y-seam's M3x{screw_len:g} leaves a {seam_heatset_depth:g} mm heat-set pilot, "
+        f"only {seam_heatset_relief:g} mm past the {heatset_len:g} mm insert; "
+        f"it owes {mount_bore_relief:g} mm screw-tip relief")
+
 # --- front-bottom's own ±X section --------------------------------------------
 #
 # THE FRONT PIECE CARRIES THE SAME 9 DOWN BOTH FLANKS, and neither body against them moves the
@@ -3644,8 +3679,8 @@ def _ceiling_corbels(solid, inner, outer, centre, y_joint, y_bosses=()):
 # COAXIAL by construction (one y_boss, one z_boss feed both halves); the overlap
 # (lip_len) is derived from exactly those matings, not chosen freely. An M3 SHCS
 # drives in from the ±X exterior; outboard→inboard the joint reads: head
-# counterbore, then the pin body (screw_len − heatset_depth of material the shank
-# crosses), then the heat-set, then a one-wall cap.
+# counterbore, then the pin body ending on the full-thickness back flank's face,
+# then the heat-set pilot filling the rest of the M3x10 span, then a one-wall cap.
 #   * BACK half = PIN: a `plug_dia` square registration section from the ±X exterior
 #     to the heat-set, seating in the socket's slot and continuing aft until it roots in
 #     the back pieces' full-thickness flank. Sized to the screw SHANK, not the head (the
@@ -3723,15 +3758,19 @@ def _bosses(inner, y_joint):
     return out
 
 
-def _boss_x(x_ext, sx, length=None):
+def _boss_x(x_ext, sx):
     """Inboard X stations from the ±X exterior, each sized to its job: the
-    screw-head seat (recess), the pin/heat-set boundary (the screw spans the seat
-    to the heat-set, so the pin body is the screw's length − heatset_depth long),
-    the heat-set end, and the pod cap one wall past it."""
-    length = screw_len if length is None else length
+    screw-head seat; the pin/heat-set boundary on the full-thickness back flank's
+    physical face; the heat-set pilot's blind end at the M3x10 tip; and the pod cap
+    one wall past it.
+
+    The first two stations make the plug and corbel flush with both back flanks.
+    `seam_heatset_depth` absorbs the remaining screw span without moving the blind
+    end or cap, and its construction above guarantees a complete insert plus the
+    required screw-tip relief."""
     x_seat = x_ext + sx * head_cbore_depth
-    x_tip = x_seat + sx * (length - heatset_depth)
-    x_heat = x_tip + sx * heatset_depth
+    x_tip = x_seat + sx * seam_pin_shank_len
+    x_heat = x_tip + sx * seam_heatset_depth
     x_cap = x_heat + sx * socket_cap
     return x_seat, x_tip, x_heat, x_cap
 
@@ -3822,12 +3861,12 @@ def _front_cuts(x_in, x_ext, sx, z_boss, y_boss, y_joint):
     return slot.fuse(heat)
 
 
-def _screw_cut(x_ext, sx, z_boss, y_boss, length=None):
+def _screw_cut(x_ext, sx, z_boss, y_boss):
     """M3 shank clearance from the ±X exterior through the plug to the heat-set,
     plus the SHCS head counterbore at the exterior — the seat one wall outboard
     of the heat-set. The head keeps its complete round pass and bearing envelope;
     `_teardrop_x` gives only its unsupported crown a tangent printable roof."""
-    _xs, x_tip, _xh, _xc = _boss_x(x_ext, sx, length)
+    _xs, x_tip, _xh, _xc = _boss_x(x_ext, sx)
     shank = _xcyl(screw_clear_dia / 2.0, y_boss, z_boss, x_ext - sx * 1.0, x_tip)
     cbore = _teardrop_x(head_cbore_dia / 2.0, y_boss, z_boss,
                         x_ext - sx * 1.0, x_ext + sx * head_cbore_depth)
@@ -8897,6 +8936,10 @@ def main():
         "Y_LEVELS": "/".join(str(c) for c in sorted({
             sum(1 for _xi, _xe, s, _z in box.y_bosses
                 if s == sx) for sx in (+1.0, -1.0)})),
+        "BACK_SEAM_FLANK_T": f"{back_seam_flank_t():.4g} mm",
+        "SEAM_PIN_SHANK": f"{seam_pin_shank_len:.4g} mm",
+        "SEAM_HEATSET_DEPTH": f"{seam_heatset_depth:.4g} mm",
+        "SEAM_HEATSET_RELIEF": f"{seam_heatset_relief:.4g} mm",
         "PLUG_DIA": f"{plug_dia:.4g} mm",
         "RIDGE_WALL_T": f"{ridge_wall_t:.4g} mm",
         "RIDGE_LEN": f"{display_pcb_x:.4g} mm",
