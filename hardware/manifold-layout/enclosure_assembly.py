@@ -3363,18 +3363,24 @@ def build_stack(psu, pcba, wagos, wall_seat):
 
 
 def wago_wells(row, cluster, over):
-    """Every wall's well stations, `(side, y, z, size, clear_z)` — one per placed lug, read off
-    the lug's own box so a well cannot end up anywhere but under the thing it holds. `clear_z`
-    is the plane the flank's air stops being the well's — `over` is the row's, the crown of the
-    brick it runs along, and a cluster well carries None: its wall is open beneath it."""
+    """Every wall's well stations, `(side, y, z, size, clear_z, supportless_roof)` — one per
+    placed lug, read off the lug's own box so a well cannot end up anywhere but under the thing
+    it holds.
+
+    The five power-row wells carry complete flat roofs into the simple ceiling corbel above
+    them. Every cluster well keeps its two-tab, 45°-ramped supportless roof. `clear_z` is the
+    plane the flank's air stops being the well's — `over` is the row's, the crown of the brick
+    it runs along, and a cluster well carries None because its wall is open beneath it."""
     out = []
     for _name, solid, _carry in row:
         b = box(solid)
-        out.append((+1, (b.ymin + b.ymax) / 2.0, (b.zmin + b.zmax) / 2.0, "413", over))
+        out.append((+1, (b.ymin + b.ymax) / 2.0, (b.zmin + b.zmax) / 2.0,
+                    "413", over, False))
     for name, solid, _carry, size in cluster:
         b = box(solid)
         out.append((CLUSTER_WAGOS[name][0],
-                    (b.ymin + b.ymax) / 2.0, (b.zmin + b.zmax) / 2.0, size, None))
+                    (b.ymin + b.ymax) / 2.0, (b.zmin + b.zmax) / 2.0,
+                    size, None, True))
     return tuple(out)
 
 

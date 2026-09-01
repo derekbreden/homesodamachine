@@ -14,23 +14,23 @@
           "tree": "tree-1",
           "name": "west core-hold, pan-sleeve and service-furniture tree",
           "first_contacts_cad_xyz_mm": [
-            [-67.0, 450.3, 252.36, -58.2, 460.3, 252.84]
+            [-67.0, 449.5, 252.36, -57.0, 460.3, 252.84]
           ],
           "root": "bed",
           "build_up_mm": 92.16,
-          "interface_islands": 10,
+          "interface_islands": 8,
           "rationale": "The first contact carries the cold core's west aft hold-down soffit over its insertion lane. The pan sleeve, west-wall service furniture and the shared ASSE tie-channel ceiling contact join this same removable body. A pillar in the core lane blocks insertion, and the retained tree grows from the bed through the open enclosure."
         },
         {
           "tree": "tree-2",
           "name": "forward west service-furniture tree",
           "first_contacts_cad_xyz_mm": [
-            [-97.8, 280.7, 263.64, -78.2, 292.3, 264.12]
+            [-97.8, 281.5, 263.64, -78.2, 292.3, 264.12]
           ],
           "root": "bed",
           "build_up_mm": 103.44,
-          "interface_islands": 9,
-          "rationale": "The west-wall service contacts in this depth band keep the component, routing, anchor and seam-clearance lanes open. Their nine interfaces share one bed-rooted tree through the open enclosure."
+          "interface_islands": 8,
+          "rationale": "The west-wall service contacts in this depth band keep the component, routing, anchor and seam-clearance lanes open. Their eight interfaces share one bed-rooted tree through the open enclosure."
         },
         {
           "tree": "tree-3",
@@ -89,6 +89,28 @@
           "build_up_mm": 55.6,
           "interface_islands": 2,
           "rationale": "The lower contact carries the exact 1 mm flat land that stops the steel collet plate and defines its Z datum; its fore edge is already raked at 45 degrees. The upper contact is the lintel that closes the full-width removable pump-cartridge bay while carrying the display above it. A support-free gable across that deep opening would occupy the rectangular cartridge-withdrawal or display envelope. The two contacts share one long bed-rooted tree, so neither hides a separate short or material-rooted support."
+        },
+        {
+          "tree": "tree-2",
+          "name": "west Y-seam ceiling-tongue socket crown",
+          "first_contacts_cad_xyz_mm": [
+            [-104.2, 200.625, 338.8, -99.0, 213.025, 339.0]
+          ],
+          "root": "bed",
+          "build_up_mm": 178.6,
+          "interface_islands": 1,
+          "rationale": "This flat is the complete crown of the upper west Y-seam socket collar, and the ceiling tongue rises directly from it. The crown preserves the socket's full registration web and gives the tongue its load-bearing root; its one removable tree grows from the bed through the open enclosure."
+        },
+        {
+          "tree": "tree-3",
+          "name": "east Y-seam ceiling-tongue socket crown",
+          "first_contacts_cad_xyz_mm": [
+            [99.0, 200.625, 338.8, 104.2, 213.025, 339.0]
+          ],
+          "root": "bed",
+          "build_up_mm": 178.6,
+          "interface_islands": 1,
+          "rationale": "This flat is the complete crown of the upper east Y-seam socket collar, and the ceiling tongue rises directly from it. The crown preserves the socket's full registration web and gives the tongue its load-bearing root; its one removable tree grows from the bed through the open enclosure."
         }
       ]
     },
