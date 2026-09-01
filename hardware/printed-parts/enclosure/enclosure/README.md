@@ -1371,7 +1371,7 @@ therefore **deepest at the wall and thinnest at the panel's edge** — which is 
 wrong way round for the rear storey, because the wall is exactly where that
 storey's furniture stands.
 
-So the strip carries **reliefs**, stated as `back_top_ceiling_reliefs` and read
+So the strip carries **reliefs**, stated by `back_top_ceiling_reliefs_for` and read
 back by `ceiling_corbel_at(x, y)` — the same shape `back_top_wall_reliefs` and
 `back_wall_t_at` take one storey down, keyed on (x, y) rather than (x, z). A row
 names the fitting, the flank, the depth band it covers, and **the run band it
@@ -1411,9 +1411,9 @@ run 14.09.** So the outboard run goes back, and those two rows give up 0…16 an
 What still gives up the whole run is **the shared tie channel**. Each zip tie is a closed
 loop that comes west over the chain's top flat in the `DECK_CEILING_CLEAR` lane and drops
 into the cavity through the anchor's back. That cavity's top mouth is out at the wall
-(`_asse_tie_cavity`), so a corbel standing on the outboard run would roof the opening. One
-relief spans both tie bands and the volume between them, leaving the channel and its support
-removal path open continuously.
+(`_asse_tie_cavity`), so a corbel standing on the outboard run would roof the opening.
+`back_top_ceiling_reliefs_for` reads the exact channel ends from `_asse_tie_channel_span`,
+leaving the channel and its support-removal path open continuously without an end ledge.
 
 **The dado** is cut in each strip's inboard face on the section the panel states
 (`ceiling_panel.dado`), and it runs from the open Y− mouth aft: the panel is slid
