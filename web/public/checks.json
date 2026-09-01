@@ -88,9 +88,8 @@
   ],
   "detail": {
     "hardware/scripts/check_payloads.py": [
-      "2 solid(s) whose surface is not in the payload beside them:",
+      "1 solid(s) whose surface is not in the payload beside them:",
       "    hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh — cut from other bytes than the solid holds",
-      "    hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh — cut from other bytes than the solid holds",
       "  the run that cuts a solid writes the payload beside it:",
       "    tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/enclosure.py",
       "  and the enclosure's flutes go back into those payloads after:",
