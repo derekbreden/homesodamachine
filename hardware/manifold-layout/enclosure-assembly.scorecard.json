@@ -1,5 +1,5 @@
 {
- "gatesPass": false,
+ "gatesPass": true,
  "size": [
   {
    "id": "enclosure",
@@ -73,20 +73,10 @@
    "id": "pack-closes",
    "label": "No two solids overlap (pack closes)",
    "kind": "gate",
-   "status": "fail",
-   "value": "9 clash, 0 unanswered",
+   "status": "pass",
+   "value": "0 clash, 0 unanswered",
    "target": "0 clash, 0 unanswered",
-   "detail": [
-    "pump-a-boss \u2229 enclosure-pump-cap   1007.0 mm\u00b3, x[   23.44,   76.44] y[   15.52,   68.53] z[  216.74,  235.74]",
-    "pump-a-motor \u2229 enclosure-pump-cap   320.3 mm\u00b3, x[   35.92,   63.97] y[   53.09,   59.88] z[  235.74,  277.30]",
-    "pump-b-boss \u2229 enclosure-pump-cap   1007.0 mm\u00b3, x[  -76.44,  -23.44] y[   15.52,   68.53] z[  216.74,  235.74]",
-    "pump-b-motor \u2229 enclosure-pump-cap   320.3 mm\u00b3, x[  -63.97,  -35.92] y[   53.09,   59.88] z[  235.74,  277.30]",
-    "collet-plate \u2229 tube-fluid-11   2.6 mm\u00b3, x[   17.23,   22.91] y[   75.64,   77.88] z[  183.60,  185.43]",
-    "collet-plate \u2229 tube-fluid-12   2.6 mm\u00b3, x[   76.98,   82.66] y[   75.64,   77.88] z[  183.60,  185.43]",
-    "collet-plate \u2229 tube-fluid-21   2.6 mm\u00b3, x[  -22.91,  -17.23] y[   75.64,   77.88] z[  183.60,  185.43]",
-    "collet-plate \u2229 tube-fluid-22   2.6 mm\u00b3, x[  -82.66,  -76.98] y[   75.64,   77.88] z[  183.60,  185.43]",
-    "funnel \u2229 enclosure-front-top   2764.2 mm\u00b3, x[  -86.50,   86.50] y[   70.00,  200.00] z[  338.96,  355.00]"
-   ],
+   "detail": [],
    "active": true
   },
   {
@@ -691,6 +681,16 @@
    "active": true
   },
   {
+   "id": "collet-plate-stops-nose",
+   "label": "The collet plate holes stop the release noses",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "a hole smaller than the 11.43 mm nose rim",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "port-field-web",
    "label": "Two neighbouring pockets leave standing wall between them",
    "kind": "gate",
@@ -1026,7 +1026,7 @@
    "value": "60/60 mounted, 20 part of another body, 12 nothing fastens",
    "target": "a printed joint per body",
    "detail": [
-    "funnel: wall-capture \u2014 nothing fastens it; The brim bears on the top wall's outer face, the collar fills `enclosure._funnel_hole`, and the elbow's own collet grips the stub the spout carries \u2014 so the funnel is held down by the joint it releases from. It is a dishwasher part and comes out by hand.",
+    "funnel: wall-capture \u2014 nothing fastens it; The brim bears on the top wall's outer face, the collar runs in `enclosure._funnel_cut_plan`, and the elbow's own collet grips the stub the spout carries \u2014 so the funnel is held down by the joint it releases from. It is a dishwasher part and comes out by hand.",
     "funnel-drain-clamp: tube-clamp \u2014 nothing fastens it; A worm clamp closes on itself \u2014 the band draws through its own housing and the housing rides the band. What it lands on is silicone, and it goes to the dishwasher with it.",
     "funnel-drain-stub: tube-clamp \u2014 nothing fastens it; The worm clamp closes the funnel's silicone spout onto it over the whole of the spout's land, and the pair is made up at the factory. Nothing printed is in the path: the stub leaves the machine with the funnel every time it is washed.",
     "funnel-drain-union: tube-hung \u2014 nothing fastens it; Both its collets land on held bodies \u2014 the +Z leg takes the stub the funnel carries, the +Y leg hands `fluid-4` aft to V-B in its cradle on the cold core's cap \u2014 so the elbow hangs between two seats with nothing printed closing on it. It is the joint the customer opens, and a thumb on that collet is the whole of the motion.",

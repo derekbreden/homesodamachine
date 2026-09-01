@@ -6,7 +6,7 @@ case-derived collar used twice in `enclosure-pump-cap`. It is not a separate pri
 surfaces: a plate and 45° ramp at the pump's bracket plane, the boss's octagonal bore wall,
 and one shoulder around the motor can.
 
-The flavour manifold carries two KPHM600 pumps, so the top clamp contains
+The flavour manifold carries two KPHM400 pumps, so the top clamp contains
 [2](TRAY_COUNT) collars.
 
 | | |
@@ -18,13 +18,15 @@ The flavour manifold carries two KPHM600 pumps, so the top clamp contains
 | complete collar rise | [24](TRAY_D) mm |
 | pump envelope below it | [62.61](HEAD_W) mm head, [48.88](HEAD_D) mm deep |
 | stamped bracket | [68.6](BRACKET_W) mm square, stated by the pump reference and added to assembly checks |
+| rear stack axis | [1](REAR_AXIS_Y_SHIFT) mm toward Y− from the head and lower-cradle datum |
 
 ## How it becomes the clamp
 
-`enclosure._pump_clamp_gross` places one collar source on each pump axis. The pump reference
-does not draw the black stamped bracket, so the enclosure builder starts the complete clamp
-field on that bracket's measured upper face. The field supplies the pressing section there,
-re-cuts the boss's exact octagon, and joins both collars with two centre screw bridges.
+`enclosure._pump_clamp_gross` places the broad pressing field on each pump's head datum and the
+case-derived collar on the reference pump's offset rear-stack axis. The pump reference does not
+draw the stamped bracket, so the enclosure builder starts the complete clamp field on that
+bracket's measured upper face. The field supplies the pressing section there, re-cuts the
+boss's exact octagon, and joins both collars with two centre screw bridges.
 
 The finished clamp therefore has three distinct contacts:
 

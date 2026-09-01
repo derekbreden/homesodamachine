@@ -2,3 +2,8 @@
 file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step
 click: x=49.945 y=67.525 z=231.245
 click: x=0.000 y=67.817 z=231.245
+
+[ceiling] These are the two complete octagonal boss-crown seats in the top clamp. They face the bed 19 mm above the print plane and are intentionally supported: the production profile gives each its own bed-rooted tree with 18.4 mm of build-up before the interface. Their Y=41.025 centres follow the reference pump's offset rear-stack axis.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step
+click: x=-49.945 y=41.025 z=235.745
+click: x=49.945 y=41.025 z=235.745

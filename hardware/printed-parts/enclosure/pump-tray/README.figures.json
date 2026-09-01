@@ -7,6 +7,7 @@
     "HEAD_D": "48.88",
     "HEAD_W": "62.61",
     "RAMP_H": "18",
+    "REAR_AXIS_Y_SHIFT": "1",
     "SHOULDER": "3",
     "SOCKET_LEDGE": "1.5",
     "SOCKET_SPAN": "53",
