@@ -22,8 +22,8 @@
     },
     {
       "check": "hardware/scripts/check_payloads.py",
-      "note": "payloads: 19 solid(s) cut from the bytes beside them, 11 scene(s) at the finishes this tree states",
-      "status": "ok"
+      "note": "tools/cad-venv/bin/python hardware/scripts/flute_payload.py",
+      "status": "red"
     },
     {
       "check": "hardware/scripts/check_pinmap.py",
@@ -88,9 +88,18 @@
   ],
   "detail": {
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds 002b8e13f1e37db7ec552a44ab1e1f1b for the 107 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 5813487f9c64797bd2e537f04985cd43 here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was taken from a different tree — it holds 002b8e13f1e37db7ec552a44ab1e1f1b for the 107 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at da6a3f769e102d2653e35ea15912fed8 here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
+    ],
+    "hardware/scripts/check_payloads.py": [
+      "2 solid(s) whose surface is not in the payload beside them:",
+      "    hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh — cut from other bytes than the solid holds",
+      "    hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh — cut from other bytes than the solid holds",
+      "  the run that cuts a solid writes the payload beside it:",
+      "    tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/enclosure.py",
+      "  and the enclosure's flutes go back into those payloads after:",
+      "    tools/cad-venv/bin/python hardware/scripts/flute_payload.py"
     ],
     "tools/bazel/check_build_file.py": [
       "BUILD.bazel is not what the graph would write now:",
