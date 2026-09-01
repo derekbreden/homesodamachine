@@ -66,8 +66,8 @@ collet butted to collet.
 
 `BUTT` is the tube left OUTSIDE a pair of butted quick-connects, and it is 0 — there is still
 tube in both collets, there is none between them. `BARB_STANDOFF` is the fore/aft projection
-where a tee meets a pump barb: `pump_cartridge_proud` follows the pump out to its load-bearing
-wall and `BARB_PLATE_BERTH` carries the collet plate that releases it. The pump barb stands
+where a tee meets a pump barb: `pump_station_lead` holds the moving pump end clear of the fixed
+plate-guide wall and `BARB_PLATE_BERTH` carries the collet plate that releases it. The pump barb stands
 `pump_station_drop` below the fixed tee end, so `BARB_TUBE_LEN` is the shallow straight's true
 centreline length. A barb is not a quick-connect; the four runs off the barbs are what the pump
 cartridge releases against. The deck's height rides on the complete fore/aft projection one for
@@ -164,16 +164,16 @@ MOTOR_L = kp.motor_end_z - kp.octagon_top_z  # the can, boss's rear face to the 
 # --- The study's own figures, all four free --------------------------------
 BUTT = 0.0            # tube left outside a pair of butted quick-connects
 BARB_PLATE_BERTH = 5.7  # steel, its two airs and the millimetre off the barbs' own plane
-PUMP_BARB_Z = HEAD_W - _enc_if.pump_cartridge_proud
+PUMP_BARB_Z = HEAD_W - _enc_if.pump_station_lead
 # World Z is this study's Y after `enclosure_assembly.pose_manifold` stands the pack. The
 # Kamoers and the pump ends of the four short barb tubes stand below the anchor tees' fixed
 # y=0 fold plane, so those flexible runs take the resulting shallow rise.
 PUMP_Y = -_enc_if.pump_station_drop
 # The exposed run's fore/aft projection between a pump barb and its anchor tee's branch collet.
-# Its fore portion follows the proud pump; its aft portion is the steel plate's working berth.
+# Its fore portion is the moving pump end's lead; its aft portion is the steel plate's berth.
 # The deck stays where it is because the projection exactly returns what the pump station moves
 # forward.
-BARB_STANDOFF = BARB_PLATE_BERTH + _enc_if.pump_cartridge_proud
+BARB_STANDOFF = BARB_PLATE_BERTH + _enc_if.pump_station_lead
 CROSSBAR = 0.0        # exposed tube between Y-A's and Y-B's branches. At 0 the two fittings
                       # meet face to face across the mirror plane and no tube is drawn.
 # The two lanes one pump hands out. At `BARB_PITCH` each tee sits on its own barb and the
@@ -491,12 +491,11 @@ BENT = {"V-A": UPPER_Z, "V-B": UPPER_Z}
 # which solve to `(2R − jog)·cosθ + travel·sinθ = 2R`. A 90° pair is the member with no
 # straight in it, and it puts the jog EQUAL to the travel — each quarter spends R on both axes.
 #
-# THE TRAVEL IS NOT THIS RUN'S TO CHOOSE. V-A and V-B stand on the cold core's cap, which is not
-# the pack, so every millimetre `enclosure_assembly.PACK_Y` carries the pack aft is a millimetre
-# taken off this — and so is every millimetre `BARB_STANDOFF` carries the decks aft of the
-# pumps, since the row's cradles hold still while Y-A and Y-B ride the deck. What the collet
-# plate's berth leaves after both have taken their share is this figure, and it is the whole of
-# what the step has to spend.
+# THE TRAVEL IS THE SOURCE RUN'S INTERNAL STEP. V-A and V-B occupy the source row at its far
+# end; `enclosure_assembly.PACK_Y` carries that row, the other eight valves, both pumps and every
+# pack fitting together. The cold core's three cradle stations are authored at the resulting
+# row. `BARB_STANDOFF` fixes the pump-to-deck spacing inside the same rigid arrangement, while
+# this figure is the whole longitudinal distance the two-arc step itself has to spend.
 #
 # THE JOG IS. `two_arc_floor` is `sqrt(jog·(4R − jog))`, which climbs with the jog for every jog
 # under `2R` — so the jog alone says whether the two-arc family has a member at the travel there
@@ -914,11 +913,12 @@ QUARTER_LEN = math.pi * BEND_R / 2.0
 # one of those steps takes round with it, which is whose `SOURCE_SPREAD` the step is drawn to.
 SBENDS = {3: "V-A", 5: "V-B"}
 
-# The step's own room, on the card. `SOURCE_TRAVEL` is what the pack leaves after
-# `enclosure_assembly.PACK_Y` and `BARB_STANDOFF` have taken theirs, and `SOURCE_JOG` is what
-# sets the floor it has to clear — so this reads the two against each other on both channels at
-# once. A run that falls under the floor grows a hairpin, `2πR` and a chord of tube spent going
-# backward, and a step whose arcs meet at a point; the margin is what says neither is happening.
+# The step's own room, on the card. `SOURCE_TRAVEL` is the step's longitudinal allowance and
+# `SOURCE_JOG` sets the floor it has to clear, so this reads the two against each other on both
+# channels at once. `enclosure_assembly.PACK_Y` seats the complete arrangement outside this
+# construction, and `BARB_STANDOFF` fixes its pump-to-deck spacing. A run that falls under the
+# floor grows a hairpin, `2πR` and a chord of tube spent going backward, and a step whose arcs
+# meet at a point; the margin is what says neither is happening.
 _bounds.state(
     "source-step-room", "Both source runs step on two arcs alone",
     f"the travel over the two-arc floor by {SOURCE_SLACK:g} mm on each channel",
@@ -1308,7 +1308,7 @@ def main():
             "BARB_STANDOFF": f"{BARB_STANDOFF:g}",
             "BARB_TUBE_LEN": f"{BARB_TUBE_LEN:.2f}",
             "BARB_PLATE_BERTH": f"{BARB_PLATE_BERTH:g}",
-            "PUMP_PROUD": f"{_enc_if.pump_cartridge_proud:g}",
+            "PUMP_STATION_LEAD": f"{_enc_if.pump_station_lead:g}",
             "PUMP_DROP": f"{_enc_if.pump_station_drop:g}",
             "STEP_SPREAD": f"{SOURCE_SPREAD['V-A']:g}",
             "STEP_CROSS_A": f"{math.hypot(*source_cross('V-A')):.2f}",

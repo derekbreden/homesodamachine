@@ -683,7 +683,7 @@ FLUID_2_LEVEL_CLEAR = 6.0
 # How far past the pack's own stub this run turns onto V-A's column. A square corner spends its
 # whole radius as tangent in each leg it touches, so a turn planted ON the stub's far end has
 # exactly the stub to seat in and no more — this is what the leg carries over that.
-FLUID_2_CROSS_SET = 1.0
+FLUID_2_CROSS_SET = 0.5
 # The column the run goes forward and down in: the strip WEST of the flavour-A line's own aft
 # lane. `fluid-18` holds that lane over the whole depth this run crosses it in, so the strip is
 # struck off the union that line falls onto and rides it wherever the union goes. Both are 1/4",
@@ -772,7 +772,7 @@ FLUID_4_LANE_Y = 200.0
 # millimetre or two of each other here, and what stands between them is the ARC and not the
 # corner: a square turn reaches a whole radius back down the leg it came in on, so the coil is
 # measured against the sweep west of the vertex rather than against the vertex itself.
-FLUID_4_CROSS_Y = 245.0
+FLUID_4_CROSS_Y = 246.5
 # THE COLUMN IT COMES ABOUT IN, and it is west of V-B rather than on the mirror line. A REVERSAL
 # COSTS 2·R14 BETWEEN ITS COLUMNS, and the collet faces the way the run arrives from, so the
 # turn into V-B is a reversal whichever way it is drawn: the run has to stand two bend radii off

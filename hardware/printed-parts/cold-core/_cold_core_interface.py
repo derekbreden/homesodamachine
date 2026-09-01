@@ -768,9 +768,9 @@ for _name in deck_mounts:
 Cradle = namedtuple("Cradle", "centre yaw seat")
 cap_cradles = {
     #                      centre           yaw    seat
-    "vk-solenoid": Cradle(( 96.500,  65.050), 0.0, 3.4000),
-    "valve-v-a":   Cradle(( 96.500,  22.490), 0.0, 9.6150),
-    "valve-v-b":   Cradle(( 96.500, -20.070), 0.0, 9.6150),
+    "vk-solenoid": Cradle(( 94.020,  65.050), 0.0, 3.4000),
+    "valve-v-a":   Cradle(( 94.020,  22.490), 0.0, 9.6150),
+    "valve-v-b":   Cradle(( 94.020, -20.070), 0.0, 9.6150),
 }
 
 # Where a boss stands off the valve's centre, and how wide it is: a socket with a wall around it.
@@ -1271,7 +1271,7 @@ CapAnchor.__new__.__defaults__ = (None,)
 cap_anchors = {
     #                             centre         seat_r  over_face
     "discharge-chain": CapAnchor((61.000, -60.500), 8.700),
-    "suction-chain":   CapAnchor((37.600,  65.050), 8.700),
+    "suction-chain":   CapAnchor((35.120,  65.050), 8.700),
     # Reservoir A's own fill, which comes down onto this face at V-A's forward end and runs the
     # rest of the way aft on it. The station is the one that splits that run's two unheld spans
     # evenly, and it is behind the valve cradles by `cap_anchor_room`'s own reading.

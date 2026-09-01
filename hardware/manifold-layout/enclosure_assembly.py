@@ -1713,7 +1713,7 @@ SUCT_CHAIN_TURN = (((1.0, 0.0, 0.0), -90.0),)
 # How far FORWARD of the pump's suction mouth the chain's barb stands. `water-7` turns from east
 # to forward in this gap, and a 3/8" corner needs its whole radius as tangent in each leg it
 # touches.
-SUCT_CORNER_ROOM = 24.0
+SUCT_CORNER_ROOM = 21.52
 
 
 def build_suction_chain(foam_carry, suction):
@@ -4210,13 +4210,12 @@ def place_base(seated, names=()):
 # — so a figure spent on one and not the other takes every tube off its fitting while every
 # picture still looks made up.
 #
-# THE ROW OF THREE ON THE COLD CORE'S CAP DOES NOT RIDE IT. V-A, V-B and V-K stand in cradles
-# the cap prints, and the cap is not this pack — so `manifold_layout.SOURCE_TRAVEL` gives back
-# exactly what this takes, millimetre for millimetre, and the three stay in their seats while
-# the eight valves and the two pumps go aft. THE TWO FIGURES ARE ONE FIGURE: spend one without
-# the other and either the row comes out of its cradles or the runs come off their ports.
-# `cradles-land` is what reads the seats against the valves, and `runs-drawn` the ports against
-# the tubes.
+# THE ROW OF THREE ON THE COLD CORE'S CAP SHARES THIS DEPTH. V-A and V-B ride the pack directly;
+# V-K takes their world row while remaining butted to the suction chain. The cap prints all three
+# cradles and the chain anchor at those resulting stations, so the ten pack valves, the cap row,
+# both pumps, the fittings and the short tubes occupy one coherent arrangement. `cradle_rows`
+# reads the printed seats against the placed valves, and `runs-drawn` reads the ports against the
+# tubes.
 #
 # WHAT THE STEP TO V-A COSTS IS LENGTH, NOT ROOM. Taking travel off it makes the run LONGER: it
 # carries a hairpin ahead of the step, which turns through the whole circle to put the run
@@ -4230,7 +4229,7 @@ def place_base(seated, names=()):
 # `manifold_layout.BARB_STANDOFF` on top of what the fold asks, which is the collet
 # plate's whole berth; this figure carries the pumps, and the standoff sets everything
 # aft of their barbs.
-PACK_Y = 12.0
+PACK_Y = 14.48
 
 
 def pose_manifold(shape):

@@ -159,8 +159,8 @@ Two figures in [`manifold_layout.py`](manifold_layout.py) are the study's own ra
 part's. `BUTT` is the tube left outside a pair of butted quick-connects, and it is 0.
 
 `BARB_STANDOFF` is the [6.98](BARB_STANDOFF) mm fore/aft projection between each pump barb and
-its anchor tee's branch collet. Its first [1.28](PUMP_PROUD) mm carries the pump and its barb
-plane forward with the proud cartridge; the remaining [5.7](BARB_PLATE_BERTH) mm is **the
+its anchor tee's branch collet. Its first [1.28](PUMP_STATION_LEAD) mm holds the moving pump end
+clear of the fixed plate-guide wall; the remaining [5.7](BARB_PLATE_BERTH) mm is **the
 collet plate's berth**. The pump end stands [2](PUMP_DROP) mm below the stationary tee end, so
 each straight has a [7.26](BARB_TUBE_LEN) mm centreline length and a shallow vertical rise.
 Both pumps ride out of the box on their own pump cartridge and these four runs are what
