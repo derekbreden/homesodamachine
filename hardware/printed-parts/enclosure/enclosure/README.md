@@ -107,19 +107,23 @@ carve leaves a corner of the front lip in the back half's register; further from
 collar's 45° underside comes down the −X wall into `fluid-1`'s lane.
 
 Each cross-pin is sized to its job. Reading an M3×10 screw outboard→inboard from
-the ±X exterior: a Ø6.15 mm head counterbore, then the pin body (the screw spans
-the head seat to the heat-set, so the body is screw length − heat-set long), then
-the heat-set, then a one-wall cap. The counterbore retains that complete circular pass and
-bearing envelope, while its unsupported crown continues on two tangent
-[36°](TEARDROP_ROOF) roof planes. The four head pockets therefore close without isolated
-support towers.
+the ±X exterior: a Ø6.15 mm head counterbore, then [5 mm](SEAM_PIN_SHANK) of pin body
+ending exactly on the [9 mm](BACK_SEAM_FLANK_T) back flank's physical interior face, then a
+[5 mm](SEAM_HEATSET_DEPTH) heat-set pilot, then a one-wall cap. The pilot holds the complete
+4 mm insert and [1 mm](SEAM_HEATSET_RELIEF) of screw-tip relief, so the blind end and cap stay
+on the M3×10 stack's datum while the plug and its corbel meet the wall flush. The counterbore
+retains that complete circular pass and bearing envelope, while its unsupported crown continues
+on two tangent [36°](TEARDROP_ROOF) roof planes. The four head pockets therefore close without
+isolated support towers.
 
 - **Receiving piece = pin** (the back pieces): a [9.9 mm](PLUG_DIA) SQUARE prism (the shank
   + one wall each side, *not* the head — the head sits in the wall counterbore) from the
-  exterior to the heat-set, seating in the socket's slot.
+  exterior to the common full-thickness flank face, seating in the socket's slot and carrying
+  aft into that flank.
 - **Lip piece = socket** (the front pieces): a collar slotted
   [10.2 mm](SOCKET_BORE) square to take that pin as a slide fit, with the ruthex M3
-  heat-set (Ø4.0 × 5.25) capped at its deep inboard end.
+  heat-set (Ø4.0 × 4.0 body in its [5 mm](SEAM_HEATSET_DEPTH) pilot) capped at its deep
+  inboard end.
 
 **Each boss stands on the joint it pins.** A plug is the wall it drives through and
 the reach it needs past it: the first `wall` of its length *is* that wall's own
