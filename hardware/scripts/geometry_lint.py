@@ -17,6 +17,19 @@ fix what it flags; a finding with a reason is a finding answered.
 
     geometry_lint.py <piece>.stl [<piece2>.stl …] [--top N] [--all] [--classes a,b]
 
+A finding that is intentional gets its reason recorded in
+`<piece>.lint-answers` beside the STL — one entry per feature family: a
+`[class] reason` line, then pick lines whose points anchor it (one `click:`
+per instance). A finding of the same class within `--answer-radius` (default
+3 mm) of an anchor point reports as answered and is hidden unless `--all`
+shows it with its reason. Geometry that moves away from its anchors
+resurfaces as an open finding.
+
+    [sliver] Wago cluster-well ceiling tab — retention ledge; prints as a
+    one-sided bridge on the H2C with our settings and filament.
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+    click: x=94.200 y=357.088 z=334.300
+
 What it looks for — each class is intent-free, the same epistemic standing as
 "watertight"; the design's reasons live with the designer, so the lint only
 points, it does not gate:
@@ -34,6 +47,7 @@ points, it does not gate:
 A `.step` argument is answered from the `.stl` beside it."""
 
 import argparse
+import re
 import sys
 from pathlib import Path
 
@@ -42,6 +56,7 @@ import scipy.sparse as sp
 import trimesh
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from pick_read import points as pick_points  # noqa: E402
 from pick_text import click, file_line, plane_face, straight, _vec  # noqa: E402
 
 #: Facet normals rounded this many decimals share a plane direction.
@@ -464,6 +479,53 @@ def find_slopes(planes, boundary, level):
     return found
 
 
+def parse_answers(text):
+    """Entries from answers text: (class, reason, anchor points).
+
+    An entry is a `[class] reason` line — the reason may wrap onto following
+    lines — then pick lines whose positions anchor it. Blank lines separate
+    entries.
+    """
+    entries = []
+    for block in re.split(r"\n\s*\n", text.strip()):
+        lines = [ln.strip() for ln in block.strip().splitlines() if ln.strip()]
+        if not lines or not lines[0].startswith("["):
+            continue
+        cls, _, rest = lines[0].lstrip("[").partition("]")
+        reason, picks = [rest.strip()], []
+        for line in lines[1:]:
+            if line.startswith(("file:", "solid:")) or "x=" in line:
+                picks.append(line)
+            elif not picks:
+                reason.append(line)
+        pts = [p for _, p in pick_points("\n".join(picks))]
+        if cls.strip() in _CLASSES and pts:
+            entries.append((cls.strip(), " ".join(reason).strip(), pts))
+    return entries
+
+
+def split_answered(found, entries, radius):
+    """Findings partitioned into (open, [(finding, reason), …]) by anchors."""
+    if not entries:
+        return list(found), []
+    open_, answered = [], []
+    for r in found:
+        pts = [p for _, p in pick_points("\n".join(r["pick"]))]
+        hit = None
+        for cls, why, anchors in entries:
+            if cls != r["class"]:
+                continue
+            if any(np.linalg.norm(fp - ap) <= radius
+                   for fp in pts for ap in anchors):
+                hit = why
+                break
+        if hit is None:
+            open_.append(r)
+        else:
+            answered.append((r, hit))
+    return open_, answered
+
+
 def lint(stl, classes=_CLASSES):
     """Every finding for the piece at `stl`, most severe first within each class."""
     mesh = trimesh.load(stl, process=False)
@@ -483,22 +545,36 @@ def lint(stl, classes=_CLASSES):
     return mesh, found
 
 
-def report(stl, top, show_all, classes):
+def report(stl, top, show_all, classes, answer_radius=3.0):
     step = stl.with_suffix("") if stl.suffix == ".stl" else stl
     step = step if step.suffix == ".step" else step.with_suffix(".step")
     mesh, found = lint(stl, classes)
-    total = sum(len(v) for v in found.values())
+    answers_path = stl.with_suffix(".lint-answers")
+    entries = (parse_answers(answers_path.read_text())
+               if answers_path.exists() else [])
+    opens, answered = {}, []
+    for name in classes:
+        opens[name], hit = split_answered(found[name], entries, answer_radius)
+        answered += hit
+    total = sum(len(v) for v in opens.values())
     print(f"{stl.name} · {len(mesh.faces)} printed facets · {total} findings"
+          + (f" · {len(answered)} answered" if answered else "")
           + ("" if show_all or total <= top else f" · top {top} (--all for every one)"))
     shown = 0
     for name in classes:
-        rows = found[name] if show_all else found[name][: max(3, top // len(classes))]
+        rows = opens[name] if show_all else opens[name][: max(3, top // len(classes))]
         for r in rows:
             if not show_all and shown >= top:
                 break
             shown += 1
             print(f"\n  [{r['class']}] {r['line']}")
             print(f"    {file_line(step)}")
+            for line in r["pick"]:
+                print(f"    {line}")
+    if show_all:
+        for r, why in answered:
+            print(f"\n  [{r['class']} · answered] {why}")
+            print(f"    {r['line']}")
             for line in r["pick"]:
                 print(f"    {line}")
     return total
@@ -530,6 +606,18 @@ def _selftest():
                [(0, 10, 5), (30, 10, 5), (30, 20, 5), (0, 20, 5)]])
     got = find_slivers(planes_of(m), 0.0)
     assert len(got) == 1 and "0.500 mm strip" in got[0]["line"], got
+
+    # answers: an anchor within radius answers the strip; a wrong class or a
+    # far anchor leaves it open
+    entries = parse_answers("[sliver] retention tab — prints as a one-sided"
+                            " bridge\nclick: x=15.000 y=0.250 z=5.000\n")
+    opened, answered = split_answered(got, entries, 3.0)
+    assert not opened and len(answered) == 1, (opened, answered)
+    assert "one-sided bridge" in answered[0][1], answered
+    for miss in ("[step] wrong class\nclick: x=15.000 y=0.250 z=5.000\n",
+                 "[sliver] far away\nclick: x=15.000 y=0.250 z=95.000\n"):
+        opened, answered = split_answered(got, parse_answers(miss), 3.0)
+        assert len(opened) == 1 and not answered, miss
 
     # ceiling: a down-facing square 15 mm above an up-facing floor
     m = sheet([[(0, 0, 20), (0, 20, 20), (20, 20, 20), (20, 0, 20)],
@@ -565,9 +653,12 @@ def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("pieces", nargs="*", help=".stl (or .step with .stl beside it)")
     ap.add_argument("--top", type=int, default=12, help="findings to show (default 12)")
-    ap.add_argument("--all", action="store_true", help="show every finding")
+    ap.add_argument("--all", action="store_true",
+                    help="show every finding, answered ones included")
     ap.add_argument("--classes", default=",".join(_CLASSES),
                     help="comma list of: " + ",".join(_CLASSES))
+    ap.add_argument("--answer-radius", type=float, default=3.0,
+                    help="mm from a .lint-answers anchor that answers a finding")
     ap.add_argument("--selftest", action="store_true")
     args = ap.parse_args(argv)
 
@@ -586,7 +677,7 @@ def main(argv=None):
             raise SystemExit(f"no STL for {piece}")
         if i:
             print()
-        report(stl, args.top, args.all, classes)
+        report(stl, args.top, args.all, classes, args.answer_radius)
     return 0
 
 

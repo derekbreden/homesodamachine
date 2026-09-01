@@ -15,8 +15,9 @@ piece you changed and justify or fix what it flags while Derek is already lookin
     tools/cad-venv/bin/python hardware/scripts/geometry_lint.py <piece>.stl
 
 Findings print as pick text: paste one into the /3d Find box, or feed it to `pick_read.py`.
-A defect fixed at one station usually has siblings; the lint's job is to find them before
-Derek does.
+A finding that is intentional is answered in `<piece>.lint-answers` beside the STL — a
+`[class] reason` line, one `click:` per instance (format in `geometry_lint.py`). A defect
+fixed at one station usually has siblings; the lint's job is to find them before Derek does.
 
 ## What each file shows
 
