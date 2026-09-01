@@ -57,13 +57,13 @@
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 590 of 1000 free, the next cut wants 3, and the whole lock reads by name in 115.5 MB against 116.8 MB of bundle",
+      "note": "check_release_room: 554 of 1000 free, the next cut wants 3, and the whole lock reads by name in 115.1 MB against 116.4 MB of bundle",
       "status": "ok"
     },
     {
       "check": "tools/check_web_tests.py",
-      "note": "cd web && npm test",
-      "status": "red"
+      "note": "check_web_tests: web's suite passes",
+      "status": "ok"
     },
     {
       "check": "tools/bazel/check_build_file.py",
@@ -94,14 +94,9 @@
       "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
     ],
     "tools/check_paths.py": [
-      "hardware/manifold-layout/_scorecard.py:878 — calibration/Fences.md is held nowhere, and no tag is named for it",
+      "hardware/manifold-layout/_scorecard.py:879 — calibration/Fences.md is held nowhere, and no tag is named for it",
       "  tools/render/render-view.js:21 — calibration/Fences.md is held nowhere, and no tag is named for it",
       "2 reference(s) name a path nothing holds."
-    ],
-    "tools/check_web_tests.py": [
-      "1 test(s) in web/ fail:",
-      "    nothing in the hardware tree is unseated",
-      "  cd web && npm test"
     ]
   },
   "green": false
