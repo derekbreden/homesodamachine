@@ -4517,16 +4517,27 @@ def _front_relief_cuts(inner, pump_trays, slip=0.0):
 
     `slip` closes each pocket in by that much on all four of its standing faces and
     stands its floor that much aft — the outline a piece standing in these pockets is
-    held off the wall by, which is what the cartridge face follows."""
+    held off the wall by, which is what the cartridge face follows.
+
+    A region whose band reaches below the cavity floor crosses into the bottom
+    slab — the plate strip's running clearance. Aft of the interior plane the slab
+    is material, not mouth air, so the below-floor share of the cut ends on that
+    plane and rises aft at `relief_chamfer` to the cavity floor: the clearance runs
+    out on a ramp, one surface from relief floor to cavity floor with no standing
+    step in the slab."""
     iy0 = inner[2]
+    iz0 = inner[4]
     cuts = []
     for x0, x1, z0, z1, floor in _front_relief_regions(pump_trays):
         x0, x1, z0, z1 = x0 + slip, x1 - slip, z0 + slip, z1 - slip
         floor = floor + slip
         depth = iy0 - floor
-        cuts.append(_ybox(x0, x1, floor, iy0 + 1.0, z0, z1))
+        cuts.append(_ybox(x0, x1, floor, iy0 + 1.0, max(z0, iz0), z1))
         cuts.append(_yz_prism(x0, x1, [(floor, z1), (iy0 + 1.0, z1 + depth + 1.0),
                                        (iy0 + 1.0, z1)]))
+        if z0 < iz0:
+            cuts.append(_yz_prism(x0, x1, [(floor, z0), (iy0, z0),
+                                           (iy0 + (iz0 - z0), iz0), (floor, iz0)]))
     return cuts
 
 
