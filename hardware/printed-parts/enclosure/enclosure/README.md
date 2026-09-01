@@ -1296,8 +1296,9 @@ the plane the display's body already lies against. Where the two meet is read, n
 The rib's cavity-side roof is **one flat plane** from its wall-to-wall aft crown to the
 funnel opening's complete front underside edge. At the crown it spans front-top's two flank
 faces; toward the opening the ceiling corbels absorb its sides, and it finishes on the
-opening's exact 159 mm width. Its material-side outline is buried into the display housing
-and ceiling, so the crown-to-opening plane is the whole visible transition.
+opening's exact 159 mm width. The rib is one Y–Z section: its material side closes directly
+on the display housing and ceiling, while its cavity side has one crown-to-opening edge.
+Extruded wall to wall, that edge is the transition's single planar face.
 
 **Running it to the flanks closes the storey, and one thing crosses.** The rib lands in the
 side walls rather than ending in free air over the tee wall's crown, which leaves it the only

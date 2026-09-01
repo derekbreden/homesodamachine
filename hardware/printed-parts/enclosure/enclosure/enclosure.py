@@ -5681,7 +5681,7 @@ def _plate_lead(plate):
                       (aft - 1.0, z_seam + lead)])
 
 
-def _ridge_wall(inner, outer, plate, bay, funnel=None):
+def _ridge_wall(inner, outer, plate, bay, funnel):
     """THE RIB THAT CARRIES THE RIDGE: front-top's own section from the tee wall's crown up to
     the display housing's back, wall to wall, standing under `pcb_ridge` over the whole of it.
 
@@ -5698,14 +5698,12 @@ def _ridge_wall(inner, outer, plate, bay, funnel=None):
     part the surface its hole presents and no new fit. The two meet where they meet; that
     corner is read, not chosen.
 
-    ITS AFT FACE IS THOSE TWO OFFSET ONE `ridge_wall_t`. Its roof is ONE PLANE from that face's
-    wall-to-wall crown to the funnel opening's front underside edge. Across X, the ceiling
-    corbels absorb the plane into their own 45-degree undersides, so the roof begins on
-    front-top's two flank faces and finishes on the opening's exact width.
-
-    The roof's buried outline steps one boolean overlap into the housing and ceiling. Those
-    surfaces therefore meet through volume; the only cavity-side boundary is the one plane
-    between the crown and funnel edges.
+    ITS AFT FACE IS THOSE TWO OFFSET ONE `ridge_wall_t`, until its wall-to-wall crown. From
+    there the section has ONE roof edge: a straight line to the funnel opening's front
+    underside edge. Across X, the ceiling corbels absorb that plane into their own 45-degree
+    undersides, so the roof begins on front-top's two flank faces and finishes on the opening's
+    exact width. The profile closes on the housing back and ceiling on its material side; there
+    is no ledge or intermediate roof in the section for the finished solid to inherit.
 
     IT RUNS WALL TO WALL AND NOT THE RIDGE'S OWN LENGTH. What it carries is `display_pcb_x` of
     line, but a rib ending in free air at each end of that line would stand on the tee wall's
@@ -5724,33 +5722,22 @@ def _ridge_wall(inner, outer, plate, bay, funnel=None):
     what says so."""
     ry, rz = pcb_ridge(outer)
     fore, foot, t = plate["aft_y"], bay[2], ridge_wall_t
-    ramp, back = ry + rz, rz - ry     # the hole's end wall, y + z; the slab's back, z - y
+    ramp = ry + rz                    # the hole's end wall, y + z
     d = t * math.sqrt(2.0)            # that ramp offset one thickness, along Y
     jog = ramp - fore                 # where the fore face leaves the bay's plane for the ramp
-    slab_back = ((ramp + d - back) / 2.0, (ramp + d + back) / 2.0)
     aft_crown = (fore + t, ramp + d - (fore + t))
+    funnel_front = _funnel_hole(funnel)[2]
+    housing_back = housing_back_y(outer)
+    ceiling = inner[5]
     slab = _yz_prism(
         inner[0], inner[1],
         [(fore, foot),                                          # the bay's back, on the crown
          (fore, jog),                                           # where it meets the end wall
          (ry, rz),                                              # the ridge
-         slab_back,                                             # the slab back
-         aft_crown,                                             # the aft face's crown
+         (housing_back, ceiling),                               # closes into the housing
+         (funnel_front, ceiling),                               # the opening's front underside
+         aft_crown,                                             # the one roof's aft crown
          (fore + t, foot)])
-    if funnel is not None:
-        funnel_front = _funnel_hole(funnel)[2]
-        housing_back = housing_back_y(outer)
-        ceiling = inner[5]
-        overlap = 0.1
-        roof = _yz_prism(
-            inner[0], inner[1],
-            [(slab_back[0] - overlap, slab_back[1]),
-             (housing_back - overlap, housing_back + back),
-             (housing_back - overlap, ceiling + overlap),
-             (funnel_front - overlap, ceiling + overlap),
-             (funnel_front, ceiling),
-             aft_crown])
-        slab = slab.fuse(roof)
     return slab.cut(_teardrop_y(cable_sleeve_open / 2.0, display_centre_x(outer),
                                 (foot + jog) / 2.0, fore - 1.0, fore + t + 1.0))
 
@@ -8320,6 +8307,63 @@ def build_piece(box, y_side, z_side, halves_cache=None):
 
 # --- reporting --------------------------------------------------------------
 
+def _report_ridge_roof(half, box):
+    """Prove the built front-top keeps the ridge roof as one face between its two datums.
+
+    The source profile has one edge between these stations; this reading keeps a later fuse or
+    cut from splitting that edge into another roof junction. Both transverse edges are read on
+    the finished B-rep as well, so a face ending on an incidental sliver cannot answer for it."""
+    if not (box.pump_bay and box.pack.collet_plate and box.pack.funnel):
+        return
+    inner, outer = box.inner, box.outer
+    ry, rz = pcb_ridge(outer)
+    fore, t = box.pack.collet_plate["aft_y"], ridge_wall_t
+    ramp = ry + rz
+    crown = cq.Vector(0.0, fore + t, ramp + t * math.sqrt(2.0) - (fore + t))
+    hx0, hx1, opening_y, _hy1 = _funnel_hole(box.pack.funnel)
+    opening = cq.Vector(0.0, opening_y, inner[5])
+    roof_normal = cq.Vector(0.0, opening.z - crown.z, crown.y - opening.y).normalized()
+    tol = 1e-4
+
+    roof_faces = []
+    for face in half.val().Faces():
+        if face.geomType() != "PLANE":
+            continue
+        normal = face.normalAt()
+        if (abs(abs(normal.dot(roof_normal)) - 1.0) <= tol
+                and abs((face.Center() - crown).dot(roof_normal)) <= tol):
+            roof_faces.append(face)
+
+    grown = front_top_flank_t - wall
+    lower_x0, lower_x1 = inner[0] + grown, inner[1] - grown
+
+    def has_edge(x0, x1, station):
+        expected = (cq.Vector(x0, station.y, station.z),
+                    cq.Vector(x1, station.y, station.z))
+        matches = 0
+        for edge in half.val().Edges():
+            if edge.geomType() != "LINE" or abs(edge.Length() - abs(x1 - x0)) > tol:
+                continue
+            vertices = [vertex.Center() for vertex in edge.Vertices()]
+            if len(vertices) != 2:
+                continue
+            if (all((vertices[k] - expected[k]).Length <= tol for k in (0, 1))
+                    or all((vertices[k] - expected[1 - k]).Length <= tol for k in (0, 1))):
+                matches += 1
+        return matches == 1
+
+    lower = has_edge(lower_x0, lower_x1, crown)
+    upper = has_edge(hx0, hx1, opening)
+    whole = len(roof_faces) == 1 and lower and upper
+    if not whole:
+        raise ValueError(
+            "the front-top ridge roof is not one plane between its stated boundary edges: "
+            f"found {len(roof_faces)} coplanar faces, lower edge {'present' if lower else 'missing'}, "
+            f"upper edge {'present' if upper else 'missing'}")
+    print(f"  ridge roof:       one plane, {lower_x1 - lower_x0:.1f} mm crown to "
+          f"{hx1 - hx0:.1f} mm funnel edge")
+
+
 def _report_facet(half, box):
     a = math.radians(display_facet_angle_deg)
     target = cq.Vector(0.0, -math.sin(a), math.cos(a))
@@ -8718,6 +8762,7 @@ def main():
     core, box = machine_of()
     pieces, assy = build_pieces(box)
     print("enclosure:")
+    _report_ridge_roof(pieces["front-top"], box)
     _report_slide(pieces, box)     # the slides swept and the catches lifted, into BOUNDS
     _report_bounds()          # the machine's, with its pieces cut and its slides swept
 
