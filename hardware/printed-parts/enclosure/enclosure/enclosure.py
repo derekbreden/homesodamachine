@@ -173,6 +173,7 @@ import _enclosure_interface as _interface
 # Shell parameters.
 wall = _interface.wall      # PETG wall thickness
 pump_cartridge_proud = _interface.pump_cartridge_proud
+pump_station_drop = _interface.pump_station_drop
 # THE FLOOR SLAB IS NOT A WALL AND IS NOT ONE WALL THICK. It is the face the machine's whole
 # mass stands on, the face a body bolted DOWN rather than hung on a flank is anchored to
 # (`_floor_bosses`), and the one face of the box that prints flat on the bed — where section
@@ -1580,11 +1581,11 @@ rail_reach_in = (max(front_top_flank_t, back_top_flank_t) - wall) + slide_slip +
 #
 # FRONT-TOP CARRIES A FLOOR ACROSS THE BAY (`_bay_floor`), and everything in this storey
 # slides across it. THE FLOOR IS THIS PIECE'S FIRST LAYERS — front-top beds on the seam
-# plane, so a floor struck there lies on the bed with nothing under it to hang. Its thickness
-# is the only thing above it: the pump cartridge reaches down to the plane its pump reliefs
-# floor on, and the floor's top is that plane. Front-bottom's side lip is given up over this
-# whole run (`_flank_lip_drop`), so the floor crosses it wall to wall and only the front
-# boss's own plinth still stands over the mouth here.
+# plane, so a floor struck there lies on the bed with nothing under it to hang. Its top is a
+# fixed bay datum, relieved downward from the pump-neutral sill independently of the pump
+# station. Front-bottom's side lip is given up over this whole run (`_flank_lip_drop`), so the
+# floor crosses it wall to wall and only the front boss's own plinth still stands over the
+# mouth here.
 #
 # THE COLLET PLATE COMES IN THROUGH THAT BED FACE. Its slot (`_plate_slot`) passes clean
 # through the floor and opens on the seam plane, and the steel goes up it until its two
@@ -1607,10 +1608,14 @@ rail_reach_in = (max(front_top_flank_t, back_top_flank_t) - wall) + slide_slip +
 # THE PUMP CARTRIDGE TAKES THE WHOLE FRONT-WALL WIDTH. Its outer skin follows the enclosure's
 # rounded silhouette all the way to both exterior side faces. Its lower edge shares the filled
 # block's bed plane, 0.5 mm above the stationary sill, and its crown keeps the same Z clearance
-# below the lintel. Its filled interior reaches the side-wall planes and bears
+# below the lintel. Its full bay height is carried at that crown; its filled interior reaches
+# the side-wall planes and bears
 # on the bay floor. The only departures from that full-width envelope are the two hand pockets,
 # the pump wells and the aft plate-retention notches.
-bay_crown_air = 1.7          # bay top over the tallest motor can's crown
+bay_crown_air = 1.7          # neutral pump datum to the nominal bay roof
+pump_bay_floor_relief = 1.0  # sill top below its neutral pump-derived datum
+pump_bay_roof_relief = 1.0   # lintel underside above its neutral pump-derived datum
+pump_relief_z_air = 1.0      # pump pocket past each head/collar end
 pump_cartridge_z_clearance = 0.5  # Z air above the fixed sill and below the fixed lintel; this
                                   # is not an X/Y inset or a cosmetic surface offset
 pump_bay_side_air = 0.5      # pump-body air inside each cavity throat plane
@@ -1652,8 +1657,8 @@ plate_guide_wedge = 3.0      # the cheek's extra section at the fixed outer wall
 # THE LOWER CRADLE IS THE CARTRIDGE. It owns the complete front face, the full-height block
 # behind it, both bracket lands and both hand pulls. Each pump drops through
 # its open well until the stamped bracket at the head-to-boss junction lands on the cradle.
-# Nothing under the head carries it; the front of each head remains one millimetre over the
-# bay floor and the bracket puts the load into the block around the well.
+# Nothing under the head carries it; the head clears the bay floor and the bracket puts the
+# load into the block around the well.
 #
 # THE TOP CAP IS A CLAMP. One filled field spans both pump heads, begins on the stamped
 # brackets' upper face and reaches the cradle's common top plane over its complete fore/aft
@@ -1728,8 +1733,8 @@ pull_floor_below_tubes = 12.0  # bed-rooted stock first; then the tube plane ins
 #                 and to whatever the pack packed it against, and by the time one reaches a
 #                 corner both of those are already spent.
 #   pump_bay      the pump cartridge's opening in the flat front span, (x0, x1, z_top) —
-#                 side-wall interior plane to side-wall interior plane, topped over the motor
-#                 cans' crowns.
+#                 side-wall interior plane to side-wall interior plane, topped at the fixed
+#                 relieved lintel datum over the pumps.
 #                 None when the pack stands no pumps
 # The two structured fields placement strikes for this description. They live with Box rather
 # than with the placement pass so a serialized Box can be restored without importing the whole
@@ -2883,13 +2888,35 @@ def _dims(pack):
                     b.ymax + (0.0 if sy > 0 else column_relief_slip),
                     b.zmin - column_relief_slip, b.zmax + column_relief_slip)))
 
-    # THE PUMP BAY: the complete span between the side-wall interior planes, topped one
-    # `bay_crown_air` over the tallest motor can's crown — what the pump cartridge leaves
-    # through, struck off the placed cans the way every station is struck off its body.
+    # THE PUMP BAY: the complete span between the side-wall interior planes. Its fixed lintel
+    # answers to the pump-neutral datum: the installed motor crown plus the pump station's
+    # independent service drop. `pump_bay_roof_relief` opens the underside upward from that
+    # nominal roof without carrying the pump, collet plate or manifold with it.
     bx0, bx1 = bay_x_span(inner)
     crowns = [b.zmax for name, b in zip(placed.keys(), bbs)
               if name.startswith("pump-") and name.endswith("-motor")]
-    pump_bay = (bx0, bx1, max(crowns) + bay_crown_air) if crowns else None
+    pump_bay = ((bx0, bx1,
+                 max(crowns) + pump_station_drop + bay_crown_air + pump_bay_roof_relief)
+                if crowns else None)
+    if pump_bay and pack.pump_trays:
+        floor_top = bay_floor_z(pack.pump_trays)[1]
+        head_floor = min(cz - _tray.head_depth for _cx, _cy, cz in pack.pump_trays)
+        head_air = head_floor - floor_top
+        roof_air = pump_bay[2] - max(crowns)
+        head_target = (pump_relief_z_air + pump_cartridge_z_clearance + pump_bay_floor_relief
+                       - pump_station_drop)
+        roof_target = pump_station_drop + bay_crown_air + pump_bay_roof_relief
+        vertical_ok = (abs(head_air - head_target) <= stated_bound_tol
+                       and abs(roof_air - roof_target) <= stated_bound_tol)
+        record_bound(Bound(
+            "pump-bay-vertical-datums",
+            "The pump bay keeps its fixed floor and roof datums around the lowered pumps",
+            vertical_ok,
+            f"head floor air {head_air:.2f} mm, motor-to-lintel air {roof_air:.2f} mm",
+            f"{head_target:.2f} mm head-to-floor and {roof_target:.2f} mm motor-to-lintel",
+            ([] if vertical_ok else [
+                "the fixed bay faces do not spend the pump service offset and their own reliefs "
+                "independently. Strike `bay_floor_z` and `pump_bay` from the pump-neutral datum"])))
     # The wall-block probes above are solids and deliberately do not escape this placement
     # pass. What the drawing needs from them is the numeric ladder they admitted; carry that
     # ladder on the Box so a downstream action can reproduce the same joint without the pack.
@@ -4513,14 +4540,14 @@ def _pump_relief_regions(pump_trays):
     head's hang under the station to the collar's crown over it; floored on
     `pump_relief_floor`, the plane the cradle's aft body reaches.
 
-    ITS OWN Z0 IS THE LOWEST PLANE THE PUMP CARTRIDGE'S FILLED BEARING BLOCK AND EXTERIOR FACE
-    REACH, so the bay floor's top is struck on it (`bay_floor_z`). `_bay_cut` recesses only the
-    fixed shell perimeter below that plane for the lower running gap."""
+    ITS OWN Z0 FOLLOWS THE PUMP STATION. The fixed bay floor is struck independently by
+    `bay_floor_z`; the removable block starts on that bearing plane and `_bay_cut` recesses
+    only the fixed shell perimeter below it for the lower running gap."""
     out = []
     for cx, _cy, cz in pump_trays:
         hw = _tray.half_width() + 1.0
-        out.append((cx - hw, cx + hw, cz - _tray.head_depth - 1.0,
-                    cz + _tray.depth() + 1.0, pump_relief_floor))
+        out.append((cx - hw, cx + hw, cz - _tray.head_depth - pump_relief_z_air,
+                    cz + _tray.depth() + pump_relief_z_air, pump_relief_floor))
     return out
 
 
@@ -5357,8 +5384,13 @@ def cap_base_z(pump_trays):
 
 
 def cap_crown_z(box):
-    """The complete top clamp's common crown, with Z clearance below the bay lintel."""
-    return box.pump_bay[2] - pump_cartridge_z_clearance
+    """The complete top clamp's common crown, translated with the pumps.
+
+    The fixed bay roof has its own relief and does not locate this removable clamp. The motor's
+    far face does: `bay_crown_air` less the cartridge's running clearance gives one constant
+    section carried with the bracket datum."""
+    return (max(cz for _cx, _cy, cz in box.pack.pump_trays)
+            + _tray.motor_crown + bay_crown_air - pump_cartridge_z_clearance)
 
 
 def cap_access_z(pump_trays):
@@ -5566,7 +5598,21 @@ def pump_cartridge_figures(box):
     clamp_aft = plate_guide_fore_y(plate) - cap_kiss
     clamp_base = cap_base_z(trays)
     clamp_crown = cap_crown_z(box)
+    floor_top = bay_floor_z(trays)[1]
+    cartridge_top = bay[2] - pump_cartridge_z_clearance
+    head_floor = min(cz - _tray.head_depth for _cx, _cy, cz in trays)
+    motor_crown = max(cz + _tray.motor_crown for _cx, _cy, cz in trays)
     return {
+        "PUMP_STATION_DROP": f"{pump_station_drop:.4g} mm",
+        "PUMP_BAY_FLOOR_RELIEF": f"{pump_bay_floor_relief:.4g} mm",
+        "PUMP_BAY_ROOF_RELIEF": f"{pump_bay_roof_relief:.4g} mm",
+        "PUMP_BAY_FLOOR_Z": f"{floor_top:.6g} mm",
+        "PUMP_BAY_LINTEL_Z": f"{bay[2]:.6g} mm",
+        "PUMP_HEAD_FLOOR_AIR": f"{(head_floor - floor_top):.4g} mm",
+        "PUMP_MOTOR_LINTEL_AIR": f"{(bay[2] - motor_crown):.4g} mm",
+        "PUMP_CARTRIDGE_BOTTOM_Z": f"{floor_top:.6g} mm",
+        "PUMP_CARTRIDGE_TOP_Z": f"{cartridge_top:.6g} mm",
+        "PUMP_CARTRIDGE_RISE": f"{(cartridge_top - floor_top):.6g} mm",
         "PULL_RISE": f"{pull_rise:.4g} mm",
         "PULL_RUN": f"{(y1 - y0):.4g} mm",
         "PULL_DEPTH": f"{pull_depth:.4g} mm",
@@ -5582,6 +5628,7 @@ def pump_cartridge_figures(box):
         "CLAMP_RISE": f"{(clamp_crown - clamp_base):.5g} mm",
         "CLAMP_BASE_Z": f"{clamp_base:.5g} mm",
         "CLAMP_CROWN_Z": f"{clamp_crown:.5g} mm",
+        "CLAMP_LINTEL_AIR": f"{(bay[2] - clamp_crown):.4g} mm",
         "CLAMP_PUMP_Y_SHIFT": f"{abs(clamp_pump_y_shift):.4g} mm",
         "CLAMP_ACCESS_FLOOR_Z": f"{cap_access_z(trays):.5g} mm",
         "CLAMP_ACCESS_BASE": f"{(cap_access_z(trays) - clamp_base):.4g} mm",
@@ -5654,17 +5701,21 @@ def bay_floor_z(pump_trays):
     on the plane the pump cartridge's filled bearing block reaches down to.
 
     THE FLOOR IS THIS PIECE'S FIRST LAYERS. Front-top beds on the seam plane, so a floor
-    struck there lies on the bed and nothing under it hangs. What sets its section is the
-    only thing over it: the pump cartridge's own pump reliefs floor on
-    `_pump_relief_regions`' z0, one millimetre under the heads, and the floor's top is one
-    `pump_cartridge_z_clearance` under that plane.
+    struck there lies on the bed and nothing under it hangs. Its top answers to the
+    pump-neutral station: `_pump_relief_regions` follows the installed pumps, so
+    `pump_station_drop` restores the fixed reference and `pump_bay_floor_relief` opens that
+    sill downward. `pump_cartridge_z_clearance` remains the stationary-perimeter gap below
+    the removable face.
 
     AND IT IS ONE PLANE ACROSS THE WHOLE MOUTH. The filled block's flat bearing sill, the
     stationary sill the fixed shell perimeter stops on, and the removable exterior face's own
     bed plane are all this figure, so the bay's floor reads flat from the front wall's section
     through to the collet plate's slot."""
+    # The relief pocket follows the pump; adding its independent drop returns the fixed bay
+    # reference, and the floor relief is spent downward from there.
     return z_seam, (min(z0 for _x0, _x1, z0, _z1, _floor in _pump_relief_regions(pump_trays))
-                    - pump_cartridge_z_clearance)
+                    - pump_cartridge_z_clearance + pump_station_drop
+                    - pump_bay_floor_relief)
 
 
 def _flank_lip_drop(inner, plate, y_joint, zj):
@@ -6010,8 +6061,9 @@ def _pump_clamp_gross(box, halves_cache=None):
     The field begins as one broad Z-minus face on top of both stamped brackets. Each complete
     case-profile octagon locates a boss, and each motor can opens the remaining height. There
     is no shallow bracket pocket or narrow rail under the field: the bracket itself lies below
-    the print. The complete field reaches one common crown below the bay lintel. A single joined
-    recess reaches down around both top-access M3 heads."""
+    the print. The complete field reaches one common crown carried with the pumps, independently
+    of the fixed bay lintel. A single joined recess reaches down around both top-access M3
+    heads."""
     if halves_cache is not None and "pump-clamp-gross" in halves_cache:
         return halves_cache["pump-clamp-gross"]
     trays, plate = box.pack.pump_trays, box.pack.collet_plate
@@ -6067,7 +6119,7 @@ def build_pump_cap(box, halves_cache=None):
     With the cartridge withdrawn from the enclosure, it lowers over both motor cans after the
     pumps stand in the cradle. Each opening takes its boss on the complete case-profile octagon
     and closes with one shoulder round the can; the bottom field presses both stamped brackets
-    onto the cradle lands. The whole field reaches the cradle's top plane, and one joined recess
+    onto the cradle lands. The whole field reaches its pump-carried crown, and one joined recess
     reaches both M3 heads from above. This piece carries no show face, plate stop or pull."""
     inner, plate = box.inner, box.pack.collet_plate
     solid = _pump_clamp_gross(box, halves_cache)

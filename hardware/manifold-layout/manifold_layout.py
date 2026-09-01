@@ -65,11 +65,13 @@ draw collets are mouths of this study and leave on their own axes. Everything el
 collet butted to collet.
 
 `BUTT` is the tube left OUTSIDE a pair of butted quick-connects, and it is 0 — there is still
-tube in both collets, there is none between them. `BARB_STANDOFF` is the exposed run where a
-tee meets a pump barb: `pump_cartridge_proud` follows the pump out to its load-bearing wall and
-`BARB_PLATE_BERTH` carries the collet plate that releases it. A barb is not a quick-connect;
-the four runs off the barbs are what the pump cartridge releases against. The deck's height
-rides on the complete run one for one, and so does what the two source runs have left to step in.
+tube in both collets, there is none between them. `BARB_STANDOFF` is the fore/aft projection
+where a tee meets a pump barb: `pump_cartridge_proud` follows the pump out to its load-bearing
+wall and `BARB_PLATE_BERTH` carries the collet plate that releases it. The pump barb stands
+`pump_station_drop` below the fixed tee end, so `BARB_TUBE_LEN` is the shallow straight's true
+centreline length. A barb is not a quick-connect; the four runs off the barbs are what the pump
+cartridge releases against. The deck's height rides on the complete fore/aft projection one for
+one, and so does what the two source runs have left to step in.
 
 The envelope, the deck, the two tube lengths, the mirror check and the clash check are in
 `README.md`, written back by this file, and printed by every run.
@@ -163,9 +165,14 @@ MOTOR_L = kp.motor_end_z - kp.octagon_top_z  # the can, boss's rear face to the 
 BUTT = 0.0            # tube left outside a pair of butted quick-connects
 BARB_PLATE_BERTH = 5.7  # steel, its two airs and the millimetre off the barbs' own plane
 PUMP_BARB_Z = HEAD_W - _enc_if.pump_cartridge_proud
-# The complete exposed run between a pump barb and its anchor tee's branch collet. Its fore
-# portion follows the proud pump; its aft portion is the steel plate's working berth. The deck
-# stays where it is because the longer tube exactly returns what the pump station moves forward.
+# World Z is this study's Y after `enclosure_assembly.pose_manifold` stands the pack. The
+# Kamoers and the pump ends of the four short barb tubes stand below the anchor tees' fixed
+# y=0 fold plane, so those flexible runs take the resulting shallow rise.
+PUMP_Y = -_enc_if.pump_station_drop
+# The exposed run's fore/aft projection between a pump barb and its anchor tee's branch collet.
+# Its fore portion follows the proud pump; its aft portion is the steel plate's working berth.
+# The deck stays where it is because the projection exactly returns what the pump station moves
+# forward.
 BARB_STANDOFF = BARB_PLATE_BERTH + _enc_if.pump_cartridge_proud
 CROSSBAR = 0.0        # exposed tube between Y-A's and Y-B's branches. At 0 the two fittings
                       # meet face to face across the mirror plane and no tube is drawn.
@@ -183,6 +190,7 @@ PUMP_DX = INNER_X + LIMB_PITCH / 2.0         # each pump's centre off the mirror
 OUTER_X = PUMP_DX + LIMB_PITCH / 2.0         # the outer limbs'
 LIMB_STEP = (BARB_PITCH - LIMB_PITCH) / 2.0  # how far a tee steps toward its pump's own axis,
                                              # off the barb's column, when the pitch is closed
+BARB_TUBE_LEN = math.sqrt(BARB_STANDOFF ** 2 + PUMP_Y ** 2 + LIMB_STEP ** 2)
 # One straight tube leaning `LIMB_STEP` across as it climbs enters both its mouths at
 # `atan(LIMB_STEP / climb)`, so the climb the skew allows is the floor under the lead.
 BARB_LEAD_FLOOR = LIMB_STEP / math.tan(math.radians(FLAVOR_SKEW))
@@ -306,10 +314,11 @@ BARB_OF = {"Y-C": (-PUMP_DX, +1), "Y-D": (-PUMP_DX, -1),
 
 
 def barb_station(tee: str) -> tuple:
-    """A pump barb's collet plane, in world. It stands on the head's crown at the limb's own
-    y, offset `BARB_PITCH/2` either side of the pump's centre."""
+    """A pump barb's tube plane, in world. It stands on the head's crown, lowered from the
+    stationary anchor tee by `pump_station_drop`, and offset `BARB_PITCH/2` either side of the
+    pump's centre."""
     px, side = BARB_OF[tee]
-    return (px + side * BARB_PITCH / 2.0, 0.0, PUMP_BARB_Z)
+    return (px + side * BARB_PITCH / 2.0, PUMP_Y, PUMP_BARB_Z)
 
 
 def body_name(chain: str) -> str:
@@ -835,14 +844,14 @@ def kamoer_bodies():
 
 def build_pump(px: float):
     """Head, rear boss and motor as three solids, seated on the pump's own BARBS: both stand
-    on `barb_station`'s plane, which is the plane the limbs' anchor tees butt.
+    on `barb_station`'s lowered plane while the limbs' anchor tees keep the fold plane.
 
     All three are `kamoer_kphm400`'s solids, turned out of that module's case frame into this
     study's. There the pump's depth runs along +Z with the barbs on the head's +Y face; here
     the depth runs aft along +Y and the barbs stand on the head's crown. The quarter about X
     lays the depth axis down and the half about Y rolls the barb face up off it — which also
     swaps the two barbs across the head, and a peristaltic head has no fixed sense to swap."""
-    y0 = -BARB_INSET
+    y0 = -BARB_INSET + PUMP_Y
     parts = []
     for solid in kamoer_bodies():
         for axis, deg in PUMP_TURNS:
@@ -1297,8 +1306,10 @@ def main():
             "STEP_FLOOR": f"{two_arc_floor(MIN_BEND, SOURCE_JOG):.2f}",
             "HAIRPIN_COUNT": str(hairpins_drawn()),
             "BARB_STANDOFF": f"{BARB_STANDOFF:g}",
+            "BARB_TUBE_LEN": f"{BARB_TUBE_LEN:.2f}",
             "BARB_PLATE_BERTH": f"{BARB_PLATE_BERTH:g}",
             "PUMP_PROUD": f"{_enc_if.pump_cartridge_proud:g}",
+            "PUMP_DROP": f"{_enc_if.pump_station_drop:g}",
             "STEP_SPREAD": f"{SOURCE_SPREAD['V-A']:g}",
             "STEP_CROSS_A": f"{math.hypot(*source_cross('V-A')):.2f}",
             "STEP_ANGLE_A": f"{math.degrees(source_step('V-A')[0]):.3f}",

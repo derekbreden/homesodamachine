@@ -125,7 +125,8 @@ on the mirror line — the pair stands a valve's half-width either side of x 0 a
 gravity drain threads the gap between their coils, so a valve carried outboard widens that lane
 one for one.
 
-**Y-C, Y-D, Y-F and Y-G** sit on the four barbs, branch down, at the hinge. **Y-A and Y-B** stand on the
+**Y-C, Y-D, Y-F and Y-G** receive the four barbs through short straight runs, branch down, at
+the hinge. **Y-A and Y-B** stand on the
 inner limbs' own axes, one valve forward of the selects they feed, with their branches meeting
 face to face across the mirror plane — [0.00](CROSSBAR) mm of tube between them. **NEITHER
 RESERVOIR HAS A JUNCTION**: each carries two mouths of its own, so every one of the four gate
@@ -157,11 +158,13 @@ Add one [14](STUB_LEN) mm mouth stub on each of the [8](MOUTH_COUNT2) and it is
 Two figures in [`manifold_layout.py`](manifold_layout.py) are the study's own rather than any
 part's. `BUTT` is the tube left outside a pair of butted quick-connects, and it is 0.
 
-`BARB_STANDOFF` is the exposed tube between each pump barb and its anchor tee's branch collet,
-and it is [6.98](BARB_STANDOFF) mm. Its first [1.28](PUMP_PROUD) mm carries the pump and its
-barb plane forward with the proud cartridge; the remaining [5.7](BARB_PLATE_BERTH) mm is
-**the collet plate's berth**. Both pumps ride out of the box on their own pump cartridge and
-these four runs are what release. A laser-cut 1/8" 316 flat stands on
+`BARB_STANDOFF` is the [6.98](BARB_STANDOFF) mm fore/aft projection between each pump barb and
+its anchor tee's branch collet. Its first [1.28](PUMP_PROUD) mm carries the pump and its barb
+plane forward with the proud cartridge; the remaining [5.7](BARB_PLATE_BERTH) mm is **the
+collet plate's berth**. The pump end stands [2](PUMP_DROP) mm below the stationary tee end, so
+each straight has a [7.26](BARB_TUBE_LEN) mm centreline length and a shallow vertical rise.
+Both pumps ride out of the box on their own pump cartridge and these four runs are what
+release. A laser-cut 1/8" 316 flat stands on
 edge in the gap with one large hole per tube — wide enough to pass the Ø6.35 tube, narrow enough
 to catch the collet nose. So
 pulling the pump cartridge draws the anchor tees forward against the steel and the tubes come out of

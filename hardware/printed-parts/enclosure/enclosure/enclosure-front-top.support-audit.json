@@ -23,9 +23,9 @@
   },
   "inputs": {
     "gcode": "plate_1.gcode",
-    "gcode_sha256": "f57648de03ac75c38610c33425480b572e611d72c3b6306c504e4196cbf1393d",
+    "gcode_sha256": "93fdfcc3b9a147474c1689ff920e14f417ef2627682b0aaf30d917b2d1864bb6",
     "model": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
-    "model_sha256": "12022401b3beb9d4d46e3a0b16fca6f294b18eb71ead8cc35387867da08b5cf8",
+    "model_sha256": "e96d180ca22a4127b1bb9d815405ea5382e87c897238cb9dec8b97585ed63db1",
     "profile": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top-petgf.3mf",
     "profile_sha256": "99abeeb25ce51dfa0b2a40dec920d4cc14b5c8501eb02096cd531394b479a41e"
   },
@@ -55,21 +55,21 @@
       "bbox_cad_xyz_mm": [
         -107.8,
         4.625,
-        280.4,
-        107.4,
+        281.4,
+        107.8,
         70.225,
-        280.8
+        281.8
       ],
       "bbox_xy_mm": [
         57.2,
         55.6,
-        272.4,
+        272.8,
         121.2
       ],
-      "build_up_mm": 120.2,
-      "first_z_mm": 120.4,
+      "build_up_mm": 121.2,
+      "first_z_mm": 121.4,
       "id": "interface-2",
-      "last_z_mm": 120.8,
+      "last_z_mm": 121.8,
       "tree": "tree-1"
     },
     {
@@ -154,17 +154,17 @@
     {
       "base_z_mm": 0.2,
       "bbox_cad_xyz_mm": [
-        -131.8,
-        -21.375,
+        -133.8,
+        -21.775,
         160.2,
-        134.2,
+        133.8,
         98.625,
-        280.8
+        281.8
       ],
       "bbox_xy_mm": [
-        33.2,
-        29.6,
-        299.2,
+        31.2,
+        29.2,
+        298.8,
         149.6
       ],
       "first_interface_z_mm": 55.8,
@@ -175,7 +175,7 @@
       ],
       "root": "bed",
       "shortest_build_up_mm": 55.6,
-      "top_z_mm": 120.8
+      "top_z_mm": 121.8
     },
     {
       "base_z_mm": 0.2,
