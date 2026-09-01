@@ -118,6 +118,9 @@ drawer_cell_depth = (
 ) / drawer_rows
 drawer_cell_pitch_x = drawer_cell_width + drawer_divider
 drawer_cell_pitch_y = drawer_cell_depth + drawer_divider
+drawer_egress_width = 2.0 * tower_inner_half_x
+drawer_egress_depth = 6.5
+drawer_egress_height = 5.0
 
 
 # ============================================================
@@ -207,7 +210,7 @@ parts_cup_y = 49.0
 parts_cup_width = 27.0
 parts_cup_depth = 23.0
 parts_cup_top_z = 28.0
-parts_cup_floor_z = 15.0
+parts_cup_floor_z = grid_bin_top_ref_z
 parts_cup_divider = 2.4
 parts_cup_inner_margin = 2.5
 parts_cup_inner_depth = parts_cup_depth - 2.0 * parts_cup_inner_margin
@@ -361,7 +364,29 @@ def build_tower_base():
         .extrude(tower_wall / 2.0 + 1.0, both=True)
         .translate((0.0, -tower_pin_x, 0.0))
     )
-    return carcass.cut(side_windows).cut(back_window).clean()
+    drawer_egress = (
+        cq.Workplane("XY")
+        .box(
+            drawer_egress_width,
+            drawer_egress_depth,
+            drawer_egress_height,
+            centered=(True, True, False),
+        )
+        .translate(
+            (
+                0.0,
+                grid_bin_outer_y / 2.0 - drawer_egress_depth / 2.0 + 0.5,
+                grid_bin_top_ref_z,
+            )
+        )
+    )
+    return (
+        carcass
+        .cut(side_windows)
+        .cut(back_window)
+        .cut(drawer_egress)
+        .clean()
+    )
 
 
 def build_gridfinity_shelf():
@@ -451,12 +476,13 @@ def build_spool_shelf():
     shelf = outer.cut(inner)
 
     front_inner_y = spool_shelf_depth / 2.0 - spool_shelf_frame
+    support_arm_inner_y = spool_support_y - spool_support_half_span
     for x_sign in (-1.0, 1.0):
         support_x = x_sign * spool_support_x
         for y_sign in (-1.0, 1.0):
             support_y = y_sign * spool_support_y
-            arm_center_y = y_sign * (front_inner_y + spool_support_y) / 2.0
-            arm_depth = front_inner_y - spool_support_y
+            arm_center_y = y_sign * (front_inner_y + support_arm_inner_y) / 2.0
+            arm_depth = front_inner_y - support_arm_inner_y
             arm = _translated_rounded_prism(
                 spool_support_pad_width,
                 arm_depth,
@@ -901,6 +927,17 @@ def validate(parts, references):
         if overlap > 0.02:
             raise ValueError(f"{name}: {overlap:.3f} mm^3 intersects tool rack")
         print(f"   {name}: {overlap:.4f} mm^3 rack overlap")
+
+    drawer_path_overlaps = []
+    for y in (0.0, 24.0, 48.0, drawer_presentation_y, 96.0):
+        placed = parts["consumables-drawer"].translate((0.0, y, drawer_z))
+        drawer_path_overlaps.append(_intersection_volume(parts["tower-base"], placed))
+    drawer_path_overlap = max(drawer_path_overlaps)
+    if drawer_path_overlap > 0.05:
+        raise ValueError(
+            f"drawer travel: {drawer_path_overlap:.3f} mm^3 intersects tower"
+        )
+    print(f"   drawer travel: {drawer_path_overlap:.4f} mm^3 maximum overlap")
 
     shelf_overlap = _intersection_volume(
         parts["spool-shelf"], references["spool"]["fit"]
