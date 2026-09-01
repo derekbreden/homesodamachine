@@ -1231,9 +1231,8 @@ back_top_ceiling_growth = back_top_ceiling_t - wall
 # IS A FACT ABOUT THE STRIP, not a note beside it, and `ceiling_corbel_at` measures the same figure
 # the solid is cut on. Stated as (station, sx, y0, y1, keep, out): whose relief it is, which flank
 # it stands on, the band it takes, and THE RUN BAND IT GIVES UP — everything from `keep` out to
-# `out`. Inboard of `keep` and outboard of `out` the strip keeps its corbel; between them it is
-# the top wall's own section alone and takes print support unless a stated Y gable closes that
-# short band from its two intact ends.
+# `out`. Inboard of `keep` and outboard of `out` the strip keeps its corbel; between them the
+# corbel is absent and only the top wall's own section remains.
 #
 # A RELIEF IS A BAND AND NOT A CUT-OFF because a body is a band. Where a fitting stands hard
 # against the panel's edge the two are the same thing — `out` is the strip's whole run and what is
@@ -1242,19 +1241,14 @@ back_top_ceiling_growth = back_top_ceiling_t - wall
 # throws away the one part of the corbel that is rooted on the flank and self-supporting, and
 # leaves the whole strip's width hanging. So a row gives up what its body occupies and no more.
 #
-# THE TWO ELECTRONICS ROWS ARE MEASURED AGAINST THE PLACED SOLIDS AND NOT AGAINST THEIR BOXES, and the
-# difference is most of what they say. A bounding box on this pack stands well inside its own
-# metal, and a strip read off boxes is a strip with no corbel left in it. What the exact solids
-# reach — the y band the metal is actually in, how far inboard it comes, and the clearance the
-# kept run then stands off it — against the box each row would have been read off:
+# THE RELAY ROW FOLLOWS THE METAL IN ITS PLACED SOLID: its box reaches well past the crown that
+# actually enters this corbel. THE GROUND STACK TAKES ITS COMPLETE PLACED PLAN PLUS CLEARANCE.
+# Its short footprint leaves no useful corbel between those plan edges, so one cut removes the
+# whole occupied band instead of composing a second roof over it:
 #
 #   relay-1        y 252.50..322.50, in to |x| 86.50, gives up 3..19    (box y 252.5..322.5)
-#   ground-stack   y 327.68..340.32, in to |x| 86.45, gives up 5..19    (box y 325..343, x 84.45)
-#
-# THE GROUND ROW CLOSES AGAIN FROM ITS TWO Y ENDS. The ring stack is short enough in Y for the
-# intact wall corbel immediately fore and aft of it to carry a pair of 45 degree roof planes to
-# a ridge over the stack's centre. The X relief still gives the purchased body its exact room,
-# but there is no horizontal roof left over that room and therefore no support body on its crown.
+#   ground-stack   box y 325..343, x 84.45, gives up its whole plan plus 1 mm: y 324..344,
+#                  run 3..19, continuous with the neighboring relay's cut
 #
 # THE C14 KEEPS THE COMPLETE +X WEDGE. `c14_station_x` is struck for this: at that column the
 # purchased moulded rim stands one assembly clearance clear of the exact 45° ceiling corbel, with
@@ -1289,9 +1283,10 @@ back_top_ceiling_reliefs = (
     # `mount_boss_dia` cylinders centred y 254.5 and 320.5, so their end faces lie ON y 251 and
     # 324 — and a relief ending there would put the cut's own face on a boss's, which is four
     # faces on one edge and a mesh a slicer refuses. A millimetre past each is a plain face. The
-    # stack's own single boss is centred y 334.0, so its end faces lie on y 330.5 and 337.5.
-    ("relay-1",        +1.0, 250.0, 325.0, 3.0, _RAIL),   # the relay's crown, mid-strip
-    ("ground-stack",   +1.0, 327.0, 341.5, 5.0, _RAIL),   # the +X ground bar's stack, aft of it
+    # stack's complete placed plan plus one millimetre takes one simple uninterrupted cut, like
+    # the relay beside it.
+    ("relay-1",        +1.0, 250.0, 325.0, 3.0, _RAIL),  # the relay's crown, mid-strip
+    ("ground-stack",   +1.0, 324.0, 344.0, 3.0, _RAIL),  # the +X ground stack's complete plan
     # The tap-water chain's four. The barrel and the body give up what they stand in; the two tie
     # bands give up the whole run, so the zip tie's cavity opens on air out to the wall.
     ("asse1022-barrel",   -1.0, 354.0, 394.0, 0.0, 16.0),
@@ -1299,13 +1294,6 @@ back_top_ceiling_reliefs = (
     ("asse1022-tie-fore", -1.0, 358.0, 364.5, 0.0, _RAIL),
     ("asse1022-tie-aft",  -1.0, 384.0, 390.5, 0.0, _RAIL),
 )
-
-# Relief bands whose flat ceiling is filled back with two 45 degree planes rooted in the intact
-# X corbel at their Y ends. The value is the ridge Y. A body belongs here only when its exact
-# placed solid clears that roof; `ground-ceiling-gable` reads this one back against the purchased
-# stack and against the finished back-top piece.
-back_top_ceiling_gables = {"ground-stack": 334.0}
-
 
 @functools.lru_cache(maxsize=1)
 def _ceiling():
@@ -5137,44 +5125,13 @@ def _back_top_ceiling_grown_for_pack(inner, y_joint, sx, growth_reliefs):
     return corbel
 
 
-def _back_top_ceiling_relief_gables(inner, who):
-    """The two 45 degree roof prisms which close one named ceiling relief in Y.
-
-    The relief still removes the X-wall corbel where the purchased body stands. This solid fills
-    the resulting flat roof from both untouched Y ends to a zero-area ridge, so its first layers
-    root in the wall corbel and every following layer advances at 45 degrees. Keeping this as a
-    production helper lets the assembly gate compare the exact same solid to the exact body.
-    """
-    try:
-        ridge = back_top_ceiling_gables[who]
-        _name, sx, y0, y1, keep, out = next(
-            row for row in back_top_ceiling_reliefs if row[0] == who)
-    except (KeyError, StopIteration) as exc:
-        raise ValueError(f"{who!r} has no stated back-top ceiling relief gable") from exc
-    cp = _ceiling()
-    iz1 = inner[5]
-    wall_x = back_top_flank_face()[1 if sx > 0.0 else 0]
-    # A six-millimetre tongue moves the dado's blind wall through the old gable's inboard edge.
-    # The printable roof begins on the fixed side of that groove: leaving the nominal gable in
-    # the moving lane would only let the later dado cutter silently remove it.
-    xa = sx * max(cp.panel_half_w + keep, cp.dado_blind_x)
-    xb = sx * min(cp.panel_half_w + out, abs(wall_x))
-    x0, x1 = min(xa, xb), max(xa, xb)
-    return (
-        _yz_prism(x0, x1, [
-            (y0, iz1 - (ridge - y0)), (ridge, iz1), (y0, iz1)]),
-        _yz_prism(x0, x1, [
-            (ridge, iz1), (y1, iz1 - (y1 - ridge)), (y1, iz1)]),
-    )
-
-
 def _back_top_ceiling_for_pack(inner, y_joint, sx, box, *, grown=True):
     """One finished fixed-strip corbel, with growth and every named relief applied.
 
     This is the production solid before unrelated back-top furniture cuts it. Keeping the
     complete ceiling operation in one helper gives the assembly gates the same exact B-rep the
     piece receives: the established wedge, its added three-millimetre shell, local growth-only
-    body pockets, the older run-band reliefs and their printable Y gables.
+    body pockets and the complete run-band reliefs.
     """
     cp = _ceiling()
     wall_x = back_top_flank_face()[1 if sx > 0.0 else 0]
@@ -5199,9 +5156,6 @@ def _back_top_ceiling_for_pack(inner, y_joint, sx, box, *, grown=True):
         corbel = corbel.cut(_ybox(
             min(kept, outb), max(kept, outb), y0, y1,
             cp.fixed_under_z - deep - 1.0, inner[5] + 1.0))
-        if who in back_top_ceiling_gables:
-            for roof in _back_top_ceiling_relief_gables(inner, who):
-                corbel = corbel.fuse(roof)
     return corbel
 
 
