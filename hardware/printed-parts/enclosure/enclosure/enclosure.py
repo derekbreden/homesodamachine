@@ -701,6 +701,12 @@ def cond_slot_half(sheet: float) -> float:
     return max(cond_slot_press, (cond_slot_open - sheet) / 2.0)
 
 
+def cond_slot_mouth(face: float) -> float:
+    """The world Y a station's groove opens at — one millimetre past the swallowed grip, so
+    the flange enters from the bay and the groove never dead-ends on its own flange span."""
+    return face + cond_slot_grip + 1.0
+
+
 # --- the condenser's two vents ----------------------------------------------
 #
 # THE VENT IS THE FLUTES, PIERCED. The block's fan draws through one flank and blows out the
@@ -2115,11 +2121,38 @@ _wall_block = {}
 column_relief_slip = 1.0
 
 
-def _column_relief(inner, sx, sy, room, zj):
+def _cradle_relief(room, station):
+    """One corner pocket a cradle rail crosses, floored on the rail's own groove.
+
+    THE GROOVE OWNS THE FLOOR TO ITS MOUTH. Fore of the mouth this holds the station's exact
+    grip datum — a box cut to the pocket's insertion floor there hangs the groove floor as a
+    shelf over 0.7 mm of pocket air at every plane the two cutters cross. From the mouth the
+    floor falls 1:1 to the insertion floor and runs out on it: one floor from seated stop to
+    aft reach, and the groove's fit figures never retyped."""
+    x0, x1, y0, y1, z0, z1 = room
+    face, _cx0, _cx1, fz0, fz1, _root = station
+    grip = fz0 - cond_slot_half(fz1 - fz0)
+    mouth = cond_slot_mouth(face)
+    return _yz_prism(x0, x1, [(y0, grip), (mouth, grip), (mouth + (grip - z0), z0),
+                              (y1, z0), (y1, z1), (y0, z1)])
+
+
+def _column_relief(inner, sx, sy, room, zj, cradle=()):
     """One column's pocket for the body standing in it. Clipped to the PILLAR — the column and
     the lip's skin wrapping it (`_column_pillar`) — so what a pocket can ever take is that and
-    never the wall behind it or the boss beside it."""
-    return _ybox(*room).intersect(_column_pillar(inner, sx, sy, zj))
+    never the wall behind it or the boss beside it.
+
+    A pocket a cradle rail crosses is floored by that rail's groove to the groove's mouth and
+    by its own insertion floor aft of it (`_cradle_relief`): the room was measured round the
+    flange the groove takes, so the station whose face is the room's own fore plane, whose
+    flange stands inside the room's height, and whose rail crosses the room's width is the one
+    that owns the fore floor. Every other pocket is its box."""
+    x0, x1, y0, y1, z0, z1 = room
+    crossed = [s for s in cradle
+               if abs(s[0] - y0) < 1e-6 and z0 < s[3] and s[4] < z1
+               and s[1] < x1 and x0 < s[2]]
+    body = _cradle_relief(room, crossed[0]) if crossed else _ybox(*room)
+    return body.intersect(_column_pillar(inner, sx, sy, zj))
 
 
 def _column_relief_rise(inner, sx, sy, room, zj):
@@ -6725,7 +6758,7 @@ def _cond_cradle(solid, inner, stations, y0, y1, z0, z1):
         # The groove runs out past the rail's own aft end, so the flange enters from the bay. Its
         # floor remains flat; its roof rises one-for-one from the seated wall stop into that open
         # end, preserving the exact fit at `face` and removing the short material-rooted bridge.
-        mouth = face + cond_slot_grip + 1.0
+        mouth = cond_slot_mouth(face)
         run = mouth - face
         solid = solid.cut(_yz_prism(
             cx0 - 1.0, cx1 + 1.0,
@@ -8366,7 +8399,8 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     # that air (`_column_relief_rise`).
     for sx, sy, _name, room in box.column_reliefs:
         piece = piece.cut(_column_relief(
-            inner, sx, sy, room, box.splits[0] if sy < 0 else box.splits[1]))
+            inner, sx, sy, room, box.splits[0] if sy < 0 else box.splits[1],
+            box.pack.cond_cradle))
         piece = piece.cut(_column_relief_rise(
             inner, sx, sy, room, box.splits[0] if sy < 0 else box.splits[1]))
     # And the condenser's two vents, which are the last cut this piece takes for the same reason
