@@ -22,6 +22,7 @@ import {
   pickFileToViewerPath,
   surfaceText,
   CONTENT_ROOT,
+  fileLine,
 } from "../public/js/viewer/pick-format.js";
 
 const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
@@ -348,7 +349,8 @@ test("the content root round-trips a copy blob", () => {
 
 // WHAT THE PICTURE CAME OFF. The route says `step:` and the crumb says `.step`, and for the
 // fluted pieces the payload beside the solid is what was drawn. The chrome says which, and
-// why, in the hover text `surfaceText` composes — a pick carries no such line.
+// why, in the hover text `surfaceText` composes; a pick states it in the file line itself,
+// which is `fileLine` below.
 test("surfaceText names the payload when the payload is what was drawn", () => {
   const drawn = surfaceText("manifold-layout/enclosure-assembly.step", "mesh");
   assert.match(drawn, /^enclosure-assembly\.step\.mesh — /);
@@ -368,3 +370,47 @@ test("surfaceText reads an unknown surface as the STEP rather than claiming a pa
   }
 });
 
+// --- fileLine: the pick names the bytes that were drawn ---
+//
+// THE FIXTURE IS THE ROUND THAT COST TWO EXCHANGES. Derek picked features on back-top's +X
+// flank; the viewer was drawing `enclosure-back-top.step.mesh` and the pick said
+// `enclosure-back-top.step`. The coordinate he was handed, x=98.300, is in neither the solid
+// nor the print — it exists only in the decimated payload. Every reader that opened the file
+// the pick named opened a file that did not contain what he clicked.
+
+const DRAWN = {
+  surface: "mesh",
+  src: "6c1cb0a58cc4deadbeef",
+  cut: { dev: 0.2210, bound: 0.2257 },
+};
+const PIECE = "printed-parts/enclosure/enclosure/enclosure-back-top.step";
+
+test("fileLine names the payload, its reduction and its descent", () => {
+  const line = fileLine(PIECE, DRAWN);
+  assert.equal(
+    line,
+    `${CONTENT_ROOT}/${PIECE}.mesh · decimated 0.221 of 0.226 mm · src 6c1cb0a5`,
+  );
+});
+
+test("fileLine names the STEP plainly when the STEP is what was drawn", () => {
+  const line = fileLine("reference/compressor/compressor.step", { surface: "step" });
+  assert.equal(line, `${CONTENT_ROOT}/reference/compressor/compressor.step`);
+  // No mount yet, or a surface nobody chose: the STEP is the honest claim.
+  assert.equal(fileLine(PIECE, null), `${CONTENT_ROOT}/${PIECE}`);
+});
+
+test("fileLine says the reduction is unstated rather than implying none", () => {
+  // Payloads cut before the header carried `cut` decode and draw exactly as before; what a
+  // reader must not conclude from their silence is that nothing was collapsed.
+  const line = fileLine(PIECE, { surface: "mesh", src: "abc12345ef" });
+  assert.match(line, /\.step\.mesh · decimation unstated · src abc12345$/);
+  assert.equal(fileLine(PIECE, { surface: "mesh" }), `${CONTENT_ROOT}/${PIECE}.mesh · decimation unstated`);
+});
+
+test("a fileLine round-trips back to the model the viewer mounts", () => {
+  // The payload is what the pick came off; the STEP is how the page is asked for it.
+  const { files } = parsePicks(`file: ${fileLine(PIECE, DRAWN)}`);
+  assert.deepEqual(files, [`${CONTENT_ROOT}/${PIECE}.mesh`]);
+  assert.equal(pickFileToViewerPath(files[0]), PIECE);
+});

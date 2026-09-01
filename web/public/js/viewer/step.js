@@ -77,7 +77,12 @@ export function decodeMeshPayload(bytes) {
       brep_faces,
     };
   });
-  return { meshes };
+  // THE HEADER'S PROVENANCE COMES OUT WITH THE TRIANGLES. `src` is the digest of the STEP
+  // this surface was cut from and `cut` is what the reduction measured against its budget;
+  // the edge picker states both on a pick, because a coordinate off this surface is a
+  // coordinate off a surface, and which one it was is half of what it means. Either may be
+  // absent — a payload that stated neither is still a payload.
+  return { meshes, src: head.src, cut: head.cut };
 }
 
 // occt-import-js copies a product's name onto its mesh only when the product is a
@@ -360,7 +365,11 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
     clearHighlight(); // and a stale scorecard part-highlight does too
     clearComponentPicker();      // drop a stale component selection/hover overlay
     scene.add(state.currentGroup);
-    state.mountedDetail = { type: "step", file, surface };
+    state.mountedDetail = {
+      type: "step", file, surface,
+      src: (result && result.src) || null,
+      cut: (result && result.cut) || null,
+    };
     nameSurface(file, surface);
     loadHiddenForFile(file);     // restore this file's locally-hidden components…
     applyHiddenComponents();     // …and take them out of the freshly-built view
