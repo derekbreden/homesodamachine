@@ -722,9 +722,10 @@ supported faces in this region, and the pan itself remains whole and watertight.
 
 The **ASSE anchor** one storey above it carries its full underside on a 45° corbel rooted on
 the −X wall and tapering to the deepest section's V foot. Its two 60° seat flanks stand 30°
-off vertical and lay on themselves. Behind the anchor are the two zip ties' channels, one per
-tie band and `tie_cav_wide_w` long; each channel continues through the corbel and opens at its
-own end.
+off vertical and lay on themselves. Behind the anchor, one channel spans both zip-tie bands:
+its fore and aft end faces remain `tie_cav_wide_w` wide about their tie centres, and the volume
+between them is open. The horizontal passage therefore produces one continuous, reachable
+support body with a full-span extraction path.
 
 The **bay floor** is the one feature that costs nothing and pays: it IS front-top's
 first layers. Its underside is the seam mouth, the plane the piece beds on, so there is
@@ -818,17 +819,17 @@ inlet collet butts the tap-water union's, and that joint takes the length up.
 Two **zip ties** shut the anchor's mouth, one in each band the vent leaves clear on
 the barrel — the brass, which is the only section a tie may close on.
 
-Each runs in **its own channel through the anchor's back** (`asse_tie_*`), closed on
-every side but its two mouths and `tie_cav_wide_w` long — centred on the tie band it
-serves, so the block's back stands solid fore and aft of each and between the pair,
-and the ceiling over that run keeps whatever corbel the strip has. It is **straight
-on the west and the anchor's own V on the east**, so it is narrowest at the axis and
-flares to both mouths: each mouth opens `asse_tie_back / sin 60°` off its lip's own
-arris, on the block's face where a hand reaches it, and at the axis the flare leaves
-a zip tie pushed through the room to turn the vertex by cutting its corner. It stands
-one `wall` west of the apex at every station, struck on the deepest section's apex so
-the web is no thinner than that anywhere, and one `wall` off the side wall behind it —
-so its width is a remainder between the two rather than a number.
+Both run through **one shared channel in the anchor's back** (`_asse_tie_cavity`), closed on
+every side but its two mouths. Its fore and aft ends are `tie_cav_wide_w` bands centred on
+their respective ties. The same XZ profile cuts continuously across the volume between them.
+It is **straight on the west and the anchor's own V on the east**, so
+it is narrowest at the axis and flares to both mouths: each mouth opens
+`asse_tie_back / sin 60°` off its lip's own arris, on the block's face where a hand reaches
+it, and at the axis the flare leaves a zip tie pushed through the room to turn the vertex by
+cutting its corner. It stands one `wall` west of the apex at every station, struck on the
+deepest section's apex so the web is no thinner than that anywhere, and one `wall` off the
+side wall behind it — so its width is a remainder between the two rather than a number. The
+continuous horizontal passage gives the slicer one support body with a full-width removal path.
 
 A tie is a closed loop, so its zip tie also has to cross the chain's top flat, come west
 in that lane and drop into its channel — and **the top wall is never cut for it.** The storey the chain lies on is struck to leave
@@ -1399,20 +1400,19 @@ plus 1 mm, clipped to the fixed strip, while leaving
 the older wedge and its existing run-band treatment intact. At the C14 this
 leaves exactly 1 mm of air and the relay retains 2 mm.
 
-**The tap-water chain takes four rows**, because what it occupies is four different
+**The tap-water chain takes three rows**, because what it occupies is three different
 things. Against the full wedge, the metal inside the corbel is run 1.50…14.09 over
 y 354…394 — the Multiplex barrel, its crown one `DECK_CEILING_CLEAR` under the
 ceiling — and run 4.67…5.42 over y 394…424, three quarters of a millimetre of run
 in a strip 19 wide. **1,275 mm³ of a 12,816 mm³ established corbel, and none of it outboard of
 run 14.09.** So the outboard run goes back, and those two rows give up 0…16 and 0…7.
 
-What still gives up the whole run is **the two tie bands**. Each zip tie is a closed
-loop that comes west over the chain's top flat in the `DECK_CEILING_CLEAR` lane and
-drops into the cavity through the anchor's back — and that cavity's top mouth is out
-at the wall (`_asse_tie_cavity`), so a corbel standing on the outboard run would roof
-the one opening the zip tie has. `_asse_cradle` reads those two rows back against the
-ties it was handed, so a band that moves off its zip tie says so instead of closing
-over it.
+What still gives up the whole run is **the shared tie channel**. Each zip tie is a closed
+loop that comes west over the chain's top flat in the `DECK_CEILING_CLEAR` lane and drops
+into the cavity through the anchor's back. That cavity's top mouth is out at the wall
+(`_asse_tie_cavity`), so a corbel standing on the outboard run would roof the opening. One
+relief spans both tie bands and the volume between them, leaving the channel and its support
+removal path open continuously.
 
 **The dado** is cut in each strip's inboard face on the section the panel states
 (`ceiling_panel.dado`), and it runs from the open Y− mouth aft: the panel is slid

@@ -1255,8 +1255,8 @@ back_top_ceiling_growth = back_top_ceiling_t - wall
 # its Z on the top port row. Its tunnel, screws and wall relief all read that one station, so no
 # ceiling-relief row is needed and no short roof is left over the printed collar below.
 #
-# THE TAP-WATER CHAIN IS THE ONE THAT STANDS IN THE MIDDLE, and it takes four rows because what
-# it occupies is four different things. Read off the placed chain against the full wedge, the
+# THE TAP-WATER CHAIN IS THE ONE THAT STANDS IN THE MIDDLE, and it takes three rows because what
+# it occupies is three different things. Read off the placed chain against the full wedge, the
 # metal inside the corbel is:
 #
 #   y 354..394     run  1.50..14.09      the Multiplex barrel, its crown one
@@ -1269,11 +1269,11 @@ back_top_ceiling_growth = back_top_ceiling_t - wall
 # given back: it is the half of the wedge that roots on the flank and carries itself, and taking
 # it left the strip's whole width hanging over the rear storey for 71 mm of depth.
 #
-# WHAT STILL TAKES THE WHOLE RUN IS THE TWO TIE BANDS. Each zip tie is a closed loop that comes west
-# over the chain's top flat in the `DECK_CEILING_CLEAR` lane and drops into the cavity through the
-# anchor's back — and that cavity's top mouth is out at the wall (`_asse_tie_cavity`), so a corbel
-# standing over the outboard run would roof the one opening the zip tie has. `_asse_cradle` reads
-# these two rows back against the ties it was handed, so a band that moves off its zip tie says so.
+# WHAT STILL TAKES THE WHOLE RUN IS THE SHARED TIE CHANNEL. Each zip tie is a closed loop that comes
+# west over the chain's top flat in the `DECK_CEILING_CLEAR` lane and drops into the cavity through
+# the anchor's back — and that cavity's top mouth is out at the wall (`_asse_tie_cavity`), so a
+# corbel standing over the outboard run would roof the opening. The one relief spans both tie bands
+# and the room between them, matching the one support-removable channel through the anchor.
 # The run the side strip actually has: the nominal flank face to the panel's own edge. A thicker
 # flank spends its added section outboard and shortens only the exposed corbel; the panel and the
 # appliance silhouette do not move.
@@ -1287,12 +1287,11 @@ back_top_ceiling_reliefs = (
     # the relay beside it.
     ("relay-1",        +1.0, 250.0, 325.0, 3.0, _RAIL),  # the relay's crown, mid-strip
     ("ground-stack",   +1.0, 324.0, 344.0, 3.0, _RAIL),  # the +X ground stack's complete plan
-    # The tap-water chain's four. The barrel and the body give up what they stand in; the two tie
-    # bands give up the whole run, so the zip tie's cavity opens on air out to the wall.
+    # The tap-water chain's three. The barrel and the body give up what they stand in; the shared
+    # tie channel gives up the whole run, so its cavity opens on air out to the wall.
     ("asse1022-barrel",   -1.0, 354.0, 394.0, 0.0, 16.0),
     ("asse1022-body",     -1.0, 394.0, 424.5, 0.0,  7.0),
-    ("asse1022-tie-fore", -1.0, 358.0, 364.5, 0.0, _RAIL),
-    ("asse1022-tie-aft",  -1.0, 384.0, 390.5, 0.0, _RAIL),
+    ("asse1022-tie-channel", -1.0, 358.0, 390.5, 0.0, _RAIL),
 )
 
 @functools.lru_cache(maxsize=1)
@@ -4993,10 +4992,11 @@ def _back_top_flank_relief_cut(box):
     floor and ends are supported faces, while its roof rises 45 degrees from the six-millimetre
     floor to the nine-millimetre nominal face instead of bridging the pocket's depth.
 
-    The ASSE anchor's two zip-tie cavities open upward into the service air under the ceiling.
-    Their bands come from the placed cradle, so the added flank stock gives up exactly those two
-    mouths from the cavity's own west edge to the nominal face. They run to the ceiling and need
-    no roof: the ceiling-strip corbel gives up the same bands in `back_top_ceiling_reliefs`."""
+    The ASSE anchor's shared zip-tie cavity opens upward into the service air under the ceiling.
+    Its span comes from the placed cradle's two tie bands, so the added flank stock gives up the
+    one continuous mouth from the cavity's own west edge to the nominal face. It runs to the
+    ceiling and needs no roof: the ceiling-strip corbel gives up the same span in
+    `back_top_ceiling_reliefs`."""
     faces, floors = back_top_flank_face(), lip_face_x()
     out = None
     for _who, side, y0, y1, z0, z1 in back_top_flank_reliefs:
@@ -5011,11 +5011,10 @@ def _back_top_flank_relief_cut(box):
         z_axis, _sections, ties, _dn = box.pack.asse_cradle
         face, floor = faces[0], floors[0]
         mouth_z = z_axis + asse_cradle_up + 1.0
-        for ty in ties:
-            cut = _ybox(min(face, floor), max(face, floor),
-                        ty - tie_cav_wide_w / 2.0, ty + tie_cav_wide_w / 2.0,
-                        mouth_z, box.inner[5] + 1.0)
-            out = cut if out is None else out.fuse(cut)
+        tie_y0, tie_y1 = _asse_tie_channel_span(ties)
+        cut = _ybox(min(face, floor), max(face, floor), tie_y0, tie_y1,
+                    mouth_z, box.inner[5] + 1.0)
+        out = cut if out is None else out.fuse(cut)
     return out
 
 
@@ -7048,18 +7047,18 @@ def _core_holds(solid, inner, stations, y0, y1, z0, z1, face=None):
 asse_cradle_up = 9.0
 asse_v_half = 60.0          # half the V's included angle, off the axis plane
 asse_cradle_lip = 4.0       # block carried past the flanks, so the V cut is never clipped
-# THE ZIP TIE'S CAVITY THROUGH THE ANCHOR'S BACK, closed on every side but its two mouths.
+# THE ZIP TIES' SHARED CAVITY THROUGH THE ANCHOR'S BACK, closed on every side but its two mouths.
 #
 # STRAIGHT ON THE WEST, THE ANCHOR'S OWN V ON THE EAST. The V's apex stands closest to that
 # straight, so the cavity is narrowest at the axis and flares to both mouths: each mouth opens
 # `wall / sin 60°` off its lip's own arris, on the block's face, and at the axis the flare
 # leaves a zip tie pushed through the room to turn the vertex by cutting its corner.
 #
-# ONE CHANNEL PER ZIP TIE, `tie_cav_wide_w` long and centred on its own tie band. Two zip ties go
-# through this block, so what it owes them is two holes: the back stands solid fore and aft of
-# each and between them, and the ceiling over the run keeps whatever corbel the strip has
-# (`back_top_ceiling_reliefs`). A single opening spanning the pair would give up all of that for
-# thirty millimetres of block nothing passes through.
+# ONE CHANNEL SPANS BOTH ZIP TIE BANDS. Its fore and aft ends stand half `tie_cav_wide_w` beyond
+# the corresponding tie centre, and the volume between them is open. The slicer's support under
+# this horizontal passage is therefore one continuous body a hand can reach along the full span.
+# The ceiling over the same span gives up its corbel (`back_top_ceiling_reliefs`) so the support
+# remains continuous at the top mouth.
 #
 # ITS TWO FLANKS ARE BOTH ONE `wall`. The cavity is what is LEFT between them — a `wall` off the
 # anchor on the east and a `wall` off the side wall's own inner face on the west — so its width is
@@ -7092,6 +7091,14 @@ tie_cav_wide_w = tie_wide_w + tie_cav_buffer
 # Solid either side of a cavity, ALONG the run. A cavity is a hole through a rib, and this is what
 # the rib keeps of itself at each end of that hole.
 tie_cav_wall = 3.0
+
+
+def _asse_tie_channel_span(ties):
+    """The shared channel's Y ends, half a tie-cavity width past its outer tie centres."""
+    if not ties:
+        raise ValueError("the ASSE anchor needs at least one tie band to cut its channel")
+    return (min(ties) - tie_cav_wide_w / 2.0,
+            max(ties) + tie_cav_wide_w / 2.0)
 
 
 def _asse_v(x_apex, z_axis, y0, y1, up, dn, x_east):
@@ -7134,10 +7141,10 @@ def _asse_cradle(solid, inner, station, y0, y1, z0, z1):
     through that channel, and back into the cavity. So it closes round the chain and the anchor's
     own back together, and what it pulls is the chain into the V.
 
-    ONE CHANNEL PER ZIP TIE, AND EACH IS CLOSED ON EVERY SIDE BUT ITS TWO MOUTHS. It stands west of
-    the apex with one `wall` of PETG between it and the anchor, so at no station is it anything
-    but a hole through solid material, and a zip tie in it stays where it was put. Two zip ties, two
-    holes: the block's back is solid fore and aft of each and between them.
+    ONE SHARED CHANNEL SERVES BOTH ZIP TIES AND IS CLOSED ON EVERY SIDE BUT ITS TWO MOUTHS. It
+    stands west of the apex with one `wall` of PETG between it and the anchor, so at no station is
+    it anything but a hole through solid material. Its end faces remain centred around the two tie
+    bands, and the open volume between them makes the printed support one removable piece.
 
     A 45° CORBEL CARRIES THE BLOCK'S UNDERSIDE, run the anchor's whole length and rooted on the
     wall the block is rooted on. It tapers to nothing at the DEEPEST SECTION'S OWN V FOOT — the
@@ -7174,15 +7181,15 @@ def _asse_cradle(solid, inner, station, y0, y1, z0, z1):
     # THE CORBEL UNDER ALL OF THEM, on the deepest section's own V foot: that flank is the
     # furthest west anything of this anchor comes down to, so a 45° struck to it is the wedge the
     # narrowest section can carry whole and every wider one can stand on. Fused before the ties'
-    # channels so each channel goes on through it.
+    # channel so it goes on through the corbel.
     apex = min(w for _y0, _y1, w, _r, _a in sections)
     foot = apex + dn * run
     corbel = foot - inner[0]
     solid = solid.fuse(_xz_prism(sections[0][0], sections[-1][1],
                                  [(foot, z_axis - dn), (inner[0], z_axis - dn),
                                   (inner[0], z_axis - dn - corbel)]))
-    # THE ZIP TIES' CHANNELS, ONE EACH, cut after every section is fused so a neighbour's block
-    # cannot fill one back in. Struck on the DEEPEST section's apex, which is the barrel's: that V
+    # THE ZIP TIES' SHARED CHANNEL, cut after every section is fused so a neighbour's block cannot
+    # fill it back in. Struck on the DEEPEST section's apex, which is the barrel's: that V
     # stands furthest west, so a cavity clear of it by one `wall` is clear of the other two by more
     # and the web comes out no thinner than stated at any station.
     #
@@ -7195,10 +7202,9 @@ def _asse_cradle(solid, inner, station, y0, y1, z0, z1):
                 f"_asse_cradle: tie band {ty:.2f} falls outside the anchor's run "
                 f"[{sections[0][0]:.2f}, {sections[-1][1]:.2f}]. A zip tie's channel is cut through "
                 f"the block at its own band, so a band off either end has no channel at all.")
-    for ty in ties:
-        solid = solid.cut(_asse_tie_cavity(apex, inner[0], z_axis,
-                                           ty - tie_cav_wide_w / 2.0,
-                                           ty + tie_cav_wide_w / 2.0, up, dn + corbel))
+    tie_y0, tie_y1 = _asse_tie_channel_span(ties)
+    solid = solid.cut(_asse_tie_cavity(
+        apex, inner[0], z_axis, tie_y0, tie_y1, up, dn + corbel))
     return solid
 
 
