@@ -6601,18 +6601,26 @@ def _vent_chase(solid, inner, outer, stations, y0, y1, z0, z1):
             _ybox(outer[0] - 1.0, outer[1] + 1.0,
                   sy - half - 1.0, sy + half + 1.0, band[0], band[1]))
         if not owns:
-            # AND THE TOP SHARE'S RIB ROOTS ON THE WALL AT ITS OWN FLOOR. Its underside begins
-            # on `rim` at the actual flank face and rises one-for-one to the lip, where more
-            # than `vent_rib_wall` remains below the square mouth, so the whole projection grows
-            # from wall stock. IT IS TAKEN OUT OF THE SHARE AND NOT OUT OF THE RIB, because a
-            # cutter carried below `rim` to keep off a coincident plane reaches the ground half's
-            # own crest there — `joint_lane` clears that band only as far inboard as the rail
-            # reaches, and the run from the rail to the lip is the piece below's to stand.
+            # THE TOP SHARE BEDS ON THE FLANK'S ESTABLISHED PLANES AND HANGS BELOW NONE OF
+            # THEM. From the box's interior face its underside is the flank band's one 45°
+            # bedding plane off the seam rim (`_back_top_flanks`); where that plane crosses
+            # the rail channel's east gable the underside follows the gable down, and from
+            # the gable it rises one-for-one to the lip on the slope struck from `rim` at the
+            # actual flank face, where more than `vent_rib_wall` remains below the square
+            # mouth. Nothing of the share stands inside the channel's swept section, and the
+            # run from the rail to the lip is still the piece below's to stand. IT IS TAKEN
+            # OUT OF THE SHARE AND NOT OUT OF THE RIB, because a cutter carried below `rim`
+            # to keep off a coincident plane reaches the ground half's own crest there.
+            x_d = x_h1 + slide_slip
+            gable_bed = (slide_slip + x_d + inner[0]) / 2.0
+            gable_lip = (slide_slip + x_d + root_x) / 2.0
             share = share.cut(_xz_prism(
                 sy - half - 1.0, sy + half + 1.0,
-                ((root_x, rim - 1.0), (rib_x + 1.0, rim - 1.0),
+                ((inner[0], rim - 1.0), (rib_x + 1.0, rim - 1.0),
                  (rib_x + 1.0, rim + (rib_x + 1.0 - root_x)),
-                 (root_x, rim))))
+                 (gable_lip, rim + (gable_lip - root_x)),
+                 (gable_bed, rim + (gable_bed - inner[0])),
+                 (inner[0], rim))))
         solid = solid.fuse(share)
         solid = solid.cut(_xz_prism(sy - vent_channel_w / 2.0, sy + vent_channel_w / 2.0,
                                     [(rib_x + 1.0, mouth_top),       # the mouth, through the lip
