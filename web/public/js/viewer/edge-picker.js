@@ -33,6 +33,14 @@
 // feeds the find box (pick-find.js), which parses pasted blobs back into
 // highlighted entities via pick-format.js.
 //
+// AND THE BLOB NAMES THE SURFACE IT WAS TAKEN OFF. What is drawn here is the `.step.mesh`
+// whenever one stands beside the STEP, and under `pack.BUNDLED_PAYLOAD_DIRS` that payload
+// carries surface the solid does not — so `fileLine` writes the payload's own name, what its
+// reduction cost, and the digest it descends from. An edge also states how many tessellation
+// segments it is, and a fitted arc is reported only when its radius accounts for the path
+// length actually walked: a decimated payload bridges a feature it could not draw with long
+// skinny triangles, and those are pickable, real on this surface, and nothing the solid has.
+//
 // Picking is screen-space: project every edge segment to pixels and take the
 // one nearest the cursor (front-most on a near tie). Zoom-independent, and the
 // click snaps onto the edge so the reported point is ON the geometry, not a
@@ -54,8 +62,8 @@ import { HSM_EVENTS } from "/contracts/client-events.js";
 import { scene, camera, renderer } from "./scene.js";
 import { state } from "./state.js";
 import { isXrayEnabled } from "./xray.js";
-import { fnum, fpt, formatFace, CONTENT_ROOT } from "./pick-format.js";
-import { roundFitMeasured } from "./round-fit.js";
+import { fnum, fpt, formatFace, fileLine } from "./pick-format.js";
+import { roundFitMeasured, arcFitMeasured } from "./round-fit.js";
 import { makePanelCollapse } from "./tool-rail.js";
 
 const LS_KEY = "step-edge-pick";
@@ -231,7 +239,8 @@ function makeEdge(points) {
     // plane normal from two ~perpendicular radii (the loop is planar)
     const k = Math.max(1, Math.floor((points.length - 1) / 4));
     const axis = points[0].clone().sub(center).cross(points[k].clone().sub(center)).normalize();
-    return { points, a, b, length, kind: "loop", center, radius: r / (points.length - 1), axis };
+    return { points, a, b, length, kind: "loop", segments: points.length - 1,
+             center, radius: r / (points.length - 1), axis };
   }
 
   // straight: every interior point lies on the chord
@@ -245,13 +254,21 @@ function makeEdge(points) {
     maxDev = Math.max(maxDev, p.distanceTo(proj));
   }
   if (maxDev < STRAIGHT_TOL) {
-    return { points, a, b, length, kind: "straight", dir: ab.clone().normalize() };
+    return { points, a, b, length, kind: "straight", segments: points.length - 1,
+             dir: ab.clone().normalize() };
   }
 
-  // curved: try to fit a circle (arc) so we can report a radius + plane
+  // curved: try to fit a circle (arc) so we can report a radius + plane. A fit is taken
+  // only when the arc it proposes accounts for the path length actually walked
+  // (`arcFitMeasured`); anything else is reported as the curve it is, with no invented
+  // radius or centre for a reader to reason from.
+  const seg = points.length - 1;
   const fit = fitCircle(points);
-  if (fit) return { points, a, b, length, kind: "arc", center: fit.center, radius: fit.radius, axis: fit.axis };
-  return { points, a, b, length, kind: "curve" };
+  if (fit && arcFitMeasured(fit.radius, a.distanceTo(b), length)) {
+    return { points, a, b, length, kind: "arc", segments: seg,
+             center: fit.center, radius: fit.radius, axis: fit.axis, residual: fit.residual };
+  }
+  return { points, a, b, length, kind: "curve", segments: seg };
 }
 
 // Circumcircle through the polyline's two ends and its midpoint, accepted only
@@ -279,7 +296,7 @@ function fitCircle(points) {
     lo.min(p); hi.max(p);
   }
   if (!roundFitMeasured(radius, hi.distanceTo(lo), residual)) return null;
-  return { center, radius, axis: n.clone().normalize() };
+  return { center, radius, axis: n.clone().normalize(), residual };
 }
 
 // --- face classification (lazy, cached per global face id) ---
@@ -702,14 +719,21 @@ function setHover(hit) {
 // exactly what we emit.
 function edgeText(sel) {
   const e = sel.edge;
+  // HOW MANY TESSELLATION SEGMENTS THE EDGE IS, on every kind. One long segment between two
+  // BREP vertices is a chain the surface never curved along, and on a decimated payload it is
+  // how a collapsed feature is bridged — a reading a length alone cannot distinguish from a
+  // drawn edge of the same length.
+  const seg = e.segments != null ? ` · ${e.segments} seg` : "";
   if (e.kind === "loop") {
-    return `circle ⌀${(e.radius * 2).toFixed(3)} · center ${fpt(e.center)} · circumference ${e.length.toFixed(3)} · axis ${fpt(e.axis)}`;
+    return `circle ⌀${(e.radius * 2).toFixed(3)} · center ${fpt(e.center)} · circumference ${e.length.toFixed(3)} · axis ${fpt(e.axis)}${seg}`;
   }
   let tail;
   if (e.kind === "straight") tail = `len ${e.length.toFixed(3)} · straight · dir ${fpt(e.dir)}`;
-  else if (e.kind === "arc") tail = `len ${e.length.toFixed(3)} · arc r=${e.radius.toFixed(3)} · center ${fpt(e.center)} · axis ${fpt(e.axis)}`;
-  else tail = `len ${e.length.toFixed(3)} · curve`;
-  return `${fpt(e.a)} → ${fpt(e.b)} · ${tail}`;
+  else if (e.kind === "arc") {
+    tail = `len ${e.length.toFixed(3)} · arc r=${e.radius.toFixed(3)} · center ${fpt(e.center)} · axis ${fpt(e.axis)}`;
+    if (e.residual != null) tail += ` · fit ±${e.residual.toFixed(3)}`;
+  } else tail = `len ${e.length.toFixed(3)} · curve`;
+  return `${fpt(e.a)} → ${fpt(e.b)} · ${tail}${seg}`;
 }
 function clickText(sel) { return fpt(sel.point); }
 function selFaceTexts(sel) {
@@ -718,11 +742,13 @@ function selFaceTexts(sel) {
   return { a: formatFace(classifyFace(ids[0])), b: formatFace(classifyFace(ids[1])) };
 }
 
-// The open file as the viewer fetched it (content-root-relative), plus the
-// repo-relative path for the Copy-all locator and the bare name for the header.
+// The open file as the viewer fetched it (content-root-relative), plus the repo-relative
+// locator for the Copy-all blob and the bare name for the header. The locator is composed by
+// `fileLine` off the whole mount, not off the path alone, so it names the surface that was
+// actually drawn and what that surface cost.
 function currentFile() { return (state.mountedDetail && state.mountedDetail.file) || null; }
 function repoPath(file) {
-  return CONTENT_ROOT + "/" + file;
+  return fileLine(file, state.mountedDetail);
 }
 function headerName(file) { return file.split("/").pop().replace(/\.step$/i, ""); }
 

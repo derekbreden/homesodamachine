@@ -613,7 +613,10 @@ def picks(text: str) -> tuple:
         m = _LABEL.match(line)
         label, body = (m.group(1).lower(), m.group(2)) if m else (None, line)
         if label == "file":
-            files.append(body.strip())
+            # The path is the head of the line; the readings `pick-format.js` fileLine puts
+            # after it — which surface was drawn, what its reduction cost, what it descends
+            # from — follow a ·, and the path is what names a file.
+            files.append(body.split("·")[0].strip())
             continue
         if label == "solid":
             solids += [w for w in body.replace(",", " ").split() if w]
@@ -931,23 +934,37 @@ class World:
                     f"on      {name} — NOT on it: {g:.3f} mm off its surface. The body has "
                     f"moved since this text was copied, or it came off another build.")
         # The authored objects a point can BE: a run's waypoint or leg, a port, an anchor.
-        for name in claimed or [n for n in self.names if n.startswith("tube-")]:
-            if not name.startswith("tube-") or name[5:] not in (self._runs or {}):
-                continue
+        #
+        # A RUN IS NAMED ONLY WHERE THE PICK STANDS ON ONE. A single-solid STEP carries no
+        # component name, so a pick off one claims no body, and the candidates are then every
+        # routed run in the world. Taking the FIRST of those answered `carb-1` to picks
+        # anywhere on the machine — a row that reads like a finding and is only an iteration
+        # order. What is worth naming is the run whose centreline the pick actually stands
+        # nearest, and only while it stands within `within` of it. A run the text claimed by
+        # name is reported wherever it is, because it was asked for.
+        runs = [n for n in (claimed or self.names)
+                if n.startswith("tube-") and n[5:] in (self._runs or {})
+                and len(self.run(n).pts) > 1]
+        nearest = None
+        for name in runs:
             r = self.run(name)
+            off = min(_leg_off(p.at, r.pts[k], r.pts[k + 1]) for k in range(len(r.pts) - 1))
+            if nearest is None or off < nearest[0]:
+                nearest = (off, r)
+        if nearest is not None and (nearest[0] <= within or bool(claimed)):
+            off, r = nearest
             i = min(range(len(r.pts)), key=lambda k: math.dist(r.pts[k], p.at))
             d = math.dist(r.pts[i], p.at)
             leg = min(range(len(r.pts) - 1),
                       key=lambda k: _leg_off(p.at, r.pts[k], r.pts[k + 1]))
             turn = next((t for j, t, _a, _b in r.bends if j == i), None)
             where = (f"waypoint {i} ({d:.3f} mm off)" if d < within
-                     else f"no waypoint within {within:g} mm")
+                     else f"no waypoint within {within:g} mm, centreline {off:.3f} mm off")
             out.append(f"run     {r.id} — {where}, on leg {leg}"
                        + (f", which turns {turn:.1f}° at R{r.radii[i]:.3f}"
                           if turn is not None and d < within else ""))
             out.append(f"        `w.reroute({r.id!r}, {leg if d >= within else i}, …)` moves it;"
                        f" `w.route({r.id!r})` numbers them all")
-            break
         if self._frames:
             ports = [(math.dist(fr.at(pt), p.at), f"{comp}.{pt}")
                      for comp, fr in self._frames.items() for pt in fr.ports]

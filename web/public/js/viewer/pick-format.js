@@ -67,9 +67,10 @@ function numAfter(text, re) {
 // different surfaces — the enclosure's and the cold core's flutes are cut into the payload
 // (`hardware/scripts/flute_payload.py`) and are in no solid.
 //
-// A tooltip is where a sentence costs nothing: it is read when someone wants it and is gone
+// A tooltip is where a SENTENCE costs nothing: it is read when someone wants it and is gone
 // when they don't. A pick is not — it is pasted into a conversation, and a sentence there
-// rides on every line anybody sends.
+// rides on every line anybody sends. So a pick says the same thing in the one place that
+// carries no extra line: the name of the file, in `fileLine`.
 
 export function surfaceText(file, surface) {
   const name = file.split("/").pop();
@@ -83,10 +84,40 @@ export function surfaceText(file, surface) {
 // after it.
 export const CONTENT_ROOT = "hardware";
 
-// `root` is the seam node:test comes in through.
+// `root` is the seam node:test comes in through. A `.step.mesh` names the surface that was
+// drawn and the viewer mounts models by their STEP, so the suffix comes off on the way back:
+// the payload is what a pick was taken off, and the STEP is how the page is asked for it.
 export function pickFileToViewerPath(file, root = CONTENT_ROOT) {
-  const s = String(file).trim();
+  let s = String(file).trim();
+  if (s.endsWith(".mesh")) s = s.slice(0, -".mesh".length);
   return s.startsWith(root + "/") ? s.slice(root.length + 1) : s;
+}
+
+// THE `file:` LINE NAMES THE BYTES THAT WERE DRAWN, not the part that was open. Under
+// `pack.BUNDLED_PAYLOAD_DIRS` the page draws `<file>.step.mesh` and the solid beside it is a
+// different surface — so a pick labelled with the STEP sends every reader of it to a file that
+// does not contain what was clicked. Naming the payload costs no line: it is the same line,
+// carrying the name of the thing it came off.
+//
+// AND WHAT THAT SURFACE COST. `cut` is the payload's own reading — how far the reduction
+// stood from the print, against the budget it had to stay inside. A deflection budget is a
+// DISTANCE bound, so a feature shorter than it can be collapsed entirely without the reading
+// ever leaving budget. Stating both numbers is what lets a reader see that a pick at that
+// scale is one THIS SURFACE CANNOT SETTLE — which is a reason to go to the solid and the
+// print, and never a reason to decide the person clicking saw nothing.
+export function fileLine(file, detail, root = CONTENT_ROOT) {
+  const d = detail || {};
+  const path = root + "/" + String(file);
+  if (d.surface !== "mesh") return path;
+  const parts = [path + ".mesh"];
+  const cut = d.cut;
+  parts.push(
+    cut && Number.isFinite(cut.dev) && Number.isFinite(cut.bound)
+      ? `decimated ${cut.dev.toFixed(3)} of ${cut.bound.toFixed(3)} mm`
+      : "decimation unstated",
+  );
+  if (d.src) parts.push(`src ${String(d.src).slice(0, 8)}`);
+  return parts.join(" · ");
 }
 
 // A line carrying no coordinates at all is a name — what the user typed
@@ -123,7 +154,8 @@ export function parsePicks(text) {
     const label = m ? m[1].toLowerCase() : null;
     const body = m ? m[2] : line;
 
-    if (label === "file") { files.push(body.trim()); continue; }
+    // the path is the head of the line; `fileLine`'s readings follow it after a ·
+    if (label === "file") { files.push(body.split("·")[0].trim()); continue; }
     if (label === "solid") { solids.push(...parseNames(body)); continue; }
 
     if (/circle\s*[⌀ø]/i.test(body)) {

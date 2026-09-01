@@ -2,8 +2,10 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 
 import {
+  ARC_FIT_LENGTH_REL,
   ROUND_FIT_MIN_SWEEP_DEG,
   ROUND_FIT_RESIDUAL_MAX_MM,
+  arcFitMeasured,
   roundFitMeasured,
 } from "../public/js/viewer/round-fit.js";
 
@@ -62,4 +64,47 @@ test("sorts the real fits in the assembly payload", () => {
   assert.equal(roundFitMeasured(41.160, 22.56, 0.1635), true);
   assert.equal(roundFitMeasured(18.900, 53.46, 0.0), true);
   assert.equal(roundFitMeasured(3.0, 4.24, 0.0), true);
+});
+
+// --- arcFitMeasured: an arc has to account for the path actually walked ---
+//
+// THE FIXTURE IS A REAL PICK. Derek clicked what looked like two thin protrusions on
+// back-top's +X flank and the viewer handed him
+//
+//   x=98.300 y=244.495 z=257.099 → x=98.500 y=244.461 z=257.422 · len 142.065
+//                                · arc r=35.657 · center x=100.116 y=279.995 z=259.902
+//
+// — two endpoints 0.381 mm apart on an arc of 142 mm. No single arc is both. The chain was
+// two straight segments bridging a collapsed 0.25 mm feature in the decimated payload, and
+// `fitCircle` drew a circumcircle through three points that were very nearly two. Every
+// reader downstream then reasoned from a radius and a centre that were never measured.
+
+test("rejects the back-top payload chain that was reported as an arc", () => {
+  assert.equal(arcFitMeasured(35.657, 0.381, 142.065), false);
+});
+
+test("accepts a real minor arc, on the length its chord and radius predict", () => {
+  // A quarter round of R3: chord 4.243, path 4.712.
+  assert.equal(arcFitMeasured(3, chord(3, 90), 3 * Math.PI / 2), true);
+  assert.equal(arcFitMeasured(35.657, chord(35.657, 30), 35.657 * Math.PI / 6), true);
+});
+
+test("accepts the major arc, which shares its chord with the minor one", () => {
+  // A rim that nearly closes: ends 0.381 mm apart and the whole circle walked between them.
+  const r = 35.657;
+  assert.equal(arcFitMeasured(r, 0.381, 2 * Math.PI * r - 0.381), true);
+});
+
+test("holds the length tolerance where it is stated", () => {
+  const r = 20, deg = 60;
+  const exact = r * deg * Math.PI / 180;
+  const c = chord(r, deg);
+  assert.equal(arcFitMeasured(r, c, exact * (1 + ARC_FIT_LENGTH_REL * 0.9)), true);
+  assert.equal(arcFitMeasured(r, c, exact * (1 + ARC_FIT_LENGTH_REL * 4)), false);
+});
+
+test("refuses a chord that cannot lie on the circle, and non-finite input", () => {
+  assert.equal(arcFitMeasured(2, 9, 5), false);
+  assert.equal(arcFitMeasured(NaN, 1, 1), false);
+  assert.equal(arcFitMeasured(3, 1, 0), false);
 });

@@ -389,7 +389,12 @@ def cut(step: Path, stl: Path, verbose=True):
     # is cut FROM this solid's print and is answerable to these bytes, and `_payload_current`
     # asks exactly that. Written without `src` it would read as a payload of unknown descent,
     # and the plain tessellation in `_cadq_export` would replace it — serving a smooth box.
-    _mesh_payload.write([mesh], str(out), src=_mesh_payload.source_digest(step))
+    # AND WHAT THE REDUCTION COST, because the budget is a distance bound and a feature
+    # shorter than it does not survive being stayed inside of. A reader handed this surface
+    # is handed these two numbers with it, so a reading at their scale is known to be one
+    # the payload cannot settle either way.
+    _mesh_payload.write([mesh], str(out), src=_mesh_payload.source_digest(step),
+                        cut={"dev": round(float(dev), 4), "bound": round(float(bound), 4)})
     if verbose:
         print(f"-> {out.name}  {len(printed.faces)} -> {len(reduced.faces)} facets, "
               f"{len(pos)} vertices, {len(fac) // 2} regions, "

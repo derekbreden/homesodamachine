@@ -226,6 +226,11 @@ def read_version(path):
     return read_header(path).get("v")
 
 
+def read_cut(path):
+    """The `cut` reading an existing payload states, or None when it states none."""
+    return read_header(path).get("cut")
+
+
 def read_source(path):
     """The digest of the STEP this payload was written from, or None on a payload
     that states none."""
@@ -242,7 +247,7 @@ def source_digest(step_path):
     return h.hexdigest()
 
 
-def write(meshes, path, src=None):
+def write(meshes, path, src=None, cut=None):
     """u32 header length, that many bytes of JSON, then one blob every array
     indexes into by [byteOffset, length]. Typed-array offsets must be aligned
     to their element size, and every array here is 4 bytes wide, so the header
@@ -261,7 +266,25 @@ def write(meshes, path, src=None):
     descent has to be written down. Nothing else in the file says which bytes a
     payload answers to, and mtime cannot carry it: a cache restore stamps the
     payload NOW and the freshly cut STEP is older, which is the order an mtime
-    test reads as current. Only the digest says."""
+    test reads as current. Only the digest says.
+
+    AND IT STATES `cut`, WHAT THE DECIMATION ACTUALLY COST. A payload is the printed mesh
+    collapsed as far as it goes while every probed point stays inside a deflection budget
+    (`flute_payload.simplify_within`), and that budget is a DISTANCE bound — it cannot preserve
+    a feature shorter than itself. A 0.25 mm stub collapses into the wall and is bridged with
+    long skinny triangles, and the reading stays inside budget the whole time. So the two
+    numbers are what a reader needs in order to know how much of what it is looking at is
+    drawing: `dev` is what the accepted rung measured, `bound` is what it had to stay inside.
+
+    NEITHER IS A VERDICT ON WHAT SOMEBODY SAW. A reading at this scale says the payload cannot
+    be the evidence either way, and the question moves to the solid and the print — not that
+    the observation was noise.
+
+    `cut` is optional and its absence is readable: a payload written without it is one that did
+    not state its reduction, which is every payload cut before the field existed. That is why
+    it does not move VERSION — a reader that finds no `cut` still has a payload it can draw,
+    and DECODABLE stays where it is rather than turning those away and serving the flute-less
+    solid in their place."""
     entries, blob = [], bytearray()
     for m in meshes:
         e = {"name": m["name"], "color": m["color"]}
@@ -273,6 +296,8 @@ def write(meshes, path, src=None):
     header = {"v": VERSION, "meshes": entries}
     if src is not None:
         header["src"] = src
+    if cut is not None:
+        header["cut"] = cut
     head = json.dumps(header, separators=(",", ":")).encode()
     head += b" " * (-(len(head) + 4) % 4)
     with open(path, "wb") as f:

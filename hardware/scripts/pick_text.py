@@ -96,15 +96,24 @@ def solid_line(name: str) -> str:
     return f"solid: {name}"
 
 
-def file_line(step_path) -> str:
+def file_line(step_path, surface: str = "step") -> str:
     """Repo-root-relative file line — the Find box opens this file before
     matching, so paths must carry the repo prefix the viewer's copy blobs
-    use (hardware/…)."""
+    use (hardware/…).
+
+    `surface` names WHICH BYTES are being pointed at. Under
+    `pack.BUNDLED_PAYLOAD_DIRS` the page draws `<file>.step.mesh`, and the
+    solid beside it is a different surface — flutes live in the mesh and in
+    no solid. Pointing at a feature that is in one and not the other with
+    the other one's name sends the reader to a file that does not hold it,
+    so `surface="mesh"` says the payload and the suffix says it in the path
+    itself. `pick-format.js` pickFileToViewerPath takes it back off."""
     p = Path(step_path).resolve()
+    tail = ".mesh" if surface == "mesh" else ""
     for parent in p.parents:
         if (parent / ".git").exists():
-            return f"file: {p.relative_to(parent)}"
-    return f"file: {step_path}"
+            return f"file: {p.relative_to(parent)}{tail}"
+    return f"file: {step_path}{tail}"
 
 
 # --- CadQuery composers ---
