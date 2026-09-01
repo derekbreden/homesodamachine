@@ -8,6 +8,7 @@
 #   tools/panelcam.sh auth                 # whether this process may open a camera at all
 #   tools/panelcam.sh controls             # what the attached camera lets a program change
 #   tools/panelcam.sh get absolute_focus
+#   tools/panelcam.sh reset                # unwedge a lens that has stopped moving
 #   tools/panelcam.sh set auto_focus 0     # then set absolute_focus, and it stays put
 #
 # ZOOM IS A CROP AND FOCUS IS A CONTROL, and they are not the same kind of thing. macOS
@@ -89,7 +90,9 @@ cmd_list() {
 
 target_field() {   # target field -> value
   [ -f "$CONF" ] || die "no $CONF — copy panelcam.targets.conf.example and aim the rig"
-  awk -v t="$1" -v f="$2" '$1==t && $2==f {print $3; found=1} END {exit !found}' "$CONF" ||
+  awk -v t="$1" -v f="$2" '$1==t && $2==f {
+        v = ""; for (i = 3; i <= NF; i++) v = v (i > 3 ? " " : "") $i; print v; found = 1
+      } END {exit !found}' "$CONF" ||
     die "target '$1' has no '$2' in $(basename "$CONF")"
 }
 
@@ -103,11 +106,66 @@ cmd_controls() {
   uvc show
 }
 
+# THE LENS CAN WEDGE, and it does not report that it has. absolute_focus goes on reading back
+# whatever was last written while the actuator sits where it stopped, autofocus cannot move it
+# either, and a whole focus sweep comes back flat — every position equally soft, background
+# included. Re-enumerating the device frees it. The camera returns on a new AVFoundation index,
+# which is why a target names its camera rather than numbering it.
+cmd_reset() {
+  node -e '
+    const usb = require("usb");
+    const d = usb.getDeviceList().find(x => x.deviceDescriptor.idVendor === 0x32e4);
+    if (!d) { console.error("no ELP camera on the bus"); process.exit(1); }
+    d.open();
+    d.reset(err => {
+      console.log(err ? "reset failed: " + err.message : "usb reset ok — settings are back to defaults");
+      try { d.close(); } catch (e) {}
+      process.exit(err ? 1 : 0);
+    });
+  ' --experimental-default-type=commonjs 2>/dev/null ||
+  (cd "$HERE/panelcam-uvc" && node -e '
+    const usb = require("usb");
+    const d = usb.getDeviceList().find(x => x.deviceDescriptor.idVendor === 0x32e4);
+    if (!d) { console.error("no ELP camera on the bus"); process.exit(1); }
+    d.open();
+    d.reset(err => {
+      console.log(err ? "reset failed: " + err.message : "usb reset ok — settings are back to defaults");
+      try { d.close(); } catch (e) {}
+      process.exit(err ? 1 : 0);
+    });
+  ')
+}
+
 cmd_get() { uvc get "${1:?usage: panelcam.sh get <control>}"; }
 
 cmd_set() {
   uvc set "${1:?usage: panelcam.sh set <control> <value>}" \
           "${2:?usage: panelcam.sh set <control> <value>}"
+}
+
+target_field_opt() { target_field "$1" "$2" 2>/dev/null || true; }
+
+# THE CAMERA FORGETS. UVC controls live in the device and not in a profile: a replug or a power
+# cycle puts every one back to auto, which is precisely the setting that cannot read a screen.
+# Applying the target's own numbers before each frame is what makes two shots a week apart
+# comparable, and costs one control transfer each.
+apply_uvc() {
+  local pairs kv key val moved=0
+  pairs="$(target_field_opt "$1" uvc)"
+  [ -n "$pairs" ] || return 0
+  for kv in $pairs; do
+    key="${kv%%=*}"; val="${kv#*=}"
+    # WRITE EVERY TIME, and never skip on a matching read. absolute_focus reads back the number
+    # last asked for, not where the lens is standing: opening a capture session moves it and
+    # leaves the register saying 480 over a lens that is somewhere else. A frame taken on that
+    # agreement is soft, and the control that would have fixed it is the one being skipped.
+    uvc set "$key" "$val" >/dev/null || die "could not set $key"
+    [ "$key" = absolute_focus ] && moved=1
+  done
+  # THE LENS IS A MOTOR. A frame grabbed the instant after the write records the position the
+  # lens is leaving, not the one asked for — which reads as a camera that cannot focus.
+  [ "$moved" -eq 1 ] && sleep 2
+  return 0
 }
 
 cmd_shot() {
@@ -130,6 +188,11 @@ cmd_shot() {
   crop="${crop_override:-$(target_field "$target" crop)}"
 
   [ -d "$APP" ] || die "no $APP — build it once with panelcam-shot/build.sh"
+
+  apply_uvc "$target"
+  # A dark panel photographs as an unlit rectangle; the machine is told a finger landed.
+  local wake_port; wake_port="$(target_field_opt "$target" wake)"
+  [ -n "$wake_port" ] && python3 "$HERE/panelcam-wake.py" "$wake_port" >/dev/null 2>&1 || true
 
   mkdir -p "$OUT_DIR"
   out="${out:-$OUT_DIR/$target.png}"
@@ -154,6 +217,7 @@ case "${1:-}" in
   list)     shift; cmd_list "$@" ;;
   controls) shift; cmd_controls "$@" ;;
   get)      shift; cmd_get "$@" ;;
+  reset)    shift; cmd_reset "$@" ;;
   set)      shift; cmd_set "$@" ;;
   shot)     shift; cmd_shot "$@" ;;
   auth)     shift; cmd_auth "$@" ;;
