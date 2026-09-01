@@ -2,8 +2,8 @@
   "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed \u2014 web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
   "release": {
     "tag": "cad-artifacts",
-    "asset": "cad-ce0857d6f8409803.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-ce0857d6f8409803.tar.gz",
+    "asset": "cad-6c5c03d9d80ee6d2.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-6c5c03d9d80ee6d2.tar.gz",
     "objects": "s-"
   },
   "source": {
@@ -12,6 +12,9 @@
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, its rule would not cut, or an interactive publication explicitly deferred that rule.",
     "paths": [
+      "hardware/printed-parts/enclosure/enclosure/enclosure.py",
+      "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
+      "hardware/printed-parts/shop-storage/jst-crimping/jst_crimping_tower.py",
       "tools/cad-requirements.txt"
     ],
     "members": [
@@ -199,6 +202,12 @@
       "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-tube-nest.step",
       "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-turntable-90t.step",
       "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step",
+      "hardware/printed-parts/shop-storage/jst-crimping/consumables-drawer.step",
+      "hardware/printed-parts/shop-storage/jst-crimping/gridfinity-shelf.step",
+      "hardware/printed-parts/shop-storage/jst-crimping/jst-crimping-tower.step",
+      "hardware/printed-parts/shop-storage/jst-crimping/spool-shelf.step",
+      "hardware/printed-parts/shop-storage/jst-crimping/tool-rack.step",
+      "hardware/printed-parts/shop-storage/jst-crimping/tower-base.step",
       "hardware/printed-parts/zone-c/funnel-mold/funnel-mold-assembly.step",
       "hardware/printed-parts/zone-c/funnel-mold/funnel-mold-cavity.step",
       "hardware/printed-parts/zone-c/funnel-mold/funnel-mold-core.step",
@@ -354,9 +363,9 @@
     ]
   },
   "bundle": {
-    "sha256": "ce0857d6f8409803c66ff27215fc2b33fd4e4e2c3069676112d941f54a379455",
-    "bytes": 115573453,
-    "solids": 267
+    "sha256": "6c5c03d9d80ee6d282892a70098b31fd3c84df129a6c3e6749de07cf198d772e",
+    "bytes": 116830874,
+    "solids": 273
   },
   "solids": {
     "hardware/assembly/cards/deck.cover.png": "a3816afa7d04514cc9606115ff62bb1a3deb5b7de76e017fd8ea2032c4fa32b3",
@@ -445,7 +454,7 @@
     "hardware/faucet-layout/faucet-assembly.step": "f0cfe4395ced9167017cb2188064e2f28ec9bfb99abb07d2c8432f93f4ab65a4",
     "hardware/faucet-layout/faucet-assembly.step.mesh": "c2d3f40b1d81247ea55bb282ddc3059532d5ab70aadb23b186df1f74d38db023",
     "hardware/manifold-layout/enclosure-assembly.step": "3dadaaedc5f2ed170ba9fdad29ca25e057e677e0e71ac11d50f3a08432f545aa",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "180c2c9412272385d59d84c3d8a158b08c345cbeedad01941e6b067cb50b7fd1",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "34463042f85e05f686dbd08a12687b1f567e30e296eac9094737bf3c27523de8",
     "hardware/manifold-layout/manifold-layout.step": "f73566fd48f1e2ef62c0d75fec3aa7f2346ccdc123a467694f453e5064855732",
     "hardware/manifold-layout/manifold-layout.step.mesh": "7b2d185823a74661e4cb3a31f055a919fa835449fed081b083eff91c4f916ff5",
     "hardware/pcb/pcba/out/pcba.glb": "819d2d6a51579a8c3ee66bcb9432075bc50ca77cf129bd828ea538b8fc72b767",
@@ -505,11 +514,11 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": "bec2fd6c6423805650e312d04e670ad0bfc5c63b5df2e1cbade71248d0c1c3b1",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh": "cc8e71f126a57123158219dc1c30e6cdcb00650f8b432410c206d6f38f8d4a2a",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl": "721305ea0d9bd49c86465647ee8a03a2a9797418c3c2d4ed2b96673aaa260509",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step": "5567cda923fbf4606c3d7b3c3740f9dadfe4f5932daa20454528a7ded63fc07d",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh": "ace56f34778112dd6c43caabd24fbd8af818b6590ad02b17bdb23caece4805b5",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl": "8d44062134439a5b37fb0dce00561010d486c2c089b7c8e425a119fb3e503c99",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step": "229505717a0f599d418af4711d3711b12e8a3191f0b8b1aa95d9081be0c4210c",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh": "0be9ba2001bbfd17064f453abafb250fb05167e0cd0587035931298975ebcd8e",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl": "3f423990dbb73244c7234ade78aa53b7766e4d285c80276d321c8f7c384285af",
     "hardware/printed-parts/enclosure/enclosure/enclosure.step": "e5ff65527dc20476b19ac5daa8bb42abc1dc45ee445fddea34abe3ee0a3a90c3",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": "2f2aa75a1218e9c4ef4ac2e30ecd8547193476f0af3de8aff6429b235f18bc7d",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": "fd48af61d6326a7254060f7c556edd4fe34a37a826cd7f1d5ff918e322e500ea",
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.step": "5477d83388b6cfa83526ca245d66c182ac7599cd875f21d8a1b504ad985cdd01",
     "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step": "3e9f081c0c468cd3ddfe3186df20f947cd4d052ae4c0dcfd075f334a89853f8c",
     "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step": "87fd848ad51a18bd85248a779d44eebda7c83710e6850e02204b30f01cdee413",
@@ -543,6 +552,12 @@
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-tube-nest.step": "154da1d46a3b3a23546e99ba1717a2bad804b5152597f8b242cd6056a52c9154",
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-turntable-90t.step": "6abaf0619d8b4c1e76f177af40b873469d06c2823cccf0546378f08d10bb9e4b",
     "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step": "bf565cc10c5b79c75a58b3addf25ddc52fda6e8b49d437345cc03aefd680eb53",
+    "hardware/printed-parts/shop-storage/jst-crimping/consumables-drawer.step": "eb367ba2289ffa4c32a851d5baea0e6ca76501ac91655f10184ed7177957edfe",
+    "hardware/printed-parts/shop-storage/jst-crimping/gridfinity-shelf.step": "ccb82b5ab48534e4083610989ffd70b1b228b3fcb2d12919093908d26fe8312c",
+    "hardware/printed-parts/shop-storage/jst-crimping/jst-crimping-tower.step": "418d07178a801fddc321cdc97d8620f3ba8355cceda37a6534ff87431f4488de",
+    "hardware/printed-parts/shop-storage/jst-crimping/spool-shelf.step": "c4946e5ad90bc8dc5434e4d0782235ca1d9ad5cbf5f87c137a346a0392863311",
+    "hardware/printed-parts/shop-storage/jst-crimping/tool-rack.step": "40bb02b304a1cd4cfc96b0ee7a320d2e1a6263f97171b564b5803520467162fd",
+    "hardware/printed-parts/shop-storage/jst-crimping/tower-base.step": "8b9e64559ed83024130417d6f41c3d6613b5ef7eaa5ad93a07ac9680a1989b3c",
     "hardware/printed-parts/zone-c/funnel-mold/funnel-mold-assembly.step": "7377096649838bdc060cf1f03bae2cedc09eb0c897fe7678c812c682b74500c8",
     "hardware/printed-parts/zone-c/funnel-mold/funnel-mold-cavity.step": "ac6a325d9efefcc3062bb4c20c64f0257b11c7b84b2b805a41741e325d6153a0",
     "hardware/printed-parts/zone-c/funnel-mold/funnel-mold-core.step": "ae511a799047f530680480a761078a84c65aa461ff86f96646472a1d2e0b7847",
