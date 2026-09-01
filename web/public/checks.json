@@ -22,8 +22,8 @@
     },
     {
       "check": "hardware/scripts/check_payloads.py",
-      "note": "payloads: 19 solid(s) cut from the bytes beside them, 11 scene(s) at the finishes this tree states",
-      "status": "ok"
+      "note": "tools/cad-venv/bin/python hardware/scripts/flute_payload.py",
+      "status": "red"
     },
     {
       "check": "hardware/scripts/check_pinmap.py",
@@ -82,11 +82,19 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 0 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 267 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 1 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 267 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
+    "hardware/scripts/check_payloads.py": [
+      "1 solid(s) whose surface is not in the payload beside them:",
+      "    hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh — cut from other bytes than the solid holds",
+      "  the run that cuts a solid writes the payload beside it:",
+      "    tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/enclosure.py",
+      "  and the enclosure's flutes go back into those payloads after:",
+      "    tools/cad-venv/bin/python hardware/scripts/flute_payload.py"
+    ],
     "tools/bazel/check_build_file.py": [
       "BUILD.bazel is not what the graph would write now:",
       "  tools/publish_now.py answers to selftest and selftests.json does not name it",
