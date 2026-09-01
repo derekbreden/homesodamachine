@@ -22,22 +22,7 @@ See `marketing/target-market.md` for details.
 
 Run scripts with the project's CadQuery venv: `tools/cad-venv/bin/python`.
 
-That venv is `.gitignore`d and one machine's own, so the import shim it reads at startup is
-tracked separately and copied in — the same way the venv is built rather than committed:
-
-```
-tools/cad-venv/bin/python tools/cad-venv-site/install.py
-```
-
-`--check` says whether this checkout's interpreter has it. Without it every CAD process loads
-VTK, which nothing here draws with, and pays 145 MB and two seconds for it; the solids are
-byte-identical either way, so a tree that has not run it is slow and not wrong.
-
 See `hardware/printed-parts/faucet/faucet-shell/faucet_shell.py` for patterns to follow, and its companion `faucet_shell.md` for the idioms those patterns embody.
-
-See `hardware/printed-parts/AGENTS.md` before shaping any printed part — current function and
-assembly ownership, the visual review loop, the roles of STEP, STL and viewer payload, and the
-scope of the enclosure support policy live there.
 
 ## Firmware
 
@@ -56,35 +41,3 @@ You have access to my Chrome which is signed in to my amazon through your MCP. I
 Git keeps history. Code and docs in this repo describe current state. Don't write "was X, now Y" or decision narratives in current files. Don't defend the current choice against alternatives the reader hasn't asked about. The repo describes only what is.
 
 Always commit and push to main. Don't ask. Just do it. The author of everything here is always me (via an instance of you), and you can trust it's worth committing and building on top of. It's all the same work.
-
-Other Codex tasks in this checkout are collaborators, not ownership boundaries. If work overlaps, read their task or message them and carry both tasks through together in this working tree. Wait on the artifact a peer names, never their promise of it; when the bytes have not moved and the sender has gone quiet, the work is yours again.
-
-## Reconciliation waits for silence
-
-Iterate fast while I'm responding: make the change, show me the result, show me on
-homesodamachine.com. Don't reconcile first. When I go quiet, that is when you reconcile — run the
-full derive, resync the ledger, the docs and the deck, close whatever is behind. The moment I ask
-for anything, stop reconciling and come back. A commit is a checkpoint, not a claim that
-everything downstream of it is current.
-
-There is no terminal release to hold work for. A release is one coherent iteration in the active
-review loop: publish it as soon as it is visually inspectable, inspect the live result yourself,
-find related defects, coordinate or make their fixes, and publish the next coherent iteration.
-Keep that loop moving while I respond; do not save a group of reviewable changes for one final
-cut.
-
-## Keep the visual loop fast
-
-Do not add a check, audit, validation or bookkeeping step to the normal build, derive or publish
-path if it increases wall time at all. Rigor does not earn an exception. Existing gates have no
-exemption either: make a slow one faster, move it outside the ordinary iteration, or remove it.
-Focused temporary probes may answer a question without becoming a permanent tax on every later
-change.
-
-The fast review is shared visual work: agents derive and inspect the current printable surface
-and assembled context, and I review the live result. Automated checks do not replace either eye,
-and a check which delays the next look reduces the review that finds these defects. Use the
-smallest coherent derive, look at it, publish it, and continue the loop.
-[`hardware/ledger/build-time.md`](/hardware/ledger/build-time.md) prices what a run takes, and
-`_build_time.py --check` names a generator coming in slower than its row. A row is a ceiling to
-reduce, not a budget to spend.
