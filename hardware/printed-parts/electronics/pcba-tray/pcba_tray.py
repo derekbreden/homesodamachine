@@ -11,6 +11,10 @@ built by the shared
 The 5 mm standoff clears the board's THT tails (XH wafers, the J10 screw
 block, U10, BT1, J14's shield legs).
 
+The populated-board model carries those tails 2 mm below the PCB underside.
+That underside remains the Z = 0 mounting datum; the tail envelope is what
+keeps either a bench-tray floor or the appliance wall out from under it.
+
 Local frame: the main board's own pcb frame (pcbX / pcbY exactly as in `pcba.tsx` —
 outline x[−68, 17], y[−36.3, 36.5]), Z up, floor underside at Z = 0, so the
 boss centres below are the MH1–MH4 coordinates verbatim. Connector openings
@@ -35,7 +39,7 @@ sys.path.insert(
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
 from docgen import substitute_py_comments
-from module_tray import Mount
+from module_tray import Mount, _boss_spec
 
 # Board datum — pcba.tsx <board outline> + the MH1–MH4 <platedhole>s.
 _outline_x = (-68.0, 17.0)
@@ -43,6 +47,9 @@ _outline_y = (-36.3, 36.5)
 _holes_pcb = ((-64.5, 33.0), (13.5, 33.0), (13.5, -33.3), (-64.5, -33.3))
 _centre = (sum(_outline_x) / 2.0, sum(_outline_y) / 2.0)
 _thickness = 1.6
+_hole_dia = 3.2
+pin_drop = 2.0
+_mount_boss_dia = _boss_spec(_hole_dia)[0]
 _GLB = _hw / "pcb" / "pcba" / "out" / "pcba.glb"
 
 
@@ -94,7 +101,15 @@ def _build_board():
     its actual 3D model in `hardware/pcb/pcba/out/pcba.glb` (the full mesh
     detail stays in the glb; this carries every body's true footprint and
     height). The glb board slab itself is skipped — the outline slab with its
-    MH1–MH4 holes stands in for it."""
+    MH1–MH4 holes stands in for it.
+
+    A through-hole component's glb box spans both sides of the board. Its body
+    is kept above the top face and its wall-facing projection is kept separately
+    as the 2 mm pin-tail envelope. Imported lead lengths vary by model, so that
+    projection is capped at the assembly clearance this board states rather than
+    letting one decorative component model move the PCB mounting datum. The four
+    established boss footprints are cut back out: component AABBs are conservative
+    rectangles, while the real MH1–MH4 lands must remain clear for the board to seat."""
     slab = cq.Workplane("XY").box(
         _outline_x[1] - _outline_x[0], _outline_y[1] - _outline_y[0], _thickness,
         centered=(True, True, False))
@@ -105,6 +120,7 @@ def _build_board():
     board_x = _outline_x[1] - _outline_x[0]
     board_y = _outline_y[1] - _outline_y[0]
     glb_top = 0.7  # glb board frame: slab mid at z=0, 1.4 thick fab board
+    tails = None
     for x0, x1, y0, y1, z0, z1 in _glb_component_boxes():
         w, d = x1 - x0, y1 - y0
         if w < 0.2 or d < 0.2 or (z1 - z0) < 0.2:
@@ -113,13 +129,22 @@ def _build_board():
             continue  # the glb's own board slab
         if z1 > glb_top + 0.05:      # body above the board top
             zb, ht = _thickness, z1 - glb_top
-        elif z0 < -glb_top - 0.05:   # bottom-side body
-            zb, ht = z0 + glb_top, -glb_top - z0
-        else:
-            continue                 # embedded/through geometry only
-        slab = slab.union(
-            cq.Workplane("XY").box(w, d, ht, centered=(False, False, False))
-            .translate((x0 - _centre[0], y0 - _centre[1], zb)))
+            slab = slab.union(
+                cq.Workplane("XY").box(w, d, ht, centered=(False, False, False))
+                .translate((x0 - _centre[0], y0 - _centre[1], zb)))
+        if z0 < -glb_top - 0.05:     # pins/tails below the PCB underside
+            zb = max(-pin_drop, z0 + glb_top)
+            tail = (cq.Workplane("XY").box(w, d, -zb, centered=(False, False, False))
+                    .translate((x0 - _centre[0], y0 - _centre[1], zb)))
+            tails = tail if tails is None else tails.union(tail)
+    if tails is not None:
+        for hx, hy in _holes_pcb:
+            tails = tails.cut(
+                cq.Workplane("XY")
+                .box(_mount_boss_dia, _mount_boss_dia, pin_drop + 1.0,
+                     centered=(True, True, False))
+                .translate((hx - _centre[0], hy - _centre[1], -pin_drop - 0.5)))
+        slab = slab.union(tails)
     return slab
 
 
@@ -128,7 +153,8 @@ board = SimpleNamespace(
     length=_outline_x[1] - _outline_x[0],
     width=_outline_y[1] - _outline_y[0],
     holes=tuple((hx - _centre[0], hy - _centre[1]) for hx, hy in _holes_pcb),
-    hole_dia=3.2,
+    hole_dia=_hole_dia,
+    pin_drop=pin_drop,
     build=_build_board,
 )
 
@@ -154,14 +180,14 @@ def port(px, py) -> tuple:
 def stations_hold():
     """Hold the mating plane to the board this module draws.
 
-    `port` measures `_thickness` up from zero, so zero has to be the board's underside. The
-    drawn model is a slab plus one box per populated component, and a bottom-side body reaching
-    below the slab would move that floor while every station stayed where it was."""
+    `port` measures `_thickness` up from zero, so zero remains the PCB underside. The populated
+    model deliberately continues `pin_drop` below it: that floor is the tail-clearance plane a
+    wall or tray may approach, while every mounting hole remains on Z = 0."""
     floor = _build_board().val().BoundingBox().zmin
-    if abs(floor) > 1e-9:
+    if abs(floor + pin_drop) > 1e-9:
         raise ValueError(
-            f"the board is drawn with its underside at z = {floor:.4f} and `port` measures "
-            f"{_thickness:g} up from 0 — every connector station is off the mating face.")
+            f"the board's tail envelope ends at z = {floor:.4f}, not {-pin_drop:g}; "
+            "the placed solid no longer gives the mounting plane its stated below-board air.")
 
 
 def main():

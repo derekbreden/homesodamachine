@@ -3176,9 +3176,11 @@ def build_psu(foam, wall_seat):
 # The main board joins the brick's column rather than standing forward of the deck: same
 # flank, same seat, same floor. Two turns put it there. The ROLL stands it off the flat — a
 # quarter about Y brings its faces onto ±X, so only its 19.1 mm of thickness and components
-# reaches into the lane, and the flat back is the face that meets the wall it mounts to. The SPIN
-# is in that plane — a quarter about X lays the main board's LONG edge fore and aft down the flank, so
-# the short edge is what stands, and the corner that meets the cap is the one nearest the brick.
+# reaches into the lane. The populated model carries its THT-tail envelope behind that flat;
+# those tails face the wall and the PCB underside remains the mounting plane each boss reaches.
+# The SPIN is in that plane — a quarter about X lays the main board's LONG edge fore and aft down
+# the flank, so the short edge is what stands, and the corner that meets the cap is the one nearest
+# the brick.
 PCBA_TURN = (((0.0, 1.0, 0.0), -90.0), ((1.0, 0.0, 0.0), -90.0))
 # What one wired body on the cap storey stands off the next along this flank. Brick, relay and
 # board all take their conductors on the faces that look down the column at each other, and a
@@ -3190,10 +3192,11 @@ WIRED_CLEAR = 6.0
 def build_pcba(foam, ahead_of, wall_seat):
     """The main board on the +X wall, forward of whatever the brick's column presents.
 
-    EAST on the same wall seat the brick takes, so the two stand in one plane and one length of
-    boss holds them both; AFT one `WIRED_CLEAR` ahead of `ahead_of`'s own front face — which is
-    relay #2, not the brick, since the relay stands between them; FOOT on the cap. What holds it
-    is the pcba-tray, which is not placed — this is the main board's envelope."""
+    EAST places the 2 mm THT-tail envelope on the same wall seat the brick takes; the PCB
+    underside and its four mounting holes consequently stand `pcba_tray.pin_drop` farther
+    inboard, and the wall bosses reach that plane. AFT is one `WIRED_CLEAR` ahead of
+    `ahead_of`'s own front face — relay #2, not the brick, since the relay stands between them;
+    FOOT is on the cap. The pcba-tray is not placed — this is the main board's envelope."""
     return seat_body(import_step(str(PCBA_STEP)).val(), PCBA_TURN, seat="pcba",
                      x1=wall_seat, y1=box(ahead_of).ymin - WIRED_CLEAR, z0=cap_face(foam))
 
