@@ -1578,10 +1578,11 @@ plate_end_stock = 4.3        # continuous printed X return from either slot end 
                              # cavity-side wall; the 3 mm outer wall continues beyond it
 plate_cap_land = 1.0         # the flat the steel's top edge lands on, taken off the tee wall's
                              # fore face — the plate's Z datum, wall to wall (`_plate_cap`)
-plate_shelf_land = 3.0       # front-bottom's shelf inboard of the steel's END, per end — the
-                             # bearing the plate's bottom edge rides on (`_plate_shelf`), one
-                             # `steel_air` under the land that is the plate's datum
-plate_shelf_t = 1.2          # that shelf's own section at its inboard edge, before the 45°
+plate_foot_reach = 8.0       # front-bottom's foot inboard of the FLANK FACE, per end — with
+                             # the `plate_step_in` the steel is already let into that flank, the
+                             # bearing its bottom edge stands on (`_plate_foot`)
+plate_foot_grip = 2.0        # how far that foot runs past the steel's own two faces, either way
+plate_foot_t = 2.0           # that foot's own section at its inboard edge, before the 45°
                              # under it takes it back into the flank
 plate_guide_wedge = 3.0      # the cheek's extra section at the fixed outer wall, raked away
                              # to nothing at its inboard face over the guide's whole height
@@ -4274,16 +4275,18 @@ def _lip_underwall(inner, y_joint, zj):
 
 def mq6_chute_reach(sz):
     """How high the MQ-6's can ever rides in front-bottom's west skin, off its own station —
-    `(the top of the can's sweep, the apex of the gable closed over it)`.
+    `(the top of the can's sweep, the inner end of the roof closed over it)`.
 
     THE CARD IS ONLY HELD TO THE CHUTE'S X ONCE ITS FOOT IS IN THE POSTS' GROOVES, and a groove
     opens at the post's crown one half card above the station, so the can's highest ride is with
-    the card's foot at that mouth — one whole `mq6_card_z` above where it seats. The gable over
-    it closes at 45° in one more can radius. Read by the skin that cuts the chute and by the vent
-    that has to stay a wall from it, so neither can drift off the other."""
+    the card's foot at that mouth — one whole `mq6_card_z` above where it seats. The roof closes
+    at 45° ACROSS THE THREE-MILLIMETRE SKIN, not across the can's nineteen-millimetre width, so
+    its rise is the skin's own depth. Read by the skin that cuts the chute and by the vent that
+    has to stay a wall from it, so neither can drift off the other."""
     half = mq6_can_yz / 2.0 + mq6_slot_press
     crown = sz + mq6_card_z + half
-    return crown, crown + half
+    skin = front_bottom_flank_face()[0] - lip_face_x()[0]
+    return crown, crown + skin
 
 
 def _front_bottom_flank_skin(inner, west_cradle, y_joint, zj):
@@ -4303,10 +4306,14 @@ def _front_bottom_flank_skin(inner, west_cradle, y_joint, zj):
     grooves, and a groove opens at the post's crown one half card above the station — so the
     highest the can ever rides in this skin is with the card's foot at that mouth, one whole
     `mq6_card_z` above where it seats. Above that the card is in an open hand and the skin is
-    skin. AND THE ROOF IS A 45° GABLE off the same station, so the closure prints in layers with
-    nothing bridged and a can brought down early meets a lead-in rather than a lip. The posts
-    reject a card turned round on their own — the can would stand into their east cheeks — so
-    nothing up here was orienting anything. Cut here rather than left to the cradle,
+    skin. AND THE ROOF CROSSES THE SKIN, NOT THE CAN. The opening is nineteen millimetres across
+    the can in Y but only three millimetres through this added skin in X. Its wall-side edge
+    starts on the top of the can's sweep and rises at 45° to the skin's inboard face, closing in
+    those three millimetres. Every layer therefore grows off the wall below it, while a Y gable
+    would spend one needless can radius in height and leave flat three-millimetre bridges where
+    the vent slots intersected it. The posts reject a card turned round on their own — the can
+    would stand into their east cheeks — so nothing up here was orienting anything. Cut here
+    rather than left to the cradle,
     because what the cradle builds is posts standing on a face and this is the face they stand
     on. THE EAST STRIP NEEDS NO WELL: the only body against that flank is the condenser's block,
     and the block is stood off this very face."""
@@ -4315,62 +4322,51 @@ def _front_bottom_flank_skin(inner, west_cradle, y_joint, zj):
     west = _ybox(lx0, fx0, inner[2], y_joint, inner[4], zj)
     half = mq6_can_yz / 2.0 + mq6_slot_press
     for _sx, sy, sz in west_cradle:
-        crown, apex = mq6_chute_reach(sz)
-        west = west.cut(_ybox(lx0 - 1.0, fx0 + 1.0,
-                              sy - half, sy + half, sz - half, crown))
-        west = west.cut(_yz_prism(lx0 - 1.0, fx0 + 1.0,
-                                  ((sy - half, crown), (sy + half, crown), (sy, apex))))
+        crown, roof = mq6_chute_reach(sz)
+        west = west.cut(_xz_prism(sy - half, sy + half, (
+            (lx0 - 1.0, sz - half), (fx0 + 1.0, sz - half),
+            (fx0 + 1.0, roof + 1.0), (fx0, roof),
+            (lx0, crown), (lx0 - 1.0, crown))))
     return west.fuse(_ybox(fx1, lx1, inner[2], y_joint, inner[4], zj))
 
 
-def _plate_shelf(inner, plate, zj):
-    """THE TWO SHELVES THE COLLET PLATE RESTS ON — front-bottom's own, at the seam mouth,
-    one down each flank over the front run.
+def _plate_foot(inner, plate, zj):
+    """THE TWO FEET THE COLLET PLATE STANDS ON — front-bottom's own, one under each end of the
+    steel, their top face the seam plane itself.
 
-    THE STEEL IS CARRIED BY THE SEAM. Nothing in front-top holds it down: it goes in through
-    that piece's bed face and `_plate_cap`'s land is over it, not under it, so what stops the
-    plate falling back out the way it came is the piece the mouth closes onto. Front-bottom is
-    a hollow tub across the bay at this station — it stands nothing under the steel's middle —
-    but its two FLANKS run to the mouth here, `_front_bottom_flank_skin` having carried them
-    to `front_bottom_flank_face`. This brings that face in the last few millimetres, under the
-    plate's own ends.
+    THE STEEL IS CARRIED BY THE SEAM. `_plate_cap`'s land is OVER the plate, struck at the steel's
+    own `z1`, and stops it where it is pushed to; nothing in front-top stands under it, and
+    front-bottom is a hollow tub across the bay at this station — it holds nothing under the
+    steel's middle. What the plate stands on is what this piece brings to the mouth: its two
+    FLANKS, which `_front_bottom_flank_skin` has carried to `front_bottom_flank_face`, and this,
+    which continues that same face inboard under the steel's ends.
 
-    EACH END HAS ONE CONTINUOUS BEARING LAND. The widened steel reaches 1.5 mm into the flank's
-    own section; `plate_shelf_land` continues another 1.5 mm inboard from that face. Together
-    the standing wall and this shelf carry the outer three millimetres of the plate at each
-    end, with no isolated pad and no edge supported on a line.
+    ONE LAND AT ONE HEIGHT, AND THE HEIGHT IS THE SEAM PLANE. The plate's own bottom edge IS that
+    plane (`enclosure_assembly.collet_plate_spec` strikes `z0` on it), and the outer
+    `plate_step_in` of each end already stands on the flank's mouth face at nominal — so a foot
+    struck any lower is a foot the steel never reaches, and all it does is move the whole bearing
+    onto that one narrow line at the extreme end of a 200 mm plate. Topped here, foot and flank
+    are one continuous land `plate_step_in() + plate_foot_reach` wide at each end.
 
-    ITS FORE EXTENSION ROOTS IT IN THE FLANK. The plate itself enters in Z through front-top's
-    bed face and occupies only `plate["fore_y"]..plate["aft_y"]`; both actual end footprints
-    stand on the complete shelf. Fore of them the prism runs to the front wall's inner plane,
-    meeting the flank wherever the full-width bay and rounded exterior leave that skin.
+    AND IT IS THE STEEL'S FOOTPRINT AND NOT THE FRONT RUN. What has to have something under it is
+    the plate, which is `PLATE_T` of the mouth's depth — so this is that plus `plate_foot_grip`
+    either way, and the mouth face fore of it is the flank's own, unbroken and flush. A land run
+    on to the front wall is fifty millimetres of ledge standing in the seam mouth under nothing.
 
-    AND IT STANDS ONE `steel_air` UNDER THE SEAM PLANE, WHICH IS THE STEEL'S OWN BOTTOM EDGE.
-    This face and `_plate_cap`'s land OPPOSE each other across the whole height of the plate,
-    and only one of them may be a datum. THE LAND IS THE ONE: front-top carries both the tee
-    bores the four holes have to meet and the stop the steel is pushed onto, so a datum struck
-    there keeps the Z seam out of the stack entirely. This face is the other, on the other
-    piece, and closing the seam is what brings it up — so struck at nominal the two would
-    capture the steel's whole height between two printed faces with nothing between them, and
-    a shelf that came off the bed a tenth proud would not make the plate rattle, it would stop
-    the box shutting. Two opposed faces are a fit and not a datum, and the one that is not the
-    datum takes the air.
-
-    AND ITS UNDERSIDE IS A 45° BACK TO THE FLANK. This piece prints floor-down and builds in
-    +Z, so a shelf struck square here would be a `plate_shelf_land + LIP_UNDERWALL` soffit
-    running the length of the flank with nothing under it. Taken back at that angle it is a
-    surface the print grows into off the wall it stands on — and a gusset down the flank's
-    top corner besides."""
+    AND ITS UNDERSIDE IS A 45° BACK TO THE FLANK. This piece prints floor-down and builds in +Z,
+    so a foot struck square here would be a `plate_foot_reach` soffit with nothing beneath it.
+    Taken back at that angle it is a surface the print grows into off the wall it stands on — and
+    a gusset in the flank's top corner besides."""
     fx0, fx1 = front_bottom_flank_face()
-    t, top = plate_shelf_t, zj - steel_air
+    t, top = plate_foot_t, zj
+    y0, y1 = plate["fore_y"] - plate_foot_grip, plate["aft_y"] + plate_foot_grip
     out = None
-    for x_face, x_in in ((fx0, plate["x0"] + plate_shelf_land),
-                         (fx1, plate["x1"] - plate_shelf_land)):
-        reach = abs(x_face - x_in)
-        shelf = _xz_prism(inner[2], plate["aft_y"], [
+    for x_face, into in ((fx0, 1.0), (fx1, -1.0)):
+        x_in = x_face + into * plate_foot_reach
+        foot = _xz_prism(y0, y1, [
             (x_in, top), (x_face, top),
-            (x_face, top - t - reach), (x_in, top - t)])
-        out = shelf if out is None else out.fuse(shelf)
+            (x_face, top - t - plate_foot_reach), (x_in, top - t)])
+        out = foot if out is None else out.fuse(foot)
     return out
 
 
@@ -8010,12 +8006,12 @@ def build_piece(box, y_side, z_side, halves_cache=None):
             # And front-bottom's own extra section on the west flank, welled round the card.
             piece = piece.fuse(_front_bottom_flank_skin(
                 inner, box.pack.west_cradle, y_joint, zj).intersect(col))
-            # And the two shelves that carry the collet plate, which bring that same face in
-            # the last millimetre under the steel's ends. Fused with the skin, before every
-            # pocket, so anything cut into this flank later is cut out of the whole of it.
+            # And the two feet the collet plate stands on, which carry that same face inboard
+            # under the steel's ends. Fused with the skin, before every pocket, so anything cut
+            # into this flank later is cut out of the whole of it.
             if box.pump_bay and box.pack.collet_plate:
                 piece = piece.fuse(
-                    _plate_shelf(inner, box.pack.collet_plate, zj).intersect(col))
+                    _plate_foot(inner, box.pack.collet_plate, zj).intersect(col))
         if y_side == "back":
             # And back-bottom's own extra section inboard of that, on the two flanks only.
             # Fused with them and before every pocket for the same reason: a well cut into
