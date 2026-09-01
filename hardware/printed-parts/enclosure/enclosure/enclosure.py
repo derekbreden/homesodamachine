@@ -573,6 +573,9 @@ floor_heatset_depth = 9.5
 # otherwise wrap.
 wago_well_wall = 3.0        # well wall thickness
 wago_well_press = 0.15      # per-side press-fit clearance, validated on the valve trays
+# A supportless well keeps this much roof at each end of its pocket. The centre opens into one
+# 45° wall-rooted ramp, so each tab is a short bridge instead of the pocket's whole span.
+wago_roof_tab = 2.0
 
 
 def wago_stand(size="413"):
@@ -1753,8 +1756,8 @@ def documented(box):
 #                 only part of the candidate wedge holds that part back by
 #                 `east_boss_corbel_clear`; the clear bands keep their wall-rooted corbel all
 #                 the way to the body, and the D-shaped stem still reaches the whole hole
-#   side_wells    the side walls' Wago wells, (side, y, z, size, clear_z) — one press-fit pocket
-#                 per lever nut, on the flank its own cluster stands on
+#   side_wells    the side walls' Wago wells, (side, y, z, size, clear_z, supportless_roof) —
+#                 one press-fit pocket per lever nut, on the flank its own cluster stands on
 #   floor_bosses  the floor slab's mounting bosses, (x, y, the plane the boss top reaches, the
 #                 section the donor's own bore leaves the post standing in it)
 #   west_cradle   the −X strip's MQ-6 card slot, (x, y, z) — the card's own mid-plane, and its
@@ -2566,7 +2569,7 @@ def _dims(pack):
     bt_y0 = y_joint + lip_len + z_lip_y_margin
     bt_z0 = splits[1] + z_rise
     lanes = ([(sy - hy, sy + hy, sz - hz, sz + hz)
-              for _sd, sy, sz, size, _cz in pack.side_wells
+              for _sd, sy, sz, size, _cz, _supportless_roof in pack.side_wells
               for hy, hz in (wago_half(size),)]
              + [(by0, by1, bz0, bz1) for _bx0, _bx1, by0, by1, bz0, bz1 in pack.pan_sleeve[0]])
     relieved_names = {who for who, _side, _y0, _y1, _z0, _z1
@@ -6290,22 +6293,28 @@ def _side_wells(solid, inner, stations, y0, y1, z0, z1):
     height band that piece owns — the same band test `_east_bosses` makes, so a well lands
     whole in the piece whose wall carries it.
 
-    Each station is `(side, y, z, size)`: which flank the well is grown on (+1 east,
-    −1 west), its centre on that wall, and the 221 it takes.
+    Each station is `(side, y, z, size, clear_z, supportless_roof)`: which flank the well is
+    grown on (+1 east, −1 west), its centre on that wall, the 221 it takes, the lowest plane its
+    lower wedge may enter, and which of the two roof forms it keeps.
 
     The tower stands off the wall's inner face and the cavity is cut from that face
     outward past its own end, so the pocket opens INBOARD and bottoms on the wall. What
     the lug meets at the bottom of its travel is the wall itself, not a printed floor —
     the wall is the datum, so the ports stand at a height the wall states.
 
-    THE POCKET KEEPS ITS WHOLE FLAT ROOF. It is the same `wago_well_wall` section as the
-    other three sides, catches the lug across its full width, and leaves any corbel or
-    flank section standing above the well whole too.
+    A SUPPORTLESS ROOF IS TWO TABS, NOT A SOFFIT. The band over the pocket keeps
+    `wago_roof_tab` at each end and opens between them. That opening closes on one 45° plane
+    folded on the wall at the pocket roof, so each tab is its own short bridge and the ramp
+    lays every layer on the one below it.
+
+    A FLAT ROOF keeps the complete `wago_well_wall` section across the pocket. It catches the
+    lug across its full width and leaves any corbel or flank section standing above the well
+    whole too. Only a station explicitly marked for this roof gives up the supportless opening.
 
     A 45° WEDGE CARRIES THE TOWER'S UNDERSIDE to the wall. `clear_z` is the plane the
     flank's air stops being the well's — the crown of whatever the station stands over —
     and a wedge that would cross it is cut off flat there instead."""
-    for side, sy, sz, size, clear_z in stations:
+    for side, sy, sz, size, clear_z, supportless_roof in stations:
         if not (y0 <= sy <= y1 and z0 <= sz <= z1):
             continue
         face = inner[1] if side > 0 else inner[0]
@@ -6333,6 +6342,12 @@ def _side_wells(solid, inner, stations, y0, y1, z0, z1):
         solid = solid.cut(_ybox(pocket[0], pocket[1],
                                 sy - pk_y, sy + pk_y,
                                 sz - (stand_z / 2.0 + wago_well_press), roof_z))
+        if supportless_roof:
+            gap = pk_y - wago_roof_tab
+            solid = solid.cut(_xz_prism(
+                sy - gap, sy + gap,
+                [(face, roof_z), (face - side * reach, roof_z),
+                 (face - side * reach, roof_z + reach)]))
     return solid
 
 
