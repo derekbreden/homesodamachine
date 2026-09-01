@@ -267,10 +267,10 @@ MOUNTS = (
     # steel's own section from the bed face to the floor's top — and stops with its TOP EDGE on
     # `_plate_cap`'s land, one storey up and wall to wall, `_plate_fore_guides`' heads carrying
     # that same plane out to the side walls. The outline is four corners and owes the stop no
-    # shoulder. Under the steel, front-bottom's `_plate_shelf` runs the whole front run one
-    # `steel_air` below the seam plane: the land is over the plate and not under it, so what
-    # stops it falling back out the way it came is the piece the mouth closes onto, and the
-    # steel rides that shelf in. The slot's walls take it fore and aft, the side walls across.
+    # shoulder. Under the steel, front-bottom's `_plate_foot` stands one foot beneath each of
+    # its ends, topped ON the seam plane so foot and flank are one continuous bearing land per
+    # end: the cap's land is over the plate and this is under it, and what stops it falling back
+    # out the way it came is the piece the mouth closes onto. The slot's walls take it fore and aft, the side walls across.
     # What loads it is the pump cartridge's own release: the
     # four anchor-tee collets press its aft face as the pump cartridge is pulled, the slot's fore
     # wall carries that into a floor lying on the print bed, and the user's aft brace on the box
