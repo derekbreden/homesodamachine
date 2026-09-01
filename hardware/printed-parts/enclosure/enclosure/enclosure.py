@@ -572,12 +572,6 @@ floor_heatset_depth = 9.5
 # otherwise wrap.
 wago_well_wall = 3.0        # well wall thickness
 wago_well_press = 0.15      # per-side press-fit clearance, validated on the valve trays
-# The well's roof is two tabs, this wide, one at each end of the pocket's span — each
-# catches the lug's lift and prints as its own short bridge. What opens BETWEEN them is
-# roofed on ONE 45 degree plane folded on the wall: the opening runs past the tower's
-# own crown into whatever stands over it, and squared off there it would lay that
-# thing's underside on air across the opening's full width.
-wago_roof_tab = 2.0
 
 
 def wago_stand(size="413"):
@@ -6157,15 +6151,21 @@ def _east_boss_corbel(wall_x, station):
     holding an entire seven-millimetre boss back for a blocker that occupies only one side. The
     D stem remains whole over the blocker itself, where the purchased body already leaves too
     little Z room for a slicer to grow support.
+
+    AND A SETBACK THAT REACHES THE WALL LEAVES NO WEDGE AT ALL. The wedge is rooted on the wall
+    and rises 45 degrees off it, so a blocker standing within its own clearance of that face has
+    taken the whole depth a wedge could occupy — there is nothing to build, not a zero-depth one.
+    That band goes without, the D stem still carries the hole across it, and any `clear_bands`
+    beside the blocker still take the full wall-rooted wedge. Returns None when none survives.
     """
     sy, sz, tip = station[:3]
     web_tip = station[3] if len(station) > 3 else tip
     clear_bands = station[4] if len(station) > 4 else ()
     r = mount_boss_dia / 2.0
-    if not (tip <= web_tip < wall_x):
+    if web_tip < tip - stated_bound_tol:
         raise ValueError(
             f"east boss at ({sy:g}, {sz:g}) has corbel tip x={web_tip:g}; "
-            f"expected {tip:g}..{wall_x:g}")
+            f"expected at least its own mounting face {tip:g}")
 
     def wedge(ylo, yhi, reach):
         drop = wall_x - reach
@@ -6173,25 +6173,38 @@ def _east_boss_corbel(wall_x, station):
             ylo, yhi,
             [(wall_x, sz - r), (reach, sz - r), (wall_x, sz - r - drop)])
 
-    out = wedge(sy - r, sy + r, web_tip)
+    out = None
+    if web_tip < wall_x - stated_bound_tol:
+        out = wedge(sy - r, sy + r, web_tip)
     for ylo, yhi in clear_bands:
         if ylo < sy - r - 1e-6 or yhi > sy + r + 1e-6 or yhi <= ylo:
             raise ValueError(
                 f"east boss at ({sy:g}, {sz:g}) has invalid clear corbel band "
                 f"y={ylo:g}..{yhi:g}; expected inside {sy-r:g}..{sy+r:g}")
-        out = out.fuse(wedge(ylo, yhi, tip))
+        band = wedge(ylo, yhi, tip)
+        out = band if out is None else out.fuse(band)
     return out
 
 
 def _east_boss_support(wall_x, station):
-    """The material one +X-wall mounting station adds, before its bore."""
-    return _east_boss_stem(wall_x, station).fuse(_east_boss_corbel(wall_x, station))
+    """The material one +X-wall mounting station adds, before its bore — the D stem always, and
+    the corbel wherever a blocker has left it any depth to stand in."""
+    stem = _east_boss_stem(wall_x, station)
+    corbel = _east_boss_corbel(wall_x, station)
+    return stem if corbel is None else stem.fuse(corbel)
 
 
-def _east_bosses(solid, inner, outer, stations, y0, y1, z0, z1):
+def _east_bosses(solid, roots, outer, stations, y0, y1, z0, z1):
     """The +X wall's mounting bosses added to a PIECE, for the stations inside the depth and
     height band that piece owns — so a boss lands in the piece whose wall carries it, whole,
     and no piece grows a column standing in another's air.
+
+    IT STANDS ON THE FACE THIS PIECE PUTS THERE and not on the box's own. `interior_x` is the
+    frame every station is struck in and the plane the pack is packed to, but back-top carries
+    `back_top_flank_t` where the box carries one `wall` — so a boss drawn to the box's plane is
+    drawn six millimetres into stock that piece has already filled in, and what emerges past the
+    face is whatever the station happened to leave. `piece_root_faces` is that plane, and the
+    same reading tells this builder how much of a boss there is to stand at all.
 
     Each station is `(y, z, tip, web_tip, clear_bands)`: the two plan coordinates the boss
     stands on, the plane its top face reaches — the body's own mounting face, where its hole
@@ -6214,14 +6227,14 @@ def _east_bosses(solid, inner, outer, stations, y0, y1, z0, z1):
         sy, sz, tip = station[:3]
         if not (y0 <= sy <= y1 and z0 <= sz <= z1):
             continue
-        # A STATION STANDING UNDER `east_boss_min_stand` OFF THE WALL GROWS NOTHING. The body is
+        # A STATION STANDING UNDER `east_boss_min_stand` OFF THAT FACE GROWS NOTHING. The body is
         # already on the wall to within the air its own screw closes, so the wall is its mounting
-        # face: a stem struck for that much would be a fraction-of-a-millimetre step across the
-        # flank with a sliver edge round it, and its wedge would be shorter still. The bore is
+        # face: a stem struck for that much emerges as a fraction-of-a-millimetre step across the
+        # flank with a sliver edge round it, and its wedge comes out shorter still. The bore is
         # then struck from the wall's own face and seats the insert in the wall's section.
-        face = inner[1]
-        if inner[1] - tip >= east_boss_min_stand - stated_bound_tol:
-            solid = solid.fuse(_east_boss_support(inner[1], station))
+        face = roots[1]
+        if roots[1] - tip >= east_boss_min_stand - stated_bound_tol:
+            solid = solid.fuse(_east_boss_support(roots[1], station))
             face = tip
         # AND THE BORE STOPS WHERE THE SURFACE SAYS, not where the plane does. Run its full
         # relief it ends on `interior_x`, which is one `wall` behind the flat and less than
@@ -6256,18 +6269,9 @@ def _side_wells(solid, inner, stations, y0, y1, z0, z1):
     the lug meets at the bottom of its travel is the wall itself, not a printed floor —
     the wall is the datum, so the ports stand at a height the wall states.
 
-    THE ROOF IS TWO TABS, NOT A SOFFIT. The band over the pocket keeps `wago_roof_tab`
-    at each end and opens between them: each tab catches the lug's lift and prints as
-    its own short bridge, with nothing hanging the pocket's full width.
-
-    AND THE OPENING IS ROOFED ON ONE 45° PLANE, folded on the wall at the pocket's own
-    roof — the plane the tabs bridge on, so the roof is one height where it meets the
-    lug and the ramp starts where they do. It rises inboard off that fold, and the wall
-    carries it the way the wall carries the wedge under the tower: same angle, same
-    fold, mirrored over the lug, every layer inboard laid one layer-height out over the
-    one below. Roofed flat instead, the opening hands its ceiling to whatever stands
-    over the well — the flank's own section, the ceiling's soffit on the +X row — and
-    that thing spans the opening on air.
+    THE POCKET KEEPS ITS WHOLE FLAT ROOF. It is the same `wago_well_wall` section as the
+    other three sides, catches the lug across its full width, and leaves any corbel or
+    flank section standing above the well whole too.
 
     A 45° WEDGE CARRIES THE TOWER'S UNDERSIDE to the wall. `clear_z` is the plane the
     flank's air stops being the well's — the crown of whatever the station stands over —
@@ -6300,10 +6304,6 @@ def _side_wells(solid, inner, stations, y0, y1, z0, z1):
         solid = solid.cut(_ybox(pocket[0], pocket[1],
                                 sy - pk_y, sy + pk_y,
                                 sz - (stand_z / 2.0 + wago_well_press), roof_z))
-        gap = pk_y - wago_roof_tab
-        solid = solid.cut(_xz_prism(sy - gap, sy + gap,
-                                    [(face, roof_z), (face - side * reach, roof_z),
-                                     (face - side * reach, roof_z + reach)]))
     return solid
 
 
@@ -8120,7 +8120,8 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     # The +X wall's mounting bosses, on whichever piece holds each one's station. Last of
     # all, so a bore is cut through every column that has already been fused around it.
     ylo, yhi = _piece_bands(box, f"{y_side}-{z_side}")[:2]
-    piece = _east_bosses(piece, inner, outer, box.pack.east_bosses, ylo, yhi, zlo, zhi)
+    piece = _east_bosses(piece, piece_root_faces(inner, y_side, z_side), outer,
+                         box.pack.east_bosses, ylo, yhi, zlo, zhi)
     # The +X wall's Wago wells, on whichever piece holds each one's station. After the
     # bosses for the same reason those go after the seam's own bosses: a pocket cut here is a
     # pocket nothing later fuses back in.
