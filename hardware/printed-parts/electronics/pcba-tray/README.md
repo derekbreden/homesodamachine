@@ -7,7 +7,8 @@ the board's own MH1–MH4 pattern and carried through its placement
 ([`enclosure_assembly.wall_mounts`](/hardware/manifold-layout/enclosure_assembly.py)), and
 `pcba-board.step` is the body the machine carries. What lives here is the board
 datum every one of those mounts is derived from — the outline, the MH1–MH4
-rectangle, the thickness, and the component heights read off the fab model — plus
+rectangle, the thickness, the **2 mm THT-tail envelope below the PCB underside**,
+and the component heights read off the fab model — plus
 the tray itself as bench geometry, which stands in `pcba-assembly.step` rather than
 as a solid of its own.
 
@@ -38,6 +39,14 @@ seats on the boss tops (5 mm clears the THT tails — XH wafers, the J10 screw
 block, U10, BT1, J14's shield legs), and the screw head + washer seat on the
 top-face pad, which the board's pours keep clear (`fastenerAnnulus`).
 
+The PCB underside and every mounting hole are at Z = 0 in `pcba-board.step`.
+The through-hole component footprints continue to Z = −2 as a conservative
+tail envelope, with the four 7 × 7 mm boss footprints around MH1–MH4 kept
+open. In the appliance that envelope is seated nearest the +X wall,
+so the four wall bosses reach 2 mm farther inboard to the actual board underside;
+the wall is not allowed to occupy the solder-tail clearance simply because the
+fab visualization omits detailed clipped leads.
+
 The tray frame **is the board's pcb frame** (pcbX/pcbY as in `pcba.tsx`), so
 every boss centre is its MH coordinate verbatim. Board footprint
 **85 × 72.8 mm** as fabbed; the floor is that outline grown 0.5 mm on the
@@ -50,7 +59,8 @@ throats face east.
 `pcba_tray.py` carries the datum and the mount stations and writes no solid;
 `pcba_assembly.py` → `pcba-assembly.step` (tray + board) and `pcba-board.step`
 (the board as a simplified populated model — the outline slab + one box per
-component at its placed footprint and an approximate height, read from
-`hardware/pcb/pcba/out/pcba.circuit.json`; the full component 3D is
+component at its placed footprint and height, including the clipped 2 mm
+wall-facing part of each through-hole box, read from
+`hardware/pcb/pcba/out/pcba.glb`; the full component 3D is
 [`/hardware/pcb/pcba/out/pcba.glb`](/hardware/pcb/pcba/)). Regenerate with
 `tools/cad-venv/bin/python <script>`.
