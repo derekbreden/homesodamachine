@@ -6035,9 +6035,10 @@ def _pan_sleeve(solid, sleeve, z0, z1):
     flange gap exactly where the pack states them, then spend only free clearance as they run
     into the already-open mouth. No short roof remains over material printed below it.
 
-    AND A NOTCH CARRIED PAST THE BLOCK'S OWN LID crosses the wall alone — the lead race does,
-    over the moisture plate's solder holes — so its head takes the 45° hip, struck on the notch's
-    own half-width, and the lintel over it is a ridge rather than a plate."""
+    THE LEAD NOTCH HAS A FLAT ROOF. It crosses only the exterior wall above the block's own lid,
+    over the moisture plate's solder holes. Its stated top closes that short wall crossing in
+    one horizontal plane; the sleeve already has supported faces in this region, so this
+    service-facing opening keeps the simpler rectangular section."""
     adds, cuts = sleeve
     blocks = [b for b in adds if z0 <= b[5] <= z1]
     for x0, x1, y0, y1, bz0, bz1 in blocks:
@@ -6045,13 +6046,8 @@ def _pan_sleeve(solid, sleeve, z0, z1):
         solid = solid.fuse(_xz_prism(y0, y1,
                                      [(x0 + pan_sleeve_corbel, bz0), (x0, bz0),
                                       (x0, bz0 - pan_sleeve_corbel)]))
-    lid = max((b[5] for b in blocks), default=None)
     for x0, x1, y0, y1, cz0, cz1 in (cuts if blocks else ()):
         solid = solid.cut(_ybox(x0, x1, y0, y1, cz0, cz1))
-        if cz1 > lid:
-            solid = solid.cut(_yz_prism(x0, x1,
-                                        ((y0, cz1), ((y0 + y1) / 2.0, cz1 + (y1 - y0) / 2.0),
-                                         (y1, cz1))))
     # The rebate is the larger plan box whose roof is exactly the central mouth's floor. Find
     # that relationship in the pack rather than naming either cut by position: the well overlaps
     # the rebate in Z, and the narrow lead race crosses several levels, but neither has this one
