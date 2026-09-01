@@ -6028,11 +6028,12 @@ def _pan_sleeve(solid, sleeve, z0, z1):
     not reach stays a soffit: the tray is longer than any wedge off that one wall can hold, and
     nothing stands under the block's east half to root a second one on.
 
-    THE RIM REBATE'S ROOF DOES HAVE FOUR ROOTS. Its outer strip rises into the central mouth from
-    the exterior skin, its fore and aft strips rise from their jambs, and its east strip rises
-    from the block's backstop. Those four 45° cuts leave the exterior opening and the seated
-    flange gap exactly where the pack states them, then spend only free clearance as they run
-    into the already-open mouth. No short roof remains over material printed below it.
+    THE RIM REBATE'S ROOF IS ONE HIPPED RECTANGULAR TRANSITION. Its lower perimeter stands on
+    the exterior skin, the fore and aft jambs and the east backstop. Its upper perimeter is the
+    same rectangle inset by the lid's rise, so all four 45° faces meet on diagonal hips and
+    surround the already-open mouth. The exterior opening and seated flange gap stay exactly
+    where the pack states them; only free clearance above the inserted rim grows toward the
+    mouth. No short roof remains over material printed below it.
 
     THE LEAD NOTCH HAS A FLAT ROOF. It crosses only the exterior wall above the block's own lid,
     over the moisture plate's solder holes. Its stated top closes that short wall crossing in
@@ -6066,24 +6067,39 @@ def _pan_sleeve(solid, sleeve, z0, z1):
             "exactly one is required")
     if roof_pairs:
         rebate, mouth = roof_pairs[0]
-        rx0, rx1, ry0, ry1, _rz0, roof = rebate
-        mx0, mx1, my0, my1, _mz0, _mz1 = mouth
+        _rx0, rx1, ry0, ry1, _rz0, roof = rebate
+        mx0, mx1, my0, my1, _mz0, top = mouth
         outer_x = min(b[0] for b in blocks) - wall
-        # Fore and aft jambs, across the rebate's whole X span.
-        solid = solid.cut(_yz_prism(
-            rx0, rx1,
-            ((ry0, roof), (my0, roof + (my0 - ry0)), (my0, roof))))
-        solid = solid.cut(_yz_prism(
-            rx0, rx1,
-            ((my1, roof), (my1, roof + (ry1 - my1)), (ry1, roof))))
-        # The east backstop and the real exterior skin. The rebate cutter deliberately overcuts
-        # west of the part, so its own x0 is not a printable root; `outer_x` is.
-        solid = solid.cut(_xz_prism(
-            my0, my1,
-            ((rx1, roof), (mx1, roof + (rx1 - mx1)), (mx1, roof))))
-        solid = solid.cut(_xz_prism(
-            my0, my1,
-            ((outer_x, roof), (mx0, roof + (mx0 - outer_x)), (mx0, roof))))
+        rise = top - roof
+        tx0, tx1 = outer_x + rise, rx1 - rise
+        ty0, ty1 = ry0 + rise, ry1 - rise
+        if (rise <= 0.0 or tx0 >= tx1 or ty0 >= ty1
+                or tx0 > mx0 + 1e-6 or tx1 < mx1 - 1e-6
+                or ty0 > my0 + 1e-6 or ty1 < my1 - 1e-6):
+            raise ValueError(
+                "the pan sleeve's hipped rebate roof does not finish round its mouth: "
+                f"roof ({outer_x:g}, {rx1:g}) × ({ry0:g}, {ry1:g}) at z {roof:g}, "
+                f"top ({tx0:g}, {tx1:g}) × ({ty0:g}, {ty1:g}) at z {top:g}, "
+                f"mouth ({mx0:g}, {mx1:g}) × ({my0:g}, {my1:g})")
+        lower = tuple(cq.Vector(*p) for p in (
+            (outer_x, ry0, roof), (rx1, ry0, roof),
+            (rx1, ry1, roof), (outer_x, ry1, roof)))
+        upper = tuple(cq.Vector(*p) for p in (
+            (tx0, ty0, top), (tx1, ty0, top),
+            (tx1, ty1, top), (tx0, ty1, top)))
+
+        # Six explicit planar faces keep every roof side an analytic plane in the STEP.
+        def face(points):
+            return cq.Face.makeFromWires(cq.Wire.makePolygon(points, close=True))
+
+        faces = [face(tuple(reversed(lower))), face(upper)]
+        faces.extend(face((lower[i], lower[(i + 1) % 4],
+                           upper[(i + 1) % 4], upper[i]))
+                     for i in range(4))
+        hip = cq.Solid.makeSolid(cq.Shell.makeShell(faces))
+        if not hip.isValid():
+            raise ValueError("the pan sleeve's hipped rebate roof is not a valid solid")
+        solid = solid.cut(hip)
     return solid
 
 

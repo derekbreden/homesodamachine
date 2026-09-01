@@ -709,10 +709,11 @@ below. The tray is longer than a 45° wedge from that one wall can carry, and no
 its east half to root a second wedge. That remaining soffit is reached from the print bed through
 the open enclosure rather than from material just below it.
 
-The rim rebate's lid closes differently. Its four strips rise at 45° into the already-open tray
-mouth: from the exterior skin on the west, the fore and aft jambs, and the sleeve's east backstop.
-The exterior slot and seated flange gap keep their stated planes; only free clearance above the
-inserted rim grows toward the mouth. The rebate therefore leaves no short, material-rooted roof.
+The rim rebate's lid is one hipped rectangular transition. Its four faces rise at 45° into the
+already-open tray mouth from the exterior skin on the west, the fore and aft jambs, and the
+sleeve's east backstop; adjacent faces meet on diagonal hips. The exterior slot and seated
+flange gap keep their stated planes; only free clearance above the inserted rim grows toward
+the mouth. The rebate therefore leaves no short, material-rooted roof.
 
 The exception in that lid is the moisture probe's **flat-roofed lead notch** through the
 −X withdrawal wall. The leads rise in the pan's existing open mouth and turn west
