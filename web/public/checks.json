@@ -57,7 +57,7 @@
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 520 of 1000 free, the next cut wants 3, and the whole lock reads by name in 114.8 MB against 116.0 MB of bundle",
+      "note": "check_release_room: 510 of 1000 free, the next cut wants 3, and the whole lock reads by name in 114.6 MB against 115.9 MB of bundle",
       "status": "ok"
     },
     {
@@ -90,7 +90,7 @@
     "hardware/scripts/check_payloads.py": [
       "2 solid(s) whose surface is not in the payload beside them:",
       "    hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh — cut from other bytes than the solid holds",
-      "    hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh — cut from other bytes than the solid holds",
+      "    hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh — cut from other bytes than the solid holds",
       "  the run that cuts a solid writes the payload beside it:",
       "    tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/enclosure.py",
       "  and the enclosure's flutes go back into those payloads after:",
