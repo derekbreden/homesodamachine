@@ -6230,20 +6230,22 @@ def _east_bosses(solid, roots, outer, stations, y0, y1, z0, z1):
         # A STATION STANDING UNDER `east_boss_min_stand` OFF THAT FACE GROWS NOTHING. The body is
         # already on the wall to within the air its own screw closes, so the wall is its mounting
         # face: a stem struck for that much emerges as a fraction-of-a-millimetre step across the
-        # flank with a sliver edge round it, and its wedge comes out shorter still. The bore is
-        # then struck from the wall's own face and seats the insert in the wall's section.
-        face = roots[1]
+        # flank with a sliver edge round it, and its wedge comes out shorter still.
         if roots[1] - tip >= east_boss_min_stand - stated_bound_tol:
             solid = solid.fuse(_east_boss_support(roots[1], station))
-            face = tip
+        # THE BORE STILL STARTS AT THE BODY'S OWN FACE, stem or no stem. `roots` is one plane and
+        # the piece is not: a station standing where the flank has already turned into its rear
+        # corner meets a face inboard of that plane, and a bore struck on the plane leaves that
+        # much of a membrane capped over the insert's mouth. Struck from `tip` it opens whatever
+        # is actually between the body and the wall, and where nothing is, it cuts air.
         # AND THE BORE STOPS WHERE THE SURFACE SAYS, not where the plane does. Run its full
         # relief it ends on `interior_x`, which is one `wall` behind the flat and less than
         # that behind a corner round — and a flute is cut into that same surface, so a station
         # standing on the turn would put a groove over an insert with too little between them.
         # It gives up relief before it gives up `flute_backing`; `boss-bore-seats` reads what
         # is left against the insert's own depth.
-        solid = solid.cut(_xcyl(heatset_dia / 2.0, sy, sz, face,
-                                east_boss_bore_end(sy, face, outer)))
+        solid = solid.cut(_xcyl(heatset_dia / 2.0, sy, sz, tip,
+                                east_boss_bore_end(sy, tip, outer)))
     return solid
 
 
