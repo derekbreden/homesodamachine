@@ -3,8 +3,8 @@
 A static part in its own frame: origin at the collar-rectangle center, z = 0
 the brim underside — the plane that rests on the enclosure's top surface.
 The machine places it (`enclosure_assembly.build_funnel`, on `enclosure_assembly.funnel_centre`
-and the box's outer top), and the enclosure cuts its top-wall opening from this collar
-(`enclosure.py _funnel_hole`), asserting the placement clears the display
+and the box's outer top), and the enclosure cuts its top-wall opening from this collar plus
+running air (`enclosure.py _funnel_cut_plan`), asserting the placement clears the display
 gusset, the ±X boss chains, and the Y-seam lip. The drain is defined here, in
 the funnel's frame, and rides the part wherever it is placed.
 

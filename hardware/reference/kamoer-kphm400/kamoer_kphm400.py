@@ -5,17 +5,18 @@ sectioned into functional sub-bodies (head, rotor housing, motor body).
 Envelopes are catalog-nominal, not a manufacturing drawing — see
 `off-the-shelf-parts/kamoer-kphm400/extracted-results/geometry-description.md`.
 
-The model is authored in the PUMP-CASE WORLD FRAME so it drops straight into
-the case assembly: origin at the base-plate bore-opening face, footprint
-centered at (cx, cy), and the pump's depth axis along world +Z (head front at
--Z, motor at +Z). Width and height lie in X and Y.
+The model is authored in the PUMP-CASE WORLD FRAME: origin at the base-plate
+bore-opening face, the head datum centered at (cx, cy), and the pump's depth
+axis along world +Z (head front at -Z, motor at +Z). Width and height lie in X
+and Y. The rear boss and motor share their measured axis one millimetre toward
+-Y from that head datum; consumers locating the head and rear stack therefore
+read the two datums separately.
 
-The head and the rotor housing are conformed to the case interior, imported live
-from `pump_case`, so they fit the cavity rather than poking through it:
+The head and rotor profile are derived live from `pump_case`:
 - The head is the datasheet head block clipped to the skirt + lower-extension
   inner cavity, so it fills that cavity and stops at every wall.
-- The rotor housing is shaped to the octagon bore (ledges and all), filling
-  the octagon seat from the base plane up to the tower-bore start.
+- The rotor housing takes the octagon-bore profile (ledges and all) from the
+  base plane to the tower-bore start, on the rear stack's offset axis.
 
 The motor is the part's own can, not the hole it turns in. The three bodies end
 at `pump_len` off the head's front face — the length the part measures — and the
@@ -45,6 +46,12 @@ import pump_case as pc
 
 # --- Case-interior anchors (derived live from pump_case) --------------------
 cx, cy = pc.center_x, pc.center_y                 # footprint center
+# THE REAR STACK IS NOT CONCENTRIC WITH THE HEAD DATUM. The fitted octagon and motor-can
+# readings put their common axis one millimetre toward Y- while the head, barbs and lower
+# seating faces remain on the case datum. This is part geometry, not assembly clearance: the
+# boss and can both take it, and anything seating the head must not silently take it too.
+rear_axis_y_shift = -1.0
+rear_axis_y = cy + rear_axis_y_shift
 base_plane_z = 0.0                               # base-plate bore-opening plane
 octagon_top_z = pc.bore_bottom_z                 # octagon seat depth / tower-bore start
 arch_plane_z = pc.skirt_bottom_z                 # skirt-bottom plane: outlet-port level
@@ -189,11 +196,11 @@ def build_head():
 
 
 def build_rotor_housing():
-    """The head's rear boss, shaped to the octagon bore (ledges included), so it
-    fills the octagon seat from the base plane up to the tower-bore start."""
+    """The head's offset rear boss, shaped to the octagon bore (ledges included),
+    from the base plane up to the tower-bore start."""
     boss = (pc.WorldWorkplane(pc.xy_plane_z_up)
             .workplane(offset=base_plane_z)
-            .center(cx, cy)
+            .center(cx, rear_axis_y)
             .polyline(pc.bore_profile).close()
             .extrude(octagon_top_z - base_plane_z))
     return cq.Workplane(obj=boss.val())
@@ -202,7 +209,8 @@ def build_rotor_housing():
 def build_motor_body():
     """Silver DC motor: a plain round cylinder from the boss's rear face to the
     part's own end cap. The tower bore is what it turns inside, not its length."""
-    return cq.Workplane(obj=_zcyl(motor_dia / 2, octagon_top_z, motor_end_z))
+    return cq.Workplane(obj=_zcyl(
+        motor_dia / 2, octagon_top_z, motor_end_z, oy=rear_axis_y))
 
 
 # The pump's body sub-bodies as (name, builder, color). Public so the pump
@@ -228,7 +236,16 @@ def build_scene():
 
 def main():
     export_assembly(build_assembly(), str(_here.parent / "kamoer-kphm400.step"))
-    bb = build_scene().BoundingBox()
+    scene = build_scene()
+    bb = scene.BoundingBox()
+    boss_bb = build_rotor_housing().val().BoundingBox()
+    motor_bb = build_motor_body().val().BoundingBox()
+    boss_y = (boss_bb.ymin + boss_bb.ymax) / 2.0
+    motor_y = (motor_bb.ymin + motor_bb.ymax) / 2.0
+    if max(abs(boss_y - rear_axis_y), abs(motor_y - rear_axis_y)) > 1e-6:
+        raise ValueError(
+            f"the boss and motor axes land at y {boss_y:g} and {motor_y:g}, not their "
+            f"stated common rear axis y {rear_axis_y:g}")
     print("-> kamoer-kphm400.step")
     print("pump envelope  X[%.1f, %.1f]  Y[%.1f, %.1f]  Z[%.1f, %.1f]   (Z = depth axis, motor +Z)"
           % (bb.xmin, bb.xmax, bb.ymin, bb.ymax, bb.zmin, bb.zmax))
@@ -237,6 +254,8 @@ def main():
     print("depth %.2f against the part's %.2f%s"
           % (bb.zmax - bb.zmin, pump_len,
              "" if abs((bb.zmax - bb.zmin) - pump_len) < 1e-6 else "   <-- DOES NOT MATCH"))
+    print(f"rear boss and motor axis  y {rear_axis_y:g}, {abs(rear_axis_y_shift):g} mm toward Y- "
+          f"from the head datum y {cy:g}")
 
 
 if __name__ == "__main__":

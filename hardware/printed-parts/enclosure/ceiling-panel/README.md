@@ -144,7 +144,7 @@ flat plate.
    until its aft edge lands on the +Y wall.
 2. Lay the meter into its two anchors and each run into its rib, and zip tie them.
    Then lower the populated piece onto the machine.
-3. Drop the funnel in. Its collar fills the throat immediately ahead of the
+3. Drop the funnel in. Its collar runs in the slipped throat immediately ahead of the
    panel; the panel's show face remains uninterrupted behind it.
 
 ## Regenerate

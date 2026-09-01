@@ -1132,10 +1132,11 @@ def _pump_up(placed: dict, head: str) -> tuple:
 def pump_tray_seats(placed: dict) -> dict:
     """The pump stations the cartridge uses, `head -> (axis, sign, centre)`.
 
-    `centre` is the world point the pump's own axis meets its bracket datum: the motor can's
-    cylindrical axis in the two directions across the pump, and the head's own face in the
-    depth direction. The head is not assumed symmetric about that axis; its measured skirt and
-    outlet-side relief are allowed to give it an asymmetric bounding box."""
+    `centre` is the world point the head datum meets its bracket plane. The motor can supplies
+    the two transverse coordinates because it is cylindrical, after removing the reference
+    pump's stated rear-stack offset; the head supplies the depth face. The head is not assumed
+    symmetric about its datum: its measured skirt and outlet-side relief may give it an
+    asymmetric bounding box."""
     out = {}
     for head in sorted(placed):
         if not (head.startswith("pump-") and head.endswith("-head")):
@@ -1149,6 +1150,12 @@ def pump_tray_seats(placed: dict) -> dict:
                   (cb.zmin + cb.zmax) / 2.0]
         centre[axis] = ([b.xmax, b.ymax, b.zmax] if sign > 0
                         else [b.xmin, b.ymin, b.zmin])[axis]
+        # In this machine pose the pump reference's local Y is world Y. Its rear boss/can axis
+        # is one millimetre toward Y-, but the cartridge station belongs to the unchanged head
+        # and lower cradle. The removable cap applies the same reference offset to its rear-stack
+        # openings; keeping it out of this station prevents that correction moving the cradle.
+        if (axis, sign) == (2, 1.0):
+            centre[1] -= _tray.rear_axis_y_shift
         out[head] = (axis, sign, tuple(round(c, 6) for c in centre))
     return out
 
@@ -1213,10 +1220,17 @@ PLATE_T = 3.175              # .125" 316, laser-cut from `collet-plate.dxf`
 PLATE_T_UNDER = 0.254        # -.010", the negative half of that tolerance
 PLATE_LOST_MOTION = _enc.plate_slot_slip + PLATE_T_UNDER
 PLATE_REST_GAP = 1.5         # collet nose air off the plate's aft face, pump cartridge seated
-PLATE_HOLE_D = 8.0           # passes the tube, stops the nose
+PLATE_HOLE_D = 8.5           # passes the lowered tube's shallow angle, stops the nose
 COLLET_NOSE_R = 5.715        # the release nose's rim, measured off tee-connector.step
 TEE_WALL_BORE_SLIP = 0.25    # a bore's air on the collar's own radius — a running fit, not a grip
 TEE_WALL_BODY_AIR = 1.0      # the wall's aft face off the tee's own body, at FULL travel
+
+_stated.state(
+    "collet-plate-stops-nose", "The collet plate holes stop the release noses",
+    f"a hole smaller than the {2.0 * COLLET_NOSE_R:g} mm nose rim",
+    PLATE_HOLE_D < 2.0 * COLLET_NOSE_R,
+    f"the plate's {PLATE_HOLE_D:g} mm tube opening reaches the release nose's "
+    f"{2.0 * COLLET_NOSE_R:g} mm rim, so the plate cannot press the sleeve.")
 
 
 def collet_plate_spec(mcarry, tray_stations) -> dict:

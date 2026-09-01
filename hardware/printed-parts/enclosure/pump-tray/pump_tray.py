@@ -70,6 +70,9 @@ bracket_t = _kp.bracket_t
 # The motor can's far face above the bracket datum. The enclosure's removable clamp follows
 # the pump rather than the fixed bay lintel, so its common crown is struck from this reach.
 motor_crown = _kp.motor_end_z
+# The boss and motor's common plan offset from the head datum. The lower cradle stays on the
+# head; only the fitted rear-stack collar and openings take this shift.
+rear_axis_y_shift = _kp.rear_axis_y_shift
 # The fall the head's outlet side takes under its barbs, and how far up off its front face it
 # holds it — figures the lower cradle uses for its vertical fitting opening.
 outlet_relief = _kp.outlet_relief
@@ -297,7 +300,10 @@ def build_pump_tray(root: float):
             f"on the crown itself and the tray covers only the head")
     cx, cy, hw, fr, d = _pc.center_x, _pc.center_y, half_width(), far_reach(), depth()
     big = max(hw, fr, root) + case_half + 10.0
-    tray = _case_base()
+    # The case-derived collar follows the physical boss and can, while the broad pressing plate
+    # and its root remain struck from the head datum. This is the same split datum the pump
+    # reference exposes: lower/head geometry at the origin, rear stack at `rear_axis_y_shift`.
+    tray = _case_base().translate((0.0, rear_axis_y_shift, 0.0))
     # CUT OFF THE CYLINDER, and then more: the tower down to one `SHOULDER` over the boss's crown.
     tray = tray.cut(_slab(cx - big, cx + big, cy - big, cy + big, d, d + big))
     # AND CARRY THE PLATE OUT to the case's own footprint, then re-cut the bore the plate just
@@ -308,7 +314,7 @@ def build_pump_tray(root: float):
     # overcut that would pierce free air here.
     tray = tray.cut(cq.Workplane("XY")
                     .workplane(offset=-1.0)
-                    .center(cx, cy)
+                    .center(cx, cy + rear_axis_y_shift)
                     .polyline(_pc.bore_profile).close()
                     .extrude(boss_depth + 1.0))
     # AND THE TRAY STOPS ON THE FACE IT ROOTS ON, so it meets the wall plane to plane.
@@ -447,6 +453,7 @@ def main():
             "HEAD_D": f"{_kp.head_depth:g}",
             "CAN_DIA": f"{_kp.motor_dia:g}",
             "BRACKET_W": f"{2 * bracket_half:g}",
+            "REAR_AXIS_Y_SHIFT": f"{abs(rear_axis_y_shift):g}",
             "ON_HEAD": f"{storey[0]:.0f}",
             "ON_CROWN": f"{storey[1]:.0f}",
             "RAMP_H": f"{_pc.ramp_from_skirt_to_octagon_height:g}",

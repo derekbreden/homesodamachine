@@ -979,9 +979,11 @@ planes, and the front display-support columns have no section anywhere in this w
 
 The two pump stations carry a [2 mm](PUMP_STATION_DROP) downward world-Z service offset. The
 collet plate, anchor tees, valve decks and the rest of the manifold keep their fixed stations.
-Each complete Kamoer, its bracket land, lower locating well, clamp, clamp bores, screw seats and
-heat-set station share the pump datum. The pump ends of the four short barb tubes share it too;
-their tee ends remain at the fixed interface.
+Each complete Kamoer's head, bracket land, lower locating well, screw seats and heat-set station
+share the unchanged head datum. The pump reference's rear boss and motor axis stands 1 mm toward
+Y− from it, and the clamp's fitted octagon and motor-can openings follow that rear-stack axis;
+the lower cartridge does not take the offset. The pump ends of the four short barb tubes share
+the head datum too; their tee ends remain at the fixed interface.
 
 **Each pump drops into that cradle from Z+.** Two straight wells pass the motor, boss, stamped
 bracket, head and tube fittings at every insertion station. Below `cap_split_z`, the head well
@@ -1016,7 +1018,8 @@ fore envelope to the aft wall and reaches one common crown at z
 [278.5 mm](CLAMP_CROWN_Z), with [3.5 mm](CLAMP_LINTEL_AIR) of Z air below the fixed bay lintel.
 Two fitted openings wrap
 both bosses with the pump case's exact octagonal bore and leave one shoulder around each motor
-can. Both fitted openings stand [1 mm](CLAMP_PUMP_Y_SHIFT) toward Y− within the clamp. A single
+can. Both fitted openings follow the pump reference's rear-stack axis,
+[1 mm](CLAMP_PUMP_Y_SHIFT) toward Y− from the head and lower-cradle datum. A single
 [33.89 mm](CLAMP_ACCESS_W) × [48 mm](CLAMP_ACCESS_RUN) top recess joins the two screw stations;
 its retained floor stands at z [222.75 mm](CLAMP_ACCESS_FLOOR_Z), [6 mm](CLAMP_ACCESS_BASE)
 above the broad print face. The individual counterbores continue to head seats which keep
@@ -1053,6 +1056,9 @@ until their collet noses land on the steel; the cradle continues, the collets op
 tubes pass back through the four plate holes. Push it home and the tubes enter the same collets
 and bottom in them. One hand pulls the cradle and the other braces the box; fixed wedge cheeks
 carry the plate's reaction into the side walls.
+
+Each plate hole is Ø8.5 mm: it passes the Ø6.35 mm tube at the shallow angle made by the
+lowered pump station, while remaining smaller than the collet release nose's Ø11.43 mm rim.
 
 **THE TEE TRAVELS AND THE VALVE DOES NOT.** The stroke is the rest gap and nothing
 more: the nose presses the moment it reaches the steel, the grip opens on contact, the tee
@@ -1306,12 +1312,12 @@ carried straight up off the crown, so the storey over the bay reads as the same 
 bay does; above it, the hole's own end wall carried on past the soffit, which is 45° and is
 the plane the display's body already lies against. Where the two meet is read, not chosen.
 
-The rib's cavity-side roof is **one flat plane** from its wall-to-wall aft crown to the
-funnel opening's complete front underside edge. At the crown it spans front-top's two flank
-faces; toward the opening the ceiling corbels absorb its sides, and it finishes on the
-opening's exact 159 mm width. The rib is one Y–Z section: its material side closes directly
-on the display housing and ceiling, while its cavity side has one crown-to-opening edge.
-Extruded wall to wall, that edge is the transition's single planar face.
+The rib's cavity-side roof is **one flat plane** from its wall-to-wall aft crown toward the
+funnel opening. At the crown it spans front-top's two flank faces; toward the opening the
+ceiling corbels absorb its sides. The descending funnel chute takes one body-shaped notch from
+that plane with [0.15 mm](FUNNEL_COLLAR_AIR) of running air in plan. The roof remains one
+connected planar face around the notch, reaches both front opening corners, and has zero volume
+inside the funnel keepout.
 
 **Running it to the flanks closes the storey, and one thing crosses.** The rib lands in the
 side walls rather than ending in free air over the tee wall's crown, which leaves it the only
@@ -1330,13 +1336,15 @@ laid across the chord under it.
 One rectangular opening spans the top wall **directly behind the display
 housing**, where the removable silicone funnel
 ([`../../zone-c/funnel/`](/hardware/printed-parts/zone-c/funnel/))
-drops in — its straight chute press-fitting the opening, its whole floor one
+drops in — its straight chute running clear in the opening, its whole floor one
 ramp falling to the centred spout, its flat brim resting on the wall frame left
 around the cut.
 
-The funnel is a static placed part: the opening is cut at its collar
-(`_funnel_hole` reads the funnel's own dims at `enclosure_assembly.funnel_centre()`), so
-funnel and hole cannot drift apart. The frame that cut leaves is bounded by the
+The funnel is a static placed part: `_funnel_hole` reads the funnel's own collar at
+`enclosure_assembly.funnel_centre()`, and `_funnel_cut_plan` adds
+[0.15 mm](FUNNEL_COLLAR_AIR) on each plan face. That opening continues downward as the
+funnel's filled outer chute, ramp and spout envelope, so neither printed shell nor roof stock
+can occupy the silicone or liquid volume. The frame that cut leaves is bounded by the
 facet's own back plane ahead (the collar's front edge stands on it), the ±X
 boss chains either side, and the +Y wall of back-top behind — and the collar is measured
 one `brim_margin` inside it on all four sides at once, so a placement that crowds an

@@ -68,6 +68,7 @@
     "FLUTE_WIDTH": "4 mm",
     "FRONT_HOOK_LAP": "5 mm",
     "FRONT_RAIL_FOOT": "6 mm",
+    "FUNNEL_COLLAR_AIR": "0.15 mm",
     "FRONT_RAIL_INBOARD": "10.15 mm",
     "FRONT_TOP_FLANK": "9 mm",
     "FRONT_TOP_FLANK_GROWN": "6 mm",

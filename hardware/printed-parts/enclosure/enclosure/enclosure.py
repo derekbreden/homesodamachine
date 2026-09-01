@@ -463,6 +463,10 @@ display_screw_x = _interface.display_screw_x                         # [66.75 mm
 # derived: the two are printed in the same piece, so this is clearance for the eye and the
 # deburring tool rather than a fit.
 funnel_chain_gap = 1.0
+# Running air on every collar face. The funnel is a removable printed part, so its throat is
+# cut to the collar plus the project's ordinary slip instead of sharing an exact B-rep face
+# with the roof rib and ceiling corbels.
+funnel_collar_air = fits.slip
 # The collar's front edge, read by `enclosure_assembly.funnel_centre`. THE FUNNEL IS WHERE THE
 # USER POURS, so it stands as far forward as the top wall lets it — and what stops it is the
 # BRIM rather than the throat: the flange overhangs the collar by `funnel.brim_overhang`
@@ -1685,7 +1689,7 @@ cap_screw_off = 18.0         # the two screws fore/aft of the centre access-well
 clamp_bridge_half_y = 6.0    # access well past each screw axis, fore and aft
 clamp_bridge_overlap = 2.0   # access-well edge into each pump opening's inner margin
 clamp_drop_air = 0.2         # clamp footprint and bracket air through the cradle well
-clamp_pump_y_shift = -1.0    # fitted octagon and motor-can openings within the clamp
+clamp_pump_y_shift = _tray.rear_axis_y_shift  # rear-stack openings off the head/cradle datum
 pump_face_backing = wall     # least printed stock behind the deepest front-face flute
 
 # --- THE HAND PULLS ONLY THE LOWER CRADLE -----------------------------------
@@ -3577,6 +3581,47 @@ def _funnel_hole(centre):
             cy - _funnel.collar_d / 2.0, cy + _funnel.collar_d / 2.0)
 
 
+def _funnel_cut_plan(centre):
+    """The collar opening with one running clearance on all four plan faces."""
+    x0, x1, y0, y1 = _funnel_hole(centre)
+    return (x0 - funnel_collar_air, x1 + funnel_collar_air,
+            y0 - funnel_collar_air, y1 + funnel_collar_air)
+
+
+@functools.cache
+def _funnel_keepout_source():
+    """The funnel's filled outer envelope with plan running air, in its own frame.
+
+    The shell's cavity is part of the required opening too: roof stock inside the liquid
+    volume would not intersect the silicone shell but would still block the funnel. The chute,
+    loft and spout are drawn directly from the funnel's own exported metrics, each enlarged in
+    plan by the running air. The brim is omitted because its underside is the bearing plane,
+    not a pocket.
+    """
+    _envelope, _cavity, meta = _funnel.build_solids()
+    a = funnel_collar_air
+    chute = (cq.Workplane("XY")
+             .box(meta["w"] + 2.0 * a, meta["d"] + 2.0 * a,
+                  -meta["ramp_top_z"], centered=(True, True, False))
+             .translate((0.0, 0.0, meta["ramp_top_z"])).val())
+    ramp = (cq.Workplane("XY", origin=(0.0, 0.0, meta["ramp_top_z"]))
+            .rect(meta["w"] + 2.0 * a, meta["d"] + 2.0 * a)
+            .workplane(offset=meta["neck_z"] - meta["ramp_top_z"])
+            .center(meta["ncx"], meta["ncy"])
+            .circle(meta["spout_or"] + a)
+            .loft(combine=True).val())
+    spout = cq.Solid.makeCylinder(
+        meta["spout_or"] + a, meta["neck_z"] - meta["end_z"],
+        cq.Vector(meta["ncx"], meta["ncy"], meta["end_z"]), cq.Vector(0.0, 0.0, 1.0))
+    return chute.fuse(ramp).fuse(spout)
+
+
+def _funnel_keepout(outer, centre):
+    """The funnel envelope placed with its brim underside on the enclosure top."""
+    cx, cy = centre
+    return _funnel_keepout_source().translate((cx, cy, outer[5]))
+
+
 def with_funnel(box, centre):
     """`box` carrying the funnel collar's plan centre, and the three bounds that centre states
     against the frame the top wall has left.
@@ -3661,10 +3706,12 @@ def _funnel_cut(inner, outer, centre):
     than the ceiling, so the Y-seam's top-wall lip/mouth shelf (hanging one
     wall below it) is relieved across the hole span the seam crosses.
 
-    The opening is the collar, whole: the funnel is a full rectangle and the wall carries
-    nothing over the tap-water sequence that the throat has to be cut around."""
-    x0, x1, y0, y1 = _funnel_hole(centre)
-    return _ybox(x0, x1, y0, y1, inner[5] - wall - 1.0, outer[5] + 1.0)
+    The opening is the collar plus one running clearance on all four faces, continued down as
+    the funnel's filled outer envelope. The descending chute and ramp therefore clear any roof
+    structure under the top skin as well as the skin itself."""
+    x0, x1, y0, y1 = _funnel_cut_plan(centre)
+    throat = _ybox(x0, x1, y0, y1, inner[5] - wall - 1.0, outer[5] + 1.0)
+    return throat.fuse(_funnel_keepout(outer, centre))
 
 
 def _ceiling_corbels(solid, inner, outer, centre, y_joint, y_bosses=()):
@@ -3684,8 +3731,7 @@ def _ceiling_corbels(solid, inner, outer, centre, y_joint, y_bosses=()):
     depth of the lip, one `socket_r` over the level the wall was pinned at, and the tongue's
     section runs straight up off it. Where a wall carries no pinned level under the tongue
     the 45° walk from the plug tip is what roots it."""
-    cx, _cy = centre
-    hole_x0, hole_x1 = cx - _funnel.collar_w / 2.0, cx + _funnel.collar_w / 2.0
+    hole_x0, hole_x1, _hole_y0, _hole_y1 = _funnel_cut_plan(centre)
     iz1 = inner[5]
     y0 = housing_back_y(outer)
     yb = _y_boss(y_joint)
@@ -5909,7 +5955,7 @@ def _ridge_wall(inner, outer, plate, bay, funnel):
     d = t * math.sqrt(2.0)            # that ramp offset one thickness, along Y
     jog = ramp - fore                 # where the fore face leaves the bay's plane for the ramp
     aft_crown = (fore + t, ramp + d - (fore + t))
-    funnel_front = _funnel_hole(funnel)[2]
+    funnel_front = _funnel_cut_plan(funnel)[2]
     housing_back = housing_back_y(outer)
     ceiling = inner[5]
     slab = _yz_prism(
@@ -8512,17 +8558,24 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         # section is the section this piece presents aft of the mouth, whatever has grown
         # into that band since the lip was drawn.
         piece = piece.cut(_y_lip_channel(inner, y_joint, box.y_bosses))
+    # THE FUNNEL'S OWN AIR, after every feature a top piece can fuse. The ridge wall and
+    # ceiling corbels terminate on this slipped opening, but this last pass makes the contract
+    # unconditional: no later rail, boss or seam feature may grow material back into the
+    # removable funnel's collar clearance.
+    if z_side == "top" and box.pack.funnel:
+        piece = piece.cut(_funnel_cut(inner, outer, box.pack.funnel))
     return _unified(piece)
 
 
 # --- reporting --------------------------------------------------------------
 
 def _report_ridge_roof(half, box):
-    """Prove the built front-top keeps the ridge roof as one face between its two datums.
+    """Prove the built front-top keeps the ridge roof as one notched face between its datums.
 
     The source profile has one edge between these stations; this reading keeps a later fuse or
-    cut from splitting that edge into another roof junction. Both transverse edges are read on
-    the finished B-rep as well, so a face ending on an incidental sliver cannot answer for it."""
+    cut from splitting that plane into another roof junction. The funnel's descending chute
+    interrupts the former upper transverse edge, so both opening corners and zero keepout
+    intersection replace that edge as the finished B-rep reading."""
     if not (box.pump_bay and box.pack.collet_plate and box.pack.funnel):
         return
     inner, outer = box.inner, box.outer
@@ -8530,7 +8583,7 @@ def _report_ridge_roof(half, box):
     fore, t = box.pack.collet_plate["aft_y"], ridge_wall_t
     ramp = ry + rz
     crown = cq.Vector(0.0, fore + t, ramp + t * math.sqrt(2.0) - (fore + t))
-    hx0, hx1, opening_y, _hy1 = _funnel_hole(box.pack.funnel)
+    hx0, hx1, opening_y, _hy1 = _funnel_cut_plan(box.pack.funnel)
     opening = cq.Vector(0.0, opening_y, inner[5])
     roof_normal = cq.Vector(0.0, opening.z - crown.z, crown.y - opening.y).normalized()
     tol = 1e-4
@@ -8562,16 +8615,25 @@ def _report_ridge_roof(half, box):
                 matches += 1
         return matches == 1
 
+    def has_vertex(point):
+        return any((vertex.Center() - point).Length <= tol
+                   for face in roof_faces for vertex in face.Vertices())
+
     lower = has_edge(lower_x0, lower_x1, crown)
-    upper = has_edge(hx0, hx1, opening)
-    whole = len(roof_faces) == 1 and lower and upper
+    opening_corners = (has_vertex(cq.Vector(hx0, opening.y, opening.z))
+                       and has_vertex(cq.Vector(hx1, opening.y, opening.z)))
+    funnel_foul = half.val().intersect(
+        _funnel_keepout(outer, box.pack.funnel)).Volume()
+    whole = (len(roof_faces) == 1 and lower and opening_corners
+             and funnel_foul <= stated_bound_tol)
     if not whole:
         raise ValueError(
-            "the front-top ridge roof is not one plane between its stated boundary edges: "
+            "the front-top ridge roof is not one clear plane between its stated datums: "
             f"found {len(roof_faces)} coplanar faces, lower edge {'present' if lower else 'missing'}, "
-            f"upper edge {'present' if upper else 'missing'}")
+            f"opening corners {'present' if opening_corners else 'missing'}, "
+            f"funnel keepout intersection {funnel_foul:.6f} mm³")
     print(f"  ridge roof:       one plane, {lower_x1 - lower_x0:.1f} mm crown to "
-          f"{hx1 - hx0:.1f} mm funnel edge")
+          f"{hx1 - hx0:.1f} mm funnel opening, keepout clear")
 
 
 def _report_facet(half, box):
@@ -9090,6 +9152,7 @@ def main():
         "COLUMN_ALONG": f"{_column_along():.3g} mm",
         "COLUMN_DEPTH": f"{_column_depth():.3g} mm",
         "APPLIANCE_HEIGHT": f"{appliance_height:.4g} mm",
+        "FUNNEL_COLLAR_AIR": f"{funnel_collar_air:.4g} mm",
         # The sections on this box that are not `wall`, and the piece each belongs to. Every
         # WALL grows INWARD off the plane the box states, so the silhouette and `interior_x`
         # both stand still and only the piece carrying the section knows about it. The FLOOR
