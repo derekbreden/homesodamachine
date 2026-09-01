@@ -159,10 +159,12 @@ def band_degrees(mesh, vids, gid, pos):
     shared = counts[inverse] == 2
     order = np.argsort(inverse[shared], kind="stable")
     pair = owner[shared][order].reshape(-1, 2)
-    length = np.linalg.norm(pos[uniq[counts == 2][:, 0]]
-                            - pos[uniq[counts == 2][:, 1]], axis=1)
+    ab = pos[uniq[counts == 2]]
+    length = np.linalg.norm(ab[:, 0] - ab[:, 1], axis=1)
+    level_edge = (np.abs(ab[:, 0, 2] - ab[:, 1, 2])
+                  / np.maximum(length, 1e-9)) < 0.3
     cross = gid[pair[:, 0]] != gid[pair[:, 1]]
-    pair, length = pair[cross], length[cross]
+    pair, length, level_edge = pair[cross], length[cross], level_edge[cross]
     cos = np.einsum("ij,ij->i", mesh.face_normals[pair[:, 0]],
                     mesh.face_normals[pair[:, 1]])
     gentle = cos > np.cos(np.radians(20.0))
@@ -173,13 +175,20 @@ def band_degrees(mesh, vids, gid, pos):
         np.add.at(sharp, pair[~gentle, col], length[~gentle])
 
     ga, gb = gid[pair[:, 0]], gid[pair[:, 1]]
-    key = np.minimum(ga, gb) * (gid.max() + 1) + np.maximum(ga, gb)
+    base = int(gid.max() + 1)
+    key = np.minimum(ga, gb) * base + np.maximum(ga, gb)
     uniq_key, inv = np.unique(key, return_inverse=True)
     sums = np.bincount(inv, weights=length)
-    base = int(gid.max() + 1)
     boundary = {(int(k // base), int(k % base)): float(s)
                 for k, s in zip(uniq_key, sums)}
-    return (soft, sharp), boundary
+
+    # The same boundaries, level edges only (|Δz| under 30% of length): the
+    # foot a corbel stands on is level; the edges running up its rise are not.
+    lvl_sums = np.bincount(inv, weights=length * level_edge,
+                           minlength=len(uniq_key))
+    level = {(int(k // base), int(k % base)): float(s)
+             for k, s in zip(uniq_key, lvl_sums) if s > 0}
+    return (soft, sharp), boundary, level
 
 
 def group_planes(mesh, vids):
@@ -218,14 +227,14 @@ def group_planes(mesh, vids):
 
 def plane_map(mesh):
     """The mesh's plane groups with boundary-fold degrees attached, and the
-    group-to-group shared boundary lengths."""
+    group-to-group shared boundary lengths (all edges, and level edges only)."""
     vids, pos = vertex_ids(mesh)
     planes, gid = group_planes(mesh, vids)
-    bands, boundary = band_degrees(mesh, vids, gid, pos)
+    bands, boundary, level = band_degrees(mesh, vids, gid, pos)
     for group in planes.values():
         for p in group:
             p.bands = bands
-    return planes, boundary
+    return planes, boundary, level
 
 
 def vertex_ids(mesh):
@@ -402,12 +411,15 @@ def _z_in_triangle(t, xy):
     return float(w1 * t[0, 2] + w2 * t[1, 2] + w3 * t[2, 2])
 
 
-def find_slopes(planes, boundary):
-    """45° undersides whose rise runs along their mounting wall, not off it.
+def find_slopes(planes, boundary, level):
+    """45° undersides that run along a wall with no level foot on any wall.
 
-    The wall a slope is mounted on is the vertical plane it shares the most
-    boundary length with; a healthy corbel rises off that wall, and one that
-    rises along it instead is a slope in the wrong axis.
+    A corbel that stands on a level foot — a horizontal boundary shared with
+    some wall — is not flagged. A slope with no such foot, whose boundary with
+    a wall is its own rising edges, hangs sideways along that wall: a slope in
+    the wrong axis. The PRV chase's Y hip stood on level jamb feet while its
+    corrected X-rise roof stands on a level root; in this class's reading of
+    the local mesh the two are mirror images, and both read as grounded.
     """
     slopes, wall_by_gid = [], {}
     for group in planes.values():
@@ -421,7 +433,8 @@ def find_slopes(planes, boundary):
     for (ga, gb), length in boundary.items():
         for s_gid, w_gid in ((ga, gb), (gb, ga)):
             if w_gid in wall_by_gid:
-                contact.setdefault(s_gid, []).append((length, w_gid))
+                lvl = level.get((min(ga, gb), max(ga, gb)), 0.0)
+                contact.setdefault(s_gid, []).append((length, lvl, w_gid))
     found = []
     for s in slopes:
         if s.soft_frac() > 0.75:
@@ -429,19 +442,21 @@ def find_slopes(planes, boundary):
         touches = [t for t in contact.get(s.gid, ()) if t[0] >= 0.5]
         if not touches:
             continue
-        length, w_gid = max(touches)
+        if any(lvl >= 0.5 for _, lvl, _ in touches):
+            continue  # grounded
+        length, lvl, w_gid = max(touches)
         w = wall_by_gid[w_gid]
         h = s.n[:2] / (np.linalg.norm(s.n[:2]) or 1.0)
         wh = w.n[:2] / (np.linalg.norm(w.n[:2]) or 1.0)
         if abs(float(h @ wh)) > 0.35:
-            continue  # rises off its mounting wall — the healthy relation
+            continue  # rises across that wall, not along it
         c = s.thru()
         found.append({
             "class": "slope", "score": s.area,
-            "line": (f"45° underside rises along its mounting wall, not off it"
+            "line": (f"45° underside runs along a wall with no level foot"
                      f" · slope dir {h[0]:+.2f},{h[1]:+.2f}"
                      f" vs wall n {wh[0]:+.2f},{wh[1]:+.2f}"
-                     f" · mounted along {length:.1f} mm · {s.area:.0f} mm²"),
+                     f" · along {length:.1f} mm · {s.area:.0f} mm²"),
             "pick": [plane_face(_vec(*s.n), _vec(*c), "faceA"),
                      plane_face(_vec(*w.n), _vec(*w.thru()), "faceB"),
                      click(_vec(*c))],
@@ -453,11 +468,11 @@ def lint(stl, classes=_CLASSES):
     """Every finding for the piece at `stl`, most severe first within each class."""
     mesh = trimesh.load(stl, process=False)
     z_min = float(mesh.vertices[:, 2].min())
-    planes, boundary = plane_map(mesh)
+    planes, boundary, level = plane_map(mesh)
     finders = {"step": lambda: find_steps(planes),
                "sliver": lambda: find_slivers(planes, z_min),
                "ceiling": lambda: find_ceilings(planes, mesh, z_min),
-               "slope": lambda: find_slopes(planes, boundary)}
+               "slope": lambda: find_slopes(planes, boundary, level)}
     found = {}
     for name in classes:
         try:
@@ -522,18 +537,26 @@ def _selftest():
     got = find_ceilings(planes_of(m), m, 0.0)
     assert len(got) == 1 and "drop 15.0" in got[0]["line"], got
 
-    # slope: two 45° undersides, each sharing its longest boundary with a
-    # wall. The bad one's sloped side edge lies in an X wall while it rises in
-    # Y — along its mounting wall. The good one's level edge sits on a Y wall
-    # it rises off. Only the bad one is flagged.
+    # slope: the bad underside's only wall boundary is its own rising edge in
+    # an X wall — no level foot anywhere. The good one stands on a level foot
+    # on a Y wall. Only the bad one is flagged.
     wall_x = [(0, 0, 0), (0, 0, 20), (0, 10, 30), (0, 40, 40), (0, 40, 0)]
     bad = [(0, 0, 20), (0, 10, 30), (10, 10, 30), (10, 0, 20)]  # n (0,+.7,-.7)
     wall_y = [(0, 50, 0), (30, 50, 0), (30, 50, 20), (0, 50, 20)]
     good = [(30, 50, 20), (0, 50, 20), (0, 60, 30), (30, 60, 30)]  # n (0,+.7,-.7)
     m = sheet([wall_x, bad, wall_y, good])
-    planes, boundary = plane_map(m)
-    got = find_slopes(planes, boundary)
-    assert len(got) == 1 and "along its mounting wall" in got[0]["line"], got
+    planes, boundary, level = plane_map(m)
+    got = find_slopes(planes, boundary, level)
+    assert len(got) == 1 and "no level foot" in got[0]["line"], got
+
+    # the corrected PRV roof's shape: a rise standing on a level root in an X
+    # wall, with its rising edge in a Y end cap — grounded, no finding
+    wall_root = [(0, 0, 0), (0, 20, 0), (0, 20, 20), (0, 0, 20)]
+    roof = [(0, 0, 20), (0, 20, 20), (10, 20, 30), (10, 0, 30)]  # n (+.7,0,-.7)
+    end_cap = [(0, 0, 0), (0, 0, 20), (10, 0, 30), (10, 0, 0)]
+    m2 = sheet([wall_root, roof, end_cap])
+    planes2, boundary2, level2 = plane_map(m2)
+    assert find_slopes(planes2, boundary2, level2) == [], "grounded roof flagged"
 
     print("selftest: all four classes find their defect and only theirs")
 
