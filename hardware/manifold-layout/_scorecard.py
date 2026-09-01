@@ -501,12 +501,13 @@ def fastened_by(name: str):
 NEVER = {
     # THE FUNNEL AND THE THREE BODIES ON ITS SPOUT'S COLUMN. The funnel lifts out of the top wall
     # and goes into the dishwasher with the stub and the clamp still on it. Its brim bears on the
-    # top wall's outer face and its collar fills the opening cut for it, and the union's collet
+    # top wall's outer face and its collar runs in the opening cut for it, and the union's collet
     # grips the stub through the wall — thumb on the collet and the whole funnel comes away. The
     # union stays behind on its two collets. A printed feature closing on any of the four would be
     # a feature the customer has to work past every time the funnel is washed.
     "funnel":
-        "The brim bears on the top wall's outer face, the collar fills `enclosure._funnel_hole`, "
+        "The brim bears on the top wall's outer face, the collar runs in "
+        "`enclosure._funnel_cut_plan`, "
         "and the elbow's own collet grips the stub the spout carries — so the funnel is held down by "
         "the joint it releases from. It is a dishwasher part and comes out by hand.",
     "funnel-drain-stub":
