@@ -100,8 +100,8 @@ Each level stands the pin's own face **[13 mm](BOSS_END_CLEAR)** off the end wal
 under. The back plug's full-width underside runs to its inboard tip on a 45° wall-rooted
 corbel. The front lip's slide channel gives up the matching profile one `fits.slip` lower,
 so the square registration faces and full insertion travel remain while neither half leaves
-a support contact in the pin slot. Its square pass envelope stays whole and its roof then
-rises 45° in X to the inboard tip, adding clearance rather than taking any from the plug.
+a support contact in the pin slot. Its square pass envelope stays whole under one flat roof
+at the envelope's own ceiling, leaving the socket collar's complete structural stock above it.
 Both ends are fenced — nearer its wall, the lower collar's
 carve leaves a corner of the front lip in the back half's register; further from it, the upper
 collar's 45° underside comes down the −X wall into `fluid-1`'s lane.
@@ -761,13 +761,15 @@ wall-rooted 45° wedge continues over the inlet without a relief band or a short
 The aperture, tunnel, collar and both screw stations all follow that one X datum; its Z remains
 aligned with the other top-row ports.
 
-The **PRV chase's two lowest roofs lean from the −X wall too**. Where its open exterior groove
+The **PRV chase's roofs lean from the −X wall too**. Where its open exterior groove
 becomes the closed fall, the roof rises inward across the exact
 [3 mm](VENT_GROOVE_ROOF) show-skin section at 45°. At the Z seam the top piece's rib begins on
 the rim and rises along a second 45° X plane for the full [8 mm](VENT_RIB_BASE) from the grown
-flank to the cold-core lip. The lip keeps [3.1 mm](VENT_RIB_LAND) of solid land below the square
-mouth. Neither level leaves a horizontal face for a short support tree, while the exterior
-groove edge, the square passage and the back slide's opening remain on their own datums.
+flank to the cold-core lip. Above it, the closed passage's roof is one X plane from its liner
+inside the flank through the wall and out to that same lip. The lip keeps
+[3.1 mm](VENT_RIB_LAND) of solid land below the square mouth. None leaves a horizontal face for
+a short support tree, while the exterior groove edge, the square passage and the back slide's
+opening remain on their own datums.
 
 ## ASSE anchor
 
