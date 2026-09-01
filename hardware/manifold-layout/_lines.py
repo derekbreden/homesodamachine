@@ -876,27 +876,37 @@ def _fluid_4(F, solids):
 # All three end on the panel deck (`enclosure_assembly.PANEL_X`), which is the band over the water
 # pump's crown, and all three reach it by a column that runs the machine's whole height.
 
+# The carbonated-water riser's deck station stands this far forward of its cap-conduit axis.
+# Its source is a countersunk lid bore which expressly accepts `CAP_BORE_SKEW`, so the run leans
+# gently over the full climb rather than spending another pair of corners on a one-millimetre
+# dogleg. At the power column that lean keeps the tube one `clearance-floor` off the populated
+# main board while the horizontal deck leg and its ceiling anchor remain straight.
+CARB_1_FORWARD_LEAN = 1.0
+
+
 def _carb_1(F):
     """carb-1 — the cold core's carbonated-water conduit to the meter's inlet.
 
     UP THE PORT LANE AND WEST ALONG THE DECK. The bore opens out of the cap's lid facing the
     ceiling and the meter lies fore and aft on the panel deck with its inlet facing forward, so
-    the run climbs the lane's own column to that deck, crosses west onto the meter's column, and
-    runs aft down it into the collet.
+    the run leans one millimetre forward over the full climb to keep its service air past the
+    main board, crosses west onto the meter's column, and runs aft down it into the collet.
 
     The closing leg is THE COLLET'S OWN AXIS, so there is no closing corner: the column the run
     turns onto is the meter's own X and the deck is its own Z, and what is left between them is
     one straight length of tube."""
     bore = F["foam-assembly"].at("carb-water-out")
     inlet = F["digiten-flow"].at("inlet")
+    deck_y = bore[1] - CARB_1_FORWARD_LEAN
     return R.bent(
         "carb-1", "foam-assembly.carb-water-out",
-        (bore[0], bore[1], inlet[2]),        # up the lane's own column onto the deck
-        (inlet[0], bore[1], inlet[2]),       # west along the deck onto the meter's column
+        (bore[0], deck_y, inlet[2]),         # lean forward over the climb onto the deck
+        (inlet[0], deck_y, inlet[2]),        # west along the deck onto the meter's column
         "digiten-flow.inlet",                # and aft down it into the collet
         kind="water", lead=(TUBE_BEND, TUBE_BEND), skew=(CAP_BORE_SKEW, R.COLLET_SKEW),
-        note="carb water: the core's carb-water cap conduit → DIGITEN inlet, up the port lane "
-             "and west along the panel deck onto the meter's own column")
+        note="carb water: the core's carb-water cap conduit → DIGITEN inlet, leaning forward "
+             "up the port lane for main-board air, then west along the panel deck onto the "
+             "meter's own column")
 
 
 def _carb_2(F):

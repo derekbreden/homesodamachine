@@ -21,11 +21,13 @@ import pcba_tray as pt
 
 
 def main():
+    pt.stations_hold()
     export_assembly(mt.build_module_assembly(pt.MOUNTS, "pcba-assembly"),
                     str(_here.parent / "pcba-assembly.step"))
     print("-> pcba-assembly.step")
-    # The board in its own pcb frame, underside on Z = 0 — the enclosure seats it
-    # on the cap's boss tops, so Z = 0 is the boss-top plane.
+    # The board in its own pcb frame: PCB underside and mounting holes on Z = 0,
+    # with the populated tail envelope reaching `pin_drop` below. The enclosure
+    # seats that outer envelope by the wall and grows each boss to the Z = 0 plane.
     export_assembly(one_body(pt.board.build(), "pcba-board", C_PCBA), str(_here.parent / "pcba-board.step"))
     print("-> pcba-board.step")
 
