@@ -145,6 +145,15 @@ cmd_set() {
 
 target_field_opt() { target_field "$1" "$2" 2>/dev/null || true; }
 
+LOGFILE="$HOME/.panelcam-shot.log"
+
+# `open --args` drops empty strings and silently shifts every argument after them, so an absent
+# option is passed as "-" rather than "".
+take_frame() {
+  : > "$LOGFILE"
+  open -W "$APP" --args "$1" "$2" "$3" "${4:--}" video - "${5:-12}"
+}
+
 # THE CAMERA FORGETS. UVC controls live in the device and not in a profile: a replug or a power
 # cycle puts every one back to auto, which is precisely the setting that cannot read a screen.
 # Applying the target's own numbers before each frame is what makes two shots a week apart
@@ -189,7 +198,6 @@ cmd_shot() {
 
   [ -d "$APP" ] || die "no $APP — build it once with panelcam-shot/build.sh"
 
-  apply_uvc "$target"
   # A dark panel photographs as an unlit rectangle; the machine is told a finger landed.
   local wake_port; wake_port="$(target_field_opt "$target" wake)"
   [ -n "$wake_port" ] && python3 "$HERE/panelcam-wake.py" "$wake_port" >/dev/null 2>&1 || true
@@ -199,8 +207,29 @@ cmd_shot() {
   raw="$OUT_DIR/$target.raw.png"
   rm -f "$raw"
 
-  # `open` returns as soon as the app exits; it forwards no output, so the app keeps its own log.
-  open -W "$APP" --args "$raw" "$match" "$warmup"
+  apply_uvc "$target"
+
+  # `open` returns when the app exits and forwards no output, so the app keeps its own log.
+  # Settings go in before the stream: this camera moves the lens when a session opens and will
+  # not hold a focus value through one, which is why the app keeps the sharpest frame it sees
+  # rather than trusting any single one.
+  local preset candidates
+  preset="$(target_field_opt "$target" preset)"
+  candidates="$(target_field_opt "$target" candidates)"
+  take_frame "$raw" "$match" "$warmup" "$preset" "$candidates"
+
+  # THE LENS WEDGES, AND A WEDGED LENS IS SILENT. It parks away from focus and stops hunting,
+  # so every candidate in the sweep is equally soft and the frame comes back looking like a
+  # camera that simply cannot focus. Re-enumerating frees it. The app reports the sharpness it
+  # kept, which makes the condition testable rather than a thing to notice by eye — and after a
+  # reset the same scene scored 0.129 where the wedged pass scored 0.004.
+  local best; best="$(sed -n 's/.*best=\([0-9.]*\).*/\1/p' "$LOGFILE" 2>/dev/null | tail -1)"
+  if [ -n "$best" ] && awk -v b="$best" 'BEGIN { exit !(b < 0.02) }'; then
+    cmd_reset >/dev/null 2>&1 || true
+    apply_uvc "$target"
+    take_frame "$raw" "$match" "$warmup" "$preset" "$candidates"
+  fi
+
   [ -f "$raw" ] || die "no frame — $(tail -1 "$HOME/.panelcam-shot.log" 2>/dev/null || echo 'the app wrote no log')"
 
   if [ "$full" -eq 1 ]; then
