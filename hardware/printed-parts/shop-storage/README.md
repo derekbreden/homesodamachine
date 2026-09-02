@@ -63,6 +63,8 @@ here already faces the operator.
 | [`copper/`](copper/) | The copper tube bench | stack | 3 x 3 |
 | [`drill-press/`](drill-press/) | End-plate tapping and drilling | stack | 3 x 3 |
 | [`fasteners/`](fasteners/) | Inserts and screws | stack | 3 x 3 |
+| [`fittings/`](fittings/) | Tube and push-fit fittings | stack | 3 x 3 |
+| [`harness/`](harness/) | Harness build: crimp, ferrule, sleeve | stack | 3 x 3 |
 | [`hotends/`](hotends/) | H2C hotend swaps | stack | 3 x 3 |
 | [`jst-crimping/`](jst-crimping/) | JST XH crimping | tower | 3 x 3 |
 | [`pour/`](pour/) | Foam and silicone pours | stack | 3 x 3 |

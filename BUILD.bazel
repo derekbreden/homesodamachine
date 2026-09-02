@@ -6361,6 +6361,133 @@ cp hardware/printed-parts/shop-storage/fasteners/fasteners-tray.step $$O6
 )
 
 genrule(
+    name = "fittings-kit",
+    srcs = [
+        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/printed-parts/shop-storage/_kit.py",
+        "pysrc/hardware/printed-parts/shop-storage/fittings/fittings_kit.py",
+        "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_materials.py",
+        "pysrc/hardware/scripts/_mesh_payload.py",
+        "pysrc/hardware/scripts/_realized.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/tools/docgen/__init__.py",
+    ],
+    outs = [
+        "out/fittings-kit/hardware/printed-parts/shop-storage/fittings/fittings-adapters.step",
+        "out/fittings-kit/hardware/printed-parts/shop-storage/fittings/fittings-bulkheads.step",
+        "out/fittings-kit/hardware/printed-parts/shop-storage/fittings/fittings-dock.step",
+        "out/fittings-kit/hardware/printed-parts/shop-storage/fittings/fittings-junctions.step",
+        "out/fittings-kit/hardware/printed-parts/shop-storage/fittings/fittings-kit-open.step",
+        "out/fittings-kit/hardware/printed-parts/shop-storage/fittings/fittings-kit.step",
+        "out/fittings-kit/hardware/printed-parts/shop-storage/fittings/fittings-npt.step",
+        "out/fittings-kit/hardware/printed-parts/shop-storage/fittings/fittings-rack.step",
+        "out/fittings-kit/hardware/printed-parts/shop-storage/fittings/fittings-stock.step",
+    ],
+    cmd = """
+set -e
+O0=$$PWD/$(location out/fittings-kit/hardware/printed-parts/shop-storage/fittings/fittings-adapters.step)
+O1=$$PWD/$(location out/fittings-kit/hardware/printed-parts/shop-storage/fittings/fittings-bulkheads.step)
+O2=$$PWD/$(location out/fittings-kit/hardware/printed-parts/shop-storage/fittings/fittings-dock.step)
+O3=$$PWD/$(location out/fittings-kit/hardware/printed-parts/shop-storage/fittings/fittings-junctions.step)
+O4=$$PWD/$(location out/fittings-kit/hardware/printed-parts/shop-storage/fittings/fittings-kit-open.step)
+O5=$$PWD/$(location out/fittings-kit/hardware/printed-parts/shop-storage/fittings/fittings-kit.step)
+O6=$$PWD/$(location out/fittings-kit/hardware/printed-parts/shop-storage/fittings/fittings-npt.step)
+O7=$$PWD/$(location out/fittings-kit/hardware/printed-parts/shop-storage/fittings/fittings-rack.step)
+O8=$$PWD/$(location out/fittings-kit/hardware/printed-parts/shop-storage/fittings/fittings-stock.step)
+for f in $(SRCS); do
+  case $$f in
+    */node_modules/*) continue;;
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    */pysrc/*) t=$${f##*/pysrc/};;
+    *) t=$$f;;
+  esac
+  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+done
+cd work
+ln -sfn $$HSM_WORKSPACE/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/shop-storage/fittings/fittings_kit.py > /dev/null
+cp hardware/printed-parts/shop-storage/fittings/fittings-adapters.step $$O0
+cp hardware/printed-parts/shop-storage/fittings/fittings-bulkheads.step $$O1
+cp hardware/printed-parts/shop-storage/fittings/fittings-dock.step $$O2
+cp hardware/printed-parts/shop-storage/fittings/fittings-junctions.step $$O3
+cp hardware/printed-parts/shop-storage/fittings/fittings-kit-open.step $$O4
+cp hardware/printed-parts/shop-storage/fittings/fittings-kit.step $$O5
+cp hardware/printed-parts/shop-storage/fittings/fittings-npt.step $$O6
+cp hardware/printed-parts/shop-storage/fittings/fittings-rack.step $$O7
+cp hardware/printed-parts/shop-storage/fittings/fittings-stock.step $$O8
+""",
+)
+
+genrule(
+    name = "harness-kit",
+    srcs = [
+        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/printed-parts/shop-storage/_kit.py",
+        "pysrc/hardware/printed-parts/shop-storage/harness/harness_kit.py",
+        "pysrc/hardware/reference/wago-221/wago_221.py",
+        "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_materials.py",
+        "pysrc/hardware/scripts/_mesh_payload.py",
+        "pysrc/hardware/scripts/_realized.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/tools/docgen/__init__.py",
+    ],
+    outs = [
+        "out/harness-kit/hardware/printed-parts/shop-storage/harness/harness-dock.step",
+        "out/harness-kit/hardware/printed-parts/shop-storage/harness/harness-ferrules.step",
+        "out/harness-kit/hardware/printed-parts/shop-storage/harness/harness-kit-open.step",
+        "out/harness-kit/hardware/printed-parts/shop-storage/harness/harness-kit.step",
+        "out/harness-kit/hardware/printed-parts/shop-storage/harness/harness-levers.step",
+        "out/harness-kit/hardware/printed-parts/shop-storage/harness/harness-rack.step",
+        "out/harness-kit/hardware/printed-parts/shop-storage/harness/harness-shrink.step",
+        "out/harness-kit/hardware/printed-parts/shop-storage/harness/harness-terminals.step",
+        "out/harness-kit/hardware/printed-parts/shop-storage/harness/harness-ties.step",
+    ],
+    cmd = """
+set -e
+O0=$$PWD/$(location out/harness-kit/hardware/printed-parts/shop-storage/harness/harness-dock.step)
+O1=$$PWD/$(location out/harness-kit/hardware/printed-parts/shop-storage/harness/harness-ferrules.step)
+O2=$$PWD/$(location out/harness-kit/hardware/printed-parts/shop-storage/harness/harness-kit-open.step)
+O3=$$PWD/$(location out/harness-kit/hardware/printed-parts/shop-storage/harness/harness-kit.step)
+O4=$$PWD/$(location out/harness-kit/hardware/printed-parts/shop-storage/harness/harness-levers.step)
+O5=$$PWD/$(location out/harness-kit/hardware/printed-parts/shop-storage/harness/harness-rack.step)
+O6=$$PWD/$(location out/harness-kit/hardware/printed-parts/shop-storage/harness/harness-shrink.step)
+O7=$$PWD/$(location out/harness-kit/hardware/printed-parts/shop-storage/harness/harness-terminals.step)
+O8=$$PWD/$(location out/harness-kit/hardware/printed-parts/shop-storage/harness/harness-ties.step)
+for f in $(SRCS); do
+  case $$f in
+    */node_modules/*) continue;;
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    */pysrc/*) t=$${f##*/pysrc/};;
+    *) t=$$f;;
+  esac
+  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+done
+cd work
+ln -sfn $$HSM_WORKSPACE/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/shop-storage/harness/harness_kit.py > /dev/null
+cp hardware/printed-parts/shop-storage/harness/harness-dock.step $$O0
+cp hardware/printed-parts/shop-storage/harness/harness-ferrules.step $$O1
+cp hardware/printed-parts/shop-storage/harness/harness-kit-open.step $$O2
+cp hardware/printed-parts/shop-storage/harness/harness-kit.step $$O3
+cp hardware/printed-parts/shop-storage/harness/harness-levers.step $$O4
+cp hardware/printed-parts/shop-storage/harness/harness-rack.step $$O5
+cp hardware/printed-parts/shop-storage/harness/harness-shrink.step $$O6
+cp hardware/printed-parts/shop-storage/harness/harness-terminals.step $$O7
+cp hardware/printed-parts/shop-storage/harness/harness-ties.step $$O8
+""",
+)
+
+genrule(
     name = "hotends-kit",
     srcs = [
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
@@ -10266,6 +10393,22 @@ genrule(
     name = "pysrc-1a2c09395b70",
     srcs = ["hardware/printed-parts/shop-storage/fasteners/fasteners_kit.py"],
     outs = ["pysrc/hardware/printed-parts/shop-storage/fasteners/fasteners_kit.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-04b7a4ee5694",
+    srcs = ["hardware/printed-parts/shop-storage/fittings/fittings_kit.py"],
+    outs = ["pysrc/hardware/printed-parts/shop-storage/fittings/fittings_kit.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-b0f674d4c7cc",
+    srcs = ["hardware/printed-parts/shop-storage/harness/harness_kit.py"],
+    outs = ["pysrc/hardware/printed-parts/shop-storage/harness/harness_kit.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -18645,6 +18788,8 @@ filegroup(
         ":copper-kit",
         ":drill-press-kit",
         ":fasteners-kit",
+        ":fittings-kit",
+        ":harness-kit",
         ":hotends-kit",
         ":jst-crimping-tower",
         ":pour-kit",

@@ -5981,6 +5981,73 @@
       "hardware/printed-parts/shop-storage/fasteners/fasteners-tray.step"
     ]
   },
+  "hardware/printed-parts/shop-storage/fittings/fittings_kit.py": {
+    "reads": [
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+      "hardware/printed-parts/shop-storage/_kit.py",
+      "hardware/printed-parts/shop-storage/fittings/fittings-adapters.step",
+      "hardware/printed-parts/shop-storage/fittings/fittings-bulkheads.step",
+      "hardware/printed-parts/shop-storage/fittings/fittings-dock.step",
+      "hardware/printed-parts/shop-storage/fittings/fittings-junctions.step",
+      "hardware/printed-parts/shop-storage/fittings/fittings-kit-open.step",
+      "hardware/printed-parts/shop-storage/fittings/fittings-kit.step",
+      "hardware/printed-parts/shop-storage/fittings/fittings-npt.step",
+      "hardware/printed-parts/shop-storage/fittings/fittings-rack.step",
+      "hardware/printed-parts/shop-storage/fittings/fittings-stock.step",
+      "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_materials.py",
+      "hardware/scripts/_mesh_payload.py",
+      "hardware/scripts/_realized.py",
+      "hardware/scripts/_run_lock.py",
+      "tools/docgen/__init__.py"
+    ],
+    "rewritten": [],
+    "writes": [
+      "hardware/printed-parts/shop-storage/fittings/fittings-adapters.step",
+      "hardware/printed-parts/shop-storage/fittings/fittings-bulkheads.step",
+      "hardware/printed-parts/shop-storage/fittings/fittings-dock.step",
+      "hardware/printed-parts/shop-storage/fittings/fittings-junctions.step",
+      "hardware/printed-parts/shop-storage/fittings/fittings-kit-open.step",
+      "hardware/printed-parts/shop-storage/fittings/fittings-kit.step",
+      "hardware/printed-parts/shop-storage/fittings/fittings-npt.step",
+      "hardware/printed-parts/shop-storage/fittings/fittings-rack.step",
+      "hardware/printed-parts/shop-storage/fittings/fittings-stock.step"
+    ]
+  },
+  "hardware/printed-parts/shop-storage/harness/harness_kit.py": {
+    "reads": [
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+      "hardware/printed-parts/shop-storage/_kit.py",
+      "hardware/printed-parts/shop-storage/harness/harness-dock.step",
+      "hardware/printed-parts/shop-storage/harness/harness-ferrules.step",
+      "hardware/printed-parts/shop-storage/harness/harness-kit-open.step",
+      "hardware/printed-parts/shop-storage/harness/harness-kit.step",
+      "hardware/printed-parts/shop-storage/harness/harness-levers.step",
+      "hardware/printed-parts/shop-storage/harness/harness-rack.step",
+      "hardware/printed-parts/shop-storage/harness/harness-shrink.step",
+      "hardware/printed-parts/shop-storage/harness/harness-terminals.step",
+      "hardware/printed-parts/shop-storage/harness/harness-ties.step",
+      "hardware/reference/wago-221/wago_221.py",
+      "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_materials.py",
+      "hardware/scripts/_mesh_payload.py",
+      "hardware/scripts/_realized.py",
+      "hardware/scripts/_run_lock.py",
+      "tools/docgen/__init__.py"
+    ],
+    "rewritten": [],
+    "writes": [
+      "hardware/printed-parts/shop-storage/harness/harness-dock.step",
+      "hardware/printed-parts/shop-storage/harness/harness-ferrules.step",
+      "hardware/printed-parts/shop-storage/harness/harness-kit-open.step",
+      "hardware/printed-parts/shop-storage/harness/harness-kit.step",
+      "hardware/printed-parts/shop-storage/harness/harness-levers.step",
+      "hardware/printed-parts/shop-storage/harness/harness-rack.step",
+      "hardware/printed-parts/shop-storage/harness/harness-shrink.step",
+      "hardware/printed-parts/shop-storage/harness/harness-terminals.step",
+      "hardware/printed-parts/shop-storage/harness/harness-ties.step"
+    ]
+  },
   "hardware/printed-parts/shop-storage/hotends/hotends_kit.py": {
     "reads": [
       "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
