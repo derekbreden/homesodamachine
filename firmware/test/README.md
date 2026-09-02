@@ -9,8 +9,9 @@ pio test -e native
 `test_flavor_selection` checks first-install adoption, established-main-board authority,
 absolute/idempotent selection, corrupt storage, and failed-write retry state.
 `test_machine_policy` checks the canonical V-A–V-K operation plans, the three-valve ceiling,
-the dispense/refill exclusion, every possible off-before-on valve-mask transition, and the
-prime/timed-pump deadlines shared with the J9 protocol. `test_pcba_expanders` checks the
+the dispense/refill exclusion, every possible off-before-on valve-mask transition, the
+prime/timed-pump deadlines shared with the J9 protocol, and the funnel fill's plan, its
+draw-time budget against the slowest rated head, and its full-reed-before-clock ending. `test_pcba_expanders` checks the
 logical-to-physical valve map, safe MCP23017 initialization, active-low reed decoding,
 cross-expander break-before-make writes, and fail-park behavior. They run on the build host
 and are safe with every USB device connected. `test_weld_rotator_policy` checks the purchased
