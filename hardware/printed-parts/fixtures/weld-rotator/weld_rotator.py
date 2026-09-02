@@ -12,9 +12,10 @@ ground tower and ground arm are printable.  The turntable runs on the
 project's stock 10 mm PP balls.  The 90-tooth HTD-5M pulley is part of the
 turntable and is driven by the purchased 20-tooth pulley and 550 mm belt.
 
-The purchased motor fixes the belt plane: its 21 mm shaft carries the 20 mm
-pulley flush with the shaft end, so the belt runs within one millimetre of
-the motor face.  Only a 2 mm pilot skin sits between the face and the belt;
+The purchased pulley's motor-side flange is gauged 0.25 mm below the motor's
+1.6 mm face pilot.  That puts the 16 mm belt land in the printed pulley's
+tooth zone and leaves the pulley's outer face 0.85 mm beyond the nominal
+21 mm shaft end.  Only a 2 mm pilot skin sits between the face and the belt;
 every other stationary member stays outside the belt's swept path.
 """
 
@@ -199,16 +200,27 @@ MOTOR_CENTER_MIN = MOTOR_CENTER_NOMINAL - 1.0
 MOTOR_CENTER_MAX = MOTOR_CENTER_NOMINAL + 7.0
 MOTOR_SLOT_R = 1.8
 
-# Belt plane.  The motor hangs face-down; the pulley is flush with the shaft
-# end, so its land — and therefore the belt — is fixed relative to the face.
-# The printed pulley's tooth zone is centred on that land.
-MOTOR_FACE_Z = 52.5
-MOTOR_PULLEY_Z0 = MOTOR_FACE_Z - interface.MOTOR_SHAFT_LENGTH
+# Belt plane.  The motor hangs face-down.  The purchased pulley's 16 mm land
+# is centred in the printed pulley's tooth zone; its motor-side flange keeps a
+# measured running gap to the motor's projecting face pilot.  The resulting
+# 0.85 mm nominal overhang beyond the shaft end is intentional.
+MOTOR_PULLEY_PILOT_GAP = 0.25
+MOTOR_PULLEY_Z0 = (
+    PULLEY_TOOTH_Z0 + PULLEY_TOOTH_H / 2.0
+    - interface.MOTOR_PULLEY_LENGTH / 2.0
+)
 MOTOR_PULLEY_Z1 = MOTOR_PULLEY_Z0 + interface.MOTOR_PULLEY_LENGTH
+MOTOR_FACE_Z = (
+    MOTOR_PULLEY_Z1
+    + interface.MOTOR_PILOT_LENGTH
+    + MOTOR_PULLEY_PILOT_GAP
+)
 MOTOR_LAND_Z0 = MOTOR_PULLEY_Z0 + interface.MOTOR_PULLEY_FLANGE_LENGTH
 MOTOR_LAND_Z1 = MOTOR_PULLEY_Z1 - interface.MOTOR_PULLEY_FLANGE_LENGTH
 BELT_Z0 = MOTOR_LAND_Z0
 BELT_Z1 = MOTOR_LAND_Z1
+MOTOR_SHAFT_TIP_Z = MOTOR_FACE_Z - interface.MOTOR_SHAFT_LENGTH
+MOTOR_PULLEY_SHAFT_OVERHANG = MOTOR_SHAFT_TIP_Z - MOTOR_PULLEY_Z0
 MOTOR_PULLEY_CORE_D = 2.0 * (MOTOR_PITCH_R - PITCH_LINE_OFFSET)
 MOTOR_PULLEY_FLANGE_D = interface.MOTOR_PULLEY_FLANGE_DIAMETER
 
@@ -1275,13 +1287,17 @@ def selftest():
         raise ValueError("carriage skin does not clear the belt's upper edge")
     if CARRIAGE_SKIN_H < interface.MOTOR_PILOT_LENGTH:
         raise ValueError("carriage skin is thinner than the motor's face pilot")
-    if MOTOR_PULLEY_Z1 > MOTOR_FACE_Z - 0.5:
-        raise ValueError("purchased pulley reaches the motor face")
-    if MOTOR_PULLEY_Z0 < MOTOR_FACE_Z - interface.MOTOR_SHAFT_LENGTH:
-        raise ValueError("purchased pulley overhangs the shaft end")
-    dcut_top = MOTOR_FACE_Z - interface.MOTOR_SHAFT_LENGTH + interface.MOTOR_SHAFT_DCUT_LENGTH
-    if (MOTOR_PULLEY_Z0 + MOTOR_PULLEY_Z1) / 2.0 > dcut_top:
-        raise ValueError("purchased pulley set screws miss the shaft D-cut")
+    pilot_front_z = MOTOR_FACE_Z - interface.MOTOR_PILOT_LENGTH
+    pilot_gap = pilot_front_z - MOTOR_PULLEY_Z1
+    if abs(pilot_gap - MOTOR_PULLEY_PILOT_GAP) > 1e-6 or pilot_gap < 0.2:
+        raise ValueError("purchased pulley lacks its running gap to the motor face pilot")
+    shaft_engagement = MOTOR_PULLEY_Z1 - max(MOTOR_PULLEY_Z0, MOTOR_SHAFT_TIP_Z)
+    if shaft_engagement < interface.MOTOR_PULLEY_LENGTH - 2.0:
+        raise ValueError("purchased pulley has less than 18 mm of shaft engagement")
+    dcut_top = MOTOR_SHAFT_TIP_Z + interface.MOTOR_SHAFT_DCUT_LENGTH
+    set_screw_z = (MOTOR_LAND_Z0 + MOTOR_LAND_Z1) / 2.0
+    if not MOTOR_SHAFT_TIP_Z <= set_screw_z <= dcut_top:
+        raise ValueError("purchased pulley set-screw plane misses the shaft D-cut")
 
     # Motor carriage and tower.
     cradle_pilot_radial = (
@@ -1345,6 +1361,8 @@ def selftest():
         carriage = parts["motor-carriage"].translate((offset, 0.0, 0.0))
         belt = _belt_solid(center, BELT_Z0, BELT_Z1)
         belt_margin = _belt_solid(center, BELT_Z0, BELT_Z1, 1.5)
+        if _overlap(motor_proxy, pulley_proxy) > 1e-4:
+            raise ValueError("purchased pulley intersects the motor face pilot")
         for fixed_name, fixed_part in (
             ("motor carriage", carriage),
             ("motor tower", parts["motor-tower"]),
@@ -1496,7 +1514,10 @@ def main():
         "WR_PULLEY_OPENING": f"{2.0 * _groove_half_width(PULLEY_TIP_R):.1f}",
         "WR_BELT_Z0": f"{BELT_Z0:.1f}",
         "WR_BELT_Z1": f"{BELT_Z1:.1f}",
-        "WR_MOTOR_FACE_Z": f"{MOTOR_FACE_Z:.1f}",
+        "WR_MOTOR_FACE_Z": f"{MOTOR_FACE_Z:.2f}",
+        "WR_PULLEY_PILOT_GAP": f"{MOTOR_PULLEY_PILOT_GAP:.2f}",
+        "WR_PULLEY_OVERHANG": f"{MOTOR_PULLEY_SHAFT_OVERHANG:.2f}",
+        "WR_LAND_SKIN_CLEAR": f"{CARRIAGE_SKIN_Z0 - BELT_Z1:.2f}",
         "WR_SKIN_H": f"{CARRIAGE_SKIN_H:.0f}",
         "WR_PILOT_OD": f"{PILOT_OD:.2f}",
         "WR_PILOT_H": f"{PILOT_H:.1f}",

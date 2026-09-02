@@ -100,14 +100,16 @@ it catches lift without carrying running load.
 The turntable carries an integral 90T HTD-5M pulley. With the purchased 20T
 pulley and 550 mm belt, nominal shaft center distance is
 [125.1 mm](BELT_CENTER). The purchased pulley is 20 mm long on the motor's
-21 mm shaft, so fitted flush with the shaft end its belt land lies 3–19 mm
-below the motor face; that land is the belt plane, and the printed tooth zone
-is centered on it. The motor hangs face-down in a printed carriage whose 2 mm
-skin registers the Ø38.1 face pilot and clears the belt's upper edge by 1 mm;
-two side pads clamp the 57.3 mm frame, and four slotted M3 screws into the
-tower's rail tops supply 8 mm of outward tension adjustment. The tower is two
-rails and a rear wall that stay outside the belt's swept path across that
-whole travel, and the motor's four plain Ø5.2 flange holes are unused.
+21 mm shaft. Its motor-side flange is gauged 0.25 mm off the front face of the
+motor's 1.6 mm-long Ø38.1 pilot, placing its 16 mm land from 33.5 to 49.5 mm
+above the base bottom and centered in the printed tooth zone. The outer flange
+stands 0.85 mm beyond the nominal shaft end, so the shaft tip is not an axial
+datum. The motor hangs face-down in a printed carriage whose 2 mm skin
+registers the face pilot and clears the complete land envelope by 1.85 mm; two
+side pads clamp the 57.3 mm frame, and four slotted M3 screws into the tower's
+rail tops supply 8 mm of outward tension adjustment. The tower is two rails
+and a rear wall that stay outside the belt's swept path across that whole
+travel, and the motor's four plain Ø5.2 flange holes are unused.
 Small-pulley wrap is [127.1°](SMALL_WRAP), or
 [7.1](SMALL_WRAP_TEETH) engaged teeth. Print and check the 12-tooth belt coupon
 against the delivered belt before printing the complete turntable.
