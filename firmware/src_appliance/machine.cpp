@@ -10,6 +10,7 @@
 void (*machineOnPrimeState)(uint8_t, uint8_t, uint32_t) = nullptr;
 void (*machineOnPumpDone)(uint8_t) = nullptr;
 void (*machineOnFillState)(const MachineFillState &) = nullptr;
+void (*machineOnCleanState)(const MachineCleanState &) = nullptr;
 
 static_assert(PRIME_TICK_MS == machine_policy::kPrimeTickPeriodMs,
               "prime tick period must match machine policy");
@@ -491,6 +492,267 @@ void machineReadFillState(MachineFillState &st) {
 
 uint16_t machineValvesOpen() { return pcba::expanders().currentOutputs().valves; }
 
+// ── The clean cycle ───────────────────────────────────────────────────────
+// One topology state at a time, kCleanRounds times over: the channel's
+// tap-water fill — V-A, its select and its return open, pump off — until the
+// full reed closes, then its flush — its draw and its flavor tube open, pump
+// on — until the empty reed has opened and the tail has drawn the line clear.
+// Every step ends at its planned time as well (machine_policy::clean*ShouldEnd).
+// Between steps the pump stops, every valve closes, and nothing is energised
+// for kCleanSettleMs.
+static uint8_t  cleanChannel        = 0;
+static uint8_t  cleanOutcome        = CLEAN_OUTCOME_NONE;
+static uint8_t  cleanRounds         = machine_policy::kCleanRounds;
+static uint8_t  cleanStepIndex      = 0;      // 0..2*rounds-1: even a water fill, odd a flush
+static uint8_t  cleanReeds          = 0xFF;
+static uint32_t cleanWaterPlannedMs = machine_policy::kCleanWaterFillPlannedMs;
+static uint32_t cleanFlushPlannedMs = machine_policy::kCleanFlushPlannedMs;
+static uint32_t cleanStepStartMs    = 0;
+static uint32_t cleanStepPlannedMs  = 0;
+static uint32_t cleanStepElapsedMs  = 0;      // final, once the step has ended
+static uint32_t cleanLastReedMs     = 0;
+static uint32_t cleanSettleAtMs     = 0;      // nonzero: the step is over, the valves close then
+static uint8_t  cleanEndAfterSettle = CLEAN_OUTCOME_NONE;   // NONE: the next step follows the settle
+static bool     cleanStepRunning    = false;
+static bool     cleanPumpOn         = false;
+static bool     cleanEmptySeenClosed = false;
+static uint32_t cleanEmptyOpenedAtMs = UINT32_MAX;
+
+static machine_policy::CleanStep cleanStepOf(uint8_t index) {
+    return (index & 1) ? machine_policy::CleanStep::Flush : machine_policy::CleanStep::WaterFill;
+}
+
+static uint32_t cleanStepElapsedNow(uint32_t now) {
+    return cleanStepRunning ? now - cleanStepStartMs : cleanStepElapsedMs;
+}
+
+static void cleanFill(MachineCleanState &st, uint32_t now) {
+    const bool running = state == ST_CLEANING;
+    st.phase         = running ? CLEAN_PHASE_RUNNING : CLEAN_PHASE_OFF;
+    st.channel       = cleanChannel;
+    st.outcome       = running ? CLEAN_OUTCOME_NONE : cleanOutcome;
+    st.step          = static_cast<uint8_t>(cleanStepOf(cleanStepIndex));
+    st.round         = (uint8_t)(cleanStepIndex / 2 + 1);
+    st.rounds        = cleanRounds;
+    st.stepElapsedMs = cleanStepElapsedNow(now);
+    st.stepPlannedMs = cleanStepPlannedMs;
+    st.cycleLeftMs   = running
+        ? machine_policy::cleanCycleLeftMs(cleanStepIndex, cleanRounds, st.stepElapsedMs,
+                                           cleanStepPlannedMs, cleanWaterPlannedMs,
+                                           cleanFlushPlannedMs)
+        : 0;
+    st.reeds         = cleanReeds;
+}
+
+static void cleanAnnounce(uint32_t now) {
+    MachineCleanState st;
+    cleanFill(st, now);
+    if (machineOnCleanState) machineOnCleanState(st);
+}
+
+static const char *cleanOutcomeName(uint8_t outcome) {
+    switch (outcome) {
+        case CLEAN_OUTCOME_DONE:    return "every round ran";
+        case CLEAN_OUTCOME_STOPPED: return "stopped on request";
+        case CLEAN_OUTCOME_BUSY:    return "refused — busy";
+        case CLEAN_OUTCOME_NO_IO:   return "refused — expanders unverified";
+        case CLEAN_OUTCOME_FAULT:   return "fault — everything parked";
+        case CLEAN_OUTCOME_GAS:     return "gas alarm";
+        default:                    return "none";
+    }
+}
+
+static const char *cleanStepName(uint8_t index) {
+    return (index & 1) ? "flush" : "water fill";
+}
+
+static bool cleanReadReeds() {
+    pcba::ReedSnapshot reeds;
+    if (!pcba::expanders().readReeds(reeds)) return false;
+    cleanReeds = cleanChannel == PUMP_CHANNEL_A ? reeds.reservoirAClosedMask
+                                                : reeds.reservoirBClosedMask;
+    return true;
+}
+
+// The pump stops now; the valves close after the settle, from cleanService().
+// NONE ends only the step; anything else ends the cycle once the settle is over.
+static void cleanStepEnd(uint8_t cycleOutcome, uint32_t now) {
+    if (state != ST_CLEANING) return;
+    if (cleanSettleAtMs) {
+        // Already settling between steps: the cycle ends there instead of going on.
+        if (cleanEndAfterSettle == CLEAN_OUTCOME_NONE) cleanEndAfterSettle = cycleOutcome;
+        return;
+    }
+    cleanStepElapsedMs = cleanStepElapsedNow(now);
+    if (cleanPumpOn) pumpPark(cleanChannel);
+    cleanPumpOn        = false;
+    cleanStepRunning   = false;
+    cleanEndAfterSettle = cycleOutcome;
+    cleanSettleAtMs    = now + machine_policy::kCleanSettleMs;
+    if (!cleanSettleAtMs) cleanSettleAtMs = 1;
+}
+
+// Everything off. The ending is announced from here, once nothing is energised.
+static void cleanParked(uint8_t outcome) {
+    if (!pcba::expanders().apply(pcba::ExpanderOutputs())) pcba::expanders().parkAll();
+    cleanSettleAtMs = 0;
+    cleanOutcome    = outcome;
+    led(PIN_LED_ACT, false);
+    state = ST_IDLE;
+    Serial.printf("\n[machine] clean %s: %s in round %u of %u, %s — valves closed\n",
+                  kPump[cleanChannel & 1].who, cleanOutcomeName(outcome),
+                  (unsigned)(cleanStepIndex / 2 + 1), (unsigned)cleanRounds,
+                  cleanStepName(cleanStepIndex));
+    switch (outcome) {
+        case CLEAN_OUTCOME_DONE:    soundPlay(SND_CHIME); break;
+        case CLEAN_OUTCOME_STOPPED: soundPlay(SND_ACK);   break;
+        default:                    soundPlay(SND_FAULT); break;
+    }
+    cleanAnnounce(millis());
+}
+
+// The next step's valves open and, for a flush, its pump starts. False parks
+// everything and ends the cycle as a fault.
+static bool cleanStepBegin(uint32_t now) {
+    const machine_policy::CleanStep step = cleanStepOf(cleanStepIndex);
+    const machine_policy::ActuatorPlan plan =
+        machine_policy::canonicalPlan(machine_policy::cleanOperation(cleanChannel, step));
+    if (!machine_policy::isPlanSafe(plan, machine_policy::SafetyContext{false}) ||
+        !pcba::expanders().apply(pcba::ExpanderOutputs(plan.valves, false))) {
+        Serial.printf("\n[machine] clean %s: the %s valves could not be opened — parked\n",
+                      kPump[cleanChannel].who, cleanStepName(cleanStepIndex));
+        cleanParked(CLEAN_OUTCOME_FAULT);
+        return false;
+    }
+    if (plan.flavor_pumps && !pumpDrive(cleanChannel)) {
+        Serial.printf("\n[machine] clean %s: pump %s would not start — parked\n",
+                      kPump[cleanChannel].who, kPump[cleanChannel].who);
+        cleanParked(CLEAN_OUTCOME_FAULT);
+        return false;
+    }
+    cleanPumpOn          = plan.flavor_pumps != 0;
+    cleanStepPlannedMs   = step == machine_policy::CleanStep::Flush ? cleanFlushPlannedMs
+                                                                     : cleanWaterPlannedMs;
+    cleanStepStartMs     = now;
+    cleanStepElapsedMs   = 0;
+    cleanLastReedMs      = now;
+    cleanStepRunning     = true;
+    cleanEmptySeenClosed = (cleanReeds != 0xFF) && (cleanReeds & machine_policy::kReservoirReedEmpty);
+    cleanEmptyOpenedAtMs = UINT32_MAX;
+    char names[24];
+    Serial.printf("\n[machine] clean %s: round %u of %u, %s — valves %s open, pump %s, "
+                  "for %lu ms, reeds %02X\n",
+                  kPump[cleanChannel].who, (unsigned)(cleanStepIndex / 2 + 1),
+                  (unsigned)cleanRounds, cleanStepName(cleanStepIndex),
+                  valveNames(plan.valves, names, sizeof(names)),
+                  cleanPumpOn ? "on" : "off", (unsigned long)cleanStepPlannedMs, cleanReeds);
+    cleanAnnounce(now);
+    return true;
+}
+
+// The settle is over: every valve closes, and the cycle ends or the next step
+// begins.
+static void cleanSettled(uint32_t now) {
+    cleanSettleAtMs = 0;
+    if (!pcba::expanders().apply(pcba::ExpanderOutputs())) {
+        pcba::expanders().parkAll();
+        cleanParked(CLEAN_OUTCOME_FAULT);
+        return;
+    }
+    if (cleanEndAfterSettle != CLEAN_OUTCOME_NONE) { cleanParked(cleanEndAfterSettle); return; }
+    Serial.printf("\n[machine] clean %s: %s ended after %lu ms — valves closed\n",
+                  kPump[cleanChannel].who, cleanStepName(cleanStepIndex),
+                  (unsigned long)cleanStepElapsedMs);
+    if (cleanStepIndex + 1 >= cleanRounds * 2) { cleanParked(CLEAN_OUTCOME_DONE); return; }
+    cleanStepIndex++;
+    cleanStepBegin(now);
+}
+
+static void cleanService(uint32_t now) {
+    if (state != ST_CLEANING) return;
+    if (cleanSettleAtMs) {
+        if ((int32_t)(now - cleanSettleAtMs) >= 0) cleanSettled(now);
+        return;
+    }
+    if (!cleanStepRunning) return;
+    if (machineGasTripped()) { cleanStepEnd(CLEAN_OUTCOME_GAS, now); return; }
+    const uint32_t elapsed = cleanStepElapsedNow(now);
+    if (now - cleanLastReedMs >= machine_policy::kCleanReedPeriodMs) {
+        cleanLastReedMs = now;
+        if (!cleanReadReeds()) { cleanStepEnd(CLEAN_OUTCOME_FAULT, now); return; }
+        const bool emptyClosed = (cleanReeds & machine_policy::kReservoirReedEmpty) != 0;
+        if (emptyClosed) {
+            cleanEmptySeenClosed = true;
+            cleanEmptyOpenedAtMs = UINT32_MAX;
+        } else if (cleanEmptySeenClosed && cleanEmptyOpenedAtMs == UINT32_MAX) {
+            cleanEmptyOpenedAtMs = elapsed;
+        }
+    }
+    machine_policy::CleanEnd end = machine_policy::CleanEnd::None;
+    if (cleanStepOf(cleanStepIndex) == machine_policy::CleanStep::Flush) {
+        end = machine_policy::cleanFlushShouldEnd(elapsed, cleanStepPlannedMs,
+                                                  cleanEmptySeenClosed, cleanEmptyOpenedAtMs);
+    } else {
+        end = machine_policy::cleanWaterFillShouldEnd(elapsed, cleanStepPlannedMs, cleanReeds);
+    }
+    if (end != machine_policy::CleanEnd::None) {
+        Serial.printf("\n[machine] clean %s: %s %s\n", kPump[cleanChannel].who,
+                      cleanStepName(cleanStepIndex),
+                      end == machine_policy::CleanEnd::Reed ? "ended on its reed"
+                                                            : "ran its planned time");
+        cleanStepEnd(CLEAN_OUTCOME_NONE, now);
+    }
+}
+
+bool machineCleanBegin(uint8_t channel, uint8_t rounds, uint32_t stepPlannedMs) {
+    const uint32_t now = millis();
+    // A cycle already running answers with itself; its channel is the refusal.
+    if (state == ST_CLEANING) { soundPlay(SND_REFUSE); cleanAnnounce(now); return false; }
+
+    uint8_t refusal = CLEAN_OUTCOME_NONE;
+    if (channel > 1 || state != ST_IDLE)       refusal = CLEAN_OUTCOME_BUSY;
+    else if (machineGasTripped())              refusal = CLEAN_OUTCOME_GAS;
+    else if (!pcba::expanders().initialized()) refusal = CLEAN_OUTCOME_NO_IO;
+    cleanChannel        = channel & 1;
+    cleanRounds         = rounds ? rounds : machine_policy::kCleanRounds;
+    cleanWaterPlannedMs = stepPlannedMs ? stepPlannedMs : machine_policy::kCleanWaterFillPlannedMs;
+    cleanFlushPlannedMs = stepPlannedMs ? stepPlannedMs : machine_policy::kCleanFlushPlannedMs;
+    cleanStepIndex      = 0;
+    cleanStepPlannedMs  = cleanWaterPlannedMs;
+    cleanStepElapsedMs  = 0;
+    cleanReeds          = 0xFF;
+    cleanStepRunning    = false;
+    cleanPumpOn         = false;
+    cleanSettleAtMs     = 0;
+    cleanEndAfterSettle = CLEAN_OUTCOME_NONE;
+    if (refusal == CLEAN_OUTCOME_NONE && !cleanReadReeds()) refusal = CLEAN_OUTCOME_FAULT;
+    if (refusal != CLEAN_OUTCOME_NONE) {
+        cleanOutcome = refusal;
+        Serial.printf("\n[machine] clean %s: %s\n", kPump[cleanChannel].who, cleanOutcomeName(refusal));
+        soundPlay(SND_REFUSE);
+        cleanAnnounce(now);
+        return false;
+    }
+
+    state = ST_CLEANING;
+    led(PIN_LED_ACT, true);
+    cleanOutcome = CLEAN_OUTCOME_NONE;
+    Serial.printf("\n[machine] clean %s: %u round%s, water fill %lu ms and flush %lu ms each\n",
+                  kPump[cleanChannel].who, (unsigned)cleanRounds, cleanRounds == 1 ? "" : "s",
+                  (unsigned long)cleanWaterPlannedMs, (unsigned long)cleanFlushPlannedMs);
+    if (!cleanStepBegin(now)) return false;
+    soundPlay(SND_ACK);
+    return true;
+}
+
+void machineCleanStop() {
+    if (state == ST_CLEANING) cleanStepEnd(CLEAN_OUTCOME_STOPPED, millis());
+}
+
+bool machineIsCleaning() { return state == ST_CLEANING; }
+
+void machineReadCleanState(MachineCleanState &st) { cleanFill(st, millis()); }
+
 // ── Setup and service ─────────────────────────────────────────────────────
 void machineBegin() {
     soundBegin(PIN_BUZZ);   // the coil is parked before anything else runs
@@ -506,6 +768,11 @@ void machineBegin() {
     fillParkAtMs = 0;
     fillOutcome  = FILL_OUTCOME_NONE;
     fillReeds    = 0xFF;
+    cleanStepRunning = false;
+    cleanPumpOn      = false;
+    cleanSettleAtMs  = 0;
+    cleanOutcome     = CLEAN_OUTCOME_NONE;
+    cleanReeds       = 0xFF;
     state = ST_IDLE;
 
     // The MCPs keep their register state across an ESP-only reset because
@@ -543,6 +810,7 @@ void machineService() {
     const uint32_t now = millis();
     primeSessionLeaseService(now);
     fillService(now);
+    cleanService(now);
     if (state != ST_PUMPING) return;
 
     const uint32_t elapsed = pumpTimer.elapsedMs(now);
@@ -741,16 +1009,24 @@ bool machinePumpRun(uint8_t channel, uint32_t ms) {
 }
 
 void machineStop() {
-    if (state == ST_FILLING) machineFillStop();
-    else                     endPumping(PRIME_STOPPED);
+    if      (state == ST_FILLING)  machineFillStop();
+    else if (state == ST_CLEANING) machineCleanStop();
+    else                           endPumping(PRIME_STOPPED);
 }
 
 MachineState machineState()     { return state; }
 const char  *machineStateName() {
-    return state == ST_PUMPING ? "pumping" : state == ST_FILLING ? "filling" : "idle";
+    switch (state) {
+        case ST_PUMPING:  return "pumping";
+        case ST_FILLING:  return "filling";
+        case ST_CLEANING: return "cleaning";
+        default:          return "idle";
+    }
 }
 bool         machineIsPriming() { return state == ST_PUMPING && hold == HOLD_PRIME; }
-uint8_t      machinePumpChannel()   { return state == ST_FILLING ? fillChannel : channelNow; }
+uint8_t      machinePumpChannel()   {
+    return state == ST_FILLING ? fillChannel : state == ST_CLEANING ? cleanChannel : channelNow;
+}
 uint32_t     machinePumpElapsedMs() {
     return state == ST_PUMPING ? pumpTimer.elapsedMs(millis()) : 0;
 }

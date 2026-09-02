@@ -12,9 +12,20 @@ once per fab batch, with the manifold unplugged.
 
 ## What runs today
 
-The glass-facing operations are one flavor pump and the funnel fill. The main board also
-establishes and reports the safe I/O foundation the next connected bench uses.
+The glass-facing operations are one flavor pump, the funnel fill and the clean cycle. The main
+board also establishes and reports the safe I/O foundation the next connected bench uses.
 
+- **The clean cycle.** `MSG_CLEAN_START` from the enclosure, or `clean <a|b> [rounds] [s]`
+  from the console, puts tap water through the channel three rounds over. A round opens the
+  channel's tap-water path — V-A, its select and its return, `CleanWaterFillA/B` — with the
+  pump off, tap pressure crossing the idle head into the reservoir until the full reed closes
+  or 90 s pass; then its dispense path — its draw and its flavor tube, `CleanFlushA/B` — with
+  the pump on, out through the faucet until the empty reed has opened and 8 s more have
+  drawn the flavor tube clear, or 150 s pass. Between steps the pump stops and every valve
+  is closed for a quarter second. It is refused on the same grounds as the fill, and every
+  answer, every step and every ending is a complete `CleanStatePayload` on `MSG_RESP_CLEAN`,
+  which carries the round, the step, the step's clock and an estimate of the minutes left;
+  `MSG_CLEAN_QUERY` reads it back and `MSG_CLEAN_STOP` ends it after the settle.
 - **The funnel fill.** `MSG_FILL_START` from the enclosure, or `fill <a|b> [s]` from the
   console, opens the channel's funnel path — three valves, `FunnelFillA/B` in
   [`machine_policy`](/firmware/lib/machine_policy/machine_policy.h) — and draws with that
@@ -46,10 +57,9 @@ establishes and reports the safe I/O foundation the next connected bench uses.
 
 At boot both MCP23017 output latches are cleared before Port A becomes output, their complete
 safety configuration is read back, and Port B gets the internal pull-ups the reed looms rely
-on. The funnel fill is the one runtime operation that opens valves — at most three, its
-channel's funnel path — and it parks them the instant a write or a reed read fails. Nothing
-runs the condenser fan and neither relay is ever driven. A clean cycle is answered
-`MSG_ERR_UNSUPPORTED`.
+on. The funnel fill and the clean cycle are the runtime operations that open valves — one
+topology state at a time, at most three valves — and each parks them the instant a write or a
+reed read fails. Nothing runs the condenser fan and neither relay is ever driven.
 
 ## The files
 
@@ -81,6 +91,7 @@ pio device monitor -e appliance
 |---|---|
 | `pump <a\|b> [ms]` | run one flavor pump, bounded — default 2000, ceiling 60000 |
 | `fill <a\|b> [s]` | the funnel fill: the channel's funnel path open and its pump drawing, for `s` s (default 80) or until the reservoir's full reed closes |
+| `clean <a\|b> [rounds] [s]` | the clean cycle: tap water in through the idle pump, then pumped out the faucet, `rounds` times (default 3); `s` caps every step (default 90 in, 150 out) |
 | `ui <page> [a\|b] [go]` | put a customer page on the enclosure — choose, prime, fill, clean, settings — optionally for a flavor, `go` pressing its START |
 | `flavor [a\|b]` | read or set the main-board-owned flavor selection, and the logo pair beside it |
 | `art [<a> <b>]` | read or set which logo each channel wears, persisted in NVS and published to both glasses |

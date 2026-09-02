@@ -89,7 +89,9 @@ target_field() {
       } END {exit !found}' "$CONF" ||
     die "target '$1' has no '$2' in $(basename "$CONF")"
 }
-target_field_opt() { target_field "$1" "$2" 2>/dev/null || true; }
+# In a subshell of its own: target_field's die exits the shell it runs in, and
+# under set -e that would be this script rather than the field.
+target_field_opt() { ( target_field "$1" "$2" ) 2>/dev/null || true; }
 
 take_frame() {   # out, target, [score-rect], [extra control=value …]
   local t="$2" dwell uvc score

@@ -109,11 +109,14 @@ static void fillSoundCfg(SoundCfgPayload &c) {
 // window right after a frame arrives, when the glass is known to be listening
 // rather than talking. The glass polls on an interval for exactly this reason,
 // so the wait is bounded by that poll and not by whether anyone touches anything.
-// 12 bytes because OtaBeginPayload is 10 and is queued here like anything
-// else the main board volunteers; every other announcement fits in 8.
-struct Announce { uint8_t type; uint8_t len; uint8_t data[12]; };
+// 20 bytes because CleanStatePayload is 19 and is queued here like anything
+// else the main board volunteers; OtaBeginPayload is 10, a fill state 12, and
+// every other announcement fits in 8.
+struct Announce { uint8_t type; uint8_t len; uint8_t data[20]; };
 static_assert(sizeof(FillStatePayload) <= sizeof(Announce::data),
               "a fill state must fit an announcement");
+static_assert(sizeof(CleanStatePayload) <= sizeof(Announce::data),
+              "a clean state must fit an announcement");
 static const uint8_t ANN_DEPTH = 4;
 static Announce annQ[ANN_DEPTH];
 static uint8_t  annHead = 0, annTail = 0, annCount = 0;
@@ -186,6 +189,38 @@ static void sendFillState(HdlcLink *link) {
     link->send(MSG_RESP_FILL, &p, sizeof(p));
 }
 
+// The clean cycle's state, the same way: START and STOP answered inside their
+// turn, every step the machine moves to and every ending queued for the next.
+static bool cleanReplyDirect = false;
+
+static void cleanPayload(const MachineCleanState &st, CleanStatePayload &p) {
+    p.phase         = st.phase;
+    p.channel       = st.channel;
+    p.outcome       = st.outcome;
+    p.step          = st.step;
+    p.round         = st.round;
+    p.rounds        = st.rounds;
+    p.stepElapsedMs = st.stepElapsedMs;
+    p.stepPlannedMs = st.stepPlannedMs;
+    p.cycleLeftMs   = st.cycleLeftMs;
+    p.reeds         = st.reeds;
+}
+
+static void onCleanState(const MachineCleanState &st) {
+    if (cleanReplyDirect) return;
+    CleanStatePayload p;
+    cleanPayload(st, p);
+    announceQueue(MSG_RESP_CLEAN, &p, sizeof(p));
+}
+
+static void sendCleanState(HdlcLink *link) {
+    MachineCleanState st;
+    machineReadCleanState(st);
+    CleanStatePayload p;
+    cleanPayload(st, p);
+    link->send(MSG_RESP_CLEAN, &p, sizeof(p));
+}
+
 // A frame that only a finger could have produced. The glass sends no separate
 // click for these — one press is one frame on J9 — so the tick is made here, off
 // the command itself. A prime TICK is the same finger still held rather than a
@@ -196,8 +231,8 @@ static void sendFillState(HdlcLink *link) {
 // click getting cut off by the sweep that follows it.
 static bool isUserAction(uint8_t type) {
     return type == MSG_PUMP_RUN || type == MSG_CLEAN_START || type == MSG_FILL_START ||
-           type == MSG_FILL_STOP || type == MSG_SOUND_CFG_SET || type == MSG_FLAVOR_ART_SET ||
-           type == MSG_PRIME_SESSION_SET;
+           type == MSG_FILL_STOP || type == MSG_CLEAN_STOP || type == MSG_SOUND_CFG_SET ||
+           type == MSG_FLAVOR_ART_SET || type == MSG_PRIME_SESSION_SET;
 }
 
 static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len);
@@ -507,7 +542,8 @@ static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len) {
         s.gasMv        = (uint16_t)analogReadMilliVolts(PIN_GAS_AOUT);
         s.flags        = (machineGasTripped()  ? STATUS_F_GAS_TRIP : 0)
                        | (machineIsPriming()   ? STATUS_F_PRIMING  : 0)
-                       | (machineIsFilling()   ? STATUS_F_FILLING  : 0);
+                       | (machineIsFilling()   ? STATUS_F_FILLING  : 0)
+                       | (machineIsCleaning()  ? STATUS_F_CLEANING : 0);
         s.primeChannel = machinePumpChannel();
         strncpy(s.version, FW_VERSION, sizeof(s.version) - 1);
         s.j9ReplyHighWater = j9TurnReplyHighWater;
@@ -538,11 +574,24 @@ static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len) {
         return;
     }
 
-    // The clean cycle needs a sequenced manifold operation this image does not
-    // carry yet.
-    if (type == MSG_CLEAN_START) {
-        link->sendResponse(MSG_ERR_UNSUPPORTED, plen ? payload[0] : 0);
-        Serial.println("\n[J9] MSG_CLEAN_START -> unsupported (no clean cycle in this build)");
+    // The clean cycle, answered the way the fill is: START and STOP with the
+    // state they produced, QUERY with the state as it stands.
+    if (type == MSG_CLEAN_START && plen >= sizeof(ChannelPayload)) {
+        Serial.printf("\n[J9] MSG_CLEAN_START ch=%u\n", payload[0]);
+        cleanReplyDirect = true;
+        machineCleanBegin(payload[0]);
+        cleanReplyDirect = false;
+        sendCleanState(link);
+        return;
+    }
+    if (type == MSG_CLEAN_STOP) {
+        Serial.println("\n[J9] MSG_CLEAN_STOP");
+        machineCleanStop();
+        sendCleanState(link);
+        return;
+    }
+    if (type == MSG_CLEAN_QUERY) {
+        sendCleanState(link);
         return;
     }
 
@@ -571,6 +620,7 @@ void linkBegin() {
     machineOnPrimeState = onPrimeState;
     machineOnPumpDone   = onPumpDone;
     machineOnFillState  = onFillState;
+    machineOnCleanState = onCleanState;
 
     // 8 KB, because the loop does not always come back quickly: a flash sector
     // erase inside esp_ota_write blocks for tens of milliseconds, and at these
