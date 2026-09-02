@@ -47,12 +47,12 @@
     },
     {
       "check": "hardware/scripts/check_tracked.py",
-      "note": "59/59 artifacts have their record in the index",
+      "note": "62/62 artifacts have their record in the index",
       "status": "ok"
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 1421 tracked, 276 fetched solids, 54 tags",
+      "note": "paths: every reference lands — 1438 tracked, 276 fetched solids, 54 tags",
       "status": "ok"
     },
     {
@@ -67,8 +67,8 @@
     },
     {
       "check": "tools/bazel/check_build_file.py",
-      "note": "check_build_file: BUILD.bazel is what the graph writes",
-      "status": "ok"
+      "note": "tools/cad-venv/bin/python tools/bazel/gen_build.py",
+      "status": "red"
     },
     {
       "check": "tools/bazel/check_ci_targets.py",
@@ -77,12 +77,12 @@
     },
     {
       "check": "tools/bazel/check_declared_imports.py",
-      "note": "check_declared_imports: every step holds what it imports, over 180 source(s) the graph names",
+      "note": "check_declared_imports: every step holds what it imports, over 181 source(s) the graph names",
       "status": "ok"
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 41 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 313 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 2 of 39 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 337 member(s) keep their provenance",
       "status": "ok"
     }
   ],
@@ -91,6 +91,11 @@
       "enclosure-assembly.facts.json was taken from a different tree — it holds be1ac13e4764fd49eb49bf4dd0511298 for the 108 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at e7e3f3614b2f40a61b3130d307b4dafe here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
+    ],
+    "tools/bazel/check_build_file.py": [
+      "BUILD.bazel is not what the graph would write now:",
+      "  1 build-graph generator(s) are absent from the tree — hardware/printed-parts/shop-storage/drill-press/drill_press_kit.py among them. Re-trace the renamed generator or remove its stale graph entry.",
+      "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
     ]
   },
   "green": false
