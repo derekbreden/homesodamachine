@@ -9,38 +9,23 @@ takes; idleService() publishes the change to both glasses on its next pass.
     python3 tools/panelcam-wake.py /dev/cu.usbserial-10
 
 Silent and exit 0 when there is nothing to talk to: a target with no machine
-attached should still take its picture.
+attached should still take its picture. The console is reached the way
+panelcam-console.py reaches it, restart and all.
 """
 
+import importlib.util
+import os
 import sys
-import time
-
-try:
-    import serial
-except ImportError:
-    sys.exit(0)
 
 port = sys.argv[1] if len(sys.argv) > 1 else "/dev/cu.usbserial-10"
-
+spec = importlib.util.spec_from_file_location(
+    "panelcam_console", os.path.join(os.path.dirname(os.path.abspath(__file__)), "panelcam-console.py"))
+console = importlib.util.module_from_spec(spec)
 try:
-    s = serial.Serial()
-    s.port = port
-    s.baudrate = 115200
-    s.timeout = 0.05
-    s.write_timeout = 2
-    # Opening a CH340 on macOS asserts DTR and RTS whatever they were set to, and that
-    # restarts the main board through Q2/Q3. The command waits in the UART's buffer and
-    # the restarted board answers it; both glasses keep their pages through the restart.
-    s.open()
-except Exception:
+    spec.loader.exec_module(console)
+except SystemExit:
+    sys.exit(0)   # no pyserial: nothing to talk to
+reply = console.ask(port, "wake")
+if reply is None:
     sys.exit(0)
-
-with s:
-    time.sleep(0.3)
-    s.reset_input_buffer()
-    s.write(b"\nwake\n")
-    s.flush()
-    time.sleep(0.5)
-    reply = s.read(4096).decode(errors="replace")
-
-print("awake" if "idle" in reply else "no answer from the console")
+print("awake" if any("idle" in l for l in reply) else "no answer from the console")

@@ -192,15 +192,17 @@ shows. On black, the panel's own:
 - four 32 px white fiducials at pixels x 16..47 and 752..783, y 16..47 and 432..463 — centres
   (32, 32), (768, 32), (32, 448) and (768, 448) in continuous coordinates, where pixel i spans
   [i, i+1);
-- a 1 px cross through (400, 240), left out of a fit as its check;
-- an eight-step gray wedge, 64×48 each, x 144..655, y 72..119, asked for at 0, 36, 73, 109,
+- a 1 px cross through (400, 240) — column 400 for y 230..249, row 240 for x 390..409 — left
+  out of a fit as its check, with nothing else between y 216 and 267;
+- an eight-step gray wedge, 64×48 each, x 144..655, y 56..103, asked for at 0, 36, 73, 109,
   146, 182, 219 and 255 and shown as RGB565 rounds them;
-- red, green, blue, cyan, magenta and yellow, 64×48 each, x 208..591, y 136..183;
-- the interface's palette, 64×48 each, x 176..623, y 200..247: `THEME_BG` 1a1a2e, `COL_CARD`
-  242440, `COL_CARD_ON` 33335c, `COL_ACCENT` e94560, `COL_TEXT` e8e8f2, `COL_DIM` 8888aa, and a
-  50% gray 808080 — the flat patches a camera-to-panel colour fit is made from;
+- red, green, blue, cyan, magenta and yellow, 64×48 each, x 208..591, y 112..159;
+- every colour the interface draws, 64×48 each, x 80..719, y 168..215: `THEME_BG` 1a1a2e,
+  `COL_CARD` 242440, `COL_CARD_ON` 33335c, `COL_ACCENT` e94560, `COL_TEXT` e8e8f2, `COL_DIM`
+  8888aa, `COL_OFF` 3a3a55, `COL_GOOD` 37c98b, `COL_WARN` f0a83c, and a 50% gray 808080 — the
+  flat patches a camera-to-panel colour fit is made from;
 - 1 px vertical stripes, 1 px horizontal stripes and a 2 px checkerboard, 64×64 each, at
-  x 240, 368 and 496, y 272..335;
+  x 240, 368 and 496, y 268..331;
 - `PANELCAM TEST` and this board's firmware version under them.
 
 `TEST:<s>` on this board's own USB console shows it without the main board.
