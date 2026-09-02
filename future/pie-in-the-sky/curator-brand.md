@@ -37,10 +37,10 @@ Going from lowest pain tolerance and lowest budget upward. Each is a real shelf 
 | Local CO2 pickup guide | Free (customer pays ~$25–50 per fill at the supplier) | Editorial | [`local-co2.md`](/future/pie-in-the-sky/local-co2.md) |
 | CGA-320 adapter kit (regulator + 2 L bottle + push-button) | ~$150 | Yes | [`cga320-kit.md`](/future/pie-in-the-sky/cga320-kit.md) |
 | CO2 delivery service | $250 / $500 per swap | Yes | [`co2-service.md`](/future/pie-in-the-sky/co2-service.md) |
-| Lillium + Lite Edition bundle | ~$2,500 | Yes (Lite) + resale (Lillium) | — |
-| Kitchen Edition appliance | $5,500 / $7,500 | Yes | [`/hardware/README.md`](/hardware/README.md) |
-| Shop Edition appliance | $5,500 / $7,500 | Yes | [`shop-edition.md`](/future/pie-in-the-sky/shop-edition.md) |
-| Flavor Module add-on | $1,800 / $2,500 | Yes | [`flavor-module.md`](/future/pie-in-the-sky/flavor-module.md) |
+| Lillium + flavor injector bundle | ~$2,500 | Yes (the injector) + resale (Lillium) | — |
+| The appliance | $5,500 / $7,500 | Yes | [`/hardware/README.md`](/hardware/README.md) |
+| Countertop unit | $5,500 / $7,500 | Yes | [`shop-edition.md`](/future/pie-in-the-sky/shop-edition.md) |
+| Flavor module add-on | $1,800 / $2,500 | Yes | [`flavor-module.md`](/future/pie-in-the-sky/flavor-module.md) |
 
 Two of these run *across* the map rather than at one rung — the local pickup guide and the delivery service serve the kit customer and the appliance customer equally. The Lillium row is the one rung where we resell rather than build, and we do not pretend otherwise.
 
@@ -59,17 +59,17 @@ The appliance does not stop being the halo product under this framing. It is the
 ## How this relates to the existing docs
 
 - [`/marketing/target-market.md`](/marketing/target-market.md) describes the appliance buyer specifically. Under this framing it is the target-market doc for the upper end of the ladder, not the whole brand. A companion doc for the lower-end buyer profiles is implied by this reframe and out of scope here.
-- [`/hardware/README.md`](/hardware/README.md) is the engineering spec for the Kitchen Edition rung.
-- [`shop-edition.md`](/future/pie-in-the-sky/shop-edition.md) and [`flavor-module.md`](/future/pie-in-the-sky/flavor-module.md) are engineering sketches for two of the rungs. The Lite Edition rung has no sketch; `git show lite-edition-final` is where its geometry went.
+- [`/hardware/README.md`](/hardware/README.md) is the appliance rung, and it is the only rung the tree builds. The plan behind it — what done looks like and in what order — is [`/future/README.md`](/future/README.md). Every other rung on the map above is a desire with no plan, which is what this folder is for.
+- [`shop-edition.md`](/future/pie-in-the-sky/shop-edition.md) and [`flavor-module.md`](/future/pie-in-the-sky/flavor-module.md) are engineering sketches for the countertop unit and the flavor module. The flavor-injector rung has no sketch here; its geometry stands at `lite-edition-final:pie-in-the-sky/lite/`.
 - [`co2-service.md`](/future/pie-in-the-sky/co2-service.md), [`cga320-kit.md`](/future/pie-in-the-sky/cga320-kit.md), [`local-co2.md`](/future/pie-in-the-sky/local-co2.md) are sketches for three more rungs (the lower end and the services).
-- [`timeline.md`](/future/pie-in-the-sky/timeline.md) is the older, smaller framing — three sequential SKUs of one product line. The curator framing supersedes it. Once this doc is in shape and the existing rung docs have caught up, `timeline.md` can be retired.
+- [`timeline.md`](/future/pie-in-the-sky/timeline.md) sequences this map: which rung would ship first, what each release teaches, and what the ordering does to trust, cost and risk. This doc is the menu; that one is the order the menu fills in.
 
 ## What's worth doing first
 
-Nothing on the catalog side commits real money. The Kitchen Edition ships first regardless, because it is the credibility anchor and because the engineering is already deep. In parallel, very cheaply:
+Nothing on the catalog side commits real money. The appliance ships first regardless, because it is the credibility anchor and because the engineering is already deep. In parallel, very cheaply:
 
 1. The local-CO2 pickup guide. A markdown doc for Lincoln NE that lists the three closest food-grade fill points and what to ask for. The smallest possible version of the editorial product. Posted under a URL that is shareable.
 2. A SodaStream-advice editorial page. Air-removal trick, chill-the-water-first, the 5-lb-tank-and-adapter upgrade. Maybe a video. Same cost-to-build as the local CO2 guide.
 3. A landing-page sketch — even a hand-drawn one — of the homepage with all the rungs on it. The point is to see whether the curator framing reads cleanly to a visitor, before any of the lower-rung products are built.
 
-The CGA-320 kit and the CO2 service each have separate validation paths in their own docs. The Flavor Module and the Shop Edition are downstream of the Kitchen Edition shipping. Nothing in this doc changes those orderings; this doc reframes how the existing shelf is shown to a visitor and how more shelves get added later.
+The CGA-320 kit and the CO2 service each have separate validation paths in their own docs. The flavor module and the countertop unit are downstream of the appliance shipping. Nothing in this doc changes those orderings; this doc reframes how the existing shelf is shown to a visitor and how more shelves get added later.
