@@ -1,9 +1,11 @@
 #include <Arduino.h>
 
+#include "flavor.h"
 #include "machine.h"
 #include "machine_policy.h"
 #include "pcba_expanders.h"
 #include "pins.h"
+#include "pour_policy.h"
 #include "proto_msg.h"
 #include "sound.h"
 
@@ -1063,6 +1065,127 @@ bool machineIsAiring() { return state == ST_AIRING; }
 
 void machineReadAirState(MachineAirState &st) { airFill(st, millis()); }
 
+// ── The pour ──────────────────────────────────────────────────────────────
+// The meter's falling edges are counted on IO25; every kFlowSampleMs the
+// count is a flow reading for machine_policy::Pour, which says when the
+// selected channel's dispense path opens, when its pump bursts, and when the
+// path closes again. The bench can pretend a reading for a while.
+static volatile uint32_t flowEdges = 0;
+static uint32_t flowSampleMs   = 0;
+static uint32_t flowTotal      = 0;
+static uint32_t flowSimPulses  = 0;
+static uint32_t flowSimUntilMs = 0;
+static machine_policy::Pour pour;
+static uint8_t  pourChannel = 0;
+static uint32_t pourCycles  = 0;
+static uint32_t pourStartMs = 0;
+
+static void IRAM_ATTR flowIsr() { flowEdges++; }
+
+static const char *pourActionName(machine_policy::PourAction a) {
+    switch (a) {
+        case machine_policy::PourAction::Start:   return "start";
+        case machine_policy::PourAction::PumpOn:  return "burst";
+        case machine_policy::PourAction::PumpOff: return "rest";
+        case machine_policy::PourAction::Stop:    return "stop";
+        case machine_policy::PourAction::Ceiling: return "ceiling";
+        default:                                  return "none";
+    }
+}
+
+static void pourClose(const char *how) {
+    if (pour.pumpOn() || state == ST_POURING) pumpPark(pourChannel);
+    if (!pcba::expanders().apply(pcba::ExpanderOutputs())) pcba::expanders().parkAll();
+    led(PIN_LED_ACT, false);
+    state = ST_IDLE;
+    Serial.printf("\n[machine] pour %s: %s after %lu ms, %lu bursts — valves closed\n",
+                  kPump[pourChannel].who, how, (unsigned long)(millis() - pourStartMs),
+                  (unsigned long)pourCycles);
+}
+
+static void pourService(uint32_t now) {
+    if (now - flowSampleMs >= machine_policy::kFlowSampleMs) {
+        flowSampleMs = now;
+        noInterrupts();
+        uint32_t n = flowEdges;
+        flowEdges = 0;
+        interrupts();
+        flowTotal += n;
+        if (flowSimUntilMs) {
+            if ((int32_t)(now - flowSimUntilMs) < 0) n = flowSimPulses;
+            else flowSimUntilMs = 0;
+        }
+        pour.sample(n);
+    }
+    if (state != ST_IDLE && state != ST_POURING) { pour.reset(); return; }
+    if (state == ST_IDLE && (machineGasTripped() || !pcba::expanders().initialized())) {
+        pour.reset();
+        return;
+    }
+    if (state == ST_POURING && machineGasTripped()) {
+        pour.reset();
+        pourClose("gas alarm");
+        return;
+    }
+    const uint8_t ratio = flavorRatio(state == ST_POURING ? pourChannel : flavorSelected());
+    const machine_policy::PourAction action = pour.service(now, ratio);
+    switch (action) {
+        case machine_policy::PourAction::Start: {
+            pourChannel = flavorSelected() & 1;
+            const machine_policy::ActuatorPlan plan = machine_policy::canonicalPlan(
+                pourChannel == 0 ? machine_policy::Operation::DispenseA
+                                 : machine_policy::Operation::DispenseB);
+            if (!machine_policy::isPlanSafe(plan, machine_policy::SafetyContext{false}) ||
+                !pcba::expanders().apply(pcba::ExpanderOutputs(plan.valves, false)) ||
+                !pumpDrive(pourChannel)) {
+                pcba::expanders().apply(pcba::ExpanderOutputs());
+                pour.reset();
+                Serial.printf("\n[machine] pour %s: the path could not be opened — parked\n",
+                              kPump[pourChannel].who);
+                soundPlay(SND_FAULT);
+                return;
+            }
+            pourStartMs = now;
+            pourCycles  = 1;
+            state = ST_POURING;
+            led(PIN_LED_ACT, true);
+            char names[24];
+            Serial.printf("\n[machine] pour %s at 1:%u: valves %s open, pump %s bursting %lu on / %lu off\n",
+                          kPump[pourChannel].who, ratio, valveNames(plan.valves, names, sizeof(names)),
+                          kPump[pourChannel].who, (unsigned long)pour.onMs(), (unsigned long)pour.offMs());
+            break;
+        }
+        case machine_policy::PourAction::PumpOn:
+            if (state != ST_POURING) { pour.reset(); return; }
+            if (!pumpDrive(pourChannel)) { pour.reset(); pourClose("the pump would not start"); return; }
+            pourCycles++;
+            break;
+        case machine_policy::PourAction::PumpOff:
+            if (state == ST_POURING) pumpPark(pourChannel);
+            break;
+        case machine_policy::PourAction::Stop:
+            if (state == ST_POURING) pourClose("flow stopped");
+            break;
+        case machine_policy::PourAction::Ceiling:
+            if (state == ST_POURING) { pourClose("the meter never stopped"); soundPlay(SND_FAULT); }
+            break;
+        case machine_policy::PourAction::None:
+            break;
+    }
+    (void)pourActionName;
+}
+
+bool machineIsPouring()          { return state == ST_POURING; }
+bool machineDispenseWindowOpen() { return state == ST_POURING; }
+uint32_t machinePourCycles()     { return pourCycles; }
+uint32_t machineFlowPulsesTotal() { return flowTotal; }
+
+void machineFlowSimulate(uint32_t pulses, uint32_t ms) {
+    flowSimPulses  = pulses;
+    flowSimUntilMs = ms ? millis() + ms : 0;
+    if (ms && !flowSimUntilMs) flowSimUntilMs = 1;
+}
+
 // What the running operation is doing to a reservoir's level: a fill or a
 // clean water fill raises it, a flush or a purge's Out step draws it down,
 // and nothing else moves it.
@@ -1079,6 +1202,8 @@ static machine_policy::LevelMotion levelMotionFor(uint8_t channel) {
             if (!airStepRunning || airStepChannelNow() != channel) return LevelMotion::Still;
             return machine_policy::airStepDrawsReservoir(airModeOf(airMode), airStepIndex)
                        ? LevelMotion::Falling : LevelMotion::Still;
+        case ST_POURING:
+            return pourChannel == channel ? LevelMotion::Falling : LevelMotion::Still;
         default:
             return LevelMotion::Still;
     }
@@ -1237,6 +1362,13 @@ void machineBegin() {
         pinMode(PIN_LED_ERR, OUTPUT);
         led(PIN_LED_ERR, true);
     }
+
+    // The flow meter: open-collector into the internal pull-up, one falling
+    // edge per impeller pulse.
+    pour.reset();
+    pinMode(PIN_FLOW, INPUT_PULLUP);
+    attachInterrupt(digitalPinToInterrupt(PIN_FLOW), flowIsr, FALLING);
+    flowSampleMs = millis();
 }
 
 static void primeSessionLeaseService(uint32_t now) {
@@ -1268,6 +1400,7 @@ void machineService() {
     cleanService(now);
     airService(now);
     selfTestService(now);
+    pourService(now);
     reedIdleService(now);
     if (state != ST_PUMPING) return;
 
@@ -1471,6 +1604,7 @@ void machineStop() {
     else if (state == ST_CLEANING) machineCleanStop();
     else if (state == ST_AIRING)   machineAirStop();
     else if (state == ST_SELFTEST) machineSelfTestStop();
+    else if (state == ST_POURING)  { pour.reset(); flowSimUntilMs = 0; pourClose("stopped on request"); }
     else                           endPumping(PRIME_STOPPED);
 }
 
@@ -1482,6 +1616,7 @@ const char  *machineStateName() {
         case ST_CLEANING: return "cleaning";
         case ST_AIRING:   return airMode == AIR_MODE_PURGE ? "purging" : "drying";
         case ST_SELFTEST: return "self-test";
+        case ST_POURING:  return "pouring";
         default:          return "idle";
     }
 }
@@ -1491,6 +1626,7 @@ uint8_t      machinePumpChannel()   {
         case ST_FILLING:  return fillChannel;
         case ST_CLEANING: return cleanChannel;
         case ST_AIRING:   return airStepChannelNow();
+        case ST_POURING:  return pourChannel;
         default:          return channelNow;
     }
 }

@@ -42,6 +42,11 @@ static const int PIN_LED_ACT = 14;  // D4 blue  — lit while the machine drives
 static const int PIN_SDA = 21;
 static const int PIN_SCL = 22;
 
+// ── The flow meter — DIGITEN on J4, open-collector into the internal pull-up ─
+// One falling edge per impeller pulse; IO25 is not 5 V tolerant and the
+// board's own two 0402s stack in the SENSORS pocket to keep it that way.
+static const int PIN_FLOW = 25;
+
 // ── Gas dividers — MQ-6 through R1/R2 and R3/R4, ADC1 input-only pins ─────
 static const int PIN_GAS_AOUT = 39;  // analog level
 static const int PIN_GAS_DOUT = 36;  // LM393 comparator trip
