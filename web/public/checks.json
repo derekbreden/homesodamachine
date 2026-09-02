@@ -7,13 +7,13 @@
     },
     {
       "check": "hardware/scripts/check_facts_current.py",
-      "note": "tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py",
-      "status": "red"
+      "note": "and the 107 sources behind them stand where they stood when it was written",
+      "status": "ok"
     },
     {
       "check": "hardware/scripts/check_finishes.py",
-      "note": "fix: tools/cad-venv/bin/python hardware/scripts/check_finishes.py --write",
-      "status": "red"
+      "note": "finishes: 53 materials, and every colour this tree draws has one",
+      "status": "ok"
     },
     {
       "check": "hardware/scripts/check_ledger.py",
@@ -52,8 +52,8 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "3 reference(s) name a path nothing holds.",
-      "status": "red"
+      "note": "paths: every reference lands — 1414 tracked, 274 fetched solids, 54 tags",
+      "status": "ok"
     },
     {
       "check": "tools/check_release_room.py",
@@ -82,30 +82,15 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 81 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 276 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 75 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 276 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
-    "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds f4f865d1d566275bb153fc29b103d132 for the 107 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 77daa7bdb68ca52ad4a65eb985424f68 here. The three artifacts agree with each other and describe a machine that has since moved.",
-      "  the three come off one run:",
-      "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
-    ],
-    "hardware/scripts/check_finishes.py": [
-      "web/public/finishes.json is not the table this tree states.",
-      "  fix: tools/cad-venv/bin/python hardware/scripts/check_finishes.py --write"
-    ],
     "tools/bazel/check_build_file.py": [
       "BUILD.bazel is not what the graph would write now:",
       "  1 build-graph generator(s) are absent from the tree — hardware/reference/jhyossthi-pogo-dock/jhyossthi_pogo_dock.py among them. Re-trace the renamed generator or remove its stale graph entry.",
       "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
-    ],
-    "tools/check_paths.py": [
-      "README.md:9 — future/README.md is held nowhere, and no tag is named for it",
-      "  README.md:23 — future/README.md is held nowhere, and no tag is named for it",
-      "  hardware/README.md:5 — future/README.md is held nowhere, and no tag is named for it",
-      "3 reference(s) name a path nothing holds."
     ],
     "tools/check_web_tests.py": [
       "1 test(s) in web/ fail:",
