@@ -19,7 +19,7 @@ from math import pi, radians, tan
 from pathlib import Path
 
 import cadquery as cq
-from cqgridfinity.constants import GR_BOT_H, GR_DIV_WALL, GR_TOPSIDE_H, GR_WALL
+from cqgridfinity.constants import GR_TOPSIDE_H
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
@@ -33,20 +33,18 @@ from _kit import substitute_md  # noqa: E402
 
 kit_units_x = 3
 kit_units_y = 3
-kit_footprint = _kit.outer_size(kit_units_x)
 kit_nominal_footprint = kit_units_x * _kit.grid_unit
 
 saw_storey_u = 6
 rack_storey_u = 6
 
-storey_floor_z = GR_BOT_H
-saw_cavity_top_z = _kit.top_reference_z(saw_storey_u)
-saw_cavity_depth = saw_cavity_top_z - storey_floor_z
+storey_floor_z = _kit.bin_floor_z
+saw_cavity_depth = _kit.cavity_depth(saw_storey_u)
 
-saw_inner_x = kit_footprint - 2.0 * GR_WALL
-saw_inner_y = saw_inner_x
-saw_cell_depth = (saw_inner_y - GR_DIV_WALL) / 2.0
-saw_cell_center_y = (saw_cell_depth + GR_DIV_WALL) / 2.0
+saw_inner_x = _kit.inner_size(kit_units_x)
+saw_inner_y = _kit.inner_size(kit_units_y)
+saw_cell_depth = _kit.cell_span(kit_units_y, 1)
+saw_cell_center_y = _kit.cell_centers(kit_units_y, 1)[1]
 
 rack_plateau_half = _kit.plateau_half(kit_units_x)
 rack_plateau_span = 2.0 * rack_plateau_half
@@ -222,12 +220,9 @@ drill_index_columns = 3
 drill_index_rows = drill_count // drill_index_columns
 drill_index_pitch = drill_socket_diameter + rack_socket_wall
 drill_socket_centers = [
-    (
-        drill_index_x + (column - (drill_index_columns - 1) / 2.0) * drill_index_pitch,
-        drill_index_y + (row - (drill_index_rows - 1) / 2.0) * drill_index_pitch,
-    )
-    for column in range(drill_index_columns)
-    for row in range(drill_index_rows)
+    (center_x, center_y)
+    for center_x in _kit.centered_run(drill_index_columns, drill_index_pitch, drill_index_x)
+    for center_y in _kit.centered_run(drill_index_rows, drill_index_pitch, drill_index_y)
 ]
 
 
@@ -292,8 +287,7 @@ arbor_axis_z = storey_floor_z + arbor_flange_diameter_generous / 2.0
 
 pilot_drill_spacing = 12.0
 pilot_drill_axis_y = tuple(
-    saw_cell_center_y + (index - (pilot_drill_count - 1) / 2.0) * pilot_drill_spacing
-    for index in range(pilot_drill_count)
+    _kit.centered_run(pilot_drill_count, pilot_drill_spacing, saw_cell_center_y)
 )
 pilot_drill_axis_z = storey_floor_z + pilot_drill_diameter_generous / 2.0
 
@@ -363,26 +357,6 @@ def _square_prism(across_flats, height, center_x, center_y, z_bottom):
     )
 
 
-def _cone(bottom_diameter, top_diameter, height, center_x, center_y, z_bottom):
-    return (
-        cq.Workplane("XY")
-        .circle(bottom_diameter / 2.0)
-        .workplane(offset=height)
-        .circle(top_diameter / 2.0)
-        .loft()
-        .translate((center_x, center_y, z_bottom))
-    )
-
-
-def _lying_cylinder(diameter, length, center_y, center_z, center_x=0.0):
-    """A cylinder on its side, axis along X — how a loose bit lies in a bin."""
-    return (
-        _kit.cylinder(diameter, length)
-        .rotate((0.0, 0.0, 0.0), (0.0, 1.0, 0.0), 90.0)
-        .translate((center_x - length / 2.0, center_y, center_z))
-    )
-
-
 def build_tap_reference(center_x, center_y, steel_color):
     """A 1/4"-18 NPT taper tap standing shank down, its taper threads up."""
     shank_length = tap_length - tap_thread_length - tap_square_length
@@ -392,7 +366,7 @@ def build_tap_reference(center_x, center_y, steel_color):
     shank = _kit.cylinder(
         tap_shank_diameter, shank_length, center_x, center_y, tool_bottom_z + tap_square_length
     )
-    threads = _cone(
+    threads = _kit.cone(
         tap_thread_major_diameter,
         tap_thread_major_diameter * 0.72,
         tap_thread_length,
@@ -412,7 +386,7 @@ def build_countersink_reference(head_diameter, center_x, center_y):
     """One 82 degree countersink standing head down, its 1/4" shank up."""
     cone_height = (head_diameter / 2.0) / tan(radians(countersink_included_angle / 2.0))
     body_length = 8.0
-    tip = _cone(1.0, head_diameter, cone_height, center_x, center_y, tool_bottom_z)
+    tip = _kit.cone(1.0, head_diameter, cone_height, center_x, center_y, tool_bottom_z)
     body = _kit.cylinder(
         head_diameter, body_length, center_x, center_y, tool_bottom_z + cone_height
     )
@@ -487,7 +461,7 @@ def build_guide_reference():
         guide_socket_y,
         tool_bottom_z,
     )
-    point = _cone(
+    point = _kit.cone(
         guide_point_diameter,
         1.5,
         guide_point_length,
@@ -531,14 +505,14 @@ def build_noga_reference():
 
 def build_arbor_reference():
     """The hole-saw arbor lying across the aft cell, pilot drill fitted."""
-    shank = _lying_cylinder(
+    shank = _kit.lying_cylinder(
         arbor_shank_across_corners,
         arbor_shank_length_generous,
         arbor_axis_y,
         arbor_axis_z,
         center_x=-(arbor_length - arbor_shank_length_generous) / 2.0,
     )
-    flange = _lying_cylinder(
+    flange = _kit.lying_cylinder(
         arbor_flange_diameter_generous,
         arbor_flange_length_generous,
         arbor_axis_y,
@@ -546,7 +520,7 @@ def build_arbor_reference():
         center_x=(arbor_shank_length_generous + arbor_flange_length_generous) / 2.0
         - arbor_length / 2.0,
     )
-    pilot = _lying_cylinder(
+    pilot = _kit.lying_cylinder(
         arbor_pilot_diameter,
         arbor_pilot_stickout_generous,
         arbor_axis_y,
@@ -562,7 +536,7 @@ def build_arbor_reference():
 
 
 def build_pilot_drill_reference(center_y):
-    shape = _lying_cylinder(
+    shape = _kit.lying_cylinder(
         pilot_drill_diameter_generous,
         pilot_drill_length_generous,
         center_y,
@@ -622,11 +596,14 @@ def assert_sockets_on_plateau(footprints, rectangles):
         reach = max(reach, max(abs(center_x), abs(center_y)) + diameter / 2.0)
     for _, center_x, center_y, width, depth, _floor_z in rectangles:
         reach = max(reach, abs(center_x) + width / 2.0, abs(center_y) + depth / 2.0)
-    if reach > rack_plateau_half - rack_socket_wall / 2.0:
-        raise ValueError(
-            f"rack sockets reach {reach:.2f} mm, past the {rack_plateau_half:.2f} mm plateau"
-        )
-    print(f"   rack sockets on plateau: {rack_plateau_half - reach:.2f} mm to the lip")
+    _kit.assert_inside_plateau(
+        "rack sockets on plateau",
+        reach,
+        reach,
+        kit_units_x,
+        kit_units_y,
+        margin=rack_socket_wall / 2.0,
+    )
 
 
 def assert_socket_walls(footprints, rectangles, minimum=rack_socket_wall - 0.5):
@@ -689,7 +666,7 @@ def validate(parts, references, cavities):
     for name in rack_reference_names:
         _kit.assert_clear(name, parts["drill-press-index"], references[name]["fit"])
 
-    aft_cavity, forward_cavity = cavities
+    forward_cavity, aft_cavity = cavities
     _kit.assert_contained("hole-saw arbor", references["hole-saw arbor"]["fit"], aft_cavity)
     for index in (1, 2):
         _kit.assert_contained(
@@ -745,13 +722,9 @@ def main():
         "drill-press-saw": build_saw_storey(),
         "drill-press-index": build_index_storey(),
     }
-    cavities = sorted(
+    cavities = _kit.bin_cells(
         _kit.bin_cavity(parts["drill-press-saw"], kit_units_x, kit_units_y, saw_storey_u)
-        .solids()
-        .vals(),
-        key=lambda solid: solid.BoundingBox().ymin,
     )
-    cavities = [cq.Workplane(obj=solid) for solid in cavities]
     references = build_references()
 
     storeys, seats, thinnest_wall = validate(parts, references, cavities)

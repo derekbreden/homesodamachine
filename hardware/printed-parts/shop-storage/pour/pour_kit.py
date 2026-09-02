@@ -31,12 +31,11 @@ from _kit import substitute_md  # noqa: E402
 
 grid_units = 3
 
-#: cq-gridfinity's GridfinityBox wall thickness and floor height. `validate`
-#: reads both back off a rendered cavity and refuses a mismatch.
-bin_wall_thickness = 1.0
-bin_floor_z = 7.0
+#: The library's own wall and floor. `validate` reads both back off a rendered
+#: cavity and refuses a mismatch.
+bin_floor_z = _kit.bin_floor_z
 
-bin_cavity_half = _kit.outer_size(grid_units) / 2.0 - bin_wall_thickness
+bin_cavity_half = _kit.inner_size(grid_units) / 2.0
 plateau_half = _kit.plateau_half(grid_units)
 
 #: A stored thing keeps this much to a bin wall and this much to its neighbour.

@@ -14,7 +14,6 @@ import sys
 from pathlib import Path
 
 import cadquery as cq
-from cqgridfinity.constants import GR_BOT_H, GR_DIV_WALL, GR_WALL
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
@@ -23,12 +22,17 @@ from _kit import (  # noqa: E402
     assert_clear,
     assert_contained,
     assert_h2c_fit,
+    assert_inside_plateau,
     assert_one_solid,
     assert_stack_seated,
     bbox,
     bin_body,
     bin_cavity,
+    bin_floor_z,
     blank_body,
+    cell_centers,
+    cell_span,
+    centered_run,
     cylinder,
     dock_body,
     export_kit,
@@ -38,8 +42,9 @@ from _kit import (  # noqa: E402
     h2c_build_x,
     h2c_build_y,
     h2c_build_z,
+    inner_size,
+    interior_fillet,
     kit_assembly,
-    outer_size,
     placed_prism,
     plateau_half,
     pocket,
@@ -68,20 +73,19 @@ rack_u = 6
 # BIN CELLS
 # ============================================================
 
-#: A divided bin's void, in the storey's own frame: the library's floor at
-#: GR_BOT_H, its walls GR_WALL in from the outside, and one divider GR_DIV_WALL
-#: wide on the storey's centre line.
-cavity_floor_z = GR_BOT_H
-cavity_half_span = outer_size(kit_units_x) / 2.0 - GR_WALL
-cell_width = (2.0 * cavity_half_span - GR_DIV_WALL) / 2.0
-cell_center_x = GR_DIV_WALL / 2.0 + cell_width / 2.0
+#: A divided bin's void, in the storey's own frame: the library's own floor, its
+#: walls in from the outside, and one divider on the storey's centre line.
+cavity_floor_z = bin_floor_z
+cavity_half_span = inner_size(kit_units_x) / 2.0
+cell_width = cell_span(kit_units_x, 1)
+cell_center_x = cell_centers(kit_units_x, 1)[1]
 
-#: The vertical fillet the library rounds every interior corner with. A thing
-#: as wide as its cell only clears where the cell runs at full width, past it.
+#: What a thing as wide as its cell keeps to the rounded corner at the cell's -Y
+#: end, so it only stands where the cell runs at full width.
 cell_corner_radius = 4.0
 
 #: The fillet the library rolls into the join of a cell's floor and its walls.
-cell_floor_fillet = 1.1
+cell_floor_fillet = interior_fillet
 
 stock_cavity_top_z = top_reference_z(stock_storey_u)
 rework_cavity_top_z = top_reference_z(rework_storey_u)
@@ -133,12 +137,11 @@ tip_index_center_x = -22.0
 tip_index_center_y = 31.0
 
 tip_socket_columns_x = tuple(
-    tip_index_center_x + (column - (tip_index_columns - 1) / 2.0) * tip_socket_pitch
-    for column in range(tip_index_columns)
+    centered_run(tip_index_columns, tip_socket_pitch, tip_index_center_x)
 )
+#: Reversed, so the roster below reads the front row first.
 tip_socket_rows_y = tuple(
-    tip_index_center_y + ((tip_index_rows - 1) / 2.0 - row) * tip_socket_pitch
-    for row in range(tip_index_rows)
+    reversed(centered_run(tip_index_rows, tip_socket_pitch, tip_index_center_y))
 )
 
 #: The twenty tips the index holds, front row first and left to right in each
@@ -728,16 +731,11 @@ def validate(parts, storeys, seats):
     assert_stack_seated(parts["solder-dock"], storeys, seats)
 
     rack = parts["solder-tips"]
-    socket_reach = 0.0
-    for label, center_x, center_y, half_x, half_y in rack_socket_extents:
-        reach = max(abs(center_x) + half_x, abs(center_y) + half_y)
-        if reach > rack_reach:
-            raise ValueError(f"{label}: reaches {reach:.2f} mm, past the rack plateau")
-        socket_reach = max(socket_reach, reach)
-    print(
-        f"   rack sockets reach {socket_reach:.2f} mm of the "
-        f"{rack_reach:.2f} mm plateau half-span"
+    socket_reach = max(
+        max(abs(center_x) + half_x, abs(center_y) + half_y)
+        for _, center_x, center_y, half_x, half_y in rack_socket_extents
     )
+    assert_inside_plateau("rack sockets", socket_reach, socket_reach, kit_units_x)
 
     tips = build_tip_index_references()
     assert_clear("heat-set insert tips in the index", rack, tips["insert"])

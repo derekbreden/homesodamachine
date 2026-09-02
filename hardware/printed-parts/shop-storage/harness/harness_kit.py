@@ -18,7 +18,6 @@ import sys
 from pathlib import Path
 
 import cadquery as cq
-from cqgridfinity.constants import GR_BOT_H, GR_DIV_WALL, GR_WALL
 
 _here = Path(__file__).resolve()
 _hardware = next(p for p in _here.parents if p.name == "hardware")
@@ -37,8 +36,7 @@ from _kit import substitute_md  # noqa: E402
 kit_x_u = 3
 kit_y_u = 3
 
-bin_inner_span = _kit.outer_size(kit_x_u) - 2.0 * GR_WALL
-cavity_floor_z = GR_BOT_H
+cavity_floor_z = _kit.bin_floor_z
 
 #: The fraction of the space it occupies that a poured heap of loose parts fills.
 heap_packing = 0.62
@@ -55,11 +53,6 @@ ledge_drop_z = 11.75
 
 #: How far that ledge overhangs its compartment at the top reference.
 ledge_reach_y = 13.4
-
-
-def compartment_span(divisions):
-    """One compartment across the bin interior split by `divisions` dividers."""
-    return (bin_inner_span - GR_DIV_WALL * divisions) / (divisions + 1)
 
 
 def compartment_capacity(width, depth, height_u):
@@ -154,19 +147,6 @@ def heap_block(cell, volume):
     return lower.union(upper).clean()
 
 
-def storey_cells(bin_shape, height_u):
-    """The bin's compartment voids, front row (+Y) first, left to right in each row."""
-    cavity = _kit.bin_cavity(bin_shape, kit_x_u, kit_y_u, height_u)
-    solids = sorted(
-        cavity.solids().vals(),
-        key=lambda solid: (
-            -round(solid.BoundingBox().ymin, 1),
-            round(solid.BoundingBox().xmin, 1),
-        ),
-    )
-    return [cq.Workplane(obj=solid) for solid in solids]
-
-
 # ============================================================
 # STOCK ENVELOPES
 # ============================================================
@@ -253,14 +233,14 @@ def zip_tie(length, strap_width, strap_thickness, head, runs=1):
     body = _kit.placed_prism(
         head_length, head_width, head_height, head_length / 2.0, 0.0, radius=1.0
     )
-    for index in range(runs):
+    for center_y in _kit.centered_run(runs, run_pitch):
         body = body.union(
             _kit.placed_prism(
                 run_length,
                 strap_width,
                 strap_thickness,
                 head_length + run_length / 2.0,
-                (index - (runs - 1) / 2.0) * run_pitch,
+                center_y,
                 radius=0.4,
             )
         )
@@ -412,8 +392,8 @@ class BinStorey:
         self.length_div = length_div
         self.width_div = width_div
         self.stock = stock
-        self.cell_x = compartment_span(length_div)
-        self.cell_y = compartment_span(width_div)
+        self.cell_x = _kit.cell_span(kit_x_u, length_div)
+        self.cell_y = _kit.cell_span(kit_y_u, width_div)
         self.height_u = storey_height_u(
             self.cell_x, self.cell_y, [item.heap for item in stock]
         )
@@ -603,7 +583,8 @@ def _grip_pair(center_x, center_y, thickness, bottom_z, top_z, inner_half, outer
             origin=(center_x, 0.0, 0.0), xDir=(0.0, 1.0, 0.0), normal=(1.0, 0.0, 0.0)
         )
         grips.append(
-            cq.Workplane(plane).polyline(profile).close().extrude(thickness, both=True)
+            cq.Workplane(plane).polyline(profile + profile[:1]).wire()
+            .extrude(thickness, both=True)
         )
     return grips
 
@@ -723,7 +704,7 @@ def build_kit():
 
 def storey_contents(bin_shape, height_u, stock_row, storey_index):
     """Every compartment's heap and the one piece resting on it, with its cell."""
-    cells = storey_cells(bin_shape, height_u)
+    cells = _kit.bin_cells(_kit.bin_cavity(bin_shape, kit_x_u, kit_y_u, height_u))
     if len(cells) != len(stock_row):
         raise ValueError(
             f"{len(cells)} compartments for {len(stock_row)} kinds of stock"
@@ -843,14 +824,13 @@ def validate(dock, storeys, parts, contents, tools):
             parts_well_y,
         ),
     ):
-        reach_x = abs(center_x) + socket_x / 2.0
-        reach_y = abs(center_y) + socket_y / 2.0
-        if max(reach_x, reach_y) > rack_plateau_half:
-            raise ValueError(
-                f"{name}: reaches {max(reach_x, reach_y):.2f} mm, past the "
-                f"{rack_plateau_half:.2f} mm plateau"
-            )
-        print(f"   {name}: {rack_plateau_half - max(reach_x, reach_y):.2f} mm inside the lip")
+        _kit.assert_inside_plateau(
+            name,
+            abs(center_x) + socket_x / 2.0,
+            abs(center_y) + socket_y / 2.0,
+            kit_x_u,
+            kit_y_u,
+        )
 
     if rack_socket_floor_z <= 0.0:
         raise ValueError("rack socket floors are not above the storey below")
@@ -925,7 +905,7 @@ def main():
             "SOCKET_CLEAR": f"{rack_socket_clear:.1f} mm",
             "SOCKET_DEPTH": f"{rack_top_z - rack_socket_floor_z:.1f} mm",
             "SOCKET_FLOOR": f"{rack_socket_floor_z:.0f} mm",
-            "DIVIDER_WALL": f"{GR_DIV_WALL:.1f} mm",
+            "DIVIDER_WALL": f"{_kit.divider_thickness:.1f} mm",
             "FERRULE_22AWG": _ferrule_text(0.34),
             "FERRULE_16AWG": _ferrule_text(1.5),
             "TIE_NARROW_WIDTH": f"{tie_narrow_width:.1f} mm",

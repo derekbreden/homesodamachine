@@ -22,8 +22,6 @@ import sys
 from pathlib import Path
 
 import cadquery as cq
-from cqgridfinity import GridfinityBox
-from cqgridfinity.constants import GR_DIV_WALL
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
@@ -41,39 +39,20 @@ kit_y_u = 3
 footprint_x = kit_x_u * _kit.grid_unit
 footprint_y = kit_y_u * _kit.grid_unit
 
-bin_wall = GridfinityBox(kit_x_u, kit_y_u, 1).wall_th
-interior_half_x = _kit.outer_size(kit_x_u) / 2.0 - bin_wall
-interior_half_y = _kit.outer_size(kit_y_u) / 2.0 - bin_wall
+interior_half_x = _kit.inner_size(kit_x_u) / 2.0
+interior_half_y = _kit.inner_size(kit_y_u) / 2.0
 
-#: A bin's interior floor stands one height unit over the storey's own bottom:
-#: the base profile's whole depth is under it.
-storey_floor_z = _kit.height_unit
+storey_floor_z = _kit.bin_floor_z
 
 #: The library's label ledge roofs this much of a compartment's +Y end, and
 #: `bin_cavity` leaves it out of the void: a content tall enough to reach the
 #: ledge's underside keeps out of the strip altogether.
-label_ledge_width = 12.0
+label_ledge_width = _kit.label_tape_width
 
 quiver_height_u = 27
 service_height_u = 11
 fittings_height_u = 5
 rack_height_u = 7
-
-
-def cavity_depth(height_u):
-    """Floor to top reference: how tall a thing standing in the storey may be."""
-    return _kit.top_reference_z(height_u) - storey_floor_z
-
-
-def compartment_span(interior_half, divisions):
-    """One compartment's width when `divisions` dividers split the interior."""
-    return (2.0 * interior_half - divisions * GR_DIV_WALL) / (divisions + 1)
-
-
-def compartment_centres(interior_half, divisions):
-    """Each compartment's centre, low side first."""
-    pitch = compartment_span(interior_half, divisions) + GR_DIV_WALL
-    return [(index - divisions / 2.0) * pitch for index in range(divisions + 1)]
 
 
 #: Clear of the library's 1.1 mm floor fillet, so a content standing on a
@@ -161,7 +140,7 @@ fill_block_pitch = 1.3
 # THE QUIVER — TOOLS THAT CLOSE UNDER THE STOREY ABOVE
 # ============================================================
 
-quiver_cavity_depth = cavity_depth(quiver_height_u)
+quiver_cavity_depth = _kit.cavity_depth(quiver_height_u)
 quiver_back_row_y = -interior_half_y + content_wall_clearance
 quiver_front_row_y = quiver_back_row_y + wisscool_thickness + content_gap
 
@@ -230,9 +209,9 @@ def build_quiver_references():
 # THE SERVICE STOREY — DRIER AND PIERCING VALVE
 # ============================================================
 
-service_cavity_depth = cavity_depth(service_height_u)
-service_compartment_span = compartment_span(interior_half_y, 1)
-service_back_y, service_front_y = compartment_centres(interior_half_y, 1)
+service_cavity_depth = _kit.cavity_depth(service_height_u)
+service_compartment_span = _kit.cell_span(kit_y_u, 1)
+service_back_y, service_front_y = _kit.cell_centers(kit_y_u, 1)
 
 #: The drier stands taller than the label ledge's underside, so it backs off
 #: the +Y end of its own compartment by the ledge's whole width.
@@ -281,8 +260,8 @@ def build_service_references():
 # THE FITTINGS STOREY — FLARE NUTS AND SLIP COUPLINGS
 # ============================================================
 
-fittings_cavity_depth = cavity_depth(fittings_height_u)
-fittings_nut_x, fittings_coupling_x = compartment_centres(interior_half_x, 1)
+fittings_cavity_depth = _kit.cavity_depth(fittings_height_u)
+fittings_nut_x, fittings_coupling_x = _kit.cell_centers(kit_x_u, 1)
 
 flare_nut_pitch = joywayus_flare_nut_across_corners + fill_block_pitch
 flare_nut_fill_x = joywayus_flare_nut_columns * flare_nut_pitch
@@ -555,18 +534,6 @@ def rack_fit_shapes(rack):
     }
 
 
-def assert_inside_plateau(name, x_size, y_size, centre_x, centre_y):
-    """A socket opens inside the blank's flat top, never through its lip."""
-    reach_x = abs(centre_x) + x_size / 2.0
-    reach_y = abs(centre_y) + y_size / 2.0
-    if max(reach_x, reach_y) > rack_plateau_half:
-        raise ValueError(
-            f"{name}: socket reaches {max(reach_x, reach_y):.2f} mm, "
-            f"past the {rack_plateau_half:.2f} mm plateau"
-        )
-    print(f"   {name}: {rack_plateau_half - max(reach_x, reach_y):.2f} mm inside the plateau")
-
-
 def validate(parts, storeys, seats, quiver, service, fittings, rack):
     print("Fit checks")
     for name, shape in parts.items():
@@ -576,7 +543,13 @@ def validate(parts, storeys, seats, quiver, service, fittings, rack):
     _kit.assert_stack_seated(parts["copper-dock"], storeys, seats)
 
     for name, x_size, y_size, centre_x, centre_y, _ in rack_sockets:
-        assert_inside_plateau(name, x_size, y_size, centre_x, centre_y)
+        _kit.assert_inside_plateau(
+            name,
+            abs(centre_x) + x_size / 2.0,
+            abs(centre_y) + y_size / 2.0,
+            kit_x_u,
+            kit_y_u,
+        )
 
     quiver_cavity = _kit.bin_cavity(
         parts["copper-quiver"], kit_x_u, kit_y_u, quiver_height_u
@@ -661,7 +634,7 @@ def main():
             f"{2 * interior_half_x:.1f} mm x {service_compartment_span:.1f} mm"
         ),
         "FITTINGS_CELL": (
-            f"{compartment_span(interior_half_x, 1):.1f} mm x {2 * interior_half_y:.1f} mm"
+            f"{_kit.cell_span(kit_x_u, 1):.1f} mm x {2 * interior_half_y:.1f} mm"
         ),
         "SOCKET_CLEARANCE": f"{rack_socket_clearance:.1f} mm",
         "SOCKET_DEPTH": f"{rack_top_z - rack_socket_floor_z:.0f} mm",

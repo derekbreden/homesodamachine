@@ -21,7 +21,7 @@ import sys
 from pathlib import Path
 
 import cadquery as cq
-from cqgridfinity.constants import GR_BASE_HEIGHT, GR_BOT_H, GR_DIV_WALL, GR_WALL
+from cqgridfinity.constants import GR_BASE_HEIGHT
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
@@ -35,7 +35,6 @@ from _kit import substitute_md  # noqa: E402
 
 kit_units_x = 3
 kit_units_y = 3
-kit_footprint = _kit.outer_size(kit_units_x)
 kit_nominal_footprint = kit_units_x * _kit.grid_unit
 
 swap_storey_u = 5
@@ -108,20 +107,9 @@ rack_edge_margin = 1.5
 rack_wall_min = 1.5
 
 
-def centered_run(count, pitch, center):
-    """Centers of `count` features at `pitch`, the run centered on `center`."""
-    run = (count - 1) * pitch
-    return [center - run / 2.0 + index * pitch for index in range(count)]
-
-
-def run_span(count, pitch, size):
-    """Edge to edge across `count` features of `size` at `pitch`."""
-    return (count - 1) * pitch + size
-
-
 def spread_pitch(count, size):
     """The pitch that spreads `count` features of `size` over the plateau's depth."""
-    return (rack_plateau_span - 2.0 * rack_edge_margin - size) / (count - 1)
+    return _kit.spread_pitch(count, size, rack_plateau_span - 2.0 * rack_edge_margin)
 
 
 standard_columns = 3
@@ -134,10 +122,10 @@ induction_rows = 5
 induction_column_pitch = induction_pocket_across + rack_pocket_gap
 induction_row_pitch = spread_pitch(induction_rows, induction_pocket_across)
 
-standard_zone_span = run_span(
+standard_zone_span = _kit.run_span(
     standard_columns, standard_column_pitch, standard_head_across_generous
 )
-induction_zone_span = run_span(
+induction_zone_span = _kit.run_span(
     induction_columns, induction_column_pitch, induction_pocket_across
 )
 #: What the two zones leave between them once both have their edge margins: the band
@@ -154,18 +142,18 @@ standard_zone_x1 = standard_zone_x0 + standard_zone_span
 induction_zone_x0 = standard_zone_x1 + split_band_width
 induction_zone_x1 = induction_zone_x0 + induction_zone_span
 
-standard_column_x = centered_run(
+standard_column_x = _kit.centered_run(
     standard_columns,
     standard_column_pitch,
     (standard_zone_x0 + standard_zone_x1) / 2.0,
 )
-standard_row_y = centered_run(standard_rows, standard_row_pitch, 0.0)
-induction_column_x = centered_run(
+standard_row_y = _kit.centered_run(standard_rows, standard_row_pitch, 0.0)
+induction_column_x = _kit.centered_run(
     induction_columns,
     induction_column_pitch,
     (induction_zone_x0 + induction_zone_x1) / 2.0,
 )
-induction_row_y = centered_run(induction_rows, induction_row_pitch, 0.0)
+induction_row_y = _kit.centered_run(induction_rows, induction_row_pitch, 0.0)
 
 split_groove_center_x = (standard_zone_x1 + induction_zone_x0) / 2.0
 split_groove_width = 3.0
@@ -231,18 +219,17 @@ induction_places = zone_places(
 # THE SWAP STOREY
 # ============================================================
 
-storey_floor_z = GR_BOT_H
-swap_cavity_top_z = _kit.top_reference_z(swap_storey_u)
-swap_cavity_depth = swap_cavity_top_z - storey_floor_z
+storey_floor_z = _kit.bin_floor_z
+swap_cavity_depth = _kit.cavity_depth(swap_storey_u)
 
-swap_inner_x = kit_footprint - 2.0 * GR_WALL
-swap_inner_y = swap_inner_x
-swap_cell_depth = (swap_inner_y - GR_DIV_WALL) / 2.0
-swap_cell_center_y = (swap_cell_depth + GR_DIV_WALL) / 2.0
+swap_inner_x = _kit.inner_size(kit_units_x)
+swap_inner_y = _kit.inner_size(kit_units_y)
+swap_cell_depth = _kit.cell_span(kit_units_y, 1)
+swap_cell_center_y = _kit.cell_centers(kit_units_y, 1)[1]
 
 #: The library's label ledge roofs the +Y end of every compartment, so a content
 #: standing full height keeps this far off that end.
-label_ledge_width = 12.0
+label_ledge_width = _kit.label_tape_width
 swap_content_margin = 2.0
 
 #: DUROZZLE ships two silicone socks with each of its four L-side hotends. Nothing
@@ -277,10 +264,10 @@ well_induction_center_y = (
     + swap_content_margin
     + induction_head_across_generous / 2.0
 )
-well_standard_x = centered_run(
+well_standard_x = _kit.centered_run(
     in_play_standard_count, standard_length + swap_content_margin, 0.0
 )
-well_induction_x = centered_run(
+well_induction_x = _kit.centered_run(
     in_play_induction_count, induction_length + swap_content_margin, 0.0
 )
 
@@ -466,19 +453,15 @@ def build_references():
 # VALIDATION
 # ============================================================
 
-def assert_clearance(name, clearance, minimum):
+def assert_gap(name, clearance, minimum):
+    """A gap this rack's layout leaves is at least the minimum the job wants."""
     if clearance < minimum - 1e-9:
         raise ValueError(f"{name}: {clearance:.2f} mm, under the {minimum:.2f} mm floor")
     print(f"   {name}: {clearance:.2f} mm")
 
 
 def assert_inside_plateau(name, half_extent):
-    if half_extent > rack_plateau_half + 1e-9:
-        raise ValueError(
-            f"{name}: reaches {half_extent:.2f} mm, past the "
-            f"{rack_plateau_half:.2f} mm plateau"
-        )
-    print(f"   {name}: {rack_plateau_half - half_extent:.2f} mm inside the plateau")
+    return _kit.assert_inside_plateau(name, half_extent, half_extent, kit_units_x)
 
 
 def validate(parts, references, cavities):
@@ -500,47 +483,47 @@ def validate(parts, references, cavities):
     for label, reference in zip(induction_sockets, references["induction"]):
         _kit.assert_clear(f"induction {label}", rack, reference["fit"])
 
-    assert_clearance(
+    assert_gap(
         "standard nozzle over its bore floor",
         rack_top_z - standard_shank_length - standard_bore_floor_z,
         rack_socket_clearance,
     )
-    assert_clearance(
+    assert_gap(
         "induction head under the plateau",
         rack_top_z - induction_pocket_floor_z - induction_head_height,
         rack_socket_clearance,
     )
-    assert_clearance(
+    assert_gap(
         "bore floor over the rack's Gridfinity base",
         standard_bore_floor_z - GR_BASE_HEIGHT,
         rack_wall_min,
     )
-    assert_clearance(
+    assert_gap(
         "pocket floor over the rack's Gridfinity base",
         induction_pocket_floor_z - GR_BASE_HEIGHT,
         rack_wall_min,
     )
-    assert_clearance(
+    assert_gap(
         "plateau either side of the split groove",
         split_groove_wall,
         rack_wall_min,
     )
-    assert_clearance(
+    assert_gap(
         "heatsink to heatsink across a row",
         standard_column_pitch - standard_head_across_generous,
         rack_socket_gap,
     )
-    assert_clearance(
+    assert_gap(
         "heatsink to heatsink down a column",
         standard_row_pitch - standard_head_across_generous,
         rack_socket_gap,
     )
-    assert_clearance(
+    assert_gap(
         "pocket to pocket across a row",
         induction_column_pitch - induction_pocket_across,
         rack_wall_min,
     )
-    assert_clearance(
+    assert_gap(
         "pocket to pocket down a column",
         induction_row_pitch - induction_pocket_across,
         rack_wall_min,
@@ -558,18 +541,18 @@ def validate(parts, references, cavities):
         abs(standard_row_y[0]) + standard_head_across_generous / 2.0,
     )
 
-    sock_cavity, well_cavity = cavities
+    well_cavity, sock_cavity = cavities
     _kit.assert_contained("silicone socks", references["socks"], sock_cavity)
     for index, (family, reference) in enumerate(references["in-play"], 1):
         _kit.assert_contained(
             f"swap well {family} {index}", reference, well_cavity
         )
-    assert_clearance(
+    assert_gap(
         "socks clear of their label ledge",
         sock_cell_ledge_y - (sock_block_center_y + sock_block_y / 2.0),
         swap_content_margin,
     )
-    assert_clearance(
+    assert_gap(
         "swap well clear of its label ledge",
         well_cell_ledge_y
         - (well_induction_center_y + induction_head_across_generous / 2.0),
@@ -619,13 +602,9 @@ def main():
         "hotends-swap": build_swap_storey(),
         "hotends-rack": build_rack(),
     }
-    cavities = sorted(
+    cavities = _kit.bin_cells(
         _kit.bin_cavity(parts["hotends-swap"], kit_units_x, kit_units_y, swap_storey_u)
-        .solids()
-        .vals(),
-        key=lambda solid: solid.BoundingBox().ymin,
     )
-    cavities = [cq.Workplane(obj=solid) for solid in cavities]
     references = build_references()
 
     storeys, seats = validate(parts, references, cavities)

@@ -17,46 +17,30 @@ from functools import lru_cache
 from pathlib import Path
 
 import cadquery as cq
-from cqgridfinity import GridfinityBaseplate, GridfinityBox
-from cqgridfinity.constants import GR_BASE_CLR
+from cqgridfinity import GridfinityBox
 
 _here = Path(__file__).resolve()
-_repo_root = next(
-    p for p in _here.parents if (p / "tools" / "docgen").is_dir()
-)
-sys.path.insert(
-    0,
-    str(next(p for p in _here.parents if p.name == "hardware") / "scripts"),
-)
-sys.path.insert(0, str(_repo_root / "tools"))
+sys.path.insert(0, str(_here.parents[1]))
 
-from _cadq_export import export_assembly
-from _materials import M_PETG_BLACK, one_body
-from docgen import substitute_md
+import _kit  # noqa: E402
+from _kit import substitute_md  # noqa: E402
 
 
 # ============================================================
-# SHARED GRID AND PRINTER ENVELOPES
+# THE GRID THIS TOWER STANDS ON
 # ============================================================
 
-grid_unit = 42.0
 grid_units_x = 3
 grid_units_y = 3
-grid_nominal_x = grid_units_x * grid_unit
-grid_nominal_y = grid_units_y * grid_unit
-grid_bin_outer_x = grid_nominal_x - 0.5
-grid_bin_outer_y = grid_nominal_y - 0.5
+grid_nominal_x = grid_units_x * _kit.grid_unit
+grid_nominal_y = grid_units_y * _kit.grid_unit
+grid_bin_outer_x = _kit.outer_size(grid_units_x)
+grid_bin_outer_y = _kit.outer_size(grid_units_y)
 grid_bin_half_x = grid_bin_outer_x / 2.0
 
-h2c_build_x = 325.0
-h2c_build_y = 320.0
-h2c_build_z = 320.0
-
 grid_bin_height_u = 2
-grid_height_unit = 7.0
-grid_bin_top_ref_z = grid_bin_height_u * grid_height_unit
-grid_baseplate_extra_depth = 6.0
-grid_dock_z = grid_baseplate_extra_depth - GR_BASE_CLR
+grid_bin_top_ref_z = _kit.top_reference_z(grid_bin_height_u)
+grid_dock_z = _kit.dock_seat_z
 
 
 # ============================================================
@@ -167,7 +151,6 @@ spool_guide_height = 11.0
 tool_rack_ring_bottom_z = 12.0
 tool_rack_ring_top_z = 52.0
 tool_rack_pocket_floor_z = 7.0
-tool_rack_socket_wall = 3.0
 
 sn2549_length = 190.0
 sn2549_head_thickness = 27.9
@@ -237,30 +220,15 @@ wire_color = cq.Color(0.035, 0.035, 0.04)
 spool_color = cq.Color(0.82, 0.82, 0.80)
 
 
-def _rounded_prism(width, depth, height, z_bottom=0.0, radius=0.0):
-    """A centered XY prism with only its vertical corners rounded."""
-    shape = (
-        cq.Workplane("XY")
-        .box(width, depth, height, centered=(True, True, False))
-        .translate((0.0, 0.0, z_bottom))
-    )
-    if radius > 0.0:
-        shape = shape.edges("|Z").fillet(radius)
-    return shape
+def _ring(section):
+    """A section's own points with the first repeated, so the closing edge is DRAWN.
 
-
-def _translated_rounded_prism(
-    width,
-    depth,
-    height,
-    center_x,
-    center_y,
-    z_bottom=0.0,
-    radius=0.0,
-):
-    return _rounded_prism(width, depth, height, z_bottom, radius).translate(
-        (center_x, center_y, 0.0)
-    )
+    `close()` infers it instead, from the last edge's end read back off OCCT — a few 1e-16 off
+    the point that was passed in — and a tangential boolean downstream resolves that vertex one
+    way in one process and the other way in the next. Naming the point is what makes the same
+    source write the same bytes."""
+    pts = list(section)
+    return pts if pts[0] == pts[-1] else pts + [pts[0]]
 
 
 @lru_cache(maxsize=1)
@@ -310,14 +278,14 @@ def build_tower_base():
     ]
     left_ledge = (
         cq.Workplane("XZ")
-        .polyline(left_ledge_profile)
-        .close()
+        .polyline(_ring(left_ledge_profile))
+        .wire()
         .extrude(spool_ledge_depth / 2.0, both=True)
     )
     right_ledge = (
         cq.Workplane("XZ")
-        .polyline(right_ledge_profile)
-        .close()
+        .polyline(_ring(right_ledge_profile))
+        .wire()
         .extrude(spool_ledge_depth / 2.0, both=True)
     )
 
@@ -353,14 +321,14 @@ def build_tower_base():
     ]
     side_windows = (
         cq.Workplane("YZ")
-        .polyline(gable_profile)
-        .close()
+        .polyline(_ring(gable_profile))
+        .wire()
         .extrude(grid_bin_outer_x / 2.0 + 1.0, both=True)
     )
     back_window = (
         cq.Workplane("XZ")
-        .polyline(gable_profile)
-        .close()
+        .polyline(_ring(gable_profile))
+        .wire()
         .extrude(tower_wall / 2.0 + 1.0, both=True)
         .translate((0.0, -tower_pin_x, 0.0))
     )
@@ -391,12 +359,7 @@ def build_tower_base():
 
 def build_gridfinity_shelf():
     """Removable 3 x 3 Gridfinity baseplate keyed to the carcass top."""
-    shelf = GridfinityBaseplate(
-        grid_units_x,
-        grid_units_y,
-        ext_depth=grid_baseplate_extra_depth,
-        straight_bottom=True,
-    ).render()
+    shelf = _kit.dock_body(grid_units_x, grid_units_y)
     socket_width = tower_pin_x_size + 2.0 * tower_pin_socket_clearance
     socket_depth = tower_pin_y_size + 2.0 * tower_pin_socket_clearance
     socket = cq.Workplane("XY").box(
@@ -413,7 +376,7 @@ def build_gridfinity_shelf():
 
 def build_consumables_drawer():
     """Nine-cell drawer for XH housings, contacts, and pre-crimp leads."""
-    drawer = _rounded_prism(
+    drawer = _kit.rounded_prism(
         drawer_width,
         drawer_depth,
         drawer_height,
@@ -423,7 +386,7 @@ def build_consumables_drawer():
         center_x = (column - 1) * drawer_cell_pitch_x
         for row in range(drawer_rows):
             center_y = (row - 1) * drawer_cell_pitch_y
-            pocket = _translated_rounded_prism(
+            pocket = _kit.placed_prism(
                 drawer_cell_width,
                 drawer_cell_depth,
                 drawer_height - drawer_floor + 0.2,
@@ -451,8 +414,8 @@ def _spool_support_wedge(center_x, center_y):
     ]
     return (
         cq.Workplane("YZ")
-        .polyline(profile)
-        .close()
+        .polyline(_ring(profile))
+        .wire()
         .extrude(spool_support_pad_width / 2.0, both=True)
         .translate((center_x, 0.0, 0.0))
     )
@@ -460,13 +423,13 @@ def _spool_support_wedge(center_x, center_y):
 
 def build_spool_shelf():
     """Open frame with four outer-rim supports for the wire spool."""
-    outer = _rounded_prism(
+    outer = _kit.rounded_prism(
         spool_shelf_width,
         spool_shelf_depth,
         spool_shelf_thickness,
         radius=3.0,
     )
-    inner = _rounded_prism(
+    inner = _kit.rounded_prism(
         spool_shelf_width - 2.0 * spool_shelf_frame,
         spool_shelf_depth - 2.0 * spool_shelf_frame,
         spool_shelf_thickness + 0.2,
@@ -483,7 +446,7 @@ def build_spool_shelf():
             support_y = y_sign * spool_support_y
             arm_center_y = y_sign * (front_inner_y + support_arm_inner_y) / 2.0
             arm_depth = front_inner_y - support_arm_inner_y
-            arm = _translated_rounded_prism(
+            arm = _kit.placed_prism(
                 spool_support_pad_width,
                 arm_depth,
                 spool_shelf_thickness,
@@ -497,7 +460,7 @@ def build_spool_shelf():
             guide_center_x = x_sign * (
                 spool_guide_inner_x + spool_guide_width / 2.0
             )
-            guide = _translated_rounded_prism(
+            guide = _kit.placed_prism(
                 spool_guide_width,
                 spool_guide_depth,
                 spool_guide_height,
@@ -509,55 +472,12 @@ def build_spool_shelf():
     return shelf.clean()
 
 
-def _socket_ring(
-    pocket_width,
-    pocket_depth,
-    center_x,
-    center_y,
-    bottom_z,
-    top_z,
-    wall=tool_rack_socket_wall,
-    radius=5.0,
-):
-    outer = _translated_rounded_prism(
-        pocket_width + 2.0 * wall,
-        pocket_depth + 2.0 * wall,
-        top_z - bottom_z,
-        center_x,
-        center_y,
-        z_bottom=bottom_z,
-        radius=radius,
-    )
-    inner = _translated_rounded_prism(
-        pocket_width,
-        pocket_depth,
-        top_z - bottom_z + 0.2,
-        center_x,
-        center_y,
-        z_bottom=bottom_z - 0.1,
-        radius=max(radius - wall, 1.0),
-    )
-    return outer.cut(inner)
-
-
-def _tool_pocket(width, depth, center_x, center_y, floor_z, top_z, radius=3.0):
-    return _translated_rounded_prism(
-        width,
-        depth,
-        top_z - floor_z + 0.2,
-        center_x,
-        center_y,
-        z_bottom=floor_z,
-        radius=radius,
-    )
-
-
 def build_tool_rack():
     """Gridfinity tool rack for crimper, stripper, tweezers, and cutter."""
     rack = build_gridfinity_bin_blank()
 
     rack = rack.union(
-        _socket_ring(
+        _kit.socket_ring(
             sn2549_pocket_width,
             sn2549_pocket_depth,
             sn2549_socket_x,
@@ -567,7 +487,7 @@ def build_tool_rack():
         )
     )
     rack = rack.union(
-        _socket_ring(
+        _kit.socket_ring(
             klein_pocket_width,
             klein_pocket_depth,
             klein_socket_x,
@@ -577,7 +497,7 @@ def build_tool_rack():
         )
     )
 
-    tweezer_block = _translated_rounded_prism(
+    tweezer_block = _kit.placed_prism(
         tweezer_block_width,
         tweezer_block_depth,
         tweezer_block_top_z - tool_rack_ring_bottom_z,
@@ -588,7 +508,7 @@ def build_tool_rack():
     )
     rack = rack.union(tweezer_block)
 
-    cutter_ring = _socket_ring(
+    cutter_ring = _kit.socket_ring(
         flush_cutter_pocket_width,
         flush_cutter_pocket_depth,
         flush_cutter_socket_x,
@@ -599,7 +519,7 @@ def build_tool_rack():
     )
     rack = rack.union(cutter_ring)
 
-    parts_cup = _translated_rounded_prism(
+    parts_cup = _kit.placed_prism(
         parts_cup_width,
         parts_cup_depth,
         parts_cup_top_z - tool_rack_ring_bottom_z,
@@ -611,7 +531,7 @@ def build_tool_rack():
     rack = rack.union(parts_cup)
 
     rack = rack.cut(
-        _tool_pocket(
+        _kit.pocket(
             sn2549_pocket_width,
             sn2549_pocket_depth,
             sn2549_socket_x,
@@ -621,7 +541,7 @@ def build_tool_rack():
         )
     )
     rack = rack.cut(
-        _tool_pocket(
+        _kit.pocket(
             klein_pocket_width,
             klein_pocket_depth,
             klein_socket_x,
@@ -633,7 +553,7 @@ def build_tool_rack():
 
     for center_x in tweezer_socket_centers_x:
         rack = rack.cut(
-            _tool_pocket(
+            _kit.pocket(
                 tweezer_slot_width,
                 tweezer_slot_depth,
                 center_x,
@@ -645,7 +565,7 @@ def build_tool_rack():
         )
 
     rack = rack.cut(
-        _tool_pocket(
+        _kit.pocket(
             flush_cutter_pocket_width,
             flush_cutter_pocket_depth,
             flush_cutter_socket_x,
@@ -661,7 +581,7 @@ def build_tool_rack():
     ) / 2.0
     for x_sign in (-1.0, 1.0):
         rack = rack.cut(
-            _tool_pocket(
+            _kit.pocket(
                 parts_cup_inner_width,
                 parts_cup_inner_depth,
                 parts_cup_x + x_sign * cup_inner_center_offset,
@@ -686,8 +606,8 @@ def _yz_prism(profile, thickness, center_x):
     )
     return (
         cq.Workplane(plane)
-        .polyline(profile)
-        .close()
+        .polyline(_ring(profile))
+        .wire()
         .extrude(thickness / 2.0, both=True)
     )
 
@@ -695,7 +615,7 @@ def _yz_prism(profile, thickness, center_x):
 def build_sn2549_reference():
     """Public 190 x 65 x 27.9 mm envelope as head and splayed grips."""
     bottom_z = tool_rack_pocket_floor_z + 0.5
-    head = _translated_rounded_prism(
+    head = _kit.placed_prism(
         sn2549_head_thickness,
         sn2549_head_width,
         sn2549_head_height,
@@ -726,7 +646,7 @@ def build_sn2549_reference():
 def build_klein_reference():
     """Official 167 mm length with a conservative public-photo head envelope."""
     bottom_z = tool_rack_pocket_floor_z + 0.5
-    head = _translated_rounded_prism(
+    head = _kit.placed_prism(
         klein_head_thickness_reference,
         klein_head_width_reference,
         klein_head_height_reference,
@@ -758,7 +678,7 @@ def build_tweezer_references():
     references = []
     bottom_z = tweezer_slot_floor_z + 0.5
     for center_x in tweezer_socket_centers_x:
-        reference = _translated_rounded_prism(
+        reference = _kit.placed_prism(
             8.0,
             3.0,
             tweezer_length,
@@ -773,7 +693,7 @@ def build_tweezer_references():
 
 def build_flush_cutter_reference():
     bottom_z = flush_cutter_socket_floor_z + 0.5
-    head = _translated_rounded_prism(
+    head = _kit.placed_prism(
         17.0,
         10.0,
         flush_cutter_socket_top_z - bottom_z + 0.5,
@@ -787,7 +707,7 @@ def build_flush_cutter_reference():
     grips = []
     for x_sign in (-1.0, 1.0):
         center_x = flush_cutter_socket_x + x_sign * 9.0
-        grip = _translated_rounded_prism(
+        grip = _kit.placed_prism(
             9.0,
             8.0,
             grip_top_z - grip_bottom_z,
@@ -843,71 +763,37 @@ def build_spool_reference():
 # VALIDATION AND EXPORT
 # ============================================================
 
-def _bbox(shape):
-    return shape.val().BoundingBox()
-
-
-def _assert_one_solid(name, shape):
-    count = len(shape.solids().vals())
-    if count != 1:
-        raise ValueError(f"{name}: expected one solid, found {count}")
-
-
-def _assert_h2c_fit(name, shape):
-    bounds = _bbox(shape)
-    size = (bounds.xlen, bounds.ylen, bounds.zlen)
-    limits = (h2c_build_x, h2c_build_y, h2c_build_z)
-    if any(part > limit + 1e-6 for part, limit in zip(size, limits)):
-        raise ValueError(f"{name}: {size} exceeds H2C left-nozzle envelope {limits}")
-    print(f"   {name}: {size[0]:.1f} x {size[1]:.1f} x {size[2]:.1f} mm")
-
-
-def _intersection_volume(a, b):
-    return a.intersect(b).val().Volume()
-
-
-def _assert_docked(name, lower, upper, upper_z):
-    placed = upper.translate((0.0, 0.0, upper_z))
-    overlap = _intersection_volume(lower, placed)
-    gap = lower.val().distance(placed.val())
-    if overlap > 0.05:
-        raise ValueError(f"{name}: {overlap:.3f} mm^3 interface overlap")
-    if gap > 0.02:
-        raise ValueError(f"{name}: {gap:.3f} mm interface gap")
-    print(f"   {name}: {overlap:.4f} mm^3 overlap, {gap:.4f} mm gap")
-
-
 def validate(parts, references):
     print("Fit checks")
     for name, shape in parts.items():
-        _assert_one_solid(name, shape)
-        _assert_h2c_fit(name, shape)
+        _kit.assert_one_solid(name, shape)
+        _kit.assert_h2c_fit(name, shape)
 
-    _assert_docked(
+    _kit.assert_seated(
         "bench dock to tower",
         parts["gridfinity-shelf"],
         parts["tower-base"],
         grid_dock_z,
     )
-    _assert_docked(
+    _kit.assert_seated(
         "tower pins to top shelf",
         parts["tower-base"],
         parts["gridfinity-shelf"],
         tower_shelf_z,
     )
-    _assert_docked(
+    _kit.assert_seated(
         "tower deck to drawer",
         parts["tower-base"],
         parts["consumables-drawer"],
         drawer_z,
     )
-    _assert_docked(
+    _kit.assert_seated(
         "tower ledges to spool shelf",
         parts["tower-base"],
         parts["spool-shelf"],
         spool_shelf_z,
     )
-    _assert_docked(
+    _kit.assert_seated(
         "top shelf to tool rack",
         parts["gridfinity-shelf"],
         parts["tool-rack"],
@@ -923,7 +809,7 @@ def validate(parts, references):
     for index, tweezer in enumerate(references["tweezers"], 1):
         rack_clearances[f"tweezer {index}"] = tweezer
     for name, reference in rack_clearances.items():
-        overlap = _intersection_volume(rack, reference)
+        overlap = _kit.overlap_volume(rack, reference)
         if overlap > 0.02:
             raise ValueError(f"{name}: {overlap:.3f} mm^3 intersects tool rack")
         print(f"   {name}: {overlap:.4f} mm^3 rack overlap")
@@ -931,7 +817,7 @@ def validate(parts, references):
     drawer_path_overlaps = []
     for y in (0.0, 24.0, 48.0, drawer_presentation_y, 96.0):
         placed = parts["consumables-drawer"].translate((0.0, y, drawer_z))
-        drawer_path_overlaps.append(_intersection_volume(parts["tower-base"], placed))
+        drawer_path_overlaps.append(_kit.overlap_volume(parts["tower-base"], placed))
     drawer_path_overlap = max(drawer_path_overlaps)
     if drawer_path_overlap > 0.05:
         raise ValueError(
@@ -939,7 +825,7 @@ def validate(parts, references):
         )
     print(f"   drawer travel: {drawer_path_overlap:.4f} mm^3 maximum overlap")
 
-    shelf_overlap = _intersection_volume(
+    shelf_overlap = _kit.overlap_volume(
         parts["spool-shelf"], references["spool"]["fit"]
     )
     if shelf_overlap > 0.05:
@@ -967,13 +853,13 @@ def build_presentation_assembly(parts, references):
     assembly.add(
         parts["gridfinity-shelf"],
         name="optional-bench-dock",
-        color=M_PETG_BLACK,
+        color=_kit.kit_color,
     )
     assembly.add(
         parts["tower-base"],
         name="tower-base",
         loc=cq.Location(cq.Vector(0.0, 0.0, tower_base_z)),
-        color=M_PETG_BLACK,
+        color=_kit.kit_color,
     )
     assembly.add(
         parts["consumables-drawer"],
@@ -981,13 +867,13 @@ def build_presentation_assembly(parts, references):
         loc=cq.Location(
             cq.Vector(0.0, drawer_presentation_y, tower_base_z + drawer_z)
         ),
-        color=M_PETG_BLACK,
+        color=_kit.kit_color,
     )
     assembly.add(
         parts["spool-shelf"],
         name="outer-rim-spool-shelf",
         loc=cq.Location(cq.Vector(0.0, 0.0, tower_base_z + spool_shelf_z)),
-        color=M_PETG_BLACK,
+        color=_kit.kit_color,
     )
 
     spool_location = cq.Location(
@@ -1016,13 +902,13 @@ def build_presentation_assembly(parts, references):
         parts["gridfinity-shelf"],
         name="removable-top-shelf",
         loc=cq.Location(cq.Vector(0.0, 0.0, top_shelf_z)),
-        color=M_PETG_BLACK,
+        color=_kit.kit_color,
     )
     assembly.add(
         parts["tool-rack"],
         name="jst-tool-rack",
         loc=cq.Location(cq.Vector(0.0, 0.0, tool_rack_z)),
-        color=M_PETG_BLACK,
+        color=_kit.kit_color,
     )
 
     rack_location = cq.Location(cq.Vector(0.0, 0.0, tool_rack_z))
@@ -1081,14 +967,12 @@ def main():
     }
     validate(parts, references)
 
-    for name, shape in parts.items():
-        out = out_dir / f"{name}.step"
-        export_assembly(one_body(shape, name, M_PETG_BLACK), str(out))
-        print(f"-> {out.name}")
-
-    assembly_out = out_dir / "jst-crimping-tower.step"
-    export_assembly(build_presentation_assembly(parts, references), str(assembly_out))
-    print(f"-> {assembly_out.name}")
+    _kit.export_parts(out_dir, parts)
+    _kit.export_kit(
+        out_dir,
+        "jst-crimping-tower",
+        build_presentation_assembly(parts, references),
+    )
 
     populated_height = tool_rack_z + tool_rack_pocket_floor_z + 0.5 + sn2549_length
     printed_tower_height = tool_rack_z + tool_rack_ring_top_z
@@ -1096,14 +980,17 @@ def main():
         "FOOTPRINT": f"{grid_nominal_x:.0f} mm x {grid_nominal_y:.0f} mm",
         "PRINTED_TOWER_HEIGHT": f"{printed_tower_height:.1f} mm",
         "POPULATED_HEIGHT": f"{populated_height:.1f} mm",
-        "TALLEST_PART": f"{_bbox(parts['tower-base']).zlen:.1f} mm",
+        "TALLEST_PART": f"{_kit.bbox(parts['tower-base']).zlen:.1f} mm",
         "SPOOL_ENVELOPE": f"diameter {spool_diameter:.1f} mm x {spool_width:.1f} mm",
         "DRAWER_CELL": f"{drawer_cell_width:.1f} mm x {drawer_cell_depth:.1f} mm",
         "SPOOL_DRAWER_CLEAR": (
             f"{spool_shelf_z + spool_bottom_z - (drawer_z + drawer_height):.1f} mm"
         ),
         "SPOOL_TOP_CLEAR": f"{tower_shelf_z - (spool_shelf_z + spool_top_z):.1f} mm",
-        "H2C_ENVELOPE": f"{h2c_build_x:.0f} x {h2c_build_y:.0f} x {h2c_build_z:.0f} mm",
+        "H2C_ENVELOPE": (
+            f"{_kit.h2c_build_x:.0f} x {_kit.h2c_build_y:.0f} x "
+            f"{_kit.h2c_build_z:.0f} mm"
+        ),
     }
     substitute_md(out_dir / "README.md", variables=variables)
     print("-> README.md")
