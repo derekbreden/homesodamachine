@@ -6196,6 +6196,114 @@ cp hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py $$O3
 )
 
 genrule(
+    name = "fasteners-kit",
+    srcs = [
+        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/printed-parts/shop-storage/_kit.py",
+        "pysrc/hardware/printed-parts/shop-storage/fasteners/fasteners_kit.py",
+        "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_materials.py",
+        "pysrc/hardware/scripts/_mesh_payload.py",
+        "pysrc/hardware/scripts/_realized.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/tools/docgen/__init__.py",
+    ],
+    outs = [
+        "out/fasteners-kit/hardware/printed-parts/shop-storage/fasteners/fasteners-dock.step",
+        "out/fasteners-kit/hardware/printed-parts/shop-storage/fasteners/fasteners-kit-open.step",
+        "out/fasteners-kit/hardware/printed-parts/shop-storage/fasteners/fasteners-kit.step",
+        "out/fasteners-kit/hardware/printed-parts/shop-storage/fasteners/fasteners-m3.step",
+        "out/fasteners-kit/hardware/printed-parts/shop-storage/fasteners/fasteners-m5.step",
+        "out/fasteners-kit/hardware/printed-parts/shop-storage/fasteners/fasteners-small.step",
+        "out/fasteners-kit/hardware/printed-parts/shop-storage/fasteners/fasteners-tray.step",
+    ],
+    cmd = """
+set -e
+O0=$$PWD/$(location out/fasteners-kit/hardware/printed-parts/shop-storage/fasteners/fasteners-dock.step)
+O1=$$PWD/$(location out/fasteners-kit/hardware/printed-parts/shop-storage/fasteners/fasteners-kit-open.step)
+O2=$$PWD/$(location out/fasteners-kit/hardware/printed-parts/shop-storage/fasteners/fasteners-kit.step)
+O3=$$PWD/$(location out/fasteners-kit/hardware/printed-parts/shop-storage/fasteners/fasteners-m3.step)
+O4=$$PWD/$(location out/fasteners-kit/hardware/printed-parts/shop-storage/fasteners/fasteners-m5.step)
+O5=$$PWD/$(location out/fasteners-kit/hardware/printed-parts/shop-storage/fasteners/fasteners-small.step)
+O6=$$PWD/$(location out/fasteners-kit/hardware/printed-parts/shop-storage/fasteners/fasteners-tray.step)
+for f in $(SRCS); do
+  case $$f in
+    */node_modules/*) continue;;
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    */pysrc/*) t=$${f##*/pysrc/};;
+    *) t=$$f;;
+  esac
+  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+done
+cd work
+ln -sfn $$HSM_WORKSPACE/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/shop-storage/fasteners/fasteners_kit.py > /dev/null
+cp hardware/printed-parts/shop-storage/fasteners/fasteners-dock.step $$O0
+cp hardware/printed-parts/shop-storage/fasteners/fasteners-kit-open.step $$O1
+cp hardware/printed-parts/shop-storage/fasteners/fasteners-kit.step $$O2
+cp hardware/printed-parts/shop-storage/fasteners/fasteners-m3.step $$O3
+cp hardware/printed-parts/shop-storage/fasteners/fasteners-m5.step $$O4
+cp hardware/printed-parts/shop-storage/fasteners/fasteners-small.step $$O5
+cp hardware/printed-parts/shop-storage/fasteners/fasteners-tray.step $$O6
+""",
+)
+
+genrule(
+    name = "hotends-kit",
+    srcs = [
+        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/printed-parts/shop-storage/_kit.py",
+        "pysrc/hardware/printed-parts/shop-storage/hotends/hotends_kit.py",
+        "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_materials.py",
+        "pysrc/hardware/scripts/_mesh_payload.py",
+        "pysrc/hardware/scripts/_realized.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/tools/docgen/__init__.py",
+    ],
+    outs = [
+        "out/hotends-kit/hardware/printed-parts/shop-storage/hotends/hotends-dock.step",
+        "out/hotends-kit/hardware/printed-parts/shop-storage/hotends/hotends-kit-open.step",
+        "out/hotends-kit/hardware/printed-parts/shop-storage/hotends/hotends-kit.step",
+        "out/hotends-kit/hardware/printed-parts/shop-storage/hotends/hotends-rack.step",
+        "out/hotends-kit/hardware/printed-parts/shop-storage/hotends/hotends-swap.step",
+    ],
+    cmd = """
+set -e
+O0=$$PWD/$(location out/hotends-kit/hardware/printed-parts/shop-storage/hotends/hotends-dock.step)
+O1=$$PWD/$(location out/hotends-kit/hardware/printed-parts/shop-storage/hotends/hotends-kit-open.step)
+O2=$$PWD/$(location out/hotends-kit/hardware/printed-parts/shop-storage/hotends/hotends-kit.step)
+O3=$$PWD/$(location out/hotends-kit/hardware/printed-parts/shop-storage/hotends/hotends-rack.step)
+O4=$$PWD/$(location out/hotends-kit/hardware/printed-parts/shop-storage/hotends/hotends-swap.step)
+for f in $(SRCS); do
+  case $$f in
+    */node_modules/*) continue;;
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    */pysrc/*) t=$${f##*/pysrc/};;
+    *) t=$$f;;
+  esac
+  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+done
+cd work
+ln -sfn $$HSM_WORKSPACE/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/shop-storage/hotends/hotends_kit.py > /dev/null
+cp hardware/printed-parts/shop-storage/hotends/hotends-dock.step $$O0
+cp hardware/printed-parts/shop-storage/hotends/hotends-kit-open.step $$O1
+cp hardware/printed-parts/shop-storage/hotends/hotends-kit.step $$O2
+cp hardware/printed-parts/shop-storage/hotends/hotends-rack.step $$O3
+cp hardware/printed-parts/shop-storage/hotends/hotends-swap.step $$O4
+""",
+)
+
+genrule(
     name = "jst-crimping-tower",
     srcs = [
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
@@ -6257,6 +6365,63 @@ cp hardware/printed-parts/shop-storage/jst-crimping/tool-rack.step $$O4
 cp hardware/printed-parts/shop-storage/jst-crimping/tower-base.step $$O5
 cp hardware/printed-parts/shop-storage/jst-crimping/README.figures.json $$O6
 cp hardware/printed-parts/shop-storage/jst-crimping/README.md $$O7
+""",
+)
+
+genrule(
+    name = "umbilical-kit",
+    srcs = [
+        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/printed-parts/shop-storage/_kit.py",
+        "pysrc/hardware/printed-parts/shop-storage/umbilical/umbilical_kit.py",
+        "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_materials.py",
+        "pysrc/hardware/scripts/_mesh_payload.py",
+        "pysrc/hardware/scripts/_realized.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/tools/docgen/__init__.py",
+    ],
+    outs = [
+        "out/umbilical-kit/hardware/printed-parts/shop-storage/umbilical/umbilical-dock.step",
+        "out/umbilical-kit/hardware/printed-parts/shop-storage/umbilical/umbilical-kit-open.step",
+        "out/umbilical-kit/hardware/printed-parts/shop-storage/umbilical/umbilical-kit.step",
+        "out/umbilical-kit/hardware/printed-parts/shop-storage/umbilical/umbilical-rack.step",
+        "out/umbilical-kit/hardware/printed-parts/shop-storage/umbilical/umbilical-ribbon.step",
+        "out/umbilical-kit/hardware/printed-parts/shop-storage/umbilical/umbilical-stand.step",
+        "out/umbilical-kit/hardware/printed-parts/shop-storage/umbilical/umbilical-terminations.step",
+    ],
+    cmd = """
+set -e
+O0=$$PWD/$(location out/umbilical-kit/hardware/printed-parts/shop-storage/umbilical/umbilical-dock.step)
+O1=$$PWD/$(location out/umbilical-kit/hardware/printed-parts/shop-storage/umbilical/umbilical-kit-open.step)
+O2=$$PWD/$(location out/umbilical-kit/hardware/printed-parts/shop-storage/umbilical/umbilical-kit.step)
+O3=$$PWD/$(location out/umbilical-kit/hardware/printed-parts/shop-storage/umbilical/umbilical-rack.step)
+O4=$$PWD/$(location out/umbilical-kit/hardware/printed-parts/shop-storage/umbilical/umbilical-ribbon.step)
+O5=$$PWD/$(location out/umbilical-kit/hardware/printed-parts/shop-storage/umbilical/umbilical-stand.step)
+O6=$$PWD/$(location out/umbilical-kit/hardware/printed-parts/shop-storage/umbilical/umbilical-terminations.step)
+for f in $(SRCS); do
+  case $$f in
+    */node_modules/*) continue;;
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    */pysrc/*) t=$${f##*/pysrc/};;
+    *) t=$$f;;
+  esac
+  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+done
+cd work
+ln -sfn $$HSM_WORKSPACE/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/shop-storage/umbilical/umbilical_kit.py > /dev/null
+cp hardware/printed-parts/shop-storage/umbilical/umbilical-dock.step $$O0
+cp hardware/printed-parts/shop-storage/umbilical/umbilical-kit-open.step $$O1
+cp hardware/printed-parts/shop-storage/umbilical/umbilical-kit.step $$O2
+cp hardware/printed-parts/shop-storage/umbilical/umbilical-rack.step $$O3
+cp hardware/printed-parts/shop-storage/umbilical/umbilical-ribbon.step $$O4
+cp hardware/printed-parts/shop-storage/umbilical/umbilical-stand.step $$O5
+cp hardware/printed-parts/shop-storage/umbilical/umbilical-terminations.step $$O6
 """,
 )
 
@@ -9853,9 +10018,41 @@ genrule(
 )
 
 genrule(
+    name = "pysrc-9d0078d39dd7",
+    srcs = ["hardware/printed-parts/shop-storage/_kit.py"],
+    outs = ["pysrc/hardware/printed-parts/shop-storage/_kit.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-1a2c09395b70",
+    srcs = ["hardware/printed-parts/shop-storage/fasteners/fasteners_kit.py"],
+    outs = ["pysrc/hardware/printed-parts/shop-storage/fasteners/fasteners_kit.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-39d13cfaa987",
+    srcs = ["hardware/printed-parts/shop-storage/hotends/hotends_kit.py"],
+    outs = ["pysrc/hardware/printed-parts/shop-storage/hotends/hotends_kit.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
     name = "pysrc-82af05c2e19a",
     srcs = ["hardware/printed-parts/shop-storage/jst-crimping/jst_crimping_tower.py"],
     outs = ["pysrc/hardware/printed-parts/shop-storage/jst-crimping/jst_crimping_tower.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-baec7549dee3",
+    srcs = ["hardware/printed-parts/shop-storage/umbilical/umbilical_kit.py"],
+    outs = ["pysrc/hardware/printed-parts/shop-storage/umbilical/umbilical_kit.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -18192,7 +18389,10 @@ filegroup(
         ":tube-collar",
         ":weld-rotator",
         ":fuse-clamp",
+        ":fasteners-kit",
+        ":hotends-kit",
         ":jst-crimping-tower",
+        ":umbilical-kit",
         ":valve-seat",
         ":funnel-mold",
         ":funnel",
