@@ -6039,6 +6039,33 @@
       "hardware/printed-parts/shop-storage/pour/pour-rack.step"
     ]
   },
+  "hardware/printed-parts/shop-storage/solder/solder_kit.py": {
+    "reads": [
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+      "hardware/printed-parts/shop-storage/_kit.py",
+      "hardware/printed-parts/shop-storage/solder/solder-dock.step",
+      "hardware/printed-parts/shop-storage/solder/solder-kit-open.step",
+      "hardware/printed-parts/shop-storage/solder/solder-kit.step",
+      "hardware/printed-parts/shop-storage/solder/solder-rework.step",
+      "hardware/printed-parts/shop-storage/solder/solder-stock.step",
+      "hardware/printed-parts/shop-storage/solder/solder-tips.step",
+      "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_materials.py",
+      "hardware/scripts/_mesh_payload.py",
+      "hardware/scripts/_realized.py",
+      "hardware/scripts/_run_lock.py",
+      "tools/docgen/__init__.py"
+    ],
+    "rewritten": [],
+    "writes": [
+      "hardware/printed-parts/shop-storage/solder/solder-dock.step",
+      "hardware/printed-parts/shop-storage/solder/solder-kit-open.step",
+      "hardware/printed-parts/shop-storage/solder/solder-kit.step",
+      "hardware/printed-parts/shop-storage/solder/solder-rework.step",
+      "hardware/printed-parts/shop-storage/solder/solder-stock.step",
+      "hardware/printed-parts/shop-storage/solder/solder-tips.step"
+    ]
+  },
   "hardware/printed-parts/shop-storage/umbilical/umbilical_kit.py": {
     "reads": [
       "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",

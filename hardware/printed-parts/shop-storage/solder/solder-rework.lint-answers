@@ -1,0 +1,6 @@
+[sliver] The vertical land of the Gridfinity stacking lip, 1.2 mm tall at the inside of the lip ring. It is the library's own lip profile — the surface the storey above seats against — and every Gridfinity bin carries it.
+file: hardware/printed-parts/shop-storage/solder/solder-rework.step
+click: x=60.150 y=-5.043 z=48.400
+click: x=-60.150 y=-5.043 z=48.400
+click: x=29.800 y=-60.150 z=48.400
+click: x=-29.800 y=-60.150 z=48.400
