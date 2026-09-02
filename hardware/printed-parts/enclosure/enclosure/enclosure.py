@@ -1944,6 +1944,22 @@ def _zcyl(r, x, y, z0, z1):
     return cq.Solid.makeCylinder(r, abs(z1 - z0), cq.Vector(x, y, min(z0, z1)), cq.Vector(0, 0, 1))
 
 
+def _ring(section):
+    """A section's own points with the first repeated, so the closing edge is DRAWN.
+
+    `Workplane.close()` does not draw it — it reads the last edge's end back off OCCT, which
+    hands it back rebuilt as origin + t·direction, a few 1e-16 from the point that was passed
+    in, and lays the closing edge from there. The wire's first vertex then stands that far off
+    the station the section states. A tangential boolean downstream — the teardrop roofs on
+    their sleeve bore are one — resolves a coordinate that near zero either by inheriting the
+    constructed vertex or by recomputing the intersection, and which it does moves between
+    processes: the same source writes one of two files, and the artifact lock ping-pongs
+    between two hashes with nothing in the tree changed. Naming the closing point leaves the
+    vertex exactly where the section put it, and the tie is not there to take."""
+    pts = list(section)
+    return pts if pts[0] == pts[-1] else pts + [pts[0]]
+
+
 def _yz_prism(x0, x1, section):
     """A prism along X from x0 to x1, whose `section` is a closed `(y, z)` polygon.
 
@@ -1951,7 +1967,7 @@ def _yz_prism(x0, x1, section):
     world's Y and Z, so the points are read in the frame every station is stated in."""
     return (
         cq.Workplane("YZ", origin=(min(x0, x1), 0.0, 0.0))
-        .polyline(list(section)).close()
+        .polyline(_ring(section)).wire()
         .extrude(abs(x1 - x0))
         .val()
     )
@@ -1965,7 +1981,7 @@ def _xz_prism(y0, y1, section):
     is the plane a feature on a ±X wall is drawn in."""
     return (
         cq.Workplane("XZ")
-        .polyline(list(section)).close()
+        .polyline(_ring(section)).wire()
         .extrude(-(y1 - y0))
         .val()
         .translate((0.0, y0, 0.0))
@@ -1979,7 +1995,7 @@ def _xy_prism(z0, z1, section):
     standing vertical is one line in this section and a fitted surface in either other."""
     return (
         cq.Workplane("XY")
-        .polyline(list(section)).close()
+        .polyline(_ring(section)).wire()
         .extrude(abs(z1 - z0))
         .val()
         .translate((0.0, 0.0, min(z0, z1)))
