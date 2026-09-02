@@ -17912,6 +17912,18 @@ sh_test(
     tags = ["local"],
 )
 
+sh_test(
+    name = "publish-now-selftest",
+    srcs = ["tools/bazel/selftest.sh"],
+    data = [
+        "tools/_single_flight.py",
+        "tools/publish_now.py",
+    ],
+    args = ["tools/publish_now.py"],
+    size = "large",
+    tags = ["local"],
+)
+
 filegroup(
     name = "render-card-runtime",
     srcs = glob(

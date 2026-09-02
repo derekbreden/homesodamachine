@@ -954,5 +954,9 @@
   "tools/docgen/lint.py": [
     "tools/docgen/__init__.py",
     "tools/docgen/lint.py"
+  ],
+  "tools/publish_now.py": [
+    "tools/_single_flight.py",
+    "tools/publish_now.py"
   ]
 }
