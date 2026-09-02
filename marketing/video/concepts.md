@@ -1,6 +1,6 @@
 # Video Concepts
 
-*Prioritized list of video content, ranked by shareability and product trust. Each concept includes an estimated length and the primary audience it reaches.*
+*The menu of individual pieces, ranked by shareability and product trust. Each concept carries a length and the primary audience it reaches. [Filmable now](#filmable-now) is the subset that needs nothing this project does not already have, and it is where to start.*
 
 *This is the menu of individual pieces. For the serialized-narrative spine they hang on — the six capability arcs — see [`series.md`](series.md). For how any of them actually reach viewers, see [`distribution.md`](distribution.md).*
 
@@ -8,7 +8,9 @@
 
 ## In flight: the carbonator build
 
-A separate track from the audience-strategy tiers below. These videos document the actual fabrication of the welded stainless steel carbonation tank — a critical component for the integrated chiller (see [`/hardware/README.md`](/hardware/README.md)). Not aimed at building a maker/AI/embedded audience the way Tier 2 is; aimed at being the kind of evidence a future buyer needs to trust the founder and the product. This is Tier-1-spirit content shipping while the actual Tier 1 product (the pour video) isn't possible yet — the founder's face/kitchen/story is the brand for the first 50 units per [`/marketing/target-market.md`](/marketing/target-market.md), and these videos build that.
+A separate track from the audience-strategy tiers below. These videos document the actual fabrication of the welded stainless steel carbonation tank — a critical component for the integrated chiller (see [`/hardware/README.md`](/hardware/README.md)). Not aimed at building a maker/AI/embedded audience the way Tier 2 is; aimed at being the kind of evidence a future buyer needs to trust the founder and the product. The founder's face, kitchen and story are the brand for the first 50 units per [`/marketing/target-market.md`](/marketing/target-market.md), and these videos build that.
+
+This arc is not a stand-in for the pour, and it never was one. The prototype under the counter pours two flavors of real soda from a kitchen faucet today; [Filmable now](#filmable-now) is the list of what that makes possible.
 
 ### Shipped
 
@@ -26,13 +28,108 @@ Reaching the buyer profile defined in [`/marketing/target-market.md`](/marketing
 
 ---
 
+## Filmable now
+
+Everything here can be shot with what is in the kitchen and the shop today. Each carries the
+**title anchor** it should be titled on — the broad topic node
+[`distribution.md`](distribution.md) measured a ~365x Browse-eligibility gap on — chosen to
+overlap a diet-soda drinker rather than a welder. The project's own words go in the
+description body, never in the title.
+
+### A. Real Diet Mountain Dew, out of a kitchen faucet (30 s)
+
+Concept 1 below, shot on the prototype. Handle turns, glass fills over ice, sip, done. No
+narration, no setup. The strongest thing this project owns and it has never been posted.
+
+- **Title anchor:** *soda on tap at home* — "I Put Real Diet Mountain Dew On Tap In My Kitchen"
+- **Why it reaches the buyer:** the node is the buyer. Nobody browses "laser welding" and also
+  hauls 36 cans a week.
+- **Repeatable:** the Tuesday-morning pour, the late-night pour, the guests-are-over pour, one
+  per flavor. A format, not a video.
+
+### B. Why your SodaStream went flat (60-90 s)
+
+The project's whole thesis, and the reason its buyer exists. Carbonate warm water in a
+SodaStream bottle, pour it, film it going flat. Then pour the same drink from the tap at
+service temperature. Cold water holds CO2 and warm water does not — that is the sentence
+[`CLAUDE.md`](/CLAUDE.md) opens on and the reason a wall of SodaStreams sits in a wall of
+closets unused.
+
+- **Title anchor:** *SodaStream* — a large node whose browsers are, precisely, people who
+  bought one and stopped using it. That is the warmest audience this project has.
+- **Trust signal:** it explains rather than sells, and the explanation is falsifiable on camera.
+
+### C. You cannot buy fountain syrup (60-90 s)
+
+Concept 10 below, which is currently filed in Tier 2 and should not be — this is a buyer
+video. Coke and Pepsi will not sell bag-in-box to a household without a business license.
+Pepsi will sell you the same formulations as SodaStream-compatible concentrate. Diet Mountain
+Dew concentrate made by Pepsi is Diet Mountain Dew.
+
+- **Title anchor:** *fountain soda at home* — people search and browse this having already
+  hit the same wall.
+
+### D. The can against the tap (60 s)
+
+Two identical glasses, one from a can, one from the faucet. Taste them on camera. The product
+claim in [`target-market.md`](/marketing/target-market.md) is that the tap is indistinguishable
+from the can and colder — so put it under test and report what happens, including if it loses.
+
+- **Title anchor:** *taste test* over *Diet Mountain Dew*.
+- **Risk worth taking:** a test that can fail is the only kind worth filming, and the claim is
+  the product.
+
+### E. Refilling it (30 s)
+
+Lift the silicone funnel out of the top wall, pour in a bottle of concentrate, put it back.
+That is the whole maintenance story for flavor, and it is the first question after "is this
+real".
+
+- **Title anchor:** *home soda machine* — how you actually live with one.
+
+### F. Touch the faucet, change the flavor (20 s)
+
+The 1.47" display at the end of the gooseneck. Touch it, the flavor changes, pour the other
+one. Two flavors are primed and valve-locked, so the second pour is instant.
+
+- **Title anchor:** *soda fountain* — the two-flavor moment is what a fountain means.
+
+### G. It cleans itself (45 s)
+
+Press the clean cycle on the enclosure display and walk away. Tap water in through the idle
+pump until the full reed closes, pumped out the faucet until the empty reed opens, three
+rounds. Answers the objection every food-contact machine gets.
+
+- **Title anchor:** *how do you clean it* — the question, as people ask it.
+
+### H. I 3D printed a soda machine (2-3 min)
+
+The enclosure: four telescoping quadrants, a pump cartridge that draws out with both pumps
+aboard, 170 printer-hours a unit. 3D printing is a large node with real overlap — the maker
+who prints things also drinks soda, which "laser welding" cannot say.
+
+- **Title anchor:** *3D printed* — and the machine is the payoff, not the subject.
+
+### I. I took apart a $60 ice maker to refrigerate soda (2-3 min)
+
+The refrigeration decision, on camera: the compressor, condenser, capillary tube and drier come
+out of a countertop ice maker and the evaporator is rewound as a copper coil around the
+carbonator. Teardown is a node of its own and the reasoning is genuinely interesting.
+
+- **Title anchor:** *ice maker teardown* — and the reveal is what it becomes.
+
+**What these have in common:** every one is true today, every one anchors to a node a
+soda drinker browses, and not one of them is waiting on a machine that does not exist yet.
+
+---
+
 ## Tier 1: The videos that sell the machine
 
 These build trust in the product and the person. They are the "wait, that's real?" moments.
 
 ### 1. The Pour (30 seconds)
 
-The simplest and most important video. Turn the handle. Diet Mountain Dew pours into a glass with ice. Take a sip. That's it. No explanation, no setup, no context. The ordinariness is the message. End with "He hates these cans" and a link.
+**Filmable now — [A](#a-real-diet-mountain-dew-out-of-a-kitchen-faucet-30-s).** The simplest and most important video. Turn the handle. Diet Mountain Dew pours into a glass with ice. Take a sip. That's it. No explanation, no setup, no context. The ordinariness is the message. End with "He hates these cans" and a link.
 
 - **Audience:** Everyone. This is the top of the funnel.
 - **Shareability:** Very high. The "wait, what?" factor carries it.
@@ -183,7 +280,9 @@ Show the progression of printing the same part in different materials. Drying pr
 
 **Tier 2 is a menu, not a sequence.** These videos are about the build process, and they're most valuable *while the build is happening*. A live-reload CAD viewer demo posted during active development has an authenticity that a retrospective never matches. Build-in-public content has a shelf life — make pieces from this list when a concept becomes the natural next thing to film, not on a schedule. The AI pipeline failure story and the live-reload CAD viewer are the highest-value pieces in the list — they reach large, active communities (AI discourse, 3D printing) with genuinely novel content.
 
-**Tier 1 waits for the self-contained prototype.** The pour video, the full story, and the install video are the sales funnel. They need to show the product someone can actually buy — not the current Lillium-backed system that's going to change. The pour video is stronger when it pours from the finished appliance. The install video requires a finished unit to install. These will exist before the first sale, but not before the product is ready to sell.
+**Tier 1 splits, and only half of it waits.** The install video does need a finished unit to install, and the full story is better told over one. The pour does not: it is a glass filling from a faucet, and nothing in that frame says whether the cold carbonated water came from a Lillium under the counter or from a carbonator this shop welded. Holding it back for the finished appliance protects a distinction the viewer cannot see, at the cost of the one thing [`distribution.md`](distribution.md) says is the whole problem — getting in front of the buyer at all. The pour is filmable now, and so is most of what makes someone believe it.
+
+**A pour that is honest about its plumbing is still the pour.** If the Lillium is in frame, say what it is. The claim the video makes is "real Diet Mountain Dew comes out of my kitchen faucet, cold," and that claim is true today.
 
 **Tier 3 comes when people start asking.** "How does the app work?" "How do you clean it?" These answer specific questions from people already interested.
 
