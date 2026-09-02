@@ -1,296 +1,430 @@
-# Target Market Definition
+# Target market
 
-*Working draft — April 6, 2026*
-*Revised April 22, 2026 — two-tier pricing (Founder Edition / Standard Edition)*
-*Revised April 26, 2026 — added "The internal plan: rings of trust" section, articulating an internal model that emerged from a strategy conversation. Public pricing structure unchanged.*
+Who the appliance is for, what they are sold, and at what price. The machine itself is
+[`/hardware/README.md`](/hardware/README.md). Where it is going and what done looks like is
+[`/future/README.md`](/future/README.md). The cabinet it goes into is
+[`/marketing/install-envelope.md`](/marketing/install-envelope.md), and what the buyer does on
+install day is drawn in [`/hardware/quickstart/`](/hardware/quickstart/README.md).
 
----
+## What the buyer is sold
 
-## What we are selling
+An under-counter appliance that carbonates and refrigerates its own water off the cold line and
+dispenses real brand-name diet soda — Diet Mountain Dew, Diet Pepsi, Pepsi Zero Sugar — from a
+kitchen faucet, cold and fully carbonated, on demand. Turn the handle, soda comes out. Two
+flavors, each primed and valve-locked between pours, selected by touch at the faucet or at the
+enclosure's display. Refilled by pouring a bottle into a funnel in the top wall. Cleaned by a
+cycle the machine runs itself.
 
-A home soda machine. A self-contained, under-counter appliance that connects to a water line and a CO2 tank, refrigerates and carbonates its own water internally, and dispenses real brand-name diet soda — Diet Mountain Dew, Diet Pepsi, Pepsi Zero Sugar — from a kitchen faucet, ice cold, fully carbonated, on demand. Turn the handle, soda comes out.
+Pepsi sells its own formulations as SodaStream-compatible concentrate to anyone, no business
+license: [Diet MTN DEW drink mix, 440 mL, $7.99, about 24 twelve-ounce
+servings](https://sodastream.com/products/sodastream-diet-mtn-dew-drink-mix). A machine that
+injects it into cold carbonated water dispenses the brand.
 
-The product ships in two sequential tiers. **Founder Edition** — units 001-050, **$7,500**, hand-built by the founder one at a time, each unit numbered with a plaque, signed, and shipped with a personal install consultation (phone or Zoom). This is the only tier available at launch, and the only tier for roughly four years at solo build capacity (~12 units/year). **Standard Edition** — units 051+, **$5,500**, same machine, same features, same quality, no number, no personal consult, faster lead time. Standard opens only when the Founder Edition run is committed-out. This is not a price drop. It is a new tier that replaces scarcity with availability.
+The product ships in two sequential tiers. **Founder Edition** — units 001–050, **$7,500**,
+hand-built one at a time, each unit numbered on a signed nameplate and shipped with a personal
+install consultation. This is the only tier for as long as the run takes. **Standard Edition** —
+units 051+, **$5,500**, same machine, no number, no personal consult, faster lead time. Standard
+opens once the Founder Edition run is committed out.
 
-Install: plug and play — under an hour, no plumber, no special tools.
+The alternatives a buyer has today are hauling cans, or a countertop carbonator that fizzes warm
+water into a bottle that is flat before it reaches the glass
+([`/marketing/competitors/sodastream.md`](/marketing/competitors/sodastream.md)).
 
-Nothing like this exists for home consumers.
+## What install asks
 
----
+One hole through the countertop, then an afternoon of push-fittings.
+
+The buyer or their installer cuts a 1-3/8" opening through the counter, and the shipped guide
+begins at the prepared opening
+([`faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md) "Not in scope"). On
+stone that is a diamond core bit, and usually a countertop pro.
+
+Downstream of the hole the five sheets of
+[`/hardware/quickstart/`](/hardware/quickstart/README.md) draw every step, and each one is
+push-fit or hand-tight: lower the complete factory faucet-and-umbilical assembly through the
+opening, slide the under-counter plate around the tubes, hand-tighten the retained nut; close
+the cold-water valve; press the collet on the existing 1/4" plastic line, add the supplied tee
+and short tube, reconnect the original line, and push the new white branch — through the
+supplied filter — into the third port; trim five tubes and push each into its lettered,
+colour-matched port on the rear wall; click one RJ11 plug into the jack beside them; plug in one
+cord. No threaded fitting is opened at any point. The tube cutter is in the box.
+
+What the buyer brings, beyond the hole:
+
+- **A kitchen the guide fits.** The shipped path is drawn for an existing 1/4" plastic cold line
+  on a push fitting under the sink.
+- **A CO2 cylinder.** 5 lb, customer-supplied, standing in the cabinet beside the appliance on a
+  short tether; the CGA-320 regulator ships on our side. Refills run about $25 at a welding or
+  homebrew supplier ([`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) "External").
+- **Concentrate.** Ordered like anything else.
+- **About an hour before the first glass.** First fill to service temperature is a chill-down
+  ([`machine-time.md`](/hardware/ledger/machine-time.md) §4).
 
 ## The market definition: "He hates these cans"
 
 The target market is **people who hate the cans.**
 
-That's it. That's the definition. Everything else — income, housing, consumption level — is a qualifying filter. The emotional core is the hatred.
+That is the definition. Income, housing, consumption level — those are qualifying filters. The
+emotional core is the hatred.
 
-**"He hates these cans!"** — the Steve Martin moment from *The Jerk* — is not a joke reference. It is the most precise description of our buyer that exists. The cathartic laugh it produces is the laugh of recognition: finally having language for something you've been carrying without naming it.
+**"He hates these cans!"** — the Steve Martin moment from *The Jerk* — is the most precise
+description of the buyer that exists. The laugh it gets is the laugh of recognition: language,
+finally, for something carried without a name.
 
 ### What "hates the cans" looks like in daily life
 
-- **Hauling.** 24-48 cans per week, from store to car to kitchen. Physical labor, every week.
-- **Storage.** A dedicated fridge shelf that's always either full of cans or empty when they want one. Pantry space consumed by 12-packs and 24-packs.
-- **Running out.** The moment the fridge is empty and the store isn't convenient. The daily ritual interrupted. This is peak frustration.
-- **Waste.** 730+ cans per year per household. The recycling bin fills up weekly. The guilt is low-grade but persistent.
-- **Errand load.** The store run isn't just about soda — but the soda makes it heavier, more frequent, and harder to skip.
-- **Time.** They work. Their free-not-working time is scarce. The weekly can run is an errand they'd delete from their life if they could.
+- **Hauling.** 24–48 cans a week, store to car to kitchen. Physical labor, every week.
+- **Storage.** A fridge shelf that is either full of cans or empty when they want one. Pantry
+  space spent on 12-packs.
+- **Running out.** The fridge is empty and the store is not convenient. The daily ritual
+  interrupted. Peak frustration.
+- **Waste.** 730+ cans a year per household. The bin fills weekly. The guilt is low-grade and
+  persistent.
+- **Errand load.** The store run is not only about soda, but the soda makes it heavier, more
+  frequent and harder to skip.
+- **Time.** They work. Their free time is scarce. The weekly can run is an errand they would
+  delete from their life if they could.
 
 ### The hatred is latent
 
-Most people who hate the cans don't know they hate the cans. They've been hauling them for so long that the weight feels like life. The hatred becomes obvious only when a solution appears next to it — the same way a person mowing their own lawn every Saturday doesn't know they hate it until someone says "you know, they have robots for that now."
+Most people who hate the cans do not know they hate the cans. They have hauled them so long that
+the weight reads as life. It becomes obvious only when a solution appears next to it — the way a
+person mowing every Saturday does not know they hate it until someone says they have robots for
+that now.
 
-The founder bought his first home in August 2025. By October he was back on YouTube researching home soda for the first time in 15 years. The frustration had been there for a decade. The home gave him permission and capability to act on it. He didn't know how much he hated the cans until he saw a way to get rid of them.
-
----
+Derek bought his first home in August 2025 and was back on YouTube researching home soda by
+October, fifteen years after giving up on a SodaStream
+([`/biography/2026-04-05.md`](/biography/2026-04-05.md)). The frustration had been there the
+whole time. The house gave it somewhere to go.
 
 ## Qualifying filters
 
-The hatred defines the market. These filters determine who within that market can act on it at $7,500 (Founder Edition) or, later, $5,500 (Standard Edition).
+The hatred defines the market. These decide who inside it can act at $7,500, or later at $5,500.
 
-### Consumption: 2+ diet sodas per day
+### Consumption: 2+ diet sodas a day
 
-This is the minimum bar for the can problem to be physically felt. At 2/day, a household goes through a 12-pack every 6 days. At 3/day, every 4 days. At household level (two drinkers, or one heavy drinker), the store run is weekly or more.
+The bar at which the can problem is physically felt. At 2/day a household clears a 12-pack every
+six days; at 3/day every four. With two drinkers, the store run is weekly or more.
 
-Roughly 49% of Americans drink soda regularly (Gallup). Diet/zero-sugar is ~30% of CSD volume. Daily drinkers at 2+/day are a subset of that — perhaps 7-8 million U.S. households.
-
-Soda consumption is an extremely common behavior. It is the prerequisite for this product to be relevant, but it is not the interesting thing about the buyer. Enough of the population meets this bar that it isn't our focus in defining the market.
+Gallup has 48% of US adults drinking at least one glass of soda a day, and soda drinkers
+averaging [2.6 glasses](https://news.gallup.com/poll/156116/nearly-half-americans-drink-soda-daily.aspx)
+(July 2012). Diet and zero-sugar are a large minority of that. Enough of the country clears the
+bar that it narrows nothing.
 
 ### Income: a gradient, not a line
 
-$7,500 is a lot of money. The threshold at which someone will pay it depends on how much they hate the cans. The Founder Edition is the tier at launch, so the gradient below is calibrated to $7,500. When the Standard Edition opens at $5,500, the reachable ring widens meaningfully downward.
+$7,500 is a lot of money, and the threshold at which someone pays it moves with how much they
+hate the cans. The gradient below is calibrated to the Founder Edition price; Standard widens
+the reachable ring downward.
 
-- **$250K+ household income:** Moderate annoyance is enough. $7,500 for a hand-built, numbered kitchen appliance is well within the range of considered purchases. The Founder Edition story — numbered plaque, signed, personal consult — reads as value, not overhead.
-- **$200K household income:** Solidly in. A considered purchase but not a stretch. They've spent this on kitchen things before.
-- **$150K (founder's income):** Considered-but-plausible. The founder himself is the proof point — the hatred was strong enough that he'd have paid $7,500 six months before the product existed. People at this income buy $7,500 things when they want them badly enough.
-- **$100-120K:** Harder at $7,500, but not impossible for the extreme-hatred edge case — the buyer who is replacing an ongoing expense and has already decided, emotionally, that the cans are over. Uncommon at this tier. More common once Standard opens at $5,500.
-- **Below $100K:** Unlikely at Founder Edition pricing. Possible at Standard for someone with extreme can hatred and a 3+/day habit they view as an ongoing expense.
+- **$250K+ household income.** Moderate annoyance is enough. A hand-built, numbered kitchen
+  appliance at $7,500 sits inside the range of considered purchases.
+- **$200K.** Solidly in. A considered purchase, not a stretch. They have spent this on kitchen
+  things before.
+- **$150K** — Derek's own income, and the proof point: the hatred was strong enough that he
+  would have paid $7,500 six months before the product existed.
+- **$100–120K.** Hard at $7,500, reachable for the extreme-hatred edge case. More common once
+  Standard opens.
+- **Below $100K.** An edge case at either price — a 3+/day habit the household already reads as
+  an ongoing expense.
 
-**Center of the bullseye (Founder Edition):** Household income $200K+, 2-4 diet sodas/day, homeowner.
+**Center of the bullseye (Founder Edition):** household income $200K+, 2–4 diet sodas a day,
+homeowner.
 
-**Reachable ring (Founder Edition):** $150K-200K where consumption is high and the hatred is visceral, plus the occasional $120K-150K buyer whose hatred is extreme.
+**Reachable ring (Founder Edition):** $150K–200K where consumption is high and the hatred is
+visceral, plus the occasional $120K–150K buyer whose hatred is extreme.
 
-**What shifts at Standard ($5,500):** The $120K-200K band becomes the center; $100-120K becomes reachable; below $100K remains edge-case.
+**What shifts at Standard:** the $120K–200K band becomes the center, $100–120K becomes
+reachable, below $100K stays an edge case.
 
 ### Housing: homeowner
 
-Under-counter installation requires ownership or a very accommodating landlord. The home has a water line accessible under the kitchen counter — same prerequisite as a dishwasher or under-counter water filter, present in virtually all owned homes.
+The install cuts a hole in a countertop and tees into a supply line. That needs ownership or a
+very accommodating landlord. The cabinet prerequisite is the one a dishwasher or under-counter
+filter already has, and is present in effectively every owned home.
 
-New homeownership may be a trigger event. The founder's timeline — bought first home August 2025, researching home soda by October 2025 — suggests that the moment someone has *their own kitchen* is the moment latent frustrations become actionable.
+New homeownership may be the trigger event. Derek's own timeline suggests that the moment
+someone has *their own kitchen* is the moment latent frustrations become actionable.
 
-### Geography: U.S. initially
+### Geography: US first
 
-Suburban homes with larger kitchens and bulk-buying habits (Costco 48-packs) are the center. Urban homeowners with less storage space also feel the can problem acutely, for different reasons.
-
----
+Suburban homes with larger kitchens and bulk-buying habits are the center. Urban homeowners with
+less storage feel the can problem acutely for the opposite reason.
 
 ## Two-tier pricing
 
-The product ships in two tiers, launched sequentially. They are the same machine. The difference is the story around it, not the hardware.
+Two tiers, launched in sequence. One configuration: two flavors, two displays, one install
+profile. What differs between them is the number on the plate and the founder's time.
 
-### Founder Edition — units 001-050, $7,500
+### Founder Edition — units 001–050, $7,500
 
-Hand-built by the founder, one at a time. Each unit carries a numbered plaque, is signed, and ships with a personal install consultation (phone or Zoom). Solo build capacity is roughly 12 units a year, so the 50-unit run is expected to take about four years. For that entire window, this is the only tier available.
+Hand-built one at a time. Each unit carries a numbered nameplate signed for that specific
+machine ([`finish-pack-ship.md`](/hardware/assembly/finish-pack-ship.md)), and ships with a
+personal install consultation. At about a dozen units a year the run takes roughly four years,
+and for that whole window this is the only tier.
 
-The Founder Edition is the real product for year one and well beyond. It is not a marketing promotion wrapped around a limited run — it is what shipping looks like while the founder is the factory. The scarcity is real because the constraint is real: one person can only build so many machines a year. The buyer at $7,500 is paying for the machine, and for access to the person who built it, and for a position in the first 50. All three of those are genuinely limited.
+A unit costs [10 h](LAB_HM) of attended hand work. The printers, the bottleneck machine at
+[170.2](MT_H_PRINT) printer-hours a unit, give [~67](MT_UNITS_YEAR) units a year at the
+[65 %](MT_DUTY) duty the ledger carries. A dozen a year is what one person builds beside a day
+job. The ledgers are [`labor.md`](/hardware/ledger/labor.md) and
+[`machine-time.md`](/hardware/ledger/machine-time.md).
+
+The buyer at $7,500 is paying for the machine, for access to the person who built it, and for a
+position in the first fifty. A plumbed-in chilled-and-sparkling kitchen tap from an established
+maker sits in the same band — the
+[Zip HydroTap Cube Plus runs $4,950 to $7,475](https://blazingembers.com/zip-water-hydrotap-cube-plus-water-system-kit/)
+for the system kit, before installation.
 
 ### Standard Edition — units 051+, $5,500
 
-Same machine, same features, same quality. No number, no plaque, no personal consult. Faster lead time as production scales. The Standard Edition opens only once the Founder Edition run is committed-out and the founder is ready to batch-produce.
+Same machine, same features, same quality. No number, no plaque, no personal consult, faster
+lead time as production scales. Standard opens once the Founder Edition run is committed out.
 
-This is not a price drop on the Founder Edition. It is a new tier that replaces scarcity with availability. The people who paid $7,500 were not overcharged — they bought something that by then no longer exists.
+### What a unit costs to build
 
-### Why tier by scarcity and not by features
+Per-unit parts are [$1,416.13](BOM_GRAND) ([`bom.md`](/hardware/ledger/bom.md)). Attended build
+time is [10 h](LAB_HM), which [`labor.md`](/hardware/ledger/labor.md) prices at
+[$100](LABOR_RATE)/hr — [$1,000.00](LAB_USD). Roughly [$2,400](UNIT_COST) of parts and hands
+stands behind each machine, before tools, freight, warranty, or any of the design that got here.
 
-The product is one configuration. Two flavors, two displays, one install profile. There is no meaningful feature we would remove to justify a lower price, and there is no feature we would add to justify a higher one. The difference between the tiers is the founder's time and the number on the plaque. That is an honest story. Feature tiering would not be.
+## How big the market has to be
 
----
+Fifty units is a rounding error against any plausible count of American households with a daily
+diet soda drinker in them. The market is not the constraint. **Discovery is the constraint**,
+and at a dozen units a year it is a forgiving one.
 
-## Market sizing
+Twelve units a year is about $90,000 and funds continued solo development. The full Founder run
+is $375,000 over roughly four years. Past that the tree holds no revenue plan.
 
-### How many people hate the cans?
+### What the buyer already spends
 
-- ~131M U.S. households.
-- ~7.5M households with a daily diet soda drinker (2+/day).
-- ~2.6M of those with household income $120K+.
-- ~2.1M of those who are homeowners.
+A can of Diet Mountain Dew runs
+[$8.39 for a 12-pack, about $0.70](https://www.target.com/p/diet-mountain-dew-citrus-soda-12pk-12-fl-oz-cans/-/A-12958752).
+At three a day that is roughly $770 a year, near $7,700 over ten years. Concentrate is $7.99 for
+about 24 servings — $0.33 a glass — plus a CO2 refill every few months at about $25.
 
-**Addressable market: roughly 2 million U.S. households.**
-
-Not all of them hate the cans enough to pay $7,500 — or, later, $5,500. But we don't need all of them. The $120K+ homeowner filter still works as the gross filter; the Founder Edition price narrows it further in the early years, and the Standard Edition price widens it back out.
-
-### What we actually need
-
-- **Founder Edition, 12 units/year** ≈ $90,000 revenue. Proof the product sells, and funds continued solo development.
-- **50 units total at Founder Edition** = $375,000. The full run. Roughly four years at solo build capacity.
-- **100 Standard units/year** = $550,000. A real business, once batch production is ready.
-- **1,000 Standard units/year** = $5.5M. A serious company.
-
-50 out of 2 million is 0.0025%. The market is not the constraint. Discovery is the constraint, and at 12 units/year during the Founder Edition, it is a very forgiving constraint.
-
-### The decade math
-
-A 3-can-per-day household spends ~$657/year on diet soda — roughly $6,570 across a decade. At $7,500, the machine costs more than ten years of the cans it replaces. At $5,500, it's within a decade. Per-serving cost with concentrate is $0.30-0.40 vs. $0.50-0.75 per can, so the ongoing spend drops, but the payback-in-years argument is no longer clean at the Founder Edition price.
-
-The point that still holds: this is not a new expense category. It is a format change for money the household is already spending, forever, on the same drink. The decade math is supporting evidence for someone who is already emotionally committed to being done with the cans. It was never the thing that made them commit.
-
----
+This is money the household already spends, every year, on the same drink.
 
 ## Who is not the target market
 
-### Not "soda enthusiasts"
+**Not "soda enthusiasts."** There is no soda enthusiast community. Nobody identifies as one. No
+subreddit, no channel, no influencer ecosystem.
 
-There is no soda enthusiast community. Nobody identifies as one. No subreddit, no YouTube channel, no influencer ecosystem. If we position for this person, we are selling to a community that doesn't exist.
+**Not SodaStream's loyal base.** SodaStream's loyal customers drink sparkling water, not soda.
+Their *churned* customers are closer — they wanted soda at home and got flat water — but they
+carry scar tissue. Secondary audience.
 
-### Not SodaStream's loyal base
+**Not bargain hunters.** Someone optimizing around a $0.30 sale price will never spend $7,500 to
+avoid cans. Cost savings is math you show a buyer who has already decided.
 
-SodaStream's loyal customers drink sparkling water, not soda. SodaStream's *churned* customers are closer — they wanted soda at home and got flat water — but they carry scar tissue. Secondary audience.
+**Not gadget collectors.** The person who buys every new kitchen thing, uses it twice and
+drawers it. Fewer of them at $7,500, and they are returns and bad reviews. We want daily users.
 
-### Not bargain hunters
-
-The person who optimizes around $0.30/can sale prices will never spend $7,500 to avoid cans. Cost savings is math we show someone who's already decided to buy. It is never the reason they decide.
-
-### Not gadget collectors
-
-The person who buys every new kitchen thing, uses it twice, and puts it in the drawer. At $7,500 there are fewer of these, but they exist. They are returns and bad reviews. We want daily users.
-
-### Not people who don't notice the cans
-
-Some daily soda drinkers genuinely don't experience the cans as a burden. The founder's stepmother: 84, retired, drinks a 12-pack a week of Diet Coke, buys iPads and big TVs. She has the money and the soda habit, but she doesn't hate the cans. Twelve cans a week isn't heavy when you have the time and the store trip is already happening. She would not buy this at any price.
-
----
+**Not people who don't notice the cans.** Some daily drinkers do not experience the cans as a
+burden. Derek's stepmother: 84, retired, a 12-pack of Diet Coke a week, buys iPads and big TVs.
+She has the money and the habit and no hatred at all. Twelve cans a week is not heavy when you
+have the time and the store trip is happening anyway. She would not buy this at any price.
 
 ## The internal plan: rings of trust
 
-Everything above is the public-facing story. Founder Edition at $7,500, Standard Edition at $5,500, hand-built run of 50, then batch production. That structure stands. It is the right anchor for a cold buyer arriving at a website and trying to understand what this is and what it costs.
+Everything above is the public-facing story, and it is the anchor a cold buyer arrives at. The
+internal plan is different, and is named separately here so the two stay apart.
 
-The internal plan is different, and worth naming separately so it doesn't get confused with the public one.
+### The deliverable of phase one is ten units in homes
 
-### The actual goal of phase one is 10 units in homes
-
-Not 10 units of revenue. Not validation that someone will pay $7,500. Ten machines, in real kitchens, used daily, generating real-world data and real supplier relationships. That is the deliverable. Revenue at this stage is a side effect of the deliverable, not the deliverable itself.
+Not ten units of revenue. Not validation that someone will pay $7,500. Ten machines in real
+kitchens, used daily, generating real-world data and real supplier relationships. Revenue at
+this stage is a side effect of the deliverable. This is mark two of
+[`/future/README.md`](/future/README.md) "What done looks like."
 
 ### Concentric rings, not a sales funnel
 
-**Ring 1.** The first 10 units go to people the founder knows directly, or one degree out — friends, family, friends-of-friends. Pricing is whatever moves the unit. Probably $2,000-3,000. Possibly some at cost or below for family members willing to be beta testers. The "product" of ring 1 is not revenue. It is three things: units in homes generating real-world use data; supplier relationships established at quantity-of-50 for the BOM items where that matters; and a tighter, faster-to-build design by the time ring 1 closes out.
+**Ring 1.** The first ten units go to people Derek knows directly or one degree out — friends,
+family, friends of friends. Price is whatever moves the unit; $2,000–3,000 is the expectation,
+some at or below cost for family willing to be beta testers. Against $1,416 of parts and ten
+hours of hand work, those prices pay for the box. What ring 1 produces is three things: units in
+homes generating real use data, supplier relationships established at quantity-of-fifty on the
+BOM lines where that matters, and a tighter, faster-to-build design by the time the ring closes.
 
-**Ring 2.** The next 10 units extend one ring further out — friends-of-friends-of-friends. By this point BOM is lower, build time is shorter, and the design is more refined than what ring 1 received. Price may stay flat, drop slightly, or hold. Price is not the variable being optimized. Same outcomes: more units in the field, more learning, more supplier optimization.
+**Ring 2.** The next ten extend one ring further out. By then the BOM is lower, build time is
+shorter, and the design is better than what ring 1 received. Price may hold, drop slightly, or
+stay flat; price is not the variable being optimized. Same outcomes: more units in the field,
+more learning, more supplier leverage.
 
-**Ring 3 and beyond.** Each subsequent ring extends further from the founder's network. Eventually the ring stops being personal and the buyer is a stranger arriving cold. By then there is real product data, real BOM data, real failure data, and a price that reflects a known quantity instead of a hypothesis.
+**Ring 3 and beyond.** Each ring extends further from the founder's network. Eventually the ring
+stops being personal and the buyer arrives cold. By then there is real product data, real BOM
+data, real failure data, and a price that reflects a known quantity.
+
+The $7,500 anchor is the price a cold buyer meets — no network connection, no warm introduction,
+a one-person shop with a multi-year backlog. Ring prices are what a connection is worth against
+it, and what absorbing the risk of an early unit is worth.
 
 ### Linear, not exponential
 
-Each ring is roughly the same volume as the prior one. The variable that improves between rings is unit cost and build quality, not unit count. The plan tops out at maybe 20-30 units a year, indefinitely. It might never become a "company" in the venture sense. That is a feature, not a bug. Solo build capacity is the gating constraint, and the goal is not to remove that constraint — it is to do the best work possible inside it.
+Each ring is roughly the volume of the one before it. What improves between rings is unit cost
+and build quality, not unit count. The plan tops out around 20–30 units a year, indefinitely.
+Solo build capacity is the gating constraint, and the goal is the best work possible inside it.
 
-### The Founder Edition anchor still has a job
+### How this relates to the analysis above
 
-The $7,500 number still serves a purpose. It is the public-facing artisan story for buyers who arrive cold — no network connection, no warm introduction — and need a price that signals premium-handmade. It is also the ceiling that makes ring-1 and ring-2 prices look like what they are: a deal extended to someone who came through a connection. The internal expectation is that most ring-1 and ring-2 sales happen well below the anchor. The anchor is honest because anyone who walks in cold genuinely is buying from a one-person shop with a four-year backlog. The lower prices in ring 1 and ring 2 are also honest, because those buyers are absorbing risk the cold buyer is not.
+"Hates the cans" is still the buyer profile, and the consumption, income and homeowner filters
+all still apply. The rings are the *path* to that profile, starting from a network that does not
+currently contain anyone who would write $7,500 sight-unseen for a kitchen appliance from a
+stranger. Ring 1 is how you get from "no one I know would write that check today" to "someone
+three rings out will, because by then it is not a hypothesis."
 
-### How this relates to the target-market analysis above
+### What counts as success
 
-The rings model does not replace the target-market analysis. It complements it. "Hates the cans" is still the buyer profile. The income filters, the consumption filters, the homeowner filter — all still apply. The rings are the *path* by which the founder reaches that profile, starting from a network that does not currently contain anyone who would pay $7,500 sight-unseen for a kitchen appliance from a stranger. Ring 1 is how you get from "no one I know would write that check today" to "someone three rings out will, because by then it isn't a hypothesis anymore."
+The good outcome is this plan running indefinitely as a craft practice alongside the day job.
+Twenty units a year, stable suppliers, a maturing design, real customers using a real product.
 
-### Success criteria for the founder personally
+The great outcome is volume reaching a level where Derek feels safe taking a sabbatical to work
+on it full time. Not scale, not exit — enough demand and enough margin to step away from the day
+job without anxiety.
 
-The "yay" outcome is this plan running indefinitely as a craft practice alongside the day job. Twenty units a year, supplier relationships stable, design maturing, real customers using a real product. That is a good outcome and it does not require anything else to be true.
+Someday someone may build a business against the whole category. That someone does not have to
+be this founder, and this product does not have to be the vehicle.
 
-The "wowzers" outcome is volume reaching a level where the founder feels safe taking a sabbatical to focus on it full-time. Not "scale," not "exit" — just enough demand and enough margin to step away from the day job without anxiety.
+## Finding the first ten buyers
 
-Neither outcome requires the venture-scale ramp the broader market sizing might suggest. The 2-million-household number is real, and someday someone might build a business that addresses it. That someone does not have to be this founder, and this product does not have to be the vehicle.
+The first buyers are **solvers** — people who have already discovered, at least once, that they
+were tolerating a daily annoyance, and fixed it with a purchase. They bought the robot mower,
+the robot vacuum, the espresso machine. They remember the relief. They are tuned to that
+frequency.
 
----
-
-## Finding the first 10 buyers
-
-The first buyers will be **solvers** — people who have already, at least once, discovered they were tolerating a daily annoyance and fixed it with a purchase. They bought the robot mower, the robot vacuum, the espresso machine. They remember the relief. They are tuned to that frequency.
-
-Solvers are early adopters by nature. They act on new information faster than everyone else. They are not the entire market — the broader market is everyone who hates the cans and can write the check — but they are the first 10 because they need the least convincing. Show them the faucet, tell them it's real Diet Mountain Dew, and they'll do the rest of the math themselves.
+Solvers act on new information faster than everyone else. They are the first ten because they
+need the least convincing: show them the faucet, tell them it is real Diet Mountain Dew, and
+they do the rest of the math themselves.
 
 ### Where solvers spend time
 
-We do not look in soda spaces — there are none worth finding. We look in places where people share solutions to daily life problems:
+Not soda spaces; there are none worth finding. Places where people share solutions to daily
+problems:
 
-- **Smart home communities.** r/smarthome, r/homeautomation, Home Assistant forums. People who already understand "spend money once, eliminate a recurring annoyance forever."
-- **Robot vacuum / mower communities.** r/robotvacuums, r/automower, YouTube reviewers. People who have *already felt the relief*.
-- **Kitchen and home upgrade spaces.** r/kitchenremodel, r/homeowners, Wirecutter comment sections, home appliance review channels. People mid-renovation or post-move scanning for what else to improve.
-- **The "adulting upgrade" genre on TikTok/Instagram.** "Things in my house that were worth every penny," "purchases I'll never regret." Where solvers discover new things to solve.
-- **3D printing and maker communities.** Makers are solvers by nature. They're the most likely to share this with someone they know who drinks soda.
+- **Smart home communities.** r/smarthome, r/homeautomation, Home Assistant forums — people who
+  already understand "spend money once, eliminate a recurring annoyance forever."
+- **Robot vacuum and mower communities.** People who have *already felt the relief*.
+- **Kitchen and home upgrade spaces.** r/kitchenremodel, r/homeowners, appliance review channels
+  — people mid-renovation or post-move, scanning for what else to improve.
+- **The "worth every penny" genre on TikTok and Instagram.** Where solvers discover new things
+  to solve.
+- **3D printing and maker communities.** Makers are solvers by nature, and the most likely to
+  forward this to someone they know who drinks soda.
 
 ### The coworker model
 
-"You know, they have a machine for that now." That casual, offhand mention from someone who knows you — that's more powerful than any ad. The founder learned about robot mowers this way. The goal is to create the conditions for that sentence to happen:
-
-1. Get units into kitchens where visitors will see them.
-2. Make the product visually obvious and conversation-starting enough that guests ask about it.
-3. Give owners something easy to share — a link, a video, a way to say "look at this" to the friend they already know drinks Diet Coke every day.
-
----
+"You know, they have a machine for that now." That offhand mention from someone who knows you
+beats any ad; it is how Derek learned about robot mowers. The goal is to create the conditions
+for that sentence: get units into kitchens where visitors see them, make the machine visually
+obvious enough that guests ask, and give owners something easy to hand over — a link, a video, a
+way to say "look at this" to the friend they already know drinks Diet Coke every day.
 
 ## What this means for how we go to market
 
-### At 10 units/year, every sale is a conversation.
+**Direct only.** The one sales channel is homesodamachine.com. What that means for listings and
+certifications is [`/business/regulatory.md`](/business/regulatory.md).
 
-We are not running ads. We are not in retail. We are finding 10 people — one at a time — who hate the cans, and showing them the faucet. At this scale, the founder is the sales team.
+**At a dozen units a year, every sale is a conversation.** No ads, no retail. Ten people found
+one at a time, shown the faucet. The founder is the sales team.
 
-### Discovery is the entire problem.
+**Discovery is the entire problem.** The product sells itself once someone knows it exists and
+believes it works. The hours go into manufacturing the "wait, that's *real*?" moment.
 
-The product sells itself once someone knows it exists and believes it works. Every hour we spend will go toward manufacturing the "wait, that's *real*?" moment.
+**The kitchen is the context.** Every piece of marketing shows this in a real kitchen. Nice
+countertop, nice faucet, glass with ice.
 
-### Video is the discovery mechanism.
+**"He hates these cans" is the hook.** The *Jerk* reference names the emotion, is funny enough
+to disarm, and filters: people who get neither the reference nor the feeling are not buyers.
 
-The buyer needs to see the handle turn and the soda pour. Thirty seconds. The ordinariness is the message — this isn't a science project, it's Tuesday morning. Short-form video (TikTok, Instagram Reels, YouTube Shorts) is the primary channel. Not because we're targeting a young demographic — because that's where a 30-second "wait, what?" moment gets shared.
+### Video is the discovery mechanism, and it is not running
 
-### The kitchen is the context.
+The buyer needs to see the handle turn and the soda pour. Thirty seconds. The ordinariness is
+the message — not a science project, a Tuesday morning. Short-form video is the primary channel,
+because that is where a thirty-second "wait, what?" gets shared.
 
-Every piece of marketing shows this in a real kitchen. Nice countertop, nice faucet, glass with ice. It belongs here.
+Where the channel stands: seven videos, the most recent published 19 June 2026. Subscribers are
+low double digits. One video broke out to 599 lifetime views, 96.5% of them from YouTube's
+recommendation feed, and converted approximately zero subscribers
+([`/marketing/video/distribution.md`](/marketing/video/distribution.md)). The published
+catalogue is carbonator fabrication — welding and tapping — which reaches welders, a niche with
+almost no overlap with diet-soda-drinking homeowners, and which
+[`/marketing/video/concepts.md`](/marketing/video/concepts.md) places in service of *trust when
+the buyer arrives* rather than *how they arrive*.
 
-### "He hates these cans" is the hook.
-
-The *Jerk* reference does three things at once:
-
-1. **It names the emotion.** For people who feel it, instant recognition.
-2. **It's funny.** It disarms. You laugh before you realize you're being sold to.
-3. **It filters.** People who don't get it — either the reference or the feeling — aren't our buyers. That's fine.
-
-A 30-second video of the pour, ending with "He hates these cans" and a link. The people who get it will *get it*.
+The video that reaches the buyer is the pour. The pour needs a machine that pours, which is mark
+one of [`/future/README.md`](/future/README.md).
 
 ### Trust at Founder Edition: the brand is a person
 
-Between discovery ("wait, that's real?") and purchase ($7,500 from a company they've never heard of), the buyer doesn't yet know who they'd be buying from. There is no brand. There are no reviews. There is no retail shelf lending credibility. Product photography and website polish don't show enough of who you are.
+Between "wait, that's real?" and $7,500 to a company they have never heard of, the buyer does
+not know who they would be buying from. There is no brand, no reviews, no retail shelf lending
+credibility. Product photography and website polish do not show enough of who you are.
 
-At Founder Edition scale, the answer to "is this a real product?" is not a brand — it's Derek. His face, his kitchen, his story. "I built this because I was tired of hauling cans. Here's my kitchen. Here's me pouring a glass. Here's what's under the counter." The first 50 buyers are buying from a person they've come to trust, not from a company — and at $7,500 with a numbered plaque and a personal install call, that is explicitly what's for sale. The founder isn't a stopgap while the brand gets built; he *is* the product for the first 50. That means "marketing" at this stage is not brand identity work — it's building a video presence. A person showing a real product in a real kitchen, consistently.
+At Founder Edition scale the answer to "is this a real product?" is Derek. His face, his
+kitchen, his story. "I built this because I was tired of hauling cans. Here's my kitchen. Here's
+me pouring a glass. Here's what's under the counter." The first fifty buyers are buying from a
+person they have come to trust, and at $7,500 with a numbered plate and a personal install call
+that is explicitly what is for sale. He is the product for the first fifty, and marketing at
+this stage is a video presence: a person showing a real product in a real kitchen, consistently.
 
-The unboxing experience is a deliberate extension of that trust. The brief at [`unboxing-and-quickstart.md`](/marketing/unboxing-and-quickstart.md) defines what the customer sees in what order from the moment the carton arrives — the design choices there (two flat visual quick-start sheets, four-color connection wayfinding, and a hard separation between installation and the first glass) are derived from how trust gets built between buyer and founder, not from generic D2C unboxing convention.
+The unboxing extends that trust. The brief at
+[`/marketing/unboxing-and-quickstart.md`](/marketing/unboxing-and-quickstart.md) defines what
+the customer sees in what order from the moment the carton opens.
 
-By the time Standard opens, the brand carries more of the weight. At Founder Edition, the face does.
+By the time Standard opens the brand carries more of the weight. At Founder Edition, the face
+does.
 
 ### The purchase decision, once they trust the person
 
-1. **Does it taste right?** Pass/fail. Same formulation, colder, fizzier than a can. It does.
-2. **Is this real?** Answered by the founder's presence — his kitchen, his pour, his story. Not a brand promise. A person's credibility.
-3. **Is the install actually easy?** A real install video — not polished, the actual process — eliminates this objection.
-4. **What's the ongoing hassle?** Syrup every few weeks (Amazon). CO2 every few months (currently a trip to a gas supplier — a known rough edge). Cleaning automated from the app. Net: less hassle than the weekly store run.
-5. **Is $7,500 a price I can pay?** (Or, later, $5,500 at Standard.) They're comparing against other major household purchases — appliances, kitchen renovations, home theater — not against cans. The Founder Edition story reframes the number: they are buying one of 50 hand-built units from the person who designed it, not a commodity appliance. The decade math (~$6,570 in cans over 10 years) supports the decision but does not drive it; at $7,500 the machine is slightly more than a decade of the cans it replaces, and the argument lives on format change, not payback.
+1. **Does it taste right?** Pass/fail. Same formulation, colder and fizzier than a can. It does.
+2. **Is this real?** Answered by the founder's presence — his kitchen, his pour, his story.
+3. **Can I install it?** One hole in the counter, then push-fittings. A real install video — not
+   polished, the actual process, including the hole — is what settles it.
+4. **What is the ongoing hassle?** Concentrate every few weeks. CO2 every few months, currently
+   a trip to a gas supplier. Cleaning is a cycle the machine runs. Against the weekly store run.
+5. **Is the price one I can pay?** They compare against other major household purchases —
+   appliances, renovations, home theater. One of fifty hand-built units from the person who
+   designed it.
 
-### CO2 sits right at the appliance.
+### The CO2 pain point needs honesty
 
-The CO2 cylinder lives beside the appliance in the under-sink cabinet on a short tether to the inlet in the +Y wall of back-top — the customer can see the connection and reach the cylinder valve without crawling. CO2 refills mean a trip to a local welding gas supplier or a delivered swap (per [`/future/pie-in-the-sky/co2-service.md`](/future/pie-in-the-sky/co2-service.md)); we message this honestly: "CO2 lasts months. When it runs out, a local supplier refills it, or we deliver."
+The cylinder lives beside the appliance in the cabinet on a short tether to the inlet in the +Y
+wall of back-top, where the customer can see the connection and reach the valve without
+crawling. It is customer-supplied, and refilling means a trip to a local welding or homebrew
+supplier — or a delivered swap
+([`/future/pie-in-the-sky/co2-service.md`](/future/pie-in-the-sky/co2-service.md)). What we say
+is the plain thing: CO2 lasts months, and when it runs out a local supplier fills it.
 
----
+## Adjacencies
 
-## Adjacencies and expansion paths
+Adjacent markets for later, not launch targets.
 
-These are adjacent markets for later — not launch targets.
+- **Sugar soda drinkers.** Full-sugar Pepsi, Mountain Dew, Mug and Starry concentrates exist,
+  and the machine handles them identically.
+- **Sparkling water power users.** Four LaCroix a day is the same can problem in the same
+  kitchen.
+- **Small offices and break rooms.** SodaStream Professional is discontinued and that market is
+  unserved. Either price is a rounding error in a break room.
+- **A cheaper machine.** As BOM falls with volume, a lower-priced model opens a much larger
+  market beneath the Founder Edition's story.
 
-- **Sugar soda drinkers.** Full-sugar Pepsi, Mountain Dew, Mug Root Beer, and Starry concentrates exist. The machine handles them equally. Diet-first is a go-to-market choice, not a technical limitation.
-- **Sparkling water power users.** 4+ LaCroix a day = same can problem, same kitchen profile. Natural expansion.
-- **Small offices and break rooms.** SodaStream Professional is dead. That market is unserved. $7,500 — or $5,500 once Standard opens — in an office break room is a rounding error.
-- **Price-down model.** As BOM costs decrease with volume, a $3,000-4,000 version opens a significantly larger market down the road. The Founder Edition establishes the brand at the top with a real story; Standard sits below it at $5,500; a future lower-priced model rides the credibility downhill from there.
-
----
+A wider catalogue — editorial advice, a CO2 kit, a delivery service, a countertop unit — is a
+desire with no plan behind it, held at
+[`/future/pie-in-the-sky/curator-brand.md`](/future/pie-in-the-sky/curator-brand.md).
 
 ## Open questions
 
-1. **Real people who fit the profile.** Friends, coworkers, family who drink diet soda daily and have the can hatred? Even 3-4 examples validate or challenge everything above.
-2. **The visible product.** What does the faucet and visible hardware look like now? The legitimacy question at $7,500 lives or dies on surfaces.
-3. **Timeline to a sellable unit.** Not rushing — but 6 months vs. 18 months changes how we sequence marketing work.
-4. **The coworker.** The one who told you about robot mowers. Do they drink soda? Do they know you built this? What did they say?
+Three, and each one is Derek's to close. Nothing in the tree can answer them.
+
+1. **Real people who fit the profile.** Friends, coworkers, family who drink diet soda daily and
+   carry the can hatred. Three or four named examples validate or challenge everything above,
+   and they are also ring 1.
+2. **The coworker.** The one who mentioned robot mowers. Do they drink soda? Do they know this
+   exists? What did they say?
+3. **The dates.** The pour video waits on the first machine that pours, so the marketing
+   sequence follows the build. The dates for that mark and the two after it belong on
+   [`/future/README.md`](/future/README.md) "The dates."
+
+## Sources
+[value](NAME) texts are updated by:
+- `/marketing/_target_market_sync.py`

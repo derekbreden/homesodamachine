@@ -9057,6 +9057,42 @@ cp marketing/install-envelope.md $$O0
 )
 
 genrule(
+    name = "target-market-sync",
+    srcs = [
+        ":out/bom-masses/hardware/ledger/bom.figures.json",
+        ":out/bom-masses/hardware/ledger/labor.figures.json",
+        ":out/machine-time/hardware/ledger/machine-time.figures.json",
+        "pysrc/marketing/_target_market_sync.py",
+        "marketing/target-market.md",
+        "pysrc/tools/docgen/__init__.py",
+    ],
+    outs = [
+        "out/target-market-sync/marketing/target-market.md",
+    ],
+    cmd = """
+set -e
+O0=$$PWD/$(location out/target-market-sync/marketing/target-market.md)
+for f in $(SRCS); do
+  case $$f in
+    */node_modules/*) continue;;
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    */pysrc/*) t=$${f##*/pysrc/};;
+    *) t=$$f;;
+  esac
+  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+done
+cd work
+ln -sfn $$HSM_WORKSPACE/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python marketing/_target_market_sync.py > /dev/null
+cp marketing/target-market.md $$O0
+""",
+)
+
+genrule(
     name = "pysrc-8a6bb584d70c",
     srcs = ["hardware/assembly/_acceptance_and_burn_in_sync.py"],
     outs = ["pysrc/hardware/assembly/_acceptance_and_burn_in_sync.py"],
@@ -10468,6 +10504,14 @@ genrule(
     name = "pysrc-5f184b1c3146",
     srcs = ["marketing/_install_envelope_sync.py"],
     outs = ["pysrc/marketing/_install_envelope_sync.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-17174cd28f0b",
+    srcs = ["marketing/_target_market_sync.py"],
+    outs = ["pysrc/marketing/_target_market_sync.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -18203,5 +18247,6 @@ filegroup(
         ":fluid-topology-sync",
         ":ac-wiring-schedule-sync",
         ":install-envelope-sync",
+        ":target-market-sync",
     ],
 )

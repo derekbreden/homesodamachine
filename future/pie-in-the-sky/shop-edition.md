@@ -75,7 +75,7 @@ The "He hates these cans" framing still applies. The cans were always going to l
 
 - **Front-face industrial design is real work.** The appliance gets away with the front face being utility because the user never sees it. A countertop unit does not. The dispense gooseneck, drip grate, display surround, button layout, arm switch placement, LED edge geometry — that's a real ID pass, not just a part swap.
 - **Tip-over and rear clearance.** Freestanding on a countertop means a wide stable footprint and a rear-condenser-exhaust-side gap the customer can't defeat by shoving the unit flush to a wall. Side-to-side airflow needs both side gaps respected. A rear standoff bumper helps; a printed "do not place against wall on this side" arrow on the +Y wall of back-top helps more.
-- **Drain install friction.** Adds one connection at install. Targets the "plug and play in under an hour" promise. Manageable in the countertop context where the customer is already running water and CO2 through stud bays.
+- **Drain install friction.** Adds one connection at install, on top of the water and CO2 the appliance already asks for ([`target-market.md`](/marketing/target-market.md) "What install asks"). Manageable in the countertop context where the customer is already running water and CO2 through stud bays.
 - **Don't backport to the appliance.** The drain feature looks attractive for unattended clean cycles there too. Resist. The appliance has a sink under it and a clean cycle that already works. Scope discipline.
 
 ## What's needed to validate this is real
