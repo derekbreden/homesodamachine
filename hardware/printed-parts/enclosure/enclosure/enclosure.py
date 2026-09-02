@@ -1073,7 +1073,8 @@ c14_station_x = 66.9
 # wall beyond them. The aperture and both insert stations lie inside the relieved field and
 # their cutters still run after the tunnel is fused.
 back_top_wall_reliefs = (
-    ("co2-inlet", 2.65, 336.21, 30.0, 30.0),      # the neoFit's nut, across its corners
+    ("co2-inlet", 2.45, 336.21, 30.0, 30.0),      # the neoFit's nut across its corners, on
+                                                  # enclosure_assembly.CO2_COLUMN (`co2-relief`)
     ("c14-inlet", c14_station_x, 336.21, 46.4, 35.15),
 )
 # THE LAND'S SKIRT RUNS TWO MILLIMETRES IN PLAN FOR THE ONE IT FALLS. A relieved port station
@@ -6271,10 +6272,10 @@ def _pan_sleeve(solid, sleeve, z0, z1):
     where the pack states them; only free clearance above the inserted rim grows toward the
     mouth. No short roof remains over material printed below it.
 
-    THE LEAD NOTCH HAS A FLAT ROOF. It crosses only the exterior wall above the block's own lid,
-    over the moisture plate's solder holes. Its stated top closes that short wall crossing in
-    one horizontal plane; the sleeve already has supported faces in this region, so this
-    service-facing opening keeps the simpler rectangular section."""
+    THE DOCK IS THREE MORE CUTS IN THE BACKSTOP, and none of them a roof the piece cannot span:
+    the male's window and its pocket run through the block on the pan's own axis, each a bridge
+    one pill wide, and the lead channel drops out of the pocket's floor through the block's.
+    The berth is not touched by any of the three."""
     adds, cuts = sleeve
     blocks = [b for b in adds if z0 <= b[5] <= z1]
     for x0, x1, y0, y1, bz0, bz1 in blocks:
@@ -6286,7 +6287,7 @@ def _pan_sleeve(solid, sleeve, z0, z1):
         solid = solid.cut(_ybox(x0, x1, y0, y1, cz0, cz1))
     # The rebate is the larger plan box whose roof is exactly the central mouth's floor. Find
     # that relationship in the pack rather than naming either cut by position: the well overlaps
-    # the rebate in Z, and the narrow lead race crosses several levels, but neither has this one
+    # the rebate in Z, and the dock's three cuts stand in the backstop, but none has this one
     # contained, face-to-face transition.
     roof_pairs = [
         (rebate, mouth)

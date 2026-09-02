@@ -3,9 +3,12 @@
 Printed catch pan for the service bay, standing under the ASSE 1022 chain's
 atmospheric-vent tip. The Shutao moisture probe lies flat in it; any vent drip,
 condensate, or overflow pools in the pan and wets the probe, tripping the
-moisture alarm.
+moisture alarm. The probe's leads never leave the pan: they run inside it to a
+magnetic pogo dock in the pan's east wall, and the pan's own travel mates that
+dock with its other half in the sleeve's backstop.
 
-One part prints here: the **pan**.
+One part prints here: the **pan**. It carries one bought part, the female half of the
+[JHYOSSTHI 2-pin magnetic pogo pair](/hardware/reference/jhyossthi-pogo-dock/).
 
 | | pan |
 |---|---|
@@ -14,6 +17,7 @@ One part prints here: the **pan**.
 | over the rim | [59](PAN_RIM_LEN) × [84](PAN_RIM_DEPTH) mm at the flange |
 | section | [2.5](PAN_WALL) mm walls on a [3](PAN_FLOOR) mm floor |
 | capacity | [39.2](PAN_CAPACITY) mL to the rim |
+| dock | [14.5](DOCK_PILL_L) × [4](DOCK_PILL_W) mm pill in the east wall, pads flush in its outer face, [9](DOCK_Z_MM) mm up |
 
 One plan outline at r[6](PAN_CORNER_R), and everything is that outline at its own
 offset — floor slab and walls on the outline itself, the flange on the outline
@@ -111,12 +115,45 @@ to the enclosure skin, so the face masks the two-level wall slot without becomin
 the insertion stop. Its [2.5](PULL_FACE_CHAMFER) mm corners rise at 45 degrees from
 the print bed. Thumb on the flange's top, fingertip under the floor, and it comes.
 
-The probe's two leads rise from their holes in the open pan and turn west through
-the sleeve's **open-top wall notch**. The notch is on the holes' Y station and crosses
-only the withdrawal wall; the pan mouth is already open everywhere inboard of it.
-The pan can therefore be drawn without pinching a lead under the lid or dragging a
-solder joint across an edge. The sleeve keeps nearly all of its flange lap, and the
-pan itself remains uncut and watertight.
+## The dock
+
+The plate's two leads run inside the pan — along the floor and up the east wall — to
+the **female half** of the magnetic pogo pair, potted in the east wall with its two pads
+flush in the wall's outer face, [9](DOCK_Z_MM) mm up from the floor's underside on the
+pan's centreline. Its window is cut through the outer [1](DOCK_NOSE_T) mm of wall on the
+nose's own outline, and its flange sits in a pocket through the rest of the wall and one
+[1.5](DOCK_BOSS_MM) mm boss stood into the cavity behind it, [17.7](DOCK_BOSS_RUN) mm
+along the wall; each section is one [0.1](DOCK_SLIP_MM) mm slip larger than the pill.
+The step between window and pocket is the nose's shoulder, so the wall's own material is
+what the magnets pull the pill against. The pill goes in from the cavity, nose first,
+until those shoulders stop it; its two tails then stand [1.5](DOCK_TAIL_L) mm proud of the
+boss on the pins' [2.5](DOCK_PIN_PITCH) mm pitch, the leads solder to them there, and the
+pocket's mouth is potted over the joints.
+
+The **male half** stands in the sleeve's backstop looking west at the pads
+(`enclosure_assembly.build_dock`, `enclosure_assembly.pan_sleeve`), its nose one slip
+behind the face the pan rests on, so the backstop and not the connector is what the pan
+comes to rest against. Sliding the pan home brings the pads onto the pins, and the
+pair's magnets hold the pan on the backstop from then on. Drawing the pan west parts
+them. The pan leaves the machine with its plate, its leads and its dock aboard, and
+nothing trails it out; the plate is tethered to the wall by its own leads and comes back
+in the pan it left in.
+
+The boss stands **over** the plate's east edge and never on it: its underside is a 45°
+chamfer off the wall, and `check_dock_clears_plate()` measures that chamfer against the
+plate's top east edge with the plate slid its whole slip east — [0.92](DOCK_PLATE_CLEAR_MM) mm
+here, against a floor of [0.5](DOCK_PLATE_CLEAR_MIN). The height is bounded from above
+too: the male's pocket in the backstop keeps [1.10](DOCK_ROOF_MM) mm of block under the rim
+rebate's floor, against a floor of [1](DOCK_ROOF_MIN) (`check_dock_roof()`). Both are gate
+rows on the machine's scorecard beside `plate-lies-flat`.
+
+Below the pocket's sill the pan is the watertight box it was: [3.9](DOCK_SILL) mm of water
+over the floor, [12.7](DOCK_SILL_ML) mL, before the pool reaches the potting — four times
+the millimetre the plate trips on. Above the sill it is the potting and not the wall that
+holds the water, up to the [39.2](PAN_CAPACITY) mL the rim stands over.
+
+What the dock does not read: a pan drawn out parts the pads from the pins, and open pads
+read the same as a dry plate. The machine sees a dry pan whether the pan is in or out.
 
 ## Regenerate
 
