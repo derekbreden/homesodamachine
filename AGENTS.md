@@ -36,6 +36,18 @@ The pcba board (`hardware/pcb/pcba`) consumes forked `@tscircuit/*` packages (an
 
 You have access to my Chrome which is signed in to my amazon through your MCP. I only care about Amazon Prime listings. Non-Prime listings are non-existent as far as I am concerned. Do not read them. Do not mention them. They do not exist.
 
+## What else an agent should have read
+
+- `NAMES.md` — one thing, one name. The words this tree uses, and what each points at.
+- `calibration/Principle.md` — how Derek and the agents here work, distilled from the two
+  rooms in `calibration/principle/`. Any rule is better encoded as an example.
+- `hardware/design-pressures.md` — what the appliance is optimised for and what it is not.
+  Placement decisions answer to it: volume and assemblability yes, field service no.
+- `hardware/printed-parts/AGENTS.md` and `hardware/printed-parts/enclosure/AGENTS.md` — the
+  publish loop, and the support-removal policy to read before moving any down-facing geometry.
+- `tools/checks.py --list` names every check this tree runs against itself; `web/public/checks.json`
+  is the last reading, and the settings gear on the site carries it.
+
 ## History
 
 Git keeps history. Code and docs in this repo describe current state. Don't write "was X, now Y" or decision narratives in current files. Don't defend the current choice against alternatives the reader hasn't asked about. The repo describes only what is.
