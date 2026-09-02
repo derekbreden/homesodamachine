@@ -6,8 +6,8 @@ A job stack, because a harness is built in campaigns: the storeys come off the c
 onto the bench, every assembly in the schedule is cut, stripped, terminated, sleeved and
 tested out of them, and they go back. Its footprint is
 [126 mm x 126 mm](FOOTPRINT) — one 3 x 3 Gridfinity module. The printed column reaches
-[327.8 mm](PRINTED_HEIGHT) to the rack's top reference; the Preciva crimper's handles
-set the populated height at [534.2 mm](POPULATED_HEIGHT).
+[355.8 mm](PRINTED_HEIGHT) to the rack's top reference; the Preciva crimper's handles
+set the populated height at [562.2 mm](POPULATED_HEIGHT).
 
 The job is [`cable-assemblies.md`](../../../assembly/cable-assemblies.md) and the bench is
 [`cr-crimp-bench.html`](../../../assembly/cards/tools/cr-crimp-bench.html). Bottom to top the
@@ -24,7 +24,7 @@ conductor, and the rack closes the column.
 4. **Ferrules** ([5U](FERRULES_HEIGHT)) — six compartments by cross-section. The two the
    machine lands, 0.34 mm² on 22 AWG and 1.5 mm² on 16 AWG, take the front-left and
    front-middle compartments and 500 of the Preciva kit's 950 pieces.
-5. **Heat-shrink** ([5U](SHRINK_HEIGHT)) — six compartments, the assortment decanted by
+5. **Heat-shrink** ([9U](SHRINK_HEIGHT)) — six compartments, the assortment decanted by
    diameter. A [44.5 mm](SHRINK_CUT) cut length lies along the compartment's long axis.
 6. **The job rack** ([6U](RACK_HEIGHT)) — a lipped blank with four head-down tool sockets
    and one open parts well.
@@ -43,7 +43,7 @@ which leans into the +Y end of every compartment.
 | `harness-ties.step` | 1 | Gridfinity feet on the bed, compartments up | [125.5 x 125.5 x 66.8 mm](TIES_ENVELOPE) |
 | `harness-terminals.step` | 1 | Gridfinity feet on the bed, compartments up | [125.5 x 125.5 x 73.8 mm](TERMINALS_ENVELOPE) |
 | `harness-ferrules.step` | 1 | Gridfinity feet on the bed, compartments up | [125.5 x 125.5 x 38.8 mm](FERRULES_ENVELOPE) |
-| `harness-shrink.step` | 1 | Gridfinity feet on the bed, compartments up | [125.5 x 125.5 x 38.8 mm](SHRINK_ENVELOPE) |
+| `harness-shrink.step` | 1 | Gridfinity feet on the bed, compartments up | [125.5 x 125.5 x 66.8 mm](SHRINK_ENVELOPE) |
 | `harness-rack.step` | 1 | Gridfinity feet on the bed, sockets up | [125.5 x 125.5 x 45.8 mm](RACK_ENVELOPE) |
 | `harness-dock.step` | 1 | Slab on the bed, baseplate recesses up | [126.0 x 126.0 x 10.8 mm](DOCK_ENVELOPE) |
 
@@ -108,11 +108,14 @@ is 16 AWG.
 
 | Row | Left | Middle | Right |
 |---|---|---|---|
-| Front | 2.4 mm, 250 | 3.2 mm, 110 | 4.8 mm, 60 |
-| Back | 6.4 mm, 40 | 9.5 mm, 25 | 12.7 mm, 15 |
+| Front | 1.06–1.59 mm, 190 | 2.12 mm, 100 | 3.18–3.57 mm, 90 |
+| Back | 3.97 mm, 70 | 5.08–5.95 mm, 50 | 7.94–9.92 mm, 80 |
 
-The assortment is one 2:1 kit ([B0FRNMXN6Q](https://www.amazon.com/dp/B0FRNMXN6Q))
-decanted by diameter.
+The assortment is one 2:1 kit — the Ginsco 580-piece, eleven sizes
+([B01MFA3OFA](https://www.amazon.com/dp/B01MFA3OFA)) — decanted by diameter into six
+compartments. The three smallest sizes share the first and the two pairs above 5 mm share
+theirs; a compartment is sized on the widest sleeve it takes and holds what all its sizes
+occupy.
 
 ### `harness-rack`
 
@@ -156,10 +159,10 @@ and the per-build allocation is [`bom.md`](../../../ledger/bom.md) §11.
   female, 19.05 mm on the 4.8 mm, 16.0 mm on the 0.11" male); no listing states an
   insulation barrel diameter, so each terminal is modelled as a generous sleeve cylinder
   and the head it lands on. The smseace ring is the RV1.25-3 part its listing names.
-- **Heat-shrink** — the kit's piece count and per-size split are not published
-  ([`bom.md`](../../../ledger/bom.md) §11 records the same), so the six compartments carry
-  a generous 500-piece assortment over the diameters a 2:1 kit of this class supplies, at
-  a [44.5 mm](SHRINK_CUT) cut length.
+- **Heat-shrink** — the Ginsco listing states all eleven diameters and the pieces of each,
+  in fractional inches, so the counts here are the kit's own and not an assortment's shape.
+  It publishes no piece length; the [44.5 mm](SHRINK_CUT) cut is generous and bounded by the
+  listing's own 198 g over 580 pieces, which leaves 80 g for the organizer the kit ships in.
 - **Preciva ferrule crimper** — the kit listing's [240 x 48 mm](PRECIVA_ENVELOPE) tool.
   Its head thickness and the head's share of the length are not published; both are
   generous.
