@@ -18,3 +18,7 @@ click: x=38.160 y=466.250 z=229.715
 [slope] The PRV top share's underside crossing the rail channel — between the flank bedding plane and the rib's lip slope it follows the channel's own east gable, the same 45° roof plane the channel carves wherever it meets material. The strip lies on the rib's two 2 mm jamb bands beside the passage and prints as every channel gable does; a level foot under it would stand a step back inside the channel's swept section.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-97.775 y=319.500 z=178.525
+
+[ceiling] Relay #2's upper end bar — its two mounting holes stand over the board's own pin field, which reaches to within a quarter millimetre of the flank, so no wedge can stand under the bar between its two wall-rooted wings (`wall_mounts` profiles the bar's span against the installed relay the way it profiles a single boss). The 15 mm underside between the wings is a bridge two layers deep, the same flat each of the two D stems hung before they became one bar.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=97.375 y=337.000 z=317.900
