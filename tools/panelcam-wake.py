@@ -28,10 +28,9 @@ try:
     s.baudrate = 115200
     s.timeout = 0.05
     s.write_timeout = 2
-    # Set the lines before open so pyserial does not pulse the main board's Q2/Q3
-    # auto-reset lattice merely to ask its already-running console for a command.
-    s.dtr = False
-    s.rts = False
+    # Opening a CH340 on macOS asserts DTR and RTS whatever they were set to, and that
+    # restarts the main board through Q2/Q3. The command waits in the UART's buffer and
+    # the restarted board answers it; both glasses keep their pages through the restart.
     s.open()
 except Exception:
     sys.exit(0)

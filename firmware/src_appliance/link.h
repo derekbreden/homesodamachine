@@ -61,3 +61,7 @@ bool linkWifiApState(WifiApStatePayload &out);
 // Make an externally-powered enclosure display present a fresh USB attach. An application
 // that knows MSG_DISPLAY_USB_REATTACH briefly deep-sleeps its USB PHY.
 bool linkDisplayUsbReattach();
+
+// The camera's test screen on the enclosure display for this many seconds, 0
+// to end it now. True when the display answered.
+bool linkTestScreen(uint16_t seconds);

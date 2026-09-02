@@ -75,6 +75,7 @@ pio device monitor -e appliance
 | `link` | J9 frames/echo plus J3 connection, synchronization, state heartbeats, duplicates and invalid frames |
 | `ping` | put a frame on the pair and read its echo back |
 | `display usb` | explicitly detach/wake the enclosure display's USB PHY |
+| `test [s\|off]` | the camera's test screen on the enclosure display for `s` seconds (default 120); both glasses stay lit meanwhile |
 | `sound <name>` | play one of the machine's sounds; `sound list` names them and what each would play at |
 | `volume [0-100]` | how loud everything but the alarm is, persisted in NVS |
 | `quiet [on\|off] [start] [end] [pct]` | quiet hours, read off the DS3231, persisted |
