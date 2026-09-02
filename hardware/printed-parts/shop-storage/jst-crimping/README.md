@@ -21,7 +21,7 @@ The job lives in three storeys:
    wells.
 
 The large gabled openings in the carcass have 45-degree roofs. They expose the
-spool, reduce PET-GF, and print upright without support.
+spool, save plastic, and print upright without support.
 
 ## Printed parts
 
@@ -102,9 +102,9 @@ tools/cad-venv/bin/python \
   hardware/printed-parts/shop-storage/jst-crimping/jst_crimping_tower.py
 ```
 
-Use Polymaker Fiberon PET-GF15 with the project's calibrated H2C PET-GF profile
-and an abrasion-rated left hotend. Keep the exported orientations and leave
-supports off. The carcass windows and spool rests are limited to 45-degree
+The tower prints in Bambu PETG Basic black from the AMS 2 Pro on the H2C's right
+hotend, like every kit in [`shop-storage/`](../README.md). Keep the exported
+orientations and leave supports off. The carcass windows and spool rests are limited to 45-degree
 overhangs; the Gridfinity features come from the library's printable profiles.
 
 Assembly order is drawer, spool shelf, spool, removable top shelf, then tool
