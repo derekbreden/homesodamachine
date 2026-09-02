@@ -134,7 +134,8 @@ def receptacle_cut(x: float, z: float, y_face: float):
     # other pair it climbs across the face, which is an angle no jack has.
     top = z + APERTURE_H / 2.0
     ease = (cq.Workplane("YZ")
-            .polyline([(y_face, top), (y_lip, top), (y_lip, top + ease_rise())]).close()
+            .polyline([(y_face, top), (y_lip, top), (y_lip, top + ease_rise()),
+                       (y_face, top)]).wire()
             .extrude(APERTURE_W)
             .translate((x - APERTURE_W / 2.0, 0.0, 0.0)))
     return aperture.union(pocket).union(ease).val(), (y_lip, y_back)

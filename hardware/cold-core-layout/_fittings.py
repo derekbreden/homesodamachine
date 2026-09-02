@@ -28,7 +28,7 @@ def _hex(across_flats: float, height: float) -> cq.Solid:
     r = across_flats / math.sqrt(3.0)      # across-flats to circumradius
     pts = [(r * math.cos(math.radians(60 * i)), r * math.sin(math.radians(60 * i)))
            for i in range(6)]
-    return cq.Workplane("XY").polyline(pts).close().extrude(height).val()
+    return cq.Workplane("XY").polyline(pts + pts[:1]).wire().extrude(height).val()
 
 
 def _cyl(radius: float, height: float, base=(0, 0, 0), axis=(0, 0, 1)) -> cq.Solid:

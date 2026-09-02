@@ -784,7 +784,8 @@ def _base_pod_teardrops(z_bottom: float, z_height: float) -> cq.Workplane:
         .lineTo(*Tp_u)
         .threePointArc(tip, Tp_l)
         .lineTo(*Tf_l)
-        .close()
+        .lineTo(*Tf_u)
+        .wire()
         .extrude(z_height)
     ).val()
     minus = plus.mirror("YZ")
@@ -960,7 +961,7 @@ def _arch_extrude(x_bottom: float, x_height: float) -> cq.Workplane:
         .lineTo(fill_y_min, zone4_z_top)
         .threePointArc((back_arch_mid_y, back_arch_mid_z),
                        (shell_rect_y_min, zone3_z_bottom))
-        .close()
+        .wire()
         .extrude(x_height)
     )
 
@@ -986,7 +987,8 @@ def build_zone3_inner_cut() -> cq.Workplane:
             .lineTo(-bore_y_oversize, shell_arch_bore_z_foot_top)
             .threePointArc((0, shell_arch_bore_z_peak),
                            (+bore_y_oversize, shell_arch_bore_z_foot_top))
-            .close()
+            .lineTo(+bore_y_oversize, zone3_z_bottom)
+            .wire()
             .extrude(x_height)
         )
 
@@ -1075,7 +1077,8 @@ def build_zone45_outer() -> cq.Workplane:
         .lineTo(shell_rect_y_max, zone4_z_top)
         .lineTo(shell_rect_y_max, zone45_z_top)
         .lineTo(zone45_front_y, zone45_z_top)
-        .close()
+        .lineTo(zone45_front_y, zone45_z_bottom_at_front)
+        .wire()
         .extrude(2.0 * x_half)
     )
 
@@ -1712,7 +1715,8 @@ def build_lever_clearance() -> cq.Workplane:
             (lever_ramp_y_min, z_bot),
             (lever_ramp_y_min, z_top),
             (lever_ramp_y_start, z_top),
-        ]).close()
+            (lever_ramp_y_min, z_bot),
+        ]).wire()
         .extrude(2.0 * x_half)
     )
 

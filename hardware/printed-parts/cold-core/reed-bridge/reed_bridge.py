@@ -205,20 +205,31 @@ carried_copper = wraps_carried * effective_lift_arc
 overcut = 1.0
 
 
+def _ring(section):
+    """A section's own points with the first repeated, so the closing edge is DRAWN.
+
+    `close()` infers it instead, from the last edge's end read back off OCCT — a few 1e-16 off
+    the point that was passed in — and a tangential boolean downstream resolves that vertex one
+    way in one process and the other way in the next. Naming the point is what makes the same
+    source write the same bytes."""
+    pts = list(section)
+    return pts if pts[0] == pts[-1] else pts + [pts[0]]
+
+
 def _ridge_ring():
     """Revolved profile giving the axial ramps: a skirt_thickness band over
     the whole height, standing to plateau_radius between the two ramps."""
     return (
         cq.Workplane("XZ")
-        .polyline([
+        .polyline(_ring([
             (inner_radius, bridge_z_bottom),
             (skirt_radius, bridge_z_bottom),
             (plateau_radius, plateau_z_bottom),
             (plateau_radius, plateau_z_top),
             (skirt_radius, bridge_z_top),
             (inner_radius, bridge_z_top),
-        ])
-        .close()
+        ]))
+        .wire()
         .revolve(360)
     )
 
@@ -242,8 +253,8 @@ def _bump_prism():
     return (
         cq.Workplane("XY")
         .workplane(offset=bridge_z_bottom - overcut)
-        .polyline(outline)
-        .close()
+        .polyline(_ring(outline))
+        .wire()
         .extrude(bridge_height + 2 * overcut)
     )
 
@@ -311,15 +322,15 @@ def build_setting_gauge():
     bridge's bottom edge goes."""
     return (
         cq.Workplane("XZ")
-        .polyline([
+        .polyline(_ring([
             (inner_radius - gauge_hook_depth, -gauge_hook_height),
             (inner_radius + gauge_wall, -gauge_hook_height),
             (inner_radius + gauge_wall, bridge_z_bottom),
             (inner_radius, bridge_z_bottom),
             (inner_radius, 0.0),
             (inner_radius - gauge_hook_depth, 0.0),
-        ])
-        .close()
+        ]))
+        .wire()
         .revolve(gauge_arc_degrees)
     )
 

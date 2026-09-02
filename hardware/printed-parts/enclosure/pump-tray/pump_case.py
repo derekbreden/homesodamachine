@@ -229,6 +229,17 @@ def bore_octagon_profile():
     return pts
 
 
+def _ring(section):
+    """A section's own points with the first repeated, so the closing edge is DRAWN.
+
+    `close()` infers it instead, from the last edge's end read back off OCCT — a few 1e-16 off
+    the point that was passed in — and a tangential boolean downstream resolves that vertex one
+    way in one process and the other way in the next. Naming the point is what makes the same
+    source write the same bytes."""
+    pts = list(section)
+    return pts if pts[0] == pts[-1] else pts + [pts[0]]
+
+
 def offset_polygon(pts, distance):
     """Offset each edge of a closed polygon outward by distance."""
     n = len(pts)
@@ -461,11 +472,11 @@ def build_base_plate_with_ramp():
         WorldWorkplane(xy_plane_z_up)
         .workplane(offset=0)
         .center(center_x, center_y)
-        .polyline(footprint).close()
+        .polyline(_ring(footprint)).wire()
         .workplane(offset=base_thickness)
-        .polyline(footprint).close()
+        .polyline(_ring(footprint)).wire()
         .workplane(offset=ramp_from_skirt_to_octagon_height)
-        .polyline(footprint_at_ramp_bottom).close()
+        .polyline(_ring(footprint_at_ramp_bottom)).wire()
         .loft(ruled=True)
     )
 
@@ -476,7 +487,7 @@ def add_bore_wall(solid):
         WorldWorkplane(xy_plane_z_up)
         .workplane(offset=0)
         .center(center_x, center_y)
-        .polyline(bore_wall_profile).close()
+        .polyline(_ring(bore_wall_profile)).wire()
         .extrude(bore_depth)
     )
     return solid.union(bore_wall)
@@ -489,7 +500,7 @@ def cut_bore_cavity(solid):
         WorldWorkplane(xy_plane_z_up)
         .workplane(offset=0)
         .center(center_x, center_y)
-        .polyline(bore_profile).close()
+        .polyline(_ring(bore_profile)).wire()
         .extrude(bore_depth + overcut)
     )
     return solid.cut(bore_cavity)
@@ -637,7 +648,7 @@ def _profile_prism(profile, z0, z1):
     return (WorldWorkplane(xy_plane_z_up)
             .workplane(offset=z0)
             .center(center_x, center_y)
-            .polyline(profile).close()
+            .polyline(_ring(profile)).wire()
             .extrude(z1 - z0))
 
 
@@ -750,7 +761,7 @@ def drop_well(air=0.0):
         # about the origin and stands on the footprint's own centre.
         solid = solid.union(
             WorldWorkplane(xy_plane_z_up).workplane(offset=z).center(center_x, center_y)
-            .polyline(profile).close().extrude(-z))
+            .polyline(_ring(profile)).wire().extrude(-z))
     return solid
 
 
@@ -788,7 +799,7 @@ def build_lower_extension():
         WorldWorkplane(xy_plane_z_up)
         .workplane(offset=lower_cap_top_z)
         .center(center_x, center_y)
-        .polyline(lower_outer_profiles[-1]).close()
+        .polyline(_ring(lower_outer_profiles[-1])).wire()
         .extrude(-lower_cap_thickness)
     )
     return lower_shell.union(lower_cap)
@@ -838,7 +849,7 @@ def split_into_base_and_cap(combined):
         WorldWorkplane(xy_plane_z_up)
         .workplane(offset=narrow_split_z)
         .center(center_x, center_y)
-        .polyline(narrow_box).close()
+        .polyline(_ring(narrow_box)).wire()
         .extrude(skirt_bottom_z - narrow_split_z)
     )
 

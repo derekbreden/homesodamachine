@@ -201,7 +201,7 @@ def build_rotor_housing():
     boss = (pc.WorldWorkplane(pc.xy_plane_z_up)
             .workplane(offset=base_plane_z)
             .center(cx, rear_axis_y)
-            .polyline(pc.bore_profile).close()
+            .polyline(pc._ring(pc.bore_profile)).wire()
             .extrude(octagon_top_z - base_plane_z))
     return cq.Workplane(obj=boss.val())
 

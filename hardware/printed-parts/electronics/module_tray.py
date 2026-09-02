@@ -106,7 +106,8 @@ def build_module_tray(mounts):
         r = _boss_spec(getattr(m.ref, "hole_dia", 3.2))[0] / 2.0
         for px, py in _posts(m):
             pts += [(px - r, py - r), (px + r, py - r), (px + r, py + r), (px - r, py + r)]
-    tray = cq.Workplane("XY").polyline(_convex_hull(pts)).close().extrude(floor_t)
+    hull = _convex_hull(pts)
+    tray = cq.Workplane("XY").polyline(hull + hull[:1]).wire().extrude(floor_t)
     for m in mounts:
         boss_d, bore_d, depth = _boss_spec(getattr(m.ref, "hole_dia", 3.2))
         for px, py in _posts(m):
