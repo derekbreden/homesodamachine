@@ -11,16 +11,19 @@
 // and the three limits in main.cpp's header are held here.
 //
 // What is implemented today is one flavor pump turning — held from the glass,
-// or bounded from the console — and the funnel fill, which holds a channel's
-// three funnel-path valves open while that pump draws. The two MCP23017s are
+// or bounded from the console — the funnel fill, which holds a channel's
+// three funnel-path valves open while that pump draws, and the clean cycle,
+// which puts tap water through the channel in rounds of a fill through the
+// idle pump and a pumped flush out the faucet. The two MCP23017s are
 // initialized fail-closed: every output is parked low and the reed inputs have
 // internal pull-ups. Nothing else opens a valve or runs the fan, and neither
 // relay is ever driven.
 
 enum MachineState : uint8_t {
-    ST_IDLE,     // nothing driven
-    ST_PUMPING,  // one flavor pump turning
-    ST_FILLING,  // a funnel fill: three valves open, that channel's pump drawing
+    ST_IDLE,      // nothing driven
+    ST_PUMPING,   // one flavor pump turning
+    ST_FILLING,   // a funnel fill: three valves open, that channel's pump drawing
+    ST_CLEANING,  // a clean cycle: one topology state at a time, the pump on for the flushes
 };
 
 // Why the pump is turning, which is the same as what will stop it.
@@ -57,6 +60,20 @@ struct MachineFillState {
     uint8_t  reeds;
 };
 
+// The clean cycle, in proto_msg.h's CLEAN_* vocabulary.
+struct MachineCleanState {
+    uint8_t  phase;
+    uint8_t  channel;
+    uint8_t  outcome;
+    uint8_t  step;
+    uint8_t  round;
+    uint8_t  rounds;
+    uint32_t stepElapsedMs;
+    uint32_t stepPlannedMs;
+    uint32_t cycleLeftMs;
+    uint8_t  reeds;
+};
+
 // ── What the machine announces ────────────────────────────────────────────
 // Every prime state change, in proto_msg.h's PRIME_* vocabulary. link.cpp turns
 // these into MSG_RESP_PRIME. Set before machineBegin().
@@ -65,6 +82,10 @@ extern void (*machineOnPrimeState)(uint8_t state, uint8_t channel, uint32_t ms);
 // Every fill state change — accepted, refused, ended and why. link.cpp turns
 // these into MSG_RESP_FILL.
 extern void (*machineOnFillState)(const MachineFillState &state);
+
+// Every clean state change — accepted, refused, each step begun, ended and
+// why. link.cpp turns these into MSG_RESP_CLEAN.
+extern void (*machineOnCleanState)(const MachineCleanState &state);
 
 // A bounded run reaching its deadline, so MSG_RESP_PUMP_DONE goes out when the
 // head has already stopped rather than when the run was asked for.
@@ -123,6 +144,18 @@ void machineFillStop();   // ends a running fill on request; nothing otherwise
 bool machineIsFilling();
 void machineReadFillState(MachineFillState &state);
 uint16_t machineValvesOpen();   // the logical valves the expanders hold open, bit 0 = V-A
+
+// ── The clean cycle ───────────────────────────────────────────────────────
+// Runs machine_policy::kCleanRounds rounds — or `rounds`, when the console
+// names one — of the channel's tap-water fill and pumped flush, each step
+// ending on its reed or at its planned time; `stepPlannedMs` shortens every
+// step's planned time when the console names one. Refused while anything else
+// runs, while the expanders are unverified, and under the gas alarm; every
+// answer, every step, and every ending goes out through machineOnCleanState.
+bool machineCleanBegin(uint8_t channel, uint8_t rounds = 0, uint32_t stepPlannedMs = 0);
+void machineCleanStop();   // ends a running cycle on request; nothing otherwise
+bool machineIsCleaning();
+void machineReadCleanState(MachineCleanState &state);
 
 // The MQ-6 comparator, debounced. U15 holds the compressor off it in hardware
 // with no firmware in the path; what the firmware adds is the alarm.

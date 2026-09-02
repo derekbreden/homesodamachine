@@ -10,8 +10,10 @@ pio test -e native
 absolute/idempotent selection, corrupt storage, and failed-write retry state.
 `test_machine_policy` checks the canonical V-A–V-K operation plans, the three-valve ceiling,
 the dispense/refill exclusion, every possible off-before-on valve-mask transition, the
-prime/timed-pump deadlines shared with the J9 protocol, and the funnel fill's plan, its
-draw-time budget against the slowest rated head, and its full-reed-before-clock ending. `test_pcba_expanders` checks the
+prime/timed-pump deadlines shared with the J9 protocol, the funnel fill's plan, its
+draw-time budget against the slowest rated head, and its full-reed-before-clock ending, and
+the clean cycle's two steps per channel, its full-reed and empty-reed-plus-tail endings, the
+sum of what is left of a cycle, and its wire contract. `test_pcba_expanders` checks the
 logical-to-physical valve map, safe MCP23017 initialization, active-low reed decoding,
 cross-expander break-before-make writes, and fail-park behavior. They run on the build host
 and are safe with every USB device connected. `test_weld_rotator_policy` checks the purchased

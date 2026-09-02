@@ -78,6 +78,39 @@ Operation fillOperation(uint8_t channel) {
     return channel == 0 ? Operation::FunnelFillA : Operation::FunnelFillB;
 }
 
+Operation cleanOperation(uint8_t channel, CleanStep step) {
+    if (step == CleanStep::WaterFill)
+        return channel == 0 ? Operation::CleanWaterFillA : Operation::CleanWaterFillB;
+    return channel == 0 ? Operation::CleanFlushA : Operation::CleanFlushB;
+}
+
+CleanEnd cleanWaterFillShouldEnd(uint32_t elapsed_ms, uint32_t planned_ms,
+                                 uint8_t reservoir_closed_mask) {
+    if ((reservoir_closed_mask & kReservoirReedFull) != 0) return CleanEnd::Reed;
+    if (elapsed_ms >= planned_ms) return CleanEnd::Planned;
+    return CleanEnd::None;
+}
+
+CleanEnd cleanFlushShouldEnd(uint32_t elapsed_ms, uint32_t planned_ms,
+                             bool empty_seen_closed, uint32_t empty_opened_at_ms) {
+    if (empty_seen_closed && empty_opened_at_ms != UINT32_MAX &&
+        elapsed_ms >= empty_opened_at_ms &&
+        elapsed_ms - empty_opened_at_ms >= kCleanFlushTailMs) return CleanEnd::Reed;
+    if (elapsed_ms >= planned_ms) return CleanEnd::Planned;
+    return CleanEnd::None;
+}
+
+uint32_t cleanCycleLeftMs(uint8_t step_index, uint8_t rounds,
+                          uint32_t step_elapsed_ms, uint32_t step_planned_ms,
+                          uint32_t water_fill_planned_ms, uint32_t flush_planned_ms) {
+    const uint8_t steps = static_cast<uint8_t>(rounds * 2);
+    if (step_index >= steps) return 0;
+    uint32_t left = step_elapsed_ms >= step_planned_ms ? 0 : step_planned_ms - step_elapsed_ms;
+    for (uint8_t i = static_cast<uint8_t>(step_index + 1); i < steps; ++i)
+        left += (i & 1) ? flush_planned_ms : water_fill_planned_ms;
+    return left;
+}
+
 uint8_t countOpenValves(ValveMask valves) {
     uint8_t count = 0;
     while (valves != 0) {

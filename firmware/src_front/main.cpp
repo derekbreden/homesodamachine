@@ -404,6 +404,8 @@ static_assert(LOCK_NOTE_Y + TEXT_H_20 <= LOCK_MODAL_H - LOCK_PAD_T - LOCK_PAD_B 
               "the note must clear STOP");
 static void lockFillLayout(bool on);
 static void fillStopCb(lv_event_t *e);
+static void cleanStopCb(lv_event_t *e);
+static void lockStopCb(lv_event_t *e);
 static unsigned long bootLockMinUntil = 0;
 static unsigned long bootLockMaxUntil = 0;
 
@@ -554,6 +556,23 @@ static unsigned long fillCardUntilMs = 0;       // nonzero: the closing card is 
 #define FILL_QUERY_MS        500
 #define FILL_START_REPLY_MS  2500
 #define FILL_CARD_MS         6000
+
+// ── The clean cycle, as this glass shows it ──
+// The same shape as the fill: the main board owns the cycle, this holds its
+// last word about it and the lock it is shown on, and asks again every
+// CLEAN_QUERY_MS while the lock is up.
+static CleanStatePayload cleanState = {};
+static bool          cleanKnown = false;
+static bool          cleanLockShown = false;
+static bool          cleanStopSent = false;
+static unsigned long cleanAnchorMs = 0;         // when cleanState's elapsed and left were true
+static unsigned long cleanStartSentMs = 0;      // nonzero: START is out and unanswered
+static unsigned long cleanQueryMs = 0;
+static unsigned long cleanUiMs = 0;
+static unsigned long cleanCardUntilMs = 0;      // nonzero: the closing card is up until then
+#define CLEAN_QUERY_MS        FILL_QUERY_MS
+#define CLEAN_START_REPLY_MS  FILL_START_REPLY_MS
+#define CLEAN_CARD_MS         FILL_CARD_MS
 static lv_obj_t *settingsBtn;      // top-right of the screen, outside the pane
 
 // Flavor 1 and 2 as this panel holds them. The base carries no config store, so a ratio
@@ -1698,6 +1717,7 @@ static void setCleanMsg(const char *s);
 static void setFillMsg(const char *s);
 static void applyPrimeSessionState(const PrimeSessionStatePayload &state);
 static void applyFillState(const FillStatePayload &state);
+static void applyCleanState(const CleanStatePayload &state);
 static bool uiShow(const UiShowPayload &req);
 
 static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
@@ -1791,6 +1811,13 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
     FillStatePayload st;
     memcpy(&st, payload, sizeof(st));
     applyFillState(st);
+    return;
+  }
+
+  if (type == MSG_RESP_CLEAN && plen >= sizeof(CleanStatePayload)) {
+    CleanStatePayload st;
+    memcpy(&st, payload, sizeof(st));
+    applyCleanState(st);
     return;
   }
 
@@ -1910,16 +1937,20 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
     // lost its turn — is still the machine being busy, and is shown as such.
     if ((ctrlStatus.flags & STATUS_F_FILLING) && !fillLockShown && !fillStartSentMs)
       j9Post(MSG_FILL_QUERY, nullptr, 0);
+    if ((ctrlStatus.flags & STATUS_F_CLEANING) && !cleanLockShown && !cleanStartSentMs)
+      j9Post(MSG_CLEAN_QUERY, nullptr, 0);
     return;
   }
 
   if (type == MSG_ERR_UNSUPPORTED) {
-    // Fill and Clean both reach the valve manifold and both can be refused. The
+    // An older main board, answering a fill or a clean it does not carry. The
     // refusal has to land on the pane the user is actually looking at.
     if (activeSvc == SVC_FILL_PICK || activeSvc == SVC_FILL_CONFIRM) {
-      setFillMsg("this main board drives no valves");
+      fillStartSentMs = 0;
+      setFillMsg("this main board has no fill");
     } else {
-      setCleanMsg("this main board drives no valves");
+      cleanStartSentMs = 0;
+      setCleanMsg("this main board has no clean cycle");
     }
     Serial.println("[J9] MSG_ERR_UNSUPPORTED");
     return;
@@ -3101,9 +3132,11 @@ static void cleanPickCb(lv_event_t *e) {
 
 static void cleanStartCb(lv_event_t *e) {
   (void)e;
+  if (cleanLockShown) return;
   ChannelPayload p{flavorSel};
   j9Post(MSG_CLEAN_START, &p, sizeof(p));
-  setCleanMsg("Starting clean cycle...");
+  cleanStartSentMs = millis() ? millis() : 1;
+  setCleanMsg("starting");
 }
 
 static void fillPickCb(lv_event_t *e) {
@@ -3201,7 +3234,7 @@ static void buildLockScreen(lv_obj_t *scr) {
   lockStop = mkBtn(lockModal, LOCK_STOP_W, LOCK_STOP_H, COL_CARD_ON);
   lv_obj_align(lockStop, LV_ALIGN_BOTTOM_RIGHT, 0, 0);
   lv_obj_clear_flag(lockStop, LV_OBJ_FLAG_PRESS_LOCK);   // slide off to change your mind
-  lv_obj_add_event_cb(lockStop, fillStopCb, LV_EVENT_CLICKED, NULL);
+  lv_obj_add_event_cb(lockStop, lockStopCb, LV_EVENT_CLICKED, NULL);
   lv_obj_center(mkText(lockStop, "STOP", &lv_font_montserrat_20, COL_TEXT));
 
   lockFillLayout(false);
@@ -3269,9 +3302,21 @@ static uint32_t fillDisplayedElapsed() {
 }
 
 // Only the bar and the note move, and only when a whole permille or second has.
+// What the lock last showed, so a repaint is a change; a show starts them over.
+static int32_t  lockShownPermille = -1;
+static uint32_t lockShownSeconds  = 0xFFFFFFFF;
+static uint16_t lockShownStep     = 0xFFFF;
+static uint32_t lockShownMinutes  = 0xFFFFFFFF;
+static void lockProgressReset() {
+  lockShownPermille = -1;
+  lockShownSeconds  = 0xFFFFFFFF;
+  lockShownStep     = 0xFFFF;
+  lockShownMinutes  = 0xFFFFFFFF;
+}
+
 static void fillLockProgress() {
-  static int32_t shownPermille = -1;
-  static uint32_t shownSecondsLeft = 0xFFFFFFFF;
+  int32_t &shownPermille = lockShownPermille;
+  uint32_t &shownSecondsLeft = lockShownSeconds;
   if (!fillLockShown || fillCardUntilMs) return;
   const uint32_t elapsed = fillDisplayedElapsed();
   const uint32_t planned = fillState.plannedMs ? fillState.plannedMs : 1;
@@ -3303,6 +3348,7 @@ static void fillLockShow() {
   fillStopSent = false;
   fillCardUntilMs = 0;
   fillQueryMs = millis();
+  lockProgressReset();
   fillLockProgress();
 }
 
@@ -3416,6 +3462,192 @@ static void fillService() {
   if (now - fillQueryMs >= FILL_QUERY_MS && outCount < OUT_Q_DEPTH / 2) {
     fillQueryMs = now;
     j9Post(MSG_FILL_QUERY, nullptr, 0);
+  }
+}
+
+// ── The clean cycle, on the lock ──────────────────────────────────────────
+// The same lock the fill runs on: the channel's face, a bar that fills across
+// the whole cycle, a note saying which round and which way the water is going,
+// and STOP. The kicker carries how long is left. When the cycle ends the same
+// modal says how — clean, stopped, or a fault — for CLEAN_CARD_MS, and the
+// pane returns to the clean page it was started from.
+
+// The step's elapsed and the cycle's remaining time, smoothed between answers.
+static uint32_t cleanDisplayedStepElapsed() {
+  if (!cleanKnown) return 0;
+  uint32_t elapsed = cleanState.stepElapsedMs;
+  if (cleanState.phase == CLEAN_PHASE_RUNNING) elapsed += millis() - cleanAnchorMs;
+  if (elapsed > cleanState.stepPlannedMs) elapsed = cleanState.stepPlannedMs;
+  return elapsed;
+}
+
+static uint32_t cleanDisplayedLeft() {
+  if (!cleanKnown || cleanState.phase != CLEAN_PHASE_RUNNING) return 0;
+  const uint32_t since = millis() - cleanAnchorMs;
+  return since >= cleanState.cycleLeftMs ? 0 : cleanState.cycleLeftMs - since;
+}
+
+// Only the bar, the note and the kicker move, and only when a whole permille,
+// step or minute has.
+static void cleanLockProgress() {
+  int32_t &shownPermille = lockShownPermille;
+  uint16_t &shownStep = lockShownStep;
+  uint32_t &shownMinutes = lockShownMinutes;
+  if (!cleanLockShown || cleanCardUntilMs) return;
+  const uint32_t steps = cleanState.rounds ? (uint32_t)cleanState.rounds * 2 : 1;
+  const uint32_t stepIndex = (uint32_t)(cleanState.round ? cleanState.round - 1 : 0) * 2 +
+                             (cleanState.step == CLEAN_STEP_FLUSH ? 1 : 0);
+  const uint32_t planned = cleanState.stepPlannedMs ? cleanState.stepPlannedMs : 1;
+  const uint32_t stepPermille = (uint32_t)((uint64_t)cleanDisplayedStepElapsed() * 1000 / planned);
+  int32_t permille = (int32_t)((stepIndex * 1000 + stepPermille) / steps);
+  if (permille > 1000) permille = 1000;
+  if (permille != shownPermille) {
+    shownPermille = permille;
+    lv_bar_set_value(lockBar, permille, LV_ANIM_OFF);
+  }
+  const uint16_t stepKey = (uint16_t)((cleanState.round << 8) | cleanState.step | (cleanStopSent ? 0x80 : 0));
+  if (stepKey != shownStep) {
+    shownStep = stepKey;
+    if (cleanStopSent) {
+      lv_label_set_text(lockNote, "stopping");
+    } else {
+      lv_label_set_text_fmt(lockNote, "%u of %u \xE2\x80\xA2 water %s",
+                            (unsigned)cleanState.round, (unsigned)cleanState.rounds,
+                            cleanState.step == CLEAN_STEP_FLUSH ? "out" : "in");
+    }
+  }
+  const uint32_t left = cleanDisplayedLeft();
+  const uint32_t minutes = left < 60000 ? 0 : (left + 30000) / 60000;
+  if (minutes != shownMinutes) {
+    shownMinutes = minutes;
+    if (minutes == 0) lv_label_set_text(lockKicker, "UNDER 1 MIN LEFT");
+    else              lv_label_set_text_fmt(lockKicker, "%lu MIN LEFT", (unsigned long)minutes);
+  }
+}
+
+static void cleanLockShow() {
+  lockScreenShow("CLEAN CYCLE", "Cleaning", "");
+  lv_img_set_src(lockFace, &flavorTile[flavorImage[cleanState.channel & 1]]);
+  lockFillLayout(true);
+  lv_obj_add_flag(lockBody, LV_OBJ_FLAG_HIDDEN);
+  lv_obj_set_style_bg_color(lockStop, lv_color_hex(COL_CARD_ON), 0);
+  cleanLockShown = true;
+  cleanStopSent = false;
+  cleanCardUntilMs = 0;
+  cleanQueryMs = millis();
+  lockProgressReset();
+  cleanLockProgress();
+}
+
+// The closing card: the same modal, with the ending in place of the bar.
+static void cleanLockCard(uint8_t outcome) {
+  static char body[96];
+  const char *title = "Stopped";
+  switch (outcome) {
+    case CLEAN_OUTCOME_DONE:
+      title = "Clean";
+      if (cleanState.rounds == 1) snprintf(body, sizeof(body), "Rinsed once with\ntap water.\nReady to fill.");
+      else snprintf(body, sizeof(body), "Rinsed %u times with\ntap water.\nReady to fill.",
+                    (unsigned)cleanState.rounds);
+      break;
+    case CLEAN_OUTCOME_STOPPED:
+      snprintf(body, sizeof(body), "Stopped early. Water\nmay be left in the\nreservoir.");
+      break;
+    case CLEAN_OUTCOME_GAS:
+      snprintf(body, sizeof(body), "Gas alarm. Everything\nis switched off.");
+      break;
+    default:
+      snprintf(body, sizeof(body), "A valve did not answer.\nEverything is switched off.");
+      break;
+  }
+  lv_label_set_text(lockKicker, "CLEAN CYCLE");
+  lv_label_set_text(lockTitle, title);
+  lv_label_set_text(lockBody, body);
+  lv_obj_clear_flag(lockBody, LV_OBJ_FLAG_HIDDEN);
+  lv_obj_add_flag(lockBar, LV_OBJ_FLAG_HIDDEN);
+  lv_obj_add_flag(lockNote, LV_OBJ_FLAG_HIDDEN);
+  lv_obj_add_flag(lockStop, LV_OBJ_FLAG_HIDDEN);
+  cleanCardUntilMs = millis() + CLEAN_CARD_MS;
+  if (!cleanCardUntilMs) cleanCardUntilMs = 1;
+}
+
+static void cleanLockClose() {
+  cleanLockShown = false;
+  cleanCardUntilMs = 0;
+  cleanStopSent = false;
+  lockScreenHide();
+  if (activePage == PAGE_SERVICE &&
+      (activeSvc == SVC_CLEAN_CONFIRM || activeSvc == SVC_CLEAN_PICK)) {
+    showService(SVC_CLEAN_PICK);
+  }
+}
+
+static const char *cleanRefusalText(uint8_t outcome) {
+  switch (outcome) {
+    case CLEAN_OUTCOME_BUSY:  return "the machine is busy";
+    case CLEAN_OUTCOME_NO_IO: return "the valves are not answering";
+    case CLEAN_OUTCOME_FAULT: return "a valve did not answer";
+    case CLEAN_OUTCOME_GAS:   return "gas alarm \xE2\x80\xA2 nothing runs";
+    default:                  return "the main board declined";
+  }
+}
+
+// Every word the main board says about the clean cycle lands here.
+static void applyCleanState(const CleanStatePayload &st) {
+  cleanState = st;
+  cleanKnown = true;
+  cleanAnchorMs = millis();
+  const bool running = st.phase == CLEAN_PHASE_RUNNING;
+
+  if (cleanStartSentMs) {
+    cleanStartSentMs = 0;
+    if (running && st.channel == flavorSel) { setCleanMsg(""); cleanLockShow(); return; }
+    if (running) { setCleanMsg("the machine is busy"); return; }   // another channel's cycle
+    setCleanMsg(cleanRefusalText(st.outcome));
+    return;
+  }
+
+  if (running) {
+    if (!cleanLockShown) cleanLockShow();   // the console's, or a lost turn's
+    else cleanLockProgress();
+    return;
+  }
+  if (cleanLockShown && !cleanCardUntilMs) cleanLockCard(st.outcome);
+}
+
+static void cleanStopCb(lv_event_t *e) {
+  (void)e;
+  if (!cleanLockShown || cleanCardUntilMs || cleanStopSent) return;
+  j9Post(MSG_CLEAN_STOP, nullptr, 0);
+  cleanStopSent = true;
+  lv_obj_set_style_bg_color(lockStop, lv_color_hex(COL_OFF), 0);
+  cleanLockProgress();
+}
+
+// One STOP on the lock, for whichever operation is up on it.
+static void lockStopCb(lv_event_t *e) {
+  if (fillLockShown)       fillStopCb(e);
+  else if (cleanLockShown) cleanStopCb(e);
+}
+
+static void cleanService() {
+  const unsigned long now = millis();
+  if (cleanStartSentMs && now - cleanStartSentMs >= CLEAN_START_REPLY_MS) {
+    cleanStartSentMs = 0;
+    setCleanMsg("the main board did not answer");
+  }
+  if (!cleanLockShown) return;
+  if (cleanCardUntilMs) {
+    if ((long)(now - cleanCardUntilMs) >= 0) cleanLockClose();
+    return;
+  }
+  if (now - cleanUiMs >= 100) {
+    cleanUiMs = now;
+    cleanLockProgress();
+  }
+  if (now - cleanQueryMs >= CLEAN_QUERY_MS && outCount < OUT_Q_DEPTH / 2) {
+    cleanQueryMs = now;
+    j9Post(MSG_CLEAN_QUERY, nullptr, 0);
   }
 }
 
@@ -3853,9 +4085,9 @@ static void buildService(lv_obj_t *page) {
   svcView[SVC_CLEAN_PICK] = cpick;
 
   svcView[SVC_CLEAN_CONFIRM] = buildConfirm(
-      page, "CLEAN", "Three rounds: fill the line\n"
-                     "with water, then pump it\n"
-                     "through to the gooseneck.",
+      page, "CLEAN", "Set a pitcher under the faucet.\n"
+                     "Three rounds of tap water go\n"
+                     "in, then out through the faucet.",
       "START CLEAN CYCLE", cleanStartCb, SVC_CLEAN_PICK, &cleanMsg);
 
   lv_obj_t *fpick = mkView(page);
@@ -4306,6 +4538,20 @@ static void processTextLine(const char *line) {
   } else if (strcmp(line, "FILL:STOP") == 0) {
     fillStopCb(nullptr);
     Serial.println("OK:FILL:STOP");
+  } else if (strncmp(line, "CLEAN:START:", 12) == 0) {
+    // The confirm page's START CLEAN CYCLE, without a finger on the glass.
+    int f = atoi(line + 12);
+    if (f != 1 && f != 2) { Serial.println("ERR:CLEAN:START expects 1 or 2"); }
+    else {
+      flavorSel = (uint8_t)(f - 1);
+      showRail(RAIL_CLEAN);
+      showService(SVC_CLEAN_CONFIRM);
+      cleanStartCb(nullptr);
+      Serial.printf("OK:CLEAN:START=%d\n", f);
+    }
+  } else if (strcmp(line, "CLEAN:STOP") == 0) {
+    cleanStopCb(nullptr);
+    Serial.println("OK:CLEAN:STOP");
   } else if (strncmp(line, "PRIME:START:", 12) == 0) {
     // Enter the shared session, then start the same tokenized hold as soon as
     // the main board's READY answer lands. PRIME:STOP releases that synthetic
@@ -4676,6 +4922,7 @@ void loop() {
   }
 
   fillService();
+  cleanService();
 
   // The status request keeps main board truth fresh once a second whenever a
   // shared prime hold does not own the pair.
