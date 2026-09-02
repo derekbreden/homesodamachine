@@ -5898,6 +5898,60 @@
       "hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py"
     ]
   },
+  "hardware/printed-parts/shop-storage/fasteners/fasteners_kit.py": {
+    "reads": [
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+      "hardware/printed-parts/shop-storage/_kit.py",
+      "hardware/printed-parts/shop-storage/fasteners/fasteners-dock.step",
+      "hardware/printed-parts/shop-storage/fasteners/fasteners-kit-open.step",
+      "hardware/printed-parts/shop-storage/fasteners/fasteners-kit.step",
+      "hardware/printed-parts/shop-storage/fasteners/fasteners-m3.step",
+      "hardware/printed-parts/shop-storage/fasteners/fasteners-m5.step",
+      "hardware/printed-parts/shop-storage/fasteners/fasteners-small.step",
+      "hardware/printed-parts/shop-storage/fasteners/fasteners-tray.step",
+      "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_materials.py",
+      "hardware/scripts/_mesh_payload.py",
+      "hardware/scripts/_realized.py",
+      "hardware/scripts/_run_lock.py",
+      "tools/docgen/__init__.py"
+    ],
+    "rewritten": [],
+    "writes": [
+      "hardware/printed-parts/shop-storage/fasteners/fasteners-dock.step",
+      "hardware/printed-parts/shop-storage/fasteners/fasteners-kit-open.step",
+      "hardware/printed-parts/shop-storage/fasteners/fasteners-kit.step",
+      "hardware/printed-parts/shop-storage/fasteners/fasteners-m3.step",
+      "hardware/printed-parts/shop-storage/fasteners/fasteners-m5.step",
+      "hardware/printed-parts/shop-storage/fasteners/fasteners-small.step",
+      "hardware/printed-parts/shop-storage/fasteners/fasteners-tray.step"
+    ]
+  },
+  "hardware/printed-parts/shop-storage/hotends/hotends_kit.py": {
+    "reads": [
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+      "hardware/printed-parts/shop-storage/_kit.py",
+      "hardware/printed-parts/shop-storage/hotends/hotends-dock.step",
+      "hardware/printed-parts/shop-storage/hotends/hotends-kit-open.step",
+      "hardware/printed-parts/shop-storage/hotends/hotends-kit.step",
+      "hardware/printed-parts/shop-storage/hotends/hotends-rack.step",
+      "hardware/printed-parts/shop-storage/hotends/hotends-swap.step",
+      "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_materials.py",
+      "hardware/scripts/_mesh_payload.py",
+      "hardware/scripts/_realized.py",
+      "hardware/scripts/_run_lock.py",
+      "tools/docgen/__init__.py"
+    ],
+    "rewritten": [],
+    "writes": [
+      "hardware/printed-parts/shop-storage/hotends/hotends-dock.step",
+      "hardware/printed-parts/shop-storage/hotends/hotends-kit-open.step",
+      "hardware/printed-parts/shop-storage/hotends/hotends-kit.step",
+      "hardware/printed-parts/shop-storage/hotends/hotends-rack.step",
+      "hardware/printed-parts/shop-storage/hotends/hotends-swap.step"
+    ]
+  },
   "hardware/printed-parts/shop-storage/jst-crimping/jst_crimping_tower.py": {
     "reads": [
       "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
@@ -5930,6 +5984,35 @@
       "hardware/printed-parts/shop-storage/jst-crimping/spool-shelf.step",
       "hardware/printed-parts/shop-storage/jst-crimping/tool-rack.step",
       "hardware/printed-parts/shop-storage/jst-crimping/tower-base.step"
+    ]
+  },
+  "hardware/printed-parts/shop-storage/umbilical/umbilical_kit.py": {
+    "reads": [
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+      "hardware/printed-parts/shop-storage/_kit.py",
+      "hardware/printed-parts/shop-storage/umbilical/umbilical-dock.step",
+      "hardware/printed-parts/shop-storage/umbilical/umbilical-kit-open.step",
+      "hardware/printed-parts/shop-storage/umbilical/umbilical-kit.step",
+      "hardware/printed-parts/shop-storage/umbilical/umbilical-rack.step",
+      "hardware/printed-parts/shop-storage/umbilical/umbilical-ribbon.step",
+      "hardware/printed-parts/shop-storage/umbilical/umbilical-stand.step",
+      "hardware/printed-parts/shop-storage/umbilical/umbilical-terminations.step",
+      "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_materials.py",
+      "hardware/scripts/_mesh_payload.py",
+      "hardware/scripts/_realized.py",
+      "hardware/scripts/_run_lock.py",
+      "tools/docgen/__init__.py"
+    ],
+    "rewritten": [],
+    "writes": [
+      "hardware/printed-parts/shop-storage/umbilical/umbilical-dock.step",
+      "hardware/printed-parts/shop-storage/umbilical/umbilical-kit-open.step",
+      "hardware/printed-parts/shop-storage/umbilical/umbilical-kit.step",
+      "hardware/printed-parts/shop-storage/umbilical/umbilical-rack.step",
+      "hardware/printed-parts/shop-storage/umbilical/umbilical-ribbon.step",
+      "hardware/printed-parts/shop-storage/umbilical/umbilical-stand.step",
+      "hardware/printed-parts/shop-storage/umbilical/umbilical-terminations.step"
     ]
   },
   "hardware/printed-parts/valve-seat/valve_seat.py": {
