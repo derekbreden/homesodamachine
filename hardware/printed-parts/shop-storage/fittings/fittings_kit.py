@@ -16,8 +16,6 @@ import sys
 from pathlib import Path
 
 import cadquery as cq
-from cqgridfinity import GridfinityBox
-from cqgridfinity.constants import GR_BASE_HEIGHT, GR_DIV_WALL
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
@@ -33,22 +31,10 @@ footprint_x_u = 3
 footprint_y_u = 3
 
 
-def _box(height_u, length_div=0, width_div=0):
-    return GridfinityBox(
-        footprint_x_u, footprint_y_u, height_u,
-        length_div=length_div, width_div=width_div, labels=True,
-    )
-
-
-#: A bin's interior floor: the Gridfinity base plus the library's own floor.
-bin_floor_z = _box(1).floor_h + GR_BASE_HEIGHT
-
-#: The library rounds a compartment's floor into its walls at this radius, so a content
-#: standing on that floor has to clear the fillet before it clears the wall.
-interior_fillet = _box(1).safe_fillet_rad
-
 #: Kept between a modelled content and every wall, divider and label ledge around it.
-content_clearance = max(1.0, interior_fillet)
+#: A millimetre is the hand clearance; the library's floor fillet is what a content
+#: standing on that floor has to clear before it clears the wall.
+content_clearance = max(1.0, _kit.interior_fillet)
 
 content_corner_radius = 4.0
 
@@ -57,20 +43,16 @@ content_corner_radius = 4.0
 piece_corner_ratio = 0.24
 
 
-def label_ledge_drop(height_u):
-    """How far the library's label ledge hangs into the +Y end of a compartment. A fill
-    block stops below it rather than under it, so no content reaches past its lip. The
-    ledge on the +Y wall is the deeper of the two the library draws, and every
-    compartment is sized to it."""
-    return _box(height_u).safe_label_height(backwall=True)
-
-
 def fill_depth(height_u):
-    """How deep a fill block may stand in a bin `height_u` units tall."""
+    """How deep a fill block may stand in a bin `height_u` units tall.
+
+    A fill stops below the label ledge rather than under it, so no content reaches past
+    its lip; the ledge on the +Y wall is the deeper of the two the library draws, and
+    every compartment is sized to it."""
     return (
         _kit.top_reference_z(height_u)
-        - bin_floor_z
-        - label_ledge_drop(height_u)
+        - _kit.bin_floor_z
+        - _kit.label_ledge_drop(height_u)
         - content_clearance
     )
 
@@ -78,20 +60,6 @@ def fill_depth(height_u):
 #: The deepest a fill may stand as a fraction of its compartment, so a pack that grows
 #: a little still closes its storey.
 compartment_fill_limit = 0.95
-
-
-def cell_span(length_div, width_div):
-    """One compartment's inside length and width, the library's own division formula."""
-    probe = _box(1)
-    return (
-        (probe.inner_l - GR_DIV_WALL * length_div) / (length_div + 1),
-        (probe.inner_w - GR_DIV_WALL * width_div) / (width_div + 1),
-    )
-
-
-def cell_floor_area(length_div, width_div):
-    span_x, span_y = cell_span(length_div, width_div)
-    return (span_x - 2.0 * content_clearance) * (span_y - 2.0 * content_clearance)
 
 
 # ============================================================
@@ -214,8 +182,11 @@ class BinStorey:
         self.length_div = length_div
         self.width_div = width_div
         self.compartments = compartments
-        self.span_x, self.span_y = cell_span(length_div, width_div)
-        self.floor_area = cell_floor_area(length_div, width_div)
+        self.span_x = _kit.cell_span(footprint_x_u, length_div)
+        self.span_y = _kit.cell_span(footprint_y_u, width_div)
+        self.floor_area = _kit.cell_floor_area(
+            footprint_x_u, footprint_y_u, length_div, width_div, content_clearance
+        )
         self.height_u = self._height_u()
         self.shape = _kit.bin_body(
             footprint_x_u,
@@ -225,7 +196,9 @@ class BinStorey:
             width_div=width_div,
             labels=True,
         )
-        self.cells = _cells(self.shape, self.height_u)
+        self.cells = _kit.bin_cells(
+            _kit.bin_cavity(self.shape, footprint_x_u, footprint_y_u, self.height_u)
+        )
         self.storey = _kit.Storey(name, self.shape, self.height_u, kind="bin")
 
     def _height_u(self):
@@ -243,15 +216,6 @@ class BinStorey:
     @property
     def depth(self):
         return fill_depth(self.height_u)
-
-
-def _cells(bin_shape, height_u):
-    """Every compartment void of a divided bin, front row first, left to right."""
-    cavity = _kit.bin_cavity(bin_shape, footprint_x_u, footprint_y_u, height_u)
-    solids = cavity.solids().vals()
-    solids.sort(key=lambda s: (-round(s.BoundingBox().center.y, 1),
-                               round(s.BoundingBox().center.x, 1)))
-    return [cq.Workplane(obj=s) for s in solids]
 
 
 def build_storeys():
@@ -446,12 +410,7 @@ def assert_sockets_on_plateau():
         abs(play_well_x) + play_well_width / 2.0,
         abs(play_well_y) + play_well_depth / 2.0,
     )
-    if reach > rack_plateau_half:
-        raise ValueError(
-            f"rack sockets reach {reach:.1f} mm, past the "
-            f"{rack_plateau_half:.1f} mm plateau"
-        )
-    print(f"   rack sockets: {reach:.1f} of {rack_plateau_half:.1f} mm plateau")
+    _kit.assert_inside_plateau("rack sockets", reach, reach, footprint_x_u)
 
 
 # ============================================================
@@ -562,12 +521,14 @@ def figures(storeys, parts, seats):
         "POPULATED_HEIGHT": f"{populated_height:.1f} mm",
         "STOCK_VOLUME": f"{stock_volume / 1e6:.1f} litres",
         "COMPARTMENTS": f"{sum(len(s.compartments) for s in storeys)}",
-        "FOOTPRINT_AREA": f"{_box(1).inner_l * _box(1).inner_w:,.0f} mm^2",
+        "FOOTPRINT_AREA": (
+            f"{_kit.inner_size(footprint_x_u) * _kit.inner_size(footprint_y_u):,.0f} mm^2"
+        ),
         "CONTENT_CLEARANCE": f"{content_clearance:.0f} mm",
         "H2C_ENVELOPE": f"{_kit.h2c_build_x:.0f} x {_kit.h2c_build_y:.0f} x "
                         f"{_kit.h2c_build_z:.0f} mm",
         "TALLEST_PART": f"{tallest:.1f} mm",
-        "LEDGE_DROP": f"{label_ledge_drop(storeys[0].height_u):.1f} mm",
+        "LEDGE_DROP": f"{_kit.label_ledge_drop(storeys[0].height_u):.1f} mm",
         "FILL_LIMIT": f"{compartment_fill_limit * 100:.0f} %",
         "CUTTER_SOCKET": f"{cutter_socket_width:.0f} x {cutter_socket_depth:.0f} mm",
         "CUTTER_SOCKET_DEPTH": f"{rack_top_z - cutter_socket_floor_z:.0f} mm",
