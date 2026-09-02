@@ -143,8 +143,11 @@ brim_seat = _funnel.brim_overhang
 # THE DADO'S ROOF RISES AT `relief_chamfer` FROM THE BLIND END TO THE MOUTH, the way every
 # relief ceiling on this box does — a roof left flat would hang over the slot in a piece
 # that prints mouth-down. A 45 degree roof climbs one millimetre of section per millimetre
-# of reach and runs clear of the show face at the open mouth. At the blind end, the slide
-# clearance is struck on all four faces of the square rail.
+# of reach and runs clear of the show face at the open mouth. The roof rises off the tongue's
+# own top plane at the blind edge — the plane the fixed C14 surround's crown is clipped to as
+# well — so the tongue's tip, one slip short of that edge, clears the roof by one slip and every
+# point of the rail behind it by more. At the blind end the slide clearance is struck on the
+# rail's floor, its tip and the mouth-side face.
 dado_slip = fits.slip   # printed-fit clearance on each face of the tongue — a slide fit
                         # down the whole `depth` of groove, not a press
 # One grown fixed section in both directions makes the tongue a 36 mm2 rail.
@@ -155,7 +158,7 @@ tongue_roof_z = fixed_under_z + tongue_t / 2.0
 dado_depth = tongue_reach + dado_slip
 
 dado_floor_z = tongue_floor_z - dado_slip
-dado_roof_z = tongue_roof_z + dado_slip       # at the blind end; it climbs inboard
+dado_roof_z = tongue_roof_z                   # at the blind edge; it climbs inboard
 dado_mouth_x = panel_half_w                    # the rail's inboard face
 dado_blind_x = panel_half_w + dado_depth
 # The fixed corbel's lower face at this run is `fixed_under_z - dado_depth`; what remains below the

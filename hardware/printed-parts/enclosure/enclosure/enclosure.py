@@ -5348,8 +5348,8 @@ def _back_top_ceiling(solid, inner, y_joint, box):
     # and a mesh a slicer refuses, and an overrun cut there opens a slot straight through the top
     # wall. So the last `depth` is the groove's RUN-OUT and takes the blind end's own section
     # carried square through it — floor to `roof_z`, with the rest of the top wall bridging the
-    # mouth plane over it — a `depth`-wide bridge from the strip to the wall, `wall - lip_t`
-    # thick, where beside the field that same section is the lip that feathers to nothing.
+    # mouth plane over it — a `depth`-wide bridge from the strip to the wall, `lip_t` thick,
+    # where beside the field that same section is the lip that feathers to nothing.
     slope, depth = math.tan(math.radians(chamfer)), blind_x - mouth_x
     over = 1.0
     # THE +X GROOVE ENDS ON THE C14'S OWN ROOM. The surround stands in that strip's last
@@ -5358,9 +5358,11 @@ def _back_top_ceiling(solid, inner, y_joint, box):
     # cross the surround's relief and bore. Cut to the room instead, the groove's end wall is
     # the tunnel's own mouth plane — one slip aft of the shortened tongue's tip — and the
     # blind run-out into the +Y wall is not cut at all: nothing of the dado remains for the
-    # relief or the bore to cross. The -X strip holds no surround and keeps the whole groove,
-    # run-out and all.
-    room = (_c14_running_room(box.outer, box.pack.c14, box.pack.back_ports,
+    # relief or the bore to cross. The room stops at the interior ceiling, so what ends there
+    # is the dado; the roof above the ceiling plane, the reveal along the panel's edge, runs
+    # to the wall on this side as on the other. The -X strip holds no surround and keeps the
+    # whole groove, run-out and all.
+    room = (_c14_running_room(inner, box.outer, box.pack.c14, box.pack.back_ports,
                               _c14_mouth_y(box.outer, box.pack.c14, box.pack.back_ports),
                               box.outer[3] + depth + 1.0)
             if box.pack.c14 else None)
@@ -8087,19 +8089,27 @@ def _c14_mouth_y(outer, stations, ports):
     return aft - c14_tunnel_len - _c14.FLANGE_T - c14_pocket_lip
 
 
-def _c14_running_room(outer, stations, ports, y0, y1):
-    """The C14 tunnel's aft-open running room: the block's rectangle one `fits.slip` out,
-    carried as ONE constant XZ section from `y0` clear past `y1`.
+def _c14_running_room(inner, outer, stations, ports, y0, y1):
+    """The C14 tunnel's aft-open running room: the block's rectangle, capped at the interior
+    ceiling the way the block itself is, one `fits.slip` out, carried as ONE constant XZ
+    section from `y0` clear past `y1`.
 
     STATED ONCE FOR BOTH SIDES OF THE JOINT. `c14_ceiling_pocket` opens this room under the
     sliding panel from one slip fore of the mouth; `_back_top_ceiling` ends the +X groove's own
     cutters on it from the mouth itself, so the panel's shortened tongue stops one slip fore of
     the groove's end. The overlap of rail, dado and tunnel is owned by one solid, and the fixed
-    side and the sliding side cannot disagree about where it is."""
+    side and the sliding side cannot disagree about where it is.
+
+    THE ROOM IS NO TALLER THAN THE TUNNEL. The block's stated crown stands above the interior
+    ceiling and the piece clips it there, so the room's crown is the block's crown one slip up
+    and never above that ceiling plane — the plane the tongue's top rides on and the dado's
+    roof rises off. What the dado's cutters end on is the dado the tongue rides in; the roof
+    above the ceiling plane, the reveal along the panel's edge, is not the room's to end."""
     cx, cz, wx, wz, _r = _c14_aperture(stations, ports)
     hx, hz = c14_mount_half(wx, wz, max(abs(sx - cx) for sx, _sz in stations))
     slip = fits.slip
-    return _ybox(cx - hx - slip, cx + hx + slip, y0, y1, cz - hz - slip, cz + hz + slip)
+    return _ybox(cx - hx - slip, cx + hx + slip, y0, y1,
+                 cz - hz - slip, min(cz + hz + slip, inner[5]))
 
 
 def c14_ceiling_land(inner, outer, stations, ports, stock):
@@ -8140,7 +8150,7 @@ def c14_ceiling_pocket(inner, outer, stations, ports, stock):
     slip = fits.slip
     b = stock.BoundingBox()
     y1 = b.ymax + 1.0
-    room = _c14_running_room(outer, stations, ports, mouth - slip, y1)
+    room = _c14_running_room(inner, outer, stations, ports, mouth - slip, y1)
     under_skin = _ybox(
         b.xmin - 1.0, b.xmax + 1.0, mouth - slip, y1,
         b.zmin - 1.0, inner[5])
