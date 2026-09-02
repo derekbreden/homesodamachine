@@ -734,8 +734,9 @@ jobs:
               'import json,sys; print(json.load(sys.stdin)["sidecars"]["hardware/manifold-layout/enclosure-assembly.scorecard.json"])')
           published_quickstart=""
           if [ "$VERIFY_QUICKSTART" = true ]; then
-            published_quickstart=$(git show \
-              "$EXPECTED:hardware/quickstart/quick-start.pdf" | sha256sum | awk '{print $1}')
+            published_quickstart=$(git show "$EXPECTED:hardware/cad-artifacts.lock.json" | \
+              tools/cad-venv/bin/python -c \
+                'import json,sys; print(json.load(sys.stdin)["solids"]["hardware/quickstart/quick-start.pdf"])')
           fi
           for attempt in $(seq 1 90); do
             live=$(curl -fsS https://homesodamachine.com/api/version 2>/dev/null | \
@@ -768,14 +769,10 @@ jobs:
                     'import json; print(json.load(open("/tmp/live-lock.json"))["sidecars"]["hardware/manifold-layout/enclosure-assembly.scorecard.json"])' \
                   2>/dev/null || true)
                 if [ "$VERIFY_QUICKSTART" = true ]; then
-                  expected_quickstart=""
-                  if gh api -H \
-                    'Accept: application/vnd.github.raw+json' \
-                    "repos/$GITHUB_REPOSITORY/contents/hardware/quickstart/quick-start.pdf?ref=$live" \
-                    > /tmp/expected-quick-start.pdf 2>/dev/null; then
-                    expected_quickstart=$(sha256sum /tmp/expected-quick-start.pdf | \
-                      awk '{print $1}')
-                  fi
+                  expected_quickstart=$( \
+                    tools/cad-venv/bin/python -c \
+                      'import json; print(json.load(open("/tmp/live-lock.json"))["solids"]["hardware/quickstart/quick-start.pdf"])' \
+                    2>/dev/null || true)
                 fi
               fi
               mesh=""
