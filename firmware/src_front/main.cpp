@@ -3134,10 +3134,11 @@ static void lockScreenHide() {
 // grid. What it needs is a known picture: a 2 px white frame on the outermost pixels, four 32 px
 // white fiducials whose centres sit at (32, 32), (768, 32), (32, 448) and (768, 448) in
 // continuous panel coordinates (pixel i spans [i, i+1)), and a 1 px cross through (400, 240) that
-// is left out of the fit as its check. Between them, down the panel: an eight-step gray wedge
-// from 0 to 255, six saturated colours, the interface's own palette with a 50% gray, then 1 px
-// vertical stripes, 1 px horizontal stripes and a 2 px checkerboard, each 64×64. The flat patches
-// are what a camera-to-panel colour fit is made from. Everything is on black, the panel's own.
+// is left out of the fit as its check, in a black band of its own. Above it: an eight-step gray
+// wedge from 0 to 255, six saturated colours, and every colour the interface draws with a 50%
+// gray — the flat patches a camera-to-panel colour fit is made from. Below it: 1 px vertical
+// stripes, 1 px horizontal stripes and a 2 px checkerboard, each 64×64. Everything is on black,
+// the panel's own.
 static lv_obj_t *mkFlat(lv_obj_t *parent, lv_coord_t x, lv_coord_t y, lv_coord_t w, lv_coord_t h,
                         lv_color_t c) {
   lv_obj_t *o = lv_obj_create(parent);
@@ -3172,12 +3173,13 @@ static void buildTestScreen(lv_obj_t *scr) {
 
   for (int k = 0; k < 8; k++) {
     const uint8_t v = (uint8_t)((k * 255 + 3) / 7);
-    mkFlat(testScreen, 144 + 64 * k, 72, 64, 48, lv_color_make(v, v, v));
+    mkFlat(testScreen, 144 + 64 * k, 56, 64, 48, lv_color_make(v, v, v));
   }
   static const uint32_t swatch[6] = {0xff0000, 0x00ff00, 0x0000ff, 0x00ffff, 0xff00ff, 0xffff00};
-  for (int k = 0; k < 6; k++) mkFlat(testScreen, 208 + 64 * k, 136, 64, 48, lv_color_hex(swatch[k]));
-  static const uint32_t palette[7] = {0x1a1a2e, COL_CARD, COL_CARD_ON, COL_ACCENT, COL_TEXT, COL_DIM, 0x808080};
-  for (int k = 0; k < 7; k++) mkFlat(testScreen, 176 + 64 * k, 200, 64, 48, lv_color_hex(palette[k]));
+  for (int k = 0; k < 6; k++) mkFlat(testScreen, 208 + 64 * k, 112, 64, 48, lv_color_hex(swatch[k]));
+  static const uint32_t palette[10] = {0x1a1a2e, COL_CARD, COL_CARD_ON, COL_ACCENT, COL_TEXT,
+                                       COL_DIM, COL_OFF, COL_GOOD, COL_WARN, 0x808080};
+  for (int k = 0; k < 10; k++) mkFlat(testScreen, 80 + 64 * k, 168, 64, 48, lv_color_hex(palette[k]));
 
   for (int p = 0; p < 3; p++) {
     uint16_t *px = (uint16_t *)malloc(64 * 64 * sizeof(uint16_t));
@@ -3195,13 +3197,13 @@ static void buildTestScreen(lv_obj_t *scr) {
     testPatDsc[p].data = (const uint8_t *)px;
     lv_obj_t *img = lv_img_create(testScreen);
     lv_img_set_src(img, &testPatDsc[p]);
-    lv_obj_set_pos(img, 240 + 128 * p, 272);
+    lv_obj_set_pos(img, 240 + 128 * p, 268);
   }
 
   lv_obj_t *t = mkText(testScreen, "PANELCAM TEST", &lv_font_montserrat_28, 0xffffff);
-  lv_obj_align(t, LV_ALIGN_TOP_MID, 0, 352);
+  lv_obj_align(t, LV_ALIGN_TOP_MID, 0, 344);
   lv_obj_t *v = mkText(testScreen, FW_VERSION, &lv_font_montserrat_20, COL_DIM);
-  lv_obj_align(v, LV_ALIGN_TOP_MID, 0, 392);
+  lv_obj_align(v, LV_ALIGN_TOP_MID, 0, 384);
 
   lv_obj_add_flag(testScreen, LV_OBJ_FLAG_HIDDEN);
 }
