@@ -3235,7 +3235,7 @@ RELAY_TURN = (((0.0, 0.0, 1.0), 270.0), ((0.0, 1.0, 0.0), 270.0))
 STACK_CLEAR = (_enc.mount_boss_dia / 2.0
                - (_relay.width / 2.0 - _relay.hole_dy) + 1.0)
 # Relay #1's lower two wall bosses stand over the main board. This lift puts a full 45-degree
-# corbel under both D stems and removes their two separate support contact regions from the
+# corbel under both end bars and removes their two separate support contact regions from the
 # back-top slice. Two millimetres leaves the same one-millimetre body air
 # `east_boss_corbel_clear` strikes in X against a 45-degree wedge.
 RELAY1_CORBEL_LIFT = 2.0
@@ -3419,7 +3419,7 @@ def wago_wells(row, cluster, over):
 # itself the stilt it stood on.
 
 def wall_mounts(*mounted, blockers=()):
-    """The +X wall's boss stations, as `(y, z, tip, web_tip, clear_bands)`.
+    """The +X wall's boss stations, as `(y, z, tip, web_tip, clear_bands[, span])`.
 
     `mounted` is one `(name, carry, holes)` per body. Each hole is carried through the
     placement `seat_body` handed back from the body's own Z = 0 mounting plane, so `(y, z)` is
@@ -3432,10 +3432,19 @@ def wall_mounts(*mounted, blockers=()):
     with the same clearance, is subtracted from the boss width and every clear band keeps the
     full wall-rooted wedge. A narrow blocker on one side therefore cannot turn the entire boss
     into a short flat bridge. Moving or reshaping a body changes this support without a typed
-    exception."""
+    exception.
+
+    TWO HOLES ON ONE LINE WITHIN A BAR'S REACH SHARE ONE BAR (`enclosure.east_boss_pairs`), and
+    the bar is new material twice over. Its fill between the two stems is checked and never set
+    back — a blocker in it means the body moves. Its corbel is offered across the bar's whole
+    span for a pair side by side and takes the same blocker-profiled reading a single boss
+    does, so both holes carry that span and a body's pin field under the bar leaves it the
+    wall-rooted wings on either side; a pair stood one over the other keeps each hole's own
+    reading, and the lower hole's corbel carries the bar."""
     blockers = tuple(blockers)
     wall_x = _enc.interior_x()[1]
-    out, held = [], []
+    r = _enc.mount_boss_dia / 2.0
+    clear = _enc.east_boss_corbel_clear
 
     def hits(feature):
         found = []
@@ -3445,10 +3454,66 @@ def wall_mounts(*mounted, blockers=()):
                 found.append((name, body, overlap.Volume()))
         return found
 
+    def profile(owner, sy, sz, tip, span):
+        """The corbel a station or a bar may keep over `span`: `(web_tip, clear_bands, names)`,
+        the names being the bodies that set it back."""
+        base = (sy, sz, tip, tip, (), span)
+        offered = _enc._east_boss_corbel(wall_x, base)
+        web_hits = hits(offered)
+        if not web_hits:
+            return tip, (), ()
+        web_tip = max(box(body).xmax for _name, body, _volume in web_hits) + clear
+        # Keep the full corbel on every part of this width that the exact collision does not
+        # occupy. The clearance is struck from the INTERSECTION, not the blocker's whole
+        # bounding box: a board-wide representative pin field that only reaches one side of a
+        # corner boss must not erase the other side.
+        clear_bands = [span]
+        for _name, body, _volume in web_hits:
+            overlap = offered.intersect(body)
+            if overlap.Volume() <= 1e-6:
+                continue
+            ob = box(overlap)
+            cut_lo, cut_hi = ob.ymin - clear, ob.ymax + clear
+            next_bands = []
+            for band_lo, band_hi in clear_bands:
+                if cut_hi <= band_lo or cut_lo >= band_hi:
+                    next_bands.append((band_lo, band_hi))
+                    continue
+                if cut_lo > band_lo + 1e-6:
+                    next_bands.append((band_lo, min(cut_lo, band_hi)))
+                if cut_hi < band_hi - 1e-6:
+                    next_bands.append((max(cut_hi, band_lo), band_hi))
+            clear_bands = next_bands
+        station = (sy, sz, tip, web_tip, tuple(clear_bands), span)
+        remaining = hits(_enc._east_boss_corbel(wall_x, station))
+        if remaining:
+            names = ", ".join(name for name, _body, _volume in remaining)
+            raise ValueError(
+                f"the {owner} mount at y={sy:g}, z={sz:g} still crosses {names} "
+                f"after its object-derived corbel setback to x={web_tip:g}")
+        return web_tip, tuple(clear_bands), tuple(name for name, _body, _volume in web_hits)
+
+    raw = []
     for owner, carry, holes in mounted:
         for hx, hy in holes:
             pos, _axis = carry(((hx, hy, 0.0), (0.0, 0.0, 1.0)))
-            sy, sz, tip = pos[1], pos[2], pos[0]
+            raw.append((owner, pos[1], pos[2], pos[0]))
+    pairs = _enc.east_boss_pairs([(sy, sz, tip) for _owner, sy, sz, tip in raw])
+    partner = {}
+    for i, j in pairs:
+        partner[i], partner[j] = j, i
+    out, held, bars = [None] * len(raw), [], []
+
+    def keep(k, owner, ky, kz, tip, web_tip, bands, names, span=None):
+        setback = names != ()
+        if span is None:
+            out[k] = (ky, kz, tip, web_tip, bands) if setback else (ky, kz, tip)
+        else:
+            out[k] = (ky, kz, tip, web_tip, bands, span)
+        return setback
+
+    for i, (owner, sy, sz, tip) in enumerate(raw):
+        if i not in partner:
             # The round annulus is the established boss and may meet the donor inside its own
             # mounting hole (the ground stack does). Test only the two corners that turn that
             # annulus into a D: those are the new material whose clearance is in question.
@@ -3459,59 +3524,56 @@ def wall_mounts(*mounted, blockers=()):
                     f"the {owner} mount at y={sy:g}, z={sz:g} crosses its D stem ({names}); "
                     "move the body or its mounting station — setting the corbel back cannot "
                     "clear a blocker in the boss itself")
+            web_tip, bands, names = profile(owner, sy, sz, tip, (sy - r, sy + r))
+            if keep(i, owner, sy, sz, tip, web_tip, bands, names):
+                held.append((owner, sy, sz, web_tip - tip, names, bands))
+            continue
+        j = partner[i]
+        if j < i:
+            continue                            # the pair was read from its first hole
+        sy2, sz2 = raw[j][1], raw[j][2]
+        fill_hits = hits(_enc._east_bar_fill(wall_x, (sy, sz, tip), (sy2, sz2, tip)))
+        if fill_hits:
+            names = ", ".join(name for name, _body, _volume in fill_hits)
+            raise ValueError(
+                f"the {owner} mounts at y={sy:g}/{sy2:g}, z={sz:g}/{sz2:g} share a bar that "
+                f"crosses {names}; move the body or its mounting stations — a bar's fill is "
+                "checked, not set back")
+        bars.append((owner, sy, sz, sy2, sz2))
+        if abs(sz - sz2) <= _enc.stated_bound_tol:
+            # Side by side: one span, one reading, carried by both holes.
+            span = (min(sy, sy2) - r, max(sy, sy2) + r)
+            web_tip, bands, names = profile(owner, sy, sz, tip, span)
+            keep(i, owner, sy, sz, tip, web_tip, bands, names, span)
+            keep(j, owner, sy2, sz2, tip, web_tip, bands, names, span)
+            if names:
+                held.append((owner, sy, sz, web_tip - tip, names, bands))
+        else:
+            # One over the other: each hole keeps its own reading; the lower carries the bar.
+            for k, ky, kz in ((i, sy, sz), (j, sy2, sz2)):
+                web_tip, bands, names = profile(owner, ky, kz, tip, (ky - r, ky + r))
+                if keep(k, owner, ky, kz, tip, web_tip, bands, names):
+                    held.append((owner, ky, kz, web_tip - tip, names, bands))
 
-            station = (sy, sz, tip, tip)
-            web_hits = hits(_enc._east_boss_corbel(wall_x, station))
-            if web_hits:
-                web_tip = max(box(body).xmax for _name, body, _volume in web_hits)
-                web_tip += _enc.east_boss_corbel_clear
-                # Keep the full corbel on every part of this boss's width that the exact
-                # collision does not occupy. The clearance is struck from the INTERSECTION,
-                # not the blocker's whole bounding box: a board-wide representative pin field
-                # that only reaches one side of a corner boss must not erase the other side.
-                offered = _enc._east_boss_corbel(wall_x, (sy, sz, tip, tip))
-                clear_bands = [(sy - _enc.mount_boss_dia / 2.0,
-                                sy + _enc.mount_boss_dia / 2.0)]
-                for _name, body, _volume in web_hits:
-                    overlap = offered.intersect(body)
-                    if overlap.Volume() <= 1e-6:
-                        continue
-                    ob = box(overlap)
-                    cut_lo = ob.ymin - _enc.east_boss_corbel_clear
-                    cut_hi = ob.ymax + _enc.east_boss_corbel_clear
-                    next_bands = []
-                    for band_lo, band_hi in clear_bands:
-                        if cut_hi <= band_lo or cut_lo >= band_hi:
-                            next_bands.append((band_lo, band_hi))
-                            continue
-                        if cut_lo > band_lo + 1e-6:
-                            next_bands.append((band_lo, min(cut_lo, band_hi)))
-                        if cut_hi < band_hi - 1e-6:
-                            next_bands.append((max(cut_hi, band_lo), band_hi))
-                    clear_bands = next_bands
-                station = (sy, sz, tip, web_tip, tuple(clear_bands))
-                remaining = hits(_enc._east_boss_corbel(wall_x, station))
-                if remaining:
-                    names = ", ".join(name for name, _body, _volume in remaining)
-                    raise ValueError(
-                        f"the {owner} mount at y={sy:g}, z={sz:g} still crosses {names} "
-                        f"after its object-derived corbel setback to x={web_tip:g}")
-                held.append((owner, sy, sz, web_tip - tip,
-                             tuple(name for name, _body, _volume in web_hits),
-                             tuple(clear_bands)))
-            out.append(station)
-
-    # All added support material — the D-fill corners and the wedge — stays out of every
-    # installed body. The established circular annulus is deliberately absent from this probe:
-    # the ground stack meets it inside its own mounting hole, which is intended seating rather
-    # than a collision introduced by the corbel.
+    # All added support material — the D-fill corners or a bar's fill, and the wedge — stays
+    # out of every installed body. The established circular annulus is deliberately absent from
+    # this probe: the ground stack meets it inside its own mounting hole, which is intended
+    # seating rather than a collision introduced by the corbel.
     bad = []
-    for station in out:
-        addition = _enc._east_boss_d_fill(wall_x, station).fuse(
-            _enc._east_boss_corbel(wall_x, station))
+    for i, station in enumerate(out):
+        if i in partner:
+            j = partner[i]
+            addition = _enc._east_bar_fill(wall_x, out[i], out[j]) if i < j else None
+        else:
+            addition = _enc._east_boss_d_fill(wall_x, station)
+        corbel = _enc._east_boss_corbel(wall_x, station)
+        if corbel is not None:
+            addition = corbel if addition is None else addition.fuse(corbel)
+        if addition is None:
+            continue
         for name, _body, volume in hits(addition):
             bad.append((station[:3], name, volume))
-    full = len(out) - len(held)
+    full = sum(1 for s in out if len(s) < 4 or abs(s[3] - s[2]) <= _enc.stated_bound_tol)
     # A HELD-BACK BOSS AND A SPLIT ONE ARE NOT THE SAME READING. A blocker that covers the whole
     # seven millimetres leaves no clear band, and calling that a split corbel would report a
     # wall-rooted wing the piece does not have. The two populations are counted apart, and a
@@ -3520,12 +3582,14 @@ def wall_mounts(*mounted, blockers=()):
     plain = [row for row in held if not row[5]]
     record_bound(Bound(
         "east-boss-corbels",
-        "Every +X-wall power-column boss has a flat D stem and a body-clear 45 degree corbel",
+        "Every +X-wall power-column boss has a flat D stem or shares a bar, and a body-clear "
+        "45 degree corbel",
         not bad,
         f"{len(out) - len(bad)}/{len(out)} clear; {full} reach their mounting face across "
         f"their whole width and {len(splits)} use blocker-profiled split corbels"
-        + (f", {len(plain)} are held back across their whole width" if plain else ""),
-        "one clear D-stem corbel per mounting hole",
+        + (f", {len(plain)} are held back across their whole width" if plain else "")
+        + (f"; {len(bars)} hole pair(s) share a bar" if bars else ""),
+        "one clear corbel per mounting hole, one bar per hole pair",
         ([f"boss {station} crosses `{name}` by {volume:.4f} mm³"
           for station, name, volume in bad]
          + [f"`{owner}` y {sy:.3f}, z {sz:.3f}: {setback:.3f} mm setback past "
