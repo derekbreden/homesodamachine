@@ -42,15 +42,34 @@ shop, so a kit spends height instead.
 [`_kit.py`](_kit.py) is the family's vocabulary, and every kit generator reads it:
 
 - `bin_body`, `blank_body`, `dock_body` render the three storey stocks;
-  `bin_cavity` is the void a bin holds below its top reference.
+  `bin_cavity` is the void a bin holds below its top reference, and `bin_cells` reads
+  that void as one compartment per cell, the front row first and left to right.
+- `bin_floor_z`, `cavity_depth`, `interior_ceiling_z`, `interior_fillet`,
+  `label_tape_width`, `label_ledge_drop` and `label_ledge_reach` are the library's own
+  figures for what a compartment offers: where its floor is, how far the void runs, the
+  lower ceiling under which nothing is crushed by the storey above, the fillet a content
+  clears before it clears a wall, and the two label ledges — the deeper one on the bin's
+  +Y wall, the shallower one along a divider.
+- `inner_size`, `cell_span`, `cell_centers` and `cell_floor_area` are the library's
+  division formula without a body to measure; `centered_run`, `run_span` and
+  `spread_pitch` lay a socket index out on a plateau.
 - `Storey`, `stack_seats`, `exploded_seats` and `kit_assembly` place a kit in its frame,
   closed or exploded, with its contents riding on their storeys.
-- `assert_stack_seated`, `assert_contained`, `assert_clear`, `assert_one_solid` and
-  `assert_h2c_fit` are the checks every kit runs before it exports.
-- `rounded_prism`, `placed_prism`, `cylinder`, `pocket`, `round_pocket` and
-  `socket_ring` are the envelopes and cutters a rack or a reference is built from.
+- `assert_stack_seated`, `assert_contained`, `assert_clearance`, `assert_under_ceiling`,
+  `assert_inside_plateau`, `assert_clear`, `assert_one_solid` and `assert_h2c_fit` are
+  the checks every kit runs before it exports.
+- `rounded_prism`, `placed_prism`, `cylinder`, `lying_cylinder`, `cone`, `pocket`,
+  `round_pocket` and `socket_ring` are the envelopes and cutters a rack or a reference
+  is built from.
 - `export_parts` and `export_kit` write one coloured STEP per printed part and one per
   presentation assembly.
+
+`_kit.py selftest` checks every figure the module derives against the body
+cq-gridfinity actually renders:
+
+```sh
+tools/cad-venv/bin/python hardware/printed-parts/shop-storage/_kit.py selftest
+```
 
 The frame is the JST tower's: world +Z is up, +Y is the operator-facing front, and +X is
 the operator's right. The library's label ledge stands on the +Y wall, so a bin rendered

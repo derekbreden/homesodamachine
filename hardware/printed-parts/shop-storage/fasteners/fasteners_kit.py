@@ -20,8 +20,6 @@ import sys
 from pathlib import Path
 
 import cadquery as cq
-from cqgridfinity import GridfinityBox
-from cqgridfinity.constants import GR_BOT_H, GR_DIV_WALL, GR_FILLET, GR_WALL
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
@@ -36,37 +34,21 @@ from _kit import substitute_md  # noqa: E402
 footprint_x_u = 3
 footprint_y_u = 3
 
-trough_span = _kit.outer_size(footprint_x_u) - 2.0 * GR_WALL
+trough_span = _kit.inner_size(footprint_x_u)
 trough_half_span = trough_span / 2.0
-bin_floor_z = GR_BOT_H
-interior_fillet_radius = GR_FILLET
-
-
-def stock_bin(height_u=1, **features):
-    """The library's own box, for the dimensions it derives rather than the body."""
-    return GridfinityBox(footprint_x_u, footprint_y_u, height_u, **features)
 
 
 def trough_width(troughs):
     """The clear width of one trough of a storey divided into `troughs` of them."""
-    return (trough_span - GR_DIV_WALL * (troughs - 1)) / troughs
+    return _kit.cell_span(footprint_x_u, troughs - 1)
 
 
 def trough_center_x(index, troughs):
     """The centre of trough `index`, counted from -X."""
-    return (index - (troughs - 1) / 2.0) * (trough_width(troughs) + GR_DIV_WALL)
+    return _kit.cell_centers(footprint_x_u, troughs - 1)[index]
 
 
-def interior_ceiling_z(height_u):
-    """The bin's interior ceiling, under the stacking lip's own shelf. A fill stops
-    below it, so the base foot of the storey above never meets the fill."""
-    return bin_floor_z + stock_bin(height_u).int_height
-
-
-#: How far the label ledge reaches inboard of the +Y wall: the library's label strip
-#: plus the lip its width is compensated for. The ledge is a wedge under that reach,
-#: so a fill that stops this far short of the wall stands clear of it at any height.
-label_ledge_reach = stock_bin().label_width + _kit.lip_inset
+label_ledge_reach = _kit.label_ledge_reach()
 
 content_clearance = 2.0
 wall_clearance = 1.0
@@ -85,7 +67,7 @@ def fill_width(troughs):
 
 def trough_capacity(troughs, height_u):
     """All the fill one trough of that storey can take."""
-    depth = interior_ceiling_z(height_u) - bin_floor_z
+    depth = _kit.interior_ceiling_z(height_u) - _kit.bin_floor_z
     return fill_width(troughs) * fill_depth * depth
 
 
@@ -359,25 +341,22 @@ def build_fill(content, index, troughs):
         content.fill_height(troughs),
         trough_center_x(index, troughs),
         fill_center_y,
-        z_bottom=bin_floor_z,
+        z_bottom=_kit.bin_floor_z,
         radius=fill_corner_radius,
     )
 
 
 def build_trough_probe(index, troughs, height_u):
-    """The fill footprint grown across by the wall clearance, run from over the
-    trough's floor fillet to the highest a fill in that storey may stand. Contained,
-    it says every fill this trough can hold clears the walls, the dividers and the
-    label ledge by that much."""
-    probe_floor_z = bin_floor_z + interior_fillet_radius
-    probe_top_z = interior_ceiling_z(height_u) - fill_headroom
+    """The whole fill footprint of one trough, floor to the highest a fill in that
+    storey may stand. Clear of the cavity by the wall clearance, it says every fill
+    this trough can hold clears the walls, the dividers and the label ledge."""
     return _kit.placed_prism(
-        fill_width(troughs) + 2.0 * wall_clearance,
-        fill_depth + 2.0 * wall_clearance,
-        probe_top_z - probe_floor_z,
+        fill_width(troughs),
+        fill_depth,
+        _kit.interior_ceiling_z(height_u) - fill_headroom - _kit.bin_floor_z,
         trough_center_x(index, troughs),
         fill_center_y,
-        z_bottom=probe_floor_z,
+        z_bottom=_kit.bin_floor_z,
         radius=fill_corner_radius,
     )
 
@@ -385,21 +364,6 @@ def build_trough_probe(index, troughs, height_u):
 # ============================================================
 # FIT CHECKS
 # ============================================================
-
-def assert_under_ceiling(name, fill, height_u):
-    """A fill stops clear of the bin's interior ceiling. `bin_cavity` runs on up into
-    the lip, where the storey above's base foot lands, so containment alone does not
-    say this."""
-    ceiling = interior_ceiling_z(height_u)
-    top = _kit.bbox(fill).zmax
-    headroom = ceiling - top
-    if headroom < fill_headroom:
-        raise ValueError(
-            f"{name}: {headroom:.2f} mm under the interior ceiling, "
-            f"wanted {fill_headroom:.2f} mm"
-        )
-    print(f"   {name}: {headroom:.2f} mm under the interior ceiling")
-
 
 def validate(parts, cavities):
     print("Fit checks")
@@ -414,15 +378,18 @@ def validate(parts, cavities):
         cavity = cavities[storey_name]
         troughs = len(contents)
         for index in range(troughs):
-            _kit.assert_contained(
+            _kit.assert_clearance(
                 f"{storey_name} trough {index + 1} clearance",
                 build_trough_probe(index, troughs, height_u),
                 cavity,
+                wall_clearance,
             )
         for index, content in enumerate(contents):
             fill = build_fill(content, index, troughs)
             _kit.assert_contained(f"{content.name} fill", fill, cavity)
-            assert_under_ceiling(f"{content.name} headroom", fill, height_u)
+            _kit.assert_under_ceiling(
+                f"{content.name} headroom", fill, height_u, fill_headroom
+            )
 
 
 # ============================================================
@@ -520,7 +487,7 @@ def main():
         variables[f"{stem}_TROUGHS"] = f"{len(contents)}"
         variables[f"{stem}_TROUGH_WIDTH"] = f"{trough_width(len(contents)):.1f} mm"
         variables[f"{stem}_DEPTH"] = (
-            f"{interior_ceiling_z(height_u) - bin_floor_z:.1f} mm"
+            f"{_kit.interior_ceiling_z(height_u) - _kit.bin_floor_z:.1f} mm"
         )
         variables[f"{stem}_ENVELOPE"] = _kit.size_text(parts[storey_name])
         for content in contents:
@@ -530,7 +497,7 @@ def main():
             )
     variables["TRAY_TROUGH_WIDTH"] = f"{trough_width(tray_troughs):.1f} mm"
     variables["TRAY_DEPTH"] = (
-        f"{interior_ceiling_z(tray_storey_height_u) - bin_floor_z:.1f} mm"
+        f"{_kit.interior_ceiling_z(tray_storey_height_u) - _kit.bin_floor_z:.1f} mm"
     )
     variables["TRAY_ENVELOPE"] = _kit.size_text(parts["fasteners-tray"])
     variables["DOCK_ENVELOPE"] = _kit.size_text(parts["fasteners-dock"])

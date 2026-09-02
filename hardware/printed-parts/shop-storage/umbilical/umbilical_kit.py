@@ -16,7 +16,6 @@ import sys
 from pathlib import Path
 
 import cadquery as cq
-from cqgridfinity import GridfinityBox
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
@@ -34,22 +33,16 @@ kit_y_u = 3
 footprint_x = kit_x_u * _kit.grid_unit
 footprint_y = kit_y_u * _kit.grid_unit
 
-#: The library's own figures for a box of this footprint, read off one rather
-#: than copied out of it.
-_stock_box = GridfinityBox(kit_x_u, kit_y_u, 1)
+interior_half_x = _kit.inner_size(kit_x_u) / 2.0
+interior_half_y = _kit.inner_size(kit_y_u) / 2.0
 
-interior_half_x = _kit.outer_size(kit_x_u) / 2.0 - _stock_box.wall_th
-interior_half_y = _kit.outer_size(kit_y_u) / 2.0 - _stock_box.wall_th
-
-#: A bin's interior floor stands one height unit over the storey's own bottom:
-#: the base profile's whole depth is under it.
-storey_floor_z = _kit.height_unit
+storey_floor_z = _kit.bin_floor_z
 
 #: The label ledge roofs the +Y end of every compartment, and `bin_cavity`
 #: leaves it out of the void — so a content standing taller than
 #: `top - ledge_height` has to keep `ledge_width` clear of that wall.
-label_ledge_width = _stock_box.label_width
-label_ledge_height = _stock_box.label_height
+label_ledge_width = _kit.label_tape_width
+label_ledge_height = _kit.label_tape_height
 
 ribbon_height_u = 11
 stand_height_u = 7
@@ -59,11 +52,6 @@ terminations_height_u = 7
 rack_height_u = 8
 
 wall_clearance_min = 1.0
-
-
-def usable_height(height_u):
-    """How deep a bin storey's compartments run, floor to top reference."""
-    return _kit.top_reference_z(height_u) - storey_floor_z
 
 
 # ============================================================
@@ -144,8 +132,6 @@ plug_fill_margin = 4.0
 # THE JOB RACK AND ITS TOOLS
 # ============================================================
 
-rack_plateau_half_x = _kit.plateau_half(kit_x_u)
-rack_plateau_half_y = _kit.plateau_half(kit_y_u)
 rack_top_z = _kit.top_reference_z(rack_height_u)
 #: Every socket floor stands clear of the storey below: the rack's base profile
 #: is whole under all three.
@@ -302,14 +288,6 @@ def build_stand_reference():
     )
 
 
-def compartments(cavity):
-    """The void's compartments as their own workplanes, back to front."""
-    return [
-        cq.Workplane("XY").newObject([solid])
-        for solid in sorted(cavity.solids().vals(), key=lambda s: s.BoundingBox().ymin)
-    ]
-
-
 def compartment_span(compartment):
     """One compartment's `(centre y, depth)`."""
     bounds = _kit.bbox(compartment)
@@ -319,10 +297,10 @@ def compartment_span(compartment):
 def build_jack_references(cell_center_y):
     """Ten keystone jacks in one layer, ports up, backed off the label ledge."""
     jacks = []
-    for column in range(jack_columns):
-        center_x = (column - (jack_columns - 1) / 2.0) * (jack_body_w + jack_gap)
-        for row in range(jack_rows):
-            center_y = cell_center_y + (row - (jack_rows - 1) / 2.0) * (jack_body_h + jack_gap)
+    for center_x in _kit.centered_run(jack_columns, jack_body_w + jack_gap):
+        for center_y in _kit.centered_run(
+            jack_rows, jack_body_h + jack_gap, cell_center_y
+        ):
             jacks.append(
                 _kit.placed_prism(
                     jack_body_w,
@@ -371,8 +349,8 @@ def _splayed_grips(center_y, root_z, tip_z, root_half_x, tip_half_x, thickness):
         ]
         grips.append(
             cq.Workplane("XZ")
-            .polyline(outline)
-            .close()
+            .polyline(outline + outline[:1])
+            .wire()
             .extrude(thickness / 2.0, both=True)
             .translate((0.0, center_y, 0.0))
         )
@@ -466,15 +444,6 @@ def build_stripper_reference():
 # FIT CHECKS
 # ============================================================
 
-def assert_socket_in_plateau(name, width, depth, center_y):
-    """A socket opens inside the blank's flat top, clear of its stacking lip."""
-    if width / 2.0 > rack_plateau_half_x or abs(center_y) + depth / 2.0 > rack_plateau_half_y:
-        raise ValueError(f"{name}: socket reaches outside the rack's plateau")
-    edge_y = rack_plateau_half_y - (abs(center_y) + depth / 2.0)
-    print(f"   {name} socket: {rack_plateau_half_x - width / 2.0:.1f} mm to the lip in x, "
-          f"{edge_y:.1f} mm in y")
-
-
 def assert_socket_slip(name, socket_width, socket_depth, head_width, head_depth):
     """A head-down socket stands 1.5 to 3 mm off its tool on every side."""
     slips = (
@@ -539,7 +508,7 @@ def validate(parts, storeys, seats, cavities, references):
         "keystone stand", references["stand"], stand_height_u, interior_half_y
     )
 
-    jack_cell, plug_cell = compartments(cavities["umbilical-terminations"])
+    plug_cell, jack_cell = _kit.bin_cells(cavities["umbilical-terminations"])
     jack_cell_y, jack_cell_depth = compartment_span(jack_cell)
     plug_cell_y, plug_cell_depth = compartment_span(plug_cell)
     jack_block = _union(references["jacks"])
@@ -562,7 +531,13 @@ def validate(parts, storeys, seats, cavities, references):
     for name, (width, depth, center_y) in zip(
         ("VCE crimper", "Klein VDV427-300", "Klein 11057"), rack_sockets()
     ):
-        assert_socket_in_plateau(name, width, depth, center_y)
+        _kit.assert_inside_plateau(
+            f"{name} socket",
+            width / 2.0,
+            abs(center_y) + depth / 2.0,
+            kit_x_u,
+            kit_y_u,
+        )
     assert_socket_slip(
         "VCE crimper",
         crimper_socket_width,
@@ -674,7 +649,7 @@ def main():
         ),
     }
 
-    jack_cell, plug_cell = compartments(cavities["umbilical-terminations"])
+    plug_cell, jack_cell = _kit.bin_cells(cavities["umbilical-terminations"])
     jack_cell_y, _ = compartment_span(jack_cell)
     plug_cell_y, plug_cell_depth = compartment_span(plug_cell)
     references = {
@@ -728,7 +703,7 @@ def main():
             f"{_kit.h2c_build_x:.0f} x {_kit.h2c_build_y:.0f} x {_kit.h2c_build_z:.0f} mm"
         ),
         "RIBBON_PARCEL": f"{ribbon_parcel_x:.0f} x {ribbon_parcel_y:.0f} x {ribbon_parcel_z:.0f} mm",
-        "RIBBON_CAVITY": f"{usable_height(ribbon_height_u):.0f} mm",
+        "RIBBON_CAVITY": f"{_kit.cavity_depth(ribbon_height_u):.0f} mm",
         "REEL_ENVELOPE": (
             f"diameter {reel_flange_diameter:.0f} mm x {reel_width:.0f} mm"
         ),
