@@ -46,7 +46,7 @@
    "label": "Every placed body is declared in the fastening table",
    "kind": "gate",
    "status": "pass",
-   "value": "92/92 declared",
+   "value": "94/94 declared",
    "target": "all declared",
    "detail": [],
    "active": true
@@ -123,6 +123,8 @@
     "co2-inlet \u2014 bulkhead-ring-co2: 0.000 mm \u2014 seated against it",
     "asse1022-assembly \u2014 bulkhead-water: 0.000 mm \u2014 seated against it",
     "asse-drip-pan \u2014 moisture-plate: 0.000 mm \u2014 seated against it",
+    "asse-drip-pan \u2014 drip-dock-female: 0.000 mm \u2014 seated against it",
+    "drip-dock-female \u2014 drip-dock-male: 0.000 mm \u2014 seated against it",
     "bulkhead-water \u2014 bulkhead-ring-water: 0.000 mm \u2014 seated against it",
     "bulkhead-flavor-b \u2014 bulkhead-ring-flavor-b: 0.000 mm \u2014 seated against it",
     "bulkhead-flavor-a \u2014 bulkhead-ring-flavor-a: 0.000 mm \u2014 seated against it",
@@ -147,6 +149,7 @@
     "carb-1 \u2014 enclosure-ceiling-panel: 0.199 mm \u2014 seated against it",
     "discharge-chain \u2014 foam-assembly: 0.200 mm \u2014 seated against it",
     "suction-chain \u2014 foam-assembly: 0.200 mm \u2014 seated against it",
+    "asse-drip-pan \u2014 drip-dock-male: 0.608 mm \u2014 seated against it",
     "seaflo-pump \u2014 bulkhead-flavor-a: 1.004 mm",
     "keystone-jack \u2014 bulkhead-ring-flavor-a: 1.052 mm",
     "carb-1 \u2014 suction-chain: 1.113 mm",
@@ -724,11 +727,21 @@
   },
   {
    "id": "c14-surround",
-   "label": "The C14 flange is wrapped at its ceiling-clear mount",
+   "label": "The C14 flange pockets into one block at its ceiling-clear mount",
    "kind": "gate",
    "status": "pass",
    "value": "holds",
-   "target": "3 mm in XZ, 3 mm beyond the flange's Y- edge, a 9 mm entry relief, and one rooted profile corbel",
+   "target": "3 mm in XZ, 3 mm of lip beyond the flange's Y- edge, a 9 mm entry relief, and one full-width wedge corbel",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "co2-relief",
+   "label": "The CO2 station's wall relief stands on the neoFit's own column and storey",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "x 2.45, z 336.21",
    "detail": [],
    "active": true
   },
@@ -744,15 +757,14 @@
   },
   {
    "id": "east-boss-corbels",
-   "label": "Every +X-wall power-column boss has a flat D stem and a body-clear 45 degree corbel",
+   "label": "Every +X-wall power-column boss has a flat D stem or shares a bar, and a body-clear 45 degree corbel",
    "kind": "gate",
    "status": "pass",
-   "value": "17/17 clear; 14 reach their mounting face across their whole width and 3 use blocker-profiled split corbels",
-   "target": "one clear D-stem corbel per mounting hole",
+   "value": "17/17 clear; 14 reach their mounting face across their whole width and 2 use blocker-profiled split corbels; 4 hole pair(s) share a bar",
+   "target": "one clear corbel per mounting hole, one bar per hole pair",
    "detail": [
     "`pcba` y 241.000, z 323.200: 3.000 mm setback past pcba, full wall-rooted wing(s) y 237.500..239.030",
-    "`relay-2` y 343.500, z 321.400: 3.000 mm setback past relay-2, full wall-rooted wing(s) y 344.500..347.000",
-    "`relay-2` y 330.500, z 321.400: 3.000 mm setback past relay-2, full wall-rooted wing(s) y 327.000..329.500"
+    "`relay-2` y 343.500, z 321.400: 3.000 mm setback past relay-2, full wall-rooted wing(s) y 327.000..329.500, y 344.500..347.000"
    ],
    "active": true
   },
@@ -763,6 +775,26 @@
    "status": "pass",
    "value": "flat floor 42.00 x 67.00",
    "target": "42.00 x 56.00",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "dock-under-the-rim",
+   "label": "The dock's pocket keeps a roof under the rim rebate",
+   "kind": "gate",
+   "status": "pass",
+   "value": "1.10 mm of roof",
+   "target": ">= 1 mm",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "dock-clears-plate",
+   "label": "The dock's boss stands clear of the moisture plate",
+   "kind": "gate",
+   "status": "pass",
+   "value": "0.92 mm at the plate's top east edge",
+   "target": ">= 0.5 mm",
    "detail": [],
    "active": true
   },
@@ -1035,7 +1067,7 @@
    "label": "A printed feature of another placed part fastens every body",
    "kind": "gate",
    "status": "pass",
-   "value": "60/60 mounted, 20 part of another body, 12 nothing fastens",
+   "value": "62/62 mounted, 20 part of another body, 12 nothing fastens",
    "target": "a printed joint per body",
    "detail": [
     "funnel: wall-capture \u2014 nothing fastens it; The brim bears on the top wall's outer face, the collar runs in `enclosure._funnel_cut_plan`, and the elbow's own collet grips the stub the spout carries \u2014 so the funnel is held down by the joint it releases from. It is a dishwasher part and comes out by hand.",
@@ -1058,7 +1090,7 @@
    "label": "Every placement is stated as a rule, and the solid lands on it",
    "kind": "goal",
    "status": "pass",
-   "value": "92/92 stated",
+   "value": "94/94 stated",
    "target": "a stated rule per body, each landing on it",
    "detail": [],
    "active": false

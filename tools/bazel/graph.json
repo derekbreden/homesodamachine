@@ -6599,6 +6599,23 @@
       "hardware/reference/jg-pp451223w/jg-pp451223w.step"
     ]
   },
+  "hardware/reference/jhyossthi-pogo-dock/jhyossthi_pogo_dock.py": {
+    "reads": [
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+      "hardware/reference/jhyossthi-pogo-dock/pogo-dock-female.step",
+      "hardware/reference/jhyossthi-pogo-dock/pogo-dock-male.step",
+      "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_materials.py",
+      "hardware/scripts/_mesh_payload.py",
+      "hardware/scripts/_run_lock.py",
+      "tools/docgen/__init__.py"
+    ],
+    "rewritten": [],
+    "writes": [
+      "hardware/reference/jhyossthi-pogo-dock/pogo-dock-female.step",
+      "hardware/reference/jhyossthi-pogo-dock/pogo-dock-male.step"
+    ]
+  },
   "hardware/reference/kamoer-kphm400/kamoer_kphm400.py": {
     "reads": [
       "hardware/printed-parts/cadlib/snap.py",

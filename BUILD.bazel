@@ -7428,6 +7428,46 @@ cp hardware/reference/jg-pp451223w/jg-pp451223w.step $$O0
 )
 
 genrule(
+    name = "jhyossthi-pogo-dock",
+    srcs = [
+        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/reference/jhyossthi-pogo-dock/jhyossthi_pogo_dock.py",
+        "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_materials.py",
+        "pysrc/hardware/scripts/_mesh_payload.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/tools/docgen/__init__.py",
+    ],
+    outs = [
+        "out/jhyossthi-pogo-dock/hardware/reference/jhyossthi-pogo-dock/pogo-dock-female.step",
+        "out/jhyossthi-pogo-dock/hardware/reference/jhyossthi-pogo-dock/pogo-dock-male.step",
+    ],
+    cmd = """
+set -e
+O0=$$PWD/$(location out/jhyossthi-pogo-dock/hardware/reference/jhyossthi-pogo-dock/pogo-dock-female.step)
+O1=$$PWD/$(location out/jhyossthi-pogo-dock/hardware/reference/jhyossthi-pogo-dock/pogo-dock-male.step)
+for f in $(SRCS); do
+  case $$f in
+    */node_modules/*) continue;;
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    */pysrc/*) t=$${f##*/pysrc/};;
+    *) t=$$f;;
+  esac
+  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+done
+cd work
+ln -sfn $$HSM_WORKSPACE/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/jhyossthi-pogo-dock/jhyossthi_pogo_dock.py > /dev/null
+cp hardware/reference/jhyossthi-pogo-dock/pogo-dock-female.step $$O0
+cp hardware/reference/jhyossthi-pogo-dock/pogo-dock-male.step $$O1
+""",
+)
+
+genrule(
     name = "kamoer-kphm400",
     srcs = [
         "pysrc/hardware/printed-parts/cadlib/snap.py",
@@ -9982,6 +10022,14 @@ genrule(
     name = "pysrc-b3e6c0d66b40",
     srcs = ["hardware/reference/jg-pp451223w/jg_pp451223w.py"],
     outs = ["pysrc/hardware/reference/jg-pp451223w/jg_pp451223w.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-9f047309b266",
+    srcs = ["hardware/reference/jhyossthi-pogo-dock/jhyossthi_pogo_dock.py"],
+    outs = ["pysrc/hardware/reference/jhyossthi-pogo-dock/jhyossthi_pogo_dock.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -18041,6 +18089,7 @@ filegroup(
         ":jg-pp0408w",
         ":jg-pp061208w",
         ":jg-pp451223w",
+        ":jhyossthi-pogo-dock",
         ":kamoer-kphm400",
         ":meanwell-irm90",
         ":mq6-gas-sensor",
