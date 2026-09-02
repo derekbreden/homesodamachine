@@ -81,14 +81,19 @@ def storey_height_u(width, depth, heaps):
 class Stock:
     """One compartment's contents: `count` pieces the size of `piece`."""
 
-    def __init__(self, name, count, piece, color):
+    def __init__(self, name, count, piece, color, volume=None):
         self.name = name
         self.count = count
         self.piece = piece
         self.color = color
+        #: The loose volume, when the compartment holds several sizes and `piece` is only
+        #: the largest of them — the one the compartment has to admit.
+        self._volume = volume
 
     @property
     def heap(self):
+        if self._volume is not None:
+            return self._volume / heap_packing
         return self.count * self.piece.val().Volume() / heap_packing
 
 
@@ -204,6 +209,10 @@ def bootlace_ferrule(collar_diameter, collar_length, barrel_diameter, barrel_len
     return collar.union(barrel).translate((0.0, 0.0, collar_diameter / 2.0)).clean()
 
 
+#: The Ginsco kit's pieces are pre-cut and it publishes no length. The listing's own
+#: 198 g over 580 pieces bounds it: at this figure the tubing alone comes to 118 g, which
+#: leaves 80 g for the 205 x 146 x 39 mm organizer it ships in. Generous, so a compartment
+#: sized on it admits the real piece.
 shrink_cut_length = 44.5
 
 
@@ -286,17 +295,35 @@ ties_stock = (
     ),
 )
 
-shrink_diameters = (2.4, 3.2, 4.8, 6.4, 9.5, 12.7)
-shrink_counts = (250, 110, 60, 40, 25, 15)
+# The Ginsco kit's own eleven diameters, as its listing states them in fractional inches,
+# and the pieces it ships of each. Eleven sizes into six compartments, so the three
+# smallest share one and the pairs above 5 mm share theirs: the band's widest sleeve is
+# what its compartment is sized on, and the count is the band's whole.
+# The Ginsco kit's own eleven diameters, as its listing states them in fractional inches,
+# and the pieces it ships of each. Eleven sizes into six compartments, so the three
+# smallest share one and the two pairs above 5 mm share theirs. A band's compartment is
+# sized on the WIDEST sleeve in it, which is what it has to admit; its heap is the sum of
+# what every size in the band actually occupies, and not that widest one counted over.
+shrink_bands = (
+    ("1.06–1.59 mm", ((1.058, 80), (1.191, 30), (1.588, 80))),   # 1/24", 3/64", 1/16"
+    ("2.12 mm", ((2.117, 100),)),                                # 1/12"
+    ("3.18–3.57 mm", ((3.175, 60), (3.572, 30))),                # 1/8", 9/64"
+    ("3.97 mm", ((3.969, 70),)),                                 # 5/32"
+    ("5.08–5.95 mm", ((5.080, 30), (5.953, 20))),                # 1/5", 15/64"
+    ("7.94–9.92 mm", ((7.938, 20), (9.922, 60))),                # 5/16", 25/64"
+)
+shrink_diameters = tuple(max(d for d, _ in sizes) for _, sizes in shrink_bands)
+shrink_counts = tuple(sum(n for _, n in sizes) for _, sizes in shrink_bands)
 
 shrink_stock = tuple(
     Stock(
-        f"heat-shrink 2:1, {diameter} mm",
-        count,
-        shrink_piece(diameter),
+        f"heat-shrink 2:1, {band}",
+        sum(n for _, n in sizes),
+        shrink_piece(max(d for d, _ in sizes)),
         shrink_color,
+        volume=sum(n * shrink_piece(d).val().Volume() for d, n in sizes),
     )
-    for diameter, count in zip(shrink_diameters, shrink_counts)
+    for band, sizes in shrink_bands
 )
 
 # --- Push-ons and rings ----------------------------------------------------
