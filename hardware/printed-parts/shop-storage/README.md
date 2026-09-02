@@ -60,7 +60,10 @@ here already faces the operator.
 
 | Directory | Job | Form | Footprint |
 |---|---|---|---|
+| [`fasteners/`](fasteners/) | Inserts and screws | stack | 3 x 3 |
+| [`hotends/`](hotends/) | H2C hotend swaps | stack | 3 x 3 |
 | [`jst-crimping/`](jst-crimping/) | JST XH crimping | tower | 3 x 3 |
+| [`umbilical/`](umbilical/) | Umbilical termination | stack | 2 x 3 |
 
 ## Prior art
 

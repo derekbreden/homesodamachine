@@ -1,0 +1,29 @@
+{
+  "/hardware/printed-parts/shop-storage/umbilical/umbilical_kit.py": {
+    "CELL_DEPTH": "61.2 mm",
+    "CRIMPER_ENVELOPE": "184.9 mm x 104.9 mm",
+    "DOCK_PART": "84.0 x 126.0 x 10.8 mm",
+    "FOOTPRINT": "84 mm x 126 mm",
+    "H2C_ENVELOPE": "325 x 320 x 320 mm",
+    "JACK_ARRAY": "78.5 mm x 49.8 mm",
+    "JACK_ENVELOPE": "14.9 x 24.4 x 30 mm",
+    "PLUG_ENVELOPE": "9.65 x 10.2 x 13.54 mm",
+    "PLUG_FILL": "48.5 cm^3",
+    "POPULATED_HEIGHT": "379.8 mm",
+    "PRINTED_HEIGHT": "240.6 mm",
+    "PUNCHDOWN_ENVELOPE": "152.4 x 38.1 x 25.4 mm",
+    "RACK_PART": "83.5 x 125.5 x 59.8 mm",
+    "REEL_ENVELOPE": "diameter 72 mm x 63 mm",
+    "RIBBON_CAVITY": "70 mm",
+    "RIBBON_PARCEL": "77 x 81 x 68 mm",
+    "RIBBON_PART": "83.5 x 125.5 x 80.8 mm",
+    "SOCKET_DEPTH": "48 mm",
+    "SOCKET_FLOOR": "8 mm",
+    "SOCKET_SLIP": "2.5 mm",
+    "STAND_ENVELOPE": "68.6 x 109.2 x 27.9 mm",
+    "STAND_PART": "83.5 x 125.5 x 52.8 mm",
+    "STRIPPER_ENVELOPE": "190.5 mm",
+    "TALLEST_PART": "80.8 mm",
+    "TERMINATIONS_PART": "83.5 x 125.5 x 52.8 mm"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "/hardware/printed-parts/shop-storage/hotends/hotends_kit.py": {
+    "DOCK_ENVELOPE": "126.0 x 126.0 x 10.8 mm",
+    "FOOTPRINT": "126 mm x 126 mm",
+    "H2C_ENVELOPE": "325 x 320 x 320 mm",
+    "INDUCTION_COUNT": "10",
+    "INDUCTION_ENVELOPE": "16 x 16 x 56.2 mm",
+    "INDUCTION_HEAD": "23.0 mm",
+    "INDUCTION_LENGTH": "56.2 mm",
+    "INDUCTION_POCKET": "20 x 20 x 25 mm",
+    "INDUCTION_STANDS_PROUD": "31.2 mm",
+    "IN_PLAY_COUNT": "4",
+    "POPULATED_HEIGHT": "114.0 mm",
+    "PRINTED_HEIGHT": "86.6 mm",
+    "RACK_ENVELOPE": "125.5 x 125.5 x 45.8 mm",
+    "RACK_PLATEAU": "120.3 mm x 120.3 mm",
+    "SOCKET_CLEARANCE": "2.0 mm",
+    "SOCKET_COUNT": "21",
+    "SOCK_COUNT": "8",
+    "SOCK_ENVELOPE": "26 x 16 x 16 mm",
+    "SPLIT_GROOVE": "3 mm x 4 mm",
+    "STANDARD_BORE": "13 mm x 32.1 mm",
+    "STANDARD_COUNT": "11",
+    "STANDARD_ENVELOPE": "22 x 22 x 49.2 mm",
+    "STANDARD_HEAD": "19.1 mm",
+    "STANDARD_LENGTH": "49.2 mm",
+    "SWAP_CELL": "123.5 x 61.1 x 28.0 mm",
+    "SWAP_ENVELOPE": "125.5 x 125.5 x 38.8 mm",
+    "TALLEST_PART": "45.8 mm"
+  }
+}
