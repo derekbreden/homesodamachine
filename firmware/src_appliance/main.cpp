@@ -216,6 +216,8 @@ static void help() {
     Serial.println("                    channel in turn, the funnel dry and open; s caps every step");
     Serial.println("  purge <a|b> [s]   air into that reservoir, then the reservoir out the faucet until");
     Serial.println("                    its empty reed opens; s caps every step");
+    Serial.println("  flow <n> [s]      pretend the meter reads n pulses per 50 ms for s seconds (default 5):");
+    Serial.println("                    the selected channel pours as if carbonated water were flowing");
     Serial.println("  selftest          every solenoid in turn, the fan, then each pump — one at a time");
     Serial.println("  stop              end whatever is running");
     Serial.println("  status            machine state, uptime, heap");
@@ -255,6 +257,9 @@ static void status() {
                       machinePumpName(fill.channel), (unsigned long)fill.elapsedMs,
                       (unsigned long)fill.plannedMs, fill.reeds);
     }
+    if (machineState() == ST_POURING)
+        Serial.printf(" — pour %s at 1:%u, %lu bursts", machinePumpName(machinePumpChannel()),
+                      flavorRatio(machinePumpChannel()), (unsigned long)machinePourCycles());
     if (machineState() == ST_AIRING) {
         MachineAirState air;
         machineReadAirState(air);
@@ -281,6 +286,7 @@ static void status() {
                   flavorEstablished() ? "main-board-owned" : "awaiting first faucet sync",
                   flavorPersisted() ? ", persisted" : ", persistence pending");
     Serial.printf("  ratio    A 1:%u, B 1:%u\n", flavorRatio(0), flavorRatio(1));
+    Serial.printf("  flow     %lu pulses since boot on IO%d\n", (unsigned long)machineFlowPulsesTotal(), PIN_FLOW);
     {
         MachineLevels lv;
         machineLevels(lv);
@@ -814,6 +820,19 @@ static void console(const String &line) {
         if (!machineAirBegin(AIR_MODE_PURGE, which == 'a' ? PUMP_CHANNEL_A : PUMP_CHANNEL_B,
                              (uint32_t)s * 1000UL))
             Serial.printf("\nrefused — the machine is %s\n", machineStateName());
+        return;
+    }
+    if (line.startsWith("flow")) {
+        String rest = line.substring(4); rest.trim();
+        int n = 0, s = 5;
+        if (!rest.length() || sscanf(rest.c_str(), "%d %d", &n, &s) < 1 || n < 0 || n > 60 ||
+            s < 0 || s > 600) {
+            Serial.println("\nusage: flow <pulses 0-60> [s 0-600]");
+            return;
+        }
+        machineFlowSimulate((uint32_t)n, (uint32_t)s * 1000UL);
+        Serial.printf("\nthe meter reads %d pulses per 50 ms for %d s — flavor %s pours at 1:%u\n",
+                      n, s, machinePumpName(flavorSelected()), flavorRatio(flavorSelected()));
         return;
     }
     if (line == "selftest") {

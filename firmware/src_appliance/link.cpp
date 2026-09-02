@@ -577,7 +577,8 @@ static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len) {
                        | (machineIsPriming()   ? STATUS_F_PRIMING  : 0)
                        | (machineIsFilling()   ? STATUS_F_FILLING  : 0)
                        | (machineIsCleaning()  ? STATUS_F_CLEANING : 0)
-                       | (machineIsAiring()    ? STATUS_F_AIRING   : 0);
+                       | (machineIsAiring()    ? STATUS_F_AIRING   : 0)
+                       | (machineIsPouring()   ? STATUS_F_POURING  : 0);
         s.primeChannel = machinePumpChannel();
         strncpy(s.version, FW_VERSION, sizeof(s.version) - 1);
         s.j9ReplyHighWater = j9TurnReplyHighWater;
