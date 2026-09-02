@@ -52,7 +52,7 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 1414 tracked, 274 fetched solids, 54 tags",
+      "note": "paths: every reference lands — 1415 tracked, 274 fetched solids, 54 tags",
       "status": "ok"
     },
     {
@@ -67,8 +67,8 @@
     },
     {
       "check": "tools/bazel/check_build_file.py",
-      "note": "tools/cad-venv/bin/python tools/bazel/gen_build.py",
-      "status": "red"
+      "note": "check_build_file: BUILD.bazel is what the graph writes",
+      "status": "ok"
     },
     {
       "check": "tools/bazel/check_ci_targets.py",
@@ -77,21 +77,16 @@
     },
     {
       "check": "tools/bazel/check_declared_imports.py",
-      "note": "check_declared_imports: every step holds what it imports, over 179 source(s) the graph names",
+      "note": "check_declared_imports: every step holds what it imports, over 180 source(s) the graph names",
       "status": "ok"
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 75 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 276 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 47 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 276 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
-    "tools/bazel/check_build_file.py": [
-      "BUILD.bazel is not what the graph would write now:",
-      "  1 build-graph generator(s) are absent from the tree — hardware/reference/jhyossthi-pogo-dock/jhyossthi_pogo_dock.py among them. Re-trace the renamed generator or remove its stale graph entry.",
-      "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
-    ],
     "tools/check_web_tests.py": [
       "1 test(s) in web/ fail:",
       "    the artifact lock pins every committed viewer scorecard",
