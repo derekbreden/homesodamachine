@@ -73,7 +73,7 @@ def build_plus_x_cavity(height=None):
     return (
         WorldWorkplane(xy_plane_z_up)
         .workplane(offset=0)
-        .profile(cavity_profile).close()
+        .profile(cavity_profile).wire()
         .extrude(height)
     )
 
@@ -127,7 +127,7 @@ def build_reservoir_pocket_walls():
     outer_perimeter = (
         WorldWorkplane(xy_plane_z_up)
         .workplane(offset=0)
-        .profile(outer_profile).close()
+        .profile(outer_profile).wire()
         .extrude(height)
     )
 

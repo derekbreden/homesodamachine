@@ -167,6 +167,17 @@ def _rounded_prism(x, y, z, r):
     )
 
 
+def _ring(section):
+    """A section's own points with the first repeated, so the closing edge is DRAWN.
+
+    `close()` infers it instead, from the last edge's end read back off OCCT — a few 1e-16 off
+    the point that was passed in — and a tangential boolean downstream resolves that vertex one
+    way in one process and the other way in the next. Naming the point is what makes the same
+    source write the same bytes."""
+    pts = list(section)
+    return pts if pts[0] == pts[-1] else pts + [pts[0]]
+
+
 def flat_floor():
     """The floor's flat area, inside the coves — what the moisture plate lies on."""
     return (PAN_X - 2 * WALL - 2 * FLOOR_COVE, PAN_Y - 2 * WALL - 2 * FLOOR_COVE)
@@ -337,7 +348,7 @@ def build():
     )
     pull = (
         cq.Workplane("YZ", origin=(-FLANGE_W, 0.0, 0.0))
-        .polyline(pull_section).close()
+        .polyline(_ring(pull_section)).wire()
         .extrude(PULL_FACE_DEPTH)
     )
     pan = outer.union(flange).union(pull).cut(cavity)
@@ -346,7 +357,7 @@ def build():
     # face, and the nose's on through it. The step between the two is the shoulder.
     y0, y1 = PAN_Y / 2.0 - dock_boss_half_y(), PAN_Y / 2.0 + dock_boss_half_y()
     boss = (
-        cq.Workplane("XZ").polyline(list(_dock_boss_profile())).close()
+        cq.Workplane("XZ").polyline(_ring(_dock_boss_profile())).wire()
         .extrude(-(y1 - y0)).translate((0.0, y0, 0.0))
     )
     h = 2.0 * dock_pocket_half()

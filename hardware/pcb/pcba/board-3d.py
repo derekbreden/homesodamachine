@@ -129,7 +129,7 @@ def build_board(cj, cut_vias):
         cx, cy = board.get("center", {}).get("x", 0), board.get("center", {}).get("y", 0)
         pts = [(cx - w / 2, cy - h / 2), (cx + w / 2, cy - h / 2),
                (cx + w / 2, cy + h / 2), (cx - w / 2, cy + h / 2)]
-    slab = (cq.Workplane("XY").polyline(pts).close()
+    slab = (cq.Workplane("XY").polyline(pts + pts[:1]).wire()
             .extrude(thickness).translate((0, 0, -thickness / 2)))
 
     cut_h = thickness + 2.0

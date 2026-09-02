@@ -6076,6 +6076,7 @@
   "hardware/printed-parts/shop-storage/jst-crimping/jst_crimping_tower.py": {
     "reads": [
       "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+      "hardware/printed-parts/shop-storage/_kit.py",
       "hardware/printed-parts/shop-storage/jst-crimping/README.figures.json",
       "hardware/printed-parts/shop-storage/jst-crimping/README.md",
       "hardware/printed-parts/shop-storage/jst-crimping/consumables-drawer.step",
