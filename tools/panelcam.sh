@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 # panelcam.sh — read a physical display on the machine, from the shell, without a human.
 #
-#   tools/panelcam.sh shot front           # the 4.3B panel on its own 800x480 grid, 3 px per panel px
+#   tools/panelcam.sh shot front           # the 4.3B panel on its own 800x480 grid, 3 px per panel px,
+#                                          #   and beside it the same at one px per panel px
 #   tools/panelcam.sh shot front --full    # the frame as the camera delivered it
-#   tools/panelcam.sh aim front            # find the panel's corners in a full frame and write them
+#   tools/panelcam.sh aim front            # put the test screen up, read the panel's corners, write them
 #   tools/panelcam.sh list                 # cameras, and the sizes the attached one streams
 #   tools/panelcam.sh controls             # what the camera lets a program change
 #   tools/panelcam.sh get absolute_focus
@@ -21,7 +22,8 @@
 # THE PICTURE IS THE PANEL'S OWN GRID. A shot is the frame warped, in one projective resampling,
 # from the quadrilateral the panel occupies onto its 800x480 pixel grid at `scale` px per panel px:
 # a rotated or keystoned panel comes out square, and output pixel (3i+k, 3j+l) is a piece of panel
-# pixel (i, j). `panelcam-rectify.py` says what that keeps.
+# pixel (i, j). `<target>.panel.png` beside it is the mean of each such block: one pixel per panel
+# pixel, the frame as the camera read it. `panelcam-rectify.py` says what the warp keeps.
 
 set -euo pipefail
 
@@ -129,8 +131,8 @@ cmd_shot() {
   local floor; floor="$(target_field_opt "$target" floor)"; floor="${floor:-0.02}"
 
   # A dark panel photographs as an unlit rectangle; the machine is told a finger landed.
-  local wake_port; wake_port="$(target_field_opt "$target" wake)"
-  [ -n "$wake_port" ] && python3 "$HERE/panelcam-wake.py" "$wake_port" >/dev/null 2>&1 || true
+  local console; console="$(target_field_opt "$target" console)"
+  [ -n "$console" ] && python3 "$HERE/panelcam-wake.py" "$console" >/dev/null 2>&1 || true
 
   mkdir -p "$OUT_DIR"
   out="${out:-$OUT_DIR/$target.png}"
@@ -143,7 +145,7 @@ cmd_shot() {
   # again and the shot taken once more; the second answer stands.
   local best; best="$(best_score)"
   if [ -z "$best" ] || awk -v b="${best:-0}" -v f="$floor" 'BEGIN { exit !(b < f) }'; then
-    [ -n "$wake_port" ] && python3 "$HERE/panelcam-wake.py" "$wake_port" >/dev/null 2>&1 || true
+    [ -n "$console" ] && python3 "$HERE/panelcam-wake.py" "$console" >/dev/null 2>&1 || true
     take_frame "$raw" "$target"
     best="$(best_score)"
   fi
@@ -154,43 +156,49 @@ cmd_shot() {
     mv "$raw" "$out"
   else
     "$PY" "$RECTIFY" warp "$raw" "$out" --corners "$corners" --panel "$panel" --scale "$scale"
+    "$PY" "$RECTIFY" reduce "$out" "${out%.png}.panel.png" --scale "$scale"
     rm -f "$raw"
   fi
 
   echo "$out"
+  [ "$full" -eq 1 ] || echo "${out%.png}.panel.png"
   sed -n 's/.*\(focus [0-9].*\)/  \1/p' "$LOGFILE" | tail -1
   awk -v b="${best:-0}" -v f="$floor" 'BEGIN { exit !(b < f) }' &&
     echo "  best $best is under the floor $floor: the panel was dark, or the rig has moved — aim it again" >&2
   return 0
 }
 
-# The lit panel's edges are read against the bezel: in the saved PNG at the 16 ms shutter its darkest
-# navy reads 29 and up and the glossy bezel 11 to 24; at the 4 ms shutter of a shot the two are 13
-# and 10, so the aiming frame is taken at 16 ms.
+# The test screen is what an aim reads: the enclosure's own pixels drawn as four white squares at
+# known panel coordinates and a white frame on the outermost ones, put up by the main board's
+# console for 120 s. The squares' centres fix where the panel is; the frame and the screen's pixel
+# patterns say how well.
 cmd_aim() {
   local target="${1:-}"
   [ -n "$target" ] || die "usage: panelcam.sh aim <target>"
+  local console; console="$(target_field_opt "$target" console)"
+  [ -n "$console" ] || die "target '$target' has no console: the test screen is what an aim reads"
   mkdir -p "$OUT_DIR"
-  local full="$OUT_DIR/$target.full.png"
-  local wake_port; wake_port="$(target_field_opt "$target" wake)"
-  [ -n "$wake_port" ] && python3 "$HERE/panelcam-wake.py" "$wake_port" >/dev/null 2>&1 || true
-  take_frame "$full" "$target" "" "absolute_exposure_time=167"
+  local full="$OUT_DIR/$target.test.png"
+  python3 "$HERE/panelcam-console.py" "$console" test 120 | grep -q -i test ||
+    die "the console on $console did not put the test screen up"
+  take_frame "$full" "$target"
+  python3 "$HERE/panelcam-console.py" "$console" test off >/dev/null 2>&1 || true
   [ -f "$full" ] || die "no frame — $(tail -1 "$LOGFILE" 2>/dev/null)"
-  local found; found="$("$PY" "$RECTIFY" find "$full")" || die "could not find the panel in $full"
-  local corners score tilt
+  local found; found="$("$PY" "$RECTIFY" find "$full")" || die "could not read the test screen in $full"
+  local corners score
   corners="$(sed -n 's/^corners //p' <<<"$found")"; score="$(sed -n 's/^score //p' <<<"$found")"
-  tilt="$(sed -n 's/^tilt //p' <<<"$found")"
   awk -v t="$target" -v s="$score" -v c="$corners" '
     $1 == t && $2 == "score"   { $0 = sprintf("%-7s %-12s %s", t, "score", s) }
     $1 == t && $2 == "corners" { $0 = sprintf("%-7s %-12s %s", t, "corners", c) }
     { print }' "$CONF" > "$CONF.new" && mv "$CONF.new" "$CONF"
-  # The proof: laid onto its grid, the panel's pixel lattice lands at `scale` px per panel px.
+  # The proof: laid onto its grid, the screen's one-pixel stripes come out as alternate columns and
+  # the panel's pixel lattice lands at `scale` px per panel px.
   local proof="$OUT_DIR/$target.aim.png"
   "$PY" "$RECTIFY" warp "$full" "$proof" --corners "$corners" \
     --panel "$(target_field "$target" panel)" --scale "$(target_field "$target" scale)"
   echo "$full"
-  echo "  corners $corners  tilt $tilt deg  -> written to $(basename "$CONF")"
-  echo "  $proof: panel pixel $("$PY" "$RECTIFY" grid "$proof" | sed 's/^period //') px at scale $(target_field "$target" scale)"
+  echo "  corners $corners  -> written to $(basename "$CONF")"
+  "$PY" "$RECTIFY" check "$proof" --scale "$(target_field "$target" scale)" | sed 's/^/  /'
 }
 
 case "${1:-}" in
