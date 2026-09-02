@@ -540,6 +540,11 @@ east_boss_corbel_clear = 1.0
 # rather than a boss. Below it the WALL IS THE MOUNTING FACE — the body's screw closes the air it
 # was standing in — and the insert seats in the wall's own section.
 east_boss_min_stand = boss_ligament
+# TWO OF A BODY'S HOLES ON ONE LINE WITHIN THIS REACH SHARE ONE BAR. The relay's pattern stands
+# its two holes 13 mm apart across the board at either end; the run between such a pair is one
+# flat-topped bar with two bores, on one corbel (`east_boss_pairs`, `_east_bosses`). A 66 or
+# 78 mm span is a board's edge, under which its pins hang, and those holes stand on their own.
+mount_bar_reach = 20.0
 # Air past the screw tip at the bore's blind end, so a screw longer than the insert has
 # somewhere to go rather than bottoming on printed material.
 mount_bore_relief = _interface.mount_bore_relief
@@ -3389,24 +3394,6 @@ def _rect_cut_x(hy, hz, wy, wz, radius, x0, x1):
     return (cut.edges("|X").fillet(radius) if radius else cut).val()
 
 
-def _nameplate_support(plate, sx, sz, y_pad):
-    """One support-free nameplate insert stem and its full-width 45° wall corbel.
-
-    The upper half stays round around the insert. The lower half is squared to the circle's
-    tangents, giving the corbel a full-width face to carry."""
-    stem_r = plate.stem_d / 2.0
-    y_tip = y_pad - plate.reach
-    stem = _ycyl(stem_r, sx, sz, y_tip, y_pad).fuse(
-        _ybox(sx - stem_r, sx + stem_r, y_tip, y_pad, sz - stem_r, sz))
-    support = stem.fuse(_yz_prism(
-        sx - stem_r, sx + stem_r,
-        [(y_tip, sz - stem_r), (y_pad, sz - stem_r),
-         (y_pad, sz - stem_r - plate.reach)]))
-    # Remove the cylinder/box imprint on the free face: the lower arc lies inside the D's
-    # material and is not a surface edge for the mesh viewer to expose.
-    return support.clean()
-
-
 def _nameplate(solid, plate, outer, y_outer, zlo, zhi):
     """The nameplate's pocket, cut into a ±Y wall's outer face, and the two screw bosses standing
     behind it on the inner one.
@@ -3436,12 +3423,12 @@ def _nameplate(solid, plate, outer, y_outer, zlo, zhi):
     face would read as a V-groove round the plate instead of the flush inlay this face is. What
     is left hanging is narrower than the square pocket hung before the plate ever thickened.
 
-    WHAT IS LEFT STANDING IS A D-STEM AND A 45° CORBEL UNDER IT. The plateau carries the first
-    `nameplate.floor_under` of the depth an insert's bore wants and the boss stands for the rest,
-    one standard M3 section wide. Its upper half stays round around the insert; its lower half is
-    squared to the circle's tangents. The stem's whole underside is one face, and a full-stem-width
-    wedge carries that face back to the plateau, falling one millimetre for every millimetre of
-    reach. There is no collar: a collar closes a pad pocket and there is no pad.
+    WHAT IS LEFT STANDING IS ONE BAR AND A 45° CORBEL UNDER IT. The plateau carries the first
+    `nameplate.floor_under` of the depth an insert's bore wants and the bar stands for the rest,
+    one standard M3 section tall, from one screw to the other and flat on top. Its whole
+    underside is one face, and a full-length wedge carries that face back to the plateau,
+    falling one millimetre for every millimetre of reach. There is no collar: a collar closes a
+    pad pocket and there is no pad.
 
     The plate lies wholly on one piece — `nameplate-field` is the reading that keeps it off the
     seam — so the station's own Z decides which piece carries all of it."""
@@ -3463,9 +3450,16 @@ def _nameplate(solid, plate, outer, y_outer, zlo, zhi):
     pad = pad.cut(_yz_prism(plate.x - xhalf - 1.0, plate.x + xhalf + 1.0,
                             [(y_pad, zfoot), (y_pad, zfoot + rise), (y_inner, zfoot)]))
     solid = solid.fuse(pad)
-    for dx, dz in plate.screws:
-        sx, sz = plate.x + dx, plate.z + dz
-        solid = solid.fuse(_nameplate_support(plate, sx, sz, y_pad))
+    # ONE BAR FROM SCREW TO SCREW: the stems' own section run between the two stations and
+    # flat on top, with one full-length 45° wedge carrying its underside back to the plateau.
+    r = plate.stem_d / 2.0
+    y_tip = y_pad - plate.reach
+    xs = [plate.x + dx for dx, _dz in plate.screws]
+    zs = [plate.z + dz for _dx, dz in plate.screws]
+    bar = _ybox(min(xs) - r, max(xs) + r, y_tip, y_pad, min(zs) - r, max(zs) + r)
+    solid = solid.fuse(bar.fuse(_yz_prism(
+        min(xs) - r, max(xs) + r,
+        [(y_tip, min(zs) - r), (y_pad, min(zs) - r), (y_pad, min(zs) - r - plate.reach)])))
     mouth = (cq.Workplane("XY").rect(pw, ph).extrude(plate.thick + 1.0)
              .edges("|Z").fillet(pr).faces("<Z").chamfer(plate.bevel).val()
              .rotate((0, 0, 0), (1, 0, 0), -90.0)
@@ -6400,8 +6394,19 @@ def _east_boss_d_fill(wall_x, station):
     return floor.cut(cylinder)
 
 
+def _east_wedge(wall_x, sz, ylo, yhi, reach):
+    """One wall-rooted 45 degree wedge under a boss floor at `sz - r`, from `reach` back to the
+    wall, over the Y band `ylo..yhi`."""
+    r = mount_boss_dia / 2.0
+    drop = wall_x - reach
+    return _xz_prism(ylo, yhi, [(wall_x, sz - r), (reach, sz - r), (wall_x, sz - r - drop)])
+
+
 def _east_boss_corbel(wall_x, station):
     """One boss's object-profiled 45 degree underside from its carried floor to the +X wall.
+
+    `station[5]`, when present, is the Y span the wedge is offered over instead of the boss's
+    own width — a bar's, shared by both the holes that stand in it.
 
     `station[3]` is the inboard plane the wedge may reach. It is the mounting face unless an
     installed body crosses that wedge; `enclosure_assembly.wall_mounts` derives a setback from
@@ -6421,27 +6426,80 @@ def _east_boss_corbel(wall_x, station):
     web_tip = station[3] if len(station) > 3 else tip
     clear_bands = station[4] if len(station) > 4 else ()
     r = mount_boss_dia / 2.0
+    span = station[5] if len(station) > 5 else (sy - r, sy + r)
     if web_tip < tip - stated_bound_tol:
         raise ValueError(
             f"east boss at ({sy:g}, {sz:g}) has corbel tip x={web_tip:g}; "
             f"expected at least its own mounting face {tip:g}")
 
-    def wedge(ylo, yhi, reach):
-        drop = wall_x - reach
-        return _xz_prism(
-            ylo, yhi,
-            [(wall_x, sz - r), (reach, sz - r), (wall_x, sz - r - drop)])
-
     out = None
     if web_tip < wall_x - stated_bound_tol:
-        out = wedge(sy - r, sy + r, web_tip)
+        out = _east_wedge(wall_x, sz, span[0], span[1], web_tip)
     for ylo, yhi in clear_bands:
-        if ylo < sy - r - 1e-6 or yhi > sy + r + 1e-6 or yhi <= ylo:
+        if ylo < span[0] - 1e-6 or yhi > span[1] + 1e-6 or yhi <= ylo:
             raise ValueError(
                 f"east boss at ({sy:g}, {sz:g}) has invalid clear corbel band "
-                f"y={ylo:g}..{yhi:g}; expected inside {sy-r:g}..{sy+r:g}")
-        band = wedge(ylo, yhi, tip)
+                f"y={ylo:g}..{yhi:g}; expected inside {span[0]:g}..{span[1]:g}")
+        band = _east_wedge(wall_x, sz, ylo, yhi, tip)
         out = band if out is None else out.fuse(band)
+    return out
+
+
+def east_boss_pairs(stations):
+    """Which of `stations` share one bar, as index pairs: two holes at one mounting face, on one
+    line along Y or Z, within `mount_bar_reach` of each other. Each hole joins at most one
+    pair, the nearest first."""
+    cands = []
+    for i, a in enumerate(stations):
+        for j in range(i + 1, len(stations)):
+            b = stations[j]
+            if abs(a[2] - b[2]) > stated_bound_tol:
+                continue
+            dy, dz = abs(a[0] - b[0]), abs(a[1] - b[1])
+            if dy <= stated_bound_tol:
+                along = dz
+            elif dz <= stated_bound_tol:
+                along = dy
+            else:
+                continue
+            if along <= stated_bound_tol or along > mount_bar_reach + stated_bound_tol:
+                continue
+            cands.append((along, i, j))
+    taken, pairs = set(), []
+    for _along, i, j in sorted(cands):
+        if i in taken or j in taken:
+            continue
+        taken.update((i, j))
+        pairs.append((i, j))
+    return pairs
+
+
+def _east_bar(wall_x, a, b):
+    """The flat-topped bar two paired holes share, before its bores: one box from the mounting
+    face to the wall over both holes' footprints and the run between them."""
+    (ya, za, tip), (yb, zb, _tip) = a[:3], b[:3]
+    r = mount_boss_dia / 2.0
+    return _ybox(tip, wall_x, min(ya, yb) - r, max(ya, yb) + r, min(za, zb) - r, max(za, zb) + r)
+
+
+def _east_bar_fill(wall_x, a, b):
+    """Only what the bar adds past the two D stems it joins — the material whose clearance is
+    in question."""
+    return (_east_bar(wall_x, a, b)
+            .cut(_east_boss_stem(wall_x, a)).cut(_east_boss_stem(wall_x, b)))
+
+
+def _east_bar_support(wall_x, a, b):
+    """The material a pair of stations adds, before their bores — the bar always, and each
+    hole's corbel wherever a blocker has left it any depth to stand in. A pair side by side
+    carries one wedge across the bar's whole span, which both holes state (`station[5]`); a
+    pair stood one over the other is carried by its lower hole, and the upper hole's wedge
+    stands inside the bar."""
+    out = _east_bar(wall_x, a, b)
+    for station in (a, b):
+        corbel = _east_boss_corbel(wall_x, station)
+        if corbel is not None:
+            out = out.fuse(corbel)
     return out
 
 
@@ -6481,17 +6539,30 @@ def _east_bosses(solid, roots, outer, stations, y0, y1, z0, z1):
 
     The stem's flat, `mount_boss_dia`-wide floor matches the wedge it carries. Its upper half
     stays round around the insert, so the body's mounting pad remains compact; no arbitrary
-    round pipe is left between the support and the mounting face."""
-    for station in stations:
+    round pipe is left between the support and the mounting face.
+
+    A PAIR OF HOLES ON ONE LINE IS ONE BAR (`east_boss_pairs`): the two stems and the run
+    between them are one flat-topped box with two bores in it, on one corbel — the lower hole's
+    for a pair stood one over the other, and one offered across the bar's whole span for a
+    pair side by side, which `wall_mounts` profiles against the installed pack the way it
+    profiles a single boss. What a paired board meets is one pad, not two posts."""
+    mine = [s for s in stations if y0 <= s[0] <= y1 and z0 <= s[1] <= z1]
+    pairs = east_boss_pairs(mine)
+    paired = {k for pair in pairs for k in pair}
+    for k, station in enumerate(mine):
         sy, sz, tip = station[:3]
-        if not (y0 <= sy <= y1 and z0 <= sz <= z1):
-            continue
         # A STATION STANDING UNDER `east_boss_min_stand` OFF THAT FACE GROWS NOTHING. The body is
         # already on the wall to within the air its own screw closes, so the wall is its mounting
         # face: a stem struck for that much emerges as a fraction-of-a-millimetre step across the
         # flank with a sliver edge round it, and its wedge comes out shorter still.
-        if roots[1] - tip >= east_boss_min_stand - stated_bound_tol:
-            solid = solid.fuse(_east_boss_support(roots[1], station))
+        if k in paired or roots[1] - tip < east_boss_min_stand - stated_bound_tol:
+            continue
+        solid = solid.fuse(_east_boss_support(roots[1], station))
+    for i, j in pairs:
+        if roots[1] - mine[i][2] >= east_boss_min_stand - stated_bound_tol:
+            solid = solid.fuse(_east_bar_support(roots[1], mine[i], mine[j]))
+    for station in mine:
+        sy, sz, tip = station[:3]
         # THE BORE STILL STARTS AT THE BODY'S OWN FACE, stem or no stem. `roots` is one plane and
         # the piece is not: a station standing where the flank has already turned into its rear
         # corner meets a face inboard of that plane, and a bore struck on the plane leaves that

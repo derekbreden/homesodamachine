@@ -285,12 +285,16 @@ part.
 
 `enclosure_assembly.wall_mounts` offers that corbel all the way to every mounting face and
 intersects the offered material with the installed pack. Fourteen fit across their complete
-width. At the main board's upper forward hole and the two upper holes of relay #2, the boards'
+width. At the main board's upper forward hole and under relay #2's upper end bar, the boards'
 conservative underside pin envelopes cross only the inboard side of the offered wedge. Those
-three corbels begin 1 mm past the exact blocker only across its Y projection; each clear outer
-side still carries a wall-rooted 45° wing all the way to the mounting face. Their D stems remain
-whole across the holes. `east-boss-corbels` reads all 17 additions back against the installed
-bodies and records both the full-width and blocker-profiled populations.
+corbels begin 1 mm past the exact blocker only across its Y projection; each clear outer
+side still carries a wall-rooted 45° wing all the way to the mounting face. The two relays'
+holes come in pairs 13 mm apart at either end of each board, and each pair stands in one
+flat-topped bar with two bores, carried on its lower hole's corbel where the pair stands one
+over the other and on one wedge across the bar's span where it stands side by side; the other
+nine stems stay D-shaped and whole across their holes. `east-boss-corbels` reads all 17
+stations back against the installed bodies and records both the full-width and
+blocker-profiled populations.
 
 ## Condenser cradle
 
