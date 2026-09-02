@@ -42,8 +42,8 @@
     },
     {
       "check": "hardware/scripts/check_step_colours.py",
-      "note": "step colours: 125/125 carry the colour of what they are made of",
-      "status": "ok"
+      "note": "A generator hands its solid to `_materials.one_body` and exports the assembly.",
+      "status": "red"
     },
     {
       "check": "hardware/scripts/check_tracked.py",
@@ -82,7 +82,7 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 8 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 274 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 2 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 274 member(s) keep their provenance",
       "status": "ok"
     }
   ],
@@ -96,6 +96,13 @@
       "instructions: 117 files (14 procedures + 102 cards + cover) | ledger brands: 527 | waived: 1 ASIN + 4 brand",
       "DRIFT: 1 instruction(s) out of step with the ledger:",
       "  ✗ instruction names a purchased brand the ledger no longer carries: DevKitC (hardware/assembly/weld-rotation-rig.md:23)"
+    ],
+    "hardware/scripts/check_step_colours.py": [
+      "step colours: 123/125 carry the colour of what they are made of",
+      "  2 STEP(s) name no colour, so /3d and their own cards draw them at the viewer's blue-grey:",
+      "    hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-cradle.step",
+      "    hardware/printed-parts/fixtures/weld-rotator/weld-rotator-retainer.step",
+      "  A generator hands its solid to `_materials.one_body` and exports the assembly."
     ],
     "tools/bazel/check_build_file.py": [
       "BUILD.bazel is not what the graph would write now:",
