@@ -22,8 +22,8 @@
     },
     {
       "check": "hardware/scripts/check_payloads.py",
-      "note": "tools/cad-venv/bin/python hardware/scripts/flute_payload.py",
-      "status": "red"
+      "note": "payloads: 19 solid(s) cut from the bytes beside them, 11 scene(s) at the finishes this tree states",
+      "status": "ok"
     },
     {
       "check": "hardware/scripts/check_pinmap.py",
@@ -67,8 +67,8 @@
     },
     {
       "check": "tools/bazel/check_build_file.py",
-      "note": "check_build_file: BUILD.bazel is what the graph writes",
-      "status": "ok"
+      "note": "tools/cad-venv/bin/python tools/bazel/gen_build.py",
+      "status": "red"
     },
     {
       "check": "tools/bazel/check_ci_targets.py",
@@ -82,13 +82,13 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 23 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 276 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 37 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 276 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds f4f865d1d566275bb153fc29b103d132 for the 107 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at f2539c398a34e1e5d31d6af5333348e3 here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was taken from a different tree — it holds f4f865d1d566275bb153fc29b103d132 for the 107 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 181953641ee8c1abfb5de68ef715821e here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ],
@@ -96,17 +96,10 @@
       "web/public/finishes.json is not the table this tree states.",
       "  fix: tools/cad-venv/bin/python hardware/scripts/check_finishes.py --write"
     ],
-    "hardware/scripts/check_payloads.py": [
-      "5 solid(s) whose surface is not in the payload beside them:",
-      "    hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh — cut from other bytes than the solid holds",
-      "    hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh — cut from other bytes than the solid holds",
-      "    hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh — cut from other bytes than the solid holds",
-      "    hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh — cut from other bytes than the solid holds",
-      "    hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh — cut from other bytes than the solid holds",
-      "  the run that cuts a solid writes the payload beside it:",
-      "    tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/enclosure.py",
-      "  and the enclosure's flutes go back into those payloads after:",
-      "    tools/cad-venv/bin/python hardware/scripts/flute_payload.py"
+    "tools/bazel/check_build_file.py": [
+      "BUILD.bazel is not what the graph would write now:",
+      "  1 build-graph generator(s) are absent from the tree — hardware/reference/jhyossthi-pogo-dock/jhyossthi_pogo_dock.py among them. Re-trace the renamed generator or remove its stale graph entry.",
+      "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
     ],
     "tools/check_paths.py": [
       "hardware/manifold-layout/_scorecard.py:896 — calibration/Fences.md is held nowhere, and no tag is named for it",
