@@ -6196,6 +6196,57 @@ cp hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py $$O3
 )
 
 genrule(
+    name = "drill-press-kit",
+    srcs = [
+        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/printed-parts/shop-storage/_kit.py",
+        "pysrc/hardware/printed-parts/shop-storage/drill-press/drill_press_kit.py",
+        "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_materials.py",
+        "pysrc/hardware/scripts/_mesh_payload.py",
+        "pysrc/hardware/scripts/_realized.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/tools/docgen/__init__.py",
+    ],
+    outs = [
+        "out/drill-press-kit/hardware/printed-parts/shop-storage/drill-press/drill-press-dock.step",
+        "out/drill-press-kit/hardware/printed-parts/shop-storage/drill-press/drill-press-index.step",
+        "out/drill-press-kit/hardware/printed-parts/shop-storage/drill-press/drill-press-kit-open.step",
+        "out/drill-press-kit/hardware/printed-parts/shop-storage/drill-press/drill-press-kit.step",
+        "out/drill-press-kit/hardware/printed-parts/shop-storage/drill-press/drill-press-saw.step",
+    ],
+    cmd = """
+set -e
+O0=$$PWD/$(location out/drill-press-kit/hardware/printed-parts/shop-storage/drill-press/drill-press-dock.step)
+O1=$$PWD/$(location out/drill-press-kit/hardware/printed-parts/shop-storage/drill-press/drill-press-index.step)
+O2=$$PWD/$(location out/drill-press-kit/hardware/printed-parts/shop-storage/drill-press/drill-press-kit-open.step)
+O3=$$PWD/$(location out/drill-press-kit/hardware/printed-parts/shop-storage/drill-press/drill-press-kit.step)
+O4=$$PWD/$(location out/drill-press-kit/hardware/printed-parts/shop-storage/drill-press/drill-press-saw.step)
+for f in $(SRCS); do
+  case $$f in
+    */node_modules/*) continue;;
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    */pysrc/*) t=$${f##*/pysrc/};;
+    *) t=$$f;;
+  esac
+  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+done
+cd work
+ln -sfn $$HSM_WORKSPACE/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/shop-storage/drill-press/drill_press_kit.py > /dev/null
+cp hardware/printed-parts/shop-storage/drill-press/drill-press-dock.step $$O0
+cp hardware/printed-parts/shop-storage/drill-press/drill-press-index.step $$O1
+cp hardware/printed-parts/shop-storage/drill-press/drill-press-kit-open.step $$O2
+cp hardware/printed-parts/shop-storage/drill-press/drill-press-kit.step $$O3
+cp hardware/printed-parts/shop-storage/drill-press/drill-press-saw.step $$O4
+""",
+)
+
+genrule(
     name = "fasteners-kit",
     srcs = [
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
@@ -6365,6 +6416,65 @@ cp hardware/printed-parts/shop-storage/jst-crimping/tool-rack.step $$O4
 cp hardware/printed-parts/shop-storage/jst-crimping/tower-base.step $$O5
 cp hardware/printed-parts/shop-storage/jst-crimping/README.figures.json $$O6
 cp hardware/printed-parts/shop-storage/jst-crimping/README.md $$O7
+""",
+)
+
+genrule(
+    name = "pour-kit",
+    srcs = [
+        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/printed-parts/shop-storage/_kit.py",
+        "pysrc/hardware/printed-parts/shop-storage/pour/pour_kit.py",
+        "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_materials.py",
+        "pysrc/hardware/scripts/_mesh_payload.py",
+        "pysrc/hardware/scripts/_realized.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/tools/docgen/__init__.py",
+        "tools/render/browser.js",
+        "tools/render/render-step-posed.js",
+        "web/server.js",
+        ":node-packages",
+    ],
+    outs = [
+        "out/pour-kit/hardware/printed-parts/shop-storage/pour/pour-dock.step",
+        "out/pour-kit/hardware/printed-parts/shop-storage/pour/pour-gauge.step",
+        "out/pour-kit/hardware/printed-parts/shop-storage/pour/pour-kit-open.step",
+        "out/pour-kit/hardware/printed-parts/shop-storage/pour/pour-kit.step",
+        "out/pour-kit/hardware/printed-parts/shop-storage/pour/pour-mix.step",
+        "out/pour-kit/hardware/printed-parts/shop-storage/pour/pour-rack.step",
+    ],
+    tags = ["requires-network"],
+    cmd = """
+set -e
+O0=$$PWD/$(location out/pour-kit/hardware/printed-parts/shop-storage/pour/pour-dock.step)
+O1=$$PWD/$(location out/pour-kit/hardware/printed-parts/shop-storage/pour/pour-gauge.step)
+O2=$$PWD/$(location out/pour-kit/hardware/printed-parts/shop-storage/pour/pour-kit-open.step)
+O3=$$PWD/$(location out/pour-kit/hardware/printed-parts/shop-storage/pour/pour-kit.step)
+O4=$$PWD/$(location out/pour-kit/hardware/printed-parts/shop-storage/pour/pour-mix.step)
+O5=$$PWD/$(location out/pour-kit/hardware/printed-parts/shop-storage/pour/pour-rack.step)
+for f in $(SRCS); do
+  case $$f in
+    */node_modules/*) continue;;
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    */pysrc/*) t=$${f##*/pysrc/};;
+    *) t=$$f;;
+  esac
+  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+done
+cd work
+ln -sfn $$HSM_WORKSPACE/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/shop-storage/pour/pour_kit.py > /dev/null
+cp hardware/printed-parts/shop-storage/pour/pour-dock.step $$O0
+cp hardware/printed-parts/shop-storage/pour/pour-gauge.step $$O1
+cp hardware/printed-parts/shop-storage/pour/pour-kit-open.step $$O2
+cp hardware/printed-parts/shop-storage/pour/pour-kit.step $$O3
+cp hardware/printed-parts/shop-storage/pour/pour-mix.step $$O4
+cp hardware/printed-parts/shop-storage/pour/pour-rack.step $$O5
 """,
 )
 
@@ -10026,6 +10136,14 @@ genrule(
 )
 
 genrule(
+    name = "pysrc-6d9df5bf0c0b",
+    srcs = ["hardware/printed-parts/shop-storage/drill-press/drill_press_kit.py"],
+    outs = ["pysrc/hardware/printed-parts/shop-storage/drill-press/drill_press_kit.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
     name = "pysrc-1a2c09395b70",
     srcs = ["hardware/printed-parts/shop-storage/fasteners/fasteners_kit.py"],
     outs = ["pysrc/hardware/printed-parts/shop-storage/fasteners/fasteners_kit.py"],
@@ -10045,6 +10163,14 @@ genrule(
     name = "pysrc-82af05c2e19a",
     srcs = ["hardware/printed-parts/shop-storage/jst-crimping/jst_crimping_tower.py"],
     outs = ["pysrc/hardware/printed-parts/shop-storage/jst-crimping/jst_crimping_tower.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-bef0ed916e5b",
+    srcs = ["hardware/printed-parts/shop-storage/pour/pour_kit.py"],
+    outs = ["pysrc/hardware/printed-parts/shop-storage/pour/pour_kit.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -18389,9 +18515,11 @@ filegroup(
         ":tube-collar",
         ":weld-rotator",
         ":fuse-clamp",
+        ":drill-press-kit",
         ":fasteners-kit",
         ":hotends-kit",
         ":jst-crimping-tower",
+        ":pour-kit",
         ":umbilical-kit",
         ":valve-seat",
         ":funnel-mold",

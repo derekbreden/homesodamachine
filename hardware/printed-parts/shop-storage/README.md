@@ -60,9 +60,11 @@ here already faces the operator.
 
 | Directory | Job | Form | Footprint |
 |---|---|---|---|
+| [`drill-press/`](drill-press/) | End-plate tapping and drilling | stack | 3 x 3 |
 | [`fasteners/`](fasteners/) | Inserts and screws | stack | 3 x 3 |
 | [`hotends/`](hotends/) | H2C hotend swaps | stack | 3 x 3 |
 | [`jst-crimping/`](jst-crimping/) | JST XH crimping | tower | 3 x 3 |
+| [`pour/`](pour/) | Foam and silicone pours | stack | 3 x 3 |
 | [`umbilical/`](umbilical/) | Umbilical termination | stack | 2 x 3 |
 
 ## Prior art
