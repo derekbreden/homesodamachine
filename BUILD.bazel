@@ -6479,6 +6479,60 @@ cp hardware/printed-parts/shop-storage/pour/pour-rack.step $$O5
 )
 
 genrule(
+    name = "solder-kit",
+    srcs = [
+        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/printed-parts/shop-storage/_kit.py",
+        "pysrc/hardware/printed-parts/shop-storage/solder/solder_kit.py",
+        "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_materials.py",
+        "pysrc/hardware/scripts/_mesh_payload.py",
+        "pysrc/hardware/scripts/_realized.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/tools/docgen/__init__.py",
+    ],
+    outs = [
+        "out/solder-kit/hardware/printed-parts/shop-storage/solder/solder-dock.step",
+        "out/solder-kit/hardware/printed-parts/shop-storage/solder/solder-kit-open.step",
+        "out/solder-kit/hardware/printed-parts/shop-storage/solder/solder-kit.step",
+        "out/solder-kit/hardware/printed-parts/shop-storage/solder/solder-rework.step",
+        "out/solder-kit/hardware/printed-parts/shop-storage/solder/solder-stock.step",
+        "out/solder-kit/hardware/printed-parts/shop-storage/solder/solder-tips.step",
+    ],
+    cmd = """
+set -e
+O0=$$PWD/$(location out/solder-kit/hardware/printed-parts/shop-storage/solder/solder-dock.step)
+O1=$$PWD/$(location out/solder-kit/hardware/printed-parts/shop-storage/solder/solder-kit-open.step)
+O2=$$PWD/$(location out/solder-kit/hardware/printed-parts/shop-storage/solder/solder-kit.step)
+O3=$$PWD/$(location out/solder-kit/hardware/printed-parts/shop-storage/solder/solder-rework.step)
+O4=$$PWD/$(location out/solder-kit/hardware/printed-parts/shop-storage/solder/solder-stock.step)
+O5=$$PWD/$(location out/solder-kit/hardware/printed-parts/shop-storage/solder/solder-tips.step)
+for f in $(SRCS); do
+  case $$f in
+    */node_modules/*) continue;;
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    */pysrc/*) t=$${f##*/pysrc/};;
+    *) t=$$f;;
+  esac
+  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+done
+cd work
+ln -sfn $$HSM_WORKSPACE/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/shop-storage/solder/solder_kit.py > /dev/null
+cp hardware/printed-parts/shop-storage/solder/solder-dock.step $$O0
+cp hardware/printed-parts/shop-storage/solder/solder-kit-open.step $$O1
+cp hardware/printed-parts/shop-storage/solder/solder-kit.step $$O2
+cp hardware/printed-parts/shop-storage/solder/solder-rework.step $$O3
+cp hardware/printed-parts/shop-storage/solder/solder-stock.step $$O4
+cp hardware/printed-parts/shop-storage/solder/solder-tips.step $$O5
+""",
+)
+
+genrule(
     name = "umbilical-kit",
     srcs = [
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
@@ -10171,6 +10225,14 @@ genrule(
     name = "pysrc-bef0ed916e5b",
     srcs = ["hardware/printed-parts/shop-storage/pour/pour_kit.py"],
     outs = ["pysrc/hardware/printed-parts/shop-storage/pour/pour_kit.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-8134ba76de1e",
+    srcs = ["hardware/printed-parts/shop-storage/solder/solder_kit.py"],
+    outs = ["pysrc/hardware/printed-parts/shop-storage/solder/solder_kit.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -18520,6 +18582,7 @@ filegroup(
         ":hotends-kit",
         ":jst-crimping-tower",
         ":pour-kit",
+        ":solder-kit",
         ":umbilical-kit",
         ":valve-seat",
         ":funnel-mold",
