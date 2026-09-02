@@ -5898,6 +5898,35 @@
       "hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py"
     ]
   },
+  "hardware/printed-parts/shop-storage/copper/copper_kit.py": {
+    "reads": [
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+      "hardware/printed-parts/shop-storage/_kit.py",
+      "hardware/printed-parts/shop-storage/copper/copper-dock.step",
+      "hardware/printed-parts/shop-storage/copper/copper-fittings.step",
+      "hardware/printed-parts/shop-storage/copper/copper-kit-open.step",
+      "hardware/printed-parts/shop-storage/copper/copper-kit.step",
+      "hardware/printed-parts/shop-storage/copper/copper-quiver.step",
+      "hardware/printed-parts/shop-storage/copper/copper-rack.step",
+      "hardware/printed-parts/shop-storage/copper/copper-service.step",
+      "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_materials.py",
+      "hardware/scripts/_mesh_payload.py",
+      "hardware/scripts/_realized.py",
+      "hardware/scripts/_run_lock.py",
+      "tools/docgen/__init__.py"
+    ],
+    "rewritten": [],
+    "writes": [
+      "hardware/printed-parts/shop-storage/copper/copper-dock.step",
+      "hardware/printed-parts/shop-storage/copper/copper-fittings.step",
+      "hardware/printed-parts/shop-storage/copper/copper-kit-open.step",
+      "hardware/printed-parts/shop-storage/copper/copper-kit.step",
+      "hardware/printed-parts/shop-storage/copper/copper-quiver.step",
+      "hardware/printed-parts/shop-storage/copper/copper-rack.step",
+      "hardware/printed-parts/shop-storage/copper/copper-service.step"
+    ]
+  },
   "hardware/printed-parts/shop-storage/drill-press/drill_press_kit.py": {
     "reads": [
       "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",

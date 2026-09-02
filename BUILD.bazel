@@ -6196,6 +6196,63 @@ cp hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py $$O3
 )
 
 genrule(
+    name = "copper-kit",
+    srcs = [
+        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/printed-parts/shop-storage/_kit.py",
+        "pysrc/hardware/printed-parts/shop-storage/copper/copper_kit.py",
+        "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_materials.py",
+        "pysrc/hardware/scripts/_mesh_payload.py",
+        "pysrc/hardware/scripts/_realized.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/tools/docgen/__init__.py",
+    ],
+    outs = [
+        "out/copper-kit/hardware/printed-parts/shop-storage/copper/copper-dock.step",
+        "out/copper-kit/hardware/printed-parts/shop-storage/copper/copper-fittings.step",
+        "out/copper-kit/hardware/printed-parts/shop-storage/copper/copper-kit-open.step",
+        "out/copper-kit/hardware/printed-parts/shop-storage/copper/copper-kit.step",
+        "out/copper-kit/hardware/printed-parts/shop-storage/copper/copper-quiver.step",
+        "out/copper-kit/hardware/printed-parts/shop-storage/copper/copper-rack.step",
+        "out/copper-kit/hardware/printed-parts/shop-storage/copper/copper-service.step",
+    ],
+    cmd = """
+set -e
+O0=$$PWD/$(location out/copper-kit/hardware/printed-parts/shop-storage/copper/copper-dock.step)
+O1=$$PWD/$(location out/copper-kit/hardware/printed-parts/shop-storage/copper/copper-fittings.step)
+O2=$$PWD/$(location out/copper-kit/hardware/printed-parts/shop-storage/copper/copper-kit-open.step)
+O3=$$PWD/$(location out/copper-kit/hardware/printed-parts/shop-storage/copper/copper-kit.step)
+O4=$$PWD/$(location out/copper-kit/hardware/printed-parts/shop-storage/copper/copper-quiver.step)
+O5=$$PWD/$(location out/copper-kit/hardware/printed-parts/shop-storage/copper/copper-rack.step)
+O6=$$PWD/$(location out/copper-kit/hardware/printed-parts/shop-storage/copper/copper-service.step)
+for f in $(SRCS); do
+  case $$f in
+    */node_modules/*) continue;;
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    */pysrc/*) t=$${f##*/pysrc/};;
+    *) t=$$f;;
+  esac
+  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+done
+cd work
+ln -sfn $$HSM_WORKSPACE/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/shop-storage/copper/copper_kit.py > /dev/null
+cp hardware/printed-parts/shop-storage/copper/copper-dock.step $$O0
+cp hardware/printed-parts/shop-storage/copper/copper-fittings.step $$O1
+cp hardware/printed-parts/shop-storage/copper/copper-kit-open.step $$O2
+cp hardware/printed-parts/shop-storage/copper/copper-kit.step $$O3
+cp hardware/printed-parts/shop-storage/copper/copper-quiver.step $$O4
+cp hardware/printed-parts/shop-storage/copper/copper-rack.step $$O5
+cp hardware/printed-parts/shop-storage/copper/copper-service.step $$O6
+""",
+)
+
+genrule(
     name = "drill-press-kit",
     srcs = [
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
@@ -10185,6 +10242,14 @@ genrule(
     name = "pysrc-9d0078d39dd7",
     srcs = ["hardware/printed-parts/shop-storage/_kit.py"],
     outs = ["pysrc/hardware/printed-parts/shop-storage/_kit.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-c3d7aea01265",
+    srcs = ["hardware/printed-parts/shop-storage/copper/copper_kit.py"],
+    outs = ["pysrc/hardware/printed-parts/shop-storage/copper/copper_kit.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -18577,6 +18642,7 @@ filegroup(
         ":tube-collar",
         ":weld-rotator",
         ":fuse-clamp",
+        ":copper-kit",
         ":drill-press-kit",
         ":fasteners-kit",
         ":hotends-kit",
