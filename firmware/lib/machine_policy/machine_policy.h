@@ -165,12 +165,12 @@ Operation cleanOperation(uint8_t channel, CleanStep step);
 CleanEnd cleanWaterFillShouldEnd(uint32_t elapsed_ms, uint32_t planned_ms,
                                  uint8_t reservoir_closed_mask);
 
-// A flush ends kCleanFlushTailMs after the empty reed opens, or at its planned
-// time. The opening counts once the reed has been seen closed during this
-// flush. `empty_opened_at_ms` is the elapsed time at which it opened, or
-// UINT32_MAX while it has not.
+// A flush ends kCleanFlushTailMs after the empty reed closes — the float has
+// come down to the reservoir's empty mark — or at its planned time.
+// `empty_closed_at_ms` is the elapsed time at which the reed was first seen
+// closed during this flush, or UINT32_MAX while it has not been.
 CleanEnd cleanFlushShouldEnd(uint32_t elapsed_ms, uint32_t planned_ms,
-                             bool empty_seen_closed, uint32_t empty_opened_at_ms);
+                             uint32_t empty_closed_at_ms);
 
 // How much of the cycle is left, as a time: what remains of the step running
 // now plus every step still to come, each at its planned length. Steps 0..2R-1
@@ -178,6 +178,45 @@ CleanEnd cleanFlushShouldEnd(uint32_t elapsed_ms, uint32_t planned_ms,
 uint32_t cleanCycleLeftMs(uint8_t step_index, uint8_t rounds,
                           uint32_t step_elapsed_ms, uint32_t step_planned_ms,
                           uint32_t water_fill_planned_ms, uint32_t flush_planned_ms);
+
+// ── Reservoir level ───────────────────────────────────────────────────────
+// One float on a rod trips the one reed at its height: the bottom reed when
+// the reservoir stands at its empty mark, the top when it is full, two in
+// between (hardware/printed-parts/cold-core/reservoir/level-sensing.md).
+// Between reeds nothing is closed, so the level is the last reed the float
+// was seen at and which way it was moving — rising during a fill, falling
+// during a draw. The gauge has kLevelSegments segments: none at the empty
+// reed, one on leaving it upward, a reed's own count at each reed above,
+// all four at the full reed; falling, the count of the reed last passed.
+enum class LevelMotion : uint8_t {
+    Still = 0,
+    Rising,
+    Falling,
+};
+
+constexpr uint8_t kLevelReeds          = 4;
+constexpr uint8_t kLevelSegments       = 4;
+constexpr uint8_t kLevelUnknown        = 0xFF;   // no reed has been seen since boot
+constexpr uint8_t kServingsPerSegment  = 13;
+
+class ReservoirLevel {
+public:
+    ReservoirLevel();
+
+    // A fresh reading of the four reeds (bit 0 empty .. bit 3 full) and what
+    // the machine is doing to the level at the time.
+    void observe(uint8_t closed_mask, LevelMotion motion);
+
+    uint8_t segments() const;   // 0..kLevelSegments, or kLevelUnknown
+    bool    known() const;
+    uint8_t reed() const;       // the reed last seen closed, 0..3
+
+private:
+    bool    known_;
+    uint8_t reed_;
+    bool    at_reed_;          // the float is at reed_ now
+    int8_t  left_;             // having left it: +1 upward, -1 downward, 0 unknown
+};
 
 // ── The air cycles ────────────────────────────────────────────────────────
 // Air enters at the funnel, dry and open to air, and a pump carries it along

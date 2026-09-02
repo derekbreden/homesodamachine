@@ -265,6 +265,15 @@ constexpr uint8_t MSG_AIR_QUERY  = 0x60;  // no payload: answer with AirStatePay
 constexpr uint8_t MSG_RESP_AIR   = 0x61;  // AirStatePayload
 constexpr uint8_t MSG_AIR_STOP   = 0x62;  // no payload: end the cycle now
 
+// ── What a channel pours at (0x63..) ─────────────────────────────────────
+// The ratio of carbonated water to concentrate, one per channel, owned and
+// persisted by the main board beside the selection and the artwork, and read
+// by the dispense. A SET states both channels; the answer is what the main
+// board now holds, and StatusPayload carries the pair on every poll.
+constexpr uint8_t MSG_RATIO_SET   = 0x63;  // RatioPayload: both channels
+constexpr uint8_t MSG_RATIO_QUERY = 0x64;  // no payload: answer with the pair
+constexpr uint8_t MSG_RESP_RATIO  = 0x65;  // RatioPayload: resulting truth
+
 // Fixed transport capacities are part of the replay contract. Keeping the
 // values beside the shared wire protocol lets each actual queue assert that a
 // future depth/window change still fits inside the main board's token ledger.
@@ -407,6 +416,29 @@ struct __attribute__((packed)) AirStatePayload {
 };
 
 static_assert(sizeof(AirStatePayload) == 20, "air wire layout drift");
+
+// ── What a channel pours at ───────────────────────────────────────────────
+// 1:ratio, water to concentrate. 20 is the SodaStream-compatible bottle;
+// 6 is bag-in-box syrup.
+constexpr uint8_t FLAVOR_RATIO_MIN     = 6;
+constexpr uint8_t FLAVOR_RATIO_MAX     = 24;
+constexpr uint8_t FLAVOR_RATIO_DEFAULT = 20;
+
+struct __attribute__((packed)) RatioPayload {
+  uint8_t ratio[2];
+};
+
+static_assert(sizeof(RatioPayload) == 2, "ratio wire layout drift");
+
+// ── Reservoir level, as StatusPayload carries it ─────────────────────────
+// Four segments per reservoir from the reed column and the float's motion
+// (machine_policy::ReservoirLevel); LEVEL_UNKNOWN before any reed has been
+// seen. The raw closed masks ride beside them for the bench.
+constexpr uint8_t LEVEL_SEGMENTS = 4;
+constexpr uint8_t LEVEL_UNKNOWN  = 0xFF;
+constexpr uint8_t LEVEL_F_VALID     = 1 << 0;  // the reeds were read within the last few seconds
+constexpr uint8_t LEVEL_F_CARB_LOW  = 1 << 1;  // the carbonator's low reed is closed
+constexpr uint8_t LEVEL_F_CARB_HIGH = 1 << 2;  // its high reed is closed
 
 // ── A page asked for by the console ──────────────────────────────────────
 constexpr uint8_t UI_RAIL_CHOOSE   = 0;
@@ -676,9 +708,13 @@ struct __attribute__((packed)) StatusPayload {
   char     version[16];   // the main board build these readings came from
   uint8_t  j9ReplyHighWater;  // maximum replies emitted for one received J9 turn
   uint32_t j9ReplyOverruns;   // turns that emitted more than one reply
+  uint8_t  reeds[2];      // each reservoir's closed reeds, bit 0 empty .. bit 3 full
+  uint8_t  level[2];      // each reservoir's gauge, 0..LEVEL_SEGMENTS, or LEVEL_UNKNOWN
+  uint8_t  levelFlags;    // LEVEL_F_*
+  uint8_t  ratio[2];      // what each channel pours at
 };
 
-static_assert(sizeof(StatusPayload) == 41, "main board status wire layout drift");
+static_assert(sizeof(StatusPayload) == 48, "main board status wire layout drift");
 
 constexpr uint8_t STATUS_F_GAS_TRIP = 1 << 0;  // the LM393 comparator has tripped
 constexpr uint8_t STATUS_F_PRIMING  = 1 << 1;  // a prime hold is live

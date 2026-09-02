@@ -214,6 +214,57 @@ bool machineReadIoStatus(MachineIoStatus &status) {
     return true;
 }
 
+// ── The reeds, and the level they say ─────────────────────────────────────
+// One read of both expanders serves everything that wants a reed: the fill,
+// the clean and air cycles read through here every quarter second while they
+// run, and the idle machine reads once a second so the glasses' gauges are
+// never older than that. Each reading feeds the two level trackers with what
+// the machine is doing to that reservoir at the time.
+static const uint32_t kIdleReedPeriodMs = 1000;
+static const uint32_t kReedFreshMs      = 5000;
+static pcba::ReedSnapshot reedCache;
+static bool     reedCacheValid = false;
+static uint32_t reedCacheMs    = 0;
+static uint32_t reedIdleMs     = 0;
+static machine_policy::ReservoirLevel reservoirLevel[2];
+
+static machine_policy::LevelMotion levelMotionFor(uint8_t channel);
+
+static bool readReeds() {
+    pcba::ReedSnapshot reeds;
+    if (!pcba::expanders().readReeds(reeds)) {
+        reedCacheValid = false;
+        return false;
+    }
+    reedCache      = reeds;
+    reedCacheValid = true;
+    reedCacheMs    = millis();
+    reservoirLevel[0].observe(reeds.reservoirAClosedMask, levelMotionFor(0));
+    reservoirLevel[1].observe(reeds.reservoirBClosedMask, levelMotionFor(1));
+    return true;
+}
+
+static uint8_t reedMaskFor(uint8_t channel) {
+    return channel == PUMP_CHANNEL_A ? reedCache.reservoirAClosedMask : reedCache.reservoirBClosedMask;
+}
+
+static void reedIdleService(uint32_t now) {
+    if (state != ST_IDLE || !pcba::expanders().initialized()) return;
+    if (now - reedIdleMs < kIdleReedPeriodMs) return;
+    reedIdleMs = now;
+    readReeds();
+}
+
+void machineLevels(MachineLevels &l) {
+    l.valid    = reedCacheValid && (uint32_t)(millis() - reedCacheMs) < kReedFreshMs;
+    l.reeds[0] = reedCache.reservoirAClosedMask;
+    l.reeds[1] = reedCache.reservoirBClosedMask;
+    l.level[0] = reservoirLevel[0].segments();
+    l.level[1] = reservoirLevel[1].segments();
+    l.carbLow  = reedCache.carbonatorLowClosed;
+    l.carbHigh = reedCache.carbonatorHighClosed;
+}
+
 // ── The pump, driven from nowhere but here ────────────────────────────────
 static bool pumpDrive(uint8_t channel) {
     if (!ledcAttach(kPump[channel].pin, PUMP_PWM_HZ, PUMP_PWM_BITS)) {
@@ -357,10 +408,8 @@ static const char *valveNames(uint16_t mask, char *buf, size_t n) {
 }
 
 static bool fillReadReeds() {
-    pcba::ReedSnapshot reeds;
-    if (!pcba::expanders().readReeds(reeds)) return false;
-    fillReeds = fillChannel == PUMP_CHANNEL_A ? reeds.reservoirAClosedMask
-                                              : reeds.reservoirBClosedMask;
+    if (!readReeds()) return false;
+    fillReeds = reedMaskFor(fillChannel);
     return true;
 }
 
@@ -516,8 +565,7 @@ static uint32_t cleanSettleAtMs     = 0;      // nonzero: the step is over, the 
 static uint8_t  cleanEndAfterSettle = CLEAN_OUTCOME_NONE;   // NONE: the next step follows the settle
 static bool     cleanStepRunning    = false;
 static bool     cleanPumpOn         = false;
-static bool     cleanEmptySeenClosed = false;
-static uint32_t cleanEmptyOpenedAtMs = UINT32_MAX;
+static uint32_t cleanEmptyClosedAtMs = UINT32_MAX;   // elapsed when the empty reed was first seen closed
 
 static machine_policy::CleanStep cleanStepOf(uint8_t index) {
     return (index & 1) ? machine_policy::CleanStep::Flush : machine_policy::CleanStep::WaterFill;
@@ -568,10 +616,8 @@ static const char *cleanStepName(uint8_t index) {
 }
 
 static bool cleanReadReeds() {
-    pcba::ReedSnapshot reeds;
-    if (!pcba::expanders().readReeds(reeds)) return false;
-    cleanReeds = cleanChannel == PUMP_CHANNEL_A ? reeds.reservoirAClosedMask
-                                                : reeds.reservoirBClosedMask;
+    if (!readReeds()) return false;
+    cleanReeds = reedMaskFor(cleanChannel);
     return true;
 }
 
@@ -638,8 +684,8 @@ static bool cleanStepBegin(uint32_t now) {
     cleanStepElapsedMs   = 0;
     cleanLastReedMs      = now;
     cleanStepRunning     = true;
-    cleanEmptySeenClosed = (cleanReeds != 0xFF) && (cleanReeds & machine_policy::kReservoirReedEmpty);
-    cleanEmptyOpenedAtMs = UINT32_MAX;
+    cleanEmptyClosedAtMs = (cleanReeds != 0xFF) && (cleanReeds & machine_policy::kReservoirReedEmpty)
+                               ? 0 : UINT32_MAX;
     char names[24];
     Serial.printf("\n[machine] clean %s: round %u of %u, %s — valves %s open, pump %s, "
                   "for %lu ms, reeds %02X\n",
@@ -681,18 +727,12 @@ static void cleanService(uint32_t now) {
     if (now - cleanLastReedMs >= machine_policy::kCleanReedPeriodMs) {
         cleanLastReedMs = now;
         if (!cleanReadReeds()) { cleanStepEnd(CLEAN_OUTCOME_FAULT, now); return; }
-        const bool emptyClosed = (cleanReeds & machine_policy::kReservoirReedEmpty) != 0;
-        if (emptyClosed) {
-            cleanEmptySeenClosed = true;
-            cleanEmptyOpenedAtMs = UINT32_MAX;
-        } else if (cleanEmptySeenClosed && cleanEmptyOpenedAtMs == UINT32_MAX) {
-            cleanEmptyOpenedAtMs = elapsed;
-        }
+        if ((cleanReeds & machine_policy::kReservoirReedEmpty) && cleanEmptyClosedAtMs == UINT32_MAX)
+            cleanEmptyClosedAtMs = elapsed;
     }
     machine_policy::CleanEnd end = machine_policy::CleanEnd::None;
     if (cleanStepOf(cleanStepIndex) == machine_policy::CleanStep::Flush) {
-        end = machine_policy::cleanFlushShouldEnd(elapsed, cleanStepPlannedMs,
-                                                  cleanEmptySeenClosed, cleanEmptyOpenedAtMs);
+        end = machine_policy::cleanFlushShouldEnd(elapsed, cleanStepPlannedMs, cleanEmptyClosedAtMs);
     } else {
         end = machine_policy::cleanWaterFillShouldEnd(elapsed, cleanStepPlannedMs, cleanReeds);
     }
@@ -775,8 +815,7 @@ static uint32_t airSettleAtMs    = 0;
 static uint8_t  airEndAfterSettle = AIR_OUTCOME_NONE;
 static bool     airStepRunning   = false;
 static bool     airPumpOn        = false;
-static bool     airEmptySeenClosed = false;
-static uint32_t airEmptyOpenedAtMs = UINT32_MAX;
+static uint32_t airEmptyClosedAtMs = UINT32_MAX;
 
 static machine_policy::AirMode airModeOf(uint8_t mode) {
     return mode == AIR_MODE_PURGE ? machine_policy::AirMode::Purge : machine_policy::AirMode::Dry;
@@ -850,10 +889,8 @@ static const char *airOutcomeName(uint8_t outcome) {
 }
 
 static bool airReadReeds() {
-    pcba::ReedSnapshot reeds;
-    if (!pcba::expanders().readReeds(reeds)) return false;
-    airReeds = airStepChannelNow() == PUMP_CHANNEL_A ? reeds.reservoirAClosedMask
-                                                     : reeds.reservoirBClosedMask;
+    if (!readReeds()) return false;
+    airReeds = reedMaskFor(airStepChannelNow());
     return true;
 }
 
@@ -915,8 +952,8 @@ static bool airStepBegin(uint32_t now) {
     airStepElapsedMs   = 0;
     airLastReedMs      = now;
     airStepRunning     = true;
-    airEmptySeenClosed = (airReeds != 0xFF) && (airReeds & machine_policy::kReservoirReedEmpty);
-    airEmptyOpenedAtMs = UINT32_MAX;
+    airEmptyClosedAtMs = (airReeds != 0xFF) && (airReeds & machine_policy::kReservoirReedEmpty)
+                             ? 0 : UINT32_MAX;
     char names[24];
     Serial.printf("\n[machine] %s: step %u of %u, %s on %s — valves %s open, pump %s on, for %lu ms, reeds %02X\n",
                   airMode == AIR_MODE_PURGE ? "purge" : "dry", (unsigned)(airStepIndex + 1),
@@ -960,18 +997,12 @@ static void airService(uint32_t now) {
     if (now - airLastReedMs >= machine_policy::kCleanReedPeriodMs) {
         airLastReedMs = now;
         if (!airReadReeds()) { airStepEnd(AIR_OUTCOME_FAULT, now); return; }
-        const bool emptyClosed = (airReeds & machine_policy::kReservoirReedEmpty) != 0;
-        if (emptyClosed) {
-            airEmptySeenClosed = true;
-            airEmptyOpenedAtMs = UINT32_MAX;
-        } else if (airEmptySeenClosed && airEmptyOpenedAtMs == UINT32_MAX) {
-            airEmptyOpenedAtMs = elapsed;
-        }
+        if ((airReeds & machine_policy::kReservoirReedEmpty) && airEmptyClosedAtMs == UINT32_MAX)
+            airEmptyClosedAtMs = elapsed;
     }
     machine_policy::CleanEnd end = machine_policy::CleanEnd::None;
     if (machine_policy::airStepDrawsReservoir(airModeOf(airMode), airStepIndex)) {
-        end = machine_policy::cleanFlushShouldEnd(elapsed, airStepPlannedMs,
-                                                  airEmptySeenClosed, airEmptyOpenedAtMs);
+        end = machine_policy::cleanFlushShouldEnd(elapsed, airStepPlannedMs, airEmptyClosedAtMs);
     } else if (elapsed >= airStepPlannedMs) {
         end = machine_policy::CleanEnd::Planned;
     }
@@ -1031,6 +1062,27 @@ void machineAirStop() {
 bool machineIsAiring() { return state == ST_AIRING; }
 
 void machineReadAirState(MachineAirState &st) { airFill(st, millis()); }
+
+// What the running operation is doing to a reservoir's level: a fill or a
+// clean water fill raises it, a flush or a purge's Out step draws it down,
+// and nothing else moves it.
+static machine_policy::LevelMotion levelMotionFor(uint8_t channel) {
+    using machine_policy::LevelMotion;
+    switch (state) {
+        case ST_FILLING:
+            return fillChannel == channel ? LevelMotion::Rising : LevelMotion::Still;
+        case ST_CLEANING:
+            if (cleanChannel != channel || !cleanStepRunning) return LevelMotion::Still;
+            return cleanStepOf(cleanStepIndex) == machine_policy::CleanStep::Flush
+                       ? LevelMotion::Falling : LevelMotion::Rising;
+        case ST_AIRING:
+            if (!airStepRunning || airStepChannelNow() != channel) return LevelMotion::Still;
+            return machine_policy::airStepDrawsReservoir(airModeOf(airMode), airStepIndex)
+                       ? LevelMotion::Falling : LevelMotion::Still;
+        default:
+            return LevelMotion::Still;
+    }
+}
 
 // ── The self-test ─────────────────────────────────────────────────────────
 // One load at a time, each parked and read back before the next: V-A through
@@ -1216,6 +1268,7 @@ void machineService() {
     cleanService(now);
     airService(now);
     selfTestService(now);
+    reedIdleService(now);
     if (state != ST_PUMPING) return;
 
     const uint32_t elapsed = pumpTimer.elapsedMs(now);
