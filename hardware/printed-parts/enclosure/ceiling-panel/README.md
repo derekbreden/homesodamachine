@@ -89,11 +89,13 @@ a dado.
   show face stays [159 mm](PANEL_W) and its seam lines stay on the throat's own
   edges.
 - **Dado** [6.15 mm](DADO_DEPTH) deep, from z = [345.85](DADO_FLOOR) to
-  [352.15](DADO_ROOF) at the blind end. That end carries the
-  [0.15 mm](DADO_SLIP) printed-fit clearance on every face and leaves
-  [3 mm](DADO_LOWER_LIGAMENT) of the fixed corbel below the groove plus a
-  [2.85 mm](LIP_T) show-skin lip above it. Those are the two ligaments that
-  capture the rail and hold the panel on the ceiling datum.
+  [352](DADO_ROOF) at the blind edge, where its roof rises off the tongue's own
+  top plane. That end carries the [0.15 mm](DADO_SLIP) printed-fit clearance on
+  the rail's floor, its tip and its mouth-side face, and the tip clears the
+  rising roof by the same slip. It leaves [3 mm](DADO_LOWER_LIGAMENT) of the
+  fixed corbel below the groove plus a [3 mm](LIP_T) show-skin lip above it.
+  Those are the two ligaments that capture the rail and hold the panel on the
+  ceiling datum.
 - **The dado's roof rises to the mouth at [45°](CHAMFER)**, the way every relief
   ceiling on this box does — a roof left flat would hang over the slot in a
   piece that prints mouth-down. The roof climbs one millimetre per millimetre of
