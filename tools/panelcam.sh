@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 # panelcam.sh — read a physical display on the machine, from the shell, without a human.
 #
-#   tools/panelcam.sh shot front           # the 4.3B panel on its own 800x480 grid, 3 px per panel px,
-#                                          #   and beside it the same at one px per panel px
+#   tools/panelcam.sh shot front           # the 4.3B panel on its own 800x480 grid, 3 px per panel px;
+#                                          #   beside it the same at one px per panel px, and that with
+#                                          #   every pixel the camera reads as a palette colour so drawn
 #   tools/panelcam.sh shot front --full    # the frame as the camera delivered it
 #   tools/panelcam.sh aim front            # put the test screen up, read the panel's corners, write them
 #   tools/panelcam.sh list                 # cameras, and the sizes the attached one streams
@@ -23,7 +24,9 @@
 # from the quadrilateral the panel occupies onto its 800x480 pixel grid at `scale` px per panel px:
 # a rotated or keystoned panel comes out square, and output pixel (3i+k, 3j+l) is a piece of panel
 # pixel (i, j). `<target>.panel.png` beside it is the mean of each such block: one pixel per panel
-# pixel, the frame as the camera read it. `panelcam-rectify.py` says what the warp keeps.
+# pixel, the frame as the camera read it; `<target>.palette.png` is that picture with every pixel the
+# camera reads as one of the firmware's palette colours drawn in that colour, which an aim learns from
+# the test screen. `panelcam-rectify.py` says what the warp keeps and how a colour is read.
 
 set -euo pipefail
 
@@ -157,11 +160,13 @@ cmd_shot() {
   else
     "$PY" "$RECTIFY" warp "$raw" "$out" --corners "$corners" --panel "$panel" --scale "$scale"
     "$PY" "$RECTIFY" reduce "$out" "${out%.png}.panel.png" --scale "$scale"
+    local palette; palette="$(target_field_opt "$target" palette)"
+    [ -n "$palette" ] && "$PY" "$RECTIFY" classify "${out%.png}.panel.png" "${out%.png}.palette.png" --palette "$palette" >/dev/null
     rm -f "$raw"
   fi
 
   echo "$out"
-  [ "$full" -eq 1 ] || echo "${out%.png}.panel.png"
+  [ "$full" -eq 1 ] || { echo "${out%.png}.panel.png"; [ -n "${palette:-}" ] && echo "${out%.png}.palette.png"; }
   sed -n 's/.*\(focus [0-9].*\)/  \1/p' "$LOGFILE" | tail -1
   awk -v b="${best:-0}" -v f="$floor" 'BEGIN { exit !(b < f) }' &&
     echo "  best $best is under the floor $floor: the panel was dark, or the rig has moved — aim it again" >&2
@@ -171,7 +176,7 @@ cmd_shot() {
 # The test screen is what an aim reads: the enclosure's own pixels drawn as four white squares at
 # known panel coordinates and a white frame on the outermost ones, put up by the main board's
 # console for 120 s. The squares' centres fix where the panel is; the frame and the screen's pixel
-# patterns say how well.
+# patterns say how well; its palette row says how the camera renders each colour the firmware draws.
 cmd_aim() {
   local target="${1:-}"
   [ -n "$target" ] || die "usage: panelcam.sh aim <target>"
@@ -196,9 +201,15 @@ cmd_aim() {
   local proof="$OUT_DIR/$target.aim.png"
   "$PY" "$RECTIFY" warp "$full" "$proof" --corners "$corners" \
     --panel "$(target_field "$target" panel)" --scale "$(target_field "$target" scale)"
+  local read; read="$("$PY" "$RECTIFY" palette "$proof" --scale "$(target_field "$target" scale)")"
+  local palette; palette="$(sed -n 's/^palette //p' <<<"$read")"
+  awk -v t="$target" -v p="$palette" '
+    $1 == t && $2 == "palette" { $0 = sprintf("%-7s %-12s %s", t, "palette", p) }
+    { print }' "$CONF" > "$CONF.new" && mv "$CONF.new" "$CONF"
   echo "$full"
   echo "  corners $corners  -> written to $(basename "$CONF")"
   "$PY" "$RECTIFY" check "$proof" --scale "$(target_field "$target" scale)" | sed 's/^/  /'
+  echo "  palette: $(wc -w <<<"$palette" | tr -d ' ') colours -> written; $(sed -n 's/^closest as captured: //p' <<<"$read")"
 }
 
 case "${1:-}" in

@@ -207,8 +207,10 @@ shows. On black, the panel's own:
 
 `TEST:<s>` on this board's own USB console shows it without the main board.
 
-[`tools/panelcam-rectify.py`](/tools/panelcam-rectify.py) reads the fiducials' centres and the
-stripe blocks at x 240..303 and 368..431, y 268..331; move either and it has to follow.
+[`tools/panelcam-rectify.py`](/tools/panelcam-rectify.py) reads the fiducials' centres, the
+stripe blocks at x 240..303 and 368..431, y 268..331, the palette row at x 80 + 64k, y 168..215 in
+the order drawn here, and the wedge's black and white ends at y 56..103; move any of them and it
+has to follow.
 
 ## USB-serial commands (bring-up / diagnostics)
 
