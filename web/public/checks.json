@@ -7,8 +7,8 @@
     },
     {
       "check": "hardware/scripts/check_facts_current.py",
-      "note": "and the 107 sources behind them stand where they stood when it was written",
-      "status": "ok"
+      "note": "tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py",
+      "status": "red"
     },
     {
       "check": "hardware/scripts/check_finishes.py",
@@ -42,7 +42,7 @@
     },
     {
       "check": "hardware/scripts/check_step_colours.py",
-      "note": "step colours: 123/123 carry the colour of what they are made of",
+      "note": "step colours: 125/125 carry the colour of what they are made of",
       "status": "ok"
     },
     {
@@ -52,18 +52,18 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 1415 tracked, 274 fetched solids, 54 tags",
+      "note": "paths: every reference lands — 1416 tracked, 276 fetched solids, 54 tags",
       "status": "ok"
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 476 of 1000 free, the next cut wants 3, and the whole lock reads by name in 115.2 MB against 116.5 MB of bundle",
+      "note": "check_release_room: 450 of 1000 free, the next cut wants 3, and the whole lock reads by name in 114.9 MB against 116.2 MB of bundle",
       "status": "ok"
     },
     {
       "check": "tools/check_web_tests.py",
-      "note": "cd web && npm test",
-      "status": "red"
+      "note": "check_web_tests: web's suite passes",
+      "status": "ok"
     },
     {
       "check": "tools/bazel/check_build_file.py",
@@ -82,15 +82,15 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 47 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 276 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 0 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 276 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
-    "tools/check_web_tests.py": [
-      "1 test(s) in web/ fail:",
-      "    the artifact lock pins every committed viewer scorecard",
-      "  cd web && npm test"
+    "hardware/scripts/check_facts_current.py": [
+      "enclosure-assembly.facts.json was taken from a different tree — it holds 67c5f7c45cd5aad62f017153020bdd18 for the 108 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at be1ac13e4764fd49eb49bf4dd0511298 here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "  the three come off one run:",
+      "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ]
   },
   "green": false
