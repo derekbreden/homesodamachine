@@ -97,7 +97,7 @@ constexpr uint8_t MSG_PRIME_SESSION_HOLD_STOP  = 0x2F;  // PrimeHoldPayload: lif
 
 // Funnel fill (0x30). Concentrate is poured into the funnel on the enclosure's
 // top face; this draws it down the channel's own path into the chilled
-// reservoir. Open-ended like the clean cycle, and sequenced by the main board.
+// reservoir. Sequenced by the main board, like the clean cycle.
 constexpr uint8_t MSG_FILL_START       = 0x30;  // ChannelPayload: draw funnel → reservoir
 
 // ── Which logo a channel wears ────────────────────────────────────────────
@@ -243,6 +243,17 @@ constexpr uint8_t MSG_FILL_STOP  = 0x59;  // no payload: end the run now
 constexpr uint8_t MSG_UI_SHOW      = 0x5A;  // UiShowPayload
 constexpr uint8_t MSG_RESP_UI_SHOW = 0x5B;  // ResponsePayload: 1 shown, 0 not
 
+// ── The clean cycle, as the main board runs it (0x5C..) ──────────────────
+// MSG_CLEAN_START (0x0F) asks the main board to put tap water through the
+// channel the way concentrate goes: rounds of a tap-water fill through the
+// idle pump into the reservoir, then a pumped flush out through the faucet.
+// The main board answers that request, every step it moves to, and every
+// ending with its complete clean state; a query gets the same answer, and
+// STOP ends a cycle early and is answered the same way.
+constexpr uint8_t MSG_CLEAN_QUERY = 0x5C;  // no payload: answer with CleanStatePayload
+constexpr uint8_t MSG_RESP_CLEAN  = 0x5D;  // CleanStatePayload: to START, QUERY and STOP, and on every change
+constexpr uint8_t MSG_CLEAN_STOP  = 0x5E;  // no payload: end the cycle now
+
 // Fixed transport capacities are part of the replay contract. Keeping the
 // values beside the shared wire protocol lets each actual queue assert that a
 // future depth/window change still fits inside the main board's token ledger.
@@ -312,6 +323,38 @@ struct __attribute__((packed)) FillStatePayload {
 };
 
 static_assert(sizeof(FillStatePayload) == 12, "fill wire layout drift");
+
+// ── The clean cycle ───────────────────────────────────────────────────────
+constexpr uint8_t CLEAN_PHASE_OFF     = 0;
+constexpr uint8_t CLEAN_PHASE_RUNNING = 1;
+
+constexpr uint8_t CLEAN_STEP_WATER_FILL = 0;  // tap water in through the idle pump
+constexpr uint8_t CLEAN_STEP_FLUSH      = 1;  // pumped out through the faucet
+
+// How the last cycle ended, kept while OFF. NONE while running, and before any.
+constexpr uint8_t CLEAN_OUTCOME_NONE    = 0;
+constexpr uint8_t CLEAN_OUTCOME_DONE    = 1;  // every round ran
+constexpr uint8_t CLEAN_OUTCOME_STOPPED = 2;  // ended on request
+constexpr uint8_t CLEAN_OUTCOME_BUSY    = 3;  // refused: something else was running
+constexpr uint8_t CLEAN_OUTCOME_NO_IO   = 4;  // refused: the expanders are not verified
+constexpr uint8_t CLEAN_OUTCOME_FAULT   = 5;  // ended: a valve write or reed read failed; everything parked
+constexpr uint8_t CLEAN_OUTCOME_GAS     = 6;  // refused or ended: the gas alarm
+
+// The main board's complete clean truth. Small enough for an announcement.
+struct __attribute__((packed)) CleanStatePayload {
+  uint8_t  phase;          // CLEAN_PHASE_*
+  uint8_t  channel;        // PUMP_CHANNEL_*
+  uint8_t  outcome;        // CLEAN_OUTCOME_*
+  uint8_t  step;           // CLEAN_STEP_*: running now, or when the cycle ended
+  uint8_t  round;          // 1..rounds
+  uint8_t  rounds;         // how many rounds this cycle is
+  uint32_t stepElapsedMs;  // how long this step has been, or was, running
+  uint32_t stepPlannedMs;  // how long it runs unless its reed ends it first
+  uint32_t cycleLeftMs;    // the main board's estimate of what is left of the whole cycle
+  uint8_t  reeds;          // the reservoir's closed reeds, bit 0 empty .. bit 3 full; 0xFF unread
+};
+
+static_assert(sizeof(CleanStatePayload) == 19, "clean wire layout drift");
 
 // ── A page asked for by the console ──────────────────────────────────────
 constexpr uint8_t UI_RAIL_CHOOSE   = 0;
@@ -588,6 +631,7 @@ static_assert(sizeof(StatusPayload) == 41, "main board status wire layout drift"
 constexpr uint8_t STATUS_F_GAS_TRIP = 1 << 0;  // the LM393 comparator has tripped
 constexpr uint8_t STATUS_F_PRIMING  = 1 << 1;  // a prime hold is live
 constexpr uint8_t STATUS_F_FILLING  = 1 << 2;  // a funnel fill is drawing
+constexpr uint8_t STATUS_F_CLEANING = 1 << 3;  // a clean cycle is running
 
 // ── Sound ─────────────────────────────────────────────────────────────────
 // Wire-level sound ids. These mirror SoundId in lib/sound/sound.h, which is the

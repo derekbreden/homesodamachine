@@ -50,10 +50,12 @@
 // prime session or bounded from the console. The funnel fill opens a channel's
 // three funnel-path valves and draws with that pump for a planned 80 s, or
 // until the reservoir's full reed closes, from the enclosure or the console.
+// The clean cycle puts tap water through a channel three rounds over — a fill
+// through the idle pump until the full reed closes, then a pumped flush out
+// the faucet until the empty reed opens — from the enclosure or the console.
 // Both MCP23017s boot with every output verified low and every reed input on
 // its internal pull-up; status reads those inputs on explicit request. Nothing
-// else opens a valve or runs the fan, neither relay is ever driven, and a
-// clean cycle is answered MSG_ERR_UNSUPPORTED.
+// else opens a valve or runs the fan, and neither relay is ever driven.
 
 #include "ota.h"
 
@@ -163,9 +165,10 @@ void loop() {
         if ((long)(millis() - testScreenUntilMs) < 0) idleTouched();
         else testScreenUntilMs = 0;
     }
-    // A fill is something a person asked for and is watching. Both glasses
-    // stay lit for the length of it, and the quiet stretch starts when it ends.
-    if (machineIsFilling()) idleTouched();
+    // A fill or a clean cycle is something a person asked for and is watching.
+    // Both glasses stay lit for the length of it, and the quiet stretch starts
+    // when it ends.
+    if (machineIsFilling() || machineIsCleaning()) idleTouched();
     if (idleService()) {
         // An offered action is withdrawn with the light. Both glasses learn of
         // the sleep and the closed session from the same pair of publications.
@@ -206,6 +209,9 @@ static void help() {
     Serial.println("\n  pump <a|b> [ms]   run one flavor pump, bounded (default 2000, ceiling 60000)");
     Serial.println("  fill <a|b> [s]    the funnel fill: that channel's funnel path open and its pump drawing,");
     Serial.println("                    for s seconds (default 80) or until the reservoir's full reed closes");
+    Serial.println("  clean <a|b> [rounds] [s]   the clean cycle: tap water in through the idle pump until the");
+    Serial.println("                    full reed closes, then pumped out the faucet until the empty reed opens,");
+    Serial.println("                    rounds times (default 3); s caps every step (default 90 in, 150 out)");
     Serial.println("  stop              end whatever is running");
     Serial.println("  status            machine state, uptime, heap");
     Serial.println("  flavor [a|b]      selected flavor (main-board-owned and persisted)");
@@ -240,6 +246,16 @@ static void status() {
         Serial.printf(" — fill %s, %lu of %lu ms, reservoir reeds %02X",
                       machinePumpName(fill.channel), (unsigned long)fill.elapsedMs,
                       (unsigned long)fill.plannedMs, fill.reeds);
+    }
+    if (machineState() == ST_CLEANING) {
+        MachineCleanState clean;
+        machineReadCleanState(clean);
+        Serial.printf(" — clean %s, round %u of %u, %s %lu of %lu ms, about %lu s left, "
+                      "reservoir reeds %02X",
+                      machinePumpName(clean.channel), (unsigned)clean.round, (unsigned)clean.rounds,
+                      clean.step == CLEAN_STEP_FLUSH ? "flush" : "water fill",
+                      (unsigned long)clean.stepElapsedMs, (unsigned long)clean.stepPlannedMs,
+                      (unsigned long)(clean.cycleLeftMs / 1000), clean.reeds);
     }
     Serial.printf("\n  uptime   %lu s\n", millis() / 1000);
     Serial.printf("  heap     %lu bytes free\n", (unsigned long)ESP.getFreeHeap());
@@ -860,6 +876,23 @@ static void console(const String &line) {
         String sArg = rest.substring(1); sArg.trim();
         uint32_t ms = sArg.length() ? (uint32_t)sArg.toInt() * 1000UL : 0;
         if (!machineFillBegin(which == 'a' ? PUMP_CHANNEL_A : PUMP_CHANNEL_B, ms))
+            Serial.printf("\nrefused — the machine is %s\n", machineStateName());
+        return;
+    }
+    if (line.startsWith("clean")) {
+        String rest = line.substring(5); rest.trim();
+        if (!rest.length()) { Serial.println("\nusage: clean <a|b> [rounds] [s]"); return; }
+        char which = rest[0] | 0x20;
+        if (which != 'a' && which != 'b') { Serial.println("\nusage: clean <a|b> [rounds] [s]"); return; }
+        String tail = rest.substring(1); tail.trim();
+        int rounds = 0, s = 0;
+        sscanf(tail.c_str(), "%d %d", &rounds, &s);
+        if (rounds < 0 || rounds > 9 || s < 0 || s > 3600) {
+            Serial.println("\nusage: clean <a|b> [rounds 1-9] [s 1-3600]");
+            return;
+        }
+        if (!machineCleanBegin(which == 'a' ? PUMP_CHANNEL_A : PUMP_CHANNEL_B,
+                               (uint8_t)rounds, (uint32_t)s * 1000UL))
             Serial.printf("\nrefused — the machine is %s\n", machineStateName());
         return;
     }

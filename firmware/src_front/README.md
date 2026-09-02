@@ -78,9 +78,9 @@ tools/cad-venv/bin/python tools/gen_animation_frames.py --size 360 \
 which writes `images/anim_00.h`..`anim_15.h` (RGB565 PROGMEM). LVGL cycles them
 at ~10 fps only on a full-screen operation lock: animation on the left, and a
 modal naming the operation on the right. The reusable lock is the surface for
-the funnel fill — where the modal widens to carry the channel's face, a progress
-bar, the time left and STOP — and for cleaning and other periods in which the
-appliance intentionally withholds normal interaction.
+the funnel fill and the clean cycle — where the modal widens to carry the
+channel's face, a progress bar, the time left and STOP — and for other periods
+in which the appliance intentionally withholds normal interaction.
 
 Boot opens with **Powering on · Getting everything ready.** for at least two
 complete animation cycles. It then opens onto the main board's flavor selection
@@ -243,6 +243,7 @@ Newline-terminated, 115200 baud over the native USB CDC:
   the glass: same frames, same ticks, same readouts
 - `FILL:START:<1|2>` / `FILL:STOP` → the confirm page's START and the lock's STOP,
   without a finger on the glass: same frame, same answer, same lock
+- `CLEAN:START:<1|2>` / `CLEAN:STOP` → the same for the clean cycle
 - `STATUS` → ask the base for one `StatusPayload`
 - `PUMP` → one `MSG_PUMP_RUN { B, 1000 }`
 - `LINK` → RX/TX GPIO and the frame counters
@@ -319,7 +320,7 @@ remaining 610 px is the pane, and it takes a different shape at each destination
 | A flavor's own page | `−`/`+` on the ratio, and a row of every logo it can wear — reached from that flavor's Choose card, and Back returns there | display-local |
 | Prime | flavor choice → shared hold pad | **the base** |
 | Fill | flavor choice → confirmation → the operation lock while it draws | **the base** |
-| Clean | flavor choice → confirmation | **the base** |
+| Clean | flavor choice → confirmation → the operation lock for the cycle | **the base** |
 | Settings | a deliberately quiet surface until a useful preference is ready; reached from the corner | — |
 
 **Every face on this panel is the faucet's glass.** A logo is 43:80 at three scales —
@@ -439,9 +440,22 @@ confirm page's own message line instead of the lock.
 
 ### Clean
 
-**CLEAN → a flavor → START** sends `MSG_CLEAN_START { channel }`, an open-ended manifold
-sequence the main board does not carry yet, so it answers `MSG_ERR_UNSUPPORTED` and the
-pane says so.
+**CLEAN → a flavor → START CLEAN CYCLE** sends `MSG_CLEAN_START { channel }`, and the main
+board puts tap water through that channel three rounds over: in through the idle pump to
+the reservoir until its full reed closes, then out through the faucet on the dispense path
+until its empty reed opens. The confirm page says to set a pitcher under the faucet first.
+The main board owns the cycle and answers START, `MSG_CLEAN_QUERY` and `MSG_CLEAN_STOP`
+with a complete `CleanStatePayload`; it queues every step it moves to and every ending for
+this display's next turn.
+
+The cycle is shown on the same operation lock as the fill: the channel's face beside
+**Cleaning**, a bar that fills across the whole cycle, a note reading **1 of 3 • water in**
+or **water out**, STOP, and in the kicker how long is left — **11 MIN LEFT**, from the
+main board's own estimate, smoothed between its answers. While the lock is up the state is
+asked for again every 500 ms, so a cycle the console started comes up the same way. When the
+cycle ends the modal holds for six seconds saying how — **Clean**, **Stopped**, or a fault —
+then the pane returns to the clean page. A refusal lands on the confirm page's own message
+line. An older main board that answers `MSG_ERR_UNSUPPORTED` lands there too.
 
 ### Frame rate
 

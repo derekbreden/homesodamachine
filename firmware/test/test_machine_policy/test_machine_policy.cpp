@@ -794,8 +794,110 @@ void test_fill_wire_contract_has_dedicated_ids_and_exact_layout() {
     TEST_ASSERT_TRUE(STATUS_F_FILLING != STATUS_F_PRIMING && STATUS_F_FILLING != STATUS_F_GAS_TRIP);
 }
 
+void test_clean_steps_are_the_channels_own_water_fill_and_flush() {
+    TEST_ASSERT_EQUAL(Operation::CleanWaterFillA, cleanOperation(0, CleanStep::WaterFill));
+    TEST_ASSERT_EQUAL(Operation::CleanFlushA,     cleanOperation(0, CleanStep::Flush));
+    TEST_ASSERT_EQUAL(Operation::CleanWaterFillB, cleanOperation(1, CleanStep::WaterFill));
+    TEST_ASSERT_EQUAL(Operation::CleanFlushB,     cleanOperation(1, CleanStep::Flush));
+    // Tap pressure crosses an idle head on the way in; the pump is on the way out.
+    for (uint8_t ch = 0; ch < 2; ch++) {
+        const ActuatorPlan in  = canonicalPlan(cleanOperation(ch, CleanStep::WaterFill));
+        const ActuatorPlan out = canonicalPlan(cleanOperation(ch, CleanStep::Flush));
+        TEST_ASSERT_EQUAL_UINT8(kPumpNone, in.flavor_pumps);
+        TEST_ASSERT_EQUAL_UINT8(ch == 0 ? kPumpA : kPumpB, out.flavor_pumps);
+        TEST_ASSERT_TRUE(in.valves & bit(Valve::A));
+        TEST_ASSERT_FALSE(out.valves & bit(Valve::A));
+        TEST_ASSERT_EQUAL_UINT16(0, in.valves & out.valves);   // no valve carries over
+        TEST_ASSERT_FALSE(in.refill_pump);
+        TEST_ASSERT_FALSE(out.refill_pump);
+    }
+    // The flush runs the dispense path.
+    TEST_ASSERT_EQUAL_UINT16(canonicalPlan(Operation::DispenseA).valves,
+                             canonicalPlan(Operation::CleanFlushA).valves);
+    TEST_ASSERT_EQUAL_UINT16(canonicalPlan(Operation::DispenseB).valves,
+                             canonicalPlan(Operation::CleanFlushB).valves);
+}
+
+void test_clean_water_fill_ends_on_the_full_reed_before_the_clock() {
+    TEST_ASSERT_EQUAL(CleanEnd::None, cleanWaterFillShouldEnd(0, kCleanWaterFillPlannedMs, 0x00));
+    TEST_ASSERT_EQUAL(CleanEnd::None,
+                      cleanWaterFillShouldEnd(kCleanWaterFillPlannedMs - 1, kCleanWaterFillPlannedMs, 0x07));
+    TEST_ASSERT_EQUAL(CleanEnd::Reed, cleanWaterFillShouldEnd(0, kCleanWaterFillPlannedMs, kReservoirReedFull));
+    TEST_ASSERT_EQUAL(CleanEnd::Reed,
+                      cleanWaterFillShouldEnd(kCleanWaterFillPlannedMs, kCleanWaterFillPlannedMs, 0x0F));
+    TEST_ASSERT_EQUAL(CleanEnd::Planned,
+                      cleanWaterFillShouldEnd(kCleanWaterFillPlannedMs, kCleanWaterFillPlannedMs, 0x00));
+    TEST_ASSERT_EQUAL(CleanEnd::Planned, cleanWaterFillShouldEnd(3000, 3000, 0x07));
+}
+
+void test_clean_flush_ends_a_tail_after_the_empty_reed_opens() {
+    const uint32_t planned = kCleanFlushPlannedMs;
+    // Open from the start: never seen closed, so only the clock ends it.
+    TEST_ASSERT_EQUAL(CleanEnd::None,    cleanFlushShouldEnd(0, planned, false, UINT32_MAX));
+    TEST_ASSERT_EQUAL(CleanEnd::None,    cleanFlushShouldEnd(planned - 1, planned, false, 0));
+    TEST_ASSERT_EQUAL(CleanEnd::Planned, cleanFlushShouldEnd(planned, planned, false, 0));
+    // Seen closed, not yet open: the clock.
+    TEST_ASSERT_EQUAL(CleanEnd::None,    cleanFlushShouldEnd(planned - 1, planned, true, UINT32_MAX));
+    TEST_ASSERT_EQUAL(CleanEnd::Planned, cleanFlushShouldEnd(planned, planned, true, UINT32_MAX));
+    // Opened at 40 s: the tail runs from there.
+    TEST_ASSERT_EQUAL(CleanEnd::None, cleanFlushShouldEnd(40000, planned, true, 40000));
+    TEST_ASSERT_EQUAL(CleanEnd::None, cleanFlushShouldEnd(40000 + kCleanFlushTailMs - 1, planned, true, 40000));
+    TEST_ASSERT_EQUAL(CleanEnd::Reed, cleanFlushShouldEnd(40000 + kCleanFlushTailMs, planned, true, 40000));
+    // The reed wins over the clock when both are due.
+    TEST_ASSERT_EQUAL(CleanEnd::Reed, cleanFlushShouldEnd(planned, planned, true, planned - kCleanFlushTailMs));
+    // A tail that would outrun the clock ends on the clock.
+    TEST_ASSERT_EQUAL(CleanEnd::Planned, cleanFlushShouldEnd(planned, planned, true, planned - 1));
+}
+
+void test_clean_cycle_left_sums_the_steps_still_to_come() {
+    const uint32_t w = kCleanWaterFillPlannedMs, f = kCleanFlushPlannedMs;
+    // At the start of the first water fill: the whole cycle.
+    TEST_ASSERT_EQUAL_UINT32(3 * (w + f), cleanCycleLeftMs(0, 3, 0, w, w, f));
+    // Halfway through the first water fill.
+    TEST_ASSERT_EQUAL_UINT32(3 * (w + f) - w / 2, cleanCycleLeftMs(0, 3, w / 2, w, w, f));
+    // A water fill that ended early on its reed was given a shorter planned time by the caller.
+    TEST_ASSERT_EQUAL_UINT32(f + 2 * (w + f), cleanCycleLeftMs(0, 3, 20000, 20000, w, f));
+    // The last flush, 10 s from its planned end.
+    TEST_ASSERT_EQUAL_UINT32(10000, cleanCycleLeftMs(5, 3, f - 10000, f, w, f));
+    // Past planned, and past the end.
+    TEST_ASSERT_EQUAL_UINT32(0, cleanCycleLeftMs(5, 3, f + 1, f, w, f));
+    TEST_ASSERT_EQUAL_UINT32(0, cleanCycleLeftMs(6, 3, 0, f, w, f));
+    // One round.
+    TEST_ASSERT_EQUAL_UINT32(w + f, cleanCycleLeftMs(0, 1, 0, w, w, f));
+}
+
+void test_clean_timing_is_ordered_and_reads_the_reservoir_as_the_fill_does() {
+    TEST_ASSERT_TRUE(kCleanRounds >= 1);
+    TEST_ASSERT_TRUE(kCleanFlushTailMs < kCleanFlushPlannedMs);
+    TEST_ASSERT_TRUE(kCleanFlushPlannedMs > kCleanWaterFillPlannedMs);
+    TEST_ASSERT_EQUAL_UINT32(kFillReedPeriodMs, kCleanReedPeriodMs);
+    TEST_ASSERT_EQUAL_UINT32(kFillParkDwellMs, kCleanSettleMs);
+    TEST_ASSERT_EQUAL_HEX8(0x01, kReservoirReedEmpty);
+    TEST_ASSERT_EQUAL_HEX8(0x08, kReservoirReedFull);
+}
+
+void test_clean_wire_contract_has_dedicated_ids_and_exact_layout() {
+    TEST_ASSERT_EQUAL_HEX8(0x0F, MSG_CLEAN_START);
+    TEST_ASSERT_EQUAL_HEX8(0x5C, MSG_CLEAN_QUERY);
+    TEST_ASSERT_EQUAL_HEX8(0x5D, MSG_RESP_CLEAN);
+    TEST_ASSERT_EQUAL_HEX8(0x5E, MSG_CLEAN_STOP);
+    TEST_ASSERT_EQUAL_UINT32(19, sizeof(CleanStatePayload));
+    TEST_ASSERT_EQUAL_UINT8(CLEAN_PHASE_OFF, 0);
+    TEST_ASSERT_EQUAL_UINT8(CLEAN_PHASE_RUNNING, 1);
+    TEST_ASSERT_EQUAL_UINT8(CLEAN_STEP_WATER_FILL, static_cast<uint8_t>(CleanStep::WaterFill));
+    TEST_ASSERT_EQUAL_UINT8(CLEAN_STEP_FLUSH, static_cast<uint8_t>(CleanStep::Flush));
+    TEST_ASSERT_TRUE(STATUS_F_CLEANING != STATUS_F_FILLING && STATUS_F_CLEANING != STATUS_F_PRIMING &&
+                     STATUS_F_CLEANING != STATUS_F_GAS_TRIP);
+}
+
 int main(int, char **) {
     UNITY_BEGIN();
+    RUN_TEST(test_clean_steps_are_the_channels_own_water_fill_and_flush);
+    RUN_TEST(test_clean_water_fill_ends_on_the_full_reed_before_the_clock);
+    RUN_TEST(test_clean_flush_ends_a_tail_after_the_empty_reed_opens);
+    RUN_TEST(test_clean_cycle_left_sums_the_steps_still_to_come);
+    RUN_TEST(test_clean_timing_is_ordered_and_reads_the_reservoir_as_the_fill_does);
+    RUN_TEST(test_clean_wire_contract_has_dedicated_ids_and_exact_layout);
     RUN_TEST(test_fill_draws_a_bottle_at_the_slowest_rated_head_with_time_to_spare);
     RUN_TEST(test_fill_operation_is_the_channels_own_funnel_path);
     RUN_TEST(test_fill_ends_on_the_full_reed_before_the_clock);
