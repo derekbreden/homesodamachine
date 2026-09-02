@@ -30,6 +30,7 @@ static_assert(SND_WIRE_ALARM  == SND_ALARM,  "sound wire id drift: alarm");
 static EchoCancel j9Stream(Serial1);
 static HdlcLink   j9;
 static bool displayUsbReattachAck = false;
+static bool testScreenAck = false;
 static bool wifiApAck = false;
 static WifiApStatePayload wifiApState{};
 static flavor_link_policy::TokenLedger enclosureFlavorTokens;
@@ -235,6 +236,11 @@ static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len) {
 
     if (type == MSG_RESP_DISPLAY_USB_REATTACH) {
         displayUsbReattachAck = true;
+        return;
+    }
+
+    if (type == MSG_RESP_TEST_SCREEN) {
+        testScreenAck = true;
         return;
     }
 
@@ -544,6 +550,21 @@ void linkService() {
         announceQueue(MSG_RESP_FLAVOR_ART, &art, sizeof(art));
     }
     j9.service();
+}
+
+bool linkTestScreen(uint16_t seconds) {
+    testScreenAck = false;
+    TestScreenPayload req{seconds};
+    // A main-board-originated frame can meet a status poll on the half-duplex pair.
+    for (uint8_t attempt = 0; attempt < 3 && !testScreenAck; attempt++) {
+        j9.send(MSG_TEST_SCREEN, &req, sizeof(req));
+        unsigned long until = millis() + 200;
+        while ((long)(millis() - until) < 0 && !testScreenAck) {
+            j9.service();
+            delay(2);
+        }
+    }
+    return testScreenAck;
 }
 
 bool linkDisplayUsbReattach() {

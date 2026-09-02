@@ -359,6 +359,12 @@ static void lockScreenHide();
 
 // ── UI objects ──
 static lv_obj_t *lockScreen, *lockLogoImg, *lockKicker, *lockTitle, *lockBody;
+// The camera's test screen: above every page and the lock, for the seconds the main board asked.
+static lv_obj_t *testScreen;
+static bool testActive = false;
+static unsigned long testUntilMs = 0;
+static void testScreenShow(uint16_t seconds);
+static void testScreenHide();
 // Frame pixels live in the `art` partition, mapped through the MMU at boot —
 // see firmware/lib/board_art. Null means the partition is absent or holds something this
 // build does not recognise, and the lock screen then carries its text alone.
@@ -1731,6 +1737,14 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
     char diag[40];
     wifiBenchPictureDiag(diag, sizeof(diag));
     j9Post(MSG_TEXT, diag, (uint8_t)strlen(diag));
+    return;
+  }
+
+  if (type == MSG_TEST_SCREEN && plen >= sizeof(TestScreenPayload)) {
+    TestScreenPayload req;
+    memcpy(&req, payload, sizeof(req));
+    if (uiReady) testScreenShow(req.seconds);
+    link->sendResponse(MSG_RESP_TEST_SCREEN, uiReady && req.seconds ? 1 : 0);
     return;
   }
 
@@ -3115,6 +3129,100 @@ static void lockScreenHide() {
   lastInputTime = millis();
 }
 
+// ── The camera's test screen ──────────────────────────────────────────────
+// A bench camera reads this panel and maps its photograph back onto the panel's own 800×480
+// grid. What it needs is a known picture: a 2 px white frame on the outermost pixels, four 32 px
+// white fiducials whose centres sit at (32, 32), (768, 32), (32, 448) and (768, 448) in
+// continuous panel coordinates (pixel i spans [i, i+1)), and a 1 px cross through (400, 240) that
+// is left out of the fit as its check. Between them, down the panel: an eight-step gray wedge
+// from 0 to 255, six saturated colours, the interface's own palette with a 50% gray, then 1 px
+// vertical stripes, 1 px horizontal stripes and a 2 px checkerboard, each 64×64. The flat patches
+// are what a camera-to-panel colour fit is made from. Everything is on black, the panel's own.
+static lv_obj_t *mkFlat(lv_obj_t *parent, lv_coord_t x, lv_coord_t y, lv_coord_t w, lv_coord_t h,
+                        lv_color_t c) {
+  lv_obj_t *o = lv_obj_create(parent);
+  lv_obj_set_size(o, w, h);
+  lv_obj_set_pos(o, x, y);
+  lv_obj_set_style_bg_color(o, c, 0);
+  lv_obj_set_style_bg_opa(o, LV_OPA_COVER, 0);
+  lv_obj_set_style_border_width(o, 0, 0);
+  lv_obj_set_style_radius(o, 0, 0);
+  lv_obj_set_style_pad_all(o, 0, 0);
+  lv_obj_clear_flag(o, LV_OBJ_FLAG_SCROLLABLE);
+  return o;
+}
+
+static lv_img_dsc_t testPatDsc[3];
+
+static void buildTestScreen(lv_obj_t *scr) {
+  testScreen = mkFlat(scr, 0, 0, SCREEN_W, SCREEN_H, lv_color_black());
+  lv_obj_add_flag(testScreen, LV_OBJ_FLAG_CLICKABLE);   // a finger here reaches no page beneath
+
+  // The frame is its own object: a border on the parent would move every child in by its width.
+  lv_obj_t *frame = mkFlat(testScreen, 0, 0, SCREEN_W, SCREEN_H, lv_color_black());
+  lv_obj_set_style_bg_opa(frame, LV_OPA_TRANSP, 0);
+  lv_obj_set_style_border_width(frame, 2, 0);
+  lv_obj_set_style_border_color(frame, lv_color_white(), 0);
+
+  static const lv_coord_t fx[2] = {16, SCREEN_W - 48}, fy[2] = {16, SCREEN_H - 48};
+  for (int i = 0; i < 2; i++)
+    for (int j = 0; j < 2; j++) mkFlat(testScreen, fx[i], fy[j], 32, 32, lv_color_white());
+  mkFlat(testScreen, SCREEN_W / 2, SCREEN_H / 2 - 10, 1, 20, lv_color_white());
+  mkFlat(testScreen, SCREEN_W / 2 - 10, SCREEN_H / 2, 20, 1, lv_color_white());
+
+  for (int k = 0; k < 8; k++) {
+    const uint8_t v = (uint8_t)((k * 255 + 3) / 7);
+    mkFlat(testScreen, 144 + 64 * k, 72, 64, 48, lv_color_make(v, v, v));
+  }
+  static const uint32_t swatch[6] = {0xff0000, 0x00ff00, 0x0000ff, 0x00ffff, 0xff00ff, 0xffff00};
+  for (int k = 0; k < 6; k++) mkFlat(testScreen, 208 + 64 * k, 136, 64, 48, lv_color_hex(swatch[k]));
+  static const uint32_t palette[7] = {0x1a1a2e, COL_CARD, COL_CARD_ON, COL_ACCENT, COL_TEXT, COL_DIM, 0x808080};
+  for (int k = 0; k < 7; k++) mkFlat(testScreen, 176 + 64 * k, 200, 64, 48, lv_color_hex(palette[k]));
+
+  for (int p = 0; p < 3; p++) {
+    uint16_t *px = (uint16_t *)malloc(64 * 64 * sizeof(uint16_t));
+    if (!px) break;
+    for (int y = 0; y < 64; y++)
+      for (int x = 0; x < 64; x++) {
+        const bool on = p == 0 ? (x & 1) : p == 1 ? (y & 1) : (((x >> 1) + (y >> 1)) & 1);
+        px[y * 64 + x] = on ? 0xffff : 0x0000;
+      }
+    testPatDsc[p].header.cf = LV_IMG_CF_TRUE_COLOR;
+    testPatDsc[p].header.always_zero = 0;
+    testPatDsc[p].header.w = 64;
+    testPatDsc[p].header.h = 64;
+    testPatDsc[p].data_size = 64 * 64 * sizeof(uint16_t);
+    testPatDsc[p].data = (const uint8_t *)px;
+    lv_obj_t *img = lv_img_create(testScreen);
+    lv_img_set_src(img, &testPatDsc[p]);
+    lv_obj_set_pos(img, 240 + 128 * p, 272);
+  }
+
+  lv_obj_t *t = mkText(testScreen, "PANELCAM TEST", &lv_font_montserrat_28, 0xffffff);
+  lv_obj_align(t, LV_ALIGN_TOP_MID, 0, 352);
+  lv_obj_t *v = mkText(testScreen, FW_VERSION, &lv_font_montserrat_20, COL_DIM);
+  lv_obj_align(v, LV_ALIGN_TOP_MID, 0, 392);
+
+  lv_obj_add_flag(testScreen, LV_OBJ_FLAG_HIDDEN);
+}
+
+static void testScreenShow(uint16_t seconds) {
+  if (!testScreen) return;
+  if (seconds == 0) { testScreenHide(); return; }
+  lv_obj_clear_flag(testScreen, LV_OBJ_FLAG_HIDDEN);
+  lv_obj_move_foreground(testScreen);
+  testActive = true;
+  testUntilMs = millis() + seconds * 1000UL;
+  if (screenIdle) wake();
+}
+
+static void testScreenHide() {
+  if (!testScreen || !testActive) return;
+  lv_obj_add_flag(testScreen, LV_OBJ_FLAG_HIDDEN);
+  testActive = false;
+  lastInputTime = millis();
+}
+
 static void buildRail(lv_obj_t *scr) {
   static const char *kRail[RAIL_PAGE_COUNT] = {
       "CHOOSE",
@@ -3669,6 +3777,7 @@ static void buildUi() {
   // After the panes so it draws above them, before the lock so that still covers it.
   buildSettingsButton(scr);
   buildLockScreen(scr);
+  buildTestScreen(scr);   // above the lock: the camera reads it through anything
 
   uiReady = true;
   refreshFlavorText();
@@ -3792,6 +3901,9 @@ static void processTextLine(const char *line) {
       }
       Serial.printf("OK:EDIT=%d,img=%u\n", f, flavorImage[flavorSel]);
     }
+  } else if (strncmp(line, "TEST:", 5) == 0) {
+    testScreenShow((uint16_t)atoi(line + 5));
+    Serial.printf("OK:TEST=%d\n", testActive ? 1 : 0);
   } else if (strcmp(line, "LOCK:SHOW") == 0) {
     bootLockActive = false;
     lockScreenShow("HOME SODA MACHINE", "Powering on", "Getting everything ready.");
@@ -4256,8 +4368,10 @@ void loop() {
   // Going dark is the main board's call, made across both glasses at once — see
   // applyIdleState(). An active operation lock and a live hold still hold it off
   // here, because those are this panel's own business.
+  if (testActive && (long)(millis() - testUntilMs) >= 0) testScreenHide();
+
   if (displayReady && !screenIdle && idleAsleepKnown && idleAsleepWanted &&
-      !holding && !lockActive && !touchUnconfirmedSince) {
+      !holding && !lockActive && !testActive && !touchUnconfirmedSince) {
     const bool primeRunning = primeSessionKnown && !primeLinkLost &&
                               primeSession.phase == PRIME_SESSION_RUNNING;
     if (!primeRunning) {
