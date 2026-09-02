@@ -272,34 +272,103 @@ def _overlap(a, b):
 
 
 def find_steps(planes):
-    """Parallel same-facing plane pairs a sub-millimetre apart, footprints met."""
+    """Parallel same-facing plane pairs a sub-millimetre apart, footprints met.
+
+    Evaluated island by island: coplanar faces merge into one group whether
+    or not they touch, and a group's box spans the air between its islands.
+    Two groups whose boxes meet are tried island against island, the widest
+    met footprint is the finding, and the click is a point of the smaller
+    island's own facets nearest the centre of what met — a facet holds the
+    click, never the air between two faces.
+    """
     neighbours = _neighbour_arrays(planes)
+    islands = {}
+
+    def parts(p):
+        if p.gid not in islands:
+            islands[p.gid] = p.components()
+        return islands[p.gid]
+
     found = []
     for group in planes.values():
         for a, b in zip(group, group[1:]):
             dlt = b.o - a.o
             if not (_OFFSET_MM < dlt <= _STEP_MAX_MM):
                 continue
-            if a.soft_frac() > 0.75 or b.soft_frac() > 0.75:
-                continue  # chords of a curved surface, not authored planes
-            minor, major, centre_uv = _overlap(a, b)
-            if minor < _STEP_OVERLAP_MINOR or major < _STEP_OVERLAP_MAJOR:
-                continue
             if min(a.area, b.area) < 0.5:
                 continue
-            small = a if a.area <= b.area else b
-            if _banded(small, small, neighbours, allowed=2):
-                continue  # patch of a warped surface — the pair itself is 2
-            p = small.u * centre_uv[0] + small.v * centre_uv[1] + small.n * small.o
-            found.append({
-                "class": "step", "score": major / dlt,
-                "line": (f"Δ{dlt:.3f} mm between parallel planes"
-                         f" · footprint met {major:.1f} × {minor:.1f} mm"),
-                "pick": [plane_face(_vec(*a.n), _vec(*a.thru()), "faceA"),
-                         plane_face(_vec(*b.n), _vec(*b.thru()), "faceB"),
-                         click(_vec(*p))],
-            })
+            minor, major, _ = _overlap(a, b)
+            if minor < _STEP_OVERLAP_MINOR or major < _STEP_OVERLAP_MAJOR:
+                continue  # no island pair meets more than its groups do
+            for ia, ib, lo, hi in _met_islands(parts(a), parts(b)):
+                if min(ia.area, ib.area) < 0.5:
+                    continue
+                if ia.soft_frac() > 0.75 or ib.soft_frac() > 0.75:
+                    continue  # chords of a curved surface, not authored planes
+                small = ia if ia.area <= ib.area else ib
+                if _banded(small, small, neighbours, allowed=2):
+                    continue  # patch of a warped surface — the pair itself is 2
+                at = _on_facets(small, lo, hi)
+                if at is None:
+                    continue  # the boxes met; the facets did not
+                w = hi - lo
+                minor, major = float(w.min()), float(w.max())
+                p = small.u * at[0] + small.v * at[1] + small.n * small.o
+                found.append({
+                    "class": "step", "score": major / dlt,
+                    "line": (f"Δ{dlt:.3f} mm between parallel planes"
+                             f" · footprint met {major:.1f} × {minor:.1f} mm"),
+                    "pick": [plane_face(_vec(*ia.n), _vec(*ia.thru()), "faceA"),
+                             plane_face(_vec(*ib.n), _vec(*ib.thru()), "faceB"),
+                             click(_vec(*p))],
+                })
+                break
     return found
+
+
+def _met_islands(aa, bb):
+    """Island pairs across two same-normal groups whose footprints meet by the
+    `_STEP_OVERLAP_*` floors, widest met footprint first, each as
+    (island of `aa`, island of `bb`, met uv lo, met uv hi)."""
+    a_lo, a_hi = np.array([p.uv_lo for p in aa]), np.array([p.uv_hi for p in aa])
+    b_lo, b_hi = np.array([p.uv_lo for p in bb]), np.array([p.uv_hi for p in bb])
+    lo = np.maximum(a_lo[:, None, :], b_lo[None, :, :])
+    hi = np.minimum(a_hi[:, None, :], b_hi[None, :, :])
+    w = hi - lo
+    met = ((w.min(axis=2) >= _STEP_OVERLAP_MINOR)
+           & (w.max(axis=2) >= _STEP_OVERLAP_MAJOR))
+    pairs = np.argwhere(met)
+    order = np.argsort(-w.max(axis=2)[met], kind="stable")
+    return [(aa[i], bb[j], lo[i, j], hi[i, j]) for i, j in pairs[order]]
+
+
+def _on_facets(p, lo, hi):
+    """A uv point of island `p`'s own facets inside the met footprint (lo, hi):
+    the footprint's centre when a facet holds it, else the centroid nearest
+    that centre among facets whose centroids the footprint holds. None when
+    the footprint holds no facet of `p`."""
+    tri = p.mesh.triangles[p.f]
+    uv = np.stack([tri @ p.u, tri @ p.v], axis=-1)  # (k, 3, 2)
+    c = (lo + hi) / 2.0
+    if _holds(uv, c):
+        return c
+    cen = uv.mean(axis=1)
+    inside = (cen >= lo - 1e-6).all(axis=1) & (cen <= hi + 1e-6).all(axis=1)
+    if not inside.any():
+        return None
+    cen = cen[inside]
+    return cen[np.argmin(np.linalg.norm(cen - c, axis=1))]
+
+
+def _holds(uv, c):
+    """Whether any 2-D triangle of `uv` (k, 3, 2) holds the point `c`, its
+    edges included."""
+    def side(p, q):
+        return ((q[:, 0] - p[:, 0]) * (c[1] - p[:, 1])
+                - (q[:, 1] - p[:, 1]) * (c[0] - p[:, 0]))
+    s = np.stack([side(uv[:, 0], uv[:, 1]), side(uv[:, 1], uv[:, 2]),
+                  side(uv[:, 2], uv[:, 0])], axis=1)
+    return bool(((s >= -1e-9).all(axis=1) | (s <= 1e-9).all(axis=1)).any())
 
 
 def _banded(c, group, neighbours, allowed=1):
@@ -599,6 +668,21 @@ def _selftest():
                [(5, 5, 10.25), (15, 5, 10.25), (15, 15, 10.25), (5, 15, 10.25)]])
     got = find_steps(planes_of(m))
     assert len(got) == 1 and "Δ0.250" in got[0]["line"], got
+
+    # step, island by island: two squares 30 mm apart on one plane and a
+    # square 0.5 mm above the gap between them — the groups' boxes meet over
+    # the gap, no faces do
+    low = [[(0, 0, 10), (10, 0, 10), (10, 10, 10), (0, 10, 10)],
+           [(40, 0, 10), (50, 0, 10), (50, 10, 10), (40, 10, 10)]]
+    over_gap = [(15, -5, 10.5), (35, -5, 10.5), (35, 15, 10.5), (15, 15, 10.5)]
+    assert find_steps(planes_of(sheet(low + [over_gap]))) == [], "step over a gap"
+
+    # the same square over one of the two: one step, its click on both faces
+    over_one = [(-5, -5, 10.5), (15, -5, 10.5), (15, 15, 10.5), (-5, 15, 10.5)]
+    got = find_steps(planes_of(sheet(low + [over_one])))
+    assert len(got) == 1 and "Δ0.500" in got[0]["line"], got
+    at = dict(pick_points("\n".join(got[0]["pick"])))["click"]
+    assert 0 < at[0] < 10 and 0 < at[1] < 10 and abs(at[2] - 10) < 1e-9, at
 
     # sliver: a 0.5 × 30 strip sharing its plane with a healthy 10 × 30 face —
     # only the island is the strip
