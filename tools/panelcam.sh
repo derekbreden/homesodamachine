@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # panelcam.sh — read a physical display on the machine, from the shell, without a human.
 #
-#   tools/panelcam.sh shot front           # the 4.3B panel, cropped, at 3.3 camera px per panel px
-#   tools/panelcam.sh shot front --full    # the same frame uncropped
-#   tools/panelcam.sh aim front            # find the panel in a full frame and write its rectangles
+#   tools/panelcam.sh shot front           # the 4.3B panel on its own 800x480 grid, 3 px per panel px
+#   tools/panelcam.sh shot front --full    # the frame as the camera delivered it
+#   tools/panelcam.sh aim front            # find the panel's corners in a full frame and write them
 #   tools/panelcam.sh list                 # cameras, and the sizes the attached one streams
 #   tools/panelcam.sh controls             # what the camera lets a program change
 #   tools/panelcam.sh get absolute_focus
@@ -15,7 +15,13 @@
 #
 # THE FRAME IS TAKEN BY AN APP, BECAUSE ONLY AN APP MAY TAKE ONE. macOS grants the camera to a
 # process it can raise a prompt for, and a shell is not one. `panelcam-shot/PanelCamShot.app` holds
-# the grant, writes a PNG, and exits; this crops the file, which needs no permission.
+# the grant, writes a PNG, and exits; this lays the file onto the panel's grid, which needs no
+# permission.
+#
+# THE PICTURE IS THE PANEL'S OWN GRID. A shot is the frame warped, in one projective resampling,
+# from the quadrilateral the panel occupies onto its 800x480 pixel grid at `scale` px per panel px:
+# a rotated or keystoned panel comes out square, and output pixel (3i+k, 3j+l) is a piece of panel
+# pixel (i, j). `panelcam-rectify.py` says what that keeps.
 
 set -euo pipefail
 
@@ -25,6 +31,8 @@ OUT_DIR="${PANELCAM_OUT:-$HERE/../.panelcam}"
 APP="$HERE/panelcam-shot/PanelCamShot.app"
 LOGFILE="$HOME/.panelcam-shot.log"
 UVC_JS="$HERE/panelcam-uvc/uvc.js"
+RECTIFY="$HERE/panelcam-rectify.py"
+PY="$HERE/cad-venv/bin/python"
 
 die() { echo "panelcam: $*" >&2; exit 1; }
 
@@ -105,19 +113,19 @@ cmd_shot() {
   local target="${1:-}"; shift || true
   [ -n "$target" ] || die "usage: panelcam.sh shot <target> [--full] [--out FILE]"
 
-  local full=0 out="" crop_override=""
+  local full=0 out=""
   while [ $# -gt 0 ]; do
     case "$1" in
       --full) full=1; shift ;;
       --out)  out="${2:?--out needs a path}"; shift 2 ;;
-      --crop) crop_override="${2:?--crop needs w:h:x:y}"; shift 2 ;;
       *) die "unknown option $1" ;;
     esac
   done
 
   [ -d "$APP" ] || die "no $APP — build it once with panelcam-shot/build.sh"
 
-  local crop; crop="${crop_override:-$(target_field "$target" crop)}"
+  local corners panel scale
+  corners="$(target_field "$target" corners)"; panel="$(target_field "$target" panel)"; scale="$(target_field "$target" scale)"
   local floor; floor="$(target_field_opt "$target" floor)"; floor="${floor:-0.02}"
 
   # A dark panel photographs as an unlit rectangle; the machine is told a finger landed.
@@ -145,7 +153,7 @@ cmd_shot() {
   if [ "$full" -eq 1 ]; then
     mv "$raw" "$out"
   else
-    ffmpeg -hide_banner -loglevel error -i "$raw" -vf "crop=$crop" -y "$out"
+    "$PY" "$RECTIFY" warp "$raw" "$out" --corners "$corners" --panel "$panel" --scale "$scale"
     rm -f "$raw"
   fi
 
@@ -156,9 +164,9 @@ cmd_shot() {
   return 0
 }
 
-# The lit panel is the one large region brighter than the bezel and countertop around it. In the
-# saved PNG at the 16 ms shutter its darkest navy reads 29 and up and the glossy bezel 11 to 24;
-# at the 4 ms shutter of a shot the two are 13 and 10, so the aiming frame is taken at 16 ms.
+# The lit panel's edges are read against the bezel: in the saved PNG at the 16 ms shutter its darkest
+# navy reads 29 and up and the glossy bezel 11 to 24; at the 4 ms shutter of a shot the two are 13
+# and 10, so the aiming frame is taken at 16 ms.
 cmd_aim() {
   local target="${1:-}"
   [ -n "$target" ] || die "usage: panelcam.sh aim <target>"
@@ -168,37 +176,21 @@ cmd_aim() {
   [ -n "$wake_port" ] && python3 "$HERE/panelcam-wake.py" "$wake_port" >/dev/null 2>&1 || true
   take_frame "$full" "$target" "" "absolute_exposure_time=167"
   [ -f "$full" ] || die "no frame — $(tail -1 "$LOGFILE" 2>/dev/null)"
-  local rects
-  rects="$("$HERE/cad-venv/bin/python" - "$full" <<'PY'
-import sys
-import numpy as np
-from PIL import Image
-from scipy import ndimage
-im = np.asarray(Image.open(sys.argv[1]).convert("L"))
-small = im[::4, ::4]
-lab, n = ndimage.label(small > 25)
-if n == 0: sys.exit("no lit region in the frame")
-sizes = ndimage.sum(np.ones_like(small), lab, range(1, n + 1))
-panel = lab == int(np.argmax(sizes)) + 1
-# A glint on the bezel joins the panel as a blob off one side; the panel's own rows and columns
-# are lit end to end, and a blob's are not.
-rows = panel.sum(1); cols = panel.sum(0)
-ys = np.where(rows > 0.75 * rows.max())[0]; xs = np.where(cols > 0.75 * cols.max())[0]
-y0, y1, x0, x1 = ys[0] * 4, (ys[-1] + 1) * 4, xs[0] * 4, (xs[-1] + 1) * 4
-w, h = x1 - x0, y1 - y0
-m = 100
-cx0, cy0 = max(0, x0 - m), max(0, y0 - m)
-cx1, cy1 = min(im.shape[1], x1 + m), min(im.shape[0], y1 + m)
-print(f"{w}:{h}:{x0}:{y0} {cx1 - cx0}:{cy1 - cy0}:{cx0}:{cy0}")
-PY
-)" || die "could not find the panel in $full"
-  local score crop; score="${rects% *}"; crop="${rects#* }"
-  awk -v t="$target" -v s="$score" -v c="$crop" '
-    $1 == t && $2 == "score" { $0 = sprintf("%-7s %-12s %s", t, "score", s) }
-    $1 == t && $2 == "crop"  { $0 = sprintf("%-7s %-12s %s", t, "crop", c) }
+  local found; found="$("$PY" "$RECTIFY" find "$full")" || die "could not find the panel in $full"
+  local corners score tilt
+  corners="$(sed -n 's/^corners //p' <<<"$found")"; score="$(sed -n 's/^score //p' <<<"$found")"
+  tilt="$(sed -n 's/^tilt //p' <<<"$found")"
+  awk -v t="$target" -v s="$score" -v c="$corners" '
+    $1 == t && $2 == "score"   { $0 = sprintf("%-7s %-12s %s", t, "score", s) }
+    $1 == t && $2 == "corners" { $0 = sprintf("%-7s %-12s %s", t, "corners", c) }
     { print }' "$CONF" > "$CONF.new" && mv "$CONF.new" "$CONF"
+  # The proof: laid onto its grid, the panel's pixel lattice lands at `scale` px per panel px.
+  local proof="$OUT_DIR/$target.aim.png"
+  "$PY" "$RECTIFY" warp "$full" "$proof" --corners "$corners" \
+    --panel "$(target_field "$target" panel)" --scale "$(target_field "$target" scale)"
   echo "$full"
-  echo "  panel $score  crop $crop  -> written to $(basename "$CONF")"
+  echo "  corners $corners  tilt $tilt deg  -> written to $(basename "$CONF")"
+  echo "  $proof: panel pixel $("$PY" "$RECTIFY" grid "$proof" | sed 's/^period //') px at scale $(target_field "$target" scale)"
 }
 
 case "${1:-}" in
