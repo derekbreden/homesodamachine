@@ -49,4 +49,4 @@ else
   echo "WARNING: ad-hoc signature changes every build, so macOS reprompts for the camera each rebuild."
 fi
 echo "first run raises the camera prompt if the identity is new; answer it once:"
-echo "  open -W \"$APP\" --args --out /tmp/panelcam-probe.png --match 16MP --mode probe"
+echo "  open -W \"$APP\" --args --list --match 16MP"
