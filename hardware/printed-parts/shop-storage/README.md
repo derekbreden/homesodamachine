@@ -65,6 +65,7 @@ here already faces the operator.
 | [`hotends/`](hotends/) | H2C hotend swaps | stack | 3 x 3 |
 | [`jst-crimping/`](jst-crimping/) | JST XH crimping | tower | 3 x 3 |
 | [`pour/`](pour/) | Foam and silicone pours | stack | 3 x 3 |
+| [`solder/`](solder/) | Solder and heat-set inserts | stack | 3 x 3 |
 | [`umbilical/`](umbilical/) | Umbilical termination | stack | 2 x 3 |
 
 ## Prior art
