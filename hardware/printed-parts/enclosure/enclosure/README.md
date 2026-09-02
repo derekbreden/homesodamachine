@@ -752,20 +752,19 @@ faces. The committed back-top profile places neither support body nor support in
 any of the five passages.
 
 The **AC inlet's mount** stands off the +Y wall's inner face in back-top and costs
-nothing either. Its two flanks are vertical to the bed and its crown runs out into the top
-wall; each soffit is cut back to the wall at 45° (`enclosure._c14_tunnel`). One sheared copy
-follows the tunnel's R3 outline, leaving neither square ledges under the rounds nor air channels
-between tunnel and support. A second follows the collar's exact rounded/tapered profile over the
-full 10.25 mm from its open mouth to the wall, so the flange surround and its wider end ears are
-carried too. What is left over air is the bore's own ceiling — a bridge the aperture's full
-width, carried between the tunnel's two flanks. Nothing on the piece stands outside the print
-silhouette: the receptacle's two heat-sets go into the tunnel's fore face, from inside the box,
-and the back of the machine is flat.
+nothing either. It is one rectangular block from the flange pocket's mouth to the wall
+(`enclosure._c14_tunnel`): its two flanks are vertical to the bed, its crown runs out into the
+top wall, and its soffit is one wedge the block's full width, falling at 45° over the full
+10.25 mm run, so there is material under every point of the block and neither a ledge nor an air
+channel beneath it. What is left over air is the bore's own ceiling — a bridge the aperture's full
+width, carried between the block's two flanks. Nothing on the piece stands outside the print
+silhouette: the receptacle's two heat-sets go into the seating face at the floor of the block's
+flange pocket, from inside the box, and the back of the machine is flat.
 
 The inlet stands on the column where its exact moulded rim clears the complete +X ceiling-strip
 corbel — about a millimetre of air stands between the two — so that
 wall-rooted 45° wedge continues over the inlet without a relief band or a short support stack.
-The aperture, tunnel, collar and both screw stations all follow that one X datum; its Z remains
+The aperture, tunnel, pocket and both screw stations all follow that one X datum; its Z remains
 aligned with the other top-row ports.
 
 The **PRV chase's roofs lean from the −X wall too**. Where its open exterior groove

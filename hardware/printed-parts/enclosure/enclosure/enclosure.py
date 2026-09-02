@@ -1058,19 +1058,17 @@ back_top_wall_t = 6.0
 # exact moulded rim stands under the +X ceiling strip, and this is the station at which it clears
 # the COMPLETE wall-rooted 45 degree corbel by the card's own clearance floor — so that wedge runs
 # over the inlet whole, with no relief band cut in it and no short roof left over the printed
-# collar (`enclosure_assembly.check_c14_ceiling_corbel` reads the air off the unrelieved wedge).
-# The cutout, tunnel, collar, both screws and the wall relief below all read this one name.
+# tunnel (`enclosure_assembly.check_c14_ceiling_corbel` reads the air off the unrelieved wedge).
+# The cutout, tunnel, both screws and the wall relief below all read this one name.
 c14_station_x = 66.9
-# The wall relief ends inside the rounded tunnel on both X sides.  That retained overlap is
-# structural stock, not running air: it makes the wall and the R3 tunnel one unambiguous solid
-# through the rounded upper corners instead of enclosing a sub-nozzle air pocket at an exactly
-# tangent square-cut/round-fill boundary.  The aperture and both insert stations lie inside the
-# relieved field and their cutters still run after the tunnel is fused.
-c14_wall_relief_overlap = 0.3
+# The wall relief is the fastening field: 46.4 mm across both insert stations and the ligament
+# round each bore, the tunnel block's own height, and it ends inside the block on both X sides,
+# so the block roots on the relieved plane over the inserts and buries into the unrelieved
+# wall beyond them. The aperture and both insert stations lie inside the relieved field and
+# their cutters still run after the tunnel is fused.
 back_top_wall_reliefs = (
     ("co2-inlet", 2.65, 336.21, 30.0, 30.0),      # the neoFit's nut, across its corners
-    ("c14-inlet", c14_station_x, 336.21,
-     47.0 - 2.0 * c14_wall_relief_overlap, 35.15),
+    ("c14-inlet", c14_station_x, 336.21, 46.4, 35.15),
 )
 # THE LAND'S SKIRT RUNS TWO MILLIMETRES IN PLAN FOR THE ONE IT FALLS. A relieved port station
 # keeps its whole clamped stack and gives back only the last millimetre to the nut land, down a
@@ -1083,13 +1081,14 @@ station_land_draft = 2.0
 # --- what stands on that relief: the C14's tunnel ------------------------------
 #
 # THE HOLE IN THIS WALL IS A TUNNEL AND NOT A BORE. `_c14_tunnel` wraps the cutout in material
-# on the wall's inner face and the receptacle screws to that block's FORE face, so what the
-# customer pushes the cord down is the aperture's own rectangle carried the whole depth of wall
-# and tunnel together, and what stands outboard of the back face is nothing.
+# on the wall's inner face and the receptacle screws to the seating face at the floor of that
+# block's flange pocket, so what the customer pushes the cord down is the aperture's own
+# rectangle carried the whole depth of wall and tunnel together, and what stands outboard of the
+# back face is nothing.
 #
-# ITS LENGTH IS THE INSERT'S OWN DEPTH. Each of the two M3 heat-sets enters the fore face —
-# from inside, the way every insert on this box goes in — and bottoms on the wall's inner face
-# under `socket_cap` of wall.
+# THE SEAT STANDS ONE INSERT'S DEPTH OFF THE WALL. Each of the two M3 heat-sets enters the
+# seating face — from inside, the way every insert on this box goes in — and bottoms on the
+# wall's inner face under `socket_cap` of wall.
 c14_tunnel_len = heatset_depth
 # THE SECTION IT KEEPS ROUND THE BORE, and it is the section this wall already carries: the
 # tunnel is the +Y wall of back-top made deep. What stands in it is the mouth a cord is pushed into a few
@@ -1097,26 +1096,29 @@ c14_tunnel_len = heatset_depth
 #
 # ACROSS X THE INSERTS ASK FOR MORE and the tunnel gives it: each stands off the axis at its own
 # station with `heatset_dia` of bore and `boss_ligament` round it, which reaches further than
-# this section does. `_c14_tunnel` takes whichever is further per axis, so the bore keeps its
-# own rectangle and both stations land in material.
+# this section does. And the flange's pocket asks for more again, on both axes. `c14_mount_half`
+# takes whichever is furthest per axis, so the bore keeps its own rectangle and both stations
+# and the whole pocket land in material.
 c14_tunnel_wall = back_top_wall_t
-c14_tunnel_r = 3.0
-# --- and the collar the receptacle drops into ---------------------------------
+# --- and the pocket the receptacle's flange drops into --------------------------
 #
-# THE FLANGE LANDS IN A PROFILED POCKET AND NOT ON A FLAT FACE. A separate collar continues
-# inboard from the established tunnel's fore face. Its inner and outer silhouettes come from
-# `iec_c14_inlet.flange_profile`, the same rounded/tapered wire that draws the purchased part,
-# so a rectangular restatement cannot shave an angled edge or hide a thin corner.
+# THE FLANGE LANDS IN A PROFILED POCKET AND NOT ON A FLAT FACE. The pocket's silhouette comes
+# from `iec_c14_inlet.flange_profile`, the same rounded/tapered wire that draws the purchased
+# part, so a rectangular restatement cannot shave an angled edge or hide a thin corner. It is
+# `c14_pocket_slip` off the moulding, its floor is the seating face the inserts enter, and its
+# mouth stands `c14_pocket_lip` past the seated flange's own inboard face, so the pocket locates
+# the flange before its screws hold it.
 #
-# THE POCKET IS 0.5 MM OFF THE MOULDING. The outer wire is another 3 mm beyond it everywhere
-# in XZ, and the collar continues one 3 mm section past the flange's own inboard edge in Y-.
-# A sheared copy of that outer wire runs from the collar mouth to the wall, making the collar
-# and its print corbel one continuous load path without widening the tunnel behind it. The floor
-# remains the established seating plane: none of these moves the part or its screws.
-c14_collar_slip = 0.5
-c14_collar_wall = 3.0
-c14_collar_extension = 3.0
-# THE FLANGE ENTERS THROUGH THE FIXED +X STRIP before it reaches that collar. Carry its exact
+# THE TUNNEL IS ONE BLOCK WITH THAT POCKET IN IT. From the pocket's mouth to the wall the tunnel
+# is one rectangle whose plan keeps at least `c14_pocket_wall` round the pocket everywhere in
+# XZ, so it presents one fore plane with the flange-shaped cavity cut into it, one flank each
+# side, and one 45 degree underside falling from the mouth's bottom edge to the wall
+# (`_c14_tunnel_geometry`). None of this moves the part or its screws: the seating plane is the
+# same plane and the wall behind it the same wall.
+c14_pocket_slip = 0.5
+c14_pocket_wall = 3.0
+c14_pocket_lip = 3.0
+# THE FLANGE ENTERS THROUGH THE FIXED +X STRIP before it reaches that pocket. Carry its exact
 # slipped profile another 9 mm in Y- so the two-ear moulding can be held square and translated
 # into its seat. One further millimetre is a boolean overcut past the stated running clearance,
 # not assembly travel.
@@ -1125,16 +1127,14 @@ c14_pocket_overcut = 1.0
 
 
 def c14_mount_half(bore_w, bore_h, screw_reach):
-    """Half extents of the established tunnel carrying the bore and two inserts."""
+    """Half extents of the tunnel block: the bore's own section, the inserts' ligaments and the
+    flange pocket's wall, whichever reaches furthest on each axis."""
+    pocket = c14_pocket_slip + c14_pocket_wall
     return (max(bore_w / 2.0 + c14_tunnel_wall,
-                screw_reach + heatset_dia / 2.0 + boss_ligament),
-            bore_h / 2.0 + c14_tunnel_wall)
-
-
-def c14_collar_half():
-    """XZ half extents of the exact-profile collar's outer offset."""
-    offset = c14_collar_slip + c14_collar_wall
-    return (_c14.FLANGE_W / 2.0 + offset, _c14.FLANGE_H / 2.0 + offset)
+                screw_reach + heatset_dia / 2.0 + boss_ligament,
+                _c14.FLANGE_W / 2.0 + pocket),
+            max(bore_h / 2.0 + c14_tunnel_wall,
+                _c14.FLANGE_H / 2.0 + pocket))
 
 # --- back-top's own ±X section ------------------------------------------------
 #
@@ -1275,7 +1275,7 @@ back_top_ceiling_growth = back_top_ceiling_t - wall
 # THE C14 KEEPS THE COMPLETE +X WEDGE. `c14_station_x` is struck for this: at that column the
 # purchased moulded rim stands one assembly clearance clear of the exact 45° ceiling corbel, with
 # its Z on the top port row. Its tunnel, screws and wall relief all read that one station, so no
-# ceiling-relief row is needed and no short roof is left over the printed collar below.
+# ceiling-relief row is needed and no short roof is left over the printed tunnel below.
 #
 # THE TAP-WATER CHAIN IS THE ONE THAT STANDS IN THE MIDDLE, and it takes three rows because what
 # it occupies is three different things. Read off the placed chain against the full wedge, the
@@ -1948,26 +1948,6 @@ def _yz_prism(x0, x1, section):
         .extrude(abs(x1 - x0))
         .val()
     )
-
-
-def _y_wall_corbel(stock, fore, wall):
-    """A 45 degree underside carrying ``stock`` from its free face back to a +Y wall.
-
-    THE SUPPORT IS A SHEARED COPY OF THE SHAPE IT CARRIES, not a prism struck on that
-    shape's bounding box. At ``fore`` the copy coincides with ``stock``; toward ``wall`` it
-    falls one millimetre in Z for every millimetre in Y. Fusing the two therefore puts
-    material directly under every point of the lower outline — including a rounded corner —
-    while presenting one 45 degree underside to the bed. A square prism under a rounded
-    outline instead leaves a flat ledge with an air channel above it at every lower corner.
-    """
-    if wall <= fore:
-        raise ValueError(f"a +Y-wall corbel runs from {fore:g} to {wall:g}, not toward its wall")
-    shear = cq.Matrix([
-        [1.0, 0.0, 0.0, 0.0],
-        [0.0, 1.0, 0.0, 0.0],
-        [0.0, -1.0, 1.0, fore],
-    ])
-    return stock.transformGeometry(shear)
 
 
 def _xz_prism(y0, y1, section):
@@ -5376,7 +5356,7 @@ def _back_top_ceiling(solid, inner, y_joint, box):
     # stretch and the panel's tongue is already cut back on the same room
     # (`c14_ceiling_pocket`), so a groove carried to the wall there serves no tongue and would
     # cross the surround's relief and bore. Cut to the room instead, the groove's end wall is
-    # the collar's own mouth plane — one slip aft of the shortened tongue's tip — and the
+    # the tunnel's own mouth plane — one slip aft of the shortened tongue's tip — and the
     # blind run-out into the +Y wall is not cut at all: nothing of the dado remains for the
     # relief or the bore to cross. The -X strip holds no surround and keeps the whole groove,
     # run-out and all.
@@ -8027,48 +8007,42 @@ def _c14_aperture(stations, ports):
 def _c14_tunnel_geometry(inner, outer, stations, ports, z0, z1):
     """The C14 tunnel's material and cutters — for the stations in `z0..z1`.
 
-    THE RECEPTACLE DOES NOT BEAR ON THIS WALL. It bears on the tunnel's FORE face, one
+    THE RECEPTACLE DOES NOT BEAR ON THIS WALL. It bears on the seating face, one
     `c14_tunnel_len` inboard of the wall, and the customer's cord reaches it down a bore that is
     the aperture itself and nothing else: the tunnel grows entirely OUTWARD of the hole, so
     neither its section nor its two bores ever stand in the plug's way.
 
-    AND IT DROPS INTO A PROFILED COLLAR ON THAT FACE. The collar's pocket is the purchased
-    flange's exact rounded/tapered profile at `c14_collar_slip`; its outer profile is another
-    `c14_collar_wall` beyond that everywhere in XZ. It wraps the flange's whole thickness and
-    continues `c14_collar_extension` further inboard. A sheared copy of that outer profile spans
-    from the open mouth to the wall: both end ears therefore root in the unrelieved wall outside
-    the wall relief, while that relief stops `c14_wall_relief_overlap` inside each side of the
-    rounded tunnel so the two are fused stock rather than tangent shells. The pocket stops at the
-    fore face — the plane the flange bears on does not move, and neither does either insert.
-
-    THE SEATING FACE HAS A STRAIGHT BACKING TO THE WALL. The same outer profile runs unsheared
-    from `fore` to `aft`, filling the space above the print corbel at this short joint. The C14
-    bore and both insert sockets are applied after the fuse, so each functional opening wins
-    wherever these simple solids meet.
-
-    THE INSERTS ENTER THE FORE FACE, from inside the machine like every other insert on this box,
-    and bottom on the wall's own inner face. The station is relieved back to `wall`
-    (`back_top_wall_reliefs`), so what stands over each blind end is `socket_cap` of wall and the
-    tunnel is the whole of what is left.
-
-    THE FLANGE POCKET CONTINUES THROUGH THE +X STRIP IN Y-. Its exact slipped outline runs
-    `c14_insertion_relief` past the collar-mouth overcut, so the purchased two-ear flange has a
-    straight approach before it reaches the printed collar. The exterior seating plane, tunnel
-    bore and surrounding crown do not move.
+    THE TUNNEL IS ONE BLOCK. From the pocket's mouth — `_c14.FLANGE_T` and `c14_pocket_lip` fore
+    of the seating face — to the wall, it is one rectangle of the half extents `c14_mount_half`
+    reads: the bore's section, the inserts' ligaments and the pocket's wall, whichever asks for
+    more on each axis. Its fore face is one plane, its flanks are two, and the flange's pocket
+    stands inside it everywhere. The block is clipped to the room, so above the aperture its
+    crown runs out into the top wall.
 
     ITS UNDERSIDE RISES AT 45° INSTEAD OF HANGING. This piece prints on its Z− face with the +Y
-    wall standing on the bed. `_y_wall_corbel` shears each outline that it carries: the tunnel's
-    R3 rectangle from its fore face to the wall, and the collar's exact rounded/tapered profile
-    over the whole 10.25 mm from its open mouth to the wall. The first leaves no square ledge or
-    air channel under either rounded tunnel corner; the second puts material directly under the
-    flange surround and carries both of its wider ends into the existing wall. The crown needs
-    no such thing — it is clipped to the room, so above the aperture the section runs out into
-    the top wall the way the port field's top row of bosses does.
+    wall standing on the bed. One wedge the block's full width carries it: the underside is one
+    plane falling from the mouth's bottom edge to the wall over the whole run, with material
+    directly under every point of the block and no ledge or air channel anywhere beneath it.
+    What is left over air is the bore's own ceiling, a bridge the aperture's width between the
+    block's two flanks.
+
+    THE FLANGE DROPS INTO ITS OWN PROFILE. The pocket is the purchased flange's exact
+    rounded/tapered outline at `c14_pocket_slip`, cut from the mouth to the seating face — the
+    plane the flange bears on, which does not move, and neither does either insert. Fore of the
+    mouth its exact slipped outline runs `c14_insertion_relief` further in Y- through the fixed
+    +X strip, so the two-ear moulding has a straight approach to its seat.
+
+    THE INSERTS ENTER THE SEATING FACE, from inside the machine like every other insert on this
+    box, and bottom on the wall's own inner face. The station is relieved back to `wall`
+    (`back_top_wall_reliefs`), so what stands over each blind end is `socket_cap` of wall and
+    the tunnel is the whole of what is left.
 
     IT ROOTS ON `back_wall_t_at` AND NOT ON `inner`. The piece holding these stations carries
     `back_top_wall_t` over most of this wall, so the plane the tunnel stands on is the section
     read at the aperture — a tunnel rooted on the box's own rear plane would start a section
-    inside a wall that is thicker than that plane anywhere the relief does not reach."""
+    inside a wall that is thicker than that plane anywhere the relief does not reach. Beyond the
+    relief's ends the block's last millimetres stand inside that thicker wall, which is fused
+    stock and not a face."""
     if not stations or not all(z0 <= sz <= z1 for _sx, sz in stations):
         return None
     cx, cz, wx, wz, r = _c14_aperture(stations, ports)
@@ -8087,75 +8061,58 @@ def _c14_tunnel_geometry(inner, outer, stations, ports, z0, z1):
                 f"insert would bottom on a plane the tunnel does not root on.")
     aft = outer[3] - cap
     fore = aft - c14_tunnel_len
-    mouth = fore - _c14.FLANGE_T - c14_collar_extension
+    mouth = fore - _c14.FLANGE_T - c14_pocket_lip
     hx, hz = c14_mount_half(wx, wz, max(abs(sx - cx) for sx, _sz in stations))
-    tunnel = _rect_cut_y(cx, cz, 2.0 * hx, 2.0 * hz, c14_tunnel_r, fore, aft)
-    tunnel = tunnel.fuse(_y_wall_corbel(tunnel, fore, aft)).clean()
-    collar_outer = c14_collar_slip + c14_collar_wall
-    collar = (_c14.flange_prism(
-        collar_outer, mouth, fore)
-        .translate((cx, 0.0, cz)).val())
-    collar_corbel = (_c14.flange_prism(
-        collar_outer, mouth, aft)
-        .translate((cx, 0.0, cz)).val())
-    collar_corbel = _y_wall_corbel(collar_corbel, mouth, aft)
-    collar_backing = (_c14.flange_prism(collar_outer, fore, aft)
-                      .translate((cx, 0.0, cz)).val())
-    feature = tunnel.fuse(collar).fuse(collar_corbel).fuse(collar_backing).clean().intersect(
+    block = _ybox(cx - hx, cx + hx, mouth, aft, cz - hz, cz + hz)
+    wedge = _yz_prism(cx - hx, cx + hx,
+                      [(mouth, cz - hz), (aft, cz - hz), (aft, cz - hz - (aft - mouth))])
+    feature = block.fuse(wedge).clean().intersect(
         _ybox(inner[0], inner[1], mouth, aft, inner[4], inner[5]))
-    # The original cord bore continues through the wall and tunnel. The exact flange pocket
-    # opens through the collar and continues inboard through the +X strip for assembly access;
-    # its stopped +Y end is still the face the flange bears on.
+    # The cord bore continues through the wall and tunnel. The exact flange pocket opens through
+    # the block's fore face and continues inboard through the +X strip for assembly access; its
+    # stopped +Y end is the face the flange bears on.
     flange_pocket = (_c14.flange_prism(
-        c14_collar_slip,
-        mouth - c14_pocket_overcut - c14_insertion_relief,
-        fore)
-                      .translate((cx, 0.0, cz)).val())
-    bore = _rect_cut_y(cx, cz, wx, wz, r, fore, outer[3] + 1.0).fuse(
-        flange_pocket)
+        c14_pocket_slip, mouth - c14_pocket_overcut - c14_insertion_relief, fore)
+        .translate((cx, 0.0, cz)).val())
+    bore = _rect_cut_y(cx, cz, wx, wz, r, fore, outer[3] + 1.0).fuse(flange_pocket)
     inserts = tuple(_ycyl(heatset_dia / 2.0, sx, sz, fore, fore + heatset_depth)
                     for sx, sz in stations)
-    return feature, bore, inserts, collar_backing
+    return feature, bore, inserts
 
 
 def _c14_mouth_y(outer, stations, ports):
-    """The collar's open mouth — the fore plane of the whole fixed surround."""
+    """The pocket's open mouth — the tunnel block's fore plane."""
     cx, cz, _wx, _wz, _r = _c14_aperture(stations, ports)
     aft = outer[3] - back_wall_t_at(cx, cz)
-    return aft - c14_tunnel_len - _c14.FLANGE_T - c14_collar_extension
+    return aft - c14_tunnel_len - _c14.FLANGE_T - c14_pocket_lip
 
 
 def _c14_running_room(outer, stations, ports, y0, y1):
-    """The C14 surround's aft-open running room: the R3 tunnel rectangle and the exact collar
-    profile, each one `fits.slip` out, carried as ONE constant XZ section from `y0` clear past
-    `y1`.
+    """The C14 tunnel's aft-open running room: the block's rectangle one `fits.slip` out,
+    carried as ONE constant XZ section from `y0` clear past `y1`.
 
     STATED ONCE FOR BOTH SIDES OF THE JOINT. `c14_ceiling_pocket` opens this room under the
     sliding panel from one slip fore of the mouth; `_back_top_ceiling` ends the +X groove's own
     cutters on it from the mouth itself, so the panel's shortened tongue stops one slip fore of
-    the groove's end. The overlap of rail, dado and surround is owned by one solid, and the
-    fixed side and the sliding side cannot disagree about where it is."""
+    the groove's end. The overlap of rail, dado and tunnel is owned by one solid, and the fixed
+    side and the sliding side cannot disagree about where it is."""
     cx, cz, wx, wz, _r = _c14_aperture(stations, ports)
     hx, hz = c14_mount_half(wx, wz, max(abs(sx - cx) for sx, _sz in stations))
     slip = fits.slip
-    room = _rect_cut_y(cx, cz, 2.0 * (hx + slip), 2.0 * (hz + slip), c14_tunnel_r + slip,
-                       y0, y1)
-    return room.fuse(_c14.flange_prism(
-        c14_collar_slip + c14_collar_wall + slip, y0, y1)
-        .translate((cx, 0.0, cz)).val())
+    return _ybox(cx - hx - slip, cx + hx + slip, y0, y1, cz - hz - slip, cz + hz + slip)
 
 
 def c14_ceiling_land(inner, outer, stations, ports, stock):
     """The fixed C14 surround that reaches the ceiling panel's underside.
 
-    The tunnel and collar are one back-top feature all the way to the interior-ceiling plane.
+    The tunnel is one back-top feature all the way to the interior-ceiling plane.
     This is the part of that opened feature which enters a moving ceiling envelope. The panel
     removes its matching aft-open pocket, leaving the show skin above this land and carrying no
     fragment of the inlet surround itself."""
     geometry = _c14_tunnel_geometry(inner, outer, stations, ports, inner[4], outer[5])
     if geometry is None:
         return None
-    feature, bore, inserts, _backing = geometry
+    feature, bore, inserts = geometry
     land = feature.cut(bore)
     for cutter in inserts:
         land = land.cut(cutter)
@@ -8165,8 +8122,8 @@ def c14_ceiling_land(inner, outer, stations, ports, stock):
 def c14_ceiling_pocket(inner, outer, stations, ports, stock):
     """The aft-open underside pocket by which the ceiling slides over the fixed C14 surround.
 
-    Its XZ section contains the tunnel and exact flange-collar outlines with one running-fit
-    clearance. Carrying that section unchanged to the panel's aft edge makes the pocket open in
+    Its XZ section is the tunnel block's rectangle with one running-fit clearance. Carrying
+    that section unchanged to the panel's aft edge makes the pocket open in
     the insertion direction: before the surround enters it, the surround is behind the panel;
     after it enters, every remaining millimetre of travel stays inside the same section. The
     cutter stops on the interior-ceiling plane, so the complete 3 mm show skin remains and rests
@@ -8174,7 +8131,7 @@ def c14_ceiling_pocket(inner, outer, stations, ports, stock):
     geometry = _c14_tunnel_geometry(inner, outer, stations, ports, inner[4], outer[5])
     if geometry is None:
         return None
-    feature, bore, inserts, _backing = geometry
+    feature, bore, inserts = geometry
     opened = feature.cut(bore)
     for cutter in inserts:
         opened = opened.cut(cutter)
@@ -8297,8 +8254,8 @@ def _c14_tunnel(solid, inner, outer, stations, ports, z0, z1):
     geometry = _c14_tunnel_geometry(inner, outer, stations, ports, z0, z1)
     if geometry is None:
         return solid
-    feature, bore, inserts, _backing = geometry
-    # The collar, tunnel and crown are one fixed surround. The ceiling panel has an aft-opening
+    feature, bore, inserts = geometry
+    # The tunnel block and its crown are one fixed surround. The ceiling panel has an aft-opening
     # underside pocket around the part of this feature that reaches its structural field; its
     # uncut show skin lands on the crown at the installed pose.
     solid = solid.fuse(feature)

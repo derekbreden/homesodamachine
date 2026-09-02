@@ -2754,7 +2754,8 @@ C14_CUTOUT_SLIP = 0.5
 
 
 def c14_mount_half() -> tuple:
-    """Half extents of the established tunnel carrying the bore and two inserts."""
+    """Half extents of the tunnel block carrying the bore, the two inserts and the flange's
+    pocket."""
     wx, wz, _r = _c14.panel_cutout()
     return _enc.c14_mount_half(wx + 2 * C14_CUTOUT_SLIP, wz + 2 * C14_CUTOUT_SLIP,
                                max(abs(dx) for dx, _dz in _c14.panel_screws()))
@@ -2823,21 +2824,21 @@ _c14_relief_x = next(x for who, x, _z, _w, _h in _enc.back_top_wall_reliefs
                      if who == "c14-inlet")
 
 _stated.state(
-    "c14-surround", "The C14 flange is wrapped at its ceiling-clear mount",
-    "3 mm in XZ, 3 mm beyond the flange's Y- edge, a 9 mm entry relief, and one rooted "
-    "profile corbel",
-    (_enc.c14_collar_wall >= 3.0 and _enc.c14_collar_extension >= 3.0
+    "c14-surround", "The C14 flange pockets into one block at its ceiling-clear mount",
+    "3 mm in XZ, 3 mm of lip beyond the flange's Y- edge, a 9 mm entry relief, and one "
+    "full-width wedge corbel",
+    (_enc.c14_pocket_wall >= 3.0 and _enc.c14_pocket_lip >= 3.0
      and _enc.c14_insertion_relief >= 9.0
      and _c14_relief_x == C14_STATION[0] and c14_cutout()[1] == C14_STATION[0]
      and abs(sum(x for x, _z in c14_stations()) / 2.0 - C14_STATION[0]) < 1e-9
      and abs(c14_seat_y() - 458.75) < 1e-9),
     f"station x {C14_STATION[0]:g}, seat y {c14_seat_y():.2f}, screws "
     f"{c14_stations()[0][0]:g}/{c14_stations()[1][0]:g}; the exact-profile pocket keeps "
-    f"{_enc.c14_collar_wall:g} mm around the flange and continues "
-    f"{_enc.c14_collar_extension:g} mm beyond its {_c14.FLANGE_T:g} mm edge, while a sheared "
-    f"copy of its outer profile continues to the wall on a 45 degree underside. Its exact "
-    f"slipped pocket continues {_enc.c14_insertion_relief:g} mm in Y- through the fixed strip "
-    "for insertion.")
+    f"{_enc.c14_pocket_wall:g} mm of the tunnel block around the flange and its lip stands "
+    f"{_enc.c14_pocket_lip:g} mm beyond the flange's {_c14.FLANGE_T:g} mm edge; the block is "
+    f"one rectangle from that mouth to the wall on one 45 degree underside. Its exact slipped "
+    f"pocket continues {_enc.c14_insertion_relief:g} mm in Y- through the fixed strip for "
+    "insertion.")
 
 
 # --- the CO2 inlet chain, through the +Y wall of back-top ----------------------------
@@ -5270,65 +5271,67 @@ def selftest():
         raise AssertionError(f"a hung seat lands {off:.2e} off its own rule, past {SEAT_TOL:g}")
     yield f"a hung seat lands {off:.1e} off the rule it was given"
 
-    # THE C14 CORBEL FOLLOWS BOTH PROFILES, NOT THEIR BOUNDING BOXES. A rectangular wedge under the
-    # tunnel's R3 outline leaves two upward-facing 3 mm ledges at the original bottom plane,
-    # with the rounded corners rising over air. Stopping that support at the tunnel's fore face
-    # also leaves the exact-profile collar's five-millimetre underside hanging. Build the
-    # production feature itself: the tunnel ledges must be absent, the collar's corbel must reach
-    # the wall outside both ends of the narrower tunnel, and the full 10.25 mm run must fall at
-    # 45 degrees.
+    # THE C14 TUNNEL IS ONE BLOCK ON ONE 45-DEGREE UNDERSIDE. Build the production feature
+    # itself and read it: one fore plane at the mouth with the flange pocket in it, one seating
+    # plane at the pocket's floor, one flank each side from mouth to wall, one underside falling
+    # the full run at 45 degrees with material under every point of the block, and that corbel
+    # present at the wall beside both flanks.
     inner = (-1000.0, 1000.0, -1000.0, 1000.0, -1000.0, 1000.0)
     outer = (0.0, 0.0, 0.0, _enc.rear_plane_y + _enc.wall, 0.0, 0.0)
-    feature, bore, inserts, _backing = _enc._c14_tunnel_geometry(
+    feature, bore, inserts = _enc._c14_tunnel_geometry(
         inner, outer, c14_stations(), [c14_cutout()], -1000.0, 1000.0)
     feature = feature.cut(bore)
     for cutter in inserts:
         feature = feature.cut(cutter)
-    _hx, hz = c14_mount_half()
-    tunnel_bottom = C14_STATION[1] - hz
-    collar_hx, collar_hz = _enc.c14_collar_half()
-    collar_bottom = C14_STATION[1] - collar_hz
-    mouth = c14_seat_y() - _c14.FLANGE_T - _enc.c14_collar_extension
+    hx, hz = c14_mount_half()
+    fore = c14_seat_y()
+    mouth = fore - _c14.FLANGE_T - _enc.c14_pocket_lip
     run = _enc.rear_plane_y - mouth
-    if abs(feature.BoundingBox().zmin - (collar_bottom - run)) > 1e-5:
+    block_bottom = C14_STATION[1] - hz
+    if abs(feature.BoundingBox().zmin - (block_bottom - run)) > 1e-5:
         raise AssertionError(
-            "the C14 collar does not carry its exact-profile underside down the full "
+            "the C14 block does not carry its underside down the full "
             f"{run:.2f} mm 45-degree corbel: zmin {feature.BoundingBox().zmin:.6f}, "
-            f"expected {collar_bottom - run:.6f}")
+            f"expected {block_bottom - run:.6f}")
     for side in (-1.0, 1.0):
-        probe = (C14_STATION[0] + side * (collar_hx - 0.25),
-                 _enc.rear_plane_y - 0.10, C14_STATION[1] - run + 0.10)
+        probe = (C14_STATION[0] + side * (hx - 0.25),
+                 _enc.rear_plane_y - 0.10, block_bottom - run + 0.10)
         if not feature.isInside(probe):
             raise AssertionError(
-                f"the C14 collar's {'west' if side < 0 else 'east'} corbel stops before the "
-                f"wall; its sheared exact outer profile is absent at {probe}")
-    fore = c14_seat_y()
-    for side in (-1.0, 1.0):
-        x = C14_STATION[0] + side * (collar_hx - 3.5)
-        z = C14_STATION[1] + 2.25
-        for y in (fore + 0.25, (fore + _enc.rear_plane_y) / 2.0,
-                  _enc.rear_plane_y - 0.25):
-            if not feature.isInside((x, y, z)):
-                raise AssertionError(
-                    f"the C14 collar's {'west' if side < 0 else 'east'} seating-face backing "
-                    f"opens before the wall at {(x, y, z)}")
-    ledges = []
+                f"the C14 block's {'west' if side < 0 else 'east'} corbel stops before the "
+                f"wall; its sheared copy is absent at {probe}")
+    planes = {"fore": 0, "flank": 0, "under": 0}
+    seat = 0.0
+    down = math.sqrt(0.5)
     for face in feature.Faces():
-        bb = face.BoundingBox()
-        try:
-            normal = face.normalAt()
-        except Exception:
+        if face.geomType() != "PLANE":
             continue
-        if (normal.z > 0.999999 and abs(bb.zmin - tunnel_bottom) <= 1e-6
-                and abs(bb.zmax - tunnel_bottom) <= 1e-6):
-            ledges.append(face.Area())
-    if sum(ledges) > 1e-4:
+        n, c = face.normalAt(), face.Center()
+        if n.y < -0.999999 and abs(c.y - mouth) < 1e-6:
+            planes["fore"] += 1
+        elif n.y < -0.999999 and abs(c.y - fore) < 1e-6:
+            seat += face.Area()
+        elif abs(n.x) > 0.999999 and abs(abs(c.x - C14_STATION[0]) - hx) < 1e-6:
+            planes["flank"] += 1
+        elif abs(n.y + down) < 1e-6 and abs(n.z + down) < 1e-6:
+            planes["under"] += 1
+    if planes != {"fore": 1, "flank": 2, "under": 1}:
         raise AssertionError(
-            f"the C14's rounded tunnel stands over {sum(ledges):.4f} mm² of flat corbel ledge; "
-            "strike the support on the tunnel outline rather than its envelope")
-    yield ("the C14 corbel carries its rounded tunnel and full exact-profile collar to the "
-           "wall without a flat ledge or air channel, and the seating face is backed straight "
-           "to that wall")
+            f"the C14 block is not one fore plane, two flanks and one underside: {planes}")
+    # The seat is the pocket's floor less what the aperture takes of it and the two insert bores
+    # — read as area, because the aperture stands 0.02 mm short of the pocket's height and
+    # splits that annulus along two hairline lands, and its square corners reach past the
+    # flange's tapered shoulders.
+    wx, wz, r = c14_cutout()[3:]
+    pocket = _c14.flange_prism(_enc.c14_pocket_slip, 0.0, 1.0).val()
+    taken = pocket.intersect(_enc._rect_cut_y(0.0, 0.0, wx, wz, r, 0.0, 1.0)).Volume()
+    expected = pocket.Volume() - taken - 2.0 * math.pi * (_enc.heatset_dia / 2.0) ** 2
+    if abs(seat - expected) > 1e-3:
+        raise AssertionError(
+            f"the C14 seat is {seat:.3f} mm² of -Y plane at y={fore:.2f} where the pocket floor "
+            f"less the aperture and both insert bores is {expected:.3f}")
+    yield ("the C14 tunnel is one block: one fore plane with the flange pocket in it, one "
+           "flank each side, and one 45-degree underside carried the full run to the wall")
 
 
 def main():
