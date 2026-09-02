@@ -30,15 +30,15 @@ func opt(_ k: String, _ d: String = "") -> String { opts[k] ?? d }
 let outPath = opt("out")
 let want = opt("match")
 let listOnly = opt("list") == "true"
-let wantFormat = opt("format", "4656x3496")
-let settle = Double(opt("settle", "9")) ?? 9          // seconds of frames scored
-let stabilize = Double(opt("stabilize", "1.5")) ?? 1.5  // stream running, before the controls go in
-let focusSettle = Double(opt("focus-settle", "2")) ?? 2 // controls in, before scoring starts
-let targetScore = Double(opt("target", "0.05")) ?? 0.05   // a frame this sharp ends the search
-let maxSeconds = Double(opt("max", "40")) ?? 40            // and this is how long it may look
-let uvcSpec = opt("uvc")
+let wantFormat = opt("format", "4656x3496")       // WxH, or WxH:fourcc to pick one of the stream's codings
+let dwell = Double(opt("dwell", "0.3")) ?? 0.3    // seconds of frames scored at each focus value
+let maxSeconds = Double(opt("max", "30")) ?? 30   // the sweep gives up after this
+let uvcSpec = opt("uvc")                          // control=value,… applied once the stream runs
 let uvcNode = opt("uvc-node")
 let uvcJs = opt("uvc-js")
+let dumpDir = opt("dump")                         // every scored frame written here, for measuring
+let dumpMax = Int(opt("dump-max", "8")) ?? 8
+let dumpEvery = max(1, Int(opt("dump-every", "1")) ?? 1)
 
 if !listOnly && outPath.isEmpty { fail("need --out", 2) }
 
@@ -112,18 +112,42 @@ func imageFrom(_ sb: CMSampleBuffer) -> CGImage? {
   return CGImageSourceCreateImageAtIndex(src, 0, nil)
 }
 
-// Opening the stream returns focus and exposure to auto and the camera keeps moving them after, so
-// the controls are held for as long as the stream is open.
-var holdProc: Process?
-func holdUVC(_ spec: String) {
-  guard !spec.isEmpty, !uvcNode.isEmpty, !uvcJs.isEmpty else { note("uvc skipped"); return }
-  let p = Process()
-  p.executableURL = URL(fileURLWithPath: uvcNode)
-  p.arguments = [uvcJs, "hold", spec, "120"]
-  p.standardOutput = FileHandle.nullDevice
-  p.standardError = FileHandle.nullDevice
-  do { try p.run(); holdProc = p; note("uvc held: \(spec)") }
-  catch { note("uvc hold failed: \(error.localizedDescription)") }
+// The camera's controls, through `uvc.js serve`: one process for the whole capture, a line out and
+// the register read back on a line in, in about two milliseconds. The stream itself is macOS's;
+// the control interface is reached beside it and never disturbs a frame.
+final class UVC {
+  let proc = Process()
+  let toNode = Pipe(), fromNode = Pipe()
+  var pending = Data()
+  init?(node: String, js: String) {
+    guard !node.isEmpty, !js.isEmpty else { return nil }
+    proc.executableURL = URL(fileURLWithPath: node)
+    proc.arguments = [js, "serve"]
+    proc.standardInput = toNode
+    proc.standardOutput = fromNode
+    proc.standardError = FileHandle.nullDevice
+    do { try proc.run() } catch { note("uvc serve failed: \(error.localizedDescription)"); return nil }
+  }
+  func ask(_ line: String) -> String {
+    toNode.fileHandleForWriting.write((line + "\n").data(using: .utf8)!)
+    while true {
+      if let nl = pending.firstIndex(of: 10) {
+        let answer = String(data: pending[pending.startIndex..<nl], encoding: .utf8) ?? ""
+        pending.removeSubrange(pending.startIndex...nl)
+        return answer.trimmingCharacters(in: .whitespaces)
+      }
+      let more = fromNode.fileHandleForReading.availableData
+      if more.isEmpty { return "" }
+      pending.append(more)
+    }
+  }
+  func get(_ name: String) -> Int? { Int(ask("get \(name)")) }
+  @discardableResult func set(_ name: String, _ value: Int) -> Int? { Int(ask("set \(name) \(value)")) }
+  func close() {
+    toNode.fileHandleForWriting.write("quit\n".data(using: .utf8)!)
+    try? toNode.fileHandleForWriting.close()
+    proc.terminate()
+  }
 }
 
 let names = [0: "notDetermined", 1: "restricted", 2: "denied", 3: "authorized"]
@@ -219,11 +243,15 @@ if listOnly {
   exit(0)
 }
 
-let parts = wantFormat.split(separator: "x").compactMap { Int32($0) }
-guard parts.count == 2 else { fail("--format wants WxH", 13) }
-let matching = formats.filter { dims($0).width == parts[0] && dims($0).height == parts[1] }
+let formatSpec = wantFormat.split(separator: ":").map(String.init)
+let parts = formatSpec[0].split(separator: "x").compactMap { Int32($0) }
+guard parts.count == 2 else { fail("--format wants WxH or WxH:fourcc", 13) }
+let wantCoding = formatSpec.count > 1 ? formatSpec[1] : ""
+let matching = formats.filter {
+  dims($0).width == parts[0] && dims($0).height == parts[1]
+    && (wantCoding.isEmpty || fourCC(CMFormatDescriptionGetMediaSubType($0)) == wantCoding) }
 guard let fmt = matching.first else {
-  fail("no format \(wantFormat); have \(formats.map { "\(dims($0).width)x\(dims($0).height)" })", 13) }
+  fail("no format \(wantFormat); have \(formats.map { "\(dims($0).width)x\(dims($0).height):\(fourCC(CMFormatDescriptionGetMediaSubType($0)))" })", 13) }
 
 let setStatus = cmioSetFormat(streamID, fmt)
 note("format \(dims(fmt).width)x\(dims(fmt).height) \(fourCC(CMFormatDescriptionGetMediaSubType(fmt))) status \(setStatus)")
@@ -237,14 +265,46 @@ guard started == 0 else { fail("stream would not start (status \(started))", 15)
 
 var best = -1.0
 var bestImage: CGImage?
-var seen = 0, scored = 0
+var seen = 0, scored = 0, dumped = 0, dumpable = 0
 var hist = [String: Int]()
 
-// The lens travels the whole time the stream is open, whatever auto_focus is set to, so the frame
-// that is in focus is one of the ones it passes through. Every frame is scored and the sharpest
-// kept; a frame only becomes an image when it beats the one held.
-func drain(for seconds: Double, scoring: Bool) {
+// A frame's bytes as the camera delivered them, beside the PNG made from them, so the two can be
+// compared and a coding's range and chroma layout read off the file.
+func dump(_ sb: CMSampleBuffer, _ pb: CVPixelBuffer, _ sc: Double) {
+  guard !dumpDir.isEmpty, dumped < dumpMax else { return }
+  dumpable += 1
+  guard dumpable % dumpEvery == 1 || dumpEvery == 1 else { return }
+  dumped += 1
+  let code = fourCC(CVPixelBufferGetPixelFormatType(pb))
+  let w = CVPixelBufferGetWidth(pb), h = CVPixelBufferGetHeight(pb)
+  let stem = String(format: "%@/%03d_%@_%dx%d_%.5f", dumpDir, dumped, code, w, h, sc)
+  CVPixelBufferLockBaseAddress(pb, .readOnly)
+  if CVPixelBufferIsPlanar(pb) {
+    for pl in 0..<CVPixelBufferGetPlaneCount(pb) {
+      let stride = CVPixelBufferGetBytesPerRowOfPlane(pb, pl), ph = CVPixelBufferGetHeightOfPlane(pb, pl)
+      let d = Data(bytes: CVPixelBufferGetBaseAddressOfPlane(pb, pl)!, count: stride * ph)
+      try? d.write(to: URL(fileURLWithPath: "\(stem)_p\(pl)_s\(stride).raw"))
+    }
+  } else {
+    let stride = CVPixelBufferGetBytesPerRow(pb)
+    let d = Data(bytes: CVPixelBufferGetBaseAddress(pb)!, count: stride * h)
+    try? d.write(to: URL(fileURLWithPath: "\(stem)_s\(stride).raw"))
+  }
+  CVPixelBufferUnlockBaseAddress(pb, .readOnly)
+  // One PNG per run is enough to compare the file the pipeline saves against the bytes it came from.
+  if dumped == 1, let img = imageFrom(sb),
+     let png = NSBitmapImageRep(cgImage: img).representation(using: .png, properties: [:]) {
+    try? png.write(to: URL(fileURLWithPath: "\(stem).png"))
+    note("dump \(code) \(w)x\(h) planar=\(CVPixelBufferIsPlanar(pb)) -> \(dumpDir)")
+  }
+}
+
+// Every frame is scored and the sharpest kept; a frame only becomes an image when it beats the one
+// held. Returns the best score seen in this window.
+@discardableResult
+func drain(for seconds: Double, scoring: Bool) -> Double {
   let deadline = Date().addingTimeInterval(seconds)
+  var windowBest = -1.0
   while Date() < deadline {
     guard let raw = CMSimpleQueueDequeue(queue) else { usleep(3000); continue }
     let sb = Unmanaged<CMSampleBuffer>.fromOpaque(raw).takeRetainedValue()
@@ -256,39 +316,32 @@ func drain(for seconds: Double, scoring: Bool) {
     guard scoring, let pb = CMSampleBufferGetImageBuffer(sb) else { continue }
     let sc = scoreLuma(pb)
     scored += 1
+    dump(sb, pb, sc)
+    windowBest = max(windowBest, sc)
     if sc > best, let img = imageFrom(sb) { best = sc; bestImage = img }
   }
+  return windowBest
 }
 
-func uvcRun(_ args: [String]) -> String? {
-  guard !uvcNode.isEmpty, !uvcJs.isEmpty else { return nil }
-  let p = Process()
-  p.executableURL = URL(fileURLWithPath: uvcNode)
-  p.arguments = [uvcJs] + args
-  let pipe = Pipe()
-  p.standardOutput = pipe
-  p.standardError = FileHandle.nullDevice
-  do { try p.run() } catch { return nil }
-  let d = pipe.fileHandleForReading.readDataToEndOfFile()
-  p.waitUntilExit()
-  return String(data: d, encoding: .utf8)?.trimmingCharacters(in: .whitespacesAndNewlines)
-}
+// Frames are flowing before a control is touched, so what is written is what the frames show.
+drain(for: 0.5, scoring: false)
 
-// absolute_focus reads back the number last written while the lens stands somewhere else: held at
-// 420 and 580 this panel measures 752 and 697, held at 500 and 660 it measures 126 and 130. The
-// range is walked, every frame is scored, and the sharpest is kept. The value that produced it is
-// reported.
-var bestFocus = ""
-func bracketFocus(_ lo: Int, _ hi: Int, _ step: Int, dwell: Double) {
-  var v = lo
-  while v <= hi {
-    _ = uvcRun(["set", "absolute_focus", String(v)])
-    drain(for: dwell, scoring: false)
-    let before = best
-    drain(for: dwell, scoring: true)
-    if best > before { bestFocus = String(v) }
-    v += step
+let uvc = UVC(node: uvcNode, js: uvcJs)
+if uvc == nil { note("uvc skipped") }
+
+// Each control is written once and read back; the registers hold for as long as the stream runs.
+// A mismatch is written a second time and then reported, not fought.
+if let u = uvc, !uvcSpec.isEmpty {
+  var applied = [String]()
+  for pair in uvcSpec.split(separator: ",") {
+    let kv = pair.split(separator: "=").map(String.init)
+    guard kv.count == 2, let v = Int(kv[1]) else { continue }
+    var got = u.set(kv[0], v)
+    if got != v { got = u.set(kv[0], v) }
+    applied.append(got == v ? "\(kv[0])=\(v)" : "\(kv[0])=\(v)?\(got.map(String.init) ?? "none")")
   }
+  note("controls \(applied.joined(separator: " "))")
+  drain(for: 0.3, scoring: false)
 }
 
 var focusRange: (lo: Int, hi: Int, step: Int)?
@@ -297,33 +350,44 @@ do {
   if f.count == 3, f[2] > 0 { focusRange = (f[0], f[1], f[2]) }
 }
 
-// The bracket owns the lens, so the held controls are everything except the one being walked.
-var holdSpec = uvcSpec
-if focusRange != nil {
-  holdSpec = uvcSpec.split(separator: ",").filter { !$0.hasPrefix("absolute_focus=") }.joined(separator: ",")
-}
-
-drain(for: stabilize, scoring: false)
-holdUVC(holdSpec)
-drain(for: focusSettle, scoring: false)
-// About one pass in three ends soft where its neighbours end sharp — 0.090, 0.010, 0.099 on the
-// same panel, under autofocus and under the bracket alike. Passes repeat until a frame reaches
-// --target, or --max seconds have gone.
+// THE LENS MOVES ONLY WHEN THE REGISTER CHANGES, AND PARKS WHEN THE STREAM STARTS. absolute_focus
+// keeps the last number written across a stream start while the lens sits at its rest position;
+// writing that same number back is a no-op, and any other number moves the lens. Where it lands for
+// a number depends on the direction it came from — about sixty units of hysteresis — so every sweep
+// first parks the lens below the range and then walks up through it, and the sharpest frame seen
+// on the way is the picture. Sharpness halves within about forty units of the peak either side,
+// so a step scoring under half the best, two or more steps past it, is the far side of it.
+var bestFocus = -1
 if let r = focusRange {
-  let deadline = Date().addingTimeInterval(maxSeconds)
-  var passes = 0
-  repeat {
-    passes += 1
-    bracketFocus(r.lo, r.hi, r.step, dwell: settle)
-  } while best < targetScore && Date() < deadline
-  note("focus bracket \(r.lo)..\(r.hi) step \(r.step) -> best at \(bestFocus) in \(passes) pass(es)")
+  guard let u = uvc else { fail("a focus sweep needs --uvc-node and --uvc-js", 18) }
+  let t0 = Date()
+  let park = max(1, r.lo - 100)
+  if u.get("absolute_focus") == park { u.set("absolute_focus", park + 1) }
+  u.set("absolute_focus", park)
+  drain(for: 0.7, scoring: false)
+  var trace = [String]()
+  var steps = 0
+  var v = r.lo
+  while v <= r.hi && Date().timeIntervalSince(t0) < maxSeconds {
+    u.set("absolute_focus", v)
+    steps += 1
+    drain(for: 0.2, scoring: false)             // the frames already in flight show the old position
+    let before = best
+    let here = drain(for: dwell, scoring: true)
+    trace.append("\(v):" + String(format: "%.4f", max(here, 0)))
+    if best > before { bestFocus = v }
+    else if v >= bestFocus + 2 * r.step && here < 0.5 * best { break }
+    v += r.step
+  }
+  note("focus \(r.lo)..\(r.hi) step \(r.step) -> best \(String(format: "%.5f", best)) at \(bestFocus), \(steps) steps in \(String(format: "%.1f", Date().timeIntervalSince(t0))) s")
+  note("trace \(trace.joined(separator: " "))")
 } else {
   let deadline = Date().addingTimeInterval(maxSeconds)
-  repeat { drain(for: settle, scoring: true) } while best < targetScore && Date() < deadline
+  repeat { drain(for: dwell, scoring: true) } while bestImage == nil && Date() < deadline
 }
 
 _ = CMIODeviceStopStream(deviceID, streamID)
-holdProc?.terminate()
+uvc?.close()
 let seenDims = hist.sorted { $0.value > $1.value }.map { "\($0.key)×\($0.value)" }.joined(separator: " ")
 guard let img = bestImage else { fail("no frame kept; saw [\(seenDims)]", 16) }
 guard let png = NSBitmapImageRep(cgImage: img).representation(using: .png, properties: [:]) else {
