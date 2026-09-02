@@ -222,6 +222,27 @@ constexpr uint8_t MSG_IMAGE_ERASE     = 0x54;  // main -> either: ImageSlotPaylo
 constexpr uint8_t MSG_TEST_SCREEN      = 0x55;  // TestScreenPayload: seconds to hold it; 0 ends it
 constexpr uint8_t MSG_RESP_TEST_SCREEN = 0x56;  // ResponsePayload: 1 showing, 0 not
 
+// ── The funnel fill, as the main board runs it (0x57..) ──────────────────
+// Concentrate is poured into the funnel on the enclosure's top face, and
+// MSG_FILL_START (0x30) asks the main board to draw it down the channel's own
+// path into the chilled reservoir. The main board answers that request, and
+// every change after it, with its complete fill state; a query gets the same
+// answer, which is how a display that missed a turn — or that booted into a
+// fill the console started — catches up. STOP ends a run early and is
+// answered the same way.
+constexpr uint8_t MSG_FILL_QUERY = 0x57;  // no payload: answer with FillStatePayload
+constexpr uint8_t MSG_RESP_FILL  = 0x58;  // FillStatePayload: to START, QUERY and STOP, and on every change
+constexpr uint8_t MSG_FILL_STOP  = 0x59;  // no payload: end the run now
+
+// ── A customer page, asked for from the main board's console (0x5A..) ────
+// The enclosure display has no console inside the appliance, and the bench
+// camera reads its panel. This puts a customer page up — and, when asked,
+// presses that page's one commitment — through the same handlers a finger
+// reaches, so what the camera photographs is the real path. Nothing in a
+// product path sends it.
+constexpr uint8_t MSG_UI_SHOW      = 0x5A;  // UiShowPayload
+constexpr uint8_t MSG_RESP_UI_SHOW = 0x5B;  // ResponsePayload: 1 shown, 0 not
+
 // Fixed transport capacities are part of the replay contract. Keeping the
 // values beside the shared wire protocol lets each actual queue assert that a
 // future depth/window change still fits inside the main board's token ledger.
@@ -264,6 +285,46 @@ struct __attribute__((packed)) ResponsePayload {
 
 struct __attribute__((packed)) TestScreenPayload {
   uint16_t seconds;
+};
+
+// ── The funnel fill ───────────────────────────────────────────────────────
+constexpr uint8_t FILL_PHASE_OFF     = 0;
+constexpr uint8_t FILL_PHASE_RUNNING = 1;
+
+// How the last run ended, kept while OFF. NONE while running, and before any run.
+constexpr uint8_t FILL_OUTCOME_NONE    = 0;
+constexpr uint8_t FILL_OUTCOME_DONE    = 1;  // drew for its planned time
+constexpr uint8_t FILL_OUTCOME_FULL    = 2;  // the reservoir's full reed closed
+constexpr uint8_t FILL_OUTCOME_STOPPED = 3;  // ended on request
+constexpr uint8_t FILL_OUTCOME_BUSY    = 4;  // refused: something else was running
+constexpr uint8_t FILL_OUTCOME_NO_IO   = 5;  // refused: the expanders are not verified
+constexpr uint8_t FILL_OUTCOME_FAULT   = 6;  // ended: a valve write or reed read failed; everything parked
+constexpr uint8_t FILL_OUTCOME_GAS     = 7;  // refused or ended: the gas alarm
+
+// The main board's complete fill truth. Small enough for an announcement.
+struct __attribute__((packed)) FillStatePayload {
+  uint8_t  phase;       // FILL_PHASE_*
+  uint8_t  channel;     // PUMP_CHANNEL_*
+  uint8_t  outcome;     // FILL_OUTCOME_*
+  uint32_t elapsedMs;   // how long it has been, or was, drawing
+  uint32_t plannedMs;   // how long a run draws unless the reservoir fills first
+  uint8_t  reeds;       // the reservoir's closed reeds, bit 0 empty .. bit 3 full; 0xFF unread
+};
+
+static_assert(sizeof(FillStatePayload) == 12, "fill wire layout drift");
+
+// ── A page asked for by the console ──────────────────────────────────────
+constexpr uint8_t UI_RAIL_CHOOSE   = 0;
+constexpr uint8_t UI_RAIL_PRIME    = 1;
+constexpr uint8_t UI_RAIL_FILL     = 2;
+constexpr uint8_t UI_RAIL_CLEAN    = 3;
+constexpr uint8_t UI_RAIL_SETTINGS = 4;
+constexpr uint8_t UI_CHANNEL_NONE  = 0xFF;   // the rail's own page rather than a channel's
+
+struct __attribute__((packed)) UiShowPayload {
+  uint8_t rail;      // UI_RAIL_*
+  uint8_t channel;   // PUMP_CHANNEL_*, or UI_CHANNEL_NONE
+  uint8_t act;       // 1: also press the page's commitment — START FILL, START CLEAN CYCLE
 };
 
 constexpr uint8_t PUMP_CHANNEL_A = 0;  // U11 -> J13.AM2/AM1, the two WEST pins
@@ -516,7 +577,7 @@ struct __attribute__((packed)) StatusPayload {
   uint32_t framesTx;
   uint16_t gasMv;         // MQ-6 divider, 0 with no sensor fitted
   uint8_t  flags;         // see STATUS_F_* below
-  uint8_t  primeChannel;  // valid while STATUS_F_PRIMING
+  uint8_t  primeChannel;  // valid while STATUS_F_PRIMING or STATUS_F_FILLING
   char     version[16];   // the main board build these readings came from
   uint8_t  j9ReplyHighWater;  // maximum replies emitted for one received J9 turn
   uint32_t j9ReplyOverruns;   // turns that emitted more than one reply
@@ -526,6 +587,7 @@ static_assert(sizeof(StatusPayload) == 41, "main board status wire layout drift"
 
 constexpr uint8_t STATUS_F_GAS_TRIP = 1 << 0;  // the LM393 comparator has tripped
 constexpr uint8_t STATUS_F_PRIMING  = 1 << 1;  // a prime hold is live
+constexpr uint8_t STATUS_F_FILLING  = 1 << 2;  // a funnel fill is drawing
 
 // ── Sound ─────────────────────────────────────────────────────────────────
 // Wire-level sound ids. These mirror SoundId in lib/sound/sound.h, which is the

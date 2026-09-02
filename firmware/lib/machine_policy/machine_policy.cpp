@@ -68,6 +68,16 @@ ActuatorPlan canonicalPlan(Operation operation) {
     }
 }
 
+FillEnd fillShouldEnd(uint32_t elapsed_ms, uint32_t planned_ms, uint8_t reservoir_closed_mask) {
+    if ((reservoir_closed_mask & kReservoirReedFull) != 0) return FillEnd::Full;
+    if (elapsed_ms >= planned_ms) return FillEnd::Planned;
+    return FillEnd::None;
+}
+
+Operation fillOperation(uint8_t channel) {
+    return channel == 0 ? Operation::FunnelFillA : Operation::FunnelFillB;
+}
+
 uint8_t countOpenValves(ValveMask valves) {
     uint8_t count = 0;
     while (valves != 0) {

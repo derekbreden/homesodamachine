@@ -65,3 +65,8 @@ bool linkDisplayUsbReattach();
 // The camera's test screen on the enclosure display for this many seconds, 0
 // to end it now. True when the display answered.
 bool linkTestScreen(uint16_t seconds);
+
+// A customer page on the enclosure display, from the console — and, with act,
+// that page's one commitment pressed, through the handlers a finger reaches.
+// True when the display answered that it showed it.
+bool linkUiShow(uint8_t rail, uint8_t channel, uint8_t act);
