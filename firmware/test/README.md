@@ -13,7 +13,9 @@ the dispense/refill exclusion, every possible off-before-on valve-mask transitio
 prime/timed-pump deadlines shared with the J9 protocol, the funnel fill's plan, its
 draw-time budget against the slowest rated head, and its full-reed-before-clock ending, and
 the clean cycle's two steps per channel, its full-reed and empty-reed-plus-tail endings, the
-sum of what is left of a cycle, and its wire contract. `test_pcba_expanders` checks the
+sum of what is left of a cycle, and its wire contract, and the air cycles' steps — the dry
+sweep of both channels that draws on no reservoir, and the purge that airs one and draws it
+out. `test_pcba_expanders` checks the
 logical-to-physical valve map, safe MCP23017 initialization, active-low reed decoding,
 cross-expander break-before-make writes, and fail-park behavior. They run on the build host
 and are safe with every USB device connected. `test_weld_rotator_policy` checks the purchased
