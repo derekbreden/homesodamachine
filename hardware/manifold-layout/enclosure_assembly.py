@@ -104,6 +104,7 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "reference" / "flare38-14ptc",
            _hw / "printed-parts" / "enclosure" / "asse-drip-pan",
            _hw / "reference" / "shutao-moisture-plate",
+           _hw / "reference" / "jhyossthi-pogo-dock",
            _hw / "reference" / "mq6-gas-sensor",
            _hw / "reference" / "sf76e-thermal-fuse",
            _hw / "printed-parts" / "refrigeration" / "fuse-clamp",
@@ -167,6 +168,7 @@ import asse1022_assembly as _asse                     # noqa: E402
 import flare38_14ptc as _oad                          # noqa: E402
 import asse_drip_pan as _pan                          # noqa: E402
 import shutao_moisture_plate as _plate                # noqa: E402
+import jhyossthi_pogo_dock as _dock                   # noqa: E402
 import mq6_gas_sensor as _mq6                         # noqa: E402
 import sf76e_thermal_fuse as _fuse                    # noqa: E402
 import fuse_clamp as _clamp                           # noqa: E402
@@ -303,7 +305,7 @@ FUNNEL_ROT = 0.0
 # The material colours are `hardware/scripts/_materials.py`, which the generators that cut these
 # bodies' own STEPs read too.
 from _materials import (C_AC_HUB, C_C14, C_COMP, C_COND, C_DIGITEN,  # noqa: E402
-                        C_DISPLAY_GLASS, C_GND, C_MQ6, C_PCBA, C_PLATE,
+                        C_DISPLAY_GLASS, C_DOCK, C_GND, C_MQ6, C_PCBA, C_PLATE,
                         C_PSU, C_RELAY, C_SEAFLO, C_STEEL_PLATE,
                         M_ALUMINIUM, M_BRASS, M_JG_BLACK_PP,
                         M_NEOFIT_ACETAL, M_PETG_BLACK, M_PETGF_BLACK, M_SILICONE_BLACK,
@@ -1466,7 +1468,7 @@ CORE_RIDERS = ("seaflo-pump", "valve-v-a", "valve-v-b", "vk-solenoid",
 # internal-plumbing's, made up at the mouth. Everything else in the back — the chain,
 # the meter, the wall electronics, the bulkheads and their rings — rides back-top or
 # clamps its walls and is already standing, which is what the sweep is against.
-CORE_RIDE_LATER = ("foam-assembly", "moisture-plate",
+CORE_RIDE_LATER = ("foam-assembly", "moisture-plate", "drip-dock-female",
                    "funnel", "nameplate", "asse-drip-pan")
 CORE_RIDE_RUNS = ("tube-", "turn-", "step-")
 
@@ -2863,6 +2865,18 @@ WR1110_STEP = _hw / "reference" / "wr1110-regulator" / "wr1110-regulator.step"
 # that same wall with a body hanging off it. So it stands one pitch EAST of the carb union, on
 # `deck_storey`: the meter's own axis, one column over, parallel and level with it.
 CO2_COLUMN = PANEL_X["bulkhead-carb"] + PORT_PITCH
+# THE WALL'S RELIEF FOR THIS STATION IS TYPED in `enclosure.back_top_wall_reliefs` and cannot
+# read this column back — the enclosure is what this module imports. So the bound reads it
+# here: the relief stands on the derived column and on `deck_storey`, or the check is open.
+_co2_relief = next((x, z) for who, x, z, _w, _h in _enc.back_top_wall_reliefs
+                   if who == "co2-inlet")
+_stated.state(
+    "co2-relief", "The CO2 station's wall relief stands on the neoFit's own column and storey",
+    f"x {CO2_COLUMN:.2f}, z {deck_storey():.2f}",
+    (abs(_co2_relief[0] - CO2_COLUMN) < 1e-6
+     and abs(_co2_relief[1] - deck_storey()) < 1e-3),
+    f"relief at x {_co2_relief[0]:g}, z {_co2_relief[1]:g}; the port is bored at "
+    f"x {CO2_COLUMN:.4f}, z {deck_storey():.4f}")
 
 # --- the umbilical's signal station, through the +Y wall of back-top -----------------
 #
@@ -3007,7 +3021,8 @@ STANDALONE = ("compressor", "condenser+fan", "foam-assembly", "seaflo-pump",
               "display-gasket",
               "psu", "pcba",
               "relay-1", "relay-2", "ground-stack", "asse1022-assembly", "asse-drip-pan",
-              "moisture-plate", "mq6-sensor", "thermal-fuse", "fuse-clamp",
+              "moisture-plate", "drip-dock-female", "drip-dock-male",
+              "mq6-sensor", "thermal-fuse", "fuse-clamp",
               ) + WAGO_POLES + tuple(CLUSTER_WAGOS) + (
               "water-split", "flow-regulator", "vk-solenoid", "bulkhead-water",
               "c14-inlet", "co2-inlet", "gasher-co2", "wr1110",
@@ -3632,11 +3647,26 @@ FOOT_CLEAR = 1.0
 #   IT CARRIES THE PROBE WITH IT. The plate rides the tray, so the vent's tip lands this far
 # east of the plate's own centre.
 PAN_PROUD = _pan.PULL_FACE_DEPTH + _pan.PAN_SLIP
-# The probe plate has two individual 22 AWG silicone leads soldered on 2.54 mm centres. They
-# rise in the open pan and turn WEST through one notch in the withdrawal wall. It is not a
-# close wire bore: the top is absent and this clear width takes the pair plus hand-routed slack.
-PAN_LEAD_RACE_W = 5.0
-PAN_LEAD_RACE_INNER_OVERLAP = 1.0
+# THE PAN DOCKS ON THE BACKSTOP, and its probe never leaves it. The plate's two leads run inside
+# the pan to the FEMALE half of a magnetic pogo pair potted in the pan's east wall
+# (`asse_drip_pan.dock_station`), and the MALE half stands in the backstop facing it. The pan's
+# own travel mates the two and the pair's magnets hold the pan home. What the sleeve owes the male
+# is a pocket it is pressed into from the east — the shoulders at the nose window are what the
+# magnets pull it against — and a channel its two leads leave by, down through the block's floor.
+#   THE BACKSTOP STAYS THE STOP. The male's nose face stands one `DOCK_STANDOFF` behind the
+# backstop's own face, so the pan comes to rest on the block and not on the connector: the two
+# nose faces stand `PAN_SLIP + DOCK_STANDOFF` apart at the pan's stated pose, one slip apart
+# pushed home, and the pins take up either from the millimetre of reach they have at their
+# working position (`reference/jhyossthi-pogo-dock`).
+DOCK_STANDOFF = _pan.PAN_SLIP
+# The pocket's section on the pill, the fit the pan cuts its own on.
+DOCK_SLIP = _pan.DOCK_SLIP
+# The channel the male's two leads leave the block by: wide enough across the pan for the pair
+# side by side on the pins' own pitch, opened under the flange's back edge by this overlap, and
+# stopped one skin short of the block's east face.
+DOCK_LEAD_Y = 5.0
+DOCK_LEAD_OVERLAP = 0.5
+DOCK_LEAD_SKIN = 1.0
 
 
 def pan_rim_z(asse):
@@ -3904,6 +3934,9 @@ def build_pan(asse, seaflo, seaflo_carry, asse_carry):
     # receives — read off `asse_drip_pan`'s own ledger and entered here, so it is a card row beside
     # the two this module states about where the pan stands.
     record_bound(Bound(*_pan.check_plate()))
+    # And the two the dock states — its roof under the rim rebate, and its boss off the plate.
+    record_bound(Bound(*_pan.check_dock_roof()))
+    record_bound(Bound(*_pan.check_dock_clears_plate()))
     placed, carry = seat_body(
         pan, (), seat="asse-drip-pan", x0=pan_west_x(), z0=pan_floor(asse),
         y0=pan_front_y(seaflo_carry) + DRIP_SLEEVE_T + _pan.PAN_SLIP)
@@ -3922,8 +3955,8 @@ def build_pan(asse, seaflo, seaflo_carry, asse_carry):
 #
 # The quarter is +90, which carries the plate's own −X edge — the edge its two lead holes sit
 # behind — onto the pan's FORWARD end. That is the end away from the ASSE chain the tray hangs
-# under: the leads leave the pan in the open, not under the body that drips into it, and the
-# solder joints are the last thing a pool standing in the pan reaches.
+# under: the solder joints lie clear of the vent's fall, and the leads run the pan's own length
+# inside it, aft and east, to the dock in the east wall (`build_dock`).
 PLATE_YAW = 90.0
 
 
@@ -3946,6 +3979,29 @@ def build_moisture_plate(pan_carry, asse_carry):
     placed, carry = seat_body(plate, (((0.0, 0.0, 1.0), PLATE_YAW),), seat="moisture-plate",
                               station=(((0.0, 0.0, 0.0), (0.0, 0.0, 1.0)), floor_centre))
     return placed, carry
+
+
+def build_dock(pan, pan_carry):
+    """Both halves of the pan's dock: the FEMALE potted in the pan's east wall, on the pan's own
+    `dock_station` carried out of its frame so it rides the pan; the MALE in the backstop, its
+    nose face one `DOCK_STANDOFF` behind the face the pan rests on, looking west at it.
+
+    THE PINS ARE DRAWN AT THE GAP THEY CLOSE. The two nose faces stand `PAN_SLIP + DOCK_STANDOFF`
+    apart at the pan's stated pose, and the male is built with that much reach, so the pair
+    reads as the contact it is — pin tip on pad — rather than as a pin driven through a pad.
+    Pushed home against the backstop the pan closes one slip of that, and the pins take it up."""
+    turn_long = ((0.0, 0.0, 1.0), 90.0)     # the pill's length along the wall, on Y
+    female, _f = seat_body(
+        _dock.build_female().val(), (turn_long, ((0.0, 1.0, 0.0), 90.0)),
+        seat="drip-dock-female",
+        station=(_dock.nose_face(), pan_carry(_pan.dock_station())[0]))
+    face, yc, zc = dock_face(box(pan))
+    gap = _pan.PAN_SLIP + DOCK_STANDOFF
+    male, _m = seat_body(
+        _dock.build_male(pin_reach=gap).val(), (turn_long, ((0.0, 1.0, 0.0), -90.0)),
+        seat="drip-dock-male",
+        station=(_dock.nose_face(), (face + DOCK_STANDOFF, yc, zc)))
+    return female, male
 
 
 # --- the split, on the chain's own flow axis --------------------------------
@@ -4135,6 +4191,15 @@ def pan_berth(pan):
     return well, rebate
 
 
+def dock_face(pan):
+    """The backstop's west face and the dock's centre on it, `(x, y, z)`: the well's east end,
+    the pan's own centreline, and `asse_drip_pan.DOCK_Z` over its floor. The pan's
+    `dock_station`, read off its placed box the way the berth is, so the sleeve and the pan
+    strike the one station from the same figures."""
+    well, _rebate = pan_berth(pan)
+    return well[4], (pan.ymin + pan.ymax) / 2.0, pan.zmin + _pan.DOCK_Z
+
+
 def pan_sleeve(pan, west_face):
     """The tray's carry, as `(adds, cuts)` of world boxes for `enclosure._pan_sleeve`: ONE SOLID
     BLOCK fused onto the −X wall's inner face, and the berth cut back out of it.
@@ -4144,45 +4209,48 @@ def pan_sleeve(pan, west_face):
     face and there is one continuous flat surface on each of its outsides. The pan lies on the
     block's floor the way a drawer lies in its carcase.
 
-    FOUR CUTS TAKE IT BACK, AND THEY REACH DIFFERENT DISTANCES WEST. The WELL and the REBATE are
+    SIX CUTS TAKE IT BACK, AND THEY REACH DIFFERENT DISTANCES WEST. The WELL and the REBATE are
     the tray's own two sections — the pan's body, and the rim over its shoulders — and both run
     west THROUGH the wall, because that is the silhouette the tray travels on. The MOUTH is the
     pan's opening carried up through the lid for the drip to fall in, and it stops at the wall's
     INNER face: the tray is nowhere near this tall, so an opening cut this high in the wall is a
-    hole nothing passes through. The LEAD RACE is the narrow open-top notch through the
-    withdrawal wall, on the Y of the plate's two solder holes. Inboard of it the leads rise in
-    the already-open pan mouth; at the wall they turn west through this one short notch. The
-    pan stays whole and watertight — this cuts only the roof that otherwise pinches the leads
-    over the tray's rim.
+    hole nothing passes through. The other three are the DOCK's, all in the backstop: the WINDOW
+    the male's nose looks west through, cut in from the well on the pan's own dock station; the
+    POCKET its flange sits in, cut in from the block's east face, so the pill goes in from the
+    east on the bench and the step between the two — the window's shoulders — is what the
+    magnets pull it against; and the LEAD CHANNEL dropping out of the pocket's floor through the
+    block's, that its two leads leave by. The berth is not touched by any of the three, and each
+    is a rectangle a pill's section stands in on its flats.
 
-    What none of the four reaches is solid: the block's floor under the pan, its flanks
+    What none of the six reaches is solid: the block's floor under the pan, its flanks
     outboard of the rim, its lid over the flange, and — east of where the tray's own outline ends
     — the BACKSTOP, full section from floor to lid, which is what the tray comes to rest
-    against."""
+    against, one `asse_drip_pan.DOCK_ROOF` of it kept over the pocket under the rebate's floor."""
     (wy0, wy1, wz0, wz1, wx1), (ry0, ry1, rz0, rz1, rx1) = pan_berth(pan)
     s, t = _pan.PAN_SLIP, DRIP_SLEEVE_T
     z1 = pan.zmax + s + t
-    block = (west_face, pan.xmax + s + t,
-             pan.ymin - s - t, pan.ymax + s + t, pan.zmin - s - t, z1)
+    x1 = pan.xmax + s + t
+    block = (west_face, x1, pan.ymin - s - t, pan.ymax + s + t, pan.zmin - s - t, z1)
     # The berth's two cuts start west of the wall's own outer face, so the slot the wall carries
     # and the room behind it are opened by one geometry rather than two that have to agree.
     x0 = west_face - _enc.wall - 1.0
-    # The plate is centred on the pan and turned +90 degrees (`PLATE_YAW`), so both holes share
-    # one Y station near the pan's forward end. The pan mouth is already open above them;
-    # only the short run through the wall needs taking out. One millimetre of overlap makes the
-    # notch and mouth unambiguously continuous instead of leaving a zero-thickness knife edge.
-    lead_y = ((pan.ymin + pan.ymax) / 2.0
-              - (_plate.PLATE_X / 2.0 - _plate.HOLE_INSET))
-    lead_race = (
-        x0, west_face + PAN_LEAD_RACE_INNER_OVERLAP,
-        lead_y - PAN_LEAD_RACE_W / 2.0, lead_y + PAN_LEAD_RACE_W / 2.0,
-        # Its floor is the rim's own top and its roof is deliberately absent.
-        pan.zmax, z1 + 1.0,
-    )
+    face, yc, zc = dock_face(pan)
+    half = _dock.BODY_W / 2.0 + DOCK_SLIP
+    nose_x1 = face + DOCK_STANDOFF + _dock.NOSE_T
+    window = (wx1 - 1.0, nose_x1,
+              yc - (_dock.NOSE_L / 2.0 + DOCK_SLIP), yc + (_dock.NOSE_L / 2.0 + DOCK_SLIP),
+              zc - half, zc + half)
+    pocket = (nose_x1, x1 + 1.0,
+              yc - (_dock.BODY_L / 2.0 + DOCK_SLIP), yc + (_dock.BODY_L / 2.0 + DOCK_SLIP),
+              zc - half, zc + half)
+    back = nose_x1 + _dock.BODY_T
+    channel = (back - DOCK_LEAD_OVERLAP, x1 - DOCK_LEAD_SKIN,
+               yc - DOCK_LEAD_Y / 2.0, yc + DOCK_LEAD_Y / 2.0,
+               pan.zmin - s - t - 1.0, zc - half + DOCK_LEAD_OVERLAP)
     return [block], [(x0, wx1, wy0, wy1, wz0, wz1),
                      (x0, rx1, ry0, ry1, rz0, rz1),
                      (west_face, wx1, wy0, wy1, rz1, z1),
-                     lead_race]
+                     window, pocket, channel]
 
 
 def west_wall_ports(pan):
@@ -4536,6 +4604,9 @@ def build_pack() -> cq.Assembly:
     a.add(pan, name="asse-drip-pan", color=C_PAN)
     mplate, _mplate_carry = build_moisture_plate(pan_carry, asse_carry)
     a.add(mplate, name="moisture-plate", color=C_PLATE)
+    dock_f, dock_m = build_dock(pan, pan_carry)
+    a.add(dock_f, name="drip-dock-female", color=C_DOCK)
+    a.add(dock_m, name="drip-dock-male", color=C_DOCK)
     split, split_carry = build_split(asse_carry)
     a.add(split, name="water-split", color=C_SPLIT)
     flowreg, flowreg_carry = build_flowreg(split_carry)
@@ -5172,6 +5243,7 @@ def report(a: cq.Assembly, clashes=None) -> None:
         line("psu", box(named["psu"]))
     for n in ("pcba", "relay-1", "relay-2") + WAGO_POLES + (
               "ground-stack", "asse1022-assembly", "asse-drip-pan",
+              "drip-dock-female", "drip-dock-male",
               "water-split", "flow-regulator", "vk-solenoid", "bulkhead-water",
               "c14-inlet", "discharge-chain", "co2-inlet", "gasher-co2", "wr1110",
               "bulkhead-flavor-b", "bulkhead-flavor-a", "bulkhead-carb", "digiten-flow"):
