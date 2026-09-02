@@ -11,7 +11,7 @@
 
 ## Source-data state at snapshot time
 
-- `bom.md` per-unit total: **$1,286.85** (state at commit `11dec70`, after rear-panel bezel-recess directive moved to future.md; reflects Tier 2 + Tier 3 amortizations and the Kamoer/L298N/VALVENTO/ANPTGHT/VEVOR fold-up corrections)
+- `bom.md` per-unit total: **$1,286.85** (state at commit `11dec70`, after rear-panel bezel-recess directive moved to future.md, now `hardware/README.md`; reflects Tier 2 + Tier 3 amortizations and the Kamoer/L298N/VALVENTO/ANPTGHT/VEVOR fold-up corrections)
 - `purchases.md` ACQUIRED hardware: **$14,472.92** / grand total: **$19,886.69** (state at commit `dbab818`, after GASHER spares order)
 
 ## Methodology

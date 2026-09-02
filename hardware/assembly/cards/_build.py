@@ -49,7 +49,7 @@ DECK_SIDECAR = CARDS_DIR / "deck.pdf.json"
 sys.path.insert(0, str(HARDWARE / "scripts"))
 from _cadq_export import export_pdf, note_read, note_write  # noqa: E402
 
-# Deck order = the build order of /hardware/future.md "Build order" — which is the
+# Deck order = the build order of /hardware/README.md "Build order" — which is the
 # procedure docs' own dependency chain, not their filename order. The three bench
 # subsystems (ca, es, fu) feed en; ip needs the chassis en closes up; wr needs the
 # lines ip lays in.

@@ -1,7 +1,7 @@
 # Design pressures
 
 What the appliance is optimised for, and what it is not. Placement decisions answer to this
-document; [`future.md`](/hardware/future.md) describes the subsystems it applies to.
+document; [`hardware/README.md`](/hardware/README.md) describes the subsystems it applies to.
 
 ## Optimised
 

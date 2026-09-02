@@ -32,7 +32,7 @@ This is a **Class I** appliance ([`/business/regulatory.md`](/business/regulator
 the stack is earthed through the C14 cord, so a basic-insulation fault clears to
 ground (breaker). The bonds do not merely tie the metal parts to each other —
 they tie that bonded node to building earth. An in-appliance ground-fault device
-on the AC side is deferred ([`/pie-in-the-sky/gfci.md`](/pie-in-the-sky/gfci.md));
+on the AC side is deferred ([`/future/pie-in-the-sky/gfci.md`](/future/pie-in-the-sky/gfci.md));
 earth is a pass-through on such a device, so this bond path is unchanged by it.
 
 ## Geometry

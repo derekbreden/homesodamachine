@@ -25,7 +25,7 @@ order it builds it. Parts and prices are in `hardware/ledger/bom.md` §3.
 The assembly has an orientation rather than just an envelope because the
 atmospheric vent weeps to atmosphere and the internal ASSE drip pan over the moisture
 sensor has to be under it. That weeping is the mechanical telltale for a
-cross-contamination event (`hardware/future.md` "Backflow vent monitoring"), and
+cross-contamination event (`hardware/README.md` "Safety"), and
 it drips — never plumbed into a drain. `port("vent-tip")` is the datum the pan
 catches, and the drip falls from there: the pan sits under the tip's column,
 wherever the pose leaves it pointing.

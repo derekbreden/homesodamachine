@@ -6,7 +6,7 @@
 
 One peristaltic pump serves every flavor. One flavor line runs up the umbilical to the faucet at any N. Selecting a flavor is a cycle, not a valve state: the pump reverses and draws the standing syrup back into its own reservoir, the line is flushed and re-primed with the new flavor, and capacitive sensing confirms each transition. Between switches the faucet is primed and pours instantly. Switching costs time.
 
-[`flavor-module.md`](/pie-in-the-sky/flavor-module.md) reaches the same flavor count through a second appliance with its own faucet and a four-line gooseneck.
+[`flavor-module.md`](/future/pie-in-the-sky/flavor-module.md) reaches the same flavor count through a second appliance with its own faucet and a four-line gooseneck.
 
 ## Sensing points
 

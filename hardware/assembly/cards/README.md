@@ -109,7 +109,7 @@ tools/cad-venv/bin/python hardware/scripts/check_ledger.py
 
 ## The deck
 
-Subsystems print in the build order of [`/hardware/future.md`](/hardware/future.md)
+Subsystems print in the build order of [`/hardware/README.md`](/hardware/README.md)
 "Build order" — the procedure docs' dependency chain, held in one place as
 `SUBSYSTEM_ORDER` in [`_build.py`](_build.py). A card's number is its position
 *within* its subsystem, not in the deck, so the three bench subsystems (CA, ES,

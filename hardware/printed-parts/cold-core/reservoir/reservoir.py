@@ -230,7 +230,7 @@ reservoir_count = len(fill_position)
 # pre-soldered column after the body pour has cured — held mechanically,
 # never foam-encapsulated (`level-sensing.md`). Same
 # rod SKU as the carbonator's reed+float level sensing — Tandefio B0CY4DWJFQ;
-# see `hardware/future.md` "Level sensing".
+# see `hardware/README.md` "Carbonation".
 #
 #   - Body: a solid PETG cylindrical boss rises from the wet slope at
 #     (±rod_position_x, rod_position_y); a blind bore from above stops

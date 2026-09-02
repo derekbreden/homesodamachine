@@ -6,7 +6,7 @@ A home soda machine — a kitchen appliance that dispenses flavored carbonated w
 
 The prototype under the counter dispenses from a Lillium-class external carbonator. The integrated appliance under development consolidates the carbonator into the same enclosure.
 
-See `hardware/future.md` for details.
+See `future/README.md` for where this is going and what done looks like, and `hardware/README.md` for the machine as it stands, subsystem by subsystem.
 
 ## Why This Exists
 
@@ -26,7 +26,7 @@ See `hardware/printed-parts/faucet/faucet-shell/faucet_shell.py` for patterns to
 
 ## Firmware
 
-The appliance's controller is `firmware/src_appliance/`, on the main board's own WROOM. The enclosure display is `firmware/src_front/`, and the two talk over J9. Seven trees, one per board: `firmware/README.md` says which runs where.
+The appliance's controller is `firmware/src_appliance/`, on the main board's own WROOM. The enclosure display is `firmware/src_front/`, and the two talk over J9. Eight trees, one per board: `firmware/README.md` says which runs where.
 
 ## tscircuit forks
 

@@ -14,7 +14,7 @@
 
 - `hardware/pcb/pcba/pcba.tsx` at `b9542de2`; `out/pcba.circuit.json` from `bun render-board.ts pcba.tsx` on 2026-07-13.
 - Fork `circuit-json-to-gerber` at `2329112` (branch `homesodamachine/through-hole-vias`), consumed via the `overrides` git dependency.
-- Off-board loads read from `wiring/ac-wiring-schedule.md`, `wiring/power.mmd`, `hardware/topology/fluid-topology.md`, `ledger/bom.md`, `hardware/future.md` (§Safety, §User-facing).
+- Off-board loads read from `wiring/ac-wiring-schedule.md`, `wiring/power.mmd`, `hardware/topology/fluid-topology.md`, `ledger/bom.md`, `hardware/future.md` (at the `archive-future-md` tag; §Safety, §User-facing).
 
 ## Methodology
 
