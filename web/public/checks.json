@@ -12,8 +12,8 @@
     },
     {
       "check": "hardware/scripts/check_finishes.py",
-      "note": "finishes: 52 materials, and every colour this tree draws has one",
-      "status": "ok"
+      "note": "ValueError: _materials: linear (0.010022825561463833, 0.010022825561463833, 0.011645430698990822) is given 2 finishes [(0.45, 0.0), (0.8, 0.0)]. Two substances at one colour cannot both be drawn — give one of them its own.",
+      "status": "red"
     },
     {
       "check": "hardware/scripts/check_ledger.py",
@@ -82,15 +82,33 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 3 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 276 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 14 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 276 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds a030f1213d224c7a1dfd3bdd936a62a9 for the 107 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 7a58d8f253b5ccf5555b50c042cde46a here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was taken from a different tree — it holds a030f1213d224c7a1dfd3bdd936a62a9 for the 107 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 55fb7e13378b13105f6d6035baaf062e here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
+    ],
+    "hardware/scripts/check_finishes.py": [
+      "Traceback (most recent call last):",
+      "  File \"/Users/derekbredensteiner/Developer/homesodamachine/hardware/scripts/check_finishes.py\", line 55, in <module>",
+      "    sys.exit(main())",
+      "             ~~~~^^",
+      "  File \"/Users/derekbredensteiner/Developer/homesodamachine/hardware/scripts/check_finishes.py\", line 37, in main",
+      "    want = body()",
+      "  File \"/Users/derekbredensteiner/Developer/homesodamachine/hardware/scripts/check_finishes.py\", line 32, in body",
+      "    lines = \",\\n\".join(\"  \" + json.dumps(r, separators=(\", \", \": \")) for r in _finishes.rows())",
+      "                                                                              ~~~~~~~~~~~~~~^^",
+      "  File \"/Users/derekbredensteiner/Developer/homesodamachine/hardware/scripts/_finishes.py\", line 56, in rows",
+      "    out = _mat.finish_rows()",
+      "  File \"/Users/derekbredensteiner/Developer/homesodamachine/hardware/scripts/_materials.py\", line 343, in finish_rows",
+      "    raise ValueError(",
+      "        f\"_materials: linear {rgb} is given {len(got)} finishes {sorted(got)}. Two \"",
+      "        f\"substances at one colour cannot both be drawn — give one of them its own.\")",
+      "ValueError: _materials: linear (0.010022825561463833, 0.010022825561463833, 0.011645430698990822) is given 2 finishes [(0.45, 0.0), (0.8, 0.0)]. Two substances at one colour cannot both be drawn — give one of them its own."
     ],
     "hardware/scripts/check_ledger.py": [
       "instructions: 117 files (14 procedures + 102 cards + cover) | ledger brands: 527 | waived: 1 ASIN + 4 brand",
@@ -104,7 +122,7 @@
       "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
     ],
     "tools/check_paths.py": [
-      "hardware/manifold-layout/_scorecard.py:879 — calibration/Fences.md is held nowhere, and no tag is named for it",
+      "hardware/manifold-layout/_scorecard.py:887 — calibration/Fences.md is held nowhere, and no tag is named for it",
       "  tools/render/render-view.js:21 — calibration/Fences.md is held nowhere, and no tag is named for it",
       "2 reference(s) name a path nothing holds."
     ]
