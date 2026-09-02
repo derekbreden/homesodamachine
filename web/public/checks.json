@@ -57,7 +57,7 @@
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 376 of 1000 free, the next cut wants 3, and the whole lock reads by name in 137.9 MB against 140.3 MB of bundle",
+      "note": "check_release_room: 454 of 1000 free, the next cut wants 3, and the whole lock reads by name in 137.9 MB against 140.3 MB of bundle",
       "status": "ok"
     },
     {
