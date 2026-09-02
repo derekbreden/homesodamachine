@@ -107,7 +107,6 @@ The appliance ships with the water filter included, mounted **external to the en
 | [BOJACK SF76E SEFUSE thermal fuse, 77 °C, 10 A / 250 V (10-pack)](https://www.amazon.com/dp/B07Y61YTTK) | Hardware thermal cutoff in series between AC-4 switched hot and the verified hot side of the compressor assembly's factory-external electrical interface; its case is clamped against the outside flank of the retained donor terminal cover. Safety rationale in [`assembly/refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md) "Safety". 1 of 10 per unit ($6.42/10) | 1 (of 10 pk) | $0.64 | $0.64 <!--@ac-mains--> |
 | [ACEIRMC MQ-6 LPG / iso-butane combustible gas sensor module (5-pack)](https://www.amazon.com/dp/B0978JSCZ8) | combustible-gas sensor lying on edge along the open floor strip down the −X wall of the refrigeration bay, beside the compressor, where dense R-600a pools on the cabinet floor. The sensor board has no mounting hole, so nothing is bought to hold it: it drops into two grooved posts printed on that floor (`enclosure._west_cradle`) and its can bottoms in a well cut back to the wall. Safety rationale in [`assembly/refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md) "Safety". 1 of 5 per unit ($11.79/5) | 1 (of 5 pk) | $2.36 | $2.36 <!--@sensors--> |
 
-Fallback path (UL/ETL-retail-friendly): RIGID DV1910E sealed refrigeration module (~$600 + 20–30% import duty). Not selected for this BOM.
 
 ## 6. Cold core insulation
 

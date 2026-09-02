@@ -95,7 +95,7 @@ Each segment has the same problem — welding suppliers feel commercial, run bus
 The service is not a moat for the appliance. It is one of the rungs on the curator menu, and most of the rungs lean on it:
 
 - The CGA-320 adapter kit customer ([`cga320-kit.md`](/future/pie-in-the-sky/cga320-kit.md)) has a 5 lb tank to refill — they are the highest-volume CO2 customer in the catalog by user count.
-- The Kitchen / Shop Edition customer has a 5 lb tank to refill. Bundling N free refills into Founder Edition pricing is the natural appliance-side integration.
+- The appliance customer has a 5 lb tank to refill, and so would a countertop-unit customer. Bundling N free refills into Founder Edition pricing is the natural appliance-side integration.
 - The SodaStream owner who took our editorial advice and bought a 5 lb tank with an adapter is a perfect cross-sell.
 - A customer who never buys our appliance is still a happy CO2-service customer. That alone makes this a real business rather than an attached feature.
 
