@@ -753,6 +753,125 @@ bool machineIsCleaning() { return state == ST_CLEANING; }
 
 void machineReadCleanState(MachineCleanState &st) { cleanFill(st, millis()); }
 
+// ── The self-test ─────────────────────────────────────────────────────────
+// One load at a time, each parked and read back before the next: V-A through
+// V-K for a quarter second each, the condenser fan for a second, pump A and
+// pump B for a second each. Fourteen steps, a quarter-second gap between them.
+static const uint32_t kSelfTestValveMs = 250;
+static const uint32_t kSelfTestGapMs   = 250;
+static const uint32_t kSelfTestFanMs   = 1000;
+static const uint32_t kSelfTestPumpMs  = 1000;
+static const uint8_t  kSelfTestSteps   = machine_policy::kValveCount + 3;
+static uint8_t  selfTestStep    = 0;
+static uint32_t selfTestPhaseMs = 0;
+static bool     selfTestStarted = false;   // the first step has been driven
+static bool     selfTestOn      = false;   // the step's load is energised; else in its gap
+static uint8_t  selfTestFailed  = 0;       // steps that did not take
+
+static const char *selfTestStepName(uint8_t step, char *buf, size_t n) {
+    if (step < machine_policy::kValveCount) snprintf(buf, n, "V-%c", 'A' + step);
+    else if (step == machine_policy::kValveCount) snprintf(buf, n, "condenser fan");
+    else snprintf(buf, n, "pump %s", kPump[(step - machine_policy::kValveCount - 1) & 1].who);
+    return buf;
+}
+
+static uint32_t selfTestOnMs(uint8_t step) {
+    if (step < machine_policy::kValveCount) return kSelfTestValveMs;
+    if (step == machine_policy::kValveCount) return kSelfTestFanMs;
+    return kSelfTestPumpMs;
+}
+
+// Drives step's load. False when the expanders would not take it or the pump
+// would not start; the load is parked either way.
+static bool selfTestDrive(uint8_t step) {
+    if (step < machine_policy::kValveCount) {
+        const machine_policy::ValveMask v = machine_policy::valveBit(static_cast<machine_policy::Valve>(step));
+        return pcba::expanders().apply(pcba::ExpanderOutputs(v, false));
+    }
+    if (step == machine_policy::kValveCount)
+        return pcba::expanders().apply(pcba::ExpanderOutputs(0, true));
+    return pumpDrive((step - machine_policy::kValveCount - 1) & 1);
+}
+
+static void selfTestParkStep(uint8_t step) {
+    if (step > machine_policy::kValveCount) pumpPark((step - machine_policy::kValveCount - 1) & 1);
+    else if (!pcba::expanders().apply(pcba::ExpanderOutputs())) pcba::expanders().parkAll();
+}
+
+static void selfTestEnd(const char *how) {
+    if (!pcba::expanders().apply(pcba::ExpanderOutputs())) pcba::expanders().parkAll();
+    led(PIN_LED_ACT, false);
+    state = ST_IDLE;
+    Serial.printf("\n[machine] self-test %s: %u of %u steps took, %u did not — everything parked\n",
+                  how, (unsigned)(kSelfTestSteps - selfTestFailed), (unsigned)kSelfTestSteps,
+                  (unsigned)selfTestFailed);
+    soundPlay(selfTestFailed ? SND_FAULT : SND_CHIME);
+}
+
+static void selfTestService(uint32_t now) {
+    if (state != ST_SELFTEST) return;
+    if (machineGasTripped()) {
+        if (selfTestOn) selfTestParkStep(selfTestStep);
+        selfTestEnd("stopped by the gas alarm");
+        return;
+    }
+    char name[16];
+    if (selfTestOn) {
+        if (now - selfTestPhaseMs < selfTestOnMs(selfTestStep)) return;
+        selfTestParkStep(selfTestStep);
+        selfTestOn = false;
+        selfTestPhaseMs = now;
+        Serial.printf("[machine] self-test: %s released\n", selfTestStepName(selfTestStep, name, sizeof(name)));
+        return;
+    }
+    // In the gap after a step, or at the very start.
+    if (selfTestStarted) {
+        if (now - selfTestPhaseMs < kSelfTestGapMs) return;
+        if (selfTestStep + 1 >= kSelfTestSteps) { selfTestEnd("complete"); return; }
+        selfTestStep++;
+    }
+    selfTestStarted = true;
+    if (selfTestDrive(selfTestStep)) {
+        selfTestOn = true;
+        Serial.printf("[machine] self-test: %s driven for %lu ms\n",
+                      selfTestStepName(selfTestStep, name, sizeof(name)),
+                      (unsigned long)selfTestOnMs(selfTestStep));
+    } else {
+        selfTestFailed++;
+        selfTestOn = false;
+        Serial.printf("[machine] self-test: %s DID NOT TAKE (%s)\n",
+                      selfTestStepName(selfTestStep, name, sizeof(name)),
+                      machineIoFaultName(static_cast<uint8_t>(pcba::expanders().lastFault())));
+        if (!pcba::expanders().initialized()) { selfTestEnd("stopped — the expanders fell out"); return; }
+    }
+    selfTestPhaseMs = now;
+}
+
+bool machineSelfTestBegin() {
+    if (state != ST_IDLE || machineGasTripped() || !pcba::expanders().initialized()) {
+        soundPlay(SND_REFUSE);
+        return false;
+    }
+    selfTestStep    = 0;
+    selfTestPhaseMs = 0;
+    selfTestStarted = false;
+    selfTestOn      = false;
+    selfTestFailed  = 0;
+    state = ST_SELFTEST;
+    led(PIN_LED_ACT, true);
+    Serial.printf("\n[machine] self-test: %u solenoids, the fan, both pumps — one at a time\n",
+                  (unsigned)machine_policy::kValveCount);
+    soundPlay(SND_ACK);
+    selfTestService(millis());
+    return true;
+}
+
+void machineSelfTestStop() {
+    if (state != ST_SELFTEST) return;
+    if (selfTestOn) selfTestParkStep(selfTestStep);
+    selfTestEnd("stopped on request");
+}
+
 // ── Setup and service ─────────────────────────────────────────────────────
 void machineBegin() {
     soundBegin(PIN_BUZZ);   // the coil is parked before anything else runs
@@ -811,6 +930,7 @@ void machineService() {
     primeSessionLeaseService(now);
     fillService(now);
     cleanService(now);
+    selfTestService(now);
     if (state != ST_PUMPING) return;
 
     const uint32_t elapsed = pumpTimer.elapsedMs(now);
@@ -1011,6 +1131,7 @@ bool machinePumpRun(uint8_t channel, uint32_t ms) {
 void machineStop() {
     if      (state == ST_FILLING)  machineFillStop();
     else if (state == ST_CLEANING) machineCleanStop();
+    else if (state == ST_SELFTEST) machineSelfTestStop();
     else                           endPumping(PRIME_STOPPED);
 }
 
@@ -1020,6 +1141,7 @@ const char  *machineStateName() {
         case ST_PUMPING:  return "pumping";
         case ST_FILLING:  return "filling";
         case ST_CLEANING: return "cleaning";
+        case ST_SELFTEST: return "self-test";
         default:          return "idle";
     }
 }
