@@ -31,7 +31,8 @@ def revolve_rect(r_range, z_range, angle=360):
         .lineTo(r_max, z_min)
         .lineTo(r_max, z_max)
         .lineTo(r_min, z_max)
-        .close()
+        .lineTo(r_min, z_min)
+        .wire()
         .revolve(angle)
     )
 

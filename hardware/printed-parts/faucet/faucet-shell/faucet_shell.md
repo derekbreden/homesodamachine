@@ -36,6 +36,14 @@ fix this doc.
   `_vertical_plane`, `_path_plane`, `_profile_plane` — each with its `xDir` and
   `normal` stated, so a drawn `(a, b)` maps to a world axis you can predict
   without re-deriving it. The machinery is `../../cadlib/world_workplane.py`.
+- A closed profile names its own closing point: the last step returns to the
+  point the profile opened on, and the chain ends `.wire()`. `Workplane.close()`
+  infers that point instead, from the last edge's end read back off OCCT — handed
+  back rebuilt as origin + t·direction, a few 1e-16 from the one passed in — so the
+  wire's first vertex stands off the station the profile states, and a tangential
+  boolean downstream resolves it one way in one process and the other way in the
+  next. Every generator in the tree draws its closing edge; where a file has
+  several, a local `_ring` repeats the first point for it.
 
 ## Dimensions that also appear in prose
 

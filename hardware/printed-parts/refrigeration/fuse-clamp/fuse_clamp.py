@@ -209,9 +209,10 @@ def _profile():
 
 def build():
     """The profile swept the part's one width, with the channel cut through it."""
+    section = _profile()
     part = (
         cq.Workplane("YZ", origin=(-PART_X / 2.0, 0.0, 0.0))
-        .polyline(_profile()).close().extrude(PART_X)
+        .polyline(section + section[:1]).wire().extrude(PART_X)
     )
     channel = cq.Workplane("XY", origin=(0.0, 0.0, CHANNEL_Z / 2.0)).box(
         PART_X + 2.0, CHANNEL_H, CHANNEL_Z)

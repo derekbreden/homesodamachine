@@ -326,6 +326,17 @@ GROUND_ARM_INSERT_D = 4.0
 GROUND_ARM_INSERT_DEPTH = 5.2
 
 
+def _ring(section):
+    """A section's own points with the first repeated, so the closing edge is DRAWN.
+
+    `close()` infers it instead, from the last edge's end read back off OCCT — a few 1e-16 off
+    the point that was passed in — and a tangential boolean downstream resolves that vertex one
+    way in one process and the other way in the next. Naming the point is what makes the same
+    source write the same bytes."""
+    pts = list(section)
+    return pts if pts[0] == pts[-1] else pts + [pts[0]]
+
+
 def _annulus(outer_r: float, inner_r: float, height: float, z0: float = 0.0):
     return (
         cq.Workplane("XY", origin=(0.0, 0.0, z0))
@@ -370,12 +381,12 @@ def _sector(outer_r: float, inner_r: float, half_angle: float, height: float, z0
     a = math.radians(half_angle)
     wedge = (
         cq.Workplane("XY", origin=(0.0, 0.0, z0))
-        .polyline([
+        .polyline(_ring([
             (0.0, 0.0),
             (reach * math.cos(-a), reach * math.sin(-a)),
             (reach * math.cos(a), reach * math.sin(a)),
-        ])
-        .close()
+        ]))
+        .wire()
         .extrude(height)
     )
     return _annulus(outer_r, inner_r, height, z0).intersect(wedge)
@@ -401,8 +412,8 @@ def _annular_sector(cx: float, cy: float, outer_r: float, inner_r: float,
         points.append((cx + reach * math.cos(a), cy + reach * math.sin(a)))
     wedge = (
         cq.Workplane("XY", origin=(0.0, 0.0, z0))
-        .polyline(points)
-        .close()
+        .polyline(_ring(points))
+        .wire()
         .extrude(height)
     )
     return ring.intersect(wedge)
@@ -438,7 +449,7 @@ def _belt_solid(center: float, z0: float, z1: float, margin: float = 0.0):
             (p[0] - nx * inner, p[1] - ny * inner),
         ]
         belt = belt.union(
-            cq.Workplane("XY", origin=(0.0, 0.0, z0)).polyline(polygon).close().extrude(h)
+            cq.Workplane("XY", origin=(0.0, 0.0, z0)).polyline(_ring(polygon)).wire().extrude(h)
         )
     return belt
 
@@ -586,13 +597,13 @@ def _pulley_grooves():
     r_in = PULLEY_ROOT_R - GROOVE_UNDERCUT
     groove = (
         cq.Workplane("XY", origin=(0.0, 0.0, PULLEY_TOOTH_Z0))
-        .polyline([
+        .polyline(_ring([
             (r_out, -_groove_half_width(r_out)),
             (r_in, -_groove_half_width(r_in)),
             (r_in, _groove_half_width(r_in)),
             (r_out, _groove_half_width(r_out)),
-        ])
-        .close()
+        ]))
+        .wire()
         .extrude(PULLEY_TOOTH_H)
     )
     solids = []

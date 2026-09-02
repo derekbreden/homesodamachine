@@ -325,7 +325,7 @@ def build_logo(height: float = LOGO_H, stroke: float = LOGO_STROKE):
     outline = [_icon_xy(p, s) for p in _glass_outline()]
 
     def loop(points):
-        return cq.Workplane("XY").polyline(points).close()
+        return cq.Workplane("XY").polyline(points + points[:1]).wire()
 
     glass = (loop(outline).offset2D(half, "arc").extrude(INK_DEPTH).val()
              .cut(loop(outline).offset2D(-half, "arc").extrude(INK_DEPTH).val()))

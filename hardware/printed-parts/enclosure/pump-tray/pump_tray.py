@@ -261,7 +261,7 @@ def boss_room(air: float):
     closes them where the can begins. The octagonal collar walls, rather than this cutter,
     carry the fitted location."""
     return (cq.Workplane("XY")
-            .polyline(_pc.offset_polygon(_pc.bore_profile, air)).close()
+            .polyline(_pc._ring(_pc.offset_polygon(_pc.bore_profile, air))).wire()
             .extrude(boss_depth).val())
 
 
@@ -315,7 +315,7 @@ def build_pump_tray(root: float):
     tray = tray.cut(cq.Workplane("XY")
                     .workplane(offset=-1.0)
                     .center(cx, cy + rear_axis_y_shift)
-                    .polyline(_pc.bore_profile).close()
+                    .polyline(_pc._ring(_pc.bore_profile)).wire()
                     .extrude(boss_depth + 1.0))
     # AND THE TRAY STOPS ON THE FACE IT ROOTS ON, so it meets the wall plane to plane.
     tray = tray.cut(_slab(cx - big, cx + big, cy - root - big, cy - root, -1.0, d + 1.0))

@@ -64,10 +64,11 @@ class Frame:
 def _polyline_in_zone(frame, zone_range, points, overshoot=0.0):
     """Extrude a closed polyline across the zone, optionally overshooting."""
     z_lo, z_hi = min(zone_range), max(zone_range)
+    pts = list(points)
     return (
         cq.Workplane(frame.extrusion_plane)
         .workplane(offset=z_lo - overshoot)
-        .polyline(points).close()
+        .polyline(pts + pts[:1]).wire()
         .extrude((z_hi - z_lo) + 2 * overshoot)
     )
 

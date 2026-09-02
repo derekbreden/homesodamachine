@@ -148,8 +148,8 @@ def build_arrow():
     return (
         cq.Workplane("XY")
         .workplane(offset=boss_z_range[0] - arrow_emboss)
-        .polyline(arrow_profile)
-        .close()
+        .polyline(arrow_profile + arrow_profile[:1])
+        .wire()
         .extrude(arrow_emboss + arrow_sink)
     )
 

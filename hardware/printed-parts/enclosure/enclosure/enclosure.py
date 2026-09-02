@@ -4469,7 +4469,7 @@ def _mq6_chute(sy, sz):
             .threePointArc((sy, top_axis + half), (sy + half, top_axis))
             .lineTo(sy + half, sz)
             .threePointArc((sy, sz - half), (sy - half, sz))
-            .close()
+            .wire()
         )
 
     chute = profile(cq.Workplane("YZ", origin=(lx0 - 1.0, 0.0, 0.0)), 0.0)
@@ -7494,12 +7494,12 @@ def _asse_v(x_apex, z_axis, y0, y1, up, dn, x_east):
     run = 1.0 / math.tan(math.radians(asse_v_half))
     return (
         cq.Workplane("XZ")
-        .polyline([(x_apex, z_axis),
-                   (x_apex + up * run, z_axis + up),
-                   (x_east, z_axis + up),
-                   (x_east, z_axis - dn),
-                   (x_apex + dn * run, z_axis - dn)])
-        .close()
+        .polyline(_ring([(x_apex, z_axis),
+                         (x_apex + up * run, z_axis + up),
+                         (x_east, z_axis + up),
+                         (x_east, z_axis - dn),
+                         (x_apex + dn * run, z_axis - dn)]))
+        .wire()
         .extrude(-(y1 - y0))
         .val()
         .translate((0.0, y0, 0.0))
@@ -7610,12 +7610,12 @@ def _asse_tie_cavity(x_apex, x_wall, z_axis, y0, y1, up, dn):
     over_up, over_dn = up + 1.0, dn + 1.0
     return (
         cq.Workplane("XZ")
-        .polyline([(x_w, z_axis + over_up),
-                   (x_in + over_up * run, z_axis + over_up),
-                   (x_in, z_axis),
-                   (x_in + over_dn * run, z_axis - over_dn),
-                   (x_w, z_axis - over_dn)])
-        .close()
+        .polyline(_ring([(x_w, z_axis + over_up),
+                         (x_in + over_up * run, z_axis + over_up),
+                         (x_in, z_axis),
+                         (x_in + over_dn * run, z_axis - over_dn),
+                         (x_w, z_axis - over_dn)]))
+        .wire()
         .extrude(-(y1 - y0))
         .val()
         .translate((0.0, y0, 0.0))
@@ -7944,8 +7944,8 @@ def _anchor_rib(origin, u, n, length, reach, b0, b1):
     """The material the seat and its cavity are cut out of, root face to the seat's own flanks."""
     return (
         cq.Workplane(_anchor_plane(origin, u, n))
-        .polyline([(-reach, b0), (reach, b0), (reach, b1), (-reach, b1)])
-        .close()
+        .polyline(_ring([(-reach, b0), (reach, b0), (reach, b1), (-reach, b1)]))
+        .wire()
         .extrude(length)
         .val()
     )
@@ -7958,9 +7958,9 @@ def _anchor_corbel(origin, u, n, length, a_hang, b_root, deep):
     `a_hang` is the flank it stands under, and it grows outboard of that flank."""
     return (
         cq.Workplane(_anchor_plane(origin, u, n))
-        .polyline([(a_hang, b_root - deep), (a_hang + math.copysign(deep, a_hang), b_root),
-                   (a_hang, b_root)])
-        .close()
+        .polyline(_ring([(a_hang, b_root - deep), (a_hang + math.copysign(deep, a_hang), b_root),
+                         (a_hang, b_root)]))
+        .wire()
         .extrude(length)
         .val()
     )

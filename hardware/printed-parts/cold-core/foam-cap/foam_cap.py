@@ -102,6 +102,17 @@ lid_open_area = (math.pi * foam_cap_lid_pour_radius ** 2
 
 
 
+def _ring(section):
+    """A section's own points with the first repeated, so the closing edge is DRAWN.
+
+    `close()` infers it instead, from the last edge's end read back off OCCT — a few 1e-16 off
+    the point that was passed in — and a tangential boolean downstream resolves that vertex one
+    way in one process and the other way in the next. Naming the point is what makes the same
+    source write the same bytes."""
+    pts = list(section)
+    return pts if pts[0] == pts[-1] else pts + [pts[0]]
+
+
 def _circle_beyond(d, r):
     """The area of a circle of radius `r` lying beyond a chord its centre stands `d` from —
     signed, so a centre on the far side of that line (`d` < 0) reports most of the circle."""
@@ -242,9 +253,9 @@ def add_chain_anchors(lid, face_z):
             return (
                 WorldWorkplane(yz_plane_x_up)
                 .workplane(offset=xa)
-                .polyline([(cy - reach, za), (cy + reach, za),
-                           (cy + reach, zb), (cy - reach, zb)])
-                .close()
+                .polyline(_ring([(cy - reach, za), (cy + reach, za),
+                                 (cy + reach, zb), (cy - reach, zb)]))
+                .wire()
                 .extrude(length)
             )
 
@@ -293,9 +304,9 @@ def add_side_anchors(lid, face_z):
             return (
                 WorldWorkplane(xy_plane_z_up)
                 .workplane(offset=za)
-                .polyline([(cx, ya), (cx - cap_side_depth, ya),
-                           (cx - cap_side_depth, ya + length), (cx, ya + length)])
-                .close()
+                .polyline(_ring([(cx, ya), (cx - cap_side_depth, ya),
+                                 (cx - cap_side_depth, ya + length), (cx, ya + length)]))
+                .wire()
                 .extrude(zb - za)
             )
 
@@ -306,11 +317,11 @@ def add_side_anchors(lid, face_z):
         tunnel = (
             WorldWorkplane(xy_plane_z_up)
             .workplane(offset=sill_z)
-            .polyline([(cx, cy - cap_side_cav_w / 2.0),
-                       (cx - cap_side_depth, cy - cap_side_cav_w / 2.0),
-                       (cx - cap_side_depth, cy + cap_side_cav_w / 2.0),
-                       (cx, cy + cap_side_cav_w / 2.0)])
-            .close()
+            .polyline(_ring([(cx, cy - cap_side_cav_w / 2.0),
+                             (cx - cap_side_depth, cy - cap_side_cav_w / 2.0),
+                             (cx - cap_side_depth, cy + cap_side_cav_w / 2.0),
+                             (cx, cy + cap_side_cav_w / 2.0)]))
+            .wire()
             .extrude(roof_z - sill_z)
         )
         # The pipe runs ALONG the post, which is the cap's own Y — so its plane is the one whose
@@ -331,11 +342,12 @@ def add_side_anchors(lid, face_z):
         relief = (
             WorldWorkplane(xy_plane_z_up)
             .workplane(offset=sill_z)
-            .polyline([(cx - cap_side_depth + cap_side_back_relief, cy - cap_side_cav_w / 2.0),
-                       (cx - cap_side_depth, cy - cap_side_cav_w / 2.0),
-                       (cx - cap_side_depth, cy + cap_side_cav_w / 2.0),
-                       (cx - cap_side_depth + cap_side_back_relief, cy + cap_side_cav_w / 2.0)])
-            .close()
+            .polyline(_ring([
+                (cx - cap_side_depth + cap_side_back_relief, cy - cap_side_cav_w / 2.0),
+                (cx - cap_side_depth, cy - cap_side_cav_w / 2.0),
+                (cx - cap_side_depth, cy + cap_side_cav_w / 2.0),
+                (cx - cap_side_depth + cap_side_back_relief, cy + cap_side_cav_w / 2.0)]))
+            .wire()
             .extrude(top_z - sill_z)
         )
         lid = lid.union(post.cut(bore).cut(tunnel).cut(relief).clean().val())

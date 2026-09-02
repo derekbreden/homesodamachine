@@ -820,9 +820,10 @@ def _build_connection_steps(work: Path) -> dict[str, Path]:
                 (plug_y0 + 10.0, latch_z - 0.75),
                 (plug_y0 + 16.0, latch_z - 0.75),
                 (plug_y0 + 16.0, latch_z - 2.35),
+                (plug_y0 + 10.0, latch_z - 0.75),
             ]
         )
-        .close()
+        .wire()
         .extrude(3.4)
         .translate((jack_x - 1.7, 0.0, 0.0))
         .val()

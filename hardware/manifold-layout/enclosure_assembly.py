@@ -1348,7 +1348,7 @@ def export_collet_plate_dxf(spec, path):
     Written through `export_dxf`, so the header's save-time stamps and GUIDs come out
     canonical and a rebuild that moves no dimension leaves the file alone."""
     flat = (cq.Workplane("XY")
-            .polyline(list(_enc.plate_outline(spec))).close().extrude(1.0))
+            .polyline(_enc._ring(_enc.plate_outline(spec))).wire().extrude(1.0))
     for hx, hz in spec["holes"]:
         flat = flat.cut(cq.Workplane("XY").workplane(offset=-0.5)
                         .center(hx, hz).circle(spec["hole_d"] / 2.0).extrude(2.0))
