@@ -313,7 +313,8 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 
 - **5 lb CO2 tank** + refills (~$25/refill at welding/homebrew shops) — the tank only; the appliance ships with the CGA-320 primary regulator (§4) that mounts on it
 - **Flavor concentrate** — SodaStream or BIB syrup
-- **Tap-water source under the cabinet** — an existing 3/8" or 1/2" angle-stop on a cold-water line (the same prerequisite a dishwasher or under-counter water filter has). The kit includes the tee, the 1/4" LLDPE, and the water filter — the customer brings only the existing angle stop.
+- **Tap-water source under the cabinet** — a cold-water line the kit's tee lands on. Scenario A, the path [`quickstart/`](/hardware/quickstart/README.md) draws, is an existing 1/4" plastic line on a push fitting and takes the John Guest union tee with no tool. Scenario B is an existing 3/8" or 1/2" angle stop and takes the HAOCHEN add-a-tee with a wrench (both tees are in §3). The kit includes the tee, the 1/4" LLDPE and the water filter; the customer brings the line.
+- **The countertop opening** — a 1-3/8" hole through the counter for the faucet. Out of scope of the shipped guide ([`assembly/faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md) "Not in scope"); on stone it is a diamond core bit and usually a countertop pro.
 
 ## Sources
 [value](NAME) texts are updated by:

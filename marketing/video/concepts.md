@@ -51,7 +51,7 @@ Show the faucet. Show the pour. Show what's under the counter. Show the app. Sho
 
 ### 3. The Install (2-3 minutes)
 
-Real-time (sped up where boring) install of the system. Unbox. Connect to water line. Connect CO2. Plug in. Pour. Show the clock — start to first pour. The claim is "under an hour, no plumber." Prove it on camera.
+Real-time (sped up where boring) install of the system. Unbox. Connect to water line. Connect CO2. Plug in. Pour. Show the clock — start to first pour. What is being proved is the claim [`target-market.md`](/marketing/target-market.md) "What install asks" makes: one hole through the countertop, then an afternoon of push-fittings, no threaded fitting opened.
 
 - **Audience:** People in the decision phase. They've seen the pour, they believe it's real, now they need to believe they can do the install.
 - **Shareability:** Moderate.

@@ -7540,5 +7540,20 @@
     "writes": [
       "marketing/install-envelope.md"
     ]
+  },
+  "marketing/_target_market_sync.py": {
+    "reads": [
+      "hardware/ledger/bom.figures.json",
+      "hardware/ledger/labor.figures.json",
+      "hardware/ledger/machine-time.figures.json",
+      "marketing/target-market.md",
+      "tools/docgen/__init__.py"
+    ],
+    "rewritten": [
+      "marketing/target-market.md"
+    ],
+    "writes": [
+      "marketing/target-market.md"
+    ]
   }
 }

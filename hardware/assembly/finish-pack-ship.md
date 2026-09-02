@@ -68,7 +68,7 @@ The signature is not printed — it lands here, at the final-stage bench, on the
 - **Handwritten path (working default until the first plate prints):** sign the plate's face with the archival pigment-ink pen, in the clear band under the link. Let the ink set for the manufacturer's specified dry time before mounting — typical pigment ink is touch-dry inside 30 seconds and abrasion-resistant after a few minutes.
 - **Laser-engrave path (alternative pending the test-print review):** load the plate into the engraver's fixture, register against its own outline, run the per-unit pen-trace vector. Vacuum any engrave dust off the face before mounting.
 
-Whichever path is in service, the signature is applied to *this* plate for *this* unit — the builder is signing this specific machine, not pre-signing a batch of blank plates. The signature is the physical proof per [`/marketing/target-market.md`](/marketing/target-market.md) "At Founder Edition, the brand is a person" that a specific person built this specific machine.
+Whichever path is in service, the signature is applied to *this* plate for *this* unit — the builder is signing this specific machine, not pre-signing a batch of blank plates. The signature is the physical proof per [`/marketing/target-market.md`](/marketing/target-market.md) "Trust at Founder Edition: the brand is a person" that a specific person built this specific machine.
 
 Mount the signed plate into its pocket on the +Y wall and draw the two M3×8 cap screws down into the heat-sets in the wall's own bosses, one at each end of the plate on its horizontal centreline. The heads land in the plate's counterbores and come out flush with the wall. Apply the signature first and mount second — a plate in its pocket cannot be signed in place.
 
@@ -134,7 +134,7 @@ Generate the carrier label from the carrier's web portal against the customer's 
 
 Hand the carton off to the carrier at scheduled pickup. Scan the carton out of the run log at handoff (`logs/<serial>/finish/shipped.txt` records the tracking number, carrier, handoff date/time, and the carrier's pickup-driver acknowledgment).
 
-Email the tracking number to the customer the same day, against the email on file with the order. The Founder Edition framing per [`/marketing/target-market.md`](/marketing/target-market.md) "trust gap" makes the carrier-handoff email a personal touch from the founder — written from `derek@homesodamachine.com`, naming the unit's serial number, attaching the +Y wall's photo from step 5 — not a templated drop-ship notification. The customer paid [$7,500](FOUNDER_EDITION_PRICE) to one of the first [50](FOUNDER_EDITION_COUNT) hand-built units; the handoff email reads accordingly.
+Email the tracking number to the customer the same day, against the email on file with the order. The Founder Edition framing per [`/marketing/target-market.md`](/marketing/target-market.md) "Trust at Founder Edition: the brand is a person" makes the carrier-handoff email a personal touch from the founder — written from `derek@homesodamachine.com`, naming the unit's serial number, attaching the +Y wall's photo from step 5 — not a templated drop-ship notification. The customer paid [$7,500](FOUNDER_EDITION_PRICE) to one of the first [50](FOUNDER_EDITION_COUNT) hand-built units; the handoff email reads accordingly.
 
 Damage-claim and warranty-registration workflow at carrier handoff is an Open item.
 
