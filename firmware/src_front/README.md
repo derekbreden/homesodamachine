@@ -207,6 +207,9 @@ shows. On black, the panel's own:
 
 `TEST:<s>` on this board's own USB console shows it without the main board.
 
+[`tools/panelcam-rectify.py`](/tools/panelcam-rectify.py) reads the fiducials' centres and the
+stripe blocks at x 240..303 and 368..431, y 268..331; move either and it has to follow.
+
 ## USB-serial commands (bring-up / diagnostics)
 
 Newline-terminated, 115200 baud over the native USB CDC:
