@@ -78,8 +78,9 @@ tools/cad-venv/bin/python tools/gen_animation_frames.py --size 360 \
 which writes `images/anim_00.h`..`anim_15.h` (RGB565 PROGMEM). LVGL cycles them
 at ~10 fps only on a full-screen operation lock: animation on the left, and a
 modal naming the operation on the right. The reusable lock is the surface for
-filling, cleaning and other periods in which the appliance intentionally
-withholds normal interaction.
+the funnel fill — where the modal widens to carry the channel's face, a progress
+bar, the time left and STOP — and for cleaning and other periods in which the
+appliance intentionally withholds normal interaction.
 
 Boot opens with **Powering on · Getting everything ready.** for at least two
 complete animation cycles. It then opens onto the main board's flavor selection
@@ -240,6 +241,8 @@ Newline-terminated, 115200 baud over the native USB CDC:
 - `PANEL:REALIGN` → request one RGB DMA recovery at the next VSYNC
 - `PRIME:START:<1|2>` / `PRIME:STOP` → the pad's own handlers, without a finger on
   the glass: same frames, same ticks, same readouts
+- `FILL:START:<1|2>` / `FILL:STOP` → the confirm page's START and the lock's STOP,
+  without a finger on the glass: same frame, same answer, same lock
 - `STATUS` → ask the base for one `StatusPayload`
 - `PUMP` → one `MSG_PUMP_RUN { B, 1000 }`
 - `LINK` → RX/TX GPIO and the frame counters
@@ -315,7 +318,7 @@ remaining 610 px is the pane, and it takes a different shape at each destination
 | Choose | two large, quiet flavor cards with an unmistakable retained selection | **the main board**, mirrored with the faucet |
 | A flavor's own page | `−`/`+` on the ratio, and a row of every logo it can wear — reached from that flavor's Choose card, and Back returns there | display-local |
 | Prime | flavor choice → shared hold pad | **the base** |
-| Fill | flavor choice → confirmation | **the base** |
+| Fill | flavor choice → confirmation → the operation lock while it draws | **the base** |
 | Clean | flavor choice → confirmation | **the base** |
 | Settings | a deliberately quiet surface until a useful preference is ready; reached from the corner | — |
 
@@ -414,14 +417,31 @@ CANCEL is retried until exact main board state, or a strictly newer state in tha
 session, proves it terminal. `GET_DIAG` reports those recovery counts and the main board's
 one-reply-per-turn audit.
 
-### Fill and clean
+### Fill
 
-**FILL → a flavor → START** sends `MSG_FILL_START { channel }`, which draws that
-channel from the funnel on the enclosure's top face down into its chilled
-reservoir. **CLEAN → a flavor → START** sends `MSG_CLEAN_START { channel }`. Both
-are open-ended manifold operations the main board sequences. The valve manifold hangs
-off the MCP23017s, whose pins the bench rig holds high-Z, so both answer
-`MSG_ERR_UNSUPPORTED` and the pane says so.
+**FILL → a flavor → START** sends `MSG_FILL_START { channel }`, and the main board
+opens that channel's funnel path — its three valves — and draws with its pump what
+was poured into the funnel on the enclosure's top face down into the chilled
+reservoir. The main board owns the run and answers START, `MSG_FILL_QUERY` and
+`MSG_FILL_STOP` with a complete `FillStatePayload`; it queues every change it makes on
+its own — the draw finishing, the reservoir's full reed closing, a fault — for this
+display's next turn.
+
+The run is shown on the reusable operation lock: the animation on the left, and on the
+right the channel's own face beside **Filling**, a bar that fills as the draw runs, the
+seconds left, and **STOP**. `START` is answered with the state it produced, so the lock
+comes up the moment the base takes the run; while it is up the state is asked for again
+every 500 ms, so an ending cannot be missed and a fill the console started comes up the
+same way. When the run ends the same modal holds for six seconds saying how — **Filled**,
+**Full**, **Stopped**, or a fault — then the pane returns to the fill page. A refusal —
+busy, no verified expanders, the gas alarm, an already-full reservoir — lands on the
+confirm page's own message line instead of the lock.
+
+### Clean
+
+**CLEAN → a flavor → START** sends `MSG_CLEAN_START { channel }`, an open-ended manifold
+sequence the main board does not carry yet, so it answers `MSG_ERR_UNSUPPORTED` and the
+pane says so.
 
 ### Frame rate
 

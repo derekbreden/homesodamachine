@@ -12,9 +12,19 @@ once per fab batch, with the manifold unplugged.
 
 ## What runs today
 
-The glass-facing operation remains one flavor pump. The main board also establishes and
-reports the safe I/O foundation the next connected bench uses.
+The glass-facing operations are one flavor pump and the funnel fill. The main board also
+establishes and reports the safe I/O foundation the next connected bench uses.
 
+- **The funnel fill.** `MSG_FILL_START` from the enclosure, or `fill <a|b> [s]` from the
+  console, opens the channel's funnel path — three valves, `FunnelFillA/B` in
+  [`machine_policy`](/firmware/lib/machine_policy/machine_policy.h) — and draws with that
+  channel's pump what was poured into the funnel down into its chilled reservoir. A run
+  draws for a planned 80 s — a 440 mL bottle at the slowest rated KPHM600 head, with the
+  line behind the funnel drawn clear — and ends the moment the reservoir's full reed
+  closes. The pump stops a quarter-second before its valves close, so a head never turns
+  against a shut outlet. It is refused while anything else runs, while the expanders are
+  unverified, and under the gas alarm; every answer and every ending is a complete
+  `FillStatePayload` on `MSG_RESP_FILL`, and `MSG_FILL_QUERY` reads it back.
 - **A shared prime-ready session.** Service → Prime → a flavor on the 4.3B enclosure display
   opens a main-board-owned session and wakes the faucet into the same mode. Either display
   can hold its pad to run that selected pump; tokenized `MSG_PRIME_SESSION_*` controls keep
@@ -36,8 +46,10 @@ reports the safe I/O foundation the next connected bench uses.
 
 At boot both MCP23017 output latches are cleared before Port A becomes output, their complete
 safety configuration is read back, and Port B gets the internal pull-ups the reed looms rely
-on. No runtime operation opens a valve or runs the condenser fan. Neither relay is ever
-driven. A clean cycle is answered `MSG_ERR_UNSUPPORTED`.
+on. The funnel fill is the one runtime operation that opens valves — at most three, its
+channel's funnel path — and it parks them the instant a write or a reed read fails. Nothing
+runs the condenser fan and neither relay is ever driven. A clean cycle is answered
+`MSG_ERR_UNSUPPORTED`.
 
 ## The files
 
@@ -68,6 +80,8 @@ pio device monitor -e appliance
 | | |
 |---|---|
 | `pump <a\|b> [ms]` | run one flavor pump, bounded — default 2000, ceiling 60000 |
+| `fill <a\|b> [s]` | the funnel fill: the channel's funnel path open and its pump drawing, for `s` s (default 80) or until the reservoir's full reed closes |
+| `ui <page> [a\|b] [go]` | put a customer page on the enclosure — choose, prime, fill, clean, settings — optionally for a flavor, `go` pressing its START |
 | `flavor [a\|b]` | read or set the main-board-owned flavor selection, and the logo pair beside it |
 | `art [<a> <b>]` | read or set which logo each channel wears, persisted in NVS and published to both glasses |
 | `stop` | end whatever is running |
