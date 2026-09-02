@@ -1,6 +1,6 @@
 # Assembly instruction cards
 
-Bench-side instruction cards for building the Kitchen edition, one card per hand
+Bench-side instruction cards for building the appliance, one card per hand
 operation, printed full-bleed on 4" × 6" gloss (Epson EcoTank, borderless). The
 deck walks the whole build in the order of [`/hardware/assembly/`](/hardware/assembly/)'s
 procedure docs. A card is a rendering of its procedure step — when a procedure
