@@ -220,6 +220,8 @@ static void help() {
     Serial.println("  stop              end whatever is running");
     Serial.println("  status            machine state, uptime, heap");
     Serial.println("  flavor [a|b]      selected flavor (main-board-owned and persisted)");
+    Serial.printf ("  ratio [a|b] [%u-%u]  what a channel pours at, 1:n water to concentrate (persisted)\n",
+                   FLAVOR_RATIO_MIN, FLAVOR_RATIO_MAX);
     Serial.println("  link              J9 enclosure display and J3 faucet links");
     Serial.println("  ping              put a frame on the pair and read its echo back");
     Serial.println("  display usb       make the externally-powered display reattach to USB");
@@ -278,6 +280,17 @@ static void status() {
     Serial.printf("  flavor   %s — %s%s\n", machinePumpName(flavorSelected()),
                   flavorEstablished() ? "main-board-owned" : "awaiting first faucet sync",
                   flavorPersisted() ? ", persisted" : ", persistence pending");
+    Serial.printf("  ratio    A 1:%u, B 1:%u\n", flavorRatio(0), flavorRatio(1));
+    {
+        MachineLevels lv;
+        machineLevels(lv);
+        char a[8], b[8];
+        if (lv.level[0] == LEVEL_UNKNOWN) snprintf(a, sizeof(a), "?"); else snprintf(a, sizeof(a), "%u", lv.level[0]);
+        if (lv.level[1] == LEVEL_UNKNOWN) snprintf(b, sizeof(b), "?"); else snprintf(b, sizeof(b), "%u", lv.level[1]);
+        Serial.printf("  level    A %s/%u, B %s/%u%s — carbonator low=%s high=%s\n", a, LEVEL_SEGMENTS,
+                      b, LEVEL_SEGMENTS, lv.valid ? "" : " (reeds not read lately)",
+                      lv.carbLow ? "yes" : "no", lv.carbHigh ? "yes" : "no");
+    }
     MachineIoStatus io;
     const bool ioHealthy = machineReadIoStatus(io);
     Serial.printf("  expanders %s — cfg=%s, plan=%s, parked=%s, OLATA=%02X/%02X, GPPUB=%02X/%02X\n",
@@ -886,6 +899,23 @@ static void console(const String &line) {
         return;
     }
 
+    if (line.startsWith("ratio")) {
+        String rest = line.substring(5); rest.trim();
+        if (rest.length()) {
+            char which = rest[0] | 0x20;
+            String nArg = rest.substring(1); nArg.trim();
+            const int n = nArg.toInt();
+            if ((which != 'a' && which != 'b') || n < FLAVOR_RATIO_MIN || n > FLAVOR_RATIO_MAX) {
+                Serial.printf("\nusage: ratio <a|b> <%u-%u>\n", FLAVOR_RATIO_MIN, FLAVOR_RATIO_MAX);
+                return;
+            }
+            const uint8_t r0 = which == 'a' ? (uint8_t)n : flavorRatio(0);
+            const uint8_t r1 = which == 'b' ? (uint8_t)n : flavorRatio(1);
+            flavorRatioSet(r0, r1);
+        }
+        Serial.printf("\nratio A 1:%u, B 1:%u (persisted)\n", flavorRatio(0), flavorRatio(1));
+        return;
+    }
     if (line == "idle") {
         Serial.printf("\nidle %s — quiet %lus of %lus\n",
                       idleAsleep() ? "asleep" : "awake",

@@ -32,8 +32,8 @@ foundation the next connected bench uses.
   channel's tap-water path — V-A, its select and its return, `CleanWaterFillA/B` — with the
   pump off, tap pressure crossing the idle head into the reservoir until the full reed closes
   or 90 s pass; then its dispense path — its draw and its flavor tube, `CleanFlushA/B` — with
-  the pump on, out through the faucet until the empty reed has opened and 8 s more have
-  drawn the flavor tube clear, or 150 s pass. Between steps the pump stops and every valve
+  the pump on, out through the faucet until the empty reed closes — the float down at the
+  reservoir's empty mark — and 8 s more have drawn the flavor tube clear, or 150 s pass. Between steps the pump stops and every valve
   is closed for a quarter second. It is refused on the same grounds as the fill, and every
   answer, every step and every ending is a complete `CleanStatePayload` on `MSG_RESP_CLEAN`,
   which carries the round, the step, the step's clock and an estimate of the minutes left;
@@ -62,8 +62,17 @@ foundation the next connected bench uses.
   faucet's saved boot-logo candidate on its first synchronization; an established main board
   wins.
 - **Status.** `MSG_STATUS_REQ` is answered from cached main board state with uptime, heap,
-  J9 frame counts, the MQ-6 divider and whether a prime is live. The USB `status` command
+  J9 frame counts, the MQ-6 divider, which operation is live, both reservoirs' reeds and
+  gauges, the carbonator's two reeds, and what each channel pours at. The USB `status` command
   additionally verifies both expanders and reads all ten reed inputs on demand.
+- **Reservoir level.** Both reed columns and the carbonator's reeds are read once a second
+  while the machine is idle and every quarter second by any operation that moves a level, and
+  each reservoir's gauge is kept from them: the reed the float was last seen at, and which way
+  the machine was moving it (`machine_policy::ReservoirLevel`).
+- **The ratio.** What each channel pours at — 1:6 to 1:24 — is held here and persisted in
+  namespace `selection`, keys `ratio0` and `ratio1`, set from a flavor's own page on the
+  enclosure as `MSG_RATIO_SET` or by `ratio <a|b> <n>` on the console, and read by the
+  dispense.
 - **Sound.** The whole vocabulary below, the volume and quiet-hours settings behind it,
   and the gas alarm that none of those settings can reach.
 
@@ -106,6 +115,7 @@ pio device monitor -e appliance
 | `clean <a\|b> [rounds] [s]` | the clean cycle: tap water in through the idle pump, then pumped out the faucet, `rounds` times (default 3); `s` caps every step (default 90 in, 150 out) |
 | `ui <page> [a\|b] [go]` | put a customer page on the enclosure — choose, prime, fill, clean, settings — optionally for a flavor, `go` pressing its START |
 | `flavor [a\|b]` | read or set the main-board-owned flavor selection, and the logo pair beside it |
+| `ratio [a\|b] [6-24]` | read or set what a channel pours at, persisted in NVS and carried to the enclosure on its next poll |
 | `art [<a> <b>]` | read or set which logo each channel wears, persisted in NVS and published to both glasses |
 | `dry [s]` | before a pump replacement: air in then through to the faucet, on each channel in turn; `s` caps every step |
 | `purge <a\|b> [s]` | air into that reservoir, then the reservoir out the faucet until its empty reed opens; `s` caps every step |

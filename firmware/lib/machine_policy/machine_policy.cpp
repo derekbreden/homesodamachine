@@ -92,13 +92,47 @@ CleanEnd cleanWaterFillShouldEnd(uint32_t elapsed_ms, uint32_t planned_ms,
 }
 
 CleanEnd cleanFlushShouldEnd(uint32_t elapsed_ms, uint32_t planned_ms,
-                             bool empty_seen_closed, uint32_t empty_opened_at_ms) {
-    if (empty_seen_closed && empty_opened_at_ms != UINT32_MAX &&
-        elapsed_ms >= empty_opened_at_ms &&
-        elapsed_ms - empty_opened_at_ms >= kCleanFlushTailMs) return CleanEnd::Reed;
+                             uint32_t empty_closed_at_ms) {
+    if (empty_closed_at_ms != UINT32_MAX && elapsed_ms >= empty_closed_at_ms &&
+        elapsed_ms - empty_closed_at_ms >= kCleanFlushTailMs) return CleanEnd::Reed;
     if (elapsed_ms >= planned_ms) return CleanEnd::Planned;
     return CleanEnd::None;
 }
+
+ReservoirLevel::ReservoirLevel() : known_(false), reed_(0), at_reed_(false), left_(0) {}
+
+void ReservoirLevel::observe(uint8_t closed_mask, LevelMotion motion) {
+    closed_mask = static_cast<uint8_t>(closed_mask & ((1u << kLevelReeds) - 1));
+    if (closed_mask != 0) {
+        // The highest reed closed is where the float is.
+        uint8_t highest = 0;
+        for (uint8_t k = 0; k < kLevelReeds; ++k)
+            if (closed_mask & (1u << k)) highest = k;
+        known_   = true;
+        reed_    = highest;
+        at_reed_ = true;
+        left_    = 0;
+        return;
+    }
+    if (!known_ || !at_reed_) return;
+    // The float has just left its reed. Which way is the machine's doing;
+    // with nothing running it stays as it was until a reed says otherwise.
+    at_reed_ = false;
+    left_ = motion == LevelMotion::Rising ? 1 : motion == LevelMotion::Falling ? -1 : 0;
+}
+
+uint8_t ReservoirLevel::segments() const {
+    if (!known_) return kLevelUnknown;
+    const uint8_t at = reed_ == kLevelReeds - 1 ? kLevelSegments : reed_;
+    if (at_reed_) return at;
+    if (left_ > 0) return reed_ + 1 < kLevelSegments ? static_cast<uint8_t>(reed_ + 1) : at;
+    if (left_ < 0) return reed_ == kLevelReeds - 1 ? static_cast<uint8_t>(kLevelSegments - 1) : reed_;
+    return at;
+}
+
+bool ReservoirLevel::known() const { return known_; }
+
+uint8_t ReservoirLevel::reed() const { return reed_; }
 
 uint8_t airSteps(AirMode mode) {
     return mode == AirMode::Dry ? 4 : 2;
