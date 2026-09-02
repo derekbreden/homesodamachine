@@ -129,7 +129,8 @@ void reportMotionEvent(Event event) {
         case Event::Started:
             half_period_us = weld_rotator_policy::halfPeriodUs(travel_mm_per_s);
             setDirectionOutput();
-            next_edge_us = micros();
+            // One half period of DIR setup before the first rising edge.
+            next_edge_us = micros() + half_period_us;
             Serial.printf("RUN %s %.2f mm/s %s\n",
                           modeName(), travel_mm_per_s, directionName());
             break;
@@ -167,6 +168,16 @@ void servicePedal() {
     }
 }
 
+// Each edge is scheduled from the previous edge's due time, not from the
+// moment the loop noticed it, so loop latency does not accumulate into a
+// slower table.  A loop stall longer than one half period resynchronises
+// instead of firing a burst of catch-up pulses.
+uint32_t nextEdgeAfter(uint32_t now_us) {
+    const uint32_t late_us = now_us - next_edge_us;
+    if (late_us > half_period_us) return now_us + half_period_us;
+    return next_edge_us + half_period_us;
+}
+
 void serviceStepper() {
     const uint32_t now_us = micros();
     if (static_cast<int32_t>(now_us - next_edge_us) < 0) return;
@@ -174,7 +185,7 @@ void serviceStepper() {
     if (step_line_active) {
         digitalWrite(kPinStep, LOW);
         step_line_active = false;
-        next_edge_us = now_us + half_period_us;
+        next_edge_us = nextEdgeAfter(now_us);
         return;
     }
 
@@ -182,7 +193,7 @@ void serviceStepper() {
 
     digitalWrite(kPinStep, HIGH);
     step_line_active = true;
-    next_edge_us = now_us + half_period_us;
+    next_edge_us = nextEdgeAfter(now_us);
     reportMotionEvent(motion.pulseEmitted());
 }
 

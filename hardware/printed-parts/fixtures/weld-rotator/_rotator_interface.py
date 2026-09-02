@@ -24,11 +24,26 @@ ENDCAP_SERVICE_ENVELOPE = 1.0 * MM_PER_IN
 SERVICE_BORE_DIAMETER = 90.0
 BASE_CLEARANCE = 24.0
 
+# HTD 5M: the pitch line sits 0.5715 mm outside the pulley tip circle, the
+# belt tooth stands 2.06 mm below it and the back 1.18 mm above it.
 BELT_PITCH = 5.0
 BELT_PITCH_LENGTH = 550.0
 BELT_WIDTH = 15.0
+BELT_PITCH_LINE_OFFSET = 0.5715
+BELT_TOOTH_HEIGHT = 2.06
+BELT_THICKNESS = 3.81
 MOTOR_PULLEY_TEETH = 20
 TABLE_PULLEY_TEETH = 90
+
+# Purchased uxcell 5M 20T pulley for 15 mm belt, 6.35 mm bore: two 2 mm
+# flanges of Ø35 around a 16 mm land, 20 mm overall, no boss, two radial set
+# screws in the toothed body.
+MOTOR_PULLEY_LENGTH = 20.0
+MOTOR_PULLEY_FLANGE_DIAMETER = 35.0
+MOTOR_PULLEY_FLANGE_LENGTH = 2.0
+MOTOR_PULLEY_LAND_LENGTH = (
+    MOTOR_PULLEY_LENGTH - 2.0 * MOTOR_PULLEY_FLANGE_LENGTH
+)
 
 MOTOR_FULL_STEPS = 200
 DRIVER_MICROSTEPS = 16
@@ -39,10 +54,14 @@ TRAVEL_NOMINAL = 8.0
 TRAVEL_MAX = 15.0
 OVERLAP_DEGREES = 20.0
 
+# STEPPERONLINE 23HS30-2804S: 57 mm frame, 76.5 mm body, Ø6.35 × 21 mm
+# shaft with a 15 mm D-cut, Ø38.1 × 1.6 mm face pilot, four Ø5.2 flange
+# holes on a 47.14 mm square.
 MOTOR_FRAME = 57.3
 MOTOR_BODY_LENGTH = 76.5
 MOTOR_SHAFT_DIAMETER = 6.35
 MOTOR_SHAFT_LENGTH = 21.0
+MOTOR_SHAFT_DCUT_LENGTH = 15.0
 MOTOR_PILOT_DIAMETER = 38.1
 MOTOR_PILOT_LENGTH = 1.6
 MOTOR_MOUNT_SQUARE = 47.14
@@ -53,6 +72,16 @@ def pitch_diameter(teeth: int) -> float:
     return teeth * BELT_PITCH / math.pi
 
 
+def belt_inner_offset() -> float:
+    """Belt tooth tips, measured inward from the pitch line."""
+    return BELT_TOOTH_HEIGHT + BELT_PITCH_LINE_OFFSET
+
+
+def belt_outer_offset() -> float:
+    """Belt back, measured outward from the pitch line."""
+    return BELT_THICKNESS - belt_inner_offset()
+
+
 def belt_center_distance() -> float:
     """Larger positive solution of the standard open-belt length equation."""
     large = pitch_diameter(TABLE_PULLEY_TEETH)
@@ -60,6 +89,14 @@ def belt_center_distance() -> float:
     b = math.pi * (large + small) / 2.0 - BELT_PITCH_LENGTH
     c = (large - small) ** 2 / 4.0
     return (-b + math.sqrt(b * b - 8.0 * c)) / 4.0
+
+
+def span_tangent_angle(center: float) -> float:
+    """Angle, in radians from the centre line, of the radius to each span's
+    tangent point.  The same angle serves both pulleys of an open drive."""
+    large = pitch_diameter(TABLE_PULLEY_TEETH) / 2.0
+    small = pitch_diameter(MOTOR_PULLEY_TEETH) / 2.0
+    return math.acos((large - small) / center)
 
 
 def small_pulley_wrap_degrees() -> float:
