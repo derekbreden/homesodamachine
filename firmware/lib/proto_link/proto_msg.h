@@ -721,6 +721,7 @@ constexpr uint8_t STATUS_F_PRIMING  = 1 << 1;  // a prime hold is live
 constexpr uint8_t STATUS_F_FILLING  = 1 << 2;  // a funnel fill is drawing
 constexpr uint8_t STATUS_F_CLEANING = 1 << 3;  // a clean cycle is running
 constexpr uint8_t STATUS_F_AIRING   = 1 << 4;  // an air cycle is running
+constexpr uint8_t STATUS_F_POURING  = 1 << 5;  // carbonated water is flowing and primeChannel's pump injects
 
 // ── Sound ─────────────────────────────────────────────────────────────────
 // Wire-level sound ids. These mirror SoundId in lib/sound/sound.h, which is the

@@ -530,6 +530,10 @@ static lv_obj_t *homeFlavorRatio[2];
 // float's motion on the main board; every status poll carries the pair.
 static lv_obj_t *homeFlavorLevelCap[2];
 static lv_obj_t *homeFlavorLevelSeg[2][LEVEL_SEGMENTS];
+// A pour at the faucet: the card of the channel injecting says so over its
+// ratio for as long as the water flows.
+static lv_obj_t *homeFlavorRatioCap[2];
+static int8_t    pouringShown = -1;
 static uint8_t   levelSegments[2] = {LEVEL_UNKNOWN, LEVEL_UNKNOWN};
 static bool      levelValid = false;
 
@@ -2005,6 +2009,16 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
         if (r >= RATIO_MIN && r <= RATIO_MAX && flavorRatio[i] != r) { flavorRatio[i] = r; moved = true; }
       }
       if (moved && uiReady) refreshFlavorText();
+    }
+    const int8_t pouring = (ctrlStatus.flags & STATUS_F_POURING) ? (int8_t)(ctrlStatus.primeChannel & 1) : -1;
+    if (pouring != pouringShown) {
+      pouringShown = pouring;
+      for (uint8_t i = 0; i < 2; i++) {
+        if (!homeFlavorRatioCap[i]) continue;
+        const bool on = pouring == (int8_t)i;
+        lv_label_set_text(homeFlavorRatioCap[i], on ? "POURING" : "RATIO");
+        lv_obj_set_style_text_color(homeFlavorRatioCap[i], lv_color_hex(on ? COL_ACCENT : COL_DIM), 0);
+      }
     }
     // A fill this glass did not start — the console's, or one whose answer
     // lost its turn — is still the machine being busy, and is shown as such.
@@ -4146,6 +4160,7 @@ static void buildHome(lv_obj_t *page) {
     // what makes that target legible without opening it.
     lv_obj_t *ratioCap = mkText(card, "RATIO", &lv_font_montserrat_20, COL_DIM);
     lv_obj_align(ratioCap, LV_ALIGN_LEFT_MID, colX, -26);
+    homeFlavorRatioCap[i] = ratioCap;
     homeFlavorRatio[i] = mkText(card, "1:20", &lv_font_montserrat_40, COL_TEXT);
     lv_obj_align(homeFlavorRatio[i], LV_ALIGN_LEFT_MID, colX, 14);
 

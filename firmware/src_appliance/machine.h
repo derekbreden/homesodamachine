@@ -26,6 +26,7 @@ enum MachineState : uint8_t {
     ST_CLEANING,  // a clean cycle: one topology state at a time, the pump on for the flushes
     ST_AIRING,    // an air cycle: the funnel open to air, a pump carrying it along the path
     ST_SELFTEST,  // the commissioning walk: one load at a time, briefly
+    ST_POURING,   // carbonated water is flowing: the selected channel's dispense path open, its pump on a duty cycle
 };
 
 // Why the pump is turning, which is the same as what will stop it.
@@ -188,6 +189,21 @@ bool machineAirBegin(uint8_t mode, uint8_t channel, uint32_t stepPlannedMs = 0);
 void machineAirStop();
 bool machineIsAiring();
 void machineReadAirState(MachineAirState &state);
+
+// ── The pour ──────────────────────────────────────────────────────────────
+// The flow meter on the carbonated-water line is counted on an interrupt and
+// read every 50 ms. Flow with the machine idle opens the selected channel's
+// dispense path — its draw and its flavor tube — and runs its pump on the
+// duty cycle machine_policy::Pour sets from the flow and the channel's ratio;
+// a cooldown with nothing flowing closes it. Nothing is injected while
+// another operation runs, while the expanders are unverified, or under the
+// gas alarm; the water still pours. Relay #2 stays off while the path is open.
+bool machineIsPouring();
+bool machineDispenseWindowOpen();
+uint32_t machinePourCycles();     // pump bursts in the running or last pour
+// The bench has no meter: pretend it reads `pulses` per sample for `ms`.
+void machineFlowSimulate(uint32_t pulses, uint32_t ms);
+uint32_t machineFlowPulsesTotal();
 
 // ── The self-test ─────────────────────────────────────────────────────────
 // firmware-and-commissioning.md §7: every solenoid in turn, V-A through V-K,
