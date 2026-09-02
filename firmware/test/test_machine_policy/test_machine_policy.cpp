@@ -830,23 +830,85 @@ void test_clean_water_fill_ends_on_the_full_reed_before_the_clock() {
     TEST_ASSERT_EQUAL(CleanEnd::Planned, cleanWaterFillShouldEnd(3000, 3000, 0x07));
 }
 
-void test_clean_flush_ends_a_tail_after_the_empty_reed_opens() {
+void test_clean_flush_ends_a_tail_after_the_empty_reed_closes() {
     const uint32_t planned = kCleanFlushPlannedMs;
-    // Open from the start: never seen closed, so only the clock ends it.
-    TEST_ASSERT_EQUAL(CleanEnd::None,    cleanFlushShouldEnd(0, planned, false, UINT32_MAX));
-    TEST_ASSERT_EQUAL(CleanEnd::None,    cleanFlushShouldEnd(planned - 1, planned, false, 0));
-    TEST_ASSERT_EQUAL(CleanEnd::Planned, cleanFlushShouldEnd(planned, planned, false, 0));
-    // Seen closed, not yet open: the clock.
-    TEST_ASSERT_EQUAL(CleanEnd::None,    cleanFlushShouldEnd(planned - 1, planned, true, UINT32_MAX));
-    TEST_ASSERT_EQUAL(CleanEnd::Planned, cleanFlushShouldEnd(planned, planned, true, UINT32_MAX));
-    // Opened at 40 s: the tail runs from there.
-    TEST_ASSERT_EQUAL(CleanEnd::None, cleanFlushShouldEnd(40000, planned, true, 40000));
-    TEST_ASSERT_EQUAL(CleanEnd::None, cleanFlushShouldEnd(40000 + kCleanFlushTailMs - 1, planned, true, 40000));
-    TEST_ASSERT_EQUAL(CleanEnd::Reed, cleanFlushShouldEnd(40000 + kCleanFlushTailMs, planned, true, 40000));
+    // The empty reed never closes — a loom that is not there reads open — so
+    // only the clock ends it.
+    TEST_ASSERT_EQUAL(CleanEnd::None,    cleanFlushShouldEnd(0, planned, UINT32_MAX));
+    TEST_ASSERT_EQUAL(CleanEnd::None,    cleanFlushShouldEnd(planned - 1, planned, UINT32_MAX));
+    TEST_ASSERT_EQUAL(CleanEnd::Planned, cleanFlushShouldEnd(planned, planned, UINT32_MAX));
+    // Closed from the start — the reservoir was already at its empty mark —
+    // the tail alone runs.
+    TEST_ASSERT_EQUAL(CleanEnd::None, cleanFlushShouldEnd(kCleanFlushTailMs - 1, planned, 0));
+    TEST_ASSERT_EQUAL(CleanEnd::Reed, cleanFlushShouldEnd(kCleanFlushTailMs, planned, 0));
+    // Closed at 40 s: the tail runs from there.
+    TEST_ASSERT_EQUAL(CleanEnd::None, cleanFlushShouldEnd(40000, planned, 40000));
+    TEST_ASSERT_EQUAL(CleanEnd::None, cleanFlushShouldEnd(40000 + kCleanFlushTailMs - 1, planned, 40000));
+    TEST_ASSERT_EQUAL(CleanEnd::Reed, cleanFlushShouldEnd(40000 + kCleanFlushTailMs, planned, 40000));
     // The reed wins over the clock when both are due.
-    TEST_ASSERT_EQUAL(CleanEnd::Reed, cleanFlushShouldEnd(planned, planned, true, planned - kCleanFlushTailMs));
+    TEST_ASSERT_EQUAL(CleanEnd::Reed, cleanFlushShouldEnd(planned, planned, planned - kCleanFlushTailMs));
     // A tail that would outrun the clock ends on the clock.
-    TEST_ASSERT_EQUAL(CleanEnd::Planned, cleanFlushShouldEnd(planned, planned, true, planned - 1));
+    TEST_ASSERT_EQUAL(CleanEnd::Planned, cleanFlushShouldEnd(planned, planned, planned - 1));
+}
+
+void test_reservoir_level_is_unknown_until_a_reed_is_seen() {
+    ReservoirLevel level;
+    TEST_ASSERT_FALSE(level.known());
+    TEST_ASSERT_EQUAL_UINT8(kLevelUnknown, level.segments());
+    level.observe(0x00, LevelMotion::Rising);
+    TEST_ASSERT_EQUAL_UINT8(kLevelUnknown, level.segments());
+    level.observe(0x00, LevelMotion::Still);
+    TEST_ASSERT_FALSE(level.known());
+}
+
+void test_reservoir_level_rises_through_a_fill_and_falls_through_a_draw() {
+    ReservoirLevel level;
+    // At the empty mark.
+    level.observe(0x01, LevelMotion::Still);
+    TEST_ASSERT_EQUAL_UINT8(0, level.segments());
+    // A fill lifts the float off it: something is in.
+    level.observe(0x00, LevelMotion::Rising);
+    TEST_ASSERT_EQUAL_UINT8(1, level.segments());
+    level.observe(0x00, LevelMotion::Rising);
+    TEST_ASSERT_EQUAL_UINT8(1, level.segments());
+    level.observe(0x02, LevelMotion::Rising);   // the quarter reed
+    TEST_ASSERT_EQUAL_UINT8(1, level.segments());
+    level.observe(0x00, LevelMotion::Rising);
+    TEST_ASSERT_EQUAL_UINT8(2, level.segments());
+    level.observe(0x04, LevelMotion::Rising);   // the half reed
+    TEST_ASSERT_EQUAL_UINT8(2, level.segments());
+    level.observe(0x00, LevelMotion::Rising);
+    TEST_ASSERT_EQUAL_UINT8(3, level.segments());
+    level.observe(0x08, LevelMotion::Rising);   // full
+    TEST_ASSERT_EQUAL_UINT8(4, level.segments());
+    // Idle between: nothing moves.
+    level.observe(0x00, LevelMotion::Still);
+    TEST_ASSERT_EQUAL_UINT8(4, level.segments());
+    // A draw brings it down: below full is three, then each reed passed.
+    level.observe(0x08, LevelMotion::Falling);
+    level.observe(0x00, LevelMotion::Falling);
+    TEST_ASSERT_EQUAL_UINT8(3, level.segments());
+    level.observe(0x04, LevelMotion::Falling);
+    TEST_ASSERT_EQUAL_UINT8(2, level.segments());
+    level.observe(0x00, LevelMotion::Falling);
+    TEST_ASSERT_EQUAL_UINT8(2, level.segments());
+    level.observe(0x02, LevelMotion::Falling);
+    TEST_ASSERT_EQUAL_UINT8(1, level.segments());
+    level.observe(0x00, LevelMotion::Falling);
+    TEST_ASSERT_EQUAL_UINT8(1, level.segments());
+    level.observe(0x01, LevelMotion::Falling);
+    TEST_ASSERT_EQUAL_UINT8(0, level.segments());
+    TEST_ASSERT_EQUAL_UINT8(0, level.reed());
+}
+
+void test_reservoir_level_takes_the_highest_of_two_adjacent_reeds() {
+    ReservoirLevel level;
+    level.observe(0x06, LevelMotion::Rising);   // quarter and half both closed
+    TEST_ASSERT_EQUAL_UINT8(2, level.reed());
+    TEST_ASSERT_EQUAL_UINT8(2, level.segments());
+    level.observe(0x0C, LevelMotion::Rising);   // half and full
+    TEST_ASSERT_EQUAL_UINT8(4, level.segments());
+    TEST_ASSERT_EQUAL_UINT8(4 * kServingsPerSegment, kLevelSegments * kServingsPerSegment);
 }
 
 void test_clean_cycle_left_sums_the_steps_still_to_come() {
@@ -951,7 +1013,10 @@ int main(int, char **) {
     UNITY_BEGIN();
     RUN_TEST(test_clean_steps_are_the_channels_own_water_fill_and_flush);
     RUN_TEST(test_clean_water_fill_ends_on_the_full_reed_before_the_clock);
-    RUN_TEST(test_clean_flush_ends_a_tail_after_the_empty_reed_opens);
+    RUN_TEST(test_clean_flush_ends_a_tail_after_the_empty_reed_closes);
+    RUN_TEST(test_reservoir_level_is_unknown_until_a_reed_is_seen);
+    RUN_TEST(test_reservoir_level_rises_through_a_fill_and_falls_through_a_draw);
+    RUN_TEST(test_reservoir_level_takes_the_highest_of_two_adjacent_reeds);
     RUN_TEST(test_clean_cycle_left_sums_the_steps_still_to_come);
     RUN_TEST(test_clean_timing_is_ordered_and_reads_the_reservoir_as_the_fill_does);
     RUN_TEST(test_clean_wire_contract_has_dedicated_ids_and_exact_layout);

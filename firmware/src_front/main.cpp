@@ -274,8 +274,8 @@ static_assert(DETAIL_FLOOR <= PANE_H, "both columns must end inside the pane");
 // The range the base's SET:Fn_RATIO accepts, and so the range the two steppers
 // can reach. Named because a control that stops has to stop at the same number
 // the clamp does, or it lies in one direction or the other.
-#define RATIO_MIN       6
-#define RATIO_MAX      24
+#define RATIO_MIN       FLAVOR_RATIO_MIN
+#define RATIO_MAX       FLAVOR_RATIO_MAX
 // A tile is the picture plus the ring that says it is the chosen one. The strip
 // runs off the right of the column and is dragged: eight faces at this size do
 // not fit beside the anchor, and shrinking them until they do is how the tall
@@ -524,6 +524,20 @@ static lv_obj_t *flvTileLeftMark = NULL, *flvTileRightMark = NULL;
 static lv_obj_t *flvTileTrack = NULL, *flvTileThumb = NULL;
 static lv_obj_t *homeFlavorCard[2];
 static lv_obj_t *homeFlavorRatio[2];
+
+// ── Reservoir level, as the main board reads it ──
+// Four segments per channel on its Choose card, from the reed column and the
+// float's motion on the main board; every status poll carries the pair.
+static lv_obj_t *homeFlavorLevelCap[2];
+static lv_obj_t *homeFlavorLevelSeg[2][LEVEL_SEGMENTS];
+static uint8_t   levelSegments[2] = {LEVEL_UNKNOWN, LEVEL_UNKNOWN};
+static bool      levelValid = false;
+
+// What each channel pours at is the main board's: a step here states the
+// pair and takes back what it holds; while that answer is owed, the status
+// poll's copy is not allowed to put the old number back.
+static unsigned long ratioSentMs = 0;
+#define RATIO_REPLY_MS 2500
 static lv_obj_t *homeFlavorBadge[2];
 static lv_obj_t *homeFlavorBadgeText[2];
 
@@ -1735,6 +1749,8 @@ static void applyFillState(const FillStatePayload &state);
 static void applyCleanState(const CleanStatePayload &state);
 static void applyAirState(const AirStatePayload &state);
 static void setSettingsMsg(const char *s);
+static void refreshHomeLevel();
+static void refreshFlavorText();
 static bool uiShow(const UiShowPayload &req);
 
 static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
@@ -1890,6 +1906,21 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
     return;
   }
 
+  if (type == MSG_RESP_RATIO && plen >= sizeof(RatioPayload)) {
+    RatioPayload r;
+    memcpy(&r, payload, sizeof(r));
+    ratioSentMs = 0;
+    bool moved = false;
+    for (uint8_t i = 0; i < 2; i++) {
+      if (r.ratio[i] >= RATIO_MIN && r.ratio[i] <= RATIO_MAX && flavorRatio[i] != r.ratio[i]) {
+        flavorRatio[i] = r.ratio[i];
+        moved = true;
+      }
+    }
+    if (moved && uiReady) refreshFlavorText();
+    return;
+  }
+
   if (type == MSG_RESP_FLAVOR_ART && plen >= sizeof(FlavorArtPayload)) {
     FlavorArtPayload art;
     memcpy(&art, payload, sizeof(art));
@@ -1957,6 +1988,24 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
     memcpy(&ctrlStatus, payload, sizeof(ctrlStatus));
     ctrlStatus.version[sizeof(ctrlStatus.version) - 1] = '\0';
     ctrlStatusMs = millis();
+    // The gauges, and — unless a step of this glass's is still unanswered —
+    // what each channel pours at.
+    const bool valid = (ctrlStatus.levelFlags & LEVEL_F_VALID) != 0;
+    if (valid != levelValid || ctrlStatus.level[0] != levelSegments[0] ||
+        ctrlStatus.level[1] != levelSegments[1]) {
+      levelValid = valid;
+      levelSegments[0] = ctrlStatus.level[0];
+      levelSegments[1] = ctrlStatus.level[1];
+      refreshHomeLevel();
+    }
+    if (!ratioSentMs) {
+      bool moved = false;
+      for (uint8_t i = 0; i < 2; i++) {
+        const uint8_t r = ctrlStatus.ratio[i];
+        if (r >= RATIO_MIN && r <= RATIO_MAX && flavorRatio[i] != r) { flavorRatio[i] = r; moved = true; }
+      }
+      if (moved && uiReady) refreshFlavorText();
+    }
     // A fill this glass did not start — the console's, or one whose answer
     // lost its turn — is still the machine being busy, and is shown as such.
     if ((ctrlStatus.flags & STATUS_F_FILLING) && !fillLockShown && !fillStartSentMs)
@@ -3185,6 +3234,38 @@ static void ratioStepCb(lv_event_t *e) {
   if (r > RATIO_MAX) r = RATIO_MAX;
   flavorRatio[flavorSel] = (uint8_t)r;
   refreshFlavorText();
+  // The press's one frame: the pair as this glass now wants it. The main
+  // board's answer is what it holds, and the tick is made off this frame.
+  RatioPayload p{{flavorRatio[0], flavorRatio[1]}};
+  j9Post(MSG_RATIO_SET, &p, sizeof(p));
+  ratioSentMs = millis() ? millis() : 1;
+}
+
+static void ratioService() {
+  if (ratioSentMs && millis() - ratioSentMs >= RATIO_REPLY_MS) ratioSentMs = 0;
+}
+
+// The gauge on each Choose card: lit segments in the reservoir's colour,
+// the rest sunk into the card; the caption says EMPTY at the empty reed and
+// stays a caption while nothing has been seen.
+static void refreshHomeLevel() {
+  for (uint8_t i = 0; i < 2; i++) {
+    if (!homeFlavorLevelCap[i]) continue;
+    const uint8_t n = levelSegments[i];
+    const bool known = n != LEVEL_UNKNOWN && levelValid;
+    for (uint8_t k = 0; k < LEVEL_SEGMENTS; k++) {
+      const bool lit = known && k < n;
+      lv_obj_set_style_bg_color(homeFlavorLevelSeg[i][k],
+                                lv_color_hex(lit ? (n == 1 ? COL_WARN : COL_GOOD) : COL_OFF), 0);
+    }
+    if (known && n == 0) {
+      lv_label_set_text(homeFlavorLevelCap[i], "EMPTY");
+      lv_obj_set_style_text_color(homeFlavorLevelCap[i], lv_color_hex(COL_WARN), 0);
+    } else {
+      lv_label_set_text(homeFlavorLevelCap[i], "LEVEL");
+      lv_obj_set_style_text_color(homeFlavorLevelCap[i], lv_color_hex(COL_DIM), 0);
+    }
+  }
 }
 
 // ── Page builders ──
@@ -4067,6 +4148,23 @@ static void buildHome(lv_obj_t *page) {
     lv_obj_align(ratioCap, LV_ALIGN_LEFT_MID, colX, -26);
     homeFlavorRatio[i] = mkText(card, "1:20", &lv_font_montserrat_40, COL_TEXT);
     lv_obj_align(homeFlavorRatio[i], LV_ALIGN_LEFT_MID, colX, 14);
+
+    // How much is in the reservoir, under what it pours at: four segments the
+    // main board lights from the reed column, and a caption that reads EMPTY
+    // when the float sits on the bottom reed.
+    homeFlavorLevelCap[i] = mkText(card, "LEVEL", &lv_font_montserrat_20, COL_DIM);
+    lv_obj_align(homeFlavorLevelCap[i], LV_ALIGN_LEFT_MID, colX, 54);
+    for (uint8_t k = 0; k < LEVEL_SEGMENTS; k++) {
+      lv_obj_t *seg = lv_obj_create(card);
+      lv_obj_set_size(seg, 24, 14);
+      lv_obj_align(seg, LV_ALIGN_LEFT_MID, colX + k * 28, 80);
+      lv_obj_set_style_bg_color(seg, lv_color_hex(COL_OFF), 0);
+      lv_obj_set_style_border_width(seg, 0, 0);
+      lv_obj_set_style_radius(seg, 4, 0);
+      lv_obj_set_style_pad_all(seg, 0, 0);
+      lv_obj_clear_flag(seg, LV_OBJ_FLAG_SCROLLABLE | LV_OBJ_FLAG_CLICKABLE);
+      homeFlavorLevelSeg[i][k] = seg;
+    }
 
     lv_obj_t *badge = lv_obj_create(card);
     // The card's own accent outline already carries the selection; this only
@@ -5152,6 +5250,7 @@ void loop() {
   fillService();
   cleanService();
   airService();
+  ratioService();
 
   // The status request keeps main board truth fresh once a second whenever a
   // shared prime hold does not own the pair.

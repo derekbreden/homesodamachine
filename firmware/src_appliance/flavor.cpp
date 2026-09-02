@@ -24,6 +24,11 @@ uint8_t art[2] = {0, 1};
 bool artDirty = false;
 uint32_t artPersistDueMs = 0;
 
+// What each channel pours at, held the same way.
+uint8_t ratio[2] = {FLAVOR_RATIO_DEFAULT, FLAVOR_RATIO_DEFAULT};
+bool ratioDirty = false;
+uint32_t ratioPersistDueMs = 0;
+
 bool due(uint32_t now, uint32_t deadline) {
     return static_cast<int32_t>(now - deadline) >= 0;
 }
@@ -43,6 +48,8 @@ void flavorBegin() {
         for (uint8_t i = 0; i < 2; i++) {
             const uint8_t v = prefs.getUChar(i ? "art1" : "art0", art[i]);
             if (v < FLAVOR_ART_COUNT) art[i] = v;
+            const uint8_t r = prefs.getUChar(i ? "ratio1" : "ratio0", ratio[i]);
+            if (r >= FLAVOR_RATIO_MIN && r <= FLAVOR_RATIO_MAX) ratio[i] = r;
         }
     } else {
         // Storage failure is not a factory-blank namespace. Establish a
@@ -57,6 +64,16 @@ void flavorBegin() {
 }
 
 bool flavorService() {
+    if (storeOpen && ratioDirty && due(millis(), ratioPersistDueMs)) {
+        const bool ok = prefs.putUChar("ratio0", ratio[0]) == sizeof(uint8_t) &&
+                        prefs.putUChar("ratio1", ratio[1]) == sizeof(uint8_t);
+        ratioDirty = !ok;
+        ratioPersistDueMs = millis() + (ok ? kPersistDelayMs : kPersistRetryMs);
+        Serial.printf("\n[flavor] %s ratio 1:%u / 1:%u\n",
+                      ok ? "persisted" : "NVS write failed for", ratio[0], ratio[1]);
+        if (ok) return true;
+    }
+
     if (storeOpen && artDirty && due(millis(), artPersistDueMs)) {
         const bool ok = prefs.putUChar("art0", art[0]) == sizeof(uint8_t) &&
                         prefs.putUChar("art1", art[1]) == sizeof(uint8_t);
@@ -123,6 +140,20 @@ bool flavorArtSet(uint8_t a0, uint8_t a1) {
     art[1] = a1;
     artDirty = true;
     artPersistDueMs = millis() + kPersistDelayMs;
+    ++revision;
+    return true;
+}
+
+uint8_t flavorRatio(uint8_t channel) { return ratio[channel & 1]; }
+
+bool flavorRatioSet(uint8_t r0, uint8_t r1) {
+    if (r0 < FLAVOR_RATIO_MIN || r0 > FLAVOR_RATIO_MAX ||
+        r1 < FLAVOR_RATIO_MIN || r1 > FLAVOR_RATIO_MAX) return false;
+    if (ratio[0] == r0 && ratio[1] == r1) return true;
+    ratio[0] = r0;
+    ratio[1] = r1;
+    ratioDirty = true;
+    ratioPersistDueMs = millis() + kPersistDelayMs;
     ++revision;
     return true;
 }

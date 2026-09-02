@@ -317,8 +317,8 @@ remaining 610 px is the pane, and it takes a different shape at each destination
 
 | Page | Shape | Reads / writes |
 |---|---|---|
-| Choose | two large, quiet flavor cards with an unmistakable retained selection | **the main board**, mirrored with the faucet |
-| A flavor's own page | `−`/`+` on the ratio, and a row of every logo it can wear — reached from that flavor's Choose card, and Back returns there | display-local |
+| Choose | two large, quiet flavor cards with an unmistakable retained selection, each with its ratio and its reservoir's gauge | **the main board**, mirrored with the faucet |
+| A flavor's own page | `−`/`+` on the ratio, and a row of every logo it can wear — reached from that flavor's Choose card, and Back returns there | **the main board** |
 | Prime | flavor choice → shared hold pad | **the base** |
 | Fill | flavor choice → confirmation → the operation lock while it draws | **the base** |
 | Clean | flavor choice → confirmation → the operation lock for the cycle | **the base** |
@@ -480,10 +480,22 @@ Ratio, Fill, Prime, Clean, and Settings otherwise repaint only when their state 
 `LOCK:SHOW` exposes the animation for a live check, and `GET_DIAG` reports the loop
 high-water mark and clears it.
 
+### Level and ratio
+
+Both come from the main board on every status poll. **Each Choose card carries a four-segment
+gauge** under what the flavor pours at, lit from the reservoir's reed column and the float's
+motion (`machine_policy::ReservoirLevel`): none at the empty reed, one on leaving it upward, a
+reed's own count at each reed above, all four at the full reed. The caption reads **EMPTY** at
+the bottom reed; until any reed has been seen the segments stay dark under a plain caption. A
+segment count of one lights amber.
+
+**The ratio is the main board's.** A step on a flavor's own page repaints locally and sends
+the pair as `MSG_RATIO_SET`, the press's one frame; the answer is what the main board now holds
+and persists, and the status poll carries the pair thereafter, so a ratio set from the console
+reaches the card within a second. While a step's answer is owed, the poll's copy is not applied.
+
 ## Integration seams (not implemented)
 
-- **Flavor ratio and level** — the ratio is this display's own until a main board stores
-  it; the level reads `--` until a reservoir is sensed.
 - **Dispense and carbonation state** beyond the locked-operation messages.
 
 ## Power and USB reattachment

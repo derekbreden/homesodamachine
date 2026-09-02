@@ -13,7 +13,8 @@ the dispense/refill exclusion, every possible off-before-on valve-mask transitio
 prime/timed-pump deadlines shared with the J9 protocol, the funnel fill's plan, its
 draw-time budget against the slowest rated head, and its full-reed-before-clock ending, and
 the clean cycle's two steps per channel, its full-reed and empty-reed-plus-tail endings, the
-sum of what is left of a cycle, and its wire contract, and the air cycles' steps — the dry
+sum of what is left of a cycle, and its wire contract, the reservoir gauge's reading of one
+float passing four reeds up through a fill and down through a draw, and the air cycles' steps — the dry
 sweep of both channels that draws on no reservoir, and the purge that airs one and draws it
 out. `test_pcba_expanders` checks the
 logical-to-physical valve map, safe MCP23017 initialization, active-low reed decoding,

@@ -265,7 +265,7 @@ static bool isUserAction(uint8_t type) {
     return type == MSG_PUMP_RUN || type == MSG_CLEAN_START || type == MSG_FILL_START ||
            type == MSG_FILL_STOP || type == MSG_CLEAN_STOP || type == MSG_AIR_START ||
            type == MSG_AIR_STOP || type == MSG_SOUND_CFG_SET || type == MSG_FLAVOR_ART_SET ||
-           type == MSG_PRIME_SESSION_SET;
+           type == MSG_RATIO_SET || type == MSG_PRIME_SESSION_SET;
 }
 
 static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len);
@@ -582,7 +582,38 @@ static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len) {
         strncpy(s.version, FW_VERSION, sizeof(s.version) - 1);
         s.j9ReplyHighWater = j9TurnReplyHighWater;
         s.j9ReplyOverruns = j9TurnReplyOverruns;
+        MachineLevels lv;
+        machineLevels(lv);
+        s.reeds[0] = lv.reeds[0];
+        s.reeds[1] = lv.reeds[1];
+        s.level[0] = lv.level[0];
+        s.level[1] = lv.level[1];
+        s.levelFlags = (lv.valid    ? LEVEL_F_VALID     : 0)
+                     | (lv.carbLow  ? LEVEL_F_CARB_LOW  : 0)
+                     | (lv.carbHigh ? LEVEL_F_CARB_HIGH : 0);
+        s.ratio[0] = flavorRatio(0);
+        s.ratio[1] = flavorRatio(1);
         link->send(MSG_RESP_STATUS, &s, sizeof(s));
+        return;
+    }
+
+    // What a channel pours at: owned here, stated by a glass as a pair, and
+    // answered with what is now held.
+    if (type == MSG_RATIO_QUERY) {
+        RatioPayload r{{flavorRatio(0), flavorRatio(1)}};
+        link->send(MSG_RESP_RATIO, &r, sizeof(r));
+        return;
+    }
+    if (type == MSG_RATIO_SET && plen >= sizeof(RatioPayload)) {
+        RatioPayload request;
+        memcpy(&request, payload, sizeof(request));
+        if (flavorRatioSet(request.ratio[0], request.ratio[1]))
+            Serial.printf("\n[J9] ratio 1:%u / 1:%u\n", flavorRatio(0), flavorRatio(1));
+        else
+            Serial.printf("\n[J9] ratio %u/%u refused — out of %u..%u\n", request.ratio[0],
+                          request.ratio[1], FLAVOR_RATIO_MIN, FLAVOR_RATIO_MAX);
+        RatioPayload r{{flavorRatio(0), flavorRatio(1)}};
+        link->send(MSG_RESP_RATIO, &r, sizeof(r));
         return;
     }
 

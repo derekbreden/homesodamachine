@@ -198,6 +198,19 @@ void machineReadAirState(MachineAirState &state);
 bool machineSelfTestBegin();
 void machineSelfTestStop();
 
+// ── Reservoir level ───────────────────────────────────────────────────────
+// Both reed columns and the carbonator's two reeds, read once a second while
+// the machine is idle and every quarter second while an operation moves a
+// level, and each reservoir's gauge from them (machine_policy::ReservoirLevel).
+struct MachineLevels {
+    bool    valid;        // read within the last few seconds
+    uint8_t reeds[2];     // closed masks, bit 0 empty .. bit 3 full
+    uint8_t level[2];     // 0..LEVEL_SEGMENTS, or LEVEL_UNKNOWN
+    bool    carbLow;
+    bool    carbHigh;
+};
+void machineLevels(MachineLevels &levels);
+
 // The MQ-6 comparator, debounced. U15 holds the compressor off it in hardware
 // with no firmware in the path; what the firmware adds is the alarm.
 bool machineGasTripped();

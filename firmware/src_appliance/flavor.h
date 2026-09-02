@@ -27,3 +27,9 @@ uint32_t flavorRevision();
 // image carries artwork for is refused rather than clamped.
 uint8_t flavorArt(uint8_t channel);
 bool    flavorArtSet(uint8_t a0, uint8_t a1);
+
+// What a channel pours at — 1:ratio, water to concentrate — held and
+// persisted beside the selection. A set outside FLAVOR_RATIO_MIN..MAX is
+// refused rather than clamped.
+uint8_t flavorRatio(uint8_t channel);
+bool    flavorRatioSet(uint8_t r0, uint8_t r1);
