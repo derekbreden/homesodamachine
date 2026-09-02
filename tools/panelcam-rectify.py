@@ -10,6 +10,11 @@
         one pixel per panel pixel: the mean of each scale-by-scale block
     tools/cad-venv/bin/python tools/panelcam-rectify.py check <warped-test-screen.png> --scale 3
         the test screen read back off the warped picture
+    tools/cad-venv/bin/python tools/panelcam-rectify.py palette <warped-test-screen.png> --scale 3
+        palette   <NAME:drawn:captured …>              each palette colour, and how the camera renders it
+    tools/cad-venv/bin/python tools/panelcam-rectify.py classify <panel.png> <out.png> \
+        --palette "<NAME:drawn:captured …>" [--within 28]
+        every pixel the camera reads as a palette colour, drawn in that colour
 
 THE PICTURE IS THE PANEL'S OWN GRID. `warp` maps the quadrilateral the panel occupies in the frame
 onto a WxH-scale rectangle in one projective resampling, so a rotated or keystoned panel comes out
@@ -30,6 +35,15 @@ size inside the frame's box, each centred by its light above the black around it
 quantity a blur does not move — and the homography those four fix carries the panel's corners into
 the frame.
 
+THE COLOURS ARE READ THE SAME WAY. The screen's third row is the front firmware's palette, ten
+64x48 patches at x 80 + 64k, y 168..215, and its wedge at y 56..103 begins black and ends white.
+`palette` records how the camera renders each; `classify` then reads a shot pixel by pixel as the
+nearest of those renderings and draws it in the colour the firmware asked for, when the rendering
+is within `--within` levels; a pixel farther from every entry than that — an antialiased edge, the
+flavour artwork — keeps the camera's colour. No model of the camera is fitted: the camera itself
+says what each colour looks like. The entries that sit closest as captured are THEME_BG and black,
+8 levels apart at the 4 ms shutter, and COL_CARD_ON and COL_OFF at 16.
+
 WHAT `check` READS BACK. The stripes as alternate columns and rows: their modulation is how much of
 a one-pixel feature survives. The squares' edges: where each lands against where it should, in
 output px. The lattice: the period of the panel's own pixel grid, 3.000 at scale 3 when the scale
@@ -48,9 +62,20 @@ Image.MAX_IMAGE_PIXELS = None
 
 SQUARES = {"TL": (32, 32), "TR": (768, 32), "BR": (768, 448), "BL": (32, 448)}   # centres, panel px
 SQUARE = 32                                                                       # side, panel px
+PALETTE = [("THEME_BG", 0x1a1a2e), ("COL_CARD", 0x242440), ("COL_CARD_ON", 0x33335c),
+           ("COL_ACCENT", 0xe94560), ("COL_TEXT", 0xe8e8f2), ("COL_DIM", 0x8888aa),
+           ("COL_OFF", 0x3a3a55), ("COL_GOOD", 0x37c98b), ("COL_WARN", 0xf0a83c), ("gray", 0x808080)]
+PALETTE_ROW, PALETTE_X0 = 168, 80     # 64x48 patches at x 80 + 64k
+WEDGE_ROW, WEDGE_X0 = 56, 144         # 64x48 patches at x 144 + 64k: black first, white last
 
 def luma(path):
     return np.asarray(Image.open(path).convert("L")).astype(np.float32)
+
+def rgb(path):
+    return np.asarray(Image.open(path).convert("RGB")).astype(np.float64)
+
+def unhex(v):
+    return np.array([v >> 16 & 255, v >> 8 & 255, v & 255], float)
 
 def homography(src, dst):
     """The 8 coefficients that take a dst point to its src point, as PIL's PERSPECTIVE wants them."""
@@ -163,6 +188,33 @@ def check(path, scale):
         widths += [R - L, B - Tt]
     print(f"squares: {'  '.join(off)} px off centre; {min(widths):.1f}..{max(widths):.1f} px wide for {SQUARE * s}")
 
+def patch_mean(P, x, y):
+    """The middle of a 64x48 patch whose top-left panel pixel is (x, y)."""
+    return P[y + 10 : y + 38, x + 12 : x + 52].reshape(-1, 3).mean(0)
+
+def palette(path, scale):
+    P = blocks(rgb(path), scale)
+    entries = [(n, v, patch_mean(P, PALETTE_X0 + 64 * k, PALETTE_ROW)) for k, (n, v) in enumerate(PALETTE)]
+    entries.append(("black", 0x000000, patch_mean(P, WEDGE_X0, WEDGE_ROW)))
+    entries.append(("white", 0xFFFFFF, patch_mean(P, WEDGE_X0 + 64 * 7, WEDGE_ROW)))
+    print("palette " + " ".join(f"{n}:{v:06x}:{int(c[0] + 0.5):02x}{int(c[1] + 0.5):02x}{int(c[2] + 0.5):02x}" for n, v, c in entries))
+    caps = np.array([c for _, _, c in entries])
+    D = np.sqrt(((caps[:, None] - caps[None]) ** 2).sum(-1)); np.fill_diagonal(D, np.inf)
+    i, j = np.unravel_index(D.argmin(), D.shape)
+    print(f"closest as captured: {entries[i][0]} and {entries[j][0]}, {D[i, j]:.1f} levels apart")
+
+def classify(path, out, spec, within):
+    entries = [(n, int(t, 16), int(c, 16)) for n, t, c in (e.split(":") for e in spec.split())]
+    drawn = np.array([unhex(t) for _, t, _ in entries]); caps = np.array([unhex(c) for _, _, c in entries])
+    P = rgb(path)
+    flat = P.reshape(-1, 3)
+    d = np.sqrt(((flat[:, None, :] - caps[None]) ** 2).sum(-1))
+    idx, dist = d.argmin(1), d.min(1)
+    sure = dist <= within
+    flat = flat.copy(); flat[sure] = drawn[idx[sure]]
+    Image.fromarray(flat.reshape(P.shape).round().astype(np.uint8)).save(out)
+    print(f"{100 * sure.mean():.0f}% of the panel within {within:g} levels of a palette colour as the camera renders it")
+
 def main(argv):
     args, opts, i = [], {}, 0
     while i < len(argv):
@@ -177,6 +229,10 @@ def main(argv):
         return check(args[1], scale)
     if len(args) == 3 and args[0] == "reduce":
         return reduce(args[1], args[2], scale)
+    if len(args) == 2 and args[0] == "palette":
+        return palette(args[1], scale)
+    if len(args) == 3 and args[0] == "classify":
+        return classify(args[1], args[2], opts.get("--palette", ""), float(opts.get("--within", "28")))
     if len(args) == 3 and args[0] == "warp":
         corners = [tuple(map(float, p.split(","))) for p in opts.get("--corners", "").split()]
         panel = tuple(int(v) for v in opts.get("--panel", "800x480").split("x"))
