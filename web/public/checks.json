@@ -47,12 +47,12 @@
     },
     {
       "check": "hardware/scripts/check_tracked.py",
-      "note": "66/66 artifacts have their record in the index",
+      "note": "68/68 artifacts have their record in the index",
       "status": "ok"
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 1464 tracked, 337 fetched solids, 54 tags",
+      "note": "paths: every reference lands — 1476 tracked, 337 fetched solids, 54 tags",
       "status": "ok"
     },
     {
@@ -67,8 +67,8 @@
     },
     {
       "check": "tools/bazel/check_build_file.py",
-      "note": "tools/cad-venv/bin/python tools/bazel/gen_build.py",
-      "status": "red"
+      "note": "check_build_file: BUILD.bazel is what the graph writes",
+      "status": "ok"
     },
     {
       "check": "tools/bazel/check_ci_targets.py",
@@ -82,16 +82,10 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 13 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 337 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 0 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 337 member(s) keep their provenance",
       "status": "ok"
     }
   ],
-  "detail": {
-    "tools/bazel/check_build_file.py": [
-      "BUILD.bazel is not what the graph would write now:",
-      "  1 build-graph generator(s) are absent from the tree — hardware/printed-parts/shop-storage/fittings/fittings_kit.py among them. Re-trace the renamed generator or remove its stale graph entry.",
-      "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
-    ]
-  },
-  "green": false
+  "detail": {},
+  "green": true
 }
