@@ -610,6 +610,39 @@ The result carries the model, profile and derived G-code hashes, the slicer's su
 all interface islands and both plate and CAD coordinates. The ledger supplies the human reason
 for each connected body that remains.
 
+**All six printable pieces are audited, each through a production project of its own.** No piece
+is re-oriented to be read: every one beds on its own Z− face, the orientation the box's whole
+relief scheme is struck on. [`enclosure-front-bottom-petgf.3mf`](enclosure-front-bottom-petgf.3mf)
+and [`enclosure-back-bottom-petgf.3mf`](enclosure-back-bottom-petgf.3mf) carry the PET-GF15
+exterior settings of [`enclosure-front-top-petgf.3mf`](enclosure-front-top-petgf.3mf) around
+their own mesh — the same clone `enclosure-pump-cap-petgf.3mf` and
+`enclosure-pump-cartridge-petgf.3mf` already are.
+[`enclosure-back-top-petgf.3mf`](enclosure-back-top-petgf.3mf) is the one piece on its own
+0.24 mm process. What BambuStudio 02.08.02.61 emits from the current meshes:
+
+| piece | bodies | interface islands | root | shortest build-up |
+|---|---|---|---|---|
+| `enclosure-pump-cartridge` | 0 | 0 | — | — |
+| `enclosure-pump-cap` | 2 | 2 | bed | 18.40 mm |
+| `enclosure-front-top` | 3 | 4 | bed | 55.60 mm |
+| `enclosure-back-bottom` | 2 | 3 | 1 bed, **1 model** | **8.00 mm** |
+| `enclosure-front-bottom` | 4 | 4 | 2 bed, **2 model** | **8.00 mm** |
+| `enclosure-back-top` | 5 | 27 | bed | 92.16 mm |
+
+**One piece slices clean, and three bodies are the campaign's open work.**
+`enclosure-pump-cartridge` emits no support at all. On the pump cap and the two top quadrants
+every body roots on the print bed and stands 18 mm or more before it touches the model, which is
+past the point the build-up reading saturates at; so do front-bottom's two lower Y-seam socket
+collar crowns, at 28.20 mm. The exceptions are one feature standing on all four flanks of the two
+bottom quadrants: the **Z seam's slide-head catch**, the joint's one down-looking flat and the
+whole of its bearing against lift. Back-bottom's west catch reaches the bed from outside its
+flank through the 12 mm PRV passage that crosses it — the same opening that splits that catch
+into two interface islands. The other three have no such lane and root on the arm's own 45°
+under-flare **8.00 mm** below the catch they carry: front-bottom's pair and back-bottom's east
+catch are the only **material-rooted** bodies in the box and the only ones outside the 15 mm
+band. A short support rooted on model material is the compromise this policy names first, and
+those three are where it stands.
+
 ## Print orientation + corner relief
 
 Every piece prints on its **Z− face** — the bottom pieces floor-down on the
@@ -707,10 +740,11 @@ a one-wall-long 45° scarf nose. The back half's matching wedge also grows from 
 bed, so the cold-core bearing plane carries no supported surface. The side-wall
 segments, vertical to the bed, are free.
 
-The **ASSE drip pan's sleeve** in the back-top piece has one supported surface: its floor beyond
-the wall-rooted `pan_sleeve_corbel`. The tray is longer than a 45° wedge from that one wall can
-carry, and nothing stands under its east half to root a second wedge. That remaining soffit is
-reached from the print bed through the open enclosure rather than from material just below it.
+The **ASSE drip pan's sleeve** in the back-top piece has two supported surfaces: its floor beyond
+the wall-rooted `pan_sleeve_corbel`, and the dock pocket's roof described below. The tray is
+longer than a 45° wedge from that one wall can carry, and nothing stands under its east half to
+root a second wedge. Both soffits are reached from the print bed through the open enclosure
+rather than from material just below them.
 
 The rim rebate's lid is one hipped rectangular transition. Its four faces rise at 45° into the
 already-open tray mouth from the exterior skin on the west, the fore and aft jambs, and the
@@ -718,15 +752,19 @@ sleeve's east backstop; adjacent faces meet on diagonal hips. The exterior slot 
 flange gap keep their stated planes; only free clearance above the inserted rim grows toward
 the mouth. The rebate therefore leaves no short, material-rooted roof.
 
-The **dock** in that sleeve's backstop adds three cuts and no roof the piece cannot span: the
-male half's window and its pocket run through the block on the pan's own axis, each a bridge
-one pill — 4.2 mm — wide, and the lead channel drops out of the pocket's floor through the
-block's. The berth is not touched by any of them, and nothing crosses the withdrawal wall but
-the pan.
+The **dock** in that sleeve's backstop adds three cuts on the pan's own axis: the male half's
+window and its pocket run through the block, each a bridge one pill — 4.2 mm — wide, and the
+lead channel drops out of the pocket's floor through the block's. The berth is not touched by
+any of them, and nothing crosses the withdrawal wall but the pan. The pocket's roof is a flat
+7.0 × 14.7 mm face and the slice supports it, bed-rooted like the sleeve floor beside it — the
+pill sits 0.59 mm under that face, so what the support has to clear is the pill's own seat and
+not the pan's path.
 
-The **ASSE anchor** one storey above it carries its full underside on a 45° corbel rooted on
-the −X wall and tapering to the deepest section's V foot. Its two 60° seat flanks stand 30°
-off vertical and lay on themselves. Behind the anchor, one channel spans both zip-tie bands:
+The **ASSE anchor** one storey above it carries its underside on a 45° corbel rooted on
+the −X wall and tapering to the deepest section's V foot, except east of that foot: the two
+round end sections' box bottoms run on to the chain's axis as flat soffits, 8.48 × 13.5 mm
+each, and the slice reaches both from the bed. Its two 60° seat flanks stand 30° off vertical
+and lay on themselves. Behind the anchor, one channel spans both zip-tie bands:
 its fore and aft end faces remain `tie_cav_wide_w` wide about their tie centres, and the volume
 between them is open. The horizontal passage therefore produces one continuous, reachable
 support body with a full-span extraction path.
