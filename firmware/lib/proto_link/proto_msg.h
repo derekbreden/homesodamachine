@@ -212,6 +212,16 @@ constexpr uint8_t MSG_IMAGE_RELAY_REQ = 0x52;  // faucet -> main: ImageSlotPaylo
 constexpr uint8_t MSG_IMAGE_RELAY_GO  = 0x53;  // main -> faucet: ImageSlotPayload
 constexpr uint8_t MSG_IMAGE_ERASE     = 0x54;  // main -> either: ImageSlotPayload
 
+// ── The camera's test screen (0x55..) ────────────────────────────────────
+// A bench camera reads the enclosure display, and reads it best when the
+// panel shows a known picture: a frame on its outermost pixels and four
+// fiducials at known pixel coordinates, so a photograph can be mapped back
+// onto the panel's own grid. The main board's console asks for it; the
+// enclosure shows it over whatever is up, for the seconds asked, then puts
+// the page back. Nothing in a product path sends it.
+constexpr uint8_t MSG_TEST_SCREEN      = 0x55;  // TestScreenPayload: seconds to hold it; 0 ends it
+constexpr uint8_t MSG_RESP_TEST_SCREEN = 0x56;  // ResponsePayload: 1 showing, 0 not
+
 // Fixed transport capacities are part of the replay contract. Keeping the
 // values beside the shared wire protocol lets each actual queue assert that a
 // future depth/window change still fits inside the main board's token ledger.
@@ -250,6 +260,10 @@ struct __attribute__((packed)) SwapPayload {
 
 struct __attribute__((packed)) ResponsePayload {
   uint8_t value;
+};
+
+struct __attribute__((packed)) TestScreenPayload {
+  uint16_t seconds;
 };
 
 constexpr uint8_t PUMP_CHANNEL_A = 0;  // U11 -> J13.AM2/AM1, the two WEST pins

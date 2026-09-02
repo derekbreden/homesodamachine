@@ -114,6 +114,10 @@ static void relayService();
 static void reconcileService();
 static void removePicture(uint8_t slot, bool tellFaucet);
 
+// The camera's test screen is showing until this instant. Both glasses stay lit for as long as
+// it does: a photograph of a dark panel is no photograph, so the finger is reported again.
+static uint32_t testScreenUntilMs = 0;
+
 void loop() {
     // Expired heartbeat/session deadlines are terminal before either transport
     // may apply buffered input. A tick that sat behind a >2 s scheduler stall
@@ -153,6 +157,10 @@ void loop() {
 
     // Presence crosses both links, so a change is published to whichever glass
     // gives the main board its next turn.
+    if (testScreenUntilMs) {
+        if ((long)(millis() - testScreenUntilMs) < 0) idleTouched();
+        else testScreenUntilMs = 0;
+    }
     if (idleService()) {
         // An offered action is withdrawn with the light. Both glasses learn of
         // the sleep and the closed session from the same pair of publications.
@@ -198,6 +206,7 @@ static void help() {
     Serial.println("  ping              put a frame on the pair and read its echo back");
     Serial.println("  display usb       make the externally-powered display reattach to USB");
     Serial.println("  wake              light both glasses, as a finger on either would");
+    Serial.println("  test [s|off]      the camera's test screen on the enclosure, s seconds (default 120)");
     Serial.println("  sound <name>      play one of the machine's sounds; 'sound list' names them");
     Serial.println("  volume [0-100]    how loud everything but the alarm is (persisted)");
     Serial.println("  quiet [on|off] [start] [end] [pct]   quiet hours, off the DS3231 (persisted)");
@@ -701,6 +710,17 @@ static void console(const String &line) {
         idleTouched();
         Serial.printf("\n[idle] awake asked for — the quiet window is %lu s\n",
                       (unsigned long)(idleWindowMs() / 1000));
+        return;
+    }
+    if (line == "test" || line.startsWith("test ")) {
+        String rest = line.substring(4); rest.trim();
+        uint32_t s = rest.length() == 0 ? 120 : rest == "off" ? 0 : (uint32_t)rest.toInt();
+        if (s > 3600) s = 3600;
+        idleTouched();
+        testScreenUntilMs = s ? millis() + s * 1000UL : 0;
+        if (!linkTestScreen((uint16_t)s)) Serial.println("\n[test] the enclosure display did not answer");
+        else if (s) Serial.printf("\n[test] the enclosure shows the test screen for %lu s\n", (unsigned long)s);
+        else Serial.println("\n[test] the enclosure is back on its page");
         return;
     }
     if (line == "stop")        { machineStop(); return; }

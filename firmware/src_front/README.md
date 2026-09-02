@@ -180,6 +180,31 @@ ladder above). The difference from the faucet display is the backlight itself:
   **Choose** and wakes it. Repeated publication of the flavor already shown does not
   reset the idle timer.
 
+## Test screen
+
+The bench camera ([`tools/panelcam.sh`](/tools/panelcam.sh)) reads this panel and maps its
+photograph back onto the panel's own 800×480 grid, which needs a known picture. `test [s]` on
+the main board's console (`MSG_TEST_SCREEN`) puts one over whatever is up, lock included, for
+`s` seconds (default 120; `test off` ends it), and keeps both glasses lit for as long as it
+shows. On black, the panel's own:
+
+- a 2 px white frame on the outermost pixels;
+- four 32 px white fiducials at pixels x 16..47 and 752..783, y 16..47 and 432..463 — centres
+  (32, 32), (768, 32), (32, 448) and (768, 448) in continuous coordinates, where pixel i spans
+  [i, i+1);
+- a 1 px cross through (400, 240), left out of a fit as its check;
+- an eight-step gray wedge, 64×48 each, x 144..655, y 72..119, asked for at 0, 36, 73, 109,
+  146, 182, 219 and 255 and shown as RGB565 rounds them;
+- red, green, blue, cyan, magenta and yellow, 64×48 each, x 208..591, y 136..183;
+- the interface's palette, 64×48 each, x 176..623, y 200..247: `THEME_BG` 1a1a2e, `COL_CARD`
+  242440, `COL_CARD_ON` 33335c, `COL_ACCENT` e94560, `COL_TEXT` e8e8f2, `COL_DIM` 8888aa, and a
+  50% gray 808080 — the flat patches a camera-to-panel colour fit is made from;
+- 1 px vertical stripes, 1 px horizontal stripes and a 2 px checkerboard, 64×64 each, at
+  x 240, 368 and 496, y 272..335;
+- `PANELCAM TEST` and this board's firmware version under them.
+
+`TEST:<s>` on this board's own USB console shows it without the main board.
+
 ## USB-serial commands (bring-up / diagnostics)
 
 Newline-terminated, 115200 baud over the native USB CDC:
@@ -202,6 +227,7 @@ Newline-terminated, 115200 baud over the native USB CDC:
 - `EDIT:<1|2>[,<image 0..3>]` → open a flavor's own page, and take one of its logos:
   the handlers the Choose gear and a thumbnail tap reach, without a finger on the glass
 - `LOCK:SHOW` / `LOCK:HIDE` → exercise the reusable operation lock
+- `TEST:<s>` → the camera's test screen for `s` seconds; `TEST:0` ends it
 - `PANEL:KICK` → the wake sequence — dark, reset at VSYNC, four clean
   frames, light, quiet, then any active lock animation
 - `PANEL:REALIGN` → request one RGB DMA recovery at the next VSYNC
