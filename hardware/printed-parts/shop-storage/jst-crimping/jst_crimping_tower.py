@@ -31,7 +31,7 @@ sys.path.insert(
 sys.path.insert(0, str(_repo_root / "tools"))
 
 from _cadq_export import export_assembly
-from _materials import M_PETGF_BLACK, one_body
+from _materials import M_PETG_BLACK, one_body
 from docgen import substitute_md
 
 
@@ -967,13 +967,13 @@ def build_presentation_assembly(parts, references):
     assembly.add(
         parts["gridfinity-shelf"],
         name="optional-bench-dock",
-        color=M_PETGF_BLACK,
+        color=M_PETG_BLACK,
     )
     assembly.add(
         parts["tower-base"],
         name="tower-base",
         loc=cq.Location(cq.Vector(0.0, 0.0, tower_base_z)),
-        color=M_PETGF_BLACK,
+        color=M_PETG_BLACK,
     )
     assembly.add(
         parts["consumables-drawer"],
@@ -981,13 +981,13 @@ def build_presentation_assembly(parts, references):
         loc=cq.Location(
             cq.Vector(0.0, drawer_presentation_y, tower_base_z + drawer_z)
         ),
-        color=M_PETGF_BLACK,
+        color=M_PETG_BLACK,
     )
     assembly.add(
         parts["spool-shelf"],
         name="outer-rim-spool-shelf",
         loc=cq.Location(cq.Vector(0.0, 0.0, tower_base_z + spool_shelf_z)),
-        color=M_PETGF_BLACK,
+        color=M_PETG_BLACK,
     )
 
     spool_location = cq.Location(
@@ -1016,13 +1016,13 @@ def build_presentation_assembly(parts, references):
         parts["gridfinity-shelf"],
         name="removable-top-shelf",
         loc=cq.Location(cq.Vector(0.0, 0.0, top_shelf_z)),
-        color=M_PETGF_BLACK,
+        color=M_PETG_BLACK,
     )
     assembly.add(
         parts["tool-rack"],
         name="jst-tool-rack",
         loc=cq.Location(cq.Vector(0.0, 0.0, tool_rack_z)),
-        color=M_PETGF_BLACK,
+        color=M_PETG_BLACK,
     )
 
     rack_location = cq.Location(cq.Vector(0.0, 0.0, tool_rack_z))
@@ -1083,7 +1083,7 @@ def main():
 
     for name, shape in parts.items():
         out = out_dir / f"{name}.step"
-        export_assembly(one_body(shape, name, M_PETGF_BLACK), str(out))
+        export_assembly(one_body(shape, name, M_PETG_BLACK), str(out))
         print(f"-> {out.name}")
 
     assembly_out = out_dir / "jst-crimping-tower.step"

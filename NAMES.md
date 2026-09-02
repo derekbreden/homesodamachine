@@ -88,3 +88,9 @@ to **Derek approved** when he recognises them, or are replaced when he doesn't.
 
 | Name | Point at | Not |
 | --- | --- | --- |
+| **job kit** | one bench job's tools and consumables stacked on one Gridfinity footprint, under `printed-parts/shop-storage/` | tool tray, tool caddy, organizer |
+| **job stack** | a job kit whose storeys are bins closed by a rack or a tray, unstacked to work from | |
+| **job tower** | a job kit whose storeys stand in a carcass with head-down tool sockets on top | |
+| **storey** | one stacked body of a job kit — a bin, a drawer, a tray or the rack | tier, layer, level |
+| **job rack** | the storey of a job kit that holds its tools: a solid Gridfinity blank with sockets cut from its top | tool rack, tool holder |
+| **bench dock** | the printed Gridfinity baseplate a job kit stands on | dock plate, base |
