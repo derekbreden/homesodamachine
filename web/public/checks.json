@@ -7,8 +7,8 @@
     },
     {
       "check": "hardware/scripts/check_facts_current.py",
-      "note": "tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py",
-      "status": "red"
+      "note": "and the 108 sources behind them stand where they stood when it was written",
+      "status": "ok"
     },
     {
       "check": "hardware/scripts/check_finishes.py",
@@ -42,7 +42,7 @@
     },
     {
       "check": "hardware/scripts/check_step_colours.py",
-      "note": "step colours: 125/125 carry the colour of what they are made of",
+      "note": "step colours: 186/186 carry the colour of what they are made of",
       "status": "ok"
     },
     {
@@ -52,12 +52,12 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 1464 tracked, 276 fetched solids, 54 tags",
+      "note": "paths: every reference lands — 1464 tracked, 337 fetched solids, 54 tags",
       "status": "ok"
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 450 of 1000 free, the next cut wants 3, and the whole lock reads by name in 114.9 MB against 116.2 MB of bundle",
+      "note": "check_release_room: 376 of 1000 free, the next cut wants 3, and the whole lock reads by name in 137.9 MB against 140.3 MB of bundle",
       "status": "ok"
     },
     {
@@ -67,8 +67,8 @@
     },
     {
       "check": "tools/bazel/check_build_file.py",
-      "note": "check_build_file: BUILD.bazel is what the graph writes",
-      "status": "ok"
+      "note": "tools/cad-venv/bin/python tools/bazel/gen_build.py",
+      "status": "red"
     },
     {
       "check": "tools/bazel/check_ci_targets.py",
@@ -82,15 +82,15 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 12 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 337 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 13 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 337 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
-    "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds be1ac13e4764fd49eb49bf4dd0511298 for the 108 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at e7e3f3614b2f40a61b3130d307b4dafe here. The three artifacts agree with each other and describe a machine that has since moved.",
-      "  the three come off one run:",
-      "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
+    "tools/bazel/check_build_file.py": [
+      "BUILD.bazel is not what the graph would write now:",
+      "  1 build-graph generator(s) are absent from the tree — hardware/printed-parts/shop-storage/fittings/fittings_kit.py among them. Re-trace the renamed generator or remove its stale graph entry.",
+      "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
     ]
   },
   "green": false
