@@ -158,6 +158,16 @@ yield instead of using the fixture as a rigid puller.
 Material: Polymaker Fiberon PET-GF15, dried and printed with the project's PET-GF
 profile through the 0.4 mm nozzle.
 
+This rig is what set that profile's first layer. Its two large parts are the ones in
+the tree whose first layer is a single unbroken circle metres long — the
+[165](WR_BALL_RACE) mm ball race round the base and the 90T pulley round the
+turntable — so a point on that loop cools for a full lap before the nozzle returns to
+it. Two plates failed there in the first layer or two, while the front-top, the pump
+cartridge and the display covers came off the same profile clean. The profile lays its
+first layer at the print's own 280 °C and stands the nozzle at a +0.17 mm z-trim
+([`/hardware/printed-parts/z-trim.md`](/hardware/printed-parts/z-trim.md)). Both of these
+plates are worth watching through their first two layers rather than left alone.
+
 - Base: bottom face on the bed, 6 walls, 6 top/bottom layers, 25% gyroid. Do
   not use a brim inside the race.
 - Base feet: broad face on the bed, 5 walls, 40% gyroid. Keep both vertical

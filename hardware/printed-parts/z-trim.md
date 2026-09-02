@@ -45,8 +45,18 @@ profile, whichever models are loaded into it at the time:
 
 | file | trim | printer preset |
 | --- | --- | --- |
-| [`petgf.3mf`](petgf.3mf) | +0.03 | `Bambu Lab H2C 0.4 nozzle 03 first layer by agent` |
+| [`petgf.3mf`](petgf.3mf) | +0.17 | `Bambu Lab H2C 0.4 nozzle 17 first layer by agent` |
 | [`enclosure/enclosure/enclosure-back-top-petgf.3mf`](/hardware/printed-parts/enclosure/enclosure/enclosure-back-top-petgf.3mf) | +0.02 | `Bambu Lab H2C 0.4 nozzle`, the start G-code its one project override |
+
+The working profile runs its **first layer at 280 °C**, the same nozzle temperature as the
+rest of the print rather than a cooler one. What asked for that, and for the trim above, is
+the welding rotary table: two plates of it failed in the first layer or two off a 265 °C first
+layer, where the front-top, the pump cartridge and the display covers all came off the same
+profile clean. The parts that failed carry the rig's large circles — the 165 mm ball race in
+the base, the 90T pulley round the turntable — so their first layer is a long unbroken
+perimeter loop with a full lap of cooling between one pass over a point and the next
+([`fixtures/weld-rotator/README.md`](/hardware/printed-parts/fixtures/weld-rotator/README.md)
+"Print").
 
 ## What else touches Z
 
