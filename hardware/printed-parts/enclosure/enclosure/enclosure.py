@@ -6272,10 +6272,11 @@ def _pan_sleeve(solid, sleeve, z0, z1):
     where the pack states them; only free clearance above the inserted rim grows toward the
     mouth. No short roof remains over material printed below it.
 
-    THE DOCK IS THREE MORE CUTS IN THE BACKSTOP, and none of them a roof the piece cannot span:
-    the male's window and its pocket run through the block on the pan's own axis, each a bridge
-    one pill wide, and the lead channel drops out of the pocket's floor through the block's.
-    The berth is not touched by any of the three."""
+    THE DOCK IS THREE MORE CUTS IN THE BACKSTOP, on the pan's own axis: the male's window and
+    its pocket run through the block, each a bridge one pill wide, and the lead channel drops
+    out of the pocket's floor through the block's. The berth is not touched by any of the three.
+    The pocket's roof is a flat face the slice supports from the bed, beside the sleeve floor's
+    own support — README.md "Print orientation + corner relief"."""
     adds, cuts = sleeve
     blocks = [b for b in adds if z0 <= b[5] <= z1]
     for x0, x1, y0, y1, bz0, bz1 in blocks:

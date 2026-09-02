@@ -168,10 +168,10 @@ Settings:
 ### Support-removal audit
 
 The current fluted back-top STL, substituted into a temporary copy of the production project
-above and sliced by BambuStudio 02.08.02.61, has **5 connected support bodies** reaching **28
+above and sliced by BambuStudio 02.08.02.61, has **5 connected support bodies** reaching **27
 interface islands**. All five start at print z 0.20 on the bed; none starts on model material.
-Their shortest base-to-first-interface build-ups are **92.16, 103.44, 92.16, 170.64 and
-190.80 mm**. There are no bodies in the under-5, 5–10 or 10–15 mm bands and the first interface is at print z
+Their shortest base-to-first-interface build-ups are **92.16, 103.44, 160.80, 170.64 and
+191.04 mm**. There are no bodies in the under-5, 5–10 or 10–15 mm bands and the first interface is at print z
 **92.36 mm**. The hashed toolpath reading is
 [`enclosure-back-top.support-audit.json`](enclosure-back-top.support-audit.json); the five
 retained bodies and the geometric reason for each are named in

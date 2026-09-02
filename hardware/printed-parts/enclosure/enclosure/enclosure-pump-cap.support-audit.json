@@ -11,21 +11,21 @@
       0.0,
       1.0,
       -165.0,
-      -120.32000041,
+      -117.839998722,
       216.744995117
     ],
     "plate_to_cad_translation_mm": [
       -165.0,
-      -120.32,
+      -117.839999,
       216.744995
     ],
     "replacement_mesh_bed_reseat_mm": 10.875
   },
   "inputs": {
     "gcode": "plate_1.gcode",
-    "gcode_sha256": "b393abd00bd3672ae61844882b2e5c6e2ab2b310b6518613ef9b2f3b096f8948",
+    "gcode_sha256": "d5a0ca4be51ab33b5042585361cee37d222fa2179b6c3e31528b7defcd56a2f4",
     "model": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
-    "model_sha256": "ecb554a846e0dd5ee2782aaadc5d8177cc498f7ca13a4dcb39dbc62471833af6",
+    "model_sha256": "0556a1c4b2ae3ac8208efa810807c453dc71e04aa557e5e1e5645f757740c5ec",
     "profile": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap-petgf.3mf",
     "profile_sha256": "d50dd6389b9202491a5e71567ffc2f962acb484c4924a46088783e0ccf3208fa"
   },
@@ -33,10 +33,10 @@
     {
       "bbox_cad_xyz_mm": [
         -75.8,
-        15.28,
+        17.76,
         235.345,
         -24.2,
-        66.88,
+        69.36,
         235.545
       ],
       "bbox_xy_mm": [
@@ -54,10 +54,10 @@
     {
       "bbox_cad_xyz_mm": [
         24.2,
-        15.28,
+        17.76,
         235.345,
         75.8,
-        66.88,
+        69.36,
         235.545
       ],
       "bbox_xy_mm": [
@@ -113,10 +113,10 @@
       "base_z_mm": 0.2,
       "bbox_cad_xyz_mm": [
         -75.8,
-        14.88,
+        17.36,
         216.945,
         -23.8,
-        66.88,
+        69.36,
         235.545
       ],
       "bbox_xy_mm": [
@@ -138,15 +138,15 @@
       "base_z_mm": 0.2,
       "bbox_cad_xyz_mm": [
         23.8,
-        14.88,
+        17.76,
         216.945,
         75.8,
-        66.88,
+        69.36,
         235.545
       ],
       "bbox_xy_mm": [
         188.8,
-        135.2,
+        135.6,
         240.8,
         187.2
       ],
