@@ -95,13 +95,17 @@ running load, and its Ø90 bore continues the purge/service passage.
 ## Belt plane and drive
 
 The purchased 20T pulley is 20 mm long with Ø35 flanges and no boss, and the
-motor shaft is 21 mm. Fitted flush with the shaft end, the pulley's 16 mm land
-sits 3–19 mm below the motor face; with the face at [52.5](WR_MOTOR_FACE_Z) mm
-that land runs from [33.5](WR_BELT_Z0) to [49.5](WR_BELT_Z1) mm above the base
-bottom, and the printed 90T tooth zone is centred on it. Nothing stands between
-the motor face and the belt except the carriage's [2](WR_SKIN_H) mm skin. The
-skin's Ø38.6 hole registers the motor's Ø38.1 face pilot and lets the Ø35
-pulley flanges pass; the belt's upper edge runs 1 mm below it.
+motor shaft is 21 mm. The pulley is gauged [0.25](WR_PULLEY_PILOT_GAP) mm away
+from the front face of the motor's 1.6 mm-long Ø38.1 pilot. With the motor face
+at [53.35](WR_MOTOR_FACE_Z) mm, the pulley's 16 mm land runs from
+[33.5](WR_BELT_Z0) to [49.5](WR_BELT_Z1) mm above the base bottom and is centred
+in the printed 90T tooth zone. The pulley's outer face stands
+[0.85](WR_PULLEY_OVERHANG) mm beyond the nominal shaft end; the shaft end is
+not its assembly datum. Nothing stands between the motor face and the belt
+except the carriage's [2](WR_SKIN_H) mm skin. The skin's Ø38.6 hole registers
+the face pilot and lets the Ø35 pulley flanges pass. Even the complete 16 mm
+land envelope clears the skin by [1.85](WR_LAND_SKIN_CLEAR) mm; the centred
+15 mm belt has another 0.5 mm.
 
 The tower is two rails outside the belt's spans and a rear wall behind the
 pulley's wrap, on the base's four M5 stations. Its rail feet seat the M5
@@ -204,12 +208,18 @@ ring.
 6. Bolt the motor tower to its four M5 stations with a 4 mm hex key down the
    access holes. Set the carriage on the rail tops and start four M3 × 10
    screws through its slots at the inboard end; leave them loose.
-7. Before the motor goes in, fit the 20T pulley flush with the shaft end and
-   tighten both set screws on the D-cut. Hang the belt on the 90T pulley and
-   hold the free bight of the loop open under the carriage's pilot hole. Lower
-   the 23HS30-2804S face-down: the pulley passes through the hole into the
-   bight, and the Ø38.1 pilot seats in the skin. Slide one pad down each Y side
-   and advance the four M3 × 8 side screws evenly until the frame cannot rock.
+7. Before the motor goes in, measure the pulley's actual overall length. Slide
+   it onto the shaft until the distance from the front face of the motor's
+   Ø38.1 pilot to the pulley's outer face is that length plus
+   [0.25](WR_PULLEY_PILOT_GAP) mm; a 0.25 mm / 0.010 inch feeler blade between
+   the motor-side flange and pilot sets the same gap. Clock one set screw onto
+   the D-flat, tighten it, then tighten the second screw against the round.
+   Withdraw the feeler and spin the pulley by hand to verify an air gap to the
+   stationary pilot. Hang the belt on the 90T pulley and hold the free bight
+   open under the carriage's pilot hole. Lower the 23HS30-2804S face-down: the
+   pulley passes through the hole into the bight, and the Ø38.1 pilot seats in
+   the skin. Slide one pad down each Y side and advance the four M3 × 8 side
+   screws evenly until the frame cannot rock.
 8. Slide the complete carriage outward until the long belt span twists about
    90 degrees with finger pressure, then tighten the four carriage screws.
 9. Bolt the nest to its register. Put one jaw cap on each M3 adjuster tip; the
