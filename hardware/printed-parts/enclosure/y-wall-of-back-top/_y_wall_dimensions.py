@@ -175,9 +175,12 @@ def main():
             f"x {_ea.C14_STATION[0]:g}, z {_ea.C14_STATION[1]:.2f}, "
             f"seat y {_ea.c14_seat_y():.2f}"),
         "C14_SCREWS": f"x {_ea.c14_stations()[0][0]:g} and {_ea.c14_stations()[1][0]:g}",
-        "C14_POCKET_SLIP": f"{_ea._enc.c14_collar_slip:g} mm",
-        "C14_COLLAR_WALL": f"{_ea._enc.c14_collar_wall:g} mm",
-        "C14_COLLAR_EXTENSION": f"{_ea._enc.c14_collar_extension:g} mm",
+        "C14_POCKET_SLIP": f"{_ea._enc.c14_pocket_slip:g} mm",
+        "C14_POCKET_WALL": f"{_ea._enc.c14_pocket_wall:g} mm",
+        "C14_POCKET_LIP": f"{_ea._enc.c14_pocket_lip:g} mm",
+        "C14_BLOCK": (f"{2.0 * _ea.c14_mount_half()[0]:.4g} × "
+                      f"{2.0 * _ea.c14_mount_half()[1]:.4g} mm"),
+        "C14_RUN": (f"{_ea._enc.rear_plane_y - (_ea.c14_seat_y() - _ea._c14.FLANGE_T - _ea._enc.c14_pocket_lip):.4g} mm"),
         "KEYSTONE_W": f"{_ea._keystone.APERTURE_W:.4g}",
         "KEYSTONE_H": f"{_ea._keystone.APERTURE_H:.4g}",
         "KEYSTONE_LIP": f"{_ea._keystone.LIP_D:.4g} mm",
