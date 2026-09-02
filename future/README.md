@@ -42,9 +42,10 @@ generating failures Derek did not predict, and supplier relationships priced at 
 fifty. Ring 1 closes when the tenth unit is installed and the design is tighter than what
 unit one received.
 
-**Three. The Founder Edition run.** Units 001–050 at $7,500, numbered and signed, one
-person building them at roughly a dozen a year. This is the public plan and the price
-anchor; it opens when the machine has been built enough times that the build is boring.
+**Three. The Founder Edition run.** Units 001–050 at $7,500, numbered and signed, built one
+at a time by one person. This is the public plan and the price anchor; it opens when the
+machine has been built enough times that the build is boring, and it closes when the
+fiftieth is committed.
 
 ## What stands between here and the first mark
 
@@ -76,8 +77,10 @@ The risk this creates is the obvious one. A tree that can be improved forever wi
 improving it feels like progress in a way that welding does not. The marks above exist to
 name the difference. Nothing in this repository is finished by a commit.
 
-## The dates
+## No dates
 
-The tree derives its own numbers — cost, mass, hours, clearance — but it cannot derive a
-date, because a date is a promise about Derek's own weeks and nobody else can make it. The
-dates for the three marks are his to set here, and this is the page they belong on.
+There are none here, and there are none anywhere in this tree. A mark is finished when the
+physical thing exists, and the record of when that happened is written after it happens —
+[`updates/`](/updates/) and [`biography/`](/biography/) are where it lands. What this page
+holds is the order the marks come in and what each one is owed, which is a plan; a date
+would be a guess dressed as one.
