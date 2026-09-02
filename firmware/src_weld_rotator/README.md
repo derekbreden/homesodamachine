@@ -36,11 +36,12 @@ input impedance rejects noise beside the welder. The acquired universal 5 V /
 3 A adapter's Micro-USB tip powers the ESP32. Its listing and the ledger
 account for that tip, so this build does not assume an unrecorded USB cable.
 
-For flashing and the serial console, use the acquired DSD TECH SH-U09B3
-USB-C-to-TTL adapter: adapter `TX` to ESP32 `RX0/GPIO3`, adapter `RX` to
-`TX0/GPIO1`, and GND to GND. Leave adapter VCC unconnected. For upload, start
-the PlatformIO upload, hold `BOOT`, tap `EN`, and release `BOOT` when transfer
-begins. The adapter may be removed after settings are stored.
+For flashing and the serial console, plug the DevKitC's own Micro-USB into the
+host. Its onboard CP2102 handles the upload, the automatic bootloader reset and
+the 115200 baud console, and it powers the board while connected. Once the
+settings are stored, move the Micro-USB to the 5 V adapter's tip. The onboard
+bridge drives `RX0/TX0` whenever the board is USB-powered, so no external TTL
+adapter is connected to those pins.
 
 ## Driver switches
 
@@ -96,5 +97,4 @@ pio run -e weld_rotator
 ```
 
 Building opens no serial port. Upload only after the wiring is metered with the
-24 V adapter unplugged. Keep the separate 5 V adapter connected for the manual
-bootloader sequence above.
+24 V adapter unplugged; the host's USB powers the board during upload.
