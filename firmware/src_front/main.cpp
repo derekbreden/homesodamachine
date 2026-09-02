@@ -405,6 +405,7 @@ static_assert(LOCK_NOTE_Y + TEXT_H_20 <= LOCK_MODAL_H - LOCK_PAD_T - LOCK_PAD_B 
 static void lockFillLayout(bool on);
 static void fillStopCb(lv_event_t *e);
 static void cleanStopCb(lv_event_t *e);
+static void airStopCb(lv_event_t *e);
 static void lockStopCb(lv_event_t *e);
 static unsigned long bootLockMinUntil = 0;
 static unsigned long bootLockMaxUntil = 0;
@@ -573,6 +574,20 @@ static unsigned long cleanCardUntilMs = 0;      // nonzero: the closing card is 
 #define CLEAN_QUERY_MS        FILL_QUERY_MS
 #define CLEAN_START_REPLY_MS  FILL_START_REPLY_MS
 #define CLEAN_CARD_MS         FILL_CARD_MS
+
+// ── The air cycles, as this glass shows it ──
+// Dry is started from Settings before a pump replacement; a purge is the
+// console's. Both are shown on the lock the way the clean cycle is.
+static AirStatePayload airState = {};
+static bool          airKnown = false;
+static bool          airLockShown = false;
+static bool          airStopSent = false;
+static unsigned long airAnchorMs = 0;
+static unsigned long airStartSentMs = 0;
+static unsigned long airQueryMs = 0;
+static unsigned long airUiMs = 0;
+static unsigned long airCardUntilMs = 0;
+static lv_obj_t *settingsMsg = NULL;   // the Settings page's own message line
 static lv_obj_t *settingsBtn;      // top-right of the screen, outside the pane
 
 // Flavor 1 and 2 as this panel holds them. The base carries no config store, so a ratio
@@ -1718,6 +1733,8 @@ static void setFillMsg(const char *s);
 static void applyPrimeSessionState(const PrimeSessionStatePayload &state);
 static void applyFillState(const FillStatePayload &state);
 static void applyCleanState(const CleanStatePayload &state);
+static void applyAirState(const AirStatePayload &state);
+static void setSettingsMsg(const char *s);
 static bool uiShow(const UiShowPayload &req);
 
 static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
@@ -1818,6 +1835,13 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
     CleanStatePayload st;
     memcpy(&st, payload, sizeof(st));
     applyCleanState(st);
+    return;
+  }
+
+  if (type == MSG_RESP_AIR && plen >= sizeof(AirStatePayload)) {
+    AirStatePayload st;
+    memcpy(&st, payload, sizeof(st));
+    applyAirState(st);
     return;
   }
 
@@ -1939,6 +1963,8 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
       j9Post(MSG_FILL_QUERY, nullptr, 0);
     if ((ctrlStatus.flags & STATUS_F_CLEANING) && !cleanLockShown && !cleanStartSentMs)
       j9Post(MSG_CLEAN_QUERY, nullptr, 0);
+    if ((ctrlStatus.flags & STATUS_F_AIRING) && !airLockShown && !airStartSentMs)
+      j9Post(MSG_AIR_QUERY, nullptr, 0);
     return;
   }
 
@@ -3624,10 +3650,189 @@ static void cleanStopCb(lv_event_t *e) {
   cleanLockProgress();
 }
 
+// ── The air cycles, on the lock ───────────────────────────────────────────
+// Dry — before a pump replacement — is asked for from Settings; a purge is the
+// console's. The lock shows either the way it shows the clean cycle: the face
+// of the channel whose pump is turning, a bar across the whole cycle, a note
+// with the step and which way the air is going, STOP, and the time left.
+static uint32_t airDisplayedStepElapsed() {
+  if (!airKnown) return 0;
+  uint32_t elapsed = airState.stepElapsedMs;
+  if (airState.phase == AIR_PHASE_RUNNING) elapsed += millis() - airAnchorMs;
+  if (elapsed > airState.stepPlannedMs) elapsed = airState.stepPlannedMs;
+  return elapsed;
+}
+
+static uint32_t airDisplayedLeft() {
+  if (!airKnown || airState.phase != AIR_PHASE_RUNNING) return 0;
+  const uint32_t since = millis() - airAnchorMs;
+  return since >= airState.cycleLeftMs ? 0 : airState.cycleLeftMs - since;
+}
+
+static void airLockProgress() {
+  int32_t &shownPermille = lockShownPermille;
+  uint16_t &shownStep = lockShownStep;
+  uint32_t &shownMinutes = lockShownMinutes;
+  if (!airLockShown || airCardUntilMs) return;
+  const uint32_t steps = airState.steps ? airState.steps : 1;
+  const uint32_t planned = airState.stepPlannedMs ? airState.stepPlannedMs : 1;
+  const uint32_t stepPermille = (uint32_t)((uint64_t)airDisplayedStepElapsed() * 1000 / planned);
+  int32_t permille = (int32_t)(((uint32_t)airState.stepIndex * 1000 + stepPermille) / steps);
+  if (permille > 1000) permille = 1000;
+  if (permille != shownPermille) {
+    shownPermille = permille;
+    lv_bar_set_value(lockBar, permille, LV_ANIM_OFF);
+  }
+  const uint16_t stepKey = (uint16_t)((airState.stepIndex << 8) | airState.channel | (airStopSent ? 0x80 : 0));
+  if (stepKey != shownStep) {
+    shownStep = stepKey;
+    lv_img_set_src(lockFace, &flavorTile[flavorImage[airState.channel & 1]]);
+    if (airStopSent) {
+      lv_label_set_text(lockNote, "stopping");
+    } else {
+      lv_label_set_text_fmt(lockNote, "%u of %u \xE2\x80\xA2 air %s",
+                            (unsigned)(airState.stepIndex + 1), (unsigned)airState.steps,
+                            airState.step == AIR_STEP_IN ? "in" : "out");
+    }
+  }
+  const uint32_t left = airDisplayedLeft();
+  const uint32_t minutes = left < 60000 ? 0 : (left + 30000) / 60000;
+  if (minutes != shownMinutes) {
+    shownMinutes = minutes;
+    if (minutes == 0) lv_label_set_text(lockKicker, "UNDER 1 MIN LEFT");
+    else              lv_label_set_text_fmt(lockKicker, "%lu MIN LEFT", (unsigned long)minutes);
+  }
+}
+
+static void airLockShow() {
+  lockScreenShow(airState.mode == AIR_MODE_PURGE ? "AIR PURGE" : "PUMP SERVICE",
+                 airState.mode == AIR_MODE_PURGE ? "Purging" : "Drying", "");
+  lv_img_set_src(lockFace, &flavorTile[flavorImage[airState.channel & 1]]);
+  lockFillLayout(true);
+  lv_obj_add_flag(lockBody, LV_OBJ_FLAG_HIDDEN);
+  lv_obj_set_style_bg_color(lockStop, lv_color_hex(COL_CARD_ON), 0);
+  airLockShown = true;
+  airStopSent = false;
+  airCardUntilMs = 0;
+  airQueryMs = millis();
+  lockProgressReset();
+  airLockProgress();
+}
+
+static void airLockCard(uint8_t outcome) {
+  const bool purge = airState.mode == AIR_MODE_PURGE;
+  const char *title = "Stopped";
+  const char *body;
+  switch (outcome) {
+    case AIR_OUTCOME_DONE:
+      title = purge ? "Purged" : "Dry";
+      body = purge ? "The reservoir is\nempty and the line\nis clear."
+                   : "The lines are dry.\nPull the pump\ncartridge.";
+      break;
+    case AIR_OUTCOME_STOPPED:
+      body = "Stopped early. The\nlines may not be\nclear.";
+      break;
+    case AIR_OUTCOME_GAS:
+      body = "Gas alarm. Everything\nis switched off.";
+      break;
+    default:
+      body = "A valve did not answer.\nEverything is switched off.";
+      break;
+  }
+  lv_label_set_text(lockKicker, purge ? "AIR PURGE" : "PUMP SERVICE");
+  lv_label_set_text(lockTitle, title);
+  lv_label_set_text(lockBody, body);
+  lv_obj_clear_flag(lockBody, LV_OBJ_FLAG_HIDDEN);
+  lv_obj_add_flag(lockBar, LV_OBJ_FLAG_HIDDEN);
+  lv_obj_add_flag(lockNote, LV_OBJ_FLAG_HIDDEN);
+  lv_obj_add_flag(lockStop, LV_OBJ_FLAG_HIDDEN);
+  airCardUntilMs = millis() + CLEAN_CARD_MS;
+  if (!airCardUntilMs) airCardUntilMs = 1;
+}
+
+static void airLockClose() {
+  airLockShown = false;
+  airCardUntilMs = 0;
+  airStopSent = false;
+  lockScreenHide();
+}
+
+static const char *airRefusalText(uint8_t outcome) {
+  switch (outcome) {
+    case AIR_OUTCOME_BUSY:  return "the machine is busy";
+    case AIR_OUTCOME_NO_IO: return "the valves are not answering";
+    case AIR_OUTCOME_FAULT: return "a valve did not answer";
+    case AIR_OUTCOME_GAS:   return "gas alarm \xE2\x80\xA2 nothing runs";
+    default:                return "the main board declined";
+  }
+}
+
+static void applyAirState(const AirStatePayload &st) {
+  airState = st;
+  airKnown = true;
+  airAnchorMs = millis();
+  const bool running = st.phase == AIR_PHASE_RUNNING;
+
+  if (airStartSentMs) {
+    airStartSentMs = 0;
+    if (running) { setSettingsMsg(""); airLockShow(); return; }
+    setSettingsMsg(airRefusalText(st.outcome));
+    return;
+  }
+
+  if (running) {
+    if (!airLockShown) airLockShow();   // the console's, or a lost turn's
+    else airLockProgress();
+    return;
+  }
+  if (airLockShown && !airCardUntilMs) airLockCard(st.outcome);
+}
+
+static void airStopCb(lv_event_t *e) {
+  (void)e;
+  if (!airLockShown || airCardUntilMs || airStopSent) return;
+  j9Post(MSG_AIR_STOP, nullptr, 0);
+  airStopSent = true;
+  lv_obj_set_style_bg_color(lockStop, lv_color_hex(COL_OFF), 0);
+  airLockProgress();
+}
+
+// Settings' one commitment: dry the lines before the pump cartridge is pulled.
+static void dryStartCb(lv_event_t *e) {
+  (void)e;
+  if (airLockShown) return;
+  AirRequestPayload p{AIR_MODE_DRY, 0};
+  j9Post(MSG_AIR_START, &p, sizeof(p));
+  airStartSentMs = millis() ? millis() : 1;
+  setSettingsMsg("starting");
+}
+
+static void airService() {
+  const unsigned long now = millis();
+  if (airStartSentMs && now - airStartSentMs >= CLEAN_START_REPLY_MS) {
+    airStartSentMs = 0;
+    setSettingsMsg("the main board did not answer");
+  }
+  if (!airLockShown) return;
+  if (airCardUntilMs) {
+    if ((long)(now - airCardUntilMs) >= 0) airLockClose();
+    return;
+  }
+  if (now - airUiMs >= 100) {
+    airUiMs = now;
+    airLockProgress();
+  }
+  if (now - airQueryMs >= CLEAN_QUERY_MS && outCount < OUT_Q_DEPTH / 2) {
+    airQueryMs = now;
+    j9Post(MSG_AIR_QUERY, nullptr, 0);
+  }
+}
+
 // One STOP on the lock, for whichever operation is up on it.
 static void lockStopCb(lv_event_t *e) {
   if (fillLockShown)       fillStopCb(e);
   else if (cleanLockShown) cleanStopCb(e);
+  else if (airLockShown)   airStopCb(e);
 }
 
 static void cleanService() {
@@ -4102,20 +4307,34 @@ static void buildService(lv_obj_t *page) {
       "START FILL", fillStartCb, SVC_FILL_PICK, &fillMsg);
 }
 
+static void setSettingsMsg(const char *s) { if (settingsMsg) lv_label_set_text(settingsMsg, s); }
+
+// Settings carries the one thing a person does to this machine that is not a
+// drink: drying the lines before the pump cartridge is pulled
+// (hardware/service/pump-replacement.md). A container goes under the faucet
+// first; the button is the commitment, and the lock shows the cycle.
 static void buildSettings(lv_obj_t *page) {
   lv_obj_align(mkText(page, "SETTINGS", &lv_font_montserrat_28, COL_DIM),
                LV_ALIGN_TOP_LEFT, 0, (PANE_HEAD_H - TEXT_H_28) / 2);
 
-  // Customer controls earn their place here when there is a clear reason to
-  // change them. Keep the first shipping settings surface deliberately quiet
-  // instead of exposing build, transport, memory, or touch diagnostics.
-  lv_obj_t *card = mkCard(page, PANE_W - 2 * PANE_PAD, 156);
+  lv_obj_t *card = mkCard(page, PANE_W - 2 * PANE_PAD, 232);
   lv_obj_align(card, LV_ALIGN_TOP_MID, 0, PANE_BODY_Y);
-  lv_obj_align(mkText(card, "NOTHING TO ADJUST YET", &lv_font_montserrat_20, COL_DIM),
+  lv_obj_align(mkText(card, "PUMP SERVICE", &lv_font_montserrat_20, COL_DIM),
                LV_ALIGN_TOP_LEFT, 0, 0);
-  lv_obj_t *body = mkText(card, "Useful preferences will appear here\nwhen they are ready.",
-                           &lv_font_montserrat_28, COL_TEXT);
-  lv_obj_align(body, LV_ALIGN_LEFT_MID, 0, 28);
+  lv_obj_t *body = mkText(card, "Before pulling the pump cartridge,\n"
+                                "set a container under the faucet\n"
+                                "and dry the lines.",
+                          &lv_font_montserrat_28, COL_TEXT);
+  lv_obj_align(body, LV_ALIGN_TOP_LEFT, 0, TEXT_H_20 + 10);
+
+  lv_obj_t *go = mkBtn(card, 300, 64, COL_ACCENT);
+  lv_obj_align(go, LV_ALIGN_BOTTOM_RIGHT, 0, 0);
+  lv_obj_clear_flag(go, LV_OBJ_FLAG_PRESS_LOCK);   // slide off to change your mind
+  lv_obj_add_event_cb(go, dryStartCb, LV_EVENT_CLICKED, NULL);
+  lv_obj_center(mkText(go, "DRY THE LINES", &lv_font_montserrat_28, COL_TEXT));
+
+  settingsMsg = mkText(card, "", &lv_font_montserrat_20, COL_WARN);
+  lv_obj_align(settingsMsg, LV_ALIGN_BOTTOM_LEFT, 0, -20);
 }
 
 // GPIO43 reads RS485_RXD on Waveshare's table and is the S3's U0TXD. The pair is a
@@ -4305,6 +4524,7 @@ static bool uiShow(const UiShowPayload &req) {
       return true;
     case UI_RAIL_SETTINGS:
       showPage(PAGE_SETUP);
+      if (req.act) dryStartCb(nullptr);
       return true;
     default:
       return false;
@@ -4552,6 +4772,14 @@ static void processTextLine(const char *line) {
   } else if (strcmp(line, "CLEAN:STOP") == 0) {
     cleanStopCb(nullptr);
     Serial.println("OK:CLEAN:STOP");
+  } else if (strcmp(line, "AIR:DRY") == 0) {
+    // Settings' DRY THE LINES, without a finger on the glass.
+    showPage(PAGE_SETUP);
+    dryStartCb(nullptr);
+    Serial.println("OK:AIR:DRY");
+  } else if (strcmp(line, "AIR:STOP") == 0) {
+    airStopCb(nullptr);
+    Serial.println("OK:AIR:STOP");
   } else if (strncmp(line, "PRIME:START:", 12) == 0) {
     // Enter the shared session, then start the same tokenized hold as soon as
     // the main board's READY answer lands. PRIME:STOP releases that synthetic
@@ -4923,6 +5151,7 @@ void loop() {
 
   fillService();
   cleanService();
+  airService();
 
   // The status request keeps main board truth fresh once a second whenever a
   // shared prime hold does not own the pair.

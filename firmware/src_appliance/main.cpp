@@ -168,7 +168,7 @@ void loop() {
     // A fill or a clean cycle is something a person asked for and is watching.
     // Both glasses stay lit for the length of it, and the quiet stretch starts
     // when it ends.
-    if (machineIsFilling() || machineIsCleaning()) idleTouched();
+    if (machineIsFilling() || machineIsCleaning() || machineIsAiring()) idleTouched();
     if (idleService()) {
         // An offered action is withdrawn with the light. Both glasses learn of
         // the sleep and the closed session from the same pair of publications.
@@ -212,6 +212,10 @@ static void help() {
     Serial.println("  clean <a|b> [rounds] [s]   the clean cycle: tap water in through the idle pump until the");
     Serial.println("                    full reed closes, then pumped out the faucet until the empty reed opens,");
     Serial.println("                    rounds times (default 3); s caps every step (default 90 in, 150 out)");
+    Serial.println("  dry [s]           before a pump replacement: air in then through to the faucet, on each");
+    Serial.println("                    channel in turn, the funnel dry and open; s caps every step");
+    Serial.println("  purge <a|b> [s]   air into that reservoir, then the reservoir out the faucet until");
+    Serial.println("                    its empty reed opens; s caps every step");
     Serial.println("  selftest          every solenoid in turn, the fan, then each pump — one at a time");
     Serial.println("  stop              end whatever is running");
     Serial.println("  status            machine state, uptime, heap");
@@ -223,6 +227,7 @@ static void help() {
     Serial.println("  test [s|off]      the camera's test screen on the enclosure, s seconds (default 120)");
     Serial.println("  ui <page> [a|b] [go]   a customer page on the enclosure: choose, prime, fill, clean or");
     Serial.println("                    settings; with a flavor, that flavor's own page; go presses its START");
+    Serial.println("                    (settings go presses DRY THE LINES)");
     Serial.println("  sound <name>      play one of the machine's sounds; 'sound list' names them");
     Serial.println("  volume [0-100]    how loud everything but the alarm is (persisted)");
     Serial.println("  quiet [on|off] [start] [end] [pct]   quiet hours, off the DS3231 (persisted)");
@@ -247,6 +252,16 @@ static void status() {
         Serial.printf(" — fill %s, %lu of %lu ms, reservoir reeds %02X",
                       machinePumpName(fill.channel), (unsigned long)fill.elapsedMs,
                       (unsigned long)fill.plannedMs, fill.reeds);
+    }
+    if (machineState() == ST_AIRING) {
+        MachineAirState air;
+        machineReadAirState(air);
+        Serial.printf(" — %s, step %u of %u, %s on pump %s, %lu of %lu ms, about %lu s left, reeds %02X",
+                      air.mode == AIR_MODE_PURGE ? "purge" : "dry", (unsigned)(air.stepIndex + 1),
+                      (unsigned)air.steps,
+                      air.step == AIR_STEP_IN ? "air in" : air.step == AIR_STEP_THROUGH ? "air through" : "air out",
+                      machinePumpName(air.channel), (unsigned long)air.stepElapsedMs,
+                      (unsigned long)air.stepPlannedMs, (unsigned long)(air.cycleLeftMs / 1000), air.reeds);
     }
     if (machineState() == ST_CLEANING) {
         MachineCleanState clean;
@@ -767,6 +782,27 @@ static void console(const String &line) {
         return;
     }
     if (line == "stop")        { machineStop(); return; }
+    if (line == "dry" || line.startsWith("dry ")) {
+        String rest = line.substring(3); rest.trim();
+        const int s = rest.length() ? rest.toInt() : 0;
+        if (s < 0 || s > 3600) { Serial.println("\nusage: dry [s 1-3600]"); return; }
+        if (!machineAirBegin(AIR_MODE_DRY, 0, (uint32_t)s * 1000UL))
+            Serial.printf("\nrefused — the machine is %s\n", machineStateName());
+        return;
+    }
+    if (line.startsWith("purge")) {
+        String rest = line.substring(5); rest.trim();
+        if (!rest.length()) { Serial.println("\nusage: purge <a|b> [s]"); return; }
+        char which = rest[0] | 0x20;
+        if (which != 'a' && which != 'b') { Serial.println("\nusage: purge <a|b> [s]"); return; }
+        String sArg = rest.substring(1); sArg.trim();
+        const int s = sArg.length() ? sArg.toInt() : 0;
+        if (s < 0 || s > 3600) { Serial.println("\nusage: purge <a|b> [s 1-3600]"); return; }
+        if (!machineAirBegin(AIR_MODE_PURGE, which == 'a' ? PUMP_CHANNEL_A : PUMP_CHANNEL_B,
+                             (uint32_t)s * 1000UL))
+            Serial.printf("\nrefused — the machine is %s\n", machineStateName());
+        return;
+    }
     if (line == "selftest") {
         if (!machineSelfTestBegin())
             Serial.printf("\nrefused — the machine is %s%s\n", machineStateName(),
@@ -923,7 +959,8 @@ static void console(const String &line) {
         uint8_t act = 0;
         if (tail.length()) {
             char which = tail[0] | 0x20;
-            if (which == 'a' || which == 'b') channel = which == 'a' ? PUMP_CHANNEL_A : PUMP_CHANNEL_B;
+            if ((which == 'a' || which == 'b') && (tail.length() == 1 || tail[1] == ' '))
+                channel = which == 'a' ? PUMP_CHANNEL_A : PUMP_CHANNEL_B;
             act = tail.endsWith("go") ? 1 : 0;
         }
         idleTouched();

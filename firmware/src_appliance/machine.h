@@ -24,6 +24,7 @@ enum MachineState : uint8_t {
     ST_PUMPING,   // one flavor pump turning
     ST_FILLING,   // a funnel fill: three valves open, that channel's pump drawing
     ST_CLEANING,  // a clean cycle: one topology state at a time, the pump on for the flushes
+    ST_AIRING,    // an air cycle: the funnel open to air, a pump carrying it along the path
     ST_SELFTEST,  // the commissioning walk: one load at a time, briefly
 };
 
@@ -87,6 +88,24 @@ extern void (*machineOnFillState)(const MachineFillState &state);
 // Every clean state change — accepted, refused, each step begun, ended and
 // why. link.cpp turns these into MSG_RESP_CLEAN.
 extern void (*machineOnCleanState)(const MachineCleanState &state);
+
+// An air cycle, in proto_msg.h's AIR_* vocabulary.
+struct MachineAirState {
+    uint8_t  phase;
+    uint8_t  mode;
+    uint8_t  channel;
+    uint8_t  outcome;
+    uint8_t  step;
+    uint8_t  stepIndex;
+    uint8_t  steps;
+    uint32_t stepElapsedMs;
+    uint32_t stepPlannedMs;
+    uint32_t cycleLeftMs;
+    uint8_t  reeds;
+};
+
+// Every air state change. link.cpp turns these into MSG_RESP_AIR.
+extern void (*machineOnAirState)(const MachineAirState &state);
 
 // A bounded run reaching its deadline, so MSG_RESP_PUMP_DONE goes out when the
 // head has already stopped rather than when the run was asked for.
@@ -157,6 +176,18 @@ bool machineCleanBegin(uint8_t channel, uint8_t rounds = 0, uint32_t stepPlanned
 void machineCleanStop();   // ends a running cycle on request; nothing otherwise
 bool machineIsCleaning();
 void machineReadCleanState(MachineCleanState &state);
+
+// ── The air cycles ────────────────────────────────────────────────────────
+// Dry sweeps both channels with air, in then through to the faucet, before a
+// pump replacement; Purge airs one channel's reservoir and draws it out the
+// faucet. Each step runs its planned time (machine_policy::airStepPlannedMs,
+// or stepPlannedMs when the console names one); the Out step also ends on the
+// empty reed the way a clean flush does. Refused on the same grounds as the
+// fill; every answer, step and ending goes out through machineOnAirState.
+bool machineAirBegin(uint8_t mode, uint8_t channel, uint32_t stepPlannedMs = 0);
+void machineAirStop();
+bool machineIsAiring();
+void machineReadAirState(MachineAirState &state);
 
 // ── The self-test ─────────────────────────────────────────────────────────
 // firmware-and-commissioning.md §7: every solenoid in turn, V-A through V-K,

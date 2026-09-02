@@ -254,6 +254,17 @@ constexpr uint8_t MSG_CLEAN_QUERY = 0x5C;  // no payload: answer with CleanState
 constexpr uint8_t MSG_RESP_CLEAN  = 0x5D;  // CleanStatePayload: to START, QUERY and STOP, and on every change
 constexpr uint8_t MSG_CLEAN_STOP  = 0x5E;  // no payload: end the cycle now
 
+// ── The air cycles (0x5F..) ──────────────────────────────────────────────
+// Air in at the funnel, carried along the flavor path by a pump. Dry, before
+// a pump replacement, sweeps both channels in then through to the faucet and
+// draws on no reservoir; Purge airs one channel's reservoir and draws it out
+// the faucet. The main board answers START, every step and every ending with
+// its complete air state; QUERY gets the same, and STOP ends the cycle.
+constexpr uint8_t MSG_AIR_START  = 0x5F;  // AirRequestPayload
+constexpr uint8_t MSG_AIR_QUERY  = 0x60;  // no payload: answer with AirStatePayload
+constexpr uint8_t MSG_RESP_AIR   = 0x61;  // AirStatePayload
+constexpr uint8_t MSG_AIR_STOP   = 0x62;  // no payload: end the cycle now
+
 // Fixed transport capacities are part of the replay contract. Keeping the
 // values beside the shared wire protocol lets each actual queue assert that a
 // future depth/window change still fits inside the main board's token ledger.
@@ -356,6 +367,47 @@ struct __attribute__((packed)) CleanStatePayload {
 
 static_assert(sizeof(CleanStatePayload) == 19, "clean wire layout drift");
 
+// ── The air cycles ────────────────────────────────────────────────────────
+constexpr uint8_t AIR_MODE_DRY   = 0;  // both channels, in then through to the faucet
+constexpr uint8_t AIR_MODE_PURGE = 1;  // one channel, in then its reservoir out the faucet
+
+constexpr uint8_t AIR_PHASE_OFF     = 0;
+constexpr uint8_t AIR_PHASE_RUNNING = 1;
+
+constexpr uint8_t AIR_STEP_IN      = 0;  // funnel to the reservoir's fill bore
+constexpr uint8_t AIR_STEP_THROUGH = 1;  // funnel to the faucet, past the reservoir
+constexpr uint8_t AIR_STEP_OUT     = 2;  // the reservoir out the faucet
+
+constexpr uint8_t AIR_OUTCOME_NONE    = 0;
+constexpr uint8_t AIR_OUTCOME_DONE    = 1;
+constexpr uint8_t AIR_OUTCOME_STOPPED = 2;
+constexpr uint8_t AIR_OUTCOME_BUSY    = 3;
+constexpr uint8_t AIR_OUTCOME_NO_IO   = 4;
+constexpr uint8_t AIR_OUTCOME_FAULT   = 5;
+constexpr uint8_t AIR_OUTCOME_GAS     = 6;
+
+struct __attribute__((packed)) AirRequestPayload {
+  uint8_t mode;     // AIR_MODE_*
+  uint8_t channel;  // PUMP_CHANNEL_*, for Purge; Dry runs both
+};
+
+// The main board's complete air-cycle truth. Small enough for an announcement.
+struct __attribute__((packed)) AirStatePayload {
+  uint8_t  phase;          // AIR_PHASE_*
+  uint8_t  mode;           // AIR_MODE_*
+  uint8_t  channel;        // the channel whose pump the running step turns
+  uint8_t  outcome;        // AIR_OUTCOME_*
+  uint8_t  step;           // AIR_STEP_*: running now, or when the cycle ended
+  uint8_t  stepIndex;      // 0-based, of steps
+  uint8_t  steps;          // how many steps this cycle is
+  uint32_t stepElapsedMs;
+  uint32_t stepPlannedMs;
+  uint32_t cycleLeftMs;
+  uint8_t  reeds;          // that channel's reservoir reeds, bit 0 empty .. bit 3 full; 0xFF unread
+};
+
+static_assert(sizeof(AirStatePayload) == 20, "air wire layout drift");
+
 // ── A page asked for by the console ──────────────────────────────────────
 constexpr uint8_t UI_RAIL_CHOOSE   = 0;
 constexpr uint8_t UI_RAIL_PRIME    = 1;
@@ -367,7 +419,7 @@ constexpr uint8_t UI_CHANNEL_NONE  = 0xFF;   // the rail's own page rather than 
 struct __attribute__((packed)) UiShowPayload {
   uint8_t rail;      // UI_RAIL_*
   uint8_t channel;   // PUMP_CHANNEL_*, or UI_CHANNEL_NONE
-  uint8_t act;       // 1: also press the page's commitment — START FILL, START CLEAN CYCLE
+  uint8_t act;       // 1: also press the page's commitment — START FILL, START CLEAN CYCLE, DRY THE LINES
 };
 
 constexpr uint8_t PUMP_CHANNEL_A = 0;  // U11 -> J13.AM2/AM1, the two WEST pins
@@ -632,6 +684,7 @@ constexpr uint8_t STATUS_F_GAS_TRIP = 1 << 0;  // the LM393 comparator has tripp
 constexpr uint8_t STATUS_F_PRIMING  = 1 << 1;  // a prime hold is live
 constexpr uint8_t STATUS_F_FILLING  = 1 << 2;  // a funnel fill is drawing
 constexpr uint8_t STATUS_F_CLEANING = 1 << 3;  // a clean cycle is running
+constexpr uint8_t STATUS_F_AIRING   = 1 << 4;  // an air cycle is running
 
 // ── Sound ─────────────────────────────────────────────────────────────────
 // Wire-level sound ids. These mirror SoundId in lib/sound/sound.h, which is the
