@@ -1,13 +1,13 @@
 # Regulatory Posture
 
-Consolidates the regulatory conclusions already reached across prior conversations so they do not need to be re-derived. Primary path is direct-to-consumer sale via homesodamachine.com. Secondary path is big-box retail (Amazon, Walmart, etc.) via the RIGID DV1910E listed-module fallback.
+Consolidates the regulatory conclusions already reached across prior conversations so they do not need to be re-derived. The path is direct-to-consumer sale via homesodamachine.com.
 
 ## Sales channels
 
 | Channel | UL / ETL listing | Notes |
 |---|---|---|
-| Direct-to-consumer (homesodamachine.com) | Not required | Listing is a retailer/insurer requirement, not federal law. |
-| Big-box retail (Amazon, Walmart, Home Depot, etc.) | Required | Use RIGID DV1910E listed-module fallback. |
+| Direct-to-consumer (homesodamachine.com) | Not required | Listing is a retailer/insurer requirement, not federal law. The channel this project sells through. |
+| Big-box retail (Amazon, Walmart, Home Depot, etc.) | Required | Not a channel this project sells through — `marketing/target-market.md` "What this means for how we go to market". No listing is held or sought. |
 
 ## EPA Section 608 — refrigerant handling
 
@@ -21,7 +21,7 @@ Does not apply to: a pivot to an R-134a or other HFC donor. In that case 608 Typ
 
 SNAP (Significant New Alternatives Policy, Clean Air Act §612) approves refrigerants for specific product categories. Natural refrigerants are not blanket-exempt from SNAP — approval is granted per end-use.
 
-R-600a is SNAP-approved for this project's end-use category (self-contained commercial refrigeration, which covers countertop refrigerated beverage dispensers). This project's charge (30–50 g) is well under applicable SNAP charge limits.
+R-600a is SNAP-approved for this project's end-use category (self-contained commercial refrigeration, which covers countertop refrigerated beverage dispensers). This project's charge — under 40 g per unit, per [`/hardware/assembly/refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md) — is well under applicable SNAP charge limits.
 
 Approval conditions this project must satisfy at the product level (no third-party listing needed):
 
@@ -32,9 +32,9 @@ Approval conditions this project must satisfy at the product level (no third-par
 
 ## UL 60335-2-89 — hydrocarbon appliance safety
 
-Charge cap for this equipment class is 150 g. Factory donor charge is 30–50 g per unit — well below the limit.
+Charge cap for this equipment class is 150 g. Factory donor charge is 15 g (Unit A, Antarctic Star HZB-12/Q) or 23 g (Unit B, Frigidaire EFIC117-SS), and the recharge runs 5–15 g over factory because the wound coil holds more than the finger-plate evaporator it replaces — under 40 g per unit, well below the limit.
 
-Primary citation: `hardware/reference/ice-maker/README.md` (the line stating charge is "well under the 150 g UL 60335-2-89 limit").
+Primary citation: [`/hardware/assembly/refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md) for the charge masses and the recharge target; `hardware/reference/ice-maker/README.md` for the line stating charge is "well under the 150 g UL 60335-2-89 limit".
 
 D2C sale does not require this listing. The design follows the standard anyway because the standard codifies what safe handling of hydrocarbon refrigerant in a household appliance actually requires — charge limits, ignition-source containment, marking, service notes. The motivation is not regulatory posture: the appliance is going into kitchens used by friends, family, and customers the founder knows by name (per `marketing/target-market.md` "rings of trust"). Safety is the substance; listing is a credentialing path that's not being pursued separately.
 

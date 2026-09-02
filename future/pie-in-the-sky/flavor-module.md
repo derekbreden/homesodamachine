@@ -4,7 +4,7 @@
 
 *BOM figures in this doc are first-pass estimates intended to size the idea, not specifications.*
 
-A small external appliance that sits next to the main Kitchen Edition or Shop Edition. It adds **a second dispense point** to the household — its own faucet, its own through-counter penetration, its own flavor-select and display — pouring **four flavors** at that faucet. Two of the four come from new reservoirs that live inside the module; two are routed from the main unit's existing reservoirs. Net new flavors added to the household: two. Net new faucets added to the household: one.
+A rung on the curator ladder ([`curator-brand.md`](/future/pie-in-the-sky/curator-brand.md)): a small external unit that sits next to the appliance, or next to the countertop unit in [`shop-edition.md`](/future/pie-in-the-sky/shop-edition.md). It adds **a second dispense point** to the household — its own faucet, its own through-counter penetration, its own flavor-select and display — pouring **four flavors** at that faucet. Two of the four come from new reservoirs that live inside the module; two are routed from the main unit's existing reservoirs. Net new flavors added to the household: two. Net new faucets added to the household: one.
 
 The module does not carbonate. It does not connect to the customer's plumbing or to the customer's CO2 tank. It has exactly two physical interfaces: an umbilical to the main unit, and the flavor-line + carbonated-water bundle that goes up through the counter to its own faucet.
 
@@ -44,7 +44,7 @@ The umbilical is a fat bundle but its endpoints are short: out the back of main,
 ## Plumbing pattern at a glance
 
 ```
-   customer's water        Lite-Edition-style funnel
+   customer's water        injector-style funnel
    + CO2                          │
         │                         ▼
         ▼                ┌────────────────┐
@@ -107,7 +107,7 @@ Pre-margin module cost around $560. A Founder Edition module price of **~$2,500*
 
 ## What's worth doing next on this
 
-Nothing immediately — the Kitchen Edition ships first. Light constraints to carry through main-unit design so the module remains buildable without disturbing the main unit later:
+Nothing immediately — the appliance ships first. Light constraints to carry through main-unit design so the module remains buildable without disturbing the main unit later:
 
 1. **Firmware treats flavor count and faucet count as parameters, not constants.** N=2 flavors, M=1 faucet today; N=4, M=2 with module. Same firmware, same UI grammar.
 2. **One unused UART or I2C bus on the main ESP32 stays reserved** for the module's control bus. No physical connector today, no wiring, no BOM cost — just leave the bus unspoken-for.
