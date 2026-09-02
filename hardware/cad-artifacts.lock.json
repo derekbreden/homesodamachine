@@ -2,8 +2,8 @@
   "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed \u2014 web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
   "release": {
     "tag": "cad-artifacts",
-    "asset": "cad-411f43881d5bbb16.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-411f43881d5bbb16.tar.gz",
+    "asset": "cad-c3e9a871df891bd6.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-c3e9a871df891bd6.tar.gz",
     "objects": "s-"
   },
   "source": {
@@ -12,7 +12,22 @@
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, its rule would not cut, or an interactive publication explicitly deferred that rule.",
     "paths": [
-      "hardware/printed-parts/petgf.3mf"
+      "firmware/README.md",
+      "firmware/lib/machine_policy/machine_policy.cpp",
+      "firmware/lib/machine_policy/machine_policy.h",
+      "firmware/lib/proto_link/proto_msg.h",
+      "firmware/src_appliance/README.md",
+      "firmware/src_appliance/link.cpp",
+      "firmware/src_appliance/machine.cpp",
+      "firmware/src_appliance/machine.h",
+      "firmware/src_appliance/main.cpp",
+      "firmware/src_front/README.md",
+      "firmware/src_front/main.cpp",
+      "firmware/test/README.md",
+      "firmware/test/test_machine_policy/test_machine_policy.cpp",
+      "hardware/printed-parts/petgf.3mf",
+      "tools/panelcam.sh",
+      "tools/panelcam.targets.conf"
     ],
     "members": [
       "hardware/assembly/cards/deck.cover.png",
@@ -362,8 +377,8 @@
     ]
   },
   "bundle": {
-    "sha256": "411f43881d5bbb168a795ffa43a6b9c4d0ff4951ec042f6f423862d0cd42c9d3",
-    "bytes": 116545993,
+    "sha256": "c3e9a871df891bd62a95a6152b828ec13656d0ed054e12587681741e278bd482",
+    "bytes": 116526403,
     "solids": 274
   },
   "solids": {
@@ -453,7 +468,7 @@
     "hardware/faucet-layout/faucet-assembly.step": "f0cfe4395ced9167017cb2188064e2f28ec9bfb99abb07d2c8432f93f4ab65a4",
     "hardware/faucet-layout/faucet-assembly.step.mesh": "c2d3f40b1d81247ea55bb282ddc3059532d5ab70aadb23b186df1f74d38db023",
     "hardware/manifold-layout/enclosure-assembly.step": "3b253659724483a579a21adb69546a47f218e2e0ed8433bb352514c73cbd454e",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "ed0f74cb5396a63813982efad1a2a346060f96b5b63a5365a4392f93006ddd51",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "815f3686f17db436726934bbb165864cf4e61fb5eb34c04a42cd6e12278ddfa8",
     "hardware/manifold-layout/manifold-layout.step": "63a4f0fad52d76241e689072c7e5bce243cad659a66616a9abb21c5f0b40c013",
     "hardware/manifold-layout/manifold-layout.step.mesh": "5ef15ba95d967cd0ddf81804ddca463b55754880c62ca0e003007c3cd5578492",
     "hardware/pcb/pcba/out/pcba.glb": "819d2d6a51579a8c3ee66bcb9432075bc50ca77cf129bd828ea538b8fc72b767",
@@ -501,9 +516,9 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "951d2439a0c293465fb2d3e1055aa8afd6617339662cf6424c30bd4a711c4b7a",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh": "0c3255fd406989ddefc008e5669ba44bdbcc10f6a68e39b37407932528d1ff43",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl": "e585eba66da1f7a3bb21751ec7807572b8d8aab0e8d60e548431788637b8b16b",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "69dc262e7dca474931169c58e1014348e03d63a3b140e27ea055dc7cb12f5f34",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": "dbedfcf77ba53ea1ae0b5b5ff4deed8af1c7caebddd4eaa953bb6b79c136af25",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "de21b09e499b8fe30a69a243094e93fb4d9ae448744b0baafe2cc194d30e6844",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "066ae47c0fe9e0b89f07618f9c0f0c098c43a270120ccf225bdf7a124ce8b02a",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": "d51a540a28894e2e5438a349c78b5a719dfbff93133b1c1f460ad8fb3e9658b5",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "dff8d9e4b3e55ef75746ae2f2c5bdfde0e0691a14ecd59d3d4e640cef4d26e5c",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "4b2fbf709ceb6a2cc05863e4666d28c1f66c9b1d10bdd08af52a53f279c6d57d",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": "cc2944870da53797cb53851e6beec7fb4560104d390c29b007129bd18edd2b1a",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "8d74c80892d4dc7c55c989d58fa36600a57975eaafa70f77b4f6b80647005e73",
@@ -516,8 +531,8 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step": "c16a43f41b4c5fadb00cbc27de57ce42bcb0f0e7b7e4e006ca5d11df4e8b6dd5",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh": "3acb5960c514cf0028a163c5c844a63c6b48d3d5418f74384b3940b477a51c8d",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl": "0b3e8f3b12f9555c74bbf99b03083f8593e5b420c48954cf598b0b8310997517",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.step": "08c65a162fd96c045ac32ea787f7c1185354c7a8b3015ebafefbcd3a94ae84cd",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": "34bdd777c74e53e6bd95b2423eab8c445e17af17317a25ae100cfbe9af5bc3bf",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step": "12fa99d80ea810aa7bd78299a1e0d83f94cf20a87ee09b9f57e61663d74eedb5",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": "82c60d362a55f46f63816640d8d555cccdbf9c38d67790b1cf8ef0cbe34541de",
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.step": "5477d83388b6cfa83526ca245d66c182ac7599cd875f21d8a1b504ad985cdd01",
     "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step": "3e9f081c0c468cd3ddfe3186df20f947cd4d052ae4c0dcfd075f334a89853f8c",
     "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step": "87fd848ad51a18bd85248a779d44eebda7c83710e6850e02204b30f01cdee413",
