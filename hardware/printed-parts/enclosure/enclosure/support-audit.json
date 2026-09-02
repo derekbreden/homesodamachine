@@ -14,7 +14,7 @@
           "tree": "tree-1",
           "name": "west service-furniture and ceiling-strip tree",
           "first_contacts_cad_xyz_mm": [
-            [-107.4, 365.5, 303.24, -104.6, 369.5, 303.72]
+            [-107.4, 365.1, 303.24, -104.6, 369.5, 303.72]
           ],
           "root": "bed",
           "build_up_mm": 143.04,
@@ -23,9 +23,20 @@
         },
         {
           "tree": "tree-2",
+          "name": "west core-hold, tie-channel and rear-wall tree",
+          "first_contacts_cad_xyz_mm": [
+            [-67.0, 449.5, 252.36, -57.0, 460.3, 252.84]
+          ],
+          "root": "bed",
+          "build_up_mm": 92.16,
+          "interface_islands": 5,
+          "rationale": "The first contact carries the west cold-core aft hold-down soffit over its insertion lane — a pillar in that core lane blocks insertion. The shared ASSE tie-channel ceiling contact, the rear-wall service contact beside the carb union's column, the west-wall service contact behind it and the west ceiling strip's rear end join this same bed-rooted removable body through the open enclosure."
+        },
+        {
+          "tree": "tree-3",
           "name": "forward west service-furniture tree",
           "first_contacts_cad_xyz_mm": [
-            [-97.8, 281.5, 263.64, -78.2, 292.3, 264.12]
+            [-97.8, 282.7, 263.64, -77.8, 293.5, 264.12]
           ],
           "root": "bed",
           "build_up_mm": 103.44,
@@ -33,16 +44,15 @@
           "rationale": "The west-wall service contacts in this depth band keep the component, routing, anchor and seam-clearance lanes open. Their eight interfaces share one bed-rooted tree through the open enclosure."
         },
         {
-          "tree": "tree-3",
-          "name": "core-hold, rear-wall and east ceiling tree",
+          "tree": "tree-4",
+          "name": "east core-hold, rear-wall and east ceiling tree",
           "first_contacts_cad_xyz_mm": [
-            [-67.0, 450.3, 252.36, -58.2, 460.3, 252.84],
             [58.2, 449.9, 252.36, 67.0, 460.3, 252.84]
           ],
           "root": "bed",
           "build_up_mm": 92.16,
-          "interface_islands": 16,
-          "rationale": "The first contacts carry both cold-core aft hold-down soffits over their insertion lanes — a pillar in either core lane blocks insertion. The shared ASSE tie-channel ceiling contact, the pan sleeve and remaining west- and rear-wall service contacts, the nameplate mouth's ceiling, the five Wago-well retention ceilings that grip their lever nuts, and the east ceiling-strip contacts — including the fixed-strip underside that preserves the slide-in ceiling panel's continuous dado and mating rail — join this same bed-rooted removable body through the open enclosure."
+          "interface_islands": 11,
+          "rationale": "The first contact carries the east cold-core aft hold-down soffit over its insertion lane — a pillar in that core lane blocks insertion. The nameplate mouth's ceiling, the five Wago-well retention ceilings that grip their lever nuts, the C14 tunnel's aperture ceiling (the bridge the bore's width between the block's two flanks), the east-wall rear service contact and the east ceiling-strip contacts — including the fixed-strip underside that preserves the slide-in ceiling panel's continuous dado and mating rail — join this same bed-rooted removable body through the open enclosure."
         }
       ]
     },
