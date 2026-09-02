@@ -52,7 +52,7 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "1 reference(s) name a path nothing holds.",
+      "note": "3 reference(s) name a path nothing holds.",
       "status": "red"
     },
     {
@@ -82,13 +82,13 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 37 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 276 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 81 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 276 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds f4f865d1d566275bb153fc29b103d132 for the 107 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 181953641ee8c1abfb5de68ef715821e here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was taken from a different tree — it holds f4f865d1d566275bb153fc29b103d132 for the 107 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 77daa7bdb68ca52ad4a65eb985424f68 here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ],
@@ -102,8 +102,10 @@
       "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
     ],
     "tools/check_paths.py": [
-      "hardware/manifold-layout/_scorecard.py:896 — calibration/Fences.md is held nowhere, and no tag is named for it",
-      "1 reference(s) name a path nothing holds."
+      "README.md:9 — future/README.md is held nowhere, and no tag is named for it",
+      "  README.md:23 — future/README.md is held nowhere, and no tag is named for it",
+      "  hardware/README.md:5 — future/README.md is held nowhere, and no tag is named for it",
+      "3 reference(s) name a path nothing holds."
     ],
     "tools/check_web_tests.py": [
       "1 test(s) in web/ fail:",
