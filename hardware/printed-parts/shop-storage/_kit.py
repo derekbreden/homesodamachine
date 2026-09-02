@@ -102,7 +102,15 @@ def dock_body(x_u, y_u):
 
 
 def bin_cavity(bin_shape, x_u, y_u, height_u):
-    """The void a bin holds below its top reference: what its contents must fit inside."""
+    """The void a bin holds below its top reference: what its contents must fit inside.
+
+    One void per compartment, so a divided bin returns one solid per cell. A bin
+    built with `labels=True` carries a label ledge over the +Y end of every
+    compartment, and the ledge is not in the void: the top of a cell is shorter
+    at that end than at the other. A tall thing centred in its cell reads as
+    standing outside it, and the answer is the content's own place — back off +Y,
+    or stand lower — not a wider cavity.
+    """
     stock = GridfinityBox(x_u, y_u, height_u, solid=True, no_lip=True).render()
     below_top = cq.Workplane("XY").box(
         outer_size(x_u) + 1.0,
