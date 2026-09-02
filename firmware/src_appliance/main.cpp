@@ -47,11 +47,13 @@
 //
 // ── What this build does ──────────────────────────────────────────────
 // One flavor pump turns, held from either display inside an enclosure-opened
-// prime session or bounded from the console.
+// prime session or bounded from the console. The funnel fill opens a channel's
+// three funnel-path valves and draws with that pump for a planned 80 s, or
+// until the reservoir's full reed closes, from the enclosure or the console.
 // Both MCP23017s boot with every output verified low and every reed input on
-// its internal pull-up; status reads those inputs on explicit request. No
-// operation opens a valve or runs the fan, neither relay is ever driven, and
-// a clean cycle is answered MSG_ERR_UNSUPPORTED.
+// its internal pull-up; status reads those inputs on explicit request. Nothing
+// else opens a valve or runs the fan, neither relay is ever driven, and a
+// clean cycle is answered MSG_ERR_UNSUPPORTED.
 
 #include "ota.h"
 
@@ -98,7 +100,7 @@ void setup() {
     faucetLinkBegin();
     Serial.printf("J3 up on IO%d/IO%d @ %ld — faucet flavor and prime controls\n",
                   PIN_FAUCET_TX, PIN_FAUCET_RX, FAUCET_BAUD);
-    Serial.println("idle — actuators dark; valves have no runtime command");
+    Serial.println("idle — actuators dark");
     Serial.println("type 'help' for what this build answers to\n");
     Serial.print("> ");
 
@@ -161,6 +163,9 @@ void loop() {
         if ((long)(millis() - testScreenUntilMs) < 0) idleTouched();
         else testScreenUntilMs = 0;
     }
+    // A fill is something a person asked for and is watching. Both glasses
+    // stay lit for the length of it, and the quiet stretch starts when it ends.
+    if (machineIsFilling()) idleTouched();
     if (idleService()) {
         // An offered action is withdrawn with the light. Both glasses learn of
         // the sleep and the closed session from the same pair of publications.
@@ -199,6 +204,8 @@ void loop() {
 
 static void help() {
     Serial.println("\n  pump <a|b> [ms]   run one flavor pump, bounded (default 2000, ceiling 60000)");
+    Serial.println("  fill <a|b> [s]    the funnel fill: that channel's funnel path open and its pump drawing,");
+    Serial.println("                    for s seconds (default 80) or until the reservoir's full reed closes");
     Serial.println("  stop              end whatever is running");
     Serial.println("  status            machine state, uptime, heap");
     Serial.println("  flavor [a|b]      selected flavor (main-board-owned and persisted)");
@@ -207,6 +214,8 @@ static void help() {
     Serial.println("  display usb       make the externally-powered display reattach to USB");
     Serial.println("  wake              light both glasses, as a finger on either would");
     Serial.println("  test [s|off]      the camera's test screen on the enclosure, s seconds (default 120)");
+    Serial.println("  ui <page> [a|b] [go]   a customer page on the enclosure: choose, prime, fill, clean or");
+    Serial.println("                    settings; with a flavor, that flavor's own page; go presses its START");
     Serial.println("  sound <name>      play one of the machine's sounds; 'sound list' names them");
     Serial.println("  volume [0-100]    how loud everything but the alarm is (persisted)");
     Serial.println("  quiet [on|off] [start] [end] [pct]   quiet hours, off the DS3231 (persisted)");
@@ -225,6 +234,13 @@ static void status() {
         Serial.printf(" — pump %s, %lu ms in%s", machinePumpName(machinePumpChannel()),
                       (unsigned long)machinePumpElapsedMs(),
                       machineIsPriming() ? " (held from the glass)" : "");
+    if (machineState() == ST_FILLING) {
+        MachineFillState fill;
+        machineReadFillState(fill);
+        Serial.printf(" — fill %s, %lu of %lu ms, reservoir reeds %02X",
+                      machinePumpName(fill.channel), (unsigned long)fill.elapsedMs,
+                      (unsigned long)fill.plannedMs, fill.reeds);
+    }
     Serial.printf("\n  uptime   %lu s\n", millis() / 1000);
     Serial.printf("  heap     %lu bytes free\n", (unsigned long)ESP.getFreeHeap());
     Serial.printf("  flavor   %s — %s%s\n", machinePumpName(flavorSelected()),
@@ -248,7 +264,17 @@ static void status() {
         Serial.printf("  io fault %s at 0x%02X register 0x%02X\n",
                       machineIoFaultName(io.fault), io.faultAddress, io.faultRegister);
     }
-    Serial.println("  valves   parked — no runtime valve/fan command in this image");
+    {
+        const uint16_t open = machineValvesOpen();
+        if (!open) {
+            Serial.println("  valves   all closed");
+        } else {
+            Serial.print("  valves   open:");
+            for (uint8_t v = 0; v < 11; v++)
+                if (open & (1u << v)) Serial.printf(" V-%c", 'A' + v);
+            Serial.println();
+        }
+    }
     Serial.println("  relays   unimplemented — IO2 and IO19 parked as inputs");
 
     char when[48];
@@ -826,6 +852,51 @@ static void console(const String &line) {
         return;
     }
 
+    if (line.startsWith("fill")) {
+        String rest = line.substring(4); rest.trim();
+        if (!rest.length()) { Serial.println("\nusage: fill <a|b> [s]"); return; }
+        char which = rest[0] | 0x20;
+        if (which != 'a' && which != 'b') { Serial.println("\nusage: fill <a|b> [s]"); return; }
+        String sArg = rest.substring(1); sArg.trim();
+        uint32_t ms = sArg.length() ? (uint32_t)sArg.toInt() * 1000UL : 0;
+        if (!machineFillBegin(which == 'a' ? PUMP_CHANNEL_A : PUMP_CHANNEL_B, ms))
+            Serial.printf("\nrefused — the machine is %s\n", machineStateName());
+        return;
+    }
+    if (line == "ui" || line.startsWith("ui ")) {
+        // ui <choose|prime|fill|clean|settings> [a|b] [go]
+        String rest = line.substring(2); rest.trim();
+        String page = rest, tail;
+        int sp = rest.indexOf(' ');
+        if (sp >= 0) { page = rest.substring(0, sp); tail = rest.substring(sp + 1); tail.trim(); }
+        uint8_t rail = 0xFF;
+        if      (page == "choose")   rail = UI_RAIL_CHOOSE;
+        else if (page == "prime")    rail = UI_RAIL_PRIME;
+        else if (page == "fill")     rail = UI_RAIL_FILL;
+        else if (page == "clean")    rail = UI_RAIL_CLEAN;
+        else if (page == "settings") rail = UI_RAIL_SETTINGS;
+        if (rail == 0xFF) {
+            Serial.println("\nusage: ui <choose|prime|fill|clean|settings> [a|b] [go]");
+            return;
+        }
+        uint8_t channel = UI_CHANNEL_NONE;
+        uint8_t act = 0;
+        if (tail.length()) {
+            char which = tail[0] | 0x20;
+            if (which == 'a' || which == 'b') channel = which == 'a' ? PUMP_CHANNEL_A : PUMP_CHANNEL_B;
+            act = tail.endsWith("go") ? 1 : 0;
+        }
+        idleTouched();
+        if (!linkUiShow(rail, channel, act)) {
+            Serial.println("\n[ui] the enclosure display did not show it");
+        } else {
+            Serial.printf("\n[ui] the enclosure shows %s%s%s%s\n", page.c_str(),
+                          channel == UI_CHANNEL_NONE ? "" : " for flavor ",
+                          channel == UI_CHANNEL_NONE ? "" : machinePumpName(channel),
+                          act ? ", and pressed START" : "");
+        }
+        return;
+    }
     if (line.startsWith("pump")) {
         String rest = line.substring(4); rest.trim();
         if (!rest.length()) { Serial.println("\nusage: pump <a|b> [ms]"); return; }

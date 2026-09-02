@@ -100,6 +100,36 @@ struct ValveTransition {
 
 ValveTransition planValveTransition(ValveMask current, ValveMask target);
 
+// ── The funnel fill ───────────────────────────────────────────────────────
+// A fill draws what was poured into the funnel — one 440 mL concentrate
+// bottle, which is what the funnel is sized for — down the channel's own path
+// into its reservoir. The KPHM600 head is rated 380–600 mL/min, so the slowest
+// rated head empties a bottle in 70 s; a run draws for 80 s so the line behind
+// the funnel is drawn clear as well, and ends the moment the reservoir's full
+// reed closes. A head turning on air is the air-purge-in state of this same
+// path, so a funnel that empties early costs nothing.
+constexpr uint32_t kFillPlannedMs    = 80000;
+constexpr uint32_t kFillBottleMl     = 440;
+constexpr uint32_t kFillSlowestMlMin = 380;
+constexpr uint32_t kFillReedPeriodMs = 250;    // how often the reservoir is read while drawing
+// The pump stops before its valves close: a head spinning down against a
+// closed outlet is pressure with nowhere to go.
+constexpr uint32_t kFillParkDwellMs  = 250;
+constexpr uint8_t  kReservoirReedFull = 1u << 3;   // bit 3 of a reservoir's closed-reed mask
+
+enum class FillEnd : uint8_t {
+    None = 0,
+    Full,     // the reservoir's full reed closed
+    Planned,  // the planned draw elapsed
+};
+
+// Whether a fill that has drawn for `elapsed_ms` should end, and why. Full wins
+// over the clock when both are true on the same service call.
+FillEnd fillShouldEnd(uint32_t elapsed_ms, uint32_t planned_ms, uint8_t reservoir_closed_mask);
+
+// The channel's funnel path.
+Operation fillOperation(uint8_t channel);
+
 // Prime timing is a wire/user-experience contract shared with proto_msg.h.
 // Keeping it pure allows exact boundary and rollover tests without a clock,
 // GPIO, display, sound, or Arduino runtime.

@@ -9,6 +9,7 @@
 
 void (*machineOnPrimeState)(uint8_t, uint8_t, uint32_t) = nullptr;
 void (*machineOnPumpDone)(uint8_t) = nullptr;
+void (*machineOnFillState)(const MachineFillState &) = nullptr;
 
 static_assert(PRIME_TICK_MS == machine_policy::kPrimeTickPeriodMs,
               "prime tick period must match machine policy");
@@ -297,6 +298,199 @@ static void endPumping(uint8_t primeState) {
     endPumping(primeState, pumpTimer.elapsedMs(millis()));
 }
 
+// ── The funnel fill ───────────────────────────────────────────────────────
+// Three valves and one pump: the channel's funnel path, held open while its
+// head draws what was poured down into the reservoir. The plan is the
+// topology's own (machine_policy::fillOperation), the clock and the reservoir's
+// reeds decide the end (machine_policy::fillShouldEnd), and the pump stops a
+// dwell before its valves close.
+static uint8_t  fillChannel    = 0;
+static uint8_t  fillOutcome    = FILL_OUTCOME_NONE;
+static uint8_t  fillReeds      = 0xFF;
+static uint32_t fillStartMs    = 0;
+static uint32_t fillPlannedMs  = machine_policy::kFillPlannedMs;
+static uint32_t fillElapsedMs  = 0;   // final, once the draw has ended
+static uint32_t fillLastReedMs = 0;
+static uint32_t fillParkAtMs   = 0;   // nonzero: the pump is off and the valves close then
+static bool     fillDrawing    = false;
+
+static uint32_t fillElapsedNow(uint32_t now) {
+    return fillDrawing ? now - fillStartMs : fillElapsedMs;
+}
+
+static void fillAnnounce(uint32_t now) {
+    MachineFillState st;
+    st.phase     = state == ST_FILLING ? FILL_PHASE_RUNNING : FILL_PHASE_OFF;
+    st.channel   = fillChannel;
+    st.outcome   = state == ST_FILLING ? FILL_OUTCOME_NONE : fillOutcome;
+    st.elapsedMs = fillElapsedNow(now);
+    st.plannedMs = fillPlannedMs;
+    st.reeds     = fillReeds;
+    if (machineOnFillState) machineOnFillState(st);
+}
+
+static const char *fillOutcomeName(uint8_t outcome) {
+    switch (outcome) {
+        case FILL_OUTCOME_DONE:    return "drew its planned time";
+        case FILL_OUTCOME_FULL:    return "the reservoir is full";
+        case FILL_OUTCOME_STOPPED: return "stopped on request";
+        case FILL_OUTCOME_BUSY:    return "refused — busy";
+        case FILL_OUTCOME_NO_IO:   return "refused — expanders unverified";
+        case FILL_OUTCOME_FAULT:   return "fault — everything parked";
+        case FILL_OUTCOME_GAS:     return "gas alarm";
+        default:                   return "none";
+    }
+}
+
+// "B C F", off a logical mask.
+static const char *valveNames(uint16_t mask, char *buf, size_t n) {
+    size_t at = 0;
+    for (uint8_t v = 0; v < machine_policy::kValveCount && at + 2 < n; v++) {
+        if (!(mask & (1u << v))) continue;
+        if (at) buf[at++] = ' ';
+        buf[at++] = (char)('A' + v);
+    }
+    buf[at] = '\0';
+    return at ? buf : "none";
+}
+
+static bool fillReadReeds() {
+    pcba::ReedSnapshot reeds;
+    if (!pcba::expanders().readReeds(reeds)) return false;
+    fillReeds = fillChannel == PUMP_CHANNEL_A ? reeds.reservoirAClosedMask
+                                              : reeds.reservoirBClosedMask;
+    return true;
+}
+
+// The pump stops now; the valves close after the dwell, from fillService().
+static void fillEnd(uint8_t outcome, uint32_t now) {
+    if (state != ST_FILLING || fillParkAtMs) return;
+    fillElapsedMs = fillElapsedNow(now);
+    if (fillDrawing) pumpPark(fillChannel);
+    fillDrawing  = false;
+    fillOutcome  = outcome;
+    fillParkAtMs = now + machine_policy::kFillParkDwellMs;
+    if (!fillParkAtMs) fillParkAtMs = 1;
+}
+
+// Everything off. The ending is announced from here, once nothing is energised.
+static void fillParked() {
+    // A fault has already parked the expanders and invalidated them; asking
+    // again is harmless and keeps the one exit.
+    if (!pcba::expanders().apply(pcba::ExpanderOutputs())) pcba::expanders().parkAll();
+    fillParkAtMs = 0;
+    led(PIN_LED_ACT, false);
+    state = ST_IDLE;
+    Serial.printf("\n[machine] fill %s: %s after %lu ms — valves closed\n",
+                  kPump[fillChannel & 1].who, fillOutcomeName(fillOutcome),
+                  (unsigned long)fillElapsedMs);
+    switch (fillOutcome) {
+        case FILL_OUTCOME_DONE:
+        case FILL_OUTCOME_FULL:    soundPlay(SND_CHIME); break;
+        case FILL_OUTCOME_STOPPED: soundPlay(SND_ACK);   break;
+        default:                   soundPlay(SND_FAULT); break;
+    }
+    fillAnnounce(millis());
+}
+
+static void fillService(uint32_t now) {
+    if (state != ST_FILLING) return;
+    if (fillParkAtMs) {
+        if ((int32_t)(now - fillParkAtMs) >= 0) fillParked();
+        return;
+    }
+    if (machineGasTripped()) { fillEnd(FILL_OUTCOME_GAS, now); return; }
+    if (now - fillLastReedMs >= machine_policy::kFillReedPeriodMs) {
+        fillLastReedMs = now;
+        if (!fillReadReeds()) { fillEnd(FILL_OUTCOME_FAULT, now); return; }
+    }
+    switch (machine_policy::fillShouldEnd(fillElapsedNow(now), fillPlannedMs, fillReeds)) {
+        case machine_policy::FillEnd::Full:    fillEnd(FILL_OUTCOME_FULL, now); break;
+        case machine_policy::FillEnd::Planned: fillEnd(FILL_OUTCOME_DONE, now); break;
+        case machine_policy::FillEnd::None:    break;
+    }
+}
+
+bool machineFillBegin(uint8_t channel, uint32_t plannedMs) {
+    const uint32_t now = millis();
+    // A fill already drawing answers with itself; its channel is the refusal.
+    if (state == ST_FILLING) { soundPlay(SND_REFUSE); fillAnnounce(now); return false; }
+
+    uint8_t refusal = FILL_OUTCOME_NONE;
+    if (channel > 1 || state != ST_IDLE)       refusal = FILL_OUTCOME_BUSY;
+    else if (machineGasTripped())              refusal = FILL_OUTCOME_GAS;
+    else if (!pcba::expanders().initialized()) refusal = FILL_OUTCOME_NO_IO;
+    fillChannel   = channel & 1;
+    fillPlannedMs = plannedMs ? plannedMs : machine_policy::kFillPlannedMs;
+    fillElapsedMs = 0;
+    fillReeds     = 0xFF;
+    fillDrawing   = false;
+    fillParkAtMs  = 0;
+    if (refusal == FILL_OUTCOME_NONE && !fillReadReeds()) refusal = FILL_OUTCOME_FAULT;
+    if (refusal == FILL_OUTCOME_NONE && (fillReeds & machine_policy::kReservoirReedFull))
+        refusal = FILL_OUTCOME_FULL;   // nothing to draw into
+    if (refusal != FILL_OUTCOME_NONE) {
+        fillOutcome = refusal;
+        Serial.printf("\n[machine] fill %s: %s\n", kPump[fillChannel].who, fillOutcomeName(refusal));
+        soundPlay(SND_REFUSE);
+        fillAnnounce(now);
+        return false;
+    }
+
+    const machine_policy::ActuatorPlan plan =
+        machine_policy::canonicalPlan(machine_policy::fillOperation(fillChannel));
+    if (!machine_policy::isPlanSafe(plan, machine_policy::SafetyContext{false}) ||
+        !pcba::expanders().apply(pcba::ExpanderOutputs(plan.valves, false))) {
+        fillOutcome = FILL_OUTCOME_FAULT;
+        Serial.printf("\n[machine] fill %s: the valves could not be opened — parked\n",
+                      kPump[fillChannel].who);
+        soundPlay(SND_FAULT);
+        fillAnnounce(now);
+        return false;
+    }
+    if (!pumpDrive(fillChannel)) {
+        pcba::expanders().apply(pcba::ExpanderOutputs());
+        fillOutcome = FILL_OUTCOME_BUSY;   // no LEDC channel free
+        soundPlay(SND_REFUSE);
+        fillAnnounce(now);
+        return false;
+    }
+
+    fillStartMs    = now;
+    fillLastReedMs = now;
+    fillDrawing    = true;
+    fillOutcome    = FILL_OUTCOME_NONE;
+    state          = ST_FILLING;
+    led(PIN_LED_ACT, true);
+    char names[24];
+    Serial.printf("\n[machine] fill %s: valves %s open, pump %s drawing for %lu ms "
+                  "(IO%d -> %s.IN1 -> J13.%s), reeds %02X\n",
+                  kPump[fillChannel].who, valveNames(plan.valves, names, sizeof(names)),
+                  kPump[fillChannel].who, (unsigned long)fillPlannedMs, kPump[fillChannel].pin,
+                  kPump[fillChannel].driver, kPump[fillChannel].j13, fillReeds);
+    soundPlay(SND_ACK);
+    fillAnnounce(now);
+    return true;
+}
+
+void machineFillStop() {
+    if (state == ST_FILLING) fillEnd(FILL_OUTCOME_STOPPED, millis());
+}
+
+bool machineIsFilling() { return state == ST_FILLING; }
+
+void machineReadFillState(MachineFillState &st) {
+    const uint32_t now = millis();
+    st.phase     = state == ST_FILLING ? FILL_PHASE_RUNNING : FILL_PHASE_OFF;
+    st.channel   = fillChannel;
+    st.outcome   = state == ST_FILLING ? FILL_OUTCOME_NONE : fillOutcome;
+    st.elapsedMs = fillElapsedNow(now);
+    st.plannedMs = fillPlannedMs;
+    st.reeds     = fillReeds;
+}
+
+uint16_t machineValvesOpen() { return pcba::expanders().currentOutputs().valves; }
+
 // ── Setup and service ─────────────────────────────────────────────────────
 void machineBegin() {
     soundBegin(PIN_BUZZ);   // the coil is parked before anything else runs
@@ -308,6 +502,10 @@ void machineBegin() {
     primeSession = machine_policy::PrimeSession();
     primeRunUsesSession = false;
     primeEventUsesSession = false;
+    fillDrawing  = false;
+    fillParkAtMs = 0;
+    fillOutcome  = FILL_OUTCOME_NONE;
+    fillReeds    = 0xFF;
     state = ST_IDLE;
 
     // The MCPs keep their register state across an ESP-only reset because
@@ -344,6 +542,7 @@ void machineService() {
     gasService();
     const uint32_t now = millis();
     primeSessionLeaseService(now);
+    fillService(now);
     if (state != ST_PUMPING) return;
 
     const uint32_t elapsed = pumpTimer.elapsedMs(now);
@@ -541,12 +740,17 @@ bool machinePumpRun(uint8_t channel, uint32_t ms) {
     return true;
 }
 
-void machineStop() { endPumping(PRIME_STOPPED); }
+void machineStop() {
+    if (state == ST_FILLING) machineFillStop();
+    else                     endPumping(PRIME_STOPPED);
+}
 
 MachineState machineState()     { return state; }
-const char  *machineStateName() { return state == ST_PUMPING ? "pumping" : "idle"; }
+const char  *machineStateName() {
+    return state == ST_PUMPING ? "pumping" : state == ST_FILLING ? "filling" : "idle";
+}
 bool         machineIsPriming() { return state == ST_PUMPING && hold == HOLD_PRIME; }
-uint8_t      machinePumpChannel()   { return channelNow; }
+uint8_t      machinePumpChannel()   { return state == ST_FILLING ? fillChannel : channelNow; }
 uint32_t     machinePumpElapsedMs() {
     return state == ST_PUMPING ? pumpTimer.elapsedMs(millis()) : 0;
 }

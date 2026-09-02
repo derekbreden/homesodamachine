@@ -31,6 +31,8 @@ static EchoCancel j9Stream(Serial1);
 static HdlcLink   j9;
 static bool displayUsbReattachAck = false;
 static bool testScreenAck = false;
+static bool uiShowAck = false;
+static bool uiShown = false;
 static bool wifiApAck = false;
 static WifiApStatePayload wifiApState{};
 static flavor_link_policy::TokenLedger enclosureFlavorTokens;
@@ -110,6 +112,8 @@ static void fillSoundCfg(SoundCfgPayload &c) {
 // 12 bytes because OtaBeginPayload is 10 and is queued here like anything
 // else the main board volunteers; every other announcement fits in 8.
 struct Announce { uint8_t type; uint8_t len; uint8_t data[12]; };
+static_assert(sizeof(FillStatePayload) <= sizeof(Announce::data),
+              "a fill state must fit an announcement");
 static const uint8_t ANN_DEPTH = 4;
 static Announce annQ[ANN_DEPTH];
 static uint8_t  annHead = 0, annTail = 0, annCount = 0;
@@ -151,6 +155,37 @@ static void onPumpDone(uint8_t channel) {
     announceQueue(MSG_RESP_PUMP_DONE, &r, sizeof(r));
 }
 
+// The funnel fill's state, as one frame. START and STOP are answered with the
+// state they produced inside the turn that asked, so the announcement the
+// machine makes at that moment is held back; everything it decides on its own
+// — the planned draw ending, the reservoir filling, a fault — is queued for the
+// enclosure's next turn.
+static bool fillReplyDirect = false;
+
+static void fillPayload(const MachineFillState &st, FillStatePayload &p) {
+    p.phase     = st.phase;
+    p.channel   = st.channel;
+    p.outcome   = st.outcome;
+    p.elapsedMs = st.elapsedMs;
+    p.plannedMs = st.plannedMs;
+    p.reeds     = st.reeds;
+}
+
+static void onFillState(const MachineFillState &st) {
+    if (fillReplyDirect) return;
+    FillStatePayload p;
+    fillPayload(st, p);
+    announceQueue(MSG_RESP_FILL, &p, sizeof(p));
+}
+
+static void sendFillState(HdlcLink *link) {
+    MachineFillState st;
+    machineReadFillState(st);
+    FillStatePayload p;
+    fillPayload(st, p);
+    link->send(MSG_RESP_FILL, &p, sizeof(p));
+}
+
 // A frame that only a finger could have produced. The glass sends no separate
 // click for these — one press is one frame on J9 — so the tick is made here, off
 // the command itself. A prime TICK is the same finger still held rather than a
@@ -161,7 +196,7 @@ static void onPumpDone(uint8_t channel) {
 // click getting cut off by the sweep that follows it.
 static bool isUserAction(uint8_t type) {
     return type == MSG_PUMP_RUN || type == MSG_CLEAN_START || type == MSG_FILL_START ||
-           type == MSG_SOUND_CFG_SET || type == MSG_FLAVOR_ART_SET ||
+           type == MSG_FILL_STOP || type == MSG_SOUND_CFG_SET || type == MSG_FLAVOR_ART_SET ||
            type == MSG_PRIME_SESSION_SET;
 }
 
@@ -241,6 +276,12 @@ static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len) {
 
     if (type == MSG_RESP_TEST_SCREEN) {
         testScreenAck = true;
+        return;
+    }
+
+    if (type == MSG_RESP_UI_SHOW) {
+        uiShowAck = true;
+        uiShown = plen >= 1 && payload[0] != 0;
         return;
     }
 
@@ -465,7 +506,8 @@ static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len) {
         s.framesTx     = j9.framesTx;
         s.gasMv        = (uint16_t)analogReadMilliVolts(PIN_GAS_AOUT);
         s.flags        = (machineGasTripped()  ? STATUS_F_GAS_TRIP : 0)
-                       | (machineIsPriming()   ? STATUS_F_PRIMING  : 0);
+                       | (machineIsPriming()   ? STATUS_F_PRIMING  : 0)
+                       | (machineIsFilling()   ? STATUS_F_FILLING  : 0);
         s.primeChannel = machinePumpChannel();
         strncpy(s.version, FW_VERSION, sizeof(s.version) - 1);
         s.j9ReplyHighWater = j9TurnReplyHighWater;
@@ -474,13 +516,33 @@ static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len) {
         return;
     }
 
-    // The clean cycle and the funnel fill each need a sequenced manifold
-    // operation. This image safely initializes the MCP23017s, but exposes no
-    // runtime valve operation yet.
-    if (type == MSG_CLEAN_START || type == MSG_FILL_START) {
+    // The funnel fill. START and STOP are answered with the state they produced;
+    // QUERY with the state as it stands. Either way the answer is the machine's
+    // complete fill truth, so a glass never has to infer one from an error code.
+    if (type == MSG_FILL_START && plen >= sizeof(ChannelPayload)) {
+        Serial.printf("\n[J9] MSG_FILL_START ch=%u\n", payload[0]);
+        fillReplyDirect = true;
+        machineFillBegin(payload[0]);
+        fillReplyDirect = false;
+        sendFillState(link);
+        return;
+    }
+    if (type == MSG_FILL_STOP) {
+        Serial.println("\n[J9] MSG_FILL_STOP");
+        machineFillStop();
+        sendFillState(link);
+        return;
+    }
+    if (type == MSG_FILL_QUERY) {
+        sendFillState(link);
+        return;
+    }
+
+    // The clean cycle needs a sequenced manifold operation this image does not
+    // carry yet.
+    if (type == MSG_CLEAN_START) {
         link->sendResponse(MSG_ERR_UNSUPPORTED, plen ? payload[0] : 0);
-        Serial.printf("\n[J9] %s -> unsupported (no valve drive in this build)\n",
-                      type == MSG_CLEAN_START ? "MSG_CLEAN_START" : "MSG_FILL_START");
+        Serial.println("\n[J9] MSG_CLEAN_START -> unsupported (no clean cycle in this build)");
         return;
     }
 
@@ -508,6 +570,7 @@ void linkPublishIdle() {
 void linkBegin() {
     machineOnPrimeState = onPrimeState;
     machineOnPumpDone   = onPumpDone;
+    machineOnFillState  = onFillState;
 
     // 8 KB, because the loop does not always come back quickly: a flash sector
     // erase inside esp_ota_write blocks for tens of milliseconds, and at these
@@ -565,6 +628,22 @@ bool linkTestScreen(uint16_t seconds) {
         }
     }
     return testScreenAck;
+}
+
+bool linkUiShow(uint8_t rail, uint8_t channel, uint8_t act) {
+    uiShowAck = false;
+    uiShown = false;
+    UiShowPayload req{rail, channel, act};
+    // A main-board-originated frame can meet a status poll on the half-duplex pair.
+    for (uint8_t attempt = 0; attempt < 3 && !uiShowAck; attempt++) {
+        j9.send(MSG_UI_SHOW, &req, sizeof(req));
+        unsigned long until = millis() + 200;
+        while ((long)(millis() - until) < 0 && !uiShowAck) {
+            j9.service();
+            delay(2);
+        }
+    }
+    return uiShowAck && uiShown;
 }
 
 bool linkDisplayUsbReattach() {

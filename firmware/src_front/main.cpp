@@ -359,6 +359,7 @@ static void lockScreenHide();
 
 // ── UI objects ──
 static lv_obj_t *lockScreen, *lockLogoImg, *lockKicker, *lockTitle, *lockBody;
+static lv_obj_t *lockModal, *lockAccent, *lockFace, *lockBar, *lockNote, *lockStop;
 // The camera's test screen: above every page and the lock, for the seconds the main board asked.
 static lv_obj_t *testScreen;
 static bool testActive = false;
@@ -377,6 +378,32 @@ static lv_timer_t *animTimer = nullptr;
 static uint8_t animFrameIdx = 0;
 static bool lockActive = false;
 static bool bootLockActive = false;
+
+// The lock's modal: the boot lock's own width, and the wider one a channel
+// operation takes, out to the animation's edge.
+#define LOCK_MODAL_W       360
+#define LOCK_MODAL_H       238
+#define LOCK_MODAL_MARGIN   26
+#define LOCK_MODAL_FILL_W  (SCREEN_W - LOCK_MODAL_MARGIN - (18 + LOGO_SIZE))
+#define LOCK_PAD_L          32
+#define LOCK_PAD_R          28
+#define LOCK_PAD_T          30
+#define LOCK_PAD_B          28
+#define LOCK_FILL_PAD_L     24
+#define LOCK_FACE_GAP       16
+#define LOCK_COL_X         (FLAVOR_TILE_W + LOCK_FACE_GAP)
+#define LOCK_COL_W         (LOCK_MODAL_FILL_W - LOCK_FILL_PAD_L - LOCK_PAD_R - LOCK_COL_X)
+#define LOCK_TITLE_Y        30
+#define LOCK_BAR_Y         (LOCK_TITLE_Y + TEXT_H_40 + 14)
+#define LOCK_NOTE_Y        (LOCK_BAR_Y + 10 + 8)
+#define LOCK_STOP_W        110
+#define LOCK_STOP_H         44
+static_assert(LOCK_MODAL_FILL_W >= LOCK_MODAL_W, "the channel modal is the wider one");
+static_assert(LOCK_MODAL_H - LOCK_PAD_T - LOCK_PAD_B >= FLAVOR_TILE_H, "a face must fit the modal");
+static_assert(LOCK_NOTE_Y + TEXT_H_20 <= LOCK_MODAL_H - LOCK_PAD_T - LOCK_PAD_B - LOCK_STOP_H,
+              "the note must clear STOP");
+static void lockFillLayout(bool on);
+static void fillStopCb(lv_event_t *e);
 static unsigned long bootLockMinUntil = 0;
 static unsigned long bootLockMaxUntil = 0;
 
@@ -509,6 +536,24 @@ static lv_obj_t *flvRatioMinusMark = NULL, *flvRatioPlusMark = NULL;
 static lv_obj_t *primePad, *primePadLbl, *primeMsg;
 static lv_indev_t *touchInput = nullptr;
 static lv_obj_t *cleanMsg, *fillMsg;
+
+// ── The funnel fill, as this glass shows it ──
+// The main board owns the run; this holds its last word about it, and the lock
+// it is shown on. START is answered with the state it produced, and while the
+// lock is up the state is asked for again every FILL_QUERY_MS, so the ending
+// cannot be missed and a fill the console started is shown the same way.
+static FillStatePayload fillState = {};
+static bool          fillKnown = false;         // fillState is a main board answer
+static bool          fillLockShown = false;     // the operation lock is up for a fill
+static bool          fillStopSent = false;      // STOP is out; the pad says so
+static unsigned long fillAnchorMs = 0;          // when fillState.elapsedMs was true
+static unsigned long fillStartSentMs = 0;       // nonzero: START is out and unanswered
+static unsigned long fillQueryMs = 0;
+static unsigned long fillUiMs = 0;
+static unsigned long fillCardUntilMs = 0;       // nonzero: the closing card is up until then
+#define FILL_QUERY_MS        500
+#define FILL_START_REPLY_MS  2500
+#define FILL_CARD_MS         6000
 static lv_obj_t *settingsBtn;      // top-right of the screen, outside the pane
 
 // Flavor 1 and 2 as this panel holds them. The base carries no config store, so a ratio
@@ -1652,6 +1697,8 @@ static void setPrimeMsg(const char *s);
 static void setCleanMsg(const char *s);
 static void setFillMsg(const char *s);
 static void applyPrimeSessionState(const PrimeSessionStatePayload &state);
+static void applyFillState(const FillStatePayload &state);
+static bool uiShow(const UiShowPayload &req);
 
 static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
   awaitingAnswer = false;   // the main board has spoken; the wire is ours again
@@ -1737,6 +1784,21 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
     char diag[40];
     wifiBenchPictureDiag(diag, sizeof(diag));
     j9Post(MSG_TEXT, diag, (uint8_t)strlen(diag));
+    return;
+  }
+
+  if (type == MSG_RESP_FILL && plen >= sizeof(FillStatePayload)) {
+    FillStatePayload st;
+    memcpy(&st, payload, sizeof(st));
+    applyFillState(st);
+    return;
+  }
+
+  if (type == MSG_UI_SHOW && plen >= sizeof(UiShowPayload)) {
+    UiShowPayload req;
+    memcpy(&req, payload, sizeof(req));
+    const bool shown = uiShow(req);
+    link->sendResponse(MSG_RESP_UI_SHOW, shown ? 1 : 0);
     return;
   }
 
@@ -1844,6 +1906,10 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
     memcpy(&ctrlStatus, payload, sizeof(ctrlStatus));
     ctrlStatus.version[sizeof(ctrlStatus.version) - 1] = '\0';
     ctrlStatusMs = millis();
+    // A fill this glass did not start — the console's, or one whose answer
+    // lost its turn — is still the machine being busy, and is shown as such.
+    if ((ctrlStatus.flags & STATUS_F_FILLING) && !fillLockShown && !fillStartSentMs)
+      j9Post(MSG_FILL_QUERY, nullptr, 0);
     return;
   }
 
@@ -3047,9 +3113,11 @@ static void fillPickCb(lv_event_t *e) {
 
 static void fillStartCb(lv_event_t *e) {
   (void)e;
+  if (fillLockShown) return;
   ChannelPayload p{flavorSel};
   j9Post(MSG_FILL_START, &p, sizeof(p));
-  setFillMsg("Drawing from the funnel...");
+  fillStartSentMs = millis() ? millis() : 1;
+  setFillMsg("starting");
 }
 
 static void ratioStepCb(lv_event_t *e) {
@@ -3083,34 +3151,66 @@ static void buildLockScreen(lv_obj_t *scr) {
   else lv_obj_add_flag(lockLogoImg, LV_OBJ_FLAG_HIDDEN);
   lv_obj_align(lockLogoImg, LV_ALIGN_LEFT_MID, 18, 0);
 
-  lv_obj_t *modal = mkCard(lockScreen, 360, 238);
-  lv_obj_align(modal, LV_ALIGN_RIGHT_MID, -26, 0);
-  lv_obj_set_style_pad_left(modal, 32, 0);
-  lv_obj_set_style_pad_right(modal, 28, 0);
-  lv_obj_set_style_pad_top(modal, 30, 0);
-  lv_obj_set_style_pad_bottom(modal, 28, 0);
+  lockModal = mkCard(lockScreen, LOCK_MODAL_W, LOCK_MODAL_H);
+  lv_obj_align(lockModal, LV_ALIGN_RIGHT_MID, -LOCK_MODAL_MARGIN, 0);
+  lv_obj_set_style_pad_left(lockModal, LOCK_PAD_L, 0);
+  lv_obj_set_style_pad_right(lockModal, LOCK_PAD_R, 0);
+  lv_obj_set_style_pad_top(lockModal, LOCK_PAD_T, 0);
+  lv_obj_set_style_pad_bottom(lockModal, LOCK_PAD_B, 0);
 
-  lv_obj_t *accent = lv_obj_create(modal);
-  lv_obj_set_size(accent, 6, 178);
-  lv_obj_align(accent, LV_ALIGN_LEFT_MID, -18, 0);
-  lv_obj_set_style_bg_color(accent, lv_color_hex(COL_ACCENT), 0);
-  lv_obj_set_style_border_width(accent, 0, 0);
-  lv_obj_set_style_radius(accent, 3, 0);
-  lv_obj_set_style_pad_all(accent, 0, 0);
-  lv_obj_clear_flag(accent, LV_OBJ_FLAG_SCROLLABLE);
+  lockAccent = lv_obj_create(lockModal);
+  lv_obj_set_size(lockAccent, 6, 178);
+  lv_obj_align(lockAccent, LV_ALIGN_LEFT_MID, -18, 0);
+  lv_obj_set_style_bg_color(lockAccent, lv_color_hex(COL_ACCENT), 0);
+  lv_obj_set_style_border_width(lockAccent, 0, 0);
+  lv_obj_set_style_radius(lockAccent, 3, 0);
+  lv_obj_set_style_pad_all(lockAccent, 0, 0);
+  lv_obj_clear_flag(lockAccent, LV_OBJ_FLAG_SCROLLABLE);
 
-  lockKicker = mkText(modal, "HOME SODA MACHINE", &lv_font_montserrat_20, COL_ACCENT);
+  lockKicker = mkText(lockModal, "HOME SODA MACHINE", &lv_font_montserrat_20, COL_ACCENT);
   lv_obj_align(lockKicker, LV_ALIGN_TOP_LEFT, 0, 0);
-  lockTitle = mkText(modal, "Powering on", &lv_font_montserrat_40, COL_TEXT);
+  lockTitle = mkText(lockModal, "Powering on", &lv_font_montserrat_40, COL_TEXT);
   lv_obj_align(lockTitle, LV_ALIGN_LEFT_MID, 0, -8);
-  lockBody = mkText(modal, "Getting everything ready.", &lv_font_montserrat_20, COL_DIM);
+  lockBody = mkText(lockModal, "Getting everything ready.", &lv_font_montserrat_20, COL_DIM);
   lv_obj_align(lockBody, LV_ALIGN_BOTTOM_LEFT, 0, 0);
 
+  // What an operation on one channel adds: that channel's face where the
+  // accent bar stood, at the size the picker previews it; a bar that fills as
+  // the run runs; how long is left; and the one way out. All hidden until a
+  // fill puts them up.
+  lockFace = lv_img_create(lockModal);
+  lv_img_set_src(lockFace, &flavorTile[0]);
+  lv_obj_clear_flag(lockFace, LV_OBJ_FLAG_SCROLLABLE | LV_OBJ_FLAG_CLICKABLE);
+  lv_obj_align(lockFace, LV_ALIGN_LEFT_MID, 0, 0);
+
+  lockBar = lv_bar_create(lockModal);
+  lv_obj_set_size(lockBar, LOCK_COL_W, 10);
+  lv_bar_set_range(lockBar, 0, 1000);
+  lv_bar_set_value(lockBar, 0, LV_ANIM_OFF);
+  lv_obj_set_style_bg_color(lockBar, lv_color_hex(COL_OFF), LV_PART_MAIN);
+  lv_obj_set_style_bg_opa(lockBar, LV_OPA_COVER, LV_PART_MAIN);
+  lv_obj_set_style_radius(lockBar, 5, LV_PART_MAIN);
+  lv_obj_set_style_bg_color(lockBar, lv_color_hex(COL_GOOD), LV_PART_INDICATOR);
+  lv_obj_set_style_bg_opa(lockBar, LV_OPA_COVER, LV_PART_INDICATOR);
+  lv_obj_set_style_radius(lockBar, 5, LV_PART_INDICATOR);
+  lv_obj_align(lockBar, LV_ALIGN_TOP_LEFT, LOCK_COL_X, LOCK_BAR_Y);
+
+  lockNote = mkText(lockModal, "", &lv_font_montserrat_20, COL_DIM);
+  lv_obj_align(lockNote, LV_ALIGN_TOP_LEFT, LOCK_COL_X, LOCK_NOTE_Y);
+
+  lockStop = mkBtn(lockModal, LOCK_STOP_W, LOCK_STOP_H, COL_CARD_ON);
+  lv_obj_align(lockStop, LV_ALIGN_BOTTOM_RIGHT, 0, 0);
+  lv_obj_clear_flag(lockStop, LV_OBJ_FLAG_PRESS_LOCK);   // slide off to change your mind
+  lv_obj_add_event_cb(lockStop, fillStopCb, LV_EVENT_CLICKED, NULL);
+  lv_obj_center(mkText(lockStop, "STOP", &lv_font_montserrat_20, COL_TEXT));
+
+  lockFillLayout(false);
   lv_obj_add_flag(lockScreen, LV_OBJ_FLAG_HIDDEN);
 }
 
 static void lockScreenShow(const char *kicker, const char *title, const char *body) {
   if (!lockScreen) return;
+  lockFillLayout(false);
   lv_label_set_text(lockKicker, kicker);
   lv_label_set_text(lockTitle, title);
   lv_label_set_text(lockBody, body);
@@ -3127,6 +3227,196 @@ static void lockScreenHide() {
   lockActive = false;
   animRun(false);
   lastInputTime = millis();
+}
+
+// ── The funnel fill, on the lock ──────────────────────────────────────────
+// The main board runs it and this shows it: the operation lock, with the
+// channel's face where the modal's accent bar stands, a bar that fills as the
+// draw runs, how long is left, and STOP. When the run ends the same modal says
+// how — filled, full, stopped, or a fault — for FILL_CARD_MS, and the pane
+// returns to the fill page it was started from.
+//
+// A channel operation's modal is wider, out to the animation's edge, because a
+// face standing in the column leaves the words less room than the boot lock
+// has. The plain layout is the boot lock's own.
+static void lockFillLayout(bool on) {
+  if (!lockModal) return;
+  const lv_coord_t dx = on ? LOCK_COL_X : 0;
+  lv_obj_set_width(lockModal, on ? LOCK_MODAL_FILL_W : LOCK_MODAL_W);
+  lv_obj_align(lockModal, LV_ALIGN_RIGHT_MID, -LOCK_MODAL_MARGIN, 0);
+  lv_obj_set_style_pad_left(lockModal, on ? LOCK_FILL_PAD_L : LOCK_PAD_L, 0);
+  lv_obj_align(lockKicker, LV_ALIGN_TOP_LEFT, dx, 0);
+  if (on) lv_obj_align(lockTitle, LV_ALIGN_TOP_LEFT, dx, LOCK_TITLE_Y);
+  else    lv_obj_align(lockTitle, LV_ALIGN_LEFT_MID, 0, -8);
+  lv_obj_set_width(lockBody, on ? LOCK_COL_W : LV_SIZE_CONTENT);
+  lv_obj_align(lockBody, LV_ALIGN_BOTTOM_LEFT, dx, 0);
+  if (on) lv_obj_add_flag(lockAccent, LV_OBJ_FLAG_HIDDEN);
+  else    lv_obj_clear_flag(lockAccent, LV_OBJ_FLAG_HIDDEN);
+  lv_obj_t *fillOnly[] = {lockFace, lockBar, lockNote, lockStop};
+  for (lv_obj_t *o : fillOnly) {
+    if (on) lv_obj_clear_flag(o, LV_OBJ_FLAG_HIDDEN);
+    else    lv_obj_add_flag(o, LV_OBJ_FLAG_HIDDEN);
+  }
+}
+
+// What the main board has drawn so far, smoothed between its answers.
+static uint32_t fillDisplayedElapsed() {
+  if (!fillKnown) return 0;
+  uint32_t elapsed = fillState.elapsedMs;
+  if (fillState.phase == FILL_PHASE_RUNNING) elapsed += millis() - fillAnchorMs;
+  if (elapsed > fillState.plannedMs) elapsed = fillState.plannedMs;
+  return elapsed;
+}
+
+// Only the bar and the note move, and only when a whole permille or second has.
+static void fillLockProgress() {
+  static int32_t shownPermille = -1;
+  static uint32_t shownSecondsLeft = 0xFFFFFFFF;
+  if (!fillLockShown || fillCardUntilMs) return;
+  const uint32_t elapsed = fillDisplayedElapsed();
+  const uint32_t planned = fillState.plannedMs ? fillState.plannedMs : 1;
+  const int32_t permille = (int32_t)((uint64_t)elapsed * 1000 / planned);
+  if (permille != shownPermille) {
+    shownPermille = permille;
+    lv_bar_set_value(lockBar, permille, LV_ANIM_OFF);
+  }
+  const uint32_t left = (planned - elapsed + 999) / 1000;
+  if (fillStopSent) {
+    if (shownSecondsLeft != 0xFFFFFFFE) {
+      shownSecondsLeft = 0xFFFFFFFE;
+      lv_label_set_text(lockNote, "stopping");
+    }
+  } else if (left != shownSecondsLeft) {
+    shownSecondsLeft = left;
+    if (left > 1) lv_label_set_text_fmt(lockNote, "%lu s left", (unsigned long)left);
+    else          lv_label_set_text(lockNote, "almost done");
+  }
+}
+
+static void fillLockShow() {
+  lockScreenShow("FROM THE FUNNEL", "Filling", "");
+  lv_img_set_src(lockFace, &flavorTile[flavorImage[fillState.channel & 1]]);
+  lockFillLayout(true);
+  lv_obj_add_flag(lockBody, LV_OBJ_FLAG_HIDDEN);
+  lv_obj_set_style_bg_color(lockStop, lv_color_hex(COL_CARD_ON), 0);
+  fillLockShown = true;
+  fillStopSent = false;
+  fillCardUntilMs = 0;
+  fillQueryMs = millis();
+  fillLockProgress();
+}
+
+// The closing card: the same modal, with the ending in place of the bar.
+static void fillLockCard(uint8_t outcome) {
+  const char *title = "Stopped";
+  const char *body = "";
+  switch (outcome) {
+    case FILL_OUTCOME_DONE:
+      title = "Filled";
+      body = "What you poured is in\nthe reservoir.";
+      break;
+    case FILL_OUTCOME_FULL:
+      title = "Full";
+      body = "The reservoir is full.\nWhat is left stays in\nthe funnel.";
+      break;
+    case FILL_OUTCOME_STOPPED:
+      body = "Stopped early. The rest\nstays in the funnel.";
+      break;
+    case FILL_OUTCOME_GAS:
+      body = "Gas alarm. Everything\nis switched off.";
+      break;
+    default:
+      body = "A valve did not answer.\nEverything is switched off.";
+      break;
+  }
+  lv_label_set_text(lockTitle, title);
+  lv_label_set_text(lockBody, body);
+  lv_obj_clear_flag(lockBody, LV_OBJ_FLAG_HIDDEN);
+  lv_obj_add_flag(lockBar, LV_OBJ_FLAG_HIDDEN);
+  lv_obj_add_flag(lockNote, LV_OBJ_FLAG_HIDDEN);
+  lv_obj_add_flag(lockStop, LV_OBJ_FLAG_HIDDEN);
+  fillCardUntilMs = millis() + FILL_CARD_MS;
+  if (!fillCardUntilMs) fillCardUntilMs = 1;
+}
+
+static void fillLockClose() {
+  fillLockShown = false;
+  fillCardUntilMs = 0;
+  fillStopSent = false;
+  lockScreenHide();
+  // The confirm page acted on a tap that has now been answered; the fill page
+  // it was reached from is where the pane rests.
+  if (activePage == PAGE_SERVICE &&
+      (activeSvc == SVC_FILL_CONFIRM || activeSvc == SVC_FILL_PICK)) {
+    showService(SVC_FILL_PICK);
+  }
+}
+
+static const char *fillRefusalText(uint8_t outcome) {
+  switch (outcome) {
+    case FILL_OUTCOME_BUSY:  return "the machine is busy";
+    case FILL_OUTCOME_NO_IO: return "the valves are not answering";
+    case FILL_OUTCOME_FAULT: return "a valve did not answer";
+    case FILL_OUTCOME_GAS:   return "gas alarm — nothing runs";
+    case FILL_OUTCOME_FULL:  return "the reservoir is already full";
+    default:                 return "the main board declined";
+  }
+}
+
+// Every word the main board says about the fill lands here.
+static void applyFillState(const FillStatePayload &st) {
+  fillState = st;
+  fillKnown = true;
+  fillAnchorMs = millis();
+  const bool running = st.phase == FILL_PHASE_RUNNING;
+
+  if (fillStartSentMs) {
+    // The answer to this glass's START.
+    fillStartSentMs = 0;
+    if (running && st.channel == flavorSel) { setFillMsg(""); fillLockShow(); return; }
+    if (running) { setFillMsg("the machine is busy"); return; }   // another channel's fill
+    setFillMsg(fillRefusalText(st.outcome));
+    return;
+  }
+
+  if (running) {
+    if (!fillLockShown) fillLockShow();   // the console's, or a lost turn's
+    else fillLockProgress();
+    return;
+  }
+  if (fillLockShown && !fillCardUntilMs) fillLockCard(st.outcome);
+}
+
+static void fillStopCb(lv_event_t *e) {
+  (void)e;
+  if (!fillLockShown || fillCardUntilMs || fillStopSent) return;
+  j9Post(MSG_FILL_STOP, nullptr, 0);
+  fillStopSent = true;
+  lv_obj_set_style_bg_color(lockStop, lv_color_hex(COL_OFF), 0);
+  fillLockProgress();
+}
+
+// From loop(): the answer START is owed, the state the lock is showing, and
+// the card's own clock.
+static void fillService() {
+  const unsigned long now = millis();
+  if (fillStartSentMs && now - fillStartSentMs >= FILL_START_REPLY_MS) {
+    fillStartSentMs = 0;
+    setFillMsg("the main board did not answer");
+  }
+  if (!fillLockShown) return;
+  if (fillCardUntilMs) {
+    if ((long)(now - fillCardUntilMs) >= 0) fillLockClose();
+    return;
+  }
+  if (now - fillUiMs >= 100) {
+    fillUiMs = now;
+    fillLockProgress();
+  }
+  if (now - fillQueryMs >= FILL_QUERY_MS && outCount < OUT_Q_DEPTH / 2) {
+    fillQueryMs = now;
+    j9Post(MSG_FILL_QUERY, nullptr, 0);
+  }
 }
 
 // ── The camera's test screen ──────────────────────────────────────────────
@@ -3749,6 +4039,46 @@ static void showRail(RailPage p) {
   }
 }
 
+// A customer page, asked for by the main board's console: the same handlers a
+// finger reaches, so what the bench camera photographs is the real path.
+static bool uiShow(const UiShowPayload &req) {
+  if (!uiReady) return false;
+  const bool hasChannel = req.channel != UI_CHANNEL_NONE;
+  const uint8_t channel = req.channel & 1;
+  if (screenIdle) wake();
+  switch (req.rail) {
+    case UI_RAIL_CHOOSE:
+      if (hasChannel) { flavorSel = channel; showPage(PAGE_FLAVOR); showFlavor(FLV_DETAIL); }
+      else showRail(RAIL_CHOOSE);
+      return true;
+    case UI_RAIL_PRIME:
+      showRail(RAIL_PRIME);
+      if (hasChannel) { flavorSel = channel; showService(SVC_PRIME_HOLD); }
+      return true;
+    case UI_RAIL_FILL:
+      showRail(RAIL_FILL);
+      if (hasChannel) {
+        flavorSel = channel;
+        showService(SVC_FILL_CONFIRM);
+        if (req.act) fillStartCb(nullptr);
+      }
+      return true;
+    case UI_RAIL_CLEAN:
+      showRail(RAIL_CLEAN);
+      if (hasChannel) {
+        flavorSel = channel;
+        showService(SVC_CLEAN_CONFIRM);
+        if (req.act) cleanStartCb(nullptr);
+      }
+      return true;
+    case UI_RAIL_SETTINGS:
+      showPage(PAGE_SETUP);
+      return true;
+    default:
+      return false;
+  }
+}
+
 static void buildUi() {
   // The user's own pictures, mapped out of the partition nothing else uses.
   // Opened before the descriptors bind, because a custom slot is a pointer
@@ -3961,6 +4291,21 @@ static void processTextLine(const char *line) {
     int id = atoi(line + 6);
     if (id < 1 || id > SND_WIRE_ALARM) Serial.printf("ERR:SOUND expects 1..%d\n", SND_WIRE_ALARM);
     else { sendSound((uint8_t)id); Serial.printf("OK:SOUND=%d\n", id); }
+  } else if (strncmp(line, "FILL:START:", 11) == 0) {
+    // The confirm page's START, without a finger on the glass: same frame,
+    // same answer, same lock.
+    int f = atoi(line + 11);
+    if (f != 1 && f != 2) { Serial.println("ERR:FILL:START expects 1 or 2"); }
+    else {
+      flavorSel = (uint8_t)(f - 1);
+      showRail(RAIL_FILL);
+      showService(SVC_FILL_CONFIRM);
+      fillStartCb(nullptr);
+      Serial.printf("OK:FILL:START=%d\n", f);
+    }
+  } else if (strcmp(line, "FILL:STOP") == 0) {
+    fillStopCb(nullptr);
+    Serial.println("OK:FILL:STOP");
   } else if (strncmp(line, "PRIME:START:", 12) == 0) {
     // Enter the shared session, then start the same tokenized hold as soon as
     // the main board's READY answer lands. PRIME:STOP releases that synthetic
@@ -4329,6 +4674,8 @@ void loop() {
       millis() - primeLastUiMs >= 100) {
     primeLastUiMs = millis();
   }
+
+  fillService();
 
   // The status request keeps main board truth fresh once a second whenever a
   // shared prime hold does not own the pair.
