@@ -41,8 +41,8 @@
 // machine.cpp and its pcba_expanders driver hold all three, and machine.cpp owns
 // every request that can reach a load. The
 // commissioning and service commands (firmware-and-commissioning.md §6, §7,
-// §9) ask it for a thing — `selftest valves` walks the census — and so does
-// the glass. The surface that writes a pin directly is src_pcba_bench, which
+// §9) ask it for a thing — `selftest` walks the census — and so does the
+// glass. The surface that writes a pin directly is src_pcba_bench, which
 // runs on a bare board with the manifold unplugged.
 //
 // ── What this build does ──────────────────────────────────────────────
@@ -212,6 +212,7 @@ static void help() {
     Serial.println("  clean <a|b> [rounds] [s]   the clean cycle: tap water in through the idle pump until the");
     Serial.println("                    full reed closes, then pumped out the faucet until the empty reed opens,");
     Serial.println("                    rounds times (default 3); s caps every step (default 90 in, 150 out)");
+    Serial.println("  selftest          every solenoid in turn, the fan, then each pump — one at a time");
     Serial.println("  stop              end whatever is running");
     Serial.println("  status            machine state, uptime, heap");
     Serial.println("  flavor [a|b]      selected flavor (main-board-owned and persisted)");
@@ -766,6 +767,12 @@ static void console(const String &line) {
         return;
     }
     if (line == "stop")        { machineStop(); return; }
+    if (line == "selftest") {
+        if (!machineSelfTestBegin())
+            Serial.printf("\nrefused — the machine is %s%s\n", machineStateName(),
+                          machineIoReady() ? "" : ", and the expanders are unverified");
+        return;
+    }
     if (line.startsWith("sound"))  { cmdSound(line);  return; }
     if (line.startsWith("volume")) { cmdVolume(line); return; }
     if (line.startsWith("quiet"))  { cmdQuiet(line);  return; }

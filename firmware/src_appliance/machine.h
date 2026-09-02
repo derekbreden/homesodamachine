@@ -24,6 +24,7 @@ enum MachineState : uint8_t {
     ST_PUMPING,   // one flavor pump turning
     ST_FILLING,   // a funnel fill: three valves open, that channel's pump drawing
     ST_CLEANING,  // a clean cycle: one topology state at a time, the pump on for the flushes
+    ST_SELFTEST,  // the commissioning walk: one load at a time, briefly
 };
 
 // Why the pump is turning, which is the same as what will stop it.
@@ -156,6 +157,15 @@ bool machineCleanBegin(uint8_t channel, uint8_t rounds = 0, uint32_t stepPlanned
 void machineCleanStop();   // ends a running cycle on request; nothing otherwise
 bool machineIsCleaning();
 void machineReadCleanState(MachineCleanState &state);
+
+// ── The self-test ─────────────────────────────────────────────────────────
+// firmware-and-commissioning.md §7: every solenoid in turn, V-A through V-K,
+// for a quarter second each; then the condenser fan for a second; then each
+// pump for a second. Each load is parked and the outputs read back before the
+// next is driven. Refused while anything else runs, while the expanders are
+// unverified, and under the gas alarm. The console watches it step by step.
+bool machineSelfTestBegin();
+void machineSelfTestStop();
 
 // The MQ-6 comparator, debounced. U15 holds the compressor off it in hardware
 // with no firmware in the path; what the firmware adds is the alarm.

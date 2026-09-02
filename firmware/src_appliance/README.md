@@ -95,6 +95,7 @@ pio device monitor -e appliance
 | `ui <page> [a\|b] [go]` | put a customer page on the enclosure — choose, prime, fill, clean, settings — optionally for a flavor, `go` pressing its START |
 | `flavor [a\|b]` | read or set the main-board-owned flavor selection, and the logo pair beside it |
 | `art [<a> <b>]` | read or set which logo each channel wears, persisted in NVS and published to both glasses |
+| `selftest` | [`firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md) §7: V-A through V-K for a quarter second each, the condenser fan for a second, then each pump for a second, one load at a time, each parked and read back before the next |
 | `stop` | end whatever is running |
 | `status` | machine state, uptime, heap, verified MCP configuration/output park, all ten reeds |
 | `link` | J9 frames/echo plus J3 connection, synchronization, state heartbeats, duplicates and invalid frames |
