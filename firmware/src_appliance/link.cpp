@@ -221,6 +221,38 @@ static void sendCleanState(HdlcLink *link) {
     link->send(MSG_RESP_CLEAN, &p, sizeof(p));
 }
 
+// The air cycles, the same way.
+static bool airReplyDirect = false;
+
+static void airPayload(const MachineAirState &st, AirStatePayload &p) {
+    p.phase         = st.phase;
+    p.mode          = st.mode;
+    p.channel       = st.channel;
+    p.outcome       = st.outcome;
+    p.step          = st.step;
+    p.stepIndex     = st.stepIndex;
+    p.steps         = st.steps;
+    p.stepElapsedMs = st.stepElapsedMs;
+    p.stepPlannedMs = st.stepPlannedMs;
+    p.cycleLeftMs   = st.cycleLeftMs;
+    p.reeds         = st.reeds;
+}
+
+static void onAirState(const MachineAirState &st) {
+    if (airReplyDirect) return;
+    AirStatePayload p;
+    airPayload(st, p);
+    announceQueue(MSG_RESP_AIR, &p, sizeof(p));
+}
+
+static void sendAirState(HdlcLink *link) {
+    MachineAirState st;
+    machineReadAirState(st);
+    AirStatePayload p;
+    airPayload(st, p);
+    link->send(MSG_RESP_AIR, &p, sizeof(p));
+}
+
 // A frame that only a finger could have produced. The glass sends no separate
 // click for these — one press is one frame on J9 — so the tick is made here, off
 // the command itself. A prime TICK is the same finger still held rather than a
@@ -231,8 +263,9 @@ static void sendCleanState(HdlcLink *link) {
 // click getting cut off by the sweep that follows it.
 static bool isUserAction(uint8_t type) {
     return type == MSG_PUMP_RUN || type == MSG_CLEAN_START || type == MSG_FILL_START ||
-           type == MSG_FILL_STOP || type == MSG_CLEAN_STOP || type == MSG_SOUND_CFG_SET ||
-           type == MSG_FLAVOR_ART_SET || type == MSG_PRIME_SESSION_SET;
+           type == MSG_FILL_STOP || type == MSG_CLEAN_STOP || type == MSG_AIR_START ||
+           type == MSG_AIR_STOP || type == MSG_SOUND_CFG_SET || type == MSG_FLAVOR_ART_SET ||
+           type == MSG_PRIME_SESSION_SET;
 }
 
 static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len);
@@ -543,7 +576,8 @@ static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len) {
         s.flags        = (machineGasTripped()  ? STATUS_F_GAS_TRIP : 0)
                        | (machineIsPriming()   ? STATUS_F_PRIMING  : 0)
                        | (machineIsFilling()   ? STATUS_F_FILLING  : 0)
-                       | (machineIsCleaning()  ? STATUS_F_CLEANING : 0);
+                       | (machineIsCleaning()  ? STATUS_F_CLEANING : 0)
+                       | (machineIsAiring()    ? STATUS_F_AIRING   : 0);
         s.primeChannel = machinePumpChannel();
         strncpy(s.version, FW_VERSION, sizeof(s.version) - 1);
         s.j9ReplyHighWater = j9TurnReplyHighWater;
@@ -595,6 +629,26 @@ static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len) {
         return;
     }
 
+    // The air cycles, the same way.
+    if (type == MSG_AIR_START && plen >= sizeof(AirRequestPayload)) {
+        Serial.printf("\n[J9] MSG_AIR_START mode=%u ch=%u\n", payload[0], payload[1]);
+        airReplyDirect = true;
+        machineAirBegin(payload[0], payload[1]);
+        airReplyDirect = false;
+        sendAirState(link);
+        return;
+    }
+    if (type == MSG_AIR_STOP) {
+        Serial.println("\n[J9] MSG_AIR_STOP");
+        machineAirStop();
+        sendAirState(link);
+        return;
+    }
+    if (type == MSG_AIR_QUERY) {
+        sendAirState(link);
+        return;
+    }
+
     if (type == MSG_TEXT) {
         char text[96];
         uint16_t n = plen < sizeof(text) - 1 ? plen : sizeof(text) - 1;
@@ -621,6 +675,7 @@ void linkBegin() {
     machineOnPumpDone   = onPumpDone;
     machineOnFillState  = onFillState;
     machineOnCleanState = onCleanState;
+    machineOnAirState   = onAirState;
 
     // 8 KB, because the loop does not always come back quickly: a flash sector
     // erase inside esp_ota_write blocks for tens of milliseconds, and at these

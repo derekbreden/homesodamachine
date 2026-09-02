@@ -12,9 +12,21 @@ once per fab batch, with the manifold unplugged.
 
 ## What runs today
 
-The glass-facing operations are one flavor pump, the funnel fill and the clean cycle. The main
-board also establishes and reports the safe I/O foundation the next connected bench uses.
+The glass-facing operations are one flavor pump, the funnel fill, the clean cycle and the dry
+cycle before a pump replacement. The main board also establishes and reports the safe I/O
+foundation the next connected bench uses.
 
+- **The air cycles.** The funnel dry and open to air, a pump carrying air along the flavor
+  path one topology state at a time. `MSG_AIR_START { DRY }` from the enclosure's Settings
+  page, or `dry [s]` from the console, runs Air Purge In then Air Purge Through on channel A
+  and then on channel B — every joint the collet plate opens is swept, what the air displaces
+  leaves at the faucet, and neither reservoir is drawn on
+  ([`/hardware/service/pump-replacement.md`](/hardware/service/pump-replacement.md)). `purge
+  <a|b> [s]` runs Air Purge In then Air Purge Out on one channel: air into the rinsed
+  reservoir, then the reservoir out the faucet until its empty reed has opened and the tail
+  has drawn the line clear ([`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md)
+  §9). In and Through run 20 s and 30 s; Out runs the clean flush's 150 s or its reed. Every
+  answer, step and ending is an `AirStatePayload` on `MSG_RESP_AIR`.
 - **The clean cycle.** `MSG_CLEAN_START` from the enclosure, or `clean <a|b> [rounds] [s]`
   from the console, puts tap water through the channel three rounds over. A round opens the
   channel's tap-water path — V-A, its select and its return, `CleanWaterFillA/B` — with the
@@ -95,6 +107,8 @@ pio device monitor -e appliance
 | `ui <page> [a\|b] [go]` | put a customer page on the enclosure — choose, prime, fill, clean, settings — optionally for a flavor, `go` pressing its START |
 | `flavor [a\|b]` | read or set the main-board-owned flavor selection, and the logo pair beside it |
 | `art [<a> <b>]` | read or set which logo each channel wears, persisted in NVS and published to both glasses |
+| `dry [s]` | before a pump replacement: air in then through to the faucet, on each channel in turn; `s` caps every step |
+| `purge <a\|b> [s]` | air into that reservoir, then the reservoir out the faucet until its empty reed opens; `s` caps every step |
 | `selftest` | [`firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md) §7: V-A through V-K for a quarter second each, the condenser fan for a second, then each pump for a second, one load at a time, each parked and read back before the next |
 | `stop` | end whatever is running |
 | `status` | machine state, uptime, heap, verified MCP configuration/output park, all ten reeds |

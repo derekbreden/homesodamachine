@@ -11,6 +11,7 @@ void (*machineOnPrimeState)(uint8_t, uint8_t, uint32_t) = nullptr;
 void (*machineOnPumpDone)(uint8_t) = nullptr;
 void (*machineOnFillState)(const MachineFillState &) = nullptr;
 void (*machineOnCleanState)(const MachineCleanState &) = nullptr;
+void (*machineOnAirState)(const MachineAirState &) = nullptr;
 
 static_assert(PRIME_TICK_MS == machine_policy::kPrimeTickPeriodMs,
               "prime tick period must match machine policy");
@@ -753,6 +754,284 @@ bool machineIsCleaning() { return state == ST_CLEANING; }
 
 void machineReadCleanState(MachineCleanState &st) { cleanFill(st, millis()); }
 
+// ── The air cycles ────────────────────────────────────────────────────────
+// The funnel open to air and a pump carrying it along the path, one topology
+// state at a time (machine_policy::airOperation): Dry is In then Through on
+// each channel in turn; Purge is In then Out on one. Every step runs its
+// planned time; Out also ends on the empty reed plus the tail, the way a
+// clean flush does. Between steps the pump stops and every valve is closed
+// for kCleanSettleMs.
+static uint8_t  airMode          = AIR_MODE_DRY;
+static uint8_t  airChannel       = 0;     // the channel named on the request
+static uint8_t  airOutcome       = AIR_OUTCOME_NONE;
+static uint8_t  airStepIndex     = 0;
+static uint8_t  airReeds         = 0xFF;
+static uint32_t airStepCapMs     = 0;     // nonzero: the console's cap on every step
+static uint32_t airStepStartMs   = 0;
+static uint32_t airStepPlannedMs = 0;
+static uint32_t airStepElapsedMs = 0;
+static uint32_t airLastReedMs    = 0;
+static uint32_t airSettleAtMs    = 0;
+static uint8_t  airEndAfterSettle = AIR_OUTCOME_NONE;
+static bool     airStepRunning   = false;
+static bool     airPumpOn        = false;
+static bool     airEmptySeenClosed = false;
+static uint32_t airEmptyOpenedAtMs = UINT32_MAX;
+
+static machine_policy::AirMode airModeOf(uint8_t mode) {
+    return mode == AIR_MODE_PURGE ? machine_policy::AirMode::Purge : machine_policy::AirMode::Dry;
+}
+
+static uint8_t airStepKind(uint8_t mode, uint8_t index) {
+    if ((index & 1) == 0) return AIR_STEP_IN;
+    return mode == AIR_MODE_PURGE ? AIR_STEP_OUT : AIR_STEP_THROUGH;
+}
+
+static const char *airStepName(uint8_t kind) {
+    switch (kind) {
+        case AIR_STEP_IN:      return "air in";
+        case AIR_STEP_THROUGH: return "air through";
+        default:               return "air out";
+    }
+}
+
+static uint8_t airStepChannelNow() {
+    return machine_policy::airStepChannel(airModeOf(airMode), airChannel, airStepIndex);
+}
+
+static uint32_t airStepElapsedNow(uint32_t now) {
+    return airStepRunning ? now - airStepStartMs : airStepElapsedMs;
+}
+
+static uint32_t airPlannedFor(uint8_t index) {
+    const uint32_t planned = machine_policy::airStepPlannedMs(airModeOf(airMode), index);
+    return airStepCapMs && airStepCapMs < planned ? airStepCapMs : planned;
+}
+
+static void airFill(MachineAirState &st, uint32_t now) {
+    const bool running = state == ST_AIRING;
+    const machine_policy::AirMode m = airModeOf(airMode);
+    st.phase         = running ? AIR_PHASE_RUNNING : AIR_PHASE_OFF;
+    st.mode          = airMode;
+    st.channel       = airStepChannelNow();
+    st.outcome       = running ? AIR_OUTCOME_NONE : airOutcome;
+    st.step          = airStepKind(airMode, airStepIndex);
+    st.stepIndex     = airStepIndex;
+    st.steps         = machine_policy::airSteps(m);
+    st.stepElapsedMs = airStepElapsedNow(now);
+    st.stepPlannedMs = airStepPlannedMs;
+    // What is left counts every later step at its own planned time — capped
+    // the way the running one is when the console named a cap.
+    uint32_t left = 0;
+    if (running) {
+        left = st.stepElapsedMs >= airStepPlannedMs ? 0 : airStepPlannedMs - st.stepElapsedMs;
+        for (uint8_t i = (uint8_t)(airStepIndex + 1); i < st.steps; i++) left += airPlannedFor(i);
+    }
+    st.cycleLeftMs   = left;
+    st.reeds         = airReeds;
+}
+
+static void airAnnounce(uint32_t now) {
+    MachineAirState st;
+    airFill(st, now);
+    if (machineOnAirState) machineOnAirState(st);
+}
+
+static const char *airOutcomeName(uint8_t outcome) {
+    switch (outcome) {
+        case AIR_OUTCOME_DONE:    return "every step ran";
+        case AIR_OUTCOME_STOPPED: return "stopped on request";
+        case AIR_OUTCOME_BUSY:    return "refused — busy";
+        case AIR_OUTCOME_NO_IO:   return "refused — expanders unverified";
+        case AIR_OUTCOME_FAULT:   return "fault — everything parked";
+        case AIR_OUTCOME_GAS:     return "gas alarm";
+        default:                  return "none";
+    }
+}
+
+static bool airReadReeds() {
+    pcba::ReedSnapshot reeds;
+    if (!pcba::expanders().readReeds(reeds)) return false;
+    airReeds = airStepChannelNow() == PUMP_CHANNEL_A ? reeds.reservoirAClosedMask
+                                                     : reeds.reservoirBClosedMask;
+    return true;
+}
+
+static void airStepEnd(uint8_t cycleOutcome, uint32_t now) {
+    if (state != ST_AIRING) return;
+    if (airSettleAtMs) {
+        if (airEndAfterSettle == AIR_OUTCOME_NONE) airEndAfterSettle = cycleOutcome;
+        return;
+    }
+    airStepElapsedMs = airStepElapsedNow(now);
+    if (airPumpOn) pumpPark(airStepChannelNow());
+    airPumpOn         = false;
+    airStepRunning    = false;
+    airEndAfterSettle = cycleOutcome;
+    airSettleAtMs     = now + machine_policy::kCleanSettleMs;
+    if (!airSettleAtMs) airSettleAtMs = 1;
+}
+
+static void airParked(uint8_t outcome) {
+    if (!pcba::expanders().apply(pcba::ExpanderOutputs())) pcba::expanders().parkAll();
+    airSettleAtMs = 0;
+    airOutcome    = outcome;
+    led(PIN_LED_ACT, false);
+    state = ST_IDLE;
+    Serial.printf("\n[machine] %s: %s at step %u of %u, %s — valves closed\n",
+                  airMode == AIR_MODE_PURGE ? "purge" : "dry", airOutcomeName(outcome),
+                  (unsigned)(airStepIndex + 1),
+                  (unsigned)machine_policy::airSteps(airModeOf(airMode)),
+                  airStepName(airStepKind(airMode, airStepIndex)));
+    switch (outcome) {
+        case AIR_OUTCOME_DONE:    soundPlay(SND_CHIME); break;
+        case AIR_OUTCOME_STOPPED: soundPlay(SND_ACK);   break;
+        default:                  soundPlay(SND_FAULT); break;
+    }
+    airAnnounce(millis());
+}
+
+static bool airStepBegin(uint32_t now) {
+    const machine_policy::AirMode m = airModeOf(airMode);
+    const uint8_t ch = airStepChannelNow();
+    const machine_policy::ActuatorPlan plan =
+        machine_policy::canonicalPlan(machine_policy::airOperation(m, airChannel, airStepIndex));
+    if (!machine_policy::isPlanSafe(plan, machine_policy::SafetyContext{false}) ||
+        !pcba::expanders().apply(pcba::ExpanderOutputs(plan.valves, false))) {
+        Serial.printf("\n[machine] %s: the valves could not be opened — parked\n",
+                      airMode == AIR_MODE_PURGE ? "purge" : "dry");
+        airParked(AIR_OUTCOME_FAULT);
+        return false;
+    }
+    if (!pumpDrive(ch)) {
+        Serial.printf("\n[machine] %s: pump %s would not start — parked\n",
+                      airMode == AIR_MODE_PURGE ? "purge" : "dry", kPump[ch].who);
+        airParked(AIR_OUTCOME_FAULT);
+        return false;
+    }
+    airPumpOn          = true;
+    airStepPlannedMs   = airPlannedFor(airStepIndex);
+    airStepStartMs     = now;
+    airStepElapsedMs   = 0;
+    airLastReedMs      = now;
+    airStepRunning     = true;
+    airEmptySeenClosed = (airReeds != 0xFF) && (airReeds & machine_policy::kReservoirReedEmpty);
+    airEmptyOpenedAtMs = UINT32_MAX;
+    char names[24];
+    Serial.printf("\n[machine] %s: step %u of %u, %s on %s — valves %s open, pump %s on, for %lu ms, reeds %02X\n",
+                  airMode == AIR_MODE_PURGE ? "purge" : "dry", (unsigned)(airStepIndex + 1),
+                  (unsigned)machine_policy::airSteps(m), airStepName(airStepKind(airMode, airStepIndex)),
+                  kPump[ch].who, valveNames(plan.valves, names, sizeof(names)), kPump[ch].who,
+                  (unsigned long)airStepPlannedMs, airReeds);
+    airAnnounce(now);
+    return true;
+}
+
+static void airSettled(uint32_t now) {
+    airSettleAtMs = 0;
+    if (!pcba::expanders().apply(pcba::ExpanderOutputs())) {
+        pcba::expanders().parkAll();
+        airParked(AIR_OUTCOME_FAULT);
+        return;
+    }
+    if (airEndAfterSettle != AIR_OUTCOME_NONE) { airParked(airEndAfterSettle); return; }
+    Serial.printf("\n[machine] %s: %s ended after %lu ms — valves closed\n",
+                  airMode == AIR_MODE_PURGE ? "purge" : "dry",
+                  airStepName(airStepKind(airMode, airStepIndex)), (unsigned long)airStepElapsedMs);
+    if (airStepIndex + 1 >= machine_policy::airSteps(airModeOf(airMode))) {
+        airParked(AIR_OUTCOME_DONE);
+        return;
+    }
+    airStepIndex++;
+    airReeds = 0xFF;   // the next step may be the other channel's reservoir
+    if (!airReadReeds()) { airParked(AIR_OUTCOME_FAULT); return; }
+    airStepBegin(now);
+}
+
+static void airService(uint32_t now) {
+    if (state != ST_AIRING) return;
+    if (airSettleAtMs) {
+        if ((int32_t)(now - airSettleAtMs) >= 0) airSettled(now);
+        return;
+    }
+    if (!airStepRunning) return;
+    if (machineGasTripped()) { airStepEnd(AIR_OUTCOME_GAS, now); return; }
+    const uint32_t elapsed = airStepElapsedNow(now);
+    if (now - airLastReedMs >= machine_policy::kCleanReedPeriodMs) {
+        airLastReedMs = now;
+        if (!airReadReeds()) { airStepEnd(AIR_OUTCOME_FAULT, now); return; }
+        const bool emptyClosed = (airReeds & machine_policy::kReservoirReedEmpty) != 0;
+        if (emptyClosed) {
+            airEmptySeenClosed = true;
+            airEmptyOpenedAtMs = UINT32_MAX;
+        } else if (airEmptySeenClosed && airEmptyOpenedAtMs == UINT32_MAX) {
+            airEmptyOpenedAtMs = elapsed;
+        }
+    }
+    machine_policy::CleanEnd end = machine_policy::CleanEnd::None;
+    if (machine_policy::airStepDrawsReservoir(airModeOf(airMode), airStepIndex)) {
+        end = machine_policy::cleanFlushShouldEnd(elapsed, airStepPlannedMs,
+                                                  airEmptySeenClosed, airEmptyOpenedAtMs);
+    } else if (elapsed >= airStepPlannedMs) {
+        end = machine_policy::CleanEnd::Planned;
+    }
+    if (end != machine_policy::CleanEnd::None) {
+        Serial.printf("\n[machine] %s: %s %s\n", airMode == AIR_MODE_PURGE ? "purge" : "dry",
+                      airStepName(airStepKind(airMode, airStepIndex)),
+                      end == machine_policy::CleanEnd::Reed ? "ended on its reed"
+                                                            : "ran its planned time");
+        airStepEnd(AIR_OUTCOME_NONE, now);
+    }
+}
+
+bool machineAirBegin(uint8_t mode, uint8_t channel, uint32_t stepPlannedMs) {
+    const uint32_t now = millis();
+    if (state == ST_AIRING) { soundPlay(SND_REFUSE); airAnnounce(now); return false; }
+
+    uint8_t refusal = AIR_OUTCOME_NONE;
+    if (mode > AIR_MODE_PURGE || channel > 1 || state != ST_IDLE) refusal = AIR_OUTCOME_BUSY;
+    else if (machineGasTripped())                                  refusal = AIR_OUTCOME_GAS;
+    else if (!pcba::expanders().initialized())                     refusal = AIR_OUTCOME_NO_IO;
+    airMode           = mode > AIR_MODE_PURGE ? AIR_MODE_DRY : mode;
+    airChannel        = channel & 1;
+    airStepCapMs      = stepPlannedMs;
+    airStepIndex      = 0;
+    airStepPlannedMs  = airPlannedFor(0);
+    airStepElapsedMs  = 0;
+    airReeds          = 0xFF;
+    airStepRunning    = false;
+    airPumpOn         = false;
+    airSettleAtMs     = 0;
+    airEndAfterSettle = AIR_OUTCOME_NONE;
+    if (refusal == AIR_OUTCOME_NONE && !airReadReeds()) refusal = AIR_OUTCOME_FAULT;
+    if (refusal != AIR_OUTCOME_NONE) {
+        airOutcome = refusal;
+        Serial.printf("\n[machine] %s: %s\n", airMode == AIR_MODE_PURGE ? "purge" : "dry",
+                      airOutcomeName(refusal));
+        soundPlay(SND_REFUSE);
+        airAnnounce(now);
+        return false;
+    }
+
+    state = ST_AIRING;
+    led(PIN_LED_ACT, true);
+    airOutcome = AIR_OUTCOME_NONE;
+    Serial.printf("\n[machine] %s: %u steps, the funnel dry and open to air\n",
+                  airMode == AIR_MODE_PURGE ? "purge" : "dry",
+                  (unsigned)machine_policy::airSteps(airModeOf(airMode)));
+    if (!airStepBegin(now)) return false;
+    soundPlay(SND_ACK);
+    return true;
+}
+
+void machineAirStop() {
+    if (state == ST_AIRING) airStepEnd(AIR_OUTCOME_STOPPED, millis());
+}
+
+bool machineIsAiring() { return state == ST_AIRING; }
+
+void machineReadAirState(MachineAirState &st) { airFill(st, millis()); }
+
 // ── The self-test ─────────────────────────────────────────────────────────
 // One load at a time, each parked and read back before the next: V-A through
 // V-K for a quarter second each, the condenser fan for a second, pump A and
@@ -892,6 +1171,11 @@ void machineBegin() {
     cleanSettleAtMs  = 0;
     cleanOutcome     = CLEAN_OUTCOME_NONE;
     cleanReeds       = 0xFF;
+    airStepRunning   = false;
+    airPumpOn        = false;
+    airSettleAtMs    = 0;
+    airOutcome       = AIR_OUTCOME_NONE;
+    airReeds         = 0xFF;
     state = ST_IDLE;
 
     // The MCPs keep their register state across an ESP-only reset because
@@ -930,6 +1214,7 @@ void machineService() {
     primeSessionLeaseService(now);
     fillService(now);
     cleanService(now);
+    airService(now);
     selfTestService(now);
     if (state != ST_PUMPING) return;
 
@@ -1131,6 +1416,7 @@ bool machinePumpRun(uint8_t channel, uint32_t ms) {
 void machineStop() {
     if      (state == ST_FILLING)  machineFillStop();
     else if (state == ST_CLEANING) machineCleanStop();
+    else if (state == ST_AIRING)   machineAirStop();
     else if (state == ST_SELFTEST) machineSelfTestStop();
     else                           endPumping(PRIME_STOPPED);
 }
@@ -1141,13 +1427,19 @@ const char  *machineStateName() {
         case ST_PUMPING:  return "pumping";
         case ST_FILLING:  return "filling";
         case ST_CLEANING: return "cleaning";
+        case ST_AIRING:   return airMode == AIR_MODE_PURGE ? "purging" : "drying";
         case ST_SELFTEST: return "self-test";
         default:          return "idle";
     }
 }
 bool         machineIsPriming() { return state == ST_PUMPING && hold == HOLD_PRIME; }
 uint8_t      machinePumpChannel()   {
-    return state == ST_FILLING ? fillChannel : state == ST_CLEANING ? cleanChannel : channelNow;
+    switch (state) {
+        case ST_FILLING:  return fillChannel;
+        case ST_CLEANING: return cleanChannel;
+        case ST_AIRING:   return airStepChannelNow();
+        default:          return channelNow;
+    }
 }
 uint32_t     machinePumpElapsedMs() {
     return state == ST_PUMPING ? pumpTimer.elapsedMs(millis()) : 0;

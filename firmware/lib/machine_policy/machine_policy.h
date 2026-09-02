@@ -179,6 +179,47 @@ uint32_t cleanCycleLeftMs(uint8_t step_index, uint8_t rounds,
                           uint32_t step_elapsed_ms, uint32_t step_planned_ms,
                           uint32_t water_fill_planned_ms, uint32_t flush_planned_ms);
 
+// ── The air cycles ────────────────────────────────────────────────────────
+// Air enters at the funnel, dry and open to air, and a pump carries it along
+// the flavor path. Two cycles are made of the topology's purge states:
+//
+//   Dry — before a pump replacement (hardware/service/pump-replacement.md).
+//         Air Purge In then Air Purge Through on channel A, then the same on
+//         channel B: every joint the collet plate opens is swept, and what the
+//         air displaces leaves at the faucet. The reservoirs are not drawn on.
+//   Purge — after a clean cycle (acceptance-and-burn-in.md §9). Air Purge In
+//         then Air Purge Out on one channel: air into the rinsed reservoir,
+//         then the reservoir out the faucet until its empty reed opens and the
+//         tail has drawn the line clear.
+//
+// Every step has a planned time; an Out step also ends on its reed, the way a
+// clean flush does.
+enum class AirMode : uint8_t {
+    Dry = 0,
+    Purge,
+};
+
+constexpr uint32_t kAirInPlannedMs      = 20000;   // funnel to the reservoir's fill bore
+constexpr uint32_t kAirThroughPlannedMs = 30000;   // funnel to the faucet
+constexpr uint32_t kAirOutPlannedMs     = kCleanFlushPlannedMs;   // a reservoir out the faucet
+
+// How many steps a cycle is: four for Dry, two for Purge.
+uint8_t airSteps(AirMode mode);
+
+// The topology state step `step_index` of the cycle runs, and which channel's
+// pump it turns.
+Operation airOperation(AirMode mode, uint8_t channel, uint8_t step_index);
+uint8_t   airStepChannel(AirMode mode, uint8_t channel, uint8_t step_index);
+uint32_t  airStepPlannedMs(AirMode mode, uint8_t step_index);
+
+// Whether step `step_index` is the one that draws a reservoir out, and so ends
+// on the empty reed as well as the clock.
+bool airStepDrawsReservoir(AirMode mode, uint8_t step_index);
+
+// What remains of the cycle, as a time, the way cleanCycleLeftMs counts it.
+uint32_t airCycleLeftMs(AirMode mode, uint8_t step_index,
+                        uint32_t step_elapsed_ms, uint32_t step_planned_ms);
+
 // Prime timing is a wire/user-experience contract shared with proto_msg.h.
 // Keeping it pure allows exact boundary and rollover tests without a clock,
 // GPIO, display, sound, or Arduino runtime.

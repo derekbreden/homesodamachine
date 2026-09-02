@@ -244,6 +244,7 @@ Newline-terminated, 115200 baud over the native USB CDC:
 - `FILL:START:<1|2>` / `FILL:STOP` → the confirm page's START and the lock's STOP,
   without a finger on the glass: same frame, same answer, same lock
 - `CLEAN:START:<1|2>` / `CLEAN:STOP` → the same for the clean cycle
+- `AIR:DRY` / `AIR:STOP` → Settings' DRY THE LINES and the lock's STOP
 - `STATUS` → ask the base for one `StatusPayload`
 - `PUMP` → one `MSG_PUMP_RUN { B, 1000 }`
 - `LINK` → RX/TX GPIO and the frame counters
@@ -321,7 +322,7 @@ remaining 610 px is the pane, and it takes a different shape at each destination
 | Prime | flavor choice → shared hold pad | **the base** |
 | Fill | flavor choice → confirmation → the operation lock while it draws | **the base** |
 | Clean | flavor choice → confirmation → the operation lock for the cycle | **the base** |
-| Settings | a deliberately quiet surface until a useful preference is ready; reached from the corner | — |
+| Settings | pump service: dry the lines, then the operation lock for the cycle; reached from the corner | **the base** |
 
 **Every face on this panel is the faucet's glass.** A logo is 43:80 at three scales —
 172×320, 129×240, 86×160 — and nothing else, because choosing a face here is choosing what
@@ -456,6 +457,20 @@ asked for again every 500 ms, so a cycle the console started comes up the same w
 cycle ends the modal holds for six seconds saying how — **Clean**, **Stopped**, or a fault —
 then the pane returns to the clean page. A refusal lands on the confirm page's own message
 line. An older main board that answers `MSG_ERR_UNSUPPORTED` lands there too.
+
+### Dry, before a pump replacement
+
+**Settings → DRY THE LINES** sends `MSG_AIR_START { DRY }`. The card says to set a container
+under the faucet first. The main board runs air in then through to the faucet on channel A,
+then on channel B — the four purge states that sweep every joint the collet plate opens
+([`/hardware/service/pump-replacement.md`](/hardware/service/pump-replacement.md)) — and
+answers START, `MSG_AIR_QUERY` and `MSG_AIR_STOP` with a complete `AirStatePayload`.
+
+It is shown on the same lock: **Drying**, the face of the channel whose pump is turning, a
+bar across the four steps, **1 of 4 • air in** or **air out**, STOP, and the time left in the
+kicker; then **Dry — The lines are dry. Pull the pump cartridge.** for six seconds. A purge
+the console runs — one channel's reservoir aired and drawn out — comes up the same way as
+**Purging**. A refusal lands on the Settings card's own message line.
 
 ### Frame rate
 

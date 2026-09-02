@@ -876,6 +876,63 @@ void test_clean_timing_is_ordered_and_reads_the_reservoir_as_the_fill_does() {
     TEST_ASSERT_EQUAL_HEX8(0x08, kReservoirReedFull);
 }
 
+void test_dry_cycle_sweeps_both_channels_in_then_through_without_a_reservoir() {
+    TEST_ASSERT_EQUAL_UINT8(4, airSteps(AirMode::Dry));
+    TEST_ASSERT_EQUAL(Operation::AirPurgeInA,      airOperation(AirMode::Dry, 0, 0));
+    TEST_ASSERT_EQUAL(Operation::AirPurgeThroughA, airOperation(AirMode::Dry, 0, 1));
+    TEST_ASSERT_EQUAL(Operation::AirPurgeInB,      airOperation(AirMode::Dry, 0, 2));
+    TEST_ASSERT_EQUAL(Operation::AirPurgeThroughB, airOperation(AirMode::Dry, 0, 3));
+    // The channel named on a Dry request is not what picks the pump.
+    TEST_ASSERT_EQUAL(Operation::AirPurgeInA, airOperation(AirMode::Dry, 1, 0));
+    TEST_ASSERT_EQUAL_UINT8(0, airStepChannel(AirMode::Dry, 1, 1));
+    TEST_ASSERT_EQUAL_UINT8(1, airStepChannel(AirMode::Dry, 0, 3));
+    for (uint8_t i = 0; i < 4; i++) {
+        const ActuatorPlan p = canonicalPlan(airOperation(AirMode::Dry, 0, i));
+        TEST_ASSERT_TRUE(p.valves & bit(Valve::B));                 // the funnel, open to air
+        TEST_ASSERT_FALSE(p.valves & (bit(Valve::E) | bit(Valve::H)));   // no reservoir draw
+        TEST_ASSERT_EQUAL_UINT8(i < 2 ? kPumpA : kPumpB, p.flavor_pumps);
+        TEST_ASSERT_FALSE(airStepDrawsReservoir(AirMode::Dry, i));
+    }
+    // Every joint the collet plate opens stands between a pump and its tees;
+    // each channel's two steps carry air across both of that pump's barbs.
+    TEST_ASSERT_TRUE(canonicalPlan(Operation::AirPurgeInA).valves & bit(Valve::C));
+    TEST_ASSERT_TRUE(canonicalPlan(Operation::AirPurgeInA).valves & bit(Valve::F));
+    TEST_ASSERT_TRUE(canonicalPlan(Operation::AirPurgeThroughA).valves & bit(Valve::G));
+}
+
+void test_purge_cycle_airs_one_reservoir_then_draws_it_out() {
+    TEST_ASSERT_EQUAL_UINT8(2, airSteps(AirMode::Purge));
+    TEST_ASSERT_EQUAL(Operation::AirPurgeInA,  airOperation(AirMode::Purge, 0, 0));
+    TEST_ASSERT_EQUAL(Operation::AirPurgeOutA, airOperation(AirMode::Purge, 0, 1));
+    TEST_ASSERT_EQUAL(Operation::AirPurgeInB,  airOperation(AirMode::Purge, 1, 0));
+    TEST_ASSERT_EQUAL(Operation::AirPurgeOutB, airOperation(AirMode::Purge, 1, 1));
+    TEST_ASSERT_EQUAL_UINT8(1, airStepChannel(AirMode::Purge, 1, 0));
+    TEST_ASSERT_FALSE(airStepDrawsReservoir(AirMode::Purge, 0));
+    TEST_ASSERT_TRUE(airStepDrawsReservoir(AirMode::Purge, 1));
+    // Out is the dispense path, so the reservoir's draw is what empties.
+    TEST_ASSERT_EQUAL_UINT16(canonicalPlan(Operation::DispenseA).valves,
+                             canonicalPlan(Operation::AirPurgeOutA).valves);
+}
+
+void test_air_step_times_and_what_is_left() {
+    TEST_ASSERT_EQUAL_UINT32(kAirInPlannedMs,      airStepPlannedMs(AirMode::Dry, 0));
+    TEST_ASSERT_EQUAL_UINT32(kAirThroughPlannedMs, airStepPlannedMs(AirMode::Dry, 1));
+    TEST_ASSERT_EQUAL_UINT32(kAirInPlannedMs,      airStepPlannedMs(AirMode::Purge, 0));
+    TEST_ASSERT_EQUAL_UINT32(kAirOutPlannedMs,     airStepPlannedMs(AirMode::Purge, 1));
+    TEST_ASSERT_EQUAL_UINT32(kCleanFlushPlannedMs, kAirOutPlannedMs);
+    const uint32_t dry = 2 * (kAirInPlannedMs + kAirThroughPlannedMs);
+    TEST_ASSERT_EQUAL_UINT32(dry, airCycleLeftMs(AirMode::Dry, 0, 0, kAirInPlannedMs));
+    TEST_ASSERT_EQUAL_UINT32(dry - kAirInPlannedMs / 2,
+                             airCycleLeftMs(AirMode::Dry, 0, kAirInPlannedMs / 2, kAirInPlannedMs));
+    TEST_ASSERT_EQUAL_UINT32(kAirThroughPlannedMs,
+                             airCycleLeftMs(AirMode::Dry, 3, 0, kAirThroughPlannedMs));
+    TEST_ASSERT_EQUAL_UINT32(0, airCycleLeftMs(AirMode::Dry, 4, 0, kAirThroughPlannedMs));
+    TEST_ASSERT_EQUAL_UINT32(kAirInPlannedMs + kAirOutPlannedMs,
+                             airCycleLeftMs(AirMode::Purge, 0, 0, kAirInPlannedMs));
+    // An Out step that ended early on its reed was given a shorter planned time by the caller.
+    TEST_ASSERT_EQUAL_UINT32(5000, airCycleLeftMs(AirMode::Purge, 1, 10000, 15000));
+}
+
 void test_clean_wire_contract_has_dedicated_ids_and_exact_layout() {
     TEST_ASSERT_EQUAL_HEX8(0x0F, MSG_CLEAN_START);
     TEST_ASSERT_EQUAL_HEX8(0x5C, MSG_CLEAN_QUERY);
@@ -898,6 +955,9 @@ int main(int, char **) {
     RUN_TEST(test_clean_cycle_left_sums_the_steps_still_to_come);
     RUN_TEST(test_clean_timing_is_ordered_and_reads_the_reservoir_as_the_fill_does);
     RUN_TEST(test_clean_wire_contract_has_dedicated_ids_and_exact_layout);
+    RUN_TEST(test_dry_cycle_sweeps_both_channels_in_then_through_without_a_reservoir);
+    RUN_TEST(test_purge_cycle_airs_one_reservoir_then_draws_it_out);
+    RUN_TEST(test_air_step_times_and_what_is_left);
     RUN_TEST(test_fill_draws_a_bottle_at_the_slowest_rated_head_with_time_to_spare);
     RUN_TEST(test_fill_operation_is_the_channels_own_funnel_path);
     RUN_TEST(test_fill_ends_on_the_full_reed_before_the_clock);
