@@ -160,13 +160,13 @@ profile. What differs between them is the number on the plate and the founder's 
 
 Hand-built one at a time. Each unit carries a numbered nameplate signed for that specific
 machine ([`finish-pack-ship.md`](/hardware/assembly/finish-pack-ship.md)), and ships with a
-personal install consultation. At about a dozen units a year the run takes roughly four years,
-and for that whole window this is the only tier.
+personal install consultation. It is the only tier until the run is committed out.
 
 A unit costs [10 h](LAB_HM) of attended hand work. The printers, the bottleneck machine at
 [170.2](MT_H_PRINT) printer-hours a unit, give [~67](MT_UNITS_YEAR) units a year at the
-[65 %](MT_DUTY) duty the ledger carries. A dozen a year is what one person builds beside a day
-job. The ledgers are [`labor.md`](/hardware/ledger/labor.md) and
+[65 %](MT_DUTY) duty the ledger carries. That is the machines' ceiling and not the shop's: what
+one person builds beside a day job is fewer, and the tree does not guess how many. The ledgers
+are [`labor.md`](/hardware/ledger/labor.md) and
 [`machine-time.md`](/hardware/ledger/machine-time.md).
 
 The buyer at $7,500 is paying for the machine, for access to the person who built it, and for a
@@ -190,11 +190,11 @@ stands behind each machine, before tools, freight, warranty, or any of the desig
 ## How big the market has to be
 
 Fifty units is a rounding error against any plausible count of American households with a daily
-diet soda drinker in them. The market is not the constraint. **Discovery is the constraint**,
-and at a dozen units a year it is a forgiving one.
+diet soda drinker in them. The market is not the constraint. **Discovery is the constraint**, and
+against a run of fifty it is a forgiving one: fifty buyers, found one at a time.
 
-Twelve units a year is about $90,000 and funds continued solo development. The full Founder run
-is $375,000 over roughly four years. Past that the tree holds no revenue plan.
+The full Founder run is $375,000 at the anchor price. Past the run the tree holds no revenue
+plan.
 
 ### What the buyer already spends
 
@@ -262,8 +262,8 @@ it, and what absorbing the risk of an early unit is worth.
 ### Linear, not exponential
 
 Each ring is roughly the volume of the one before it. What improves between rings is unit cost
-and build quality, not unit count. The plan tops out around 20–30 units a year, indefinitely.
-Solo build capacity is the gating constraint, and the goal is the best work possible inside it.
+and build quality, not unit count. Solo build capacity is the gating constraint and stays the
+gating constraint, and the goal is the best work possible inside it rather than more of it.
 
 ### How this relates to the analysis above
 
@@ -275,8 +275,9 @@ three rings out will, because by then it is not a hypothesis."
 
 ### What counts as success
 
-The good outcome is this plan running indefinitely as a craft practice alongside the day job.
-Twenty units a year, stable suppliers, a maturing design, real customers using a real product.
+The good outcome is this plan running indefinitely as a craft practice alongside the day job:
+stable suppliers, a maturing design, real customers using a real product, and a machine going
+out whenever one is finished.
 
 The great outcome is volume reaching a level where Derek feels safe taking a sabbatical to work
 on it full time. Not scale, not exit — enough demand and enough margin to step away from the day
@@ -324,8 +325,8 @@ way to say "look at this" to the friend they already know drinks Diet Coke every
 **Direct only.** The one sales channel is homesodamachine.com. What that means for listings and
 certifications is [`/business/regulatory.md`](/business/regulatory.md).
 
-**At a dozen units a year, every sale is a conversation.** No ads, no retail. Ten people found
-one at a time, shown the faucet. The founder is the sales team.
+**Every sale is a conversation.** No ads, no retail. Buyers found one at a time and shown the
+faucet. The founder is the sales team.
 
 **Discovery is the entire problem.** The product sells itself once someone knows it exists and
 believes it works. The hours go into manufacturing the "wait, that's *real*?" moment.
@@ -351,8 +352,11 @@ almost no overlap with diet-soda-drinking homeowners, and which
 [`/marketing/video/concepts.md`](/marketing/video/concepts.md) places in service of *trust when
 the buyer arrives* rather than *how they arrive*.
 
-The video that reaches the buyer is the pour. The pour needs a machine that pours, which is mark
-one of [`/future/README.md`](/future/README.md).
+The pour video is the one the buyer needs and it needs a machine that pours, but nothing is
+waiting on it: the channel's problem is that it is not running, and there is more to film than
+the pour. What the prototype under the counter does today is on camera-ready, and so is every
+first the build is still owed. [`/marketing/video/concepts.md`](/marketing/video/concepts.md)
+holds the concepts.
 
 ### Trust at Founder Edition: the brand is a person
 
@@ -414,16 +418,17 @@ desire with no plan behind it, held at
 
 ## Open questions
 
-Three, and each one is Derek's to close. Nothing in the tree can answer them.
+Three, and each one is Derek's to close. Nothing in the tree can answer them. None of them is
+a date: this tree does not hold one.
 
 1. **Real people who fit the profile.** Friends, coworkers, family who drink diet soda daily and
    carry the can hatred. Three or four named examples validate or challenge everything above,
    and they are also ring 1.
 2. **The coworker.** The one who mentioned robot mowers. Do they drink soda? Do they know this
    exists? What did they say?
-3. **The dates.** The pour video waits on the first machine that pours, so the marketing
-   sequence follows the build. The dates for that mark and the two after it belong on
-   [`/future/README.md`](/future/README.md) "The dates."
+3. **What to film next.** The channel is not running and that is the problem to solve, not a
+   thing to wait out. What gets made next is a standing question for whoever picks up
+   [`/marketing/video/concepts.md`](/marketing/video/concepts.md).
 
 ## Sources
 [value](NAME) texts are updated by:
