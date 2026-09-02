@@ -617,7 +617,8 @@ def wago_swing(size="413"):
 # What each lug in the +X row costs the flank. Wells sharing a wall face would stand
 # neighbours 14.70 apart and a lever standing fully up reaches `wago_swing` — so the row is
 # spaced by the LEVER and not by the wall, and a lug can be opened and re-wired where it
-# sits. Neighbouring towers stop touching at that spacing; each stands on its own.
+# sits. A row's wells stand in one tower spanning the row (`_side_wells`), the slit the
+# lever's spacing would leave between two towers filled.
 wago_lever_clear = 1.0      # air past the swept lever, so its tip does not graze the next lug
 wago_pitch = max(2.0 * wago_half("413")[0], wago_swing("413") + wago_lever_clear)
 
@@ -6525,6 +6526,14 @@ def _side_wells(solid, inner, stations, y0, y1, z0, z1):
     grown on (+1 east, −1 west), its centre on that wall, the 221 it takes, the lowest plane its
     lower wedge may enter, and which of the two roof forms it keeps.
 
+    A ROW IS ONE TOWER. Wells of one size at one height on one wall, each within a pitch of the
+    next, stand in one tower spanning the row from the first well's end to the last's, on one
+    wedge run the whole length; every well's pocket and roof are then cut where its own station
+    stands. The row is spaced by the lever and not by the wall (`wago_pitch`), so the towers
+    would otherwise stand a slit apart — that slit is filled, and what the row presents is one
+    fore face, two ends and one underside with the pockets in it. The levers work on the lug's
+    wire half, inboard of that face, and swing in the room as before.
+
     The tower stands off the wall's inner face and the cavity is cut from that face
     outward past its own end, so the pocket opens INBOARD and bottoms on the wall. What
     the lug meets at the bottom of its travel is the wall itself, not a printed floor —
@@ -6542,9 +6551,17 @@ def _side_wells(solid, inner, stations, y0, y1, z0, z1):
     A 45° WEDGE CARRIES THE TOWER'S UNDERSIDE to the wall. `clear_z` is the plane the
     flank's air stops being the well's — the crown of whatever the station stands over —
     and a wedge that would cross it is cut off flat there instead."""
-    for side, sy, sz, size, clear_z, supportless_roof in stations:
-        if not (y0 <= sy <= y1 and z0 <= sz <= z1):
-            continue
+    mine = sorted((s for s in stations if y0 <= s[1] <= y1 and z0 <= s[2] <= z1),
+                  key=lambda s: (s[0], s[2], s[3], s[1]))
+    rows = []
+    for st in mine:
+        side, sy, sz, size, clear_z, supportless_roof = st
+        key = (side, sz, size, clear_z, supportless_roof)
+        if rows and rows[-1][0] == key and sy - rows[-1][1][-1] <= wago_pitch + 1e-6:
+            rows[-1][1].append(sy)
+        else:
+            rows.append((key, [sy]))
+    for (side, sz, size, clear_z, supportless_roof), ys in rows:
         face = inner[1] if side > 0 else inner[0]
         engage = wago_engage(size)
         half_y, half_z = wago_half(size)
@@ -6554,9 +6571,8 @@ def _side_wells(solid, inner, stations, y0, y1, z0, z1):
         reach = engage + 1.0
         tower = sorted((face, face - side * engage))
         pocket = sorted((face, face - side * reach))
-        solid = solid.fuse(_ybox(tower[0], tower[1],
-                                 sy - half_y, sy + half_y,
-                                 sz - half_z, sz + half_z))
+        ya, yb = ys[0] - half_y, ys[-1] + half_y
+        solid = solid.fuse(_ybox(tower[0], tower[1], ya, yb, sz - half_z, sz + half_z))
         zb = sz - half_z
         drop = engage if clear_z is None else min(engage, zb - clear_z)
         if drop > 0.3:
@@ -6564,18 +6580,19 @@ def _side_wells(solid, inner, stations, y0, y1, z0, z1):
             if drop < engage - 1e-9:
                 prof.append((face - side * (engage - drop), zb - drop))
             prof.append((face, zb - drop))
-            solid = solid.fuse(_xz_prism(sy - half_y, sy + half_y, prof))
+            solid = solid.fuse(_xz_prism(ya, yb, prof))
         pk_y = stand_y / 2.0 + wago_well_press
         roof_z = sz + stand_z / 2.0 + wago_well_press
-        solid = solid.cut(_ybox(pocket[0], pocket[1],
-                                sy - pk_y, sy + pk_y,
-                                sz - (stand_z / 2.0 + wago_well_press), roof_z))
-        if supportless_roof:
-            gap = pk_y - wago_roof_tab
-            solid = solid.cut(_xz_prism(
-                sy - gap, sy + gap,
-                [(face, roof_z), (face - side * reach, roof_z),
-                 (face - side * reach, roof_z + reach)]))
+        for sy in ys:
+            solid = solid.cut(_ybox(pocket[0], pocket[1],
+                                    sy - pk_y, sy + pk_y,
+                                    sz - (stand_z / 2.0 + wago_well_press), roof_z))
+            if supportless_roof:
+                gap = pk_y - wago_roof_tab
+                solid = solid.cut(_xz_prism(
+                    sy - gap, sy + gap,
+                    [(face, roof_z), (face - side * reach, roof_z),
+                     (face - side * reach, roof_z + reach)]))
     return solid
 
 
