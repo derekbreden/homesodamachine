@@ -742,8 +742,66 @@ void test_prime_session_wire_contract_has_dedicated_ids_and_exact_layouts() {
 void setUp() {}
 void tearDown() {}
 
+void test_fill_draws_a_bottle_at_the_slowest_rated_head_with_time_to_spare() {
+    const uint32_t bottle_ms = kFillBottleMl * 60000u / kFillSlowestMlMin;
+    TEST_ASSERT_TRUE(bottle_ms < kFillPlannedMs);
+    TEST_ASSERT_TRUE(kFillPlannedMs - bottle_ms >= 5000);
+}
+
+void test_fill_operation_is_the_channels_own_funnel_path() {
+    TEST_ASSERT_EQUAL(Operation::FunnelFillA, fillOperation(0));
+    TEST_ASSERT_EQUAL(Operation::FunnelFillB, fillOperation(1));
+    const ActuatorPlan a = canonicalPlan(fillOperation(0));
+    const ActuatorPlan b = canonicalPlan(fillOperation(1));
+    TEST_ASSERT_EQUAL_UINT16(bit(Valve::B) | bit(Valve::C) | bit(Valve::F), a.valves);
+    TEST_ASSERT_EQUAL_UINT16(bit(Valve::B) | bit(Valve::D) | bit(Valve::I), b.valves);
+    TEST_ASSERT_EQUAL_UINT8(kPumpA, a.flavor_pumps);
+    TEST_ASSERT_EQUAL_UINT8(kPumpB, b.flavor_pumps);
+    TEST_ASSERT_FALSE(a.dispense_window);
+    TEST_ASSERT_FALSE(b.dispense_window);
+}
+
+void test_fill_ends_on_the_full_reed_before_the_clock() {
+    TEST_ASSERT_EQUAL(FillEnd::None, fillShouldEnd(0, kFillPlannedMs, 0x00));
+    TEST_ASSERT_EQUAL(FillEnd::None, fillShouldEnd(kFillPlannedMs - 1, kFillPlannedMs, 0x07));
+    TEST_ASSERT_EQUAL(FillEnd::Full, fillShouldEnd(0, kFillPlannedMs, kReservoirReedFull));
+    TEST_ASSERT_EQUAL(FillEnd::Full, fillShouldEnd(kFillPlannedMs, kFillPlannedMs, 0x0F));
+}
+
+void test_fill_ends_at_its_planned_draw_and_not_before() {
+    TEST_ASSERT_EQUAL(FillEnd::None, fillShouldEnd(kFillPlannedMs - 1, kFillPlannedMs, 0x00));
+    TEST_ASSERT_EQUAL(FillEnd::Planned, fillShouldEnd(kFillPlannedMs, kFillPlannedMs, 0x00));
+    TEST_ASSERT_EQUAL(FillEnd::Planned, fillShouldEnd(kFillPlannedMs + 1, kFillPlannedMs, 0x00));
+    TEST_ASSERT_EQUAL(FillEnd::Planned, fillShouldEnd(3000, 3000, 0x00));
+}
+
+void test_fill_reads_the_reservoir_more_often_than_a_reed_can_be_missed() {
+    // The float rises about 45 mm per reed step; at 600 mL/min the level moves
+    // far less than that in one read period, so the full reed cannot be passed
+    // between two reads.
+    TEST_ASSERT_TRUE(kFillReedPeriodMs <= 500);
+    TEST_ASSERT_TRUE(kFillParkDwellMs >= 100 && kFillParkDwellMs <= 1000);
+}
+
+void test_fill_wire_contract_has_dedicated_ids_and_exact_layout() {
+    TEST_ASSERT_EQUAL_HEX8(0x30, MSG_FILL_START);
+    TEST_ASSERT_EQUAL_HEX8(0x57, MSG_FILL_QUERY);
+    TEST_ASSERT_EQUAL_HEX8(0x58, MSG_RESP_FILL);
+    TEST_ASSERT_EQUAL_HEX8(0x59, MSG_FILL_STOP);
+    TEST_ASSERT_EQUAL_UINT32(12, sizeof(FillStatePayload));
+    TEST_ASSERT_EQUAL_UINT8(FILL_PHASE_OFF, 0);
+    TEST_ASSERT_EQUAL_UINT8(FILL_PHASE_RUNNING, 1);
+    TEST_ASSERT_TRUE(STATUS_F_FILLING != STATUS_F_PRIMING && STATUS_F_FILLING != STATUS_F_GAS_TRIP);
+}
+
 int main(int, char **) {
     UNITY_BEGIN();
+    RUN_TEST(test_fill_draws_a_bottle_at_the_slowest_rated_head_with_time_to_spare);
+    RUN_TEST(test_fill_operation_is_the_channels_own_funnel_path);
+    RUN_TEST(test_fill_ends_on_the_full_reed_before_the_clock);
+    RUN_TEST(test_fill_ends_at_its_planned_draw_and_not_before);
+    RUN_TEST(test_fill_reads_the_reservoir_more_often_than_a_reed_can_be_missed);
+    RUN_TEST(test_fill_wire_contract_has_dedicated_ids_and_exact_layout);
     RUN_TEST(test_logical_valve_inventory_is_eleven_bits);
     RUN_TEST(test_canonical_flavor_topology_plans_match_documented_states);
     RUN_TEST(test_carbonator_refill_uses_only_v_k_and_the_refill_pump);

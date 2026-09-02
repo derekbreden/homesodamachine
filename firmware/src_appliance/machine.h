@@ -11,13 +11,16 @@
 // and the three limits in main.cpp's header are held here.
 //
 // What is implemented today is one flavor pump turning — held from the glass,
-// or bounded from the console. The two MCP23017s are initialized fail-closed:
-// every output is parked low and the reed inputs have internal pull-ups. No
-// operation opens a valve or runs the fan, and neither relay is ever driven.
+// or bounded from the console — and the funnel fill, which holds a channel's
+// three funnel-path valves open while that pump draws. The two MCP23017s are
+// initialized fail-closed: every output is parked low and the reed inputs have
+// internal pull-ups. Nothing else opens a valve or runs the fan, and neither
+// relay is ever driven.
 
 enum MachineState : uint8_t {
     ST_IDLE,     // nothing driven
     ST_PUMPING,  // one flavor pump turning
+    ST_FILLING,  // a funnel fill: three valves open, that channel's pump drawing
 };
 
 // Why the pump is turning, which is the same as what will stop it.
@@ -44,10 +47,24 @@ struct MachinePrimeSessionState {
     uint32_t holdToken;
 };
 
+// The funnel fill, in proto_msg.h's FILL_* vocabulary.
+struct MachineFillState {
+    uint8_t  phase;
+    uint8_t  channel;
+    uint8_t  outcome;
+    uint32_t elapsedMs;
+    uint32_t plannedMs;
+    uint8_t  reeds;
+};
+
 // ── What the machine announces ────────────────────────────────────────────
 // Every prime state change, in proto_msg.h's PRIME_* vocabulary. link.cpp turns
 // these into MSG_RESP_PRIME. Set before machineBegin().
 extern void (*machineOnPrimeState)(uint8_t state, uint8_t channel, uint32_t ms);
+
+// Every fill state change — accepted, refused, ended and why. link.cpp turns
+// these into MSG_RESP_FILL.
+extern void (*machineOnFillState)(const MachineFillState &state);
 
 // A bounded run reaching its deadline, so MSG_RESP_PUMP_DONE goes out when the
 // head has already stopped rather than when the run was asked for.
@@ -94,6 +111,18 @@ bool machinePrimeEventIsSessionOwned();
 
 bool machinePumpRun(uint8_t channel, uint32_t ms);
 void machineStop();      // whatever is running, end it and park
+
+// ── The funnel fill ───────────────────────────────────────────────────────
+// Opens the channel's funnel path and draws for machine_policy::kFillPlannedMs
+// — or plannedMs, when the console names one — unless the reservoir's full
+// reed closes first. Refused while anything else runs, while the expanders are
+// unverified, and under the gas alarm; every answer, and every ending, goes
+// out through machineOnFillState.
+bool machineFillBegin(uint8_t channel, uint32_t plannedMs = 0);
+void machineFillStop();   // ends a running fill on request; nothing otherwise
+bool machineIsFilling();
+void machineReadFillState(MachineFillState &state);
+uint16_t machineValvesOpen();   // the logical valves the expanders hold open, bit 0 = V-A
 
 // The MQ-6 comparator, debounced. U15 holds the compressor off it in hardware
 // with no firmware in the path; what the firmware adds is the alarm.
