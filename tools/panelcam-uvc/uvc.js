@@ -5,7 +5,8 @@
 //   node uvc.js get absolute_focus
 //   node uvc.js set absolute_focus 170
 //   node uvc.js set auto_focus 0
-//   node uvc.js hold "auto_focus=0,gain=0" 120   # rewrite them every 120 ms until terminated
+//   node uvc.js serve                # "get <name>" / "set <name> <value>" per stdin line, one
+//                                    # answer per stdout line, the device held open throughout
 //
 // THE UNIT IDS ARE READ, NOT ASSUMED. A UVC control request is addressed to a unit inside the
 // camera, and a request sent to the wrong unit is answered with a STALL that looks exactly like
@@ -20,6 +21,7 @@
 // This talks to the control interface only. It never opens the video stream, so it needs no
 // camera permission from macOS and does not disturb a capture in flight.
 
+import readline from "readline";
 import { getDeviceList } from "usb";
 
 const VENDOR = 0x32e4; // ELP / Ailipu
@@ -134,30 +136,23 @@ async function cmdShow({ dev, iface, units }) {
   }
 }
 
-// While the stream is open this camera walks its own lens: auto_focus reads back 0 and
-// absolute_focus still climbs 340, 370, 400. Written again every few hundred milliseconds, the
-// value stays where it is put. Runs until terminated.
-async function cmdHold({ dev, iface, units }, spec, intervalMs) {
-  const pairs = String(spec).split(",")
-    .map((s) => s.split("="))
-    .filter((a) => a.length === 2)
-    .map(([name, value]) => {
+// One process for a whole capture: a `set` is answered with the register read back, in about
+// two milliseconds, which is what a focus sweep timed in tenths of a second needs.
+async function cmdServe({ dev, iface, units }) {
+  const rl = readline.createInterface({ input: process.stdin });
+  for await (const line of rl) {
+    const [action, name, value] = line.trim().split(/\s+/);
+    if (action === "quit") break;
+    try {
       const unit = unitFor(units, name);
       if (!unit) throw new Error(`unknown control '${name}'`);
-      return { unit, spec: unit.map[name], value: Number(value), name };
-    });
-  let running = true;
-  const stop = () => { running = false; };
-  process.on("SIGTERM", stop);
-  process.on("SIGINT", stop);
-  while (running) {
-    for (const p of pairs) {
-      if (!(p.unit.bm & (1n << BigInt(p.spec.bit)))) continue;
-      try {
-        await transfer(dev, SET_CUR, p.unit, p.spec, iface, encode(p.value, p.spec.len));
-      } catch { /* a write lost to a busy device is retried on the next pass */ }
+      const spec = unit.map[name];
+      if (!(unit.bm & (1n << BigInt(spec.bit)))) throw new Error(`not implemented: '${name}'`);
+      if (action === "set") await transfer(dev, SET_CUR, unit, spec, iface, encode(Number(value), spec.len));
+      console.log(decode(await transfer(dev, GET_CUR, unit, spec, iface, spec.len), spec));
+    } catch (e) {
+      console.log(`ERR ${e.message}`);
     }
-    await new Promise((r) => setTimeout(r, intervalMs));
   }
 }
 
@@ -166,7 +161,7 @@ async function main() {
   const cam = openCamera();
   try {
     if (action === "show" || !action) return await cmdShow(cam);
-    if (action === "hold") return await cmdHold(cam, name, Number(value) || 350);
+    if (action === "serve") return await cmdServe(cam);
     const unit = unitFor(cam.units, name);
     if (!unit) throw new Error(`unknown control '${name}' — run 'show' for the list`);
     const spec = unit.map[name];
@@ -180,7 +175,7 @@ async function main() {
       await transfer(cam.dev, SET_CUR, unit, spec, cam.iface, encode(Number(value), spec.len));
       console.log(decode(await transfer(cam.dev, GET_CUR, unit, spec, cam.iface, spec.len), spec));
     } else {
-      throw new Error(`usage: uvc.js show | get <control> | set <control> <value> | hold <k=v,…> <ms>`);
+      throw new Error(`usage: uvc.js show | get <control> | set <control> <value> | serve`);
     }
   } finally {
     cam.dev.close();
