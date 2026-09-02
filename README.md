@@ -6,7 +6,7 @@ The public face of the project is **[homesodamachine.com](https://homesodamachin
 
 The prototype that proves the dispense path is in Derek's kitchen today — a Lilium under-counter carbonator with peristaltic pumps injecting flavor concentrate into the dispensed water. The project's biography lives in [`biography/`](/biography/) — [`2026-04-05.md`](/biography/2026-04-05.md) (origin story: failed SodaStream, the business-license wall, the AI design wall) and [`2026-05-23.md`](/biography/2026-05-23.md) (vision into work: welding, marketing, the engineering).
 
-The product under development is an integrated under-counter appliance — custom-fabricated 316L stainless carbonator, harvested ice-maker refrigeration loop, foam-insulated cold core, two flavor reservoirs, all behind a single 120 VAC cord and one CO2 line. Architecture: [`hardware/future.md`](/hardware/future.md). Founder Edition (units 001-050, $7,500 hand-built) is the launch tier — [`marketing/target-market.md`](/marketing/target-market.md) covers who it's for and why, and [`marketing/install-envelope.md`](/marketing/install-envelope.md) the cabinet it has to fit.
+The product under development is an integrated under-counter appliance — custom-fabricated 316L stainless carbonator, harvested ice-maker refrigeration loop, foam-insulated cold core, two flavor reservoirs, all behind a single 120 VAC cord and one CO2 line. The machine as it stands, subsystem by subsystem: [`hardware/README.md`](/hardware/README.md). Where it is going and what done looks like: [`future/README.md`](/future/README.md). Who it is for: [`marketing/target-market.md`](/marketing/target-market.md); the cabinet it has to fit: [`marketing/install-envelope.md`](/marketing/install-envelope.md).
 
 ## What's where
 
@@ -20,7 +20,7 @@ The product under development is an integrated under-counter appliance — custo
 | [`android/`](/android/) | Android companion app |
 | [`marketing/`](/marketing/) | Target market analysis, unboxing brief, video scripts |
 | [`business/`](/business/) | Incorporation, regulatory (UL 943, ASSE 1022) |
-| [`pie-in-the-sky/`](/pie-in-the-sky/) | Real desires not yet committed to plans |
+| [`future/`](/future/) | Where the project is going — the vision and the plan in [`README.md`](/future/README.md), and the desires not yet committed to plans in [`pie-in-the-sky/`](/future/pie-in-the-sky/) |
 | [`tools/`](/tools/) | CadQuery venv, render scripts, measurement utilities |
 
 Agents and collaborators landing in this repo: [`CLAUDE.md`](/CLAUDE.md) is the entry point.

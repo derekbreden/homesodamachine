@@ -34,13 +34,13 @@ Going from lowest pain tolerance and lowest budget upward. Each is a real shelf 
 | Shelf | Cost to customer | Sold by us? | Doc |
 |---|---:|---|---|
 | Advice for your existing SodaStream | Free | Editorial | (none yet — would live on the site) |
-| Local CO2 pickup guide | Free (customer pays ~$25–50 per fill at the supplier) | Editorial | [`local-co2.md`](/pie-in-the-sky/local-co2.md) |
-| CGA-320 adapter kit (regulator + 2 L bottle + push-button) | ~$150 | Yes | [`cga320-kit.md`](/pie-in-the-sky/cga320-kit.md) |
-| CO2 delivery service | $250 / $500 per swap | Yes | [`co2-service.md`](/pie-in-the-sky/co2-service.md) |
+| Local CO2 pickup guide | Free (customer pays ~$25–50 per fill at the supplier) | Editorial | [`local-co2.md`](/future/pie-in-the-sky/local-co2.md) |
+| CGA-320 adapter kit (regulator + 2 L bottle + push-button) | ~$150 | Yes | [`cga320-kit.md`](/future/pie-in-the-sky/cga320-kit.md) |
+| CO2 delivery service | $250 / $500 per swap | Yes | [`co2-service.md`](/future/pie-in-the-sky/co2-service.md) |
 | Lillium + Lite Edition bundle | ~$2,500 | Yes (Lite) + resale (Lillium) | — |
-| Kitchen Edition appliance | $5,500 / $7,500 | Yes | [`/hardware/future.md`](/hardware/future.md) |
-| Shop Edition appliance | $5,500 / $7,500 | Yes | [`shop-edition.md`](/pie-in-the-sky/shop-edition.md) |
-| Flavor Module add-on | $1,800 / $2,500 | Yes | [`flavor-module.md`](/pie-in-the-sky/flavor-module.md) |
+| Kitchen Edition appliance | $5,500 / $7,500 | Yes | [`/hardware/README.md`](/hardware/README.md) |
+| Shop Edition appliance | $5,500 / $7,500 | Yes | [`shop-edition.md`](/future/pie-in-the-sky/shop-edition.md) |
+| Flavor Module add-on | $1,800 / $2,500 | Yes | [`flavor-module.md`](/future/pie-in-the-sky/flavor-module.md) |
 
 Two of these run *across* the map rather than at one rung — the local pickup guide and the delivery service serve the kit customer and the appliance customer equally. The Lillium row is the one rung where we resell rather than build, and we do not pretend otherwise.
 
@@ -59,10 +59,10 @@ The appliance does not stop being the halo product under this framing. It is the
 ## How this relates to the existing docs
 
 - [`/marketing/target-market.md`](/marketing/target-market.md) describes the appliance buyer specifically. Under this framing it is the target-market doc for the upper end of the ladder, not the whole brand. A companion doc for the lower-end buyer profiles is implied by this reframe and out of scope here.
-- [`/hardware/future.md`](/hardware/future.md) is the engineering spec for the Kitchen Edition rung.
-- [`shop-edition.md`](/pie-in-the-sky/shop-edition.md) and [`flavor-module.md`](/pie-in-the-sky/flavor-module.md) are engineering sketches for two of the rungs. The Lite Edition rung has no sketch; `git show lite-edition-final` is where its geometry went.
-- [`co2-service.md`](/pie-in-the-sky/co2-service.md), [`cga320-kit.md`](/pie-in-the-sky/cga320-kit.md), [`local-co2.md`](/pie-in-the-sky/local-co2.md) are sketches for three more rungs (the lower end and the services).
-- [`timeline.md`](/pie-in-the-sky/timeline.md) is the older, smaller framing — three sequential SKUs of one product line. The curator framing supersedes it. Once this doc is in shape and the existing rung docs have caught up, `timeline.md` can be retired.
+- [`/hardware/README.md`](/hardware/README.md) is the engineering spec for the Kitchen Edition rung.
+- [`shop-edition.md`](/future/pie-in-the-sky/shop-edition.md) and [`flavor-module.md`](/future/pie-in-the-sky/flavor-module.md) are engineering sketches for two of the rungs. The Lite Edition rung has no sketch; `git show lite-edition-final` is where its geometry went.
+- [`co2-service.md`](/future/pie-in-the-sky/co2-service.md), [`cga320-kit.md`](/future/pie-in-the-sky/cga320-kit.md), [`local-co2.md`](/future/pie-in-the-sky/local-co2.md) are sketches for three more rungs (the lower end and the services).
+- [`timeline.md`](/future/pie-in-the-sky/timeline.md) is the older, smaller framing — three sequential SKUs of one product line. The curator framing supersedes it. Once this doc is in shape and the existing rung docs have caught up, `timeline.md` can be retired.
 
 ## What's worth doing first
 

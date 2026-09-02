@@ -19,7 +19,7 @@ The unit of the series is a thing a viewer can watch *work* — fizz in a glass,
 
 ## The object accretes
 
-The arcs build on one physical core (see the cold-core layers in [`/hardware/future.md`](/hardware/future.md)). The bare welded carbonator from the welding videos gains the evaporator coil and foam (arc 2), the flavor reservoirs and injection (arc 3), then the faucet, funnel, and enclosure (arcs 4–6). The bench looks more like an appliance every arc — continuous on-camera transformation, the engine of any serialized build.
+The arcs build on one physical core (see the cold-core layers in [`/hardware/README.md`](/hardware/README.md)). The bare welded carbonator from the welding videos gains the evaporator coil and foam (arc 2), the flavor reservoirs and injection (arc 3), then the faucet, funnel, and enclosure (arcs 4–6). The bench looks more like an appliance every arc — continuous on-camera transformation, the engine of any serialized build.
 
 ## Narrative decouples from roadmap
 
