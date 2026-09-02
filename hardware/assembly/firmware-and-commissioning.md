@@ -4,7 +4,7 @@ The production procedure for first-time firmware flash and DC-side commissioning
 
 Customer-side firmware binding (Wi-Fi credentials, cloud pairing, app association, per-customer ratio tuning) is **not** done here. Firmware ships with factory defaults; the iOS/Android app handles binding at first install. This procedure ends with a unit that boots clean, self-tests clean, and is ready to take water + CO2 in the next station.
 
-Design intent and runtime behavior live in [`/hardware/future.md`](/hardware/future.md) "Refrigeration subsystem" + "Level sensing". Pin assignments and wiring topology live in [`/hardware/wiring/esp32-pinout.mmd`](/hardware/wiring/esp32-pinout.mmd) and [`/hardware/wiring/valve-control.mmd`](/hardware/wiring/valve-control.mmd). The PlatformIO environment names live at the repo root in [`/platformio.ini`](/platformio.ini).
+Design intent and runtime behavior live in [`/hardware/README.md`](/hardware/README.md) "Refrigeration" + "Carbonation". Pin assignments and wiring topology live in [`/hardware/wiring/esp32-pinout.mmd`](/hardware/wiring/esp32-pinout.mmd) and [`/hardware/wiring/valve-control.mmd`](/hardware/wiring/valve-control.mmd). The PlatformIO environment names live at the repo root in [`/platformio.ini`](/platformio.ini).
 
 ## Scope
 
@@ -49,7 +49,7 @@ This is a *re-look*, not a re-test — the AC and DC continuity sign-offs from `
 
 Power the C14 inlet through a bench PSU-controlled outlet, not direct wall power. The Teyleten relay #1 must remain de-energized for this step — the firmware boots into "all off" by default, but the PSU-controlled outlet is the hardware backstop.
 
-When mains reaches the C14 inlet, AC propagates directly through the distribution block to the PSU primary — the AC path is C14 inlet → AC distribution block → PSU, with no device in series (ground-fault protection is deferred, see [/pie-in-the-sky/gfci.md](/pie-in-the-sky/gfci.md)). If no DC rails come up in the next sub-step, check AC-1 wiring back to the C14 inlet and the distribution-block landings.
+When mains reaches the C14 inlet, AC propagates directly through the distribution block to the PSU primary — the AC path is C14 inlet → AC distribution block → PSU, with no device in series (ground-fault protection is deferred, see [/future/pie-in-the-sky/gfci.md](/future/pie-in-the-sky/gfci.md)). If no DC rails come up in the next sub-step, check AC-1 wiring back to the C14 inlet and the distribution-block landings.
 
 Bring up in this order, verifying each rail with the multimeter before the next:
 

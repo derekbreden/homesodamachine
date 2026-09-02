@@ -23,7 +23,7 @@ This assembly's own terminals are its stations' ports, named.
 
 The vent is the assembly's reason for a pose rather than a bare envelope: it weeps
 to atmosphere, and that drip is the mechanical telltale for a cross-contamination
-event ([`future.md`](/hardware/future.md) "Backflow vent monitoring"). The drip
+event ([`hardware/README.md`](/hardware/README.md) "Safety"). The drip
 leaves the stub's tip and falls from there — the tip is the datum the ASSE drip pan and
 its moisture plate sit under.
 

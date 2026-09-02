@@ -2,7 +2,7 @@
 
 The production procedure for the final stage of the appliance chain — the bench between a unit that passed [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) and a tracked carton sitting on a carrier's truck. Cosmetic inspection, identity-marking with the per-unit signed nameplate, fluid-drain confirmation for transit, install-kit pack-out, customer documentation, outer label, and carrier handoff. This document is the repeatable last-touch procedure; everything downstream is the customer's countertop install, supported by the printed install guide in the box.
 
-Design intent for the Founder Edition shipping experience lives in [`/marketing/unboxing-and-quickstart.md`](/marketing/unboxing-and-quickstart.md), [`/hardware/future.md`](/hardware/future.md) "Enclosure (back to front)", and [`/marketing/target-market.md`](/marketing/target-market.md) "Founder Edition". The dev-phase task list for the very first unit ships lives in [`/hardware/assembly/handwork.md`](/hardware/assembly/handwork.md); this doc is the per-unit repeatable bench across the [50](FOUNDER_EDITION_COUNT)-unit Founder Edition run.
+Design intent for the Founder Edition shipping experience lives in [`/marketing/unboxing-and-quickstart.md`](/marketing/unboxing-and-quickstart.md), [`/hardware/README.md`](/hardware/README.md) "Enclosure (back to front)", and [`/marketing/target-market.md`](/marketing/target-market.md) "Founder Edition". The dev-phase task list for the very first unit ships lives in [`/hardware/assembly/handwork.md`](/hardware/assembly/handwork.md); this doc is the per-unit repeatable bench across the [50](FOUNDER_EDITION_COUNT)-unit Founder Edition run.
 
 ## Scope
 

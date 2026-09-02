@@ -1,6 +1,6 @@
 # Flavor Reservoir Level Sensing
 
-Reed-and-float level sensing for each flavor reservoir, following the same architecture as the carbonator ([future.md](/hardware/future.md) "Level sensing" section), with **[4](REEDS_PER_RES) reed switches per reservoir** for ~13-serving-step granularity over the usable fill range.
+Reed-and-float level sensing for each flavor reservoir, following the same architecture as the carbonator ([hardware/README.md](/hardware/README.md) "Carbonation" section), with **[4](REEDS_PER_RES) reed switches per reservoir** for ~13-serving-step granularity over the usable fill range.
 
 ## Architecture
 
