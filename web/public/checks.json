@@ -12,18 +12,18 @@
     },
     {
       "check": "hardware/scripts/check_finishes.py",
-      "note": "ValueError: _materials: linear (0.010022825561463833, 0.010022825561463833, 0.011645430698990822) is given 2 finishes [(0.45, 0.0), (0.8, 0.0)]. Two substances at one colour cannot both be drawn — give one of them its own.",
+      "note": "fix: tools/cad-venv/bin/python hardware/scripts/check_finishes.py --write",
       "status": "red"
     },
     {
       "check": "hardware/scripts/check_ledger.py",
-      "note": "✗ instruction names a purchased brand the ledger no longer carries: DevKitC (hardware/assembly/weld-rotation-rig.md:23)",
-      "status": "red"
+      "note": "✓ every part the instructions name is carried by bom.md or tools.md, and every procedure has a driver.",
+      "status": "ok"
     },
     {
       "check": "hardware/scripts/check_payloads.py",
-      "note": "payloads: 19 solid(s) cut from the bytes beside them, 11 scene(s) at the finishes this tree states",
-      "status": "ok"
+      "note": "tools/cad-venv/bin/python hardware/scripts/flute_payload.py",
+      "status": "red"
     },
     {
       "check": "hardware/scripts/check_pinmap.py",
@@ -52,7 +52,7 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "2 reference(s) name a path nothing holds.",
+      "note": "1 reference(s) name a path nothing holds.",
       "status": "red"
     },
     {
@@ -62,13 +62,13 @@
     },
     {
       "check": "tools/check_web_tests.py",
-      "note": "check_web_tests: web's suite passes",
-      "status": "ok"
+      "note": "cd web && npm test",
+      "status": "red"
     },
     {
       "check": "tools/bazel/check_build_file.py",
-      "note": "tools/cad-venv/bin/python tools/bazel/gen_build.py",
-      "status": "red"
+      "note": "check_build_file: BUILD.bazel is what the graph writes",
+      "status": "ok"
     },
     {
       "check": "tools/bazel/check_ci_targets.py",
@@ -82,49 +82,40 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 14 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 276 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 23 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 276 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds a030f1213d224c7a1dfd3bdd936a62a9 for the 107 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 55fb7e13378b13105f6d6035baaf062e here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was taken from a different tree — it holds f4f865d1d566275bb153fc29b103d132 for the 107 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at f2539c398a34e1e5d31d6af5333348e3 here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ],
     "hardware/scripts/check_finishes.py": [
-      "Traceback (most recent call last):",
-      "  File \"/Users/derekbredensteiner/Developer/homesodamachine/hardware/scripts/check_finishes.py\", line 55, in <module>",
-      "    sys.exit(main())",
-      "             ~~~~^^",
-      "  File \"/Users/derekbredensteiner/Developer/homesodamachine/hardware/scripts/check_finishes.py\", line 37, in main",
-      "    want = body()",
-      "  File \"/Users/derekbredensteiner/Developer/homesodamachine/hardware/scripts/check_finishes.py\", line 32, in body",
-      "    lines = \",\\n\".join(\"  \" + json.dumps(r, separators=(\", \", \": \")) for r in _finishes.rows())",
-      "                                                                              ~~~~~~~~~~~~~~^^",
-      "  File \"/Users/derekbredensteiner/Developer/homesodamachine/hardware/scripts/_finishes.py\", line 56, in rows",
-      "    out = _mat.finish_rows()",
-      "  File \"/Users/derekbredensteiner/Developer/homesodamachine/hardware/scripts/_materials.py\", line 343, in finish_rows",
-      "    raise ValueError(",
-      "        f\"_materials: linear {rgb} is given {len(got)} finishes {sorted(got)}. Two \"",
-      "        f\"substances at one colour cannot both be drawn — give one of them its own.\")",
-      "ValueError: _materials: linear (0.010022825561463833, 0.010022825561463833, 0.011645430698990822) is given 2 finishes [(0.45, 0.0), (0.8, 0.0)]. Two substances at one colour cannot both be drawn — give one of them its own."
+      "web/public/finishes.json is not the table this tree states.",
+      "  fix: tools/cad-venv/bin/python hardware/scripts/check_finishes.py --write"
     ],
-    "hardware/scripts/check_ledger.py": [
-      "instructions: 117 files (14 procedures + 102 cards + cover) | ledger brands: 527 | waived: 1 ASIN + 4 brand",
-      "DRIFT: 1 instruction(s) out of step with the ledger:",
-      "  ✗ instruction names a purchased brand the ledger no longer carries: DevKitC (hardware/assembly/weld-rotation-rig.md:23)"
-    ],
-    "tools/bazel/check_build_file.py": [
-      "BUILD.bazel is not what the graph would write now:",
-      "  tools/publish_now.py answers to selftest and selftests.json does not name it",
-      "      tools/cad-venv/bin/python tools/bazel/trace_inputs.py --selftests tools/publish_now.py",
-      "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
+    "hardware/scripts/check_payloads.py": [
+      "5 solid(s) whose surface is not in the payload beside them:",
+      "    hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh — cut from other bytes than the solid holds",
+      "    hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh — cut from other bytes than the solid holds",
+      "    hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh — cut from other bytes than the solid holds",
+      "    hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh — cut from other bytes than the solid holds",
+      "    hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh — cut from other bytes than the solid holds",
+      "  the run that cuts a solid writes the payload beside it:",
+      "    tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/enclosure.py",
+      "  and the enclosure's flutes go back into those payloads after:",
+      "    tools/cad-venv/bin/python hardware/scripts/flute_payload.py"
     ],
     "tools/check_paths.py": [
-      "hardware/manifold-layout/_scorecard.py:887 — calibration/Fences.md is held nowhere, and no tag is named for it",
-      "  tools/render/render-view.js:21 — calibration/Fences.md is held nowhere, and no tag is named for it",
-      "2 reference(s) name a path nothing holds."
+      "hardware/manifold-layout/_scorecard.py:896 — calibration/Fences.md is held nowhere, and no tag is named for it",
+      "1 reference(s) name a path nothing holds."
+    ],
+    "tools/check_web_tests.py": [
+      "1 test(s) in web/ fail:",
+      "    the artifact lock pins every committed viewer scorecard",
+      "  cd web && npm test"
     ]
   },
   "green": false
