@@ -18,8 +18,8 @@
 // projection, the target, the clip bands, the mm-per-pixel scale, the world
 // rectangle the frame covers, the count of solid, ghosted and hidden bodies,
 // and the name of every hidden one. A render is a bounded scan, and the box
-// goes with the answer: `calibration/Fences.md`, and the `holding out` clause
-// `fit.slab` prints for the same reason.
+// goes with the answer, as the `holding out` clause `fit.slab` prints for the
+// same reason.
 //
 // Usage:
 //   node tools/render/render-view.js <step-rel> <out.png> [options]
