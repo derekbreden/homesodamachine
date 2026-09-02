@@ -22,7 +22,7 @@ the laser.
 | Reduction | Purchased 20T × 15 mm HTD-5M pulley, purchased 550-5M-15 belt, integral printed 90T pulley |
 | Controller | Acquired ESP32-DevKitC-32E and ULN2803A module |
 | Indicating | Ordered Neoteck 0.0005-inch test indicator and magnetic base |
-| Structure | PET-GF base and four riser feet, motor tower, sliding motor cradle and pads, turntable, tube nest, jaw caps, bearing cage, retainer and continuity arm |
+| Structure | PET-GF base and four riser feet, rail motor tower, sliding motor carriage and pads, turntable with a screwed-on upper race ring and spool, tube nest, jaw caps, bearing cage and continuity arm |
 | Rotary bearing | 36 acquired 10 mm PP balls on a 165 mm pitch circle |
 | Work contact | Stationary shoe cut from the acquired 1/4-inch C110 copper flat bar |
 
@@ -90,19 +90,25 @@ ports in an already-welded lower end plate, so the second closure has a real
 purge inlet and outlet rather than trapping the connections against the bench.
 
 The 36-ball, 165 mm diameter race carries the vessel load near the tube wall
-rather than through a flexible center spindle. A flush-bottom underside
-retainer sits inside a 126 × 6 mm base recess. Three printed bosses tighten
-against the hub while its rim preserves a 1 mm axial running gap to the base
-shoulder, so it catches lift without carrying running load.
+rather than through a flexible center spindle. Both grooves are printed as top
+faces: the lower one in the base, the upper one in a separate race ring that
+is screwed groove-down to the turntable's flat underside. A spool enters the
+base from below and screws up into the turntable; its flange rim sits inside a
+126 × 6 mm base recess with a 1 mm axial running gap to the base shoulder, so
+it catches lift without carrying running load.
 
 The turntable carries an integral 90T HTD-5M pulley. With the purchased 20T
 pulley and 550 mm belt, nominal shaft center distance is
-[125.1 mm](BELT_CENTER). The purchased motor's official drawing specifies a
-Ø38.1 pilot and four plain Ø5.2 flange holes. A separate printed cradle
-registers that pilot, clamps the 57.3 mm frame between two pressure pads, and
-slides on four underside M3 screws; its slots supply 8 mm of outward tension
-adjustment without relying on nonexistent motor-face threads. Small-pulley
-wrap is [127.1°](SMALL_WRAP), or
+[125.1 mm](BELT_CENTER). The purchased pulley is 20 mm long on the motor's
+21 mm shaft, so fitted flush with the shaft end its belt land lies 3–19 mm
+below the motor face; that land is the belt plane, and the printed tooth zone
+is centered on it. The motor hangs face-down in a printed carriage whose 2 mm
+skin registers the Ø38.1 face pilot and clears the belt's upper edge by 1 mm;
+two side pads clamp the 57.3 mm frame, and four slotted M3 screws into the
+tower's rail tops supply 8 mm of outward tension adjustment. The tower is two
+rails and a rear wall that stay outside the belt's swept path across that
+whole travel, and the motor's four plain Ø5.2 flange holes are unused.
+Small-pulley wrap is [127.1°](SMALL_WRAP), or
 [7.1](SMALL_WRAP_TEETH) engaged teeth. Print and check the 12-tooth belt coupon
 against the delivered belt before printing the complete turntable.
 
@@ -171,11 +177,12 @@ Leave ULN `COM` and DM542T `ENA+`/`ENA-` unconnected. The acquired 5 V adapter
 powers the ESP32 and 5 V signal loops. The 24 V adapter powers only the
 optically isolated driver power stage; never connect 24 V to the ESP32.
 
-For flashing and setup, plug the acquired DSD TECH USB-C-to-TTL adapter
-directly into the host. Connect adapter `TX` to ESP32 `RX0/GPIO3`, `RX` to
-`TX0/GPIO1`, and GND to GND; leave adapter VCC unconnected because the 5 V
-adapter already powers the board. The controller runs with the serial adapter
-removed after its settings are stored.
+For flashing and setup, plug the DevKitC's own Micro-USB into the host. Its
+onboard CP2102 carries the upload, the automatic bootloader reset and the
+115200 baud console, and it powers the board while connected. Store the
+settings, then move the Micro-USB to the acquired 5 V adapter's tip for bench
+use. The onboard bridge drives `RX0/TX0` whenever the board is USB-powered, so
+no external TTL adapter is connected to those pins.
 
 The driver settings are 3.76 A peak, 50% standstill current and 3,200
 pulses/revolution:
@@ -222,12 +229,13 @@ orientation is set only after this direction convention is true.
 1. Generate the fixture and print the pulley coupon. The delivered belt must
    fully seat across all 12 grooves without riding the flanges.
 2. Print the base, four riser feet, and rotating parts; install heat-set
-   inserts, sorted balls, retainer, motor tower, sliding cradle, motor pads,
-   pulley and belt per the fixture README. Prove a 25.4 mm service envelope at
-   both end-cap port positions through the raised base before loading a tube.
+   inserts, the race ring, sorted balls, the spool, motor tower, carriage,
+   motor pads, pulley and belt per the fixture README. Prove a 25.4 mm service
+   envelope at both end-cap port positions through the raised base before
+   loading a tube.
 3. With no tube, run ten jog revolutions in each direction. The belt must stay
-   between both flanges, the race must not bind, and the retainer must remain
-   unloaded.
+   between both flanges, the race must not bind, and the spool flange must
+   remain unloaded.
 4. Install the tube and indicate it to the radial/face limits above.
 5. Install the copper contact. Meter two complete jog revolutions without one
    continuity dropout.

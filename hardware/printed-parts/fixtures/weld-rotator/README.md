@@ -11,31 +11,32 @@ rotating structure is a large ball-race turntable, an integral
 The purchased 550-5M-15 belt runs from that pulley to the purchased
 [20](WR_MOTOR_TEETH)-tooth 6.35 mm-bore motor pulley. The reduction is
 [4.5:1](WR_RATIO), and the belt sets a nominal shaft centre distance of
-[125.1](WR_CENTER) mm. The motor slots begin one millimetre inside that point
-and run seven millimetres outward. The complete motor cradle slides in those
-slots, so belt tension is an assembly adjustment and never a reprint.
+[125.1](WR_CENTER) mm. The motor carriage's slots begin one millimetre inside
+that point and run seven millimetres outward, so belt tension is an assembly
+adjustment and never a reprint.
 
 ## Printed parts
 
 | File | Qty | Function |
 |---|---:|---|
-| `weld-rotator-base.step` | 1 | Stationary bed, bearing race, bench-clamp holes, motor-tower inserts |
+| `weld-rotator-base.step` | 1 | Stationary bed, lower bearing race, bench-clamp holes, motor-tower and ground-tower inserts |
 | `weld-rotator-base-foot.step` | 4 | Raises the base above the bench without obstructing the lower-port service path |
-| `weld-rotator-motor-tower.step` | 1 | Stationary shelf with outward belt-tension slots |
-| `weld-rotator-motor-cradle.step` | 1 | Sliding pilot-register cup for the purchased 23HS30-2804S motor |
-| `weld-rotator-motor-clamp-pad.step` | 2 | Load-spreading pads for the cradle's four M3 side screws |
+| `weld-rotator-motor-tower.step` | 1 | Two rails and a rear wall outside the belt's swept path; carries the carriage on four M3 inserts |
+| `weld-rotator-motor-carriage.step` | 1 | Sliding pilot skin and clamp walls for the purchased 23HS30-2804S motor |
+| `weld-rotator-motor-clamp-pad.step` | 2 | Load-spreading pads for the carriage's four M3 side screws |
 | `weld-rotator-ground-tower.step` | 1 | Stationary support for the continuity shoe |
 | `weld-rotator-ground-arm.step` | 1 | Replaceable in-plane leaf spring that holds the copper shoe on the tube |
-| `weld-rotator-turntable-90t.step` | 1 | Moving disk, upper bearing race, 90T pulley, nest register, purge bore |
+| `weld-rotator-turntable-90t.step` | 1 | Moving disk, 90T pulley, nest register, purge bore; flat underside carries the race ring and spool |
+| `weld-rotator-race-ring.step` | 1 | Upper bearing race, printed groove-up and screwed groove-down to the turntable |
+| `weld-rotator-spool.step` | 1 | Hub and lift-catch flange, inserted through the base and screwed up into the turntable |
 | `weld-rotator-pulley-coupon.step` | 1 first | Twelve grooves and both flanges; verifies the actual belt before the turntable print |
 | `weld-rotator-ball-cage.step` | 1 | Spaces the [36](WR_BALLS) stock Ø[10](WR_BALL_D) mm PP balls |
-| `weld-rotator-retainer.step` | 1 | Captures the turntable below the base without preloading the race |
 | `weld-rotator-tube-nest.step` | 1 | Replaceable dual-surface register for the 5-inch tube end |
 | `weld-rotator-jaw-cap.step` | 3 | Curved pressure shoe between each radial M3 screw and the tube OD |
 | `weld-rotator-ground-shoe.step` | 1 C110 | 6.35 × 20 × 30 mm stationary contact cut from the acquired copper bar |
-| `weld-rotator-assembly.step` | — | Reference assembly with tube, balls, motor, and 20T pulley proxies |
+| `weld-rotator-assembly.step` | — | Reference assembly with tube, balls, belt, motor, and 20T pulley proxies |
 
-All thirteen printable shapes are PET-GF. The base is deliberately a single
+All fourteen printable shapes are PET-GF. The base is deliberately a single
 large print: the [165](WR_BALL_RACE) mm race and the motor-tower mounting
 stations read the same uninterrupted bed plane, so no bolted base seam can
 become angular runout.
@@ -59,7 +60,7 @@ curved faces spread the screw load across the tube instead of point-loading the
 0.065-inch wall.
 
 A Ø[90](WR_SERVICE_BORE) mm passage continues through the nest, turntable,
-retainer, and base. It clears a 25.4 mm service envelope around either recessed
+spool, and base. It clears a 25.4 mm service envelope around either recessed
 end-cap port, and the four feet leave [24](WR_BASE_CLEARANCE) mm below the base.
 For the second closure, attach the purge hose to one lower port before loading
 the vessel, route it through this passage, and leave the other lower port open
@@ -68,21 +69,58 @@ as the purge vent.
 The nest is the only tube-size-specific printed part. A tapered Ø80 register
 centres it on the turntable and three M3 screws retain it. A fit correction or
 a later tube size therefore costs one [150](WR_NEST_OD) mm part, not the base,
-bearing, pulley, or motor mount.
+bearing, pulley, or motor mount. The jaw screws ride on the turntable, so any
+jaw is brought to an open side of the fixture by jogging the table before it
+is adjusted.
 
-## Bearing and drive
+## Bearing
 
 The turntable runs on [36](WR_BALLS) of the acquired 10 mm polypropylene
 balls. Their centres lie on a [165](WR_BALL_RACE) mm circle, spaced
-[14.4](WR_BALL_PITCH) mm apart in a 2 mm cage. Matching toroidal grooves in the
-base and turntable receive 2 mm of each ball. The wide race carries the 2.01 kg
-finished vessel without asking the centre hub to locate the axis; the hub only
-retains the two halves and leaves a Ø30 purge/service passage.
+[14.4](WR_BALL_PITCH) mm apart in a 2 mm cage. Matching toroidal grooves
+receive the balls from above and below. Both grooves are printed as top faces:
+the lower one is in the base, and the upper one is in a separate
+[6](WR_RACE_RING_H) mm race ring that is printed groove-up and then screwed
+groove-down to the turntable's flat underside with three flush M3 × 8 screws.
+The ball's running contact is therefore a first-layer flat in both directions,
+never a bridged or supported ceiling.
 
-The 90T pulley is integral to the turntable. Its 5 mm angular pitch and 2.1 mm
-groove depth match the HTD-5M belt; the printed groove is a clearance profile,
-not a metrology transfer standard. Check the first 12-tooth coupon against the
-actual belt before committing the turntable print. The installed 20T pulley has
+The wide race carries the 2.01 kg finished vessel without asking the centre
+hub to locate the axis. The spool — a Ø112 hub with a Ø124 flange — enters the
+base's Ø114 bore from below and three M3 × 25 screws draw it up against the
+platter. Its flange rim sits inside the base's Ø[126](WR_SPOOL_POCKET) × 6 mm
+recess, 1 mm below the base shoulder, so it catches lift without carrying
+running load, and its Ø90 bore continues the purge/service passage.
+
+## Belt plane and drive
+
+The purchased 20T pulley is 20 mm long with Ø35 flanges and no boss, and the
+motor shaft is 21 mm. Fitted flush with the shaft end, the pulley's 16 mm land
+sits 3–19 mm below the motor face; with the face at [52.5](WR_MOTOR_FACE_Z) mm
+that land runs from [33.5](WR_BELT_Z0) to [49.5](WR_BELT_Z1) mm above the base
+bottom, and the printed 90T tooth zone is centred on it. Nothing stands between
+the motor face and the belt except the carriage's [2](WR_SKIN_H) mm skin. The
+skin's Ø38.6 hole registers the motor's Ø38.1 face pilot and lets the Ø35
+pulley flanges pass; the belt's upper edge runs 1 mm below it.
+
+The tower is two rails outside the belt's spans and a rear wall behind the
+pulley's wrap, on the base's four M5 stations. Its rail feet seat the M5
+heads at the same depth as the ground tower's; above the belt's height the
+rails narrow away from the spans. The carriage's arms follow the belt's swept
+path with 2 mm of clearance across the whole 8 mm tension travel and land on
+the rail tops through four slotted M3 × 10 screws. Two side walls with 3 mm
+pads clamp the 57.3 mm frame; the face pilot in the skin, not the pads, takes
+the belt tension. The motor's four Ø5.2 flange holes are deliberately unused.
+The fixture selftest intersects a belt proxy at both ends of the tension
+travel with every stationary part and requires 1.5 mm of clearance.
+
+The 90T pulley is integral to the turntable. Its 5 mm angular pitch and 2.15 mm
+groove depth match the HTD-5M belt; the printed groove is a clearance
+trapezoid, [3.6](WR_PULLEY_OPENING) mm wide at the tip circle, that accepts the
+belt tooth's 3.05 mm root and absorbs the pitch error a printed 142 mm pulley
+accumulates over its 45 engaged teeth. It is not a metrology transfer
+standard. Check the first 12-tooth coupon against the actual belt before
+committing the turntable print. The installed 20T pulley has
 [127.1°](WR_WRAP) of wrap, just over seven engaged teeth. That is ample for
 bearing drag and the vessel's inertia; it is intentionally not a wire-stick
 lock. If filler wire catches, release the deadman pedal and let the belt/motor
@@ -93,87 +131,94 @@ yield instead of using the fixture as a rigid puller.
 - 36 × 10 mm PP bearing balls.
 - 1 × ESP32-DevKitC-32E, 1 × ESP32 screw-terminal breakout, and 1 ×
   ULN2803A module for the controller.
-- The acquired 5 V / 3 A 11-tip adapter with its Micro-USB tip for logic
-  power, and the acquired USB-C-to-TTL adapter for flashing and the stopped
-  serial console. No unrecorded USB cable is required.
+- The acquired 5 V / 3 A 11-tip adapter with its Micro-USB tip for bench
+  power, and the Micro-USB data cable already used to flash the project's
+  other DevKitC boards for upload and the stopped serial console.
 - Acquired 22 AWG wire, ferrules, 1/4-inch braided sleeve, and heat-shrink for
   the pedal and low-voltage control harness, plus one acquired 4.7 kΩ resistor
   for the pedal input's external pull-up.
 - 6 × ruthex M5 × 9.5 inserts and 6 × M5 × 10 SHCS: four
   motor-tower-to-base and two ground-tower-to-base.
-- 27 × ruthex M3 short inserts. Screws from acquired stock: 8 × M3 × 25
-  base-foot retainers, 4 × M3 × 10 cradle retainers, 4 × M3 × 8 motor-pad
-  screws, 3 × M3 × 10 nest retainers, 3 × M3 × 25 jaw adjusters, 3 × M3 × 8
-  underside retainers, 2 × M3 × 12 ground-arm retainers, and 1 × M3 × 10
-  ground-shoe screw into tapped copper.
+- 30 × ruthex M3 short inserts. Screws from acquired stock: 8 × M3 × 25
+  base-foot retainers, 3 × M3 × 25 spool screws, 3 × M3 × 8 race-ring screws,
+  4 × M3 × 10 carriage screws, 4 × M3 × 8 motor-pad screws, 3 × M3 × 10 nest
+  retainers, 3 × M3 × 25 jaw adjusters, 2 × M3 × 12 ground-arm retainers, and
+  1 × M3 × 10 ground-shoe screw into tapped copper.
 - One 6.35 × 20 × 30 mm shoe cut from the acquired 1/4-inch C110 copper flat
   bar; drill and tap its lower side M3 for the retaining screw.
-- The ordered NEMA 23 + DM542T kit, 24 V supply, foot pedal, 20T pulley, 550 mm
+- The NEMA 23 + DM542T kit, 24 V supply, foot pedal, 20T pulley, 550 mm
   belt, and test indicator.
 
 ## Print
 
 Material: Polymaker Fiberon PET-GF15, dried and printed with the project's PET-GF
-profile. Use the 0.4 mm tungsten-carbide nozzle for the nest and jaw caps; the
-0.8 mm hardened high-flow nozzle is suitable for the base, tower, turntable,
-cage, and retainer.
+profile through the 0.4 mm nozzle.
 
 - Base: bottom face on the bed, 6 walls, 6 top/bottom layers, 25% gyroid. Do
-  not use a brim inside either race.
+  not use a brim inside the race.
 - Base feet: broad face on the bed, 5 walls, 40% gyroid. Keep both vertical
   screw bores clear.
-- Turntable: hub opening on the bed, pulley and nest pedestal upward, 6 walls,
-  30% gyroid. Keep the upper race free of support material.
-- Motor tower: print on either Y side so the shelf and both gussets are layer
-  profiles, not a bridge.
-- Motor cradle: base down, with the Ø38.6 passage vertical. Motor clamp pads:
+- Turntable: flat underside on the bed, pulley and nest pedestal upward, 6
+  walls, 30% gyroid. Nothing on it needs support; disable support so none
+  lands in the pulley grooves or the insert pockets.
+- Race ring: flat back on the bed, groove upward, 100% infill. Deburr the
+  groove with a plastic scraper only. Abrasive changes its radius and becomes
+  axial runout.
+- Spool: flange on the bed, hub upward, 5 walls, 30% gyroid.
+- Motor tower: on its feet, rails upward. The four M5 access holes and the
+  four rail insert pockets print as vertical bores.
+- Motor carriage: on either Y side, so the skin, arms and clamp walls are
+  layer profiles and the pilot hole is a vertical circle. Motor clamp pads:
   print on either 48 × 12 mm face; keep the screw-tip sockets clean.
 - Ground tower: print on its foot. Ground arm: print flat, with the leaf and
   shoe fork in the bed plane; use 100% infill and reject any layer separation.
 - Nest and jaw caps: 0.20 mm layer, 6 walls, 100% infill. Print the nest on its
   register face and the jaw caps on either flat radial end.
-- Cage and retainer: flat.
+- Cage and coupon: flat.
 
-Deburr the races with a plastic scraper only. Abrasive changes their common
-radius and becomes axial runout.
+Deburr the base race with a plastic scraper only, for the same reason as the
+ring.
 
 ## Assembly
 
-1. Heat-set six M5 tower inserts in the base. Heat-set three M3 nest inserts in
-   the turntable, three M3 retainer inserts in the hub, three M3 jaw inserts in
-   the nest, two M3 ground-arm inserts in the ground tower, four M3 inserts
-   upward from the motor-cradle underside, four M3 inserts inward from its two
-   outside walls, and two M3 inserts downward from the top of each base foot.
+1. Heat-set six M5 tower inserts in the base. Heat-set M3 inserts: three nest
+   inserts down from the turntable's register face; three spool and three
+   race-ring inserts up from the turntable's flat underside; three jaw inserts
+   in the nest; two in the ground tower; four inward from the carriage's two
+   outside walls; four downward into the tower's rail tops; and two downward
+   from the top of each base foot.
 2. Fasten the four feet from the base top with eight flush M3 × 25 screws. Set
    the fixture on its feet and pass a 25.4 mm test cylinder through both lower
-   port positions in the Ø90 mm service opening; neither the base nor retainer
+   port positions in the Ø90 mm service opening; neither the base nor spool
    may obstruct it.
-3. Place the base flat. Lay the cage in the lower race and load 36 sorted 10 mm
+3. Screw the race ring to the turntable's underside, groove down, with three
+   flush M3 × 8 screws. Check that no screw head stands proud of the ring's
+   groove face.
+4. Place the base flat. Lay the cage in the lower race and load 36 sorted 10 mm
    balls. Reject any ball that differs visibly or by more than 0.05 mm from the
    median diameter.
-4. Lower the turntable through the cage. Fit the underside retainer inside the
-   Ø[126](WR_RETAINER_POCKET) × 6 mm base recess. Tighten its three flush SHCS
-   against the 1 mm printed
-   bosses; the bosses meet the hub while the retainer rim stays 1 mm below the
-   base shoulder. Nothing projects below the base or carries running load.
-5. Bolt the motor tower to its four registered stations. Put the cradle on its
-   shelf and start four M3 × 10 screws upward through the slots; leave them
-   loose. Drop the 23HS30-2804S face-down into the cradle so its Ø38.1 pilot
-   enters the Ø38.6 passage. Slide one pad down each Y side and advance the
-   four M3 × 8 side screws evenly until the frame cannot rock. The motor's
-   official drawing calls out four plain Ø5.2 mm flange holes, so those holes
-   are deliberately unused.
-6. Fit the 20T pulley with its belt land level with the turntable's printed
-   pulley. Install the 550 mm belt at the inboard end of the slots, slide the
-   complete cradle outward until the long span twists about 90 degrees with
-   finger pressure, then tighten the four underside cradle screws.
-7. Bolt the nest to its register. Put one jaw cap on each M3 adjuster tip; the
+5. Lower the turntable onto the balls. From below, pass the spool up through
+   the base's Ø114 bore and drive three M3 × 25 screws through its flange into
+   the platter. The flange rim stays 1 mm below the base shoulder and nothing
+   projects below the base.
+6. Bolt the motor tower to its four M5 stations with a 4 mm hex key down the
+   access holes. Set the carriage on the rail tops and start four M3 × 10
+   screws through its slots at the inboard end; leave them loose.
+7. Before the motor goes in, fit the 20T pulley flush with the shaft end and
+   tighten both set screws on the D-cut. Hang the belt on the 90T pulley and
+   hold the free bight of the loop open under the carriage's pilot hole. Lower
+   the 23HS30-2804S face-down: the pulley passes through the hole into the
+   bight, and the Ø38.1 pilot seats in the skin. Slide one pad down each Y side
+   and advance the four M3 × 8 side screws evenly until the frame cannot rock.
+8. Slide the complete carriage outward until the long belt span twists about
+   90 degrees with finger pressure, then tighten the four carriage screws.
+9. Bolt the nest to its register. Put one jaw cap on each M3 adjuster tip; the
    Ø2.85 blind socket is the retention fit.
-8. Run the turntable dry for ten revolutions, clean the race, and re-check belt
-   tracking before loading a tube.
-9. Bolt down the ground tower and flexure arm. Fit the C110 shoe with its one
-   M3 screw; its contact face sits 1.0 mm inside the nominal tube surface and
-   deflects the long leaf outward when a tube is loaded.
+10. Run the turntable dry for ten revolutions, clean the race, and re-check
+    belt tracking before loading a tube.
+11. Bolt down the ground tower and flexure arm. Fit the C110 shoe with its one
+    M3 screw; its contact face sits 1.0 mm inside the nominal tube surface and
+    deflects the long leaf outward when a tube is loaded.
 
 ## Continuous work contact
 
@@ -188,7 +233,7 @@ increase the flexure preload before enabling the laser.
 ## Indicating the tube
 
 Drop the tube into the nest until its cut rim seats. Bring all three jaw screws
-to contact, then advance them in small equal increments. Put the ordered test
+to contact, then advance them in small equal increments. Put the test
 indicator on the tube OD close to the working end and adjust the three screws
 until radial runout is at or below 0.25 mm TIR. Seat the indicator's magnetic
 base on the exposed stationary steel lamination face of the NEMA 23; it will
@@ -206,10 +251,9 @@ highest PET-GF near the tube is the ground arm at 86 mm, leaving more than
 `firmware/src_weld_rotator/` runs on an acquired ESP32-DevKitC-32E. The foot
 pedal is a 3.3 V deadman input. The ESP32 drives DM542T PUL and DIR through an
 acquired ULN2803A module with the driver's logic selector set to 5 V. The
-acquired 5 V adapter and its Micro-USB tip power the ESP32/logic side; the
-ordered 24 V brick powers only the DM542T and motor. The acquired USB-C-to-TTL
-adapter supplies the stopped-only setup console without becoming a power
-source.
+acquired 5 V adapter and its Micro-USB tip power the ESP32/logic side on the
+bench; the 24 V brick powers only the DM542T and motor. Flashing and the
+stopped-only setup console use the DevKitC's own Micro-USB from the host.
 
 Default mode is a 380-degree lap at 8 mm/s bead travel. The pedal must remain
 held; release is an immediate abort, and a completed lap will not restart until

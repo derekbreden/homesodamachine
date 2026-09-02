@@ -6,10 +6,16 @@ World frame:
   Y completes the right-handed frame.
   Z=0 is the stationary base's bottom face.
 
-The base, motor tower, turntable, tube nest, three jaw caps, ball cage, and
-retainer are printable.  The turntable runs on the project's stock 10 mm PP
-balls.  The 90-tooth HTD-5M pulley is part of the turntable and is driven by the
-purchased 20-tooth pulley and 550 mm belt.
+The base, four feet, motor tower, sliding motor carriage, two clamp pads,
+turntable, upper race ring, spool, tube nest, three jaw caps, ball cage,
+ground tower and ground arm are printable.  The turntable runs on the
+project's stock 10 mm PP balls.  The 90-tooth HTD-5M pulley is part of the
+turntable and is driven by the purchased 20-tooth pulley and 550 mm belt.
+
+The purchased motor fixes the belt plane: its 21 mm shaft carries the 20 mm
+pulley flush with the shaft end, so the belt runs within one millimetre of
+the motor face.  Only a 2 mm pilot skin sits between the face and the belt;
+every other stationary member stays outside the belt's swept path.
 """
 
 import math
@@ -68,58 +74,85 @@ BASE_FOOT_INSERT_DEPTH = 5.2
 BASE_FOOT_SCREW_LENGTH = 25.0
 
 # One large-diameter race carries thrust and radial load.  The balls are stock
-# 10 mm polypropylene; the cage spaces 36 of them without carrying load.
+# 10 mm polypropylene; the cage spaces 36 of them without carrying load.  The
+# lower groove is in the base's top face; the upper groove is in a separate
+# race ring, so both running surfaces are printed as top faces.
 BALL_D = 10.0
 BALL_CLEARANCE = 0.15
 BALL_RACE_R = 82.5
 BALL_COUNT = 36
 BALL_CENTER_Z = BASE_Z + 3.0
 RACE_CUT_R = BALL_D / 2.0 + BALL_CLEARANCE
-CAGE_Z = BALL_CENTER_Z - 1.0
 CAGE_H = 2.0
 CAGE_INNER_R = BALL_RACE_R - 7.5
 CAGE_OUTER_R = BALL_RACE_R + 7.5
 CAGE_POCKET_D = BALL_D + 0.55
 
-# The moving disk sits 6 mm above the base top: each race receives 2 mm of the
-# 10 mm ball.  Its wide pitch radius is the angular datum, not the centre hub.
+# Upper race ring: printed groove-up, then screwed groove-down to the flat
+# underside of the platter.  Its groove face sits 5 mm above the base's.
+RACE_RING_Z0 = BASE_Z + 5.0
+RACE_RING_H = 6.0
+RACE_RING_Z1 = RACE_RING_Z0 + RACE_RING_H
+RACE_RING_INNER_R = 68.0
+RACE_RING_OUTER_R = 92.0
+RACE_RING_SCREW_R = 72.5
+RACE_RING_SCREW_ANGLES = (30.0, 150.0, 270.0)
+RACE_RING_SCREW_LENGTH = 8.0
+RACE_RING_INSERT_DEPTH = 6.0
+CAGE_Z = (BASE_Z + RACE_RING_Z0) / 2.0 - CAGE_H / 2.0
+
+# The moving disk's flat underside is its bed face: the race ring bolts to it
+# and the spool hangs from it.  Its wide pitch radius is the angular datum.
 PLATTER_R = 94.0
-PLATTER_Z0 = BASE_Z + 6.0
-PLATTER_Z1 = PLATTER_Z0 + 6.0
+PLATTER_Z0 = RACE_RING_Z1
+PLATTER_Z1 = 32.0
 SERVICE_BORE_D = interface.SERVICE_BORE_DIAMETER
-HUB_OD = 112.0
-HUB_CLEARANCE_D = 114.0
-HUB_Z0 = 6.0
-RETAINER_OD = 124.0
-RETAINER_H = 4.0
-RETAINER_GAP = 1.0
-RETAINER_POCKET_D = 126.0
-RETAINER_POCKET_H = 6.0
-RETAINER_SCREW_R = 51.0
-RETAINER_BOSS_R = 4.5
-RETAINER_BOSS_H = RETAINER_GAP
-RETAINER_INSERT_DEPTH = 6.5
 M3_HEAD_D = 6.2
 M3_HEAD_DEPTH = 3.2
+M3_SHANK_D = 3.5
+M3_INSERT_D = 4.0
+M3_INSERT_LENGTH = 4.0
 
-# Printed 90T pulley.  The groove is a low-speed printable HTD approximation:
-# exact 5 mm pitch, 2.1 mm radial depth, rounded-belt clearance supplied by the
-# belt itself.  The first belt-fit coupon is the acceptance gate before the
-# complete turntable is printed.
+# Spool: the hub and the lift-catch flange in one part, inserted from below
+# through the base and screwed up into the platter.  The flange rim keeps a
+# 1 mm running gap to the base shoulder so it catches lift without carrying
+# running load.
+SPOOL_HUB_OD = 112.0
+SPOOL_CLEARANCE_D = 114.0
+SPOOL_FLANGE_OD = 124.0
+SPOOL_POCKET_D = 126.0
+SPOOL_POCKET_H = 6.0
+SPOOL_FLANGE_Z0 = 1.0
+SPOOL_FLANGE_H = 4.0
+SPOOL_HUB_Z0 = SPOOL_FLANGE_Z0 + SPOOL_FLANGE_H
+SPOOL_GAP = SPOOL_POCKET_H - SPOOL_HUB_Z0
+SPOOL_SCREW_R = 51.0
+SPOOL_SCREW_ANGLES = (60.0, 180.0, 300.0)
+SPOOL_SCREW_LENGTH = 25.0
+SPOOL_INSERT_DEPTH = 6.8
+
+# Printed 90T pulley.  Exact 5 mm pitch; the groove is a printable clearance
+# trapezoid — [3.6](WR_PULLEY_OPENING) mm at the tip circle — that accepts
+# the belt tooth's 3.05 mm root and absorbs accumulated pitch error over the
+# 45 engaged teeth.  The first belt-fit coupon is the acceptance gate before
+# the complete turntable is printed.
 TABLE_PITCH_R = interface.pitch_diameter(interface.TABLE_PULLEY_TEETH) / 2.0
-PITCH_LINE_OFFSET = 0.57
+MOTOR_PITCH_R = interface.pitch_diameter(interface.MOTOR_PULLEY_TEETH) / 2.0
+PITCH_LINE_OFFSET = interface.BELT_PITCH_LINE_OFFSET
 PULLEY_TIP_R = TABLE_PITCH_R - PITCH_LINE_OFFSET
-PULLEY_GROOVE_DEPTH = 2.10
+PULLEY_GROOVE_DEPTH = 2.15
 PULLEY_ROOT_R = PULLEY_TIP_R - PULLEY_GROOVE_DEPTH
 PULLEY_INNER_R = 64.5
-PULLEY_Z0 = 32.0
+PULLEY_Z0 = PLATTER_Z1
 PULLEY_TOOTH_Z0 = PULLEY_Z0 + 1.0
 PULLEY_TOOTH_H = 17.0
 PULLEY_Z1 = PULLEY_TOOTH_Z0 + PULLEY_TOOTH_H + 1.0
-PULLEY_FLANGE_R = PULLEY_TIP_R + 2.0
+PULLEY_FLANGE_R = PULLEY_TIP_R + 3.0
 PULLEY_FLANGE_H = 1.0
-GROOVE_OUTER_HALF_W = 1.70
-GROOVE_ROOT_HALF_W = 1.25
+GROOVE_TIP_HALF_W = 1.80
+GROOVE_ROOT_HALF_W = 1.30
+GROOVE_OVERCUT = 1.0
+GROOVE_UNDERCUT = 0.15
 COUPON_TEETH = 12
 
 # The central pedestal places the replaceable precision nest above the belt.
@@ -165,26 +198,66 @@ MOTOR_CENTER_NOMINAL = interface.belt_center_distance()
 MOTOR_CENTER_MIN = MOTOR_CENTER_NOMINAL - 1.0
 MOTOR_CENTER_MAX = MOTOR_CENTER_NOMINAL + 7.0
 MOTOR_SLOT_R = 1.8
-MOTOR_FACE_Z = 54.0
-MOTOR_PULLEY_Z0 = MOTOR_FACE_Z - interface.MOTOR_SHAFT_LENGTH + 1.0
-MOTOR_PULLEY_Z1 = MOTOR_PULLEY_Z0 + 18.0
-MOTOR_PULLEY_CORE_D = interface.pitch_diameter(interface.MOTOR_PULLEY_TEETH) - 1.1
-MOTOR_PULLEY_FLANGE_D = MOTOR_PULLEY_CORE_D + 7.0
 
-# The motor drawing specifies four plain Ø5.2 mm flange holes, not threads.
-# A separate sliding cradle therefore locates the Ø38.1 pilot and clamps the
-# 57.3 mm frame.  Four underside M3 screws move the complete cradle in the
-# tower slots; four side screws and two load-spreading pads retain the motor.
-MOTOR_CRADLE_X = 66.0
-MOTOR_CRADLE_Y = 75.0
-MOTOR_CRADLE_BASE_H = 8.0
-MOTOR_CRADLE_Z0 = MOTOR_FACE_Z - MOTOR_CRADLE_BASE_H
-MOTOR_CRADLE_INNER_X = 58.0
-MOTOR_CRADLE_INNER_Y = 64.0
-MOTOR_CRADLE_WALL_H = 16.0
-MOTOR_CRADLE_PILOT_D = 38.6
-MOTOR_CRADLE_BOLT_SQUARE = interface.MOTOR_MOUNT_SQUARE
-MOTOR_CRADLE_INSERT_DEPTH = 5.5
+# Belt plane.  The motor hangs face-down; the pulley is flush with the shaft
+# end, so its land — and therefore the belt — is fixed relative to the face.
+# The printed pulley's tooth zone is centred on that land.
+MOTOR_FACE_Z = 52.5
+MOTOR_PULLEY_Z0 = MOTOR_FACE_Z - interface.MOTOR_SHAFT_LENGTH
+MOTOR_PULLEY_Z1 = MOTOR_PULLEY_Z0 + interface.MOTOR_PULLEY_LENGTH
+MOTOR_LAND_Z0 = MOTOR_PULLEY_Z0 + interface.MOTOR_PULLEY_FLANGE_LENGTH
+MOTOR_LAND_Z1 = MOTOR_PULLEY_Z1 - interface.MOTOR_PULLEY_FLANGE_LENGTH
+BELT_Z0 = MOTOR_LAND_Z0
+BELT_Z1 = MOTOR_LAND_Z1
+MOTOR_PULLEY_CORE_D = 2.0 * (MOTOR_PITCH_R - PITCH_LINE_OFFSET)
+MOTOR_PULLEY_FLANGE_D = interface.MOTOR_PULLEY_FLANGE_DIAMETER
+
+# Motor tower: two rails outside the belt's swept path, tied by a rear wall
+# behind the pulley's wrap, on the base's four M5 stations.  The rail feet
+# are wide enough to seat the M5 heads; above the belt's height the rails
+# narrow away from the spans.  The carriage seats on the rail tops.
+TOWER_X0 = 110.0
+TOWER_X1 = 178.0
+TOWER_Y_HALF = 45.0
+TOWER_FOOT_Y0 = 30.0
+TOWER_RAIL_Y0 = 33.0
+TOWER_Z0 = BASE_Z
+TOWER_FOOT_Z1 = BASE_Z + 8.0
+TOWER_Z1 = MOTOR_FACE_Z - 8.0
+TOWER_REAR_X0 = 151.0
+TOWER_MOUNT_POINTS = (
+    (116.0, -36.0),
+    (116.0, 36.0),
+    (164.0, -36.0),
+    (164.0, 36.0),
+)
+TOWER_RAIL_INSERT_X = (130.0, 150.0)
+TOWER_RAIL_INSERT_Y = 41.0
+TOWER_RAIL_INSERT_DEPTH = 6.0
+M5_SHANK_D = 5.5
+M5_HEAD_D = 9.0
+M5_HEAD_DEPTH = 4.5
+M5_INSERT_D = 7.0
+M5_INSERT_DEPTH = 9.7
+
+# Motor carriage: a 2 mm pilot skin under the whole face, arms that follow
+# the belt's swept path with clearance, four slotted screws into the rail
+# tops, and two side walls whose pads clamp the 57.3 mm frame.  The face
+# pilot in the skin takes the belt tension; the pads only hold the motor down
+# and square.
+CARRIAGE_X0 = 94.0
+CARRIAGE_X1 = 165.0
+CARRIAGE_Y_HALF = TOWER_Y_HALF
+CARRIAGE_ARM_Z0 = TOWER_Z1
+CARRIAGE_SKIN_H = 2.0
+CARRIAGE_SKIN_Z0 = MOTOR_FACE_Z - CARRIAGE_SKIN_H
+CARRIAGE_PILOT_D = 38.6
+CARRIAGE_BELT_MARGIN = 2.0
+CARRIAGE_WALL_Y0 = 32.0
+CARRIAGE_WALL_Y1 = 37.5
+CARRIAGE_WALL_X_HALF = interface.MOTOR_FRAME / 2.0 + 0.35
+CARRIAGE_WALL_H = 16.0
+CARRIAGE_SCREW_LENGTH = 10.0
 MOTOR_CLAMP_PAD_X = 48.0
 MOTOR_CLAMP_PAD_Y = 3.0
 MOTOR_CLAMP_PAD_Z = 12.0
@@ -194,25 +267,6 @@ MOTOR_CLAMP_INSERT_DEPTH = 5.2
 MOTOR_CLAMP_SOCKET_D = 2.85
 MOTOR_CLAMP_SOCKET_DEPTH = 2.2
 MOTOR_CLAMP_SCREW_LENGTH = 8.0
-MOTOR_CRADLE_SCREW_LENGTH = 10.0
-
-# Motor tower: registered foot, back wall, top shelf, and two side gussets.
-TOWER_X0 = 100.0
-TOWER_X1 = 178.0
-TOWER_Y_HALF = 43.0
-TOWER_FOOT_Z0 = BASE_Z
-TOWER_FOOT_Z1 = BASE_Z + 8.0
-TOWER_BACK_X0 = 166.0
-TOWER_SHELF_X0 = 89.0
-TOWER_SHELF_Z0 = MOTOR_CRADLE_Z0 - 8.0
-TOWER_SHELF_Z1 = MOTOR_CRADLE_Z0
-TOWER_SHELF_Y_HALF = 39.0
-TOWER_MOUNT_POINTS = (
-    (116.0, -36.0),
-    (116.0, 36.0),
-    (164.0, -36.0),
-    (164.0, 36.0),
-)
 
 # A stationary copper shoe gives the laser welder's continuity interlock a
 # path that does not travel through the polymer bearing or wind a work cable
@@ -258,11 +312,6 @@ GROUND_SHOE_SCREW_Z = GROUND_TOP_Z + GROUND_ARM_H / 2.0
 GROUND_ARM_SHANK_D = 3.4
 GROUND_ARM_INSERT_D = 4.0
 GROUND_ARM_INSERT_DEPTH = 5.2
-M5_SHANK_D = 5.5
-M5_HEAD_D = 9.0
-M5_HEAD_DEPTH = 4.5
-M5_INSERT_D = 7.0
-M5_INSERT_DEPTH = 9.7
 
 
 def _annulus(outer_r: float, inner_r: float, height: float, z0: float = 0.0):
@@ -320,6 +369,105 @@ def _sector(outer_r: float, inner_r: float, half_angle: float, height: float, z0
     return _annulus(outer_r, inner_r, height, z0).intersect(wedge)
 
 
+def _annular_sector(cx: float, cy: float, outer_r: float, inner_r: float,
+                    a0: float, a1: float, z0: float, height: float):
+    """Annulus about (cx, cy) kept between angles a0 and a1, counter-clockwise."""
+    ring = (
+        cq.Workplane("XY", origin=(cx, cy, z0))
+        .circle(outer_r)
+        .circle(inner_r)
+        .extrude(height)
+    )
+    span = (a1 - a0) % 360.0
+    if span < 1e-9:
+        return ring
+    reach = outer_r + 5.0
+    points = [(cx, cy)]
+    steps = 48
+    for i in range(steps + 1):
+        a = math.radians(a0 + span * i / steps)
+        points.append((cx + reach * math.cos(a), cy + reach * math.sin(a)))
+    wedge = (
+        cq.Workplane("XY", origin=(0.0, 0.0, z0))
+        .polyline(points)
+        .close()
+        .extrude(height)
+    )
+    return ring.intersect(wedge)
+
+
+def _belt_solid(center: float, z0: float, z1: float, margin: float = 0.0):
+    """The closed belt around both pulleys for a motor at `center`: two wraps
+    and two straight spans, from tooth tips to back, grown by `margin`."""
+    inner = interface.belt_inner_offset() + margin
+    outer = interface.belt_outer_offset() + margin
+    a = interface.span_tangent_angle(center)
+    a_deg = math.degrees(a)
+    big_t = (TABLE_PITCH_R * math.cos(a), TABLE_PITCH_R * math.sin(a))
+    small_t = (center + MOTOR_PITCH_R * math.cos(a), MOTOR_PITCH_R * math.sin(a))
+    h = z1 - z0
+    belt = _annular_sector(0.0, 0.0, TABLE_PITCH_R + outer, TABLE_PITCH_R - inner,
+                           a_deg, 360.0 - a_deg, z0, h)
+    belt = belt.union(
+        _annular_sector(center, 0.0, MOTOR_PITCH_R + outer, MOTOR_PITCH_R - inner,
+                        -a_deg, a_deg, z0, h)
+    )
+    for sign in (1.0, -1.0):
+        p = (big_t[0], sign * big_t[1])
+        q = (small_t[0], sign * small_t[1])
+        dx, dy = q[0] - p[0], q[1] - p[1]
+        length = math.hypot(dx, dy)
+        ux, uy = dx / length, dy / length
+        nx, ny = -uy * sign, ux * sign
+        polygon = [
+            (p[0] + nx * outer, p[1] + ny * outer),
+            (q[0] + nx * outer, q[1] + ny * outer),
+            (q[0] - nx * inner, q[1] - ny * inner),
+            (p[0] - nx * inner, p[1] - ny * inner),
+        ]
+        belt = belt.union(
+            cq.Workplane("XY", origin=(0.0, 0.0, z0)).polyline(polygon).close().extrude(h)
+        )
+    return belt
+
+
+def _belt_in_carriage_frame(center: float, z0: float, z1: float, margin: float = 0.0):
+    """The belt for a motor at `center`, moved so its pulley sits at the
+    carriage's nominal shaft position."""
+    return _belt_solid(center, z0, z1, margin).translate(
+        (MOTOR_CENTER_NOMINAL - center, 0.0, 0.0)
+    )
+
+
+def _counterbored_m3(x: float, y: float, z_head: float, through: float, from_below: bool):
+    """M3 shank plus head recess.  `z_head` is the head's seating face; the
+    shank runs `through` millimetres away from the head."""
+    if from_below:
+        shank = (
+            cq.Workplane("XY", origin=(x, y, z_head))
+            .circle(M3_SHANK_D / 2.0).extrude(through)
+        )
+        head = (
+            cq.Workplane("XY", origin=(x, y, z_head - M3_HEAD_DEPTH))
+            .circle(M3_HEAD_D / 2.0).extrude(M3_HEAD_DEPTH + 0.01)
+        )
+    else:
+        shank = (
+            cq.Workplane("XY", origin=(x, y, z_head - through))
+            .circle(M3_SHANK_D / 2.0).extrude(through)
+        )
+        head = (
+            cq.Workplane("XY", origin=(x, y, z_head - 0.01))
+            .circle(M3_HEAD_D / 2.0).extrude(M3_HEAD_DEPTH + 0.01)
+        )
+    return shank.union(head)
+
+
+def _polar(radius: float, angle: float):
+    theta = math.radians(angle)
+    return radius * math.cos(theta), radius * math.sin(theta)
+
+
 def build_base():
     base = (
         cq.Workplane("XY")
@@ -330,12 +478,12 @@ def build_base():
     )
 
     base = base.cut(
-        cq.Workplane("XY").circle(HUB_CLEARANCE_D / 2.0).extrude(BASE_Z)
+        cq.Workplane("XY").circle(SPOOL_CLEARANCE_D / 2.0).extrude(BASE_Z)
     )
     base = base.cut(
         cq.Workplane("XY")
-        .circle(RETAINER_POCKET_D / 2.0)
-        .extrude(RETAINER_POCKET_H)
+        .circle(SPOOL_POCKET_D / 2.0)
+        .extrude(SPOOL_POCKET_H)
     )
     race = cq.Workplane(
         obj=cq.Solid.makeTorus(
@@ -414,14 +562,23 @@ def build_base_foot():
     return foot
 
 
+def _groove_half_width(radius: float) -> float:
+    """Flank line of the clearance trapezoid, continued straight past both
+    the tip and the root so the opening is not pinched by the overcut."""
+    t = (radius - PULLEY_ROOT_R) / PULLEY_GROOVE_DEPTH
+    return GROOVE_ROOT_HALF_W + (GROOVE_TIP_HALF_W - GROOVE_ROOT_HALF_W) * t
+
+
 def _pulley_grooves():
+    r_out = PULLEY_TIP_R + GROOVE_OVERCUT
+    r_in = PULLEY_ROOT_R - GROOVE_UNDERCUT
     groove = (
         cq.Workplane("XY", origin=(0.0, 0.0, PULLEY_TOOTH_Z0))
         .polyline([
-            (PULLEY_TIP_R + 0.8, -GROOVE_OUTER_HALF_W),
-            (PULLEY_ROOT_R - 0.15, -GROOVE_ROOT_HALF_W),
-            (PULLEY_ROOT_R - 0.15, GROOVE_ROOT_HALF_W),
-            (PULLEY_TIP_R + 0.8, GROOVE_OUTER_HALF_W),
+            (r_out, -_groove_half_width(r_out)),
+            (r_in, -_groove_half_width(r_in)),
+            (r_in, _groove_half_width(r_in)),
+            (r_out, _groove_half_width(r_out)),
         ])
         .close()
         .extrude(PULLEY_TOOTH_H)
@@ -435,16 +592,57 @@ def _pulley_grooves():
     return cq.Workplane(obj=cq.Compound.makeCompound(solids))
 
 
-def build_turntable():
-    platter = (
-        cq.Workplane("XY", origin=(0.0, 0.0, PLATTER_Z0))
-        .circle(PLATTER_R)
-        .extrude(PLATTER_Z1 - PLATTER_Z0)
-    )
-    hub = _annulus(HUB_OD / 2.0, SERVICE_BORE_D / 2.0,
-                   PLATTER_Z1 - HUB_Z0, HUB_Z0)
-    turntable = platter.union(hub)
+def _toothed_ring():
+    pulley = _annulus(PULLEY_TIP_R, PULLEY_INNER_R, PULLEY_Z1 - PULLEY_Z0, PULLEY_Z0)
+    pulley = pulley.cut(_pulley_grooves())
+    lower_flange = _annulus(PULLEY_FLANGE_R, PULLEY_INNER_R, PULLEY_FLANGE_H, PULLEY_Z0)
+    upper_flange = _annulus(PULLEY_FLANGE_R, PULLEY_INNER_R,
+                            PULLEY_FLANGE_H, PULLEY_Z1 - PULLEY_FLANGE_H)
+    return pulley.union(lower_flange).union(upper_flange)
 
+
+def build_turntable():
+    platter = _annulus(PLATTER_R, SERVICE_BORE_D / 2.0,
+                       PLATTER_Z1 - PLATTER_Z0, PLATTER_Z0)
+    pedestal = _annulus(PEDESTAL_R, SERVICE_BORE_D / 2.0,
+                        NEST_SEAT_Z - PLATTER_Z1, PLATTER_Z1)
+    turntable = platter.union(pedestal).union(_toothed_ring())
+
+    register = _annulus(REGISTER_OD / 2.0, SERVICE_BORE_D / 2.0,
+                        REGISTER_H, NEST_SEAT_Z)
+    turntable = turntable.union(register)
+
+    for angle in (0.0, 120.0, 240.0):
+        x, y = _polar(NEST_SCREW_R, angle)
+        pocket = (
+            cq.Workplane("XY", origin=(x, y, NEST_SEAT_Z - NEST_INSERT_DEPTH))
+            .circle(NEST_INSERT_D / 2.0)
+            .extrude(NEST_INSERT_DEPTH + 0.01)
+        )
+        turntable = turntable.cut(pocket)
+
+    for angle in SPOOL_SCREW_ANGLES:
+        x, y = _polar(SPOOL_SCREW_R, angle)
+        pocket = (
+            cq.Workplane("XY", origin=(x, y, PLATTER_Z0 - 0.01))
+            .circle(M3_INSERT_D / 2.0)
+            .extrude(SPOOL_INSERT_DEPTH + 0.01)
+        )
+        turntable = turntable.cut(pocket)
+
+    for angle in RACE_RING_SCREW_ANGLES:
+        x, y = _polar(RACE_RING_SCREW_R, angle)
+        pocket = (
+            cq.Workplane("XY", origin=(x, y, PLATTER_Z0 - 0.01))
+            .circle(M3_INSERT_D / 2.0)
+            .extrude(RACE_RING_INSERT_DEPTH + 0.01)
+        )
+        turntable = turntable.cut(pocket)
+    return turntable
+
+
+def build_race_ring():
+    ring = _annulus(RACE_RING_OUTER_R, RACE_RING_INNER_R, RACE_RING_H, RACE_RING_Z0)
     race = cq.Workplane(
         obj=cq.Solid.makeTorus(
             BALL_RACE_R,
@@ -453,59 +651,34 @@ def build_turntable():
             cq.Vector(0.0, 0.0, 1.0),
         )
     )
-    turntable = turntable.cut(race)
-
-    pedestal = _annulus(PEDESTAL_R, SERVICE_BORE_D / 2.0,
-                        NEST_SEAT_Z - PLATTER_Z1, PLATTER_Z1)
-    pulley = _annulus(PULLEY_TIP_R, PULLEY_INNER_R,
-                      PULLEY_Z1 - PULLEY_Z0, PULLEY_Z0)
-    pulley = pulley.cut(_pulley_grooves())
-    lower_flange = _annulus(PULLEY_FLANGE_R, PULLEY_INNER_R,
-                            PULLEY_FLANGE_H, PULLEY_Z0)
-    upper_flange = _annulus(PULLEY_FLANGE_R, PULLEY_INNER_R,
-                            PULLEY_FLANGE_H, PULLEY_Z1 - PULLEY_FLANGE_H)
-    turntable = turntable.union(pedestal).union(pulley).union(lower_flange).union(upper_flange)
-
-    register = _annulus(REGISTER_OD / 2.0, SERVICE_BORE_D / 2.0,
-                        REGISTER_H, NEST_SEAT_Z)
-    turntable = turntable.union(register)
-
-    for angle in (0.0, 120.0, 240.0):
-        theta = math.radians(angle)
-        x = NEST_SCREW_R * math.cos(theta)
-        y = NEST_SCREW_R * math.sin(theta)
-        pocket = (
-            cq.Workplane("XY", origin=(x, y, NEST_SEAT_Z - NEST_INSERT_DEPTH))
-            .circle(NEST_INSERT_D / 2.0)
-            .extrude(NEST_INSERT_DEPTH + 0.01)
+    ring = ring.cut(race)
+    for angle in RACE_RING_SCREW_ANGLES:
+        x, y = _polar(RACE_RING_SCREW_R, angle)
+        ring = ring.cut(
+            _counterbored_m3(x, y, RACE_RING_Z0 + M3_HEAD_DEPTH,
+                             RACE_RING_H - M3_HEAD_DEPTH + 0.02, from_below=True)
         )
-        turntable = turntable.cut(pocket)
+    return ring
 
-    for angle in (60.0, 180.0, 300.0):
-        theta = math.radians(angle)
-        x = RETAINER_SCREW_R * math.cos(theta)
-        y = RETAINER_SCREW_R * math.sin(theta)
-        retainer_pocket = (
-            cq.Workplane("XY", origin=(x, y, HUB_Z0))
-            .circle(NEST_INSERT_D / 2.0)
-            .extrude(RETAINER_INSERT_DEPTH)
+
+def build_spool():
+    flange = _annulus(SPOOL_FLANGE_OD / 2.0, SERVICE_BORE_D / 2.0,
+                      SPOOL_FLANGE_H, SPOOL_FLANGE_Z0)
+    hub = _annulus(SPOOL_HUB_OD / 2.0, SERVICE_BORE_D / 2.0,
+                   PLATTER_Z0 - SPOOL_HUB_Z0, SPOOL_HUB_Z0)
+    spool = flange.union(hub)
+    for angle in SPOOL_SCREW_ANGLES:
+        x, y = _polar(SPOOL_SCREW_R, angle)
+        spool = spool.cut(
+            _counterbored_m3(x, y, SPOOL_FLANGE_Z0 + M3_HEAD_DEPTH,
+                             PLATTER_Z0 - SPOOL_FLANGE_Z0 - M3_HEAD_DEPTH + 0.02,
+                             from_below=True)
         )
-        turntable = turntable.cut(retainer_pocket)
-    return turntable
+    return spool
 
 
 def build_pulley_coupon():
-    pulley = _annulus(PULLEY_TIP_R, PULLEY_INNER_R,
-                      PULLEY_Z1 - PULLEY_Z0, PULLEY_Z0)
-    pulley = pulley.cut(_pulley_grooves())
-    pulley = pulley.union(
-        _annulus(PULLEY_FLANGE_R, PULLEY_INNER_R,
-                 PULLEY_FLANGE_H, PULLEY_Z0)
-    )
-    pulley = pulley.union(
-        _annulus(PULLEY_FLANGE_R, PULLEY_INNER_R,
-                 PULLEY_FLANGE_H, PULLEY_Z1 - PULLEY_FLANGE_H)
-    )
+    pulley = _toothed_ring()
     half_angle = COUPON_TEETH * 360.0 / interface.TABLE_PULLEY_TEETH / 2.0
     coupon = pulley.intersect(
         _sector(PULLEY_FLANGE_R + 1.0, PULLEY_INNER_R - 1.0,
@@ -517,11 +690,7 @@ def build_pulley_coupon():
 def build_cage():
     cage = _annulus(CAGE_OUTER_R, CAGE_INNER_R, CAGE_H, CAGE_Z)
     points = [
-        (
-            BALL_RACE_R * math.cos(2.0 * math.pi * i / BALL_COUNT),
-            BALL_RACE_R * math.sin(2.0 * math.pi * i / BALL_COUNT),
-        )
-        for i in range(BALL_COUNT)
+        _polar(BALL_RACE_R, 360.0 * i / BALL_COUNT) for i in range(BALL_COUNT)
     ]
     pockets = (
         cq.Workplane("XY", origin=(0.0, 0.0, CAGE_Z))
@@ -530,32 +699,6 @@ def build_cage():
         .extrude(CAGE_H)
     )
     return cage.cut(pockets)
-
-
-def build_retainer():
-    retainer = _annulus(RETAINER_OD / 2.0, SERVICE_BORE_D / 2.0, RETAINER_H)
-    for angle in (60.0, 180.0, 300.0):
-        theta = math.radians(angle)
-        x = RETAINER_SCREW_R * math.cos(theta)
-        y = RETAINER_SCREW_R * math.sin(theta)
-        boss = (
-            cq.Workplane("XY", origin=(x, y, RETAINER_H))
-            .circle(RETAINER_BOSS_R)
-            .extrude(RETAINER_BOSS_H)
-        )
-        retainer = retainer.union(boss)
-        hole = (
-            cq.Workplane("XY", origin=(x, y, 0.0))
-            .circle(NEST_SCREW_D / 2.0)
-            .extrude(RETAINER_H + RETAINER_BOSS_H)
-        )
-        head = (
-            cq.Workplane("XY", origin=(x, y, 0.0))
-            .circle(M3_HEAD_D / 2.0)
-            .extrude(M3_HEAD_DEPTH)
-        )
-        retainer = retainer.cut(hole.union(head))
-    return retainer
 
 
 def build_nest():
@@ -607,9 +750,7 @@ def build_nest():
         )
 
     for angle in (0.0, 120.0, 240.0):
-        theta = math.radians(angle)
-        x = NEST_SCREW_R * math.cos(theta)
-        y = NEST_SCREW_R * math.sin(theta)
+        x, y = _polar(NEST_SCREW_R, angle)
         shank = (
             cq.Workplane("XY", origin=(x, y, 0.0))
             .circle(NEST_SCREW_D / 2.0)
@@ -642,152 +783,142 @@ def build_jaw():
     return jaw.cut(socket)
 
 
-def _gusset(y0: float, direction: float):
-    profile = (
-        cq.Workplane("XZ", origin=(0.0, y0, 0.0))
-        .polyline([
-            (TOWER_SHELF_X0 + 10.0, TOWER_SHELF_Z0),
-            (TOWER_X1, TOWER_FOOT_Z1),
-            (TOWER_X1, TOWER_SHELF_Z0),
-        ])
-        .close()
-        .extrude(direction * 6.0)
-    )
-    return profile
-
-
 def build_motor_tower():
-    foot = (
-        cq.Workplane("XY", origin=((TOWER_X0 + TOWER_X1) / 2.0, 0.0, TOWER_FOOT_Z0))
-        .box(TOWER_X1 - TOWER_X0, 2.0 * TOWER_Y_HALF,
-             TOWER_FOOT_Z1 - TOWER_FOOT_Z0, centered=(True, True, False))
-    )
-    back = (
-        cq.Workplane("XY", origin=((TOWER_BACK_X0 + TOWER_X1) / 2.0, 0.0, TOWER_FOOT_Z1))
-        .box(TOWER_X1 - TOWER_BACK_X0, 2.0 * TOWER_Y_HALF,
-             TOWER_SHELF_Z1 - TOWER_FOOT_Z1, centered=(True, True, False))
-    )
-    shelf = (
-        cq.Workplane("XY", origin=((TOWER_SHELF_X0 + TOWER_X1) / 2.0, 0.0, TOWER_SHELF_Z0))
-        .box(TOWER_X1 - TOWER_SHELF_X0, 2.0 * TOWER_SHELF_Y_HALF,
-             TOWER_SHELF_Z1 - TOWER_SHELF_Z0, centered=(True, True, False))
-    )
-    tower = foot.union(back).union(shelf)
-    tower = tower.union(_gusset(-TOWER_SHELF_Y_HALF, +1.0))
-    tower = tower.union(_gusset(TOWER_SHELF_Y_HALF, -1.0))
+    tower = None
+    for sign in (-1.0, 1.0):
+        foot = (
+            cq.Workplane("XY", origin=((TOWER_X0 + TOWER_X1) / 2.0,
+                                        sign * (TOWER_FOOT_Y0 + TOWER_Y_HALF) / 2.0,
+                                        TOWER_Z0))
+            .box(TOWER_X1 - TOWER_X0, TOWER_Y_HALF - TOWER_FOOT_Y0,
+                 TOWER_FOOT_Z1 - TOWER_Z0, centered=(True, True, False))
+        )
+        rail = (
+            cq.Workplane("XY", origin=((TOWER_X0 + TOWER_X1) / 2.0,
+                                        sign * (TOWER_RAIL_Y0 + TOWER_Y_HALF) / 2.0,
+                                        TOWER_FOOT_Z1))
+            .box(TOWER_X1 - TOWER_X0, TOWER_Y_HALF - TOWER_RAIL_Y0,
+                 TOWER_Z1 - TOWER_FOOT_Z1, centered=(True, True, False))
+        )
+        piece = foot.union(rail)
+        tower = piece if tower is None else tower.union(piece)
 
-    shaft_slot = _vertical_slot(
-        MOTOR_CENTER_MIN,
-        MOTOR_CENTER_MAX,
-        0.0,
-        MOTOR_PULLEY_FLANGE_D + 2.0,
-        TOWER_SHELF_Z0,
-        TOWER_SHELF_Z1 - TOWER_SHELF_Z0,
+    rear = (
+        cq.Workplane("XY", origin=((TOWER_REAR_X0 + TOWER_X1) / 2.0, 0.0, TOWER_Z0))
+        .box(TOWER_X1 - TOWER_REAR_X0, 2.0 * TOWER_Y_HALF,
+             TOWER_Z1 - TOWER_Z0, centered=(True, True, False))
     )
-    tower = tower.cut(shaft_slot)
+    tower = tower.union(rear)
 
-    mount_offset = MOTOR_CRADLE_BOLT_SQUARE / 2.0
-    for y in (-mount_offset, mount_offset):
-        for x_sign in (-1.0, 1.0):
-            x0 = MOTOR_CENTER_MIN + x_sign * mount_offset
-            x1 = MOTOR_CENTER_MAX + x_sign * mount_offset
-            tower = tower.cut(
-                _vertical_slot(
-                    min(x0, x1), max(x0, x1), y,
-                    2.0 * MOTOR_SLOT_R,
-                    TOWER_SHELF_Z0,
-                    TOWER_SHELF_Z1 - TOWER_SHELF_Z0,
-                )
-            )
-            tower = tower.cut(
-                _vertical_slot(
-                    min(x0, x1), max(x0, x1), y,
-                    M3_HEAD_D,
-                    TOWER_SHELF_Z0,
-                    M3_HEAD_DEPTH,
-                )
-            )
-
+    head_seat_z = TOWER_FOOT_Z1 - M5_HEAD_DEPTH
     for x, y in TOWER_MOUNT_POINTS:
         shank = (
-            cq.Workplane("XY", origin=(x, y, TOWER_FOOT_Z0))
+            cq.Workplane("XY", origin=(x, y, TOWER_Z0 - 0.01))
             .circle(M5_SHANK_D / 2.0)
-            .extrude(TOWER_FOOT_Z1 - TOWER_FOOT_Z0)
+            .extrude(head_seat_z - TOWER_Z0 + 0.02)
         )
-        head = (
-            cq.Workplane("XY", origin=(x, y, TOWER_FOOT_Z1 - M5_HEAD_DEPTH))
+        access = (
+            cq.Workplane("XY", origin=(x, y, head_seat_z))
             .circle(M5_HEAD_D / 2.0)
-            .extrude(M5_HEAD_DEPTH)
+            .extrude(TOWER_Z1 - head_seat_z + 0.01)
         )
-        tower = tower.cut(shank.union(head))
+        tower = tower.cut(shank.union(access))
+
+    for x in TOWER_RAIL_INSERT_X:
+        for sign in (-1.0, 1.0):
+            pocket = (
+                cq.Workplane("XY", origin=(x, sign * TOWER_RAIL_INSERT_Y,
+                                            TOWER_Z1 - TOWER_RAIL_INSERT_DEPTH))
+                .circle(M3_INSERT_D / 2.0)
+                .extrude(TOWER_RAIL_INSERT_DEPTH + 0.01)
+            )
+            tower = tower.cut(pocket)
     return tower
 
 
-def build_motor_cradle():
+def _carriage_swept_belt(margin: float):
+    """Everything the belt occupies, in the carriage's frame, across the
+    whole tension range."""
+    swept = None
+    for center in (MOTOR_CENTER_MIN, MOTOR_CENTER_NOMINAL, MOTOR_CENTER_MAX):
+        belt = _belt_in_carriage_frame(center, BELT_Z0 - 1.0, BELT_Z1 + 1.0, margin)
+        swept = belt if swept is None else swept.union(belt)
+    return swept
+
+
+def build_motor_carriage():
     center = MOTOR_CENTER_NOMINAL
-    base = (
-        cq.Workplane("XY", origin=(center, 0.0, MOTOR_CRADLE_Z0))
-        .box(MOTOR_CRADLE_X, MOTOR_CRADLE_Y, MOTOR_CRADLE_BASE_H,
-             centered=(True, True, False))
+    x_mid = (CARRIAGE_X0 + CARRIAGE_X1) / 2.0
+    arms = (
+        cq.Workplane("XY", origin=(x_mid, 0.0, CARRIAGE_ARM_Z0))
+        .box(CARRIAGE_X1 - CARRIAGE_X0, 2.0 * CARRIAGE_Y_HALF,
+             CARRIAGE_SKIN_Z0 - CARRIAGE_ARM_Z0, centered=(True, True, False))
     )
-    pilot_clearance = (
-        cq.Workplane("XY", origin=(center, 0.0, MOTOR_CRADLE_Z0))
-        .circle(MOTOR_CRADLE_PILOT_D / 2.0)
-        .extrude(MOTOR_CRADLE_BASE_H + 0.01)
+    arms = arms.cut(_carriage_swept_belt(CARRIAGE_BELT_MARGIN))
+    arms = arms.cut(
+        cq.Workplane("XY", origin=(center, 0.0, CARRIAGE_ARM_Z0 - 0.01))
+        .circle(CARRIAGE_PILOT_D / 2.0)
+        .extrude(CARRIAGE_SKIN_Z0 - CARRIAGE_ARM_Z0 + 0.02)
     )
-    cradle = base.cut(pilot_clearance)
+    skin = (
+        cq.Workplane("XY", origin=(x_mid, 0.0, CARRIAGE_SKIN_Z0))
+        .box(CARRIAGE_X1 - CARRIAGE_X0, 2.0 * CARRIAGE_Y_HALF,
+             CARRIAGE_SKIN_H, centered=(True, True, False))
+    )
+    skin = skin.cut(
+        cq.Workplane("XY", origin=(center, 0.0, CARRIAGE_SKIN_Z0 - 0.01))
+        .circle(CARRIAGE_PILOT_D / 2.0)
+        .extrude(CARRIAGE_SKIN_H + 0.02)
+    )
+    carriage = arms.union(skin)
 
-    wall_outer = (
-        cq.Workplane("XY", origin=(center, 0.0, MOTOR_FACE_Z))
-        .box(MOTOR_CRADLE_X, MOTOR_CRADLE_Y, MOTOR_CRADLE_WALL_H,
-             centered=(True, True, False))
-    )
-    wall_inner = (
-        cq.Workplane("XY", origin=(center, 0.0, MOTOR_FACE_Z))
-        .box(MOTOR_CRADLE_INNER_X, MOTOR_CRADLE_INNER_Y,
-             MOTOR_CRADLE_WALL_H + 0.01, centered=(True, True, False))
-    )
-    cradle = cradle.union(wall_outer.cut(wall_inner))
-
-    mount_offset = MOTOR_CRADLE_BOLT_SQUARE / 2.0
-    for x_sign in (-1.0, 1.0):
-        for y_sign in (-1.0, 1.0):
-            pocket = (
-                cq.Workplane(
-                    "XY",
-                    origin=(center + x_sign * mount_offset,
-                            y_sign * mount_offset,
-                            MOTOR_CRADLE_Z0),
-                )
-                .circle(NEST_INSERT_D / 2.0)
-                .extrude(MOTOR_CRADLE_INSERT_DEPTH)
-            )
-            cradle = cradle.cut(pocket)
-
-    side_wall = (MOTOR_CRADLE_Y - MOTOR_CRADLE_INNER_Y) / 2.0
-    for y_sign in (-1.0, 1.0):
-        direction = cq.Vector(0.0, -y_sign, 0.0)
-        y_outer = y_sign * MOTOR_CRADLE_Y / 2.0
+    for sign in (-1.0, 1.0):
+        wall = (
+            cq.Workplane("XY", origin=(center,
+                                        sign * (CARRIAGE_WALL_Y0 + CARRIAGE_WALL_Y1) / 2.0,
+                                        MOTOR_FACE_Z))
+            .box(2.0 * CARRIAGE_WALL_X_HALF, CARRIAGE_WALL_Y1 - CARRIAGE_WALL_Y0,
+                 CARRIAGE_WALL_H, centered=(True, True, False))
+        )
+        carriage = carriage.union(wall)
+        direction = cq.Vector(0.0, -sign, 0.0)
+        y_outer = sign * CARRIAGE_WALL_Y1
         for x_offset in (-MOTOR_CLAMP_SCREW_X, MOTOR_CLAMP_SCREW_X):
-            origin = cq.Vector(center + x_offset, y_outer, MOTOR_CLAMP_SCREW_Z)
+            origin = cq.Vector(center + x_offset, y_outer + sign * 0.01, MOTOR_CLAMP_SCREW_Z)
             shank = cq.Workplane(
                 obj=cq.Solid.makeCylinder(
                     JAW_SHANK_D / 2.0,
-                    side_wall + 0.01,
+                    CARRIAGE_WALL_Y1 - CARRIAGE_WALL_Y0 + 0.02,
                     origin,
                     direction,
                 )
             )
             insert = cq.Workplane(
                 obj=cq.Solid.makeCylinder(
-                    NEST_INSERT_D / 2.0,
-                    MOTOR_CLAMP_INSERT_DEPTH,
+                    M3_INSERT_D / 2.0,
+                    MOTOR_CLAMP_INSERT_DEPTH + 0.01,
                     origin,
                     direction,
                 )
             )
-            cradle = cradle.cut(shank.union(insert))
-    return cradle
+            carriage = carriage.cut(shank.union(insert))
+
+    for x in TOWER_RAIL_INSERT_X:
+        for sign in (-1.0, 1.0):
+            y = sign * TOWER_RAIL_INSERT_Y
+            x0 = x - (MOTOR_CENTER_MAX - MOTOR_CENTER_NOMINAL)
+            x1 = x + (MOTOR_CENTER_NOMINAL - MOTOR_CENTER_MIN)
+            carriage = carriage.cut(
+                _vertical_slot(x0, x1, y, 2.0 * MOTOR_SLOT_R,
+                               CARRIAGE_ARM_Z0 - 0.01,
+                               MOTOR_FACE_Z - CARRIAGE_ARM_Z0 + 0.02)
+            )
+            carriage = carriage.cut(
+                _vertical_slot(x0, x1, y, M3_HEAD_D,
+                               MOTOR_FACE_Z - M3_HEAD_DEPTH,
+                               M3_HEAD_DEPTH + 0.01)
+            )
+    return carriage
 
 
 def build_motor_clamp_pad():
@@ -942,8 +1073,7 @@ def build_ground_shoe_proxy():
     )
 
 
-def build_motor_proxy():
-    center = MOTOR_CENTER_NOMINAL
+def build_motor_proxy(center: float = MOTOR_CENTER_NOMINAL):
     body = (
         cq.Workplane("XY", origin=(center, 0.0, MOTOR_FACE_Z))
         .box(interface.MOTOR_FRAME, interface.MOTOR_FRAME,
@@ -965,23 +1095,28 @@ def build_motor_proxy():
     return body.union(pilot).union(shaft)
 
 
-def build_motor_pulley_proxy():
-    center = MOTOR_CENTER_NOMINAL
+def build_motor_pulley_proxy(center: float = MOTOR_CENTER_NOMINAL):
+    flange_h = interface.MOTOR_PULLEY_FLANGE_LENGTH
     core = (
-        cq.Workplane("XY", origin=(center, 0.0, MOTOR_PULLEY_Z0 + 1.0))
+        cq.Workplane("XY", origin=(center, 0.0, MOTOR_LAND_Z0))
         .circle(MOTOR_PULLEY_CORE_D / 2.0)
         .circle(interface.MOTOR_SHAFT_DIAMETER / 2.0)
-        .extrude(MOTOR_PULLEY_Z1 - MOTOR_PULLEY_Z0 - 2.0)
+        .extrude(MOTOR_LAND_Z1 - MOTOR_LAND_Z0)
     )
-    flanges = []
-    for z in (MOTOR_PULLEY_Z0, MOTOR_PULLEY_Z1 - 1.0):
-        flanges.append(
+    pulley = core
+    for z in (MOTOR_PULLEY_Z0, MOTOR_PULLEY_Z1 - flange_h):
+        pulley = pulley.union(
             cq.Workplane("XY", origin=(center, 0.0, z))
             .circle(MOTOR_PULLEY_FLANGE_D / 2.0)
             .circle(interface.MOTOR_SHAFT_DIAMETER / 2.0)
-            .extrude(1.0)
+            .extrude(flange_h)
         )
-    return core.union(flanges[0]).union(flanges[1])
+    return pulley
+
+
+def build_belt_proxy(center: float = MOTOR_CENTER_NOMINAL):
+    z0 = (BELT_Z0 + BELT_Z1) / 2.0 - interface.BELT_WIDTH / 2.0
+    return _belt_solid(center, z0, z0 + interface.BELT_WIDTH)
 
 
 def build_tube_proxy():
@@ -996,13 +1131,11 @@ def build_tube_proxy():
 def build_balls_proxy():
     balls = []
     for i in range(BALL_COUNT):
-        a = 2.0 * math.pi * i / BALL_COUNT
+        x, y = _polar(BALL_RACE_R, 360.0 * i / BALL_COUNT)
         balls.append(
             cq.Workplane("XY")
             .sphere(BALL_D / 2.0)
-            .translate((BALL_RACE_R * math.cos(a),
-                        BALL_RACE_R * math.sin(a),
-                        BALL_CENTER_Z))
+            .translate((x, y, BALL_CENTER_Z))
             .val()
         )
     return cq.Workplane(obj=cq.Compound.makeCompound(balls))
@@ -1016,18 +1149,23 @@ def _valid(name: str, part):
         raise ValueError(f"{name} has no volume")
 
 
+def _overlap(a, b) -> float:
+    return a.intersect(b).val().Volume()
+
+
 def selftest():
     parts = {
         "base": build_base(),
         "base-foot": build_base_foot(),
         "turntable": build_turntable(),
+        "race-ring": build_race_ring(),
+        "spool": build_spool(),
         "pulley-coupon": build_pulley_coupon(),
         "ball-cage": build_cage(),
-        "retainer": build_retainer(),
         "tube-nest": build_nest(),
         "jaw-cap": build_jaw(),
         "motor-tower": build_motor_tower(),
-        "motor-cradle": build_motor_cradle(),
+        "motor-carriage": build_motor_carriage(),
         "motor-clamp-pad": build_motor_clamp_pad(),
         "ground-tower": build_ground_tower(),
         "ground-arm": build_ground_arm(),
@@ -1051,8 +1189,8 @@ def selftest():
         )
     if SERVICE_BORE_D >= PILOT_ID:
         raise ValueError("service passage removes the tube nest's pilot support")
-    if RETAINER_POCKET_D / 2.0 + 10.0 >= BALL_RACE_R - RACE_CUT_R:
-        raise ValueError("retainer pocket leaves too little base web inside the race")
+    if SPOOL_POCKET_D / 2.0 + 10.0 >= BALL_RACE_R - RACE_CUT_R:
+        raise ValueError("spool pocket leaves too little base web inside the race")
 
     foot_thread_reach = (
         BASE_FOOT_SCREW_LENGTH - (BASE_Z - M3_HEAD_DEPTH)
@@ -1070,16 +1208,47 @@ def selftest():
         ):
             raise ValueError("a base foot falls outside the stationary base")
 
-    motor_clearance = (
-        MOTOR_CENTER_MIN - interface.MOTOR_FRAME / 2.0 - PLATTER_R
-    )
-    if motor_clearance < 0.5:
-        raise ValueError(f"motor-to-platter clearance is only {motor_clearance:.2f} mm")
-
+    # Race: both grooves are top faces when printed; the cage floats between.
     ball_pitch = 2.0 * math.pi * BALL_RACE_R / BALL_COUNT
     if ball_pitch < CAGE_POCKET_D + 2.0:
         raise ValueError("ball cage leaves less than 2 mm between pockets")
+    if CAGE_Z < BASE_Z + 1.0 or CAGE_Z + CAGE_H > RACE_RING_Z0 - 1.0:
+        raise ValueError("ball cage does not clear both race faces by 1 mm")
+    groove_crest = BALL_CENTER_Z + RACE_CUT_R
+    if RACE_RING_Z1 - groove_crest < 2.5:
+        raise ValueError("race ring floor above the groove crest is under 2.5 mm")
+    groove_edge_r = BALL_RACE_R - math.sqrt(
+        RACE_CUT_R ** 2 - (RACE_RING_Z0 - BALL_CENTER_Z) ** 2
+    )
+    head_outer_r = RACE_RING_SCREW_R + M3_HEAD_D / 2.0
+    head_inner_r = RACE_RING_SCREW_R - M3_HEAD_D / 2.0
+    if groove_edge_r - head_outer_r < 1.0 or head_inner_r - RACE_RING_INNER_R < 1.0:
+        raise ValueError("race ring screw heads crowd the groove or the inner edge")
+    ring_seat_z = RACE_RING_Z0 + M3_HEAD_DEPTH
+    ring_tip_z = ring_seat_z + RACE_RING_SCREW_LENGTH
+    ring_reach = ring_tip_z - PLATTER_Z0
+    if ring_reach < M3_INSERT_LENGTH or ring_reach > RACE_RING_INSERT_DEPTH - 0.5:
+        raise ValueError("M3 x 8 race ring screws do not land in their platter inserts")
+    if PLATTER_Z0 + RACE_RING_INSERT_DEPTH > PLATTER_Z1 - 2.0:
+        raise ValueError("race ring insert pockets leave under 2 mm of platter above them")
+    if RACE_RING_OUTER_R > PLATTER_R:
+        raise ValueError("race ring projects beyond the platter")
 
+    # Spool: inserted through the base, catches lift with a 1 mm running gap.
+    if SPOOL_FLANGE_Z0 < 0.0:
+        raise ValueError("spool flange projects below the base")
+    if abs(SPOOL_GAP - 1.0) > 1e-6:
+        raise ValueError("spool flange does not preserve its running gap")
+    if SPOOL_HUB_OD >= SPOOL_CLEARANCE_D or SPOOL_FLANGE_OD >= SPOOL_POCKET_D:
+        raise ValueError("spool binds in the base")
+    spool_seat_z = SPOOL_FLANGE_Z0 + M3_HEAD_DEPTH
+    spool_reach = spool_seat_z + SPOOL_SCREW_LENGTH - PLATTER_Z0
+    if spool_reach < M3_INSERT_LENGTH or spool_reach > SPOOL_INSERT_DEPTH - 0.5:
+        raise ValueError("M3 x 25 spool screws do not land in their platter inserts")
+    if PLATTER_Z0 + SPOOL_INSERT_DEPTH > PLATTER_Z1 - 2.0:
+        raise ValueError("spool insert pockets leave under 2 mm of platter above them")
+
+    # Nest datum.
     pilot_radial_clearance = (interface.TUBE_ID - PILOT_OD) / 2.0
     outer_radial_clearance = (OUTER_BORE_D - interface.TUBE_OD) / 2.0
     if pilot_radial_clearance <= 0.0 or outer_radial_clearance <= 0.0:
@@ -1087,58 +1256,120 @@ def selftest():
     if PILOT_H >= interface.ENDCAP_RECESS:
         raise ValueError("ID pilot reaches a welded end-cap plate")
 
-    retainer_z = HUB_Z0 - RETAINER_GAP - RETAINER_H
-    retainer_running_gap = RETAINER_POCKET_H - (retainer_z + RETAINER_H)
-    if retainer_z < 0.0:
-        raise ValueError("underside retainer projects below the base")
-    if abs(retainer_running_gap - RETAINER_GAP) > 1e-6:
-        raise ValueError("underside retainer does not preserve its running gap")
-    if abs(retainer_z + RETAINER_H + RETAINER_BOSS_H - HUB_Z0) > 1e-6:
-        raise ValueError("retainer standoff bosses do not meet the hub")
-    retainer_grip = RETAINER_H + RETAINER_BOSS_H - M3_HEAD_DEPTH
-    retainer_thread_reach = 8.0 - retainer_grip
-    if RETAINER_INSERT_DEPTH < retainer_thread_reach + 0.2:
-        raise ValueError("M3 x 8 retainer screws bottom in the hub insert pilots")
+    # Printed pulley: a clearance groove for a 3.05 mm belt tooth root and
+    # a printable land between grooves.
+    opening = 2.0 * _groove_half_width(PULLEY_TIP_R)
+    land = 2.0 * math.pi * PULLEY_TIP_R / interface.TABLE_PULLEY_TEETH - opening
+    if opening < 3.5:
+        raise ValueError(f"pulley groove opening is only {opening:.2f} mm")
+    if land < 1.2:
+        raise ValueError(f"pulley land between grooves is only {land:.2f} mm")
+    if PULLEY_FLANGE_R < TABLE_PITCH_R + interface.belt_outer_offset() + 0.5:
+        raise ValueError("pulley flanges do not stand above the belt back")
 
+    # Belt plane: the belt sits on the purchased pulley's land, inside the
+    # printed pulley's tooth zone, and under the carriage skin.
+    if PULLEY_TOOTH_Z0 > BELT_Z0 or PULLEY_TOOTH_Z0 + PULLEY_TOOTH_H < BELT_Z1:
+        raise ValueError("printed pulley tooth zone does not span the belt")
+    if CARRIAGE_SKIN_Z0 - BELT_Z1 < 0.9:
+        raise ValueError("carriage skin does not clear the belt's upper edge")
+    if CARRIAGE_SKIN_H < interface.MOTOR_PILOT_LENGTH:
+        raise ValueError("carriage skin is thinner than the motor's face pilot")
+    if MOTOR_PULLEY_Z1 > MOTOR_FACE_Z - 0.5:
+        raise ValueError("purchased pulley reaches the motor face")
+    if MOTOR_PULLEY_Z0 < MOTOR_FACE_Z - interface.MOTOR_SHAFT_LENGTH:
+        raise ValueError("purchased pulley overhangs the shaft end")
+    dcut_top = MOTOR_FACE_Z - interface.MOTOR_SHAFT_LENGTH + interface.MOTOR_SHAFT_DCUT_LENGTH
+    if (MOTOR_PULLEY_Z0 + MOTOR_PULLEY_Z1) / 2.0 > dcut_top:
+        raise ValueError("purchased pulley set screws miss the shaft D-cut")
+
+    # Motor carriage and tower.
     cradle_pilot_radial = (
-        MOTOR_CRADLE_PILOT_D - interface.MOTOR_PILOT_DIAMETER
+        CARRIAGE_PILOT_D - interface.MOTOR_PILOT_DIAMETER
     ) / 2.0
     if not 0.15 <= cradle_pilot_radial <= 0.40:
-        raise ValueError("motor cradle does not positively locate the face pilot")
-    if MOTOR_CRADLE_INNER_X < interface.MOTOR_FRAME + 0.5:
-        raise ValueError("motor cradle X pocket lacks frame clearance")
+        raise ValueError("carriage skin does not positively locate the face pilot")
+    if (CARRIAGE_PILOT_D - MOTOR_PULLEY_FLANGE_D) / 2.0 < 1.0:
+        raise ValueError("purchased pulley flanges cannot pass the carriage pilot hole")
     clamp_travel = (
-        MOTOR_CRADLE_INNER_Y
+        2.0 * CARRIAGE_WALL_Y0
         - interface.MOTOR_FRAME
         - 2.0 * MOTOR_CLAMP_PAD_Y
     ) / 2.0
     screw_projection = MOTOR_CLAMP_SCREW_LENGTH - MOTOR_CLAMP_INSERT_DEPTH
     if clamp_travel < 0.2 or screw_projection < clamp_travel + 0.5:
         raise ValueError("motor side pads cannot take up the frame clearance")
-    shelf_grip = (
-        TOWER_SHELF_Z1 - TOWER_SHELF_Z0 - M3_HEAD_DEPTH
+    carriage_grip = MOTOR_FACE_Z - CARRIAGE_ARM_Z0 - M3_HEAD_DEPTH
+    carriage_reach = CARRIAGE_SCREW_LENGTH - carriage_grip
+    if not 3.0 <= carriage_reach <= TOWER_RAIL_INSERT_DEPTH - 0.5:
+        raise ValueError("carriage screws have invalid rail insert engagement")
+    if TOWER_RAIL_INSERT_Y + M3_INSERT_D / 2.0 > TOWER_Y_HALF - 1.5:
+        raise ValueError("rail inserts break the tower's outer face")
+    if TOWER_RAIL_INSERT_Y - M3_HEAD_D / 2.0 < CARRIAGE_WALL_Y1:
+        raise ValueError("carriage screw heads land on the clamp walls")
+    for x in TOWER_RAIL_INSERT_X:
+        for mx, my in TOWER_MOUNT_POINTS:
+            if abs(mx - x) < (M5_HEAD_D + M3_INSERT_D) / 2.0 + 1.0 and \
+                    abs(abs(my) - TOWER_RAIL_INSERT_Y) < (M5_HEAD_D + M3_INSERT_D) / 2.0 + 1.0:
+                raise ValueError("a rail insert meets an M5 access hole")
+    if MOTOR_CENTER_MIN - CARRIAGE_WALL_X_HALF - PLATTER_R < 0.5:
+        raise ValueError("motor overhangs the platter")
+    carriage_to_nest = (
+        CARRIAGE_X0 - (MOTOR_CENTER_NOMINAL - MOTOR_CENTER_MIN) - NEST_OD / 2.0
     )
-    cradle_thread_reach = MOTOR_CRADLE_SCREW_LENGTH - shelf_grip
-    if not 3.0 <= cradle_thread_reach <= MOTOR_CRADLE_INSERT_DEPTH:
-        raise ValueError("motor cradle screws have invalid insert engagement")
+    if carriage_to_nest < 5.0:
+        raise ValueError("motor carriage approaches the tube nest too closely")
+    if TOWER_X0 <= PLATTER_R:
+        raise ValueError("motor tower stands over the platter")
+    if CARRIAGE_X1 + (MOTOR_CENTER_MAX - MOTOR_CENTER_NOMINAL) > TOWER_X1 + 5.0:
+        raise ValueError("carriage overhangs the tower at full tension")
+    wrap_back_x = MOTOR_CENTER_MAX + MOTOR_PITCH_R + interface.belt_outer_offset()
+    if TOWER_REAR_X0 - wrap_back_x < 1.5:
+        raise ValueError("tower rear wall crowds the belt wrap at full tension")
 
-    cradle_to_nest = (
-        MOTOR_CENTER_MIN - MOTOR_CRADLE_X / 2.0 - NEST_OD / 2.0
-    )
-    if cradle_to_nest < 5.0:
-        raise ValueError("motor cradle approaches the tube nest too closely")
-    if parts["motor-cradle"].intersect(parts["turntable"]).val().Volume() > 1e-4:
-        raise ValueError("motor cradle intersects the turntable")
-    motor_proxy = build_motor_proxy()
-    pulley_proxy = build_motor_pulley_proxy()
-    for fixed_name, fixed_part in (
-        ("motor cradle", parts["motor-cradle"]),
-        ("motor tower", parts["motor-tower"]),
-    ):
-        if fixed_part.intersect(motor_proxy).val().Volume() > 1e-4:
-            raise ValueError(f"{fixed_name} intersects the purchased motor")
-        if fixed_part.intersect(pulley_proxy).val().Volume() > 1e-4:
-            raise ValueError(f"{fixed_name} intersects the purchased 20T pulley")
+    if _overlap(parts["motor-carriage"], parts["turntable"]) > 1e-4:
+        raise ValueError("motor carriage intersects the turntable")
+    if _overlap(parts["motor-tower"], parts["turntable"]) > 1e-4:
+        raise ValueError("motor tower intersects the turntable")
+    if _overlap(parts["motor-tower"], parts["base"]) > 1e-4:
+        raise ValueError("motor tower intersects the base")
+
+    carriage_offsets = {
+        MOTOR_CENTER_MIN: MOTOR_CENTER_MIN - MOTOR_CENTER_NOMINAL,
+        MOTOR_CENTER_NOMINAL: 0.0,
+        MOTOR_CENTER_MAX: MOTOR_CENTER_MAX - MOTOR_CENTER_NOMINAL,
+    }
+    for center, offset in carriage_offsets.items():
+        motor_proxy = build_motor_proxy(center)
+        pulley_proxy = build_motor_pulley_proxy(center)
+        carriage = parts["motor-carriage"].translate((offset, 0.0, 0.0))
+        belt = _belt_solid(center, BELT_Z0, BELT_Z1)
+        belt_margin = _belt_solid(center, BELT_Z0, BELT_Z1, 1.5)
+        for fixed_name, fixed_part in (
+            ("motor carriage", carriage),
+            ("motor tower", parts["motor-tower"]),
+        ):
+            if _overlap(fixed_part, motor_proxy) > 1e-4:
+                raise ValueError(f"{fixed_name} intersects the purchased motor")
+            if _overlap(fixed_part, pulley_proxy) > 1e-4:
+                raise ValueError(f"{fixed_name} intersects the purchased 20T pulley")
+            if _overlap(fixed_part, belt) > 1e-4:
+                raise ValueError(f"{fixed_name} intersects the belt at centre {center:.1f}")
+            if _overlap(fixed_part, belt_margin) > 1e-4:
+                raise ValueError(
+                    f"{fixed_name} is within 1.5 mm of the belt at centre {center:.1f}"
+                )
+        for name in ("base", "ground-tower", "ground-arm", "ground-shoe", "spool",
+                     "race-ring", "ball-cage"):
+            if _overlap(parts[name], belt) > 1e-4:
+                raise ValueError(f"{name} intersects the belt at centre {center:.1f}")
+        nest = parts["tube-nest"].translate((0.0, 0.0, NEST_SEAT_Z))
+        if _overlap(nest, belt) > 1e-4 or _overlap(nest, motor_proxy) > 1e-4:
+            raise ValueError("tube nest meets the belt or motor")
+        if _overlap(carriage, parts["motor-tower"]) > 1e-4:
+            raise ValueError("motor carriage intersects the motor tower")
+        if _overlap(pulley_proxy, parts["turntable"]) > 1e-4:
+            raise ValueError("purchased 20T pulley intersects the turntable")
 
     ground_preload = GROUND_SHOE_FRONT_X + interface.TUBE_OD / 2.0
     if not 0.5 <= ground_preload <= 2.0:
@@ -1164,7 +1395,7 @@ def _assembly(parts):
         )
     assembly.add(parts["base"], name="stationary-base", color=M_PETGF_BLACK)
     assembly.add(parts["motor-tower"], name="motor-tower", color=M_PETGF_BLACK)
-    assembly.add(parts["motor-cradle"], name="motor-cradle", color=M_PETGF_BLACK)
+    assembly.add(parts["motor-carriage"], name="motor-carriage", color=M_PETGF_BLACK)
     pad_y = interface.MOTOR_FRAME / 2.0 + MOTOR_CLAMP_PAD_Y / 2.0
     assembly.add(
         parts["motor-clamp-pad"],
@@ -1183,13 +1414,9 @@ def _assembly(parts):
     assembly.add(parts["ground-arm"], name="ground-flexure-arm", color=M_PETGF_BLACK)
     assembly.add(parts["ground-shoe"], name="c110-ground-shoe", color=M_COPPER)
     assembly.add(parts["turntable"], name="turntable-90t", color=M_PETGF_BLACK)
+    assembly.add(parts["race-ring"], name="upper-race-ring", color=M_PETGF_BLACK)
     assembly.add(parts["ball-cage"], name="ball-cage", color=M_PETGF_BLACK)
-    assembly.add(
-        parts["retainer"],
-        name="turntable-retainer",
-        color=M_PETGF_BLACK,
-        loc=cq.Location(cq.Vector(0.0, 0.0, HUB_Z0 - RETAINER_GAP - RETAINER_H)),
-    )
+    assembly.add(parts["spool"], name="spool", color=M_PETGF_BLACK)
     assembly.add(
         parts["tube-nest"],
         name="tube-nest",
@@ -1207,6 +1434,7 @@ def _assembly(parts):
     assembly.add(build_balls_proxy(), name="10mm-pp-balls", color=M_TPU_BLACK)
     assembly.add(build_motor_proxy(), name="23hs30-2804s", color=M_STAINLESS)
     assembly.add(build_motor_pulley_proxy(), name="20t-htd5m-pulley", color=M_ALUMINIUM)
+    assembly.add(build_belt_proxy(), name="550-5m-15-belt", color=M_TPU_BLACK)
     assembly.add(build_tube_proxy(), name="5in-316l-tube", color=M_STAINLESS)
     return assembly
 
@@ -1217,13 +1445,14 @@ def main():
         "base": "weld-rotator-base.step",
         "base-foot": "weld-rotator-base-foot.step",
         "turntable": "weld-rotator-turntable-90t.step",
+        "race-ring": "weld-rotator-race-ring.step",
+        "spool": "weld-rotator-spool.step",
         "pulley-coupon": "weld-rotator-pulley-coupon.step",
         "ball-cage": "weld-rotator-ball-cage.step",
-        "retainer": "weld-rotator-retainer.step",
         "tube-nest": "weld-rotator-tube-nest.step",
         "jaw-cap": "weld-rotator-jaw-cap.step",
         "motor-tower": "weld-rotator-motor-tower.step",
-        "motor-cradle": "weld-rotator-motor-cradle.step",
+        "motor-carriage": "weld-rotator-motor-carriage.step",
         "motor-clamp-pad": "weld-rotator-motor-clamp-pad.step",
         "ground-tower": "weld-rotator-ground-tower.step",
         "ground-arm": "weld-rotator-ground-arm.step",
@@ -1253,16 +1482,22 @@ def main():
         "WR_BASE_Z": f"{BASE_Z:.0f}",
         "WR_BASE_CLEARANCE": f"{BASE_FOOT_H:.0f}",
         "WR_SERVICE_BORE": f"{SERVICE_BORE_D:.0f}",
-        "WR_RETAINER_POCKET": f"{RETAINER_POCKET_D:.0f}",
+        "WR_SPOOL_POCKET": f"{SPOOL_POCKET_D:.0f}",
         "WR_BALLS": f"{BALL_COUNT}",
         "WR_BALL_D": f"{BALL_D:.0f}",
         "WR_BALL_RACE": f"{2.0 * BALL_RACE_R:.0f}",
         "WR_BALL_PITCH": f"{ball_pitch:.1f}",
+        "WR_RACE_RING_H": f"{RACE_RING_H:.0f}",
         "WR_TABLE_TEETH": f"{interface.TABLE_PULLEY_TEETH}",
         "WR_MOTOR_TEETH": f"{interface.MOTOR_PULLEY_TEETH}",
         "WR_RATIO": f"{interface.drive_ratio():.1f}:1",
         "WR_CENTER": f"{interface.belt_center_distance():.1f}",
         "WR_WRAP": f"{interface.small_pulley_wrap_degrees():.1f}°",
+        "WR_PULLEY_OPENING": f"{2.0 * _groove_half_width(PULLEY_TIP_R):.1f}",
+        "WR_BELT_Z0": f"{BELT_Z0:.1f}",
+        "WR_BELT_Z1": f"{BELT_Z1:.1f}",
+        "WR_MOTOR_FACE_Z": f"{MOTOR_FACE_Z:.1f}",
+        "WR_SKIN_H": f"{CARRIAGE_SKIN_H:.0f}",
         "WR_PILOT_OD": f"{PILOT_OD:.2f}",
         "WR_PILOT_H": f"{PILOT_H:.1f}",
         "WR_PILOT_CLEAR": f"{pilot_clearance:.2f}",
@@ -1282,7 +1517,7 @@ def main():
     for name, part in parts.items():
         bb = part.val().BoundingBox()
         print(
-            f"{name:12s} {bb.xlen:7.2f} × {bb.ylen:7.2f} × {bb.zlen:7.2f} mm  "
+            f"{name:14s} {bb.xlen:7.2f} × {bb.ylen:7.2f} × {bb.zlen:7.2f} mm  "
             f"{part.val().Volume() / 1000.0:8.1f} cm³"
         )
 
