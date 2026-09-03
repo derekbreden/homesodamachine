@@ -127,8 +127,9 @@ the belt tension. Two M5 × [12](WR_MOTOR_MOUNT_SCREW) countersunk screws come
 up through the arms into the rear pair of the motor's 47.14 mm flange square
 and hold it down. Their heads sit flush in the arms' underside and they reach
 [4.0](WR_MOTOR_MOUNT_REACH) mm into a [4.5](WR_MOTOR_MOUNT_TAPPED) mm tapped
-hole. The front pair of flange holes stays open: the belt's swept path crosses
-it at full tension.
+hole. Each verified [9.8](WR_MOTOR_MOUNT_HEAD) mm head sits in a
+[10.2](WR_MOTOR_MOUNT_CSK) mm 90-degree recess. The front pair of flange holes
+stays open: the belt's swept path crosses it at full tension.
 The fixture selftest intersects a belt proxy at both ends of the tension
 travel with every stationary part and requires 1.5 mm of clearance.
 
@@ -266,8 +267,10 @@ ring.
    23HS30-2804S face-down: the pulley passes the Ø38.6 hole and the Ø38.1
    pilot seats in the skin. Drive two M5 × [12](WR_MOTOR_MOUNT_SCREW)
    countersunk screws up through the arms into the rear flange holes and pull
-   them down evenly; they stop [0.5](WR_MOTOR_MOUNT_MARGIN) mm short of the
-   tapped holes' bottom, so seat them by the heads, not by feel for a bottom.
+   them down evenly. Confirm both [9.8](WR_MOTOR_MOUNT_HEAD) mm heads sit flush
+   inside their [10.2](WR_MOTOR_MOUNT_CSK) mm recesses; the screws stop
+   [0.5](WR_MOTOR_MOUNT_MARGIN) mm short of the tapped holes' bottom, so seat
+   them by the heads, not by feel for a bottom.
    Slide one pad down each Y side and advance the four M3 × 8 side screws
    evenly until the frame cannot rock.
 9. Hang the belt on the 90T pulley and hold the free bight open. Lower the
