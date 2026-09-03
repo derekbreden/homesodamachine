@@ -465,7 +465,7 @@ def carry_the_cut(root: Path, targets: list) -> list:
         return [], set()
     if _behind(root, targets):
         print(f"cutting {len(targets)} artifact target(s) this tree is behind on")
-        subprocess.run(["bazel", "build", *targets], cwd=str(root))
+        subprocess.run(["bazel", "build", "--keep_going", *targets], cwd=str(root))
     # ONE RULE THAT WOULD NOT CUT IS NOT THE OTHERS' PROBLEM, so the failed ones leave the set
     # rather than the reading, and every rule that did cut is still compared.
     failed = [t for t in targets if _behind(root, [t])] if _behind(root, targets) else []

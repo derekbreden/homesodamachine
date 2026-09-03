@@ -507,7 +507,7 @@ def _build_steps(work: Path) -> dict[str, Path]:
     add_render_frame(slide)
     slide_clean_step = _export_colored(slide, work / "mount-slide-clean.step")
     slide.add(
-        motion_arrow((-105.0, -23.0, -29.0), (1.0, 0.0, 0.0), 42.0, 9.0),
+        motion_arrow((-105.0, -23.0, -51.0), (1.0, 0.0, 0.0), 42.0, 9.0),
         name="slide-motion",
         color=motion_red,
     )
