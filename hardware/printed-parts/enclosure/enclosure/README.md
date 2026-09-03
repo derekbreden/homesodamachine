@@ -1168,6 +1168,14 @@ stands over the mouth here is the front column's socket boss on its own plinth, 
 floor opens for that alone. Aft of that run the lip is carried whole and the telescope
 is untouched.
 
+**The collet plate stands on two feet carried by front-bottom's flanks.** Each foot presents a
+[10 mm](PLATE_FOOT_X) X × [20 mm](PLATE_FOOT_Y) Y land on the seam plane, centred fore/aft
+on the steel, and keeps [3 mm](PLATE_FOOT_T) of section at its inboard edge. Its underside
+rises at [45°](PLATE_FOOT_ANGLE) from the flank. The lowest line is z
+[147 mm](PLATE_FOOT_LOW_Z), [1 mm](PLATE_FOOT_COND_Z_AIR) over the condenser+fan envelope's
+crown; over their common X/Y footprint the sloped face keeps
+[2 mm](PLATE_FOOT_COND_AIR) of air from that complete bounding box.
+
 The **collet plate goes in through the Z− face**, which is the seam face front-bottom mates
 on and the face this piece beds on. Its slot (`_plate_slot`) passes through the floor and opens
 on that plane, `plate_slot_slip` off the steel fore and aft at every height, and the mouth

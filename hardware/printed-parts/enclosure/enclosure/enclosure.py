@@ -1654,12 +1654,12 @@ plate_end_stock = 4.3        # continuous printed X return from either slot end 
                              # cavity-side wall; the 3 mm outer wall continues beyond it
 plate_cap_land = 1.0         # the flat the steel's top edge lands on, taken off the tee wall's
                              # fore face — the plate's Z datum, wall to wall (`_plate_cap`)
-plate_foot_reach = 8.0       # front-bottom's foot inboard of the FLANK FACE, per end — with
+plate_foot_reach = 10.0      # front-bottom's foot inboard of the FLANK FACE, per end — with
                              # the `plate_step_in` the steel is already let into that flank, the
                              # bearing its bottom edge stands on (`_plate_foot`)
-plate_foot_grip = 2.0        # how far that foot runs past the steel's own two faces, either way
-plate_foot_t = 2.0           # that foot's own section at its inboard edge, before the 45°
-                             # under it takes it back into the flank
+plate_foot_y = 20.0          # total fore/aft bearing land, centred on the steel's own section
+plate_foot_t = 3.0           # the foot's section at its inboard edge
+plate_foot_corbel_angle = 45.0  # its underside rising inboard from the flank
 plate_guide_wedge = 3.0      # the cheek's extra section at the fixed outer wall, raked away
                              # to nothing at its inboard face over the guide's whole height
 
@@ -2586,6 +2586,22 @@ def _dims(pack):
             f"the lip's rim at {rim:.2f} reaches the deck's lowest wall-rooted plate at "
             f"{deck_floor:.2f} — a plate roots on a wall only above the rim. Lower "
             f"`z_seam`, or raise the deck"])))
+    if pack.collet_plate and "condenser+fan" in placed:
+        condenser_box = _boxes.boxed(placed["condenser+fan"][0])
+        foot_air = plate_foot_envelope_clearance(
+            pack.collet_plate, splits[0], condenser_box)
+        foot_clear = math.isinf(foot_air) or foot_air > stated_bound_tol
+        record_bound(Bound(
+            "plate-foot-condenser-envelope",
+            "The collet-plate feet stay outside the condenser+fan envelope",
+            foot_clear,
+            ("foot and envelope are disjoint in plan" if math.isinf(foot_air)
+             else f"{foot_air:.2f} mm air over the complete bounding box"),
+            "positive air outside the complete condenser+fan bounding box",
+            ([] if foot_clear else [
+                f"the +X collet-plate foot enters the condenser+fan bounding box by "
+                f"{-foot_air:.2f} mm; shorten its reach, thin its section, or raise its "
+                f"supportless underside"])))
     band_bosses = seam_bosses(inner, y_joint, splits)
     # What the pack still has to earn is the clearance. A body on the slab is held one
     # `side_band_inset` off the ±X walls where the seam's bosses stand — `seam_bosses`, the
@@ -4534,26 +4550,52 @@ def _plate_foot(inner, plate, zj):
     onto that one narrow line at the extreme end of a 200 mm plate. Topped here, foot and flank
     are one continuous land `plate_step_in() + plate_foot_reach` wide at each end.
 
-    AND IT IS THE STEEL'S FOOTPRINT AND NOT THE FRONT RUN. What has to have something under it is
-    the plate, which is `PLATE_T` of the mouth's depth — so this is that plus `plate_foot_grip`
-    either way, and the mouth face fore of it is the flank's own, unbroken and flush. A land run
-    on to the front wall is fifty millimetres of ledge standing in the seam mouth under nothing.
+    AND IT IS A 10 BY 20 LAND AND NOT THE FRONT RUN. Across it reaches `plate_foot_reach` inboard
+    of the flank. Fore to aft, `plate_foot_y` is centred on the steel's own two faces, putting the
+    same bearing stock on either side. The mouth face fore of it is the flank's own, unbroken and
+    flush. A land run on to the front wall is fifty millimetres of ledge standing in the seam
+    mouth under nothing.
 
-    AND ITS UNDERSIDE IS A 45° BACK TO THE FLANK. This piece prints floor-down and builds in +Z,
-    so a foot struck square here would be a `plate_foot_reach` soffit with nothing beneath it.
-    Taken back at that angle it is a surface the print grows into off the wall it stands on — and
-    a gusset in the flank's top corner besides."""
+    ITS UNDERSIDE RISES AT 45° BACK FROM THE FLANK. This piece prints floor-down and builds in
+    +Z, so a foot struck square here would be a `plate_foot_reach` soffit with nothing beneath it.
+    The sloped face grows off the wall it stands on and keeps the +X foot above the
+    condenser+fan's complete bounding box."""
     fx0, fx1 = front_bottom_flank_face()
     t, top = plate_foot_t, zj
-    y0, y1 = plate["fore_y"] - plate_foot_grip, plate["aft_y"] + plate_foot_grip
+    ym = (plate["fore_y"] + plate["aft_y"]) / 2.0
+    y0, y1 = ym - plate_foot_y / 2.0, ym + plate_foot_y / 2.0
+    drop = plate_foot_reach * math.tan(math.radians(plate_foot_corbel_angle))
     out = None
     for x_face, into in ((fx0, 1.0), (fx1, -1.0)):
         x_in = x_face + into * plate_foot_reach
         foot = _xz_prism(y0, y1, [
             (x_in, top), (x_face, top),
-            (x_face, top - t - plate_foot_reach), (x_in, top - t)])
+            (x_face, top - t - drop), (x_in, top - t)])
         out = foot if out is None else out.fuse(foot)
     return out
+
+
+def plate_foot_envelope_clearance(plate, zj, envelope):
+    """Least vertical air between either plate foot's underside and a bounding box below it.
+
+    Only the common X/Y footprint is read. The condenser+fan is carried as a calipered envelope,
+    so this is the clearance its whole box receives even where its simplified solid is air."""
+    ym = (plate["fore_y"] + plate["aft_y"]) / 2.0
+    y0, y1 = ym - plate_foot_y / 2.0, ym + plate_foot_y / 2.0
+    if min(y1, envelope.ymax) <= max(y0, envelope.ymin):
+        return math.inf
+    slope = math.tan(math.radians(plate_foot_corbel_angle))
+    clearances = []
+    for x_face, into in zip(front_bottom_flank_face(), (1.0, -1.0)):
+        x_in = x_face + into * plate_foot_reach
+        lo, hi = sorted((x_face, x_in))
+        overlap_lo = max(lo, envelope.xmin)
+        overlap_hi = min(hi, envelope.xmax)
+        if overlap_hi <= overlap_lo:
+            continue
+        run = max(abs(overlap_lo - x_in), abs(overlap_hi - x_in))
+        clearances.append(zj - plate_foot_t - run * slope - envelope.zmax)
+    return min(clearances, default=math.inf)
 
 
 def _back_bottom_flank_skin(inner, y_joint, zj):
@@ -5658,6 +5700,10 @@ def pump_cartridge_figures(box):
     cartridge_top = bay[2] - pump_cartridge_z_clearance
     head_floor = min(cz - _tray.head_depth for _cx, _cy, cz in trays)
     motor_crown = max(cz + _tray.motor_crown for _cx, _cy, cz in trays)
+    condenser_box = _boxes.boxed(box.pack.placed["condenser+fan"][0])
+    foot_low = (box.splits[0] - plate_foot_t
+                - plate_foot_reach * math.tan(math.radians(plate_foot_corbel_angle)))
+    foot_air = plate_foot_envelope_clearance(plate, box.splits[0], condenser_box)
     return {
         "PUMP_STATION_DROP": f"{pump_station_drop:.4g} mm",
         "PUMP_BAY_FLOOR_RELIEF": f"{pump_bay_floor_relief:.4g} mm",
@@ -5745,6 +5791,13 @@ def pump_cartridge_figures(box):
         "PLATE_CAP_LAND": f"{plate_cap_land:.4g} mm",
         "PLATE_STEP_IN": f"{plate_step_in():.4g} mm",
         "PLATE_STEP_Z": f"{seam_cap_z():.4g} mm",
+        "PLATE_FOOT_X": f"{plate_foot_reach:.4g} mm",
+        "PLATE_FOOT_Y": f"{plate_foot_y:.4g} mm",
+        "PLATE_FOOT_T": f"{plate_foot_t:.4g} mm",
+        "PLATE_FOOT_ANGLE": f"{plate_foot_corbel_angle:.4g}°",
+        "PLATE_FOOT_LOW_Z": f"{foot_low:.6g} mm",
+        "PLATE_FOOT_COND_Z_AIR": f"{foot_low - condenser_box.zmax:.4g} mm",
+        "PLATE_FOOT_COND_AIR": f"{foot_air:.4g} mm",
         "PLATE_GUIDE_WEDGE": f"{plate_guide_wedge:.4g} mm",
         "PLATE_CAP_Z": f"{plate['z1']:.4g} mm",
         "PLATE_CAP_FORE_Z": f"{plate_cap_fore_z(plate):.6g} mm",
