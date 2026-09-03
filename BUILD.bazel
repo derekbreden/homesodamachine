@@ -6157,7 +6157,6 @@ genrule(
         "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-arm.step",
         "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-shoe.step",
         "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-tower.step",
-        "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-jaw-cap.step",
         "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.step",
         "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-clamp-pad.step",
         "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-tower.step",
@@ -6179,18 +6178,17 @@ O3=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotato
 O4=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-arm.step)
 O5=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-shoe.step)
 O6=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-tower.step)
-O7=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-jaw-cap.step)
-O8=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.step)
-O9=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-clamp-pad.step)
-O10=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-tower.step)
-O11=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-pulley-coupon.step)
-O12=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-race-ring.step)
-O13=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-spool.step)
-O14=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-tube-nest.step)
-O15=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-turntable-90t.step)
-O16=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/README.figures.json)
-O17=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/README.md)
-O18=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld_rotator.py)
+O7=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.step)
+O8=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-clamp-pad.step)
+O9=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-tower.step)
+O10=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-pulley-coupon.step)
+O11=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-race-ring.step)
+O12=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-spool.step)
+O13=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-tube-nest.step)
+O14=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-turntable-90t.step)
+O15=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/README.figures.json)
+O16=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/README.md)
+O17=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld_rotator.py)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -6214,18 +6212,17 @@ cp hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base.step $$O3
 cp hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-arm.step $$O4
 cp hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-shoe.step $$O5
 cp hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-tower.step $$O6
-cp hardware/printed-parts/fixtures/weld-rotator/weld-rotator-jaw-cap.step $$O7
-cp hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.step $$O8
-cp hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-clamp-pad.step $$O9
-cp hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-tower.step $$O10
-cp hardware/printed-parts/fixtures/weld-rotator/weld-rotator-pulley-coupon.step $$O11
-cp hardware/printed-parts/fixtures/weld-rotator/weld-rotator-race-ring.step $$O12
-cp hardware/printed-parts/fixtures/weld-rotator/weld-rotator-spool.step $$O13
-cp hardware/printed-parts/fixtures/weld-rotator/weld-rotator-tube-nest.step $$O14
-cp hardware/printed-parts/fixtures/weld-rotator/weld-rotator-turntable-90t.step $$O15
-cp hardware/printed-parts/fixtures/weld-rotator/README.figures.json $$O16
-cp hardware/printed-parts/fixtures/weld-rotator/README.md $$O17
-cp hardware/printed-parts/fixtures/weld-rotator/weld_rotator.py $$O18
+cp hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.step $$O7
+cp hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-clamp-pad.step $$O8
+cp hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-tower.step $$O9
+cp hardware/printed-parts/fixtures/weld-rotator/weld-rotator-pulley-coupon.step $$O10
+cp hardware/printed-parts/fixtures/weld-rotator/weld-rotator-race-ring.step $$O11
+cp hardware/printed-parts/fixtures/weld-rotator/weld-rotator-spool.step $$O12
+cp hardware/printed-parts/fixtures/weld-rotator/weld-rotator-tube-nest.step $$O13
+cp hardware/printed-parts/fixtures/weld-rotator/weld-rotator-turntable-90t.step $$O14
+cp hardware/printed-parts/fixtures/weld-rotator/README.figures.json $$O15
+cp hardware/printed-parts/fixtures/weld-rotator/README.md $$O16
+cp hardware/printed-parts/fixtures/weld-rotator/weld_rotator.py $$O17
 """,
 )
 
@@ -15005,7 +15002,6 @@ sh_test(
         "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-arm.step",
         "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-shoe.step",
         "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-tower.step",
-        "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-jaw-cap.step",
         "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.step",
         "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-clamp-pad.step",
         "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-tower.step",

@@ -22,7 +22,7 @@ the laser.
 | Reduction | Purchased 20T × 15 mm HTD-5M pulley, purchased 550-5M-15 belt, integral printed 90T pulley |
 | Controller | Acquired ESP32-DevKitC-32E and ULN2803A module |
 | Indicating | Ordered Neoteck 0.0005-inch test indicator and magnetic base |
-| Structure | PET-GF base and four riser feet, rail motor tower, sliding motor carriage and pads, turntable with a screwed-on upper race ring and spool, tube nest, jaw caps, bearing cage and continuity arm |
+| Structure | PET-GF base and four riser feet, rail motor tower, sliding motor carriage and pads, turntable with a screwed-on upper race ring and spool, tube nest, bearing cage and continuity arm |
 | Rotary bearing | 36 acquired 10 mm PP balls on a 165 mm pitch circle |
 | Work contact | Stationary shoe cut from the acquired 1/4-inch C110 copper flat bar |
 
@@ -124,12 +124,15 @@ The replaceable 150 mm nest uses three surfaces:
 
 - a 123.30 mm × 4.5 mm ID pilot, giving 0.20 mm nominal radial clearance;
 - a 127.80 mm OD guide, giving 0.40 mm nominal radial clearance;
-- three curved jaw caps at 120°, driven by M3 screws.
+- three direct-contact M3 adjusters at 120°, installed through radial heat-set
+  inserts in the outer collar.
 
 The pilot is shorter than the 6.35 mm end-cap recess. A welded plate therefore
 clears it, while a bare tube still supplies the same ID datum. The loose guides
 load the part repeatably without forcing a thin, slightly oval tube round; the
-three screws supply the final indicator adjustment.
+three screws supply the final indicator adjustment through continuous radial
+passages to the tube OD. Their stations are staggered between the nest-retainer
+wells, with the ID pilot backing the tube at each contact.
 
 Three M3 × 10 screws retain the nest to the turntable. Each is installed from
 above through a straight Ø6.2 mm well in the nest's ID pilot and seats in a
@@ -144,9 +147,9 @@ is:
 - radial runout at the weld end **≤ 0.25 mm TIR**;
 - end-cap face runout at the weld circle **≤ 0.30 mm TIR**.
 
-A part outside either limit is not corrected with more jaw force. Verify that
+A part outside either limit is not corrected with more screw force. Verify that
 the lower rim is seated, then square the tube end or correct the end-cap seat.
-The jaw screws locate; they do not crush the 0.065-inch wall.
+The adjusters touch lightly; they do not deform the 0.065-inch wall.
 
 ## Continuous work contact
 
@@ -261,8 +264,8 @@ orientation is set only after this direction convention is true.
 
 1. Clamp the base to the bench. Confirm laser disabled, pedal released and
    controller in `mode jog`.
-2. Seat the tube's opposite end in the nest. Snug all three jaws and indicate
-   the working end to ≤0.25 mm radial TIR.
+2. Seat the tube's opposite end in the nest. Bring all three tube adjusters to
+   light contact and indicate the working end to ≤0.25 mm radial TIR.
 3. Seat and tack the end plate per `pressure-vessel.md`; verify ≤0.30 mm face
    TIR. For the first closure, feed back-purge argon through the open held end.
    For the second, connect purge to one completed lower-plate port through the
