@@ -131,6 +131,10 @@ clears it, while a bare tube still supplies the same ID datum. The loose guides
 load the part repeatably without forcing a thin, slightly oval tube round; the
 three screws supply the final indicator adjustment.
 
+Three M3 × 10 screws retain the nest to the turntable. Each is installed from
+above through a straight Ø6.2 mm well in the nest's ID pilot and seats in a
+recess in the 8 mm base.
+
 With the tube seated, seat the indicator's magnetic base on the exposed
 stationary steel lamination face of the NEMA 23, lock both arm joints, and
 shake-test it. PET-GF and the 316L tube are not magnetic-base datums. Indicate
