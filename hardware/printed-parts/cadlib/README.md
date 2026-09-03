@@ -9,4 +9,6 @@ Read `_world_workplane.md` if your generator uses `xz_plane_y_up` (or any other 
 `flute_skin.py` cuts the fluted show surfaces into the mesh a printer reads, and
 `flute-evidence/` holds the two full-size photographs its appearance claims are read off.
 
+`plan.py` holds a set of pockets as one figure in the XY plane — union, a closing that fills any gap narrower than a wall, the stock's plan as the edge — and cuts the prism that stands on it, mouths rounded where the figure turns and square where it leaves the stock.
+
 `reeding.py` is the flute vocabulary the texture generators share — fields that read (across, along) in mm ON the surface, so a tile and a standing wall lay down the same texture.
