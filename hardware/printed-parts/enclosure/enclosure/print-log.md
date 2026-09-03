@@ -1,14 +1,15 @@
 # enclosure print log
 
-Format: facts only. Direct quotes from Derek where applicable. Settings observed in
-committed `.3mf` snapshots.
+Format: facts only. Direct quotes from Derek where applicable. Settings observed in `.3mf`
+snapshots retained only in Git history. The explicit `git:<revision>:<path>` references below
+are evidence for these printed plates, not current slicer deliverables.
 
 Geometry: the six-piece box from
 [`enclosure.py`](/hardware/printed-parts/enclosure/enclosure/enclosure.py) — four quadrants,
 the lower pump cradle and its top clamp, one piece per plate — sizes in
 [README.md](README.md), which the generator writes.
 
-## The PETG exterior profile (settings per [`enclosure-front-top-0.4mm-16hours.3mf`](enclosure-front-top-0.4mm-16hours.3mf))
+## The PETG exterior profile (settings per history-only `git:aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a:hardware/printed-parts/enclosure/enclosure/enclosure-front-top-0.4mm-16hours.3mf`)
 
 The geometry every exterior piece is cut to, sliced in PETG — the four quadrants, the pump
 lower pump cradle, and its top clamp. The front-top, the largest of them, takes **16
@@ -46,7 +47,7 @@ The model sits on the plate at scale 1.0 and identity rotation, so the piece sta
 box's own frame with +Z up — the orientation [README.md](README.md) "Print orientation +
 corner relief" strikes every 45° relief on.
 
-## The PET-GF15 exterior (settings per [`enclosure-front-top-petgf.3mf`](enclosure-front-top-petgf.3mf))
+## The PET-GF15 exterior (settings per history-only `git:aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a:hardware/printed-parts/enclosure/enclosure/enclosure-front-top-petgf.3mf`)
 
 What every exterior piece ships on: Polymaker Fiberon PET-GF15 on the Bambu 0.4 mm tungsten
 carbide hotend, left side ([tools.md](/hardware/ledger/tools.md), [bom.md
@@ -78,7 +79,7 @@ Settings:
 
 Wall count, infill, support style, brim and seam are the PETG exterior profile's above; top
 shells are 5 against 4 and `support_threshold_angle` is 30° against 35°. What the filament
-moves, read off the two committed slices:
+moves, read off the two history snapshots:
 
 | | PETG (`Bambu PETG Basic`) | PET-GF15 (`Polymaker PET-GF`) |
 |---|---|---|
@@ -137,7 +138,7 @@ that and the plate is the supports and the brim, which §7 does not bill.
 0.653 kg as the exterior's measured **31.2 h/kg**, so the supports are back in the hours even
 though they are out of the mass.
 
-## The back-top plate (settings per [`enclosure-back-top-petgf.3mf`](enclosure-back-top-petgf.3mf))
+## The back-top plate (settings per history-only `git:aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a:hardware/printed-parts/enclosure/enclosure/enclosure-back-top-petgf.3mf`)
 
 The back-top on the same Polymaker Fiberon PET-GF15 stock as the section above, sliced on the
 faucet's profile rather than the exterior's: `0.24mm PET-GF faucet`, 265 °C with the fan on
@@ -167,13 +168,13 @@ Settings:
 
 ### Support-removal audit
 
-The current fluted back-top STL, substituted into a temporary copy of the production project
-above and sliced by BambuStudio 02.08.02.61, has **5 connected support bodies** reaching **27
-interface islands**. All five start at print z 0.20 on the bed; none starts on model material.
-Their shortest base-to-first-interface build-ups are **92.16, 103.44, 160.80, 170.64 and
-191.04 mm**. There are no bodies in the under-5, 5–10 or 10–15 mm bands and the first interface is at print z
+The current fluted back-top STL, substituted into a temporary copy of the history-only production
+project above and sliced by BambuStudio 02.08.02.61, has **4 connected support bodies** reaching
+**27 interface islands**. All four start at print z 0.20 on the bed; none starts on model material.
+Their shortest base-to-first-interface build-ups are **92.16, 103.44, 160.80 and 170.64 mm**.
+There are no bodies in the under-5, 5–10 or 10–15 mm bands and the first interface is at print z
 **92.36 mm**. The hashed toolpath reading is
-[`enclosure-back-top.support-audit.json`](enclosure-back-top.support-audit.json); the five
+[`enclosure-back-top.support-audit.json`](enclosure-back-top.support-audit.json); the four
 retained bodies and the geometric reason for each are named in
 [`support-audit.json`](support-audit.json).
 
@@ -181,7 +182,7 @@ The snapshot carries the **+0.02 mm first-layer z-trim**
 ([z-trim.md](/hardware/printed-parts/z-trim.md)) — `G29.1 Z{0.0}` on this plate and nozzle
 against Bambu's stock `Z{-0.02}`. The run above is the stock compensation.
 
-The plate stands 251.03 × 286.48 mm and the mesh is 1,219,384 faces, `mesh_stat` all zeros —
+The plate stands 251.03 × 286.48 mm and the mesh is 1,132,024 faces, `mesh_stat` all zeros —
 no edges fixed, no degenerate facets, none removed and none reversed.
 
 **No time or length to carry.** The archive holds the project and no g-code, so unlike the
@@ -194,7 +195,7 @@ alone.
 Same stock, same nozzle, and the same volumetric cap, flow ratio and retraction. What the
 faucet profile moves:
 
-| | exterior ([`enclosure-front-top-petgf.3mf`](enclosure-front-top-petgf.3mf)) | back-top (this plate) |
+| | exterior (history-only `enclosure-front-top-petgf.3mf`) | back-top (this plate) |
 |---|---|---|
 | Print profile | `0.20mm Standard @BBL H2C` | **`0.24mm PET-GF faucet`** |
 | Layer height | 0.20 mm | **0.24 mm** |

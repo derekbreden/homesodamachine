@@ -40,13 +40,14 @@ Each carrier adds the value in its name to all four stock branches, so
 `z-trim-0.07.3mf` on a textured plate with the 0.4 mm nozzle emits `G29.1 Z{0.05}` — stock
 −0.02 plus 0.07. The files run 0.01 to 0.20 in 0.01 steps.
 
-What the committed files stand on — [`petgf.3mf`](petgf.3mf) is the PET-GF 0.4 mm working
-profile, whichever models are loaded into it at the time:
+What the retained working file and the back-top's history snapshot stand on —
+[`petgf.3mf`](petgf.3mf) is the PET-GF 0.4 mm working profile, whichever models are loaded into
+it at the time:
 
 | file | trim | printer preset |
 | --- | --- | --- |
 | [`petgf.3mf`](petgf.3mf) | +0.17 | `Bambu Lab H2C 0.4 nozzle 17 first layer by agent` |
-| [`enclosure/enclosure/enclosure-back-top-petgf.3mf`](/hardware/printed-parts/enclosure/enclosure/enclosure-back-top-petgf.3mf) | +0.02 | `Bambu Lab H2C 0.4 nozzle`, the start G-code its one project override |
+| history-only `git:aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a:hardware/printed-parts/enclosure/enclosure/enclosure-back-top-petgf.3mf` | +0.02 | `Bambu Lab H2C 0.4 nozzle`, the start G-code its one project override |
 
 The working profile runs its **first layer at 280 °C**, the same nozzle temperature as the
 rest of the print rather than a cooler one. What asked for that, and for the trim above, is

@@ -26,7 +26,7 @@
     "gcode_sha256": "d5a0ca4be51ab33b5042585361cee37d222fa2179b6c3e31528b7defcd56a2f4",
     "model": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
     "model_sha256": "0556a1c4b2ae3ac8208efa810807c453dc71e04aa557e5e1e5645f757740c5ec",
-    "profile": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap-petgf.3mf",
+    "profile": "git:aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a:hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap-petgf.3mf",
     "profile_sha256": "d50dd6389b9202491a5e71567ffc2f962acb484c4924a46088783e0ccf3208fa"
   },
   "interfaces": [

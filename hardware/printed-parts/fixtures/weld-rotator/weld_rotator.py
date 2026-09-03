@@ -34,7 +34,7 @@ sys.path.insert(0, str(_repo / "tools"))
 sys.path.insert(0, str(_here.parent))
 
 from _cadq_export import export_assembly  # noqa: E402
-from _materials import (  # noqa: E402
+from _material_base import (  # noqa: E402
     M_ALUMINIUM,
     M_COPPER,
     M_PETGF_BLACK,
