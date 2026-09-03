@@ -24,7 +24,7 @@ the laser.
 | Indicating | Ordered Neoteck 0.0005-inch test indicator and magnetic base |
 | Structure | PET-GF base and four riser feet, rail motor tower, sliding motor carriage and pads, turntable with a screwed-on upper race ring and spool, tube nest, bearing cage and continuity arm |
 | Rotary bearing | 36 acquired 10 mm PP balls on a 165 mm pitch circle |
-| Work contact | Stationary shoe cut from the acquired 1/4-inch C110 copper flat bar |
+| Work contact | Stationary 6 × 25 × 50 mm shoe cut from nominal 1/4 × 1 inch C110 copper flat bar |
 
 The order records and ownership status are in
 [`purchases.md`](/hardware/ledger/purchases.md). Printable geometry, individual
@@ -153,11 +153,13 @@ The adjusters touch lightly; they do not deform the 0.065-inch wall.
 
 ## Continuous work contact
 
-The laser's work lead clamps to the exposed top of the stationary C110 shoe.
-The PET-GF ground arm places its face 1.0 mm inside the nominal tube surface, so
-its long in-plane leaf stays loaded against the tube through runout. The PP
-balls and printed races are not part of the electrical path, and no cable turns
-with the vessel.
+The laser's work lead clamps to the exposed 38 mm top of the stationary C110
+shoe. The PET-GF ground arm places its face 1.0 mm inside the nominal tube
+surface, so its 5 mm in-plane leaf stays loaded against the tube through
+runout. The shoe fork accepts nominal 1/4 × 1 inch bar from 6 to 7 mm thick;
+the tapped retaining hole locates its contact face independently of stock
+thickness. The PP balls and printed races are not part of the electrical path,
+and no cable turns with the vessel.
 
 Scuff the tube contact stripe and copper immediately before use. With the laser
 disabled, meter shoe-to-tube continuity through two dry revolutions. Any blink

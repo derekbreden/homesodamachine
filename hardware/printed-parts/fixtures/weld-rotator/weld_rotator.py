@@ -278,7 +278,7 @@ MOTOR_CLAMP_SCREW_LENGTH = 8.0
 # A stationary copper shoe gives the laser welder's continuity interlock a
 # path that does not travel through the polymer bearing or wind a work cable
 # around the vessel.  Its PET-GF arm is a replaceable in-plane leaf spring;
-# the shoe is cut from the acquired 1/4 inch C110 bar.
+# the shoe is cut from nominal 6 x 25 mm (1/4 x 1 inch) C110 flat bar.
 GROUND_BASE_POINTS = (
     (-99.5, -60.0),
     (-99.5, -40.0),
@@ -303,18 +303,32 @@ GROUND_PAD_X0 = -117.0
 GROUND_PAD_X1 = -99.0
 GROUND_PAD_Y0 = -65.0
 GROUND_PAD_Y1 = -35.0
-GROUND_BEAM_X0 = -105.7
-GROUND_BEAM_X1 = -103.3
+GROUND_BEAM_CENTER_X = -104.5
+GROUND_BEAM_T = 5.0
+GROUND_BEAM_X0 = GROUND_BEAM_CENTER_X - GROUND_BEAM_T / 2.0
+GROUND_BEAM_X1 = GROUND_BEAM_CENTER_X + GROUND_BEAM_T / 2.0
 GROUND_BEAM_Y0 = -40.0
 GROUND_BEAM_Y1 = 5.0
-GROUND_SHOE_BACK_X = -68.85
-GROUND_SHOE_FRONT_X = GROUND_SHOE_BACK_X + 6.35
-GROUND_SHOE_Y = 20.0
-GROUND_SHOE_Z = 30.0
+GROUND_NOSE_Y = 10.0
+GROUND_SPRING_FILLET_R = 2.0
+GROUND_SHOE_FRONT_X = -62.5
+GROUND_SHOE_T = 6.0
+GROUND_SHOE_MAX_T = 7.0
+GROUND_SHOE_BACK_X = GROUND_SHOE_FRONT_X - GROUND_SHOE_T
+GROUND_SHOE_Y = 25.0
+GROUND_SHOE_SIDE_CLEARANCE = 0.75
+GROUND_SHOE_Z = 50.0
 GROUND_SHOE_Z0 = GROUND_TOP_Z - 1.0
 GROUND_HOLDER_H = 12.0
+GROUND_HOLDER_BACK_T = 3.0
+GROUND_HOLDER_BACK_CLEARANCE = 0.25
+GROUND_HOLDER_BACK_FACE_X = (
+    GROUND_SHOE_FRONT_X - GROUND_SHOE_MAX_T - GROUND_HOLDER_BACK_CLEARANCE
+)
+GROUND_HOLDER_FRONT_X = -64.0
+GROUND_HOLDER_SIDE_T = 3.0
 GROUND_SHOE_SCREW_D = 3.4
-GROUND_SHOE_SCREW_X = -66.0
+GROUND_SHOE_SCREW_X = GROUND_SHOE_FRONT_X - GROUND_SHOE_T / 2.0
 GROUND_SHOE_SCREW_Z = GROUND_TOP_Z + GROUND_ARM_H / 2.0
 GROUND_ARM_SHANK_D = 3.4
 GROUND_ARM_INSERT_D = 4.0
@@ -994,33 +1008,78 @@ def build_ground_arm():
              centered=(True, True, False))
     )
     nose = (
-        cq.Workplane("XY", origin=((GROUND_BEAM_X0 + GROUND_SHOE_BACK_X) / 2.0,
-                                    0.0,
-                                    GROUND_TOP_Z))
-        .box(GROUND_SHOE_BACK_X - GROUND_BEAM_X0,
-             10.0,
+        cq.Workplane(
+            "XY",
+            origin=((GROUND_BEAM_X0 + GROUND_HOLDER_BACK_FACE_X) / 2.0,
+                    0.0,
+                    GROUND_TOP_Z),
+        )
+        .box(GROUND_HOLDER_BACK_FACE_X - GROUND_BEAM_X0,
+             GROUND_NOSE_Y,
              GROUND_ARM_H,
              centered=(True, True, False))
     )
     back = (
-        cq.Workplane("XY", origin=(-70.4, 0.0, GROUND_SHOE_Z0))
-        .box(3.1, GROUND_SHOE_Y + 6.0, GROUND_HOLDER_H,
+        cq.Workplane(
+            "XY",
+            origin=(GROUND_HOLDER_BACK_FACE_X - GROUND_HOLDER_BACK_T / 2.0,
+                    0.0,
+                    GROUND_SHOE_Z0),
+        )
+        .box(GROUND_HOLDER_BACK_T,
+             GROUND_SHOE_Y
+             + 2.0 * (GROUND_SHOE_SIDE_CLEARANCE + GROUND_HOLDER_SIDE_T),
+             GROUND_HOLDER_H,
              centered=(True, True, False))
     )
     side_lugs = (
-        cq.Workplane("XY", origin=((GROUND_SHOE_BACK_X - 64.0) / 2.0,
-                                    -(GROUND_SHOE_Y / 2.0 + 1.5),
-                                    GROUND_SHOE_Z0))
-        .box(-64.0 - GROUND_SHOE_BACK_X, 3.0, GROUND_HOLDER_H,
+        cq.Workplane(
+            "XY",
+            origin=((GROUND_HOLDER_BACK_FACE_X + GROUND_HOLDER_FRONT_X) / 2.0,
+                    -(GROUND_SHOE_Y / 2.0
+                      + GROUND_SHOE_SIDE_CLEARANCE
+                      + GROUND_HOLDER_SIDE_T / 2.0),
+                    GROUND_SHOE_Z0),
+        )
+        .box(GROUND_HOLDER_FRONT_X - GROUND_HOLDER_BACK_FACE_X,
+             GROUND_HOLDER_SIDE_T,
+             GROUND_HOLDER_H,
              centered=(True, True, False))
     ).union(
-        cq.Workplane("XY", origin=((GROUND_SHOE_BACK_X - 64.0) / 2.0,
-                                    GROUND_SHOE_Y / 2.0 + 1.5,
-                                    GROUND_SHOE_Z0))
-        .box(-64.0 - GROUND_SHOE_BACK_X, 3.0, GROUND_HOLDER_H,
+        cq.Workplane(
+            "XY",
+            origin=((GROUND_HOLDER_BACK_FACE_X + GROUND_HOLDER_FRONT_X) / 2.0,
+                    GROUND_SHOE_Y / 2.0
+                    + GROUND_SHOE_SIDE_CLEARANCE
+                    + GROUND_HOLDER_SIDE_T / 2.0,
+                    GROUND_SHOE_Z0),
+        )
+        .box(GROUND_HOLDER_FRONT_X - GROUND_HOLDER_BACK_FACE_X,
+             GROUND_HOLDER_SIDE_T,
+             GROUND_HOLDER_H,
              centered=(True, True, False))
     )
-    arm = pad.union(beam).union(nose).union(back).union(side_lugs)
+    spring = pad.union(beam).union(nose)
+    spring_fillet_points = (
+        (GROUND_BEAM_X0, GROUND_PAD_Y1),
+        (GROUND_BEAM_X1, GROUND_PAD_Y1),
+        (GROUND_BEAM_X0, GROUND_NOSE_Y / 2.0),
+        (GROUND_BEAM_X1, -GROUND_NOSE_Y / 2.0),
+    )
+    spring_fillet_edges = [
+        edge
+        for edge in spring.edges("|Z").vals()
+        if any(
+            math.hypot(edge.Center().x - x, edge.Center().y - y) < 1e-6
+            for x, y in spring_fillet_points
+        )
+    ]
+    if len(spring_fillet_edges) != len(spring_fillet_points):
+        raise ValueError("ground spring corner selection changed")
+    spring = cq.Workplane(
+        obj=spring.val().fillet(GROUND_SPRING_FILLET_R, spring_fillet_edges)
+    )
+    arm = spring.union(back).union(side_lugs)
 
     for x, y in GROUND_ARM_POINTS:
         hole = (
@@ -1041,9 +1100,11 @@ def build_ground_arm():
     shoe_screw = cq.Workplane(
         obj=cq.Solid.makeCylinder(
             GROUND_SHOE_SCREW_D / 2.0,
-            7.0,
+            GROUND_HOLDER_SIDE_T + GROUND_SHOE_SIDE_CLEARANCE + 0.2,
             cq.Vector(GROUND_SHOE_SCREW_X,
-                      -GROUND_SHOE_Y / 2.0 - 3.0,
+                      -GROUND_SHOE_Y / 2.0
+                      - GROUND_SHOE_SIDE_CLEARANCE
+                      - GROUND_HOLDER_SIDE_T,
                       GROUND_SHOE_SCREW_Z),
             cq.Vector(0.0, 1.0, 0.0),
         )
@@ -1399,6 +1460,29 @@ def selftest():
     ground_preload = GROUND_SHOE_FRONT_X + interface.TUBE_OD / 2.0
     if not 0.5 <= ground_preload <= 2.0:
         raise ValueError(f"ground shoe preload is {ground_preload:.2f} mm")
+    flexure_free_length = -GROUND_NOSE_Y / 2.0 - GROUND_PAD_Y1
+    flexure_surface_strain = (
+        1.5 * GROUND_BEAM_T * ground_preload / flexure_free_length**2
+    )
+    if flexure_surface_strain > 0.01:
+        raise ValueError("ground flexure exceeds 1% nominal outer-fibre strain")
+    if _overlap(parts["ground-arm"], parts["ground-shoe"]) > 1e-4:
+        raise ValueError("ground arm consumes the copper-shoe fit clearance")
+    tube_proxy = build_tube_proxy()
+    if _overlap(parts["ground-arm"], tube_proxy) > 1e-4:
+        raise ValueError("ground arm reaches the tube before its copper shoe")
+    if _overlap(parts["ground-shoe"], tube_proxy) <= 1e-4:
+        raise ValueError("ground shoe has no nominal preload into the tube")
+    shoe_back_at_max_stock = GROUND_SHOE_FRONT_X - GROUND_SHOE_MAX_T
+    if shoe_back_at_max_stock <= GROUND_HOLDER_BACK_FACE_X:
+        raise ValueError("maximum copper stock thickness does not fit the ground arm")
+    shoe_screw_edge = GROUND_SHOE_SCREW_D / 2.0 + 1.0
+    if not (
+        shoe_back_at_max_stock + shoe_screw_edge
+        < GROUND_SHOE_SCREW_X
+        < GROUND_SHOE_FRONT_X - shoe_screw_edge
+    ):
+        raise ValueError("ground-shoe tap lacks copper around it")
     if GROUND_FOOT_X0 < BASE_X_MIN or GROUND_FOOT_Y0 < BASE_Y_MIN:
         raise ValueError("ground tower falls outside the stationary base")
 
@@ -1525,6 +1609,11 @@ def main():
         "WR_RECESS": f"{interface.ENDCAP_RECESS:.2f}",
         "WR_NEST_OD": f"{NEST_OD:.0f}",
         "WR_NEST_RETAINER_ACCESS": f"{NEST_RETAINER_ACCESS_D:.1f}",
+        "WR_GROUND_BEAM_T": f"{GROUND_BEAM_T:.1f}",
+        "WR_GROUND_SHOE_EXPOSED": f"{GROUND_SHOE_Z - GROUND_HOLDER_H:.0f}",
+        "WR_GROUND_SHOE_T": f"{GROUND_SHOE_T:.0f}",
+        "WR_GROUND_SHOE_W": f"{GROUND_SHOE_Y:.0f}",
+        "WR_GROUND_SHOE_Z": f"{GROUND_SHOE_Z:.0f}",
         "WR_TUBE_ADJUSTER_BORE": f"{M3_ADJUSTER_SHANK_D:.1f}",
         "WR_TUBE_TOP": f"{NEST_SEAT_Z + NEST_BASE_H + interface.TUBE_LENGTH:.1f}",
         "WR_TUBE_TOP_BENCH": (

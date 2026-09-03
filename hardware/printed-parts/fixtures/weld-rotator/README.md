@@ -25,14 +25,14 @@ adjustment and never a reprint.
 | `weld-rotator-motor-carriage.step` | 1 | Sliding pilot skin and clamp walls for the purchased 23HS30-2804S motor |
 | `weld-rotator-motor-clamp-pad.step` | 2 | Load-spreading pads for the carriage's four M3 side screws |
 | `weld-rotator-ground-tower.step` | 1 | Stationary support for the continuity shoe |
-| `weld-rotator-ground-arm.step` | 1 | Replaceable in-plane leaf spring that holds the copper shoe on the tube |
+| `weld-rotator-ground-arm.step` | 1 | Replaceable [5.0](WR_GROUND_BEAM_T) mm in-plane leaf spring that holds the copper shoe on the tube |
 | `weld-rotator-turntable-90t.step` | 1 | Moving disk, 90T pulley, nest register, purge bore; flat underside carries the race ring and spool |
 | `weld-rotator-race-ring.step` | 1 | Upper bearing race, printed groove-up and screwed groove-down to the turntable |
 | `weld-rotator-spool.step` | 1 | Hub and lift-catch flange, inserted through the base and screwed up into the turntable |
 | `weld-rotator-pulley-coupon.step` | 1 first | Twelve grooves and both flanges; verifies the actual belt before the turntable print |
 | `weld-rotator-ball-cage.step` | 1 | Spaces the [36](WR_BALLS) stock Ø[10](WR_BALL_D) mm PP balls |
 | `weld-rotator-tube-nest.step` | 1 | Replaceable dual-surface register for the 5-inch tube end |
-| `weld-rotator-ground-shoe.step` | 1 C110 | 6.35 × 20 × 30 mm stationary contact cut from the acquired copper bar |
+| `weld-rotator-ground-shoe.step` | 1 C110 | [6](WR_GROUND_SHOE_T) × [25](WR_GROUND_SHOE_W) × [50](WR_GROUND_SHOE_Z) mm stationary contact cut from nominal 1/4 × 1 inch bar |
 | `weld-rotator-assembly.step` | — | Reference assembly with tube, balls, belt, motor, and 20T pulley proxies |
 
 All thirteen printable shapes are PET-GF. The base is deliberately a single
@@ -139,7 +139,7 @@ bearing drag and the vessel's inertia; it is intentionally not a wire-stick
 lock. If filler wire catches, release the deadman pedal and let the belt/motor
 yield instead of using the fixture as a rigid puller.
 
-## Fasteners and stock already in the ledger
+## Fasteners and stock
 
 - 36 × 10 mm PP bearing balls.
 - 1 × ESP32-DevKitC-32E, 1 × ESP32 screw-terminal breakout, and 1 ×
@@ -157,8 +157,13 @@ yield instead of using the fixture as a rigid puller.
   4 × M3 × 10 carriage screws, 4 × M3 × 8 motor-pad screws, 3 × M3 × 10 nest
   retainers, 3 × M3 × 25 tube adjusters, 2 × M3 × 12 ground-arm retainers, and
   1 × M3 × 10 ground-shoe screw into tapped copper.
-- One 6.35 × 20 × 30 mm shoe cut from the acquired 1/4-inch C110 copper flat
-  bar; drill and tap its lower side M3 for the retaining screw.
+- Cut one [50](WR_GROUND_SHOE_Z) mm shoe from nominal 1/4 × 1 inch C110
+  copper flat bar. The [12-inch HWYEE bar](https://www.amazon.com/dp/B0CSP36RQ7)
+  and [8-inch VERNUOS bar](https://www.amazon.com/dp/B0GT1JFRVP) share this
+  fit. The fork accepts 6–7 mm thickness and widths through 26.5 mm. From one
+  25 mm edge, drill and tap M3 with its axis 3 mm behind the tube-contact face
+  and 6 mm above the cut bottom; the retaining screw fixes the contact-face
+  datum rather than relying on the stock's thickness tolerance.
 - The NEMA 23 + DM542T kit, 24 V supply, foot pedal, 20T pulley, 550 mm
   belt, and test indicator.
 
@@ -193,8 +198,9 @@ plates are worth watching through their first two layers rather than left alone.
 - Motor carriage: on either Y side, so the skin, arms and clamp walls are
   layer profiles and the pilot hole is a vertical circle. Motor clamp pads:
   print on either 48 × 12 mm face; keep the screw-tip sockets clean.
-- Ground tower: print on its foot. Ground arm: print flat, with the leaf and
-  shoe fork in the bed plane; use 100% infill and reject any layer separation.
+- Ground tower: print on its foot. Ground arm: print flat, with its
+  [5.0](WR_GROUND_BEAM_T) mm leaf and shoe fork in the bed plane; use 100%
+  infill and reject any layer separation.
 - Nest: 0.20 mm layer, 6 walls, 100% infill, on its register face. Keep the
   three radial stepped adjuster passages clear.
 - Cage and coupon: flat.
@@ -248,19 +254,21 @@ ring.
    loading a tube.
 10. Run the turntable dry for ten revolutions, clean the race, and re-check
     belt tracking before loading a tube.
-11. Bolt down the ground tower and flexure arm. Fit the C110 shoe with its one
-    M3 screw; its contact face sits 1.0 mm inside the nominal tube surface and
-    deflects the long leaf outward when a tube is loaded.
+11. Bolt down the ground tower and flexure arm. Slide the cut C110 shoe into
+    the fork with its marked contact face toward the tube and fit its one M3
+    screw. The tapped hole fixes that face 1.0 mm inside the nominal tube
+    surface and deflects the long leaf outward when a tube is loaded.
 
 ## Continuous work contact
 
-Clamp the laser welder's work lead to the exposed upper 18 mm of the C110 shoe,
-not to the tube and never to the PP bearing. The stationary shoe wipes the tube
-OD 15–45 mm above the nest and leaves the work cable still through every lap.
-Scuff only that contact stripe and the copper face immediately before welding.
-With the welder disabled, meter shoe-to-tube continuity while `mode jog` turns
-two complete revolutions. Any blink is a stop condition: clean the faces or
-increase the flexure preload before enabling the laser.
+Clamp the X1 Pro work lead to the exposed upper
+[38](WR_GROUND_SHOE_EXPOSED) mm of the C110 shoe, not to the tube and never to
+the PP bearing. The stationary shoe wipes the tube OD 15–65 mm above the nest
+and leaves the work cable still through every lap. Scuff only that contact
+stripe and the copper face immediately before welding. With the welder
+disabled, meter shoe-to-tube continuity while `mode jog` turns two complete
+revolutions. Any blink is a stop condition: clean the faces before enabling
+the laser.
 
 ## Indicating the tube
 
