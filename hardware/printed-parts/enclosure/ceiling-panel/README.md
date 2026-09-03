@@ -46,25 +46,26 @@ flow-meter anchors and tube anchors. The existing print profile uses four top
 shells, three bottom shells and 15% grid infill, so the CAD envelope is not a
 solid 11 mm billet.
 
-There are [9](RELIEF_N) body pockets. Each starts from the purchased solid's
-exact intersection with the unrelieved field and rails, adds 2 mm of plan slip
-and 1 mm of vertical clearance, and rounds its enclosed plan corners to
-[3 mm](RELIEF_R). The pocket floor is therefore not a common guessed depth:
-shallow bodies leave a thicker roof and tall bodies keep the original ceiling
-section over them. They cover the C14, ASSE, CO₂ and water fittings, DIGITEN,
+There are [9](RELIEF_N) body pockets, cut as one cavity. Each starts from the
+purchased solid's exact intersection with the unrelieved field and rails, adds
+2 mm of plan slip and 1 mm of vertical clearance. The pocket floor is therefore
+not a common guessed depth: shallow bodies leave a thicker roof and tall bodies
+keep the original ceiling section over them. They cover the C14, ASSE, CO₂ and water fittings, DIGITEN,
 relay, WR1110 and the near-miss gas check valve; the last is deliberately found
 by testing the exact body one clearance millimetre upward, so a 0.04 mm miss
 cannot silently become an interference in the deeper panel. At the C14 and
 relay, that construction locally opens a rail only where the exact placed body
-requires it. A pocket that reaches a free edge stays square on that side, so its
-opening runs wholly through the edge. Every pocket stops at or below the pack
-lane, leaving at least one whole [3 mm](PANEL_T) wall of show skin above it, and
+requires it. Every pocket stops at or below the pack lane, leaving at least one whole [3 mm](PANEL_T) wall of show skin above it, and
 opens on the interior face, which is upward on the printer.
 
-Where two pocket plans overlap on one axis and leave less than one
-[3 mm](RELIEF_MIN_WEB) wall on the other, their openings join through the depth
-both bodies claim. The joining cut consumes their facing corner rounds without
-carrying the deeper pocket into the shallower pocket's roof.
+The cavity is one figure per roof level (`cadlib/plan.py`): the union of every
+pocket reaching that level, with any web narrower than one
+[3 mm](RELIEF_MIN_WEB) wall between two of them filled, cut to the
+field-and-rail plan, and its enclosed corners rounded to [3 mm](RELIEF_R). A
+pocket that crosses a free edge is square where it leaves the panel, so its
+opening runs wholly through the edge; two pockets facing across less than a
+wall are one opening over the depth both claim, and each keeps its own roof
+above that.
 
 Three anchor zip-tie approaches enter the deeper field: the two DIGITEN bands
 and the WR1110 barrel's run. Their existing footprints are returned as

@@ -68,6 +68,7 @@ reportlab==4.5.1
 rtree==1.4.1
 runtype==0.5.3
 scipy==1.18.0
+shapely==2.1.2
 six==1.17.0
 tinycss2==1.5.1
 trame==3.12.0
