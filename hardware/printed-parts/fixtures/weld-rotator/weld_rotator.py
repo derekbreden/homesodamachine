@@ -7,8 +7,8 @@ World frame:
   Z=0 is the stationary base's bottom face.
 
 The base, four feet, motor tower, sliding motor carriage, two clamp pads,
-turntable, upper race ring, spool, tube nest, three jaw caps, ball cage,
-ground tower and ground arm are printable.  The turntable runs on the
+turntable, upper race ring, spool, tube nest, ball cage, ground tower and
+ground arm are printable.  The turntable runs on the
 project's stock 10 mm PP balls.  The 90-tooth HTD-5M pulley is part of the
 turntable and is driven by the purchased 20-tooth pulley and 550 mm belt.
 
@@ -164,12 +164,13 @@ REGISTER_H = 3.0
 REGISTER_SLIP = 0.25
 NEST_SCREW_R = 61.0
 NEST_SCREW_D = 3.5
+NEST_RETAINER_ANGLES = (0.0, 120.0, 240.0)
 NEST_RETAINER_ACCESS_D = M3_HEAD_D
 NEST_INSERT_D = 4.0
 NEST_INSERT_DEPTH = 5.2
 
 # Tube nest — the [4.5](WR_PILOT_H) pilot fits above a welded plate's
-# [6.35](WR_RECESS) recess.  The three screw-driven jaw caps carry the OD;
+# [6.35](WR_RECESS) recess.  Three radial screws bear directly on the OD;
 # the pilot carries the ID; the end face lands on the annular seat between them.
 NEST_OD = 150.0
 NEST_BASE_H = 8.0
@@ -180,18 +181,11 @@ PILOT_ID = 100.0
 PILOT_H = 4.5
 OUTER_BORE_D = 127.80
 OUTER_COLLAR_OD = NEST_OD
-JAW_GUIDE_INNER_R = 63.45
-JAW_GUIDE_OUTER_R = 67.50
-JAW_HALF_ANGLE = 7.0
-JAW_H = 7.0
-JAW_SOCKET_D = 2.85
-JAW_SOCKET_DEPTH = 2.5
-JAW_GUIDE_SLIP = 0.20
-JAW_Z0 = NEST_BASE_H + 1.5
-JAW_SCREW_Z = JAW_Z0 + JAW_H / 2.0
-JAW_INSERT_D = 4.0
-JAW_INSERT_DEPTH = 5.2
-JAW_SHANK_D = 3.4
+TUBE_ADJUSTER_ANGLES = (60.0, 180.0, 300.0)
+TUBE_ADJUSTER_INSERT_D = 4.0
+TUBE_ADJUSTER_INSERT_DEPTH = 5.2
+M3_ADJUSTER_SHANK_D = 3.4
+TUBE_ADJUSTER_Z = NEST_BASE_H + PILOT_H - M3_ADJUSTER_SHANK_D / 2.0
 
 # The purchased belt fixes the exact nominal centre.  Slots only move the motor
 # outward: belt installation occurs at the nominal end and tension is added by
@@ -636,7 +630,7 @@ def build_turntable():
                         REGISTER_H, NEST_SEAT_Z)
     turntable = turntable.union(register)
 
-    for angle in (0.0, 120.0, 240.0):
+    for angle in NEST_RETAINER_ANGLES:
         x, y = _polar(NEST_SCREW_R, angle)
         pocket = (
             cq.Workplane("XY", origin=(x, y, NEST_SEAT_Z - NEST_INSERT_DEPTH))
@@ -743,37 +737,25 @@ def build_nest():
     )
     nest = base.union(pilot).union(outer)
 
-    guide = _sector(
-        JAW_GUIDE_OUTER_R + JAW_GUIDE_SLIP,
-        JAW_GUIDE_INNER_R - JAW_GUIDE_SLIP,
-        JAW_HALF_ANGLE + 0.4,
-        JAW_H + 0.4,
-        JAW_Z0 - 0.2,
-    )
-    for angle in (0.0, 120.0, 240.0):
-        nest = nest.cut(
-            guide.rotate((0.0, 0.0, 0.0), (0.0, 0.0, 1.0), angle)
+    for angle in TUBE_ADJUSTER_ANGLES:
+        insert = _radial_cylinder(
+            angle,
+            OUTER_COLLAR_OD / 2.0 + 0.1,
+            TUBE_ADJUSTER_Z,
+            TUBE_ADJUSTER_INSERT_D,
+            TUBE_ADJUSTER_INSERT_DEPTH + 0.2,
         )
-        nest = nest.cut(
-            _radial_cylinder(
-                angle,
-                OUTER_COLLAR_OD / 2.0 + 0.1,
-                JAW_SCREW_Z,
-                JAW_INSERT_D,
-                JAW_INSERT_DEPTH + 0.2,
-            )
+        shank_start_r = OUTER_COLLAR_OD / 2.0 - TUBE_ADJUSTER_INSERT_DEPTH
+        through = _radial_cylinder(
+            angle,
+            shank_start_r,
+            TUBE_ADJUSTER_Z,
+            M3_ADJUSTER_SHANK_D,
+            shank_start_r - OUTER_BORE_D / 2.0 + 0.2,
         )
-        nest = nest.cut(
-            _radial_cylinder(
-                angle,
-                OUTER_COLLAR_OD / 2.0 - JAW_INSERT_DEPTH,
-                JAW_SCREW_Z,
-                JAW_SHANK_D,
-                OUTER_COLLAR_OD / 2.0 - JAW_INSERT_DEPTH - JAW_GUIDE_OUTER_R + 0.4,
-            )
-        )
+        nest = nest.cut(insert.union(through))
 
-    for angle in (0.0, 120.0, 240.0):
+    for angle in NEST_RETAINER_ANGLES:
         x, y = _polar(NEST_SCREW_R, angle)
         shank = (
             cq.Workplane("XY", origin=(x, y, 0.0))
@@ -789,24 +771,6 @@ def build_nest():
         )
         nest = nest.cut(shank.union(head_access))
     return nest
-
-
-def build_jaw():
-    jaw = _sector(
-        JAW_GUIDE_OUTER_R,
-        JAW_GUIDE_INNER_R,
-        JAW_HALF_ANGLE,
-        JAW_H,
-        0.0,
-    )
-    socket = _radial_cylinder(
-        0.0,
-        JAW_GUIDE_OUTER_R + 0.01,
-        JAW_H / 2.0,
-        JAW_SOCKET_D,
-        JAW_SOCKET_DEPTH,
-    )
-    return jaw.cut(socket)
 
 
 def build_motor_tower():
@@ -913,7 +877,7 @@ def build_motor_carriage():
             origin = cq.Vector(center + x_offset, y_outer + sign * 0.01, MOTOR_CLAMP_SCREW_Z)
             shank = cq.Workplane(
                 obj=cq.Solid.makeCylinder(
-                    JAW_SHANK_D / 2.0,
+                    M3_ADJUSTER_SHANK_D / 2.0,
                     CARRIAGE_WALL_Y1 - CARRIAGE_WALL_Y0 + 0.02,
                     origin,
                     direction,
@@ -1189,7 +1153,6 @@ def selftest():
         "pulley-coupon": build_pulley_coupon(),
         "ball-cage": build_cage(),
         "tube-nest": build_nest(),
-        "jaw-cap": build_jaw(),
         "motor-tower": build_motor_tower(),
         "motor-carriage": build_motor_carriage(),
         "motor-clamp-pad": build_motor_clamp_pad(),
@@ -1281,7 +1244,16 @@ def selftest():
         raise ValueError("tube nest nominal clearances are not positive")
     if PILOT_H >= interface.ENDCAP_RECESS:
         raise ValueError("ID pilot reaches a welded end-cap plate")
-    for angle in (0.0, 120.0, 240.0):
+    collar_wall = (OUTER_COLLAR_OD - OUTER_BORE_D) / 2.0
+    if TUBE_ADJUSTER_INSERT_DEPTH >= collar_wall:
+        raise ValueError("tube-adjuster insert removes the collar's inner screw guide")
+    if (
+        TUBE_ADJUSTER_Z - M3_ADJUSTER_SHANK_D / 2.0 < NEST_BASE_H
+        or TUBE_ADJUSTER_Z + M3_ADJUSTER_SHANK_D / 2.0
+        > NEST_BASE_H + PILOT_H
+    ):
+        raise ValueError("tube adjuster does not bear over the nest's ID pilot")
+    for angle in NEST_RETAINER_ANGLES:
         x, y = _polar(NEST_SCREW_R, angle)
         insertion_path = (
             cq.Workplane(
@@ -1292,6 +1264,16 @@ def selftest():
         )
         if _overlap(parts["tube-nest"], insertion_path) > 1e-4:
             raise ValueError("tube nest blocks a retainer screw insertion path")
+    for angle in TUBE_ADJUSTER_ANGLES:
+        adjuster_path = _radial_cylinder(
+            angle,
+            OUTER_COLLAR_OD / 2.0 + 0.02,
+            TUBE_ADJUSTER_Z,
+            M3_ADJUSTER_SHANK_D - 0.10,
+            OUTER_COLLAR_OD / 2.0 - interface.TUBE_OD / 2.0 + 1.0,
+        )
+        if _overlap(parts["tube-nest"], adjuster_path) > 1e-4:
+            raise ValueError("tube nest blocks a direct tube-adjuster screw path")
 
     # Printed pulley: a clearance groove for a 3.05 mm belt tooth root and
     # a printable land between grooves.
@@ -1466,14 +1448,6 @@ def _assembly(parts):
         color=M_PETGF_BLACK,
         loc=cq.Location(cq.Vector(0.0, 0.0, NEST_SEAT_Z)),
     )
-    for index, angle in enumerate((0.0, 120.0, 240.0)):
-        assembly.add(
-            parts["jaw-cap"],
-            name=f"jaw-cap-{index + 1}",
-            color=M_PETGF_BLACK,
-            loc=cq.Location(cq.Vector(0.0, 0.0, NEST_SEAT_Z + JAW_Z0),
-                            cq.Vector(0.0, 0.0, 1.0), angle),
-        )
     assembly.add(build_balls_proxy(), name="10mm-pp-balls", color=M_TPU_BLACK)
     assembly.add(build_motor_proxy(), name="23hs30-2804s", color=M_STAINLESS)
     assembly.add(build_motor_pulley_proxy(), name="20t-htd5m-pulley", color=M_ALUMINIUM)
@@ -1493,7 +1467,6 @@ def main():
         "pulley-coupon": "weld-rotator-pulley-coupon.step",
         "ball-cage": "weld-rotator-ball-cage.step",
         "tube-nest": "weld-rotator-tube-nest.step",
-        "jaw-cap": "weld-rotator-jaw-cap.step",
         "motor-tower": "weld-rotator-motor-tower.step",
         "motor-carriage": "weld-rotator-motor-carriage.step",
         "motor-clamp-pad": "weld-rotator-motor-clamp-pad.step",
@@ -1552,6 +1525,7 @@ def main():
         "WR_RECESS": f"{interface.ENDCAP_RECESS:.2f}",
         "WR_NEST_OD": f"{NEST_OD:.0f}",
         "WR_NEST_RETAINER_ACCESS": f"{NEST_RETAINER_ACCESS_D:.1f}",
+        "WR_TUBE_ADJUSTER_BORE": f"{M3_ADJUSTER_SHANK_D:.1f}",
         "WR_TUBE_TOP": f"{NEST_SEAT_Z + NEST_BASE_H + interface.TUBE_LENGTH:.1f}",
         "WR_TUBE_TOP_BENCH": (
             f"{BASE_FOOT_H + NEST_SEAT_Z + NEST_BASE_H + interface.TUBE_LENGTH:.1f}"
