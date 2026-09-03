@@ -109,7 +109,10 @@ registers the face pilot and clears the complete land envelope by 1.85 mm; two
 side pads clamp the 57.3 mm frame, and four slotted M3 screws into the tower's
 rail tops supply 8 mm of outward tension adjustment. The tower is two rails
 and a rear wall that stay outside the belt's swept path across that whole
-travel, and the motor's four plain Ø5.2 flange holes are unused.
+travel. Two M5 × 12 countersunk screws pass through 10.2 mm 90-degree recesses
+in the carriage arms and engage the rear pair of the motor's tapped flange
+holes; the front pair stays open because the belt's swept path crosses it at
+full tension.
 Small-pulley wrap is [127.1°](SMALL_WRAP), or
 [7.1](SMALL_WRAP_TEETH) engaged teeth. Print and check the 12-tooth belt coupon
 against the delivered belt before printing the complete turntable.

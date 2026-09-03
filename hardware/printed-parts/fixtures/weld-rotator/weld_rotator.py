@@ -272,7 +272,9 @@ CARRIAGE_SCREW_LENGTH = 10.0
 # carriage are joined on the bench and go onto the tower as one piece.
 MOTOR_MOUNT_X = MOTOR_CENTER_NOMINAL + interface.MOTOR_MOUNT_SQUARE / 2.0
 MOTOR_MOUNT_Y = interface.MOTOR_MOUNT_SQUARE / 2.0
-MOTOR_MOUNT_CSK_D = 9.4
+MOTOR_MOUNT_HEAD_D = 9.8
+MOTOR_MOUNT_HEAD_CLEARANCE = 0.4
+MOTOR_MOUNT_CSK_D = MOTOR_MOUNT_HEAD_D + MOTOR_MOUNT_HEAD_CLEARANCE
 MOTOR_MOUNT_CSK_DEPTH = (MOTOR_MOUNT_CSK_D - M5_SHANK_D) / 2.0
 MOTOR_MOUNT_SCREW_LENGTH = 12.0
 
@@ -1492,6 +1494,8 @@ def selftest():
     # Motor mount: the two rear flange holes carry the motor, the countersink
     # is flush in the arms' underside so nothing protrudes toward the tower,
     # and the screw stops short of the tapped hole's bottom.
+    if MOTOR_MOUNT_CSK_D < MOTOR_MOUNT_HEAD_D + 0.3:
+        raise ValueError("motor mount countersinks do not clear the verified screw heads")
     if MOTOR_MOUNT_CSK_DEPTH > CARRIAGE_SKIN_Z0 - CARRIAGE_ARM_Z0:
         raise ValueError("motor mount countersink breaks through the carriage arms")
     mount_reach = MOTOR_MOUNT_SCREW_LENGTH - (MOTOR_FACE_Z - CARRIAGE_ARM_Z0)
@@ -1500,8 +1504,8 @@ def selftest():
             f"motor mount screws reach {mount_reach:.1f} mm into a "
             f"{interface.MOTOR_MOUNT_TAPPED_DEPTH:.1f} mm tapped hole"
         )
-    if MOTOR_MOUNT_Y + MOTOR_MOUNT_CSK_D / 2.0 > interface.MOTOR_FRAME / 2.0:
-        raise ValueError("motor mount countersinks fall outside the motor's flange")
+    if MOTOR_MOUNT_Y + MOTOR_MOUNT_HEAD_D / 2.0 > interface.MOTOR_FRAME / 2.0:
+        raise ValueError("motor mount screw heads fall outside the motor's flange")
     if (MOTOR_MOUNT_X + MOTOR_MOUNT_CSK_D / 2.0 > CARRIAGE_X1
             or MOTOR_MOUNT_Y + MOTOR_MOUNT_CSK_D / 2.0 > CARRIAGE_Y_HALF):
         raise ValueError("motor mount countersinks fall off the carriage")
@@ -1786,6 +1790,8 @@ def main():
         "WR_LAND_SKIN_CLEAR": f"{CARRIAGE_SKIN_Z0 - BELT_Z1:.2f}",
         "WR_SKIN_H": f"{CARRIAGE_SKIN_H:.0f}",
         "WR_MOTOR_MOUNT_SCREW": f"{MOTOR_MOUNT_SCREW_LENGTH:.0f}",
+        "WR_MOTOR_MOUNT_HEAD": f"{MOTOR_MOUNT_HEAD_D:.1f}",
+        "WR_MOTOR_MOUNT_CSK": f"{MOTOR_MOUNT_CSK_D:.1f}",
         "WR_MOTOR_MOUNT_REACH": f"{mount_reach:.1f}",
         "WR_MOTOR_MOUNT_TAPPED": f"{interface.MOTOR_MOUNT_TAPPED_DEPTH:.1f}",
         "WR_MOTOR_MOUNT_MARGIN": f"{interface.MOTOR_MOUNT_TAPPED_DEPTH - mount_reach:.1f}",
