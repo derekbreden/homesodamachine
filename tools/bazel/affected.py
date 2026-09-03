@@ -526,6 +526,11 @@ def artifact_unknown(path: str, artifacts_only: bool = False) -> bool:
         return False
     if path == "hardware/cad-artifacts.lock.json":
         return False
+    # A lint answer is reviewer evidence beside a mesh, not a source of that mesh. Known
+    # answers still take the ordinary `known`/rdeps path above this test; an answer no target
+    # names cannot define a new producer merely because another generator reads the same suffix.
+    if path.endswith(".lint-answers"):
+        return False
     # A study is deliberately outside the product graph.  If one of its files is promoted into
     # a generator, that generator's changed, declared importer scopes the build; while it remains
     # unlabelled, rebuilding every solid cannot answer anything about it.  Ignore files likewise
@@ -697,6 +702,7 @@ genrule(
     hold("only artifact inputs widen the artifact slice",
          unscoped_changes(["BUILD.bazel"], ["BUILD.bazel"], True) == ["BUILD.bazel"]
          and unscoped_changes(["hardware/part.py"], ["hardware/part.py"], True) == []
+         and not artifact_unknown("hardware/part.lint-answers", True)
          and unscoped_changes(["tools/bazel/affected.py"],
                               ["tools/bazel/affected.py"], True) == []
          and unscoped_changes([".github/workflows/publish.yml"], [], True) == []
