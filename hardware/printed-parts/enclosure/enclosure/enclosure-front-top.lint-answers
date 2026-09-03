@@ -30,6 +30,7 @@ click: x=0.000 y=46.398 z=307.656
 [step] The half-millimetre Z difference is the cartridge's running gap over the fixed front sill: the shell perimeter stops at z=164.865 and the removable cradle begins at the bay-floor plane z=165.365. The two planes overlap in plan because the cradle closes over that sill when installed; no printed step or thin land spans the air between them.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=0.000 y=10.810 z=164.865
+click: x=-49.945 y=12.050 z=164.865
 
 [sliver] These eight faces bound the same 0.5 mm running-air band over the fixed sill under the two pump openings. They are vertical walls at the edges of clearance, not 0.5 mm printed strips; the fixed front-top stock continues below and the removable cartridge begins on z=165.365 above them.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step

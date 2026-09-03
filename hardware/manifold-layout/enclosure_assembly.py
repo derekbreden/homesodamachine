@@ -2758,8 +2758,8 @@ C14_CUTOUT_SLIP = 0.5
 def c14_mount_half() -> tuple:
     """Half extents of the tunnel block carrying the bore, the two inserts and the flange's
     pocket."""
-    wx, wz, _r = _c14.panel_cutout()
-    return _enc.c14_mount_half(wx + 2 * C14_CUTOUT_SLIP, wz + 2 * C14_CUTOUT_SLIP,
+    _kind, _cx, _cz, wx, wz, _r = c14_cutout()
+    return _enc.c14_mount_half(wx, wz,
                                max(abs(dx) for dx, _dz in _c14.panel_screws()))
 
 
@@ -2811,10 +2811,15 @@ def c14_stations():
 
 def c14_cutout():
     """The rounded rectangle the shroud reaches out through, in `back_ports` shape — struck on
-    the same station the body is, one `C14_CUTOUT_SLIP` over the moulding on every side."""
+    the same station the body is, one `C14_CUTOUT_SLIP` over the moulding on every side.
+
+    Across Z the purchased flange is 0.02 mm taller than its shroud.  The opening reaches the
+    slipped flange outline there too: its broad tapered ears are the seating lands, while a
+    0.01 mm strip above and below the shroud is neither printable nor a bearing surface."""
     wx, wz, r = _c14.panel_cutout()
     return ("rect", C14_STATION[0], C14_STATION[1],
-            wx + 2 * C14_CUTOUT_SLIP, wz + 2 * C14_CUTOUT_SLIP, r)
+            wx + 2 * C14_CUTOUT_SLIP,
+            max(wz, _c14.FLANGE_H) + 2 * C14_CUTOUT_SLIP, r)
 
 
 # WHAT THE PLACEMENT AND THE PRINTED WALL HAVE TO AGREE ON. `enclosure.c14_station_x` is the one
@@ -5455,9 +5460,7 @@ def selftest():
         raise AssertionError(
             f"the C14 block is not one fore plane, two flanks and one underside: {planes}")
     # The seat is the pocket's floor less what the aperture takes of it and the two insert bores
-    # — read as area, because the aperture stands 0.02 mm short of the pocket's height and
-    # splits that annulus along two hairline lands, and its square corners reach past the
-    # flange's tapered shoulders.
+    # — read as area because its square corners reach past the flange's tapered shoulders.
     wx, wz, r = c14_cutout()[3:]
     pocket = _c14.flange_prism(_enc.c14_pocket_slip, 0.0, 1.0).val()
     taken = pocket.intersect(_enc._rect_cut_y(0.0, 0.0, wx, wz, r, 0.0, 1.0)).Volume()

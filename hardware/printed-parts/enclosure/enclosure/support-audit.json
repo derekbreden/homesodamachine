@@ -4,7 +4,7 @@
   "pieces": {
     "enclosure-back-bottom": {
       "status": "audited",
-      "profile": "enclosure-back-bottom-petgf.3mf",
+      "profile": "git:aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a:hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom-petgf.3mf",
       "result": "enclosure-back-bottom.support-audit.json",
       "support_bodies": [
         {
@@ -55,7 +55,7 @@
     },
     "enclosure-back-top": {
       "status": "audited",
-      "profile": "enclosure-back-top-petgf.3mf",
+      "profile": "git:aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a:hardware/printed-parts/enclosure/enclosure/enclosure-back-top-petgf.3mf",
       "result": "enclosure-back-top.support-audit.json",
       "support_bodies": [
         {
@@ -100,9 +100,9 @@
           "first_contacts_cad_xyz_mm": [
             [
               -67.0,
-              450.3,
+              449.5,
               252.36,
-              -58.2,
+              -57.0,
               460.3,
               252.84
             ],
@@ -117,12 +117,12 @@
           ],
           "root": "bed",
           "build_up_mm": 92.16,
-          "interface_islands": 12,
-          "rationale": "The two first contacts carry the west and east cold-core aft hold-down soffits over the core's insertion lane - a pillar in that lane blocks the core riding in through the Y-seam mouth, and the bearing face is the lowest thing on each bracket. Ten more contacts join the same bed-rooted body through the open enclosure: the ASSE drip-pan sleeve's floor east of its wall-rooted 20 mm corbel (the tray is longer than a wedge off that one wall can carry, and nothing stands under its east half to root a second); the magnetic pogo dock's pocket roof in that sleeve's backstop, the flat the male pill's flange seats under, whose mouth has to open east so the pill goes in from the bench; the anchor's fore round-section soffit, the mirror of tree-1's; the nameplate mouth's ceiling in the +Y wall; the keystone jack's retention ceiling; two of the five Wago-well retention ceilings; the C14 tunnel's aperture ceiling, the bridge the bore's width between the block's two flanks; the +X wall's service contact behind the PSU; and the -X ceiling strip's aft end at the water bulkhead."
+          "interface_islands": 13,
+          "rationale": "The two first contacts carry the west and east cold-core aft hold-down soffits over the core's insertion lane - a pillar in that lane blocks the core riding in through the Y-seam mouth, and the bearing face is the lowest thing on each bracket. Eleven more contacts join the same bed-rooted body through the open enclosure: the ASSE drip-pan sleeve's floor east of its wall-rooted 20 mm corbel (the tray is longer than a wedge off that one wall can carry, and nothing stands under its east half to root a second); the magnetic pogo dock's pocket roof in that sleeve's backstop, the flat the male pill's flange seats under, whose mouth has to open east so the pill goes in from the bench; the anchor's fore round-section soffit, the mirror of tree-1's; the nameplate mouth's ceiling in the +Y wall; the keystone jack's retention ceiling; three of the five Wago-well retention ceilings; the C14 tunnel's aperture ceiling, the bridge the bore's width between the block's two flanks; the +X wall's service contact behind the PSU; and the -X ceiling strip's aft end at the water bulkhead."
         },
         {
           "tree": "tree-4",
-          "name": "east Wago-well and ceiling-strip tree",
+          "name": "east Wago-well and fixed ceiling-strip tree",
           "first_contacts_cad_xyz_mm": [
             [
               95.4,
@@ -139,44 +139,18 @@
               103.8,
               375.5,
               331.32
-            ],
-            [
-              95.4,
-              384.7,
-              330.84,
-              103.8,
-              391.9,
-              331.32
             ]
           ],
           "root": "bed",
           "build_up_mm": 170.64,
           "interface_islands": 4,
-          "rationale": "Three of the five Wago-well retention ceilings on the +X wall. Each well grips its lever nut against the wall and that ceiling is the face which holds it in, so opening it into a 45 degree roof gives the retention up. The +X fixed ceiling strip's underside over the raised relay joins the same bed-rooted body: the strip's corbel is already given up over that relay's complete band, which is the moved-component clause worked once."
-        },
-        {
-          "tree": "tree-5",
-          "name": "east ceiling-strip fore-end crown",
-          "first_contacts_cad_xyz_mm": [
-            [
-              85.4,
-              199.9,
-              351.24,
-              103.8,
-              214.3,
-              351.48
-            ]
-          ],
-          "root": "bed",
-          "build_up_mm": 191.04,
-          "interface_islands": 1,
-          "rationale": "The +X fixed ceiling strip's underside at the Y-seam mouth, where front-top's ceiling tongue lands one slip under it. The strip carries its 6 mm section inward from the flank and its corbel runs out to nothing at the removable ceiling panel's edge; over the open mouth there is nothing under the fore end to root on. Its one bed-rooted tree grows the full height of the piece through open air."
+          "rationale": "Two of the five Wago-well retention ceilings on the +X wall. Each well grips its lever nut against the wall and that ceiling is the face which holds it in, so opening it into a 45 degree roof gives the retention up. Both exposed regions of the +X fixed ceiling strip join the same bed-rooted body: its underside over the raised relay, where the strip's corbel is already given up across that complete band, and its fore-end crown at the Y-seam mouth, where front-top's ceiling tongue lands one slip under it."
         }
       ]
     },
     "enclosure-front-bottom": {
       "status": "audited",
-      "profile": "enclosure-front-bottom-petgf.3mf",
+      "profile": "git:aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a:hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom-petgf.3mf",
       "result": "enclosure-front-bottom.support-audit.json",
       "support_bodies": [
         {
@@ -255,7 +229,7 @@
     },
     "enclosure-front-top": {
       "status": "audited",
-      "profile": "enclosure-front-top-petgf.3mf",
+      "profile": "git:aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a:hardware/printed-parts/enclosure/enclosure/enclosure-front-top-petgf.3mf",
       "result": "enclosure-front-top.support-audit.json",
       "support_bodies": [
         {
@@ -324,7 +298,7 @@
     },
     "enclosure-pump-cap": {
       "status": "audited",
-      "profile": "enclosure-pump-cap-petgf.3mf",
+      "profile": "git:aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a:hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap-petgf.3mf",
       "result": "enclosure-pump-cap.support-audit.json",
       "support_bodies": [
         {
@@ -367,7 +341,7 @@
     },
     "enclosure-pump-cartridge": {
       "status": "audited",
-      "profile": "enclosure-pump-cartridge-petgf.3mf",
+      "profile": "git:aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a:hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge-petgf.3mf",
       "result": "enclosure-pump-cartridge.support-audit.json",
       "support_bodies": []
     }

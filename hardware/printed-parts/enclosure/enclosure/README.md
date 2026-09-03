@@ -599,10 +599,12 @@ Bambu G-code directly, or refreshes only the mesh in a temporary copy of the nam
 project before slicing it:
 
 ```sh
+git show aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a:hardware/printed-parts/enclosure/enclosure/enclosure-back-top-petgf.3mf \
+  > /tmp/enclosure-back-top-petgf.3mf
 python3 hardware/scripts/enclosure_support_audit.py \
   --piece enclosure-back-top --slice-current \
   --model hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl \
-  --profile hardware/printed-parts/enclosure/enclosure/enclosure-back-top-petgf.3mf \
+  --profile /tmp/enclosure-back-top-petgf.3mf \
   --json-out hardware/printed-parts/enclosure/enclosure/enclosure-back-top.support-audit.json
 ```
 
@@ -610,15 +612,15 @@ The result carries the model, profile and derived G-code hashes, the slicer's su
 all interface islands and both plate and CAD coordinates. The ledger supplies the human reason
 for each connected body that remains.
 
-**All six printable pieces are audited, each through a production project of its own.** No piece
-is re-oriented to be read: every one beds on its own Z− face, the orientation the box's whole
-relief scheme is struck on. [`enclosure-front-bottom-petgf.3mf`](enclosure-front-bottom-petgf.3mf)
-and [`enclosure-back-bottom-petgf.3mf`](enclosure-back-bottom-petgf.3mf) carry the PET-GF15
-exterior settings of [`enclosure-front-top-petgf.3mf`](enclosure-front-top-petgf.3mf) around
-their own mesh — the same clone `enclosure-pump-cap-petgf.3mf` and
-`enclosure-pump-cartridge-petgf.3mf` already are.
-[`enclosure-back-top-petgf.3mf`](enclosure-back-top-petgf.3mf) is the one piece on its own
-0.24 mm process. What BambuStudio 02.08.02.61 emits from the current meshes:
+**All six printable pieces are audited, each through a production project of its own.** The 3MF
+snapshots are retained only in Git history at `aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a`; they
+are evidence inputs rather than current files in this directory. No piece is re-oriented to be
+read: every one beds on its own Z− face, the orientation the box's whole relief scheme is struck
+on. `enclosure-front-bottom-petgf.3mf` and `enclosure-back-bottom-petgf.3mf` carry the PET-GF15
+exterior settings of `enclosure-front-top-petgf.3mf` around their own mesh — the same clones
+`enclosure-pump-cap-petgf.3mf` and `enclosure-pump-cartridge-petgf.3mf` are.
+`enclosure-back-top-petgf.3mf` is the one piece on its own 0.24 mm process. What BambuStudio
+02.08.02.61 emits after substituting the current meshes into those history snapshots:
 
 | piece | bodies | interface islands | root | shortest build-up |
 |---|---|---|---|---|
@@ -627,7 +629,7 @@ their own mesh — the same clone `enclosure-pump-cap-petgf.3mf` and
 | `enclosure-front-top` | 3 | 4 | bed | 55.60 mm |
 | `enclosure-back-bottom` | 2 | 3 | 1 bed, **1 model** | **8.00 mm** |
 | `enclosure-front-bottom` | 4 | 4 | 2 bed, **2 model** | **8.00 mm** |
-| `enclosure-back-top` | 5 | 27 | bed | 92.16 mm |
+| `enclosure-back-top` | 4 | 27 | bed | 92.16 mm |
 
 **One piece slices clean, and three bodies are the campaign's open work.**
 `enclosure-pump-cartridge` emits no support at all. On the pump cap and the two top quadrants
@@ -779,7 +781,7 @@ The **tee wall** behind that plate costs nothing standing up, and its four bores
 only thing in it that could have hung. The piece beds on the seam plane, so a bore on Y
 lies horizontal and its crown is the only face in the wall that could be laid on air.
 Each is **teardropped** (`_tee_bore`): the roof stands on the bore's own tangent points.
-Its two planes rise at [36°](TEARDROP_ROOF), one whole degree above the committed back-top
+Its two planes rise at [36°](TEARDROP_ROOF), one whole degree above the history-only back-top
 PET-GF profile's automatic-support threshold and verified support-free with that exact profile;
 tangency makes that the narrowest and shortest peak at this angle. The lower circle the collar
 bears on is untouched, and the wall needs no support.
@@ -789,7 +791,7 @@ their wall and pocket bosses. Their stated Ø18/Ø17.86 figures remain the compl
 pass envelopes for the threaded barrels; only the unsupported crown opens into the tangent
 [36°](TEARDROP_ROOF) roof. The separately printed identification chip keeps its circular bore,
 and the fitting's flange and nut clamp the chip and the remaining wall annulus on their two
-faces. The committed back-top profile places neither support body nor support interface inside
+faces. The history-only back-top profile places neither support body nor support interface inside
 any of the five passages.
 
 The **AC inlet's mount** stands off the +Y wall's inner face in back-top and costs
@@ -1485,25 +1487,26 @@ leaving the channel and its support-removal path open continuously without an en
 
 **The dado** is cut in each strip's inboard face on the section the panel states
 (`ceiling_panel.dado`), and it runs from the open Y− mouth aft: the panel is slid
-the length of the piece with its tongues in these two grooves. It is cut open at
-both ends — a millimetre into the field at its mouth, its own depth into the back
-wall at its blind end — because a groove ending exactly on either plane leaves the
-strip and the thing it runs out on meeting along a line.
+the length of the piece with its tongues in these two grooves. It is cut a millimetre
+into the field at its mouth. At the back it runs blind from the panel stop through
+the wall's grown inner section to `rear_plane_y`, leaving the nominal wall whole
+through the rear show face; ending exactly on the panel's aft plane would leave the
+strip and wall meeting along a line.
 
 The current tongue is [6 mm](CEILING_TONGUE_T) square and its dado is
 [6.15 mm](CEILING_DADO_DEPTH) deep.
 
-**The ramp is the field's, and the last `depth` is a run-out.** Beside the field the
-dado's roof rises to the show face at the mouth, and both the rise and the millimetre
-of overrun past it are the panel's own lane — this piece has no top wall inboard of
-that plane to carry either. Aft of the field it has one: the blind end runs its own
-depth into the +Y wall, where the section is continuous across the mouth plane, so
-there is no free-standing lip to feather and nothing to stand a ramp under. A ramp cut
-there lands its apex in the middle of the show face rather than on its edge, which is
-three faces on one line and a mesh a slicer refuses; an overrun cut there opens a slot
-straight through the top wall. So the last `depth` is **the groove's run-out**, and it
-takes the blind end's own section carried square through — floor to roof, with the rest
-of the top wall bridging the mouth plane over it.
+**The ramp is the field's, and the blind end stops inside the wall.** Beside the field
+the dado's roof rises to the show face at the mouth, and both the rise and the
+millimetre of overrun past it are the panel's own lane — this piece has no top wall
+inboard of that plane to carry either. Aft of the field it has one: the blind end runs
+through the grown half of the +Y wall, where the section is continuous across the mouth
+plane, so there is no free-standing lip to feather and nothing to stand a ramp under. A
+ramp cut there lands its apex in the middle of the show face rather than on its edge,
+which is three faces on one line and a mesh a slicer refuses; an overrun cut there opens
+a slot straight through the top wall. The groove's run-out is therefore carried square
+from floor to roof only as far as `rear_plane_y`, with the rest of the top wall bridging
+the mouth plane over it and one complete wall closing the rear.
 
 **The two dados are the panel's complete fit.** Their continuous printed faces carry
 the panel in X and Z over its full depth and the +Y wall stops it at home. The panel

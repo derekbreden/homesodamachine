@@ -10,10 +10,12 @@ click: x=99.850 y=420.700 z=331.800
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=2.650 y=462.000 z=335.710
 
-[sliver] The nameplate mouth's intentional 1.5 mm square remainder — THICK 4.5 minus BEVEL 3 = 1.5. The flush square mouth is the stated contract; these are its physical top and bottom rims, not overlap residue.
+[sliver] The nameplate mouth's intentional 1.5 mm square remainder — THICK 4.5 minus BEVEL 3 = 1.5. The flush square mouth is the stated contract; these are its four physical rim faces, not overlap residue.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=38.160 y=466.250 z=296.085
 click: x=38.160 y=466.250 z=229.715
+click: x=90.575 y=466.245 z=262.900
+click: x=-14.255 y=466.237 z=262.900
 
 [slope] The PRV top share's underside crossing the rail channel — between the flank bedding plane and the rib's lip slope it follows the channel's own east gable, the same 45° roof plane the channel carves wherever it meets material. The strip lies on the rib's two 2 mm jamb bands beside the passage and prints as every channel gable does; a level foot under it would stand a step back inside the channel's swept section.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
@@ -22,3 +24,76 @@ click: x=-97.775 y=319.500 z=178.525
 [ceiling] Relay #2's upper end bar — its two mounting holes stand over the board's own pin field, which reaches to within a quarter millimetre of the flank, so no wedge can stand under the bar between its two wall-rooted wings (`wall_mounts` profiles the bar's span against the installed relay the way it profiles a single boss). The 15 mm underside between the wings is a bridge two layers deep, the same flat each of the two D stems hung before they became one bar.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=97.375 y=337.000 z=317.900
+
+[sliver] One printed chord of the analytic R12 aft-east standing column — the STEP face at this click is cylindrical. The 0.291 mm width is the STL tessellation between neighboring chords on that vertical cylinder, not a narrow strip of modeled stock.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=98.326 y=453.599 z=279.400
+
+[sliver] The keystone receptacle's two snap catches — the upper tang keeper stands 1.4 mm proud and the lower latch keeper 1.3 mm proud, exactly `riteav_keystone.CATCH_UPPER` and `CATCH_LOWER`. Each face bounds a catch backed by the rear-wall boss; neither is a free strip.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-37.810 y=458.000 z=315.220
+click: x=-37.810 y=457.950 z=295.420
+
+[sliver] The aft round section of the ASSE anchor closes above its concentric fitting seat — the 1.254 mm vertical face is the retained crown between that circle and the anchor's common top plane. It is backed west to the side wall over the section's full 13.5 mm run, not a thin printed ligament.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-78.070 y=400.460 z=322.548
+
+[sliver] The aft edge of the ASSE body's ceiling-corbel relief — this upright face terminates the stated y=394…424.5 run-band cut. Its 0.85 mm horizontal extent is the exact remainder where the body leaves the wall-rooted corbel; the stock continues on both sides of the face.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-86.075 y=424.500 z=348.500
+
+[sliver] The magnetic pogo dock's two seating shoulders — the 14.7 mm body pocket is one millimetre longer at each end than the 12.7 mm nose window. These two 1 × 4.2 mm upright faces are the stops the magnets pull the pill against, backed by the sleeve's east backstop.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-56.900 y=384.550 z=293.911
+click: x=-56.900 y=398.250 z=293.911
+
+[ceiling] The four fixed ceiling-strip bearing faces — the two Y-seam fore ends and the retained east and west runs beside the removable panel. They carry the panel's square tongues and preserve the fixed strips' full section; the production slice reaches all four from the bed on the existing long trees.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=92.075 y=297.000 z=352.000
+click: x=-95.075 y=207.525 z=352.000
+click: x=95.075 y=207.525 z=352.000
+click: x=-93.575 y=389.250 z=352.000
+
+[ceiling] The ASSE drip-pan sleeve's floor east of its wall-rooted 20 mm corbel — the tray is longer than a wedge from the west wall can carry, and the flat is its insertion and bearing plane. Its support is part of the large bed-rooted rear-wall tree with an open extraction path.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-67.850 y=391.400 z=281.611
+
+[ceiling] The west-wall tube and fitting anchors' functional soffits — one flavor-line tube seat and the water-split and flow-regulator barrel seats. Their half-round bores, wall-thick lips, end webs and zip-tie lanes retain these flats; the production slice joins every interface to the bed-rooted forward service-furniture tree.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-88.285 y=287.580 z=264.590
+click: x=-96.325 y=225.140 z=308.761
+click: x=-96.329 y=252.140 z=280.753
+click: x=-101.500 y=252.140 z=302.869
+click: x=-101.500 y=225.140 z=330.861
+
+[ceiling] The two cold-core aft hold-down bearing faces — each bracket's lowest flat holds the inserted core down, so a pitched underside would turn its bearing plane into a cam. Both interfaces join the bed-rooted rear-wall tree after 92.16 mm of build-up.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-62.500 y=455.500 z=253.400
+click: x=62.500 y=455.500 z=253.400
+
+[ceiling] The two 2 mm-deep identification-chip pocket crowns — each square flush pocket keeps its full 37.3 mm mouth and bridges only the pocket depth back to the rear wall. The production profile emits no support body or interface in either port passage.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-78.070 y=466.000 z=292.769
+click: x=-37.810 y=466.000 z=292.769
+
+[ceiling] The nameplate pocket's upper 1.5 mm square rim — the plate's flush mouth and 45° bevel leave this flat by contract. The production slice supports it on the long bed-rooted nameplate/rear-wall tree.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=38.160 y=466.250 z=296.085
+
+[ceiling] The keystone receptacle's retention roof and upper snap catch — both are square engagement faces for the module's tang and latch, inside the fixed rear-wall boss. The production slice reaches their shared interface from the bed as part of the rear-wall tree.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-37.810 y=461.355 z=317.220
+click: x=-37.810 y=458.000 z=315.220
+
+[ceiling] The ASSE anchor's two round-section soffits — each flat continues east of the wall-rooted 45° corbel so the concentric bore retains a complete fitting seat. Both are reached from the bed by the production slice, one on each existing rear service tree.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-82.310 y=400.460 z=321.921
+click: x=-82.310 y=347.960 z=321.921
+
+[ceiling] The C14 tunnel's aperture bridge — the working opening remains rectangular through the wall and tunnel, so its crown is the flat between the block's two vertical flanks. The production slice reaches the full bridge from the bed on the rear-wall tree.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=66.900 y=460.375 z=347.796
+
+[ceiling] The magnetic pogo dock pocket's roof — a 7.0 × 14.7 mm flat seating face over the male pill in the drip-sleeve backstop. It is reached from the bed on the same open support tree as the sleeve floor, and pitching it would give up the connector's square seat.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-54.700 y=391.400 z=296.011

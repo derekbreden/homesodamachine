@@ -169,8 +169,8 @@ def main():
         "FLAVOR_B_END": dropped_union_end(_ea.PANEL_ON_GATE_LANE, _ea.PANEL_X),
         "C14_FLANGE": f"{_ea._c14.FLANGE_W:g} × {_ea._c14.FLANGE_H:g} mm",
         "C14_OPENING": (
-            f"{_ea._c14.CUTOUT_W + 2.0 * _ea.C14_CUTOUT_SLIP:g} × "
-            f"{_ea._c14.CUTOUT_H + 2.0 * _ea.C14_CUTOUT_SLIP:g} mm R{_ea._c14.CUTOUT_R:g}"),
+            f"{_ea.c14_cutout()[3]:g} × {_ea.c14_cutout()[4]:g} mm "
+            f"R{_ea.c14_cutout()[5]:g}"),
         "C14_SEAT": (
             f"x {_ea.C14_STATION[0]:g}, z {_ea.C14_STATION[1]:.2f}, "
             f"seat y {_ea.c14_seat_y():.2f}"),
