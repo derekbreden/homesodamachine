@@ -29,7 +29,7 @@ for _p in (_hw / "scripts", _hw / "cold-core-layout"):
         sys.path.insert(0, str(_p))
 
 from _cadq_export import export_assembly          # noqa: E402
-from _materials import M_STAINLESS, one_body      # noqa: E402
+from _material_base import M_STAINLESS, one_body  # noqa: E402
 import _carbonator as _carb                       # noqa: E402
 
 # The barrel, as the assembly builds it.

@@ -27,6 +27,14 @@ from pathlib import Path
 import cadquery as cq
 from OCP.Quantity import Quantity_TypeOfColor
 
+from _material_base import (M_ALUMINIUM, M_COPPER, M_PETGF_BLACK, M_STAINLESS,
+                            M_TPU_BLACK, one_body, step_safe)
+
+# Those project-neutral names are re-exported here so existing appliance
+# generators still read one complete catalogue.  Independent tools and cut
+# parts import `_material_base` and therefore do not inherit this module's
+# measured enclosure palette.
+
 # `chip_color`, for `M_PETG_BLACK` below — the same anchor `_routing` uses to reach it.
 _yw = Path(__file__).resolve().parents[1] / "printed-parts" / "enclosure" / "y-wall-of-back-top"
 if str(_yw) not in sys.path:
@@ -48,32 +56,10 @@ M_NEOFIT_ACETAL = cq.Color(0.14, 0.14, 0.15)   # neoFit's black acetal bulkhead 
 # nameplate stock. MEASURED rather than named — `_y_wall_dimensions.chip_filaments` holds the
 # swatch the flavour chips are cut to.
 M_PETG_BLACK = cq.Color(*(c / 255.0 for c in _rear.chip_color("flavor")))
-# Polymaker Fiberon PET-GF15 black, the stock every surface a customer sees prints in
-# (`ledger/bom.md` §7): the four quadrants, the lower pump cradle and its top clamp, the ceiling
-# panel, the display cover plate, the faucet shell's two pieces and the above-counter plate.
-# The cold core's five foam bodies come off the same stock — the shell and its four caps and
-# lids — so the two biggest plates in the build run one spool.
-#
-# THIS TRIPLE IS NOT MEASURED, and it is the only black here that is not. `M_PETG_BLACK` above
-# is a swatch off a named spool; this was reasoned — glass fill standing it a shade over the
-# PETG it closes on. No swatch of PET-GF15 has been sampled, and `chip_filaments` is the
-# mechanism that would hold one.
-#
-# WHAT SEPARATES THE TWO STOCKS IS GLOSS, NOT COLOUR, so a better triple would not close the
-# gap on its own. `cadlib/flute-evidence/02` has both in one exposure: across the seam, where
-# the light grazes, PETG throws a warm specular bloom and PET-GF holds neutral, and PET-GF
-# reads 0.59× the PETG beside it; on the fluted panels below, same frame and same light, it
-# reads 1.10×. One ratio cannot be both, because what swings is the specular lobe. A material's
-# roughness is the channel that carries that, and there is nowhere to put it: a STEP colour is
-# RGBA, and `web/public/js/viewer/step.js` gives every body one hardcoded `roughness: 0.6`.
-M_PETGF_BLACK = cq.Color(0.20, 0.20, 0.21)
 # Bambu PETG Translucent Clear, the stock the four syrup-wetted reservoir parts print in
 # (`ledger/bom.md` §7) — SO THE CUSTOMER READS FILL STATE THROUGH THE WALL, which is the whole
 # reason a clear spool is bought. Neutral rather than blue: PETG's own clear pulls faintly warm.
 M_PETG_TRANSLUCENT = cq.Color(0.88, 0.88, 0.85, 0.35)
-# Bambu TPU 90A black, the one spool every soft seal on this machine prints off (`ledger/bom.md`
-# §8) — the display ring, the above-counter gasket and the faucet's o-ring.
-M_TPU_BLACK = cq.Color(0.15, 0.15, 0.15)
 # Platinum-cure silicone at BBDINO's carbon-black pigment, ≤2% by weight (`ledger/bom.md` §8).
 M_SILICONE_BLACK = cq.Color(0.08, 0.08, 0.08)
 # Unpigmented food-grade silicone, which is milky rather than clear — the sparge stub inside the
@@ -97,11 +83,9 @@ M_NITRILE_BLACK = cq.Color(0.11, 0.11, 0.11)
 M_PET_BRAID = cq.Color(0.10, 0.10, 0.11, 0.55)
 
 # --- the metals --------------------------------------------------------------
-M_STAINLESS = cq.Color(0.72, 0.73, 0.76)
 # Sintered 304 SS — the FERRODAY sparge stone, which its listing states as 304 throughout. A
 # powder-formed surface, so it reads matte where the bar stock it hangs off reads bright.
 M_SINTERED_SS = cq.Color(0.58, 0.59, 0.61)
-M_ALUMINIUM = cq.Color(0.80, 0.81, 0.83)
 # The Multiplex 19-0897's hex barrel (`reference/multiplex-asse1022`).
 M_BRASS = cq.Color(0.71, 0.56, 0.33)
 # The SF76E's tin-plated case, which its listing states as metal.
@@ -109,14 +93,6 @@ M_TINNED_STEEL = cq.Color(0.78, 0.79, 0.80)
 # The GASHER check valve's nickel-plated copper body — a plated white metal, warmer than steel
 # and a shade down from it.
 M_NICKEL_PLATE = cq.Color(0.76, 0.75, 0.71)
-# The GOORY ACR coil and its two tails. THE SAME VALUE THE REFRIGERANT RUNS ARE DRAWN IN —
-# `_routing.SPOOLS["copper"]` states this triple in 0–255, and a coil and the tube brazed to it
-# are one stock. It is restated here rather than imported because THIS MODULE IS AT THE BOTTOM
-# OF THE IMPORT GRAPH: every generator in the tree reads it, and `_routing` reads figures no
-# reference part declares, so an edge from here to there is an edge from everything to there.
-# The triple is written in the spool's own 0–255 units so the two read as the one value.
-M_COPPER = cq.Color(184 / 255.0, 115 / 255.0, 51 / 255.0)
-
 # --- the cold core's own bodies, by what each one is --------------------------
 # `cold-core-layout/cold_core_assembly` places these and the generators below cut them, so the
 # two read the same constant.
@@ -351,34 +327,3 @@ def finish_rows() -> list:
             f"_materials: {', '.join(missing)} name a colour with no finish. Add each to "
             f"FINISHES — a material cannot be drawn without saying how it takes the light.")
     return rows
-
-
-#: The lightest a colour can be and still reach a STEP. OCCT treats pure white as the default
-#: and writes no `COLOUR_RGB` for it, so a body asked to be white arrives carrying no colour at
-#: all and `web/public/js/viewer/step.js` draws it at `DEFAULT_FRONT` — a blue-grey. One part in
-#: 255 under white is the nearest thing that survives the round trip.
-_WHITEST = 254.0 / 255.0
-
-
-def step_safe(color) -> cq.Color:
-    """`color`, held below the white a STEP cannot carry.
-
-    Every white on this machine is a wayfinding white — the water chip, its word — so the one
-    that comes back has to be white to a reader and not the viewer's default."""
-    r, g, b, a = color.toTuple()
-    if min(r, g, b) >= _WHITEST:
-        return cq.Color(_WHITEST, _WHITEST, _WHITEST, a)
-    return color
-
-
-def one_body(shape, name, color) -> cq.Assembly:
-    """`shape` as a one-body assembly, so `export_assembly` bakes `color` into its STEP.
-
-    `cq.exporters.export` writes geometry and no colour, and a STEP carrying none is drawn at
-    `DEFAULT_FRONT` in web/public/js/viewer/step.js. A part whose own picture is a card of its
-    own comes through here instead.
-
-    The shape rides the assembly's ROOT rather than a child under it: a child may not take its
-    parent's name, and `_cadq_export._per_solid_color` reads a root's own `obj` and `color` —
-    splitting to `<name>/1…n` itself where the body is more than one solid."""
-    return cq.Assembly(shape, name=name, color=step_safe(color))

@@ -6,12 +6,16 @@ support, where that support begins, and how many separate interfaces a hand has 
 reader follows ``Support`` and ``Support interface`` extrusion paths through the layers and
 reports the independent readings stated by the enclosure's support-removal policy.
 
-Typical use after slicing a current enclosure STL with its named production 3MF profile::
+Typical use after extracting a history-only production profile and slicing a current enclosure
+STL through it::
+
+    git show aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a:hardware/printed-parts/enclosure/enclosure/enclosure-back-top-petgf.3mf \
+        > /tmp/enclosure-back-top-petgf.3mf
 
     python3 hardware/scripts/enclosure_support_audit.py \
         --piece enclosure-back-top --gcode /tmp/plate_1.gcode \
         --model hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl \
-        --profile hardware/printed-parts/enclosure/enclosure/enclosure-back-top-petgf.3mf
+        --profile /tmp/enclosure-back-top-petgf.3mf
 
 Pass ``--json-out`` to retain the reading. The G-code is deliberately not committed: it is a
 large derived file, while the compact JSON records its digest, model and profile inputs.

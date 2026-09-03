@@ -5345,23 +5345,24 @@ def _back_top_ceiling(solid, inner, y_joint, box):
         solid = solid.fuse(_back_top_ceiling_for_pack(inner, y_joint, sx, box))
 
     # THE DADO, one down each strip's inboard face, on the section the panel states. It is cut
-    # OPEN at both ends: its mouth one millimetre into the field, which is the panel's own lane,
-    # and its blind end its own depth INTO the +Y wall, which is the panel's stop. A groove
-    # ending exactly on either plane would leave the strip and the thing it runs out on meeting
-    # along a line, which is a knife edge in the solid and a non-manifold edge in the mesh.
+    # open at the mouth, one millimetre into the field which is the panel's own lane, and runs
+    # blind into the grown half of the +Y wall. A groove ending exactly on the panel's aft plane
+    # would leave the strip and the wall meeting along a line, which is a knife edge in the solid
+    # and a non-manifold edge in the mesh.
     #
-    # THE RAMP IS THE FIELD'S AND THE LAST `depth` IS A RUN-OUT. Beside the field the groove's
-    # roof rises to the show face at the mouth, and both the rise and the millimetre of overrun
-    # past the mouth are the panel's own lane: this piece has no top wall inboard of that plane
-    # to carry either. AFT OF THE FIELD IT HAS ONE. The blind end runs its own depth INTO the
-    # +Y wall, and there the section is continuous across the mouth plane — there is no free
+    # THE RAMP IS THE FIELD'S AND THE BLIND END STOPS INSIDE THE WALL. Beside the field the
+    # groove's roof rises to the show face at the mouth, and both the rise and the millimetre of
+    # overrun past the mouth are the panel's own lane: this piece has no top wall inboard of that
+    # plane to carry either. AFT OF THE FIELD IT HAS ONE. The blind end runs into the grown half
+    # of the +Y wall, and there the section is continuous across the mouth plane — there is no free
     # standing lip to feather and nothing to stand a ramp under. A ramp cut there lands its apex
     # in the MIDDLE of the show face rather than on its edge, which is three faces on one line
     # and a mesh a slicer refuses, and an overrun cut there opens a slot straight through the top
-    # wall. So the last `depth` is the groove's RUN-OUT and takes the blind end's own section
-    # carried square through it — floor to `roof_z`, with the rest of the top wall bridging the
-    # mouth plane over it — a `depth`-wide bridge from the strip to the wall, `lip_t` thick,
-    # where beside the field that same section is the lip that feathers to nothing.
+    # wall. The square run-out therefore occupies only the wall's grown inner section, from the
+    # panel stop to `rear_plane_y`, and leaves the nominal `wall` whole behind it through the
+    # exterior face. It carries the groove floor to `roof_z`; the rest of the top wall bridges
+    # the mouth plane over it, where beside the field that same section is the lip that feathers
+    # to nothing.
     slope, depth = math.tan(math.radians(chamfer)), blind_x - mouth_x
     over = 1.0
     # THE +X GROOVE ENDS ON THE C14'S OWN ROOM. The surround stands in that strip's last
@@ -5392,9 +5393,15 @@ def _back_top_ceiling(solid, inner, y_joint, box):
             groove = groove.cut(room)
         solid = solid.cut(groove)
         if not clipped:
+            # `cp.aft_y` is the six-millimetre wall's physical face and `rear_plane_y` is the
+            # nominal three-millimetre wall's interior face. The pocket between them is blind;
+            # the full nominal wall remains behind it instead of the dado opening on the rear.
+            if box.outer[3] - rear_plane_y < wall - stated_bound_tol:
+                raise ValueError(
+                    "the ceiling dado's blind run-out leaves less than one wall at the rear")
             solid = solid.cut(_ybox(
                 min(sx * mouth_x, sx * blind_x), max(sx * mouth_x, sx * blind_x),
-                cp.aft_y, cp.aft_y + depth, floor_z, roof_z))
+                cp.aft_y, rear_plane_y, floor_z, roof_z))
     return solid
 
 
