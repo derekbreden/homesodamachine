@@ -474,6 +474,9 @@ General shop equipment supporting fabrication, assembly, and teardown. Not proje
 | SMALLRIG 9.8" magic arm + super clamp, 1/4"-20 and 3/8" — holds the panelcam in front of the enclosure's front face. The crop recorded in `panelcam.targets.conf` is a reading only while the arm holds its aim, so the mount is the instrument's other half. $19.99 + $1.45 allocated NE tax | [B087T4T8D5](https://www.amazon.com/dp/B087T4T8D5) | 1 | $21.44 | 112-5197027-7255407 | 2026-08-31 | 2026-09-01 | ACQUIRED |
 | Anker 5-in-1 USB-C hub, USB-C to HDMI 4K — bench fan-out from one of the M3 Air's two USB-C ports to the boards and the panelcam. $17.99 + $1.30 allocated NE tax | [B0BQLLB61B](https://www.amazon.com/dp/B0BQLLB61B) | 1 | $19.29 | 112-5197027-7255407 | 2026-08-31 | 2026-09-01 | ACQUIRED |
 | Amazon Basics LR44 alkaline button cell (6 pk) — cells for the NEIKO 01407A caliper above, whose readings the `raw-images/` caliper photos encode ([measure-from-drawings](/tools/measure-from-drawings/README.md)). $5.49 + $0.40 allocated NE tax | [B07JLBCH8L](https://www.amazon.com/dp/B07JLBCH8L) | 1 pk (6) | $5.89 | 112-5197027-7255407 | 2026-08-31 | 2026-09-01 | ACQUIRED |
+| HOTO PixelDrive electric screwdriver — the driver for the M2/M3/M5 insert work. 1/4" hex chuck, 6 torque settings over 0.5–6 N·m with the setting on its display. The 0.5 N·m floor is the point: a ruthex insert's grip on PETG gives out well below what a 12.9 M3 or a drill's lowest clutch click will deliver, so the torque this tool will not exceed is the spec that matters. Sole item on its invoice, $69.99 + $5.07 NE tax | [B0FKBJL68H](https://www.amazon.com/dp/B0FKBJL68H) | 1 | $75.06 | 112-3695429-8445811 | 2026-09-02 | — | ON-ORDER |
+| Railer 2.5 mm hex bit, 2", S2 steel, 5-pack — the M3 driver size; every M3 SHCS in this build is DIN 912 and takes 2.5 mm. Bought five because the 2.5 is the wear item at this screw count. Sole item on its invoice, $9.99 + $0.72 NE tax | [B0BXMLLXSN](https://www.amazon.com/dp/B0BXMLLXSN) | 1 pk (5) | $10.71 | 112-1104114-3043411 | 2026-09-02 | — | ON-ORDER |
+| Railer 4 mm hex bit, 2", S2 steel, 5-pack — the M5 SHCS driver size (MewuDecor M5 × 10, §11). Does not drive the M5 × 12 countersunk screws in §1, which are DIN 7991 and take 3 mm. Sole item on its invoice, $9.99 + $0.72 NE tax | [B0BXMJ48LC](https://www.amazon.com/dp/B0BXMJ48LC) | 1 pk (5) | $10.71 | 112-6302698-6065059 | 2026-09-02 | — | ON-ORDER |
 
 ## 13. Printing consumables
 
@@ -674,10 +677,10 @@ Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C funne
 | ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$33,374.25](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$5,437.54](LEDGER_LABOR) |
 | ACQUIRED (combined) | [$38,811.79](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$626.23](LEDGER_ON_ORDER) |
+| ON-ORDER | [$722.71](LEDGER_ON_ORDER) |
 | MISSING — paid, not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$39,491.09](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$39,587.57](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
