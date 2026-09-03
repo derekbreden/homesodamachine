@@ -38,7 +38,11 @@ _ROOT = _HERE.parents[2]
 GRAPH = _HERE.parent / "graph.json"
 
 sys.path.insert(0, str(_HERE.parent))
-from inventory import IMPLICIT_SOLIDS, tracked as _inventory_tracked   # noqa: E402
+from inventory import (  # noqa: E402
+    IMPLICIT_SOLIDS,
+    build_inert,
+    tracked as _inventory_tracked,
+)
 
 RUNNER = r'''
 import json, os, sys, runpy
@@ -182,7 +186,10 @@ def _graph_writes(path=GRAPH) -> set:
         graph = json.loads(Path(path).read_text())
     except (OSError, ValueError):
         return set()
-    return {f for seen in graph.values() for f in seen.get("writes", ())}
+    return {
+        f for seen in graph.values() for f in seen.get("writes", ())
+        if not build_inert(f)
+    }
 
 
 def _tracked(path=GRAPH, base=None) -> set:
@@ -200,12 +207,13 @@ def _tracked(path=GRAPH, base=None) -> set:
     handoff is intentionally absent from git. `inventory.inventory` admits these same graph
     writes when it composes actions, so tracing and action construction share the boundary."""
     implicit = {f for paths in IMPLICIT_SOLIDS.values() for f in paths}
-    return set(_inventory_tracked() if base is None else base) | _graph_writes(path) | implicit
+    files = set(_inventory_tracked() if base is None else base) | _graph_writes(path) | implicit
+    return {path for path in files if not build_inert(path)}
 
 
 def _filtered(seen: dict, files: set) -> dict:
     """The recorded sides after paths outside the declared tree are removed."""
-    return {side: {p for p in seen.get(side, ()) if p in files}
+    return {side: {p for p in seen.get(side, ()) if p in files and not build_inert(p)}
             for side in ("reads", "writes", "rewritten")}
 
 
@@ -392,8 +400,17 @@ def selftest() -> int:
         print(f"  {'✓' if admitted else '✗'} an implicit mesh is admitted before its first "
               "trace writes graph.json")
 
-    print(f"trace_inputs selftest {holds}/9")
-    return 0 if holds == 9 else 1
+        slicer = "hardware/printed-parts/petgf.3mf"
+        inert = (slicer not in _tracked(path, {"producer.py", "consumer.py", slicer})
+                 and slicer not in _filtered(
+                     {"reads": ["consumer.py", slicer], "writes": [result], "rewritten": []},
+                     {"consumer.py", slicer, result},
+                 )["reads"])
+        holds += inert
+        print(f"  {'✓' if inert else '✗'} a slicer workspace never enters a trace or action")
+
+    print(f"trace_inputs selftest {holds}/10")
+    return 0 if holds == 10 else 1
 
 
 def _lock_debt(wrote: set) -> list:
