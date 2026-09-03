@@ -165,8 +165,9 @@ yield instead of using the fixture as a rigid puller.
   tapped flange holes. No inserts: the thread is the motor's.
 - 31 × ruthex M3 short inserts. Screws from acquired stock: 8 × M3 × 25
   base-foot retainers, 3 × M3 × 25 spool screws, 3 × M3 × 8 race-ring screws,
-  4 × M3 × 10 carriage screws, 4 × M3 × 8 motor-pad screws, 3 × M3 × 10 nest
-  retainers, 3 × M3 × 25 tube adjusters, 2 × M3 × 12 ground-arm retainers, and
+  4 × M3 × 10 carriage screws, 4 × M3 × 8 motor-pad screws,
+  3 × M3 × [10](WR_NEST_RETAINER_SCREW) nest retainers, 3 × M3 × 25 tube
+  adjusters, 2 × M3 × 12 ground-arm retainers, and
   1 × M3 × 8 ground-shoe side-clamp screw into its printed-arm insert.
 - The C110 shoe comes from the acquired
   [YTKavq 1/4 × 2 × 12 inch bar](https://www.amazon.com/dp/B0DR2PX6TT), the
@@ -288,10 +289,12 @@ ring.
    slots at the inboard end; leave them loose.
 10. Slide the complete carriage outward until the long belt span twists about
    90 degrees with finger pressure, then tighten the four carriage screws.
-11. Seat the nest on its register and drive three M3 × 10 retainers straight
-   down through its access wells. Thread the three M3 × 25 tube adjusters into
-   their radial inserts, then back every tip fully clear of the OD guide before
-   loading a tube.
+11. Seat the nest on its register and drive three M3 ×
+   [10](WR_NEST_RETAINER_SCREW) retainers straight down through its access
+   wells. They engage the turntable inserts by
+   [3.2](WR_NEST_RETAINER_REACH) mm. Thread the three M3 × 25 tube adjusters
+   into their radial inserts, then back every tip fully clear of the OD guide
+   before loading a tube.
 12. Run the turntable dry for ten revolutions, clean the race, and re-check
     belt tracking before loading a tube.
 13. Bolt down the ground tower and flexure arm. Slide the crosscut C110 shoe
