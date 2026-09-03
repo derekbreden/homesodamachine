@@ -6177,6 +6177,7 @@ genrule(
     name = "weld-rotator",
     srcs = [
         "hardware/printed-parts/fixtures/weld-rotator/README.md",
+        "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.lint-answers",
         "pysrc/hardware/printed-parts/fixtures/weld-rotator/_rotator_interface.py",
         "hardware/printed-parts/fixtures/weld-rotator/weld_rotator.py",
         "pysrc/hardware/scripts/_cadq_export.py",
@@ -14801,6 +14802,7 @@ sh_test(
         "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-shoe.step",
         "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-tower.step",
         "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.step",
+        "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.lint-answers",
         "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-clamp-pad.step",
         "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-tower.step",
         "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-pulley-coupon.step",

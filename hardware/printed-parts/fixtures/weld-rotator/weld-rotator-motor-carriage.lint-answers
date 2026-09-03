@@ -1,0 +1,4 @@
+[ceiling] These are the two belt-envelope roof faces beneath the motor skin. Keeping them joins the material inside and outside the closed belt loop into one carriage and preserves the complete Ø38.6 pilot ring that carries belt tension. Both faces are open to the build plate with 5.15 mm of support build-up, and both interfaces remain directly exposed through the belt openings for removal; the print instructions therefore require build-plate-only tree support at these two faces.
+file: hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.step
+click: x=112.578 y=-26.912 z=50.500
+click: x=112.578 y=26.912 z=50.500
