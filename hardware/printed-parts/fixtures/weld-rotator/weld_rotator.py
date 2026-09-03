@@ -330,7 +330,7 @@ GROUND_SHOE_MIN_T = 5.75
 GROUND_SHOE_MAX_T = 6.5
 GROUND_SHOE_BACK_X = GROUND_SHOE_FRONT_X - GROUND_SHOE_T
 GROUND_SHOE_Y = 25.0
-GROUND_SHOE_SIDE_CLEARANCE = 0.75
+GROUND_SHOE_SIDE_CLEARANCE = 0.4
 GROUND_SHOE_Z = 50.0
 GROUND_SHOE_Z0 = GROUND_TOP_Z - 1.0
 GROUND_HOLDER_H = 12.0
@@ -343,10 +343,14 @@ GROUND_HOLDER_FRONT_X = -64.0
 GROUND_HOLDER_SIDE_T = 3.0
 GROUND_HOLDER_CLAMP_T = 7.0
 GROUND_HOLDER_SHELF_H = 3.0
+GROUND_HOLDER_CLAMP_INNER_Y = -(GROUND_SHOE_Y / 2.0 + GROUND_SHOE_SIDE_CLEARANCE)
+GROUND_HOLDER_CLAMP_OUTER_Y = GROUND_HOLDER_CLAMP_INNER_Y - GROUND_HOLDER_CLAMP_T
+GROUND_HOLDER_FIXED_INNER_Y = GROUND_SHOE_Y / 2.0 + GROUND_SHOE_SIDE_CLEARANCE
+GROUND_HOLDER_FIXED_OUTER_Y = GROUND_HOLDER_FIXED_INNER_Y + GROUND_HOLDER_SIDE_T
 GROUND_SHOE_CLAMP_SHANK_D = 3.4
 GROUND_SHOE_CLAMP_INSERT_D = 4.0
 GROUND_SHOE_CLAMP_INSERT_DEPTH = 5.2
-GROUND_SHOE_CLAMP_SCREW_LENGTH = 10.0
+GROUND_SHOE_CLAMP_SCREW_LENGTH = 8.0
 GROUND_SHOE_CLAMP_X = GROUND_SHOE_FRONT_X - GROUND_SHOE_T / 2.0
 GROUND_SHOE_CLAMP_Z = GROUND_TOP_Z + GROUND_ARM_H / 2.0
 GROUND_TEARDROP_ROOF_ANGLE = 36.0
@@ -391,6 +395,38 @@ def _radial_cylinder(angle: float,
             cq.Vector(direction * math.cos(theta), direction * math.sin(theta), 0.0),
         )
     )
+
+
+def _teardrop_y(radius: float, x: float, z: float, y0: float, y1: float):
+    """Support-free Y-axis bore in a part printed on the XY plane.
+
+    The entire nominal circle remains below a pair of tangent roof planes, so
+    a round screw or heat-set insert still has its specified fit without an
+    unsupported circular crown.
+    """
+    a = math.radians(GROUND_TEARDROP_ROOF_ANGLE)
+    half = radius * math.sin(a)
+    tangent = z + radius * math.cos(a)
+    apex = z + radius / math.cos(a)
+    round_bore = cq.Solid.makeCylinder(
+        radius,
+        y1 - y0,
+        cq.Vector(x, y0, z),
+        cq.Vector(0.0, 1.0, 0.0),
+    )
+    roof = (
+        cq.Workplane("XZ")
+        .polyline(_ring([
+            (x - half, tangent),
+            (x + half, tangent),
+            (x, apex),
+        ]))
+        .wire()
+        .extrude(-(y1 - y0))
+        .val()
+        .translate((0.0, y0, 0.0))
+    )
+    return cq.Workplane(obj=round_bore.fuse(roof))
 
 
 def _vertical_slot(x0: float, x1: float, y: float, diameter: float, z0: float, h: float):
@@ -1080,40 +1116,51 @@ def build_ground_arm():
         cq.Workplane(
             "XY",
             origin=(GROUND_HOLDER_BACK_FACE_X - GROUND_HOLDER_BACK_T / 2.0,
-                    0.0,
+                    (GROUND_HOLDER_CLAMP_OUTER_Y
+                     + GROUND_HOLDER_FIXED_OUTER_Y) / 2.0,
                     GROUND_SHOE_Z0),
         )
         .box(GROUND_HOLDER_BACK_T,
-             GROUND_SHOE_Y
-             + 2.0 * (GROUND_SHOE_SIDE_CLEARANCE + GROUND_HOLDER_SIDE_T),
+             GROUND_HOLDER_FIXED_OUTER_Y - GROUND_HOLDER_CLAMP_OUTER_Y,
              GROUND_HOLDER_H,
              centered=(True, True, False))
     )
-    side_lugs = (
+    clamp_jaw = (
         cq.Workplane(
             "XY",
             origin=((GROUND_HOLDER_BACK_FACE_X + GROUND_HOLDER_FRONT_X) / 2.0,
-                    -(GROUND_SHOE_Y / 2.0
-                      + GROUND_SHOE_SIDE_CLEARANCE
-                      + GROUND_HOLDER_SIDE_T / 2.0),
+                    (GROUND_HOLDER_CLAMP_OUTER_Y
+                     + GROUND_HOLDER_CLAMP_INNER_Y) / 2.0,
+                    GROUND_SHOE_Z0),
+        )
+        .box(GROUND_HOLDER_FRONT_X - GROUND_HOLDER_BACK_FACE_X,
+             GROUND_HOLDER_CLAMP_T,
+             GROUND_HOLDER_H,
+             centered=(True, True, False))
+    )
+    fixed_jaw = (
+        cq.Workplane(
+            "XY",
+            origin=((GROUND_HOLDER_BACK_FACE_X + GROUND_HOLDER_FRONT_X) / 2.0,
+                    (GROUND_HOLDER_FIXED_INNER_Y
+                     + GROUND_HOLDER_FIXED_OUTER_Y) / 2.0,
                     GROUND_SHOE_Z0),
         )
         .box(GROUND_HOLDER_FRONT_X - GROUND_HOLDER_BACK_FACE_X,
              GROUND_HOLDER_SIDE_T,
              GROUND_HOLDER_H,
              centered=(True, True, False))
-    ).union(
+    )
+    shelf = (
         cq.Workplane(
             "XY",
             origin=((GROUND_HOLDER_BACK_FACE_X + GROUND_HOLDER_FRONT_X) / 2.0,
-                    GROUND_SHOE_Y / 2.0
-                    + GROUND_SHOE_SIDE_CLEARANCE
-                    + GROUND_HOLDER_SIDE_T / 2.0,
-                    GROUND_SHOE_Z0),
+                    0.0,
+                    GROUND_SHOE_Z0 - GROUND_HOLDER_SHELF_H),
         )
         .box(GROUND_HOLDER_FRONT_X - GROUND_HOLDER_BACK_FACE_X,
-             GROUND_HOLDER_SIDE_T,
-             GROUND_HOLDER_H,
+             GROUND_HOLDER_FIXED_INNER_Y - GROUND_HOLDER_CLAMP_INNER_Y,
+             GROUND_HOLDER_SHELF_H,
              centered=(True, True, False))
     )
     spring = pad.union(beam).union(nose)
@@ -1136,7 +1183,7 @@ def build_ground_arm():
     spring = cq.Workplane(
         obj=spring.val().fillet(GROUND_SPRING_FILLET_R, spring_fillet_edges)
     )
-    arm = spring.union(back).union(side_lugs)
+    arm = spring.union(back).union(clamp_jaw).union(fixed_jaw).union(shelf)
 
     for x, y in GROUND_ARM_POINTS:
         hole = (
@@ -1154,19 +1201,21 @@ def build_ground_arm():
         )
         arm = arm.cut(hole.union(head))
 
-    shoe_screw = cq.Workplane(
-        obj=cq.Solid.makeCylinder(
-            GROUND_SHOE_SCREW_D / 2.0,
-            GROUND_HOLDER_SIDE_T + GROUND_SHOE_SIDE_CLEARANCE + 0.2,
-            cq.Vector(GROUND_SHOE_SCREW_X,
-                      -GROUND_SHOE_Y / 2.0
-                      - GROUND_SHOE_SIDE_CLEARANCE
-                      - GROUND_HOLDER_SIDE_T,
-                      GROUND_SHOE_SCREW_Z),
-            cq.Vector(0.0, 1.0, 0.0),
-        )
+    clamp_shank = _teardrop_y(
+        GROUND_SHOE_CLAMP_SHANK_D / 2.0,
+        GROUND_SHOE_CLAMP_X,
+        GROUND_SHOE_CLAMP_Z,
+        GROUND_HOLDER_CLAMP_OUTER_Y - 0.1,
+        GROUND_HOLDER_CLAMP_INNER_Y + 0.1,
     )
-    return arm.cut(shoe_screw)
+    clamp_insert = _teardrop_y(
+        GROUND_SHOE_CLAMP_INSERT_D / 2.0,
+        GROUND_SHOE_CLAMP_X,
+        GROUND_SHOE_CLAMP_Z,
+        GROUND_HOLDER_CLAMP_OUTER_Y - 0.1,
+        GROUND_HOLDER_CLAMP_OUTER_Y + GROUND_SHOE_CLAMP_INSERT_DEPTH,
+    )
+    return arm.cut(clamp_shank.union(clamp_insert))
 
 
 def build_ground_shoe_proxy():
@@ -1538,9 +1587,26 @@ def selftest():
         if _overlap(pulley_proxy, parts["turntable"]) > 1e-4:
             raise ValueError("purchased 20T pulley intersects the turntable")
 
-    ground_preload = GROUND_SHOE_FRONT_X + interface.TUBE_OD / 2.0
-    if not 0.5 <= ground_preload <= 2.0:
-        raise ValueError(f"ground shoe preload is {ground_preload:.2f} mm")
+    ground_preload_min = (
+        GROUND_HOLDER_BACK_FACE_X
+        + GROUND_SHOE_MIN_T
+        + interface.TUBE_OD / 2.0
+    )
+    ground_preload_max = (
+        GROUND_HOLDER_BACK_FACE_X
+        + GROUND_SHOE_MAX_T
+        + interface.TUBE_OD / 2.0
+    )
+    if ground_preload_min < 0.5 or ground_preload_max > 2.0:
+        raise ValueError(
+            "ground shoe stock tolerance gives "
+            f"{ground_preload_min:.2f}--{ground_preload_max:.2f} mm preload"
+        )
+    ground_preload = (
+        GROUND_HOLDER_BACK_FACE_X
+        + GROUND_SHOE_T
+        + interface.TUBE_OD / 2.0
+    )
     flexure_free_length = -GROUND_NOSE_Y / 2.0 - GROUND_PAD_Y1
     flexure_surface_strain = (
         1.5 * GROUND_BEAM_T * ground_preload / flexure_free_length**2
@@ -1554,16 +1620,52 @@ def selftest():
         raise ValueError("ground arm reaches the tube before its copper shoe")
     if _overlap(parts["ground-shoe"], tube_proxy) <= 1e-4:
         raise ValueError("ground shoe has no nominal preload into the tube")
-    shoe_back_at_max_stock = GROUND_SHOE_FRONT_X - GROUND_SHOE_MAX_T
-    if shoe_back_at_max_stock <= GROUND_HOLDER_BACK_FACE_X:
-        raise ValueError("maximum copper stock thickness does not fit the ground arm")
-    shoe_screw_edge = GROUND_SHOE_SCREW_D / 2.0 + 1.0
+    clamp_tip_reach = GROUND_SHOE_CLAMP_SCREW_LENGTH - GROUND_HOLDER_CLAMP_T
+    if clamp_tip_reach < 2.0 * GROUND_SHOE_SIDE_CLEARANCE:
+        raise ValueError("ground-shoe clamp screw cannot take up the side clearance")
+    if GROUND_SHOE_CLAMP_INSERT_DEPTH > GROUND_HOLDER_CLAMP_T - 1.0:
+        raise ValueError("ground-shoe clamp insert lacks a closed end")
+    clamp_tip_edge = GROUND_SHOE_CLAMP_SHANK_D / 2.0 + 1.0
     if not (
-        shoe_back_at_max_stock + shoe_screw_edge
-        < GROUND_SHOE_SCREW_X
-        < GROUND_SHOE_FRONT_X - shoe_screw_edge
+        GROUND_HOLDER_BACK_FACE_X + clamp_tip_edge
+        < GROUND_SHOE_CLAMP_X
+        < GROUND_HOLDER_BACK_FACE_X + GROUND_SHOE_MIN_T - clamp_tip_edge
     ):
-        raise ValueError("ground-shoe tap lacks copper around it")
+        raise ValueError("ground-shoe clamp screw misses the stock edge")
+    clamp_screw = cq.Workplane(
+        obj=cq.Solid.makeCylinder(
+            1.5,
+            GROUND_SHOE_CLAMP_SCREW_LENGTH,
+            cq.Vector(
+                GROUND_SHOE_CLAMP_X,
+                GROUND_HOLDER_CLAMP_OUTER_Y,
+                GROUND_SHOE_CLAMP_Z,
+            ),
+            cq.Vector(0.0, 1.0, 0.0),
+        )
+    )
+    if _overlap(parts["ground-arm"], clamp_screw) > 1e-4:
+        raise ValueError("ground arm blocks its shoe-clamp screw")
+    if _overlap(parts["ground-shoe"], clamp_screw) <= 1e-4:
+        raise ValueError("ground-shoe clamp screw cannot reach the copper edge")
+    insertion_sweep = (
+        cq.Workplane(
+            "XY",
+            origin=(
+                (GROUND_SHOE_BACK_X + GROUND_SHOE_FRONT_X) / 2.0,
+                0.0,
+                GROUND_SHOE_Z0,
+            ),
+        )
+        .box(
+            GROUND_SHOE_FRONT_X - GROUND_SHOE_BACK_X,
+            GROUND_SHOE_Y,
+            GROUND_SHOE_Z + 20.0,
+            centered=(True, True, False),
+        )
+    )
+    if _overlap(parts["ground-arm"], insertion_sweep) > 1e-4:
+        raise ValueError("ground arm blocks the copper shoe's top-down insertion path")
     if GROUND_FOOT_X0 < BASE_X_MIN or GROUND_FOOT_Y0 < BASE_Y_MIN:
         raise ValueError("ground tower falls outside the stationary base")
 
@@ -1701,6 +1803,7 @@ def main():
         "WR_GROUND_SHOE_T": f"{GROUND_SHOE_T:.0f}",
         "WR_GROUND_SHOE_W": f"{GROUND_SHOE_Y:.0f}",
         "WR_GROUND_SHOE_Z": f"{GROUND_SHOE_Z:.0f}",
+        "WR_GROUND_ARM_TOP": f"{GROUND_SHOE_Z0 + GROUND_HOLDER_H:.0f}",
         "WR_TUBE_ADJUSTER_BORE": f"{M3_ADJUSTER_SHANK_D:.1f}",
         "WR_TUBE_TOP": f"{NEST_SEAT_Z + NEST_BASE_H + interface.TUBE_LENGTH:.1f}",
         "WR_TUBE_TOP_BENCH": (
