@@ -361,7 +361,7 @@ display_body_offset_slope = -1.0 # PCB body offset, down-slope
 display_corner_r = _interface.display_corner_r         # corner rounding, matching the display bezel
 # THE FACE CLOSES FLAT. The display is let into the facet down TWO steps, and a printed
 # cover plate fills the outer one — so what a hand meets is one unbroken 45° plane with a
-# border let into it, and the two screws that hold the border are countersunk into their own
+# border let into it, and the two screws that hold the border are counterbored into their own
 # lands. Nothing stands proud of the face anywhere.
 #
 #   45° face  ─────────┐                       ┌─────────  ← the plate's top, flush
@@ -375,7 +375,7 @@ display_corner_r = _interface.display_corner_r         # corner rounding, matchi
 # states both halves of it.
 display_inset_lap = _interface.display_inset_lap       # the plate's lap over the glass, and the inset's land past it
 display_inset_reach = _interface.display_inset_reach   # how far the inset runs past the glass laterally — the land
-                                 # the two cover screws stand in, since a countersunk M3 head
+                                 # the two cover screws stand in, since a counterbored M3 head
                                  # is wider than the border it would otherwise sit in
 display_inset_depth = _interface.display_inset_depth   # inset floor, down from the 45° face — the plate's seat
 display_inset_x = _interface.display_inset_x                       # [153.5 mm](DISPLAY_INSET_X)
@@ -3319,7 +3319,7 @@ def _display_cuts(outer):
     THE INSET IS THE OUTER STEP and the bezel counterbore the inner one, so the glass sits
     `display_inset_depth` below the plate that laps it and the plate's own top lies in the
     45° plane. The inset runs `display_inset_reach` past the glass laterally — that land is
-    what a countersunk head needs — and `display_inset_lap` past it up the slope, which is
+    what a counterbored head needs — and `display_inset_lap` past it up the slope, which is
     the border's own width.
 
     AND THE LAND IS SUNK PAST IT, to `display_cover_seat`, over everything OUTSIDE the bezel's
