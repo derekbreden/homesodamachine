@@ -4651,7 +4651,7 @@ def _front_relief_regions(pump_trays):
     return list(fridge_reliefs) + _pump_relief_regions(pump_trays)
 
 
-def _front_relief_cuts(inner, pump_trays, slip=0.0):
+def _front_relief_cuts(inner, regions, slip=0.0):
     """The relief pockets cut out of the front wall: a box to each region's floor, its
     ceiling rising at `relief_chamfer` to the mouth so the pocket prints in a standing
     wall with no flat over it.
@@ -4669,7 +4669,7 @@ def _front_relief_cuts(inner, pump_trays, slip=0.0):
     iy0 = inner[2]
     iz0 = inner[4]
     cuts = []
-    for x0, x1, z0, z1, floor in _front_relief_regions(pump_trays):
+    for x0, x1, z0, z1, floor in regions:
         x0, x1, z0, z1 = x0 + slip, x1 - slip, z0 + slip, z1 - slip
         floor = floor + slip
         depth = iy0 - floor
@@ -6242,9 +6242,10 @@ def build_front_half(box):
     inner, outer, y_joint = box.inner, box.outer, box.y_joint
     shell = _shell_with_facet(inner, outer).val()
     front = shell.intersect(_ybox(outer[0], outer[1], outer[2], y_joint, outer[4], outer[5]))
-    # The front wall's reliefs, out of the section before anything stands on it: the
-    # refrigeration bay and the pump pockets, each floored on its own stated plane.
-    for cutter in _front_relief_cuts(inner, box.pack.pump_trays):
+    # The fixed front wall's refrigeration reliefs, out of the section before anything stands
+    # on it. The pump storey is the removable cartridge's complete full-width opening; its
+    # fitted pump wells are cut in that cartridge, not repeated in the stationary sill below.
+    for cutter in _front_relief_cuts(inner, fridge_reliefs):
         front = front.cut(cutter)
     front = front.fuse(_front_lip(inner, y_joint))
     # The floor's overlap: a full-thickness tongue on the bed, ending in a 45°
@@ -8711,6 +8712,31 @@ def build_piece(box, y_side, z_side, halves_cache=None):
 
 # --- reporting --------------------------------------------------------------
 
+def _report_bay_sill(front_top, box):
+    """Prove the stationary front sill is one uninterrupted section below the bay floor.
+
+    The removable cartridge owns every pump-shaped opening above ``bay_floor_z``. Immediately
+    below that plane the fixed wall is plain stock across the enclosure's complete rounded
+    front: a pump-well cutter, clearance pocket or old jamb repeated in this band is a hole in
+    the sill, not cartridge running air.
+    """
+    if not (box.pump_bay and box.pack.pump_trays):
+        return
+    outer = box.outer
+    top = bay_floor_z(box.pack.pump_trays)[1]
+    expected = _rounded_outer(outer).intersect(_ybox(
+        outer[0] - 1.0, outer[1] + 1.0,
+        outer[2] - 1.0, front_plane_y,
+        top - pump_cartridge_z_clearance, top))
+    missing = expected.cut(front_top.val()).Volume()
+    if missing > stated_bound_tol:
+        raise ValueError(
+            "the fixed front sill is not one uninterrupted section immediately below the "
+            f"pump bay floor: {missing:.6f} mm³ is missing")
+    print(f"  bay sill:         one uninterrupted {pump_cartridge_z_clearance:g} mm "
+          "witness band below the cartridge")
+
+
 def _report_ridge_roof(half, box):
     """Prove the built front-top keeps the ridge roof as one notched face between its datums.
 
@@ -9176,6 +9202,7 @@ def main():
     core, box = machine_of()
     pieces, assy = build_pieces(box)
     print("enclosure:")
+    _report_bay_sill(pieces["front-top"], box)
     _report_ridge_roof(pieces["front-top"], box)
     _report_slide(pieces, box)     # the slides swept and the catches lifted, into BOUNDS
     _report_bounds()          # the machine's, with its pieces cut and its slides swept
