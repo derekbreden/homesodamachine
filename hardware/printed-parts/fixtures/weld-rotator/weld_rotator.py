@@ -170,6 +170,7 @@ NEST_RETAINER_ANGLES = (0.0, 120.0, 240.0)
 NEST_RETAINER_ACCESS_D = M3_HEAD_D
 NEST_INSERT_D = 4.0
 NEST_INSERT_DEPTH = 5.2
+NEST_RETAINER_SCREW_LENGTH = 10.0
 
 # Tube nest — the [4.5](WR_PILOT_H) pilot fits above a welded plate's
 # [6.35](WR_RECESS) recess.  Three radial screws bear directly on the OD;
@@ -1425,6 +1426,11 @@ def selftest():
     register_cap = NEST_BASE_H - REGISTER_SOCKET_DEPTH - REGISTER_ROOF_H
     if register_cap < 1.0:
         raise ValueError("tube-nest register roof leaves less than 1 mm of cap")
+    nest_reach = (
+        NEST_RETAINER_SCREW_LENGTH - (NEST_BASE_H - M3_HEAD_DEPTH)
+    )
+    if not 3.0 <= nest_reach <= NEST_INSERT_DEPTH - 0.5:
+        raise ValueError("tube-nest retainer screws have invalid insert engagement")
     pilot_radial_clearance = (interface.TUBE_ID - PILOT_OD) / 2.0
     outer_radial_clearance = (OUTER_BORE_D - interface.TUBE_OD) / 2.0
     if pilot_radial_clearance <= 0.0 or outer_radial_clearance <= 0.0:
@@ -1786,6 +1792,9 @@ def main():
     outer_clearance = (OUTER_BORE_D - interface.TUBE_OD) / 2.0
     ball_pitch = 2.0 * math.pi * BALL_RACE_R / BALL_COUNT
     mount_reach = MOTOR_MOUNT_SCREW_LENGTH - (MOTOR_FACE_Z - CARRIAGE_ARM_Z0)
+    nest_reach = (
+        NEST_RETAINER_SCREW_LENGTH - (NEST_BASE_H - M3_HEAD_DEPTH)
+    )
     variables = {
         "WR_BASE_X": f"{BASE_X:.0f}",
         "WR_BASE_Y": f"{BASE_Y:.0f}",
@@ -1826,6 +1835,8 @@ def main():
         "WR_RECESS": f"{interface.ENDCAP_RECESS:.2f}",
         "WR_NEST_OD": f"{NEST_OD:.0f}",
         "WR_NEST_BASE_H": f"{NEST_BASE_H:.0f}",
+        "WR_NEST_RETAINER_SCREW": f"{NEST_RETAINER_SCREW_LENGTH:.0f}",
+        "WR_NEST_RETAINER_REACH": f"{nest_reach:.1f}",
         "WR_REGISTER_OD": f"{REGISTER_OD:.0f}",
         "WR_REGISTER_SOCKET_DEPTH": f"{REGISTER_SOCKET_DEPTH:.1f}",
         "WR_REGISTER_CAP": f"{NEST_BASE_H - REGISTER_SOCKET_DEPTH - REGISTER_ROOF_H:.1f}",

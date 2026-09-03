@@ -137,11 +137,12 @@ three screws supply the final indicator adjustment through continuous radial
 passages to the tube OD. Their stations are staggered between the nest-retainer
 wells, with the ID pilot backing the tube at each contact.
 
-Three M3 × 10 screws retain the nest to the turntable. Each is installed from
-above through a straight Ø6.2 mm well in the nest's ID pilot and seats in a
-recess in the 10 mm base. The underside register socket preserves 3.2 mm of
-straight engagement, then its annular cavity closes through opposed 45-degree
-roofs instead of a broad unsupported ceiling.
+Three M3 × 10 screws retain the nest to the turntable with 3.2 mm of insert
+engagement. Each is installed from above through a straight Ø6.2 mm well in
+the nest's ID pilot and seats in a recess in the 10 mm base. The underside
+register socket preserves 3.2 mm of straight engagement, then its annular
+cavity closes through opposed 45-degree roofs instead of a broad unsupported
+ceiling.
 
 With the tube seated, seat the indicator's magnetic base on the exposed
 stationary steel lamination face of the NEMA 23, lock both arm joints, and

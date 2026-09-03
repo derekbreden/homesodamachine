@@ -29,6 +29,8 @@
     "WR_NEST_BASE_H": "10",
     "WR_NEST_OD": "150",
     "WR_NEST_RETAINER_ACCESS": "6.2",
+    "WR_NEST_RETAINER_REACH": "3.2",
+    "WR_NEST_RETAINER_SCREW": "10",
     "WR_OUTER_BORE": "127.80",
     "WR_OUTER_CLEAR": "0.40",
     "WR_PILOT_CLEAR": "0.20",
