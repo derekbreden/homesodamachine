@@ -203,18 +203,46 @@ def rail_stock(y0=fore_y, y1=aft_y):
     return rails
 
 
-def _rounded_slab(x0, x1, y0, y1, z0, z1, radius=relief_corner_r):
+def _rounded_slab(x0, x1, y0, y1, z0, z1, radius=relief_corner_r, open_sides=()):
     solid = _slab(x0, x1, y0, y1, z0, z1)
     radius = min(radius, (x1 - x0) / 3.0, (y1 - y0) / 3.0)
     if radius <= 0.1:
         return solid
-    return cq.Workplane(obj=solid).edges("|Z").fillet(radius).val()
+    open_sides = frozenset(open_sides)
+    rounded = []
+    for edge in cq.Workplane(obj=solid).edges("|Z").vals():
+        centre = edge.Center()
+        if (("x0" in open_sides and abs(centre.x - x0) < 1e-7)
+                or ("x1" in open_sides and abs(centre.x - x1) < 1e-7)
+                or ("y0" in open_sides and abs(centre.y - y0) < 1e-7)
+                or ("y1" in open_sides and abs(centre.y - y1) < 1e-7)):
+            continue
+        rounded.append(edge)
+    if not rounded:
+        return solid
+    return cq.Workplane(obj=solid).newObject(rounded).fillet(radius).val()
 
 
 def _relief_radius(relief):
     """The plan radius `_rounded_slab` gives one body relief."""
     _name, x0, x1, y0, y1, _top = relief
     return min(relief_corner_r, (x1 - x0) / 3.0, (y1 - y0) / 3.0)
+
+
+def _relief_open_sides(relief):
+    """Sides where a body pocket exits the field-and-rail envelope."""
+    _name, x0, x1, y0, y1, _top = relief
+    outer_x = panel_half_w + tongue_reach
+    sides = []
+    if x0 <= -outer_x:
+        sides.append("x0")
+    if x1 >= outer_x:
+        sides.append("x1")
+    if y0 <= fore_y:
+        sides.append("y0")
+    if y1 >= aft_y:
+        sides.append("y1")
+    return tuple(sides)
 
 
 def _body_relief_bridges(reliefs):
@@ -305,12 +333,14 @@ def _tie_reliefs(box):
 def _relieved_stock(box):
     """The broad field and rails after body headroom and zip tie approaches are opened below."""
     stock = structural_stock().fuse(rail_stock())
-    for _name, x0, x1, y0, y1, pocket_top_z in box.pack.ceiling_reliefs:
+    for relief in box.pack.ceiling_reliefs:
+        _name, x0, x1, y0, y1, pocket_top_z = relief
         top = min(underside_z, pocket_top_z)
         if top <= structural_under_z:
             continue
         stock = stock.cut(_rounded_slab(
-            x0, x1, y0, y1, structural_under_z - 0.1, top))
+            x0, x1, y0, y1, structural_under_z - 0.1, top,
+            open_sides=_relief_open_sides(relief)))
     for bridge in _body_relief_bridges(box.pack.ceiling_reliefs):
         stock = stock.cut(bridge)
     for pocket in _tie_reliefs(box):
