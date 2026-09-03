@@ -12,7 +12,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { relatedSteps, KIND_CAPTIONS } from "../contracts/related-steps.js";
+import { relatedSteps, KIND_CAPTIONS, FIXTURES } from "../contracts/related-steps.js";
 import { walkFiles } from "../lib/walk.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -99,6 +99,54 @@ test("no related file is a path the tree does not hold", () => {
   for (const f of ALL) {
     for (const r of relatedSteps(f, ALL)) {
       assert.ok(fs.existsSync(path.join(HW, r.file)), `${f} -> ${r.file}`);
+    }
+  }
+});
+
+// The declared half of the rule. A fixture is not named for what it makes, so
+// unlike a mold there is no convention to hold it to — only the pairing written
+// in FIXTURES, and these are the tests that hold it to the tree.
+
+test("the carbonator's steel offers the fixture it is welded on", () => {
+  const rotator = "printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step";
+  for (const part of FIXTURES[rotator]) {
+    const rel = relatedSteps(part, ALL);
+    const made = rel.find((r) => r.file === rotator);
+    assert.ok(made, `${part} does not reach the weld rotator`);
+    assert.equal(made.kind, "made-on");
+  }
+});
+
+test("the fixture offers back everything it makes", () => {
+  for (const [fixture, parts] of Object.entries(FIXTURES)) {
+    const rel = relatedSteps(fixture, ALL);
+    for (const part of parts) {
+      const back = rel.find((r) => r.file === part);
+      assert.ok(back, `${fixture} does not offer ${part}`);
+      assert.equal(back.kind, "makes");
+    }
+  }
+});
+
+test("a declared pairing crosses trees the convention cannot", () => {
+  // The point of declaring: these two share no parent directory, so the naming
+  // rule alone returns nothing between them.
+  const rotator = "printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step";
+  const endcap = "cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step";
+  assert.notEqual(rotator.slice(0, rotator.lastIndexOf("/")), endcap.slice(0, endcap.lastIndexOf("/")));
+  assert.ok(relatedSteps(endcap, ALL).some((r) => r.file === rotator));
+});
+
+// The alarm, the same shape as the mold one above: a declared path that has
+// moved or was never cut offers nothing, and looks exactly like a part with no
+// tooling.
+test("every declared fixture and part is a model the tree holds", () => {
+  const held = new Set(ALL);
+  for (const [fixture, parts] of Object.entries(FIXTURES)) {
+    assert.ok(held.has(fixture), `FIXTURES names ${fixture}, which the tree does not hold`);
+    assert.ok(parts.length, `${fixture} declares no parts`);
+    for (const part of parts) {
+      assert.ok(held.has(part), `${fixture} names ${part}, which the tree does not hold`);
     }
   }
 });

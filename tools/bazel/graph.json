@@ -3457,6 +3457,40 @@
       "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.scorecard.json"
     ]
   },
+  "hardware/cut-parts/carbonation/carbonator-tube/carbonator_tube_step.py": {
+    "reads": [
+      "hardware/cold-core-layout/_carbonator.py",
+      "hardware/cold-core-layout/_fittings.py",
+      "hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step",
+      "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
+      "hardware/printed-parts/cadlib/reeding.py",
+      "hardware/printed-parts/cadlib/world_workplane.py",
+      "hardware/printed-parts/cold-core/_cold_core_interface.py",
+      "hardware/printed-parts/cold-core/_foam_cap.py",
+      "hardware/printed-parts/cold-core/_internal_routes.py",
+      "hardware/printed-parts/cold-core/_outer_shell.py",
+      "hardware/printed-parts/cold-core/_port_cuts.py",
+      "hardware/printed-parts/cold-core/_reed_channels.py",
+      "hardware/printed-parts/cold-core/_support_ring.py",
+      "hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py",
+      "hardware/printed-parts/cold-core/reservoir/reservoir.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+      "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_materials.py",
+      "hardware/scripts/_mesh_payload.py",
+      "hardware/scripts/_meshes.py",
+      "hardware/scripts/_overlap.py",
+      "hardware/scripts/_realized.py",
+      "hardware/scripts/_routing.py",
+      "hardware/scripts/_run_lock.py",
+      "hardware/scripts/_stated_bounds.py",
+      "tools/docgen/__init__.py"
+    ],
+    "rewritten": [],
+    "writes": [
+      "hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step"
+    ]
+  },
   "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_drawing.py": {
     "reads": [
       "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_drawing.py",

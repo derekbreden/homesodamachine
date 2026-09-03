@@ -56,8 +56,10 @@ export function mountRelated(wrapper, file, trail = []) {
   const related = relatedSteps(file, state.allFiles || [], trail);
   if (!related.length) return;
 
-  // One captioned group per kind, in the order the contract sorts them.
-  for (const kind of ["beside", "from", "of"]) {
+  // One captioned group per kind, in the order the contract sorts them. The
+  // kinds are read off KIND_CAPTIONS rather than repeated here, so a kind the
+  // contract gains cannot go undrawn for want of an edit in this file.
+  for (const kind of Object.keys(KIND_CAPTIONS)) {
     const run = related.filter((r) => r.kind === kind);
     if (!run.length) continue;
     const row = document.createElement("div");
