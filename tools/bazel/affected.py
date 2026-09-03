@@ -33,7 +33,7 @@ _ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(_ROOT / "tools" / "bazel"))
 
 from gen_build import render_build, target_name  # noqa: E402
-from inventory import IMPLICIT_SOLIDS, inventory, tracked  # noqa: E402
+from inventory import IMPLICIT_SOLIDS, build_inert, inventory, tracked  # noqa: E402
 
 
 _BUILD = "BUILD.bazel"
@@ -415,6 +415,8 @@ def read_kind(path: str) -> bool:
     whole bundle recorded unproven behind one export. The day a generator does read one, the
     trace names it and this answers yes again. With no graph to read, every kind bounds.
     """
+    if build_inert(path):
+        return False
     kinds = _read_kinds()
     return True if kinds is None else PurePosixPath(path).suffix.lower() in kinds
 
@@ -492,17 +494,20 @@ def _artifact_presentation_context() -> tuple:
 def artifact_presentation_only(path: str) -> bool:
     """Whether `path` can change presentation but not a published solid.
 
-    Rewritten docs, media, and standalone slicer projects are source inputs to their combined
-    generator action only so the action can preserve authored text while updating figures or
-    inspect print settings. Their bytes do not define its geometry. A path stops being
-    presentation-only if another artifact generator reads it as a normal input; that keeps real
-    data-bearing documents such as the BOM and fluid topology in the CAD slice while letting
-    ordinary README/card/3MF edits advance the deployment lock without recutting solids.
+    Rewritten docs and media are source inputs to their combined generator action only so the
+    action can preserve authored text while updating figures. Their bytes do not define its
+    geometry. A path stops being presentation-only if another artifact generator reads it as a
+    normal input; that keeps real data-bearing documents such as the BOM and fluid topology in
+    the CAD slice while letting ordinary README/card edits advance the deployment lock without
+    recutting solids. Slicer workspaces are stronger: they are build-inert even if a diagnostic
+    check reads one.
     """
+    if build_inert(path):
+        return True
     if not path.startswith("hardware/"):
         return False
     if not (path.endswith((".md", ".mmd", ".html", ".png", ".svg", ".pdf", ".css",
-                           ".3mf", ".figures.json", ".scene.json"))):
+                           ".figures.json", ".scene.json"))):
         return False
     graph, artifact_gens = _artifact_presentation_context()
     if not graph:
@@ -517,6 +522,8 @@ def artifact_presentation_only(path: str) -> bool:
 
 def artifact_unknown(path: str, artifacts_only: bool = False) -> bool:
     """Whether an unlabelled path could define or feed a new CAD action."""
+    if build_inert(path):
+        return False
     if path == "hardware/cad-artifacts.lock.json":
         return False
     # A study is deliberately outside the product graph.  If one of its files is promoted into
@@ -679,8 +686,12 @@ genrule(
     hold("rewritten presentation is outside the artifact slice",
          artifact_presentation_only(
              "hardware/printed-parts/enclosure/ceiling-panel/README.md"))
-    hold("a standalone slicer project is outside the artifact slice",
-         artifact_presentation_only("hardware/printed-parts/petgf.3mf"))
+    hold("a slicer project is inert in both build lanes",
+         build_inert("hardware/printed-parts/petgf.3mf")
+         and not read_kind("hardware/printed-parts/petgf.3mf")
+         and not artifact_unknown("hardware/printed-parts/petgf.3mf")
+         and not artifact_unknown("hardware/printed-parts/petgf.3mf", True)
+         and artifact_presentation_only("hardware/printed-parts/petgf.3mf"))
     hold("a data-bearing document stays in the artifact slice",
          not artifact_presentation_only("hardware/ledger/bom.md"))
     hold("only artifact inputs widen the artifact slice",
@@ -787,6 +798,7 @@ def main(argv) -> int:
     say_if_unshimmed()
 
     moved = changed_between(args.base, args.head) if args.base else changed()
+    moved = [path for path in moved if not build_inert(path)]
     scoped_metadata = safely_scoped_metadata(moved, args.artifacts, args.base, args.head)
     if args.artifacts:
         moved = [path for path in moved

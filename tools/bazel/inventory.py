@@ -17,6 +17,17 @@ _HERE = Path(__file__).resolve()
 _ROOT = _HERE.parents[2]
 GRAPH = _HERE.parent / "graph.json"
 
+# A 3MF IS A SLICER WORKSPACE, NOT A BUILD INPUT. It may hold the profile used to print a
+# generated STL, and a check may inspect that profile explicitly, but changing the workspace
+# cannot change any CAD solid or generated document. Keeping this boundary here means neither a
+# directory scan observed by the tracer nor a tracked 3MF can leak into a Bazel action.
+BUILD_INERT_SUFFIXES = (".3mf",)
+
+
+def build_inert(path: str) -> bool:
+    """Whether ``path`` is deliberately outside every generated build action."""
+    return str(path).lower().endswith(BUILD_INERT_SUFFIXES)
+
 #: WHICH KIND OF WRITE IT WAS IS THE WRITER'S TO SAY, and `graph.json` carries the answer:
 #: `rewritten` is what `docgen` and `_cardgen` read and wrote back, and the rest of `writes`
 #: is what `_cadq_export` cut whole. A name cannot tell them apart — `.figures.json` carries
@@ -181,7 +192,7 @@ def tracked() -> list:
     # lock. Its producer write and consumer read still need to survive the trace filter so that
     # this inventory can create the edge on that very first pass.
     files += [path for paths in IMPLICIT_SOLIDS.values() for path in paths]
-    return sorted(set(files))
+    return sorted(f for f in set(files) if not build_inert(f))
 
 
 def _together(writes: dict) -> list:
@@ -220,6 +231,17 @@ def inventory(files=None) -> dict:
         graph = json.loads(GRAPH.read_text())
     except (OSError, ValueError):
         return {}
+
+    # Old traces can predate the boundary above. Ignore those observations while rendering the
+    # build as well as while taking new traces, so a stale graph cannot make a slicer save recut
+    # anything.
+    graph = {
+        gen: {
+            side: [path for path in seen.get(side, ()) if not build_inert(path)]
+            for side in ("reads", "writes", "rewritten")
+        }
+        for gen, seen in graph.items()
+    }
 
     orphaned = sorted(set(graph) - files)
     if orphaned:

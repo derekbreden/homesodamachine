@@ -16,6 +16,7 @@ next reading; a red row is a thing to look at, not a thing to stop for.
 
     tools/cad-venv/bin/python tools/bazel/gen_build.py     writes it
 """
+import json
 import subprocess
 import sys
 from pathlib import Path
@@ -29,7 +30,25 @@ def main() -> int:
         [sys.executable, str(_HERE.parent / "gen_build.py"), "--check"],
         cwd=str(_ROOT), capture_output=True, text=True)
     if run.returncode == 0:
-        print("check_build_file: BUILD.bazel is what the graph writes")
+        graph = json.loads((_HERE.parent / "graph.json").read_text())
+        graph_3mfs = sorted({
+            path
+            for seen in graph.values()
+            for side in ("reads", "writes", "rewritten")
+            for path in seen.get(side, ())
+            if path.lower().endswith(".3mf")
+        })
+        build_3mfs = sorted({
+            line.strip().strip('",')
+            for line in (_ROOT / "BUILD.bazel").read_text().splitlines()
+            if ".3mf" in line.lower()
+        })
+        if graph_3mfs or build_3mfs:
+            print("3MF slicer workspaces must not be inputs or outputs of the build:")
+            for path in (graph_3mfs + build_3mfs)[:20]:
+                print(f"  {path}")
+            return 1
+        print("check_build_file: BUILD.bazel is what the graph writes; 3MFs are build-inert")
         return 0
     body = (run.stdout + run.stderr).strip().splitlines()
     print("BUILD.bazel is not what the graph would write now:")
