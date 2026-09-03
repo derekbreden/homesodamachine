@@ -1,19 +1,55 @@
 {
   "_meta": {
-    "source": "amazon.com order history, year-2026 filter: full scrape 2026-08-15 plus individually verified orders through 2026-09-02",
-    "orders": 338,
-    "ordered/total": "ordered present for all 338; total present for 335 — the three cancelled orders were never charged",
+    "source": "amazon.com order history, year-2026 filter: full scrape 2026-08-15 plus individually verified orders through 2026-09-03",
+    "orders": 344,
+    "ordered/total": "ordered present for all 344; total present for 341 — the three cancelled orders were never charged",
     "delivered": "present only where Amazon still shows a shipment banner — orders from roughly mid-April 2026 on; Amazon stops exposing it for older orders, and their detail pages do not carry it either",
     "subtotal/shipping/tax": "present only for the 17 invoices opened during the 2026-08-15 reconciliation, the four orders verified individually on 2026-08-29 and 2026-08-31, and the four invoices opened during the 2026-09-02 update; not scraped for the rest",
     "project": "true = a purchases.md row names this order. false = household/pet/yard/garage/cancelled, with `why`. null = flagged for a human call.",
     "nonproject_amount": "on a mixed order, the dollars on the invoice that belong to no ledger row. Expected ledger sum = total - nonproject_amount."
   },
   "orders": {
+    "112-7484636-2926665": {
+      "ordered": "2026-09-03",
+      "total": 8.57,
+      "in_transit": true,
+      "project": true
+    },
+    "112-8159134-3631449": {
+      "ordered": "2026-09-03",
+      "total": 6.1,
+      "in_transit": true,
+      "project": true
+    },
+    "112-9248875-1573807": {
+      "ordered": "2026-09-03",
+      "total": 7.5,
+      "in_transit": true,
+      "project": true
+    },
+    "112-6302698-6065059": {
+      "ordered": "2026-09-02",
+      "delivered": "2026-09-03",
+      "total": 10.71,
+      "project": true
+    },
+    "112-3695429-8445811": {
+      "ordered": "2026-09-02",
+      "delivered": "2026-09-03",
+      "total": 75.06,
+      "project": true
+    },
+    "112-1104114-3043411": {
+      "ordered": "2026-09-02",
+      "total": 10.71,
+      "in_transit": true,
+      "project": true
+    },
     "112-1967009-0797830": {
       "ordered": "2026-09-02",
       "total": 8.03,
-      "in_transit": true,
-      "project": true
+      "project": true,
+      "delivered": "2026-09-03"
     },
     "112-6764112-7787443": {
       "ordered": "2026-09-02",
