@@ -36,6 +36,7 @@ export const ALIASES = {
   "bulkhead-flavor-b": "reference/jg-bulkhead-union/jg-bulkhead-union.step",
   "bulkhead-water": "reference/jg-bulkhead-union/jg-bulkhead-union.step",
   "c14-inlet": "reference/iec-c14-inlet/iec-c14-inlet.step",
+  "carbonator-tube": "cut-parts/carbonation/carbonator-tube/carbonator-tube.step",
   "co2-inlet": "reference/neofit-bulkhead/neofit-bulkhead.step",
   "coil-v-a": "reference/beduan-solenoid/beduan-solenoid.step",
   "coil-v-b": "reference/beduan-solenoid/beduan-solenoid.step",

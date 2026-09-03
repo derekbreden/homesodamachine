@@ -36,6 +36,24 @@ const parentOf = (dir) => (dir.includes("/") ? dir.slice(0, dir.lastIndexOf("/")
 const extendsAt = (longer, shorter) =>
   longer.startsWith(shorter + "-") || longer.startsWith(shorter + "_");
 
+// A FIXTURE IS DECLARED, NOT NAMED. The rule above reads directory names, and
+// between a part and the equipment that makes it there is no name to read: the
+// weld rotator stands in `printed-parts/fixtures/` because it is shop equipment
+// and not a body of the machine, and the steel it welds stands in
+// `cut-parts/carbonation/`. Neither path says the other, and neither should — so
+// the pairing is written down here, and like a mold it reads both ways.
+//
+// A declaration costs the build nothing. It pairs two models that are already cut
+// independently; it does not graft one into the other, and no payload grows.
+//
+// Keyed by the fixture, valued by the parts it makes.
+export const FIXTURES = {
+  "printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step": [
+    "cut-parts/carbonation/carbonator-tube/carbonator-tube.step",
+    "cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step",
+  ],
+};
+
 export const label = (file) =>
   file.slice(file.lastIndexOf("/") + 1).replace(/\.step$/i, "");
 
@@ -45,10 +63,12 @@ export const label = (file) =>
  * @param {string} file      root-relative `.step` path, as `/api/steps` returns
  * @param {string[]} allFiles  every such path the site knows
  * @param {string[]} [exclude]  models already standing in the walk
- * @returns {{file: string, kind: "beside"|"from"|"of"}[]}
- *   `beside` — another model in this part's own directory
- *   `from`   — a directory named for this one: the mold of this part
- *   `of`     — the directory this one is named for: the part this mold casts
+ * @returns {{file: string, kind: "beside"|"from"|"of"|"makes"|"made-on"}[]}
+ *   `beside`  — another model in this part's own directory
+ *   `from`    — a directory named for this one: the mold of this part
+ *   `of`      — the directory this one is named for: the part this mold casts
+ *   `makes`   — a part this fixture is built to make (declared, see FIXTURES)
+ *   `made-on` — the fixture this part is made on (declared, see FIXTURES)
  */
 export function relatedSteps(file, allFiles, exclude = []) {
   if (!file || !Array.isArray(allFiles) || isGenerated(file)) return [];
@@ -68,14 +88,29 @@ export function relatedSteps(file, allFiles, exclude = []) {
     else if (extendsAt(leaf, otherLeaf)) out.push({ file: other, kind: "of" });
   }
 
-  const order = { beside: 0, from: 1, of: 2 };
+  // The declared pairs, both directions, held to what the tree actually carries.
+  // A fixture the build has not cut is simply not offered.
+  const held = new Set(allFiles);
+  for (const part of FIXTURES[file] || []) {
+    if (!skip.has(part) && held.has(part)) out.push({ file: part, kind: "makes" });
+  }
+  for (const [fixture, made] of Object.entries(FIXTURES)) {
+    if (fixture === file || !made.includes(file)) continue;
+    if (!skip.has(fixture) && held.has(fixture)) out.push({ file: fixture, kind: "made-on" });
+  }
+
+  const order = { beside: 0, from: 1, of: 2, "made-on": 3, makes: 4 };
   out.sort((a, b) => order[a.kind] - order[b.kind] || a.file.localeCompare(b.file));
   return out;
 }
 
-// What the rail writes above each run of chips.
+// What the rail writes above each run of chips. KEY ORDER IS RENDER ORDER —
+// related-nav.js walks these keys, so a kind added here draws itself and a kind
+// added without a caption draws nothing.
 export const KIND_CAPTIONS = {
   beside: "Beside it",
   from: "Made for it",
   of: "Casts",
+  "made-on": "Made on",
+  makes: "Makes",
 };
