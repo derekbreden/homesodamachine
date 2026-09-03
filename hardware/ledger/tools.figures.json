@@ -1,6 +1,6 @@
 {
   "/hardware/scripts/_tools_totals.py": {
-    "TOOLS_TOTAL": "$15,510.20",
+    "TOOLS_TOTAL": "$15,616.32",
     "T_AMS2PRO": "$331.99",
     "T_AMS_HT": "$278.00",
     "T_ARGON_CYL": "$399.31",
@@ -36,6 +36,8 @@
     "T_HAKKO": "$130.27",
     "T_HEAT_GUN": "$9.62",
     "T_HELPING_HANDS": "$9.64",
+    "T_HEXBIT_2_5": "$10.71",
+    "T_HEXBIT_4": "$10.71",
     "T_HEX_NIPPLE": "$12.86",
     "T_HOLE_SAW": "$19.19",
     "T_HOTENDS": "$904.43",
@@ -51,6 +53,7 @@
     "T_MSTYLE_PLUG": "$15.02",
     "T_OVEN_THERMO": "$10.21",
     "T_PANELCAM": "$78.28",
+    "T_PIXELDRIVE": "$75.06",
     "T_PLIERS_WRENCH": "$57.06",
     "T_POLYDRYER": "$117.96",
     "T_POLYDRYER_XL": "$120.09",
@@ -80,7 +83,7 @@
     "T_VAC_PUMP": "$78.28",
     "T_VISION": "$78.75",
     "T_WELD_CART": "$193.04",
-    "T_WELD_ROTATOR": "$185.80",
+    "T_WELD_ROTATOR": "$195.44",
     "T_WORKBENCH": "$345.28",
     "T_X1PRO": "$3,899.00"
   }

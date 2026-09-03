@@ -169,6 +169,13 @@ yield instead of using the fixture as a rigid puller.
   3 × M3 × [10](WR_NEST_RETAINER_SCREW) nest retainers, 3 × M3 × 25 tube
   adjusters, 2 × M3 × 12 ground-arm retainers, and
   1 × M3 × 8 ground-shoe side-clamp screw into its printed-arm insert.
+- Three hex drivers cover the whole fixture: **2.5 mm** for every M3, **4 mm**
+  for the six M5 × 10 SHCS, and **3 mm** for the two M5 ×
+  [12](WR_MOTOR_MOUNT_SCREW) countersunk motor screws, which are DIN 7991 and
+  do not share the SHCS socket. The nest retainers are the one station a
+  1/4-inch hex bit body does not reach: its Ø[6.2](WR_NEST_RETAINER_ACCESS) mm
+  well is narrower than the 6.35 mm bit stock, so those three take a
+  slim-shank bit or a plain L-key.
 - The C110 shoe comes from the acquired
   [YTKavq 1/4 × 2 × 12 inch bar](https://www.amazon.com/dp/B0DR2PX6TT), the
   same stock recorded in `hardware/ledger/purchases.md`. If that shop bar is
