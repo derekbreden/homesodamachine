@@ -492,17 +492,17 @@ def _artifact_presentation_context() -> tuple:
 def artifact_presentation_only(path: str) -> bool:
     """Whether `path` can change presentation but not a published solid.
 
-    Rewritten docs and media are source inputs to their combined generator action only so the
-    action can preserve authored text while updating figures. Their bytes do not define its
-    geometry. A path stops being presentation-only if another artifact generator reads it as a
-    normal input; that keeps real data-bearing documents such as the BOM and fluid topology in
-    the CAD slice while letting ordinary README/card edits advance the deployment lock without
-    recutting solids.
+    Rewritten docs, media, and standalone slicer projects are source inputs to their combined
+    generator action only so the action can preserve authored text while updating figures or
+    inspect print settings. Their bytes do not define its geometry. A path stops being
+    presentation-only if another artifact generator reads it as a normal input; that keeps real
+    data-bearing documents such as the BOM and fluid topology in the CAD slice while letting
+    ordinary README/card/3MF edits advance the deployment lock without recutting solids.
     """
     if not path.startswith("hardware/"):
         return False
     if not (path.endswith((".md", ".mmd", ".html", ".png", ".svg", ".pdf", ".css",
-                           ".figures.json", ".scene.json"))):
+                           ".3mf", ".figures.json", ".scene.json"))):
         return False
     graph, artifact_gens = _artifact_presentation_context()
     if not graph:
@@ -679,6 +679,8 @@ genrule(
     hold("rewritten presentation is outside the artifact slice",
          artifact_presentation_only(
              "hardware/printed-parts/enclosure/ceiling-panel/README.md"))
+    hold("a standalone slicer project is outside the artifact slice",
+         artifact_presentation_only("hardware/printed-parts/petgf.3mf"))
     hold("a data-bearing document stays in the artifact slice",
          not artifact_presentation_only("hardware/ledger/bom.md"))
     hold("only artifact inputs widen the artifact slice",
@@ -711,7 +713,7 @@ genrule(
         print("  --   bazel query holds skipped: a query under `bazel test` waits on its own "
               "server. Run `affected.py selftest` from a shell for them.")
         print(f"affected selftest {holds}/{holds} (of the holds this run can take)")
-        return 0 if holds == 15 else 1
+        return 0 if holds == 16 else 1
 
     src = ["hardware/printed-parts/cold-core/foam-cap/foam_cap.py"]
     hit, miss = known(src)
@@ -725,8 +727,8 @@ genrule(
     hold("nothing changed is no targets", targets([]) == [] and changed() is not None)
     hold("artifact rules are a strict build slice",
          "//:ceiling-panel" in artifact_targets() and "//:everything" not in artifact_targets())
-    print(f"affected selftest {holds}/21")
-    return 0 if holds == 21 else 1
+    print(f"affected selftest {holds}/22")
+    return 0 if holds == 22 else 1
 
 
 def say_if_unshimmed() -> None:
