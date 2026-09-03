@@ -66,6 +66,7 @@ sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "enclosure" / "enc
 sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "zone-c" / "funnel"))
 sys.path.insert(0, str(_tools))
 import fits
+import plan
 from _cadq_export import export_assembly
 from _materials import M_PETGF_BLACK, one_body
 # The bound this file states about its own show face, recorded at import for the machine's card.
@@ -96,7 +97,6 @@ relief_corner_r = 3.0
 # Two body clearances facing across less than one wall do not leave a structural web between
 # them. Their openings meet over the depth they share; each pocket keeps its own roof above it.
 relief_min_web = _enc.wall
-relief_join_overcut = 0.1
 
 # THE PANEL SHOWS ONE FACE AND IT LIES FLAT, so the box's field never crosses it. That field is
 # struck along a plan and runs vertically (`enclosure.flute_rails`); the top surface is the top
@@ -157,6 +157,8 @@ dado_slip = fits.slip   # printed-fit clearance on each face of the tongue — a
 # One grown fixed section in both directions makes the tongue a 36 mm2 rail.
 tongue_t = _enc.back_top_ceiling_t
 tongue_reach = _enc.back_top_ceiling_t
+# The tongues' outer faces — the widest the panel's plan reaches.
+rail_outer_x = panel_half_w + tongue_reach
 tongue_floor_z = fixed_under_z - tongue_t / 2.0
 tongue_roof_z = fixed_under_z + tongue_t / 2.0
 dado_depth = tongue_reach + dado_slip
@@ -196,102 +198,29 @@ def rail_stock(y0=fore_y, y1=aft_y):
     rails = None
     for sx in (-1.0, 1.0):
         edge = sx * panel_half_w
-        rail = _slab(min(edge, edge + sx * tongue_reach),
-                     max(edge, edge + sx * tongue_reach),
+        rail = _slab(min(edge, sx * rail_outer_x), max(edge, sx * rail_outer_x),
                      y0, y1, tongue_floor_z, tongue_roof_z)
         rails = rail if rails is None else rails.fuse(rail)
     return rails
 
 
-def _rounded_slab(x0, x1, y0, y1, z0, z1, radius=relief_corner_r, open_sides=()):
-    solid = _slab(x0, x1, y0, y1, z0, z1)
-    radius = min(radius, (x1 - x0) / 3.0, (y1 - y0) / 3.0)
-    if radius <= 0.1:
-        return solid
-    open_sides = frozenset(open_sides)
-    rounded = []
-    for edge in cq.Workplane(obj=solid).edges("|Z").vals():
-        centre = edge.Center()
-        if (("x0" in open_sides and abs(centre.x - x0) < 1e-7)
-                or ("x1" in open_sides and abs(centre.x - x1) < 1e-7)
-                or ("y0" in open_sides and abs(centre.y - y0) < 1e-7)
-                or ("y1" in open_sides and abs(centre.y - y1) < 1e-7)):
-            continue
-        rounded.append(edge)
-    if not rounded:
-        return solid
-    return cq.Workplane(obj=solid).newObject(rounded).fillet(radius).val()
-
-
-def _relief_radius(relief):
-    """The plan radius `_rounded_slab` gives one body relief."""
-    _name, x0, x1, y0, y1, _top = relief
-    return min(relief_corner_r, (x1 - x0) / 3.0, (y1 - y0) / 3.0)
-
-
-def _relief_open_sides(relief):
-    """Sides where a body pocket exits the field-and-rail envelope."""
-    _name, x0, x1, y0, y1, _top = relief
-    outer_x = panel_half_w + tongue_reach
-    sides = []
-    if x0 <= -outer_x:
-        sides.append("x0")
-    if x1 >= outer_x:
-        sides.append("x1")
-    if y0 <= fore_y:
-        sides.append("y0")
-    if y1 >= aft_y:
-        sides.append("y1")
-    return tuple(sides)
-
-
-def _body_relief_bridges(reliefs):
-    """Cutters joining body pockets whose common-depth remnant is thinner than one wall."""
-    rows = tuple(reliefs)
-    bridges = []
-    for i, a in enumerate(rows):
-        _an, ax0, ax1, ay0, ay1, atop = a
-        ar = _relief_radius(a)
-        for b in rows[i + 1:]:
-            _bn, bx0, bx1, by0, by1, btop = b
-            top = min(underside_z, atop, btop)
-            if top <= structural_under_z:
-                continue
-            br = _relief_radius(b)
-
-            # Across a Y gap, the bridge occupies the shared X span and reaches through each
-            # facing corner round. It is therefore part of both openings, never a narrow slot
-            # marooned between two rounded ends.
-            x0, x1 = max(ax0, bx0), min(ax1, bx1)
-            if x1 > x0:
-                if ay1 <= by0:
-                    low_y1, low_r, high_y0, high_r = ay1, ar, by0, br
-                elif by1 <= ay0:
-                    low_y1, low_r, high_y0, high_r = by1, br, ay0, ar
-                else:
-                    low_y1 = high_y0 = None
-                if low_y1 is not None and 0.0 < high_y0 - low_y1 < relief_min_web:
-                    bridges.append(_slab(
-                        x0, x1,
-                        low_y1 - low_r - relief_join_overcut,
-                        high_y0 + high_r + relief_join_overcut,
-                        structural_under_z - 0.1, top))
-
-            # The same construction turned ninety degrees for an X gap.
-            y0, y1 = max(ay0, by0), min(ay1, by1)
-            if y1 > y0:
-                if ax1 <= bx0:
-                    low_x1, low_r, high_x0, high_r = ax1, ar, bx0, br
-                elif bx1 <= ax0:
-                    low_x1, low_r, high_x0, high_r = bx1, br, ax0, ar
-                else:
-                    low_x1 = high_x0 = None
-                if low_x1 is not None and 0.0 < high_x0 - low_x1 < relief_min_web:
-                    bridges.append(_slab(
-                        low_x1 - low_r - relief_join_overcut,
-                        high_x0 + high_r + relief_join_overcut,
-                        y0, y1, structural_under_z - 0.1, top))
-    return tuple(bridges)
+def _body_relief_cavity(reliefs):
+    """The body pockets as one cavity: a prism per roof level, each the figure every pocket
+    reaching that level makes together. Two pockets facing across less than `relief_min_web`
+    are one opening over the depth both claim, a pocket crossing the field-and-rail plan is
+    square where it leaves it, and every enclosed corner is rounded to `relief_corner_r`."""
+    pockets = [(x0, x1, y0, y1, min(underside_z, top))
+               for _name, x0, x1, y0, y1, top in reliefs]
+    pockets = [p for p in pockets if p[4] > structural_under_z]
+    roofs = sorted({p[4] for p in pockets})
+    within = (-rail_outer_x, rail_outer_x, fore_y, aft_y)
+    prisms = []
+    for floor, roof in zip([structural_under_z - 0.1] + roofs[:-1], roofs):
+        figure = plan.closed(plan.union(
+            plan.rect(x0, x1, y0, y1) for x0, x1, y0, y1, top in pockets if top >= roof),
+            relief_min_web)
+        prisms += plan.prism(figure, floor, roof, relief_corner_r, within=within)
+    return tuple(prisms)
 
 
 def _tie_reliefs(box):
@@ -333,19 +262,12 @@ def _tie_reliefs(box):
 def _relieved_stock(box):
     """The broad field and rails after body headroom and zip tie approaches are opened below."""
     stock = structural_stock().fuse(rail_stock())
-    for relief in box.pack.ceiling_reliefs:
-        _name, x0, x1, y0, y1, pocket_top_z = relief
-        top = min(underside_z, pocket_top_z)
-        if top <= structural_under_z:
-            continue
-        stock = stock.cut(_rounded_slab(
-            x0, x1, y0, y1, structural_under_z - 0.1, top,
-            open_sides=_relief_open_sides(relief)))
-    for bridge in _body_relief_bridges(box.pack.ceiling_reliefs):
-        stock = stock.cut(bridge)
+    for prism in _body_relief_cavity(box.pack.ceiling_reliefs):
+        stock = stock.cut(prism)
     for pocket in _tie_reliefs(box):
         stock = stock.cut(pocket)
-    return stock
+    # A wall several prisms cut is one face.
+    return cq.Workplane(obj=stock).clean().val()
 
 
 # --- the panel --------------------------------------------------------------
@@ -465,7 +387,7 @@ def main():
           f"x +-{panel_half_w:g}, y {fore_y:g}..{aft_y:g}, "
           f"z {structural_under_z:g}..{show_z:g}")
     print(f"  bbox:    {b.xlen:.1f} x {b.ylen:.1f} x {b.zlen:.1f} mm "
-          f"(tongues out to +-{panel_half_w + tongue_reach:g}, field to {structural_under_z:g}, "
+          f"(tongues out to +-{rail_outer_x:g}, field to {structural_under_z:g}, "
           f"ribs to {b.zmin:g})")
     print(f"  tongue:  {tongue_t:.2f} thick x {tongue_reach:.2f} reach "
           f"({tongue_t * tongue_reach:.2f} mm2), z {tongue_floor_z:g}..{tongue_roof_z:g}, "
