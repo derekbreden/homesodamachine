@@ -164,6 +164,7 @@ REGISTER_H = 3.0
 REGISTER_SLIP = 0.25
 NEST_SCREW_R = 61.0
 NEST_SCREW_D = 3.5
+NEST_RETAINER_ACCESS_D = M3_HEAD_D
 NEST_INSERT_D = 4.0
 NEST_INSERT_DEPTH = 5.2
 
@@ -779,12 +780,14 @@ def build_nest():
             .circle(NEST_SCREW_D / 2.0)
             .extrude(NEST_BASE_H)
         )
-        counterbore = (
+        # The retainer lies under the ID pilot.  Its head recess therefore
+        # continues through every feature above the base as a top-entry well.
+        head_access = (
             cq.Workplane("XY", origin=(x, y, NEST_BASE_H - M3_HEAD_DEPTH))
-            .circle(M3_HEAD_D / 2.0)
-            .extrude(M3_HEAD_DEPTH)
+            .circle(NEST_RETAINER_ACCESS_D / 2.0)
+            .extrude(M3_HEAD_DEPTH + NEST_OUTER_H + 0.01)
         )
-        nest = nest.cut(shank.union(counterbore))
+        nest = nest.cut(shank.union(head_access))
     return nest
 
 
@@ -1278,6 +1281,17 @@ def selftest():
         raise ValueError("tube nest nominal clearances are not positive")
     if PILOT_H >= interface.ENDCAP_RECESS:
         raise ValueError("ID pilot reaches a welded end-cap plate")
+    for angle in (0.0, 120.0, 240.0):
+        x, y = _polar(NEST_SCREW_R, angle)
+        insertion_path = (
+            cq.Workplane(
+                "XY", origin=(x, y, NEST_BASE_H - M3_HEAD_DEPTH + 0.02)
+            )
+            .circle((NEST_RETAINER_ACCESS_D - 0.10) / 2.0)
+            .extrude(M3_HEAD_DEPTH + NEST_OUTER_H + 10.0)
+        )
+        if _overlap(parts["tube-nest"], insertion_path) > 1e-4:
+            raise ValueError("tube nest blocks a retainer screw insertion path")
 
     # Printed pulley: a clearance groove for a 3.05 mm belt tooth root and
     # a printable land between grooves.
@@ -1537,6 +1551,7 @@ def main():
         "WR_OUTER_CLEAR": f"{outer_clearance:.2f}",
         "WR_RECESS": f"{interface.ENDCAP_RECESS:.2f}",
         "WR_NEST_OD": f"{NEST_OD:.0f}",
+        "WR_NEST_RETAINER_ACCESS": f"{NEST_RETAINER_ACCESS_D:.1f}",
         "WR_TUBE_TOP": f"{NEST_SEAT_Z + NEST_BASE_H + interface.TUBE_LENGTH:.1f}",
         "WR_TUBE_TOP_BENCH": (
             f"{BASE_FOOT_H + NEST_SEAT_Z + NEST_BASE_H + interface.TUBE_LENGTH:.1f}"

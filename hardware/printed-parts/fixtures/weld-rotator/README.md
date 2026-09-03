@@ -73,6 +73,10 @@ bearing, pulley, or motor mount. The jaw screws ride on the turntable, so any
 jaw is brought to an open side of the fixture by jogging the table before it
 is adjusted.
 
+Each nest retainer is driven from above. Its Ø[6.2](WR_NEST_RETAINER_ACCESS) mm
+straight access well passes through the ID pilot to the recessed head seat in
+the 8 mm base.
+
 ## Bearing
 
 The turntable runs on [36](WR_BALLS) of the acquired 10 mm polypropylene
@@ -232,7 +236,8 @@ ring.
    screws evenly until the frame cannot rock.
 8. Slide the complete carriage outward until the long belt span twists about
    90 degrees with finger pressure, then tighten the four carriage screws.
-9. Bolt the nest to its register. Put one jaw cap on each M3 adjuster tip; the
+9. Seat the nest on its register and drive three M3 × 10 retainers straight
+   down through its access wells. Put one jaw cap on each M3 adjuster tip; the
    Ø2.85 blind socket is the retention fit.
 10. Run the turntable dry for ten revolutions, clean the race, and re-check
     belt tracking before loading a tube.
