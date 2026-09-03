@@ -25,6 +25,7 @@
     "PIECE_H": "195 mm",
     "RAIL_AREA": "36 mm\u00b2",
     "RAIL_RUN": "19 mm",
+    "RELIEF_MIN_WEB": "3 mm",
     "RELIEF_N": "9",
     "RELIEF_R": "3 mm",
     "STRUCTURAL_T": "11 mm",

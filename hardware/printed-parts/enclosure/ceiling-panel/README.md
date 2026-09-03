@@ -60,6 +60,11 @@ requires it. Every pocket stops at or below the pack lane, leaving at least one
 whole [3 mm](PANEL_T) wall of show skin above it, and opens on the interior face,
 which is upward on the printer.
 
+Where two pocket plans overlap on one axis and leave less than one
+[3 mm](RELIEF_MIN_WEB) wall on the other, their openings join through the depth
+both bodies claim. The joining cut consumes their facing corner rounds without
+carrying the deeper pocket into the shallower pocket's roof.
+
 Three anchor zip-tie approaches enter the deeper field: the two DIGITEN bands
 and the WR1110 barrel's run. Their existing footprints are returned as
 [3](TIE_RELIEF_N) local pockets before the anchor furniture is fused, so every
