@@ -82,12 +82,14 @@ Stainless carbonator fabrication: 316 SS round-tube body + 1/4" laser-cut 316 SS
 | Noga NG8150 heavy-duty deburr tool with 10 S10 HSS swivel blades — hand deburr of the 316L tube cut ends (ID + OD edges) ahead of end-plate insertion into the 0.005" radial slip fit | [B001O62V56](https://www.amazon.com/dp/B001O62V56) | 1 | $20.38 | 112-0844221-1512225 | 2026-07-18 | 2026-07-22 | ACQUIRED |
 | JNB Pro countersink bits, 5-pc 1/4"–3/4", 82° M35 HSS 5 % cobalt, 1/4" shank — chamfer the 7/16" tap-drill holes in the 316L end-cap plates on the WEN 4208T ahead of NPT tapping | [B09C4X5R8F](https://www.amazon.com/dp/B09C4X5R8F) | 1 pk (5) | $27.78 | 112-0844221-1512225 | 2026-07-18 | 2026-07-22 | ACQUIRED |
 | 3M Scotch-Brite 7447 general-purpose hand pad, very fine, 6" × 9", aluminum oxide, 20-pack — abrasive weld-surface prep on the tube bore band and end-plate outer face | [B000LPN3WQ](https://www.amazon.com/dp/B000LPN3WQ) | 1 pk (20) | $22.95 | 112-1826837-9445804 | 2026-07-18 | 2026-07-19 | ACQUIRED |
-| STEPPERONLINE 1-axis CNC kit — NEMA 23 stepper, 1.9 N·m / 269 oz·in + DM542T 1.0–4.2 A, 20–50 VDC step/dir driver; cap-weld tube rotator drive | [B089Y8H8L5](https://www.amazon.com/dp/B089Y8H8L5) | 1 kit | $53.61 | 112-6362998-4945816 | 2026-08-29 | — | ON-ORDER |
-| BTF-LIGHTING 24 V 4 A 96 W Class 2 power adapter, ETL listed, 5.5 × 2.1 mm DC plug + included female barrel-to-wire connector; cap-weld tube rotator supply | [B0D2XZCGL5](https://www.amazon.com/dp/B0D2XZCGL5) | 1 | $28.95 | 112-6362998-4945816 | 2026-08-29 | — | ON-ORDER |
-| HimaPro 50122 cordless cast-aluminum deadman foot pedal, SPDT NO/NC, 15 A, IP65; rotation-enable input | [B0CYYYHL31](https://www.amazon.com/dp/B0CYYYHL31) | 1 | $39.67 | 112-8958234-5634623 | 2026-08-29 | — | ON-ORDER |
-| uxcell HTD-5M timing pulley, 20 teeth × 15 mm belt, 6.35 mm bore; motor pulley for cap-weld tube rotator | [B0747KM7MN](https://www.amazon.com/dp/B0747KM7MN) | 1 | $10.18 | 112-8958234-5634623 | 2026-08-29 | — | ON-ORDER |
-| uxcell HTD-5M closed-loop timing belt, 110 teeth / 550 mm pitch length × 15 mm width; cap-weld tube rotator | [B0CXPM3KTP](https://www.amazon.com/dp/B0CXPM3KTP) | 1 | $9.43 | 112-8958234-5634623 | 2026-08-29 | — | ON-ORDER |
-| Neoteck 0.03" / 0.0005" dial test indicator + 90 lb / 40 kg magnetic base set; tube radial and end-cap face runout inspection | [B09W2R3SCD](https://www.amazon.com/dp/B09W2R3SCD) | 1 set | $43.96 | 112-8958234-5634623 | 2026-08-29 | — | ON-ORDER |
+| STEPPERONLINE 1-axis CNC kit — NEMA 23 stepper, 1.9 N·m / 269 oz·in + DM542T 1.0–4.2 A, 20–50 VDC step/dir driver; cap-weld tube rotator drive | [B089Y8H8L5](https://www.amazon.com/dp/B089Y8H8L5) | 1 kit | $53.61 | 112-6362998-4945816 | 2026-08-29 | 2026-08-30 | ACQUIRED |
+| BTF-LIGHTING 24 V 4 A 96 W Class 2 power adapter, ETL listed, 5.5 × 2.1 mm DC plug + included female barrel-to-wire connector; cap-weld tube rotator supply | [B0D2XZCGL5](https://www.amazon.com/dp/B0D2XZCGL5) | 1 | $28.95 | 112-6362998-4945816 | 2026-08-29 | 2026-08-30 | ACQUIRED |
+| HimaPro 50122 cordless cast-aluminum deadman foot pedal, SPDT NO/NC, 15 A, IP65; rotation-enable input | [B0CYYYHL31](https://www.amazon.com/dp/B0CYYYHL31) | 1 | $39.67 | 112-8958234-5634623 | 2026-08-29 | 2026-09-01 | ACQUIRED |
+| uxcell HTD-5M timing pulley, 20 teeth × 15 mm belt, 6.35 mm bore; original motor-pulley order for the cap-weld tube rotator | [B0747KM7MN](https://www.amazon.com/dp/B0747KM7MN) | 1 | $10.18 | 112-8958234-5634623 | 2026-08-29 | 2026-08-31 | MISSING (Amazon shows delivered; not found in the package or afterward) |
+| uxcell HTD-5M closed-loop timing belt, 110 teeth / 550 mm pitch length × 15 mm width; cap-weld tube rotator | [B0CXPM3KTP](https://www.amazon.com/dp/B0CXPM3KTP) | 1 | $9.43 | 112-8958234-5634623 | 2026-08-29 | 2026-08-31 | ACQUIRED |
+| Neoteck 0.03" / 0.0005" dial test indicator + 90 lb / 40 kg magnetic base set; tube radial and end-cap face runout inspection | [B09W2R3SCD](https://www.amazon.com/dp/B09W2R3SCD) | 1 set | $43.96 | 112-8958234-5634623 | 2026-08-29 | 2026-08-30 | ACQUIRED |
+| uxcell HTD-5M timing pulley, 20 teeth × 15 mm belt, 6.35 mm bore — exact replacement for the missing pulley above; Amazon estimates 2026-09-05 | [B0747KM7MN](https://www.amazon.com/dp/B0747KM7MN) | 1 | $9.64 | 112-6708194-8872235 | 2026-09-02 | — | ON-ORDER |
+| M5 × 12 mm 90° countersunk socket screws, 100 pc, 10.9 carbon steel — two pass through the printed motor-carriage arms into the rear tapped flange holes of the 23HS30-2804S; verified 9.8 mm head fits the carriage's 10.2 mm recess | [B0DX1Y2Z6J](https://www.amazon.com/dp/B0DX1Y2Z6J) | 1 pk (100) | $8.03 | 112-1967009-0797830 | 2026-09-02 | — | ON-ORDER |
 
 ## 2. CO2 subsystem
 
@@ -166,7 +168,7 @@ Peristaltic pumps, solenoids, silicone delivery tubing, barb fittings, bladders,
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | Kamoer KPHM400-SW3B25 400 ml/min 12 V peristaltic pump (BPT, sold by Kamoer Fluid Tech Shanghai) | [B09MS6C91D](https://www.amazon.com/dp/B09MS6C91D) | 1 | $34.91 | 114-1015191-6799441 | 2026-02-18 | — | ACQUIRED |
 | Kamoer KPHM400-SW3B25 400 ml/min 12 V peristaltic pump (BPT, sold by Kamoer Fluid Tech Shanghai) | [B09MS6C91D](https://www.amazon.com/dp/B09MS6C91D) | 2 | $69.82 | 112-0545074-9805025 | 2026-02-23 | — | ACQUIRED |
-| Kamoer KPHM600-SW3B17 600 ml/min 12 V peristaltic pump, brush motor (BPT 6.4 mm ID × 9.6 mm OD, sold by Kamoer Fluid Tech Shanghai) | [B09MVPJXFJ](https://www.amazon.com/dp/B09MVPJXFJ) | 2 | $84.98 | 112-3347068-4029052 | 2026-08-28 | — | ON-ORDER (stands in for the KPHM400-SW3B25 above, which Amazon now lists Currently unavailable with no offers on its listing or its offer page, and which is the only KPHM400 12 V brush unit in Kamoer's Amazon catalogue. Same KPHM head series — Kamoer rates that head 380–600 ml/min and the B## suffix is a tube code on it — so the 50 mm bracket pattern and the pump tray are expected to carry, unverified until the pumps land. Its 6.4 mm tube ID is a clearance fit on 1/4" LLDPE where the 400's 4.8 mm was interference; the pump-side joint is open, per [`bom.md`](/hardware/ledger/bom.md) §5) |
+| Kamoer KPHM600-SW3B17 600 ml/min 12 V peristaltic pump, brush motor (BPT 6.4 mm ID × 9.6 mm OD, sold by Kamoer Fluid Tech Shanghai) | [B09MVPJXFJ](https://www.amazon.com/dp/B09MVPJXFJ) | 2 | $84.98 | 112-3347068-4029052 | 2026-08-28 | 2026-08-30 | ACQUIRED (stands in for the KPHM400-SW3B25 above, which Amazon now lists Currently unavailable with no offers on its listing or its offer page, and which is the only KPHM400 12 V brush unit in Kamoer's Amazon catalogue. Same KPHM head series — Kamoer rates that head 380–600 ml/min and the B## suffix is a tube code on it — so the 50 mm bracket pattern and the pump tray are expected to carry, unverified until the pumps land. Its 6.4 mm tube ID is a clearance fit on 1/4" LLDPE where the 400's 4.8 mm was interference; the pump-side joint is open, per [`bom.md`](/hardware/ledger/bom.md) §5) |
 | Beduan 12 V 1/4" inlet water solenoid (NC) | [B07NWCQJK9](https://www.amazon.com/dp/B07NWCQJK9) | 1 | $9.64 | 114-3476722-1893810 | 2026-02-22 | — | ACQUIRED |
 | Beduan 12 V 1/4" inlet water solenoid (NC) | [B07NWCQJK9](https://www.amazon.com/dp/B07NWCQJK9) | 2 | $18.87 | 112-0933043-5526613 | 2026-02-23 | — | ACQUIRED |
 | Beduan 12 V 1/4" inlet water solenoid (NC) | [B07NWCQJK9](https://www.amazon.com/dp/B07NWCQJK9) | 2 | $19.28 | 112-9365343-6646655 | 2026-03-14 | — | ACQUIRED |
@@ -221,6 +223,8 @@ Peristaltic pumps, solenoids, silicone delivery tubing, barb fittings, bladders,
 | SodaStream Diet Mountain Dew 4-pack | [B0G26HQWBY](https://www.amazon.com/dp/B0G26HQWBY) | 1 | $28.99 | 114-1990143-8424226 | 2026-05-16 | — | ACQUIRED |
 | SodaStream Diet Mountain Dew 4-pack | [B0G26HQWBY](https://www.amazon.com/dp/B0G26HQWBY) | 1 | $28.99 | 114-7016001-0433834 | 2026-06-10 | — | ACQUIRED |
 | SodaStream Diet Mountain Dew 4-pack | [B0G26HQWBY](https://www.amazon.com/dp/B0G26HQWBY) | 1 | $19.99 | 112-2287046-3621006 | 2026-07-26 | — | ACQUIRED |
+| SodaStream Diet Mountain Dew 4-pack — $24.64 item price + $0.87 allocated tax on a mixed order | [B0G26HQWBY](https://www.amazon.com/dp/B0G26HQWBY) | 1 | $25.51 | 114-6533932-7969060 | 2026-08-16 | 2026-08-17 | ACQUIRED |
+| SodaStream Diet Mountain Dew 4-pack | [B0G26HQWBY](https://www.amazon.com/dp/B0G26HQWBY) | 1 | $21.74 | 112-6764112-7787443 | 2026-09-02 | — | ON-ORDER |
 | SodaStream Pepsi Wild Cherry Zero 4-pack | [B0G4NRDQB8](https://www.amazon.com/dp/B0G4NRDQB8) | 1 | $28.99 | 114-0069643-1757059 | 2026-02-25 | — | ACQUIRED |
 | SodaStream Pepsi Wild Cherry Zero 4-pack | [B0G4NRDQB8](https://www.amazon.com/dp/B0G4NRDQB8) | 1 | $29.74 | 114-3163590-0127432 | 2026-03-08 | — | ACQUIRED |
 | SodaStream Starry Zero 4-pack | [B0G4SGCGLN](https://www.amazon.com/dp/B0G4SGCGLN) | 1 | $28.99 | 112-3552935-4239455 | 2026-07-26 | 2026-07-27 | ACQUIRED |
@@ -304,9 +308,9 @@ Ice-maker donor units and copper coil for the chill loop.
 | Waveshare ESP32-S3-Touch-LCD-4.3B — 4.3" 800×480 IPS RGB capacitive-touch dev board (ST7262 RGB + GT911 touch, CH422G I/O expander), ESP32-S3-WROOM-1-N16R8; enclosure-front config + interaction display, 7–36 V screw-terminal input off the 12 V bus | [B0D925SBYF](https://www.amazon.com/dp/B0D925SBYF) | 1 | $46.11 | 112-5620567-3321809 | 2026-06-13 | 2026-06-15 | ACQUIRED |
 | Waveshare ESP32-S3 1.47" capacitive-touch IPS LCD dev board, 172×320 (JD9853 driver + AXS5106L touch) — faucet display + touch toggle | [B0FCF1MGT3](https://www.amazon.com/dp/B0FCF1MGT3) | 2 | $51.46 | 112-7687617-6094631 | 2026-06-07 | 2026-06-09 | ACQUIRED |
 | Waveshare ESP32-S3-Touch-LCD-4.3B (repeat ASIN) | [B0D925SBYF](https://www.amazon.com/dp/B0D925SBYF) | 1 | $46.11 | 112-3347068-4029052 | 2026-08-28 | — | ON-ORDER |
-| Waveshare ESP32-S3-Touch-LCD-4.3B bundled with a plastic case — the same board as B0D925SBYF above under a second listing; the case does not ship, the display mounts bare in the 45° facet under the printed cover plate | [B0DCNSRT31](https://www.amazon.com/dp/B0DCNSRT31) | 1 | $62.19 | 112-3347068-4029052 | 2026-08-28 | — | ON-ORDER |
-| Waveshare ESP32-S3 1.47" capacitive-touch IPS LCD dev board, 172×320 — faucet display + touch toggle; the same board as B0FCF1MGT3 above under a second listing (sold by Bo lin) | [B0FB3WDJNC](https://www.amazon.com/dp/B0FB3WDJNC) | 2 | $51.46 | 112-3347068-4029052 | 2026-08-28 | — | ON-ORDER |
-| Waveshare ESP32-S3 1.47" capacitive-touch IPS LCD dev board, 172×320 — faucet display + touch toggle (repeat ASIN, single unit: a 2-unit line on this listing ships Sep 2, one on its own ships next day) | [B0FB3WDJNC](https://www.amazon.com/dp/B0FB3WDJNC) | 1 | $25.73 | 112-2460734-8605801 | 2026-08-28 | — | ON-ORDER |
+| Waveshare ESP32-S3-Touch-LCD-4.3B bundled with a plastic case — the same board as B0D925SBYF above under a second listing; the case does not ship, the display mounts bare in the 45° facet under the printed cover plate | [B0DCNSRT31](https://www.amazon.com/dp/B0DCNSRT31) | 1 | $62.19 | 112-3347068-4029052 | 2026-08-28 | 2026-08-30 | ACQUIRED |
+| Waveshare ESP32-S3 1.47" capacitive-touch IPS LCD dev board, 172×320 — faucet display + touch toggle; the same board as B0FCF1MGT3 above under a second listing (sold by Bo lin) | [B0FB3WDJNC](https://www.amazon.com/dp/B0FB3WDJNC) | 2 | $51.46 | 112-3347068-4029052 | 2026-08-28 | 2026-09-01 | ACQUIRED |
+| Waveshare ESP32-S3 1.47" capacitive-touch IPS LCD dev board, 172×320 — faucet display + touch toggle (repeat ASIN, single unit) | [B0FB3WDJNC](https://www.amazon.com/dp/B0FB3WDJNC) | 1 | $25.73 | 112-2460734-8605801 | 2026-08-28 | 2026-08-29 | ACQUIRED |
 | JLCPCB order W2026062715518432 — controller carrier PCB (`mini.tsx`), 4-layer, 128 × 99 mm through-hole carrier; gerber set `mini.gerbers_Y2` (sub-order Y2-12927587A). $122.17 as-paid = $48.07 merch + $50.15 shipping + $16.82 customs duties/taxes + $7.13 sales tax. Placed Jun 27, 2026 | [jlcpcb.com](https://jlcpcb.com/) | 10 | $122.17 | W2026062715518432 | 2026-06-27 | 2026-07-03 | ACQUIRED |
 | JLCPCB order W2026071513250534 — main board (`pcb/pcba/pcba.tsx`), the first assembled batch: 10× 4-layer 85 × 72.8 mm, black mask / white silk, ENIG, POFV epoxy-filled-&-capped vias, Standard PCBA top-side SMT + wave-soldered THT, fabbed 85 × 82.8 with JLC-added N/S edge rails and **depaneled before delivery**. All 50 BOM lines matched (0 unselected), 94 placements/board. Sub-orders: Y5-12927587A (PCB, $60.13) + SMT026071560539 (assembly + parts, $377.79). $702.00 as-paid = $437.92 merch + $80.39 shipping (FedEx DDP) + $149.78 customs duties/taxes + $37.33 sales tax + $6.58 PayPal fee − $10.00 discount = **$70.20/board delivered**. Placed Jul 15, 2026; order parameters in [`pcb/pcba/order.md`](/hardware/pcb/pcba/order.md) | [jlcpcb.com](https://jlcpcb.com/) | 10 | $702.00 | W2026071513250534 | 2026-07-15 | — | ACQUIRED |
 | JLCPCB order W2026080412059985 — main board (`pcb/pcba/pcba.tsx`), second assembled batch: batch 1's board plus the four batch-2 deltas ([`pcb/pcba/bench-log.md`](/hardware/pcb/pcba/bench-log.md) — all 152 vias drilled, inner rings on the three barrels, D2/ERR anode-east, U13 = CH340B `C81010`) and R22 on `C100444` (`C25900` read a 20-piece shortfall on the order form). 10× 4-layer 85 × 72.8 mm, black mask / white silk, ENIG, POFV epoxy-filled-&-capped vias, Standard PCBA top-side SMT + wave-soldered THT, JLC-added N/S edge rails, depaneled before delivery. All 50 BOM lines matched (0 unselected), 94 placements/board. Sub-orders: Y6-12927587A (PCB, $60.13) + SMT026080460464 (assembly + parts, $368.98). $702.11 as-paid = $429.11 merch + $85.49 shipping (FedEx Express DDP) + $150.20 customs duties/taxes + $37.31 sales tax = **$70.21/board delivered**. Placed Aug 3, 2026; order parameters in [`pcb/pcba/order.md`](/hardware/pcb/pcba/order.md) | [jlcpcb.com](https://jlcpcb.com/) | 10 | $702.11 | W2026080412059985 | 2026-08-03 | 2026-08-17 | ACQUIRED |
@@ -397,7 +401,7 @@ Ice-maker donor units and copper coil for the chill loop.
 | Alex Tech 1/2" black PET expandable braided sleeve, 100 ft — primary harness bundling (replaces spiral wrap) | [B074GMNW7T](https://www.amazon.com/dp/B074GMNW7T) | 1 (100 ft) | $17.15 | 112-6043616-7501828 | 2026-06-28 | 2026-06-29 | ACQUIRED |
 | Alex Tech 3/4" black PET expandable braided sleeve, 100 ft — harness bundling, large trunks (manifold cable) | [B074GMCGZX](https://www.amazon.com/dp/B074GMCGZX) | 1 (100 ft) | $22.51 | 112-9748313-5465028 | 2026-06-28 | 2026-06-29 | ACQUIRED |
 | Alex Tech 1/4" black PET expandable braided sleeve, 25 ft — harness bundling, thin runs | [B071JH14WZ](https://www.amazon.com/dp/B071JH14WZ) | 1 (25 ft) | $8.57 | 112-1902778-9631456 | 2026-06-28 | 2026-06-29 | ACQUIRED |
-| Alex Tech 1" black/blue PET expandable braided sleeve, 100 ft — the umbilical sleeve, five 1-ft segments per build over the foam's own | [B075VRDS53](https://www.amazon.com/dp/B075VRDS53) | 1 (100 ft) | $24.99 | 112-1380657-5901013 | 2026-08-17 | — | ON-ORDER |
+| Alex Tech 1" black/blue PET expandable braided sleeve, 100 ft — the umbilical sleeve, five 1-ft segments per build over the foam's own. $24.99 item + $1.81 tax | [B075VRDS53](https://www.amazon.com/dp/B075VRDS53) | 1 (100 ft) | $26.80 | 112-1380657-5901013 | 2026-08-17 | 2026-08-25 | ACQUIRED |
 | Preciva ferrule crimping tool kit — AWG 28–5 quad-indent ratcheting crimper + 950 pcs insulated bootlace ferrules; for the Wago 221 conductor landings + screw terminals (closes the wire-ferrule gap) | [B0DS622GKN](https://www.amazon.com/dp/B0DS622GKN) | 1 kit | $48.25 | 112-4262778-1489854 | 2026-06-28 | 2026-06-29 | ACQUIRED |
 | GEARit 25 ft 18/3 SJOOW portable cord, 18 AWG 300 V — rubber-jacketed 3-conductor compressor lead, shelf to terminal block and foot bond (AC-4/5/6) | [B0BKQ2H9BZ](https://www.amazon.com/dp/B0BKQ2H9BZ) | 1 (25 ft) | $20.37 | 112-9256032-0146608 | 2026-06-28 | 2026-06-30 | ACQUIRED |
 | ~~Biaungdo 1/2" NPT stainless-steel cable gland, adjustable 6–12 mm, 2-pack~~ — designed out; the SJOOW jacket runs unbroken from the shelf to the compressor and is its own strain relief, so the lead crosses no panel to be clamped at | [B0F2HP5FWB](https://www.amazon.com/dp/B0F2HP5FWB) | 1 pk (2) | $7.63 | 112-5404430-0862635 | 2026-06-28 | 2026-06-29 | ACQUIRED |
@@ -418,10 +422,10 @@ Ice-maker donor units and copper coil for the chill loop.
 | Mean Well LRS-200-12 enclosed 204 W / 12 V / 17 A PSU | [B0874XQ82F](https://www.amazon.com/dp/B0874XQ82F) | 1 | $30.03 | 112-9091100-8229010 | 2026-04-17 | 2026-04-19 | ACQUIRED |
 | P3 Kill-A-Watt P4400 power meter (bench) | [B00009MDBU](https://www.amazon.com/dp/B00009MDBU) | 1 | $34.31 | 112-0118962-3725825 | 2026-04-17 | 2026-04-18 | ACQUIRED |
 | RiteAV RJ11 6P4C black punchdown keystone jack, 110 IDC 90° (10 pk) — the SIG-6 umbilical station on the +Y wall of back-top; snap-in keystone, colour-coded wiring diagram on the jack body, ships with its own snap-in dust cover. mpn46181. $13.92 + $12.08 ship = $26.00, so $2.60/ea landed | [riteav.com](https://www.riteav.com/products/riteav-rj11-phone-black-punchdown-type-keystone-jack-10-pack) | 1 pk (10) | $26.00 | RiteAV #58999 | 2026-08-27 | — | ON-ORDER |
-| EZYUMM RJ11 6P4C modular plug, 3-prong, solid or stranded (20 pk) — the umbilical end of SIG-6, crimped onto the BNTECHGO ribbon | [B0DK4V733Q](https://www.amazon.com/dp/B0DK4V733Q) | 1 pk (20) | $5.02 | 112-2674521-7496252 | 2026-08-27 | — | ON-ORDER |
-| Klein Tools VDV427-300 impact punchdown tool, 66/110 blade, adjustable force — seats the J3 loom on the keystone's 110 IDC; the bench's first IDC tool | [B08J2DN6HC](https://www.amazon.com/dp/B08J2DN6HC) | 1 | $39.97 | 112-9068130-2805061 | 2026-08-27 | — | ON-ORDER |
-| Cable Matters keystone jack punch-down stand — holds the jack square under the Klein | [B00MHWRYMQ](https://www.amazon.com/dp/B00MHWRYMQ) | 1 | $6.99 | 112-9068130-2805061 | 2026-08-27 | — | ON-ORDER |
-| VCE RJ45 / RJ11-12 / RJ22 modular-plug crimper, cutter + stripper — closes the 6P4C plug on the ribbon | [B07XD98YYT](https://www.amazon.com/dp/B07XD98YYT) | 1 | $13.99 | 112-9068130-2805061 | 2026-08-27 | — | ON-ORDER |
+| EZYUMM RJ11 6P4C modular plug, 3-prong, solid or stranded (20 pk) — the umbilical end of SIG-6, crimped onto the BNTECHGO ribbon | [B0DK4V733Q](https://www.amazon.com/dp/B0DK4V733Q) | 1 pk (20) | $5.02 | 112-2674521-7496252 | 2026-08-27 | 2026-08-28 | ACQUIRED |
+| Klein Tools VDV427-300 impact punchdown tool, 66/110 blade, adjustable force — seats the J3 loom on the keystone's 110 IDC; the bench's first IDC tool. $39.97 item + $2.90 allocated tax | [B08J2DN6HC](https://www.amazon.com/dp/B08J2DN6HC) | 1 | $42.87 | 112-9068130-2805061 | 2026-08-27 | 2026-08-28 | ACQUIRED |
+| Cable Matters keystone jack punch-down stand — holds the jack square under the Klein. $6.99 item + $0.51 allocated tax | [B00MHWRYMQ](https://www.amazon.com/dp/B00MHWRYMQ) | 1 | $7.50 | 112-9068130-2805061 | 2026-08-27 | 2026-08-28 | ACQUIRED |
+| VCE RJ45 / RJ11-12 / RJ22 modular-plug crimper, cutter + stripper — closes the 6P4C plug on the ribbon. $13.99 item + $1.01 allocated tax | [B07XD98YYT](https://www.amazon.com/dp/B07XD98YYT) | 1 | $15.00 | 112-9068130-2805061 | 2026-08-27 | 2026-08-28 | ACQUIRED |
 
 ## 10. User interface — buttons, LEDs, air switch
 
@@ -440,6 +444,8 @@ Ice-maker donor units and copper coil for the chill loop.
 | Amerock bar pulls 3-3/4" matte-black (10 pk) | [B0DLWMV3RM](https://www.amazon.com/dp/B0DLWMV3RM) | 1 pk | $27.05 | 114-3717852-7039428 | 2026-03-07 | — | ACQUIRED |
 | Neodymium disc magnets 3×1 mm | [B0BQ3LPGZ1](https://www.amazon.com/dp/B0BQ3LPGZ1) | 1 | $20.90 | 112-2147768-5852208 | 2026-03-15 | — | ACQUIRED |
 | ruthex M3 Threaded Inserts Short, 100 pc, RX-M3Sx4.0 brass heat-set | [B09ZHSGHXD](https://www.amazon.com/dp/B09ZHSGHXD) | 1 pk (100) | $10.71 | 112-4234665-4274626 | 2026-05-10 | 2026-05-11 | ACQUIRED |
+| ruthex M3 Threaded Inserts Short, 100 pc, RX-M3Sx4.0 brass heat-set — repeat stock order; Amazon estimates 2026-09-05 | [B09ZHSGHXD](https://www.amazon.com/dp/B09ZHSGHXD) | 1 pk (100) | $10.71 | 112-9132466-5487409 | 2026-09-02 | — | ON-ORDER |
+| ruthex M3 Threaded Inserts, 100 pc, RX-M3x5.7 brass heat-set — full-length M3 insert stock; Amazon estimates 2026-09-03 | [B08BCRZZS3](https://www.amazon.com/dp/B08BCRZZS3) | 1 pk (100) | $10.71 | 112-6100127-7029800 | 2026-09-02 | — | ON-ORDER |
 | ruthex M2 Threaded Inserts, 70 pc, RX-M2x4 brass heat-set (3.2 mm insert hole) | [B088QJG676](https://www.amazon.com/dp/B088QJG676) | 1 pk (70) | $10.71 | 112-2773449-1292200 | 2026-06-22 | 2026-06-24 | ACQUIRED |
 | BNUOK M3 × 25 mm Hex Socket Head Cap Screws, 60 pc, 12.9 alloy steel, black oxide finish | [B0DJQGF665](https://www.amazon.com/dp/B0DJQGF665) | 1 pk (60) | $8.57 | 112-2495614-5144234 | 2026-05-10 | 2026-05-11 | ACQUIRED |
 | BNUOK M3 × 12 mm Hex Socket Head Cap Screws, 120 pc, 12.9 alloy steel, black oxide finish | [B0DJQGVK8S](https://www.amazon.com/dp/B0DJQGVK8S) | 1 pk (120) | $8.57 | 112-0144900-5988250 | 2026-05-10 | 2026-05-11 | ACQUIRED (spare stock) |
@@ -464,10 +470,10 @@ General shop equipment supporting fabrication, assembly, and teardown. Not proje
 | VEVOR 72" adjustable garage workbench, heavy-duty | [B0C9SYN89J](https://www.amazon.com/dp/B0C9SYN89J) | 1 | $383.85 | 114-2214596-3435404 | 2026-03-22 | — | ACQUIRED |
 | ForPro 99 % isopropyl alcohol, gallon — general shop solvent, separate from the §14 MG Chemicals 16 oz | [B00DT52Y98](https://www.amazon.com/dp/B00DT52Y98) | 1 | $12.86 | 114-2214596-3435404 | 2026-03-22 | — | ACQUIRED |
 | NEIKO 01407A digital caliper, 0–6", stainless, inch/fraction/mm LCD — bench metrology (CAD reference measurements, incl. the faucet display housing/PCB dimensions) | [B000GSLKIW](https://www.amazon.com/dp/B000GSLKIW) | 1 | $27.23 | 114-9764609-4555460 | 2026-03-22 | 2026-03-24 | ACQUIRED |
-| ELP ELP-USB16MP01-KAF68 16MP autofocus USB camera, metal case — IMX298, 4656×3496 stills, 68° no-distortion lens, UVC. The bench's own view of the enclosure display: a frame is taken from the shell through [`tools/panelcam.sh`](/tools/panelcam.sh) instead of by hand. Autofocus and exposure are the UVC controls it publishes, so focus is commanded over [`tools/panelcam-uvc/uvc.js`](/tools/panelcam-uvc/uvc.js) and framing is cropped out of sensor pixels rather than zoomed. Sole item on its invoice, $72.99 + $5.29 NE tax | [B0BX6DSQ6C](https://www.amazon.com/dp/B0BX6DSQ6C) | 1 | $78.28 | 112-1724757-6949801 | 2026-08-31 | — | ON-ORDER |
-| SMALLRIG 9.8" magic arm + super clamp, 1/4"-20 and 3/8" — holds the panelcam in front of the enclosure's front face. The crop recorded in `panelcam.targets.conf` is a reading only while the arm holds its aim, so the mount is the instrument's other half. $19.99 + $1.45 allocated NE tax | [B087T4T8D5](https://www.amazon.com/dp/B087T4T8D5) | 1 | $21.44 | 112-5197027-7255407 | 2026-08-31 | — | ON-ORDER |
-| Anker 5-in-1 USB-C hub, USB-C to HDMI 4K — bench fan-out from one of the M3 Air's two USB-C ports to the boards and the panelcam. $17.99 + $1.30 allocated NE tax | [B0BQLLB61B](https://www.amazon.com/dp/B0BQLLB61B) | 1 | $19.29 | 112-5197027-7255407 | 2026-08-31 | — | ON-ORDER |
-| Amazon Basics LR44 alkaline button cell (6 pk) — cells for the NEIKO 01407A caliper above, whose readings the `raw-images/` caliper photos encode ([measure-from-drawings](/tools/measure-from-drawings/README.md)). $5.49 + $0.40 allocated NE tax | [B07JLBCH8L](https://www.amazon.com/dp/B07JLBCH8L) | 1 pk (6) | $5.89 | 112-5197027-7255407 | 2026-08-31 | — | ON-ORDER |
+| ELP ELP-USB16MP01-KAF68 16MP autofocus USB camera, metal case — IMX298, 4656×3496 stills, 68° no-distortion lens, UVC. The bench's own view of the enclosure display: a frame is taken from the shell through [`tools/panelcam.sh`](/tools/panelcam.sh) instead of by hand. Autofocus and exposure are the UVC controls it publishes, so focus is commanded over [`tools/panelcam-uvc/uvc.js`](/tools/panelcam-uvc/uvc.js) and framing is cropped out of sensor pixels rather than zoomed. Sole item on its invoice, $72.99 + $5.29 NE tax | [B0BX6DSQ6C](https://www.amazon.com/dp/B0BX6DSQ6C) | 1 | $78.28 | 112-1724757-6949801 | 2026-08-31 | 2026-09-01 | ACQUIRED |
+| SMALLRIG 9.8" magic arm + super clamp, 1/4"-20 and 3/8" — holds the panelcam in front of the enclosure's front face. The crop recorded in `panelcam.targets.conf` is a reading only while the arm holds its aim, so the mount is the instrument's other half. $19.99 + $1.45 allocated NE tax | [B087T4T8D5](https://www.amazon.com/dp/B087T4T8D5) | 1 | $21.44 | 112-5197027-7255407 | 2026-08-31 | 2026-09-01 | ACQUIRED |
+| Anker 5-in-1 USB-C hub, USB-C to HDMI 4K — bench fan-out from one of the M3 Air's two USB-C ports to the boards and the panelcam. $17.99 + $1.30 allocated NE tax | [B0BQLLB61B](https://www.amazon.com/dp/B0BQLLB61B) | 1 | $19.29 | 112-5197027-7255407 | 2026-08-31 | 2026-09-01 | ACQUIRED |
+| Amazon Basics LR44 alkaline button cell (6 pk) — cells for the NEIKO 01407A caliper above, whose readings the `raw-images/` caliper photos encode ([measure-from-drawings](/tools/measure-from-drawings/README.md)). $5.49 + $0.40 allocated NE tax | [B07JLBCH8L](https://www.amazon.com/dp/B07JLBCH8L) | 1 pk (6) | $5.89 | 112-5197027-7255407 | 2026-08-31 | 2026-09-01 | ACQUIRED |
 
 ## 13. Printing consumables
 
@@ -493,6 +499,7 @@ General shop equipment supporting fabrication, assembly, and teardown. Not proje
 | Polymaker Fiberon PET-CF17, 1.75 mm × 3 kg, Black | [B0DJNVQJX9](https://www.amazon.com/dp/B0DJNVQJX9) | 1 | $117.96 | 114-7618665-2979463 | 2026-06-13 | 2026-06-15 | ACQUIRED |
 | Polymaker Fiberon PET-GF15, 1.75 mm × 3 kg, Black. 15 % glass-fiber PET, $26.81/kg | [B0FBWGTW9W](https://www.amazon.com/dp/B0FBWGTW9W) | 1 | $80.43 | 112-1974343-4486643 | 2026-08-09 | 2026-08-11 | ACQUIRED |
 | Polymaker Fiberon PET-GF15, 1.75 mm × 3 kg, Black — **the exterior's production stock** ([bom.md §7](/hardware/ledger/bom.md)). 9 kg on one invoice: $69.99 ea × 3 + $15.21 NE tax, shipping waived, = **$25.02/kg**, the figure §7 prices every exterior row at | [B0FBWGTW9W](https://www.amazon.com/dp/B0FBWGTW9W) | 3 | $225.18 | 112-3920877-6075462 | 2026-08-23 | 2026-08-24 | ACQUIRED |
+| Polymaker Fiberon PET-GF15, 1.75 mm × 1 kg, Black — three 1 kg spools; $89.97 item subtotal − $9.00 promotion + $5.88 tax | [B0FBWGCBB3](https://www.amazon.com/dp/B0FBWGCBB3) | 3 | $86.85 | 114-1933808-1548244 | 2026-09-01 | 2026-09-02 | ACQUIRED |
 | Polymaker order #188663 — Fiberon PET-GF15, 1.75 mm × 3 kg, Black. Bought direct from polymaker.com rather than Amazon: $74.99 ea × 2 + $7.99 USPS Ground Advantage, no tax, = **$26.33/kg** | polymaker.com | 2 | $157.97 | — | 2026-08-29 | — | ON-ORDER |
 | SunTop food-contact-compliant PETG, 1.75 mm × 1 kg, Clear/Transparent | [B0FP34MJ94](https://www.amazon.com/dp/B0FP34MJ94) | 2 | $49.32 | 112-1471049-5385066 | 2026-05-17 | 2026-05-18 | ACQUIRED |
 | Elmer's disappearing purple school glue sticks, washable, 6 g × 12 — print-bed adhesion/release layer | [B003ULCZ7M](https://www.amazon.com/dp/B003ULCZ7M) | 1 pk (12) | $7.38 | 114-9764609-4555460 | 2026-03-22 | 2026-03-24 | ACQUIRED |
@@ -646,7 +653,7 @@ Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C funne
 | BBDINO black silicone pigment, high-concentrated platinum-cure, 150 g — colorant for the cast funnel at ≤2% by weight (carbon-black, hides concentrate staining; food-contact qualified by the wetted-surface screen per [reservoir/wetted-surface-test.md](/hardware/printed-parts/cold-core/reservoir/wetted-surface-test.md), not a cert) | [B0BVR3R58V](https://www.amazon.com/dp/B0BVR3R58V) | 1 | $20.35 | 112-7063184-8235469 | 2026-06-22 | 2026-06-24 | ACQUIRED |
 | Mann Ease Release 200, 14 oz aerosol — addition-cure-compatible mold release for the printed funnel mold; used on the cavity and on the core's clear-acrylic seal (it is a release film, not a silicone fluid, so it does not add siloxane to the food face — any trace is cleared by the funnel's post-cure bake + wetted-surface screen) | [B002YEBO1O](https://www.amazon.com/dp/B002YEBO1O) | 1 | $23.58 | 112-0411698-8891425 | 2026-06-22 | 2026-06-23 | ACQUIRED |
 | TCP Global 32 oz / 1000 mL graduated mixing cups (25-pk) — silicone-degassing batch cups, sized for the 3–4× vacuum rise of a ~135 mL pour | [B08HNCGY4N](https://www.amazon.com/dp/B08HNCGY4N) | 1 pk (25) | $19.29 | 112-0401256-3893007 | 2026-06-22 | 2026-06-22 | ACQUIRED |
-| POWERTEC 71476 hardened steel dowel pins, 1/4" × 2" (10-pk) — **the funnel mould's spout bore**: dropped into a socket up the core's ramp cone, it is the whole of the Ø6.35 round below the ramp tip ([funnel-mold/README.md](/hardware/printed-parts/zone-c/funnel-mold/README.md)). Ground to 0.0001"–0.0005" on diameter against ASME dimensional standard — the socket carries 0.1 mm of slip, so the rod's own tolerance has to be a fraction of that, which the 0.005"–0.01" shelf-peg grade is not. Stock, so it is tooling and not a per-unit line: a bent one is replaced from the drawer with the core untouched. $16.99 + $1.23 NE tax | [B086DCHYQK](https://www.amazon.com/dp/B086DCHYQK) | 1 pk (10) | $18.22 | 112-8827949-5565840 | 2026-08-24 | — | ON-ORDER |
+| POWERTEC 71476 hardened steel dowel pins, 1/4" × 2" (10-pk) — **the funnel mould's spout bore**: dropped into a socket up the core's ramp cone, it is the whole of the Ø6.35 round below the ramp tip ([funnel-mold/README.md](/hardware/printed-parts/zone-c/funnel-mold/README.md)). Ground to 0.0001"–0.0005" on diameter against ASME dimensional standard — the socket carries 0.1 mm of slip, so the rod's own tolerance has to be a fraction of that, which the 0.005"–0.01" shelf-peg grade is not. Stock, so it is tooling and not a per-unit line: a bent one is replaced from the drawer with the core untouched. $16.99 + $1.23 NE tax | [B086DCHYQK](https://www.amazon.com/dp/B086DCHYQK) | 1 pk (10) | $18.22 | 112-8827949-5565840 | 2026-08-24 | 2026-08-26 | ACQUIRED |
 | Krylon K01303 Crystal Clear Acrylic, 11 oz gloss — clear-acrylic seal for the printed core's food-contact face: seals the print porosity and releases the platinum silicone without inhibiting the cure (acrylic, not enamel); finished + coupon-tested per [funnel-mold/README.md](/hardware/printed-parts/zone-c/funnel-mold/README.md) "Finish the core" | [B00023JE7K](https://www.amazon.com/dp/B00023JE7K) | 1 | $10.61 | 112-5591371-7092233 | 2026-06-23 | 2026-06-25 | ACQUIRED |
 
 ---
@@ -664,38 +671,38 @@ Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C funne
 
 | Status | $ |
 |---|---|
-| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$32,621.60](LEDGER_ACQUIRED_HW) |
+| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$33,374.25](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$5,437.54](LEDGER_LABOR) |
-| ACQUIRED (combined) | [$38,059.14](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$1,209.64](LEDGER_ON_ORDER) |
-| MISSING — paid, not received (§1 copper bar) | [$42.89](LEDGER_MISSING) |
+| ACQUIRED (combined) | [$38,811.79](LEDGER_ACQUIRED_COMBINED) |
+| ON-ORDER | [$626.23](LEDGER_ON_ORDER) |
+| MISSING — paid, not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$39,311.67](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$39,491.09](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
 | § | Section | $ |
 |---|---|---|
-| 1 | Carbonator fabrication | [$4,361.46](LEDGER_SEC1) |
+| 1 | Carbonator fabrication | [$4,537.08](LEDGER_SEC1) |
 | 2 | CO2 subsystem (incl. Lillium prototype carbonator $1,129) | [$1,834.42](LEDGER_SEC2) |
 | 3 | Water supply + backflow prevention | [$889.15](LEDGER_SEC3) |
 | 4 | Carbonator plumbing | [$225.27](LEDGER_SEC4) |
-| 5 | Flavor subsystem | [$1,449.74](LEDGER_SEC5) |
+| 5 | Flavor subsystem | [$1,560.23](LEDGER_SEC5) |
 | 6 | Refrigeration | [$1,984.90](LEDGER_SEC6) |
 | 7 | Dispensing end | [$237.65](LEDGER_SEC7) |
-| 8 | Electronics — controllers | [$1,785.01](LEDGER_SEC8) |
-| 9 | Electronics — I/O, drivers, sensors, power | [$1,431.58](LEDGER_SEC9) |
+| 8 | Electronics — controllers | [$1,924.39](LEDGER_SEC8) |
+| 9 | Electronics — I/O, drivers, sensors, power | [$1,528.77](LEDGER_SEC9) |
 | 10 | User interface | [$156.61](LEDGER_SEC10) |
 | 11 | Enclosure hardware | [$199.15](LEDGER_SEC11) |
-| 12 | Shop / bench infrastructure | [$1,153.07](LEDGER_SEC12) |
-| 13 | Printing consumables | [$1,872.08](LEDGER_SEC13) |
+| 12 | Shop / bench infrastructure | [$1,277.97](LEDGER_SEC12) |
+| 13 | Printing consumables | [$1,958.93](LEDGER_SEC13) |
 | 14 | Soldering + small-signal tools | [$803.87](LEDGER_SEC14) |
 | 15 | 3D printing equipment + filaments (Bambu direct) | [$8,991.30](LEDGER_SEC15) |
 | 16 | Laser welding / cleaning / cutting | [$3,899.00](LEDGER_SEC16) |
 | 17 | Domain / infrastructure | [$732.18](LEDGER_SEC17) |
 | 19 | Video / marketing capture | [$139.69](LEDGER_SEC19) |
 | 20 | McMaster-Carr direct | [$111.36](LEDGER_SEC20) |
-| 21 | Silicone molding — Zone C funnel | [$364.11](LEDGER_SEC21) |
+| 21 | Silicone molding — Zone C funnel | [$382.33](LEDGER_SEC21) |
 
 Notes:
 - **MISSING** = paid but never received (no refund pursued) — a real cash outlay, tracked apart from ACQUIRED.
