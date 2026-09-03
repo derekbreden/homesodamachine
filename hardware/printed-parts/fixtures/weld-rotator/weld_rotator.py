@@ -265,6 +265,17 @@ CARRIAGE_WALL_Y1 = 37.5
 CARRIAGE_WALL_X_HALF = interface.MOTOR_FRAME / 2.0 + 0.35
 CARRIAGE_WALL_H = 16.0
 CARRIAGE_SCREW_LENGTH = 10.0
+
+# The motor bolts to the carriage through its two rear flange holes.  The
+# front pair of the 47.14 mm square falls inside the belt's swept path and
+# stays open.  Heads recess flush into the arms' underside, so the motor and
+# carriage are joined on the bench and go onto the tower as one piece.
+MOTOR_MOUNT_X = MOTOR_CENTER_NOMINAL + interface.MOTOR_MOUNT_SQUARE / 2.0
+MOTOR_MOUNT_Y = interface.MOTOR_MOUNT_SQUARE / 2.0
+MOTOR_MOUNT_CSK_D = 9.4
+MOTOR_MOUNT_CSK_DEPTH = (MOTOR_MOUNT_CSK_D - M5_SHANK_D) / 2.0
+MOTOR_MOUNT_SCREW_LENGTH = 12.0
+
 MOTOR_CLAMP_PAD_X = 48.0
 MOTOR_CLAMP_PAD_Y = 3.0
 MOTOR_CLAMP_PAD_Z = 12.0
@@ -278,7 +289,9 @@ MOTOR_CLAMP_SCREW_LENGTH = 8.0
 # A stationary copper shoe gives the laser welder's continuity interlock a
 # path that does not travel through the polymer bearing or wind a work cable
 # around the vessel.  Its PET-GF arm is a replaceable in-plane leaf spring;
-# the shoe is cut from nominal 6 x 25 mm (1/4 x 1 inch) C110 flat bar.
+# the shoe is one 25 mm crosscut from the acquired nominal 6 x 50 mm
+# (1/4 x 2 inch) C110 flat bar, stood with the stock width vertical.  The
+# factory face bears on the tube and the cut edge is only a seated side.
 GROUND_BASE_POINTS = (
     (-99.5, -60.0),
     (-99.5, -40.0),
@@ -313,7 +326,8 @@ GROUND_NOSE_Y = 10.0
 GROUND_SPRING_FILLET_R = 2.0
 GROUND_SHOE_FRONT_X = -62.5
 GROUND_SHOE_T = 6.0
-GROUND_SHOE_MAX_T = 7.0
+GROUND_SHOE_MIN_T = 5.75
+GROUND_SHOE_MAX_T = 6.5
 GROUND_SHOE_BACK_X = GROUND_SHOE_FRONT_X - GROUND_SHOE_T
 GROUND_SHOE_Y = 25.0
 GROUND_SHOE_SIDE_CLEARANCE = 0.75
@@ -321,15 +335,21 @@ GROUND_SHOE_Z = 50.0
 GROUND_SHOE_Z0 = GROUND_TOP_Z - 1.0
 GROUND_HOLDER_H = 12.0
 GROUND_HOLDER_BACK_T = 3.0
-GROUND_HOLDER_BACK_CLEARANCE = 0.25
-GROUND_HOLDER_BACK_FACE_X = (
-    GROUND_SHOE_FRONT_X - GROUND_SHOE_MAX_T - GROUND_HOLDER_BACK_CLEARANCE
-)
+# The loaded tube seats the shoe's back face on this wall.  Across the
+# delivered bar's 5.75--6.5 mm thickness window that leaves 0.75--1.5 mm of
+# flexure preload; thickness variation therefore cannot open the contact.
+GROUND_HOLDER_BACK_FACE_X = GROUND_SHOE_BACK_X
 GROUND_HOLDER_FRONT_X = -64.0
 GROUND_HOLDER_SIDE_T = 3.0
-GROUND_SHOE_SCREW_D = 3.4
-GROUND_SHOE_SCREW_X = GROUND_SHOE_FRONT_X - GROUND_SHOE_T / 2.0
-GROUND_SHOE_SCREW_Z = GROUND_TOP_Z + GROUND_ARM_H / 2.0
+GROUND_HOLDER_CLAMP_T = 7.0
+GROUND_HOLDER_SHELF_H = 3.0
+GROUND_SHOE_CLAMP_SHANK_D = 3.4
+GROUND_SHOE_CLAMP_INSERT_D = 4.0
+GROUND_SHOE_CLAMP_INSERT_DEPTH = 5.2
+GROUND_SHOE_CLAMP_SCREW_LENGTH = 10.0
+GROUND_SHOE_CLAMP_X = GROUND_SHOE_FRONT_X - GROUND_SHOE_T / 2.0
+GROUND_SHOE_CLAMP_Z = GROUND_TOP_Z + GROUND_ARM_H / 2.0
+GROUND_TEARDROP_ROOF_ANGLE = 36.0
 GROUND_ARM_SHANK_D = 3.4
 GROUND_ARM_INSERT_D = 4.0
 GROUND_ARM_INSERT_DEPTH = 5.2
@@ -850,6 +870,25 @@ def _carriage_swept_belt(margin: float):
     return swept
 
 
+def _motor_mount_screws(offset: float = 0.0):
+    """The two rear flange screws as installed, for a carriage displaced
+    `offset` along X.  They run from the countersink's top face up into the
+    motor's tapped holes."""
+    screws = None
+    for sign in (-1.0, 1.0):
+        screw = cq.Workplane(
+            obj=cq.Solid.makeCylinder(
+                M5_SHANK_D / 2.0,
+                MOTOR_MOUNT_SCREW_LENGTH,
+                cq.Vector(MOTOR_MOUNT_X + offset, sign * MOTOR_MOUNT_Y,
+                          CARRIAGE_ARM_Z0),
+                cq.Vector(0.0, 0.0, 1.0),
+            )
+        )
+        screws = screw if screws is None else screws.union(screw)
+    return screws
+
+
 def build_motor_carriage():
     center = MOTOR_CENTER_NOMINAL
     x_mid = (CARRIAGE_X0 + CARRIAGE_X1) / 2.0
@@ -906,6 +945,24 @@ def build_motor_carriage():
                 )
             )
             carriage = carriage.cut(shank.union(insert))
+
+    for sign in (-1.0, 1.0):
+        y = sign * MOTOR_MOUNT_Y
+        shank = (
+            cq.Workplane("XY", origin=(MOTOR_MOUNT_X, y, CARRIAGE_ARM_Z0 - 0.01))
+            .circle(M5_SHANK_D / 2.0)
+            .extrude(MOTOR_FACE_Z - CARRIAGE_ARM_Z0 + 0.02)
+        )
+        head = cq.Workplane(
+            obj=cq.Solid.makeCone(
+                MOTOR_MOUNT_CSK_D / 2.0,
+                M5_SHANK_D / 2.0,
+                MOTOR_MOUNT_CSK_DEPTH,
+                cq.Vector(MOTOR_MOUNT_X, y, CARRIAGE_ARM_Z0),
+                cq.Vector(0.0, 0.0, 1.0),
+            )
+        )
+        carriage = carriage.cut(shank.union(head))
 
     for x in TOWER_RAIL_INSERT_X:
         for sign in (-1.0, 1.0):
@@ -1383,6 +1440,23 @@ def selftest():
     screw_projection = MOTOR_CLAMP_SCREW_LENGTH - MOTOR_CLAMP_INSERT_DEPTH
     if clamp_travel < 0.2 or screw_projection < clamp_travel + 0.5:
         raise ValueError("motor side pads cannot take up the frame clearance")
+    # Motor mount: the two rear flange holes carry the motor, the countersink
+    # is flush in the arms' underside so nothing protrudes toward the tower,
+    # and the screw stops short of the tapped hole's bottom.
+    if MOTOR_MOUNT_CSK_DEPTH > CARRIAGE_SKIN_Z0 - CARRIAGE_ARM_Z0:
+        raise ValueError("motor mount countersink breaks through the carriage arms")
+    mount_reach = MOTOR_MOUNT_SCREW_LENGTH - (MOTOR_FACE_Z - CARRIAGE_ARM_Z0)
+    if not 3.0 <= mount_reach <= interface.MOTOR_MOUNT_TAPPED_DEPTH:
+        raise ValueError(
+            f"motor mount screws reach {mount_reach:.1f} mm into a "
+            f"{interface.MOTOR_MOUNT_TAPPED_DEPTH:.1f} mm tapped hole"
+        )
+    if MOTOR_MOUNT_Y + MOTOR_MOUNT_CSK_D / 2.0 > interface.MOTOR_FRAME / 2.0:
+        raise ValueError("motor mount countersinks fall outside the motor's flange")
+    if (MOTOR_MOUNT_X + MOTOR_MOUNT_CSK_D / 2.0 > CARRIAGE_X1
+            or MOTOR_MOUNT_Y + MOTOR_MOUNT_CSK_D / 2.0 > CARRIAGE_Y_HALF):
+        raise ValueError("motor mount countersinks fall off the carriage")
+
     carriage_grip = MOTOR_FACE_Z - CARRIAGE_ARM_Z0 - M3_HEAD_DEPTH
     carriage_reach = CARRIAGE_SCREW_LENGTH - carriage_grip
     if not 3.0 <= carriage_reach <= TOWER_RAIL_INSERT_DEPTH - 0.5:
@@ -1445,6 +1519,13 @@ def selftest():
                 raise ValueError(
                     f"{fixed_name} is within 1.5 mm of the belt at centre {center:.1f}"
                 )
+        mount_screws = _motor_mount_screws(offset)
+        if _overlap(mount_screws, belt) > 1e-4:
+            raise ValueError(
+                f"motor mount screws intersect the belt at centre {center:.1f}"
+            )
+        if _overlap(mount_screws, motor_proxy) < 1.0:
+            raise ValueError("motor mount screws do not enter the motor's flange")
         for name in ("base", "ground-tower", "ground-arm", "ground-shoe", "spool",
                      "race-ring", "ball-cage"):
             if _overlap(parts[name], belt) > 1e-4:
@@ -1576,6 +1657,7 @@ def main():
     pilot_clearance = (interface.TUBE_ID - PILOT_OD) / 2.0
     outer_clearance = (OUTER_BORE_D - interface.TUBE_OD) / 2.0
     ball_pitch = 2.0 * math.pi * BALL_RACE_R / BALL_COUNT
+    mount_reach = MOTOR_MOUNT_SCREW_LENGTH - (MOTOR_FACE_Z - CARRIAGE_ARM_Z0)
     variables = {
         "WR_BASE_X": f"{BASE_X:.0f}",
         "WR_BASE_Y": f"{BASE_Y:.0f}",
@@ -1601,6 +1683,11 @@ def main():
         "WR_PULLEY_OVERHANG": f"{MOTOR_PULLEY_SHAFT_OVERHANG:.2f}",
         "WR_LAND_SKIN_CLEAR": f"{CARRIAGE_SKIN_Z0 - BELT_Z1:.2f}",
         "WR_SKIN_H": f"{CARRIAGE_SKIN_H:.0f}",
+        "WR_MOTOR_MOUNT_SCREW": f"{MOTOR_MOUNT_SCREW_LENGTH:.0f}",
+        "WR_MOTOR_MOUNT_REACH": f"{mount_reach:.1f}",
+        "WR_MOTOR_MOUNT_TAPPED": f"{interface.MOTOR_MOUNT_TAPPED_DEPTH:.1f}",
+        "WR_MOTOR_MOUNT_MARGIN": f"{interface.MOTOR_MOUNT_TAPPED_DEPTH - mount_reach:.1f}",
+        "WR_PULLEY_HANG": f"{CARRIAGE_ARM_Z0 - MOTOR_PULLEY_Z0:.2f}",
         "WR_PILOT_OD": f"{PILOT_OD:.2f}",
         "WR_PILOT_H": f"{PILOT_H:.1f}",
         "WR_PILOT_CLEAR": f"{pilot_clearance:.2f}",
