@@ -3118,6 +3118,62 @@ cp hardware/printed-parts/cold-core/foam-assembly/foam-assembly.scorecard.json $
 )
 
 genrule(
+    name = "carbonator-tube-step",
+    srcs = [
+        "pysrc/hardware/cold-core-layout/_carbonator.py",
+        "pysrc/hardware/cold-core-layout/_fittings.py",
+        "pysrc/hardware/cut-parts/carbonation/carbonator-tube/carbonator_tube_step.py",
+        "pysrc/hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
+        "pysrc/hardware/printed-parts/cadlib/reeding.py",
+        "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
+        "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "pysrc/hardware/printed-parts/cold-core/_foam_cap.py",
+        "pysrc/hardware/printed-parts/cold-core/_internal_routes.py",
+        "pysrc/hardware/printed-parts/cold-core/_outer_shell.py",
+        "pysrc/hardware/printed-parts/cold-core/_port_cuts.py",
+        "pysrc/hardware/printed-parts/cold-core/_reed_channels.py",
+        "pysrc/hardware/printed-parts/cold-core/_support_ring.py",
+        "pysrc/hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py",
+        "pysrc/hardware/printed-parts/cold-core/reservoir/reservoir.py",
+        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_materials.py",
+        "pysrc/hardware/scripts/_mesh_payload.py",
+        "pysrc/hardware/scripts/_meshes.py",
+        "pysrc/hardware/scripts/_overlap.py",
+        "pysrc/hardware/scripts/_realized.py",
+        "pysrc/hardware/scripts/_routing.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_stated_bounds.py",
+        "pysrc/tools/docgen/__init__.py",
+    ],
+    outs = [
+        "out/carbonator-tube-step/hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step",
+    ],
+    cmd = """
+set -e
+O0=$$PWD/$(location out/carbonator-tube-step/hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step)
+for f in $(SRCS); do
+  case $$f in
+    */node_modules/*) continue;;
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    */pysrc/*) t=$${f##*/pysrc/};;
+    *) t=$$f;;
+  esac
+  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+done
+cd work
+ln -sfn $$HSM_WORKSPACE/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/cut-parts/carbonation/carbonator-tube/carbonator_tube_step.py > /dev/null
+cp hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step $$O0
+""",
+)
+
+genrule(
     name = "endcap-circular-drawing",
     srcs = [
         "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_drawing.py",
@@ -9866,6 +9922,14 @@ genrule(
     name = "pysrc-5f299cecfe59",
     srcs = ["hardware/cold-core-layout/cold_core_assembly.py"],
     outs = ["pysrc/hardware/cold-core-layout/cold_core_assembly.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-8163014e0a4f",
+    srcs = ["hardware/cut-parts/carbonation/carbonator-tube/carbonator_tube_step.py"],
+    outs = ["pysrc/hardware/cut-parts/carbonation/carbonator-tube/carbonator_tube_step.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -19058,6 +19122,7 @@ filegroup(
         ":tools-build",
         ":render-scene-cards",
         ":cold-core-assembly",
+        ":carbonator-tube-step",
         ":endcap-circular-drawing",
         ":endcap-circular-dxf",
         ":endcap-circular-step",
