@@ -849,6 +849,16 @@
    "active": true
   },
   {
+   "id": "plate-foot-condenser-envelope",
+   "label": "The collet-plate feet stay outside the condenser+fan envelope",
+   "kind": "gate",
+   "status": "pass",
+   "value": "2.00 mm air over the complete bounding box",
+   "target": "positive air outside the complete condenser+fan bounding box",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "box-width",
    "label": "The pack stands inside the appliance's stated width",
    "kind": "gate",
