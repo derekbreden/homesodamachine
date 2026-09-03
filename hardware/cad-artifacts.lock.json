@@ -2,9 +2,8 @@
   "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed \u2014 web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
   "release": {
     "tag": "cad-artifacts",
-    "asset": "cad-00c7f5a27b7be594.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-00c7f5a27b7be594.tar.gz",
-    "objects": "s-"
+    "asset": "cad-61a67a6a4643c3f3.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-61a67a6a4643c3f3.tar.gz"
   },
   "source": {
     "commit": "0102e9c6d299d40d7fa7e8a3056a6614a47b3844"
@@ -354,8 +353,8 @@
     ]
   },
   "bundle": {
-    "sha256": "00c7f5a27b7be594b21cb0e253b7df7a0fbcf182cceb8c02f42cd962a11e97ad",
-    "bytes": 141481476,
+    "sha256": "61a67a6a4643c3f3595735cdbde4b111b47d569ffd5b43fd012d0ba1459cf377",
+    "bytes": 141485055,
     "solids": 337
   },
   "solids": {
@@ -488,7 +487,7 @@
     "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-a.step": "93c55d43dfb01370e15db2923e9e5d906232d2bdec823e6e0adc3d54e05da456",
     "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-b.step": "881f58f0e2bed401ded46a7851d0990ea6201fb54b3a16ffc0b062b5bdf734d6",
     "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-water.step": "d60fff1bee23c6895fb4a152b5b7068db79693b4f7b063f8933aad42f40ab7b1",
-    "hardware/printed-parts/enclosure/ceiling-panel/ceiling-panel.step": "5cae11e1dc56ba69089ac00febdf7ed1d1574cefc8ddd8c3a07bb5245cd38d86",
+    "hardware/printed-parts/enclosure/ceiling-panel/ceiling-panel.step": "c4acd9188a7dd71303bd2ceed1909641665efa4dba13dfec61bf6f8f4878db72",
     "hardware/printed-parts/enclosure/display-cover/display-cover.step": "5d36b4b3db0dfa31526a1b10b040035e1a126c3b599a4088bffd204c9db3f3d0",
     "hardware/printed-parts/enclosure/display-gasket/display-gasket.step": "266a5ecdc4df3ee81f60dab815e9a211baf14c22dec37d25cb3d3a9bb7d89b3d",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "951d2439a0c293465fb2d3e1055aa8afd6617339662cf6424c30bd4a711c4b7a",
