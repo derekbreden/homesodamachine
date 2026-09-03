@@ -162,6 +162,8 @@ NEST_SEAT_Z = 52.0
 REGISTER_OD = 112.0
 REGISTER_H = 3.0
 REGISTER_SLIP = 0.25
+REGISTER_SOCKET_DEPTH = REGISTER_H + 0.2
+REGISTER_ROOF_H = (REGISTER_OD + REGISTER_SLIP - SERVICE_BORE_D) / 4.0
 NEST_SCREW_R = 61.0
 NEST_SCREW_D = 3.5
 NEST_RETAINER_ANGLES = (0.0, 120.0, 240.0)
@@ -173,7 +175,7 @@ NEST_INSERT_DEPTH = 5.2
 # [6.35](WR_RECESS) recess.  Three radial screws bear directly on the OD;
 # the pilot carries the ID; the end face lands on the annular seat between them.
 NEST_OD = 150.0
-NEST_BASE_H = 8.0
+NEST_BASE_H = 10.0
 NEST_OUTER_H = 10.0
 NEST_CENTER_BORE_D = SERVICE_BORE_D
 PILOT_OD = 123.30
@@ -334,7 +336,8 @@ GROUND_SHOE_BACK_X = GROUND_SHOE_FRONT_X - GROUND_SHOE_T
 GROUND_SHOE_Y = 25.0
 GROUND_SHOE_SIDE_CLEARANCE = 0.4
 GROUND_SHOE_Z = 50.0
-GROUND_SHOE_Z0 = GROUND_TOP_Z - 1.0
+GROUND_HOLDER_SHELF_H = 3.0
+GROUND_SHOE_Z0 = GROUND_TOP_Z + GROUND_HOLDER_SHELF_H
 GROUND_HOLDER_H = 12.0
 GROUND_HOLDER_BACK_T = 3.0
 # The loaded tube seats the shoe's back face on this wall.  Across the
@@ -344,7 +347,7 @@ GROUND_HOLDER_BACK_FACE_X = GROUND_SHOE_BACK_X
 GROUND_HOLDER_FRONT_X = -64.0
 GROUND_HOLDER_SIDE_T = 3.0
 GROUND_HOLDER_CLAMP_T = 7.0
-GROUND_HOLDER_SHELF_H = 3.0
+GROUND_HOLDER_SHELF_X0 = GROUND_HOLDER_BACK_FACE_X - GROUND_HOLDER_BACK_T
 GROUND_HOLDER_CLAMP_INNER_Y = -(GROUND_SHOE_Y / 2.0 + GROUND_SHOE_SIDE_CLEARANCE)
 GROUND_HOLDER_CLAMP_OUTER_Y = GROUND_HOLDER_CLAMP_INNER_Y - GROUND_HOLDER_CLAMP_T
 GROUND_HOLDER_FIXED_INNER_Y = GROUND_SHOE_Y / 2.0 + GROUND_SHOE_SIDE_CLEARANCE
@@ -354,7 +357,7 @@ GROUND_SHOE_CLAMP_INSERT_D = 4.0
 GROUND_SHOE_CLAMP_INSERT_DEPTH = 5.2
 GROUND_SHOE_CLAMP_SCREW_LENGTH = 8.0
 GROUND_SHOE_CLAMP_X = GROUND_SHOE_FRONT_X - GROUND_SHOE_T / 2.0
-GROUND_SHOE_CLAMP_Z = GROUND_TOP_Z + GROUND_ARM_H / 2.0
+GROUND_SHOE_CLAMP_Z = GROUND_SHOE_Z0 + GROUND_HOLDER_H / 2.0
 GROUND_TEARDROP_ROOF_ANGLE = 36.0
 GROUND_ARM_SHANK_D = 3.4
 GROUND_ARM_INSERT_D = 4.0
@@ -793,12 +796,23 @@ def build_cage():
 
 def build_nest():
     base = _annulus(NEST_OD / 2.0, NEST_CENTER_BORE_D / 2.0, NEST_BASE_H)
+    socket_inner_r = NEST_CENTER_BORE_D / 2.0
+    socket_outer_r = (REGISTER_OD + REGISTER_SLIP) / 2.0
+    socket_mid_r = (socket_inner_r + socket_outer_r) / 2.0
     register_socket = _annulus(
-        (REGISTER_OD + REGISTER_SLIP) / 2.0,
-        NEST_CENTER_BORE_D / 2.0,
-        REGISTER_H + 0.2,
+        socket_outer_r,
+        socket_inner_r,
+        REGISTER_SOCKET_DEPTH,
     )
-    base = base.cut(register_socket)
+    register_roof = (
+        cq.Workplane("XZ")
+        .moveTo(socket_inner_r, REGISTER_SOCKET_DEPTH)
+        .lineTo(socket_outer_r, REGISTER_SOCKET_DEPTH)
+        .lineTo(socket_mid_r, REGISTER_SOCKET_DEPTH + REGISTER_ROOF_H)
+        .close()
+        .revolve(360.0, (0.0, 0.0), (0.0, 1.0))
+    )
+    base = base.cut(register_socket.union(register_roof))
 
     pilot = _annulus(PILOT_OD / 2.0, PILOT_ID / 2.0, PILOT_H, NEST_BASE_H)
     outer = _annulus(
@@ -1156,12 +1170,13 @@ def build_ground_arm():
     shelf = (
         cq.Workplane(
             "XY",
-            origin=((GROUND_HOLDER_BACK_FACE_X + GROUND_HOLDER_FRONT_X) / 2.0,
-                    0.0,
+            origin=((GROUND_HOLDER_SHELF_X0 + GROUND_HOLDER_FRONT_X) / 2.0,
+                    (GROUND_HOLDER_CLAMP_OUTER_Y
+                     + GROUND_HOLDER_FIXED_OUTER_Y) / 2.0,
                     GROUND_SHOE_Z0 - GROUND_HOLDER_SHELF_H),
         )
-        .box(GROUND_HOLDER_FRONT_X - GROUND_HOLDER_BACK_FACE_X,
-             GROUND_HOLDER_FIXED_INNER_Y - GROUND_HOLDER_CLAMP_INNER_Y,
+        .box(GROUND_HOLDER_FRONT_X - GROUND_HOLDER_SHELF_X0,
+             GROUND_HOLDER_FIXED_OUTER_Y - GROUND_HOLDER_CLAMP_OUTER_Y,
              GROUND_HOLDER_SHELF_H,
              centered=(True, True, False))
     )
@@ -1407,6 +1422,9 @@ def selftest():
         raise ValueError("spool insert pockets leave under 2 mm of platter above them")
 
     # Nest datum.
+    register_cap = NEST_BASE_H - REGISTER_SOCKET_DEPTH - REGISTER_ROOF_H
+    if register_cap < 1.0:
+        raise ValueError("tube-nest register roof leaves less than 1 mm of cap")
     pilot_radial_clearance = (interface.TUBE_ID - PILOT_OD) / 2.0
     outer_radial_clearance = (OUTER_BORE_D - interface.TUBE_OD) / 2.0
     if pilot_radial_clearance <= 0.0 or outer_radial_clearance <= 0.0:
@@ -1611,6 +1629,10 @@ def selftest():
         + GROUND_SHOE_T
         + interface.TUBE_OD / 2.0
     )
+    if abs(
+        GROUND_SHOE_Z0 - GROUND_HOLDER_SHELF_H - GROUND_TOP_Z
+    ) > 1e-6:
+        raise ValueError("ground-arm shelf and leaf do not share the print bed")
     flexure_free_length = -GROUND_NOSE_Y / 2.0 - GROUND_PAD_Y1
     flexure_surface_strain = (
         1.5 * GROUND_BEAM_T * ground_preload / flexure_free_length**2
@@ -1803,6 +1825,10 @@ def main():
         "WR_OUTER_CLEAR": f"{outer_clearance:.2f}",
         "WR_RECESS": f"{interface.ENDCAP_RECESS:.2f}",
         "WR_NEST_OD": f"{NEST_OD:.0f}",
+        "WR_NEST_BASE_H": f"{NEST_BASE_H:.0f}",
+        "WR_REGISTER_OD": f"{REGISTER_OD:.0f}",
+        "WR_REGISTER_SOCKET_DEPTH": f"{REGISTER_SOCKET_DEPTH:.1f}",
+        "WR_REGISTER_CAP": f"{NEST_BASE_H - REGISTER_SOCKET_DEPTH - REGISTER_ROOF_H:.1f}",
         "WR_NEST_RETAINER_ACCESS": f"{NEST_RETAINER_ACCESS_D:.1f}",
         "WR_GROUND_BEAM_T": f"{GROUND_BEAM_T:.1f}",
         "WR_GROUND_SHOE_EXPOSED": f"{GROUND_SHOE_Z - GROUND_HOLDER_H:.0f}",
