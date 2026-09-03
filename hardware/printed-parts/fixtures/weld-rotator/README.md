@@ -32,11 +32,10 @@ adjustment and never a reprint.
 | `weld-rotator-pulley-coupon.step` | 1 first | Twelve grooves and both flanges; verifies the actual belt before the turntable print |
 | `weld-rotator-ball-cage.step` | 1 | Spaces the [36](WR_BALLS) stock Ø[10](WR_BALL_D) mm PP balls |
 | `weld-rotator-tube-nest.step` | 1 | Replaceable dual-surface register for the 5-inch tube end |
-| `weld-rotator-jaw-cap.step` | 3 | Curved pressure shoe between each radial M3 screw and the tube OD |
 | `weld-rotator-ground-shoe.step` | 1 C110 | 6.35 × 20 × 30 mm stationary contact cut from the acquired copper bar |
 | `weld-rotator-assembly.step` | — | Reference assembly with tube, balls, belt, motor, and 20T pulley proxies |
 
-All fourteen printable shapes are PET-GF. The base is deliberately a single
+All thirteen printable shapes are PET-GF. The base is deliberately a single
 large print: the [165](WR_BALL_RACE) mm race and the motor-tower mounting
 stations read the same uninterrupted bed plane, so no bolted base seam can
 become angular runout.
@@ -49,15 +48,15 @@ The tube end lands in one annular pocket:
   [0.20](WR_PILOT_CLEAR) mm nominal radial clearance;
 - a Ø[127.80](WR_OUTER_BORE) outer guide, with
   [0.40](WR_OUTER_CLEAR) mm nominal radial clearance;
-- three 14-degree jaw caps, each driven by an M3 × 25 screw through a heat-set
-  insert in the outer collar.
+- three radial M3 × 25 adjusters through heat-set inserts in the outer collar,
+  with their tips bearing directly on the tube OD.
 
 The ID pilot is shorter than the welded plate's [6.35](WR_RECESS) mm recess, so
 the same nest accepts a bare tube end or the already-welded first end. The
-outer guide starts the tube without forcing its ovality round. The three jaw
-caps then take up clearance and provide the indicator adjustment. Their
-curved faces spread the screw load across the tube instead of point-loading the
-0.065-inch wall.
+outer guide starts the tube without forcing its ovality round. The three
+direct-contact screws then take up clearance and provide the indicator
+adjustment. Bring each tip only to contact; the screws locate the tube and do
+not supply forming or clamp force to its 0.065-inch wall.
 
 A Ø[90](WR_SERVICE_BORE) mm passage continues through the nest, turntable,
 spool, and base. It clears a 25.4 mm service envelope around either recessed
@@ -69,13 +68,19 @@ as the purge vent.
 The nest is the only tube-size-specific printed part. A tapered Ø80 register
 centres it on the turntable and three M3 screws retain it. A fit correction or
 a later tube size therefore costs one [150](WR_NEST_OD) mm part, not the base,
-bearing, pulley, or motor mount. The jaw screws ride on the turntable, so any
-jaw is brought to an open side of the fixture by jogging the table before it
-is adjusted.
+bearing, pulley, or motor mount. The tube-adjuster screws ride on the
+turntable, so any screw is brought to an open side of the fixture by jogging
+the table before it is adjusted.
 
 Each nest retainer is driven from above. Its Ø[6.2](WR_NEST_RETAINER_ACCESS) mm
 straight access well passes through the ID pilot to the recessed head seat in
 the 8 mm base.
+
+Each tube adjuster enters from the collar's outside face through a 5.2 mm-deep
+Ø4.0 heat-set-insert bore. A continuous
+Ø[3.4](WR_TUBE_ADJUSTER_BORE) mm passage runs from the insert to the tube guide;
+the screw tip is the tube contact. The adjuster stations are staggered between
+the nest-retainer wells and bear against the tube over the ID pilot.
 
 ## Bearing
 
@@ -150,7 +155,7 @@ yield instead of using the fixture as a rigid puller.
 - 30 × ruthex M3 short inserts. Screws from acquired stock: 8 × M3 × 25
   base-foot retainers, 3 × M3 × 25 spool screws, 3 × M3 × 8 race-ring screws,
   4 × M3 × 10 carriage screws, 4 × M3 × 8 motor-pad screws, 3 × M3 × 10 nest
-  retainers, 3 × M3 × 25 jaw adjusters, 2 × M3 × 12 ground-arm retainers, and
+  retainers, 3 × M3 × 25 tube adjusters, 2 × M3 × 12 ground-arm retainers, and
   1 × M3 × 10 ground-shoe screw into tapped copper.
 - One 6.35 × 20 × 30 mm shoe cut from the acquired 1/4-inch C110 copper flat
   bar; drill and tap its lower side M3 for the retaining screw.
@@ -190,8 +195,8 @@ plates are worth watching through their first two layers rather than left alone.
   print on either 48 × 12 mm face; keep the screw-tip sockets clean.
 - Ground tower: print on its foot. Ground arm: print flat, with the leaf and
   shoe fork in the bed plane; use 100% infill and reject any layer separation.
-- Nest and jaw caps: 0.20 mm layer, 6 walls, 100% infill. Print the nest on its
-  register face and the jaw caps on either flat radial end.
+- Nest: 0.20 mm layer, 6 walls, 100% infill, on its register face. Keep the
+  three radial stepped adjuster passages clear.
 - Cage and coupon: flat.
 
 Deburr the base race with a plastic scraper only, for the same reason as the
@@ -201,8 +206,9 @@ ring.
 
 1. Heat-set six M5 tower inserts in the base. Heat-set M3 inserts: three nest
    inserts down from the turntable's register face; three spool and three
-   race-ring inserts up from the turntable's flat underside; three jaw inserts
-   in the nest; two in the ground tower; four inward from the carriage's two
+   race-ring inserts up from the turntable's flat underside; three tube-adjuster
+   inserts inward from the nest collar's outside face; two in the ground tower;
+   four inward from the carriage's two
    outside walls; four downward into the tower's rail tops; and two downward
    from the top of each base foot.
 2. Fasten the four feet from the base top with eight flush M3 × 25 screws. Set
@@ -237,8 +243,9 @@ ring.
 8. Slide the complete carriage outward until the long belt span twists about
    90 degrees with finger pressure, then tighten the four carriage screws.
 9. Seat the nest on its register and drive three M3 × 10 retainers straight
-   down through its access wells. Put one jaw cap on each M3 adjuster tip; the
-   Ø2.85 blind socket is the retention fit.
+   down through its access wells. Thread the three M3 × 25 tube adjusters into
+   their radial inserts, then back every tip fully clear of the OD guide before
+   loading a tube.
 10. Run the turntable dry for ten revolutions, clean the race, and re-check
     belt tracking before loading a tube.
 11. Bolt down the ground tower and flexure arm. Fit the C110 shoe with its one
@@ -257,14 +264,14 @@ increase the flexure preload before enabling the laser.
 
 ## Indicating the tube
 
-Drop the tube into the nest until its cut rim seats. Bring all three jaw screws
-to contact, then advance them in small equal increments. Put the test
-indicator on the tube OD close to the working end and adjust the three screws
-until radial runout is at or below 0.25 mm TIR. Seat the indicator's magnetic
-base on the exposed stationary steel lamination face of the NEMA 23; it will
-not hold correctly on the PET-GF base or the 316L tube. Lock both arm joints
-and shake-test the base before turning. Read the end-cap face separately; face
-runout at the weld circle must be at or below 0.30 mm TIR.
+Drop the tube into the nest until its cut rim seats. Bring all three tube
+adjusters to light contact, then advance them in small equal increments. Put
+the test indicator on the tube OD close to the working end and adjust the three
+screws until radial runout is at or below 0.25 mm TIR. Seat the indicator's
+magnetic base on the exposed stationary steel lamination face of the NEMA 23;
+it will not hold correctly on the PET-GF base or the 316L tube. Lock both arm
+joints and shake-test the base before turning. Read the end-cap face separately;
+face runout at the weld circle must be at or below 0.30 mm TIR.
 
 The tube's working rim is [212.4](WR_TUBE_TOP) mm above the base bottom and
 [236.4](WR_TUBE_TOP_BENCH) mm above the bench. The
