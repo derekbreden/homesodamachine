@@ -93,6 +93,10 @@ fixed_under_z = show_z - _enc.back_top_ceiling_t
 structural_t = 11.0
 structural_under_z = show_z - structural_t
 relief_corner_r = 3.0
+# Two body clearances facing across less than one wall do not leave a structural web between
+# them. Their openings meet over the depth they share; each pocket keeps its own roof above it.
+relief_min_web = _enc.wall
+relief_join_overcut = 0.1
 
 # THE PANEL SHOWS ONE FACE AND IT LIES FLAT, so the box's field never crosses it. That field is
 # struck along a plan and runs vertically (`enclosure.flute_rails`); the top surface is the top
@@ -207,6 +211,61 @@ def _rounded_slab(x0, x1, y0, y1, z0, z1, radius=relief_corner_r):
     return cq.Workplane(obj=solid).edges("|Z").fillet(radius).val()
 
 
+def _relief_radius(relief):
+    """The plan radius `_rounded_slab` gives one body relief."""
+    _name, x0, x1, y0, y1, _top = relief
+    return min(relief_corner_r, (x1 - x0) / 3.0, (y1 - y0) / 3.0)
+
+
+def _body_relief_bridges(reliefs):
+    """Cutters joining body pockets whose common-depth remnant is thinner than one wall."""
+    rows = tuple(reliefs)
+    bridges = []
+    for i, a in enumerate(rows):
+        _an, ax0, ax1, ay0, ay1, atop = a
+        ar = _relief_radius(a)
+        for b in rows[i + 1:]:
+            _bn, bx0, bx1, by0, by1, btop = b
+            top = min(underside_z, atop, btop)
+            if top <= structural_under_z:
+                continue
+            br = _relief_radius(b)
+
+            # Across a Y gap, the bridge occupies the shared X span and reaches through each
+            # facing corner round. It is therefore part of both openings, never a narrow slot
+            # marooned between two rounded ends.
+            x0, x1 = max(ax0, bx0), min(ax1, bx1)
+            if x1 > x0:
+                if ay1 <= by0:
+                    low_y1, low_r, high_y0, high_r = ay1, ar, by0, br
+                elif by1 <= ay0:
+                    low_y1, low_r, high_y0, high_r = by1, br, ay0, ar
+                else:
+                    low_y1 = high_y0 = None
+                if low_y1 is not None and 0.0 < high_y0 - low_y1 < relief_min_web:
+                    bridges.append(_slab(
+                        x0, x1,
+                        low_y1 - low_r - relief_join_overcut,
+                        high_y0 + high_r + relief_join_overcut,
+                        structural_under_z - 0.1, top))
+
+            # The same construction turned ninety degrees for an X gap.
+            y0, y1 = max(ay0, by0), min(ay1, by1)
+            if y1 > y0:
+                if ax1 <= bx0:
+                    low_x1, low_r, high_x0, high_r = ax1, ar, bx0, br
+                elif bx1 <= ax0:
+                    low_x1, low_r, high_x0, high_r = bx1, br, ax0, ar
+                else:
+                    low_x1 = high_x0 = None
+                if low_x1 is not None and 0.0 < high_x0 - low_x1 < relief_min_web:
+                    bridges.append(_slab(
+                        low_x1 - low_r - relief_join_overcut,
+                        high_x0 + high_r + relief_join_overcut,
+                        y0, y1, structural_under_z - 0.1, top))
+    return tuple(bridges)
+
+
 def _tie_reliefs(box):
     """Full anchor footprints whose existing zip tie approach enters the deeper field."""
     meter_anchors, ribs = _enc.ceiling_stations(
@@ -252,6 +311,8 @@ def _relieved_stock(box):
             continue
         stock = stock.cut(_rounded_slab(
             x0, x1, y0, y1, structural_under_z - 0.1, top))
+    for bridge in _body_relief_bridges(box.pack.ceiling_reliefs):
+        stock = stock.cut(bridge)
     for pocket in _tie_reliefs(box):
         stock = stock.cut(pocket)
     return stock
@@ -405,6 +466,7 @@ def main():
             "STRUCTURAL_T": f"{structural_t:g} mm",
             "STRUCTURAL_UNDER": f"{structural_under_z:g}",
             "RELIEF_R": f"{relief_corner_r:g} mm",
+            "RELIEF_MIN_WEB": f"{relief_min_web:g} mm",
             "RELIEF_N": f"{len(box.pack.ceiling_reliefs)}",
             "TIE_RELIEF_N": f"{len(_tie_reliefs(box))}",
             "PIECE_H": f"{piece_h:g} mm",
