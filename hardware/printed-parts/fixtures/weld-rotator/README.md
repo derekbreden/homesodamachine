@@ -65,16 +65,19 @@ For the second closure, attach the purge hose to one lower port before loading
 the vessel, route it through this passage, and leave the other lower port open
 as the purge vent.
 
-The nest is the only tube-size-specific printed part. A tapered Ø80 register
-centres it on the turntable and three M3 screws retain it. A fit correction or
-a later tube size therefore costs one [150](WR_NEST_OD) mm part, not the base,
-bearing, pulley, or motor mount. The tube-adjuster screws ride on the
-turntable, so any screw is brought to an open side of the fixture by jogging
-the table before it is adjusted.
+The nest is the only tube-size-specific printed part. A Ø[112](WR_REGISTER_OD)
+annular register centres it on the turntable and three M3 screws retain it.
+The socket keeps [3.2](WR_REGISTER_SOCKET_DEPTH) mm of straight engagement,
+then closes through two 45-degree annular roofs rather than a broad horizontal
+ceiling; [1.2](WR_REGISTER_CAP) mm of solid cap remains above their ridge. A fit
+correction or a later tube size therefore costs one [150](WR_NEST_OD) mm part,
+not the base, bearing, pulley, or motor mount. The tube-adjuster screws ride on
+the turntable, so any screw is brought to an open side of the fixture by
+jogging the table before it is adjusted.
 
 Each nest retainer is driven from above. Its Ø[6.2](WR_NEST_RETAINER_ACCESS) mm
 straight access well passes through the ID pilot to the recessed head seat in
-the 8 mm base.
+the [10](WR_NEST_BASE_H) mm base.
 
 Each tube adjuster enters from the collar's outside face through a 5.2 mm-deep
 Ø4.0 heat-set-insert bore. A continuous
@@ -210,17 +213,23 @@ plates are worth watching through their first two layers rather than left alone.
 - Spool: flange on the bed, hub upward, 5 walls, 30% gyroid.
 - Motor tower: on its feet, rails upward. The four M5 access holes and the
   four rail insert pockets print as vertical bores.
-- Motor carriage: on either Y side, so the skin, arms and clamp walls are
-  layer profiles and the pilot hole is a vertical circle. The two flange
-  countersinks lie in the bed plane and need no support. Motor clamp pads:
-  print on either 48 × 12 mm face; keep the screw-tip sockets clean.
+- Motor carriage: broad arm underside on the bed, skin and clamp walls upward;
+  the pilot and four rail slots print vertically. Enable build-plate-only tree
+  support beneath the two belt-clearance roof faces. Each is fully open from
+  below and begins 5.15 mm above the bed; preserving them keeps the Ø38.6 pilot
+  ring continuous so it, rather than the mounting screws, carries belt
+  tension. The two 90-degree flange countersinks rise from the bed face and
+  need no support. Motor clamp pads: print on either 48 × 12 mm face; keep the
+  screw-tip sockets clean.
 - Ground tower: print on its foot. Ground arm: print flat, with its
   [5.0](WR_GROUND_BEAM_T) mm leaf and shoe fork in the bed plane; use 100%
-  infill and reject any layer separation. The horizontal shoe-clamp bore keeps
-  its complete round lower section and closes through a 36-degree teardrop
-  roof, so it prints without trapped support.
+  infill and reject any layer separation. Its leaf, full-width copper shelf,
+  and mounting pad share one bed face. The horizontal shoe-clamp bore keeps its
+  complete round lower section and closes through a 36-degree teardrop roof,
+  so it prints without trapped support.
 - Nest: 0.20 mm layer, 6 walls, 100% infill, on its register face. Keep the
-  three radial stepped adjuster passages clear.
+  three radial stepped adjuster passages clear. The annular register socket's
+  opposed 45-degree roofs print without support.
 - Cage and coupon: flat.
 
 Deburr the base race with a plastic scraper only, for the same reason as the
@@ -315,10 +324,10 @@ it will not hold correctly on the PET-GF base or the 316L tube. Lock both arm
 joints and shake-test the base before turning. Read the end-cap face separately;
 face runout at the weld circle must be at or below 0.30 mm TIR.
 
-The tube's working rim is [212.4](WR_TUBE_TOP) mm above the base bottom and
-[236.4](WR_TUBE_TOP_BENCH) mm above the bench. The
+The tube's working rim is [214.4](WR_TUBE_TOP) mm above the base bottom and
+[238.4](WR_TUBE_TOP_BENCH) mm above the bench. The
 highest PET-GF near the tube is the ground arm at
-[87](WR_GROUND_ARM_TOP) mm, leaving more than 125 mm of metal between the
+[91](WR_GROUND_ARM_TOP) mm, leaving more than 125 mm of metal between the
 closure weld and printed structure.
 
 ## Control
