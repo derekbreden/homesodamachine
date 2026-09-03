@@ -89,7 +89,10 @@ Stainless carbonator fabrication: 316 SS round-tube body + 1/4" laser-cut 316 SS
 | uxcell HTD-5M closed-loop timing belt, 110 teeth / 550 mm pitch length × 15 mm width; cap-weld tube rotator | [B0CXPM3KTP](https://www.amazon.com/dp/B0CXPM3KTP) | 1 | $9.43 | 112-8958234-5634623 | 2026-08-29 | 2026-08-31 | ACQUIRED |
 | Neoteck 0.03" / 0.0005" dial test indicator + 90 lb / 40 kg magnetic base set; tube radial and end-cap face runout inspection | [B09W2R3SCD](https://www.amazon.com/dp/B09W2R3SCD) | 1 set | $43.96 | 112-8958234-5634623 | 2026-08-29 | 2026-08-30 | ACQUIRED |
 | uxcell HTD-5M timing pulley, 20 teeth × 15 mm belt, 6.35 mm bore — exact replacement for the missing pulley above; Amazon estimates 2026-09-05 | [B0747KM7MN](https://www.amazon.com/dp/B0747KM7MN) | 1 | $9.64 | 112-6708194-8872235 | 2026-09-02 | — | ON-ORDER |
-| M5 × 12 mm 90° countersunk socket screws, 100 pc, 10.9 carbon steel — two pass through the printed motor-carriage arms into the rear tapped flange holes of the 23HS30-2804S; verified 9.8 mm head fits the carriage's 10.2 mm recess | [B0DX1Y2Z6J](https://www.amazon.com/dp/B0DX1Y2Z6J) | 1 pk (100) | $8.03 | 112-1967009-0797830 | 2026-09-02 | — | ON-ORDER |
+| ~~M5 × 12 mm 90° countersunk socket screws, 100 pc, 10.9 carbon steel~~ — 9.8 mm head; too short for the motor carriage: past the 8 mm arm, 12 mm ends 1 mm below the top of the 23HS30-2804S's 5 mm flange ear, so no nut reaches it. Spare stock | [B0DX1Y2Z6J](https://www.amazon.com/dp/B0DX1Y2Z6J) | 1 pk (100) | $8.03 | 112-1967009-0797830 | 2026-09-02 | 2026-09-03 | ACQUIRED (spare stock) |
+| M5 × 20 mm 90° countersunk socket screws, 50 pc, 10.9 carbon steel, black, 9.8 mm head — two rise through the printed motor-carriage arms and the 23HS30-2804S's Ø5.2 flange holes into nuts in the motor's open corner channels: 8 mm arm, 5 mm flange ear, 4 mm nut, 3 mm proud. DIN 7991, 3 mm hex; Amazon estimates 2026-09-05 | [B0DX1G3Y6W](https://www.amazon.com/dp/B0DX1G3Y6W) | 1 pk (50) | $8.57 | 112-7484636-2926665 | 2026-09-03 | — | ON-ORDER |
+| M5 × 0.8 square nuts, 100 pc, 304 stainless, 8 mm across × 4 mm thick — the motor-carriage nut if it drops into the 23HS30-2804S's 9 mm corner channel, where its flats on the channel's two walls hold it against the screw; Amazon estimates 2026-09-05 | [B0F6B5X6CX](https://www.amazon.com/dp/B0F6B5X6CX) | 1 pk (100) | $7.50 | 112-9248875-1573807 | 2026-09-03 | — | ON-ORDER |
+| Juvielich M5 × 0.8 hex nuts, 100 pc, 304 stainless, DIN 934, 8 mm across flats × 4 mm high — the motor-carriage nut if the corner channel takes its 9.2 mm corners; Amazon estimates 2026-09-05 | [B0D1X2YBLJ](https://www.amazon.com/dp/B0D1X2YBLJ) | 1 pk (100) | $6.10 | 112-8159134-3631449 | 2026-09-03 | — | ON-ORDER |
 
 ## 2. CO2 subsystem
 
@@ -474,9 +477,9 @@ General shop equipment supporting fabrication, assembly, and teardown. Not proje
 | SMALLRIG 9.8" magic arm + super clamp, 1/4"-20 and 3/8" — holds the panelcam in front of the enclosure's front face. The crop recorded in `panelcam.targets.conf` is a reading only while the arm holds its aim, so the mount is the instrument's other half. $19.99 + $1.45 allocated NE tax | [B087T4T8D5](https://www.amazon.com/dp/B087T4T8D5) | 1 | $21.44 | 112-5197027-7255407 | 2026-08-31 | 2026-09-01 | ACQUIRED |
 | Anker 5-in-1 USB-C hub, USB-C to HDMI 4K — bench fan-out from one of the M3 Air's two USB-C ports to the boards and the panelcam. $17.99 + $1.30 allocated NE tax | [B0BQLLB61B](https://www.amazon.com/dp/B0BQLLB61B) | 1 | $19.29 | 112-5197027-7255407 | 2026-08-31 | 2026-09-01 | ACQUIRED |
 | Amazon Basics LR44 alkaline button cell (6 pk) — cells for the NEIKO 01407A caliper above, whose readings the `raw-images/` caliper photos encode ([measure-from-drawings](/tools/measure-from-drawings/README.md)). $5.49 + $0.40 allocated NE tax | [B07JLBCH8L](https://www.amazon.com/dp/B07JLBCH8L) | 1 pk (6) | $5.89 | 112-5197027-7255407 | 2026-08-31 | 2026-09-01 | ACQUIRED |
-| HOTO PixelDrive electric screwdriver — the driver for the M2/M3/M5 insert work. 1/4" hex chuck, 6 torque settings over 0.5–6 N·m with the setting on its display. The 0.5 N·m floor is the point: a ruthex insert's grip on PETG gives out well below what a 12.9 M3 or a drill's lowest clutch click will deliver, so the torque this tool will not exceed is the spec that matters. Sole item on its invoice, $69.99 + $5.07 NE tax | [B0FKBJL68H](https://www.amazon.com/dp/B0FKBJL68H) | 1 | $75.06 | 112-3695429-8445811 | 2026-09-02 | — | ON-ORDER |
+| HOTO PixelDrive electric screwdriver — the driver for the M2/M3/M5 insert work. 1/4" hex chuck, 6 torque settings over 0.5–6 N·m with the setting on its display. The 0.5 N·m floor is the point: a ruthex insert's grip on PETG gives out well below what a 12.9 M3 or a drill's lowest clutch click will deliver, so the torque this tool will not exceed is the spec that matters. Sole item on its invoice, $69.99 + $5.07 NE tax | [B0FKBJL68H](https://www.amazon.com/dp/B0FKBJL68H) | 1 | $75.06 | 112-3695429-8445811 | 2026-09-02 | 2026-09-03 | ACQUIRED |
 | Railer 2.5 mm hex bit, 2", S2 steel, 5-pack — the M3 driver size; every M3 SHCS in this build is DIN 912 and takes 2.5 mm. Bought five because the 2.5 is the wear item at this screw count. Sole item on its invoice, $9.99 + $0.72 NE tax | [B0BXMLLXSN](https://www.amazon.com/dp/B0BXMLLXSN) | 1 pk (5) | $10.71 | 112-1104114-3043411 | 2026-09-02 | — | ON-ORDER |
-| Railer 4 mm hex bit, 2", S2 steel, 5-pack — the M5 SHCS driver size (MewuDecor M5 × 10, §11). Does not drive the M5 × 12 countersunk screws in §1, which are DIN 7991 and take 3 mm. Sole item on its invoice, $9.99 + $0.72 NE tax | [B0BXMJ48LC](https://www.amazon.com/dp/B0BXMJ48LC) | 1 pk (5) | $10.71 | 112-6302698-6065059 | 2026-09-02 | — | ON-ORDER |
+| Railer 4 mm hex bit, 2", S2 steel, 5-pack — the M5 SHCS driver size (MewuDecor M5 × 10, §11). Does not drive the M5 × 20 countersunk motor-carriage screws in §1, which are DIN 7991 and take 3 mm. Sole item on its invoice, $9.99 + $0.72 NE tax | [B0BXMJ48LC](https://www.amazon.com/dp/B0BXMJ48LC) | 1 pk (5) | $10.71 | 112-6302698-6065059 | 2026-09-02 | 2026-09-03 | ACQUIRED |
 
 ## 13. Printing consumables
 
@@ -674,19 +677,19 @@ Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C funne
 
 | Status | $ |
 |---|---|
-| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$33,374.25](LEDGER_ACQUIRED_HW) |
+| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$33,468.05](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$5,437.54](LEDGER_LABOR) |
-| ACQUIRED (combined) | [$38,811.79](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$722.71](LEDGER_ON_ORDER) |
+| ACQUIRED (combined) | [$38,905.59](LEDGER_ACQUIRED_COMBINED) |
+| ON-ORDER | [$651.08](LEDGER_ON_ORDER) |
 | MISSING — paid, not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$39,587.57](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$39,609.74](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
 | § | Section | $ |
 |---|---|---|
-| 1 | Carbonator fabrication | [$4,537.08](LEDGER_SEC1) |
+| 1 | Carbonator fabrication | [$4,545.11](LEDGER_SEC1) |
 | 2 | CO2 subsystem (incl. Lillium prototype carbonator $1,129) | [$1,834.42](LEDGER_SEC2) |
 | 3 | Water supply + backflow prevention | [$889.15](LEDGER_SEC3) |
 | 4 | Carbonator plumbing | [$225.27](LEDGER_SEC4) |
@@ -697,7 +700,7 @@ ACQUIRED hardware by section:
 | 9 | Electronics — I/O, drivers, sensors, power | [$1,528.77](LEDGER_SEC9) |
 | 10 | User interface | [$156.61](LEDGER_SEC10) |
 | 11 | Enclosure hardware | [$199.15](LEDGER_SEC11) |
-| 12 | Shop / bench infrastructure | [$1,277.97](LEDGER_SEC12) |
+| 12 | Shop / bench infrastructure | [$1,363.74](LEDGER_SEC12) |
 | 13 | Printing consumables | [$1,958.93](LEDGER_SEC13) |
 | 14 | Soldering + small-signal tools | [$803.87](LEDGER_SEC14) |
 | 15 | 3D printing equipment + filaments (Bambu direct) | [$8,991.30](LEDGER_SEC15) |
