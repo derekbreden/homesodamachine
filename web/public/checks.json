@@ -22,8 +22,8 @@
     },
     {
       "check": "hardware/scripts/check_payloads.py",
-      "note": "tools/cad-venv/bin/python hardware/scripts/flute_payload.py",
-      "status": "red"
+      "note": "payloads: 19 solid(s) cut from the bytes beside them, 11 scene(s) at the finishes this tree states",
+      "status": "ok"
     },
     {
       "check": "hardware/scripts/check_pinmap.py",
@@ -32,8 +32,8 @@
     },
     {
       "check": "hardware/scripts/check_print_profile.py",
-      "note": "✗ hardware/printed-parts/enclosure/enclosure/print-log.md states settings per hardware/printed-parts/enclosure/enclosure/enclosure-back-top-petgf.3mf, which is not in the tree",
-      "status": "red"
+      "note": "✓ every print log's stated settings are the ones its slice holds",
+      "status": "ok"
     },
     {
       "check": "hardware/scripts/check_show_faces.py",
@@ -42,7 +42,7 @@
     },
     {
       "check": "hardware/scripts/check_step_colours.py",
-      "note": "step colours: 187/187 carry the colour of what they are made of",
+      "note": "step colours: 186/186 carry the colour of what they are made of",
       "status": "ok"
     },
     {
@@ -52,12 +52,12 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 1477 tracked, 338 fetched solids, 54 tags",
+      "note": "paths: every reference lands — 1469 tracked, 337 fetched solids, 54 tags",
       "status": "ok"
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 401 of 1000 free, the next cut wants 3, and the whole lock reads by name in 137.9 MB against 140.3 MB of bundle",
+      "note": "check_release_room: 278 of 1000 free, the next cut wants 3, and the whole lock reads by name in 139.2 MB against 141.5 MB of bundle",
       "status": "ok"
     },
     {
@@ -67,7 +67,7 @@
     },
     {
       "check": "tools/bazel/check_build_file.py",
-      "note": "check_build_file: BUILD.bazel is what the graph writes",
+      "note": "check_build_file: BUILD.bazel is what the graph writes; 3MFs are build-inert",
       "status": "ok"
     },
     {
@@ -77,36 +77,20 @@
     },
     {
       "check": "tools/bazel/check_declared_imports.py",
-      "note": "check_declared_imports: every step holds what it imports, over 190 source(s) the graph names",
+      "note": "check_declared_imports: every step holds what it imports, over 192 source(s) the graph names",
       "status": "ok"
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 13 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 338 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 1 of 3 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 337 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was measured off a different enclosure-assembly.step — it holds f4b71cfa9e23defd89f9b46bd1846123, enclosure-assembly.step here is 4c914ed95dc1ab88d990d10718e02561",
-      "  enclosure-assembly.facts.json was taken from a different tree — it holds 3bd8615d6b8f754d7a27e49df14ccf41 for the 130 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 6e5e4ea49d0cdcabcbcc8f4a333e60df here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was taken from a different tree — it holds 327b7dbc49af61869b8ab175913eb9fd for the 122 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 036f9950a01811be744056110cab75cf here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
-    ],
-    "hardware/scripts/check_payloads.py": [
-      "1 solid(s) whose surface is not in the payload beside them:",
-      "    hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh — cut from other bytes than the solid holds",
-      "  the run that cuts a solid writes the payload beside it:",
-      "    tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/enclosure.py",
-      "  and the enclosure's flutes go back into those payloads after:",
-      "    tools/cad-venv/bin/python hardware/scripts/flute_payload.py"
-    ],
-    "hardware/scripts/check_print_profile.py": [
-      "print profiles: 11 stated figure(s) over 5 log(s)",
-      "3 stated setting(s) are not what the slice holds:",
-      "  ✗ hardware/printed-parts/enclosure/enclosure/print-log.md states settings per hardware/printed-parts/enclosure/enclosure/enclosure-front-top-0.4mm-16hours.3mf, which is not in the tree",
-      "  ✗ hardware/printed-parts/enclosure/enclosure/print-log.md states settings per hardware/printed-parts/enclosure/enclosure/enclosure-front-top-petgf.3mf, which is not in the tree",
-      "  ✗ hardware/printed-parts/enclosure/enclosure/print-log.md states settings per hardware/printed-parts/enclosure/enclosure/enclosure-back-top-petgf.3mf, which is not in the tree"
     ]
   },
   "green": false
