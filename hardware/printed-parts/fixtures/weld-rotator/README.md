@@ -22,7 +22,7 @@ adjustment and never a reprint.
 | `weld-rotator-base.step` | 1 | Stationary bed, lower bearing race, bench-clamp holes, motor-tower and ground-tower inserts |
 | `weld-rotator-base-foot.step` | 4 | Raises the base above the bench without obstructing the lower-port service path |
 | `weld-rotator-motor-tower.step` | 1 | Two rails and a rear wall outside the belt's swept path; carries the carriage on four M3 inserts |
-| `weld-rotator-motor-carriage.step` | 1 | Sliding pilot skin and clamp walls for the purchased 23HS30-2804S motor |
+| `weld-rotator-motor-carriage.step` | 1 | Sliding pilot skin, flange-bolt stations and clamp walls for the purchased 23HS30-2804S motor |
 | `weld-rotator-motor-clamp-pad.step` | 2 | Load-spreading pads for the carriage's four M3 side screws |
 | `weld-rotator-ground-tower.step` | 1 | Stationary support for the continuity shoe |
 | `weld-rotator-ground-arm.step` | 1 | Replaceable [5.0](WR_GROUND_BEAM_T) mm in-plane leaf spring that holds the copper shoe on the tube |
@@ -123,7 +123,12 @@ rails narrow away from the spans. The carriage's arms follow the belt's swept
 path with 2 mm of clearance across the whole 8 mm tension travel and land on
 the rail tops through four slotted M3 × 10 screws. Two side walls with 3 mm
 pads clamp the 57.3 mm frame; the face pilot in the skin, not the pads, takes
-the belt tension. The motor's four Ø5.2 flange holes are deliberately unused.
+the belt tension. Two M5 × [12](WR_MOTOR_MOUNT_SCREW) countersunk screws come
+up through the arms into the rear pair of the motor's 47.14 mm flange square
+and hold it down. Their heads sit flush in the arms' underside and they reach
+[4.0](WR_MOTOR_MOUNT_REACH) mm into a [4.5](WR_MOTOR_MOUNT_TAPPED) mm tapped
+hole. The front pair of flange holes stays open: the belt's swept path crosses
+it at full tension.
 The fixture selftest intersects a belt proxy at both ends of the tension
 travel with every stationary part and requires 1.5 mm of clearance.
 
@@ -152,6 +157,8 @@ yield instead of using the fixture as a rigid puller.
   for the pedal input's external pull-up.
 - 6 × ruthex M5 × 9.5 inserts and 6 × M5 × 10 SHCS: four
   motor-tower-to-base and two ground-tower-to-base.
+- 2 × M5 × [12](WR_MOTOR_MOUNT_SCREW) countersunk screws into the motor's own
+  tapped flange holes. No inserts: the thread is the motor's.
 - 30 × ruthex M3 short inserts. Screws from acquired stock: 8 × M3 × 25
   base-foot retainers, 3 × M3 × 25 spool screws, 3 × M3 × 8 race-ring screws,
   4 × M3 × 10 carriage screws, 4 × M3 × 8 motor-pad screws, 3 × M3 × 10 nest
@@ -196,7 +203,8 @@ plates are worth watching through their first two layers rather than left alone.
 - Motor tower: on its feet, rails upward. The four M5 access holes and the
   four rail insert pockets print as vertical bores.
 - Motor carriage: on either Y side, so the skin, arms and clamp walls are
-  layer profiles and the pilot hole is a vertical circle. Motor clamp pads:
+  layer profiles and the pilot hole is a vertical circle. The two flange
+  countersinks lie in the bed plane and need no support. Motor clamp pads:
   print on either 48 × 12 mm face; keep the screw-tip sockets clean.
 - Ground tower: print on its foot. Ground arm: print flat, with its
   [5.0](WR_GROUND_BEAM_T) mm leaf and shoe fork in the bed plane; use 100%
@@ -232,29 +240,39 @@ ring.
    the platter. The flange rim stays 1 mm below the base shoulder and nothing
    projects below the base.
 6. Bolt the motor tower to its four M5 stations with a 4 mm hex key down the
-   access holes. Set the carriage on the rail tops and start four M3 × 10
-   screws through its slots at the inboard end; leave them loose.
-7. Before the motor goes in, measure the pulley's actual overall length. Slide
-   it onto the shaft until the distance from the front face of the motor's
-   Ø38.1 pilot to the pulley's outer face is that length plus
-   [0.25](WR_PULLEY_PILOT_GAP) mm; a 0.25 mm / 0.010 inch feeler blade between
-   the motor-side flange and pilot sets the same gap. Clock one set screw onto
-   the D-flat, tighten it, then tighten the second screw against the round.
-   Withdraw the feeler and spin the pulley by hand to verify an air gap to the
-   stationary pilot. Hang the belt on the 90T pulley and hold the free bight
-   open under the carriage's pilot hole. Lower the 23HS30-2804S face-down: the
-   pulley passes through the hole into the bight, and the Ø38.1 pilot seats in
-   the skin. Slide one pad down each Y side and advance the four M3 × 8 side
-   screws evenly until the frame cannot rock.
-8. Slide the complete carriage outward until the long belt span twists about
+   access holes. The carriage stays off the tower until the motor is on it.
+7. Measure the pulley's actual overall length. Slide it onto the shaft until
+   the distance from the front face of the motor's Ø38.1 pilot to the pulley's
+   outer face is that length plus [0.25](WR_PULLEY_PILOT_GAP) mm; a 0.25 mm /
+   0.010 inch feeler blade between the motor-side flange and pilot sets the
+   same gap. Clock one set screw onto the D-flat, tighten it, then tighten the
+   second screw against the round. Withdraw the feeler and spin the pulley by
+   hand to verify an air gap to the stationary pilot.
+8. Bolt the motor to the carriage on the bench, before either meets the tower:
+   the tower's rear wall stands under the two countersinks and no driver
+   reaches them once the arms are on the rails. Set the carriage skin-up on
+   blocks about 25 mm tall, so the pulley hangs clear of the bench by the
+   [13.85](WR_PULLEY_HANG) mm it projects below the arms. Lower the
+   23HS30-2804S face-down: the pulley passes the Ø38.6 hole and the Ø38.1
+   pilot seats in the skin. Drive two M5 × [12](WR_MOTOR_MOUNT_SCREW)
+   countersunk screws up through the arms into the rear flange holes and pull
+   them down evenly; they stop [0.5](WR_MOTOR_MOUNT_MARGIN) mm short of the
+   tapped holes' bottom, so seat them by the heads, not by feel for a bottom.
+   Slide one pad down each Y side and advance the four M3 × 8 side screws
+   evenly until the frame cannot rock.
+9. Hang the belt on the 90T pulley and hold the free bight open. Lower the
+   carriage and motor as one piece: the 20T pulley enters the bight and the
+   arms land on the rail tops. Start four M3 × 10 screws through the carriage
+   slots at the inboard end; leave them loose.
+10. Slide the complete carriage outward until the long belt span twists about
    90 degrees with finger pressure, then tighten the four carriage screws.
-9. Seat the nest on its register and drive three M3 × 10 retainers straight
+11. Seat the nest on its register and drive three M3 × 10 retainers straight
    down through its access wells. Thread the three M3 × 25 tube adjusters into
    their radial inserts, then back every tip fully clear of the OD guide before
    loading a tube.
-10. Run the turntable dry for ten revolutions, clean the race, and re-check
+12. Run the turntable dry for ten revolutions, clean the race, and re-check
     belt tracking before loading a tube.
-11. Bolt down the ground tower and flexure arm. Slide the cut C110 shoe into
+13. Bolt down the ground tower and flexure arm. Slide the cut C110 shoe into
     the fork with its marked contact face toward the tube and fit its one M3
     screw. The tapped hole fixes that face 1.0 mm inside the nominal tube
     surface and deflects the long leaf outward when a tube is loaded.
