@@ -623,7 +623,8 @@ def wago_swing(size="413"):
 # neighbours 14.70 apart and a lever standing fully up reaches `wago_swing` — so the row is
 # spaced by the LEVER and not by the wall, and a lug can be opened and re-wired where it
 # sits. A row's wells stand in one tower spanning the row (`_side_wells`), the slit the
-# lever's spacing would leave between two towers filled.
+# lever's spacing would leave between two towers filled. Different connector sizes in that
+# row keep their own pockets inside one common outer envelope.
 wago_lever_clear = 1.0      # air past the swept lever, so its tip does not graze the next lug
 wago_pitch = max(2.0 * wago_half("413")[0], wago_swing("413") + wago_lever_clear)
 
@@ -4575,27 +4576,59 @@ def _plate_foot(inner, plate, zj):
     return out
 
 
-def plate_foot_envelope_clearance(plate, zj, envelope):
-    """Least vertical air between either plate foot's underside and a bounding box below it.
-
-    Only the common X/Y footprint is read. The condenser+fan is carried as a calipered envelope,
-    so this is the clearance its whole box receives even where its simplified solid is air."""
+def _plate_foot_clearance(plate, zj, xmin, xmax, ymin, ymax, zmax):
+    """Least vertical air between either plate foot and one stated rectangular envelope."""
     ym = (plate["fore_y"] + plate["aft_y"]) / 2.0
     y0, y1 = ym - plate_foot_y / 2.0, ym + plate_foot_y / 2.0
-    if min(y1, envelope.ymax) <= max(y0, envelope.ymin):
+    if min(y1, ymax) <= max(y0, ymin):
         return math.inf
     slope = math.tan(math.radians(plate_foot_corbel_angle))
     clearances = []
     for x_face, into in zip(front_bottom_flank_face(), (1.0, -1.0)):
         x_in = x_face + into * plate_foot_reach
         lo, hi = sorted((x_face, x_in))
-        overlap_lo = max(lo, envelope.xmin)
-        overlap_hi = min(hi, envelope.xmax)
+        overlap_lo = max(lo, xmin)
+        overlap_hi = min(hi, xmax)
         if overlap_hi <= overlap_lo:
             continue
         run = max(abs(overlap_lo - x_in), abs(overlap_hi - x_in))
-        clearances.append(zj - plate_foot_t - run * slope - envelope.zmax)
+        clearances.append(zj - plate_foot_t - run * slope - zmax)
     return min(clearances, default=math.inf)
+
+
+def plate_foot_envelope_clearance(plate, zj, envelope):
+    """Least vertical air between either plate foot's underside and a bounding box below it.
+
+    Only the common X/Y footprint is read. The condenser+fan is carried as a calipered envelope,
+    so this is the clearance its whole box receives even where its simplified solid is air."""
+    return _plate_foot_clearance(
+        plate, zj, envelope.xmin, envelope.xmax,
+        envelope.ymin, envelope.ymax, envelope.zmax)
+
+
+def plate_foot_condenser_clearance(plate, zj, pack):
+    """The condenser top and least plate-foot air, from the serialized pack's own stations.
+
+    `cond_cradle` carries the block's exact X extent and `cond_airway` carries its complete Z
+    extent. The feet stand wholly inside that airway's Y band, so the two end recesses cannot
+    change whether their plan footprints overlap. These are the same placed-body calipers used
+    to strike those stations, available both in a live design run and in the geometry-free
+    enclosure action."""
+    if not (pack.cond_cradle and pack.cond_airway):
+        raise ValueError("the collet-plate feet have no condenser envelope to read")
+    ym = (plate["fore_y"] + plate["aft_y"]) / 2.0
+    foot_y0, foot_y1 = ym - plate_foot_y / 2.0, ym + plate_foot_y / 2.0
+    airway_y0, airway_y1, _airway_z0, condenser_top = pack.cond_airway
+    if foot_y0 < airway_y0 - stated_bound_tol or foot_y1 > airway_y1 + stated_bound_tol:
+        raise ValueError(
+            f"the collet-plate foot y={foot_y0:g}..{foot_y1:g} is not wholly over the "
+            f"condenser airway y={airway_y0:g}..{airway_y1:g}; its serialized stations no "
+            "longer state the complete envelope needed by the documentation")
+    condenser_x0 = min(station[1] for station in pack.cond_cradle)
+    condenser_x1 = max(station[2] for station in pack.cond_cradle)
+    return condenser_top, _plate_foot_clearance(
+        plate, zj, condenser_x0, condenser_x1,
+        airway_y0, airway_y1, condenser_top)
 
 
 def _back_bottom_flank_skin(inner, y_joint, zj):
@@ -5700,10 +5733,10 @@ def pump_cartridge_figures(box):
     cartridge_top = bay[2] - pump_cartridge_z_clearance
     head_floor = min(cz - _tray.head_depth for _cx, _cy, cz in trays)
     motor_crown = max(cz + _tray.motor_crown for _cx, _cy, cz in trays)
-    condenser_box = _boxes.boxed(box.pack.placed["condenser+fan"][0])
     foot_low = (box.splits[0] - plate_foot_t
                 - plate_foot_reach * math.tan(math.radians(plate_foot_corbel_angle)))
-    foot_air = plate_foot_envelope_clearance(plate, box.splits[0], condenser_box)
+    condenser_top, foot_air = plate_foot_condenser_clearance(
+        plate, box.splits[0], box.pack)
     return {
         "PUMP_STATION_DROP": f"{pump_station_drop:.4g} mm",
         "PUMP_BAY_FLOOR_RELIEF": f"{pump_bay_floor_relief:.4g} mm",
@@ -5796,7 +5829,7 @@ def pump_cartridge_figures(box):
         "PLATE_FOOT_T": f"{plate_foot_t:.4g} mm",
         "PLATE_FOOT_ANGLE": f"{plate_foot_corbel_angle:.4g}°",
         "PLATE_FOOT_LOW_Z": f"{foot_low:.6g} mm",
-        "PLATE_FOOT_COND_Z_AIR": f"{foot_low - condenser_box.zmax:.4g} mm",
+        "PLATE_FOOT_COND_Z_AIR": f"{foot_low - condenser_top:.4g} mm",
         "PLATE_FOOT_COND_AIR": f"{foot_air:.4g} mm",
         "PLATE_GUIDE_WEDGE": f"{plate_guide_wedge:.4g} mm",
         "PLATE_CAP_Z": f"{plate['z1']:.4g} mm",
@@ -6676,13 +6709,14 @@ def _side_wells(solid, inner, stations, y0, y1, z0, z1):
     grown on (+1 east, −1 west), its centre on that wall, the 221 it takes, the lowest plane its
     lower wedge may enter, and which of the two roof forms it keeps.
 
-    A ROW IS ONE TOWER. Wells of one size at one height on one wall, each within a pitch of the
-    next, stand in one tower spanning the row from the first well's end to the last's, on one
-    wedge run the whole length; every well's pocket and roof are then cut where its own station
-    stands. The row is spaced by the lever and not by the wall (`wago_pitch`), so the towers
-    would otherwise stand a slit apart — that slit is filled, and what the row presents is one
-    fore face, two ends and one underside with the pockets in it. The levers work on the lug's
-    wire half, inboard of that face, and swing in the room as before.
+    A ROW IS ONE TOWER. Wells at one height on one wall, each within a pitch of the next, stand
+    in one tower spanning the row from the first well's end to the last's, on one wedge run the
+    whole length; every well's pocket and roof are then cut to its own connector size at its own
+    station. The common outer envelope takes the deepest and tallest member. The row is spaced
+    by the lever and not by the wall (`wago_pitch`), so separate towers would otherwise stand a
+    slit apart — or, where adjacent sizes differ, overlap with a fraction-of-a-millimetre step.
+    Filling both leaves one fore face, two ends and one underside with the pockets in it. The
+    levers work on the lug's wire half, inboard of that face, and swing in the room as before.
 
     The tower stands off the wall's inner face and the cavity is cut from that face
     outward past its own end, so the pocket opens INBOARD and bottoms on the wall. What
@@ -6701,27 +6735,26 @@ def _side_wells(solid, inner, stations, y0, y1, z0, z1):
     A 45° WEDGE CARRIES THE TOWER'S UNDERSIDE to the wall. `clear_z` is the plane the
     flank's air stops being the well's — the crown of whatever the station stands over —
     and a wedge that would cross it is cut off flat there instead."""
-    mine = sorted((s for s in stations if y0 <= s[1] <= y1 and z0 <= s[2] <= z1),
-                  key=lambda s: (s[0], s[2], s[3], s[1]))
+    mine = sorted(
+        (s for s in stations if y0 <= s[1] <= y1 and z0 <= s[2] <= z1),
+        key=lambda s: (s[0], s[2], s[4] is None, 0.0 if s[4] is None else s[4], s[5], s[1]))
     rows = []
     for st in mine:
         side, sy, sz, size, clear_z, supportless_roof = st
-        key = (side, sz, size, clear_z, supportless_roof)
-        if rows and rows[-1][0] == key and sy - rows[-1][1][-1] <= wago_pitch + 1e-6:
-            rows[-1][1].append(sy)
+        key = (side, sz, clear_z, supportless_roof)
+        if rows and rows[-1][0] == key and sy - rows[-1][1][-1][1] <= wago_pitch + 1e-6:
+            rows[-1][1].append(st)
         else:
-            rows.append((key, [sy]))
-    for (side, sz, size, clear_z, supportless_roof), ys in rows:
+            rows.append((key, [st]))
+    for (side, sz, clear_z, supportless_roof), row in rows:
         face = inner[1] if side > 0 else inner[0]
-        engage = wago_engage(size)
-        half_y, half_z = wago_half(size)
-        stand_y, stand_z, _sx = wago_stand(size)
+        engage = max(wago_engage(st[3]) for st in row)
+        half_z = max(wago_half(st[3])[1] for st in row)
         # inboard is −X on the east wall and +X on the west, so the tower and the pocket
         # both run from the wall towards the room
-        reach = engage + 1.0
         tower = sorted((face, face - side * engage))
-        pocket = sorted((face, face - side * reach))
-        ya, yb = ys[0] - half_y, ys[-1] + half_y
+        ya = min(st[1] - wago_half(st[3])[0] for st in row)
+        yb = max(st[1] + wago_half(st[3])[0] for st in row)
         solid = solid.fuse(_ybox(tower[0], tower[1], ya, yb, sz - half_z, sz + half_z))
         zb = sz - half_z
         drop = engage if clear_z is None else min(engage, zb - clear_z)
@@ -6731,9 +6764,12 @@ def _side_wells(solid, inner, stations, y0, y1, z0, z1):
                 prof.append((face - side * (engage - drop), zb - drop))
             prof.append((face, zb - drop))
             solid = solid.fuse(_xz_prism(ya, yb, prof))
-        pk_y = stand_y / 2.0 + wago_well_press
-        roof_z = sz + stand_z / 2.0 + wago_well_press
-        for sy in ys:
+        for _side, sy, _sz, size, _clear_z, _supportless_roof in row:
+            reach = wago_engage(size) + 1.0
+            pocket = sorted((face, face - side * reach))
+            stand_y, stand_z, _sx = wago_stand(size)
+            pk_y = stand_y / 2.0 + wago_well_press
+            roof_z = sz + stand_z / 2.0 + wago_well_press
             solid = solid.cut(_ybox(pocket[0], pocket[1],
                                     sy - pk_y, sy + pk_y,
                                     sz - (stand_z / 2.0 + wago_well_press), roof_z))
