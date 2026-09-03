@@ -56,6 +56,31 @@ GRAPH = _ROOT / "tools" / "bazel" / "graph.json"
 GENERATOR = "hardware/manifold-layout/enclosure_assembly.py"
 
 
+def _read_graph() -> dict:
+    try:
+        return json.loads(GRAPH.read_text())
+    except (OSError, ValueError):
+        return {}
+
+
+def _source_names(graph: dict) -> list:
+    """The generator's source names, derived from one already-read graph."""
+    entry = graph.get(GENERATOR)
+    if not entry:
+        return []
+    derived = set()
+    for e in graph.values():
+        derived.update(e.get("writes", ()))
+        derived.update(e.get("rewritten", ()))
+    # THE INDEX IS NOT ONE OF THE THINGS IT INDEXES. `_facts.write` opens the graph to obtain
+    # this list, so tracing sees that open. Hashing the entire graph would make a fixture-only
+    # trace change invalidate the enclosure's facts even though neither its source set nor a
+    # byte it computes from moved. The selected names already carry the graph's relevant
+    # semantics: adding, removing or reclassifying an enclosure input changes this list.
+    index = GRAPH.relative_to(_ROOT).as_posix()
+    return sorted(set(entry.get("reads", ())) - derived - {index})
+
+
 def sources() -> list:
     """The files this artifact is taken FROM — what the generator reads and no generator writes.
 
@@ -67,18 +92,12 @@ def sources() -> list:
 
     Empty when the graph is not on this disk or does not name the generator. A reading that
     cannot be taken is not a reading that failed."""
-    try:
-        graph = json.loads(GRAPH.read_text())
-    except (OSError, ValueError):
-        return []
-    entry = graph.get(GENERATOR)
-    if not entry:
-        return []
-    derived = set()
-    for e in graph.values():
-        derived.update(e.get("writes", ()))
-        derived.update(e.get("rewritten", ()))
-    return sorted(set(entry.get("reads", ())) - derived)
+    return _source_names(_read_graph())
+
+
+def _source_digest(graph: dict):
+    paths = _source_names(graph)
+    return _realized.digest([_ROOT / p for p in paths]) if paths else None
 
 
 def source_digest():
@@ -86,8 +105,7 @@ def source_digest():
 
     `_realized.code_digest` names a Python file by its PARSED CODE, so a comment moved is not a
     tree moved and a doc pass does not redden this."""
-    paths = sources()
-    return _realized.digest([_ROOT / p for p in paths]) if paths else None
+    return _source_digest(_read_graph())
 
 # The pairs whose exact distance a document states and the card does not carry. The card
 # reports a pair only when it closes to within its own `REPORT_NEAR`, so a sentence naming a
@@ -645,7 +663,20 @@ def selftest():
         "an artifact carrying no source digest reads as a fault instead of a silence"
     assert not [ln for ln in silent.stale() if "different tree" in ln], \
         "an artifact silent about its sources is reported stale for it"
-    here = source_digest()
+    graph = _read_graph()
+    names = _source_names(graph)
+    index = GRAPH.relative_to(_ROOT).as_posix()
+    assert index not in names, "the whole build graph is treated as an enclosure source"
+    foreign = {
+        **graph,
+        "selftest/unrelated-fixture.py": {
+            "reads": ["selftest/unrelated-fixture-input.py"],
+            "writes": ["selftest/unrelated-fixture.step"],
+        },
+    }
+    assert _source_digest(foreign) == _source_digest(graph), \
+        "an unrelated generator changes the enclosure source digest"
+    here = _source_digest(graph)
     if here is not None:
         fresh = Facts({**f._f, "sources": here}, f._c)
         moved = Facts({**f._f, "sources": "0" * 32}, f._c)
