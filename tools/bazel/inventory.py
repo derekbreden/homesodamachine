@@ -69,11 +69,12 @@ IMPLICIT_SOLIDS = {
     "hardware/faucet-layout/faucet_assembly.py": (
         "hardware/faucet-layout/faucet-assembly.step.mesh",
     ),
-    # THE ONE UNFLUTED PIECE OF THE FAUCET SHELL. Its directory is bundled because the BASE in
-    # it carries a show skin the solid does not (`faucet_shell.write_bed_file`), and bundling is
-    # by directory — so the tip's payload ships beside it. The same write no trace catches as
-    # the cap stack's three above.
+    # THE UNFLUTED FAUCET SHELL SURFACES. Its directory is bundled because the BASE in it carries
+    # a show skin the solid does not (`faucet_shell.write_bed_file`), and bundling is by directory
+    # — so the tip and assembled shell payloads ship beside it. These are the same writes no trace
+    # catches as the cap stack's three above.
     "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": (
+        "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh",
     ),
 }
