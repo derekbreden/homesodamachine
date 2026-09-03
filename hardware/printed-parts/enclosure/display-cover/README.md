@@ -3,7 +3,7 @@
 The printed border that fills the display inset in the enclosure's 45° facet, laps
 the Waveshare 4.3B's cover glass on all four sides, and closes that face flat. What a
 hand meets on the top-front arris is one unbroken 45° plane with a border let into
-it: the plate's top face lies in the plane, and both screws are countersunk into
+it: the plate's top face lies in the plane, and both screws are counterbored into
 their own lands, so nothing stands proud of the face anywhere.
 
 The plate is also what fastens the display. The glass sits in the bezel counterbore

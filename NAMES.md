@@ -18,6 +18,12 @@ word's other duties are never a reason to refuse it.
 the entry says: `faucet shell` is the name, and `the shell` is correct inside
 `hardware/printed-parts/faucet/` and nowhere else.
 
+**Every screw seat in the appliance is a COUNTERBORE.** A counterbore is flat-bottomed and takes a
+cylindrical head; a countersink is a 90° cone and takes a wedging flat head. They are different
+features and the words do not trade — a flat-bottomed pocket is never "countersunk" because its
+head ends up below the face. The one countersunk fastener in this tree is the pair of M5 × 12 that
+hold the weld rotator's motor, which is bench tooling and ships in nothing.
+
 **`soda` in a part name means soda water** — carbonated and unflavored, not the flavored drink the
 brand name means.
 
@@ -79,6 +85,8 @@ they became.
 | **pump cartridge** | the removable unit carrying the pumps, that rides out of the pump bay | cartridge |
 | **pump bay** | the compartment in `enclosure-front-top` the pump cartridge rides in | |
 | **collet plate** | the cut 316 SS plate on edge across the pump bay, holding the collets so the pump cartridge can be pulled | |
+| **counterbore** | the flat-bottomed pocket a cylindrical DIN 912 socket-head cap screw drops into, its head flush or under the face | countersink, countersunk, recess |
+| **countersink** | the 90° cone a DIN 7991 flat head wedges into, and the conical lead-in a fluid line leans through at a cap conduit | counterbore |
 
 ## Agent approved
 
