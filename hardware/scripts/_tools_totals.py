@@ -11,6 +11,7 @@ them, and prints the resolution. `--dry` prints without writing.
 Resolvers per tool:
   A(asin)        one Amazon line by ASIN
   A2([asins])    sum of several ASIN lines (e.g. two glove variants)
+  AN(asin)       sum of every line for one ASIN (a re-buy after a MISSING)
   L(**crit)      one specific line by order/contains/section/status
   SUM([...])     sum of several resolvers (multi-line tools)
   FIXED(x)       a literal (0.0 for owned-not-on-ledger / bundled-elsewhere)
@@ -100,6 +101,13 @@ def A2(asins):
     return lambda: sum(A(a)() for a in asins)
 
 
+def AN(asin):
+    """Every line for one ASIN. A re-buy — a MISSING original plus the
+    replacement bought for it — is two real outlays on the one tool, the
+    same way purchases.md totals MISSING alongside ACQUIRED."""
+    return lambda: sum(r["cost"] for r in ROWS if asin in r["asins"])
+
+
 def L(contains=None, section=None, status=None, order=None):
     def f():
         ms = ROWS
@@ -146,7 +154,7 @@ TOOLS = [
     ("XLaserlab X1 Pro", "T_X1PRO", L(contains="XLaserlab X1 Pro", section="16")),
     ("Cap-weld tube rotator", "T_WELD_ROTATOR", SUM([
         A("B089Y8H8L5"), A("B0D2XZCGL5"), A("B0CYYYHL31"),
-        A("B0747KM7MN"), A("B0CXPM3KTP"), A("B09W2R3SCD"),
+        AN("B0747KM7MN"), A("B0CXPM3KTP"), A("B09W2R3SCD"),
     ])),
     ("argon size-80 cylinder + RHP400", "T_ARGON_CYL", L(contains="argon size-80 cylinder", section="1")),
     ("RX Weld argon regulator", "T_RXWELD", A("B08P5BNHBX")),
@@ -189,6 +197,9 @@ TOOLS = [
     ("ELP 16MP autofocus USB camera", "T_PANELCAM", A("B0BX6DSQ6C")),
     ("SMALLRIG 9.8\" magic arm", "T_MAGIC_ARM", A("B087T4T8D5")),
     ("Anker 332 5-in-1 USB-C hub", "T_USB_HUB", A("B0BQLLB61B")),
+    ("HOTO PixelDrive electric screwdriver", "T_PIXELDRIVE", A("B0FKBJL68H")),
+    ("Railer 2.5 mm hex bit (5-pack)", "T_HEXBIT_2_5", A("B0BXMLLXSN")),
+    ("Railer 4 mm hex bit (5-pack)", "T_HEXBIT_4", A("B0BXMJ48LC")),
     ("Bambu Lab H2C (×2)", "T_H2C", SUM([
         L(order="us712460111015776257", contains="H2C AMS Combo (printer"),
         L(order="us728027710789775361"),
