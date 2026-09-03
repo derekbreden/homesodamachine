@@ -32,7 +32,7 @@ adjustment and never a reprint.
 | `weld-rotator-pulley-coupon.step` | 1 first | Twelve grooves and both flanges; verifies the actual belt before the turntable print |
 | `weld-rotator-ball-cage.step` | 1 | Spaces the [36](WR_BALLS) stock Ø[10](WR_BALL_D) mm PP balls |
 | `weld-rotator-tube-nest.step` | 1 | Replaceable dual-surface register for the 5-inch tube end |
-| `weld-rotator-ground-shoe.step` | 1 C110 | [6](WR_GROUND_SHOE_T) × [25](WR_GROUND_SHOE_W) × [50](WR_GROUND_SHOE_Z) mm stationary contact cut from nominal 1/4 × 1 inch bar |
+| `weld-rotator-ground-shoe.step` | 1 C110 | [6](WR_GROUND_SHOE_T) × [25](WR_GROUND_SHOE_W) × [50](WR_GROUND_SHOE_Z) mm stationary contact: one crosscut from the acquired nominal 1/4 × 2 inch bar, with the stock width stood vertically |
 | `weld-rotator-assembly.step` | — | Reference assembly with tube, balls, belt, motor, and 20T pulley proxies |
 
 All thirteen printable shapes are PET-GF. The base is deliberately a single
@@ -159,18 +159,25 @@ yield instead of using the fixture as a rigid puller.
   motor-tower-to-base and two ground-tower-to-base.
 - 2 × M5 × [12](WR_MOTOR_MOUNT_SCREW) countersunk screws into the motor's own
   tapped flange holes. No inserts: the thread is the motor's.
-- 30 × ruthex M3 short inserts. Screws from acquired stock: 8 × M3 × 25
+- 31 × ruthex M3 short inserts. Screws from acquired stock: 8 × M3 × 25
   base-foot retainers, 3 × M3 × 25 spool screws, 3 × M3 × 8 race-ring screws,
   4 × M3 × 10 carriage screws, 4 × M3 × 8 motor-pad screws, 3 × M3 × 10 nest
   retainers, 3 × M3 × 25 tube adjusters, 2 × M3 × 12 ground-arm retainers, and
-  1 × M3 × 10 ground-shoe screw into tapped copper.
-- Cut one [50](WR_GROUND_SHOE_Z) mm shoe from nominal 1/4 × 1 inch C110
-  copper flat bar. The [12-inch HWYEE bar](https://www.amazon.com/dp/B0CSP36RQ7)
-  and [8-inch VERNUOS bar](https://www.amazon.com/dp/B0GT1JFRVP) share this
-  fit. The fork accepts 6–7 mm thickness and widths through 26.5 mm. From one
-  25 mm edge, drill and tap M3 with its axis 3 mm behind the tube-contact face
-  and 6 mm above the cut bottom; the retaining screw fixes the contact-face
-  datum rather than relying on the stock's thickness tolerance.
+  1 × M3 × 8 ground-shoe side-clamp screw into its printed-arm insert.
+- The C110 shoe comes from the acquired
+  [YTKavq 1/4 × 2 × 12 inch bar](https://www.amazon.com/dp/B0DR2PX6TT), the
+  same stock recorded in `hardware/ledger/purchases.md`. If that shop bar is
+  unavailable or must remain whole, the compact Prime replacement is the
+  [SZLIZHUO 1/4 × 2 × 4 inch C110 bar](https://www.amazon.com/dp/B0FSKZW9DB).
+  Crosscut one
+  [25](WR_GROUND_SHOE_W) mm slice and stand the bar's uncut
+  [50](WR_GROUND_SHOE_Z) mm mill width vertically: the result is the required
+  [6](WR_GROUND_SHOE_T) × [25](WR_GROUND_SHOE_W) ×
+  [50](WR_GROUND_SHOE_Z) mm shoe. Put the 1/4-inch edge on the BA4555 table so
+  the 2-inch face stands vertically; the installed 24 TPI M42 blade then has
+  about six teeth in the 6 mm cut width. Run the saw at its 125 FPM low setting
+  with a light downfeed and let the gullets clear. The factory broad face, not
+  the saw cut, is the tube contact. No copper hole or thread is made.
 - The NEMA 23 + DM542T kit, 24 V supply, foot pedal, 20T pulley, 550 mm
   belt, and test indicator.
 
@@ -208,7 +215,9 @@ plates are worth watching through their first two layers rather than left alone.
   print on either 48 × 12 mm face; keep the screw-tip sockets clean.
 - Ground tower: print on its foot. Ground arm: print flat, with its
   [5.0](WR_GROUND_BEAM_T) mm leaf and shoe fork in the bed plane; use 100%
-  infill and reject any layer separation.
+  infill and reject any layer separation. The horizontal shoe-clamp bore keeps
+  its complete round lower section and closes through a 36-degree teardrop
+  roof, so it prints without trapped support.
 - Nest: 0.20 mm layer, 6 walls, 100% infill, on its register face. Keep the
   three radial stepped adjuster passages clear.
 - Cage and coupon: flat.
@@ -222,6 +231,7 @@ ring.
    inserts down from the turntable's register face; three spool and three
    race-ring inserts up from the turntable's flat underside; three tube-adjuster
    inserts inward from the nest collar's outside face; two in the ground tower;
+   one inward from the ground arm clamp jaw's outside face;
    four inward from the carriage's two
    outside walls; four downward into the tower's rail tops; and two downward
    from the top of each base foot.
@@ -272,10 +282,13 @@ ring.
    loading a tube.
 12. Run the turntable dry for ten revolutions, clean the race, and re-check
     belt tracking before loading a tube.
-13. Bolt down the ground tower and flexure arm. Slide the cut C110 shoe into
-    the fork with its marked contact face toward the tube and fit its one M3
-    screw. The tapped hole fixes that face 1.0 mm inside the nominal tube
-    surface and deflects the long leaf outward when a tube is loaded.
+13. Bolt down the ground tower and flexure arm. Slide the crosscut C110 shoe
+    down into the fork until it seats on the printed shelf, with one factory
+    broad face toward the tube and the bar's 2-inch width vertical. Tighten the
+    side-clamp M3 × 8 only until the shoe cannot move in the fork. The loaded
+    tube seats the shoe against the fork's back wall; the delivered stock's
+    thickness leaves 0.75–1.50 mm of preload and deflects the long leaf
+    outward. Nothing is drilled or tapped in the copper.
 
 ## Continuous work contact
 
@@ -301,8 +314,9 @@ face runout at the weld circle must be at or below 0.30 mm TIR.
 
 The tube's working rim is [212.4](WR_TUBE_TOP) mm above the base bottom and
 [236.4](WR_TUBE_TOP_BENCH) mm above the bench. The
-highest PET-GF near the tube is the ground arm at 86 mm, leaving more than
-126 mm of metal between the closure weld and printed structure.
+highest PET-GF near the tube is the ground arm at
+[87](WR_GROUND_ARM_TOP) mm, leaving more than 125 mm of metal between the
+closure weld and printed structure.
 
 ## Control
 
