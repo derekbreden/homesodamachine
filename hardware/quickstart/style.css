@@ -101,8 +101,8 @@ body {
 }
 
 .mount-drop-cue {
-  --cue-x: 270.3333px;
-  --cue-y: 447px;
+  --cue-x: 242.0203px;
+  --cue-y: 604.125px;
   --cue-angle: 90deg;
 }
 
@@ -128,9 +128,14 @@ body {
   width: 983.3333px;
 }
 
+.mount-story .mount-drop,
+.mount-story .mount-lowered {
+  height: 1140px;
+}
+
 .mount-lowered {
-  left: 116.6667px;
-  top: 137.5px;
+  left: 325px;
+  top: 170.8333px;
 }
 
 .mount-story .mount-slide {
@@ -148,11 +153,11 @@ body {
 .mount-lowered {
   background-position: center bottom 12px;
   background-repeat: no-repeat;
-  background-size: auto 800px;
+  background-size: auto 1100px;
 }
 
 .mount-drop {
-  background-position: left 125.8917px bottom 12px;
+  background-position: left 43.4131px bottom 12px;
 }
 
 .mount-drop { background-image: url("art/mount-drop.png"); }
