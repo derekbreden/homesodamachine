@@ -52,7 +52,7 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 1477 tracked, 337 fetched solids, 54 tags",
+      "note": "paths: every reference lands — 1466 tracked, 337 fetched solids, 54 tags",
       "status": "ok"
     },
     {
@@ -62,8 +62,8 @@
     },
     {
       "check": "tools/check_web_tests.py",
-      "note": "cd web && npm test",
-      "status": "red"
+      "note": "check_web_tests: web's suite passes",
+      "status": "ok"
     },
     {
       "check": "tools/bazel/check_build_file.py",
@@ -82,7 +82,7 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 1 of 1 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 337 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 1 of 1 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 336 member(s) keep their provenance",
       "status": "ok"
     }
   ],
@@ -91,11 +91,6 @@
       "enclosure-assembly.facts.json was taken from a different tree — it holds c01aeceacc3c4dbb6ddb122fa865e39b for the 122 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 74f367c9bc730cf629df9257fba185bf here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
-    ],
-    "tools/check_web_tests.py": [
-      "1 test(s) in web/ fail:",
-      "    EXCLUDED_DIRS is every out/ .gitignore holds under hardware",
-      "  cd web && npm test"
     ]
   },
   "green": false
