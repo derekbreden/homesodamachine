@@ -5242,6 +5242,7 @@
       "hardware/manifold-layout/enclosure-box.json",
       "hardware/printed-parts/cadlib/fits.py",
       "hardware/printed-parts/cadlib/flute_skin.py",
+      "hardware/printed-parts/cadlib/plan.py",
       "hardware/printed-parts/cadlib/reeding.py",
       "hardware/printed-parts/cadlib/snap.py",
       "hardware/printed-parts/cadlib/world_workplane.py",
