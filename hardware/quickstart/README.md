@@ -11,11 +11,11 @@ separate legend:
 5. connect the five tubes and RJ11 signal lead to the appliance rear panel.
 
 The sheet is a four-row sequence on a full-bleed pale blue-grey field (`#dce7e9`). Motion arrows
-are the only marks added to the scenes. Each arrow is one fixed-size flat glyph with a coral fill
-and field-colored halo. Straight travel follows the projected scene axis, and rotation follows a
-camera-projected elliptical path; the head, weight and outline stay constant through every camera
-crop. The field separates the white
-household tubing from the page and leaves the blue handle, black fittings and coral cues distinct.
+are the only marks added to the scenes. Straight arrows use one fixed-size flat glyph aligned to
+the projected travel axis. Rotation paths scale to the indicated object and follow a
+camera-projected ellipse; their heads are foreshortened in that same plane. Every cue keeps the
+same coral fill and field-colored halo. The field separates the white household tubing from the
+page and leaves the blue handle, black fittings and coral cues distinct.
 
 This edition follows the modern-home installation path: an existing 1/4-inch plastic cold-water
 line and push fitting under the sink. The installer releases one tube, adds one tee and one short
@@ -34,9 +34,11 @@ stays visibly clear of the washer and nut before it moves.
 ## Cold-water connection
 
 `plumbing/modern/render_modern_tee.py` models the complete push-fit sequence in one continuous
-under-sink coordinate frame. The shutoff pair is cropped to the valve and its handle. The macro
-pair first shows the highlighted collet proud with a press cue landing directly on it, then holds
-the collet visibly recessed while the original tube begins to move out. The next row shows the
+under-sink coordinate frame. The shutoff pair is cropped to the valve and its handle, with the
+rotation cue on the open state and the closed state left unobstructed. The macro
+pair first shows the highlighted collet proud with opposing press and pull cues, then holds the
+collet visibly recessed while the original tube begins to move out, with the result unobstructed.
+The next row shows the
 supplied short tube seated, the tee seated on that tube, the original tube reconnected, and the
 filtered white branch seated in the third port. The loose branch does not appear before its
 insertion scene.
