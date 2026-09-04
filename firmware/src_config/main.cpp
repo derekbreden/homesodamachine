@@ -125,6 +125,11 @@ static IdentityPayload machineIdent{};
 static bool            haveIdent = false;
 static uint32_t        identAskedAtMs = 0;
 
+// A name from the phone, staged on the NimBLE task and put on the link from
+// loop(), the way an image frame is.
+static volatile bool       identSetPending = false;
+static IdentityNamePayload identSet{};
+
 // A BLE write arrives on the NimBLE task and the session touches flash, so one
 // frame is staged and handled from loop(). The pull only ever asks for one.
 static const uint16_t OTA_STAGE = 640;
@@ -145,7 +150,7 @@ static bool bleHasClients() {
 }
 
 // Forward declarations
-static void bleSendFrame(uint8_t type, const uint8_t *payload, uint16_t len);
+static bool bleSendFrame(uint8_t type, const uint8_t *payload, uint16_t len);
 static void bleSendText(const char *text);
 static void bleSendFrameTo(uint16_t connHandle, uint8_t type,
                            const uint8_t *payload, uint16_t len);
@@ -154,6 +159,24 @@ static bool loadImageFromFS(uint8_t slot);
 static void imagePath(char *buf, uint8_t slot);
 static void updateMeta();
 static void saveCrcs();
+
+// What a phone is told about this machine on `IDENTITY`, and on every answer
+// the main board gives to a query or a name: model, unit, name, then what this
+// display is running — the frame the faucet display sends, byte for byte.
+static const uint16_t IDENTITY_FRAME_MAX = 1 + 3 + (MACHINE_NAME_MAX + 1) + 32;
+static uint16_t identityFrame(uint8_t *body) {
+  size_t n = 0;
+  body[n++] = haveIdent ? machineIdent.model : 0;
+  memcpy(body + n, haveIdent ? machineIdent.unit : (const uint8_t *)"\0\0\0", 3); n += 3;
+  memset(body + n, 0, MACHINE_NAME_MAX + 1);
+  if (haveIdent) strncpy((char *)(body + n), machineIdent.name, MACHINE_NAME_MAX);
+  n += MACHINE_NAME_MAX + 1;
+  size_t vlen = strlen(FW_VERSION);
+  if (vlen > 31) vlen = 31;
+  memcpy(body + n, FW_VERSION, vlen); n += vlen;
+  body[n++] = 0;
+  return (uint16_t)n;
+}
 
 // BLE frame types (GATT/NUS wire format: [type(1B)] [len(2B LE)] [payload...])
 #define BLE_FRAME_TEXT      0x01
@@ -324,6 +347,23 @@ class BLERxCB : public NimBLECharacteristicCallbacks {
             bleUpload.abortRequested = false;
           }
           bleSendTextTo(connHandle, "OK:UPLOAD_ABORTED");
+          break;
+        }
+
+        // What the machine is, answered from here; and `IDENTITY <name>`, the
+        // main board's to keep, staged for the link. The bytes after the space
+        // are the name, as they are, clipped to MACHINE_NAME_MAX; none clears it.
+        if (strcmp(textBuf, "IDENTITY") == 0) {
+          uint8_t body[IDENTITY_FRAME_MAX];
+          bleSendFrameTo(connHandle, BLE_FRAME_IDENTITY, body, identityFrame(body));
+          break;
+        }
+        if (strncmp(textBuf, "IDENTITY ", 9) == 0) {
+          if (identSetPending) break;
+          memset(&identSet, 0, sizeof(identSet));
+          strncpy(identSet.name, textBuf + 9, MACHINE_NAME_MAX);
+          __sync_synchronize();
+          identSetPending = true;
           break;
         }
 
@@ -871,7 +911,7 @@ static void initBLE() {
   pAdv->enableScanResponse(true);
   BleOtaSeams seams{};
   seams.notify = [](uint8_t type, const void *data, uint16_t len) {
-    bleSendFrame(type, (const uint8_t *)data, len);
+    return bleSendFrame(type, (const uint8_t *)data, len);
   };
   seams.sendSrc = [](uint8_t type, const void *data, uint16_t len) {
     return proto.trySend(type, data, len) >= 0;
@@ -1442,19 +1482,21 @@ void parseConfigResponse(const char* line) {
 // ── GATT/NUS send functions ──
 // Wire format: [type(1B)] [len(2B LE)] [payload...]
 
-// Broadcast a framed message to all connected clients via TX characteristic notify
-static void bleSendFrame(uint8_t type, const uint8_t *payload, uint16_t len) {
-  if (!pTxChar || !bleHasClients()) return;
+// Broadcast a framed message to all connected clients via TX characteristic notify.
+// True when the stack took it; false with no client, or once the retries are spent.
+static bool bleSendFrame(uint8_t type, const uint8_t *payload, uint16_t len) {
+  if (!pTxChar || !bleHasClients()) return false;
   bleSendChunkBuf[0] = type;
   bleSendChunkBuf[1] = len & 0xFF;
   bleSendChunkBuf[2] = (len >> 8) & 0xFF;
   if (len > 0 && payload) memcpy(bleSendChunkBuf + 3, payload, len);
   // Retry if BLE TX buffer is full (notify returns false on congestion)
   for (int attempt = 0; attempt < 10; attempt++) {
-    if (pTxChar->notify(bleSendChunkBuf, 3 + len)) return;
+    if (pTxChar->notify(bleSendChunkBuf, 3 + len)) return true;
     delay(15);  // wait one BLE connection interval for buffer to drain
   }
   Serial.printf("BLE notify dropped: type=0x%02X len=%u\n", type, len);
+  return false;
 }
 
 // Broadcast a TEXT message to all connected clients
@@ -1698,12 +1740,20 @@ static void onMessage(ProtoLink *link, const uint8_t *data, uint16_t len) {
     }
     case MSG_RESP_IDENTITY: {
       if (payloadLen < sizeof(IdentityPayload)) break;
+      const bool changed = !haveIdent ||
+                           memcmp(&machineIdent, payload, sizeof(machineIdent)) != 0;
       memcpy(&machineIdent, payload, sizeof(machineIdent));
       haveIdent = true;
       Serial.printf("IDENTITY model=%u unit=%02X%02X%02X name=%s\n",
                     machineIdent.model, machineIdent.unit[0], machineIdent.unit[1],
                     machineIdent.unit[2],
                     machineIdent.name[0] ? machineIdent.name : "(unset)");
+      // What this board advertises is the machine, so a new name goes on the
+      // air; and every answer reaches the phone, not only a changed one, so a
+      // name it just sent is confirmed whether or not it differs.
+      if (changed) applyAdvertising();
+      uint8_t body[IDENTITY_FRAME_MAX];
+      bleSendFrame(BLE_FRAME_IDENTITY, body, identityFrame(body));
       break;
     }
 
@@ -2525,8 +2575,18 @@ static void serviceBleOta() {
     identAskedAtMs = millis();
     proto.trySend(MSG_IDENTITY_QUERY, nullptr, 0);
   }
-  static bool advertisedIdent = false;
-  if (haveIdent && !advertisedIdent) { advertisedIdent = true; applyAdvertising(); }
+
+  // A name the phone gave, on its way to the board that keeps it. The answer
+  // is the MSG_RESP_IDENTITY above. A machine the phone cannot name is told
+  // so, rather than left waiting for a frame.
+  if (identSetPending) {
+    IdentityNamePayload req;
+    memcpy(&req, &identSet, sizeof(req));
+    __sync_synchronize();
+    identSetPending = false;
+    if (!proto.isConnected()) bleSendText("ERR:IDENTITY:LINK_DOWN");
+    else if (proto.trySend(MSG_IDENTITY_SET, &req, sizeof(req)) < 0) bleSendText("ERR:IDENTITY:BUSY");
+  }
 
   if (otaStageLen == 0) return;
   const uint16_t len = otaStageLen;

@@ -20,5 +20,8 @@ void identityBegin();
 void machineIdentity(IdentityPayload &out);
 bool machineSetName(const char *name);
 
+// The IDENTITY line — model, unit, name — on the console.
+void identityReport();
+
 // `identity` on the console.
 void identityConsole(const String &line);

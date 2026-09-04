@@ -77,6 +77,9 @@ static bool notify(uint8_t type, const void *data, uint16_t len) {
   return txChar->notify();
 }
 
+// One line to the phone, in the text vocabulary it already reads.
+static void sayToPhone(const char *text) { notify(BLE_TEXT, text, (uint16_t)strlen(text)); }
+
 static void sendIdentity() {
   // Everything a picker needs on one screen: which machine, which unit, what it
   // is called, and what this display is running.
@@ -87,7 +90,8 @@ static void sendIdentity() {
   memset(body + n, 0, MACHINE_NAME_MAX + 1);
   if (haveIdentity) strncpy((char *)(body + n), identity.name, MACHINE_NAME_MAX);
   n += MACHINE_NAME_MAX + 1;
-  const size_t vlen = strnlen(FW_VERSION, 31);
+  size_t vlen = strlen(FW_VERSION);
+  if (vlen > 31) vlen = 31;
   memcpy(body + n, FW_VERSION, vlen); n += vlen;
   body[n++] = 0;
   notify(BLE_FRAME_IDENTITY, body, (uint16_t)n);
@@ -166,8 +170,10 @@ void bleLinkOnIdentity(const IdentityPayload &id) {
                   id.model, id.unit[0], id.unit[1], id.unit[2],
                   id.name[0] ? id.name : "(unset)");
     applyAdvertising();
-    sendIdentity();
   }
+  // Every answer reaches the phone, not only a changed one: a name it just sent
+  // is confirmed whether or not it differs from the one the machine had.
+  sendIdentity();
 }
 
 void bleLinkOnSrcNeed(uint32_t offset, uint16_t len) { bleOtaOnSrcNeed(offset, len); }
@@ -276,10 +282,27 @@ static void dispatchFrame(const uint8_t *work, uint16_t len) {
 
   if (bleOtaHandleFrame(type, payload, plen)) return;
   if (bleImageHandleFrame(type, payload, plen)) return;
-  if (type == BLE_TEXT && plen >= 8 && !memcmp(payload, "IDENTITY", 8)) {
+  if (type == BLE_TEXT && plen == 8 && !memcmp(payload, "IDENTITY", 8)) {
     sendIdentity();
     sendVersions();
     versionsAskedAtMs = 0;   // and ask the main board again, in case it has news
+    return;
+  }
+
+  // `IDENTITY <name>`: the console's own verb, from the phone. The name is the
+  // main board's to keep, so it crosses J3 as MSG_IDENTITY_SET and comes back
+  // as the MSG_RESP_IDENTITY a query gets — which re-advertises and sends the
+  // phone its identity frame. The bytes after the space are the name, as they
+  // are, clipped to MACHINE_NAME_MAX; none of them clears it. A machine the
+  // phone cannot name is told so, rather than left waiting for a frame.
+  if (type == BLE_TEXT && plen >= 9 && !memcmp(payload, "IDENTITY ", 9)) {
+    IdentityNamePayload req{};
+    const uint16_t n = plen - 9 < MACHINE_NAME_MAX ? (uint16_t)(plen - 9) : MACHINE_NAME_MAX;
+    memcpy(req.name, payload + 9, n);
+    BaseLinkStatus st;
+    baseLinkReadStatus(st);
+    if (!st.connected) sayToPhone("ERR:IDENTITY:LINK_DOWN");
+    else if (!baseLinkSendOtaSrc(MSG_IDENTITY_SET, &req, sizeof(req))) sayToPhone("ERR:IDENTITY:BUSY");
     return;
   }
 
