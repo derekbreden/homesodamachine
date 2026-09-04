@@ -32,7 +32,7 @@ slab; the entire unobstructed jaw face is the pressing surface.
 
 ## Handle and print orientation
 
-The handle gives [96 mm](HANDLE_L) of bottom bed edge, is
+The handle gives [88 mm](HANDLE_L) of bottom bed edge, is
 [20 mm](HANDLE_W) wide, and is [6.00 mm](HANDLE_T) thick. Its front is cut on
 the head's same [45°](HEAD_ANGLE) underside plane, so no horizontal nose or
 shelf projects past the bend. Head and handle are one constant-width,
@@ -46,8 +46,8 @@ keeps the rising underside self-supporting, and puts the collet load across the
 horizontal layer stack instead of directly along it.
 
 Print the exported orientation without supports. The bounding envelope is
-[109.6 mm](TOOL_X) by [20.0 mm](TOOL_Y) by [17.9 mm](TOOL_Z), containing
-[13.1 cm³](TOOL_VOLUME) of material. PET-GF through a 0.4 mm nozzle at
+[101.6 mm](TOOL_X) by [20.0 mm](TOOL_Y) by [17.9 mm](TOOL_Z), containing
+[12.2 cm³](TOOL_VOLUME) of material. PET-GF through a 0.4 mm nozzle at
 0.24 mm layers is the primary print: use at least six walls and a dense core.
 A 0.2 mm nozzle at 0.12 mm layers uses the same solid. The handle's complete
 underside is the bed face; add a brim only if the printer needs one.
