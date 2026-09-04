@@ -182,6 +182,7 @@ def _build_steps(work: Path) -> dict[str, Path]:
         "above_counter_gasket",
         "shell_base",
         "shell_tip",
+        "faucet-display-cover",
         "faucet_display",
         "faucet_display_screen",
     )
@@ -238,6 +239,7 @@ def _build_steps(work: Path) -> dict[str, Path]:
         "above_counter_gasket",
         "shell_base",
         "shell_tip",
+        "faucet-display-cover",
         "faucet_display",
         "faucet_display_screen",
     )

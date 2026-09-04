@@ -146,6 +146,10 @@ C_SEAFLO = cq.Color(0.89, 0.35, 0.13)        # the pump's orange housing
 # solder mask, SAMPLED off the vendor's board photo (waveshare.com, `esp32-s3-touch-lcd-4.3b-3`)
 # rather than named, and the cover glass over the panel the customer looks at.
 C_DISPLAY = cq.Color(0.094, 0.306, 0.525)
+# The Waveshare ESP32-S3-Touch-LCD-1.47 in the faucet is black throughout its visible body.
+C_FAUCET_DISPLAY = cq.Color(0.07, 0.07, 0.07)
+# The faucet display's inactive front glass is neutral black.
+C_FAUCET_DISPLAY_GLASS = cq.Color(0.095, 0.095, 0.095)
 C_DISPLAY_GLASS = cq.Color(0.12, 0.13, 0.16)
 C_PSU = cq.Color(0.20, 0.20, 0.24)
 C_RELAY = cq.Color(0.16, 0.42, 0.22)         # the relay board's green solder mask
@@ -243,6 +247,8 @@ FINISHES = [
     (C_COND,             0.45, _METAL),        # bare tube and fin stack
     (C_SEAFLO,           0.50, _DIELECTRIC),
     (C_DISPLAY,          0.50, _DIELECTRIC),   # solder mask
+    (C_FAUCET_DISPLAY,   0.45, _DIELECTRIC),   # black moulded display body
+    (C_FAUCET_DISPLAY_GLASS, 0.08, _DIELECTRIC),  # neutral-black inactive glass
     (C_DISPLAY_GLASS,    0.08, _DIELECTRIC),   # "the cover glass over the panel"
     (C_PSU,              0.45, _METAL),
     (C_RELAY,            0.50, _DIELECTRIC),   # "the relay board's green solder mask"
