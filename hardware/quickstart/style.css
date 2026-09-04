@@ -156,8 +156,10 @@ body {
 .water-off { background-image: url("plumbing/modern/art/modern-water-off.png"); }
 
 .water-turn-cue {
-  --cue-x: 560px;
-  --cue-y: 165px;
+  --cue-x: 610px;
+  --cue-y: 150px;
+  width: 440px;
+  height: 159px;
 }
 
 .release {

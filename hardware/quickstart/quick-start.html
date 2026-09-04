@@ -20,16 +20,16 @@
       <path class="motion-line" d="M20 50H160" marker-end="url(#motion-head)"/>
     </symbol>
     <symbol id="motion-turn-under" viewBox="0 0 180 120">
-      <path class="motion-halo" d="M22 74C22 39 158 39 158 74"
-            marker-end="url(#motion-head-halo)"/>
-      <path class="motion-line" d="M22 74C22 39 158 39 158 74"
-            marker-end="url(#motion-head)"/>
+      <path class="motion-halo" d="M22 74C22 39 158 39 158 74"/>
+      <path class="motion-head-halo" d="M136 60L158 74L180 60Z"/>
+      <path class="motion-line" d="M22 74C22 39 158 39 158 74"/>
+      <path class="motion-head" d="M136 60L158 74L180 60Z"/>
     </symbol>
-    <symbol id="motion-turn-water" viewBox="0 0 180 120">
-      <path class="motion-halo" d="M22 72C22 41 158 41 158 72"
-            marker-end="url(#motion-head-halo)"/>
-      <path class="motion-line" d="M22 72C22 41 158 41 158 72"
-            marker-end="url(#motion-head)"/>
+    <symbol id="motion-turn-water" viewBox="0 0 360 130">
+      <path class="motion-halo" d="M24 84C24 14 336 14 336 84"/>
+      <path class="motion-head-halo" d="M314 68L336 84L358 68Z"/>
+      <path class="motion-line" d="M24 84C24 14 336 14 336 84"/>
+      <path class="motion-head" d="M314 68L336 84L358 68Z"/>
     </symbol>
   </defs>
 </svg>
@@ -54,22 +54,21 @@
   </section>
 
   <section class="story water-story">
-    <figure class="scene water water-on"></figure>
-    <figure class="scene water water-off">
-      <svg class="cue cue-turn water-turn-cue" viewBox="0 0 180 120" aria-hidden="true">
+    <figure class="scene water water-on">
+      <svg class="cue cue-turn water-turn-cue" viewBox="0 0 360 130" aria-hidden="true">
         <use href="#motion-turn-water"/>
       </svg>
     </figure>
+    <figure class="scene water water-off"></figure>
     <figure class="scene release release-ready">
       <svg class="cue cue-straight release-press-cue" viewBox="0 0 180 100" aria-hidden="true">
         <use href="#motion-straight"/>
       </svg>
-    </figure>
-    <figure class="scene release release-withdrawn">
       <svg class="cue cue-straight release-withdraw-cue" viewBox="0 0 180 100" aria-hidden="true">
         <use href="#motion-straight"/>
       </svg>
     </figure>
+    <figure class="scene release release-withdrawn"></figure>
   </section>
 
   <section class="story tee-story">
