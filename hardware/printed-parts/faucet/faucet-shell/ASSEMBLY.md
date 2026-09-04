@@ -73,7 +73,7 @@ into a single rigid sub-assembly.
 |  1  | `faucet-shell` (printed, PET-GF15) — three base-pod boss holes + insert pockets opening into the foot bottom | `faucet_shell.py` in this directory (BASE PODS section)        |
 |  1  | `above-counter-plate` (printed, PET-GF15) — three chamfer-tipped screw bosses on the top face, counterbored from below | [`/hardware/printed-parts/faucet/above-counter-plate/`](/hardware/printed-parts/faucet/above-counter-plate/) |
 |  1  | Westbrass + donor washer + factory shank nut (harvested) | [`/hardware/reference/touch-flo-faucet/`](/hardware/reference/touch-flo-faucet/)            |
-|  3  | ruthex M3 short heat-set insert (RX-M3Sx4.0, Ø4.2 knurled brass) | [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §13                |
+|  3  | ruthex M3 short heat-set insert (RX-M3Sx4.0, Ø4.6 knurled brass) | [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §13                |
 |  3  | BNUOK M3 × 12 mm SHCS, black oxide                   | [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §13                            |
 
 The three pod screws close the shell and the above-counter plate around
