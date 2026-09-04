@@ -172,9 +172,9 @@ body {
   transform: translate(-50%, -50%);
 }
 
-.step-one { --step-x: 682.2917px; --step-y: 317.7083px; }
+.step-one { --step-x: 682.2917px; --step-y: 261.4583px; }
 .step-two { --step-x: 2758.3333px; --step-y: 425px; }
-.step-three { --step-x: 5426.0417px; --step-y: 273.9583px; }
+.step-three { --step-x: 5438.5417px; --step-y: 261.4583px; }
 .step-four { --step-x: 4455.2083px; --step-y: 1715.625px; }
 .step-five { --step-x: 4021.875px; --step-y: 2672.3958px; }
 .step-six { --step-x: 1144.7917px; --step-y: 2672.3958px; }
