@@ -70,10 +70,12 @@ grips by wedging its teeth against the tube, so a sleeve pressed on one side
 bites harder rather than letting go. That face stands below the top wall at the
 foot of the [53 mm](FUNNEL_DROP) drop, and it carries concentrate.
 
-**The user releases it with the 1/4" jaw of a JG collet quick-connect tool.**
-The jaw drops over the stub and bears on the whole annulus at once, so the push
-is square by construction — which a thumb on a millimetre and a half of land,
-reached blind and sticky, is not. The funnel then lifts away with its stub and clamp still on it,
+**The user releases it with the 1/4" jaw of the printed
+[`collet press`](../../collet-press/).**
+The jaw drops over the stub and bears on both sides of the sleeve and around
+its rounded root at once, so the push stays centred — which a thumb on a
+millimetre and a half of land, reached blind and sticky, does not. The funnel
+then lifts away with its stub and clamp still on it,
 and `fluid-4` stays on the machine.
 
 ## Regenerate
