@@ -138,7 +138,7 @@ final class FirmwareCatalog {
 /// What every board on the machine reports running, as the main board assembled
 /// it. A board that has not answered carries an empty string, which is not the
 /// same as one running nothing.
-struct MachineVersions: Equatable {
+struct MachineVersions: Codable, Equatable {
     /// Keyed by OTATarget.rawValue.
     var byBoard: [UInt8: String] = [:]
     /// The crc32 over the art partition's pixels, by the board that holds one.

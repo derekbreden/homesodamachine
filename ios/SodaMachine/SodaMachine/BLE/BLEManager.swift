@@ -17,14 +17,9 @@ enum ConnectionState: Equatable {
     case bluetoothOff
     case searching
     case searchingLong  // been searching a while, show hints
-    case choosing       // more than one machine in range, none of them remembered
     case connecting
     case connected
 }
-
-/// How long a scan collects before it decides. Long enough that the second
-/// machine on the bench is in the list when the first one is.
-private let settleWindow: TimeInterval = 2.5
 
 // ────────────────────────────────────────────────────────────
 // BLEManager — @Observable so SwiftUI only re-renders views
@@ -35,17 +30,52 @@ private let settleWindow: TimeInterval = 2.5
 class BLEManager {
     var connectionState: ConnectionState = .bluetoothOff
 
-    // Config state (synced from ESP32 via S3 bridge)
+    // ── The machine this phone is pointed at ──────────────────────────────
+    // Everything a machine has said lives on its record, which outlives the
+    // link. What is here is the link: whether it is up, what is crossing it,
+    // and which machines the radio can hear. The fields below that read like
+    // the machine's own are the record's, reached through the link so that
+    // every screen and every frame handler has one name for each.
+    let directory: MachineDirectory
+    var current: KnownMachine? { directory.current }
+
+    /// Up, to the machine this phone is pointed at. The demo counts: it is
+    /// always in range.
+    var linked: Bool { connectionState == .connected }
+
+    // Config state (synced from ESP32 via S3 bridge). Read once per session;
+    // the values themselves are the record's.
     var configSynced = false
-    var flavor1Image: Int = 0
-    var flavor2Image: Int = 1
-    var flavor1Ratio: Int = 20
-    var flavor2Ratio: Int = 20
-    var numImages: Int = 0
+    var flavor1Image: Int {
+        get { current?.config.flavor1Image ?? 0 }
+        set { current?.config.flavor1Image = newValue; directory.touch() }
+    }
+    var flavor2Image: Int {
+        get { current?.config.flavor2Image ?? 1 }
+        set { current?.config.flavor2Image = newValue; directory.touch() }
+    }
+    var flavor1Ratio: Int {
+        get { current?.config.flavor1Ratio ?? 20 }
+        set { current?.config.flavor1Ratio = newValue; directory.touch() }
+    }
+    var flavor2Ratio: Int {
+        get { current?.config.flavor2Ratio ?? 20 }
+        set { current?.config.flavor2Ratio = newValue; directory.touch() }
+    }
+    var numImages: Int {
+        get { current?.config.numImages ?? 0 }
+        set { current?.config.numImages = newValue; directory.touch() }
+    }
 
     // Image list and cached images
-    var imageNames: [String] = []
-    var cachedImages: [Int: UIImage] = [:]
+    var imageNames: [String] {
+        get { current?.config.imageNames ?? [] }
+        set { current?.config.imageNames = newValue; directory.touch() }
+    }
+    var cachedImages: [Int: UIImage] {
+        get { current?.cachedImages ?? [:] }
+        set { current?.cachedImages = newValue }
+    }
     var imageDownloadProgress: Double? = nil  // nil = not downloading
 
     // Upload state
@@ -61,9 +91,18 @@ class BLEManager {
     }
 
     // Firmware versions (populated by GET_VERSION response)
-    var s3Version: String = ""
-    var espVersion: String = ""
-    var rpVersion: String = ""
+    var s3Version: String {
+        get { current?.prototypeVersions.s3 ?? "" }
+        set { current?.prototypeVersions.s3 = newValue; directory.touch() }
+    }
+    var espVersion: String {
+        get { current?.prototypeVersions.esp ?? "" }
+        set { current?.prototypeVersions.esp = newValue; directory.touch() }
+    }
+    var rpVersion: String {
+        get { current?.prototypeVersions.rp ?? "" }
+        set { current?.prototypeVersions.rp = newValue; directory.touch() }
+    }
 
     // Factory reset completion signal (toggled on OK:FACTORY_RESET)
     var factoryResetCompleted = false
@@ -80,20 +119,29 @@ class BLEManager {
     var primeActive = false
     var primeFlavor: Int = 0  // 1 or 2
 
-    // Demo mode (no hardware needed)
-    var demoMode = false
+    // The demo: a machine that is always in range and never existed.
+    var demoMode: Bool { current?.isDemo ?? false }
 
     // ── The user's own pictures ───────────────────────────────────────────
     // What the machine says it holds, and how an upload to it is going. The
     // bundle itself is held only for the length of the push.
-    var imageSlots = ImageSlots()
-    var flavorArt = FlavorArt()
+    var imageSlots: ImageSlots {
+        get { current?.imageSlots ?? ImageSlots() }
+        set { current?.imageSlots = newValue; directory.touch() }
+    }
+    var flavorArt: FlavorArt {
+        get { current?.flavorArt ?? FlavorArt() }
+        set { current?.flavorArt = newValue; directory.touch() }
+    }
     var imageQueue: [QueuedImage] = []
     // A read-back in flight, and the crcs already asked for, so a face is
     // fetched once ever rather than once per state frame.
-    /// Faces by the crc32 of the picture they belong to. Observable, so a face
-    /// that lands redraws the tile that was waiting for it.
-    var faces: [UInt32: UIImage] = [:]
+    /// Faces by the crc32 of the picture they belong to, on the record.
+    /// Observable, so a face that lands redraws the tile that was waiting for it.
+    var faces: [UInt32: UIImage] {
+        get { current?.faces ?? [:] }
+        set { current?.faces = newValue }
+    }
     // A picture being read back, placed by offset rather than accumulated in
     // order — see handleImagePix. `faceHave` is the offsets that have landed;
     // the stride is what one frame carries, which the board fixes.
@@ -128,29 +176,22 @@ class BLEManager {
     // ── Which machines are in range ──────────────────────────────────────
     // Every scan result lands here rather than the first one winning. A phone
     // standing between the bench and the machine under the sink sees both.
+    // The one this phone is pointed at is connected to as soon as it is heard;
+    // a known machine among the rest has its sighting noted; and the rest are
+    // what Add a machine lists.
     var discovered: [DiscoveredMachine] = []
-    var connectedMachine: DiscoveredMachine? = nil
 
-    /// What faces are filed under. The machine's own three bytes when it has
-    /// said them, and this phone's id for it otherwise — a picture is still
-    /// worth caching for a machine that has not introduced itself yet.
-    var machineKey: String {
-        if let m = connectedMachine {
-            return m.unit.isEmpty ? m.id : m.unit
-        }
-        return ""
-    }
+    /// Scanning while connected, for a list that wants to say what is in range
+    /// right now. Off, the radio scans only while it has nothing to talk to.
+    var browsing = false
 
-    /// The one to reconnect to without asking. Set by picking, cleared by
-    /// picking something else.
-    var rememberedMachineID: String? {
-        get { UserDefaults.standard.string(forKey: "rememberedMachineID") }
-        set { UserDefaults.standard.set(newValue, forKey: "rememberedMachineID") }
-    }
+    /// The phone's radio is off, or this app may not use it. Said once the
+    /// system has said so, which is after the first ask for permission.
+    var radioOff = false
 
-    @ObservationIgnored fileprivate var settleTimer: Timer?
-    @ObservationIgnored fileprivate var chooserPending = false
-    @ObservationIgnored fileprivate var scanStartedAt = Date.distantPast
+    /// What faces are filed under: the record's key.
+    var machineKey: String { current?.key ?? "" }
+
     @ObservationIgnored fileprivate var lastRssiPush: [String: Date] = [:]
 
     // ── Pushing an image ─────────────────────────────────────────────────
@@ -159,9 +200,15 @@ class BLEManager {
     // guess a rate, and a frame that goes missing costs one re-ask.
     var otaProgress: OTAProgress? = nil
     /// What the board with the radio says it is running, from BLE_IDENTITY.
-    var radioBoardVersion: String = ""
+    var radioBoardVersion: String {
+        get { current?.radioBoardVersion ?? "" }
+        set { current?.radioBoardVersion = newValue; directory.touch() }
+    }
     /// What every board on the machine reports, assembled by its main board.
-    var machineVersions = MachineVersions()
+    var machineVersions: MachineVersions {
+        get { current?.versions ?? MachineVersions() }
+        set { current?.versions = newValue; directory.touch() }
+    }
 
     @ObservationIgnored fileprivate var otaImage: FirmwareImage? = nil
     @ObservationIgnored fileprivate var otaData: Data = Data()
@@ -173,61 +220,42 @@ class BLEManager {
     @ObservationIgnored fileprivate var otaModel: MachineModel = .unknown
     @ObservationIgnored fileprivate var otaFetch: ((FirmwareImage) async throws -> Data)? = nil
 
-    /// Ready to transition from animated splash to main UI.
-    ///
-    /// The prototype is ready once its images are down, which is what the
-    /// config screens are made of. The appliance answers none of that
-    /// vocabulary, so being connected is the whole of it.
-    var readyToShow: Bool {
-        // The last board an update touches is the one carrying the connection,
-        // so finishing one drops it. Being dumped back to a search screen is not
-        // what "Update complete" should look like.
-        if updateSettling { return true }
-        guard connectionState == .connected else { return false }
-        if demoMode || isAppliance { return true }
-        return !cachedImages.isEmpty
-    }
-
-    /// An update finished and the machine is restarting into it.
-    var updateSettling = false
-
     /// Which screens this machine gets. A machine whose advertisement carried
     /// no model byte is running firmware older than that, and every one of
     /// those is a prototype.
-    var isAppliance: Bool { connectedMachine?.model == .appliance }
+    var isAppliance: Bool { current?.model == .appliance }
 
-    // Chart data (populated by GET_CHART_DATA response)
-    var chartData24H: [[Double]] = [Array(repeating: 0, count: 24), Array(repeating: 0, count: 24)]
-    var chartData30D: [[Double]] = [Array(repeating: 0, count: 30), Array(repeating: 0, count: 30)]
-    var chartDataHOD: [[Double]] = [Array(repeating: 0, count: 24), Array(repeating: 0, count: 24)]
-    var chartDataHODDays: Int = 1
+    // Chart data: laid out on the record from its usage reading. Read once
+    // per session; `chartDataSynced` says this session has.
+    var chartData24H: [[Double]] {
+        current?.chartData24H ?? [Array(repeating: 0, count: 24), Array(repeating: 0, count: 24)]
+    }
+    var chartData30D: [[Double]] {
+        current?.chartData30D ?? [Array(repeating: 0, count: 30), Array(repeating: 0, count: 30)]
+    }
+    var chartDataHOD: [[Double]] {
+        current?.chartDataHOD ?? [Array(repeating: 0, count: 24), Array(repeating: 0, count: 24)]
+    }
+    var chartDataHODDays: Int { current?.chartDataHODDays ?? 1 }
     var chartDataSynced: Bool = false
 
-    @ObservationIgnored fileprivate var rawHourlyData: [[(seqHour: UInt32, flowSum: UInt32)]] = [[], []]
+    /// A reading being assembled, hour by hour, until CHART_CUR closes it.
+    @ObservationIgnored fileprivate var rawHourlyData: [[HourBucket]] = [[], []]
     @ObservationIgnored fileprivate var currentSeqHour: UInt32 = 0
     @ObservationIgnored fileprivate var chartCurReceived: Int = 0
-
-    // Live chart baselines (for computing delta from CHART_LIVE pushes)
-    @ObservationIgnored fileprivate var chartBaseFlowSum: [UInt32] = [0, 0]
-    @ObservationIgnored fileprivate var chartBase24H_last: [Double] = [0, 0]
-    @ObservationIgnored fileprivate var chartBase30D_last: [Double] = [0, 0]
-    @ObservationIgnored fileprivate var chartBaseHOD_slot: [Double] = [0, 0]
-    @ObservationIgnored fileprivate var chartBaseHOD_hour: Int = Calendar.current.component(.hour, from: Date())
-    @ObservationIgnored fileprivate var lastLiveFS: [UInt32] = [0, 0]
 
     // Usage statistics (used by pie chart)
     struct FlavorStats {
         var monthFlowSum: UInt32 = 0
     }
-    var flavor1Stats = FlavorStats()
-    var flavor2Stats = FlavorStats()
+    var flavor1Stats: FlavorStats { FlavorStats(monthFlowSum: current?.monthFlowSum[0] ?? 0) }
+    var flavor2Stats: FlavorStats { FlavorStats(monthFlowSum: current?.monthFlowSum[1] ?? 0) }
     var statsSynced = false
 
     // ── Internal state (not observed by SwiftUI) ──
 
     @ObservationIgnored fileprivate var pendingImageList: [String] = []
     @ObservationIgnored fileprivate var pendingCRCs: [Int: UInt32] = [:]  // from LIST response
-    @ObservationIgnored fileprivate var connectedPeripheralUUID: String = ""
 
     // Pending delete state (for optimistic UI rollback)
     @ObservationIgnored fileprivate var pendingDeleteSlot: Int = -1
@@ -271,21 +299,21 @@ class BLEManager {
     @ObservationIgnored fileprivate var reconnectTimer: Timer?
     @ObservationIgnored fileprivate var userInitiatedDisconnect = false
 
-    init() {
+    init(directory: MachineDirectory) {
+        self.directory = directory
         cbAdapter = CBDelegateAdapter(self)
     }
 
-    /// Create the CBCentralManager (triggers Bluetooth permission prompt).
-    /// Idempotent — safe to call multiple times.
-    /// Bring the radio up, or start looking again on a radio that is already up.
+    /// Bring the radio up, or turn a radio that is already up toward the
+    /// machine this phone is pointed at.
     ///
     /// The central manager outlives a disconnect — it is the app's, not the
-    /// connection's — and creating it is what starts the first scan, by way of
-    /// `centralManagerDidUpdateState`. A second call therefore has to start one
-    /// itself, or "Scan for Hardware" after a disconnect does nothing at all.
+    /// connection's — and creating it is what first turns the radio, by way of
+    /// `centralManagerDidUpdateState`. Creating it is also what asks for
+    /// Bluetooth permission, so it waits for a screen that has said why.
     func activateBluetooth() {
         guard centralManager == nil else {
-            startScan()
+            point()
             return
         }
         centralManager = CBCentralManager(delegate: cbAdapter, queue: bleQueue)
@@ -315,9 +343,9 @@ class BLEManager {
                     self.pendingStatsRequest = false
                 }
             }
-        } else if connectionState != .bluetoothOff {
+        } else if connectionState != .bluetoothOff, current != nil {
             // iOS may have stopped our scan or stalled a connection attempt
-            // while backgrounded. Cancel any pending connection and rescan.
+            // while backgrounded. Cancel any pending connection and look again.
             if let peripheral = connectedPeripheral {
                 userInitiatedDisconnect = true
                 centralManager.cancelPeripheralConnection(peripheral)
@@ -325,7 +353,7 @@ class BLEManager {
                 rxCharacteristic = nil
                 nusReady = false
             }
-            startScan()
+            point()
         }
     }
 
@@ -366,9 +394,6 @@ class BLEManager {
 
     func requestVersions() {
         if demoMode { return }
-        s3Version = ""
-        espVersion = ""
-        rpVersion = ""
         send("GET_VERSION")
     }
 
@@ -608,19 +633,19 @@ class BLEManager {
     }
 
     func downloadAllImages(advertisedCRCs: [Int: UInt32] = [:]) {
-        guard !isDownloading else { return }
-        let persistedCRCs = loadPersistedCRCs()
+        guard let m = current, !isDownloading else { return }
         var queue: [Int] = []
         for slot in 0..<numImages {
-            if cachedImages[slot] != nil { continue }
-            // Check if we have a CRC match and disk cache hit
-            if let advertised = advertisedCRCs[slot],
-               let persisted = persistedCRCs[slot],
-               advertised == persisted,
-               let diskImage = loadImageFromDisk(slot: slot) {
-                cachedImages[slot] = diskImage
-                log.info("Image \(slot) loaded from disk cache (CRC match)")
-                continue
+            // A picture on the phone that the machine still lists under the
+            // same crc is the picture. One listed under another has changed
+            // under it and comes down again; firmware that lists no crc is
+            // taken at its word.
+            if let held = m.cachedImages[slot], held.size != .zero {
+                if let advertised = advertisedCRCs[slot] {
+                    if m.config.imageCRCs[slot] == advertised { continue }
+                } else {
+                    continue
+                }
             }
             queue.append(slot)
         }
@@ -633,52 +658,90 @@ class BLEManager {
         }
     }
 
-    // MARK: - Demo mode
+    // MARK: - Your machines
 
-    func enterDemoMode() {
+    /// Point the phone at one machine. The link to the last one is dropped;
+    /// nothing it said is, because that lives on its record.
+    func select(_ machine: KnownMachine) {
+        guard current?.id != machine.id else { return }
+        dropLink()
+        directory.select(machine)
+        point()
+    }
+
+    /// A machine picked out of a scan: added, pointed at, and connected to
+    /// while its peripheral is still in hand.
+    func add(_ seen: DiscoveredMachine) {
+        dropLink()
+        let m = directory.add(seen)
+        directory.select(m)
+        point()
+    }
+
+    func addDemo() {
+        dropLink()
+        directory.select(directory.addDemo())
+        point()
+    }
+
+    /// Gone from the phone. If it was the one the phone was pointed at, the
+    /// phone points at whichever it talked to most recently, or at nothing.
+    func forget(_ machine: KnownMachine) {
+        let wasCurrent = current?.id == machine.id
+        if wasCurrent { dropLink() }
+        directory.forget(machine)
+        if wasCurrent { point() }
+    }
+
+    /// What a person calls this machine. The name lives on the main board and
+    /// the radio advertises it, so it is sent there when the machine can hear;
+    /// until then the record carries it and the page shows it. Twenty bytes,
+    /// which is what the board keeps, cut on a character.
+    func rename(_ machine: KnownMachine, to raw: String) {
+        var bytes = Array(raw.trimmingCharacters(in: .whitespacesAndNewlines).utf8.prefix(20))
+        while !bytes.isEmpty, String(bytes: bytes, encoding: .utf8) == nil { bytes.removeLast() }
+        let name = String(bytes: bytes, encoding: .utf8) ?? ""
+        guard !name.isEmpty else { return }
+        machine.name = name
+        if machine.isDemo { directory.save(); return }
+        machine.pendingName = name
+        if linked, current?.id == machine.id { send("IDENTITY \(name)") }
+        directory.save()
+    }
+
+    /// Turn the radio toward the machine this phone is pointed at: the demo is
+    /// simply up, anything else is listened for, and nothing means the radio
+    /// rests until a machine is added.
+    fileprivate func point() {
+        let radioOn = centralManager?.state == .poweredOn
+        guard let m = current else {
+            centralManager?.stopScan()
+            scanTimer?.invalidate()
+            connectionState = radioOn ? .searching : .bluetoothOff
+            return
+        }
+        if m.isDemo {
+            centralManager?.stopScan()
+            scanTimer?.invalidate()
+            reconnectTimer?.invalidate()
+            seedDemo(m)
+            connectionState = .connected
+            configSynced = true
+            return
+        }
+        connectionState = radioOn ? .searching : .bluetoothOff
+        startScan()
+    }
+
+    /// The link, and everything in flight on it, let go. What the machine said
+    /// stays on its record.
+    fileprivate func dropLink() {
         centralManager?.stopScan()
         scanTimer?.invalidate()
         reconnectTimer?.invalidate()
-        demoMode = true
-        connectionState = .connected
-        configSynced = true
-        flavor1Image = 0
-        flavor2Image = 1
-        flavor1Ratio = 20
-        flavor2Ratio = 20
-        numImages = 3
-        imageNames = ["flavor_1", "flavor_2", "flavor_3"]
-        cachedImages = [
-            0: flavorImage("flavor_1"),
-            1: flavorImage("flavor_2"),
-            2: flavorImage("flavor_3")
-        ]
-        s3Version = "Demo"
-        espVersion = "Demo"
-        rpVersion = "Demo"
-    }
-
-    func exitDemoMode() {
-        demoMode = false
-        configSynced = false
-        cachedImages = [:]
-        imageNames = []
-        numImages = 0
-        s3Version = ""
-        espVersion = ""
-        rpVersion = ""
-        connectionState = .searching
-    }
-
-    func disconnect() {
-        centralManager?.stopScan()
-        scanTimer?.invalidate()
-        settleTimer?.invalidate()
-        reconnectTimer?.invalidate()
-        // Done with this machine: the next scan offers a choice rather than
-        // going straight back to the one just left.
-        rememberedMachineID = nil
-        connectedMachine = nil
+        chartRetryTimer?.cancel()
+        chartRetryTimer = nil
+        stopFacePump()
         if let peripheral = connectedPeripheral {
             userInitiatedDisconnect = true
             centralManager?.cancelPeripheralConnection(peripheral)
@@ -686,10 +749,12 @@ class BLEManager {
         connectedPeripheral = nil
         rxCharacteristic = nil
         nusReady = false
-        connectionState = .searching
+        if connectionState != .bluetoothOff { connectionState = .searching }
         configSynced = false
         statsSynced = false
         chartDataSynced = false
+        rawHourlyData = [[], []]
+        chartCurReceived = 0
         imgDownloadQueue = []
         isDownloading = false
         imageDownloadProgress = nil
@@ -706,6 +771,44 @@ class BLEManager {
         cleanCyclePhase = nil
         imgDownloadSlot = -1
         binStartReceived = false
+        imageQueue = []
+        activeUpload = nil
+        imageUploadState = .idle
+        otaQueue = []
+        otaProgress = nil
+        otaImage = nil
+        otaData = Data()
+        otaFetch = nil
+        faceSlot = -1
+        facePixels = Data()
+        faceHave.removeAll()
+        faceReceived = 0
+    }
+
+    // MARK: - Demo mode
+
+    /// The demo's machine: settings filled in the first time it is pointed
+    /// at, pictures whenever they are not in hand. They are the placeholders
+    /// every prototype ships with, drawn from this app's bundle rather than
+    /// kept in the record's folder.
+    private func seedDemo(_ m: KnownMachine) {
+        if m.cachedImages.isEmpty {
+            m.cachedImages = [
+                0: flavorImage("flavor_1"),
+                1: flavorImage("flavor_2"),
+                2: flavorImage("flavor_3")
+            ]
+        }
+        guard m.configReadAt == nil else { return }
+        m.config.flavor1Image = 0
+        m.config.flavor2Image = 1
+        m.config.flavor1Ratio = 20
+        m.config.flavor2Ratio = 20
+        m.config.numImages = 3
+        m.config.imageNames = ["flavor_1", "flavor_2", "flavor_3"]
+        m.prototypeVersions = PrototypeVersions(s3: "Demo", esp: "Demo", rp: "Demo")
+        m.configReadAt = Date()
+        directory.save()
     }
 
     // Demo-mode flavor art: the bundled placeholder PNG (images/flavor_N.png,
@@ -760,46 +863,30 @@ class BLEManager {
         }
     }
 
+    /// The demo's fortnight, as a usage reading: pours shaped like a day, so
+    /// every chart is laid out the way a machine's is.
     private func populateDemoStats() {
-        flavor1Stats = FlavorStats(monthFlowSum: 60000)
-        flavor2Stats = FlavorStats(monthFlowSum: 40000)
+        guard let m = current else { return }
+        if m.usage.readAt == nil {
+            let seqHour: UInt32 = 24 * 60
+            let nowHour = Calendar.current.component(.hour, from: Date())
+            var hourly: [[HourBucket]] = [[], []]
+            for hoursAgo in 0..<(24 * 14) {
+                let hour = (nowHour - hoursAgo % 24 + 24) % 24
+                let angle = Double(hour - 12) / 12.0 * .pi
+                let base = max(0, cos(angle)) * 8.0 * 20
+                let seq = seqHour - UInt32(hoursAgo)
+                hourly[0].append(HourBucket(seq: seq, flow: UInt32(base * 1.2 * (0.7 + Double.random(in: 0...0.6)))))
+                hourly[1].append(HourBucket(seq: seq, flow: UInt32(base * 0.8 * (0.7 + Double.random(in: 0...0.6)))))
+            }
+            m.usage = UsageReading(hourly: hourly, seqHour: seqHour, readAt: Date())
+            m.recomputeCharts()
+            directory.save()
+        }
         statsSynced = true
     }
 
     private func populateDemoChartData() {
-        var hod0 = [Double](repeating: 0, count: 24)
-        var hod1 = [Double](repeating: 0, count: 24)
-        for h in 0..<24 {
-            let angle = Double(h - 12) / 12.0 * .pi
-            let base = max(0, cos(angle)) * 8.0
-            hod0[h] = base * 1.2
-            hod1[h] = base * 0.8
-        }
-        chartDataHOD = [hod0, hod1]
-        chartDataHODDays = 14
-
-        let calendar = Calendar.current
-        let currentHour = calendar.component(.hour, from: Date())
-        var h24_0 = [Double](repeating: 0, count: 24)
-        var h24_1 = [Double](repeating: 0, count: 24)
-        for i in 0..<24 {
-            let hour = (currentHour - 23 + i + 24) % 24
-            let angle = Double(hour - 12) / 12.0 * .pi
-            let base = max(0, cos(angle))
-            h24_0[i] = base * 10.0 * (0.7 + Double.random(in: 0...0.6))
-            h24_1[i] = base * 7.0 * (0.7 + Double.random(in: 0...0.6))
-        }
-        chartData24H = [h24_0, h24_1]
-
-        var d30_0 = [Double](repeating: 0, count: 30)
-        var d30_1 = [Double](repeating: 0, count: 30)
-        for i in 0..<30 {
-            let ramp = Double(i + 1) / 30.0
-            d30_0[i] = ramp * 60.0 * (0.5 + Double.random(in: 0...1.0))
-            d30_1[i] = ramp * 40.0 * (0.5 + Double.random(in: 0...1.0))
-        }
-        chartData30D = [d30_0, d30_1]
-
         chartDataSynced = true
     }
 
@@ -1129,6 +1216,8 @@ class BLEManager {
         if let v = values["F1_IMAGE"] { flavor1Image = v }
         if let v = values["F2_IMAGE"] { flavor2Image = v }
         if let v = values["numImages"] { numImages = max(v, 1) }
+        current?.configReadAt = Date()
+        directory.touch()
         configSynced = true
         log.info("Config synced: F1=\(self.flavor1Image)/\(self.flavor1Ratio) F2=\(self.flavor2Image)/\(self.flavor2Ratio) numImages=\(self.numImages)")
     }
@@ -1162,26 +1251,29 @@ class BLEManager {
             for part in parts[dataStart...] {
                 let pair = part.split(separator: ":", maxSplits: 1)
                 if pair.count == 2, let seq = UInt32(pair[0]), let fs = UInt32(pair[1]) {
-                    rawHourlyData[flavor].append((seqHour: seq, flowSum: fs))
+                    rawHourlyData[flavor].append(HourBucket(seq: seq, flow: fs))
                 }
             }
             return
         }
 
+        // The hour under way is not in the hourly list — the machine's live
+        // count is authoritative for it — so CHART_CUR closes one flavor's
+        // reading with it, and the reading lands on the record once both have.
         if prefix == "CHART_CUR" {
             if let fsStr = kvValues["FS"], let fs = UInt32(fsStr) {
-                computeChartsFromRaw(flavor: flavor)
-                chartBaseFlowSum[flavor] = fs
-                chartBase24H_last[flavor] = chartData24H[flavor][23]
-                chartBase30D_last[flavor] = chartData30D[flavor][29]
-                let curHour = Calendar.current.component(.hour, from: Date())
-                chartBaseHOD_hour = curHour
-                chartBaseHOD_slot[flavor] = chartDataHOD[flavor][curHour]
-                lastLiveFS[flavor] = fs
+                rawHourlyData[flavor].removeAll { $0.seq == currentSeqHour }
+                rawHourlyData[flavor].append(HourBucket(seq: currentSeqHour, flow: fs))
             }
             chartCurReceived += 1
             if chartCurReceived >= 2 {
                 chartRetryTimer?.cancel()
+                if let m = current {
+                    m.usage = UsageReading(hourly: rawHourlyData, seqHour: currentSeqHour, readAt: Date())
+                    withAnimation { m.recomputeCharts() }
+                    directory.touch()
+                }
+                rawHourlyData = [[], []]
                 chartDataSynced = true
                 statsSynced = true
                 chartCurReceived = 0
@@ -1189,88 +1281,30 @@ class BLEManager {
             return
         }
 
+        // A pour as it happens: the hour under way, re-counted. A count lower
+        // than the one held is the next hour having begun.
         if prefix == "CHART_LIVE" {
-            if let fsStr = kvValues["FS"], let newFS = UInt32(fsStr) {
-                let delta = Double(newFS - chartBaseFlowSum[flavor]) * 0.05
-
-                var new24H = chartData24H
-                new24H[flavor][23] = chartBase24H_last[flavor] + delta
-
-                var new30D = chartData30D
-                new30D[flavor][29] = chartBase30D_last[flavor] + delta
-
-                var newHOD = chartDataHOD
-                newHOD[flavor][chartBaseHOD_hour] = chartBaseHOD_slot[flavor] + delta
-
-                let incr = newFS - lastLiveFS[flavor]
-                lastLiveFS[flavor] = newFS
-
-                withAnimation {
-                    chartData24H = new24H
-                    chartData30D = new30D
-                    chartDataHOD = newHOD
-                    if flavor == 0 {
-                        flavor1Stats.monthFlowSum += incr
-                    } else {
-                        flavor2Stats.monthFlowSum += incr
-                    }
+            guard let fsStr = kvValues["FS"], let fs = UInt32(fsStr),
+                  let m = current, m.usage.readAt != nil else { return }
+            var u = m.usage
+            if let i = u.hourly[flavor].firstIndex(where: { $0.seq == u.seqHour }) {
+                if fs < u.hourly[flavor][i].flow {
+                    u.seqHour += 1
+                    u.hourly[flavor].append(HourBucket(seq: u.seqHour, flow: fs))
+                } else {
+                    u.hourly[flavor][i].flow = fs
                 }
+            } else {
+                u.hourly[flavor].append(HourBucket(seq: u.seqHour, flow: fs))
             }
+            u.readAt = Date()
+            m.usage = u
+            withAnimation { m.recomputeCharts() }
+            directory.touch()
             return
         }
     }
 
-    private func computeChartsFromRaw(flavor: Int) {
-        let now = Date()
-        let calendar = Calendar.current
-        let startOfToday = calendar.startOfDay(for: now)
-
-        var arr24H = [Double](repeating: 0, count: 24)
-        var arr30D = [Double](repeating: 0, count: 30)
-        var arrHOD = [Double](repeating: 0, count: 24)
-        var daysWithData = Set<Int>()
-        var monthFlowSum: UInt32 = 0
-
-        for entry in rawHourlyData[flavor] {
-            let hoursAgo = Int(currentSeqHour) - Int(entry.seqHour)
-            guard hoursAgo >= 0 else { continue }
-            let bucketDate = now.addingTimeInterval(-Double(hoursAgo) * 3600)
-            let flowValue = Double(entry.flowSum) * 0.05
-
-            if hoursAgo < 24 {
-                arr24H[23 - hoursAgo] += flowValue
-            }
-
-            let bucketDay = calendar.startOfDay(for: bucketDate)
-            let daysAgo = calendar.dateComponents([.day], from: bucketDay, to: startOfToday).day ?? 999
-            if daysAgo >= 0, daysAgo < 30 {
-                arr30D[29 - daysAgo] += flowValue
-                daysWithData.insert(daysAgo)
-                monthFlowSum += entry.flowSum
-            }
-
-            if daysAgo >= 0, daysAgo < 30 {
-                let hourOfDay = calendar.component(.hour, from: bucketDate)
-                arrHOD[hourOfDay] += flowValue
-            }
-        }
-
-        chartDataHODDays = max(daysWithData.count, 1)
-
-        withAnimation {
-            chartData24H[flavor] = arr24H
-            chartData30D[flavor] = arr30D
-            chartDataHOD[flavor] = arrHOD
-            let stats = FlavorStats(monthFlowSum: monthFlowSum)
-            if flavor == 0 {
-                flavor1Stats = stats
-            } else {
-                flavor2Stats = stats
-            }
-        }
-
-        rawHourlyData[flavor] = []
-    }
 
     private func parseImageLine(_ text: String) {
         // Format: IMG:slot:label or IMG:slot:label:hexcrc
@@ -1290,73 +1324,38 @@ class BLEManager {
     }
 
     // MARK: - Image disk cache
-
-    private func imageCacheDir() -> URL? {
-        guard !connectedPeripheralUUID.isEmpty else { return nil }
-        let caches = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!
-        return caches.appendingPathComponent("images/\(connectedPeripheralUUID)")
-    }
+    // The prototype's store, kept on the record by slot with the crc the
+    // machine listed beside each one.
 
     private func saveImageToDisk(slot: Int, data: Data) {
-        guard let dir = imageCacheDir() else { return }
-        do {
-            try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
-            try data.write(to: dir.appendingPathComponent("slot_\(slot).png"))
-        } catch {
-            log.error("Failed to cache image \(slot) to disk: \(error.localizedDescription)")
-        }
-    }
-
-    private func loadImageFromDisk(slot: Int) -> UIImage? {
-        guard let dir = imageCacheDir() else { return nil }
-        let url = dir.appendingPathComponent("slot_\(slot).png")
-        guard let data = try? Data(contentsOf: url) else { return nil }
-        return UIImage(data: data)
+        current?.saveSlot(slot, data: data)
     }
 
     fileprivate func clearDiskCache() {
-        guard let dir = imageCacheDir() else { return }
-        try? FileManager.default.removeItem(at: dir)
-        clearPersistedCRCs()
-    }
-
-    private func crcDefaultsKey() -> String {
-        return "imageCRCs_\(connectedPeripheralUUID)"
-    }
-
-    private func loadPersistedCRCs() -> [Int: UInt32] {
-        guard !connectedPeripheralUUID.isEmpty else { return [:] }
-        guard let dict = UserDefaults.standard.dictionary(forKey: crcDefaultsKey()) else { return [:] }
-        var result: [Int: UInt32] = [:]
-        for (key, val) in dict {
-            if let slot = Int(key), let num = val as? NSNumber {
-                result[slot] = num.uint32Value
-            }
-        }
-        return result
+        current?.clearSlots()
+        directory.touch()
     }
 
     private func savePersistedCRC(slot: Int, crc: UInt32) {
-        guard !connectedPeripheralUUID.isEmpty else { return }
-        var dict = UserDefaults.standard.dictionary(forKey: crcDefaultsKey()) ?? [:]
-        dict["\(slot)"] = NSNumber(value: crc)
-        UserDefaults.standard.set(dict, forKey: crcDefaultsKey())
-    }
-
-    private func clearPersistedCRCs() {
-        guard !connectedPeripheralUUID.isEmpty else { return }
-        UserDefaults.standard.removeObject(forKey: crcDefaultsKey())
+        current?.config.imageCRCs[slot] = crc
+        directory.touch()
     }
 
     // MARK: - Internal
 
+    /// Listen for machines. While the phone has one to talk to and is not yet
+    /// talking to it, this is how it finds it; while a list is open, this is
+    /// how the list says what is in range.
     fileprivate func startScan() {
         guard let centralManager, centralManager.state == .poweredOn else { return }
+        let idle = connectionState != .connected && connectionState != .connecting
         DispatchQueue.main.async {
-            self.connectionState = .searching
-            self.configSynced = false
-            // Don't clear cachedImages here — disk cache + CRC comparison
-            // in downloadAllImages() handles stale data on reconnect
+            if idle {
+                self.connectionState = .searching
+                self.configSynced = false
+            }
+            self.discovered = []
+            self.lastRssiPush = [:]
         }
         // Duplicates on: RSSI is how a picker sorts, and a machine that moves
         // closer should climb the list rather than keep the reading it had when
@@ -1366,20 +1365,7 @@ class BLEManager {
         ])
         log.info("Scanning for machines...")
 
-        DispatchQueue.main.async {
-            self.discovered = []
-            self.lastRssiPush = [:]
-            self.chooserPending = true
-            self.scanStartedAt = Date()
-            // Repeating, because a machine that only starts advertising after
-            // the window closes still has to be decided about. It stops when
-            // the decision is made, or when the scan is torn down.
-            self.settleTimer?.invalidate()
-            self.settleTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) {
-                [weak self] _ in self?.decideFromScan()
-            }
-        }
-
+        guard idle else { return }
         DispatchQueue.main.async {
             self.scanTimer?.invalidate()
             self.scanTimer = Timer.scheduledTimer(withTimeInterval: scanTimeout, repeats: false) { [weak self] _ in
@@ -1390,79 +1376,57 @@ class BLEManager {
         }
     }
 
-    /// What the scan has found. The machine picked last time wins outright and
-    /// needs no window; anything else waits for one, so the second machine on
-    /// the bench is in the list before the question is asked.
-    fileprivate func decideFromScan() {
-        guard chooserPending, connectionState == .searching || connectionState == .searchingLong
-        else { return }
-
-        if let remembered = rememberedMachineID,
-           let match = discovered.first(where: { $0.id == remembered }) {
-            connect(to: match)
-            return
-        }
-        guard Date().timeIntervalSince(scanStartedAt) >= settleWindow else { return }
-        if discovered.count == 1 {
-            connect(to: discovered[0])
-        } else if discovered.count > 1 {
-            chooserPending = false
-            settleTimer?.invalidate()
-            connectionState = .choosing
-        }
-    }
-
-    /// Point the app at one machine. Everything the previous one filled in is
-    /// dropped, but its disk cache is not — the caches are per-peripheral, so
-    /// coming back finds what was there.
-    func connect(to machine: DiscoveredMachine) {
-        guard let centralManager,
-              let peripheral = centralManager.retrievePeripherals(withIdentifiers:
-                  [UUID(uuidString: machine.id)].compactMap { $0 }).first
-        else { return }
-
-        chooserPending = false
-        settleTimer?.invalidate()
-        centralManager.stopScan()
-
-        if !connectedPeripheralUUID.isEmpty && connectedPeripheralUUID != machine.id {
-            forgetConnectedState()
-        }
-        rememberedMachineID = machine.id
-        connectedMachine = machine
-        connectedPeripheralUUID = machine.id
-        connectedPeripheral = peripheral
-        connectionState = .connecting
-        centralManager.connect(peripheral, options: nil)
-    }
-
-    /// Go back to the list without forgetting what is on disk for either.
-    func chooseAnother() {
-        if let peripheral = connectedPeripheral {
-            userInitiatedDisconnect = true
-            centralManager?.cancelPeripheralConnection(peripheral)
-        }
-        connectedPeripheral = nil
-        rxCharacteristic = nil
-        nusReady = false
-        connectedMachine = nil
-        rememberedMachineID = nil
-        forgetConnectedState()
-        connectionState = .searching
+    /// A list that wants to know what is in range right now, whether or not
+    /// the radio is busy. Ends with the list.
+    func beginBrowsing() {
+        browsing = true
         startScan()
     }
 
-    /// The previous machine's answers, which do not describe this one.
-    fileprivate func forgetConnectedState() {
-        configSynced = false
-        statsSynced = false
-        chartDataSynced = false
-        cachedImages = [:]
-        imageNames = []
-        numImages = 0
-        s3Version = ""
-        espVersion = ""
-        rpVersion = ""
+    func endBrowsing() {
+        browsing = false
+        if connectionState == .connected || connectionState == .connecting || current == nil {
+            centralManager?.stopScan()
+        }
+    }
+
+    /// One sighting. The machine this phone is pointed at is connected to on
+    /// the spot; a known machine is noted as in range and takes whatever the
+    /// advertisement says that its record did not yet have.
+    fileprivate func noteSighting(_ seen: DiscoveredMachine) {
+        guard var known = directory.machine(matching: seen) else { return }
+        known.lastSeen = seen.lastSeen
+        if known.peripheralID != seen.id {
+            known.peripheralID = seen.id
+            directory.touch()
+        }
+        if known.unit.isEmpty, !seen.unit.isEmpty {
+            known = directory.introduce(known, unit: seen.unit, name: "")
+        }
+        if !seen.name.isEmpty, known.pendingName == nil, known.name != seen.name {
+            known.name = seen.name
+            directory.touch()
+        }
+        if let m = current, m.id == known.id,
+           connectionState == .searching || connectionState == .searchingLong {
+            connect(m, peripheralID: seen.id)
+        }
+    }
+
+    /// Open the link to the machine this phone is pointed at, whose peripheral
+    /// the radio has just heard.
+    fileprivate func connect(_ machine: KnownMachine, peripheralID: String) {
+        guard let centralManager,
+              let peripheral = centralManager.retrievePeripherals(withIdentifiers:
+                  [UUID(uuidString: peripheralID)].compactMap { $0 }).first
+        else { return }
+
+        scanTimer?.invalidate()
+        if !browsing { centralManager.stopScan() }
+        machine.peripheralID = peripheralID
+        connectedPeripheral = peripheral
+        connectionState = .connecting
+        centralManager.connect(peripheral, options: nil)
     }
 
     // ── The image push ───────────────────────────────────────────────────
@@ -1564,11 +1528,7 @@ class BLEManager {
         guard !otaQueue.isEmpty else {
             otaFetch = nil
             // The board that took the last image is rebooting, and it is the one
-            // this connection runs on. Hold the screen until it is back.
-            updateSettling = true
-            DispatchQueue.main.asyncAfter(deadline: .now() + 90) { [weak self] in
-                self?.updateSettling = false
-            }
+            // this connection runs on. The page stays; the link comes back.
             return
         }
         // The board that just took an image is rebooting into it, and on the far
@@ -1639,12 +1599,15 @@ class BLEManager {
         let unit = payload[(b + 1)..<(b + 4)].map { String(format: "%02X", $0) }.joined()
 
         DispatchQueue.main.async {
-            self.radioBoardVersion = version
-            if var m = self.connectedMachine {
-                if !name.isEmpty { m.name = name }
-                if !unit.isEmpty, unit != "000000" { m.unit = unit }
-                self.connectedMachine = m
-            }
+            guard let m = self.current else { return }
+            m.radioBoardVersion = version
+            // A name given while the machine was out of earshot stands until
+            // the machine says it back; what it says otherwise is what it is.
+            let pending = m.pendingName
+            let heard = pending == nil || pending == name ? name : ""
+            let said = self.directory.introduce(m, unit: unit == "000000" ? "" : unit, name: heard)
+            if pending != nil, pending == name { said.pendingName = nil }
+            self.directory.save()
         }
     }
 
@@ -1663,7 +1626,12 @@ class BLEManager {
             found.artCrc[board] = UInt32(payload[o + 25]) | (UInt32(payload[o + 26]) << 8)
                                 | (UInt32(payload[o + 27]) << 16) | (UInt32(payload[o + 28]) << 24)
         }
-        DispatchQueue.main.async { self.machineVersions = found }
+        DispatchQueue.main.async {
+            guard let m = self.current else { return }
+            m.versions = found
+            m.versionsReadAt = Date()
+            self.directory.touch()
+        }
     }
 
     fileprivate func scheduleReconnect() {
@@ -1725,10 +1693,10 @@ class BLEManager {
 
         imgDownloadRetries = 0
         let image = UIImage(data: imgData)
-        // Persist to disk cache
-        saveImageToDisk(slot: slot, data: imgData)
-        savePersistedCRC(slot: slot, crc: expectedCRC)
         DispatchQueue.main.async {
+            // Kept on the record, beside the crc the machine listed for it.
+            self.saveImageToDisk(slot: slot, data: imgData)
+            self.savePersistedCRC(slot: slot, crc: expectedCRC)
             if let image {
                 self.cachedImages[slot] = image
                 log.info("Image \(slot) cached (\(imgData.count) bytes, CRC verified)")
@@ -1771,10 +1739,17 @@ private class CBDelegateAdapter: NSObject, CBCentralManagerDelegate, CBPeriphera
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         log.debug("Central state: \(central.state.rawValue)")
         if central.state == .poweredOn {
-            ble.startScan()
+            DispatchQueue.main.async {
+                // The radio is up: turned toward whatever the phone is pointed
+                // at, and a list already open keeps looking too.
+                self.ble.radioOff = false
+                self.ble.point()
+                if self.ble.browsing { self.ble.startScan() }
+            }
         } else {
             DispatchQueue.main.async {
-                self.ble.connectionState = .bluetoothOff
+                self.ble.radioOff = true
+                if !self.ble.demoMode { self.ble.connectionState = .bluetoothOff }
             }
         }
     }
@@ -1809,24 +1784,23 @@ private class CBDelegateAdapter: NSObject, CBCentralManagerDelegate, CBPeriphera
                 // ORDER IS NOT RE-DERIVED HERE. Sorting on every reading makes
                 // rows trade places under a finger already on its way down.
                 self.ble.discovered[i] = entry
+                self.ble.noteSighting(entry)
             }
             return
         }
 
         DispatchQueue.main.async {
-            self.ble.scanTimer?.invalidate()
             guard !self.ble.discovered.contains(where: { $0.id == seen.id }) else { return }
             log.info("Found \(seen.displayName) at \(seen.rssi) dBm")
             self.ble.discovered.append(seen)
             self.ble.lastRssiPush[seen.id] = Date()
             // The set changed, so this is where the order is settled.
             self.ble.discovered.sort { $0.rssi > $1.rssi }
-            self.ble.decideFromScan()
+            self.ble.noteSighting(seen)
         }
     }
 
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
-        DispatchQueue.main.async { self.ble.updateSettling = false }
         log.info("Connected to \(peripheral.name ?? "device")")
         peripheral.delegate = self
         peripheral.discoverServices([nusServiceUUID])
@@ -1835,6 +1809,7 @@ private class CBDelegateAdapter: NSObject, CBCentralManagerDelegate, CBPeriphera
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
         log.error("Connection failed: \(error?.localizedDescription ?? "unknown")")
         ble.connectedPeripheral = nil
+        ble.userInitiatedDisconnect = false
         ble.scheduleReconnect()
     }
 
@@ -1908,21 +1883,29 @@ private class CBDelegateAdapter: NSObject, CBCentralManagerDelegate, CBPeriphera
         }
         if ble.rxCharacteristic != nil {
             ble.nusReady = true
-            DispatchQueue.main.async { self.ble.connectionState = .connected }
             log.info("NUS ready")
-            // GET_CONFIG and LIST are the rotary display's vocabulary, on the
-            // machine under the counter. An appliance answers neither, so it
-            // was being asked two questions it has no words for on every
-            // connection. What an appliance is asked instead is what pictures
-            // it holds, which is the screen someone opens the app for.
-            if ble.connectedMachine?.model == .prototype {
-                ble.send("GET_CONFIG")
-                ble.send("LIST")
-            } else {
-                ble.saidStanding = ""   // a new session reports its own conditions
-                ble.queryImageSlots()
-                let m = ble
-                DispatchQueue.main.async { m.startFacePump() }
+            let m = ble
+            DispatchQueue.main.async {
+                m.connectionState = .connected
+                if let machine = m.current {
+                    machine.lastConnected = Date()
+                    // A name given while the machine was out of earshot, now
+                    // that it is in it.
+                    if let name = machine.pendingName { m.send("IDENTITY \(name)") }
+                    m.directory.save()
+                }
+                // GET_CONFIG and LIST are the rotary display's vocabulary, on
+                // the machine under the counter. An appliance answers neither.
+                // What an appliance is asked instead is what pictures it
+                // holds, which is the screen someone opens the app for.
+                if m.current?.model == .prototype {
+                    m.send("GET_CONFIG")
+                    m.send("LIST")
+                } else {
+                    m.saidStanding = ""   // a new session reports its own conditions
+                    m.queryImageSlots()
+                    m.startFacePump()
+                }
             }
         }
     }
@@ -1948,6 +1931,9 @@ private class CBDelegateAdapter: NSObject, CBCentralManagerDelegate, CBPeriphera
     // "kept it" looks like from the outside.
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         guard error == nil, let value = characteristic.value, characteristic.uuid == nusTxUUID else { return }
+        // A frame from a machine this phone has turned away from would land on
+        // the record of the one it turned toward.
+        guard peripheral === ble.connectedPeripheral else { return }
         var frameBuffer = value
 
         // Parse all complete frames: [type(1B)][len(2B LE)][payload...]

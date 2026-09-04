@@ -23,7 +23,7 @@ struct FirmwareUpdateView: View {
     @State private var catalog = FirmwareCatalog()
     @State private var checking = false
 
-    private var model: MachineModel { ble.connectedMachine?.model ?? .unknown }
+    private var model: MachineModel { ble.current?.model ?? .unknown }
     private var published: [FirmwareImage] { catalog.manifest?.images(for: model) ?? [] }
     private var behind: [FirmwareImage] {
         published.filter { ble.machineVersions.needs($0, on: model) }
@@ -51,12 +51,13 @@ struct FirmwareUpdateView: View {
                       "Make sure your phone is online, then try again.")
                 checkButton()
             } else if !heardFrom {
-                state("Checking your machine", "")
-                checkButton()
+                state(ble.linked ? "Checking your machine" : "Waiting for your machine",
+                      ble.linked ? "" : "Bring your phone near it.")
+                if ble.linked { checkButton() }
             } else if behind.isEmpty {
                 state("Your machine is up to date",
                       running)
-                checkButton()
+                if ble.linked { checkButton() }
             } else {
                 available
             }
@@ -80,25 +81,34 @@ struct FirmwareUpdateView: View {
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 32)
 
-            Button {
-                ble.startUpdateAll(behind, on: model) { try await catalog.payload(for: $0) }
-            } label: {
-                Text("Update Now")
-                    .font(.system(size: 18, weight: .semibold))
-                    .foregroundStyle(.white)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 16)
-                    .background(Theme.accent)
-                    .cornerRadius(14)
-            }
-            .padding(.horizontal, 28)
-            .padding(.top, 8)
+            if ble.linked {
+                Button {
+                    ble.startUpdateAll(behind, on: model) { try await catalog.payload(for: $0) }
+                } label: {
+                    Text("Update Now")
+                        .font(.system(size: 18, weight: .semibold))
+                        .foregroundStyle(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 16)
+                        .background(Theme.accent)
+                        .cornerRadius(14)
+                }
+                .padding(.horizontal, 28)
+                .padding(.top, 8)
 
-            Text("Keep your phone near the machine. Do not unplug it.")
-                .font(.system(size: 12))
-                .foregroundStyle(Theme.textSecondary)
-                .multilineTextAlignment(.center)
-                .padding(.horizontal, 40)
+                Text("Keep your phone near the machine. Do not unplug it.")
+                    .font(.system(size: 12))
+                    .foregroundStyle(Theme.textSecondary)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 40)
+            } else {
+                Text("Bring your phone near the machine to install it.")
+                    .font(.system(size: 13))
+                    .foregroundStyle(Theme.textSecondary)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 40)
+                    .padding(.top, 8)
+            }
         }
     }
 
@@ -173,7 +183,11 @@ struct FirmwareUpdateView: View {
     private var running: String {
         let v = ble.machineVersions.byBoard.values.first { !$0.isEmpty } ?? ""
         let date = v.split(separator: " ").first.map(String.init) ?? ""
-        return date.isEmpty ? "" : "Installed \(date)"
+        var line = date.isEmpty ? "" : "Installed \(date)"
+        if !ble.linked, let t = ble.current?.versionsReadAt {
+            line += (line.isEmpty ? "" : "\n") + "As of \(said(t))"
+        }
+        return line
     }
 
     private func state(_ title: String, _ body: String) -> some View {
@@ -205,7 +219,7 @@ struct FirmwareUpdateView: View {
 
     private func check() async {
         checking = true
-        ble.send("IDENTITY")          // ask the machine to say what it is running
+        if ble.linked { ble.send("IDENTITY") }   // ask the machine to say what it is running
         await catalog.refresh()
         // Give the machine's answer the same beat the manifest took.
         try? await Task.sleep(nanoseconds: 900_000_000)

@@ -6,11 +6,14 @@ import SwiftUI
 // ConfigView is built around the prototype's vocabulary — image slots, ratios,
 // a rotary knob's worth of settings — and the appliance answers none of it. So
 // a machine that reports itself as an appliance gets this instead: what it is,
-// what it is running, and the one thing the phone can do to it.
+// whether the phone can hear it, what it is running, and the faces its flavors
+// wear. All of it is what the machine last said, so the page is the same page
+// from the next room.
 // ────────────────────────────────────────────────────────────
 
 struct ApplianceView: View {
     @Environment(BLEManager.self) var ble
+    let machine: KnownMachine
     @State private var inFirmware = false
     @State private var inMachines = false
     @State private var pickingFor: Int?
@@ -26,10 +29,14 @@ struct ApplianceView: View {
                     .frame(width: 160, height: 160)
                     .accessibilityHidden(true)
 
-                Text(ble.connectedMachine?.displayName ?? "Home Soda Machine")
+                Text(machine.displayName)
                     .font(.system(size: 22, weight: .medium))
                     .foregroundStyle(Theme.textPrimary)
                     .padding(.top, 20)
+                    .padding(.horizontal, 32)
+
+                LinkStatusView(machine: machine)
+                    .padding(.top, 6)
                     .padding(.horizontal, 32)
 
                 Spacer()
@@ -48,8 +55,7 @@ struct ApplianceView: View {
                 // Most people own one machine and never need this, so it is a
                 // line of text rather than a second button competing with the
                 // one thing this screen does.
-                Button("Not this machine?") {
-                    ble.chooseAnother()
+                Button("Your machines") {
                     inMachines = true
                 }
                 .font(.system(size: 14))
@@ -73,7 +79,7 @@ struct ApplianceView: View {
             }
         }
         .sheet(isPresented: $inMachines) {
-            MachinePickerView(onPick: { inMachines = false })
+            YourMachinesView()
                 .presentationBackground(Theme.background)
         }
     }

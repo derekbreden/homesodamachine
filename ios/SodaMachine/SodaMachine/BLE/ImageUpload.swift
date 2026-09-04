@@ -21,7 +21,7 @@ private let log = Logger(subsystem: "com.derekbreden.SodaMachine", category: "Im
 // the distance between them rather than the transfer.
 
 /// Which face each channel wears, as the main board holds it.
-struct FlavorArt: Equatable {
+struct FlavorArt: Codable, Equatable {
     var art: [Int] = [0, 1]
     var factory: Int = 4
     var custom: Int = 4
@@ -48,7 +48,7 @@ enum ImageFrame {
 }
 
 /// What the machine says it is holding.
-struct ImageSlots: Equatable {
+struct ImageSlots: Codable, Equatable {
     var count: Int = 0            // custom slots this machine has
     var occupancy: UInt8 = 0      // bit per slot, low slot first
     var bundleBytes: Int = 0
@@ -219,6 +219,7 @@ extension BLEManager {
 
         DispatchQueue.main.async {
             self.imageSlots = slots
+            self.current?.picturesReadAt = Date()
             log.info("slots \(slots.count) held \(slots.held) bundle \(slots.bundleBytes)")
             // The machine listing this picture's own crc32 in the slot it was
             // sent to is the picture having arrived, and outranks any frame
@@ -249,12 +250,7 @@ extension BLEManager {
     /// the traffic it was measuring. It speaks when it acts, or when something
     /// is wrong, and neither of those repeats on a quiet machine.
     func fetchMissingFaces() {
-        let unit = machineKey
-        guard !unit.isEmpty else {
-            log.error("no machine key yet; faces cannot be filed or fetched")
-            sayOnce("faces: no machine key, cannot fetch")
-            return
-        }
+        guard let m = current, linked else { return }
         for slot in 0..<imageSlots.count where imageSlots.isHeld(slot) {
             let crc = imageSlots.crc(of: slot)
             guard crc != 0 else {
@@ -262,9 +258,9 @@ extension BLEManager {
                 sayOnce("faces: slot \(slot) held but crc is 0")
                 continue
             }
-            if faces[crc] != nil { continue }
-            if let onDisk = PictureCache.load(unit: unit, crc: crc) {
-                faces[crc] = onDisk
+            if m.faces[crc] != nil { continue }
+            if let onDisk = m.loadFace(crc: crc) {
+                m.faces[crc] = onDisk
                 say("faces: slot \(slot) came off disk")
                 continue
             }
@@ -398,10 +394,9 @@ extension BLEManager {
         faceReceived = 0
         faceSlot = -1
         DispatchQueue.main.async {
-            let unit = self.machineKey
-            if !unit.isEmpty, let face = ImageBundle.decode(whole, ImageBundle.sizes[0]) {
-                PictureCache.save(face, unit: unit, crc: crc)
-                self.faces[crc] = face      // observable: this is what redraws the tile
+            if let m = self.current, let face = ImageBundle.decode(whole, ImageBundle.sizes[0]) {
+                m.saveFace(face, crc: crc)
+                m.faces[crc] = face         // observable: this is what redraws the tile
                 log.info("read back slot \(slot), \(total) bytes")
                 self.say("faces: slot \(slot) decoded, \(total) B")
                 self.saidStanding = ""      // the path works; a fault may be said again
@@ -457,7 +452,7 @@ extension BLEManager {
     /// A picture that did not arrive must not go on being shown.
     func forgetPreview(slot: Int) {
         guard let crc = pendingCrc[slot] else { return }
-        PictureCache.forget(unit: machineKey, crc: crc)
+        current?.forgetFace(crc: crc)
         faces[crc] = nil
         pendingCrc[slot] = nil
     }
@@ -486,7 +481,7 @@ extension BLEManager {
             DispatchQueue.main.async { self.imageUploadState = .failed(why) }
             return nil
         }
-        guard !demoMode, let slot = nextFreeSlot() else { return nil }
+        guard !demoMode, linked, let slot = nextFreeSlot() else { return nil }
         let item = QueuedImage(crop: crop, slot: slot, preview: preview)
         DispatchQueue.main.async {
             self.imageQueue.append(item)
@@ -561,10 +556,11 @@ extension BLEManager {
             // asked, so an upload and a read-back agree without meeting.
             let crc = crc32(bundle)
             self.pendingCrc[slot] = crc
-            let unit = self.machineKey
-            if !unit.isEmpty, let face = ImageBundle.face(of: bundle) {
-                PictureCache.save(face, unit: unit, crc: crc)
-                DispatchQueue.main.async { self.faces[crc] = face }
+            if let face = ImageBundle.face(of: bundle) {
+                DispatchQueue.main.async {
+                    self.current?.saveFace(face, crc: crc)
+                    self.faces[crc] = face
+                }
             }
 
             var payload = Data([UInt8(slot)])
@@ -618,7 +614,7 @@ extension BLEManager {
     /// Fill the link as far as it will take, then stop. iOS calls
     /// `peripheralIsReady` when it drains, which comes back here.
     func pumpImageFrames() {
-        guard let p = connectedPeripheral, let rx = rxCharacteristic, !imageBundle.isEmpty else { return }
+        guard let p = connectedPeripheral, rxCharacteristic != nil, !imageBundle.isEmpty else { return }
         let mtu = p.maximumWriteValueLength(for: .withoutResponse)
         let body = max(64, mtu - 3 - 4)          // our header, then the offset
 
