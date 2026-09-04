@@ -34,6 +34,7 @@ import ground_ring_stack as _gnd  # on the path once `enclosure_assembly` is imp
 import enclosure as _enc  # likewise
 import nameplate as _np  # likewise
 import digiten_flow_sensor as _digiten  # likewise — the arm the meter's anchors bore for
+import iec_c14_inlet as _c14  # likewise — the inlet whose flange the +Y wall's tunnel bores for
 
 # The placed pack, for the counts that are the machine's rather than a part's — off the
 # artifact the last build wrote, so this driver stands no appliance to count bosses.
@@ -262,6 +263,19 @@ display_cover_screws_per_build = display_cover_inserts_per_build
 pump_cap_inserts_per_build = len(_enc.cap_screw_ys(_f.box["inner"], _f.box["collet_plate"]))
 pump_cap_screws_per_build = pump_cap_inserts_per_build
 
+# The C14 inlet's two, read off the receptacle's own flange. `enclosure._c14_tunnel_geometry`
+# stands a TUNNEL off the +Y wall's inner face and bores ONE INSERT PER PANEL SCREW the moulding
+# declares, so this count is the donor's the way the shelf's is the pack's — a receptacle with a
+# different flange brings its own stations.
+#
+# THE CORD IS THE ONLY THING A CUSTOMER PLUGS INTO THIS MACHINE, and these two screws are what
+# hold the socket it plugs into. The tunnel is `c14_tunnel_len` — one `heatset_depth` — deep and
+# no deeper, because what stands over the insert's blind end is the wall the cord passes
+# through: a bore run further would open the outside of the appliance at the one station a hand
+# pushes against. So this pair is SHORT-BODY by construction and not by preference.
+c14_inserts_per_build = len(_c14.panel_screws())
+c14_screws_per_build = c14_inserts_per_build
+
 # THE COLLET PLATE'S OWN FIGURE, off `enclosure.plate_outline` and the hole row struck through
 # it. §8 sells a shop a plain rectangle and sends the bench to `collet-plate.dxf` to hold the
 # steel against, so what that row says about the shape is read here rather than typed there.
@@ -313,11 +327,12 @@ enclosure_seam_screws_per_build = len(_f.box["y_bosses"])
 # One insert per screw, pressed into the piece that screw lands in.
 enclosure_seam_inserts_per_build = enclosure_seam_screws_per_build
 
-# Every M3 × 8 in the build: the shelf's short ones, the condenser's aft pair, the nameplate's
-# and the display cover plate's.
+# Every M3 × 8 in the build: the shelf's short ones, the condenser's aft pair, the nameplate's,
+# the display cover plate's and the C14 inlet's. The inlet's two suit it for the same reason the
+# condenser's do — a 2 mm flange under the head and the tunnel's own bore past it.
 m3x8_per_build = (shelf_short_screws_per_build + cond_screws_per_build
                   + nameplate_screws_per_build + display_cover_screws_per_build
-                  + faucet_display_cover_screws_per_build)
+                  + faucet_display_cover_screws_per_build + c14_screws_per_build)
 
 # And every M3 x 10: the ground-stack clamp's one, the pump clamp's two, and the enclosure's four
 # seam screws.
@@ -354,6 +369,7 @@ m3_short_inserts_per_build = (
     + faucet_display_cover_inserts_per_build
     + pump_cap_inserts_per_build
     + enclosure_seam_inserts_per_build
+    + c14_inserts_per_build
 )
 
 # Combined heat-set insert count across the appliance, by thread.
@@ -375,6 +391,7 @@ total_m3_screws_per_build = (
     + faucet_display_cover_screws_per_build
     + pump_cap_screws_per_build
     + enclosure_seam_screws_per_build
+    + c14_screws_per_build
 )
 total_m5_screws_per_build = floor_screws_per_build
 for _thread, _inserts, _screws in (("M3", total_m3_inserts_per_build, total_m3_screws_per_build),
@@ -526,6 +543,8 @@ def main():
         "TOTAL_M3_INSERTS": f"{total_m3_inserts_per_build:.4g}",
         "M3_LONG_INSERTS": f"{m3_long_inserts_per_build:.4g}",
         "M3_SHORT_INSERTS": f"{m3_short_inserts_per_build:.4g}",
+        "C14_INSERTS": f"{c14_inserts_per_build:.4g}",
+        "C14_SCREWS": f"{c14_screws_per_build:.4g}",
         "TOTAL_M5_INSERTS": f"{total_m5_inserts_per_build:.4g}",
         # Vent filters.
         "VENT_FILTERS": f"{vent_filters_per_build:.4g}",

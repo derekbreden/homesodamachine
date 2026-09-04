@@ -40,7 +40,13 @@ test("the artifact lock pins every committed viewer scorecard", (t) => {
       `${rel} stays under hardware/`);
     assert.ok(fs.existsSync(full), `${rel} is committed beside its lock`);
     const actual = createHash("sha256").update(fs.readFileSync(full)).digest("hex");
-    assert.equal(actual, expected, `${rel} matches the lock`);
+    // A MISS HERE IS NOT WORK FOR THE READER. `.githooks/post-commit` runs publish_now.py
+    // detached after every commit, and that re-pins this hash — so a miss means the commit
+    // that moved the scorecard has not been made yet, or its publish is still in flight.
+    // Commit, or read .cache/publish-now.log. Running pack.py --write by hand races it.
+    assert.equal(actual, expected,
+      `${rel} does not match the lock — commit (the post-commit hook re-pins it) or check `
+      + `.cache/publish-now.log; do not run pack.py --write against a publish already running`);
   }
 });
 
