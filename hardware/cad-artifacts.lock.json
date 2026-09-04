@@ -2,8 +2,8 @@
   "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed \u2014 web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
   "release": {
     "tag": "cad-artifacts",
-    "asset": "cad-d0f9583af2381589.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-d0f9583af2381589.tar.gz",
+    "asset": "cad-f1e5a398abe89f10.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-f1e5a398abe89f10.tar.gz",
     "objects": "s-"
   },
   "source": {
@@ -139,8 +139,8 @@
     ]
   },
   "bundle": {
-    "sha256": "d0f9583af23815896b8da5a3bd7298a157c87e7f03f8c4afebb50d66a23c2fe6",
-    "bytes": 141722438,
+    "sha256": "f1e5a398abe89f10ae114f7854c31c351c2b9548647d9a70e5ae72d268ef4f53",
+    "bytes": 141722422,
     "solids": 337
   },
   "solids": {
@@ -265,7 +265,7 @@
     "hardware/printed-parts/cold-core/reservoir/reservoir-left.step": "33a4af615426b92e09cc3ab447c535471f5f8be85c616e4f020721599d35c58c",
     "hardware/printed-parts/cold-core/reservoir/reservoir-retaining-ring.step": "23856011fb6e446ad3bef29aa0943c14094707270cd4024bfc34cc43679d3048",
     "hardware/printed-parts/cold-core/reservoir/reservoir-right.step": "52c9a0ca00005c7b9cf3b7112b3a85b9bae2a6074bfffb622a03d13788e73955",
-    "hardware/printed-parts/collet-press/collet-press.step": "82060a468e8f3d31410f6d330fc3a4028fc1fde989095d972a1f31788e8ee9b6",
+    "hardware/printed-parts/collet-press/collet-press.step": "f8b07a77fbd2945f05234bc5c49030411d6ad51296ccd8d9eae431558801f785",
     "hardware/printed-parts/electronics/pcba-tray/pcba-assembly.step": "aa002f7e99e60de3e7d88b6762bcde2866cb8c229316bb96e6cab7c7d39effdc",
     "hardware/printed-parts/electronics/pcba-tray/pcba-board.step": "0d5f3259f3ee833f7a0611e6d4259ab280473b78999211665934ec4024f558a4",
     "hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.step": "ac9f5a1bbced592731dee201c71be7fdd1280c91cb8a08bbe5b208e219ce1622",
