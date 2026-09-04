@@ -53,18 +53,25 @@ body {
 
 .motion-halo {
   stroke: var(--field);
-  stroke-width: 26px;
+  stroke-width: 38px;
 }
 
 .motion-line {
   stroke: var(--motion);
-  stroke-width: 14px;
+  stroke-width: 22px;
 }
 
 .motion-head-halo {
   fill: var(--field);
   stroke: var(--field);
-  stroke-width: 10px;
+  stroke-width: 4px;
+  stroke-linejoin: round;
+}
+
+.motion-turn-head-halo {
+  fill: var(--field);
+  stroke: var(--field);
+  stroke-width: 16px;
   stroke-linejoin: round;
 }
 
@@ -84,8 +91,8 @@ body {
 }
 
 .cue-straight {
-  width: 200px;
-  height: 111px;
+  width: 250px;
+  height: 139px;
 }
 
 .cue-turn {
@@ -106,13 +113,12 @@ body {
 }
 
 .mount-tighten-cue {
-  --cue-x: 600px;
+  --cue-x: 650px;
   --cue-y: 455px;
 }
 
 .mount-story,
-.water-story,
-.tee-story {
+.water-story {
   display: grid;
   grid-template-columns: repeat(4, 1275px);
   column-gap: 100px;
@@ -157,7 +163,7 @@ body {
 
 .water-turn-cue {
   --cue-x: 610px;
-  --cue-y: 150px;
+  --cue-y: 95px;
   width: 440px;
   height: 159px;
 }
@@ -187,47 +193,40 @@ body {
   height: 710px;
 }
 
-.tee {
-  background-position: -128px -10px;
-  background-repeat: no-repeat;
-  background-size: 1700px 935px;
+.tee-story {
+  display: grid;
+  grid-template-columns: repeat(3, 1700px);
+  column-gap: 150px;
 }
 
-.tee-jumper { background-image: url("plumbing/modern/art/modern-tee-jumper.png"); }
-.tee-mounted { background-image: url("plumbing/modern/art/modern-tee-mounted.png"); }
-.tee-existing {
-  background-image: url("plumbing/modern/art/modern-tee-existing.png");
-  background-position-x: -255px;
+.tee {
+  background-position: center -105px;
+  background-repeat: no-repeat;
+  background-size: 1900px 1045px;
+}
+
+.tee-assembly-ready {
+  background-image: url("plumbing/modern/art/modern-tee-assembly-ready.png");
+}
+
+.tee-line-ready {
+  background-image: url("plumbing/modern/art/modern-tee-line-ready.png");
 }
 
 .tee-complete {
   background-image: url("plumbing/modern/art/modern-tee-complete.png");
-  background-position: -160px -8px;
-  background-size: 1550px 853px;
 }
 
-.tee-jumper-cue {
-  --cue-x: 325px;
-  --cue-y: 290px;
-  --cue-angle: 187deg;
+.tee-assembly-cue {
+  --cue-x: 960px;
+  --cue-y: 285px;
+  --cue-angle: 180deg;
 }
 
-.tee-mounted-cue {
-  --cue-x: 943px;
-  --cue-y: 442px;
-  --cue-angle: 187deg;
-}
-
-.tee-existing-cue {
-  --cue-x: 917px;
-  --cue-y: 408px;
-  --cue-angle: 187deg;
-}
-
-.tee-branch-cue {
-  --cue-x: 533px;
-  --cue-y: 479px;
-  --cue-angle: -90deg;
+.tee-line-cue {
+  --cue-x: 1410px;
+  --cue-y: 250px;
+  --cue-angle: 180deg;
 }
 
 .connect-story {

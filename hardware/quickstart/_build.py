@@ -60,9 +60,8 @@ PAGE_ASSETS = (
     HERE / "plumbing" / "modern" / "art" / "modern-water-off.png",
     HERE / "plumbing" / "modern" / "art" / "modern-release-ready.png",
     HERE / "plumbing" / "modern" / "art" / "modern-release-withdrawn.png",
-    HERE / "plumbing" / "modern" / "art" / "modern-tee-jumper.png",
-    HERE / "plumbing" / "modern" / "art" / "modern-tee-mounted.png",
-    HERE / "plumbing" / "modern" / "art" / "modern-tee-existing.png",
+    HERE / "plumbing" / "modern" / "art" / "modern-tee-assembly-ready.png",
+    HERE / "plumbing" / "modern" / "art" / "modern-tee-line-ready.png",
     HERE / "plumbing" / "modern" / "art" / "modern-tee-complete.png",
 )
 

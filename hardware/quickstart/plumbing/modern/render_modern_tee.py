@@ -7,10 +7,8 @@ opens a threaded or compression joint:
 1. turn the household quarter-turn shutoff from ON to OFF while the LLDPE and
    its PTC union remain connected;
 2. press the union's release collet and withdraw the existing LLDPE;
-3. push a short supplied jumper into that union;
-4. push one PP0208E tee onto the jumper;
-5. push the original household line into the tee's other run port;
-6. push the new appliance/filter branch into the tee, then tug-check it.
+3. push the supplied stub/tee/appliance-tube assembly into that union;
+4. push the original household line into the tee's open run port.
 
 Every visible fitting, tube, valve, and handle is literal CAD geometry.
 The wide shutoff pair, release trio, and cumulative tee sequence each retain a
@@ -72,10 +70,7 @@ TUBE_OD = PP0208_TUBE_OD
 TUBE_ID = 4.20
 AXIS_Z = 42.0
 UNION_X = -98.0
-TEE_X = -12.0
-TEE_STAGED_X = 15.0
 RELEASE_STARTED_GAP = 5.5
-TEE_FREE_X = 51.0
 SCENE_END = 420.0
 
 UNION_REACH = union_ref.reach()
@@ -83,6 +78,11 @@ UNION_INSERTION = union_ref.INSERTION
 UNION_RIGHT_FACE = UNION_X + UNION_REACH
 UNION_LEFT_FACE = UNION_X - UNION_REACH
 RELEASE_STARTED_X = UNION_RIGHT_FACE + RELEASE_STARTED_GAP
+ASSEMBLY_FACE_GAP = 8.0
+ASSEMBLY_STAGE_GAP = 16.0
+ORIGINAL_STAGE_GAP = 18.0
+TEE_X = UNION_RIGHT_FACE + ASSEMBLY_FACE_GAP + PP0208_REACH
+TEE_STAGED_X = TEE_X + UNION_INSERTION + ASSEMBLY_STAGE_GAP
 TEE_LEFT_FACE = TEE_X - PP0208_REACH
 TEE_RIGHT_FACE = TEE_X + PP0208_REACH
 TEE_BRANCH_FACE_Z = AXIS_Z - PP0208_REACH
@@ -115,7 +115,7 @@ class View:
 
 WATER_VIEW = View((1.05, -1.72, 0.72), (-25.0, 8.0, 105.0), 104.0)
 RELEASE_VIEW = View((0.58, -1.58, 0.66), (-77.8, 0.0, 42.0), 18.0)
-TEE_VIEW = View((0.62, -1.58, 0.72), (-25.0, 0.0, 12.0), 52.0)
+TEE_VIEW = View((0.12, -1.58, 0.72), (-55.0, 0.0, 12.0), 52.0)
 RENDER_SIZE = "2000x1100"
 # Transparent rendering still carries a nominal clear color.  Matching the
 # guide field keeps any browser-level edge RGB neutral, though alpha—not color
@@ -177,26 +177,36 @@ def _swept_round(points: list[cq.Vector], radius: float) -> cq.Shape:
     return cq.Workplane(plane).circle(radius).sweep(path, isFrenet=True).val()
 
 
-def _branch_points(start_z: float, *, y: float = 0.0) -> list[cq.Vector]:
+def _branch_points(
+    start_z: float,
+    *,
+    tee_x: float = TEE_X,
+    y: float = 0.0,
+) -> list[cq.Vector]:
     return [
-        cq.Vector(TEE_X, y, start_z),
-        cq.Vector(TEE_X, y, start_z - 18.0),
-        cq.Vector(TEE_X + 7.0, y, start_z - 31.0),
-        cq.Vector(TEE_X + 28.0, y, start_z - 47.0),
-        cq.Vector(TEE_X + 75.0, y, start_z - 65.0),
-        cq.Vector(TEE_X + 170.0, y, start_z - 93.0),
-        cq.Vector(TEE_X + 360.0, y, start_z - 132.0),
+        cq.Vector(tee_x, y, start_z),
+        cq.Vector(tee_x, y, start_z - 18.0),
+        cq.Vector(tee_x + 7.0, y, start_z - 31.0),
+        cq.Vector(tee_x + 28.0, y, start_z - 47.0),
+        cq.Vector(tee_x + 75.0, y, start_z - 65.0),
+        cq.Vector(tee_x + 170.0, y, start_z - 93.0),
+        cq.Vector(tee_x + 360.0, y, start_z - 132.0),
     ]
 
 
-def _branch(start_z: float, *, open_end: bool = False) -> cq.Shape:
-    outer = _swept_round(_branch_points(start_z), TUBE_OD / 2.0)
+def _branch(
+    start_z: float,
+    *,
+    tee_x: float = TEE_X,
+    open_end: bool = False,
+) -> cq.Shape:
+    outer = _swept_round(_branch_points(start_z, tee_x=tee_x), TUBE_OD / 2.0)
     if not open_end:
         return outer
     bore = _cylinder(
         TUBE_ID,
         8.2,
-        (TEE_X, 0.0, start_z + 0.2),
+        (tee_x, 0.0, start_z + 0.2),
         (0.0, 0.0, -1.0),
     )
     return outer.cut(bore)
@@ -305,8 +315,7 @@ def _pp0208e_bounds_hold() -> None:
             )
 
 
-def _add_tee(scene: cq.Assembly, *, installed: bool) -> None:
-    center_x = TEE_X if installed else TEE_STAGED_X
+def _add_tee(scene: cq.Assembly, *, center_x: float) -> None:
     body, collets = _pp0208e_parts((center_x, 0.0, AXIS_Z))
     _add(scene, body, "pp0208e-body", C_TEE_BODY)
     for index, collet in enumerate(collets, start=1):
@@ -379,8 +388,8 @@ def _add_original_line(scene: cq.Assembly, *, destination: str) -> None:
         start_x = TEE_RIGHT_FACE - PP0208_INSERTION
     elif destination == "release-started":
         start_x = RELEASE_STARTED_X
-    elif destination == "tee-free":
-        start_x = TEE_FREE_X
+    elif destination == "tee-staged":
+        start_x = TEE_RIGHT_FACE + ORIGINAL_STAGE_GAP
     else:
         raise ValueError(f"unknown original-line destination: {destination}")
     _add(
@@ -389,7 +398,7 @@ def _add_original_line(scene: cq.Assembly, *, destination: str) -> None:
         "existing-downstream-lldpe",
         C_WATER_WHITE,
     )
-    if destination.endswith("free"):
+    if destination == "tee-staged":
         _add(
             scene,
             _bore_witness((start_x, 0.0, AXIS_Z), (1.0, 0.0, 0.0)),
@@ -398,27 +407,51 @@ def _add_original_line(scene: cq.Assembly, *, destination: str) -> None:
         )
 
 
-def _add_jumper(scene: cq.Assembly) -> None:
-    start_x = UNION_RIGHT_FACE - UNION_INSERTION
-    stop_x = TEE_LEFT_FACE + PP0208_INSERTION
+def _add_assembly_stub(scene: cq.Assembly, *, tee_x: float, staged: bool) -> None:
+    tee_left_face = tee_x - PP0208_REACH
+    start_x = tee_left_face - ASSEMBLY_FACE_GAP - UNION_INSERTION
+    stop_x = tee_left_face + PP0208_INSERTION
     _add(
         scene,
         _tube((start_x, 0.0, AXIS_Z), (stop_x, 0.0, AXIS_Z)),
-        "supplied-lldpe-jumper",
+        "supplied-assembly-stub",
         C_WATER_WHITE,
     )
+    if staged:
+        _add(
+            scene,
+            _bore_witness((start_x, 0.0, AXIS_Z), (1.0, 0.0, 0.0)),
+            "supplied-stub-free-bore",
+            C_CUT_BORE,
+        )
+
+
+def _add_connected_branch(
+    scene: cq.Assembly,
+    *,
+    tee_x: float = TEE_X,
+    tugged: bool = False,
+) -> None:
+    insertion = PP0208_INSERTION - (3.2 if tugged else 0.0)
+    start_z = TEE_BRANCH_FACE_Z + insertion
     _add(
         scene,
-        _bore_witness((stop_x, 0.0, AXIS_Z), (-1.0, 0.0, 0.0)),
-        "jumper-free-bore",
-        C_CUT_BORE,
+        _branch(start_z, tee_x=tee_x),
+        "filter-to-appliance-branch",
+        C_WATER_WHITE,
     )
 
 
-def _add_connected_branch(scene: cq.Assembly, *, tugged: bool = False) -> None:
-    insertion = PP0208_INSERTION - (3.2 if tugged else 0.0)
-    start_z = TEE_BRANCH_FACE_Z + insertion
-    _add(scene, _branch(start_z), "filter-to-appliance-branch", C_WATER_WHITE)
+def _add_shipped_assembly(
+    scene: cq.Assembly,
+    *,
+    tee_x: float,
+    staged: bool,
+    branch_tugged: bool = False,
+) -> None:
+    _add_tee(scene, center_x=tee_x)
+    _add_assembly_stub(scene, tee_x=tee_x, staged=staged)
+    _add_connected_branch(scene, tee_x=tee_x, tugged=branch_tugged)
 
 
 def build_release_ready() -> cq.Assembly:
@@ -453,45 +486,35 @@ def _tee_scene(name: str) -> cq.Assembly:
     return scene
 
 
-def build_tee_jumper() -> cq.Assembly:
-    scene = _tee_scene("modern-tee-jumper")
-    _add_jumper(scene)
-    _add_tee(scene, installed=False)
-    _add_original_line(scene, destination="tee-free")
+def build_tee_assembly_ready() -> cq.Assembly:
+    scene = _tee_scene("modern-tee-assembly-ready")
+    _add_shipped_assembly(scene, tee_x=TEE_STAGED_X, staged=True)
     return scene
 
 
-def build_tee_mounted() -> cq.Assembly:
-    scene = _tee_scene("modern-tee-mounted")
-    _add_jumper(scene)
-    _add_tee(scene, installed=True)
-    _add_original_line(scene, destination="tee-free")
-    return scene
-
-
-def build_tee_existing() -> cq.Assembly:
-    scene = _tee_scene("modern-tee-existing")
-    _add_jumper(scene)
-    _add_tee(scene, installed=True)
-    _add_original_line(scene, destination="tee")
+def build_tee_line_ready() -> cq.Assembly:
+    scene = _tee_scene("modern-tee-line-ready")
+    _add_shipped_assembly(scene, tee_x=TEE_X, staged=False)
+    _add_original_line(scene, destination="tee-staged")
     return scene
 
 
 def build_tee_complete() -> cq.Assembly:
     scene = _tee_scene("modern-tee-complete")
-    _add_jumper(scene)
-    _add_tee(scene, installed=True)
+    _add_shipped_assembly(scene, tee_x=TEE_X, staged=False)
     _add_original_line(scene, destination="tee")
-    _add_connected_branch(scene)
     return scene
 
 
 def build_tee_tug_check() -> cq.Assembly:
     scene = _tee_scene("modern-tee-tug-check")
-    _add_jumper(scene)
-    _add_tee(scene, installed=True)
+    _add_shipped_assembly(
+        scene,
+        tee_x=TEE_X,
+        staged=False,
+        branch_tugged=True,
+    )
     _add_original_line(scene, destination="tee")
-    _add_connected_branch(scene, tugged=True)
     return scene
 
 
@@ -572,9 +595,8 @@ SCENES = (
     ("modern-release-ready", build_release_ready, RELEASE_VIEW),
     ("modern-release-pressed", build_release_pressed, RELEASE_VIEW),
     ("modern-release-withdrawn", build_release_withdrawn, RELEASE_VIEW),
-    ("modern-tee-jumper", build_tee_jumper, TEE_VIEW),
-    ("modern-tee-mounted", build_tee_mounted, TEE_VIEW),
-    ("modern-tee-existing", build_tee_existing, TEE_VIEW),
+    ("modern-tee-assembly-ready", build_tee_assembly_ready, TEE_VIEW),
+    ("modern-tee-line-ready", build_tee_line_ready, TEE_VIEW),
     ("modern-tee-complete", build_tee_complete, TEE_VIEW),
     ("modern-tee-tug-check", build_tee_tug_check, TEE_VIEW),
 )

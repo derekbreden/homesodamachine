@@ -1,27 +1,28 @@
 # Home Soda Machine installation quick start
 
 One single-sided, borderless 19 x 13 inch sheet publishes as `quick-start.pdf` on `/drawings`.
-Fourteen registered scenes carry the installation without headings, captions, step numbers or a
+Thirteen registered scenes carry the installation without headings, captions, step numbers or a
 separate legend:
 
 1. mount the complete factory faucet assembly;
 2. close the under-sink cold-water valve;
 3. release the existing 1/4-inch plastic tube from its push fitting;
-4. add one black push-fit tee with the supplied short tube;
+4. insert the supplied tube-and-tee assembly, then reconnect the released line;
 5. connect the five tubes and RJ11 signal lead to the appliance rear panel.
 
 The sheet is a four-row sequence on a full-bleed pale blue-grey field (`#dce7e9`). Motion arrows
-are the only marks added to the scenes. Straight arrows use one fixed-size flat glyph aligned to
-the projected travel axis. Rotation paths scale to the indicated object and follow a
-camera-projected ellipse; their heads are foreshortened in that same plane. Every cue keeps the
-same coral fill and field-colored halo. The field separates the white household tubing from the
-page and leaves the blue handle, black fittings and coral cues distinct.
+are the only marks added to the scenes. Straight arrows use one bold flat glyph aligned to the
+projected travel axis. Its head overlaps and extends beyond the shaft endpoint, eliminating any
+visible cap or seam. Rotation paths scale to the indicated object and continue around a
+camera-projected ellipse before reaching a broad head foreshortened in that same plane. Every cue
+keeps the same coral fill and field-colored halo. The field separates the white household tubing
+from the page and leaves the blue handle, black fittings and coral cues distinct.
 
 This edition follows the modern-home installation path: an existing 1/4-inch plastic cold-water
-line and push fitting under the sink. The installer releases one tube, adds one tee and one short
-piece of supplied tube, reconnects the original line, and pushes the new white branch into the
-third port. The white branch continues through the supplied filter before it reaches the appliance
-`TAP` inlet. No threaded fitting is opened during this path.
+line and push fitting under the sink. The installer releases one tube, inserts the supplied
+stub/tee/appliance-tube assembly into the existing coupler, and reconnects the original line to
+the tee's open port. The assembly's long white tube continues through the supplied filter before
+it reaches the appliance `TAP` inlet. No threaded fitting is opened during this path.
 
 ## Faucet mount
 
@@ -38,10 +39,10 @@ under-sink coordinate frame. The shutoff pair is cropped to the valve and its ha
 rotation cue on the open state and the closed state left unobstructed. The macro
 pair first shows the highlighted collet proud with opposing press and pull cues, then holds the
 collet visibly recessed while the original tube begins to move out, with the result unobstructed.
-The next row shows the
-supplied short tube seated, the tee seated on that tube, the original tube reconnected, and the
-filtered white branch seated in the third port. The loose branch does not appear before its
-insertion scene.
+The next row holds the supplied subassembly in normal T orientation in all three scenes: short stub
+to the left, original-line port to the right, and the long appliance tube downward. It first shows
+the complete subassembly approaching the existing coupler, then the installed subassembly with the
+original line approaching its open port, then both connections fully seated.
 
 The existing fitting uses the repository's measured John Guest PP0408W union geometry. Its source
 declares 1.335 mm physical collet travel and 16 mm tube insertion; the macro illustration uses a
