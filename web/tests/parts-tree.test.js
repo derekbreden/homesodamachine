@@ -17,7 +17,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 import {
-  ASSEMBLIES, PURCHASED, TOOLING, EXCLUDED_DIRS,
+  ASSEMBLIES, PURCHASED, INSTALL_KIT, TOOLING, EXCLUDED_DIRS,
   seatParts, walkAssemblies,
 } from "../contracts/parts-tree.js";
 import { walkFiles } from "../lib/walk.js";
@@ -131,10 +131,18 @@ test("tooling comes out of the directory an assembly otherwise sweeps whole", ()
   assert.deepEqual(names(byId(tree, "cold-core-assembly").inside), ["foam-shell"]);
 });
 
+test("a fabricated customer tool belongs to the delivered install kit", () => {
+  const tree = seatParts({
+    steps: ["printed-parts/collet-press/collet-press.step"],
+  });
+  assert.deepEqual(names(tree.installKit), ["collet-press"]);
+  assert.deepEqual(tree.tooling, []);
+  assert.deepEqual(tree.unseated, []);
+});
+
 test("standalone shop namespaces are tooling without per-project seating", () => {
   const tree = seatParts({
     steps: [
-      "printed-parts/collet-press/collet-press.step",
       "printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step",
       "printed-parts/fixtures/future-jig/future-jig.step",
       "printed-parts/shop-storage/jst-crimping/jst-crimping-tower.step",
@@ -142,8 +150,7 @@ test("standalone shop namespaces are tooling without per-project seating", () =>
     ],
   });
   assert.deepEqual(names(tree.tooling),
-    ["collet-press", "future-jig", "weld-rotator-assembly",
-     "future-job-kit", "jst-crimping-tower"]);
+    ["future-jig", "weld-rotator-assembly", "future-job-kit", "jst-crimping-tower"]);
   assert.deepEqual(tree.unseated, []);
 });
 
@@ -178,11 +185,12 @@ test("nothing in the hardware tree is unseated", (t) => {
     `place these in contracts/parts-tree.js: ${tree.unseated.join(", ")}`);
 
   // Every file is claimed by an assembly's model, by that assembly's own sweep,
-  // by the bought geometry, by the tooling, or by EXCLUDED_DIRS — the five paths
-  // out of the pool, and nothing may take a sixth.
+  // by the delivered install kit, bought geometry, tooling, or EXCLUDED_DIRS —
+  // the six paths out of the pool, and nothing may take a seventh.
   const claimed = new Set([
     ...flat(tree).flatMap((a) => (a.model ? a.model.kinds.map((k) => k.file) : [])),
     ...files(allInside(tree)),
+    ...files(tree.installKit),
     ...files(tree.purchased),
     ...files(tree.tooling),
   ]);
@@ -231,12 +239,13 @@ test("EXCLUDED_DIRS is every out/ .gitignore holds under hardware", () => {
 
 test("no two lists claim the same directory", () => {
   const held = walkAssemblies().flatMap((a) => a.holds || []);
-  const all = [...held, ...PURCHASED, ...TOOLING];
+  const all = [...held, ...PURCHASED, ...INSTALL_KIT, ...TOOLING];
   assert.equal(new Set(all).size, all.length, "a directory is named twice");
 
-  // Tooling stands inside directories an assembly sweeps; nothing else may.
+  // Tooling may stand inside directories an assembly sweeps; the install kit
+  // and purchased geometry stand outside every unit.
   const overlaps = (a, b) => a === b || a.startsWith(b + "/") || b.startsWith(a + "/");
-  for (const s of PURCHASED) {
+  for (const s of [...PURCHASED, ...INSTALL_KIT]) {
     for (const h of held) {
       assert.ok(!overlaps(s, h), `${s} and ${h} overlap`);
     }

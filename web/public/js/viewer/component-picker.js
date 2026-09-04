@@ -24,6 +24,7 @@ import { scene, camera, renderer } from "./scene.js";
 import { state } from "./state.js";
 import { setEdgePickEnabled, syncEdgeToggle, invalidateAllEdgesLayer } from "./edge-picker.js";
 import { sourceFileFor } from "/contracts/component-sources.js";
+import { relatedStepsForComponent } from "/contracts/related-steps.js";
 import { drillTo } from "./step-nav.js";
 import { makePanelCollapse } from "./tool-rail.js";
 
@@ -305,6 +306,18 @@ function buildPanel() {
 
   panel.appendChild(actions);
 
+  // An assembly-built tube has no source file to open, but the related-model
+  // contract can still offer the customer tool made for that tube.
+  const relatedBtn = document.createElement("button");
+  relatedBtn.type = "button";
+  relatedBtn.className = "edge-panel-all component-open component-related";
+  relatedBtn.addEventListener("click", () => {
+    const related = selection && relatedStepsForComponent(selection, state.allFiles)[0];
+    if (related) drillTo(related.file);
+  });
+  panel.appendChild(relatedBtn);
+  panel._relatedBtn = relatedBtn;
+
   const holds = document.createElement("div");
   holds.className = "component-holds";
   panel.appendChild(holds);
@@ -368,10 +381,10 @@ function showPanel() {
   panel._hideBtn.textContent = already ? "Already hidden"
     : inside.length ? `Hide ${leafOf(selection)} (${inside.length})` : "Hide component";
 
-  // The assembly builds its own tubing and valve bodies, and there is nowhere
-  // to go from one of those — so the offer is only on screen when it leads
-  // somewhere (contracts/component-sources.js). The file already on screen is
-  // nowhere too: an assembly's own root name resolves to the assembly.
+  // The assembly builds its own tubing and valve bodies, so they have no source
+  // STEP to open. The offer is only on screen when the selected component has a
+  // different source model (contracts/component-sources.js). The file already
+  // on screen is nowhere too: an assembly's own root name resolves to itself.
   const source = selection ? sourceFileFor(selection, state.allFiles) : null;
   const goes = source && source !== mountedFile() ? source : null;
   panel._openBtn.style.display = goes ? "block" : "none";
@@ -382,6 +395,14 @@ function showPanel() {
   panel._openBtn.textContent = goes && stemOf(goes) !== selection
     ? `Open ${stemOf(goes)}` : "Open part";
   panel._openBtn.title = goes ? `Open ${goes}` : "";
+
+  // A relation is different from a source. On a 1/4-inch tube this names the
+  // supplied collet press even though the tube itself exists only in this
+  // assembly STEP.
+  const related = selection ? relatedStepsForComponent(selection, state.allFiles)[0] : null;
+  panel._relatedBtn.style.display = related ? "block" : "none";
+  panel._relatedBtn.textContent = related ? `Open ${stemOf(related.file)}` : "";
+  panel._relatedBtn.title = related ? `Used with: ${related.file}` : "";
 
   // WHAT STANDS INSIDE IT. Picking the core in the appliance is picking one thing; this is
   // how the 62 it holds are reached without hunting for them in the model. Nothing here is
@@ -507,4 +528,3 @@ window.addEventListener(HSM_EVENTS.STEP_TOOL, (e) => {
     if (toggleRefresh) toggleRefresh();
   }
 });
-

@@ -15,6 +15,12 @@
 // It also offers the other models in a part's own directory, which is how the
 // reed bridge reaches its setting gauge.
 //
+// AN ASSEMBLY-BUILT TUBE HAS NO FILE OF ITS OWN, but it can still lead to the
+// customer tool made for it. `relatedStepsForComponent` recognises the named
+// 1/4-inch LLDPE bodies in the enclosure, cold core and faucet assemblies and
+// offers the collet press. This is a relation, not a source claim: the tube was
+// modelled in its assembly, while the button opens a different useful model.
+//
 // THIS IS A CONVENTION AND NOT A DECLARATION. A mold parked somewhere that does
 // not name the part it casts is a mold this cannot find, and nothing here will
 // say so — web/tests/related-steps.test.js holds every `-mold` directory in the
@@ -54,8 +60,37 @@ export const FIXTURES = {
   ],
 };
 
+export const COLLET_PRESS = "printed-parts/collet-press/collet-press.step";
+
+// The assembly-only tube names that are 1/4-inch OD and meet push-connect
+// collets. Refrigerant copper, the 3/8-inch tube inside the faucet, foam and the
+// atmospheric PRV vent are deliberately absent: this jaw does not fit them.
+const COLLET_PRESS_TUBES = [
+  /^tube-(?:carb|co2|customer|fluid|water)-/,
+  /^(?:turn|step)-fluid-/,
+  /^line-(?:carb-water-out|co2-in|reservoir-[ab](?:-fill)?|water-in)$/,
+  /^flavor_tube_(?:neg|pos)_x$/,
+  /^soda_umbilical_tube$/,
+];
+
 export const label = (file) =>
   file.slice(file.lastIndexOf("/") + 1).replace(/\.step$/i, "");
+
+/**
+ * Models useful with a named assembly component that has no STEP of its own.
+ *
+ * @param {string} name       assembly component name, optionally below a node
+ * @param {string[]} allFiles every STEP path the site knows
+ * @returns {{file: string, kind: "used-with"}[]}
+ */
+export function relatedStepsForComponent(name, allFiles) {
+  if (!name || !Array.isArray(allFiles)) return [];
+  const leaf = String(name).slice(String(name).lastIndexOf("/") + 1);
+  if (!COLLET_PRESS_TUBES.some((pattern) => pattern.test(leaf))) return [];
+  return allFiles.includes(COLLET_PRESS)
+    ? [{ file: COLLET_PRESS, kind: "used-with" }]
+    : [];
+}
 
 /**
  * The models related to `file`, nearest kind first.
@@ -108,6 +143,7 @@ export function relatedSteps(file, allFiles, exclude = []) {
 // related-nav.js walks these keys, so a kind added here draws itself and a kind
 // added without a caption draws nothing.
 export const KIND_CAPTIONS = {
+  "used-with": "Used with",
   beside: "Beside it",
   from: "Made for it",
   of: "Casts",
