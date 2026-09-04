@@ -56,8 +56,8 @@ MATERIALS = {
 }
 
 # WHAT A PRINT LAYS, by print configuration — (shell per face mm, line width mm,
-# sparse infill fraction). Five configurations, one per plate the build actually
-# runs, each read off a committed slice named beside it. The same five
+# sparse infill fraction). Six configurations, one per plate the build actually
+# runs, each read off a committed slice named beside it. The same six
 # `_machine_time.py` prices in hours, off the GROUP_OF list below.
 #
 #     wall = 2V/A                        the mean wall the solid presents
@@ -98,6 +98,10 @@ PROFILES = {
     # No slice of its own. A part this small is nearly all perimeter whatever it is
     # sliced at, so it carries the exterior's figures and lands near solid anyway.
     "small": (0.87, 0.45, 0.15),
+    # collet-press/README.md — 0.4 nozzle, 0.24 layer, at least 6 walls and a
+    # dense core. Until its first committed slice, bill the specified core as
+    # solid; on this thin tool the result is its geometry.
+    "tool":  (2.70, 0.45, 1.00),
 }
 
 #: What gap fill lays in a wall too thin to tile with whole beads, as a fraction of
@@ -172,6 +176,9 @@ PARTS = {
         "faucet/tube-collar/tube-collar-flavor-b.step",
         "faucet/tube-collar/tube-collar-co2.step",
     ],
+    "Collet press — install-kit customer tool": [
+        "collet-press/collet-press.step",
+    ],
     # ONE ROW AND ONE FILE, holding both bodies the way a bulkhead ring's does: the plate, and the
     # lettering standing in the recess cut into it. The file is unit 0001's; every unit's is the
     # same plate with four different figures in it, so one mass prices the run.
@@ -221,6 +228,7 @@ GROUP_OF = [
     ("Fuse clamp",                  "small"),
     ("Bulkhead ring",               "small"),
     ("Tube collar",                 "small"),
+    ("Collet press",                "tool"),
     ("Nameplate",                   "small"),
 ]
 

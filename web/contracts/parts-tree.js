@@ -27,14 +27,16 @@
 // trail back (contracts/component-sources.js, viewer/component-picker.js,
 // viewer/step-nav.js). That drill recurses — an assembly reached this way offers
 // its own components the same way — so depth is a property of the model, not a
-// limit of the page. The page itself lists no part and no purchased geometry.
+// limit of the page. The page itself lists no installed part, loose install-kit
+// part, or purchased geometry.
 //
 // EVERY FILE THE WALKERS OFFER IS CLAIMED. An assembly's `holds` names the
-// directories it places from, `PURCHASED` takes the bought bodies, and `TOOLING`
-// takes what makes the machine without being part of it. A directory in
-// none of them comes back in `unseated`, which the page names. Nothing below the
-// two cards is drawn, so what those three lists produce is read by the gate and
-// by nothing else.
+// directories it places from, `PURCHASED` takes the bought bodies, `INSTALL_KIT`
+// takes fabricated tools delivered loose to the customer, and `TOOLING` takes
+// what makes the machine without being part of it. A directory in none of them
+// comes back in `unseated`, which the page names. Nothing below the two cards is
+// drawn, so what those classifications produce is read by the gate and by
+// nothing else.
 //
 // A PART IS A NAME, NOT A FILE. `endcap-circular-2hole` is a `.step` solid and the
 // `.dxf` the laser reads, and it is one part with two representations, so
@@ -139,17 +141,22 @@ export const PURCHASED = [
   "reference",
 ];
 
+// FABRICATED, SHIPPED, AND KEPT BY THE CUSTOMER — loose parts of the install kit,
+// rather than bodies installed in either appliance unit or equipment used only at
+// the factory bench.
+export const INSTALL_KIT = [
+  "printed-parts/collet-press",
+];
+
 // MADE IN ORDER TO MAKE THE MACHINE, OR A PICTURE OF IT — never part of it. The
 // fixtures and shop-storage namespaces are bench tooling by definition, so adding
 // another fixture or job kit does not demand a fictitious seat in the appliance.
-// Standalone tools, and moulds, mandrels and gauges that live beside their host,
-// remain named here because their path alone does not distinguish them from product
-// parts. Bench scenes are pictures of groups of bodies rather than bodies. Claimed
-// ahead of the sweep, so a tooling directory standing inside a part directory comes
-// out of it.
+// Moulds, mandrels and gauges that live beside their host remain named here because
+// their path alone does not distinguish them from product parts. Bench scenes are
+// pictures of groups of bodies rather than bodies. Claimed ahead of the sweep, so
+// a tooling directory standing inside a part directory comes out of it.
 export const TOOLING = [
   "assembly/scenes/glb",
-  "printed-parts/collet-press",
   "printed-parts/fixtures",
   "printed-parts/shop-storage",
   "printed-parts/cold-core/coil-mandrel",
@@ -212,11 +219,11 @@ export function walkAssemblies(nodes = ASSEMBLIES) {
  * Seat every file the walkers offer into the tree.
  *
  * @param {{steps: string[], dxfs: string[], glbs: string[]}} files root-relative paths
- * @returns {{assemblies: Object[], purchased: Object[], tooling: Object[], unseated: string[]}}
+ * @returns {{assemblies: Object[], installKit: Object[], purchased: Object[], tooling: Object[], unseated: string[]}}
  *   `assemblies` is the nesting `ASSEMBLIES` states, each node carrying the
  *   `model` part the page draws, the `inside` its own `holds` claimed, and its
- *   `children` seated the same way. `purchased` and `tooling` are what no one
- *   assembly owns. None of the three is drawn — the page is the two roots.
+ *   `children` seated the same way. `installKit`, `purchased`, and `tooling` are
+ *   what no one assembly owns. None is drawn — the page is the two roots.
  *   `unseated` names every directory holding a file nothing claims, which the
  *   page shows rather than swallows.
  */
@@ -236,11 +243,13 @@ export function seatParts({ steps = [], dxfs = [], glbs = [] } = {}) {
 
   // Order is the whole of the seating. Every model first, innermost included, so
   // an assembly's own file is its card and not a part of the directory it shares
-  // with its parent; then the tooling, which stands inside directories an
-  // assembly otherwise sweeps whole; then each assembly's own sweep, innermost
-  // first; and last the bought geometry, which is what is left.
+  // with its parent; then delivered tools and bench tooling, which stand apart
+  // from or inside directories an assembly otherwise sweeps whole; then each
+  // assembly's own sweep, innermost first; and last the bought geometry, which
+  // is what is left.
   const models = new Map();
   for (const a of walkAssemblies()) models.set(a.id, claim([a.model])[0] || null);
+  const installKit = claim(INSTALL_KIT);
   const tooling = claim(TOOLING);
 
   // A CHILD SWEEPS BEFORE ITS PARENT, so a parent holding a directory a child
@@ -256,5 +265,5 @@ export function seatParts({ steps = [], dxfs = [], glbs = [] } = {}) {
     pool.filter((e) => !taken.has(e.file)).map((e) => dirOf(e.file)),
   )].sort();
 
-  return { assemblies, purchased, tooling, unseated };
+  return { assemblies, installKit, purchased, tooling, unseated };
 }

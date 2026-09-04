@@ -58,6 +58,12 @@ Drop the slot sideways over the tube, bring the jaw face flat against the
 collet, and push the handle toward the fitting while pulling the tube free.
 Depressurize the line before disconnecting it.
 
+In [`/3d`](https://homesodamachine.com/3d), arm **Select → Component** and
+select any modeled 1/4-inch LLDPE tube. Its component panel offers **Open
+collet-press**, preserving the assembly in the breadcrumb while it opens this
+tool's STEP. The relation excludes the 3/8-inch faucet tube, refrigerant copper,
+foam, and the atmospheric PRV vent because this jaw does not fit them.
+
 ## Regenerate
 
 ```sh
