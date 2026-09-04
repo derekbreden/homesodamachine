@@ -54,29 +54,39 @@ JAW_DEPTH = JAW_MOUTH_U - (JAW_ROOT_U - JAW_RADIUS)
 
 HEAD_ANGLE = 45.0
 HEAD_THICKNESS = 7.20       # 30 layers at 0.24 mm; 60 at 0.12 mm
-HEAD_BACK_U = -16.0
-HEAD_FRONT_U = JAW_MOUTH_U
+HEAD_WIDTH = 22.0
+ARM_WIDTH = (HEAD_WIDTH - JAW_GAP) / 2.0
+TIP_RADIUS = 2.0
+HEAD_BACK_LAND = ARM_WIDTH
+HEAD_BACK_U = JAW_ROOT_U - JAW_RADIUS - HEAD_BACK_LAND
+# The straight inner edges reach the tube tangent at JAW_MOUTH_U.  The two
+# rounded noses carry on by exactly their fillet radius.
+HEAD_FRONT_U = JAW_MOUTH_U + TIP_RADIUS
 HEAD_LENGTH = HEAD_FRONT_U - HEAD_BACK_U
-HEAD_WIDTH = 28.0
-HEAD_CORNER_RADIUS = 5.0
 HEAD_CENTER_U = (HEAD_BACK_U + HEAD_FRONT_U) / 2.0
-
-NECK_U_MIN = -32.0
-NECK_U_MAX = -8.0
-NECK_LENGTH = NECK_U_MAX - NECK_U_MIN
-NECK_WIDTH = 24.0
-NECK_CORNER_RADIUS = 4.0
-NECK_CENTER_U = (NECK_U_MIN + NECK_U_MAX) / 2.0
-HEAD_U_MIN = NECK_U_MIN
-HEAD_Z_SHIFT = -HEAD_U_MIN * math.sin(math.radians(HEAD_ANGLE))
 
 # Length of the handle's bottom bed edge before its front rises at 45°.
 HANDLE_LENGTH = 96.0
-HANDLE_WIDTH = 24.0
-HANDLE_THICKNESS = 7.20
+HANDLE_WIDTH = 20.0
+HANDLE_THICKNESS = HEAD_THICKNESS
 HANDLE_CORNER_RADIUS = 8.0
-HANDLE_FRONT_BED_X = -HEAD_Z_SHIFT
-HANDLE_FRONT_TOP_X = HANDLE_FRONT_BED_X + HANDLE_THICKNESS
+# Enough overlap for a broad fused root, while the head's underside clears the
+# tube slot before that slot begins.
+ROOT_BURY = 4.80
+HEAD_REAR_LOWER_Z = HANDLE_THICKNESS - ROOT_BURY
+HEAD_Z_SHIFT = (
+    HEAD_REAR_LOWER_Z
+    - HEAD_BACK_U * math.sin(math.radians(HEAD_ANGLE))
+)
+
+
+def _head_underside_x(z: float) -> float:
+    """World X of the head's lower face at world height ``z``."""
+    return (z - HEAD_Z_SHIFT) / math.tan(math.radians(HEAD_ANGLE))
+
+
+HANDLE_FRONT_BED_X = _head_underside_x(0.0)
+HANDLE_FRONT_TOP_X = _head_underside_x(HANDLE_THICKNESS)
 HANDLE_REAR_X = HANDLE_FRONT_BED_X - HANDLE_LENGTH
 
 
@@ -112,14 +122,16 @@ def build_handle() -> cq.Workplane:
         HANDLE_CORNER_RADIUS,
         (HANDLE_REAR_X + raw_front) / 2.0,
     )
+    clip_low_z = -1.0
+    clip_high_z = HANDLE_THICKNESS + 1.0
     clip = (
         cq.Workplane("XZ")
         .polyline(
             [
-                (HANDLE_REAR_X - 2.0, -1.0),
-                (HANDLE_FRONT_BED_X - 1.0, -1.0),
-                (HANDLE_FRONT_TOP_X + 1.0, HANDLE_THICKNESS + 1.0),
-                (HANDLE_REAR_X - 2.0, HANDLE_THICKNESS + 1.0),
+                (HANDLE_REAR_X - 2.0, clip_low_z),
+                (_head_underside_x(clip_low_z), clip_low_z),
+                (_head_underside_x(clip_high_z), clip_high_z),
+                (HANDLE_REAR_X - 2.0, clip_high_z),
             ]
         )
         .close()
@@ -130,21 +142,12 @@ def build_handle() -> cq.Workplane:
 
 def build_head_local() -> cq.Workplane:
     """The U-head before its local U/Y/W frame is tilted into world XYZ."""
-    crown = _rounded_prism(
-        HEAD_LENGTH,
-        HEAD_WIDTH,
-        HEAD_THICKNESS,
-        HEAD_CORNER_RADIUS,
-        HEAD_CENTER_U,
+    outer = (
+        cq.Workplane("XY")
+        .center(HEAD_CENTER_U, 0.0)
+        .rect(HEAD_LENGTH, HEAD_WIDTH)
+        .extrude(HEAD_THICKNESS)
     )
-    neck = _rounded_prism(
-        NECK_LENGTH,
-        NECK_WIDTH,
-        HEAD_THICKNESS,
-        NECK_CORNER_RADIUS,
-        NECK_CENTER_U,
-    )
-    outer = crown.union(neck).clean()
 
     # Rectangle open to +U plus a circular root: a true constant-width U-slot,
     # not a V-notch.  The extra W at both ends guarantees a through-cut.
@@ -162,7 +165,30 @@ def build_head_local() -> cq.Workplane:
         .workplane(offset=-1.0)
         .extrude(HEAD_THICKNESS + 2.0)
     )
-    return outer.cut(slot_straight.union(slot_root)).clean()
+    sharp = outer.cut(slot_straight.union(slot_root)).clean()
+
+    # Round the four outside corners and both open-mouth corners, but leave the
+    # semicircular root's two tangent seams alone.  At the mouth, the 2 mm
+    # fillets begin exactly at JAW_MOUTH_U, preserving one full tube diameter
+    # of non-rounded U before the noses turn away.
+    end_edges = [
+        edge
+        for edge in sharp.edges("|Z").vals()
+        if (
+            abs(edge.Center().x - HEAD_BACK_U) < 1e-6
+            or abs(edge.Center().x - HEAD_FRONT_U) < 1e-6
+        )
+    ]
+    return sharp.newObject(end_edges).fillet(TIP_RADIUS).clean()
+
+
+def _place_head(local: cq.Workplane) -> cq.Workplane:
+    """Carry head-local U/Y/W geometry into the print-oriented world frame."""
+    return (
+        local
+        .rotate((0.0, 0.0, 0.0), (0.0, 1.0, 0.0), -HEAD_ANGLE)
+        .translate((0.0, 0.0, HEAD_Z_SHIFT))
+    )
 
 
 def build_head() -> cq.Workplane:
@@ -170,11 +196,7 @@ def build_head() -> cq.Workplane:
     # CadQuery's -Y rotation maps +U toward both +X and +Z.  This shift puts
     # the neck's lowest rear edge exactly on Z=0; most of that rear length is
     # buried in the handle, leaving a wide fused root before the head emerges.
-    return (
-        build_head_local()
-        .rotate((0.0, 0.0, 0.0), (0.0, 1.0, 0.0), -HEAD_ANGLE)
-        .translate((0.0, 0.0, HEAD_Z_SHIFT))
-    )
+    return _place_head(build_head_local())
 
 
 def build() -> cq.Workplane:
@@ -190,8 +212,10 @@ def build() -> cq.Workplane:
         )
     if not math.isclose(JAW_DEPTH, JAW_GAP, abs_tol=1e-9):
         raise ValueError("U depth must remain exactly one jaw diameter")
-    if not math.isclose(HEAD_FRONT_U, JAW_MOUTH_U, abs_tol=1e-9):
-        raise ValueError("fork arms must end with the U mouth")
+    if not math.isclose(HEAD_FRONT_U - JAW_MOUTH_U, TIP_RADIUS, abs_tol=1e-9):
+        raise ValueError("rounded noses must start after one full jaw diameter")
+    if not math.isclose(HEAD_BACK_LAND, ARM_WIDTH, abs_tol=1e-9):
+        raise ValueError("angled head must stop one arm width behind the U")
 
     tool = handle.union(build_head()).clean()
 
@@ -206,6 +230,22 @@ def build() -> cq.Workplane:
     jaw_cover = (jg.COLLET_D - JAW_GAP) / 2.0
     if jaw_cover < jg.COLLET_WALL:
         raise ValueError("jaw arms do not span the measured collet's radial wall")
+
+    tube_local = (
+        cq.Workplane("XY")
+        .center(JAW_ROOT_U, 0.0)
+        .circle(jg.PORT_D / 2.0)
+        .workplane(offset=-2.0)
+        .extrude(HEAD_THICKNESS + 4.0)
+    )
+    tube_interference = sum(
+        solid.Volume()
+        for solid in tool.intersect(_place_head(tube_local)).solids().vals()
+    )
+    if tube_interference > 1e-6:
+        raise ValueError(
+            f"handle or head fills {tube_interference:.6f} mm³ of the tube path"
+        )
     return tool
 
 
@@ -238,6 +278,10 @@ def main() -> None:
         "TUBE_D": f"{jg.PORT_D:.2f} mm",
         "JAW_GAP": f"{JAW_GAP:.2f} mm",
         "JAW_DEPTH": f"{JAW_DEPTH:.2f} mm",
+        "ARM_W": f"{ARM_WIDTH:.3f} mm",
+        "TIP_R": f"{TIP_RADIUS:.1f} mm",
+        "HEAD_BACK_LAND": f"{HEAD_BACK_LAND:.3f} mm",
+        "ROOT_BURY": f"{ROOT_BURY:.2f} mm",
         "TUBE_CLEARANCE": f"{JAW_GAP - jg.PORT_D:.2f} mm",
         "COLLET_D": f"{jg.COLLET_D:.2f} mm",
         "COLLET_BORE": f"{jg.COLLET_BORE:.2f} mm",
