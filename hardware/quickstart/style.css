@@ -1,3 +1,11 @@
+@font-face {
+  font-family: "IBM Plex Sans";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: block;
+  src: url("../assembly/cards/fonts/IBMPlexSans-400-700-normal-latin.woff2") format("woff2");
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -7,6 +15,7 @@
 :root {
   --field: #dce7e9;
   --motion: #e64f5c;
+  --ink: #1a1a2e;
 }
 
 html,
@@ -14,7 +23,7 @@ body {
   width: 5700px;
   height: 3900px;
   overflow: hidden;
-  background: var(--field);
+  background: #fff;
 }
 
 .sheet {
@@ -22,11 +31,139 @@ body {
   width: 5700px;
   height: 3900px;
   overflow: hidden;
+  background: #fff;
+}
+
+.clockwork-fields,
+.clockwork-numbers {
+  position: absolute;
+  inset: 0;
+}
+
+.clockwork-fields {
+  z-index: 0;
+}
+
+.clock-field {
+  position: absolute;
+  display: block;
   background: var(--field);
 }
 
+.field-one {
+  left: 0;
+  top: 0;
+  width: 1364.5833px;
+  height: 2158.3333px;
+}
+
+.field-two {
+  left: 1410.4167px;
+  top: 0;
+  width: 2772.9167px;
+  height: 710.4167px;
+}
+
+.field-three {
+  left: 4229.1667px;
+  top: 0;
+  width: 1470.8333px;
+  height: 1225px;
+}
+
+.field-four {
+  left: 4229.1667px;
+  top: 1272.9167px;
+  width: 1470.8333px;
+  height: 885.4167px;
+}
+
+.field-five {
+  left: 3245.8333px;
+  top: 2208.3333px;
+  width: 2454.1667px;
+  height: 1691.6667px;
+}
+
+.field-six {
+  left: 0;
+  top: 2208.3333px;
+  width: 3195.8333px;
+  height: 1691.6667px;
+}
+
+.brand-lockup {
+  position: absolute;
+  z-index: 1;
+  left: 1410.4167px;
+  top: 712.5px;
+  width: 2772.9167px;
+  height: 1493.75px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 120px;
+  color: var(--ink);
+  font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+}
+
+.brand-mark {
+  width: 360px;
+  height: 360px;
+  flex: none;
+  border-radius: 80px;
+}
+
+.brand-words {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.brand-name {
+  font-size: 146px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 3px;
+  white-space: nowrap;
+}
+
+.brand-document {
+  margin-top: 42px;
+  color: var(--motion);
+  font-size: 96px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 24px;
+  text-transform: uppercase;
+}
+
+.clockwork-numbers {
+  z-index: 1;
+  color: #fff;
+  font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  font-size: 500px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.step-number {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.step-one { left: 550px; top: 81.25px; width: 218.75px; height: 372.9167px; }
+.step-two { left: 2620.8333px; top: 235.4167px; width: 275px; height: 379.1667px; }
+.step-three { left: 5341.6667px; top: 47.9167px; width: 268.75px; height: 385.4167px; }
+.step-four { left: 4310.4167px; top: 1487.5px; width: 289.5833px; height: 372.9167px; }
+.step-five { left: 3891.6667px; top: 2547.9167px; width: 260.4167px; height: 379.1667px; }
+.step-six { left: 1008.3333px; top: 2414.5833px; width: 272.9167px; height: 385.4167px; }
+
 .story {
   position: absolute;
+  z-index: 2;
   inset: 0;
   width: 5700px;
   height: 3900px;
@@ -101,20 +238,20 @@ body {
 }
 
 .mount-drop-cue {
-  --cue-x: 242.0203px;
-  --cue-y: 604.125px;
+  --cue-x: 248.74px;
+  --cue-y: 692.09px;
   --cue-angle: 90deg;
 }
 
 .mount-slide-cue {
-  --cue-x: 274px;
-  --cue-y: 503px;
+  --cue-x: 258.125px;
+  --cue-y: 290.3709px;
   --cue-angle: -7deg;
 }
 
 .mount-tighten-cue {
-  --cue-x: 700px;
-  --cue-y: 455px;
+  --cue-x: 767.7083px;
+  --cue-y: 180.3707px;
 }
 
 .mount-story .scene {
@@ -124,40 +261,44 @@ body {
 
 .mount-story .mount-drop {
   left: 0;
-  top: 62.5px;
-  width: 983.3333px;
+  top: 93.75px;
+  width: 1025px;
+  height: 1623px;
 }
 
-.mount-story .mount-drop,
 .mount-story .mount-lowered {
-  height: 1140px;
-}
-
-.mount-lowered {
-  left: 325px;
-  top: 170.8333px;
+  left: 347.9167px;
+  top: 535.4167px;
+  width: 1275px;
+  height: 1622.9167px;
 }
 
 .mount-story .mount-slide {
-  left: 1466.6667px;
+  left: 1312.5px;
   top: 0;
-  height: 773.3333px;
+  width: 1420.8333px;
+  height: 487.5px;
 }
 
-.mount-tighten {
-  left: 2416.6667px;
-  top: 158.3333px;
+.mount-story .mount-tighten {
+  left: 2891.6667px;
+  top: 0;
+  width: 1418.75px;
+  height: 472.9167px;
 }
 
 .mount-drop,
 .mount-lowered {
-  background-position: center bottom 12px;
   background-repeat: no-repeat;
-  background-size: auto 1100px;
+  background-size: auto 1540px;
 }
 
 .mount-drop {
-  background-position: left 43.4131px bottom 12px;
+  background-position: left -23px top 28px;
+}
+
+.mount-lowered {
+  background-position: left 213.75px top 28px;
 }
 
 .mount-drop { background-image: url("art/mount-drop.png"); }
@@ -165,75 +306,83 @@ body {
 
 .mount-slide,
 .mount-tighten {
-  background-position: center;
   background-repeat: no-repeat;
-  background-size: 1320px auto;
+  background-size: 1650px auto;
 }
 
 .mount-slide {
-  background-position: center 79.0366px;
+  background-position: -112.5px -195.8333px;
+}
+
+.mount-tighten {
+  background-position: -118.75px -210.4167px;
 }
 
 .mount-slide { background-image: url("art/mount-under-slide-clean.png"); }
 .mount-tighten { background-image: url("art/mount-under-tighten-clean.png"); }
 
 .water-story .scene {
-  width: 1275px;
+  width: 1470.8333px;
   height: 610px;
 }
 
 .water {
-  background-position: -290px -340px;
+  background-position: -96.25px -340px;
   background-repeat: no-repeat;
   background-size: 2800px 1540px;
 }
 
 .water-on {
-  left: 3875px;
-  top: 313.3333px;
+  left: 4229.1667px;
+  top: 261.25px;
   background-image: url("plumbing/modern/art/modern-water-on.png");
 }
 
 .water-off {
-  left: 4425px;
-  top: 75.8333px;
+  left: 4229.1667px;
+  top: 682.0833px;
   background-image: url("plumbing/modern/art/modern-water-off.png");
 }
 
 .water-turn-cue {
-  --cue-x: 610px;
+  --cue-x: 803.75px;
   --cue-y: 95px;
   width: 440px;
   height: 159px;
 }
 
 .release {
-  background-position: center;
   background-repeat: no-repeat;
-  background-size: 1500px 825px;
+  background-size: 1166.6667px 641.6667px;
 }
 
-.release-ready {
-  left: 4.1667px;
-  top: 1417.5px;
+.water-story .release-ready {
+  left: 4708.3333px;
+  top: 1281.25px;
+  width: 991.6667px;
+  height: 477.0833px;
+  background-position: -87.5px -83.3333px;
   background-image: url("plumbing/modern/art/modern-release-ready.png");
 }
 
-.release-withdrawn {
-  left: 0;
-  top: 1880px;
+.water-story .release-withdrawn {
+  left: 4708.3333px;
+  top: 1639.5833px;
+  width: 991.6667px;
+  height: 477.0833px;
+  background-position: -87.5px -81.25px;
   background-image: url("plumbing/modern/art/modern-release-withdrawn.png");
 }
 
 .release-press-cue {
-  --cue-x: 774px;
-  --cue-y: 225px;
+  --cue-x: 649.0833px;
+  --cue-y: 184.0278px;
   --cue-angle: 187deg;
 }
 
 .release-withdraw-cue {
-  --cue-x: 935px;
-  --cue-y: 490px;
+  --cue-x: 824.3055px;
+  --cue-y: 366.3889px;
   --cue-angle: 7deg;
 }
 
@@ -251,25 +400,39 @@ body {
 .tee-assembly-ready,
 .tee-line-ready,
 .tee-complete {
-  clip-path: inset(0 0 0 516.6667px);
+  clip-path: inset(0 0 0 391.6667px);
 }
 
 .tee-assembly-ready {
-  left: 1308.3333px;
-  top: 1238.3333px;
+  left: 4097.9167px;
+  top: 2225.8333px;
   background-image: url("plumbing/modern/art/modern-tee-assembly-ready.png");
 }
 
 .tee-line-ready {
-  left: 2625px;
-  top: 1513.3333px;
+  left: 4097.9167px;
+  top: 2932.0833px;
   background-image: url("plumbing/modern/art/modern-tee-line-ready.png");
 }
 
 .tee-complete {
-  left: 4000px;
-  top: 1796.6667px;
+  left: 3116.6667px;
+  top: 3271.6667px;
   background-image: url("plumbing/modern/art/modern-tee-complete.png");
+}
+
+.tee-story .tee-assembly-ready,
+.tee-story .tee-line-ready,
+.tee-story .tee-complete {
+  width: 1602.0833px;
+}
+
+.tee-story .tee-line-ready {
+  height: 967.9167px;
+}
+
+.tee-story .tee-complete {
+  height: 628.3333px;
 }
 
 .tee-assembly-cue {
@@ -296,13 +459,15 @@ body {
 }
 
 .connect-open {
-  left: 908.3333px;
+  left: 983.3333px;
   top: 2792.5px;
   background-image: url("art/connect-rear-open.png");
 }
 
 .connect-complete {
-  left: 2775px;
+  left: 0;
   top: 2792.5px;
+  width: 1380px;
+  background-position: left 0 top -70px;
   background-image: url("art/connect-rear-connected.png");
 }
