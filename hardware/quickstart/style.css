@@ -13,9 +13,10 @@
 }
 
 :root {
-  --field: #dce7e9;
-  --motion: #e64f5c;
+  --field: #ded7cd;
+  --motion: #d64050;
   --ink: #1a1a2e;
+  --paper: #fff;
 }
 
 html,
@@ -23,7 +24,7 @@ body {
   width: 5700px;
   height: 3900px;
   overflow: hidden;
-  background: #fff;
+  background: var(--paper);
 }
 
 .sheet {
@@ -31,7 +32,7 @@ body {
   width: 5700px;
   height: 3900px;
   overflow: hidden;
-  background: #fff;
+  background: var(--paper);
 }
 
 .clockwork-fields,
@@ -100,66 +101,83 @@ body {
   width: 2772.9167px;
   height: 1493.75px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 120px;
   color: var(--ink);
   font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
 }
 
-.brand-mark {
-  width: 360px;
-  height: 360px;
-  flex: none;
-  border-radius: 80px;
+.brand-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 54.1667px;
 }
 
-.brand-words {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+.brand-mark {
+  width: 129.1667px;
+  height: 129.1667px;
+  flex: none;
+  border-radius: 28.7037px;
 }
 
 .brand-name {
-  font-size: 146px;
+  font-size: 56.25px;
   font-weight: 700;
   line-height: 1;
-  letter-spacing: 3px;
+  letter-spacing: 11.875px;
+  text-transform: uppercase;
   white-space: nowrap;
 }
 
 .brand-document {
-  margin-top: 42px;
-  color: var(--motion);
-  font-size: 96px;
-  font-weight: 600;
-  line-height: 1;
-  letter-spacing: 24px;
-  text-transform: uppercase;
+  margin-top: 62.5px;
+  color: var(--ink);
+  font-size: 216.6667px;
+  font-weight: 700;
+  line-height: 0.98;
+  letter-spacing: -5.625px;
+}
+
+.brand-accent {
+  display: block;
+  width: 275px;
+  height: 16.6667px;
+  margin-top: 70.8333px;
+  border-radius: 8.3333px;
+  background: var(--motion);
 }
 
 .clockwork-numbers {
   z-index: 1;
-  color: #fff;
+  color: var(--ink);
   font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
-  font-size: 500px;
+  font-size: 206px;
   font-weight: 700;
   line-height: 1;
 }
 
 .step-number {
   position: absolute;
+  left: var(--step-x);
+  top: var(--step-y);
+  width: 306px;
+  height: 306px;
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 50%;
+  background: var(--paper);
+  font-variant-numeric: tabular-nums;
+  transform: translate(-50%, -50%);
 }
 
-.step-one { left: 550px; top: 131.25px; width: 218.75px; height: 372.9167px; }
-.step-two { left: 2620.8333px; top: 235.4167px; width: 275px; height: 379.1667px; }
-.step-three { left: 5291.6667px; top: 131.25px; width: 268.75px; height: 385.4167px; }
-.step-four { left: 4310.4167px; top: 1487.5px; width: 289.5833px; height: 372.9167px; }
-.step-five { left: 3891.6667px; top: 2547.9167px; width: 260.4167px; height: 379.1667px; }
-.step-six { left: 1008.3333px; top: 2414.5833px; width: 272.9167px; height: 385.4167px; }
+.step-one { --step-x: 682.2917px; --step-y: 317.7083px; }
+.step-two { --step-x: 2758.3333px; --step-y: 425px; }
+.step-three { --step-x: 5426.0417px; --step-y: 273.9583px; }
+.step-four { --step-x: 4455.2083px; --step-y: 1715.625px; }
+.step-five { --step-x: 4021.875px; --step-y: 2672.3958px; }
+.step-six { --step-x: 1144.7917px; --step-y: 2672.3958px; }
 
 .story {
   position: absolute;
