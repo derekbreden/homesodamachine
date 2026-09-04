@@ -1020,12 +1020,15 @@ def build_assembly():
     under_counter_plate = build_under_counter_plate()
     soda_umbilical_tube = build_soda_umbilical_tube()
 
-    # EVERY TUBE IS THE COLOUR OF WHAT IT CARRIES, off the one table that says what a colour means
-    # on this machine — `_y_wall_dimensions.port_colors`, the same read the bulkhead rings,
-    # the runs inside the cabinet and the collars on these three tails all take. So the blue in
-    # this picture is the blue of the union at the other end of it.
+    # The umbilical tubes carry the identification colour of their stock, off the one table that
+    # says what a colour means on this machine — `_y_wall_dimensions.port_colors`, the same read
+    # by the bulkhead rings, the runs inside the cabinet and the collars on these three tails.
+    # The blue 1/4-inch soda umbilical tube stops on the Westbrass's lower compression port. The
+    # separate 3/8-inch soda faucet tube inside the gooseneck is black LLDPE.
     def spool(fluid):
         return cq.Color(*(c / 255.0 for c in _rear.port_colors[fluid]))
+
+    black_lldpe = spool("flavor")
 
     # The donor faucet is matte black (`ledger/bom.md` §9, Westbrass A2031-NL-62) and the printed
     # stack around it is PET-GF15; what a hand meets above the counter is one colour end to end.
@@ -1033,12 +1036,12 @@ def build_assembly():
     donor_black = _mat.M_DONOR_BLACK
     faucet_black = _mat.C_FAUCET_BLACK
     tpu_black = _mat.M_TPU_BLACK
-    # The gooseneck's 1.47" Waveshare (`ledger/bom.md` §1) — the same maker's blue solder mask as
-    # the 4.3B in the front facet, under the same cover glass. THE GLASS IS DRAWN DARK BECAUSE
-    # GLASS IS DARK: a screen is lit only while the machine is dispensing, and a render that
-    # paints it lit is drawing a state rather than a part.
-    display_slate = _mat.C_DISPLAY
-    display_glass = _mat.C_DISPLAY_GLASS
+    # The gooseneck's 1.47" Waveshare (`ledger/bom.md` §1) is black at the customer-facing
+    # display and under its black printed cover. The glass is drawn dark because a screen is lit
+    # only while the machine is dispensing, and a render that paints it lit is drawing a state
+    # rather than a part.
+    display_black = _mat.C_FAUCET_DISPLAY
+    display_glass = _mat.C_FAUCET_DISPLAY_GLASS
     steel = _mat.M_STAINLESS  # the 316 SS under-counter cut plate
     stone = cq.Color(0.55, 0.55, 0.58, 0.25)  # the kitchen's slab — context, not a part
     foam_black = _mat.M_NITRILE_BLACK  # CARGEN nitrile, on the blue tube only
@@ -1046,10 +1049,10 @@ def build_assembly():
 
     assy = cq.Assembly(name="faucet-assembly")
     assy.add(westbrass, name="westbrass", color=donor_black)
-    assy.add(soda_faucet_tube, name="soda_faucet_tube", color=spool("carb"))
+    assy.add(soda_faucet_tube, name="soda_faucet_tube", color=black_lldpe)
     assy.add(o_ring, name="tpu_o_ring", color=tpu_black)
-    assy.add(flavor_tube_pos_x, name="flavor_tube_pos_x", color=spool("flavor"))
-    assy.add(flavor_tube_neg_x, name="flavor_tube_neg_x", color=spool("flavor"))
+    assy.add(flavor_tube_pos_x, name="flavor_tube_pos_x", color=black_lldpe)
+    assy.add(flavor_tube_neg_x, name="flavor_tube_neg_x", color=black_lldpe)
     assy.add(soda_umbilical_tube, name="soda_umbilical_tube", color=spool("carb"))
     assy.add(lever, name="lever", color=donor_black)
     assy.add(above_counter_plate, name="above_counter_plate", color=faucet_black)
@@ -1057,7 +1060,7 @@ def build_assembly():
     assy.add(shell_base, name="shell_base", color=faucet_black)
     assy.add(shell_tip, name="shell_tip", color=faucet_black)
     assy.add(display_cover, name="faucet-display-cover", color=faucet_black)
-    assy.add(display_body, name="faucet_display", color=display_slate)
+    assy.add(display_body, name="faucet_display", color=display_black)
     assy.add(display_screen, name="faucet_display_screen", color=display_glass)
     assy.add(countertop, name="countertop", color=stone)
     assy.add(under_counter_plate, name="under_counter_plate", color=steel)

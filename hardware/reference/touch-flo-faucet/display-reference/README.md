@@ -16,7 +16,8 @@ underside, components protrude — the metal feet are the extreme point
 and set the device's bounding depth. The stand-in models that under-PCB
 zone as a full-footprint bounding block down to the feet plane; it
 shares the PCB's outline, so the PCB underside has no edge in the
-solid.
+solid. The complete visible module is black: housing, board edge, and
+inactive glass.
 
 | Feature | Value |
 |---|---|
