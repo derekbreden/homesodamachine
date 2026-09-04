@@ -91,6 +91,9 @@ enum MachineAdvert {
             if company == manufacturerID {
                 model = MachineModel(rawValue: mfg[base + 2]) ?? .unknown
                 unit = mfg[(base + 3)..<(base + 6)].map { String(format: "%02X", $0) }.joined()
+                // A display whose main board has not yet answered advertises
+                // no unit at all, as three zero bytes.
+                if unit == "000000" { unit = "" }
             }
         }
 
@@ -233,6 +236,7 @@ final class KnownMachine: Identifiable {
     /// Lay the charts out from the usage reading, against the moment it was
     /// read. Days of data is the union of both flavors' days.
     func recomputeCharts() {
+        while usage.hourly.count < 2 { usage.hourly.append([]) }
         let asOf = usage.readAt ?? Date()
         let calendar = Calendar.current
         let startOfDay = calendar.startOfDay(for: asOf)
@@ -411,9 +415,31 @@ struct MachineRecord: Codable {
     }
 }
 
-private struct DirectoryFile: Codable {
+private struct DirectoryFile: Encodable {
     var current: String?
     var machines: [MachineRecord]
+}
+
+/// One record, or nothing. A record that no longer decodes is skipped rather
+/// than taking every other machine on the phone with it.
+private struct Skippable<T: Decodable>: Decodable {
+    let value: T?
+    init(from decoder: Decoder) throws { value = try? T(from: decoder) }
+}
+
+private struct DirectoryFileRead: Decodable {
+    var current: String?
+    var machines: [Skippable<MachineRecord>]
+}
+
+/// The later of two moments, either of which may not have come.
+private func later(_ a: Date?, _ b: Date?) -> Date? {
+    switch (a, b) {
+    case (nil, nil): return nil
+    case (let x?, nil): return x
+    case (nil, let y?): return y
+    case (let x?, let y?): return max(x, y)
+    }
 }
 
 // ── Your machines ───────────────────────────────────────────────────────
@@ -518,7 +544,8 @@ final class MachineDirectory {
         if let twin = machine(unit: unit), twin.id != m.id {
             twin.peripheralID = m.peripheralID ?? twin.peripheralID
             if !name.isEmpty { twin.name = name }
-            twin.lastSeen = m.lastSeen ?? twin.lastSeen
+            twin.lastSeen = later(m.lastSeen, twin.lastSeen)
+            twin.lastConnected = later(m.lastConnected, twin.lastConnected)
             twin.pendingName = m.pendingName ?? twin.pendingName
             known.removeAll { $0.id == m.id }
             try? FileManager.default.removeItem(at: m.folder)
@@ -540,11 +567,11 @@ final class MachineDirectory {
         guard let data = try? Data(contentsOf: Self.file) else { return }
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
-        guard let file = try? decoder.decode(DirectoryFile.self, from: data) else {
+        guard let file = try? decoder.decode(DirectoryFileRead.self, from: data) else {
             log.error("machines.json did not decode")
             return
         }
-        known = file.machines.map { $0.restore() }
+        known = file.machines.compactMap { $0.value?.restore() }
         current = known.first { $0.id == file.current }
         log.info("\(self.known.count) machine(s) known")
     }

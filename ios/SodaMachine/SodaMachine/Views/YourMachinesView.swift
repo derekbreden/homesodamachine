@@ -59,7 +59,7 @@ struct YourMachinesView: View {
         }
         .onAppear { ble.beginBrowsing() }
         .onDisappear { ble.endBrowsing() }
-        .sheet(isPresented: $adding) {
+        .sheet(isPresented: $adding, onDismiss: { ble.beginBrowsing() }) {
             AddMachineView()
                 .presentationBackground(Theme.background)
         }

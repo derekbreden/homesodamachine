@@ -189,10 +189,17 @@ class BLEManager {
     /// system has said so, which is after the first ask for permission.
     var radioOff = false
 
-    /// What faces are filed under: the record's key.
-    var machineKey: String { current?.key ?? "" }
-
     @ObservationIgnored fileprivate var lastRssiPush: [String: Date] = [:]
+
+    /// Counts the links this phone has opened and let go. A frame that was on
+    /// its way to the main queue when the phone turned to another machine
+    /// carries the generation it arrived under, and lands only if that is
+    /// still the one.
+    @ObservationIgnored var linkGeneration = 0
+
+    /// The pending name has gone to the machine on this link, and the next
+    /// identity it answers is its word on it.
+    @ObservationIgnored fileprivate var namePushed = false
 
     // ── Pushing an image ─────────────────────────────────────────────────
     // The board pulls. It asks for an offset and a length, this sends exactly
@@ -297,29 +304,29 @@ class BLEManager {
     @ObservationIgnored var connectedPeripheral: CBPeripheral?
     @ObservationIgnored fileprivate var scanTimer: Timer?
     @ObservationIgnored fileprivate var reconnectTimer: Timer?
-    @ObservationIgnored fileprivate var userInitiatedDisconnect = false
 
     init(directory: MachineDirectory) {
         self.directory = directory
         cbAdapter = CBDelegateAdapter(self)
     }
 
-    /// Bring the radio up, or turn a radio that is already up toward the
-    /// machine this phone is pointed at.
-    ///
-    /// The central manager outlives a disconnect — it is the app's, not the
-    /// connection's — and creating it is what first turns the radio, by way of
-    /// `centralManagerDidUpdateState`. Creating it is also what asks for
-    /// Bluetooth permission, so it waits for a screen that has said why.
+    /// Turn the radio toward the machine this phone is pointed at, bringing
+    /// it up if it is not yet. The central manager outlives a disconnect — it
+    /// is the app's, not the connection's — and creating it is what first
+    /// turns the radio, by way of `centralManagerDidUpdateState`. A link
+    /// already up, or on its way, is left alone.
     func activateBluetooth() {
-        // The demo needs no radio, and stands up before the radio has said
-        // anything about itself.
-        if demoMode { point() }
-        guard centralManager == nil else {
-            point()
-            return
+        guard connectionState != .connected, connectionState != .connecting else { return }
+        point()
+    }
+
+    /// Run on the main queue, unless the link the caller was handling has
+    /// been let go in the meantime.
+    func onMain(_ generation: Int, _ body: @escaping () -> Void) {
+        DispatchQueue.main.async {
+            guard generation == self.linkGeneration else { return }
+            body()
         }
-        centralManager = CBCentralManager(delegate: cbAdapter, queue: bleQueue)
     }
 
     /// Called when the app returns to foreground after being backgrounded.
@@ -349,12 +356,13 @@ class BLEManager {
         } else if connectionState != .bluetoothOff, current != nil {
             // iOS may have stopped our scan or stalled a connection attempt
             // while backgrounded. Cancel any pending connection and look again.
+            // The peripheral is let go before it is cancelled, so what the
+            // cancel says back is not this link's any more.
             if let peripheral = connectedPeripheral {
-                userInitiatedDisconnect = true
-                centralManager.cancelPeripheralConnection(peripheral)
                 connectedPeripheral = nil
                 rxCharacteristic = nil
                 nusReady = false
+                centralManager.cancelPeripheralConnection(peripheral)
             }
             point()
         }
@@ -708,7 +716,10 @@ class BLEManager {
         machine.name = name
         if machine.isDemo { directory.save(); return }
         machine.pendingName = name
-        if linked, current?.id == machine.id { send("IDENTITY \(name)") }
+        if linked, current?.id == machine.id {
+            send("IDENTITY \(name)")
+            namePushed = true
+        }
         directory.save()
     }
 
@@ -716,11 +727,10 @@ class BLEManager {
     /// simply up, anything else is listened for, and nothing means the radio
     /// rests until a machine is added.
     fileprivate func point() {
-        let radioOn = centralManager?.state == .poweredOn
         guard let m = current else {
             centralManager?.stopScan()
             scanTimer?.invalidate()
-            connectionState = radioOn ? .searching : .bluetoothOff
+            connectionState = radioDown ? .bluetoothOff : .searching
             return
         }
         if m.isDemo {
@@ -732,33 +742,57 @@ class BLEManager {
             configSynced = true
             return
         }
-        connectionState = radioOn ? .searching : .bluetoothOff
+        // A real machine is the first thing that needs the radio. Creating
+        // the central manager is what asks for Bluetooth permission, and a
+        // machine just pointed at is the screen that has said why.
+        ensureRadio()
+        connectionState = radioDown ? .bluetoothOff : .searching
         startScan()
+    }
+
+    fileprivate func ensureRadio() {
+        guard centralManager == nil else { return }
+        centralManager = CBCentralManager(delegate: cbAdapter, queue: bleQueue)
+    }
+
+    /// The radio has said it cannot be used. A radio still making up its mind
+    /// is not that.
+    private var radioDown: Bool {
+        switch centralManager?.state {
+        case .poweredOff, .unauthorized, .unsupported: return true
+        default: return false
+        }
     }
 
     /// The link, and everything in flight on it, let go. What the machine said
     /// stays on its record.
     fileprivate func dropLink() {
+        linkGeneration += 1
         centralManager?.stopScan()
         scanTimer?.invalidate()
         reconnectTimer?.invalidate()
         chartRetryTimer?.cancel()
         chartRetryTimer = nil
         stopFacePump()
-        if let peripheral = connectedPeripheral {
-            userInitiatedDisconnect = true
-            centralManager?.cancelPeripheralConnection(peripheral)
-        }
+        // The peripheral is let go before it is cancelled, so what the cancel
+        // says back is not this link's any more.
+        let peripheral = connectedPeripheral
         connectedPeripheral = nil
         rxCharacteristic = nil
         nusReady = false
+        if let peripheral { centralManager?.cancelPeripheralConnection(peripheral) }
         if connectionState != .bluetoothOff { connectionState = .searching }
+        namePushed = false
         configSynced = false
         statsSynced = false
         chartDataSynced = false
         rawHourlyData = [[], []]
         chartCurReceived = 0
-        imgDownloadQueue = []
+        pendingImageList = []
+        pendingCRCs = [:]
+        pendingDeleteSlot = -1
+        preDeleteCachedImages = [:]
+        preDeleteImageNames = []
         isDownloading = false
         imageDownloadProgress = nil
         isUploading = false
@@ -772,8 +806,6 @@ class BLEManager {
         primeActive = false
         cleanCycleActive = false
         cleanCyclePhase = nil
-        imgDownloadSlot = -1
-        binStartReceived = false
         imageQueue = []
         activeUpload = nil
         imageUploadState = .idle
@@ -782,35 +814,42 @@ class BLEManager {
         otaImage = nil
         otaData = Data()
         otaFetch = nil
-        faceSlot = -1
-        facePixels = Data()
-        faceHave.removeAll()
-        faceReceived = 0
+        // What the radio's queue owns is cleared on the radio's queue, behind
+        // any frame it is still in the middle of.
+        bleQueue.async { [weak self] in
+            guard let self else { return }
+            self.imgDownloadQueue = []
+            self.imgDownloadSlot = -1
+            self.imgDownloadData = Data()
+            self.binStartReceived = false
+            self.imageBundle = Data()
+            self.pendingCrc = [:]
+            self.faceSlot = -1
+            self.facePixels = Data()
+            self.faceHave.removeAll()
+            self.faceReceived = 0
+        }
     }
 
     // MARK: - Demo mode
 
-    /// The demo's machine: settings filled in the first time it is pointed
-    /// at, pictures whenever they are not in hand. They are the placeholders
-    /// every prototype ships with, drawn from this app's bundle rather than
-    /// kept in the record's folder.
+    /// The demo's machine, as it ships, each time the app opens on it: three
+    /// placeholder pictures out of this app's bundle, the ratios, and a
+    /// fortnight of pours generated when its stats are opened. Its name is
+    /// the one thing about it that is kept. Nothing is re-seeded while it is
+    /// open — its pictures being in hand is what says it is.
     private func seedDemo(_ m: KnownMachine) {
-        if m.cachedImages.isEmpty {
-            m.cachedImages = [
-                0: flavorImage("flavor_1"),
-                1: flavorImage("flavor_2"),
-                2: flavorImage("flavor_3")
-            ]
-        }
-        guard m.configReadAt == nil else { return }
-        m.config.flavor1Image = 0
-        m.config.flavor2Image = 1
-        m.config.flavor1Ratio = 20
-        m.config.flavor2Ratio = 20
-        m.config.numImages = 3
-        m.config.imageNames = ["flavor_1", "flavor_2", "flavor_3"]
+        guard m.cachedImages.isEmpty else { return }
+        m.config = PrototypeConfig(numImages: 3, imageNames: ["flavor_1", "flavor_2", "flavor_3"])
+        m.cachedImages = [
+            0: flavorImage("flavor_1"),
+            1: flavorImage("flavor_2"),
+            2: flavorImage("flavor_3")
+        ]
         m.prototypeVersions = PrototypeVersions(s3: "Demo", esp: "Demo", rp: "Demo")
         m.configReadAt = Date()
+        m.usage = UsageReading()
+        m.recomputeCharts()
         directory.save()
     }
 
@@ -1284,21 +1323,26 @@ class BLEManager {
             return
         }
 
-        // A pour as it happens: the hour under way, re-counted. A count lower
-        // than the one held is the next hour having begun.
+        // A pour as it happens: the hour under way, re-counted. Which hour is
+        // the machine's to say, and firmware that says it is believed; from
+        // firmware that does not, a count lower than the one held is the next
+        // hour having begun.
         if prefix == "CHART_LIVE" {
             guard let fsStr = kvValues["FS"], let fs = UInt32(fsStr),
                   let m = current, m.usage.readAt != nil else { return }
             var u = m.usage
-            if let i = u.hourly[flavor].firstIndex(where: { $0.seq == u.seqHour }) {
-                if fs < u.hourly[flavor][i].flow {
-                    u.seqHour += 1
-                    u.hourly[flavor].append(HourBucket(seq: u.seqHour, flow: fs))
-                } else {
-                    u.hourly[flavor][i].flow = fs
-                }
+            while u.hourly.count < 2 { u.hourly.append([]) }
+            var seq = u.seqHour
+            if let said = kvValues["SEQ"].flatMap({ UInt32($0) }) {
+                seq = said
+            } else if let held = u.hourly[flavor].first(where: { $0.seq == u.seqHour }), fs < held.flow {
+                seq = u.seqHour + 1
+            }
+            if seq > u.seqHour { u.seqHour = seq }
+            if let i = u.hourly[flavor].firstIndex(where: { $0.seq == seq }) {
+                u.hourly[flavor][i].flow = fs
             } else {
-                u.hourly[flavor].append(HourBucket(seq: u.seqHour, flow: fs))
+                u.hourly[flavor].append(HourBucket(seq: seq, flow: fs))
             }
             u.readAt = Date()
             m.usage = u
@@ -1383,6 +1427,7 @@ class BLEManager {
     /// the radio is busy. Ends with the list.
     func beginBrowsing() {
         browsing = true
+        ensureRadio()
         startScan()
     }
 
@@ -1563,7 +1608,7 @@ class BLEManager {
             self?.sendBLEFrame(type: BLEManager.bleOtaData, payload: frame)
         }
 
-        DispatchQueue.main.async {
+        onMain(linkGeneration) {
             if var p = self.otaProgress, end > p.sent {
                 p.sent = end
                 self.otaProgress = p
@@ -1577,12 +1622,13 @@ class BLEManager {
         let state = payload[b]
         let err = OTAError(rawValue: payload[b + 1]) ?? .none
         // OTA_STATE_DONE is 3 (proto_msg.h).
+        let gen = linkGeneration
         if state == 3 {
             log.info("OTA \(self.otaImage?.target ?? "?"): verified and set to boot")
-            finishUpdate(failure: nil)
+            onMain(gen) { self.finishUpdate(failure: nil) }
         } else {
             log.error("OTA failed: state \(state), \(err.detail)")
-            finishUpdate(failure: err.message)
+            onMain(gen) { self.finishUpdate(failure: err.message) }
         }
     }
 
@@ -1601,15 +1647,18 @@ class BLEManager {
         // told us who it is; that beats what a scan happened to catch.
         let unit = payload[(b + 1)..<(b + 4)].map { String(format: "%02X", $0) }.joined()
 
-        DispatchQueue.main.async {
+        onMain(linkGeneration) {
             guard let m = self.current else { return }
-            m.radioBoardVersion = version
             // A name given while the machine was out of earshot stands until
-            // the machine says it back; what it says otherwise is what it is.
+            // the machine has answered the send — with that name, or with
+            // whatever it made of it, which is then what the machine is called.
             let pending = m.pendingName
-            let heard = pending == nil || pending == name ? name : ""
-            let said = self.directory.introduce(m, unit: unit == "000000" ? "" : unit, name: heard)
-            if pending != nil, pending == name { said.pendingName = nil }
+            let settled = pending == nil || pending == name || self.namePushed
+            let said = self.directory.introduce(m, unit: unit == "000000" ? "" : unit,
+                                                name: settled ? name : "")
+            said.radioBoardVersion = version
+            if settled { said.pendingName = nil }
+            self.namePushed = false
             self.directory.save()
         }
     }
@@ -1629,7 +1678,7 @@ class BLEManager {
             found.artCrc[board] = UInt32(payload[o + 25]) | (UInt32(payload[o + 26]) << 8)
                                 | (UInt32(payload[o + 27]) << 16) | (UInt32(payload[o + 28]) << 24)
         }
-        DispatchQueue.main.async {
+        onMain(linkGeneration) {
             guard let m = self.current else { return }
             m.versions = found
             m.versionsReadAt = Date()
@@ -1696,7 +1745,7 @@ class BLEManager {
 
         imgDownloadRetries = 0
         let image = UIImage(data: imgData)
-        DispatchQueue.main.async {
+        onMain(linkGeneration) {
             // Kept on the record, beside the crc the machine listed for it.
             self.saveImageToDisk(slot: slot, data: imgData)
             self.savePersistedCRC(slot: slot, crc: expectedCRC)
@@ -1804,24 +1853,32 @@ private class CBDelegateAdapter: NSObject, CBCentralManagerDelegate, CBPeriphera
         }
     }
 
+    // EVERY CALLBACK IS HELD TO THE PERIPHERAL THIS LINK IS ON. A machine the
+    // phone turned away from answers later, on its own time — its cancel, its
+    // drop, its services — and none of that is the link the phone holds now.
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
+        guard peripheral === ble.connectedPeripheral else { return }
         log.info("Connected to \(peripheral.name ?? "device")")
         peripheral.delegate = self
         peripheral.discoverServices([nusServiceUUID])
     }
 
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
+        guard peripheral === ble.connectedPeripheral else { return }
         log.error("Connection failed: \(error?.localizedDescription ?? "unknown")")
         ble.connectedPeripheral = nil
-        ble.userInitiatedDisconnect = false
-        ble.scheduleReconnect()
+        let gen = ble.linkGeneration
+        let m = ble
+        DispatchQueue.main.async {
+            guard gen == m.linkGeneration else { return }
+            m.connectionState = m.radioOff ? .bluetoothOff : .searching
+            m.scheduleReconnect()
+        }
     }
 
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
-        if ble.demoMode || ble.userInitiatedDisconnect {
-            ble.userInitiatedDisconnect = false
-            return
-        }
+        guard peripheral === ble.connectedPeripheral else { return }
+        let gen = ble.linkGeneration
         log.info("Disconnected")
         ble.imgDownloadSlot = -1
         ble.binStartReceived = false
@@ -1839,7 +1896,9 @@ private class CBDelegateAdapter: NSObject, CBCentralManagerDelegate, CBPeriphera
         let m = ble
         DispatchQueue.main.async { m.stopFacePump() }
         DispatchQueue.main.async {
-            self.ble.connectionState = .searching
+            guard gen == self.ble.linkGeneration else { return }
+            self.ble.namePushed = false
+            self.ble.connectionState = self.ble.radioOff ? .bluetoothOff : .searching
             self.ble.configSynced = false
             self.ble.statsSynced = false
             self.ble.chartDataSynced = false
@@ -1870,14 +1929,14 @@ private class CBDelegateAdapter: NSObject, CBCentralManagerDelegate, CBPeriphera
     // MARK: - CBPeripheralDelegate (GATT service/characteristic discovery)
 
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
-        guard error == nil, let services = peripheral.services else { return }
+        guard peripheral === ble.connectedPeripheral, error == nil, let services = peripheral.services else { return }
         for service in services where service.uuid == nusServiceUUID {
             peripheral.discoverCharacteristics([nusRxUUID, nusTxUUID], for: service)
         }
     }
 
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
-        guard error == nil, let chars = service.characteristics else { return }
+        guard peripheral === ble.connectedPeripheral, error == nil, let chars = service.characteristics else { return }
         for char in chars {
             if char.uuid == nusTxUUID {
                 peripheral.setNotifyValue(true, for: char)
@@ -1890,12 +1949,16 @@ private class CBDelegateAdapter: NSObject, CBCentralManagerDelegate, CBPeriphera
             log.info("NUS ready")
             let m = ble
             DispatchQueue.main.async {
+                guard peripheral === m.connectedPeripheral else { return }
                 m.connectionState = .connected
                 if let machine = m.current {
                     machine.lastConnected = Date()
                     // A name given while the machine was out of earshot, now
                     // that it is in it.
-                    if let name = machine.pendingName { m.send("IDENTITY \(name)") }
+                    if let name = machine.pendingName {
+                        m.send("IDENTITY \(name)")
+                        m.namePushed = true
+                    }
                     m.directory.save()
                 }
                 // GET_CONFIG and LIST are the rotary display's vocabulary, on
@@ -1938,6 +2001,7 @@ private class CBDelegateAdapter: NSObject, CBCentralManagerDelegate, CBPeriphera
         // A frame from a machine this phone has turned away from would land on
         // the record of the one it turned toward.
         guard peripheral === ble.connectedPeripheral else { return }
+        let gen = ble.linkGeneration
         var frameBuffer = value
 
         // Parse all complete frames: [type(1B)][len(2B LE)][payload...]
@@ -1963,9 +2027,7 @@ private class CBDelegateAdapter: NSObject, CBCentralManagerDelegate, CBPeriphera
             case 0x01: // TEXT
                 if let text = String(data: payload, encoding: .utf8) {
                     if text.hasPrefix("DBG:") { continue }
-                    DispatchQueue.main.async {
-                        self.ble.handleTextResponse(text)
-                    }
+                    ble.onMain(gen) { [ble] in ble.handleTextResponse(text) }
                 }
             case 0x02: // BIN_START
                 ble.handleBinStart(payload)

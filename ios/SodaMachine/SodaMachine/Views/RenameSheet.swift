@@ -28,7 +28,7 @@ struct RenameSheet: View {
                 Theme.background.ignoresSafeArea()
 
                 VStack(spacing: 12) {
-                    TextField("Kitchen", text: $name)
+                    TextField("Name", text: $name, prompt: Text("Kitchen"))
                         .font(.system(size: 18))
                         .foregroundStyle(Theme.textPrimary)
                         .padding(14)
