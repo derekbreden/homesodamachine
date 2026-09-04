@@ -312,6 +312,9 @@ class BLEManager {
     /// `centralManagerDidUpdateState`. Creating it is also what asks for
     /// Bluetooth permission, so it waits for a screen that has said why.
     func activateBluetooth() {
+        // The demo needs no radio, and stands up before the radio has said
+        // anything about itself.
+        if demoMode { point() }
         guard centralManager == nil else {
             point()
             return
@@ -1748,8 +1751,9 @@ private class CBDelegateAdapter: NSObject, CBCentralManagerDelegate, CBPeriphera
             }
         } else {
             DispatchQueue.main.async {
+                // The radio is down. The page says so; the demo does not care.
                 self.ble.radioOff = true
-                if !self.ble.demoMode { self.ble.connectionState = .bluetoothOff }
+                self.ble.point()
             }
         }
     }
