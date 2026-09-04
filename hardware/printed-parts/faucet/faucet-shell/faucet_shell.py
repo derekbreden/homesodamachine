@@ -226,7 +226,7 @@ base_pod_z_bottom = zone1_z_bottom  # deck plane, Z=0
 base_pod_z_top = zone1_outer_z_top  # match the base-cylinder top
 base_pod_hole_depth = 8.0           # boss engagement depth up from the deck; an
                                     # M3x12 reaches a ruthex M3 insert seated above
-# ruthex M3 short heat-set insert (⌀4.2 OD), seated opening-DOWN onto the boss
+# ruthex M3 short heat-set insert (⌀4.6 OD), seated opening-DOWN onto the boss
 # hole: the M3x12 driven up from under the plate exits the boss top and threads
 # into it. ⌀4 pocket — the knurled OD melts into ⌀4. Depth runs from the
 # boss-hole top to one base_pod_wall below the pod top, so the cap over the
@@ -1426,7 +1426,7 @@ display_cover_stem_s0 = display_cover_hook_skin + display_cover_hook_lap  # [3.7
 # The one screw, on the centreline north of the device. Same chain as the
 # base pods: a ruthex M3 short set opening-up into the shell from the
 # land, a clearance shank through the plate, and the head sunk in a
-# counterbore. ⌀4 pocket — the knurled ⌀4.2 OD melts into ⌀4.
+# counterbore. ⌀4 pocket — ruthex's own recommended hole; the ⌀4.6 knurl melts into it.
 display_cover_insert_dia = base_pod_insert_dia
 display_cover_boss_wall = 1.5             # material round the insert
 display_cover_shank_dia = base_pod_shank_dia
