@@ -643,6 +643,12 @@ class BLEManager {
         send("DELETE_STORE_IMG:\(slot)")
     }
 
+    /// Every slot this phone has no picture for is asked for, by GETPNG, on
+    /// each connection. A rotary display answers with the PNG it keeps. The
+    /// display on the prototype under the counter does not answer, so that
+    /// machine's custom slots are placeholders on a phone that holds no copy —
+    /// and this phone holds none: what an earlier build kept under Caches is
+    /// gone, and what is on that machine stays on it.
     func downloadAllImages(advertisedCRCs: [Int: UInt32] = [:]) {
         guard let m = current, !isDownloading else { return }
         var queue: [Int] = []
