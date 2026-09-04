@@ -45,7 +45,7 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §3 (
 | Zip ties | B0BC1VH4XB (200-pk) | Cable + tube management throughout, ~15 per build |
 | Millrose 70894 PTFE thread-seal tape | B07C9ZV4PG | Anti-seize on every NPT joint cut in this procedure (≥8 joints per build across water + CO2 paths) |
 
-Tooling: Mudder PTFE tubing cutter (also shipped in the install kit per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §14, used here at the bench), 5/16" hex-driver and crescent wrench for the NPT joints, scissor for the clear-PVC vent stub cut-to-length.
+Tooling: Mudder PTFE tubing cutter (the cold kit's own SKU, [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §14, used here at the bench), 5/16" hex-driver and crescent wrench for the NPT joints, scissor for the clear-PVC vent stub cut-to-length.
 
 ## Procedure
 

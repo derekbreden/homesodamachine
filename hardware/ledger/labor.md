@@ -130,7 +130,7 @@ Everything that is putting parts together with fasteners and hands. Printer tend
 | Stage the six printed pieces and the +Y wall's bodies; bolt the compressor down to the slab | EN-01, EN-02, EN-03 | Four floor posts, one M5 and a fender washer each, snugged onto the post crowns | 10 |
 | Seat the cold core; condenser, power column, close the box, ASSE drip pan | EN-04, EN-05, EN-06, EN-07, EN-08 | | 10 |
 | Stage the collet plate and feed it into front-top's slot, holes forward | EN-01, EN-07 | In through that piece's seam face before the front column closes; the steel goes up the slot until its own top edge lands on the cap's land, and the guides' heads close over that edge at the two tails | 5 |
-| Cut, route and sleeve the umbilical; bag the installer kit | FU-01, FU-02, FU-03, FU-04 | Three LLDPE tubes, braid, install-kit bag | 10 |
+| Cut, route and sleeve the umbilical; bag it with the under-counter plate | FU-01, FU-02, FU-03, FU-04 | Three LLDPE tubes, braid, the bag | 10 |
 | Assemble the faucet — two-piece touch-flo shell, plate, gasket, o-ring | — | PET-GF shell, printed TPU seals | 5 |
 | **Assembly** | | | **[125](LAB_SEC8)** |
 
@@ -159,7 +159,7 @@ The unit passed. Empty it, clean it up, name it, box it.
 | Wipe down + final inspection | FS-01 | | 5 |
 | Drain dry, sign the nameplate, screw it on | FS-02 | Pigment ink, let it set, two M3×8 | 5 |
 | Cap the inlets + photograph | FS-03 | | 5 |
-| Pack the install kit and carton | FS-04 | | 10 |
+| Make up the customer's runs; pack the install kit, the cold kit and the carton | FS-04 | | 10 |
 | Weigh, label, hand off | FS-05 | | 5 |
 | **Finishing & packing** | | | **[35](LAB_SEC10)** |
 

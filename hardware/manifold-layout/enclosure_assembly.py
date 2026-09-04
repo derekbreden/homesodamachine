@@ -1948,9 +1948,8 @@ def y_wall_field(stations):
                                 for x, z, _fitting, ring, _which, _fluid in stations.values()))
 
 
-# TWO OF THE FIVE CROSSINGS TAKE A TUBE THE CUSTOMER CUTS, in their own kitchen and to their own
-# length: the tap-water run up to their angle stop, and the tether back to the regulator on their
-# cylinder. Each leaves by a collet on this wall and ends on hardware that carries no ring, so the
+# TWO OF THE FIVE CROSSINGS TAKE A TUBE OF THE CUSTOMER'S OWN PLUMBING: the tap-water run up to
+# their tee, and the tether back to the regulator on their cylinder. Each leaves by a collet on this wall and ends on hardware that carries no ring, so the
 # station's word goes out with it on a printed collar — `printed-parts/faucet/tube-collar/`, the
 # chip's own outline bored for the tube. The collar's frame is the fitting's, so it seats down the
 # same axis with no turn of its own, exactly as the chip does.
@@ -1966,7 +1965,7 @@ COLLAR_TUBE_TAIL = 10.0
 
 
 def customer_tube_name(which: str) -> str:
-    """The body name one customer-cut tube goes into the assembly under.
+    """The body name one customer-side tube goes into the assembly under.
 
     IT CARRIES THE TUBE PREFIX BECAUSE IT IS TUBE. `_scorecard._split_placed` reads the placed
     world into its three populations off these names, and what it asks of a body it does not ask
@@ -4648,8 +4647,8 @@ def build_pack() -> cq.Assembly:
     # struck on. They lie OUTBOARD of the +Y wall of back-top's outer face, in the field the wall raises.
     for name, solid, colour in build_bulkhead_rings(a.wall_stations):
         a.add(solid, name=name, color=colour)
-    # And outboard of two of them, the tube the customer cuts and the collar that carries the
-    # station's word out to the end they cut it at.
+    # And outboard of two of them, the customer's own tube and the collar that carries the
+    # station's word out along it.
     for name, solid, colour in build_customer_tubes(bulkhead_carry, panel_carries, co2in_carry):
         a.add(solid, name=name, color=colour)
     # And the nameplate, in the field those rings leave east of the flavour pair — the same
@@ -4779,9 +4778,8 @@ THROUGH_WALL = ("bulkhead-water", "c14-inlet", "keystone-jack", "co2-inlet",
 IN_THE_WALL = tuple(name(which)
                     for _m, _r, which, _fluid in Y_WALL_FITTINGS.values()
                     for name in (ring_name, word_name))
-# And the bodies standing OUTBOARD of it: on two of the five crossings, the tube the customer cuts
-# in their own kitchen and the collar that carries the station's word out to the end they cut it
-# at. The wall's outer face is where the machine stops, so none of this is in the room the pack
+# And the bodies standing OUTBOARD of it: on two of the five crossings, the customer's own tube
+# and the collar that carries the station's word out along it. The wall's outer face is where the machine stops, so none of this is in the room the pack
 # stands in — it is the customer's own plumbing, drawn as far as the collar and no further
 # (`build_customer_tubes`). Left out of what the box is SIZED on for that reason: sized on it, the
 # depth the appliance states would be the depth of the appliance plus a stub of someone's kitchen,

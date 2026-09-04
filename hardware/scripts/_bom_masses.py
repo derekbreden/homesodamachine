@@ -164,7 +164,7 @@ PARTS = {
     ],
     # AND ONE COLLAR PER CHIP, on the same five stations and off the same two spools — the tube
     # carrying the word the ring it goes through carries. Three go on at the umbilical bench and
-    # two in the install kit, and the row prices all five.
+    # two at the pack bench, onto the install kit's own runs, and the row prices all five.
     "Tube collar — one per +Y-wall crossing": [
         "faucet/tube-collar/tube-collar-water.step",
         "faucet/tube-collar/tube-collar-carb.step",

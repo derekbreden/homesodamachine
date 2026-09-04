@@ -60,7 +60,7 @@ const CATEGORY_NAMES = {
   "cable-mgmt": "Cable management",
   "vent-filter": "Vent filter",
   welding: "Welding filler",
-  "install-tool": "Install-kit tool",
+  "cold-kit": "Cold kit",
 };
 
 const TAG_RE = /<!--@([a-z][a-z-]*)-->/;

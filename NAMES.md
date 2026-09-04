@@ -102,3 +102,5 @@ to **Derek approved** when he recognises them, or are replaced when he doesn't.
 | **storey** | one stacked body of a job kit — a bin, a drawer, a tray or the rack | tier, layer, level |
 | **job rack** | the storey of a job kit that holds its tools: a solid Gridfinity blank with sockets cut from its top | tool rack, tool holder |
 | **bench dock** | the printed Gridfinity baseplate a job kit stands on | dock plate, base |
+| **install kit** | the box beside the appliance in the carton holding what the install needs beyond the faucet bag: the customer's plumbing, the line cord, the documentation packet | installer kit |
+| **cold kit** | the bagged bonus in the install kit — the tube cutter, the loose foam segments and its own guide — for trimming and insulating the run to the faucet | cold optimization kit, cold enhancing kit, cold-line kit |

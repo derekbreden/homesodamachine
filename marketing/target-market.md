@@ -45,9 +45,13 @@ push-fit or hand-tight: lower the complete factory faucet-and-umbilical assembly
 opening, slide the under-counter plate around the tubes, hand-tighten the retained nut; close
 the cold-water valve; press the collet on the existing 1/4" plastic line, add the supplied tee
 and short tube, reconnect the original line, and push the new white branch — through the
-supplied filter — into the third port; trim five tubes and push each into its lettered,
+supplied filter — into the third port; push each of the five tubes into its lettered,
 colour-matched port on the rear wall; click one RJ11 plug into the jack beside them; plug in one
-cord. No threaded fitting is opened at any point. The tube cutter is in the box.
+cord. No threaded fitting is opened at any point, and nothing is cut.
+
+Beside the install kit rides the cold kit — a tube cutter, foam sleeves and its own guide — for
+the buyer who wants the run to the faucet as short and as insulated as their cabinet allows. It
+is a bonus, not a step.
 
 What the buyer brings, beyond the hole:
 
