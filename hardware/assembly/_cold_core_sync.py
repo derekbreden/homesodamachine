@@ -36,6 +36,7 @@ from _cold_core_interface import (  # noqa: E402
     forward_band_width,
     gasket_thickness,
     head_pad_height,
+    insert_length,
     insert_pocket_depth,
     insert_pocket_radius,
     lldpe_bend_radius,
@@ -131,10 +132,13 @@ def main():
         "CAP_CRADLES": f"{len(cap_cradles)}",
         "POUR_CRADLE_GAP": f"{POUR_CRADLE_GAP:.4g} mm",
         # ─── Inserts (step 2) ─────────────────────────────────────────
-        # insert_pocket_depth is the FULL printed-pocket depth = insert
-        # engagement (half) + relief (half).
+        # insert_pocket_depth is the FULL printed-pocket depth: the insert's own
+        # body, then the relief a screw that outruns it needs. The two are not
+        # equal — the pocket was cut deep enough to take the long ruthex body
+        # without moving, which is why this station presses that one.
         "INSERT_POCKET_D": f"{insert_pocket_radius * 2:.4g} mm",
-        "INSERT_HALF_DEPTH": f"{insert_pocket_depth / 2:.4g} mm",
+        "INSERT_LEN": f"{insert_length:.4g} mm",
+        "INSERT_RELIEF": f"{insert_pocket_depth - insert_length:.4g} mm",
         "CC_INSERTS": f"{CAP_CLAMP_INSERTS + CAP_DECK_INSERTS + RESERVOIR_INSERTS}",
         "CAP_INSERTS": f"{CAP_CLAMP_INSERTS + CAP_DECK_INSERTS}",
         "CAP_CLAMP_INSERTS": f"{CAP_CLAMP_INSERTS}",

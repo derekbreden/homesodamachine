@@ -376,16 +376,21 @@ floor_trough_half_width_y = 14.0  # half the flat trough's Y extent; wide enough
 floor_slope_rise = 6.0  # mm the floor rises from the trough surface to each ±Y wall
 
 
-# Heat-set insert + screw spec. M3 ruthex-style brass heat-set inserts
-# (same as foam-shell cap-stack joinery). Insert OD 4 mm × length 4 mm;
-# pocket is 4 mm bore × [7 mm](INSERT_POCKET_DEPTH) deep (4 mm insert + 3 mm relief). Screws:
+# Heat-set insert + screw spec. ruthex M3 brass heat-set inserts, RX-M3x5.7
+# (same as foam-shell cap-stack joinery). Insert ⌀4.6 knurl × length 5.7 mm;
+# pocket is 4 mm bore × [7 mm](INSERT_POCKET_DEPTH) deep (5.7 mm insert + 1.3 mm relief). Screws:
 # BNUOK M3 × 12 mm DIN 912 SHCS, 304 stainless steel, 18-8 (Amazon
 # B0DJQGMQZM). The M3 × 12 length suits the reservoir's thinner cap-stack
 # geometry (under-head stack is 7 mm cap-plus-gasket vs the foam-shell's
 # ~19 mm).
-# With M3 × 12, the shaft seats 4 mm into the insert, runs another 1 mm
-# into the pocket relief, and leaves 2 mm of slack between the shaft
-# tip and the pocket floor.
+# With M3 × 12, the shaft seats 5 mm into the insert and stops 0.7 mm short
+# of its blind end, so the screw is thread-limited and not pocket-limited:
+# the insert's last 0.7 mm is grip in the PETG, not thread the screw takes.
+# THIS JOINT IS NEVER REOPENED. The cap is bolted down onto its gasket at
+# CC-09 and the reservoir goes into the foam; refill is through the funnel
+# and the fill port, not through this cap. What the insert has to hold is
+# gasket preload against syrup for the life of the machine, in a part no
+# one can reach to re-torque — which is what the longer body buys.
 insert_pocket_radius = 2.0
 insert_pocket_depth = 7.0
 
@@ -696,8 +701,8 @@ def build_reservoir_body(side=1):
     """Open-top `[`-shaped PETG body with uniform wall-thickness walls + floor,
     sized to fit one side of the bag-pocket cavity with reservoir_clearance
     mm of slack on every outer face. Six insert bosses at the top
-    perimeter (one per insert_positions_for_side_plus_1) host ø4 × 7 mm
-    heat-set inserts. side=+1 builds the +X reservoir; side=−1 the −X
+    perimeter (one per insert_positions_for_side_plus_1) host ruthex M3
+    inserts in ø4 × 7 mm pockets. side=+1 builds the +X reservoir; side=−1 the −X
     (mirror across x=0)."""
     outer_envelope = _build_envelope(side, outer_z_range)
     inner_cavity = _build_envelope(side, inner_z_range, wall_offset=reservoir_wall_thickness)

@@ -329,19 +329,35 @@ m3x10_per_build = (shelf_long_screws_per_build + pump_cap_screws_per_build
 # is not counted here.)
 m3x12_per_build = touchflo_screws_per_build
 
-# Combined heat-set insert count across the appliance, by thread.
-total_m3_inserts_per_build = (
+# WHICH M3 BODY EACH STATION TAKES. ruthex's short and full-length M3 are the same insert but
+# for the body — same knurl, same recommended hole — so this split is a statement about BORE
+# DEPTH and nothing else. A station is on the long list when the bore it already cuts is deeper
+# than 5.7 mm of brass plus the relief its own screw needs; it is on the short list when giving
+# it that depth would cost geometry the machine is spending elsewhere.
+#
+# The five short families and what each is paying for:
+#   touch-flo base pods  — the pod is 8 boss hole + pocket + 3 cap = the visible base cylinder
+#   +X wall bosses       — the bore ends at `flute_backing`; deeper walks the power column in
+#   pump-clamp bosses    — the screw is thread-limited at 4 mm anyway, over 2.2 mm of cradle
+#   faucet display cover — the shell's own land, one screw
+#   Y-seam sockets       — pilot is `screw_len - seam_pin_shank_len`; longer wants an M3x12
+m3_long_inserts_per_build = (
     foam_cap_inserts_per_build
     + reservoir_cap_inserts_per_build
-    + touchflo_inserts_per_build
-    + shelf_inserts_per_build
     + cond_inserts_per_build
     + nameplate_inserts_per_build
     + display_cover_inserts_per_build
+)
+m3_short_inserts_per_build = (
+    touchflo_inserts_per_build
+    + shelf_inserts_per_build
     + faucet_display_cover_inserts_per_build
     + pump_cap_inserts_per_build
     + enclosure_seam_inserts_per_build
 )
+
+# Combined heat-set insert count across the appliance, by thread.
+total_m3_inserts_per_build = m3_long_inserts_per_build + m3_short_inserts_per_build
 total_m5_inserts_per_build = floor_inserts_per_build
 
 # And the screws that go into them. EVERY INSERT IN THIS BUILD TAKES ONE SCREW, which is what
@@ -508,6 +524,8 @@ def main():
         "PUMP_MOUNT_SCREWS": f"{pump_mount_screws_per_build:.4g}",
         "CAP_CRADLES": f"{len(cap_cradles):.4g}",
         "TOTAL_M3_INSERTS": f"{total_m3_inserts_per_build:.4g}",
+        "M3_LONG_INSERTS": f"{m3_long_inserts_per_build:.4g}",
+        "M3_SHORT_INSERTS": f"{m3_short_inserts_per_build:.4g}",
         "TOTAL_M5_INSERTS": f"{total_m5_inserts_per_build:.4g}",
         # Vent filters.
         "VENT_FILTERS": f"{vent_filters_per_build:.4g}",

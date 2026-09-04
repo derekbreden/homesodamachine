@@ -52,10 +52,12 @@ widest material the plate has.
   what *sets* the [5.2 mm](COVER_SEAT) seat; the plate is not thickened to some figure
   and then bored, it is exactly as thick as a buried M3 needs.
 - **Fastener** — M3 × [8 mm](COVER_SCREW_LEN) DIN 912 socket head cap, into a ruthex M3
-  short in the [5.25 mm](HEATSET_DEPTH) bore under each seat, [5.25 mm](THREAD_ENGAGED)
-  of it in thread. DIN 912 states a length under the head, and what it has to stand in
-  is [8.25 mm](COVER_SCREW_REACH): the land, the insert, and the relief the box bores under
-  the insert so a tip that runs past it finds air rather than a floor.
+  of [5.7 mm](HEATSET_LEN) body under each seat, the screw taking [5.7 mm](THREAD_ENGAGED)
+  of it in thread — the whole insert. DIN 912 states a length under the head, and what it
+  has to stand in is [8.7 mm](COVER_SCREW_REACH): the land, the insert, and the relief the
+  box bores under the insert so a tip that runs past it finds air rather than a floor.
+  These two screws are the display's entire fastening, and the facet they land in carries
+  19 mm of section, so the long body goes in rather than the short one.
 
 ## Two sections
 

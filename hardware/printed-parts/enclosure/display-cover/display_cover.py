@@ -64,7 +64,7 @@ from _enclosure_interface import (
     flute_full_depth_height,
     flute_reach,
     head_cbore_dia,
-    heatset_depth,
+    heatset_long_len,
     mount_bore_relief,
     screw_clear_dia,
 )
@@ -163,13 +163,15 @@ land_under_head = display_cover_seat - cbore_depth             # [2 mm](COVER_LA
 cbore_ledge = (cbore_dia - screw_clear_dia) / 2.0              # [1.125 mm](CBORE_LEDGE)
 
 # WHAT THE SCREW HAS TO STAND IN, under the head: the land, then the bore the box cuts past it —
-# the ruthex M3 short's own thread and the relief under it, so a tip that runs past the insert
-# finds air rather than a floor.
-screw_reach = land_under_head + heatset_depth + mount_bore_relief   # [8.25 mm](COVER_SCREW_REACH)
+# the ruthex M3's own thread and the relief under it, so a tip that runs past the insert finds
+# air rather than a floor. THESE TWO SCREWS ARE THE DISPLAY'S WHOLE FASTENING and the facet has
+# 19 mm of section to bore, so the long body goes in: `heatset_long_len` of thread under a plate
+# that is lifted to take the screen out.
+screw_reach = land_under_head + heatset_long_len + mount_bore_relief   # [8.7 mm](COVER_SCREW_REACH)
 # DIN 912 states a length UNDER the head, the head standing proud of it — so this is the M3×8
 # the machine already buys, the longest stock length inside that reach.
 screw_len = 8.0                                                # [8 mm](COVER_SCREW_LEN)
-thread_engaged = min(screw_len - land_under_head, heatset_depth)  # [5.25 mm](THREAD_ENGAGED)
+thread_engaged = min(screw_len - land_under_head, heatset_long_len)  # [5.7 mm](THREAD_ENGAGED)
 
 
 def _rounded_prism(x, slope, corner_r, z_bottom, z_top) -> cq.Workplane:
@@ -273,8 +275,8 @@ def selftest() -> int:
     if screw_len > screw_reach + 1e-9:
         fails.append(f"an M3x{screw_len:g} runs {screw_len:g} under its head and the station "
                      f"gives it {screw_reach:.2f}")
-    if thread_engaged < heatset_depth - 1e-9:
-        fails.append(f"the screw takes {thread_engaged:.2f} of a {heatset_depth:g} insert")
+    if thread_engaged < heatset_long_len - 1e-9:
+        fails.append(f"the screw takes {thread_engaged:.2f} of a {heatset_long_len:g} insert")
     for band, name in ((seat_band_x, "laterally"), (seat_band_slope, "up the slope")):
         if band <= 0.0:
             fails.append(f"the seat leaves no band {name} — the glass reaches the plate's edge")
@@ -320,7 +322,7 @@ def main():
           f"{border_x:g} border laterally, {border_slope:g} up the slope")
     print(f"  {cbore_dia:g} flat counterbore {cbore_depth:g} deep over a "
           f"{screw_clear_dia:g} shank, {land_under_head:g} of land under the head; "
-          f"M3x{screw_len:g} DIN 912 into a ruthex M3 short, {thread_engaged:g} engaged")
+          f"M3x{screw_len:g} DIN 912 into a ruthex M3, {thread_engaged:g} engaged")
     print(f"  {glass_lap_seat:g} of air under the lap, glass face {glass_face_depth:g} below the "
           f"45° plane and the plate's underside {display_inset_depth:g}")
     print(f"  Bounding box: X [{bb.xmin:.2f}, {bb.xmax:.2f}]  Y [{bb.ymin:.2f}, {bb.ymax:.2f}]  "
@@ -357,7 +359,7 @@ def main():
         "COVER_SCREW_LEN": f"{screw_len:.4g} mm",
         "COVER_SCREW_REACH": f"{screw_reach:.4g} mm",
         "THREAD_ENGAGED": f"{thread_engaged:.4g} mm",
-        "HEATSET_DEPTH": f"{heatset_depth:.4g} mm",
+        "HEATSET_LEN": f"{heatset_long_len:.4g} mm",
         "GLASS_FACE_DEPTH": f"{glass_face_depth:.4g} mm",
         "GLASS_LAP_SEAT": f"{glass_lap_seat:.4g} mm",
     }

@@ -71,7 +71,7 @@ The signature is not printed — it lands here, at the final-stage bench, on the
 
 Whichever path is in service, the signature is applied to *this* plate for *this* unit — the builder is signing this specific machine, not pre-signing a batch of blank plates. The signature is the physical proof per [`/marketing/target-market.md`](/marketing/target-market.md) "Trust at Founder Edition: the brand is a person" that a specific person built this specific machine.
 
-Mount the signed plate into its pocket on the +Y wall and draw the two M3×8 cap screws down into the heat-sets in the wall's own bosses, one at each end of the plate on its horizontal centreline. The heads land in the plate's counterbores and come out flush with the wall. Apply the signature first and mount second — a plate in its pocket cannot be signed in place.
+Mount the signed plate into its pocket on the +Y wall and draw the two M3×8 cap screws down into the heat-sets in the wall's own bosses, one at each end of the plate on its horizontal centreline. Those two are full-length ruthex, pressed at [`enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md) §1 and standing empty until now; each takes the whole of the screw's reach in thread. The heads land in the plate's counterbores and come out flush with the wall. Apply the signature first and mount second — a plate in its pocket cannot be signed in place.
 
 ### 4. Cap the +Y wall's inlets for transit
 
