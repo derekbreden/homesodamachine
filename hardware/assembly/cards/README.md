@@ -195,7 +195,7 @@ accent colors are defined in `STYLE.md`.
 | FU-01 | Cut the three LLDPE tubes |
 | FU-02 | Route the tubes through the shell |
 | FU-03 | Insulate and sleeve, a segment at a time |
-| FU-04 | Bag with the installer kit |
+| FU-04 | Bag with the under-counter plate |
 
 ### EN — Enclosure mechanical ([enclosure-mechanical.md](/hardware/assembly/enclosure-mechanical.md))
 

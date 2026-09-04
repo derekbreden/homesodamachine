@@ -33,7 +33,8 @@ One collar per chip, on the same five stations, off the same five words and four
 
 The three on the umbilical go on at [`assembly/faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md)
 §4, up to the braid's own end, and ride to the +Y wall of back-top on the un-sleeved tail. The other
-two go in the install kit, for the two runs the customer cuts in their own kitchen.
+two go on at [`assembly/finish-pack-ship.md`](/hardware/assembly/finish-pack-ship.md) §6, onto the customer's own two runs, which
+ship made up in the install kit.
 
 ## The bore
 

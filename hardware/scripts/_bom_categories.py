@@ -47,7 +47,7 @@ CATEGORIES = {
     "cable-mgmt":     "Cable management",
     "vent-filter":    "Vent filter",
     "welding":        "Welding filler",
-    "install-tool":   "Install-kit tool",
+    "cold-kit":       "Cold kit",
 }
 
 TAG = re.compile(r"<!--@([a-z][a-z-]*)-->")
