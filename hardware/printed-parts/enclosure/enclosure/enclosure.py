@@ -499,8 +499,19 @@ screw_len = 10.0             # M3 SHCS under-head length (M3x10), head seat → 
 plug_dia = screw_clear_dia + 2.0 * wall          # 9.9 — the shank + one wall each side
 socket_bore_dia = plug_dia + split_slip          # 10.2 — slide fit over the plug
 socket_r = socket_bore_dia / 2.0 + wall          # pod half-size: one wall around the bore
-heatset_dia = _interface.heatset_dia  # ruthex M3 short heat-set
-heatset_len = 4.0            # ruthex RX-M3Sx4.0 brass body, set flush at its opening
+heatset_dia = _interface.heatset_dia  # ruthex M3, ⌀4.0 recommended hole either length
+# BOTH LENGTHS ARE THE SAME INSERT. ruthex's M3 short and M3 differ in body length and in
+# nothing else — same ⌀4.6 knurl, same ⌀4.0 hole — so a station's choice between them is a
+# question about the depth ITS OWN bore has and never about its section. Where a bore is
+# already deeper than the long body, the long body goes in and the pocket does not move.
+#
+# THE SHORT ONE IS NOT A DEFAULT HERE; it is what two families can prove they need. The Y
+# seam's pilot is `screw_len - seam_pin_shank_len` and the pump clamp's is the cradle under
+# the bracket plane, and both come out under the long body — lengthening either costs a
+# longer seam screw and a wider `side_band_inset`, or 2.2 mm of cradle, for grip neither
+# joint's load case asks for. Every other insert on this box is the long one.
+heatset_len = _interface.heatset_len            # the Y seam and the pump clamp, and no others
+heatset_long_len = _interface.heatset_long_len  # the condenser fingers, nameplate, display cover
 heatset_depth = _interface.heatset_depth  # general M3 pilot; the Y seam derives its own below
 socket_cap = wall            # one wall capping the insert's deep end
 # HOW FAR THE PIN'S OWN FACE STANDS OFF THE END WALL IT PINS UNDER. A full-width 45-degree
@@ -3372,11 +3383,13 @@ def _display_cuts(outer):
     )
     cut = inset.fuse(bezel).fuse(pcb).fuse(land)
     for sx in (-1.0, +1.0):
-        # And the insert the screw pulls against, struck from the land's own floor.
+        # And the insert the screw pulls against, struck from the land's own floor. The long
+        # body goes here and the facet has the stock for it twice over: 19 mm of section under
+        # a 2 mm inset against a bore of `heatset_long_len` and its relief.
         bore = (
             cq.Workplane(plane).workplane(offset=-display_cover_seat)
             .center(sx * display_screw_x, 0.0).circle(heatset_dia / 2.0)
-            .extrude(-(heatset_depth + mount_bore_relief)).val()
+            .extrude(-(heatset_long_len + mount_bore_relief)).val()
         )
         cut = cut.fuse(bore)
     return cut

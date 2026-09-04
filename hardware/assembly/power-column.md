@@ -27,7 +27,7 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §1 (
 | 16 AWG silicone-insulated appliance wire (black/white/green) | per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11 | AC-1 pigtail stock + the DC-1/2/4 trunk and branches + ground bonds. |
 | 16 AWG stranded hookup wire | per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11 | AC branch stock (AC-2 + AC-3). |
 | Spade crimp terminals + ferrules + ring terminals | per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11 (B0B9MZJ2ML spades + Preciva-kit ferrules + B08B5VS8ZR rings) | AC pigtails land in Wago 221 lever blocks via crimp ferrules; the PSU primary and Teyleten contact terminals take crimp forks; the ground bus takes ring terminals; DC-4 lands under the J10 screw clamps via ferrules. |
-| M3 × 8 SHCS ×14 + M3 × 10 ×1 | per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §13 | Board + module mounting. Every one lands in a ruthex insert already set in a +X wall boss of `enclosure-back-top` — no insert is pressed in this column. See Open items 2. |
+| M3 × 8 SHCS ×14 + M3 × 10 ×1 | per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §13 | Board + module mounting. Every one lands in a ruthex **short** insert already set in a +X wall boss of `enclosure-back-top` — no insert is pressed in this column. Short and not full-length: the bore stops at `flute_backing`, three millimetres of stock that has to stay behind the fluted exterior, and the seat these bodies stand on is struck off that bore. See Open items 2. |
 
 Tooling: ESD mat, ferrule crimper, ring/fork-terminal crimper, helping hands, multimeter for AC-side continuity and DC-side polarity checks.
 

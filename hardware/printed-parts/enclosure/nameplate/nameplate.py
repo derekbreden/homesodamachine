@@ -140,8 +140,13 @@ def screw_reach() -> float:
 
 
 def thread_engaged() -> float:
-    """How much of the insert the screw takes."""
-    return min(SCREW_LEN - LAND, _enc.heatset_depth)
+    """How much of the insert the screw takes.
+
+    Against the INSERT's own body and not the pocket's depth: the bore is one relief deeper
+    than the brass in it, and a screw that crosses the relief has taken no more thread for it.
+    The long ruthex goes in here — the bore this station already cuts is deeper than that body,
+    so the plate's two screws take the whole of it."""
+    return min(SCREW_LEN - LAND, _enc.heatset_long_len)
 
 
 def floor_under() -> float:
