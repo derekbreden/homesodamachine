@@ -42,7 +42,7 @@ class Variant:
     field: str = "#DCE7E9"
     paper: str = "#FFFFFF"
     motion: str = "#E64F5C"
-    number: str = "#FFFFFF"
+    number: str = "#1A1A2E"
     ink: str = "#1A1A2E"
     lockup: str = "canonical"
     number_style: str = "current"
@@ -50,7 +50,7 @@ class Variant:
 
 
 FIELDS = (
-    Variant("F0", "Current", note="Reference field"),
+    Variant("F0", "Pale Teal", note="Cool reference field"),
     Variant("F1", "Carbonation Ice", field="#CEDFE7", note="Clear and aquatic"),
     Variant(
         "F2",
@@ -92,7 +92,6 @@ FIELDS = (
         "Storm Glass",
         field="#B8C7CD",
         motion="#C9344B",
-        number="#F9FBFC",
         note="Boldest separation",
     ),
 )
@@ -111,6 +110,7 @@ PAPERS = (
         "P8",
         "Midnight Ink",
         paper="#1A1A2E",
+        number="#FFFFFF",
         ink="#FFFFFF",
         note="High-contrast wildcard",
     ),
@@ -170,8 +170,8 @@ COMPOSED = (
         field="#DED7CD",
         motion="#D64050",
         lockup="v03",
-        number_style="n01",
-        note="Warm Stone / Pure White / Purpose First / Ink Baseline",
+        number_style="n02",
+        note="Warm Stone / Pure White / Purpose First / Porcelain Disc",
     ),
     Variant(
         "C6",
@@ -193,11 +193,12 @@ COMPOSED = (
 NUMBERS = (
     Variant(
         "N0",
-        "Current White",
+        "Oversize White",
         field="#DED7CD",
         motion="#D64050",
         lockup="v03",
-        note="Reference: large white Plex Sans",
+        number_style="n00",
+        note="Reference: uncontained white numeral",
     ),
     Variant(
         "N1",
@@ -265,7 +266,7 @@ NUMBERS = (
 )
 
 
-NUMBER_FINALISTS = ("N2", "N3", "N5", "N6")
+NUMBER_FINALISTS = ("N1", "N3", "N5", "N6")
 
 
 LOCKUP_MARKUP = {
@@ -564,7 +565,7 @@ def write_deck_pages(variant_pages: dict[str, Path]) -> None:
                 subtitle="C1's Purpose First lockup and F5 Warm Stone stay fixed.",
                 variants=NUMBERS,
                 columns=4,
-                recommendation="N1 is the clean baseline; N3 and N5 add more character.",
+                recommendation="N2 Porcelain Disc is the selected treatment.",
             ),
         ),
     )
