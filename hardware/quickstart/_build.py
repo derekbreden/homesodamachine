@@ -58,7 +58,7 @@ PAGE_ASSETS = (
     HERE / "art" / "mount-under-tighten-clean.png",
     HERE / "plumbing" / "modern" / "art" / "modern-water-on.png",
     HERE / "plumbing" / "modern" / "art" / "modern-water-off.png",
-    HERE / "plumbing" / "modern" / "art" / "modern-release-pressed.png",
+    HERE / "plumbing" / "modern" / "art" / "modern-release-ready.png",
     HERE / "plumbing" / "modern" / "art" / "modern-release-withdrawn.png",
     HERE / "plumbing" / "modern" / "art" / "modern-tee-jumper.png",
     HERE / "plumbing" / "modern" / "art" / "modern-tee-mounted.png",

@@ -23,7 +23,6 @@ from __future__ import annotations
 
 import importlib.util
 import json
-import math
 import os
 import shutil
 import subprocess
@@ -255,13 +254,12 @@ def _build_steps(work: Path) -> dict[str, Path]:
     washer_steel = cq.Color(0.82, 0.83, 0.84, 1.0)
     nut_steel = cq.Color(0.43, 0.45, 0.48, 1.0)
     countertop_stone = cq.Color(0.55, 0.55, 0.58, 1.0)
-    # Both flavor lines are physically black. Instruction-lighting tones keep their tangent round
-    # bodies countable at print size; the much lighter flat SIG-6 remains a different silhouette.
+    # The two flavor lines and the flat SIG-6 faucet-display cable are physically black. Slightly
+    # different instruction-lighting tones keep all three countable where their silhouettes meet.
     flavor_black_a = cq.Color(0.025, 0.027, 0.031, 1.0)
     flavor_black_b = cq.Color(0.20, 0.205, 0.215, 1.0)
-    signal_gray = cq.Color(0.55, 0.56, 0.59, 1.0)
-    signal_stripe_gray = cq.Color(0.30, 0.31, 0.34, 1.0)
-    motion_red = cq.Color(0.83, 0.19, 0.16, 1.0)
+    signal_black = cq.Color(0.035, 0.038, 0.043, 1.0)
+    signal_stripe_black = cq.Color(0.16, 0.17, 0.19, 1.0)
     frame_anchor_color = cq.Color(0.95, 0.04, 0.82, 1.0)
 
     def donor_hardware(washer_top_z: float):
@@ -318,38 +316,6 @@ def _build_steps(work: Path) -> dict[str, Path]:
             .translate(ribbon_move)
         )
         return _clip_z(ribbon, *mount_clip), _clip_z(stripes, *mount_clip)
-
-    def motion_arrow(start, direction, shaft_length: float, head_length: float):
-        """One solid instruction arrow, outside the product geometry."""
-        start_v = cq.Vector(*start)
-        direction_v = cq.Vector(*direction)
-        direction_v = direction_v.multiply(1.0 / direction_v.Length)
-        head_start = start_v.add(direction_v.multiply(shaft_length))
-        shaft = cq.Solid.makeCylinder(1.7, shaft_length, start_v, direction_v)
-        head = cq.Solid.makeCone(4.5, 0.25, head_length, head_start, direction_v)
-        return cq.Compound.makeCompound([shaft, head])
-
-    def rotation_arrow(center, radius: float, start_angle: float, end_angle: float):
-        """A circular hand-motion cue around the nut's Z axis."""
-        center_v = cq.Vector(*center)
-        path = cq.Edge.makeCircle(
-            radius,
-            center_v,
-            (0.0, 0.0, 1.0),
-            start_angle,
-            end_angle,
-        )
-        start = path.startPoint()
-        end = path.endPoint()
-        tangent = cq.Vector(
-            -math.sin(math.radians(end_angle)),
-            math.cos(math.radians(end_angle)),
-            0.0,
-        )
-        profile = cq.Wire.makeCircle(1.7, start, tangent)
-        shaft = cq.Solid.sweep(profile, [], path, makeSolid=True, isFrenet=True)
-        head = cq.Solid.makeCone(4.5, 0.25, 7.0, end, tangent)
-        return cq.Compound.makeCompound([shaft, head])
 
     def add_render_frame(out: cq.Assembly):
         """Give every mount state one identical orthographic frame.
@@ -429,8 +395,8 @@ def _build_steps(work: Path) -> dict[str, Path]:
             }.get(part_name)
             _add_child(out, child, obj=obj, color=color)
         ribbon, ribbon_stripes = signal_ribbon(lift_z)
-        out.add(ribbon, name="sig6-flat-ribbon", color=signal_gray)
-        out.add(ribbon_stripes, name="sig6-ribbon-face-stripes", color=signal_stripe_gray)
+        out.add(ribbon, name="sig6-flat-ribbon", color=signal_black)
+        out.add(ribbon_stripes, name="sig6-ribbon-face-stripes", color=signal_stripe_black)
         if washer_top_z is None:
             washer_top_z = captive_washer_top_z + lift_z
         washer, nut = donor_hardware(washer_top_z)
@@ -485,11 +451,6 @@ def _build_steps(work: Path) -> dict[str, Path]:
     add_mount_product(lowered, 0.0)
     add_render_frame(lowered)
     lowered_clean_step = _export_colored(lowered, work / "mount-lowered-clean.step")
-    lowered.add(
-        motion_arrow((-31.0, -23.0, 38.0), (0.0, 0.0, -1.0), 19.0, 8.0),
-        name="lower-motion",
-        color=motion_red,
-    )
     seated_step = _export_colored(lowered, work / "mount-seated.step")
 
     # 3 — the exact source plate approaches from -X. Sampling the exported solid confirms both
@@ -506,31 +467,21 @@ def _build_steps(work: Path) -> dict[str, Path]:
     )
     add_render_frame(slide)
     slide_clean_step = _export_colored(slide, work / "mount-slide-clean.step")
-    slide.add(
-        motion_arrow((-105.0, -23.0, -51.0), (1.0, 0.0, 0.0), 42.0, 9.0),
-        name="slide-motion",
-        color=motion_red,
-    )
     slide_step = _export_colored(slide, work / "mount-slide.step")
 
-    # 4 — plate seated, same pair closed against it. The circular cue asks for hand rotation without
-    # hiding the zero-gap result behind an approximate CAD hand or implying upward force.
+    # 4 — plate seated, same pair closed against it. The page-level circular cue asks for hand
+    # rotation without hiding the zero-gap result behind an approximate CAD hand.
     tight = cq.Assembly(name="faucet-mount-tighten")
     add_countertop_section(tight)
     add_mount_product(tight, 0.0, washer_top_z=final_washer_top_z)
     _add_child(tight, parts["under_counter_plate"], color=plate_steel)
     add_render_frame(tight)
     final_clean_step = _export_colored(tight, work / "mount-final-clean.step")
-    tight.add(
-        rotation_arrow((0.0, 0.0, -51.0), 18.0, 70.0, 280.0),
-        name="tighten-rotation",
-        color=motion_red,
-    )
     tight_step = _export_colored(tight, work / "mount-tighten.step")
 
     # 3A — once the faucet is seated, the installer is below the intact counter. The light steel
     # plate is the actual source DXF solid, still displaced at -X; its two open channels face the
-    # attached shank/tube stack. The only red is its literal lateral movement.
+    # attached shank/tube stack.
     under_slide = cq.Assembly(name="faucet-mount-under-slide")
     add_under_countertop(under_slide)
     add_under_mount_product(under_slide, washer_top_z=captive_washer_top_z)
@@ -541,17 +492,12 @@ def _build_steps(work: Path) -> dict[str, Path]:
         obj=_moved(parts["under_counter_plate"].obj, (PLATE_APPROACH_X, 0.0, 0.0)),
         color=plate_steel,
     )
-    under_slide.add(
-        motion_arrow((-105.0, -20.0, -51.0), (1.0, 0.0, 0.0), 42.0, 9.0),
-        name="under-slide-motion",
-        color=motion_red,
-    )
     add_under_render_frame(under_slide)
     under_slide_step = _export_colored(under_slide, work / "mount-under-slide-clean.step")
 
     # 3B — identical counter, camera and hanging assembly. Only the source plate is seated and
-    # the captive donor washer/nut pair has closed into the real stack, so the rotation cue is
-    # unmistakably about that one hex nut.
+    # the captive donor washer/nut pair has closed into the real stack. The page anchors its
+    # rotation cue directly on that one hex nut.
     under_tight = cq.Assembly(name="faucet-mount-under-tighten")
     add_under_countertop(under_tight)
     add_under_mount_product(under_tight, washer_top_z=final_washer_top_z)
@@ -560,11 +506,6 @@ def _build_steps(work: Path) -> dict[str, Path]:
         parts["under_counter_plate"],
         name="under-seated-plate",
         color=plate_steel,
-    )
-    under_tight.add(
-        rotation_arrow((0.0, 0.0, -51.0), 18.0, 70.0, 280.0),
-        name="under-tighten-rotation",
-        color=motion_red,
     )
     add_under_render_frame(under_tight)
     under_tight_step = _export_colored(under_tight, work / "mount-under-tighten-clean.step")
@@ -649,8 +590,8 @@ def _build_connection_steps(work: Path) -> dict[str, Path]:
     collar_black_b = cq.Color(0.105, 0.11, 0.12, 1.0)
     collar_word = cq.Color(0.94, 0.945, 0.955, 1.0)
     collar_word_black = cq.Color(0.025, 0.027, 0.031, 1.0)
-    ribbon_gray = cq.Color(0.47, 0.49, 0.53, 1.0)
-    ribbon_edge = cq.Color(0.22, 0.23, 0.26, 1.0)
+    ribbon_black = cq.Color(0.035, 0.038, 0.043, 1.0)
+    ribbon_edge = cq.Color(0.16, 0.17, 0.19, 1.0)
     plug_body = cq.Color(0.72, 0.74, 0.78, 1.0)
     plug_latch = cq.Color(0.86, 0.87, 0.89, 1.0)
     contact_gold = cq.Color(0.73, 0.49, 0.14, 1.0)
@@ -860,7 +801,7 @@ def _build_connection_steps(work: Path) -> dict[str, Path]:
         0.28,
         0.08,
     )
-    umbilical.add(ribbon, name="wall-end-sig6-ribbon", color=ribbon_gray)
+    umbilical.add(ribbon, name="wall-end-sig6-ribbon", color=ribbon_black)
     umbilical.add(ribbon_mark, name="wall-end-sig6-ribbon-mark", color=ribbon_edge)
 
     def state(name: str, shift_y: float):

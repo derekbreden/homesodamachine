@@ -7209,7 +7209,7 @@ genrule(
         ":out/cad-art/hardware/quickstart/art/mount-lowered-clean.png",
         ":out/cad-art/hardware/quickstart/art/mount-under-slide-clean.png",
         ":out/cad-art/hardware/quickstart/art/mount-under-tighten-clean.png",
-        ":out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-release-pressed.png",
+        ":out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-release-ready.png",
         ":out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-release-withdrawn.png",
         ":out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-tee-complete.png",
         ":out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-tee-existing.png",
