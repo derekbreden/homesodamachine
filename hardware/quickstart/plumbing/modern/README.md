@@ -11,10 +11,8 @@ The complete modeled sequence is:
 1. leave the 1/4-inch LLDPE connected and turn the household quarter-turn
    shutoff from ON to OFF;
 2. press the existing union's release collet and withdraw the original line;
-3. push the short supplied LLDPE jumper into the union;
-4. push one PP0208E tee onto the jumper;
-5. push the original loose line into the tee's other run port;
-6. push the filter/appliance branch into the tee's third port and tug-check it.
+3. push the supplied stub/PP0208E-tee/appliance-tube assembly into the union;
+4. push the original loose line into the tee's open run port.
 
 The household plumbing receives one new fitting.  No threaded joint,
 compression nut, screw, wrench, or routine line cut is part of this path.  A
@@ -38,15 +36,14 @@ tools/cad-venv/bin/python \
   hardware/quickstart/plumbing/modern/render_modern_tee.py
 ```
 
-The eight guide-ready outputs are:
+The seven guide-ready outputs are:
 
 - `art/modern-water-on.png`
 - `art/modern-water-off.png`
 - `art/modern-release-ready.png`
 - `art/modern-release-withdrawn.png`
-- `art/modern-tee-jumper.png`
-- `art/modern-tee-mounted.png`
-- `art/modern-tee-existing.png`
+- `art/modern-tee-assembly-ready.png`
+- `art/modern-tee-line-ready.png`
 - `art/modern-tee-complete.png`
 
 Two extra comparison states are retained for visual development:

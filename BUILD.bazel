@@ -7211,10 +7211,9 @@ genrule(
         ":out/cad-art/hardware/quickstart/art/mount-under-tighten-clean.png",
         ":out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-release-ready.png",
         ":out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-release-withdrawn.png",
+        ":out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-tee-assembly-ready.png",
         ":out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-tee-complete.png",
-        ":out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-tee-existing.png",
-        ":out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-tee-jumper.png",
-        ":out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-tee-mounted.png",
+        ":out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-tee-line-ready.png",
         ":out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-water-off.png",
         ":out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-water-on.png",
         "hardware/quickstart/quick-start.html",
@@ -7433,10 +7432,9 @@ genrule(
         "out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-release-pressed.png",
         "out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-release-ready.png",
         "out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-release-withdrawn.png",
+        "out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-tee-assembly-ready.png",
         "out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-tee-complete.png",
-        "out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-tee-existing.png",
-        "out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-tee-jumper.png",
-        "out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-tee-mounted.png",
+        "out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-tee-line-ready.png",
         "out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-tee-tug-check.png",
         "out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-water-off.png",
         "out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-water-on.png",
@@ -7447,13 +7445,12 @@ set -e
 O0=$$PWD/$(location out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-release-pressed.png)
 O1=$$PWD/$(location out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-release-ready.png)
 O2=$$PWD/$(location out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-release-withdrawn.png)
-O3=$$PWD/$(location out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-tee-complete.png)
-O4=$$PWD/$(location out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-tee-existing.png)
-O5=$$PWD/$(location out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-tee-jumper.png)
-O6=$$PWD/$(location out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-tee-mounted.png)
-O7=$$PWD/$(location out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-tee-tug-check.png)
-O8=$$PWD/$(location out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-water-off.png)
-O9=$$PWD/$(location out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-water-on.png)
+O3=$$PWD/$(location out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-tee-assembly-ready.png)
+O4=$$PWD/$(location out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-tee-complete.png)
+O5=$$PWD/$(location out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-tee-line-ready.png)
+O6=$$PWD/$(location out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-tee-tug-check.png)
+O7=$$PWD/$(location out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-water-off.png)
+O8=$$PWD/$(location out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-water-on.png)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -7473,13 +7470,12 @@ HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/pyth
 cp hardware/quickstart/plumbing/modern/art/modern-release-pressed.png $$O0
 cp hardware/quickstart/plumbing/modern/art/modern-release-ready.png $$O1
 cp hardware/quickstart/plumbing/modern/art/modern-release-withdrawn.png $$O2
-cp hardware/quickstart/plumbing/modern/art/modern-tee-complete.png $$O3
-cp hardware/quickstart/plumbing/modern/art/modern-tee-existing.png $$O4
-cp hardware/quickstart/plumbing/modern/art/modern-tee-jumper.png $$O5
-cp hardware/quickstart/plumbing/modern/art/modern-tee-mounted.png $$O6
-cp hardware/quickstart/plumbing/modern/art/modern-tee-tug-check.png $$O7
-cp hardware/quickstart/plumbing/modern/art/modern-water-off.png $$O8
-cp hardware/quickstart/plumbing/modern/art/modern-water-on.png $$O9
+cp hardware/quickstart/plumbing/modern/art/modern-tee-assembly-ready.png $$O3
+cp hardware/quickstart/plumbing/modern/art/modern-tee-complete.png $$O4
+cp hardware/quickstart/plumbing/modern/art/modern-tee-line-ready.png $$O5
+cp hardware/quickstart/plumbing/modern/art/modern-tee-tug-check.png $$O6
+cp hardware/quickstart/plumbing/modern/art/modern-water-off.png $$O7
+cp hardware/quickstart/plumbing/modern/art/modern-water-on.png $$O8
 """,
 )
 
