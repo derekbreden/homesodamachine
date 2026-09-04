@@ -9,47 +9,70 @@
   src: url("../assembly/cards/fonts/IBMPlexMono-400-normal-latin.woff2") format("woff2");
 }
 
-.clockwork-numbers[class*="number-n"] .step-number {
+/* 00 — uncontained white control */
+.number-n00 {
+  color: #fff !important;
+  font-size: 500px;
+}
+
+.number-n00 .step-number {
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  transform: none;
+}
+
+.number-n00 .step-one { left: 572.9167px; top: 131.25px; width: 218.75px; height: 372.9167px; }
+.number-n00 .step-two { left: 2620.8333px; top: 235.4167px; width: 275px; height: 379.1667px; }
+.number-n00 .step-three { left: 5291.6667px; top: 81.25px; width: 268.75px; height: 385.4167px; }
+.number-n00 .step-four { left: 4310.4167px; top: 1529.1667px; width: 289.5833px; height: 372.9167px; }
+.number-n00 .step-five { left: 3891.6667px; top: 2482.8125px; width: 260.4167px; height: 379.1667px; }
+.number-n00 .step-six { left: 1008.3333px; top: 2479.6875px; width: 272.9167px; height: 385.4167px; }
+
+.clockwork-numbers:not(.number-n00)[class*="number-n"] .step-number {
   left: var(--step-x) !important;
   top: var(--step-y) !important;
   transform: translate(-50%, -50%);
   font-variant-numeric: tabular-nums;
 }
 
-.clockwork-numbers[class*="number-n"] .step-one {
-  --step-x: 659.375px;
+.clockwork-numbers:not(.number-n00)[class*="number-n"] .step-one {
+  --step-x: 682.2917px;
   --step-y: 317.7083px;
 }
 
-.clockwork-numbers[class*="number-n"] .step-two {
+.clockwork-numbers:not(.number-n00)[class*="number-n"] .step-two {
   --step-x: 2758.3333px;
   --step-y: 425px;
 }
 
-.clockwork-numbers[class*="number-n"] .step-three {
+.clockwork-numbers:not(.number-n00)[class*="number-n"] .step-three {
   --step-x: 5426.0417px;
-  --step-y: 323.9583px;
+  --step-y: 273.9583px;
 }
 
-.clockwork-numbers[class*="number-n"] .step-four {
+.clockwork-numbers:not(.number-n00)[class*="number-n"] .step-four {
   --step-x: 4455.2083px;
-  --step-y: 1673.9583px;
+  --step-y: 1715.625px;
 }
 
-.clockwork-numbers[class*="number-n"] .step-five {
+.clockwork-numbers:not(.number-n00)[class*="number-n"] .step-five {
   --step-x: 4021.875px;
-  --step-y: 2737.5px;
+  --step-y: 2672.3958px;
 }
 
-.clockwork-numbers[class*="number-n"] .step-six {
+.clockwork-numbers:not(.number-n00)[class*="number-n"] .step-six {
   --step-x: 1144.7917px;
-  --step-y: 2607.2917px;
+  --step-y: 2672.3958px;
 }
 
 /* 01 — ink baseline */
 .number-n01 .step-number {
   width: 300px !important;
   height: 348px !important;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
   color: var(--ink);
   font-size: 356px;
   font-weight: 700;
@@ -71,7 +94,7 @@
   height: 306px !important;
   border-radius: 50%;
   background: var(--paper);
-  box-shadow: inset 0 0 0 10px rgb(26 26 46 / 8%);
+  box-shadow: none;
   color: var(--ink);
   font-size: 206px;
   font-weight: 700;
@@ -86,6 +109,7 @@
   background:
     linear-gradient(var(--field), var(--field)) padding-box,
     conic-gradient(from -28deg, var(--motion) 0 70deg, var(--paper) 70deg 360deg) border-box;
+  box-shadow: none;
   color: var(--ink);
   font-size: 194px;
   font-weight: 700;
@@ -95,6 +119,9 @@
 .number-n04 .step-number {
   width: 330px !important;
   height: 380px !important;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
   color: var(--ink);
   font-size: 460px;
   font-weight: 700;
@@ -109,6 +136,9 @@
   height: 300px !important;
   justify-content: flex-start;
   border-left: 17px solid var(--motion);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
   padding-left: 31px;
   color: var(--ink);
   font-family: "IBM Plex Mono", monospace;
@@ -129,6 +159,7 @@
   height: 292px !important;
   border-radius: 50%;
   background: var(--ink);
+  box-shadow: none;
   color: var(--paper);
   font-size: 198px;
   font-weight: 700;
