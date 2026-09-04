@@ -30,7 +30,10 @@ struct FlavorImagePicker: View {
     @State private var confirmRemove: Int?     // art index
 
     private let tileAspect: CGFloat = 172.0 / 320.0
-    private let columns = [GridItem(.adaptive(minimum: 130), spacing: 16)]
+    // Four to a row on a phone. The face the machine holds is 172 pixels
+    // wide, and a tile this size shows it near that rather than blown up —
+    // and the eight faces a channel can wear fit on one screen.
+    private let columns = [GridItem(.adaptive(minimum: 72, maximum: 100), spacing: 12)]
 
     var body: some View {
         NavigationView {
@@ -38,7 +41,7 @@ struct FlavorImagePicker: View {
                 Theme.background.ignoresSafeArea()
 
                 ScrollView {
-                    LazyVGrid(columns: columns, spacing: 16) {
+                    LazyVGrid(columns: columns, spacing: 12) {
                         ForEach(0..<ble.flavorArt.factory, id: \.self) { art in
                             tile(art: art, image: factoryImage(art), custom: false)
                         }
@@ -139,11 +142,18 @@ struct FlavorImagePicker: View {
                     .resizable()
                     .scaledToFill()
             } else {
+                // A face the machine holds and this phone has not read back
+                // yet is on its way while the machine can hear. One it cannot
+                // be asked for is not here.
                 ZStack {
                     Theme.placeholder
-                    Image(systemName: "photo")
-                        .font(.system(size: 24))
-                        .foregroundStyle(Theme.textSecondary)
+                    if custom && ble.linked {
+                        ProgressView().tint(Theme.textSecondary)
+                    } else {
+                        Image(systemName: "photo")
+                            .font(.system(size: 20))
+                            .foregroundStyle(Theme.textSecondary)
+                    }
                 }
             }
         }
