@@ -3595,8 +3595,12 @@ void loop() {
         } else {
           uint32_t fs = currentHour[activeFlavor].flow_sum;
           if (fs != lastPushedFlowSum[activeFlavor]) {
-            char buf[40];
-            snprintf(buf, sizeof(buf), "CHART_LIVE:F=%d,FS=%lu", activeFlavor, (unsigned long)fs);
+            // The hour the count belongs to rides with it: the phone lays its
+            // charts out by seqHour, and this is the only word it gets on
+            // which hour is under way between full reads.
+            char buf[56];
+            snprintf(buf, sizeof(buf), "CHART_LIVE:F=%d,SEQ=%lu,FS=%lu", activeFlavor,
+                     (unsigned long)seqHour, (unsigned long)fs);
             protoS3.sendText(buf);
             lastPushedFlowSum[activeFlavor] = fs;
             lastChartPush = now;
