@@ -18,22 +18,22 @@ body {
 }
 
 .sheet {
+  position: relative;
   width: 5700px;
   height: 3900px;
-  padding: 150px;
-  display: grid;
-  grid-template-rows: 840px 610px 710px 1170px;
-  row-gap: 90px;
+  overflow: hidden;
   background: var(--field);
 }
 
 .story {
-  position: relative;
-  width: 5400px;
+  position: absolute;
+  inset: 0;
+  width: 5700px;
+  height: 3900px;
 }
 
 .scene {
-  position: relative;
+  position: absolute;
   overflow: hidden;
 }
 
@@ -101,7 +101,7 @@ body {
 }
 
 .mount-drop-cue {
-  --cue-x: 562px;
+  --cue-x: 270.3333px;
   --cue-y: 447px;
   --cue-angle: 90deg;
 }
@@ -117,15 +117,31 @@ body {
   --cue-y: 455px;
 }
 
-.mount-story,
-.water-story {
-  display: grid;
-  grid-template-columns: repeat(4, 1275px);
-  column-gap: 100px;
+.mount-story .scene {
+  width: 1275px;
+  height: 840px;
 }
 
-.mount-story .scene {
-  height: 840px;
+.mount-story .mount-drop {
+  left: 0;
+  top: 62.5px;
+  width: 983.3333px;
+}
+
+.mount-lowered {
+  left: 116.6667px;
+  top: 137.5px;
+}
+
+.mount-story .mount-slide {
+  left: 1466.6667px;
+  top: 0;
+  height: 773.3333px;
+}
+
+.mount-tighten {
+  left: 2416.6667px;
+  top: 158.3333px;
 }
 
 .mount-drop,
@@ -133,6 +149,10 @@ body {
   background-position: center bottom 12px;
   background-repeat: no-repeat;
   background-size: auto 800px;
+}
+
+.mount-drop {
+  background-position: left 125.8917px bottom 12px;
 }
 
 .mount-drop { background-image: url("art/mount-drop.png"); }
@@ -145,10 +165,15 @@ body {
   background-size: 1320px auto;
 }
 
+.mount-slide {
+  background-position: center 79.0366px;
+}
+
 .mount-slide { background-image: url("art/mount-under-slide-clean.png"); }
 .mount-tighten { background-image: url("art/mount-under-tighten-clean.png"); }
 
 .water-story .scene {
+  width: 1275px;
   height: 610px;
 }
 
@@ -158,8 +183,17 @@ body {
   background-size: 2800px 1540px;
 }
 
-.water-on { background-image: url("plumbing/modern/art/modern-water-on.png"); }
-.water-off { background-image: url("plumbing/modern/art/modern-water-off.png"); }
+.water-on {
+  left: 3875px;
+  top: 313.3333px;
+  background-image: url("plumbing/modern/art/modern-water-on.png");
+}
+
+.water-off {
+  left: 4425px;
+  top: 75.8333px;
+  background-image: url("plumbing/modern/art/modern-water-off.png");
+}
 
 .water-turn-cue {
   --cue-x: 610px;
@@ -174,8 +208,17 @@ body {
   background-size: 1500px 825px;
 }
 
-.release-ready { background-image: url("plumbing/modern/art/modern-release-ready.png"); }
-.release-withdrawn { background-image: url("plumbing/modern/art/modern-release-withdrawn.png"); }
+.release-ready {
+  left: 4.1667px;
+  top: 1417.5px;
+  background-image: url("plumbing/modern/art/modern-release-ready.png");
+}
+
+.release-withdrawn {
+  left: 0;
+  top: 1880px;
+  background-image: url("plumbing/modern/art/modern-release-withdrawn.png");
+}
 
 .release-press-cue {
   --cue-x: 774px;
@@ -190,13 +233,8 @@ body {
 }
 
 .tee-story .scene {
+  width: 1700px;
   height: 710px;
-}
-
-.tee-story {
-  display: grid;
-  grid-template-columns: repeat(3, 1700px);
-  column-gap: 150px;
 }
 
 .tee {
@@ -205,15 +243,27 @@ body {
   background-size: 1900px 1045px;
 }
 
+.tee-assembly-ready,
+.tee-line-ready,
+.tee-complete {
+  clip-path: inset(0 0 0 516.6667px);
+}
+
 .tee-assembly-ready {
+  left: 1308.3333px;
+  top: 1238.3333px;
   background-image: url("plumbing/modern/art/modern-tee-assembly-ready.png");
 }
 
 .tee-line-ready {
+  left: 2625px;
+  top: 1513.3333px;
   background-image: url("plumbing/modern/art/modern-tee-line-ready.png");
 }
 
 .tee-complete {
+  left: 4000px;
+  top: 1796.6667px;
   background-image: url("plumbing/modern/art/modern-tee-complete.png");
 }
 
@@ -229,14 +279,9 @@ body {
   --cue-angle: 180deg;
 }
 
-.connect-story {
-  display: grid;
-  grid-template-columns: 2500px 2500px;
-  column-gap: 400px;
-}
-
 .connect-story .scene {
-  height: 1170px;
+  width: 2500px;
+  height: 1107.5px;
 }
 
 .connect {
@@ -245,5 +290,14 @@ body {
   background-size: 1380px auto;
 }
 
-.connect-open { background-image: url("art/connect-rear-open.png"); }
-.connect-complete { background-image: url("art/connect-rear-connected.png"); }
+.connect-open {
+  left: 908.3333px;
+  top: 2792.5px;
+  background-image: url("art/connect-rear-open.png");
+}
+
+.connect-complete {
+  left: 2775px;
+  top: 2792.5px;
+  background-image: url("art/connect-rear-connected.png");
+}
