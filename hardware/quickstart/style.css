@@ -154,9 +154,9 @@ body {
   justify-content: center;
 }
 
-.step-one { left: 550px; top: 81.25px; width: 218.75px; height: 372.9167px; }
+.step-one { left: 550px; top: 131.25px; width: 218.75px; height: 372.9167px; }
 .step-two { left: 2620.8333px; top: 235.4167px; width: 275px; height: 379.1667px; }
-.step-three { left: 5341.6667px; top: 47.9167px; width: 268.75px; height: 385.4167px; }
+.step-three { left: 5291.6667px; top: 131.25px; width: 268.75px; height: 385.4167px; }
 .step-four { left: 4310.4167px; top: 1487.5px; width: 289.5833px; height: 372.9167px; }
 .step-five { left: 3891.6667px; top: 2547.9167px; width: 260.4167px; height: 379.1667px; }
 .step-six { left: 1008.3333px; top: 2414.5833px; width: 272.9167px; height: 385.4167px; }
@@ -290,7 +290,7 @@ body {
 .mount-drop,
 .mount-lowered {
   background-repeat: no-repeat;
-  background-size: auto 1540px;
+  background-size: 846.7806px auto;
 }
 
 .mount-drop {
@@ -298,7 +298,7 @@ body {
 }
 
 .mount-lowered {
-  background-position: left 213.75px top 28px;
+  background-position: left 264.915px top 28px;
 }
 
 .mount-drop { background-image: url("art/mount-drop.png"); }
