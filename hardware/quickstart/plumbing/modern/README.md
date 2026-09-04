@@ -26,7 +26,7 @@ same neutral-white instruction material.  Modeled lighting and recessed dark
 bores keep the white geometry legible in color and grayscale without
 suggesting different tube types or printed patterns.  The PP0208E is black
 polypropylene.  Every tube, fitting, valve, handle, bore, and moving collet is
-3D geometry; the page supplies its own instructional text and action arrows.
+3D geometry; the sheet adds only action arrows.
 
 ## Regenerate
 

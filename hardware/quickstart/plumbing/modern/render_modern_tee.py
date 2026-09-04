@@ -75,7 +75,6 @@ TEE_X = -12.0
 TEE_STAGED_X = 15.0
 RELEASE_FREE_X = -52.0
 TEE_FREE_X = 51.0
-BRANCH_FREE_Z = -28.0
 SCENE_END = 420.0
 
 UNION_REACH = union_ref.reach()
@@ -115,7 +114,7 @@ RENDER_SIZE = "2000x1100"
 # Transparent rendering still carries a nominal clear color.  Matching the
 # guide field keeps any browser-level edge RGB neutral, though alpha—not color
 # keying—is what separates the scene from the page.
-RENDER_CLEAR = "#eef0f2"
+RENDER_CLEAR = "#dce7e9"
 
 
 def _vector(values) -> cq.Vector:
@@ -396,21 +395,6 @@ def _add_jumper(scene: cq.Assembly) -> None:
     )
 
 
-def _add_staged_branch(scene: cq.Assembly) -> None:
-    _add(
-        scene,
-        _branch(BRANCH_FREE_Z, open_end=True),
-        "filter-to-appliance-branch",
-        C_WATER_WHITE,
-    )
-    _add(
-        scene,
-        _bore_witness((TEE_X, 0.0, BRANCH_FREE_Z), (0.0, 0.0, -1.0)),
-        "branch-free-bore",
-        C_CUT_BORE,
-    )
-
-
 def _add_connected_branch(scene: cq.Assembly, *, tugged: bool = False) -> None:
     insertion = PP0208_INSERTION - (3.2 if tugged else 0.0)
     start_z = TEE_BRANCH_FACE_Z + insertion
@@ -455,7 +439,6 @@ def build_tee_jumper() -> cq.Assembly:
     _add_jumper(scene)
     _add_tee(scene, installed=False)
     _add_original_line(scene, destination="tee-free")
-    _add_staged_branch(scene)
     return scene
 
 
@@ -464,7 +447,6 @@ def build_tee_mounted() -> cq.Assembly:
     _add_jumper(scene)
     _add_tee(scene, installed=True)
     _add_original_line(scene, destination="tee-free")
-    _add_staged_branch(scene)
     return scene
 
 
@@ -473,7 +455,6 @@ def build_tee_existing() -> cq.Assembly:
     _add_jumper(scene)
     _add_tee(scene, installed=True)
     _add_original_line(scene, destination="tee")
-    _add_staged_branch(scene)
     return scene
 
 
