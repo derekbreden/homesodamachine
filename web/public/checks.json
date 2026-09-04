@@ -7,8 +7,8 @@
     },
     {
       "check": "hardware/scripts/check_facts_current.py",
-      "note": "and the 122 sources behind them stand where they stood when it was written",
-      "status": "ok"
+      "note": "tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py",
+      "status": "red"
     },
     {
       "check": "hardware/scripts/check_finishes.py",
@@ -87,6 +87,11 @@
     }
   ],
   "detail": {
+    "hardware/scripts/check_facts_current.py": [
+      "enclosure-assembly.facts.json was taken from a different tree — it holds c01aeceacc3c4dbb6ddb122fa865e39b for the 122 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 74f367c9bc730cf629df9257fba185bf here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "  the three come off one run:",
+      "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
+    ],
     "tools/check_web_tests.py": [
       "1 test(s) in web/ fail:",
       "    EXCLUDED_DIRS is every out/ .gitignore holds under hardware",
