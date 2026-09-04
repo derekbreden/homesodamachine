@@ -134,6 +134,7 @@ test("tooling comes out of the directory an assembly otherwise sweeps whole", ()
 test("standalone shop namespaces are tooling without per-project seating", () => {
   const tree = seatParts({
     steps: [
+      "printed-parts/collet-press/collet-press.step",
       "printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step",
       "printed-parts/fixtures/future-jig/future-jig.step",
       "printed-parts/shop-storage/jst-crimping/jst-crimping-tower.step",
@@ -141,7 +142,8 @@ test("standalone shop namespaces are tooling without per-project seating", () =>
     ],
   });
   assert.deepEqual(names(tree.tooling),
-    ["future-jig", "weld-rotator-assembly", "future-job-kit", "jst-crimping-tower"]);
+    ["collet-press", "future-jig", "weld-rotator-assembly",
+     "future-job-kit", "jst-crimping-tower"]);
   assert.deepEqual(tree.unseated, []);
 });
 
