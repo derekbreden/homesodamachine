@@ -30,14 +30,15 @@ its own guide.
 
 The clockwork composition sets six pale blue-grey fields (`#dce7e9`) clockwise around a white
 centre carrying the glass mark, `Home Soda Machine`, and `QUICK START`. Large white numerals make
-the order visible without competing with the hardware. Registered scene pairs follow that ring,
-with closeups enlarged wherever the physical travel must survive arm's-length reading. Straight
-arrows use one bold flat glyph aligned to the projected travel axis. Its head overlaps and extends
-beyond the shaft endpoint, eliminating any visible cap or seam. Rotation paths scale to the
-indicated object and continue around a camera-projected ellipse before reaching a broad head
-foreshortened in that same plane. Every cue keeps the same coral fill and field-colored halo. The
-fields separate the white household tubing from the page and leave the blue handle, black fittings
-and coral cues distinct.
+the order visible without competing with the hardware, with their ink held clear of the physical
+overscan margin. Registered scene pairs follow that ring, with closeups enlarged wherever the
+physical travel must survive arm's-length reading. The faucet pair shares one image scale while
+its counter edges cross the paper and panel boundaries. Straight arrows use one bold flat glyph
+aligned to the projected travel axis. Its head overlaps and extends beyond the shaft endpoint,
+eliminating any visible cap or seam. Rotation paths scale to the indicated object and continue
+around a camera-projected ellipse before reaching a broad head foreshortened in that same plane.
+Every cue keeps the same coral fill and field-colored halo. The fields separate the white
+household tubing from the page and leave the blue handle, black fittings and coral cues distinct.
 
 This edition follows the modern-home installation path: an existing 1/4-inch plastic cold-water
 line and push fitting under the sink. The installer releases one tube, inserts the supplied
