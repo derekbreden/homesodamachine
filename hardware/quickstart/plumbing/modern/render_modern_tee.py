@@ -15,8 +15,9 @@ opens a threaded or compression joint:
 Every visible fitting, tube, valve, and handle is literal CAD geometry.
 The wide shutoff pair, release trio, and cumulative tee sequence each retain a
 registered orthographic camera so motion is the only visual change within a
-step.  No arrow or connector is painted into a render, and the final PNGs have
-transparent canvases so the guide page is their only background.
+step. Motion arrows stay out of the renders: the guide page places one fixed
+flat glyph at each projected action anchor. The final PNGs have transparent
+canvases so the guide page is their only background.
 
 Regenerate from the repository root with::
 
@@ -73,7 +74,7 @@ AXIS_Z = 42.0
 UNION_X = -98.0
 TEE_X = -12.0
 TEE_STAGED_X = 15.0
-RELEASE_FREE_X = -52.0
+RELEASE_STARTED_GAP = 5.5
 TEE_FREE_X = 51.0
 SCENE_END = 420.0
 
@@ -81,6 +82,7 @@ UNION_REACH = union_ref.reach()
 UNION_INSERTION = union_ref.INSERTION
 UNION_RIGHT_FACE = UNION_X + UNION_REACH
 UNION_LEFT_FACE = UNION_X - UNION_REACH
+RELEASE_STARTED_X = UNION_RIGHT_FACE + RELEASE_STARTED_GAP
 TEE_LEFT_FACE = TEE_X - PP0208_REACH
 TEE_RIGHT_FACE = TEE_X + PP0208_REACH
 TEE_BRANCH_FACE_Z = AXIS_Z - PP0208_REACH
@@ -98,6 +100,10 @@ C_VALVE_BODY = cq.Color(0.60, 0.39, 0.13, 1.0)
 C_VALVE_SHOULDER = cq.Color(0.78, 0.55, 0.20, 1.0)
 C_HANDLE = cq.Color(0.035, 0.27, 0.73, 1.0)
 C_STEM = cq.Color(0.34, 0.36, 0.39, 1.0)
+C_TOUCHED_COLLET = cq.Color(0.46, 0.50, 0.54, 1.0)
+# The physical source declares 1.335 mm. This macro-only pose is enlarged so the two states
+# remain distinct after the 13 x 19 sheet is printed.
+ILLUSTRATED_COLLET_TRAVEL = 2.4
 
 
 @dataclass(frozen=True)
@@ -108,7 +114,7 @@ class View:
 
 
 WATER_VIEW = View((1.05, -1.72, 0.72), (-25.0, 8.0, 105.0), 104.0)
-RELEASE_VIEW = View((0.58, -1.58, 0.66), (-80.0, 0.0, 40.0), 30.0)
+RELEASE_VIEW = View((0.58, -1.58, 0.66), (-77.8, 0.0, 42.0), 18.0)
 TEE_VIEW = View((0.62, -1.58, 0.72), (-25.0, 0.0, 12.0), 52.0)
 RENDER_SIZE = "2000x1100"
 # Transparent rendering still carries a nominal clear color.  Matching the
@@ -307,9 +313,13 @@ def _add_tee(scene: cq.Assembly, *, installed: bool) -> None:
         _add(scene, collet, f"pp0208e-release-collet-{index}", C_TEE_COLLET)
 
 
-def _canonical_union_parts(*, pressed_right: bool) -> tuple[cq.Shape, ...]:
+def _canonical_union_parts(
+    *,
+    pressed_right: bool,
+    separate_right: bool = False,
+) -> tuple[cq.Shape, ...]:
     union = union_ref.build_jg_pp0408w().val()
-    if not pressed_right:
+    if not pressed_right and not separate_right:
         return (union,)
 
     sleeve_start = union_ref.ring_face_z
@@ -325,7 +335,11 @@ def _canonical_union_parts(*, pressed_right: bool) -> tuple[cq.Shape, ...]:
         union_ref.COLLET_D,
         union_ref.COLLET_BORE,
         sleeve_end - sleeve_start,
-        (0.0, 0.0, sleeve_start - union_ref.COLLET_TRAVEL),
+        (
+            0.0,
+            0.0,
+            sleeve_start - (ILLUSTRATED_COLLET_TRAVEL if pressed_right else 0.0),
+        ),
         (0.0, 0.0, 1.0),
     )
     return body, sleeve
@@ -336,10 +350,16 @@ def _add_union(
     *,
     center=(UNION_X, 0.0, AXIS_Z),
     pressed_right: bool = False,
+    highlight_right: bool = False,
 ) -> None:
-    for index, part in enumerate(_canonical_union_parts(pressed_right=pressed_right), start=1):
+    parts = _canonical_union_parts(
+        pressed_right=pressed_right,
+        separate_right=highlight_right,
+    )
+    for index, part in enumerate(parts, start=1):
         posed = part.rotate((0, 0, 0), (0, 1, 0), 90.0).translate(center)
-        _add(scene, posed, f"existing-pp0408w-{index}", C_WATER_WHITE)
+        color = C_TOUCHED_COLLET if highlight_right and index == 2 else C_WATER_WHITE
+        _add(scene, posed, f"existing-pp0408w-{index}", color)
 
 
 def _add_source_line(scene: cq.Assembly) -> None:
@@ -357,8 +377,8 @@ def _add_original_line(scene: cq.Assembly, *, destination: str) -> None:
         start_x = UNION_RIGHT_FACE - UNION_INSERTION
     elif destination == "tee":
         start_x = TEE_RIGHT_FACE - PP0208_INSERTION
-    elif destination == "release-free":
-        start_x = RELEASE_FREE_X
+    elif destination == "release-started":
+        start_x = RELEASE_STARTED_X
     elif destination == "tee-free":
         start_x = TEE_FREE_X
     else:
@@ -403,7 +423,7 @@ def _add_connected_branch(scene: cq.Assembly, *, tugged: bool = False) -> None:
 
 def build_release_ready() -> cq.Assembly:
     scene = cq.Assembly(name="modern-release-ready")
-    _add_union(scene, pressed_right=False)
+    _add_union(scene, pressed_right=False, highlight_right=True)
     _add_source_line(scene)
     _add_original_line(scene, destination="union")
     return scene
@@ -411,7 +431,7 @@ def build_release_ready() -> cq.Assembly:
 
 def build_release_pressed() -> cq.Assembly:
     scene = cq.Assembly(name="modern-release-pressed")
-    _add_union(scene, pressed_right=True)
+    _add_union(scene, pressed_right=True, highlight_right=True)
     _add_source_line(scene)
     _add_original_line(scene, destination="union")
     return scene
@@ -419,11 +439,10 @@ def build_release_pressed() -> cq.Assembly:
 
 def build_release_withdrawn() -> cq.Assembly:
     scene = cq.Assembly(name="modern-release-withdrawn")
-    # The user's thumb remains on the collar while the tube moves.  The collar
-    # is allowed to spring back only after the loose tube is clear.
-    _add_union(scene, pressed_right=True)
+    # Hold the highlighted collar depressed while the tube begins to move clear.
+    _add_union(scene, pressed_right=True, highlight_right=True)
     _add_source_line(scene)
-    _add_original_line(scene, destination="release-free")
+    _add_original_line(scene, destination="release-started")
     return scene
 
 

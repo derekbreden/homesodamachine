@@ -6,7 +6,7 @@
 
 :root {
   --field: #dce7e9;
-  --motion: #ed5966;
+  --motion: #e64f5c;
 }
 
 html,
@@ -37,29 +37,77 @@ body {
   overflow: hidden;
 }
 
-.motion {
+.motion-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.motion-halo,
+.motion-line {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.motion-halo {
+  stroke: var(--field);
+  stroke-width: 26px;
+}
+
+.motion-line {
+  stroke: var(--motion);
+  stroke-width: 14px;
+}
+
+.motion-head-halo {
+  fill: var(--field);
+  stroke: var(--field);
+  stroke-width: 10px;
+  stroke-linejoin: round;
+}
+
+.motion-head {
+  fill: var(--motion);
+}
+
+.cue {
   position: absolute;
   z-index: 2;
+  left: var(--cue-x);
+  top: var(--cue-y);
   overflow: visible;
   pointer-events: none;
+  transform: translate(-50%, -50%) rotate(var(--cue-angle, 0deg));
+  transform-origin: center;
 }
 
-.motion path {
-  fill: var(--motion);
-  stroke: var(--field);
-  stroke-width: 8px;
-  stroke-linejoin: round;
-  paint-order: stroke fill;
+.cue-straight {
+  width: 200px;
+  height: 111px;
 }
 
-.action {
-  width: 210px;
-  height: 117px;
+.cue-turn {
+  width: 200px;
+  height: 133px;
 }
 
-.transition {
-  width: 120px;
-  height: 84px;
+.mount-drop-cue {
+  --cue-x: 562px;
+  --cue-y: 447px;
+  --cue-angle: 90deg;
+}
+
+.mount-slide-cue {
+  --cue-x: 274px;
+  --cue-y: 503px;
+  --cue-angle: -7deg;
+}
+
+.mount-tighten-cue {
+  --cue-x: 600px;
+  --cue-y: 455px;
 }
 
 .mount-story,
@@ -84,13 +132,6 @@ body {
 .mount-drop { background-image: url("art/mount-drop.png"); }
 .mount-lowered { background-image: url("art/mount-lowered-clean.png"); }
 
-.mount-drop .lower {
-  left: 68%;
-  top: 200px;
-  width: 72px;
-  height: 360px;
-}
-
 .mount-slide,
 .mount-tighten {
   background-position: center;
@@ -114,30 +155,30 @@ body {
 .water-on { background-image: url("plumbing/modern/art/modern-water-on.png"); }
 .water-off { background-image: url("plumbing/modern/art/modern-water-off.png"); }
 
-.water-transition {
-  left: 1265px;
-  top: 263px;
+.water-turn-cue {
+  --cue-x: 560px;
+  --cue-y: 165px;
 }
 
 .release {
-  background-position: -180px -210px;
+  background-position: center;
   background-repeat: no-repeat;
-  background-size: 1800px 990px;
+  background-size: 1500px 825px;
 }
 
-.release-pressed { background-image: url("plumbing/modern/art/modern-release-pressed.png"); }
+.release-ready { background-image: url("plumbing/modern/art/modern-release-ready.png"); }
 .release-withdrawn { background-image: url("plumbing/modern/art/modern-release-withdrawn.png"); }
 
-.release-in {
-  left: 760px;
-  top: 247px;
-  transform: rotate(184deg);
+.release-press-cue {
+  --cue-x: 735px;
+  --cue-y: 220px;
+  --cue-angle: 187deg;
 }
 
-.release-out {
-  left: 770px;
-  top: 242px;
-  transform: rotate(4deg);
+.release-withdraw-cue {
+  --cue-x: 935px;
+  --cue-y: 490px;
+  --cue-angle: 7deg;
 }
 
 .tee-story .scene {
@@ -163,28 +204,28 @@ body {
   background-size: 1550px 853px;
 }
 
-.tee-jumper-arrow {
-  left: 300px;
-  top: 230px;
-  transform: rotate(184deg);
+.tee-jumper-cue {
+  --cue-x: 325px;
+  --cue-y: 290px;
+  --cue-angle: 187deg;
 }
 
-.tee-mounted-arrow {
-  left: 815px;
-  top: 420px;
-  transform: rotate(184deg);
+.tee-mounted-cue {
+  --cue-x: 943px;
+  --cue-y: 442px;
+  --cue-angle: 187deg;
 }
 
-.tee-existing-arrow {
-  left: 925px;
-  top: 305px;
-  transform: rotate(184deg);
+.tee-existing-cue {
+  --cue-x: 917px;
+  --cue-y: 408px;
+  --cue-angle: 187deg;
 }
 
-.tee-branch-arrow {
-  left: 520px;
-  top: 475px;
-  transform: rotate(-90deg);
+.tee-branch-cue {
+  --cue-x: 533px;
+  --cue-y: 479px;
+  --cue-angle: -90deg;
 }
 
 .connect-story {
@@ -205,8 +246,3 @@ body {
 
 .connect-open { background-image: url("art/connect-rear-open.png"); }
 .connect-complete { background-image: url("art/connect-rear-connected.png"); }
-
-.connect-transition {
-  left: 2640px;
-  top: 430px;
-}

@@ -26,7 +26,8 @@ same neutral-white instruction material.  Modeled lighting and recessed dark
 bores keep the white geometry legible in color and grayscale without
 suggesting different tube types or printed patterns.  The PP0208E is black
 polypropylene.  Every tube, fitting, valve, handle, bore, and moving collet is
-3D geometry; the sheet adds only action arrows.
+3D geometry. The sheet adds fixed-size, flat action arrows after projecting
+their anchors and directions from each registered camera.
 
 ## Regenerate
 
@@ -41,7 +42,7 @@ The eight guide-ready outputs are:
 
 - `art/modern-water-on.png`
 - `art/modern-water-off.png`
-- `art/modern-release-pressed.png`
+- `art/modern-release-ready.png`
 - `art/modern-release-withdrawn.png`
 - `art/modern-tee-jumper.png`
 - `art/modern-tee-mounted.png`
@@ -50,7 +51,8 @@ The eight guide-ready outputs are:
 
 Two extra comparison states are retained for visual development:
 
-- `art/modern-release-ready.png` — the collet at rest before the 1.335 mm press;
+- `art/modern-release-pressed.png` — the highlighted collet depressed while the
+  tube remains fully inserted;
 - `art/modern-tee-tug-check.png` — the white branch pulled outward 3.2 mm while
   it remains inside its gripping envelope.
 
@@ -63,9 +65,10 @@ so no arbitrary remote tube end appears.
 
 ## Held geometry
 
-The existing PP0408W solid is photo-measured from the part in hand.  The
-release scene uses its declared 1.335 mm collet travel and 16.0 mm tube
-insertion depth.
+The existing PP0408W solid is photo-measured from the part in hand. Its physical
+source declares 1.335 mm collet travel and 16.0 mm tube insertion depth. The
+wordless macro illustration holds the depressed collet at 2.4 mm so the state
+change survives printing; that emphasis is not a dimensional claim.
 
 The black PP0208E customer-facing instruction solid is generated locally from
 the manufacturer's official drawing, [John Guest Polypropylene Equal Tee data
