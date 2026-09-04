@@ -10,6 +10,21 @@ separate legend:
 4. insert the supplied tube-and-tee assembly, then reconnect the released line;
 5. connect the five tubes and RJ11 signal lead to the appliance rear panel.
 
+The sheet reads as a strip of photographs of the customer's own sink. Each physical action uses
+registered before and after states from one camera: the before state carries the cue on the part
+that moves, and the result stays clean. The changed pose remains legible with the cue covered, and
+the before state plus cue predicts the result. Cue anchors and directions follow the model's
+projected travel, while line weight, head construction and halo remain fixed page dimensions at
+every scene scale. Cameras close in until the moving part and its travel survive arm's-length
+reading; the release closeup exaggerates the collet's short physical stroke for that reason.
+
+Every pictured object has the form in which the customer receives it, and the sequence contains
+only work the customer performs. The white run arrives with its filter and `TAP` collar installed;
+the red tether arrives with its flare connector and `CO2` collar installed; the faucet tails carry
+their collars from the umbilical bench. Nothing on this sheet is cut, trimmed, insulated or
+threaded through a collar. The cutter and loose foam belong to the separately bagged cold kit and
+its own guide.
+
 The sheet is a four-row sequence on a full-bleed pale blue-grey field (`#dce7e9`). Motion arrows
 are the only marks added to the scenes. Straight arrows use one bold flat glyph aligned to the
 projected travel axis. Its head overlaps and extends beyond the shaft endpoint, eliminating any
@@ -58,8 +73,10 @@ not scenes or dependencies of this modern push-fit guide.
 ## Appliance rear connections
 
 The final row contains exactly two registered states: all six customer leads clear of the rear
-face, and all six fully seated. The five tube collars are production solids. The faucet-display
-SIG-6 cable is black in both the faucet and rear-panel scenes. Each 30 mm collar
+face, and all six fully seated. In the open state the six terminated ends are already grouped and
+aimed along their common insertion direction; that pose carries the motion without a separate
+overlay. The five tube collars are production solids. The faucet-display SIG-6 cable is black in
+both the faucet and rear-panel scenes. Each 30 mm collar
 starts 47.5 mm behind its insertion tip and ends 77.5 mm behind it. The routed ends of every tube
 and the RJ11 ribbon continue out of the common crop, so the connected state contains no visible
 loose distal ends.
