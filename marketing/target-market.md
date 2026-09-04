@@ -39,9 +39,9 @@ begins at the prepared opening
 ([`faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md) "Not in scope"). On
 stone that is a diamond core bit, and usually a countertop pro.
 
-Downstream of the hole the five sheets of
-[`/hardware/quickstart/`](/hardware/quickstart/README.md) draw every step, and each one is
-push-fit or hand-tight: lower the complete factory faucet-and-umbilical assembly through the
+Downstream of the hole the single sheet in
+[`/hardware/quickstart/`](/hardware/quickstart/README.md) draws every step, and each one is push-fit
+or hand-tight: lower the complete factory faucet-and-umbilical assembly through the
 opening, slide the under-counter plate around the tubes, hand-tighten the retained nut; close
 the cold-water valve; press the collet on the existing 1/4" plastic line, add the supplied tee
 and short tube, reconnect the original line, and push the new white branch — through the

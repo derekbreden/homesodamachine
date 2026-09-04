@@ -1,10 +1,10 @@
-"""Build the five-sheet, 11 x 17 in Home Soda Machine installation quick start.
+"""Build the one-sheet, 19 x 13 in Home Soda Machine installation quick start.
 
 Product-derived artwork is generated separately by ``quickstart_art.py`` and the modern push-fit
 scene generator. Keeping artwork separate means a layout or copy edit rerenders only these sheets;
 CAD and firmware changes rebuild the pictures first through the Bazel dependency graph.
 
-    quick-start.pdf         five print-ready 11 x 17 in pages
+    quick-start.pdf         one print-ready 19 x 13 in page
     quick-start.cover.png   the installation sheet for the drawings shelf
     quick-start.pdf.json    document metadata for homesodamachine.com/drawings
 
@@ -37,22 +37,16 @@ sys.path.insert(0, str(HARDWARE / "scripts"))
 from _cadq_export import export_pdf, note_read, note_write  # noqa: E402
 
 TITLE = "Home Soda Machine installation quick start"
-CANVAS_W, CANVAS_H = 2550, 1650
+CANVAS_W, CANVAS_H = 5700, 3900
 COVER_W = 800
 
-FONTS = tuple((HARDWARE / "assembly" / "cards" / "fonts").glob("*.woff2"))
 PAGES = (
-    HERE / "00-mount.html",
-    HERE / "01-water-off.html",
-    HERE / "02-water-release.html",
-    HERE / "03-water-tee.html",
-    HERE / "04-connect.html",
+    HERE / "quick-start.html",
 )
 RENDER_PAGE_TIMEOUT_SECONDS = 180
-# A cold-browser probe and each kept sheet have their own tighter deadlines below. This outer
-# process cap is deliberately roomier: it is the final guard around browser launches and cleanup,
-# and must not preempt Node before Node can name the failed phase and remove stale outputs.
-RENDER_ACTION_TIMEOUT_SECONDS = 660
+# The cold-browser probe and kept sheet have their own tighter deadlines below. This outer process
+# cap is the final guard around browser launch and cleanup.
+RENDER_ACTION_TIMEOUT_SECONDS = 300
 PAGE_ASSETS = (
     HERE / "style.css",
     HERE / "art" / "colors.css",
@@ -79,6 +73,11 @@ def pages() -> list[Path]:
 
 def render_pages() -> int:
     renderer = REPO_ROOT / "tools" / "render" / "render-card.js"
+    authored = {page.stem for page in pages()}
+    for suffix in ("*.png", "*.pdf"):
+        for stale in OUT.glob(suffix):
+            if stale.stem not in authored:
+                stale.unlink()
     for runtime in (
         renderer.parent / "browser.js",
         renderer.parent / "package-lock.json",
@@ -86,8 +85,6 @@ def render_pages() -> int:
         renderer,
     ):
         note_read(runtime)
-    for path in FONTS:
-        note_read(path)
     for path in (*PAGES, *PAGE_ASSETS):
         note_read(path)
     for page in pages():
@@ -107,9 +104,9 @@ def render_pages() -> int:
                 "--size",
                 f"{CANVAS_W}x{CANVAS_H}",
                 "--dpr",
-                "1",
+                "1.2",
                 "--pdf",
-                "17x11in",
+                "19x13in",
                 "--page-timeout",
                 str(RENDER_PAGE_TIMEOUT_SECONDS * 1000),
             ],
@@ -119,7 +116,7 @@ def render_pages() -> int:
     except subprocess.TimeoutExpired:
         print(
             "quick start renderer exceeded its "
-            f"{RENDER_ACTION_TIMEOUT_SECONDS} s five-sheet action deadline",
+            f"{RENDER_ACTION_TIMEOUT_SECONDS} s one-sheet action deadline",
             file=sys.stderr,
         )
         return 124
@@ -155,7 +152,7 @@ def bind() -> int:
     write_cover(OUT / f"{order[0]}.png")
     sidecar = {
         "title": TITLE,
-        "subtitle": "Owner installation quick start - five 11 x 17 in sheets",
+        "subtitle": "Owner installation quick start - one 19 x 13 in sheet",
         "pages": len(order),
         "cover": COVER.name,
         "cover_size": [COVER_W, COVER_W * CANVAS_H // CANVAS_W],
