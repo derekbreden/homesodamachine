@@ -139,18 +139,24 @@ void protoMachineIdentity(IdentityPayload &out) {
     strncpy(out.name, machineName, MACHINE_NAME_MAX);
 }
 
-void protoIdentityConsole(const String &line) {
-    String rest = line.substring(8);
-    rest.trim();
-    if (rest.length()) {
-        strncpy(machineName, rest.c_str(), MACHINE_NAME_MAX);
-        machineName[MACHINE_NAME_MAX] = 0;
-        if (prefs.begin("machine", false)) {
-            prefs.putString("name", machineName);
-            prefs.end();
-        }
+void protoSetMachineName(const char *name) {
+    strncpy(machineName, name ? name : "", MACHINE_NAME_MAX);
+    machineName[MACHINE_NAME_MAX] = 0;
+    if (prefs.begin("machine", false)) {
+        prefs.putString("name", machineName);
+        prefs.end();
     }
+}
+
+void protoIdentityReport() {
     Serial.printf("IDENTITY model=prototype unit=%02X%02X%02X name=%s\n",
                   unitId[0], unitId[1], unitId[2],
                   machineName[0] ? machineName : "(unset)");
+}
+
+void protoIdentityConsole(const String &line) {
+    String rest = line.substring(8);
+    rest.trim();
+    if (rest.length()) protoSetMachineName(rest.c_str());
+    protoIdentityReport();
 }

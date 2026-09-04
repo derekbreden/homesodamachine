@@ -278,6 +278,20 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
         return;
     }
 
+    if (type == MSG_IDENTITY_SET) {
+        // The phone's name for this machine, through the faucet's radio. Read
+        // to its NUL and no further than a name may be; answered as the query
+        // is, so the faucet re-advertises and tells the phone.
+        char name[MACHINE_NAME_MAX + 1] = {0};
+        memcpy(name, payload, plen < MACHINE_NAME_MAX ? plen : MACHINE_NAME_MAX);
+        if (machineSetName(name)) identityReport();
+        else Serial.println("\nIDENTITY:FAIL");
+        IdentityPayload id;
+        machineIdentity(id);
+        faucet.trySend(MSG_RESP_IDENTITY, &id, sizeof(id));
+        return;
+    }
+
     if (type == MSG_TOUCH) {
         idleTouched();
         return;

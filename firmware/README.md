@@ -392,7 +392,9 @@ that could be wired to either machine; the main board is the machine. `MSG_IDENT
 answers with the model and the low three bytes of the main board's own MAC, and the faucet puts
 that in its local name and in a `0xFFFF` manufacturer block. Two machines a metre apart are
 distinguishable in a scan result, before either is connected to. `identity <name>` on the main
-board console sets a name; `ble` reports the radio the main board cannot see.
+board console sets a name; so does BLE text `IDENTITY <name>` from the phone, which the display
+with the radio carries to the main board as `MSG_IDENTITY_SET` and answers with the identity
+frame once the main board has it. `ble` reports the radio the main board cannot see.
 
 **What an update is, per board.** Firmware goes into the OTA slot that is not running and the
 boot partition moves only after the whole image is in and its CRC32 matches; a transfer that
