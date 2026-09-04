@@ -12,10 +12,12 @@ The constant-width U-slot is [6.55 mm](JAW_GAP) across. That leaves
 [6.35 mm](TUBE_D) tube: close enough to center the tool without asking the
 printed slot to snap over the tube.
 
-With the tube seated in the semicircular bottom, the U is exactly
-[6.55 mm](JAW_DEPTH) deep before its tip rounds begin—one jaw diameter. The
-straight inner lands reach the tube's forward tangent, then [2.0 mm](TIP_R)
-corner radii form the noses without leaving sharp 90-degree tips.
+With the tube seated in the semicircular bottom, the straight portion of the U
+is [8.06 mm](JAW_DEPTH) deep. Its inner lands continue through the collet's
+forward outside edge, then [2.0 mm](TIP_R) corner radii form the noses without
+leaving sharp 90-degree tips. That extra [1.61 mm](STRAIGHT_OVERRUN) beyond the
+tube's forward tangent keeps every part of the annular release face reachable
+by the two arms under their straight section.
 
 The source fitting's release sleeve is [9.57 mm](COLLET_D) OD with a
 [6.69 mm](COLLET_BORE) bore and a [1.44 mm](COLLET_WALL) annular wall. The
@@ -24,25 +26,28 @@ land: enough to span the sleeve wall while leaving the tube free. The two arms
 and rounded root load the collet broadly and symmetrically. Its measured
 release stroke is [1.335 mm](COLLET_TRAVEL).
 
-The head is [22 mm](HEAD_W) wide and [7.20 mm](HEAD_T) thick. Each arm is
-[7.725 mm](ARM_W) wide before its rounded tip. Both arms are parts of the same
+The head is [20 mm](HEAD_W) wide and [6.00 mm](HEAD_T) thick. Each arm is
+[6.725 mm](ARM_W) wide before its rounded tip. Both arms are parts of the same
 slab; the entire unobstructed jaw face is the pressing surface.
 
 ## Handle and print orientation
 
 The handle gives [96 mm](HANDLE_L) of bottom bed edge, is
-[20 mm](HANDLE_W) wide, and is [7.20 mm](HANDLE_T) thick. Its front is cut on
+[20 mm](HANDLE_W) wide, and is [6.00 mm](HANDLE_T) thick. Its front is cut on
 the head's same [45°](HEAD_ANGLE) underside plane, so no horizontal nose or
-shelf projects past the bend. Only [7.725 mm](HEAD_BACK_LAND)—one arm
-width—of angled material remains behind the bottom of the U. The rear
-[4.80 mm](ROOT_BURY) of the head is buried in the handle, stopping before the
-tube path. This gives the angled reach at the fitting, keeps the rising
-underside self-supporting, and puts the collet load across the horizontal layer
-stack instead of directly along it.
+shelf projects past the bend. Head and handle are one constant-width,
+constant-thickness strip with square side edges through that crease; there is
+no shoulder or corner rounding at the transition. The opposite end of the
+handle uses the same [2.0 mm](TIP_R) corner radius as the fork tips. Only
+[6.725 mm](HEAD_BACK_LAND)—one arm width—of angled material remains behind
+the bottom of the U. The root sits [4.24 mm](ROOT_BURY) into the handle,
+stopping before the tube path. This gives the angled reach at the fitting,
+keeps the rising underside self-supporting, and puts the collet load across the
+horizontal layer stack instead of directly along it.
 
 Print the exported orientation without supports. The bounding envelope is
-[109.9 mm](TOOL_X) by [22.0 mm](TOOL_Y) by [19.0 mm](TOOL_Z), containing
-[15.9 cm³](TOOL_VOLUME) of material. PET-GF through a 0.4 mm nozzle at
+[109.6 mm](TOOL_X) by [20.0 mm](TOOL_Y) by [17.9 mm](TOOL_Z), containing
+[13.1 cm³](TOOL_VOLUME) of material. PET-GF through a 0.4 mm nozzle at
 0.24 mm layers is the primary print: use at least six walls and a dense core.
 A 0.2 mm nozzle at 0.12 mm layers uses the same solid. The handle's complete
 underside is the bed face; add a brim only if the printer needs one.
