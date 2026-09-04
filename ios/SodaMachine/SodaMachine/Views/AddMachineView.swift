@@ -90,7 +90,6 @@ struct AddMachineView: View {
 
     private func look() {
         looking = true
-        ble.activateBluetooth()
         ble.beginBrowsing()
     }
 

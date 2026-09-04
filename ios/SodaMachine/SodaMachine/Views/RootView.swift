@@ -22,9 +22,10 @@ struct RootView: View {
             }
         }
         .onAppear {
-            // A phone with a machine on it turns the radio toward it at once.
-            // A phone with none waits for the tap that says why.
-            if directory.current != nil { ble.activateBluetooth() }
+            // A phone pointed at a machine turns toward it at once. The radio
+            // comes up only for a machine that needs it: a phone with none, or
+            // with only the demo, waits for the tap that says why.
+            ble.activateBluetooth()
         }
     }
 }

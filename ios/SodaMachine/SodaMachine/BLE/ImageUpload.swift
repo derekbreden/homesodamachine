@@ -95,7 +95,6 @@ extension BLEManager {
     // The main board owns this. The app asks and sets; it never keeps an idea
     // of its own, so a change made on either glass shows here immediately.
     func queryFlavorArt() {
-        guard !demoMode else { return }
         bleQueue.async { [weak self] in
             self?.sendBLEFrame(type: ImageFrame.artQuery, payload: Data())
         }
@@ -115,7 +114,7 @@ extension BLEManager {
         a.art = [Int(payload[b]), Int(payload[b + 1])]
         a.factory = Int(payload[b + 2])
         a.custom = Int(payload[b + 3])
-        DispatchQueue.main.async { self.flavorArt = a }
+        onMain(linkGeneration) { self.flavorArt = a }
     }
 
     /// Keep a read moving for as long as there is a link, rather than for as
@@ -140,7 +139,7 @@ extension BLEManager {
     /// its own log is not reachable from a bench, so a decision made here is
     /// otherwise invisible to anyone holding the machine.
     func say(_ text: String) {
-        guard !demoMode, let data = text.data(using: .utf8) else { return }
+        guard let data = text.data(using: .utf8) else { return }
         bleQueue.async { [weak self] in
             self?.sendBLEFrame(type: 0x01, payload: data.prefix(72))
         }
@@ -194,7 +193,6 @@ extension BLEManager {
 
     // ── Asking ────────────────────────────────────────────────────────────
     func queryImageSlots() {
-        guard !demoMode else { return }
         bleQueue.async { [weak self] in
             self?.sendBLEFrame(type: ImageFrame.query, payload: Data())
         }
@@ -217,7 +215,7 @@ extension BLEManager {
         while at + 4 <= payload.count { crcs.append(u32(at)); at += 4 }
         slots.crc = crcs
 
-        DispatchQueue.main.async {
+        onMain(linkGeneration) {
             self.imageSlots = slots
             self.current?.picturesReadAt = Date()
             log.info("slots \(slots.count) held \(slots.held) bundle \(slots.bundleBytes)")
@@ -387,14 +385,14 @@ extension BLEManager {
         faceAskedAt = Date()
         guard faceReceived >= total else { return }
 
-        let crc = imageSlots.crc(of: slot)
         let whole = facePixels
         facePixels = Data()
         faceHave.removeAll()
         faceReceived = 0
         faceSlot = -1
-        DispatchQueue.main.async {
+        onMain(linkGeneration) {
             if let m = self.current, let face = ImageBundle.decode(whole, ImageBundle.sizes[0]) {
+                let crc = m.imageSlots.crc(of: slot)
                 m.saveFace(face, crc: crc)
                 m.faces[crc] = face         // observable: this is what redraws the tile
                 log.info("read back slot \(slot), \(total) bytes")
@@ -588,16 +586,19 @@ extension BLEManager {
             let why = Int(err) < uploadErrors.count ? uploadErrors[Int(err)] : "unknown"
             // The preview was kept before the push so a slow send still had a
             // face. A send that failed has none, and must not pretend to.
-            forgetPreview(slot: imageSlotSending)
+            let slot = imageSlotSending
             bleQueue.async { [weak self] in self?.imageBundle = Data() }
-            DispatchQueue.main.async { self.finishActive(.failed(why)) }
+            onMain(linkGeneration) {
+                self.forgetPreview(slot: slot)
+                self.finishActive(.failed(why))
+            }
             log.error("slot upload failed: \(why)")
         case 2:   // DONE
             let took = Date().timeIntervalSince(imageStartedAt)
             let kbs = Double(imageBundle.count) / took / 1024
             log.info("done in \(took, format: .fixed(precision: 1))s — \(kbs, format: .fixed(precision: 1)) KB/s")
             bleQueue.async { [weak self] in self?.imageBundle = Data() }
-            DispatchQueue.main.async { self.finishActive(.done) }
+            onMain(linkGeneration) { self.finishActive(.done) }
             queryImageSlots()
         default:  // TAKING — either the opening ack, or a rewind
             bleQueue.async { [weak self] in
