@@ -6,13 +6,13 @@ A job stack, because pressing heat-set inserts and driving screws happens in
 campaigns: the storeys come off the dock and stand open on the bench for the
 length of a card, then go back on it. The closed footprint is
 [126 mm x 126 mm](FOOTPRINT) — one 3 x 3 Gridfinity module — and the stack
-reaches [128.6 mm](PRINTED_HEIGHT). Nothing rides above the plastic, so that
+reaches [135.6 mm](PRINTED_HEIGHT). Nothing rides above the plastic, so that
 is the populated height too.
 
 Every storey is the same body: an open bin cut into troughs that run front to
 back, [123.5 mm](TROUGH_LENGTH) of trough apiece, with the library's label
 ledge along the +Y wall over their open ends. One trough per SKU in the three
-stock storeys, [15](SKU_COUNT) of them, and the trough count is all that
+stock storeys, [16](SKU_COUNT) of them, and the trough count is all that
 separates one storey from the next.
 
 1. **`fasteners-m5`** — [3](M5_TROUGHS) troughs, [40.4 mm](M5_TROUGH_WIDTH)
@@ -23,8 +23,8 @@ separates one storey from the next.
 2. **`fasteners-m3`** — [5](M3_TROUGHS) troughs, [23.7 mm](M3_TROUGH_WIDTH)
    wide and [25.2 mm](M3_DEPTH) deep. The five BNUOK M3 cap-screw lengths,
    longest at -X and shortest at +X.
-3. **`fasteners-small`** — [7](SMALL_TROUGHS) troughs,
-   [16.6 mm](SMALL_TROUGH_WIDTH) wide and [18.2 mm](SMALL_DEPTH) deep. The
+3. **`fasteners-small`** — [8](SMALL_TROUGHS) troughs,
+   [14.4 mm](SMALL_TROUGH_WIDTH) wide and [25.2 mm](SMALL_DEPTH) deep. The
    brass, the M2 stock, the two ultra-low-profile M3s, and the two pressed-in
    parts that are not screws.
 4. **`fasteners-tray`** — 3 troughs, [40.4 mm](TRAY_TROUGH_WIDTH) wide and
@@ -40,7 +40,7 @@ separates one storey from the next.
 |---|---:|---|---:|
 | `fasteners-m5.step` | 1 | Gridfinity feet on the bed; troughs up | [125.5 x 125.5 x 45.8 mm](M5_ENVELOPE) |
 | `fasteners-m3.step` | 1 | Gridfinity feet on the bed; troughs up | [125.5 x 125.5 x 38.8 mm](M3_ENVELOPE) |
-| `fasteners-small.step` | 1 | Gridfinity feet on the bed; troughs up | [125.5 x 125.5 x 31.8 mm](SMALL_ENVELOPE) |
+| `fasteners-small.step` | 1 | Gridfinity feet on the bed; troughs up | [125.5 x 125.5 x 38.8 mm](SMALL_ENVELOPE) |
 | `fasteners-tray.step` | 1 | Gridfinity feet on the bed; troughs up | [125.5 x 125.5 x 17.8 mm](TRAY_ENVELOPE) |
 | `fasteners-dock.step` | 1 | Flat face on the bed; Gridfinity recesses up | [126.0 x 126.0 x 10.8 mm](DOCK_ENVELOPE) |
 
@@ -87,13 +87,22 @@ which is dry.
 
 | Trough | Holds | On hand | Fill |
 |---:|---|---:|---:|
-| 1 | [ruthex M3 short inserts, RX-M3Sx4.0](https://www.amazon.com/dp/B09ZHSGHXD) | [100](RUTHEXM3_COUNT) | [11.0 mm](RUTHEXM3_FILL) |
-| 2 | [ruthex M2 inserts, RX-M2x4](https://www.amazon.com/dp/B088QJG676) | [70](RUTHEXM2_COUNT) | [4.7 mm](RUTHEXM2_FILL) |
-| 3 | [Sutemribor M2 x 6, black oxide 12.9](https://www.amazon.com/dp/B0CXQ7Q7L3) | [105](M2X6_COUNT) | [7.2 mm](M2X6_FILL) |
-| 4 | McMaster 91223A412, M3 x 6 ultra-low-profile 316 SS | [100](ULPM3X6_COUNT) | [14.0 mm](ULPM3X6_FILL) |
-| 5 | McMaster 91223A413, M3 x 8 ultra-low-profile 316 SS | [100](ULPM3X8_COUNT) | [16.3 mm](ULPM3X8_FILL) |
-| 6 | [neodymium disc magnets, 3 x 1 mm N52](https://www.amazon.com/dp/B0BQ3LPGZ1) | [100](MAGNET_COUNT) | [1.2 mm](MAGNET_FILL) |
-| 7 | [LVDALAB PTFE membrane filters, ø13 mm x 0.45 µm](https://www.amazon.com/dp/B0D41KT345) | [100](MEMBRANE_COUNT) | [3.3 mm](MEMBRANE_FILL) |
+| 1 | [ruthex M3 inserts, RX-M3x5.7](https://www.amazon.com/dp/B08BCRZZS3) | [100](RUTHEXM3L_COUNT) | [19.0 mm](RUTHEXM3L_FILL) |
+| 2 | [ruthex M3 short inserts, RX-M3Sx4.0](https://www.amazon.com/dp/B09ZHSGHXD) | [100](RUTHEXM3_COUNT) | [13.3 mm](RUTHEXM3_FILL) |
+| 3 | [ruthex M2 inserts, RX-M2x4](https://www.amazon.com/dp/B088QJG676) | [70](RUTHEXM2_COUNT) | [5.7 mm](RUTHEXM2_FILL) |
+| 4 | [Sutemribor M2 x 6, black oxide 12.9](https://www.amazon.com/dp/B0CXQ7Q7L3) | [105](M2X6_COUNT) | [8.7 mm](M2X6_FILL) |
+| 5 | McMaster 91223A412, M3 x 6 ultra-low-profile 316 SS | [100](ULPM3X6_COUNT) | [17.0 mm](ULPM3X6_FILL) |
+| 6 | McMaster 91223A413, M3 x 8 ultra-low-profile 316 SS | [100](ULPM3X8_COUNT) | [19.8 mm](ULPM3X8_FILL) |
+| 7 | [neodymium disc magnets, 3 x 1 mm N52](https://www.amazon.com/dp/B0BQ3LPGZ1) | [100](MAGNET_COUNT) | [1.4 mm](MAGNET_FILL) |
+| 8 | [LVDALAB PTFE membrane filters, ø13 mm x 0.45 µm](https://www.amazon.com/dp/B0D41KT345) | [100](MEMBRANE_COUNT) | [4.0 mm](MEMBRANE_FILL) |
+
+Troughs 1 and 2 are the same insert in two body lengths — same ⌀4.6 knurl, same ⌀4.0 hole,
+5.7 mm against 4.0 — and nothing about a loose one tells them apart but its length. **Label
+these two before anything else on the storey.** The long body is the appliance's default and
+takes [34](M3_LONG_INSERTS) of the [61](TOTAL_M3_INSERTS) stations; the short one is what the
+[27](M3_SHORT_INSERTS) named in [`bom.md`](../../../ledger/bom.md) §13 take because their bores
+cannot give the long one its depth. Pressed into the wrong station the short one is a weaker
+joint that looks identical, and the long one does not seat flush.
 
 **`fasteners-tray`** — the parts in play
 
@@ -128,8 +137,10 @@ the cards this kit is carried to are CC-05, CC-09, EN-01 and PC-03.
   A screw's envelope is that head over a shank of the nominal thread diameter
   and the SKU's own length.
 - The ruthex inserts are the maker's own dimensions —
+  [M3 RX-M3x5.7](https://www.ruthex.de/en/products/ruthex-gewindeeinsatz-m3-100-stuck-rx-m3x5-7-messing-gewindebuchsen-fur-3d-druck)
+  at ø4.6 x 5.7 mm and
   [M3 short RX-M3Sx4.0](https://www.ruthex.de/en/products/ruthex-gewindeeinsatz-m3s-100stuck-rx-m3x4-0-short-messing-gewindebuchsen-fur-3d-druck)
-  at ø4.6 x 4.0 mm,
+  at ø4.6 x 4.0 mm — one hole ø4.0 serves both,
   [M2 RX-M2x4](https://www.ruthex.de/en/products/ruthex-gewindeeinsatz-m2-70-stuck-rx-m2x4-messing-gewindebuchsen)
   at ø3.6 x 4.0 mm, and
   [M5 RX-M5x9.5](https://www.ruthex.de/en/products/ruthex-gewindeeinsatz-m5-50-stuck-rx-m5x9-5-messing-gewindebuchsen)
@@ -182,7 +193,7 @@ together dock, `fasteners-m5`, `fasteners-m3`, `fasteners-small`,
 
 The generator asserts one solid per printed part, the H2C build envelope, all
 four seated interfaces of the column, and, for each of the
-[15](SKU_COUNT) compartments, three things: that the trough's fill footprint
+[16](SKU_COUNT) compartments, three things: that the trough's fill footprint
 grown [1 mm](WALL_CLEARANCE) across lies inside that trough's void over the
 whole height a fill can reach, that the pack's own fill lies inside it, and
 that the fill's top stops at least [1 mm](FILL_HEADROOM) under the bin's

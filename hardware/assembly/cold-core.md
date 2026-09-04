@@ -33,7 +33,7 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §5 (
 | Flavor reservoir × 2 (printed) | [`/hardware/printed-parts/cold-core/reservoir/`](/hardware/printed-parts/cold-core/reservoir/) | Print, Bambu PETG Translucent Clear (32101) — the wall reads fill state; the wetted surface is qualified by [`wetted-surface-test.md`](/hardware/printed-parts/cold-core/reservoir/wetted-surface-test.md), not by the spool |
 | M3 × 25 mm SHCS, 12.9 alloy, black oxide × 12 (foam-cap clamp screws) | BNUOK B0DJQGF665 | ACQUIRED |
 | M3 × 12 mm SHCS, 304 stainless (18-8) × 12 (reservoir-cap screws) | BNUOK B0DJQGMQZM | ON-ORDER |
-| ruthex M3 short heat-set inserts × [28](CC_INSERTS) — every one this procedure presses ([16](CAP_INSERTS) foam-caps: [12](CAP_CLAMP_INSERTS) clamp bosses plus [4](CAP_DECK_INSERTS) deck-mount columns, + [12](RES_INSERTS) reservoir). The touch-flo plate's and the power column's are pressed elsewhere; `bom.md` §13 carries the appliance total | ruthex B09ZHSGHXD (100-pc bag) | ON-ORDER |
+| ruthex M3 **full-length** heat-set inserts × [28](CC_INSERTS) — every one this procedure presses ([16](CAP_INSERTS) foam-caps: [12](CAP_CLAMP_INSERTS) clamp bosses plus [4](CAP_DECK_INSERTS) deck-mount columns, + [12](RES_INSERTS) reservoir). **RX-M3x5.7, not the short RX-M3Sx4.0** — both bags are brass M3 in a ⌀4 hole and only the body length tells them apart, so check the trough label before the iron goes on. Every pocket in this procedure was already bored deep enough for the long body. The touch-flo plate's and the power column's are the SHORT one and are pressed elsewhere; `bom.md` §13 carries the appliance total | ruthex B08BCRZZS3 (100-pc bag) | ON-ORDER |
 | LVDALAB PTFE membrane filter Ø13 mm × 0.45 µm × 2 (reservoir vent) | B0D41KT345 (100-pc bag = 50 builds) | ON-ORDER |
 | Pour-in-place 2 lb 2-part closed-cell PU foam, 1 qt kit | Fiberglass Supply Depot B08R7TX8QJ | ON-ORDER |
 | Foam-pour consumables (mixing cups × 4, stir sticks × 4, nitrile gloves × 1 pair per build) | B08JHH1DBF / B09H6ZP447 / B0G8SSMVKW | ACQUIRED |
@@ -63,7 +63,7 @@ Dev-phase summary: [`/hardware/handwork.md`](/hardware/assembly/handwork.md) "Be
 
 ### 2. Press ruthex inserts into the outer shell
 
-Six ruthex M3 short heat-set inserts pressed into the top face of the outer_shell, six into the bottom face. Each insert seats in a Ø[4 mm](INSERT_POCKET_D) × [4 mm](INSERT_HALF_DEPTH)-deep printed pocket; another [4 mm](INSERT_HALF_DEPTH) of relief below the insert. Soldering iron tip on the insert; press straight down until flush.
+Six ruthex M3 heat-set inserts pressed into the top face of the outer_shell, six into the bottom face — the **full-length** RX-M3x5.7. Each insert seats in a Ø[4 mm](INSERT_POCKET_D) pocket, [5.7 mm](INSERT_LEN) of body with [2.3 mm](INSERT_RELIEF) of relief below it. Soldering iron tip on the insert; press straight down until flush.
 
 These twelve inserts are the only thread anywhere in the cap stack — the cap and the lid both carry clearance holes — so they are also what clamps a lid for its pour at step 3, and they have to be in before it.
 
@@ -93,7 +93,7 @@ Both flavor reservoirs are built closed here, off the shell, and go into their p
 
 **Float rod + float.** Take the two rods cut and deburred at [`handwork.md`](/hardware/assembly/handwork.md) "Cut + seat the reservoir float rods" — every rod end is a seating face, so a burr falsifies the seat and scores the float bore. Harvest each magnetic float from its YXQ float switch, keeping the stainless capsule and its ferrite ring, discarding the switch body and cable. Seat the rod in the body's blind boss on the wet slope: the tip bottoms on solid PETG, so the slope stays unbroken. Slip the float on. It has to ride the cavity's **far** wall — the wall the reed column stands behind — because the magnet-to-reed budget here is the same couple of millimetres the carbonator reeds live with.
 
-**Close the reservoir.** Press six ruthex M3 inserts into the wall-top bosses. Drop the PTFE membrane into the cap's vent pocket and press the TPU retaining ring over it — a light interference fit, no adhesive. Lay the TPU gasket on the wall top, a perimeter ring with a pad at each screw position. Lower the cap over the rod so its register boss swallows the rod tip, vent boss up, and drive six M3 x 12 SHCS into the inserts. The rod is cut short of the seat-to-seat span precisely so it can never hold the cap off its gasket.
+**Close the reservoir.** Press six ruthex M3 full-length inserts into the wall-top bosses — the same RX-M3x5.7 as the shell faces, in a 7 mm pocket. Drop the PTFE membrane into the cap's vent pocket and press the TPU retaining ring over it — a light interference fit, no adhesive. Lay the TPU gasket on the wall top, a perimeter ring with a pad at each screw position. Lower the cap over the rod so its register boss swallows the rod tip, vent boss up, and drive six M3 x 12 SHCS into the inserts. The rod is cut short of the seat-to-seat span precisely so it can never hold the cap off its gasket.
 
 A closed reservoir has its rod standing in the slope boss with the float sliding free, the cap flush on a compressed gasket all round, the membrane held under its ring, vent open and syrup path closed.
 

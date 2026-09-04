@@ -115,7 +115,14 @@ ulp_m3_head_height = 1.5
 
 ruthex_m2_diameter = 3.6
 ruthex_m2_length = 4.0
-ruthex_m3_short_diameter = 4.6
+# ONE INSERT, TWO BODIES. ruthex's short and full-length M3 share a knurl and a recommended
+# hole and differ only here, which is why they share a storey and sit in adjacent troughs — and
+# why the troughs have to be labelled: nothing about a loose one tells you which it is but its
+# length. The long body is the appliance's default (bom.md §13); the short one is what five
+# named stations take because their bores cannot give the long one its depth.
+ruthex_m3_diameter = 4.6
+ruthex_m3_length = 5.7
+ruthex_m3_short_diameter = ruthex_m3_diameter
 ruthex_m3_short_length = 4.0
 ruthex_m5_diameter = 7.1
 ruthex_m5_length = 9.5
@@ -248,8 +255,17 @@ m3_contents = (
     ),
 )
 
-small_storey_height_u = 4
+# Five units and not four: the storey took an eighth trough when the full-length ruthex M3
+# joined the short one, and eight narrower troughs stand the same packs in taller heaps.
+small_storey_height_u = 5
 small_contents = (
+    Content(
+        "RUTHEXM3L",
+        "ruthex M3 inserts",
+        100,
+        cylinder_volume(ruthex_m3_diameter, ruthex_m3_length),
+        brass_color,
+    ),
     Content(
         "RUTHEXM3",
         "ruthex M3 short inserts",

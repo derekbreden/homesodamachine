@@ -55,6 +55,14 @@ def flute_reach(band_height):
 screw_clear_dia = 3.9
 head_cbore_dia = 6.15
 heatset_dia = 4.0
+# THE INSERT'S OWN BODY, both lengths ruthex sells in M3. They are the same insert otherwise —
+# same ⌀4.6 knurl over the same ⌀4.0 recommended hole — so a station picks between them on the
+# depth of its own bore and nothing else, and `heatset_dia` serves either.
+#   A BORE IS NOT AN INSERT. `heatset_depth` is the POCKET: the body plus the relief a screw
+# that outruns it needs. Anything asking how much thread a screw actually takes reads a length
+# here and not that.
+heatset_len = 4.0        # RX-M3Sx4.0, where a station cannot give the long body its depth
+heatset_long_len = 5.7   # RX-M3x5.7, everywhere a station can
 heatset_depth = 5.25
 mount_boss_dia = 7.0
 boss_ligament = (mount_boss_dia - heatset_dia) / 2.0

@@ -320,8 +320,8 @@ prv_port_y = +carbonator_port_offset
 # pressed from the shell face it mates. TPU gasket per cap
 # (foam-cap-gasket.step). See bom.md for hardware SKUs.
 screw_clearance_radius = 1.95  # ⌀[3.9](SCREW_CLEARANCE_DIAMETER) clearance for M3 SHCS shank
-insert_pocket_radius = 2.0  # ⌀[4](INSERT_POCKET_DIAMETER) for ruthex M3 short heat-set
-insert_pocket_depth = 8.0  # 4 mm insert engagement + 4 mm relief
+insert_pocket_radius = 2.0  # ⌀[4](INSERT_POCKET_DIAMETER), ruthex's own recommended hole
+insert_pocket_depth = 8.0  # 5.7 mm insert engagement + 2.3 mm relief
 screw_boss_size = 8.0  # ⌀[8 × 8 mm](SCREW_BOSS_SIZE) cylindrical boss at each attachment
 
 # The head sits in the lid, and a lid is [5.2 mm](FOAM_CAP_LID_H) thick where it takes one —
@@ -586,7 +586,7 @@ for _band, _band_height, _band_fluted in silhouette_bands:
 # top the column runs to the rim and the CUP is a pad shorter. Either way a station
 # carries one pad of lid over the rest of `foam_cap_height` in column.
 cap_screw_length = 25.0
-insert_length = 4.0  # ruthex RX-M3Sx4.0, set flush with the face
+insert_length = 5.7  # ruthex RX-M3x5.7, set flush with the face
 cap_screw_beyond_face = cap_screw_length - (
     wall_and_floor_thickness  # the land under the head
     + (foam_cap_height - head_pad_height)  # the boss column under the pad
@@ -617,9 +617,9 @@ state(
 # is printed in. `foam_assembly.deck_mount_station` carries them into the stack's own frame,
 # and whoever seats the stack carries them from there into the world.
 deck_mount_boss_radius = 3.5     # column radius
-deck_mount_bore_radius = 2.0     # ⌀4 for a ruthex M3 short heat-set
+deck_mount_bore_radius = 2.0     # ⌀4 for a ruthex M3 heat-set
 deck_mount_lid_slip = 0.4        # per side, a standing column to the lid's clearance hole
-deck_mount_insert_length = 4.0   # ruthex RX-M3Sx4.0, set flush with the column top
+deck_mount_insert_length = 5.7   # ruthex RX-M3x5.7, set flush with the column top
 deck_mount_bore_relief = 0.6     # air past the screw tip at the bore's blind end
 
 # The least room a deck column leaves to anything else standing in the cup — a screw boss,

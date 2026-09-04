@@ -251,7 +251,7 @@
    "kind": "gate",
    "status": "pass",
    "value": "holds",
-   "target": "4 mm past the shell face",
+   "target": "5.7 mm past the shell face",
    "detail": [],
    "active": true
   },
@@ -271,7 +271,7 @@
    "kind": "gate",
    "status": "pass",
    "value": "holds",
-   "target": "4 mm into the column",
+   "target": "5.7 mm into the column",
    "detail": [],
    "active": true
   },
