@@ -7202,6 +7202,7 @@ cp hardware/printed-parts/zone-c/funnel/README.md $$O2
 genrule(
     name = "quickstart-build",
     srcs = [
+        "hardware/assembly/cards/fonts/IBMPlexSans-400-700-normal-latin.woff2",
         "pysrc/hardware/quickstart/_build.py",
         ":out/cad-art/hardware/quickstart/art/colors.css",
         ":out/cad-art/hardware/quickstart/art/connect-rear-connected.png",
@@ -7221,6 +7222,7 @@ genrule(
         "hardware/quickstart/style.css",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "ios/AppIcon.svg",
         "tools/render/browser.js",
         "tools/render/package-lock.json",
         "tools/render/package.json",
@@ -7294,6 +7296,7 @@ genrule(
         "pysrc/hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
         ":out/westbrass-reference/hardware/reference/touch-flo-faucet/westbrass-reference/westbrass-reference.step",
         "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_measuring.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
