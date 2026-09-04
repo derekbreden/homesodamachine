@@ -511,6 +511,7 @@ General shop equipment supporting fabrication, assembly, and teardown. Not proje
 | Elmer's disappearing purple school glue sticks, washable, 6 g × 12 — print-bed adhesion/release layer | [B003ULCZ7M](https://www.amazon.com/dp/B003ULCZ7M) | 1 pk (12) | $7.38 | 114-9764609-4555460 | 2026-03-22 | 2026-03-24 | ACQUIRED |
 | Koala resin-coated 4×6 glossy photo paper, 72lb, 100 sheets — print stock for the 4×6 sequence deck ([assembly/cards/](/hardware/assembly/cards/README.md)), borderless on the ET-8550 (`4x6.Fullbleed`) | [B073WWB1HS](https://www.amazon.com/dp/B073WWB1HS) | 1 pk (100) | $13.92 | 112-4209023-0725839 | 2026-07-24 | 2026-07-25 | ACQUIRED |
 | Koala resin-coated 8.5×11 glossy photo paper, 72lb, 50 sheets — print stock for the letter-size tool-station deck ([assembly/cards/tools/](/hardware/assembly/cards/tools/README.md)), borderless on the ET-8550 (`Letter.Fullbleed`). Same RC base as the 4×6 stock: waterproof, and stiff enough at 260 gsm that a letter sheet stands at a bench instead of flopping | [B073WWL82Z](https://www.amazon.com/dp/B073WWL82Z) | 2 pk (50 ea) | $18.22 ea | 112-7818515-5395414 | 2026-07-25 | 2026-07-27 | ACQUIRED |
+| A-SUB satin resin-coated 13×19 photo paper, 72lb (260 gsm), warm white, 50 sheets — print stock for the customer's one-sheet quick start ([quickstart/](/hardware/quickstart/README.md)), borderless on the ET-8550 from the rear feed. Same 260 gsm RC base as the Koala stock, satin rather than gloss; $39.99 + $2.90 tax; Amazon estimates 2026-09-08 | [B0DSJ9X4CR](https://www.amazon.com/dp/B0DSJ9X4CR) | 1 pk (50) | $42.89 | 112-6847774-7837033 | 2026-09-03 | — | ON-ORDER |
 
 ## 14. Soldering + small-signal electrical tools
 
@@ -680,10 +681,10 @@ Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C funne
 | ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$33,468.05](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$5,437.54](LEDGER_LABOR) |
 | ACQUIRED (combined) | [$38,905.59](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$651.08](LEDGER_ON_ORDER) |
+| ON-ORDER | [$693.97](LEDGER_ON_ORDER) |
 | MISSING — paid, not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$39,609.74](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$39,652.63](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
