@@ -2983,6 +2983,19 @@ void onS3Message(ProtoLink *link, const uint8_t *data, uint16_t len) {
       protoS3.trySend(MSG_RESP_IDENTITY, &id, sizeof(id));
       break;
     }
+    // The phone's name for this machine, through the rotary's radio. Read to
+    // its NUL and no further than a name may be; answered as the query is, so
+    // the rotary re-advertises and tells the phone.
+    case MSG_IDENTITY_SET: {
+      char name[MACHINE_NAME_MAX + 1] = {0};
+      memcpy(name, payload, payloadLen < MACHINE_NAME_MAX ? payloadLen : MACHINE_NAME_MAX);
+      protoSetMachineName(name);
+      protoIdentityReport();
+      IdentityPayload id;
+      protoMachineIdentity(id);
+      protoS3.trySend(MSG_RESP_IDENTITY, &id, sizeof(id));
+      break;
+    }
     case MSG_DEVICE_READY: {
       if (payloadLen >= sizeof(ResponsePayload)) {
         const ResponsePayload *resp = (const ResponsePayload *)payload;
