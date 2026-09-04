@@ -151,7 +151,8 @@ constexpr uint8_t MSG_OTA_SRC_END   = 0x3F;  // OtaStatePayload: how the session
 
 // ── What a machine is, asked of the board that knows (0x40..) ────────────
 // The main board is the only one that knows which machine it is in. A display
-// asks at boot and carries the answer into whatever it advertises.
+// asks at boot and carries the answer into whatever it advertises. A phone
+// names it through MSG_IDENTITY_SET (0x66), answered the same way.
 constexpr uint8_t MSG_IDENTITY_QUERY = 0x40;  // no payload
 constexpr uint8_t MSG_RESP_IDENTITY  = 0x41;  // IdentityPayload
 
@@ -273,6 +274,15 @@ constexpr uint8_t MSG_AIR_STOP   = 0x62;  // no payload: end the cycle now
 constexpr uint8_t MSG_RATIO_SET   = 0x63;  // RatioPayload: both channels
 constexpr uint8_t MSG_RATIO_QUERY = 0x64;  // no payload: answer with the pair
 constexpr uint8_t MSG_RESP_RATIO  = 0x65;  // RatioPayload: resulting truth
+
+// ── Naming a machine, from the phone (0x66) ──────────────────────────────
+// The name is the main board's, in its NVS, and a phone reaches it through
+// the display holding the radio: BLE text `IDENTITY <name>` becomes this
+// frame on that display's link. The main board stores what arrives and
+// answers as it answers MSG_IDENTITY_QUERY (0x40) — with MSG_RESP_IDENTITY —
+// so the display re-advertises and tells the phone what the machine is now
+// called.
+constexpr uint8_t MSG_IDENTITY_SET = 0x66;  // IdentityNamePayload; empty clears the stored name
 
 // Fixed transport capacities are part of the replay contract. Keeping the
 // values beside the shared wire protocol lets each actual queue assert that a
@@ -834,6 +844,14 @@ struct __attribute__((packed)) IdentityPayload {
   uint8_t  unit[3];                     // low three bytes of the main board's MAC
   char     name[MACHINE_NAME_MAX + 1];  // NUL-terminated; empty until someone sets one
 };
+
+// What a phone calls this machine. The bytes are the phone's own, clipped to
+// MACHINE_NAME_MAX on its side; the main board reads them up to the first NUL.
+struct __attribute__((packed)) IdentityNamePayload {
+  char name[MACHINE_NAME_MAX + 1];  // NUL-terminated; empty clears the stored one
+};
+
+static_assert(sizeof(IdentityNamePayload) == MACHINE_NAME_MAX + 1, "identity name wire layout drift");
 
 struct __attribute__((packed)) BleStatusPayload {
   uint8_t  flags;        // BLE_ST_*

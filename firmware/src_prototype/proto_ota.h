@@ -31,4 +31,7 @@ void protoOtaOnSrcData(const uint8_t *payload, uint16_t plen);
 // Which machine this is, for whatever the rotary advertises.
 void protoIdentityBegin();
 void protoMachineIdentity(IdentityPayload &out);
+// A name, stored; and the IDENTITY line — model, unit, name — on the console.
+void protoSetMachineName(const char *name);
+void protoIdentityReport();
 void protoIdentityConsole(const String &line);

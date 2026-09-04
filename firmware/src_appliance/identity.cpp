@@ -39,13 +39,17 @@ bool machineSetName(const char *name) {
     return ok;
 }
 
+void identityReport() {
+    Serial.printf("\nIDENTITY model=appliance unit=%02X%02X%02X name=%s\n",
+                  unitId[0], unitId[1], unitId[2],
+                  machineName[0] ? machineName : "(unset)");
+}
+
 void identityConsole(const String &line) {
     String rest = line.substring(8);
     rest.trim();
     if (rest.length()) {
         if (!machineSetName(rest.c_str())) { Serial.println("\nIDENTITY:FAIL"); return; }
     }
-    Serial.printf("\nIDENTITY model=appliance unit=%02X%02X%02X name=%s\n",
-                  unitId[0], unitId[1], unitId[2],
-                  machineName[0] ? machineName : "(unset)");
+    identityReport();
 }
