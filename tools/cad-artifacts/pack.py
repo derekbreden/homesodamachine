@@ -1332,8 +1332,17 @@ def main(argv) -> int:
             for rel in (side_moved + side_fresh + side_gone):
                 print(f"    {rel}")
     if not args.write:
-        print("  publish and pin the current viewer cut:")
-        print("    tools/cad-venv/bin/python tools/cad-artifacts/pack.py --write")
+        # NOBODY HAS TO DO THIS. `.githooks/post-commit` runs `tools/publish_now.py` detached
+        # after every commit, and that cuts and pins exactly what is named above — so a lock
+        # standing behind the tree is a lock whose commit has not been made yet, or one whose
+        # publish is still running. Saying "run --write" here without saying that is what sends
+        # a reader off to run it by hand, against a publish already in flight; the two race, and
+        # the second one lands on a tree the first has already moved.
+        print("  the lock is pinned by the post-commit hook, from the commit that moves it:")
+        print("    git commit      # tools/publish_now.py cuts and pins this, detached")
+        print("    tail .cache/publish-now.log      # what it did, or why it could not")
+        print("  --write forces it from here, which is only wanted when there is no commit to")
+        print("  make and no publish already running.")
         return 1 if args.check else 0
 
     if same_solids:
