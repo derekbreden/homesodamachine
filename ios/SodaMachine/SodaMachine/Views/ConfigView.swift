@@ -378,9 +378,11 @@ private struct RatioPickerSheet: View {
 // ────────────────────────────────────────────────────────────
 
 private struct SettingsItemButtonStyle: ButtonStyle {
+    @Environment(\.isEnabled) private var isEnabled
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .foregroundStyle(configuration.isPressed ? Theme.textPrimary : Theme.textSecondary)
+            .opacity(isEnabled ? 1 : 0.35)
     }
 }
 
@@ -390,9 +392,7 @@ private struct SettingsPageView: View {
     @Binding var inStats: Bool
     @Binding var inPrime: Bool
     @Binding var inClean: Bool
-    @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = false
     @State private var showResetAlert = false
-    @State private var showDisconnectAlert = false
     @State private var resetting = false
     @State private var inFirmware = false
     @State private var inMachines = false
@@ -407,6 +407,8 @@ private struct SettingsPageView: View {
                     .font(.system(size: 16))
                     .foregroundStyle(Theme.textSecondary)
             } else {
+                // What needs the machine in earshot waits for it; what the
+                // phone remembers is open either way.
                 VStack(spacing: 0) {
                     settingsButton("Usage Stats") {
                         inStats = true
@@ -414,38 +416,26 @@ private struct SettingsPageView: View {
                     settingsButton("Prime") {
                         inPrime = true
                     }
+                    .disabled(!ble.linked)
                     settingsButton("Clean") {
                         inClean = true
                     }
+                    .disabled(!ble.linked)
                     if !ble.demoMode {
                         settingsButton("Firmware") {
                             inFirmware = true
-                        }
-                        // Bench and kitchen are a room apart; switching between
-                        // them keeps each machine's images on disk.
-                        settingsButton(ble.connectedMachine.map { "Machine: \($0.displayName)" }
-                                       ?? "Machines") {
-                            ble.chooseAnother()
-                            inMachines = true
                         }
                     }
                     settingsButton("Factory Reset") {
                         showResetAlert = true
                     }
+                    .disabled(!ble.linked)
                     settingsButton("About") {
                         ble.requestVersions()
                         inAbout = true
                     }
-                    if ble.demoMode {
-                        settingsButton("Exit Demo Mode") {
-                            UserDefaults.standard.set(false, forKey: "prefersDemoMode")
-                            ble.exitDemoMode()
-                            hasCompletedOnboarding = false
-                        }
-                    } else {
-                        settingsButton("Disconnect") {
-                            showDisconnectAlert = true
-                        }
+                    settingsButton("Your Machines") {
+                        inMachines = true
                     }
                 }
             }
@@ -458,17 +448,8 @@ private struct SettingsPageView: View {
             .presentationBackground(Theme.background)
         }
         .sheet(isPresented: $inMachines) {
-            MachinePickerView(onPick: { inMachines = false })
+            YourMachinesView()
                 .presentationBackground(Theme.background)
-        }
-        .alert("Disconnect?", isPresented: $showDisconnectAlert) {
-            Button("Disconnect", role: .destructive) {
-                ble.disconnect()
-                hasCompletedOnboarding = false
-            }
-            Button("Cancel", role: .cancel) {}
-        } message: {
-            Text("Are you sure you want to disconnect from this home soda machine?")
         }
         .alert("Factory Reset?", isPresented: $showResetAlert) {
             Button("Reset", role: .destructive) {
@@ -527,6 +508,13 @@ private struct AboutSheet: View {
                                 .foregroundStyle(Theme.textPrimary)
                         }
                         if i < 2 { Spacer().frame(height: 16) }
+                    }
+
+                    if !ble.linked, let t = ble.current?.lastConnected {
+                        Text("As of \(said(t))")
+                            .font(.system(size: 13))
+                            .foregroundStyle(Theme.textSecondary)
+                            .padding(.top, 24)
                     }
 
                     Spacer()
@@ -769,9 +757,9 @@ private struct StatsSheet: View {
     @Environment(\.dismiss) var dismiss
     @AppStorage("servingSizeOz") private var servingSizeOz = 20
 
-    private var isDisconnected: Bool {
-        ble.connectionState != .connected && !ble.demoMode
-    }
+    /// When the usage on screen was read. The charts are that reading laid
+    /// out: live while the machine is in earshot, as of then when it is not.
+    private var readAt: Date? { ble.current?.usage.readAt }
 
     private var isWide: Bool { sizeClass == .regular }
 
@@ -781,11 +769,19 @@ private struct StatsSheet: View {
                 Theme.background.ignoresSafeArea()
 
                 VStack(spacing: 0) {
-                    if !ble.chartDataSynced {
+                    if let t = readAt, !ble.chartDataSynced {
+                        Text(ble.linked ? "Updating…" : "As of \(said(t))")
+                            .font(.system(size: 13))
+                            .foregroundStyle(Theme.textSecondary)
+                            .padding(.top, 10)
+                    }
+                    if readAt == nil {
                         Spacer()
-                        ProgressView()
-                            .tint(Theme.textPrimary)
-                        Text("Loading stats...")
+                        if ble.linked {
+                            ProgressView()
+                                .tint(Theme.textPrimary)
+                        }
+                        Text(ble.linked ? "Loading stats..." : "Nothing read yet")
                             .font(.system(size: 16))
                             .foregroundStyle(Theme.textSecondary)
                             .padding(.top, 8)
@@ -808,17 +804,6 @@ private struct StatsSheet: View {
                             .padding(.bottom, 20)
                             .padding(.top, 8)
                         }
-                    }
-                }
-                .opacity(isDisconnected ? 0.3 : 1.0)
-
-                if isDisconnected {
-                    VStack(spacing: 12) {
-                        ProgressView()
-                            .tint(Theme.textPrimary)
-                        Text("Reconnecting...")
-                            .font(.system(size: 16, weight: .medium))
-                            .foregroundStyle(Theme.textPrimary)
                     }
                 }
             }
@@ -844,53 +829,35 @@ private struct StatsSheet: View {
 
     @ViewBuilder
     private var compactLayout: some View {
-        if ble.statsSynced { pieChartSection }
-        if ble.chartDataSynced {
-            let size = servingSizeForOz(servingSizeOz)
-            Chart24HView(servingSize: size)
-            Chart30DView(servingSize: size)
-            ChartHODView(servingSize: size)
-            ServingSizeSelector(selectedOz: $servingSizeOz)
-        } else {
-            ProgressView().tint(Theme.textPrimary).padding(.vertical, 20)
-        }
+        pieChartSection
+        let size = servingSizeForOz(servingSizeOz)
+        Chart24HView(servingSize: size)
+        Chart30DView(servingSize: size)
+        ChartHODView(servingSize: size)
+        ServingSizeSelector(selectedOz: $servingSizeOz)
     }
 
     // MARK: - Wide layout (iPad) — two rows with even spacing
 
-    @ViewBuilder
     private var wideRow1: some View {
-        if ble.chartDataSynced {
-            HStack(spacing: 24) {
-                Group {
-                    if ble.statsSynced {
-                        pieChartSection
-                    } else {
-                        Color.clear.frame(height: 160)
-                    }
-                }
+        HStack(spacing: 24) {
+            pieChartSection
                 .frame(maxWidth: .infinity)
-
-                Chart24HView(servingSize: servingSizeForOz(servingSizeOz))
-                    .frame(maxWidth: .infinity)
-            }
-        } else {
-            ProgressView().tint(Theme.textPrimary).padding(.vertical, 20)
+            Chart24HView(servingSize: servingSizeForOz(servingSizeOz))
+                .frame(maxWidth: .infinity)
         }
     }
 
     @ViewBuilder
     private var wideRow2: some View {
-        if ble.chartDataSynced {
-            let size = servingSizeForOz(servingSizeOz)
-            HStack(spacing: 24) {
-                Chart30DView(servingSize: size)
-                    .frame(maxWidth: .infinity)
-                ChartHODView(servingSize: size)
-                    .frame(maxWidth: .infinity)
-            }
-            ServingSizeSelector(selectedOz: $servingSizeOz)
+        let size = servingSizeForOz(servingSizeOz)
+        HStack(spacing: 24) {
+            Chart30DView(servingSize: size)
+                .frame(maxWidth: .infinity)
+            ChartHODView(servingSize: size)
+                .frame(maxWidth: .infinity)
         }
+        ServingSizeSelector(selectedOz: $servingSizeOz)
     }
 
     // MARK: - Pie Chart (30-day flavor split)
@@ -1096,7 +1063,7 @@ private struct Chart24HView: View {
     let servingSize: Double
     var body: some View {
         let calendar = Calendar.current
-        let currentHour = calendar.component(.hour, from: Date())
+        let currentHour = calendar.component(.hour, from: ble.current?.usage.readAt ?? Date())
         let data0 = ble.chartData24H[0].map { toServings($0, size: servingSize) }
         let data1 = ble.chartData24H[1].map { toServings($0, size: servingSize) }
 
@@ -1170,7 +1137,7 @@ private struct Chart30DView: View {
 
     var body: some View {
         let calendar = Calendar.current
-        let today = Date()
+        let today = ble.current?.usage.readAt ?? Date()
         let data0 = ble.chartData30D[0].map { toServings($0, size: servingSize) }
         let data1 = ble.chartData30D[1].map { toServings($0, size: servingSize) }
 
@@ -1313,6 +1280,7 @@ private struct ChartHODView: View {
 struct ConfigView: View {
     @Environment(BLEManager.self) var ble
     @Environment(\.scenePhase) private var scenePhase
+    let machine: KnownMachine
     @State private var currentPage = 0
     @State private var showFlavor1Picker = false
     @State private var showFlavor2Picker = false
@@ -1330,18 +1298,7 @@ struct ConfigView: View {
         ZStack {
             Theme.background.ignoresSafeArea()
 
-            if !ble.configSynced {
-                VStack(spacing: 16) {
-                    ProgressView()
-                        .scaleEffect(1.5)
-                        .tint(Theme.textPrimary)
-                    Text("Loading configuration...")
-                        .font(.system(size: 16, weight: .medium))
-                        .foregroundStyle(Theme.textPrimary)
-                }
-            } else {
-                carouselContent
-            }
+            carouselContent
         }
         .sheet(isPresented: $showFlavor1Picker) {
             ImagePickerSheet(flavorLabel: "Flavor 1 Image", selectedSlot: ble.flavor1Image) { slot in
@@ -1381,6 +1338,7 @@ struct ConfigView: View {
             StatsSheet()
                 .environment(ble)
                 .onAppear {
+                    guard ble.linked else { return }
                     ble.requestStatsAndCharts()
                     ble.subscribeStats()
                 }
@@ -1430,9 +1388,13 @@ struct ConfigView: View {
             // "Show Numbers" overlay a generous region to hit. Padding is
             // reduced from 40 → 25 so the visible dots stay roughly where
             // they were on screen — only the hit area grows.
-            PagedDots(currentPage: $currentPage, pageCount: pageCount)
-                .frame(height: 60)
-                .padding(.bottom, 25)
+            VStack(spacing: 0) {
+                LinkStatusView(machine: machine, named: true)
+                    .padding(.horizontal, 32)
+                PagedDots(currentPage: $currentPage, pageCount: pageCount)
+                    .frame(height: 60)
+            }
+            .padding(.bottom, 25)
         }
     }
 
@@ -1456,7 +1418,7 @@ struct ConfigView: View {
 
             Spacer()
         }
-        .padding(.bottom, 80)
+        .padding(.bottom, 100)
         .contentShape(Rectangle())
         .onTapGesture {
             switch i {
@@ -1499,7 +1461,7 @@ struct ConfigView: View {
     }
 
     private func ratioDisplay(ratio: Int) -> some View {
-        Text("1:\(ratio)")
+        Text(machine.configReadAt == nil ? "—" : "1:\(ratio)")
             .font(.system(size: 36, weight: .regular, design: .rounded))
             .foregroundStyle(Theme.textSecondary)
     }

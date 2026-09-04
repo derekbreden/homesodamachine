@@ -53,7 +53,7 @@ struct FlavorImagePicker: View {
                             pendingTile(item.preview, progress: nil,
                                         cancel: { ble.cancelQueuedImage(id: item.id) })
                         }
-                        if hasRoom { addCell }
+                        if hasRoom && ble.linked { addCell }
                     }
                     .padding(.horizontal, 20)
                     .padding(.vertical, 20)
@@ -65,6 +65,13 @@ struct FlavorImagePicker: View {
                         note(why)
                     } else if case .failed(let why) = ble.imageUploadState {
                         note(why)
+                    } else if !ble.linked {
+                        // What the machine last showed, and nothing to change
+                        // it with until it can hear.
+                        Text(ble.current?.picturesReadAt.map { "As of \(said($0))" } ?? "Nothing read yet")
+                            .font(.system(size: 13))
+                            .foregroundStyle(Theme.textSecondary)
+                            .padding(.bottom, 20)
                     }
                 }
             }
@@ -145,11 +152,11 @@ struct FlavorImagePicker: View {
                 .stroke(art == ble.flavorArt.art[channel] ? Theme.textPrimary : .clear, lineWidth: 1)
         )
         .contentShape(Rectangle())
-        .onTapGesture { ble.setFlavorArt(channel: channel, art: art) }
+        .onTapGesture { if ble.linked { ble.setFlavorArt(channel: channel, art: art) } }
         .contextMenu {
             // Only a picture someone added can be taken away, and only while
-            // nothing else is in flight.
-            if custom && !isBusy {
+            // nothing else is in flight and the machine can hear.
+            if custom && !isBusy && ble.linked {
                 Button("Remove", role: .destructive) { confirmRemove = art }
             }
         }
@@ -286,31 +293,3 @@ struct FlavorImagePicker: View {
     }
 }
 
-// What this phone happens to have sent, so a filled slot shows as itself.
-// Not authority over anything: the machine says what it holds.
-/// Faces this phone has, filed under the picture's own crc32 rather than the
-/// slot it occupies. A picture that moves keeps its face; a slot that changes
-/// hands does not inherit the old one; and a phone that never sent a picture
-/// still ends up holding it, because the machine can be asked.
-enum PictureCache {
-    private static func url(_ unit: String, _ crc: UInt32) -> URL? {
-        guard !unit.isEmpty, crc != 0 else { return nil }
-        let dir = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
-        return dir.appendingPathComponent("face-\(unit)-\(String(crc, radix: 16)).png")
-    }
-
-    static func save(_ image: UIImage, unit: String, crc: UInt32) {
-        guard let u = url(unit, crc), let png = image.pngData() else { return }
-        try? png.write(to: u)
-    }
-
-    static func load(unit: String, crc: UInt32) -> UIImage? {
-        guard let u = url(unit, crc), let d = try? Data(contentsOf: u) else { return nil }
-        return UIImage(data: d)
-    }
-
-    static func forget(unit: String, crc: UInt32) {
-        guard let u = url(unit, crc) else { return }
-        try? FileManager.default.removeItem(at: u)
-    }
-}
