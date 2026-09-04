@@ -12,7 +12,9 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { relatedSteps, KIND_CAPTIONS, FIXTURES } from "../contracts/related-steps.js";
+import {
+  relatedSteps, relatedStepsForComponent, KIND_CAPTIONS, FIXTURES, COLLET_PRESS,
+} from "../contracts/related-steps.js";
 import { walkFiles } from "../lib/walk.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -76,7 +78,42 @@ test("the walk above a model is not offered a second time", () => {
 test("every kind the rule returns has a caption", () => {
   const kinds = new Set();
   for (const f of ALL) for (const r of relatedSteps(f, ALL)) kinds.add(r.kind);
+  for (const r of relatedStepsForComponent("tube-fluid-1", ALL)) kinds.add(r.kind);
   for (const k of kinds) assert.ok(KIND_CAPTIONS[k], `no caption for ${k}`);
+});
+
+test("each assembly's 1/4-inch tube can open the supplied collet press", () => {
+  const tubes = [
+    "tube-fluid-17",
+    "turn-fluid-3",
+    "step-fluid-5",
+    "tube-customer-water",
+    "cold-core/line-carb-water-out",
+    "cold-core/line-reservoir-b-fill",
+    "flavor_tube_pos_x",
+    "soda_umbilical_tube",
+  ];
+  for (const tube of tubes) {
+    assert.deepEqual(
+      relatedStepsForComponent(tube, ALL),
+      [{ file: COLLET_PRESS, kind: "used-with" }],
+      tube,
+    );
+  }
+});
+
+test("the collet press is not offered from tubes it does not fit", () => {
+  for (const tube of ["tube-refrig-1", "carbonator-tube", "soda_faucet_tube",
+                      "cold_line_foam", "cold-core/line-prv-vent"]) {
+    assert.deepEqual(relatedStepsForComponent(tube, ALL), [], tube);
+  }
+});
+
+test("a missing collet-press model is not offered as a dead link", () => {
+  assert.deepEqual(
+    relatedStepsForComponent("tube-water-2", ALL.filter((f) => f !== COLLET_PRESS)),
+    [],
+  );
 });
 
 // The alarm. A mold reaches its part by being named for it; one parked
@@ -142,6 +179,7 @@ test("a declared pairing crosses trees the convention cannot", () => {
 // tooling.
 test("every declared fixture and part is a model the tree holds", () => {
   const held = new Set(ALL);
+  assert.ok(held.has(COLLET_PRESS), `${COLLET_PRESS} is not a model the tree holds`);
   for (const [fixture, parts] of Object.entries(FIXTURES)) {
     assert.ok(held.has(fixture), `FIXTURES names ${fixture}, which the tree does not hold`);
     assert.ok(parts.length, `${fixture} declares no parts`);

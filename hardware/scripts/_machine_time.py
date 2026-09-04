@@ -13,7 +13,7 @@ and the units-per-year ceiling — all of it, without anyone remembering to.
   * Print hours = each §7 row's mass × its GROUP's hours-per-kg. THE KG IS
     FILAMENT, not geometry — §7 bills what a slice of the part lays, shell and
     infill (_bom_masses.PROFILES), and the rates below are measured against that
-    same figure. Groups are the five print configurations the build uses;
+    same figure. Groups are the six print configurations the build uses;
     _bom_masses.GROUP_OF assigns every row by name and is imported rather than
     restated, so one list says what plate a part comes off. --check fails on an
     unassigned row, so a new printed part cannot silently escape the estimate.
@@ -79,21 +79,22 @@ _CAP_PETGF, _RHO_PETGF = 18.0, 1.43      # enclosure/print-log.md, bom.md §7
 PETGF_CARRY = (_CAP_PETG * _RHO_PETG) / (_CAP_PETGF * _RHO_PETGF)
 
 # Hours per kg of filament, by print configuration. `ext` is measured; `bulk` is that
-# measurement carried across the stock; the other three are the MEASURED PLATE's own
+# measurement carried across the stock; the other four are the MEASURED PLATE's own
 # rate scaled for a slower configuration, which is a scaling of the setup and not of
 # the stock — so they hang off `_BULK_PETG` rather than off the carried figure. All
-# four are labelled est. in the ledger. See machine-time.md "Open items".
+# five are labelled est. in the ledger. See machine-time.md "Open items".
 _BULK_PETG = round(MEASURED[2] / MEASURED[1], 1)
 RATES = {
     "bulk":  round(_BULK_PETG * PETGF_CARRY, 1),                # 13.3 — carried, est.
     "ext":   round(MEASURED_EXT[2] / MEASURED_EXT[1], 1),       # 31.2 — measured
     "tight": round(_BULK_PETG * 2.0),  # 3 mm watertight walls, Arachne, fine nozzle: ~½ the rate
     "small": round(_BULK_PETG * 2.8),  # travel + layer-change overhead dominates a small part
+    "tool":  round(_BULK_PETG * 2.8),  # small supportless 0.4-nozzle part, six walls + dense core
     "petgf": round(_BULK_PETG * 5.5),  # the faucet: 0.4 TC, fine layers, 50 °C chamber, supported
 }
 
 GROUP_MARKER = {"bulk": "BULK", "ext": "EXT", "tight": "TIGHT",
-                "small": "SMALL", "petgf": "PETGF"}
+                "small": "SMALL", "tool": "TOOL", "petgf": "PETGF"}
 
 
 # The turnaround table's one computed cell. Named here because two readers want it:
@@ -272,7 +273,7 @@ def main():
         return 0
 
     substitute_md(MT, variables)
-    for g in ("bulk", "ext", "tight", "small", "petgf"):
+    for g in GROUP_MARKER:
         print(f"  {g:<6} {kg[g]:6.3f} kg × {RATES[g]:>4} h/kg = {hours[g]:6.1f} h")
     print(f"  {'PRINT':<6} {sum(kg.values()):6.3f} kg{'':14} {h_print:6.1f} h"
           f"   → {wall:.1f} h on {PRINTERS} printers")
