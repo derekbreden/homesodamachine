@@ -49,6 +49,8 @@ RENDER_PAGE_TIMEOUT_SECONDS = 180
 RENDER_ACTION_TIMEOUT_SECONDS = 300
 PAGE_ASSETS = (
     HERE / "style.css",
+    HERE.parent / "assembly" / "cards" / "fonts" / "IBMPlexSans-400-700-normal-latin.woff2",
+    REPO_ROOT / "ios" / "AppIcon.svg",
     HERE / "art" / "colors.css",
     HERE / "art" / "connect-rear-open.png",
     HERE / "art" / "connect-rear-connected.png",

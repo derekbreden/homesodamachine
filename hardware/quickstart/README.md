@@ -1,22 +1,25 @@
 # Home Soda Machine installation quick start
 
 One single-sided, borderless 19 x 13 inch sheet publishes as `quick-start.pdf` on `/drawings`.
-Thirteen registered scenes carry the installation without headings, captions, step numbers or a
-separate legend:
+Thirteen registered scenes form six numbered action clusters around the product lockup. The only
+added words are the product name and `QUICK START`; the actions carry no captions or separate
+legend:
 
-1. mount the complete factory faucet assembly;
-2. close the under-sink cold-water valve;
-3. release the existing 1/4-inch plastic tube from its push fitting;
-4. insert the supplied tube-and-tee assembly, then reconnect the released line;
-5. connect the five tubes and RJ11 signal lead to the appliance rear panel.
+1. lower and seat the complete factory faucet assembly;
+2. slide on the under-counter plate and tighten the retained nut;
+3. close the under-sink cold-water valve;
+4. release the existing 1/4-inch plastic tube from its push fitting;
+5. insert the supplied tube-and-tee assembly, then reconnect the released line;
+6. connect the five tubes and RJ11 signal lead to the appliance rear panel.
 
-The sheet reads as a strip of photographs of the customer's own sink. Each physical action uses
-registered before and after states from one camera: the before state carries the cue on the part
-that moves, and the result stays clean. The changed pose remains legible with the cue covered, and
-the before state plus cue predicts the result. Cue anchors and directions follow the model's
-projected travel, while line weight, head construction and halo remain fixed page dimensions at
-every scene scale. Cameras close in until the moving part and its travel survive arm's-length
-reading; the release closeup exaggerates the collet's short physical stroke for that reason.
+The sheet reads as a clockwise ring of photographs of the customer's own sink. Each physical
+action uses registered before and after states from one camera: the before state carries the cue
+on the part that moves, and the result stays clean. The changed pose remains legible with the cue
+covered, and the before state plus cue predicts the result. Cue anchors and directions follow the
+model's projected travel, while line weight, head construction and halo remain fixed page
+dimensions at every scene scale. Cameras close in until the moving part and its travel survive
+arm's-length reading; the release closeup exaggerates the collet's short physical stroke for that
+reason.
 
 Every pictured object has the form in which the customer receives it, and the sequence contains
 only work the customer performs. The white run arrives with its filter and `TAP` collar installed;
@@ -25,15 +28,16 @@ their collars from the umbilical bench. Nothing on this sheet is cut, trimmed, i
 threaded through a collar. The cutter and loose foam belong to the separately bagged cold kit and
 its own guide.
 
-The sheet uses one full-bleed pale blue-grey field (`#dce7e9`). Registered scene pairs follow the
-installation path across the open field, with closeups enlarged wherever the physical travel must
-survive arm's-length reading. Motion arrows are the only marks added to the scenes. Straight
+The clockwork composition sets six pale blue-grey fields (`#dce7e9`) clockwise around a white
+centre carrying the glass mark, `Home Soda Machine`, and `QUICK START`. Large white numerals make
+the order visible without competing with the hardware. Registered scene pairs follow that ring,
+with closeups enlarged wherever the physical travel must survive arm's-length reading. Straight
 arrows use one bold flat glyph aligned to the projected travel axis. Its head overlaps and extends
 beyond the shaft endpoint, eliminating any visible cap or seam. Rotation paths scale to the
 indicated object and continue around a camera-projected ellipse before reaching a broad head
 foreshortened in that same plane. Every cue keeps the same coral fill and field-colored halo. The
-field separates the white household tubing from the page and leaves the blue handle, black
-fittings and coral cues distinct.
+fields separate the white household tubing from the page and leave the blue handle, black fittings
+and coral cues distinct.
 
 This edition follows the modern-home installation path: an existing 1/4-inch plastic cold-water
 line and push fitting under the sink. The installer releases one tube, inserts the supplied

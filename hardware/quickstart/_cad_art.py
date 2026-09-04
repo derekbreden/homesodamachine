@@ -1058,12 +1058,15 @@ def main(*, mount_studies: bool = False) -> None:
         for job in connect_jobs:
             # One literal orthographic viewport registers the rear panel pixel-for-pixel in both
             # states.  Its final canvas is the page crop; no scene geometry or content trim frames
-            # it.  Viewer floor and distance effects are omitted for clean instruction-page art.
+            # it.  Native alpha keeps the separate tube and cable silhouettes free of the white
+            # islands that an edge flood-fill cannot reach between disconnected objects.  Viewer
+            # floor and distance effects are omitted for clean instruction-page art.
             job["size"] = CONNECT_RENDER_SIZE
             job["span"] = CONNECT_ORTHO_SPAN
             job["trim"] = False
             job["ground"] = False
             job["fog"] = False
+            job["transparent"] = True
         if mount_studies:
             study_dir = OUT / "mount-studies"
             study_dir.mkdir(parents=True, exist_ok=True)
@@ -1099,7 +1102,8 @@ def main(*, mount_studies: bool = False) -> None:
         )
         for job in jobs:
             output = Path(job["out"])
-            _clear_connected_background(output)
+            if job not in connect_jobs:
+                _clear_connected_background(output)
             if job in mount_frame_jobs:
                 _shave_render_frame(output, MOUNT_FRAME_SHAVE)
             elif job in under_mount_jobs:
