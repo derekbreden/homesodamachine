@@ -4531,6 +4531,7 @@ genrule(
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
+        "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
@@ -4542,6 +4543,7 @@ genrule(
     ),
     outs = [
         "out/collet-press/hardware/printed-parts/collet-press/collet-press.step",
+        "out/collet-press/hardware/printed-parts/collet-press/collet-press.step.mesh",
         "out/collet-press/hardware/printed-parts/collet-press/collet-press.stl",
         "out/collet-press/hardware/printed-parts/collet-press/README.figures.json",
         "out/collet-press/hardware/printed-parts/collet-press/README.md",
@@ -4549,9 +4551,10 @@ genrule(
     cmd = """
 set -e
 O0=$$PWD/$(location out/collet-press/hardware/printed-parts/collet-press/collet-press.step)
-O1=$$PWD/$(location out/collet-press/hardware/printed-parts/collet-press/collet-press.stl)
-O2=$$PWD/$(location out/collet-press/hardware/printed-parts/collet-press/README.figures.json)
-O3=$$PWD/$(location out/collet-press/hardware/printed-parts/collet-press/README.md)
+O1=$$PWD/$(location out/collet-press/hardware/printed-parts/collet-press/collet-press.step.mesh)
+O2=$$PWD/$(location out/collet-press/hardware/printed-parts/collet-press/collet-press.stl)
+O3=$$PWD/$(location out/collet-press/hardware/printed-parts/collet-press/README.figures.json)
+O4=$$PWD/$(location out/collet-press/hardware/printed-parts/collet-press/README.md)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -4567,11 +4570,12 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/collet-press/collet_press.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/collet-press/collet_press.py > /dev/null
 cp hardware/printed-parts/collet-press/collet-press.step $$O0
-cp hardware/printed-parts/collet-press/collet-press.stl $$O1
-cp hardware/printed-parts/collet-press/README.figures.json $$O2
-cp hardware/printed-parts/collet-press/README.md $$O3
+cp hardware/printed-parts/collet-press/collet-press.step.mesh $$O1
+cp hardware/printed-parts/collet-press/collet-press.stl $$O2
+cp hardware/printed-parts/collet-press/README.figures.json $$O3
+cp hardware/printed-parts/collet-press/README.md $$O4
 """,
 )
 

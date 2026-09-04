@@ -27,7 +27,11 @@ sys.path.insert(0, str(_hardware / "scripts"))
 sys.path.insert(0, str(_repo / "tools"))
 sys.path.insert(0, str(_hardware / "reference" / "jg-pp0408w"))
 
-from _cadq_export import export_assembly, note_write  # noqa: E402
+from _cadq_export import (  # noqa: E402
+    _write_mesh_payload,
+    export_assembly,
+    note_write,
+)
 from _materials import M_PETGF_BLACK, one_body  # noqa: E402
 from docgen import substitute_md  # noqa: E402
 import jg_pp0408w as jg  # noqa: E402
@@ -39,30 +43,41 @@ import jg_pp0408w as jg  # noqa: E402
 # measured collet bore, so each jaw arm spans the sleeve's complete radial wall.
 JAW_GAP = 6.55
 JAW_RADIUS = JAW_GAP / 2.0
-JAW_ROOT_U = 7.0
-JAW_MOUTH_U = 42.0
+JAW_ROOT_U = 0.0
+# The mouth ends at the tube's forward tangent when the tube is seated in the
+# semicircular root.  Bottom-to-mouth depth is therefore exactly one jaw gap.
+JAW_MOUTH_U = JAW_RADIUS
+JAW_DEPTH = JAW_MOUTH_U - (JAW_ROOT_U - JAW_RADIUS)
 
 
 # --- printable body --------------------------------------------------------
 
 HEAD_ANGLE = 45.0
-HEAD_THICKNESS = 9.60       # 40 layers at 0.24 mm; 80 at 0.12 mm
-HEAD_LENGTH = 46.0
-HEAD_WIDTH = 38.0
-HEAD_CORNER_RADIUS = 7.0
-HEAD_CENTER_U = 15.0        # local span -8 .. +38
+HEAD_THICKNESS = 7.20       # 30 layers at 0.24 mm; 60 at 0.12 mm
+HEAD_BACK_U = -16.0
+HEAD_FRONT_U = JAW_MOUTH_U
+HEAD_LENGTH = HEAD_FRONT_U - HEAD_BACK_U
+HEAD_WIDTH = 28.0
+HEAD_CORNER_RADIUS = 5.0
+HEAD_CENTER_U = (HEAD_BACK_U + HEAD_FRONT_U) / 2.0
 
-NECK_LENGTH = 32.0
+NECK_U_MIN = -32.0
+NECK_U_MAX = -8.0
+NECK_LENGTH = NECK_U_MAX - NECK_U_MIN
 NECK_WIDTH = 24.0
-NECK_CORNER_RADIUS = 5.0
-NECK_CENTER_U = -12.0       # local span -28 .. +4
-HEAD_U_MIN = NECK_CENTER_U - NECK_LENGTH / 2.0
+NECK_CORNER_RADIUS = 4.0
+NECK_CENTER_U = (NECK_U_MIN + NECK_U_MAX) / 2.0
+HEAD_U_MIN = NECK_U_MIN
+HEAD_Z_SHIFT = -HEAD_U_MIN * math.sin(math.radians(HEAD_ANGLE))
 
-HANDLE_LENGTH = 104.0
+# Length of the handle's bottom bed edge before its front rises at 45°.
+HANDLE_LENGTH = 96.0
 HANDLE_WIDTH = 24.0
-HANDLE_THICKNESS = 9.60
+HANDLE_THICKNESS = 7.20
 HANDLE_CORNER_RADIUS = 8.0
-HANDLE_CENTER_X = -56.0     # world span -108 .. -4
+HANDLE_FRONT_BED_X = -HEAD_Z_SHIFT
+HANDLE_FRONT_TOP_X = HANDLE_FRONT_BED_X + HANDLE_THICKNESS
+HANDLE_REAR_X = HANDLE_FRONT_BED_X - HANDLE_LENGTH
 
 
 def _rounded_prism(
@@ -84,14 +99,33 @@ def _rounded_prism(
 
 
 def build_handle() -> cq.Workplane:
-    """The broad bed-contact paddle, already in its print orientation."""
-    return _rounded_prism(
-        HANDLE_LENGTH,
+    """Broad bed-contact paddle ending on the head's own 45° underside."""
+    # The raw rounded prism deliberately runs beyond the desired front.  The
+    # XZ half-space then removes its whole nose on z = x + HEAD_Z_SHIFT, so no
+    # horizontal material survives beyond the rising head.
+    raw_front = HANDLE_FRONT_TOP_X + 2.0
+    raw_length = raw_front - HANDLE_REAR_X
+    raw = _rounded_prism(
+        raw_length,
         HANDLE_WIDTH,
         HANDLE_THICKNESS,
         HANDLE_CORNER_RADIUS,
-        HANDLE_CENTER_X,
+        (HANDLE_REAR_X + raw_front) / 2.0,
     )
+    clip = (
+        cq.Workplane("XZ")
+        .polyline(
+            [
+                (HANDLE_REAR_X - 2.0, -1.0),
+                (HANDLE_FRONT_BED_X - 1.0, -1.0),
+                (HANDLE_FRONT_TOP_X + 1.0, HANDLE_THICKNESS + 1.0),
+                (HANDLE_REAR_X - 2.0, HANDLE_THICKNESS + 1.0),
+            ]
+        )
+        .close()
+        .extrude(HANDLE_WIDTH, both=True)
+    )
+    return raw.intersect(clip).clean()
 
 
 def build_head_local() -> cq.Workplane:
@@ -116,8 +150,8 @@ def build_head_local() -> cq.Workplane:
     # not a V-notch.  The extra W at both ends guarantees a through-cut.
     slot_straight = (
         cq.Workplane("XY")
-        .center((JAW_ROOT_U + JAW_MOUTH_U) / 2.0, 0.0)
-        .rect(JAW_MOUTH_U - JAW_ROOT_U, JAW_GAP)
+        .center((JAW_ROOT_U + HEAD_FRONT_U + 1.0) / 2.0, 0.0)
+        .rect(HEAD_FRONT_U + 1.0 - JAW_ROOT_U, JAW_GAP)
         .workplane(offset=-1.0)
         .extrude(HEAD_THICKNESS + 2.0)
     )
@@ -136,17 +170,30 @@ def build_head() -> cq.Workplane:
     # CadQuery's -Y rotation maps +U toward both +X and +Z.  This shift puts
     # the neck's lowest rear edge exactly on Z=0; most of that rear length is
     # buried in the handle, leaving a wide fused root before the head emerges.
-    z_shift = -HEAD_U_MIN * math.sin(math.radians(HEAD_ANGLE))
     return (
         build_head_local()
         .rotate((0.0, 0.0, 0.0), (0.0, 1.0, 0.0), -HEAD_ANGLE)
-        .translate((0.0, 0.0, z_shift))
+        .translate((0.0, 0.0, HEAD_Z_SHIFT))
     )
 
 
 def build() -> cq.Workplane:
     """One supportless solid: flat handle, buried root, angled U-head."""
-    tool = build_handle().union(build_head()).clean()
+    handle = build_handle()
+    protrusion = max(
+        vertex.Center().x - vertex.Center().z + HEAD_Z_SHIFT
+        for vertex in handle.vertices().vals()
+    )
+    if protrusion > 1e-6:
+        raise ValueError(
+            f"handle projects {protrusion:.6f} mm beyond the head's 45-degree underside"
+        )
+    if not math.isclose(JAW_DEPTH, JAW_GAP, abs_tol=1e-9):
+        raise ValueError("U depth must remain exactly one jaw diameter")
+    if not math.isclose(HEAD_FRONT_U, JAW_MOUTH_U, abs_tol=1e-9):
+        raise ValueError("fork arms must end with the U mouth")
+
+    tool = handle.union(build_head()).clean()
 
     solids = tool.solids().vals()
     if len(solids) != 1 or not solids[0].isValid():
@@ -169,7 +216,14 @@ def main() -> None:
 
     step_out = _here / "collet-press.step"
     stl_out = _here / "collet-press.stl"
-    export_assembly(one_body(tool, "collet-press", M_PETGF_BLACK), str(step_out))
+    payload_out = Path(str(step_out) + ".mesh")
+    assembly = one_body(tool, "collet-press", M_PETGF_BLACK)
+    export_assembly(assembly, str(step_out))
+    # A sibling STL normally tells the shared exporter that a specialist owns
+    # the preview mesh.  This smooth part writes its STL directly, so it also
+    # refreshes the matching viewer payload directly on every regeneration.
+    note_write(payload_out)
+    _write_mesh_payload(step_out, assembly)
     note_write(stl_out)
     cq.exporters.export(tool, str(stl_out), tolerance=0.02, angularTolerance=0.1)
     print(f"-> {step_out.name}")
@@ -183,6 +237,7 @@ def main() -> None:
     variables = {
         "TUBE_D": f"{jg.PORT_D:.2f} mm",
         "JAW_GAP": f"{JAW_GAP:.2f} mm",
+        "JAW_DEPTH": f"{JAW_DEPTH:.2f} mm",
         "TUBE_CLEARANCE": f"{JAW_GAP - jg.PORT_D:.2f} mm",
         "COLLET_D": f"{jg.COLLET_D:.2f} mm",
         "COLLET_BORE": f"{jg.COLLET_BORE:.2f} mm",
