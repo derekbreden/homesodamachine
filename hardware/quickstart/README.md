@@ -25,13 +25,15 @@ their collars from the umbilical bench. Nothing on this sheet is cut, trimmed, i
 threaded through a collar. The cutter and loose foam belong to the separately bagged cold kit and
 its own guide.
 
-The sheet is a four-row sequence on a full-bleed pale blue-grey field (`#dce7e9`). Motion arrows
-are the only marks added to the scenes. Straight arrows use one bold flat glyph aligned to the
-projected travel axis. Its head overlaps and extends beyond the shaft endpoint, eliminating any
-visible cap or seam. Rotation paths scale to the indicated object and continue around a
-camera-projected ellipse before reaching a broad head foreshortened in that same plane. Every cue
-keeps the same coral fill and field-colored halo. The field separates the white household tubing
-from the page and leaves the blue handle, black fittings and coral cues distinct.
+The sheet uses one full-bleed pale blue-grey field (`#dce7e9`). Registered scene pairs follow the
+installation path across the open field, with closeups enlarged wherever the physical travel must
+survive arm's-length reading. Motion arrows are the only marks added to the scenes. Straight
+arrows use one bold flat glyph aligned to the projected travel axis. Its head overlaps and extends
+beyond the shaft endpoint, eliminating any visible cap or seam. Rotation paths scale to the
+indicated object and continue around a camera-projected ellipse before reaching a broad head
+foreshortened in that same plane. Every cue keeps the same coral fill and field-colored halo. The
+field separates the white household tubing from the page and leaves the blue handle, black
+fittings and coral cues distinct.
 
 This edition follows the modern-home installation path: an existing 1/4-inch plastic cold-water
 line and push fitting under the sink. The installer releases one tube, inserts the supplied
@@ -41,11 +43,11 @@ it reaches the appliance `TAP` inlet. No threaded fitting is opened during this 
 
 ## Faucet mount
 
-The first row shows one physical story: lower the complete factory assembly through the prepared
-opening, seat it, slide the open under-counter plate around the attached tubes, and hand-tighten
-the retained nut. The exact same 220 x 72 mm countertop window appears in every state. It is long
-on the plate's slide axis and narrow across the real under-sink working space. The retracted plate
-stays visibly clear of the washer and nut before it moves.
+The opening sequence shows one physical story: lower the complete factory assembly through the
+prepared opening, seat it, slide the open under-counter plate around the attached tubes, and
+hand-tighten the retained nut. The exact same 220 x 72 mm countertop window appears in every
+state. It is long on the plate's slide axis and narrow across the real under-sink working space.
+The retracted plate stays visibly clear of the washer and nut before it moves.
 
 ## Cold-water connection
 
@@ -54,7 +56,7 @@ under-sink coordinate frame. The shutoff pair is cropped to the valve and its ha
 rotation cue on the open state and the closed state left unobstructed. The macro
 pair first shows the highlighted collet proud with opposing press and pull cues, then holds the
 collet visibly recessed while the original tube begins to move out, with the result unobstructed.
-The next row holds the supplied subassembly in normal T orientation in all three scenes: short stub
+The next sequence holds the supplied subassembly in normal T orientation in all three scenes: short stub
 to the left, original-line port to the right, and the long appliance tube downward. It first shows
 the complete subassembly approaching the existing coupler, then the installed subassembly with the
 original line approaching its open port, then both connections fully seated.
@@ -72,7 +74,7 @@ not scenes or dependencies of this modern push-fit guide.
 
 ## Appliance rear connections
 
-The final row contains exactly two registered states: all six customer leads clear of the rear
+The final pair contains exactly two registered states: all six customer leads clear of the rear
 face, and all six fully seated. In the open state the six terminated ends are already grouped and
 aimed along their common insertion direction; that pose carries the motion without a separate
 overlay. The five tube collars are production solids. The faucet-display SIG-6 cable is black in
