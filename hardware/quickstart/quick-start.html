@@ -7,29 +7,45 @@
 <body>
 <svg class="motion-defs" aria-hidden="true">
   <defs>
-    <marker id="motion-head-halo" viewBox="0 0 52 52" refX="48" refY="26"
-            markerWidth="52" markerHeight="52" markerUnits="userSpaceOnUse" orient="auto">
-      <path class="motion-head-halo" d="M4 4L48 26L4 48Z"/>
+    <marker id="motion-head-halo" viewBox="-12 -12 114 104" refX="58" refY="40"
+            markerWidth="114" markerHeight="104" markerUnits="userSpaceOnUse" orient="auto"
+            overflow="visible">
+      <path class="motion-head-halo" d="M-8 -2L90 40L-8 82Z"/>
     </marker>
-    <marker id="motion-head" viewBox="0 0 52 52" refX="48" refY="26"
-            markerWidth="52" markerHeight="52" markerUnits="userSpaceOnUse" orient="auto">
-      <path class="motion-head" d="M4 4L48 26L4 48Z"/>
+    <marker id="motion-head" viewBox="-12 -12 114 104" refX="58" refY="40"
+            markerWidth="114" markerHeight="104" markerUnits="userSpaceOnUse" orient="auto"
+            overflow="visible">
+      <path class="motion-head" d="M0 5L82 40L0 75Z"/>
+    </marker>
+    <marker id="motion-turn-head-halo" viewBox="-12 -12 94 108" refX="36" refY="42"
+            markerWidth="94" markerHeight="108" markerUnits="userSpaceOnUse" orient="auto"
+            overflow="visible">
+      <path class="motion-turn-head-halo" d="M14 6L64 42L14 78Z"/>
+    </marker>
+    <marker id="motion-turn-head" viewBox="-12 -12 94 108" refX="36" refY="42"
+            markerWidth="94" markerHeight="108" markerUnits="userSpaceOnUse" orient="auto"
+            overflow="visible">
+      <path class="motion-head" d="M14 6L64 42L14 78Z"/>
     </marker>
     <symbol id="motion-straight" viewBox="0 0 180 100">
-      <path class="motion-halo" d="M20 50H160" marker-end="url(#motion-head-halo)"/>
-      <path class="motion-line" d="M20 50H160" marker-end="url(#motion-head)"/>
+      <path class="motion-halo" d="M18 50H150" marker-end="url(#motion-head-halo)"/>
+      <path class="motion-line" d="M18 50H150" marker-end="url(#motion-head)"/>
     </symbol>
     <symbol id="motion-turn-under" viewBox="0 0 180 120">
-      <path class="motion-halo" d="M22 74C22 39 158 39 158 74"/>
-      <path class="motion-head-halo" d="M136 60L158 74L180 60Z"/>
-      <path class="motion-line" d="M22 74C22 39 158 39 158 74"/>
-      <path class="motion-head" d="M136 60L158 74L180 60Z"/>
+      <path class="motion-halo"
+            d="M41.9 51.4C68.5 41.2 111.5 41.2 138.1 51.4C164.6 61.7 164.6 78.3 138.1 88.6"
+            marker-end="url(#motion-turn-head-halo)"/>
+      <path class="motion-line"
+            d="M41.9 51.4C68.5 41.2 111.5 41.2 138.1 51.4C164.6 61.7 164.6 78.3 138.1 88.6"
+            marker-end="url(#motion-turn-head)"/>
     </symbol>
     <symbol id="motion-turn-water" viewBox="0 0 360 130">
-      <path class="motion-halo" d="M24 84C24 14 336 14 336 84"/>
-      <path class="motion-head-halo" d="M314 68L336 84L358 68Z"/>
-      <path class="motion-line" d="M24 84C24 14 336 14 336 84"/>
-      <path class="motion-head" d="M314 68L336 84L358 68Z"/>
+      <path class="motion-halo"
+            d="M69.7 40.9C130.6 20.4 229.4 20.4 290.3 40.9C351.2 61.4 351.2 94.6 290.3 115.1"
+            marker-end="url(#motion-turn-head-halo)"/>
+      <path class="motion-line"
+            d="M69.7 40.9C130.6 20.4 229.4 20.4 290.3 40.9C351.2 61.4 351.2 94.6 290.3 115.1"
+            marker-end="url(#motion-turn-head)"/>
     </symbol>
   </defs>
 </svg>
@@ -72,26 +88,17 @@
   </section>
 
   <section class="story tee-story">
-    <figure class="scene tee tee-jumper">
-      <svg class="cue cue-straight tee-jumper-cue" viewBox="0 0 180 100" aria-hidden="true">
+    <figure class="scene tee tee-assembly-ready">
+      <svg class="cue cue-straight tee-assembly-cue" viewBox="0 0 180 100" aria-hidden="true">
         <use href="#motion-straight"/>
       </svg>
     </figure>
-    <figure class="scene tee tee-mounted">
-      <svg class="cue cue-straight tee-mounted-cue" viewBox="0 0 180 100" aria-hidden="true">
+    <figure class="scene tee tee-line-ready">
+      <svg class="cue cue-straight tee-line-cue" viewBox="0 0 180 100" aria-hidden="true">
         <use href="#motion-straight"/>
       </svg>
     </figure>
-    <figure class="scene tee tee-existing">
-      <svg class="cue cue-straight tee-existing-cue" viewBox="0 0 180 100" aria-hidden="true">
-        <use href="#motion-straight"/>
-      </svg>
-    </figure>
-    <figure class="scene tee tee-complete">
-      <svg class="cue cue-straight tee-branch-cue" viewBox="0 0 180 100" aria-hidden="true">
-        <use href="#motion-straight"/>
-      </svg>
-    </figure>
+    <figure class="scene tee tee-complete"></figure>
   </section>
 
   <section class="story connect-story">
