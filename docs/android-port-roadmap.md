@@ -388,12 +388,14 @@ The phase is done when:
 | **M0a** | iOS accessibility (6 additions, no per-image labels) | iOS app | landed |
 | **M0b** | iOS haptic — medium impact at Hold-to-Prime engage | iOS app | landed |
 | **M1** | Android: splash + glass handoff | Android phase 1 | landed |
-| M2 | Android: theme polish + ScanView wired (no BLE yet) | Android phase 2 | next |
-| M3 | Android: BLE layer + binary protocol + demo mode | Android phase 3 | |
+| M2 | Android: theme polish + the root wired — Add a machine, and a machine's page (no BLE yet) | Android phase 2 | next |
+| M3 | Android: BLE layer + binary protocol + the machine record — Your machines, the demo as a machine in it | Android phase 3 | |
 | M4 | Android: image processing (median-cut, RGB565, CRC32) | Android phase 4 | |
 | M5 | Android: ConfigView carousel + 7 sheets | Android phase 5 | |
 | M6 | Android: stats sheet — pie + 3 bar charts + serving-size selector | Android phase 6 | |
 | M7 | Side-by-side polish QA against iPhone | both platforms | |
 | M8 | Android: accessibility + haptics (mirror M0a/M0b) | Android | |
+
+The iOS root M2 mirrors is `Views/RootView.swift`: a machine's page (`MachinePage.swift`, with its link line and Bluetooth banner) when the phone has one, and `AddMachineView.swift` when it has none. The phone's record of every machine it knows, and which one it is pointed at, is `BLE/MachineDirectory.swift`; `YourMachinesView.swift` lists it. `ScanView.kt` above is the M1 stub of the screen that preceded that root.
 
 M-1, M0a, M0b were pre-Android so the fully-considered iOS labels, haptics, and theme structure carry across to Android in M8 — designed once, ported, not designed twice. M6 is heavier than billed in earlier drafts: in addition to three bar charts (24h, 30d, hour-of-day), `StatsSheet` also includes a pie chart for the 30-day flavor split (no first-party `SectorMark` equivalent in Compose — hand-rolled regardless of Vico) and a custom serving-size selector that draws three glass icons at 12oz / 16oz / 20oz heights with the SVG glass path.
