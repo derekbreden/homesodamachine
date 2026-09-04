@@ -178,8 +178,8 @@ body {
 .release-withdrawn { background-image: url("plumbing/modern/art/modern-release-withdrawn.png"); }
 
 .release-press-cue {
-  --cue-x: 735px;
-  --cue-y: 220px;
+  --cue-x: 774px;
+  --cue-y: 225px;
   --cue-angle: 187deg;
 }
 
