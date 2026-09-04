@@ -22,9 +22,9 @@
   transform: none;
 }
 
-.number-n00 .step-one { left: 572.9167px; top: 131.25px; width: 218.75px; height: 372.9167px; }
+.number-n00 .step-one { left: 572.9167px; top: 75px; width: 218.75px; height: 372.9167px; }
 .number-n00 .step-two { left: 2620.8333px; top: 235.4167px; width: 275px; height: 379.1667px; }
-.number-n00 .step-three { left: 5291.6667px; top: 81.25px; width: 268.75px; height: 385.4167px; }
+.number-n00 .step-three { left: 5304.1667px; top: 68.75px; width: 268.75px; height: 385.4167px; }
 .number-n00 .step-four { left: 4310.4167px; top: 1529.1667px; width: 289.5833px; height: 372.9167px; }
 .number-n00 .step-five { left: 3891.6667px; top: 2482.8125px; width: 260.4167px; height: 379.1667px; }
 .number-n00 .step-six { left: 1008.3333px; top: 2479.6875px; width: 272.9167px; height: 385.4167px; }
@@ -38,7 +38,7 @@
 
 .clockwork-numbers:not(.number-n00)[class*="number-n"] .step-one {
   --step-x: 682.2917px;
-  --step-y: 317.7083px;
+  --step-y: 261.4583px;
 }
 
 .clockwork-numbers:not(.number-n00)[class*="number-n"] .step-two {
@@ -47,8 +47,8 @@
 }
 
 .clockwork-numbers:not(.number-n00)[class*="number-n"] .step-three {
-  --step-x: 5426.0417px;
-  --step-y: 273.9583px;
+  --step-x: 5438.5417px;
+  --step-y: 261.4583px;
 }
 
 .clockwork-numbers:not(.number-n00)[class*="number-n"] .step-four {
