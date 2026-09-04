@@ -11,8 +11,8 @@ run. Same four colours, same five words, same two-filament print.
 
 THE BORE IS CLOSED AND SLIPS OVER THE TUBE, and the collar threads on end-first, over a tail that
 is still bare. `assembly/faucet-and-umbilical.md` §1 cuts the umbilical's three tubes and §3 sleeves
-them; the collars go on at §4, up to the braid's own end. The tap run and the CO2 tether are the
-customer's own cuts, and their collars ride in the install kit.
+them; the collars go on at §4, up to the braid's own end. The tap run and the CO2 tether ship
+made up in the install kit, and their collars go on at `assembly/finish-pack-ship.md` §6.
 
 THE LENGTH IS THE BORE'S. `rock()` is the angle a collar can cock on its loosest tube — a bore of
 length L with diametral play c binds at two diagonal corners, leaving atan(c/L) — and `flag_sway()`
@@ -94,14 +94,14 @@ WORD_MARGIN = _ring.WORD_MARGIN
 # spool from the chip at that station — a word changed on the wall is changed on the tube by the
 # same edit.
 #
-# WHICH TUBE EACH ONE RIDES, and the bench or the bag it goes in.
+# WHICH TUBE EACH ONE RIDES, and the bench that threads it on.
 Collar = collections.namedtuple("Collar", "word fluid tube fitted")
 STATIONS = {
     which: Collar(_ring.STATIONS[which].word, _ring.FLUIDS[which], tube, fitted)
     for which, tube, fitted in (
-        ("water", "the customer's tap-water run, up to their angle stop", "install kit"),
+        ("water", "the customer's tap-water run, up to their angle stop", "pack bench"),
         ("carb", "the umbilical's blue carbonated-water tail", "faucet bench"),
-        ("co2", "the customer's red tether, +Y wall of back-top to regulator", "install kit"),
+        ("co2", "the customer's red tether, +Y wall of back-top to regulator", "pack bench"),
         ("flavor-a", "the umbilical's first black flavour tail", "faucet bench"),
         ("flavor-b", "the umbilical's second black flavour tail", "faucet bench"),
     )
