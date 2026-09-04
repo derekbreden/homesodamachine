@@ -4446,6 +4446,31 @@
       "hardware/printed-parts/cold-core/reservoir/vent.md"
     ]
   },
+  "hardware/printed-parts/collet-press/collet_press.py": {
+    "reads": [
+      "hardware/printed-parts/collet-press/README.figures.json",
+      "hardware/printed-parts/collet-press/README.md",
+      "hardware/printed-parts/collet-press/collet_press.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+      "hardware/reference/jg-pp0408w/jg_pp0408w.py",
+      "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_material_base.py",
+      "hardware/scripts/_materials.py",
+      "hardware/scripts/_realized.py",
+      "hardware/scripts/_run_lock.py",
+      "tools/docgen/__init__.py"
+    ],
+    "rewritten": [
+      "hardware/printed-parts/collet-press/README.figures.json",
+      "hardware/printed-parts/collet-press/README.md"
+    ],
+    "writes": [
+      "hardware/printed-parts/collet-press/README.figures.json",
+      "hardware/printed-parts/collet-press/README.md",
+      "hardware/printed-parts/collet-press/collet-press.step",
+      "hardware/printed-parts/collet-press/collet-press.stl"
+    ]
+  },
   "hardware/printed-parts/electronics/pcba-tray/pcba_assembly.py": {
     "reads": [
       "hardware/pcb/pcba/out/pcba.glb",

@@ -30,7 +30,8 @@ brim resting on the enclosure top is the only visible edge. One shared funnel,
 sized to take a full 440 mL SodaStream concentrate bottle dumped in one pour.
 Silicone, removable, dishwasher-safe; cast in the two-piece printed mold
 ([`funnel-mold/`](/hardware/printed-parts/zone-c/funnel-mold/)).
-Its drain collet releases with the 1/4" jaw of a JG collet quick-connect tool
+Its drain collet releases with the 1/4" jaw of the printed
+[`collet press`](../collet-press/)
 and it lifts out by hand for the dishwasher — flavor concentrate is sticky, so
 the cleanable interface has to come all the way out. Weekly-touch item.
 Detail: [`funnel/`](/hardware/printed-parts/zone-c/funnel/).

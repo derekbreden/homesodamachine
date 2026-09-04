@@ -4522,6 +4522,60 @@ cp hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py $$O3
 )
 
 genrule(
+    name = "collet-press",
+    srcs = [
+        "hardware/printed-parts/collet-press/README.md",
+        "pysrc/hardware/printed-parts/collet-press/collet_press.py",
+        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/reference/jg-pp0408w/jg_pp0408w.py",
+        "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_material_base.py",
+        "pysrc/hardware/scripts/_materials.py",
+        "pysrc/hardware/scripts/_realized.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/tools/docgen/__init__.py",
+    ] + glob(
+        [
+            "hardware/printed-parts/collet-press/README.figures.json",
+        ],
+        allow_empty = True,
+    ),
+    outs = [
+        "out/collet-press/hardware/printed-parts/collet-press/collet-press.step",
+        "out/collet-press/hardware/printed-parts/collet-press/collet-press.stl",
+        "out/collet-press/hardware/printed-parts/collet-press/README.figures.json",
+        "out/collet-press/hardware/printed-parts/collet-press/README.md",
+    ],
+    cmd = """
+set -e
+O0=$$PWD/$(location out/collet-press/hardware/printed-parts/collet-press/collet-press.step)
+O1=$$PWD/$(location out/collet-press/hardware/printed-parts/collet-press/collet-press.stl)
+O2=$$PWD/$(location out/collet-press/hardware/printed-parts/collet-press/README.figures.json)
+O3=$$PWD/$(location out/collet-press/hardware/printed-parts/collet-press/README.md)
+for f in $(SRCS); do
+  case $$f in
+    */node_modules/*) continue;;
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    */pysrc/*) t=$${f##*/pysrc/};;
+    *) t=$$f;;
+  esac
+  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+done
+cd work
+ln -sfn $$HSM_WORKSPACE/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/collet-press/collet_press.py > /dev/null
+cp hardware/printed-parts/collet-press/collet-press.step $$O0
+cp hardware/printed-parts/collet-press/collet-press.stl $$O1
+cp hardware/printed-parts/collet-press/README.figures.json $$O2
+cp hardware/printed-parts/collet-press/README.md $$O3
+""",
+)
+
+genrule(
     name = "pcba-assembly",
     srcs = [
         "hardware/pcb/pcba/out/pcba.glb",
@@ -10433,6 +10487,14 @@ genrule(
     name = "pysrc-f0969163579e",
     srcs = ["hardware/printed-parts/cold-core/reservoir/reservoir.py"],
     outs = ["pysrc/hardware/printed-parts/cold-core/reservoir/reservoir.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-6cb38bff92ed",
+    srcs = ["hardware/printed-parts/collet-press/collet_press.py"],
+    outs = ["pysrc/hardware/printed-parts/collet-press/collet_press.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -19684,6 +19746,7 @@ filegroup(
         ":foam-cap",
         ":foam-shell",
         ":prv-shroud",
+        ":collet-press",
         ":pcba-assembly",
         ":pcba-tray",
         ":enclosure-dimensions",
