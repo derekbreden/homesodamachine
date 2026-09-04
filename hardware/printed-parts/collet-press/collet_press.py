@@ -44,35 +44,38 @@ import jg_pp0408w as jg  # noqa: E402
 JAW_GAP = 6.55
 JAW_RADIUS = JAW_GAP / 2.0
 JAW_ROOT_U = 0.0
-# The mouth ends at the tube's forward tangent when the tube is seated in the
-# semicircular root.  Bottom-to-mouth depth is therefore exactly one jaw gap.
-JAW_MOUTH_U = JAW_RADIUS
-JAW_DEPTH = JAW_MOUTH_U - (JAW_ROOT_U - JAW_RADIUS)
+# With the tube seated in the semicircular root, the straight inner edges run
+# through the collet's forward OD tangent.  Every part of the annular release
+# face reachable by the two arms is therefore under straight material before
+# their rounded noses turn away.
+STRAIGHT_TIP_U = jg.COLLET_D / 2.0
+JAW_DEPTH = STRAIGHT_TIP_U - (JAW_ROOT_U - JAW_RADIUS)
+STRAIGHT_OVERRUN = STRAIGHT_TIP_U - jg.PORT_D / 2.0
 
 
 # --- printable body --------------------------------------------------------
 
 HEAD_ANGLE = 45.0
-HEAD_THICKNESS = 7.20       # 30 layers at 0.24 mm; 60 at 0.12 mm
-HEAD_WIDTH = 22.0
+HEAD_THICKNESS = 6.00       # 25 layers at 0.24 mm; 50 at 0.12 mm
+HEAD_WIDTH = 20.0
 ARM_WIDTH = (HEAD_WIDTH - JAW_GAP) / 2.0
 TIP_RADIUS = 2.0
 HEAD_BACK_LAND = ARM_WIDTH
 HEAD_BACK_U = JAW_ROOT_U - JAW_RADIUS - HEAD_BACK_LAND
-# The straight inner edges reach the tube tangent at JAW_MOUTH_U.  The two
-# rounded noses carry on by exactly their fillet radius.
-HEAD_FRONT_U = JAW_MOUTH_U + TIP_RADIUS
+# The two rounded noses carry on by exactly their fillet radius after the
+# straight lands reach the collet's outer edge.
+HEAD_FRONT_U = STRAIGHT_TIP_U + TIP_RADIUS
 HEAD_LENGTH = HEAD_FRONT_U - HEAD_BACK_U
 HEAD_CENTER_U = (HEAD_BACK_U + HEAD_FRONT_U) / 2.0
 
 # Length of the handle's bottom bed edge before its front rises at 45°.
 HANDLE_LENGTH = 96.0
-HANDLE_WIDTH = 20.0
+HANDLE_WIDTH = HEAD_WIDTH
 HANDLE_THICKNESS = HEAD_THICKNESS
-HANDLE_CORNER_RADIUS = 8.0
+HANDLE_CORNER_RADIUS = TIP_RADIUS
 # Enough overlap for a broad fused root, while the head's underside clears the
 # tube slot before that slot begins.
-ROOT_BURY = 4.80
+ROOT_BURY = HEAD_THICKNESS * math.cos(math.radians(HEAD_ANGLE))
 HEAD_REAR_LOWER_Z = HANDLE_THICKNESS - ROOT_BURY
 HEAD_Z_SHIFT = (
     HEAD_REAR_LOWER_Z
@@ -167,19 +170,17 @@ def build_head_local() -> cq.Workplane:
     )
     sharp = outer.cut(slot_straight.union(slot_root)).clean()
 
-    # Round the four outside corners and both open-mouth corners, but leave the
-    # semicircular root's two tangent seams alone.  At the mouth, the 2 mm
-    # fillets begin exactly at JAW_MOUTH_U, preserving one full tube diameter
-    # of non-rounded U before the noses turn away.
-    end_edges = [
+    # Round only the two outside and two inside corners at the open end.  The
+    # rear corners stay square and disappear inside the equal-width handle, so
+    # no shoulder or roundover interrupts the strip at its 45-degree crease.
+    # At the mouth, the fillets begin exactly at STRAIGHT_TIP_U, preserving a
+    # complete straight bearing land through the collet's forward OD tangent.
+    tip_edges = [
         edge
         for edge in sharp.edges("|Z").vals()
-        if (
-            abs(edge.Center().x - HEAD_BACK_U) < 1e-6
-            or abs(edge.Center().x - HEAD_FRONT_U) < 1e-6
-        )
+        if abs(edge.Center().x - HEAD_FRONT_U) < 1e-6
     ]
-    return sharp.newObject(end_edges).fillet(TIP_RADIUS).clean()
+    return sharp.newObject(tip_edges).fillet(TIP_RADIUS).clean()
 
 
 def _place_head(local: cq.Workplane) -> cq.Workplane:
@@ -210,12 +211,18 @@ def build() -> cq.Workplane:
         raise ValueError(
             f"handle projects {protrusion:.6f} mm beyond the head's 45-degree underside"
         )
-    if not math.isclose(JAW_DEPTH, JAW_GAP, abs_tol=1e-9):
-        raise ValueError("U depth must remain exactly one jaw diameter")
-    if not math.isclose(HEAD_FRONT_U - JAW_MOUTH_U, TIP_RADIUS, abs_tol=1e-9):
-        raise ValueError("rounded noses must start after one full jaw diameter")
+    if not math.isclose(STRAIGHT_TIP_U, jg.COLLET_D / 2.0, abs_tol=1e-9):
+        raise ValueError("straight arms must reach the collet's forward OD tangent")
+    if not math.isclose(HEAD_FRONT_U - STRAIGHT_TIP_U, TIP_RADIUS, abs_tol=1e-9):
+        raise ValueError("rounded noses must begin beyond the collet face")
     if not math.isclose(HEAD_BACK_LAND, ARM_WIDTH, abs_tol=1e-9):
         raise ValueError("angled head must stop one arm width behind the U")
+    if not math.isclose(HEAD_WIDTH, HANDLE_WIDTH, abs_tol=1e-9):
+        raise ValueError("head and handle must remain one constant-width strip")
+    if not math.isclose(HEAD_THICKNESS, HANDLE_THICKNESS, abs_tol=1e-9):
+        raise ValueError("head and handle thicknesses must remain equal")
+    if not math.isclose(HANDLE_CORNER_RADIUS, TIP_RADIUS, abs_tol=1e-9):
+        raise ValueError("handle end and fork tips must use the same radius")
 
     tool = handle.union(build_head()).clean()
 
@@ -278,6 +285,7 @@ def main() -> None:
         "TUBE_D": f"{jg.PORT_D:.2f} mm",
         "JAW_GAP": f"{JAW_GAP:.2f} mm",
         "JAW_DEPTH": f"{JAW_DEPTH:.2f} mm",
+        "STRAIGHT_OVERRUN": f"{STRAIGHT_OVERRUN:.2f} mm",
         "ARM_W": f"{ARM_WIDTH:.3f} mm",
         "TIP_R": f"{TIP_RADIUS:.1f} mm",
         "HEAD_BACK_LAND": f"{HEAD_BACK_LAND:.3f} mm",
