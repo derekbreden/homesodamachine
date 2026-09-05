@@ -168,7 +168,7 @@ PUMP_BARB_Z = HEAD_W - _enc_if.pump_station_lead
 # World Z is this study's Y after `enclosure_assembly.pose_manifold` stands the pack. The
 # Kamoers and the pump ends of the four short barb tubes stand below the anchor tees' fixed
 # y=0 fold plane, so those flexible runs take the resulting shallow rise.
-PUMP_Y = -_enc_if.pump_station_drop
+PUMP_Y = -_enc_if.pump_station_drop - _enc_if.manifold_rise
 # The exposed run's fore/aft projection between a pump barb and its anchor tee's branch collet.
 # Its fore portion is the moving pump end's lead; its aft portion is the steel plate's berth.
 # The deck stays where it is because the projection exactly returns what the pump station moves
