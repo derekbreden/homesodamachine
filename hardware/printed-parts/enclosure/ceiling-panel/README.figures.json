@@ -23,6 +23,7 @@
     "PANEL_W": "159 mm",
     "PIECE_H": "195 mm",
     "RAIL_AREA": "144 mm\u00b2",
+    "RAIL_MIN_CAP": "3 mm",
     "RAIL_ROOT": "6 mm",
     "RAIL_RUN": "19 mm",
     "RELIEF_MIN_WEB": "3 mm",
