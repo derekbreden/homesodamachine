@@ -4949,33 +4949,46 @@ OUTBOARD = tuple(name(Y_WALL_FITTINGS[station][2])
                  for name in (customer_tube_name, collar_name, collar_word_name))
 
 
-# The bodies intentionally admitted into the ceiling's deeper structural field and captured
-# rails. A relief is derived from the exact purchased solid where it enters that raw moving
+# The bodies and route intentionally admitted into the ceiling's deeper structural field and
+# captured rails. A relief is derived from the exact named solid where it enters that raw moving
 # envelope; naming this population keeps an unrelated future encroachment visible to
 # `pack-closes` instead of silently pocketing around it. Two millimetres in plan is assembly slip
 # and one above the hit is the roof clearance.
 CEILING_RELIEF_BODIES = (
     "c14-inlet", "keystone-jack", "asse1022-assembly", "co2-inlet",
     "bulkhead-water", "bulkhead-carb", "digiten-flow", "relay-1", "ground-stack",
-    "wr1110", "gasher-co2",
+    "wr1110", "gasher-co2", "tube-water-2",
 )
 CEILING_RELIEF_PLAN_SLIP = 2.0
 CEILING_RELIEF_Z_CLEAR = 1.0
+# The water-2 route leaves the ASSE outlet through the same band as the enlarged rail. Its
+# authored straight is shorter than the complete bend envelope the port gate reserves, so the
+# moving panel gives the difference back in addition to the ordinary pocket slip.
+CEILING_WATER_2_PLAN_SLIP = (
+    CEILING_RELIEF_PLAN_SLIP
+    + _lines.TUBE_BEND + _split.TUBE_D / 2.0 - _lines.WATER_2_LEAD
+)
 
-# These purchased bodies reach a fixed strip's added three-millimetre growth. Their established,
-# printable corbel remains; only the new shell is locally withheld over the exact placed plan
+# These purchased bodies reach a fixed strip's added nine-millimetre growth. Their established,
+# printable corbel remains; only the added shell is locally withheld over the exact placed plan
 # plus one assembly-clearance millimetre.
 CEILING_GROWTH_RELIEF_BODIES = (
     ("c14-inlet", +1.0),
     ("relay-1", +1.0),
     ("asse1022-assembly", -1.0),
     ("bulkhead-water", -1.0),
+    ("flow-regulator", -1.0),
+    ("wago-h", +1.0),
+    ("wago-n", +1.0),
+    ("wago-g", +1.0),
+    ("wago-v12", +1.0),
+    ("wago-gnd", +1.0),
 )
 CEILING_GROWTH_RELIEF_SLIP = 1.0
 
 
 def ceiling_reliefs(placed: dict) -> tuple:
-    """Body-derived pockets in the ceiling panel's unrelieved field and rails.
+    """Named body- and route-derived pockets in the ceiling panel's unrelieved field and rails.
 
     A body less than one clearance below the raw field still earns a pocket: translating the
     exact solid upward by that clearance exposes the plan which would otherwise be a near miss,
@@ -4990,17 +5003,19 @@ def ceiling_reliefs(placed: dict) -> tuple:
         hits = [hit for hit in (
             raw.intersect(body),
             raw.intersect(body.translate((0.0, 0.0, CEILING_RELIEF_Z_CLEAR))),
-        ) if hit.Volume() > 1e-6]
+        ) if abs(hit.Volume()) > 1e-6]
         if not hits:
             continue
         boxes = [hit.BoundingBox() for hit in hits]
         body_top = body.BoundingBox().zmax
+        plan_slip = (CEILING_WATER_2_PLAN_SLIP
+                     if name == "tube-water-2" else CEILING_RELIEF_PLAN_SLIP)
         reliefs.append((
             name,
-            min(b.xmin for b in boxes) - CEILING_RELIEF_PLAN_SLIP,
-            max(b.xmax for b in boxes) + CEILING_RELIEF_PLAN_SLIP,
-            min(b.ymin for b in boxes) - CEILING_RELIEF_PLAN_SLIP,
-            max(b.ymax for b in boxes) + CEILING_RELIEF_PLAN_SLIP,
+            min(b.xmin for b in boxes) - plan_slip,
+            max(b.xmax for b in boxes) + plan_slip,
+            min(b.ymin for b in boxes) - plan_slip,
+            max(b.ymax for b in boxes) + plan_slip,
             min(_cpanel.underside_z, body_top + CEILING_RELIEF_Z_CLEAR),
         ))
     return tuple(reliefs)
