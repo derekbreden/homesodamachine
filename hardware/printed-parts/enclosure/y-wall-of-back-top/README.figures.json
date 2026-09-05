@@ -1,9 +1,9 @@
 {
   "/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py": {
     "AC_RECESS_DEPTH": "3\u20135 mm",
-    "C14_BLOCK": "56.77 \u00d7 35.15 mm",
+    "C14_BLOCK": "56.77 \u00d7 35.17 mm",
     "C14_FLANGE": "49.77 \u00d7 22.17 mm",
-    "C14_OPENING": "31.95 \u00d7 23.15 mm R3",
+    "C14_OPENING": "31.95 \u00d7 23.17 mm R3",
     "C14_POCKET_LIP": "3 mm",
     "C14_POCKET_SLIP": "0.5 mm",
     "C14_POCKET_WALL": "3 mm",
