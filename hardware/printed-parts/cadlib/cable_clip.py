@@ -46,6 +46,12 @@ _CHANNEL = (
     (2.0, 8.0),
 )
 
+# Public placement datums for a host which aligns a cable run with something
+# beside it.  The retained channel occupies this band of the 33 mm profile;
+# the remaining grid square above and four below are the two printed arms.
+CHANNEL_BOTTOM = 4.0 * GRID
+CHANNEL_TOP = 10.0 * GRID
+
 
 def projection(embed):
     """How far the completed clip stands proud of the wall."""
@@ -151,6 +157,9 @@ def apply(solid, *, origin, outward, along, embed, wall_thickness,
 
 def check():
     """Exercise the three stated embedments and their wall-thickness bound."""
+    if (not math.isclose(min(y for _x, y in _scaled(_CHANNEL)), CHANNEL_BOTTOM)
+            or not math.isclose(max(y for _x, y in _scaled(_CHANNEL)), CHANNEL_TOP)):
+        raise AssertionError("cable-clip channel datums no longer match its profile")
     for embed, wall_thickness, proud in ((0.0, 3.0, 9.0),
                                          (6.0, 9.0, 3.0),
                                          (9.0, 12.0, 0.0)):

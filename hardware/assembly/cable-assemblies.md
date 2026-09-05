@@ -23,7 +23,7 @@ Every conductor that lands on a board wafer is a **JST ASXHSXH22K** lead — bla
 
 Terminations: insulated bootlace ferrules (Preciva kit) into the Wago 221 lever nuts + screw terminals; female Faston disconnects (6.3 mm / 4.8 mm) at valves, motors, and fan; Molex Micro-Fit `43031-0001` male contacts in the fixed `43020-0400` pump housing and `43030-0001` female contacts in the removable `43025-0400`; the current Frigidaire donor's factory-external electrical interface is Open item 5 in [`wiring.md`](/hardware/assembly/wiring.md); ring terminals to the ground bus + the compressor's terminal-box earth screw; JST-XH housings at the main board's labeled wafers — every loom XH, J7 (REEDS B) included. J7 and J4 (SENSORS) share the same 7P housing, so **label both looms at the housing** and dress them to their own edges: a swapped pair would put J4's 3V3/5V on J7's MCP reed inputs. Distribution / fan-out: Wago 221 lever nuts — **221-413** (AC mains H/N/G), **221-415** (≤5-conductor fan-outs, incl. MANIFOLD B COM), **221-420** (the >5-conductor MANIFOLD A COM + reservoir-B reed GND).
 
-Dress: **black PET braided sleeve** — 1/2" for most bundles, 3/4" for the manifold trunk, 1/4" for thin runs; every cut sleeve end finished with heat-shrink so it can't fray; black UV-nylon zip ties, **flush-cut** (no proud tail). DC-5's flat ribbon is not sleeved at its panel connector or in the ridge-wall clip. Tools: ferrule crimper (Preciva 28–5), Faston/insulated-terminal crimper (Haisstronica 22–10), JST-XH crimper (iCrimp SN-2549), an open-barrel die qualified on the Micro-Fit contacts by the pull test below, wire stripper (Klein 11063W), flush cutters, heat gun, multimeter — see [`/hardware/ledger/tools.md`](/hardware/ledger/tools.md).
+Dress: **black PET braided sleeve** — 1/2" for most bundles, 3/4" for the manifold trunk, 1/4" for thin runs; every cut sleeve end finished with heat-shrink so it can't fray; black UV-nylon zip ties, **flush-cut** (no proud tail). DC-5's flat ribbon is not sleeved at its panel connector, in the fixed ridge-wall clip, or where its two peeled motor pairs enter the flush cartridge channels. Tools: ferrule crimper (Preciva 28–5), Faston/insulated-terminal crimper (Haisstronica 22–10), JST-XH crimper (iCrimp SN-2549), an open-barrel die qualified on the Micro-Fit contacts by the pull test below, wire stripper (Klein 11063W), flush cutters, heat gun, multimeter — see [`/hardware/ledger/tools.md`](/hardware/ledger/tools.md).
 
 
 ### XH contacts
@@ -105,7 +105,9 @@ four separate terminal barrels without crossing. Molex specifies the `43030-0001
 The **fixed** 350 mm half receives J13's XH contacts at one end and male `43031-0001`
 contacts in the panel-mount `43020-0400` at the other. The **cartridge** 400 mm half receives
 female `43030-0001` contacts in the free `43025-0400` and the four pump Fastons at its other
-end. On the bench, hold the fixed housing key up and view its mating face; preserve the board
+end. Keep that half joined through its service-loop run; only at the pump pair peel circuits
+1–2 and 3–4 into the two motor branches which [`wiring.md`](/hardware/assembly/wiring.md) lays in
+the cartridge's flush channels. On the bench, hold the fixed housing key up and view its mating face; preserve the board
 order by moulded circuit number. In the enclosure the key and the mating thumb latch face down
 into the empty pump bay:
 
