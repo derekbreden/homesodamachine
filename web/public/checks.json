@@ -2,8 +2,8 @@
   "checks": [
     {
       "check": "hardware/scripts/check_build_exit.py",
-      "note": "✓ every lock-taking script ends through sys.exit or an exception",
-      "status": "ok"
+      "note": "✗ hardware/printed-parts/fixtures/tee-valve-bow-trial/tee_valve_bow_trial.py:370  — use sys.exit(...) so a follower reads the failure",
+      "status": "red"
     },
     {
       "check": "hardware/scripts/check_facts_current.py",
@@ -52,7 +52,7 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 1486 tracked, 337 fetched solids, 54 tags",
+      "note": "paths: every reference lands — 1487 tracked, 337 fetched solids, 54 tags",
       "status": "ok"
     },
     {
@@ -62,8 +62,8 @@
     },
     {
       "check": "tools/check_web_tests.py",
-      "note": "check_web_tests: web's suite passes",
-      "status": "ok"
+      "note": "cd web && npm test",
+      "status": "red"
     },
     {
       "check": "tools/bazel/check_build_file.py",
@@ -82,15 +82,25 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 1 of 1 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 337 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 1 of 17 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 337 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
+    "hardware/scripts/check_build_exit.py": [
+      "lock-taking scripts scanned: 93",
+      "1 build(s) end on a status the lock cannot record:",
+      "  ✗ hardware/printed-parts/fixtures/tee-valve-bow-trial/tee_valve_bow_trial.py:370  — use sys.exit(...) so a follower reads the failure"
+    ],
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds 52872e12122a6b2e7f8a3c10896fa17b for the 122 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 3f676041b1e2c556b3f4f2574b5a6a5f here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was taken from a different tree — it holds 6b9c1c390eaa05f7dfa439832bd49bcd for the 122 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at b210f6f248c4031c5fa4f55e8a4c86e6 here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
+    ],
+    "tools/check_web_tests.py": [
+      "1 test(s) in web/ fail:",
+      "    the artifact lock pins every committed viewer scorecard",
+      "  cd web && npm test"
     ]
   },
   "green": false
