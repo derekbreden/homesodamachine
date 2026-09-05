@@ -106,8 +106,8 @@ States"; this doc names the order they run in.
 **1. Run dry mode.** A container under the faucet — states 2 and 4 send a slug of air and residual
 syrup out the gooseneck.
 
-**2. Pull the cartridge.** Hook the pulling hand into either recessed cradle pocket at the
-tube-centre elevation and brace the box with the other hand. Pull on its fore ledge and draw
+**2. Pull the cartridge.** Hook the pulling hand into either cradle pocket, centred on the
+cradle's flank at the tube-centre elevation, and brace the box with the other hand. Pull on its fore ledge and draw
 the cradle straight forward along the bay floor: the [4](JOINT_COUNT_2) joints let go against
 the plate in the first few millimetres, and the rest of the stroke is the cradle leaving the
 bay. Pull the two DC-5 spade pairs off the motor tabs and stand the cradle on its bottom floor.
@@ -130,9 +130,9 @@ tug-test each of the four before the deck goes back in.
 
 **5. Push the cartridge home.** Spade pairs back on the motor tabs first — they are unreachable
 once the cradle is in. Then set the cradle on the bay floor, feed the four tubes through the
-plate holes and into the branch collets, and push firmly on the face with one hand bracing the
-box. The cradle's aft face landing on the printed collet plate is the seat: a face standing proud of the wall
-is a tube that has not gone home.
+plate holes and into the branch collets, then hook the same cradle pocket and push on its aft
+ledge with one hand bracing the box. The cradle's aft face landing on the printed collet plate is
+the seat: a face standing proud of the wall is a tube that has not gone home.
 
 **6. Re-prime.** Both channels through the funnel-fill path, then a dispense on each until it
 runs clean.
