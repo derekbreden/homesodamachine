@@ -8,7 +8,22 @@ The project contains both meshes, editable settings and sliced G-code.
 Bambu Studio 02.08.02.61 estimates **26 h 12 min, 417.16 g, 984 layers**.
 Physical print and water-test results are pending.
 
-## Settings
+## 0.24 mm comparison
+
+[Print project: reservoir-08-seal-trial-024.3mf](reservoir-08-seal-trial-024.3mf)
+
+The same body and cap, in the same placement, with **0.24 mm layers** and a
+0.30 mm first layer. Every other process, filament and machine setting matches the
+0.18 mm project. The profile name identifies the layer height. The fixed 12-layer
+shell count spans more thickness at 0.24 mm; infill remains 100% in both projects.
+
+Bambu Studio 02.08.02.61 estimates **20 h 8 min, 414.76 g, 738 layers**. Slicing
+returns success with an empty plate-warning field. The embedded G-code checksum
+matches. Floor, cap, wall and insert-boss paths are inspected at plate Z 0.30,
+2.22, 5.10, 10.14, 20.22, 50.22, 100.14, 170.22 and 176.22 mm.
+Physical print and water-test results are pending.
+
+## 0.18 mm settings
 
 | Setting | Value |
 |---|---|

@@ -393,5 +393,173 @@
     }
   },
   "cap_source_mesh_sha256": "3189fce0d85b3a0f82bce74b9612b46098d37a8e94a98c90c73a92f9125bbede",
-  "cap_source_mesh_triangles": 11986
+  "cap_source_mesh_triangles": 11986,
+  "layer_height_comparison": {
+    "project": "reservoir-08-seal-trial-024.3mf",
+    "project_sha256": "b858461470b4e50f85c8e59dea9f6e994044bc375f171158098983c10d40f6b1",
+    "gcode_sha256": "8fb5fbe4693c54c83591dbf44b13fab707e4453b21e92c59b6c65c1f1fba9bdc",
+    "layer_height_mm": 0.24,
+    "initial_layer_height_mm": 0.3,
+    "identical_meshes_and_placement": true,
+    "other_print_settings_identical": true,
+    "sampled_plate_z_mm": [
+      0.3,
+      2.22,
+      5.1,
+      10.14,
+      20.22,
+      50.22,
+      100.14,
+      170.22,
+      176.22
+    ],
+    "slice_result": {
+      "error_string": "Success.",
+      "export_time": 1627,
+      "layer_height": 0.23999999463558197,
+      "plate_index": 0,
+      "prepare_time": 24,
+      "return_code": 0,
+      "sliced_plates": [
+        {
+          "feature_type_times": {
+            "Bottom surface": 534.37744140625,
+            "Bridge": 0.10536444187164307,
+            "Custom": 329.059326171875,
+            "Flush": 15.0,
+            "Inner wall": 32127.09765625,
+            "Internal solid infill": 8145.75439453125,
+            "Ironing": 3337.83544921875,
+            "Outer wall": 22345.841796875,
+            "Overhang wall": 36.03409957885742,
+            "Sparse infill": 2534.665771484375,
+            "Support": 82.12749481201172,
+            "Support interface": 5.710168838500977,
+            "Top surface": 262.7691955566406,
+            "Travel": 2746.791259765625,
+            "Undefined": 2745.684326171875
+          },
+          "filament_change_times": 0,
+          "filaments": [
+            {
+              "filament_id": "GFG01",
+              "id": 1,
+              "main_used_g": 414.7562255859375,
+              "total_used_g": 414.7562561035156
+            }
+          ],
+          "generate_support_material_time": 401,
+          "id": 1,
+          "infill_time": 95,
+          "layer_filament_change": 0,
+          "main_predication": 72115.421875,
+          "make_perimeters_time": 1353,
+          "obj_cached_cnt": 0,
+          "objects": [
+            {
+              "bbox": {
+                "depth": 140.0,
+                "height": 177.29998779296875,
+                "width": 76.06632232666016,
+                "x": 136.96682739257812,
+                "y": 90.0,
+                "z": 3.7035156310594175e-06
+              },
+              "id": 5,
+              "name": "reservoir-left.stl",
+              "triangle_count": 8926
+            },
+            {
+              "bbox": {
+                "depth": 140.0,
+                "height": 11.0,
+                "width": 76.06631469726562,
+                "x": 31.966833114624023,
+                "y": 90.0,
+                "z": 0.0
+              },
+              "id": 9,
+              "name": "reservoir-cap-left.stl",
+              "triangle_count": 11986
+            }
+          ],
+          "sliced_time": 5747,
+          "sliced_time_with_cache": 3648,
+          "total_predication": 72473.375,
+          "triangle_count": 20912,
+          "warning_message": ""
+        }
+      ],
+      "sparse_infill_density": 100.0,
+      "upward_compatible_machine": [
+        "Bambu Lab H2S 0.8 nozzle",
+        "Bambu Lab H2D 0.8 nozzle",
+        "Bambu Lab H2D Pro 0.8 nozzle",
+        "Bambu Lab A2L 0.8 nozzle"
+      ],
+      "wall_loops": 6
+    },
+    "extrusion_readings": {
+      "Support": {
+        "length": 1998.889919706034,
+        "min_width": 0.8,
+        "max_width": 0.9,
+        "max_speed": 33.400333333333336
+      },
+      "Inner wall": {
+        "length": 943469.122498117,
+        "min_width": 0.688764,
+        "max_width": 1.35258,
+        "max_speed": 33.40058333333334
+      },
+      "Outer wall": {
+        "length": 665573.4816833844,
+        "min_width": 0.799984,
+        "max_width": 1.06202,
+        "max_speed": 33.40058333333334
+      },
+      "Bottom surface": {
+        "length": 12430.813965691059,
+        "min_width": 0.903091,
+        "max_width": 0.903701,
+        "max_speed": 23.84615
+      },
+      "Internal solid infill": {
+        "length": 237531.29800299206,
+        "min_width": 0.696268,
+        "max_width": 1.30112,
+        "max_speed": 30.0
+      },
+      "Overhang wall": {
+        "length": 358.54296315230266,
+        "min_width": 0.799994,
+        "max_width": 1.03477,
+        "max_speed": 25.796866666666666
+      },
+      "Support interface": {
+        "length": 165.9208650726999,
+        "min_width": 0.8,
+        "max_width": 0.8,
+        "max_speed": 33.400333333333336
+      },
+      "Sparse infill": {
+        "length": 74332.88646959161,
+        "min_width": 0.9,
+        "max_width": 0.9,
+        "max_speed": 29.463916666666666
+      },
+      "Top surface": {
+        "length": 7574.07538562857,
+        "min_width": 0.903684,
+        "max_width": 1.06969,
+        "max_speed": 29.336533333333332
+      },
+      "Ironing": {
+        "length": 98122.39542385691,
+        "min_width": 0.800966,
+        "max_width": 0.800966,
+        "max_speed": 30.0
+      }
+    }
+  }
 }
