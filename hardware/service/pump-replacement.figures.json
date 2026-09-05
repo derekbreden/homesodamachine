@@ -1,12 +1,12 @@
 {
   "/hardware/service/_pump_replacement_sync.py": {
-    "BARB_AIR": "0.48",
+    "BARB_AIR": "2.305",
     "BOX_TEES": "6",
     "CAP_SCREWS": "2",
     "CAP_SCREW_LEN": "10",
     "CAP_VALVES": "3",
     "CART_PUMPS": "2",
-    "COLLET_PLATE_T": "6 mm",
+    "COLLET_PLATE_T": "3.175 mm",
     "JOINT_COUNT": "4",
     "JOINT_COUNT_2": "4",
     "JOINT_COUNT_3": "4",
@@ -16,7 +16,7 @@
     "LEN_21": "7.0",
     "LEN_22": "7.0",
     "PLATE_SPAN": "209",
-    "REST_GAP": "0.5",
+    "REST_GAP": "1.5",
     "TRAY_VALVES": "8"
   }
 }

@@ -168,7 +168,7 @@ band. Each catch lies wholly over its six-millimetre foot and keeps a complete e
 outside its channel.
 
 **Lifting a seated top lands each foot's flat top face on its head's flat underside,
-along both whole runs** — [98 mm](RAIL_RUN_FRONT) per flank on the front column,
+along both whole runs** — [99 mm](RAIL_RUN_FRONT) per flank on the front column,
 [233 mm](RAIL_RUN_BACK) and [221 mm](RAIL_RUN_BACK_W) on the back — horizontal printed
 face on horizontal printed face, square faces bearing full from the first micron. The two
 back flanks differ by the PRV passage: it crosses the −X run and takes
@@ -430,7 +430,7 @@ field is symmetric in x whatever its pitch.
 plan is one of them. With the pump cartridge in, the bay storey shows the two narrow mouth
 returns outboard of the cavity planes; those two actual surfaces are two open rails.
 `_bay_storey_segments` carries their one global arc coordinate from one mouth edge to the other:
-[357.58 mm](STOREY_RUN) over the storey at z [177.8..283.5 mm](STOREY_BAND). The two open flanks
+[355.58 mm](STOREY_RUN) over the storey at z [177.8..283.5 mm](STOREY_BAND). The two open flanks
 and the lower tee face advance the phase but carry no cutter: the former are air, the latter is
 berthed or hidden, and the upper closure face stands on another Y plane. The datum remains
 **x = 0** and the pitch remains [5.1285 mm](FLUTE_PITCH), so both ledges retain the machine's
@@ -1022,9 +1022,9 @@ tube-casing passages. The skirt itself spans [62.5 mm](PUMP_SKIRT_Y), from y
 at y [74.915 mm](PUMP_SKIRT_Y_PLUS_OPEN_EDGE), leaving
 [0.3 mm](PUMP_SKIRT_Y_PLUS_AIR) around the skirt and
 [3.482 mm](PUMP_SKIRT_Y_PLUS_LAND) of supporting land back to the body opening.
-Below the bracket plane, [1.225 mm](PUMP_SKIRT_UPPER_BAND) of stock remains behind the skirt
-opening, ending at y [76.14 mm](PUMP_SKIRT_UPPER_BAND_AFT). Above the brackets the insertion
-wells open aft; the lower support lands carry the pumps.
+The complete [3 mm](PUMP_SKIRT_UPPER_BAND) rear band remains behind the skirt opening,
+ending at y [77.915 mm](PUMP_SKIRT_UPPER_BAND_AFT). Above that band, the cartridge’s upper
+back returns at 45° to its open insertion wells.
 
 **The second printed piece is the top clamp.** `enclosure-pump-cap`
 (`build_pump_cap`) is [169.9 mm](CLAMP_SPAN) across and [61.75 mm](CLAMP_RISE) high. Its Z− face
@@ -1056,35 +1056,35 @@ stand [59.75 mm](CAP_TUBE_PITCH) apart. The physical pair spans
 centered on the casing axis and a straight 13 mm shaft continues through the complete vertical
 insertion path. The shafts, tube-side case room and upper well share the same outer X planes;
 printed wall remains between and outside the passages. The full-width upper wells end together
-at y [74.915 mm](PUMP_UPPER_WELL_AFT). Above the bracket plane the wells open through the cartridge's aft face at
-y [74.765 mm](PUMP_CARTRIDGE_UPPER_AFT_Y). The pump-support lands remain below the bracket plane.
+at y [74.915 mm](PUMP_UPPER_WELL_AFT). The upper back returns to y [74.815 mm](PUMP_CARTRIDGE_UPPER_AFT_Y) on a 45° profile,
+leaving both tall insertion wells open aft.
 
 Nothing latches the cartridge in the enclosure. Its four tubes are held by the anchor tees’
-branch collets. The **collet plate** is [6 mm](COLLET_PLATE_T) of PET-GF printed into front-top,
+branch collets. The **collet plate** is [3.175 mm](COLLET_PLATE_T) of PET-GF printed into front-top,
 continuous with the bay floor, tee wall and flanks. Its [4](PLATE_HOLES)
 [7 mm](PLATE_HOLE_D) tube passages have tangent teardrop roofs. The flat release lands surround
 each passage and stop the collet noses while the tubes pass freely.
 
-The noses stand 0.5 mm off those lands at rest. Pulling the cradle draws the tees forward in
+The noses stand 1.5 mm off those lands at rest. Pulling the cradle draws the tees forward in
 their collar bores; after the noses reach the lands, continued body travel depresses the sleeves.
-The [1.835 mm](PLATE_RELEASE_STROKE) design stroke includes that rest gap and the 1.335 mm
+The [2.835 mm](PLATE_RELEASE_STROKE) design stroke includes that rest gap and the 1.335 mm
 sleeve travel measured on the John Guest union. The tee shoulder keeps 1 mm of air at full travel.
 The tee’s butted valve stays on its tray; compliance at those tube joints remains a physical
 fit check for the assembled release.
 
-The cradle follows the release wall with 0.15 mm running clearance.
-Above the brackets its insertion wells open aft. The fixed wall's fore face is plumb through
+The cradle clears the release wall.
+Its complete rear band and sloped upper-back profile remain whole. The fixed wall's fore face is plumb through
 the complete bay height.
 
 **Both pulls belong to the cradle and surround the tube-centre plane.** Each side pocket is
-[18 mm](PULL_DEPTH) deep, [30 mm](PULL_RUN) fore/aft and [48 mm](PULL_RISE) high. Its floor at
+[18 mm](PULL_DEPTH) deep, [28.15 mm](PULL_RUN) fore/aft and [48 mm](PULL_RISE) high. Its floor at
 z [178.25 mm](PULL_FLOOR_Z) leaves [12.88 mm](PULL_FLOOR_LIGAMENT) of bed-rooted cradle below
 it and puts the common tube elevation, z [190.25 mm](PULL_CENTER_Z), 12 mm inside the mouth.
 At the deepest fingertip wall the straight vertical opening is [30 mm](PULL_PLUMB) high; its
 roof then climbs at 45° to the open flank and reaches z [226.25 mm](PULL_TOP_Z). The opening
-runs through the cartridge's aft edge at y [76.14 mm](PULL_AFT_OPEN), so no separate Y-normal
-wall closes it; the fore wall is the pulling ledge at y [46.14 mm](PULL_LEDGE). That leaves
-[32.14 mm](PULL_TRAVEL) of cartridge withdrawal before the ledge reaches the enclosure front.
+runs through the cartridge's aft edge at y [77.92 mm](PULL_AFT_OPEN), so no separate Y-normal
+wall closes it; the fore wall is the pulling ledge at y [49.77 mm](PULL_LEDGE). That leaves
+[35.77 mm](PULL_TRAVEL) of cartridge withdrawal before the ledge reaches the enclosure front.
 Pulling force enters the one load-bearing cradle; the clamp has no separate grip to split the
 load or invite a second tug.
 
@@ -1092,7 +1092,7 @@ load or invite a second tug.
 
 One opening spans the lower cradle’s complete width, from the floor to the lintel. The fixed
 collet plate and tee wall close its aft end. Both cradle pulls open aft onto that wall, with
-[30 mm](PULL_RUN) of fore/aft finger room at the tube centreline. Each pull’s roof rises at 45°
+[28.15 mm](PULL_RUN) of fore/aft finger room at the tube centreline. Each pull’s roof rises at 45°
 to its exposed flank. The cradle’s exterior is one bed-rooted wall, including both rounded front
 corners, with 0.5 mm of running air above the fixed sill and below the lintel.
 
@@ -1114,9 +1114,9 @@ floor opens for that alone. Aft of that run the lip is carried whole and the tel
 is untouched.
 
 **The collet plate is continuous printed material.** Its release section starts on the seam
-plane and spans both cavity walls. The wall carries its full [16.875 mm](COLLET_WALL_T)
+plane and spans both cavity walls. The wall carries its full [14.05 mm](COLLET_WALL_T)
 thickness to the lintel, with a single plumb fore face. The collar bores leave the
-[6 mm](COLLET_PLATE_T) release section around the four tube passages. The floor under it is uninterrupted.
+[3.175 mm](COLLET_PLATE_T) release section around the four tube passages. The floor under it is uninterrupted.
 
 The four collar bores start on the release face. Their round lower surfaces locate the tees
 in X and Z with 0.25 mm radial clearance; their tangent teardrop roofs close at 36°. The smaller

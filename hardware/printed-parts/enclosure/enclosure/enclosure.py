@@ -1646,7 +1646,7 @@ pump_face_backing = wall     # least printed stock behind the deepest front-face
 # without a flat bridge. The pocket is entirely in the cradle and the top clamp has no hand
 # feature at all.
 pull_depth = 18.0            # fingertip reach inboard from each exposed flank
-pull_run = 30.0              # ledge to the integral release wall at the tube-centre height
+pull_run = 28.15             # ledge to the cartridge's aft edge at the tube-centre height
 pull_rise = 48.0             # complete side-mouth height, including the 45-degree roof
 pull_floor_below_tubes = 12.0  # bed-rooted stock first; then the tube plane inside the mouth
 
@@ -5125,9 +5125,23 @@ def pump_skirt_support_z(pump_trays):
 
 
 def pump_cartridge_aft_y(pump_trays):
-    """The cradle stock's Y+ limit before the fixed wall and upper opening trim it."""
+    """The cradle's Y+ face: the skirt opening plus its complete 3 mm rear band."""
     return max(cy + _tray.skirt_open_y_max + _tray.skirt_upper_band
                for _cx, cy, _cz in pump_trays)
+
+
+def _pump_cartridge_rear_relief(inner, bay, pump_trays):
+    """The cartridge's upper back returns at 45 degrees above its full rear skirt band.
+
+    The fore edge is 7.12 mm above the bracket datum. Its Y plane stands one clamp kiss
+    fore of the upper insertion well's aft plane, so the tall wells open completely aft.
+    """
+    fore = _pump_upper_well_aft_y(pump_trays) - cap_kiss
+    aft = pump_cartridge_aft_y(pump_trays) + 1.0
+    crown = cap_split_z(pump_trays) + 7.12
+    return _yz_prism(inner[0], inner[1], (
+        (fore, crown), (aft, crown - (aft - fore)),
+        (aft, bay[2] + 1.0), (fore, bay[2] + 1.0)))
 
 
 def _clamp_bridge_edge(pump_trays):
@@ -5289,7 +5303,7 @@ def _cradle_pulls(box):
         raise ValueError(
             f"a {pull_depth:g} mm-deep cradle pull has no printable roof inside its "
             f"{pull_rise:g} mm opening")
-    y0 = box.pack.collet_plate["fore_y"] - fits.slip - pull_run
+    y0 = pump_cartridge_aft_y(box.pack.pump_trays) - pull_run
     # Open through the cartridge's actual aft plane so each pocket has an exposed aft mouth.
     y1 = pump_cartridge_aft_y(box.pack.pump_trays) + 1.0
     out = []
@@ -5306,8 +5320,8 @@ def pump_cartridge_figures(box):
         return {}
     bay, trays, plate = box.pump_bay, box.pack.pump_trays, box.pack.collet_plate
     edge = _cap_x_span(bay)[1]
-    y0 = plate["fore_y"] - fits.slip - pull_run
-    y1 = plate["fore_y"] - fits.slip
+    y1 = pump_cartridge_aft_y(trays)
+    y0 = y1 - pull_run
     z_mid = _pull_center_z(plate)
     pull_floor = z_mid - pull_floor_below_tubes
     pull_top = pull_floor + pull_rise
@@ -5387,10 +5401,10 @@ def pump_cartridge_figures(box):
         "PUMP_SKIRT_Y_PLUS_LAND": f"{_tray.skirt_support_y_plus:.4g} mm",
         "PUMP_SKIRT_Y_PLUS_OPEN_EDGE":
             f"{(trays[0][1] + _tray.skirt_open_y_max):.6g} mm",
-        "PUMP_SKIRT_UPPER_BAND": f"{plate['fore_y'] - fits.slip - _pump_upper_well_aft_y(trays):.4g} mm",
-        "PUMP_SKIRT_UPPER_BAND_AFT": f"{plate['fore_y'] - fits.slip:.6g} mm",
+        "PUMP_SKIRT_UPPER_BAND": f"{_tray.skirt_upper_band:.4g} mm",
+        "PUMP_SKIRT_UPPER_BAND_AFT": f"{pump_cartridge_aft_y(trays):.6g} mm",
         "PUMP_CARTRIDGE_AFT_Y": f"{pump_cartridge_aft_y(trays):.6g} mm",
-        "PUMP_CARTRIDGE_UPPER_AFT_Y": f"{_pump_upper_well_aft_y(trays) - fits.slip:.6g} mm",
+        "PUMP_CARTRIDGE_UPPER_AFT_Y": f"{_pump_upper_well_aft_y(trays) - cap_kiss:.6g} mm",
         "PUMP_FACE_OFFSET": f"{(box.outer[2] - pump_cartridge_front_y):.4g} mm",
         "PUMP_STATION_LEAD": f"{pump_station_lead:.4g} mm",
         "PUMP_SHOW_GROWTH": f"{pump_show_growth:.4g} mm",
@@ -5651,14 +5665,7 @@ def _pump_cartridge_gross(box, halves_cache=None):
         floor_top, top - pump_cartridge_z_clearance)
     solid = solid.fuse(fill).intersect(face.fuse(
         _ybox(bx0, bx1, pump_cartridge_front_y, aft, floor_top, top)))
-    solid = solid.cut(_collet_wall_stock(inner, plate, bay, box.pack.pump_trays).translate(
-        cq.Vector(0.0, -fits.slip, 0.0)))
-    # Above the pump brackets, the insertion wells open through the aft face. The support
-    # lands remain below this plane; the skirt's complete rear face lies fore of this cut.
-    solid = solid.cut(_ybox(
-        outer[0] - 1.0, outer[1] + 1.0,
-        _pump_upper_well_aft_y(box.pack.pump_trays) - fits.slip, aft + 1.0,
-        cap_split_z(box.pack.pump_trays), top + 1.0))
+    solid = solid.cut(_pump_cartridge_rear_relief(inner, bay, box.pack.pump_trays))
     if halves_cache is not None:
         halves_cache["pump-cartridge-gross"] = solid
     return solid

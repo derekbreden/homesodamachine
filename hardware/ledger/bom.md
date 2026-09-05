@@ -137,8 +137,8 @@ The wetted surface is the print itself, qualified by [`wetted-surface-test.md`](
 | Flavor reservoir body — right | 1 | PETG (translucent) | 0.382 | $4.28 <!--@printed--> |
 | Flavor reservoir cap — left | 1 | PETG (translucent) | 0.058 | $0.65 <!--@printed--> |
 | Flavor reservoir cap — right | 1 | PETG (translucent) | 0.058 | $0.65 <!--@printed--> |
-| Enclosure — front bottom + front top (two quadrants) | 1 set | PET-GF | 1.254 | $31.38 <!--@printed--> |
-| Enclosure — pump cartridge + clamp (one set) | 1 set | PET-GF | 0.450 | $11.26 <!--@printed--> |
+| Enclosure — front bottom + front top (two quadrants) | 1 set | PET-GF | 1.261 | $31.55 <!--@printed--> |
+| Enclosure — pump cartridge + clamp (one set) | 1 set | PET-GF | 0.422 | $10.55 <!--@printed--> |
 | Carbonator reed bridge | 1 | PETG | 0.008 | $0.09 <!--@printed--> |
 | Enclosure — back bottom + back top (two quadrants) | 1 set | PET-GF | 1.304 | $32.61 <!--@printed--> |
 | Enclosure — ceiling panel | 1 | PET-GF | 0.176 | $4.39 <!--@printed--> |
@@ -152,9 +152,9 @@ The wetted surface is the print itself, qualified by [`wetted-surface-test.md`](
 | Faucet shell (2-piece: base + tip) | 1 | PET-GF | 0.194 | $4.86 <!--@printed--> |
 | Faucet display cover plate | 1 | PET-GF | 0.007 | $0.18 <!--@printed--> |
 | Above-counter plate | 1 | PET-GF | 0.015 | $0.38 <!--@printed--> |
-| **Printed parts total** | | | **~6.90** | **[$159.08](BOM_SEC7)** |
+| **Printed parts total** | | | **~6.88** | **[$159.08](BOM_SEC7)** |
 
-By material: PETG ≈ 0.99 kg / $11.07 — of which the four translucent reservoir parts are ≈ 0.88 kg / $9.85 — and PET-GF ≈ 5.92 kg / $148.02.
+By material: PETG ≈ 0.99 kg / $11.07 — of which the four translucent reservoir parts are ≈ 0.88 kg / $9.85 — and PET-GF ≈ 5.89 kg / $147.49.
 
 Each cap lid ships bolted to its cap. It is the pour clamp at [`cold-core.md`](/hardware/assembly/cold-core.md) step 3 and stays: the six M3 × 25 SHCS per face pass through lid and cap into the shell-face inserts, the CO2 line enters through the top lid's tube hole, and the top lid's outer face is the plane the whole water deck and the power column stand on. The top lid also carries the [3](CAP_CRADLES) valve cradles — four bosses printed into that face per valve that stands on it (`_cold_core_interface.cap_cradles`, [`valve-seat/`](/hardware/printed-parts/valve-seat/)) — which is why it outweighs the bottom one. The cradles are a press fit and take no screw. The top cap under it carries the [4](DECK_INSERTS) deck-mount columns, which are the cap's rotation key and the water pump's own bolt pattern: its bracket bolts down into all [4](PUMP_MOUNT_SCREWS).
 

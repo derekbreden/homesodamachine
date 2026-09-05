@@ -14,11 +14,6 @@ made, once.
 
 **The operation inside design constraints**, which is where the machine spends its life.
 
-**Rigidity and a substantial, premium feel.** Keep printed material wherever the components,
-assembly motion and printing geometry allow it. Carry useful wall thickness through the full
-available section; removing material needs a functional reason, such as fitting a component or
-preserving its support. Filament savings alone do not justify thinning a wall.
-
 ## Not optimised
 
 **Field service.** One operation: the pump swap in

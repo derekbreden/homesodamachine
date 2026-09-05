@@ -53,13 +53,13 @@ is drawn on — the container under the faucet is the only one the procedure ask
 
 ## How the plate lets go
 
-The collet plate is a [6 mm](COLLET_PLATE_T) PET-GF release section printed into front-top’s
+The collet plate is a [3.175 mm](COLLET_PLATE_T) PET-GF release section printed into front-top’s
 tee wall, [209](PLATE_SPAN) mm across and continuous with the floor and both flanks. Each tube
 passage opens onto a flat annular land inside its tee’s collar bore. The four short tubes share
 the tee axes and slide through the passages without a vertical jog.
 
-The gap between each barb and collet contains [0.48](BARB_AIR) mm of barb air, the
-[6 mm](COLLET_PLATE_T) release section and [0.5](REST_GAP) mm of nose air. Pulling the cradle draws the
+The gap between each barb and collet contains [2.305](BARB_AIR) mm of barb air, the
+[3.175 mm](COLLET_PLATE_T) release section and [1.5](REST_GAP) mm of nose air. Pulling the cradle draws the
 tees forward through that nose air. Their noses then stop on the printed lands while the bodies
 continue far enough to depress the sleeves and release the tubes. The design uses the John Guest
 union’s measured sleeve travel; the assembled tee release and compliance of its butted joints
