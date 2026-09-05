@@ -149,6 +149,7 @@
     "suction-chain \u2014 foam-assembly: 0.200 mm \u2014 seated against it",
     "seaflo-pump \u2014 bulkhead-flavor-a: 1.004 mm",
     "keystone-jack \u2014 bulkhead-ring-flavor-a: 1.052 mm",
+    "water-2 \u2014 enclosure-ceiling-panel: 1.075 mm",
     "carb-1 \u2014 suction-chain: 1.113 mm",
     "water-3 \u2014 enclosure-front-top: 1.126 mm",
     "water-3 \u2014 enclosure-back-top: 1.126 mm",
@@ -565,6 +566,16 @@
    "status": "pass",
    "value": "holds",
    "target": "under 10 mm of standing edge",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "ceiling-panel-joint-section",
+   "label": "The ceiling panel joint is large on its male and female sides",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "a 12 mm square tongue with a 6 mm root and 6 mm capture ligaments",
    "detail": [],
    "active": true
   },
@@ -1038,6 +1049,16 @@
    "status": "pass",
    "value": "brim front at y 70.00, facet arris at 66.87",
    "target": "a 3 mm landing, so at or aft of 69.87",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "ceiling-dado-show-cap",
+   "label": "The supported ceiling dados keep a complete exterior wall over both rails",
+   "kind": "gate",
+   "status": "pass",
+   "value": "3 mm cap; missing 0.0675 mm\u00b3 west / 0.0675 mm\u00b3 east",
+   "target": "a complete wall, except one 0.15 x 0.15 mm fit corner per side",
    "detail": [],
    "active": true
   },
