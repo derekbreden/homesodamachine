@@ -59,11 +59,11 @@ file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-79.575 y=236.150 z=352.000
 click: x=79.575 y=236.150 z=352.000
 
-[ceiling] The three full female ceiling-dado roof regions — horizontal bearing faces above the 12 mm-square panel tongues, with a complete 6 mm exterior flange overhead. They are deliberately supported instead of rising to an exterior slot; the production slice joins all three to its one bed-rooted tree, and the support withdraws through the open Y-seam mouth before panel insertion.
+[ceiling] The female ceiling-dado roof regions — horizontal bearing faces above the 12 mm-square panel tongues, with a complete 6 mm exterior flange overhead: the +X groove's roof to the C14 notch, the −X groove's roof to the ASSE notch, and the three-millimetre strip of flange underside beside the established wedge over the water bulkhead's band, where no groove runs. They are deliberately supported instead of rising to an exterior slot; the production slice joins them to its one bed-rooted tree, and the support withdraws through the open Y-seam mouth before panel insertion.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-85.575 y=429.000 z=349.000
 click: x=85.575 y=344.875 z=349.000
-click: x=-85.575 y=295.000 z=349.000
+click: x=-85.575 y=268.605 z=349.000
+click: x=-81.000 y=452.605 z=349.000
 
 [ceiling] The ASSE-local female-rail pocket roof — the placed body needs the underside raised to z=351.5 over this one band, while 3.5 mm of uninterrupted exterior wall remains above it. Its broad flat joins the main bed-rooted support tree and withdraws through the same open groove mouth.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
