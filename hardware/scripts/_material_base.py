@@ -25,6 +25,9 @@ M_TPU_BLACK = cq.Color(0.15, 0.15, 0.15)
 M_STAINLESS = cq.Color(0.72, 0.73, 0.76)
 M_ALUMINIUM = cq.Color(0.80, 0.81, 0.83)
 M_COPPER = cq.Color(184 / 255.0, 115 / 255.0, 51 / 255.0)
+# Zinc-plated and baked carbon/music wire.  The Lee carrier spring is the first consumer, but
+# the appearance is stock-finish neutral and belongs below the appliance palette.
+M_ZINC_PLATED_STEEL = cq.Color(0.73, 0.75, 0.76)
 
 
 #: The lightest a colour can be and still reach a STEP. OCCT treats pure white

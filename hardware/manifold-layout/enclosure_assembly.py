@@ -315,7 +315,8 @@ from _materials import (C_AC_HUB, C_C14, C_COMP, C_COND, C_DIGITEN,  # noqa: E40
                         C_PSU, C_RELAY, C_SEAFLO,
                         M_ALUMINIUM, M_BRASS, M_DONOR_BLACK, M_JG_BLACK_PP,
                         M_NEOFIT_ACETAL, M_PETG_BLACK, M_PETGF_BLACK, M_SILICONE_BLACK,
-                        M_STAINLESS, M_TINNED_STEEL, M_TPU_BLACK)
+                        M_STAINLESS, M_TINNED_STEEL, M_TPU_BLACK,
+                        M_ZINC_PLATED_STEEL)
 # The refrigeration donor's own two. A hermetic compressor is a painted-steel can; the condenser is
 # a plate-fin block, aluminium fins on a copper tube (`reference/ice-maker/README.md`), and it
 # carries the fan on ONE body — so the fin face is what the pair is drawn as, the fan with it.
@@ -1208,7 +1209,10 @@ TEE_WALL_BORE_SLIP = 0.25
 TEE_WALL_BODY_AIR = 1.454
 CARRIER_ASSEMBLY_STATE = "connected"
 CARRIER_SPRING_GUIDE_ACROSS = 4.0
-CARRIER_SPRING_GUIDE_LENGTH = 10.0
+# The fixed pilot tapers from its full diamond at the tee wall to a 0.4 mm tip.  Making the
+# axial run equal to the 1.8 mm radial taper gives every down-facing generator a 45-degree
+# wall-rooted path in front-top's upright print orientation.
+CARRIER_SPRING_GUIDE_LENGTH = 1.8
 CARRIER_MOTION_AUDIT_STEP = 0.7
 CARRIER_MOTION_OVERLAP_TOL = 1e-5
 
@@ -4616,7 +4620,7 @@ def build_pack() -> cq.Assembly:
         spring = build_carrier_spring(
             x, a.tee_carrier_spec.spring_axis_z, fixed_y, spring_length)
         name = f"tee-carrier-spring-{side}"
-        a.add(spring, name=name, color=M_TINNED_STEEL)
+        a.add(spring, name=name, color=M_ZINC_PLATED_STEEL)
         record_seat(
             name,
             station=(x, fixed_y, a.tee_carrier_spec.spring_axis_z),

@@ -782,6 +782,16 @@
    "active": true
   },
   {
+   "id": "pump-connector-service",
+   "label": "Pump connector latch faces the empty bay and its full unmate-and-drop path clears front-top and the display",
+   "kind": "gate",
+   "status": "pass",
+   "value": "7.120 mm pull including 1.000 mm air; 0.000000/0.000000 mm\u00b3 overlap; 2.260/5.239 mm path air; 14.626 mm latch air",
+   "target": "0 mm\u00b3 overlap; latch down; >= 12.000 mm latch air",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "z-seam-bed",
    "label": "The Z seam leaves every piece on the H2C's bed",
    "kind": "gate",

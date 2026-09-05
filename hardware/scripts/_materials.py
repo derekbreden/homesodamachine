@@ -28,7 +28,7 @@ import cadquery as cq
 from OCP.Quantity import Quantity_TypeOfColor
 
 from _material_base import (M_ALUMINIUM, M_COPPER, M_PETGF_BLACK, M_STAINLESS,
-                            M_TPU_BLACK, one_body, step_safe)
+                            M_TPU_BLACK, M_ZINC_PLATED_STEEL, one_body, step_safe)
 
 # Those project-neutral names are re-exported here so existing appliance
 # generators still read one complete catalogue.  Independent tools and cut
@@ -235,6 +235,7 @@ FINISHES = [
     (M_ALUMINIUM,        0.30, _METAL),
     (M_BRASS,            0.30, _METAL),
     (M_TINNED_STEEL,     0.40, _METAL),        # "the SF76E's tin-plated case"
+    (M_ZINC_PLATED_STEEL, 0.45, _METAL),       # zinc-plated and baked music wire
     (M_NICKEL_PLATE,     0.25, _METAL),        # "a plated white metal"
     (M_COPPER,           0.30, _METAL),
     # the boards
