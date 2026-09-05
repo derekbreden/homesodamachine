@@ -274,9 +274,9 @@ MOUNTS = (
     # The soft ring between the two. It is what the plate closes onto, so the screws reach the
     # glass through it rather than standing over it.
     ("display-gasket", ("display-cover", "display"), "gap-press"),
-    # The pump disconnect snaps into front-top's ridge wall. The fixed housing's own moulded
-    # panel ears close behind the locally thinned printed panel.
-    ("pump-connector", "enclosure-front-top", "wall-capture"),
+    # The pump jack snaps into front-top's ridge wall: the keystone's tang and latch close over
+    # the receptacle's two catches behind the rib.
+    ("pump-jack", "enclosure-front-top", "wall-capture"),
     # Both chains lie in ribs printed on the cold core's cap lid — the same plate the pump bolts
     # to, so the hose stub at each of its barbs spans no joint
     # (`_cold_core_interface.cap_anchors`, read by `chains-seated`).
@@ -703,9 +703,9 @@ TOUCHING_OK = {frozenset(p) for p in (
     # The plate and the glass therefore stand one ring apart, which is a seat and not a gap:
     # `display_gasket.thickness` IS this distance, taken off the same two depths.
     ("display-cover", "display"),
-    # The fixed Micro-Fit housing's panel shoulders bear on the ridge wall while its own nylon
-    # ears close behind the 2 mm local panel. Zero distance to the host is the installed joint.
-    ("pump-connector", "enclosure-front-top"),
+    # The pump jack's face bottoms on the ridge wall's lip while its tang and latch close over
+    # the receptacle's catches. Zero distance to the host is the installed joint.
+    ("pump-jack", "enclosure-front-top"),
     # AND THE EIGHT IN THE TWO VALVE TRAYS' — the same seat and the same press, on a plate the
     # front-top piece carries instead of a lid.
     *(("enclosure-front-top", f"valve-v-{v}") for v in "cdefghij"),

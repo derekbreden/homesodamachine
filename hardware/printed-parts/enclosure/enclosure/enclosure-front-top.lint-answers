@@ -30,6 +30,12 @@ click: x=0.000 y=83.785 z=298.591
 click: x=8.000 y=83.785 z=305.591
 click: x=-8.000 y=83.785 z=305.591
 
-[ceiling] The Micro-Fit fixed housing's lower snap-ear aperture roof — the connector is turned latch-down, so this 11.2 × 2.0 mm flat is the complete square engagement edge through the locally thinned panel. Chamfering it would narrow the customer-drawing ear opening and obstruct insertion; it is only a 2 mm-deep bridge between the aperture's two printed flanks, inside the same production-supported ridge-wall tree as the surrounding panel.
+[sliver] The pump jack's receptacle carries the same two snap catches as the umbilical's on back-top — the upper tang keeper 1.4 mm proud and the lower latch keeper 1.3 mm proud, exactly `riteav_keystone.CATCH_UPPER` and `CATCH_LOWER`. Each face bounds a catch backed by the receptacle boss on the ridge wall's cavity face; neither is a free strip.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=0.000 y=82.285 z=308.496
+click: x=0.000 y=90.290 z=308.395
+click: x=0.000 y=90.340 z=288.595
+
+[ceiling] The pump jack's receptacle roof and upper snap catch — square engagement faces for the module's tang and latch, inside the boss that stands on the plate cap's crown behind the ridge wall. The 14.9 mm roof bridges the boss's two side walls, the same span back-top's receptacle prints.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=0.000 y=86.935 z=310.395
+click: x=0.000 y=90.290 z=308.395
