@@ -1462,7 +1462,9 @@ the top port row. The C14 moulding, relay, ASSE body, water bulkhead, flow
 regulator and power Wagos reach only the added nine-millimetre shell.
 `ceiling_growth_reliefs` withholds that shell over each exact placed-body plan
 plus 1 mm, clipped to the fixed strip, while leaving
-the older wedge and its existing run-band treatment intact. At the C14 this
+the older wedge and its existing run-band treatment intact; two plans facing
+across less than one wall are one figure, so no fin of shell stands between
+them. At the C14 this
 leaves exactly 1 mm of air and the relay retains 2 mm.
 
 **The tap-water chain takes three rows**, because what it occupies is three different

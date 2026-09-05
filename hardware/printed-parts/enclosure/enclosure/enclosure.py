@@ -163,6 +163,7 @@ import fits
 import reeding
 import trimesh
 import flute_skin as _flute_skin
+import plan as _plan
 import funnel as _funnel
 import wago_221 as _wago
 import mq6_gas_sensor as _mq6
@@ -5341,17 +5342,23 @@ def _back_top_ceiling_growth(inner, y_joint, sx):
 
 
 def _back_top_ceiling_grown_for_pack(inner, y_joint, sx, growth_reliefs):
-    """The grown corbel after exact placed-body plans withhold only its added shell."""
+    """The grown corbel after exact placed-body plans withhold only its added shell.
+
+    THE PLANS ARE ONE FIGURE (`cadlib/plan.py`). Two bodies' plans facing across less than one
+    wall would leave a fin of shell between them and not a wall, so the figure is closed by
+    `wall` before the shell is withheld over it."""
     cp = _ceiling()
     wall_x = back_top_flank_face()[1 if sx > 0.0 else 0]
     deep = abs(wall_x) - cp.panel_half_w
     corbel = _back_top_ceiling_corbel(inner, y_joint, sx)
     growth = _back_top_ceiling_growth(inner, y_joint, sx)
-    for _who, rsx, x0, x1, y0, y1 in growth_reliefs:
-        if rsx == sx:
-            corbel = corbel.cut(growth.intersect(_ybox(
-                x0, x1, y0, y1,
-                cp.fixed_under_z - deep - 1.0, inner[5] + 1.0)))
+    plans = [_plan.rect(x0, x1, y0, y1)
+             for _who, rsx, x0, x1, y0, y1 in growth_reliefs if rsx == sx]
+    if not plans:
+        return corbel
+    figure = _plan.closed(_plan.union(plans), wall)
+    for prism in _plan.prism(figure, cp.fixed_under_z - deep - 1.0, inner[5] + 1.0):
+        corbel = corbel.cut(growth.intersect(prism))
     return corbel
 
 
