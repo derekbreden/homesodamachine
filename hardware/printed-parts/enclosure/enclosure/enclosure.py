@@ -1719,7 +1719,7 @@ pump_face_backing = wall     # least printed stock behind the deepest front-face
 # without a flat bridge. The pocket is entirely in the cradle and the top clamp has no hand
 # feature at all.
 pull_depth = 18.0            # fingertip reach inboard from each exposed flank
-pull_min_run = 22.0          # clear opening from the ledge to the retention clearance's Y− tip
+pull_run = 28.0              # fore/aft clear opening between the pulling and pushing ledges
 pull_rise = 48.0             # complete side-mouth height, including the 45-degree roof
 pull_floor_below_tubes = 12.0  # bed-rooted stock first; then the tube plane inside the mouth
 
@@ -4946,12 +4946,12 @@ def plate_head_spans(inner, plate):
 def _plate_retention_clearance_notches(outer, bay, plate, pump_trays):
     """Two raked corner clearances for the fixed plate-retention cheeks.
 
-    Each four-sided prism carries one uninterrupted rake from the hand pocket's inboard wall
-    to the enclosure's rounded outer edge. At the inboard wall it begins on the fixed cheek's
-    Y− plane; across the cheek it opens into the same running clearance the fixed outer root
-    needs. The cartridge's Y=``pump_cartridge_aft_y`` plane truncates the cutter only outside
-    that rake. The fixed material retains the stainless plate. Any guidance it incidentally
-    gives the cartridge is not its function."""
+    Each four-sided prism carries one uninterrupted rake from `pull_depth` inboard of the
+    flank to the enclosure's rounded outer edge. At the inboard wall it begins on the fixed
+    cheek's Y− plane; across the cheek it opens into the same running clearance the fixed
+    outer root needs. The cartridge's Y=``pump_cartridge_aft_y`` plane truncates the cutter
+    only outside that rake. The fixed cheeks overlap the collet plate's tails. Any guidance
+    they incidentally give the cartridge is not their function."""
     guide_x0, guide_x1 = plate_guide_inner_xs(plate)
     y_inner = plate_guide_fore_y(plate)
     y_aft = pump_cartridge_aft_y(pump_trays) + 1.0
@@ -5648,13 +5648,22 @@ def _pull_center_z(plate):
     return (plate["z0"] + plate["z1"]) / 2.0
 
 
-def _cradle_pulls(box):
-    """The two new hand pockets, both cut wholly from the lower cradle.
+def pull_y_span(pump_trays):
+    """Both pockets' fore and aft walls: `pull_run` centred on the cradle's own Y run, from
+    its show face to its aft edge."""
+    mid = (pump_cartridge_front_y + pump_cartridge_aft_y(pump_trays)) / 2.0
+    return mid - pull_run / 2.0, mid + pull_run / 2.0
 
-    Their fore wall is the pulling ledge. The floor stays `pull_floor_below_tubes` under the
-    tube-axis plane, leaving a bed-rooted lower ligament; at the inboard wall the pocket has
-    `pull_rise - pull_depth` of plumb finger room, then its roof climbs at 45 degrees to the
-    open flank. Nothing is split across the clamp joint."""
+
+def _cradle_pulls(box):
+    """The two hand pockets, both cut wholly from the lower cradle, centred on its Y run.
+
+    Each opens on its own exposed flank between two Y-normal walls: the fore wall is the ledge
+    the fingers pull on, the aft wall the one they push on, and the cradle keeps its stock
+    beyond both. The floor stays `pull_floor_below_tubes` under the tube-axis plane, leaving a
+    bed-rooted lower ligament; at the inboard wall the pocket has `pull_rise - pull_depth` of
+    plumb finger room, then its roof climbs at 45 degrees to the open flank. Nothing is split
+    across the clamp joint."""
     edge = _cap_x_span(box.pump_bay)[1]
     deep = edge - pull_depth
     z_mid = _pull_center_z(box.pack.collet_plate)
@@ -5664,10 +5673,7 @@ def _cradle_pulls(box):
         raise ValueError(
             f"a {pull_depth:g} mm-deep cradle pull has no printable roof inside its "
             f"{pull_rise:g} mm opening")
-    y0 = plate_guide_notch_fore_y(box.pack.collet_plate) - pull_min_run
-    # Open through the cartridge's actual aft plane. Ending this cutter on the former
-    # rectangular-notch plane left a broad, unnecessary Y-normal wall across each pocket.
-    y1 = pump_cartridge_aft_y(box.pack.pump_trays) + 1.0
+    y0, y1 = pull_y_span(box.pack.pump_trays)
     out = []
     for sx in (+1.0, -1.0):
         section = ((sx * (edge + 1.0), z0), (sx * deep, z0),
@@ -5682,8 +5688,8 @@ def pump_cartridge_figures(box):
         return {}
     bay, trays, plate = box.pump_bay, box.pack.pump_trays, box.pack.collet_plate
     edge = _cap_x_span(bay)[1]
-    y0 = plate_guide_notch_fore_y(plate) - pull_min_run
-    y1 = pump_cartridge_aft_y(trays)
+    y0, y1 = pull_y_span(trays)
+    aft = pump_cartridge_aft_y(trays)
     z_mid = _pull_center_z(plate)
     pull_floor = z_mid - pull_floor_below_tubes
     pull_top = pull_floor + pull_rise
@@ -5712,7 +5718,7 @@ def pump_cartridge_figures(box):
         "PUMP_CARTRIDGE_TOP_Z": f"{cartridge_top:.6g} mm",
         "PUMP_CARTRIDGE_RISE": f"{(cartridge_top - floor_top):.6g} mm",
         "PULL_RISE": f"{pull_rise:.4g} mm",
-        "PULL_RUN": f"{(y1 - y0):.4g} mm",
+        "PULL_RUN": f"{pull_run:.4g} mm",
         "PULL_DEPTH": f"{pull_depth:.4g} mm",
         "PULL_PLUMB": f"{(pull_rise - pull_depth):.4g} mm",
         "PULL_FLOOR_Z": f"{pull_floor:.5g} mm",
@@ -5720,8 +5726,10 @@ def pump_cartridge_figures(box):
         "PULL_FLOOR_LIGAMENT": f"{(pull_floor - bay_floor_z(trays)[1]):.4g} mm",
         "PULL_CENTER_Z": f"{z_mid:.5g} mm",
         "PULL_LEDGE": f"{y0:.4g} mm",
-        "PULL_AFT_OPEN": f"{y1:.4g} mm",
-        "PULL_TRAVEL": f"{y0 - box.inner[2]:.4g} mm",
+        "PULL_AFT_LEDGE": f"{y1:.4g} mm",
+        "PULL_CENTER_Y": f"{(y0 + y1) / 2.0:.4g} mm",
+        "PULL_FORE_STOCK": f"{(y0 - pump_cartridge_front_y):.4g} mm",
+        "PULL_AFT_STOCK": f"{(aft - y1):.4g} mm",
         "CLAMP_SPAN": f"{2.0 * clamp_edge:.4g} mm",
         "CLAMP_RISE": f"{(clamp_crown - clamp_base):.5g} mm",
         "CLAMP_BASE_Z": f"{clamp_base:.5g} mm",

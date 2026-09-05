@@ -1108,15 +1108,16 @@ two collets that hold it. Compliance is not modeled in the reference bodies.
 **The cradle ends at the skirt band's aft edge**, y [77.915 mm](PUMP_CARTRIDGE_AFT_Y): a plate-retention return or side skin
 cannot survive behind that plane.
 
-**Both pulls belong to the cradle and share one fixed datum.** Each side pocket is
-[18 mm](PULL_DEPTH) deep, [28.15 mm](PULL_RUN) fore/aft and [48 mm](PULL_RISE) high. Its floor at
-z [176.25 mm](PULL_FLOOR_Z) leaves [10.88 mm](PULL_FLOOR_LIGAMENT) of bed-rooted cradle below
-it and places the pull datum, z [188.25 mm](PULL_CENTER_Z), 12 mm inside the mouth.
-At the deepest fingertip wall the straight vertical opening is [30 mm](PULL_PLUMB) high; its
-roof then climbs at 45° to the open flank and reaches z [224.25 mm](PULL_TOP_Z). The opening
-runs through the cartridge's aft edge at y [77.92 mm](PULL_AFT_OPEN), so no separate Y-normal
-wall closes it; the fore wall is the pulling ledge at y [49.76 mm](PULL_LEDGE). That leaves
-[35.76 mm](PULL_TRAVEL) of cartridge withdrawal before the ledge reaches the enclosure front.
+**Both pulls belong to the cradle and stand on its own Y midline.** Each side pocket is
+[18 mm](PULL_DEPTH) deep, [28 mm](PULL_RUN) fore/aft and [48 mm](PULL_RISE) high, centred at
+y [41.46 mm](PULL_CENTER_Y). Its floor at z [176.25 mm](PULL_FLOOR_Z) leaves
+[10.88 mm](PULL_FLOOR_LIGAMENT) of bed-rooted cradle below it and places the pull datum,
+z [188.25 mm](PULL_CENTER_Z), 12 mm inside the mouth. At the deepest fingertip wall the
+straight vertical opening is [30 mm](PULL_PLUMB) high; its roof then climbs at 45° to the open
+flank and reaches z [224.25 mm](PULL_TOP_Z). A Y-normal wall closes each end of the pocket:
+the fore wall at y [27.46 mm](PULL_LEDGE) is the ledge the fingers pull on, the aft wall at
+y [55.46 mm](PULL_AFT_LEDGE) the one they push on, with [22.46 mm](PULL_FORE_STOCK) of cradle
+fore of the pocket and [22.46 mm](PULL_AFT_STOCK) aft of it.
 Pulling force enters the one load-bearing cradle; the clamp has no separate grip to split the
 load or invite a second tug.
 
