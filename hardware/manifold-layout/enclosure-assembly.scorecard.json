@@ -1,5 +1,5 @@
 {
- "gatesPass": true,
+ "gatesPass": false,
  "size": [
   {
    "id": "enclosure",
@@ -764,10 +764,10 @@
    "label": "Every +X-wall power-column boss has a flat D stem or shares a bar, and a body-clear 45 degree corbel",
    "kind": "gate",
    "status": "pass",
-   "value": "17/17 clear; 14 reach their mounting face across their whole width and 2 use blocker-profiled split corbels; 4 hole pair(s) share a bar",
+   "value": "17/17 clear; 14 reach their mounting face across their whole width and 1 use blocker-profiled split corbels, 1 are held back across their whole width (1 with offered wing(s) stood down); 4 hole pair(s) share a bar",
    "target": "one clear corbel per mounting hole, one bar per hole pair",
    "detail": [
-    "`pcba` y 241.000, z 323.200: 3.000 mm setback past pcba, full wall-rooted wing(s) y 237.500..239.030",
+    "`pcba` y 241.000, z 323.200: 3.000 mm setback past pcba, offered wing(s) y 237.500..239.030 stand down, 1.53 of 7.00 mm; no wing",
     "`relay-2` y 343.500, z 321.400: 3.000 mm setback past relay-2, full wall-rooted wing(s) y 327.000..329.500, y 344.500..347.000"
    ],
    "active": true
@@ -803,13 +803,16 @@
    "active": true
   },
   {
-   "id": "pump-connector-service",
-   "label": "Pump connector latch faces the empty bay and its full unmate-and-drop path clears front-top and the display",
+   "id": "pump-jack-service",
+   "label": "Pump plug's clip faces the empty bay and its full unplug, clear-the-cap and lower path clears front-top and the display",
    "kind": "gate",
-   "status": "pass",
-   "value": "7.120 mm pull including 1.000 mm air; 0.000000/0.000000 mm\u00b3 overlap; 2.260/5.239 mm path air; 14.626 mm latch air",
-   "target": "0 mm\u00b3 overlap; latch down; >= 12.000 mm latch air",
-   "detail": [],
+   "status": "fail",
+   "value": "18.000 mm pull; 19.435000/64.991959 mm\u00b3 path overlap; 0.000000/0.000000 mm\u00b3 finger overlap; 0.000/0.000 mm path air; 3.625 mm past the cap",
+   "target": "0 mm\u00b3 overlap; clip down; 15 mm finger room; pulled plug fore of the plate cap",
+   "detail": [
+    "service path crosses `enclosure-front-top` by 19.435000 mm\u00b3",
+    "service path crosses `display` by 64.991959 mm\u00b3"
+   ],
    "active": true
   },
   {
