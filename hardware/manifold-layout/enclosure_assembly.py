@@ -4992,7 +4992,9 @@ def ceiling_reliefs(placed: dict) -> tuple:
 
     A body less than one clearance below the raw field still earns a pocket: translating the
     exact solid upward by that clearance exposes the plan which would otherwise be a near miss,
-    while the pocket roof remains the actual body's crown plus the same clearance.
+    while the pocket roof remains the actual body's crown plus the same clearance. Where that
+    would leave less than one printable wall over a free tongue, the panel carries the opening
+    through the tongue instead of retaining a membrane.
     """
     raw = _cpanel.structural_stock().fuse(_cpanel.rail_stock())
     reliefs = []
@@ -5010,14 +5012,30 @@ def ceiling_reliefs(placed: dict) -> tuple:
         body_top = body.BoundingBox().zmax
         plan_slip = (CEILING_WATER_2_PLAN_SLIP
                      if name == "tube-water-2" else CEILING_RELIEF_PLAN_SLIP)
+        x0 = min(b.xmin for b in boxes) - plan_slip
+        x1 = max(b.xmax for b in boxes) + plan_slip
         reliefs.append((
             name,
-            min(b.xmin for b in boxes) - plan_slip,
-            max(b.xmax for b in boxes) + plan_slip,
+            x0,
+            x1,
             min(b.ymin for b in boxes) - plan_slip,
             max(b.ymax for b in boxes) + plan_slip,
-            min(_cpanel.underside_z, body_top + CEILING_RELIEF_Z_CLEAR),
+            _cpanel.body_relief_roof_z(x0, x1, body_top + CEILING_RELIEF_Z_CLEAR),
         ))
+    caps = _cpanel.rail_relief_caps(reliefs)
+    thin = [(name, cap) for name, cap in caps
+            if 0.0 < cap < _cpanel.rail_min_cap]
+    opened = [name for name, cap in caps if cap <= 1e-9]
+    retained = [(name, cap) for name, cap in caps if cap > 1e-9]
+    retained_note = (f"; thinnest retained {min(cap for _name, cap in retained):.2f} mm"
+                     if retained else "")
+    record_bound(Bound(
+        "ceiling-panel-relief-caps",
+        "Body pockets leave printable male-rail sections",
+        not thin,
+        f"{len(opened)} open, {len(retained)} retained{retained_note}",
+        f"every rail pocket open or capped by at least {_cpanel.rail_min_cap:g} mm",
+        [f"{name} leaves a {cap:.3f} mm membrane" for name, cap in thin]))
     return tuple(reliefs)
 
 

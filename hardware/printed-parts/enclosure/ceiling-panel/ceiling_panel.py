@@ -170,6 +170,10 @@ dado_blind_x = panel_half_w + dado_depth
 # groove and above it are the two ligaments that capture the rail at the blind end.
 dado_lower_ligament = dado_floor_z - (fixed_under_z - dado_depth)
 lip_t = show_z - dado_roof_z
+# A body pocket may leave a roof over the free tongue only when that roof is at least one
+# complete printable wall. Anything thinner is not a smaller rail: it is a membrane over an
+# opening, so the pocket passes cleanly through the tongue instead.
+rail_min_cap = _enc.wall
 
 _bounds.state(
     "ceiling-panel-joint-section",
@@ -189,6 +193,32 @@ def dado():
     The roof is horizontal, leaving the fixed strip's complete upper capture ligament and
     exterior show face over the groove."""
     return (dado_mouth_x, dado_blind_x, dado_floor_z, dado_roof_z)
+
+
+def body_relief_roof_z(x0, x1, top):
+    """The roof a body pocket actually cuts to.
+
+    The broad field continues to the show face and can keep its full section above any value
+    admitted here. Outside the field, the tongue itself ends at `tongue_roof_z`; if a pocket
+    crossing that free tongue would leave less than `rail_min_cap`, carry it through instead of
+    producing a skin that cannot print as structure.
+    """
+    roof = min(underside_z, top)
+    crosses_free_tongue = x0 < -panel_half_w or x1 > panel_half_w
+    cap = tongue_roof_z - roof
+    if crosses_free_tongue and 0.0 < cap < rail_min_cap:
+        return tongue_roof_z
+    return roof
+
+
+def rail_relief_caps(reliefs):
+    """`(name, cap)` for every pocket whose plan crosses a free tongue; zero means open."""
+    out = []
+    for name, x0, x1, _y0, _y1, top in reliefs:
+        if x0 < -panel_half_w or x1 > panel_half_w:
+            roof = body_relief_roof_z(x0, x1, top)
+            out.append((name, max(0.0, tongue_roof_z - roof)))
+    return tuple(out)
 
 
 # --- primitives -------------------------------------------------------------
@@ -221,7 +251,7 @@ def _body_relief_cavity(reliefs):
     are one opening over the depth both claim, a pocket crossing the field-and-rail plan is
     square where it leaves it, and every enclosed corner is rounded to `relief_corner_r`."""
     stock_floor = min(structural_under_z, tongue_floor_z)
-    pockets = [(x0, x1, y0, y1, min(underside_z, top))
+    pockets = [(x0, x1, y0, y1, body_relief_roof_z(x0, x1, top))
                for _name, x0, x1, y0, y1, top in reliefs]
     pockets = [p for p in pockets if p[4] > stock_floor]
     roofs = sorted({p[4] for p in pockets})
@@ -451,6 +481,7 @@ def main():
             "TONGUE_T": f"{tongue_t:g} mm",
             "TONGUE_REACH": f"{tongue_reach:g} mm",
             "RAIL_ROOT": f"{rail_root_reach:g} mm",
+            "RAIL_MIN_CAP": f"{rail_min_cap:g} mm",
             "TONGUE_FLOOR": f"{tongue_floor_z:g}",
             "TONGUE_ROOF": f"{tongue_roof_z:g}",
             "RAIL_AREA": f"{tongue_t * tongue_reach:g} mm²",
