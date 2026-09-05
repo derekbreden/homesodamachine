@@ -183,6 +183,9 @@
     "hardware/scripts/_stated_bounds.py",
     "tools/docgen/__init__.py"
   ],
+  "hardware/printed-parts/cadlib/cable_clip.py": [
+    "hardware/printed-parts/cadlib/cable_clip.py"
+  ],
   "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py": [
     "hardware/printed-parts/cadlib/world_workplane.py",
     "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",

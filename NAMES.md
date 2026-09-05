@@ -77,6 +77,7 @@ they became.
 | **barbed lip** | the catch on a telescoping seam's lip that holds the seam shut against pulling apart, so the joint resists separation along its own axis rather than leaving that to the screws crossing it | snap, snap-fit lip, detent, catch |
 | **anchor** | a printed feature a body seats in and a zip tie closes over | anchor point |
 | **zip tie** | the fastener that closes over an anchor | strap |
+| **cable clip** | the printed wall-integrated S-channel that routes and strain-relieves a cable; its embedment sets how far it stands proud | cable organizer, cord clip |
 | **ASSE anchor** | the anchor holding the ASSE 1022 chain, over the ASSE drip pan | tap-water trough |
 | **+X wall of back-top** | the east flank of the rear upper quadrant, carrying the main board and its relay | |
 | **+Y wall of back-top** | the rear face of the same quadrant, carrying every through-wall crossing | rear wall, back wall, back panel |
