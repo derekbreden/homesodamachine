@@ -433,9 +433,8 @@ cable_sleeve_open = 1.5 * cable_sleeve_nom   # a 50% expandable braid's ceiling 
 # the centred opening a hand finds behind the display. SIG-7 still crosses this same rib, but on
 # the -X side, leaving solid stock between its opened braid and the connector's panel land. On
 # +X, the fixed J13-to-connector lead returns to the main board through one full-depth cable
-# clip rooted on this rib's cavity face. The removable half never enters that fixed clip: its
-# two peeled motor pairs land in the cartridge's own two flush channels, and the unpeeled span
-# between those channels and the connector is the loop which follows the cartridge out.
+# clip rooted on this rib's cavity face. Nothing on the removable pump cartridge is clipped to
+# the enclosure.
 display_loom_x_offset = -32.0
 pump_connector_clip_edge_land = 12.0
 pump_connector_clip_channel_centre = 7.0 * _cable_clip.GRID
@@ -1735,33 +1734,6 @@ pull_depth = 18.0            # fingertip reach inboard from each exposed flank
 pull_run = 28.0              # fore/aft clear opening between the pulling and pushing ledges
 pull_rise = 48.0             # complete side-mouth height, including the 45-degree roof
 pull_floor_below_tubes = 12.0  # bed-rooted stock first; then the tube plane inside the mouth
-
-# --- THE CARTRIDGE CARRIES ITS OWN MOTOR-LEAD RETENTION -------------------
-#
-# THE LONG HALF OF DC-5 LEAVES WITH THE DRAWER. The four-conductor ribbon remains joined from
-# the removable connector to the pump pair, then peels into one two-conductor branch per motor.
-# Each branch lies in one copy of the wall-integrated S channel, cut into the OUTER wall of that
-# pump's upper insertion well. Those are the two thick walls between the pump openings and the
-# cartridge's exterior flanks: 21.18 mm here, enough for the complete 9 mm embedment plus much
-# more than the clip's required 3 mm backing. Full embedment is the point — no printed hook
-# projects into the fitted pump/clamp envelope, while the cable remains positively captured in
-# the same profile the exposed and partly embedded uses share.
-#
-# THE CHANNEL FOLLOWS THE MOTOR. Its 18 mm run is centred on the rear-stack Y axis, and its top
-# is the motor end plane. The paired runs mirror, so the S profile rises in +Z on both flanks and
-# every wall/roof it cuts is printable with the cartridge bedded on Z-. The channel's 6 mm end
-# ramps return to the cavity face; the cable therefore enters and leaves without a depth step.
-#
-# THE TOP CLAMP GIVES THE CABLE ITS AIR. The clamp normally leaves 1.375 mm to either well wall,
-# less than the bought ribbon conductor's 1.7 mm thickness. A 1 mm-deep pocket opens each clamp
-# flank through its crown over the channel band. The resulting 2.375 mm lane passes the pair with
-# 0.675 mm total air and has no down-facing roof; the clamp still keeps over 16 mm of wall outside
-# its motor bore. Because the relief is open at the crown, the clamp lifts straight off while the
-# two branches remain clipped to the lower cradle.
-pump_cartridge_clip_embed = _cable_clip.DEPTH
-pump_cartridge_wire_t = 1.7
-pump_cartridge_clip_cap_relief = 1.0
-pump_cartridge_clip_relief_margin = _cable_clip.GRID
 
 
 # The whole description of one box — what `build_pieces` cuts the four pieces from: the pack it
@@ -5748,112 +5720,6 @@ def _cradle_pulls(box):
     return out
 
 
-def _pump_cartridge_clip_layout(box):
-    """The two mirrored, fully embedded motor-pair channels on the removable cradle."""
-    trays = box.pack.pump_trays
-    if len(trays) != 2 or {cx > 0.0 for cx, _cy, _cz in trays} != {False, True}:
-        raise ValueError("the pump cartridge cable clips need one pump on each side")
-    outer_edge = _cap_x_span(box.pump_bay)[1]
-    layout = []
-    for cx, cy, cz in trays:
-        sx = 1.0 if cx > 0.0 else -1.0
-        face_x = cx + sx * cap_slot_half
-        run_mid = cy + clamp_pump_y_shift
-        channel_top = cz + _tray.motor_crown
-        origin_z = channel_top - _cable_clip.CHANNEL_TOP
-        wall_thickness = outer_edge - abs(face_x)
-        run_lo = run_mid - _cable_clip.RUN / 2.0
-        run_hi = run_mid + _cable_clip.RUN / 2.0
-        layout.append({
-            "sx": sx,
-            "face_x": face_x,
-            "origin": (
-                face_x,
-                run_mid - sx * _cable_clip.RUN / 2.0,
-                origin_z,
-            ),
-            "outward": (-sx, 0.0, 0.0),
-            "along": (0.0, sx, 0.0),
-            "wall_thickness": wall_thickness,
-            "run_lo": run_lo,
-            "run_hi": run_hi,
-            "channel_bottom": origin_z + _cable_clip.CHANNEL_BOTTOM,
-            "channel_top": channel_top,
-        })
-    return layout
-
-
-def _pump_cartridge_cable_clips(solid, box):
-    """Cut one flush S channel into each outer pump-well wall."""
-    out = solid
-    for clip in _pump_cartridge_clip_layout(box):
-        out = _cable_clip.apply(
-            out,
-            origin=clip["origin"],
-            outward=clip["outward"],
-            along=clip["along"],
-            embed=pump_cartridge_clip_embed,
-            wall_thickness=clip["wall_thickness"],
-        ).val()
-    return out
-
-
-def _pump_cap_cable_reliefs(solid, box):
-    """Open the clamp crown beside both flush cartridge channels for the motor pairs."""
-    edge = max(abs(cx) + _tray.half_width() for cx, _cy, _cz in box.pack.pump_trays)
-    crown = cap_crown_z(box)
-    out = solid
-    for clip in _pump_cartridge_clip_layout(box):
-        sx = clip["sx"]
-        if sx > 0.0:
-            x0, x1 = edge - pump_cartridge_clip_cap_relief, edge + 1.0
-        else:
-            x0, x1 = -edge - 1.0, -edge + pump_cartridge_clip_cap_relief
-        out = out.cut(_ybox(
-            x0, x1,
-            clip["run_lo"] - pump_cartridge_clip_relief_margin,
-            clip["run_hi"] + pump_cartridge_clip_relief_margin,
-            clip["channel_bottom"] - pump_cartridge_clip_cap_relief,
-            crown + 1.0,
-        ))
-    return out
-
-
-def _pump_cartridge_clip_bound(box):
-    """Record the stock and real cable lane both cartridge channels retain."""
-    layout = _pump_cartridge_clip_layout(box)
-    edge = max(abs(cx) + _tray.half_width() for cx, _cy, _cz in box.pack.pump_trays)
-    wall_left = min(c["wall_thickness"] - pump_cartridge_clip_embed for c in layout)
-    cable_air = min(
-        abs(c["face_x"]) - (edge - pump_cartridge_clip_cap_relief)
-        - pump_cartridge_wire_t
-        for c in layout
-    )
-    crown_left = min(
-        box.pump_bay[2] - pump_cartridge_top_clearance
-        - (c["origin"][2] + _cable_clip.HEIGHT)
-        for c in layout
-    )
-    ok = (len(layout) == 2
-          and wall_left + 1e-9 >= _cable_clip.BACKING
-          and cable_air + 1e-9 >= 2.0 * fits.slip
-          and crown_left >= -1e-9)
-    return record_bound(Bound(
-        "pump-cartridge-cable-clips",
-        "Both cartridge motor pairs are retained without entering the pump or clamp fit",
-        ok,
-        (f"2 flush channels; {wall_left:.3f} mm backing; "
-         f"{cable_air:.3f} mm cable air; {crown_left:.3f} mm crown land"),
-        (f"2 channels; >= {_cable_clip.BACKING:.3f} mm backing; "
-         f">= {2.0 * fits.slip:.3f} mm cable air; >= 0 mm crown land"),
-        ([] if ok else [
-            "The mirrored full-embed channels no longer fit between the outer pump-well "
-            "walls, the removable clamp and the cartridge crown. Move the channels with the "
-            "pump axes or restore their backing/top-open clamp relief."
-        ]),
-    ))
-
-
 def pump_cartridge_figures(box):
     """The cradle, clamp, fitting opening and pull dimensions written into the docs."""
     if not (box.pump_bay and box.pack.pump_trays):
@@ -5878,11 +5744,6 @@ def pump_cartridge_figures(box):
                 - plate_foot_reach * math.tan(math.radians(plate_foot_corbel_angle)))
     condenser_top, foot_air = plate_foot_condenser_clearance(
         plate, box.splits[0], box.pack)
-    clips = _pump_cartridge_clip_layout(box)
-    cap_edge = max(abs(cx) + _tray.half_width() for cx, _cy, _cz in trays)
-    clip_wall = min(c["wall_thickness"] for c in clips)
-    clip_lane = min(abs(c["face_x"]) - (cap_edge - pump_cartridge_clip_cap_relief)
-                    for c in clips)
     return {
         "PUMP_STATION_DROP": f"{pump_station_drop:.4g} mm",
         "PUMP_BAY_FLOOR_RELIEF": f"{pump_bay_floor_relief:.4g} mm",
@@ -5960,19 +5821,6 @@ def pump_cartridge_figures(box):
         "PUMP_CARTRIDGE_AFT_Y": f"{pump_cartridge_aft_y(trays):.6g} mm",
         "PUMP_FACE_OFFSET": f"{(box.outer[2] - pump_cartridge_front_y):.4g} mm",
         "PUMP_STATION_LEAD": f"{pump_station_lead:.4g} mm",
-        "PUMP_CARTRIDGE_CLIP_COUNT": f"{len(clips):d}",
-        "PUMP_CARTRIDGE_CLIP_WALL": f"{clip_wall:.4g} mm",
-        "PUMP_CARTRIDGE_CLIP_EMBED": f"{pump_cartridge_clip_embed:.4g} mm",
-        "PUMP_CARTRIDGE_CLIP_PROUD": (
-            f"{_cable_clip.projection(pump_cartridge_clip_embed):.4g} mm"),
-        "PUMP_CARTRIDGE_CLIP_BACKING": (
-            f"{clip_wall - pump_cartridge_clip_embed:.4g} mm"),
-        "PUMP_CARTRIDGE_CLIP_RUN_Y": (
-            f"{clips[0]['run_lo']:.4g}..{clips[0]['run_hi']:.4g} mm"),
-        "PUMP_CARTRIDGE_CLIP_CHANNEL_Z": (
-            f"{clips[0]['channel_bottom']:.4g}..{clips[0]['channel_top']:.4g} mm"),
-        "PUMP_CARTRIDGE_CLIP_LANE": f"{clip_lane:.4g} mm",
-        "PUMP_CARTRIDGE_WIRE_T": f"{pump_cartridge_wire_t:.4g} mm",
         "PUMP_SHOW_GROWTH": f"{pump_show_growth:.4g} mm",
         "PUMP_FACE_SKIN": f"{(pump_relief_floor - pump_cartridge_front_y):.4g} mm",
         "PUMP_FACE_BACKING": f"{pump_face_backing:.4g} mm",
@@ -6290,8 +6138,8 @@ def _ridge_wall(inner, outer, plate, bay, funnel):
 
     THE FIXED PUMP LEAD IS RETAINED ON THIS WALL. One unembedded cable clip stands on the cavity
     face near +X and runs toward that edge, guiding the J13-to-connector lead to the main-board
-    wall. The removable half is free of this fixed clip: its two motor-pair branches are retained
-    instead by the two fully embedded channels which leave with the pump cartridge."""
+    wall. The clip belongs to the enclosure-side lead; the removable cartridge and its plug are
+    free of it."""
     ry, rz = pcb_ridge(outer)
     fore, foot, t = plate["aft_y"], bay[2], ridge_wall_t
     ramp = ry + rz                    # the hole's end wall, y + z
@@ -6406,7 +6254,6 @@ def build_pump_cartridge(box, halves_cache=None):
         solid = solid.cut(pull)
     for bore in _cap_screws(inner, plate, box.pack.pump_trays)[1]:
         solid = solid.cut(bore)
-    solid = _pump_cartridge_cable_clips(solid, box)
     return _unified(solid)
 
 
@@ -6536,7 +6383,6 @@ def build_pump_cap(box, halves_cache=None):
     solid = _pump_clamp_gross(box, halves_cache)
     for bore in _cap_screws(inner, plate, box.pack.pump_trays)[0]:
         solid = solid.cut(bore)
-    solid = _pump_cap_cable_reliefs(solid, box)
     return _unified(solid)
 
 
@@ -9378,8 +9224,6 @@ def build_pieces(box):
                   _realized.key(__name__, box, name),
                   lambda n=name: _product(n))
               for name in names}
-    if "pump-cartridge" in pieces:
-        _pump_cartridge_clip_bound(box)
     assy = cq.Assembly(name="enclosure")
     for name, piece in pieces.items():
         assy.add(piece, name=f"enclosure-{name}".replace("-", "_"),
