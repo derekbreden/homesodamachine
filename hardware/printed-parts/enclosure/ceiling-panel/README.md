@@ -51,12 +51,15 @@ named solid's exact intersection with the unrelieved field and rails, adds
 2 mm of plan slip and 1 mm of vertical clearance. Water-2 additionally keeps the
 complete bend envelope required at the ASSE outlet. The pocket floor is therefore
 not a common guessed depth: shallow bodies leave a thicker roof and tall bodies
-keep the original ceiling section over them. They cover the C14, ASSE, CO₂ and water fittings, DIGITEN,
+keep the original ceiling section over them. Over a free tongue, a pocket may retain a cap only
+when at least one complete [3 mm](RAIL_MIN_CAP) wall remains; a smaller remainder is opened
+cleanly through the tongue rather than emitted as a membrane. They cover the C14, ASSE, CO₂ and water fittings, DIGITEN,
 relay, ground stack, water-2, WR1110 and the near-miss gas check valve; the last is deliberately found
 by testing the exact body one clearance millimetre upward, so a 0.04 mm miss
-cannot silently become an interference in the deeper panel. At the C14 and
-relay, that construction locally opens a rail only where the exact placed body
-requires it. Every pocket stops at or below the pack lane, leaving at least one whole [3 mm](PANEL_T) wall of show skin above it, and
+cannot silently become an interference in the deeper panel. At the C14, ASSE,
+water-bulkhead, relay and ground-stack bands, that construction locally opens a
+rail only where the exact placed body requires it. Every pocket stops at or below the pack lane,
+leaving at least one whole [3 mm](PANEL_T) wall of show skin above it, and
 opens on the interior face, which is upward on the printer.
 
 The cavity is one figure per roof level (`cadlib/plan.py`): the union of every
@@ -111,10 +114,12 @@ a dado.
   joint instead of opening a tapered slot beside the panel.
 
 The rail is locally pocketed only where a named placed body or water-2 already
-occupies its volume. The retained spans remain the full 12 × 12 mm section with
-their 6 mm roots, and each side keeps complete body-free capture bands. The ASSE
-underside pocket is the only place the nominal 6 mm female roof is reduced; it
-still leaves more than one complete 3 mm wall under the exterior face.
+occupies its volume. A retained cap is [3 mm](RAIL_MIN_CAP) or thicker; otherwise
+the pocket is a clean through-opening, never a fractional layer or skin. The retained
+spans remain the full 12 × 12 mm section with their 6 mm roots, and each side keeps
+complete body-free capture bands. The ASSE underside pocket is the only place the
+nominal 6 mm female roof is reduced; it still leaves more than one complete 3 mm wall
+under the exterior face.
 
 ## The brim and the fitted slide
 
