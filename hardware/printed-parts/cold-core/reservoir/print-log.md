@@ -124,3 +124,16 @@ Bambu Studio 02.08.02.61. Estimated 26 h 12 min, 417.16 g, 984 layers.
 
 [Settings and toolpath inspection](seal-trial.md).
 Physical print and water-test results are not yet recorded.
+
+## PETG 0.24 mm seal trial prepared (2026-09-04, settings per [`reservoir-08-seal-trial-024.3mf`](reservoir-08-seal-trial-024.3mf))
+
+One current left reservoir body and matching left cap. Body mouth up; cap exterior
+face down and gasket rim up. H2C, 0.8 mm nozzle, PETG Translucent.
+Bambu Studio 02.08.02.61. Estimated 20 h 8 min, 414.76 g, 738 layers.
+
+- `nozzle_temperature` **255 °C** (initial 255)
+- `layer_height` **0.24 mm** (initial 0.30)
+- All other machine, filament and process settings match `reservoir-08-seal-trial.3mf`.
+- Both object meshes and their placement match the 0.18 mm project.
+
+Physical print and water-test results are not yet recorded.
