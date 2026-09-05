@@ -73,7 +73,9 @@ above that.
 Three anchor zip-tie approaches enter the deeper field: the two DIGITEN bands
 and the WR1110 barrel's run. Their existing footprints are returned as
 [3](TIE_RELIEF_N) local pockets before the anchor furniture is fused, so every
-loop can still descend on both sides of its body. The two new meter approaches
+loop can still descend on both sides of its body, and a web narrower than one
+wall between an approach and a body's pocket is closed with them like any
+other. The two new meter approaches
 open through the structural underside rather than ending as trapped internal
 cavities; the finished panel is one solid with one outer shell.
 
@@ -102,10 +104,14 @@ a dado.
 - **Dado** [12.15 mm](DADO_DEPTH) deep, from z = [336.85](DADO_FLOOR) to
   a horizontal roof at z = [349](DADO_ROOF). The [0.15 mm](DADO_SLIP)
   printed-fit clearance lies under the rail and beyond its tip; the rail's upper
-  face bears on the flat roof. It leaves [6 mm](DADO_LOWER_LIGAMENT) of the
-  fixed corbel below the groove plus a [6 mm](LIP_T) show-skin lip above it.
-  Those are the two ligaments that capture the rail and hold the panel on the
-  ceiling datum.
+  face bears on the flat roof. It leaves a [6 mm](LIP_T) show-skin lip above the
+  groove and, at the blind edge, [6 mm](DADO_LOWER_LIGAMENT) of the fixed corbel
+  below it — a one-wall-wide floor ledge the tongue's tip rests on, since inboard
+  of it the corbel's 45° underside would leave less than a wall and leaves
+  nothing instead. Those are the two ligaments that capture the rail and hold
+  the panel on the ceiling datum. Each groove runs one slip aft of its tongue's
+  last span — to y [432.75](TONGUE_RUNS_PX) on +X and y
+  [300.21](TONGUE_RUNS_NX) on −X — and no further.
 - **The dado roof stays flat to the panel boundary.** It is an intentional
   supported face in back-top's mouth-down print. The groove opens through the
   Y-seam mouth, so its support is removed along the insertion path before the
@@ -113,14 +119,18 @@ a dado.
   joint instead of opening a tapered slot beside the panel.
 
 The rail is locally pocketed only where a named placed body or water-2 already
-occupies its volume. A pocket whose roof would leave less than one
-[3 mm](TONGUE_MIN_ROOF) wall of tongue over it takes the tongue's whole section
-instead, square where the opening leaves the tongue for the field, while the
-field's own roof over the same pocket stays where the body's crown put it: on
-+X the [relay-1, ground-stack, c14-inlet](TONGUE_OPEN_PX) pockets open the
-tongue, on −X the [asse1022-assembly, bulkhead-water](TONGUE_OPEN_NX) pockets
-do, and water-2 takes only the bottom of the −X tongue and leaves the section
-over it. The retained spans remain the full 12 × 12 mm section with
+occupies its volume, and less than one wall of it is not a rail. A pocket whose
+roof would leave less than one [3 mm](TONGUE_MIN_WALL) wall of tongue over it
+takes the tongue's whole section and reach over its span instead — a plain
+notch, square at both ends — and two notches nearer each other than the
+tongue's own [12 mm](TONGUE_MIN_SPAN) section, or one that near the tongue's
+end, are one notch. The field's own roof over the same pocket stays where the
+body's crown put it. On +X the [relay-1, ground-stack, c14-inlet](TONGUE_OPEN_PX)
+pockets notch the tongue and on −X the
+[asse1022-assembly, bulkhead-water](TONGUE_OPEN_NX) pockets do. Water-2 takes
+only the bottom of the −X tongue and leaves the section over it; stopping
+nearer the outer face than one wall, it runs out through that face rather
+than leaving a lip. The retained spans remain the full 12 × 12 mm section with
 their 6 mm roots, and each side keeps complete body-free capture bands. The ASSE
 underside pocket is the only place the nominal 6 mm female roof is reduced; it
 still leaves more than one complete 3 mm wall under the exterior face.

@@ -142,8 +142,8 @@ brim_seat = _funnel.brim_overhang
 # while the fixed strip keeps two complete walls above and below the mating groove at its blind
 # edge. The female side therefore carries a nominal six-millimetre roof over the opening and a
 # six-millimetre lower ligament where the tongue bears deepest. Named body pockets may interrupt
-# the rail locally — through its whole section wherever less than one wall of it would stand
-# over the pocket — and each side keeps long unrelieved spans carrying the complete section.
+# the rail locally, and where one does the rail is absent: its whole section and reach over the
+# pocket's span. Each side keeps long unrelieved spans carrying the complete section.
 #
 # THE DADO'S ROOF IS FLAT. It is a supported face in back-top's mouth-down print, open along the
 # whole groove and through the Y-seam mouth so the support withdraws before this panel enters.
@@ -157,9 +157,15 @@ tongue_reach = 4.0 * _enc.wall
 # The tongue is not merely a large cantilever attached through its end face. This much of the
 # same full-height rail runs under the field, where the structural stock keys into it from above.
 rail_root_reach = capture_ligament
-# A body pocket leaves at least this much of the tongue's section over it, or none of it: a
-# roof nearer the tongue's own roof than one wall opens the rail through its full height.
-tongue_min_roof = _enc.wall
+# LESS THAN ONE WALL OF THE TONGUE IS NOT A TONGUE. A body pocket leaves at least this much of
+# the tongue's section over it, or none of it: a roof nearer the tongue's own roof than this
+# opens the rail through its full height. And it leaves at least this much of the tongue's
+# reach outboard of it, or none: a pocket stopping nearer the outer face than this runs out
+# through that face.
+tongue_min_wall = _enc.wall
+# A span of tongue shorter than its own section, between two openings or between one and the
+# tongue's end, is no bearing span; it is opened with them.
+tongue_min_span = tongue_t
 # The tongues' outer faces — the widest the panel's plan reaches.
 rail_outer_x = panel_half_w + tongue_reach
 tongue_floor_z = fixed_under_z - tongue_t / 2.0
@@ -220,38 +226,73 @@ def rail_stock(y0=fore_y, y1=aft_y):
 
 
 def _opens_tongue(top):
-    """Whether a pocket roofed at `top` would leave less than `tongue_min_roof` of tongue."""
-    return top > tongue_roof_z - tongue_min_roof
+    """Whether a pocket roofed at `top` would leave less than `tongue_min_wall` of tongue."""
+    return top > tongue_roof_z - tongue_min_wall
 
 
-def tongue_openings(reliefs):
-    """The named pockets that take a tongue's whole section, by side and fore to aft:
-    `{sx: [(name, y0, y1), ...]}` for every relief crossing that tongue's plan with a roof
-    `_opens_tongue` answers for."""
-    out = {-1.0: [], 1.0: []}
-    for name, x0, x1, y0, y1, top in reliefs:
-        if not _opens_tongue(top):
-            continue
-        for sx in out:
-            inboard, outboard = sorted((sx * panel_half_w, sx * rail_outer_x))
-            if x1 > inboard and x0 < outboard and y1 > fore_y and y0 < aft_y:
-                out[sx].append((name, max(y0, fore_y), min(y1, aft_y)))
-    return {sx: sorted(rows, key=lambda row: row[1]) for sx, rows in out.items()}
+def _out_through_the_face(x0, x1):
+    """A pocket's plan in X, run out through a tongue's outer face where it would stop short of
+    that face by less than `tongue_min_wall`."""
+    if x1 > panel_half_w and x1 > rail_outer_x - tongue_min_wall:
+        x1 = rail_outer_x + 1.0
+    if x0 < -panel_half_w and x0 < -rail_outer_x + tongue_min_wall:
+        x0 = -rail_outer_x - 1.0
+    return x0, x1
 
 
-def _body_relief_cavity(reliefs):
+def tongue_notches(reliefs):
+    """Where each tongue is absent, by side and fore to aft: `{sx: [(names, y0, y1), ...]}`.
+
+    A pocket crossing a tongue's plan with a roof `_opens_tongue` answers for takes the tongue's
+    whole section and reach over its own Y span. Two such spans nearer each other than
+    `tongue_min_span`, or one that near the tongue's end, are one notch."""
+    out = {}
+    for sx in (-1.0, 1.0):
+        inboard, outboard = sorted((sx * panel_half_w, sx * rail_outer_x))
+        spans = sorted(
+            (max(y0, fore_y), min(y1, aft_y), (name,))
+            for name, x0, x1, y0, y1, top in reliefs
+            if _opens_tongue(top) and x1 > inboard and x0 < outboard
+            and y1 > fore_y and y0 < aft_y)
+        notches = []
+        for y0, y1, names in spans:
+            if notches and y0 - notches[-1][1] < tongue_min_span:
+                notches[-1] = (notches[-1][0], max(notches[-1][1], y1), notches[-1][2] + names)
+            else:
+                notches.append((y0, y1, names))
+        out[sx] = [(names,
+                    fore_y if y0 - fore_y < tongue_min_span else y0,
+                    aft_y if aft_y - y1 < tongue_min_span else y1)
+                   for y0, y1, names in notches]
+    return out
+
+
+def tongue_runs_to(reliefs, sx):
+    """How far aft the tongue on side `sx` runs: the panel's aft edge, or the fore end of a
+    notch reaching that edge. back-top's groove runs one slip past it and no further."""
+    for _names, y0, y1 in tongue_notches(reliefs)[sx]:
+        if y1 >= aft_y - 1e-9:
+            return y0
+    return aft_y
+
+
+def _body_relief_cavity(reliefs, approaches=()):
     """The body pockets as one cavity: a prism per roof level, each the figure every pocket
     reaching that level makes together. Two pockets facing across less than `relief_min_web`
     are one opening over the depth both claim, a pocket crossing the field-and-rail plan is
     square where it leaves it, and every enclosed corner is rounded to `relief_corner_r`.
+    `approaches` are the zip tie approaches' plans, `(x0, x1, y0, y1)` each, open to the pack
+    lane: they stand in the figure so a web under one wall between an approach and a body's
+    pocket is no web either.
 
-    A pocket whose roof would leave less than `tongue_min_roof` of a tongue over it takes the
-    tongue's whole section instead: one more prism per side, the figure of every such pocket
-    cut to that tongue's own plan and square where it leaves the tongue for the field. Over the
-    field and the root the same pocket keeps the roof the body's crown gave it."""
+    THE TONGUE IS WHOLE OR ABSENT AT A STATION. A pocket whose roof would leave less than
+    `tongue_min_wall` of a tongue over it takes the tongue's whole section and reach over its
+    span instead — one plain notch per `tongue_notches` row, square at both ends. Over the field
+    and the root the same pocket keeps the roof the body's crown gave it."""
     stock_floor = min(structural_under_z, tongue_floor_z)
-    pockets = [(x0, x1, y0, y1, min(underside_z, top))
+    pockets = [(*_out_through_the_face(x0, x1), y0, y1, min(underside_z, top))
                for _name, x0, x1, y0, y1, top in reliefs]
+    pockets += [(x0, x1, y0, y1, underside_z) for x0, x1, y0, y1 in approaches]
     pockets = [p for p in pockets if p[4] > stock_floor]
     roofs = sorted({p[4] for p in pockets})
     within = (-rail_outer_x, rail_outer_x, fore_y, aft_y)
@@ -261,14 +302,14 @@ def _body_relief_cavity(reliefs):
             plan.rect(x0, x1, y0, y1) for x0, x1, y0, y1, top in pockets if top >= roof),
             relief_min_web)
         prisms += plan.prism(figure, floor, roof, relief_corner_r, within=within)
-    through = [p for p in pockets if _opens_tongue(p[4])]
-    if through:
-        figure = plan.closed(plan.union(
-            plan.rect(x0, x1, y0, y1) for x0, x1, y0, y1, _top in through), relief_min_web)
-        for sx in (-1.0, 1.0):
-            tongue = (*sorted((sx * panel_half_w, sx * rail_outer_x)), fore_y, aft_y)
-            prisms += plan.prism(figure, stock_floor - 0.1, tongue_roof_z, relief_corner_r,
-                                 within=tongue)
+    # A notch reaching the tongue's own outer face or either end is cut a millimetre past it, so
+    # the cut and the face it opens through never meet along a coincident plane.
+    for sx, notches in tongue_notches(reliefs).items():
+        inboard, outboard = sorted((sx * panel_half_w, sx * (rail_outer_x + 1.0)))
+        for _names, y0, y1 in notches:
+            prisms.append(_slab(inboard, outboard,
+                                y0 - 1.0 if y0 <= fore_y else y0, y1 + 1.0 if y1 >= aft_y else y1,
+                                stock_floor - 0.1, tongue_roof_z))
     return tuple(prisms)
 
 
@@ -311,9 +352,12 @@ def _tie_reliefs(box):
 def _relieved_stock(box):
     """The broad field and rails after body headroom and zip tie approaches are opened below."""
     stock = structural_stock().fuse(rail_stock())
-    for prism in _body_relief_cavity(box.pack.ceiling_reliefs):
+    approaches = _tie_reliefs(box)
+    plans = [(b.xmin, b.xmax, b.ymin, b.ymax)
+             for b in (pocket.BoundingBox() for pocket in approaches)]
+    for prism in _body_relief_cavity(box.pack.ceiling_reliefs, plans):
         stock = stock.cut(prism)
-    for pocket in _tie_reliefs(box):
+    for pocket in approaches:
         stock = stock.cut(pocket)
     # A wall several prisms cut is one face.
     return cq.Workplane(obj=stock).clean().val()
@@ -459,11 +503,14 @@ def main():
           + ", ".join(f"({m[0]:.2f}, {m[1]:.2f}) r{r:g}" for m, _u, _n, r in ribs))
     print(f"  reliefs: {len(box.pack.ceiling_reliefs)} body pocket(s), "
           f"{len(_tie_reliefs(box))} full zip tie approach pocket(s), rounded r{relief_corner_r:g}")
-    openings = tongue_openings(box.pack.ceiling_reliefs)
+    notches = tongue_notches(box.pack.ceiling_reliefs)
     for sx in (1.0, -1.0):
-        print(f"  tongue:  {'+' if sx > 0 else '-'}X opened through by "
-              + (", ".join(f"{n} y {y0:g}..{y1:g}" for n, y0, y1 in openings[sx]) or "nothing")
-              + f" — under {tongue_min_roof:g} mm of section would have stood over the pocket")
+        print(f"  tongue:  {'+' if sx > 0 else '-'}X absent "
+              + ("; ".join(f"y {y0:g}..{y1:g} ({', '.join(names)})"
+                           for names, y0, y1 in notches[sx]) or "nowhere")
+              + f" — under {tongue_min_wall:g} mm of section would have stood over the pocket, "
+              f"and no span under {tongue_min_span:g} mm is kept; runs to y "
+              f"{tongue_runs_to(box.pack.ceiling_reliefs, sx):g}")
     print(f"  piece:   back-top stands {piece_h:g} mm on its seam rim at z {_enc.z_seam:g}")
     print(f"  bed:     {b.xlen:.1f} x {b.ylen:.1f} on the H2C's {bed_x:g} x {bed_y:g}")
 
@@ -496,9 +543,14 @@ def main():
             "TONGUE_FLOOR": f"{tongue_floor_z:g}",
             "TONGUE_ROOF": f"{tongue_roof_z:g}",
             "RAIL_AREA": f"{tongue_t * tongue_reach:g} mm²",
-            "TONGUE_MIN_ROOF": f"{tongue_min_roof:g} mm",
-            "TONGUE_OPEN_PX": ", ".join(n for n, _y0, _y1 in openings[1.0]) or "none",
-            "TONGUE_OPEN_NX": ", ".join(n for n, _y0, _y1 in openings[-1.0]) or "none",
+            "TONGUE_MIN_WALL": f"{tongue_min_wall:g} mm",
+            "TONGUE_MIN_SPAN": f"{tongue_min_span:g} mm",
+            "TONGUE_OPEN_PX": ", ".join(n for names, _y0, _y1 in notches[1.0]
+                                        for n in names) or "none",
+            "TONGUE_OPEN_NX": ", ".join(n for names, _y0, _y1 in notches[-1.0]
+                                        for n in names) or "none",
+            "TONGUE_RUNS_PX": f"{tongue_runs_to(box.pack.ceiling_reliefs, 1.0):g}",
+            "TONGUE_RUNS_NX": f"{tongue_runs_to(box.pack.ceiling_reliefs, -1.0):g}",
             "DADO_SLIP": f"{dado_slip:g} mm",
             "DADO_DEPTH": f"{dado_depth:g} mm",
             "DADO_FLOOR": f"{dado_floor_z:g}",
