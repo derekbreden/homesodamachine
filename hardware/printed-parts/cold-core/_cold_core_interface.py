@@ -20,12 +20,14 @@ from pathlib import Path
 _here = Path(__file__).resolve().parent
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts") / "cadlib"))
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware") / "scripts"))
+sys.path.insert(0, str(_here.parent / "enclosure" / "enclosure"))
 
 import cadquery as cq
 
 import reeding
 from world_workplane import xy_plane_z_up, xz_plane_y_up, xz_plane_y_down, WorldWorkplane
 from _stated_bounds import bound, state
+from _enclosure_interface import manifold_rise
 
 
 # All structural walls and floors are [2 mm](WALL_AND_FLOOR_THICKNESS) PET-GF. The outer
@@ -757,10 +759,8 @@ for _name in deck_mounts:
 # Per cradle: the valve's centre in the CAP'S OWN frame, the yaw its port axis takes off the
 # cap's +X, and the SEAT — how far the valve's own mounting plane (the Beduan's Z = 0) stands
 # over the lid's outer face, which is what sets the bosses' height.
-#   THE SEAT IS THE MACHINE'S, not a choice. Two of these valves ride the flavour pack, which
-# stands on the refrigeration base's crown, so where they land over this cap is that stack's
-# arithmetic; `enclosure_assembly.cradles_land` re-derives all three rows off the placed valves at
-# every build and raises with the row a moved valve wants, so a drift cannot land silently.
+#   Two valves ride the flavour pack, so their seats carry its independent manifold rise.
+# `enclosure_assembly.cradle_rows` reads all three stations against the placed valves.
 #   V-K'S SEAT IS THE SUCTION CHAIN'S. The valve's outlet and that chain's collet meet face to
 # face, so the two mouths lie on one plane or the joint stops being a butt. The chain lies in the rib `cap_anchors` stands, and
 # this seat is what brings the valve's own `beduan_solenoid.port_center_z` up to meet it. A seat
@@ -769,8 +769,8 @@ Cradle = namedtuple("Cradle", "centre yaw seat")
 cap_cradles = {
     #                      centre           yaw    seat
     "vk-solenoid": Cradle(( 94.020,  65.050), 0.0, 3.4000),
-    "valve-v-a":   Cradle(( 94.020,  22.490), 0.0, 9.6150),
-    "valve-v-b":   Cradle(( 94.020, -20.070), 0.0, 9.6150),
+    "valve-v-a":   Cradle(( 94.020,  22.490), 0.0, 9.6150 + manifold_rise),
+    "valve-v-b":   Cradle(( 94.020, -20.070), 0.0, 9.6150 + manifold_rise),
 }
 
 # Where a boss stands off the valve's centre, and how wide it is: a socket with a wall around it.

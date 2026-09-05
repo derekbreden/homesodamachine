@@ -1637,10 +1637,11 @@ rail_reach_in = (max(front_top_flank_t, back_top_flank_t) - wall) + slide_slip +
 # the pump wells and the aft plate-retention notches.
 bay_crown_air = 1.7          # neutral pump datum to the nominal bay roof
 pump_bay_floor_relief = 1.0  # sill top below its neutral pump-derived datum
-pump_bay_roof_relief = 1.0   # lintel underside above its neutral pump-derived datum
+pump_bay_roof_relief = 2.5   # lintel underside above its neutral pump-derived datum
 pump_relief_z_air = 1.0      # pump pocket past each head/collar end
-pump_cartridge_z_clearance = 0.5  # Z air above the fixed sill and below the fixed lintel; this
+pump_cartridge_z_clearance = 0.5  # Z air at the fixed sill and on the pump clamp; this
                                   # is not an X/Y inset or a cosmetic surface offset
+pump_cartridge_top_clearance = 1.0  # the removable face's crown below the fixed lintel
 pump_bay_side_air = 0.5      # pump-body air inside each cavity throat plane
 # THE LOWER CRADLE HAS ONE RECTANGULAR Z OUTLINE. The exterior shell reaches the appliance's
 # complete plan silhouette and its filled body reaches both cavity planes without a side taper.
@@ -5500,13 +5501,13 @@ def _pump_cartridge_face_region(inner, outer, bay, pump_trays):
     Its show face shares the fixed enclosure's front plane, with one flute depth between that
     plane and the pump pocket datum. The same corner radius returns into the side planes. That
     complete plan begins on the cradle's own bed plane and continues plumb to one flat
-    `pump_cartridge_z_clearance` below the lintel, without a bevel, ramp, starter strip or shelf.
+    `pump_cartridge_top_clearance` below the lintel, without a bevel, ramp, starter strip or shelf.
     The matching lower Z clearance is cut into the fixed shell perimeter by `_bay_cut`, outside
     the interior bearing floor."""
     proud = _pump_cartridge_outer(outer)
     return _pump_full_width_band(
         inner, proud, bay, pump_trays, pump_cartridge_aft_y(pump_trays),
-        lower_inset=0.0, upper_inset=pump_cartridge_z_clearance)
+        lower_inset=0.0, upper_inset=pump_cartridge_top_clearance)
 
 
 def cap_split_z(pump_trays):
@@ -5689,13 +5690,8 @@ def _cap_x_span(bay):
 
 
 def _pull_center_z(plate):
-    """The common Z of the four tube holes in the collet plate."""
-    zs = [z for _x, z in plate["holes"]]
-    if not zs or max(zs) - min(zs) > 1e-6:
-        raise ValueError(
-            "the pump cartridge's side pulls require one tube-centre elevation, but the "
-            f"collet plate carries {zs}")
-    return sum(zs) / len(zs)
+    """The fixed release-band midpoint that locates both cartridge pulls."""
+    return (plate["z0"] + plate["z1"]) / 2.0
 
 
 def _cradle_pulls(box):
@@ -5743,7 +5739,7 @@ def pump_cartridge_figures(box):
     clamp_base = cap_base_z(trays)
     clamp_crown = cap_crown_z(box)
     floor_top = bay_floor_z(trays)[1]
-    cartridge_top = bay[2] - pump_cartridge_z_clearance
+    cartridge_top = bay[2] - pump_cartridge_top_clearance
     head_floor = min(cz - _tray.head_depth for _cx, _cy, cz in trays)
     motor_crown = max(cz + _tray.motor_crown for _cx, _cy, cz in trays)
     foot_low = (box.splits[0] - plate_foot_t
@@ -6158,7 +6154,7 @@ def _pump_cartridge_gross(box, halves_cache=None):
     """The lower cradle before its pump wells, hand pulls and clamp fasteners are cut.
 
     The detachable face begins with its filled block on one common bed plane, above the fixed
-    sill's Z-clearance gap, and ends one equal Z clearance below the lintel. It bears on the bay
+    sill's Z-clearance gap, and ends `pump_cartridge_top_clearance` below the lintel. It bears on the bay
     floor back to the skirt band's Y+ plane. Pump and clamp openings are cuts in this one body; the
     top clamp is built independently from the conformal collars it needs."""
     inner, outer = box.inner, box.outer
@@ -6193,7 +6189,7 @@ def _pump_cartridge_gross(box, halves_cache=None):
     # bearing floor. No fixed side skin frames the cradle.
     fill = _ybox(
         bx0, bx1, pump_relief_floor, aft,
-        floor_top, top - pump_cartridge_z_clearance)
+        floor_top, top - pump_cartridge_top_clearance)
     solid = solid.fuse(fill).intersect(face.fuse(
         _ybox(bx0, bx1, pump_cartridge_front_y, aft, floor_top, top)))
     # Above the steel, front-top keeps one fixed 45-degree cap over the plate. The lower cradle

@@ -28,7 +28,8 @@ pump_station_lead = 1.28
 # is Y; `enclosure_assembly` stands that axis on world Z. This shift therefore moves only the
 # two pumps and the four barb ends downward in the installed machine while the anchor tees,
 # collet plate and valve manifold keep their stations.
-pump_station_drop = 2.0
+pump_station_drop = 3.0
+manifold_rise = 2.0
 
 # THE FIELD THE BOX'S SHOW FACES CARRY, in the two figures a piece that does NOT carry it still
 # has to know. The fade is driven by how far a station stands from the nearest edge of the show

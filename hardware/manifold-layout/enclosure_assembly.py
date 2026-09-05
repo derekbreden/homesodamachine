@@ -1240,10 +1240,9 @@ def collet_plate_spec(mcarry, tray_stations) -> dict:
     holes — the one figure the steel, the bay floor's slot and the cut file's own outline
     all read.
 
-    ITS Z BAND IS STRUCK ON THE HOLES. The bottom is the seam plane — the foot fills the slot
-    to its Z− mouth and stops there; the top is then whatever puts the four collet holes in
-    the middle of the band, which is the only place a hole is as far from one edge as from the
-    other. Over that top the guides' heads stand one `slide_slip` clear
+    Its Z band is centered on the manifold's nominal tube plane. The bottom is the seam plane;
+    the hole row follows `manifold_rise` inside that fixed outline.
+    Over the top the guides' heads stand one `slide_slip` clear
     (`enclosure._plate_fore_guides`).
 
     ACROSS IT IS ONE WIDTH, AND IT IS A RECTANGLE. Each end stands `enclosure.plate_step_in`
@@ -1273,7 +1272,8 @@ def collet_plate_spec(mcarry, tray_stations) -> dict:
             f"heights ({sorted(set(round(hz, 4) for _hx, hz in holes))}) — one band centres "
             f"one row")
     x1 = _enc.interior_x()[1] - _enc.plate_step_in()
-    z1 = round(2.0 * hole_z - z0, 6)
+    nominal_hole_z = hole_z - _enc._interface.manifold_rise
+    z1 = round(2.0 * nominal_hole_z - z0, 6)
     # AND THE WALL BEHIND IT, off the same four collets — the steel's aft face IS the wall's
     # fore face, so the two are one figure and cannot be struck apart. What the wall reads is
     # the round collar the tee carries through it. The collar-clear opening crosses the whole
@@ -4432,7 +4432,7 @@ def build_pack() -> cq.Assembly:
 
     posed = [(c.name, pose_manifold((c.obj.val() if hasattr(c.obj, "val") else c.obj).moved(
         cq.Location(c.loc.wrapped.Transformation()))), c.color) for c in ml.build_assembly().children]
-    lift = PACK_CROWN - min(box(s).zmin for _n, s, _c in posed)
+    lift = PACK_CROWN + _enc._interface.manifold_rise - min(box(s).zmin for _n, s, _c in posed)
     # The pack's own stations in world, from the moment it is stood: a run anchors on these, and
     # so does anything the machine stands ON one of them.
     mcarry = manifold_carry(lift)
@@ -4452,7 +4452,7 @@ def build_pack() -> cq.Assembly:
     # combined box, and every body in the pack rides it.
     record_seat("manifold-layout",
                 turns=((X_AXIS[1].toTuple(), 90.0), (Z_AXIS[1].toTuple(), 180.0)),
-                planes={"z0": PACK_CROWN}, got=_whole([s for _n, s, _c in stood]),
+                planes={"z0": PACK_CROWN + _enc._interface.manifold_rise}, got=_whole([s for _n, s, _c in stood]),
                 members=tuple(in_pack))
     # THE TWO VALVE TRAYS' STATIONS, on the planes the fold left the manifold's eight non-cap
     # valves standing on. They are read straight off the pack: the deck a plate lands on and the
