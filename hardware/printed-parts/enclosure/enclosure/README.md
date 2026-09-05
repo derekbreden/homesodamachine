@@ -286,15 +286,18 @@ part.
 `enclosure_assembly.wall_mounts` offers that corbel all the way to every mounting face and
 intersects the offered material with the installed pack. Fourteen fit across their complete
 width. At the main board's upper forward hole and under relay #2's upper end bar, the boards'
-conservative underside pin envelopes cross only the inboard side of the offered wedge. Those
-corbels begin 1 mm past the exact blocker only across its Y projection; each clear outer
-side still carries a wall-rooted 45° wing all the way to the mounting face. The two relays'
+conservative underside pin envelopes cross the offered wedge to within its clearance of the
+wall, so no wedge stands over the blocker itself, and what is clear beside it is a wing only
+where `enclosure.east_boss_wings` lets one stand. Relay #2's bar keeps a wall-rooted 45° wing
+2.5 mm wide at either end, all the way to the mounting face, and the 15 mm between them is a
+bridge rooted on both; the main board's hole has 1.53 mm of its 7 mm floor clear at the fore
+end, and that stub stands down, so the floor is offered whole. The two relays'
 holes come in pairs 13 mm apart at either end of each board, and each pair stands in one
 flat-topped bar with two bores, carried on its lower hole's corbel where the pair stands one
 over the other and on one wedge across the bar's span where it stands side by side; the other
 nine stems stay D-shaped and whole across their holes. `east-boss-corbels` reads all 17
-stations back against the installed bodies and records both the full-width and
-blocker-profiled populations.
+stations back against the installed bodies and records the full-width, split and held-back
+populations.
 
 ## Condenser cradle
 
@@ -575,8 +578,15 @@ material wins on every count at once, and is the strongest fix the audit can nam
 
 Down-facing geometry is changed before support is accepted. A corbel, chamfer or tangent
 teardrop follows the exact feature it carries and reaches its whole supported face; it is not a
-generic triangle merely placed nearby. A feature on a wall preferentially ramps along that
-wall's normal — an X ramp from an X wall and a Y ramp from a Y wall — because the wall is the
+generic triangle merely placed nearby. A corbel that reaches only part of its face is read by
+what it leaves: the remainder is a supported face still, and the corbel's end is one more
+printed wall that support has to come away from. A partial corbel therefore stands where it
+leaves less than it carries, or where a second wing at the span's other end roots a bridge
+between the two; a stub carrying the minority stands down, and the face is offered whole with
+nothing beside whatever carries it. Relay #2's upper bar keeps a 2.5 mm wing at each end and
+bridges the 15 mm between them; the main board's boss at y 241 offered 1.53 mm of wing on a
+7 mm floor and keeps none (`enclosure.east_boss_wings`). A feature on a wall preferentially
+ramps along that wall's normal — an X ramp from an X wall and a Y ramp from a Y wall — because the wall is the
 root that already prints. The corresponding exact solid, passage, clearance and motion gates
 remain hard constraints.
 

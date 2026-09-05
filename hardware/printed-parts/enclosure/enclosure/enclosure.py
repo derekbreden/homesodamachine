@@ -6680,10 +6680,10 @@ def _east_boss_corbel(wall_x, station):
     `station[3]` is the inboard plane the wedge may reach. It is the mounting face unless an
     installed body crosses that wedge; `enclosure_assembly.wall_mounts` derives a setback from
     that body's exact solid. Optional `station[4]` Y bands are the parts of that same boss width
-    outside the blocker: there the wall-rooted wedge still reaches the mounting face instead of
-    holding an entire seven-millimetre boss back for a blocker that occupies only one side. The
-    D stem remains whole over the blocker itself, where the purchased body already leaves too
-    little Z room for a slicer to grow support.
+    outside the blocker that `east_boss_wings` lets stand: there the wall-rooted wedge still
+    reaches the mounting face instead of holding an entire seven-millimetre boss back for a
+    blocker that occupies only one side. The D stem remains whole over the blocker itself, where
+    the purchased body already leaves too little Z room for a slicer to grow support.
 
     AND A SETBACK THAT REACHES THE WALL LEAVES NO WEDGE AT ALL. The wedge is rooted on the wall
     and rises 45 degrees off it, so a blocker standing within its own clearance of that face has
@@ -6712,6 +6712,30 @@ def _east_boss_corbel(wall_x, station):
         band = _east_wedge(wall_x, sz, ylo, yhi, tip)
         out = band if out is None else out.fuse(band)
     return out
+
+
+def east_boss_wings(span, bands):
+    """Which clear `bands` of a corbel offered over `span` stand as wall-rooted wings, and
+    which stand down: `(standing, dropped)`, each a tuple of `(ylo, yhi)`.
+
+    A WING IS READ BY WHAT IT LEAVES. A wing at each end of the span leaves the run between
+    them rooted at both ends, and that run is a bridge the slicer lays with nothing under it:
+    relay #2's upper bar keeps a 2.5 mm wing at either end and bridges the 15 mm between. Any
+    other set of wings leaves an open-ended flat, hung or supported exactly as it would be with
+    no wing at all, and the wings stand only while they carry more of the span than that flat
+    is. Below that they stand down together and the boss offers its whole floor, with nothing
+    standing against whatever carries it: the main board's forward upper hole, where the pin
+    field leaves 1.53 mm of a 7 mm floor clear, keeps no wing."""
+    bands = tuple(sorted((float(lo), float(hi)) for lo, hi in bands if hi > lo))
+    if not bands:
+        return (), ()
+    lo, hi = span
+    at_both_ends = (bands[0][0] <= lo + stated_bound_tol
+                    and bands[-1][1] >= hi - stated_bound_tol)
+    carried = sum(b - a for a, b in bands)
+    if at_both_ends or carried > (hi - lo) - carried:
+        return bands, ()
+    return (), bands
 
 
 def east_boss_pairs(stations):
