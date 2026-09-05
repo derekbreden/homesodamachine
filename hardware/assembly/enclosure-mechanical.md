@@ -201,7 +201,8 @@ The **display** goes into the 45° facet chamfered across the top-front arris of
 Then **lay the cover plate into the inset and drive its two screws.** The plate is a border — [6 mm](DISPLAY_BORDER) across top and bottom, wider at each side where a screw stands — and it laps the glass by [3 mm](DISPLAY_INSET_LAP) all round, which is the ring's own width, so what holds the display in is the plate bearing down through that ring, and what holds the plate is two M3 × 8 SHCS into heat-sets set in the facet's own material. **The finished face has nothing standing proud of it.** The plate's top lies in the 45° plane and each head lands in a ⌀[6.15](DISPLAY_CBORE_D) counterbore [0.2 mm](DISPLAY_SEAT_RECESS) under it — the seat the cold core's cap lids use, the same screw and the same recess. That is why the plate is not one thickness throughout: the head seat is deeper than the plate, so the section thickens under each screw by the counterbore's own depth and drops into a pocket in the inset floor, which leaves the land under the head at the plate's own section. Leave the display's RS485 and power leads loose for [`wiring.md`](/hardware/assembly/wiring.md).
 
 The ridge wall immediately below the display keeps three distinct electrical features. Its
-centred keyed cut-out takes the fixed `43020-0400` pump connector during WR-04; the existing J9
+centred keyed cut-out takes the fixed `43020-0400` pump connector key-down during WR-04 so the
+mating latch faces the empty bay; the existing J9
 teardrop is shifted to −X for the display loom; and the cable clip near +X is reserved for the
 fixed J13-to-connector ribbon. Deburr all three without rounding the keyed cut-out's shoulders or
 opening the clip throat. The cartridge-side ribbon never enters that clip.

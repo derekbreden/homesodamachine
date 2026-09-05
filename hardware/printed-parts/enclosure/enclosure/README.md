@@ -1349,7 +1349,9 @@ the display, directly above the valves. Its own nylon panel ears snap into the k
 connector bears in a [2 mm](PUMP_CONNECTOR_PANEL) local panel, inside Molex's 1.40–2.54 mm range;
 the rigid PET-GF wall supplies the seat and the bought nylon housing supplies the flex. The fixed
 J13 loom remains in the enclosure; the cartridge carries the mating black `43025-0400`
-receptacle.
+receptacle. The key and mating thumb latch face down into the empty pump bay. After the
+cartridge is drawn, the hand reaches up through that bay, presses the latch, pulls the free half
+straight forward until clear, and lowers it without approaching the display body.
 
 SIG-7 still crosses the rib, at the same height but shifted [-32 mm](DISPLAY_LOOM_X) in X. Its
 four 22 AWG conductors remain in the 1/2" PET expandable braid, so its teardrop bore remains the
