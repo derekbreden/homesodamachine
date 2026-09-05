@@ -629,21 +629,26 @@ exterior settings of `enclosure-front-top-petgf.3mf` around their own mesh — t
 | `enclosure-front-top` | 3 | 4 | bed | 55.60 mm |
 | `enclosure-back-bottom` | 2 | 3 | 1 bed, **1 model** | **8.00 mm** |
 | `enclosure-front-bottom` | 4 | 4 | 2 bed, **2 model** | **8.00 mm** |
-| `enclosure-back-top` | 4 | 26 | bed | 92.16 mm |
+| `enclosure-back-top` | 3 | 28 | 1 bed, **2 model** | 22.32 mm |
 
-**One piece slices clean, and three bodies are the campaign's open work.**
-`enclosure-pump-cartridge` emits no support at all. On the pump cap and the two top quadrants
-every body roots on the print bed and stands 18 mm or more before it touches the model, which is
-past the point the build-up reading saturates at; so do front-bottom's two lower Y-seam socket
-collar crowns, at 28.20 mm. The exceptions are one feature standing on all four flanks of the two
-bottom quadrants: the **Z seam's slide-head catch**, the joint's one down-looking flat and the
+**One piece slices clean, and five bodies are the campaign's open work.**
+`enclosure-pump-cartridge` emits no support at all. On the pump cap and front-top, every body
+roots on the print bed and stands 18 mm or more before it
+touches the model, which is past the point the build-up reading saturates at; so do front-bottom's two lower
+Y-seam socket collar crowns, at 28.20 mm. The bottom-quadrant exceptions are one feature standing
+on all four flanks: the **Z seam's slide-head catch**, the joint's one down-looking flat and the
 whole of its bearing against lift. Back-bottom's west catch reaches the bed from outside its
 flank through the 12 mm PRV passage that crosses it — the same opening that splits that catch
 into two interface islands. The other three have no such lane and root on the arm's own 45°
 under-flare **8.00 mm** below the catch they carry: front-bottom's pair and back-bottom's east
-catch are the only **material-rooted** bodies in the box and the only ones outside the 15 mm
-band. A short support rooted on model material is the compromise this policy names first, and
-those three are where it stands.
+catch are the only material-rooted bodies outside the 15 mm band.
+
+Back-top's enlarged ceiling dados put all seven fixed-strip and groove-roof contacts on one
+bed-rooted tree, along with the piece's main service furniture. Two small outer end webs on the
+water-split and flow-regulator wall anchors each retain a separate **model-rooted** tree. Both
+build **22.32 mm** before contact, beyond the policy's saturated length; their root kind remains
+an open defect. The three short slide-head bodies and these two anchor-web bodies are the five
+places the support campaign names.
 
 ## Print orientation + corner relief
 
@@ -1416,12 +1421,12 @@ wide, and between them the [159 mm](CEILING_PANEL_W) channel the
 mouth before back-top meets another quadrant.
 
 The exterior top remains z 355 and the rear storey's established pack lane
-remains z 352. The fixed strips carry a [6 mm](BACK_TOP_CEILING_T) physical
-section inward to z 349, while the removable panel carries an
+remains z 352. The fixed strips carry a [12 mm](BACK_TOP_CEILING_T) physical
+section inward to z 343, while the removable panel carries an
 [11 mm](CEILING_PANEL_T) structural envelope inward to z 344. Those are
 piece-owned faces: no body, port, anchor or exterior plane moves to fund them.
 The fixed corbel is consequently the established 45° wedge plus an exact
-[3 mm](BACK_TOP_CEILING_GROWTH) parallel shell below it.
+[9 mm](BACK_TOP_CEILING_GROWTH) parallel shell below it.
 
 Each strip is **corbelled** the way front-top's two are either side of the throat
 (`_ceiling_corbels`): a 45° underside rising off the flank face to nothing at the
@@ -1453,8 +1458,8 @@ from [3 mm](GROUND_CEILING_KEEP) of run outward. Nothing is fused back above
 either purchased body.
 The C14 keeps the complete established +X wedge: its shared X datum places the
 moulded rim about one millimetre inboard of that corbel, while its Z remains on
-the top port row. Its moulding, the relay, the ASSE body and
-the water bulkhead reach only the new three-millimetre shell.
+the top port row. The C14 moulding, relay, ASSE body, water bulkhead, flow
+regulator and power Wagos reach only the added nine-millimetre shell.
 `ceiling_growth_reliefs` withholds that shell over each exact placed-body plan
 plus 1 mm, clipped to the fixed strip, while leaving
 the older wedge and its existing run-band treatment intact. At the C14 this
@@ -1482,26 +1487,27 @@ the wall's grown inner section to `rear_plane_y`, leaving the nominal wall whole
 through the rear show face; ending exactly on the panel's aft plane would leave the
 strip and wall meeting along a line.
 
-The current tongue is [6 mm](CEILING_TONGUE_T) square and its dado is
-[6.15 mm](CEILING_DADO_DEPTH) deep.
+The current tongue is [12 mm](CEILING_TONGUE_T) square and its dado is
+[12.15 mm](CEILING_DADO_DEPTH) deep. A [6 mm](CEILING_RAIL_ROOT) full-height
+root continues under the removable field, and the fixed side keeps
+[6 mm](CEILING_DADO_LOWER) below the groove plus
+[6 mm](CEILING_DADO_UPPER) above it at the blind edge.
 
-**The ramp is the field's, and the blind end stops inside the wall.** Beside the field
-the dado's roof rises to the show face at the mouth, and both the rise and the
-millimetre of overrun past it are the panel's own lane — this piece has no top wall
-inboard of that plane to carry either. Aft of the field it has one: the blind end runs
-through the grown half of the +Y wall, where the section is continuous across the mouth
-plane, so there is no free-standing lip to feather and nothing to stand a ramp under. A
-ramp cut there lands its apex in the middle of the show face rather than on its edge,
-which is three faces on one line and a mesh a slicer refuses; an overrun cut there opens
-a slot straight through the top wall. The groove's run-out is therefore carried square
-from floor to roof only as far as `rear_plane_y`, with the rest of the top wall bridging
-the mouth plane over it and one complete wall closing the rear.
+**The roof is flat and supported.** Its nominal underside stays at z =
+[349](CEILING_DADO_ROOF) from the blind edge to the panel boundary, leaving the
+complete six-millimetre upper capture section and closing the exterior show face
+across the joint. Back-top prints mouth-down, so this is an intentional supported
+face. The groove opens through the Y− seam mouth and the support withdraws through
+the panel's insertion path. The ASSE pocket may rise into the underside locally,
+but the finished exterior cap is guarded at a complete wall everywhere. At the
+rear, the square run-out stops at `rear_plane_y`, with one complete wall closing
+the exterior face behind it.
 
-**The two dados are the panel's complete fit.** Their continuous printed faces carry
-the panel in X and Z over its full depth and the +Y wall stops it at home. The panel
-slides through the open Y− mouth before the front column closes. Its tongues and the
-fixed corbels remain uninterrupted: no keeper socket, tunnel, insert or fastener is
-part of this joint, and neither appliance show face is opened.
+**The two dados are the panel's complete fit.** Their retained full-section spans
+carry the panel in X and Z and the +Y wall stops it at home. Named component and
+water-2 pockets interrupt only the occupied bands. The panel slides through the
+open Y− mouth before the front column closes; no keeper socket, tunnel, insert or
+fastener is part of this joint, and neither appliance show face is opened.
 
 **Everything rooted on the ceiling over that field hangs off the panel**: the
 flow meter's two anchors and the three ribs bored for `carb-1`,

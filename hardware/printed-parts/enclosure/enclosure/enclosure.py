@@ -1266,9 +1266,9 @@ front_bottom_flank_t = 9.0
 #
 # THE REAR CEILING HAS ITS OWN PHYSICAL FACE, the same way this piece's grown flanks do. The
 # box's established interior-ceiling lane remains where the packed bodies, ports and anchor
-# stations were laid out; the printed strip carries another wall inward from that lane. The
+# stations were laid out; the printed strip carries three more walls inward from that lane. The
 # appliance's exterior top face and every packed world datum therefore stay fixed.
-back_top_ceiling_t = 2.0 * wall
+back_top_ceiling_t = 4.0 * wall
 back_top_ceiling_growth = back_top_ceiling_t - wall
 #
 # WHAT THIS PIECE KEEPS OF ITS CEILING is the two side strips either side of the slide-in panel
@@ -1379,15 +1379,17 @@ def ceiling_corbel_at(x, y, growth_reliefs=(), asse_cradle=None):
     run = abs(x) - _ceiling().panel_half_w
     if run <= 0.0:
         return 0.0                         # the panel's own field — no strip, and no corbel
+    capture = (_ceiling().underside_z - _ceiling().dado_roof_z
+               if run <= _ceiling().dado_depth else 0.0)
     for _who, sx, y0, y1, keep, out in back_top_ceiling_reliefs_for(asse_cradle):
         if sx * x > 0.0 and y0 <= y <= y1 and keep < run <= out:
-            return 0.0
+            return capture
     grown = back_top_ceiling_growth
     for _who, rsx, x0, x1, y0, y1 in growth_reliefs:
         if rsx * x > 0.0 and x0 <= x <= x1 and y0 <= y <= y1:
             grown = 0.0                    # the established wedge remains; only growth leaves
             break
-    return grown + run
+    return max(capture, grown + run)
 
 
 def ceiling_stations(digiten, anchors, panel: bool, asse_cradle=None):
@@ -1831,12 +1833,12 @@ def documented(box):
 #   tube_anchors  the runs' own seats, one (mid, along, root, seat_r) each — the middle of the
 #                 leg a rib is centred on, which way the tube points there, which way the face
 #                 it stands on lies, and the section it seats
-#   ceiling_reliefs  the purchased bodies' pockets in the ceiling panel's structural field,
+#   ceiling_reliefs  named body and route pockets in the ceiling panel's structural field,
 #                 one `(name, x0, x1, y0, y1, pocket_top_z)` each. The plan is the body's exact
 #                 intersection with that field plus assembly slip; the last number is the roof
 #                 left over it. This is geometry struck by the pack, not another placement.
 #   ceiling_growth_reliefs  the exact plan bands where fixed purchased bodies need the added
-#                 three-millimetre ceiling-strip growth removed while retaining the established
+#                 nine-millimetre ceiling-strip growth removed while retaining the established
 #                 printable wedge below them, one `(name, side, x0, x1, y0, y1)` each
 #   port_field    the pockets the +Y wall of back-top's outer face carries and the nut lands
 #                 behind them, (proud, rim, pockets) — how deep a pocket is cut and how far a
@@ -5323,7 +5325,7 @@ def _back_top_ceiling_corbel_at(inner, y_joint, sx, face_z):
 def _back_top_ceiling_corbel(inner, y_joint, sx):
     """One complete, grown and unrelieved back-top ceiling-strip corbel.
 
-    The main run rises from the six-millimetre physical face to the slide-in panel's edge. Ahead of the
+    The main run rises from the twelve-millimetre physical face to the slide-in panel's edge. Ahead of the
     panel it follows the dado's blind edge instead, ending at the first plane the Y telescope
     cannot reach. `_back_top_ceiling` cuts only the named body bands from this exact solid, and
     the assembly clearance gates use it unchanged when a placed body is expected to need no
@@ -5332,7 +5334,7 @@ def _back_top_ceiling_corbel(inner, y_joint, sx):
 
 
 def _back_top_ceiling_growth(inner, y_joint, sx):
-    """Only the three-millimetre shell added below the established printable corbel."""
+    """Only the nine-millimetre shell added below the established printable corbel."""
     grown = _back_top_ceiling_corbel(inner, y_joint, sx)
     established = _back_top_ceiling_corbel_at(inner, y_joint, sx, inner[5])
     return grown.cut(established)
@@ -5358,7 +5360,7 @@ def _back_top_ceiling_for_pack(inner, y_joint, sx, box, *, grown=True):
 
     This is the production solid before unrelated back-top furniture cuts it. Keeping the
     complete ceiling operation in one helper gives the assembly gates the same exact B-rep the
-    piece receives: the established wedge, its added three-millimetre shell, local growth-only
+    piece receives: the established wedge, its added nine-millimetre shell, local growth-only
     body pockets and the complete run-band reliefs.
     """
     cp = _ceiling()
@@ -5384,6 +5386,25 @@ def _back_top_ceiling_for_pack(inner, y_joint, sx, box, *, grown=True):
         corbel = corbel.cut(_ybox(
             min(kept, outb), max(kept, outb), y0, y1,
             cp.fixed_under_z - deep - 1.0, inner[5] + 1.0))
+    # The female rail's upper flange is continuous in plan over every corbel relief. Its nominal
+    # underside is the dado roof and its upper face is the appliance show surface, so both long
+    # edges meet on the panel boundary with no open strip between them. A purchased body may
+    # pocket that underside only while at least one complete wall remains over it.
+    inboard, outboard = sorted((sx * cp.panel_half_w, sx * cp.dado_blind_x))
+    flange = _ybox(
+        inboard, outboard, cp.fore_y, cp.aft_y, cp.dado_roof_z, cp.show_z)
+    for who, x0, x1, y0, y1, top in box.pack.ceiling_reliefs:
+        crosses = (x1 > inboard and x0 < outboard
+                   and y1 > cp.fore_y and y0 < cp.aft_y)
+        if not crosses or top <= cp.dado_roof_z:
+            continue
+        if top > cp.show_z - wall + stated_bound_tol:
+            raise ValueError(
+                f"{who} reaches z {top:g} through the female ceiling rail; less than one "
+                f"{wall:g} mm wall would remain below the z {cp.show_z:g} show face")
+        flange = flange.cut(_ybox(
+            x0, x1, y0, y1, cp.dado_roof_z - 1.0, min(top, cp.show_z - wall)))
+    corbel = corbel.fuse(flange)
     return corbel
 
 
@@ -5400,12 +5421,13 @@ def _back_top_ceiling(solid, inner, y_joint, box):
     is slid the length of the piece with its tongues in these two grooves, before back-top meets
     another quadrant. So the groove starts on the seam plane, not on the panel's own fore edge.
 
-    THE DADOS ARE THE PANEL'S COMPLETE FIT. Their continuous printed faces carry X and Z over the
-    panel's full depth and the +Y wall is its home stop. The panel, fixed strips and show faces
-    remain whole, with no separate keeper socket, tunnel, insert or fastener."""
+    THE DADOS ARE THE PANEL'S COMPLETE FIT. Their retained full-section spans carry X and Z and
+    the +Y wall is its home stop. Named occupied bands are pocketed from the moving rail; the
+    fixed strips and show faces remain whole, with no separate keeper socket, tunnel, insert or
+    fastener."""
     cp = _ceiling()
     half = cp.panel_half_w
-    mouth_x, blind_x, floor_z, roof_z, chamfer = cp.dado()
+    mouth_x, blind_x, floor_z, roof_z = cp.dado()
 
     # THE FIELD. The panel carries the top wall's own section over its whole footprint, so what
     # this piece gives up is exactly that footprint and nothing under it.
@@ -5431,20 +5453,14 @@ def _back_top_ceiling(solid, inner, y_joint, box):
     # would leave the strip and the wall meeting along a line, which is a knife edge in the solid
     # and a non-manifold edge in the mesh.
     #
-    # THE RAMP IS THE FIELD'S AND THE BLIND END STOPS INSIDE THE WALL. Beside the field the
-    # groove's roof rises to the show face at the mouth, and both the rise and the millimetre of
-    # overrun past the mouth are the panel's own lane: this piece has no top wall inboard of that
-    # plane to carry either. AFT OF THE FIELD IT HAS ONE. The blind end runs into the grown half
-    # of the +Y wall, and there the section is continuous across the mouth plane — there is no free
-    # standing lip to feather and nothing to stand a ramp under. A ramp cut there lands its apex
-    # in the MIDDLE of the show face rather than on its edge, which is three faces on one line
-    # and a mesh a slicer refuses, and an overrun cut there opens a slot straight through the top
-    # wall. The square run-out therefore occupies only the wall's grown inner section, from the
-    # panel stop to `rear_plane_y`, and leaves the nominal `wall` whole behind it through the
-    # exterior face. It carries the groove floor to `roof_z`; the rest of the top wall bridges
-    # the mouth plane over it, where beside the field that same section is the lip that feathers
-    # to nothing.
-    slope, depth = math.tan(math.radians(chamfer)), blind_x - mouth_x
+    # THE ROOF IS FLAT AND SUPPORTED. Its nominal six-millimetre upper flange continues from the
+    # blind edge to the panel boundary, closing the appliance show face all the way to the seam;
+    # the one body-derived underside pocket still leaves a complete wall. The groove opens
+    # through the Y-seam mouth, so support material is removed along the same path before the
+    # panel slides in. The blind run-out occupies only the wall's grown inner section, from the
+    # panel stop to `rear_plane_y`, and leaves the nominal wall whole behind it through the
+    # exterior face.
+    depth = blind_x - mouth_x
     over = 1.0
     # THE +X GROOVE ENDS ON THE C14'S OWN ROOM. The surround stands in that strip's last
     # stretch and the panel's tongue is already cut back on the same room
@@ -5452,21 +5468,16 @@ def _back_top_ceiling(solid, inner, y_joint, box):
     # cross the surround's relief and bore. Cut to the room instead, the groove's end wall is
     # the tunnel's own mouth plane — one slip aft of the shortened tongue's tip — and the
     # blind run-out into the +Y wall is not cut at all: nothing of the dado remains for the
-    # relief or the bore to cross. The room stops at the interior ceiling, so what ends there
-    # is the dado; the roof above the ceiling plane, the reveal along the panel's edge, runs
-    # to the wall on this side as on the other. The -X strip holds no surround and keeps the
-    # whole groove, run-out and all.
+    # relief or the bore to cross. The -X strip holds no surround and keeps the whole groove,
+    # run-out and all.
     room = (_c14_running_room(inner, box.outer, box.pack.c14, box.pack.back_ports,
                               _c14_mouth_y(box.outer, box.pack.c14, box.pack.back_ports),
                               box.outer[3] + depth + 1.0)
             if box.pack.c14 else None)
     rb = None if room is None else room.BoundingBox()
     for sx in (+1.0, -1.0):
-        groove = _xz_prism(y_joint, cp.aft_y, [
-            (sx * (mouth_x - over), floor_z),
-            (sx * blind_x, floor_z),
-            (sx * blind_x, roof_z),
-            (sx * (mouth_x - over), roof_z + (depth + over) * slope)])
+        gx0, gx1 = sorted((sx * (mouth_x - over), sx * blind_x))
+        groove = _ybox(gx0, gx1, y_joint, cp.aft_y, floor_z, roof_z)
         clipped = rb is not None and (
             rb.xmin <= max(sx * mouth_x, sx * blind_x)
             and rb.xmax >= min(sx * mouth_x, sx * blind_x))
@@ -5474,7 +5485,7 @@ def _back_top_ceiling(solid, inner, y_joint, box):
             groove = groove.cut(room)
         solid = solid.cut(groove)
         if not clipped:
-            # `cp.aft_y` is the six-millimetre wall's physical face and `rear_plane_y` is the
+            # `cp.aft_y` is the rear wall's physical face and `rear_plane_y` is the
             # nominal three-millimetre wall's interior face. The pocket between them is blind;
             # the full nominal wall remains behind it instead of the dado opening on the rear.
             if box.outer[3] - rear_plane_y < wall - stated_bound_tol:
@@ -8451,9 +8462,8 @@ def _c14_running_room(inner, outer, stations, ports, y0, y1):
 
     THE ROOM IS NO TALLER THAN THE TUNNEL. The block's stated crown stands above the interior
     ceiling and the piece clips it there, so the room's crown is the block's crown one slip up
-    and never above that ceiling plane — the plane the tongue's top rides on and the dado's
-    roof rises off. What the dado's cutters end on is the dado the tongue rides in; the roof
-    above the ceiling plane, the reveal along the panel's edge, is not the room's to end."""
+    and never above that ceiling plane. What the dado's cutters end on is the dado the tongue
+    rides in; the continuous upper flange is not the room's to end."""
     cx, cz, wx, wz, _r = _c14_aperture(stations, ports)
     hx, hz = c14_mount_half(wx, wz, max(abs(sx - cx) for sx, _sz in stations))
     slip = fits.slip
@@ -9195,6 +9205,32 @@ def _report_slide(pieces, box):
     return out
 
 
+def _ceiling_show_cap_bound(back_top):
+    """Record the complete exterior cap over both female ceiling rails.
+
+    The only absence allowed is the square `dado_slip` corner at each rail's fore end where the
+    panel and funnel clear one another. Testing the finished piece catches any later cutter that
+    turns the supported dado roof back into an exterior slot."""
+    cp = _ceiling()
+    solid = back_top.val() if hasattr(back_top, "val") else back_top
+    missing = []
+    for sx in (-1.0, 1.0):
+        x0, x1 = sorted((sx * cp.panel_half_w, sx * cp.dado_blind_x))
+        cap = _ybox(x0, x1, cp.fore_y, cp.aft_y, cp.show_z - wall, cp.show_z)
+        missing.append(abs(cap.cut(solid).Volume()))
+    allowance = cp.dado_slip ** 2 * wall + stated_bound_tol
+    ok = all(v <= allowance for v in missing)
+    return record_bound(Bound(
+        "ceiling-dado-show-cap",
+        "The supported ceiling dados keep a complete exterior wall over both rails",
+        ok,
+        f"{wall:g} mm cap; missing {missing[0]:.4f} mm³ west / {missing[1]:.4f} mm³ east",
+        f"a complete wall, except one {cp.dado_slip:g} x {cp.dado_slip:g} mm fit corner per side",
+        ([] if ok else [
+            "the finished back-top has lost show-face stock over a ceiling dado; inspect every "
+            "cutter applied after `_back_top_ceiling` and keep the supported roof closed"])))
+
+
 def build_pieces(box):
     """The printable pieces of one box — the four quadrants and, when the pack stands
     pumps, the pump cartridge that slides out of the front pair — and the assembly of them in
@@ -9224,6 +9260,8 @@ def build_pieces(box):
                   _realized.key(__name__, box, name),
                   lambda n=name: _product(n))
               for name in names}
+    if "back-top" in pieces:
+        _ceiling_show_cap_bound(pieces["back-top"])
     assy = cq.Assembly(name="enclosure")
     for name, piece in pieces.items():
         assy.add(piece, name=f"enclosure-{name}".replace("-", "_"),
@@ -9616,7 +9654,11 @@ def main():
         "BACK_TOP_CEILING_GROWTH": f"{back_top_ceiling_growth:.4g} mm",
         "CEILING_PANEL_T": f"{_ceiling().structural_t:.4g} mm",
         "CEILING_TONGUE_T": f"{_ceiling().tongue_t:.4g} mm",
+        "CEILING_RAIL_ROOT": f"{_ceiling().rail_root_reach:.4g} mm",
         "CEILING_DADO_DEPTH": f"{_ceiling().dado_depth:.4g} mm",
+        "CEILING_DADO_ROOF": f"{_ceiling().dado_roof_z:.4g}",
+        "CEILING_DADO_LOWER": f"{_ceiling().dado_lower_ligament:.4g} mm",
+        "CEILING_DADO_UPPER": f"{_ceiling().lip_t:.4g} mm",
         "CEILING_KEEP": f"{max(r[4] for r in back_top_ceiling_reliefs):.4g} mm",
         "RELAY_CEILING_KEEP": f"{next(r[4] for r in back_top_ceiling_reliefs
                                         if r[0] == 'relay-1'):.4g} mm",

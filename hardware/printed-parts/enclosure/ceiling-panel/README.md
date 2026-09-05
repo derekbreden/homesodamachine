@@ -19,8 +19,8 @@ Built in the box's own frame — every plane it stands on is a plane the box
 states about itself.
 
 - **Pack ceiling lane** at z = [352](PANEL_UNDER), with the **show face** at z =
-  [355](PANEL_SHOW). The fixed side strips present their own [6 mm](FIXED_T)
-  physical interior face at z = [349](FIXED_UNDER), while the removable panel's
+  [355](PANEL_SHOW). The fixed side strips present their own [12 mm](FIXED_T)
+  physical interior face at z = [343](FIXED_UNDER), while the removable panel's
   [11 mm](STRUCTURAL_T) structural envelope descends to z =
   [344](STRUCTURAL_UNDER) wherever a purchased body does not need that volume.
   The rear storey's placements still read from the z = [352](PANEL_UNDER) lane:
@@ -46,12 +46,13 @@ flow-meter anchors and tube anchors. The existing print profile uses four top
 shells, three bottom shells and 15% grid infill, so the CAD envelope is not a
 solid 11 mm billet.
 
-There are [9](RELIEF_N) body pockets, cut as one cavity. Each starts from the
-purchased solid's exact intersection with the unrelieved field and rails, adds
-2 mm of plan slip and 1 mm of vertical clearance. The pocket floor is therefore
+There are [11](RELIEF_N) body and route pockets, cut as one cavity. Each starts from the
+named solid's exact intersection with the unrelieved field and rails, adds
+2 mm of plan slip and 1 mm of vertical clearance. Water-2 additionally keeps the
+complete bend envelope required at the ASSE outlet. The pocket floor is therefore
 not a common guessed depth: shallow bodies leave a thicker roof and tall bodies
 keep the original ceiling section over them. They cover the C14, ASSE, CO₂ and water fittings, DIGITEN,
-relay, WR1110 and the near-miss gas check valve; the last is deliberately found
+relay, ground stack, water-2, WR1110 and the near-miss gas check valve; the last is deliberately found
 by testing the exact body one clearance millimetre upward, so a 0.04 mm miss
 cannot silently become an interference in the deeper panel. At the C14 and
 relay, that construction locally opens a rail only where the exact placed body
@@ -88,31 +89,32 @@ half-width, and the one figure the whole ceiling is cut to. The dado is cut in
 each strip's inboard face and the panel's tongues run in it: a drawer bottom in
 a dado.
 
-- **Tongue** [6 mm](TONGUE_T) thick × [6 mm](TONGUE_REACH) reach, a
-  [36 mm²](RAIL_AREA) captured rail down each long edge. It fills the grown
-  fixed section from z = [346](TONGUE_FLOOR)..[352](TONGUE_ROOF), wholly rooted
-  in the structural field and ending on the unchanged pack lane.
-  The rails take the part's bounding width to [171 mm](PANEL_BBOX_X), while the
+- **Tongue** [12 mm](TONGUE_T) thick × [12 mm](TONGUE_REACH) reach, a
+  [144 mm²](RAIL_AREA) captured rail down each long edge. A full-height
+  [6 mm](RAIL_ROOT) root continues under the panel field, where the structural
+  stock keys into it from above. The unrelieved section runs from z =
+  [337](TONGUE_FLOOR)..[349](TONGUE_ROOF).
+  The rails take the part's bounding width to [183 mm](PANEL_BBOX_X), while the
   show face stays [159 mm](PANEL_W) and its seam lines stay on the throat's own
   edges.
-- **Dado** [6.15 mm](DADO_DEPTH) deep, from z = [345.85](DADO_FLOOR) to
-  [352](DADO_ROOF) at the blind edge, where its roof rises off the tongue's own
-  top plane. That end carries the [0.15 mm](DADO_SLIP) printed-fit clearance on
-  the rail's floor, its tip and its mouth-side face, and the tip clears the
-  rising roof by the same slip. It leaves [3 mm](DADO_LOWER_LIGAMENT) of the
-  fixed corbel below the groove plus a [3 mm](LIP_T) show-skin lip above it.
+- **Dado** [12.15 mm](DADO_DEPTH) deep, from z = [336.85](DADO_FLOOR) to
+  a horizontal roof at z = [349](DADO_ROOF). The [0.15 mm](DADO_SLIP)
+  printed-fit clearance lies under the rail and beyond its tip; the rail's upper
+  face bears on the flat roof. It leaves [6 mm](DADO_LOWER_LIGAMENT) of the
+  fixed corbel below the groove plus a [6 mm](LIP_T) show-skin lip above it.
   Those are the two ligaments that capture the rail and hold the panel on the
   ceiling datum.
-- **The dado's roof rises to the mouth at [45°](CHAMFER)**, the way every relief
-  ceiling on this box does — a roof left flat would hang over the slot in a
-  piece that prints mouth-down. The roof climbs one millimetre per millimetre of
-  run and clears the show face at the open mouth; the corbel grows downward in
-  the other direction, providing the lower capture section at the blind end.
+- **The dado roof stays flat to the panel boundary.** It is an intentional
+  supported face in back-top's mouth-down print. The groove opens through the
+  Y-seam mouth, so its support is removed along the insertion path before the
+  panel slides in. The exterior therefore keeps a continuous wall across the
+  joint instead of opening a tapered slot beside the panel.
 
-The rail is locally pocketed only where a placed body already occupies its lower
-section: the long ASSE crown on −X and the relay on +X. The opposite spans remain
-the full 6 × 6 mm section, and each side keeps a complete body-free capture band. A pocket
-therefore cannot turn either whole dado into an uncaptured channel.
+The rail is locally pocketed only where a named placed body or water-2 already
+occupies its volume. The retained spans remain the full 12 × 12 mm section with
+their 6 mm roots, and each side keeps complete body-free capture bands. The ASSE
+underside pocket is the only place the nominal 6 mm female roof is reduced; it
+still leaves more than one complete 3 mm wall under the exterior face.
 
 ## The brim and the fitted slide
 
@@ -122,9 +124,9 @@ covers the first [7 mm](BRIM_SEAT) of show face, inside the
 which is why the fore edge is load-bearing and why the fore [10 mm](BRIM_MARGIN)
 is not a place to put an opening.
 
-The long dados constrain X and Z over the panel's complete depth and provide the
-fitted sliding contact. The panel slides aft until its edge lands on the +Y wall,
-which is its home stop. Its uninterrupted tongues and the fixed strips carry no
+The retained spans of both long dados constrain X and Z and provide the fitted
+sliding contact. The panel slides aft until its edge lands on the +Y wall,
+which is its home stop. The tongues and fixed strips carry no
 insert, socket, cross-pin or other separate keeper hardware.
 
 ## What hangs off it
