@@ -39,11 +39,11 @@ from docgen import substitute_md                       # noqa: E402
 RIDES_OUT = "enclosure-pump-cartridge"
 
 #: The piece the bay is cut in, and the one that keeps the manifold: its two valve panels seat
-#: eight of the ten valves and its side walls pocket the steel the cartridge releases against.
+#: eight of the ten valves and its side walls pocket the printed release face the cartridge releases against.
 BAY = "enclosure-front-top"
 
 #: The four the plate opens. Derived below twice — once off what holds each body and once off
-#: what the steel is bored for — and checked against this, so the doc's own table and the
+#: what the printed release face is bored for — and checked against this, so the doc's own table and the
 #: machine cannot drift apart in silence.
 EXPECTED = ("fluid-11", "fluid-12", "fluid-21", "fluid-22")
 
@@ -93,7 +93,7 @@ def parting(decked: frozenset) -> tuple:
 
 
 def bored() -> tuple:
-    """The same question asked of the steel rather than of the pieces.
+    """The same question asked of the printed release face rather than of the pieces.
 
     `enclosure_assembly.collet_plate_spec` strikes one hole per `manifold_layout.BARB_OF` tee,
     so the connections `SEGMENTS` draws on a barb ARE the ones the plate is bored to release."""
@@ -126,26 +126,28 @@ def main():
 
     # HOW THE BERTH IS SPENT, off the placed bodies rather than off the constants that drew
     # them. The plate presses one plane — `enclosure_assembly.collet_plate_spec` raises unless
-    # all four branch collets stand on it — so Y is the steel's own axis and each released
+    # all four branch collets stand on it — so Y is the printed release face's own axis and each released
     # tube's exposed run lies along it, from the barb plane at one end to the branch collet
     # face at the other. What is left either side of the plate is the air off the barbs and the
-    # nose air the tee closes before it lands, and a joint the steel does not stand in reads one
+    # nose air the tee closes before it lands, and a joint the printed release face does not stand in reads one
     # of them negative.
-    plate = f.bodies["collet-plate"]
+    spec = f.box.collet_plate
+    plate = (spec["x0"], spec["fore_y"], spec["z0"],
+             spec["x1"], spec["aft_y"], spec["z1"])
     airs = set()
     for rid in found:
         lo, hi = f.bodies[f"tube-{rid}"][1], f.bodies[f"tube-{rid}"][4]
         airs.add((round(plate[1] - lo, 6), round(hi - plate[4], 6)))
     if len(airs) != 1 or min(min(a) for a in airs) <= 0.0:
         raise ValueError(
-            f"the four released tubes stand off the steel by {sorted(airs)} (barb air, nose "
+            f"the four released tubes stand off the printed release face by {sorted(airs)} (barb air, nose "
             f"air) — one plate presses one plane, and a joint whose tube the plate is not in "
             f"the berth of drags its tee against nothing when the cartridge is pulled.")
     barb_air, rest_gap = airs.pop()
 
     valves = [n for n in f.manifold_bodies if n.startswith("valve-v-")]
     # Each released tube's own exposed length, barb plane to branch collet face. That gap is
-    # `manifold_layout.BARB_STANDOFF`, opened for the steel and spent on it.
+    # `manifold_layout.BARB_STANDOFF`, opened for the printed release face and spent on it.
     berth = {cid: _ml.dist(*_ml.RUNS[how]) for cid, _f, _t, how in _ml.SEGMENTS
              if how in _ml.BARB_OF}
 
@@ -162,11 +164,11 @@ def main():
         **{f"JOINT_COUNT{s}": f"{len(found)}" for s in ("", "_2", "_3", "_4")},
         # Each released joint's own exposed tube, at the precision the pack was drawn at.
         **{f"LEN_{cid}": f"{v:.1f}" for cid, v in berth.items()},
-        # THE STEEL AS IT STANDS, and the three ways the berth around it is spent: the air that
+        # THE PRINTED RELEASE FACE, and the three ways the berth around it is spent: the air that
         # keeps it off the barbs, its own section, and the nose air the tees close before they
         # land. All three off the plate's placed box and the tubes it passes.
         "PLATE_SPAN": f"{plate[3] - plate[0]:.4g}",
-        "PLATE_T":    f"{plate[4] - plate[1]:.4g}",
+        "COLLET_PLATE_T":    f"{plate[4] - plate[1]:.4g} mm",
         "BARB_AIR":   f"{barb_air:.4g}",
         "REST_GAP":   f"{rest_gap:.4g}",
         "TUBE_OD":    f"{od:.4g} mm",

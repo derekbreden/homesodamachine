@@ -3717,7 +3717,6 @@ genrule(
         "out/enclosure-assembly/hardware/assembly/scenes/glb/front-top.glb",
         "out/enclosure-assembly/hardware/assembly/scenes/glb/funnel-drain.glb",
         "out/enclosure-assembly/hardware/assembly/scenes/glb/pump-cartridge.glb",
-        "out/enclosure-assembly/hardware/manifold-layout/collet-plate.dxf",
         "out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.facts.json",
         "out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.scorecard.json",
         "out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step",
@@ -3736,11 +3735,10 @@ O7=$$PWD/$(location out/enclosure-assembly/hardware/assembly/scenes/glb/en06-col
 O8=$$PWD/$(location out/enclosure-assembly/hardware/assembly/scenes/glb/front-top.glb)
 O9=$$PWD/$(location out/enclosure-assembly/hardware/assembly/scenes/glb/funnel-drain.glb)
 O10=$$PWD/$(location out/enclosure-assembly/hardware/assembly/scenes/glb/pump-cartridge.glb)
-O11=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/collet-plate.dxf)
-O12=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.facts.json)
-O13=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.scorecard.json)
-O14=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step)
-O15=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step.mesh)
+O11=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.facts.json)
+O12=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.scorecard.json)
+O13=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step)
+O14=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step.mesh)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -3768,11 +3766,10 @@ cp hardware/assembly/scenes/glb/en06-column.glb $$O7
 cp hardware/assembly/scenes/glb/front-top.glb $$O8
 cp hardware/assembly/scenes/glb/funnel-drain.glb $$O9
 cp hardware/assembly/scenes/glb/pump-cartridge.glb $$O10
-cp hardware/manifold-layout/collet-plate.dxf $$O11
-cp hardware/manifold-layout/enclosure-assembly.facts.json $$O12
-cp hardware/manifold-layout/enclosure-assembly.scorecard.json $$O13
-cp hardware/manifold-layout/enclosure-assembly.step $$O14
-cp hardware/manifold-layout/enclosure-assembly.step.mesh $$O15
+cp hardware/manifold-layout/enclosure-assembly.facts.json $$O11
+cp hardware/manifold-layout/enclosure-assembly.scorecard.json $$O12
+cp hardware/manifold-layout/enclosure-assembly.step $$O13
+cp hardware/manifold-layout/enclosure-assembly.step.mesh $$O14
 """,
 )
 

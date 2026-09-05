@@ -496,7 +496,7 @@ def sub_assemblies(m: Machine):
         f"and that lip is the whole load path the cap's two screws close")
 
     # THE FOUR BARB TUBES THE UNIT LEAVES THE BENCH HOLDING IN THE AIR, off the pumps whose
-    # barbs grip them. ONE STUB PER HOLE IN THE STEEL: the plate is bored one hole per barb tee
+    # barbs grip them. One stub per passage in the printed collet plate, one per barb tee
     # and the tubes thread it as the pump cartridge goes home, so a stub with no hole in front of it
     # is one the first pull tears out. `_pump_replacement_sync` asks the service bench's half of
     # this same reading.
