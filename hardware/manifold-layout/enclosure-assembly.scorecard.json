@@ -783,6 +783,16 @@
    "active": true
   },
   {
+   "id": "ceiling-panel-relief-caps",
+   "label": "Body pockets leave printable male-rail sections",
+   "kind": "gate",
+   "status": "pass",
+   "value": "5 open, 1 retained; thinnest retained 8.61 mm",
+   "target": "every rail pocket open or capped by at least 3 mm",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "tee-carrier-motion",
    "label": "Tee carrier clears front-top through installation and all four working states, and both end stops engage",
    "kind": "gate",
