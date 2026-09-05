@@ -14,10 +14,6 @@ click: x=98.500 y=170.080 z=180.025
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=0.000 y=37.989 z=280.995
 
-[ceiling] The one-millimetre collet-plate cap land at z=216.490 is the steel plate's wall-to-wall insertion stop. The production profile joins it to the lintel's bed-rooted support tree, with 55.6 mm of build-up before this interface.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=0.000 y=77.122 z=216.490
-
 [ceiling] These are the mirrored upper Y-seam socket collars' complete square bearing crowns around the cross-pins. Each production-profile interface has its own bed-rooted support tree with 178.6 mm of build-up.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=-101.425 y=206.525 z=339.150

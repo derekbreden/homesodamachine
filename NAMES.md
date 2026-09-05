@@ -84,7 +84,7 @@ they became.
 | **electronics bay** | the +X lane of back-top, where the main board, PSU, both relay modules and the AC inlet bolt to the wall's bosses | power column, electronics shelf |
 | **pump cartridge** | the removable unit carrying the pumps, that rides out of the pump bay | cartridge |
 | **pump bay** | the compartment in `enclosure-front-top` the pump cartridge rides in | |
-| **collet plate** | the cut 316 SS plate on edge across the pump bay, holding the collets so the pump cartridge can be pulled | |
+| **collet plate** | the integral printed release face across front-top’s pump bay, holding the collet noses so the pump cartridge can be pulled | |
 | **collet press** | the printed 1/4-inch U-jaw and raised handle that depresses a push-connect collet around its tube | release tool, disconnect tool |
 | **counterbore** | the flat-bottomed pocket a cylindrical DIN 912 socket-head cap screw drops into, its head flush or under the face | countersink, countersunk, recess |
 | **countersink** | the 90° cone a DIN 7991 flat head wedges into, and the conical lead-in a fluid line leans through at a cap conduit | counterbore |
