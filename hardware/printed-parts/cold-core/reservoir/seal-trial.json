@@ -1,0 +1,374 @@
+{
+  "schema": 1,
+  "date": "2026-09-04",
+  "slicer": "BambuStudio 02.08.02.61",
+  "project": "reservoir-08-seal-trial.3mf",
+  "project_sha256": "2c3a6975889a6436fc35e89c2bb22abd1c45328b579d09ec7ae4e9a314c38ac7",
+  "gcode_sha256": "29bae77303210a584780f76a2468c64cc0d59faaea7fe6170b013dc685b7b3a2",
+  "source_mesh_sha256": "29cd2391e9db55ea47f2fbe6ca851aba905d5509a019e1e3f70b7bb96e6eec2b",
+  "source_mesh_triangles": 8926,
+  "sampled_plate_z_mm": [
+    0.3,
+    2.1,
+    5.16,
+    10.02,
+    20.1,
+    50.16,
+    100.02,
+    170.04,
+    176.16
+  ],
+  "slice_result": {
+    "error_string": "Success.",
+    "export_time": 1812,
+    "layer_height": 0.18000000715255737,
+    "plate_index": 0,
+    "prepare_time": 18,
+    "return_code": 0,
+    "sliced_plates": [
+      {
+        "feature_type_times": {
+          "Bottom surface": 278.1640319824219,
+          "Custom": 329.0563659667969,
+          "Flush": 15.0,
+          "Inner wall": 37698.02734375,
+          "Internal solid infill": 4981.07373046875,
+          "Ironing": 1520.34033203125,
+          "Outer wall": 28081.22265625,
+          "Overhang wall": 6.033231258392334,
+          "Sparse infill": 4808.21630859375,
+          "Support": 21.840967178344727,
+          "Top surface": 36.88682174682617,
+          "Travel": 3050.297119140625,
+          "Undefined": 3049.193359375
+        },
+        "filament_change_times": 0,
+        "filaments": [
+          {
+            "filament_id": "GFG01",
+            "id": 1,
+            "main_used_g": 360.7624206542969,
+            "total_used_g": 360.762451171875
+          }
+        ],
+        "generate_support_material_time": 504,
+        "id": 1,
+        "infill_time": 118,
+        "layer_filament_change": 0,
+        "main_predication": 80478.859375,
+        "make_perimeters_time": 1565,
+        "obj_cached_cnt": 0,
+        "objects": [
+          {
+            "bbox": {
+              "depth": 140.0,
+              "height": 177.29998779296875,
+              "width": 76.06632232666016,
+              "x": 136.96682739257812,
+              "y": 90.0,
+              "z": 3.6888184240524424e-06
+            },
+            "id": 5,
+            "name": "reservoir-left.stl",
+            "triangle_count": 8926
+          }
+        ],
+        "sliced_time": 6393,
+        "sliced_time_with_cache": 4097,
+        "total_predication": 80836.8125,
+        "triangle_count": 8926,
+        "warning_message": ""
+      }
+    ],
+    "sparse_infill_density": 100.0,
+    "upward_compatible_machine": [
+      "Bambu Lab H2S 0.8 nozzle",
+      "Bambu Lab H2D 0.8 nozzle",
+      "Bambu Lab H2D Pro 0.8 nozzle",
+      "Bambu Lab A2L 0.8 nozzle"
+    ],
+    "wall_loops": 6
+  },
+  "extrusion_readings": {
+    "baseline": {
+      "Support": {
+        "length": 738.1373441198699,
+        "min_width": 0.6,
+        "max_width": 0.6,
+        "max_speed": 150.0
+      },
+      "Inner wall": {
+        "length": 1605394.0537576845,
+        "min_width": 0.510508,
+        "max_width": 0.992028,
+        "max_speed": 188.37181666666666
+      },
+      "Outer wall": {
+        "length": 838413.2466690928,
+        "min_width": 0.59999,
+        "max_width": 0.599998,
+        "max_speed": 158.34276666666668
+      },
+      "Bottom surface": {
+        "length": 11777.18190434859,
+        "min_width": 0.601111,
+        "max_width": 0.601111,
+        "max_speed": 99.36715000000001
+      },
+      "Internal solid infill": {
+        "length": 77643.61804571387,
+        "min_width": 0.509175,
+        "max_width": 0.992488,
+        "max_speed": 188.9055833333333
+      },
+      "Sparse infill": {
+        "length": 433817.0852369877,
+        "min_width": 0.6,
+        "max_width": 0.6,
+        "max_speed": 158.3423
+      },
+      "Overhang wall": {
+        "length": 125.39422159659235,
+        "min_width": 0.599998,
+        "max_width": 0.877928,
+        "max_speed": 30.0
+      },
+      "Top surface": {
+        "length": 4452.8783430371905,
+        "min_width": 0.601108,
+        "max_width": 0.664078,
+        "max_speed": 158.03029999999998
+      },
+      "Ironing": {
+        "length": 43632.69944202232,
+        "min_width": 0.600966,
+        "max_width": 0.600966,
+        "max_speed": 30.0
+      }
+    },
+    "wide-075": {
+      "Support": {
+        "length": 473.4195824461204,
+        "min_width": 0.8,
+        "max_width": 0.9,
+        "max_speed": 43.780633333333334
+      },
+      "Inner wall": {
+        "length": 1130079.9869623375,
+        "min_width": 0.678928,
+        "max_width": 1.41241,
+        "max_speed": 30.0
+      },
+      "Outer wall": {
+        "length": 838622.6936653384,
+        "min_width": 0.749988,
+        "max_width": 1.0335,
+        "max_speed": 45.0
+      },
+      "Bottom surface": {
+        "length": 6483.96603866977,
+        "min_width": 0.903701,
+        "max_width": 0.903701,
+        "max_speed": 23.82881666666667
+      },
+      "Internal solid infill": {
+        "length": 148174.88679859936,
+        "min_width": 0.700075,
+        "max_width": 1.30557,
+        "max_speed": 30.0
+      },
+      "Overhang wall": {
+        "length": 68.08796656053087,
+        "min_width": 0.749998,
+        "max_width": 1.02559,
+        "max_speed": 30.0
+      },
+      "Sparse infill": {
+        "length": 148408.36115520098,
+        "min_width": 0.9,
+        "max_width": 0.9,
+        "max_speed": 30.0
+      },
+      "Ironing": {
+        "length": 43632.70555603653,
+        "min_width": 0.800724,
+        "max_width": 0.800724,
+        "max_speed": 30.0
+      },
+      "Top surface": {
+        "length": 1091.460340304651,
+        "min_width": 0.911598,
+        "max_width": 1.07227,
+        "max_speed": 30.0
+      }
+    },
+    "wide-080": {
+      "Support": {
+        "length": 473.4195824461204,
+        "min_width": 0.8,
+        "max_width": 0.9,
+        "max_speed": 43.780633333333334
+      },
+      "Inner wall": {
+        "length": 1113843.3773240522,
+        "min_width": 0.671878,
+        "max_width": 1.32943,
+        "max_speed": 30.0
+      },
+      "Outer wall": {
+        "length": 838651.345061757,
+        "min_width": 0.799988,
+        "max_width": 1.12444,
+        "max_speed": 40.0
+      },
+      "Bottom surface": {
+        "length": 6483.96603866977,
+        "min_width": 0.903701,
+        "max_width": 0.903701,
+        "max_speed": 23.82881666666667
+      },
+      "Internal solid infill": {
+        "length": 144550.0641142251,
+        "min_width": 0.704388,
+        "max_width": 1.35216,
+        "max_speed": 30.0
+      },
+      "Overhang wall": {
+        "length": 68.24498214054334,
+        "min_width": 0.799998,
+        "max_width": 1.02558,
+        "max_speed": 30.0
+      },
+      "Sparse infill": {
+        "length": 143613.9682127337,
+        "min_width": 0.9,
+        "max_width": 0.9,
+        "max_speed": 30.0
+      },
+      "Ironing": {
+        "length": 43632.69618156896,
+        "min_width": 0.800724,
+        "max_width": 0.800724,
+        "max_speed": 30.0
+      },
+      "Top surface": {
+        "length": 1058.2758143745475,
+        "min_width": 0.903518,
+        "max_width": 1.05851,
+        "max_speed": 30.0
+      }
+    },
+    "wide-090": {
+      "Support": {
+        "length": 473.4195824461204,
+        "min_width": 0.8,
+        "max_width": 0.9,
+        "max_speed": 43.780633333333334
+      },
+      "Inner wall": {
+        "length": 797666.7983568523,
+        "min_width": 0.654338,
+        "max_width": 1.39987,
+        "max_speed": 38.698049999999995
+      },
+      "Outer wall": {
+        "length": 838675.8254565804,
+        "min_width": 0.899988,
+        "max_width": 1.18796,
+        "max_speed": 38.7
+      },
+      "Bottom surface": {
+        "length": 6483.96603866977,
+        "min_width": 0.903701,
+        "max_width": 0.903701,
+        "max_speed": 23.82881666666667
+      },
+      "Internal solid infill": {
+        "length": 136766.86341879392,
+        "min_width": 0.763453,
+        "max_width": 1.33936,
+        "max_speed": 30.0
+      },
+      "Overhang wall": {
+        "length": 68.55879032180299,
+        "min_width": 0.899998,
+        "max_width": 1.02559,
+        "max_speed": 30.0
+      },
+      "Sparse infill": {
+        "length": 134136.87000517582,
+        "min_width": 0.9,
+        "max_width": 0.9,
+        "max_speed": 30.0
+      },
+      "Ironing": {
+        "length": 43632.35136002419,
+        "min_width": 0.800724,
+        "max_width": 0.800724,
+        "max_speed": 30.0
+      },
+      "Top surface": {
+        "length": 971.889697461437,
+        "min_width": 0.911668,
+        "max_width": 0.911668,
+        "max_speed": 30.0
+      }
+    },
+    "final": {
+      "Support": {
+        "length": 473.4203681362279,
+        "min_width": 0.8,
+        "max_width": 0.9,
+        "max_speed": 43.780633333333334
+      },
+      "Inner wall": {
+        "length": 1113843.429485873,
+        "min_width": 0.671878,
+        "max_width": 1.32943,
+        "max_speed": 30.0
+      },
+      "Outer wall": {
+        "length": 838651.3439831204,
+        "min_width": 0.799988,
+        "max_width": 1.12444,
+        "max_speed": 40.0
+      },
+      "Bottom surface": {
+        "length": 6483.963874032699,
+        "min_width": 0.903701,
+        "max_width": 0.903701,
+        "max_speed": 23.82881666666667
+      },
+      "Internal solid infill": {
+        "length": 144550.08010764624,
+        "min_width": 0.704388,
+        "max_width": 1.35216,
+        "max_speed": 30.0
+      },
+      "Overhang wall": {
+        "length": 68.24510745946715,
+        "min_width": 0.799998,
+        "max_width": 1.02558,
+        "max_speed": 30.0
+      },
+      "Sparse infill": {
+        "length": 143613.97848739807,
+        "min_width": 0.9,
+        "max_width": 0.9,
+        "max_speed": 30.0
+      },
+      "Ironing": {
+        "length": 43632.69973207573,
+        "min_width": 0.800724,
+        "max_width": 0.800724,
+        "max_speed": 30.0
+      },
+      "Top surface": {
+        "length": 1058.27586637063,
+        "min_width": 0.903518,
+        "max_width": 1.05851,
+        "max_speed": 30.0
+      }
+    }
+  }
+}

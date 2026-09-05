@@ -107,3 +107,19 @@ Watertight recipe (carried from attempt 4):
 - `layer_height`: 0.18 mm; `initial_layer_print_height`: 0.3 mm
 
 ### Result — not yet recorded (slice committed 2026-06-14)
+
+## PETG seal trial prepared (2026-09-04, settings per [`reservoir-08-seal-trial.3mf`](reservoir-08-seal-trial.3mf))
+
+One current left reservoir body, mouth up. H2C, 0.8 mm nozzle, PETG Translucent.
+Bambu Studio 02.08.02.61. Estimated 22 h 27 min, 360.76 g, 984 layers.
+
+- `nozzle_temperature` **255 °C** (initial 255)
+- `layer_height` **0.18 mm** (initial 0.30)
+- Arachne, six requested wall loops, 0.80 mm wall width.
+- Wall and fill speed requested: 30 mm/s; volumetric limit 6 mm³/s.
+- Filament flow ratio: 0.97. Normal part fan: 20%; overhang override: 90%; auxiliary fan off.
+- Aligned scarf seams, inner walls included, conditional scarf disabled, seam gap 0%.
+- Top and bottom shells: 12 layers / 2 mm; 100% infill; top-surface ironing.
+
+[Settings and toolpath inspection](seal-trial.md).
+Physical print and water-test results are not yet recorded.
