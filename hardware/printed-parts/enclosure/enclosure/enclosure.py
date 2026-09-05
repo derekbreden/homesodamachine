@@ -6140,10 +6140,11 @@ def _ridge_wall(inner, outer, plate, bay, funnel):
     connector, loom = _ridge_stations(outer, plate, bay)
     slab = slab.cut(_teardrop_y(cable_sleeve_open / 2.0, loom[0], loom[2],
                                 fore - 1.0, fore + t + 1.0))
-    # `molex_micro_fit_4` is drawn with +Y out of the mating face and wall material toward -Y.
-    # Turn it half around Z so the ridge's user-facing -Y is outward and +Y is the cavity side.
+    # `molex_micro_fit_4` is drawn with +Y out of the mating face and its key/latch on +Z.
+    # Turn it half around X: the ridge's user-facing -Y is outward, and the latch faces down
+    # into the empty pump bay where a fingertip can press it clear of the display.
     turn = lambda shape: (shape
-                          .rotate((0.0, 0.0, 0.0), (0.0, 0.0, 1.0), 180.0)
+                          .rotate((0.0, 0.0, 0.0), (1.0, 0.0, 0.0), 180.0)
                           .translate(connector))
     slab = slab.cut(turn(_pump_connector.panel_cut(t)))
 

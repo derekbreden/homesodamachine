@@ -3,7 +3,8 @@
 The pump connector is a black Molex Micro-Fit 3.0 wire-to-wire pair. The fixed
 `43020-0400` plug housing snaps into the ridge wall behind the enclosure display;
 the pump cartridge carries the mating `43025-0400` receptacle. The user pushes the
-receptacle home until its integral latch clicks, and presses that latch to remove it.
+receptacle home until its integral latch clicks, and presses that downward-facing latch
+through the empty pump bay to remove it.
 
 | | Fixed enclosure side | Removable cartridge side |
 |---|---|---|
@@ -41,12 +42,27 @@ cut-out follows Molex customer drawing `SD-43020-006`:
 cavity-side thinning pocket. The bought nylon ears provide the flex and retention;
 the printed PET-GF wall remains rigid.
 
+## Service envelope
+
+Molex's `43025` drawing gives the removable body as 6.85 × 8.28 × 14.00 mm and the
+complete mated pair as 24.77 mm long. Against the fixed housing's 16.89 mm body, the two
+halves nest by **6.12 mm**. The assembly's service path therefore pulls the cartridge half
+**7.12 mm** toward the user — the complete nesting distance plus 1 mm of true air — before
+lowering it into the empty pump bay.
+
+The enclosure installs the keyed/latching side downward. `enclosure_assembly.py` sweeps a
+conservative envelope of the complete body and latch through that pull-and-drop motion and
+checks it against the live front-top and display solids. It also requires at least 12 mm
+between the latch and the pump-bay lintel for a fingertip.
+
 ## Contact order
 
-Viewed into the fixed housing's mating face with the key up, its moulded circuit numbers
-control the harness: `1 AM2`, `2 AM1`, `3 BM2`, `4 BM1`. The same circuit number must read
-through the mated pair at the cartridge. Continuity-test the completed pair against J13;
-do not infer contact order from wire position after the ribbon is dressed.
+On the bench, hold the fixed housing with its key up and view its mating face. Its moulded
+circuit numbers control the harness: `1 AM2`, `2 AM1`, `3 BM2`, `4 BM1`. The enclosure
+installs that key down; the numbers, not the installed visual order, remain authoritative.
+The same circuit number must read through the mated pair at the cartridge. Continuity-test
+the completed pair against J13; do not infer contact order from wire position after the
+ribbon is dressed.
 
 ## Sources
 
@@ -55,6 +71,7 @@ do not infer contact order from wire position after the ribbon is dressed.
 - [Molex 43025 series](https://www.molex.com/en-us/products/series-chart/43025) — `43025-0400`, black, four circuits, mating lock and polarization.
 - [Molex Micro-Fit 3.0 product specification PS-43045](https://www.molex.com/content/dam/molex/molex-dot-com/products/automated/en-us/productspecificationpdf/430/43045/PS-43045-001.pdf) — wire range, insulation OD, electrical and mechanical ratings.
 - [Molex 43020 customer drawing](https://www.molex.com/content/dam/molex/molex-dot-com/products/automated/en-us/salesdrawingpdf/430/43020/430200601_sd.pdf?inline=) — housing envelope, panel range and recommended keyed cut-out.
+- [Molex 43025 customer drawing](https://www.molex.com/content/dam/molex/molex-dot-com/products/automated/en-us/salesdrawingpdf/430/43025/430250600_sd.pdf?inline=) — removable-housing envelope and complete mated-pair length.
 
 Regenerate the reference STEP with:
 
