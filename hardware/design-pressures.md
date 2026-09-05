@@ -18,8 +18,8 @@ made, once.
 
 **Field service.** One operation: the pump swap in
 [`service/pump-replacement.md`](/hardware/service/pump-replacement.md), which runs on the bench's
-own access — the pump cartridge withdraws through front-top's bay and its integral collet plate
-releases four tubes. Every other physical fault is answered by shipping a replacement; units are sold over the
+own access — `enclosure-front-top` off, eight collets released — rather than on anything placed for
+it. Every other physical fault is answered by shipping a replacement; units are sold over the
 internet to customers in other states, and the returned unit comes back to the factory. Diagnosis
 of a returned unit is a teardown with factory tools — cutting included — not a repair.
 
@@ -51,9 +51,10 @@ destroyed is a part that comes out by being destroyed.
   material's direction, not a number: no elongation, modulus or stress figure for Fiberon PET-GF15
   is recorded anywhere here. Any claim that a particular catch *could* be sprung answers to that
   number first.
-- **The anchor tees' axial release travel needs a physical check.** The release design uses
-  the 1.335 mm sleeve travel measured on the John Guest union. The tees' own travel and the
-  compliance of their `BUTT = 0` valve joints remain unmeasured.
+- **How much axial travel a collet needs is not in this tree.** The models carry collet faces
+  and `BUTT = 0`; the insertion depth of the 1/4" quick-connects, and whether over-inserting a
+  stub buys slack to close a joint between two fixed bodies, are unmeasured. Any claim that a
+  particular arrangement cannot be assembled answers to that number first.
 - **Assembly order runs opposite to group size** where a group is built as a unit. A
   free-standing sub-assembly is a convenience of the bench, not a requirement the joints
   impose.

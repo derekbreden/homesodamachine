@@ -38,6 +38,14 @@
     "NAMEPLATE_SCREWS": "2",
     "NET_UNDERSIZE": "3 mm",
     "PITCH": "12.33 mm",
+    "PLATE_AREA": "17.51",
+    "PLATE_CORNERS": "4",
+    "PLATE_COST": "$15.66",
+    "PLATE_HOLES": "4",
+    "PLATE_HOLE_D": "\u00d88.5",
+    "PLATE_LENGTH_IN": "7.874",
+    "PLATE_PLAN": "200.00 \u00d7 56.49 mm",
+    "PLATE_VOLUME": "2.19",
     "PP1208E_INLET": "1",
     "PP1208E_PANEL": "3",
     "PP1208E_TOTAL": "4",
@@ -75,19 +83,19 @@
     "WR1110_LOOP": "84.1 mm"
   },
   "/hardware/scripts/_bom_totals.py": {
-    "BOM_GRAND": "$1,401.00",
+    "BOM_GRAND": "$1,415.92",
     "BOM_SEC1": "$175.03",
     "BOM_SEC11": "$33.22",
     "BOM_SEC12": "$37.50",
-    "BOM_SEC13": "$13.62",
+    "BOM_SEC13": "$13.40",
     "BOM_SEC14": "$4.29",
     "BOM_SEC2": "$207.13",
     "BOM_SEC3": "$230.51",
     "BOM_SEC4": "$96.56",
     "BOM_SEC5": "$142.25",
     "BOM_SEC6": "$15.62",
-    "BOM_SEC7": "$159.08",
-    "BOM_SEC8": "$225.90",
+    "BOM_SEC7": "$158.56",
+    "BOM_SEC8": "$241.56",
     "BOM_SEC9": "$60.29"
   }
 }

@@ -3887,6 +3887,7 @@
       "hardware/assembly/scenes/glb/front-top.glb",
       "hardware/assembly/scenes/glb/funnel-drain.glb",
       "hardware/assembly/scenes/glb/pump-cartridge.glb",
+      "hardware/manifold-layout/collet-plate.dxf",
       "hardware/manifold-layout/enclosure-assembly.facts.json",
       "hardware/manifold-layout/enclosure-assembly.scorecard.json",
       "hardware/manifold-layout/enclosure-assembly.step",

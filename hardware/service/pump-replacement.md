@@ -22,7 +22,7 @@ gooseneck's tip. The user's part is a container under the faucet.
 | Both Kamoer pumps, [2](CART_PUMPS) stamped brackets bearing in the lower cradle and both bosses located by the top clamp ([`pump-tray/`](/hardware/printed-parts/enclosure/pump-tray/README.md)) | [8](TRAY_VALVES) valves — V-C…V-J, on the two valve trays ([`valve-tray/`](/hardware/printed-parts/enclosure/valve-tray/README.md)) |
 | The four barb tubes, on the barbs they were pushed onto | [3](CAP_VALVES) valves — V-A, V-B, V-K, in the cold core's lid cradles (`_cold_core_interface.cap_cradles`) |
 | Both DC-5 spade pairs, once they are off the motor tabs | All [6](BOX_TEES) PP0208E tees — each butts a valve that stays |
-| | The integral printed collet plate and its four tee-collar bores (`enclosure._tee_wall`) |
+| | The collet plate, in the slot through the bay floor, and the printed wall behind it the four tees stand in (`enclosure._tee_wall`) |
 | | Every hairpin, turn and butted stub inside the pack, and every mouth it spends on a bulkhead or a cap conduit |
 | | The funnel, in its throat; the enclosure display; the SeaFlo and both its chains; the cold core itself |
 
@@ -34,17 +34,17 @@ handled.
 ## The [4](JOINT_COUNT_3) joints the plate opens
 
 Derived at every build from `manifold_layout.SEGMENTS` and `manifold_layout.MOUTHS` against
-`_scorecard.fastened_by` and `_facts.pump_trays`, then asked a second time of the release face — the
+`_scorecard.fastened_by` and `_facts.pump_trays`, then asked a second time of the steel — the
 plate is bored one hole per barb tee, so what the pieces hold and what the plate releases have
 to name one set. A pump that changes seat changes this table, and `_pump_replacement_sync.py`
 fails rather than letting it drift.
 
 | Joint | Cartridge end | Staying end | Exposed tube | Air-filled by |
 |---|---|---|---|---|
-| `fluid-11` | pump A's suction barb | Y-C's branch collet | [7.0](LEN_11) mm | states 1 and 2 |
-| `fluid-12` | pump A's discharge barb | Y-D's branch collet | [7.0](LEN_12) mm | states 1 and 2 |
-| `fluid-21` | pump B's suction barb | Y-F's branch collet | [7.0](LEN_21) mm | states 3 and 4 |
-| `fluid-22` | pump B's discharge barb | Y-G's branch collet | [7.0](LEN_22) mm | states 3 and 4 |
+| `fluid-11` | pump A's suction barb | Y-C's branch collet | [7.3](LEN_11) mm | states 1 and 2 |
+| `fluid-12` | pump A's discharge barb | Y-D's branch collet | [7.3](LEN_12) mm | states 1 and 2 |
+| `fluid-21` | pump B's suction barb | Y-F's branch collet | [7.3](LEN_21) mm | states 3 and 4 |
+| `fluid-22` | pump B's discharge barb | Y-G's branch collet | [7.3](LEN_22) mm | states 3 and 4 |
 
 **Every joint that parts is one the dry cycle sweeps.** Each of the four stands between a pump
 and a tee on that pump's own channel, so either state that runs a pump carries air across both
@@ -53,23 +53,52 @@ is drawn on — the container under the faucet is the only one the procedure ask
 
 ## How the plate lets go
 
-The collet plate is a [3.175 mm](COLLET_PLATE_T) PET-GF release section printed into front-top’s
-tee wall, [209](PLATE_SPAN) mm across and continuous with the floor and both flanks. Each tube
-passage opens onto a flat annular land inside its tee’s collar bore. The four short tubes share
-the tee axes and slide through the passages without a vertical jog.
+The collet plate is a laser-cut 1/8" 316 flat ([`/hardware/manifold-layout/`](/hardware/manifold-layout/README.md)
+`collet-plate.dxf`), [200](PLATE_SPAN) mm wall to wall and [3.175](PLATE_T) mm thick, standing
+on edge in a slot that passes clean through the bay floor and opens on front-top's own Z− face.
+The slot holds nothing back: it locates the steel fore and aft over the floor's whole section
+and is the same width the whole way, because the plate is a plain rectangle. What stops it is
+its own top edge on the cap's land a storey above; what carries it is the pair of shelves
+front-bottom runs at the seam, under the plate's own ends. The printed wall behind it takes
+the push across its whole face.
+The floor is not asked to keep the top from pitching: at the plate's
+two outer tails, stationary L-section cheeks stand just fore of the steel and return round
+its ends into front-top's fixed aft side-wall stock. Each cheek is a wedge in plan, deepest
+where it is rooted in that side wall, so the section taking the moment stands where the
+cheek is carried and not where it is free. Each cheek's crown reaches aft to the tee wall over
+the tail and carries the cap's land out to the side wall, so the seat the top edge comes onto
+runs unbroken from wall to wall. They remain with the
+enclosure while the cartridge moves and the four collet noses load the plate. **A pump swap
+never touches the steel** — it is inside the closed front column, and nothing in this
+procedure opens that.
 
-The gap between each barb and collet contains [2.305](BARB_AIR) mm of barb air, the
-[3.175 mm](COLLET_PLATE_T) release section and [1.5](REST_GAP) mm of nose air. Pulling the cradle draws the
-tees forward through that nose air. Their noses then stop on the printed lands while the bodies
-continue far enough to depress the sleeves and release the tubes. The design uses the John Guest
-union’s measured sleeve travel; the assembled tee release and compliance of its butted joints
-are physical fit checks.
+Seated, the steel stands in the berth between the barbs and the collets, and that berth is
+spent three ways: [3.18](BARB_AIR) mm of air off the barb plane, the plate's own
+[3.175](PLATE_T) mm, and [2.375](REST_GAP) mm of nose air under the four branch collet faces.
+Its four large holes stand on the four branch collets' own axes and each is bored to two figures
+at once — wide enough to pass the Ø[6.35 mm](TUBE_OD) tube it has to let slide, narrow enough
+to leave land under the collet nose it has to stop. Nothing else is cut in it.
+`enclosure_assembly.check_collet_plate` holds those bores to both jobs at once.
 
-The collar bores locate each tee across its axis and leave it free along Y. At full design
-travel, the broad wall behind the release face remains 1 mm clear of the tee shoulders.
-Pushing the cartridge home threads the four tubes back into their collets. One hand pulls or
-pushes the cradle and the other braces the enclosure; the continuous floor, wall and flanks
-carry the release reaction.
+**The wall behind the steel is what holds a tee square while that happens.**
+`enclosure-front-top` carries a section of its own material aft of the plate, wall to wall and
+the whole height of the bay, bored once per anchor tee (`enclosure._tee_wall`). Each bore
+closes on the round collar the tee's branch arm carries — `TEE_WALL_BORE_SLIP` on the radius,
+a running fit and not a grip — so a tee is located across its own axis by printed material and
+free along it, which is the one direction the release moves it. The wall's fore face IS the
+steel's aft face, struck as one figure, so every bore is stopped at its fore mouth by steel
+and the nose that lands there lands on steel and not on plastic. Its aft face stands one whole
+stroke plus `TEE_WALL_BODY_AIR` fore of the tee's own body, so at full release there is still
+air behind the tee: what the wall holds is the collar, and what stops the tee is the steel.
+
+Pull the cartridge and the gripped tubes drag the tees forward [2.375](REST_GAP) mm — each tee
+running in its own bore — until each nose lands on that land. The body keeps coming, the nose
+is held, the grip opens, and the tube draws out through the hole it entered by. Push the
+cartridge home and the same four tubes thread the same four holes back into the same collets,
+the cradle's own aft face landing on the plate's fore face as the last one bottoms. **The user's two hands are the whole mechanism**:
+one pulls the cartridge, the other braces the box, and the box carries that brace to the plate
+through its fixed wall and the two wedge cheeks. There is no cartridge lock and no tool in
+this pump-replacement motion.
 
 ## Dry mode
 
@@ -126,7 +155,8 @@ tug-test each of the four before the deck goes back in.
 **5. Push the cartridge home.** Spade pairs back on the motor tabs first — they are unreachable
 once the cradle is in. Then set the cradle on the bay floor, feed the four tubes through the
 plate holes and into the branch collets, and push firmly on the face with one hand bracing the
-box. Confirm that the exterior face sits flush and all four tubes are fully inserted.
+box. The cradle's aft face landing on the steel is the seat: a face standing proud of the wall
+is a tube that has not gone home.
 
 **6. Re-prime.** Both channels through the funnel-fill path, then a dispense on each until it
 runs clean.
@@ -135,7 +165,7 @@ runs clean.
 
 - Both pumps replaced, each bracket bearing in the lower cradle with the top clamp closed, tug-tested
 - Four fresh barb tubes on the barbs and all [4](JOINT_COUNT_4) joints threaded home, the
-  cartridge's face flush in the bay
+  cartridge's face flush in the bay and the cradle's aft face on the steel
 - Both channels re-primed and dispensing clean
 - No joint on the water, CO2 or carbonated-water path opened; the carbonator never depressurised
 
@@ -153,9 +183,13 @@ runs clean.
 3. **A customer-facing transit mode is not written.** This procedure leaves the carbonator charged.
    The carbonator's only liquid outlet climbs to the faucet, and the factory's transit sequence is
    [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) step 13.
-4. **Confirm the complete four-joint release on the assembled cartridge.** The design stroke
-   includes the nose gap and sleeve travel measured on the John Guest union. The anchor tees'
-   required travel and the compliance of their butted valve joints need a physical fit check.
+4. ~~**The stroke is not clear, so the cartridge cannot come out.**~~ **CLOSED.**
+   The stroke is the rest gap alone — the nose presses the moment it reaches the steel, the grip opens on
+   contact, and the tee stops there while the tube draws out of it. The tee is the only body
+   that moves: the tube stub flexes inside the two collets that hold it, and the valve on its
+   far end stands where it was seated. That the stub bends is stated and not derived — no body
+   in the model has compliance in it.
+   Steps 2 and 5 run on that release mechanism.
 
 ## Sources
 [value](NAME) texts are updated by:
