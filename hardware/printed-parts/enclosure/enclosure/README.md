@@ -616,8 +616,7 @@ Each piece has its own production project in Git history at
 `aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a`. The audit substitutes the current STL into that
 piece’s project and keeps its Z− bed orientation. Current coverage and every retained support’s
 contact, root, build-up and functional reason are recorded in
-[`support-audit.json`](support-audit.json). Front-top, front-bottom, the pump cradle and clamp
-require refreshed slices for their current geometry.
+[`support-audit.json`](support-audit.json). Front-top and the pump cradle require refreshed slices for their current geometry.
 
 ## Print orientation + corner relief
 
@@ -1022,11 +1021,10 @@ tube-casing passages. The skirt itself spans [62.5 mm](PUMP_SKIRT_Y), from y
 [12.115 mm](PUMP_SKIRT_Y_MINUS_EDGE) to y [74.615 mm](PUMP_SKIRT_Y_PLUS_EDGE); its opening ends
 at y [74.915 mm](PUMP_SKIRT_Y_PLUS_OPEN_EDGE), leaving
 [0.3 mm](PUMP_SKIRT_Y_PLUS_AIR) around the skirt and
-[3.482 mm](PUMP_SKIRT_Y_PLUS_LAND) of supporting land back to the body opening. Only
-[3 mm](PUMP_SKIRT_UPPER_BAND) of upper band remains behind
-that opening, ending at y [77.915 mm](PUMP_SKIRT_UPPER_BAND_AFT). That same
-[77.915 mm](PUMP_CARTRIDGE_AFT_Y) plane is the complete cartridge's Y+ edge; no lower-cradle
-stock continues behind it.
+[3.482 mm](PUMP_SKIRT_Y_PLUS_LAND) of supporting land back to the body opening.
+Below the bracket plane, [1.225 mm](PUMP_SKIRT_UPPER_BAND) of stock remains behind the skirt
+opening, ending at y [76.14 mm](PUMP_SKIRT_UPPER_BAND_AFT). Above the brackets the insertion
+wells open aft; the lower support lands carry the pumps.
 
 **The second printed piece is the top clamp.** `enclosure-pump-cap`
 (`build_pump_cap`) is [169.9 mm](CLAMP_SPAN) across and [61.75 mm](CLAMP_RISE) high. Its Z− face
@@ -1058,9 +1056,8 @@ stand [59.75 mm](CAP_TUBE_PITCH) apart. The physical pair spans
 centered on the casing axis and a straight 13 mm shaft continues through the complete vertical
 insertion path. The shafts, tube-side case room and upper well share the same outer X planes;
 printed wall remains between and outside the passages. The full-width upper wells end together
-at y [74.915 mm](PUMP_UPPER_WELL_AFT). Past that plane only the four individual shafts continue:
-the closed middle span on each pump and the centre span between the pumps all carry the same
-cap-following reinforcement to the cartridge's aft edge.
+at y [74.915 mm](PUMP_UPPER_WELL_AFT). Above the bracket plane the wells open through the cartridge's aft face at
+y [74.765 mm](PUMP_CARTRIDGE_UPPER_AFT_Y). The pump-support lands remain below the bracket plane.
 
 Nothing latches the cartridge in the enclosure. Its four tubes are held by the anchor tees’
 branch collets. The **collet plate** is [6 mm](COLLET_PLATE_T) of PET-GF printed into front-top,
@@ -1075,10 +1072,9 @@ sleeve travel measured on the John Guest union. The tee shoulder keeps 1 mm of a
 The tee’s butted valve stays on its tray; compliance at those tube joints remains a physical
 fit check for the assembled release.
 
-The cradle follows the release wall with 0.15 mm running clearance. Above the tube row, the
-wall’s fore face retreats aft on a 45° plane, keeping the complete pump-skirt support bands.
-The broad upper webs end at the skirt band’s aft edge,
-y [77.915 mm](PUMP_CARTRIDGE_AFT_Y).
+The cradle follows the release wall with 0.15 mm running clearance.
+Above the brackets its insertion wells open aft. The fixed wall's fore face is plumb through
+the complete bay height.
 
 **Both pulls belong to the cradle and surround the tube-centre plane.** Each side pocket is
 [18 mm](PULL_DEPTH) deep, [30 mm](PULL_RUN) fore/aft and [48 mm](PULL_RISE) high. Its floor at
@@ -1118,9 +1114,9 @@ floor opens for that alone. Aft of that run the lip is carried whole and the tel
 is untouched.
 
 **The collet plate is continuous printed material.** Its release section starts on the seam
-plane and spans both cavity walls. The [6 mm](COLLET_PLATE_T) section continues above the tee-bore crowns
-to z [202.031 mm](PLATE_ROOT_RISE), then its fore face retreats at 45° to the upper cartridge
-clearance plane. The floor under it is uninterrupted.
+plane and spans both cavity walls. The wall carries its full [16.875 mm](COLLET_WALL_T)
+thickness to the lintel, with a single plumb fore face. The collar bores leave the
+[6 mm](COLLET_PLATE_T) release section around the four tube passages. The floor under it is uninterrupted.
 
 The four collar bores start on the release face. Their round lower surfaces locate the tees
 in X and Z with 0.25 mm radial clearance; their tangent teardrop roofs close at 36°. The smaller

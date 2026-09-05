@@ -149,9 +149,83 @@
       ]
     },
     "enclosure-front-bottom": {
-      "status": "audit-required",
+      "status": "audited",
       "profile": "git:aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a:hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom-petgf.3mf",
-      "support_bodies": []
+      "result": "enclosure-front-bottom.support-audit.json",
+      "support_bodies": [
+        {
+          "tree": "tree-1",
+          "name": "west lower Y-seam socket collar crown",
+          "first_contacts_cad_xyz_mm": [
+            [
+              -104.2,
+              200.625,
+              22.4,
+              -99.0,
+              213.025,
+              22.8
+            ]
+          ],
+          "root": "bed",
+          "build_up_mm": 28.2,
+          "interface_islands": 1,
+          "rationale": "The complete crown of the lower west Y-seam socket collar. It keeps the collar's full structural stock over the cross-pin's square slide slot and its blind heat-set pocket, so the pin registers on a square pass envelope and the M3 bears on a whole section; pitching the crown into a roof would erase that envelope. Its one tree grows from the bed through the open cavity."
+        },
+        {
+          "tree": "tree-2",
+          "name": "west Z-seam slide-head catch",
+          "first_contacts_cad_xyz_mm": [
+            [
+              -103.4,
+              93.825,
+              168.4,
+              -99.0,
+              190.225,
+              168.6
+            ]
+          ],
+          "root": "model",
+          "build_up_mm": 8.0,
+          "interface_islands": 1,
+          "rationale": "The flat underside of the -X rail's slide head - the Z seam's one down-looking face, and the whole of the screwless bottom-to-top joint's bearing against lift. Lifting a seated front-top lands its foot's flat top face on this one along the rail's entire run, and pitching the catch would turn it into a cam. The arm under it already returns to the wall on a 45 degree under-flare, so there is no wall-rooted wedge left to grow, and nothing crosses this flank at the catch's height to give the body a lane to the bed: it roots on that under-flare 8.00 mm below the catch. It, its east mirror and back-bottom's east catch are the three material-rooted supports in the box and the only bodies outside the 15 mm band, and they are what the campaign owes its next fix."
+        },
+        {
+          "tree": "tree-3",
+          "name": "east Z-seam slide-head catch",
+          "first_contacts_cad_xyz_mm": [
+            [
+              99.0,
+              93.825,
+              168.4,
+              103.4,
+              190.225,
+              168.6
+            ]
+          ],
+          "root": "model",
+          "build_up_mm": 8.0,
+          "interface_islands": 1,
+          "rationale": "The flat underside of the +X rail's slide head - the Z seam's one down-looking face, and the whole of the screwless bottom-to-top joint's bearing against lift. Lifting a seated front-top lands its foot's flat top face on this one along the rail's entire run, and pitching the catch would turn it into a cam. The arm under it already returns to the wall on a 45 degree under-flare, so there is no wall-rooted wedge left to grow, and nothing crosses this flank at the catch's height to give the body a lane to the bed: it roots on that under-flare 8.00 mm below the catch. It, its west mirror and back-bottom's east catch are the three material-rooted supports in the box and the only bodies outside the 15 mm band, and they are what the campaign owes its next fix."
+        },
+        {
+          "tree": "tree-4",
+          "name": "east lower Y-seam socket collar crown",
+          "first_contacts_cad_xyz_mm": [
+            [
+              99.0,
+              200.625,
+              22.4,
+              104.2,
+              213.025,
+              22.8
+            ]
+          ],
+          "root": "bed",
+          "build_up_mm": 28.2,
+          "interface_islands": 1,
+          "rationale": "The complete crown of the lower east Y-seam socket collar. It keeps the collar's full structural stock over the cross-pin's square slide slot and its blind heat-set pocket, so the pin registers on a square pass envelope and the M3 bears on a whole section; pitching the crown into a roof would erase that envelope. Its one tree grows from the bed through the open cavity."
+        }
+      ]
     },
     "enclosure-front-top": {
       "status": "audit-required",
@@ -159,9 +233,47 @@
       "support_bodies": []
     },
     "enclosure-pump-cap": {
-      "status": "audit-required",
+      "status": "audited",
       "profile": "git:aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a:hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap-petgf.3mf",
-      "support_bodies": []
+      "result": "enclosure-pump-cap.support-audit.json",
+      "support_bodies": [
+        {
+          "tree": "tree-1",
+          "name": "X- pump boss-bearing shoulder",
+          "first_contacts_cad_xyz_mm": [
+            [
+              -75.8,
+              17.76,
+              234.345,
+              -24.2,
+              69.36,
+              234.545
+            ]
+          ],
+          "root": "bed",
+          "build_up_mm": 18.4,
+          "interface_islands": 1,
+          "rationale": "The flat annular shoulder bears axially on the fitted pump boss while the complete octagonal wall locates X, Y and yaw. Chamfering the shoulder would trade away bearing area rather than remove an accidental overhang; its centre bore remains open for direct support removal."
+        },
+        {
+          "tree": "tree-2",
+          "name": "X+ pump boss-bearing shoulder",
+          "first_contacts_cad_xyz_mm": [
+            [
+              24.2,
+              17.76,
+              234.345,
+              75.8,
+              69.36,
+              234.545
+            ]
+          ],
+          "root": "bed",
+          "build_up_mm": 18.4,
+          "interface_islands": 1,
+          "rationale": "The flat annular shoulder bears axially on the fitted pump boss while the complete octagonal wall locates X, Y and yaw. Chamfering the shoulder would trade away bearing area rather than remove an accidental overhang; its centre bore remains open for direct support removal."
+        }
+      ]
     },
     "enclosure-pump-cartridge": {
       "status": "audit-required",
