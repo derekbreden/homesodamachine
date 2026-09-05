@@ -54,7 +54,8 @@ destroyed is a part that comes out by being destroyed.
 - **How far a tube runs into a collet, and how far its sleeve presses, is measured for the
   tee.** The PP0208E's own figures are in
   [`reference/tee-connector/`](/hardware/reference/tee-connector/README.md): a 1/4" tube meets
-  resistance at 7 mm, is held from 8.5 mm and bottoms at 10 mm, and one sleeve presses 1.65 mm.
+  resistance at 7 mm, is held from 8.5 mm and bottoms at 10 mm, all from the sleeve's face with
+  the sleeve pressed home, and one sleeve presses 1.65 mm.
   The models still carry `BUTT = 0`, the other quick-connects' depths are unmeasured, and whether
   over-inserting a stub buys slack to close a joint between two fixed bodies is unmeasured. Any
   claim that a particular arrangement cannot be assembled answers to those numbers first.

@@ -64,13 +64,19 @@ ARM_R = 6.6415            # what the arm stands from that root out to the collar
 # --- Measured on the PP0208E in hand ----------------------------------------
 # Calipered on the production tee, not read off the stand-in STEP, so `stations_hold` does not
 # hold them. The two spans are collet face to collet face along the run. The three depths are
-# how far a 1/4" tube stands inside one collet from the sleeve's face, sleeve extended.
+# how far a 1/4" tube stands inside one collet from the sleeve's face WITH THE SLEEVE PRESSED
+# HOME, which is where the tube was marked: pressed, the sleeve sits on the body. The teeth,
+# O-ring and stop are the body's, so from the EXTENDED sleeve face, where `RUN_HALF` and
+# `BRANCH_REACH` stand the noses, each depth is one `COLLET_TRAVEL` deeper.
 RUN_SPAN = 42.5            # sleeves extended
 RUN_SPAN_PRESSED = 39.2    # both sleeves pressed home
 COLLET_TRAVEL = (RUN_SPAN - RUN_SPAN_PRESSED) / 2.0   # one sleeve's stroke, 1.65
 FIRST_RESISTANCE = 7.0     # the tube first meets the mechanism
 GRIP_DEPTH = 8.5           # the teeth hold from here in; at 8.4 the tube still draws out
 INSERTION = 10.0           # the tube bottoms
+FIRST_RESISTANCE_EXTENDED = FIRST_RESISTANCE + COLLET_TRAVEL   # 8.65, from the extended nose
+GRIP_DEPTH_EXTENDED = GRIP_DEPTH + COLLET_TRAVEL               # 10.15
+INSERTION_EXTENDED = INSERTION + COLLET_TRAVEL                 # 11.65
 
 
 def run(sign):
