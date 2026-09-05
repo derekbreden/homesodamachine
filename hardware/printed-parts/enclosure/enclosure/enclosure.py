@@ -1870,13 +1870,15 @@ def documented(box):
 #                 `enclosure_assembly.collet_plate_spec` strikes off the four anchor tees'
 #                 branch collets: its two Y faces, its Z band, its X ends, and one (x, z)
 #                 per hole. The bay floor's slot takes it (`_plate_slot`)
+#   tee_carrier   the moving four-tee mechanism's plain interface: four derived states, ear and
+#                 tab sweeps, release/park stops, two spring stations and eight tie sites
 Pack = namedtuple(
     "Pack", "placed front_ports back_ports east_ports west_ports funnel pan_sleeve c14 "
             "east_bosses side_wells floor_bosses west_cradle cond_cradle cond_mount "
             "cond_airway asse_cradle flow_meter_anchors tube_anchors ceiling_reliefs "
             "ceiling_growth_reliefs "
             "port_field nameplate keystone "
-            "valve_trays pump_trays core_stops core_holds vent_chase collet_plate")
+            "valve_trays pump_trays core_stops core_holds vent_chase collet_plate tee_carrier")
 Pack.__new__.__defaults__ = (
     (),             # front_ports
     (),             # back_ports
@@ -1906,6 +1908,7 @@ Pack.__new__.__defaults__ = (
     (),             # core_holds
     (),             # vent_chase
     None,           # collet_plate
+    None,           # tee_carrier
 )
 
 
@@ -6006,6 +6009,57 @@ def _tee_wall(inner, y_joint, plate, bay):
     return slab
 
 
+def _tee_carrier_fixed_features(carrier):
+    """Front-top's release/park stops and two support-free spring guide diamonds.
+
+    The ears lower through the open cavity and ride 0.15 mm inside the grown flank faces.  The
+    tee-wall journals supply X/Z guidance; these sidewall-rooted posts own only the two Y stops.
+    Each spring starts on the tee wall's aft face around a 4 mm diamond guide, whose 45-degree
+    lower faces print on a horizontal axis without support and fit inside the spring's round ID.
+    """
+    if not carrier:
+        return None
+    x0, x1 = carrier["fore_stop_x"]
+    ax0, ax1 = carrier["aft_stop_x"]
+    z0, z1 = carrier["stop_z"]
+    depth = carrier["stop_depth"]
+    release_y = carrier["release_fore_stop_y"]
+    park_y = carrier["park_aft_stop_y"]
+    out = None
+    for sign in (-1.0, 1.0):
+        fx0, fx1 = ((x0, x1) if sign > 0.0 else (-x1, -x0))
+        px0, px1 = ((ax0, ax1) if sign > 0.0 else (-ax1, -ax0))
+        pair = _ybox(fx0, fx1, release_y - depth, release_y, z0, z1).fuse(
+            _ybox(px0, px1, park_y, park_y + depth, z0, z1))
+        out = pair if out is None else out.fuse(pair)
+    half = carrier["spring_guide_across"] / 2.0
+    fixed_y = carrier["fixed_spring_bearing_y"]
+    for x, z in carrier["spring_guide_xz"]:
+        diamond = _xz_prism(
+            fixed_y,
+            fixed_y + carrier["spring_guide_length"],
+            ((x, z + half), (x + half, z), (x, z - half), (x - half, z)),
+        )
+        out = out.fuse(diamond)
+    return out
+
+
+def _tee_carrier_service_slots(carrier):
+    """The two gabled flank openings swept by the separately installed service tabs."""
+    if not carrier:
+        return ()
+    x0, x1 = carrier["service_slot_x"]
+    y0, y1 = carrier["service_slot_y"]
+    z0, z1 = carrier["service_slot_z"]
+    roof = carrier["service_slot_roof_z"]
+    ym = (y0 + y1) / 2.0
+    section = ((y0, z0), (y1, z0), (y1, z1), (ym, roof), (y0, z1))
+    return (
+        _yz_prism(x0, x1, section),
+        _yz_prism(-x1, -x0, section),
+    )
+
+
 def _plate_lead(plate):
     """The 45° construction flare on the aft side of the collet plate's slot.
 
@@ -8735,6 +8789,11 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         # it — and after the facet's own cuts, which the half took before it was split.
         piece = piece.fuse(_ridge_wall(
             inner, outer, box.pack.collet_plate, box.pump_bay, box.pack.funnel))
+        # The moving tee carrier lowers into the open cavity. Its journals are the tee bores;
+        # front-top adds only the two end stops and the printable spring guides after both walls
+        # they root on exist, and before the valve trays and seam channel shape their roots.
+        if box.pack.tee_carrier:
+            piece = piece.fuse(_tee_carrier_fixed_features(box.pack.tee_carrier))
     piece = _valve_trays(
         piece, inner, box.pack.valve_trays, ylo, yhi, zlo, zhi,
         wall_aft_y=(box.pack.collet_plate["wall_aft_y"] if box.pack.collet_plate else None),
@@ -8815,6 +8874,10 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         piece = piece.cut(_funnel_cut(inner, outer, box.pack.funnel))
     if y_side == "front" and z_side == "top" and plate:
         piece = piece.fuse(_printed_collet_plate(plate))
+        # These openings are air. Cut them after every plate, cheek, wall and stop fuse so no
+        # later feature can refill the service-tab sweep or its support-free gabled roof.
+        for slot in _tee_carrier_service_slots(box.pack.tee_carrier):
+            piece = piece.cut(slot)
     if y_side == "back" and z_side == "top":
         # Last on the flank: the channel is air, and no later wall feature may fill it back in.
         piece = _pan_cable_clip(piece, box)

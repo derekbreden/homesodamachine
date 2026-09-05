@@ -16,11 +16,11 @@ flowchart LR
   %% made, and the total under them. The aggregates below are `%%` markers, which the renderer
   %% never reaches.
 
-  %% [26](SEGMENT_COUNT) flavor segments. [7](BUTT_COUNT) are collet butted to collet and carry
+  %% [26](SEGMENT_COUNT) flavor segments. [3](BUTT_COUNT) are collet butted to collet and carry
   %% no tube at all; [9](DRAWN_COUNT) are swept runs between placed bodies; the rest are the
   %% hinge's four hairpins and the source pair's two quarter-and-step turns. What is cut comes to
-  %% [2357.8 mm](FLUID_TOTAL) of 1/4" LLDPE over [50](FLUID_BENDS) corners, and the longest is
-  %% [fluid-18](LONGEST_ID) at [443.9 mm](LONGEST_LEN). [0](OPEN_COUNT) are mouths with nothing
+  %% [2375.5 mm](FLUID_TOTAL) of 1/4" LLDPE over [50](FLUID_BENDS) corners, and the longest is
+  %% [fluid-18](LONGEST_ID) at [440.7 mm](LONGEST_LEN). [0](OPEN_COUNT) are mouths with nothing
   %% on the far end of them: EVERY FLAVOR SEGMENT IN THIS CHART IS MADE. The funnel's gravity
   %% drain is drawn like the rest — the funnel is seated in the box rather than placed in the
   %% pack, so `fluid-4` is authored after the box exists, off the same frames.
@@ -140,10 +140,10 @@ flowchart LR
   %% fluid-17 are the two hairpins that cross the hinge: a quarter of R14, 31.4 mm of straight,
   %% and a quarter back. Everything else along the limbs is butted.
   VC -->|"fluid-9"| YC
-  VE -->|"fluid-10<br/>butt"| YC
+  VE -->|"fluid-10<br/>bowed"| YC
   YC -->|"fluid-11"| PA
   PA -->|"fluid-12"| YD
-  YD -->|"fluid-13<br/>butt"| VF
+  YD -->|"fluid-13<br/>bowed"| VF
   VF -->|"fluid-14"| ResAFill
   ResA -->|"fluid-16"| VE
   YD -->|"fluid-17"| VG
@@ -156,10 +156,10 @@ flowchart LR
   %% fluid-27 are its two hairpins, and V-I-O and V-H-I — the reservoir's fill gate and its draw
   %% gate — leave on their own axes off the lower deck, as channel A's V-F-O and V-E-I do.
   VD -->|"fluid-19"| YF
-  VH -->|"fluid-20<br/>butt"| YF
+  VH -->|"fluid-20<br/>bowed"| YF
   YF -->|"fluid-21"| PB
   PB -->|"fluid-22"| YG
-  YG -->|"fluid-23<br/>butt"| VI
+  YG -->|"fluid-23<br/>bowed"| VI
   VI -->|"fluid-24"| ResBFill
   ResB -->|"fluid-26"| VH
   YG -->|"fluid-27"| VJ

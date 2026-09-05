@@ -7,6 +7,9 @@
     "CARBONATOR_PORTS": "4",
     "CARB_1_LOOP": "40.1 mm",
     "CARB_REEDS": "2",
+    "CARRIER_PRINTS": "5",
+    "CARRIER_SPRINGS": "2",
+    "CARRIER_TIES": "8",
     "COMPRESSOR_BORE": "14",
     "COMPRESSOR_LIGAMENT": "7.5",
     "COND_INSERTS": "2",
@@ -26,6 +29,7 @@
     "FOAM_CLAMP_INSERTS": "12",
     "FOAM_INSERTS": "16",
     "FOAM_SCREWS": "12",
+    "FOUR_INCH_TIES": "33",
     "GROMMET_SQUEEZE": "0.4",
     "LAID_FT": "13.41 ft",
     "M3X10_TOTAL": "7",
@@ -75,19 +79,19 @@
     "WR1110_LOOP": "84.1 mm"
   },
   "/hardware/scripts/_bom_totals.py": {
-    "BOM_GRAND": "$1,415.92",
+    "BOM_GRAND": "$1,401.26",
     "BOM_SEC1": "$175.03",
-    "BOM_SEC11": "$33.22",
+    "BOM_SEC11": "$37.28",
     "BOM_SEC12": "$37.50",
-    "BOM_SEC13": "$13.40",
+    "BOM_SEC13": "$13.62",
     "BOM_SEC14": "$4.29",
     "BOM_SEC2": "$207.13",
-    "BOM_SEC3": "$230.51",
+    "BOM_SEC3": "$225.15",
     "BOM_SEC4": "$96.56",
     "BOM_SEC5": "$142.25",
     "BOM_SEC6": "$15.62",
-    "BOM_SEC7": "$158.56",
-    "BOM_SEC8": "$241.56",
-    "BOM_SEC9": "$60.29"
+    "BOM_SEC7": "$159.41",
+    "BOM_SEC8": "$225.90",
+    "BOM_SEC9": "$61.52"
   }
 }

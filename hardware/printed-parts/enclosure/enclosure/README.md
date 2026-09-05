@@ -1351,7 +1351,7 @@ the rigid PET-GF wall supplies the seat and the bought nylon housing supplies th
 J13 loom remains in the enclosure; the cartridge carries the mating black `43025-0400`
 receptacle.
 
-SIG-7 still crosses the rib, at the same height but shifted [−32 mm](DISPLAY_LOOM_X) in X. Its
+SIG-7 still crosses the rib, at the same height but shifted [-32 mm](DISPLAY_LOOM_X) in X. Its
 four 22 AWG conductors remain in the 1/2" PET expandable braid, so its teardrop bore remains the
 opened figure — Ø[19.05 mm](CABLE_BORE) — with solid stock between that bore and the pump
 connector's panel land. It locates nothing and carries nothing; the display loom is dressed after

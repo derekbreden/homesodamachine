@@ -21,7 +21,7 @@ about the hinge the four barb tees' front collets stand on.
 | 2 × pump | Kamoer KPHM400 ([`reference/kamoer-kphm400`](/hardware/reference/kamoer-kphm400/)) — two barbs [59.75](BARB_PITCH) mm apart on one face, both facing the same way, [24.38](BARB_INSET) mm back from the head's front face. |
 | [6](TEE_COUNT2) × tee | John Guest PP0208E ([`reference/tee-connector`](/hardware/reference/tee-connector/README.md)) — run collets [20.07](TEE_RUN) mm either side of the body centre, [40.14](TEE_SPAN) mm end to end, branch reaching the same distance. |
 | 0 × Y-divider | Its two outlets stand [14.7](DIVIDER_PITCH) mm apart ([`reference/y-divider`](/hardware/reference/y-divider/README.md)). |
-| [4](TUBE_COUNT2) × tube | 1/4" OD LLDPE, all straight — the four the collet plate's berth opens between each pump barb and its anchor tee. |
+| [8](TUBE_COUNT2) × tube | 1/4" OD LLDPE — four straight runs across the collet plate's berth from the pump barbs to the anchor tees, and [4](FORE_STUB_COUNT) bowed flex stubs above those tees. |
 
 ## Frame
 
@@ -35,9 +35,10 @@ height, 0 at the pumps' own floor; the valves stand on two decks above them, at 
 A tee dropped on a pump barb by its BRANCH puts its RUN across the head's face, so each pump
 hands out two parallel lanes [59.75](BARB_PITCH2) mm apart, one branch reach off its own skin.
 Every valve is straight through and every junction's run takes two valve ports, so a lane is
-one line of valves and tees butted collet to collet, front to back. `LIMB_PITCH` is that
-spacing and it is a knob: `HSM_LIMB_PITCH=<mm>` steps both tees toward the pump's axis and
-draws the leaning tube each barb then needs to reach its tee.
+one line of valves and tees, front to back. Three interior pairs are butted collet to collet;
+the four carrier tees instead meet V-E/F/H/I through the exposed bowed flex stubs below.
+`LIMB_PITCH` is the lane spacing and it is a knob: `HSM_LIMB_PITCH=<mm>` steps both tees toward
+the pump's axis and draws the leaning tube each barb then needs to reach its tee.
 
 ```
                           `|` = the hinge; everything left of it is folded up and over
@@ -57,15 +58,18 @@ crowns; the folded deck's at z [147.78](UPPER_Z2). The two inner limbs leave
 ## The fold
 
 The four connections crossing the hinge — fluid-9, 17, 19 and 27 — each become one 180° turn:
-a quarter-turn of R[14](SPINE_R), [31.40](SPINE_STRAIGHT) mm of straight, and a quarter-turn
-back, [75.38](SPINE_LEN) mm of tube. Both ends meet their collet on its own axis, so the turn
-carries no straight at either END — the straight is in the middle.
+a quarter-turn of R[14](SPINE_R), a constant [34.55](SPINE_MIDDLE_LEN) mm middle member, and a
+quarter-turn back, [78.53](SPINE_LEN) mm of tube. Both ends meet their collet on its own axis.
+At full release the middle member is straight; at squeeze its chord is
+[31.40](SPINE_STRAIGHT) mm, and it bows laterally as the carrier moves farther aft. The two R14
+quarters and the cut length do not change between states.
 
 **The radius and the deck separation are two different numbers.** Any 180° that ends on both
 collet axes will join them, and that family is one parameter wide: the semicircle is only the
-member with no straight in it, and it is the worst to pick, because what the pack pays for a
-turn is how far it reaches past the hinge — and that reach is the RADIUS. So the radius sits on
-the stock's floor, R[14](MIN_BEND2), and the straight takes up whatever the decks leave.
+member with no middle chord in it, and it is the worst to pick, because what the pack pays for
+a turn is how far it reaches past the hinge — and that reach is the RADIUS. The radius therefore
+stays on the stock's floor, R[14](MIN_BEND2), while the middle member takes up the changing end
+separation without changing developed length.
 
 The decks stand [59.4](DECK_SEP) mm apart, and that IS chosen. What stands over what is a
 folded valve's underside against the SPADE TERMINALS of the valve beneath it — two 0.8 mm tabs
@@ -137,10 +141,13 @@ Mirror-checked: [9](TWIN_COUNT) twinned pairs, worst off by [0.0000](MIRROR_OFF)
 
 ## How each connection is made
 
-[9](BUTT_COUNT) of the [17](SEGMENT_COUNT) segments the topology names between these bodies
+[3](BUTT_COUNT) of the [17](SEGMENT_COUNT) segments the topology names between these bodies
 are collet butted to collet: tube in both quick-connects, none between them, no solid drawn.
-[4](TUBE_COUNT) are the straight reservoir crossings, [4](SPINE_COUNT) are the fold's 180°
-turns and [2](QUARTER_COUNT2) are the quarter turns above. Every corner in the manifold —
+[4](STRAIGHT_COUNT) are straight pump-barb runs. The [4](FORE_STUB_COUNT) connections from the
+anchor tees to V-E/F/H/I are [12](FORE_STUB_EXPOSED) mm of exposed LLDPE bowed across
+[10](FORE_STUB_GAP) mm sleeve-face gaps, so the four fixed valves stand that far above the
+tees while the tees can move fore and aft. [4](SPINE_COUNT) are the fold's 180° turns and
+[2](QUARTER_COUNT2) are the quarter turns above. Every formed corner in the manifold —
 [14](CORNER_COUNT) of them — sits on the stock's own floor of [14](MIN_BEND) mm.
 
 The [8](MOUTH_COUNT) mouths that leave this study are drawn one bend radius long and stop, and
@@ -150,7 +157,7 @@ V-I-O and V-H-I for B — on the lower.
 
 ## Envelope
 
-[194](ENV_X) × [169](ENV_Y) × [242](ENV_Z) mm — [7.90](ENV_L) L of bounding box over the
+[194](ENV_X) × [169](ENV_Y) × [242](ENV_Z) mm — [7.91](ENV_L) L of bounding box over the
 bodies and the tube between them, with [0](CLASHES) pairs of placed solids sharing volume.
 Add one [14](STUB_LEN) mm mouth stub on each of the [8](MOUTH_COUNT2) and it is
 [194](REACH_X) × [169](REACH_Y) × [256](REACH_Z).
@@ -167,10 +174,12 @@ so each straight is horizontal with a [6.98](BARB_TUBE_LEN) mm centreline length
 Both pumps ride out of the box on their own pump cartridge and these four runs are what
 release. The collet plate is a 3.175 mm section printed into front-top, with four
 Ø8.5 mm teardrop passages around the Ø6.35 mm tubes. A passage passes its tube and stops the
-collet nose. Pulling the pump cartridge draws the anchor tees forward against that printed
-release face and the tubes come out of their collets. Push the pump cartridge home and the
-four click back in. Nothing is unscrewed for pump cartridge service and no hand goes behind
-the deck.
+collet nose. Pulling the pump cartridge carries the four twice-tied tees and their carrier from
+connected at +1.5 mm to the release stop at −3.15 mm; the fixed plate holds the sleeves while
+the tubes leave. The two springs then return the empty carrier to park at +3 mm, beyond
+connection reach. To reinstall, squeeze both recessed service tabs to hold the carrier at 0,
+bottom all four tubes to 10 mm, and release the tabs so the springs settle the joints at the
+8.5 mm connected depth. Nothing is unscrewed for pump cartridge service.
 
 `enclosure_assembly.collet_plate_spec` places the release face 1.5 mm fore of the collet
 noses. `enclosure` joins its rectangular section to the tee wall while forming front-top.
@@ -180,10 +189,12 @@ enclosure's printed geometry. The pump cartridge's aft notches clear the cheeks.
 ## Standing it on the refrigeration stratum
 
 [`enclosure_assembly.py`](enclosure_assembly.py) → `enclosure-assembly.step` mates its bodies with nothing between
-them: the compressor's own +X tangent to the condenser's intake face, and the crown of the pair
-to this pack's spine hairpins. The cold core is not one of them — it is packed off the +Y wall of back-top
-instead, so a LANE stands between it and the stratum, and the two legs of the loop that cross it
-are drawn in copper.
+them: the compressor's own +X tangent to the condenser's intake face, while the pack's pose is
+read from the lowest release-state hairpin envelope over the pair's crown. That envelope is a
+placement datum, not a load path: the eight fixed valves bear in front-top's two trays and the
+four moving tees are retained by the guided carrier. The cold core is not one of the pair — it
+is packed off the +Y wall of back-top instead, so a LANE stands between it and the stratum, and
+the two legs of the loop that cross it are drawn in copper.
 
 The gaps that ARE 0 are by intent, and the refrigerant loop is what they are for. The compressor
 is an oblong can whose stubs stand on its own tangent lines and the condenser is an envelope

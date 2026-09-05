@@ -108,7 +108,7 @@ Every wetted and gas joint in the unit: the carbonator's four elbow stacks, the 
 | Route the seven cold-core penetrations; stack the copper plugs | CC-12, CC-13 | Done before the body foam locks them in | 10 |
 | CO2 path — +Y wall of back-top to cold core | IP-01 | | 10 |
 | Water path — +Y wall of back-top to cold core | IP-02 | Filter, backflow, pump, top-plate port | 10 |
-| Flavor manifold — valves, tees, pumps and channels | IP-03, IP-04 | [10](SOLENOIDS) valves butted collet to collet down the pack's limbs, two peristaltic pumps, two channels | 15 |
+| Flavor manifold — fixed valves, moving tee carrier, pumps and channels | IP-03, IP-04 | [10](SOLENOIDS) fixed valves total. Aft valves first; two springs and empty carrier lowered; two rigid tab arms installed and key-locked; four tees inserted individually and tied twice each; fore valves and four bench-fitted bowed stubs; cartridge connected by squeeze, bottom and release. Four hairpin ends travel with the carrier. This cadence remains untimed until the bow, spring-force and full-cycle bench gate closes | 15 |
 | Risers to the umbilical bulkheads | IP-05 | | 5 |
 | Witness and tidy every joint | IP-06 | The pass that makes the next leak someone else's fault | 5 |
 | **Plumbing** | | | **[70](LAB_SEC7)** |
@@ -127,7 +127,7 @@ Everything that is putting parts together with fasteners and hands. Printer tend
 | Build the reed columns; seat rods and floats; close the reservoirs | CC-07, CC-08, CC-09, CC-15 | Two reservoirs, gaskets, caps, vent filters | 15 |
 | Lower the carbonator; seat the reservoirs in their pockets | CC-10, CC-11 | | 5 |
 | Press the wall's Wago wells; mount PSU, relays, PCBA | ES-01, ES-03 | Onto `enclosure-back-top`'s [17](SHELF_INSERTS) +X wall bosses | 5 |
-| Stage the six printed pieces and the +Y wall's bodies; bolt the compressor down to the slab | EN-01, EN-02, EN-03 | Four floor posts, one M5 and a fender washer each, snugged onto the post crowns | 10 |
+| Stage the twelve printed enclosure pieces and the +Y wall's seven bodies; bolt the compressor down to the slab | EN-01, EN-02, EN-03 | Four quadrants, cartridge, pump clamp, ceiling, tee carrier, two handed service-tab arms and two tab locks; rear-wall set includes the RJ11 keystone. Four floor posts, one M5 and a fender washer each, snugged onto the post crowns | 10 |
 | Seat the cold core; condenser, power column, close the box, ASSE drip pan | EN-04, EN-05, EN-06, EN-07, EN-08 | | 10 |
 | Cut, route and sleeve the umbilical; bag it with the under-counter plate | FU-01, FU-02, FU-03, FU-04 | Three LLDPE tubes, braid, the bag | 10 |
 | Assemble the faucet — two-piece touch-flo shell, plate, gasket, o-ring | — | PET-GF shell, printed TPU seals | 5 |

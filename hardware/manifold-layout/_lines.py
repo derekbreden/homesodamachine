@@ -1053,7 +1053,11 @@ def gate_cruise(v_i_outlet_z: float) -> float:
 
     Takes the Z rather than the frames, so a body may be STOOD on this plane before any run is
     drawn — `enclosure_assembly.panel_z` puts the flavor-B union on it."""
-    return v_i_outlet_z + RESERVOIR_CRUISE - _split.TUBE_D - GATE_STUB_CLEAR
+    # V-I stands ``FORE_STUB_GAP`` above the pump-barb tee so its short flex stub can work.
+    # That buys extra clearance over the flavour gate; it does not move the gate, its rear
+    # union or the long line between them to a new storey.
+    return (v_i_outlet_z - _ml.FORE_STUB_GAP
+            + RESERVOIR_CRUISE - _split.TUBE_D - GATE_STUB_CLEAR)
 
 
 def station(body: str, port: str):
@@ -1198,6 +1202,16 @@ LANE_CLEAR = 4.0
 # that line leans away from the draw bore at z 281.315 across this column, and the crossing is
 # held over it. What the run comes down through is V-A's forward end.
 FILL_A_LANE_Z = 289.0
+# The lifted V-F outlet no longer has a full stock radius before this inherited storey. Leave
+# the collet on its own axis for this much instead, then spend the valve lift in the long lean
+# into the established lane. 14.75 mm is the geometric threshold for R14; the round 15 mm is
+# the build allowance.
+FILL_A_GATE_LEAD = 15.0
+# The draw line and fill line cross as two long leans. Keep their centre lines a tube section
+# plus this air apart at the fill line's lane plane, rather than making either established end
+# storey carry the other's valve lift.
+FILL_A_DRAW_CLEAR = 1.5
+FILL_A_DRAW_GATE_LEAD = 17.0
 # How long the run holds that storey before it falls — one stock radius, of which the corner off
 # the diagonal and the corner into the fall take 11.2 between them. What is left is the only
 # straight between those two bends. Re-read the fall's room by sweeping the two waypoints that
@@ -1254,15 +1268,17 @@ def _fluid_14(F, solids):
     RESERVOIR A IS THE AFT POCKET AND THE PUMP STANDS ON IT. The SeaFlo takes the middle of A's
     cap and the power brick the far side, and what they leave is the strip between them — which
     is where the bore is. So this run has the machine's whole depth to cross, and it crosses ON
-    THE CAP: up off the gate onto `FILL_A_LANE_Z`, one diagonal aft and inboard into the lane V-K
-    and V-A leave between them, one stock radius of that storey to clear `fluid-16`, one fall
+    THE CAP: up off the gate for `FILL_A_GATE_LEAD`, one diagonal aft, inboard and gently down
+    onto `FILL_A_LANE_Z` in the lane V-K and V-A leave between them, one stock radius of that
+    storey to clear `fluid-16`, one fall
     onto `_fill_a_cap_z` at V-A's forward end, aft down the lane and over the pump's own bracket,
     one lean east onto the bore's column behind the tap-water riser, and down the strip into it.
 
-    IT IS ON THE CAP'S PLANE FOR EVERYTHING PAST V-A'S FIRST 20 MM. The storey it enters on is
-    `fluid-16`'s: that line leans away from the draw bore across this column and the crossing is
-    held over it. Past that lean the lane between the two valves is open right down to the
-    bracket, and reads wider there than it does one storey up.
+    IT IS ON THE CAP'S PLANE FOR EVERYTHING PAST V-A'S FIRST 20 MM. The short gate lead and the
+    first diagonal absorb V-F's lifted station without moving the hard-won lane: `fluid-16`
+    leans away under that diagonal, with `FILL_A_DRAW_CLEAR` between their tube skins. Past that
+    lean the lane between the two valves is open right down to the bracket, and reads wider
+    there than it does one storey up.
 
     ITS COLUMN IS THE DRAW BORE'S OWN. `fluid-16` rises off `reservoir-a` and leans away forward;
     the fill runs aft on that same column and crosses over its own channel's draw where it stands.
@@ -1276,8 +1292,8 @@ def _fluid_14(F, solids):
     cap = _fill_a_cap_z(solids)
     return R.bent(
         "fluid-14", "valve-v-f.outlet",
-        (gate[0], gate[1], FILL_A_LANE_Z),                  # up onto the storey `fluid-16` sets
-        (lane_x, _fill_a_lane_y(solids), FILL_A_LANE_Z),    # one diagonal aft and inboard, onto the lane
+        (gate[0], gate[1], gate[2] + FILL_A_GATE_LEAD),     # a full-radius lead off lifted V-F
+        (lane_x, _fill_a_lane_y(solids), FILL_A_LANE_Z),    # one diagonal aft, inboard and down
         (lane_x, fall, FILL_A_LANE_Z),                      # one stock radius of it, over that lean
         (lane_x, fall + FILL_A_FALL_RUN, cap),              # one fall onto the cap's own plane
         (lane_x, _fill_a_turn_y(F), cap),                   # aft down the lane and over the bracket
@@ -1292,20 +1308,22 @@ def _fluid_14(F, solids):
 def _fluid_16(F):
     """fluid-16 — the draw conduit on reservoir A's cap to the channel-A draw gate.
 
-    A's draw conduit stands at the head of its band on the same forward strip B's does, so this
-    and `fluid-26` are the same shape on opposite flanks — up off the bore, one lean forward and
-    inboard, and down onto the gate's own column."""
+    A's draw conduit stands at the head of its band on the same forward strip B's does. It rises
+    to a plane one tube and `FILL_A_DRAW_CLEAR` under the fill lane, then leans forward, inboard
+    and up to a full-radius lead over the lifted gate. The unequal endpoints spend the valve
+    lift in that long lean while both established reservoir and gate stations stay put."""
     bore = F["foam-assembly"].at("reservoir-a")
     gate = F["valve-v-e"].at("inlet")
-    cruise = gate[2] + RESERVOIR_CRUISE
+    draw_z = FILL_A_LANE_Z - _split.TUBE_D - FILL_A_DRAW_CLEAR
+    gate_z = gate[2] + FILL_A_DRAW_GATE_LEAD
     return R.bent(
         "fluid-16", "foam-assembly.reservoir-a",
-        (bore[0], bore[1], cruise),             # up off the bore onto the cruise plane
-        (gate[0], gate[1], cruise),             # one lean forward and inboard onto the gate
+        (bore[0], bore[1], draw_z),              # up under the fill lane with named skin air
+        (gate[0], gate[1], gate_z),              # one lean forward, inboard and up
         "valve-v-e.inlet",                      # and straight down into the collet
         kind="fluid", bend=TUBE_BEND, skew=(CAP_BORE_SKEW, R.COLLET_SKEW),
-        note="reservoir A draw: the cap's draw conduit → V-E-I, up off the bore and one lean "
-             "forward and inboard onto the gate's own column")
+        note="reservoir A draw: the cap's draw conduit → V-E-I, up under the fill lane and "
+             "one lean forward, inboard and up onto the lifted gate's own column")
 
 
 def _fluid_24(F):

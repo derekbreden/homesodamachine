@@ -93,6 +93,15 @@ reeds_per_carbonator = 2
 solenoid_count = sum(1 for n in ml.P if n.startswith("V-"))
 tee_count = sum(1 for n in ml.P if n.startswith("Y-"))
 
+# The pump-barb tee carriage, counted from the part which draws its stations. Two tie bands on
+# each of four tee sites give eight 4-inch ties; its two spring stations take one catalog spring
+# apiece. The one carrier, two handed tabs and two handed tab locks are five shipped prints.
+carrier_ties_per_build = len(_ea._carrier.tie_sites(_ea._carrier.DEFAULT_SPEC))
+carrier_springs_per_build = len(_ea._carrier.DEFAULT_SPEC.spring_xs)
+carrier_prints_per_build = 1 + 2 + 2
+general_four_inch_ties_per_build = 25
+four_inch_ties_per_build = general_four_inch_ties_per_build + carrier_ties_per_build
+
 # PP1208E bulkheads in the +Y wall of back-top. Umbilical port: 3 on that wall
 # (1 carbonated water + 2 flavor). Water inlet: 1 more, same SKU and
 # panel hole (the customer-facing 1/4" QC potable-water inlet).
@@ -442,6 +451,10 @@ def main():
         # Flavor subsystem.
         "SOLENOIDS": f"{solenoid_count:.4g}",
         "TEES": f"{tee_count:.4g}",
+        "CARRIER_TIES": f"{carrier_ties_per_build:.4g}",
+        "CARRIER_SPRINGS": f"{carrier_springs_per_build:.4g}",
+        "CARRIER_PRINTS": f"{carrier_prints_per_build:.4g}",
+        "FOUR_INCH_TIES": f"{four_inch_ties_per_build:.4g}",
         "PP1208E_PANEL": f"{panel_umbilical_bulkheads:.4g}",
         "PP1208E_INLET": f"{panel_water_inlet_bulkheads:.4g}",
         "PP1208E_TOTAL": f"{pp1208e_per_build:.4g}",

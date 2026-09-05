@@ -94,6 +94,8 @@ class Seg:
 
       `drawn`    — a run `_lines.py` authors between two placed bodies, swept and measured.
       `straight` — a lane's own straight inside the manifold, drawn and measured the same way.
+      `bowed`    — a short exposed developed length laid in a bow; its cut blank is a bench
+                   result because the valve-side insertion depth has not been measured.
       `butt`     — two collets face to face, no tube between them, 0.0 mm.
       `fold`     — one of the hinge's 180° hairpins, carrying a deck change.
       `turn`     — a quarter out of the deck plane and the step that follows it.
@@ -107,8 +109,9 @@ class Seg:
     id: str
     ends: tuple           # one or two anchor names; one means the far end is not placed
     made: str
-    length: float = None  # mm of stock the segment cuts; None where nothing is drawn
+    length: float = None  # known mm of stock; None for an open segment or unknown cut blank
     corners: int = 0
+    developed: float = None  # exposed centreline where it is known but cut length is not
 
     def __post_init__(self):
         if self.made not in _scorecard.MADE_AS:
@@ -129,7 +132,7 @@ class Seg:
 
 
 def _interior(cid: int, how: str) -> tuple:
-    """How `manifold_layout` makes one of its own interior segments, as `(kind, mm, corners)`.
+    """How one manifold segment is made: `(kind, cut_mm, corners, exposed_mm)`.
 
     THE KIND IS `_scorecard.made_of`'S. `manifold_layout.SEGMENTS` already says how the pack
     makes each interior connection, the card reads that column to score `routed`, and this
@@ -142,12 +145,14 @@ def _interior(cid: int, how: str) -> tuple:
     spread its own distance outboard, so each of the two turns is its own length of tube."""
     kind = _scorecard.made_of(how)
     if kind == "fold":
-        return (kind, ml.SPINE_LEN, 2)                       # quarter · straight · quarter
+        return (kind, ml.SPINE_LEN, 2, None)                 # quarter · middle · quarter
     if kind == "turn":                                       # the quarter, then the step's pair
-        return (kind, ml.QUARTER_LEN + ml.source_step(ml.SBENDS[cid])[2], 3)
+        return (kind, ml.QUARTER_LEN + ml.source_step(ml.SBENDS[cid])[2], 3, None)
     if kind == "butt":
-        return (kind, 0.0, 0)
-    return (kind, ml.dist(*ml.RUNS[how]), 0)                 # a lane's own straight
+        return (kind, 0.0, 0, None)
+    if kind == "bowed":
+        return (kind, None, 0, ml.FORE_STUB_EXPOSED)
+    return (kind, ml.dist(*ml.RUNS[how]), 0, None)           # a lane's own straight
 
 
 def segments() -> dict:
@@ -174,8 +179,9 @@ def segments() -> dict:
     for r in _facts.read().runs:
         segs[r.id] = Seg(r.id, (r.frm, r.to), "drawn", r.length, r.corners)
     for cid, frm, to, how in ml.SEGMENTS:
-        made, length, corners = _interior(cid, how)
-        segs[f"fluid-{cid}"] = Seg(f"fluid-{cid}", (frm, to), made, length, corners)
+        made, length, corners, developed = _interior(cid, how)
+        segs[f"fluid-{cid}"] = Seg(
+            f"fluid-{cid}", (frm, to), made, length, corners, developed)
     for cid, port, _what, _body, _end in ml.MOUTHS:
         if cid not in segs:
             segs[cid] = Seg(cid, (port,), "not drawn")
@@ -593,8 +599,7 @@ def rewrite_linkstyles(lines: list[str], edges: list[Edge]) -> list[str]:
 
 
 def manifold_variables(segs: dict) -> dict:
-    """The chart's own prose numbers, off the same built segments its edges carry. The total is
-    TUBE and the count is SEGMENTS — most of this manifold is butted collet to collet."""
+    """Chart prose figures, keeping unknown bowed blanks out of the known stock total."""
     fluid = [s for k, s in segs.items() if k.startswith("fluid-")]
     cut = [s for s in fluid if s.length]
     longest = max(cut, key=lambda s: s.length)
@@ -602,6 +607,9 @@ def manifold_variables(segs: dict) -> dict:
         "SEGMENT_COUNT": f"{len(fluid)}",
         "DRAWN_COUNT":   f"{sum(1 for s in fluid if s.made == 'drawn')}",
         "BUTT_COUNT":    f"{sum(1 for s in fluid if s.made == 'butt')}",
+        "BOWED_COUNT":   f"{sum(1 for s in fluid if s.made == 'bowed')}",
+        "BOWED_EXPOSED": f"{ml.FORE_STUB_EXPOSED:g} mm",
+        "BOWED_GAP":     f"{ml.FORE_STUB_GAP:g} mm",
         "OPEN_COUNT":    f"{sum(1 for s in fluid if s.made == 'not drawn')}",
         "FLUID_TOTAL":   f"{sum(s.length for s in cut):.1f} mm",
         "FLUID_BENDS":   f"{sum(s.corners for s in fluid)}",
@@ -695,11 +703,17 @@ def main() -> int:
     fluid = [s for k, s in sorted(segs.items(), key=lambda kv: _seg_no(kv[0]))
              if k.startswith("fluid-")]
     for s in fluid:
-        length = "        —" if s.length is None else f"{s.length:7.1f} mm"
+        if s.length is not None:
+            length = f"{s.length:7.1f} mm"
+        elif s.developed is not None:
+            length = f"{s.developed:7.1f} mm exposed; cut TBD"
+        else:
+            length = "        —"
         print(f"  {s.id:<9} {length}  {s.corners} corners  {s.made:<9} "
               f"{' → '.join(s.ends)}")
-    print(f"  {'TOTAL':<9} {sum(s.length or 0.0 for s in fluid):7.1f} mm of tube over "
-          f"{len(fluid)} segments")
+    unknown = sum(1 for s in fluid if s.made == "bowed" and s.length is None)
+    print(f"  {'KNOWN':<9} {sum(s.length or 0.0 for s in fluid):7.1f} mm of tube over "
+          f"{len(fluid)} segments; {unknown} bowed cut blanks TBD")
     print(f"  limbs {limb_vars['LIMB_COUNT']}, valves {limb_vars['LIMB_VALVES']}, "
           f"tees {limb_vars['TEE_COUNT']}, pumps {limb_vars['PUMP_COUNT']} "
           f"({limb_vars['UPPER_COUNT']} bodies folded up, {limb_vars['LOWER_COUNT']} down)")

@@ -46,7 +46,7 @@
    "label": "Every placed body is declared in the fastening table",
    "kind": "gate",
    "status": "pass",
-   "value": "93/93 declared",
+   "value": "94/94 declared",
    "target": "all declared",
    "detail": [],
    "active": true
@@ -123,8 +123,6 @@
     "co2-inlet \u2014 bulkhead-ring-co2: 0.000 mm \u2014 seated against it",
     "asse1022-assembly \u2014 bulkhead-water: 0.000 mm \u2014 seated against it",
     "asse-drip-pan \u2014 moisture-plate: 0.000 mm \u2014 seated against it",
-    "asse-drip-pan \u2014 drip-dock-female: 0.000 mm \u2014 seated against it",
-    "drip-dock-female \u2014 drip-dock-male: 0.000 mm \u2014 seated against it",
     "bulkhead-water \u2014 bulkhead-ring-water: 0.000 mm \u2014 seated against it",
     "bulkhead-flavor-b \u2014 bulkhead-ring-flavor-b: 0.000 mm \u2014 seated against it",
     "bulkhead-flavor-a \u2014 bulkhead-ring-flavor-a: 0.000 mm \u2014 seated against it",
@@ -149,7 +147,6 @@
     "carb-1 \u2014 enclosure-ceiling-panel: 0.199 mm \u2014 seated against it",
     "discharge-chain \u2014 foam-assembly: 0.200 mm \u2014 seated against it",
     "suction-chain \u2014 foam-assembly: 0.200 mm \u2014 seated against it",
-    "asse-drip-pan \u2014 drip-dock-male: 0.608 mm \u2014 seated against it",
     "seaflo-pump \u2014 bulkhead-flavor-a: 1.004 mm",
     "keystone-jack \u2014 bulkhead-ring-flavor-a: 1.052 mm",
     "carb-1 \u2014 suction-chain: 1.113 mm",
@@ -173,7 +170,7 @@
     "fluid-1 \u2014 enclosure-front-top: 1.655 mm",
     "wago-reeds-b \u2014 foam-assembly: 1.700 mm",
     "fluid-18 \u2014 coil-v-a: 1.710 mm",
-    "fluid-14 \u2014 valve-v-a: 1.710 mm",
+    "fluid-14 \u2014 valve-v-a: 1.711 mm",
     "water-3 \u2014 fluid-26: 1.751 mm",
     "co2-2 \u2014 pcba: 1.876 mm",
     "water-7 \u2014 co2-2: 1.933 mm",
@@ -186,7 +183,7 @@
    "label": "Every printed piece fits the bed",
    "kind": "gate",
    "status": "pass",
-   "value": "7/7 on the bed",
+   "value": "12/12 on the bed",
    "target": "every piece on the bed",
    "detail": [],
    "active": true
@@ -517,7 +514,7 @@
    "kind": "gate",
    "status": "pass",
    "value": "holds",
-   "target": "SPINE_R at or under 29.7 mm, half the deck separation",
+   "target": "SPINE_R at or under 28.2 mm, half the park separation",
    "detail": [],
    "active": true
   },
@@ -775,22 +772,12 @@
    "active": true
   },
   {
-   "id": "dock-under-the-rim",
-   "label": "The dock's pocket keeps a roof under the rim rebate",
+   "id": "tee-carrier-motion",
+   "label": "Tee carrier clears front-top through installation and all four working states, and both end stops engage",
    "kind": "gate",
    "status": "pass",
-   "value": "1.10 mm of roof",
-   "target": ">= 1 mm",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "dock-clears-plate",
-   "label": "The dock's boss stands clear of the moisture plate",
-   "kind": "gate",
-   "status": "pass",
-   "value": "0.92 mm at the plate's top east edge",
-   "target": ">= 0.5 mm",
+   "value": "248 live-solid poses; maximum unintended overlap 0.000000 mm\u00b3; release/park 0.001 mm overshoots engage 0.104400/0.054120 mm\u00b3",
+   "target": "0 mm\u00b3 unintended overlap; positive contact immediately beyond release and park",
    "detail": [],
    "active": true
   },
@@ -1073,7 +1060,7 @@
    "label": "A printed feature of another placed part fastens every body",
    "kind": "gate",
    "status": "pass",
-   "value": "61/61 mounted, 20 part of another body, 12 nothing fastens",
+   "value": "66/66 mounted, 20 part of another body, 8 nothing fastens",
    "target": "a printed joint per body",
    "detail": [
     "funnel: wall-capture \u2014 nothing fastens it; The brim bears on the top wall's outer face, the collar runs in `enclosure._funnel_cut_plan`, and the elbow's own collet grips the stub the spout carries \u2014 so the funnel is held down by the joint it releases from. It is a dishwasher part and comes out by hand.",
@@ -1082,12 +1069,8 @@
     "funnel-drain-union: tube-hung \u2014 nothing fastens it; Both its collets land on held bodies \u2014 the +Z leg takes the stub the funnel carries, the +Y leg hands `fluid-4` aft to V-B in its cradle on the cold core's cap \u2014 so the elbow hangs between two seats with nothing printed closing on it. It is the joint the customer opens, and a thumb on that collet is the whole of the motion.",
     "fuse-clamp: gap-press \u2014 nothing fastens it; Both faces of the slot the clamp presses into are the compressor's own \u2014 the air its power box hangs over its mounting plate \u2014 so the clamp rides the can. The plate's four holes carry the floor's posts and the grommets, and every printed feature in reach of the clamp stands on the cabinet side of them.",
     "gasher-co2: tube-hung \u2014 nothing fastens it; Both its hops land on held bodies \u2014 `co2-0` back to the ABU44 clamped through the +Y wall of back-top, `co2-1` on to the WR1110 zip-tied into its rib off the top one \u2014 and each is ten millimetres of 1/4\" LLDPE in a pair of collets, so the check is fixed on the chain's own axis with nothing printed closing on it. A seat under the middle body of three made-up ones would fight the two either side of it for where the chain stands.",
-    "tee-y-a: pack \u2014 nothing fastens it; Its collets make up onto V-C's, face to face on one stub with no tube between them, and that valve stands in four printed sockets \u2014 so what holds this tee is the seat under the valve it butts. Nothing printed reaches the tee itself, and a second seat on a body already made up onto a held one would fight it for the joint's own position.",
-    "tee-y-b: pack \u2014 nothing fastens it; Its collets make up onto V-D's, face to face on one stub with no tube between them, and that valve stands in four printed sockets \u2014 so what holds this tee is the seat under the valve it butts. Nothing printed reaches the tee itself, and a second seat on a body already made up onto a held one would fight it for the joint's own position.",
-    "tee-y-c: pack \u2014 nothing fastens it; Its collets make up onto V-E's, face to face on one stub with no tube between them, and that valve stands in four printed sockets \u2014 so what holds this tee is the seat under the valve it butts. Nothing printed reaches the tee itself, and a second seat on a body already made up onto a held one would fight it for the joint's own position.",
-    "tee-y-d: pack \u2014 nothing fastens it; Its collets make up onto V-F's, face to face on one stub with no tube between them, and that valve stands in four printed sockets \u2014 so what holds this tee is the seat under the valve it butts. Nothing printed reaches the tee itself, and a second seat on a body already made up onto a held one would fight it for the joint's own position.",
-    "tee-y-f: pack \u2014 nothing fastens it; Its collets make up onto V-H's, face to face on one stub with no tube between them, and that valve stands in four printed sockets \u2014 so what holds this tee is the seat under the valve it butts. Nothing printed reaches the tee itself, and a second seat on a body already made up onto a held one would fight it for the joint's own position.",
-    "tee-y-g: pack \u2014 nothing fastens it; Its collets make up onto V-I's, face to face on one stub with no tube between them, and that valve stands in four printed sockets \u2014 so what holds this tee is the seat under the valve it butts. Nothing printed reaches the tee itself, and a second seat on a body already made up onto a held one would fight it for the joint's own position."
+    "tee-y-a: pack \u2014 nothing fastens it; Its collets make up onto V-C's, face to face on one stub with no tube between them, and that valve stands in four printed sockets \u2014 so what holds this tee is the seat under the valve it butts.",
+    "tee-y-b: pack \u2014 nothing fastens it; Its collets make up onto V-D's, face to face on one stub with no tube between them, and that valve stands in four printed sockets \u2014 so what holds this tee is the seat under the valve it butts."
    ],
    "active": true
   },
@@ -1096,7 +1079,7 @@
    "label": "Every placement is stated as a rule, and the solid lands on it",
    "kind": "goal",
    "status": "pass",
-   "value": "93/93 stated",
+   "value": "94/94 stated",
    "target": "a stated rule per body, each landing on it",
    "detail": [],
    "active": false
@@ -1110,7 +1093,7 @@
    "target": "every connection made",
    "detail": [
     "a connection is MADE when the machine holds a path for it: a run `_lines.py` draws, one of the pack's own constructions \u2014 a butt between two collets, the fold's hairpin, a quarter turn and the step off it \u2014 or a joint made up across a plane two bodies already share",
-    "drawn 22, butt 7, fold 4, straight 4, turn 2 \u2014 0 still to route",
+    "drawn 22, bowed 4, fold 4, straight 4, butt 3, turn 2 \u2014 0 still to route",
     "by circuit \u2014 co2 3/3, fluid 26/26, refrigerant 3/3, water 7/7",
     "fluid-3 (fluid): V-A-O \u2192 Y-A-1 \u2014 made by a quarter turn and the step off it",
     "fluid-5 (fluid): V-B-O \u2192 Y-B-1 \u2014 made by a quarter turn and the step off it",
@@ -1118,16 +1101,16 @@
     "fluid-7 (fluid): Y-A-2 \u2192 V-C-I \u2014 made by a butt between two collets",
     "fluid-8 (fluid): Y-B-2 \u2192 V-D-I \u2014 made by a butt between two collets",
     "fluid-9 (fluid): V-C-O \u2192 Y-C-1 \u2014 made by the fold's hairpin",
-    "fluid-10 (fluid): V-E-O \u2192 Y-C-2 \u2014 made by a butt between two collets",
+    "fluid-10 (fluid): V-E-O \u2192 Y-C-2 \u2014 made by a bowed flex stub",
     "fluid-11 (fluid): Y-C-3 \u2192 P-A-I \u2014 made by a lane's own straight",
     "fluid-12 (fluid): P-A-O \u2192 Y-D-1 \u2014 made by a lane's own straight",
-    "fluid-13 (fluid): Y-D-2 \u2192 V-F-I \u2014 made by a butt between two collets",
+    "fluid-13 (fluid): Y-D-2 \u2192 V-F-I \u2014 made by a bowed flex stub",
     "fluid-17 (fluid): Y-D-3 \u2192 V-G-I \u2014 made by the fold's hairpin",
     "fluid-19 (fluid): V-D-O \u2192 Y-F-1 \u2014 made by the fold's hairpin",
-    "fluid-20 (fluid): V-H-O \u2192 Y-F-2 \u2014 made by a butt between two collets",
+    "fluid-20 (fluid): V-H-O \u2192 Y-F-2 \u2014 made by a bowed flex stub",
     "fluid-21 (fluid): Y-F-3 \u2192 P-B-I \u2014 made by a lane's own straight",
     "fluid-22 (fluid): P-B-O \u2192 Y-G-1 \u2014 made by a lane's own straight",
-    "fluid-23 (fluid): Y-G-3 \u2192 V-I-I \u2014 made by a butt between two collets",
+    "fluid-23 (fluid): Y-G-3 \u2192 V-I-I \u2014 made by a bowed flex stub",
     "fluid-27 (fluid): Y-G-2 \u2192 V-J-I \u2014 made by the fold's hairpin"
    ],
    "active": false

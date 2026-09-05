@@ -25,7 +25,7 @@ All valves are normally closed solenoid valves. Flow direction is inlet (I) to o
 
 [4](LIMB_COUNT) limbs carry the [10](LIMB_VALVES) valves and the [6](TEE_COUNT) junction tees, over [2](PUMP_COUNT) pumps.
 
-**A limb is a lane.** Every valve is straight through and every junction's run takes two valve ports, so a limb is one line of valves and tees butted collet to collet, front to back, on one column of X. A tee dropped on a pump barb by its BRANCH puts its RUN across the head's face, so each pump hands out two of these lanes, 57 mm apart — an inner limb and an outer one, both on its own side of the mirror plane. Channel A stands east of that plane in the machine and channel B west.
+**A limb is a lane.** Every valve is straight through and every junction's run takes two valve ports, so a limb is one line of valves and tees, front to back, on one column of X. The inner junctions meet their fixed neighbours face to face. The four tees over the pump barbs move together in a guided carrier, with a bowed flex stub between each moving run port and its fixed fore valve. A pump-barb tee puts its RUN across the head's face, so each pump hands out two lanes, 57 mm apart — an inner limb and an outer one, both on its own side of the mirror plane. Channel A stands east of that plane in the machine and channel B west.
 
 **The pack is folded in two** about the hinge the four barb tees' front collets stand on. [8](UPPER_COUNT) bodies ride up onto the second deck and [8](LOWER_COUNT) stay on the first, and the four connections crossing the hinge each become a 180° hairpin. The fold turns every mouth that leaves the pack to face the back of the machine.
 
@@ -37,11 +37,11 @@ Six 3-port junctions — **Y-A, Y-B, Y-C, Y-D, Y-F, Y-G** — and every one of t
 
 **Neither reservoir has a junction.** Each carries **two mouths of its own** — the draw on the bulkhead at the bottom of its wet V, the fill on a bore in its own cap — so each pair's two valves reach one directly and nothing stands between them. Every junction here therefore joins two VALVES, or a valve and a pump barb.
 
-No junction is carried by anything: none of them seats on a body, so each hangs on the collets it joins.
+Y-A and Y-B inherit location from their fixed face-to-face valve joints. Y-C, Y-D, Y-F and Y-G are positively located by two zip ties apiece against one guided tee carrier; the fixed wall journals their branch collars in X and Z while the carrier owns their common Y motion.
 
 **Y-A and Y-B are the SELECTS-SOURCE junction.** Each stands on its own inner limb's axis, one valve forward of the select it feeds, so its RUN is the limb — the source valve one side, the select the other. The two branches face each other across the mirror plane and meet on segment 6, which is what puts all four ports on one hydraulic node. Every mode opens exactly one of {V-A, V-B} and exactly one of {V-C, V-D}, so the traffic the pair carries is always one source to one select — straight down a limb, or down half a limb, across the bar and down the other half.
 
-**Y-C, Y-D, Y-F and Y-G are the PUMP-BARB junctions.** Each takes its barb by its BRANCH across the collet plate's berth — a short tube over the barb, through the printed collet plate, into the collet, the joint that releases when the pump cartridge is pulled — so its RUN lies across the pump head's face and IS the outboard half of a limb, with a valve on each end. Y-C and Y-F take suction, Y-D and Y-G discharge.
+**Y-C, Y-D, Y-F and Y-G are the PUMP-BARB junctions.** Each takes its barb by its BRANCH across the collet plate's berth — a short tube over the barb, through the printed collet plate, into the collet, the joint that releases when the pump cartridge is pulled — so its RUN lies across the pump head's face and IS the outboard half of a limb. One run port carries a constant-length hairpin whose lower end moves with the tee; the other reaches its fixed fore valve through a 12 mm exposed bowed stub across a 10 mm sleeve-face gap. Y-C and Y-F take suction, Y-D and Y-G discharge.
 
 Y-A's and Y-B's run ports are numbered from the source end down the limb. On a barb tee the branch takes the number nearest the barb it drops onto — Y-C-3 and Y-F-3 at the two suctions, Y-D-1 and Y-G-1 at the two discharges.
 
@@ -56,7 +56,7 @@ Y-A's and Y-B's run ports are numbered from the source end down the limb. On a b
 
 ## Tube Segments
 
-Each segment is one labelled edge in [fluid-topology-manifold.mmd](/hardware/topology/fluid-topology-manifold.mmd). [`_scorecard.py`](/hardware/manifold-layout/_scorecard.py) reads these tables as the flavor connection inventory the enclosure assembly owes, and each one is made one of four ways: butted collet to collet, folded into a hairpin across the hinge, turned out of a deck plane, or drawn as a swept run by [`_lines.py`](/hardware/manifold-layout/_lines.py). An edge that carries no tube says so on its label; the rest the chart names by segment id alone. How every one of them is made, what it measures and how many corners it turns is what a bare run of [`_fluid_topology_sync.py`](/hardware/topology/_fluid_topology_sync.py) prints — no length is drawn on a chart, so none of them can go stale where nothing reads it.
+Each segment is one labelled edge in [fluid-topology-manifold.mmd](/hardware/topology/fluid-topology-manifold.mmd). [`_scorecard.py`](/hardware/manifold-layout/_scorecard.py) reads these tables as the flavor connection inventory the enclosure assembly owes. A segment is face-to-face `butt`, a known `straight`, a carrier-side `bowed` link, a constant-length `fold` hairpin, a `turn` out of a deck plane, or a swept `drawn` run authored by [`_lines.py`](/hardware/manifold-layout/_lines.py). Of [26](SEGMENT_COUNT) manifold segments, [3](BUTT_COUNT) carry no exposed tube and [4](BOWED_COUNT) carry [12 mm](BOWED_EXPOSED) exposed across a [10 mm](BOWED_GAP) sleeve-face gap. The known cuts total [2375.5 mm](FLUID_TOTAL); that total deliberately excludes the four bowed blanks because the valve-side insertion depth remains a bench reading. A bare run of [`_fluid_topology_sync.py`](/hardware/topology/_fluid_topology_sync.py) prints every construction, measured length and corner count.
 
 Four of the seven conduits in the cold core's top cap are this circuit's: a fill and a draw for each reservoir.
 
@@ -78,10 +78,10 @@ Four of the seven conduits in the cold core's top cap are this circuit's: a fill
 | # | From | To | Notes |
 |---|---|---|---|
 | 9 | V-C-O | Y-C-1 | Across the hinge — one 180° hairpin on the A1 limb's column |
-| 10 | V-E-O | Y-C-2 | Butted |
+| 10 | V-E-O | Y-C-2 | 12 mm exposed bowed flex stub from the fixed valve to the moving carrier tee; total cut blank TBD at the bench |
 | 11 | Y-C-3 | P-A-I | The barb tube: over the suction barb, through the collet plate, into the tee's branch — the cartridge's release joint |
 | 12 | P-A-O | Y-D-1 | The barb tube: over the discharge barb, through the collet plate, into the tee's branch |
-| 13 | Y-D-2 | V-F-I | Butted |
+| 13 | Y-D-2 | V-F-I | 12 mm exposed bowed flex stub from the moving carrier tee to the fixed valve; total cut blank TBD at the bench |
 | 14 | V-F-O | Reservoir A fill bore | Aft and down the `reservoir-a-fill` cap conduit, onto the bore in the reservoir's own cap, above the liquid |
 | 16 | Reservoir A draw | V-E-I | Up the `reservoir-a` cap conduit, off the bulkhead at the bottom of the wet V |
 | 17 | Y-D-3 | V-G-I | Across the hinge — one 180° hairpin on the A2 limb's column |
@@ -92,10 +92,10 @@ Four of the seven conduits in the cold core's top cap are this circuit's: a fill
 | # | From | To | Notes |
 |---|---|---|---|
 | 19 | V-D-O | Y-F-1 | Across the hinge — one 180° hairpin on the B1 limb's column |
-| 20 | V-H-O | Y-F-2 | Butted |
+| 20 | V-H-O | Y-F-2 | 12 mm exposed bowed flex stub from the fixed valve to the moving carrier tee; total cut blank TBD at the bench |
 | 21 | Y-F-3 | P-B-I | The barb tube: over the suction barb, through the collet plate, into the tee's branch — the cartridge's release joint |
 | 22 | P-B-O | Y-G-1 | The barb tube: over the discharge barb, through the collet plate, into the tee's branch |
-| 23 | Y-G-3 | V-I-I | Butted |
+| 23 | Y-G-3 | V-I-I | 12 mm exposed bowed flex stub from the moving carrier tee to the fixed valve; total cut blank TBD at the bench |
 | 24 | V-I-O | Reservoir B fill bore | Aft and down the `reservoir-b-fill` cap conduit, onto the bore in the reservoir's own cap, above the liquid |
 | 26 | Reservoir B draw | V-H-I | Up the `reservoir-b` cap conduit, off the bulkhead at the bottom of the wet V |
 | 27 | Y-G-2 | V-J-I | Across the hinge — one 180° hairpin on the B2 limb's column |

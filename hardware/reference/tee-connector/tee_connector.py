@@ -78,6 +78,20 @@ FIRST_RESISTANCE_EXTENDED = FIRST_RESISTANCE + COLLET_TRAVEL   # 8.65, from the 
 GRIP_DEPTH_EXTENDED = GRIP_DEPTH + COLLET_TRAVEL               # 10.15
 INSERTION_EXTENDED = INSERTION + COLLET_TRAVEL                 # 11.65
 
+# The carrier's four named states, all derived from the measured sleeve and insertion depths.
+# Offset is enclosure +Y (aft) from the squeeze datum.  Only release and park are fixed stops;
+# squeeze is held by the service tabs and connected floats under spring load on the teeth.
+CARRIER_RELEASE_OFFSET = -(INSERTION - GRIP_DEPTH + COLLET_TRAVEL)
+CARRIER_SQUEEZE_OFFSET = 0.0
+CARRIER_CONNECTED_OFFSET = INSERTION - GRIP_DEPTH
+CARRIER_PARK_OFFSET = INSERTION - FIRST_RESISTANCE
+CARRIER_STATES = {
+    "release": (CARRIER_RELEASE_OFFSET, INSERTION_EXTENDED),
+    "squeeze": (CARRIER_SQUEEZE_OFFSET, INSERTION),
+    "connected": (CARRIER_CONNECTED_OFFSET, GRIP_DEPTH),
+    "park": (CARRIER_PARK_OFFSET, FIRST_RESISTANCE),
+}
+
 
 def run(sign):
     """One of the run's two collinear ports, `sign` picking the +Z or −Z end."""
