@@ -12,12 +12,7 @@
     },
     {
       "check": "hardware/scripts/check_finishes.py",
-      "note": "fix: tools/cad-venv/bin/python hardware/scripts/check_finishes.py --write",
-      "status": "red"
-    },
-    {
-      "check": "hardware/scripts/check_flutes.py",
-      "note": "✓ every payload stands within the budget its print was cut to",
+      "note": "finishes: 54 materials, and every colour this tree draws has one",
       "status": "ok"
     },
     {
@@ -62,13 +57,13 @@
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 353 of 1000 free, the next cut wants 3, and the whole lock reads by name in 139.1 MB against 141.6 MB of bundle",
+      "note": "check_release_room: 323 of 1000 free, the next cut wants 3, and the whole lock reads by name in 139.3 MB against 141.8 MB of bundle",
       "status": "ok"
     },
     {
       "check": "tools/check_web_tests.py",
-      "note": "cd web && npm test",
-      "status": "red"
+      "note": "check_web_tests: web's suite passes",
+      "status": "ok"
     },
     {
       "check": "tools/bazel/check_build_file.py",
@@ -87,20 +82,10 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 36 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 337 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 0 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 337 member(s) keep their provenance",
       "status": "ok"
     }
   ],
-  "detail": {
-    "hardware/scripts/check_finishes.py": [
-      "web/public/finishes.json is not the table this tree states.",
-      "  fix: tools/cad-venv/bin/python hardware/scripts/check_finishes.py --write"
-    ],
-    "tools/check_web_tests.py": [
-      "1 test(s) in web/ fail:",
-      "    the artifact lock pins every committed viewer scorecard",
-      "  cd web && npm test"
-    ]
-  },
-  "green": false
+  "detail": {},
+  "green": true
 }
