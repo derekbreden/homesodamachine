@@ -39,8 +39,9 @@ You have access to my Chrome which is signed in to my amazon through your MCP. I
 ## What else an agent should have read
 
 - `NAMES.md` — one thing, one name. The words this tree uses, and what each points at.
-- `calibration/Principle.md` — how Derek and the agents here work, distilled from the two
-  rooms in `calibration/principle/`. Any rule is better encoded as an example.
+- `calibration/Principle.md` — how Derek and the agents here work, distilled from the first
+  two rooms in `calibration/principle/`; the third, `Provenance.md`, is the geometry read as
+  a record of who decided what, and Derek's word first. Any rule is better encoded as an example.
 - `hardware/design-pressures.md` — what the appliance is optimised for and what it is not.
   Placement decisions answer to it: volume and assemblability yes, field service no.
 - `hardware/printed-parts/AGENTS.md` and `hardware/printed-parts/enclosure/AGENTS.md` — the
