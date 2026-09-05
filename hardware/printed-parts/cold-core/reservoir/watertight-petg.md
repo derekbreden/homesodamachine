@@ -14,13 +14,17 @@ The consequence of *vented + low head*: **a leak here is a defect, not a strengt
 
 ## Levers, highest-leverage first
 
-### 1. Divide the wall into a whole number of lines
-A 3 mm wall must be an integer multiple of the chosen line width, or the slicer inserts a thin, starved gap-fill bead down the middle of the wall — a built-in vertical capillary the full height of the part. Clean fits:
+### 1. Inspect the deposited paths across the wall
+Wall thickness need not be an integer multiple of the requested line width. Bead spacing
+includes overlap, and **Arachne** varies individual widths through walls, fillets and
+transitions. A requested wall-loop count is a limit; the available thickness determines
+which paths fit. Gap fill is not itself evidence of a leak.
 
-- 0.8 mm nozzle: **4 × 0.75 mm = 3.00 mm**
-- 0.6 mm nozzle: **5 × 0.60 mm = 3.00 mm**
-
-Use the **Arachne** wall generator (varies bead width to fill the wall exactly, no gap line — important at the fillets and the tapering V-floor). Define the wall by thickness + line width, not by a high perimeter count: past ~4 *fused* perimeters, more loops add print time, not tightness.
+The [0.8 mm seal trial](seal-trial.md) has four paths across a straight 3 mm wall:
+approximately **0.80 / 0.76 / 0.76 / 0.80 mm**, with overlapping nominal bead footprints.
+Inspect the curved corners, seam closures, floor-to-wall junction and bulkhead seat as well
+as a straight section. Toolpaths describe planned deposition; the physical water test
+establishes sealing.
 
 ### 2. Get squish from line width, not flow ratio
 Closing the inter-bead valley needs adjacent beads to over-squish and merge. Get that from **line width ~110–120 % of nozzle** plus **wall/infill overlap ~30–40 %**, which re-spaces the toolpaths so they are *planned* to overlap — clean, no surface bulge. Raising the global flow ratio achieves the same physically but bulges the surface; reserve it as a small inner-wall trim only (+0–2 %) and keep the outer wall at its clean value.
