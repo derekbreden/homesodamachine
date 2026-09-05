@@ -394,6 +394,7 @@ Ice-maker donor units and copper coil for the chill loop.
 | LuoQiuFa 3-pin 5.08 mm pluggable PCB screw terminal (2EDG-5.08, 10 sets) — carrier RS485 line side U7L: header solders to U7L, screw plug wires to the ALMOCN module's stock 5.08 mm terminal; 1/board (1 pack = 10 boards) | [B093DL8DKC](https://www.amazon.com/dp/B093DL8DKC) | 1 pk (10) | $7.50 | 112-7067792-6289059 | 2026-06-27 | 2026-06-30 | ACQUIRED |
 | ~~KWANGIL 22AWG 12-Conductor Cable, UL2464, High-Flexible Tinned Copper Unshielded, Matte Black, 25 ft~~ — superseded; the manifold trunks are cut from the 22 AWG black spool and sleeved ([inventory.md](/hardware/ledger/inventory.md) "Abandoned") | [B0CSD5QZ21](https://www.amazon.com/dp/B0CSD5QZ21) | 1 | $25.73 | 114-2322598-9184256 | 2026-05-14 | 2026-05-15 | ACQUIRED |
 | BNTECHGO 28 AWG silicone ribbon cable, 4-conductor flat, black, 50 ft — faucet display harness (5 V / GND / TX / RX) through the faucet shell to the under-counter base | [B07PNPHWMG](https://www.amazon.com/dp/B07PNPHWMG) | 1 (50 ft) | $21.43 | 112-9860351-3650618 | 2026-06-10 | 2026-06-11 | ACQUIRED |
+| BNTECHGO 22 AWG silicone ribbon cable, 4-conductor flat (4P), black, 50 ft — the pump cartridge's harness lead (DC-5), both Kamoer motor pairs from the pump tabs to the cartridge's RJ11 6P4C plug; 4 × 60/0.08 mm tinned strands, 1.7 mm per conductor, 200 °C, 600 V. $22.98 + $1.67 tax; Amazon estimates Tuesday 2026-09-08 | [B09X48444N](https://www.amazon.com/dp/B09X48444N) | 1 (50 ft) | $24.65 | 112-1549259-6014618 | 2026-09-05 | — | ON-ORDER |
 | BNTECHGO 16 AWG silicone wire kit, stranded tinned copper, 5 colors (red/black/white/blue/green) × 25 ft each | [B06Y557TCL](https://www.amazon.com/dp/B06Y557TCL) | 1 kit (5× 25 ft) | $38.29 | 112-8448573-3185817 | 2026-06-22 | 2026-06-24 | ACQUIRED |
 | BNTECHGO 18 AWG silicone wire, stranded tinned copper, red 25 ft + black 25 ft | [B07HGTKQ89](https://www.amazon.com/dp/B07HGTKQ89) | 1 (2× 25 ft) | $14.99 | 112-8492724-3195462 | 2026-06-22 | 2026-06-24 | ACQUIRED |
 | HS 6" zip ties, black, 18 lb tensile, nylon PA66 UV-resistant, 100-pack — harness/cable management | [B0DR8KSVQD](https://www.amazon.com/dp/B0DR8KSVQD) | 1 pk (100) | $6.42 | 112-7522816-0777851 | 2026-06-22 | 2026-06-24 | ACQUIRED |
@@ -681,10 +682,10 @@ Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C funne
 | ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$33,468.05](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$5,437.54](LEDGER_LABOR) |
 | ACQUIRED (combined) | [$38,905.59](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$693.97](LEDGER_ON_ORDER) |
+| ON-ORDER | [$718.62](LEDGER_ON_ORDER) |
 | MISSING — paid, not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$39,652.63](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$39,677.28](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
