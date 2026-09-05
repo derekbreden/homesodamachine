@@ -19,11 +19,11 @@ Not in scope: routing, strain-relief, and landing into the chassis ([`wiring.md`
 
 ## Stock & tooling
 
-Every conductor that lands on a board wafer is a **JST ASXHSXH22K** lead — black 22 AWG, factory-crimped socket at both ends, bought at 305 and 254 mm (§ XH contacts) — except DC-5, whose four bought 22 AWG ribbon conductors are hand-crimped directly into J13 so the fixed pump-connector half remains one unspliced cable. Bulk silicone, 600 V, cut-to-length covers what the leads do not, per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11: **22 AWG black** for the fan-out branches downstream of the lever nuts — a valve's COM leg, a reed's GND leg, XH at neither end — **22 AWG 4P black ribbon** for both halves of the pump connector, and **16 AWG 5-color** (AC mains + branches + 12 V trunk + green ground). A manifold trunk is a bundle of cut 22 AWG conductors carried in braided sleeve, not a multiconductor cable: the trunk's conductor count is its board connector's, and the sleeve column below sizes the bundle. The other bought multiconductor runs are the BNTECHGO 28 AWG 4-conductor faucet ribbon (built at [`faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md)) and the GEARit 18 AWG SJOOW 3-conductor compressor lead.
+Every conductor that lands on a board wafer is a **JST ASXHSXH22K** lead — black 22 AWG, factory-crimped socket at both ends, bought at 305 and 254 mm (§ XH contacts) — except DC-5, whose four 22 AWG ribbon conductors are hand-crimped directly into J13 so the fixed half to the pump jack remains one unspliced cable. Bulk silicone, 600 V, cut-to-length covers what the leads do not, per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11: **22 AWG black** for the fan-out branches downstream of the lever nuts — a valve's COM leg, a reed's GND leg, XH at neither end — **22 AWG 4P black ribbon** for the pump jack's fixed half and the other four-conductor looms, **28 AWG 4P black ribbon** for the umbilical and the pump cartridge's cord, and **16 AWG 5-color** (AC mains + branches + 12 V trunk + green ground). A manifold trunk is a bundle of cut 22 AWG conductors carried in braided sleeve, not a multiconductor cable: the trunk's conductor count is its board connector's, and the sleeve column below sizes the bundle. The other bought multiconductor runs are the BNTECHGO 28 AWG 4-conductor faucet ribbon (built at [`faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md)) and the GEARit 18 AWG SJOOW 3-conductor compressor lead.
 
-Terminations: insulated bootlace ferrules (Preciva kit) into the Wago 221 lever nuts + screw terminals; female Faston disconnects (6.3 mm / 4.8 mm) at valves, motors, and fan; Molex Micro-Fit `43031-0001` male contacts in the fixed `43020-0400` pump housing and `43030-0001` female contacts in the removable `43025-0400`; the current Frigidaire donor's factory-external electrical interface is Open item 5 in [`wiring.md`](/hardware/assembly/wiring.md); ring terminals to the ground bus + the compressor's terminal-box earth screw; JST-XH housings at the main board's labeled wafers — every loom XH, J7 (REEDS B) included. J7 and J4 (SENSORS) share the same 7P housing, so **label both looms at the housing** and dress them to their own edges: a swapped pair would put J4's 3V3/5V on J7's MCP reed inputs. Distribution / fan-out: Wago 221 lever nuts — **221-413** (AC mains H/N/G), **221-415** (≤5-conductor fan-outs, incl. MANIFOLD B COM), **221-420** (the >5-conductor MANIFOLD A COM + reservoir-B reed GND).
+Terminations: insulated bootlace ferrules (Preciva kit) into the Wago 221 lever nuts + screw terminals; female Faston disconnects (6.3 mm / 4.8 mm) at valves, motors, and fan; 110 IDC punchdown on the pump jack and a 3-prong RJ11 6P4C plug on the pump cartridge's cord; the current Frigidaire donor's factory-external electrical interface is Open item 5 in [`wiring.md`](/hardware/assembly/wiring.md); ring terminals to the ground bus + the compressor's terminal-box earth screw; JST-XH housings at the main board's labeled wafers — every loom XH, J7 (REEDS B) included. J7 and J4 (SENSORS) share the same 7P housing, so **label both looms at the housing** and dress them to their own edges: a swapped pair would put J4's 3V3/5V on J7's MCP reed inputs. Distribution / fan-out: Wago 221 lever nuts — **221-413** (AC mains H/N/G), **221-415** (≤5-conductor fan-outs, incl. MANIFOLD B COM), **221-420** (the >5-conductor MANIFOLD A COM + reservoir-B reed GND).
 
-Dress: **black PET braided sleeve** — 1/2" for most bundles, 3/4" for the manifold trunk, 1/4" for thin runs; every cut sleeve end finished with heat-shrink so it can't fray; black UV-nylon zip ties, **flush-cut** (no proud tail). DC-5's flat ribbon is not sleeved at its panel connector or in the ridge-wall clip. Tools: ferrule crimper (Preciva 28–5), Faston/insulated-terminal crimper (Haisstronica 22–10), JST-XH crimper (iCrimp SN-2549), an open-barrel die qualified on the Micro-Fit contacts by the pull test below, wire stripper (Klein 11063W), flush cutters, heat gun, multimeter — see [`/hardware/ledger/tools.md`](/hardware/ledger/tools.md).
+Dress: **black PET braided sleeve** — 1/2" for most bundles, 3/4" for the manifold trunk, 1/4" for thin runs; every cut sleeve end finished with heat-shrink so it can't fray; black UV-nylon zip ties, **flush-cut** (no proud tail). DC-5's flat ribbon is not sleeved at its panel connector or in the ridge-wall clip. Tools: ferrule crimper (Preciva 28–5), Faston/insulated-terminal crimper (Haisstronica 22–10), JST-XH crimper (iCrimp SN-2549), impact punchdown tool (Klein VDV427-300) and modular-plug crimper (VCE) for the two RJ11 stations, wire stripper (Klein 11063W), flush cutters, heat gun, multimeter — see [`/hardware/ledger/tools.md`](/hardware/ledger/tools.md).
 
 
 ### XH contacts
@@ -86,43 +86,40 @@ Conductor counts are the main board's connector pin counts (`pcba.tsx` J1–J11 
 | Reservoir A reeds | J6 | [5](J6_PINS) (4 reed + GND) | 22 AWG black | reed leads; GND → **221-415** at the reservoir | 1/4" |
 | Reservoir B + carb reeds | J7 | [7](J7_PINS) (6 reed + GND) | 22 AWG black | reed leads; female JST-XH housing (XHP-7) + XH contacts — the same 7P housing as SENSORS (J4), so **label both looms at the housing** (a swap would put J4's 3V3/5V on the MCP reed inputs); GND → **221-420** | 1/4" |
 | Sensors | J4 | [7](J4_PINS) | 22 AWG black | DS18B20 / flow / moisture (DO + switched VCC); GND → **221-415** on the −X wall aft, where all three land | 1/4" |
-| Relays | J5 | [4](J5_PINS) (`IO19` / `IO2` / `V5` / GND) | 22 AWG black | XH at J5; screw terminals at both relay modules, `V5`/GND teed to both at the relay end (LV-1/2/3 — lands in the column at [`power-column.md`](/hardware/assembly/power-column.md)) | 1/4" |
+| Relays | J5 | [4](J5_PINS) (`IO19` / `IO2` / `V5` / GND) | 22 AWG black 4P ribbon | XH at J5; screw terminals at both relay modules, `V5`/GND teed to both at the relay end (LV-1/2/3 — lands in the column at [`power-column.md`](/hardware/assembly/power-column.md)) | 1/4" |
 | Faucet display | J3 / SIG-6 | [4](J3_PINS) (TX / RX / 5 V / GND) | 22 AWG black | **Ends at the wall, not at the faucet** — XH on J3, 110 IDC on the back of the keystone jack the umbilical plugs into. The ribbon outboard of that jack is the umbilical's, built at [`faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md). **The TTL lines are ESD-clamped on the main board at U1** (D10/D11, 2× low-cap TVS — see the ESD note below); a faucet-end TVS is now optional | 1/2" |
-| Enclosure display | J9 / SIG-7 | [4](J9_PINS) (`B` / `A` / GND / `V12`) | 22 AWG black | A/B pair to the 4.3B's RS485 terminals; `V12` + GND to its 7–36 V screw input on the same loom | 1/2" |
-| Gas sensor | J11 | [4](J11_PINS) (GND / `V5` / `DOUT` / `AOUT`) | 22 AWG black | MQ-6 leads | 1/4" |
-| Pumps — fixed half | J13 / DC-5 | [4](J13_PINS) (`AM2` / `AM1` / `BM2` / `BM1`) | 22 AWG black 4P ribbon, 350 mm | XH contacts at J13; male `43031-0001` contacts in fixed `43020-0400` | — |
-| Pumps — cartridge half | pump connector / DC-5 | 4, same circuit order | 22 AWG black 4P ribbon, 400 mm | female `43030-0001` contacts in removable `43025-0400`; female Fastons stay on the pump-motor tabs | — |
+| Enclosure display | J9 / SIG-7 | [4](J9_PINS) (`B` / `A` / GND / `V12`) | 22 AWG black 4P ribbon | A/B pair to the 4.3B's RS485 terminals; `V12` + GND to its 7–36 V screw input on the same loom | 1/2" |
+| Gas sensor | J11 | [4](J11_PINS) (GND / `V5` / `DOUT` / `AOUT`) | 22 AWG black 4P ribbon | MQ-6 leads | 1/4" |
+| Pumps — fixed half | J13 / DC-5 | [4](J13_PINS) (`AM2` / `AM1` / `BM2` / `BM1`) | 22 AWG black 4P ribbon, 350 mm | XH contacts at J13; 110 IDC punchdown on the pump jack | — |
+| Pumps — cartridge cord | pump plug / DC-5 | 4, same order | 28 AWG black 4P ribbon, 400 mm | 3-prong RJ11 6P4C plug at the jack; female Fastons stay on the pump-motor tabs | — |
 | 12 V input | J10 / DC-4 | [2](J10_PINS) (`V12` / GND) | 16 AWG | ferrules under the J10 screw clamps; from the power column's 12 V distribution block (lands in the column at [`power-column.md`](/hardware/assembly/power-column.md)) | — |
 | AC mains | AC-1…6 | per run | 16 AWG (black/white/green) + 18 AWG SJOOW | ferrules → **221-413**; current-donor external-interface connector TBD at compressor; rings to ground | SJOOW jacket on the compressor lead |
 
-### Pump connector — DC-5
+### Pump jack — DC-5
 
-Cut one 350 mm and one 400 mm length of the BNTECHGO 22 AWG 4P ribbon. Keep the four
-conductors joined through every straight run and peel only enough at each end to enter the
-four separate terminal barrels without crossing. Molex specifies the `43030-0001` and
-`43031-0001` terminals for 20/22/24 AWG through 1.85 mm insulation OD; this ribbon is 1.7 mm.
+Two cables, and two terminations the bench already makes. The **fixed half** is 350 mm of the
+BNTECHGO 22 AWG 4P ribbon: J13's XH contacts at one end, and at the other the four conductors
+punched down on the pump jack's 110 IDC exactly as SIG-6's J3 loom is punched down on the
+umbilical's keystone (Klein VDV427-300, the jack held in the punch-down stand), conductor 1 on
+the ribbon's marked edge to the jack's position 2. The **cartridge cord** is 400 mm of the
+BNTECHGO 28 AWG 4P ribbon, the umbilical's own stock: at the jack end a 3-prong EZYUMM RJ11 6P4C
+plug, crimped as [`faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md) step 2
+crimps the umbilical's, the last 15 mm shimmed so the strain-relief bar bottoms; at the pump end
+the four female Fastons that stay on the motor tabs.
 
-The **fixed** 350 mm half receives J13's XH contacts at one end and male `43031-0001`
-contacts in the panel-mount `43020-0400` at the other. The **cartridge** 400 mm half receives
-female `43030-0001` contacts in the free `43025-0400` and the four pump Fastons at its other
-end. On the bench, hold the fixed housing key up and view its mating face; preserve the board
-order by moulded circuit number. In the enclosure the key and the mating thumb latch face down
-into the empty pump bay:
+| plug position | ribbon conductor | J13 net | Device |
+|---:|---:|---|---|
+| 2 | 1, marked edge | `AM2` | pump A |
+| 3 | 2 | `AM1` | pump A |
+| 4 | 3 | `BM2` | pump B |
+| 5 | 4 | `BM1` | pump B |
 
-| Micro-Fit circuit | J13 net | Device |
-|---:|---|---|
-| 1 | `AM2` | pump A |
-| 2 | `AM1` | pump A |
-| 3 | `BM2` | pump B |
-| 4 | `BM1` | pump B |
-
-Qualify the open-barrel setup before building the harness: crimp one spare contact on the
-same ribbon, section it for conductor- and insulation-wing closure, then pull to **35.6 N
-minimum** without the conductor leaving the crimp. Build contacts only after that sample
-passes. Seat every terminal until its locking tang is captive, mate the two housings until
-the thumb latch clicks, then continuity-test circuit 1→1 through 4→4, verify no adjacent
-short, and verify J13 net-to-pump-tab polarity. The connector is a dead-circuit service joint:
-never mate or part it while either pump is energized.
+The 28 AWG conductor is under the red Faston's 22–16 AWG barrel. Strip it 12 mm, fold the bare
+strands back on themselves twice so the barrel closes on a full bundle, crimp, and pull each of
+the four to the kit's rating before the deck goes in; section one spare first and build the four
+only after it passes. Continuity-test plug position to pump tab, verify no adjacent short, and
+verify J13 net-to-tab polarity. The jack is a dead-circuit service joint: never plug or unplug it
+while either pump is energized.
 
 ### MANIFOLD B — the empty contact
 

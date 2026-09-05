@@ -1,5 +1,5 @@
 {
- "gatesPass": false,
+ "gatesPass": true,
  "size": [
   {
    "id": "enclosure",
@@ -806,13 +806,10 @@
    "id": "pump-jack-service",
    "label": "Pump plug's clip faces the empty bay and its full unplug, clear-the-cap and lower path clears front-top and the display",
    "kind": "gate",
-   "status": "fail",
-   "value": "18.000 mm pull; 19.435000/64.991959 mm\u00b3 path overlap; 0.000000/0.000000 mm\u00b3 finger overlap; 0.000/0.000 mm path air; 3.625 mm past the cap",
+   "status": "pass",
+   "value": "17.000 mm pull; 0.000000/0.000000 mm\u00b3 path overlap; 0.000000/0.000000 mm\u00b3 finger overlap; 0.000/5.229 mm path air; 2.625 mm past the cap",
    "target": "0 mm\u00b3 overlap; clip down; 15 mm finger room; pulled plug fore of the plate cap",
-   "detail": [
-    "service path crosses `enclosure-front-top` by 19.435000 mm\u00b3",
-    "service path crosses `display` by 64.991959 mm\u00b3"
-   ],
+   "detail": [],
    "active": true
   },
   {

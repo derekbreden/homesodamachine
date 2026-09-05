@@ -147,7 +147,6 @@ sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "zone-c" / "funnel
 sys.path.insert(0, str(_repo / "hardware" / "reference" / "wago-221"))
 sys.path.insert(0, str(_repo / "hardware" / "reference" / "mq6-gas-sensor"))
 sys.path.insert(0, str(_repo / "hardware" / "reference" / "riteav-keystone"))
-sys.path.insert(0, str(_repo / "hardware" / "reference" / "molex-micro-fit-4"))
 sys.path.insert(0, str(_repo / "hardware" / "reference" / "iec-c14-inlet"))
 sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "valve-seat"))
 sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "enclosure" / "valve-tray"))
@@ -167,7 +166,6 @@ import funnel as _funnel
 import wago_221 as _wago
 import mq6_gas_sensor as _mq6
 import riteav_keystone as _keystone
-import molex_micro_fit_4 as _pump_connector
 import iec_c14_inlet as _c14
 import valve_seat as _seat
 import valve_tray as _valve_tray
@@ -429,15 +427,15 @@ ridge_wall_t = 3.0               # the rib under `pcb_ridge`, measured across it
 # nothing, carries nothing, and the loom is dressed after it is through.
 cable_sleeve_nom = 12.7          # 1/2" PET expandable braid, SIG-7's own
 cable_sleeve_open = 1.5 * cable_sleeve_nom   # a 50% expandable braid's ceiling — [19.05 mm](CABLE_BORE)
-# THE CENTRE STATION IS THE PUMP DISCONNECT. The fixed black four-circuit Micro-Fit plug takes
-# the centred opening a hand finds behind the display. SIG-7 still crosses this same rib, but on
-# the -X side, leaving solid stock between its opened braid and the connector's panel land. On
-# +X, the fixed J13-to-connector lead returns to the main board through one full-depth cable
-# clip rooted on this rib's cavity face. Nothing on the removable pump cartridge is clipped to
-# the enclosure.
+# THE CENTRE STATION IS THE PUMP JACK: a RiteAV RJ11 keystone jack, the module the +Y wall
+# holds for the umbilical, in this rib's centreline where a hand reaching up through the empty
+# pump bay finds it, its receptacle boss rooted on the plate cap's crown. SIG-7 crosses the
+# same rib on the -X side with solid stock between its opened braid and that boss. On +X, the
+# fixed J13-to-jack lead returns to the main board through one full-depth cable clip rooted on
+# this rib's cavity face. Nothing on the removable pump cartridge is clipped to the enclosure.
 display_loom_x_offset = -32.0
-pump_connector_clip_edge_land = 12.0
-pump_connector_clip_channel_centre = 7.0 * _cable_clip.GRID
+pump_jack_clip_edge_land = 12.0
+pump_jack_clip_channel_centre = 7.0 * _cable_clip.GRID
 # The cover plate and the two screws through it — the same DIN 912 M3 cap screw every seam in
 # this machine takes, in the same ⌀`head_cbore_dia` flat-bottomed counterbore, landing
 # `display_cover_seat_recess` under the 45° face so the plane closes over it.
@@ -3035,25 +3033,30 @@ def pcb_ridge(outer):
 
 
 def _ridge_stations(outer, plate, bay):
-    """The two electrical stations in the rib's straight section.
+    """The two electrical stations in the rib's straight section, `(x, y, z)` each: the pump
+    jack's aperture centre on the box centreline, and the enclosure-display loom's bore west of
+    it.
 
-    The pump connector owns the box centreline. The enclosure-display loom retains the height of
-    the opening it used to own there and moves only in X, far enough west that its fully opened
-    braid and the connector's panel land retain solid stock between them.
-    """
+    THE JACK'S RECEPTACLE STANDS ON THE PLATE CAP'S CROWN. Its boss's lower wall lands on
+    `bay[2]`, which puts the aperture centre `POCKET_H / 2 + RECEPTACLE_WALL - POCKET_RISE`
+    above that plane, so on this Z-bedded piece the boss roots on the crown and the rib and
+    nothing of it hangs. The loom keeps the height it had on the centreline and moves only in
+    X, far enough west that its opened braid and the boss keep solid stock between them."""
     ry, rz = pcb_ridge(outer)
     fore, foot = plate["aft_y"], bay[2]
     jog = ry + rz - fore
-    z = (foot + jog) / 2.0
+    z_loom = (foot + jog) / 2.0
+    z_jack = (foot + _keystone.POCKET_H / 2.0 + _keystone.RECEPTACLE_WALL
+              - _keystone.POCKET_RISE)
     centre = display_centre_x(outer)
-    return ((centre, fore, z),
-            (centre + display_loom_x_offset, fore, z))
+    return ((centre, fore, z_jack),
+            (centre + display_loom_x_offset, fore, z_loom))
 
 
-def pump_connector_station(box):
-    """The Micro-Fit mating-face centre, read from the ridge wall that captures it."""
+def pump_jack_station(box):
+    """The pump jack's aperture centre on the ridge wall's fore face, `(x, y, z)`."""
     if not (box.pack.collet_plate and box.pump_bay):
-        raise ValueError("the pump connector needs the collet plate and pump bay")
+        raise ValueError("the pump jack needs the collet plate and pump bay")
     return _ridge_stations(box.outer, box.pack.collet_plate, box.pump_bay)[0]
 
 
@@ -6109,6 +6112,38 @@ def _plate_lead(plate):
                       (aft - 1.0, z_seam + lead)])
 
 
+def _ridge_keystone(slab, station, t):
+    """The pump jack's receptacle in the ridge wall: `riteav_keystone`'s aperture, ease, pocket,
+    two catches and boss, turned to face the pump bay.
+
+    THE MODULE LOOKS +Y OUT OF THE WALL AND THIS WALL'S USER FACE LOOKS -Y, so the receptacle is
+    struck at the origin and given a half turn about Z before it is carried to the station: X
+    is the module's own mirror plane, the ease stays over the aperture's top edge, and the jack
+    goes in from the cavity behind the rib, tang first, swinging down onto the lower catch.
+
+    THE RIB IS THE LIP. `ridge_wall_t` is `riteav_keystone.LIP_D`, so the aperture passes the
+    whole rib and the pocket, the catches and the boss that carries them stand aft of it. The
+    boss's lower wall lands on the plate cap's crown (`_ridge_stations`), so the block roots on
+    the crown and the rib and hangs nowhere on this Z-bedded piece.
+
+    Fused, cut, fused: the boss first, then the receptacle through boss and rib together, then
+    the catches, which a cut running after them would take off."""
+    x, y_face, z = station
+    block, catches = _keystone.receptacle_boss(0.0, 0.0, 0.0, -t)
+    cutter, _bands = _keystone.receptacle_cut(0.0, 0.0, 0.0)
+
+    def turned(shape):
+        return (shape.rotate((0.0, 0.0, 0.0), (0.0, 0.0, 1.0), 180.0)
+                .translate((x, y_face, z)))
+
+    if block is not None:
+        slab = slab.fuse(turned(block))
+    slab = slab.cut(turned(cutter))
+    if catches is not None:
+        slab = slab.fuse(turned(catches))
+    return slab
+
+
 def _ridge_wall(inner, outer, plate, bay, funnel):
     """THE RIB THAT CARRIES THE RIDGE: front-top's own section from the tee wall's crown up to
     the display housing's back, wall to wall, standing under `pcb_ridge` over the whole of it.
@@ -6140,15 +6175,15 @@ def _ridge_wall(inner, outer, plate, bay, funnel):
     COST: this is now the only section between the bay's storey and the cavity aft of it, so
     anything crossing crosses through it.
 
-    TWO THINGS CROSS IT. The fixed 43020-0400 Micro-Fit pump connector owns the centreline a hand
-    finds behind the display. Its own nylon panel ears snap into the drawing's keyed cut-out; the
-    cavity side of this 3 mm rib is locally relieved until 2 mm of panel remains, inside Molex's
-    1.40--2.54 mm range. The enclosure-display loom keeps the same height and teardropped
-    `cable_sleeve_open` bore but moves west. Both stay in the straight run, where the rib has two
-    parallel faces, and both remain below the ridge ramp.
+    TWO THINGS CROSS IT. The pump jack owns the centreline a hand finds behind the display: a
+    RiteAV keystone receptacle (`_ridge_keystone`) whose aperture passes this rib, whose pocket,
+    catches and boss stand aft of it in the cavity, and whose boss roots on the plate cap's
+    crown. The enclosure-display loom keeps its height and its teardropped `cable_sleeve_open`
+    bore but moves west. Both stay in the straight run, where the rib has two parallel faces,
+    and both remain below the ridge ramp.
 
     THE FIXED PUMP LEAD IS RETAINED ON THIS WALL. One unembedded cable clip stands on the cavity
-    face near +X and runs toward that edge, guiding the J13-to-connector lead to the main-board
+    face near +X and runs toward that edge, guiding the J13-to-jack lead to the main-board
     wall. The clip belongs to the enclosure-side lead; the removable cartridge and its plug are
     free of it."""
     ry, rz = pcb_ridge(outer)
@@ -6169,24 +6204,18 @@ def _ridge_wall(inner, outer, plate, bay, funnel):
          (funnel_front, ceiling),                               # the opening's front underside
          aft_crown,                                             # the one roof's aft crown
          (fore + t, foot)])
-    connector, loom = _ridge_stations(outer, plate, bay)
+    jack, loom = _ridge_stations(outer, plate, bay)
     slab = slab.cut(_teardrop_y(cable_sleeve_open / 2.0, loom[0], loom[2],
                                 fore - 1.0, fore + t + 1.0))
-    # `molex_micro_fit_4` is drawn with +Y out of the mating face and its key/latch on +Z.
-    # Turn it half around X: the ridge's user-facing -Y is outward, and the latch faces down
-    # into the empty pump bay where a fingertip can press it clear of the display.
-    turn = lambda shape: (shape
-                          .rotate((0.0, 0.0, 0.0), (1.0, 0.0, 0.0), 180.0)
-                          .translate(connector))
-    slab = slab.cut(turn(_pump_connector.panel_cut(t)))
+    slab = _ridge_keystone(slab, jack, t)
 
-    clip_end = inner[1] - pump_connector_clip_edge_land
+    clip_end = inner[1] - pump_jack_clip_edge_land
     clip_start = clip_end - _cable_clip.RUN
-    if clip_start <= connector[0] + _pump_connector.panel_footprint()[0] / 2.0:
-        raise ValueError("the pump-connector cable clip no longer clears the connector land")
+    if clip_start <= jack[0] + _keystone.panel_footprint()[0] / 2.0:
+        raise ValueError("the pump-jack cable clip no longer clears the receptacle boss")
     return _cable_clip.apply(
         slab,
-        origin=(clip_start, fore + t, connector[2] - pump_connector_clip_channel_centre),
+        origin=(clip_start, fore + t, loom[2] - pump_jack_clip_channel_centre),
         outward=(0.0, 1.0, 0.0),
         along=(1.0, 0.0, 0.0),
         embed=0.0,
@@ -9711,10 +9740,12 @@ def main():
         "RIDGE_LEN": f"{display_pcb_x:.4g} mm",
         "CABLE_BORE": f"{cable_sleeve_open:.4g} mm",
         "DISPLAY_LOOM_X": f"{display_loom_x_offset:+.4g} mm",
-        "PUMP_CONNECTOR_CUT": (f"{_pump_connector.panel_cutout()[0]:.4g} × "
-                               f"{_pump_connector.panel_cutout()[1]:.4g} mm"),
-        "PUMP_CONNECTOR_PANEL": f"{_pump_connector.PANEL_T:.4g} mm",
-        "PUMP_CONNECTOR_CLIP_LAND": f"{pump_connector_clip_edge_land:.4g} mm",
+        "PUMP_JACK_Z": (f"{_ridge_stations(bo, plate, box.pump_bay)[0][2]:.5g} mm"
+                        if plate else "no bay on this pack"),
+        "PUMP_JACK_APERTURE": f"{_keystone.APERTURE_W:.4g} × {_keystone.APERTURE_H:.4g} mm",
+        "PUMP_JACK_BOSS_REACH": f"{_keystone.DEPTH - ridge_wall_t:.4g} mm",
+        "PUMP_JACK_BODY": f"{_keystone.BODY_DEPTH:.4g} mm",
+        "PUMP_JACK_CLIP_LAND": f"{pump_jack_clip_edge_land:.4g} mm",
         "CABLE_CLIP_DEPTH": f"{_cable_clip.DEPTH:.4g} mm",
         "CABLE_CLIP_RUN": f"{_cable_clip.RUN:.4g} mm",
         "CABLE_CLIP_RAMP": f"{_cable_clip.RAMP:.4g} mm",

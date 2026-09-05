@@ -47,7 +47,7 @@ diaphragm_peak_a = 5
 
 # Kamoer KPHM600-SW3B17 published current per pump (two pumps on the main
 # board's DRV8870 H-bridges, PUMPS J13 / run DC-5). This is the contact load
-# for each of the four Micro-Fit circuits: one motor conductor per circuit.
+# for each of the pump jack's four contacts: one motor conductor per contact.
 pump_peak_a = 0.8
 
 # Condenser fan motor (harvested from donor ice maker — 12 V DC
@@ -127,8 +127,8 @@ len_man_a_mm = 350       # DC-6 `OUT1`–`OUT8` → the eight manifold-A coils (
 len_moisture_mm = 350    # SIG-9 → the dry LM393 board by the pan's −X-wall cable clip (304)
 len_carb_reeds_mm = 350  # SIG-2/3 → the carbonator's low and high reeds (323)
 len_man_b_mm = 400       # DC-7 `OUT1`/`OUT2` → V-I and V-J, and `COM` → the 221-415 (356–359)
-len_pump_fixed_mm = 350  # DC-5, J13 → centred ridge-wall connector through the +X clip.
-len_cartridge_mm = 400   # DC-5, connector → peristaltics, with cartridge DRAWN OUT (400).
+len_pump_fixed_mm = 350  # DC-5, J13 → the pump jack's punchdown through the +X clip.
+len_cartridge_mm = 400   # DC-5, pump plug → peristaltics, with cartridge DRAWN OUT (400).
                          # The original board-to-pump reach was the routed-factor calibration.
 len_front_face_mm = 400  # SIG-7 → the 4.3B in the front-top facet, which never leaves the box (369)
 len_reeds_b_mm = 400     # SIG-11 → reservoir B's four level reeds (383)

@@ -113,7 +113,6 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "reference" / "jg-bulkhead-union",
            _hw / "reference" / "iec-c14-inlet",
            _hw / "reference" / "riteav-keystone",
-           _hw / "reference" / "molex-micro-fit-4",
            _hw / "reference" / "neofit-bulkhead",
            _hw / "reference" / "gasher-check-valve",
            _hw / "reference" / "wr1110-regulator",
@@ -180,7 +179,6 @@ import _cold_core_interface as _cci                   # noqa: E402
 import beduan_solenoid as _beduan                     # noqa: E402
 import iec_c14_inlet as _c14                          # noqa: E402
 import riteav_keystone as _keystone                   # noqa: E402
-import molex_micro_fit_4 as _pump_connector            # noqa: E402
 import jg_bulkhead_union as _jg                       # noqa: E402
 import bulkhead_ring as _ring                         # noqa: E402
 # The same word and the same two filaments, on the customer's own tube outboard of the ring.
@@ -3191,7 +3189,7 @@ def co2_wall_port(inlet_carry):
 # joins the box and moves every one of them.
 STANDALONE = ("compressor", "condenser+fan", "foam-assembly", "seaflo-pump",
               "funnel", "suction-chain", "discharge-chain", "display", "display-cover",
-              "display-gasket", "pump-connector",
+              "display-gasket", "pump-jack",
               "psu", "pcba",
               "relay-1", "relay-2", "ground-stack", "asse1022-assembly", "asse-drip-pan",
               "moisture-plate",
@@ -5272,89 +5270,109 @@ def build_display_gasket(box):
                      station=(COVER_ORIGIN, plane.origin.toTuple()))
 
 
-# The connector's reference frame points +Y out of its mouth and puts its key/latch on +Z.
-# The ridge-wall user face points toward world -Y. A half-turn about X aligns the mating axes
-# and puts the latch DOWN into the empty pump bay, away from the display and under a fingertip.
-PUMP_CONNECTOR_TURN = ((1.0, 0.0, 0.0), 180.0)
-PUMP_CONNECTOR_PANEL_DATUM = ((0.0, 0.0, 0.0), (0.0, 1.0, 0.0))
-PUMP_CONNECTOR_SERVICE_OVERLAP_TOL = 1e-6
-PUMP_CONNECTOR_LATCH_AIR_MIN = 12.0
+# THE PUMP JACK IS THE +Y WALL'S KEYSTONE, TURNED TO FACE THE PUMP BAY. `riteav_keystone` looks
+# +Y out of its aperture; the ridge wall's user face looks world -Y, so the body takes a half
+# turn about Z, which keeps its ease up and its plug's clip down over the open bay.
+PUMP_JACK_TURN = ((0.0, 0.0, 1.0), 180.0)
+PUMP_JACK_FACE_DATUM = ((0.0, 0.0, 0.0), (0.0, 1.0, 0.0))
+# THE PUMP PLUG'S ENVELOPE, in the jack's own frame: a bare 6P4C modular plug seated
+# `PORT_DEPTH` into the port, its body standing out of the aperture with its clip lever hanging
+# under it, the ribbon leaving its rear. Inside the jack the plug is the port's own section;
+# outside it the box is generous on every side. The plug family's figures, not a drawing's.
+PUMP_PLUG_W = 10.0           # across the body outside the jack, with air
+PUMP_PLUG_OVER_PORT = 2.0    # the body over the port's own height, outside the jack
+PUMP_PLUG_CLIP_H = 4.0       # the clip lever under the body, pressed or released
+PUMP_PLUG_OUT = 14.0         # the body standing out of the aperture
+PUMP_PLUG_PULL = 17.0        # the pull that frees the plug and carries it clear of the plate cap
+PUMP_PLUG_FINGER = 15.0      # the fingertip's room under the clip lever
+PUMP_PLUG_FINGER_RUN = (8.0, 16.0)   # where under the plug the lever is pressed, off the face
+PUMP_JACK_SERVICE_OVERLAP_TOL = 1e-6
 
 
-def build_pump_connector(box):
-    """The fixed black 43020-0400 housing snapped into the centred ridge-wall station."""
-    return seat_body(
-        _pump_connector.build_fixed(),
-        turns=(PUMP_CONNECTOR_TURN,),
-        seat="pump-connector",
-        station=(PUMP_CONNECTOR_PANEL_DATUM, _enc.pump_connector_station(box)),
-    )
+def build_pump_jack(box):
+    """The RiteAV keystone jack snapped into the ridge wall's centred receptacle, its face flush
+    with the wall's fore plane and its body in the cavity behind."""
+    body = import_step(str(KEYSTONE_STEP)).val()
+    return seat_body(body, turns=(PUMP_JACK_TURN,), seat="pump-jack",
+                     station=(PUMP_JACK_FACE_DATUM, _enc.pump_jack_station(box)))
 
 
-def _pump_connector_service_bound(display, front_top, enclosure_box) -> Bound:
-    """Prove the user's complete unplug motion through the empty cartridge bay.
+def _pump_plug_envelope():
+    """The plug's two boxes in the jack's frame, each `(x0, y0, z0, x1, y1, z1)`: the part inside
+    the port, which is the port's own section, and the part standing out of the aperture with
+    the clip lever under it. `riteav_keystone.build` stands the port at z -1."""
+    port_z = -1.0
+    inside = (-_keystone.PORT_W / 2.0, -_keystone.PORT_DEPTH, port_z - _keystone.PORT_H / 2.0,
+              _keystone.PORT_W / 2.0, 0.0, port_z + _keystone.PORT_H / 2.0)
+    outside = (-PUMP_PLUG_W / 2.0, 0.0, port_z - _keystone.PORT_H / 2.0 - PUMP_PLUG_CLIP_H,
+               PUMP_PLUG_W / 2.0, PUMP_PLUG_OUT, port_z + _keystone.PORT_H / 2.0 + PUMP_PLUG_OVER_PORT)
+    return inside, outside
 
-    The 43025 drawing defines the removable housing and the mated-pair length. Pulling
-    ``SERVICE_PULL`` toward -Y first clears the fixed housing by a real millimetre; only then
-    does the hand lower the free half below the bay lintel. Bounding-box sweeps are deliberately
-    conservative: every intermediate pose of the complete body and latching crown lies inside
-    them, so zero overlap here is stronger than checking just the two endpoints.
-    """
-    free, carry = seat_body(
-        _pump_connector.build_free_envelope(),
-        turns=(PUMP_CONNECTOR_TURN,),
-        station=(PUMP_CONNECTOR_PANEL_DATUM, _enc.pump_connector_station(enclosure_box)),
-    )
-    fbb = box(free)
-    pull = _pump_connector.SERVICE_PULL
-    pull_sweep = cq.Solid.makeBox(
-        fbb.xlen,
-        fbb.ylen + pull,
-        fbb.zlen,
-        cq.Vector(fbb.xmin, fbb.ymin - pull, fbb.zmin),
-    )
-    drop = fbb.zmax - (enclosure_box.pump_bay[2] - fits.slip)
-    pulled_ymin = fbb.ymin - pull
-    pulled_ymax = fbb.ymax - pull
-    drop_sweep = cq.Solid.makeBox(
-        fbb.xlen,
-        pulled_ymax - pulled_ymin,
-        fbb.zlen + drop,
-        cq.Vector(fbb.xmin, pulled_ymin, fbb.zmin - drop),
-    )
-    service_path = pull_sweep.fuse(drop_sweep)
+
+def _pump_jack_service_bound(display, front_top, enclosure_box) -> Bound:
+    """Prove the unplug through the empty pump bay: a fingertip on the clip under the plug, the
+    plug pulled straight fore until it is clear of the plate cap, then lowered through the bay.
+
+    The plug envelope is swept over the whole pull and the whole drop, so every pose between
+    the endpoints is inside what is tested, and the fingertip's room under the clip is a box of
+    its own. Zero overlap with front-top and the display is the pass; the cartridge is out."""
+    station = _enc.pump_jack_station(enclosure_box)
+    floor = enclosure_box.pump_bay[2] - fits.slip
+    service_path, carry, pbb = None, None, None
+    for x0, y0, z0, x1, y1, z1 in _pump_plug_envelope():
+        local = cq.Solid.makeBox(x1 - x0, y1 - y0, z1 - z0, cq.Vector(x0, y0, z0))
+        part, carry = seat_body(local, turns=(PUMP_JACK_TURN,),
+                                station=(PUMP_JACK_FACE_DATUM, station))
+        b = box(part)
+        pull_sweep = cq.Solid.makeBox(
+            b.xlen, b.ylen + PUMP_PLUG_PULL, b.zlen,
+            cq.Vector(b.xmin, b.ymin - PUMP_PLUG_PULL, b.zmin))
+        drop = b.zmax - floor
+        drop_sweep = cq.Solid.makeBox(
+            b.xlen, b.ylen, b.zlen + drop,
+            cq.Vector(b.xmin, b.ymin - PUMP_PLUG_PULL, b.zmin - drop))
+        swept = pull_sweep.fuse(drop_sweep)
+        service_path = swept if service_path is None else service_path.fuse(swept)
+        pbb = b            # the last part is the one standing out of the aperture
+    face_y = station[1]
+    near, far = PUMP_PLUG_FINGER_RUN
+    finger = cq.Solid.makeBox(
+        pbb.xlen + 8.0, far - near, PUMP_PLUG_FINGER,
+        cq.Vector(pbb.xmin - 4.0, face_y - far, pbb.zmin - PUMP_PLUG_FINGER))
 
     wall = front_top.val() if isinstance(front_top, cq.Workplane) else front_top
     glass = display.val() if isinstance(display, cq.Workplane) else display
-    blockers = (("enclosure-front-top", wall), ("display", glass))
-    failures = []
-    overlaps = {}
-    for name, blocker in blockers:
-        overlap = service_path.intersect(blocker).Volume()
-        overlaps[name] = overlap
-        if overlap > PUMP_CONNECTOR_SERVICE_OVERLAP_TOL:
-            failures.append(f"service path crosses `{name}` by {overlap:.6f} mm³")
-
-    _origin, latch_axis = carry(((0.0, 0.0, 0.0), (0.0, 0.0, 1.0)))
-    if latch_axis[2] > -0.999:
-        failures.append(f"latch axis is {latch_axis}, not down into the pump bay")
-    latch_air = fbb.zmin - enclosure_box.pump_bay[2]
-    if latch_air < PUMP_CONNECTOR_LATCH_AIR_MIN:
-        failures.append(
-            f"latch has {latch_air:.3f} mm to the bay lintel, below "
-            f"{PUMP_CONNECTOR_LATCH_AIR_MIN:.3f} mm")
+    failures, overlaps = [], {}
+    for name, blocker in (("enclosure-front-top", wall), ("display", glass)):
+        path_overlap = service_path.intersect(blocker).Volume()
+        finger_overlap = finger.intersect(blocker).Volume()
+        overlaps[name] = (path_overlap, finger_overlap)
+        if path_overlap > PUMP_JACK_SERVICE_OVERLAP_TOL:
+            failures.append(f"service path crosses `{name}` by {path_overlap:.6f} mm³")
+        if finger_overlap > PUMP_JACK_SERVICE_OVERLAP_TOL:
+            failures.append(f"fingertip room under the clip crosses `{name}` by "
+                            f"{finger_overlap:.6f} mm³")
+    _origin, clip_axis = carry(((0.0, 0.0, 0.0), (0.0, 0.0, -1.0)))
+    if clip_axis[2] > -0.999:
+        failures.append(f"the plug's clip faces {clip_axis}, not down into the pump bay")
+    cap_air = (_enc.plate_guide_fore_y(enclosure_box.pack.collet_plate)
+               - (face_y + _keystone.PORT_DEPTH - PUMP_PLUG_PULL))
+    if cap_air < 0.0:
+        failures.append(f"the pulled plug still stands {-cap_air:.3f} mm over the plate cap")
 
     wall_air = service_path.distance(wall)
     display_air = service_path.distance(glass)
     return record_bound(Bound(
-        "pump-connector-service",
-        "Pump connector latch faces the empty bay and its full unmate-and-drop path clears "
-        "front-top and the display",
+        "pump-jack-service",
+        "Pump plug's clip faces the empty bay and its full unplug, clear-the-cap and lower path "
+        "clears front-top and the display",
         not failures,
-        f"{pull:.3f} mm pull including {_pump_connector.SERVICE_AIR:.3f} mm air; "
-        f"{overlaps['enclosure-front-top']:.6f}/{overlaps['display']:.6f} mm³ overlap; "
-        f"{wall_air:.3f}/{display_air:.3f} mm path air; {latch_air:.3f} mm latch air",
-        f"0 mm³ overlap; latch down; >= {PUMP_CONNECTOR_LATCH_AIR_MIN:.3f} mm latch air",
+        f"{PUMP_PLUG_PULL:.3f} mm pull; {overlaps['enclosure-front-top'][0]:.6f}/"
+        f"{overlaps['display'][0]:.6f} mm³ path overlap; "
+        f"{overlaps['enclosure-front-top'][1]:.6f}/{overlaps['display'][1]:.6f} mm³ finger "
+        f"overlap; {wall_air:.3f}/{display_air:.3f} mm path air; {cap_air:.3f} mm past the cap",
+        f"0 mm³ overlap; clip down; {PUMP_PLUG_FINGER:.3g} mm finger room; pulled plug fore of "
+        f"the plate cap",
         tuple(failures),
     ))
 
@@ -5469,13 +5487,13 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     a.add(cover, name="display-cover", color=C_COVER)
     dgasket, _dgasket_carry = build_display_gasket(box)
     a.add(dgasket, name="display-gasket", color=C_DGASKET)
-    pump_connector, _pump_connector_carry = build_pump_connector(box)
-    a.add(pump_connector, name="pump-connector", color=M_DONOR_BLACK)
+    pump_jack, _pump_jack_carry = build_pump_jack(box)
+    a.add(pump_jack, name="pump-jack", color=M_DONOR_BLACK)
     pieces = _materialized_enclosure_pieces(box, require_box_spec)
     for name, piece in pieces.items():
         a.add(piece, name=f"enclosure-{name}", color=WALL_COLORS[name])
     _carrier_front_top_motion_bound(a, pieces["front-top"], box)
-    _pump_connector_service_bound(display, pieces["front-top"], box)
+    _pump_jack_service_bound(display, pieces["front-top"], box)
     # AND BACK-TOP'S CEILING, which is a part of its own. It is built here rather than in
     # `build_pieces` because it is not one of the box's quadrants: `ceiling_panel` states the
     # joint's mating figures and back-top is cut to them, and what the panel needs from this
@@ -5537,8 +5555,8 @@ def report(a: cq.Assembly, clashes=None) -> None:
         line("display", box(named["display"]))
     if "display-cover" in named:
         line("display-cover", box(named["display-cover"]))
-    if "pump-connector" in named:
-        line("pump-connector", box(named["pump-connector"]))
+    if "pump-jack" in named:
+        line("pump-jack", box(named["pump-jack"]))
     if "psu" in named:
         line("psu", box(named["psu"]))
     for n in ("pcba", "relay-1", "relay-2") + WAGO_POLES + (

@@ -55,7 +55,7 @@ LEGS = {
                    ("GND → 221-420", 1, ["wago-reeds-b"])],
     "J9 DISPLAY": [("all four", 4, ["display"])],
     "J11 GAS": [("all four", 4, ["mq6-sensor"])],
-    "J13 PUMPS": [("fixed AM1/AM2, BM1/BM2", 4, ["pump-connector"])],
+    "J13 PUMPS": [("fixed AM1/AM2, BM1/BM2", 4, ["pump-jack"])],
 }
 
 # J3 is not measured: SIG-6 is the one loom that leaves the box, climbing the umbilical to the
