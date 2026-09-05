@@ -133,6 +133,8 @@ C_REED = M_GLASS
 WALL_COLORS = {name: M_PETGF_BLACK
                for name in ("front-bottom", "front-top", "back-bottom", "back-top",
                             "pump-cartridge", "pump-cap")}
+# The collet plate — the one piece of this box that is steel, laser-cut from 1/8" 316.
+C_STEEL_PLATE = cq.Color(0.72, 0.73, 0.75)
 C_PCBA = cq.Color(0.11, 0.11, 0.12)
 
 # --- the bought-in bodies, by what each one is --------------------------------
@@ -238,6 +240,7 @@ FINISHES = [
     (M_NICKEL_PLATE,     0.25, _METAL),        # "a plated white metal"
     (M_COPPER,           0.30, _METAL),
     # the box's own steel, and the boards
+    (C_STEEL_PLATE,      0.40, _METAL),        # 1/8" 316, laser-cut
     (C_PCBA,             0.50, _DIELECTRIC),   # solder mask
     # the bought-in bodies
     (C_COMP,             0.50, _DIELECTRIC),   # a PAINTED steel can — the paint is what you see

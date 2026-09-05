@@ -20,7 +20,7 @@
   "/hardware/scripts/_labor_totals.py": {
     "BATCH_SIZE": "10",
     "LABOR_RATE": "$100",
-    "LAB_HM": "9 h 55 m",
+    "LAB_HM": "10 h",
     "LAB_HM1": "45 m",
     "LAB_HM10": "35 m",
     "LAB_HM2": "50 m",
@@ -29,7 +29,7 @@
     "LAB_HM5": "35 m",
     "LAB_HM6": "1 h 35 m",
     "LAB_HM7": "1 h 10 m",
-    "LAB_HM8": "2 h",
+    "LAB_HM8": "2 h 5 m",
     "LAB_HM9": "55 m",
     "LAB_SEC1": "45",
     "LAB_SEC10": "35",
@@ -39,9 +39,9 @@
     "LAB_SEC5": "35",
     "LAB_SEC6": "95",
     "LAB_SEC7": "70",
-    "LAB_SEC8": "120",
+    "LAB_SEC8": "125",
     "LAB_SEC9": "55",
-    "LAB_USD": "$991.67",
+    "LAB_USD": "$1,000.00",
     "LAB_USD1": "$75.00",
     "LAB_USD10": "$58.33",
     "LAB_USD2": "$83.33",
@@ -50,7 +50,7 @@
     "LAB_USD5": "$58.33",
     "LAB_USD6": "$158.33",
     "LAB_USD7": "$116.67",
-    "LAB_USD8": "$200.00",
+    "LAB_USD8": "$208.33",
     "LAB_USD9": "$91.67"
   }
 }

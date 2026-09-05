@@ -9,18 +9,6 @@ Geometry: the six-piece box from
 the lower pump cradle and its top clamp, one piece per plate — sizes in
 [README.md](README.md), which the generator writes.
 
-## 2026-09-04 pump cartridge fitting
-
-Derek reports approximately 1.5 mm beneath the installed pumps and tube centres approximately
-3 mm above the stationary tee axes. The motor's rear nub contacts the roof by approximately
-1.5 mm; its successive diameters are approximately 10, 6 and 3 mm. The individual step heights
-are unmeasured.
-
-The requested fit changes lower every pump-support land 1 mm and raise the stationary tube
-centres 2 mm. The roof rises 1.5 mm, for 2.5 mm of additional nub clearance with the support
-drop. The bay floor stays flat. The pump reference uses the fitted head depth and a conservative
-10 mm diameter nub envelope whose tip is located from the reported roof contact.
-
 ## The PETG exterior profile (settings per history-only `git:aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a:hardware/printed-parts/enclosure/enclosure/enclosure-front-top-0.4mm-16hours.3mf`)
 
 The geometry every exterior piece is cut to, sliced in PETG — the four quadrants, the pump
