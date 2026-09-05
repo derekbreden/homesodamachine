@@ -5806,6 +5806,9 @@ def pump_cartridge_figures(box):
         "PLATE_CAP_Z": f"{plate['z1']:.4g} mm",
         "PLATE_CAP_FORE_Z": f"{plate_cap_fore_z(plate):.6g} mm",
         "PLATE_CAP_TOP": f"{bay[2]:.4g} mm",
+        "PLATE_STROKE": f"{plate['stroke']:.4g} mm",
+        "PLATE_REST_GAP": f"{plate['rest_gap']:.4g} mm",
+        "SLEEVE_TRAVEL": f"{(plate['stroke'] - plate['rest_gap']):.4g} mm",
     }
 
 

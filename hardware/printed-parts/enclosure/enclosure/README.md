@@ -168,7 +168,7 @@ band. Each catch lies wholly over its six-millimetre foot and keeps a complete e
 outside its channel.
 
 **Lifting a seated top lands each foot's flat top face on its head's flat underside,
-along both whole runs** — [99 mm](RAIL_RUN_FRONT) per flank on the front column,
+along both whole runs** — [100 mm](RAIL_RUN_FRONT) per flank on the front column,
 [233 mm](RAIL_RUN_BACK) and [221 mm](RAIL_RUN_BACK_W) on the back — horizontal printed
 face on horizontal printed face, square faces bearing full from the first micron. The two
 back flanks differ by the PRV passage: it crosses the −X run and takes
@@ -1101,9 +1101,11 @@ Each passage has an Ø8.5 mm circular bore and a tangent teardrop roof. It passe
 catches the release nose's Ø11.43 mm rim. The four tube-centre stations are independent of
 the plate's rectangular outline, its upper cap and the cartridge's pull pockets.
 
-**The tee travels and the valve stays seated.** The modeled release travel is 2.835 mm:
-1.5 mm of nose air followed by 1.335 mm of sleeve travel. The tube stub flexes inside the
-two collets that hold it. Compliance is not modeled in the reference bodies.
+**The tee travels and the valve stays seated.** The modeled release travel is
+[3.15 mm](PLATE_STROKE): [1.5 mm](PLATE_REST_GAP) of nose air followed by
+[1.65 mm](SLEEVE_TRAVEL) of sleeve travel, the PP0208E's own stroke
+([`reference/tee-connector/`](/hardware/reference/tee-connector/README.md)). The tube stub
+flexes inside the two collets that hold it. Compliance is not modeled in the reference bodies.
 
 **The cradle ends at the skirt band's aft edge**, y [77.915 mm](PUMP_CARTRIDGE_AFT_Y): a plate-retention return or side skin
 cannot survive behind that plane.

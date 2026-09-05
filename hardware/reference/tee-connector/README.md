@@ -37,3 +37,22 @@ The run carries straight-through flow; the branch joins at 90°. Run
 half-length and branch reach are both 20.07 mm.
 
 Accepts 1/4" (6.35 mm) OD tube; the 1/4" bore radius is 3.175 mm.
+
+## Measured on the PP0208E in hand
+
+Calipered on the production tee itself, not on the stand-in STEP, so `stations_hold` does not
+read them back. Both spans are collet face to collet face along the run. The three depths are
+how far a 1/4" tube stands inside one collet from the sleeve's face, sleeve extended.
+
+| | |
+|---|---|
+| run span, sleeves extended | 42.5 mm (`RUN_SPAN`) |
+| run span, both sleeves pressed | 39.2 mm (`RUN_SPAN_PRESSED`) |
+| one sleeve's stroke | 1.65 mm (`COLLET_TRAVEL`) |
+| first resistance to the tube | 7.0 mm (`FIRST_RESISTANCE`) |
+| the teeth hold | 8.5 mm (`GRIP_DEPTH`); at 8.4 mm the tube still draws out |
+| the tube bottoms | 10.0 mm (`INSERTION`) |
+
+The stand-in's 40.14 mm run span is 2.36 mm short of the tee's extended span, and every butt in
+the pack is drawn on the stand-in. `enclosure_assembly.collet_plate_spec` builds the collet
+plate's release stroke on `COLLET_TRAVEL`.
