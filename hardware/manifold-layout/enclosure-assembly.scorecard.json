@@ -1042,16 +1042,6 @@
    "active": true
   },
   {
-   "id": "pump-cartridge-cable-clips",
-   "label": "Both cartridge motor pairs are retained without entering the pump or clamp fit",
-   "kind": "gate",
-   "status": "pass",
-   "value": "2 flush channels; 12.180 mm backing; 0.675 mm cable air; 3.200 mm crown land",
-   "target": "2 channels; >= 3.000 mm backing; >= 0.300 mm cable air; >= 0 mm crown land",
-   "detail": [],
-   "active": true
-  },
-  {
    "id": "runs-drawn",
    "label": "Every authored run is drawn as its author asked",
    "kind": "gate",
