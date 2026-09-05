@@ -1,9 +1,10 @@
 """Tee connector — the three-port union the manifold's junctions are built from.
 
 `tee-connector.step` is a harvested solid standing in for the John Guest PP0208E
-(`README.md`): there is no builder here, and every number below was measured off that file.
-`stations_hold` reads them back off it at import of the pack that places it, so a measurement
-and the metal it was taken from cannot part.
+(`README.md`): there is no builder here, and every number in the first block below was
+measured off that file. `stations_hold` reads them back off it at import of the pack that
+places it, so a measurement and the metal it was taken from cannot part. The second block is
+calipered on the PP0208E in hand, which the STEP does not carry.
 
 Coordinate frame
 ----------------
@@ -59,6 +60,17 @@ BODY_FACE = 16.95         # where the collar ends and the collet begins
 COLLET_PROUD = RUN_HALF - BODY_FACE
 ARM_ROOT = 8.2            # where the arm's own round section begins, off the body centre
 ARM_R = 6.6415            # what the arm stands from that root out to the collar
+
+# --- Measured on the PP0208E in hand ----------------------------------------
+# Calipered on the production tee, not read off the stand-in STEP, so `stations_hold` does not
+# hold them. The two spans are collet face to collet face along the run. The three depths are
+# how far a 1/4" tube stands inside one collet from the sleeve's face, sleeve extended.
+RUN_SPAN = 42.5            # sleeves extended
+RUN_SPAN_PRESSED = 39.2    # both sleeves pressed home
+COLLET_TRAVEL = (RUN_SPAN - RUN_SPAN_PRESSED) / 2.0   # one sleeve's stroke, 1.65
+FIRST_RESISTANCE = 7.0     # the tube first meets the mechanism
+GRIP_DEPTH = 8.5           # the teeth hold from here in; at 8.4 the tube still draws out
+INSERTION = 10.0           # the tube bottoms
 
 
 def run(sign):

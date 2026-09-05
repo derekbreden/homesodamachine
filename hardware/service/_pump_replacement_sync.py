@@ -151,6 +151,12 @@ def main():
         "PLATE_SPAN": f"{plate['x1'] - plate['x0']:.4g}",
         "PLATE_T":    f"{plate['aft_y'] - plate['fore_y']:.4g}",
         "REST_GAP":   f"{rest_gap:.4g}",
+        # The tee's release stroke and what stands between its body and the wall at rest, off
+        # the same plate figures and the tee reference's own calipered sleeve travel.
+        "STROKE":     f"{plate['stroke']:.4g}",
+        "SLEEVE_TRAVEL": f"{(plate['stroke'] - rest_gap):.4g}",
+        "BODY_AIR":   f"{(plate['aft_y'] + rest_gap + _ml.tee.BRANCH_REACH - _ml.tee.HALF_W
+                          - plate['stroke'] - plate['wall_aft_y']):.4g}",
         "TUBE_OD":    f"{od:.4g} mm",
         # The collar the boss lifts out of, off the module that draws the clamp. `internal-plumbing`
         # quotes the same figure for putting a pump in.
