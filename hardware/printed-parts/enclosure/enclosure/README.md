@@ -1342,17 +1342,27 @@ that plane with [0.15 mm](FUNNEL_COLLAR_AIR) of running air in plan. The roof re
 connected planar face around the notch, reaches both front opening corners, and has zero volume
 inside the funnel keepout.
 
-**Running it to the flanks closes the storey, and one thing crosses.** The rib lands in the
-side walls rather than ending in free air over the tee wall's crown, which leaves it the only
-section between the bay's storey and the cavity behind it — so the enclosure display's loom is
-bored through it. SIG-7 is four 22 AWG in the 1/2" PET expandable braid, and a braid of that
-kind is bought by its nominal and passes at what it *opens* to, so the bore is the opened
-figure — Ø[19.05 mm](CABLE_BORE) — and a loom never has to be squeezed through one. It locates
-nothing and carries nothing; the loom is dressed after it is through. The bore stands on the
-box's centreline at the middle of the rib's straight run, which is where the display's back is
-and where the loom leaves it, and it is teardropped for the reason every bore on Y in this
-piece is: the piece beds on Z, so a hole on Y lies horizontal and its crown would otherwise be
-laid across the chord under it.
+**Running it to the flanks closes the storey, and two electrical paths cross.** The fixed black
+Molex `43020-0400` four-circuit Micro-Fit pump connector owns the centreline a hand finds behind
+the display, directly above the valves. Its own nylon panel ears snap into the keyed
+[11.2 × 9.01 mm](PUMP_CONNECTOR_CUT) printed cut-out. The cavity face is relieved until the
+connector bears in a [2 mm](PUMP_CONNECTOR_PANEL) local panel, inside Molex's 1.40–2.54 mm range;
+the rigid PET-GF wall supplies the seat and the bought nylon housing supplies the flex. The fixed
+J13 loom remains in the enclosure; the cartridge carries the mating black `43025-0400`
+receptacle.
+
+SIG-7 still crosses the rib, at the same height but shifted [−32 mm](DISPLAY_LOOM_X) in X. Its
+four 22 AWG conductors remain in the 1/2" PET expandable braid, so its teardrop bore remains the
+opened figure — Ø[19.05 mm](CABLE_BORE) — with solid stock between that bore and the pump
+connector's panel land. It locates nothing and carries nothing; the display loom is dressed after
+it is through.
+
+On the same rib's cavity face, one unembedded [9 mm](CABLE_CLIP_DEPTH)-deep cable clip runs toward
++X and stops [12 mm](PUMP_CONNECTOR_CLIP_LAND) short of that edge. It guides and strain-relieves
+the **fixed enclosure-side J13-to-connector lead** on its return to the main-board wall. It does
+not retain the removable cartridge lead. The shifted loom bore remains teardropped because the
+piece beds on Z; the Micro-Fit cut-out stays keyed because its panel ears and orientation require
+the drawing's profile.
 
 ## Funnel opening
 

@@ -22,8 +22,9 @@
     <ol class="steps">
       <li><b>DC-3</b> — the staged relay #2 pigtail to the SeaFlo pump;
         female disconnects. Peaks <span class="dim">~5 A</span>.</li>
-      <li><b>DC-5</b> — seat the J13 loom; motor pairs onto the Kamoer
-        spade tabs.</li>
+      <li><b>DC-5</b> — seat J13; snap the fixed Micro-Fit into the ridge,
+        dress its 4P ribbon through the <b>+X clip</b>, then latch the free
+        cartridge half. Fastons stay on the Kamoer tabs.</li>
       <li><b>DC-6</b> — the 9-conductor J1 trunk (8 OUT + COM): OUTs to
         valve disconnects, COM into the 221-420.</li>
       <li><b>DC-7</b> — the J2 trunk, <b>5 of 6 ways live</b> (2 OUT +
@@ -66,11 +67,14 @@
         <text class="lbl" x="605" y="118" text-anchor="middle">SEAFLO PUMP</text>
         <text class="sub" x="605" y="146" text-anchor="middle">female disconnects</text>
         <!-- DC-5 -->
-        <line class="wire" x1="210" y1="232" x2="480" y2="232"/>
-        <text class="runid" x="240" y="216">DC-5 &#183; ~250 mm</text>
+        <line class="wire" x1="210" y1="232" x2="340" y2="232"/>
+        <rect class="blk" x="340" y="213" width="72" height="38" rx="7"/>
+        <text class="sub" x="376" y="240" text-anchor="middle">CLICK</text>
+        <line class="wire" x1="412" y1="232" x2="480" y2="232"/>
+        <text class="runid" x="240" y="205">DC-5 &#183; 350 + 400 mm</text>
         <rect class="blk" x="480" y="196" width="250" height="72" rx="10"/>
         <text class="lbl" x="605" y="228" text-anchor="middle">KAMOER A + B</text>
-        <text class="sub" x="605" y="256" text-anchor="middle">+ ~100 mm lead pigtails</text>
+        <text class="sub" x="605" y="256" text-anchor="middle">Micro-Fit &#183; 4 Fastons</text>
         <!-- DC-6 -->
         <line class="wire" x1="210" y1="382" x2="480" y2="382"/>
         <text class="runid" x="240" y="366">DC-6 &#183; ~300 mm</text>
@@ -104,7 +108,7 @@
 </main>
 
 <footer>
-  <div class="done"><span class="lbl">Done when</span>Six runs landed — 12 V contiguous from PSU output to every load, fan and V-K on their J2 branches.</div>
+  <div class="done"><span class="lbl">Done when</span>Six runs landed — DC-5 latched, its fixed half retained in the +X ridge clip, and 12 V contiguous to every load.</div>
   <div class="src">wiring.md &#167;4 &#183; ac-wiring-schedule.md "12 V distribution"<br>_cards_sync.py &#183; rev 2026-08-07</div>
 </footer>
 
