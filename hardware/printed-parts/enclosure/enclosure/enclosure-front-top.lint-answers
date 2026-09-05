@@ -5,24 +5,20 @@ click: x=89.000 y=196.925 z=352.000
 click: x=-89.000 y=196.925 z=349.000
 click: x=89.000 y=196.925 z=349.000
 
-[sliver] The mirrored end lands belong to the fore-facing flavour-valve tray. Its wall-to-wall plate is 10 mm deep at y=165.080..175.080 and is trimmed to front-top's established 45-degree flank bedding; 1.55 mm is the exposed height of that solid plate-to-flank root, not a free ligament.
+[sliver] The mirrored end lands belong to the fore-facing flavour-valve tray. Its wall-to-wall plate is 10 mm deep at y=167.560..177.560 and is trimmed to front-top's established 45-degree flank bedding; 1.55 mm is the exposed height of that solid plate-to-flank root, not a free ligament.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-98.500 y=170.080 z=180.025
-click: x=98.500 y=170.080 z=180.025
+click: x=-98.500 y=172.560 z=180.025
+click: x=98.500 y=172.560 z=180.025
 
-[ceiling] The pump-bay lintel is the complete fixed face at z=280.995. It carries the display/ridge storey and sets the pump clamp's 0.5 mm withdrawal clearance. The production profile joins this interface to a bed-rooted support tree with 120.2 mm of build-up.
+[ceiling] The pump-bay lintel is the complete fixed roof at z=283.495. It carries the display/ridge storey and leaves 1 mm above the cartridge crown at z=282.495 for withdrawal. This flat roof is retained as a supported face; a corbel extending into the bay would occupy the cartridge's withdrawal envelope. Support topology and build-up require the production slice for this mesh.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=0.000 y=37.989 z=280.995
+click: x=0.000 y=39.229 z=283.495
 
-[ceiling] The one-millimetre collet-plate cap land at z=216.490 is the steel plate's wall-to-wall insertion stop. The production profile joins it to the lintel's bed-rooted support tree, with 55.6 mm of build-up before this interface.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=0.000 y=77.122 z=216.490
-
-[ceiling] These are the mirrored upper Y-seam socket collars' complete square bearing crowns around the cross-pins. Each production-profile interface has its own bed-rooted support tree with 178.6 mm of build-up.
+[ceiling] These are the mirrored upper Y-seam socket collars' complete square bearing crowns around the cross-pins. The 13.1 by 5.8 mm undersides retain the square mating socket profile and are supported faces. Support topology and build-up require the production slice for this mesh.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=-101.425 y=206.525 z=339.150
 click: x=101.425 y=206.525 z=339.150
 
 [slope] This is the display PCB end-wall/ridge-support face across the bay, not a corbel hung along either adjacent X wall. `_ridge_wall` supplies its complete starting line from the tee wall's crown, and the 45-degree face lays every following line on that support.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=0.000 y=46.398 z=307.656
+click: x=0.000 y=47.648 z=308.906
