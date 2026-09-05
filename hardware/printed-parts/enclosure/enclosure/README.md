@@ -1097,7 +1097,7 @@ the tubes enter the same collets and bottom in them. One hand pulls the cradle a
 braces the box. The plate is joined to the tee wall behind it.
 
 Each passage has an Ø8.5 mm circular bore and a tangent teardrop roof. It passes the
-Ø6.35 mm tube at the angle between the pump and tee stations while the surrounding face
+Ø6.35 mm tube between the aligned pump and tee stations while the surrounding face
 catches the release nose's Ø11.43 mm rim. The four tube-centre stations are independent of
 the plate's rectangular outline, its upper cap and the cartridge's pull pockets.
 

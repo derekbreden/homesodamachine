@@ -162,8 +162,8 @@ part's. `BUTT` is the tube left outside a pair of butted quick-connects, and it 
 its anchor tee's branch collet. Its first [1.28](PUMP_STATION_LEAD) mm holds the moving pump end
 clear of the fixed plate-guide wall; the remaining [5.7](BARB_PLATE_BERTH) mm is **the
 collet plate's berth**. The pump station uses a [3](PUMP_DROP) mm downward world-Z datum, while the stationary
-manifold stands 2 mm above its nominal datum. Each straight has a
-[6.98](BARB_TUBE_LEN) mm centreline length and a vertical rise.
+manifold stands 2 mm above its nominal datum. The fitted pump outlets meet the tee plane,
+so each straight is horizontal with a [6.98](BARB_TUBE_LEN) mm centreline length.
 Both pumps ride out of the box on their own pump cartridge and these four runs are what
 release. The collet plate is a 3.175 mm section printed into front-top, with four
 Ø8.5 mm teardrop passages around the Ø6.35 mm tubes. A passage passes its tube and stops the

@@ -1,5 +1,5 @@
 {
- "gatesPass": false,
+ "gatesPass": true,
  "size": [
   {
    "id": "enclosure",
@@ -73,21 +73,10 @@
    "id": "pack-closes",
    "label": "No two solids overlap (pack closes)",
    "kind": "gate",
-   "status": "fail",
-   "value": "10 clash, 0 unanswered",
+   "status": "pass",
+   "value": "0 clash, 0 unanswered",
    "target": "0 clash, 0 unanswered",
-   "detail": [
-    "tee-y-c \u2229 tube-fluid-11   1.2 mm\u00b3, x[   17.19,   22.95] y[   82.79,   83.81] z[  186.34,  188.87]",
-    "tee-y-d \u2229 tube-fluid-12   1.2 mm\u00b3, x[   76.94,   82.70] y[   82.79,   83.81] z[  186.34,  188.87]",
-    "tee-y-f \u2229 tube-fluid-21   1.2 mm\u00b3, x[  -22.95,  -17.19] y[   82.79,   83.81] z[  186.34,  188.87]",
-    "tee-y-g \u2229 tube-fluid-22   1.2 mm\u00b3, x[  -82.70,  -76.94] y[   82.79,   83.81] z[  186.34,  188.87]",
-    "pump-a-head \u2229 enclosure-front-top   1512.0 mm\u00b3, x[   21.94,   77.94] y[   17.28,   71.28] z[  164.87,  165.37]",
-    "pump-b-head \u2229 enclosure-front-top   1512.0 mm\u00b3, x[  -77.94,  -21.94] y[   17.28,   71.28] z[  164.87,  165.37]",
-    "tube-fluid-11 \u2229 enclosure-front-top   29.9 mm\u00b3, x[   16.90,   23.24] y[   78.11,   81.29] z[  182.99,  187.42]",
-    "tube-fluid-12 \u2229 enclosure-front-top   29.9 mm\u00b3, x[   76.65,   82.99] y[   78.11,   81.29] z[  182.99,  187.42]",
-    "tube-fluid-21 \u2229 enclosure-front-top   29.9 mm\u00b3, x[  -23.24,  -16.90] y[   78.11,   81.29] z[  182.99,  187.42]",
-    "tube-fluid-22 \u2229 enclosure-front-top   29.9 mm\u00b3, x[  -82.99,  -76.65] y[   78.11,   81.29] z[  182.99,  187.42]"
-   ],
+   "detail": [],
    "active": true
   },
   {
@@ -498,7 +487,7 @@
    "kind": "gate",
    "status": "pass",
    "value": "holds",
-   "target": "111.43 mm across head, boss and can",
+   "target": "110.43 mm across head, boss and can",
    "detail": [],
    "active": true
   },
@@ -1010,8 +999,8 @@
    "label": "The pump bay keeps its fixed floor and roof datums around the lowered pumps",
    "kind": "gate",
    "status": "pass",
-   "value": "head floor air -0.50 mm, motor-to-lintel air 7.20 mm",
-   "target": "-0.50 mm head-to-floor and 7.20 mm motor-to-lintel",
+   "value": "head floor air 0.50 mm, motor-to-lintel air 7.20 mm",
+   "target": "0.50 mm head-to-floor and 7.20 mm motor-to-lintel",
    "detail": [],
    "active": true
   },
