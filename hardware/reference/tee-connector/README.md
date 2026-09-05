@@ -42,7 +42,8 @@ Accepts 1/4" (6.35 mm) OD tube; the 1/4" bore radius is 3.175 mm.
 
 Calipered on the production tee itself, not on the stand-in STEP, so `stations_hold` does not
 read them back. Both spans are collet face to collet face along the run. The three depths are
-how far a 1/4" tube stands inside one collet from the sleeve's face, sleeve extended.
+how far a 1/4" tube stands inside one collet from the sleeve's face with the sleeve pressed
+home, which is where the tube was marked.
 
 | | |
 |---|---|
@@ -52,6 +53,10 @@ how far a 1/4" tube stands inside one collet from the sleeve's face, sleeve exte
 | first resistance to the tube | 7.0 mm (`FIRST_RESISTANCE`) |
 | the teeth hold | 8.5 mm (`GRIP_DEPTH`); at 8.4 mm the tube still draws out |
 | the tube bottoms | 10.0 mm (`INSERTION`) |
+
+The teeth, O-ring and stop are the body's, so from the extended sleeve face, where the model
+stands the noses, each depth is 1.65 mm deeper: 8.65, 10.15 and 11.65 mm
+(`FIRST_RESISTANCE_EXTENDED`, `GRIP_DEPTH_EXTENDED`, `INSERTION_EXTENDED`).
 
 The stand-in's 40.14 mm run span is 2.36 mm short of the tee's extended span, and every butt in
 the pack is drawn on the stand-in. `enclosure_assembly.collet_plate_spec` builds the collet
