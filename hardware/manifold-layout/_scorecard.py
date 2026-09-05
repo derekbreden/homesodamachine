@@ -308,18 +308,9 @@ MOUNTS = (
     ("asse-drip-pan", "enclosure-back-top", "channel"),
     # The probe plate lies loose in the pan the way the pan rides loose in its rails: what
     # fastens it is the tray's own printed floor and coves, which fence it on four sides at
-    # `asse_drip_pan.PLATE_SLIP`. Nothing screws down — a plate bolted flat could not be lifted out
-    # to wipe, and the tray is drawn and emptied on service with the plate still in it.
+    # `asse_drip_pan.PLATE_SLIP`. Nothing screws down — the pan draws until the plate is within
+    # reach, then the plate lifts completely clear before the empty pan finishes coming out.
     ("moisture-plate", "asse-drip-pan", "basin"),
-    # THE DOCK'S TWO HALVES, each pressed to its shoulders in a pocket cut on the pill's own
-    # section — the same bargain the lever nuts strike. The female's pocket is the pan's east wall
-    # and the boss behind it (`asse_drip_pan.build`): the magnets pull it east onto the wall's
-    # shoulders whenever the pan is home, and the potting over its tails holds it the rest of the
-    # time. The male's is the sleeve's backstop (`enclosure_assembly.pan_sleeve`), entered from
-    # the east; the magnets pull it west onto the window's shoulders, and the pump stands a
-    # millimetre off the pocket's mouth once the core is in.
-    ("drip-dock-female", "asse-drip-pan", "well"),
-    ("drip-dock-male", "enclosure-back-top", "well"),
     # The gas sensor drops into two grooved posts printed on the floor of the bay it watches
     # (`enclosure._west_cradle`), and its can bottoms in a well cut back to the wall. The sensor
     # board carries no mounting hole, so a slot is the only way it is ever held — the same bargain
@@ -683,14 +674,6 @@ TOUCHING_OK = {frozenset(p) for p in (
     ("foam-assembly", "vk-solenoid"),
     ("foam-assembly", "valve-v-a"),
     ("foam-assembly", "valve-v-b"),
-    # THE DRIP PAN'S DOCK. The female half is potted in the pan's own east wall
-    # (`asse_drip_pan.dock_station`) and reads 0 against it. The male stands in the sleeve's
-    # backstop one `DOCK_STANDOFF` behind its face, so it stands `PAN_SLIP + DOCK_STANDOFF` off
-    # the pan's wall and off the pads — the pair's working gap, which its pins are drawn
-    # closing (`enclosure_assembly.build_dock`).
-    ("asse-drip-pan", "drip-dock-female"),
-    ("asse-drip-pan", "drip-dock-male"),
-    ("drip-dock-female", "drip-dock-male"),
     # THE COVER PLATE ON THE INSET IT FILLS. Its underside lies on the inset floor and each of
     # its two pads bottoms in the pocket sunk for it, so the plate reads 0 against the piece on
     # three faces at once — which is the seat, and what puts its own top face in the 45° plane.

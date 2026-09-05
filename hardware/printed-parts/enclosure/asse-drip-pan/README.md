@@ -3,12 +3,12 @@
 Printed catch pan for the service bay, standing under the ASSE 1022 chain's
 atmospheric-vent tip. The Shutao moisture probe lies flat in it; any vent drip,
 condensate, or overflow pools in the pan and wets the probe, tripping the
-moisture alarm. The probe's leads never leave the pan: they run inside it to a
-magnetic pogo dock in the pan's east wall, and the pan's own travel mates that
-dock with its other half in the sleeve's backstop.
+moisture alarm. The probe stays on one continuous lead retained on the enclosure's
+dry −X flank. Draw the pan until the
+plate is reachable, lift the plate completely out, then finish removing the empty
+pan.
 
-One part prints here: the **pan**. It carries one bought part, the female half of the
-[JHYOSSTHI 2-pin magnetic pogo pair](/hardware/reference/jhyossthi-pogo-dock/).
+One part prints here: the **pan**. It carries no connector or other bought part.
 
 | | pan |
 |---|---|
@@ -17,7 +17,6 @@ One part prints here: the **pan**. It carries one bought part, the female half o
 | over the rim | [59](PAN_RIM_LEN) × [84](PAN_RIM_DEPTH) mm at the flange |
 | section | [2.5](PAN_WALL) mm walls on a [3](PAN_FLOOR) mm floor |
 | capacity | [39.2](PAN_CAPACITY) mL to the rim |
-| dock | [14.5](DOCK_PILL_L) × [4](DOCK_PILL_W) mm pill in the east wall, pads flush in its outer face, [9](DOCK_Z_MM) mm up |
 
 One plan outline at r[6](PAN_CORNER_R), and everything is that outline at its own
 offset — floor slab and walls on the outline itself, the flange on the outline
@@ -62,8 +61,8 @@ chain's own standoff from the +Y wall of back-top leaves it.
 
 ## What the floor carries, and how high the walls stand
 
-The moisture plate lies flat down the pan's **depth** — its long edge along
-the withdrawal axis, the axis the strip has to give — and the floor's flat area
+The moisture plate lies flat down the pan's **depth** — its long edge along +Y,
+perpendicular to the withdrawal axis — and the floor's flat area
 inside the coves is what it lands on: [54](PLATE_LEN) × [40](PLATE_DEPTH) mm
 of plate with [1](PLATE_SLIP_MM) mm of slip a side. `check_plate()` measures that
 at every build and hands back the `plate-lies-flat` bound the machine's scorecard
@@ -115,45 +114,25 @@ to the enclosure skin, so the face masks the two-level wall slot without becomin
 the insertion stop. Its [2.5](PULL_FACE_CHAMFER) mm corners rise at 45 degrees from
 the print bed. Thumb on the flange's top, fingertip under the floor, and it comes.
 
-## The dock
+## The loose plate and continuous lead
 
-The plate's two leads run inside the pan — along the floor and up the east wall — to
-the **female half** of the magnetic pogo pair, potted in the east wall with its two pads
-flush in the wall's outer face, [9](DOCK_Z_MM) mm up from the floor's underside on the
-pan's centreline. Its window is cut through the outer [1](DOCK_NOSE_T) mm of wall on the
-nose's own outline, and its flange sits in a pocket through the rest of the wall and one
-[1.5](DOCK_BOSS_MM) mm boss stood into the cavity behind it, [17.7](DOCK_BOSS_RUN) mm
-along the wall; each section is one [0.1](DOCK_SLIP_MM) mm slip larger than the pill.
-The step between window and pocket is the nose's shoulder, so the wall's own material is
-what the magnets pull the pill against. The pill goes in from the cavity, nose first,
-until those shoulders stop it; its two tails then stand [1.5](DOCK_TAIL_L) mm proud of the
-boss on the pins' [2.5](DOCK_PIN_PITCH) mm pitch, the leads solder to them there, and the
-pocket's mouth is potted over the joints.
+The plate lies loose on the flat floor. Its two-conductor lead rises out through the
+open mouth near the pan's aft edge and enters the wall-integrated cable clip immediately
+aft of the sleeve. The clip is in dry enclosure material; the pan has no cable hole,
+connector pocket, boss, potting, or electrical contact.
 
-The **male half** stands in the sleeve's backstop looking west at the pads
-(`enclosure_assembly.build_dock`, `enclosure_assembly.pan_sleeve`), its nose one slip
-behind the face the pan rests on, so the backstop and not the connector is what the pan
-comes to rest against. Sliding the pan home brings the pads onto the pins, and the
-pair's magnets hold the pan on the backstop from then on. Drawing the pan west parts
-them. The pan leaves the machine with its plate, its leads and its dock aboard, and
-nothing trails it out; the plate is tethered to the wall by its own leads and comes back
-in the pan it left in.
+The lead between clip and plate is the pan's service loop. Pulling the pan west pays that
+loop out without pulling on a solder joint. Once the pull face has brought the plate into
+reach, lift the plate entirely out of the pan and let it hang from the retained loop. The
+empty pan then draws the rest of the way through the wall slot. Installation is the reverse:
+start the pan, lay the plate flat between the coves, feed the loop back toward its clip, and
+push the pan against the sleeve's solid backstop.
 
-The boss stands **over** the plate's east edge and never on it: its underside is a 45°
-chamfer off the wall, and `check_dock_clears_plate()` measures that chamfer against the
-plate's top east edge with the plate slid its whole slip east — [0.92](DOCK_PLATE_CLEAR_MM) mm
-here, against a floor of [0.5](DOCK_PLATE_CLEAR_MIN). The height is bounded from above
-too: the male's pocket in the backstop keeps [1.10](DOCK_ROOF_MM) mm of block under the rim
-rebate's floor, against a floor of [1](DOCK_ROOF_MIN) (`check_dock_roof()`). Both are gate
-rows on the machine's scorecard beside `plate-lies-flat`.
-
-Below the pocket's sill the pan is the watertight box it was: [3.9](DOCK_SILL) mm of water
-over the floor, [12.7](DOCK_SILL_ML) mL, before the pool reaches the potting — four times
-the millimetre the plate trips on. Above the sill it is the potting and not the wall that
-holds the water, up to the [39.2](PAN_CAPACITY) mL the rim stands over.
-
-What the dock does not read: a pan drawn out parts the pads from the pins, and open pads
-read the same as a dry plate. The machine sees a dry pan whether the pan is in or out.
+The cable clip is authored by
+[`cadlib/cable_clip.py`](/hardware/printed-parts/cadlib/cable_clip.py) and printed into
+`enclosure-back-top`, not this part. That enclosure generator owns its embedment, remaining
+projection and backing; along the clip's run the recessed channel ramps back to the wall face
+at both ends.
 
 ## Regenerate
 

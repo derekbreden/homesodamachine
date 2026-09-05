@@ -42,11 +42,6 @@ click: x=-78.070 y=400.460 z=322.548
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-86.075 y=424.500 z=348.500
 
-[sliver] The magnetic pogo dock's two seating shoulders — the 14.7 mm body pocket is one millimetre longer at each end than the 12.7 mm nose window. These two 1 × 4.2 mm upright faces are the stops the magnets pull the pill against, backed by the sleeve's east backstop.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-56.900 y=384.550 z=293.911
-click: x=-56.900 y=398.250 z=293.911
-
 [ceiling] The four fixed ceiling-strip bearing faces — the two Y-seam fore ends and the retained east and west runs beside the removable panel. They carry the panel's square tongues and preserve the fixed strips' full section; the production slice reaches all four from the bed on the existing long trees.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=92.075 y=297.000 z=352.000
@@ -93,7 +88,3 @@ click: x=-82.310 y=347.960 z=321.921
 [ceiling] The C14 tunnel's aperture bridge — the working opening remains rectangular through the wall and tunnel, so its crown is the flat between the block's two vertical flanks. The production slice reaches the full bridge from the bed on the rear-wall tree.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=66.900 y=460.375 z=347.796
-
-[ceiling] The magnetic pogo dock pocket's roof — a 7.0 × 14.7 mm flat seating face over the male pill in the drip-sleeve backstop. It is reached from the bed on the same open support tree as the sleeve floor, and pitching it would give up the connector's square seat.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-54.700 y=391.400 z=296.011

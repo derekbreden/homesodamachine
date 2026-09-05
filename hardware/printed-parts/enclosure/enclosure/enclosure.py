@@ -157,6 +157,7 @@ from _materials import WALL_COLORS as PIECE_COLORS, one_body
 from docgen import substitute_md, substitute_py_comments
 import _boxes
 import _realized
+import cable_clip as _cable_clip
 import fits
 import reeding
 import trimesh
@@ -6342,6 +6343,15 @@ def build_back_half(box):
 # the flavour line's lane, which is what crosses the band under the block (`fluid-28`).
 pan_sleeve_corbel = 20.0
 
+# THE MOISTURE-PLATE LEAD STAYS ON THE DRY SIDE OF THE PAN. The −X back-top flank is nine
+# millimetres thick here, so the cable clip takes six millimetres of it and leaves three
+# millimetres proud in the cabinet plus three millimetres of exterior backing. It runs aft-to-
+# fore beside the pan, clear of the sleeve and the ASSE chain; the lead's service loop falls
+# from its forward ramp into the open pan and the fixed loom leaves its rear ramp.
+pan_cable_clip_embed = 6.0
+pan_cable_clip_rear_land = wall
+pan_cable_clip_sleeve_gap = 2.0 * wall
+
 
 def _pan_sleeve(solid, sleeve, z0, z1):
     """The ASSE drip pan's sleeve fused onto a −X wall and its berth cut back out, for a piece whose
@@ -6364,11 +6374,8 @@ def _pan_sleeve(solid, sleeve, z0, z1):
     where the pack states them; only free clearance above the inserted rim grows toward the
     mouth. No short roof remains over material printed below it.
 
-    THE DOCK IS THREE MORE CUTS IN THE BACKSTOP, on the pan's own axis: the male's window and
-    its pocket run through the block, each a bridge one pill wide, and the lead channel drops
-    out of the pocket's floor through the block's. The berth is not touched by any of the three.
-    The pocket's roof is a flat face the slice supports from the bed, beside the sleeve floor's
-    own support — README.md "Print orientation + corner relief"."""
+    The sleeve has no electrical pocket: the moisture plate's continuous lead rises out of the
+    open pan and is retained on the adjacent dry flank."""
     adds, cuts = sleeve
     blocks = [b for b in adds if z0 <= b[5] <= z1]
     for x0, x1, y0, y1, bz0, bz1 in blocks:
@@ -6380,8 +6387,7 @@ def _pan_sleeve(solid, sleeve, z0, z1):
         solid = solid.cut(_ybox(x0, x1, y0, y1, cz0, cz1))
     # The rebate is the larger plan box whose roof is exactly the central mouth's floor. Find
     # that relationship in the pack rather than naming either cut by position: the well overlaps
-    # the rebate in Z, and the dock's three cuts stand in the backstop, but none has this one
-    # contained, face-to-face transition.
+    # the rebate in Z, while only the mouth is contained face-to-face above it.
     roof_pairs = [
         (rebate, mouth)
         for rebate in cuts for mouth in cuts
@@ -6431,6 +6437,31 @@ def _pan_sleeve(solid, sleeve, z0, z1):
             raise ValueError("the pan sleeve's hipped rebate roof is not a valid solid")
         solid = solid.cut(hip)
     return solid
+
+
+def _pan_cable_clip(solid, box):
+    """The partially embedded SIG-9 service-loop clip beside the ASSE drip pan."""
+    if not box.pack.pan_sleeve or not box.pack.pan_sleeve[0]:
+        return solid
+    blocks = box.pack.pan_sleeve[0]
+    if len(blocks) != 1:
+        raise ValueError(f"the pan cable clip needs one sleeve block; got {len(blocks)}")
+    _x0, _x1, _y0, sleeve_y1, sleeve_z0, _z1 = blocks[0]
+    face = back_top_flank_face()[0]
+    run_end = box.inner[3] - pan_cable_clip_rear_land
+    run_start = run_end - _cable_clip.RUN
+    if run_start < sleeve_y1 + pan_cable_clip_sleeve_gap - 1e-9:
+        raise ValueError(
+            "the pan cable clip no longer fits between the sleeve and rear wall: "
+            f"starts y {run_start:g}, sleeve ends {sleeve_y1:g}")
+    return _cable_clip.apply(
+        solid,
+        origin=(face, run_end, sleeve_z0 - _cable_clip.DEPTH),
+        outward=(1.0, 0.0, 0.0),
+        along=(0.0, -1.0, 0.0),
+        embed=pan_cable_clip_embed,
+        wall_thickness=back_top_flank_t,
+    ).val()
 
 
 def _floor_bosses(solid, inner, stations, y0, y1, z0, z1):
@@ -8727,6 +8758,9 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         piece = piece.cut(_funnel_cut(inner, outer, box.pack.funnel))
     if y_side == "front" and z_side == "top" and plate:
         piece = piece.fuse(_printed_collet_plate(plate))
+    if y_side == "back" and z_side == "top":
+        # Last on the flank: the channel is air, and no later wall feature may fill it back in.
+        piece = _pan_cable_clip(piece, box)
     return _unified(piece)
 
 
@@ -9468,6 +9502,13 @@ def main():
         "RIDGE_WALL_T": f"{ridge_wall_t:.4g} mm",
         "RIDGE_LEN": f"{display_pcb_x:.4g} mm",
         "CABLE_BORE": f"{cable_sleeve_open:.4g} mm",
+        "CABLE_CLIP_DEPTH": f"{_cable_clip.DEPTH:.4g} mm",
+        "CABLE_CLIP_RUN": f"{_cable_clip.RUN:.4g} mm",
+        "CABLE_CLIP_RAMP": f"{_cable_clip.RAMP:.4g} mm",
+        "CABLE_CLIP_BACKING": f"{_cable_clip.BACKING:.4g} mm",
+        "PAN_CLIP_WALL": f"{back_top_flank_t:.4g} mm",
+        "PAN_CLIP_EMBED": f"{pan_cable_clip_embed:.4g} mm",
+        "PAN_CLIP_PROUD": f"{_cable_clip.projection(pan_cable_clip_embed):.4g} mm",
         "TEARDROP_ROOF": f"{teardrop_roof_angle:.4g}°",
         "SOCKET_BORE": f"{socket_bore_dia:.4g} mm",
         "SOCKET_OD": f"{2.0 * socket_r:.4g} mm",
