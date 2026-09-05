@@ -147,6 +147,7 @@ sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "zone-c" / "funnel
 sys.path.insert(0, str(_repo / "hardware" / "reference" / "wago-221"))
 sys.path.insert(0, str(_repo / "hardware" / "reference" / "mq6-gas-sensor"))
 sys.path.insert(0, str(_repo / "hardware" / "reference" / "riteav-keystone"))
+sys.path.insert(0, str(_repo / "hardware" / "reference" / "molex-micro-fit-4"))
 sys.path.insert(0, str(_repo / "hardware" / "reference" / "iec-c14-inlet"))
 sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "valve-seat"))
 sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "enclosure" / "valve-tray"))
@@ -166,6 +167,7 @@ import funnel as _funnel
 import wago_221 as _wago
 import mq6_gas_sensor as _mq6
 import riteav_keystone as _keystone
+import molex_micro_fit_4 as _pump_connector
 import iec_c14_inlet as _c14
 import valve_seat as _seat
 import valve_tray as _valve_tray
@@ -427,6 +429,15 @@ ridge_wall_t = 3.0               # the rib under `pcb_ridge`, measured across it
 # nothing, carries nothing, and the loom is dressed after it is through.
 cable_sleeve_nom = 12.7          # 1/2" PET expandable braid, SIG-7's own
 cable_sleeve_open = 1.5 * cable_sleeve_nom   # a 50% expandable braid's ceiling — [19.05 mm](CABLE_BORE)
+# THE CENTRE STATION IS THE PUMP DISCONNECT. The fixed black four-circuit Micro-Fit plug takes
+# the centred opening a hand finds behind the display. SIG-7 still crosses this same rib, but on
+# the -X side, leaving solid stock between its opened braid and the connector's panel land. On
+# +X, the fixed J13-to-connector lead returns to the main board through one full-depth cable
+# clip rooted on this rib's cavity face. Nothing on the removable pump cartridge is clipped to
+# the enclosure.
+display_loom_x_offset = -32.0
+pump_connector_clip_edge_land = 12.0
+pump_connector_clip_channel_centre = 7.0 * _cable_clip.GRID
 # The cover plate and the two screws through it — the same DIN 912 M3 cap screw every seam in
 # this machine takes, in the same ⌀`head_cbore_dia` flat-bottomed counterbore, landing
 # `display_cover_seat_recess` under the 45° face so the plane closes over it.
@@ -3016,6 +3027,29 @@ def pcb_ridge(outer):
          + p.yDir * (display_body_offset_slope + display_pcb_slope / 2.0)
          - p.zDir * display_facet_thickness)
     return r.y, r.z
+
+
+def _ridge_stations(outer, plate, bay):
+    """The two electrical stations in the rib's straight section.
+
+    The pump connector owns the box centreline. The enclosure-display loom retains the height of
+    the opening it used to own there and moves only in X, far enough west that its fully opened
+    braid and the connector's panel land retain solid stock between them.
+    """
+    ry, rz = pcb_ridge(outer)
+    fore, foot = plate["aft_y"], bay[2]
+    jog = ry + rz - fore
+    z = (foot + jog) / 2.0
+    centre = display_centre_x(outer)
+    return ((centre, fore, z),
+            (centre + display_loom_x_offset, fore, z))
+
+
+def pump_connector_station(box):
+    """The Micro-Fit mating-face centre, read from the ridge wall that captures it."""
+    if not (box.pack.collet_plate and box.pump_bay):
+        raise ValueError("the pump connector needs the collet plate and pump bay")
+    return _ridge_stations(box.outer, box.pack.collet_plate, box.pump_bay)[0]
 
 
 def _seat_back(depth, half_slope):
@@ -6020,14 +6054,17 @@ def _ridge_wall(inner, outer, plate, bay, funnel):
     COST: this is now the only section between the bay's storey and the cavity aft of it, so
     anything crossing crosses through it.
 
-    ONE THING DOES. The bore is the enclosure display's loom (`cable_sleeve_open`), teardropped
-    (`_teardrop_y`) for the reason a tee's bore is: the rib beds on Z and a bore on Y lies
-    horizontal in it.
-    It stands at the middle of the rib's own straight run, on the box's centreline, which is
-    where the display's back is and where the loom leaves it: read, not chosen. The straight run
-    is where it goes because the run has two parallel faces to bore between, and the ramp above
-    it is what the ridge stands on — the bore is not allowed near that, and `ridge-carried` is
-    what says so."""
+    TWO THINGS CROSS IT. The fixed 43020-0400 Micro-Fit pump connector owns the centreline a hand
+    finds behind the display. Its own nylon panel ears snap into the drawing's keyed cut-out; the
+    cavity side of this 3 mm rib is locally relieved until 2 mm of panel remains, inside Molex's
+    1.40--2.54 mm range. The enclosure-display loom keeps the same height and teardropped
+    `cable_sleeve_open` bore but moves west. Both stay in the straight run, where the rib has two
+    parallel faces, and both remain below the ridge ramp.
+
+    THE FIXED PUMP LEAD IS RETAINED ON THIS WALL. One unembedded cable clip stands on the cavity
+    face near +X and runs toward that edge, guiding the J13-to-connector lead to the main-board
+    wall. The clip belongs to the enclosure-side lead; the removable cartridge and its plug are
+    free of it."""
     ry, rz = pcb_ridge(outer)
     fore, foot, t = plate["aft_y"], bay[2], ridge_wall_t
     ramp = ry + rz                    # the hole's end wall, y + z
@@ -6046,8 +6083,28 @@ def _ridge_wall(inner, outer, plate, bay, funnel):
          (funnel_front, ceiling),                               # the opening's front underside
          aft_crown,                                             # the one roof's aft crown
          (fore + t, foot)])
-    return slab.cut(_teardrop_y(cable_sleeve_open / 2.0, display_centre_x(outer),
-                                (foot + jog) / 2.0, fore - 1.0, fore + t + 1.0))
+    connector, loom = _ridge_stations(outer, plate, bay)
+    slab = slab.cut(_teardrop_y(cable_sleeve_open / 2.0, loom[0], loom[2],
+                                fore - 1.0, fore + t + 1.0))
+    # `molex_micro_fit_4` is drawn with +Y out of the mating face and wall material toward -Y.
+    # Turn it half around Z so the ridge's user-facing -Y is outward and +Y is the cavity side.
+    turn = lambda shape: (shape
+                          .rotate((0.0, 0.0, 0.0), (0.0, 0.0, 1.0), 180.0)
+                          .translate(connector))
+    slab = slab.cut(turn(_pump_connector.panel_cut(t)))
+
+    clip_end = inner[1] - pump_connector_clip_edge_land
+    clip_start = clip_end - _cable_clip.RUN
+    if clip_start <= connector[0] + _pump_connector.panel_footprint()[0] / 2.0:
+        raise ValueError("the pump-connector cable clip no longer clears the connector land")
+    return _cable_clip.apply(
+        slab,
+        origin=(clip_start, fore + t, connector[2] - pump_connector_clip_channel_centre),
+        outward=(0.0, 1.0, 0.0),
+        along=(1.0, 0.0, 0.0),
+        embed=0.0,
+        wall_thickness=t,
+    ).val()
 
 
 def _teardrop_y(r, x, z, y0, y1):
@@ -9502,6 +9559,11 @@ def main():
         "RIDGE_WALL_T": f"{ridge_wall_t:.4g} mm",
         "RIDGE_LEN": f"{display_pcb_x:.4g} mm",
         "CABLE_BORE": f"{cable_sleeve_open:.4g} mm",
+        "DISPLAY_LOOM_X": f"{display_loom_x_offset:+.4g} mm",
+        "PUMP_CONNECTOR_CUT": (f"{_pump_connector.panel_cutout()[0]:.4g} × "
+                               f"{_pump_connector.panel_cutout()[1]:.4g} mm"),
+        "PUMP_CONNECTOR_PANEL": f"{_pump_connector.PANEL_T:.4g} mm",
+        "PUMP_CONNECTOR_CLIP_LAND": f"{pump_connector_clip_edge_land:.4g} mm",
         "CABLE_CLIP_DEPTH": f"{_cable_clip.DEPTH:.4g} mm",
         "CABLE_CLIP_RUN": f"{_cable_clip.RUN:.4g} mm",
         "CABLE_CLIP_RAMP": f"{_cable_clip.RAMP:.4g} mm",

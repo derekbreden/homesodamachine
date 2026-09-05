@@ -113,6 +113,7 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "reference" / "jg-bulkhead-union",
            _hw / "reference" / "iec-c14-inlet",
            _hw / "reference" / "riteav-keystone",
+           _hw / "reference" / "molex-micro-fit-4",
            _hw / "reference" / "neofit-bulkhead",
            _hw / "reference" / "gasher-check-valve",
            _hw / "reference" / "wr1110-regulator",
@@ -177,6 +178,7 @@ import _cold_core_interface as _cci                   # noqa: E402
 import beduan_solenoid as _beduan                     # noqa: E402
 import iec_c14_inlet as _c14                          # noqa: E402
 import riteav_keystone as _keystone                   # noqa: E402
+import molex_micro_fit_4 as _pump_connector            # noqa: E402
 import jg_bulkhead_union as _jg                       # noqa: E402
 import bulkhead_ring as _ring                         # noqa: E402
 # The same word and the same two filaments, on the customer's own tube outboard of the ring.
@@ -304,7 +306,7 @@ FUNNEL_ROT = 0.0
 from _materials import (C_AC_HUB, C_C14, C_COMP, C_COND, C_DIGITEN,  # noqa: E402
                         C_DISPLAY_GLASS, C_GND, C_MQ6, C_PCBA, C_PLATE,
                         C_PSU, C_RELAY, C_SEAFLO,
-                        M_ALUMINIUM, M_BRASS, M_JG_BLACK_PP,
+                        M_ALUMINIUM, M_BRASS, M_DONOR_BLACK, M_JG_BLACK_PP,
                         M_NEOFIT_ACETAL, M_PETG_BLACK, M_PETGF_BLACK, M_SILICONE_BLACK,
                         M_STAINLESS, M_TINNED_STEEL, M_TPU_BLACK)
 # The refrigeration donor's own two. A hermetic compressor is a painted-steel can; the condenser is
@@ -2904,7 +2906,7 @@ def co2_wall_port(inlet_carry):
 # joins the box and moves every one of them.
 STANDALONE = ("compressor", "condenser+fan", "foam-assembly", "seaflo-pump",
               "funnel", "suction-chain", "discharge-chain", "display", "display-cover",
-              "display-gasket",
+              "display-gasket", "pump-connector",
               "psu", "pcba",
               "relay-1", "relay-2", "ground-stack", "asse1022-assembly", "asse-drip-pan",
               "moisture-plate",
@@ -4864,6 +4866,22 @@ def build_display_gasket(box):
                      station=(COVER_ORIGIN, plane.origin.toTuple()))
 
 
+# The connector's reference frame points +Y out of its mouth, while the ridge-wall user face
+# points toward world -Y. A half-turn about Z aligns those axes without changing the keyed side.
+PUMP_CONNECTOR_TURN = ((0.0, 0.0, 1.0), 180.0)
+PUMP_CONNECTOR_MOUTH = ((0.0, 0.0, 0.0), (0.0, 1.0, 0.0))
+
+
+def build_pump_connector(box):
+    """The fixed black 43020-0400 housing snapped into the centred ridge-wall station."""
+    return seat_body(
+        _pump_connector.build_fixed(),
+        turns=(PUMP_CONNECTOR_TURN,),
+        seat="pump-connector",
+        station=(PUMP_CONNECTOR_MOUTH, _enc.pump_connector_station(box)),
+    )
+
+
 def _seated(box):
     """The box with every station its walls carry, seated. Each is read off the box itself,
     so the wall and the body it is cut for come out of one number. `enclosure.with_funnel`
@@ -4974,6 +4992,8 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     a.add(cover, name="display-cover", color=C_COVER)
     dgasket, _dgasket_carry = build_display_gasket(box)
     a.add(dgasket, name="display-gasket", color=C_DGASKET)
+    pump_connector, _pump_connector_carry = build_pump_connector(box)
+    a.add(pump_connector, name="pump-connector", color=M_DONOR_BLACK)
     pieces = _materialized_enclosure_pieces(box, require_box_spec)
     for name, piece in pieces.items():
         a.add(piece, name=f"enclosure-{name}", color=WALL_COLORS[name])
@@ -5038,6 +5058,8 @@ def report(a: cq.Assembly, clashes=None) -> None:
         line("display", box(named["display"]))
     if "display-cover" in named:
         line("display-cover", box(named["display-cover"]))
+    if "pump-connector" in named:
+        line("pump-connector", box(named["pump-connector"]))
     if "psu" in named:
         line("psu", box(named["psu"]))
     for n in ("pcba", "relay-1", "relay-2") + WAGO_POLES + (

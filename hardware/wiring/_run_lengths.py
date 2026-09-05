@@ -8,12 +8,11 @@ from: it places the whole assembly, takes the centre of the main board and the c
 device a loom lands on, and reports the reach between them.
 
 THE ROUTED FACTOR IS CALIBRATED, NOT GUESSED. A conductor does not fly — it drops a wall, runs
-a floor and turns a corner, so the cut length is longer than the reach. `_ac_wiring_schedule_sync`
-already carried one run derived by hand: DC-5's comment records a 275 mm straight line to the far
-pump motor against a 400 mm cut. This module's own measure of that same pair is 273 mm, so the
-ratio the repo already accepted is what every other run is scaled by. One calibration point is
-one calibration point: a run that turns more corners than DC-5 reads short here, and a straighter
-one reads long. What it is not is a guess, and it is not a metre because a neighbouring run is.
+a floor and turns a corner, so the cut length is longer than the reach. The cabinet mock-up's
+273 mm centre-to-centre route takes a 400 mm cut, and that ratio is what every fixed loom below
+uses. One calibration point is one calibration point: a run that turns more corners reads short
+here, and a straighter one reads long. What it is not is a guess, and it is not a metre because
+a neighbouring run is.
 
 CENTRES, NOT NEAREST FACES. A conductor lands on a terminal somewhere on the body, not on the
 face nearest the board, and the terminal is not modelled. Centre-to-centre is the measure that
@@ -30,9 +29,10 @@ sys.path.insert(0, str(_root / "hardware" / "manifold-layout"))
 
 import enclosure_assembly as _ea  # noqa: E402
 
-# DC-5, the one run `_ac_wiring_schedule_sync.py` derives in its own comment: 275 mm of reach
-# carries a 400 mm cut. Every other run is scaled by that same ratio.
-CAL_RUN = ("pump-b-motor", 400.0)
+# The measured cabinet routing calibration: 273 mm of direct reach carries a 400 mm cut.
+CAL_REACH = 273.0
+CAL_CUT = 400.0
+CARTRIDGE_CUT = 400.0
 
 # Each loom's conductors, grouped by the body they land on. The board end is `pcba` for all of
 # them. AC-1…AC-6 are not here: they are built in place, not as cable assemblies.
@@ -55,7 +55,7 @@ LEGS = {
                    ("GND → 221-420", 1, ["wago-reeds-b"])],
     "J9 DISPLAY": [("all four", 4, ["display"])],
     "J11 GAS": [("all four", 4, ["mq6-sensor"])],
-    "J13 PUMPS": [("AM1/AM2, BM1/BM2", 4, ["pump-a-motor", "pump-b-motor"])],
+    "J13 PUMPS": [("fixed AM1/AM2, BM1/BM2", 4, ["pump-connector"])],
 }
 
 # J3 is not measured: SIG-6 is the one loom that leaves the box, climbing the umbilical to the
@@ -80,8 +80,7 @@ def measure():
     pos = centres(_ea.build_enclosure_assembly())
     board = pos["pcba"]
     reach = lambda name: math.dist(board, pos[name])
-    cal_name, cal_cut = CAL_RUN
-    factor = cal_cut / reach(cal_name)
+    factor = CAL_CUT / CAL_REACH
 
     rows, total = [], 0
     for loom, legs in LEGS.items():
@@ -89,12 +88,14 @@ def measure():
             routed = max(reach(b) for b in bodies) * factor
             rows.append((loom, label, count, routed))
             total += count * routed
-    return rows, total, factor, reach(cal_name)
+    rows.append(("DC-5 CARTRIDGE", "all four", 4, CARTRIDGE_CUT))
+    total += 4 * CARTRIDGE_CUT
+    return rows, total, factor
 
 
 def main():
-    rows, total, factor, cal = measure()
-    print(f"calibration  DC-5 reach {cal:.0f} mm -> {CAL_RUN[1]:.0f} mm cut "
+    rows, total, factor = measure()
+    print(f"calibration  cabinet reach {CAL_REACH:.0f} mm -> {CAL_CUT:.0f} mm cut "
           f"(routed factor {factor:.2f})\n")
     print(f"{'loom':<16}{'conductors':<24}{'n':>3}{'cut':>7}")
     for loom, label, count, routed in rows:

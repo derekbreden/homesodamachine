@@ -45,9 +45,9 @@ psu_max_dc_a = 6.7      # rated output current
 # reservoir). Sets DC-3 gauge.
 diaphragm_peak_a = 5
 
-# Kamoer KPHM400-SW peristaltic pump peak current per pump (two pumps
-# on the main board's DRV8870 H-bridges, PUMPS J13 / run DC-5). Matches
-# the main board's ampacity declaration (`/hardware/pcb/pcba/pcba.tsx`).
+# Kamoer KPHM600-SW3B17 published current per pump (two pumps on the main
+# board's DRV8870 H-bridges, PUMPS J13 / run DC-5). This is the contact load
+# for each of the four Micro-Fit circuits: one motor conductor per circuit.
 pump_peak_a = 0.8
 
 # Condenser fan motor (harvested from donor ice maker — 12 V DC
@@ -102,7 +102,7 @@ solenoid_count = 10
 # ─── Run-length design targets ────────────────────────────────────────
 # All values mm except where noted.
 len_short_mm = 50       # AC-3 (a hop along the +X wall)
-len_short_2_mm = 100    # AC-2 (distribution → PSU), DC-1, DC-2, DC-5 pigtail
+len_short_2_mm = 100    # AC-2 (distribution → PSU), DC-1, DC-2
 len_mid_mm = 150        # AC-1 (C14 → distribution block, over the foam-cap top), DC-4, and the
                         # DC-6/DC-7 valve fan-out legs downstream of the manifold lever nuts
 len_pump_mm = 250       # DC-3 (diaphragm pump), which never leaves the box
@@ -127,8 +127,9 @@ len_man_a_mm = 350       # DC-6 `OUT1`–`OUT8` → the eight manifold-A coils (
 len_moisture_mm = 350    # SIG-9 → the dry LM393 board by the pan's −X-wall cable clip (304)
 len_carb_reeds_mm = 350  # SIG-2/3 → the carbonator's low and high reeds (323)
 len_man_b_mm = 400       # DC-7 `OUT1`/`OUT2` → V-I and V-J, and `COM` → the 221-415 (356–359)
-len_cartridge_mm = 400   # DC-5 → the peristaltics, measured with the cartridge DRAWN OUT (400).
-                         # This is the calibration run: its reach is 273 mm and its cut is 400.
+len_pump_fixed_mm = 350  # DC-5, J13 → centred ridge-wall connector through the +X clip.
+len_cartridge_mm = 400   # DC-5, connector → peristaltics, with cartridge DRAWN OUT (400).
+                         # The original board-to-pump reach was the routed-factor calibration.
 len_front_face_mm = 400  # SIG-7 → the 4.3B in the front-top facet, which never leaves the box (369)
 len_reeds_b_mm = 400     # SIG-11 → reservoir B's four level reeds (383)
 len_fan_mm = 450         # DC-8 → the condenser fan, off the J2 trunk (415)
@@ -198,6 +199,7 @@ def main():
         "LEN_MOISTURE": f"~{len_moisture_mm:.4g} mm",
         "LEN_CARB_REEDS": f"~{len_carb_reeds_mm:.4g} mm",
         "LEN_MAN_B": f"~{len_man_b_mm:.4g} mm",
+        "LEN_PUMP_FIXED": f"~{len_pump_fixed_mm:.4g} mm",
         "LEN_CARTRIDGE": f"~{len_cartridge_mm:.4g} mm",
         "LEN_FRONT_FACE": f"~{len_front_face_mm:.4g} mm",
         "LEN_REEDS_B": f"~{len_reeds_b_mm:.4g} mm",
