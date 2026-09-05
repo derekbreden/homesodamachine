@@ -1069,6 +1069,27 @@ cradle pulls before any Z service; back out the two clamp screws on the withdraw
 lift off the clamp; then lift either complete pump straight up. Assembly is the reverse on the
 bench, followed by straight Y insertion.
 
+**The cartridge retains its own electrical half.** The four-conductor DC-5 ribbon remains joined
+from the removable connector to the pump pair, then peels into one two-conductor branch per
+motor. [2](PUMP_CARTRIDGE_CLIP_COUNT) mirrored copies of the wall-integrated S channel retain
+those branches in the outer walls of the two upper pump wells. Each channel is fully
+[9 mm](PUMP_CARTRIDGE_CLIP_EMBED) embedded and therefore
+[0 mm](PUMP_CARTRIDGE_CLIP_PROUD) proud of the fitted wall: its
+[21.18 mm](PUMP_CARTRIDGE_CLIP_WALL) host leaves
+[12.18 mm](PUMP_CARTRIDGE_CLIP_BACKING) of printed backing. The same 18 mm run used elsewhere
+stands at y [34.51..52.51 mm](PUMP_CARTRIDGE_CLIP_RUN_Y), centred on each motor's rear-stack
+axis, with the retained channel at z
+[258.3..276.3 mm](PUMP_CARTRIDGE_CLIP_CHANNEL_Z). Both 6 mm ends ramp from the well face to full
+embedment, so neither branch turns through a depth step.
+
+The removable clamp opens a top-running 1 mm relief beside each channel. It increases the lane
+between channel and clamp to [2.375 mm](PUMP_CARTRIDGE_CLIP_LANE) around the bought ribbon's
+[1.7 mm](PUMP_CARTRIDGE_WIRE_T) thickness, while leaving the channel flush with the pump fit.
+The relief reaches the clamp crown, so it adds no down-facing roof and the clamp still lifts
+straight up while both branches remain retained in the lower cradle. The unpeeled ribbon between
+these cartridge channels and the removable connector is the service loop: it follows the
+cartridge out without passing through the enclosure-side clip or pulling either motor Faston.
+
 **Each of the four tube-casing openings is [13 mm](CAP_TUBE_OPEN) wide** around a
 [12.75 mm](CAP_TUBE_PART) casing, leaving 0.125 mm per side. The two casing axes on each pump
 stand [59.75 mm](CAP_TUBE_PITCH) apart. The physical pair spans
@@ -1362,9 +1383,10 @@ it is through.
 On the same rib's cavity face, one unembedded [9 mm](CABLE_CLIP_DEPTH)-deep cable clip runs toward
 +X and stops [12 mm](PUMP_CONNECTOR_CLIP_LAND) short of that edge. It guides and strain-relieves
 the **fixed enclosure-side J13-to-connector lead** on its return to the main-board wall. It does
-not retain the removable cartridge lead. The shifted loom bore remains teardropped because the
-piece beds on Z; the Micro-Fit cut-out stays keyed because its panel ears and orientation require
-the drawing's profile.
+not retain the removable cartridge lead; that half leaves with its own two fully embedded
+pump-well channels described above. The shifted loom bore remains teardropped because the piece
+beds on Z; the Micro-Fit cut-out stays keyed because its panel ears and orientation require the
+drawing's profile.
 
 ## Funnel opening
 
