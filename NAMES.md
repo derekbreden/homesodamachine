@@ -109,6 +109,7 @@ to **Derek approved** when he recognises them, or are replaced when he doesn't.
 | **storey** | one stacked body of a job kit — a bin, a drawer, a tray or the rack | tier, layer, level |
 | **job rack** | the storey of a job kit that holds its tools: a solid Gridfinity blank with sockets cut from its top | tool rack, tool holder |
 | **bench dock** | the printed Gridfinity baseplate a job kit stands on | dock plate, base |
-| **pump connector** | the four-circuit electrical disconnect behind the enclosure display: fixed panel housing on the J13 side, latched receptacle on the pump-cartridge side | pump jack, pump plug, cartridge jack |
+| **pump jack** | the RiteAV RJ11 keystone jack in the ridge wall behind the enclosure display, that the pump cartridge's cord plugs into | pump connector, cartridge jack, pump socket |
+| **pump plug** | the RJ11 6P4C plug on the pump cartridge's cord, that clicks into the pump jack | cartridge plug |
 | **install kit** | the box beside the appliance in the carton holding what the install needs beyond the faucet bag: the customer's plumbing, the collet press, the line cord, the documentation packet | installer kit |
 | **cold kit** | the bagged bonus in the install kit — the tube cutter, the loose foam segments and its own guide — for trimming and insulating the run to the faucet | cold optimization kit, cold enhancing kit, cold-line kit |

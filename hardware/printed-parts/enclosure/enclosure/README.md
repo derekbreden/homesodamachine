@@ -1357,29 +1357,32 @@ that plane with [0.15 mm](FUNNEL_COLLAR_AIR) of running air in plan. The roof re
 connected planar face around the notch, reaches both front opening corners, and has zero volume
 inside the funnel keepout.
 
-**Running it to the flanks closes the storey, and two electrical paths cross.** The fixed black
-Molex `43020-0400` four-circuit Micro-Fit pump connector owns the centreline a hand finds behind
-the display, directly above the valves. Its own nylon panel ears snap into the keyed
-[11.2 × 9.01 mm](PUMP_CONNECTOR_CUT) printed cut-out. The cavity face is relieved until the
-connector bears in a [2 mm](PUMP_CONNECTOR_PANEL) local panel, inside Molex's 1.40–2.54 mm range;
-the rigid PET-GF wall supplies the seat and the bought nylon housing supplies the flex. The fixed
-J13 loom remains in the enclosure; the cartridge carries the mating black `43025-0400`
-receptacle. The key and mating thumb latch face down into the empty pump bay. After the
-cartridge is drawn, the hand reaches up through that bay, presses the latch, pulls the free half
-straight forward until clear, and lowers it without approaching the display body.
+**Running it to the flanks closes the storey, and two electrical paths cross.** The **pump jack**
+owns the centreline a hand finds behind the display, directly above the valves: a RiteAV RJ11
+keystone jack in a printed keystone receptacle, the same module in the same receptacle the +Y
+wall of back-top holds for the umbilical ([`reference/riteav-keystone/`](/hardware/reference/riteav-keystone/)).
+Its [14.9 × 16.3 mm](PUMP_JACK_APERTURE) aperture passes the 3 mm rib, which is the receptacle's
+whole lip; the pocket, the two catches the jack's tang and latch snap over, and the boss that
+carries them stand [6.7 mm](PUMP_JACK_BOSS_REACH) aft of the rib in the cavity, the boss's lower
+wall on the plate cap's crown, which puts the aperture centre at z [296.53 mm](PUMP_JACK_Z). The
+jack goes in from the cavity, tang first, swinging down onto the lower catch, and its
+[30 mm](PUMP_JACK_BODY) body with the 110 punchdown block reaches aft over the valves. The fixed
+J13 lead ends on that punchdown; the cartridge's cord ends in the **pump plug**, an RJ11 6P4C
+modular plug whose clip faces down into the empty pump bay. After the cartridge is drawn, the
+hand reaches up through that bay, presses the clip, pulls the plug straight forward until it is
+clear of the plate cap, and lowers it through the bay without approaching the display body.
 
 SIG-7 still crosses the rib, at the same height but shifted [-32 mm](DISPLAY_LOOM_X) in X. Its
-four 22 AWG conductors remain in the 1/2" PET expandable braid, so its teardrop bore remains the
-opened figure — Ø[19.05 mm](CABLE_BORE) — with solid stock between that bore and the pump
-connector's panel land. It locates nothing and carries nothing; the display loom is dressed after
-it is through.
+four conductors remain in the 1/2" PET expandable braid, so its teardrop bore remains the opened
+figure — Ø[19.05 mm](CABLE_BORE) — with solid stock between that bore and the receptacle's boss.
+It locates nothing and carries nothing; the display loom is dressed after it is through.
 
 On the same rib's cavity face, one unembedded [9 mm](CABLE_CLIP_DEPTH)-deep cable clip runs toward
-+X and stops [12 mm](PUMP_CONNECTOR_CLIP_LAND) short of that edge. It guides and strain-relieves
-the **fixed enclosure-side J13-to-connector lead** on its return to the main-board wall. It does
-not retain the removable cartridge lead. The shifted loom bore remains teardropped because the
-piece beds on Z; the Micro-Fit cut-out stays keyed because its panel ears and orientation require
-the drawing's profile.
++X and stops [12 mm](PUMP_JACK_CLIP_LAND) short of that edge. It guides and strain-relieves the
+**fixed enclosure-side J13-to-jack lead** on its return to the main-board wall. It does not
+retain the cartridge's cord. The shifted loom bore remains teardropped because the piece beds on
+Z; the receptacle's aperture and pocket keep the module standard's rectangles, whose flat tops the
+rib and the boss bridge.
 
 ## Funnel opening
 

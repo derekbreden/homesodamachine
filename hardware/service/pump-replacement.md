@@ -21,7 +21,7 @@ gooseneck's tip. The user's part is a container under the faucet.
 |---|---|
 | Both Kamoer pumps, [2](CART_PUMPS) stamped brackets bearing in the lower cradle and both bosses located by the top clamp ([`pump-tray/`](/hardware/printed-parts/enclosure/pump-tray/README.md)) | [8](TRAY_VALVES) valves — V-C…V-J, on the two valve trays ([`valve-tray/`](/hardware/printed-parts/enclosure/valve-tray/README.md)) |
 | The four barb tubes, on the barbs they were pushed onto | [3](CAP_VALVES) valves — V-A, V-B, V-K, in the cold core's lid cradles (`_cold_core_interface.cap_cradles`) |
-| The DC-5 cartridge-side 22 AWG 4P ribbon, its `43025-0400` receptacle, and both Faston pairs on the pump tabs | The fixed `43020-0400` pump connector, its J13-side ribbon, and the +X ridge-wall cable clip |
+| The pump cartridge's 28 AWG 4P cord, its RJ11 pump plug, and both Faston pairs on the pump tabs | The pump jack, its J13-side 22 AWG 4P ribbon, and the +X ridge-wall cable clip |
 | | All [6](BOX_TEES) PP0208E tees. Y-A and Y-B butt fixed valves; Y-C, Y-D, Y-F and Y-G are the [4](CARRIER_TEES) tees tied to the moving carrier |
 | | The carrier, its [2](SPRING_COUNT) aft-pushing springs, [2](TAB_COUNT) handed service-tab arms and [2](TAB_LOCK_COUNT) top-drop tab locks |
 | | The integral collet plate, tee-journal wall, carrier guides and both physical stops in `enclosure-front-top` |
@@ -146,10 +146,10 @@ the enclosure-side cable clip.
 With the cradle clear and power still removed, inspect all four cartridge-tube ends for a
 square, unscarred mouth; inspect the four plate holes, the eight carrier ties, both tab/key
 joints, and the visible travel ends of all eight flexible links. Then reach up through the empty
-bay behind the display, press the Micro-Fit's downward-facing thumb latch, pull the cartridge
-housing straight forward until the pair is clear, and lower it through the bay before standing
-the cradle on its bottom floor. Do not lever the fixed half or pull either ribbon. The four pump
-Fastons remain made off until the cartridge is on the bench.
+bay behind the display, press the pump plug's clip from below, pull the plug straight forward
+until it is clear of the plate cap, and lower it through the bay before standing the cradle on
+its bottom floor. Do not lever the jack or pull either ribbon. The four pump Fastons remain made
+off until the cartridge is on the bench.
 
 **3. Unscrew the top clamp, then swap the pumps.** Back out the [2](CAP_SCREWS)
 M3×[10](CAP_SCREW_LEN) between the pumps and lift the complete clamp straight up. Remove the two
@@ -169,8 +169,8 @@ tug-test each of the four before the deck goes back in.
 
 **5. Connect, squeeze, insert and release.** Put both Faston pairs back on the replacement
 motor tabs first — they are unreachable once the cradle is in. With power removed, reach behind
-the display and push the cartridge's `43025-0400` onto the fixed `43020-0400` until the thumb
-latch clicks; tug the housing, not the ribbon, to prove it is closed. Set the cradle on the bay
+the display and push the pump plug into the pump jack until it clicks; tug the plug, not the
+cord, to prove it is home. Set the cradle on the bay
 floor and present all four tubes squarely through their plate holes. Squeeze both service tabs
 together and hold the carrier at 0 mm. Advance the cartridge without twisting it and push all
 four tubes to their 10 mm bottoms. Release both tabs together: the two springs move the carrier
@@ -189,8 +189,8 @@ carrier flex links for seepage, rubbing or a link pulled taut.
 ## Output condition
 
 - Both pumps replaced, each bracket bearing in the lower cradle with the top clamp closed, tug-tested
-- DC-5 Micro-Fit latched behind the display; fixed J13-side ribbon retained in the ridge-wall
-  clip and cartridge-side ribbon free to follow the next withdrawal
+- The pump plug clicked into the pump jack behind the display; the fixed J13-side ribbon retained
+  in the ridge-wall clip and the cartridge's cord free to follow the next withdrawal
 - During removal, all four tubes released together at −3.15 mm and the empty carrier returned
   evenly to park at +3 mm; both rigid tab arms and both tab locks remained seated
 - Four fresh barb tubes on the barbs and all [4](JOINT_COUNT_4) joints bottomed together at
