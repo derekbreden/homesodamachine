@@ -1194,8 +1194,8 @@ def pump_tray_plans(a=None, shell=None) -> dict:
 
 
 # --- the printed collet plate ------------------------------------------------
-PLATE_T = 6.0
-PLATE_REST_GAP = 0.5
+PLATE_T = 3.175
+PLATE_REST_GAP = 1.5
 PLATE_HOLE_D = 7.0
 COLLET_NOSE_R = 5.715
 TEE_WALL_BORE_SLIP = 0.25
@@ -1225,10 +1225,16 @@ def collet_plate_spec(mcarry, tray_stations) -> dict:
     if max(abs(hz - hole_z) for _hx, hz in holes) > 1e-6:
         raise ValueError("the four branch collets need one tube-centre elevation")
     aft = faces[0] - PLATE_REST_GAP
+    fore = aft - PLATE_T
+    cartridge_air = fore - _enc.pump_cartridge_aft_y(tray_stations)
+    if cartridge_air < fits.slip:
+        raise ValueError(
+            f"the printed collet plate leaves {cartridge_air:g} mm behind the pump cartridge, "
+            f"less than its {fits.slip:g} mm running clearance")
     stroke = PLATE_REST_GAP + _jgu.COLLET_TRAVEL
     x0, x1 = _enc.interior_x()
     return {"holes": tuple(sorted(holes)),
-            "aft_y": round(aft, 6), "fore_y": round(aft - PLATE_T, 6),
+            "aft_y": round(aft, 6), "fore_y": round(fore, 6),
             "z0": _enc.z_seam, "z1": round(2.0 * hole_z - _enc.z_seam, 6),
             "x0": x0, "x1": x1, "hole_d": PLATE_HOLE_D,
             "seat_z": round(_enc.bay_floor_z(tray_stations)[1], 6),
