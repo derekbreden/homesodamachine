@@ -10,9 +10,9 @@ file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=-98.500 y=170.080 z=180.025
 click: x=98.500 y=170.080 z=180.025
 
-[ceiling] The pump-bay lintel is the complete fixed face at z=280.995. It carries the display/ridge storey and sets the pump clamp's 0.5 mm withdrawal clearance. The production profile joins this interface to a bed-rooted support tree with 120.2 mm of build-up.
+[ceiling] The pump-bay lintel is the complete fixed roof at z=283.495. It carries the display/ridge storey and closes the full-width cartridge withdrawal opening. A gable inside this opening would occupy the cartridge and motor clearance; its exposed underside is reached through the open bay for support removal.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=0.000 y=37.989 z=280.995
+click: x=0.000 y=43.645 z=283.495
 
 [ceiling] These are the mirrored upper Y-seam socket collars' complete square bearing crowns around the cross-pins. Each production-profile interface has its own bed-rooted support tree with 178.6 mm of build-up.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
