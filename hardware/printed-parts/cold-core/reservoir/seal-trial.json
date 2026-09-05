@@ -3,8 +3,8 @@
   "date": "2026-09-04",
   "slicer": "BambuStudio 02.08.02.61",
   "project": "reservoir-08-seal-trial.3mf",
-  "project_sha256": "2c3a6975889a6436fc35e89c2bb22abd1c45328b579d09ec7ae4e9a314c38ac7",
-  "gcode_sha256": "29bae77303210a584780f76a2468c64cc0d59faaea7fe6170b013dc685b7b3a2",
+  "project_sha256": "0604fb2a08063a0f627a5d504be380e6729d19b263c45442521ffbc1df198b66",
+  "gcode_sha256": "367e8887059fa87d9c65e1320081e43fd3f5c6b22ddfed51009635b03a83ef4f",
   "source_mesh_sha256": "29cd2391e9db55ea47f2fbe6ca851aba905d5509a019e1e3f70b7bb96e6eec2b",
   "source_mesh_triangles": 8926,
   "sampled_plate_z_mm": [
@@ -20,43 +20,45 @@
   ],
   "slice_result": {
     "error_string": "Success.",
-    "export_time": 1812,
+    "export_time": 2079,
     "layer_height": 0.18000000715255737,
     "plate_index": 0,
-    "prepare_time": 18,
+    "prepare_time": 28,
     "return_code": 0,
     "sliced_plates": [
       {
         "feature_type_times": {
-          "Bottom surface": 278.1640319824219,
+          "Bottom surface": 534.37744140625,
+          "Bridge": 0.08418796956539154,
           "Custom": 329.0563659667969,
           "Flush": 15.0,
-          "Inner wall": 37698.02734375,
-          "Internal solid infill": 4981.07373046875,
-          "Ironing": 1520.34033203125,
-          "Outer wall": 28081.22265625,
-          "Overhang wall": 6.033231258392334,
-          "Sparse infill": 4808.21630859375,
-          "Support": 21.840967178344727,
-          "Top surface": 36.88682174682617,
-          "Travel": 3050.297119140625,
-          "Undefined": 3049.193359375
+          "Inner wall": 42423.8515625,
+          "Internal solid infill": 9175.77734375,
+          "Ironing": 3267.573486328125,
+          "Outer wall": 29727.9375,
+          "Overhang wall": 35.91558837890625,
+          "Sparse infill": 4808.21923828125,
+          "Support": 94.467529296875,
+          "Support interface": 4.517012596130371,
+          "Top surface": 253.9720458984375,
+          "Travel": 3532.922607421875,
+          "Undefined": 3531.81884765625
         },
         "filament_change_times": 0,
         "filaments": [
           {
             "filament_id": "GFG01",
             "id": 1,
-            "main_used_g": 360.7624206542969,
-            "total_used_g": 360.762451171875
+            "main_used_g": 417.1596984863281,
+            "total_used_g": 417.1596984863281
           }
         ],
-        "generate_support_material_time": 504,
+        "generate_support_material_time": 550,
         "id": 1,
-        "infill_time": 118,
+        "infill_time": 160,
         "layer_filament_change": 0,
-        "main_predication": 80478.859375,
-        "make_perimeters_time": 1565,
+        "main_predication": 93954.3203125,
+        "make_perimeters_time": 1798,
         "obj_cached_cnt": 0,
         "objects": [
           {
@@ -66,17 +68,30 @@
               "width": 76.06632232666016,
               "x": 136.96682739257812,
               "y": 90.0,
-              "z": 3.6888184240524424e-06
+              "z": 3.7035156310594175e-06
             },
             "id": 5,
             "name": "reservoir-left.stl",
             "triangle_count": 8926
+          },
+          {
+            "bbox": {
+              "depth": 140.0,
+              "height": 11.0,
+              "width": 76.06631469726562,
+              "x": 31.966833114624023,
+              "y": 90.0,
+              "z": 0.0
+            },
+            "id": 9,
+            "name": "reservoir-cap-left.stl",
+            "triangle_count": 11986
           }
         ],
-        "sliced_time": 6393,
-        "sliced_time_with_cache": 4097,
-        "total_predication": 80836.8125,
-        "triangle_count": 8926,
+        "sliced_time": 7470,
+        "sliced_time_with_cache": 4627,
+        "total_predication": 94312.2734375,
+        "triangle_count": 20912,
         "warning_message": ""
       }
     ],
@@ -316,40 +331,46 @@
     },
     "final": {
       "Support": {
-        "length": 473.4203681362279,
+        "length": 2734.7427975335504,
         "min_width": 0.8,
         "max_width": 0.9,
         "max_speed": 43.780633333333334
       },
       "Inner wall": {
-        "length": 1113843.429485873,
+        "length": 1253373.976850854,
         "min_width": 0.671878,
         "max_width": 1.32943,
-        "max_speed": 30.0
+        "max_speed": 43.78073333333334
       },
       "Outer wall": {
-        "length": 838651.3439831204,
+        "length": 886851.4941535209,
         "min_width": 0.799988,
         "max_width": 1.12444,
         "max_speed": 40.0
       },
       "Bottom surface": {
-        "length": 6483.963874032699,
-        "min_width": 0.903701,
+        "length": 12430.813965691059,
+        "min_width": 0.903091,
         "max_width": 0.903701,
-        "max_speed": 23.82881666666667
+        "max_speed": 23.84615
       },
       "Internal solid infill": {
-        "length": 144550.08010764624,
+        "length": 269808.05653782334,
         "min_width": 0.704388,
         "max_width": 1.35216,
         "max_speed": 30.0
       },
       "Overhang wall": {
-        "length": 68.24510745946715,
+        "length": 355.1971708959191,
         "min_width": 0.799998,
         "max_width": 1.02558,
         "max_speed": 30.0
+      },
+      "Support interface": {
+        "length": 162.60844184316957,
+        "min_width": 0.8,
+        "max_width": 0.8,
+        "max_speed": 43.780633333333334
       },
       "Sparse infill": {
         "length": 143613.97848739807,
@@ -357,18 +378,20 @@
         "max_width": 0.9,
         "max_speed": 30.0
       },
+      "Top surface": {
+        "length": 7486.782206990797,
+        "min_width": 0.900908,
+        "max_width": 1.05851,
+        "max_speed": 30.0
+      },
       "Ironing": {
-        "length": 43632.69973207573,
+        "length": 95650.08599240755,
         "min_width": 0.800724,
         "max_width": 0.800724,
         "max_speed": 30.0
-      },
-      "Top surface": {
-        "length": 1058.27586637063,
-        "min_width": 0.903518,
-        "max_width": 1.05851,
-        "max_speed": 30.0
       }
     }
-  }
+  },
+  "cap_source_mesh_sha256": "3189fce0d85b3a0f82bce74b9612b46098d37a8e94a98c90c73a92f9125bbede",
+  "cap_source_mesh_triangles": 11986
 }

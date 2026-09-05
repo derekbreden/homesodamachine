@@ -110,8 +110,9 @@ Watertight recipe (carried from attempt 4):
 
 ## PETG seal trial prepared (2026-09-04, settings per [`reservoir-08-seal-trial.3mf`](reservoir-08-seal-trial.3mf))
 
-One current left reservoir body, mouth up. H2C, 0.8 mm nozzle, PETG Translucent.
-Bambu Studio 02.08.02.61. Estimated 22 h 27 min, 360.76 g, 984 layers.
+One current left reservoir body, mouth up, and matching left cap, exterior face down
+and gasket rim up. H2C, 0.8 mm nozzle, PETG Translucent.
+Bambu Studio 02.08.02.61. Estimated 26 h 12 min, 417.16 g, 984 layers.
 
 - `nozzle_temperature` **255 °C** (initial 255)
 - `layer_height` **0.18 mm** (initial 0.30)

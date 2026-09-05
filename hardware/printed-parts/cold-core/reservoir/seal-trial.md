@@ -2,9 +2,10 @@
 
 [Print project: reservoir-08-seal-trial.3mf](reservoir-08-seal-trial.3mf)
 
-One current left reservoir body, mouth up, for the **H2C with a 0.8 mm nozzle and
-PETG Translucent**. The project contains the mesh, editable settings and sliced G-code.
-Bambu Studio 02.08.02.61 estimates **22 h 27 min, 360.76 g, 984 layers**.
+One current left reservoir body, mouth up, and its matching cap, exterior face down
+and gasket rim up, for the **H2C with a 0.8 mm nozzle and PETG Translucent**.
+The project contains both meshes, editable settings and sliced G-code.
+Bambu Studio 02.08.02.61 estimates **26 h 12 min, 417.16 g, 984 layers**.
 Physical print and water-test results are pending.
 
 ## Settings
@@ -62,11 +63,14 @@ simulation of deposited polymer. The comparison plates precede the final project
 Extrusion paths were inspected at plate Z 0.30, 2.10, 5.16, 10.02, 20.10, 50.16,
 100.02, 170.04 and 176.16 mm: floor, bulkhead region, floor-to-wall transition,
 straight and curved walls, and insert bosses. Both inner and outer wall G-code
-contain scarf Z ramps. The floor underside is flat on the bed. Small support paths
-occupy the dry bulkhead recess; there are no paths labelled `Support interface`.
-The support audit therefore does not provide a contact-island count for that recess.
+contain scarf Z ramps. The body floor underside is flat on the bed. Small support paths occupy the
+dry bulkhead recess. The combined body-and-cap slice includes paths labelled
+`Support` and `Support interface`.
 
-The mesh has 8,926 triangles and passes the mesh watertightness check. Final slicing
+The body mesh has 8,926 triangles; the cap has 11,986. Both pass the mesh
+watertightness check. The cap is 11 mm high in its print orientation, with a
+28.93 mm XY gap to the body. Its fill bore, vent and rod register are present
+in the extrusion paths. Final slicing
 returns success with an empty plate-warning field. The embedded G-code checksum
 matches its 3MF checksum entry. [Inspection readings](seal-trial.json) identify the
 mesh and G-code by SHA-256.
