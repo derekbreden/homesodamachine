@@ -23,9 +23,9 @@
   },
   "inputs": {
     "gcode": "plate_1.gcode",
-    "gcode_sha256": "342964c14f900299efd7adaf0ea12062d95d757f24730c276cfc49c6a1a11627",
+    "gcode_sha256": "8edbce05047c1cff948962574271ab252e58c9f8eef3c078d10b197a6b0a52cc",
     "model": "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
-    "model_sha256": "8d74c80892d4dc7c55c989d58fa36600a57975eaafa70f77b4f6b80647005e73",
+    "model_sha256": "4ddb22660178c8fa026018a4d9262bc6ce95b30d75f75739a52d2583e35669d3",
     "profile": "git:aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a:hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom-petgf.3mf",
     "profile_sha256": "5d0456848798c02653ee9778b091d02701d95ce8f415db715bb24d4dcc24b5fe"
   },
@@ -75,7 +75,7 @@
     {
       "bbox_cad_xyz_mm": [
         -103.4,
-        92.225,
+        93.825,
         168.4,
         -99.0,
         190.225,
@@ -83,7 +83,7 @@
       ],
       "bbox_xy_mm": [
         61.6,
-        143.2,
+        144.8,
         66.0,
         241.2
       ],
@@ -96,7 +96,7 @@
     {
       "bbox_cad_xyz_mm": [
         99.0,
-        92.225,
+        93.825,
         168.4,
         103.4,
         190.225,
@@ -104,7 +104,7 @@
       ],
       "bbox_xy_mm": [
         264.0,
-        143.2,
+        144.8,
         268.4,
         241.2
       ],
@@ -179,16 +179,16 @@
     {
       "base_z_mm": 166.4,
       "bbox_cad_xyz_mm": [
-        -103.4,
-        92.225,
+        -103.8,
+        93.825,
         160.4,
         -99.0,
         190.225,
         168.6
       ],
       "bbox_xy_mm": [
-        61.6,
-        143.2,
+        61.2,
+        144.8,
         66.0,
         241.2
       ],
@@ -205,7 +205,7 @@
       "base_z_mm": 166.4,
       "bbox_cad_xyz_mm": [
         99.0,
-        92.225,
+        93.425,
         160.4,
         103.8,
         190.225,
@@ -213,7 +213,7 @@
       ],
       "bbox_xy_mm": [
         264.0,
-        143.2,
+        144.4,
         268.8,
         241.2
       ],
