@@ -96,7 +96,7 @@
         },
         {
           "tree": "tree-3",
-          "name": "core-hold, drip-sleeve, dock, nameplate and rear-wall tree",
+          "name": "core-hold, drip-sleeve, nameplate and rear-wall tree",
           "first_contacts_cad_xyz_mm": [
             [
               -67.0,
@@ -117,8 +117,8 @@
           ],
           "root": "bed",
           "build_up_mm": 92.16,
-          "interface_islands": 13,
-          "rationale": "The two first contacts carry the west and east cold-core aft hold-down soffits over the core's insertion lane - a pillar in that lane blocks the core riding in through the Y-seam mouth, and the bearing face is the lowest thing on each bracket. Eleven more contacts join the same bed-rooted body through the open enclosure: the ASSE drip-pan sleeve's floor east of its wall-rooted 20 mm corbel (the tray is longer than a wedge off that one wall can carry, and nothing stands under its east half to root a second); the magnetic pogo dock's pocket roof in that sleeve's backstop, the flat the male pill's flange seats under, whose mouth has to open east so the pill goes in from the bench; the anchor's fore round-section soffit, the mirror of tree-1's; the nameplate mouth's ceiling in the +Y wall; the keystone jack's retention ceiling; three of the five Wago-well retention ceilings; the C14 tunnel's aperture ceiling, the bridge the bore's width between the block's two flanks; the +X wall's service contact behind the PSU; and the -X ceiling strip's aft end at the water bulkhead."
+          "interface_islands": 12,
+          "rationale": "The two first contacts carry the west and east cold-core aft hold-down soffits over the core's insertion lane - a pillar in that lane blocks the core riding in through the Y-seam mouth, and the bearing face is the lowest thing on each bracket. Ten more contacts join the same bed-rooted body through the open enclosure: the ASSE drip-pan sleeve's floor east of its wall-rooted 20 mm corbel (the pan is longer than a wedge off that one wall can carry, and nothing stands under its east half to root a second); the anchor's fore round-section soffit, the mirror of tree-1's; the nameplate mouth's ceiling in the +Y wall; the keystone jack's retention ceiling; three of the five Wago-well retention ceilings; the C14 tunnel's aperture ceiling, the bridge the bore's width between the block's two flanks; the +X wall's service contact behind the PSU; and the -X ceiling strip's aft end at the water bulkhead."
         },
         {
           "tree": "tree-4",

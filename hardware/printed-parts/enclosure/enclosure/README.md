@@ -629,7 +629,7 @@ exterior settings of `enclosure-front-top-petgf.3mf` around their own mesh — t
 | `enclosure-front-top` | 3 | 4 | bed | 55.60 mm |
 | `enclosure-back-bottom` | 2 | 3 | 1 bed, **1 model** | **8.00 mm** |
 | `enclosure-front-bottom` | 4 | 4 | 2 bed, **2 model** | **8.00 mm** |
-| `enclosure-back-top` | 4 | 27 | bed | 92.16 mm |
+| `enclosure-back-top` | 4 | 26 | bed | 92.16 mm |
 
 **One piece slices clean, and three bodies are the campaign's open work.**
 `enclosure-pump-cartridge` emits no support at all. On the pump cap and the two top quadrants
@@ -742,11 +742,10 @@ a one-wall-long 45° scarf nose. The back half's matching wedge also grows from 
 bed, so the cold-core bearing plane carries no supported surface. The side-wall
 segments, vertical to the bed, are free.
 
-The **ASSE drip pan's sleeve** in the back-top piece has two supported surfaces: its floor beyond
-the wall-rooted `pan_sleeve_corbel`, and the dock pocket's roof described below. The tray is
-longer than a 45° wedge from that one wall can carry, and nothing stands under its east half to
-root a second wedge. Both soffits are reached from the print bed through the open enclosure
-rather than from material just below them.
+The **ASSE drip pan's sleeve** in the back-top piece has one supported surface: its floor beyond
+the wall-rooted `pan_sleeve_corbel`. The tray is longer than a 45° wedge from that one wall can
+carry, and nothing stands under its east half to root a second wedge. The soffit is reached from
+the print bed through the open enclosure rather than from material just below it.
 
 The rim rebate's lid is one hipped rectangular transition. Its four faces rise at 45° into the
 already-open tray mouth from the exterior skin on the west, the fore and aft jambs, and the
@@ -754,13 +753,13 @@ sleeve's east backstop; adjacent faces meet on diagonal hips. The exterior slot 
 flange gap keep their stated planes; only free clearance above the inserted rim grows toward
 the mouth. The rebate therefore leaves no short, material-rooted roof.
 
-The **dock** in that sleeve's backstop adds three cuts on the pan's own axis: the male half's
-window and its pocket run through the block, each a bridge one pill — 4.2 mm — wide, and the
-lead channel drops out of the pocket's floor through the block's. The berth is not touched by
-any of them, and nothing crosses the withdrawal wall but the pan. The pocket's roof is a flat
-7.0 × 14.7 mm face and the slice supports it, bed-rooted like the sleeve floor beside it — the
-pill sits 0.59 mm under that face, so what the support has to clear is the pill's own seat and
-not the pan's path.
+The moisture plate's **cable clip** is immediately aft of the sleeve on the dry inner face of
+the −X flank. The shared profile is [9 mm](CABLE_CLIP_DEPTH) deep; [6 mm](PAN_CLIP_EMBED) are embedded in this
+[9 mm](PAN_CLIP_WALL) wall, leaving [3 mm](PAN_CLIP_PROUD) proud in the cabinet and [3 mm](CABLE_CLIP_BACKING) of
+exterior backing. Its two hooked sections grow from the wall on 45° faces, and the recessed
+channel ramps to the wall face over [6 mm](CABLE_CLIP_RAMP) at both ends of its [18 mm](CABLE_CLIP_RUN) run. It therefore
+adds no supported face to the mouth-down back-top print. The plate's continuous lead leaves a
+service loop between this fixed clip and the open pan.
 
 The **ASSE anchor** one storey above it carries its underside on a 45° corbel rooted on
 the −X wall and tapering to the deepest section's V foot, except east of that foot: the two
