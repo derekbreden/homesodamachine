@@ -472,6 +472,7 @@
   "hardware/reference/lee-lcm060c12m/lee_lcm060c12m.py": [
     "hardware/reference/lee-lcm060c12m/lee_lcm060c12m.py",
     "hardware/scripts/_cadq_export.py",
+    "hardware/scripts/_material_base.py",
     "hardware/scripts/_run_lock.py"
   ],
   "hardware/reference/molex-micro-fit-4/molex_micro_fit_4.py": [

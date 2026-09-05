@@ -6010,12 +6010,14 @@ def _tee_wall(inner, y_joint, plate, bay):
 
 
 def _tee_carrier_fixed_features(carrier):
-    """Front-top's release/park stops and two support-free spring guide diamonds.
+    """Front-top's release/park stops and two support-free tapered spring pilots.
 
     The ears lower through the open cavity and ride 0.15 mm inside the grown flank faces.  The
     tee-wall journals supply X/Z guidance; these sidewall-rooted posts own only the two Y stops.
-    Each spring starts on the tee wall's aft face around a 4 mm diamond guide, whose 45-degree
-    lower faces print on a horizontal axis without support and fit inside the spring's round ID.
+    Each spring starts on the tee wall's aft face around a 4 mm diamond root.  That root tapers
+    along the wall normal to a 0.4 mm diamond tip over 1.8 mm: the radial and axial reductions
+    are equal, so every down-facing generator rises at 45 degrees from the wall that prints it.
+    The complete pilot remains inside the spring's round ID.
     """
     if not carrier:
         return None
@@ -6033,14 +6035,33 @@ def _tee_carrier_fixed_features(carrier):
             _ybox(px0, px1, park_y, park_y + depth, z0, z1))
         out = pair if out is None else out.fuse(pair)
     half = carrier["spring_guide_across"] / 2.0
+    length = carrier["spring_guide_length"]
+    tip_half = half - length
+    if tip_half <= 0.0:
+        raise ValueError(
+            f"spring-guide run {length:g} consumes its {half:g} mm diamond half-width"
+        )
     fixed_y = carrier["fixed_spring_bearing_y"]
     for x, z in carrier["spring_guide_xz"]:
-        diamond = _xz_prism(
-            fixed_y,
-            fixed_y + carrier["spring_guide_length"],
-            ((x, z + half), (x + half, z), (x, z - half), (x - half, z)),
+        root = cq.Wire.makePolygon(
+            (
+                cq.Vector(x, fixed_y, z + half),
+                cq.Vector(x + half, fixed_y, z),
+                cq.Vector(x, fixed_y, z - half),
+                cq.Vector(x - half, fixed_y, z),
+            ),
+            close=True,
         )
-        out = out.fuse(diamond)
+        tip = cq.Wire.makePolygon(
+            (
+                cq.Vector(x, fixed_y + length, z + tip_half),
+                cq.Vector(x + tip_half, fixed_y + length, z),
+                cq.Vector(x, fixed_y + length, z - tip_half),
+                cq.Vector(x - tip_half, fixed_y + length, z),
+            ),
+            close=True,
+        )
+        out = out.fuse(cq.Solid.makeLoft((root, tip), True))
     return out
 
 

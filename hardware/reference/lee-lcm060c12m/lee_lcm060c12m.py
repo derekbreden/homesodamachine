@@ -30,7 +30,8 @@ import cadquery as cq
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
-from _cadq_export import export_step  # noqa: E402
+from _cadq_export import export_assembly  # noqa: E402
+from _material_base import M_ZINC_PLATED_STEEL, one_body  # noqa: E402
 
 
 PART_NUMBER = "LCM060C12M"
@@ -204,7 +205,10 @@ def export_model(
         tolerance=MESH_TOLERANCE,
         angularTolerance=MESH_ANGLE,
     )
-    export_step(spring, str(step_path))
+    export_assembly(
+        one_body(spring, step_path.stem, M_ZINC_PLATED_STEEL),
+        str(step_path),
+    )
     print(
         f"-> {step_path} and {stl_path}  "
         f"{OUTSIDE_DIAMETER:g} mm OD x {length:g} mm installed length"

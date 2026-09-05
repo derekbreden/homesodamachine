@@ -22,3 +22,10 @@ click: x=101.425 y=206.525 z=339.150
 [slope] This is the display PCB end-wall/ridge-support face across the bay, not a corbel hung along either adjacent X wall. `_ridge_wall` supplies its complete starting line from the tee wall's crown, and the 45-degree face lays every following line on that support.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=0.000 y=47.648 z=308.906
+
+[sliver] The Micro-Fit fixed housing's cavity-side thinning pocket — its 16 × 14 mm rectangle reduces the 3 mm ridge rib to the specified 2 mm snap-in panel. The reported 1.01 mm faces are the depth walls of that removed pocket, including its 0.01 mm boolean overrun; they bound air, while the printed panel behind them retains its complete 2 mm section.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=0.000 y=83.785 z=312.591
+click: x=0.000 y=83.785 z=298.591
+click: x=8.000 y=83.785 z=305.591
+click: x=-8.000 y=83.785 z=305.591
