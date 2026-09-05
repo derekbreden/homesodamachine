@@ -1,0 +1,15 @@
+[step] The female service-tab sockets' fore and aft clearance shoulders — the receiver keeps the carrier's complete 2.5 mm Y band while the tongue cavity is inset for one 0.45 mm printed side wall on each face. The nearby parallel planes are the outside of that wall and the functional socket opening, not accidental almost-flush surfaces.
+file: hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier.step
+click: x=-97.350 y=112.118 z=207.250
+click: x=-97.350 y=109.818 z=207.250
+
+[ceiling] The eight aft zip-tie routing channels — each flat is the roof of a 3.5 mm-high channel open through the carrier's aft face. Extrusion strands bridge only the web's 2.5 mm Y thickness, while the 18.5 mm X run lies along those strands; the square roof preserves a flush 2.5 mm tie path and traps no support.
+file: hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier.step
+click: x=-79.820 y=110.968 z=203.995
+click: x=-20.070 y=110.968 z=203.995
+click: x=20.070 y=110.968 z=203.995
+click: x=79.820 y=110.968 z=203.995
+click: x=-79.820 y=110.968 z=179.995
+click: x=-20.070 y=110.968 z=179.995
+click: x=20.070 y=110.968 z=179.995
+click: x=79.820 y=110.968 z=179.995

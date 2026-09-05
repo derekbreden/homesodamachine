@@ -57,6 +57,10 @@ The spring axes are X ±49.945, Z 190.245 mm, in the gaps between the aft valve 
 is a 6.4 mm-wide tangent teardrop, 2 mm deep in a 12.4 mm spring rail. The 5 mm rail carries its
 semicircular crown to the web's bed edge, and its roof rises at 45 degrees.
 
+At the fixed tee wall, each spring surrounds a 4 mm diamond root tapered to a 0.4 mm diamond tip
+over 1.8 mm. The equal radial and axial taper makes every lower face a 45-degree wall-rooted
+generator in front-top's upright print orientation; it is an end pilot, not a cantilevered rod.
+
 The seat accepts the 5.99 mm OD dimensional candidate. Spring rate and free length remain bench
 inputs from the complete four-stub, four-hairpin, eight-tie mechanism.
 

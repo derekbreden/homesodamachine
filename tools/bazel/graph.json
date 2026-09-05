@@ -7292,6 +7292,7 @@
     "reads": [
       "hardware/reference/lee-lcm060c12m/lee_lcm060c12m.py",
       "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_material_base.py",
       "hardware/scripts/_run_lock.py"
     ],
     "rewritten": [],
