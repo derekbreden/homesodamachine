@@ -5,7 +5,7 @@ plane the box states about itself, and a second copy of any of them is a second 
 Its 3 mm show skin spans the established pack ceiling lane and its top face IS the appliance's
 top surface. A broad 11 mm structural field descends into the room, relieved only where the
 placed bodies and their zip-tie approaches need that volume. The fixed side strips present a
-separate 6 mm physical face without moving the lane any body was placed from.
+separate 12 mm physical face without moving the lane any body was placed from.
 
 WHY IT IS A SEPARATE PART. enclosure-back-top prints mouth-down on its seam rim with the
 build axis +Z (`enclosure.py`'s module docstring), so a ceiling printed in that piece is
@@ -17,8 +17,8 @@ telescopes in.
 
 WHAT THE PIECE KEEPS is the two side strips either side of this panel, `rail_run` wide,
 and it is those strips that carry the dado this panel's tongues run in — a drawer bottom
-in a dado. Each tongue is a 6 mm square rail centred on the fixed strips' physical face, wholly
-rooted in the structural field and finishing at the established pack lane. The strips' own
+in a dado. Each tongue is a 12 mm square rail with a six-millimetre root under the panel field.
+The strips' own
 section, the run of their corbels and the dados are back-top's; what this file states is the
 MATING FIGURES they are cut to (`dado`, `fore_y`, `aft_y`, `panel_half_w`, `underside_z`).
 
@@ -86,7 +86,7 @@ underside_z = _enc.appliance_height - _enc.floor_t - _enc.wall
 # section, so this is one `wall` over the interior ceiling and the exterior top face both.
 show_z = underside_z + _enc.wall
 # The fixed strips' physical interior face. It is distinct from `underside_z`: the latter is
-# the immutable pack/furniture lane, while this is the six-millimetre printed ceiling section.
+# the immutable pack/furniture lane, while this is the twelve-millimetre printed ceiling section.
 fixed_under_z = show_z - _enc.back_top_ceiling_t
 # The broad interior field absorbs the roots of the meter and tube furniture.
 # It is sparse infill rather than a solid billet in the stated print profile; the CAD states the
@@ -138,25 +138,24 @@ brim_seat = _funnel.brim_overhang
 
 # --- the tongue and the dado it runs in --------------------------------------
 #
-# THE RAIL FILLS THE GROWN FIXED SECTION. Its six-millimetre square is centred on the fixed
-# strip's physical face, wholly rooted in the broad structural field and finishing at the
-# established furniture lane. Outboard, back-top's corbel grows one millimetre deeper for every
-# millimetre of run. At the dado's blind end that gives the captured rail a full lower ligament
-# as well as the show-skin lip above it.
+# THE RAIL IS FOUR WALLS SQUARE. A full-height root continues two walls under the broad field,
+# while the fixed strip keeps two complete walls above and below the mating groove at its blind
+# edge. The female side therefore carries a nominal six-millimetre roof over the opening and a
+# six-millimetre lower ligament where the tongue bears deepest. Named body pockets may interrupt
+# the rail locally; each side keeps long unrelieved spans carrying the complete section.
 #
-# THE DADO'S ROOF RISES AT `relief_chamfer` FROM THE BLIND END TO THE MOUTH, the way every
-# relief ceiling on this box does — a roof left flat would hang over the slot in a piece
-# that prints mouth-down. A 45 degree roof climbs one millimetre of section per millimetre
-# of reach and runs clear of the show face at the open mouth. The roof rises off the tongue's
-# own top plane at the blind edge — the plane the fixed C14 surround's crown is clipped to as
-# well — so the tongue's tip, one slip short of that edge, clears the roof by one slip and every
-# point of the rail behind it by more. At the blind end the slide clearance is struck on the
-# rail's floor, its tip and the mouth-side face.
-dado_slip = fits.slip   # printed-fit clearance on each face of the tongue — a slide fit
-                        # down the whole `depth` of groove, not a press
-# One grown fixed section in both directions makes the tongue a 36 mm2 rail.
-tongue_t = _enc.back_top_ceiling_t
-tongue_reach = _enc.back_top_ceiling_t
+# THE DADO'S ROOF IS FLAT. It is a supported face in back-top's mouth-down print, open along the
+# whole groove and through the Y-seam mouth so the support withdraws before this panel enters.
+# Keeping that roof horizontal carries the fixed strip's show face continuously to this panel's
+# edge; no support-avoidance ramp opens the joint through the appliance's top surface.
+dado_slip = fits.slip   # printed-fit clearance below the tongue and beyond its tip; its top
+                        # remains the bearing datum down the groove
+capture_ligament = 2.0 * _enc.wall
+tongue_t = 4.0 * _enc.wall
+tongue_reach = 4.0 * _enc.wall
+# The tongue is not merely a large cantilever attached through its end face. This much of the
+# same full-height rail runs under the field, where the structural stock keys into it from above.
+rail_root_reach = capture_ligament
 # The tongues' outer faces — the widest the panel's plan reaches.
 rail_outer_x = panel_half_w + tongue_reach
 tongue_floor_z = fixed_under_z - tongue_t / 2.0
@@ -164,7 +163,7 @@ tongue_roof_z = fixed_under_z + tongue_t / 2.0
 dado_depth = tongue_reach + dado_slip
 
 dado_floor_z = tongue_floor_z - dado_slip
-dado_roof_z = tongue_roof_z                   # at the blind edge; it climbs inboard
+dado_roof_z = tongue_roof_z
 dado_mouth_x = panel_half_w                    # the rail's inboard face
 dado_blind_x = panel_half_w + dado_depth
 # The fixed corbel's lower face at this run is `fixed_under_z - dado_depth`; what remains below the
@@ -172,13 +171,24 @@ dado_blind_x = panel_half_w + dado_depth
 dado_lower_ligament = dado_floor_z - (fixed_under_z - dado_depth)
 lip_t = show_z - dado_roof_z
 
+_bounds.state(
+    "ceiling-panel-joint-section",
+    "The ceiling panel joint is large on its male and female sides",
+    f"a {4.0 * _enc.wall:g} mm square tongue with a {2.0 * _enc.wall:g} mm root and "
+    f"{2.0 * _enc.wall:g} mm capture ligaments",
+    (tongue_t >= 4.0 * _enc.wall and tongue_reach >= 4.0 * _enc.wall
+     and rail_root_reach >= 2.0 * _enc.wall
+     and dado_lower_ligament >= 2.0 * _enc.wall and lip_t >= 2.0 * _enc.wall),
+    f"tongue {tongue_t:g} x {tongue_reach:g} mm, root {rail_root_reach:g} mm; "
+    f"female ligaments {dado_lower_ligament:g} mm below and {lip_t:g} mm above")
+
 
 def dado():
     """The groove back-top cuts in each rail's inboard face, as
-    `(mouth_x, blind_x, floor_z, roof_z, chamfer_deg)` on the +X side; the −X side is its
-    mirror. The roof is struck at the blind end and rises at `chamfer_deg` to the mouth,
-    where it runs out on the show face."""
-    return (dado_mouth_x, dado_blind_x, dado_floor_z, dado_roof_z, _enc.relief_chamfer)
+    `(mouth_x, blind_x, floor_z, roof_z)` on the +X side; the −X side is its mirror.
+    The roof is horizontal, leaving the fixed strip's complete upper capture ligament and
+    exterior show face over the groove."""
+    return (dado_mouth_x, dado_blind_x, dado_floor_z, dado_roof_z)
 
 
 # --- primitives -------------------------------------------------------------
@@ -194,11 +204,12 @@ def structural_stock():
 
 
 def rail_stock(y0=fore_y, y1=aft_y):
-    """Both exact six-millimetre-square rails over one Y band, before printed-fit clearance."""
+    """Both 12 mm square tongues and their inward roots over one Y band."""
     rails = None
     for sx in (-1.0, 1.0):
         edge = sx * panel_half_w
-        rail = _slab(min(edge, sx * rail_outer_x), max(edge, sx * rail_outer_x),
+        root = edge - sx * rail_root_reach
+        rail = _slab(min(root, sx * rail_outer_x), max(root, sx * rail_outer_x),
                      y0, y1, tongue_floor_z, tongue_roof_z)
         rails = rail if rails is None else rails.fuse(rail)
     return rails
@@ -209,13 +220,14 @@ def _body_relief_cavity(reliefs):
     reaching that level makes together. Two pockets facing across less than `relief_min_web`
     are one opening over the depth both claim, a pocket crossing the field-and-rail plan is
     square where it leaves it, and every enclosed corner is rounded to `relief_corner_r`."""
+    stock_floor = min(structural_under_z, tongue_floor_z)
     pockets = [(x0, x1, y0, y1, min(underside_z, top))
                for _name, x0, x1, y0, y1, top in reliefs]
-    pockets = [p for p in pockets if p[4] > structural_under_z]
+    pockets = [p for p in pockets if p[4] > stock_floor]
     roofs = sorted({p[4] for p in pockets})
     within = (-rail_outer_x, rail_outer_x, fore_y, aft_y)
     prisms = []
-    for floor, roof in zip([structural_under_z - 0.1] + roofs[:-1], roofs):
+    for floor, roof in zip([stock_floor - 0.1] + roofs[:-1], roofs):
         figure = plan.closed(plan.union(
             plan.rect(x0, x1, y0, y1) for x0, x1, y0, y1, top in pockets if top >= roof),
             relief_min_web)
@@ -369,10 +381,15 @@ def main():
             f"the ceiling panel came through as {solids} solid(s) in {shells} shell(s) — a "
             f"slide-in lid is one body, and a second one is a tongue or socket that missed "
             f"the field it was fused to")
-    if min(dado_lower_ligament, lip_t) <= 0.0:
+    if min(dado_lower_ligament, lip_t) < capture_ligament - 1e-9:
         raise ValueError(
             f"the ceiling rail's dado leaves {dado_lower_ligament:.2f} mm below and "
-            f"{lip_t:.2f} mm above its blind end; both capture ligaments must be positive")
+            f"{lip_t:.2f} mm above its blind end; both capture ligaments must be at least "
+            f"{capture_ligament:g} mm")
+    if min(tongue_t, tongue_reach) < 4.0 * _enc.wall - 1e-9:
+        raise ValueError("the ceiling panel's male tongue must be at least four walls square")
+    if rail_root_reach < capture_ligament - 1e-9:
+        raise ValueError("the ceiling panel's male tongue needs a two-wall inward root")
     bed_x, bed_y = _enc.H2C_X, _enc.H2C_Y
     lies = min(b.xlen, b.ylen) <= min(bed_x, bed_y) and max(b.xlen, b.ylen) <= max(bed_x, bed_y)
     if not lies:
@@ -391,9 +408,9 @@ def main():
           f"ribs to {b.zmin:g})")
     print(f"  tongue:  {tongue_t:.2f} thick x {tongue_reach:.2f} reach "
           f"({tongue_t * tongue_reach:.2f} mm2), z {tongue_floor_z:g}..{tongue_roof_z:g}, "
-          f"{dado_slip:g} slip per face")
+          f"{rail_root_reach:g} mm inward root, {dado_slip:g} floor/tip slip")
     print(f"  dado:    x {dado_mouth_x:g}..{dado_blind_x:g}, z {dado_floor_z:g}..{dado_roof_z:g}, "
-          f"roof at {_enc.relief_chamfer:g} deg to the mouth; "
+          "flat supported roof; "
           f"ligaments {dado_lower_ligament:.2f} below / {lip_t:.2f} above at the blind end")
     print(f"  rails:   {rail_run:g} mm side strip each side, "
           f"back-top flank face at +-{_enc.back_top_flank_face()[1]:g}")
@@ -433,6 +450,7 @@ def main():
             "RAIL_RUN": f"{rail_run:g} mm",
             "TONGUE_T": f"{tongue_t:g} mm",
             "TONGUE_REACH": f"{tongue_reach:g} mm",
+            "RAIL_ROOT": f"{rail_root_reach:g} mm",
             "TONGUE_FLOOR": f"{tongue_floor_z:g}",
             "TONGUE_ROOF": f"{tongue_roof_z:g}",
             "RAIL_AREA": f"{tongue_t * tongue_reach:g} mm²",
@@ -442,7 +460,6 @@ def main():
             "DADO_ROOF": f"{dado_roof_z:g}",
             "DADO_LOWER_LIGAMENT": f"{dado_lower_ligament:g} mm",
             "LIP_T": f"{lip_t:g} mm",
-            "CHAMFER": f"{_enc.relief_chamfer:g}°",
             "BRIM_SEAT": f"{brim_seat:g} mm",
             "BRIM_MARGIN": f"{_funnel.brim_margin:g} mm",
             "BED_X": f"{_enc.H2C_X:g} mm",

@@ -169,12 +169,13 @@ Settings:
 ### Support-removal audit
 
 The current fluted back-top STL, substituted into a temporary copy of the history-only production
-project above and sliced by BambuStudio 02.08.02.61, has **4 connected support bodies** reaching
-**27 interface islands**. All four start at print z 0.20 on the bed; none starts on model material.
-Their shortest base-to-first-interface build-ups are **92.16, 103.44, 160.80 and 170.64 mm**.
+project above and sliced by BambuStudio 02.08.02.61, has **3 connected support bodies** reaching
+**28 interface islands**. One starts at print z 0.20 on the bed and carries 26 islands, including
+the enlarged ceiling-dado roofs. The other two start on the water-split and flow-regulator anchor
+ribs. Their shortest base-to-first-interface build-ups are **92.16, 22.32 and 22.32 mm**.
 There are no bodies in the under-5, 5–10 or 10–15 mm bands and the first interface is at print z
 **92.36 mm**. The hashed toolpath reading is
-[`enclosure-back-top.support-audit.json`](enclosure-back-top.support-audit.json); the four
+[`enclosure-back-top.support-audit.json`](enclosure-back-top.support-audit.json); the three
 retained bodies and the geometric reason for each are named in
 [`support-audit.json`](support-audit.json).
 
@@ -182,7 +183,7 @@ The snapshot carries the **+0.02 mm first-layer z-trim**
 ([z-trim.md](/hardware/printed-parts/z-trim.md)) — `G29.1 Z{0.0}` on this plate and nozzle
 against Bambu's stock `Z{-0.02}`. The run above is the stock compensation.
 
-The plate stands 251.03 × 286.48 mm and the mesh is 1,132,024 faces, `mesh_stat` all zeros —
+The plate stands 251.03 × 286.48 mm and the mesh is 1,132,262 faces, `mesh_stat` all zeros —
 no edges fixed, no degenerate facets, none removed and none reversed.
 
 **No time or length to carry.** The archive holds the project and no g-code, so unlike the

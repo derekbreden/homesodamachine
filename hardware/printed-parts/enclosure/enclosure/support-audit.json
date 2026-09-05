@@ -60,49 +60,13 @@
       "support_bodies": [
         {
           "tree": "tree-1",
-          "name": "ASSE anchor aft round-section soffit and west ceiling-strip tree",
-          "first_contacts_cad_xyz_mm": [
-            [
-              -85.8,
-              393.9,
-              321.0,
-              -78.2,
-              407.1,
-              321.48
-            ]
-          ],
-          "root": "bed",
-          "build_up_mm": 160.8,
-          "interface_islands": 2,
-          "rationale": "The first contact is the flat underside of the anchor's aft round section, east of where its 45 degree corbel stops. That corbel is struck on the deepest section's V foot and carries the anchor's underside from the -X wall out to that foot; each round section is a box running on east to the chain's own axis with the fitting's bore cut out of its east face, so 8.5 mm of flat soffit stands past the foot with nothing under it. Taking it back would take material out from under the bore that seats the fitting, and the V foot is already as far east as a wall-rooted wedge on this anchor can reach. The -X fixed ceiling strip's underside over the chain joins the same bed-rooted body through the open enclosure: that strip's own 45 degree corbel is deepest at the flank and thinnest at the removable panel's edge, and the chain stands in the run band the corbel has to give up."
-        },
-        {
-          "tree": "tree-2",
-          "name": "forward west service-furniture and ceiling-strip tree",
-          "first_contacts_cad_xyz_mm": [
-            [
-              -97.8,
-              281.9,
-              263.64,
-              -77.8,
-              293.5,
-              264.12
-            ]
-          ],
-          "root": "bed",
-          "build_up_mm": 103.44,
-          "interface_islands": 8,
-          "rationale": "The -X wall's service contacts through the water-split and flow-regulator band, and the -X ceiling strip's fore end at the Y-seam mouth. Each keeps a component, routing, anchor or seam-clearance lane open on the wall it stands beside; their eight interfaces share one bed-rooted tree in the open enclosure, so none of them hides a separate short or material-rooted support."
-        },
-        {
-          "tree": "tree-3",
-          "name": "core-hold, drip-sleeve, nameplate and rear-wall tree",
+          "name": "back-top service furniture and ceiling-dado tree",
           "first_contacts_cad_xyz_mm": [
             [
               -67.0,
-              449.5,
+              450.3,
               252.36,
-              -57.0,
+              -58.2,
               460.3,
               252.84
             ],
@@ -117,34 +81,44 @@
           ],
           "root": "bed",
           "build_up_mm": 92.16,
-          "interface_islands": 12,
-          "rationale": "The two first contacts carry the west and east cold-core aft hold-down soffits over the core's insertion lane - a pillar in that lane blocks the core riding in through the Y-seam mouth, and the bearing face is the lowest thing on each bracket. Ten more contacts join the same bed-rooted body through the open enclosure: the ASSE drip-pan sleeve's floor east of its wall-rooted 20 mm corbel (the pan is longer than a wedge off that one wall can carry, and nothing stands under its east half to root a second); the anchor's fore round-section soffit, the mirror of tree-1's; the nameplate mouth's ceiling in the +Y wall; the keystone jack's retention ceiling; three of the five Wago-well retention ceilings; the C14 tunnel's aperture ceiling, the bridge the bore's width between the block's two flanks; the +X wall's service contact behind the PSU; and the -X ceiling strip's aft end at the water bulkhead."
+          "interface_islands": 26,
+          "rationale": "The two first contacts carry the west and east cold-core aft hold-down soffits over the core's insertion lane. Twenty-four later contacts branch from the same bed-rooted body through the open enclosure: the rear and west-wall service furniture, the drip-pan sleeve, nameplate and keystone roofs, both ASSE round-section soffits, all five power-row Wago roofs, the C14 aperture bridge, the three retained female-dado roof regions, the ASSE-local rail pocket roof, and the fixed-strip fore and relief soffits. The dado contacts are deliberately flat: a 6 mm upper flange closes the exterior over each 12 mm-square panel tongue, and their support withdraws through the groove's open Y-seam mouth before the panel slides in."
         },
         {
-          "tree": "tree-4",
-          "name": "east Wago-well and fixed ceiling-strip tree",
+          "tree": "tree-2",
+          "name": "flow-regulator anchor outer end web",
           "first_contacts_cad_xyz_mm": [
             [
-              95.4,
-              352.3,
-              330.84,
-              103.8,
-              359.5,
-              331.32
-            ],
-            [
-              95.4,
-              368.3,
-              330.84,
-              103.8,
-              375.5,
-              331.32
+              -104.2,
+              223.9,
+              329.88,
+              -98.2,
+              226.3,
+              330.36
             ]
           ],
-          "root": "bed",
-          "build_up_mm": 170.64,
-          "interface_islands": 4,
-          "rationale": "Two of the five Wago-well retention ceilings on the +X wall. Each well grips its lever nut against the wall and that ceiling is the face which holds it in, so opening it into a 45 degree roof gives the retention up. Both exposed regions of the +X fixed ceiling strip join the same bed-rooted body: its underside over the raised relay, where the strip's corbel is already given up across that complete band, and its fore-end crown at the Y-seam mouth, where front-top's ceiling tongue lands one slip under it."
+          "root": "model",
+          "build_up_mm": 22.32,
+          "interface_islands": 1,
+          "rationale": "The outer end web of the -X wall rib closes around the flow regulator's round barrel seat and preserves its square retaining section. Its one support body establishes on the rib's lower solid and builds 22.32 mm before meeting this 6.0 x 2.4 mm contact."
+        },
+        {
+          "tree": "tree-3",
+          "name": "water-split anchor outer end web",
+          "first_contacts_cad_xyz_mm": [
+            [
+              -103.8,
+              251.1,
+              301.8,
+              -98.2,
+              253.5,
+              302.28
+            ]
+          ],
+          "root": "model",
+          "build_up_mm": 22.32,
+          "interface_islands": 1,
+          "rationale": "The outer end web of the -X wall rib closes around the water split's round barrel seat and preserves its square retaining section. Its one support body establishes on the rib's lower solid and builds 22.32 mm before meeting this 5.6 x 2.4 mm contact."
         }
       ]
     },

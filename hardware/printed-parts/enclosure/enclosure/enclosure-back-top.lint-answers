@@ -42,18 +42,45 @@ click: x=-78.070 y=400.460 z=322.548
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-86.075 y=424.500 z=348.500
 
-[ceiling] The four fixed ceiling-strip bearing faces — the two Y-seam fore ends and the retained east and west runs beside the removable panel. They carry the panel's square tongues and preserve the fixed strips' full section; the production slice reaches all four from the bed on the existing long trees.
+[sliver] The ASSE-local rail-pocket shoulder — the 0.5 mm-tall upright joins the pocket's z=351.5 underside to the adjacent z=352 nominal-wall soffit. It is the end face of two broad, fully backed ceiling regions, not a thin ligament.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=92.075 y=297.000 z=352.000
-click: x=-95.075 y=207.525 z=352.000
-click: x=95.075 y=207.525 z=352.000
-click: x=-93.575 y=389.250 z=352.000
+click: x=-91.650 y=374.000 z=351.750
+
+[sliver] The inboard exposed shoulders of the five power-row Wago roofs — each 1.5 mm-wide face is the top of a complete 3 mm-thick retention roof, bounded outboard by the ceiling-growth relief and backed across the well's full 10.4 mm run. These are roof transitions, not narrow stock.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=95.950 y=355.700 z=334.800
+click: x=95.950 y=371.950 z=334.800
+click: x=95.950 y=388.200 z=334.800
+click: x=95.950 y=404.450 z=334.800
+click: x=95.950 y=420.700 z=334.800
+
+[sliver] The two fore fit-clearance corners of the female ceiling rails — each face is exactly the 0.15 mm printed-fit slip where the groove meets the panel's fore plane. A 6 mm upper flange backs the full height, and `ceiling-dado-show-cap` bounds the only missing exterior volume to this 0.15 × 0.15 mm corner on each side.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-79.575 y=236.150 z=352.000
+click: x=79.575 y=236.150 z=352.000
+
+[ceiling] The three full female ceiling-dado roof regions — horizontal bearing faces above the 12 mm-square panel tongues, with a complete 6 mm exterior flange overhead. They are deliberately supported instead of rising to an exterior slot; the production slice joins all three to its one bed-rooted tree, and the support withdraws through the open Y-seam mouth before panel insertion.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-85.575 y=429.000 z=349.000
+click: x=85.575 y=344.875 z=349.000
+click: x=-85.575 y=295.000 z=349.000
+
+[ceiling] The ASSE-local female-rail pocket roof — the placed body needs the underside raised to z=351.5 over this one band, while 3.5 mm of uninterrupted exterior wall remains above it. Its broad flat joins the main bed-rooted support tree and withdraws through the same open groove mouth.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-85.575 y=372.710 z=351.500
+
+[ceiling] The four fixed-strip nominal-wall soffits — the two Y-seam fore crowns and the retained east and west relief regions keep at least the enclosure's complete 3 mm wall under the exterior face. The production slice carries these functional flats on the same bed-rooted tree as the dado roofs.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-96.575 y=374.000 z=352.000
+click: x=95.075 y=297.000 z=352.000
+click: x=-92.075 y=218.000 z=352.000
+click: x=92.075 y=218.000 z=352.000
 
 [ceiling] The ASSE drip-pan sleeve's floor east of its wall-rooted 20 mm corbel — the tray is longer than a wedge from the west wall can carry, and the flat is its insertion and bearing plane. Its support is part of the large bed-rooted rear-wall tree with an open extraction path.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-67.850 y=391.400 z=281.611
 
-[ceiling] The west-wall tube and fitting anchors' functional soffits — one flavor-line tube seat and the water-split and flow-regulator barrel seats. Their half-round bores, wall-thick lips, end webs and zip-tie lanes retain these flats; the production slice joins every interface to the bed-rooted forward service-furniture tree.
+[ceiling] The west-wall tube and fitting anchors' functional soffits — one flavor-line tube seat and the water-split and flow-regulator barrel seats. Their half-round bores, wall-thick lips, end webs and zip-tie lanes retain these flats. The production slice joins the main contacts to its bed-rooted tree; the outer end web of each water body gets one separate model-rooted tree with 22.32 mm of build-up.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-88.285 y=287.580 z=264.590
 click: x=-96.325 y=225.140 z=308.761
@@ -80,7 +107,7 @@ file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-37.810 y=461.355 z=317.220
 click: x=-37.810 y=458.000 z=315.220
 
-[ceiling] The ASSE anchor's two round-section soffits — each flat continues east of the wall-rooted 45° corbel so the concentric bore retains a complete fitting seat. Both are reached from the bed by the production slice, one on each existing rear service tree.
+[ceiling] The ASSE anchor's two round-section soffits — each flat continues east of the wall-rooted 45° corbel so the concentric bore retains a complete fitting seat. Both are reached from the bed by the production slice on its main service-and-dado tree.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-82.310 y=400.460 z=321.921
 click: x=-82.310 y=347.960 z=321.921
