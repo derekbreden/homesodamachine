@@ -16,7 +16,7 @@ The flavour manifold carries two KPHM400 pumps, so the top clamp contains
 | octagonal location | [53](SOCKET_SPAN) mm at the flats, [1.5](SOCKET_LEDGE) mm ledges, [21](BOSS_DEPTH) mm deep |
 | shoulder | [3](SHOULDER) mm over the boss, bored Ø[37](CAN_BORE) for the can |
 | complete collar rise | [24](TRAY_D) mm |
-| pump envelope below it | [62.61](HEAD_W) mm head, [48.88](HEAD_D) mm deep |
+| pump envelope below it | [62.61](HEAD_W) mm head, [47.88](HEAD_D) mm deep |
 | stamped bracket | [68.6](BRACKET_W) mm square, stated by the pump reference and added to assembly checks |
 | rear stack axis | [1](REAR_AXIS_Y_SHIFT) mm toward Y− from the head and lower-cradle datum |
 
