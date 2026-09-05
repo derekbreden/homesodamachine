@@ -1,5 +1,6 @@
 {
   "/hardware/service/_pump_replacement_sync.py": {
+    "BODY_AIR": "1.454",
     "BOX_TEES": "6",
     "CAP_SCREWS": "2",
     "CAP_SCREW_LEN": "10",
@@ -16,6 +17,8 @@
     "PLATE_SPAN": "200",
     "PLATE_T": "3.175",
     "REST_GAP": "1.5",
+    "SLEEVE_TRAVEL": "1.65",
+    "STROKE": "3.15",
     "TRAY_VALVES": "8",
     "TUBE_OD": "6.35 mm"
   }

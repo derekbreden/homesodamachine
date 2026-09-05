@@ -63,9 +63,10 @@ of the printed enclosure. The cartridge's aft notches clear the cheeks as it mov
 **The wall behind the plate holds each tee square.** It spans the bay and clears each
 tee's branch collar by `TEE_WALL_BORE_SLIP` on the radius. The tee is located across its
 axis and free to move along it. The wall's larger collar bore meets the smaller teardrop
-passage at the release face; its aft face leaves the tee body 2.835 mm of modeled release
-travel and 1.454 mm of body air (`TEE_WALL_BODY_AIR`). The release travel comprises the
-1.5 mm rest gap and 1.335 mm of sleeve travel. The integral plate stays with front-top throughout a pump swap.
+passage at the release face; its aft face leaves the tee body [3.15](STROKE) mm of modeled release
+travel and [1.454](BODY_AIR) mm of body air (`TEE_WALL_BODY_AIR`). The release travel comprises the
+[1.5](REST_GAP) mm rest gap and [1.65](SLEEVE_TRAVEL) mm of sleeve travel, the PP0208E's own
+([`reference/tee-connector/`](/hardware/reference/tee-connector/README.md)). The integral plate stays with front-top throughout a pump swap.
 
 Pull the cartridge and the gripped tubes drag the tees forward [1.5](REST_GAP) mm — each tee
 running in its own bore — until each nose lands on that land. The body keeps coming, the nose

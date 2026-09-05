@@ -51,10 +51,13 @@ destroyed is a part that comes out by being destroyed.
   material's direction, not a number: no elongation, modulus or stress figure for Fiberon PET-GF15
   is recorded anywhere here. Any claim that a particular catch *could* be sprung answers to that
   number first.
-- **How much axial travel a collet needs is not in this tree.** The models carry collet faces
-  and `BUTT = 0`; the insertion depth of the 1/4" quick-connects, and whether over-inserting a
-  stub buys slack to close a joint between two fixed bodies, are unmeasured. Any claim that a
-  particular arrangement cannot be assembled answers to that number first.
+- **How far a tube runs into a collet, and how far its sleeve presses, is measured for the
+  tee.** The PP0208E's own figures are in
+  [`reference/tee-connector/`](/hardware/reference/tee-connector/README.md): a 1/4" tube meets
+  resistance at 7 mm, is held from 8.5 mm and bottoms at 10 mm, and one sleeve presses 1.65 mm.
+  The models still carry `BUTT = 0`, the other quick-connects' depths are unmeasured, and whether
+  over-inserting a stub buys slack to close a joint between two fixed bodies is unmeasured. Any
+  claim that a particular arrangement cannot be assembled answers to those numbers first.
 - **Assembly order runs opposite to group size** where a group is built as a unit. A
   free-standing sub-assembly is a convenience of the bench, not a requirement the joints
   impose.

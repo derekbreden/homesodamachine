@@ -159,7 +159,6 @@ import funnel as _funnel                       # noqa: E402
 import funnel_drain_stub as _stub                     # noqa: E402
 import elbow_connector as _elbow                      # noqa: E402
 import valve_seat as _vseat                           # noqa: E402
-import jg_pp0408w as _jgu                             # noqa: E402
 import manifold_layout as ml                          # noqa: E402
 import seaflo_suction_chain as _suct                  # noqa: E402
 import seaflo_discharge_chain as _dis                 # noqa: E402
@@ -1229,7 +1228,7 @@ def collet_plate_spec(mcarry, tray_stations) -> dict:
     nominal_hole_z = hole_z - _enc._interface.manifold_rise
     x1 = _enc.interior_x()[1] - _enc.plate_step_in()
     tee = ml.tee
-    stroke = PLATE_REST_GAP + _jgu.COLLET_TRAVEL
+    stroke = PLATE_REST_GAP + tee.COLLET_TRAVEL
     return {"holes": tuple(sorted(holes)),
             "aft_y": round(aft, 6), "fore_y": round(aft - PLATE_T, 6),
             "z0": round(z0, 6), "z1": round(2.0 * nominal_hole_z - z0, 6),
