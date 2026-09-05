@@ -54,8 +54,9 @@ from docgen import substitute_md                          # noqa: E402
 # --- what the pump brings ----------------------------------------------------
 # The head's square, half of it: how far its crown reaches off the pump's axis.
 head_half = _kp.head_w / 2.0
-# How far the head hangs below the bracket plane, into the lower cradle.
-head_depth = _kp.head_depth
+# The holder's clearance envelope below the bracket, independent of the fitted head face.
+head_depth = 48.88
+head_front_z = _kp.head_front_z
 # The boss's octagon, half of it at the flats.
 boss_half = _pc.bore_half_span
 # The boss's whole run off the bracket plane — the bore wall's depth.
@@ -102,10 +103,9 @@ skirt_open_y_max = _kp.skirt_y_max + skirt_y_plus_air
 skirt_upper_band = _kp.skirt_upper_band
 skirt_support_y_minus = _kp.skirt_support_y_minus
 skirt_support_y_plus = _kp.skirt_support_y_plus
-# The fitting axes' height in the pump frame. `pump_case.cut_arch_notches` splits its circular
-# outlets on this plane; the enclosure's fitted half-wrap keeps this centre and takes its radius
-# from the physical `fitting_w`; the straight shaft itself uses `shaft_w`.
-outlet_axis_z = _kp.arch_plane_z
+# The holder passage's circular bottom stays on the case's skirt-bottom datum. Its open shaft
+# admits the fitted outlet above it; the straight shaft uses `shaft_w`.
+outlet_axis_z = _pc.skirt_bottom_z
 # The case's own footprint, half of it — what its base plate and the foot of its ramp reach.
 case_half = _pc.footprint_half_extent
 # And that base plate's own thickness. The enclosure restores this whole section above the

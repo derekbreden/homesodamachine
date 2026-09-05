@@ -1,11 +1,11 @@
 {
   "/hardware/manifold-layout/manifold_layout.py": {
-    "BARB_INSET": "20.38",
+    "BARB_INSET": "24.38",
     "BARB_PITCH": "59.75",
     "BARB_PITCH2": "59.75",
     "BARB_PLATE_BERTH": "5.7",
     "BARB_STANDOFF": "6.98",
-    "BARB_TUBE_LEN": "7.26",
+    "BARB_TUBE_LEN": "6.98",
     "BEND_Y": "79.07",
     "BUTT_COUNT": "9",
     "CLASHES": "0",
@@ -31,7 +31,7 @@
     "MIRROR_OFF": "0.0000",
     "MOUTH_COUNT": "8",
     "MOUTH_COUNT2": "8",
-    "PUMP_DROP": "2",
+    "PUMP_DROP": "3",
     "PUMP_STATION_LEAD": "1.28",
     "QUARTER_COUNT2": "2",
     "QUARTER_COUNT4": "2",

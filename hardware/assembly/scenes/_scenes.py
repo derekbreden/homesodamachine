@@ -203,11 +203,7 @@ SCENES = (
     Scene(
         "front-top", "Enclosure front top",
         roots=("enclosure-front-top",), inner=(), flip=((1, 0, 0), 180.0), also=(),
-        # THE COLLET PLATE IS ON THIS PIECE AND IN THIS POSE. It goes in through the Z− face,
-        # which is the face looking up here, so the bench work that fills the trays fills the
-        # bay's slot too. The FUNNEL is the opening that is still filled from the room: it
-        # drops into its throat on its own brim, which is not a joint a hand can make with the
-        # piece upside down on a bench.
+        # The collet plate is part of front-top; the funnel is fitted with the box standing.
         later=("funnel",),
         # `zoom` is a multiple of the SCENE's own bounding radius, and nothing here leaves the
         # piece: the radius is the piece's. The elevation is what opens the two valve rows —
@@ -221,8 +217,7 @@ SCENES = (
         cam=(0.8, -1.0, 0.9), up=(0, 0, 1), zoom=4.4, look="centre",
         note="The same pose as the back top and the other half of the same box: on its ceiling, "
              "the mouth to the room. Every seat under this manifold is the piece's own "
-             "material, and so is the collet plate's slot — the steel goes down it in this very "
-             "pose, foot first, onto the bay floor's top. Its two openings stand empty: one "
+             "material, and so is the collet plate. Its two openings stand empty: one "
              "takes the funnel and the front bay takes the pump cartridge both pumps ride, and "
              "each is filled with the box standing.",
     ),
@@ -494,9 +489,6 @@ BEARS_ON = {
     "bulkhead-flavor-a": "enclosure-back-top",
     "bulkhead-flavor-b": "enclosure-back-top",
     "co2-inlet": "enclosure-back-top",
-    "collet-plate": "enclosure-front-top",           # in through that piece's bed face, ahead
-                                                     # of the front column; front-bottom's shelf
-                                                     # comes under it when the seam closes
     "display": "enclosure-front-top",               # let into that piece's own facet
     "display-gasket": "enclosure-front-top",         # in the same inset, under the plate's lap
     "funnel": "enclosure-front-top",         # brim on the top wall, collar forward

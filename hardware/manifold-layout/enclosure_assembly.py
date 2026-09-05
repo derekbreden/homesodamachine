@@ -134,7 +134,7 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "printed-parts" / "enclosure" / "ceiling-panel"):
     sys.path.insert(0, str(_p))
 import fits
-from _cadq_export import (SOLID_INDEX_SEP, export_assembly, export_dxf,  # noqa: E402
+from _cadq_export import (SOLID_INDEX_SEP, export_assembly,  # noqa: E402
                           import_step)
 import _boxes                                         # noqa: E402
 import _clearing                                      # noqa: E402
@@ -306,7 +306,7 @@ FUNNEL_ROT = 0.0
 # bodies' own STEPs read too.
 from _materials import (C_AC_HUB, C_C14, C_COMP, C_COND, C_DIGITEN,  # noqa: E402
                         C_DISPLAY_GLASS, C_DOCK, C_GND, C_MQ6, C_PCBA, C_PLATE,
-                        C_PSU, C_RELAY, C_SEAFLO, C_STEEL_PLATE,
+                        C_PSU, C_RELAY, C_SEAFLO,
                         M_ALUMINIUM, M_BRASS, M_JG_BLACK_PP,
                         M_NEOFIT_ACETAL, M_PETG_BLACK, M_PETGF_BLACK, M_SILICONE_BLACK,
                         M_STAINLESS, M_TINNED_STEEL, M_TPU_BLACK)
@@ -1193,166 +1193,53 @@ def pump_tray_plans(a=None, shell=None) -> dict:
             for head, (_axis, _sign, centre) in pump_tray_seats(placed).items()}
 
 
-# --- the collet plate --------------------------------------------------------
-#
-# THE PUMP CARTRIDGE'S RELEASE, and the one piece of this machine that is steel. A flat of 1/8"
-# 316 stands one rest gap fore of the four anchor tees' branch collets, wall to wall, standing
-# in the slot `enclosure._plate_slot` cuts clean through the bay floor — the slot takes it fore
-# and aft over the floor's whole section, and its own TOP EDGE lands wall to wall on the
-# wall over it (`enclosure._plate_cap`), which is what stops it going in. IT GOES IN THROUGH FRONT-TOP'S OWN Z− FACE, the
-# seam plane the piece beds on, before the front column closes. Its ends stand
-# `enclosure.plate_step_in` off the cavity-side walls at every height, leaving a continuous
-# printed return beyond the insertion slot. Four holes pass
-# the barb tubes and nothing wider. Pull the pump cartridge and the gripped tubes drag the tees
-# forward
-# until each collet's nose lands on the steel — the body keeps coming, the nose is held,
-# the grip opens, and the tubes draw out through the holes they entered by. Pushing the
-# pump cartridge home threads them back into the same collets, the cradle's own aft face landing on
-# the plate's fore face, the tees braced by the deck lattice their own butted valves hang
-# them from. The user's two hands are the whole mechanism: one pulls the pump cartridge, the
-# other braces the box, and the box carries the brace to this plate through the floor.
-PLATE_T = 3.175              # .125" 316, laser-cut from `collet-plate.dxf`
-# WHAT THE MILL IS ALLOWED TO SEND, and the reason the stroke below is not just the rest gap.
-# SendCutSend's stated thickness tolerance on .125" 316 is +.001"/-.010", so the steel that
-# arrives is 2.921..3.200 rather than 3.175. The plate's AFT face is datumed — the tee wall
-# holds it there and the rest gap is struck off it — so a thin plate does not move the collets;
-# what it moves is the plate's FORE face, and with it the distance the four noses shove the
-# plate before the slot's own fore face catches it. That distance is lost motion in the
-# release, and `PLATE_LOST_MOTION` is the whole of it at the thinnest plate the mill may cut.
-PLATE_T_UNDER = 0.254        # -.010", the negative half of that tolerance
-PLATE_LOST_MOTION = _enc.plate_slot_slip + PLATE_T_UNDER
-PLATE_REST_GAP = 1.5         # collet nose air off the plate's aft face, pump cartridge seated
-PLATE_HOLE_D = 8.5           # passes the lowered tube's shallow angle, stops the nose
-COLLET_NOSE_R = 5.715        # the release nose's rim, measured off tee-connector.step
-TEE_WALL_BORE_SLIP = 0.25    # a bore's air on the collar's own radius — a running fit, not a grip
-TEE_WALL_BODY_AIR = 1.0      # the wall's aft face off the tee's own body, at FULL travel
+# --- the integral printed collet plate ---------------------------------------
+PLATE_T = 3.175
+PLATE_REST_GAP = 1.5
+PLATE_HOLE_D = 8.5
+COLLET_NOSE_R = 5.715
+TEE_WALL_BORE_SLIP = 0.25
+TEE_WALL_BODY_AIR = 1.454
 
 _stated.state(
-    "collet-plate-stops-nose", "The collet plate holes stop the release noses",
-    f"a hole smaller than the {2.0 * COLLET_NOSE_R:g} mm nose rim",
-    PLATE_HOLE_D < 2.0 * COLLET_NOSE_R,
-    f"the plate's {PLATE_HOLE_D:g} mm tube opening reaches the release nose's "
-    f"{2.0 * COLLET_NOSE_R:g} mm rim, so the plate cannot press the sleeve.")
+    "collet-plate-stops-nose", "The printed collet plate stops the release noses",
+    "the complete teardrop opening inside the release rim",
+    PLATE_HOLE_D / (2.0 * math.cos(math.radians(_enc.teardrop_roof_angle))) < COLLET_NOSE_R,
+    "the tube opening's teardrop crown reaches the release nose rim")
 
 
 def collet_plate_spec(mcarry, tray_stations) -> dict:
-    """The plate as the four branch collets and the walls place it — faces, band, ends,
-    holes — the one figure the steel, the bay floor's slot and the cut file's own outline
-    all read.
+    """The printed release section and collar bores on the four anchor-tee axes.
 
-    Its Z band is centered on the manifold's nominal tube plane. The bottom is the seam plane;
-    the hole row follows `manifold_rise` inside that fixed outline.
-    Over the top the guides' heads stand one `slide_slip` clear
-    (`enclosure._plate_fore_guides`).
-
-    ACROSS IT IS ONE WIDTH, AND IT IS A RECTANGLE. Each end stands `enclosure.plate_step_in`
-    off its cavity-side wall at EVERY height: one `plate_slot_slip` of cutting air and one
-    `plate_end_stock` printed return. The plate enters on Z through front-top's bed face and
-    the slot keeps this same X span throughout; the front-column rail run begins aft of the
-    tee wall and does not consume the plate's tail width.
-
-    SO THE PART HAS NO NOTCH IN IT AT ALL. What stops it is its own TOP EDGE, landing wall to
-    wall on `enclosure._plate_cap`'s land, while the slot's two constant ends locate it in X
-    from mouth to cap. The laser cuts four corners and four holes."""
+    The outline is centered on the nominal tube plane; the hole row follows the manifold rise.
+    The release section shares its aft face with the collar wall and its top with the cap.
+    """
     holes, faces = [], []
     for t in sorted(ml.BARB_OF):
         (px, py, pz), _axis = mcarry(ml.branch_port(t))
         holes.append((round(px, 6), round(pz, 6)))
         faces.append(py)
     if max(faces) - min(faces) > 1e-6:
-        raise ValueError(
-            f"the four branch collets stand on {len(set(round(f, 4) for f in faces))} planes "
-            f"({sorted(set(round(f, 4) for f in faces))}) — one plate presses one plane")
-    aft = faces[0] - PLATE_REST_GAP
-    z0 = _enc.z_seam
+        raise ValueError("the four branch collets need one release plane")
     hole_z = holes[0][1]
     if max(abs(hz - hole_z) for _hx, hz in holes) > 1e-6:
-        raise ValueError(
-            f"the four branch collets stand on {len(set(round(hz, 4) for _hx, hz in holes))} "
-            f"heights ({sorted(set(round(hz, 4) for _hx, hz in holes))}) — one band centres "
-            f"one row")
-    x1 = _enc.interior_x()[1] - _enc.plate_step_in()
+        raise ValueError("the four branch collets need one tube-centre elevation")
+    aft = faces[0] - PLATE_REST_GAP
+    z0 = _enc.z_seam
     nominal_hole_z = hole_z - _enc._interface.manifold_rise
-    z1 = round(2.0 * nominal_hole_z - z0, 6)
-    # AND THE WALL BEHIND IT, off the same four collets — the steel's aft face IS the wall's
-    # fore face, so the two are one figure and cannot be struck apart. What the wall reads is
-    # the round collar the tee carries through it. The collar-clear opening crosses the whole
-    # wall section, locating the tee in X and Z while leaving its release axis open.
-    #
-    # THE WALL DOES NOT RESTRAIN THE TEE ALONG ITS OWN AXIS, and its aft face is struck so
-    # that it cannot. A tee travels WITHIN this wall: the collar runs in its bore and the
-    # STEEL in front is the only thing that stops it, which is the one surface meant to.
-    # `HALF_W` is the run's radius, so `BRANCH_REACH - HALF_W` off the collet face is where
-    # the arm ends and the body it grows out of begins — the first thing on a tee that a wall
-    # behind it could ever land on. Take the wall back from there by the whole stroke AND
-    # `TEE_WALL_BODY_AIR` on top, so at full travel there is still air between the tee's
-    # shoulder and this face rather than a kiss. Depth past that point is not room the wall
-    # may take: it is the tee's, and a wall standing in it is a wall the tee lands on before
-    # its own grip has opened.
-    #
-    # `stroke` IS THE TRAVEL THE RELEASE ASKS OF A TEE, and it is three terms, not one.
-    #
-    # FIRST the rest gap, which carries the nose to the steel. SECOND the steel's own lost
-    # motion: nothing holds the plate aft but the tee wall it leans on, so the four noses shove
-    # it fore until the slot's fore face catches it, and over that distance the sleeve is not
-    # being pressed at all — the plate is travelling with the nose. `PLATE_LOST_MOTION` is that
-    # distance at the thinnest plate the mill may send. THIRD the sleeve's own slide, which is
-    # what actually opens the grip.
-    #
-    # THAT THIRD FIGURE IS NOT ON THE TEE'S STEP — a harvested solid carries the sleeve where it
-    # was when it was scanned and has no way to say how far it slides — so it is read from the
-    # one member of this collet family measured in hand, `jg_pp0408w.COLLET_TRAVEL`, off the
-    # caliper record at `off-the-shelf-parts/john-guest-union/`: extended 41.80, pressed 39.13,
-    # half the difference each end. `stroke_ceiling` is the same sum against the sleeve's own
-    # proud length instead, which is as far as it could POSSIBLY be pressed — a sleeve cannot
-    # travel further than it stands out — so the two bracket the answer and `collet-travel-fits`
-    # holds one under the other.
-    #
-    # AND EVERY ONE OF THE THREE IS ROOM THE WALL BEHIND MUST GIVE BACK. `wall_aft_y` is struck
-    # off this sum, so a term dropped here is not a term the release does without — it is a
-    # printed face standing in the stroke, and the tee lands on it before its grip has opened.
+    x1 = _enc.interior_x()[1] - _enc.plate_step_in()
     tee = ml.tee
-    branch_face = faces[0]
-    stroke = PLATE_REST_GAP + PLATE_LOST_MOTION + _jgu.COLLET_TRAVEL
+    stroke = PLATE_REST_GAP + _jgu.COLLET_TRAVEL
     return {"holes": tuple(sorted(holes)),
             "aft_y": round(aft, 6), "fore_y": round(aft - PLATE_T, 6),
-            "z0": round(z0, 6), "z1": z1,
+            "z0": round(z0, 6), "z1": round(2.0 * nominal_hole_z - z0, 6),
             "x0": round(-x1, 6), "x1": round(x1, 6), "hole_d": PLATE_HOLE_D,
             "seat_z": round(_enc.bay_floor_z(tray_stations)[1], 6),
-            "wall_aft_y": round(branch_face + tee.BRANCH_REACH - tee.HALF_W
+            "wall_aft_y": round(faces[0] + tee.BRANCH_REACH - tee.HALF_W
                                 - stroke - TEE_WALL_BODY_AIR, 6),
             "bore_r": round(tee.BARREL_R + TEE_WALL_BORE_SLIP, 6),
-            "stroke": round(stroke, 6),
+            "rest_gap": PLATE_REST_GAP, "stroke": round(stroke, 6),
             "stroke_ceiling": round(PLATE_REST_GAP + tee.COLLET_PROUD, 6)}
-
-
-def build_collet_plate(spec):
-    """The steel itself: `enclosure.plate_outline` stood up on edge, and four tube bores."""
-    plate = _enc._xz_prism(spec["fore_y"], spec["aft_y"], _enc.plate_outline(spec))
-    for hx, hz in spec["holes"]:
-        plate = plate.cut(cq.Solid.makeCylinder(
-            spec["hole_d"] / 2.0, PLATE_T + 2.0,
-            cq.Vector(hx, spec["fore_y"] - 1.0, hz), cq.Vector(0, 1, 0)))
-    return plate
-
-
-def export_collet_plate_dxf(spec, path):
-    """The cutter's own file: outline and four tube holes, flat — the
-    section of a unit slab cut the way the steel is, so the loops cannot disagree with the solid.
-
-    AND IT COMES OUT ON Z=0. The section is taken half way up a unit slab, which puts every
-    line and circle on the plane it was cut at rather than on the plane a cut file is read on;
-    dropping the result back to zero is what makes the file two-dimensional in fact and not
-    only in shape. A shop's uploader is entitled to take a non-zero elevation at its word.
-
-    Written through `export_dxf`, so the header's save-time stamps and GUIDs come out
-    canonical and a rebuild that moves no dimension leaves the file alone."""
-    flat = (cq.Workplane("XY")
-            .polyline(_enc._ring(_enc.plate_outline(spec))).wire().extrude(1.0))
-    for hx, hz in spec["holes"]:
-        flat = flat.cut(cq.Workplane("XY").workplane(offset=-0.5)
-                        .center(hx, hz).circle(spec["hole_d"] / 2.0).extrude(2.0))
-    export_dxf(flat.section(0.5).translate((0, 0, -0.5)), str(path))
 
 
 EXTRUSION_W = 0.42           # the outer-wall bead the box's own profile lays
@@ -1452,10 +1339,8 @@ def _boxed(x0, x1, y0, y1, z0, z1):
 # carrying it and the sweep has to carry it too — LESS the bodies cradled on the cold
 # core's own cap, which are the core's riders and nobody else's. The crossing runs to
 # the bulkheads and the pumps' own tubes are made up later and are not in the box yet.
-# THE COLLET PLATE IS ONE OF THESE. It goes into front-top through that piece's Z− face
-# before the column closes (`enclosure._plate_slot`), so the steel rides the piece through
-# the whole of its travel and this is the reading that carries it.
-FRONT_RIDERS = ("valve-v-", "coil-v-", "tee-y-", "turn-", "step-", "collet-plate")
+# The collet plate is part of front-top's own solid.
+FRONT_RIDERS = ("valve-v-", "coil-v-", "tee-y-", "turn-", "step-")
 # What rides THE CORE on its cart — everything standing on or cradled in the cap's lid
 # when the back assembly comes over: the water pump, its two made-up chains, and the
 # three cap-cradled valves with their coils and port stubs. They sweep with the core,
@@ -4462,15 +4347,7 @@ def build_pack() -> cq.Assembly:
     # AND THE TWO PUMP STATIONS, on the faces the fold left each Kamoer's head standing its boss
     # off. Read straight off the pack the same way; the lower cradle and top clamp consume them.
     a.pump_trays = pump_tray_stations({n: s for n, s, _c in stood})
-    # AND THE COLLET PLATE, in the berth `BARB_STANDOFF` opened between the barbs and the
-    # anchor tees' branch collets — the steel the pump cartridge's four grips release against.
     a.collet_plate = collet_plate_spec(mcarry, a.pump_trays)
-    plate_solid = build_collet_plate(a.collet_plate)
-    a.add(plate_solid, name="collet-plate", color=C_STEEL_PLATE)
-    record_seat("collet-plate", turns=(),
-                planes={"y1": a.collet_plate["aft_y"], "z0": a.collet_plate["z0"],
-                        "x0": a.collet_plate["x0"]},
-                got=box(plate_solid))
     # THE CORE IS PACKED AGAINST THE BACK. It is the body `rear_seam_clear` is written about —
     # the rearmost content, seated flush on the inner face of the rear Z-seam lip that hangs off
     # the +Y wall of back-top — so its aft face stands that one number inside `rear_plane_y`, which is the
@@ -5523,11 +5400,6 @@ def main():
     grafted = flute_payload.graft(mesh, flute_payload.surfaces())
     if grafted:
         print(f"-> {out.name}.mesh  ({grafted} fluted piece(s))")
-    # The cut file for the one steel piece, off the same spec the pockets and the
-    # pump cartridge's stops were struck from.
-    dxf = _here.parent / "collet-plate.dxf"
-    export_collet_plate_dxf(a.collet_plate, dxf)
-    print(f"-> {dxf.name}")
     report(a, _card.pack_clashes(a))
     _card.report(a)
     print(f"-> {_card.write(a, out).name}")

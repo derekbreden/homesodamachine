@@ -1597,7 +1597,7 @@ rail_reach_in = (max(front_top_flank_t, back_top_flank_t) - wall) + slide_slip +
 # brackets. The cradle's filled bearing block rides the bay floor while the fixed shell perimeter
 # stays 0.5 mm below its exterior face for Z clearance. Nothing latches it: four
 # barb tubes gripped in the anchor tees' branch collets are the retention, and the collet plate
-# (`enclosure_assembly.build_collet_plate`) is the release — pull the pump cartridge and the tees
+# (`_printed_collet_plate`) is the release — pull the pump cartridge and the tees
 # come with it until their collets press the plate, the tubes come free, and the pumps are
 # in your hand. Pushing it home threads the four tubes back through the plate's holes into
 # the same collets, the cradle's own aft face landing on the plate's.
@@ -1610,10 +1610,9 @@ rail_reach_in = (max(front_top_flank_t, back_top_flank_t) - wall) + slide_slip +
 # floor crosses it wall to wall and only the front boss's own plinth still stands over the
 # mouth here.
 #
-# THE COLLET PLATE COMES IN THROUGH THAT BED FACE. Its slot (`_plate_slot`) passes clean
-# through the floor and opens on the seam plane, and the steel goes up it until its two
-# tails land on the guides' heads. Front-bottom's mouth then closes under the foot, so what
-# holds the plate in the machine is the seam itself.
+# THE COLLET PLATE IS PRINTED INTO FRONT-TOP. Its rectangular section joins the tee wall.
+# Its perimeter fills the construction slot and joins the floor, outer cheeks and cap;
+# front-bottom carries feet under its two ends.
 #
 # The BAY is the opening all that leaves through: the complete exterior front-wall width from
 # the floor's top up past the motor cans' crowns. The two display-support columns and both fixed
@@ -1623,14 +1622,14 @@ rail_reach_in = (max(front_top_flank_t, back_top_flank_t) - wall) + slide_slip +
 #
 # BOTH FLANKS OPEN AS PART OF THAT SAME `_bay_cut`. The opening takes the two front corner
 # columns and the exterior side skins with it; at the aft outer edges,
-# two narrow fixed plate-retention cheeks overlap the steel's tails and the cartridge carries
+# two narrow fixed plate-retention cheeks overlap the plate's tails and the cartridge carries
 # local clearance notches round them (`_plate_fore_guides`,
 # `_plate_retention_clearance_notches`). Its floor is the Z-seam
 # floor: the installed cradle closes the front-top opening over the seam furniture below it.
 #
 # THE PUMP CARTRIDGE TAKES THE WHOLE FRONT-WALL WIDTH. Its outer skin follows the enclosure's
 # rounded silhouette all the way to both exterior side faces. Its lower edge shares the filled
-# block's bed plane, 0.5 mm above the stationary sill, and its crown keeps the same Z clearance
+# block's bed plane, 0.5 mm above the stationary sill, and its crown keeps 1 mm of clearance
 # below the lintel. Its full bay height is carried at that crown; its filled interior reaches
 # the side-wall planes and bears
 # on the bay floor. The only departures from that full-width envelope are the two hand pockets,
@@ -1648,16 +1647,12 @@ pump_bay_side_air = 0.5      # pump-body air inside each cavity throat plane
 # The monolithic clamp remains inside the cradle's two vertical wells throughout insertion and
 # withdrawal.
 cap_kiss = 0.1               # the cradle's aft face off the collet plate's, at full seat
-# THE STEEL'S OWN AIR, on every edge it presents to printed material. `fits.slip` is the
-# figure for a printed face on a printed face; this is the figure for the one part of this
-# box that is cut rather than printed — 1/8" 316 off a fiber laser, square-edged, carrying no
-# support residue and no elephant's foot, and bought to a lead time.
+# The nominal slot and cheek offset, filled by the integral plate's perimeter joins.
 steel_air = 0.2
-plate_slot_slip = steel_air  # air fore and aft of the collet plate in the floor's slot, and
-                             # across it too: the slot's constant ends locate the steel in X
-                             # and leave `plate_end_stock` printed beyond them
+plate_slot_slip = steel_air  # construction offset from the nominal plate faces to the slot
+                             # and cheek faces; `plate_end_stock` lies beyond the slot ends
 # Each fixed fore cheek overlaps this much of the collet plate's unperforated outer tail. Ten
-# millimetres of steel face bears on each cheek; the full-width pump cartridge clears them in
+# millimetres of plate face bears on each cheek; the full-width pump cartridge clears them in
 # two local aft-corner notches instead of spending its whole X span inside them. Each notch
 # follows the cheek's own plan rake one `fits.slip` fore of it.
 plate_guide_tail_land = 10.0
@@ -1665,12 +1660,12 @@ plate_slot_lead = 1.0        # 45 degree flare at the plate lane's Z− mouth, t
                              # the tee wall's fore face (`_plate_lead`) and not the floor's
 plate_end_stock = 4.3        # continuous printed X return from either slot end to the
                              # cavity-side wall; the 3 mm outer wall continues beyond it
-plate_cap_land = 1.0         # the flat the steel's top edge lands on, taken off the tee wall's
-                             # fore face — the plate's Z datum, wall to wall (`_plate_cap`)
+plate_cap_land = 1.0         # the flat adjoining the plate's top edge, taken off the tee wall's
+                             # fore face, wall to wall (`_plate_cap`)
 plate_foot_reach = 10.0      # front-bottom's foot inboard of the FLANK FACE, per end — with
-                             # the `plate_step_in` the steel is already let into that flank, the
+                             # the `plate_step_in` the plate stands in from that flank, the
                              # bearing its bottom edge stands on (`_plate_foot`)
-plate_foot_y = 20.0          # total fore/aft bearing land, centred on the steel's own section
+plate_foot_y = 20.0          # total fore/aft bearing land, centred on the plate's own section
 plate_foot_t = 3.0           # the foot's section at its inboard edge
 plate_foot_corbel_angle = 45.0  # its underside rising inboard from the flank
 plate_guide_wedge = 3.0      # the cheek's extra section at the fixed outer wall, raked away
@@ -1859,7 +1854,7 @@ def documented(box):
 #                 cap a bracket stands in, the core's aft face, and the plane its cap presents
 #   vent_chase    the cold core's PRV relief line, one (x, y, z) — the core's west flank, which
 #                 the chase's lip lands on, and the tube's own axis where it comes through
-#   collet_plate  the steel plate the barb tubes release against, as the dict
+#   collet_plate  the integral printed release face, as the dict
 #                 `enclosure_assembly.collet_plate_spec` strikes off the four anchor tees'
 #                 branch collets: its two Y faces, its Z band, its X ends, and one (x, z)
 #                 per hole. The bay floor's slot takes it (`_plate_slot`)
@@ -2950,11 +2945,11 @@ def _dims(pack):
                 if crowns else None)
     if pump_bay and pack.pump_trays:
         floor_top = bay_floor_z(pack.pump_trays)[1]
-        head_floor = min(cz - _tray.head_depth for _cx, _cy, cz in pack.pump_trays)
+        head_floor = min(cz + _tray.head_front_z for _cx, _cy, cz in pack.pump_trays)
         head_air = head_floor - floor_top
         roof_air = pump_bay[2] - max(crowns)
         head_target = (pump_relief_z_air + pump_cartridge_z_clearance + pump_bay_floor_relief
-                       - pump_station_drop)
+                       - pump_station_drop + _tray.head_depth + _tray.head_front_z)
         roof_target = pump_station_drop + bay_crown_air + pump_bay_roof_relief
         vertical_ok = (abs(head_air - head_target) <= stated_bound_tol
                        and abs(roof_air - roof_target) <= stated_bound_tol)
@@ -3151,37 +3146,29 @@ def seam_cap_z():
 
 
 def plate_step_in():
-    """HOW FAR EACH END OF THE COLLET PLATE STANDS IN FROM THE CAVITY-SIDE WALL.
+    """How far each nominal plate end stands in from the cavity-side wall.
 
-    THE PLATE COMES THROUGH FRONT-TOP'S Z− FACE. It has no X travel and its slot has no
-    reason to open into the side-wall bays above the lead-in. The steel therefore takes the
-    cavity width less one substantial printed return at each end: `plate_end_stock` of solid
-    between the slot and `interior_x`, plus `plate_slot_slip` between that solid and the cut
-    steel. On this box that puts the plate ends at x = ±100.000, the slot ends at ±100.200,
-    4.300 mm of printed material inboard of each cavity wall, and the enclosure's own 3 mm
-    wall beyond it.
+    `plate_end_stock` of solid lies between the slot and `interior_x`, plus
+    `plate_slot_slip` between the slot end and the plate. On this box the plate ends are
+    x = ±100.000, the slot ends are ±100.200, and 4.300 mm of printed return lies inside
+    each cavity wall, with the enclosure's 3 mm wall beyond it. `_printed_collet_plate`
+    fills the offset to both slot ends and joins those returns.
 
-    THE RECTANGLE KEEPS THAT WIDTH OVER ITS WHOLE HEIGHT. Its four holes remain on their
-    pack-struck X/Z datums, while each widened unperforated tail bears on ten millimetres of
-    fixed Y− cheek. The front column's rails begin aft of the tee wall; the plate and its
-    insertion slot stand fore of that run and do not spend their width on rail clearance."""
+    The rectangle keeps that width over its whole height. Its four passages follow their
+    pack-struck X/Z datums, while each unperforated tail overlaps ten millimetres of fixed
+    Y− cheek. The front column's rails begin aft of the tee wall; the plate and slot stand
+    fore of that run."""
     return plate_end_stock + plate_slot_slip
 
 
 def plate_outline(plate):
-    """THE COLLET PLATE'S OWN OUTLINE, as an `(x, z)` polygon — the one figure the steel, the
-    cut file and every body that stands beside it read.
+    """The collet plate's nominal rectangular `(x, z)` outline.
 
-    IT IS A RECTANGLE. Every plane it stands on is one the box already has: `plate_step_in`
-    off each side wall at every height, `z_seam` under it, and over it the height that
-    centres the four collet holes in the band.
-
-    NOTHING IS CUT OUT OF IT. A notch in a part is a thing something else is standing in, and
-    after the flip there is nothing standing in this one: what stops the steel is its own TOP
-    EDGE on `_plate_cap`'s land, so the outline owes the stop no shoulder; the lane its bottom
-    edge needs is the lane the whole part travels, so the ends owe the joint no step; and over
-    `seam_cap_z` the flank comes in to the steel rather than the steel out to the flank. Four
-    corners and four holes."""
+    Its ends stand `plate_step_in` off the side walls at every height, its bottom is
+    `z_seam`, and its top meets `_plate_cap` at the nominal band height. The four tube
+    passages follow their own pack-struck stations inside that outline. The outline
+    has four corners, with no notch, shoulder or stepped end. `_printed_collet_plate`
+    adds the perimeter joins to the floor, cheeks and cap around this nominal section."""
     x0, x1, z0, z1 = plate["x0"], plate["x1"], plate["z0"], plate["z1"]
     return [(x0, z0), (x1, z0), (x1, z1), (x0, z1)]
 
@@ -3230,8 +3217,8 @@ def flute_rails(box, berthed=()):
     (`_bay_storey_segments`). Every surface is struck at the same `flute_pitch` from a datum on
     x = 0, so each keeps the same phase and neither is told the other exists.
 
-    `berthed` is what the assembly stands in that storey — the lower cradle, top clamp and steel
-    plate. What a fitted body hides is not show face and gets no flutes
+    `berthed` carries the lower cradle, top clamp and the collet plate's shadow envelope.
+    What a fitted body hides is not show face and gets no flutes
     (`flute_skin._shadow_mask`); which of them hides what is measured, not listed."""
     outer = box.outer
     rails = [_flute_skin.Rail(at=lambda s: plan_at(s, outer),
@@ -4212,7 +4199,7 @@ def _rail_foot_face(x_in, sx, col):
 
     Both columns carry their full nominal flank section to the caught face and place the arm
     there. The front column derives its collet-plate ends from this moving envelope, so the
-    steel clears the deeper foot through the whole slide instead of truncating the wall."""
+    plate clears the deeper foot through the whole slide instead of truncating the wall."""
     return _rail_nominal_foot_face(col, sx)
 
 
@@ -4548,33 +4535,19 @@ def _front_bottom_flank_skin(inner, west_cradle, y_joint, zj):
 
 
 def _plate_foot(inner, plate, zj):
-    """THE TWO FEET THE COLLET PLATE STANDS ON — front-bottom's own, one under each end of the
-    steel, their top face the seam plane itself.
+    """The two feet beneath the integral collet plate — front-bottom's own, one per end.
 
-    THE STEEL IS CARRIED BY THE SEAM. `_plate_cap`'s land is OVER the plate, struck at the steel's
-    own `z1`, and stops it where it is pushed to; nothing in front-top stands under it, and
-    front-bottom is a hollow tub across the bay at this station — it holds nothing under the
-    steel's middle. What the plate stands on is what this piece brings to the mouth: its two
-    FLANKS, which `_front_bottom_flank_skin` has carried to `front_bottom_flank_face`, and this,
-    which continues that same face inboard under the steel's ends.
+    The top face is the seam plane, matching the plate's `z0`. Each foot continues
+    `_front_bottom_flank_skin` inboard from `front_bottom_flank_face`, forming one
+    continuous land `plate_step_in() + plate_foot_reach` wide at each end. The tub is
+    hollow under the plate's middle.
 
-    ONE LAND AT ONE HEIGHT, AND THE HEIGHT IS THE SEAM PLANE. The plate's own bottom edge IS that
-    plane (`enclosure_assembly.collet_plate_spec` strikes `z0` on it), and the outer
-    `plate_step_in` of each end already stands on the flank's mouth face at nominal — so a foot
-    struck any lower is a foot the steel never reaches, and all it does is move the whole bearing
-    onto that one narrow line at the extreme end of a 200 mm plate. Topped here, foot and flank
-    are one continuous land `plate_step_in() + plate_foot_reach` wide at each end.
+    Each land reaches `plate_foot_reach` inboard of the flank. Its `plate_foot_y` run is
+    centred on the plate's two Y faces, with equal stock fore and aft; the mouth face
+    fore of it is the flank's own, unbroken and flush.
 
-    AND IT IS A 10 BY 20 LAND AND NOT THE FRONT RUN. Across it reaches `plate_foot_reach` inboard
-    of the flank. Fore to aft, `plate_foot_y` is centred on the steel's own two faces, putting the
-    same bearing stock on either side. The mouth face fore of it is the flank's own, unbroken and
-    flush. A land run on to the front wall is fifty millimetres of ledge standing in the seam
-    mouth under nothing.
-
-    ITS UNDERSIDE RISES AT 45° BACK FROM THE FLANK. This piece prints floor-down and builds in
-    +Z, so a foot struck square here would be a `plate_foot_reach` soffit with nothing beneath it.
-    The sloped face grows off the wall it stands on and keeps the +X foot above the
-    condenser+fan's complete bounding box."""
+    The underside rises at 45° from the flank. The sloped face grows off that wall and
+    keeps the +X foot above the condenser+fan's complete bounding box."""
     fx0, fx1 = front_bottom_flank_face()
     t, top = plate_foot_t, zj
     ym = (plate["fore_y"] + plate["aft_y"]) / 2.0
@@ -4864,7 +4837,7 @@ def _pump_cartridge_side_flute_rail(outer):
 
 def _bay_cut(inner, outer, bay, pump_trays, plate):
     """The bay's opening through front-top: the complete exterior width and complete cradle
-    height, from the bay floor to the bay top and from the show face to the steel's aft face.
+    height, from the bay floor to the bay top and from the show face to the plate's aft face.
 
     The lower cradle replaces every part of the fixed front wall and both fixed side skins in
     this band. The opening's own lower edge is `bay_floor_z`'s top, which is the plane the
@@ -4878,12 +4851,11 @@ def _bay_cut(inner, outer, bay, pump_trays, plate):
 def _plate_fore_guides(inner, outer, bay, plate, pump_trays):
     """The fixed cheeks that retain the collet plate against fore pitch, with two stop heads.
 
-    THE RELEASE LOAD EXISTS AFTER THE PUMP CARTRIDGE HAS MOVED. Four tee noses press the steel
-    fore as their tubes draw out, so the plate cannot answer to a pump-cartridge-mounted keeper:
-    what stays with the box is what must take that moment. Two fore cheeks stand on the
-    plate's outer tails, wholly outside the pump cartridge's X sweep, and leave `plate_slot_slip`
-    to the steel. Together with the tee wall behind it they make a vertical channel: the
-    plate rises in Z on the way in, and its top cannot rotate fore about the floor's slot.
+    Four tee noses press the integral plate fore as their tubes draw out. Two fixed
+    cheeks stand before the plate's outer tails, with `plate_slot_slip` between their
+    aft faces and the nominal plate plane. The printed plate fills that offset at the
+    tails. The tee wall stands behind the plate; the cheeks and wall
+    extend through the whole bay height.
 
     THE CHEEK IS A WEDGE IN PLAN, AND IT IS ONE PRISM. Its fore face stands
     `plate_guide_wedge` further fore at the fixed outer wall than at its inboard face, so the
@@ -4893,7 +4865,7 @@ def _plate_fore_guides(inner, outer, bay, plate, pump_trays):
     is a plane, every wall is vertical and supported, and nothing anywhere in it overhangs.
 
     AND IT STANDS THE WHOLE STOREY. The cheek is rooted in the fixed side wall and loaded at
-    the top of the steel, so height is section where the moment is: taken to the bay's own
+    the top of the plate, so height is section where the moment is: taken to the bay's own
     ceiling it is a post between two slabs rather than a fin cantilevered off the floor, and
     it gives the flank opening the aft jamb that opening otherwise has only up to the plate.
     The full-width pump cartridge carries an aft-corner notch round each cheek. Its edge follows
@@ -4902,13 +4874,12 @@ def _plate_fore_guides(inner, outer, bay, plate, pump_trays):
     incidentally give the cartridge is not their function.
 
     EACH CHEEK RETURNS IMMEDIATELY OUTSIDE THE PLATE'S SLOT. At the slot-end plane — one
-    `plate_slot_slip` beyond the cut steel — the same prism turns aft past the plate and
+    `plate_slot_slip` beyond the plate — the same prism turns aft past the plate and
     carries the complete `plate_end_stock` band into the outer wall. That return stands from
-    the bay floor through the whole storey: there is no horizontal shelf at the floor and no
-    open column left over from a plate inserted from the other direction.
+    the bay floor through the whole storey: the return is continuous from the floor to the ceiling.
 
-    THE HEAD CLOSES THE CHANNEL OVER THE STEEL'S TAIL. Over each of them the head reaches aft
-    to the tee wall's fore face and stands from the steel's own top edge to the same ceiling:
+    THE HEAD CLOSES THE CHANNEL OVER THE PLATE'S TAIL. Over each of them the head reaches aft
+    to the tee wall's fore face and stands from the plate's own top edge to the same ceiling:
     what `_plate_cap` does across the middle, this does at the ends, and here it is a square
     land rather than a raked one because the cheek is standing under its fore side. That
     underside spans `PLATE_T + plate_slot_slip` between two standing walls, the cheek fore and
@@ -4916,7 +4887,7 @@ def _plate_fore_guides(inner, outer, bay, plate, pump_trays):
 
     AND IT STANDS ON THE CHEEK'S OWN FORE PLANE, `y_front`, so the cheek's inboard face is ONE
     plane the whole storey — from the bay floor to the ceiling, at `x_inner`, on `y_front`.
-    What is fore of the steel's top edge there is the head's, and it is the same section the
+    What is fore of the plate's top edge there is the head's, and it is the same section the
     cheek carries under it."""
     guide_x0, guide_x1 = plate_guide_inner_xs(plate)
     slot_x0 = plate["x0"] - plate_slot_slip
@@ -4942,7 +4913,7 @@ def _plate_fore_guides(inner, outer, bay, plate, pump_trays):
 
 
 def plate_guide_fore_y(plate):
-    """THE BAY'S AFT WALL OVER THE STEEL'S TOP EDGE — one plane, wall to wall.
+    """THE BAY'S AFT WALL OVER THE PLATE'S TOP EDGE — one plane, wall to wall.
 
     `plate_slot_slip` and one `wall` fore of the plate's own fore face: the plane
     `_plate_fore_guides` stands both cheeks on for their whole height, carried across the
@@ -4963,7 +4934,7 @@ def plate_guide_inner_xs(plate):
 
 
 def plate_head_spans(inner, plate):
-    """The X span of each of the two heads the collet plate is pushed up to
+    """The X span of the two heads above the collet plate's outer tails
     (`_plate_fore_guides`) — the cheek's own inboard face out to the side wall.
 
     One per outer tail. The pump cartridge's aft-corner notches pass these heads while the
@@ -5016,33 +4987,16 @@ def plate_cap_fore_z(plate):
 
 
 def _plate_cap(inner, plate, bay, pump_trays):
-    """THE WALL OVER THE COLLET PLATE: the steel's lane filled from its top edge to the bay's
-    ceiling, standing on the tee wall's fore face.
+    """The wall above the integral collet plate, from its top edge to the bay ceiling.
 
-    THE STEEL COMES IN THROUGH THE BED FACE, so what is over it is the box's to keep. A plate
-    dropped in from Z+ needs its lane open above it for the whole of its own height — that is
-    what a drop-in IS — and every millimetre of that lane is a millimetre the piece cannot
-    carry. Fed up from the seam plane the plate needs no room over its head at all, and this
-    is what stands in the room it gives back.
+    `plate_cap_land` of flat joins the plate's top edge at `z1`, across the whole width.
+    The two `_plate_fore_guides` heads carry that plane out to the side walls.
 
-    ITS LAND IS THE PLATE'S Z DATUM. `plate_cap_land` of flat, taken off the tee wall's fore
-    face at the steel's own `z1`, runs the whole width: the top edge comes up onto it and
-    stops there, which is the one stop in this joint and the only reason the outline needs no
-    shoulder. Over the two tails `_plate_fore_guides`' heads carry that same plane out to the
-    side walls, so the seat is one continuous land from wall to wall.
-
-    FORE OF THE LAND ITS UNDERSIDE RAKES AT 45°, to `plate_guide_fore_y`. The pumps' forward
-    station leaves their loaded brackets clear of this nominal corbel, so its front edge is one
-    straight line across the complete width. The lane under it
-    is air at print time — the steel is not in the piece yet — so a square ceiling `PLATE_T`
-    wide would be a ledge hanging off the tee wall for the whole width of the machine. Raked,
-    it is a surface the print grows into off the wall it stands on, and the lowest line of it
-    sits directly over the steel's aft top arris, which is the arris the land is already on.
-
-    AND ITS FORE FACE IS `plate_guide_fore_y`, the plane the two fixed cheeks already stand
-    on. The cheeks, their heads and the cap present the drawer one surface with no arris at
-    either cheek. The pump cartridge's back stands `cap_kiss` fore of it there, and `cap_kiss`
-    fore of the steel below."""
+    Fore of the land, the underside rakes at 45° to `plate_guide_fore_y`. Its front edge
+    is one straight line across the complete width, and its lowest line adjoins the
+    plate's aft top arris. The cheeks, heads and cap present one fore plane to the
+    cartridge. The cartridge's back stands `cap_kiss` fore of that plane above the
+    plate and `cap_kiss` fore of the plate below it."""
     z_land = plate["z1"]
     fore, aft = plate_guide_fore_y(plate), plate["aft_y"]
     land = aft - plate_cap_land
@@ -5086,9 +5040,9 @@ def _front_top_flanks(inner, outer, box, y_joint, zj):
     its 45° roof out of only that inboard stock. The mouth bears on the shoulder; the rails
     register and retain.
 
-    AND THE COLLET PLATE KEEPS ITS BERTH. The steel stands `plate_step_in` off `interior_x`,
+    THE COLLET PLATE'S BERTH. The plate stands `plate_step_in` off `interior_x`,
     beyond the rail's deepest moving face and its two distinct clearances. Its own band comes
-    out of this section — `PLATE_T` of depth over the steel's height and nothing above it,
+    out of this section — `PLATE_T` of depth over the plate's height and nothing above it,
     which is why the plate is not a figure this reads: it is a berth cut through it."""
     ix0, ix1, _iy0, _iy1, _iz0, iz1 = inner
     fx0, fx1 = front_top_flank_face()
@@ -5106,7 +5060,7 @@ def _front_top_flanks(inner, outer, box, y_joint, zj):
     # wall the print grows into off the flank it stands on. The same helper finishes every
     # construction which meets this face.
     band = band.cut(_front_top_flank_bedding_cut(inner, y0 - 1.0, y1 + 1.0, zj))
-    # The steel's own berth, up to its top edge and no further: over that plane the lane is
+    # The plate's own berth, up to its top edge and no further: over that plane the lane is
     # `_plate_cap`'s and this section may stand in it.
     band = band.cut(_ybox(ix0 - 1.0, ix1 + 1.0, plate["fore_y"], plate["aft_y"],
                           plate["z0"] - 1.0, plate["z1"]))
@@ -5740,7 +5694,7 @@ def pump_cartridge_figures(box):
     clamp_crown = cap_crown_z(box)
     floor_top = bay_floor_z(trays)[1]
     cartridge_top = bay[2] - pump_cartridge_top_clearance
-    head_floor = min(cz - _tray.head_depth for _cx, _cy, cz in trays)
+    head_floor = min(cz + _tray.head_front_z for _cx, _cy, cz in trays)
     motor_crown = max(cz + _tray.motor_crown for _cx, _cy, cz in trays)
     foot_low = (box.splits[0] - plate_foot_t
                 - plate_foot_reach * math.tan(math.radians(plate_foot_corbel_angle)))
@@ -5903,29 +5857,18 @@ def _flank_lip_run(inner, plate, y_joint, z):
 
 
 def _bay_floor(inner, y_joint, plate, pump_trays):
-    """THE BAY'S FLOOR: front-top's own storey across the front, from the front wall's
-    interior face aft past the collet plate, on the bed and under everything else.
+    """Front-top's bay floor, from the front wall's interior face aft past the collet plate.
 
-    THE COLLET PLATE'S SLOT PASSES THROUGH IT (`_plate_slot`), and that slot's mouth is
-    this piece's own Z− FACE — the seam plane, which is also the bed. The steel comes up from
-    there and goes clean through: this floor holds it fore and aft, on the slot's two faces,
-    which are the floor's own section. WHAT STOPS IT IS A STOREY UP — the steel's top edge on
-    `_plate_cap`'s land — so the floor takes no shoulder, the mouth takes no step, and the
-    slot is one width from the bed face to this plane.
+    The floor lies on the seam plane, which is the print bed. `_plate_slot` cuts
+    through it around the nominal plate with one constant rectangular X span
+    from the bed face through the floor. The slot ends stand `plate_slot_slip` beyond
+    the plate, leaving `plate_end_stock` returns inside the side walls. The integral
+    plate fills the slot and its aft flare when joined to the floor.
 
-    NOTHING OF THE SEAM PASSES IT. The seam's skin is given up over this whole run
-    (`_flank_lip_drop`, `_front_flat_lip_drop`), so the floor runs the walls whole — and
-    the rail channel, cut last, is what opens its flank bands for the slide.
-
-    AT THE TWO SIDE-WALL PLANES THE SHELL STANDS TO THE RIM. The pump cartridge sweeps the
-    complete cavity width, so there is no separate floor strip outboard of it; the installed
-    cradle closes the opening out to both exterior side faces above this floor.
-
-    AND ITS SLOT'S TWO ENDS ARE WHAT LOCATE THE STEEL ACROSS. Over `seam_cap_z` the flank the
-    plate's ends would otherwise stand against is opened whole by `_bay_cut`, so the ends
-    reach into that opening and touch nothing; here, in the floor, they run one
-    `plate_slot_slip` off each end of a slot cut in solid material. This is the only station
-    in the machine that holds the plate in X."""
+    The seam's skin is given up over this run (`_flank_lip_drop`,
+    `_front_flat_lip_drop`), so the floor crosses the full width. The rail channel cut
+    opens its flank bands for the slide. The cartridge sweeps the complete cavity
+    width and closes the opening out to both exterior side faces above this floor."""
     z0, z1 = bay_floor_z(pump_trays)
     rim = z_seam + z_rise
     bx0, bx1 = bay_x_span(inner)
@@ -5939,24 +5882,49 @@ def _bay_floor(inner, y_joint, plate, pump_trays):
 
 
 def _plate_slot(_inner, plate, z_top):
-    """THE COLLET PLATE'S OWN SLOT — ONE RECTANGULAR X SPAN THROUGH THE WHOLE FLOOR.
+    """The rectangular construction slot around the nominal plate through the bay floor.
 
-    Fore and aft it is the steel, `plate_slot_slip` off each face, at every height. ACROSS, it
-    is the steel's own width plus `plate_slot_slip` at both ends, the same from the Z− mouth
-    through the floor and every fixed wall the lane crosses. The 4.3 mm returns between those
-    ends and `interior_x` remain printed material; the slot never expands sideways into them.
+    It stands `plate_slot_slip` off the plate's fore, aft and end faces, with the same
+    X span from the Z− mouth through every fixed wall the lane crosses. The 4.3 mm
+    returns between its ends and `interior_x` remain printed material.
 
-    IT HOLDS NOTHING BACK. What stops the steel is its own top edge on `_plate_cap`, one
-    storey up and wall to wall, so this slot is a lane and not a seat: no step in it, no
-    shoulder standing at the mouth, and the same section from the bed face to the floor's top.
-
-    AND ITS MOUTH IS SQUARE ON THE FORE FACE, which stands at `plate_slot_slip` off the steel
-    from the bed face to the seat. What eases the steel in is taken off the lane's aft side
-    alone (`_plate_lead`), and the floor gives that flare up here because its own section runs
-    aft of the slot over the ground the flare stands in."""
+    Its fore mouth is square from the bed face through the floor. `_plate_lead`
+    flares the aft side; both the tee wall and the floor take that same flare. The
+    completed `_printed_collet_plate` fills these perimeter insertion channels."""
     y0, y1 = plate["fore_y"] - plate_slot_slip, plate["aft_y"] + plate_slot_slip
     x0, x1 = plate["x0"] - plate_slot_slip, plate["x1"] + plate_slot_slip
     return _ybox(x0, x1, y0, y1, z_seam - 1.0, z_top).fuse(_plate_lead(plate))
+
+
+def _printed_collet_plate(plate):
+    """The release section, joined continuously to its wall, cap, cheeks and floor.
+
+    The tube band retains the plate's two Y planes. Its perimeter fills the slot's
+    clearance and the space up to the cap's raked underside; no insertion channel
+    remains around this integral part.
+    """
+    x0, x1 = plate["x0"] - plate_slot_slip, plate["x1"] + plate_slot_slip
+    fore, aft = plate["fore_y"], plate["aft_y"]
+    land, top = aft - plate_cap_land, plate["z1"]
+    solid = _yz_prism(x0, x1, (
+        (fore, plate["z0"]), (aft, plate["z0"]), (aft, top),
+        (land, top), (fore, top + land - fore)))
+    # The two outer cheeks stand fore of the tube band. Join their aft faces
+    # without advancing the release face across the cartridge's working span.
+    left, right = plate_guide_inner_xs(plate)
+    for xa, xb in ((x0, left), (right, x1)):
+        solid = solid.fuse(_ybox(
+            xa, xb, fore - plate_slot_slip, fore, plate["z0"], top))
+    # Close the floor slot and its bed-entry flare on this piece's seam plane.
+    floor_fill = _plate_slot(None, plate, plate["seat_z"]).intersect(
+        _ybox(x0, x1, fore - plate_slot_slip, aft + plate_slot_lead,
+              plate["z0"], plate["seat_z"]))
+    solid = solid.fuse(floor_fill)
+    for hx, hz in plate["holes"]:
+        solid = solid.cut(_teardrop_y(
+            plate["hole_d"] / 2.0, hx, hz,
+            plate["fore_y"] - 1.0, plate["aft_y"] + 1.0))
+    return solid
 
 
 def _tee_wall(inner, y_joint, plate, bay):
@@ -5968,19 +5936,18 @@ def _tee_wall(inner, y_joint, plate, bay):
     passes through the wall's complete section. Printed material locates that collar in X and Z;
     the open bore leaves Y to the release motion.
 
-    ITS FORE FACE IS THE STEEL'S AFT FACE, struck once as one figure
-    (`enclosure_assembly.collet_plate_spec`). The plate stands in front of it, so every
-    bore is stopped at its fore mouth by steel and the collet nose that lands there lands on
-    steel and not on plastic.
+    ITS FORE FACE MEETS THE PLATE'S AFT FACE, struck once as one figure
+    (`enclosure_assembly.collet_plate_spec`). The plate is joined to it, with one smaller
+    teardrop passage ahead of each collar bore. The surrounding printed face stops the
+    collet nose.
 
     ITS BROAD AFT FACE STOPS SHORT OF THE TEE, ON PURPOSE. A tee travels WITHIN this wall, and
     the wall is not allowed to be what ends that travel: the face stands one whole stroke plus
     `TEE_WALL_BODY_AIR` fore of the tee's own body, so at full release there is still air
     between the two. The collar-clear bore opens directly through that face.
 
-    AND IT IS THE BAY'S BACK. Over the plate's own band the steel closes the bay; above and
-    below it nothing does, and the berth the pump cartridge leaves looks into the cavity. This
-    stands the whole storey, so what is behind the bay is a wall.
+    AND IT IS THE BAY'S BACK. The integral plate closes the release band, and this wall
+    fills the surrounding height across the whole storey.
 
     AND THE Z SEAM DOES NOT PASS IT, so this wall opens for nothing but its own bores. The
     rail channel's lane BEGINS ON THIS WALL'S OWN AFT FACE — `_z_rail_runs` starts the front
@@ -5994,20 +5961,15 @@ def _tee_wall(inner, y_joint, plate, bay):
 
 
 def _plate_lead(plate):
-    """THE FLARE THAT LEADS THE STEEL INTO ITS LANE, taken off the lane's AFT side.
+    """The 45° construction flare on the aft side of the collet plate's slot.
 
-    At the seam plane the lane's aft wall stands `plate_slot_lead` back off the steel's own
-    plane and closes onto it over the same rise, so the mouth is that much wider than the lane
-    it opens into and the face a print climbing off its bed lays there is at 45 degrees. Above
-    the flare the wall is the steel's plane again, which is what every bore through it is
-    stopped on.
+    At the seam plane the aft wall stands `plate_slot_lead` back from the plate's aft
+    face, closing onto that face over the same rise. Both `_tee_wall` and the bay-floor
+    slot use this cutter.
 
-    BOTH BODIES ON THAT SIDE GIVE IT UP. The tee wall's fore face IS the lane's aft wall
-    (`_tee_wall`), and the bay floor carries its own section aft of the slot over the same
-    ground (`_plate_slot`) — so this one cutter is what each of them takes.
-
-    IT IS THE SLOT'S OWN X SPAN. Outside the steel's ends the wall carries `plate_end_stock`
-    into the side walls and there is nothing there to lead in."""
+    Its X span is the plate's width plus `plate_slot_slip` at each end. Outside that
+    span, `plate_end_stock` continues into the side walls. The printed plate's floor
+    join fills this flare in the completed front-top."""
     aft, lead = plate["aft_y"], plate_slot_lead
     return _yz_prism(plate["x0"] - plate_slot_slip, plate["x1"] + plate_slot_slip,
                      [(aft - 1.0, z_seam - 1.0), (aft + lead, z_seam - 1.0),
@@ -6192,7 +6154,7 @@ def _pump_cartridge_gross(box, halves_cache=None):
         floor_top, top - pump_cartridge_top_clearance)
     solid = solid.fuse(fill).intersect(face.fuse(
         _ybox(bx0, bx1, pump_cartridge_front_y, aft, floor_top, top)))
-    # Above the steel, front-top keeps one fixed 45-degree cap over the plate. The lower cradle
+    # Above the plate, front-top carries one fixed 45-degree cap over the plate. The lower cradle
     # reaches aft around the pump openings, so its three remaining upper webs follow that cap
     # one running kiss fore of it instead of occupying the same volume. The cap remains fixed:
     # it must retain the plate while the cartridge and its pumps are withdrawn.
@@ -8537,7 +8499,7 @@ def build_piece(box, y_side, z_side, halves_cache=None):
             piece = piece.fuse(_front_bottom_flank_skin(
                 inner, box.pack.west_cradle, y_joint, zj).intersect(col))
             # And the two feet the collet plate stands on, which carry that same face inboard
-            # under the steel's ends. Fused with the skin, before every pocket, so anything cut
+            # under the plate's ends. Fused with the skin, before every pocket, so anything cut
             # into this flank later is cut out of the whole of it.
             if box.pump_bay and box.pack.collet_plate:
                 piece = piece.fuse(
@@ -8709,7 +8671,7 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         # these cheeks intentionally stand at the opening's aft outer edges.
         piece = piece.fuse(_plate_fore_guides(
             inner, outer, box.pump_bay, box.pack.collet_plate, box.pack.pump_trays))
-        # And the wall over the steel — the full-width land its top edge stops on and one
+        # And the wall over the plate — the full-width land adjoining its top edge and one
         # uninterrupted 45-degree underside above the loaded brackets.
         piece = piece.fuse(_plate_cap(
             inner, box.pack.collet_plate, box.pump_bay, box.pack.pump_trays))
@@ -8752,6 +8714,8 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     # removable funnel's collar clearance.
     if z_side == "top" and box.pack.funnel:
         piece = piece.cut(_funnel_cut(inner, outer, box.pack.funnel))
+    if y_side == "front" and z_side == "top" and plate:
+        piece = piece.fuse(_printed_collet_plate(plate))
     return _unified(piece)
 
 
@@ -9108,11 +9072,10 @@ def _piece_mesh(solid):
 
 
 def _collet_plate_body(plate):
-    """The steel that stands in front of the tee wall, as the outline its own spec strikes.
+    """The collet plate's unperforated envelope for the flute shadow mask.
 
-    IT IS THE ONE BODY IN THE BAY'S STOREY THIS MODULE DOES NOT PRINT — the plate is cut from
-    sheet (`enclosure_assembly.build_collet_plate`) — and the storey's run of flutes has to
-    know it stands there, because the wall behind it is a bearing face and not a show face."""
+    The plate is printed into front-top. Its envelope marks the tee wall behind it as
+    a bearing face, keeping that band out of the show-surface flutes."""
     return _xz_prism(plate["fore_y"], plate["aft_y"], plate_outline(plate))
 
 
@@ -9120,9 +9083,8 @@ def _export_pieces(pieces, assy):
     refused = []
     box = _last_box[0]
     outer = box.outer
-    # EVERY BODY THE ASSEMBLY STANDS, MESHED ONCE. A piece is cut against the rails; the rest
-    # of them are what stands berthed in the room a rail runs round, and the steel is the one
-    # that is not a piece.
+    # Every assembly piece is meshed once. The plate's envelope also contributes a
+    # shadow mask over the bearing band behind the integral release face.
     bodies = {name: _piece_mesh(piece.val()) for name, piece in pieces.items()}
     steel = ([_piece_mesh(_collet_plate_body(box.pack.collet_plate))]
              if box.pack.collet_plate else [])

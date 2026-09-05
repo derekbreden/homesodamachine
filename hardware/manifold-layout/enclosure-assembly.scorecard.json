@@ -1,5 +1,5 @@
 {
- "gatesPass": true,
+ "gatesPass": false,
  "size": [
   {
    "id": "enclosure",
@@ -46,7 +46,7 @@
    "label": "Every placed body is declared in the fastening table",
    "kind": "gate",
    "status": "pass",
-   "value": "94/94 declared",
+   "value": "93/93 declared",
    "target": "all declared",
    "detail": [],
    "active": true
@@ -62,9 +62,9 @@
     "bulkhead-flavor-a: fall onto what stands under it \u2014 wants 1, has 1.004",
     "bulkhead-carb: fall onto what stands under it \u2014 wants 6, has 9.189",
     "thermal-fuse: cover either side of the case \u2014 wants 0, has 5.250",
+    "funnel: the drop off the elbow `fluid-4` reaches V-B on \u2014 wants 6.35, has 12.478",
     "digiten-flow: fall onto what stands under it \u2014 wants 6, has 13.262",
     "bulkhead-flavor-b: fall onto what stands under it \u2014 wants 1, has 9.004",
-    "funnel: the drop off the elbow `fluid-4` reaches V-B on \u2014 wants 6.35, has 14.478",
     "thermal-fuse: cover above and below the case \u2014 wants 0, has 20.400"
    ],
    "active": true
@@ -73,10 +73,21 @@
    "id": "pack-closes",
    "label": "No two solids overlap (pack closes)",
    "kind": "gate",
-   "status": "pass",
-   "value": "0 clash, 0 unanswered",
+   "status": "fail",
+   "value": "10 clash, 0 unanswered",
    "target": "0 clash, 0 unanswered",
-   "detail": [],
+   "detail": [
+    "tee-y-c \u2229 tube-fluid-11   1.2 mm\u00b3, x[   17.19,   22.95] y[   82.79,   83.81] z[  186.34,  188.87]",
+    "tee-y-d \u2229 tube-fluid-12   1.2 mm\u00b3, x[   76.94,   82.70] y[   82.79,   83.81] z[  186.34,  188.87]",
+    "tee-y-f \u2229 tube-fluid-21   1.2 mm\u00b3, x[  -22.95,  -17.19] y[   82.79,   83.81] z[  186.34,  188.87]",
+    "tee-y-g \u2229 tube-fluid-22   1.2 mm\u00b3, x[  -82.70,  -76.94] y[   82.79,   83.81] z[  186.34,  188.87]",
+    "pump-a-head \u2229 enclosure-front-top   1512.0 mm\u00b3, x[   21.94,   77.94] y[   17.28,   71.28] z[  164.87,  165.37]",
+    "pump-b-head \u2229 enclosure-front-top   1512.0 mm\u00b3, x[  -77.94,  -21.94] y[   17.28,   71.28] z[  164.87,  165.37]",
+    "tube-fluid-11 \u2229 enclosure-front-top   29.9 mm\u00b3, x[   16.90,   23.24] y[   78.11,   81.29] z[  182.99,  187.42]",
+    "tube-fluid-12 \u2229 enclosure-front-top   29.9 mm\u00b3, x[   76.65,   82.99] y[   78.11,   81.29] z[  182.99,  187.42]",
+    "tube-fluid-21 \u2229 enclosure-front-top   29.9 mm\u00b3, x[  -23.24,  -16.90] y[   78.11,   81.29] z[  182.99,  187.42]",
+    "tube-fluid-22 \u2229 enclosure-front-top   29.9 mm\u00b3, x[  -82.99,  -76.65] y[   78.11,   81.29] z[  182.99,  187.42]"
+   ],
    "active": true
   },
   {
@@ -168,10 +179,6 @@
     "co2-inlet \u2014 bulkhead-ring-co2-word: 1.446 mm",
     "seaflo-pump \u2014 nameplate: 1.500 mm",
     "nameplate \u2014 foam-assembly: 1.500 mm",
-    "tee-y-c \u2014 collet-plate: 1.504 mm",
-    "tee-y-d \u2014 collet-plate: 1.504 mm",
-    "tee-y-f \u2014 collet-plate: 1.504 mm",
-    "tee-y-g \u2014 collet-plate: 1.504 mm",
     "wago-reeds-a \u2014 foam-assembly: 1.600 mm",
     "wago-sensors \u2014 foam-assembly: 1.600 mm",
     "fluid-1 \u2014 enclosure-front-top: 1.655 mm",
@@ -687,11 +694,11 @@
   },
   {
    "id": "collet-plate-stops-nose",
-   "label": "The collet plate holes stop the release noses",
+   "label": "The printed collet plate stops the release noses",
    "kind": "gate",
    "status": "pass",
    "value": "holds",
-   "target": "a hole smaller than the 11.43 mm nose rim",
+   "target": "the complete teardrop opening inside the release rim",
    "detail": [],
    "active": true
   },
@@ -823,7 +830,7 @@
    "label": "The front column's lip ring is clear at the seam height",
    "kind": "gate",
    "status": "pass",
-   "value": "seam at 160.00, lane 150.65..166.75",
+   "value": "seam at 160.00, lane 150.65..168.75",
    "target": "a lane containing it",
    "detail": [],
    "active": true
@@ -843,7 +850,7 @@
    "label": "The Z-seam rim stays under the flavour deck's lowest plate",
    "kind": "gate",
    "status": "pass",
-   "value": "rim at 174.80, deck floor at 175.88",
+   "value": "rim at 174.80, deck floor at 177.88",
    "target": "air between them",
    "detail": [],
    "active": true
@@ -1003,8 +1010,8 @@
    "label": "The pump bay keeps its fixed floor and roof datums around the lowered pumps",
    "kind": "gate",
    "status": "pass",
-   "value": "head floor air 0.50 mm, motor-to-lintel air 4.70 mm",
-   "target": "0.50 mm head-to-floor and 4.70 mm motor-to-lintel",
+   "value": "head floor air -0.50 mm, motor-to-lintel air 7.20 mm",
+   "target": "-0.50 mm head-to-floor and 7.20 mm motor-to-lintel",
    "detail": [],
    "active": true
   },
@@ -1077,7 +1084,7 @@
    "label": "A printed feature of another placed part fastens every body",
    "kind": "gate",
    "status": "pass",
-   "value": "62/62 mounted, 20 part of another body, 12 nothing fastens",
+   "value": "61/61 mounted, 20 part of another body, 12 nothing fastens",
    "target": "a printed joint per body",
    "detail": [
     "funnel: wall-capture \u2014 nothing fastens it; The brim bears on the top wall's outer face, the collar runs in `enclosure._funnel_cut_plan`, and the elbow's own collet grips the stub the spout carries \u2014 so the funnel is held down by the joint it releases from. It is a dishwasher part and comes out by hand.",
@@ -1100,7 +1107,7 @@
    "label": "Every placement is stated as a rule, and the solid lands on it",
    "kind": "goal",
    "status": "pass",
-   "value": "94/94 stated",
+   "value": "93/93 stated",
    "target": "a stated rule per body, each landing on it",
    "detail": [],
    "active": false
@@ -1158,7 +1165,7 @@
     "co2-2: 114.3 mm, held at its anchor",
     "fluid-28: 163.2 mm, held at its anchor",
     "fluid-18: 245.4 mm unheld \u2014 left loose; Flavor A's line to its rear union. The cold core's side post grips its crossing fore of the pump (`_cold_core_interface.cap_side_anchors`), and what runs loose past it is the fall and the union column's own straight \u2014 a column whose overhead is the ASSE drip pan's sleeve, the flow meter and the meter's down-line, and whose flanks are the pump's casting and the moisture plate's lane: nothing printed stands within a rib's reach of it. The slack sags toward the cap's open air below, away from every line beside it.",
-    "fluid-4: 199.7 mm unheld \u2014 left loose; The funnel's own drain, and the one line in the machine a customer handles. It parts at the union under the spout every time the funnel goes to the dishwasher and is pushed back at the same collet, so the length between that joint and V-B has to give: a rib zip-tied across it would be a fixed point the customer works against, and the run would take the load at the collet instead of along its own length."
+    "fluid-4: 201.2 mm unheld \u2014 left loose; The funnel's own drain, and the one line in the machine a customer handles. It parts at the union under the spout every time the funnel goes to the dishwasher and is pushed back at the same collet, so the length between that joint and V-B has to give: a rib zip-tied across it would be a fixed point the customer works against, and the run would take the load at the collet instead of along its own length."
    ],
    "active": false
   }

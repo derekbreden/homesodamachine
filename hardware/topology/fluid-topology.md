@@ -41,7 +41,7 @@ No junction is carried by anything: none of them seats on a body, so each hangs 
 
 **Y-A and Y-B are the SELECTS-SOURCE junction.** Each stands on its own inner limb's axis, one valve forward of the select it feeds, so its RUN is the limb — the source valve one side, the select the other. The two branches face each other across the mirror plane and meet on segment 6, which is what puts all four ports on one hydraulic node. Every mode opens exactly one of {V-A, V-B} and exactly one of {V-C, V-D}, so the traffic the pair carries is always one source to one select — straight down a limb, or down half a limb, across the bar and down the other half.
 
-**Y-C, Y-D, Y-F and Y-G are the PUMP-BARB junctions.** Each takes its barb by its BRANCH across the collet plate's berth — a short tube over the barb, through the steel, into the collet, the joint that releases when the pump cartridge is pulled — so its RUN lies across the pump head's face and IS the outboard half of a limb, with a valve on each end. Y-C and Y-F take suction, Y-D and Y-G discharge.
+**Y-C, Y-D, Y-F and Y-G are the PUMP-BARB junctions.** Each takes its barb by its BRANCH across the collet plate's berth — a short tube over the barb, through the printed collet plate, into the collet, the joint that releases when the pump cartridge is pulled — so its RUN lies across the pump head's face and IS the outboard half of a limb, with a valve on each end. Y-C and Y-F take suction, Y-D and Y-G discharge.
 
 Y-A's and Y-B's run ports are numbered from the source end down the limb. On a barb tee the branch takes the number nearest the barb it drops onto — Y-C-3 and Y-F-3 at the two suctions, Y-D-1 and Y-G-1 at the two discharges.
 
