@@ -23,10 +23,10 @@
   },
   "inputs": {
     "gcode": "plate_1.gcode",
-    "gcode_sha256": "43d5bede49fead64eeaedcf37bfa3679cc041b9edb27594c243faa2448f2ac6b",
+    "gcode_sha256": "2f0e98b055a139d892c8fea59fe28dfbb9c836d2c8f66b3df99cad697b33b988",
     "model": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
-    "model_sha256": "0b6a5fe0449db6c346334602f5d0447fe9ce554e0af4bad0ad65b5b6bef8bf2d",
-    "profile": "/var/folders/qc/hn57tpxs7tg5842pdqg075vc0000gn/T/tmp.M9uzacHQcW/enclosure-back-top-petgf.3mf",
+    "model_sha256": "e046f66351637838529bbcff3b9df296614d7d0c08f125639478fb4f892f0d43",
+    "profile": "/private/tmp/claude-501/-Users-derekbredensteiner-Developer-homesodamachine/71b7c628-96c8-4e08-8ef5-12e13918e18d/scratchpad/enclosure-back-top-petgf.3mf",
     "profile_sha256": "bc245255d23536df28e124935975c0fb93c9e38d163dafd1cb12051c1fc89ff6"
   },
   "interfaces": [
