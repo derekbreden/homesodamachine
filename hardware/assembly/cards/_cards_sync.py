@@ -465,8 +465,7 @@ def sub_assemblies(m: Machine):
             f"bench without it — hold it back in `_scenes.SCENES`, or restate the card")
 
     # The wells this piece leaves the bench with — lever nuts pressed butt-first into printed
-    # pockets, and nothing else: the collet plate stands in a SLOT rather than a well, which is
-    # what keeps the steel out of a count about lever nuts.
+    # pockets. The collet plate is part of the printed front-top.
     front_top_wells = [n for n in under("enclosure-front-top", "well")
                        if n not in front_top.later]
 
@@ -496,7 +495,7 @@ def sub_assemblies(m: Machine):
         f"and that lip is the whole load path the cap's two screws close")
 
     # THE FOUR BARB TUBES THE UNIT LEAVES THE BENCH HOLDING IN THE AIR, off the pumps whose
-    # barbs grip them. ONE STUB PER HOLE IN THE STEEL: the plate is bored one hole per barb tee
+    # barbs grip them. ONE STUB PER COLLET PASSAGE: the plate is bored one hole per barb tee
     # and the tubes thread it as the pump cartridge goes home, so a stub with no hole in front of it
     # is one the first pull tears out. `_pump_replacement_sync` asks the service bench's half of
     # this same reading.
@@ -505,8 +504,8 @@ def sub_assemblies(m: Machine):
     assert len(cart_stubs) == len(m.box.collet_plate["holes"]), (
         f"the pump cartridge carries {len(cart_stubs)} barb tube(s) and the collet plate is bored "
         f"{len(m.box.collet_plate['holes'])} hole(s) — SA-09 stands one stub in every hole")
-    # WHAT EACH OF THEM STANDS PROUD OF ITS BARB, which is the berth the steel and its two airs
-    # are spent in. One plate presses one plane, so the four are one figure or the card has no
+    # WHAT EACH OF THEM STANDS PROUD OF ITS BARB, across the printed release face and its
+    # working gaps. One plate presses one plane, so the four are one figure or the card has no
     # sentence: a stub the plate is not in the berth of releases nothing.
     stands = {round(m.a.bb(n).ymax - m.a.bb(n).ymin, 6) for n in cart_stubs}
     assert len(stands) == 1, (

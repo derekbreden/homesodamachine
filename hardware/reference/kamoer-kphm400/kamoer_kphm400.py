@@ -2,7 +2,7 @@
 
 A coarse keep-out approximation of the pump as it sits inside the case,
 sectioned into functional sub-bodies (head, rotor housing, motor body).
-Envelopes are catalog-nominal, not a manufacturing drawing — see
+Envelopes combine catalog dimensions with cartridge fit measurements — see
 `off-the-shelf-parts/kamoer-kphm400/extracted-results/geometry-description.md`.
 
 The model is authored in the PUMP-CASE WORLD FRAME: origin at the base-plate
@@ -19,7 +19,7 @@ The head and rotor profile are derived live from `pump_case`:
   base plane to the tower-bore start, on the rear stack's offset axis.
 
 The motor is the part's own can, not the hole it turns in. The three bodies end
-at `pump_len` off the head's front face — the length the part measures — and the
+at `pump_len` off the fitted head's front face, and the
 tower bore the motor sits inside is a bound stated against that, not the thing
 that sizes it. A consumer reading this module's STEP gets the pump.
 
@@ -54,7 +54,8 @@ rear_axis_y_shift = -1.0
 rear_axis_y = cy + rear_axis_y_shift
 base_plane_z = 0.0                               # base-plate bore-opening plane
 octagon_top_z = pc.bore_bottom_z                 # octagon seat depth / tower-bore start
-arch_plane_z = pc.skirt_bottom_z                 # skirt-bottom plane: outlet-port level
+outlet_above_skirt_bottom = 5.0
+arch_plane_z = pc.skirt_bottom_z + outlet_above_skirt_bottom
 tower_top_z = (pc.bore_bottom_z + pc.tower_height
                - pc.tower_cap_thickness)         # tower bore far face — the motor's headroom
 y_face = pc.pos_y_face_y                          # case +Y outer footprint face
@@ -87,11 +88,12 @@ skirt_body_y_max = (
     skirt_y_max + skirt_y_plus_air - skirt_support_y_plus - skirt_support_xy_air)
 skirt_body_y_min = skirt_body_y_max - skirt_body_y
 
-# --- Datasheet-nominal dimensions (external spec; geometry-description.md) --
+# --- Reference dimensions and fitted axial datums -------------------------
 head_w = 62.61               # square pump-head body, width and height
-head_depth = 48.88           # head body depth, front face to rear
+head_depth = 47.88           # fitted bracket datum to the head's Z− face
 motor_dia = 35.73            # silver DC motor body (clears the tower bore)
-pump_len = 111.43            # front face to motor end cap, excluding the 5.05 shaft nub
+motor_reach = 62.55          # bracket datum to the motor end cap
+pump_len = head_depth + motor_reach  # fitted head face to motor end cap, excluding the nub
 body_y_face = cy + head_w / 2  # pump body +Y face — the plane outlet fittings seat on
 # THE MOUNTING BRACKET, STATED AND NOT DRAWN. A stamped steel plate at the junction face between
 # head and boss — `geometry-description.md` §3 — carrying the 4×M3 on a 50 mm square that the
@@ -108,10 +110,11 @@ bracket_z = base_plane_z     # the junction face it sits on — the head's rear,
 # stand on, and holds that fall from its front face up. The figure is confirmed on the part,
 # and it is confirmed as barely: a consumer taking a hold in it takes the whole of it.
 outlet_relief = 2.075        # how far the outlet side stands fore of `body_y_face`, under the barbs
-outlet_relief_run = 12.585   # how far up off the head's own front face it holds that fall
+outlet_relief_top_z = -36.295  # bracket-relative end of the setback under the barbs
+outlet_relief_run = head_depth + outlet_relief_top_z
 # --- Axial seams (case frame; -Z = head front, +Z = motor rear) -------------
 head_front_z = base_plane_z - head_depth         # head front (clipped to cavity)
-motor_end_z = head_front_z + pump_len            # motor end cap — the part's own far face
+motor_end_z = base_plane_z + motor_reach         # motor end cap — the part's own far face
 
 
 # --- The two barbs, as stations ---------------------------------------------
@@ -121,8 +124,8 @@ motor_end_z = head_front_z + pump_len            # motor end cap — the part's 
 def barb(i: int) -> tuple:
     """One of the two outlet barbs: `(position, outward axis)` in the pump's own frame.
 
-    It stands on the body's +Y face at its arch notch, at the skirt-bottom plane the notches
-    are cut on, and reaches out toward the case wall — so the axis is +Y."""
+    It stands on the body's +Y face, `outlet_above_skirt_bottom` above the case's skirt-bottom
+    plane, and reaches out toward the case wall — so the axis is +Y."""
     return ((arch_xs[i], body_y_face, arch_plane_z), (0.0, 1.0, 0.0))
 
 
