@@ -1,4 +1,4 @@
-[ceiling] These are the two complete octagonal boss-crown seats in the top clamp. They face the bed 19 mm above the print plane and are intentionally supported: the production profile gives each its own bed-rooted tree with 18.4 mm of build-up before the interface. Their Y=41.025 centres follow the reference pump's offset rear-stack axis.
+[ceiling] These are the two complete octagonal boss-crown seats in the top clamp, centred at y=43.505 and z=234.745. Each flat underside mates to the pump's boss crown and opens to the bed 19 mm above the print plane. They are retained as supported bearing faces: a corbel below either seat would occupy the boss it clamps. Support topology and build-up require the production slice for this mesh.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step
-click: x=-49.945 y=41.025 z=235.745
-click: x=49.945 y=41.025 z=235.745
+click: x=-49.945 y=43.505 z=234.745
+click: x=49.945 y=43.505 z=234.745
