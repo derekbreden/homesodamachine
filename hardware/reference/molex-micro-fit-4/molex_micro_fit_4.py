@@ -12,7 +12,8 @@ specified 1.40--2.54 mm range and with one millimetre of printed backing around 
 Coordinate convention -- the same wall frame as ``riteav_keystone``:
   Y = mating axis. +Y = outward, toward the removable cartridge connector.
   Origin = the panel's outward face at the centre of the drawing's 7.11 mm main opening.
-  +Z = the keyed side of the panel cut-out. X completes the right-handed frame.
+  +Z = the keyed/latching side. The enclosure turns this side down into the empty pump bay.
+  X completes the right-handed frame.
 
 Run:
     tools/cad-venv/bin/python hardware/reference/molex-micro-fit-4/molex_micro_fit_4.py
@@ -82,6 +83,28 @@ PANEL_STOP_D = 0.60
 CONTACT_PITCH = 3.0
 CAVITY = 1.93
 CAVITY_D = 5.0
+
+# --- removable housing and service motion ---------------------------------------
+# SD-43025 gives the four-circuit body as 6.85 mm wide, 8.28 mm high and 14.00 mm
+# long. Its complete latching envelope is 10.81 mm high and the latch works over an
+# 11.0 mm length. The same drawing gives 24.77 mm for the complete mated pair.
+FREE_BODY_W = 6.85
+FREE_BODY_H = 8.28
+FREE_BODY_D = 14.00
+FREE_LATCH_H = 10.81 - FREE_BODY_H
+FREE_LATCH_D = 11.00
+MATED_PAIR_D = 24.77
+
+# The fixed housing runs from -INBOARD_D to +MOUTH_PROUD. The mated-pair dimension
+# starts at that same fixed wire face, so these two planes place the removable body's
+# wire and mating faces in this module's frame. The overlap is the axial nesting that
+# has to be withdrawn before the two housings are clear. One further millimetre gives
+# the service path actual air instead of declaring tangent faces disconnected.
+FREE_WIRE_Y = -INBOARD_D + MATED_PAIR_D
+FREE_MATE_Y = FREE_WIRE_Y - FREE_BODY_D
+MATED_OVERLAP = BODY_D + FREE_BODY_D - MATED_PAIR_D
+SERVICE_AIR = 1.00
+SERVICE_PULL = MATED_OVERLAP + SERVICE_AIR
 
 
 def panel_profile(slip: float = CUT_SLIP):
@@ -203,6 +226,32 @@ def build_fixed():
     return body.val()
 
 
+def build_free_envelope():
+    """Conservative diagnostic envelope for the mated ``43025-0400`` housing.
+
+    This is deliberately not a cosmetic purchased-part model. The full body and its
+    latching crown are enough to prove that the user's hand motion can pull the mate
+    clear of the fixed housing and lower it into the empty pump bay.
+    """
+    body = cq.Solid.makeBox(
+        FREE_BODY_W,
+        FREE_BODY_D,
+        FREE_BODY_H,
+        cq.Vector(-FREE_BODY_W / 2.0, FREE_MATE_Y, -FREE_BODY_H / 2.0),
+    )
+    latch = cq.Solid.makeBox(
+        FREE_BODY_W,
+        FREE_LATCH_D,
+        FREE_LATCH_H + 0.01,
+        cq.Vector(
+            -FREE_BODY_W / 2.0,
+            FREE_WIRE_Y - FREE_LATCH_D,
+            FREE_BODY_H / 2.0 - 0.01,
+        ),
+    )
+    return body.fuse(latch)
+
+
 def selftest() -> int:
     ok = True
     if not (PANEL_T_MIN <= PANEL_T <= PANEL_T_MAX):
@@ -216,11 +265,15 @@ def selftest() -> int:
         ok = False
     cut = panel_cut(3.0)
     fixed = build_fixed()
+    free = build_free_envelope()
     if not cut.isValid() or len(cut.Solids()) != 1:
         print("FAIL: the panel cutter is not one valid solid")
         ok = False
     if not fixed.isValid() or len(fixed.Solids()) != 1:
         print("FAIL: the fixed housing is not one valid solid")
+        ok = False
+    if not free.isValid() or len(free.Solids()) != 1:
+        print("FAIL: the removable housing envelope is not one valid solid")
         ok = False
     profile = panel_profile()
     cut_w = max(p[0] for p in profile) - min(p[0] for p in profile)
@@ -234,6 +287,20 @@ def selftest() -> int:
     if abs(bb.ymin + INBOARD_D) > 0.02 or abs(bb.ymax - MOUTH_PROUD) > 0.02:
         print(f"FAIL: housing depth is {bb.ymin:.3f}..{bb.ymax:.3f}, not "
               f"{-INBOARD_D:.3f}..{MOUTH_PROUD:.3f}")
+        ok = False
+    fbb = free.BoundingBox()
+    expected_free = (
+        -FREE_BODY_W / 2.0, FREE_BODY_W / 2.0,
+        FREE_MATE_Y, FREE_WIRE_Y,
+        -FREE_BODY_H / 2.0, FREE_BODY_H / 2.0 + FREE_LATCH_H,
+    )
+    got_free = (fbb.xmin, fbb.xmax, fbb.ymin, fbb.ymax, fbb.zmin, fbb.zmax)
+    if any(abs(got - expected) > 0.02 for got, expected in zip(got_free, expected_free)):
+        print(f"FAIL: removable envelope is {got_free}, not {expected_free}")
+        ok = False
+    if abs(MATED_OVERLAP - 6.12) > 0.001 or abs(SERVICE_PULL - 7.12) > 0.001:
+        print(f"FAIL: unmate travel is {MATED_OVERLAP:.3f} mm plus "
+              f"{SERVICE_AIR:.3f} mm service air")
         ok = False
     print("PASS: molex-micro-fit-4 housing and panel agree" if ok else "FAIL")
     return 0 if ok else 1

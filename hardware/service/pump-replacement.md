@@ -145,10 +145,11 @@ the enclosure-side cable clip.
 
 With the cradle clear and power still removed, inspect all four cartridge-tube ends for a
 square, unscarred mouth; inspect the four plate holes, the eight carrier ties, both tab/key
-joints, and the visible travel ends of all eight flexible links. Then reach behind the display,
-press the Micro-Fit's thumb latch, part the cartridge receptacle from the fixed housing, and
-stand the cradle on its bottom floor. The four pump Fastons remain made off until the cartridge
-is on the bench.
+joints, and the visible travel ends of all eight flexible links. Then reach up through the empty
+bay behind the display, press the Micro-Fit's downward-facing thumb latch, pull the cartridge
+housing straight forward until the pair is clear, and lower it through the bay before standing
+the cradle on its bottom floor. Do not lever the fixed half or pull either ribbon. The four pump
+Fastons remain made off until the cartridge is on the bench.
 
 **3. Unscrew the top clamp, then swap the pumps.** Back out the [2](CAP_SCREWS)
 M3×[10](CAP_SCREW_LEN) between the pumps and lift the complete clamp straight up. Remove the two

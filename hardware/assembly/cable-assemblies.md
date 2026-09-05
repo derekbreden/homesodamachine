@@ -105,8 +105,9 @@ four separate terminal barrels without crossing. Molex specifies the `43030-0001
 The **fixed** 350 mm half receives J13's XH contacts at one end and male `43031-0001`
 contacts in the panel-mount `43020-0400` at the other. The **cartridge** 400 mm half receives
 female `43030-0001` contacts in the free `43025-0400` and the four pump Fastons at its other
-end. Key up and viewed into the fixed mating face, preserve the board order by moulded circuit
-number:
+end. On the bench, hold the fixed housing key up and view its mating face; preserve the board
+order by moulded circuit number. In the enclosure the key and the mating thumb latch face down
+into the empty pump bay:
 
 | Micro-Fit circuit | J13 net | Device |
 |---:|---|---|

@@ -5225,10 +5225,13 @@ def build_display_gasket(box):
                      station=(COVER_ORIGIN, plane.origin.toTuple()))
 
 
-# The connector's reference frame points +Y out of its mouth, while the ridge-wall user face
-# points toward world -Y. A half-turn about Z aligns those axes without changing the keyed side.
-PUMP_CONNECTOR_TURN = ((0.0, 0.0, 1.0), 180.0)
-PUMP_CONNECTOR_MOUTH = ((0.0, 0.0, 0.0), (0.0, 1.0, 0.0))
+# The connector's reference frame points +Y out of its mouth and puts its key/latch on +Z.
+# The ridge-wall user face points toward world -Y. A half-turn about X aligns the mating axes
+# and puts the latch DOWN into the empty pump bay, away from the display and under a fingertip.
+PUMP_CONNECTOR_TURN = ((1.0, 0.0, 0.0), 180.0)
+PUMP_CONNECTOR_PANEL_DATUM = ((0.0, 0.0, 0.0), (0.0, 1.0, 0.0))
+PUMP_CONNECTOR_SERVICE_OVERLAP_TOL = 1e-6
+PUMP_CONNECTOR_LATCH_AIR_MIN = 12.0
 
 
 def build_pump_connector(box):
@@ -5237,8 +5240,76 @@ def build_pump_connector(box):
         _pump_connector.build_fixed(),
         turns=(PUMP_CONNECTOR_TURN,),
         seat="pump-connector",
-        station=(PUMP_CONNECTOR_MOUTH, _enc.pump_connector_station(box)),
+        station=(PUMP_CONNECTOR_PANEL_DATUM, _enc.pump_connector_station(box)),
     )
+
+
+def _pump_connector_service_bound(display, front_top, enclosure_box) -> Bound:
+    """Prove the user's complete unplug motion through the empty cartridge bay.
+
+    The 43025 drawing defines the removable housing and the mated-pair length. Pulling
+    ``SERVICE_PULL`` toward -Y first clears the fixed housing by a real millimetre; only then
+    does the hand lower the free half below the bay lintel. Bounding-box sweeps are deliberately
+    conservative: every intermediate pose of the complete body and latching crown lies inside
+    them, so zero overlap here is stronger than checking just the two endpoints.
+    """
+    free, carry = seat_body(
+        _pump_connector.build_free_envelope(),
+        turns=(PUMP_CONNECTOR_TURN,),
+        station=(PUMP_CONNECTOR_PANEL_DATUM, _enc.pump_connector_station(enclosure_box)),
+    )
+    fbb = box(free)
+    pull = _pump_connector.SERVICE_PULL
+    pull_sweep = cq.Solid.makeBox(
+        fbb.xlen,
+        fbb.ylen + pull,
+        fbb.zlen,
+        cq.Vector(fbb.xmin, fbb.ymin - pull, fbb.zmin),
+    )
+    drop = fbb.zmax - (enclosure_box.pump_bay[2] - fits.slip)
+    pulled_ymin = fbb.ymin - pull
+    pulled_ymax = fbb.ymax - pull
+    drop_sweep = cq.Solid.makeBox(
+        fbb.xlen,
+        pulled_ymax - pulled_ymin,
+        fbb.zlen + drop,
+        cq.Vector(fbb.xmin, pulled_ymin, fbb.zmin - drop),
+    )
+    service_path = pull_sweep.fuse(drop_sweep)
+
+    wall = front_top.val() if isinstance(front_top, cq.Workplane) else front_top
+    glass = display.val() if isinstance(display, cq.Workplane) else display
+    blockers = (("enclosure-front-top", wall), ("display", glass))
+    failures = []
+    overlaps = {}
+    for name, blocker in blockers:
+        overlap = service_path.intersect(blocker).Volume()
+        overlaps[name] = overlap
+        if overlap > PUMP_CONNECTOR_SERVICE_OVERLAP_TOL:
+            failures.append(f"service path crosses `{name}` by {overlap:.6f} mm³")
+
+    _origin, latch_axis = carry(((0.0, 0.0, 0.0), (0.0, 0.0, 1.0)))
+    if latch_axis[2] > -0.999:
+        failures.append(f"latch axis is {latch_axis}, not down into the pump bay")
+    latch_air = fbb.zmin - enclosure_box.pump_bay[2]
+    if latch_air < PUMP_CONNECTOR_LATCH_AIR_MIN:
+        failures.append(
+            f"latch has {latch_air:.3f} mm to the bay lintel, below "
+            f"{PUMP_CONNECTOR_LATCH_AIR_MIN:.3f} mm")
+
+    wall_air = service_path.distance(wall)
+    display_air = service_path.distance(glass)
+    return record_bound(Bound(
+        "pump-connector-service",
+        "Pump connector latch faces the empty bay and its full unmate-and-drop path clears "
+        "front-top and the display",
+        not failures,
+        f"{pull:.3f} mm pull including {_pump_connector.SERVICE_AIR:.3f} mm air; "
+        f"{overlaps['enclosure-front-top']:.6f}/{overlaps['display']:.6f} mm³ overlap; "
+        f"{wall_air:.3f}/{display_air:.3f} mm path air; {latch_air:.3f} mm latch air",
+        f"0 mm³ overlap; latch down; >= {PUMP_CONNECTOR_LATCH_AIR_MIN:.3f} mm latch air",
+        tuple(failures),
+    ))
 
 
 def _seated(box):
@@ -5357,6 +5428,7 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     for name, piece in pieces.items():
         a.add(piece, name=f"enclosure-{name}", color=WALL_COLORS[name])
     _carrier_front_top_motion_bound(a, pieces["front-top"], box)
+    _pump_connector_service_bound(display, pieces["front-top"], box)
     # AND BACK-TOP'S CEILING, which is a part of its own. It is built here rather than in
     # `build_pieces` because it is not one of the box's quadrants: `ceiling_panel` states the
     # joint's mating figures and back-top is cut to them, and what the panel needs from this
