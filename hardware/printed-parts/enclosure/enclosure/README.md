@@ -1482,16 +1482,23 @@ leaving the channel and its support-removal path open continuously without an en
 **The dado** is cut in each strip's inboard face on the section the panel states
 (`ceiling_panel.dado`), and it runs from the open Y− mouth aft: the panel is slid
 the length of the piece with its tongues in these two grooves. It is cut a millimetre
-into the field at its mouth. At the back it runs blind from the panel stop through
-the wall's grown inner section to `rear_plane_y`, leaving the nominal wall whole
-through the rear show face; ending exactly on the panel's aft plane would leave the
-strip and wall meeting along a line.
+into the field at its mouth, and it runs as far as its tongue does — the panel's own
+notches end each tongue (`ceiling_panel.tongue_runs_to`), and the groove ends one
+slip aft of that tip, in the strip — or on the next plane the strip changes on, where
+a relief begins less than one wall aft of that end and what stood between would be a
+fin across the groove rather than an end wall. Only a tongue reaching the panel stop carries the
+groove blind through the wall's grown inner section to `rear_plane_y`, leaving the
+nominal wall whole through the rear show face; ending exactly on the panel's aft
+plane would leave the strip and wall meeting along a line.
 
 The current tongue is [12 mm](CEILING_TONGUE_T) square and its dado is
 [12.15 mm](CEILING_DADO_DEPTH) deep. A [6 mm](CEILING_RAIL_ROOT) full-height
 root continues under the removable field, and the fixed side keeps
-[6 mm](CEILING_DADO_LOWER) below the groove plus
-[6 mm](CEILING_DADO_UPPER) above it at the blind edge.
+[6 mm](CEILING_DADO_UPPER) above the groove. Below it the corbel's 45° underside
+gives the groove a floor only where it is at least one wall thick: a
+[3 mm](CEILING_LEDGE)-wide ledge at the blind edge, [6 mm](CEILING_DADO_LOWER)
+thick there, that the tongue's tip rests on. Inboard of the ledge the groove
+opens onto that underside, with no feather left between the two.
 
 **The roof is flat and supported.** Its nominal underside stays at z =
 [349](CEILING_DADO_ROOF) from the blind edge to the panel boundary, leaving the
@@ -1499,8 +1506,8 @@ complete six-millimetre upper capture section and closing the exterior show face
 across the joint. Back-top prints mouth-down, so this is an intentional supported
 face. The groove opens through the Y− seam mouth and the support withdraws through
 the panel's insertion path. The ASSE pocket may rise into the underside locally,
-but the finished exterior cap is guarded at a complete wall everywhere. At the
-rear, the square run-out stops at `rear_plane_y`, with one complete wall closing
+but the finished exterior cap is guarded at a complete wall everywhere. A groove
+carried to the rear stops square at `rear_plane_y`, with one complete wall closing
 the exterior face behind it.
 
 **The two dados are the panel's complete fit.** Their retained full-section spans

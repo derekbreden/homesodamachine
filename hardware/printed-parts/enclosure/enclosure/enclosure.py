@@ -5448,10 +5448,22 @@ def _back_top_ceiling(solid, inner, y_joint, box):
         solid = solid.fuse(_back_top_ceiling_for_pack(inner, y_joint, sx, box))
 
     # THE DADO, one down each strip's inboard face, on the section the panel states. It is cut
-    # open at the mouth, one millimetre into the field which is the panel's own lane, and runs
-    # blind into the grown half of the +Y wall. A groove ending exactly on the panel's aft plane
-    # would leave the strip and the wall meeting along a line, which is a knife edge in the solid
-    # and a non-manifold edge in the mesh.
+    # open at the mouth, one millimetre into the field which is the panel's own lane, and RUNS AS
+    # FAR AS ITS TONGUE DOES: the panel's own notches end each tongue (`ceiling_panel.tongue_runs_to`)
+    # and the groove ends one slip aft of that tip, in the strip. Only a tongue reaching the panel
+    # stop carries the groove blind into the grown half of the +Y wall — a groove ending exactly on
+    # the panel's aft plane would leave the strip and the wall meeting along a line, which is a
+    # knife edge in the solid and a non-manifold edge in the mesh — and never through a port
+    # station standing in that wall. AND IT NEVER ENDS A WALL SHORT OF THE NEXT PLANE THE STRIP
+    # CHANGES ON: what would stand between the groove's end and a relief beginning less than one
+    # wall aft of it is a fin across the groove, not an end wall, so the groove runs on to that
+    # plane instead.
+    #
+    # A FLOOR LIGAMENT UNDER ONE WALL IS NOT A FLOOR. The corbel's 45° underside crosses the
+    # groove's floor `fixed_under_z - floor_z` of run out from the mouth and stands one wall under
+    # it one wall further out; what is under the groove inboard of there is a feather, and it is
+    # cut away down to that underside. The tongue rests on the ledge outboard, one wall wide, its
+    # full `dado_lower_ligament` thick at the blind edge.
     #
     # THE ROOF IS FLAT AND SUPPORTED. Its nominal six-millimetre upper flange continues from the
     # blind edge to the panel boundary, closing the appliance show face all the way to the seam;
@@ -5462,6 +5474,7 @@ def _back_top_ceiling(solid, inner, y_joint, box):
     # exterior face.
     depth = blind_x - mouth_x
     over = 1.0
+    ledge_run = cp.fixed_under_z - floor_z + wall
     # THE +X GROOVE ENDS ON THE C14'S OWN ROOM. The surround stands in that strip's last
     # stretch and the panel's tongue is already cut back on the same room
     # (`c14_ceiling_pocket`), so a groove carried to the wall there serves no tongue and would
@@ -5477,14 +5490,32 @@ def _back_top_ceiling(solid, inner, y_joint, box):
     rb = None if room is None else room.BoundingBox()
     for sx in (+1.0, -1.0):
         gx0, gx1 = sorted((sx * (mouth_x - over), sx * blind_x))
-        groove = _ybox(gx0, gx1, y_joint, cp.aft_y, floor_z, roof_z)
-        clipped = rb is not None and (
+        in_room = rb is not None and (
             rb.xmin <= max(sx * mouth_x, sx * blind_x)
             and rb.xmax >= min(sx * mouth_x, sx * blind_x))
+        end = cp.tongue_runs_to(box.pack.ceiling_reliefs, sx) + cp.dado_slip
+        planes = sorted(
+            {cp.aft_y}
+            | {y for _who, rsx, y0, y1, _keep, _out
+               in back_top_ceiling_reliefs_for(box.pack.asse_cradle)
+               if rsx == sx for y in (y0, y1)}
+            | {y for _who, rsx, _x0, _x1, y0, y1 in box.pack.ceiling_growth_reliefs
+               if rsx == sx for y in (y0, y1)}
+            | ({rb.ymin} if in_room else set()))
+        for plane in planes:
+            if end < plane < end + wall:
+                end = plane
+        to_wall = end >= cp.aft_y - 1e-9
+        groove_y1 = cp.aft_y if to_wall else end
+        groove = _ybox(gx0, gx1, y_joint, groove_y1, floor_z, roof_z)
+        clipped = to_wall and in_room
         if clipped:
             groove = groove.cut(room)
         solid = solid.cut(groove)
-        if not clipped:
+        lx0, lx1 = sorted((sx * (mouth_x - over), sx * (half + ledge_run)))
+        solid = solid.cut(_ybox(lx0, lx1, cp.fore_y - over, groove_y1,
+                                cp.fixed_under_z - ledge_run - over, floor_z))
+        if to_wall and not clipped:
             # `cp.aft_y` is the rear wall's physical face and `rear_plane_y` is the
             # nominal three-millimetre wall's interior face. The pocket between them is blind;
             # the full nominal wall remains behind it instead of the dado opening on the rear.
@@ -9658,6 +9689,7 @@ def main():
         "CEILING_DADO_DEPTH": f"{_ceiling().dado_depth:.4g} mm",
         "CEILING_DADO_ROOF": f"{_ceiling().dado_roof_z:.4g}",
         "CEILING_DADO_LOWER": f"{_ceiling().dado_lower_ligament:.4g} mm",
+        "CEILING_LEDGE": f"{_ceiling().dado_depth - (_ceiling().fixed_under_z - _ceiling().dado_floor_z + wall):.4g} mm",
         "CEILING_DADO_UPPER": f"{_ceiling().lip_t:.4g} mm",
         "CEILING_KEEP": f"{max(r[4] for r in back_top_ceiling_reliefs):.4g} mm",
         "RELAY_CEILING_KEEP": f"{next(r[4] for r in back_top_ceiling_reliefs
