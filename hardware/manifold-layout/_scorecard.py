@@ -217,8 +217,8 @@ CARB_SEGMENTS = (
 #             does not is an open joint under the name of the body it hangs from.
 #   `joint` — the CONSTRUCTION, which is a different question from whether it fastens. `bosses`,
 #             `well`, `cradle`, `anchor`, `tray`, `channel`, `wall-capture`, `seam-capture`,
-#             `plate-capture`, `tube-clamp`,
-#             `deck-mount`, `basin`, `gap-press`, `tube-hung`, `pack`. Not an axis and not a score —
+#             `plate-capture`, `tube-clamp`, `deck-mount`, `basin`, `gap-press`,
+#             `tie-capture`, `tube-hung`, `pack`. Not an axis and not a score —
 #             it is how the machine puts this body down, and it is what lets a card count the
 #             bodies bossed to a piece apart from the ones captured in its wall
 #             (`assembly/cards/_cards_sync.py`) and a scene tell a pack body from an orphan.
@@ -414,6 +414,19 @@ MOUNTS = (
     ("valve-v-f", "enclosure-front-top", "bosses"),
     ("valve-v-h", "enclosure-front-top", "bosses"),
     ("valve-v-i", "enclosure-front-top", "bosses"),
+    # THE FOUR PUMP-BARB TEES MOVE AS ONE. The fixed wall journals each branch collar in X/Z;
+    # two ties per tee close its two run arms onto the carrier web, making the carrier the
+    # positive Y location instead of asking a flex stub or hairpin to act as a mount.
+    ("tee-y-c", "enclosure-tee-carrier", "tie-capture"),
+    ("tee-y-d", "enclosure-tee-carrier", "tie-capture"),
+    ("tee-y-f", "enclosure-tee-carrier", "tie-capture"),
+    ("tee-y-g", "enclosure-tee-carrier", "tie-capture"),
+    # Each spring is captive between the front-top's fixed diamond guide/bearing face and the
+    # carrier's recessed seat. The pair pushes aft and travels with neither printed endpoint.
+    ("tee-carrier-spring-west",
+     ("enclosure-front-top", "enclosure-tee-carrier"), "gap-press"),
+    ("tee-carrier-spring-east",
+     ("enclosure-front-top", "enclosure-tee-carrier"), "gap-press"),
     # BOTH PUMPS STAND IN THE LARGE LOWER CRADLE. Three sides of each stamped bracket bear on
     # cradle lands; the +Y side stays open for the tube fittings. A small clamp screws down from
     # above, presses both brackets and locates both bosses in case-derived octagonal collars
@@ -461,9 +474,10 @@ def rides_hold(rows) -> None:
 def derived_mounts() -> tuple:
     """One row for every placed body `MOUNTS` does not name.
 
-    `manifold_layout` arranges the flavour manifold's own bodies on the pack's four spine
-    hairpins and this module stands that whole pose on the base's crown, so a body no printed
-    feature reaches is carried by THE PACK — the hairpins are what the machine sets it down on.
+    `manifold_layout` arranges the flavour manifold as one connected pack. Fixed valves have
+    printed seats, the pump heads have their cartridge cradle, and the four moving tees have
+    their tied carrier rows above. A remaining body no printed feature reaches is carried only
+    by that connected pack and stays an open `pack` construction until its exemption says why.
 
     Read off the placed assembly rather than typed, so a body the machine gains arrives with a
     row instead of waiting for one."""
@@ -527,28 +541,28 @@ NEVER = {
         "power box hangs over its mounting plate — so the clamp rides the can. The plate's "
         "four holes carry the floor's posts and the grommets, and every printed feature in "
         "reach of the clamp stands on the cabinet side of them.",
-    # THE SIX Y-TEES, EACH BUTTED ONTO A VALVE IN A PRINTED SEAT. A butt is two collet faces
-    # meeting on one stub of tube with no tube between them (`manifold_layout.SEGMENTS`), so a
-    # tee and the valve it butts are one made-up body. Every one of these six lands on a valve
-    # the two valve trays hold, which is what makes the chain worth something: `tees_butt_held` reads
-    # each row's named partner back off the pack and off this table's own `by`, so a valve that
-    # loses its seat takes its tee's exemption with it.
+    # THE TWO INNER Y-TEES butt valves in fixed printed seats. They need no second printed
+    # mount. The four pump-barb tees are deliberately absent here: their two ties apiece make
+    # the carrier rows in `MOUNTS` their positive location. `tees_land_held` still reads all six
+    # fluid constructions back from `SEGMENTS`.
     **{tee: (f"Its collets make up onto {valve.upper()[len('VALVE-'):]}'s, face to face on one "
              f"stub with no tube between them, and that valve stands in four printed sockets — "
-             f"so what holds this tee is the seat under the valve it butts. Nothing printed "
-             f"reaches the tee itself, and a second seat on a body already made up onto a held "
-             f"one would fight it for the joint's own position.")
-       for tee, valve in (("tee-y-a", "valve-v-c"), ("tee-y-b", "valve-v-d"),
-                          ("tee-y-c", "valve-v-e"), ("tee-y-d", "valve-v-f"),
-                          ("tee-y-f", "valve-v-h"), ("tee-y-g", "valve-v-i"))},
+             f"so what holds this tee is the seat under the valve it butts.")
+       for tee, valve in (("tee-y-a", "valve-v-c"), ("tee-y-b", "valve-v-d"))},
 }
 
 
-# Which valve each exempt tee butts, so the exemption is a claim the machine can refuse. A tee's
-# reason names a valve; this is that pairing as data, and `tees_butt_held` holds it to two
-# things — the pack still draws the butt, and the valve still has a printed seat.
-TEE_BUTTS = {"tee-y-a": "valve-v-c", "tee-y-b": "valve-v-d", "tee-y-c": "valve-v-e",
-             "tee-y-d": "valve-v-f", "tee-y-f": "valve-v-h", "tee-y-g": "valve-v-i"}
+# Which fixed valve each tee reaches, and by which manifold construction. The two inner tees
+# derive their hold through face-to-face butts; the four pump-barb tees are held by the carrier
+# and reach their fixed fore valves through explicit bowed flex stubs.
+TEE_LANDS = {
+    "tee-y-a": ("valve-v-c", "butt"),
+    "tee-y-b": ("valve-v-d", "butt"),
+    "tee-y-c": ("valve-v-e", "fore-y-c"),
+    "tee-y-d": ("valve-v-f", "fore-y-d"),
+    "tee-y-f": ("valve-v-h", "fore-y-f"),
+    "tee-y-g": ("valve-v-i", "fore-y-g"),
+}
 
 
 # Every exemption a LENGTH OF TUBE rests on, as `(body, port, run, what the run lands on)` — the
@@ -586,19 +600,20 @@ def chains_land(rows, runs) -> None:
                 f"exemption.")
 
 
-def tees_butt_held(rows) -> None:
-    """Every exempt tee butts a valve the pack still draws, and that valve is still fastened."""
+def tees_land_held(rows) -> None:
+    """Every tee reaches the stated held valve by the stated construction."""
     import manifold_layout as ml
 
     by_name = {name: by for name, by, _joint in rows}
-    butts = {(a.rsplit("-", 1)[0], b.rsplit("-", 1)[0])
-             for _cid, a, b, how in ml.SEGMENTS if how == "butt"}
-    for tee, valve in sorted(TEE_BUTTS.items()):
+    joints = {(a.rsplit("-", 1)[0], b.rsplit("-", 1)[0]): how
+              for _cid, a, b, how in ml.SEGMENTS}
+    joints.update({pair[::-1]: how for pair, how in tuple(joints.items())})
+    for tee, (valve, how) in sorted(TEE_LANDS.items()):
         pair = (tee[len("tee-"):].upper(), valve[len("valve-"):].upper())
-        if pair not in butts and pair[::-1] not in butts:
+        if joints.get(pair) != how:
             raise ValueError(
-                f"{tee} is held out of the mounted axis because it butts {valve}, and "
-                f"`manifold_layout.SEGMENTS` no longer draws a butt between them — the joint "
+                f"{tee} is held out of the mounted axis because it lands on {valve} by {how}, "
+                f"and `manifold_layout.SEGMENTS` now says {joints.get(pair)!r} — the joint "
                 f"the exemption rests on has been rerouted, so the row is claiming a hold that "
                 f"is not there.")
         if by_name.get(valve) is None:
@@ -694,6 +709,11 @@ TOUCHING_OK = {frozenset(p) for p in (
     # AND THE EIGHT IN THE TWO VALVE TRAYS' — the same seat and the same press, on a plate the
     # front-top piece carries instead of a lid.
     *(("enclosure-front-top", f"valve-v-{v}") for v in "cdefghij"),
+    # The two compression springs terminate on printed bearing faces at both ends. Zero
+    # distance is the captive mechanism working; the diamond guide remains inside the coil ID.
+    *((f"tee-carrier-spring-{side}", host)
+      for side in ("west", "east")
+      for host in ("enclosure-front-top", "enclosure-tee-carrier")),
     # BOTH MADE-UP CHAINS IN THE RIBS THAT LID STANDS. A bore closed on a section reads its own
     # slip, and that reading IS the seat holding.
     ("foam-assembly", "discharge-chain"),
@@ -767,6 +787,7 @@ TOUCHING_OK = {frozenset(p) for p in (
 MADE_AS = {
     "drawn":     "drawn as a run",
     "straight":  "made by a lane's own straight",
+    "bowed":     "made by a bowed flex stub",
     "butt":      "made by a butt between two collets",
     "mate":      "made up across the plane its two bodies share",
     "fold":      "made by the fold's hairpin",
@@ -785,6 +806,8 @@ def made_of(how: str) -> str:
     import manifold_layout as ml
     if how == "spine":
         return "fold"
+    if how in ml.FORE_STUBS:
+        return "bowed"
     if how in ("turn", "butt"):
         return how
     # A lane's own straight. `manifold_layout.build_assembly` draws a solid for one only past
@@ -1507,8 +1530,9 @@ def _mounted(runs) -> Check:
     """The one fastening axis: a printed feature of another placed part, or nothing.
 
     The construction each open row stands on today rides in the detail, so the list says what
-    a joint would be converting FROM. `pack` is the flavour manifold's own bodies, butted collet
-    to collet down its limbs, standing on the hairpins the machine sets the whole pose down on.
+    a joint would be converting FROM. `pack` is a flavour-manifold body whose connected chain
+    has not earned its own printed fastening row; it is not a claim that a flexible hairpin is
+    a structural support.
 
     A RIDER IS NOT A JOINT. `RIDES`'s rows are part of another placed body and answer to its
     fastening, so counting them would be counting one joint as many times as its part is drawn.
@@ -1518,7 +1542,7 @@ def _mounted(runs) -> Check:
     rows = mounts()
     never_holds(rows)
     rides_hold(rows)
-    tees_butt_held(rows)
+    tees_land_held(rows)
     chains_land(rows, runs)
     own = [(n, by, joint) for n, by, joint in rows if n not in RIDES]
     open_joints = sorted((n, joint) for n, by, joint in own

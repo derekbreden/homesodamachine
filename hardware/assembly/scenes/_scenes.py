@@ -475,8 +475,8 @@ BARE = {"cap-lid-fill"}
 # to the bench on exactly one piece, and for a picture that is the answer whatever `by` reads.
 #
 # A body the fastening table leaves without a parent and this table does not name is REPORTED,
-# not dropped — see `holders`. The one exception is the flavour pack, whose bodies rest on their
-# own spine hairpins and arrive as one folded unit of their own.
+# not dropped — see `holders`. The one exception is the flavour pack, whose fixed valves are
+# pressed into front-top's trays and whose unseated internal spans arrive as one folded unit.
 BEARS_ON = {
     # Standing on a printed floor.
     "foam-assembly": "enclosure-back-bottom",
@@ -500,6 +500,10 @@ BEARS_ON = {
     # Hanging off the line they splice, on the wall that line is cradled against.
     "water-split": "enclosure-back-top",
     "flow-regulator": "enclosure-back-top",
+    # Captive between the fixed front-top bearings and the moving carrier seats. The springs
+    # enter with the bare carrier and remain part of the completed front-top bench unit.
+    "tee-carrier-spring-west": "enclosure-front-top",
+    "tee-carrier-spring-east": "enclosure-front-top",
     # A hop inboard of the CO2 inlet and a hop short of the regulator, on that same wall.
     "gasher-co2": "enclosure-back-top",
     # Riding another body rather than a piece.
