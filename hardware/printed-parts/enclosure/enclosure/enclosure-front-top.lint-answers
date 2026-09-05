@@ -29,3 +29,7 @@ click: x=0.000 y=83.785 z=312.591
 click: x=0.000 y=83.785 z=298.591
 click: x=8.000 y=83.785 z=305.591
 click: x=-8.000 y=83.785 z=305.591
+
+[ceiling] The Micro-Fit fixed housing's lower snap-ear aperture roof — the connector is turned latch-down, so this 11.2 × 2.0 mm flat is the complete square engagement edge through the locally thinned panel. Chamfering it would narrow the customer-drawing ear opening and obstruct insertion; it is only a 2 mm-deep bridge between the aperture's two printed flanks, inside the same production-supported ridge-wall tree as the surrounding panel.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=0.000 y=82.285 z=308.496
