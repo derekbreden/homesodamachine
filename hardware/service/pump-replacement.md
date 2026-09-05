@@ -21,15 +21,20 @@ gooseneck's tip. The user's part is a container under the faucet.
 |---|---|
 | Both Kamoer pumps, [2](CART_PUMPS) stamped brackets bearing in the lower cradle and both bosses located by the top clamp ([`pump-tray/`](/hardware/printed-parts/enclosure/pump-tray/README.md)) | [8](TRAY_VALVES) valves — V-C…V-J, on the two valve trays ([`valve-tray/`](/hardware/printed-parts/enclosure/valve-tray/README.md)) |
 | The four barb tubes, on the barbs they were pushed onto | [3](CAP_VALVES) valves — V-A, V-B, V-K, in the cold core's lid cradles (`_cold_core_interface.cap_cradles`) |
-| Both DC-5 spade pairs, once they are off the motor tabs | All [6](BOX_TEES) PP0208E tees — each butts a valve that stays |
-| | The integral collet plate and the wall behind it that the four tees stand in (`enclosure._tee_wall`) |
-| | Every hairpin, turn and butted stub inside the pack, and every mouth it spends on a bulkhead or a cap conduit |
+| The DC-5 cartridge-side 22 AWG 4P ribbon, its `43025-0400` receptacle, and both Faston pairs on the pump tabs | The fixed `43020-0400` pump connector, its J13-side ribbon, and the +X ridge-wall cable clip |
+| | All [6](BOX_TEES) PP0208E tees. Y-A and Y-B butt fixed valves; Y-C, Y-D, Y-F and Y-G are the [4](CARRIER_TEES) tees tied to the moving carrier |
+| | The carrier, its [2](SPRING_COUNT) aft-pushing springs, [2](TAB_COUNT) handed service-tab arms and [2](TAB_LOCK_COUNT) top-drop tab locks |
+| | The integral collet plate, tee-journal wall, carrier guides and both physical stops in `enclosure-front-top` |
+| | The [4](BOWED_STUBS) bowed tee-to-fore-valve stubs and [4](MOVING_HAIRPINS) spine hairpins. Their tee ends move with the carrier; their valve ends remain fixed |
+| | Every other turn and butted stub inside the pack, and every mouth it spends on a bulkhead or a cap conduit |
 | | The funnel, in its throat; the enclosure display; the SeaFlo and both its chains; the cold core itself |
 
-**The manifold does not move.** Every valve, tee and tube in the pack stands on a seat the box
-keeps, so the only tube ends that cross the bay's mouth are the four the pumps carry out with
-them. The funnel stays in its throat, the enclosure display stays in its bezel, and the pack is never
-handled.
+**The manifold stays in the appliance, but its four-tee carrier travels inside front-top.**
+[2](TIES_PER_TEE) ties per tee couple Y-C, Y-D, Y-F and Y-G in Y while the fixed wall journals their branch
+collars in X and Z. The service-tab arms and their keys travel with the carrier; the two springs
+compress between it and fixed front-top. The tee-side ends of four bowed stubs and four
+hairpins follow the same stroke. Nothing in that mechanism rides out on the cartridge: the only
+tube ends that cross the bay's mouth are the four the pumps carry with them.
 
 ## The [4](JOINT_COUNT_3) joints the plate opens
 
@@ -53,29 +58,42 @@ is drawn on — the container under the faucet is the only one the procedure ask
 
 ## How the plate lets go
 
-The collet plate is printed into front-top, with a nominal release section [200](PLATE_SPAN) mm across and
-[3.175](PLATE_T) mm thick. It is joined to the wall behind it, with its release face
-[1.5](REST_GAP) mm fore of the four branch collet noses. Its four Ø8.5 mm teardrop
-passages pass the Ø[6.35 mm](TUBE_OD) tubes while leaving a face under each release nose.
-The upper cap, outer cheeks, floor joins and front-bottom feet are features
-of the printed enclosure. The cartridge's aft notches clear the cheeks as it moves.
+The collet plate is printed into front-top, with a nominal release section
+[200](PLATE_SPAN) mm across and [3.175](PLATE_T) mm thick. Its release face stands
+[1.5](REST_GAP) mm fore of the four branch-collet noses at the squeeze datum. Four Ø8.5 mm
+teardrop passages pass the Ø[6.35 mm](TUBE_OD) cartridge tubes while leaving a land under each
+release sleeve. The upper cap, outer cheeks, floor joins and front-bottom feet are features of
+the printed enclosure. The cartridge's aft notches clear the cheeks as it moves.
 
-**The wall behind the plate holds each tee square.** It spans the bay and clears each
-tee's branch collar by `TEE_WALL_BORE_SLIP` on the radius. The tee is located across its
-axis and free to move along it. The wall's larger collar bore meets the smaller teardrop
-passage at the release face; its aft face leaves the tee body [3.15](STROKE) mm of modeled release
-travel and [1.454](BODY_AIR) mm of body air (`TEE_WALL_BODY_AIR`). The release travel comprises the
-[1.5](REST_GAP) mm rest gap and [1.65](SLEEVE_TRAVEL) mm of sleeve travel, the PP0208E's own
-([`reference/tee-connector/`](/hardware/reference/tee-connector/README.md)). The integral plate stays with front-top throughout a pump swap.
+**The wall behind the plate holds each carried tee square in X and Z; the carrier locates all
+four together in Y.** The wall clears each branch collar by `TEE_WALL_BORE_SLIP` on the radius.
+Its larger collar bore meets the smaller teardrop passage at the release face, and its aft face
+leaves each tee body [3.15](STROKE) mm of modeled release travel from squeeze plus
+[1.454](BODY_AIR) mm of body air (`TEE_WALL_BODY_AIR`). That release stroke is the
+[1.5](REST_GAP) mm gap plus the PP0208E's measured [1.65](SLEEVE_TRAVEL) mm sleeve travel
+([`reference/tee-connector/`](/hardware/reference/tee-connector/README.md)). The plate, wall,
+guides and stops stay fixed throughout a pump swap.
 
-Pull the cartridge and the gripped tubes drag the tees forward [1.5](REST_GAP) mm — each tee
-running in its own bore — until each nose lands on that land. The body keeps coming, the nose
-is held, the grip opens, and the tube draws out through the hole it entered by. Push the
-cartridge home and the same four tubes thread the same four holes back into the same collets,
-the cradle's own aft face landing on the plate's fore face as the last one bottoms. **The user's two hands are the whole mechanism**:
-one pulls the cartridge, the other braces the box, and the box carries that brace to the plate
-through its fixed wall and the two wedge cheeks. There is no cartridge lock and no tool in
-this pump-replacement motion.
+The service motion has four named carrier states. Offsets are enclosure +Y, aft, from the
+squeeze datum. Only release and park are physical stops.
+
+| State | Carrier offset | Tube relation |
+|---|---:|---|
+| release | [−3.15](RELEASE_OFFSET) mm | fore stop; the fixed plate holds all four sleeves open |
+| squeeze | [0](SQUEEZE_OFFSET) mm | both tabs held together; tubes bottom at [10](SQUEEZE_DEPTH) mm |
+| connected | [+1.5](CONNECTED_OFFSET) mm | floats under spring load at the [8.5](CONNECTED_DEPTH) mm grip depth |
+| park | [+3](PARK_OFFSET) mm | empty aft stop, corresponding to [7](PARK_DEPTH) mm first resistance and therefore beyond connection reach |
+
+At connected, the four tee teeth grip the four cartridge tubes. A straight cartridge pull
+therefore carries all four tied tees and the carrier fore from +1.5 mm to release at −3.15 mm,
+a [4.65](CONNECTED_RELEASE_TRAVEL) mm connected-to-release motion. The noses meet the fixed
+plate and the last 1.65 mm of sleeve travel opens the teeth; the tubes continue through the
+holes and leave the tees. With that tensile link gone, the two springs send the empty carrier
+aft to park at +3 mm. The two tab arms, their keys, the tee-side ends of the bowed stubs and the
+tee-side ends of the hairpins travel with the carrier throughout; their fixed valve ends do
+not. There is no cartridge lock and no release tool. The cartridge face may finish flush after
+reconnection, but neither that face nor the plate is a final seat or proof that four tubes are
+gripped.
 
 ## Dry mode
 
@@ -104,18 +122,37 @@ States"; this doc names the order they run in.
 
 ## Procedure
 
+**Do not force a carrier that is racked or operate one service tab by itself.** Before a swap,
+look through both service openings: both rigid tab arms and both top-drop keys must be fully
+seated, the two tabs must agree in Y, and the visible portions of all four bowed stubs and four
+moving hairpin ends must be free of kinks, abrasion and enclosure contact. A displaced key,
+unequal tabs, a reluctant return or a damaged flexible member stops the procedure for
+inspection; neither the cartridge nor a tab is a lever for clearing it.
+
 **1. Run dry mode.** A container under the faucet — states 2 and 4 send a slug of air and residual
 syrup out the gooseneck.
 
 **2. Pull the cartridge.** Hook the pulling hand into either cradle pocket, centred on the
-cradle's flank at the tube-centre elevation, and brace the box with the other hand. Pull on its fore ledge and draw
-the cradle straight forward along the bay floor: the [4](JOINT_COUNT_2) joints let go against
-the plate in the first few millimetres, and the rest of the stroke is the cradle leaving the
-bay. Pull the two DC-5 spade pairs off the motor tabs and stand the cradle on its bottom floor.
+cradle's flank at the tube-centre elevation, and brace the box with the other hand. From the
+connected +1.5 mm state, pull the fore ledge and draw the cradle straight forward along the bay
+floor. The four gripped tubes carry the tied tees and carrier to release at −3.15 mm against
+the fixed plate. Its lands hold all four sleeves while the last 1.65 mm opens the teeth; all
+[4](JOINT_COUNT_2) tubes must leave together. As soon as they are clear, the two springs must
+return the empty carrier evenly to park at +3 mm. Stop if one tube remains caught, the tabs
+disagree, or the carrier fails to park; do not twist the cradle or pry a sleeve. Continue the
+straight pull only after release. The free cartridge ribbon follows without passing through
+the enclosure-side cable clip.
+
+With the cradle clear and power still removed, inspect all four cartridge-tube ends for a
+square, unscarred mouth; inspect the four plate holes, the eight carrier ties, both tab/key
+joints, and the visible travel ends of all eight flexible links. Then reach behind the display,
+press the Micro-Fit's thumb latch, part the cartridge receptacle from the fixed housing, and
+stand the cradle on its bottom floor. The four pump Fastons remain made off until the cartridge
+is on the bench.
 
 **3. Unscrew the top clamp, then swap the pumps.** Back out the [2](CAP_SCREWS)
-M3×[10](CAP_SCREW_LEN) between the pumps and lift the complete clamp straight up. Then lift
-each pump out of its cradle well. Lower each replacement until three sides of its stamped
+M3×[10](CAP_SCREW_LEN) between the pumps and lift the complete clamp straight up. Remove the two
+Faston pairs from the old motor tabs, then lift each pump out of its cradle well. Lower each replacement until three sides of its stamped
 bracket lie flat on the cradle lands, lower the clamp until its two octagonal collars surround
 the bosses and its pressing plates meet the bracket tops, then draw both screws down evenly.
 The brackets carry pump weight into the cradle; the clamp prevents lift and fixes X, Y and yaw.
@@ -129,20 +166,37 @@ face; that LLDPE is what the plate's hole passes and the branch collet grips. **
 load-bearing here** — this joint takes the release tension when the cartridge is next drawn, so
 tug-test each of the four before the deck goes back in.
 
-**5. Push the cartridge home.** Spade pairs back on the motor tabs first — they are unreachable
-once the cradle is in. Then set the cradle on the bay floor, feed the four tubes through the
-plate holes and into the branch collets, then hook the same cradle pocket and push on its aft
-ledge with one hand bracing the box. The cradle's aft face landing on the printed collet plate is
-the seat: a face standing proud of the wall is a tube that has not gone home.
+**5. Connect, squeeze, insert and release.** Put both Faston pairs back on the replacement
+motor tabs first — they are unreachable once the cradle is in. With power removed, reach behind
+the display and push the cartridge's `43025-0400` onto the fixed `43020-0400` until the thumb
+latch clicks; tug the housing, not the ribbon, to prove it is closed. Set the cradle on the bay
+floor and present all four tubes squarely through their plate holes. Squeeze both service tabs
+together and hold the carrier at 0 mm. Advance the cartridge without twisting it and push all
+four tubes to their 10 mm bottoms. Release both tabs together: the two springs move the carrier
+aft until all four teeth grip at connected, +1.5 mm carrier offset and 8.5 mm tube depth.
+
+Both tabs must settle evenly at connected. A carrier that remains at park with the cartridge
+presented means at least one tube missed its tee; squeeze again, withdraw, inspect and retry
+rather than forcing the cartridge farther aft. The cartridge face should appear flush only
+after the carrier state and four grips are proved. Face flushness and contact with the plate
+are not insertion datums, final seats or proof of connection.
 
 **6. Re-prime.** Both channels through the funnel-fill path, then a dispense on each until it
-runs clean.
+runs clean. While each channel flows, inspect both replacement-head connections and all visible
+carrier flex links for seepage, rubbing or a link pulled taut.
 
 ## Output condition
 
 - Both pumps replaced, each bracket bearing in the lower cradle with the top clamp closed, tug-tested
-- Four fresh barb tubes on the barbs and all [4](JOINT_COUNT_4) joints threaded home, the
-  cartridge's face flush in the bay and the cradle's aft face on the printed collet plate
+- DC-5 Micro-Fit latched behind the display; fixed J13-side ribbon retained in the ridge-wall
+  clip and cartridge-side ribbon free to follow the next withdrawal
+- During removal, all four tubes released together at −3.15 mm and the empty carrier returned
+  evenly to park at +3 mm; both rigid tab arms and both tab locks remained seated
+- Four fresh barb tubes on the barbs and all [4](JOINT_COUNT_4) joints bottomed together at
+  squeeze, 0 mm; both tabs released evenly to connected, +1.5 mm, with all tubes gripped at
+  8.5 mm. The cartridge face is visually flush, but was not used as the connection proof
+- Four bowed stubs and four moving hairpin ends clear, unscarred, unkinked and slack through
+  the observed stroke; all eight carrier ties intact and flush-cut
 - Both channels re-primed and dispensing clean
 - No joint on the water, CO2 or carbonated-water path opened; the carbonator never depressurised
 
@@ -160,6 +214,17 @@ runs clean.
 3. **A customer-facing transit mode is not written.** This procedure leaves the carbonator charged.
    The carbonator's only liquid outlet climbs to the faucet, and the factory's transit sequence is
    [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) step 13.
+4. **The complete carrier mechanism is not yet physically qualified.** Before this procedure
+   is released for production service, the four tee-to-valve bows must be bench-fitted to
+   12 mm exposed/developed paths across their 10 mm sleeve-face chords; 12 mm is not a stock
+   cut length, and the blank remains TBD by that fixture. Cycle and force-measure the complete
+   four-tee mechanism through release, squeeze, connected and park with all eight ties, two
+   springs, both tab arms and keys, four bowed stubs, four moving hairpin ends and four real
+   cartridge tubes installed. It must release four together, return empty to park, settle
+   repeatably at connected and remain leak-free, without racking, rubbing, coil bind, buckling,
+   spring escape, key withdrawal or tube damage. Catalog force calculations and collision-free
+   CAD do not close this gate; record it under
+   [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) Open item 7.
 
 ## Sources
 [value](NAME) texts are updated by:

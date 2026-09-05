@@ -22,6 +22,7 @@ sys.path.insert(0, str(_root / "tools"))
 sys.path.insert(0, str(_hw / "printed-parts" / "cadlib"))
 sys.path.insert(0, str(_hw / "printed-parts" / "cold-core"))
 sys.path.insert(0, str(_hw / "printed-parts" / "enclosure" / "pump-tray"))
+sys.path.insert(0, str(_hw / "printed-parts" / "enclosure" / "tee-carrier"))
 sys.path.insert(0, str(_hw / "printed-parts" / "enclosure" / "enclosure"))
 sys.path.insert(0, str(_hw / "manifold-layout"))
 
@@ -30,6 +31,7 @@ import _routing as R                                   # noqa: E402  — the sto
 import _scorecard as _sc                               # noqa: E402  — what fastens each body
 import manifold_layout as _ml                          # noqa: E402  — the segment and mouth tables
 import pump_tray as _tray                              # noqa: E402  — the clamp collar the boss lifts out of
+import tee_carrier as _carrier                         # noqa: E402  — the moving tees, tabs and locks
 import enclosure as _enc                               # noqa: E402  — the cradle, top clamp and screws
 from _cold_core_interface import cap_cradles           # noqa: E402  — the valves the core's lid holds
 
@@ -53,16 +55,16 @@ def holder(name: str, decked: frozenset):
 
     A pump's bracket bears in the cartridge's lower cradle, and `_facts.pump_trays` records the
     conformal clamp collar found on each boss — so a head in that table is held by the piece
-    that rides out and by nothing the box screws down. A tee is fastened by nothing of
-    its own: its collets make up onto a valve's, face to face on one stub, so what holds it is
-    the seat under the valve it butts (`_scorecard.TEE_BUTTS`)."""
+    that rides out and by nothing the box screws down. A tee without a direct carrier row
+    inherits the fixed valve and construction named by `_scorecard.TEE_LANDS`: the inner pair
+    still butt, while the four pump-barb tees land through bowed flex stubs."""
     if name in decked:
         return RIDES_OUT
     by = _sc.fastened_by(name)
     if by is not None:
         return by
-    if name in _sc.TEE_BUTTS:
-        return holder(_sc.TEE_BUTTS[name], decked)
+    if name in _sc.TEE_LANDS:
+        return holder(_sc.TEE_LANDS[name][0], decked)
     return None
 
 
@@ -101,6 +103,13 @@ def bored() -> tuple:
                         if how in _ml.BARB_OF))
 
 
+def state_text(value: float) -> str:
+    """One carrier offset as the service prose prints it: signed except at the zero datum."""
+    if abs(value) < 1e-9:
+        return "0"
+    return f"{value:+g}".replace("-", "−")
+
+
 def main():
     f = _facts.read()
     od = R.stock_of("fluid", 6.35).od
@@ -115,7 +124,7 @@ def main():
             f"the joints a cartridge pull parts are {found}, and pump-replacement.md is "
             f"written for {tuple(sorted(EXPECTED))}. A pump, valve or tee has changed which "
             f"side of the bay's mouth holds it — `_facts.pump_trays`, `_scorecard.MOUNTS` and "
-            f"`TEE_BUTTS` say which. The doc's joint table and its step 2 both name these by "
+            f"`TEE_LANDS` say which. The doc's joint table and its step 2 both name these by "
             f"hand and have to move with it.")
     if found != bored():
         raise ValueError(
@@ -134,13 +143,59 @@ def main():
     berth = {cid: _ml.dist(*_ml.RUNS[how]) for cid, _f, _t, how in _ml.SEGMENTS
              if how in _ml.BARB_OF}
 
+    # THE MECHANISM THAT STAYS IN FRONT-TOP. Keep the service card tied to the same connector
+    # measurements, carrier mounts and printed-part inventory as the enclosure. The generated
+    # enclosure facts can lag a source edit until the next full CAD publish, so this small sync
+    # reads those source interfaces directly and refuses to bless a half-integrated carrier.
+    states = _ml.tee.CARRIER_STATES
+    if tuple(states) != ("release", "squeeze", "connected", "park"):
+        raise ValueError(f"tee-carrier states are not in service order: {tuple(states)}")
+    carrier_tees = tuple(sorted(_ml.CARRIER_TEES))
+    mounted_carrier_tees = tuple(sorted(
+        name[len("tee-"):].upper()
+        for name, by, joint in _sc.MOUNTS
+        if by == "enclosure-tee-carrier" and joint == "tie-capture"
+    ))
+    if mounted_carrier_tees != carrier_tees:
+        raise ValueError(
+            f"manifold_layout carries {carrier_tees}, but the carrier's tie-capture mounts are "
+            f"{mounted_carrier_tees}")
+    carrier_interface = _carrier.interface()
+    printed = carrier_interface["printed_parts"]
+    tabs = tuple(name for name in printed if "-tab-" in name and "-tab-lock-" not in name)
+    locks = tuple(name for name in printed if "-tab-lock-" in name)
+    springs = tuple(name for name, _by, _joint in _sc.MOUNTS
+                    if name.startswith("tee-carrier-spring-"))
+    tie_sites = carrier_interface["tie_sites"]
+    if len(tie_sites) % len(carrier_tees):
+        raise ValueError(
+            f"the carrier has {len(tie_sites)} tie sites for {len(carrier_tees)} tees")
+    bowed = tuple(cid for cid, frm, to, how in _ml.SEGMENTS
+                  if how.startswith("fore-y-")
+                  and {frm.rsplit("-", 1)[0], to.rsplit("-", 1)[0]} & set(carrier_tees))
+    hairpins = tuple(cid for cid, frm, to, how in _ml.SEGMENTS
+                    if how == "spine"
+                    and {frm.rsplit("-", 1)[0], to.rsplit("-", 1)[0]} & set(carrier_tees))
+    if not (len(carrier_tees) == len(bowed) == len(hairpins) == len(found)):
+        raise ValueError(
+            "the cartridge joints, carried tees, bowed stubs and moving hairpin ends no "
+            f"longer form four matching paths: joints={found}, tees={carrier_tees}, "
+            f"bows={bowed}, hairpins={hairpins}")
+
     variables = {
         # What rides out of the bay and what the box keeps. All four counts come off the same
         # fastening rows the card reads, so a body that moves seat moves one and the rest.
         "CART_PUMPS":   f"{len(decked)}",
         "TRAY_VALVES": f"{sum(1 for n in valves if holder(n, decked) == BAY)}",
         "CAP_VALVES":   f"{len(cap_cradles)}",
-        "BOX_TEES":     f"{sum(1 for n in _sc.TEE_BUTTS if holder(n, decked) != RIDES_OUT)}",
+        "BOX_TEES":     f"{sum(1 for n in _sc.TEE_LANDS if holder(n, decked) != RIDES_OUT)}",
+        "CARRIER_TEES": f"{len(carrier_tees)}",
+        "BOWED_STUBS":  f"{len(bowed)}",
+        "MOVING_HAIRPINS": f"{len(hairpins)}",
+        "TIES_PER_TEE": f"{len(tie_sites) // len(carrier_tees)}",
+        "SPRING_COUNT": f"{len(springs)}",
+        "TAB_COUNT":    f"{len(tabs)}",
+        "TAB_LOCK_COUNT": f"{len(locks)}",
         # The doc names this count in four places — the opening, the heading, the pull and the
         # output condition — and `docgen` keys a text by its own name, so a count standing more
         # than once stands under a suffix per standing.
@@ -158,6 +213,17 @@ def main():
         "BODY_AIR":   f"{(plate['aft_y'] + rest_gap + _ml.tee.BRANCH_REACH - _ml.tee.HALF_W
                           - plate['stroke'] - plate['wall_aft_y']):.4g}",
         "TUBE_OD":    f"{od:.4g} mm",
+        # Four service states: offsets are enclosure +Y (aft) from the squeeze datum. Tube
+        # depth is the measured connector coordinate; squeeze bottoms at 10 mm, connected
+        # floats at the 8.5 mm first-grip depth, and empty park is beyond the 7 mm first
+        # resistance station.
+        **{f"{name.upper()}_OFFSET": state_text(offset)
+           for name, (offset, _depth) in states.items()},
+        "SQUEEZE_DEPTH": f"{states['squeeze'][1]:g}",
+        "CONNECTED_DEPTH": f"{states['connected'][1]:g}",
+        "PARK_DEPTH": f"{states['park'][1]:g}",
+        "CONNECTED_RELEASE_TRAVEL":
+            f"{states['connected'][0] - states['release'][0]:g}",
         # The collar the boss lifts out of, off the module that draws the clamp. `internal-plumbing`
         # quotes the same figure for putting a pump in.
         "PUMP_SOCKET": f"{2 * _tray.boss_half:.4g} mm",
