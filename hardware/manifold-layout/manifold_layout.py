@@ -67,8 +67,8 @@ collet butted to collet.
 `BUTT` is the tube left OUTSIDE a pair of butted quick-connects, and it is 0 — there is still
 tube in both collets, there is none between them. `BARB_STANDOFF` is the fore/aft projection
 where a tee meets a pump barb: `pump_station_lead` holds the moving pump end clear of the fixed
-plate-guide wall and `BARB_PLATE_BERTH` carries the collet plate that releases it. The pump barb stands
-`pump_station_drop` below the fixed tee end, so `BARB_TUBE_LEN` is the shallow straight's true
+plate-guide wall and `BARB_PLATE_BERTH` carries the collet plate that releases it. The fitted pump
+barb and fixed tee share their tube-centre plane, so `BARB_TUBE_LEN` is the straight's true
 centreline length. A barb is not a quick-connect; the four runs off the barbs are what the pump
 cartridge releases against. The deck's height rides on the complete fore/aft projection one for
 one, and so does what the two source runs have left to step in.
@@ -166,9 +166,10 @@ BUTT = 0.0            # tube left outside a pair of butted quick-connects
 BARB_PLATE_BERTH = 5.7  # steel, its two airs and the millimetre off the barbs' own plane
 PUMP_BARB_Z = HEAD_W - _enc_if.pump_station_lead
 # World Z is this study's Y after `enclosure_assembly.pose_manifold` stands the pack. The
-# Kamoers and the pump ends of the four short barb tubes stand below the anchor tees' fixed
-# y=0 fold plane, so those flexible runs take the resulting shallow rise.
-PUMP_Y = -_enc_if.pump_station_drop - _enc_if.manifold_rise
+# The fitted outlet height, pump drop and manifold rise place the two ends on one tube plane
+# while retaining the bracket's independent support datum.
+PUMP_Y = (kp.outlet_above_skirt_bottom - _enc_if.pump_station_drop
+          - _enc_if.manifold_rise)
 # The exposed run's fore/aft projection between a pump barb and its anchor tee's branch collet.
 # Its fore portion is the moving pump end's lead; its aft portion is the steel plate's berth.
 # The deck stays where it is because the projection exactly returns what the pump station moves
@@ -314,9 +315,8 @@ BARB_OF = {"Y-C": (-PUMP_DX, +1), "Y-D": (-PUMP_DX, -1),
 
 
 def barb_station(tee: str) -> tuple:
-    """A pump barb's tube plane, in world. It stands on the head's crown, lowered from the
-    stationary anchor tee by `pump_station_drop`, and offset `BARB_PITCH/2` either side of the
-    pump's centre."""
+    """A fitted pump barb's tube plane, on the independent pump and manifold Z datums,
+    and offset `BARB_PITCH/2` either side of the pump's centre."""
     px, side = BARB_OF[tee]
     return (px + side * BARB_PITCH / 2.0, PUMP_Y, PUMP_BARB_Z)
 
