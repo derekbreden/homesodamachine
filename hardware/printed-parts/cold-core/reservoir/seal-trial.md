@@ -8,6 +8,28 @@ The project contains both meshes, editable settings and sliced G-code.
 Bambu Studio 02.08.02.61 estimates **26 h 12 min, 417.16 g, 984 layers**.
 Physical print and water-test results are pending.
 
+## Printer Z trim
+
+Both projects open with **Bambu Lab H2C 0.8 Standard +0.04 Z trim** active.
+The two selectable printer presets are:
+
+- `Bambu Lab H2C 0.8 Standard +0.04 Z trim`
+- `Bambu Lab H2C 0.8 Standard +0.18 Z trim`
+
+Choose the required preset in Bambu Studio's **Printer** dropdown and **slice the
+plate again**. Both presets are installed locally. On another installation, use
+File → Import → Import Configs with the
+[preset bundle](reservoir-08-z-trim-presets.bbscfg) to add both choices.
+A 3MF carries its active printer configuration; the bundle supplies the second choice.
+
+These values add lift to the stock plate compensation. On textured PEI with the
+0.8 mm nozzle, +0.04 emits `G29.1 Z0.02`; +0.18 emits `G29.1 Z0.16`.
+The first layer remains 0.30 mm in both projects. Both nozzle slots use Standard flow.
+All four combinations of layer height and trim slice successfully, with an early
+zero reset and exactly one final trim command. Body and cap meshes match the
+inspection meshes. The executable G-code for the saved projects matches the
+inspected slices except for `G29.1`.
+
 ## 0.24 mm comparison
 
 [Print project: reservoir-08-seal-trial-024.3mf](reservoir-08-seal-trial-024.3mf)

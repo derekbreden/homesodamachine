@@ -114,6 +114,7 @@ One current left reservoir body, mouth up, and matching left cap, exterior face 
 and gasket rim up. H2C, 0.8 mm nozzle, PETG Translucent.
 Bambu Studio 02.08.02.61. Estimated 26 h 12 min, 417.16 g, 984 layers.
 
+- Printer: 0.8 mm Standard, +0.04 mm over stock Z trim; +0.18 preset available in the [bundle](reservoir-08-z-trim-presets.bbscfg).
 - `nozzle_temperature` **255 °C** (initial 255)
 - `layer_height` **0.18 mm** (initial 0.30)
 - Arachne, six requested wall loops, 0.80 mm wall width.
@@ -131,6 +132,7 @@ One current left reservoir body and matching left cap. Body mouth up; cap exteri
 face down and gasket rim up. H2C, 0.8 mm nozzle, PETG Translucent.
 Bambu Studio 02.08.02.61. Estimated 20 h 8 min, 414.76 g, 738 layers.
 
+- Printer: 0.8 mm Standard, +0.04 mm over stock Z trim; +0.18 preset available in the [bundle](reservoir-08-z-trim-presets.bbscfg).
 - `nozzle_temperature` **255 °C** (initial 255)
 - `layer_height` **0.24 mm** (initial 0.30)
 - All other machine, filament and process settings match `reservoir-08-seal-trial.3mf`.
