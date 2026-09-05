@@ -41,10 +41,10 @@ fails rather than letting it drift.
 
 | Joint | Cartridge end | Staying end | Exposed tube | Air-filled by |
 |---|---|---|---|---|
-| `fluid-11` | pump A's suction barb | Y-C's branch collet | [8.6](LEN_11) mm | states 1 and 2 |
-| `fluid-12` | pump A's discharge barb | Y-D's branch collet | [8.6](LEN_12) mm | states 1 and 2 |
-| `fluid-21` | pump B's suction barb | Y-F's branch collet | [8.6](LEN_21) mm | states 3 and 4 |
-| `fluid-22` | pump B's discharge barb | Y-G's branch collet | [8.6](LEN_22) mm | states 3 and 4 |
+| `fluid-11` | pump A's suction barb | Y-C's branch collet | [7.0](LEN_11) mm | states 1 and 2 |
+| `fluid-12` | pump A's discharge barb | Y-D's branch collet | [7.0](LEN_12) mm | states 1 and 2 |
+| `fluid-21` | pump B's suction barb | Y-F's branch collet | [7.0](LEN_21) mm | states 3 and 4 |
+| `fluid-22` | pump B's discharge barb | Y-G's branch collet | [7.0](LEN_22) mm | states 3 and 4 |
 
 **Every joint that parts is one the dry cycle sweeps.** Each of the four stands between a pump
 and a tee on that pump's own channel, so either state that runs a pump carries air across both
