@@ -168,7 +168,7 @@ band. Each catch lies wholly over its six-millimetre foot and keeps a complete e
 outside its channel.
 
 **Lifting a seated top lands each foot's flat top face on its head's flat underside,
-along both whole runs** — [99 mm](RAIL_RUN_FRONT) per flank on the front column,
+along both whole runs** — [98 mm](RAIL_RUN_FRONT) per flank on the front column,
 [233 mm](RAIL_RUN_BACK) and [221 mm](RAIL_RUN_BACK_W) on the back — horizontal printed
 face on horizontal printed face, square faces bearing full from the first micron. The two
 back flanks differ by the PRV passage: it crosses the −X run and takes
@@ -430,7 +430,7 @@ field is symmetric in x whatever its pitch.
 plan is one of them. With the pump cartridge in, the bay storey shows the two narrow mouth
 returns outboard of the cavity planes; those two actual surfaces are two open rails.
 `_bay_storey_segments` carries their one global arc coordinate from one mouth edge to the other:
-[355.58 mm](STOREY_RUN) over the storey at z [177.8..282 mm](STOREY_BAND). The two open flanks
+[357.58 mm](STOREY_RUN) over the storey at z [177.8..283.5 mm](STOREY_BAND). The two open flanks
 and the lower tee face advance the phase but carry no cutter: the former are air, the latter is
 berthed or hidden, and the upper closure face stands on another Y plane. The datum remains
 **x = 0** and the pitch remains [5.1285 mm](FLUTE_PITCH), so both ledges retain the machine's
@@ -439,12 +439,12 @@ ramps to zero on them, as it does at both Z ends of the band, which keeps cutter
 mouth and window arris.
 
 **And a body berthed in the room is an edge too.** Inside a storey the piece has material at
-the rail in places the drawer and its steel stand in front of, and a face another body beds
+the rail in places the cartridge stands in front of, and a face another body beds
 against is not one anybody finishes. `flute_skin._shadow_mask` asks, at every station, whether
 a berthed body stands between that face and the storey's mouth — the same question the show
 mask asks, asked of the other bodies — so the tee wall carries flutes only where the pump cartridge
 leaves it visible, and the plate's own bearing band is left plain. Nothing is listed: the
-lower cradle, top clamp and collet plate are simply what the assembly stands there.
+lower cradle and top clamp are what the assembly stands there.
 
 **Nothing may relieve into the outermost [3 mm](FLUTE_BACKING) of a fluted face.** The exterior
 profile ([print-log.md](print-log.md)) lays two wall loops a side at 0.42 and 0.45, so one
@@ -612,38 +612,12 @@ The result carries the model, profile and derived G-code hashes, the slicer's su
 all interface islands and both plate and CAD coordinates. The ledger supplies the human reason
 for each connected body that remains.
 
-**All six printable pieces are audited, each through a production project of its own.** The 3MF
-snapshots are retained only in Git history at `aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a`; they
-are evidence inputs rather than current files in this directory. No piece is re-oriented to be
-read: every one beds on its own Z− face, the orientation the box's whole relief scheme is struck
-on. `enclosure-front-bottom-petgf.3mf` and `enclosure-back-bottom-petgf.3mf` carry the PET-GF15
-exterior settings of `enclosure-front-top-petgf.3mf` around their own mesh — the same clones
-`enclosure-pump-cap-petgf.3mf` and `enclosure-pump-cartridge-petgf.3mf` are.
-`enclosure-back-top-petgf.3mf` is the one piece on its own 0.24 mm process. What BambuStudio
-02.08.02.61 emits after substituting the current meshes into those history snapshots:
-
-| piece | bodies | interface islands | root | shortest build-up |
-|---|---|---|---|---|
-| `enclosure-pump-cartridge` | 0 | 0 | — | — |
-| `enclosure-pump-cap` | 2 | 2 | bed | 18.40 mm |
-| `enclosure-front-top` | 3 | 4 | bed | 55.60 mm |
-| `enclosure-back-bottom` | 2 | 3 | 1 bed, **1 model** | **8.00 mm** |
-| `enclosure-front-bottom` | 4 | 4 | 2 bed, **2 model** | **8.00 mm** |
-| `enclosure-back-top` | 4 | 27 | bed | 92.16 mm |
-
-**One piece slices clean, and three bodies are the campaign's open work.**
-`enclosure-pump-cartridge` emits no support at all. On the pump cap and the two top quadrants
-every body roots on the print bed and stands 18 mm or more before it touches the model, which is
-past the point the build-up reading saturates at; so do front-bottom's two lower Y-seam socket
-collar crowns, at 28.20 mm. The exceptions are one feature standing on all four flanks of the two
-bottom quadrants: the **Z seam's slide-head catch**, the joint's one down-looking flat and the
-whole of its bearing against lift. Back-bottom's west catch reaches the bed from outside its
-flank through the 12 mm PRV passage that crosses it — the same opening that splits that catch
-into two interface islands. The other three have no such lane and root on the arm's own 45°
-under-flare **8.00 mm** below the catch they carry: front-bottom's pair and back-bottom's east
-catch are the only **material-rooted** bodies in the box and the only ones outside the 15 mm
-band. A short support rooted on model material is the compromise this policy names first, and
-those three are where it stands.
+Each piece has its own production project in Git history at
+`aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a`. The audit substitutes the current STL into that
+piece’s project and keeps its Z− bed orientation. Current coverage and every retained support’s
+contact, root, build-up and functional reason are recorded in
+[`support-audit.json`](support-audit.json). Front-top, front-bottom, the pump cradle and clamp
+require refreshed slices for their current geometry.
 
 ## Print orientation + corner relief
 
@@ -774,8 +748,7 @@ support body with a full-span extraction path.
 The **bay floor** is the one feature that costs nothing and pays: it IS front-top's
 first layers. Its underside is the seam mouth, the plane the piece beds on, so there is
 no face under it to hang and no support in it to pick out. It is a solid slab across the
-whole front storey with one slot through it: the pump cartridge slides across it, and the collet
-plate comes up that slot from the bed face onto the floor's own top.
+whole front storey; the collet plate grows directly from the floor.
 
 The **tee wall** behind that plate costs nothing standing up, and its four bores are the
 only thing in it that could have hung. The piece beds on the seam plane, so a bore on Y
@@ -1011,8 +984,8 @@ itself, and `check_tube_seated` reads the three run anchors the same way.
 and both hand pulls. Its filled bearing block rides the bay floor; its exterior
 face begins on that same bed plane above a 0.5 mm recess in the fixed sill and ends 0.5 mm below
 the lintel. The bed plane is z [165.365 mm](PUMP_CARTRIDGE_BOTTOM_Z), the crown is z
-[281.495 mm](PUMP_CARTRIDGE_TOP_Z), and the complete removable face is
-[116.13 mm](PUMP_CARTRIDGE_RISE) high. Its outer shell
+[282.995 mm](PUMP_CARTRIDGE_TOP_Z), and the complete removable face is
+[117.63 mm](PUMP_CARTRIDGE_RISE) high. Its outer shell
 keeps the complete 215 mm enclosure width, including both rounded front corners and side skins,
 and its show plane shares the fixed front face at [0 mm](PUMP_FACE_OFFSET) offset. The complete
 flavour pack stands behind that plane with the pumps, barbs, tees, plate, valves and their
@@ -1021,10 +994,11 @@ internal tubes keeping one rigid arrangement. Inside it, the moving pump ends re
 [1.2 mm](PUMP_SHOW_GROWTH) flute depth ahead of the pump-pocket datum. Its filled body reaches both cavity
 planes, and the front display-support columns have no section anywhere in this withdrawal span.
 
-The two pump stations carry a [2 mm](PUMP_STATION_DROP) downward world-Z service offset. The
-collet plate, anchor tees, valve decks and the rest of the manifold keep their fixed stations.
+The pump support planes stand 3 mm below their neutral datum; the manifold stands 2 mm above
+its refrigeration datum. The measured outlet axes share the anchor tees’ tube-centre plane. All four release tubes run
+straight along Y through the integral collet plate.
 Each complete Kamoer's head, bracket land, lower locating well, screw seats and heat-set station
-share the unchanged head datum. The pump reference's rear boss and motor axis stands 1 mm toward
+share the head datum. The pump reference's rear boss and motor axis stands 1 mm toward
 Y− from it, and the clamp's fitted octagon and motor-can openings follow that rear-stack axis;
 the lower cartridge does not take the offset. The pump ends of the four short barb tubes share
 the head datum too; their tee ends remain at the fixed interface.
@@ -1036,7 +1010,7 @@ the stamped bracket on −Y and both X sides; +Y remains open for the fittings. 
 from that bracket directly into the lower cradle and then into the bay floor.
 
 The head's [8 mm](PUMP_SKIRT_DEPTH) skirt stands over one flat horizontal land at z
-[206.594 mm](PUMP_SKIRT_SUPPORT_Z). The [0.15 mm](PUMP_SKIRT_SUPPORT_AIR) difference between
+[205.594 mm](PUMP_SKIRT_SUPPORT_Z). The [0.15 mm](PUMP_SKIRT_SUPPORT_AIR) difference between
 the skirt bottom and that land is Z clearance. The land keeps the skirt's existing X/Y plan;
 there is no slanted substitute for it. It is continuous across the X−, Y− and X+ flanks, with
 [5 mm](PUMP_SKIRT_Y_MINUS_LAND) under Y−. The
@@ -1056,16 +1030,16 @@ stock continues behind it.
 
 **The second printed piece is the top clamp.** `enclosure-pump-cap`
 (`build_pump_cap`) is [169.9 mm](CLAMP_SPAN) across and [61.75 mm](CLAMP_RISE) high. Its Z− face
-stands at z [216.75 mm](CLAMP_BASE_Z) on the upper face of each measured
+stands at z [215.75 mm](CLAMP_BASE_Z) on the upper face of each measured
 [2 mm](CLAMP_BRACKET_T) stamped bracket. One filled field spans both pump heads from their clean
 fore envelope to the aft wall and reaches one common crown at z
-[278.5 mm](CLAMP_CROWN_Z), with [3.5 mm](CLAMP_LINTEL_AIR) of Z air below the fixed bay lintel.
+[277.5 mm](CLAMP_CROWN_Z), with [6 mm](CLAMP_LINTEL_AIR) of Z air below the fixed bay lintel.
 Two fitted openings wrap
 both bosses with the pump case's exact octagonal bore and leave one shoulder around each motor
 can. Both fitted openings follow the pump reference's rear-stack axis,
 [1 mm](CLAMP_PUMP_Y_SHIFT) toward Y− from the head and lower-cradle datum. A single
 [33.89 mm](CLAMP_ACCESS_W) × [48 mm](CLAMP_ACCESS_RUN) top recess joins the two screw stations;
-its retained floor stands at z [222.75 mm](CLAMP_ACCESS_FLOOR_Z), [6 mm](CLAMP_ACCESS_BASE)
+its retained floor stands at z [221.75 mm](CLAMP_ACCESS_FLOOR_Z), [6 mm](CLAMP_ACCESS_BASE)
 above the broad print face. The individual counterbores continue to head seats which keep
 [4 mm](CLAMP_HEAD_LAND) of printed land underneath. The two M3s run into heat-set inserts in the
 cradle. The clamp carries no show face, plate stop or hand pull.
@@ -1088,66 +1062,43 @@ at y [74.915 mm](PUMP_UPPER_WELL_AFT). Past that plane only the four individual 
 the closed middle span on each pump and the centre span between the pumps all carry the same
 cap-following reinforcement to the cartridge's aft edge.
 
-The four short barb runs retain [1.28 mm](PUMP_STATION_LEAD) of moving-end lead before the
-plate berth. The show face shares the fixed front plane at [0 mm](PUMP_FACE_OFFSET) offset and
-stands one flute depth ahead of the pump-pocket datum. The pump wells and their Y+ edge occupy
-the complete flavour pack's common station.
+Nothing latches the cartridge in the enclosure. Its four tubes are held by the anchor tees’
+branch collets. The **collet plate** is [6 mm](COLLET_PLATE_T) of PET-GF printed into front-top,
+continuous with the bay floor, tee wall and flanks. Its [4](PLATE_HOLES)
+[7 mm](PLATE_HOLE_D) tube passages have tangent teardrop roofs. The flat release lands surround
+each passage and stop the collet noses while the tubes pass freely.
 
-Nothing latches the cartridge in the enclosure. The four barb tubes gripped in the anchor
-tees' branch collets retain it, and the **collet plate** releases them: a laser-cut flat of
-1/8" 316 (`enclosure_assembly.build_collet_plate`, `collet-plate.dxf`) standing one rest gap
-fore of the four collets in the bay floor. Pull the cradle and the tubes draw the tees forward
-until their collet noses land on the steel; the cradle continues, the collets open, and the
-tubes pass back through the four plate holes. Push it home and the tubes enter the same collets
-and bottom in them. One hand pulls the cradle and the other braces the box; fixed wedge cheeks
-carry the plate's reaction into the side walls.
+The noses stand 0.5 mm off those lands at rest. Pulling the cradle draws the tees forward in
+their collar bores; after the noses reach the lands, continued body travel depresses the sleeves.
+The [1.835 mm](PLATE_RELEASE_STROKE) design stroke includes that rest gap and the 1.335 mm
+sleeve travel measured on the John Guest union. The tee shoulder keeps 1 mm of air at full travel.
+The tee’s butted valve stays on its tray; compliance at those tube joints remains a physical
+fit check for the assembled release.
 
-Each plate hole is Ø8.5 mm: it passes the Ø6.35 mm tube at the shallow angle made by the
-lowered pump station, while remaining smaller than the collet release nose's Ø11.43 mm rim.
-
-**THE TEE TRAVELS AND THE VALVE DOES NOT.** The stroke is the rest gap and nothing
-more: the nose presses the moment it reaches the steel, the grip opens on contact, the tee
-stops there, and the tube draws out of it. What gives over that millimetre and a half is
-the tube stub itself, flexing inside the two collets that hold it — the valve standing on
-the far end of that stub never moves, and no valve is read here. **That the stub bends is
-stated and not derived** — no body in this model has any compliance in it.
-
-**The cradle ends at the skirt band's aft edge**, y [77.915 mm](PUMP_CARTRIDGE_AFT_Y): a plate-retention return or side skin
-cannot survive behind that plane.
+The cradle follows the release wall with 0.15 mm running clearance. Above the tube row, the
+wall’s fore face retreats aft on a 45° plane, keeping the complete pump-skirt support bands.
+The broad upper webs end at the skirt band’s aft edge,
+y [77.915 mm](PUMP_CARTRIDGE_AFT_Y).
 
 **Both pulls belong to the cradle and surround the tube-centre plane.** Each side pocket is
-[18 mm](PULL_DEPTH) deep, [28.15 mm](PULL_RUN) fore/aft and [48 mm](PULL_RISE) high. Its floor at
-z [176.25 mm](PULL_FLOOR_Z) leaves [10.88 mm](PULL_FLOOR_LIGAMENT) of bed-rooted cradle below
-it and puts the common tube elevation, z [188.25 mm](PULL_CENTER_Z), 12 mm inside the mouth.
+[18 mm](PULL_DEPTH) deep, [30 mm](PULL_RUN) fore/aft and [48 mm](PULL_RISE) high. Its floor at
+z [178.25 mm](PULL_FLOOR_Z) leaves [12.88 mm](PULL_FLOOR_LIGAMENT) of bed-rooted cradle below
+it and puts the common tube elevation, z [190.25 mm](PULL_CENTER_Z), 12 mm inside the mouth.
 At the deepest fingertip wall the straight vertical opening is [30 mm](PULL_PLUMB) high; its
-roof then climbs at 45° to the open flank and reaches z [224.25 mm](PULL_TOP_Z). The opening
-runs through the cartridge's aft edge at y [77.92 mm](PULL_AFT_OPEN), so no separate Y-normal
-wall closes it; the fore wall is the pulling ledge at y [49.76 mm](PULL_LEDGE). That leaves
-[35.76 mm](PULL_TRAVEL) of cartridge withdrawal before the ledge reaches the enclosure front.
+roof then climbs at 45° to the open flank and reaches z [226.25 mm](PULL_TOP_Z). The opening
+runs through the cartridge's aft edge at y [76.14 mm](PULL_AFT_OPEN), so no separate Y-normal
+wall closes it; the fore wall is the pulling ledge at y [46.14 mm](PULL_LEDGE). That leaves
+[32.14 mm](PULL_TRAVEL) of cartridge withdrawal before the ledge reaches the enclosure front.
 Pulling force enters the one load-bearing cradle; the clamp has no separate grip to split the
 load or invite a second tug.
 
 ## The full-width opening
 
-**One opening spans the entire lower-cradle storey** (`_bay_cut`), from exterior side face to
-exterior side face and from the bay floor to the lintel. No fixed `enclosure-front-top` skin,
-rim cap or display-support post remains in that band. Two narrow fixed plate-retention cheeks are added
-back only at the aft outer edges and overlap the collet plate's tails; the cartridge carries
-one local aft-corner notch round each cheek. Each cheek is a wedge in plan, standing
-[3 mm](PLATE_GUIDE_WEDGE) further fore at the fixed side wall than at its inboard face:
-the section carrying the plate's moment is deepest where the cheek is rooted in that wall.
-The cheek stands aft of the cradle pull and the cartridge carries a local notch around it.
-The rake is the cheek's whole height, so it is one prism — every face a plane, every
-wall vertical and supported, nothing anywhere in it overhanging. The opening runs **past the
-collet plate to the tee wall's fore face**, where it ends on printed section rather than on a
-free edge.
-
-**The lower cradle's complete exterior is one bed-rooted wall.** Its flush front, both rounded
-corners and both exterior flanks begin with the filled block on one plane and continue plumb as
-one uninterrupted silhouette to 0.5 mm below the lintel, without a bevel, ramp, starter strip or
-shelf. The fixed shell perimeter is recessed 0.5 mm below that lower edge while the interior bay
-floor remains at the bearing plane. Only the grip pockets and two aft plate-retention notches otherwise
-depart from the outline; the top clamp sits wholly inside the wells above.
+One opening spans the lower cradle’s complete width, from the floor to the lintel. The fixed
+collet plate and tee wall close its aft end. Both cradle pulls open aft onto that wall, with
+[30 mm](PULL_RUN) of fore/aft finger room at the tube centreline. Each pull’s roof rises at 45°
+to its exposed flank. The cradle’s exterior is one bed-rooted wall, including both rounded front
+corners, with 0.5 mm of running air above the fixed sill and below the lintel.
 
 ## The bay floor
 
@@ -1155,9 +1106,7 @@ depart from the outline; the top clamp sits wholly inside the wells above.
 interior face aft past the collet plate, and everything in this storey stands on it.
 **It is this piece's first layers.** Front-top beds on the seam plane, so a floor
 struck there lies on the bed with nothing under it to hang. Its flat bearing sill is z
-[165.365 mm](PUMP_BAY_FLOOR_Z), [1 mm](PUMP_BAY_FLOOR_RELIEF) below the pump-neutral floor
-datum (`bay_floor_z`). The installed head bottoms keep [0.5 mm](PUMP_HEAD_FLOOR_AIR) over that
-sill. The removable exterior face begins on the same plane, while the fixed shell perimeter is
+[165.365 mm](PUMP_BAY_FLOOR_Z), on the fixed cartridge bearing datum (`bay_floor_z`). The installed head bottoms keep [0.5 mm](PUMP_HEAD_FLOOR_AIR) above the flat floor. The removable exterior face begins on the same plane, while the fixed shell perimeter is
 recessed 0.5 mm below it for the running gap.
 
 **One pocket per collar passes the Z seam**, and nothing else does.
@@ -1168,83 +1117,22 @@ stands over the mouth here is the front column's socket boss on its own plinth, 
 floor opens for that alone. Aft of that run the lip is carried whole and the telescope
 is untouched.
 
-**The collet plate stands on two feet carried by front-bottom's flanks.** Each foot presents a
-[10 mm](PLATE_FOOT_X) X × [20 mm](PLATE_FOOT_Y) Y land on the seam plane, centred fore/aft
-on the steel, and keeps [3 mm](PLATE_FOOT_T) of section at its inboard edge. Its underside
-rises at [45°](PLATE_FOOT_ANGLE) from the flank. The lowest line is z
-[147 mm](PLATE_FOOT_LOW_Z), [1 mm](PLATE_FOOT_COND_Z_AIR) over the condenser+fan envelope's
-crown; over their common X/Y footprint the sloped face keeps
-[2 mm](PLATE_FOOT_COND_AIR) of air from that complete bounding box.
+**The collet plate is continuous printed material.** Its release section starts on the seam
+plane and spans both cavity walls. The [6 mm](COLLET_PLATE_T) section continues above the tee-bore crowns
+to z [202.031 mm](PLATE_ROOT_RISE), then its fore face retreats at 45° to the upper cartridge
+clearance plane. The floor under it is uninterrupted.
 
-The **collet plate goes in through the Z− face**, which is the seam face front-bottom mates
-on and the face this piece beds on. Its slot (`_plate_slot`) passes through the floor and opens
-on that plane, `plate_slot_slip` off the steel fore and aft at every height, and the mouth
-is square on both faces. What flares [1 mm](PLATE_SLOT_LEAD) at 45° so the steel finds it is the
-**tee wall's fore face** on the far side of the lane (`_plate_lead`), which stands that much back
-at the seam plane and closes onto the steel's plane over the same rise. The floor's own two faces
-keep the steel's 0.2 mm air from the bed face to the seat. **Across, the slot is one rectangle for its whole height**: the steel plus
-0.2 mm air at each end, stopping at x = ±100.2. A 4.3 mm printed return remains between either
-slot end and the cavity-side wall, followed by the enclosure's 3 mm outer wall. The floor holds
-the plate fore and aft and holds it back not at all; the steel goes clean through and comes up
-until its own **top edge** lands a storey higher.
-
-**The wall over the steel is what stops it** (`_plate_cap`). The lane above the seated top
-edge is filled from that edge to the bay's ceiling at [282 mm](PLATE_CAP_TOP).
-[1 mm](PLATE_CAP_LAND) of that is flat, taken off the tee wall's fore face at
-[216.5 mm](PLATE_CAP_Z): the top edge comes up onto it and stops, and **that land is the
-plate's Z datum** — the only stop in this joint, and the reason the outline needs no shoulder.
-Fore of the land the underside **rakes at 45°** to `plate_guide_fore_y`, the same plane the two
-fixed cheeks keep for their whole height, because the lane under it is air at print time and a
-square ceiling `PLATE_T` wide would be a ledge hanging off the tee wall for the width of the
-machine. Its complete front edge holds the nominal corbel height z
-[221.865 mm](PLATE_CAP_FORE_Z), continuously across X; the forward pump station leaves the
-loaded brackets 0.78 mm clear of that edge. The steel's flat stop land and both fixed
-plate-retention cheeks remain whole.
-
-**The plate retainers are two stationary single prisms** (`_plate_fore_guides`) standing fore of the
-plate's outer tails. Immediately outside either slot end at x = ±100.2, each prism turns aft
-past the steel and fills the complete 4.3 mm band to the cavity-side wall, then fuses into the
-3 mm outer wall. That return stands from the bay floor through the whole storey, with no shelf
-or open column above it. The tee wall is the channel's aft face and the retainers its fore face,
-so the steel cannot pitch forward when the four collet noses load it after the pump cartridge
-has begun moving. Each cheek bears on 10 mm of the plate's Y− face, is a wedge in plan
-[3 mm](PLATE_GUIDE_WEDGE) deeper at the fixed wall than at its inboard face, and **stands the
-whole storey** — to the same ceiling the cap does, so it is a post between two slabs rather
-than a fin off the floor, and the flank opening gets an aft jamb for its full height. Over
-each tail its head carries the cap's own land out to the side wall, spanning
-`PLATE_T + plate_slot_slip` between two standing walls. Any guidance these cheeks incidentally
-give the pump cartridge is not their purpose.
-
-**The steel is a rectangle.** The band's bottom is the **seam plane** — it fills the slot to
-its mouth — and its top is whatever puts the four collet holes **centred** in the band. Each end stands [4.5 mm](PLATE_STEP_IN) off its cavity-side wall at
-**every** height, putting the steel at x = ±100.0 and leaving 10 mm of each unperforated tail
-on its fixed Y− cheek. **What locates the steel across is the bay floor's constant-width
-slot**, one `plate_slot_slip` off each end from the mouth to the cap. The plate has four
-corners and four holes; `build_collet_plate` writes that outline into `collet-plate.dxf`.
-
-The **wall behind the steel is struck on the same four collets** (`_tee_wall`).
-Front-top stands a section of its own material aft of the plate, wall to wall and the
-whole height of the bay, with one bore per anchor tee. A bore closes on the round collar
-that tee's branch arm carries — `TEE_WALL_BORE_SLIP` on the radius, a running fit and
-not a grip — so a tee is located in X and Z by printed material and free in Y, which is
-the one direction the release moves it. The wall's fore face IS the steel's aft face,
-one figure with the plate (`enclosure_assembly.collet_plate_spec`), so every bore is
-stopped at its fore mouth by steel and the nose that lands there lands on steel; the
-plate bears back on the wall across its whole face. Its aft face stands one whole stroke
-plus `TEE_WALL_BODY_AIR` fore of the tee's own body, so at the end of the stroke there is
-still air behind the tee — depth past that plane is the tee's and not the wall's to take.
-The collar-clear bore continues through that broad face.
-
-**That wall is also the bay's back.** Over the plate's own band the steel closes the
-bay; above and below it this wall does, so what stands behind the berth the pump cartridge
-leaves is a wall rather than the cavity. The Z seam passes it the way it passes the
-floor, on the rail channels' own deep lane (`_z_rail_channels`).
+The four collar bores start on the release face. Their round lower surfaces locate the tees
+in X and Z with 0.25 mm radial clearance; their tangent teardrop roofs close at 36°. The smaller
+tube passages cross the release section on the same axes. Their roofs also close at 36° and
+stay entirely inside the release nose’s rim. The whole wall reaches the bay lintel and joins
+both flanks. Its aft face stands one full release stroke plus 1 mm ahead of the tee bodies.
 
 The **bay** is the opening all that leaves through (`_bay_cut`): exterior side face to exterior
 side face, from the floor's own top at z [165.365 mm](PUMP_BAY_FLOOR_Z) to the fixed lintel at z
-[281.995 mm](PUMP_BAY_LINTEL_Z), and aft to the steel. The lintel is relieved
-[1 mm](PUMP_BAY_ROOF_RELIEF) upward from its pump-neutral roof datum and keeps
-[4.7 mm](PUMP_MOTOR_LINTEL_AIR) over the installed motor crowns. The flat sill runs wall to
+[283.495 mm](PUMP_BAY_LINTEL_Z), and aft to the integral release wall. The lintel keeps
+[7.2 mm](PUMP_MOTOR_LINTEL_AIR) over the installed motor end caps and
+[1 mm](PUMP_NUB_LINTEL_AIR) over the complete rear-nub envelopes. The flat sill runs wall to
 wall; the lintel carries the facet and the display on a stated ligament.
 The removable shell follows the enclosure's rounded plan with its front plane flush at
 [0 mm](PUMP_FACE_OFFSET) offset. The moving pump ends keep their

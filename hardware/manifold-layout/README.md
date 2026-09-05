@@ -18,7 +18,7 @@ about the hinge the four barb tees' front collets stand on.
 | | |
 |---|---|
 | 10 × valve | Beduan 12 V NC solenoid ([`reference/beduan-solenoid`](/hardware/reference/beduan-solenoid/README.md)) — [59](VALVE_LEN) mm collet face to collet face, straight through, port axis [11.3](VALVE_PORT_Z) mm over its own mounting plane. Two of them pack no closer than [34.25](VALVE_PITCH) mm. |
-| 2 × pump | Kamoer KPHM400 ([`reference/kamoer-kphm400`](/hardware/reference/kamoer-kphm400/)) — two barbs [59.75](BARB_PITCH) mm apart on one face, both facing the same way, [20.38](BARB_INSET) mm back from the head's front face. |
+| 2 × pump | Kamoer KPHM400 ([`reference/kamoer-kphm400`](/hardware/reference/kamoer-kphm400/)) — two barbs [59.75](BARB_PITCH) mm apart on one face, both facing the same way, [24.38](BARB_INSET) mm back from the head's front face. |
 | [6](TEE_COUNT2) × tee | John Guest PP0208E ([`reference/tee-connector`](/hardware/reference/tee-connector/README.md)) — run collets [20.07](TEE_RUN) mm either side of the body centre, [40.14](TEE_SPAN) mm end to end, branch reaching the same distance. |
 | 0 × Y-divider | Its two outlets stand [14.7](DIVIDER_PITCH) mm apart ([`reference/y-divider`](/hardware/reference/y-divider/README.md)). |
 | [4](TUBE_COUNT2) × tube | 1/4" OD LLDPE, all straight — the four the collet plate's berth opens between each pump barb and its anchor tee. |
@@ -158,26 +158,15 @@ Add one [14](STUB_LEN) mm mouth stub on each of the [8](MOUTH_COUNT2) and it is
 Two figures in [`manifold_layout.py`](manifold_layout.py) are the study's own rather than any
 part's. `BUTT` is the tube left outside a pair of butted quick-connects, and it is 0.
 
-`BARB_STANDOFF` is the [6.98](BARB_STANDOFF) mm fore/aft projection between each pump barb and
-its anchor tee's branch collet. Its first [1.28](PUMP_STATION_LEAD) mm holds the moving pump end
-clear of the fixed plate-guide wall; the remaining [5.7](BARB_PLATE_BERTH) mm is **the
-collet plate's berth**. The pump end stands [2](PUMP_DROP) mm below the stationary tee end, so
-each straight has a [7.26](BARB_TUBE_LEN) mm centreline length and a shallow vertical rise.
-Both pumps ride out of the box on their own pump cartridge and these four runs are what
-release. A laser-cut 1/8" 316 flat stands on
-edge in the gap with one large hole per tube — wide enough to pass the Ø6.35 tube, narrow enough
-to catch the collet nose. So
-pulling the pump cartridge draws the anchor tees forward against the steel and the tubes come out of
-their collets. Push the pump cartridge home and the four click back in. Nothing is unscrewed for
-pump cartridge service and no hand goes behind the deck.
+`BARB_STANDOFF` is the [6.98](BARB_STANDOFF) mm gap between each pump barb and its
+anchor tee’s branch collet. All four [6.98](BARB_TUBE_LEN) mm release runs are straight and
+share their tee axes. The integral printed collet plate occupies the gap, with tube passages
+opening onto flat release lands in front of the tee noses. Its dimensions and the tee bores
+come from `enclosure_assembly.collet_plate_spec`; `enclosure._tee_wall` fuses them into front-top.
 
-`enclosure_assembly.py` strikes the plate off the placed barbs and writes `collet-plate.dxf`
-beside this file — the flat
-[`assembly/enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md) stages with the
-printed pieces and feeds into `enclosure-front-top` through that piece's own Z− face, up the slot
-through the bay floor until its top edge comes up onto the cap's land above. The berth is steel and its two airs, so
-the whole deck rides on it one millimetre for one: z [88.38](DECK_Z2) carries it, and so does
-every millimetre of `SOURCE_TRAVEL` the source runs have left to step in.
+Pulling the cartridge brings each tee nose against its printed land and depresses the sleeve
+as the tee body continues forward. Pushing the cartridge home threads the same four tubes into
+the same collets. The two valve decks and their internal bends remain fixed.
 
 ## Standing it on the refrigeration stratum
 

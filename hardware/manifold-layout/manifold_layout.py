@@ -67,8 +67,8 @@ collet butted to collet.
 `BUTT` is the tube left OUTSIDE a pair of butted quick-connects, and it is 0 — there is still
 tube in both collets, there is none between them. `BARB_STANDOFF` is the fore/aft projection
 where a tee meets a pump barb: `pump_station_lead` holds the moving pump end clear of the fixed
-plate-guide wall and `BARB_PLATE_BERTH` carries the collet plate that releases it. The pump barb stands
-`pump_station_drop` below the fixed tee end, so `BARB_TUBE_LEN` is the shallow straight's true
+release wall and `BARB_PLATE_BERTH` carries the collet plate that releases it. The pump barb stands
+on the fixed tee's tube-centre plane, so `BARB_TUBE_LEN` is the straight run's
 centreline length. A barb is not a quick-connect; the four runs off the barbs are what the pump
 cartridge releases against. The deck's height rides on the complete fore/aft projection one for
 one, and so does what the two source runs have left to step in.
@@ -163,16 +163,12 @@ MOTOR_L = kp.motor_end_z - kp.octagon_top_z  # the can, boss's rear face to the 
 
 # --- The study's own figures, all four free --------------------------------
 BUTT = 0.0            # tube left outside a pair of butted quick-connects
-BARB_PLATE_BERTH = 5.7  # steel, its two airs and the millimetre off the barbs' own plane
+BARB_PLATE_BERTH = 5.7  # fixed share of the pump-to-tee tube span
 PUMP_BARB_Z = HEAD_W - _enc_if.pump_station_lead
-# World Z is this study's Y after `enclosure_assembly.pose_manifold` stands the pack. The
-# Kamoers and the pump ends of the four short barb tubes stand below the anchor tees' fixed
-# y=0 fold plane, so those flexible runs take the resulting shallow rise.
-PUMP_Y = -_enc_if.pump_station_drop
-# The exposed run's fore/aft projection between a pump barb and its anchor tee's branch collet.
-# Its fore portion is the moving pump end's lead; its aft portion is the steel plate's berth.
-# The deck stays where it is because the projection exactly returns what the pump station moves
-# forward.
+# World Z is this study's Y. The outlet's height over the head datum, the pump support
+# drop and the manifold rise place both ends of the release tubes on one plane.
+PUMP_Y = (kp.outlet_above_skirt_bottom - _enc_if.pump_station_drop
+          - _enc_if.manifold_rise)
 BARB_STANDOFF = BARB_PLATE_BERTH + _enc_if.pump_station_lead
 CROSSBAR = 0.0        # exposed tube between Y-A's and Y-B's branches. At 0 the two fittings
                       # meet face to face across the mirror plane and no tube is drawn.

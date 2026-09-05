@@ -262,20 +262,6 @@ MOUNTS = (
     ("funnel-drain-stub", None, "tube-clamp"),
     ("funnel-drain-clamp", None, "tube-clamp"),
     ("funnel-drain-union", None, "tube-hung"),
-    # THE ONE STEEL PIECE, HELD BETWEEN TWO OPPOSED PRINTED FACES. The collet plate comes up
-    # through `enclosure._plate_slot` from front-top's own Z− face — a lane and not a seat, the
-    # steel's own section from the bed face to the floor's top — and stops with its TOP EDGE on
-    # `_plate_cap`'s land, one storey up and wall to wall, `_plate_fore_guides`' heads carrying
-    # that same plane out to the side walls. The outline is four corners and owes the stop no
-    # shoulder. Under the steel, front-bottom's `_plate_foot` stands one foot beneath each of
-    # its ends, topped ON the seam plane so foot and flank are one continuous bearing land per
-    # end: the cap's land is over the plate and this is under it, and what stops it falling back
-    # out the way it came is the piece the mouth closes onto. The slot's walls take it fore and aft, the side walls across.
-    # What loads it is the pump cartridge's own release: the
-    # four anchor-tee collets press its aft face as the pump cartridge is pulled, the slot's fore
-    # wall carries that into a floor lying on the print bed, and the user's aft brace on the box
-    # closes the loop. It goes in before the front column closes and comes out the same way.
-    ("collet-plate", ("enclosure-front-top", "enclosure-front-bottom"), "slot"),
     # THE DISPLAY IS CAPTURED BETWEEN TWO PRINTED PARTS. Its glass sits in the bezel counterbore
     # of the front-top piece's 45° facet, and the cover plate's border laps that glass on all
     # four sides, drawn down by two DIN 912 M3s into ruthex inserts in the facet's own inset
@@ -1081,6 +1067,51 @@ def _pack_closes(a) -> Check:
                  "0 clash, 0 unanswered", detail)
 
 
+def _pump_release(a) -> Check:
+    """Tube clearance, complete release lands, and cartridge withdrawal against front-top."""
+    import cadquery as cq
+    import enclosure as enc
+    import enclosure_assembly as ea
+    import manifold_layout as ml
+
+    bodies, tubes, pieces = _split_placed(a)
+    fixed = pieces["enclosure-front-top"]
+    plate = a.box.pack.collet_plate
+    faults = []
+    worst_tube = worst_land = worst_sweep = 0.0
+    for hx, hz in plate["holes"]:
+        tube = enc._ycyl(ml.TUBE_D / 2.0, hx, hz,
+                         plate["fore_y"] - 1.0, plate["wall_aft_y"] + 1.0)
+        hit = fixed.intersect(tube).Volume()
+        worst_tube = max(worst_tube, hit)
+        land_inner = plate["hole_d"] / (2.0 * math.cos(
+            math.radians(enc.teardrop_roof_angle))) + 0.05
+        ring = enc._ycyl(ea.COLLET_NOSE_R, hx, hz,
+                         plate["aft_y"] - 0.1, plate["aft_y"] - 0.01).cut(
+            enc._ycyl(land_inner, hx, hz, plate["aft_y"] - 0.2, plate["aft_y"] + 0.1))
+        missing = ring.cut(fixed).Volume()
+        worst_land = max(worst_land, missing)
+    if worst_tube > 0.01:
+        faults.append(f"a tube shares {worst_tube:.3f} mm³ with its passage")
+    if worst_land > 0.01:
+        faults.append(f"a release land lacks {worst_land:.3f} mm³ of its complete outer annulus")
+    moving = cq.Compound.makeCompound(
+        [pieces["enclosure-pump-cartridge"], pieces["enclosure-pump-cap"]]
+        + [solid for name, solid in bodies.items() if name.startswith(("pump-a-", "pump-b-"))])
+    travel = enc.pump_cartridge_aft_y(a.box.pack.pump_trays) - a.box.outer[2]
+    for offset in (0.0, ea.PLATE_REST_GAP, plate["stroke"], 5.0, 25.0, travel):
+        hit = fixed.intersect(moving.translate(cq.Vector(0, -offset, 0))).Volume()
+        worst_sweep = max(worst_sweep, hit)
+        if hit > 0.01:
+            faults.append(f"cartridge at {offset:.3f} mm out shares {hit:.3f} mm³ with front-top")
+    return Check(
+        "pump-release", "Printed collet lands, tube passages and cartridge withdrawal", "gate",
+        verdict(not faults),
+        f"tube overlap {worst_tube:.3f}, missing land {worst_land:.3f}, "
+        f"withdrawal overlap {worst_sweep:.3f} mm³",
+        "four open passages, four complete release lands and clear withdrawal", faults)
+
+
 def _bed_fit(a) -> Check:
     import enclosure as _enc
     bed = (_enc.H2C_X, _enc.H2C_Y, _enc.H2C_Z)
@@ -1825,7 +1856,7 @@ def _build(a) -> Scorecard:
     leads = port_leads(a, runs)
     clearances = part_clearances(a, runs)
     lanes = lane_notes(a, runs, clearances)
-    checks = [_coverage(a), _room_holds(a), _pack_closes(a), _lines_clear(a, runs),
+    checks = [_coverage(a), _room_holds(a), _pump_release(a), _pack_closes(a), _lines_clear(a, runs),
               _port_leads(leads), _clearance_floor(clearances, lanes), _bed_fit(a),
               *_bounds(a),
               _runs_drawn(runs), _bend_radius(bends),
