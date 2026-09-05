@@ -21,7 +21,7 @@ gooseneck's tip. The user's part is a container under the faucet.
 |---|---|
 | Both Kamoer pumps, [2](CART_PUMPS) stamped brackets bearing in the lower cradle and both bosses located by the top clamp ([`pump-tray/`](/hardware/printed-parts/enclosure/pump-tray/README.md)) | [8](TRAY_VALVES) valves — V-C…V-J, on the two valve trays ([`valve-tray/`](/hardware/printed-parts/enclosure/valve-tray/README.md)) |
 | The four barb tubes, on the barbs they were pushed onto | [3](CAP_VALVES) valves — V-A, V-B, V-K, in the cold core's lid cradles (`_cold_core_interface.cap_cradles`) |
-| The DC-5 cartridge-side 22 AWG 4P ribbon, its `43025-0400` receptacle, both Faston pairs on the pump tabs, and the two flush motor-pair channels in the cartridge | The fixed `43020-0400` pump connector, its J13-side ribbon, and the +X ridge-wall cable clip |
+| The DC-5 cartridge-side 22 AWG 4P ribbon, its `43025-0400` receptacle, and both Faston pairs on the pump tabs | The fixed `43020-0400` pump connector, its J13-side ribbon, and the +X ridge-wall cable clip |
 | | All [6](BOX_TEES) PP0208E tees. Y-A and Y-B butt fixed valves; Y-C, Y-D, Y-F and Y-G are the [4](CARRIER_TEES) tees tied to the moving carrier |
 | | The carrier, its [2](SPRING_COUNT) aft-pushing springs, [2](TAB_COUNT) handed service-tab arms and [2](TAB_LOCK_COUNT) top-drop tab locks |
 | | The integral collet plate, tee-journal wall, carrier guides and both physical stops in `enclosure-front-top` |
@@ -140,9 +140,8 @@ the fixed plate. Its lands hold all four sleeves while the last 1.65 mm opens th
 [4](JOINT_COUNT_2) tubes must leave together. As soon as they are clear, the two springs must
 return the empty carrier evenly to park at +3 mm. Stop if one tube remains caught, the tabs
 disagree, or the carrier fails to park; do not twist the cradle or pry a sleeve. Continue the
-straight pull only after release. The connector-to-cartridge service loop follows without
-passing through the enclosure-side cable clip; its two peeled motor-pair branches remain
-positively retained in the flush channels which leave with the cartridge.
+straight pull only after release. The free cartridge ribbon follows without passing through
+the enclosure-side cable clip.
 
 With the cradle clear and power still removed, inspect all four cartridge-tube ends for a
 square, unscarred mouth; inspect the four plate holes, the eight carrier ties, both tab/key
@@ -153,10 +152,8 @@ the cradle on its bottom floor. Do not lever the fixed half or pull either ribbo
 Fastons remain made off until the cartridge is on the bench.
 
 **3. Unscrew the top clamp, then swap the pumps.** Back out the [2](CAP_SCREWS)
-M3×[10](CAP_SCREW_LEN) between the pumps and lift the complete clamp straight up. Its two
-top-open flank reliefs rise clear of the retained motor-pair branches without asking either
-branch to leave its cartridge channel. Remove the two Faston pairs from the old motor tabs,
-then lift each pump out of its cradle well. Lower each replacement until three sides of its stamped
+M3×[10](CAP_SCREW_LEN) between the pumps and lift the complete clamp straight up. Remove the two
+Faston pairs from the old motor tabs, then lift each pump out of its cradle well. Lower each replacement until three sides of its stamped
 bracket lie flat on the cradle lands, lower the clamp until its two octagonal collars surround
 the bosses and its pressing plates meet the bracket tops, then draw both screws down evenly.
 The brackets carry pump weight into the cradle; the clamp prevents lift and fixes X, Y and yaw.
@@ -171,9 +168,7 @@ load-bearing here** — this joint takes the release tension when the cartridge 
 tug-test each of the four before the deck goes back in.
 
 **5. Connect, squeeze, insert and release.** Put both Faston pairs back on the replacement
-motor tabs first — they are unreachable once the cradle is in. Lay each peeled pair back into
-its own flush cartridge channel and tug the free service loop at the connector end; neither
-Faston may take that pull. With power removed, reach behind
+motor tabs first — they are unreachable once the cradle is in. With power removed, reach behind
 the display and push the cartridge's `43025-0400` onto the fixed `43020-0400` until the thumb
 latch clicks; tug the housing, not the ribbon, to prove it is closed. Set the cradle on the bay
 floor and present all four tubes squarely through their plate holes. Squeeze both service tabs
@@ -195,8 +190,7 @@ carrier flex links for seepage, rubbing or a link pulled taut.
 
 - Both pumps replaced, each bracket bearing in the lower cradle with the top clamp closed, tug-tested
 - DC-5 Micro-Fit latched behind the display; fixed J13-side ribbon retained in the ridge-wall
-  clip, both cartridge motor-pair branches retained in their flush pump-well channels, and the
-  connector-to-channel service loop free to follow the next withdrawal
+  clip and cartridge-side ribbon free to follow the next withdrawal
 - During removal, all four tubes released together at −3.15 mm and the empty carrier returned
   evenly to park at +3 mm; both rigid tab arms and both tab locks remained seated
 - Four fresh barb tubes on the barbs and all [4](JOINT_COUNT_4) joints bottomed together at

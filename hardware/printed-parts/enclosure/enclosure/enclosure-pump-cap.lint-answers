@@ -2,17 +2,3 @@
 file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step
 click: x=-49.945 y=43.505 z=234.745
 click: x=49.945 y=43.505 z=234.745
-
-[step] These are the deliberate 1 mm-deep flank reliefs over the two cartridge cable channels. Each opens through the clamp crown so a retained 1.7 mm motor pair has 2.375 mm of lane and the clamp can lift straight off without trapping the lead. The adjacent outer plane is the unchanged clamp flank, not a nearly flush mating surface.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step
-click: x=-83.945 y=43.505 z=267.395
-click: x=83.945 y=43.505 z=267.395
-
-[sliver] These six 1 mm-wide faces are the floors and fore/aft ends of the same two top-open cable reliefs. The 24 mm run covers the 18 mm retained channel plus one 3 mm margin at each ramp; the thin dimension is intentional cable air, and every face is open to the clamp crown rather than a trapped roof or unsupported tab.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step
-click: x=-84.445 y=43.505 z=257.295
-click: x=84.445 y=43.505 z=257.295
-click: x=-84.445 y=55.505 z=267.395
-click: x=84.445 y=55.505 z=267.395
-click: x=-84.445 y=31.505 z=267.395
-click: x=84.445 y=31.505 z=267.395
