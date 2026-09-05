@@ -32,6 +32,9 @@
     "STRUCTURAL_UNDER": "344",
     "TIE_RELIEF_N": "3",
     "TONGUE_FLOOR": "337",
+    "TONGUE_MIN_ROOF": "3 mm",
+    "TONGUE_OPEN_NX": "asse1022-assembly, bulkhead-water",
+    "TONGUE_OPEN_PX": "relay-1, ground-stack, c14-inlet",
     "TONGUE_REACH": "12 mm",
     "TONGUE_ROOF": "349",
     "TONGUE_T": "12 mm"

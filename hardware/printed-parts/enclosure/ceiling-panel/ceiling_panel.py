@@ -142,7 +142,8 @@ brim_seat = _funnel.brim_overhang
 # while the fixed strip keeps two complete walls above and below the mating groove at its blind
 # edge. The female side therefore carries a nominal six-millimetre roof over the opening and a
 # six-millimetre lower ligament where the tongue bears deepest. Named body pockets may interrupt
-# the rail locally; each side keeps long unrelieved spans carrying the complete section.
+# the rail locally — through its whole section wherever less than one wall of it would stand
+# over the pocket — and each side keeps long unrelieved spans carrying the complete section.
 #
 # THE DADO'S ROOF IS FLAT. It is a supported face in back-top's mouth-down print, open along the
 # whole groove and through the Y-seam mouth so the support withdraws before this panel enters.
@@ -156,6 +157,9 @@ tongue_reach = 4.0 * _enc.wall
 # The tongue is not merely a large cantilever attached through its end face. This much of the
 # same full-height rail runs under the field, where the structural stock keys into it from above.
 rail_root_reach = capture_ligament
+# A body pocket leaves at least this much of the tongue's section over it, or none of it: a
+# roof nearer the tongue's own roof than one wall opens the rail through its full height.
+tongue_min_roof = _enc.wall
 # The tongues' outer faces — the widest the panel's plan reaches.
 rail_outer_x = panel_half_w + tongue_reach
 tongue_floor_z = fixed_under_z - tongue_t / 2.0
@@ -215,11 +219,36 @@ def rail_stock(y0=fore_y, y1=aft_y):
     return rails
 
 
+def _opens_tongue(top):
+    """Whether a pocket roofed at `top` would leave less than `tongue_min_roof` of tongue."""
+    return top > tongue_roof_z - tongue_min_roof
+
+
+def tongue_openings(reliefs):
+    """The named pockets that take a tongue's whole section, by side and fore to aft:
+    `{sx: [(name, y0, y1), ...]}` for every relief crossing that tongue's plan with a roof
+    `_opens_tongue` answers for."""
+    out = {-1.0: [], 1.0: []}
+    for name, x0, x1, y0, y1, top in reliefs:
+        if not _opens_tongue(top):
+            continue
+        for sx in out:
+            inboard, outboard = sorted((sx * panel_half_w, sx * rail_outer_x))
+            if x1 > inboard and x0 < outboard and y1 > fore_y and y0 < aft_y:
+                out[sx].append((name, max(y0, fore_y), min(y1, aft_y)))
+    return {sx: sorted(rows, key=lambda row: row[1]) for sx, rows in out.items()}
+
+
 def _body_relief_cavity(reliefs):
     """The body pockets as one cavity: a prism per roof level, each the figure every pocket
     reaching that level makes together. Two pockets facing across less than `relief_min_web`
     are one opening over the depth both claim, a pocket crossing the field-and-rail plan is
-    square where it leaves it, and every enclosed corner is rounded to `relief_corner_r`."""
+    square where it leaves it, and every enclosed corner is rounded to `relief_corner_r`.
+
+    A pocket whose roof would leave less than `tongue_min_roof` of a tongue over it takes the
+    tongue's whole section instead: one more prism per side, the figure of every such pocket
+    cut to that tongue's own plan and square where it leaves the tongue for the field. Over the
+    field and the root the same pocket keeps the roof the body's crown gave it."""
     stock_floor = min(structural_under_z, tongue_floor_z)
     pockets = [(x0, x1, y0, y1, min(underside_z, top))
                for _name, x0, x1, y0, y1, top in reliefs]
@@ -232,6 +261,14 @@ def _body_relief_cavity(reliefs):
             plan.rect(x0, x1, y0, y1) for x0, x1, y0, y1, top in pockets if top >= roof),
             relief_min_web)
         prisms += plan.prism(figure, floor, roof, relief_corner_r, within=within)
+    through = [p for p in pockets if _opens_tongue(p[4])]
+    if through:
+        figure = plan.closed(plan.union(
+            plan.rect(x0, x1, y0, y1) for x0, x1, y0, y1, _top in through), relief_min_web)
+        for sx in (-1.0, 1.0):
+            tongue = (*sorted((sx * panel_half_w, sx * rail_outer_x)), fore_y, aft_y)
+            prisms += plan.prism(figure, stock_floor - 0.1, tongue_roof_z, relief_corner_r,
+                                 within=tongue)
     return tuple(prisms)
 
 
@@ -422,6 +459,11 @@ def main():
           + ", ".join(f"({m[0]:.2f}, {m[1]:.2f}) r{r:g}" for m, _u, _n, r in ribs))
     print(f"  reliefs: {len(box.pack.ceiling_reliefs)} body pocket(s), "
           f"{len(_tie_reliefs(box))} full zip tie approach pocket(s), rounded r{relief_corner_r:g}")
+    openings = tongue_openings(box.pack.ceiling_reliefs)
+    for sx in (1.0, -1.0):
+        print(f"  tongue:  {'+' if sx > 0 else '-'}X opened through by "
+              + (", ".join(f"{n} y {y0:g}..{y1:g}" for n, y0, y1 in openings[sx]) or "nothing")
+              + f" — under {tongue_min_roof:g} mm of section would have stood over the pocket")
     print(f"  piece:   back-top stands {piece_h:g} mm on its seam rim at z {_enc.z_seam:g}")
     print(f"  bed:     {b.xlen:.1f} x {b.ylen:.1f} on the H2C's {bed_x:g} x {bed_y:g}")
 
@@ -454,6 +496,9 @@ def main():
             "TONGUE_FLOOR": f"{tongue_floor_z:g}",
             "TONGUE_ROOF": f"{tongue_roof_z:g}",
             "RAIL_AREA": f"{tongue_t * tongue_reach:g} mm²",
+            "TONGUE_MIN_ROOF": f"{tongue_min_roof:g} mm",
+            "TONGUE_OPEN_PX": ", ".join(n for n, _y0, _y1 in openings[1.0]) or "none",
+            "TONGUE_OPEN_NX": ", ".join(n for n, _y0, _y1 in openings[-1.0]) or "none",
             "DADO_SLIP": f"{dado_slip:g} mm",
             "DADO_DEPTH": f"{dado_depth:g} mm",
             "DADO_FLOOR": f"{dado_floor_z:g}",

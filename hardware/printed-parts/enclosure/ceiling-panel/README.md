@@ -54,10 +54,12 @@ not a common guessed depth: shallow bodies leave a thicker roof and tall bodies
 keep the original ceiling section over them. They cover the C14, ASSE, CO₂ and water fittings, DIGITEN,
 relay, ground stack, water-2, WR1110 and the near-miss gas check valve; the last is deliberately found
 by testing the exact body one clearance millimetre upward, so a 0.04 mm miss
-cannot silently become an interference in the deeper panel. At the C14 and
-relay, that construction locally opens a rail only where the exact placed body
-requires it. Every pocket stops at or below the pack lane, leaving at least one whole [3 mm](PANEL_T) wall of show skin above it, and
-opens on the interior face, which is upward on the printer.
+cannot silently become an interference in the deeper panel. Where a pocket
+crosses a rail, that construction opens the rail only where the exact placed
+body requires it, and through the rail's whole section where less than a wall
+of it would remain (see [The rails](#the-rails)). Every pocket stops at or
+below the pack lane, leaving at least one whole [3 mm](PANEL_T) wall of show
+skin above it, and opens on the interior face, which is upward on the printer.
 
 The cavity is one figure per roof level (`cadlib/plan.py`): the union of every
 pocket reaching that level, with any web narrower than one
@@ -111,7 +113,14 @@ a dado.
   joint instead of opening a tapered slot beside the panel.
 
 The rail is locally pocketed only where a named placed body or water-2 already
-occupies its volume. The retained spans remain the full 12 × 12 mm section with
+occupies its volume. A pocket whose roof would leave less than one
+[3 mm](TONGUE_MIN_ROOF) wall of tongue over it takes the tongue's whole section
+instead, square where the opening leaves the tongue for the field, while the
+field's own roof over the same pocket stays where the body's crown put it: on
++X the [relay-1, ground-stack, c14-inlet](TONGUE_OPEN_PX) pockets open the
+tongue, on −X the [asse1022-assembly, bulkhead-water](TONGUE_OPEN_NX) pockets
+do, and water-2 takes only the bottom of the −X tongue and leaves the section
+over it. The retained spans remain the full 12 × 12 mm section with
 their 6 mm roots, and each side keeps complete body-free capture bands. The ASSE
 underside pocket is the only place the nominal 6 mm female roof is reduced; it
 still leaves more than one complete 3 mm wall under the exterior face.
