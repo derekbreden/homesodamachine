@@ -129,9 +129,10 @@ Everything that is putting parts together with fasteners and hands. Printer tend
 | Press the wall's Wago wells; mount PSU, relays, PCBA | ES-01, ES-03 | Onto `enclosure-back-top`'s [17](SHELF_INSERTS) +X wall bosses | 5 |
 | Stage the six printed pieces and the +Y wall's bodies; bolt the compressor down to the slab | EN-01, EN-02, EN-03 | Four floor posts, one M5 and a fender washer each, snugged onto the post crowns | 10 |
 | Seat the cold core; condenser, power column, close the box, ASSE drip pan | EN-04, EN-05, EN-06, EN-07, EN-08 | | 10 |
+| Stage the collet plate and feed it into front-top's slot, holes forward | EN-01, EN-07 | In through that piece's seam face before the front column closes; the steel goes up the slot until its own top edge lands on the cap's land, and the guides' heads close over that edge at the two tails | 5 |
 | Cut, route and sleeve the umbilical; bag it with the under-counter plate | FU-01, FU-02, FU-03, FU-04 | Three LLDPE tubes, braid, the bag | 10 |
 | Assemble the faucet — two-piece touch-flo shell, plate, gasket, o-ring | — | PET-GF shell, printed TPU seals | 5 |
-| **Assembly** | | | **[120](LAB_SEC8)** |
+| **Assembly** | | | **[125](LAB_SEC8)** |
 
 ## 9. Power-on & testing
 
@@ -173,14 +174,14 @@ The unit passed. Empty it, clean it up, name it, box it.
 | 5. Foam pouring | [35 m](LAB_HM5) | [$58.33](LAB_USD5) |
 | 6. Wiring | [1 h 35 m](LAB_HM6) | [$158.33](LAB_USD6) |
 | 7. Plumbing | [1 h 10 m](LAB_HM7) | [$116.67](LAB_USD7) |
-| 8. Assembly | [2 h](LAB_HM8) | [$200.00](LAB_USD8) |
+| 8. Assembly | [2 h 5 m](LAB_HM8) | [$208.33](LAB_USD8) |
 | 9. Power-on & testing | [55 m](LAB_HM9) | [$91.67](LAB_USD9) |
 | 10. Finishing & packing | [35 m](LAB_HM10) | [$58.33](LAB_USD10) |
-| **Per-unit total** | **[9 h 55 m](LAB_HM)** | **[$991.67](LAB_USD)** |
+| **Per-unit total** | **[10 h](LAB_HM)** | **[$1,000.00](LAB_USD)** |
 
-The target is 10 hours attended per unit. Bottom-up this says [9 h 55 m](LAB_HM). Where the remaining time sits:
+The target is 10 hours attended per unit. Bottom-up this says [10 h](LAB_HM). Where the remaining time sits:
 
-- **Assembly** ([2 h](LAB_HM8), the largest category) — over a third of it is tending printers, which is setup, not work: a second printer takes it straight out of the unit.
+- **Assembly** ([2 h 5 m](LAB_HM8), the largest category) — over a third of it is tending printers, which is setup, not work: a second printer takes it straight out of the unit.
 - **Wiring** ([1 h 35 m](LAB_HM6)) — three quarters of it is the twelve harnesses. A crimp jig and a batch cut list against the harness schedule move that number; nothing else in the section will.
 - **Machining** — the four hand-tapped NPT ports are the slowest five minutes each in the build, and the production tapping fixture is still an open item in [`pressure-vessel.md`](/hardware/assembly/pressure-vessel.md).
 

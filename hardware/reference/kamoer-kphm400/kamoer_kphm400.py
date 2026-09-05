@@ -2,7 +2,7 @@
 
 A coarse keep-out approximation of the pump as it sits inside the case,
 sectioned into functional sub-bodies (head, rotor housing, motor body).
-Envelopes combine catalog dimensions and cartridge fit measurements — see
+Envelopes are catalog-nominal, not a manufacturing drawing — see
 `off-the-shelf-parts/kamoer-kphm400/extracted-results/geometry-description.md`.
 
 The model is authored in the PUMP-CASE WORLD FRAME: origin at the base-plate
@@ -18,11 +18,10 @@ The head and rotor profile are derived live from `pump_case`:
 - The rotor housing takes the octagon-bore profile (ledges and all) from the
   base plane to the tower-bore start, on the rear stack's offset axis.
 
-The motor is the part's own can, not the hole it turns in. The can ends
-at `motor_reach` above the bracket. The rear nub’s clearance envelope ends at
-`motor_nub_tip_z`, inside a 10 mm diameter; the 6 mm and 3 mm steps lie inside it.
-The overall nub reach is fitted to the loaded roof contact. Its nominal length alone
-does not establish that reach from the bracket datum.
+The motor is the part's own can, not the hole it turns in. The three bodies end
+at `pump_len` off the head's front face — the length the part measures — and the
+tower bore the motor sits inside is a bound stated against that, not the thing
+that sizes it. A consumer reading this module's STEP gets the pump.
 
 The pump's two outlet barbs sit on the body's +Y face (`body_y_face`) at the
 arch-notch positions and reach out toward the case wall (`y_face`); this model
@@ -55,8 +54,7 @@ rear_axis_y_shift = -1.0
 rear_axis_y = cy + rear_axis_y_shift
 base_plane_z = 0.0                               # base-plate bore-opening plane
 octagon_top_z = pc.bore_bottom_z                 # octagon seat depth / tower-bore start
-outlet_above_skirt_bottom = 5.0
-arch_plane_z = pc.skirt_bottom_z + outlet_above_skirt_bottom
+arch_plane_z = pc.skirt_bottom_z                 # skirt-bottom plane: outlet-port level
 tower_top_z = (pc.bore_bottom_z + pc.tower_height
                - pc.tower_cap_thickness)         # tower bore far face — the motor's headroom
 y_face = pc.pos_y_face_y                          # case +Y outer footprint face
@@ -91,16 +89,9 @@ skirt_body_y_min = skirt_body_y_max - skirt_body_y
 
 # --- Datasheet-nominal dimensions (external spec; geometry-description.md) --
 head_w = 62.61               # square pump-head body, width and height
-head_depth = 47.88           # bracket datum to the head’s lowest face, fitted in the cradle
+head_depth = 48.88           # head body depth, front face to rear
 motor_dia = 35.73            # silver DC motor body (clears the tower bore)
-motor_reach = 62.55          # bracket datum to motor end cap
-pump_len = head_depth + motor_reach
-motor_nub_length = 5.05
-motor_nub_tip_z = 68.75      # bracket to nub tip from the loaded roof-clearance fit
-motor_nub_diameters = (10.0, 6.0, 3.0)
-# The stepped nub's individual heights are unmeasured; its full maximum-diameter envelope
-# carries the complete axial reach in clearance queries.
-motor_nub_dia = max(motor_nub_diameters)
+pump_len = 111.43            # front face to motor end cap, excluding the 5.05 shaft nub
 body_y_face = cy + head_w / 2  # pump body +Y face — the plane outlet fittings seat on
 # THE MOUNTING BRACKET, STATED AND NOT DRAWN. A stamped steel plate at the junction face between
 # head and boss — `geometry-description.md` §3 — carrying the 4×M3 on a 50 mm square that the
@@ -120,7 +111,7 @@ outlet_relief = 2.075        # how far the outlet side stands fore of `body_y_fa
 outlet_relief_run = 12.585   # how far up off the head's own front face it holds that fall
 # --- Axial seams (case frame; -Z = head front, +Z = motor rear) -------------
 head_front_z = base_plane_z - head_depth         # head front (clipped to cavity)
-motor_end_z = base_plane_z + motor_reach            # motor end cap — the part's own far face
+motor_end_z = head_front_z + pump_len            # motor end cap — the part's own far face
 
 
 # --- The two barbs, as stations ---------------------------------------------
@@ -130,8 +121,8 @@ motor_end_z = base_plane_z + motor_reach            # motor end cap — the part
 def barb(i: int) -> tuple:
     """One of the two outlet barbs: `(position, outward axis)` in the pump's own frame.
 
-    It stands on the body's +Y face, `outlet_above_skirt_bottom` above the skirt-bottom
-    plane, and reaches out toward the case wall — so the axis is +Y."""
+    It stands on the body's +Y face at its arch notch, at the skirt-bottom plane the notches
+    are cut on, and reaches out toward the case wall — so the axis is +Y."""
     return ((arch_xs[i], body_y_face, arch_plane_z), (0.0, 1.0, 0.0))
 
 
@@ -216,11 +207,10 @@ def build_rotor_housing():
 
 
 def build_motor_body():
-    """The motor can and the complete axial envelope of its stepped rear nub."""
-    can = _zcyl(motor_dia / 2, octagon_top_z, motor_end_z, oy=rear_axis_y)
-    nub = _zcyl(motor_nub_dia / 2, motor_end_z,
-                motor_nub_tip_z, oy=rear_axis_y)
-    return cq.Workplane(obj=can.fuse(nub))
+    """Silver DC motor: a plain round cylinder from the boss's rear face to the
+    part's own end cap. The tower bore is what it turns inside, not its length."""
+    return cq.Workplane(obj=_zcyl(
+        motor_dia / 2, octagon_top_z, motor_end_z, oy=rear_axis_y))
 
 
 # The pump's body sub-bodies as (name, builder, color). Public so the pump
@@ -262,8 +252,8 @@ def main():
     # The solids are what a consumer imports, so the length is checked on them
     # rather than on the constants they were drawn from.
     print("depth %.2f against the part's %.2f%s"
-          % (bb.zmax - bb.zmin, head_depth + motor_nub_tip_z,
-             "" if abs((bb.zmax - bb.zmin) - head_depth - motor_nub_tip_z) < 1e-6 else "   <-- DOES NOT MATCH"))
+          % (bb.zmax - bb.zmin, pump_len,
+             "" if abs((bb.zmax - bb.zmin) - pump_len) < 1e-6 else "   <-- DOES NOT MATCH"))
     print(f"rear boss and motor axis  y {rear_axis_y:g}, {abs(rear_axis_y_shift):g} mm toward Y- "
           f"from the head datum y {cy:g}")
 

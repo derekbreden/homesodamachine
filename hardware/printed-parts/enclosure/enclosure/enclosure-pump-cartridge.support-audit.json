@@ -19,14 +19,14 @@
       -118.5425,
       165.365013
     ],
-    "replacement_mesh_bed_reseat_mm": 2.0
+    "replacement_mesh_bed_reseat_mm": 1.25
   },
   "inputs": {
     "gcode": "plate_1.gcode",
-    "gcode_sha256": "81c76ec4bb392bc0c65e57087d4dfc1d3ae0f2e6836bdf2a538340babac94e2f",
+    "gcode_sha256": "f59df496a53c32468d0b585866906507d4c0be8b047e28436c3f39907d436000",
     "model": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
-    "model_sha256": "05b505bd00f273c23df8ff7b541c7b3c51a5088386d167897edf0849f793ad8e",
-    "profile": "/tmp/enclosure-pump-cartridge-petgf.3mf",
+    "model_sha256": "0b3e8f3b12f9555c74bbf99b03083f8593e5b420c48954cf598b0b8310997517",
+    "profile": "git:aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a:hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge-petgf.3mf",
     "profile_sha256": "10f9a5824beb674ca0868137659211da5703d6626b73a335388ec471efc91c40"
   },
   "interfaces": [],
