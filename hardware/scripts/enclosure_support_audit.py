@@ -84,6 +84,18 @@ class LayerNode:
     cells: set[tuple[int, int]]
 
 
+# WHERE A SUPPORT MAY STAND. A piece printed on its ceiling carries its own first layers as the
+# floor under everything inboard, so a body rooted on that slab is the design, not a finding; on
+# every other piece a body rooted on the model is what the geometry moves to avoid.
+ROOT_POLICY = {
+    "enclosure-back-top": {
+        "preferred_root": "bed, or the ceiling slab that is the piece's own first layers",
+        "model_root": "expected",
+    },
+}
+DEFAULT_ROOT_POLICY = {"preferred_root": "bed", "model_root": "avoided"}
+
+
 def _sha256(path: Path) -> str:
     h = hashlib.sha256()
     with path.open("rb") as stream:
@@ -622,7 +634,7 @@ def audit(gcode: Path, piece: str, model: Path | None = None,
             "root_and_build_up_are_independent": True,
             "build_up_mm": {"defect_under": SHORT_MM, "decent_from": DECENT_MM,
                             "preference_saturates_at": SATURATED_MM},
-            "preferred_root": "bed",
+            **ROOT_POLICY.get(piece, DEFAULT_ROOT_POLICY),
         },
         "summary": {
             "support_bodies": len(trees),

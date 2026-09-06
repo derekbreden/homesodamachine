@@ -18,7 +18,7 @@
   },
   "inputs": {
     "gcode": "plate_1.gcode",
-    "gcode_sha256": "1e8187f87535aad082504577f8a4e021a33829d1964ac737e7e316405d4d9c88",
+    "gcode_sha256": "5ada37e1d1710c0b360f2c26df441b64b074b732d6dd66a487f6ed3f9927bc95",
     "model": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
     "model_sha256": "9e6332fdd063d990ac3185a6d9451d03f4e61b9616ecd17239437285215013a5",
     "profile": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top-petgf.3mf",
@@ -621,7 +621,8 @@
       "defect_under": 5.0,
       "preference_saturates_at": 15.0
     },
-    "preferred_root": "bed",
+    "model_root": "expected",
+    "preferred_root": "bed, or the ceiling slab that is the piece's own first layers",
     "root_and_build_up_are_independent": true,
     "support_count": "minimize connected bodies which reach an interface"
   },
