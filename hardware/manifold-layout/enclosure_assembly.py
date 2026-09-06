@@ -2217,9 +2217,9 @@ def build_bulkhead_rings(stations):
 # the back column's Z seam, which the box searches — so the plate is stood off the other three
 # and `nameplate-field` reads it back against the seam once the box is standing.
 NAMEPLATE_MARGIN = 5.0
-# What the lowest point of a boss's corbel keeps off the cold core's cap. One millimetre is the
-# enclosure's assembly-clearance floor; the pump's rounded aft disc leaves more above the other
-# side of this same station, and `nameplate-support-clearance` reads both exact solids back.
+# What a boss keeps off the cold core's cap, over its own reach and half its stem. One millimetre
+# is the enclosure's assembly-clearance floor; the pump's motor can lies tangent to the plane the
+# bosses' crowns would share and keeps a millimetre off the west boss's teardrop apex.
 NAMEPLATE_BOSS_CLEAR = 1.0
 # The two bodies the plate goes into the assembly under — the part and the filament lying in it.
 NAMEPLATE = "nameplate"
@@ -2236,12 +2236,12 @@ def nameplate_field() -> tuple:
 
 
 def nameplate_screw_line(foam) -> float:
-    """The Z both screws stand on: the lowest a corbelled boss can, over the cold core's cap.
+    """The Z both screws stand on: the cap's face, one `nameplate.boss_reach`, half a stem, and
+    `NAMEPLATE_BOSS_CLEAR` of air.
 
     The plate's boss reaches `nameplate.boss_reach` inboard and the core's foam stands
     `enclosure.wall` off this wall for the whole of the field below — so a boss over the cap is a
-    boss in the core. Its corbel falls one `boss_reach` below the stem's lower tangent; this is
-    the cap's face, that fall, half a stem, and the air past it."""
+    boss in the core, and the line stands the boss's own reach clear of it."""
     return (cap_face(foam) + _np.boss_reach() + _np.boss_stem_d() / 2.0
             + NAMEPLATE_BOSS_CLEAR)
 
@@ -2994,8 +2994,8 @@ _c14_relief_x = next(x for who, x, _z, _w, _h in _enc.back_top_wall_reliefs
 
 _stated.state(
     "c14-surround", "The C14 flange pockets into one block at its ceiling-clear mount",
-    "3 mm in XZ, 3 mm of lip beyond the flange's Y- edge, a 9 mm entry relief, and one "
-    "full-width wedge corbel",
+    "3 mm in XZ, 3 mm of lip beyond the flange's Y- edge, a 9 mm entry relief, and a block "
+    "carried by its wall and the ceiling slab",
     (_enc.c14_pocket_wall >= 3.0 and _enc.c14_pocket_lip >= 3.0
      and _enc.c14_insertion_relief >= 9.0
      and _c14_relief_x == C14_STATION[0] and c14_cutout()[1] == C14_STATION[0]
@@ -3005,9 +3005,9 @@ _stated.state(
     f"{c14_stations()[0][0]:g}/{c14_stations()[1][0]:g}; the exact-profile pocket keeps "
     f"{_enc.c14_pocket_wall:g} mm of the tunnel block around the flange and its lip stands "
     f"{_enc.c14_pocket_lip:g} mm beyond the flange's {_c14.FLANGE_T:g} mm edge; the block is "
-    f"one rectangle from that mouth to the wall on one 45 degree underside. Its exact slipped "
-    f"pocket continues {_enc.c14_insertion_relief:g} mm in Y- through the fixed strip for "
-    "insertion.")
+    f"one rectangle from that mouth to the wall, its crown in the ceiling slab, and its two "
+    f"floors fall away at 45 degrees on the ceiling-down print. Its exact slipped pocket "
+    f"continues {_enc.c14_insertion_relief:g} mm in Y- through the fixed strip for insertion.")
 
 
 # --- the CO2 inlet chain, through the +Y wall of back-top ----------------------------
@@ -4310,9 +4310,9 @@ def build_vk(chain_carry, row_y: float):
 
 # --- what carries the tray, and the slot it draws out through --------------
 #
-# The sleeve's own section, every way — the block's floor under the tray, its two flanks, its
-# lid and its backstop. It is `enclosure.wall`: the sleeve is the box's material and prints in
-# the box's gauge.
+# The sleeve's own section, every way — the block under the tray, its two flanks, its lid and
+# its backstop. It is `enclosure.wall`: the sleeve is the box's material and prints in the
+# box's gauge.
 DRIP_SLEEVE_T = _enc.wall
 
 
@@ -4343,8 +4343,8 @@ def pan_sleeve(pan, west_face):
 
     THE BLOCK IS THE CARRY. It runs the tray's own rim plus one slip and one section every way,
     from the wall east past the tray's east end, so it is rooted on the wall over its whole west
-    face and there is one continuous flat surface on each of its outsides. The pan lies on the
-    block's floor the way a drawer lies in its carcase.
+    face and there is one continuous flat surface on each of its outsides. The pan rides in the
+    berth the way a drawer rides in its carcase.
 
     THREE CUTS TAKE IT BACK, AND THEY REACH DIFFERENT DISTANCES WEST. The WELL and the REBATE are
     the tray's own two sections — the pan's body, and the rim over its shoulders — and both run
@@ -4353,10 +4353,12 @@ def pan_sleeve(pan, west_face):
     INNER face: the tray is nowhere near this tall, so an opening cut this high in the wall is a
     hole nothing passes through.
 
-    What none of the three reaches is solid: the block's floor under the pan, its flanks
-    outboard of the rim, its lid over the flange, and — east of where the tray's own outline ends
-    — the BACKSTOP, full section from floor to lid, which is what the tray comes to rest
-    against."""
+    What none of the three reaches is solid: its flanks outboard of the rim, its lid over the
+    flange, and — east of where the tray's own outline ends — the BACKSTOP, full section from
+    the block's underside to its lid, which is what the tray comes to rest against. What the
+    pan rides on inside the well is the piece's own, struck for its print
+    (`enclosure._pan_sleeve`): a floor on a print that lays one, two rails on one that does
+    not."""
     (wy0, wy1, wz0, wz1, wx1), (ry0, ry1, rz0, rz1, rx1) = pan_berth(pan)
     s, t = _pan.PAN_SLIP, DRIP_SLEEVE_T
     z1 = pan.zmax + s + t
@@ -4368,6 +4370,70 @@ def pan_sleeve(pan, west_face):
     return [block], [(x0, wx1, wy0, wy1, wz0, wz1),
                      (x0, rx1, ry0, ry1, rz0, rz1),
                      (west_face, wx1, wy0, wy1, rz1, z1)]
+
+
+# --- what stands on that sleeve's lid on the ceiling-down print --------------------------
+#
+# THE LID LOOKS PRINT-DOWN, and what is over it decides what carries it. Fore of the mouth the
+# ASSE anchor's underside is right there, and the strip rises to it as a column; over the
+# backstop nothing stands, and its top rises to the ceiling slab as a fin; between column and fin
+# each strip wears a 45° roof rising to the fin, a face the print lays on itself. Aft of the mouth
+# the strip keeps a flat gate off the −X wall: the moisture plate's lead crosses it there on its
+# way from the pan's aft edge to its clip (`asse-drip-pan/README.md`), and the gate bridges.
+SLEEVE_LEAD_GATE = 12.0
+
+
+def sleeve_stands(sleeve, placed, cradle, reliefs) -> tuple:
+    """What `enclosure._pan_sleeve` stands on the sleeve's lid, each read against the placed
+    bodies one `WEDGE_CLEAR` clear: `("column", x0, x1, y0, y1, z0, z1)` boxes and
+    `("roof", x_foot, x_head, y0, y1, z_base)` wedges rising at 45° from `x_foot` to `x_head`.
+    A stand a body stands in the air of is left out, and its strip stays flat."""
+    bodies = _bodies(placed)
+    (block,), cuts = sleeve
+    bx0, bx1, by0, by1, _bz0, lid = block
+    well, _rebate, mouth = sorted(cuts, key=lambda c: c[4])
+    wx1, my0, my1 = well[1], mouth[2], mouth[3]
+    lane = interior_ceiling()
+    out = []
+    # THE FIN over the backstop: from its inner face out, clipped short of any pocket the slab
+    # keeps over a body beside it, and thinned a millimetre at a time until it clears the pack.
+    x1 = bx1
+    for _who, rx0, _rx1, ry0, ry1, _top in reliefs:
+        if ry0 < by1 and ry1 > by0 and wx1 < rx0 < x1:
+            x1 = min(x1, rx0)            # the fin's face runs on into the pocket's wall
+    fin = None
+    while x1 - wx1 >= _enc.wall - 1e-9:
+        if not _within((wx1, by0, lid, x1, by1, lane), bodies, WEDGE_CLEAR):
+            fin = ("column", wx1, x1, by0, by1, lid, lane + 1.0)
+            break
+        x1 -= 1.0
+    if fin is not None:
+        out.append(fin)
+    # THE FORE STRIP'S COLUMN, up to the underside of whichever section of the anchor stands
+    # over it, out to that section's own east face.
+    east = under = None
+    if cradle:
+        z_axis, sections, _ties, dn = cradle
+        run = 1.0 / math.tan(math.radians(_enc.asse_v_half))
+        mid = (by0 + my0) / 2.0
+        for sy0, sy1, apex, seat_r, x_axis in sections:
+            if sy0 <= mid <= sy1:
+                east = x_axis if seat_r is not None else apex + dn * run + _enc.asse_cradle_lip
+                under = z_axis - dn
+    foot = bx0
+    if east is not None and not _within((bx0, by0, lid, east, my0, under), bodies, WEDGE_CLEAR):
+        out.append(("column", bx0, east, by0, my0, lid, under))
+        foot = east
+    # THE ROOFS, one per strip, rising east to the fin's west face; the aft one starts past the
+    # lead's gate.
+    if fin is not None:
+        for x_foot, y0, y1 in ((foot, by0, my0), (bx0 + SLEEVE_LEAD_GATE, my1, by1)):
+            if wx1 - x_foot < 1.0:
+                continue
+            prism = _enc._xz_prism(y0, y1, [(x_foot, lid), (wx1, lid), (wx1, lid + (wx1 - x_foot))])
+            if _clear_of(prism, bodies, WEDGE_CLEAR):
+                out.append(("roof", x_foot, wx1, y0, y1, lid))
+    return tuple(out)
 
 
 def west_wall_ports(pan):
@@ -5038,9 +5104,25 @@ def ceiling_reliefs(placed: dict) -> tuple:
 WEDGE_CLEAR = 1.0
 
 KEPT_WEDGES = (
-    ("the ceiling ribs' tie-band gables", (-60.0, 250.0, 342.4, 60.0, 330.0, 344.5),
+    ("the ceiling ribs' tie-band gables", (-60.0, 250.0, 342.4, 60.0, 370.0, 350.5),
      "the loop's room over the crown — `tie_t + tie_cav_buffer` between the gable's valley and "
-     "the lane (`enclosure._anchor_band_gable`)"),
+     "the lane (`enclosure._anchor_band_gable`, at the angle `enclosure._gable_angle` gives "
+     "each rib's room)"),
+    ("the water-split rib's tie-band flank gable", (-105.0, 250.0, 300.5, -91.0, 254.5, 303.0),
+     "the same room on the flank the loop comes down (`enclosure._anchor_flank_gable`)"),
+    ("the flow-regulator rib's tie-band flank gable",
+     (-105.0, 223.0, 328.5, -91.0, 227.5, 331.0),
+     "the same room on the flank the loop comes down (`enclosure._anchor_flank_gable`)"),
+    ("the flavour line's rib's tie-band flank gable", (-99.0, 285.5, 279.0, -77.5, 289.8, 281.5),
+     "the same room on the flank the loop comes down (`enclosure._anchor_flank_gable`)"),
+    ("the water-split rib's tie lobe", (-105.0, 250.0, 269.0, -98.0, 254.5, 280.0),
+     "the loop's room through the flank's relief on its way round the rib's lower flank; its "
+     "floor falls to the lane (`enclosure._tube_anchors`)"),
+    ("the flow-regulator rib's tie lobe", (-105.0, 223.0, 297.0, -98.0, 227.5, 308.0),
+     "the same room through the flank's relief"),
+    ("the ASSE tie cavity's lower mouth", (-102.0, 358.0, 317.5, -98.0, 390.5, 321.5),
+     "the loop leaves the cavity's lower mouth over this slope and turns east under the "
+     "anchor; the cavity is the loop's own room (`enclosure._asse_cradle`)"),
     ("the flow meter anchors' tie-band gables", (-48.0, 368.0, 345.3, -28.0, 412.0, 347.3),
      "the same room over the DIGITEN anchors' crowns (`enclosure._flow_meter_anchors`)"),
     ("the Y-seam screws' head counterbores", (-108.0, 200.0, 329.0, 108.0, 210.0, 333.0),
@@ -5058,6 +5140,21 @@ def _within(box6, bodies, clear, skip=()):
     probe = cq.Solid.makeBox(x1 - x0 + 2 * clear, y1 - y0 + 2 * clear, z1 - z0 + 2 * clear,
                              cq.Vector(x0 - clear, y0 - clear, z0 - clear))
     return _touching(probe, bodies, skip)
+
+
+def _clear_of(solid, bodies, clear, skip=()):
+    """Whether `solid` stands at least `clear` off every body — the exact solid distance, with
+    boxes only as a prefilter (`_clearing.gap`), so a body diagonal to a sloped face is read as
+    it stands and not as a box would put it."""
+    sb = box(solid)
+    for name, body in bodies.items():
+        if name in skip:
+            continue
+        if _clearing.box_gap(sb, box(body)) >= clear:
+            continue
+        if _clearing.gap(solid, body, clear) < clear - 1e-6:
+            return False
+    return True
 
 
 def _touching(probe, bodies, skip=()):
@@ -5078,11 +5175,14 @@ def _touching(probe, bodies, skip=()):
 
 def stand_anchors(stations, placed) -> tuple:
     """Each anchor station with its `stand` entry (`enclosure._tube_anchors`): per end web,
-    `(plane, depth)` — back-top's ceiling face, which that end stands on as a column, and how far
-    off the root face the column stands: the flank's whole section where the air from it to the
-    slab is free of every placed body, else the corbel's own footprint where that much is — or
-    None where a body stands even in that. A station outside back-top's band is passed through
-    as it came."""
+    `(plane, depth, roof)` — back-top's ceiling face, which that end stands on as a column, and
+    how far off the root face the column stands: the flank's whole section where the air from
+    it to the slab is free of every placed body, else the corbel's own footprint where that much
+    is, else None; and the roof the rest of that flank wears, `(angle, deep)` — from the axis
+    plane to the root at the relief's 45°, at the teardrop roof's 36° where a body stands too
+    close over the flank for that, or over the corbel's own footprint at either, whichever the
+    pack first leaves a millimetre of air over — or None. A web that stands whole wears no roof.
+    A station outside back-top's band is passed through as it came."""
     bodies = _bodies(placed)
     up = _enc.print_up("back", "top")
     roots, lane = _enc.back_top_frames()
@@ -5096,14 +5196,25 @@ def stand_anchors(stations, placed) -> tuple:
         whole = _enc.tube_anchor_end_columns(st, roots, lane, up, face_z)
         depth = _enc.tube_anchor_corbel_depth(st, roots, lane)
         part = _enc.tube_anchor_end_columns(st, roots, lane, up, face_z, depth)
+        b_root = _enc.tube_anchor_root(st, roots, lane)
         stand = []
-        for full, footprint in zip(whole, part):
+        for w, (full, footprint) in enumerate(zip(whole, part)):
             if full is not None and not _within(full, bodies, WEDGE_CLEAR):
-                stand.append((face_z, None))
-            elif footprint is not None and not _within(footprint, bodies, WEDGE_CLEAR):
-                stand.append((face_z, depth))
-            else:
-                stand.append(None)
+                stand.append((face_z, None, None))
+                continue
+            column = ((face_z, depth)
+                      if footprint is not None and not _within(footprint, bodies, WEDGE_CLEAR)
+                      else (None, None))
+            roof = None
+            for angle, deep in ((_enc.relief_chamfer, b_root), (_enc.teardrop_roof_angle, b_root),
+                                (_enc.relief_chamfer, depth), (_enc.teardrop_roof_angle, depth)):
+                prism = _enc.tube_anchor_end_roofs(st, roots, lane, up, angle, deep)[w]
+                if prism is None:
+                    break
+                if _clear_of(prism, bodies, WEDGE_CLEAR):
+                    roof = (angle, deep)
+                    break
+            stand.append((*column, roof) if column[0] is not None or roof is not None else None)
         out.append(st + (tuple(stand),))
     return tuple(out)
 
@@ -5279,8 +5390,12 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
     west = west_interior_face()
     outside = (set(THROUGH_WALL) | set(IN_THE_WALL) | set(OUTBOARD)
                | {NAMEPLATE, NAMEPLATE_INK})
+    reliefs = ceiling_reliefs(placed)
+    sleeve = pan_sleeve(pan, west)
     return _enc.Pack(placed={n: v for n, v in placed.items() if n not in outside},
-                     west_ports=west_wall_ports(pan), pan_sleeve=pan_sleeve(pan, west),
+                     west_ports=west_wall_ports(pan),
+                     pan_sleeve=(*sleeve, sleeve_stands(sleeve, placed, a.asse_cradle, reliefs),
+                                 _pan.PAN_SLIP),
                      back_ports=(y_wall_ports(a.bulkhead_carry, *a.panel_carries.values())
                                  + [c14_cutout(), co2_wall_port(a.co2_inlet_carry),
                                     keystone_cutout(a.keystone_station)]),
@@ -5291,7 +5406,7 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
                      asse_cradle=a.asse_cradle,
                      flow_meter_anchors=a.digiten_anchors,
                      tube_anchors=stand_anchors(a.tube_anchors + a.body_anchors, placed),
-                     ceiling_reliefs=ceiling_reliefs(placed),
+                     ceiling_reliefs=reliefs,
                      port_field=y_wall_field(a.wall_stations),
                      nameplate=nameplate_cut(placed["foam-assembly"][0]),
                      keystone=a.keystone_station,
