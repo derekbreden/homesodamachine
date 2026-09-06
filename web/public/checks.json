@@ -7,8 +7,8 @@
     },
     {
       "check": "hardware/scripts/check_facts_current.py",
-      "note": "and the 126 sources behind them stand where they stood when it was written",
-      "status": "ok"
+      "note": "tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py",
+      "status": "red"
     },
     {
       "check": "hardware/scripts/check_finishes.py",
@@ -42,8 +42,8 @@
     },
     {
       "check": "hardware/scripts/check_step_colours.py",
-      "note": "A generator hands its solid to `_materials.one_body` and exports the assembly.",
-      "status": "red"
+      "note": "step colours: 196/196 carry the colour of what they are made of",
+      "status": "ok"
     },
     {
       "check": "hardware/scripts/check_tracked.py",
@@ -52,18 +52,18 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 1506 tracked, 347 fetched solids, 55 tags",
+      "note": "paths: every reference lands — 1505 tracked, 346 fetched solids, 55 tags",
       "status": "ok"
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 478 of 1000 free, the next cut wants 3, and the whole lock reads by name in 145.8 MB against 148.4 MB of bundle",
+      "note": "check_release_room: 463 of 1000 free, the next cut wants 3, and the whole lock reads by name in 153.8 MB against 156.4 MB of bundle",
       "status": "ok"
     },
     {
       "check": "tools/check_web_tests.py",
-      "note": "cd web && npm test",
-      "status": "red"
+      "note": "check_web_tests: web's suite passes",
+      "status": "ok"
     },
     {
       "check": "tools/bazel/check_build_file.py",
@@ -87,16 +87,10 @@
     }
   ],
   "detail": {
-    "hardware/scripts/check_step_colours.py": [
-      "step colours: 196/197 carry the colour of what they are made of",
-      "  1 STEP(s) name no colour, so /3d and their own cards draw them at the viewer's blue-grey:",
-      "    hardware/printed-parts/enclosure/ceiling-panel/ceiling-panel.step",
-      "  A generator hands its solid to `_materials.one_body` and exports the assembly."
-    ],
-    "tools/check_web_tests.py": [
-      "1 test(s) in web/ fail:",
-      "    the artifact lock pins every committed viewer scorecard",
-      "  cd web && npm test"
+    "hardware/scripts/check_facts_current.py": [
+      "enclosure-assembly.facts.json was taken from a different tree — it holds e8ff4b715fdbd55ae9faaedc07e13b52 for the 126 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 8b67e32fec99a1cc87c6acb5bba13885 here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "  the three come off one run:",
+      "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ]
   },
   "green": false
