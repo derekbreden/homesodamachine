@@ -21,50 +21,18 @@ file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-104.075 y=217.050 z=168.700
 click: x=104.075 y=217.050 z=168.700
 
-[ceiling] The ASSE drip pan's berth floor — the tray's bearing and insertion plane, which no material may rise off. On this ceiling-down print it looks print-down over the tray's own room; the production slice supports it from the slab through the pan's open mouth, the pan's own path in and out.
+[sliver] A rib's lower lip below its seat's tangent plane — the plane at `teardrop_roof_angle` leaves this much of the axis-plane face between where it leaves the block and the rib's lower flank, backed by the rib's whole depth to the wall (`_anchor_bore_chamfer`). The water split's rib and the flow regulator's.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-82.850 y=391.400 z=284.611
+click: x=-91.300 y=252.140 z=281.420
+click: x=-91.300 y=225.140 z=309.428
 
-[ceiling] The pan sleeve's lid — the ASSE chain stands over it, so nothing may rise off it. It looks print-down over the cavity and is a supported face reached from the slab.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-74.850 y=391.400 z=303.211
-
-[ceiling] The nameplate bar's top — the water pump stands on that very plane, so nothing may rise off it; the bar's underside carries no wedge on this print because that face looks print-up. A supported face reached from the slab.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=23.735 y=458.500 z=266.400
-click: x=76.925 y=458.500 z=266.400
-
-[ceiling] The nameplate pocket's lower 1.5 mm square rim — the plate's flush mouth and 45° bevel leave this flat by contract, and on this print it is the rim that looks print-down. Supported from the slab with the bar above it.
+[ceiling] The nameplate pocket's lower 1.5 mm square rim — the plate's flush mouth and 45° bevel leave this flat by contract, and on this print it is the rim that looks print-down. Supported from the plate behind the rear face, where the inlay hides the contact.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=38.160 y=466.250 z=229.715
-
-[ceiling] The flavour line's tube anchor on the −X wall: its print-down flank beyond the 8 mm off the wall its end webs are carried over — a column to the slab on the aft web, a 45° corbel on the fore web where `tube-water-2` passes through the air a column would take — and across the 3.5 mm tie band, where nothing may stand because the loop comes down that flank. A supported face reached from the slab.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-88.285 y=287.580 z=279.340
-
-[ceiling] The C14 tunnel's aperture and flange-pocket floors — the working opening is the moulded shroud's own rectangle and the pocket the flange's own outline, so both floors are flat by contract; a bridge between the block's two flanks, reached from the slab.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=66.900 y=460.375 z=324.625
 
 [ceiling] Relay #2's lower end bar — its top between the two blocker-profiled wings is the same 15 mm flat the wings bridge, two layers deep, over the relay's own pin field.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=97.375 y=337.000 z=258.900
-
-[ceiling] The ASSE tie channel's millimetre of overrun below the anchor block into the flank section — the cutter runs past the face it opens on so the lower mouth is cut open rather than closed by a coincident plane; what it takes is a 3 mm-wide, 1 mm-deep notch whose floor bridges the channel's own width.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-100.000 y=374.210 z=320.921
-
-[ceiling] The water-split and flow-regulator ribs' print-down flanks and relief-lobe floors over their 3.5 mm tie bands — the room the zip tie's loop comes down, which nothing may close: a bridge the band's own width between the regulator rib's two columns and between the water-split rib's two corbels, which stand under the flow regulator's own air. Each is a supported face reached from the slab.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-96.329 y=252.140 z=300.869
-click: x=-101.500 y=252.140 z=278.753
-click: x=-101.500 y=225.140 z=306.761
-click: x=-96.325 y=225.140 z=328.861
-
-[ceiling] The keystone pocket's floor — the module standard's 14.9 mm section, a bridge between the receptacle boss's two flanks; the lower latch catch stands on it (`riteav_keystone.CATCH_LOWER`).
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-37.810 y=461.305 z=292.820
-click: x=-37.810 y=465.505 z=295.200
 
 [ceiling] The back column's groove lands — `hook_apex_flat` and two slips wide, bridged between the groove's two 45° flanks along the run. Back-bottom's ridge lands in this groove on both flanks at once (`_z_rail_channels`).
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
@@ -72,22 +40,14 @@ click: x=100.969 y=335.525 z=166.625
 click: x=-100.969 y=388.750 z=166.625
 click: x=-100.969 y=266.275 z=166.625
 
-[ceiling] The upper Y-seam pins' top faces — the square registration face the front lip's socket slides over, flat by the joint's contract, 13 mm under the lane; a supported face reached from the slab.
+[ceiling] The upper Y-seam pins' top faces — the square registration face front-top's socket slot slides over, one `slide_slip` under that slot's flat roof, flat by the joint's contract with a piece already printed; a supported face reached from the plate through the open Y-seam mouth.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-101.500 y=207.525 z=339.000
 click: x=101.500 y=207.525 z=339.000
 
-[ceiling] The PRV mouth's floor — a `vent_channel_w` bridge between the passage's two jambs, the mouth's own square section on the tube's axis.
+[ceiling] The sleeve lid's gate for the moisture plate's lead — the flat the aft strip keeps between the flank's face and the roof's foot, where the lead crosses from the pan's aft edge to its clip (`enclosure_assembly.SLEEVE_LEAD_GATE`); a bridge from the flank to the roof.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-91.500 y=319.500 z=185.900
-
-[ceiling] The rim rebate's shoulders, which the pan's flange rides over — flat by the tray's own contract, looking print-down toward the lid one lid's rise away; a supported face reached with the berth floor through the open mouth.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-80.850 y=391.400 z=297.111
-
-[ceiling] The regulator rib's crown over its 3.5 mm tie band — 3.09 mm of channel to the lane leaves no room for the gable the other ceiling ribs wear (`_anchor_band_gable`), so the crown stays flat and bridges between the rib's two end webs.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=2.450 y=363.203 z=348.911
+click: x=-95.500 y=433.200 z=303.211
 
 [step] The CO2 nut land — `port_clamp_stack` keeps wall plus chip (5.00 mm) at the relieved station, so the land stands exactly one retained millimetre inside the wall field. The transition between the two is a drafted skirt (`station_land_draft`), and both planes are stated datums: the wall field at y=461 and the neoFit nut's land at y=462.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
@@ -108,12 +68,3 @@ click: x=98.326 y=453.599 z=279.400
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-37.810 y=458.000 z=315.220
 click: x=-37.810 y=457.950 z=295.420
-
-[sliver] The aft round section of the ASSE anchor closes above its concentric fitting seat — the 1.254 mm vertical face is the retained crown between that circle and the anchor's common top plane. It is backed west to the side wall over the section's full 13.5 mm run, not a thin printed ligament.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-78.070 y=400.460 z=322.548
-
-[ceiling] The two 2 mm-deep identification-chip pocket crowns — each square flush pocket keeps its full 37.3 mm mouth and bridges only the pocket depth back to the rear wall. The production profile emits no support body or interface in either port passage.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-78.070 y=466.000 z=292.769
-click: x=-37.810 y=466.000 z=292.769
