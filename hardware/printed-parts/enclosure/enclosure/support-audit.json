@@ -60,6 +60,32 @@
    "support_bodies": [
     {
      "tree": "tree-1",
+     "name": "an ASSE round seat's lower arc; the pan sleeve's lid; the rim rebate's shoulders …",
+     "first_contacts_cad_xyz_mm": [
+      [
+       -81.8,
+       341.1,
+       325.52,
+       -78.2,
+       355.1,
+       326.24
+      ],
+      [
+       -97.8,
+       345.9,
+       303.68,
+       -51.0,
+       436.3,
+       304.16
+      ]
+     ],
+     "root": "bed",
+     "build_up_mm": 28.56,
+     "interface_islands": 4,
+     "rationale": "Roots on the plate, outside the bedded piece or through one of its openings and reaches 4 contact(s): an ASSE round seat's lower arc, the pan sleeve's lid, the rim rebate's shoulders, the drip pan's berth floor."
+    },
+    {
+     "tree": "tree-2",
      "name": "a Y-seam pin's top",
      "first_contacts_cad_xyz_mm": [
       [
@@ -77,8 +103,106 @@
      "rationale": "Roots on the plate, outside the bedded piece or through one of its openings and reaches 1 contact(s): a Y-seam pin's top."
     },
     {
-     "tree": "tree-2",
-     "name": "an identification-chip pocket's lower arc; the sleeve lid's gate for the moisture lead",
+     "tree": "tree-3",
+     "name": "a tap-water rib's tie-band flank or lobe floor",
+     "first_contacts_cad_xyz_mm": [
+      [
+       -103.8,
+       251.1,
+       279.2,
+       -98.2,
+       253.5,
+       279.68
+      ]
+     ],
+     "root": "model",
+     "build_up_mm": 22.56,
+     "interface_islands": 1,
+     "rationale": "Roots on the ceiling slab's interior face and reaches 1 contact(s): a tap-water rib's tie-band flank or lobe floor."
+    },
+    {
+     "tree": "tree-4",
+     "name": "a tap-water rib's tie-band flank or lobe floor",
+     "first_contacts_cad_xyz_mm": [
+      [
+       -103.8,
+       223.9,
+       307.28,
+       -98.2,
+       226.3,
+       307.76
+      ]
+     ],
+     "root": "model",
+     "build_up_mm": 22.32,
+     "interface_islands": 1,
+     "rationale": "Roots on the ceiling slab's interior face and reaches 1 contact(s): a tap-water rib's tie-band flank or lobe floor."
+    },
+    {
+     "tree": "tree-5",
+     "name": "the ASSE tie channel's overrun notch",
+     "first_contacts_cad_xyz_mm": [
+      [
+       -101.0,
+       359.1,
+       321.44,
+       -98.6,
+       389.5,
+       321.92
+      ]
+     ],
+     "root": "model",
+     "build_up_mm": 29.28,
+     "interface_islands": 1,
+     "rationale": "Roots on the ceiling slab's interior face and reaches 1 contact(s): the ASSE tie channel's overrun notch."
+    },
+    {
+     "tree": "tree-6",
+     "name": "the water-split rib's seat lip; the flow-regulator rib's tie-band crown; the flow-regulator rib's seat lip …",
+     "first_contacts_cad_xyz_mm": [
+      [
+       -93.4,
+       219.9,
+       312.32,
+       -91.0,
+       229.9,
+       312.8
+      ],
+      [
+       -101.0,
+       251.1,
+       301.28,
+       -90.2,
+       253.5,
+       301.76
+      ]
+     ],
+     "root": "bed",
+     "build_up_mm": 42.0,
+     "interface_islands": 4,
+     "rationale": "Roots on the plate, outside the bedded piece or through one of its openings and reaches 4 contact(s): the water-split rib's seat lip, the flow-regulator rib's tie-band crown, the flow-regulator rib's seat lip, the flavour rib's print-down flank."
+    },
+    {
+     "tree": "tree-7",
+     "name": "the water-split rib's tie-band crown",
+     "first_contacts_cad_xyz_mm": [
+      [
+       -101.0,
+       223.9,
+       329.36,
+       -91.4,
+       226.3,
+       329.84
+      ]
+     ],
+     "root": "model",
+     "build_up_mm": 12.48,
+     "interface_islands": 1,
+     "rationale": "Roots on the ceiling slab's interior face and reaches 1 contact(s): the water-split rib's tie-band crown."
+    },
+    {
+     "tree": "tree-8",
+     "name": "an identification-chip pocket's lower arc",
      "first_contacts_cad_xyz_mm": [
       [
        -82.2,
@@ -89,37 +213,11 @@
        318.8
       ],
       [
-       -97.8,
-       429.9,
-       303.68,
-       -93.0,
-       436.7,
-       304.16
-      ]
-     ],
-     "root": "bed",
-     "build_up_mm": 36.0,
-     "interface_islands": 3,
-     "rationale": "Roots on the plate, outside the bedded piece or through one of its openings and reaches 3 contact(s): an identification-chip pocket's lower arc, the sleeve lid's gate for the moisture lead."
-    },
-    {
-     "tree": "tree-3",
-     "name": "an identification-chip pocket's lower arc",
-     "first_contacts_cad_xyz_mm": [
-      [
-       -42.2,
-       465.5,
-       318.08,
-       -33.8,
-       467.9,
-       318.8
-      ],
-      [
-       -41.4,
+       -82.2,
        465.5,
        255.68,
-       -33.8,
-       467.9,
+       -73.8,
+       467.5,
        256.4
       ]
      ],
@@ -129,9 +227,97 @@
      "rationale": "Roots on the plate, outside the bedded piece or through one of its openings and reaches 2 contact(s): an identification-chip pocket's lower arc."
     },
     {
-     "tree": "tree-4",
-     "name": "an identification-chip pocket's lower arc; the PSU's aft-lower insert bore's lower arc; the nameplate pocket's lower rim",
+     "tree": "tree-9",
+     "name": "an ASSE round seat's lower arc",
      "first_contacts_cad_xyz_mm": [
+      [
+       -81.4,
+       393.9,
+       323.6,
+       -78.2,
+       407.5,
+       324.32
+      ]
+     ],
+     "root": "model",
+     "build_up_mm": 26.4,
+     "interface_islands": 1,
+     "rationale": "Roots on the ceiling slab's interior face and reaches 1 contact(s): an ASSE round seat's lower arc."
+    },
+    {
+     "tree": "tree-10",
+     "name": "a flow-meter anchor's tie-band crown",
+     "first_contacts_cad_xyz_mm": [
+      [
+       -47.0,
+       369.9,
+       345.92,
+       -28.6,
+       372.3,
+       346.4
+      ]
+     ],
+     "root": "model",
+     "build_up_mm": 4.8,
+     "interface_islands": 1,
+     "rationale": "Roots on the ceiling slab's interior face and reaches 1 contact(s): a flow-meter anchor's tie-band crown."
+    },
+    {
+     "tree": "tree-11",
+     "name": "an identification-chip pocket's lower arc; the keystone pocket's floor or a catch",
+     "first_contacts_cad_xyz_mm": [
+      [
+       -41.8,
+       465.5,
+       318.08,
+       -33.4,
+       467.5,
+       318.8
+      ],
+      [
+       -44.6,
+       463.1,
+       295.76,
+       -31.0,
+       467.9,
+       296.24
+      ]
+     ],
+     "root": "bed",
+     "build_up_mm": 36.0,
+     "interface_islands": 4,
+     "rationale": "Roots on the plate, outside the bedded piece or through one of its openings and reaches 4 contact(s): an identification-chip pocket's lower arc, the keystone pocket's floor or a catch."
+    },
+    {
+     "tree": "tree-12",
+     "name": "a flow-meter anchor's tie-band crown",
+     "first_contacts_cad_xyz_mm": [
+      [
+       -47.0,
+       407.9,
+       345.92,
+       -28.6,
+       410.3,
+       346.4
+      ]
+     ],
+     "root": "model",
+     "build_up_mm": 4.8,
+     "interface_islands": 1,
+     "rationale": "Roots on the ceiling slab's interior face and reaches 1 contact(s): a flow-meter anchor's tie-band crown."
+    },
+    {
+     "tree": "tree-13",
+     "name": "the C14 aperture and flange-pocket floor; an identification-chip pocket's lower arc; the nameplate bar's top …",
+     "first_contacts_cad_xyz_mm": [
+      [
+       53.8,
+       452.7,
+       325.04,
+       80.2,
+       467.9,
+       325.52
+      ],
       [
        -1.8,
        465.5,
@@ -139,23 +325,69 @@
        6.6,
        467.9,
        319.28
-      ],
-      [
-       97.4,
-       453.9,
-       261.44,
-       103.8,
-       455.5,
-       261.92
       ]
      ],
      "root": "bed",
-     "build_up_mm": 35.52,
-     "interface_islands": 3,
-     "rationale": "Roots on the plate, outside the bedded piece or through one of its openings and reaches 3 contact(s): an identification-chip pocket's lower arc, the PSU's aft-lower insert bore's lower arc, the nameplate pocket's lower rim."
+     "build_up_mm": 29.28,
+     "interface_islands": 6,
+     "rationale": "Roots on the plate, outside the bedded piece or through one of its openings and reaches 6 contact(s): the C14 aperture and flange-pocket floor, an identification-chip pocket's lower arc, the nameplate bar's top, the PSU's aft-lower insert bore's lower arc, the nameplate pocket's lower rim."
     },
     {
-     "tree": "tree-5",
+     "tree": "tree-14",
+     "name": "the regulator rib's tie-band crown",
+     "first_contacts_cad_xyz_mm": [
+      [
+       -9.8,
+       361.9,
+       349.28,
+       15.0,
+       364.3,
+       349.76
+      ]
+     ],
+     "root": "model",
+     "build_up_mm": 1.44,
+     "interface_islands": 1,
+     "rationale": "Roots on the ceiling slab's interior face and reaches 1 contact(s): the regulator rib's tie-band crown."
+    },
+    {
+     "tree": "tree-15",
+     "name": "a ceiling rib's tie-band crown",
+     "first_contacts_cad_xyz_mm": [
+      [
+       18.6,
+       259.9,
+       343.04,
+       21.0,
+       272.7,
+       343.52
+      ]
+     ],
+     "root": "model",
+     "build_up_mm": 1.44,
+     "interface_islands": 1,
+     "rationale": "Roots on the ceiling slab's interior face and reaches 1 contact(s): a ceiling rib's tie-band crown."
+    },
+    {
+     "tree": "tree-16",
+     "name": "a ceiling rib's tie-band crown",
+     "first_contacts_cad_xyz_mm": [
+      [
+       39.0,
+       311.5,
+       343.04,
+       41.0,
+       324.3,
+       343.52
+      ]
+     ],
+     "root": "model",
+     "build_up_mm": 1.44,
+     "interface_islands": 1,
+     "rationale": "Roots on the ceiling slab's interior face and reaches 1 contact(s): a ceiling rib's tie-band crown."
+    },
+    {
+     "tree": "tree-17",
      "name": "a Y-seam pin's top",
      "first_contacts_cad_xyz_mm": [
       [

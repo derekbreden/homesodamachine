@@ -47,7 +47,7 @@ bulkhead ring's construction at another size, printed in a second filament.
 | Land under it | [1.5 mm](NAMEPLATE_LAND), and it is the plate's own section — head plus land is what sets [4.5 mm](NAMEPLATE_T) |
 | Seat | Ø[9.15 mm](NAMEPLATE_SEAT_D) of plate round the counterbore, one ligament, and no pad standing off the back |
 | Reach | [8 mm](NAMEPLATE_SCREW_REACH) under the head: the land, a ruthex M3 short, and [1.25 mm](BORE_RELIEF) of relief past its tip |
-| Boss | [7 mm](BOSS_STEM_D) wide, [5 mm](BOSS_REACH) off the plateau: the stem's round about the insert, closed on its print-down side — the side that looks up in the machine, since `enclosure-back-top` prints on its ceiling — by the two tangent planes every horizontal bore on this box closes on, at `enclosure.teardrop_roof_angle`. No collar — a collar closes a pad pocket, and there is none |
+| Boss | [7 mm](BOSS_STEM_D) wide, [5 mm](BOSS_REACH) off the plateau: round above the insert, square below its tangents, and carried to the wall on a full-width 45° corbel. No collar — a collar closes a pad pocket, and there is none |
 
 **The wall thickens to take it.** A pocket [4.5 mm](NAMEPLATE_T) deep is deeper than this wall's
 [3 mm](WALL_T) of stock, so the inner face carries a plateau standing to [6 mm](NAMEPLATE_WALL) —
@@ -69,14 +69,14 @@ would read as a V-groove round the plate instead of a flush inlay. The angle is
 `enclosure.relief_chamfer`, what every relief ceiling on this box rises at.
 
 **Where they stand is the wall's to say.** The cold core's cap crowns at z 253.4 and the
-SeaFlo's motor can comes down to z 266.4, both standing one `enclosure.wall` off this wall. The
-plate's horizontal centreline stands the boss's reach, half its stem and one millimetre over the
-cap (`enclosure_assembly.nameplate_screw_line`); the can lies tangent to the plane the two
-stems' rounds crest on and keeps a millimetre off the teardrop's apex at the west screw, and
-the PSU keeps four at the east one.
+SeaFlo's aft disc comes down to z 266.4, both standing one `enclosure.wall` off this wall. The
+plate's horizontal centreline is therefore the lowest line that leaves the corbel one millimetre
+over the cap; the pump's rounded aft disc leaves more at the west screw and the PSU leaves more
+at the east one. `enclosure_assembly.nameplate_screw_line` is the figure.
 
-**Each screw stands its own boss, and the two are identical.** Nothing runs between them: the
-core's aft hold-down bracket climbs this wall between the two stations on its own root.
+**The squared lower half is part of the corbel.** It gives the wedge one full-width face to carry
+while the upper half remains the standard M3 boss section around the insert. The two screw
+supports are identical.
 
 ## Print settings
 
