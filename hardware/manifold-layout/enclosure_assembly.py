@@ -131,8 +131,7 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "printed-parts" / "enclosure" / "y-wall-of-back-top",
            _hw / "printed-parts" / "enclosure" / "display-cover",
            _hw / "printed-parts" / "enclosure" / "display-gasket",
-           _hw / "printed-parts" / "enclosure" / "enclosure",
-           _hw / "printed-parts" / "enclosure" / "ceiling-panel"):
+           _hw / "printed-parts" / "enclosure" / "enclosure"):
     sys.path.insert(0, str(_p))
 import fits
 from _cadq_export import (SOLID_INDEX_SEP, export_assembly,  # noqa: E402
@@ -155,7 +154,6 @@ import display_cover as _cover                        # noqa: E402
 import display_gasket as _dgasket                     # noqa: E402
 import enclosure as _enc                              # noqa: E402
 import reeding as _reeding                            # noqa: E402
-import ceiling_panel as _cpanel                       # noqa: E402
 import funnel as _funnel                       # noqa: E402
 import funnel_drain_stub as _stub                     # noqa: E402
 import elbow_connector as _elbow                      # noqa: E402
@@ -2562,13 +2560,12 @@ TUBE_ANCHOR_SLIP = 0.2
 # Each row is a run, the index of the leg the rib is centred on, the face it roots on, and the
 # piece that owns that face there.
 TUBE_ANCHOR_SITES = (
-    # The carb-water line's crossing, under the top wall it runs 12.6 mm below for 123 mm. THE
-    # WALL THERE IS THE SLIDE-IN CEILING PANEL and not back-top: back-top keeps only the two side
-    # strips of its ceiling, so a rib rooted over the field between them roots on the panel
-    # (`enclosure.ceiling_stations`, which is what splits the stations between the two).
-    ("carb-1", 1, (0.0, 0.0, 1.0), "enclosure-ceiling-panel"),
+    # The carb-water line's crossing, under the top wall it runs 12.6 mm below for 123 mm. The
+    # wall there is back-top's ceiling slab, the face that piece prints on, so the rib stands up
+    # from the bed and the slab stands off its zip tie's room (`enclosure._ceiling_tie_reliefs`).
+    ("carb-1", 1, (0.0, 0.0, 1.0), "enclosure-back-top"),
     # And the gas line's, on that same deck and under that same wall, one cap conduit aft of it.
-    ("co2-2", 1, (0.0, 0.0, 1.0), "enclosure-ceiling-panel"),
+    ("co2-2", 1, (0.0, 0.0, 1.0), "enclosure-back-top"),
     # Flavor B's cruise aft, off the −X wall it runs 26.4 mm inboard of. That leg is the run's
     # longest and it is dead straight, so the wall lies one distance down the whole of it — and
     # `_lines.GATE_B_STEP_Y` places its MIDDLE, which is where the rib goes, in the one band of
@@ -2625,9 +2622,8 @@ def tube_anchors(runs) -> tuple:
 # piece that owns that face.
 BODY_ANCHOR_SLIP = 0.2
 BODY_ANCHOR_SITES = (
-    # The regulator's barrel, between its two wrench hexes — off the ceiling, which over this
-    # field is the slide-in panel's and not back-top's.
-    ("wr1110", _wr1110.barrel, (0.0, 0.0, 1.0), "enclosure-ceiling-panel"),
+    # The regulator's barrel, between its two wrench hexes — off back-top's ceiling slab.
+    ("wr1110", _wr1110.barrel, (0.0, 0.0, 1.0), "enclosure-back-top"),
     # THE FLAVOUR TAP'S OWN TWO, one over the other on one column off the −X wall. The split and
     # the regulator stand on one vertical with a hairpin joining them, and each takes a rib on the
     # run between its hub and the collet the tap arrives by — the one round section on either body
@@ -3571,15 +3567,22 @@ def wago_wells(row, cluster, over):
     placed lug, read off the lug's own box so a well cannot end up anywhere but under the thing
     it holds.
 
-    The five power-row wells carry complete flat roofs into the simple ceiling corbel above
-    them. Every cluster well keeps its two-tab, 45°-ramped supportless roof. `clear_z` is the
-    plane the flank's air stops being the well's — `over` is the row's, the crown of the brick
-    it runs along, and a cluster well carries None because its wall is open beneath it."""
+    Every well keeps the two-tab, 45°-ramped supportless lid on its pocket's print-down face
+    (`enclosure._side_wells`). `clear_z` is the plane on the tower's print-down side that its
+    wedge may not cross. The five power-row wells stand on back-top's +X wall, whose print-up is
+    `enclosure.print_up("back", "top")`: printing machine −Z up, the row's wedge stands over the
+    tower and that plane is the ceiling slab's interior face
+    (`enclosure.back_top_ceiling_face`) — the piece's own stock, which the wedge is cut off flat
+    against; printing machine +Z up, the wedge hangs under the tower and the plane is `over`,
+    the crown of the brick the row runs along. A cluster well carries None because its wall is
+    open on that side of it."""
+    up = _enc.print_up("back", "top")
+    row_clear = over if up > 0 else _enc.back_top_ceiling_face()
     out = []
     for _name, solid, _carry in row:
         b = box(solid)
         out.append((+1, (b.ymin + b.ymax) / 2.0, (b.zmin + b.zmax) / 2.0,
-                    "413", over, False))
+                    "413", row_clear, True))
     for name, solid, _carry, size in cluster:
         b = box(solid)
         out.append((CLUSTER_WAGOS[name][0],
@@ -3611,7 +3614,10 @@ def wall_mounts(*mounted, blockers=()):
     placement `seat_body` handed back from the body's own Z = 0 mounting plane, so `(y, z)` is
     where the boss stands and `tip` is the plane its D-shaped stem reaches.
 
-    A full-width 45 degree corbel is offered from that same plane to the wall. `blockers` is the
+    A full-width 45 degree corbel is offered from that same plane to the wall, on the boss's
+    print-down side. Every station on this wall is back-top's, so that side is read off
+    `enclosure.print_up("back", "top")`, and every stem fill and wedge probed here is struck
+    with the same `up` the piece builds with (`enclosure._east_boss_corbel`). `blockers` is the
     installed pack, as `(name, solid)` pairs. If a solid crosses the offered wedge, `web_tip`
     is put one `east_boss_corbel_clear` beyond that solid's exact outermost X; the D stem is
     checked separately and still reaches the body's hole. The overlap's exact Y projection,
@@ -3625,11 +3631,12 @@ def wall_mounts(*mounted, blockers=()):
     the bar is new material twice over. Its fill between the two stems is checked and never set
     back — a blocker in it means the body moves. Its corbel is offered across the bar's whole
     span for a pair side by side and takes the same blocker-profiled reading a single boss
-    does, so both holes carry that span and a body's pin field under the bar leaves it the
-    wall-rooted wings on either side; a pair stood one over the other keeps each hole's own
-    reading, and the lower hole's corbel carries the bar."""
+    does, so both holes carry that span and a body's pin field on the bar's print-down side
+    leaves it the wall-rooted wings on either side; a pair stood one over the other keeps each
+    hole's own reading, and the corbel of the hole nearest print-down carries the bar."""
     blockers = tuple(blockers)
     wall_x = _enc.interior_x()[1]
+    up = _enc.print_up("back", "top")
     r = _enc.mount_boss_dia / 2.0
     clear = _enc.east_boss_corbel_clear
 
@@ -3645,7 +3652,7 @@ def wall_mounts(*mounted, blockers=()):
         """The corbel a station or a bar may keep over `span`: `(web_tip, clear_bands, names)`,
         the names being the bodies that set it back."""
         base = (sy, sz, tip, tip, (), span)
-        offered = _enc._east_boss_corbel(wall_x, base)
+        offered = _enc._east_boss_corbel(wall_x, base, up=up)
         web_hits = hits(offered)
         if not web_hits:
             return tip, (), (), ()
@@ -3673,7 +3680,7 @@ def wall_mounts(*mounted, blockers=()):
             clear_bands = next_bands
         wings, dropped = _enc.east_boss_wings(span, clear_bands)
         station = (sy, sz, tip, web_tip, wings, span)
-        remaining = hits(_enc._east_boss_corbel(wall_x, station))
+        remaining = hits(_enc._east_boss_corbel(wall_x, station, up=up))
         if remaining:
             names = ", ".join(name for name, _body, _volume in remaining)
             raise ValueError(
@@ -3705,7 +3712,7 @@ def wall_mounts(*mounted, blockers=()):
             # The round annulus is the established boss and may meet the donor inside its own
             # mounting hole (the ground stack does). Test only the two corners that turn that
             # annulus into a D: those are the new material whose clearance is in question.
-            stem_hits = hits(_enc._east_boss_d_fill(wall_x, (sy, sz, tip)))
+            stem_hits = hits(_enc._east_boss_d_fill(wall_x, (sy, sz, tip), up=up))
             if stem_hits:
                 names = ", ".join(name for name, _body, _volume in stem_hits)
                 raise ValueError(
@@ -3721,7 +3728,7 @@ def wall_mounts(*mounted, blockers=()):
         if j < i:
             continue                            # the pair was read from its first hole
         sy2, sz2 = raw[j][1], raw[j][2]
-        fill_hits = hits(_enc._east_bar_fill(wall_x, (sy, sz, tip), (sy2, sz2, tip)))
+        fill_hits = hits(_enc._east_bar_fill(wall_x, (sy, sz, tip), (sy2, sz2, tip), up=up))
         if fill_hits:
             names = ", ".join(name for name, _body, _volume in fill_hits)
             raise ValueError(
@@ -3738,7 +3745,8 @@ def wall_mounts(*mounted, blockers=()):
             if names:
                 held.append((owner, sy, sz, web_tip - tip, names, bands, dropped, span))
         else:
-            # One over the other: each hole keeps its own reading; the lower carries the bar.
+            # One over the other: each hole keeps its own reading; the hole nearest print-down
+            # carries the bar.
             for k, ky, kz in ((i, sy, sz), (j, sy2, sz2)):
                 span = (ky - r, ky + r)
                 web_tip, bands, names, dropped = profile(owner, ky, kz, tip, span)
@@ -3753,10 +3761,10 @@ def wall_mounts(*mounted, blockers=()):
     for i, station in enumerate(out):
         if i in partner:
             j = partner[i]
-            addition = _enc._east_bar_fill(wall_x, out[i], out[j]) if i < j else None
+            addition = _enc._east_bar_fill(wall_x, out[i], out[j], up=up) if i < j else None
         else:
-            addition = _enc._east_boss_d_fill(wall_x, station)
-        corbel = _enc._east_boss_corbel(wall_x, station)
+            addition = _enc._east_boss_d_fill(wall_x, station, up=up)
+        corbel = _enc._east_boss_corbel(wall_x, station, up=up)
         if corbel is not None:
             addition = corbel if addition is None else addition.fuse(corbel)
         if addition is None:
@@ -4957,54 +4965,35 @@ OUTBOARD = tuple(name(Y_WALL_FITTINGS[station][2])
                  for name in (customer_tube_name, collar_name, collar_word_name))
 
 
-# The bodies and route intentionally admitted into the ceiling's deeper structural field and
-# captured rails. A relief is derived from the exact named solid where it enters that raw moving
-# envelope; naming this population keeps an unrelated future encroachment visible to
-# `pack-closes` instead of silently pocketing around it. Two millimetres in plan is assembly slip
-# and one above the hit is the roof clearance.
+# The bodies admitted into back-top's ceiling slab. A relief is derived from the exact named
+# solid where it enters the slab's added section (`enclosure.back_top_ceiling_stock`); naming this
+# population keeps an unrelated future encroachment visible to `pack-closes` instead of silently
+# pocketing round it. Two millimetres in plan is assembly slip and one above the crown is the
+# roof clearance; the water-2 route's authored straight is shorter than the complete bend
+# envelope the port gate reserves, so its pocket gives that difference back as well.
 CEILING_RELIEF_BODIES = (
     "c14-inlet", "keystone-jack", "asse1022-assembly", "co2-inlet",
     "bulkhead-water", "bulkhead-carb", "digiten-flow", "relay-1", "ground-stack",
-    "wr1110", "gasher-co2", "tube-water-2",
+    "wr1110", "gasher-co2", "tube-water-2", "flow-regulator",
+    "wago-h", "wago-n", "wago-g", "wago-v12", "wago-gnd",
 )
 CEILING_RELIEF_PLAN_SLIP = 2.0
 CEILING_RELIEF_Z_CLEAR = 1.0
-# The water-2 route leaves the ASSE outlet through the same band as the enlarged rail. Its
-# authored straight is shorter than the complete bend envelope the port gate reserves, so the
-# moving panel gives the difference back in addition to the ordinary pocket slip.
 CEILING_WATER_2_PLAN_SLIP = (
     CEILING_RELIEF_PLAN_SLIP
     + _lines.TUBE_BEND + _split.TUBE_D / 2.0 - _lines.WATER_2_LEAD
 )
 
-# These purchased bodies reach a fixed strip's added nine-millimetre growth. Their established,
-# printable corbel remains; only the added shell is locally withheld over the exact placed plan
-# plus one assembly-clearance millimetre.
-CEILING_GROWTH_RELIEF_BODIES = (
-    ("c14-inlet", +1.0),
-    ("relay-1", +1.0),
-    ("asse1022-assembly", -1.0),
-    ("bulkhead-water", -1.0),
-    ("flow-regulator", -1.0),
-    ("wago-h", +1.0),
-    ("wago-n", +1.0),
-    ("wago-g", +1.0),
-    ("wago-v12", +1.0),
-    ("wago-gnd", +1.0),
-)
-CEILING_GROWTH_RELIEF_SLIP = 1.0
-
 
 def ceiling_reliefs(placed: dict) -> tuple:
-    """Named body- and route-derived pockets in the ceiling panel's unrelieved field and rails.
+    """Named body pockets in back-top's ceiling slab, `(name, x0, x1, y0, y1, roof_z)` each.
 
-    A body less than one clearance below the raw field still earns a pocket: translating the
-    exact solid upward by that clearance exposes the plan which would otherwise be a near miss,
-    while the pocket roof remains the actual body's crown plus the same clearance. Where that
-    would leave less than one printable wall over a free tongue, the panel carries the opening
-    through the tongue instead of retaining a membrane.
-    """
-    raw = _cpanel.structural_stock().fuse(_cpanel.rail_stock())
+    A body less than one clearance below the slab's interior face still earns a pocket:
+    translating the exact solid upward by that clearance exposes the plan which would otherwise
+    be a near miss, while the pocket's roof remains the actual body's crown plus the same
+    clearance, capped at the lane the slab grows down from."""
+    raw = _enc.back_top_ceiling_stock()
+    lane = interior_ceiling()
     reliefs = []
     for name in CEILING_RELIEF_BODIES:
         if name not in placed:
@@ -5020,52 +5009,15 @@ def ceiling_reliefs(placed: dict) -> tuple:
         body_top = body.BoundingBox().zmax
         plan_slip = (CEILING_WATER_2_PLAN_SLIP
                      if name == "tube-water-2" else CEILING_RELIEF_PLAN_SLIP)
-        x0 = min(b.xmin for b in boxes) - plan_slip
-        x1 = max(b.xmax for b in boxes) + plan_slip
         reliefs.append((
             name,
-            x0,
-            x1,
+            min(b.xmin for b in boxes) - plan_slip,
+            max(b.xmax for b in boxes) + plan_slip,
             min(b.ymin for b in boxes) - plan_slip,
             max(b.ymax for b in boxes) + plan_slip,
-            _cpanel.body_relief_roof_z(x0, x1, body_top + CEILING_RELIEF_Z_CLEAR),
+            min(lane, body_top + CEILING_RELIEF_Z_CLEAR),
         ))
-    caps = _cpanel.rail_relief_caps(reliefs)
-    thin = [(name, cap) for name, cap in caps
-            if 0.0 < cap < _cpanel.rail_min_cap]
-    opened = [name for name, cap in caps if cap <= 1e-9]
-    retained = [(name, cap) for name, cap in caps if cap > 1e-9]
-    retained_note = (f"; thinnest retained {min(cap for _name, cap in retained):.2f} mm"
-                     if retained else "")
-    record_bound(Bound(
-        "ceiling-panel-relief-caps",
-        "Body pockets leave printable male-rail sections",
-        not thin,
-        f"{len(opened)} open, {len(retained)} retained{retained_note}",
-        f"every rail pocket open or capped by at least {_cpanel.rail_min_cap:g} mm",
-        [f"{name} leaves a {cap:.3f} mm membrane" for name, cap in thin]))
     return tuple(reliefs)
-
-
-def ceiling_growth_reliefs(placed: dict) -> tuple:
-    """Exact fixed-strip plans where the added ceiling growth yields to a purchased body."""
-    fx0, fx1 = _enc.back_top_flank_face()
-    rows = []
-    for name, sx in CEILING_GROWTH_RELIEF_BODIES:
-        if name not in placed:
-            continue
-        b = placed[name][0].BoundingBox()
-        if sx > 0.0:
-            x0 = max(_cpanel.panel_half_w, b.xmin - CEILING_GROWTH_RELIEF_SLIP)
-            x1 = min(fx1, b.xmax + CEILING_GROWTH_RELIEF_SLIP)
-        else:
-            x0 = max(fx0, b.xmin - CEILING_GROWTH_RELIEF_SLIP)
-            x1 = min(-_cpanel.panel_half_w, b.xmax + CEILING_GROWTH_RELIEF_SLIP)
-        y0 = max(_cpanel.fore_y, b.ymin - CEILING_GROWTH_RELIEF_SLIP)
-        y1 = min(_cpanel.aft_y, b.ymax + CEILING_GROWTH_RELIEF_SLIP)
-        if x1 > x0 + 1e-9 and y1 > y0 + 1e-9:
-            rows.append((name, sx, x0, x1, y0, y1))
-    return tuple(rows)
 
 
 def pack(a: cq.Assembly = None) -> "_enc.Pack":
@@ -5097,7 +5049,6 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
                      flow_meter_anchors=a.digiten_anchors,
                      tube_anchors=a.tube_anchors + a.body_anchors,
                      ceiling_reliefs=ceiling_reliefs(placed),
-                     ceiling_growth_reliefs=ceiling_growth_reliefs(placed),
                      port_field=y_wall_field(a.wall_stations),
                      nameplate=nameplate_cut(placed["foam-assembly"][0]),
                      keystone=a.keystone_station,
@@ -5421,14 +5372,6 @@ def _materialized_enclosure_pieces(box, materialized=False) -> dict:
     }
 
 
-def _materialized_ceiling_panel(box, materialized=False):
-    """The ceiling producer's exact B-rep when explicitly requested; otherwise source geometry."""
-    if not materialized:
-        return _cpanel.build(box)
-    return import_step(str(
-        _hw / "printed-parts" / "enclosure" / "ceiling-panel" / "ceiling-panel.step"))
-
-
 def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     """The pack, what is seated in the walls, and the four printable pieces of the box."""
     a, _p, live_box = machine()
@@ -5494,12 +5437,6 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
         a.add(piece, name=f"enclosure-{name}", color=WALL_COLORS[name])
     _carrier_front_top_motion_bound(a, pieces["front-top"], box)
     _pump_jack_service_bound(display, pieces["front-top"], box)
-    # AND BACK-TOP'S CEILING, which is a part of its own. It is built here rather than in
-    # `build_pieces` because it is not one of the box's quadrants: `ceiling_panel` states the
-    # joint's mating figures and back-top is cut to them, and what the panel needs from this
-    # assembly is the two ceiling stations it carries.
-    pieces["ceiling-panel"] = _materialized_ceiling_panel(box, require_box_spec)
-    a.add(pieces["ceiling-panel"], name="enclosure-ceiling-panel", color=M_PETGF_BLACK)
     placed_solids = _solids(a)
     # And every anchored run against the rib its own site names.
     tubes = {n: s for n, (s, _c) in _solids(a).items() if n.startswith("tube-")}

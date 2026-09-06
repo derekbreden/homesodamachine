@@ -154,23 +154,18 @@ def enclosure(m: Machine):
     pieces = sorted(m.a.pieces)
 
     # ── what the cards' sentences stand on ────────────────────────────────
-    # EN-01 stages four quadrants, the pump cartridge that rides out of their bay, the cap
-    # screwed under it and the ceiling panel; EN-07 cross-pins the quadrants alone and
-    # brings back-top down with its ceiling already in. THE FOUR ARE HELD FOUR
+    # EN-01 stages four quadrants, the pump cartridge that rides out of their bay and the cap
+    # screwed under it; EN-07 cross-pins the quadrants alone. THE THREE ARE HELD THREE
     # DIFFERENT WAYS — a quadrant is cross-pinned, the pump cartridge slides and is pinned by
-    # nothing, the cap is screwed to the pump cartridge on the bench, the ceiling panel rides
-    # as a fitted slide in the dado down each of back-top's flanks — so a piece
-    # added or renamed has no number in these sentences to drift, and this is the only
-    # thing that can put them back.
-    assert pieces == ["back-bottom", "back-top", "ceiling-panel", "front-bottom",
+    # nothing, the cap is screwed to the pump cartridge on the bench — so a piece added or
+    # renamed has no number in these sentences to drift, and this is the only thing that can
+    # put them back.
+    assert pieces == ["back-bottom", "back-top", "front-bottom",
                       "front-top", "pump-cap", "pump-cartridge"], (
-        f"the box prints as {pieces} and EN-01 stages four quadrants, one pump cartridge, its "
-        f"cap and the ceiling panel, EN-07 cross-pins the quadrants alone — restate them, "
+        f"the box prints as {pieces} and EN-01 stages four quadrants, one pump cartridge and "
+        f"its cap, EN-07 cross-pins the quadrants alone — restate them, "
         f"or the deck ships a card for a part that is not made")
-    # The panel is a piece of the box and not a quadrant: it is neither cross-pinned nor
-    # a wall, so EN-07's cross-pin count must not take it.
-    quadrants = [p for p in pieces
-                 if not p.startswith("pump-") and p != "ceiling-panel"]
+    quadrants = [p for p in pieces if not p.startswith("pump-")]
     # EN-01 tables ONE Z seam for both columns and EN-07 draws it as one level line
     # round the box, the four pieces meeting at a four-way corner on each side wall.
     # Two planes again and both cards are drawing a box that is not this one.

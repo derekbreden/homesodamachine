@@ -127,7 +127,7 @@ Everything that is putting parts together with fasteners and hands. Printer tend
 | Build the reed columns; seat rods and floats; close the reservoirs | CC-07, CC-08, CC-09, CC-15 | Two reservoirs, gaskets, caps, vent filters | 15 |
 | Lower the carbonator; seat the reservoirs in their pockets | CC-10, CC-11 | | 5 |
 | Press the wall's Wago wells; mount PSU, relays, PCBA | ES-01, ES-03 | Onto `enclosure-back-top`'s [17](SHELF_INSERTS) +X wall bosses | 5 |
-| Stage the twelve printed enclosure pieces and the +Y wall's seven bodies; bolt the compressor down to the slab | EN-01, EN-02, EN-03 | Four quadrants, cartridge, pump clamp, ceiling, tee carrier, two handed service-tab arms and two tab locks; rear-wall set includes the RJ11 keystone. Four floor posts, one M5 and a fender washer each, snugged onto the post crowns | 10 |
+| Stage the eleven printed enclosure pieces and the +Y wall's seven bodies; bolt the compressor down to the slab | EN-01, EN-02, EN-03 | Four quadrants, cartridge, pump clamp, tee carrier, two handed service-tab arms and two tab locks; rear-wall set includes the RJ11 keystone. Four floor posts, one M5 and a fender washer each, snugged onto the post crowns | 10 |
 | Seat the cold core; condenser, power column, close the box, ASSE drip pan | EN-04, EN-05, EN-06, EN-07, EN-08 | | 10 |
 | Cut, route and sleeve the umbilical; bag it with the under-counter plate | FU-01, FU-02, FU-03, FU-04 | Three LLDPE tubes, braid, the bag | 10 |
 | Assemble the faucet — two-piece touch-flo shell, plate, gasket, o-ring | — | PET-GF shell, printed TPU seals | 5 |

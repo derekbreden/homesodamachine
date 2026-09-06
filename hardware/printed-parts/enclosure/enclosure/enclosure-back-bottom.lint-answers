@@ -1,5 +1,12 @@
-[ceiling] The back Z-slide heads' square catches — each bottom rail overlaps the top's full-section foot by 5.00 mm and keeps 0.15 mm of running air, so its flat underside stands at z=160.00 + 8.70 + 0.15 = 168.85. Lifting the seated top lands its flat foot on this face along the whole rail, holding the screwless bottom-to-top seam against lift with full-face bearing. The west catch is interrupted only by the required 12.00 mm PRV passage; the east catch remains continuous. The arm already returns to the wall on its 45-degree under-flare; pitching this bearing face would turn the catch into a cam and give up the joint's square-catch contract.
+[ceiling] The back Z-slide heads' ridge lands — each head carries a 45° ridge down its run whose 1.00 mm apex land stands at z = 160.00 + 8.70 + 0.15 − 2.075 = 166.775, and lifting the seated back-top lands the ridge in the groove cut in that piece's foot on both 45° flanks at once (`hook_apex_flat`). The land is the joint's one down-looking flat on this floor-down print, a millimetre wide instead of the lap's five; the production slice supports it along the whole run, the west run from the bed through the 12.00 mm PRV passage that splits it and the east run from the arm's own 45° under-flare 6.00 mm below.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
-click: x=100.925 y=335.525 z=168.850
-click: x=-100.925 y=266.275 z=168.850
-click: x=-100.925 y=388.750 z=168.850
+click: x=100.925 y=335.188 z=166.775
+click: x=-100.925 y=388.413 z=166.775
+click: x=-100.925 y=266.275 z=166.775
+
+[sliver] The same three ridge lands read as strips — each is the stated 1.00 mm `hook_apex_flat` between the ridge's two 45° flanks, backed by the head above it over the run's whole length; no free ligament.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
+click: x=100.925 y=335.188 z=166.775
+click: x=-100.925 y=388.413 z=166.775
+click: x=-100.925 y=266.275 z=166.775
+

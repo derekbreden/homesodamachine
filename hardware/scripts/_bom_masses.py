@@ -157,12 +157,6 @@ PARTS = {
         "enclosure/enclosure/enclosure-back-bottom.step",
         "enclosure/enclosure/enclosure-back-top.step",
     ],
-    # BACK-TOP'S CEILING, printed apart from the piece it closes. That piece prints mouth-down on
-    # its seam rim, so a ceiling drawn in it is a slab laid 195 mm up over the open service bay;
-    # this is that slab, flat on the bed and slid into a dado down each of back-top's two side
-    # strips. Its own row because it is its own plate — and it carries the flow meter's two anchors and
-    # three of the ceiling's ribs, which are the mass that left the row above.
-    "Enclosure — ceiling panel": ["enclosure/ceiling-panel/ceiling-panel.step"],
     # THE ENCLOSURE DISPLAY'S OWN PIECE OF THE BOX, printed apart from the piece it fills: the border that
     # drops into the 45° facet's inset and laps the glass all round. It is the display's whole
     # fastening, so it ships on every unit the screen does.

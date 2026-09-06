@@ -111,7 +111,7 @@ def entry_imports_of(text: str) -> frozenset:
     `flute_payload` and `render_scenes` there and at no module scope, and read as module scope
     alone it is a generator that imports nothing of this tree.
 
-    ONE LEVEL, AND ONLY THE NAMES THE GUARD ITSELF CALLS. `ceiling_panel.machine_of` imports
+    ONE LEVEL, AND ONLY THE NAMES THE GUARD ITSELF CALLS. `enclosure.machine_of` imports
     `_box_spec`, returns on `in_action()`, and imports `enclosure_assembly` past that return —
     an action holds the first and never opens the second, which is what the graph states today
     because a run was watched. Chasing the call chain would state the second and contradict the

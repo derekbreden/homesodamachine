@@ -160,6 +160,10 @@ def main():
         # standoff the pack already keeps off `rear_plane_y`.
         "BACK_TOP_FLANK": f"{_enc.back_top_flank_t:.4g} mm",
         "BACK_TOP_WALL": f"{_enc.back_top_wall_t:.4g} mm",
+        # And its ceiling, the slab that piece prints on, and the lane every station under it
+        # is struck on.
+        "BACK_TOP_CEILING_T": f"{_enc.back_top_ceiling_t:.4g} mm",
+        "CEILING_LANE": f"{_enc.appliance_height - _enc.floor_t - _enc.wall:.4g}",
         "LIP_UNDERWALL": f"{2.0 * _enc.wall:.4g} mm",
         "Y_SEAM": f"{_box["y_joint"]:.4g}",
         "Z_SEAM_FRONT": f"{_box["splits"][0]:.4g}",
