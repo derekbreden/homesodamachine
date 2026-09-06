@@ -40,18 +40,21 @@ Each carrier adds the value in its name to all four stock branches, so
 `z-trim-0.07.3mf` on a textured plate with the 0.4 mm nozzle emits `G29.1 Z{0.05}` — stock
 −0.02 plus 0.07. The files run 0.01 to 0.20 in 0.01 steps.
 
-What the retained working file and the back-top's history snapshot stand on —
+What the retained working file and the back-top's history snapshots stand on —
 [`petgf.3mf`](petgf.3mf) is the PET-GF 0.4 mm working profile, whichever models are loaded into
 it at the time:
 
 | file | trim | printer preset |
 | --- | --- | --- |
-| [`petgf.3mf`](petgf.3mf) | +0.17 | `Bambu Lab H2C 0.4 nozzle 17 first layer by agent` |
+| [`petgf.3mf`](petgf.3mf) | +0.04 | `Bambu Lab H2C 0.4 nozzle 04 first layer by agent`, first layer 265 °C |
+| history-only `git:657c7978c:hardware/printed-parts/petgf.3mf` | +0.17 | `Bambu Lab H2C 0.4 nozzle 17 first layer by agent`, first layer 280 °C |
 | history-only `git:aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a:hardware/printed-parts/enclosure/enclosure/enclosure-back-top-petgf.3mf` | +0.02 | `Bambu Lab H2C 0.4 nozzle`, the start G-code its one project override |
+| history-only `git:366d54ba040ecc7f1465c200e63e52410ffc0d4c:hardware/printed-parts/enclosure/enclosure/enclosure-back-top-petgf.3mf` | +0.02 | the same snapshot turned onto its ceiling, unprinted |
 
-The working profile runs its **first layer at 280 °C**, the same nozzle temperature as the
-rest of the print rather than a cooler one. What asked for that, and for the trim above, is
-the welding rotary table: two plates of it failed in the first layer or two off a 265 °C first
+The `657c7978c` profile runs its **first layer at 280 °C**, the same nozzle temperature as the
+rest of the print rather than a cooler one; the retained `petgf.3mf` carries a 265 °C first layer
+on the `04` preset, and which of the two a long first-layer loop is sliced with is decided at the
+printer. What asked for 280 °C and +0.17 is the welding rotary table: two plates of it failed in the first layer or two off a 265 °C first
 layer, where the front-top, the pump cartridge and the display covers all came off the same
 profile clean. The parts that failed carry the rig's large circles — the 165 mm ball race in
 the base, the 90T pulley round the turntable — so their first layer is a long unbroken
