@@ -38,7 +38,7 @@ click: x=76.925 y=458.500 z=266.400
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=38.160 y=466.250 z=229.715
 
-[ceiling] The flavour line's tube anchor on the −X wall: its print-down flank beyond the 8 mm corbel that carries the two end bands to the wall, and across the 3.5 mm tie band where no corbel may stand because the loop comes down that flank. A supported face reached from the slab.
+[ceiling] The flavour line's tube anchor on the −X wall: its print-down flank beyond the 8 mm off the wall its end webs are carried over — a column to the slab on the aft web, a 45° corbel on the fore web where `tube-water-2` passes through the air a column would take — and across the 3.5 mm tie band, where nothing may stand because the loop comes down that flank. A supported face reached from the slab.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-88.285 y=287.580 z=279.340
 
@@ -54,7 +54,7 @@ click: x=97.375 y=337.000 z=258.900
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-100.000 y=374.210 z=320.921
 
-[ceiling] The water-split and flow-regulator ribs' print-down flanks and relief-lobe floors over their 3.5 mm tie bands — the room the zip tie's loop comes down, which no wedge may close; each is a supported face reached from the slab.
+[ceiling] The water-split and flow-regulator ribs' print-down flanks and relief-lobe floors over their 3.5 mm tie bands — the room the zip tie's loop comes down, which nothing may close: a bridge the band's own width between the regulator rib's two columns and between the water-split rib's two corbels, which stand under the flow regulator's own air. Each is a supported face reached from the slab.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-96.329 y=252.140 z=300.869
 click: x=-101.500 y=252.140 z=278.753
@@ -64,6 +64,7 @@ click: x=-96.325 y=225.140 z=328.861
 [ceiling] The keystone pocket's floor — the module standard's 14.9 mm section, a bridge between the receptacle boss's two flanks; the lower latch catch stands on it (`riteav_keystone.CATCH_LOWER`).
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-37.810 y=461.305 z=292.820
+click: x=-37.810 y=465.505 z=295.200
 
 [ceiling] The back column's groove lands — `hook_apex_flat` and two slips wide, bridged between the groove's two 45° flanks along the run. Back-bottom's ridge lands in this groove on both flanks at once (`_z_rail_channels`).
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
@@ -87,10 +88,6 @@ click: x=-80.850 y=391.400 z=297.111
 [ceiling] The regulator rib's crown over its 3.5 mm tie band — 3.09 mm of channel to the lane leaves no room for the gable the other ceiling ribs wear (`_anchor_band_gable`), so the crown stays flat and bridges between the rib's two end webs.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=2.450 y=363.203 z=348.911
-
-[slope] The ASSE anchor's top wedge over an end section — it climbs in X off the V's arris toward the −X wall and up to the lane, and the Y-facing step between sections is its own rising edge, the way a wedge along a wall's face bounds itself (`_asse_cradle`).
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-87.882 y=347.960 z=348.355
 
 [step] The CO2 nut land — `port_clamp_stack` keeps wall plus chip (5.00 mm) at the relieved station, so the land stands exactly one retained millimetre inside the wall field. The transition between the two is a drafted skirt (`station_land_draft`), and both planes are stated datums: the wall field at y=461 and the neoFit nut's land at y=462.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step

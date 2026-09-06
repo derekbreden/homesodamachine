@@ -782,6 +782,16 @@
    "active": true
   },
   {
+   "id": "wedge-fills",
+   "label": "Every print-down slope on a ceiling-down piece is a column where one fits",
+   "kind": "gate",
+   "status": "pass",
+   "value": "57 print-down slope(s): 36 under a body, 5 within 1 mm of one, 16 in a kept room, 0 could be columns",
+   "target": "no slope a column could replace, and every kept room standing",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "z-seam-bed",
    "label": "The Z seam leaves every piece on the H2C's bed",
    "kind": "gate",
