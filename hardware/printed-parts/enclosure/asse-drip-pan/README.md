@@ -82,8 +82,8 @@ DOWN from a rim the chain fixes, into the strip of air over the SeaFlo's casting
 The pan is a drawer and the **sleeve** is its carcase: one solid block of the
 enclosure's own material, printed into the **back-top piece** and rooted on the −X
 wall's inner face over the whole of its west end. It runs the pan's rim plus one
-`asse_drip_pan.PAN_SLIP` and one wall section every way, so its two flanks and its lid
-are each one flat unbroken surface.
+`asse_drip_pan.PAN_SLIP` and one wall section every way, so its floor, its two flanks
+and its lid are each one flat unbroken surface.
 
 `enclosure_assembly.pan_sleeve` states it as that block and the cuts that take the
 **berth** back out of it, and `enclosure._pan_sleeve` fuses then cuts. The berth is
@@ -92,17 +92,16 @@ below the flange, and the rim standing [4](PAN_FLANGE) mm out either side of it 
 the top. Between the floor and the flange the wall's outside is a single vertical
 face — the pan is a plain box and the berth is a plain slot.
 
-**Two rails carry it.** The berth has no floor: the pan's two bottom edges lie along a
-45° rail at the foot of each jamb, run the berth's whole length (`enclosure._pan_sleeve`),
-so nothing bears on the rim and nothing hangs off the wall, and the flank's section under
-the well falls away to the cavity. What the lid does is close back over the flange,
-[3.70](PAN_LAP) mm of it a side (`lap_w()`), which is what makes this a **mount** rather
-than a shelf: the pan cannot lift out of its berth. Over the pan's mouth that lid is open,
-so the drip falls straight through it.
+**The floor carries it.** The pan lies on the block's floor across its whole
+footprint, so nothing bears on the rim and nothing hangs off the wall. What the
+lid does is close back over the flange, [3.70](PAN_LAP) mm of it a side
+(`lap_w()`), which is what makes this a **mount** rather than a shelf: the pan
+cannot lift out of its berth. Over the pan's mouth that lid is open, so the
+drip falls straight through it.
 
 **The backstop is the block.** East of where the pan's own outline ends, the
-sleeve is solid from its underside to its lid, so how far the pan goes in is a face of
-that full section. The pan's east wall meets it below the flange and the east rim meets it
+sleeve is solid floor to lid, so how far the pan goes in is a face of that full
+section. The pan's east wall meets it below the flange and the east rim meets it
 above, each one slip off its own.
 
 Service is one motion — **draw the pan west**, out through the slot in that same

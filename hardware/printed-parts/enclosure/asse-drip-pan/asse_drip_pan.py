@@ -25,10 +25,9 @@ its travel. Nothing pierces a wet wall and nothing electrical is built into this
 
 THE SLEEVE CARRIES IT, THE RIM KEEPS IT DOWN. `enclosure_assembly.pan_sleeve` stands a
 solid block off the −X wall's inner face and cuts those same two rectangles out of it, one
-`PAN_SLIP` larger all round. The pan rides in that berth the way a drawer rides in its
-carcase — on what the piece's own print lays under it (`enclosure._pan_sleeve`) — and the
-lid over the berth laps the flange, [3.70](PAN_LAP) mm of it a side (`lap_w()`). West
-through the wall's slot is the one way the berth opens.
+`PAN_SLIP` larger all round. The pan lies on that block's floor the way a drawer lies in
+its carcase, and the lid over the berth laps the flange, [3.70](PAN_LAP) mm of it a side
+(`lap_w()`). West through the wall's slot is the one way the berth opens.
 
 Frame: +X long axis (the withdrawal direction — the pan draws WEST through
 `enclosure_assembly.west_wall_ports`'s slot), +Y depth, +Z up; origin at the pan's
@@ -90,8 +89,8 @@ CORNER_R = 6.0
 FLOOR_COVE = 2.0
 
 # The rim flange's reach past each wall, ALL FOUR WAYS, at the rim plane. THE LAP IS WHAT
-# CLOSES ON IT: the sleeve carries the pan's weight under its body and the sleeve's lid comes
-# back over this band, `lap_w()` of it once the fit's `PAN_SLIP` is off. The pan's west end, which stands
+# CLOSES ON IT: the sleeve's floor takes the pan's weight and the sleeve's lid comes back over
+# this band, `lap_w()` of it once the fit's `PAN_SLIP` is off. The pan's west end, which stands
 # `enclosure_assembly.PAN_PROUD` outside the machine's skin, is where a hand goes.
 #   IT IS ON THE WITHDRAWAL AXIS TWICE, so the rim runs [59](PAN_RIM_LEN) down a lane the pan
 # takes [51](PAN_LEN) of — and that 51 is the plate's own minimum. One rim runs all four sides
@@ -167,8 +166,8 @@ def lap_w():
     """The band of flange the sleeve's lid closes over, per side.
 
     The whole reach less a `PAN_SLIP`, so the lid's own flank never becomes the thing that
-    stops the pan. The sleeve carries the pan under its body, so what closes here holds it down
-    and carries nothing."""
+    stops the pan. The pan lies on the sleeve's floor, so what closes here holds it down and
+    carries nothing."""
     return FLANGE_W - PAN_SLIP
 
 

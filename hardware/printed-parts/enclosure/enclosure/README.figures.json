@@ -164,7 +164,6 @@
     "SEAM_HEATSET_DEPTH": "5 mm",
     "SEAM_HEATSET_RELIEF": "1 mm",
     "SEAM_PIN_SHANK": "5 mm",
-    "SLEEVE_LEAD_GATE": "12 mm",
     "SLEEVE_TRAVEL": "1.65 mm",
     "SLIDE_SLIP": "0.15 mm",
     "SOCKET_BORE": "10.2 mm",

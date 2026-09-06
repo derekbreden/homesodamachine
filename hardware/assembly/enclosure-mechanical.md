@@ -178,9 +178,9 @@ the wall slot, then lay the plate flat on the floor inside the coves with the le
 aft edge of the open mouth. Feed the loose loop back toward the clip as the pan goes home; no
 lead passes through or is fixed to a pan wall.
 
-Then **slide the pan in through the slot in the −X side wall**, east end first, until it stops. The slot is one opening in two rectangles, cut on the pan's own section — the pan's body below the flange's underside, the rim above it — and the same two rectangles are the berth behind it. The pan's two bottom edges ride the sleeve's rails and its rim runs under the sleeve's lid, so it goes in level and stays level. **Home is the pan against the backstop**, the solid east end of the sleeve, which its own wall and its east rim meet together. The lid holds the pan down as the rails hold it up, so west through the slot is the only way it leaves.
+Then **slide the pan in through the slot in the −X side wall**, east end first, until it stops. The slot is one opening in two rectangles, cut on the pan's own section — the pan's body below the flange's underside, the rim above it — and the same two rectangles are the berth behind it. The pan's floor lands on the sleeve's floor and its rim runs under the sleeve's lid, so it goes in flat and stays flat. **Home is the pan against the backstop**, the solid east end of the sleeve, which its own wall and its east rim meet together. The lid holds the pan down as well as the floor holds it up, so west through the slot is the only way it leaves.
 
-**The sleeve carries it on its two rails, and the solid backstop locates home.** Nothing fastens
+**The sleeve carries it, floor to floor, and the solid backstop locates home.** Nothing fastens
 the pan: it draws west back out the same slot to be emptied, and its west end stands proud of
 the machine's skin to be taken hold of — thumb on the flange's top, fingertip under the floor.
 Draw until the moisture plate is reachable, lift the plate completely clear and let it hang from
