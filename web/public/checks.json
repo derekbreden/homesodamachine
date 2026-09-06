@@ -7,7 +7,7 @@
     },
     {
       "check": "hardware/scripts/check_facts_current.py",
-      "note": "and the 127 sources behind them stand where they stood when it was written",
+      "note": "and the 126 sources behind them stand where they stood when it was written",
       "status": "ok"
     },
     {
@@ -37,22 +37,22 @@
     },
     {
       "check": "hardware/scripts/check_show_faces.py",
-      "note": "show faces: 10/10 bounds hold over 4 module(s)",
+      "note": "show faces: 9/9 bounds hold over 3 module(s)",
       "status": "ok"
     },
     {
       "check": "hardware/scripts/check_step_colours.py",
-      "note": "step colours: 197/197 carry the colour of what they are made of",
-      "status": "ok"
+      "note": "A generator hands its solid to `_materials.one_body` and exports the assembly.",
+      "status": "red"
     },
     {
       "check": "hardware/scripts/check_tracked.py",
-      "note": "69/69 artifacts have their record in the index",
+      "note": "68/68 artifacts have their record in the index",
       "status": "ok"
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 1508 tracked, 347 fetched solids, 54 tags",
+      "note": "paths: every reference lands — 1506 tracked, 347 fetched solids, 55 tags",
       "status": "ok"
     },
     {
@@ -62,8 +62,8 @@
     },
     {
       "check": "tools/check_web_tests.py",
-      "note": "check_web_tests: web's suite passes",
-      "status": "ok"
+      "note": "cd web && npm test",
+      "status": "red"
     },
     {
       "check": "tools/bazel/check_build_file.py",
@@ -77,15 +77,27 @@
     },
     {
       "check": "tools/bazel/check_declared_imports.py",
-      "note": "check_declared_imports: every step holds what it imports, over 199 source(s) the graph names",
+      "note": "check_declared_imports: every step holds what it imports, over 198 source(s) the graph names",
       "status": "ok"
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 1 of 1 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 347 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 2 of 6 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 346 member(s) keep their provenance",
       "status": "ok"
     }
   ],
-  "detail": {},
-  "green": true
+  "detail": {
+    "hardware/scripts/check_step_colours.py": [
+      "step colours: 196/197 carry the colour of what they are made of",
+      "  1 STEP(s) name no colour, so /3d and their own cards draw them at the viewer's blue-grey:",
+      "    hardware/printed-parts/enclosure/ceiling-panel/ceiling-panel.step",
+      "  A generator hands its solid to `_materials.one_body` and exports the assembly."
+    ],
+    "tools/check_web_tests.py": [
+      "1 test(s) in web/ fail:",
+      "    the artifact lock pins every committed viewer scorecard",
+      "  cd web && npm test"
+    ]
+  },
+  "green": false
 }
