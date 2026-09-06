@@ -262,6 +262,7 @@
       "hardware/scripts/_measuring.py",
       "hardware/scripts/_realized.py",
       "hardware/scripts/_run_lock.py",
+      "hardware/scripts/pick_text.py",
       "marketing/_install_envelope_sync.py",
       "tools/docgen/__init__.py"
     ],

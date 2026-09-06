@@ -183,22 +183,22 @@ Settings:
 ### Support-removal audit
 
 The current fluted back-top STL, substituted into a temporary copy of the ceiling-down production
-project above and sliced by BambuStudio 02.08.02.61, has **11 connected support bodies** reaching
-**28 interface islands**: 6 start on the plate around the bedded piece — fore of
+project above and sliced by BambuStudio 02.08.02.61, has **13 connected support bodies** reaching
+**28 interface islands**: 7 start on the plate around the bedded piece — fore of
 its mouth, behind its rear face, through the funnel's opening — and
-5 on the ceiling slab's interior face, the piece's own first layers. Their shortest
-base-to-first-interface build-up is **1.44 mm**; 1 body is under 5 mm, 0 in 5–10, 2 in 10–15 and 8 at 15 or more. The hashed toolpath reading is
+6 on the ceiling slab's interior face, the piece's own first layers. Their shortest
+base-to-first-interface build-up is **1.44 mm**; 1 body is under 5 mm, 0 in 5–10, 3 in 10–15 and 9 at 15 or more. The hashed toolpath reading is
 [`enclosure-back-top.support-audit.json`](enclosure-back-top.support-audit.json); the retained
 bodies and what each carries are named in
 [`support-audit.json`](support-audit.json). The reading is this project's: tree(auto) supports at a 35° threshold, 0.4 mm top and bottom Z
 distances, 0.6 mm from the object in XY and two interface layers, all carried in the reading's
-`slicer_settings`; a plate sliced with other support settings is audited again against that project.
+ `slicer_settings`; a plate sliced with other support settings is audited again against that project.
 
 The snapshot carries the **+0.02 mm first-layer z-trim**
 ([z-trim.md](/hardware/printed-parts/z-trim.md)) — `G29.1 Z{0.0}` on this plate and nozzle
 against Bambu's stock `Z{-0.02}`. The run above is the stock compensation.
 
-The plate stands 215 × 267 mm — the ceiling's own footprint — and the mesh is 1,131,662 faces,
+The plate stands 215 × 267 mm — the ceiling's own footprint — and the mesh is 1,131,658 faces,
 `mesh_stat` all zeros — no edges fixed, no degenerate facets, none removed and none reversed.
 
 **No time or length to carry.** The archive holds the project and no g-code, so unlike the
