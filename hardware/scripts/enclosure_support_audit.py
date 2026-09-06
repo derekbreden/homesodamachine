@@ -378,7 +378,8 @@ def _merge_bbox(a: list[float], b: list[float]) -> list[float]:
 
 def audit(gcode: Path, piece: str, model: Path | None = None,
           profile: Path | None = None, coordinate_profile: Path | None = None,
-          bed_reseat_mm: float | None = None) -> dict:
+          bed_reseat_mm: float | None = None,
+          profile_label: str | None = None) -> dict:
     tree_set, island_set = DisjointSet(), DisjointSet()
     tree_nodes: list[LayerNode] = []
     island_nodes: list[LayerNode] = []
@@ -444,8 +445,10 @@ def audit(gcode: Path, piece: str, model: Path | None = None,
                 continue
             if line.startswith("; ") and " = " in line and len(settings) < 800:
                 key, value = line[2:].split(" = ", 1)
-                if key in {"support_type", "support_threshold_angle", "support_on_build_plate_only",
-                           "support_top_z_distance", "support_interface_top_layers",
+                if key in {"support_type", "support_style", "support_threshold_angle",
+                           "support_on_build_plate_only", "support_top_z_distance",
+                           "support_bottom_z_distance", "support_object_xy_distance",
+                           "support_interface_top_layers", "support_interface_bottom_layers",
                            "support_interface_spacing", "layer_height"}:
                     settings[key] = value.strip()
                 continue
@@ -623,7 +626,7 @@ def audit(gcode: Path, piece: str, model: Path | None = None,
             "gcode": gcode.name, "gcode_sha256": _sha256(gcode),
             "model": str(model) if model else None,
             "model_sha256": _sha256(model) if model else None,
-            "profile": str(profile) if profile else None,
+            "profile": profile_label or (str(profile) if profile else None),
             "profile_sha256": _sha256(profile) if profile else None,
         },
         "slicer": slicer_version,
@@ -737,6 +740,9 @@ def main() -> None:
                         help="slice --model through a temporary mesh-refreshed copy of --profile")
     parser.add_argument("--refreshed-profile-out", type=Path,
                         help="retain that mesh-refreshed production profile (with --slice-current)")
+    parser.add_argument("--profile-label",
+                        help="what the record names as its profile when --profile is a copy, e.g. "
+                             "git:<hash>:<path> for a history-only production project")
     parser.add_argument("--slicer", type=Path, default=_DEFAULT_SLICER)
     parser.add_argument("--json-out", type=Path)
     parser.add_argument("--selftest", action="store_true")
@@ -763,11 +769,12 @@ def main() -> None:
             gcode, coordinate_profile, bed_reseat = _current_profile_slice(
                 args.model, args.profile, args.slicer, Path(directory))
             result = audit(gcode, args.piece, args.model, args.profile,
-                           coordinate_profile, bed_reseat)
+                           coordinate_profile, bed_reseat, profile_label=args.profile_label)
             if args.refreshed_profile_out:
                 shutil.copyfile(coordinate_profile, args.refreshed_profile_out)
     else:
-        result = audit(args.gcode, args.piece, args.model, args.profile)
+        result = audit(args.gcode, args.piece, args.model, args.profile,
+                       profile_label=args.profile_label)
     encoded = json.dumps(result, indent=2, sort_keys=True) + "\n"
     if args.json_out:
         args.json_out.write_text(encoded)

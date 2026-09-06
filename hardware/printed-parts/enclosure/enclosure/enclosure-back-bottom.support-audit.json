@@ -26,7 +26,7 @@
     "gcode_sha256": "6136e3e354b970057d62cdd0614710bb9b1b4739aae73bd7e48ef8bda3cc3692",
     "model": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
     "model_sha256": "1e39ac13d66b2c1c31595f34480e0dacf1233635da13ae1d35f09a61df33a887",
-    "profile": "/private/tmp/claude-501/-Users-derekbredensteiner-Developer-homesodamachine/1334fa8b-6e0c-4fdf-82f0-16e4b42fc042/scratchpad/enclosure-back-bottom-petgf.3mf",
+    "profile": "git:aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a:hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom-petgf.3mf",
     "profile_sha256": "aff018eea1ef0bc2ea8897b644375003f545cb2f5fafb8a7191a88cb100a5789"
   },
   "interfaces": [
@@ -101,6 +101,7 @@
       "defect_under": 5.0,
       "preference_saturates_at": 15.0
     },
+    "model_root": "avoided",
     "preferred_root": "bed",
     "root_and_build_up_are_independent": true,
     "support_count": "minimize connected bodies which reach an interface"
@@ -109,9 +110,13 @@
   "slicer": "BambuStudio 02.08.02.61",
   "slicer_settings": {
     "layer_height": "0.2",
+    "support_bottom_z_distance": "0.2",
+    "support_interface_bottom_layers": "2",
     "support_interface_spacing": "0.5",
     "support_interface_top_layers": "2",
+    "support_object_xy_distance": "0.35",
     "support_on_build_plate_only": "0",
+    "support_style": "default",
     "support_threshold_angle": "30",
     "support_top_z_distance": "0.2",
     "support_type": "tree(auto)"
