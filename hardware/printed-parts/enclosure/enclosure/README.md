@@ -633,10 +633,12 @@ Bambu G-code directly, or refreshes only the mesh in a temporary copy of the nam
 project before slicing it:
 
 ```sh
+git show 366d54ba040ecc7f1465c200e63e52410ffc0d4c:hardware/printed-parts/enclosure/enclosure/enclosure-back-top-petgf.3mf \
+  > /tmp/enclosure-back-top-petgf.3mf
 python3 hardware/scripts/enclosure_support_audit.py \
   --piece enclosure-back-top --slice-current \
   --model hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl \
-  --profile hardware/printed-parts/enclosure/enclosure/enclosure-back-top-petgf.3mf \
+  --profile /tmp/enclosure-back-top-petgf.3mf \
   --json-out hardware/printed-parts/enclosure/enclosure/enclosure-back-top.support-audit.json
 ```
 
@@ -645,7 +647,8 @@ all interface islands and both plate and CAD coordinates. The ledger supplies th
 for each connected body that remains.
 
 **All six printable pieces are audited, each through a production project of its own.** The 3MF
-snapshots are retained only in Git history at `aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a`; they
+snapshots are retained only in Git history — five at `aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a` and
+back-top's ceiling-down project at `366d54ba040ecc7f1465c200e63e52410ffc0d4c`; they
 are evidence inputs rather than current files in this directory. No piece is re-oriented to be
 read: each beds on the face its own relief scheme is struck on — the Z− face on five of them,
 the ceiling's show face on back-top (`enclosure.print_up`), whose project carries that half
