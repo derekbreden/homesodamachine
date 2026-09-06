@@ -4,7 +4,7 @@
     tools/cad-venv/bin/python tools/bazel/sync_tree.py            # what differs
     tools/cad-venv/bin/python tools/bazel/sync_tree.py --write    # and copy it in
     tools/cad-venv/bin/python tools/bazel/sync_tree.py --write \
-        --targets //:ceiling-panel                                # one built slice
+        --targets //:display-cover                                # one built slice
     tools/cad-venv/bin/python tools/bazel/sync_tree.py selftest   # the carry, on fixtures
 
 Bazel cuts into `bazel-bin/`, while the artifact packer and derived-doc tools read the tree.
@@ -460,10 +460,10 @@ def selftest() -> int:
     sources = ("## Sources\n[value](NAME) texts are updated by:\n"
                "- `/hardware/assembly/_a_sync.py`\n")
 
-    holds(_labels("ceiling-panel, //:enclosure"),
-          ["//:ceiling-panel", "//:enclosure"],
+    holds(_labels("display-cover, //:enclosure"),
+          ["//:display-cover", "//:enclosure"],
           "a scoped target list was not canonicalized")
-    sample = "/tmp/bazel-out/darwin/bin/out/ceiling-panel/hardware/panel.step"
+    sample = "/tmp/bazel-out/darwin/bin/out/display-cover/hardware/panel.step"
     match = _DECLARED.search(sample)
     holds(match.group(1) if match else None, "hardware/panel.step",
           "an ignored declared STEP was not mapped back into the tree")

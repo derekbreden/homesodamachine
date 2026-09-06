@@ -1,4 +1,4 @@
-"""Write the one placement-derived Box consumed by both enclosure producers."""
+"""Write the one placement-derived Box the enclosure producer consumes."""
 
 import sys
 import tempfile

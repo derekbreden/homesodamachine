@@ -569,7 +569,6 @@ def _build_connection_steps(work: Path) -> dict[str, Path]:
         "nameplate-ink",
         "enclosure-back-bottom",
         "enclosure-back-top",
-        "enclosure-ceiling-panel",
     }
     exact_prefixes = ("bulkhead-ring-",)
     rear_children = [

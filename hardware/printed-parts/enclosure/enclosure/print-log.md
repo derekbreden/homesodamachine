@@ -138,15 +138,26 @@ that and the plate is the supports and the brim, which §7 does not bill.
 0.653 kg as the exterior's measured **31.2 h/kg**, so the supports are back in the hours even
 though they are out of the mass.
 
-## The back-top plate (settings per history-only `git:aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a:hardware/printed-parts/enclosure/enclosure/enclosure-back-top-petgf.3mf`)
+## The back-top plate (settings per [`enclosure-back-top-petgf.3mf`](enclosure-back-top-petgf.3mf))
 
 The back-top on the same Polymaker Fiberon PET-GF15 stock as the section above, sliced on the
 faucet's profile rather than the exterior's: `0.24mm PET-GF faucet`, 265 °C with the fan on
-over a 70 °C plate. One object on plate 1 at scale 1.0 and identity matrix, so the piece
-stands in the box's own frame with +Z up.
+over a 70 °C plate. One object on plate 1 at scale 1.0, turned a half turn about X, so the piece
+stands on its ceiling's outer face with the box's −Z up (`enclosure.print_up`). That
+show face is the first layer, on the textured plate, and the profile's 5 mm auto brim
+and 0.15 mm elephant-foot compensation act on its edge: the brim comes off that edge after
+the print, and the face carries the plate's texture.
 
 Derek, a few hours in: *"it looks great so far."* Off the plate: *"that turned out
 beautiful."*
+
+Those two remarks are about the mouth-down plate this section carried when it was printed. The
+ceiling-down plate below has not been printed. Its first layer is the ceiling's whole show face,
+about 215 × 252 mm with a 934 mm outer loop, and the project carries this section's own 265 °C /
+70 °C / +0.02 mm first layer; the PET-GF working profile in [z-trim.md](/hardware/printed-parts/z-trim.md)
+runs a 280 °C first layer at +0.17 mm after two long-loop first layers failed at 265 °C. The
+project also keeps its 2 wall loops and 15 % grid infill through the new 12 mm slab; what the
+plate is sliced with is a decision made at the printer, not here.
 
 Settings:
 - Printer: Bambu Lab H2C, **0.4 mm nozzle**, `required_nozzle_HRC` 40; printer profile
@@ -168,22 +179,21 @@ Settings:
 
 ### Support-removal audit
 
-The current fluted back-top STL, substituted into a temporary copy of the history-only production
-project above and sliced by BambuStudio 02.08.02.61, has **3 connected support bodies** reaching
-**28 interface islands**. One starts at print z 0.20 on the bed and carries 26 islands, including
-the enlarged ceiling-dado roofs. The other two start on the water-split and flow-regulator anchor
-ribs. Their shortest base-to-first-interface build-ups are **92.16, 22.32 and 22.32 mm**.
-There are no bodies in the under-5, 5–10 or 10–15 mm bands and the first interface is at print z
-**92.36 mm**. The hashed toolpath reading is
-[`enclosure-back-top.support-audit.json`](enclosure-back-top.support-audit.json); the three
-retained bodies and the geometric reason for each are named in
+The current fluted back-top STL, substituted into a temporary copy of the ceiling-down production
+project above and sliced by BambuStudio 02.08.02.61, has **11 connected support bodies** reaching
+**28 interface islands**: 6 start on the plate around the bedded piece — fore of
+its mouth, behind its rear face, through the funnel's opening — and
+5 on the ceiling slab's interior face, the piece's own first layers. Their shortest
+base-to-first-interface build-up is **1.44 mm**; 1 body is under 5 mm, 0 in 5–10, 2 in 10–15 and 8 at 15 or more. The hashed toolpath reading is
+[`enclosure-back-top.support-audit.json`](enclosure-back-top.support-audit.json); the retained
+bodies and what each carries are named in
 [`support-audit.json`](support-audit.json).
 
 The snapshot carries the **+0.02 mm first-layer z-trim**
 ([z-trim.md](/hardware/printed-parts/z-trim.md)) — `G29.1 Z{0.0}` on this plate and nozzle
 against Bambu's stock `Z{-0.02}`. The run above is the stock compensation.
 
-The plate stands 251.03 × 286.48 mm and the mesh is 1,132,262 faces, `mesh_stat` all zeros —
+The plate stands 251.03 × 286.48 mm and the mesh is 1,131,662 faces, `mesh_stat` all zeros —
 no edges fixed, no degenerate facets, none removed and none reversed.
 
 **No time or length to carry.** The archive holds the project and no g-code, so unlike the

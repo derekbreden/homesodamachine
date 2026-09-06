@@ -47,7 +47,6 @@ SHOW_MODULES = (
     ("the cold core's stack", "hardware/printed-parts/cold-core", "_cold_core_interface"),
     ("the faucet's counter run", "hardware/printed-parts/faucet/faucet-shell", "faucet_shell"),
     ("the display cover", "hardware/printed-parts/enclosure/display-cover", "display_cover"),
-    ("the ceiling panel", "hardware/printed-parts/enclosure/ceiling-panel", "ceiling_panel"),
 )
 
 

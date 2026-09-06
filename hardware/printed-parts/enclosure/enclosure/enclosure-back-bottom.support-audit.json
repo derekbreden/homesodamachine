@@ -23,74 +23,74 @@
   },
   "inputs": {
     "gcode": "plate_1.gcode",
-    "gcode_sha256": "bc5c9fde766dcb00b6f5d7d4a3e801c957591a7ffa809583d4b3794149172709",
+    "gcode_sha256": "6136e3e354b970057d62cdd0614710bb9b1b4739aae73bd7e48ef8bda3cc3692",
     "model": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
-    "model_sha256": "e585eba66da1f7a3bb21751ec7807572b8d8aab0e8d60e548431788637b8b16b",
-    "profile": "git:aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a:hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom-petgf.3mf",
+    "model_sha256": "1e39ac13d66b2c1c31595f34480e0dacf1233635da13ae1d35f09a61df33a887",
+    "profile": "/private/tmp/claude-501/-Users-derekbredensteiner-Developer-homesodamachine/1334fa8b-6e0c-4fdf-82f0-16e4b42fc042/scratchpad/enclosure-back-bottom-petgf.3mf",
     "profile_sha256": "aff018eea1ef0bc2ea8897b644375003f545cb2f5fafb8a7191a88cb100a5789"
   },
   "interfaces": [
     {
       "bbox_cad_xyz_mm": [
-        -103.4,
+        -101.4,
         219.9,
-        168.4,
-        -99.0,
+        166.4,
+        -100.2,
         313.5,
-        168.6
+        166.6
       ],
       "bbox_xy_mm": [
-        61.6,
+        63.6,
         46.4,
-        66.0,
+        64.8,
         140.0
       ],
-      "build_up_mm": 174.2,
-      "first_z_mm": 174.4,
+      "build_up_mm": 172.2,
+      "first_z_mm": 172.4,
       "id": "interface-1",
-      "last_z_mm": 174.6,
+      "last_z_mm": 172.6,
       "tree": "tree-1"
     },
     {
       "bbox_cad_xyz_mm": [
-        -103.4,
+        -101.4,
         325.5,
-        168.4,
-        -99.0,
-        451.5,
-        168.6
+        166.4,
+        -100.2,
+        451.1,
+        166.6
       ],
       "bbox_xy_mm": [
-        61.6,
+        63.6,
         152.0,
-        66.0,
-        278.0
+        64.8,
+        277.6
       ],
-      "build_up_mm": 174.2,
-      "first_z_mm": 174.4,
+      "build_up_mm": 172.2,
+      "first_z_mm": 172.4,
       "id": "interface-2",
-      "last_z_mm": 174.6,
+      "last_z_mm": 172.6,
       "tree": "tree-1"
     },
     {
       "bbox_cad_xyz_mm": [
-        99.0,
+        100.2,
         219.5,
-        168.4,
-        103.4,
-        451.5,
-        168.6
+        166.4,
+        101.4,
+        451.1,
+        166.6
       ],
       "bbox_xy_mm": [
-        264.0,
+        265.2,
         46.0,
-        268.4,
-        278.0
+        266.4,
+        277.6
       ],
-      "build_up_mm": 8.0,
-      "first_z_mm": 174.4,
+      "build_up_mm": 6.0,
+      "first_z_mm": 172.4,
       "id": "interface-3",
-      "last_z_mm": 174.6,
+      "last_z_mm": 172.6,
       "tree": "tree-2"
     }
   ],
@@ -126,7 +126,7 @@
     },
     "interface_islands": 3,
     "model_rooted_bodies": 1,
-    "shortest_build_up_mm": 8.0,
+    "shortest_build_up_mm": 6.0,
     "support_bodies": 2
   },
   "trees": [
@@ -136,50 +136,50 @@
         -145.0,
         219.9,
         -5.8,
-        -99.0,
-        451.9,
-        168.6
+        -99.4,
+        451.1,
+        166.6
       ],
       "bbox_xy_mm": [
         20.0,
         46.4,
-        66.0,
-        278.4
+        65.6,
+        277.6
       ],
-      "first_interface_z_mm": 174.4,
+      "first_interface_z_mm": 172.4,
       "id": "tree-1",
       "interfaces": [
         "interface-1",
         "interface-2"
       ],
       "root": "bed",
-      "shortest_build_up_mm": 174.2,
-      "top_z_mm": 174.6
+      "shortest_build_up_mm": 172.2,
+      "top_z_mm": 172.6
     },
     {
       "base_z_mm": 166.4,
       "bbox_cad_xyz_mm": [
-        99.0,
+        99.8,
         219.5,
         160.4,
-        103.8,
-        451.9,
-        168.6
+        103.0,
+        451.1,
+        166.6
       ],
       "bbox_xy_mm": [
-        264.0,
+        264.8,
         46.0,
-        268.8,
-        278.4
+        268.0,
+        277.6
       ],
-      "first_interface_z_mm": 174.4,
+      "first_interface_z_mm": 172.4,
       "id": "tree-2",
       "interfaces": [
         "interface-3"
       ],
       "root": "model",
-      "shortest_build_up_mm": 8.0,
-      "top_z_mm": 174.6
+      "shortest_build_up_mm": 6.0,
+      "top_z_mm": 172.6
     }
   ]
 }

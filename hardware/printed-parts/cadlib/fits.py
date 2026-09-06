@@ -1,8 +1,8 @@
 """What one printed face keeps off another printed face.
 
 ONE FIGURE, PER FACE. The box's Y seam and its two Z seams, the pump cartridge in its bay
-and the cap screwed under it, the ceiling panel's dado, the faucet shell's split, every
-cover plate laid into an inset — all struck on this.
+and the cap screwed under it, the faucet shell's split, every cover plate laid into an
+inset — all struck on this.
 
 The stock is Polymaker Fiberon PET-GF15 on a 0.4 mm tungsten carbide hotend, two loops to a
 face at 0.42 and 0.45 (`printed-parts/enclosure/enclosure/print-log.md`).

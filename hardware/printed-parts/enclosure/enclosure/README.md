@@ -99,9 +99,11 @@ height it is owed.
 Each level stands the pin's own face **[13 mm](BOSS_END_CLEAR)** off the end wall it pins
 under. The back plug's full-width underside runs to its inboard tip on a 45° wall-rooted
 corbel. The front lip's slide channel gives up the matching profile one `fits.slip` lower,
-so the square registration faces and full insertion travel remain while neither half leaves
-a support contact in the pin slot. Its square pass envelope stays whole under one flat roof
+so the square registration faces and full insertion travel remain while neither half leaves a
+support contact in the pin slot. Its square pass envelope stays whole under one flat roof
 at the envelope's own ceiling, leaving the socket collar's complete structural stock above it.
+On back-top, which prints ceiling-down, the upper pin's top face is a supported flat the
+pin's own width, reached from the slab.
 Both ends are fenced — nearer its wall, the lower collar's
 carve leaves a corner of the front lip in the back half's register; further from it, the upper
 collar's 45° underside comes down the −X wall into `fluid-1`'s lane.
@@ -196,14 +198,23 @@ seam's **upper pair of screws** — so two screws out and front-top draws straig
 front of the box, the back column and whatever the box is built under never touched.
 Four M3×10 close the box; the same four open it.
 
-**Every face of the joint prints at the box's own rule, and the catch faces are square.**
-The head's underside — the catch — is the joint's one down-looking flat, an abrupt
-ledge at the top of a piece that prints floor-down; the arm's base falls back to the lip's
-underwall on a 45° under-flare. On the piece that prints mouth-down, the notch is an
-open rebate in the wall's own inboard face — no cavity closes over the bed — and where
-the channel's lane does cut interior bulk, a **gabled roof** of two 45° faces closes it.
-Every sliding face is vertical or horizontal, and the top's outer skin keeps its full
-`wall` of flute backing down to the mouth.
+**Every face of the joint prints at its own piece's rule, and the two columns' catches
+differ.** On the front column the catch faces are square: the head's underside is the joint's
+one down-looking flat, an abrupt ledge at the top of a piece that prints floor-down, and the
+arm's base falls back to the lip's underwall on a 45° under-flare; front-top's foot presents a
+flat caught face that looks print-up on its mouth-down print. On the back column the catch is a
+**ridge in a groove** (`hook_apex_flat`): back-top prints on its ceiling, so its caught face
+looks print-down, and instead of a flat cantilevered the head's width over the notch the foot
+carries a 45° groove down the run with a [1 mm](HOOK_APEX_FLAT) land at its apex, and
+back-bottom's head a matching ridge at least one `slide_slip` inside it on every face. The catch's
+flanks are slopes each print lays on the layer below it; its two lands are the flats that remain —
+the groove's, a 1.2 mm bridge between its flanks on back-top, and the ridge's, a 1 mm
+supported face on floor-down back-bottom where the head's whole 5 mm underside was one before.
+A lift lands the ridge in the groove on both flanks at once with the two flanks' side loads
+cancelling, and `z-slide-back-catch` reads the engagement. On either column the notch is an open rebate in the wall's own inboard face —
+no cavity closes over the bed — and where the channel's lane does cut interior bulk, a
+**gabled roof** of two 45° faces closes it. Every sliding face is vertical, horizontal or that
+45°, and the top's outer skin keeps its full `wall` of flute backing down to the mouth.
 
 **The corners give the slide its lane.** Over the seam band each bottom piece carries its
 two pillars **solid to the rim**, flats one `slide_slip` off the walls the top's faces
@@ -277,27 +288,35 @@ even though the whole enclosure does not — that is the point of the split.
 ## Power-column boss corbels
 
 The +X wall of back-top carries one horizontal boss for every mounting hole in the PSU, main
-board, two relays and ground stack: 17 in all. Each stem is a D in its mounting plane — the
-round crown keeps the M3 insert annulus compact and its 7 mm flat floor gives a full-width 45°
-corbel one continuous down-facing plane to carry. The D section runs all the way to the body's
-own mounting face, so no round pipe is left bridging between a generic support block and the
-part.
+board, two relays and ground stack: 17 in all. back-top beds on its ceiling's outer face, so its
+print-up is machine −Z (`enclosure.print_up`) and on this piece print-down is machine-up: a face
+that looks up in the machine is the face the slicer has to carry, and every boss is carried from
+above. Each stem is a D in its mounting plane — the round crown keeps the M3 insert annulus
+compact, and its 7 mm flat chord, on the machine-top side of the hole, gives a full-width 45°
+corbel one continuous print-down plane to carry. The corbel stands on that chord and climbs to
+the wall at 45°, so every layer of it lies on the one before. The D section runs all the way to
+the body's own mounting face, so no round pipe is left bridging between a generic support block
+and the part.
 
-`enclosure_assembly.wall_mounts` offers that corbel all the way to every mounting face and
-intersects the offered material with the installed pack. Fourteen fit across their complete
-width. At the main board's upper forward hole and under relay #2's upper end bar, the boards'
-conservative underside pin envelopes cross the offered wedge to within its clearance of the
-wall, so no wedge stands over the blocker itself, and what is clear beside it is a wing only
-where `enclosure.east_boss_wings` lets one stand. Relay #2's bar keeps a wall-rooted 45° wing
-2.5 mm wide at either end, all the way to the mounting face, and the 15 mm between them is a
-bridge rooted on both; the main board's hole has 1.53 mm of its 7 mm floor clear at the fore
-end, and that stub stands down, so the floor is offered whole. The two relays'
-holes come in pairs 13 mm apart at either end of each board, and each pair stands in one
-flat-topped bar with two bores, carried on its lower hole's corbel where the pair stands one
-over the other and on one wedge across the bar's span where it stands side by side; the other
-nine stems stay D-shaped and whole across their holes. `east-boss-corbels` reads all 17
-stations back against the installed bodies and records the full-width, split and held-back
-populations.
+`enclosure_assembly.wall_mounts` offers that corbel, struck for back-top's print-up, all the way
+to every mounting face and intersects the offered material with the installed pack. Where a body
+crosses the offered wedge, the wedge is held back to one millimetre past that body's exact
+envelope; where the body crosses it to within that clearance of the wall, no wedge stands over
+the blocker itself, and what is clear beside it is a wing only where `enclosure.east_boss_wings`
+lets one stand — a wing at each end of the span roots a bridge between them, and a stub carrying
+the minority of the span stands down so the chord is offered whole. The two relays' holes come
+in pairs 13 mm apart at either end of each board, and each pair stands in one flat-topped bar
+with two bores, carried on its upper hole's corbel where the pair stands one over the other and
+on one wedge across the bar's span where it stands side by side; the other nine stems stay
+D-shaped and whole across their holes. `east-boss-corbels` reads all 17 stations back against
+the installed bodies and records the full-width, split and held-back populations.
+
+The five Wago wells on the same wall are carried the same way (`enclosure._side_wells`). The
+row's tower stands its 45° wedge on its machine-top face, climbing to the wall and cut off flat
+at the ceiling slab's interior face (`enclosure.back_top_ceiling_face`), which is the piece's
+own stock. Each pocket keeps its two `wago_roof_tab` tabs on its floor, with the 45° ramp folded
+on the wall between them, and the complete `wago_well_wall` section on its roof; the lug rests
+on the two tabs and the wall's press fit locates it.
 
 ## Condenser cradle
 
@@ -321,7 +340,7 @@ rail below it.
 The slides fix the order, and the order is the service story backwards. **Front column**,
 on the bench: the refrigeration stratum seats in front-bottom, and front-top — carrying the
 flavour pack made up into its trays and tee wall — slides AFT onto it, in from the front. **Back column**,
-on the bench, empty: back-top — carrying the chain, the meter, the ceiling panel and the
+on the bench, empty: back-top — carrying the chain, the meter, the ceiling's anchors and the
 wall electronics — slides FORE onto a bare back-bottom, over nothing. **The core rides in
 through the mouth**: the closed back column stands upright and the cold core enters over
 the open Y-seam mouth and slides aft to its seat on the rear lip, under the hold-down
@@ -568,10 +587,15 @@ The two other costs remain **independent readings**, not terms collapsed into a 
   interface. Under **5 mm** is a defect, **5–10 mm** is marginal, and **10 mm or more** is a decent
   length for the support to establish itself. Improvement is capped at **15 mm**: more length is
   harmless, but earns no further preference.
-- A support rooted on model material is a defect of its own. A support rooted on the print bed is
-  preferred irrespective of its length. A short bed-rooted support and a long material-rooted
-  support are therefore reported as two different compromises rather than traded against one
-  another invisibly.
+- A support's root is read against the face the piece prints on. On a piece whose cavity opens
+  toward the bed — the bottoms on their floors, front-top on its mouth — a support rooted on
+  the print bed is preferred irrespective of its length and a root on model material is a
+  defect of its own, so a short bed-rooted support and a long material-rooted support are
+  reported as two different compromises rather than traded against one another invisibly.
+  On back-top the cavity opens away from the bed: the ceiling slab's interior face is the
+  root every interior support has, a hidden flat the piece lays down in its first layers, and
+  a root there is that piece's own bed. Supports that start on material are expected on it,
+  and the ledger names each retained body by the flat it carries and why that flat is flat.
 
 A candidate which removes a whole separate support that was both short and rooted on model
 material wins on every count at once, and is the strongest fix the audit can name.
@@ -609,12 +633,10 @@ Bambu G-code directly, or refreshes only the mesh in a temporary copy of the nam
 project before slicing it:
 
 ```sh
-git show aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a:hardware/printed-parts/enclosure/enclosure/enclosure-back-top-petgf.3mf \
-  > /tmp/enclosure-back-top-petgf.3mf
 python3 hardware/scripts/enclosure_support_audit.py \
   --piece enclosure-back-top --slice-current \
   --model hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl \
-  --profile /tmp/enclosure-back-top-petgf.3mf \
+  --profile hardware/printed-parts/enclosure/enclosure/enclosure-back-top-petgf.3mf \
   --json-out hardware/printed-parts/enclosure/enclosure/enclosure-back-top.support-audit.json
 ```
 
@@ -625,11 +647,12 @@ for each connected body that remains.
 **All six printable pieces are audited, each through a production project of its own.** The 3MF
 snapshots are retained only in Git history at `aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a`; they
 are evidence inputs rather than current files in this directory. No piece is re-oriented to be
-read: every one beds on its own Z− face, the orientation the box's whole relief scheme is struck
-on. `enclosure-front-bottom-petgf.3mf` and `enclosure-back-bottom-petgf.3mf` carry the PET-GF15
+read: each beds on the face its own relief scheme is struck on — the Z− face on five of them,
+the ceiling's show face on back-top (`enclosure.print_up`), whose project carries that half
+turn in its build item. `enclosure-front-bottom-petgf.3mf` and `enclosure-back-bottom-petgf.3mf` carry the PET-GF15
 exterior settings of `enclosure-front-top-petgf.3mf` around their own mesh — the same clones
 `enclosure-pump-cap-petgf.3mf` and `enclosure-pump-cartridge-petgf.3mf` are.
-`enclosure-back-top-petgf.3mf` is the one piece on its own 0.24 mm process. What BambuStudio
+`enclosure-back-top-petgf.3mf` is the one piece on its own 0.24 mm process, and the one whose build item carries a half turn about X. What BambuStudio
 02.08.02.61 emits after substituting the current meshes into those history snapshots:
 
 | piece | bodies | interface islands | root | shortest build-up |
@@ -637,9 +660,9 @@ exterior settings of `enclosure-front-top-petgf.3mf` around their own mesh — t
 | `enclosure-pump-cartridge` | 0 | 0 | — | — |
 | `enclosure-pump-cap` | 2 | 2 | bed | 18.40 mm |
 | `enclosure-front-top` | 3 | 4 | bed | 55.60 mm |
-| `enclosure-back-bottom` | 2 | 3 | 1 bed, **1 model** | **8.00 mm** |
+| `enclosure-back-bottom` | 2 | 3 | 1 bed, **1 model** | **6.00 mm** |
 | `enclosure-front-bottom` | 4 | 4 | 2 bed, **2 model** | **8.00 mm** |
-| `enclosure-back-top` | 3 | 28 | 1 bed, **2 model** | 22.32 mm |
+| `enclosure-back-top` | 11 | 28 | 6 bed, **5 model** | **1.44 mm** |
 
 **One piece slices clean, and five bodies are the campaign's open work.**
 `enclosure-pump-cartridge` emits no support at all. On the pump cap and front-top, every body
@@ -653,20 +676,18 @@ into two interface islands. The other three have no such lane and root on the ar
 under-flare **8.00 mm** below the catch they carry: front-bottom's pair and back-bottom's east
 catch are the only material-rooted bodies outside the 15 mm band.
 
-Back-top's enlarged ceiling dados put all seven fixed-strip and groove-roof contacts on one
-bed-rooted tree, along with the piece's main service furniture. Two small outer end webs on the
-water-split and flow-regulator wall anchors each retain a separate **model-rooted** tree. Both
-build **22.32 mm** before contact, beyond the policy's saturated length; their root kind remains
-an open defect. The three short slide-head bodies and these two anchor-web bodies are the five
-places the support campaign names.
+Back-top prints on its ceiling, so what a support reaches there is the set of faces that look print-down and cannot carry themselves: the drip pan's berth floor and its sleeve's lid, the nameplate bar's top and the pocket's lower rim, the upper Y-seam pins' tops, the C14's aperture and flange-pocket floors, the keystone pocket's floor, the tap-water ribs' tie-band flanks and the regulator rib's crown, the Z-seam grooves' lands, the ASSE anchor's two round seats and its tie channel's overrun, and the identification-chip pockets' lower arcs on the rear face. The slice reaches them with **11 bodies** over **28 islands**, 6 rooted on the plate around the bedded piece — fore of its mouth, behind its rear face, through the funnel's opening — and 5 on the slab's interior face, which is that piece's own first layers; the shortest build-up is **1.44 mm**, under the regulator rib's 3.5 mm crown band, the one tie band with no room for a gable. Back-bottom's two slide-head bodies now carry the ridge's 1 mm land instead of a 5 mm flat: the west run from the bed through the PRV passage and the east from the arm's under-flare **6.00 mm** below. The three slide-head bodies on the two bottoms are the places the support campaign still names.
 
 ## Print orientation + corner relief
 
-Every piece prints on its **Z− face** — the bottom pieces floor-down on the
-floor slab, the top pieces mouth-down on the seam rim. One bed plane for all
-four, read in the box's own frame: the build axis is **+Z** everywhere, so the
-face that hangs is always the one looking **down**, and that is the side every
-45° relief on this box is struck on. The anti-warp relief goes on the arrises
+Three pieces print on their **Z− face** — the bottom pieces floor-down on the
+floor slab, front-top mouth-down on its seam rim — and back-top prints on its
+**Z+ face**, its ceiling on the bed. The build axis is the box's own Z on every
+piece and the sign is the piece's (`enclosure.print_up`): where it is +Z the face
+that hangs is the one looking **down**, where it is −Z the one looking **up**, and
+every 45° relief on this box is struck on the side that hangs for its piece — a
+corbel under a floor on one piece is a corbel over a crown on the other. Faces at
+45° print either way. The anti-warp relief goes on the arrises
 that run along the build axis: the box's four **standing verticals**, rounded to match the foam
 shell's 12 mm outer radius — concentric inner one wall in, so the wall is
 preserved.
@@ -748,42 +769,43 @@ own skin sweeps — and the deep channel that lets the bay floor and the posts p
 rails is the one mark the slide leaves inside a standing corner. The Y-seam lip sits
 mid-wall where there is no vertical arris, so it stays square.
 
-The Y-seam lip is the one joint the orientation costs something. Its ceiling
+The Y-seam lip is the one joint the orientation costs something. Front-top's ceiling
 tongue juts one overlap past the body into the space the back piece's ceiling
 occupies — a cantilever that cannot be buttressed without colliding with the back
 piece, and so wants print support. The floor does not share that cost: its tongue
 runs aft at the slab's full thickness with its underside on the bed, then ends in
 a one-wall-long 45° scarf nose. The back half's matching wedge also grows from the
 bed, so the cold-core bearing plane carries no supported surface. The side-wall
-segments, vertical to the bed, are free.
+segments, vertical to the bed, are free. On back-top the upper pin's own top face
+looks print-down: a flat the pin's width, [13 mm](BOSS_END_CLEAR) under the ceiling
+lane, reached from the slab.
 
-The **ASSE drip pan's sleeve** in the back-top piece has one supported surface: its floor beyond
-the wall-rooted `pan_sleeve_corbel`. The tray is longer than a 45° wedge from that one wall can
-carry, and nothing stands under its east half to root a second wedge. The soffit is reached from
-the print bed through the open enclosure rather than from material just below it.
-
-The rim rebate's lid is one hipped rectangular transition. Its four faces rise at 45° into the
-already-open tray mouth from the exterior skin on the west, the fore and aft jambs, and the
-sleeve's east backstop; adjacent faces meet on diagonal hips. The exterior slot and seated
-flange gap keep their stated planes; only free clearance above the inserted rim grows toward
-the mouth. The rebate therefore leaves no short, material-rooted roof.
+The **ASSE drip pan's sleeve** in back-top is a plain carcase — floor, two jambs, backstop and a
+square lid — rooted on the −X wall. Printed ceiling-down its floor and the rebate's roof look
+print-up and carry themselves; its lid and the berth's floor look print-down over the tray's own
+room, which no material may fill, and the ASSE chain stands over the lid, so both are supported
+faces, reached from the slab through the open mouth. The pan lies on a flat floor.
 
 The moisture plate's **cable clip** is immediately aft of the sleeve on the dry inner face of
 the −X flank. The shared profile is [9 mm](CABLE_CLIP_DEPTH) deep; [6 mm](PAN_CLIP_EMBED) are embedded in this
 [9 mm](PAN_CLIP_WALL) wall, leaving [3 mm](PAN_CLIP_PROUD) proud in the cabinet and [3 mm](CABLE_CLIP_BACKING) of
-exterior backing. Its two hooked sections grow from the wall on 45° faces, and the recessed
+exterior backing. The profile is asymmetric in its own up, and that up follows the print's:
+back-top prints ceiling-down, so the run is laid along +Y and the profile's up is the box's −Z.
+Its two hooked sections grow from the wall on 45° faces toward the print's up, and the recessed
 channel ramps to the wall face over [6 mm](CABLE_CLIP_RAMP) at both ends of its [18 mm](CABLE_CLIP_RUN) run. It therefore
-adds no supported face to the mouth-down back-top print. The plate's continuous lead leaves a
+adds no supported face to the ceiling-down back-top print. The plate's continuous lead leaves a
 service loop between this fixed clip and the open pan.
 
-The **ASSE anchor** one storey above it carries its underside on a 45° corbel rooted on
-the −X wall and tapering to the deepest section's V foot, except east of that foot: the two
-round end sections' box bottoms run on to the chain's axis as flat soffits, 8.48 × 13.5 mm
-each, and the slice reaches both from the bed. Its two 60° seat flanks stand 30° off vertical
-and lay on themselves. Behind the anchor, one channel spans both zip-tie bands:
-its fore and aft end faces remain `tie_cav_wide_w` wide about their tie centres, and the volume
-between them is open. The horizontal passage therefore produces one continuous, reachable
-support body with a full-span extraction path.
+The **ASSE anchor** one storey above it looks print-down on its top. Outside the zip ties'
+span a 45° wedge carries that top from the V's upper arris, or the bore's crossing of it, back to
+the wall and up to the lane, where it fuses into the slab and the chain's own pocket; over the
+span the wedge is absent so the loop has its room, and the web between the tie cavity and the V
+is chamfered at 45° down into the cavity, a slope the print lays on itself and a funnel the loop
+drops through. Its two 60° seat flanks stand 30° off vertical and lay on themselves either way;
+the two round seats' lower arcs look print-down inside their bores and are supported faces.
+Behind the anchor, one channel spans both zip-tie bands: its fore and aft end faces remain
+`tie_cav_wide_w` wide about their tie centres, the volume between them is open, and its top
+mouth opens into the lane the slab leaves over the same span (`_ceiling_tie_channel_relief`).
 
 The **bay floor** is the one feature that costs nothing and pays: it IS front-top's
 first layers. Its underside is the seam mouth, the plane the piece beds on, so there is
@@ -801,40 +823,40 @@ tangency makes that the narrowest and shortest peak at this angle. The lower cir
 bears on is untouched, and the wall needs no support.
 
 The **five round tube crossings in the +Y wall** use the same `_teardrop_y` section through
-their wall and pocket bosses. Their stated Ø18/Ø17.86 figures remain the complete circular
-pass envelopes for the threaded barrels; only the unsupported crown opens into the tangent
-[36°](TEARDROP_ROOF) roof. The separately printed identification chip keeps its circular bore,
-and the fitting's flange and nut clamp the chip and the remaining wall annulus on their two
-faces. The history-only back-top profile places neither support body nor support interface inside
-any of the five passages.
+the wall's whole section at each station, struck toward back-top's print-up. This piece beds
+on its ceiling's outer face (`BACK_TOP_UP`), so the crown a print cannot close is each bore's
+machine-bottom, and that is the side the tangent [36°](TEARDROP_ROOF) roof stands on; their
+stated Ø18/Ø17.86 figures remain the complete circular pass envelopes for the threaded barrels
+everywhere else round the circle. The separately printed identification chip keeps its
+circular bore, and the fitting's flange and nut clamp the chip and the remaining wall annulus
+on their two faces. No face in any of the five passages lies flatter than that roof.
 
 The **AC inlet's mount** stands off the +Y wall's inner face in back-top and costs
 nothing either. It is one rectangular block from the flange pocket's mouth to the wall
 (`enclosure._c14_tunnel`): its two flanks are vertical to the bed, its crown runs out into the
-top wall, and its soffit is one wedge the block's full width, falling at 45° over the full
-10.25 mm run, so there is material under every point of the block and neither a ledge nor an air
-channel beneath it. What is left over air is the bore's own ceiling — a bridge the aperture's full
-width, carried between the block's two flanks. Nothing on the piece stands outside the print
-silhouette: the receptacle's two heat-sets go into the seating face at the floor of the block's
-flange pocket, from inside the box, and the back of the machine is flat.
+ceiling slab the piece prints on, and its underside looks print-up — a free flat, with the wall
+and the slab carrying the block between them. What is left over air is the bore's own
+print-roof, the aperture's machine-bottom face — a bridge the aperture's full width, carried
+between the block's two flanks. Nothing on the piece stands outside the print silhouette: the
+receptacle's two heat-sets go into the seating face at the floor of the block's flange pocket,
+from inside the box, and the back of the machine is flat.
 
-The inlet stands on the column where its exact moulded rim clears the complete +X ceiling-strip
-corbel — about a millimetre of air stands between the two — so that
-wall-rooted 45° wedge continues over the inlet without a relief band or a short support stack.
-The aperture, tunnel, pocket and both screw stations all follow that one X datum; its Z remains
-aligned with the other top-row ports.
+The inlet stands on one column, `enclosure.c14_station_x`: the aperture, tunnel, pocket and
+both screw stations all follow that one X datum, and its Z is aligned with the other top-row
+ports. Over the inlet the ceiling is the slab's own underside, which looks print-up, so nothing
+between the receptacle's moulded rim and the ceiling asks for a relief band or a support
+stack.
 
 The **PRV chase's roofs lean from the −X wall too**. Where its open exterior groove
 becomes the closed fall, the roof rises inward across the exact
-[3 mm](VENT_GROOVE_ROOF) show-skin section at 45°. At the Z seam the top piece's rib beds on
-the flank band's own 45° plane off the seam rim; where that plane crosses the rail channel's
-east gable the underside follows the gable down, then rises one-for-one to the cold-core lip
-on the slope struck over the [8 mm](VENT_RIB_BASE) from the grown flank to that lip. Above it,
-the closed passage's roof is one X plane from its liner inside the flank through the wall and
-out to the same lip. The lip keeps
-[3.1 mm](VENT_RIB_LAND) of solid land below the square mouth. None leaves a horizontal face for
-a short support tree, while the exterior groove edge, the square passage and the back slide's
-opening remain on their own datums.
+[3 mm](VENT_GROOVE_ROOF) show-skin section at 45°. The closed passage's roof is one X plane
+from its liner inside the flank through the wall and out to the cold-core lip, and the lip
+keeps [3.1 mm](VENT_RIB_LAND) of solid land below the square mouth. Back-top's share of the rib
+stands square on the seam rim, which looks print-up on that piece, and its crown — the one face
+of it that looks print-down — is carried by a 45° wedge from the lip back over the
+[8 mm](VENT_RIB_BASE) to the grown flank. The mouth's floor is a `vent_channel_w` bridge
+between the passage's two jambs. The exterior groove edge, the square passage and the back
+slide's opening remain on their own datums.
 
 ## ASSE anchor
 
@@ -902,8 +924,8 @@ Nothing about the chain's weight is theirs: cut both and it still lies where it 
 closed on the barrel, measured off the two placed solids, because every other
 reading on the card is satisfied by a chain floating in air. And `check_tie_channels`
 is the row that reads the **route**: the column between each channel's top mouth and
-the ceiling, which is the room the loop comes down and what a corbel on the strip's
-outboard run would close over.
+the ceiling, which is the room the loop comes down; the slab is open to the lane over the
+channel's whole span (`_ceiling_tie_channel_relief`).
 
 ## Flow-meter anchors
 
@@ -947,11 +969,11 @@ solid that went into it, so a rib fused straight on carries its lip in as many p
 as it was laid down in. Cleaned first, the built piece reads one cylindrical seat face
 9.50 long, one channel floor of 64.40 mm², and each lip **one 9.500 edge**.
 
-Printed Z−-down the rib **hangs off the top wall** and starts on its two lips — one
-`flow_meter_anchor_wall` strip either side of the bore, the anchor's whole 9.50 length, with
-nothing under them. Everything over those lips is the arc closing inward on itself, so
-the hood carries its own crown, its flanks are vertical, and the lips are the only thing
-in the feature support has to reach.
+Back-top prints on its ceiling, so the rib **stands up off the bed**: its two end webs rise
+from the slab, the seat is an upward-opening cradle in the print, its lips look print-up, and
+the channel's floor over the crown is a `tie_cav_w` bridge between the two webs. The slab
+stands off the rib's room over its tie band (`_ceiling_tie_reliefs`), so the loop comes down
+both flanks in the lane.
 
 ## Tube anchors
 
@@ -1424,108 +1446,34 @@ lip over the hole's span, which the mouth shelf's own relief already accounts fo
 
 ## back-top's ceiling
 
-back-top has no throat, so its ceiling would be a flat slab — the whole width of
-the machine by the whole depth of the back half — laid [195 mm](PIECE_H) up over
-the open service bay on a piece that prints mouth-down. It is not printed in this
-piece at all. What back-top keeps is **two side strips**, [19 mm](CEILING_STRIP)
-wide, and between them the [159 mm](CEILING_PANEL_W) channel the
-[ceiling panel](/hardware/printed-parts/enclosure/ceiling-panel/README.md) fills
-— a separate part, printed flat on the bed and **slid in** through the Y-seam
-mouth before back-top meets another quadrant.
+back-top's ceiling is **one slab, and it is the face the piece prints on.** The exterior
+top stays at z 355 and the rear storey's established pack lane at z [352](CEILING_LANE):
+every body, port and anchor station under the ceiling is struck on that lane. The slab
+carries [12 mm](BACK_TOP_CEILING_T) of section from the show face inward, to z
+[343](BACK_TOP_CEILING_FACE), between the grown flanks and from the Y telescope's end to
+the +Y wall — [9 mm](BACK_TOP_CEILING_GROWTH) more than the top wall's own `wall` — and
+gives that section back over whatever stands in it. Every pocket opens from the slab's
+interior face up to the lane and no further, so the top wall's own `wall` stands over each
+one (`ceiling-show-cap`).
 
-The exterior top remains z 355 and the rear storey's established pack lane
-remains z 352. The fixed strips carry a [12 mm](BACK_TOP_CEILING_T) physical
-section inward to z 343, while the removable panel carries an
-[11 mm](CEILING_PANEL_T) structural envelope inward to z 344. Those are
-piece-owned faces: no body, port, anchor or exterior plane moves to fund them.
-The fixed corbel is consequently the established 45° wedge plus an exact
-[9 mm](BACK_TOP_CEILING_GROWTH) parallel shell below it.
+**Three kinds of pocket.** A purchased body whose placed solid enters the slab earns one
+over its exact plan plus assembly slip, up to its own crown plus a clearance
+(`enclosure_assembly.ceiling_reliefs`; the named population is what keeps an unrelated
+encroachment visible to `pack-closes`). The flow meter's two anchors and every rib rooted on
+the ceiling — the carb-1 and co2-2 ribs and the regulator's — get the room their zip tie's
+loop comes down: the rib's reach plus the tie's thickness and its routing air either side,
+the rib's whole length, from the axis plane to the lane (`_ceiling_tie_reliefs`); the rib is
+fused back into that pocket and stands up off the bed with its seat an upward-opening cradle
+in the print. And the tap-water chain's shared tie channel is open to the lane from the −X
+flank to the far edge of the chain's own pocket over the span its two zip ties take
+(`_ceiling_tie_channel_relief`), so each loop comes west over the chain's crown in the
+`DECK_CEILING_CLEAR` lane and drops into the anchor's cavity through the mouth the flank
+leaves it.
 
-Each strip is **corbelled** the way front-top's two are either side of the throat
-(`_ceiling_corbels`): a 45° underside rising off the flank face to nothing at the
-panel's edge, so every ceiling layer lands on the one below it. The corbel is
-therefore **deepest at the wall and thinnest at the panel's edge** — which is the
-wrong way round for the rear storey, because the wall is exactly where that
-storey's furniture stands.
-
-So the strip carries **reliefs**, stated by `back_top_ceiling_reliefs_for` and read
-back by `ceiling_corbel_at(x, y)` — the same shape `back_top_wall_reliefs` and
-`back_wall_t_at` take one storey down, keyed on (x, y) rather than (x, z). A row
-names the fitting, the flank, the depth band it covers, and **the run band it
-gives up** — everything from `keep` out to `out`. Inboard of `keep` and outboard
-of `out` the strip keeps its corbel; between them the corbel is absent and only
-the top wall's own section remains.
-
-**A relief is a band because a body is a band.** Where a fitting stands hard
-against the panel's edge the two are the same thing: `out` is the strip's whole
-run, and what is left is the wedge's thin end — which is exactly what a body a
-millimetre under the ceiling leaves room for. Where a body stands in the **middle**
-of the strip, taking everything outboard of it as well throws away the one part of
-the corbel that roots on the flank and carries itself, and leaves the strip's whole
-width hanging.
-
-The raised relay gives up the +X strip from [3 mm](RELAY_CEILING_KEEP) of run
-outward over its complete band. The neighboring ground stack uses the same plain,
-unroofed cut: its complete placed plan plus 1 mm, y 324…344, gives up the corbel
-from [3 mm](GROUND_CEILING_KEEP) of run outward. Nothing is fused back above
-either purchased body.
-The C14 keeps the complete established +X wedge: its shared X datum places the
-moulded rim about one millimetre inboard of that corbel, while its Z remains on
-the top port row. The C14 moulding, relay, ASSE body, water bulkhead, flow
-regulator and power Wagos reach only the added nine-millimetre shell.
-`ceiling_growth_reliefs` withholds that shell over each exact placed-body plan
-plus 1 mm, clipped to the fixed strip, while leaving
-the older wedge and its existing run-band treatment intact. At the C14 this
-leaves exactly 1 mm of air and the relay retains 2 mm.
-
-**The tap-water chain takes three rows**, because what it occupies is three different
-things. Against the full wedge, the metal inside the corbel is run 1.50…14.09 over
-y 354…394 — the Multiplex barrel, its crown one `DECK_CEILING_CLEAR` under the
-ceiling — and run 4.67…5.42 over y 394…424, three quarters of a millimetre of run
-in a strip 19 wide. **1,275 mm³ of a 12,816 mm³ established corbel, and none of it outboard of
-run 14.09.** So the outboard run goes back, and those two rows give up 0…16 and 0…7.
-
-What still gives up the whole run is **the shared tie channel**. Each zip tie is a closed
-loop that comes west over the chain's top flat in the `DECK_CEILING_CLEAR` lane and drops
-into the cavity through the anchor's back. That cavity's top mouth is out at the wall
-(`_asse_tie_cavity`), so a corbel standing on the outboard run would roof the opening.
-`back_top_ceiling_reliefs_for` reads the exact channel ends from `_asse_tie_channel_span`,
-leaving the channel and its support-removal path open continuously without an end ledge.
-
-**The dado** is cut in each strip's inboard face on the section the panel states
-(`ceiling_panel.dado`), and it runs from the open Y− mouth aft: the panel is slid
-the length of the piece with its tongues in these two grooves. It is cut a millimetre
-into the field at its mouth. At the back it runs blind from the panel stop through
-the wall's grown inner section to `rear_plane_y`, leaving the nominal wall whole
-through the rear show face; ending exactly on the panel's aft plane would leave the
-strip and wall meeting along a line.
-
-The current tongue is [12 mm](CEILING_TONGUE_T) square and its dado is
-[12.15 mm](CEILING_DADO_DEPTH) deep. A [6 mm](CEILING_RAIL_ROOT) full-height
-root continues under the removable field, and the fixed side keeps
-[6 mm](CEILING_DADO_LOWER) below the groove plus
-[6 mm](CEILING_DADO_UPPER) above it at the blind edge.
-
-**The roof is flat and supported.** Its nominal underside stays at z =
-[349](CEILING_DADO_ROOF) from the blind edge to the panel boundary, leaving the
-complete six-millimetre upper capture section and closing the exterior show face
-across the joint. Back-top prints mouth-down, so this is an intentional supported
-face. The groove opens through the Y− seam mouth and the support withdraws through
-the panel's insertion path. The ASSE pocket may rise into the underside locally,
-but the finished exterior cap is guarded at a complete wall everywhere. At the
-rear, the square run-out stops at `rear_plane_y`, with one complete wall closing
-the exterior face behind it.
-
-**The two dados are the panel's complete fit.** Their retained full-section spans
-carry the panel in X and Z and the +Y wall stops it at home. Named component and
-water-2 pockets interrupt only the occupied bands. The panel slides through the
-open Y− mouth before the front column closes; no keeper socket, tunnel, insert or
-fastener is part of this joint, and neither appliance show face is opened.
-
-**Everything rooted on the ceiling over that field hangs off the panel**: the
-flow meter's two anchors and the three ribs bored for `carb-1`,
-`co2-2` and the WR1110's barrel. `ceiling_stations` is the one call that splits
-them, and both parts read it, so neither can grow a rib the other grew too.
+**Everything rooted on the ceiling is this piece's**: the flow meter's two anchors and the
+three ribs bored for `carb-1`, `co2-2` and the WR1110's barrel, each drawn to the lane
+through `piece_root_faces` and fused into its own pocket. Back-top is populated inverted
+on the bench, ceiling down, and every one of those seats is a cradle a body drops into.
 
 ## Regenerate
 

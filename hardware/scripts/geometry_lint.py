@@ -78,6 +78,15 @@ _CEILING_OFF_BED = 0.5
 _SLOPE_AREA = 15.0
 
 _CLASSES = ("step", "sliver", "ceiling", "slope")
+#: Which way each piece builds along the box's Z. Every coordinate the lint reads and emits
+#: stays in the box's own frame; the sign only says which faces look print-down and where the
+#: bed is: +1 for a piece bedded on its Z- face, -1 for one bedded on its Z+ face.
+PRINT_UP = {"enclosure-back-top": -1.0}
+
+
+def print_up_of(stl):
+    """The build sign for the piece an STL names, +1 unless `PRINT_UP` says otherwise."""
+    return PRINT_UP.get(Path(stl).stem, 1.0)
 
 
 def _basis(n):
@@ -393,7 +402,7 @@ def _neighbour_arrays(planes):
             np.array([p.lo for p in every]), np.array([p.hi for p in every]))
 
 
-def find_slivers(planes, z_min):
+def find_slivers(planes, q_min, s=1.0):
     """Axis-aligned faces that are strips — long and thinner than a ligament.
 
     Evaluated island by island, so a strip that happens to share a plane with a
@@ -407,7 +416,7 @@ def find_slivers(planes, z_min):
         if not axis_aligned:
             continue
         for whole in group:
-            if n[2] < -0.99 and abs(whole.o + z_min) < 0.05:  # the bed face
+            if s * n[2] < -0.99 and abs(s * whole.o / n[2] - q_min) < 0.05:  # the bed face
                 continue
             if whole.soft_frac() > 0.75:
                 continue  # chords of a curved surface, not authored planes
@@ -433,48 +442,53 @@ def find_slivers(planes, z_min):
     return found
 
 
-def find_ceilings(planes, mesh, z_min):
-    """Horizontal down-facing faces above air, with the drop measured below them.
+def find_ceilings(planes, mesh, q_min, s=1.0):
+    """Horizontal print-down faces above air, with the drop measured below them in the print.
+
+    `s` is the piece's build sign along the box's Z: a face looks print-down when `s * n[2]`
+    is -1, its print height is `s * z`, and the bed is `q_min`, the least print height in
+    the piece. Every coordinate reported stays in the box's frame.
 
     Evaluated island by island: every ceiling in a part shares one or two z
     planes, and only the islands are individual roofs.
     """
-    down = [c for group in planes.values() if group[0].n[2] < -0.99
+    down = [c for group in planes.values() if s * group[0].n[2] < -0.99
             for p in group
-            if p.area >= _CEILING_AREA and (-p.o) > z_min + _CEILING_OFF_BED
+            if p.area >= _CEILING_AREA and s * p.o / p.n[2] > q_min + _CEILING_OFF_BED
             and p.soft_frac() <= 0.75
             for c in p.components() if c.area >= _CEILING_AREA]
     if not down:
         return []
-    up = mesh.face_normals[:, 2] > 0.1
+    up = s * mesh.face_normals[:, 2] > 0.1
     up_tri = mesh.triangles[up]
     up_lo2, up_hi2 = up_tri[:, :, :2].min(axis=1), up_tri[:, :, :2].max(axis=1)
-    up_zhi = up_tri[:, :, 2].max(axis=1)
+    up_qhi = (s * up_tri[:, :, 2]).max(axis=1)
 
     found = []
     for p in down:
-        z0 = -p.o
+        z0 = p.o / p.n[2]                      # the plane's own z, whichever way it looks
+        q0 = s * z0
         centers = mesh.triangles_center[p.f]
         samples = centers[:: max(1, len(centers) // 12)][:12]
         gaps = []
-        for s in samples:
-            near = ((up_lo2 <= s[:2]).all(axis=1) & (up_hi2 >= s[:2]).all(axis=1)
-                    & (up_zhi < z0 - 1e-6))
+        for sample in samples:
+            near = ((up_lo2 <= sample[:2]).all(axis=1) & (up_hi2 >= sample[:2]).all(axis=1)
+                    & (up_qhi < q0 - 1e-6))
             best = None
             for t in up_tri[near]:
-                z = _z_in_triangle(t, s[:2])
-                if z is not None and (best is None or z > best):
-                    best = z
-            gaps.append(None if best is None else z0 - best)
+                z = _z_in_triangle(t, sample[:2])
+                if z is not None and (best is None or s * z > best):
+                    best = s * z
+            gaps.append(None if best is None else q0 - best)
         real = [g for g in gaps if g is not None]
         drop = (f"drop {min(real):.1f}–{max(real):.1f} mm to material below"
-                if real else f"open to the bed ({z0 - z_min:.1f} mm up)")
+                if real else f"open to the bed ({q0 - q_min:.1f} mm up)")
         w = p.uv_hi - p.uv_lo
         c = p.thru()
         found.append({
             "class": "ceiling",
-            "score": p.area ** 0.5 * (max(real) if real else z0 - z_min),
-            "line": (f"{p.area:.0f} mm² flat underside at z={z0:.3f}"
+            "score": p.area ** 0.5 * (max(real) if real else q0 - q_min),
+            "line": (f"{p.area:.0f} mm² flat print-down face at z={z0:.3f}"
                      f" · {w.max():.1f} × {w.min():.1f} mm · {drop}"),
             "pick": [plane_face(_vec(*p.n), _vec(*c)), click(_vec(*c))],
         })
@@ -495,7 +509,7 @@ def _z_in_triangle(t, xy):
     return float(w1 * t[0, 2] + w2 * t[1, 2] + w3 * t[2, 2])
 
 
-def find_slopes(planes, boundary, level):
+def find_slopes(planes, boundary, level, s=1.0):
     """45° undersides that run along a wall with no level foot on any wall.
 
     A corbel that stands on a level foot — a horizontal boundary shared with
@@ -508,7 +522,7 @@ def find_slopes(planes, boundary, level):
     slopes, wall_by_gid = [], {}
     for group in planes.values():
         n = group[0].n
-        if -0.80 <= n[2] <= -0.60:
+        if -0.80 <= s * n[2] <= -0.60:
             slopes.extend(p for p in group if p.area >= _SLOPE_AREA)
         elif abs(n[2]) <= 0.05:
             for p in group:
@@ -598,12 +612,13 @@ def split_answered(found, entries, radius):
 def lint(stl, classes=_CLASSES):
     """Every finding for the piece at `stl`, most severe first within each class."""
     mesh = trimesh.load(stl, process=False)
-    z_min = float(mesh.vertices[:, 2].min())
+    s = print_up_of(stl)
+    q_min = float((s * mesh.vertices[:, 2]).min())     # the bed, in print height
     planes, boundary, level = plane_map(mesh)
     finders = {"step": lambda: find_steps(planes),
-               "sliver": lambda: find_slivers(planes, z_min),
-               "ceiling": lambda: find_ceilings(planes, mesh, z_min),
-               "slope": lambda: find_slopes(planes, boundary, level)}
+               "sliver": lambda: find_slivers(planes, q_min, s),
+               "ceiling": lambda: find_ceilings(planes, mesh, q_min, s),
+               "slope": lambda: find_slopes(planes, boundary, level, s)}
     found = {}
     for name in classes:
         try:
@@ -730,7 +745,36 @@ def _selftest():
     planes2, boundary2, level2 = plane_map(m2)
     assert find_slopes(planes2, boundary2, level2) == [], "grounded roof flagged"
 
-    print("selftest: all four classes find their defect and only theirs")
+    # THE SAME THREE CLASSES ON A PIECE THAT BUILDS DOWN THE BOX'S Z. Mirror the ceiling sheet
+    # in z: the roof looks up in the box and down in the print, and it is found; run right way
+    # up under s = -1 the same sheet is a floor over air and is not.
+    m = sheet([[(0, 0, -20), (20, 0, -20), (20, 20, -20), (0, 20, -20)],
+               [(0, 0, -5), (0, 20, -5), (20, 20, -5), (20, 0, -5)]])
+    got = find_ceilings(planes_of(m), m, 5.0, s=-1.0)
+    assert len(got) == 1 and "drop 15.0" in got[0]["line"], got
+    at = dict(pick_points("\n".join(got[0]["pick"])))["click"]
+    assert abs(at[2] + 20.0) < 1e-6, at                       # reported in the box's frame
+    # and the right-way-up sheet read under s = -1 trades roles: its floor is the print-down
+    # face and the roof is the material below it, so the finding moves to z = 5
+    m_up = sheet([[(0, 0, 20), (0, 20, 20), (20, 20, 20), (20, 0, 20)],
+                  [(0, 0, 5), (20, 0, 5), (20, 20, 5), (0, 20, 5)]])
+    got = find_ceilings(planes_of(m_up), m_up, -20.0, s=-1.0)
+    assert len(got) == 1 and "z=5.000" in got[0]["line"] and "drop 15.0" in got[0]["line"], got
+    # sliver: the bed face is the strip at the piece's greatest z when s = -1
+    m = sheet([[(0, 0, 5), (30, 0, 5), (30, 0.5, 5), (0, 0.5, 5)],
+               [(0, 10, 5), (30, 10, 5), (30, 20, 5), (0, 20, 5)]])
+    assert find_slivers(planes_of(m), -5.0, s=-1.0) == [], "the bed strip flagged under s=-1"
+    # slope: the bad underside mirrored is a bad print-down slope under s = -1
+    wall_x = [(0, 0, 0), (0, 0, -20), (0, 10, -30), (0, 40, -40), (0, 40, 0)]
+    bad = [(10, 0, -20), (10, 10, -30), (0, 10, -30), (0, 0, -20)]      # n (0,+.7,+.7)
+    wall_y = [(0, 50, 0), (30, 50, 0), (30, 50, -20), (0, 50, -20)]
+    good = [(30, 60, -30), (0, 60, -30), (0, 50, -20), (30, 50, -20)]   # n (0,+.7,+.7)
+    m = sheet([wall_x, bad, wall_y, good])
+    planes, boundary, level = plane_map(m)
+    got = find_slopes(planes, boundary, level, s=-1.0)
+    assert len(got) == 1 and "no level foot" in got[0]["line"], got
+
+    print("selftest: all four classes find their defect and only theirs, both ways up")
 
 
 def main(argv=None):

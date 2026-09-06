@@ -36,8 +36,8 @@ manifold_rise = 2.0
 # face (`cadlib/flute_skin._depth_field`), so a band's own two faces are both edges and the
 # deepest station on a band of height h stands h / 2 from one — full depth only once that
 # clears `flute_rise`. `flute_full_depth_height` is that threshold, and the pieces let into the
-# box's faces read it to say which side of it they fall on: `display_cover.display-cover-reveal`,
-# `ceiling_panel.ceiling-panel-reveal`. `enclosure.py` cuts the field with the same two.
+# box's faces read it to say which side of it they fall on: `display_cover.display-cover-reveal`.
+# `enclosure.py` cuts the field with the same two.
 flute_depth = 1.2
 flute_rise = 5.0
 flute_full_depth_height = 2.0 * flute_rise

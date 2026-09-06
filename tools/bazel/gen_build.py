@@ -407,7 +407,7 @@ def render_build(only: str = None) -> tuple:
     _no_cycles(wants)
 
     # ONE STRIPPED SOURCE PER ACTION. A single multi-output action made every Python edit an
-    # input to every consumer of any stripped source, so `rdeps(ceiling_panel.py)` became almost
+    # input to every consumer of any stripped source, so `rdeps(display_cover.py)` became almost
     # the whole graph. Each tiny action keeps the exact edge and lets an affected build stay a
     # slice. The output path remains stable; only the rule that produces it is split.
     comments_out = sorted(comments_out)

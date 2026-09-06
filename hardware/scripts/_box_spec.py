@@ -1,8 +1,7 @@
-"""The placement-derived enclosure description shared by its two CAD producers.
+"""The placement-derived enclosure description the enclosure producer reads.
 
 The box is a named tuple of plain numbers, lists, tuples and dictionaries.  The placement pass
-writes it once; the enclosure and ceiling actions read that exact output before either cuts
-geometry.  Direct design runs deliberately do not read this artifact: they derive the live
+writes it once; the enclosure action reads that exact output before it cuts geometry.  Direct design runs deliberately do not read this artifact: they derive the live
 placement so an edited checkout cannot use yesterday's stations.
 """
 

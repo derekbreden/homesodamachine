@@ -140,16 +140,15 @@
     "display \u2014 display-gasket: 0.000 mm \u2014 seated against it",
     "display-cover \u2014 display-gasket: 0.000 mm \u2014 seated against it",
     "display \u2014 display-cover: 0.150 mm \u2014 seated against it",
-    "co2-2 \u2014 enclosure-ceiling-panel: 0.199 mm \u2014 seated against it",
+    "co2-2 \u2014 enclosure-back-top: 0.199 mm \u2014 seated against it",
     "water-3 \u2014 foam-assembly: 0.199 mm \u2014 seated against it",
     "fluid-28 \u2014 enclosure-back-top: 0.199 mm \u2014 seated against it",
     "fluid-18 \u2014 foam-assembly: 0.199 mm \u2014 seated against it",
-    "carb-1 \u2014 enclosure-ceiling-panel: 0.199 mm \u2014 seated against it",
+    "carb-1 \u2014 enclosure-back-top: 0.199 mm \u2014 seated against it",
     "discharge-chain \u2014 foam-assembly: 0.200 mm \u2014 seated against it",
     "suction-chain \u2014 foam-assembly: 0.200 mm \u2014 seated against it",
     "seaflo-pump \u2014 bulkhead-flavor-a: 1.004 mm",
     "keystone-jack \u2014 bulkhead-ring-flavor-a: 1.052 mm",
-    "water-2 \u2014 enclosure-ceiling-panel: 1.075 mm",
     "carb-1 \u2014 suction-chain: 1.113 mm",
     "water-3 \u2014 enclosure-front-top: 1.126 mm",
     "water-3 \u2014 enclosure-back-top: 1.126 mm",
@@ -184,7 +183,7 @@
    "label": "Every printed piece fits the bed",
    "kind": "gate",
    "status": "pass",
-   "value": "12/12 on the bed",
+   "value": "11/11 on the bed",
    "target": "every piece on the bed",
    "detail": [],
    "active": true
@@ -560,26 +559,6 @@
    "active": true
   },
   {
-   "id": "ceiling-panel-reveal",
-   "label": "The ceiling panel's show face is the top, and its edge is a reveal",
-   "kind": "gate",
-   "status": "pass",
-   "value": "holds",
-   "target": "under 10 mm of standing edge",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "ceiling-panel-joint-section",
-   "label": "The ceiling panel joint is large on its male and female sides",
-   "kind": "gate",
-   "status": "pass",
-   "value": "holds",
-   "target": "a 12 mm square tongue with a 6 mm root and 6 mm capture ligaments",
-   "detail": [],
-   "active": true
-  },
-  {
    "id": "fuse-clamp-donor",
    "label": "The clamp closes on features the compressor actually has",
    "kind": "gate",
@@ -767,8 +746,8 @@
    "value": "17/17 clear; 14 reach their mounting face across their whole width and 1 use blocker-profiled split corbels, 1 are held back across their whole width (1 with offered wing(s) stood down); 4 hole pair(s) share a bar",
    "target": "one clear corbel per mounting hole, one bar per hole pair",
    "detail": [
-    "`pcba` y 241.000, z 323.200: 3.000 mm setback past pcba, offered wing(s) y 237.500..239.030 stand down, 1.53 of 7.00 mm; no wing",
-    "`relay-2` y 343.500, z 321.400: 3.000 mm setback past relay-2, full wall-rooted wing(s) y 327.000..329.500, y 344.500..347.000"
+    "`pcba` y 319.000, z 256.900: 3.000 mm setback past pcba, offered wing(s) y 320.998..322.500 stand down, 1.50 of 7.00 mm; no wing",
+    "`relay-2` y 343.500, z 255.400: 3.000 mm setback past relay-2, full wall-rooted wing(s) y 327.000..329.500, y 344.500..347.000"
    ],
    "active": true
   },
@@ -779,16 +758,6 @@
    "status": "pass",
    "value": "flat floor 42.00 x 67.00",
    "target": "42.00 x 56.00",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "ceiling-panel-relief-caps",
-   "label": "Body pockets leave printable male-rail sections",
-   "kind": "gate",
-   "status": "pass",
-   "value": "5 open, 1 retained; thinnest retained 8.61 mm",
-   "target": "every rail pocket open or capped by at least 3 mm",
    "detail": [],
    "active": true
   },
@@ -1063,12 +1032,22 @@
    "active": true
   },
   {
-   "id": "ceiling-dado-show-cap",
-   "label": "The supported ceiling dados keep a complete exterior wall over both rails",
+   "id": "ceiling-show-cap",
+   "label": "The ceiling slab keeps a complete exterior wall over its whole field",
    "kind": "gate",
    "status": "pass",
-   "value": "3 mm cap; missing 0.0675 mm\u00b3 west / 0.0675 mm\u00b3 east",
-   "target": "a complete wall, except one 0.15 x 0.15 mm fit corner per side",
+   "value": "3 mm cap; missing 0.0000 mm\u00b3",
+   "target": "a complete wall over the field, the funnel's own plan excepted",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "pieces-in-silhouette",
+   "label": "Every quadrant lies inside the appliance's own exterior",
+   "kind": "gate",
+   "status": "pass",
+   "value": "all four inside `outer`",
+   "target": "no face past the box's exterior on any axis",
    "detail": [],
    "active": true
   },

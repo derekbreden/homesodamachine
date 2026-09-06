@@ -2,6 +2,7 @@
   "/hardware/assembly/_enclosure_mechanical_sync.py": {
     "AC_RECESS_DEPTH": "3\u20135 mm",
     "APPLIANCE_W": "215 mm",
+    "BACK_TOP_CEILING_T": "12 mm",
     "BACK_TOP_FLANK": "9 mm",
     "BACK_TOP_WALL": "6 mm",
     "BODY_COUNT": "94",
@@ -9,6 +10,7 @@
     "C14_BACK": "x 66.9, z 336.2",
     "C14_FLANGE_W": "49.77",
     "CAP_CONDUITS": "9",
+    "CEILING_LANE": "352",
     "CO2_BACK": "x 2.45, z 336.2",
     "CO2_HOLE_D": "17.86",
     "CORE_HOLD_CLEAR": "8.76 mm",

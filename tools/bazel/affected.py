@@ -690,7 +690,7 @@ genrule(
          and artifact_unknown("hardware/off-the-shelf-parts/new.step", True))
     hold("rewritten presentation is outside the artifact slice",
          artifact_presentation_only(
-             "hardware/printed-parts/enclosure/ceiling-panel/README.md"))
+             "hardware/printed-parts/enclosure/display-cover/README.md"))
     hold("a slicer project is inert in both build lanes",
          build_inert("hardware/printed-parts/petgf.3mf")
          and not read_kind("hardware/printed-parts/petgf.3mf")
@@ -743,7 +743,7 @@ genrule(
          known(["no/such/file.py"]) == ([], ["no/such/file.py"]))
     hold("nothing changed is no targets", targets([]) == [] and changed() is not None)
     hold("artifact rules are a strict build slice",
-         "//:ceiling-panel" in artifact_targets() and "//:everything" not in artifact_targets())
+         "//:display-cover" in artifact_targets() and "//:everything" not in artifact_targets())
     print(f"affected selftest {holds}/22")
     return 0 if holds == 22 else 1
 
