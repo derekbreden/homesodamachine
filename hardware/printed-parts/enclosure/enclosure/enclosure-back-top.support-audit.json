@@ -18,10 +18,10 @@
   },
   "inputs": {
     "gcode": "plate_1.gcode",
-    "gcode_sha256": "5ada37e1d1710c0b360f2c26df441b64b074b732d6dd66a487f6ed3f9927bc95",
+    "gcode_sha256": "c4c742aef3ec5a3c6ab94bb567d0eda05ec9296bb46dd7123678d4caa8852243",
     "model": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
     "model_sha256": "9e6332fdd063d990ac3185a6d9451d03f4e61b9616ecd17239437285215013a5",
-    "profile": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top-petgf.3mf",
+    "profile": "git:366d54ba040ecc7f1465c200e63e52410ffc0d4c:hardware/printed-parts/enclosure/enclosure/enclosure-back-top-petgf.3mf",
     "profile_sha256": "dfd65a7b45ad82ac18d9091dd0420e27d1ce905c1cf5b26c8bba8b72466a78a7"
   },
   "interfaces": [
@@ -630,9 +630,13 @@
   "slicer": "BambuStudio 02.08.02.61",
   "slicer_settings": {
     "layer_height": "0.24",
+    "support_bottom_z_distance": "0.4",
+    "support_interface_bottom_layers": "2",
     "support_interface_spacing": "0.5",
     "support_interface_top_layers": "2",
+    "support_object_xy_distance": "0.6",
     "support_on_build_plate_only": "0",
+    "support_style": "default",
     "support_threshold_angle": "35",
     "support_top_z_distance": "0.4",
     "support_type": "tree(auto)"
