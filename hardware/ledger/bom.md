@@ -119,7 +119,7 @@ The appliance ships with the water filter included, mounted **external to the en
 
 ## 7. Printed mechanical parts
 
-Per-unit filament for every printed part shipped with one finished appliance, one row per part. **Every surface a customer sees is PET-GF** (Polymaker Fiberon PET-GF15): the four enclosure quadrants, the lower pump cradle and its top clamp, the ceiling panel, the display cover plate, the two-piece faucet shell and the above-counter plate. The loose collet press in the install kit is PET-GF too. **So is the cold core's own stack** — the foam shell and its four caps and lids, which carry the same fluted show skin the box does ([foam-shell/README.md](/hardware/printed-parts/cold-core/foam-shell/README.md) §The show skin) and print on the 0.8 mm tungsten-carbide nozzle rather than the exterior's 0.4 ([tools.md](/hardware/ledger/tools.md)). The small parts inside are PETG: the copper plugs, the PRV shroud, the reed bridge, the drip pan and the fuse clamp. The four syrup-wetted reservoir parts print in **PETG Translucent Clear** so the customer reads fill state through the wall, and each of the five bulkhead rings prints in the colour its station names — blue for carbonated water, white for tap water, red for CO2, and the two flavour rings in the same black as the wall, naming nothing ([`y-wall-of-back-top/_y_wall_dimensions.py`](/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py) `port_colors`); the rest print black. PET-GF15 is stocked in black alone, so a part that carries a colour prints in PETG wherever it sits — the rings and the five tube collars through an exterior face, and the nameplate's lettering in white on that same face. All PETG here is Bambu PETG Basic at one price, so colour changes what a part looks like, not what it costs. `Mass (kg)` and `$` are per-line totals (quantity included). **Mass is filament, not geometry** — a print is wall loops around a sparse grid, so the front-top's 1379 cm³ of solid comes off the plate as 456. Each row's mass is the shell plus the infill its own plate lays, taken off that part's CAD volume and surface area at the settings its print record states ([`_bom_masses.py`](/hardware/scripts/_bom_masses.py) `PROFILES`; measured plates name their committed `.3mf`, while unsliced groups remain explicit estimates), times density (PETG 1.27 g/cm³, PET-GF 1.43 g/cm³, Polymaker's own `filament_density` in `Fiberon PET-GF15 @BBL H2C`). The four reservoir parts, the faucet's three, and the collet press use 100 % infill, so those rows are their geometry. Against the two plates that have been sliced and measured the model reads −1.5 % (cold-core shell) and −11 % (front-top); the second gap is the tree supports, which are filament off the same spool and are not billed here. `hardware/scripts/_bom_masses.py` is what derives it all: it reads each row's own STEP solids, writes this Mass column and the `$` that follows from it, and `--check` is a commit gate on any change under `printed-parts/`, so a row and the part it names cannot drift apart. PETG $11.20/kg (Bambu PETG Basic Black + Translucent Clear, $224.04 ÷ 20 kg); PET-GF $25.02/kg (Polymaker Fiberon PET-GF15, $225.18 ÷ 9 kg).
+Per-unit filament for every printed part shipped with one finished appliance, one row per part. **Every surface a customer sees is PET-GF** (Polymaker Fiberon PET-GF15): the four enclosure quadrants, the lower pump cradle and its top clamp, the display cover plate, the two-piece faucet shell and the above-counter plate. The loose collet press in the install kit is PET-GF too. **So is the cold core's own stack** — the foam shell and its four caps and lids, which carry the same fluted show skin the box does ([foam-shell/README.md](/hardware/printed-parts/cold-core/foam-shell/README.md) §The show skin) and print on the 0.8 mm tungsten-carbide nozzle rather than the exterior's 0.4 ([tools.md](/hardware/ledger/tools.md)). The small parts inside are PETG: the copper plugs, the PRV shroud, the reed bridge, the drip pan and the fuse clamp. The four syrup-wetted reservoir parts print in **PETG Translucent Clear** so the customer reads fill state through the wall, and each of the five bulkhead rings prints in the colour its station names — blue for carbonated water, white for tap water, red for CO2, and the two flavour rings in the same black as the wall, naming nothing ([`y-wall-of-back-top/_y_wall_dimensions.py`](/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py) `port_colors`); the rest print black. PET-GF15 is stocked in black alone, so a part that carries a colour prints in PETG wherever it sits — the rings and the five tube collars through an exterior face, and the nameplate's lettering in white on that same face. All PETG here is Bambu PETG Basic at one price, so colour changes what a part looks like, not what it costs. `Mass (kg)` and `$` are per-line totals (quantity included). **Mass is filament, not geometry** — a print is wall loops around a sparse grid, so the front-top's 1379 cm³ of solid comes off the plate as 456. Each row's mass is the shell plus the infill its own plate lays, taken off that part's CAD volume and surface area at the settings its print record states ([`_bom_masses.py`](/hardware/scripts/_bom_masses.py) `PROFILES`; measured plates name their committed `.3mf`, while unsliced groups remain explicit estimates), times density (PETG 1.27 g/cm³, PET-GF 1.43 g/cm³, Polymaker's own `filament_density` in `Fiberon PET-GF15 @BBL H2C`). The four reservoir parts, the faucet's three, and the collet press use 100 % infill, so those rows are their geometry. Against the two plates that have been sliced and measured the model reads −1.5 % (cold-core shell) and −11 % (front-top); the second gap is the tree supports, which are filament off the same spool and are not billed here. `hardware/scripts/_bom_masses.py` is what derives it all: it reads each row's own STEP solids, writes this Mass column and the `$` that follows from it, and `--check` is a commit gate on any change under `printed-parts/`, so a row and the part it names cannot drift apart. PETG $11.20/kg (Bambu PETG Basic Black + Translucent Clear, $224.04 ÷ 20 kg); PET-GF $25.02/kg (Polymaker Fiberon PET-GF15, $225.18 ÷ 9 kg).
 
 The wetted surface is the print itself, qualified by [`wetted-surface-test.md`](/hardware/printed-parts/cold-core/reservoir/wetted-surface-test.md)'s screen against the actual syrup — no spool's resin compliance stands in for it.
 
@@ -138,12 +138,11 @@ The internal tee-carrier set is PET-GF: one carrier, two handed service tabs, an
 | Flavor reservoir body — right | 1 | PETG (translucent) | 0.382 | $4.28 <!--@printed--> |
 | Flavor reservoir cap — left | 1 | PETG (translucent) | 0.058 | $0.65 <!--@printed--> |
 | Flavor reservoir cap — right | 1 | PETG (translucent) | 0.058 | $0.65 <!--@printed--> |
-| Enclosure — front bottom + front top (two quadrants) | 1 set | PET-GF | 1.265 | $31.64 <!--@printed--> |
+| Enclosure — front bottom + front top (two quadrants) | 1 set | PET-GF | 1.266 | $31.66 <!--@printed--> |
 | Enclosure — pump cartridge + clamp (one set) | 1 set | PET-GF | 0.427 | $10.69 <!--@printed--> |
 | Tee carrier + service tabs + tab locks (five pieces) | 1 set ([5](CARRIER_PRINTS) pieces) | PET-GF | 0.023 | $0.57 <!--@printed--> |
 | Carbonator reed bridge | 1 | PETG | 0.008 | $0.09 <!--@printed--> |
-| Enclosure — back bottom + back top (two quadrants) | 1 set | PET-GF | 1.304 | $32.63 <!--@printed--> |
-| Enclosure — ceiling panel | 1 | PET-GF | 0.176 | $4.39 <!--@printed--> |
+| Enclosure — back bottom + back top (two quadrants) | 1 set | PET-GF | 1.477 | $36.95 <!--@printed--> |
 | Display cover plate | 1 | PET-GF | 0.020 | $0.50 <!--@printed--> |
 | Bulkhead ring — one per +Y-wall crossing | 5 | PETG (blue, white, red, black ×2) | 0.012 | $0.13 <!--@printed--> |
 | Tube collar — one per +Y-wall crossing | 5 | PETG (blue, white, red, black ×2) | 0.017 | $0.19 <!--@printed--> |
@@ -154,9 +153,9 @@ The internal tee-carrier set is PET-GF: one carrier, two handed service tabs, an
 | Faucet shell (2-piece: base + tip) | 1 | PET-GF | 0.194 | $4.86 <!--@printed--> |
 | Faucet display cover plate | 1 | PET-GF | 0.007 | $0.18 <!--@printed--> |
 | Above-counter plate | 1 | PET-GF | 0.015 | $0.38 <!--@printed--> |
-| **Printed parts total** | | | **~6.92** | **[$159.41](BOM_SEC7)** |
+| **Printed parts total** | | | **~6.91** | **[$159.36](BOM_SEC7)** |
 
-By material: PETG ≈ 0.99 kg / $11.07 — of which the four translucent reservoir parts are ≈ 0.88 kg / $9.85 — and PET-GF ≈ 5.93 kg / $148.35.
+By material: PETG ≈ 0.99 kg / $11.07 — of which the four translucent reservoir parts are ≈ 0.88 kg / $9.85 — and PET-GF ≈ 5.93 kg / $148.29.
 
 Each cap lid ships bolted to its cap. It is the pour clamp at [`cold-core.md`](/hardware/assembly/cold-core.md) step 3 and stays: the six M3 × 25 SHCS per face pass through lid and cap into the shell-face inserts, the CO2 line enters through the top lid's tube hole, and the top lid's outer face is the plane the whole water deck and the power column stand on. The top lid also carries the [3](CAP_CRADLES) valve cradles — four bosses printed into that face per valve that stands on it (`_cold_core_interface.cap_cradles`, [`valve-seat/`](/hardware/printed-parts/valve-seat/)) — which is why it outweighs the bottom one. The cradles are a press fit and take no screw. The top cap under it carries the [4](DECK_INSERTS) deck-mount columns, which are the cap's rotation key and the water pump's own bolt pattern: its bracket bolts down into all [4](PUMP_MOUNT_SCREWS).
 
@@ -310,7 +309,7 @@ The bonus bagged inside the install kit, with its own guide: what a buyer uses t
 | 4. CO2 subsystem | [$96.56](BOM_SEC4) |
 | 5. Refrigeration | [$142.25](BOM_SEC5) |
 | 6. Cold core insulation | [$15.62](BOM_SEC6) |
-| 7. Printed parts (PETG + PET-GF) | [$159.41](BOM_SEC7) |
+| 7. Printed parts (PETG + PET-GF) | [$159.36](BOM_SEC7) |
 | 8. Flavor subsystem | [$225.90](BOM_SEC8) |
 | 9. Dispensing | [$63.27](BOM_SEC9) |
 | 10. UI | [$0.00](BOM_SEC10) |
@@ -318,7 +317,7 @@ The bonus bagged inside the install kit, with its own guide: what a buyer uses t
 | 12. Level sensing | [$37.50](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$13.62](BOM_SEC13) |
 | 14. Cold kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,402.01](BOM_GRAND)** |
+| **Total** | **[$1,401.96](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 
