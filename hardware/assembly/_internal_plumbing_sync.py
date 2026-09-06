@@ -66,7 +66,7 @@ def main():
     # The loops a tie is picked by on this path, off the hull `enclosure` states for its own ribs
     # and the seats the pack actually bored. Every rib holding a RUN is bored for the one stock,
     # so the runs answer with one figure and each anchored BODY with its own.
-    _run_seats = {round(r, 6) for *_s, r in _f.pack["tube_anchors"]}
+    _run_seats = {round(s[3], 6) for s in _f.pack["tube_anchors"]}
     if len(_run_seats) != 1:
         raise ValueError(
             f"the box's run anchors are bored at {sorted(_run_seats)}. This procedure quotes one "

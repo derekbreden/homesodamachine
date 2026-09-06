@@ -60,29 +60,29 @@
       "support_bodies": [
         {
           "tree": "tree-1",
-          "name": "a tap-water rib's tie-band flank or lobe floor; an ASSE round seat's lower arc; the flow-regulator rib's tie-band flank; …",
+          "name": "an ASSE round seat's lower arc; the pan sleeve's lid; the rim rebate's shoulders; …",
           "first_contacts_cad_xyz_mm": [
-            [
-              -101.4,
-              223.9,
-              329.36,
-              -90.2,
-              226.3,
-              329.84
-            ],
             [
               -81.8,
               341.1,
               325.52,
-              -77.0,
+              -78.2,
               355.1,
               326.24
+            ],
+            [
+              -97.8,
+              345.9,
+              303.68,
+              -51.0,
+              436.3,
+              304.16
             ]
           ],
           "root": "bed",
-          "build_up_mm": 24.96,
-          "interface_islands": 9,
-          "rationale": "Roots on the plate, outside the bedded piece or through one of its openings and reaches 9 contact(s): a tap-water rib's tie-band flank or lobe floor, an ASSE round seat's lower arc, the flow-regulator rib's tie-band flank, the pan sleeve's lid, the rim rebate's shoulders, the drip pan's berth floor, the flavour line's anchor flank. Each is a face that is flat because a mating part or a body stands on it, or a bridge the piece's own contract keeps square; back-top prints on its ceiling, so these are the faces that look print-down and carry themselves no other way."
+          "build_up_mm": 28.56,
+          "interface_islands": 4,
+          "rationale": "Roots on the plate, outside the bedded piece or through one of its openings and reaches 4 contact(s): an ASSE round seat's lower arc, the pan sleeve's lid, the rim rebate's shoulders, the drip pan's berth floor. Each is a face that is flat because a mating part or a body stands on it, or a bridge the piece's own contract keeps square; back-top prints on its ceiling, so these are the faces that look print-down and carry themselves no other way."
         },
         {
           "tree": "tree-2",
@@ -158,6 +158,50 @@
         },
         {
           "tree": "tree-6",
+          "name": "the flow-regulator rib's tie-band flank; a tap-water rib's tie-band flank or lobe floor; the drip pan's berth floor; …",
+          "first_contacts_cad_xyz_mm": [
+            [
+              -93.4,
+              219.9,
+              312.32,
+              -91.0,
+              229.9,
+              312.8
+            ],
+            [
+              -101.0,
+              251.1,
+              301.28,
+              -90.2,
+              253.5,
+              301.76
+            ]
+          ],
+          "root": "bed",
+          "build_up_mm": 42.0,
+          "interface_islands": 4,
+          "rationale": "Roots on the plate, outside the bedded piece or through one of its openings and reaches 4 contact(s): the flow-regulator rib's tie-band flank, a tap-water rib's tie-band flank or lobe floor, the drip pan's berth floor, the flavour line's anchor flank. Each is a face that is flat because a mating part or a body stands on it, or a bridge the piece's own contract keeps square; back-top prints on its ceiling, so these are the faces that look print-down and carry themselves no other way."
+        },
+        {
+          "tree": "tree-7",
+          "name": "a tap-water rib's tie-band flank or lobe floor",
+          "first_contacts_cad_xyz_mm": [
+            [
+              -101.0,
+              223.9,
+              329.36,
+              -91.4,
+              226.3,
+              329.84
+            ]
+          ],
+          "root": "model",
+          "build_up_mm": 12.48,
+          "interface_islands": 1,
+          "rationale": "Roots on the ceiling slab's interior face and reaches 1 contact(s): a tap-water rib's tie-band flank or lobe floor. Each is a face that is flat because a mating part or a body stands on it, or a bridge the piece's own contract keeps square; back-top prints on its ceiling, so these are the faces that look print-down and carry themselves no other way."
+        },
+        {
+          "tree": "tree-8",
           "name": "an identification-chip pocket's lower arc",
           "first_contacts_cad_xyz_mm": [
             [
@@ -183,12 +227,12 @@
           "rationale": "Roots on the plate, outside the bedded piece or through one of its openings and reaches 2 contact(s): an identification-chip pocket's lower arc. Each is a face that is flat because a mating part or a body stands on it, or a bridge the piece's own contract keeps square; back-top prints on its ceiling, so these are the faces that look print-down and carry themselves no other way."
         },
         {
-          "tree": "tree-7",
+          "tree": "tree-9",
           "name": "an ASSE round seat's lower arc",
           "first_contacts_cad_xyz_mm": [
             [
               -81.4,
-              393.5,
+              393.9,
               323.6,
               -78.2,
               407.5,
@@ -201,7 +245,7 @@
           "rationale": "Roots on the ceiling slab's interior face and reaches 1 contact(s): an ASSE round seat's lower arc. Each is a face that is flat because a mating part or a body stands on it, or a bridge the piece's own contract keeps square; back-top prints on its ceiling, so these are the faces that look print-down and carry themselves no other way."
         },
         {
-          "tree": "tree-8",
+          "tree": "tree-10",
           "name": "an identification-chip pocket's lower arc; the keystone pocket's floor",
           "first_contacts_cad_xyz_mm": [
             [
@@ -227,7 +271,7 @@
           "rationale": "Roots on the plate, outside the bedded piece or through one of its openings and reaches 4 contact(s): an identification-chip pocket's lower arc, the keystone pocket's floor. Each is a face that is flat because a mating part or a body stands on it, or a bridge the piece's own contract keeps square; back-top prints on its ceiling, so these are the faces that look print-down and carry themselves no other way."
         },
         {
-          "tree": "tree-9",
+          "tree": "tree-11",
           "name": "the C14 aperture and flange-pocket floor; an identification-chip pocket's lower arc; the nameplate bar's top; …",
           "first_contacts_cad_xyz_mm": [
             [
@@ -242,7 +286,7 @@
               -1.8,
               465.5,
               318.56,
-              7.0,
+              6.6,
               467.9,
               319.28
             ]
@@ -253,7 +297,7 @@
           "rationale": "Roots on the plate, outside the bedded piece or through one of its openings and reaches 6 contact(s): the C14 aperture and flange-pocket floor, an identification-chip pocket's lower arc, the nameplate bar's top, the PSU's aft-lower insert bore's lower arc, the nameplate pocket's lower rim. Each is a face that is flat because a mating part or a body stands on it, or a bridge the piece's own contract keeps square; back-top prints on its ceiling, so these are the faces that look print-down and carry themselves no other way."
         },
         {
-          "tree": "tree-10",
+          "tree": "tree-12",
           "name": "the regulator rib's tie-band crown",
           "first_contacts_cad_xyz_mm": [
             [
@@ -271,7 +315,7 @@
           "rationale": "Roots on the ceiling slab's interior face and reaches 1 contact(s): the regulator rib's tie-band crown. Each is a face that is flat because a mating part or a body stands on it, or a bridge the piece's own contract keeps square; back-top prints on its ceiling, so these are the faces that look print-down and carry themselves no other way."
         },
         {
-          "tree": "tree-11",
+          "tree": "tree-13",
           "name": "a Y-seam pin's top",
           "first_contacts_cad_xyz_mm": [
             [

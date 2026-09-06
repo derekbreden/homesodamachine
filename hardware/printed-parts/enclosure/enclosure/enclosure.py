@@ -2560,7 +2560,7 @@ def _dims(pack):
     bt_y0 = y_joint + lip_len + z_lip_y_margin
     bt_z0 = splits[1] + z_rise
     lanes = ([(sy - hy, sy + hy, sz - hz, sz + hz)
-              for _sd, sy, sz, size, _cz, _supportless_roof in pack.side_wells
+              for _sd, sy, sz, size, *_rest in pack.side_wells
               for hy, hz in (wago_half(size),)]
              + [(by0, by1, bz0, bz1) for _bx0, _bx1, by0, by1, bz0, bz1 in pack.pan_sleeve[0]])
     relieved_names = {who for who, _side, _y0, _y1, _z0, _z1
@@ -5291,7 +5291,7 @@ def _ceiling_tie_reliefs(box, lane):
             pockets.append(_ybox(x_axis - reach, x_axis + reach,
                                  mid - tie_cav_w / 2.0, mid + tie_cav_w / 2.0,
                                  face - 1.0, lane))
-    for mid, u, n, seat_r in (box.pack.tube_anchors or ()):
+    for mid, u, n, seat_r, *_stand in (box.pack.tube_anchors or ()):
         if tuple(int(round(c)) for c in n) != (0, 0, 1):
             continue
         origin = tuple(mid[k] - u[k] * tube_anchor_len / 2.0 for k in range(3))
@@ -6804,10 +6804,12 @@ def _side_wells(solid, inner, stations, y0, y1, z0, z1, up=1.0):
     height band that piece owns — the same band test `_east_bosses` makes, so a well lands
     whole in the piece whose wall carries it.
 
-    Each station is `(side, y, z, size, clear_z, supportless_roof)`: which flank the well is
-    grown on (+1 east, −1 west), its centre on that wall, the 221 it takes, the plane on the
-    tower's print-down side its wedge may not cross, and which of the two lid forms the pocket's
-    print-down face keeps.
+    Each station is `(side, y, z, size, clear_z, supportless_roof[, column])`: which flank the
+    well is grown on (+1 east, −1 west), its centre on that wall, the 221 it takes, the plane on
+    the tower's print-down side its wedge may not cross, which of the two lid forms the pocket's
+    print-down face keeps, and — where the assembly has read the air from the tower's print-down
+    face to `clear_z` and found no placed body in it — that the tower STANDS ON THAT PLANE as a
+    column, its own section carried straight to it, instead of wearing a wedge.
 
     `up` IS THE PIECE'S PRINT-UP in machine Z, +1.0 where the piece beds on its machine Z− face
     and −1.0 where it beds on its Z+ face. Every face this builder carries is carried on the
@@ -6848,7 +6850,7 @@ def _side_wells(solid, inner, stations, y0, y1, z0, z1, up=1.0):
         key=lambda s: (s[0], s[2], s[4] is None, 0.0 if s[4] is None else s[4], s[5], s[1]))
     rows = []
     for st in mine:
-        side, sy, sz, size, clear_z, supportless_roof = st
+        side, sy, sz, size, clear_z, supportless_roof = st[:6]
         key = (side, sz, clear_z, supportless_roof)
         if rows and rows[-1][0] == key and sy - rows[-1][1][-1][1] <= wago_pitch + 1e-6:
             rows[-1][1].append(st)
@@ -6865,16 +6867,22 @@ def _side_wells(solid, inner, stations, y0, y1, z0, z1, up=1.0):
         yb = max(st[1] + wago_half(st[3])[0] for st in row)
         solid = solid.fuse(_ybox(tower[0], tower[1], ya, yb, sz - half_z, sz + half_z))
         # the wedge is folded on the tower's print-down face and runs away from the tower,
-        # toward `clear_z`, as far as it may
+        # toward `clear_z`, as far as it may — or, where every well in the row has read that air
+        # clear, the tower's own section goes straight on to `clear_z` and stands on it
         zb = sz - up * half_z
-        run = engage if clear_z is None else min(engage, up * (zb - clear_z))
+        column = clear_z is not None and all(len(s) > 6 and s[6] for s in row)
+        if column and up * (zb - clear_z) > 1e-6:
+            solid = solid.fuse(_ybox(tower[0], tower[1], ya, yb, *sorted((zb, clear_z))))
+            run = 0.0
+        else:
+            run = engage if clear_z is None else min(engage, up * (zb - clear_z))
         if run > 0.3:
             prof = [(face, zb), (face - side * engage, zb)]
             if run < engage - 1e-9:
                 prof.append((face - side * (engage - run), zb - up * run))
             prof.append((face, zb - up * run))
             solid = solid.fuse(_xz_prism(ya, yb, prof))
-        for _side, sy, _sz, size, _clear_z, _supportless_roof in row:
+        for _side, sy, _sz, size, _clear_z, _supportless_roof in (s[:6] for s in row):
             reach = wago_engage(size) + 1.0
             pocket = sorted((face, face - side * reach))
             stand_y, stand_z, _sx = wago_stand(size)
@@ -7763,12 +7771,14 @@ def _asse_cradle(solid, inner, station, y0, y1, z0, z1, up=1.0):
     carries that underside whole, and under a bored section, where the block reaches further east
     than any wedge off this wall may stand without meeting what hangs off the chain, it carries
     what it reaches. Printed ceiling-down (`up < 0`) the underside looks print-up and the block's
-    TOP looks print-down. Outside the tie channel's span a 45° wedge carries it from the V's upper
-    arris (or the bore's crossing of the top) back to the wall, rising into the slab and the
-    chain's own pocket, where nothing stands west of the arris. Over the span the loop needs that
-    room, so the wedge is absent and the web between the cavity and the V is chamfered at 45° down
-    into the cavity instead: the web's top is a slope the print lays on itself and a funnel the
-    loop drops through. The two round seats' lower arcs look print-down inside their bores and are
+    TOP looks print-down — and the slab it prints from is right there over it. Outside the tie
+    channel's span the block goes on up as a COLUMN, from the V's upper arris (or the bore's
+    crossing of the top) back to the wall and up to the lane, standing on the slab through the
+    chain's own pocket: nothing west of the arris stands in that air, so nothing over the block
+    looks print-down and no wedge is asked to carry it. Over the span the loop needs that room, so
+    the column is absent and the web between the cavity and the V is chamfered at 45° down into
+    the cavity instead: the web's top is a slope the print lays on itself and a funnel the loop
+    drops through. The two round seats' lower arcs look print-down inside their bores and are
     supported faces. The V's own two flanks stand 30° off vertical and carry themselves either way.
 
     NOTHING HERE HOLDS THE CHAIN UP. The V does that, on two faces of a section machined into the
@@ -7817,7 +7827,7 @@ def _asse_cradle(solid, inner, station, y0, y1, z0, z1, up=1.0):
                                      [(foot, z_axis - dn), (inner[0], z_axis - dn),
                                       (inner[0], z_axis - dn - corbel)]))
     else:
-        # THE WEDGES OVER THE TOP, section by section, outside the tie channel's span; over the
+        # THE COLUMNS OVER THE TOP, section by section, outside the tie channel's span; over the
         # span, the web's chamfer into the cavity. The cavity's east face at the top is the V's
         # apex stood off one `wall`, `rise` up the flank.
         cav_east = apex - wall / math.sin(math.radians(asse_v_half)) + rise * run
@@ -7827,14 +7837,14 @@ def _asse_cradle(solid, inner, station, y0, y1, z0, z1, up=1.0):
                 lip = sapex + rise * run
             else:
                 lip = x_axis - (math.sqrt(seat_r ** 2 - rise ** 2) if seat_r > rise else 0.0)
-            # The wedge climbs from the lip to the lane and no further: what stands over the
-            # lane is the top wall, and the piece's silhouette is already cut when this fuses.
-            climb = min(lip - inner[0], lane - top)
+            # The column stands from the block's top to the lane and no further: what stands
+            # over the lane is the top wall, and the piece's silhouette is already cut when this
+            # fuses. Its east face is the lip's own vertical, so the block's section is one
+            # rectangle from the seat's arris to the slab.
+            climb = lane - top
             for wy0, wy1 in ((sy0, min(sy1, tie_y0)), (max(sy0, tie_y1), sy1)):
                 if wy1 - wy0 > 1e-6 and climb > 1e-6:
-                    solid = solid.fuse(_xz_prism(wy0, wy1, [
-                        (lip, top), (inner[0], top), (inner[0], top + climb),
-                        (lip - climb, top + climb)]))
+                    solid = solid.fuse(_ybox(inner[0], lip, wy0, wy1, top, top + climb))
             cy0, cy1 = max(sy0, tie_y0), min(sy1, tie_y1)
             if cy1 - cy0 > 1e-6 and lip > cav_east + 1e-6:
                 web = lip - cav_east
@@ -8243,6 +8253,89 @@ def _anchor_corbel(origin, u, n, length, a_hang, b_root, deep):
     )
 
 
+def _anchor_column(origin, u, n, length, a0, a1, b_root, b_lo=0.0):
+    """The column on the print-down side of a rib's flank — the flank's own section from the
+    root face `b_lo` toward the axis plane (0.0 is the whole section), carried on from the flank
+    at `a0` to the face the print grows from at `a1`, so the rib stands on that face and nothing
+    of this end looks print-down over what the column covers."""
+    lo, hi = sorted((a0, a1))
+    return (
+        cq.Workplane(_anchor_plane(origin, u, n))
+        .polyline(_ring([(lo, b_lo), (hi, b_lo), (hi, b_root), (lo, b_root)]))
+        .wire()
+        .extrude(length)
+        .val()
+    )
+
+
+def tube_anchor_end_columns(station, roots, lane, up, face_z, depth=None):
+    """The two world-aligned boxes a rib's end webs would stand in as columns — from the flank
+    that looks print-down to the plane `face_z`, the piece's own print-bed face — or None for an
+    end that has no such column: a rib whose flanks are level, whose tube runs along the build
+    axis, or whose print-down flank does not look toward `face_z`. `depth` is how far off the
+    root face the column stands, None for the flank's whole section to the axis plane and
+    `tube_anchor_corbel_depth(station, roots, lane)` for the footprint the corbel would have
+    had. `station` is `(mid, u, n, seat_r)` as `_tube_anchors` reads it, `roots` and `lane` the
+    piece's root faces and the box's own, and the boxes are struck the way that builder strikes
+    the rib; the assembly reads each against the pack to say which end stands (`stand`)."""
+    mid, u, n, seat_r = station[:4]
+    face = _ROOT_FACE.get(tuple(int(round(c)) for c in n))
+    if face is None:
+        return (None, None)
+    sign = 1.0 if face % 2 else -1.0
+    b_face = (roots[face] - mid[face // 2]) * sign
+    b_lane = (lane[face] - mid[face // 2]) * sign
+    reach = seat_r + wall
+    b_crown = seat_r + wall
+    b_root = b_lane if (b_face < b_lane - 1e-9 and b_face - b_crown < tie_t) else b_face
+    t = (n[1] * u[2] - n[2] * u[1], n[2] * u[0] - n[0] * u[2], n[0] * u[1] - n[1] * u[0])
+    if abs(abs(t[2]) - 1.0) > 1e-6:
+        return (None, None)
+    a_hang = math.copysign(reach, -up * t[2])
+    a_face = (face_z - mid[2]) / t[2]
+    if abs(a_face) <= abs(a_hang) + 1e-6 or (a_face > 0) != (a_hang > 0):
+        return (None, None)
+    origin = tuple(mid[k] - u[k] * tube_anchor_len / 2.0 for k in range(3))
+    b_lo = 0.0 if depth is None else max(0.0, b_root - depth)
+    out = []
+    for s0, s1 in ((0.0, tie_cav_wall), (tie_cav_wall + tie_cav_w, tube_anchor_len)):
+        pts = [tuple(origin[k] + u[k] * s + n[k] * b + t[k] * a for k in range(3))
+               for s in (s0, s1) for b in (b_lo, b_root) for a in (a_hang, a_face)]
+        out.append(tuple(min(p[k] for p in pts) for k in range(3))
+                   + tuple(max(p[k] for p in pts) for k in range(3)))
+    return tuple(out)
+
+
+def tube_anchor_corbel_depth(station, roots, lane):
+    """How far off the root face a rib's corbel would stand — `tube_anchor_corbel_reach` past
+    the box's own lane, capped at the rib's depth — which is also the footprint a column may
+    take where the flank's whole section cannot."""
+    mid, _u, n, _seat_r = station[:4]
+    face = _ROOT_FACE.get(tuple(int(round(c)) for c in n))
+    if face is None:
+        return None
+    sign = 1.0 if face % 2 else -1.0
+    b_face = (roots[face] - mid[face // 2]) * sign
+    b_lane = (lane[face] - mid[face // 2]) * sign
+    b_crown = station[3] + wall
+    b_root = b_lane if (b_face < b_lane - 1e-9 and b_face - b_crown < tie_t) else b_face
+    return min(b_root, b_root - b_lane + tube_anchor_corbel_reach)
+
+
+def back_top_frames():
+    """Back-top's `(roots, lane)` off stated figures alone — the box's interior the pack is struck
+    against, and the faces this piece presents (`piece_root_faces`) — for a reader with no built
+    Box, struck the way `back_top_ceiling_stock` is."""
+    ix0, ix1 = interior_x()
+    lane = (ix0, ix1, y_seam, rear_plane_y, z_seam, appliance_height - floor_t - wall)
+    return piece_root_faces(lane, "back", "top"), lane
+
+
+def back_top_owns(point):
+    """Whether a station at `point` stands in back-top's band — aft of the Y seam, above the Z."""
+    return point[1] > y_seam and point[2] > z_seam
+
+
 def _anchor_band_gable(origin, u, n, s0, s1, b_crown, depth, a_reach):
     """The gable a rib's crown wears over its tie band on a piece whose crown looks print-down:
     two 45° faces rising off the crown at the band's middle to the end webs' inner faces,
@@ -8297,26 +8390,36 @@ def _tube_anchors(solid, roots, lane, stations, y0, y1, z0, z1, up=1.0):
     either the root face or that backing is its roof — neither is cut, so there is no cutter face
     to graze the opening.
 
-    A FLANK THAT LOOKS PRINT-DOWN CARRIES A CORBEL — a 45 degree wedge rooted on the same face
-    the rib is, growing off that face into `tube_anchor_corbel_reach`. A rib whose axis stands
+    A FLANK THAT LOOKS PRINT-DOWN STANDS ON THE FACE THE PRINT GROWS FROM, AND ONLY WHERE IT
+    CANNOT CARRIES A CORBEL. A station's fifth entry, `stand`, names per end web `(plane, depth)`:
+    the plane that end stands on — the piece's own print-bed face, where the air from the flank
+    to that face is free of every placed body (`enclosure_assembly.stand_anchors` reads it
+    against the pack) — and how far off the root face the column stands, None for the flank's
+    whole section where that air is free and the corbel's own depth where only that much is; or
+    None for the end where a body stands even in that. An end that stands goes on as a COLUMN:
+    the flank's section over that depth, straight to that plane (`_anchor_column`), so nothing
+    of it looks print-down there. An end that cannot takes a 45 degree wedge rooted on the same face the
+    rib is, growing off that face into `tube_anchor_corbel_reach`: a rib whose axis stands
     inside that band is a triangle, `b_root` deep at the root face and nothing at the tube's axis
     plane; a deeper one is a truncated wedge, out to the band's edge and no further, and the deep
     end of its flank keeps its flat. `up` is the piece's print up along the box's Z, ±1, and
     which flank hangs comes off the profile's own `a` axis read against it — the flank whose
     outward looks along −`up`. A rib rooted on the floor or the ceiling, or with its tube running
-    along the build axis, has neither flank down and takes none; a rib rooted on the face the
+    along the build axis, has neither flank down and takes neither; a rib rooted on the face the
     piece beds on — a ceiling-rooted rib on a piece printed ceiling-down — stands on the slab
-    with its seat an upward-opening cradle in the print. The corbel stands over the same two
-    `tie_cav_wall` ends and stops at the tie band, because the tie comes down that flank to the
-    axis plane over `tie_cav_w` and a corbel there is the one path it has closed. The band of
-    flank between the two corbels bridges.
+    with its seat an upward-opening cradle in the print. Column and corbel alike stand over the
+    same two `tie_cav_wall` ends and stop at the tie band, because the tie comes down that flank
+    to the axis plane over `tie_cav_w` and material there is the one path it has closed. The
+    band of flank between the two ends bridges.
 
     THE ZIP TIE CLOSES ROUND THE TUBE AND THE RIB'S OWN BACK TOGETHER: through the cavity, out one
     flank, round the far side of the tube and back in the other. What it pulls is the tube into
     the bore, and the bore is what says where the tube is."""
     if not stations:
         return solid
-    for mid, u, n, seat_r in stations:
+    for station in stations:
+        mid, u, n, seat_r = station[:4]
+        stand = tuple(station[4]) if len(station) > 4 and station[4] else (None, None)
         face = _ROOT_FACE.get(tuple(int(round(c)) for c in n))
         if face is None:
             raise ValueError(
@@ -8374,10 +8477,23 @@ def _tube_anchors(solid, roots, lane, stations, y0, y1, z0, z1, up=1.0):
             solid = solid.cut(_anchor_rib(band, u, n, tie_cav_w,
                                           reach + tie_t + tie_cav_buffer, b_face, b_lane))
         rib = _anchor_rib(origin, u, n, tube_anchor_len, reach, 0.0, b_crown)
-        for s0, s1 in ((0.0, tie_cav_wall), (tie_cav_wall + tie_cav_w, tube_anchor_len)):
+        for w, (s0, s1) in enumerate(((0.0, tie_cav_wall),
+                                      (tie_cav_wall + tie_cav_w, tube_anchor_len))):
             end = tuple(origin[k] + u[k] * s0 for k in range(3))
             rib = rib.fuse(_anchor_rib(end, u, n, s1 - s0, reach, b_crown, b_root))
-            if a_hang is not None and corbel > 1e-9:
+            if a_hang is None:
+                continue
+            if stand[w] is not None and abs(abs(t[2]) - 1.0) < 1e-6:
+                # THIS END STANDS ON THE PRINT-BED FACE `stand` NAMES: the flank's section, over
+                # the depth named, goes straight on to that plane in the direction the
+                # print-down flank looks.
+                plane, depth = stand[w]
+                a_face = (plane - mid[2]) / t[2]
+                b_lo = 0.0 if depth is None else max(0.0, b_root - depth)
+                if abs(a_face) > abs(a_hang) + 1e-6 and (a_face > 0) == (a_hang > 0):
+                    rib = rib.fuse(_anchor_column(end, u, n, s1 - s0, a_hang, a_face, b_root, b_lo))
+                continue
+            if corbel > 1e-9:
                 rib = rib.fuse(_anchor_corbel(end, u, n, s1 - s0, a_hang, b_root, corbel))
         # THE CROWN WEARS A GABLE OVER THE TIE BAND WHERE IT WOULD LOOK PRINT-DOWN AS A FLAT. On a
         # rib rooted on the face the print grows from, the crown between the two end webs is a
@@ -9438,7 +9554,7 @@ def main():
     # section that body offers, so the radii are as many as the pack has kinds of seat. The
     # smallest is the runs' own and the largest is the widest body's, and a zip tie cut to the
     # largest closes on every one of them — which is what the table quotes.
-    seats = sorted({round(r, 6) for *_s, r in (box.pack.tube_anchors or ())})
+    seats = sorted({round(s[3], 6) for s in (box.pack.tube_anchors or ())})
     if not seats:
         raise ValueError(
             "the box bores no tube anchor at all, and the zip tie table quotes a loop for them. "

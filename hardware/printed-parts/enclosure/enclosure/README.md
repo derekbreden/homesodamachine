@@ -312,9 +312,10 @@ D-shaped and whole across their holes. `east-boss-corbels` reads all 17 stations
 the installed bodies and records the full-width, split and held-back populations.
 
 The five Wago wells on the same wall are carried the same way (`enclosure._side_wells`). The
-row's tower stands its 45° wedge on its machine-top face, climbing to the wall and cut off flat
-at the ceiling slab's interior face (`enclosure.back_top_ceiling_face`), which is the piece's
-own stock. Each pocket keeps its two `wago_roof_tab` tabs on its floor, with the 45° ramp folded
+row's tower stands on the ceiling slab's interior face (`enclosure.back_top_ceiling_face`) as a
+column: the air over its machine-top face is free of every placed body
+(`enclosure_assembly.stand_wells`), so the tower's own section goes straight up to the slab,
+and the three-well row on the −X wall stands the same way. Each pocket keeps its two `wago_roof_tab` tabs on its floor, with the 45° ramp folded
 on the wall between them, and the complete `wago_well_wall` section on its roof; the lug rests
 on the two tabs and the wall's press fit locates it.
 
@@ -600,8 +601,19 @@ The two other costs remain **independent readings**, not terms collapsed into a 
 A candidate which removes a whole separate support that was both short and rooted on model
 material wins on every count at once, and is the strongest fix the audit can name.
 
-Down-facing geometry is changed before support is accepted. A corbel, chamfer or tangent
-teardrop follows the exact feature it carries and reaches its whole supported face; it is not a
+Down-facing geometry is changed before support is accepted. On a piece printed with its
+ceiling on the bed the ground is right there, and a print-down face is carried by a **column**
+before it is carried by a corbel: the air between the face and the slab filled, with vertical
+walls, wherever no placed body stands in that air. The ASSE anchor's end sections are the
+example — the block goes on up from the V's arris to the slab pocket's roof as one rectangle,
+where a 45° wedge from the arris to the roof leaves a triangle of air nothing needed.
+`wedge-fills` reads every print-down slope on back-top against the pack: each is under a body
+or within a millimetre of one, in a room `enclosure_assembly.KEPT_WEDGES` names — a zip tie's
+loop over a crown, a screw head's pass, the cable clip's stated profile — or a wedge a column
+could replace, which the bound names with the viewer's pick text. Tube-anchor end webs and
+Wago towers carry the same reading in their stations (`stand`, `column`), decided against the
+placed bodies. A corbel, chamfer or tangent teardrop is what remains where a column does not
+fit; it follows the exact feature it carries and reaches its whole supported face, and is not a
 generic triangle merely placed nearby. A corbel that reaches only part of its face is read by
 what it leaves: the remainder is a supported face still, and the corbel's end is one more
 printed wall that support has to come away from. A partial corbel therefore stands where it
@@ -666,7 +678,7 @@ exterior settings of `enclosure-front-top-petgf.3mf` around their own mesh — t
 | `enclosure-front-top` | 3 | 4 | bed | 55.60 mm |
 | `enclosure-back-bottom` | 2 | 3 | 1 bed, **1 model** | **6.00 mm** |
 | `enclosure-front-bottom` | 4 | 4 | 2 bed, **2 model** | **8.00 mm** |
-| `enclosure-back-top` | 11 | 28 | 6 bed, **5 model** | **1.44 mm** |
+| `enclosure-back-top` | 13 | 28 | 7 bed, **6 model** | **1.44 mm** |
 
 **One piece slices clean, and five bodies are the campaign's open work.**
 `enclosure-pump-cartridge` emits no support at all. On the pump cap and front-top, every body
@@ -680,7 +692,7 @@ into two interface islands. The other three have no such lane and root on the ar
 under-flare **8.00 mm** below the catch they carry: front-bottom's pair and back-bottom's east
 catch are the only material-rooted bodies outside the 15 mm band.
 
-Back-top prints on its ceiling, so what a support reaches there is the set of faces that look print-down and cannot carry themselves: the drip pan's berth floor and its sleeve's lid, the nameplate bar's top and the pocket's lower rim, the upper Y-seam pins' tops, the C14's aperture and flange-pocket floors, the keystone pocket's floor, the tap-water ribs' tie-band flanks and the regulator rib's crown, the Z-seam grooves' lands, the ASSE anchor's two round seats and its tie channel's overrun, and the identification-chip pockets' lower arcs on the rear face. The slice reaches them with **11 bodies** over **28 islands**, 6 rooted on the plate around the bedded piece — fore of its mouth, behind its rear face, through the funnel's opening — and 5 on the slab's interior face, which is that piece's own first layers; the shortest build-up is **1.44 mm**, under the regulator rib's 3.5 mm crown band, the one tie band with no room for a gable. The reading is this project's: tree(auto) supports at a 35° threshold, 0.4 mm top and bottom Z distances, 0.6 mm from the object in XY and two interface layers, all carried in the reading's `slicer_settings`; a plate sliced with other support settings is audited again against that project. Back-bottom's two slide-head bodies carry the ridge's 1 mm land: the west run from the bed through the PRV passage and the east from the arm's under-flare **6.00 mm** below. The three slide-head bodies on the two bottoms are the places the support campaign still names.
+Back-top prints on its ceiling, so what a support reaches there is the set of faces that look print-down and cannot carry themselves: the drip pan's berth floor and its sleeve's lid, the nameplate bar's top and the pocket's lower rim, the upper Y-seam pins' tops, the C14's aperture and flange-pocket floors, the keystone pocket's floor, the tap-water ribs' tie-band flanks and the regulator rib's crown, the Z-seam grooves' lands, the ASSE anchor's two round seats and its tie channel's overrun, and the identification-chip pockets' lower arcs on the rear face. The slice reaches them with **13 bodies** over **28 islands**, 7 rooted on the plate around the bedded piece — fore of its mouth, behind its rear face, through the funnel's opening — and 6 on the slab's interior face, which is that piece's own first layers; the shortest build-up is **1.44 mm**, under the regulator rib's 3.5 mm crown band, the one tie band with no room for a gable. The reading is this project's: tree(auto) supports at a 35° threshold, 0.4 mm top and bottom Z distances, 0.6 mm from the object in XY and two interface layers, all carried in the reading's `slicer_settings`; a plate sliced with other support settings is audited again against that project. Back-bottom's two slide-head bodies carry the ridge's 1 mm land: the west run from the bed through the PRV passage and the east from the arm's under-flare **6.00 mm** below. The three slide-head bodies on the two bottoms are the places the support campaign still names.
 
 ## Print orientation + corner relief
 
@@ -689,9 +701,11 @@ floor slab, front-top mouth-down on its seam rim — and back-top prints on its
 **Z+ face**, its ceiling on the bed. The build axis is the box's own Z on every
 piece and the sign is the piece's (`enclosure.print_up`): where it is +Z the face
 that hangs is the one looking **down**, where it is −Z the one looking **up**, and
-every 45° relief on this box is struck on the side that hangs for its piece — a
-corbel under a floor on one piece is a corbel over a crown on the other. Faces at
-45° print either way. The anti-warp relief goes on the arrises
+every 45° relief on this box is struck on the side that hangs for its piece, and on
+back-top a face that hangs with only free air between it and the slab is carried by a
+column standing on the slab instead (`wedge-fills`): a corbel under a floor on a
+mouth-down piece is, on the ceiling-down one, a column where a column fits and a wedge
+over the crown only where a placed body stands in its air. Faces at 45° print either way. The anti-warp relief goes on the arrises
 that run along the build axis: the box's four **standing verticals**, rounded to match the foam
 shell's 12 mm outer radius — concentric inner one wall in, so the wall is
 preserved.
@@ -801,11 +815,11 @@ adds no supported face to the ceiling-down back-top print. The plate's continuou
 service loop between this fixed clip and the open pan.
 
 The **ASSE anchor** one storey above it looks print-down on its top. Outside the zip ties'
-span a 45° wedge carries that top from the V's upper arris, or the bore's crossing of it, back to
-the wall and up to the lane, where it fuses into the slab and the chain's own pocket; over the
-span the wedge is absent so the loop has its room, and the web between the tie cavity and the V
-is chamfered at 45° down into the cavity, a slope the print lays on itself and a funnel the loop
-drops through. Its two 60° seat flanks stand 30° off vertical and lay on themselves either way;
+span the block goes on up as a column, from the V's upper arris, or the bore's crossing of it,
+back to the wall and straight to the lane — the slab pocket's roof, the piece's own first
+layers — so nothing over it looks print-down; over the span the column is absent so the loop has
+its room, and the web between the tie cavity and the V is chamfered at 45° down into the cavity,
+a slope the print lays on itself and a funnel the loop drops through. Its two 60° seat flanks stand 30° off vertical and lay on themselves either way;
 the two round seats' lower arcs look print-down inside their bores and are supported faces.
 Behind the anchor, one channel spans both zip-tie bands: its fore and aft end faces remain
 `tie_cav_wide_w` wide about their tie centres, the volume between them is open, and its top

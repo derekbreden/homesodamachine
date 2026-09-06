@@ -372,6 +372,7 @@ genrule(
         "pysrc/hardware/scripts/_measuring.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/pick_text.py",
         "pysrc/marketing/_install_envelope_sync.py",
         "pysrc/tools/docgen/__init__.py",
     ] + glob(
@@ -11627,6 +11628,14 @@ genrule(
     name = "pysrc-5701c949a45d",
     srcs = ["hardware/scripts/flute_payload_faucet.py"],
     outs = ["pysrc/hardware/scripts/flute_payload_faucet.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-65c5cdc79a3b",
+    srcs = ["hardware/scripts/pick_text.py"],
+    outs = ["pysrc/hardware/scripts/pick_text.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )

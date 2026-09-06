@@ -3573,9 +3573,11 @@ def wago_wells(row, cluster, over):
     `enclosure.print_up("back", "top")`: printing machine −Z up, the row's wedge stands over the
     tower and that plane is the ceiling slab's interior face
     (`enclosure.back_top_ceiling_face`) — the piece's own stock, which the wedge is cut off flat
-    against; printing machine +Z up, the wedge hangs under the tower and the plane is `over`,
-    the crown of the brick the row runs along. A cluster well carries None because its wall is
-    open on that side of it."""
+    against, and the plane the tower stands on as a column where `stand_wells` reads the air to
+    it free; printing machine +Z up, the wedge hangs under the tower and the plane is `over`,
+    the crown of the brick the row runs along. A cluster well in back-top's band carries the
+    same ceiling face when that piece prints ceiling-down; one on a mouth-down piece carries
+    None, since its wall is open under it on that print."""
     up = _enc.print_up("back", "top")
     row_clear = over if up > 0 else _enc.back_top_ceiling_face()
     out = []
@@ -3585,9 +3587,10 @@ def wago_wells(row, cluster, over):
                     "413", row_clear, True))
     for name, solid, _carry, size in cluster:
         b = box(solid)
-        out.append((CLUSTER_WAGOS[name][0],
-                    (b.ymin + b.ymax) / 2.0, (b.zmin + b.zmax) / 2.0,
-                    size, None, True))
+        centre = ((b.xmin + b.xmax) / 2.0, (b.ymin + b.ymax) / 2.0, (b.zmin + b.zmax) / 2.0)
+        cluster_clear = (_enc.back_top_ceiling_face()
+                         if up < 0 and _enc.back_top_owns(centre) else None)
+        out.append((CLUSTER_WAGOS[name][0], centre[1], centre[2], size, cluster_clear, True))
     return tuple(out)
 
 
@@ -5020,6 +5023,246 @@ def ceiling_reliefs(placed: dict) -> tuple:
     return tuple(reliefs)
 
 
+# --- columns where the print grows from ---------------------------------------
+#
+# A PIECE PRINTED ON ITS CEILING HAS THE GROUND RIGHT THERE. On a mouth-down print every face
+# that looked print-down was carried by a 45° wedge off the wall it stood on, because the bed was
+# the far end of the piece; on back-top the ceiling slab is the bed, and a face that looks
+# print-down with nothing but free air between it and that slab is carried by a COLUMN — the air
+# filled to the slab, vertical faces, no wedge. What keeps a wedge a wedge is a body standing in
+# that air, and the body says so itself: every candidate column is read against the pack one
+# `WEDGE_CLEAR` clear of everything placed, the way every lane on this box is struck. A room no
+# body models — the loop a zip tie throws over a crown, a screw head's pass, a stated profile —
+# is named in `KEPT_WEDGES`, and `wedge-fills` reads every print-down slope on the piece against
+# both: a slope that is neither under a body nor in a kept room is a wedge nobody has asked about.
+WEDGE_CLEAR = 1.0
+
+KEPT_WEDGES = (
+    ("the ceiling ribs' tie-band gables", (-60.0, 250.0, 342.4, 60.0, 330.0, 344.5),
+     "the loop's room over the crown — `tie_t + tie_cav_buffer` between the gable's valley and "
+     "the lane (`enclosure._anchor_band_gable`)"),
+    ("the flow meter anchors' tie-band gables", (-48.0, 368.0, 345.3, -28.0, 412.0, 347.3),
+     "the same room over the DIGITEN anchors' crowns (`enclosure._flow_meter_anchors`)"),
+    ("the Y-seam screws' head counterbores", (-108.0, 200.0, 329.0, 108.0, 210.0, 333.0),
+     "a screw head passes and bears in the counterbore; its roof is the bore's own teardrop "
+     "(`enclosure._teardrop_x`)"),
+    ("the SIG-9 cable clip's section", (-105.0, 442.5, 275.0, -95.0, 456.5, 300.0),
+     "the clip is the stated profile, laid for the print by `cable_clip.apply`; its arms' faces "
+     "and its channel are the profile's own"),
+)
+
+
+def _within(box6, bodies, clear, skip=()):
+    """The placed bodies a solid filling `box6` would stand within `clear` of."""
+    x0, y0, z0, x1, y1, z1 = box6
+    probe = cq.Solid.makeBox(x1 - x0 + 2 * clear, y1 - y0 + 2 * clear, z1 - z0 + 2 * clear,
+                             cq.Vector(x0 - clear, y0 - clear, z0 - clear))
+    return _touching(probe, bodies, skip)
+
+
+def _touching(probe, bodies, skip=()):
+    """The bodies `probe` overlaps, by name."""
+    pb = box(probe)
+    found = []
+    for name, body in bodies.items():
+        if name in skip:
+            continue
+        bb = box(body)
+        if (bb.xmin > pb.xmax or bb.xmax < pb.xmin or bb.ymin > pb.ymax or bb.ymax < pb.ymin
+                or bb.zmin > pb.zmax or bb.zmax < pb.zmin):
+            continue
+        if probe.intersect(body).Volume() > 1e-6:
+            found.append(name)
+    return found
+
+
+def stand_anchors(stations, placed) -> tuple:
+    """Each anchor station with its `stand` entry (`enclosure._tube_anchors`): per end web,
+    `(plane, depth)` — back-top's ceiling face, which that end stands on as a column, and how far
+    off the root face the column stands: the flank's whole section where the air from it to the
+    slab is free of every placed body, else the corbel's own footprint where that much is — or
+    None where a body stands even in that. A station outside back-top's band is passed through
+    as it came."""
+    bodies = _bodies(placed)
+    up = _enc.print_up("back", "top")
+    roots, lane = _enc.back_top_frames()
+    face_z = _enc.back_top_ceiling_face()
+    out = []
+    for st in stations:
+        st = tuple(st[:4])
+        if not _enc.back_top_owns(st[0]):
+            out.append(st)
+            continue
+        whole = _enc.tube_anchor_end_columns(st, roots, lane, up, face_z)
+        depth = _enc.tube_anchor_corbel_depth(st, roots, lane)
+        part = _enc.tube_anchor_end_columns(st, roots, lane, up, face_z, depth)
+        stand = []
+        for full, footprint in zip(whole, part):
+            if full is not None and not _within(full, bodies, WEDGE_CLEAR):
+                stand.append((face_z, None))
+            elif footprint is not None and not _within(footprint, bodies, WEDGE_CLEAR):
+                stand.append((face_z, depth))
+            else:
+                stand.append(None)
+        out.append(st + (tuple(stand),))
+    return tuple(out)
+
+
+def stand_wells(stations, placed) -> tuple:
+    """Each well station with its `column` entry (`enclosure._side_wells`): whether its row's
+    tower stands on `clear_z` as a column, the air from the tower's print-down face to that plane
+    being free of every placed body over the whole row. A station with no `clear_z` has no plane
+    to stand on and is passed through."""
+    bodies = _bodies(placed)
+    up = _enc.print_up("back", "top")
+    ix = _enc.interior_x()
+    rows = []
+    for st in sorted(stations, key=lambda s: (s[0], s[2], s[4] is None, s[4] or 0.0, s[5], s[1])):
+        side, sy, sz, size, clear_z, roof = st[:6]
+        key = (side, sz, clear_z, roof)
+        if rows and rows[-1][0] == key and sy - rows[-1][1][-1][1] <= _enc.wago_pitch + 1e-6:
+            rows[-1][1].append(st)
+        else:
+            rows.append((key, [st]))
+    flags = {}
+    for (side, sz, clear_z, roof), row in rows:
+        if clear_z is None:
+            continue
+        face = ix[1] if side > 0 else ix[0]
+        engage = max(_enc.wago_engage(s[3]) for s in row)
+        half_z = max(_enc.wago_half(s[3])[1] for s in row)
+        ya = min(s[1] - _enc.wago_half(s[3])[0] for s in row)
+        yb = max(s[1] + _enc.wago_half(s[3])[0] for s in row)
+        zb = sz - up * half_z
+        x0, x1 = sorted((face, face - side * engage))
+        z0, z1 = sorted((zb, clear_z))
+        column = z1 - z0 > 1e-6 and not _within((x0, ya, z0, x1, yb, z1), bodies, WEDGE_CLEAR)
+        for s in row:
+            flags[tuple(s[:6])] = column
+    return tuple(tuple(st[:6]) + ((flags[tuple(st[:6])],) if tuple(st[:6]) in flags else ())
+                 for st in stations)
+
+
+def _print_down_slopes(piece, up):
+    """Every planar face of `piece` that slopes and looks print-down: `(face, footprint)` pairs,
+    the footprint its outer wire in plan."""
+    out = []
+    for f in piece.Faces():
+        if f.geomType() != "PLANE":
+            continue
+        s = f.normalAt().z * (-up)
+        if s <= 0.05 or s >= 0.98:
+            continue
+        pts = []
+        for e in f.outerWire().Edges():
+            if e.geomType() == "LINE":
+                p = e.startPoint()
+                pts.append((p.x, p.y))
+            else:
+                for k in range(8):
+                    p = e.positionAt(k / 8.0)
+                    pts.append((p.x, p.y))
+        poly = []
+        for p in pts:
+            if not poly or abs(poly[-1][0] - p[0]) > 1e-6 or abs(poly[-1][1] - p[1]) > 1e-6:
+                poly.append(p)
+        if len(poly) > 2 and abs(poly[0][0] - poly[-1][0]) < 1e-6 and abs(poly[0][1] - poly[-1][1]) < 1e-6:
+            poly.pop()
+        if len(poly) >= 3:
+            out.append((f, poly))
+    return out
+
+
+# A PRISM WHOSE SIDES LIE ON THE PIECE'S OWN PLANES IS A BOOLEAN'S WORST CASE — a relief's walk
+# is bounded by the relief's faces, and a column struck exactly on them comes back a sliver. The
+# footprint stands this far inside its face's outline, so every side clears the plane it follows.
+_PLAN_INSET = 0.02
+
+
+def _plan_prism(poly, z0, z1, grow=0.0):
+    wp = cq.Workplane("XY").workplane(offset=z0).polyline(poly).close().offset2D(grow - _PLAN_INSET)
+    return wp.extrude(z1 - z0).val()
+
+
+def wedge_fills(placed) -> Bound:
+    """`wedge-fills`: every print-down slope on a piece printed ceiling-down, and what carries it.
+
+    For each such face the column it could be is struck — the face's own plan, from the face
+    to the piece's material over it, the piece's own solid taken out — and read against the
+    pack: a body the column would overlap says the wedge stands under it; a body it would come
+    within `WEDGE_CLEAR` of says the same; a face in a `KEPT_WEDGES` room is carried by the room's
+    own reason. What is left is a wedge where a column fits, and the bound names each with the
+    viewer's pick text. A kept room that matches no face is named too: it describes geometry that
+    is no longer there."""
+    import pick_text                                                      # noqa: E402
+    bodies = _bodies(placed)
+    counts = {"under": 0, "near": 0, "kept": 0, "fill": 0}
+    detail, matched = [], set()
+    for name, up in _enc.PIECE_PRINT_UP.items():
+        piece_name = f"enclosure-{name}"
+        if up >= 0.0 or piece_name not in bodies:
+            continue
+        piece = bodies[piece_name]
+        others = {n: b for n, b in bodies.items() if n != piece_name}
+        top = box(piece).zmax if up < 0 else box(piece).zmin
+        step = (_here.parent.parent / "printed-parts" / "enclosure" / "enclosure"
+                / f"{piece_name}.step")
+        for f, poly in _print_down_slopes(piece, up):
+            fb = box(f)
+            kept = next((k for k in KEPT_WEDGES
+                         if k[1][0] - 0.05 <= fb.xmin and fb.xmax <= k[1][3] + 0.05
+                         and k[1][1] - 0.05 <= fb.ymin and fb.ymax <= k[1][4] + 0.05
+                         and k[1][2] - 0.05 <= fb.zmin and fb.zmax <= k[1][5] + 0.05), None)
+            if kept is not None:
+                counts["kept"] += 1
+                matched.add(kept[0])
+                continue
+            z_lo, z_hi = (fb.zmin, top) if up < 0 else (top, fb.zmax)
+            try:
+                air = _plan_prism(poly, z_lo, z_hi).cut(piece)
+            except Exception:
+                continue                            # a footprint no prism stands on carries nothing
+            parts = [p for p in air.Solids()
+                     if abs((box(p).zmin if up < 0 else box(p).zmax) - (z_lo if up < 0 else z_hi)) < 0.05]
+            if not parts:
+                continue
+            column = parts[0]
+            for p in parts[1:]:
+                column = column.fuse(p)
+            if column.Volume() < 1e-3:
+                continue
+            cb = box(column)
+            try:
+                grown = _plan_prism(poly, cb.zmin - WEDGE_CLEAR, cb.zmax + WEDGE_CLEAR, WEDGE_CLEAR)
+            except Exception:
+                grown = column
+            near = _touching(grown, others)
+            if near:
+                under = _touching(column, {n: others[n] for n in near})
+                counts["under" if under else "near"] += 1
+                continue
+            counts["fill"] += 1
+            n = f.normalAt()
+            rise = (cb.zmax - fb.zmax) if up < 0 else (fb.zmin - cb.zmin)
+            detail.append(
+                f"{piece_name}: a {math.degrees(math.acos(min(1.0, abs(n.z)))):.0f}° face at "
+                f"x {fb.xmin:.2f}..{fb.xmax:.2f} y {fb.ymin:.2f}..{fb.ymax:.2f} "
+                f"z {fb.zmin:.2f}..{fb.zmax:.2f}: a column of {column.Volume():.0f} mm³ rising "
+                f"{rise:.1f} mm fits\n" + pick_text.file_line(step) + "\n"
+                + pick_text.from_face(f, label="faceA") + "\n" + pick_text.click(f.Center()))
+    stale = [k[0] for k in KEPT_WEDGES if k[0] not in matched]
+    total = sum(counts.values())
+    return record_bound(Bound(
+        "wedge-fills",
+        "Every print-down slope on a ceiling-down piece is a column where one fits",
+        not detail and not stale,
+        f"{total} print-down slope(s): {counts['under']} under a body, {counts['near']} within "
+        f"{WEDGE_CLEAR:g} mm of one, {counts['kept']} in a kept room, {counts['fill']} could be "
+        f"columns" + (f"; {len(stale)} kept room(s) match nothing" if stale else ""),
+        "no slope a column could replace, and every kept room standing",
+        detail + [f"kept room `{s}` matches no face" for s in stale]))
+
+
 def pack(a: cq.Assembly = None) -> "_enc.Pack":
     """What the box is SIZED ON: the bodies that have to fit inside it.
 
@@ -5042,12 +5285,12 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
                                  + [c14_cutout(), co2_wall_port(a.co2_inlet_carry),
                                     keystone_cutout(a.keystone_station)]),
                      c14=c14_stations(), east_bosses=a.east_bosses,
-                     side_wells=a.side_wells, floor_bosses=a.floor_bosses,
+                     side_wells=stand_wells(a.side_wells, placed), floor_bosses=a.floor_bosses,
                      west_cradle=a.west_cradle, cond_cradle=a.cond_cradle,
                      cond_mount=a.cond_mount, cond_airway=a.cond_airway,
                      asse_cradle=a.asse_cradle,
                      flow_meter_anchors=a.digiten_anchors,
-                     tube_anchors=a.tube_anchors + a.body_anchors,
+                     tube_anchors=stand_anchors(a.tube_anchors + a.body_anchors, placed),
                      ceiling_reliefs=ceiling_reliefs(placed),
                      port_field=y_wall_field(a.wall_stations),
                      nameplate=nameplate_cut(placed["foam-assembly"][0]),
@@ -5438,6 +5681,7 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     _carrier_front_top_motion_bound(a, pieces["front-top"], box)
     _pump_jack_service_bound(display, pieces["front-top"], box)
     placed_solids = _solids(a)
+    wedge_fills(placed_solids)
     # And every anchored run against the rib its own site names.
     tubes = {n: s for n, (s, _c) in _solids(a).items() if n.startswith("tube-")}
     # The box's own group reads LAST on the card, under the pack's. `record_bound` carries an
