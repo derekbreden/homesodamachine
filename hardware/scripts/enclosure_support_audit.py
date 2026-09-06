@@ -9,7 +9,7 @@ reports the independent readings stated by the enclosure's support-removal polic
 Typical use after extracting a history-only production profile and slicing a current enclosure
 STL through it::
 
-    git show aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a:hardware/printed-parts/enclosure/enclosure/enclosure-back-top-petgf.3mf \
+    git show 366d54ba040ecc7f1465c200e63e52410ffc0d4c:hardware/printed-parts/enclosure/enclosure/enclosure-back-top-petgf.3mf \
         > /tmp/enclosure-back-top-petgf.3mf
 
     python3 hardware/scripts/enclosure_support_audit.py \

@@ -138,7 +138,7 @@ that and the plate is the supports and the brim, which §7 does not bill.
 0.653 kg as the exterior's measured **31.2 h/kg**, so the supports are back in the hours even
 though they are out of the mass.
 
-## The back-top plate (settings per [`enclosure-back-top-petgf.3mf`](enclosure-back-top-petgf.3mf))
+## The back-top plate (settings per history-only `git:366d54ba040ecc7f1465c200e63e52410ffc0d4c:hardware/printed-parts/enclosure/enclosure/enclosure-back-top-petgf.3mf`)
 
 The back-top on the same Polymaker Fiberon PET-GF15 stock as the section above, sliced on the
 faucet's profile rather than the exterior's: `0.24mm PET-GF faucet`, 265 °C with the fan on
@@ -154,8 +154,9 @@ beautiful."*
 Those two remarks are about the mouth-down plate this section carried when it was printed. The
 ceiling-down plate below has not been printed. Its first layer is the ceiling's whole show face,
 about 215 × 252 mm with a 934 mm outer loop, and the project carries this section's own 265 °C /
-70 °C / +0.02 mm first layer; the PET-GF working profile in [z-trim.md](/hardware/printed-parts/z-trim.md)
-runs a 280 °C first layer at +0.17 mm after two long-loop first layers failed at 265 °C. The
+70 °C / +0.02 mm first layer. [z-trim.md](/hardware/printed-parts/z-trim.md) records the PET-GF
+working profile's first layer at 280 °C and +0.17 mm after two long-loop first layers failed at
+265 °C; `petgf.3mf` itself holds a 265 °C first layer on its `04 first layer by agent` preset. The
 project also keeps its 2 wall loops and 15 % grid infill through the new 12 mm slab; what the
 plate is sliced with is a decision made at the printer, not here.
 
@@ -175,7 +176,9 @@ Settings:
 - Supports tree(auto), `support_threshold_angle` **35°**
 - `brim_type` auto_brim, `brim_width` 5 mm; `elefant_foot_compensation` 0.15 mm;
   `seam_position` aligned; `fuzzy_skin` none
-- Slicer 02.08.02.61; first-layer time 700 s
+- Slicer 02.08.02.61. The project's plate metadata carries the first-layer time of a mouth-down
+  slice, not a reading of this plate; the ceiling-down plate has not been sliced in Bambu Studio
+  or printed.
 
 ### Support-removal audit
 
@@ -193,8 +196,8 @@ The snapshot carries the **+0.02 mm first-layer z-trim**
 ([z-trim.md](/hardware/printed-parts/z-trim.md)) — `G29.1 Z{0.0}` on this plate and nozzle
 against Bambu's stock `Z{-0.02}`. The run above is the stock compensation.
 
-The plate stands 251.03 × 286.48 mm and the mesh is 1,131,662 faces, `mesh_stat` all zeros —
-no edges fixed, no degenerate facets, none removed and none reversed.
+The plate stands 215 × 267 mm — the ceiling's own footprint — and the mesh is 1,131,662 faces,
+`mesh_stat` all zeros — no edges fixed, no degenerate facets, none removed and none reversed.
 
 **No time or length to carry.** The archive holds the project and no g-code, so unlike the
 front-top plate above there is no metre or hour figure to read back off it, and

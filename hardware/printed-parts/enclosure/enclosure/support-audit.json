@@ -55,7 +55,7 @@
     },
     "enclosure-back-top": {
       "status": "audited",
-      "profile": "enclosure-back-top-petgf.3mf",
+      "profile": "git:366d54ba040ecc7f1465c200e63e52410ffc0d4c:hardware/printed-parts/enclosure/enclosure/enclosure-back-top-petgf.3mf",
       "result": "enclosure-back-top.support-audit.json",
       "support_bodies": [
         {
