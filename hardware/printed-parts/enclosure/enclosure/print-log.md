@@ -190,7 +190,9 @@ its mouth, behind its rear face, through the funnel's opening — and
 base-to-first-interface build-up is **1.44 mm**; 1 body is under 5 mm, 0 in 5–10, 2 in 10–15 and 8 at 15 or more. The hashed toolpath reading is
 [`enclosure-back-top.support-audit.json`](enclosure-back-top.support-audit.json); the retained
 bodies and what each carries are named in
-[`support-audit.json`](support-audit.json).
+[`support-audit.json`](support-audit.json). The reading is this project's: tree(auto) supports at a 35° threshold, a 0.4 mm top Z distance
+and two interface
+layers; a plate sliced with other support settings is audited again against that project.
 
 The snapshot carries the **+0.02 mm first-layer z-trim**
 ([z-trim.md](/hardware/printed-parts/z-trim.md)) — `G29.1 Z{0.0}` on this plate and nozzle
