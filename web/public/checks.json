@@ -7,8 +7,8 @@
     },
     {
       "check": "hardware/scripts/check_facts_current.py",
-      "note": "tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py",
-      "status": "red"
+      "note": "and the 126 sources behind them stand where they stood when it was written",
+      "status": "ok"
     },
     {
       "check": "hardware/scripts/check_finishes.py",
@@ -82,16 +82,10 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 2 of 6 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 346 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 1 of 1 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 346 member(s) keep their provenance",
       "status": "ok"
     }
   ],
-  "detail": {
-    "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds e8ff4b715fdbd55ae9faaedc07e13b52 for the 126 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 8b67e32fec99a1cc87c6acb5bba13885 here. The three artifacts agree with each other and describe a machine that has since moved.",
-      "  the three come off one run:",
-      "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
-    ]
-  },
-  "green": false
+  "detail": {},
+  "green": true
 }
