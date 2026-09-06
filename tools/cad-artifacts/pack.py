@@ -47,6 +47,7 @@ import hashlib
 import io
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -418,11 +419,27 @@ def _members_of_targets(root: Path, labels: set) -> set:
     return out
 
 
+def _standing_debt(labels: set, build_text: str) -> set:
+    """The deferred labels whose rules `BUILD.bazel` still declares.
+
+    A RULE THE GRAPH HAS RETIRED OWES NOTHING. A deferred label persists in the lock so a later
+    plain `--write` cuts it; one whose rule has since left the graph has no cut that could ever
+    pay it, and carrying it on is the lock naming a target that is not there."""
+    declared = {f"//:{name}" for name in re.findall(r'^\s*name = "([^"]+)"', build_text, re.M)}
+    return {label for label in labels if label in declared}
+
+
 def _owed_artifact_targets(root: Path) -> list:
     """Artifact rules changed since the source commit, plus explicitly deferred rules."""
     held = read_lock(root)
     source = held.get("source", {}).get("commit", "")
     deferred = set(held.get("unproven", {}).get("targets", ()))
+    build = root / "BUILD.bazel"
+    if deferred and build.is_file():
+        standing = _standing_debt(deferred, build.read_text())
+        for label in sorted(deferred - standing):
+            print(f"  deferred rule the graph no longer declares owes nothing: {label}")
+        deferred = standing
     script = root / "tools" / "bazel" / "affected.py"
     args = ([sys.executable, str(script), "--base", source, "--head", "HEAD", "--artifacts"]
             if source else [sys.executable, str(script), "--all-artifacts"])
@@ -1537,6 +1554,10 @@ def selftest() -> int:
              unproven([], {"a.step"}, {"//:enclosure-assembly", "//:enclosure"}),
              {"_": note, "paths": [], "members": ["a.step"],
               "targets": ["//:enclosure", "//:enclosure-assembly"]})
+        hold("a deferred rule the graph has retired owes nothing",
+             _standing_debt({"//:enclosure", "//:ceiling-panel"},
+                            'genrule(\n    name = "enclosure",\n)\n'),
+             {"//:enclosure"})
         hold("a deferred rule remains debt even when it owns no bundled member",
              unproven([], set(), {"//:scene-only"}),
              {"_": note, "paths": [], "members": [], "targets": ["//:scene-only"]})
@@ -1599,8 +1620,8 @@ def selftest() -> int:
     hold("nothing to send when the release holds every hash",
          objects_to_send(list(twins), twins, {"h1", "h2"}), [])
 
-    print(f"pack selftest {holds}/29")
-    return 0 if holds == 29 else 1
+    print(f"pack selftest {holds}/30")
+    return 0 if holds == 30 else 1
 
 
 if __name__ == "__main__":
