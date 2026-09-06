@@ -714,7 +714,7 @@
    "kind": "gate",
    "status": "pass",
    "value": "holds",
-   "target": "3 mm in XZ, 3 mm of lip beyond the flange's Y- edge, a 9 mm entry relief, and one full-width wedge corbel",
+   "target": "3 mm in XZ, 3 mm of lip beyond the flange's Y- edge, a 9 mm entry relief, and a block carried by its wall and the ceiling slab",
    "detail": [],
    "active": true
   },
@@ -786,7 +786,7 @@
    "label": "Every print-down slope on a ceiling-down piece is a column where one fits",
    "kind": "gate",
    "status": "pass",
-   "value": "57 print-down slope(s): 36 under a body, 5 within 1 mm of one, 16 in a kept room, 0 could be columns",
+   "value": "92 print-down slope(s): 56 under a body, 7 within 1 mm of one, 29 in a kept room, 0 could be columns",
    "target": "no slope a column could replace, and every kept room standing",
    "detail": [],
    "active": true

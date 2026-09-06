@@ -1696,8 +1696,10 @@ def documented(box):
 #   east_ports    +X side-wall through-holes, (kind, y, z, *size)
 #   west_ports    −X side-wall through-holes, same shape — the ASSE drip pan's slot
 #   funnel        the placed funnel's plan centre, or None for no throat
-#   pan_sleeve    the ASSE drip pan's carry, `(adds, cuts)` of world boxes — the solid block fused
-#                 onto the −X wall, and the berth cut back out of it
+#   pan_sleeve    the ASSE drip pan's carry, `(adds, cuts, stands, slip)` — the solid block fused
+#                 onto the −X wall as world boxes, the berth cut back out of it as three, what
+#                 stands on the block's lid on the ceiling-down print (`enclosure_assembly.
+#                 sleeve_stands`), and the pan's own slip in its berth
 #   c14           the mains inlet's heat-set stations on the +Y wall of back-top, (x, z)
 #   east_bosses   the +X wall's mounting bosses, (y, z, the plane the boss top reaches, the
 #                 X plane its underside corbel reaches, optional clear Y bands where it reaches
@@ -3399,13 +3401,16 @@ def _nameplate(solid, plate, outer, y_outer, zlo, zhi, up=1.0):
     past it, because THE RIM HAS TO STAY SQUARE: a 45° opening at the face would read as a
     V-groove round the plate instead of the flush inlay this face is.
 
-    WHAT IS LEFT STANDING IS ONE BAR AND A 45° CORBEL ON ITS PRINT-DOWN SIDE. The plateau carries
-    the first `nameplate.floor_under` of the depth an insert's bore wants and the bar stands for
-    the rest, one standard M3 section tall, from one screw to the other and flat on its print-up
-    side. Its whole print-down face is one plane, and a full-length wedge carries that face back
-    to the plateau, falling one millimetre for every millimetre of reach — under the bar for
-    `up > 0`, over it for `up < 0`. There is no collar: a collar closes a pad pocket and there is
-    no pad.
+    WHAT STANDS FOR THE REST OF EACH BORE FOLLOWS THE PRINT. The plateau carries the first
+    `nameplate.floor_under` of the depth an insert's bore wants. Printed mouth-down (`up > 0`)
+    one bar stands for the rest, one standard M3 section tall, from one screw to the other and
+    flat on top, with a full-length 45° wedge carrying its whole underside back to the plateau.
+    Printed ceiling-down (`up < 0`) each screw stands its own boss — the stem's own round,
+    closed on its print-down side by the two tangent planes every horizontal bore on this box
+    closes on (`_teardrop_y`, [36°](TEARDROP_ROOF)) — so nothing of it lies flat over air, and
+    the water pump's motor can, which lies tangent to the plane the two stems' rounds crest on,
+    keeps a millimetre off the boss under it. There is no collar: a collar closes a pad pocket
+    and there is no pad.
 
     The plate lies wholly on one piece — `nameplate-field` is the reading that keeps it off the
     seam — so the station's own Z decides which piece carries all of it."""
@@ -3429,22 +3434,26 @@ def _nameplate(solid, plate, outer, y_outer, zlo, zhi, up=1.0):
     pad = pad.cut(_yz_prism(plate.x - xhalf - 1.0, plate.x + xhalf + 1.0,
                             [(y_pad, zedge), (y_pad, zedge + up * rise), (y_inner, zedge)]))
     solid = solid.fuse(pad)
-    # ONE BAR FROM SCREW TO SCREW: the stems' own section run between the two stations, flat
-    # top and bottom. Printed mouth-down (`up > 0`) one full-length 45° wedge carries its
-    # underside back to the plateau. Printed ceiling-down its top looks print-down and stays a
-    # flat: the water pump stands on that very plane, so nothing may rise off it, and the bar's
-    # top is a supported face reached from the slab.
     r = plate.stem_d / 2.0
     y_tip = y_pad - plate.reach
     xs = [plate.x + dx for dx, _dz in plate.screws]
     zs = [plate.z + dz for _dx, dz in plate.screws]
-    bar = _ybox(min(xs) - r, max(xs) + r, y_tip, y_pad, min(zs) - r, max(zs) + r)
     if up > 0:
+        # ONE BAR FROM SCREW TO SCREW: the stems' own section run between the two stations,
+        # flat top and bottom, and one full-length 45° wedge carrying its underside back to
+        # the plateau.
+        bar = _ybox(min(xs) - r, max(xs) + r, y_tip, y_pad, min(zs) - r, max(zs) + r)
         zsoffit = min(zs) - r
-        bar = bar.fuse(_yz_prism(
+        solid = solid.fuse(bar.fuse(_yz_prism(
             min(xs) - r, max(xs) + r,
-            [(y_tip, zsoffit), (y_pad, zsoffit), (y_pad, zsoffit - plate.reach)]))
-    solid = solid.fuse(bar)
+            [(y_tip, zsoffit), (y_pad, zsoffit), (y_pad, zsoffit - plate.reach)])))
+    else:
+        # ONE TEARDROP BOSS PER SCREW: the stem's round from the plateau to the tip, roofed on
+        # its print-down side — the machine-top side of this print — by the tangent planes a
+        # bore's roof takes, and standing half a millimetre into the plateau so the two are
+        # one body.
+        for sx, sz in zip(xs, zs):
+            solid = solid.fuse(_teardrop_y(r, sx, sz, y_tip, y_pad + 0.5, up=-up))
     mouth = (cq.Workplane("XY").rect(pw, ph).extrude(plate.thick + 1.0)
              .edges("|Z").fillet(pr).faces("<Z").chamfer(plate.bevel).val()
              .rotate((0, 0, 0), (1, 0, 0), -90.0)
@@ -4281,7 +4290,10 @@ def _z_rail_channels(inner, y_joint, zj, col, plate, chase=()):
     of the head; a 45° GABLE closes the roof `slide_slip` over the arm's cap, two
     faces rising off the channel's walls and meeting over it, so a piece that prints
     mouth-down lays nothing flat across the void — and the gable's outboard face is
-    the notch's own roof, carrying the wall back out to its full section. On the back
+    the notch's own roof, carrying the wall back out to its full section. On a column whose
+    top prints ceiling-down that roof looks print-up, a free flat the print lays its section
+    down on, and the channel closes flat at `z_roof`: the head's cap is flat at `rim` and the
+    roof stands one `slide_slip` over it, full section from there up. On the back
     column the caught face itself is a GROOVE (`hook_apex_flat`) the head's ridge lands in,
     one `slide_slip` off every face of that ridge: back-top prints on its ceiling, so the
     caught face looks print-down there and two 45° faces are what it lays on itself. AFT of the
@@ -4324,9 +4336,12 @@ def _z_rail_channels(inner, y_joint, zj, col, plate, chase=()):
         x_d = x_h1 + sx * slide_slip
         x_peak = (x_open + x_d) / 2.0
         z_peak = z_roof + abs(x_d - x_open) / 2.0
+        # THE ROOF FOLLOWS THE PRINT: a gable over the void on a column whose top beds on its
+        # seam rim, a flat at `z_roof` on one whose top beds on its ceiling.
+        roof = ([(x_d, z_roof), (x_open, z_roof)] if print_up(col, "top") < 0
+                else [(x_d, z_roof), (x_peak, z_peak), (x_open, z_roof)])
         void = _xz_prism(y0, stop, [
-            (x_open, z_foot), (x_f, z_foot), (x_f, zj - 1.0), (x_d, zj - 1.0),
-            (x_d, z_roof), (x_peak, z_peak), (x_open, z_roof)])
+            (x_open, z_foot), (x_f, z_foot), (x_f, zj - 1.0), (x_d, zj - 1.0), *roof])
         if col == "back":
             # THE GROOVE THE RIDGE LANDS IN, down the notch's whole run: the ridge's own profile
             # stood off by one `slide_slip` on its land and inboard flank and two on its outboard
@@ -4346,8 +4361,7 @@ def _z_rail_channels(inner, y_joint, zj, col, plate, chase=()):
                 at(w - d + s2, z_foot - d), at(d, z_foot - d), at(0.0, z_foot)]))
         if (lane_aft - stop) * sy > 0:
             void = void.fuse(_xz_prism(stop, lane_aft, [
-                (x_open, zj - 1.0), (x_d, zj - 1.0), (x_d, z_roof),
-                (x_peak, z_peak), (x_open, z_roof)]))
+                (x_open, zj - 1.0), (x_d, zj - 1.0), *roof]))
         if col == "front":
             # THE TWO SEAMS CROSS HERE. Front-top's Y tongue ends one running-fit slip
             # inside `x_in`, while this channel's standing wall ends at `x_open`; below
@@ -5254,16 +5268,23 @@ def _back_top_flanks(inner, outer, box, y_joint, zj, up=1.0):
             seg = seg.cut(_xz_prism(y0 - 1.0, iy1 + 1.0,
                                     [(x_in, rim), (x_face, rim), (x_face, rim + depth)]))
         band = seg if band is None else band.fuse(seg)
-    for bx0, bx1, by0, by1, bz0, bz1 in box.pack.pan_sleeve[0]:
+    sleeve = box.pack.pan_sleeve
+    for bx0, bx1, by0, by1, bz0, bz1 in sleeve[0]:
         band = band.cut(_ybox(bx0 - 1.0, bx1 + 1.0, by0, by1, bz0, bz1))
         # AND WHERE IT RESUMES OVER THE BLOCK'S LID IT TAKES THE SECTION IT TAKES AT THE RIM.
         # With `up` positive that is the `relief_chamfer` ramp on the same plane: what the
         # block's mouth leaves standing here is this section's `depth`, and struck square it is
         # a ledge over the pan's opening. With `up` negative the resume is square, its face on
-        # the lid looking print-up.
+        # the lid looking print-up — and under the well, where the berth has no floor, the
+        # section's own top falls away on the slot's ramp (`_pan_slot_ramps`).
         if up > 0:
             band = band.cut(_xz_prism(by0, by1,
                                       [(bx0, bz1), (fx0, bz1), (fx0, bz1 + depth)]))
+        elif len(sleeve) > 1 and sleeve[1]:
+            well = min(sleeve[1], key=lambda c: c[4])
+            slip = float(sleeve[3]) if len(sleeve) > 3 else 0.0
+            for cutter in _pan_slot_ramps((bx0, bx1, by0, by1, bz0, bz1), well, slip):
+                band = band.cut(cutter)
     # The PRV chase stands its own share of this band later (`_vent_chase`): each piece
     # carries the height of the rib it owns, so neither crosses into the other's travel.
     # The one thing this wall was already bored for on the back half: the tray's own withdrawal
@@ -6400,15 +6421,30 @@ def _pan_sleeve(solid, sleeve, z0, z1, up=1.0):
     same rectangle inset by the lid's rise, and the four 45° faces meet on diagonal hips round the
     already-open mouth, so no short roof remains over material printed below it.
 
-    Printed ceiling-down (`up < 0`) the block is a plain carcase: floor, jambs, backstop and a
-    square lid. Its floor and the rebate's roof look print-up and carry themselves; its lid and
-    the berth's floor look print-down over the tray's own room, which no material may fill, and
-    the ASSE chain stands over the lid, so both are supported faces, reached from the slab through
-    the open mouth. The pan lies on a flat floor either way.
+    Printed ceiling-down (`up < 0`) the sleeve is a carcase with NO FLOOR. The pan rides on two
+    RAILS, one at the foot of each jamb: a 45° face the pan's own bottom edge lies along, run the
+    berth's whole length and rooted on the jamb, so nothing under the pan lies flat over the
+    berth's air and the pan's weight goes into the jambs along its two edges. Through the −X
+    wall the slot keeps its stated outline on the show face and its floor falls inward at the
+    same angle, on through the flank's own section under the well to that section's inner face,
+    so the edge the pull face masks is an edge and not a ledge and the flank presents no flat
+    under the pan where the floor stood. The rebate's two
+    shoulders, which the flange rides over, fall at 45° from the rebate's outer wall to the jamb
+    and the flange's underside meets them at that crest; the backstop's shoulder falls the same
+    way. The lid's underside looks print-up and is the rebate's roof as before. What stands ON
+    the lid is the pack's to say (`enclosure_assembly.sleeve_stands`, carried in the third entry):
+    the strip fore of the mouth rises as a column to the ASSE anchor's underside, the backstop's
+    top rises as a fin to the ceiling slab, and each strip's run between them wears a 45° roof
+    rising to the fin, so the lid lays every layer of itself on the one below; the strip aft of
+    the mouth keeps a flat gate off the −X wall where the moisture plate's lead crosses it to
+    its clip, and bridges that gate. Each stand is read against the placed bodies and left out
+    where one is in its air.
 
     The sleeve has no electrical pocket: the moisture plate's continuous lead rises out of the
     open pan and is retained on the adjacent dry flank."""
-    adds, cuts = sleeve
+    adds, cuts, *rest = sleeve
+    stands = tuple(rest[0]) if rest else ()
+    slip = float(rest[1]) if len(rest) > 1 else 0.0
     blocks = [b for b in adds if z0 <= b[5] <= z1]
     for x0, x1, y0, y1, bz0, bz1 in blocks:
         solid = solid.fuse(_ybox(x0, x1, y0, y1, bz0, bz1))
@@ -6416,6 +6452,8 @@ def _pan_sleeve(solid, sleeve, z0, z1, up=1.0):
             solid = solid.fuse(_xz_prism(y0, y1,
                                          [(x0 + pan_sleeve_corbel, bz0), (x0, bz0),
                                           (x0, bz0 - pan_sleeve_corbel)]))
+    if blocks and up < 0.0:
+        return _pan_berth_ceiling_down(solid, blocks[0], cuts, stands, slip)
     for x0, x1, y0, y1, cz0, cz1 in (cuts if blocks else ()):
         solid = solid.cut(_ybox(x0, x1, y0, y1, cz0, cz1))
     # The rebate is the larger plan box whose roof is exactly the central mouth's floor. Find
@@ -6469,6 +6507,85 @@ def _pan_sleeve(solid, sleeve, z0, z1, up=1.0):
         if not hip.isValid():
             raise ValueError("the pan sleeve's hipped rebate roof is not a valid solid")
         solid = solid.cut(hip)
+    return solid
+
+
+def _pan_slot_ramps(block, well, slip):
+    """The two cutters that carry the pan slot's floor down from the show face's edge on the
+    ceiling-down print: one through the −X wall at the slot's full width, and one on through
+    the flank's own section under the well, between the two rails, out at that section's inner
+    face (`back_top_flank_face`). Both fall one for one from the edge the pull face masks."""
+    bx0, _bx1, _by0, _by1, bz0, _bz1 = block
+    _wx0, _wx1, wy0, wy1, wz0, _wz1 = well
+    x_ext, fx0 = bx0 - wall, back_top_flank_face()[0]
+    rail = wz0 + 2.0 * slip - bz0
+
+    def z(x):
+        return wz0 - (x - x_ext)
+    return (
+        _xz_prism(wy0, wy1, [(x_ext - 1.0, wz0 + 1.0), (bx0 + 0.02, wz0 + 1.0),
+                             (bx0 + 0.02, z(bx0 + 0.02)), (x_ext, wz0)]),
+        _xz_prism(wy0 + rail, wy1 - rail, [
+            (bx0 - 0.5, wz0 + 1.0), (fx0 + 0.01, wz0 + 1.0), (fx0 + 0.01, z(fx0 + 0.01)),
+            (bx0 - 0.5, z(bx0 - 0.5))]),
+    )
+
+
+def _pan_berth_ceiling_down(solid, block, cuts, stands, slip):
+    """The berth cut back out of the sleeve's block on the ceiling-down print, and what stands on
+    its lid (`_pan_sleeve`).
+
+    The three cuts are the pack's own, read by height: the WELL lowest, the REBATE over its
+    shoulders, the MOUTH through the lid. The well loses its floor and gains a rail at each
+    jamb's foot — the 45° face through the pan's bottom edge, `slip` off the jamb and `slip` up
+    from the floor it replaces, run out to the block's underside — and its floor through the
+    wall falls inward from the show face's edge, one for one, out to the flank's inner face
+    (`back_top_flank_face`), taking the flank's own top under the well with it. The rebate's
+    three shoulders fall
+    at 45° from the rebate's wall to the well's. Every stand is a world box (`column`) or a 45°
+    wedge rising from `x_foot` to `x_head` on the lid (`roof`); the fin over the backstop is a
+    column whose east face may stand inboard of the block's, and the step between the two
+    closes on a 45° flare."""
+    bx0, bx1, by0, by1, bz0, bz1 = block
+    well, rebate, mouth = sorted(cuts, key=lambda c: c[4])
+    wx0, wx1, wy0, wy1, wz0, wz1 = well
+    rx0, rx1, ry0, ry1, rz0, rz1 = rebate
+    rail_top = wz0 + 2.0 * slip
+    rail = rail_top - bz0
+    # THE WELL, floorless, between its two rails; struck from just inside the block's west
+    # face, so its run below the block's underside never reaches the wall.
+    solid = solid.cut(_yz_prism(bx0 + 0.01, wx1, [
+        (wy0, wz1), (wy0, rail_top), (wy0 + rail, bz0), (wy0 + rail, bz0 - 1.0),
+        (wy1 - rail, bz0 - 1.0), (wy1 - rail, bz0), (wy1, rail_top), (wy1, wz1)]))
+    # THE SLOT through the wall: the stated opening, its floor falling inward from the show
+    # face's edge through the wall and the flank's section under the well, out at that
+    # section's inner face. The flank fuses its own section after this and gives the same
+    # ramps up (`_back_top_flanks`).
+    solid = solid.cut(_ybox(wx0, bx0 + 0.01, wy0, wy1, wz0, wz1))
+    for cutter in _pan_slot_ramps(block, well, slip):
+        solid = solid.cut(cutter)
+    # THE REBATE, its shoulders chamfered down to the well.
+    solid = solid.cut(_ybox(rx0, rx1, ry0, ry1, rz0, rz1))
+    solid = solid.cut(_yz_prism(rx0, rx1, [(ry0, rz0), (wy0, rz0), (wy0, rz0 - (wy0 - ry0))]))
+    solid = solid.cut(_yz_prism(rx0, rx1, [(ry1, rz0), (wy1, rz0), (wy1, rz0 - (ry1 - wy1))]))
+    solid = solid.cut(_xz_prism(ry0, ry1, [(rx1, rz0), (wx1, rz0), (wx1, rz0 - (rx1 - wx1))]))
+    # THE MOUTH, as stated.
+    solid = solid.cut(_ybox(*mouth))
+    # AND WHAT STANDS ON THE LID.
+    for kind, *g in stands:
+        if kind == "column":
+            x0, x1, y0, y1, z0, z1 = g
+            solid = solid.fuse(_ybox(x0, x1, y0, y1, z0, z1))
+            if abs(x0 - wx1) <= stated_bound_tol and x1 < bx1 - stated_bound_tol:
+                # The fin over the backstop, standing inboard of the block's east face: the
+                # step between the two closes on a 45° flare.
+                solid = solid.fuse(_xz_prism(y0, y1, [(x1, z0), (bx1, z0), (x1, z0 + (bx1 - x1))]))
+        elif kind == "roof":
+            x_foot, x_head, y0, y1, z_base = g
+            solid = solid.fuse(_xz_prism(y0, y1, [
+                (x_foot, z_base), (x_head, z_base), (x_head, z_base + (x_head - x_foot))]))
+        else:
+            raise ValueError(f"the pan sleeve carries a stand of kind {kind!r}")
     return solid
 
 
@@ -6978,8 +7095,9 @@ def _vent_chase(solid, inner, outer, stations, y0, y1, z0, z1, up=1.0):
     the top share beds on the flank's 45° planes off the rim and hangs below none of them.
     Printed ceiling-down (`up < 0`) the share stands square on the rim, which looks print-up, and
     what looks print-down is the rib's own crown: a 45° wedge from the lip back to the flank's
-    root carries it, and the mouth's floor is a `vent_channel_w` bridge between the passage's two
-    jambs."""
+    root carries it, and the mouth's floor falls inward at 45° from the lip to the duct's back
+    face, so the square mouth on the core's flank keeps its edge and nothing behind that edge
+    lies flat over air."""
     for sx, sy, sz in stations:
         half = vent_channel_w / 2.0 + vent_rib_wall
         rib_x = sx                                  # the lip, on the core's own flank
@@ -7077,10 +7195,13 @@ def _vent_chase(solid, inner, outer, stations, y0, y1, z0, z1, up=1.0):
                  (gable_bed, rim + (gable_bed - inner[0])),
                  (inner[0], rim))))
         solid = solid.fuse(share)
+        # The mouth's floor: flat on a mouth-down print, where it looks print-up; falling
+        # inward one millimetre per millimetre on the ceiling-down one, where it hangs.
+        mouth_floor_in = mouth_bot - (rib_x + 1.0 - floor_x) if up < 0.0 else mouth_bot
         solid = solid.cut(_xz_prism(sy - vent_channel_w / 2.0, sy + vent_channel_w / 2.0,
                                     [(rib_x + 1.0, mouth_top),       # the mouth, through the lip
                                      (rib_x + 1.0, mouth_bot),
-                                     (floor_x, mouth_bot),           # \ the floor, straight down
+                                     (floor_x, mouth_floor_in),      # \ the floor, straight down
                                      (floor_x, ramp_top),            # /  behind duct and groove
                                      (outer[0] - 1.0, ramp_bot - over),   # the ramp, run out
                                      # The groove's open side closes on a 45-degree X roof.
@@ -7778,8 +7899,15 @@ def _asse_cradle(solid, inner, station, y0, y1, z0, z1, up=1.0):
     looks print-down and no wedge is asked to carry it. Over the span the loop needs that room, so
     the column is absent and the web between the cavity and the V is chamfered at 45° down into
     the cavity instead: the web's top is a slope the print lays on itself and a funnel the loop
-    drops through. The two round seats' lower arcs look print-down inside their bores and are
-    supported faces. The V's own two flanks stand 30° off vertical and carry themselves either way.
+    drops through. Each round seat's lower arc, which looks print-down inside its bore, closes
+    on one tangent plane at [36°](TEARDROP_ROOF) from the arc's own tangent point down to the
+    block's east face — the half of a bore's teardrop roof a half-bore has — so the seat keeps its
+    arc from that point round to the crown and the block's underside stays whole. The cavity's
+    lower mouth opens on the block's underside; where the cavity stands in the flank's own
+    section, one `wall` west of the block, the floor that section would leave under the mouth
+    falls at 45° from the cavity's west wall down to the flank's face, so the loop leaves the
+    mouth over a slope and not a ledge. The V's own two flanks stand 30° off vertical and carry
+    themselves either way.
 
     NOTHING HERE HOLDS THE CHAIN UP. The V does that, on two faces of a section machined into the
     part; the ties only shut its mouth. Cut every tie and the chain still lies where it lies,
@@ -7807,6 +7935,14 @@ def _asse_cradle(solid, inner, station, y0, y1, z0, z1, up=1.0):
         # east face at a right angle.
         solid = solid.fuse(_ybox(inner[0], x_axis, sy0, sy1, z_axis - dn, top))
         solid = solid.cut(_ycyl(seat_r, x_axis, z_axis, sy0, sy1))
+        if up < 0.0:
+            # The seat's lower arc, from the block's east face round to the point the tangent
+            # plane leaves it, gives way to that plane.
+            a = math.radians(teardrop_roof_angle)
+            xt, zt = x_axis - seat_r * math.sin(a), z_axis - seat_r * math.cos(a)
+            solid = solid.cut(_xz_prism(sy0, sy1, [
+                (x_axis + 1.0, zt - (seat_r * math.sin(a) + 1.0) * math.tan(a)),
+                (xt, zt), (x_axis + 1.0, zt)]))
     for ty in ties:
         if not (sections[0][0] <= ty <= sections[-1][1]):
             raise ValueError(
@@ -7861,6 +7997,15 @@ def _asse_cradle(solid, inner, station, y0, y1, z0, z1, up=1.0):
     # 18 lb zip tie the flow-meter anchors and the runs' ribs take.
     solid = solid.cut(_asse_tie_cavity(
         apex, inner[0], z_axis, tie_y0, tie_y1, rise, dn + corbel))
+    if up < 0.0:
+        # The cavity's lower mouth over the flank's own section: one `wall` west of the block
+        # the cavity stands in the flank, and the millimetre the cutter runs past the
+        # underside would leave a ledge there. The floor falls at 45° from the cavity's west
+        # wall to the flank's face instead.
+        x_w, fx0, z_b = inner[0] + wall, back_top_flank_face()[0], z_axis - dn - 1.0
+        if fx0 > x_w + 1e-6:
+            solid = solid.cut(_xz_prism(tie_y0, tie_y1, [
+                (x_w, z_b), (fx0, z_b), (fx0, z_b - (fx0 - x_w))]))
     return solid
 
 
@@ -8133,12 +8278,14 @@ def _flow_meter_anchors(solid, roots, station, y0, y1, z0, z1, up=1.0):
         rib = _ybox(x_axis - reach, x_axis + reach, sy0, sy1, z_axis, z_crown)
         for ry0, ry1 in ((sy0, cy0), (cy1, sy1)):
             rib = rib.fuse(_ybox(x_axis - reach, x_axis + reach, ry0, ry1, z_crown, roots[5]))
-        depth = tie_cav_w / 2.0
-        if up < 0.0 and roots[5] - z_crown - depth >= tie_t + tie_cav_buffer - 1e-9:
+        angle = _gable_angle(roots[5] - z_crown) if up < 0.0 else None
+        if angle is not None:
             # THE CROWN OVER THE TIE BAND WEARS A GABLE, the way a ceiling rib's does on this
             # piece (`_anchor_band_gable`): the channel's floor between the two end webs looks
-            # print-down, so two 45° faces rise off its middle to the webs, `depth` tall at each
-            # end, and the web over the bore keeps its `wall`.
+            # print-down, so two faces rise off its middle to the webs at the steepest angle the
+            # tie's room allows (`_gable_angle`), `depth` tall at each end, and the web over the
+            # bore keeps its `wall`.
+            depth = tie_cav_w / 2.0 * math.tan(math.radians(angle))
             rib = rib.fuse(_yz_prism(x_axis - reach, x_axis + reach,
                                      [(cy0, z_crown - 0.5), (cy1, z_crown - 0.5),
                                       (cy1, z_crown + depth), (mid, z_crown),
@@ -8237,20 +8384,77 @@ def _anchor_rib(origin, u, n, length, reach, b0, b1):
     )
 
 
-def _anchor_corbel(origin, u, n, length, a_hang, b_root, deep):
-    """The 45 degree gusset on the print-down side of a rib's flank — `deep` beside it at the
-    root face, tapering to nothing `deep` off that face and standing nowhere past there.
+def _anchor_roof(origin, u, n, length, a_hang, b_root, deep, angle):
+    """The gusset on the print-down side of a rib's flank, at `angle` off the flank: standing
+    `deep` off the root face at nothing, and `deep * tan(angle)` off the flank at the root.
 
     `a_hang` is the flank that looks print-down, read against the piece's own print up by
-    `_tube_anchors`, and the gusset grows outboard of that flank."""
+    `_tube_anchors`, and the gusset grows outboard of that flank. At `relief_chamfer` it is the
+    corbel every relief on this box is struck at; at `teardrop_roof_angle` it is the shallowest
+    roof the print lays on itself, for a flank a body stands too close over for the steeper one."""
+    rise = deep * math.tan(math.radians(angle))
     return (
         cq.Workplane(_anchor_plane(origin, u, n))
-        .polyline(_ring([(a_hang, b_root - deep), (a_hang + math.copysign(deep, a_hang), b_root),
+        .polyline(_ring([(a_hang, b_root - deep), (a_hang + math.copysign(rise, a_hang), b_root),
                          (a_hang, b_root)]))
         .wire()
         .extrude(length)
         .val()
     )
+
+
+def _anchor_corbel(origin, u, n, length, a_hang, b_root, deep):
+    """`_anchor_roof` at `relief_chamfer`: the 45 degree gusset, `deep` beside the flank at the
+    root face and nothing `deep` off it."""
+    return _anchor_roof(origin, u, n, length, a_hang, b_root, deep, relief_chamfer)
+
+
+def _anchor_flank_gable(origin, u, n, s0, s1, a_hang, depth, b0, b1):
+    """The gable a rib's print-down FLANK wears over its tie band, on a rib whose flanks look
+    along the build axis: two 45° faces rising off the flank at the band's middle to the end
+    webs, `depth` off the flank at each, across the rib's depth from `b0` to `b1`. The tie lies
+    in the valley and comes down the flank as before; what the gable removes is the flat strip
+    the flank would lay over the channel's air between the two webs."""
+    sgn = math.copysign(1.0, a_hang)
+    start = tuple(origin[k] + n[k] * b0 for k in range(3))
+    plane = cq.Plane(origin=cq.Vector(*start), xDir=cq.Vector(*u), normal=cq.Vector(*n))
+    return (cq.Workplane(plane)
+            .polyline(_ring([(s0, a_hang - 0.5 * sgn), (s1, a_hang - 0.5 * sgn),
+                             (s1, a_hang + depth * sgn), ((s0 + s1) / 2.0, a_hang),
+                             (s0, a_hang + depth * sgn)]))
+            .wire().extrude(b1 - b0).val())
+
+
+def _anchor_bore_chamfer(origin, u, n, r, length, a_hang):
+    """What a half-bore on a horizontal axis gives up on its print-down side: the arc from the
+    axis plane round to the point where a plane at `teardrop_roof_angle` leaves it tangent, cut
+    back to that plane — the one tangent face of a bore's teardrop roof that a seat open on one
+    side has. `a_hang` names the flank that looks print-down; the arc that hangs is on the
+    opposite side of the axis, where the seat's surface looks the same way that flank does."""
+    a = math.radians(teardrop_roof_angle)
+    c = -math.copysign(1.0, a_hang)
+    return (
+        cq.Workplane(_anchor_plane(origin, u, n))
+        .polyline(_ring([(c * (r / math.cos(a) + math.tan(a)), -1.0),
+                         (c * r * math.cos(a), r * math.sin(a)),
+                         (c * r * math.cos(a), -1.0)]))
+        .wire()
+        .extrude(length)
+        .val()
+    )
+
+
+def _gable_angle(room):
+    """The steepest gable a tie band's crown or flank can wear under `room` of channel: the
+    relief's 45° where the tie keeps `tie_cav_buffer` over itself at its own half-width and its
+    thickness at the band's edge, else the teardrop roof's 36°, else none and the strip lies
+    flat."""
+    for angle in (relief_chamfer, teardrop_roof_angle):
+        rise = math.tan(math.radians(angle))
+        if (room - tie_w / 2.0 * rise >= tie_t + tie_cav_buffer - 1e-9
+                and room - tie_cav_w / 2.0 * rise >= tie_t - 1e-9):
+            return angle
+    return None
 
 
 def _anchor_column(origin, u, n, length, a0, a1, b_root, b_lo=0.0):
@@ -8266,6 +8470,52 @@ def _anchor_column(origin, u, n, length, a0, a1, b_root, b_lo=0.0):
         .extrude(length)
         .val()
     )
+
+
+def _anchor_frame(station, roots, lane, up):
+    """One station in its rib's own frame: `(origin, u, n, t, reach, b_root, a_hang)` — the rib's
+    fore end, its three axes, the lip's reach off the axis, the root face the rib stops on the
+    way `_tube_anchors` reads it, and the flank that looks print-down (None where neither
+    does)."""
+    mid, u, n, seat_r = station[:4]
+    face = _ROOT_FACE.get(tuple(int(round(c)) for c in n))
+    if face is None:
+        return None
+    sign = 1.0 if face % 2 else -1.0
+    b_face = (roots[face] - mid[face // 2]) * sign
+    b_lane = (lane[face] - mid[face // 2]) * sign
+    reach = seat_r + wall
+    b_crown = seat_r + wall
+    b_root = b_lane if (b_face < b_lane - 1e-9 and b_face - b_crown < tie_t) else b_face
+    t = (n[1] * u[2] - n[2] * u[1], n[2] * u[0] - n[0] * u[2], n[0] * u[1] - n[1] * u[0])
+    a_hang = None if abs(t[2]) < 1e-9 else math.copysign(reach, -up * t[2])
+    origin = tuple(mid[k] - u[k] * tube_anchor_len / 2.0 for k in range(3))
+    return origin, u, n, t, reach, b_root, a_hang
+
+
+def tube_anchor_root(station, roots, lane):
+    """How far off the axis plane a rib's root face stands — the depth a roof from that plane
+    to the root is `deep`."""
+    frame = _anchor_frame(station, roots, lane, 1.0)
+    return None if frame is None else frame[5]
+
+
+def tube_anchor_end_roofs(station, roots, lane, up, angle, deep):
+    """The two roofs a rib's end webs would wear at `angle`, `deep` off the root face, as world
+    solids — or None for an end that has no print-down flank. `station`, `roots`, `lane` and
+    `up` as `tube_anchor_end_columns` reads them; the assembly reads each against the pack to
+    say which roof stands (`stand`)."""
+    frame = _anchor_frame(station, roots, lane, up)
+    if frame is None:
+        return (None, None)
+    origin, u, n, _t, _reach, b_root, a_hang = frame
+    if a_hang is None or deep is None or deep <= 1e-9:
+        return (None, None)
+    out = []
+    for s0, s1 in ((0.0, tie_cav_wall), (tie_cav_wall + tie_cav_w, tube_anchor_len)):
+        end = tuple(origin[k] + u[k] * s0 for k in range(3))
+        out.append(_anchor_roof(end, u, n, s1 - s0, a_hang, b_root, deep, angle))
+    return tuple(out)
 
 
 def tube_anchor_end_columns(station, roots, lane, up, face_z, depth=None):
@@ -8390,33 +8640,58 @@ def _tube_anchors(solid, roots, lane, stations, y0, y1, z0, z1, up=1.0):
     either the root face or that backing is its roof — neither is cut, so there is no cutter face
     to graze the opening.
 
-    A FLANK THAT LOOKS PRINT-DOWN STANDS ON THE FACE THE PRINT GROWS FROM, AND ONLY WHERE IT
-    CANNOT CARRIES A CORBEL. A station's fifth entry, `stand`, names per end web `(plane, depth)`:
+    A FLANK THAT LOOKS PRINT-DOWN STANDS ON THE FACE THE PRINT GROWS FROM, AND WHERE IT CANNOT
+    IT WEARS A ROOF. A station's fifth entry, `stand`, names per end web `(plane, depth, roof)`:
     the plane that end stands on — the piece's own print-bed face, where the air from the flank
     to that face is free of every placed body (`enclosure_assembly.stand_anchors` reads it
     against the pack) — and how far off the root face the column stands, None for the flank's
-    whole section where that air is free and the corbel's own depth where only that much is; or
-    None for the end where a body stands even in that. An end that stands goes on as a COLUMN:
-    the flank's section over that depth, straight to that plane (`_anchor_column`), so nothing
-    of it looks print-down there. An end that cannot takes a 45 degree wedge rooted on the same face the
-    rib is, growing off that face into `tube_anchor_corbel_reach`: a rib whose axis stands
-    inside that band is a triangle, `b_root` deep at the root face and nothing at the tube's axis
-    plane; a deeper one is a truncated wedge, out to the band's edge and no further, and the deep
-    end of its flank keeps its flat. `up` is the piece's print up along the box's Z, ±1, and
-    which flank hangs comes off the profile's own `a` axis read against it — the flank whose
-    outward looks along −`up`. A rib rooted on the floor or the ceiling, or with its tube running
-    along the build axis, has neither flank down and takes neither; a rib rooted on the face the
-    piece beds on — a ceiling-rooted rib on a piece printed ceiling-down — stands on the slab
-    with its seat an upward-opening cradle in the print. Column and corbel alike stand over the
-    same two `tie_cav_wall` ends and stop at the tie band, because the tie comes down that flank
-    to the axis plane over `tie_cav_w` and material there is the one path it has closed. The
-    band of flank between the two ends bridges.
+    whole section where that air is free and the corbel's own depth where only that much is;
+    `roof` is `(angle, deep)`, the gusset the rest of that flank wears from the axis plane back
+    to the root, at the relief's 45° where the pack leaves room for it and at the teardrop
+    roof's 36° where a body stands too close over the flank for the steeper one, or None. An
+    end that stands goes on as a COLUMN: the flank's section over that depth, straight to that
+    plane (`_anchor_column`), so nothing of it looks print-down there. An end that cannot, or
+    can only over the corbel's footprint, takes the roof (`_anchor_roof`) rooted on the same
+    face the rib is; a station carrying no roof takes the 45 degree wedge growing off that face
+    into `tube_anchor_corbel_reach`: a rib whose axis stands inside that band is a triangle,
+    `b_root` deep at the root face and nothing at the tube's axis plane; a deeper one is a
+    truncated wedge, out to the band's edge and no further. `up` is the piece's print up along
+    the box's Z, ±1, and which flank hangs comes off the profile's own `a` axis read against it
+    — the flank whose outward looks along −`up`. A rib rooted on the floor or the ceiling, or
+    with its tube running along the build axis, has neither flank down and takes neither; a rib
+    rooted on the face the piece beds on — a ceiling-rooted rib on a piece printed ceiling-down
+    — stands on the slab with its seat an upward-opening cradle in the print. Column and roof
+    alike stand over the same two `tie_cav_wall` ends and stop at the tie band, because the tie
+    comes down that flank to the axis plane over `tie_cav_w` and material there is the one path
+    it has closed.
+
+    THE BAND'S OWN FLANK BETWEEN THE TWO ENDS WEARS A GABLE, the way a ceiling rib's crown does
+    (`_anchor_flank_gable`): two 45° faces rising off the flank at the band's middle to the end
+    webs, so the strip the flank would lay over the channel's air lies on itself instead, and
+    the tie comes down the valley. The relief's lobe on that flank is cut the gable's depth
+    deeper, so the loop keeps `tie_t + tie_cav_buffer` over the gable's foot as it did over the
+    flat, and the lobe's own floor — the one face of the relief that looks print-down — falls at
+    45° from the flank's face to the lane rather than lying across the lobe.
+
+    AND THE SEAT'S LOWER ARC CLOSES ON A TANGENT PLANE. A half-bore on a horizontal axis has one
+    arc that looks print-down, from the axis plane round to where the slope steepens past what
+    the print lays on itself; `_anchor_bore_chamfer` cuts that arc back to the plane a bore's
+    teardrop roof would stand on, tangent at [36°](TEARDROP_ROOF), and the lip's strip below it
+    stays a strip.
 
     THE ZIP TIE CLOSES ROUND THE TUBE AND THE RIB'S OWN BACK TOGETHER: through the cavity, out one
     flank, round the far side of the tube and back in the other. What it pulls is the tube into
     the bore, and the bore is what says where the tube is."""
     if not stations:
         return solid
+
+    def entry(e):
+        # `stand` per end web: None, `(plane, depth)` from a reading without roofs, or
+        # `(plane, depth, roof)`.
+        if e is None:
+            return None, None, None
+        return (e[0], e[1], e[2] if len(e) > 2 else None)
+
     for station in stations:
         mid, u, n, seat_r = station[:4]
         stand = tuple(station[4]) if len(station) > 4 and station[4] else (None, None)
@@ -8467,15 +8742,33 @@ def _tube_anchors(solid, roots, lane, stations, y0, y1, z0, z1, up=1.0):
         # it arrives at first.
         a_hang = None if abs(t[2]) < 1e-9 else math.copysign(reach, -up * t[2])
         corbel = min(b_root, b_root - b_lane + tube_anchor_corbel_reach)
+        # THE TWO GABLES. A crown gable stands on a rib rooted on the face the print grows from,
+        # at the steepest angle the channel's room allows the tie (`_gable_angle`); a flank
+        # gable stands on the print-down flank of a rib whose flanks look along the build
+        # axis, at the relief's 45°, and the lobe on that flank is cut its depth deeper.
+        crown_angle = _gable_angle(b_root - b_crown) if n[2] * up < -1e-9 else None
+        crown_depth = (tie_cav_w / 2.0 * math.tan(math.radians(crown_angle))
+                       if crown_angle is not None else 0.0)
+        flank_depth = tie_cav_w / 2.0 if a_hang is not None else 0.0
         if relief:
             # THE RELIEF, cut before the rib is fused so the rib is what fills it. Its floor is
             # `lane`, so what stands behind it is the one `wall` this box carries everywhere. The
             # rib's own reach runs the whole length; the two lobes the zip tie comes down are the
             # tie band's, and the wall keeps its full section at the rib's two ends.
+            lobe = reach + tie_t + tie_cav_buffer + flank_depth
             solid = solid.cut(_anchor_rib(origin, u, n, tube_anchor_len,
                                           reach, b_face, b_lane))
-            solid = solid.cut(_anchor_rib(band, u, n, tie_cav_w,
-                                          reach + tie_t + tie_cav_buffer, b_face, b_lane))
+            solid = solid.cut(_anchor_rib(band, u, n, tie_cav_w, lobe, b_face, b_lane))
+            if a_hang is not None:
+                # The lobe's floor — the face of the relief opposite the hanging flank, the one
+                # that looks print-down — falls one-for-one from the flank's face to the lane.
+                a_floor = -math.copysign(lobe, a_hang)
+                walk = math.copysign(b_lane - b_face, a_hang)
+                solid = solid.cut(
+                    cq.Workplane(_anchor_plane(band, u, n))
+                    .polyline(_ring([(a_floor, b_face), (a_floor, b_lane),
+                                     (a_floor - walk, b_lane)]))
+                    .wire().extrude(tie_cav_w).val())
         rib = _anchor_rib(origin, u, n, tube_anchor_len, reach, 0.0, b_crown)
         for w, (s0, s1) in enumerate(((0.0, tie_cav_wall),
                                       (tie_cav_wall + tie_cav_w, tube_anchor_len))):
@@ -8483,36 +8776,52 @@ def _tube_anchors(solid, roots, lane, stations, y0, y1, z0, z1, up=1.0):
             rib = rib.fuse(_anchor_rib(end, u, n, s1 - s0, reach, b_crown, b_root))
             if a_hang is None:
                 continue
-            if stand[w] is not None and abs(abs(t[2]) - 1.0) < 1e-6:
+            plane, depth, roof = entry(stand[w])
+            if plane is not None and abs(abs(t[2]) - 1.0) < 1e-6:
                 # THIS END STANDS ON THE PRINT-BED FACE `stand` NAMES: the flank's section, over
                 # the depth named, goes straight on to that plane in the direction the
                 # print-down flank looks.
-                plane, depth = stand[w]
                 a_face = (plane - mid[2]) / t[2]
                 b_lo = 0.0 if depth is None else max(0.0, b_root - depth)
                 if abs(a_face) > abs(a_hang) + 1e-6 and (a_face > 0) == (a_hang > 0):
                     rib = rib.fuse(_anchor_column(end, u, n, s1 - s0, a_hang, a_face, b_root, b_lo))
-                continue
-            if corbel > 1e-9:
+                if depth is None:
+                    continue                # the whole flank stands; nothing looks print-down
+            if roof is not None:
+                angle, deep = roof
+                rib = rib.fuse(_anchor_roof(end, u, n, s1 - s0, a_hang, b_root, deep, angle))
+            elif stand[w] is None and corbel > 1e-9:
                 rib = rib.fuse(_anchor_corbel(end, u, n, s1 - s0, a_hang, b_root, corbel))
         # THE CROWN WEARS A GABLE OVER THE TIE BAND WHERE IT WOULD LOOK PRINT-DOWN AS A FLAT. On a
         # rib rooted on the face the print grows from, the crown between the two end webs is a
-        # `tie_cav_w` strip laid over the channel's air. Two 45° faces rising off the crown's
-        # middle to the webs, `depth` tall at each end, are faces the print lays on themselves;
-        # the web over the bore keeps its `wall`, and the channel keeps `tie_t + tie_cav_buffer`
-        # at the band's ends — a rib without that room keeps its flat, and a backing roof over
-        # the band stands `depth` further off (`_anchor_band_gable`).
-        depth = tie_cav_w / 2.0
-        gable = (n[2] * up < -1e-9
-                 and (b_root - b_crown) - depth >= tie_t + tie_cav_buffer - 1e-9)
+        # `tie_cav_w` strip laid over the channel's air. Two faces rising off the crown's
+        # middle to the webs, `crown_depth` tall at each end, are faces the print lays on
+        # themselves; the web over the bore keeps its `wall`, the channel keeps the tie's room
+        # at its own half-width and the tie's thickness at the band's edge (`_gable_angle`),
+        # and a backing roof over the band stands `crown_depth` further off
+        # (`_anchor_band_gable`).
         if b_root - b_crown >= tube_anchor_cavity_depth + tube_anchor_backing_min:
             rib = rib.fuse(_anchor_rib(
                 band, u, n, tie_cav_w, reach,
-                b_crown + tube_anchor_cavity_depth + (depth if gable else 0.0), b_root))
-        if gable:
+                b_crown + tube_anchor_cavity_depth + crown_depth, b_root))
+        if crown_angle is not None:
             rib = rib.fuse(_anchor_band_gable(origin, u, n, tie_cav_wall,
-                                              tie_cav_wall + tie_cav_w, b_crown, depth, reach))
+                                              tie_cav_wall + tie_cav_w, b_crown, crown_depth,
+                                              reach))
+        if a_hang is not None:
+            # AND THE FLANK WEARS ONE OVER THE SAME BAND, on each part of the flank the band
+            # crosses: the hood over the seat, and the backing behind the channel where the
+            # rib carries one.
+            parts = [(0.0, b_crown)]
+            if b_root - b_crown >= tube_anchor_cavity_depth + tube_anchor_backing_min:
+                parts.append((b_crown + tube_anchor_cavity_depth + crown_depth, b_root))
+            for b0, b1 in parts:
+                rib = rib.fuse(_anchor_flank_gable(origin, u, n, tie_cav_wall,
+                                                   tie_cav_wall + tie_cav_w, a_hang,
+                                                   flank_depth, b0, b1))
         rib = rib.cut(_anchor_bore(origin, u, seat_r, tube_anchor_len))
+        if a_hang is not None:
+            rib = rib.cut(_anchor_bore_chamfer(origin, u, n, seat_r, tube_anchor_len, a_hang))
         solid = solid.fuse(rib.clean() if hasattr(rib, "clean") else rib)
     return solid
 
@@ -8553,13 +8862,20 @@ def _c14_tunnel_geometry(inner, outer, stations, ports, z0, z1, up=1.0):
     crown runs out into the top wall.
 
     `up` IS THE PIECE'S PRINT-UP IN THE MACHINE'S FRAME, and it says what carries the block.
-    For `up < 0` (`BACK_TOP_UP`) the piece beds on its ceiling's outer face: the crown the block
-    is clipped on fuses into the ceiling slab, the underside looks print-up, and the block is
-    one rectangle with nothing to carry under it. For `up > 0` the underside looks print-down
-    and one wedge the block's full width carries it: one plane falling from the mouth's bottom
-    edge to the wall over the whole run, with material directly under every point of the block
-    and no ledge or air channel anywhere beneath it. Either way what is left over air is the
-    bore's own print-roof, a bridge the aperture's width between the block's two flanks.
+    For `up > 0` the underside looks print-down and one wedge the block's full width carries it:
+    one plane falling from the mouth's bottom edge to the wall over the whole run, with material
+    directly under every point of the block and no ledge or air channel anywhere beneath it, and
+    what is left over air is the bore's own print-roof, a bridge the aperture's width between the
+    block's two flanks. For `up < 0` (`BACK_TOP_UP`) the piece beds on its ceiling's outer face:
+    the crown the block is clipped on fuses into the ceiling slab, the underside looks print-up,
+    and the two floors are what look print-down — the aperture's, the bore's machine-bottom face,
+    and the flange pocket's. Neither lies flat. The aperture's floor falls inward from the show
+    face at 45°, one millimetre down for every millimetre in, through the wall and on through
+    the block until it runs out of the block's underside; the show face keeps the aperture's
+    stated edge, and the shroud passes over air that only deepens. The pocket's floor falls the
+    same way toward its mouth, from a crest on the seating face, so the flange's bottom edge
+    lands on that crest and the ramp leads it aft to its seat. What either ramp meets below it
+    is the cavity, which stands open under the block.
 
     THE FLANGE DROPS INTO ITS OWN PROFILE. The pocket is the purchased flange's exact
     rounded/tapered outline at `c14_pocket_slip`, cut from the mouth to the seating face — the
@@ -8608,10 +8924,26 @@ def _c14_tunnel_geometry(inner, outer, stations, ports, z0, z1, up=1.0):
     # The cord bore continues through the wall and tunnel. The exact flange pocket opens through
     # the block's fore face and continues inboard through the +X strip for assembly access; its
     # stopped +Y end is the face the flange bears on.
-    flange_pocket = (_c14.flange_prism(
-        c14_pocket_slip, mouth - c14_pocket_overcut - c14_insertion_relief, fore)
-        .translate((cx, 0.0, cz)).val())
+    y_low = mouth - c14_pocket_overcut - c14_insertion_relief
+    flange_pocket = (_c14.flange_prism(c14_pocket_slip, y_low, fore)
+                     .translate((cx, 0.0, cz)).val())
     bore = _rect_cut_y(cx, cz, wx, wz, r, fore, outer[3] + 1.0).fuse(flange_pocket)
+    if up < 0:
+        # THE TWO FLOORS FALL AWAY. The aperture's floor and the pocket's share one plane,
+        # `cz - hz_floor`; from the show face the aperture's falls inward at 45° to the seating
+        # face, and from that face the pocket's falls toward its mouth. Each cutter is the
+        # triangle between the ramp and the floor it replaces, struck over the bore's own
+        # width, and each runs a millimetre past the face it opens on.
+        z_floor = cz - wz / 2.0
+        y_show = outer[3]
+        drop_in = (y_show + 1.0) - fore
+        bore = bore.fuse(_yz_prism(cx - wx / 2.0, cx + wx / 2.0, [
+            (y_show + 1.0, z_floor + 1.0), (fore, z_floor + 1.0 - drop_in),
+            (fore, z_floor + 1.0)]))
+        drop_out = fore - y_low
+        bore = bore.fuse(_yz_prism(cx - wx / 2.0, cx + wx / 2.0, [
+            (fore + 0.01, z_floor + 1.0), (fore + 0.01, z_floor - 0.01),
+            (y_low, z_floor - 0.01 - drop_out), (y_low, z_floor + 1.0)]))
     inserts = tuple(_ycyl(heatset_dia / 2.0, sx, sz, fore, fore + heatset_depth)
                     for sx, sz in stations)
     return feature, bore, inserts
@@ -8628,8 +8960,16 @@ def _keystone_receptacle_geometry(inner, outer, station, z0, z1, up=1.0):
     +X mounting boss stand on. `up` is the piece's print-up in the machine's frame: for `up > 0`
     the web is under the block, falling from the free face's bottom edge to the wall; for
     `up < 0` (`BACK_TOP_UP`) it is over the block, rising from the free face's top edge to the
-    wall at `b.ymax`. ITS FIGURE IS THE BLOCK'S OWN BOX — the wall face it roots on, the free
-    face it ends at, and the reach between them — and it takes the same ceiling clip.
+    wall at `b.ymax`, under the carb union whose body stands in the air over it. ITS FIGURE IS
+    THE BLOCK'S OWN BOX — the wall face it roots on, the free face it ends at, and the reach
+    between them — and it takes the same ceiling clip.
+
+    AND ON THAT PRINT THE RECEPTACLE'S TWO FLOORS FALL AWAY. The aperture's floor, through the
+    lip, falls from the show face's stated edge to the pocket floor's level at the lip's inner
+    face; the pocket's floor falls from there at 45° until it runs out of the boss's underside.
+    Both look print-down and neither lies flat: the jack's body stands on the crest at the lip,
+    its top against the pocket's flat roof, and the two catches hold it as they always did. The
+    lower catch is fused after the cut, so it stands whole across the pocket's back.
 
     Returns ``(feature, cutter, catches)``. The cutter is kept separate because it has to pass
     through both the additive boss and the wall already present in the piece; the catches are
@@ -8657,6 +8997,23 @@ def _keystone_receptacle_geometry(inner, outer, station, z0, z1, up=1.0):
         if catches is not None:
             catches = catches.intersect(below_ceiling)
     cutter, _bands = _keystone.receptacle_cut(x, z, y_face)
+    if up < 0:
+        # The two ramps meet on the pocket floor's level where the reference module's pocket
+        # cut begins, a hundredth past the lip's inner face, so no strip of that floor is left
+        # between them; each runs on past the other's start.
+        y_lip, y_back = y_face - _keystone.LIP_D, y_face - _keystone.DEPTH
+        y_meet = y_lip + 0.01
+        z_ap = z - _keystone.APERTURE_H / 2.0
+        z_pk = z + _keystone.POCKET_RISE - _keystone.POCKET_H / 2.0
+        half = _keystone.POCKET_W / 2.0
+        slope = (z_ap - z_pk) / (y_face - y_meet)
+        cutter = cutter.fuse(_yz_prism(x - half, x + half, [
+            (y_face + 1.0, z_ap + slope), (y_meet - 0.1, z_pk - 0.1 * slope),
+            (y_meet - 0.1, z_ap + 2.0), (y_face + 1.0, z_ap + 2.0)]))
+        fall = (y_meet + 1.0) - (y_back - 1.0)
+        cutter = cutter.fuse(_yz_prism(x - half, x + half, [
+            (y_meet + 1.0, z_pk + 2.0), (y_meet + 1.0, z_pk + 1.0),
+            (y_back - 1.0, z_pk + 1.0 - fall), (y_back - 1.0, z_pk + 2.0)]))
     return feature, cutter, catches
 
 
@@ -9788,6 +10145,13 @@ def main():
         "CABLE_CLIP_RUN": f"{_cable_clip.RUN:.4g} mm",
         "CABLE_CLIP_RAMP": f"{_cable_clip.RAMP:.4g} mm",
         "CABLE_CLIP_BACKING": f"{_cable_clip.BACKING:.4g} mm",
+        # The flat the sleeve's lid keeps off the −X wall aft of the mouth, where the moisture
+        # plate's lead crosses it: the aft roof's foot off the block's own west face.
+        "SLEEVE_LEAD_GATE": (lambda sl, mouth: (
+            f"{min(g[1] for g in sl[2] if g[0] == 'roof' and g[3] >= mouth - 1e-6) - sl[0][0][0]:.4g} mm"
+            if len(sl) > 2 and any(g[0] == 'roof' and g[3] >= mouth - 1e-6 for g in sl[2])
+            else "no roof"))(box.pack.pan_sleeve,
+                             max(box.pack.pan_sleeve[1], key=lambda c: c[4])[3]),
         "PAN_CLIP_WALL": f"{back_top_flank_t:.4g} mm",
         "PAN_CLIP_EMBED": f"{pan_cable_clip_embed:.4g} mm",
         "PAN_CLIP_PROUD": f"{_cable_clip.projection(pan_cable_clip_embed):.4g} mm",
