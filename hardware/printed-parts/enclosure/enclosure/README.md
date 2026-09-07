@@ -148,7 +148,8 @@ and the arm's **head** steps back out over the **groove** between them: a
 [5 mm](FRONT_HOOK_LAP) overlap on the front column and [5 mm](BACK_HOOK_LAP) on the back.
 The top piece's wall runs to the mouth at full section — the **foot**, its caught face
 [8.7 mm](HOOK_FOOT) over the mouth — with a **notch** in its inboard face that swallows
-the head, closing back to the full wall on a 45° roof. The storey is [14.8 mm](Z_RISE)
+the head. Back-top closes that channel back to the full wall on one horizontal roof;
+front-top alone uses a 45° roof over the void it prints mouth-down. The storey is [14.8 mm](Z_RISE)
 mouth to rim, and **the flavour deck is its ceiling** — the rim stands under the lowest
 valve plate (`z-seam-under-deck`), which is the whole height the box has to spend here.
 It buys the groove first: [8.85 mm](HOOK_NECK) of it, the top piece's own sliding tongue,
@@ -203,9 +204,11 @@ flat against lift along both complete runs. Each bottom piece prints the head wi
 under that abrupt ledge. Front-top prints its caught face up from its mouth; back-top prints
 its caught face down from its ceiling and support carries it. The arm's base falls back to
 the lip's underwall on a 45° under-flare. On either column the notch is an open rebate in the
-wall's own inboard face, and where the channel's lane cuts interior bulk a **gabled roof** of
-two 45° faces closes it. Every sliding and bearing face is vertical or horizontal, and the
-top's outer skin keeps its full `wall` of flute backing down to the mouth.
+wall's own inboard face. Back-top closes the channel across that bulk with one **broad,
+horizontal roof**, with slicer support underneath it. Front-top's
+mouth-down channel alone has a gabled roof of two 45° faces. Every sliding and bearing face
+is vertical or horizontal, and the top's outer skin keeps its full `wall` of flute backing
+down to the mouth.
 
 **The corners give the slide its lane.** Over the seam band each bottom piece carries its
 two pillars **solid to the rim**, flats one `slide_slip` off the walls the top's faces
