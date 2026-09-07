@@ -142,6 +142,7 @@ import _lines                                         # noqa: E402
 import _meshes                                        # noqa: E402
 import _routing                                       # noqa: E402
 import _overlap                                       # noqa: E402
+import pick_text                                      # noqa: E402
 # The import-time ledger. Every module below that states a bound about its own constants has
 # already recorded into it by the time this import list is through, so `carry_stated_bounds`
 # reads a complete list. Imported HERE, before them, so the name is bound whichever of them
@@ -5601,7 +5602,6 @@ def wedge_fills(placed, authored_corbels=()) -> Bound:
     authored-corbel room is carried by that room's own reason. What is left is a wedge where a
     column fits without either cause, and the bound names each with the viewer's pick text. A
     named room that matches no face is named too: it describes geometry that is no longer there."""
-    import pick_text                                                      # noqa: E402
     bodies = _bodies(placed)
     kept_wedges = KEPT_WEDGES + tuple(authored_corbels)
     counts = {"under": 0, "near": 0, "kept": 0, "fill": 0}

@@ -223,6 +223,7 @@
       "hardware/scripts/_run_lock.py",
       "hardware/scripts/_seating.py",
       "hardware/scripts/_stated_bounds.py",
+      "hardware/scripts/pick_text.py",
       "tools/docgen/__init__.py"
     ],
     "rewritten": [
@@ -492,6 +493,7 @@
       "hardware/scripts/_run_lock.py",
       "hardware/scripts/_seating.py",
       "hardware/scripts/_stated_bounds.py",
+      "hardware/scripts/pick_text.py",
       "tools/docgen/__init__.py"
     ],
     "rewritten": [
@@ -613,6 +615,7 @@
       "hardware/scripts/_run_lock.py",
       "hardware/scripts/_seating.py",
       "hardware/scripts/_stated_bounds.py",
+      "hardware/scripts/pick_text.py",
       "hardware/wiring/_ac_wiring_schedule_sync.py",
       "tools/docgen/__init__.py"
     ],
@@ -3251,6 +3254,7 @@
       "hardware/scripts/_seating.py",
       "hardware/scripts/_stated_bounds.py",
       "hardware/scripts/flute_payload.py",
+      "hardware/scripts/pick_text.py",
       "tools/docgen/__init__.py",
       "tools/render/render-step-posed.js"
     ],
@@ -3891,6 +3895,7 @@
       "hardware/scripts/_seating.py",
       "hardware/scripts/_stated_bounds.py",
       "hardware/scripts/flute_payload.py",
+      "hardware/scripts/pick_text.py",
       "hardware/topology/fluid-topology.md",
       "tools/bazel/graph.json",
       "tools/docgen/__init__.py"
@@ -4061,6 +4066,7 @@
       "hardware/scripts/_run_lock.py",
       "hardware/scripts/_seating.py",
       "hardware/scripts/_stated_bounds.py",
+      "hardware/scripts/pick_text.py",
       "tools/docgen/__init__.py"
     ],
     "rewritten": [],
@@ -4659,6 +4665,7 @@
       "hardware/scripts/_run_lock.py",
       "hardware/scripts/_seating.py",
       "hardware/scripts/_stated_bounds.py",
+      "hardware/scripts/pick_text.py",
       "hardware/topology/fluid-topology.md",
       "tools/docgen/__init__.py"
     ],
@@ -4946,6 +4953,7 @@
       "hardware/scripts/_run_lock.py",
       "hardware/scripts/_seating.py",
       "hardware/scripts/_stated_bounds.py",
+      "hardware/scripts/pick_text.py",
       "tools/docgen/__init__.py"
     ],
     "rewritten": [
@@ -5109,6 +5117,7 @@
       "hardware/scripts/_run_lock.py",
       "hardware/scripts/_seating.py",
       "hardware/scripts/_stated_bounds.py",
+      "hardware/scripts/pick_text.py",
       "tools/docgen/__init__.py"
     ],
     "rewritten": [
@@ -5273,6 +5282,7 @@
       "hardware/scripts/_run_lock.py",
       "hardware/scripts/_seating.py",
       "hardware/scripts/_stated_bounds.py",
+      "hardware/scripts/pick_text.py",
       "tools/docgen/__init__.py"
     ],
     "rewritten": [
@@ -5528,6 +5538,7 @@
       "hardware/scripts/_run_lock.py",
       "hardware/scripts/_seating.py",
       "hardware/scripts/_stated_bounds.py",
+      "hardware/scripts/pick_text.py",
       "tools/docgen/__init__.py"
     ],
     "rewritten": [
@@ -5666,6 +5677,7 @@
       "hardware/scripts/_run_lock.py",
       "hardware/scripts/_seating.py",
       "hardware/scripts/_stated_bounds.py",
+      "hardware/scripts/pick_text.py",
       "tools/docgen/__init__.py"
     ],
     "rewritten": [
@@ -5786,6 +5798,7 @@
       "hardware/scripts/_run_lock.py",
       "hardware/scripts/_seating.py",
       "hardware/scripts/_stated_bounds.py",
+      "hardware/scripts/pick_text.py",
       "tools/docgen/__init__.py"
     ],
     "rewritten": [
@@ -7729,6 +7742,7 @@
       "hardware/scripts/_run_lock.py",
       "hardware/scripts/_seating.py",
       "hardware/scripts/_stated_bounds.py",
+      "hardware/scripts/pick_text.py",
       "tools/docgen/__init__.py"
     ],
     "rewritten": [
@@ -8119,6 +8133,7 @@
       "hardware/scripts/_run_lock.py",
       "hardware/scripts/_seating.py",
       "hardware/scripts/_stated_bounds.py",
+      "hardware/scripts/pick_text.py",
       "hardware/topology/_fluid_topology_sync.py",
       "hardware/topology/fluid-topology-carbonator.mmd",
       "hardware/topology/fluid-topology-limbs.mmd",
