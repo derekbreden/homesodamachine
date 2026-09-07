@@ -1,12 +1,12 @@
-"""Outer rectangular cup (floor + four perimeter walls) with 6 cylindrical
-corner/mid-side bosses and their heat-set insert pockets. Exterior corners
-rounded; each corner boss seated in the corner with its ⌀ tangent to the
+"""Outer rectangular cup (floor + four perimeter walls) with a cylindrical boss at
+every `attachment_stations` station and their heat-set insert pockets. Exterior
+corners rounded; each corner boss seated in the corner with its ⌀ tangent to the
 exterior wall arc, two short webs filling to the flanking flat walls — the
-cylinder + corner-fill teardrop idiom of the reservoir pocket-corner
-supports."""
+cylinder + corner-fill teardrop idiom of the reservoir pocket-corner supports."""
 
 from world_workplane import WorldWorkplane, xy_plane_z_up
 from _cold_core_interface import (
+    attachment_stations,
     outer_shell_wall,
     wall_and_floor_thickness,
     foam_shell_outer_height,
@@ -66,10 +66,10 @@ def take_skin_off_the_floor(cup, z0, z1):
 
 
 def build_attachment_bosses(height, oversize=0.0):
-    """The ⌀screw_boss_size cylindrical boss + teardrop corner-fill webs at
-    each of the 6 attachment positions, extruded to `height` and trimmed
-    flush to the rounded footprint. Shared by the outer shell and the
-    foam-cap stack — every mating part's boss cross-section is identical.
+    """The ⌀screw_boss_size cylindrical boss + teardrop corner-fill webs at each station in
+    `attachment_stations`, extruded to `height` and trimmed flush to the rounded footprint.
+    Shared by the outer shell and the foam-cap stack — every mating part's boss cross-section
+    is identical.
 
     `oversize` grows the section in the plane by that much on every free side.
     A cap's mouth-end relief is the lid pad it receives, one slip oversize; the
@@ -83,11 +83,16 @@ def build_attachment_bosses(height, oversize=0.0):
     against two walls (a far ±X and an end ±Y wall) and gets a web toward
     each, diagonal-inboard quadrant left open for foam; a mid-side boss sits
     against one wall and gets a single web toward it (a D: flat to the wall,
-    round toward the foam)."""
+    round toward the foam).
+
+    WHICH WALL A BOSS LEANS ON IS THE STATION'S OWN, read off `attachment_stations` and never
+    off the sign of its coordinates. A station centred on a ±X wall stands at y = 0, where
+    that sign is neither — and a web run to a wall picked by it would sweep the whole half of
+    the shell between the boss and that wall, which unions in silently and reads only as a
+    part that came out heavy."""
     r = screw_boss_size / 2 + oversize
     corner_x = outer_shell_x_length / 2
     corner_y = outer_shell_y_length / 2
-    corner_positions = attachment_xy_positions[:4]
     bosses = (
         WorldWorkplane(xy_plane_z_up)
         .workplane(offset=0)
@@ -95,16 +100,17 @@ def build_attachment_bosses(height, oversize=0.0):
         .circle(r)
         .extrude(height)
     )
-    for cx, cy in attachment_xy_positions:
-        x_sign = 1 if cx > 0 else -1
-        y_sign = 1 if cy > 0 else -1
-        # The web toward this boss's ±Y wall — every boss sits against one.
-        boss_webs = make_box((cx - r, cx + r), (cy, y_sign * corner_y), (0.0, height))
-        # A corner boss also sits against a far ±X wall, so it gets a second web.
-        if (cx, cy) in corner_positions:
-            boss_webs = boss_webs.union(
-                make_box((cx, x_sign * corner_x), (cy - r, cy + r), (0.0, height))
-            )
+    for (cx, cy), wall in attachment_stations:
+        boss_webs = None
+        # The web toward this boss's ±Y wall — every boss but a ±X wall's own sits against one.
+        if wall in ("corner", "y"):
+            y_sign = 1 if cy > 0 else -1
+            boss_webs = make_box((cx - r, cx + r), (cy, y_sign * corner_y), (0.0, height))
+        # A corner boss also sits against a far ±X wall, and a ±X station sits against one alone.
+        if wall in ("corner", "x"):
+            x_sign = 1 if cx > 0 else -1
+            web = make_box((cx, x_sign * corner_x), (cy - r, cy + r), (0.0, height))
+            boss_webs = web if boss_webs is None else boss_webs.union(web)
         bosses = bosses.union(boss_webs)
     return bosses.intersect(_rounded_footprint(height).unwrap())
 
@@ -130,7 +136,7 @@ def build_outer_shell():
 
 
 def cut_insert_pockets(foam_shell):
-    """Heat-set insert pockets in the corner/mid bosses on both faces — each
+    """Heat-set insert pockets in every boss on both faces — each
     cap's M3 SHCS threads into an insert pressed from its own face, so every
     boss carries a pocket at z=0 and another at z=foam_shell_outer_height."""
     def insert_pockets_at(z_floor):

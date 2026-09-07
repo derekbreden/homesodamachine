@@ -191,7 +191,7 @@ reservoir_bulkhead_port_y = -(bag_pocket_width / 2 - 10)
 # pocket; a bore that misses its conduit is a blind one.
 #   EACH RESERVOIR TAKES ITS OWN STATION, and only half of what picks it lives
 # in this file. THIS half is the cap's: anywhere the vent boss, the rod's
-# register boss and the six screw bosses leave empty, standing over open cavity
+# register boss and the screw bosses leave empty, standing over open cavity
 # so the bore lands in the headspace rather than in a wall. Both stations answer
 # that, and it leaves a wide choice.
 #   The OTHER half is what stands on the crown over each pocket, and this module
@@ -317,9 +317,9 @@ co2_inlet_tube_radius = port_hole_radius
 water_inlet_port_y = -carbonator_port_offset
 prv_port_y = +carbonator_port_offset
 
-# Cap-to-outer-shell joinery: 6 attachment points per face × 2 faces =
-# 12 inserts / 12 M3×25 SHCS, each screw passing lid + cap into an insert
-# pressed from the shell face it mates. TPU gasket per cap
+# Cap-to-outer-shell joinery: one attachment point per station in
+# `attachment_stations`, per face × 2 faces, each screw passing lid + cap into an
+# insert pressed from the shell face it mates. TPU gasket per cap
 # (foam-cap-gasket.step). See bom.md for hardware SKUs.
 screw_clearance_radius = 1.95  # ⌀[3.9](SCREW_CLEARANCE_DIAMETER) clearance for M3 SHCS shank
 insert_pocket_radius = 2.0  # ⌀[4](INSERT_POCKET_DIAMETER), ruthex's own recommended hole
@@ -353,9 +353,10 @@ foam_cap_lid_height = wall_and_floor_thickness + head_pad_height
 # shell, so a line from the carbonator or from either pocket gets there along the −Y POUR
 # BAND, which runs the shell's whole length outboard of both pockets. What a line
 # may use of that band is the LANE: the strip inboard of every attachment boss.
-# All six bosses stand hard against a ±Y wall (`attachment_xy_positions`) and reach
+# Every boss on a ±Y wall stands hard against it (`attachment_stations`) and reaches
 # `screw_boss_size` in from its outer face, so the lane is exactly what they leave,
-# and it runs clear end to end at every height above the floor slab.
+# and it runs clear end to end at every height above the floor slab. The two bosses on
+# the ±X walls stand on the face the lanes arrive at, clear of both bands in y.
 #
 # The lane is ONE BORE WIDE. That is what makes each lane a column rather than a grid, and
 # what its slot stands on is `front_port_floor_z` below.
@@ -495,42 +496,98 @@ state("forward-band-takes-a-bore", "The forward band still passes a line",
       f"the show skin thickened the ±X wall into the forward band, leaving "
       f"{forward_band_width:g} mm against the {port_hole_radius * 2:g} mm bore that climbs it")
 
-# Every attachment boss stands hard against a ±Y wall — none in a corner, and none
-# on a ±X wall. Two reasons, and they are the same reason twice: the ±Y bands are
-# the only place a line running to the front face can travel, and a boss reaching
-# further in than `screw_boss_size` would narrow the lane below one bore. A boss
-# seated diagonally IN a corner (its cylinder tangent to the exterior arc, which is
-# the deepest seat available) reaches diagonally into the band, and that is what
-# closed the corner the lane has to turn through. Held against the wall instead, all
-# six leave the same lane and the ±X ends of both bands run clear to the wall.
-#   The four end bosses stand over the reservoir pockets' own far walls, which is
-# the furthest out they can go and still keep one wall of PET-GF around their insert
-# pockets inside the corner's rounded skin. Opposite signs at ±Y preserve 180°
-# rotational symmetry about Z (balanced gasket compression, and the top cap free to
-# install either way round).
-# The two mid bosses stand where the ±Y wall is otherwise free, and what is NOT free on
-# the +Y one is the PRV shroud: a ⌀23 cup lying on the carbonator's own +Y port axis
-# (`prv-shroud/`) whose closed end reaches within ~3 mm of this wall, so its section
-# spans x ±11.5 where the boss would stand. The offset is that reach plus the boss's
-# own radius and a clearance. Both signs move together — the pattern is 180°
-# rotationally symmetric so the top cap installs either way round.
-mid_screw_x_offset = 18.0
+# A STATION NAMES THE WALL IT LEANS ON, and that is the whole of this table. A boss is a
+# cylinder tangent to one exterior face with a web run out to it, and WHICH face cannot be
+# read off the sign of the boss's own coordinates: a station on a ±X wall stands at y = 0,
+# where the sign is neither. `attachment_stations` carries it; `attachment_xy_positions` is
+# the same table read as bare points, which is what every clearance reading in the tree wants.
+#
+# Every boss on a ±Y wall stands HARD against it — none in a corner, and none inboard.
+# The ±Y bands are the only place a line running to the front face can travel, and a boss
+# reaching further in than `screw_boss_size` would narrow the lane below one bore. A boss
+# seated diagonally IN a corner (its cylinder tangent to the exterior arc, which is the
+# deepest seat available) reaches diagonally into the band, and that is what closed the corner
+# the lane has to turn through. Held against the wall instead, every one of them leaves the
+# same lane and the ±X ends of both bands run clear to the wall.
+#   THE FOUR CORNER BOSSES stand over the reservoir pockets' own far walls, which is the
+# furthest out they can go and still keep one wall of PET-GF around their insert pockets
+# inside the corner's rounded skin.
+#   THE FOUR MID BOSSES stand two to a wall. What a mid boss is FOR is the gasket: the clamp
+# is what holds the TPU land against the pour, and a station's worth is the span it halves.
+# Two to a wall also settles the shroud, which is the one body standing where a single centred
+# boss would go: the PRV's ⌀23 cup lies on the carbonator's +Y port axis (`prv-shroud/`) and
+# its closed end reaches within ~3 mm of the +Y wall, so its section spans x ±11.5 there. At
+# `mid_screw_x_offset` neither boss is near it, and neither ±Y wall is a special case of the
+# other.
+#   THE TWO END BOSSES stand one to a ±X wall, the only station either ±X run has. Their
+# cylinder is tangent to the ±X face the same way a ±Y boss is tangent to its own, and the web
+# runs out to that face instead. In the SHELL that wall's centre is free — the two copper-plug
+# slots the front face is cut for stand at y ±77.5 and nothing else reaches it. What is not
+# free is the TOP LID's outer face, which is the deck the machine stands on: `water-3`'s tie
+# post (`cap_side_anchors`) covers the +X centre, and the funnel drain's berth notches the −X
+# edge over `drain_berth_span`. So the pair stands off centre by `end_screw_y_offset`, at
+# opposite signs — the same 180° turn the rest of the pattern answers to, which is what lets
+# the top cap install either way round.
+#
+# The whole pattern is symmetric under a 180° turn about Z — balanced gasket compression, and
+# the top cap free to install either way round. Two bosses to a ±Y wall is what makes that
+# free: one to a wall bought the same symmetry only by standing the pair on a diagonal.
 _boss_wall_y = outer_shell_y_length / 2 - screw_boss_size / 2
+_boss_wall_x = outer_shell_x_length / 2 - screw_boss_size / 2
 _end_boss_x = bag_pocket_outermost_x
-attachment_xy_positions = (
-    [(x_sign * _end_boss_x, y_sign * _boss_wall_y)
-     for x_sign in (1, -1) for y_sign in (1, -1)]
-    + [(y_sign * mid_screw_x_offset, y_sign * _boss_wall_y)
-       for y_sign in (1, -1)]
+# EVEN THIRDS OF THE RUN WOULD BE 43.83 — the corner bosses stand at ±`_end_boss_x`, so a
+# third of what lies between them is that. The last 3.8 mm of it is bought from the
+# `carb-water-out` conduit, whose column stands at (52.2, 77.5) on the +Y band: at the third
+# it reads 3.04 mm off this boss, against the 4.43 mm the tightest station in the cup reads
+# without one. So the pair stands a little inboard of even, where the worst span on the run is
+# 91.5 mm against the third's 87.7 and nothing already standing in the cup moves at all.
+mid_screw_x_offset = 40.0
+# HOW FAR OFF THE ±X WALL'S CENTRE THE END BOSS STANDS, and both bodies it is clear of are on
+# the top lid rather than in the shell. `water-3`'s post is `cap_side_len` of footprint centred
+# on the cap's y 3.242, so a head recess clears it from 11.1 out; the drain berth runs to
+# `drain_berth_span`'s 15, so the partner station clears that from 18.1 out. The two are on
+# opposite ±X walls and the pattern turns one onto the other, so ONE figure has to clear both,
+# and this stands a little past the wider of them. `cap_side_anchor_room` and
+# `cap_anchor_room` are what hold it — the readings are taken where the bodies are.
+end_screw_y_offset = 20.0
+#: Every attachment station as `((x, y), wall)`, `wall` naming the exterior face its cylinder
+#: stands tangent to and its web runs out to — "x", "y", or "corner" for one against both.
+attachment_stations = (
+    tuple(((x_sign * _end_boss_x, y_sign * _boss_wall_y), "corner")
+          for x_sign in (1, -1) for y_sign in (1, -1))
+    + tuple(((x_sign * mid_screw_x_offset, y_sign * _boss_wall_y), "y")
+            for x_sign in (1, -1) for y_sign in (1, -1))
+    + tuple(((x_sign * _boss_wall_x, x_sign * end_screw_y_offset), "x") for x_sign in (1, -1))
 )
+attachment_xy_positions = [_xy for _xy, _wall in attachment_stations]
+
+# A STATION IS PRICED AGAINST THE LANE IT IS NOT IN. A ±Y boss shares the ±Y band with every
+# line running to the front face, so it is held to the outer `screw_boss_size` of it and the
+# lane is exactly what it leaves. A ±X boss is in neither band — it stands on the face those
+# lines arrive AT, clear of both lanes in y — so the reading that fences it is the lane's own
+# volume, measured where the bodies are (`foam-shell/foam_shell._report_front_ports`) rather
+# than inferred from a coordinate here.
 _boss_lane = bound(
-    "boss-clears-lane", "Every attachment boss stands clear of the port lane",
-    "every boss inboard of the lane's outer edge")
-for _bx, _by in attachment_xy_positions:
+    "boss-clears-lane", "Every ±Y attachment boss stands clear of the port lane",
+    "every ±Y boss inboard of the lane's outer edge")
+for (_bx, _by), _wall in attachment_stations:
+    if _wall == "x":
+        continue
     _boss_lane(
         abs(_by) - screw_boss_size / 2 >= outer_shell_y_length / 2 - screw_boss_size,
         f"attachment boss at ({_bx:g}, {_by:g}) reaches past the port lane's outer edge "
         f"({port_lane_outer_y:g}) — the lane every front penetration runs along")
+_boss_lane_x = bound(
+    "boss-clears-lane-x", "Every ±X attachment boss stands clear of both lanes in y",
+    "every ±X boss inboard of both bands")
+for (_bx, _by), _wall in attachment_stations:
+    if _wall != "x":
+        continue
+    _boss_lane_x(
+        abs(_by) + screw_boss_size / 2 <= abs(port_lane_inner_y),
+        f"attachment boss at ({_bx:g}, {_by:g}) reaches into a ±Y band (inboard edge "
+        f"{abs(port_lane_inner_y):g}) — a boss on the face the lanes arrive at must stand "
+        f"clear of both of them")
 gasket_thickness = 2.0
 gasket_strip_width = 5.0
 
@@ -608,7 +665,8 @@ state(
     f"face and bottoms in a {insert_pocket_depth:g} mm pocket before its head is down")
 
 # Deck mounts — the service bay's electronics, carried on columns of the TOP CAP. The cap
-# is already a foam-poured cup with six screw-boss columns spanning its full height; a deck
+# is already a foam-poured cup with a screw-boss column at every station spanning its full
+# height; a deck
 # mount is that same column at four more stations. Foam pours around the shanks, a ruthex
 # short sits flush in each column's top bore, and the module bolts down into it. Nothing is
 # bonded and no tray floor stands between the module and the cap.
@@ -640,7 +698,7 @@ deck_mount_cap_gap = 1.5
 # column [1.5 mm](DECK_MOUNT_CAP_GAP) off whatever else stands in the cup for the pour to reach
 # between them.
 #   THE PATTERN IS THE CAP'S ROTATION KEY. The top cap installs spun a half turn about Z
-# (`foam_assembly._spin`) and its six clamp bosses are symmetric under that turn, so the thing
+# (`foam_assembly._spin`) and its clamp bosses are symmetric under that turn, so the thing
 # that tells a builder which way the cup goes on is what is NOT symmetric — this station and the
 # seven conduit columns beside it. `assembly/cold-core.md` CC-06 and CC-15 both read the cap
 # that way.
@@ -1577,6 +1635,65 @@ def cap_side_anchor_tie_loop(name) -> float:
             + math.sqrt(d_lo * d_lo - a.seat_r * a.seat_r)
             + math.sqrt(d_hi * d_hi - a.seat_r * a.seat_r)
             + a.seat_r * (sweep - math.acos(a.seat_r / d_lo) - math.acos(a.seat_r / d_hi)))
+
+
+def cap_side_anchor_room(name):
+    """The least room this post leaves to anything else opening on the lid's outer face:
+    `(mm, what)` — a clamp screw's counterbore, a conduit's entry countersink, a deck mount's
+    lid hole, a cradle boss, the pour hole, a vent, the up-opening ribs.
+
+    A POST IS THE ONE THING ON THIS FACE THAT STANDS ON IT WITHOUT BEING CUT INTO IT, and that
+    is why it needs saying. Every other body here opens THROUGH the plate, so two of them
+    fouling shows up as a hole in the wrong shape; a post fouling one shows up as nothing at
+    all — the lid comes off the plate correct and the screw under the post cannot be driven.
+    `cap_anchor_room` reads the up-opening ribs the same way and this is its twin, on the
+    family that stands on the cap's side instead.
+
+    Read on the post's own rectangle, which is the whole of its footing: `cap_side_depth`
+    across the cap's X about its centre, `cap_side_len` down its Y."""
+    (cx, cy) = cap_side_anchors[name].centre
+    x0, x1 = cx - cap_side_depth / 2.0, cx + cap_side_depth / 2.0
+    y0, y1 = cy - cap_side_len / 2.0, cy + cap_side_len / 2.0
+
+    def off(px, py, r):
+        """How far a disc of radius `r` at (px, py) stands off the post's rectangle."""
+        dx = max(x0 - px, 0.0, px - x1)
+        dy = max(y0 - py, 0.0, py - y1)
+        return math.hypot(dx, dy) - r
+
+    room = []
+    for bx, by in attachment_xy_positions:
+        room.append((off(bx, by, head_cbore_radius), "a clamp screw's counterbore"))
+    for cname, (bx, by) in cap_conduits.items():
+        room.append((off(bx, by, cap_conduit_entry_relief_radius),
+                     f"the {cname} conduit's entry"))
+    for dname in deck_mounts:
+        for dx, dy in deck_mount_xy(dname):
+            room.append((off(dx, dy, deck_lid_hole_radius(dname)),
+                         f"the {dname} mount's lid hole"))
+    for vname in cap_cradles:
+        for sx, sy in cap_cradle_xy(vname):
+            room.append((off(sx, sy, cap_cradle_boss_radius), f"the {vname} cradle"))
+    for aname in cap_anchors:
+        room.append((off(*cap_anchors[aname].centre,
+                         cap_anchors[aname].seat_r + cap_anchor_wall),
+                     f"the {aname} rib"))
+    room.append((off(*foam_cap_lid_pour_xy(), foam_cap_lid_pour_radius), "the pour hole"))
+    for hx, hy in foam_cap_lid_vent_xy():
+        room.append((off(hx, hy, foam_cap_lid_vent_radius), "a vent"))
+    return min(room)
+
+
+_side_anchor_room = bound(
+    "cap-side-anchor-room", "Every side post stands clear of what the lid's face opens",
+    f"{cap_cradle_room_gap:g} mm off the nearest")
+for _name in cap_side_anchors:
+    _room, _what = cap_side_anchor_room(_name)
+    _side_anchor_room(
+        _room >= cap_cradle_room_gap - 1e-9,
+        f"cap side anchor {_name}: its post stands {_room:.3f} mm off {_what}, inside the "
+        f"{cap_cradle_room_gap:g} mm this face keeps between two things it opens — a post over "
+        f"one of them is a body no plate reads as fouled")
 
 
 def cap_conduit_pair_neck(a, b):

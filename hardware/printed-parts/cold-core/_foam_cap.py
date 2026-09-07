@@ -33,7 +33,7 @@ from _cold_core_interface import (
 from _outer_shell import build_attachment_bosses, take_skin_off_the_floor
 
 # A lid stands one wall of plate over a head pad's own height, and the two ends of the stack
-# reach it differently. The BOTTOM lid is that plate with a pad at each of the six stations. The
+# reach it differently. The BOTTOM lid is that plate with a pad at each attachment station. The
 # TOP lid is SOLID to the same height over its whole footprint: it is the plate the service bay
 # stands on, and a plate with pads under it has no face to print on.
 lid_total_height = foam_cap_lid_height
@@ -141,11 +141,11 @@ def build_foam_cap(open_down=False):
     the top cap. open_down=True shells the other face so the cup opens −Z
     (floor on top, mouth down): the bottom cap, seated floor-up against the
     shell's bottom face with its open mouth + lid as the most-negative-Z
-    layer. Same footprint and same six-screw clearance pattern either way, so
+    layer. Same footprint and same screw-clearance pattern either way, so
     the mouth-down bottom cap lands its screws on the shell's existing bosses.
 
     EACH CUP IS AS TALL AS ITS OWN LID LEAVES IT. The bottom cup stands the whole
-    `foam_cap_height` and its six boss columns stop `head_pad_height` short of the mouth: that
+    `foam_cap_height` and its boss columns stop `head_pad_height` short of the mouth: that
     relief is where the bottom lid's head pads go, and the slip it carries is what lets them in.
     The TOP cup stands `top_cap_height` and takes no relief — its lid is solid to the plane the
     pads would have stood on, so every column runs to the rim and the lid's flat underside lands
@@ -197,7 +197,7 @@ def build_foam_cap_lid(open_down=False):
     head_seat_recess under a face that is otherwise a plane.
 
     ONE HEIGHT, TWO PLATES. The bottom lid is one wall of plate with a head pad standing off its
-    mouth-facing side at each of the six stations, into the relief its cup leaves. The TOP lid is
+    mouth-facing side at each attachment station, into the relief its cup leaves. The TOP lid is
     that height SOLID over the whole footprint — the pads are the plate, its underside is one
     plane, and the band they stood in is wall its cup does not carry."""
     plate_height = wall_and_floor_thickness if open_down else lid_total_height

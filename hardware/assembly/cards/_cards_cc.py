@@ -29,7 +29,7 @@ WHAT THE CC CARDS STAND ON, and therefore what is asserted rather than measured:
   notched. `_port_cuts` asserts the water outlet's crossing at import; the CO2's
   lean is measured here, because CC-10 and CC-12 both say "both lines, one slot".
 - THE CAP IS CLOCKED BY WHAT ITS INSTALL TURN MOVES. It goes on spun a half turn
-  (`foam_assembly._spin`), and CC-15 tells the bench the six clamp bosses bolt
+  (`foam_assembly._spin`), and CC-15 tells the bench the clamp bosses bolt
   either way while the deck columns and the lid's valve cradles do not. Three
   patterns against one turn and no figure in any of it, so all three readings are
   assertions.
@@ -203,7 +203,7 @@ def cold_core(m):
         "column UNDER the lid, and CC-15 closes the cap on a lid whose outer face is the "
         "one plane the valve cradles stand on")
     # Three patterns against one turn. CC-15 bolts the top cap on spun a half turn and says
-    # the six clamp bosses go either way while the deck columns and the lid's cradles do not
+    # the clamp bosses go either way while the deck columns and the lid's cradles do not
     # — which is true only if the turn carries the first onto itself and neither of the
     # others, and there is no number in any of that for a value to drift on.
     clamp = set(cci.attachment_xy_positions)

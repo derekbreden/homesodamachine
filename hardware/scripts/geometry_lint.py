@@ -20,10 +20,13 @@ fix what it flags; a finding with a reason is a finding answered.
 A finding that is intentional gets its reason recorded in
 `<piece>.lint-answers` beside the STL — one entry per feature family: a
 `[class] reason` line, then pick lines whose points anchor it (one `click:`
-per instance). A finding of the same class within `--answer-radius` (default
-3 mm) of an anchor point reports as answered and is hidden unless `--all`
-shows it with its reason. Geometry that moves away from its anchors
-resurfaces as an open finding.
+per instance). AN ANSWER EXPLAINS THE FACE IT NAMES AND NOTHING ELSE: a
+finding reports as answered when its own pick point IS an anchor point of an
+entry of its class, to the three decimals the pick text carries. It is hidden
+then unless `--all` shows it with its reason. Nothing near an anchor inherits
+that anchor's prose, so a face that moves, or a new face beside an explained
+one, comes back open — which is the whole use of the file. Answering a moved
+feature means re-anchoring its entry on the face it now has.
 
     [sliver] Wago cluster-well ceiling tab — retention ledge; prints as a
     one-sided bridge on the H2C with our settings and filament.
@@ -76,6 +79,10 @@ _CEILING_AREA = 20.0
 _CEILING_OFF_BED = 0.5
 #: `slope` considers 45-ish undersides at least this big (mm²).
 _SLOPE_AREA = 15.0
+#: An anchor answers the point it names. `pick_text.fnum` writes three decimals, so a point
+#: written out and read back moves by at most half a thousandth on each axis; this is that
+#: round trip and nothing else. It is not a radius, and there is no flag to widen it.
+_ANSWER_TOL = 0.002
 
 _CLASSES = ("step", "sliver", "ceiling", "slope")
 #: Which way each piece builds along the box's Z. Every coordinate the lint reads and emits
@@ -587,8 +594,12 @@ def parse_answers(text):
     return entries
 
 
-def split_answered(found, entries, radius):
-    """Findings partitioned into (open, [(finding, reason), …]) by anchors."""
+def split_answered(found, entries):
+    """Findings partitioned into (open, [(finding, reason), …]) by anchors.
+
+    An entry answers a finding of its class whose own pick point is one of the entry's anchor
+    points. Proximity is not a relationship: a face beside an explained face is a face nobody
+    has explained, and it belongs in the open list where it can be looked at."""
     if not entries:
         return list(found), []
     open_, answered = [], []
@@ -598,7 +609,7 @@ def split_answered(found, entries, radius):
         for cls, why, anchors in entries:
             if cls != r["class"]:
                 continue
-            if any(np.linalg.norm(fp - ap) <= radius
+            if any(np.linalg.norm(fp - ap) <= _ANSWER_TOL
                    for fp in pts for ap in anchors):
                 hit = why
                 break
@@ -629,7 +640,7 @@ def lint(stl, classes=_CLASSES):
     return mesh, found
 
 
-def report(stl, top, show_all, classes, answer_radius=3.0):
+def report(stl, top, show_all, classes):
     step = stl.with_suffix("") if stl.suffix == ".stl" else stl
     step = step if step.suffix == ".step" else step.with_suffix(".step")
     mesh, found = lint(stl, classes)
@@ -638,7 +649,7 @@ def report(stl, top, show_all, classes, answer_radius=3.0):
                if answers_path.exists() else [])
     opens, answered = {}, []
     for name in classes:
-        opens[name], hit = split_answered(found[name], entries, answer_radius)
+        opens[name], hit = split_answered(found[name], entries)
         answered += hit
     total = sum(len(v) for v in opens.values())
     print(f"{stl.name} · {len(mesh.faces)} printed facets · {total} findings"
@@ -706,16 +717,17 @@ def _selftest():
     got = find_slivers(planes_of(m), 0.0)
     assert len(got) == 1 and "0.500 mm strip" in got[0]["line"], got
 
-    # answers: an anchor within radius answers the strip; a wrong class or a
-    # far anchor leaves it open
+    # answers: an anchor ON the strip answers it; a wrong class, a far anchor, and an anchor
+    # a fifth of a millimetre off the face all leave it open — nothing inherits by proximity
     entries = parse_answers("[sliver] retention tab — prints as a one-sided"
                             " bridge\nclick: x=15.000 y=0.250 z=5.000\n")
-    opened, answered = split_answered(got, entries, 3.0)
+    opened, answered = split_answered(got, entries)
     assert not opened and len(answered) == 1, (opened, answered)
     assert "one-sided bridge" in answered[0][1], answered
     for miss in ("[step] wrong class\nclick: x=15.000 y=0.250 z=5.000\n",
-                 "[sliver] far away\nclick: x=15.000 y=0.250 z=95.000\n"):
-        opened, answered = split_answered(got, parse_answers(miss), 3.0)
+                 "[sliver] far away\nclick: x=15.000 y=0.250 z=95.000\n",
+                 "[sliver] beside it\nclick: x=15.000 y=0.450 z=5.000\n"):
+        opened, answered = split_answered(got, parse_answers(miss))
         assert len(opened) == 1 and not answered, miss
 
     # ceiling: a down-facing square 15 mm above an up-facing floor
@@ -785,8 +797,6 @@ def main(argv=None):
                     help="show every finding, answered ones included")
     ap.add_argument("--classes", default=",".join(_CLASSES),
                     help="comma list of: " + ",".join(_CLASSES))
-    ap.add_argument("--answer-radius", type=float, default=3.0,
-                    help="mm from a .lint-answers anchor that answers a finding")
     ap.add_argument("--selftest", action="store_true")
     args = ap.parse_args(argv)
 
@@ -805,7 +815,7 @@ def main(argv=None):
             raise SystemExit(f"no STL for {piece}")
         if i:
             print()
-        report(stl, args.top, args.all, classes, args.answer_radius)
+        report(stl, args.top, args.all, classes)
     return 0
 
 

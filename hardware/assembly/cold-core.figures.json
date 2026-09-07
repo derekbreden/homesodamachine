@@ -1,15 +1,15 @@
 {
   "/hardware/assembly/_cold_core_sync.py": {
     "BRIDGE_Z_BOTTOM": "46.12 mm",
-    "CAP_CLAMP_INSERTS": "12",
+    "CAP_CLAMP_INSERTS": "20",
     "CAP_CRADLES": "3",
     "CAP_DECK_INSERTS": "4",
     "CAP_H": "16 mm",
     "CAP_H_TOP": "12.8 mm",
-    "CAP_INSERTS": "16",
+    "CAP_INSERTS": "24",
     "CCORE_CAPPED_H": "253.4 mm",
     "CCORE_OUTER_Y": "181",
-    "CC_INSERTS": "28",
+    "CC_INSERTS": "36",
     "COTWO_INLET_Y": "-19.05",
     "CUT_FT": "15.92 ft",
     "FLAVOR_HOLE_X": "\u00b197",

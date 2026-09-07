@@ -63,6 +63,8 @@ click: x=-96.329 y=252.140 z=300.869
 click: x=-101.500 y=252.140 z=278.753
 click: x=-101.500 y=225.140 z=306.761
 click: x=-96.325 y=225.140 z=328.861
+click: x=-101.429 y=252.140 z=278.753
+click: x=-101.425 y=225.140 z=306.761
 
 [ceiling] The keystone pocket's floor — the module standard's 14.9 mm section, a bridge between the receptacle boss's two flanks; the lower latch catch stands on it (`riteav_keystone.CATCH_LOWER`).
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
@@ -78,6 +80,7 @@ click: x=-101.075 y=266.275 z=168.700
 [ceiling] The PRV mouth's floor — a `vent_channel_w` bridge between the passage's two jambs, the mouth's own square section on the tube's axis.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-91.500 y=319.500 z=185.900
+click: x=-92.000 y=319.500 z=185.900
 
 [ceiling] The rim rebate's shoulders, which the pan's flange rides over — flat by the tray's own contract, looking print-down toward the lid one lid's rise away; a supported face reached with the berth floor through the open mouth.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
@@ -90,10 +93,13 @@ click: x=19.840 y=266.305 z=342.590
 click: x=39.980 y=318.000 z=342.590
 click: x=-37.810 y=371.210 z=345.410
 click: x=-37.810 y=409.210 z=345.410
+click: x=19.845 y=266.300 z=342.586
+click: x=39.975 y=318.000 z=342.586
 
 [step] The CO2 nut land — `port_clamp_stack` keeps wall plus chip (5.00 mm) at the relieved station, so the land stands exactly one retained millimetre inside the wall field. The transition between the two is a drafted skirt (`station_land_draft`), and both planes are stated datums: the wall field at y=461 and the neoFit nut's land at y=462.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=2.650 y=462.000 z=335.710
+click: x=13.398 y=462.000 z=331.434
 
 [sliver] The nameplate mouth's intentional 1.5 mm square remainder — THICK 4.5 minus BEVEL 3 = 1.5. The flush square mouth is the stated contract; these are its four physical rim faces, not overlap residue.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
@@ -110,6 +116,8 @@ click: x=98.326 y=453.599 z=279.400
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-37.810 y=458.000 z=315.220
 click: x=-37.810 y=457.950 z=295.420
+click: x=-37.810 y=458.000 z=315.820
+click: x=-37.810 y=457.950 z=296.020
 
 [sliver] The aft round section of the ASSE anchor closes above its concentric fitting seat — the 1.254 mm vertical face is the retained crown between that circle and the anchor's common top plane. It is backed west to the side wall over the section's full 13.5 mm run, not a thin printed ligament.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step

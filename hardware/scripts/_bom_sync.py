@@ -176,7 +176,7 @@ assert not _orphans, (
     f"the cold core's cap prints a cradle for {_orphans}, and the machine places no such "
     f"body — a cradle is a valve seat, and a seat with no valve is a pad on the lid")
 
-# Foam-cap hardware: 6 clamp inserts + 6 M3 × 25 screws per face, both faces, PLUS
+# Foam-cap hardware: one clamp insert + one M3 × 25 screw per station per face, both faces, PLUS
 # the top cap's deck-mount columns — each takes a ruthex short in its top bore, and
 # each is a bolt station, and the water pump is the one module that uses any: the
 # clamp screws are 1:1 with the clamp inserts, and a deck column takes a screw only
@@ -408,7 +408,10 @@ run_tie_loop = _enc.tube_anchor_tie_loop(next(iter(_run_seats)))
 # radius is the reference module's — read here by name rather than off a row's position.
 _body_seats = {name: section()[1] + _ea.BODY_ANCHOR_SLIP
                for name, section, _root, _piece in _ea.BODY_ANCHOR_SITES}
-_bored = {round(r, 6) for *_s, r in _f.pack["body_anchors"]}
+# The seat is the row's own fourth field, the same station `tube_anchors` reads above —
+# named by index from the FRONT because a row may carry more behind it, and a read off
+# its last position turns whatever is appended next into this radius.
+_bored = {round(station[3], 6) for station in _f.pack["body_anchors"]}
 _missing = sorted(n for n, r in _body_seats.items() if round(r, 6) not in _bored)
 if _missing:
     raise ValueError(
@@ -473,6 +476,7 @@ def main():
         "FOAM_INSERTS": f"{foam_cap_inserts_per_build:.4g}",
         "FOAM_CLAMP_INSERTS": f"{foam_cap_clamp_inserts_per_build:.4g}",
         "FOAM_SCREWS": f"{foam_cap_screws_per_build:.4g}",
+        "FOAM_FACE_SCREWS": f"{inserts_per_foam_cap_face:.4g}",
         "RES_INSERTS_PER_CAP": f"{inserts_per_reservoir_cap:.4g}",
         "RES_INSERTS": f"{reservoir_cap_inserts_per_build:.4g}",
         "RES_SCREWS": f"{reservoir_cap_screws_per_build:.4g}",
@@ -556,6 +560,7 @@ def main():
             "SEAM_SCREWS": f"{enclosure_seam_screws_per_build:.4g}",
             "FOAM_CLAMP_INSERTS": f"{foam_cap_clamp_inserts_per_build:.4g}",
             "FOAM_SCREWS": f"{foam_cap_screws_per_build:.4g}",
+            "FOAM_FACE_SCREWS": f"{inserts_per_foam_cap_face:.4g}",
             "PUMP_MOUNT_SCREWS": f"{pump_mount_screws_per_build:.4g}",
             "RES_SCREWS": f"{reservoir_cap_screws_per_build:.4g}",
             "TOUCHFLO_SCREWS": f"{touchflo_screws_per_build:.4g}",

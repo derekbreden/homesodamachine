@@ -4,11 +4,17 @@ click: x=-89.000 y=196.925 z=352.000
 click: x=89.000 y=196.925 z=352.000
 click: x=-89.000 y=196.925 z=349.000
 click: x=89.000 y=196.925 z=349.000
+click: x=-89.075 y=196.925 z=352.000
+click: x=89.075 y=196.925 z=352.000
+click: x=-89.075 y=196.925 z=349.000
+click: x=89.075 y=196.925 z=349.000
 
 [sliver] The mirrored end lands belong to the fore-facing flavour-valve tray. Its wall-to-wall plate is 10 mm deep at y=167.560..177.560 and is trimmed to front-top's established 45-degree flank bedding; 1.55 mm is the exposed height of that solid plate-to-flank root, not a free ligament.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=-98.500 y=172.560 z=180.025
 click: x=98.500 y=172.560 z=180.025
+click: x=-98.500 y=172.560 z=180.450
+click: x=98.500 y=172.560 z=180.450
 
 [ceiling] The pump-bay lintel is the complete fixed roof at z=283.495. It carries the display/ridge storey and leaves 1 mm above the cartridge crown at z=282.495 for withdrawal. This flat roof is retained as a supported face; a corbel extending into the bay would occupy the cartridge's withdrawal envelope. Support topology and build-up require the production slice for this mesh.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
@@ -29,6 +35,8 @@ click: x=-8.000 y=83.785 z=305.591
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=0.000 y=90.290 z=308.395
 click: x=0.000 y=90.340 z=288.595
+click: x=0.000 y=90.290 z=308.895
+click: x=0.000 y=90.340 z=289.095
 
 [slope] The two spring guides on the tee wall are 4 mm diamond prisms along the spring axes, wholly inside the springs' round IDs. These four faces are their 45-degree lower flanks; they grow from each diamond's lower edge and the tee wall roots their fore ends. They guide the springs rather than carry a boss face. The production slice generates no support at either guide.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
@@ -41,3 +49,5 @@ click: x=-50.945 y=96.396 z=189.245
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=0.000 y=86.935 z=310.395
 click: x=0.000 y=90.290 z=308.395
+click: x=0.000 y=86.935 z=310.895
+click: x=0.000 y=90.290 z=308.895
