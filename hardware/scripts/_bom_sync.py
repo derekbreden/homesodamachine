@@ -552,6 +552,8 @@ def main():
             "TOTAL_SCREWS":
                 f"{total_m3_screws_per_build + total_m5_screws_per_build:.4g}",
             "TOTAL_M3_INSERTS": f"{total_m3_inserts_per_build:.4g}",
+            "SEAM_INSERTS": f"{enclosure_seam_inserts_per_build:.4g}",
+            "SEAM_SCREWS": f"{enclosure_seam_screws_per_build:.4g}",
             "FOAM_CLAMP_INSERTS": f"{foam_cap_clamp_inserts_per_build:.4g}",
             "FOAM_SCREWS": f"{foam_cap_screws_per_build:.4g}",
             "PUMP_MOUNT_SCREWS": f"{pump_mount_screws_per_build:.4g}",
