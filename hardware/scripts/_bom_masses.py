@@ -141,16 +141,10 @@ PARTS = {
         "enclosure/enclosure/enclosure-pump-cartridge.step",
         "enclosure/enclosure/enclosure-pump-cap.step",
     ],
-    # ONE MOVING TEE CARRIAGE, shipped as five separately installed pieces. The broad carrier
-    # lowers first; each handed service tab starts wholly outside its side wall and slides inward
-    # into the carrier's outboard-open socket; the two keys drop last. They share one row because
-    # they are one mechanism and one print setup.
-    "Tee carrier + service tabs + tab locks (five pieces)": [
-        "enclosure/tee-carrier/enclosure-tee-carrier.step",
-        "enclosure/tee-carrier/enclosure-tee-carrier-tab-left.step",
-        "enclosure/tee-carrier/enclosure-tee-carrier-tab-right.step",
-        "enclosure/tee-carrier/enclosure-tee-carrier-tab-lock-left.step",
-        "enclosure/tee-carrier/enclosure-tee-carrier-tab-lock-right.step",
+    # Two halves with integral grips, joined by the central M3 lap.
+    "Tee carrier halves (two pieces)": [
+        "enclosure/tee-carrier/enclosure-tee-carrier-left.step",
+        "enclosure/tee-carrier/enclosure-tee-carrier-right.step",
     ],
     "Carbonator reed bridge": ["cold-core/reed-bridge/reed-bridge.step"],
     "Enclosure — back bottom + back top (two quadrants)": [
@@ -410,4 +404,6 @@ def main():
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    status = main()
+    if status:
+        sys.exit(status)

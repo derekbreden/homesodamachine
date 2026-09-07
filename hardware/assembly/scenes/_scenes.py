@@ -501,7 +501,7 @@ BEARS_ON = {
     "water-split": "enclosure-back-top",
     "flow-regulator": "enclosure-back-top",
     # Captive between the fixed front-top bearings and the moving carrier seats. The springs
-    # enter with the bare carrier and remain part of the completed front-top bench unit.
+    # are fitted after the carrier halves are joined and stay with the front-top bench unit.
     "tee-carrier-spring-west": "enclosure-front-top",
     "tee-carrier-spring-east": "enclosure-front-top",
     # A hop inboard of the CO2 inlet and a hop short of the regulator, on that same wall.
@@ -537,6 +537,10 @@ def holders():
             + ", ".join(sorted(orphans))
             + ". `_scorecard.MOUNTS` fastens them to nothing; name the piece each bears on in "
               "`_scenes.BEARS_ON`, or None for one that comes with the flavour pack.")
+    # Printed enclosure parts sit outside the purchased-pack fastening census. Both carrier
+    # halves stay in front-top's guides, bringing their four tied tees into its bench scene.
+    for name in _ea._carrier.interface()["printed_parts"]:
+        out[name] = "enclosure-front-top"
     for rid, _leg, _root, piece in _ea.TUBE_ANCHOR_SITES:
         out[f"tube-{rid}"] = piece
     for name, _section, _root, piece in _ea.BODY_ANCHOR_SITES:

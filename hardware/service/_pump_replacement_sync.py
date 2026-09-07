@@ -150,20 +150,18 @@ def main():
     states = _ml.tee.CARRIER_STATES
     if tuple(states) != ("release", "squeeze", "connected", "park"):
         raise ValueError(f"tee-carrier states are not in service order: {tuple(states)}")
+    carrier_interface = _carrier.interface()
+    printed = carrier_interface["printed_parts"]
     carrier_tees = tuple(sorted(_ml.CARRIER_TEES))
     mounted_carrier_tees = tuple(sorted(
         name[len("tee-"):].upper()
         for name, by, joint in _sc.MOUNTS
-        if by == "enclosure-tee-carrier" and joint == "tie-capture"
+        if by in printed and joint == "tie-capture"
     ))
     if mounted_carrier_tees != carrier_tees:
         raise ValueError(
             f"manifold_layout carries {carrier_tees}, but the carrier's tie-capture mounts are "
             f"{mounted_carrier_tees}")
-    carrier_interface = _carrier.interface()
-    printed = carrier_interface["printed_parts"]
-    tabs = tuple(name for name in printed if "-tab-" in name and "-tab-lock-" not in name)
-    locks = tuple(name for name in printed if "-tab-lock-" in name)
     springs = tuple(name for name, _by, _joint in _sc.MOUNTS
                     if name.startswith("tee-carrier-spring-"))
     tie_sites = carrier_interface["tie_sites"]
@@ -194,8 +192,8 @@ def main():
         "MOVING_HAIRPINS": f"{len(hairpins)}",
         "TIES_PER_TEE": f"{len(tie_sites) // len(carrier_tees)}",
         "SPRING_COUNT": f"{len(springs)}",
-        "TAB_COUNT":    f"{len(tabs)}",
-        "TAB_LOCK_COUNT": f"{len(locks)}",
+        "TAB_COUNT":    f"{len(carrier_interface['tab_pad_x'])}",
+        "CARRIER_JOINT_SCREWS": f"{carrier_interface['joint_count']}",
         # The doc names this count in four places — the opening, the heading, the pull and the
         # output condition — and `docgen` keys a text by its own name, so a count standing more
         # than once stands under a suffix per standing.

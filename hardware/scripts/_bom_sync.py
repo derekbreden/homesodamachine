@@ -95,10 +95,11 @@ tee_count = sum(1 for n in ml.P if n.startswith("Y-"))
 
 # The pump-barb tee carriage, counted from the part which draws its stations. Two tie bands on
 # each of four tee sites give eight 4-inch ties; its two spring stations take one catalog spring
-# apiece. The one carrier, two handed tabs and two handed tab locks are five shipped prints.
+# apiece. Each of the two shipped halves includes its grip; two M3 screws close the center lap.
 carrier_ties_per_build = len(_ea._carrier.tie_sites(_ea._carrier.DEFAULT_SPEC))
 carrier_springs_per_build = len(_ea._carrier.DEFAULT_SPEC.spring_xs)
-carrier_prints_per_build = 1 + 2 + 2
+carrier_prints_per_build = len(_ea._carrier.interface()["printed_parts"])
+carrier_joint_screws_per_build = len(_ea._carrier.joint_sites())
 general_four_inch_ties_per_build = 25
 four_inch_ties_per_build = general_four_inch_ties_per_build + carrier_ties_per_build
 
@@ -306,11 +307,13 @@ enclosure_seam_screws_per_build = len(_f.box["y_bosses"])
 enclosure_seam_inserts_per_build = enclosure_seam_screws_per_build
 
 # Every M3 × 8 in the build: the shelf's short ones, the condenser's aft pair, the nameplate's,
-# the display cover plate's and the C14 inlet's. The inlet's two suit it for the same reason the
+# the display cover plate's, the C14 inlet's and the tee carrier's. The inlet's two suit it for
+# the same reason the
 # condenser's do — a 2 mm flange under the head and the tunnel's own bore past it.
 m3x8_per_build = (shelf_short_screws_per_build + cond_screws_per_build
                   + nameplate_screws_per_build + display_cover_screws_per_build
-                  + faucet_display_cover_screws_per_build + c14_screws_per_build)
+                  + faucet_display_cover_screws_per_build + c14_screws_per_build
+                  + carrier_joint_screws_per_build)
 
 # And every M3 x 10: the ground-stack clamp's one, the pump clamp's two, and the enclosure's six
 # seam screws.
@@ -328,11 +331,12 @@ m3x12_per_build = touchflo_screws_per_build
 # than 5.7 mm of brass plus the relief its own screw needs; it is on the short list when giving
 # it that depth would cost geometry the machine is spending elsewhere.
 #
-# The five short families and what each is paying for:
+# Short insert families and the stock available behind their seats:
 #   touch-flo base pods  — the pod is 8 boss hole + pocket + 3 cap = the visible base cylinder
 #   +X wall bosses       — the bore ends at `flute_backing`; deeper walks the power column in
 #   pump-clamp bosses    — the screw is thread-limited at 4 mm anyway, over 2.2 mm of cradle
 #   faucet display cover — the shell's own land, one screw
+#   tee-carrier lap      — a 5 mm receiver, with a 4 mm insert and screw-end relief
 #   Y-seam sockets       — pilot is `screw_len - seam_pin_shank_len`; longer wants an M3x12
 m3_long_inserts_per_build = (
     foam_cap_inserts_per_build
@@ -348,6 +352,7 @@ m3_short_inserts_per_build = (
     + pump_cap_inserts_per_build
     + enclosure_seam_inserts_per_build
     + c14_inserts_per_build
+    + carrier_joint_screws_per_build
 )
 
 # Combined heat-set insert count across the appliance, by thread.
@@ -370,6 +375,7 @@ total_m3_screws_per_build = (
     + pump_cap_screws_per_build
     + enclosure_seam_screws_per_build
     + c14_screws_per_build
+    + carrier_joint_screws_per_build
 )
 total_m5_screws_per_build = floor_screws_per_build
 for _thread, _inserts, _screws in (("M3", total_m3_inserts_per_build, total_m3_screws_per_build),
@@ -456,6 +462,7 @@ def main():
         "CARRIER_TIES": f"{carrier_ties_per_build:.4g}",
         "CARRIER_SPRINGS": f"{carrier_springs_per_build:.4g}",
         "CARRIER_PRINTS": f"{carrier_prints_per_build:.4g}",
+        "CARRIER_JOINT_SCREWS": f"{carrier_joint_screws_per_build:.4g}",
         "FOUR_INCH_TIES": f"{four_inch_ties_per_build:.4g}",
         "PP1208E_PANEL": f"{panel_umbilical_bulkheads:.4g}",
         "PP1208E_INLET": f"{panel_water_inlet_bulkheads:.4g}",

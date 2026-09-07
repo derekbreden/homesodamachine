@@ -77,7 +77,7 @@ def main():
     # against it rather than searched: a section that moved without its rib has nothing behind it.
     _body_seats = {name: section()[1] + _ea.BODY_ANCHOR_SLIP
                    for name, section, _root, _piece in _ea.BODY_ANCHOR_SITES}
-    _bored = {round(r, 6) for *_s, r in _f.pack["body_anchors"]}
+    _bored = {round(station[3], 6) for station in _f.pack["body_anchors"]}
     _missing = sorted(n for n, r in _body_seats.items() if round(r, 6) not in _bored)
     if _missing:
         raise ValueError(
