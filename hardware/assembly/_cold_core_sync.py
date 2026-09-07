@@ -60,6 +60,8 @@ from docgen import load_module, substitute_md, substitute_py_comments  # noqa: E
 # is threaded — the power column's inserts are the enclosure's `east_bosses`, and
 # `enclosure-mechanical.md` §1 presses those.
 CAP_CLAMP_INSERTS = len(attachment_xy_positions) * 2
+# And what ONE face takes, which is how the bench works it — a face at a time.
+CAP_FACE_SCREWS = len(attachment_xy_positions)
 CAP_DECK_INSERTS = sum(len(deck_mount_xy(n)) for n in deck_mounts)
 RESERVOIR_INSERTS = len(insert_positions_for_side_plus_1) * 2
 
@@ -142,6 +144,7 @@ def main():
         "CC_INSERTS": f"{CAP_CLAMP_INSERTS + CAP_DECK_INSERTS + RESERVOIR_INSERTS}",
         "CAP_INSERTS": f"{CAP_CLAMP_INSERTS + CAP_DECK_INSERTS}",
         "CAP_CLAMP_INSERTS": f"{CAP_CLAMP_INSERTS}",
+        "CAP_FACE_SCREWS": f"{CAP_FACE_SCREWS}",
         "CAP_DECK_INSERTS": f"{CAP_DECK_INSERTS}",
         "RES_INSERTS": f"{RESERVOIR_INSERTS}",
         # ─── Penetrations (step 4, lines 70-72) ───────────────────────

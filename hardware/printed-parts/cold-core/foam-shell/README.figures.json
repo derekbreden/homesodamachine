@@ -1,5 +1,6 @@
 {
   "/hardware/printed-parts/cold-core/foam-shell/foam_shell.py": {
+    "BOSS_COUNT": "10",
     "BOSS_D": "8 mm",
     "CAP_H": "16 mm",
     "CAP_H_TOP": "12.8 mm",
@@ -12,6 +13,8 @@
     "COLUMN_TOP": "27.75 mm",
     "CORNER_ROUND_R": "12 mm",
     "ELBOW_ENV": "30 mm",
+    "END_BOSS_OFFSET": "20 mm",
+    "FACE_SCREWS": "10",
     "FLAVOR_POCKET_X": "97 mm",
     "FSHELL_BBOX_X": "-141.508 to 141.508 mm",
     "FSHELL_BBOX_Y": "-90.508 to 90.511 mm",
@@ -56,6 +59,7 @@
     "SHELL_OUTER_X": "283 mm",
     "SLOT_FLOOR_Z": "6.75 mm",
     "SLOT_Z": "port-lane evap-inlet 27.75; west-lane evap-outlet 27.75",
+    "STACK_INSERTS": "20",
     "SUPPORT_RING_H": "30 mm",
     "SUPPORT_RING_INNER_R": "61.5 mm",
     "SUPPORT_RING_W": "9 mm",
