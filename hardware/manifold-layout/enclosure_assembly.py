@@ -3888,6 +3888,10 @@ def wall_mounts(*mounted, blockers=()):
 
     pcba = [(i, row) for i, row in enumerate(raw) if row[0] == "pcba"]
     relay2 = [(i, row) for i, row in enumerate(raw) if row[0] == "relay-2"]
+    relay1 = [(i, row) for i, row in enumerate(raw) if row[0] == "relay-1"]
+    if len(relay1) != 4:
+        raise ValueError(
+            f"the relay-1 ceiling columns need 4 stations, got {len(relay1)}")
     if len(pcba) != 4 or len(relay2) != 4:
         raise ValueError(
             f"the upper power-pad union needs 4 pcba and 4 relay-2 stations, got "
@@ -3899,11 +3903,16 @@ def wall_mounts(*mounted, blockers=()):
     if len(relay_top) != 2 or out[pi] is None or any(out[i] is None for i, _row in relay_top):
         raise ValueError("the upper power-pad union cannot identify its three built stations")
     joined = [prow] + [row for _i, row in relay_top]
+    aft_relay1_y = max(row[1] for _i, row in relay1)
+    aft_relay1_floor = min(row[2] for _i, row in relay1
+                           if abs(row[1] - aft_relay1_y) <= _enc.stated_bound_tol) - r
+    # The pad's crown meets relay #1's aft column on its lower face.
+    pad_top = max(max(row[2] + r for row in joined), aft_relay1_floor)
     add_fill(
         "pcba/relay-2 upper pad union",
         (min(row[3] for row in joined), root_x,
          min(row[1] - r for row in joined), max(row[1] + r for row in joined),
-         min(row[2] - r for row in joined), max(row[2] + r for row in joined)),
+         min(row[2] - r for row in joined), pad_top),
         tuple((row[1], row[2]) for row in joined),
     )
 
@@ -3912,10 +3921,6 @@ def wall_mounts(*mounted, blockers=()):
     # one box per bar, with both candidate corbels of each pair replaced atomically. The box
     # begins at the bar's own lower face, so the finished feature is one continuous rectangular
     # column rather than a separate cap at the pocket floor.
-    relay1 = [(i, row) for i, row in enumerate(raw) if row[0] == "relay-1"]
-    if len(relay1) != 4:
-        raise ValueError(
-            f"the relay-1 ceiling columns need 4 stations, got {len(relay1)}")
     relay1_by_y = {}
     for i, row in relay1:
         relay1_by_y.setdefault(row[1], []).append((i, row))

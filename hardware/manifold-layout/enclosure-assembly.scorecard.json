@@ -760,7 +760,7 @@
    "target": "one ground-stack ceiling column, one upper pcba/relay-2 pad union, and two relay-1 paired-bar ceiling columns",
    "detail": [
     "`ground-stack ceiling column` x 92.250..98.500, y 330.500..337.500, z 341.044..348.500",
-    "`pcba/relay-2 upper pad union` x 96.250..98.500, y 315.500..347.000, z 317.900..326.700",
+    "`pcba/relay-2 upper pad union` x 96.250..98.500, y 315.500..347.000, z 317.900..327.200",
     "`relay-1 y=254.5 ceiling column` x 96.250..98.500, y 251.000..258.000, z 327.200..348.500",
     "`relay-1 y=320.5 ceiling column` x 96.250..98.500, y 317.000..324.000, z 327.200..348.500"
    ],

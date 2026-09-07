@@ -310,7 +310,8 @@ corbel. The aft upper main-board stem and relay #2's upper two-hole bar share on
 pad, with all three bores cut through the fused block. Their separate candidate wedges are
 omitted, leaving one flat box rather than three partial triangles. Relay #1's two vertical
 hole-pair bars each continue on their existing 2.25 × 7 mm footprint as one rectangular column
-into the ceiling, with both corbels in each pair omitted atomically. `east-boss-fills`
+into the ceiling, with both corbels in each pair omitted atomically. The upper pad's crown meets
+the lower face of relay #1's aft column. `east-boss-fills`
 intersects all four rectangles with every installed body and admits only the four clear results.
 
 The joined main-board/relay-2 pad's first printed face projects only 2.25 mm from the east wall
