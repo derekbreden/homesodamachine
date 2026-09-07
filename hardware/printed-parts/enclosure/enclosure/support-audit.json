@@ -9,47 +9,47 @@
    "support_bodies": [
     {
      "tree": "tree-1",
-     "name": "west Z-seam slide-head ridge land",
+          "name": "west Z-seam slide-head square catch",
      "first_contacts_cad_xyz_mm": [
       [
-       -101.4,
-       219.9,
-       166.4,
-       -100.2,
-       313.5,
-       166.6
+              -103.4,
+              219.9,
+              168.4,
+              -99.0,
+              313.5,
+              168.6
       ],
       [
-       -101.4,
-       325.5,
-       166.4,
-       -100.2,
-       451.1,
-       166.6
+              -103.4,
+              325.5,
+              168.4,
+              -99.0,
+              451.5,
+              168.6
       ]
      ],
      "root": "bed",
-     "build_up_mm": 172.2,
-     "interface_islands": 2,
-     "rationale": "The 1.00 mm apex land of the -X rail's slide-head ridge - the Z seam's one down-looking face on this piece. Lifting a seated back-top lands the ridge in the groove in that piece's foot on both 45 degree flanks at once (`hook_apex_flat`), so the land carries the joint's bearing against lift along the rail's whole run. Its two interface islands are the one run either side of the PRV passage, the 12 mm opening that has to cross this flank, and that same opening is what lets the body root on the bed outside the flank instead of on the arm's own under-flare."
+          "build_up_mm": 174.2,
+          "interface_islands": 2,
+          "rationale": "The -X rail's broad, flat slide-head underside is the Z seam's one down-looking face on this floor-down piece. Lifting a seated back-top lands that piece's flat foot on this complete bearing plane. Its two interface islands are the one run either side of the required 12 mm PRV passage; that opening also lets the support body root on the bed outside the flank instead of on the arm's under-flare."
     },
     {
      "tree": "tree-2",
-     "name": "east Z-seam slide-head ridge land",
+          "name": "east Z-seam slide-head square catch",
      "first_contacts_cad_xyz_mm": [
       [
-       100.2,
-       219.5,
-       166.4,
-       101.4,
-       451.1,
-       166.6
+              99.0,
+              219.5,
+              168.4,
+              103.4,
+              451.5,
+              168.6
       ]
      ],
      "root": "model",
-     "build_up_mm": 6.0,
-     "interface_islands": 1,
-     "rationale": "The +X rail's ridge land, the mirror of the west one and continuous over its whole run because nothing crosses this flank. With no opening through the wall beside it the body has no lane to the bed, so it roots on the arm's own 45 degree under-flare 6.00 mm below the land it carries. The contact is the land's own 1.2 mm across where the square catch's was 4.4."
+          "build_up_mm": 8.0,
+          "interface_islands": 1,
+          "rationale": "The +X rail's broad, flat slide-head underside mirrors the west one and remains continuous because nothing crosses this flank. With no opening through the wall beside it, the support has no lane to the bed and roots on the arm's own 45 degree under-flare 8.00 mm below the bearing plane."
     }
    ]
   },

@@ -198,23 +198,14 @@ seam's **upper pair of screws** — so two screws out and front-top draws straig
 front of the box, the back column and whatever the box is built under never touched.
 Four M3×10 close the box; the same four open it.
 
-**Every face of the joint prints at its own piece's rule, and the two columns' catches
-differ.** On the front column the catch faces are square: the head's underside is the joint's
-one down-looking flat, an abrupt ledge at the top of a piece that prints floor-down, and the
-arm's base falls back to the lip's underwall on a 45° under-flare; front-top's foot presents a
-flat caught face that looks print-up on its mouth-down print. On the back column the catch is a
-**ridge in a groove** (`hook_apex_flat`): back-top prints on its ceiling, so its caught face
-looks print-down, and instead of a flat cantilevered the head's width over the notch the foot
-carries a 45° groove down the run with a [1 mm](HOOK_APEX_FLAT) land at its apex, and
-back-bottom's head a matching ridge at least one `slide_slip` inside it on every face. The catch's
-flanks are slopes each print lays on the layer below it; its two lands are the flats that remain —
-the groove's, a 1.2 mm bridge between its flanks on back-top, and the ridge's, a 1 mm
-supported face on floor-down back-bottom where the head's whole 5 mm underside was one before.
-A lift lands the ridge in the groove on both flanks at once with the two flanks' side loads
-cancelling, and `z-slide-back-catch` reads the engagement. On either column the notch is an open rebate in the wall's own inboard face —
-no cavity closes over the bed — and where the channel's lane does cut interior bulk, a
-**gabled roof** of two 45° faces closes it. Every sliding face is vertical, horizontal or that
-45°, and the top's outer skin keeps its full `wall` of flute backing down to the mouth.
+**Every catch is square.** The head's broad underside and the foot's broad top face bear
+flat against lift along both complete runs. Each bottom piece prints the head with support
+under that abrupt ledge. Front-top prints its caught face up from its mouth; back-top prints
+its caught face down from its ceiling and support carries it. The arm's base falls back to
+the lip's underwall on a 45° under-flare. On either column the notch is an open rebate in the
+wall's own inboard face, and where the channel's lane cuts interior bulk a **gabled roof** of
+two 45° faces closes it. Every sliding and bearing face is vertical or horizontal, and the
+top's outer skin keeps its full `wall` of flute backing down to the mouth.
 
 **The corners give the slide its lane.** Over the seam band each bottom piece carries its
 two pillars **solid to the rim**, flats one `slide_slip` off the walls the top's faces
@@ -601,11 +592,18 @@ The two other costs remain **independent readings**, not terms collapsed into a 
 A candidate which removes a whole separate support that was both short and rooted on model
 material wins on every count at once, and is the strongest fix the audit can name.
 
-Down-facing geometry is changed before support is accepted. On a piece printed with its
-ceiling on the bed the ground is right there, and a print-down face is carried by a **column**
-before it is carried by a corbel: the air between the face and the slab filled, with vertical
-walls, wherever no placed body stands in that air. The ASSE anchor's end sections are the
-example — the block goes on up from the V's arris to the slab pocket's roof as one rectangle,
+The face a feature works through keeps the shape its work requires, and support carries it.
+The Z-seam catches are broad square planes because they bear against lift along the complete
+rails; the ASSE drip pan lies on a flat berth floor; a cross-pin keeps its square pass envelope;
+a pump boss lands on a flat shoulder. A corbel carries the material behind one of those faces.
+It does not replace the bearing, locating, sliding, sealing, clamping, insertion or access face
+with a slope.
+
+Non-functional down-facing geometry is changed before support is accepted. On a piece printed
+with its ceiling on the bed the ground is right there, and a print-down face is carried by a
+**column** before it is carried by a corbel: the air between the face and the slab filled, with
+vertical walls, wherever no placed body stands in that air. The ASSE anchor's end sections are
+the example — the block goes on up from the V's arris to the slab pocket's roof as one rectangle,
 where a 45° wedge from the arris to the roof leaves a triangle of air nothing needed.
 `wedge-fills` reads every print-down slope on back-top against the pack: each is under a body
 or within a millimetre of one, in a room `enclosure_assembly.KEPT_WEDGES` names — a zip tie's
@@ -626,11 +624,12 @@ ramps along that wall's normal — an X ramp from an X wall and a Y ramp from a 
 root that already prints. The corresponding exact solid, passage, clearance and motion gates
 remain hard constraints.
 
-Placed components and printed features are design variables when those constraints still pass.
-If a blocker leaves a separate short or material-rooted support, moving the smallest sensible
-feature or component enough to remove that contact is part of the audit; crowded assemblies are
-not shifted speculatively. The raised relay in [back-top's ceiling](#back-tops-ceiling) is this
-clause worked once. Every support which remains in a production slice is named with its
+**A support audit does not authorize a layout or mechanism change.** It does not move a placed
+component, shorten a guide, narrow a bearing, reduce retention or alter a working envelope merely
+because the other numeric gates still pass. Those are design changes reviewed on their own. If an
+independent design change moves a component, the support audit measures the consequence; support
+count is never the reason that makes the move valid. Preserve the feature and add the smallest
+printed support geometry that carries it, or accept slicer support. Every support which remains in a production slice is named with its
 piece, contact region, root kind, build-up and the geometric or functional reason it cannot be
 removed. This policy applies to every printable part in the enclosure assembly, not only the
 four shell quadrants.
@@ -676,7 +675,7 @@ exterior settings of `enclosure-front-top-petgf.3mf` around their own mesh — t
 | `enclosure-pump-cartridge` | 0 | 0 | — | — |
 | `enclosure-pump-cap` | 2 | 2 | bed | 18.40 mm |
 | `enclosure-front-top` | 3 | 4 | bed | 55.60 mm |
-| `enclosure-back-bottom` | 2 | 3 | 1 bed, **1 model** | **6.00 mm** |
+| `enclosure-back-bottom` | 2 | 3 | 1 bed, **1 model** | **8.00 mm** |
 | `enclosure-front-bottom` | 4 | 4 | 2 bed, **2 model** | **8.00 mm** |
 | `enclosure-back-top` | 15 | 32 | 7 bed, **8 model** | **1.20 mm** |
 
