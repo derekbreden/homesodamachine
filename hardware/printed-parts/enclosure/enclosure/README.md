@@ -96,43 +96,42 @@ level pins the two bottom pieces, the ceiling level the two tops. `_bosses` drop
 landing within two socket collars of one already placed, so the ladder carries one level per
 height it is owed.
 
-Each level stands the pin's own face **[13 mm](BOSS_END_CLEAR)** off the end wall it pins
-under. The back plug's full-width underside runs to its inboard tip on a 45° wall-rooted
-corbel. The front lip's slide channel gives up the matching profile one `fits.slip` lower,
-so the square registration faces and full insertion travel remain while neither half leaves a
-support contact in the pin slot. Its square pass envelope stays whole under one flat roof
-at the envelope's own ceiling, leaving the socket collar's complete structural stock above it.
-On back-top, which prints ceiling-down, the upper pin's top face is a supported flat the
-pin's own width, reached from the slab.
-Both ends are fenced — nearer its wall, the lower collar's
-carve leaves a corner of the front lip in the back half's register; further from it, the upper
-collar's 45° underside comes down the −X wall into `fluid-1`'s lane.
+The screw axes stand **[17.95 mm](SEAM_SCREW_END_INSET)** from the interior floor and ceiling
+planes. Back-top's two upper pins are rectangular corner blocks, from their flat lower ends
+through the ceiling slab and from the seam mouth into the full-thickness flanks. Front-top's
+matching straight passages open through its ceiling tongue; the insert seats remain on the
+blocks' inboard faces. The top pieces' Z-seam shoulders and hooked rails register their height,
+and the upper screws close the Y seam. `y-seam-upper` reads the finished columns, their flat
+ends, the screw pilots and the whole volume swept through the front passages during entry.
+
+Each lower back pin has a full-width 45° wall corbel. Front-bottom's slide channel follows
+that profile one `fits.slip` lower and encloses the square pin under a flat roof.
 
 Each cross-pin is sized to its job. Reading an M3×10 screw outboard→inboard from
 the ±X exterior: a Ø6.15 mm head counterbore, then [5 mm](SEAM_PIN_SHANK) of pin body
 ending exactly on the [9 mm](BACK_SEAM_FLANK_T) back flank's physical interior face, then a
 [5 mm](SEAM_HEATSET_DEPTH) heat-set pilot, then a one-wall cap. The pilot holds the complete
 4 mm insert and [1 mm](SEAM_HEATSET_RELIEF) of screw-tip relief, so the blind end and cap stay
-on the M3×10 stack's datum while the plug and its corbel meet the wall flush. The counterbore
+on the M3×10 stack's datum while the pin meets the flank flush. The counterbore
 retains that complete circular pass and bearing envelope, while its unsupported crown continues
 on two tangent [36°](TEARDROP_ROOF) roof planes. The four head pockets therefore close without
 isolated support towers.
 
-- **Receiving piece = pin** (the back pieces): a [9.9 mm](PLUG_DIA) SQUARE prism (the shank
-  + one wall each side, *not* the head — the head sits in the wall counterbore) from the
-  exterior to the common full-thickness flank face, seating in the socket's slot and carrying
-  aft into that flank.
-- **Lip piece = socket** (the front pieces): a collar slotted
-  [10.2 mm](SOCKET_BORE) square to take that pin as a slide fit, with the ruthex M3
+- **Receiving piece = pin** (the back pieces): a rectangular block from the exterior to the
+  full-thickness flank face and from the seam mouth aft into that flank. The lower pin's
+  [9.9 mm](PLUG_DIA) square section surrounds the shank with one wall; the upper pin
+  continues from that section into the ceiling.
+- **Lip piece = socket** (the front pieces): a collar with a straight slot for the pin,
+  [10.2 mm](SOCKET_BORE) tall on front-bottom and open through the ceiling on front-top,
+  with the ruthex M3
   heat-set (Ø4.0 × 4.0 body in its [5 mm](SEAM_HEATSET_DEPTH) pilot) capped at its deep
   inboard end.
 
 **Each boss stands on the joint it pins.** A plug is the wall it drives through and
 the reach it needs past it: the first `wall` of its length *is* that wall's own
 material and the rest a stub off it, its mouth-side face on the receiving mouth. A
-socket is a **block round that plug** — [16.2 mm](SOCKET_OD) square outside,
-[10.2 mm](SOCKET_BORE) square slotted, one `wall` of material the whole way, a
-`socket_cap` over the insert's blind end — its rim-side face on the lip rim and its far face a
+socket starts as a **[16.2 mm](SOCKET_OD) square block** with the pin's passage cut through it
+and a `socket_cap` over the insert's blind end — its rim-side face on the lip rim and its far face a
 hair under the seam mouth, so it stands on that band down its
 whole length. That band is one `wall` deep and runs the piece's full height, the way
 a telescoping lip does. Those two matings are the pair the overlap depth is struck
@@ -810,9 +809,9 @@ piece, and so wants print support. The floor does not share that cost: its tongu
 runs aft at the slab's full thickness with its underside on the bed, then ends in
 a one-wall-long 45° scarf nose. The back half's matching wedge also grows from the
 bed, so the cold-core bearing plane carries no supported surface. The side-wall
-segments, vertical to the bed, are free. On back-top the upper pin's own top face
-looks print-down: a flat the pin's width, [13 mm](BOSS_END_CLEAR) under the ceiling
-lane, reached from the slab.
+segments, vertical to the bed, are free. Back-top's upper corner blocks grow directly from
+the ceiling slab. Their flat lower ends face print-up, and front-top's passages open around
+them through the ceiling tongue.
 
 The **ASSE drip pan's sleeve** in back-top is a plain carcase — floor, two jambs, backstop and a
 square lid — rooted on the −X wall. Printed ceiling-down its floor and the rebate's roof look

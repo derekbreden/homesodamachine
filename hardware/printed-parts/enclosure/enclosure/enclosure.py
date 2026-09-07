@@ -36,9 +36,10 @@ short face across the machine instead of its 283 mm long one. The pack is placed
     level, the bottom pair standing just over the floor (so it pins the two
     bottom pieces), the top pair under the ceiling. Each boss is on an X axis:
     the screw drives in from the left/right EXTERIOR face. The BACK piece
-    carries the PLUG (faucet mounting-plate idiom): a square prism reaching
-    inward from the wall with a screw clearance through it, carried aft into
-    the back piece's full-thickness flank. The FRONT piece's
+    carries the PLUG: a block reaching inward from the wall with a screw
+    clearance through it, carried aft into the back piece's full-thickness
+    flank. The upper blocks join the ceiling; the lower pins stand on wall
+    corbels. The FRONT piece's
     lip carries the SOCKET (faucet shell-bottom idiom): a collar slotted to
     receive the plug, open on its +Y face so the plug drops in as the pieces
     close, with a ruthex M3 heat-set at the deep end.
@@ -516,8 +517,8 @@ funnel_front_ledge = 0.0
 # Split + boss parameters — every dimension sized to its function, nothing
 # inherited from the faucet. The seam is a Y plane; the front half's full-wall
 # rear lip telescopes into the back; four corner bosses cross-pin the seam with
-# M3 screws from the ±X exterior. Each boss is a square pin registering in the
-# front socket bore, meeting the back half's own corner web along its whole +Y
+# M3 screws from the ±X exterior. Each boss is a pin meeting the front socket's
+# insert seat and the back half's own corner web along its whole +Y
 # side. The pin's inboard face is the full-thickness back flank's own face; the
 # M3x10 span left inboard of that plane is the front heat-set's pilot.
 split_slip = 2.0 * fits.slip # diametral slide fit, plug into socket bore
@@ -546,20 +547,8 @@ heatset_len = _interface.heatset_len            # the Y seam and the pump clamp,
 heatset_long_len = _interface.heatset_long_len  # the condenser fingers, nameplate, display cover
 heatset_depth = _interface.heatset_depth  # general M3 pilot; the Y seam derives its own below
 socket_cap = wall            # one wall capping the insert's deep end
-# HOW FAR THE PIN'S OWN FACE STANDS OFF THE END WALL IT PINS UNDER. A full-width 45-degree
-# corbel carries each back plug's underside from its wall to its inboard tip, and the front
-# slide channel gives up the same profile one `fits.slip` lower. The pin therefore keeps its
-# square registration faces and the two pieces keep their full insertion travel without a
-# support contact in this slot.
-#
-# BOTH ENDS FENCE IT AND IT IS ONE FIGURE, so one reach clears all four bosses. Walked nearer
-# its own end wall, the lower collar's carve (`_y_lip_channel`) leaves a corner of the front lip
-# standing in the back half's register and the two bottom pieces stop being a slip fit — 0.5 mm3
-# of contact at 13, 3.3 at 12, 10.4 at 11, which `_report_split` reads on every build. Walked
-# further from it, the upper collar's own 45° underside comes down the −X wall into `fluid-1`'s
-# lane — 1.16 mm of air at 13, 0.47 at 14, against the assembly's one-millimetre clearance
-# floor. Thirteen is the height between the two.
-boss_end_clear = 13.0
+# The Y-seam screw axes' inset from the interior floor and ceiling planes.
+seam_screw_end_inset = 17.95
 # The ±X walls' own mounting bosses — what a body hung on a side wall is fastened by. Each
 # stands off the wall's INNER face and reaches inboard to the body's own mounting plane,
 # bored for a ruthex M3 short from that end; the screw comes the other way, in through the
@@ -3749,14 +3738,14 @@ def _ceiling_corbels(solid, inner, outer, centre, y_joint, y_bosses=()):
 # drives in from the ±X exterior; outboard→inboard the joint reads: head
 # counterbore, then the pin body ending on the full-thickness back flank's face,
 # then the heat-set pilot filling the rest of the M3x10 span, then a one-wall cap.
-#   * BACK half = PIN: a `plug_dia` square registration section from the ±X exterior
-#     to the heat-set, seating in the socket's slot and continuing aft until it roots in
-#     the back pieces' full-thickness flank. Sized to the screw SHANK, not the head (the
-#     head sits in the wall counterbore); screw-clearance + head counterbore bored in.
-#   * FRONT lip = SOCKET: a collar round the slot — one `wall` of material and no
-#     more — bored to receive the round pin (slide fit) with the heat-set + cap at
-#     the deep inboard end.
-# The head seats in the +Y wall; the shank crosses the pin body into the front
+#   * BACK half = PIN: a rectangular section from the ±X exterior to the heat-set,
+#     continuing aft into the full-thickness flank. The upper block joins the ceiling;
+#     the lower `plug_dia` square bar stands on a wall corbel. The screw-clearance and
+#     head counterbore pass through both.
+#   * FRONT lip = SOCKET: a collar carrying the heat-set and its deep inboard cap.
+#     The upper passage opens through the ceiling tongue; the lower passage encloses
+#     the square bar and follows its corbel with the running clearance.
+# The head seats in the ±X wall; the shank crosses the pin body into the front
 # heat-set, cross-pinning the two halves along X.
 #
 # Each stands on the joint's own overlap down its whole length: the plug in the back
@@ -3798,13 +3787,11 @@ def _bosses(inner, y_joint):
     agree. The manifold stack denies the −X wall a socket body over one band, so
     its levels there slide to the nearest height that can hold one.
 
-    The end levels stand the PIN'S OWN FACE `boss_end_clear` off the floor and the
-    ceiling. What is in that slot is print support, and both walls carry the same
-    figure at both ends, so one reach clears all four."""
+    The screw axes stand `seam_screw_end_inset` from the interior floor and ceiling.
+    Each upper back pin continues into the ceiling as a rectangular corner block."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
-    r = socket_bore_dia / 2.0
-    zt = iz1 - boss_end_clear - plug_dia / 2.0
-    zf = iz0 + boss_end_clear + plug_dia / 2.0
+    zt = iz1 - seam_screw_end_inset
+    zf = iz0 + seam_screw_end_inset
     fy0, fy1 = _y_corner(inner, y_joint)
     out = []
     for x_in, sx in ((ix0, +1.0), (ix1, -1.0)):
@@ -3832,7 +3819,7 @@ def _boss_x(x_ext, sx):
     physical face; the heat-set pilot's blind end at the M3x10 tip; and the pod cap
     one wall past it.
 
-    The first two stations make the plug and corbel flush with both back flanks.
+    The first two stations put each pin's inboard face flush with its back flank.
     `seam_heatset_depth` absorbs the remaining screw span without moving the blind
     end or cap, and its construction above guarantees a complete insert plus the
     required screw-tip relief."""
@@ -3843,27 +3830,21 @@ def _boss_x(x_ext, sx):
     return x_seat, x_tip, x_heat, x_cap
 
 
-def _back_plug(x_ext, sx, z_boss, y_joint):
-    """BACK pin: a SQUARE prism from the ±X exterior to the heat-set, where its forward
-    `plug_dia` registers in the front socket's slot. Its −Y face stands on the seam mouth;
-    aft of the socket it continues to `back_flank_start`, making the boss one uninterrupted
-    root into the full-thickness back flank.
+def _back_plug(x_ext, sx, z_boss, y_joint, ceiling=None):
+    """The back half's Y-seam pin, mouth to full-thickness flank, exterior to insert face.
 
-    The wall it drives through carries it — the pin is that wall's own material for the first
-    `wall` of its X length and a stub of the same section beyond.
-
-    IT IS A BOX AND NOT A PIPE — the box's one boss section. A pipe meets the mouth on
-    the line where it grazes it and closes on a crown laid over its own axis. The square
-    pin keeps the flat registration faces the socket wants, and a full-width 45° corbel
-    carries its lower face from the wall to the pin's inboard tip. `_y_lip_channel` takes
-    the same profile, one `fits.slip` lower, out of the front socket's whole travel."""
+    An upper pin is one rectangular corner block from its flat lower face through the
+    ceiling slab. A lower pin is a square bar on a full-width 45° wall corbel. Front-top's
+    straight slot opens to its ceiling; front-bottom's channel follows its pin's corbel."""
     _xs, x_tip, _xh, _xc = _boss_x(x_ext, sx)
     r = plug_dia / 2.0
     y0, y1 = _y_corner_back(rear_plane_y, y_joint)
     x_in = x_ext + sx * wall
     xa, xb = sorted((x_ext, x_tip))
-    pin = _ybox(xa, xb, y0, y1, z_boss - r, z_boss + r)
     floor = z_boss - r
+    if ceiling is not None:
+        return _ybox(xa, xb, y0, y1, floor, ceiling + wall)
+    pin = _ybox(xa, xb, y0, y1, floor, z_boss + r)
     drop = abs(x_tip - x_in)
     corbel = _xz_prism(y0, y1,
                        [(x_in, floor), (x_tip, floor), (x_in, floor - drop)])
@@ -3905,27 +3886,25 @@ def _front_socket(x_in, x_ext, sx, z_boss, y_joint, inner):
     return boss
 
 
-def _front_cuts(x_in, x_ext, sx, z_boss, y_boss, y_joint):
-    """Front-socket inner cuts at one level: ONE slot that receives the plug and carries
-    it down to its seat, and the heat-set pocket at the deep end. Open at the rim, so it
-    is a slide path and not a pocket.
+def _front_pin_slot(x_in, x_tip, z_boss, y_boss, y_joint, ceiling=None):
+    """The pin's straight passage, open aft, with its fore face on the Y-seam mouth.
 
-    THE SEAT AND THE CHANNEL ARE ONE CONTINUOUS SLOT. The channel is struck at the bore's
-    axis carrying the bore's width, so the plug rides one section its whole travel. Its flat
-    roof is the square pass envelope's own ceiling, leaving the collar's complete structural
-    stock above it.
-
-    The slip lives on the +Y (slide-in) side: the slot is shifted +slip/2 so its −Y wall
-    registers on the plug's −Y face at the mouth, instead of overshooting past the seam.
-    The heat-set stays coaxial with the screw at y_boss, past the slot's deep end."""
-    _xs, x_tip, x_heat, _xc = _boss_x(x_ext, sx)
+    The upper passage opens through the ceiling tongue. Its lower face is one running
+    clearance below the corner block; its inboard face is the screw/insert interface.
+    The lower passage encloses the square pin with the same running clearance."""
     b = socket_bore_dia / 2.0
     bore_y = y_boss + split_slip / 2.0
-    heat = _xcyl(heatset_dia / 2.0, y_boss, z_boss, x_tip, x_heat)
     bx0, bx1 = sorted((x_in, x_tip))
     y0, y1 = bore_y - b, y_joint + lip_len + 1.0
-    roof = z_boss + b
-    slot = _ybox(bx0, bx1, y0, y1, z_boss - b, roof)
+    roof = z_boss + b if ceiling is None else ceiling + wall + 1.0
+    return _ybox(bx0, bx1, y0, y1, z_boss - b, roof)
+
+
+def _front_cuts(x_in, x_ext, sx, z_boss, y_boss, y_joint, ceiling=None):
+    """The front pin passage and its coaxial heat-set pilot, past the insert interface."""
+    _xs, x_tip, x_heat, _xc = _boss_x(x_ext, sx)
+    heat = _xcyl(heatset_dia / 2.0, y_boss, z_boss, x_tip, x_heat)
+    slot = _front_pin_slot(x_in, x_tip, z_boss, y_boss, y_joint, ceiling)
     return slot.fuse(heat)
 
 
@@ -3997,10 +3976,9 @@ def _y_lip_channel(inner, y_joint, bosses):
     this joint in X. The lip runs clear of the wall between them, and their crowns are carved
     with everything else; no one-running-fit strip continues past the tongue beside a collar.
 
-    THE PIN CORBELS TRAVEL IN THIS CHANNEL TOO. Each back pin's lower face rises 45°
-    from its wall to its inboard tip. The matching cut runs the lip's whole travel and
-    stands one `fits.slip` below that profile, so the corbel enters with the square pin
-    and the socket keeps its full screw and heat-set section inboard of it."""
+    The upper corner blocks travel in straight passages open through the ceiling tongue.
+    Each lower pin's 45° corbel travels in a matching channel one `fits.slip` below it.
+    Both passages stop at the screw/insert interface in X."""
     ix0, ix1, _iy0, _iy1, iz0, iz1 = inner
     y0, y1 = y_joint, y_joint + lip_len + 1.0
     zlo, zhi = iz0 - floor_t - 1.0, iz1 + wall + 1.0
@@ -4014,6 +3992,10 @@ def _y_lip_channel(inner, y_joint, bosses):
         flanks = flanks.cut(_ybox(xa, xb, yb - socket_r, yb + socket_r,
                                   z_boss - socket_r, z_boss + socket_r))
         _xs, x_tip, _xh, _xc = _boss_x(x_ext, sx)
+        if z_boss > z_seam:
+            flanks = flanks.fuse(_front_pin_slot(
+                x_in, x_tip, z_boss, yb, y_joint, ceiling=iz1))
+            continue
         floor = z_boss - plug_dia / 2.0 - fits.slip
         drop = abs(x_tip - x_in)
         flanks = flanks.fuse(_xz_prism(
@@ -5040,7 +5022,9 @@ def _front_top_flanks(inner, outer, box, y_joint, zj):
     # `build_front_half`, and the panel holes through both faces.
     yb = _y_boss(y_joint)
     for x_in, x_ext, sx, z_boss in box.y_bosses:
-        band = band.cut(_front_cuts(x_in, x_ext, sx, z_boss, yb, y_joint))
+        band = band.cut(_front_cuts(
+            x_in, x_ext, sx, z_boss, yb, y_joint,
+            ceiling=iz1 if z_boss > z_seam else None))
     for cutter in _port_cuts(box.pack.front_ports, outer[2] - 5.0, inner[2] + 5.0):
         band = band.cut(cutter)
     for cutter in _x_port_cuts(box.pack.east_ports, fx1 - 5.0, outer[1] + 5.0):
@@ -6298,7 +6282,9 @@ def build_front_half(box):
     for cutter in _x_port_cuts(box.pack.east_ports, inner[1] - 5.0, outer[1] + 5.0):
         front = front.cut(cutter)
     for x_in, x_ext, sx, z_boss in bosses:
-        front = front.cut(_front_cuts(x_in, x_ext, sx, z_boss, yb, y_joint))
+        front = front.cut(_front_cuts(
+            x_in, x_ext, sx, z_boss, yb, y_joint,
+            ceiling=inner[5] if z_boss > z_seam else None))
     # Clip any corner feature that pokes past the rounded print silhouette.
     front = front.intersect(_rounded_outer(outer))
     return cq.Workplane(obj=front)
@@ -6322,7 +6308,9 @@ def build_back_half(box):
     # The corner ahead of that mouth is the front lip's, whole; aft, the plug runs through
     # that lip's socket and into the full-thickness flank carrying it.
     for x_in, x_ext, sx, z_boss in bosses:
-        back = back.fuse(_back_plug(x_ext, sx, z_boss, y_joint))
+        back = back.fuse(_back_plug(
+            x_ext, sx, z_boss, y_joint,
+            ceiling=inner[5] if z_boss > z_seam else None))
     # Clip any corner feature that pokes past the rounded print silhouette.
     back = back.intersect(_rounded_outer(outer))
     for x_in, x_ext, sx, z_boss in bosses:
@@ -9378,6 +9366,43 @@ def _report_slide(pieces, box):
     return out
 
 
+def _upper_y_seam_bound(pieces, box):
+    """The finished upper corner blocks, their screw bores and their complete entry sweeps."""
+    front = pieces["front-top"].val()
+    back = pieces["back-top"].val()
+    stations = [row for row in box.y_bosses if row[3] > z_seam]
+    y0, y1 = _y_corner_back(box.inner[3], box.y_joint)
+    yb = _y_boss(box.y_joint)
+    readings = []
+    for x_in, x_ext, sx, z in stations:
+        _seat, x_tip, x_heat, _cap = _boss_x(x_ext, sx)
+        xa, xb = sorted((x_ext, x_tip))
+        floor = z - plug_dia / 2.0
+        crown = z + plug_dia / 2.0
+        column = _ybox(xa, xb, y0, y1, crown, box.inner[5] + wall / 2.0)
+        missing = column.cut(back).Volume()
+        sweep = _ybox(xa, xb, y0, y1 + lip_len, floor, box.inner[5] + wall)
+        contested = sweep.intersect(front).Volume()
+        ramp = _xz_prism(y0, y1, [
+            (x_in, floor), (x_tip, floor), (x_in, floor - abs(x_tip - x_in))])
+        below = ramp.intersect(back).Volume()
+        shank = _xcyl(screw_clear_dia / 2.0, yb, z, x_ext, x_tip)
+        insert = _xcyl(heatset_dia / 2.0, yb, z, x_tip, x_heat)
+        bore = shank.intersect(back).Volume() + insert.intersect(front).Volume()
+        readings.append(("west" if sx > 0 else "east", missing, contested, below, bore))
+    ok = len(readings) == 2 and all(
+        max(values) <= stated_bound_tol for _side, *values in readings)
+    return record_bound(Bound(
+        "y-seam-upper",
+        "Both upper seam blocks join the ceiling and pass their complete entry lanes",
+        ok,
+        f"{sum(max(row[1:]) <= stated_bound_tol for row in readings)}/2 corners clear",
+        "two complete ceiling columns, flat lower ends, open screw pilots and clear swept slots",
+        [f"{side}: missing column {missing:.4f} mm³; entry overlap {contested:.4f} mm³; "
+         f"material below the flat end {below:.4f} mm³; blocked bores {bore:.4f} mm³"
+         for side, missing, contested, below, bore in readings]))
+
+
 def _ceiling_show_cap_bound(back_top, box):
     """Record the complete exterior cap over back-top's whole ceiling field.
 
@@ -9465,6 +9490,8 @@ def build_pieces(box):
               for name in names}
     if "back-top" in pieces:
         _ceiling_show_cap_bound(pieces["back-top"], box)
+    if "front-top" in pieces and "back-top" in pieces:
+        _upper_y_seam_bound(pieces, box)
     _silhouette_bound(pieces, box)
     assy = cq.Assembly(name="enclosure")
     for name, piece in pieces.items():
@@ -9856,7 +9883,7 @@ def main():
         "BACK_TOP_CEILING_GROWTH": f"{back_top_ceiling_growth:.4g} mm",
         "BACK_TOP_CEILING_FACE": f"{back_top_ceiling_face():.4g}",
         "CEILING_LANE": f"{appliance_height - floor_t - wall:.4g}",
-        "BOSS_END_CLEAR": f"{boss_end_clear:.4g} mm",
+        "SEAM_SCREW_END_INSET": f"{seam_screw_end_inset:.4g} mm",
         # How much stock each grown flank stands INBOARD of the box's own interior — the room a
         # rib rooted on that piece loses, and the room its relief gives back.
         "BACK_TOP_FLANK_GROWN": f"{back_top_flank_t - wall:.4g} mm",
