@@ -1057,6 +1057,19 @@
    "active": true
   },
   {
+   "id": "y-seam-upper",
+   "label": "Both upper seam blocks join the ceiling and pass their complete entry lanes",
+   "kind": "gate",
+   "status": "pass",
+   "value": "2/2 corners clear",
+   "target": "two complete ceiling columns, flat lower ends, open screw pilots and clear swept slots",
+   "detail": [
+    "west: missing column 0.0000 mm\u00b3; entry overlap 0.0000 mm\u00b3; material below the flat end 0.0000 mm\u00b3; blocked bores 0.0000 mm\u00b3",
+    "east: missing column 0.0000 mm\u00b3; entry overlap 0.0000 mm\u00b3; material below the flat end 0.0000 mm\u00b3; blocked bores 0.0000 mm\u00b3"
+   ],
+   "active": true
+  },
+  {
    "id": "runs-drawn",
    "label": "Every authored run is drawn as its author asked",
    "kind": "gate",
