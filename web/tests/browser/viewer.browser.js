@@ -88,6 +88,87 @@ test("/pcb view toggle exposes inner copper planes in stack order", async (t) =>
   }
 });
 
+test("/3d opening a selected component keeps the exact view", async () => {
+  const page = await browser.newPage();
+  const assembly = "manifold-layout/enclosure-assembly.step";
+  const part = "printed-parts/enclosure/enclosure/enclosure-back-top.step";
+  try {
+    await page.goto(`${baseUrl}/3d#step:${encodeURIComponent(assembly)}`, {
+      waitUntil: "domcontentloaded",
+    });
+    await page.waitForFunction(
+      (wanted) => window.__hsm?.mountedStepFile === wanted && window.__hsm.currentGroup,
+      { timeout: 30_000 },
+      assembly,
+    );
+
+    // Look squarely at a solid patch of the rear wall, then select it through
+    // the same canvas gesture a person uses.
+    const canvasPoint = await page.evaluate(async () => {
+      const h = window.__hsm;
+      const { setComponentPickEnabled } = await import("/js/viewer/component-picker.js");
+      setComponentPickEnabled(true);
+      h.camera.position.set(80, 650, 300);
+      h.camera.up.set(0, 0, 1);
+      h.controls.target.set(80, 467, 300);
+      h.camera.lookAt(h.controls.target);
+      h.controls.update();
+      const rect = h.renderer.domElement.getBoundingClientRect();
+      return [rect.left + rect.width / 2, rect.top + rect.height / 2];
+    });
+    await page.mouse.click(...canvasPoint);
+    await page.waitForFunction(() =>
+      document.querySelector(".component-panel .edge-panel-file")?.title === "enclosure-back-top",
+    );
+
+    const before = await page.evaluate((destination) => {
+      const h = window.__hsm;
+      // A destination view already stored for this file must not displace the
+      // live assembly view carried by Open part.
+      localStorage.setItem(`step-camera:${destination}`, JSON.stringify({
+        p: [1, 2, 3], u: [0, 1, 0], t: [4, 5, 6],
+      }));
+      return {
+        position: h.camera.position.toArray(),
+        up: h.camera.up.toArray(),
+        target: h.controls.target.toArray(),
+      };
+    }, part);
+
+    await page.click(".component-panel .component-open");
+    await page.waitForFunction(
+      (wanted) => window.__hsm?.mountedStepFile === wanted && window.__hsm.currentGroup,
+      { timeout: 30_000 },
+      part,
+    );
+
+    const after = await page.evaluate(() => {
+      const h = window.__hsm;
+      return {
+        position: h.camera.position.toArray(),
+        up: h.camera.up.toArray(),
+        target: h.controls.target.toArray(),
+        components: [...new Set(h.currentGroup.children
+          .filter((c) => c.isMesh && c.userData?.side === "front")
+          .map((c) => c.name))],
+      };
+    });
+    assert.deepEqual(after.position, before.position, "camera position moved during component drill");
+    assert.deepEqual(after.up, before.up, "camera roll moved during component drill");
+    assert.deepEqual(after.target, before.target, "orbit focus moved during component drill");
+    assert.deepEqual(after.components, ["enclosure-back-top"]);
+  } finally {
+    await page.evaluate(async (files) => {
+      // Let scene.js's trailing 250 ms control-change save land first, then
+      // remove the views this test deliberately writes.
+      await new Promise((resolve) => setTimeout(resolve, 350));
+      for (const file of files) localStorage.removeItem(`step-camera:${file}`);
+      localStorage.removeItem("step-component-pick");
+    }, [assembly, part]).catch(() => {});
+    await page.close().catch(() => {});
+  }
+});
+
 test("/3d zoom reaches the picked rear surface and leaves it as the orbit focus", async () => {
   const page = await browser.newPage();
   const file = "printed-parts/enclosure/enclosure/enclosure-back-top.step";

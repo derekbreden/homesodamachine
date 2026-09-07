@@ -25,7 +25,7 @@ import { state } from "./state.js";
 import { setEdgePickEnabled, syncEdgeToggle, invalidateAllEdgesLayer } from "./edge-picker.js";
 import { sourceFileFor } from "/contracts/component-sources.js";
 import { relatedStepsForComponent } from "/contracts/related-steps.js";
-import { drillTo } from "./step-nav.js";
+import { drillTo, drillToComponent } from "./step-nav.js";
 import { makePanelCollapse } from "./tool-rail.js";
 
 const LS_KEY = "step-component-pick";
@@ -285,7 +285,7 @@ function buildPanel() {
   openBtn.textContent = "Open part";
   openBtn.addEventListener("click", () => {
     const file = selection && sourceFileFor(selection, state.allFiles);
-    if (file && file !== mountedFile()) drillTo(file);
+    if (file && file !== mountedFile()) drillToComponent(file, selection);
   });
   actions.appendChild(openBtn);
   panel._openBtn = openBtn;
