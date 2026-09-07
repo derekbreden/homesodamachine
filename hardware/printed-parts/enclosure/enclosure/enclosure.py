@@ -1446,9 +1446,11 @@ def back_flank_start(y_joint):
 # THE CATCH FACES ARE SQUARE. The head's broad underside and the foot's broad top are
 # the joint's bearing against lift, flat along both complete runs. The bottom pieces print
 # those undersides with support. Front-top prints its foot from the mouth; back-top prints
-# its foot ceiling-down with support under the caught face. The notch's roof closes the wall
-# back to full section at 45°, and the arm's base falls back to the lip's underwall at 45°;
-# every sliding and bearing face remains vertical or horizontal.
+# its foot ceiling-down with support under the caught face. The back notch closes to the wall
+# on one horizontal roof, with support accepted under that broad plane; front-top alone keeps
+# a 45° roof where its mouth-down print has no bed beneath the channel. The arm's base falls
+# back to the lip's underwall at 45°; every sliding and bearing face remains vertical or
+# horizontal.
 slide_slip = fits.slip       # per-face running clearance on every sliding face of a Z seam
 hook_foot = 8.7              # the foot: the top's full section, mouth face to caught face
 hook_lap = 2.0               # the catch overlap before a thick flank spends its added section
@@ -4258,11 +4260,11 @@ def _z_rail_channels(inner, y_joint, zj, col, plate, chase=()):
     and the NOTCH over the foot: inboard of the foot's face it opens from the mouth —
     the arm's own lane, `slide_slip` off its back — and outboard it opens from the
     foot's broad, flat caught face up, `slide_slip` deeper than the head, stopping one slip
-    outboard of the head; a 45° GABLE closes the roof `slide_slip` over the arm's cap, two
-    faces rising off the channel's walls and meeting over it, so a piece that prints
-    mouth-down lays nothing flat across the void — and the gable's outboard face is
-    the notch's own roof, carrying the wall back out to its full section. Back-top prints
-    ceiling-down and support carries its flat caught face. AFT of the
+    outboard of the head. On the back column one HORIZONTAL PLANE closes that whole width,
+    and back-top's ceiling-down print accepts support beneath it just as it does beneath the
+    caught face. On the front
+    column alone a 45° gable closes the roof `slide_slip` over the arm's cap, so that
+    mouth-down print lays nothing flat across the void. AFT of the
     stop face the front column's void is the FULL section, mouth to gable: everything
     of that piece standing aft of the stop — the flank's own seam band, the wall
     under the lip's cavity, the Y-seam tongue's own flank segment — sweeps over the
@@ -4302,13 +4304,16 @@ def _z_rail_channels(inner, y_joint, zj, col, plate, chase=()):
         x_d = x_h1 + sx * slide_slip
         x_peak = (x_open + x_d) / 2.0
         z_peak = z_roof + abs(x_d - x_open) / 2.0
+        # Back-top's broad horizontal roof is carried by slicer support. Front-top uses a
+        # gable because that piece prints with this mouth down.
+        roof = ([(x_d, z_roof), (x_open, z_roof)] if col == "back" else
+                [(x_d, z_roof), (x_peak, z_peak), (x_open, z_roof)])
         void = _xz_prism(y0, stop, [
             (x_open, z_foot), (x_f, z_foot), (x_f, zj - 1.0), (x_d, zj - 1.0),
-            (x_d, z_roof), (x_peak, z_peak), (x_open, z_roof)])
+            *roof])
         if (lane_aft - stop) * sy > 0:
             void = void.fuse(_xz_prism(stop, lane_aft, [
-                (x_open, zj - 1.0), (x_d, zj - 1.0), (x_d, z_roof),
-                (x_peak, z_peak), (x_open, z_roof)]))
+                (x_open, zj - 1.0), (x_d, zj - 1.0), *roof]))
         if col == "front":
             # THE TWO SEAMS CROSS HERE. Front-top's Y tongue ends one running-fit slip
             # inside `x_in`, while this channel's standing wall ends at `x_open`; below
@@ -9253,6 +9258,50 @@ def _report_slide(pieces, box):
                     "head underside and square foot top; support those functional faces.")
             print(f"    flat bearings:  {bottom_flat:.1f} mm² bottom, "
                   f"{top_flat:.1f} mm² top (minimum {required_flat:.1f} each)")
+
+            # THE CHANNEL ROOF IS FLAT TOO. Checking the source profile is not enough: a
+            # later cut or fuse can split away most of the plane while leaving its two end
+            # points unchanged. Read the finished back-top B-rep at the stated roof level.
+            # The area gate proves that the complete run is present, not merely a short land.
+            z_roof = box.splits[1] + z_rise + slide_slip
+            roof_flat = 0.0
+            tol = 1e-3
+            for face in top.Faces():
+                if face.geomType() != "PLANE":
+                    continue
+                normal = face.normalAt()
+                bounds = face.BoundingBox()
+                if (abs(normal.x) > tol or abs(normal.y) > tol or normal.z > -1.0 + tol
+                        or abs(bounds.zmin - z_roof) > tol
+                        or abs(bounds.zmax - z_roof) > tol):
+                    continue
+                centre = face.Center()
+                for x_in, sx, y0, y1, _lane in _runs:
+                    sy = 1.0 if y1 > y0 else -1.0
+                    stop = y1 - sy * rail_stop_len
+                    x_hk, _x_f, _x_a, x_h1 = _rail_x(x_in, sx, col)
+                    x_open = x_hk - sx * slide_slip
+                    x_d = x_h1 + sx * slide_slip
+                    xa, xb = sorted((x_open, x_d))
+                    ya, yb = sorted((y0, stop))
+                    if (xa - tol <= centre.x <= xb + tol
+                            and ya - tol <= centre.y <= yb + tol):
+                        roof_flat += face.Area()
+                        break
+            nominal_roof = sum(
+                (abs(y1 - y0) - rail_stop_len)
+                * abs(_rail_x(x_in, sx, col)[1]
+                      - (_rail_x(x_in, sx, col)[0] - sx * slide_slip))
+                for x_in, sx, y0, y1, _lane in _runs)
+            required_roof = 0.85 * nominal_roof
+            if roof_flat < required_roof:
+                raise ValueError(
+                    "the back Z-slide channel does not have a broad horizontal roof: "
+                    f"found {roof_flat:.1f} mm² at z={z_roof:.2f}, requires at least "
+                    f"{required_roof:.1f} mm². The channel ceiling is one flat plane "
+                    "carried by slicer support.")
+            print(f"    flat channel roof: {roof_flat:.1f} mm² "
+                  f"(minimum {required_roof:.1f})")
         out[col] = (worst, travel, len(rungs), lifted)
         print(f"  Z slide {col + ':':7s} travel {travel:6.1f} mm, worst contested "
               f"{worst[0]:6.1f} mm³ at {worst[1]:.2f} mm out; catch {lifted:8.1f} mm³ "
