@@ -13,7 +13,7 @@ from pathlib import Path
 _HERE = Path(__file__).resolve()
 _ROOT = next(p for p in _HERE.parents if (p / "hardware" / "scripts").is_dir())
 ARTIFACT = _ROOT / "hardware" / "manifold-layout" / "enclosure-box.json"
-SCHEMA = 4
+SCHEMA = 5
 _RECORD = "__hsm_namedtuple__"
 _LIST = "__hsm_list__"
 _DICT = "__hsm_dict__"

@@ -1205,10 +1205,9 @@ TEE_WALL_BORE_SLIP = 0.25
 TEE_WALL_BODY_AIR = 1.454
 CARRIER_ASSEMBLY_STATE = "connected"
 CARRIER_SPRING_GUIDE_ACROSS = 4.0
-# The fixed pilot tapers from its full diamond at the tee wall to a 0.4 mm tip.  Making the
-# axial run equal to the 1.8 mm radial taper gives every down-facing generator a 45-degree
-# wall-rooted path in front-top's upright print orientation.
-CARRIER_SPRING_GUIDE_LENGTH = 1.8
+# The fixed pilot carries its 4 mm diamond section 10 mm into the spring. Its two lower faces
+# stand at 45 degrees in front-top's upright print orientation.
+CARRIER_SPRING_GUIDE_LENGTH = 10.0
 CARRIER_MOTION_AUDIT_STEP = 0.7
 CARRIER_MOTION_OVERLAP_TOL = 1e-5
 
@@ -2228,8 +2227,8 @@ def nameplate_field() -> tuple:
     """The rectangle the wall leaves the plate, as `(west, east, north)`.
 
     West is the flavour pair's own POCKET edge, not its chip's — what stands on the wall there is
-    the pocket. East is the flat rear face's tangent, the same plane `c14_flat_column` runs the
-    inlet's flange out on. North is the top row's pockets, read on the deck's own storey."""
+    the pocket. East is the flat rear face's tangent, the plane the C14 tunnel follows from
+    `c14_station_x`. North is the top row's pockets, read on the deck's own storey."""
     return (PANEL_X["bulkhead-flavor-a"] + port_pocket_d() / 2.0,
             _enc.interior_x()[1] - (_enc.corner_round - _enc.wall),
             deck_storey() - port_pocket_d() / 2.0)
@@ -2573,9 +2572,17 @@ TUBE_ANCHOR_SITES = (
     ("fluid-28", 2, (-1.0, 0.0, 0.0), "enclosure-back-top"),
 )
 
+# The print-down treatment of selected end webs, in route order. Unnamed ends are `auto`:
+# they stand on the print-bed face where the pack leaves that column clear. `corbel` keeps the
+# ordinary wall-rooted 45-degree corbel even where that air is empty.
+TUBE_ANCHOR_END_FORMS = {
+    "fluid-28": ("corbel", "corbel"),
+}
+
 
 def tube_anchors(runs) -> tuple:
-    """One station per anchor — `(mid, along, root, seat_r)`, all four read off the run itself.
+    """One station per anchor — `(mid, along, root, seat_r, end_forms)`, the first four read
+    off the run itself and the end-web forms carried from `TUBE_ANCHOR_SITES`.
 
     A LEG AND NOT A POINT. The rib is centred on the middle of the leg its row names, so the
     anchor rides every move of the run that drew it and there is no coordinate here to go stale.
@@ -2583,7 +2590,15 @@ def tube_anchors(runs) -> tuple:
     nothing about the anchor's own height is stated on either side."""
     by_id = {r.id: r for r in runs}
     stations = []
+    site_ids = {rid for rid, _leg, _root, _piece in TUBE_ANCHOR_SITES}
+    if unknown := set(TUBE_ANCHOR_END_FORMS) - site_ids:
+        raise ValueError(f"tube_anchors: end forms name no anchor site: {sorted(unknown)}")
     for rid, leg, root, _piece in TUBE_ANCHOR_SITES:
+        end_forms = TUBE_ANCHOR_END_FORMS.get(rid, ("auto", "auto"))
+        if len(end_forms) != 2 or any(form not in ("auto", "corbel") for form in end_forms):
+            raise ValueError(
+                f"tube_anchors: {rid} end forms are {end_forms!r}; each of the two route ends "
+                f"must be `auto` or `corbel`.")
         r = by_id.get(rid)
         if r is None:
             continue                        # a run whose bodies are not both placed yet
@@ -2608,7 +2623,7 @@ def tube_anchors(runs) -> tuple:
                 f"{_enc.tube_anchor_len:.2f}. A seat longer than the straight it stands on would "
                 f"close on the corners either side of it.")
         stations.append((tuple((p[k] + q[k]) / 2.0 for k in range(3)), u, tuple(root),
-                         r.diam / 2.0 + TUBE_ANCHOR_SLIP))
+                         r.diam / 2.0 + TUBE_ANCHOR_SLIP, tuple(end_forms)))
     return tuple(stations)
 
 
@@ -2735,7 +2750,8 @@ def unsupported_spans(runs, stations) -> dict:
         cuts, s = [0.0], 0.0
         for i in range(len(r.pts) - 1):
             s -= short.get(i, 0.0)
-            for mid, _u, _n, _seat in stations:
+            for station in stations:
+                mid, _u, _n, _seat = station[:4]
                 if _on_leg(mid, r.pts[i], r.pts[i + 1]):
                     cuts.append(s + math.dist(r.pts[i], mid))
             s += math.dist(r.pts[i], r.pts[i + 1])
@@ -2914,7 +2930,7 @@ C14_STEP = _hw / "reference" / "iec-c14-inlet" / "iec-c14-inlet.step"
 # A printed cutout to the moulded boss that passes it, on each side. It is what the CORD is
 # drawn to as well: the tunnel behind this hole is bored to the same rectangle, so the housing
 # on the end of the C13 cordset comes down the whole depth of it to reach the blades.
-C14_CUTOUT_SLIP = 0.5
+C14_CUTOUT_SLIP = _enc.c14_cutout_slip
 
 
 def c14_mount_half() -> tuple:
@@ -2931,10 +2947,10 @@ def c14_mount_half() -> tuple:
 # wall on, so the inlet crosses it on that same one and the four mating axes the customer meets
 # stand on one line — the cord goes in level with the tubes rather than under them.
 #
-# THE COLUMN IS THE CEILING CORBEL'S CLEAR DATUM. The inlet, its cutout, its two screws and its
-# seating plane share the X station the fixed enclosure strip states. At that station the exact
-# moulded rim keeps one assembly-clearance millimetre from the complete wall-rooted 45° wedge;
-# the Z station stays on the top port row.
+# THE COLUMN IS THE TUNNEL'S DATUM. The inlet, its exact flange pocket, its two screws and the
+# ceiling-bedded rectangular tunnel share the X station the fixed enclosure strip states. The
+# Z station stays on the top port row, so the shroud passes through the rear wall without a
+# second relief field below the inlet.
 C14_STATION = (_enc.c14_station_x, deck_storey())
 
 
@@ -2973,15 +2989,14 @@ def c14_stations():
 
 def c14_cutout():
     """The rounded rectangle the shroud reaches out through, in `back_ports` shape — struck on
-    the same station the body is, one `C14_CUTOUT_SLIP` over the moulding on every side.
+    the same station the body is, one `C14_CUTOUT_SLIP` over the shroud on every side.
 
-    Across Z the purchased flange is 0.02 mm taller than its shroud.  The opening reaches the
-    slipped flange outline there too: its broad tapered ears are the seating lands, while a
-    0.01 mm strip above and below the shroud is neither printable nor a bearing surface."""
-    wx, wz, r = _c14.panel_cutout()
+    The flange never passes this wall: it bears on the seating face inside the tunnel and its
+    ears are the pocket's. What stands in the wall's opening is the shroud alone, so the opening
+    is the shroud's own outline and the flange's face is not on show round it."""
     return ("rect", C14_STATION[0], C14_STATION[1],
-            wx + 2 * C14_CUTOUT_SLIP,
-            max(wz, _c14.FLANGE_H) + 2 * C14_CUTOUT_SLIP, r)
+            _c14.SHROUD_W + 2 * C14_CUTOUT_SLIP,
+            _c14.SHROUD_H + 2 * C14_CUTOUT_SLIP, _c14.SHROUD_FILLET)
 
 
 # WHAT THE PLACEMENT AND THE PRINTED WALL HAVE TO AGREE ON. `enclosure.c14_station_x` is the one
@@ -2989,23 +3004,28 @@ def c14_cutout():
 # build the tuple. What can still drift is a DERIVATION off it: the wall relief the tunnel stands
 # on carries its own X in `back_top_wall_reliefs`, and the cutout and the two screws are struck
 # here. So the bound reads them all back against the shared datum.
-_c14_relief_x = next(x for who, x, _z, _w, _h in _enc.back_top_wall_reliefs
-                     if who == "c14-inlet")
+_c14_relief = next((x, z, w, h) for who, x, z, w, h in _enc.back_top_wall_reliefs
+                   if who == "c14-inlet")
 
 _stated.state(
     "c14-surround", "The C14 flange pockets into one block at its ceiling-clear mount",
     "3 mm in XZ, 3 mm of lip beyond the flange's Y- edge, a 9 mm entry relief, and one "
-    "full-width wedge corbel",
+    "ceiling-bedded rectangular block",
     (_enc.c14_pocket_wall >= 3.0 and _enc.c14_pocket_lip >= 3.0
      and _enc.c14_insertion_relief >= 9.0
-     and _c14_relief_x == C14_STATION[0] and c14_cutout()[1] == C14_STATION[0]
+     and _c14_relief[0] == C14_STATION[0]
+     and _c14_relief[1] == C14_STATION[1]
+     and _c14_relief[2] == _enc.c14_wall_relief_w
+     and abs(_c14_relief[3] - 2.0 * c14_mount_half()[1]) < 1e-9
+     and c14_cutout()[1] == C14_STATION[0]
      and abs(sum(x for x, _z in c14_stations()) / 2.0 - C14_STATION[0]) < 1e-9
      and abs(c14_seat_y() - 458.75) < 1e-9),
     f"station x {C14_STATION[0]:g}, seat y {c14_seat_y():.2f}, screws "
     f"{c14_stations()[0][0]:g}/{c14_stations()[1][0]:g}; the exact-profile pocket keeps "
     f"{_enc.c14_pocket_wall:g} mm of the tunnel block around the flange and its lip stands "
     f"{_enc.c14_pocket_lip:g} mm beyond the flange's {_c14.FLANGE_T:g} mm edge; the block is "
-    f"one rectangle from that mouth to the wall on one 45 degree underside. Its exact slipped "
+    f"one rectangle from that mouth to the wall, with its crown rooted in the ceiling slab. "
+    f"Its exact slipped "
     f"pocket continues {_enc.c14_insertion_relief:g} mm in Y- through the fixed strip for "
     "insertion.")
 
@@ -3052,18 +3072,24 @@ _stated.state(
 #
 # THE SODA AND ITS FLAVOUR STAND ON ONE COLUMN. Their two storeys leave a deliberate vertical
 # interval between the coloured chips, and that is the umbilical's own interval: the signal
-# opening belongs with the three tube openings rather than beside the power inlet. The keystone's
-# POCKET, not merely its smaller show-face aperture, is centred between those two axes. Its pocket
-# rises `POCKET_RISE` above the aperture, so paying that offset here gives the tall inboard body
-# equal working room to the two bulkhead bodies while leaving the visible rectangle between their
-# rings. The receptacle's outer boss joins the two port-field bosses into one simple printed web;
+# opening belongs with the three tube openings rather than beside the power inlet. The show-face
+# aperture stands midway between the two axes in X; in Z the station sits `POCKET_RISE` under
+# their midpoint, so the taller pocket behind the aperture clears both bores, and `KEYSTONE_LIFT`
+# over that, so the show face keeps one `wall` between the aperture and the flavour-A ring below
+# it. The receptacle's outer boss joins the two port-field bosses into one simple printed web;
 # its aperture and pocket remain clear of the rings and through-bores respectively.
 def keystone_station(flavor: float) -> tuple:
     """The jack's show-face centre between the soda and flavour-A stations, as `(x, z)`."""
     soda = (PANEL_X["bulkhead-carb"], deck_storey())
     flavour = (PANEL_X["bulkhead-flavor-a"], flavor)
     return ((soda[0] + flavour[0]) / 2.0,
-            (soda[1] + flavour[1]) / 2.0 - _keystone.POCKET_RISE)
+            (soda[1] + flavour[1]) / 2.0 - _keystone.POCKET_RISE + KEYSTONE_LIFT)
+
+
+# The exact finished receptacle keeps 3.031/5.480 mm from the show-face station to the
+# flavour-A/soda solids, and 7.608/3.120 mm from the inboard station to those same solids.
+KEYSTONE_LIFT = 0.6
+KEYSTONE_NEIGHBOUR_CLEAR = _enc.wall
 
 
 def keystone_cutout(station: tuple):
@@ -3099,26 +3125,37 @@ def build_keystone(station: tuple):
                               (x, _enc.rear_plane_y + _enc.wall, z)))
 
 
-def _keystone_clearances(station: tuple, flavor: float) -> tuple:
-    """Clearance to flavour A and soda as `(show face, inboard pocket)` pairs.
+def _keystone_clearances(station: tuple, flavor: float, placed: dict) -> tuple:
+    """Clearance to flavour A and soda as `(show face, inboard receptacle)` pairs.
 
-    At the show face the neighbouring objects are the two circular chip pockets. Behind the
-    aperture lip those shallow pockets have ended; there the functional neighbours are the two
-    bulkhead through-bores. Reading each depth against what actually occupies it keeps the outer
-    receptacle boss free to fuse into the port-field bosses without pretending that union is a
-    collision."""
+    At the show face the lower neighbouring chip pocket is the D profile's full rise and the
+    upper one's lower half is circular. Behind the aperture lip, the exact printed receptacle —
+    boss, wall-rooted web, opened pocket and catches — is read against the two placed bulkhead
+    bodies themselves."""
     _x, z = station
     soda, flavour = deck_storey(), flavor
-    ring_r = port_pocket_d() / 2.0
-    bore_r = _jg.panel_hole_d(PORT_HOLE_SLIP) / 2.0
     face_lo, face_hi = z - _keystone.APERTURE_H / 2.0, z + _keystone.APERTURE_H / 2.0
-    pocket_z = z + _keystone.POCKET_RISE
-    pocket_lo = pocket_z - _keystone.POCKET_H / 2.0
-    pocket_hi = pocket_z + _keystone.POCKET_H / 2.0
-    return ((face_lo - (flavour + ring_r),
-             (soda - ring_r) - face_hi),
-            (pocket_lo - (flavour + bore_r),
-             (soda - bore_r) - pocket_hi))
+    show = (face_lo - (flavour + port_pocket_rise()),
+            (soda - port_pocket_d() / 2.0) - face_hi)
+
+    ix0, ix1 = _enc.interior_x()
+    inner = (ix0, ix1, _enc.front_plane_y, _enc.rear_plane_y, 0.0,
+             _enc.appliance_height - _enc.floor_t - _enc.wall)
+    outer = (-_enc.appliance_width / 2.0, _enc.appliance_width / 2.0,
+             _enc.front_plane_y - _enc.front_wall, _enc.rear_plane_y + _enc.wall,
+             -_enc.floor_t, _enc.appliance_height - _enc.floor_t)
+    feature, cutter, catches = _enc._keystone_receptacle_geometry(
+        inner, outer, station, -1000.0, 1000.0, up=-1.0)
+    printed = feature.cut(cutter)
+    if catches is not None:
+        printed = printed.fuse(catches)
+    hardware = []
+    for name in ("bulkhead-flavor-a", "bulkhead-carb"):
+        query = _BRepDist(printed.wrapped, placed[name].wrapped)
+        if not query.IsDone():
+            raise RuntimeError(f"the keystone's exact clearance to {name} could not be read")
+        hardware.append(query.Value())
+    return show, tuple(hardware)
 
 
 # The hop `co2-0` closes, mouth to mouth: the bulkhead's inboard collet to the check's inlet
@@ -3416,11 +3453,10 @@ RELAY_TURN = (((0.0, 0.0, 1.0), 270.0), ((0.0, 1.0, 0.0), 270.0))
 # pattern reaches furthest past the main board — and the gap is that reach with a clearance past it.
 STACK_CLEAR = (_enc.mount_boss_dia / 2.0
                - (_relay.width / 2.0 - _relay.hole_dy) + 1.0)
-# Relay #1's lower two wall bosses stand over the main board. This lift puts a full 45-degree
-# corbel under both end bars and removes their two separate support contact regions from the
-# back-top slice. Two millimetres leaves the same one-millimetre body air
-# `east_boss_corbel_clear` strikes in X against a 45-degree wedge.
-RELAY1_CORBEL_LIFT = 2.0
+# Relay #1 takes the stack floor set by the board crown and the fastening clearance. Its lower
+# wall bosses stand over the board, so their exact flat bearing faces take slicer support where
+# the board prevents a column from reaching the ceiling slab.
+RELAY1_CORBEL_LIFT = 0.0
 # Relay #2 stands the same body ON END: a further quarter about X carries its long axis from
 # fore-and-aft onto Z, so it presents 17 mm of depth to the band instead of 70. That is the only
 # way a third body fits between the main board and the brick, and standing it costs nothing — its
@@ -3543,9 +3579,9 @@ def build_stack(psu, pcba, wagos, wall_seat):
     """What stands on the two crowns, as `[(name, solid, colour, carry)]`.
 
     Relay #1 takes the MAIN BOARD'S crown — the main board is the tallest body on the cap and the shortest
-    in depth, so the room over it is the one room a 70 mm relay lies down in. Its print lift
-    clears the board under both lower wall corbels. The ground stud stands AFT of that relay on
-    the crown's nominal stack floor, on its own wall bosses rather than on the board.
+    in depth, so the room over it is the one room a 70 mm relay lies down in. The ground stud
+    stands AFT of that relay on the same nominal stack floor, on its own wall bosses rather than
+    on the board.
     A ring stack is the one body here that will go wherever there is a corner. Relay #2 is not on
     either crown; it stands on the cap between the main board and the brick (`build_relay2`)."""
     out = []
@@ -3611,7 +3647,11 @@ def wago_wells(row, cluster, over):
 # itself the stilt it stood on.
 
 def wall_mounts(*mounted, blockers=()):
-    """The +X wall's boss stations, as `(y, z, tip, web_tip, clear_bands[, span])`.
+    """The +X wall's boss plan as `(stations, fills)`.
+
+    `stations` are `(y, z, tip, web_tip, clear_bands[, span])`; `fills` are the few
+    individually reviewed rectangular unions among those stations, as
+    `(name, (x0, x1, y0, y1, z0, z1), replaced_corbels)`.
 
     `mounted` is one `(name, carry, holes)` per body. Each hole is carried through the
     placement `seat_body` handed back from the body's own Z = 0 mounting plane, so `(y, z)` is
@@ -3784,15 +3824,15 @@ def wall_mounts(*mounted, blockers=()):
     stood_down = [row for row in plain if row[6]]
     record_bound(Bound(
         "east-boss-corbels",
-        "Every +X-wall power-column boss has a flat D stem or shares a bar, and a body-clear "
-        "45 degree corbel",
+        "Every +X-wall power-column boss has a flat D stem or shares a bar, and its candidate "
+        "45 degree corbel clears the installed bodies",
         not bad,
         f"{len(out) - len(bad)}/{len(out)} clear; {full} reach their mounting face across "
         f"their whole width and {len(splits)} use blocker-profiled split corbels"
         + (f", {len(plain)} are held back across their whole width" if plain else "")
         + (f" ({len(stood_down)} with offered wing(s) stood down)" if stood_down else "")
         + (f"; {len(bars)} hole pair(s) share a bar" if bars else ""),
-        "one clear corbel per mounting hole, one bar per hole pair",
+        "one clear candidate corbel per mounting hole, one bar per hole pair",
         ([f"boss {station} crosses `{name}` by {volume:.4f} mm³"
           for station, name, volume in bad]
          + [f"`{owner}` y {sy:.3f}, z {sz:.3f}: {setback:.3f} mm setback past "
@@ -3805,7 +3845,110 @@ def wall_mounts(*mounted, blockers=()):
                f"{span[1] - span[0]:.2f} mm; no wing"
                if dropped else "no clear width left for a full wing")
             for owner, sy, sz, setback, names, bands, dropped, span in held])))
-    return tuple(out)
+
+    # FOUR LOCAL FILLS, EACH READ IN THE COMPLETE INSTALLED PACK. The ground stack's single
+    # boss stands less than two millimetres below the ceiling pocket round the stud. A wedge
+    # there leaves a thin ledge beside the relay pocket; one full-width rectangular column from
+    # the boss's D chord through the pocket into the slab is both simpler and stronger.
+    #
+    # The upper aft main-board boss and relay #2's upper two-hole bar are separated by only the
+    # working gap between their outlines. One rectangle around both pads makes that mounting
+    # field a single block. The visually similar lower field stays separate: the same rectangle
+    # there crosses relay #2's pins, which this exact-pack probe rejects.
+    roots, lane = _enc.back_top_frames()
+    root_x = roots[1]
+    fills = []
+    fill_bad = []
+
+    def add_fill(label, bounds, replaced_corbels=()):
+        x0, x1, y0, y1, z0, z1 = bounds
+        feature = _enc._ybox(x0, x1, y0, y1, z0, z1)
+        collisions = hits(feature)
+        for name, _body, volume in collisions:
+            fill_bad.append((label, name, volume))
+        fills.append((label, tuple(bounds), tuple(replaced_corbels)))
+
+    ground = [(i, row) for i, row in enumerate(raw) if row[0] == "ground-stack"]
+    if len(ground) != 1:
+        raise ValueError(f"ground stack contributes {len(ground)} east-boss stations, expected 1")
+    gi, (_owner, gy, gz, gtip) = ground[0]
+    if out[gi] is None:
+        raise ValueError("the ground-stack station has no built east boss")
+    chord = gz - up * r
+    if chord >= lane[5] - _enc.stated_bound_tol:
+        raise ValueError(
+            f"the ground-stack boss chord z={chord:.3f} does not stand below the ceiling "
+            f"lane z={lane[5]:.3f}")
+    add_fill(
+        "ground-stack ceiling column",
+        (gtip, root_x, gy - r, gy + r, chord, lane[5] - r),
+        ((gy, gz),),
+    )
+
+    pcba = [(i, row) for i, row in enumerate(raw) if row[0] == "pcba"]
+    relay2 = [(i, row) for i, row in enumerate(raw) if row[0] == "relay-2"]
+    if len(pcba) != 4 or len(relay2) != 4:
+        raise ValueError(
+            f"the upper power-pad union needs 4 pcba and 4 relay-2 stations, got "
+            f"{len(pcba)} and {len(relay2)}")
+    pi, prow = max(pcba, key=lambda item: (item[1][2], item[1][1]))
+    relay_top_z = max(row[2] for _i, row in relay2)
+    relay_top = [(i, row) for i, row in relay2
+                 if abs(row[2] - relay_top_z) <= _enc.stated_bound_tol]
+    if len(relay_top) != 2 or out[pi] is None or any(out[i] is None for i, _row in relay_top):
+        raise ValueError("the upper power-pad union cannot identify its three built stations")
+    joined = [prow] + [row for _i, row in relay_top]
+    add_fill(
+        "pcba/relay-2 upper pad union",
+        (min(row[3] for row in joined), root_x,
+         min(row[1] - r for row in joined), max(row[1] + r for row in joined),
+         min(row[2] - r for row in joined), max(row[2] + r for row in joined)),
+        tuple((row[1], row[2]) for row in joined),
+    )
+
+    # Relay #1's two vertical hole pairs each make one rectangular bar inside its ceiling-
+    # clearance pocket. Carry each EXISTING BAR FOOTPRINT straight through to the ceiling:
+    # one box per bar, with both candidate corbels of each pair replaced atomically. The box
+    # begins at the bar's own lower face, so the finished feature is one continuous rectangular
+    # column rather than a separate cap at the pocket floor.
+    relay1 = [(i, row) for i, row in enumerate(raw) if row[0] == "relay-1"]
+    if len(relay1) != 4:
+        raise ValueError(
+            f"the relay-1 ceiling columns need 4 stations, got {len(relay1)}")
+    relay1_by_y = {}
+    for i, row in relay1:
+        relay1_by_y.setdefault(row[1], []).append((i, row))
+    if len(relay1_by_y) != 2 or any(len(rows) != 2 for rows in relay1_by_y.values()):
+        raise ValueError("relay-1's four stations no longer make two vertical hole pairs")
+    for sy, rows in sorted(relay1_by_y.items()):
+        (lo_i, lo), (hi_i, hi) = sorted(rows, key=lambda item: item[1][2])
+        if partner.get(lo_i) != hi_i or partner.get(hi_i) != lo_i:
+            raise ValueError(
+                f"relay-1's y={sy:g} stations are no longer one paired mounting bar")
+        if abs(lo[3] - hi[3]) > _enc.stated_bound_tol:
+            raise ValueError(
+                f"relay-1's y={sy:g} paired mounting faces no longer coincide")
+        add_fill(
+            f"relay-1 y={sy:g} ceiling column",
+            (lo[3], root_x, sy - r, sy + r,
+             lo[2] - r, lane[5] - r),
+            ((lo[1], lo[2]), (hi[1], hi[2])),
+        )
+
+    record_bound(Bound(
+        "east-boss-fills",
+        "The reviewed power-column fills are rectangular and clear of the installed pack",
+        not fill_bad,
+        f"{len(fills) - len({label for label, _name, _volume in fill_bad})}/{len(fills)} clear",
+        "one ground-stack ceiling column, one upper pcba/relay-2 pad union, and two relay-1 "
+        "paired-bar ceiling columns",
+        ([f"`{label}` crosses `{name}` by {volume:.4f} mm³"
+          for label, name, volume in fill_bad]
+         + [f"`{label}` x {bounds[0]:.3f}..{bounds[1]:.3f}, "
+            f"y {bounds[2]:.3f}..{bounds[3]:.3f}, "
+            f"z {bounds[4]:.3f}..{bounds[5]:.3f}"
+            for label, bounds, _replaced in fills])))
+    return tuple(out), tuple(fills)
 
 
 # --- the tap-water sequence, in the west lane ------------------------------
@@ -4365,9 +4508,12 @@ def pan_sleeve(pan, west_face):
     # The berth's two cuts start west of the wall's own outer face, so the slot the wall carries
     # and the room behind it are opened by one geometry rather than two that have to agree.
     x0 = west_face - _enc.wall - 1.0
+    # The mouth starts on the flank's own face, the plane the block stands proud of: from there
+    # west is the wall, and the tray is never this tall in it.
+    mouth_x0 = max(west_face, _enc.back_top_flank_face()[0])
     return [block], [(x0, wx1, wy0, wy1, wz0, wz1),
                      (x0, rx1, ry0, ry1, rz0, rz1),
-                     (west_face, wx1, wy0, wy1, rz1, z1)]
+                     (mouth_x0, wx1, wy0, wy1, rz1, z1)]
 
 
 def west_wall_ports(pan):
@@ -4741,7 +4887,7 @@ def build_pack() -> cq.Assembly:
         ("relay-1", stack_carry["relay-1"], _relay.holes),
         ("ground-stack", stack_carry["ground-stack"], _gnd.holes),
     )
-    a.east_bosses = wall_mounts(
+    a.east_bosses, a.east_mount_fills = wall_mounts(
         *power_mounts,
         blockers=tuple((name, solid) for name, (solid, _colour) in _solids(a).items()))
     vk, vk_carry = build_vk(chain_carry, source_row_y(stood))
@@ -4808,6 +4954,14 @@ def build_pack() -> cq.Assembly:
                   PORT_FOOT_CLEAR if name in PANEL_ON_GATE_LANE else DECK_CLEAR,
                   deck_fall[name] if name in deck_fall
                   else descent(solid, _would_land_on(box(solid), under_deck)))
+    a.keystone_clearances = _keystone_clearances(
+        a.keystone_station, a.gate_z, deck_solids)
+    if min(clear for pair in a.keystone_clearances for clear in pair) \
+            < KEYSTONE_NEIGHBOUR_CLEAR - 1e-6:
+        raise ValueError(
+            "the keystone aperture or inboard receptacle leaves less than one wall to a "
+            f"neighbouring port: {a.keystone_clearances}, requires "
+            f"{KEYSTONE_NEIGHBOUR_CLEAR:g} mm")
     trays = {n: s for n, s in deck_solids.items() if n != "digiten-flow"}
     meter = deck_solids["digiten-flow"]
     a.panel_carries = panel_carries
@@ -4985,19 +5139,151 @@ CEILING_RELIEF_BODIES = (
 )
 CEILING_RELIEF_PLAN_SLIP = 2.0
 CEILING_RELIEF_Z_CLEAR = 1.0
+# Every row in one group takes its tallest member's roof without changing any plan extent.
+# The ASSE chain's five overlapping fitting sections are one purchased assembly and take one
+# floor, preserving their stepped plan without five ledges at the section boundaries.
+# The flow meter's body and two collet arms overlap in plan and are one purchased part; a common
+# floor makes that one cross-shaped pocket instead of leaving two 0.211 mm-deep end notches.
+# Relay #1 and the ground ring occupy one overlapping service pocket at the ceiling. The ring
+# stands 0.688 mm taller, so both rectangles take its roof; separate roofs leave a sub-millimetre
+# horizontal ledge at their overlap instead of one clean opening round the two adjacent bodies.
+CEILING_RELIEF_LEVEL_GROUPS = (
+    ("asse1022-assembly",),
+    ("digiten-flow",),
+    ("relay-1", "ground-stack"),
+)
+# Gasher's long, shallow crown genuinely enters the slab, but only 1.961 mm. Its exact plan stays
+# its own; the floor takes one complete printable wall rather than leaving a sub-wall step.
+CEILING_RELIEF_MIN_DEPTH_BODIES = ("gasher-co2",)
+# Their nearest source rectangles still leave a 1.181 mm plan web. One explicit local connector
+# opens that web without growing either pocket to a neighbour's far edge. This is a reviewed
+# relationship between these two bodies, not a general merge-nearby-pockets rule.
+CEILING_RELIEF_CONNECTOR_PAIRS = (("relay-1", "ground-stack"),)
+CEILING_RELIEF_CONNECTOR_ENTRY = 0.5
+# The connected ground stack enters the slab in two overlapping sections whose circular plans
+# stagger by 0.8 mm in X. One rectangular service pocket around those named sections avoids
+# leaving either stagger as a thin wall tab. No other body's sections are enveloped together.
+CEILING_RELIEF_ENVELOPE_BODIES = ("ground-stack",)
+# The reviewed 0.8 mm lateral stagger leaves 10.35 mm² of envelope corner which is not inside
+# either source rectangle. More than 12 mm² means the purchased geometry moved enough that one
+# rectangular pocket is no longer the small local cleanup reviewed here.
+CEILING_RELIEF_ENVELOPE_MAX_EMPTY_PLAN = 12.0
 CEILING_WATER_2_PLAN_SLIP = (
     CEILING_RELIEF_PLAN_SLIP
     + _lines.TUBE_BEND + _split.TUBE_D / 2.0 - _lines.WATER_2_LEAD
 )
 
 
+def _contained_reliefs(reliefs: tuple) -> tuple:
+    """Keep the larger of same-name, same-roof plan boxes when one contains the other."""
+    out = []
+    tol = _enc.stated_bound_tol
+    for row in reliefs:
+        contained = False
+        remove = []
+        for i, other in enumerate(out):
+            if row[0] != other[0] or abs(row[5] - other[5]) > tol:
+                continue
+            other_contains = (other[1] <= row[1] + tol and other[2] >= row[2] - tol
+                              and other[3] <= row[3] + tol and other[4] >= row[4] - tol)
+            row_contains = (row[1] <= other[1] + tol and row[2] >= other[2] - tol
+                            and row[3] <= other[3] + tol and row[4] >= other[4] - tol)
+            if other_contains:
+                contained = True
+                break
+            if row_contains:
+                remove.append(i)
+        if contained:
+            continue
+        for i in reversed(remove):
+            out.pop(i)
+        out.append(row)
+    return tuple(out)
+
+
+def _enveloped_reliefs(reliefs: tuple) -> tuple:
+    """Replace each reviewed same-body pocket group with its one rectangular envelope."""
+    out = list(reliefs)
+    for name in CEILING_RELIEF_ENVELOPE_BODIES:
+        indices = [i for i, row in enumerate(out) if row[0] == name]
+        if len(indices) != 2:
+            raise ValueError(
+                f"ceiling relief envelope `{name}` found {len(indices)} intersection sections; review "
+                "whether this named local union still exists")
+        rows = [out[i] for i in indices]
+        tol = _enc.stated_bound_tol
+        x_overlap = min(row[2] for row in rows) - max(row[1] for row in rows)
+        y_overlap = min(row[4] for row in rows) - max(row[3] for row in rows)
+        if x_overlap <= tol or y_overlap <= tol:
+            raise ValueError(
+                f"ceiling relief envelope `{name}` sections no longer overlap in both plan "
+                f"axes ({x_overlap:.3f} mm X, {y_overlap:.3f} mm Y); review them separately")
+        if abs(rows[0][5] - rows[1][5]) > tol:
+            raise ValueError(
+                f"ceiling relief envelope `{name}` sections no longer share one roof "
+                f"({rows[0][5]:.3f} and {rows[1][5]:.3f} mm)")
+        envelope = (
+            name,
+            min(row[1] for row in rows), max(row[2] for row in rows),
+            min(row[3] for row in rows), max(row[4] for row in rows),
+            max(row[5] for row in rows),
+        )
+        envelope_area = (envelope[2] - envelope[1]) * (envelope[4] - envelope[3])
+        union_area = sum((row[2] - row[1]) * (row[4] - row[3]) for row in rows)
+        union_area -= x_overlap * y_overlap
+        empty_plan = envelope_area - union_area
+        if empty_plan > CEILING_RELIEF_ENVELOPE_MAX_EMPTY_PLAN + tol:
+            raise ValueError(
+                f"ceiling relief envelope `{name}` would cut {empty_plan:.2f} mm² outside its "
+                f"two source rectangles; the reviewed local limit is "
+                f"{CEILING_RELIEF_ENVELOPE_MAX_EMPTY_PLAN:g} mm²")
+        first = indices[0]
+        out = [row for row in out if row[0] != name]
+        out.insert(first, envelope)
+    return tuple(out)
+
+
+def _level_reliefs(reliefs: tuple) -> tuple:
+    """Give each reviewed group one roof plane without changing a member's plan."""
+    out = tuple(reliefs)
+    for group in CEILING_RELIEF_LEVEL_GROUPS:
+        roof = max((row[5] for row in out if row[0] in group), default=None)
+        if roof is not None:
+            out = tuple(row[:5] + (roof,) if row[0] in group else row for row in out)
+    return out
+
+
+def _full_depth_reliefs(reliefs: tuple) -> tuple:
+    """Reject a local ceiling pocket shallower than one printable wall."""
+    face = _enc.back_top_ceiling_face()
+    tol = _enc.stated_bound_tol
+    for row in reliefs:
+        depth = row[5] - face
+        if tol < depth < _enc.wall - tol:
+            raise ValueError(
+                f"ceiling relief `{row[0]}` is only {depth:.3f} mm deep; level it with its "
+                f"purchased-part pocket, omit it, or make it at least one {_enc.wall:g} mm wall")
+    return tuple(reliefs)
+
+
+def _minimum_depth_reliefs(reliefs: tuple) -> tuple:
+    """Deepen only the explicitly reviewed singleton pockets to one printable wall."""
+    face = _enc.back_top_ceiling_face()
+    roof = face + _enc.wall
+    return tuple(
+        row[:5] + (max(row[5], roof),)
+        if row[0] in CEILING_RELIEF_MIN_DEPTH_BODIES else row
+        for row in reliefs
+    )
+
+
 def ceiling_reliefs(placed: dict) -> tuple:
     """Named body pockets in back-top's ceiling slab, `(name, x0, x1, y0, y1, roof_z)` each.
 
     A body less than one clearance below the slab's interior face still earns a pocket:
-    translating the exact solid upward by that clearance exposes the plan which would otherwise
-    be a near miss. Ordinary pockets are boxes over that plan. The C14 tuple bounds the canonical
-    flange-profile passage which runs over the same Y span."""
+    translating each exact solid piece upward by that clearance exposes the plan which would
+    otherwise be a near miss. The direct and lifted sections of that same piece make one box.
+    The C14 tuple bounds the canonical flange-profile passage which runs over the same Y span."""
     raw = _enc.back_top_ceiling_stock()
     lane = interior_ceiling()
     reliefs = []
@@ -5005,19 +5291,19 @@ def ceiling_reliefs(placed: dict) -> tuple:
         if name not in placed:
             continue
         body = placed[name][0]
-        hits = [hit for hit in (
-            raw.intersect(body),
-            raw.intersect(body.translate((0.0, 0.0, CEILING_RELIEF_Z_CLEAR))),
-        ) if abs(hit.Volume()) > 1e-6]
-        if not hits:
-            continue
-        boxes = [hit.BoundingBox() for hit in hits]
-        body_top = body.BoundingBox().zmax
         plan_slip = (CEILING_WATER_2_PLAN_SLIP
                      if name == "tube-water-2" else CEILING_RELIEF_PLAN_SLIP)
-        y0 = min(b.ymin for b in boxes) - plan_slip
-        y1 = max(b.ymax for b in boxes) + plan_slip
         if name == "c14-inlet":
+            boxes = []
+            for piece in (body.Solids() or [body]):
+                for probe in (piece, piece.translate((0.0, 0.0, CEILING_RELIEF_Z_CLEAR))):
+                    hit = raw.intersect(probe)
+                    if abs(hit.Volume()) > 1e-6:
+                        boxes.extend(section.BoundingBox() for section in (hit.Solids() or [hit]))
+            if not boxes:
+                continue
+            y0 = min(b.ymin for b in boxes) - plan_slip
+            y1 = max(b.ymax for b in boxes) + plan_slip
             cx, cz = C14_STATION
             shaped = raw.intersect(
                 _c14.flange_prism(_enc.c14_pocket_slip, y0, y1)
@@ -5027,15 +5313,95 @@ def ceiling_reliefs(placed: dict) -> tuple:
             b = shaped.BoundingBox()
             reliefs.append((name, b.xmin, b.xmax, y0, y1, b.zmax))
             continue
-        reliefs.append((
-            name,
-            min(b.xmin for b in boxes) - plan_slip,
-            max(b.xmax for b in boxes) + plan_slip,
-            y0,
-            y1,
-            min(lane, body_top + CEILING_RELIEF_Z_CLEAR),
-        ))
-    return tuple(reliefs)
+        # ONE BOX PER CONNECTED SECTION OF A PURCHASED SOLID PIECE. A chain of fittings 144 mm
+        # long has hex ends 4 mm taller than its barrels; one box over the whole compound empties
+        # slab over nothing. Direct and lifted probes may expose the same section at slightly
+        # different size; the containing plan below is that section's one cutter.
+        for piece in (body.Solids() or [body]):
+            for probe in (piece, piece.translate((0.0, 0.0, CEILING_RELIEF_Z_CLEAR))):
+                hit = raw.intersect(probe)
+                if abs(hit.Volume()) > 1e-6:
+                    for section in (hit.Solids() or [hit]):
+                        b = section.BoundingBox()
+                        reliefs.append((
+                            name,
+                            b.xmin - plan_slip, b.xmax + plan_slip,
+                            b.ymin - plan_slip, b.ymax + plan_slip,
+                            min(lane, piece.BoundingBox().zmax + CEILING_RELIEF_Z_CLEAR),
+                        ))
+    # A contained direct/lifted reading is the same void twice, not a second feature.
+    reliefs = list(_contained_reliefs(tuple(reliefs)))
+    reliefs = list(_enveloped_reliefs(tuple(reliefs)))
+    reliefs = _minimum_depth_reliefs(_level_reliefs(tuple(reliefs)))
+    return _full_depth_reliefs(_connected_reliefs(reliefs))
+
+
+def _connected_reliefs(reliefs: tuple) -> tuple:
+    """Append the one reviewed connector between each named pocket pair.
+
+    Source extents are immutable. A connector exists only when exactly one plan axis has a gap
+    narrower than a wall and the other overlaps; it spans the overlap and enters each pocket by
+    `CEILING_RELIEF_CONNECTOR_ENTRY`. Already-overlapping and diagonal pockets get nothing.
+    Calling this twice returns the same tuples, so a connector cannot become the source of a
+    transitive enlargement."""
+    source = tuple(reliefs)
+    out = list(source)
+    keys = {
+        (p[0], *(round(value / _enc.stated_bound_tol) for value in p[1:]))
+        for p in source
+    }
+    for left, right in CEILING_RELIEF_CONNECTOR_PAIRS:
+        left_rows = tuple(row for row in source if row[0] == left)
+        right_rows = tuple(row for row in source if row[0] == right)
+        if not left_rows and not right_rows:
+            continue
+        if not left_rows or not right_rows:
+            raise ValueError(
+                f"ceiling relief connector {left}/{right} has only one named side")
+        candidates = []
+        for p in left_rows:
+            for q in right_rows:
+                x_overlap = min(p[2], q[2]) - max(p[1], q[1])
+                y_overlap = min(p[4], q[4]) - max(p[3], q[3])
+                x_gap = max(q[1] - p[2], p[1] - q[2])
+                y_gap = max(q[3] - p[4], p[3] - q[4])
+                separated_x = x_gap > _enc.stated_bound_tol
+                separated_y = y_gap > _enc.stated_bound_tol
+                if separated_x == separated_y:
+                    continue
+                if separated_x:
+                    if x_gap >= _enc.wall or y_overlap <= _enc.stated_bound_tol:
+                        continue
+                    x0 = min(p[2], q[2]) - CEILING_RELIEF_CONNECTOR_ENTRY
+                    x1 = max(p[1], q[1]) + CEILING_RELIEF_CONNECTOR_ENTRY
+                    y0, y1 = max(p[3], q[3]), min(p[4], q[4])
+                else:
+                    if y_gap >= _enc.wall or x_overlap <= _enc.stated_bound_tol:
+                        continue
+                    x0, x1 = max(p[1], q[1]), min(p[2], q[2])
+                    y0 = min(p[4], q[4]) - CEILING_RELIEF_CONNECTOR_ENTRY
+                    y1 = max(p[3], q[3]) + CEILING_RELIEF_CONNECTOR_ENTRY
+                candidates.append((f"{left}/{right} connector", x0, x1, y0, y1,
+                                   min(p[5], q[5])))
+        unique = []
+        pair_keys = set()
+        for connector in candidates:
+            key = (connector[0], *(round(value / _enc.stated_bound_tol)
+                                   for value in connector[1:]))
+            if key not in pair_keys:
+                pair_keys.add(key)
+                unique.append(connector)
+        if len(unique) != 1:
+            raise ValueError(
+                f"ceiling relief connector {left}/{right} found {len(unique)} eligible gaps; "
+                "review this named relationship against the installed pack")
+        connector = unique[0]
+        key = (connector[0], *(round(value / _enc.stated_bound_tol)
+                               for value in connector[1:]))
+        if key not in keys:
+            keys.add(key)
+            out.append(connector)
+    return tuple(out)
 
 
 # --- columns where the print grows from ---------------------------------------
@@ -5091,15 +5457,21 @@ def stand_anchors(stations, placed) -> tuple:
     `(plane, depth)` — back-top's ceiling face, which that end stands on as a column, and how far
     off the root face the column stands: the flank's whole section where the air from it to the
     slab is free of every placed body, else the corbel's own footprint where that much is — or
-    None where a body stands even in that. A station outside back-top's band is passed through
-    as it came."""
+    None where a body stands even in that. A source station may name either end `corbel`, which
+    bypasses the column search for that end. A station outside back-top's band is passed through
+    as its four geometric entries."""
     bodies = _bodies(placed)
     up = _enc.print_up("back", "top")
     roots, lane = _enc.back_top_frames()
     face_z = _enc.back_top_ceiling_face()
     out = []
-    for st in stations:
-        st = tuple(st[:4])
+    for station in stations:
+        end_forms = tuple(station[4]) if len(station) > 4 else ("auto", "auto")
+        if len(end_forms) != 2 or any(form not in ("auto", "corbel") for form in end_forms):
+            raise ValueError(
+                f"stand_anchors: end forms are {end_forms!r}; each end must be `auto` or "
+                f"`corbel`.")
+        st = tuple(station[:4])
         if not _enc.back_top_owns(st[0]):
             out.append(st)
             continue
@@ -5107,7 +5479,10 @@ def stand_anchors(stations, placed) -> tuple:
         depth = _enc.tube_anchor_corbel_depth(st, roots, lane)
         part = _enc.tube_anchor_end_columns(st, roots, lane, up, face_z, depth)
         stand = []
-        for full, footprint in zip(whole, part):
+        for form, full, footprint in zip(end_forms, whole, part):
+            if form == "corbel":
+                stand.append(None)
+                continue
             if full is not None and not _within(full, bodies, WEDGE_CLEAR):
                 stand.append((face_z, None))
             elif footprint is not None and not _within(footprint, bodies, WEDGE_CLEAR):
@@ -5194,18 +5569,41 @@ def _plan_prism(poly, z0, z1, grow=0.0):
     return wp.extrude(z1 - z0).val()
 
 
-def wedge_fills(placed) -> Bound:
+def authored_anchor_corbels(stations) -> tuple:
+    """Named rooms enclosing tube-anchor end webs whose site specifies an ordinary corbel."""
+    roots, lane = _enc.back_top_frames()
+    up = _enc.print_up("back", "top")
+    rooms = []
+    for station in stations:
+        if len(station) < 5:
+            continue
+        forms = tuple(station[4])
+        bounds = _enc.tube_anchor_end_corbel_bounds(station, roots, lane, up)
+        for end, (form, bound) in enumerate(zip(forms, bounds), 1):
+            if form != "corbel" or bound is None:
+                continue
+            mid = station[0]
+            rooms.append((
+                f"tube anchor at ({mid[0]:.2f}, {mid[1]:.2f}, {mid[2]:.2f}), end {end}",
+                bound,
+                "the anchor site specifies its ordinary full-width 45-degree corbel",
+            ))
+    return tuple(rooms)
+
+
+def wedge_fills(placed, authored_corbels=()) -> Bound:
     """`wedge-fills`: every print-down slope on a piece printed ceiling-down, and what carries it.
 
     For each such face the column it could be is struck — the face's own plan, from the face
     to the piece's material over it, the piece's own solid taken out — and read against the
     pack: a body the column would overlap says the wedge stands under it; a body it would come
-    within `WEDGE_CLEAR` of says the same; a face in a `KEPT_WEDGES` room is carried by the room's
-    own reason. What is left is a wedge where a column fits, and the bound names each with the
-    viewer's pick text. A kept room that matches no face is named too: it describes geometry that
-    is no longer there."""
+    within `WEDGE_CLEAR` of says the same; a face in a `KEPT_WEDGES` room or an anchor site's
+    authored-corbel room is carried by that room's own reason. What is left is a wedge where a
+    column fits without either cause, and the bound names each with the viewer's pick text. A
+    named room that matches no face is named too: it describes geometry that is no longer there."""
     import pick_text                                                      # noqa: E402
     bodies = _bodies(placed)
+    kept_wedges = KEPT_WEDGES + tuple(authored_corbels)
     counts = {"under": 0, "near": 0, "kept": 0, "fill": 0}
     detail, matched = [], set()
     for name, up in _enc.PIECE_PRINT_UP.items():
@@ -5219,7 +5617,7 @@ def wedge_fills(placed) -> Bound:
                 / f"{piece_name}.step")
         for f, poly in _print_down_slopes(piece, up):
             fb = box(f)
-            kept = next((k for k in KEPT_WEDGES
+            kept = next((k for k in kept_wedges
                          if k[1][0] - 0.05 <= fb.xmin and fb.xmax <= k[1][3] + 0.05
                          and k[1][1] - 0.05 <= fb.ymin and fb.ymax <= k[1][4] + 0.05
                          and k[1][2] - 0.05 <= fb.zmin and fb.zmax <= k[1][5] + 0.05), None)
@@ -5260,16 +5658,16 @@ def wedge_fills(placed) -> Bound:
                 f"z {fb.zmin:.2f}..{fb.zmax:.2f}: a column of {column.Volume():.0f} mm³ rising "
                 f"{rise:.1f} mm fits\n" + pick_text.file_line(step) + "\n"
                 + pick_text.from_face(f, label="faceA") + "\n" + pick_text.click(f.Center()))
-    stale = [k[0] for k in KEPT_WEDGES if k[0] not in matched]
+    stale = [k[0] for k in kept_wedges if k[0] not in matched]
     total = sum(counts.values())
     return record_bound(Bound(
         "wedge-fills",
-        "Every print-down slope on a ceiling-down piece is a column where one fits",
+        "Every print-down slope on a ceiling-down piece has its stated carry",
         not detail and not stale,
         f"{total} print-down slope(s): {counts['under']} under a body, {counts['near']} within "
         f"{WEDGE_CLEAR:g} mm of one, {counts['kept']} in a kept room, {counts['fill']} could be "
         f"columns" + (f"; {len(stale)} kept room(s) match nothing" if stale else ""),
-        "no slope a column could replace, and every kept room standing",
+        "no unaccounted slope a column could replace, and every named room standing",
         detail + [f"kept room `{s}` matches no face" for s in stale]))
 
 
@@ -5295,6 +5693,7 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
                                  + [c14_cutout(), co2_wall_port(a.co2_inlet_carry),
                                     keystone_cutout(a.keystone_station)]),
                      c14=c14_stations(), east_bosses=a.east_bosses,
+                     east_mount_fills=a.east_mount_fills,
                      side_wells=stand_wells(a.side_wells, placed), floor_bosses=a.floor_bosses,
                      west_cradle=a.west_cradle, cond_cradle=a.cond_cradle,
                      cond_mount=a.cond_mount, cond_airway=a.cond_airway,
@@ -5691,7 +6090,7 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     _carrier_front_top_motion_bound(a, pieces["front-top"], box)
     _pump_jack_service_bound(display, pieces["front-top"], box)
     placed_solids = _solids(a)
-    wedge_fills(placed_solids)
+    wedge_fills(placed_solids, authored_anchor_corbels(a.tube_anchors))
     # And every anchored run against the rib its own site names.
     tubes = {n: s for n, (s, _c) in _solids(a).items() if n.startswith("tube-")}
     # The box's own group reads LAST on the card, under the pack's. `record_bound` carries an
@@ -5915,38 +6314,153 @@ def selftest():
         raise AssertionError(f"a hung seat lands {off:.2e} off its own rule, past {SEAT_TOL:g}")
     yield f"a hung seat lands {off:.1e} off the rule it was given"
 
-    # THE C14 TUNNEL IS ONE BLOCK ON ONE 45-DEGREE UNDERSIDE. Build the production feature
-    # itself and read it: one fore plane at the mouth with the flange pocket in it, one seating
-    # plane at the pocket's floor, one flank each side from mouth to wall, one underside falling
-    # the full run at 45 degrees with material under every point of the block, and that corbel
-    # present at the wall beside both flanks.
+    roof = 347.38845736812084
+    # Nested direct/lifted readings collapse to the larger plan, while two merely overlapping
+    # sections remain distinct for the named envelope decision below.
+    nested = (
+        ("body", 1.0, 9.0, 2.0, 8.0, roof),
+        ("body", 0.5, 9.5, 2.0, 8.5, roof),
+        ("body", 8.5, 12.0, 7.0, 11.0, roof),
+    )
+    if _contained_reliefs(nested) != (nested[1], nested[2]):
+        raise AssertionError("ceiling direct/lift containment erased or retained the wrong plan")
+    yield "contained direct/lifted ceiling readings collapse without merging adjacent sections"
+
+    ceiling_face = _enc.back_top_ceiling_face()
+    flow = (
+        ("digiten-flow", -52.81, -22.81, 375.21, 405.21, ceiling_face + 5.210580838),
+        ("digiten-flow", -41.386, -34.234, 358.21, 392.21, ceiling_face + 0.210580838),
+        ("digiten-flow", -41.386, -34.234, 388.21, 422.21, ceiling_face + 0.210580838),
+    )
+    levelled_flow = _level_reliefs(flow)
+    if any(row[:5] != source[:5] for row, source in zip(levelled_flow, flow)):
+        raise AssertionError("levelling a purchased-part ceiling pocket changed its plan")
+    if any(abs(row[5] - flow[0][5]) > _enc.stated_bound_tol for row in levelled_flow):
+        raise AssertionError("the flow meter's overlapping sections kept separate roof planes")
+    _full_depth_reliefs(levelled_flow)
+    try:
+        _full_depth_reliefs((flow[1],))
+    except ValueError as exc:
+        if "only 0.211 mm deep" not in str(exc):
+            raise
+    else:
+        raise AssertionError("a sub-wall ceiling pocket passed the minimum-depth gate")
+    gasher = ("gasher-co2", -4.707, 9.607, 399.703, 443.703, ceiling_face + 1.960580838)
+    deep_gasher = _minimum_depth_reliefs((gasher,))[0]
+    if deep_gasher[:5] != gasher[:5] or abs(deep_gasher[5] - (ceiling_face + _enc.wall)) > 1e-9:
+        raise AssertionError("the gasher pocket did not keep its plan and take one full wall")
+    _full_depth_reliefs((deep_gasher,))
+    yield "one purchased body keeps one roof plane and no local pocket under a wall deep"
+
+    # The relay and ground-stack pockets overlap in X and stand 1.181 mm apart in Y. One
+    # reviewed connector crosses only that gap, without changing either source rectangle or
+    # reaching the ground stack's second, already-overlapping piece.
+    relay = ("relay-1", 77.25, 100.25, 250.5, 324.5, roof)
+    ground_near = ("ground-stack", 85.25, 93.45, 325.68134675205295,
+                   335.8523304907584, roof)
+    ground_far = ("ground-stack", 84.45, 92.65, 332.14766970924165,
+                  342.3186534479471, roof)
+    ground = ("ground-stack", 84.45, 93.45, 325.68134675205295,
+              342.3186534479471, roof)
+    enveloped = _enveloped_reliefs((relay, ground_near, ground_far))
+    if enveloped != (relay, ground):
+        raise AssertionError(
+            f"the two staggered ground-stack sections do not make their one exact envelope: "
+            f"{enveloped!r}")
+    source = enveloped
+    connected = _connected_reliefs(source)
+    expected_connector = (
+        "relay-1/ground-stack connector", 84.45, 93.45, 324.0,
+        326.18134675205295, roof)
+    if connected[:len(source)] != source or connected[len(source):] != (expected_connector,):
+        raise AssertionError(
+            f"the relay/ground ceiling connector changed a source pocket or its local bounds: "
+            f"{connected!r}")
+    if _connected_reliefs(connected) != connected:
+        raise AssertionError("a ceiling connector became the source of a transitive enlargement")
+    yield "the relay/ground ceiling connector crosses only their 1.181 mm local plan gap"
+
+    separated_ground = (
+        ground_near,
+        ("ground-stack", ground_far[1], ground_far[2],
+         ground_far[3] + 20.0, ground_far[4] + 20.0, roof),
+    )
+    try:
+        _enveloped_reliefs(separated_ground)
+    except ValueError as exc:
+        if "no longer overlap" not in str(exc):
+            raise
+    else:
+        raise AssertionError("separated ground-stack sections silently became one broad pocket")
+    yield "a reviewed ceiling envelope fails closed when its source sections separate"
+
+    diagonal = (
+        ("one", 0.0, 10.0, 0.0, 10.0, 348.0),
+        ("two", 12.0, 22.0, 12.0, 22.0, 347.0),
+    )
+    if _connected_reliefs(diagonal) != diagonal:
+        raise AssertionError("diagonal ceiling pockets grew through their empty corner")
+    yield "diagonal ceiling-pocket near-misses remain two separate rectangles"
+
+    asse_water = (
+        ("asse1022-assembly", -84.33185102677876, -71.80814897322122,
+         407.71, 445.21, 345.4605808375568),
+        ("bulkhead-water", -89.92532981495471, -66.21467018504528,
+         444.71, 463.0, 348.6405808375568),
+    )
+    if _connected_reliefs(asse_water) != asse_water:
+        raise AssertionError("the overlapping ASSE and water pockets acquired a connector")
+    yield "the overlapping ASSE and water pockets keep their exact independent extents"
+
+    # THE PRODUCTION C14 TUNNEL IS ONE CEILING-BEDDED RECTANGULAR BLOCK. Read the back-top
+    # branch itself: one fore plane at the mouth with the flange pocket in it, one seating plane
+    # at the pocket's floor, one flank each side from mouth to wall, and horizontal bed/crown
+    # planes at the stated section. Its only internal voids are the canonical flange pocket,
+    # slipped shroud bore and two insert bores.
     inner = (-1000.0, 1000.0, -1000.0, 1000.0, -1000.0, 1000.0)
     outer = (0.0, 0.0, 0.0, _enc.rear_plane_y + _enc.wall, 0.0, 0.0)
     feature, bore, inserts = _enc._c14_tunnel_geometry(
-        inner, outer, c14_stations(), [c14_cutout()], -1000.0, 1000.0)
-    feature = feature.cut(bore)
-    for cutter in inserts:
-        feature = feature.cut(cutter)
+        inner, outer, c14_stations(), [c14_cutout()], -1000.0, 1000.0,
+        up=_enc.BACK_TOP_UP)
     hx, hz = c14_mount_half()
     fore = c14_seat_y()
     mouth = fore - _c14.FLANGE_T - _enc.c14_pocket_lip
-    run = _enc.rear_plane_y - mouth
+    aft = _enc.rear_plane_y
     block_bottom = C14_STATION[1] - hz
-    if abs(feature.BoundingBox().zmin - (block_bottom - run)) > 1e-5:
+    block_top = C14_STATION[1] + hz
+    expected_block_volume = 2.0 * hx * (aft - mouth) * 2.0 * hz
+    if abs(feature.Volume() - expected_block_volume) > 1e-3:
         raise AssertionError(
-            "the C14 block does not carry its underside down the full "
-            f"{run:.2f} mm 45-degree corbel: zmin {feature.BoundingBox().zmin:.6f}, "
-            f"expected {block_bottom - run:.6f}")
-    for side in (-1.0, 1.0):
-        probe = (C14_STATION[0] + side * (hx - 0.25),
-                 _enc.rear_plane_y - 0.10, block_bottom - run + 0.10)
-        if not feature.isInside(probe):
-            raise AssertionError(
-                f"the C14 block's {'west' if side < 0 else 'east'} corbel stops before the "
-                f"wall; its sheared copy is absent at {probe}")
-    planes = {"fore": 0, "flank": 0, "under": 0}
+            "the production C14 surround contains geometry beyond its one rectangular block: "
+            f"volume {feature.Volume():.3f}, expected {expected_block_volume:.3f} mm³")
+
+    # Past the seating face only the slipped shroud profile continues through the wall.
+    wx, wz, r = c14_cutout()[3:]
+    sample_depth = 0.5
+    shroud_section = bore.intersect(_enc._ybox(
+        C14_STATION[0] - hx - 1.0, C14_STATION[0] + hx + 1.0,
+        fore + 0.25, fore + 0.25 + sample_depth,
+        block_bottom - 1.0, block_top + 1.0)).Volume() / sample_depth
+    expected_shroud_section = wx * wz - (4.0 - math.pi) * r * r
+    if abs(shroud_section - expected_shroud_section) > 1e-3:
+        raise AssertionError(
+            f"the C14 wall bore is {shroud_section:.3f} mm², not the slipped shroud's "
+            f"{expected_shroud_section:.3f} mm² rounded rectangle")
+    if len(inserts) != 2:
+        raise AssertionError(f"the C14 block carries {len(inserts)} insert bores, not two")
+    feature = feature.cut(bore)
+    for cutter in inserts:
+        feature = feature.cut(cutter)
+    if abs(feature.BoundingBox().zmax - block_top) > 1e-5:
+        raise AssertionError(
+            "the C14 block's crown does not match its stated rectangular section: "
+            f"zmax {feature.BoundingBox().zmax:.6f}, expected {block_top:.6f}")
+    if abs(feature.BoundingBox().zmin - block_bottom) > 1e-5:
+        raise AssertionError(
+            "the C14 block's bed face does not match its stated rectangular section: "
+            f"zmin {feature.BoundingBox().zmin:.6f}, expected {block_bottom:.6f}")
+    planes = {"fore": 0, "flank": 0, "bed": 0, "crown": 0, "diagonal-yz": 0}
     seat = 0.0
-    down = math.sqrt(0.5)
     for face in feature.Faces():
         if face.geomType() != "PLANE":
             continue
@@ -5957,14 +6471,18 @@ def selftest():
             seat += face.Area()
         elif abs(n.x) > 0.999999 and abs(abs(c.x - C14_STATION[0]) - hx) < 1e-6:
             planes["flank"] += 1
-        elif abs(n.y + down) < 1e-6 and abs(n.z + down) < 1e-6:
-            planes["under"] += 1
-    if planes != {"fore": 1, "flank": 2, "under": 1}:
+        elif n.z < -0.999999 and abs(c.z - block_bottom) < 1e-6:
+            planes["bed"] += 1
+        elif n.z > 0.999999 and abs(c.z - block_top) < 1e-6:
+            planes["crown"] += 1
+        elif abs(n.y) > 1e-6 and abs(n.z) > 1e-6:
+            planes["diagonal-yz"] += 1
+    if planes != {"fore": 1, "flank": 2, "bed": 1, "crown": 1, "diagonal-yz": 0}:
         raise AssertionError(
-            f"the C14 block is not one fore plane, two flanks and one underside: {planes}")
+            "the production C14 block is not one fore plane, two flanks and two horizontal "
+            f"section planes with no diagonal underside: {planes}")
     # The seat is the pocket's floor less what the aperture takes of it and the two insert bores
     # — read as area because its square corners reach past the flange's tapered shoulders.
-    wx, wz, r = c14_cutout()[3:]
     pocket = _c14.flange_prism(_enc.c14_pocket_slip, 0.0, 1.0).val()
     taken = pocket.intersect(_enc._rect_cut_y(0.0, 0.0, wx, wz, r, 0.0, 1.0)).Volume()
     expected = pocket.Volume() - taken - 2.0 * math.pi * (_enc.heatset_dia / 2.0) ** 2
@@ -5972,8 +6490,8 @@ def selftest():
         raise AssertionError(
             f"the C14 seat is {seat:.3f} mm² of -Y plane at y={fore:.2f} where the pocket floor "
             f"less the aperture and both insert bores is {expected:.3f}")
-    yield ("the C14 tunnel is one block: one fore plane with the flange pocket in it, one "
-           "flank each side, and one 45-degree underside carried the full run to the wall")
+    yield ("the production C14 tunnel is one ceiling-bedded rectangular block with the exact "
+           "flange seat, slipped shroud bore and two insert bores")
 
 
 def main():

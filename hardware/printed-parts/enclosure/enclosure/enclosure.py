@@ -1108,15 +1108,23 @@ back_top_wall_t = 6.0
 # plan (`Pack.ceiling_reliefs`); the cutout, tunnel, both screws and the wall relief below all
 # read this one station.
 c14_station_x = 66.9
+back_top_port_row_z = 336.2105808375568
+c14_cutout_slip = 0.5
+c14_wall_relief_w = 2.0 * (
+    max(abs(dx) for dx, _dz in _c14.panel_screws()) + heatset_dia / 2.0 + boss_ligament)
+c14_wall_relief_h = _c14.SHROUD_H + 2.0 * c14_cutout_slip + 2.0 * back_top_wall_t
 # The wall relief is the fastening field: 46.4 mm across both insert stations and the ligament
 # round each bore, the tunnel block's own height, and it ends inside the block on both X sides,
 # so the block roots on the relieved plane over the inserts and buries into the unrelieved
 # wall beyond them. The aperture and both insert stations lie inside the relieved field and
 # their cutters still run after the tunnel is fused.
 back_top_wall_reliefs = (
-    ("co2-inlet", 2.45, 336.21, 30.0, 30.0),      # the neoFit's nut across its corners, on
+    ("co2-inlet", 2.45, back_top_port_row_z, 30.0, 30.0),  # the neoFit's nut across its
+                                                  # corners, on
                                                   # enclosure_assembly.CO2_COLUMN (`co2-relief`)
-    ("c14-inlet", c14_station_x, 336.21, 46.4, 35.15),
+    ("c14-inlet", c14_station_x, back_top_port_row_z,
+     c14_wall_relief_w, c14_wall_relief_h),        # the slipped shroud aperture and one
+                                                  # `back_top_wall_t` over and under it
 )
 # THE LAND'S SKIRT RUNS TWO MILLIMETRES IN PLAN FOR THE ONE IT FALLS. A relieved port station
 # keeps its whole clamped stack and gives back only the last millimetre to the nut land, down a
@@ -1160,9 +1168,9 @@ c14_tunnel_wall = back_top_wall_t
 # THE TUNNEL IS ONE BLOCK WITH THAT POCKET IN IT. From the pocket's mouth to the wall the tunnel
 # is one rectangle whose plan keeps at least `c14_pocket_wall` round the pocket everywhere in
 # XZ, so it presents one fore plane with the flange-shaped cavity cut into it, one flank each
-# side, and one 45 degree underside falling from the mouth's bottom edge to the wall
-# (`_c14_tunnel_geometry`). None of this moves the part or its screws: the seating plane is the
-# same plane and the wall behind it the same wall.
+# side, and horizontal bed and crown planes. Its crown enters back-top's ceiling slab, which is
+# the bed this piece prints on. None of this moves the part or its screws: the seating plane and
+# the wall behind it are their fixed datums.
 c14_pocket_slip = 0.5
 c14_pocket_wall = 3.0
 c14_pocket_lip = 3.0
@@ -1203,11 +1211,12 @@ back_top_flank_t = 9.0
 
 # The `water-3` run crosses the front/back joint in the west strip. Its front-top share already
 # has the same relief; this is the aft continuation, on back-top from the first plane past the Y
-# telescope until the route has turned inboard. The floor is `lip_face_x`, leaving six
-# millimetres of wall, and the roof rises at `relief_chamfer` to the nominal nine-millimetre face.
-# Stated as (placed-body name, side, y0, y1, z0, z1).
+# telescope until the route has turned inboard: the tube's own room there is y 215..232 and
+# z 250..260, and the relief is that with one `wall` round it. The floor is `lip_face_x`, leaving
+# six millimetres of wall, and the roof rises at `relief_chamfer` to the nominal nine-millimetre
+# face. Stated as (placed-body name, side, y0, y1, z0, z1).
 back_top_flank_reliefs = (
-    ("tube-water-3", -1.0, 215.0, 245.0, 248.0, 273.0),
+    ("tube-water-3", -1.0, 215.0, 235.0, 247.0, 263.0),
 )
 # --- back-bottom's own ±X section ---------------------------------------------
 #
@@ -1695,6 +1704,9 @@ def documented(box):
 #                 only part of the candidate wedge holds that part back by
 #                 `east_boss_corbel_clear`; the clear bands keep their wall-rooted corbel all
 #                 the way to the body, and the D-shaped stem still reaches the whole hole
+#   east_mount_fills  individually reviewed rectangular unions in that mounting field, each
+#                 `(name, (x0, x1, y0, y1, z0, z1), replaced_corbels)`. A replacement station
+#                 keeps its D stem and bore; the box replaces only its ordinary wedge
 #   side_wells    the side walls' Wago wells, (side, y, z, size, clear_z, supportless_roof) —
 #                 one press-fit pocket per lever nut, on the flank its own cluster stands on
 #   floor_bosses  the floor slab's mounting bosses, (x, y, the plane the boss top reaches, the
@@ -1717,9 +1729,9 @@ def documented(box):
 #   flow_meter_anchors  the top wall's two flow-meter anchors, (axis_x, axis_z, seat_r, bands) —
 #                 the arm axis the Vs are struck on, the barrel they seat, and the run of
 #                 each arm one takes
-#   tube_anchors  the runs' own seats, one (mid, along, root, seat_r) each — the middle of the
-#                 leg a rib is centred on, which way the tube points there, which way the face
-#                 it stands on lies, and the section it seats
+#   tube_anchors  the runs' own seats, one (mid, along, root, seat_r, stand) each — the middle
+#                 of the leg, its direction, root face, bore radius and the two end-web
+#                 treatments selected against the placed pack
 #   ceiling_reliefs  named body pockets in back-top's ceiling slab, one
 #                 `(name, x0, x1, y0, y1, pocket_top_z)` each. Ordinary entries cut that box.
 #                 `c14-inlet` cuts its canonical flange profile over the entry's Y span; its XZ
@@ -1761,7 +1773,7 @@ def documented(box):
 #                 tab sweeps, release/park stops, two spring stations and eight tie sites
 Pack = namedtuple(
     "Pack", "placed front_ports back_ports east_ports west_ports funnel pan_sleeve c14 "
-            "east_bosses side_wells floor_bosses west_cradle cond_cradle cond_mount "
+            "east_bosses east_mount_fills side_wells floor_bosses west_cradle cond_cradle cond_mount "
             "cond_airway asse_cradle flow_meter_anchors tube_anchors ceiling_reliefs "
             "port_field nameplate keystone "
             "valve_trays pump_trays core_stops core_holds vent_chase collet_plate tee_carrier")
@@ -1774,6 +1786,7 @@ Pack.__new__.__defaults__ = (
     (),             # pan_sleeve
     ((), ()),       # c14
     (),             # east_bosses
+    (),             # east_mount_fills
     (),             # side_wells
     (),             # floor_bosses
     (),             # west_cradle
@@ -4158,6 +4171,22 @@ def _rail_x(x_in, sx, col):
     return x_hk, x_f, x_a, x_h1
 
 
+def _rail_channel_span(x_in, sx, col):
+    """The channel cutter's two X edges and the foot face between them.
+
+    Back-top's material-backed horizontal roof is only `x_open` to `x_f`; past the foot face,
+    `x_f` to `x_d` is already open machine interior and the cutter merely clears the arm there.
+    Front-top mirrors the outboard channel wall through the flank face, making one symmetric
+    45-degree gable whose ridge is exactly that face."""
+    x_hk, x_f, _x_a, x_h1 = _rail_x(x_in, sx, col)
+    x_open = x_hk - sx * slide_slip
+    x_arm_clear = x_h1 + sx * slide_slip
+    x_d = x_arm_clear if col == "back" else 2.0 * x_f - x_open
+    if (x_d - x_f) * sx + stated_bound_tol < (x_arm_clear - x_f) * sx:
+        raise ValueError("the rail channel ends before the arm's running-clear envelope")
+    return x_open, x_f, x_d
+
+
 def _z_rail_heads(inner, y_joint, zj, col, plate, chase=()):
     """The BOTTOM piece's whole share of its Z seam above the mouth: the hooked
     rails — an ARM standing on the mouth down each straight run, its HEAD stepping
@@ -4260,9 +4289,10 @@ def _z_rail_channels(inner, y_joint, zj, col, plate, chase=()):
     and the NOTCH over the foot: inboard of the foot's face it opens from the mouth —
     the arm's own lane, `slide_slip` off its back — and outboard it opens from the
     foot's broad, flat caught face up, `slide_slip` deeper than the head, stopping one slip
-    outboard of the head. On the back column one HORIZONTAL PLANE closes that whole width,
-    and back-top's ceiling-down print accepts support beneath it just as it does beneath the
-    caught face. On the front
+    outboard of the head. On the back column the cutter has one horizontal top plane across
+    its whole clearance width. In the finished part only its outboard span, from the standing
+    channel wall to the foot face, closes against material; back-top's ceiling-down print
+    accepts support beneath that broad roof just as it does beneath the caught face. On the front
     column alone a 45° gable closes the roof `slide_slip` over the arm's cap, so that
     mouth-down print lays nothing flat across the void. AFT of the
     stop face the front column's void is the FULL section, mouth to gable: everything
@@ -4278,11 +4308,10 @@ def _z_rail_channels(inner, y_joint, zj, col, plate, chase=()):
     standing in it — and nothing aft of the run is left to be swept around, which is
     what lets the run reach its own structural limit instead of a horizon. The
     tongue crosses the seam at full section ABOVE THE GABLE, which is the height the
-    Y telescope actually bears on. At the front column's Y/Z crossing the ordinary
-    outboard half-gable cannot stop on the tongue's slipped outer face: that would leave
-    a 0.7 mm wall standing from the bed to the roof. Its complete dependent half rises
-    aft at 45 degrees from the supported Y-joint face instead, opening that remnant and
-    returning the tongue as one printable corbel above it.
+    Y telescope actually bears on. At the front column's Y/Z crossing the channel opens
+    from the flank's inboard face to the tongue's slipped outer face below one broad
+    45-degree roof. That roof rises aft from the full Y-joint wall; the symmetric channel
+    gable resumes above it with no separate strip between the two clearances.
     The cut is CLIPPED to `_rail_keep`, so at a corner it
     stops one `wall` inside the exterior round instead of slotting the show skin. The
     channels occupy only the inboard portion of their full-section feet and leave a complete
@@ -4296,16 +4325,17 @@ def _z_rail_channels(inner, y_joint, zj, col, plate, chase=()):
                                                    chase):
         sy = 1.0 if y1 > y0 else -1.0
         stop = y1 - sy * rail_stop_len
-        x_hk, x_f, _a, x_h1 = _rail_x(x_in, sx, col)
         # One slip outboard of the head is the channel's own standing wall. It lies in the
         # full-section foot, carrying the nominal flank through the seam while leaving a fixed
-        # exterior skin and the foot's outer edge intact.
-        x_open = x_hk - sx * slide_slip
-        x_d = x_h1 + sx * slide_slip
+        # exterior skin and the foot's outer edge intact. `_rail_channel_span` supplies the
+        # matching flat back cutter top or symmetric front gable from that wall. On back-top,
+        # only x_open..x_f intersects material and therefore becomes the finished roof;
+        # x_f..x_d is machine-interior air reserved for the arm.
+        x_open, x_f, x_d = _rail_channel_span(x_in, sx, col)
         x_peak = (x_open + x_d) / 2.0
         z_peak = z_roof + abs(x_d - x_open) / 2.0
-        # Back-top's broad horizontal roof is carried by slicer support. Front-top uses a
-        # gable because that piece prints with this mouth down.
+        # Back-top's broad, material-backed horizontal roof is carried by slicer support.
+        # Front-top uses a gable because that piece prints with this mouth down.
         roof = ([(x_d, z_roof), (x_open, z_roof)] if col == "back" else
                 [(x_d, z_roof), (x_peak, z_peak), (x_open, z_roof)])
         void = _xz_prism(y0, stop, [
@@ -4316,25 +4346,17 @@ def _z_rail_channels(inner, y_joint, zj, col, plate, chase=()):
                 (x_open, zj - 1.0), (x_d, zj - 1.0), *roof]))
         if col == "front":
             # THE TWO SEAMS CROSS HERE. Front-top's Y tongue ends one running-fit slip
-            # inside `x_in`, while this channel's standing wall ends at `x_open`; below
-            # the ordinary roof the difference is free stock, not a bearing surface. Open
-            # the outboard half all the way to `x_in`, whose clip in `_rail_keep` leaves
-            # the complete exterior wall fore of the joint. Carry the inboard boundary to
-            # `x_f`, the established interior face of that wall: stopping at the gable's
-            # peak leaves the narrow strip between the peak and the wall face standing as
-            # a separate sheet through the tongue.
-            #
-            # THE OUTBOARD HALF-GABLE COMES WITH IT. That roof formerly grew from the
-            # thin strip, so removing only the strip would leave the gable's first lines
-            # unsupported. Shear the whole dependent half upward one-for-one in Y from
-            # the full wall at `y_joint`. At that root its section is exactly the old
-            # half-gable and strip cap; aft of it every returning line lies on the line
-            # before it. The untouched inboard half keeps its support from its own side.
+            # inside `x_in`, while this channel's standing wall ends at `x_open`. Below the
+            # roof the crossing opens the complete span from the flank's inboard face `x_f`
+            # to `x_in`; `_rail_keep` leaves the exterior wall whole fore of the joint.
+            # The one broad 45-degree roof from `x_open` to `x_f` rises one-for-one in Y
+            # from the full wall at `y_joint`, so each returning line stands on the line
+            # before it and the tongue resumes at full section above it.
             rise = lane_aft - y_joint
             floor = zj - 1.0 - rise
             crossing = _xz_prism(y_joint, lane_aft, [
                 (x_f, floor), (x_in, floor), (x_in, z_roof),
-                (x_open, z_roof), (x_peak, z_peak), (x_f, z_peak)])
+                (x_open, z_roof), (x_peak, z_peak)])
             crossing = crossing.transformGeometry(cq.Matrix([
                 [1.0, 0.0, 0.0, 0.0],
                 [0.0, 1.0, 0.0, 0.0],
@@ -5252,7 +5274,7 @@ def _ceiling_tie_reliefs(box, lane):
     meter = box.pack.flow_meter_anchors
     if meter:
         x_axis, z_axis, seat_r, bands = meter
-        reach = seat_r + flow_meter_anchor_wall + tie_cav_buffer
+        reach = seat_r + flow_meter_anchor_wall + tie_t + tie_cav_buffer
         roof = z_axis + seat_r + wall + tube_anchor_cavity_depth
         for by0, by1 in bands:
             mid = (by0 + by1) / 2.0
@@ -5282,9 +5304,15 @@ def _ceiling_tie_channel_relief(box, lane):
     _z_axis, _sections, ties, _dn = box.pack.asse_cradle
     tie_y0, tie_y1 = _asse_tie_channel_span(ties)
     fx0, _fx1 = back_top_flank_face()
-    east = max((x1 for _who, x0, x1, y0, y1, _top in box.pack.ceiling_reliefs
-                if x0 < 0.0 and y0 <= tie_y1 and y1 >= tie_y0),
-               default=fx0 + 2.0 * wall)
+    candidates = [x1 for who, _x0, x1, y0, y1, _top in box.pack.ceiling_reliefs
+                  if who == "asse1022-assembly" and y0 <= tie_y1 and y1 >= tie_y0]
+    if not candidates:
+        raise ValueError("the ASSE tie channel has no chain ceiling pocket to open into")
+    east = max(candidates)
+    if east <= fx0 + stated_bound_tol:
+        raise ValueError(
+            f"the ASSE tie channel ends at x={east:.3f}, not inboard of its flank mouth "
+            f"x={fx0:.3f}")
     return _ybox(fx0, east, tie_y0, tie_y1, back_top_ceiling_face() - 1.0, lane)
 
 
@@ -5843,14 +5871,13 @@ def _tee_wall(inner, y_joint, plate, bay):
 
 
 def _tee_carrier_fixed_features(carrier):
-    """Front-top's release/park stops and two support-free tapered spring pilots.
+    """Front-top's release/park stops and two support-free spring-guide prisms.
 
     The ears lower through the open cavity and ride 0.15 mm inside the grown flank faces.  The
     tee-wall journals supply X/Z guidance; these sidewall-rooted posts own only the two Y stops.
-    Each spring starts on the tee wall's aft face around a 4 mm diamond root.  That root tapers
-    along the wall normal to a 0.4 mm diamond tip over 1.8 mm: the radial and axial reductions
-    are equal, so every down-facing generator rises at 45 degrees from the wall that prints it.
-    The complete pilot remains inside the spring's round ID.
+    Each spring starts on the tee wall's aft face around a 4 mm diamond carried 10 mm along the
+    spring axis. The diamond's lower faces stand at 45 degrees in the print frame, and the whole
+    guide remains inside the spring's round ID.
     """
     if not carrier:
         return None
@@ -5868,33 +5895,14 @@ def _tee_carrier_fixed_features(carrier):
             _ybox(px0, px1, park_y, park_y + depth, z0, z1))
         out = pair if out is None else out.fuse(pair)
     half = carrier["spring_guide_across"] / 2.0
-    length = carrier["spring_guide_length"]
-    tip_half = half - length
-    if tip_half <= 0.0:
-        raise ValueError(
-            f"spring-guide run {length:g} consumes its {half:g} mm diamond half-width"
-        )
     fixed_y = carrier["fixed_spring_bearing_y"]
     for x, z in carrier["spring_guide_xz"]:
-        root = cq.Wire.makePolygon(
-            (
-                cq.Vector(x, fixed_y, z + half),
-                cq.Vector(x + half, fixed_y, z),
-                cq.Vector(x, fixed_y, z - half),
-                cq.Vector(x - half, fixed_y, z),
-            ),
-            close=True,
+        guide = _xz_prism(
+            fixed_y,
+            fixed_y + carrier["spring_guide_length"],
+            ((x, z + half), (x + half, z), (x, z - half), (x - half, z)),
         )
-        tip = cq.Wire.makePolygon(
-            (
-                cq.Vector(x, fixed_y + length, z + tip_half),
-                cq.Vector(x + tip_half, fixed_y + length, z),
-                cq.Vector(x, fixed_y + length, z - tip_half),
-                cq.Vector(x - tip_half, fixed_y + length, z),
-            ),
-            close=True,
-        )
-        out = out.fuse(cq.Solid.makeLoft((root, tip), True))
+        out = out.fuse(guide)
     return out
 
 
@@ -6693,7 +6701,7 @@ def _east_boss_support(wall_x, station, up=1.0):
     return stem if corbel is None else stem.fuse(corbel)
 
 
-def _east_bosses(solid, roots, outer, stations, y0, y1, z0, z1, up=1.0):
+def _east_bosses(solid, roots, outer, stations, fills, y0, y1, z0, z1, up=1.0):
     """The +X wall's mounting bosses added to a PIECE, for the stations inside the depth and
     height band that piece owns — so a boss lands in the piece whose wall carries it, whole,
     and no piece grows a column standing in another's air.
@@ -6728,12 +6736,30 @@ def _east_bosses(solid, roots, outer, stations, y0, y1, z0, z1, up=1.0):
     carries. Its other half stays round around the insert, so the body's mounting pad remains
     compact; no arbitrary round pipe is left between the support and the mounting face.
 
+    THE FOUR AUTHORED FILLS ARE BOXES, NOT A NEW PAIRING RULE. `fills` carries their exact bounds
+    and any station whose ordinary wedge that box replaces. The ground stud keeps its D stem and
+    bore under a full-width ceiling column; the upper main-board/relay field gets one low pad
+    round its three clear stations; and relay 1's two vertical pairs each get one ceiling column.
+    Their separate wedges are omitted so every underside is one flat supported face. All four
+    fuse before the bores are cut.
+
     A PAIR OF HOLES ON ONE LINE IS ONE BAR (`east_boss_pairs`): the two stems and the run
     between them are one flat-topped box with two bores in it, on one corbel — the print-down
     hole's for a pair stood one over the other, and one offered across the bar's whole span for
     a pair side by side, which `wall_mounts` profiles against the installed pack the way it
     profiles a single boss. What a paired board meets is one pad, not two posts."""
     mine = [s for s in stations if y0 <= s[0] <= y1 and z0 <= s[1] <= z1]
+    replaced = tuple(
+        site
+        for _name, _bounds, replaced_corbels in fills
+        for site in replaced_corbels
+    )
+
+    def replaces_corbel(station):
+        return any(abs(station[0] - sy) <= stated_bound_tol
+                   and abs(station[1] - sz) <= stated_bound_tol
+                   for sy, sz in replaced)
+
     pairs = east_boss_pairs(mine)
     paired = {k for pair in pairs for k in pair}
     for k, station in enumerate(mine):
@@ -6744,10 +6770,34 @@ def _east_bosses(solid, roots, outer, stations, y0, y1, z0, z1, up=1.0):
         # flank with a sliver edge round it, and its wedge comes out shorter still.
         if k in paired or roots[1] - tip < east_boss_min_stand - stated_bound_tol:
             continue
-        solid = solid.fuse(_east_boss_support(roots[1], station, up))
+        support = (_east_boss_stem(roots[1], station, up)
+                   if replaces_corbel(station)
+                   else _east_boss_support(roots[1], station, up))
+        solid = solid.fuse(support)
     for i, j in pairs:
         if roots[1] - mine[i][2] >= east_boss_min_stand - stated_bound_tol:
-            solid = solid.fuse(_east_bar_support(roots[1], mine[i], mine[j], up))
+            omit = (replaces_corbel(mine[i]), replaces_corbel(mine[j]))
+            if any(omit) and not all(omit):
+                raise ValueError(
+                    "an east mounting fill must replace both corbels of a paired bar or neither")
+            support = (_east_bar(roots[1], mine[i], mine[j])
+                       if all(omit)
+                       else _east_bar_support(roots[1], mine[i], mine[j], up))
+            solid = solid.fuse(support)
+    for _name, bounds, _replaced_corbels in fills:
+        fx0, fx1, fy0, fy1, fz0, fz1 = bounds
+        cy, cz = (fy0 + fy1) / 2.0, (fz0 + fz1) / 2.0
+        if not (y0 <= cy <= y1 and z0 <= cz <= z1):
+            continue
+        if fy0 < y0 - stated_bound_tol or fy1 > y1 + stated_bound_tol:
+            raise ValueError(
+                f"east mounting fill y={fy0:g}..{fy1:g} crosses its piece band "
+                f"{y0:g}..{y1:g}")
+        if fz0 < z0 - stated_bound_tol or fz1 > z1 + stated_bound_tol:
+            raise ValueError(
+                f"east mounting fill z={fz0:g}..{fz1:g} crosses its piece band "
+                f"{z0:g}..{z1:g}")
+        solid = solid.fuse(_ybox(fx0, fx1, fy0, fy1, fz0, fz1))
     for station in mine:
         sy, sz, tip = station[:3]
         # THE BORE STILL STARTS AT THE BODY'S OWN FACE, stem or no stem. `roots` is one plane and
@@ -6903,7 +6953,7 @@ def _side_wells(solid, inner, stations, y0, y1, z0, z1, up=1.0):
 # as tall as the chase is deep: enough to turn the flow west without dragging a long, accidental-
 # looking scar down the show face. CO2 is heavier than air and falls from there on its own.
 vent_channel_w = 12.0          # the channel, across — and the mouth, square on it
-vent_rib_wall = 2.0            # PETG either side of the channel, behind it, and over the mouth
+vent_rib_wall = 3.0            # PETG either side of the channel, behind it, and over the mouth
 vent_duct_drop = 25.0          # the closed fall under the mouth, before the skin opens
 vent_groove_drop = 25.0        # the open groove under that, which the duct discharges into
 vent_ramp_angle = relief_chamfer  # support-free run-out from the channel floor to the show face
@@ -7042,7 +7092,7 @@ def _vent_chase(solid, inner, outer, stations, y0, y1, z0, z1, up=1.0):
             # run from the rail to the lip is still the piece below's to stand. IT IS TAKEN
             # OUT OF THE SHARE AND NOT OUT OF THE RIB, because a cutter carried below `rim`
             # to keep off a coincident plane reaches the ground half's own crest there.
-            x_d = x_h1 + slide_slip
+            _x_open, _x_f, x_d = _rail_channel_span(inner[0], +1.0, "back")
             gable_bed = (slide_slip + x_d + inner[0]) / 2.0
             gable_lip = (slide_slip + x_d + root_x) / 2.0
             share = share.cut(_xz_prism(
@@ -7848,15 +7898,16 @@ def _asse_tie_cavity(x_apex, x_wall, z_axis, y0, y1, up, dn):
     and the room to turn the vertex where a zip tie needs that, out of one shape rather than out of a
     chamfer and a round.
 
-    Both ends run one millimetre past the faces they open on, so each mouth is cut open rather
-    than closed by a plane coincident with that face. `dn` is what the caller has standing under
-    the axis — the block's own storey and the corbel below it — because a tie's loop leaves this
-    cavity by running east UNDER all of it, and a channel that stopped at the block would be
-    stopped by the corbel."""
+    The upper end runs one millimetre past the ceiling lane it opens into. The lower end stops
+    on the anchor's own underside: east of the flank face that mouth already opens directly into
+    air, and carrying the cutter lower would leave a separate one-millimetre notch in the flank.
+    `dn` is what the caller has standing under the axis — the block's own storey and the corbel
+    below it — because a tie's loop leaves this cavity by running east UNDER all of it, and a
+    channel that stopped above the block would be stopped by the corbel."""
     run = 1.0 / math.tan(math.radians(asse_v_half))
     x_in = x_apex - wall / math.sin(math.radians(asse_v_half))   # a `wall` west of the anchor
     x_w = x_wall + wall                                          # and a `wall` off the side wall
-    over_up, over_dn = up + 1.0, dn + 1.0
+    over_up, over_dn = up + 1.0, dn
     return (
         cq.Workplane("XZ")
         .polyline(_ring([(x_w, z_axis + over_up),
@@ -8290,6 +8341,24 @@ def tube_anchor_corbel_depth(station, roots, lane):
     return min(b_root, b_root - b_lane + tube_anchor_corbel_reach)
 
 
+def tube_anchor_end_corbel_bounds(station, roots, lane, up):
+    """The two world boxes enclosing the ordinary end-web corbels for `station`.
+
+    Each box is the corbel's complete triangular prism: one `tie_cav_wall` end, its full
+    `tube_anchor_corbel_depth` off the root face, and the same distance along the print-down
+    flank. A rib with no print-down flank has no end-web corbels."""
+    mid, u, n, seat_r = station[:4]
+    depth = tube_anchor_corbel_depth(station, roots, lane)
+    t = (n[1] * u[2] - n[2] * u[1], n[2] * u[0] - n[0] * u[2],
+         n[0] * u[1] - n[1] * u[0])
+    if depth is None or depth <= 1e-9 or abs(abs(t[2]) - 1.0) > 1e-6:
+        return (None, None)
+    a_hang = math.copysign(seat_r + wall, -up * t[2])
+    a_tip = a_hang + math.copysign(depth, a_hang)
+    tip_z = mid[2] + t[2] * a_tip
+    return tube_anchor_end_columns(station, roots, lane, up, tip_z, depth)
+
+
 def back_top_frames():
     """Back-top's `(roots, lane)` off stated figures alone — the box's interior the pack is struck
     against, and the faces this piece presents (`piece_root_faces`) — for a reader with no built
@@ -8496,14 +8565,10 @@ def _c14_tunnel_geometry(inner, outer, stations, ports, z0, z1, up=1.0):
     stands inside it everywhere. The block is clipped to the room, so above the aperture its
     crown runs out into the top wall.
 
-    `up` IS THE PIECE'S PRINT-UP IN THE MACHINE'S FRAME, and it says what carries the block.
-    For `up < 0` (`BACK_TOP_UP`) the piece beds on its ceiling's outer face: the crown the block
-    is clipped on fuses into the ceiling slab, the underside looks print-up, and the block is
-    one rectangle with nothing to carry under it. For `up > 0` the underside looks print-down
-    and one wedge the block's full width carries it: one plane falling from the mouth's bottom
-    edge to the wall over the whole run, with material directly under every point of the block
-    and no ledge or air channel anywhere beneath it. Either way what is left over air is the
-    bore's own print-roof, a bridge the aperture's width between the block's two flanks.
+    THIS STATION BELONGS TO CEILING-BEDDED BACK-TOP. `up` must therefore be `BACK_TOP_UP`: the
+    block's crown fuses into the ceiling slab, and its opposite horizontal face looks print-up.
+    What remains over air is the bore's own roof, a bridge the aperture's width between the two
+    block flanks.
 
     THE FLANGE DROPS INTO ITS OWN PROFILE. The pocket is the purchased flange's exact
     rounded/tapered outline at `c14_pocket_slip`, cut from the mouth to the seating face — the
@@ -8524,6 +8589,10 @@ def _c14_tunnel_geometry(inner, outer, stations, ports, z0, z1, up=1.0):
     stock and not a face."""
     if not stations or not all(z0 <= sz <= z1 for _sx, sz in stations):
         return None
+    if up != BACK_TOP_UP:
+        raise ValueError(
+            f"the C14 station belongs to ceiling-bedded back-top ({BACK_TOP_UP:g} print-up), "
+            f"not a piece with print-up {up:g}")
     cx, cz, wx, wz, r = _c14_aperture(stations, ports)
     cap = back_wall_t_at(cx, cz)
     if abs(cap - socket_cap) > stated_bound_tol:
@@ -8542,11 +8611,9 @@ def _c14_tunnel_geometry(inner, outer, stations, ports, z0, z1, up=1.0):
     fore = aft - c14_tunnel_len
     mouth = fore - _c14.FLANGE_T - c14_pocket_lip
     hx, hz = c14_mount_half(wx, wz, max(abs(sx - cx) for sx, _sz in stations))
+    # The block keeps the one section `c14_mount_half` states. Its crown enters the grown
+    # ceiling slab by more than one wall, joining the two as one continuous volume.
     block = _ybox(cx - hx, cx + hx, mouth, aft, cz - hz, cz + hz)
-    if up > 0:
-        wedge = _yz_prism(cx - hx, cx + hx,
-                          [(mouth, cz - hz), (aft, cz - hz), (aft, cz - hz - (aft - mouth))])
-        block = block.fuse(wedge).clean()
     feature = block.intersect(
         _ybox(inner[0], inner[1], mouth, aft, inner[4], inner[5]))
     # The cord bore continues through the wall and tunnel. The exact flange pocket opens through
@@ -8784,7 +8851,8 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     # all, so a bore is cut through every column that has already been fused around it.
     ylo, yhi = _piece_bands(box, f"{y_side}-{z_side}")[:2]
     piece = _east_bosses(piece, piece_root_faces(inner, y_side, z_side), outer,
-                         box.pack.east_bosses, ylo, yhi, zlo, zhi, up=up)
+                         box.pack.east_bosses, box.pack.east_mount_fills,
+                         ylo, yhi, zlo, zhi, up=up)
     # The +X wall's Wago wells, on whichever piece holds each one's station. After the
     # bosses for the same reason those go after the seam's own bosses: a pocket cut here is a
     # pocket nothing later fuses back in.
@@ -9262,7 +9330,10 @@ def _report_slide(pieces, box):
             # THE CHANNEL ROOF IS FLAT TOO. Checking the source profile is not enough: a
             # later cut or fuse can split away most of the plane while leaving its two end
             # points unchanged. Read the finished back-top B-rep at the stated roof level.
-            # The area gate proves that the complete run is present, not merely a short land.
+            # The area gate proves that the complete MATERIAL-BACKED span is present, not
+            # merely a short land. The cutter continues inboard from `x_f` to `x_d`, but that
+            # side is already machine-interior air and cannot be a face without adding a
+            # purposeless shelf.
             z_roof = box.splits[1] + z_rise + slide_slip
             roof_flat = 0.0
             tol = 1e-3
@@ -9279,10 +9350,8 @@ def _report_slide(pieces, box):
                 for x_in, sx, y0, y1, _lane in _runs:
                     sy = 1.0 if y1 > y0 else -1.0
                     stop = y1 - sy * rail_stop_len
-                    x_hk, _x_f, _x_a, x_h1 = _rail_x(x_in, sx, col)
-                    x_open = x_hk - sx * slide_slip
-                    x_d = x_h1 + sx * slide_slip
-                    xa, xb = sorted((x_open, x_d))
+                    x_open, x_f, _x_d = _rail_channel_span(x_in, sx, col)
+                    xa, xb = sorted((x_open, x_f))
                     ya, yb = sorted((y0, stop))
                     if (xa - tol <= centre.x <= xb + tol
                             and ya - tol <= centre.y <= yb + tol):
@@ -9290,8 +9359,8 @@ def _report_slide(pieces, box):
                         break
             nominal_roof = sum(
                 (abs(y1 - y0) - rail_stop_len)
-                * abs(_rail_x(x_in, sx, col)[1]
-                      - (_rail_x(x_in, sx, col)[0] - sx * slide_slip))
+                * abs(_rail_channel_span(x_in, sx, col)[1]
+                      - _rail_channel_span(x_in, sx, col)[0])
                 for x_in, sx, y0, y1, _lane in _runs)
             required_roof = 0.85 * nominal_roof
             if roof_flat < required_roof:
