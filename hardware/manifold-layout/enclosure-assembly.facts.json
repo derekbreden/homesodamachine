@@ -2727,7 +2727,7 @@
    true
   ]
  },
- "card": "d8c167beac7e3b9b2c72f7d8d484761f",
+ "card": "06fd02e740bc495454088c84682aeb58",
  "card_ports": {
   "asse1022-assembly": {
    "tube-in": {
@@ -3283,7 +3283,11 @@
      0.0,
      1.0
     ],
-    9.7
+    9.7,
+    [
+     "corbel",
+     "corbel"
+    ]
    ],
    [
     [
@@ -3301,7 +3305,11 @@
      0.0,
      0.0
     ],
-    7.058
+    7.058,
+    [
+     "corbel",
+     "corbel"
+    ]
    ],
    [
     [
@@ -3319,7 +3327,11 @@
      0.0,
      0.0
     ],
-    7.05
+    7.05,
+    [
+     "column",
+     "column"
+    ]
    ]
   ],
   "placed": [
@@ -3449,8 +3461,8 @@
     ],
     3.375,
     [
-     "auto",
-     "auto"
+     "corbel",
+     "corbel"
     ]
    ],
    [
@@ -3471,8 +3483,8 @@
     ],
     3.375,
     [
-     "auto",
-     "auto"
+     "corbel",
+     "corbel"
     ]
    ],
    [
@@ -3786,8 +3798,8 @@
   }
  ],
  "schema": 2,
- "sources": "8e7dc822c2c78f75dc13abecb052f2ec",
- "step": "38368b0e01e33a305319e1bf442fbed8",
+ "sources": "f5ae544df66262b727722314e086ea39",
+ "step": "ce68c0ecc0110f5d4c4cd21dce35f619",
  "valve_tray_stations": [
   [
    173.56,

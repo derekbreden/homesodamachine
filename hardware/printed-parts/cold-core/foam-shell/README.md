@@ -160,7 +160,7 @@ rather than drifts.
 ### outer_shell
 
 Outer rectangular cup framing the whole foam-shell: floor + four
-perimeter walls + six ⌀[8 mm](BOSS_D) cylindrical bosses. Total height
+perimeter walls + [10](BOSS_COUNT) ⌀[8 mm](BOSS_D) cylindrical bosses. Total height
 matches the foam-shell outer height of [213.4 mm](OUTER_H).
 Outer footprint [283 mm](SHELL_OUTER_X) × [181](FSHELL_OUTER_Y). The **short** axis is
 the one that matters to the appliance: the foam assembly is yawed a quarter turn
@@ -223,27 +223,33 @@ seams across it rather than as three parts. The two lids do not: each is a plate
 thick, so its edge is a 2 mm band — a groove there would leave 0.8 mm behind it, and the ramp
 could not develop in 2 mm anyway. That band reads as a reveal, which is what a seam wants.
 
-**Every one of the six bosses stands hard against a ±Y wall** — none in a
-corner, and none on a ±X wall. Four sit over the reservoir pockets' own far
-walls, near the ±X ends; two are mid-long-side, offset in X by
-±[18 mm](MID_BOSS_OFFSET). Opposite signs at +Y vs −Y preserve 180°
-rotational symmetry around the Z axis, which is what leaves the top cap free
-to install either way round.
+**Every boss stands hard against the wall it leans on, and the station names which
+wall that is** — never the sign of its own coordinates, which for a boss centred on a
+±X wall is neither. Four sit over the reservoir pockets' own far walls, near the ±X
+ends. Four more are mid-long-side, two to each ±Y wall, offset in X by
+±[40 mm](MID_BOSS_OFFSET). The last two stand one to each ±X wall, off that wall's
+centre by ±[20 mm](END_BOSS_OFFSET) at opposite signs — the centre itself is free in
+the shell but not on the top lid's face, where `water-3`'s tie post covers one and the
+funnel drain's berth notches the other. The whole pattern is symmetric under a 180°
+turn about Z, which is what leaves the top cap free to install either way round.
 
 That is a placement rule the PORT LANE sets, not a preference. A boss seated
 diagonally IN a corner — its cylinder tangent to the exterior arc, which is the
 deepest seat available — reaches diagonally into the ±Y pour band, and closed the
 one corner every front penetration has to travel through. Held against the wall
-instead, all six reach exactly [8 mm](BOSS_D) in from its outer face and leave
-the same clear lane. See §Port lane.
+instead, every ±Y boss reaches exactly [8 mm](BOSS_D) in from its outer face and
+leaves the same clear lane. The two ±X bosses are in neither band — they stand on the
+face those lines arrive at, clear of both lanes in y. See §Port lane.
 
 Each boss is tied into the wall with the cylinder + corner-fill teardrop idiom of
 the reservoir pocket-corner supports, so it fuses into the outer skin (one
 wall-thickness of PET-GF over the insert) instead of meeting the wall on a
-knife-edge seam. The four end bosses also get a web toward the ±X wall they stand
-near, which stiffens that corner; every boss gets one toward its own ±Y wall.
+knife-edge seam. The four corner bosses also get a web toward the ±X wall they stand
+near, which stiffens that corner; a ±Y boss gets one toward its own ±Y wall and a ±X
+boss one toward its own ±X wall.
 Each carries a heat-set insert pocket at each end (drilled in from each face) —
-twelve inserts total, six per face, for fastening the foam-cap stacks.
+[20](STACK_INSERTS) inserts total, [10](FACE_SCREWS) per face, for fastening the
+foam-cap stacks.
 
 The outer **−X** wall carries one Z-elongated slot on each of its two lanes and
 **no round bore at all**. **Nothing else crosses it** — this face is mated against the
@@ -268,17 +274,17 @@ through the pour and vent holes in the lid.
 The `foam_cap_lid` is a [2 mm](FSHELL_WALL_T) plate matching the same outer
 footprint, closing a cap's open mouth. It has the pour hole (Ø [20 mm](POUR_D))
 and two vent holes (Ø [6 mm](LID_VENT_D)), and it carries a pad at each of the
-six screw stations on its mouth-facing side — "The head sits in the lid" below.
+[10](FACE_SCREWS) screw stations on its mouth-facing side — "The head sits in the lid" below.
 It is the clamp for the pour and it stays: the lid ships bolted to its cap, and
 its outer face is the plane the core stands on at the bottom and the water deck
 and the electronics stand on at the top.
 
-Both the cap and the lid carry the **same six ⌀[8 mm](BOSS_D) bosses with
-teardrop corner-fill webs** as the outer shell (built from the one shared
-boss builder, so every mating part's boss cross-section is identical) —
-four at the corners and two at the mid-points of the long edges (one near
-the +Y wall and one near the −Y wall, offset in X by ±[18 mm](MID_BOSS_OFFSET)
-with opposite signs at +Y vs −Y for 180° rotational symmetry). Each position
+Both the cap and the lid carry the **same [10](BOSS_COUNT) ⌀[8 mm](BOSS_D) bosses
+with teardrop corner-fill webs** as the outer shell (built from the one shared
+boss builder, so every mating part's boss cross-section is identical) — four at the
+corners, four at the mid-points of the long edges (two to each ±Y wall, offset in X by
+±[40 mm](MID_BOSS_OFFSET)) and one on each ±X wall (off centre by
+±[20 mm](END_BOSS_OFFSET) at opposite signs). Each position
 passes a clearance hole for an M3 cap screw all the way through the part.
 See "Cap-to-outer-shell joinery" below.
 
@@ -288,7 +294,7 @@ A TPU 90A gasket, printed twice — one between each cap and its
 mating face on the outer_shell. Outer envelope matches the cap's
 footprint; [2 mm](GASKET_T) thick (flat 2D shape throughout — no 3D
 features). The shape is a **[5 mm](GASKET_W)-wide perimeter ring +
-a boss-shaped pad at each of the six screw positions**, the pads using the
+a boss-shaped pad at each of the [10](FACE_SCREWS) screw positions**, the pads using the
 same ⌀[8 mm](BOSS_D) boss + teardrop-web shape as the cap and shell above
 and below. The pads carry the screw clamp force across the full boss
 footprint; the perimeter ring seals along the wall sections away from the
@@ -296,17 +302,17 @@ bosses.
 
 ## Cap-to-outer-shell joinery
 
-Each cap (top and bottom) is fastened to the outer_shell with **six
+Each cap (top and bottom) is fastened to the outer_shell with **[10](FACE_SCREWS)
 M3 × 25 mm DIN 912 socket head cap screws, 12.9 alloy steel, black
 oxide finish** ([BNUOK B0DJQGF665](https://www.amazon.com/dp/B0DJQGF665))
-threading into **six ruthex M3 short heat-set inserts**
+threading into **[10](FACE_SCREWS) ruthex M3 short heat-set inserts**
 ([B09ZHSGHXD](https://www.amazon.com/dp/B09ZHSGHXD) — same insert
 spec as in `faucet-shell`; per-build insert counts in
 [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §13) pressed into the
-corresponding face of the outer_shell. **Twelve inserts and twelve screws
-total per outer_shell:** six on the top face accepting the top-cap screws
-threading down from above, six on the bottom face accepting the bottom-cap
-screws threading up from below.
+corresponding face of the outer_shell. **[20](STACK_INSERTS) inserts and
+[20](STACK_INSERTS) screws total per outer_shell:** [10](FACE_SCREWS) on the top face
+accepting the top-cap screws threading down from above, [10](FACE_SCREWS) on the
+bottom face accepting the bottom-cap screws threading up from below.
 
 Each screw engages a heat-set insert in the outer_shell with a small relief
 below the insert for tip clearance. See `_foam_cap.py` and
@@ -327,7 +333,7 @@ cap's is what the whole core stands on.
 
 From under the head an M3 × [25](CAP_SCREW_LEN) crosses the land, the continuous
 pad-and-column section, and the gasket, reaching [6.2 mm](CAP_SCREW_REACH) past the
-shell's face — the whole [4 mm](INSERT_LEN) of the insert, with
+shell's face — the whole [5.7 mm](INSERT_LEN) of the insert, with
 [1.8 mm](TIP_CLEAR) of pocket under the tip. `_cold_core_interface.py` asserts
 both ends of that.
 
@@ -405,7 +411,7 @@ outboard of both pockets.
 
 What a line may use of that band is the **lane**: the strip inboard of every
 attachment boss, y [-82.5 to -72.5](LANE_Y) — [10 mm](LANE_W) wide, on
-y = [-77.5](LANE_MID_Y). All six bosses stand hard against a ±Y wall and reach
+y = [-77.5](LANE_MID_Y). Every ±Y boss stands hard against its wall and reaches
 [8 mm](BOSS_D) in from its outer face, so the lane is exactly what they leave, and
 it runs clear from one corner round to the other at every height above the floor
 slab. `foam_shell.py` measures both claims at every build and fails on either: the
@@ -650,8 +656,9 @@ tube exits at the other penetrations. Trim flush after cure.
 
 Drop the pre-soldered reed columns into the still-open reed channels,
 then seat a TPU gasket + the foam-filled top cap onto the body's top edge
-with six M3 × 25 SHCS into the top-face inserts, and a second gasket + the
-bottom cap (mouth-down) under the body with six more into the bottom-face
+with [10](FACE_SCREWS) M3 × 25 SHCS into the top-face inserts, and a second gasket +
+the bottom cap (mouth-down) under the body with [10](FACE_SCREWS) more into the
+bottom-face
 inserts. See the screw / insert spec under "Cap-to-outer-shell joinery"
 above.
 
@@ -740,11 +747,11 @@ that needs a deliberate explanation:
 
 | metric | value |
 |---|---|
-| volume | [1240464.620 mm³](FSHELL_VOLUME) |
+| volume | [1266324.458 mm³](FSHELL_VOLUME) |
 | bbox x | [-141.508 to 141.508 mm](FSHELL_BBOX_X) |
 | bbox z | [-0.008 to 213.454 mm](FSHELL_BBOX_Z) |
 | bbox y | [-90.508 to 90.511 mm](FSHELL_BBOX_Y) |
-| centroid | [(0.926172, 0.205728, 90.760211) mm](CENTROID) |
+| centroid | [(0.907259, 0.201527, 91.106777) mm](CENTROID) |
 
 Quick reproduction:
 

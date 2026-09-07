@@ -220,11 +220,21 @@
   },
   {
    "id": "boss-clears-lane",
-   "label": "Every attachment boss stands clear of the port lane",
+   "label": "Every \u00b1Y attachment boss stands clear of the port lane",
    "kind": "gate",
    "status": "pass",
-   "value": "6/6 hold",
-   "target": "every boss inboard of the lane's outer edge",
+   "value": "8/8 hold",
+   "target": "every \u00b1Y boss inboard of the lane's outer edge",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "boss-clears-lane-x",
+   "label": "Every \u00b1X attachment boss stands clear of both lanes in y",
+   "kind": "gate",
+   "status": "pass",
+   "value": "2/2 hold",
+   "target": "every \u00b1X boss inboard of both bands",
    "detail": [],
    "active": true
   },
@@ -394,6 +404,16 @@
    "kind": "gate",
    "status": "pass",
    "value": "3/3 hold",
+   "target": "1 mm off the nearest",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "cap-side-anchor-room",
+   "label": "Every side post stands clear of what the lid's face opens",
+   "kind": "gate",
+   "status": "pass",
+   "value": "2/2 hold",
    "target": "1 mm off the nearest",
    "detail": [],
    "active": true
