@@ -4222,7 +4222,13 @@ def _z_rail_feet(inner, y_joint, zj, col, plate, chase=()):
     z_foot = zj + hook_foot
     out = None
     for x_in, sx, y0, y1, _lane in _z_rail_runs(inner, y_joint, col, plate, chase):
-        y1 -= (1.0 if y1 > y0 else -1.0) * rail_stop_len
+        sy = 1.0 if y1 > y0 else -1.0
+        y1 -= sy * rail_stop_len
+        if col == "back":
+            # The open end runs one `wall` on into the rear corner column, so the foot meets
+            # the column's round on its whole section instead of leaving a crescent of air
+            # between its square end and the arc.
+            y0 -= sy * wall
         _hk, x_f, _a, _h1 = _rail_x(x_in, sx, col)
         x_root = x_in - sx * 1.0
         slab = _ybox(min(x_root, x_f), max(x_root, x_f),
