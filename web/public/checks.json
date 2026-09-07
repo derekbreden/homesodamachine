@@ -57,7 +57,7 @@
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 467 of 1000 free, the next cut wants 3, and the whole lock reads by name in 147.5 MB against 150.1 MB of bundle",
+      "note": "check_release_room: 456 of 1000 free, the next cut wants 3, and the whole lock reads by name in 150.0 MB against 152.5 MB of bundle",
       "status": "ok"
     },
     {
@@ -77,20 +77,32 @@
     },
     {
       "check": "tools/bazel/check_declared_imports.py",
-      "note": "check_declared_imports: every step holds what it imports, over 199 source(s) the graph names",
-      "status": "ok"
+      "note": "tools/cad-venv/bin/python tools/bazel/gen_build.py",
+      "status": "red"
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 3 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 346 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 2 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 346 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds ae38f39ffb6b75d5b9b097423201918e for the 127 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at e1959787220e4a6939e2bb24625f4c21 here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was taken from a different tree — it holds ae38f39ffb6b75d5b9b097423201918e for the 127 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at ad030ce90bca171d2db36676d8a4cc7a here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
+    ],
+    "tools/bazel/check_declared_imports.py": [
+      "1 step(s) read a file importing a module the step does not hold:",
+      "    hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py",
+      "      reads hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py, which imports hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
+      "  the import edges are read off the source and written in seconds:",
+      "    tools/cad-venv/bin/python tools/bazel/check_declared_imports.py --fix",
+      "  a read this cannot see — a solid a lazy path loads — is recorded by watching a run.",
+      "  FIX THE IMPORTS FIRST: a trace of a run that died early records only what ran, so a",
+      "  step that cannot import yet is a step whose file loads were never reached.",
+      "    tools/cad-venv/bin/python tools/bazel/trace_inputs.py hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py",
+      "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
     ]
   },
   "green": false
