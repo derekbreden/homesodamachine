@@ -690,16 +690,18 @@ exterior settings of `enclosure-front-top-petgf.3mf` around their own mesh — t
 |---|---|---|---|---|
 | `enclosure-pump-cartridge` | 0 | 0 | — | — |
 | `enclosure-pump-cap` | 2 | 2 | bed | 18.40 mm |
-| `enclosure-front-top` | 3 | 4 | bed | 55.60 mm |
+| `enclosure-front-top` | 2 | 2 | bed | 122.60 mm |
 | `enclosure-back-bottom` | 2 | 3 | 1 bed, **1 model** | **8.00 mm** |
 | `enclosure-front-bottom` | 4 | 4 | 2 bed, **2 model** | **8.00 mm** |
-| `enclosure-back-top` | 14 | 37 | 7 bed, **7 model** | **1.20 mm** |
+| `enclosure-back-top` | 12 | 35 | 5 bed, **7 model** | **1.20 mm** |
 
 **One piece slices clean, and five pieces are the campaign's open work.**
 `enclosure-pump-cartridge` emits no support at all. On the pump cap and front-top, every body
 roots on the print bed and stands 18 mm or more before it
-touches the model, which is past the point the build-up reading saturates at; so do front-bottom's two lower
-Y-seam socket collar crowns, at 28.20 mm. The bottom-quadrant exceptions are one feature standing
+touches the model, which is past the point the build-up reading saturates at. Front-top's two
+bodies carry the pump-bay lintel and the pump-jack receptacle roof. The upper Y-seam blocks
+and their front passages have no support interfaces. Front-bottom's two lower
+Y-seam socket collar crowns have 28.20 mm of build-up. The bottom-quadrant exceptions are one feature standing
 on all four flanks: the **Z seam's slide-head catch**, the joint's one down-looking flat and the
 whole of its bearing against lift. Back-bottom's west catch reaches the bed from outside its
 flank through the 12 mm PRV passage that crosses it — the same opening that splits that catch
@@ -707,7 +709,7 @@ into two interface islands. The other three have no such lane and root on the ar
 under-flare **8.00 mm** below the catch they carry: front-bottom's pair and back-bottom's east
 catch are the only material-rooted bodies outside the 15 mm band.
 
-Back-top prints on its ceiling, so what a support reaches there is the set of faces that look print-down and cannot carry themselves: the drip pan's berth floor and its sleeve's lid, the nameplate bar's top and the pocket's lower rim, the upper Y-seam pins' tops, the C14's aperture and flange-pocket floors, the keystone pocket's floor, the tap-water ribs' tie-band flanks and the five ribs' 3.5 mm crown strips over their tie bands, the Z-seam feet's broad flat caught faces, the ASSE anchor's two round seats and its tie cavity's 3 mm lower threshold, and the identification-chip pockets' lower arcs on the rear face. The slice reaches them with **14 bodies** over **37 islands**, 7 rooted on the plate around the bedded piece — fore of its mouth, behind its rear face, through the funnel's opening — and 7 on the piece itself: the slab's interior face, which is that piece's own first layers, and the backing over each rib's tie channel; the shortest build-up is **1.20 mm**, the stub under a crown strip inside its 3 mm channel. The ASSE threshold at x −101.5..−98.5 is reached by a model-rooted tree with **28.32 mm** of build-up. The joined east mounting pad is the separate 2.25 mm wall-rooted bridge described above and has no support interface. The three rail-face islands join the two large bed-rooted trees, with **185.28 mm** of build-up to their interfaces. The reading is this project's: tree(auto) supports at a 35° threshold, 0.4 mm top and bottom Z distances, 0.6 mm from the object in XY and two interface layers, all carried in the reading's `slicer_settings`; a plate sliced with other support settings is audited again against that project. Back-bottom's two slide-head bodies carry the broad flat undersides: the west run from the bed through the PRV passage and the east from the arm's under-flare **8.00 mm** below. The three slide-head bodies on the two bottoms are the places the support campaign still names.
+Back-top prints on its ceiling, so what a support reaches there is the set of faces that look print-down and cannot carry themselves: the drip pan's berth floor and its sleeve's lid, the nameplate bar's top and the pocket's lower rim, the C14's aperture and flange-pocket floors, the keystone pocket's floor, the tap-water ribs' tie-band flanks and the five ribs' 3.5 mm crown strips over their tie bands, the Z-seam feet's broad flat caught faces, the ASSE anchor's two round seats and its tie cavity's 3 mm lower threshold, and the identification-chip pockets' lower arcs on the rear face. The slice reaches them with **12 bodies** over **35 islands**, 5 rooted on the plate around the bedded piece — fore of its mouth, behind its rear face, through the funnel's opening — and 7 on the piece itself: the slab's interior face, which is that piece's own first layers, and the backing over each rib's tie channel; the shortest build-up is **1.20 mm**, the stub under a crown strip inside its 3 mm channel. The ASSE threshold at x −101.5..−98.5 is reached by a model-rooted tree with **28.32 mm** of build-up. The joined east mounting pad is the separate 2.25 mm wall-rooted bridge described above and has no support interface. The three rail-face islands join the two large bed-rooted trees, with **185.28 mm** of build-up to their interfaces. The reading is this project's: tree(auto) supports at a 35° threshold, 0.4 mm top and bottom Z distances, 0.6 mm from the object in XY and two interface layers, all carried in the reading's `slicer_settings`; a plate sliced with other support settings is audited again against that project. Back-bottom's two slide-head bodies carry the broad flat undersides: the west run from the bed through the PRV passage and the east from the arm's under-flare **8.00 mm** below. The three slide-head bodies on the two bottoms are the places the support campaign still names.
 
 ## Print orientation + corner relief
 
