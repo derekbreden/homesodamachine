@@ -35,6 +35,42 @@
         },
         {
           "tree": "tree-2",
+          "name": "west handhold lifting ceiling",
+          "first_contacts_cad_xyz_mm": [
+            [
+              -106.6,
+              199.5,
+              28.4,
+              -94.2,
+              250.7,
+              28.8
+            ]
+          ],
+          "root": "bed",
+          "build_up_mm": 34.2,
+          "interface_islands": 1,
+          "rationale": "The handhold keeps a flat bearing ceiling for upward finger contact, with 12 mm of roof section above it. This support reaches the back half of that ceiling from the print bed through the open bottom, with 34.20 mm of build-up. The opening gives direct access to remove the complete body."
+        },
+        {
+          "tree": "tree-3",
+          "name": "east handhold lifting ceiling",
+          "first_contacts_cad_xyz_mm": [
+            [
+              93.8,
+              199.9,
+              28.4,
+              106.6,
+              250.7,
+              28.8
+            ]
+          ],
+          "root": "bed",
+          "build_up_mm": 34.2,
+          "interface_islands": 1,
+          "rationale": "The handhold keeps a flat bearing ceiling for upward finger contact, with 12 mm of roof section above it. This support reaches the back half of that ceiling from the print bed through the open bottom, with 34.20 mm of build-up. The opening gives direct access to remove the complete body."
+        },
+        {
+          "tree": "tree-4",
           "name": "east Z-seam slide-head square catch",
           "first_contacts_cad_xyz_mm": [
             [
@@ -60,7 +96,7 @@
       "support_bodies": [
         {
           "tree": "tree-1",
-          "name": "the ASSE fore round seat's lower arc; the ASSE aft round seat's lower arc; the water-split rib's seat lip …",
+          "name": "the ASSE fore round seat's lower arc; the ASSE aft round seat's lower arc; the water-split rib's seat lip \u2026",
           "first_contacts_cad_xyz_mm": [
             [
               -81.8,
@@ -322,7 +358,7 @@
         },
         {
           "tree": "tree-8",
-          "name": "an identification-chip pocket's lower arc; the nameplate bar's top; the nameplate pocket's lower rim …",
+          "name": "an identification-chip pocket's lower arc; the nameplate bar's top; the nameplate pocket's lower rim \u2026",
           "first_contacts_cad_xyz_mm": [
             [
               -1.8,
@@ -418,7 +454,7 @@
         },
         {
           "tree": "tree-12",
-          "name": "the C14 aperture floor; the C14 flange-pocket floor; the nameplate bar's top …",
+          "name": "the C14 aperture floor; the C14 flange-pocket floor; the nameplate bar's top \u2026",
           "first_contacts_cad_xyz_mm": [
             [
               55.0,
@@ -467,6 +503,24 @@
       "support_bodies": [
         {
           "tree": "tree-1",
+          "name": "west handhold lifting ceiling",
+          "first_contacts_cad_xyz_mm": [
+            [
+              -106.6,
+              177.025,
+              28.4,
+              -94.2,
+              213.025,
+              28.8
+            ]
+          ],
+          "root": "bed",
+          "build_up_mm": 34.2,
+          "interface_islands": 1,
+          "rationale": "The handhold keeps a flat bearing ceiling for upward finger contact, with 12 mm of roof section above it. This support reaches the front half of that ceiling from the print bed through the open bottom, with 34.20 mm of build-up. The opening gives direct access to remove the complete body."
+        },
+        {
+          "tree": "tree-2",
           "name": "west Z-seam slide-head square catch",
           "first_contacts_cad_xyz_mm": [
             [
@@ -481,10 +535,28 @@
           "root": "model",
           "build_up_mm": 8.0,
           "interface_islands": 1,
-          "rationale": "The west rail keeps a broad flat bearing against lift along the top piece’s full foot. The support roots on the arm’s 45 degree under-flare, 8.00 mm below the catch. The lower and middle Y-seam passage is open through the floor and Z-seam rim and has no support interface."
+          "rationale": "The west rail keeps a broad flat bearing against lift along the top piece\u2019s full foot. The support roots on the arm\u2019s 45 degree under-flare, 8.00 mm below the catch. The lower and middle Y-seam passages have no separate support interface."
         },
         {
-          "tree": "tree-2",
+          "tree": "tree-3",
+          "name": "east handhold lifting ceiling",
+          "first_contacts_cad_xyz_mm": [
+            [
+              93.8,
+              177.025,
+              28.4,
+              106.6,
+              213.025,
+              28.8
+            ]
+          ],
+          "root": "bed",
+          "build_up_mm": 34.2,
+          "interface_islands": 1,
+          "rationale": "The handhold keeps a flat bearing ceiling for upward finger contact, with 12 mm of roof section above it. This support reaches the front half of that ceiling from the print bed through the open bottom, with 34.20 mm of build-up. The opening gives direct access to remove the complete body."
+        },
+        {
+          "tree": "tree-4",
           "name": "east Z-seam slide-head square catch",
           "first_contacts_cad_xyz_mm": [
             [
@@ -499,7 +571,7 @@
           "root": "model",
           "build_up_mm": 8.0,
           "interface_islands": 1,
-          "rationale": "The east rail keeps a broad flat bearing against lift along the top piece’s full foot. The support roots on the arm’s 45 degree under-flare, 8.00 mm below the catch. The lower and middle Y-seam passage is open through the floor and Z-seam rim and has no support interface."
+          "rationale": "The east rail keeps a broad flat bearing against lift along the top piece\u2019s full foot. The support roots on the arm\u2019s 45 degree under-flare, 8.00 mm below the catch. The lower and middle Y-seam passages have no separate support interface."
         }
       ]
     },
