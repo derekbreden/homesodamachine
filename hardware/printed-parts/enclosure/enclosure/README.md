@@ -24,7 +24,7 @@ clash in `pack-closes` at the body that overran.
   it is clearance: a body on the floor slab spans the interior wall to wall, so a
   floor body stands one `side_band_inset` in from the wall **where it meets one of the
   seam's bosses in depth and in height**, leaving each mouth, plug and collar its full
-  section. The lower socket jambs run from the floor to the Z seam; above them the
+  section. The lower socket jambs run from the handhold roofs to the Z seam; above them the
   upper collars occupy their own local band. Outside those footprints the band is air. The cold
   core is the widest of the floor bodies, yawed a quarter turn
   (`enclosure_assembly.FOAM_YAW`) so what crosses the machine is its 181 mm short face
@@ -87,19 +87,20 @@ tongue would drive straight into the core. The floor laps anyway, but as a
 **full-thickness tongue with a 45° scarf nose inside the slab** (`_floor_scarf`):
 the front floor runs one overlap aft on the print bed and tapers through the slab
 at its nose; the back keeps the matching bed-side wedge. The assembled top stays
-flat under the core, while both printed bearing faces remain support-free. At each side,
-the front socket jamb has a full-thickness rectangular foot and the back floor its matching
-recess. The scarf runs between those two feet.
+flat under the core, while both printed bearing faces remain support-free. The handholds remove the slab at both flanks; the scarf continues across the middle
+under the cold core. Each handhold's inner wall has its own 45° scarf in plan, on the same
+Y closure motion.
 **Every seam laps, none butts** — the form suited to the face.
 
-That seam is pinned at **[3](Y_LEVELS) levels** per side wall — above the floor,
-just below the Z seam and under the ceiling. The floor and middle pairs pin the two
+That seam is pinned at **[3](Y_LEVELS) levels** per side wall — above the handhold,
+just below the Z seam and under the ceiling. The lower and middle pairs pin the two
 bottom pieces; the ceiling pair pins the two tops. `_bosses` drops a level
 landing within two socket collars of one already placed, so the ladder carries one level per
 height it is owed.
 
-The screw axes stand **[17.95 mm](SEAM_SCREW_END_INSET)** from the interior floor and ceiling
-planes. Back-top's two upper pins are rectangular corner blocks, from their flat lower ends
+The upper screw axes stand **[17.95 mm](SEAM_SCREW_END_INSET)** below the interior ceiling
+plane. The lower axes stand at **Z[49.1 mm](SEAM_SCREW_LOWER_Z)**, their complete collars above
+the handhold roofs. Back-top's two upper pins are rectangular corner blocks, from their flat lower ends
 through the ceiling slab and from the seam mouth into the full-thickness flanks. Front-top's
 matching straight passages open through its ceiling tongue; the insert seats remain on the
 blocks' inboard faces. The top pieces' Z-seam shoulders and hooked rails register their height,
@@ -108,12 +109,12 @@ ends, the screw pilots and the whole volume swept through the front passages dur
 
 The middle axes stand at **[151.9 mm](SEAM_SCREW_MIDDLE_Z)**, one socket radius below the
 Z seam. The complete inserts and their collars belong to front-bottom, with their crowns
-on the split plane. Lower and middle back pins share a straight floor-rooted jamb;
+on the split plane. Lower and middle back pins share a straight jamb over each handhold;
 front-bottom carries the matching socket jamb and a straight passage open through both the
-floor and the Z-seam rim. The floor scarf and the upper pins' lower seats register the two
+handhold ceiling and the Z-seam rim. The floor scarf and the upper pins' lower seats register the two
 columns vertically, leaving the middle passages open at their crowns.
 `y-seam-lower` reads both complete jambs, all four screw pilots, the entry passages and the
-floor feet. The existing rails connect the top pieces to this fastening; the ceiling pair
+remaining floor lap. The existing rails connect the top pieces to this fastening; the ceiling pair
 alone still frees front-top.
 
 Each cross-pin is sized to its job. Reading an M3×10 screw outboard→inboard from
@@ -129,9 +130,9 @@ isolated support towers.
 - **Receiving piece = pin** (the back pieces): a rectangular block from the exterior to the
   full-thickness flank face and from the seam mouth aft into that flank. A
   [9.9 mm](PLUG_DIA) square section surrounds each shank with one wall; the lower and
-  middle sections continue to the floor and the upper section into the ceiling.
+  middle sections continue to the handhold roof and the upper section into the ceiling.
 - **Lip piece = socket** (the front pieces): a collar with a straight slot for the pin,
-  open through the floor and Z-seam rim on front-bottom and through the ceiling on front-top,
+  open through the handhold ceiling and Z-seam rim on front-bottom and through the ceiling on front-top,
   with the ruthex M3
   heat-set (Ø4.0 × 4.0 body in its [5 mm](SEAM_HEATSET_DEPTH) pilot) capped at its deep
   inboard end.
@@ -146,6 +147,25 @@ whole length. That band is one `wall` deep and runs the piece's full height, the
 a telescoping lip does. Those two matings are the pair the overlap depth is struck
 from — it works out to (plug + bore)/2 + one wall. The lower and middle levels share
 one jamb per side.
+
+## Handholds
+
+One handhold in each ±X flank opens through the standing floor. The recesses are
+[80 mm](HANDHOLD_LENGTH) long in Y, centered at **Y[214 mm](HANDHOLD_Y)**, and
+[35 mm](HANDHOLD_HEIGHT) high from the slab's underside to the flat lifting ceiling.
+The upper corners have [5 mm](HANDHOLD_CORNER_R) radii and the exterior lifting edges
+[3 mm](HANDHOLD_EDGE_R) radii. Each ceiling carries a full [12 mm](HANDHOLD_ROOF) section,
+joined to the floor by the opening's end walls and to the seam jamb above it.
+
+The [3 mm](HANDHOLD_WALL) inner wall stands on the cold core's flank plane. Each opening
+is closed toward the interior and open outward and downward. Both bottom pieces form each
+handhold; its inner wall closes on a 45° plan scarf with one running fit between the faces.
+The floor's original scarf continues across the middle of the enclosure. All six seam screws
+remain M3×10; the lower pair stands above the handholds.
+
+`handholds` reads the upward entry space, full lifting sections, end posts and inner walls
+on the finished pair, including the inner-wall scarf's running clearance. These are geometry
+checks; no physical lifting-load test is recorded.
 
 ## The Z seams slide home
 
@@ -205,7 +225,7 @@ back-top aft toward the wall — so neither has to be lifted over the other. Fro
 escape is open air, and what holds it there is the Y
 seam's **upper pair of screws** — so two screws out and front-top draws straight off the
 front of the box, the back column and whatever the box is built under never touched.
-Four M3×10 close the box; the same four open it.
+Six M3×10 close the box; the same six open it.
 
 **Every catch is square.** The head's broad underside and the foot's broad top face bear
 flat against lift along both complete runs. Each bottom piece prints the head with support
