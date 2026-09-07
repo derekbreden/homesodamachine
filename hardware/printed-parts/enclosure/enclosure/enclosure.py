@@ -1446,7 +1446,7 @@ def back_flank_start(y_joint):
 # end walls and corner turns closing head-on one `slide_slip` behind it. THE TWO COLUMNS
 # GO ON TOWARD EACH OTHER AND ESCAPE APART: front-top draws off the front of the box, into
 # open air, and back-top off the back. What holds front-top is the Y seam's upper pair of
-# screws — the plug back-top carries, in the socket front-top's lip carries. Four M3×10
+# screws — the plug back-top carries, in the socket front-top's lip carries. Six M3×10
 # close the whole box, and the two upper ones are what front-top hangs on.
 #
 # THE CATCH FACES ARE SQUARE. The head's broad underside and the foot's broad top are
@@ -2261,7 +2261,7 @@ def seam_bosses(inner, y_joint, splits):
     """Every boss the seam stands in a ±X boss-chain band, as `(y0, y1, z0, z1)` — what each
     one actually occupies of that wall, both walls' taken together.
 
-    The lower socket jambs run from the floor through the middle collars; the upper
+    The lower socket jambs run from the handhold roofs through the middle collars; the upper
     collars occupy `2 * socket_r` about their bores. Read from the definitions that
     BUILD them (`_bosses`, `_y_corner`, `_z_rail_runs`), so a footprint cannot drift from
     the geometry it stands for.
@@ -3749,11 +3749,11 @@ def _ceiling_corbels(solid, inner, outer, centre, y_joint, y_bosses=()):
 # then the heat-set pilot filling the rest of the M3x10 span, then a one-wall cap.
 #   * BACK half = PIN: a rectangular section from the ±X exterior to the heat-set,
 #     continuing aft into the full-thickness flank. The upper block joins the ceiling;
-#     the lower and middle stations share a floor-rooted jamb. The screw-clearance and
+#     the lower and middle stations share a jamb above the handhold. The screw-clearance and
 #     head counterbore pass through both.
 #   * FRONT lip = SOCKET: a collar carrying the heat-set and its deep inboard cap.
 #     The upper passage opens through the ceiling tongue; the lower passage opens
-#     through the floor and Z-seam rim to receive the complete jamb.
+#     through the handhold ceiling and Z-seam rim to receive the complete jamb.
 # The head seats in the ±X wall; the shank crosses the pin body into the front
 # heat-set, cross-pinning the two halves along X.
 #
@@ -3861,7 +3861,7 @@ def _back_plug(x_ext, sx, z_boss, y_joint, root_z):
     """The back half's Y-seam pin, mouth to full-thickness flank, exterior to insert face.
 
     Each pin is a rectangular block joined to its piece's end slab. The two lower stations
-    share one floor-rooted jamb; the upper station joins the ceiling. Each front passage
+    share one jamb on the handhold roof; the upper station joins the ceiling. Each front passage
     opens through that same end slab."""
     _xs, x_tip, _xh, _xc = _boss_x(x_ext, sx)
     r = plug_dia / 2.0
@@ -3884,7 +3884,7 @@ def _front_socket(x_in, x_ext, sx, z_boss, y_joint, inner):
     crevice either side of the touching line — an overhang that starts at zero degrees —
     and it closes overhead on a crown laid across its own bore. So the section is squared
     onto the flats it meets. The lower and middle collars share a straight jamb to
-    the floor slab; the upper collar stands on a 45° web down the lip's own face. It is also the
+    the handhold roof; the upper collar stands on a 45° web down the lip's own face. It is also the
     footprint `seam_bosses` already reports, so what a check reads and what stands on the
     wall are one shape.
 
@@ -3913,7 +3913,7 @@ def _front_pin_slot(x_in, x_tip, z_boss, y_boss, y_joint, ceiling=None, floor=No
 
     The upper passage opens through the ceiling tongue. Its lower face is one running
     clearance below the corner block; its inboard face is the screw/insert interface.
-    The lower passage opens through both floor and Z-seam rim. The floor scarf and
+    The lower passage opens through both handhold ceiling and Z-seam rim. The floor scarf and
     upper pin's lower seat register the two columns vertically; the middle passage
     needs no cap over its pin."""
     b = socket_bore_dia / 2.0
@@ -4004,7 +4004,7 @@ def _y_lip_channel(inner, y_joint, bosses):
     with everything else; no one-running-fit strip continues past the tongue beside a collar.
 
     The upper corner blocks travel in straight passages open through the ceiling tongue.
-    The shared lower/middle jambs travel in straight passages open through floor and Z seam.
+    The shared lower/middle jambs travel in passages open through handhold ceiling and Z seam.
     Both passages stop at the screw/insert interface in X."""
     ix0, ix1, _iy0, _iy1, iz0, iz1 = inner
     y0, y1 = y_joint, y_joint + lip_len + 1.0
@@ -9574,7 +9574,7 @@ def _lower_y_seam_bound(pieces, box):
         f"four screw axes at Z {levels[0]:g} and {levels[1]:g} mm; middle collars end at Z {z_seam:g}",
         "two jambs above the handholds, four open screw pilots, passages open through the rim, and a registering floor lap",
         [f"{side}: levels {'correct' if levels_ok else 'incorrect'}; missing jamb {missing:.4f} mm³; "
-         f"entry/foot overlap {overlap:.4f} mm³; blocked bores {blocked:.4f} mm³"
+         f"entry overlap {overlap:.4f} mm³; blocked bores {blocked:.4f} mm³"
          for side, levels_ok, missing, overlap, blocked in readings] + [
             f"floor lap blocks a {2.0 * fits.slip:g} mm upward shift: {floor_register:.4f} mm³ overlap"]))
 
@@ -10113,6 +10113,14 @@ def main():
         "BACK_TOP_CEILING_FACE": f"{back_top_ceiling_face():.4g}",
         "CEILING_LANE": f"{appliance_height - floor_t - wall:.4g}",
         "SEAM_SCREW_END_INSET": f"{seam_screw_end_inset:.4g} mm",
+        "SEAM_SCREW_LOWER_Z": f"{_seam_lower_z(box.inner):g} mm",
+        "HANDHOLD_Y": f"{handhold_y:g} mm",
+        "HANDHOLD_LENGTH": f"{handhold_length:g} mm",
+        "HANDHOLD_HEIGHT": f"{handhold_height:g} mm",
+        "HANDHOLD_ROOF": f"{handhold_roof:g} mm",
+        "HANDHOLD_WALL": f"{handhold_wall:g} mm",
+        "HANDHOLD_CORNER_R": f"{handhold_corner_r:g} mm",
+        "HANDHOLD_EDGE_R": f"{handhold_edge_r:g} mm",
         "SEAM_SCREW_MIDDLE_Z": f"{_seam_middle_z():.4g} mm",
         # How much stock each grown flank stands INBOARD of the box's own interior — the room a
         # rib rooted on that piece loses, and the room its relief gives back.
