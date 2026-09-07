@@ -799,12 +799,12 @@
   {
    "id": "wedge-fills",
    "label": "Every print-down slope on a ceiling-down piece has its stated carry",
-   "kind": "gate",
+   "kind": "goal",
    "status": "pass",
-   "value": "40 print-down slope(s): 27 under a body, 3 within 1 mm of one, 10 in a kept room, 0 could be columns",
+   "value": "40 print-down slope(s): 28 under a body, 2 within 1 mm of one, 10 in a kept room, 0 could be columns",
    "target": "no unaccounted slope a column could replace, and every named room standing",
    "detail": [],
-   "active": true
+   "active": false
   },
   {
    "id": "z-seam-bed",
@@ -1057,6 +1057,26 @@
    "active": true
   },
   {
+   "id": "ceiling-show-cap",
+   "label": "The ceiling slab keeps a complete exterior wall over its whole field",
+   "kind": "gate",
+   "status": "pass",
+   "value": "3 mm cap; missing 0.0000 mm\u00b3",
+   "target": "a complete wall over the field, the funnel's own plan excepted",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "pieces-in-silhouette",
+   "label": "Every quadrant lies inside the appliance's own exterior",
+   "kind": "gate",
+   "status": "pass",
+   "value": "all four inside `outer`",
+   "target": "no face past the box's exterior on any axis",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "y-seam-upper",
    "label": "Both upper seam blocks join the ceiling and pass their complete entry lanes",
    "kind": "gate",
@@ -1066,6 +1086,20 @@
    "detail": [
     "west: missing column 0.0000 mm\u00b3; entry overlap 0.0000 mm\u00b3; material below the flat end 0.0000 mm\u00b3; blocked bores 0.0000 mm\u00b3",
     "east: missing column 0.0000 mm\u00b3; entry overlap 0.0000 mm\u00b3; material below the flat end 0.0000 mm\u00b3; blocked bores 0.0000 mm\u00b3"
+   ],
+   "active": true
+  },
+  {
+   "id": "y-seam-lower",
+   "label": "Both lower seam jambs join the floor and carry complete lower and middle fasteners",
+   "kind": "gate",
+   "status": "pass",
+   "value": "four screw axes at Z 17.95 and 151.9 mm; middle collars end at Z 160",
+   "target": "two complete floor jambs, four open screw pilots, passages open through the rim, and a registering floor lap",
+   "detail": [
+    "west: levels correct; missing jamb 0.0000 mm\u00b3; entry/foot overlap 0.0000 mm\u00b3; blocked bores 0.0000 mm\u00b3",
+    "east: levels correct; missing jamb 0.0000 mm\u00b3; entry/foot overlap 0.0000 mm\u00b3; blocked bores 0.0000 mm\u00b3",
+    "floor lap blocks a 0.3 mm upward shift: 90.5031 mm\u00b3 overlap"
    ],
    "active": true
   },
