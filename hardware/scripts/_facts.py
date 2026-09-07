@@ -166,10 +166,15 @@ def _plain(v):
 
 _BOX_FACT_ORDER = (
     "inner outer y_joint splits y_bosses z_seam_passes front_ports back_ports east_ports "
-    "west_ports funnel pan_sleeve c14 east_bosses side_wells floor_bosses west_cradle "
+    "west_ports funnel pan_sleeve c14 east_bosses east_mount_fills side_wells floor_bosses west_cradle "
     "cond_cradle cond_mount cond_airway asse_cradle flow_meter_anchors tube_anchors "
     "ceiling_reliefs port_field nameplate valve_trays pump_trays core_stops core_holds "
     "vent_chase column_reliefs collet_plate tee_carrier pump_bay").split()
+_BOX_FACT_EXCLUDED = {
+    "pack",    # container copied field-by-field above
+    "placed",  # solids
+    "keystone",  # repeated as KEYSTONE_STATION in constants
+}
 
 
 def _box_plain(box):
@@ -180,6 +185,11 @@ def _box_plain(box):
     The artifact is read by drivers that take a station by name off `f.box`, and `placed` is
     left out because it holds solids and a fact is numbers."""
     src = {**box.pack._asdict(), **box._asdict()}
+    missing = set(src) - set(_BOX_FACT_ORDER) - _BOX_FACT_EXCLUDED
+    extra = set(_BOX_FACT_ORDER) - set(src)
+    if missing or extra:
+        raise KeyError(
+            f"box fact projection is stale: missing {sorted(missing)}, extra {sorted(extra)}")
     return {k: _plain(src[k]) for k in _BOX_FACT_ORDER}
 
 
@@ -323,8 +333,7 @@ def gather(whole=None, module=None):
         "C14_STATION": _plain(ea.C14_STATION),
         "DIGITEN_COLLET_FREE": _plain(ea.DIGITEN_COLLET_FREE),
         "FLOOR_GROMMET_SQUEEZE": _plain(ea.FLOOR_GROMMET_SQUEEZE),
-        "KEYSTONE_CLEARANCES": _plain(
-            ea._keystone_clearances(whole.keystone_station, whole.gate_z)),
+        "KEYSTONE_CLEARANCES": _plain(whole.keystone_clearances),
         "KEYSTONE_STATION": _plain(whole.keystone_station),
         "PANEL_X": _plain(ea.PANEL_X),
         "CRADLE_TOL": _plain(ea.CRADLE_TOL),

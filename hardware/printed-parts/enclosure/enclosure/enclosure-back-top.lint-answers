@@ -38,15 +38,24 @@ click: x=-88.285 y=287.580 z=279.340
 
 [ceiling] The C14 tunnel's aperture and flange-pocket floors — the working opening is the moulded shroud's own rectangle and the pocket the flange's own outline, so both floors are flat by contract; a bridge between the block's two flanks, reached from the slab.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=66.900 y=460.375 z=324.625
+click: x=66.900 y=462.875 z=326.711
+click: x=66.900 y=456.250 z=324.626
 
 [ceiling] Relay #2's lower end bar — its top between the two blocker-profiled wings is the same 15 mm flat the wings bridge, two layers deep, over the relay's own pin field.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=97.375 y=337.000 z=258.900
 
-[ceiling] The ASSE tie channel's millimetre of overrun below the anchor block into the flank section — the cutter runs past the face it opens on so the lower mouth is cut open rather than closed by a coincident plane; what it takes is a 3 mm-wide, 1 mm-deep notch whose floor bridges the channel's own width.
+[sliver] The aft end wall of the ASSE chain's deepest ceiling pocket — the reported 1 mm is its run in Y beyond the anchor, not material thickness. The purchased body ends at y=406.21 and the pocket ends at y=408.21, keeping the stated 2 mm plan clearance; an exact section at the click has 14.273 mm of continuous shell west of this face.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-100.000 y=374.210 z=320.921
+click: x=-93.227 y=407.710 z=347.250
+
+[ceiling] The joined upper main-board and relay-2 mounting pad — one 8.8 mm-tall rectangular block from the three insert stations to the east wall. Its 2.25 mm-deep top face is flat by that mounting field's contract and bridges only the clear 4.5 mm interval between the established pads. The production G-code lays its first layer as two overhang-wall strokes and five 0.388 mm-spaced bridge strokes rooted on the wall and the pads; it emits no support body there.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=97.375 y=331.250 z=326.710
+
+[ceiling] The ASSE tie cavity's lower threshold — one full 3 mm wall from x -101.5 to -98.5 across the cavity's 31.6 mm span. The closed zip-tie loop crosses this threshold on its way under the anchor, so it remains flat and open; the production slice reaches the complete face from the ceiling slab with tree-4, a model-rooted support with 28.32 mm of build-up.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-100.000 y=374.210 z=321.921
 
 [ceiling] The water-split and flow-regulator ribs' print-down flanks and relief-lobe floors over their 3.5 mm tie bands — the room the zip tie's loop comes down, which nothing may close: a bridge the band's own width between the regulator rib's two columns and between the water-split rib's two corbels, which stand under the flow regulator's own air. Each is a supported face reached from the slab.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
@@ -57,8 +66,8 @@ click: x=-96.325 y=225.140 z=328.861
 
 [ceiling] The keystone pocket's floor — the module standard's 14.9 mm section, a bridge between the receptacle boss's two flanks; the lower latch catch stands on it (`riteav_keystone.CATCH_LOWER`).
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-37.810 y=461.305 z=292.820
-click: x=-37.810 y=465.505 z=295.200
+click: x=-37.810 y=461.305 z=293.420
+click: x=-37.810 y=465.505 z=295.800
 
 [ceiling] The back Z-slide feet's broad square caught faces — each top rail carries its full-section foot from the mouth to z=168.70, one `slide_slip` below the bottom catch at z=168.85. Lifting the seated top lands these planes against the heads along both complete runs, so they remain flat by the joint's bearing contract. Back-top prints ceiling-down and support carries the complete faces (`_z_rail_feet`, `_z_rail_channels`).
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
