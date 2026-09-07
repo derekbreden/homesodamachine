@@ -1044,7 +1044,8 @@ def _bounds(a) -> list:
 
     An assembly built by something that states no bounds contributes no rows rather than a
     silent pass: nothing measured is not the same claim as nothing wrong."""
-    return [Check(b.id, b.label, "gate", verdict(b.ok), b.value, b.target, list(b.detail))
+    return [Check(b.id, b.label, getattr(b, "kind", "gate"), verdict(b.ok), b.value, b.target,
+                  list(b.detail))
             for b in getattr(a, "bounds", ())]
 
 
