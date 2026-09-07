@@ -26,8 +26,8 @@ holds, so the column pattern, which is not symmetric, is the tell for which
 way the cap goes on. Every other part is authored in its final orientation
 and only shifts along Z.
 
-Both caps and the shell share the one original six-screw pattern (four
-corners + the two mid-long-side bosses on their diagonal), which is 180°
+Both caps and the shell share the one screw pattern (`_cold_core_interface.attachment_stations`
+— four corners, two mid bosses on each long wall, and one on each short wall), which is 180°
 symmetric about Z — that is what leaves the top cap free to rotate. The
 bottom cap is the same cup seated mouth-down, so its screws land on the
 shell's existing bottom-face inserts with no rotation and no boss moves.
@@ -243,12 +243,18 @@ def _report(placed):
             % (name, b.xmin, b.xmax, b.ymin, b.ymax, b.zmin, b.zmax)
         )
 
-    # Top cap, bottom cap, and shell all share the one original screw pattern
-    # (corners + the two mid bosses on their diagonal). The bottom cap is just
-    # the mouth-down cup, so its screws sit at the same XY and land on the
-    # shell's existing bosses.
+    # Top cap, bottom cap, and shell all share the one screw pattern. The bottom cap is just
+    # the mouth-down cup, so its screws sit at the same XY and land on the shell's existing
+    # bosses; the top cap installs spun a half turn, and the pattern is closed under that turn,
+    # which is what lets the same list be read in either frame. That closure is stated here
+    # rather than assumed: a station whose partner is missing puts a screw over solid cap.
     P = [(round(x, 6), round(y, 6)) for x, y in attachment_xy_positions]
-    print("  screw pattern: 6 points, the original diagonal (shared top + bottom)  OK")
+    spun = {(round(-x, 6), round(-y, 6)) for x, y in P}
+    assert spun == set(P), (
+        f"the screw pattern is not closed under the half turn the top cap installs at: "
+        f"{sorted(spun ^ set(P))} have no partner")
+    print(f"  screw pattern: {len(P)} points, closed under the half turn "
+          f"(shared top + bottom)  OK")
 
     # The two planes the machine reads off this stack, held against the stack that came out.
     # The cap face is a LID FACE and not the box's top, so it is read as the top lid's own
@@ -313,7 +319,8 @@ def _report(placed):
                 clear = False
                 print("  ** screw path BLOCKED in %s at (%.1f, %.1f)" % (name, x, y))
     print(
-        "  screw paths: all 6 clear through every cap + lid (top + bottom)  OK"
+        f"  screw paths: all {len(attachment_xy_positions)} clear through every "
+        f"cap + lid (top + bottom)  OK"
         if clear
         else "  ** SCREW PATHS BLOCKED **"
     )

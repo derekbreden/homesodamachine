@@ -162,7 +162,7 @@ def deck_boss_z_top(name):
     """A deck mount's column tops, off the cap's floor. A flush mount stops at the mouth
     rim, under the lid; a standing one carries the whole cup, the lid that closes it,
     and its standoff. Same section the whole way, standing on the floor's cavity side —
-    the cap prints floor-down, and each column rises off the bed like the six screw
+    the cap prints floor-down, and each column rises off the bed like the screw
     bosses beside it."""
     standoff = deck_mount_standoff(name)
     if standoff == 0.0:
@@ -402,7 +402,7 @@ def main():
     gasket = build_foam_cap_gasket()
 
     # Each deck column is a full-section cylinder off the floor's cavity side, less
-    # the blind bore at its top. They stand clear of each other and of the six screw
+    # the blind bore at its top. They stand clear of each other and of the screw
     # bosses, so the pack adds without overlap and this arithmetic is exact.
     deck_column_volume = sum(
         len(deck_mount_xy(name)) * math.pi * (

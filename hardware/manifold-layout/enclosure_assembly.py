@@ -2578,12 +2578,17 @@ TUBE_ANCHOR_SITES = (
     ("fluid-28", 2, (-1.0, 0.0, 0.0), "enclosure-back-top"),
 )
 
-# The print-down treatment of selected end webs, in route order. Unnamed ends are `auto`:
-# they stand on the print-bed face where the pack leaves that column clear. `corbel` keeps the
-# ordinary wall-rooted 45-degree corbel even where that air is empty.
+# WHAT EACH END WEB IS, STATED. A web either continues to the piece's print-bed face as a
+# `column` or keeps its ordinary wall-rooted 45-degree `corbel`. Which one it is, is a thing to
+# look at and decide — not a consequence of finding the air above it empty, which is how a
+# machine ends up filling every void it can reach. Every site names both of its ends, and a
+# site missing here is an error. A `column` an end has no geometry for is an error too.
 TUBE_ANCHOR_END_FORMS = {
+    "carb-1": ("corbel", "corbel"),
+    "co2-2": ("corbel", "corbel"),
     "fluid-28": ("corbel", "corbel"),
 }
+ANCHOR_END_FORMS = ("column", "corbel")
 
 
 def tube_anchors(runs) -> tuple:
@@ -2597,14 +2602,16 @@ def tube_anchors(runs) -> tuple:
     by_id = {r.id: r for r in runs}
     stations = []
     site_ids = {rid for rid, _leg, _root, _piece in TUBE_ANCHOR_SITES}
+    if missing := site_ids - set(TUBE_ANCHOR_END_FORMS):
+        raise ValueError(f"tube_anchors: no end forms stated for {sorted(missing)}")
     if unknown := set(TUBE_ANCHOR_END_FORMS) - site_ids:
         raise ValueError(f"tube_anchors: end forms name no anchor site: {sorted(unknown)}")
     for rid, leg, root, _piece in TUBE_ANCHOR_SITES:
-        end_forms = TUBE_ANCHOR_END_FORMS.get(rid, ("auto", "auto"))
-        if len(end_forms) != 2 or any(form not in ("auto", "corbel") for form in end_forms):
+        end_forms = tuple(TUBE_ANCHOR_END_FORMS[rid])
+        if len(end_forms) != 2 or any(form not in ANCHOR_END_FORMS for form in end_forms):
             raise ValueError(
                 f"tube_anchors: {rid} end forms are {end_forms!r}; each of the two route ends "
-                f"must be `auto` or `corbel`.")
+                f"must be one of {ANCHOR_END_FORMS}.")
         r = by_id.get(rid)
         if r is None:
             continue                        # a run whose bodies are not both placed yet
@@ -2657,6 +2664,16 @@ BODY_ANCHOR_SITES = (
     ("flow-regulator", _flowreg.run_barrel, (-1.0, 0.0, 0.0), "enclosure-back-top"),
 )
 
+# The same statement for the body anchors' end webs, read the same way (`ANCHOR_END_FORMS`).
+# The regulator's two webs stand as columns to the slab: that rib sits under 14 mm of open
+# ceiling and the pair reads as one bracket carried to the piece's own ground. The split's
+# webs keep their corbels — `tube-water-2` crosses the air a column would take.
+BODY_ANCHOR_END_FORMS = {
+    "wr1110": ("corbel", "corbel"),
+    "water-split": ("corbel", "corbel"),
+    "flow-regulator": ("column", "column"),
+}
+
 
 def body_anchors(carries) -> tuple:
     """One station per body anchor — `(mid, along, root, seat_r)`, the shape `_tube_anchors`
@@ -2669,6 +2686,11 @@ def body_anchors(carries) -> tuple:
     rib longer than the barrel it is bored for closes on the hex next to it, which is a wrench
     flat clocked by a made-up thread."""
     stations = []
+    site_ids = {name for name, _s, _r, _p in BODY_ANCHOR_SITES}
+    if missing := site_ids - set(BODY_ANCHOR_END_FORMS):
+        raise ValueError(f"body_anchors: no end forms stated for {sorted(missing)}")
+    if unknown := set(BODY_ANCHOR_END_FORMS) - site_ids:
+        raise ValueError(f"body_anchors: end forms name no anchor site: {sorted(unknown)}")
     for name, section, root, _piece in BODY_ANCHOR_SITES:
         carry = carries.get(name)
         if carry is None:
@@ -2684,7 +2706,8 @@ def body_anchors(carries) -> tuple:
                 f"body_anchors: {name}'s section is {length:.2f} mm and a rib is "
                 f"{_enc.tube_anchor_len:.2f}. A seat longer than the section it bears on closes "
                 f"on whatever is either side of it.")
-        stations.append((tuple(mid), tuple(u), tuple(root), r + BODY_ANCHOR_SLIP))
+        stations.append((tuple(mid), tuple(u), tuple(root), r + BODY_ANCHOR_SLIP,
+                         tuple(BODY_ANCHOR_END_FORMS[name])))
     return tuple(stations)
 
 
@@ -5420,14 +5443,25 @@ def _connected_reliefs(reliefs: tuple) -> tuple:
 # A PIECE PRINTED ON ITS CEILING HAS THE GROUND RIGHT THERE. On a mouth-down print every face
 # that looked print-down was carried by a 45° wedge off the wall it stood on, because the bed was
 # the far end of the piece; on back-top the ceiling slab is the bed, and a face that looks
-# print-down with nothing but free air between it and that slab is carried by a COLUMN — the air
-# filled to the slab, vertical faces, no wedge. What keeps a wedge a wedge is a body standing in
-# that air, and the body says so itself: every candidate column is read against the pack one
-# `WEDGE_CLEAR` clear of everything placed, the way every lane on this box is struck. A room no
+# print-down with free air between it and that slab CAN be carried by a COLUMN — the air filled
+# to the slab, vertical faces, no wedge.
+#   WHETHER IT IS, IS STATED, NOT SEARCHED FOR. Room over a web is a fact about the pack; that a
+# column belongs there is a judgement about the shape, and only the second one decides geometry.
+# Each end web names `column` or `corbel` at its site (`TUBE_ANCHOR_END_FORMS`,
+# `BODY_ANCHOR_END_FORMS`) and each well row at `WELL_COLUMNS`. A room no
 # body models — the loop a zip tie throws over a crown, a screw head's pass, a stated profile —
 # is named in `KEPT_WEDGES`, and `wedge-fills` reads every print-down slope on the piece against
 # both: a slope that is neither under a body nor in a kept room is a wedge nobody has asked about.
 WEDGE_CLEAR = 1.0
+
+# WHICH WELL ROWS CARRY THEIR TOWER TO THE CEILING, by `(side, z)` of the row. A tower continues
+# into the slab because the row reads as one continuous holder with it there — Derek's call on
+# both of these, and the same judgement the anchors' end forms carry. The two cluster wells on
+# the mana/manb column are outside back-top's band and have no plane to stand on.
+WELL_COLUMNS = (
+    (+1, 322.25),        # the five-Wago power row on the +X wall
+    (-1, 270.0),         # the reeds/sensors cluster on the −X wall
+)
 
 KEPT_WEDGES = (
     ("the Y-seam screws' head counterbores", (-108.0, 200.0, 329.0, 108.0, 210.0, 333.0),
@@ -5437,14 +5471,6 @@ KEPT_WEDGES = (
      "the clip is the stated profile, laid for the print by `cable_clip.apply`; its arms' faces "
      "and its channel are the profile's own"),
 )
-
-
-def _within(box6, bodies, clear, skip=()):
-    """The placed bodies a solid filling `box6` would stand within `clear` of."""
-    x0, y0, z0, x1, y1, z1 = box6
-    probe = cq.Solid.makeBox(x1 - x0 + 2 * clear, y1 - y0 + 2 * clear, z1 - z0 + 2 * clear,
-                             cq.Vector(x0 - clear, y0 - clear, z0 - clear))
-    return _touching(probe, bodies, skip)
 
 
 def _touching(probe, bodies, skip=()):
@@ -5463,80 +5489,70 @@ def _touching(probe, bodies, skip=()):
     return found
 
 
-def stand_anchors(stations, placed) -> tuple:
+def stand_anchors(stations) -> tuple:
     """Each anchor station with its `stand` entry (`enclosure._tube_anchors`): per end web,
-    `(plane, depth)` — back-top's ceiling face, which that end stands on as a column, and how far
-    off the root face the column stands: the flank's whole section where the air from it to the
-    slab is free of every placed body, else the corbel's own footprint where that much is — or
-    None where a body stands even in that. A source station may name either end `corbel`, which
-    bypasses the column search for that end. A station outside back-top's band is passed through
-    as its four geometric entries."""
-    bodies = _bodies(placed)
+    `(plane, None)` where the site states a `column` — back-top's ceiling face, which that end
+    continues to over the flank's whole section — and None where it states a `corbel`. The
+    statement is the site's (`TUBE_ANCHOR_END_FORMS`, `BODY_ANCHOR_END_FORMS`); nothing here
+    reads the pack, so a column stands because someone decided it should and not because the
+    air above the web happened to be free. A station outside back-top's band is passed through
+    as its four geometric entries.
+
+    A stated `column` on an end whose rib has no column to give — flanks level, tube along the
+    build axis, print-down flank facing away from the bed — raises. A statement the geometry
+    cannot honour is a statement to correct, never one to quietly downgrade to a corbel."""
     up = _enc.print_up("back", "top")
     roots, lane = _enc.back_top_frames()
     face_z = _enc.back_top_ceiling_face()
     out = []
     for station in stations:
-        end_forms = tuple(station[4]) if len(station) > 4 else ("auto", "auto")
-        if len(end_forms) != 2 or any(form not in ("auto", "corbel") for form in end_forms):
+        end_forms = tuple(station[4]) if len(station) > 4 else ("corbel", "corbel")
+        if len(end_forms) != 2 or any(form not in ANCHOR_END_FORMS for form in end_forms):
             raise ValueError(
-                f"stand_anchors: end forms are {end_forms!r}; each end must be `auto` or "
-                f"`corbel`.")
+                f"stand_anchors: end forms are {end_forms!r}; each end must be one of "
+                f"{ANCHOR_END_FORMS}.")
         st = tuple(station[:4])
         if not _enc.back_top_owns(st[0]):
             out.append(st)
             continue
-        whole = _enc.tube_anchor_end_columns(st, roots, lane, up, face_z)
-        depth = _enc.tube_anchor_corbel_depth(st, roots, lane)
-        part = _enc.tube_anchor_end_columns(st, roots, lane, up, face_z, depth)
+        columns = _enc.tube_anchor_end_columns(st, roots, lane, up, face_z)
         stand = []
-        for form, full, footprint in zip(end_forms, whole, part):
+        for end, (form, column) in enumerate(zip(end_forms, columns), 1):
             if form == "corbel":
                 stand.append(None)
                 continue
-            if full is not None and not _within(full, bodies, WEDGE_CLEAR):
-                stand.append((face_z, None))
-            elif footprint is not None and not _within(footprint, bodies, WEDGE_CLEAR):
-                stand.append((face_z, depth))
-            else:
-                stand.append(None)
+            if column is None:
+                raise ValueError(
+                    f"stand_anchors: the anchor at ({st[0][0]:.2f}, {st[0][1]:.2f}, "
+                    f"{st[0][2]:.2f}) states `column` on end {end}, and that rib has no column "
+                    f"to the print-bed face — its site should say `corbel`.")
+            stand.append((face_z, None))
         out.append(st + (tuple(stand),))
     return tuple(out)
 
 
-def stand_wells(stations, placed) -> tuple:
+def stand_wells(stations) -> tuple:
     """Each well station with its `column` entry (`enclosure._side_wells`): whether its row's
-    tower stands on `clear_z` as a column, the air from the tower's print-down face to that plane
-    being free of every placed body over the whole row. A station with no `clear_z` has no plane
-    to stand on and is passed through."""
-    bodies = _bodies(placed)
-    up = _enc.print_up("back", "top")
-    ix = _enc.interior_x()
-    rows = []
-    for st in sorted(stations, key=lambda s: (s[0], s[2], s[4] is None, s[4] or 0.0, s[5], s[1])):
-        side, sy, sz, size, clear_z, roof = st[:6]
-        key = (side, sz, clear_z, roof)
-        if rows and rows[-1][0] == key and sy - rows[-1][1][-1][1] <= _enc.wago_pitch + 1e-6:
-            rows[-1][1].append(st)
-        else:
-            rows.append((key, [st]))
-    flags = {}
-    for (side, sz, clear_z, roof), row in rows:
-        if clear_z is None:
-            continue
-        face = ix[1] if side > 0 else ix[0]
-        engage = max(_enc.wago_engage(s[3]) for s in row)
-        half_z = max(_enc.wago_half(s[3])[1] for s in row)
-        ya = min(s[1] - _enc.wago_half(s[3])[0] for s in row)
-        yb = max(s[1] + _enc.wago_half(s[3])[0] for s in row)
-        zb = sz - up * half_z
-        x0, x1 = sorted((face, face - side * engage))
-        z0, z1 = sorted((zb, clear_z))
-        column = z1 - z0 > 1e-6 and not _within((x0, ya, z0, x1, yb, z1), bodies, WEDGE_CLEAR)
-        for s in row:
-            flags[tuple(s[:6])] = column
-    return tuple(tuple(st[:6]) + ((flags[tuple(st[:6])],) if tuple(st[:6]) in flags else ())
-                 for st in stations)
+    tower continues to `clear_z` as a column, stated at `WELL_COLUMNS` and not searched for. A
+    station with no `clear_z` has no plane to stand on and is passed through; a stated row that
+    has no `clear_z` is an error, as is a stated row no well matches."""
+    rows = {}
+    for st in stations:
+        side, _sy, sz, _size, clear_z, _roof = st[:6]
+        rows.setdefault((side, round(sz, 4)), []).append(clear_z)
+    for key in WELL_COLUMNS:
+        if key not in rows:
+            raise ValueError(
+                f"WELL_COLUMNS names the row {key}, and no well stands there; the row it was "
+                f"written for has moved or gone.")
+        if any(c is None for c in rows[key]):
+            raise ValueError(
+                f"WELL_COLUMNS names the row {key}, and its wells have no plane to stand a "
+                f"column on. A row off the ceiling-down piece cannot carry one.")
+    return tuple(
+        tuple(st[:6]) + ((True,) if (st[0], round(st[2], 4)) in WELL_COLUMNS else
+                         ((False,) if st[4] is not None else ()))
+        for st in stations)
 
 
 def _print_down_slopes(piece, up):
@@ -5705,12 +5721,12 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
                                     keystone_cutout(a.keystone_station)]),
                      c14=c14_stations(), east_bosses=a.east_bosses,
                      east_mount_fills=a.east_mount_fills,
-                     side_wells=stand_wells(a.side_wells, placed), floor_bosses=a.floor_bosses,
+                     side_wells=stand_wells(a.side_wells), floor_bosses=a.floor_bosses,
                      west_cradle=a.west_cradle, cond_cradle=a.cond_cradle,
                      cond_mount=a.cond_mount, cond_airway=a.cond_airway,
                      asse_cradle=a.asse_cradle,
                      flow_meter_anchors=a.digiten_anchors,
-                     tube_anchors=stand_anchors(a.tube_anchors + a.body_anchors, placed),
+                     tube_anchors=stand_anchors(a.tube_anchors + a.body_anchors),
                      ceiling_reliefs=ceiling_reliefs(placed),
                      port_field=y_wall_field(a.wall_stations),
                      nameplate=nameplate_cut(placed["foam-assembly"][0]),

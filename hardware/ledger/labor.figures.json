@@ -4,8 +4,8 @@
     "DISPLAY_COVER_SCREWS": "2",
     "FAUCET_DISPLAY_SCREWS": "1",
     "FLOOR_SCREWS": "4",
-    "FOAM_CLAMP_INSERTS": "12",
-    "FOAM_SCREWS": "12",
+    "FOAM_CLAMP_INSERTS": "20",
+    "FOAM_SCREWS": "20",
     "NAMEPLATE_SCREWS": "2",
     "PUMP_MOUNT_SCREWS": "4",
     "RES_SCREWS": "12",
@@ -14,9 +14,9 @@
     "SHELF_INSERTS": "17",
     "SHELF_SCREWS": "17",
     "SOLENOIDS": "10",
-    "TOTAL_INSERTS": "69",
-    "TOTAL_M3_INSERTS": "65",
-    "TOTAL_SCREWS": "69",
+    "TOTAL_INSERTS": "77",
+    "TOTAL_M3_INSERTS": "73",
+    "TOTAL_SCREWS": "77",
     "TOUCHFLO_SCREWS": "3"
   },
   "/hardware/scripts/_labor_totals.py": {
