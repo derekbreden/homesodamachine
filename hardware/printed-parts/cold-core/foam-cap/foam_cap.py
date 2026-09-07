@@ -484,7 +484,7 @@ def main():
     drain_berth_volume = (drain_berth_depth * (drain_berth_span[1] - drain_berth_span[0])
                           * lid_total_height)
     # WHAT THE TOP LID'S PLATE HOLDS THAT THE BOTTOM'S DOES NOT: one head pad of footprint,
-    # less the six pads already standing in that band and less the openings both plates carry
+    # less the pads already standing in that band and less the openings both plates carry
     # through it. The pads are the one figure here not written down — a pad is the cap boss's
     # own section, a circle with its webs run out to the wall and the footprint's corner arc
     # trimming both, and that section is BUILT rather than stated. So it is measured off the
