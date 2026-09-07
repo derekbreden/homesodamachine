@@ -118,7 +118,7 @@ Both of the block's Y faces stand 20 mm back over its whole width, leaving 0.4 m
 
 ### 4. Close the front column
 
-**The release plate, tee journals, carrier guides and two physical stops are fixed features of `enclosure-front-top`.** Inspect its [4](PLATE_HOLES) teardrop passages and the release faces around them; remove print residue from the passages before assembling the flavour manifold. The journals locate four tees in X and Z but leave Y free. The guide pockets accept the bare carrier from above; the fore faces stop release at −3.15 mm and the final aft faces stop park at +3 mm. Squeeze at 0 is held by the two service tabs, while connected at +1.5 mm floats under spring load. The floor joins, upper cap, outer cheeks and front-bottom feet remain features of the printed pieces.
+**The release plate, tee journals, carrier guides and two physical stops are fixed features of `enclosure-front-top`.** Inspect its [4](PLATE_HOLES) teardrop passages and the release faces around them; remove print residue from the passages before assembling the flavour manifold. The journals locate four tees in X and Z but leave Y free. The guide pockets accept the two carrier halves from above before their grips slide outward; the fore faces stop release at −3.15 mm and the final aft faces stop park at +3 mm. Squeeze at 0 is held by the two service tabs, while connected at +1.5 mm floats under spring load. The floor joins, upper cap, outer cheeks and front-bottom feet remain features of the printed pieces.
 
 The front-top bench order is fixed: aft valves; right carrier half lowered and slid outward, then parked; left half lowered and slid outward; center lap closed with two M3 screws from aft; two springs fitted; four tees inserted individually through the journals; two ties on each tee; fore valves and four bowed flex stubs; then, only after the box is closed, each hand squeezing between its cartridge pocket and carrier tab until the tubes bottom, then relaxing to connected. Each half enters with its integral grip displaced 8.85 mm inward. The full path and aft screw access are described in the carrier part and plumbing instructions.
 
@@ -227,7 +227,7 @@ A complete mechanical chassis ready for [`internal-plumbing.md`](/hardware/assem
 - Chassis bonding lead ring-terminated at the compressor's own earth screw on its terminal box, routed toward the ground stack, not yet terminated at the bus
 - No cabinet-spanning plumbing beyond the prepared front-top manifold subassembly; no AC/DC/signal wiring runs
 
-The card's own reading of the chassis at this point: [95](BODY_COUNT) bodies placed, the pack closing with no two solids sharing volume, and every printed piece on the bed.
+The card's own reading of the chassis at this point: [94](BODY_COUNT) bodies placed, the pack closing with no two solids sharing volume, and every printed piece on the bed.
 
 ## Open items
 

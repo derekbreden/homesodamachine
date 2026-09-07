@@ -6,6 +6,7 @@
     "CAP_SCREWS": "2",
     "CAP_SCREW_LEN": "10",
     "CAP_VALVES": "3",
+    "CARRIER_JOINT_SCREWS": "2",
     "CARRIER_TEES": "4",
     "CART_PUMPS": "2",
     "CONNECTED_DEPTH": "8.5",
@@ -32,7 +33,6 @@
     "SQUEEZE_OFFSET": "0",
     "STROKE": "3.15",
     "TAB_COUNT": "2",
-    "TAB_LOCK_COUNT": "2",
     "TIES_PER_TEE": "2",
     "TRAY_VALVES": "8",
     "TUBE_OD": "6.35 mm"

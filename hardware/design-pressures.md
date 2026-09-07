@@ -19,8 +19,10 @@ made, once.
 **Field service.** One operation: the pump swap in
 [`service/pump-replacement.md`](/hardware/service/pump-replacement.md), which runs on the bench's
 own front opening. Pulling the cartridge carries four tied tees to a fixed release face; insertion
-holds the carrier at squeeze with two recessed service tabs, bottoms four tubes, then releases the
-tabs so two springs settle the joints at connected. `enclosure-front-top` stays on. Every other
+uses each hand to squeeze between a cartridge pocket and its carrier tab: cartridge aft,
+carrier fore, until four tubes bottom. Relaxing the grasp lets two springs settle the joints at
+connected. The fixed plate carries removal reaction into the whole enclosure, which can be
+braced by a hand, foot, cupboard edge or its own weight. `enclosure-front-top` stays on. Every other
 physical fault is answered by shipping a replacement; units are sold over the
 internet to customers in other states, and the returned unit comes back to the factory. Diagnosis
 of a returned unit is a teardown with factory tools — cutting included — not a repair.
@@ -75,15 +77,16 @@ destroyed is a part that comes out by being destroyed.
   trial therefore owns the blank before production; no cut instruction may call that blank
   12 mm.
 - **The front-top assembly order follows the moving mechanism.** Install the aft valves; place
-  both springs and lower the empty carrier into its open-top guides, then install the two rigid
-  service-tab arms and their top-drop tab locks; insert the four tees individually through
+  the right carrier half at release and slide it outward, then park it; lower the left half at
+  release and slide it outward; close the center lap with two M3 screws from aft and fit both
+  springs; insert the four tees individually through
   their fixed journals; tie each tee twice; install the fore valves and four bench-fitted bowed
-  stubs; then, after the chassis closes, squeeze both tabs, bottom all four cartridge tubes and
+  stubs; then, after the chassis closes, squeeze each cartridge pocket toward its carrier tab, bottom all four tubes and
   release to connected. A free-standing subassembly remains a convenience of the bench, not a
   reason to reverse those joint motions.
 - **Catalog arithmetic and collision-free CAD do not qualify the mechanism.** Before the
   production instruction closes, the complete four-tee assembly is force-measured and cycled
-  through all four states with its springs, eight ties, rigid tab arms and keys, bowed stubs and
+  through all four states with its springs, eight ties, integral tabs and the center joint, bowed stubs and
   four moving hairpin ends. The gate is equal tab motion, positive empty return to park, no
   racking, rubbing, coil bind, buckling or spring escape, repeatable four-tube release and
   reconnection, and no leak or tube damage after cycling.

@@ -50,7 +50,7 @@ Work with `enclosure-front-top` loose, its aft valve row installed and the pump 
 3. Lower the left half at release with the same inward displacement, then slide it outward
    into its flank opening. The parked right half leaves room for this motion.
 4. Move the right half forward to release to close the central lap. Feed both M3 × 8 screws
-   from aft through the gap between the valve coils and tighten them into the left half's
+   from aft through the two tool passages in the valve tray and the gap between coils and tighten them into the left half's
    inserts. The heads finish flush with the web's aft face. Check that both web faces share
    one tee-bearing plane and both tabs travel together.
 5. Fit both compression springs between their fixed pilots and recessed carrier seats while

@@ -1201,9 +1201,20 @@ Nothing latches the cartridge in the enclosure. The four barb tubes gripped in t
 tees' branch collets retain it, and the **collet plate** releases them: a 3.175 mm section
 printed into front-top, standing 1.5 mm fore of the four collet noses. Pull the cradle and
 the tubes draw the tees forward until their collet noses land on the printed release face;
-the collets open and the tubes pass back through the four plate passages. Push it home and
-the tubes enter the same collets and bottom in them. One hand pulls the cradle and the other
-braces the box. The plate is joined to the tee wall behind it.
+the collets open and the tubes pass back through the four plate passages. The fixed plate
+carries that reaction into the whole enclosure, which can be braced by a hand, foot, cupboard
+edge or its own weight. For insertion, each hand spans a cartridge pocket and the carrier tab
+on the same side. Squeeze the cartridge aft and the carrier fore until all four tubes bottom;
+relax the grasp so the two springs settle the carrier at connected. The plate is joined to
+the tee wall behind it.
+
+The [`tee carrier`](/hardware/printed-parts/enclosure/tee-carrier/README.md) is two printed
+halves with integral service tabs, joined by two M3 screws at the center. Each half lowers
+through the open cavity with its grip displaced inward, then slides outward through its
+flank opening. The right half parks while the left enters; the center lap closes before the
+springs and tees are fitted. Two teardrop tool passages through the aft valve tray give straight
+access to the center screws from the open rear. The flank openings leave finger space behind both grip faces through
+the complete release-to-park stroke.
 
 Each passage has an Ø8.5 mm circular bore and a tangent teardrop roof. It passes the
 Ø6.35 mm tube between the aligned pump and tee stations while the surrounding face

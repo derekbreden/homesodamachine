@@ -14,9 +14,9 @@
     "SHELF_INSERTS": "17",
     "SHELF_SCREWS": "17",
     "SOLENOIDS": "10",
-    "TOTAL_INSERTS": "77",
-    "TOTAL_M3_INSERTS": "73",
-    "TOTAL_SCREWS": "77",
+    "TOTAL_INSERTS": "79",
+    "TOTAL_M3_INSERTS": "75",
+    "TOTAL_SCREWS": "79",
     "TOUCHFLO_SCREWS": "3"
   },
   "/hardware/scripts/_labor_totals.py": {
