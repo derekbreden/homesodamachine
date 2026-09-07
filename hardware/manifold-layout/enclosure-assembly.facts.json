@@ -281,10 +281,10 @@
    349.8734758363976
   ],
   "enclosure-back-bottom": [
-   -107.5,
+   -107.5000001,
    200.0,
    -6.000000000000002,
-   107.5,
+   107.5000001,
    467.0,
    174.8
   ],
@@ -300,7 +300,7 @@
    -107.5000001,
    4.9999999999999964,
    -6.0,
-   107.5,
+   107.5000001,
    213.05,
    174.8
   ],
@@ -328,45 +328,21 @@
    77.91500000000005,
    282.4950001
   ],
-  "enclosure-tee-carrier": [
-   -98.35,
-   111.2180001,
-   171.24500009999997,
-   98.35,
-   116.21800010000001,
-   209.24500009999997
-  ],
-  "enclosure-tee-carrier-tab-left": [
+  "enclosure-tee-carrier-left": [
    -107.2,
-   111.2180001,
-   197.00000009999997,
-   -94.15,
-   113.7180001,
-   209.00000009999997
+   102.71800010000001,
+   171.24500009999997,
+   6.0,
+   116.21800010000001,
+   217.00000009999997
   ],
-  "enclosure-tee-carrier-tab-lock-left": [
-   -98.5,
-   111.4680001,
-   204.80000009999998,
-   -96.5,
-   113.4680001,
-   208.00000009999997
-  ],
-  "enclosure-tee-carrier-tab-lock-right": [
-   96.5,
-   111.4680001,
-   204.80000009999998,
-   98.5,
-   113.4680001,
-   208.00000009999997
-  ],
-  "enclosure-tee-carrier-tab-right": [
-   94.15,
-   111.2180001,
-   197.00000009999997,
+  "enclosure-tee-carrier-right": [
+   -6.0,
+   108.71800010000001,
+   171.24500009999997,
    107.2,
-   113.7180001,
-   209.00000009999997
+   116.21800010000001,
+   217.00000009999997
   ],
   "flow-regulator": [
    -98.3,
@@ -2083,10 +2059,11 @@
     107.5
    ],
    "assembly_state": "connected",
-   "carrier_lowering_air_x": 0.15000000000000568,
+   "carrier_lowering_air_x": 0.15,
    "connected_offset_y": 1.5,
    "connected_release_travel": 4.65,
    "exterior_abs_x": 107.5,
+   "finger_run": 18.0,
    "fixed_spring_bearing_y": 91.396,
    "fore_stop_x": [
     94.0,
@@ -2111,6 +2088,29 @@
     196.24500009999997
    ],
    "guide_travel": 6.15,
+   "half_entry_shift_x": 8.850000000000003,
+   "half_install_order": [
+    1,
+    -1
+   ],
+   "joint_count": 2,
+   "joint_face_y": 107.21800010000001,
+   "joint_fore_y": 101.21800010000001,
+   "joint_insert_length": 4.0,
+   "joint_screw_count": 2,
+   "joint_screw_length": 8.0,
+   "joint_sites": [
+    [
+     0.0,
+     104.21800010000001,
+     180.2450001
+    ],
+    [
+     0.0,
+     104.21800010000001,
+     200.2450001
+    ]
+   ],
    "lowering_cavity_x": [
     -98.5,
     98.5
@@ -2118,27 +2118,23 @@
    "park_aft_stop_y": 115.21800010000001,
    "park_offset_y": 3.0,
    "printed_parts": [
-    "enclosure-tee-carrier",
-    "enclosure-tee-carrier-tab-left",
-    "enclosure-tee-carrier-tab-right",
-    "enclosure-tee-carrier-tab-lock-left",
-    "enclosure-tee-carrier-tab-lock-right"
+    "enclosure-tee-carrier-left",
+    "enclosure-tee-carrier-right"
    ],
    "release_fore_stop_y": 106.5680001,
    "release_offset_y": -3.15,
-   "service_opening_top_z": 214.20300009999997,
-   "service_slot_roof_z": 214.20300009999997,
+   "service_slot_roof_z": 230.62500009999997,
    "service_slot_x": [
     98.35,
     108.5
    ],
    "service_slot_y": [
-    106.41800009999999,
-    115.3680001
+    106.4180001,
+    133.36800010000002
    ],
    "service_slot_z": [
-    196.85000009999996,
-    209.15000009999997
+    188.00000009999994,
+    217.15000009999997
    ],
    "spring_bearing_lengths": {
     "connected": 21.822,
@@ -2211,153 +2207,6 @@
     196.245
    ],
    "tab_count": 2,
-   "tab_install_path": [
-    {
-     "entry_exterior_air_x": 0.15,
-     "insert_holds_y": [
-      109.7180001,
-      112.2180001
-     ],
-     "insert_holds_z": [
-      197.00000009999997,
-      209.00000009999997
-     ],
-     "insert_inward_x": 13.5,
-     "lock_entry_axis": [
-      0.0,
-      0.0,
-      -1.0
-     ],
-     "lock_entry_lift_z": 4.594999999999999,
-     "side": -1,
-     "start_shift_x": -13.5,
-     "start_tab_x": [
-      -120.7,
-      -107.65
-     ]
-    },
-    {
-     "entry_exterior_air_x": 0.15,
-     "insert_holds_y": [
-      109.7180001,
-      112.2180001
-     ],
-     "insert_holds_z": [
-      197.00000009999997,
-      209.00000009999997
-     ],
-     "insert_inward_x": -13.5,
-     "lock_entry_axis": [
-      0.0,
-      0.0,
-      -1.0
-     ],
-     "lock_entry_lift_z": 4.594999999999999,
-     "side": 1,
-     "start_shift_x": 13.5,
-     "start_tab_x": [
-      107.65,
-      120.7
-     ]
-    }
-   ],
-   "tab_joint_sites": [
-    {
-     "entry_shift_x": -13.5,
-     "lock_center_xy": [
-      -97.5,
-      110.9680001
-     ],
-     "receiver_x": [
-      -98.35,
-      -93.5
-     ],
-     "receiver_y": [
-      109.7180001,
-      112.2180001
-     ],
-     "receiver_z": [
-      196.24500009999997,
-      209.24500009999997
-     ],
-     "side": -1,
-     "socket_x": [
-      -98.5,
-      -94.0
-     ],
-     "socket_y": [
-      110.16800009999999,
-      111.76800010000001
-     ],
-     "socket_z": [
-      202.55000009999995,
-      207.35000009999996
-     ],
-     "tongue_x": [
-      -98.65,
-      -94.15
-     ],
-     "tongue_y": [
-      110.31800009999999,
-      111.6180001
-     ],
-     "tongue_z": [
-      202.70000009999995,
-      207.20000009999995
-     ]
-    },
-    {
-     "entry_shift_x": 13.5,
-     "lock_center_xy": [
-      97.5,
-      110.9680001
-     ],
-     "receiver_x": [
-      93.5,
-      98.35
-     ],
-     "receiver_y": [
-      109.7180001,
-      112.2180001
-     ],
-     "receiver_z": [
-      196.24500009999997,
-      209.24500009999997
-     ],
-     "side": 1,
-     "socket_x": [
-      94.0,
-      98.5
-     ],
-     "socket_y": [
-      110.16800009999999,
-      111.76800010000001
-     ],
-     "socket_z": [
-      202.55000009999995,
-      207.35000009999996
-     ],
-     "tongue_x": [
-      94.15,
-      98.65
-     ],
-     "tongue_y": [
-      110.31800009999999,
-      111.6180001
-     ],
-     "tongue_z": [
-      202.70000009999995,
-      207.20000009999995
-     ]
-    }
-   ],
-   "tab_lock_count": 2,
-   "tab_lock_entry_air_z": 1.608000000000004,
-   "tab_lock_entry_top_z": 212.59500009999996,
-   "tab_lock_z": [
-    204.80000009999998,
-    208.00000009999997
-   ],
    "tab_pad_x": [
     [
      -107.2,
@@ -2368,23 +2217,13 @@
      107.2
     ]
    ],
-   "tab_slot_x": [
-    [
-     -107.2,
-     -98.65
-    ],
-    [
-     98.65,
-     107.2
-    ]
-   ],
    "tab_slot_y_sweep": [
-    106.56800009999999,
-    115.2180001
+    106.5680001,
+    115.21800010000001
    ],
    "tab_slot_z": [
     197.00000009999997,
-    209.00000009999997
+    217.00000009999997
    ],
    "tee_count": 4,
    "tie_sites": [
@@ -2688,7 +2527,7 @@
     -104.5,
     -107.5,
     1.0,
-    17.95
+    49.1
    ],
    [
     -104.5,
@@ -2706,7 +2545,7 @@
     104.5,
     107.5,
     -1.0,
-    17.95
+    49.1
    ],
    [
     104.5,
@@ -2727,7 +2566,7 @@
    true
   ]
  },
- "card": "06fd02e740bc495454088c84682aeb58",
+ "card": "56dcb810f0ea7b6aead91c314b69b4f4",
  "card_ports": {
   "asse1022-assembly": {
    "tube-in": {
@@ -3350,9 +3189,6 @@
    "condenser+fan",
    "digiten-flow",
    "discharge-chain",
-   "enclosure-tee-carrier",
-   "enclosure-tee-carrier-tab-lock-left",
-   "enclosure-tee-carrier-tab-lock-right",
    "flow-regulator",
    "foam-assembly",
    "fuse-clamp",
@@ -3514,10 +3350,10 @@
  "pieces": {
   "back-bottom": {
    "box": [
-    -107.5,
+    -107.5000001,
     200.0,
     -6.000000000000002,
-    107.5,
+    107.5000001,
     467.0,
     174.8
    ]
@@ -3537,7 +3373,7 @@
     -107.5000001,
     4.9999999999999964,
     -6.0,
-    107.5,
+    107.5000001,
     213.05,
     174.8
    ]
@@ -3798,8 +3634,8 @@
   }
  ],
  "schema": 2,
- "sources": "ae38f39ffb6b75d5b9b097423201918e",
- "step": "ce68c0ecc0110f5d4c4cd21dce35f619",
+ "sources": "e6343bc19244575a5cf07a18eaef0656",
+ "step": "1ca172c60588370fe2a7090c06b7e5cf",
  "valve_tray_stations": [
   [
    173.56,
