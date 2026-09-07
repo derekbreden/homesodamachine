@@ -57,13 +57,13 @@
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 493 of 1000 free, the next cut wants 3, and the whole lock reads by name in 143.9 MB against 146.4 MB of bundle",
+      "note": "check_release_room: 467 of 1000 free, the next cut wants 3, and the whole lock reads by name in 147.5 MB against 150.1 MB of bundle",
       "status": "ok"
     },
     {
       "check": "tools/check_web_tests.py",
-      "note": "cd web && npm test",
-      "status": "red"
+      "note": "check_web_tests: web's suite passes",
+      "status": "ok"
     },
     {
       "check": "tools/bazel/check_build_file.py",
@@ -82,20 +82,15 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 7 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 346 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 3 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 346 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds f5ae544df66262b727722314e086ea39 for the 127 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at ae38f39ffb6b75d5b9b097423201918e here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was taken from a different tree — it holds ae38f39ffb6b75d5b9b097423201918e for the 127 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at e1959787220e4a6939e2bb24625f4c21 here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
-    ],
-    "tools/check_web_tests.py": [
-      "1 test(s) in web/ fail:",
-      "    the artifact lock pins every committed viewer scorecard",
-      "  cd web && npm test"
     ]
   },
   "green": false
