@@ -4,3 +4,12 @@ click: x=100.925 y=335.525 z=168.850
 click: x=-100.925 y=266.275 z=168.850
 click: x=-100.925 y=388.750 z=168.850
 
+[ceiling] The bottom handholds' flat lifting ceilings stand 35 mm above the standing underside, with 12 mm of roof section above them. Fingers enter upward through the removed floor and bear against these faces. Each roof joins the opening's end walls, its blind inner wall and the seam jamb above it; slicer support reaches the ceiling directly from the bed through the open bottom.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
+click: x=-99.000 y=224.500 z=29.000
+click: x=99.000 y=224.500 z=29.000
+
+[sliver] The floor recess's 0.15 mm running-clearance returns end beside the handhold inner walls at Y213.2. Each 0.15 × 6 mm face closes a clearance slot and is backed by the continuous floor slab aft of it. The clearance keeps the front floor tongue free of the back piece as their floor scarf and inner-wall scarf telescope together.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
+click: x=-90.425 y=213.200 z=-3.000
+click: x=90.425 y=213.200 z=-3.000

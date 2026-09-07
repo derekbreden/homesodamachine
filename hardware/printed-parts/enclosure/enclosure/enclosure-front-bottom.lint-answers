@@ -23,3 +23,9 @@ click: x=0.000 y=98.307 z=83.225
 click: x=0.000 y=98.307 z=111.725
 click: x=0.000 y=98.307 z=140.225
 click: x=0.000 y=76.243 z=140.225
+click: x=0.000 y=132.655 z=54.726
+
+[ceiling] The bottom handholds' flat lifting ceilings stand 35 mm above the standing underside, with 12 mm of roof section above them. Fingers enter upward through the removed floor and bear against these faces. Each roof joins the opening's end walls, its blind inner wall and the seam jamb above it; slicer support reaches the ceiling directly from the bed through the open bottom.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
+click: x=-97.500 y=196.025 z=29.000
+click: x=97.500 y=196.025 z=29.000
