@@ -873,7 +873,12 @@ def mq6_cradle(carry):
 # message the reading wrote. The card is committed and a terminal is not, so the red row is the
 # louder of the two — and the artifact that shows WHY it is red still exists.
 
-Bound = collections.namedtuple("Bound", "id label ok value target detail")
+# `kind` is what the card does with the reading: a `gate` is a requirement the machine is
+# held to, a `goal` a reading taken beside it. A bound that states a SHAPE rather than a
+# fit is a goal — it has an opinion about what the geometry should look like, and an
+# opinion is a thing to read and argue with, never a thing to pass.
+Bound = collections.namedtuple("Bound", "id label ok value target detail kind",
+                               defaults=("gate",))
 
 BOUNDS: list = []
 
@@ -5673,7 +5678,8 @@ def wedge_fills(placed, authored_corbels=()) -> Bound:
         f"{WEDGE_CLEAR:g} mm of one, {counts['kept']} in a kept room, {counts['fill']} could be "
         f"columns" + (f"; {len(stale)} kept room(s) match nothing" if stale else ""),
         "no unaccounted slope a column could replace, and every named room standing",
-        detail + [f"kept room `{s}` matches no face" for s in stale]))
+        detail + [f"kept room `{s}` matches no face" for s in stale],
+        "goal"))
 
 
 def pack(a: cq.Assembly = None) -> "_enc.Pack":
