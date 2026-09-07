@@ -397,7 +397,7 @@ vent_filters_per_build = vent_filters_per_reservoir_cap * reservoirs_per_build
 digiten_tie_loop = _enc.tube_anchor_tie_loop(_digiten.port_dia / 2.0 + _ea.DIGITEN_SEAT_SLIP)
 # EVERY RIB HOLDING A RUN IS BORED FOR THE ONE STOCK, which is why the row quotes one figure for
 # all of them rather than reading them apiece.
-_run_seats = {round(r, 6) for *_s, r in _f.pack["tube_anchors"]}
+_run_seats = {round(station[3], 6) for station in _f.pack["tube_anchors"]}
 if len(_run_seats) != 1:
     raise ValueError(
         f"the box's run anchors are bored at {sorted(_run_seats)} and bom.md §11 quotes one loop "

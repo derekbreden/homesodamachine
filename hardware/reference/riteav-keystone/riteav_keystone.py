@@ -79,7 +79,7 @@ EASE_DEG = 50.0
 CATCH_UPPER = (2.0, 1.4)
 CATCH_LOWER = (2.6, 1.3)
 # What the receptacle keeps around its pocket, so the boss carrying it is a wall and not a rim.
-RECEPTACLE_WALL = 2.5
+RECEPTACLE_WALL = 3.0
 
 # --- the jack itself -----------------------------------------------------------------
 # How far the body reaches inboard of the wall's outer plane — the volume the band above the
