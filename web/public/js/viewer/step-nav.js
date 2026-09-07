@@ -10,9 +10,11 @@
 //
 // route.js hands popstate here whenever both sides of a move are STEP.
 
+import * as THREE from "three";
 import { state } from "./state.js";
+import { standsIn } from "/contracts/body-path.js";
 import { surfaceText } from "./pick-format.js";
-import { saveCameraState, applyCameraState } from "./scene.js";
+import { camera, controls, saveCameraState, applyCameraState } from "./scene.js";
 import { loadStepFile } from "./step.js";
 import { mountScorecard } from "./scorecard-3d.js";
 import { mountRelated } from "./related-nav.js";
@@ -25,6 +27,18 @@ let trail = [];
 
 function label(file) {
   return file.slice(file.lastIndexOf("/") + 1).replace(/\.step$/i, "");
+}
+
+// Centre of a body or of the whole mounted model. Only the drawn body meshes
+// contribute; x-ray edges and picker overlays are scene furniture.
+function bodyCenter(name = null) {
+  const box = new THREE.Box3();
+  for (const mesh of (state.currentGroup ? state.currentGroup.children : [])) {
+    if (!mesh.isMesh || mesh.userData?.side !== "front") continue;
+    if (name && (!mesh.name || !standsIn(mesh.name, name))) continue;
+    box.expandByObject(mesh);
+  }
+  return box.isEmpty() ? null : box.getCenter(new THREE.Vector3());
 }
 
 // ── The path in the URL ─────────────────────────────────────────────────────
@@ -145,9 +159,10 @@ function syncCrumb(file) {
 
 // ── The move ────────────────────────────────────────────────────────────────
 // Everything the open modal shows that belongs to a particular file, brought
-// over to `file`: the camera it was last left at, its name, its scorecard bar
-// and the port/box chips that bar mounts, and which file the editor writes to.
-async function showStep(file, push) {
+// over to `file`: its camera, name, scorecard bar and the port/box chips that
+// bar mounts, and which file the editor writes to. A component drill carries
+// the live camera; every other move takes the camera stored for its file.
+async function showStep(file, push, view = null) {
   const from = state.mountedDetail && state.mountedDetail.file;
   if (!from || file === from) return false;
   saveCameraState(from);
@@ -157,10 +172,24 @@ async function showStep(file, push) {
     pushed += 1;
   }
 
-  await loadStepFile(file);
+  await loadStepFile(file, { preserveCamera: !!view });
   if (!state.mountedDetail || state.mountedDetail.file !== file) return false;
 
-  applyCameraState(file);
+  if (view) {
+    // Stand in the same place relative to the opened body even when its source
+    // file uses its own origin instead of the assembly's machine coordinates.
+    const destination = bodyCenter();
+    const shift = destination && view.anchor
+      ? destination.sub(view.anchor)
+      : new THREE.Vector3();
+    camera.position.copy(view.position).add(shift);
+    camera.up.copy(view.up);
+    controls.target.copy(view.target).add(shift);
+    controls.update();
+    saveCameraState(file);
+  } else {
+    applyCameraState(file);
+  }
   setFilename(file);
   syncCrumb(file);
   if (state.currentCadWrapper) {
@@ -171,12 +200,31 @@ async function showStep(file, push) {
   return true;
 }
 
-// The component picker's offer, taken.
-export async function drillTo(file) {
+async function drill(file, view = null) {
   const from = state.mountedDetail && state.mountedDetail.file;
   if (!from || file === from) return;
   trail.push(from);
-  if (!(await showStep(file, true))) trail.pop();
+  if (!(await showStep(file, true, view))) trail.pop();
+}
+
+// A neighbouring or otherwise-related model keeps the view stored for that
+// model; it has no body in the current picture to inherit a view from.
+export async function drillTo(file) {
+  return drill(file);
+}
+
+// Opening a component is a subtraction in the current shot. The camera keeps
+// its position, roll and orbit point relative to that body while the assembly
+// around it disappears. `anchor` carries the translation between an assembly's
+// machine coordinates and a source model's own origin.
+export async function drillToComponent(file, component) {
+  const anchor = bodyCenter(component);
+  return drill(file, {
+    position: camera.position.clone(),
+    up: camera.up.clone(),
+    target: controls.target.clone(),
+    anchor,
+  });
 }
 
 // popstate landed on another STEP with this modal already open. Same move, no
