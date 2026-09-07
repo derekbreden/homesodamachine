@@ -166,6 +166,8 @@ def main():
         "CEILING_LANE": f"{_enc.appliance_height - _enc.floor_t - _enc.wall:.4g}",
         "LIP_UNDERWALL": f"{2.0 * _enc.wall:.4g} mm",
         "Y_SEAM": f"{_box["y_joint"]:.4g}",
+        "SEAM_LOWER_Z": f"{min(row[3] for row in _box["y_bosses"]):.4g} mm",
+        "SEAM_MIDDLE_Z": f"{sorted({row[3] for row in _box["y_bosses"]})[1]:.4g} mm",
         "Z_SEAM_FRONT": f"{_box["splits"][0]:.4g}",
         "Z_SEAM_BACK": f"{_box["splits"][1]:.4g}",
         # HOW FAR PROUD EACH TOP STANDS before it is drawn home — that column's own rail
