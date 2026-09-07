@@ -1443,14 +1443,12 @@ def back_flank_start(y_joint):
 # screws — the plug back-top carries, in the socket front-top's lip carries. Four M3×10
 # close the whole box, and the two upper ones are what front-top hangs on.
 #
-# EVERY FACE OF THE JOINT PRINTS AT ITS OWN RULE, and the CATCH faces are square. The
-# head's underside — the catch — is the joint's one down-looking flat, an abrupt
-# `hook_lap + slide_slip` ledge at the top of a piece that prints floor-down. The notch's roof closes the top's wall
-# back to full section at 45° over (that piece prints mouth-down on the same +Z build
-# axis); the arm's base falls back to the lip's underwall at 45° under; every sliding
-# face is vertical or horizontal. No channel anywhere in the joint closes over the bed
-# of the piece that prints it — the notch is an open rebate in the wall's own inboard
-# face, not a cavity.
+# THE CATCH FACES ARE SQUARE. The head's broad underside and the foot's broad top are
+# the joint's bearing against lift, flat along both complete runs. The bottom pieces print
+# those undersides with support. Front-top prints its foot from the mouth; back-top prints
+# its foot ceiling-down with support under the caught face. The notch's roof closes the wall
+# back to full section at 45°, and the arm's base falls back to the lip's underwall at 45°;
+# every sliding and bearing face remains vertical or horizontal.
 slide_slip = fits.slip       # per-face running clearance on every sliding face of a Z seam
 hook_foot = 8.7              # the foot: the top's full section, mouth face to caught face
 hook_lap = 2.0               # the catch overlap before a thick flank spends its added section
@@ -1475,16 +1473,6 @@ hook_arm = 4.0
 rail_stop_len = 4.0          # the stop block closing each rail's far end, along Y
 rail_entry = 5.0             # approach past full disengagement, entry to first engagement
 rail_lead = 2.0              # 45° plan taper easing the head's open end over the foot
-# THE BACK COLUMN'S CATCH IS A RIDGE IN A GROOVE. back-top prints on its ceiling, so its foot's
-# caught face looks print-down over the notch, and a flat there is a cantilever the head's own
-# width laid over air. The foot carries a 45° groove down the run instead and back-bottom's head a
-# matching 45° ridge: every face of the catch is a slope each print lays on the layer below it,
-# and a lift lands the ridge in the groove on both flanks at once, the two flanks' side loads
-# cancelling. `hook_apex_flat` is the land the ridge keeps at its apex; the groove stands off the
-# ridge by one `slide_slip` on its land and inboard flank and two on its outboard one, so the catch
-# closes after a lift of `slide_slip` and its lateral play is of that order. The front column's catch stays flat: front-top prints mouth-down and
-# its caught face looks print-up.
-hook_apex_flat = 1.0
 # HOW FAR THE RAIL REACHES BELOW ITS SEAM, the way `z_rise` is how far it reaches above. The
 # arm's base falls back to the lip's underwall on a 45° under-flare, so the fall equals its own
 # run: the arm's back stands `slide_slip + hook_arm` inboard of the nominal foot face and the
@@ -4176,18 +4164,13 @@ def _z_rail_heads(inner, y_joint, zj, col, plate, chase=()):
     station of the flank on the way in, and outside the runs the seam is the mouth
     bearing on the shoulder with nothing proud of it.
 
-    THE HEAD IS THE CATCH. On the front column its faces are square: its underside is flat
-    and the foot's top face under it is flat, so lifting the top lands the two on each other
-    along the whole run, full faces bearing from the first micron. That underside is the
-    joint's one down-looking flat — the column's hook overlap plus `slide_slip` proud, an
-    abrupt ledge at the TOP of a piece that prints floor-down. On the back column the head
-    carries a RIDGE (`hook_apex_flat`): two 45° faces off its own two edges down to a flat
-    land, which lands in the groove `_z_rail_channels` cuts in back-top's foot, the two flanks'
-    side loads cancelling. The ridge's land is that column's down-looking flat, a millimetre
-    wide instead of the hook's whole lap, and it is a supported face on this floor-down print.
-    The arm's base falls back to the lip's underwall on a 45° under-flare on both columns.
-    The head's open end tapers `rail_lead` in plan, so the foot finds the head before the head
-    finds it.
+    THE HEAD IS THE CATCH, AND ITS FACES ARE SQUARE. Its underside is flat and the
+    foot's top face under it is flat: lifting the top lands the two on each other
+    along the whole run, full faces bearing from the first micron. That underside
+    is the joint's one down-looking flat — the column's hook overlap plus `slide_slip` proud,
+    an abrupt ledge at the TOP of a piece that prints floor-down. The arm's base falls back
+    to the lip's underwall on a 45° under-flare. The head's open end tapers `rail_lead` in
+    plan, so the foot finds the head before the head finds it.
 
     THE STOP BLOCK IS THE DATUM. It fills the arm's whole section plus the head's
     lap over `rail_stop_len` at the closed end, and the foot's end face landing on
@@ -4209,20 +4192,10 @@ def _z_rail_heads(inner, y_joint, zj, col, plate, chase=()):
         x_uw = wall_face - sx * 0.5
         drop = rail_flare_drop                    # equals abs(x_h1 - x_uw): the fall is the run
         arm = arm.fuse(_xz_prism(y0, y1, [(x_uw, zj), (x_h1, zj), (x_uw, zj - drop)]))
-        # THE BACK COLUMN'S HEAD CARRIES THE RIDGE (`hook_apex_flat`): two 45° faces off the
-        # head's own two edges down to a flat land, the run's whole length. The groove it lands
-        # in is cut by `_z_rail_channels` one `slide_slip` off every face of it.
-        ridge = 0.0
-        if col == "back":
-            zh = z_foot + slide_slip
-            ridge = (abs(x_a - x_hk) - hook_apex_flat) / 2.0
-            arm = arm.fuse(_xz_prism(y0, y1, [
-                (x_hk, zh + 0.5), (x_a, zh + 0.5), (x_a, zh),
-                (x_a - sx * ridge, zh - ridge), (x_hk + sx * ridge, zh - ridge), (x_hk, zh)]))
         # The plan taper at the OPEN end, whichever end that is: the head's lap falls back
         # to the arm's own sliding face over `rail_lead`, the cut reaching INTO the run,
-        # every face of it vertical — and through the ridge, which is the head's too.
-        lead = _xy_prism(z_foot - 1.0 - ridge, rim + 1.0, (
+        # every face of it vertical.
+        lead = _xy_prism(z_foot - 1.0, rim + 1.0, (
             (x_a, y0), (x_hk - sx * 1.0, y0),
             (x_hk - sx * 1.0, y0 + sy * rail_lead)))
         arm = arm.cut(lead)
@@ -4241,10 +4214,11 @@ def _z_rail_feet(inner, y_joint, zj, col, plate, chase=()):
 
     Each is one box: the box interior face out to the foot's face, mouth to the
     caught face, the run less the stop block — so its end face at the closed end IS
-    the face that lands home. It lies on the bed of a piece that prints mouth-down,
-    rooted to the wall down its whole height. On both columns it carries the full nominal
-    flank section to the seam, and the hook lies over the inboard part of that foot. The
-    collet plate's ends are derived from the front rail's complete moving envelope."""
+    the face that lands home. It is rooted to the wall down its whole height. Front-top
+    prints that face up from its mouth; back-top prints it down from its ceiling and support
+    carries it. On both columns the foot carries the full nominal flank section to the seam,
+    and the hook lies over its inboard part. The collet plate's ends are derived from the
+    front rail's complete moving envelope."""
     z_foot = zj + hook_foot
     out = None
     for x_in, sx, y0, y1, _lane in _z_rail_runs(inner, y_joint, col, plate, chase):
@@ -4277,14 +4251,12 @@ def _z_rail_channels(inner, y_joint, zj, col, plate, chase=()):
     TWO PROFILES DOWN ONE LANE. Fore of the stop face the void is the arm's berth
     and the NOTCH over the foot: inboard of the foot's face it opens from the mouth —
     the arm's own lane, `slide_slip` off its back — and outboard it opens from the
-    foot's caught face up, `slide_slip` deeper than the head, stopping one slip outboard
-    of the head; a 45° GABLE closes the roof `slide_slip` over the arm's cap, two
+    foot's broad, flat caught face up, `slide_slip` deeper than the head, stopping one slip
+    outboard of the head; a 45° GABLE closes the roof `slide_slip` over the arm's cap, two
     faces rising off the channel's walls and meeting over it, so a piece that prints
     mouth-down lays nothing flat across the void — and the gable's outboard face is
-    the notch's own roof, carrying the wall back out to its full section. On the back
-    column the caught face itself is a GROOVE (`hook_apex_flat`) the head's ridge lands in,
-    one `slide_slip` off every face of that ridge: back-top prints on its ceiling, so the
-    caught face looks print-down there and two 45° faces are what it lays on itself. AFT of the
+    the notch's own roof, carrying the wall back out to its full section. Back-top prints
+    ceiling-down and support carries its flat caught face. AFT of the
     stop face the front column's void is the FULL section, mouth to gable: everything
     of that piece standing aft of the stop — the flank's own seam band, the wall
     under the lip's cavity, the Y-seam tongue's own flank segment — sweeps over the
@@ -4327,23 +4299,6 @@ def _z_rail_channels(inner, y_joint, zj, col, plate, chase=()):
         void = _xz_prism(y0, stop, [
             (x_open, z_foot), (x_f, z_foot), (x_f, zj - 1.0), (x_d, zj - 1.0),
             (x_d, z_roof), (x_peak, z_peak), (x_open, z_roof)])
-        if col == "back":
-            # THE GROOVE THE RIDGE LANDS IN, down the notch's whole run: the ridge's own profile
-            # stood off by one `slide_slip` on its land and inboard flank and two on its outboard
-            # one. That flank starts at the notch's own corner on the channel's standing wall, so
-            # the notch's floor is wholly the groove's and no strip of it is left coplanar with the
-            # foot; the land lies under the caught face and the inboard flank runs out through the
-            # foot's own inboard face.
-            w = abs(x_f - x_open)
-            d = (w - hook_apex_flat) / 2.0
-            s2 = slide_slip * math.sqrt(2.0)
-
-            def at(u, z):
-                return (x_open + sx * u, z)
-            void = void.fuse(_xz_prism(y0, stop, [
-                at(0.0, z_foot + 1.0), at(w + 1.0, z_foot + 1.0),
-                at(w + 1.0, z_foot + 1.0 - s2),
-                at(w - d + s2, z_foot - d), at(d, z_foot - d), at(0.0, z_foot)]))
         if (lane_aft - stop) * sy > 0:
             void = void.fuse(_xz_prism(stop, lane_aft, [
                 (x_open, zj - 1.0), (x_d, zj - 1.0), (x_d, z_roof),
@@ -9246,6 +9201,52 @@ def _report_slide(pieces, box):
                 f"{channel_skins}. Carry the {bottom_flank_t - 2.0 * wall:.2f} mm grown "
                 f"past the lip wall into the hook while keeping one full wall outside "
                 f"its channel"])))
+        if col == "back":
+            # THE CATCH IS A PAIR OF BROAD PLANES, NOT MERELY TWO SOLIDS WHICH COLLIDE
+            # WHEN LIFTED. A ridge in a groove passes the engagement-volume reading above while
+            # replacing the rail's bearing with two cams. Read the finished B-reps at the two
+            # stated bearing planes and require most of the nominal full-width run on each piece.
+            def flat_bearing_area(solid, z, normal_z, top_side):
+                area = 0.0
+                tol = 1e-3
+                for face in solid.Faces():
+                    if face.geomType() != "PLANE":
+                        continue
+                    normal = face.normalAt()
+                    bounds = face.BoundingBox()
+                    if (abs(normal.x) > tol or abs(normal.y) > tol
+                            or normal.z * normal_z < 1.0 - tol
+                            or abs(bounds.zmin - z) > tol or abs(bounds.zmax - z) > tol):
+                        continue
+                    centre = face.Center()
+                    for x_in, sx, y0, y1, _lane in _runs:
+                        sy = 1.0 if y1 > y0 else -1.0
+                        stop = y1 - sy * rail_stop_len
+                        x_hk, x_f, x_a, _x_h1 = _rail_x(x_in, sx, col)
+                        x_other = x_hk - sx * slide_slip if top_side else x_a
+                        xa, xb = sorted((x_f if top_side else x_hk, x_other))
+                        ya, yb = sorted((y0, stop))
+                        if (xa - tol <= centre.x <= xb + tol
+                                and ya - tol <= centre.y <= yb + tol):
+                            area += face.Area()
+                            break
+                return area
+
+            z_foot = box.splits[1] + hook_foot
+            bottom_flat = flat_bearing_area(bot, z_foot + slide_slip, -1.0, False)
+            top_flat = flat_bearing_area(top, z_foot, +1.0, True)
+            nominal_flat = sum(
+                (abs(y1 - y0) - rail_stop_len) * (_rail_hook_lap(col) + slide_slip)
+                for _x_in, _sx, y0, y1, _lane in _runs)
+            required_flat = 0.85 * nominal_flat
+            if min(bottom_flat, top_flat) < required_flat:
+                raise ValueError(
+                    "the back Z-slide catch is not two broad horizontal bearing planes: "
+                    f"bottom {bottom_flat:.1f} mm², top {top_flat:.1f} mm², "
+                    f"each requires at least {required_flat:.1f} mm². Restore the square "
+                    "head underside and square foot top; support those functional faces.")
+            print(f"    flat bearings:  {bottom_flat:.1f} mm² bottom, "
+                  f"{top_flat:.1f} mm² top (minimum {required_flat:.1f} each)")
         out[col] = (worst, travel, len(rungs), lifted)
         print(f"  Z slide {col + ':':7s} travel {travel:6.1f} mm, worst contested "
               f"{worst[0]:6.1f} mm³ at {worst[1]:.2f} mm out; catch {lifted:8.1f} mm³ "
@@ -9732,8 +9733,6 @@ def main():
         "BACK_TOP_CEILING_FACE": f"{back_top_ceiling_face():.4g}",
         "CEILING_LANE": f"{appliance_height - floor_t - wall:.4g}",
         "BOSS_END_CLEAR": f"{boss_end_clear:.4g} mm",
-        # The land the back column's catch keeps at the apex of its ridge and groove.
-        "HOOK_APEX_FLAT": f"{hook_apex_flat:.4g} mm",
         # How much stock each grown flank stands INBOARD of the box's own interior — the room a
         # rib rooted on that piece loses, and the room its relief gives back.
         "BACK_TOP_FLANK_GROWN": f"{back_top_flank_t - wall:.4g} mm",

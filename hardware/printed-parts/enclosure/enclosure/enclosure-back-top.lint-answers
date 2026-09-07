@@ -2,12 +2,6 @@
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-104.500 y=319.500 z=172.350
 
-[sliver] The same groove lands read as strips — the stated `hook_apex_flat` and two slips between the groove's two 45° flanks, backed by the foot's own stub the run's whole length.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=100.969 y=335.525 z=166.625
-click: x=-100.969 y=388.750 z=166.625
-click: x=-100.969 y=266.275 z=166.625
-
 [sliver] The lane's own face between the slab's aft edge and the CO2 station's drafted land — the slab ends on back-top's +Y face and the land's drafted mouth begins one `station_land_draft` inside it, so this is the top wall's stated section showing between two stated datums.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=2.450 y=461.303 z=352.000
@@ -66,11 +60,11 @@ file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-37.810 y=461.305 z=292.820
 click: x=-37.810 y=465.505 z=295.200
 
-[ceiling] The back column's groove lands — `hook_apex_flat` and two slips wide, bridged between the groove's two 45° flanks along the run. Back-bottom's ridge lands in this groove on both flanks at once (`_z_rail_channels`).
+[ceiling] The back Z-slide feet's broad square caught faces — each top rail carries its full-section foot from the mouth to z=168.70, one `slide_slip` below the bottom catch at z=168.85. Lifting the seated top lands these planes against the heads along both complete runs, so they remain flat by the joint's bearing contract. Back-top prints ceiling-down and support carries the complete faces (`_z_rail_feet`, `_z_rail_channels`).
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=100.969 y=335.525 z=166.625
-click: x=-100.969 y=388.750 z=166.625
-click: x=-100.969 y=266.275 z=166.625
+click: x=101.075 y=335.525 z=168.700
+click: x=-101.075 y=388.750 z=168.700
+click: x=-101.075 y=266.275 z=168.700
 
 [ceiling] The upper Y-seam pins' top faces — the square registration face the front lip's socket slides over, flat by the joint's contract, 13 mm under the lane; a supported face reached from the slab.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
