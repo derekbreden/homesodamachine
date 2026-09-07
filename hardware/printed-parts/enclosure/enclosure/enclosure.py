@@ -1292,9 +1292,9 @@ front_bottom_flank_t = 9.0
 #
 #   * every purchased body whose placed solid enters the slab, over its exact plan plus assembly
 #     slip, up to its own crown plus a clearance (`Pack.ceiling_reliefs`, struck by the pack);
-#   * the flow meter's two anchors and every rib rooted on the ceiling, over the footprint the
-#     zip tie's loop comes down (`_ceiling_tie_reliefs`) — a rib is drawn to the lane and its
-#     cavity is the room its ends leave under it, so the slab stands off that room;
+#   * the flow meter's two anchors and every rib rooted on the ceiling, over the tie band
+#     alone and up to the channel's roof (`_ceiling_tie_reliefs`) — the tie's own hole either
+#     side of the rib, and nothing of the slab past it;
 #   * the tap-water chain's shared tie channel, from the flank to the far edge of the chain's
 #     own pocket over the span its two zip ties take (`_ceiling_tie_channel_relief`), so each
 #     loop comes west over the chain's crown in the lane and drops into the anchor's cavity
@@ -1731,9 +1731,9 @@ def documented(box):
 #                 leg a rib is centred on, which way the tube points there, which way the face
 #                 it stands on lies, and the section it seats
 #   ceiling_reliefs  named body pockets in back-top's ceiling slab, one
-#                 `(name, x0, x1, y0, y1, pocket_top_z)` each. The plan is the body's exact
-#                 intersection with the slab's stock plus assembly slip; the last number is the
-#                 roof left over it, at or under the lane. Geometry struck by the pack, not
+#                 `(name, x0, x1, y0, y1, pocket_top_z)` each. Ordinary entries cut that box.
+#                 `c14-inlet` cuts its canonical flange profile over the entry's Y span; its XZ
+#                 numbers are the resulting cut's bounds. Geometry struck by the pack, not
 #                 another placement.
 #   port_field    the pockets the +Y wall of back-top's outer face carries and the nut lands
 #                 behind them, (proud, rim, pockets) — how deep a pocket is cut and how far a
@@ -5275,29 +5275,33 @@ def _back_top_flanks(inner, outer, box, y_joint, zj, up=1.0):
 
 
 def _ceiling_tie_reliefs(box, lane):
-    """The pockets over the ceiling's own anchors where a zip tie has to pass: the flow meter's
-    two anchors over their tie bands, and each rib rooted on the ceiling over the footprint the
-    loop comes down — the rib's reach plus the tie's thickness and its routing air either side,
-    the rib's whole length, from the axis plane up to the lane. The rib itself is fused back into
-    its pocket afterwards; what stays open is the room round it."""
+    """The pockets over the ceiling's own anchors where a zip tie has to pass: each anchor's tie
+    band and no more of the rib's length — the rib's reach plus the tie's thickness and its
+    routing air either side, from the axis plane up to the channel's roof, one
+    `tube_anchor_cavity_depth` over the crown on the flow meter's anchors and the tube ribs
+    alike. The rib itself is fused back afterwards; what stays open is the tie's own room round
+    the band."""
     face = back_top_ceiling_face()
     pockets = []
     meter = box.pack.flow_meter_anchors
     if meter:
-        x_axis, _z_axis, seat_r, bands = meter
+        x_axis, z_axis, seat_r, bands = meter
         reach = seat_r + flow_meter_anchor_wall + tie_cav_buffer
+        roof = z_axis + seat_r + wall + tube_anchor_cavity_depth
         for by0, by1 in bands:
             mid = (by0 + by1) / 2.0
             pockets.append(_ybox(x_axis - reach, x_axis + reach,
                                  mid - tie_cav_w / 2.0, mid + tie_cav_w / 2.0,
-                                 face - 1.0, lane))
+                                 face - 1.0, roof))
     for mid, u, n, seat_r, *_stand in (box.pack.tube_anchors or ()):
         if tuple(int(round(c)) for c in n) != (0, 0, 1):
             continue
         origin = tuple(mid[k] - u[k] * tube_anchor_len / 2.0 for k in range(3))
+        band = tuple(origin[k] + u[k] * tie_cav_wall for k in range(3))
         crown = seat_r + wall
-        pockets.append(_anchor_rib(origin, u, n, tube_anchor_len,
-                                   crown + tie_t + tie_cav_buffer, 0.0, lane - mid[2]))
+        pockets.append(_anchor_rib(band, u, n, tie_cav_w,
+                                   crown + tie_t + tie_cav_buffer, 0.0,
+                                   crown + tube_anchor_cavity_depth))
     return pockets
 
 
@@ -5330,7 +5334,13 @@ def _back_top_ceiling(solid, inner, y_joint, box):
     if box.pack.funnel:
         x0, x1, y0, y1 = _funnel_cut_plan(box.pack.funnel)
         stock = stock.cut(_ybox(x0, x1, y0 - 1.0, y1, face - 1.0, lane + 2.0))
-    for _who, x0, x1, y0, y1, top in box.pack.ceiling_reliefs:
+    for who, x0, x1, y0, y1, top in box.pack.ceiling_reliefs:
+        if who == "c14-inlet":
+            cx, cz, _wx, _wz, _r = _c14_aperture(box.pack.c14, box.pack.back_ports)
+            pocket = (_c14.flange_prism(c14_pocket_slip, y0, y1)
+                      .translate((cx, 0.0, cz)).val())
+            stock = stock.cut(pocket)
+            continue
         roof = min(top, lane)
         if roof <= face + stated_bound_tol:
             continue
@@ -8447,11 +8457,14 @@ def _tube_anchors(solid, roots, lane, stations, y0, y1, z0, z1, up=1.0):
             # THE RELIEF, cut before the rib is fused so the rib is what fills it. Its floor is
             # `lane`, so what stands behind it is the one `wall` this box carries everywhere. The
             # rib's own reach runs the whole length; the two lobes the zip tie comes down are the
-            # tie band's, and the wall keeps its full section at the rib's two ends.
+            # tie band's, reach no further into the wall than the channel's own roof, and the
+            # wall keeps its full section at the rib's two ends.
             solid = solid.cut(_anchor_rib(origin, u, n, tube_anchor_len,
                                           reach, b_face, b_lane))
-            solid = solid.cut(_anchor_rib(band, u, n, tie_cav_w,
-                                          reach + tie_t + tie_cav_buffer, b_face, b_lane))
+            roof = b_crown + tube_anchor_cavity_depth
+            if roof > b_face + 1e-9:
+                solid = solid.cut(_anchor_rib(band, u, n, tie_cav_w,
+                                              reach + tie_t + tie_cav_buffer, b_face, roof))
         rib = _anchor_rib(origin, u, n, tube_anchor_len, reach, 0.0, b_crown)
         for w, (s0, s1) in enumerate(((0.0, tie_cav_wall),
                                       (tie_cav_wall + tie_cav_w, tube_anchor_len))):
