@@ -314,10 +314,9 @@ into the ceiling, with both corbels in each pair omitted atomically. The upper p
 the lower face of relay #1's aft column. `east-boss-fills`
 intersects all four rectangles with every installed body and admits only the four clear results.
 
-The joined main-board/relay-2 pad's first printed face projects only 2.25 mm from the east wall
-and bridges the 4.5 mm clear interval between the two established pads. The production G-code
-lays that face as two overhang-wall strokes and five 0.388 mm-spaced bridge strokes rooted on the
-wall and the pads; it emits no support tree there.
+The joined main-board/relay-2 pad's first printed face projects only 2.25 mm from the east wall,
+with its crown meeting relay #1's aft column. The production slice prints that wall-rooted
+projection with no support body or interface at the pad.
 
 The five Wago wells on the same wall are carried the same way (`enclosure._side_wells`). The
 row's tower stands on the ceiling slab's interior face (`enclosure.back_top_ceiling_face`) as a

@@ -49,9 +49,9 @@ click: x=97.375 y=337.000 z=258.900
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-93.227 y=407.710 z=347.250
 
-[ceiling] The joined upper main-board and relay-2 mounting pad — one 8.8 mm-tall rectangular block from the three insert stations to the east wall. Its 2.25 mm-deep top face is flat by that mounting field's contract and bridges only the clear 4.5 mm interval between the established pads. The production G-code lays its first layer as two overhang-wall strokes and five 0.388 mm-spaced bridge strokes rooted on the wall and the pads; it emits no support body there.
+[ceiling] The joined upper main-board and relay-2 mounting pad — one 9.3 mm-tall rectangular block from the three insert stations to the east wall, with its flat crown meeting relay #1's aft column. Its first printed face projects only 2.25 mm from the east wall. The production slice prints that wall-rooted projection with no support body or interface at the pad.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=97.375 y=331.250 z=326.710
+click: x=97.375 y=335.500 z=327.200
 
 [ceiling] The ASSE tie cavity's lower threshold — one full 3 mm wall from x -101.5 to -98.5 across the cavity's 31.6 mm span. The closed zip-tie loop crosses this threshold on its way under the anchor, so it remains flat and open; the production slice reaches the complete face from the ceiling slab with tree-4, a model-rooted support with 28.32 mm of build-up.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
