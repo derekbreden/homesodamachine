@@ -403,7 +403,9 @@ def audit(gcode: Path, piece: str, model: Path | None = None,
         nonlocal previous_tree, previous_island, first_layer_z
         if z is None:
             return
-        if layer_total and first_layer_z is None:
+        # The bed datum is the print's first layer, including model-only layers.
+        # A part with no bed-rooted support may begin its first support far above it.
+        if first_layer_z is None:
             first_layer_z = z
 
         tree_lookup: dict[tuple[int, int], int] = {}
@@ -630,6 +632,7 @@ def audit(gcode: Path, piece: str, model: Path | None = None,
             "profile_sha256": _sha256(profile) if profile else None,
         },
         "slicer": slicer_version,
+        "first_layer_z_mm": first_layer_z,
         "coordinate_frame": coordinate_frame,
         "slicer_settings": settings,
         "policy": {
@@ -689,6 +692,30 @@ G1 X11 Y0 E1
     assert result["summary"]["model_rooted_bodies"] == 1, result
     assert result["summary"]["build_up_buckets"]["under_5_mm"] == 1, result
     assert result["summary"]["build_up_buckets"]["5_to_10_mm"] == 1, result
+
+    model_rooted_fixture = """G90
+M83
+; Z_HEIGHT: 0.2
+; FEATURE: Outer wall
+G1 X0 Y0
+G1 X4 Y0 E1
+; Z_HEIGHT: 10.2
+; FEATURE: Support
+G1 X0 Y0
+G1 X1 Y0 E1
+; Z_HEIGHT: 18.2
+; FEATURE: Support interface
+G1 X0 Y0
+G1 X1 Y0 E1
+"""
+    with tempfile.TemporaryDirectory() as directory:
+        path = Path(directory) / "model-rooted-only.gcode"
+        path.write_text(model_rooted_fixture)
+        model_rooted = audit(path, "model-rooted-only")
+    assert model_rooted["first_layer_z_mm"] == 0.2, model_rooted
+    assert model_rooted["summary"]["bed_rooted_bodies"] == 0, model_rooted
+    assert model_rooted["summary"]["model_rooted_bodies"] == 1, model_rooted
+    assert model_rooted["trees"][0]["shortest_build_up_mm"] == 8.0, model_rooted
 
     shared_fixture = """G90
 M83

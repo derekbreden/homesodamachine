@@ -153,7 +153,7 @@ The internal tee-carrier set is PET-GF: one carrier, two handed service tabs, an
 | Faucet shell (2-piece: base + tip) | 1 | PET-GF | 0.194 | $4.86 <!--@printed--> |
 | Faucet display cover plate | 1 | PET-GF | 0.007 | $0.18 <!--@printed--> |
 | Above-counter plate | 1 | PET-GF | 0.015 | $0.38 <!--@printed--> |
-| **Printed parts total** | | | **~6.91** | **[$159.93](BOM_SEC7)** |
+| **Printed parts total** | | | **~6.91** | **[$159.92](BOM_SEC7)** |
 
 By material: PETG ≈ 0.99 kg / $11.07 — of which the four translucent reservoir parts are ≈ 0.88 kg / $9.85 — and PET-GF ≈ 5.93 kg / $148.29.
 
@@ -309,7 +309,7 @@ The bonus bagged inside the install kit, with its own guide: what a buyer uses t
 | 4. CO2 subsystem | [$96.56](BOM_SEC4) |
 | 5. Refrigeration | [$142.25](BOM_SEC5) |
 | 6. Cold core insulation | [$15.62](BOM_SEC6) |
-| 7. Printed parts (PETG + PET-GF) | [$159.93](BOM_SEC7) |
+| 7. Printed parts (PETG + PET-GF) | [$159.92](BOM_SEC7) |
 | 8. Flavor subsystem | [$225.90](BOM_SEC8) |
 | 9. Dispensing | [$63.27](BOM_SEC9) |
 | 10. UI | [$0.00](BOM_SEC10) |
@@ -317,7 +317,7 @@ The bonus bagged inside the install kit, with its own guide: what a buyer uses t
 | 12. Level sensing | [$37.50](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$13.62](BOM_SEC13) |
 | 14. Cold kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,402.53](BOM_GRAND)** |
+| **Total** | **[$1,402.52](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 

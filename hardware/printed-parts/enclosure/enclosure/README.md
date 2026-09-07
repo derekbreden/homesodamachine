@@ -701,16 +701,15 @@ exterior settings of `enclosure-front-top-petgf.3mf` around their own mesh — t
 | `enclosure-pump-cap` | 2 | 2 | bed | 18.40 mm |
 | `enclosure-front-top` | 2 | 2 | bed | 122.60 mm |
 | `enclosure-back-bottom` | 2 | 3 | 1 bed, **1 model** | **8.00 mm** |
-| `enclosure-front-bottom` | 4 | 4 | 2 bed, **2 model** | **8.00 mm** |
+| `enclosure-front-bottom` | 2 | 2 | **2 model** | **8.00 mm** |
 | `enclosure-back-top` | 12 | 35 | 5 bed, **7 model** | **1.20 mm** |
 
 **One piece slices clean, and five pieces are the campaign's open work.**
 `enclosure-pump-cartridge` emits no support at all. On the pump cap and front-top, every body
 roots on the print bed and stands 18 mm or more before it
 touches the model, which is past the point the build-up reading saturates at. Front-top's two
-bodies carry the pump-bay lintel and the pump-jack receptacle roof. The upper Y-seam blocks
-and their front passages have no support interfaces. Front-bottom's two lower
-Y-seam socket collar crowns have 28.20 mm of build-up. The bottom-quadrant exceptions are one feature standing
+bodies carry the pump-bay lintel and the pump-jack receptacle roof. All Y-seam blocks
+and their front passages have no support interfaces. The bottom-quadrant exceptions are one feature standing
 on all four flanks: the **Z seam's slide-head catch**, the joint's one down-looking flat and the
 whole of its bearing against lift. Back-bottom's west catch reaches the bed from outside its
 flank through the 12 mm PRV passage that crosses it — the same opening that splits that catch
