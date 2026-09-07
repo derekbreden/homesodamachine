@@ -1,159 +1,84 @@
 # Tee carrier
 
-One moving PET-GF carrier behind the four pump-barb tees, with two separately installed service
-tabs and two top-drop tab locks. The fixed tee wall journals each tee's branch collar in X and
-Z; the carrier couples the four tees in Y. The fore and aft valve trays, both valve rows, the
-collet plate, and the pump cartridge remain fixed.
+Two PET-GF halves joined by two M3 × 8 socket-head screws and two short M3 × 4 mm heat-set
+inserts. Each half includes its service tab, guide ear and spring seat. Eight zip ties hold
+Y-C, Y-D, Y-F and Y-G against the common web plane. The fixed tee wall journals their branch
+collars in X and Z; the joined carrier couples their Y motion.
+
+## The grasp
+
+For insertion, each hand spans the cartridge pocket and the service tab on the same side.
+The thumb pushes the cartridge aft while the fingers pull the tab fore: the two bearing faces
+move toward that hand's midpoint. Both hands squeeze together to bottom the four tubes, then
+relax so the springs settle the carrier at connected.
+
+For removal, pull the cartridge against the enclosure. The fixed collet plate carries the
+reaction into the whole box, which can be braced by a hand, foot, cupboard edge or its own
+weight. The carrier follows the tubes forward until the fixed plate releases their collets.
+
+Each tab's outer face is recessed 0.3 mm from the enclosure. Its finger-bearing pad stands
+20 mm high, with 18 mm of finger space behind it throughout the stroke. The local flank
+openings expose these bearing faces; their gabled roofs and the tabs' lower corbels stand at
+45 degrees. The guide ears retain their complete stop faces inboard of the openings.
 
 ## Frame and motion
 
-Every builder returns installed geometry in the enclosure assembly frame. +Y is aft and is the
-only operating motion; +Z is the print and top-entry axis. The squeeze datum bottoms all four
-cartridge tubes in their tee ports.
+The source returns installed geometry: +Y aft, +Z up. The squeeze datum bottoms all four
+cartridge tubes in their tee ports. Offsets come from the measured PP0208E insertion depths
+in [`tee_connector.py`](/hardware/reference/tee-connector/tee_connector.py).
 
-| state | carrier Y offset | stop/contact |
+| State | Carrier Y offset | Contact |
 |---|---:|---|
-| full release | -3.15 mm | fore stop; 1.5 mm rest gap plus 1.65 mm sleeve stroke |
-| squeeze / tube bottom | 0 mm | held by the two service tabs |
-| connected / first grip | +1.50 mm | floating under spring load |
-| parked / first resistance | +3.00 mm | aft stop |
+| Release | −3.15 mm | Fore stop; fixed plate depresses the collets |
+| Squeeze | 0 mm | Opposed cartridge/tab grasp; tubes bottomed |
+| Connected | +1.50 mm | Floating under spring load; tubes gripped |
+| Park | +3.00 mm | Aft stop; empty carrier |
 
-The offsets come from the measured PP0208E depths in `tee_connector.py`. The complete guide
-span is 6.15 mm. `interface()` exposes every state, stop face, part envelope, and installation
-path.
+Only release and park are physical stops. The guide spans 6.15 mm. At park the web leaves
+1.742 mm to the aft coils. The two spring axes lie between coils at X ±49.945, Z 190.245 mm.
+Each spring bears in a 6.4 mm teardrop seat, 2 mm deep, and surrounds the fixed wall's diamond
+guide. The Lee LCM060C12M remains the dimensional bench candidate.
 
-## Lowerable carrier
+## Assembly
 
-The web spans X -94..+94, Y 109.718..112.218, and Z 171.245..209.245 mm at squeeze: 188 × 2.5
-× 38 mm. Its guide ears span X ±94..±98.35, use the web's exact Y section, and occupy Z
-184.245..196.245 between the two tie paths. The carrier therefore leaves 0.15 mm radial slip in
-the front-top cavity at X ±98.5 in every feature stage.
+Work with `enclosure-front-top` loose, its aft valve row installed and the pump bay empty.
 
-The fixed guide pockets are open at the top. Their side faces guide X, and their fore and aft
-faces stop Y. At the parked +3 mm state, the web's aft face is Y 115.218, leaving 1.742 mm to the
-aft valve coils' fore envelope at Y 116.960.
+1. Heat-set the two short M3 inserts into the left half from its aft-facing lap surface.
+2. Hold the right half at release, displaced 8.85 mm inward. Lower it through the cavity and
+   slide it 8.85 mm outward so its integral tab enters the right flank opening. Move it aft
+   to park.
+3. Lower the left half at release with the same inward displacement, then slide it outward
+   into its flank opening. The parked right half leaves room for this motion.
+4. Move the right half forward to release to close the central lap. Feed both M3 × 8 screws
+   from aft through the gap between the valve coils and tighten them into the left half's
+   inserts. The heads finish flush with the web's aft face. Check that both web faces share
+   one tee-bearing plane and both tabs travel together.
+5. Fit both compression springs between their fixed pilots and recessed carrier seats while
+   the bay is open. Insert the four tees through their journals and tie each tee twice.
+   Complete the fore valve row, bowed stubs and hairpins as described in
+   [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md).
 
-Only the 1 mm zip-tie strap passes behind the web, in a 1.2 mm-deep channel. No tie head is
-permitted behind the carrier.
+Each tie crosses the web through two 1.5 × 3.5 mm slots, runs flush in the aft channel, then
+closes around the tee arm on the fore side. Clock every head away from the machine center and
+flush-cut its tail. No head stands behind the web. The center lap leaves all sixteen slots
+and their routing channels open.
 
-## Tee ties
+## Print and verification
 
-Each tee gets two black 4-inch, 18-pound nylon zip ties, one around each straight run arm: eight
-ties total. Their bands are at Z 178.245 and 202.245 mm, 12 mm either side of the tee's Z
-190.245 centre.
+Print both halves upright on their web's lower edge, translated onto the bed. The integral
+tabs grow from the web on 45-degree lower faces. The spring rails and center lap reach the
+bed. Screw and insert passages open onto accessible faces for cleanup.
 
-Each tie passes through two 1.5 × 3.5 mm slots at `tee_x ± 8.5 mm`, crosses the aft recess,
-returns around the tee arm on the fore side, and closes with its head clocked away from X=0.
-The outer heads reach |X| 89.478 and remain clear of the service tongues beginning at |X| 94.15.
-Flush-cut every tail.
+`build_half(side=-1|1)` makes one valid print; `build_carrier()` compounds both installed
+halves. `interface()` supplies the enclosure's openings, stops, spring stations, installation
+order and printed inventory. The generator exports `enclosure-tee-carrier-left` and
+`enclosure-tee-carrier-right`, each as STEP, STL and viewer payload.
 
-The tee-wall branch journals remain the precision guide. The ties close the tees against the
-flat bearing web and make their Y motion common; the carrier carries no second set of close-fit
-tee saddles.
+The part selftest checks solids, bed fit, lap contact, fastener stack, tie paths and assembly
+clearance between halves. The appliance's `tee-carrier-motion` reading checks their descent,
+outward entry, lap closure, screw/driver access, finger space and working travel against the
+actual front-top and fixed valve bodies. Both end stops must engage on a 0.001 mm overshoot.
 
-## Springs
-
-The spring axes are X ±49.945, Z 190.245 mm, in the gaps between the aft valve coils. Each seat
-is a 6.4 mm-wide tangent teardrop, 2 mm deep in a 12.4 mm spring rail. The 5 mm rail carries its
-semicircular crown to the web's bed edge, and its roof rises at 45 degrees.
-
-At the fixed tee wall, each spring surrounds a 4 mm diamond guide carried 10 mm along its axis.
-The diamond's lower faces stand at 45 degrees in front-top's upright print orientation, and its
-vertices remain inside the spring's 4.78 mm nominal ID.
-
-The seat accepts the 5.99 mm OD dimensional candidate. Spring rate and free length remain bench
-inputs from the complete four-stub, four-hairpin, eight-tie mechanism.
-
-## Separate service tabs
-
-The two handed tab parts are short transverse pieces in the carrier's own Y band. Each service
-pad occupies only the flank thickness: at squeeze it spans |X| 98.65..107.2, Y 109.718..112.218,
-and Z 197..209 mm. It is recessed 0.3 mm from the exterior and has 0.15 mm running clearance to
-the front-top's X 98.5 inner flank. Across the named states, the pad sweeps Y 106.568..115.218.
-
-The carrier owns the female half of each joint. Its block grows directly from the web and the
-guide ear, and its triangular socket opens toward the exterior. The tab owns the matching male
-tongue:
-
-| feature | positive-X installed envelope | mirrored at -X |
-|---|---|---|
-| carrier receiver | X 93.5..98.35, Y 109.718..112.218, Z 196.245..209.245 | yes |
-| female socket | X 94..98.5, Y 110.168..111.768, Z 202.55..207.35 | yes |
-| male tongue | X 94.15..98.65, Y 110.318..111.618, Z 202.7..207.2 | yes |
-| exterior pad | X 98.65..107.2, Y 109.718..112.218, Z 197..209 | yes |
-
-The tongue has 0.15 mm slip inside the socket. Its lower face rises 4.5 mm over its 4.5 mm
-inboard reach, so it prints from the pad at 45 degrees without support. The receiver remains
-inside the carrier's |X| 98.35 lowering envelope in every feature stage.
-
-## Top-drop tab locks
-
-One rigid PET-GF key prevents each tongue from withdrawing from its socket. The key centre is
-X ±97.5, Y 110.968. Its 1.2 × 1 mm shaft spans Z 204.8..207.5; its 2 × 2 × 0.7 mm head spans
-Z 207.3..208.0. A 0.15 mm-clearance bore passes through the receiver and male tongue.
-
-The key starts with its bottom at Z 209.395, 0.15 mm above the receiver. Its 4.595 mm drop seats
-it at Z 204.8; its entry top is Z 212.595, leaving 1.608 mm beneath the service opening's
-Z 214.203 gable. The joint uses no PET-GF deflection during installation.
-
-## Assembly path
-
-1. Lower the carrier, without service tabs, through the X ±98.5 front-top cavity and into its
-   open-top guide pockets.
-2. Hold the carrier at squeeze. Start each tab outside its flank at final Y and Z: the right
-   part spans X 107.65..120.7 and the left spans X -120.7..-107.65. Each begins with 0.15 mm
-   clearance beyond the X ±107.5 exterior wall.
-3. Slide the tab 13.5 mm inward through its flank slot. The male tongue enters the carrier's
-   outboard-open socket while the exterior pad stops at its recessed X ±107.2 face.
-4. Drop the handed tab lock 4.595 mm through the aligned top-entry bore.
-
-The required flank opening is X 98.35..108.5 on the right and mirrored on the left, Y
-106.418..115.368 across the complete operating sweep, and Z 196.85..209.15 beneath the gable.
-It cuts only flank stock; it does not extend into the tee-journal band. The selftest samples the
-complete inward entry against a representative wall with exactly that opening, the lock drop,
-and all four locked operating states.
-
-## Feature stages
-
-`build_carrier(spec, features)` keeps the machine steps independently generatable without
-changing a datum:
-
-| feature set | web, ties, guide ears | spring rails and seats | separate-tab receivers |
-|---|---|---|---|
-| `STEP4_FEATURES` | yes | no | no |
-| `STEP5_FEATURES` | yes | yes | no |
-| `STEP6_FEATURES` | yes | yes | yes |
-
-`DEFAULT_FEATURES` is `STEP6_FEATURES`. Service tabs and tab locks are always separate parts,
-including Step 6, so every carrier stage remains lowerable.
-
-## Print
-
-Print all five pieces upright in their assembly orientation, translated onto the bed. The
-complete Step 6 carrier occupies 196.7 × 5 mm on the H2C's 325 × 320 mm bed and stands 38 mm
-high. Each tab occupies 13.05 × 2.5 mm and stands 12 mm high. Each tab lock is 2 × 2 × 3.2
-mm; print spares with a brim.
-
-The spring rails and female receivers are bed-rooted. Each male tongue grows from its pad on a
-45-degree lower face, and the receiver socket's 1.6 mm roof is a short bridge open to the
-outboard face, so no support is trapped in a joint.
-
-## Source, builders, and artifacts
-
-- `build_carrier()` / `build()` — the one-body moving carrier for the selected feature stage
-- `build_service_tab(side=-1|1)` / `build_tab()` — one installed handed pad and male tongue
-- `build_tab_lock(side=-1|1)` / `build_lock_key()` — one installed handed top-drop tab lock
-- `tab_joint_sites()` — receiver, socket, tongue, lock, and outboard-entry datums
-- `interface()` — states, stops, service sweeps, installation path, and printed-part names
-- `enclosure-tee-carrier.step` / `.stl` — complete Step 6 carrier
-- `enclosure-tee-carrier-tab-left.step` / `.stl` — left service tab
-- `enclosure-tee-carrier-tab-right.step` / `.stl` — right service tab
-- `enclosure-tee-carrier-tab-lock-left.step` / `.stl` — left tab lock
-- `enclosure-tee-carrier-tab-lock-right.step` / `.stl` — right tab lock
-
-Run:
-
-```sh
-tools/cad-venv/bin/python hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py
-tools/cad-venv/bin/python hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py selftest
-```
+Physical qualification includes assembly access, comfortable paired squeezing, joint rigidity,
+spring force, equal tab motion, empty return to park and leak-free release/reconnection cycles
+with all eight flexible tube ends present. CAD clearance does not establish those outcomes.
