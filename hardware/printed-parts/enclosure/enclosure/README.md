@@ -678,7 +678,7 @@ exterior settings of `enclosure-front-top-petgf.3mf` around their own mesh — t
 | `enclosure-front-top` | 3 | 4 | bed | 55.60 mm |
 | `enclosure-back-bottom` | 2 | 3 | 1 bed, **1 model** | **6.00 mm** |
 | `enclosure-front-bottom` | 4 | 4 | 2 bed, **2 model** | **8.00 mm** |
-| `enclosure-back-top` | 17 | 32 | 7 bed, **10 model** | **1.44 mm** |
+| `enclosure-back-top` | 15 | 32 | 7 bed, **8 model** | **1.20 mm** |
 
 **One piece slices clean, and five bodies are the campaign's open work.**
 `enclosure-pump-cartridge` emits no support at all. On the pump cap and front-top, every body
@@ -692,7 +692,7 @@ into two interface islands. The other three have no such lane and root on the ar
 under-flare **8.00 mm** below the catch they carry: front-bottom's pair and back-bottom's east
 catch are the only material-rooted bodies outside the 15 mm band.
 
-Back-top prints on its ceiling, so what a support reaches there is the set of faces that look print-down and cannot carry themselves: the drip pan's berth floor and its sleeve's lid, the nameplate bar's top and the pocket's lower rim, the upper Y-seam pins' tops, the C14's aperture and flange-pocket floors, the keystone pocket's floor, the tap-water ribs' tie-band flanks and the five ribs' 3.5 mm crown strips over their tie bands, the Z-seam grooves' lands, the ASSE anchor's two round seats and its tie channel's overrun, and the identification-chip pockets' lower arcs on the rear face. The slice reaches them with **17 bodies** over **32 islands**, 7 rooted on the plate around the bedded piece — fore of its mouth, behind its rear face, through the funnel's opening — and 10 on the piece itself: the slab's interior face, which is that piece's own first layers, and the backing over each rib's tie channel; the shortest build-up is **1.44 mm**, the stub under a crown strip inside its 3 mm channel. The reading is this project's: tree(auto) supports at a 35° threshold, 0.4 mm top and bottom Z distances, 0.6 mm from the object in XY and two interface layers, all carried in the reading's `slicer_settings`; a plate sliced with other support settings is audited again against that project. Back-bottom's two slide-head bodies carry the ridge's 1 mm land: the west run from the bed through the PRV passage and the east from the arm's under-flare **6.00 mm** below. The three slide-head bodies on the two bottoms are the places the support campaign still names.
+Back-top prints on its ceiling, so what a support reaches there is the set of faces that look print-down and cannot carry themselves: the drip pan's berth floor and its sleeve's lid, the nameplate bar's top and the pocket's lower rim, the upper Y-seam pins' tops, the C14's aperture and flange-pocket floors, the keystone pocket's floor, the tap-water ribs' tie-band flanks and the five ribs' 3.5 mm crown strips over their tie bands, the Z-seam grooves' lands, the ASSE anchor's two round seats and its tie channel's overrun, and the identification-chip pockets' lower arcs on the rear face. The slice reaches them with **15 bodies** over **32 islands**, 7 rooted on the plate around the bedded piece — fore of its mouth, behind its rear face, through the funnel's opening — and 8 on the piece itself: the slab's interior face, which is that piece's own first layers, and the backing over each rib's tie channel; the shortest build-up is **1.20 mm**, the stub under a crown strip inside its 3 mm channel. The reading is this project's: tree(auto) supports at a 35° threshold, 0.4 mm top and bottom Z distances, 0.6 mm from the object in XY and two interface layers, all carried in the reading's `slicer_settings`; a plate sliced with other support settings is audited again against that project. Back-bottom's two slide-head bodies carry the ridge's 1 mm land: the west run from the bed through the PRV passage and the east from the arm's under-flare **6.00 mm** below. The three slide-head bodies on the two bottoms are the places the support campaign still names.
 
 ## Print orientation + corner relief
 
@@ -990,8 +990,8 @@ as it was laid down in. Cleaned first, the built piece reads one cylindrical sea
 Back-top prints on its ceiling, so the rib **stands up off the bed**: its two end webs rise
 from the slab, the seat is an upward-opening cradle in the print, its lips look print-up, and
 the channel's floor over the crown is a `tie_cav_w` bridge between the two webs. The slab
-stands off the rib's room over its tie band (`_ceiling_tie_reliefs`), so the loop comes down
-both flanks in the lane.
+stands off the rib's room over its tie band, the channel's own height and no more
+(`_ceiling_tie_reliefs`), so the loop comes down both flanks.
 
 ## Tube anchors
 
@@ -1475,14 +1475,16 @@ interior face up to the lane and no further, so the top wall's own `wall` stands
 one (`ceiling-show-cap`).
 
 **Three kinds of pocket.** A purchased body whose placed solid enters the slab earns one
-over its exact plan plus assembly slip, up to its own crown plus a clearance
+over its plan envelope plus assembly slip, up to its own crown plus a clearance
 (`enclosure_assembly.ceiling_reliefs`; the named population is what keeps an unrelated
-encroachment visible to `pack-closes`). The flow meter's two anchors and every rib rooted on
+encroachment visible to `pack-closes`). The C14's ceiling pocket is its canonical slipped flange
+profile continued along the insertion run, so the pocket and the flange seat are one outline.
+The flow meter's two anchors and every rib rooted on
 the ceiling — the carb-1 and co2-2 ribs and the regulator's — get the room their zip tie's
-loop comes down: the rib's reach plus the tie's thickness and its routing air either side,
-the rib's whole length, from the axis plane to the lane (`_ceiling_tie_reliefs`); the rib is
-fused back into that pocket and stands up off the bed with its seat an upward-opening cradle
-in the print. And the tap-water chain's shared tie channel is open to the lane from the −X
+loop comes down: over the tie band alone, the rib's reach plus the tie's thickness and its
+routing air either side, from the axis plane up to the channel's roof and no deeper
+(`_ceiling_tie_reliefs`); the rib is fused back afterwards and stands up off the bed with
+its seat an upward-opening cradle in the print. And the tap-water chain's shared tie channel is open to the lane from the −X
 flank to the far edge of the chain's own pocket over the span its two zip ties take
 (`_ceiling_tie_channel_relief`), so each loop comes west over the chain's crown in the
 `DECK_CEILING_CLEAR` lane and drops into the anchor's cavity through the mouth the flank

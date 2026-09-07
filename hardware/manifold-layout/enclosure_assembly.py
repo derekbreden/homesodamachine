@@ -4968,12 +4968,15 @@ OUTBOARD = tuple(name(Y_WALL_FITTINGS[station][2])
                  for name in (customer_tube_name, collar_name, collar_word_name))
 
 
-# The bodies admitted into back-top's ceiling slab. A relief is derived from the exact named
-# solid where it enters the slab's added section (`enclosure.back_top_ceiling_stock`); naming this
+# The bodies admitted into back-top's ceiling slab. A relief is derived from the named solid
+# where it enters the slab's added section (`enclosure.back_top_ceiling_stock`); naming this
 # population keeps an unrelated future encroachment visible to `pack-closes` instead of silently
-# pocketing round it. Two millimetres in plan is assembly slip and one above the crown is the
-# roof clearance; the water-2 route's authored straight is shorter than the complete bend
-# envelope the port gate reserves, so its pocket gives that difference back as well.
+# pocketing round it. The ordinary pockets take the body's rectangular plan envelope with two
+# millimetres of assembly slip and one above the crown. The C14 is the one profiled passage: the
+# same canonical flange outline which receives it continues along the insertion run, with the
+# tuple below recording that cut's bounds. The water-2 route's authored straight is shorter than
+# the complete bend envelope the port gate reserves, so its pocket gives that difference back as
+# well.
 CEILING_RELIEF_BODIES = (
     "c14-inlet", "keystone-jack", "asse1022-assembly", "co2-inlet",
     "bulkhead-water", "bulkhead-carb", "digiten-flow", "relay-1", "ground-stack",
@@ -4993,8 +4996,8 @@ def ceiling_reliefs(placed: dict) -> tuple:
 
     A body less than one clearance below the slab's interior face still earns a pocket:
     translating the exact solid upward by that clearance exposes the plan which would otherwise
-    be a near miss, while the pocket's roof remains the actual body's crown plus the same
-    clearance, capped at the lane the slab grows down from."""
+    be a near miss. Ordinary pockets are boxes over that plan. The C14 tuple bounds the canonical
+    flange-profile passage which runs over the same Y span."""
     raw = _enc.back_top_ceiling_stock()
     lane = interior_ceiling()
     reliefs = []
@@ -5012,12 +5015,24 @@ def ceiling_reliefs(placed: dict) -> tuple:
         body_top = body.BoundingBox().zmax
         plan_slip = (CEILING_WATER_2_PLAN_SLIP
                      if name == "tube-water-2" else CEILING_RELIEF_PLAN_SLIP)
+        y0 = min(b.ymin for b in boxes) - plan_slip
+        y1 = max(b.ymax for b in boxes) + plan_slip
+        if name == "c14-inlet":
+            cx, cz = C14_STATION
+            shaped = raw.intersect(
+                _c14.flange_prism(_enc.c14_pocket_slip, y0, y1)
+                .translate((cx, 0.0, cz)).val())
+            if abs(shaped.Volume()) <= 1e-6:
+                raise ValueError("the C14's flange-profile ceiling passage misses the slab")
+            b = shaped.BoundingBox()
+            reliefs.append((name, b.xmin, b.xmax, y0, y1, b.zmax))
+            continue
         reliefs.append((
             name,
             min(b.xmin for b in boxes) - plan_slip,
             max(b.xmax for b in boxes) + plan_slip,
-            min(b.ymin for b in boxes) - plan_slip,
-            max(b.ymax for b in boxes) + plan_slip,
+            y0,
+            y1,
             min(lane, body_top + CEILING_RELIEF_Z_CLEAR),
         ))
     return tuple(reliefs)
