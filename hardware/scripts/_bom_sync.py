@@ -296,10 +296,9 @@ assert not _display_stack, (
 # The enclosure's own SEAM SCREWS — the Y seam's cross-pins, the box's ONLY screws, and
 # the heat-sets they land in. Every one drives from a ±X EXTERIOR face, so the bench
 # closes the box from outside and nothing reaches in for them. Counted off the box's own
-# stations rather than named here: the Y seam's `y_bosses`, a level for each end of each
-# piece crossing it — the under-floor level pins the two bottoms, the under-ceiling one
-# the two tops. The Z seams take no screw at all: each column's top SLIDES home on its
-# hooked rails and the other column, screwed on at these four, is what blocks the way
+# stations rather than named here: the Y seam's `y_bosses`, the floor and middle pairs
+# pinning the bottoms and the ceiling pair the tops. The Z seams take no screw at all: each column's top SLIDES home on its
+# hooked rails and the other column, screwed on at these six, is what blocks the way
 # back out (`enclosure._z_rail_heads`). The heat-set is in the RECEIVING piece every
 # time — the front pieces, on the Y seam.
 enclosure_seam_screws_per_build = len(_f.box["y_bosses"])
@@ -313,7 +312,7 @@ m3x8_per_build = (shelf_short_screws_per_build + cond_screws_per_build
                   + nameplate_screws_per_build + display_cover_screws_per_build
                   + faucet_display_cover_screws_per_build + c14_screws_per_build)
 
-# And every M3 x 10: the ground-stack clamp's one, the pump clamp's two, and the enclosure's four
+# And every M3 x 10: the ground-stack clamp's one, the pump clamp's two, and the enclosure's six
 # seam screws.
 m3x10_per_build = (shelf_long_screws_per_build + pump_cap_screws_per_build
                    + enclosure_seam_screws_per_build)
