@@ -53,4 +53,4 @@ You have access to my Chrome which is signed in to my amazon through your MCP. I
 
 Git keeps history. Code and docs in this repo describe current state. Don't write "was X, now Y" or decision narratives in current files. Don't defend the current choice against alternatives the reader hasn't asked about. The repo describes only what is.
 
-Always commit and push to main. Don't ask. Just do it. The author of everything here is always me (via an instance of you), and you can trust it's worth committing and building on top of. It's all the same work.
+Always commit and push to main. Don't ask. Just do it. The author of everything here is always me (via an instance of you), and you can trust it's worth committing and building on top of. It's all the same work. I really could care less about who commits what or what the history says or if a particular commit was "broken" - I just care it all gets implemented and committed and its all working when all is said and done.
