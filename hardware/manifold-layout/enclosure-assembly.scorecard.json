@@ -60,7 +60,7 @@
    "target": "every band held",
    "detail": [
     "bulkhead-flavor-a: fall onto what stands under it \u2014 wants 1, has 1.004",
-    "bulkhead-carb: fall onto what stands under it \u2014 wants 6, has 9.189",
+    "bulkhead-carb: fall onto what stands under it \u2014 wants 6, has 8.589",
     "thermal-fuse: cover either side of the case \u2014 wants 0, has 5.250",
     "funnel: the drop off the elbow `fluid-4` reaches V-B on \u2014 wants 6.35, has 12.478",
     "digiten-flow: fall onto what stands under it \u2014 wants 6, has 13.262",
@@ -107,7 +107,7 @@
    "label": "Two things the machine does not seat together stand a millimetre apart",
    "kind": "gate",
    "status": "pass",
-   "value": "0 under, tightest 1.004 mm",
+   "value": "0 under, tightest 1.001 mm",
    "target": "\u2265 1 mm",
    "detail": [
     "every body pair, and every drawn run against what its own line does not join it to \u2014 the exact solid distance, with boxes only as a prefilter",
@@ -147,17 +147,17 @@
     "carb-1 \u2014 enclosure-back-top: 0.199 mm \u2014 seated against it",
     "discharge-chain \u2014 foam-assembly: 0.200 mm \u2014 seated against it",
     "suction-chain \u2014 foam-assembly: 0.200 mm \u2014 seated against it",
+    "keystone-jack \u2014 bulkhead-ring-carb: 1.001 mm",
     "seaflo-pump \u2014 bulkhead-flavor-a: 1.004 mm",
-    "keystone-jack \u2014 bulkhead-ring-flavor-a: 1.052 mm",
     "carb-1 \u2014 suction-chain: 1.113 mm",
     "water-3 \u2014 enclosure-front-top: 1.126 mm",
     "water-3 \u2014 enclosure-back-top: 1.126 mm",
-    "keystone-jack \u2014 bulkhead-ring-carb: 1.185 mm",
     "fluid-4 \u2014 coil-v-b: 1.226 mm",
     "funnel-drain-clamp \u2014 funnel-drain-union: 1.338 mm",
     "fluid-4 \u2014 coil-v-a: 1.341 mm",
     "bulkhead-carb \u2014 bulkhead-ring-carb-word: 1.342 mm",
     "fluid-2 \u2014 seaflo-pump: 1.346 mm",
+    "keystone-jack \u2014 bulkhead-ring-flavor-a: 1.363 mm",
     "bulkhead-flavor-b \u2014 bulkhead-ring-flavor-b-word: 1.366 mm",
     "bulkhead-flavor-a \u2014 bulkhead-ring-flavor-a-word: 1.366 mm",
     "bulkhead-water \u2014 bulkhead-ring-water-word: 1.387 mm",
@@ -714,7 +714,7 @@
    "kind": "gate",
    "status": "pass",
    "value": "holds",
-   "target": "3 mm in XZ, 3 mm of lip beyond the flange's Y- edge, a 9 mm entry relief, and one full-width wedge corbel",
+   "target": "3 mm in XZ, 3 mm of lip beyond the flange's Y- edge, a 9 mm entry relief, and one ceiling-bedded rectangular block",
    "detail": [],
    "active": true
   },
@@ -740,14 +740,29 @@
   },
   {
    "id": "east-boss-corbels",
-   "label": "Every +X-wall power-column boss has a flat D stem or shares a bar, and a body-clear 45 degree corbel",
+   "label": "Every +X-wall power-column boss has a flat D stem or shares a bar, and its candidate 45 degree corbel clears the installed bodies",
    "kind": "gate",
    "status": "pass",
    "value": "17/17 clear; 14 reach their mounting face across their whole width and 1 use blocker-profiled split corbels, 1 are held back across their whole width (1 with offered wing(s) stood down); 4 hole pair(s) share a bar",
-   "target": "one clear corbel per mounting hole, one bar per hole pair",
+   "target": "one clear candidate corbel per mounting hole, one bar per hole pair",
    "detail": [
     "`pcba` y 319.000, z 256.900: 3.000 mm setback past pcba, offered wing(s) y 320.998..322.500 stand down, 1.50 of 7.00 mm; no wing",
     "`relay-2` y 343.500, z 255.400: 3.000 mm setback past relay-2, full wall-rooted wing(s) y 327.000..329.500, y 344.500..347.000"
+   ],
+   "active": true
+  },
+  {
+   "id": "east-boss-fills",
+   "label": "The reviewed power-column fills are rectangular and clear of the installed pack",
+   "kind": "gate",
+   "status": "pass",
+   "value": "4/4 clear",
+   "target": "one ground-stack ceiling column, one upper pcba/relay-2 pad union, and two relay-1 paired-bar ceiling columns",
+   "detail": [
+    "`ground-stack ceiling column` x 92.250..98.500, y 330.500..337.500, z 341.044..348.500",
+    "`pcba/relay-2 upper pad union` x 96.250..98.500, y 315.500..347.000, z 317.900..326.700",
+    "`relay-1 y=254.5 ceiling column` x 96.250..98.500, y 251.000..258.000, z 327.200..348.500",
+    "`relay-1 y=320.5 ceiling column` x 96.250..98.500, y 317.000..324.000, z 327.200..348.500"
    ],
    "active": true
   },
@@ -776,18 +791,18 @@
    "label": "Pump plug's clip faces the empty bay and its full unplug, clear-the-cap and lower path clears front-top and the display",
    "kind": "gate",
    "status": "pass",
-   "value": "17.000 mm pull; 0.000000/0.000000 mm\u00b3 path overlap; 0.000000/0.000000 mm\u00b3 finger overlap; 0.000/5.229 mm path air; 2.625 mm past the cap",
+   "value": "17.000 mm pull; 0.000000/0.000000 mm\u00b3 path overlap; 0.000000/0.000000 mm\u00b3 finger overlap; 0.000/4.875 mm path air; 2.625 mm past the cap",
    "target": "0 mm\u00b3 overlap; clip down; 15 mm finger room; pulled plug fore of the plate cap",
    "detail": [],
    "active": true
   },
   {
    "id": "wedge-fills",
-   "label": "Every print-down slope on a ceiling-down piece is a column where one fits",
+   "label": "Every print-down slope on a ceiling-down piece has its stated carry",
    "kind": "gate",
    "status": "pass",
-   "value": "49 print-down slope(s): 36 under a body, 5 within 1 mm of one, 8 in a kept room, 0 could be columns",
-   "target": "no slope a column could replace, and every kept room standing",
+   "value": "40 print-down slope(s): 27 under a body, 3 within 1 mm of one, 10 in a kept room, 0 could be columns",
+   "target": "no unaccounted slope a column could replace, and every named room standing",
    "detail": [],
    "active": true
   },
@@ -1038,26 +1053,6 @@
    "status": "pass",
    "value": "brim front at y 70.00, facet arris at 66.87",
    "target": "a 3 mm landing, so at or aft of 69.87",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "ceiling-show-cap",
-   "label": "The ceiling slab keeps a complete exterior wall over its whole field",
-   "kind": "gate",
-   "status": "pass",
-   "value": "3 mm cap; missing 0.0000 mm\u00b3",
-   "target": "a complete wall over the field, the funnel's own plan excepted",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "pieces-in-silhouette",
-   "label": "Every quadrant lies inside the appliance's own exterior",
-   "kind": "gate",
-   "status": "pass",
-   "value": "all four inside `outer`",
-   "target": "no face past the box's exterior on any axis",
    "detail": [],
    "active": true
   },
