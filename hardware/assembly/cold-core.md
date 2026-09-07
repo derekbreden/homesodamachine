@@ -63,7 +63,7 @@ Dev-phase summary: [`/hardware/handwork.md`](/hardware/assembly/handwork.md) "Be
 
 ### 2. Press ruthex inserts into the outer shell
 
-Six ruthex M3 heat-set inserts pressed into the top face of the outer_shell, six into the bottom face — the **full-length** RX-M3x5.7. Each insert seats in a Ø[4 mm](INSERT_POCKET_D) pocket, [5.7 mm](INSERT_LEN) of body with [2.3 mm](INSERT_RELIEF) of relief below it. Soldering iron tip on the insert; press straight down until flush.
+[10](CAP_FACE_SCREWS) ruthex M3 heat-set inserts pressed into the top face of the outer_shell, [10](CAP_FACE_SCREWS) into the bottom face — the **full-length** RX-M3x5.7. Each insert seats in a Ø[4 mm](INSERT_POCKET_D) pocket, [5.7 mm](INSERT_LEN) of body with [2.3 mm](INSERT_RELIEF) of relief below it. Soldering iron tip on the insert; press straight down until flush.
 
 These twelve inserts are the only thread anywhere in the cap stack — the cap and the lid both carry clearance holes — so they are also what clamps a lid for its pour at step 3, and they have to be in before it.
 
@@ -71,9 +71,9 @@ Geometry detail at [`/hardware/printed-parts/cold-core/foam-shell/README.md`](/h
 
 ### 3. Cap foam pour (top and bottom)
 
-Each cap is a foam-filled cup, poured mouth-up with the foam-cap-lid sealing its open face from above — [16 mm](CAP_H) of pour at the bottom end and [12.8 mm](CAP_H_TOP) at the top, where the lid's own plate stands in the last head pad of the cup's wall. **Bolt the cap and its lid down onto the shell's top face** — six M3 × 25 SHCS through lid and cap into the step-2 inserts, cap floor on the shell. The screws are the pour clamp; expanding foam lifts an unclamped lid, and nothing else in the stack is threaded. Liquid foam enters through the lid's Ø[20 mm](POUR_D) pour hole; air escapes through two Ø[6 mm](LID_VENT_D) vents. Foam expands to fill and cures. Trim flush after cure, then back the six screws out.
+Each cap is a foam-filled cup, poured mouth-up with the foam-cap-lid sealing its open face from above — [16 mm](CAP_H) of pour at the bottom end and [12.8 mm](CAP_H_TOP) at the top, where the lid's own plate stands in the last head pad of the cup's wall. **Bolt the cap and its lid down onto the shell's top face** — [10](CAP_FACE_SCREWS) M3 × 25 SHCS through lid and cap into the step-2 inserts, cap floor on the shell. The screws are the pour clamp; expanding foam lifts an unclamped lid, and nothing else in the stack is threaded. Liquid foam enters through the lid's Ø[20 mm](POUR_D) pour hole; air escapes through two Ø[6 mm](LID_VENT_D) vents. Foam expands to fill and cures. Trim flush after cure, then back the six screws out.
 
-The **bottom lid** carries a pad at each of the six screw stations, standing off the face that meets the cap. Seat it pads-into-the-cup: each sinks into the relief its boss column leaves at the mouth, and the head goes down inside the pad's counterbore. It prints counterbore-side down, so the face the core stands on comes off the plate.
+The **bottom lid** carries a pad at each of the [10](CAP_FACE_SCREWS) screw stations, standing off the face that meets the cap. Seat it pads-into-the-cup: each sinks into the relief its boss column leaves at the mouth, and the head goes down inside the pad's counterbore. It prints counterbore-side down, so the face the core stands on comes off the plate.
 
 The **top lid** has no pads. It is solid the whole [5.2 mm](FOAM_CAP_LID_H) over its footprint and its cup is one pad shorter for it, so what meets the cap's mouth rim is the plate's own flat underside — and that underside is the face it prints on, with the cradles, the anchors and the deck-mount bores all building up off the bed.
 
@@ -134,9 +134,9 @@ The pour encapsulates both temperature probes and their leads against the cold m
 With all three pours cured:
 
 - Drop the pre-soldered reed columns into the still-open reed channels, one per ±X side, from above. Lead each column's 5-conductor cable straight up its own channel and out through the cap's reed conduit over that mouth — [reed-cable-a (134.5, 31), reed-cable-b (-134.5, 31)](REED_CONDUIT_XY) in the shell's frame. The cable leaves the core on the lid, alongside the seven fluid conduits, with slack for the lever nut it lands in. **This is done before the cap goes on**, and nothing about it is potted
-- TPU gasket onto the body's top edge — perimeter ring with 8 × 8 mm pads at each of the six screw positions
-- Top cap (foam-filled, trimmed from step 3) seated over the gasket **rotated 180° about Z**, which is what carries its deck-mount columns and its lid's valve cradles to the positions they hold in the machine — the six-screw pattern is 180°-symmetric, so it bolts up either way, and neither of those patterns is, so either one tells you which is right. Six M3 × 25 SHCS through the cap's screw positions and into the top-face inserts
-- Second gasket + bottom cap (mouth-down) onto the body's underside, six M3 × 25 SHCS into the bottom-face inserts
+- TPU gasket onto the body's top edge — perimeter ring with 8 × 8 mm pads at each of the [10](CAP_FACE_SCREWS) screw positions
+- Top cap (foam-filled, trimmed from step 3) seated over the gasket **rotated 180° about Z**, which is what carries its deck-mount columns and its lid's valve cradles to the positions they hold in the machine — the screw pattern is 180°-symmetric, so it bolts up either way, and neither of those patterns is, so either one tells you which is right. [10](CAP_FACE_SCREWS) M3 × 25 SHCS through the cap's screw positions and into the top-face inserts
+- Second gasket + bottom cap (mouth-down) onto the body's underside, [10](CAP_FACE_SCREWS) M3 × 25 SHCS into the bottom-face inserts
 
 ## Warm-side check valves
 
@@ -157,7 +157,7 @@ A finished cold core:
 - All seven cap conduits carrying their lines, and every carbonator filled above its liquid and drawn at its lowest point
 - The carbonated-water outlet crossing the carbonator support ring at the ring's own 225° slot, with all four bearing segments whole
 - Reed columns dropped into the reed channels, their cables up those same channels and out the cap's two reed conduits — the −X wall carries the two lane slots and nothing else
-- Both foam caps seated over their TPU gaskets, six M3 × 25 SHCS each into the top- and bottom-face heat-set inserts, every head down in its lid counterbore — run a straightedge across each lid, nothing touches it before the plate does
+- Both foam caps seated over their TPU gaskets, [10](CAP_FACE_SCREWS) M3 × 25 SHCS each into the top- and bottom-face heat-set inserts, every head down in its lid counterbore — run a straightedge across each lid, nothing touches it before the plate does
 - External envelope ~[283 mm](SHELL_OUTER_X) × [181](CCORE_OUTER_Y) × [253.4 mm](CCORE_CAPPED_H) with both caps on — the shell alone is [213.4 mm](OUTER_H) tall, and each face adds a cap and its gasket
 
 ## Open items

@@ -546,8 +546,17 @@ heatset_len = _interface.heatset_len            # the Y seam and the pump clamp,
 heatset_long_len = _interface.heatset_long_len  # the condenser fingers, nameplate, display cover
 heatset_depth = _interface.heatset_depth  # general M3 pilot; the Y seam derives its own below
 socket_cap = wall            # one wall capping the insert's deep end
-# The Y-seam screw axes' inset from the interior floor and ceiling planes.
+# The upper Y-seam screw axes' inset from the interior ceiling plane.
 seam_screw_end_inset = 17.95
+
+# Two handholds open through the floor, with their inner walls on the seam caps' plane.
+handhold_y = 214.0
+handhold_length = 80.0
+handhold_height = 35.0
+handhold_wall = wall
+handhold_roof = 4.0 * wall
+handhold_corner_r = 5.0
+handhold_edge_r = 3.0
 # The ±X walls' own mounting bosses — what a body hung on a side wall is fastened by. Each
 # stands off the wall's INNER face and reaches inboard to the body's own mounting plane,
 # bored for a ruthex M3 short from that end; the screw comes the other way, in through the
@@ -3775,13 +3784,25 @@ def _seam_middle_z():
     return z_seam - socket_r
 
 
+def _handhold_levels(inner):
+    """Standing floor, lifting ceiling and the full section above it."""
+    bed = inner[4] - floor_t
+    roof = bed + handhold_height
+    return bed, roof, roof + handhold_roof
+
+
+def _seam_lower_z(inner):
+    """The lower insert's complete collar stands above the handhold ceiling."""
+    return _handhold_levels(inner)[2] + socket_r
+
+
 def _bosses(inner, y_joint):
     """Per-boss tuple (x_in, x_ext, sx, z_boss): the inner ±X wall face the screw
     passes through, its matching exterior face, sx = +1 (left) / −1 (right)
     inboard, and the bore-axis height.
 
     The Y seam runs the box's whole height and BOTH columns cross it, so it is
-    pinned at the floor, just below the Z seam and under the ceiling. Each column's
+    pinned above the handholds, just below the Z seam and under the ceiling. Each column's
     hooked rails hold its own Z seam closed along the whole run; the three screw
     levels stand the columns against each other.
 
@@ -3790,12 +3811,12 @@ def _bosses(inner, y_joint):
     agree. The manifold stack denies the −X wall a socket body over one band, so
     its levels there slide to the nearest height that can hold one.
 
-    The screw axes stand `seam_screw_end_inset` from the interior floor and ceiling.
-    The middle pair stands one `socket_r` below the Z seam, wholly within the bottom
-    pieces. The two lower stations share floor-rooted jambs; the upper pair joins the ceiling."""
+    The upper axes stand `seam_screw_end_inset` under the ceiling. The lower pair stands
+    one complete collar above each handhold's roof section; the middle pair stands one
+    `socket_r` below the Z seam. Both bottom stations share the jamb over the handhold."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     zt = iz1 - seam_screw_end_inset
-    zf = iz0 + seam_screw_end_inset
+    zf = _seam_lower_z(inner)
     fy0, fy1 = _y_corner(inner, y_joint)
     out = []
     for x_in, sx in ((ix0, +1.0), (ix1, -1.0)):
@@ -4058,6 +4079,92 @@ def _socket_floor_relief(x_ext, sx, inner, y_joint):
 # the derived lip_len then lands the socket collar's +Y face on the lip rim.
 def _y_boss(y_joint):
     return y_joint + plug_dia / 2.0
+
+
+# --- handholds through the standing floor -----------------------------------
+
+def _handhold_y():
+    return handhold_y - handhold_length / 2.0, handhold_y + handhold_length / 2.0
+
+
+def _handhold_cutter(inner, x_ext, sx):
+    """The downward-open finger space, with round ceiling-to-end-wall corners."""
+    bed, roof, _crown = _handhold_levels(inner)
+    y0, y1 = _handhold_y()
+    _seat, _tip, _heat, cap = _boss_x(x_ext, sx)
+    xa, xb = sorted((cap - sx * handhold_wall, x_ext - sx))
+    cutter = _ybox(xa, xb, y0, y1, bed - 1.0, roof)
+    corners = []
+    for edge in cutter.Edges():
+        b = edge.BoundingBox()
+        if (abs(b.zmin - roof) < 1e-6 and abs(b.zmax - roof) < 1e-6
+                and b.xlen > 1.0 and b.ylen < 1e-6):
+            corners.append(edge)
+    return cutter.fillet(handhold_corner_r, corners)
+
+
+def _handhold_backing_lap(inner, y_joint, x_ext, sx, y_side):
+    """The inner wall's 45-degree plan scarf, through the height under the lifting ceiling.
+
+    Front and back share the same three-millimetre wall. The front nose stops one running
+    fit short of the back's matching rake; both slide on the enclosure's Y closure motion.
+    Returns the front's trimming cut or the back's mating wall."""
+    bed, roof, _crown = _handhold_levels(inner)
+    _seat, _tip, _heat, cap = _boss_x(x_ext, sx)
+    outer_face = cap - sx * handhold_wall
+    tip = y_joint + lip_len
+    short = scarf_axial if y_side == "front" else 0.0
+    points = [(cap, tip - handhold_wall - short),
+              (outer_face, tip - short),
+              (outer_face, tip + wall), (cap, tip + wall)]
+    vertices = [cq.Vector(x, y, bed - (1.0 if y_side == "front" else 0.0))
+                for x, y in points]
+    wire = cq.Wire.makePolygon(vertices + [vertices[0]])
+    return cq.Solid.extrudeLinear(
+        wire, [], cq.Vector(0, 0, roof - bed + (1.0 if y_side == "front" else 0.0)))
+
+
+def _handhold_frame(inner, y_joint, x_ext, sx, y_side):
+    """A roof, inner wall and two end walls, rooted on the floor at the opening's ends."""
+    bed, _roof, crown = _handhold_levels(inner)
+    y0, y1 = _handhold_y()
+    _seat, tip, _heat, cap = _boss_x(x_ext, sx)
+    xa, xb = sorted((x_ext, cap))
+    start, end = ((y0 - handhold_wall, y_joint) if y_side == "front"
+                  else (y_joint, y1 + handhold_wall))
+    frame = _ybox(xa, xb, start, end, bed, crown)
+    if y_side == "back":
+        # The front socket carries the roof's inboard part through the overlap.
+        xa, xb = sorted((tip, cap + sx * fits.slip))
+        frame = frame.cut(_ybox(xa, xb, y_joint,
+                                _y_boss(y_joint) + socket_r + fits.slip, bed - 1.0, crown))
+        frame = frame.fuse(_handhold_backing_lap(inner, y_joint, x_ext, sx, y_side))
+    return frame
+
+
+def _handholds(solid, inner, y_joint, y_side):
+    """Both bottom openings, including the seam's own jamb and floor tongue in their cuts."""
+    bed, roof, _crown = _handhold_levels(inner)
+    y0, y1 = _handhold_y()
+    for x_in, sx in ((inner[0], 1.0), (inner[1], -1.0)):
+        x_ext = x_in - sx * wall
+        solid = solid.fuse(_handhold_frame(inner, y_joint, x_ext, sx, y_side))
+        solid = solid.cut(_handhold_cutter(inner, x_ext, sx))
+        if y_side == "front":
+            solid = solid.cut(_handhold_backing_lap(inner, y_joint, x_ext, sx, y_side))
+        solid = solid.clean()
+        rim = []
+        for edge in solid.Edges():
+            b = edge.BoundingBox()
+            if (abs(b.xmin - x_ext) < 1e-6 and abs(b.xmax - x_ext) < 1e-6
+                    and b.ymin >= y0 - 1e-6 and b.ymax <= y1 + 1e-6
+                    and b.zmin >= bed - 1e-6 and b.zmax <= roof + 1e-6
+                    and b.zmax > bed + 1e-6):
+                rim.append(edge)
+        if not rim:
+            raise ValueError(f"{y_side} handhold at X{x_ext:g} has no exterior lifting edge")
+        solid = solid.fillet(handhold_edge_r, rim)
+    return solid
 
 
 # --- bottom↔top joint: the HOOKED SLIDE --------------------------------------
@@ -8999,6 +9106,8 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     if y_side == "back" and z_side == "top":
         # Last on the flank: the channel is air, and no later wall feature may fill it back in.
         piece = _pan_cable_clip(piece, box, up=up)
+    if z_side == "bottom":
+        piece = _handholds(piece, inner, y_joint, y_side)
     return _unified(piece)
 
 
@@ -9420,12 +9529,13 @@ def _upper_y_seam_bound(pieces, box):
 
 
 def _lower_y_seam_bound(pieces, box):
-    """Both complete floor jambs, four screw stations and their open entry passages."""
+    """Both jambs above the handholds, four screw stations and their entry passages."""
     front = pieces["front-bottom"].val()
     back = pieces["back-bottom"].val()
     y0, y1 = _y_corner_back(box.inner[3], box.y_joint)
     yb = _y_boss(box.y_joint)
-    levels = (box.inner[4] + seam_screw_end_inset, _seam_middle_z())
+    levels = (_seam_lower_z(box.inner), _seam_middle_z())
+    _bed, grip_roof, _crown = _handhold_levels(box.inner)
     readings = []
     for x_in, sx in ((box.inner[0], 1.0), (box.inner[1], -1.0)):
         x_ext = x_in - sx * wall
@@ -9434,11 +9544,10 @@ def _lower_y_seam_bound(pieces, box):
                     if xi == x_in and s == sx and z < z_seam]
         xa, xb = sorted((x_ext, x_tip))
         crown = levels[-1] + plug_dia / 2.0
-        column = _ybox(xa, xb, y0, y1, box.outer[4], crown)
-        sweep = _ybox(xa, xb, y0, y1 + lip_len, box.outer[4], z_seam)
+        column = _ybox(xa, xb, y0, y1, grip_roof + handhold_edge_r, crown)
+        sweep = _ybox(xa, xb, y0, y1 + lip_len, grip_roof + handhold_edge_r, z_seam)
         xa, xb = sorted((x_tip, x_cap))
-        socket = _ybox(xa, xb, yb - socket_r, yb + socket_r, box.outer[4], z_seam)
-        foot = _ybox(xa, xb, y0, yb + socket_r, box.outer[4], box.inner[4])
+        socket = _ybox(xa, xb, yb - socket_r, yb + socket_r, grip_roof, z_seam)
         blocked = 0.0
         for z in levels:
             column = column.cut(_screw_cut(x_ext, sx, z, yb))
@@ -9447,7 +9556,7 @@ def _lower_y_seam_bound(pieces, box):
             shank = _xcyl(screw_clear_dia / 2.0, yb, z, x_ext, x_tip)
             blocked += shank.intersect(back).Volume() + heat.intersect(front).Volume()
         missing = column.cut(back).Volume() + socket.cut(front).Volume()
-        overlap = sweep.intersect(front).Volume() + foot.intersect(back).Volume()
+        overlap = sweep.intersect(front).Volume()
         levels_ok = len(stations) == 2 and all(
             abs(actual - wanted) < stated_bound_tol for actual, wanted in zip(stations, levels))
         readings.append(("west" if sx > 0 else "east", levels_ok, missing, overlap, blocked))
@@ -9460,14 +9569,64 @@ def _lower_y_seam_bound(pieces, box):
              for _side, levels_ok, missing, overlap, blocked in readings)
     return record_bound(Bound(
         "y-seam-lower",
-        "Both lower seam jambs join the floor and carry complete lower and middle fasteners",
+        "Both lower seam jambs join the handhold roofs and carry complete lower and middle fasteners",
         ok,
         f"four screw axes at Z {levels[0]:g} and {levels[1]:g} mm; middle collars end at Z {z_seam:g}",
-        "two complete floor jambs, four open screw pilots, passages open through the rim, and a registering floor lap",
+        "two jambs above the handholds, four open screw pilots, passages open through the rim, and a registering floor lap",
         [f"{side}: levels {'correct' if levels_ok else 'incorrect'}; missing jamb {missing:.4f} mm³; "
          f"entry/foot overlap {overlap:.4f} mm³; blocked bores {blocked:.4f} mm³"
          for side, levels_ok, missing, overlap, blocked in readings] + [
             f"floor lap blocks a {2.0 * fits.slip:g} mm upward shift: {floor_register:.4f} mm³ overlap"]))
+
+
+def _handhold_bound(pieces, box):
+    """Clear upward entry, complete lifting sections and inner walls with only the seam fit."""
+    front = pieces["front-bottom"].val()
+    back = pieces["back-bottom"].val()
+    inner, joint = box.inner, box.y_joint
+    bed, roof, crown = _handhold_levels(inner)
+    y0, y1 = _handhold_y()
+    readings = []
+
+    def missing(shape):
+        return shape.cut(front).cut(back)
+
+    for xi, sx in ((inner[0], 1.0), (inner[1], -1.0)):
+        xe = xi - sx * wall
+        _seat, tip, _heat, cap = _boss_x(xe, sx)
+        face = cap - sx * handhold_wall
+        tangent = xe + sx * handhold_edge_r
+        xa, xb = sorted((face, xe - sx))
+        entry = _ybox(xa, xb, y0 + handhold_corner_r, y1 - handhold_corner_r, bed - 1.0, roof)
+        blocked = entry.intersect(front).Volume() + entry.intersect(back).Volume()
+
+        xa, xb = sorted((cap, face))
+        backing = _ybox(xa, xb, y0, y1, bed, roof)
+        seam_air = _handhold_backing_lap(inner, joint, xe, sx, "front").cut(
+            _handhold_backing_lap(inner, joint, xe, sx, "back"))
+        wall_missing = missing(backing).cut(seam_air).Volume()
+
+        xa, xb = sorted((face, tangent))
+        bearing = _ybox(xa, xb, y0 + handhold_corner_r, y1 - handhold_corner_r, roof, crown)
+        xa, xb = sorted((tip, cap + sx * fits.slip))
+        socket_air = _ybox(xa, xb, joint + lip_len, joint + lip_len + fits.slip, roof, crown)
+        roof_missing = missing(bearing).cut(socket_air).Volume()
+        xa, xb = sorted((cap, tangent))
+        posts = _ybox(xa, xb, y0 - handhold_wall, y0, bed, crown).fuse(
+            _ybox(xa, xb, y1, y1 + handhold_wall, bed, crown))
+        post_missing = missing(posts).Volume()
+        readings.append(("west" if sx > 0 else "east", blocked, wall_missing,
+                         roof_missing, post_missing))
+    ok = len(readings) == 2 and all(max(row[1:]) <= stated_bound_tol for row in readings)
+    return record_bound(Bound(
+        "handholds",
+        "Both handholds open through the floor and keep their lifting sections and inner walls",
+        ok,
+        f"two {handhold_length:g} × {handhold_height:g} mm bottom openings at Y {handhold_y:g}",
+        f"clear upward entry, {handhold_wall:g} mm inner walls, {handhold_roof:g} mm roofs and complete end posts",
+        [f"{side}: blocked entry {blocked:.4f} mm³; missing inner wall {wall_missing:.4f} mm³; "
+         f"missing roof {roof_missing:.4f} mm³; missing end posts {post_missing:.4f} mm³"
+         for side, blocked, wall_missing, roof_missing, post_missing in readings]))
 
 
 def _ceiling_show_cap_bound(back_top, box):
@@ -9561,6 +9720,7 @@ def build_pieces(box):
         _upper_y_seam_bound(pieces, box)
     if "front-bottom" in pieces and "back-bottom" in pieces:
         _lower_y_seam_bound(pieces, box)
+        _handhold_bound(pieces, box)
     _silhouette_bound(pieces, box)
     assy = cq.Assembly(name="enclosure")
     for name, piece in pieces.items():
