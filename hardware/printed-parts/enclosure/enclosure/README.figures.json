@@ -163,9 +163,9 @@
     "SEAM_HEATSET_RELIEF": "1 mm",
     "SEAM_PIN_SHANK": "5 mm",
     "SEAM_SCREW_END_INSET": "17.95 mm",
+    "SEAM_SCREW_MIDDLE_Z": "151.9 mm",
     "SLEEVE_TRAVEL": "1.65 mm",
     "SLIDE_SLIP": "0.15 mm",
-    "SOCKET_BORE": "10.2 mm",
     "SOCKET_OD": "16.2 mm",
     "STOREY_BAND": "177.8..283.5 mm",
     "STOREY_RUN": "355.58 mm",
@@ -209,7 +209,7 @@
     "VENT_TRANSOM_Z": "57.5, 86, 114.5 mm",
     "VENT_WINDOW": "34..148 mm",
     "WALL_T": "3 mm",
-    "Y_LEVELS": "2",
+    "Y_LEVELS": "3",
     "Z_RISE": "14.8 mm"
   }
 }

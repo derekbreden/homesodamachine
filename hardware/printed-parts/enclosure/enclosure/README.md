@@ -12,7 +12,7 @@ flanks are [9 mm](FRONT_TOP_FLANK), back-top's are [9 mm](BACK_TOP_FLANK) and it
 [6 mm](FLOOR_T) of slab under both bottom pieces, with the stated height struck to
 its underside, so it stands in the silhouette and the cavity's floor plane — the
 one the pack sets its bodies on — does not move. **Split into four printable pieces** — front/back × bottom/top, every piece inside the H2C bed. Each
-column's top SLIDES onto its bottom on hooked rails; the two halves telescope and four screws
+column's top SLIDES onto its bottom on hooked rails; the two halves telescope and six screws
 close the whole box.
 It measures [215 × 462 × 361 mm](BOX_SIZE), and **width, height and the +Y wall
 are all stated bounds**. `_dims` measures the pack against each one and enters the
@@ -24,8 +24,8 @@ clash in `pack-closes` at the body that overran.
   it is clearance: a body on the floor slab spans the interior wall to wall, so a
   floor body stands one `side_band_inset` in from the wall **where it meets one of the
   seam's bosses in depth and in height**, leaving each mouth, plug and collar its full
-  section. A boss is a block as tall as it is wide, so over and under one, as much as
-  between two, the band is the wall's own air. The cold
+  section. The lower socket jambs run from the floor to the Z seam; above them the
+  upper collars occupy their own local band. Outside those footprints the band is air. The cold
   core is the widest of the floor bodies, yawed a quarter turn
   (`enclosure_assembly.FOAM_YAW`) so what crosses the machine is its 181 mm short face
   instead of its 283 mm long one. The yaw is the thin machine.
@@ -80,19 +80,21 @@ intact (mirrors `faucet/faucet-shell`).
 
 Three seams. Front↔back: the front pieces' rear lip telescopes
 into the back pieces, cross-pinned with M3 screws driven from the ±X exterior — the box's
-only four screws. That **proud** lip is **3-sided** — both side walls and the ceiling. A proud
+six seam screws. That **proud** lip is **3-sided** — both side walls and the ceiling. A proud
 tongue is the wall continued one `wall` *into* the cavity, and on those faces the
 cavity is free; the floor's is not — the cold core rides on it — so a proud floor
 tongue would drive straight into the core. The floor laps anyway, but as a
 **full-thickness tongue with a 45° scarf nose inside the slab** (`_floor_scarf`):
 the front floor runs one overlap aft on the print bed and tapers through the slab
 at its nose; the back keeps the matching bed-side wedge. The assembled top stays
-flat under the core, while both printed bearing faces remain support-free.
+flat under the core, while both printed bearing faces remain support-free. At each side,
+the front socket jamb has a full-thickness rectangular foot and the back floor its matching
+recess. The scarf runs between those two feet.
 **Every seam laps, none butts** — the form suited to the face.
 
-That seam is pinned at **[2](Y_LEVELS) levels** per side wall — a wall above the floor
-and one under the ceiling — so every piece crossing it is pinned at its own end: the floor
-level pins the two bottom pieces, the ceiling level the two tops. `_bosses` drops a level
+That seam is pinned at **[3](Y_LEVELS) levels** per side wall — above the floor,
+just below the Z seam and under the ceiling. The floor and middle pairs pin the two
+bottom pieces; the ceiling pair pins the two tops. `_bosses` drops a level
 landing within two socket collars of one already placed, so the ladder carries one level per
 height it is owed.
 
@@ -104,8 +106,13 @@ blocks' inboard faces. The top pieces' Z-seam shoulders and hooked rails registe
 and the upper screws close the Y seam. `y-seam-upper` reads the finished columns, their flat
 ends, the screw pilots and the whole volume swept through the front passages during entry.
 
-Each lower back pin has a full-width 45° wall corbel. Front-bottom's slide channel follows
-that profile one `fits.slip` lower and encloses the square pin under a flat roof.
+The middle axes stand at **[151.9 mm](SEAM_SCREW_MIDDLE_Z)**, one socket radius below the
+Z seam. The complete inserts and their collars belong to front-bottom, with their crowns
+on the split plane. Lower and middle back pins share a straight floor-rooted jamb;
+front-bottom carries the matching socket jamb and a straight passage open through the floor.
+`y-seam-lower` reads both complete jambs, all four screw pilots, the entry passages and the
+floor feet. The existing rails connect the top pieces to this fastening; the ceiling pair
+alone still frees front-top.
 
 Each cross-pin is sized to its job. Reading an M3×10 screw outboard→inboard from
 the ±X exterior: a Ø6.15 mm head counterbore, then [5 mm](SEAM_PIN_SHANK) of pin body
@@ -114,15 +121,16 @@ ending exactly on the [9 mm](BACK_SEAM_FLANK_T) back flank's physical interior f
 4 mm insert and [1 mm](SEAM_HEATSET_RELIEF) of screw-tip relief, so the blind end and cap stay
 on the M3×10 stack's datum while the pin meets the flank flush. The counterbore
 retains that complete circular pass and bearing envelope, while its unsupported crown continues
-on two tangent [36°](TEARDROP_ROOF) roof planes. The four head pockets therefore close without
+on two tangent [36°](TEARDROP_ROOF) roof planes. The six head pockets therefore close without
 isolated support towers.
 
 - **Receiving piece = pin** (the back pieces): a rectangular block from the exterior to the
-  full-thickness flank face and from the seam mouth aft into that flank. The lower pin's
-  [9.9 mm](PLUG_DIA) square section surrounds the shank with one wall; the upper pin
-  continues from that section into the ceiling.
+  full-thickness flank face and from the seam mouth aft into that flank. A
+  [9.9 mm](PLUG_DIA) square section surrounds each shank with one wall; the lower and
+  middle sections continue to the floor and the upper section into the ceiling.
 - **Lip piece = socket** (the front pieces): a collar with a straight slot for the pin,
-  [10.2 mm](SOCKET_BORE) tall on front-bottom and open through the ceiling on front-top,
+  with [0.15 mm](SLIDE_SLIP) running clearance at its closed end, open through the floor
+  on front-bottom and through the ceiling on front-top,
   with the ruthex M3
   heat-set (Ø4.0 × 4.0 body in its [5 mm](SEAM_HEATSET_DEPTH) pilot) capped at its deep
   inboard end.
@@ -135,8 +143,8 @@ and a `socket_cap` over the insert's blind end — its rim-side face on the lip 
 hair under the seam mouth, so it stands on that band down its
 whole length. That band is one `wall` deep and runs the piece's full height, the way
 a telescoping lip does. Those two matings are the pair the overlap depth is struck
-from — it works out to (plug + bore)/2 + one wall. Between the two levels the corner
-is the wall's own air.
+from — it works out to (plug + bore)/2 + one wall. The lower and middle levels share
+one jamb per side.
 
 ## The Z seams slide home
 
@@ -244,7 +252,7 @@ on the standing verticals and the Y-seam's floor joint stays inside the slab, so
 seat is square and there is nothing standing there to clear.
 
 So the pack seats flush against the **seams**, not against the walls, and both
-walls carry all [2](Y_LEVELS) levels at full section.
+walls carry all [3](Y_LEVELS) levels at full section.
 
 **A wall that lip stands on is `2 * wall` thick, floor slab to lip rim.** The lip is
 the cavity's own one-`wall` skin standing proud of the interior face, and a skin that
@@ -354,11 +362,11 @@ the open Y-seam mouth and slides aft to its seat on the rear lip, under the hold
 feet (each fore arris eased 45° for exactly this), past the chain and the bulkhead unions,
 into the pockets their stems land in; the lid's tenants — the water pump and the rest —
 go on through the same mouth after it. **Then the halves telescope**: the front assembly
-slides aft into the back, its corner blocks closing on the core's front face, and the four
+slides aft into the back, its corner blocks closing on the core's front face, and the six
 Y-seam screws drive from the ±X exteriors. Service is the same door swinging the other
 way, and the first of it needs no bench: **the upper two screws alone free front-top**,
 which draws fore off its rails into open air with the box still standing where it is —
-the flavour pack, the trays and the tee wall coming with it. All four screws out takes
+the flavour pack, the trays and the tee wall coming with it. All six screws out takes
 the front assembly fore and off, opens the bay through the mouth, brings the core out
 fore, and back-top slides fore off its rails if the tub itself is the work.
 
