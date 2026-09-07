@@ -3744,7 +3744,7 @@ def _ceiling_corbels(solid, inner, outer, centre, y_joint, y_bosses=()):
 #     head counterbore pass through both.
 #   * FRONT lip = SOCKET: a collar carrying the heat-set and its deep inboard cap.
 #     The upper passage opens through the ceiling tongue; the lower passage opens
-#     through the floor and receives the complete jamb with running clearance.
+#     through the floor and Z-seam rim to receive the complete jamb.
 # The head seats in the ±X wall; the shank crosses the pin body into the front
 # heat-set, cross-pinning the two halves along X.
 #
@@ -3892,12 +3892,16 @@ def _front_pin_slot(x_in, x_tip, z_boss, y_boss, y_joint, ceiling=None, floor=No
 
     The upper passage opens through the ceiling tongue. Its lower face is one running
     clearance below the corner block; its inboard face is the screw/insert interface.
-    The lower passage opens through the floor to receive the shared lower/middle jamb."""
+    The lower passage opens through both floor and Z-seam rim. The floor scarf and
+    upper pin's lower seat register the two columns vertically; the middle passage
+    needs no cap over its pin."""
     b = socket_bore_dia / 2.0
     bore_y = y_boss + split_slip / 2.0
     bx0, bx1 = sorted((x_in, x_tip))
     y0, y1 = bore_y - b, y_joint + lip_len + 1.0
     roof = z_boss + b if ceiling is None else ceiling + wall + 1.0
+    if floor is not None:
+        roof = z_seam
     bottom = z_boss - b if floor is None else floor - 1.0
     return _ybox(bx0, bx1, y0, y1, bottom, roof)
 
@@ -3979,7 +3983,7 @@ def _y_lip_channel(inner, y_joint, bosses):
     with everything else; no one-running-fit strip continues past the tongue beside a collar.
 
     The upper corner blocks travel in straight passages open through the ceiling tongue.
-    The shared lower/middle jambs travel in straight passages open through the floor.
+    The shared lower/middle jambs travel in straight passages open through floor and Z seam.
     Both passages stop at the screw/insert interface in X."""
     ix0, ix1, _iy0, _iy1, iz0, iz1 = inner
     y0, y1 = y_joint, y_joint + lip_len + 1.0
@@ -9431,7 +9435,7 @@ def _lower_y_seam_bound(pieces, box):
         xa, xb = sorted((x_ext, x_tip))
         crown = levels[-1] + plug_dia / 2.0
         column = _ybox(xa, xb, y0, y1, box.outer[4], crown)
-        sweep = _ybox(xa, xb, y0, y1 + lip_len, box.outer[4], crown)
+        sweep = _ybox(xa, xb, y0, y1 + lip_len, box.outer[4], z_seam)
         xa, xb = sorted((x_tip, x_cap))
         socket = _ybox(xa, xb, yb - socket_r, yb + socket_r, box.outer[4], z_seam)
         foot = _ybox(xa, xb, y0, yb + socket_r, box.outer[4], box.inner[4])
@@ -9447,17 +9451,23 @@ def _lower_y_seam_bound(pieces, box):
         levels_ok = len(stations) == 2 and all(
             abs(actual - wanted) < stated_bound_tol for actual, wanted in zip(stations, levels))
         readings.append(("west" if sx > 0 else "east", levels_ok, missing, overlap, blocked))
-    ok = all(levels_ok and max(missing, overlap, blocked) <= stated_bound_tol
+    floor_lane = _ybox(box.inner[0], box.inner[1], y0, box.y_joint + lip_len,
+                       box.outer[4], box.inner[4])
+    floor_register = front.intersect(floor_lane).intersect(
+        back.intersect(floor_lane).translate((0, 0, 2.0 * fits.slip))).Volume()
+    ok = floor_register > stated_bound_tol and all(
+             levels_ok and max(missing, overlap, blocked) <= stated_bound_tol
              for _side, levels_ok, missing, overlap, blocked in readings)
     return record_bound(Bound(
         "y-seam-lower",
         "Both lower seam jambs join the floor and carry complete lower and middle fasteners",
         ok,
         f"four screw axes at Z {levels[0]:g} and {levels[1]:g} mm; middle collars end at Z {z_seam:g}",
-        "two complete floor jambs, four open screw pilots, clear entry passages and floor feet",
+        "two complete floor jambs, four open screw pilots, passages open through the rim, and a registering floor lap",
         [f"{side}: levels {'correct' if levels_ok else 'incorrect'}; missing jamb {missing:.4f} mm³; "
          f"entry/foot overlap {overlap:.4f} mm³; blocked bores {blocked:.4f} mm³"
-         for side, levels_ok, missing, overlap, blocked in readings]))
+         for side, levels_ok, missing, overlap, blocked in readings] + [
+            f"floor lap blocks a {2.0 * fits.slip:g} mm upward shift: {floor_register:.4f} mm³ overlap"]))
 
 
 def _ceiling_show_cap_bound(back_top, box):

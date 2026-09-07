@@ -109,7 +109,9 @@ ends, the screw pilots and the whole volume swept through the front passages dur
 The middle axes stand at **[151.9 mm](SEAM_SCREW_MIDDLE_Z)**, one socket radius below the
 Z seam. The complete inserts and their collars belong to front-bottom, with their crowns
 on the split plane. Lower and middle back pins share a straight floor-rooted jamb;
-front-bottom carries the matching socket jamb and a straight passage open through the floor.
+front-bottom carries the matching socket jamb and a straight passage open through both the
+floor and the Z-seam rim. The floor scarf and the upper pins' lower seats register the two
+columns vertically, leaving the middle passages open at their crowns.
 `y-seam-lower` reads both complete jambs, all four screw pilots, the entry passages and the
 floor feet. The existing rails connect the top pieces to this fastening; the ceiling pair
 alone still frees front-top.
@@ -129,8 +131,7 @@ isolated support towers.
   [9.9 mm](PLUG_DIA) square section surrounds each shank with one wall; the lower and
   middle sections continue to the floor and the upper section into the ceiling.
 - **Lip piece = socket** (the front pieces): a collar with a straight slot for the pin,
-  with [0.15 mm](SLIDE_SLIP) running clearance at its closed end, open through the floor
-  on front-bottom and through the ceiling on front-top,
+  open through the floor and Z-seam rim on front-bottom and through the ceiling on front-top,
   with the ruthex M3
   heat-set (Ø4.0 × 4.0 body in its [5 mm](SEAM_HEATSET_DEPTH) pilot) capped at its deep
   inboard end.
