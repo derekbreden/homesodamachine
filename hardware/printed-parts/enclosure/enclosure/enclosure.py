@@ -6011,7 +6011,7 @@ def _tee_carrier_fixed_features(carrier):
 
 
 def _tee_carrier_service_slots(carrier):
-    """The two gabled flank openings swept by the separately installed service tabs."""
+    """Two gabled flank openings for the integral carrier grips and fingers behind them."""
     if not carrier:
         return ()
     x0, x1 = carrier["service_slot_x"]
@@ -9103,6 +9103,14 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         # later feature can refill the service-tab sweep or its support-free gabled roof.
         for slot in _tee_carrier_service_slots(box.pack.tee_carrier):
             piece = piece.cut(slot)
+        if box.pack.tee_carrier:
+            # Straight tool access through the aft valve tray, between its two inner seats.
+            # The two M3 heads enter from the open rear while front-top is on the bench.
+            carrier = box.pack.tee_carrier
+            for x, _seat_y, z in carrier["joint_sites"]:
+                piece = piece.cut(_teardrop_y(
+                    head_cbore_dia / 2.0, x, z,
+                    carrier["park_aft_stop_y"], yhi + 1.0, up=up))
     if y_side == "back" and z_side == "top":
         # Last on the flank: the channel is air, and no later wall feature may fill it back in.
         piece = _pan_cable_clip(piece, box, up=up)

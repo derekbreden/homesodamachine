@@ -340,6 +340,8 @@
     "tools/docgen/__init__.py"
   ],
   "hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py": [
+    "hardware/printed-parts/cadlib/fits.py",
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
     "hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py",
     "hardware/reference/tee-connector/tee_connector.py",
     "hardware/scripts/_cadq_export.py",

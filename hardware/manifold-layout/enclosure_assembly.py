@@ -1303,12 +1303,8 @@ def tee_carrier_spec(mcarry, squeeze_stood, plate) -> _carrier.CarrierSpec:
     flange_abs_x = min(abs(x) for x in _enc.front_top_flank_face())
     guide_outer_x = flange_abs_x - fits.slip
     states = plate["carrier_states"]
-    tab_y = (web_fore_y + base.tab_y[0] - base.web_fore_y,
-             web_fore_y + base.tab_y[1] - base.web_fore_y)
     tab_z = (tee_axis_z + base.tab_z[0] - base.tee_axis_z,
              tee_axis_z + base.tab_z[1] - base.tee_axis_z)
-    service_roof_z = (tab_z[1] + fits.slip
-                      + (plate["wall_aft_y"] - plate["aft_y"]) / 2.0)
     return _carrier.CarrierSpec(
         tee_xs=tee_xs,
         tee_axis_z=tee_axis_z,
@@ -1318,9 +1314,7 @@ def tee_carrier_spec(mcarry, squeeze_stood, plate) -> _carrier.CarrierSpec:
                tee_axis_z + base.web_z[1] - base.tee_axis_z),
         spring_xs=spring_xs,
         spring_axis_z=tee_axis_z,
-        tab_arm_x=base.tab_arm_x,
         tab_outer_x=_enc.appliance_width / 2.0 - base.tab_recess,
-        tab_y=tab_y,
         tab_z=tab_z,
         guide_ear_outer_x=guide_outer_x,
         guide_ear_z=(tee_axis_z + base.guide_ear_z[0] - base.tee_axis_z,
@@ -1332,7 +1326,6 @@ def tee_carrier_spec(mcarry, squeeze_stood, plate) -> _carrier.CarrierSpec:
         aft_coil_fore_y=aft_coil_fore_y,
         exterior_x=_enc.appliance_width / 2.0,
         lowering_cavity_half_x=flange_abs_x,
-        service_opening_top_z=service_roof_z,
     )
 
 
@@ -1357,12 +1350,6 @@ def tee_carrier_interface(spec: _carrier.CarrierSpec, plate, squeeze_stood) -> d
         name: round(2.0 * _carrier_spring.catalog_load_estimate(length), 6)
         for name, length in bearing.items()
     }
-    service_roof_z = round(
-        spec.tab_z[1] + fits.slip + (plate["wall_aft_y"] - plate["aft_y"]) / 2.0, 6)
-    if abs(data["service_opening_top_z"] - service_roof_z) > 1e-6:
-        raise ValueError(
-            f"carrier lock path expects service roof z={data['service_opening_top_z']:.6f}, "
-            f"but front-top derives z={service_roof_z:.6f}")
     data.update({
         "states": states,
         "assembly_state": plate["assembly_state"],
@@ -1383,19 +1370,14 @@ def tee_carrier_interface(spec: _carrier.CarrierSpec, plate, squeeze_stood) -> d
         "fore_stop_x": (spec.web_x[1], _enc.appliance_width / 2.0),
         "aft_stop_x": (round(aft_coil_outer_x + fits.slip, 6),
                         _enc.appliance_width / 2.0),
-        # The Y-stop terminates exactly at the guide ear's crown. Growing it by the guide
-        # running clearance catches the receiver column before the release datum.
+        # The Y stops terminate at the guide ears' crowns.
         "stop_z": (plate["z0"], round(spec.guide_ear_z[1], 6)),
         "stop_depth": 3.0,
-        # `tee_carrier.interface()` owns the complete outboard-entry slot.  In particular,
-        # its Y sweep follows release through park and its X edge starts outside the bare
-        # carrier lowering cavity; deriving either span from the fixed collet plate here
-        # would silently turn the separate rigid tabs back into an impossible top drop.
         "ties_per_tee": len(spec.tie_band_offsets_z),
         "tee_count": len(spec.tee_xs),
         "spring_count": len(spec.spring_xs),
         "tab_count": 2,
-        "tab_lock_count": 2,
+        "joint_screw_count": len(_carrier.joint_sites(spec)),
     })
     return data
 
@@ -1410,7 +1392,7 @@ def build_carrier_spring(x: float, z: float, fixed_y: float, length: float):
 def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
     """Read the complete carrier installation and working motion against live front-top.
 
-    The carrier part's own selftest proves its five-piece joints against a representative flank.
+    The carrier part's own selftest proves the two halves and their clamped lap joint.
     This is the complementary appliance reading: source-built front-top, including every tray,
     Wago well, stop, spring guide and service opening which can enter the moving envelope.  A
     maximum 0.7 mm translation between samples keeps the long carrier descent from becoming an
@@ -1420,7 +1402,7 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
     if not getattr(a, "tee_carrier", None):
         return record_bound(Bound(
             "tee-carrier-motion", "Tee carrier clears front-top through installation and travel",
-            False, "carrier interface absent", "one complete five-piece carrier interface", ()))
+            False, "carrier interface absent", "one complete two-half carrier interface", ()))
 
     spec = a.tee_carrier_spec
     interface = a.tee_carrier
@@ -1435,9 +1417,15 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
     def read(label: str, moving, blockers) -> float:
         nonlocal max_overlap, readings
         moving = moving.val() if isinstance(moving, cq.Workplane) else moving
+        mb = moving.BoundingBox()
         total = 0.0
         for blocker_name, blocker in blockers:
             blocker = blocker.val() if isinstance(blocker, cq.Workplane) else blocker
+            bb = blocker.BoundingBox()
+            if any(getattr(mb, axis + "max") < getattr(bb, axis + "min") or
+                   getattr(bb, axis + "max") < getattr(mb, axis + "min")
+                   for axis in "xyz"):
+                continue
             volume = moving.intersect(blocker).Volume()
             total += volume
             if volume > CARRIER_MOTION_OVERLAP_TOL:
@@ -1447,19 +1435,21 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
         max_overlap = max(max_overlap, total)
         return total
 
-    # The complete installed mechanism clears the real wall at every named working state.
+    halves = {side: _carrier.build_half(spec, side).val() for side in (-1, 1)}
+    fixed = tuple((name, solid) for name, (solid, _colour) in _solids(a).items()
+                  if name.startswith(("coil-", "valve-")))
+    wall_and_fixed = (("enclosure-front-top", wall), *fixed)
+    installed_names = {f"{kind}-v-{v}" for kind in ("coil", "valve") for v in "cdgj"}
+    installation = (("enclosure-front-top", wall),
+                    *((name, solid) for name, solid in fixed if name in installed_names))
+    # The complete installed mechanism and its finger space clear the real enclosure.
     for state, row in interface["states"].items():
         dy = row["offset_y"]
-        moving = [
-            ("carrier", _carrier.build_carrier(spec).val()),
-            *((f"tab-{side:+d}", _carrier.build_service_tab(spec, side).val())
-              for side in (-1, 1)),
-            *((f"tab-lock-{side:+d}", _carrier.build_tab_lock(spec, side).val())
-              for side in (-1, 1)),
-        ]
-        for label, shape in moving:
-            read(f"{state} {label}", shape.translate(cq.Vector(0.0, dy, 0.0)),
-                 (("enclosure-front-top", wall),))
+        for side, shape in halves.items():
+            read(f"{state} half {side:+d}", shape.translate((0.0, dy, 0.0)),
+                 wall_and_fixed)
+        for side, finger in zip((-1, 1), _carrier.finger_probes(spec, dy)):
+            read(f"{state} finger {side:+d}", finger, wall_and_fixed)
         spring_length = interface["spring_bearing_lengths"][state]
         for side, x in zip(("west", "east"), spec.spring_xs):
             read(
@@ -1470,45 +1460,50 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
                 (("enclosure-front-top", wall),),
             )
 
-    # Lower the tabless carrier at release from just above the bay lintel into its open guides.
+    # Each integral grip enters inside its flank, then slides outward through its opening.
+    # The right half parks aft while the left half enters; its final forward stroke closes
+    # the lap. Springs and tees are fitted after the halves are joined in the open bay.
     release = interface["states"]["release"]["offset_y"]
-    bare_release = (_carrier.build_carrier(spec).val()
-                    .translate(cq.Vector(0.0, release, 0.0)))
-    access_lift = box.pump_bay[2] + fits.slip - bare_release.BoundingBox().zmin
-    descent_samples = sample_count(access_lift)
-    for i in range(descent_samples):
-        dz = access_lift * (1.0 - i / (descent_samples - 1))
-        read(f"release carrier descent {i + 1}/{descent_samples}",
-             bare_release.translate(cq.Vector(0.0, 0.0, dz)),
-             (("enclosure-front-top", wall),))
+    park = interface["states"]["park"]["offset_y"]
+    right_park = halves[1].translate((0.0, park, 0.0))
+    left_release = halves[-1].translate((0.0, release, 0.0))
+    for side in interface["half_install_order"]:
+        half = halves[side].translate((0.0, release, 0.0))
+        blockers = installation + ((("parked right half", right_park),) if side < 0 else ())
+        dx = -side * interface["half_entry_shift_x"]
+        access_lift = box.pump_bay[2] + fits.slip - half.BoundingBox().zmin
+        count = sample_count(access_lift)
+        for i in range(count):
+            dz = access_lift * (1.0 - i / (count - 1))
+            read(f"half {side:+d} descent {i + 1}/{count}",
+                 half.translate((dx, 0.0, dz)), blockers)
+        count = sample_count(dx)
+        for i in range(count):
+            read(f"half {side:+d} outward entry {i + 1}/{count}",
+                 half.translate((dx * (1.0 - i / (count - 1)), 0.0, 0.0)), blockers)
+    count = sample_count(park - release)
+    for i in range(count):
+        dy = park + (release - park) * i / (count - 1)
+        read(f"right half lap closure {i + 1}/{count}",
+             halves[1].translate((0.0, dy, 0.0)),
+             (*installation, ("left half at release", left_release)))
+        # This path also reads the initial right-half movement from release to park.
+        for side, shape in halves.items():
+            read(f"half {side:+d} working travel {i + 1}/{count}",
+                 shape.translate((0.0, dy, 0.0)), wall_and_fixed)
 
-    # With the bare carrier held at squeeze, each rigid tab enters from wholly outside and its
-    # separate lock then drops.  The other tab is absent while its handed joint is assembled.
-    squeeze_carrier = _carrier.build_carrier(spec).val()
-    for path in interface["tab_install_path"]:
-        side = path["side"]
-        tab = _carrier.build_service_tab(spec, side).val()
-        tab_samples = sample_count(path["start_shift_x"])
-        for i in range(tab_samples):
-            dx = path["start_shift_x"] * (1.0 - i / (tab_samples - 1))
-            read(f"tab {side:+d} inward entry {i + 1}/{tab_samples}",
-                 tab.translate(cq.Vector(dx, 0.0, 0.0)),
-                 (("enclosure-front-top", wall), ("tee carrier", squeeze_carrier)))
-
-        lock = _carrier.build_tab_lock(spec, side).val()
-        lock_lift = path["lock_entry_lift_z"]
-        lock_samples = sample_count(lock_lift)
-        for i in range(lock_samples):
-            dz = lock_lift * (1.0 - i / (lock_samples - 1))
-            read(f"tab lock {side:+d} drop {i + 1}/{lock_samples}",
-                 lock.translate(cq.Vector(0.0, 0.0, dz)),
-                 (("enclosure-front-top", wall), ("tee carrier", squeeze_carrier),
-                  (f"service tab {side:+d}", tab)))
+    # The screws and a straight driver enter from aft through the center gap between coils.
+    # The M3 head's envelope includes running air; the tray passages use the larger counterbore.
+    for x, seat_y, z in _carrier.joint_sites(spec):
+        reach = wall.BoundingBox().ymax + 1.0 - (seat_y + release)
+        access = cq.Solid.makeCylinder(
+            _gnd.head_d / 2.0 + fits.slip, reach,
+            cq.Vector(x, seat_y + release, z), cq.Vector(0.0, 1.0, 0.0))
+        read(f"M3 screw and driver at Z {z:g}", access, installation)
 
     # A real stop is air at its datum and material immediately beyond it.
     carrier = _carrier.build_carrier(spec).val()
     release_hit = carrier.translate(cq.Vector(0.0, release - 0.001, 0.0)).intersect(wall).Volume()
-    park = interface["states"]["park"]["offset_y"]
     park_hit = carrier.translate(cq.Vector(0.0, park + 0.001, 0.0)).intersect(wall).Volume()
     if release_hit <= CARRIER_MOTION_OVERLAP_TOL:
         failures.append("release stop does not engage after a 0.001 mm overshoot")
@@ -4785,34 +4780,22 @@ def build_pack() -> cq.Assembly:
     a.collet_plate = collet_plate_spec(mcarry, a.pump_trays)
     # The four anchor tees are a second moving group inside the posed manifold. Their web is
     # struck on the squeezed tee faces, then translated to the connected state shown by the
-    # finished assembly. The bare carrier, both separately installed service tabs and their
-    # two top-drop keys all travel on that datum. Both springs use the actual fixed wall and
+    # finished assembly. Both carrier halves and their integral service tabs travel on that
+    # datum. Both springs use the actual fixed wall and
     # recessed carrier bearing planes; their CAD pitch depicts that installed envelope only.
     a.tee_carrier_spec = tee_carrier_spec(mcarry, squeeze_stood, a.collet_plate)
     a.tee_carrier = tee_carrier_interface(
         a.tee_carrier_spec, a.collet_plate, squeeze_stood)
-    carrier = (_carrier.build_carrier(a.tee_carrier_spec).val()
-               .translate(cq.Vector(0.0, state_offset, 0.0)))
-    a.add(carrier, name="enclosure-tee-carrier", color=M_PETGF_BLACK)
-    a.carrier_parts = {"carrier": carrier}
+    a.carrier_parts = {}
     for side, handed in ((-1, "left"), (1, "right")):
-        tab = (_carrier.build_service_tab(a.tee_carrier_spec, side).val()
+        half = (_carrier.build_half(a.tee_carrier_spec, side).val()
                .translate(cq.Vector(0.0, state_offset, 0.0)))
-        lock = (_carrier.build_tab_lock(a.tee_carrier_spec, side).val()
-                .translate(cq.Vector(0.0, state_offset, 0.0)))
-        tab_name = f"enclosure-tee-carrier-tab-{handed}"
-        lock_name = f"enclosure-tee-carrier-tab-lock-{handed}"
-        a.add(tab, name=tab_name, color=M_PETGF_BLACK)
-        a.add(lock, name=lock_name, color=M_PETGF_BLACK)
-        a.carrier_parts[f"tab-{handed}"] = tab
-        a.carrier_parts[f"lock-{handed}"] = lock
-    record_seat(
-        "enclosure-tee-carrier",
-        station=(0.0, a.tee_carrier_spec.web_fore_y + state_offset,
-                 a.tee_carrier_spec.tee_axis_z),
-        got=(0.0, a.tee_carrier_spec.web_fore_y + state_offset,
-             a.tee_carrier_spec.tee_axis_z),
-    )
+        name = f"enclosure-tee-carrier-{handed}"
+        a.add(half, name=name, color=M_PETGF_BLACK)
+        a.carrier_parts[handed] = half
+        station = (0.0, a.tee_carrier_spec.web_fore_y + state_offset,
+                   a.tee_carrier_spec.tee_axis_z)
+        record_seat(name, station=station, got=station)
     spring_length = a.tee_carrier["spring_bearing_lengths"][CARRIER_ASSEMBLY_STATE]
     fixed_y = a.tee_carrier["fixed_spring_bearing_y"]
     for side, x in zip(("west", "east"), a.tee_carrier_spec.spring_xs):
@@ -5142,8 +5125,8 @@ IN_THE_WALL = (
     # 0.3 mm inside the appliance exterior.  It is a moving through-wall control, not content
     # the inner face must enclose; keeping it in the sizing pack falsely widens a 215 mm box to
     # the tabs' already-valid exterior envelope.
-    "enclosure-tee-carrier-tab-left",
-    "enclosure-tee-carrier-tab-right",
+    "enclosure-tee-carrier-left",
+    "enclosure-tee-carrier-right",
 )
 # And the bodies standing OUTBOARD of it: on two of the five crossings, the customer's own tube
 # and the collar that carries the station's word out along it. The wall's outer face is where the machine stops, so none of this is in the room the pack

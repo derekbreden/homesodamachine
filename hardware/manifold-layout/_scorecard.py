@@ -417,16 +417,16 @@ MOUNTS = (
     # THE FOUR PUMP-BARB TEES MOVE AS ONE. The fixed wall journals each branch collar in X/Z;
     # two ties per tee close its two run arms onto the carrier web, making the carrier the
     # positive Y location instead of asking a flex stub or hairpin to act as a mount.
-    ("tee-y-c", "enclosure-tee-carrier", "tie-capture"),
-    ("tee-y-d", "enclosure-tee-carrier", "tie-capture"),
-    ("tee-y-f", "enclosure-tee-carrier", "tie-capture"),
-    ("tee-y-g", "enclosure-tee-carrier", "tie-capture"),
+    ("tee-y-c", "enclosure-tee-carrier-right", "tie-capture"),
+    ("tee-y-d", "enclosure-tee-carrier-right", "tie-capture"),
+    ("tee-y-f", "enclosure-tee-carrier-left", "tie-capture"),
+    ("tee-y-g", "enclosure-tee-carrier-left", "tie-capture"),
     # Each spring is captive between the front-top's fixed diamond guide/bearing face and the
     # carrier's recessed seat. The pair pushes aft and travels with neither printed endpoint.
     ("tee-carrier-spring-west",
-     ("enclosure-front-top", "enclosure-tee-carrier"), "gap-press"),
+     ("enclosure-front-top", "enclosure-tee-carrier-left"), "gap-press"),
     ("tee-carrier-spring-east",
-     ("enclosure-front-top", "enclosure-tee-carrier"), "gap-press"),
+     ("enclosure-front-top", "enclosure-tee-carrier-right"), "gap-press"),
     # BOTH PUMPS STAND IN THE LARGE LOWER CRADLE. Three sides of each stamped bracket bear on
     # cradle lands; the +Y side stays open for the tube fittings. A small clamp screws down from
     # above, presses both brackets and locates both bosses in case-derived octagonal collars
@@ -712,8 +712,9 @@ TOUCHING_OK = {frozenset(p) for p in (
     # The two compression springs terminate on printed bearing faces at both ends. Zero
     # distance is the captive mechanism working; the diamond guide remains inside the coil ID.
     *((f"tee-carrier-spring-{side}", host)
-      for side in ("west", "east")
-      for host in ("enclosure-front-top", "enclosure-tee-carrier")),
+      for side, half in (("west", "left"), ("east", "right"))
+      for host in ("enclosure-front-top", f"enclosure-tee-carrier-{half}")),
+    ("enclosure-tee-carrier-left", "enclosure-tee-carrier-right"),
     # BOTH MADE-UP CHAINS IN THE RIBS THAT LID STANDS. A bore closed on a section reads its own
     # slip, and that reading IS the seat holding.
     ("foam-assembly", "discharge-chain"),

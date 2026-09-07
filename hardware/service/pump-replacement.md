@@ -23,7 +23,7 @@ gooseneck's tip. The user's part is a container under the faucet.
 | The four barb tubes, on the barbs they were pushed onto | [3](CAP_VALVES) valves — V-A, V-B, V-K, in the cold core's lid cradles (`_cold_core_interface.cap_cradles`) |
 | The pump cartridge's 28 AWG 4P cord, its RJ11 pump plug, and both Faston pairs on the pump tabs | The pump jack, its J13-side 22 AWG 4P ribbon, and the +X ridge-wall cable clip |
 | | All [6](BOX_TEES) PP0208E tees. Y-A and Y-B butt fixed valves; Y-C, Y-D, Y-F and Y-G are the [4](CARRIER_TEES) tees tied to the moving carrier |
-| | The carrier, its [2](SPRING_COUNT) aft-pushing springs, [2](TAB_COUNT) handed service-tab arms and [2](TAB_LOCK_COUNT) top-drop tab locks |
+| | The two carrier halves, their [2](TAB_COUNT) integral service tabs, [2](CARRIER_JOINT_SCREWS) center-joint screws and [2](SPRING_COUNT) aft-pushing springs |
 | | The integral collet plate, tee-journal wall, carrier guides and both physical stops in `enclosure-front-top` |
 | | The [4](BOWED_STUBS) bowed tee-to-fore-valve stubs and [4](MOVING_HAIRPINS) spine hairpins. Their tee ends move with the carrier; their valve ends remain fixed |
 | | Every other turn and butted stub inside the pack, and every mouth it spends on a bulkhead or a cap conduit |
@@ -31,7 +31,7 @@ gooseneck's tip. The user's part is a container under the faucet.
 
 **The manifold stays in the appliance, but its four-tee carrier travels inside front-top.**
 [2](TIES_PER_TEE) ties per tee couple Y-C, Y-D, Y-F and Y-G in Y while the fixed wall journals their branch
-collars in X and Z. The service-tab arms and their keys travel with the carrier; the two springs
+collars in X and Z. The integral service tabs travel with the carrier; the two springs
 compress between it and fixed front-top. The tee-side ends of four bowed stubs and four
 hairpins follow the same stroke. Nothing in that mechanism rides out on the cartridge: the only
 tube ends that cross the bay's mouth are the four the pumps carry with them.
@@ -89,7 +89,7 @@ therefore carries all four tied tees and the carrier fore from +1.5 mm to releas
 a [4.65](CONNECTED_RELEASE_TRAVEL) mm connected-to-release motion. The noses meet the fixed
 plate and the last 1.65 mm of sleeve travel opens the teeth; the tubes continue through the
 holes and leave the tees. With that tensile link gone, the two springs send the empty carrier
-aft to park at +3 mm. The two tab arms, their keys, the tee-side ends of the bowed stubs and the
+aft to park at +3 mm. The two integral tabs, the center joint, the tee-side ends of the bowed stubs and the
 tee-side ends of the hairpins travel with the carrier throughout; their fixed valve ends do
 not. There is no cartridge lock and no release tool. The cartridge face may finish flush after
 reconnection, but neither that face nor the plate is a final seat or proof that four tubes are
@@ -123,17 +123,17 @@ States"; this doc names the order they run in.
 ## Procedure
 
 **Do not force a carrier that is racked or operate one service tab by itself.** Before a swap,
-look through both service openings: both rigid tab arms and both top-drop keys must be fully
-seated, the two tabs must agree in Y, and the visible portions of all four bowed stubs and four
-moving hairpin ends must be free of kinks, abrasion and enclosure contact. A displaced key,
-unequal tabs, a reluctant return or a damaged flexible member stops the procedure for
-inspection; neither the cartridge nor a tab is a lever for clearing it.
+check that both integral tabs are sound and agree in Y, and that the visible portions of all
+four bowed stubs and four moving hairpin ends are free of kinks, abrasion and enclosure contact.
+Unequal tabs, a reluctant return, a loose center joint or a damaged flexible member stops the
+procedure for inspection; neither the cartridge nor a tab is a lever for clearing it.
 
 **1. Run dry mode.** A container under the faucet — states 2 and 4 send a slug of air and residual
 syrup out the gooseneck.
 
-**2. Pull the cartridge.** Hook the pulling hand into either cradle pocket, centred on the
-cradle's flank at the tube-centre elevation, and brace the box with the other hand. From the
+**2. Pull the cartridge.** Hook into the cradle pockets and brace the enclosure with a hand, foot or cupboard edge,
+or let its weight provide the reaction. Both hands can pull when the enclosure is otherwise
+supported. From the
 connected +1.5 mm state, pull the fore ledge and draw the cradle straight forward along the bay
 floor. The four gripped tubes carry the tied tees and carrier to release at −3.15 mm against
 the fixed plate. Its lands hold all four sleeves while the last 1.65 mm opens the teeth; all
@@ -144,8 +144,8 @@ straight pull only after release. The free cartridge ribbon follows without pass
 the enclosure-side cable clip.
 
 With the cradle clear and power still removed, inspect all four cartridge-tube ends for a
-square, unscarred mouth; inspect the four plate holes, the eight carrier ties, both tab/key
-joints, and the visible travel ends of all eight flexible links. Then reach up through the empty
+square, unscarred mouth; inspect the four plate holes, the eight carrier ties, the center lap
+joint, and the visible travel ends of all eight flexible links. Then reach up through the empty
 bay behind the display, press the pump plug's clip from below, pull the plug straight forward
 until it is clear of the plate cap, and lower it through the bay before standing the cradle on
 its bottom floor. Do not lever the jack or pull either ribbon. The four pump Fastons remain made
@@ -171,9 +171,10 @@ tug-test each of the four before the deck goes back in.
 motor tabs first — they are unreachable once the cradle is in. With power removed, reach behind
 the display and push the pump plug into the pump jack until it clicks; tug the plug, not the
 cord, to prove it is home. Set the cradle on the bay
-floor and present all four tubes squarely through their plate holes. Squeeze both service tabs
-together and hold the carrier at 0 mm. Advance the cartridge without twisting it and push all
-four tubes to their 10 mm bottoms. Release both tabs together: the two springs move the carrier
+floor and present all four tubes squarely through their plate holes. Each hand spans the
+cartridge pocket and the service tab on the same side: thumb pushes the cartridge aft, fingers
+pull the tab fore. Squeeze both hands evenly until all four tubes reach their 10 mm bottoms
+at the carrier's 0 mm squeeze datum. Release both tabs together: the two springs move the carrier
 aft until all four teeth grip at connected, +1.5 mm carrier offset and 8.5 mm tube depth.
 
 Both tabs must settle evenly at connected. A carrier that remains at park with the cartridge
@@ -192,7 +193,7 @@ carrier flex links for seepage, rubbing or a link pulled taut.
 - The pump plug clicked into the pump jack behind the display; the fixed J13-side ribbon retained
   in the ridge-wall clip and the cartridge's cord free to follow the next withdrawal
 - During removal, all four tubes released together at −3.15 mm and the empty carrier returned
-  evenly to park at +3 mm; both rigid tab arms and both tab locks remained seated
+  evenly to park at +3 mm; both integral tabs and the center joint remained sound
 - Four fresh barb tubes on the barbs and all [4](JOINT_COUNT_4) joints bottomed together at
   squeeze, 0 mm; both tabs released evenly to connected, +1.5 mm, with all tubes gripped at
   8.5 mm. The cartridge face is visually flush, but was not used as the connection proof
@@ -220,10 +221,10 @@ carrier flex links for seepage, rubbing or a link pulled taut.
    12 mm exposed/developed paths across their 10 mm sleeve-face chords; 12 mm is not a stock
    cut length, and the blank remains TBD by that fixture. Cycle and force-measure the complete
    four-tee mechanism through release, squeeze, connected and park with all eight ties, two
-   springs, both tab arms and keys, four bowed stubs, four moving hairpin ends and four real
+   springs, both integral tabs and the center joint, four bowed stubs, four moving hairpin ends and four real
    cartridge tubes installed. It must release four together, return empty to park, settle
    repeatably at connected and remain leak-free, without racking, rubbing, coil bind, buckling,
-   spring escape, key withdrawal or tube damage. Catalog force calculations and collision-free
+   spring escape, center-joint loosening or tube damage. Catalog force calculations and collision-free
    CAD do not close this gate; record it under
    [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) Open item 7.
 
