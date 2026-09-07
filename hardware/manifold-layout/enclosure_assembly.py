@@ -6090,6 +6090,7 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     pump_jack, _pump_jack_carry = build_pump_jack(box)
     a.add(pump_jack, name="pump-jack", color=M_DONOR_BLACK)
     pieces = _materialized_enclosure_pieces(box, require_box_spec)
+    _enc._upper_y_seam_bound(pieces, box)
     for name, piece in pieces.items():
         a.add(piece, name=f"enclosure-{name}", color=WALL_COLORS[name])
     _carrier_front_top_motion_bound(a, pieces["front-top"], box)

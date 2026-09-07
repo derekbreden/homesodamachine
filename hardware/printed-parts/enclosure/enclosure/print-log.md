@@ -183,11 +183,11 @@ Settings:
 ### Support-removal audit
 
 The current fluted back-top STL, substituted into a temporary copy of the ceiling-down production
-project above and sliced by BambuStudio 02.08.02.61, has **15 connected support bodies** reaching
-**32 interface islands**: 7 start on the plate around the bedded piece — fore of
+project above and sliced by BambuStudio 02.08.02.61, has **12 connected support bodies** reaching
+**35 interface islands**: 5 start on the plate around the bedded piece — fore of
 its mouth, behind its rear face, through the funnel's opening — and
-8 on the piece itself, the ceiling slab's interior face and the backing over each rib's tie channel. Their shortest
-base-to-first-interface build-up is **1.20 mm**; 5 bodies are under 5 mm, the stubs inside the five ribs' 3 mm tie channels under their 3.5 mm crown strips, 0 in 5–10, 3 in 10–15 and 7 at 15 or more. The hashed toolpath reading is
+7 on the piece itself, the ceiling slab's interior face and the backing over each rib's tie channel. Their shortest
+base-to-first-interface build-up is **1.20 mm**; 5 bodies are under 5 mm, the stubs inside the five ribs' 3 mm tie channels under their 3.5 mm crown strips, 0 in 5–10, 1 in 10–15 and 6 at 15 or more. The hashed toolpath reading is
 [`enclosure-back-top.support-audit.json`](enclosure-back-top.support-audit.json); the retained
 bodies and what each carries are named in
 [`support-audit.json`](support-audit.json). The reading is this project's: tree(auto) supports at a 35° threshold, 0.4 mm top and bottom Z

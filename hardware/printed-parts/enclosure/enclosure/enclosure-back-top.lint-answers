@@ -53,7 +53,7 @@ click: x=-93.227 y=407.710 z=347.250
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=97.375 y=335.500 z=327.200
 
-[ceiling] The ASSE tie cavity's lower threshold — one full 3 mm wall from x -101.5 to -98.5 across the cavity's 31.6 mm span. The closed zip-tie loop crosses this threshold on its way under the anchor, so it remains flat and open; the production slice reaches the complete face from the ceiling slab with tree-4, a model-rooted support with 28.32 mm of build-up.
+[ceiling] The ASSE tie cavity's lower threshold — one full 3 mm wall from x -101.5 to -98.5 across the cavity's 31.6 mm span. The closed zip-tie loop crosses this threshold on its way under the anchor, so it remains flat and open; the production slice reaches the complete face from the ceiling slab with a model-rooted support with 28.32 mm of build-up.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-100.000 y=374.210 z=321.921
 
@@ -74,11 +74,6 @@ file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=101.075 y=335.525 z=168.700
 click: x=-101.075 y=388.750 z=168.700
 click: x=-101.075 y=266.275 z=168.700
-
-[ceiling] The upper Y-seam pins' top faces — the square registration face the front lip's socket slides over, flat by the joint's contract, 13 mm under the lane; a supported face reached from the slab.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-101.500 y=207.525 z=339.000
-click: x=101.500 y=207.525 z=339.000
 
 [ceiling] The PRV mouth's floor — a `vent_channel_w` bridge between the passage's two jambs, the mouth's own square section on the tube's axis.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
