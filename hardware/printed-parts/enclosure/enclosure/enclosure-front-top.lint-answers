@@ -9,7 +9,7 @@ click: x=89.075 y=196.925 z=352.000
 click: x=-89.075 y=196.925 z=349.000
 click: x=89.075 y=196.925 z=349.000
 
-[sliver] The mirrored end lands belong to the fore-facing flavour-valve tray. Its wall-to-wall plate is 10 mm deep at y=167.560..177.560 and is trimmed to front-top's established 45-degree flank bedding; 1.55 mm is the exposed height of that solid plate-to-flank root, not a free ligament.
+[sliver] The mirrored end lands belong to the fore-facing flavour-valve tray. Its wall-to-wall plate is 10 mm deep at y=167.560..177.560 and is trimmed to front-top's established 45-degree flank bedding. These faces expose the solid plate-to-flank root and carry the full tray depth.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=-98.500 y=172.560 z=180.025
 click: x=98.500 y=172.560 z=180.025
@@ -58,9 +58,21 @@ click: x=0.000 y=106.864 z=220.315
 click: x=-92.682 y=103.714 z=220.315
 click: x=92.682 y=103.714 z=220.315
 
-[ceiling] Each constant-section tee well ends at this common plane beneath the fixed valve-tray root. The 2.2 mm fore/aft span is the exposed underside of the surrounding supported stock, not a separate thin wall. Keep the valve support above and remove support through the full-height open well before the hardware is installed.
+[ceiling] Each constant-section tee well ends at the fore-valve body's clearance plane. These flat crowns are the exposed undersides of the filled bridge where it joins the valve tray around its round port openings. Remove support through the open well before the hardware is installed.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-81.067 y=92.821 z=224.395
-click: x=-21.317 y=92.821 z=224.395
-click: x=21.317 y=92.821 z=224.395
-click: x=81.067 y=92.821 z=224.395
+click: x=-81.067 y=94.631 z=232.690
+click: x=-21.317 y=94.631 z=232.690
+click: x=21.317 y=94.631 z=232.690
+click: x=81.067 y=94.631 z=232.690
+
+[ceiling] The outer aft-valve coils enter beneath these flat roofs. `aft_valve_cavities` sets the roof at the coil's top plus running clearance and opens the complete fore/aft insertion stroke. The upper bridge joins the enclosure above it; removable support is accessible from the open aft bay before the valves are fitted.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=-66.982 y=113.660 z=226.825
+click: x=66.982 y=113.660 z=226.825
+click: x=-93.905 y=113.660 z=226.825
+click: x=93.905 y=113.660 z=226.825
+
+[step] The faces at x=±103.650 are the standing walls of the front Z-seam's rail channels, set by the rail head and its running clearance in `_rail_channel_span`. The common floor joins this channel section below the flank's x=±104.500 interior face. The offset preserves the seam's sliding passage, with continuous enclosure stock behind the channel wall.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=-103.650 y=142.729 z=170.297
+click: x=103.650 y=142.729 z=170.297
