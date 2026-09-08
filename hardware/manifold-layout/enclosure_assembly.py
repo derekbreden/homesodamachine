@@ -1389,12 +1389,17 @@ def tee_carrier_interface(spec: _carrier.CarrierSpec, plate, squeeze_stood) -> d
     aft_valve_cavities = []
     floor_cavities = []
     for name in "cdgj":
-        bb = box(solids[f"coil-v-{name}"])
-        aft_valve_cavities.append((
-            (bb.xmin - spec.slide_air, bb.xmax + spec.slide_air),
-            (min(bb.ymin + aft_valve_entry_y - spec.slide_air, valve_clearance_plane_y),
-             body_aft_y + 1.0),
-            (plate["z0"], bb.zmax + spec.slide_air)))
+        coil = solids[f"coil-v-{name}"]
+        # The coil case and its two terminals have their own entry sections. The tall
+        # terminals pass inside the tee well; the broad case passes below the upper land.
+        for component in coil.Solids():
+            cb = box(component)
+            aft_valve_cavities.append((
+                (cb.xmin - spec.slide_air, cb.xmax + spec.slide_air),
+                (min(cb.ymin + aft_valve_entry_y - spec.slide_air, valve_clearance_plane_y),
+                 body_aft_y + 1.0),
+                (plate["z0"], cb.zmax + spec.slide_air)))
+        bb = box(coil)
         valve = box(solids[f"valve-v-{name}"])
         floor_cavities.append((
             (min(bb.xmin, valve.xmin) - spec.slide_air,
@@ -1630,11 +1635,14 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
                  if name in (f"coil-v-{valve}", f"valve-v-{valve}")]
         dz = plate["z0"] - max(s.BoundingBox().zmax for _n, s in parts) - spec.slide_air
         for name, shape in parts:
-            bb = shape.translate((0, entry_dy, 0)).BoundingBox()
-            sweep = _carrier._box(bb.xmin, bb.xmax, bb.ymin, bb.ymax,
-                                  bb.zmin + dz, bb.zmax).val()
-            read(f"{name} underside entry envelope", sweep,
-                 (("enclosure-front-top", wall), *seated_tees))
+            # Every constituent solid travels the complete rise. Keeping the coil case
+            # and terminals separate preserves the open space beside the terminal pair.
+            for index, component in enumerate(shape.Solids(), 1):
+                bb = component.translate((0, entry_dy, 0)).BoundingBox()
+                sweep = _carrier._box(bb.xmin, bb.xmax, bb.ymin, bb.ymax,
+                                      bb.zmin + dz, bb.zmax).val()
+                read(f"{name} component {index} complete underside entry envelope", sweep,
+                     (("enclosure-front-top", wall), *seated_tees))
             count = sample_count(entry_dy)
             for i in range(count):
                 read(f"{name} post insertion {i + 1}/{count}",
