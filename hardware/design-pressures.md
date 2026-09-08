@@ -76,20 +76,21 @@ destroyed is a part that comes out by being destroyed.
   insertion at both fittings, and the valve-side depth has not been measured. The tee–valve bow
   trial therefore owns the blank before production; no cut instruction may call that blank
   12 mm.
-- **The front-top assembly order follows the moving mechanism.** Install the aft valves; place
-  the right carrier half at release and slide it outward, then park it; lower the left half at
-  release and slide it outward; close the center lap with two M3 screws from aft and fit both
+- **The front-top assembly order follows the moving mechanism.** Install the aft valves; feed
+  the right carrier half inward through its flank at release, then park it; feed the left half
+  inward at connected and move it to release; bring the right half fore, close the center lap
+  with two M3 screws from aft and fit both
   springs; insert the four tees individually through
   their fixed journals; tie each tee twice; install the fore valves and four bench-fitted bowed
   stubs; then, after the chassis closes, squeeze each cartridge pocket toward its carrier tab, bottom all four tubes and
   release to connected. A free-standing subassembly remains a convenience of the bench, not a
   reason to reverse those joint motions.
-- **Catalog arithmetic and collision-free CAD do not qualify the mechanism.** Before the
-  production instruction closes, the complete four-tee assembly is force-measured and cycled
-  through all four states with its springs, eight ties, integral tabs and the center joint, bowed stubs and
-  four moving hairpin ends. The gate is equal tab motion, positive empty return to park, no
-  racking, rubbing, coil bind, buckling or spring escape, repeatable four-tube release and
-  reconnection, and no leak or tube damage after cycling.
+- **The collet action is physically established.** Derek's checks with a tube-tight collar
+  show easy extraction while the collet is continuously held, relocking after a small
+  separating tug, and insertion against spring-level collet tension. The fixed plate carries
+  the removal reaction and the springs provide the short return movement. The observations
+  are recorded in [`tee-connector/`](/hardware/reference/tee-connector/README.md#observed-push-connect-action).
+  The assembled unit's dry cycle checks its guide, joint, return and flexible links.
 - **Clearance around a fitting is not a placement criterion.** Room for a hand, a spanner or a
   collet release ranks below volume. Where a run needs room, it needs it to be *routed*, not to
   be reached.

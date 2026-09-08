@@ -1,7 +1,7 @@
 # Lee Spring LCM060C12M compression spring
 
-The carrier uses two **Lee Spring LCM060C12M** stock compression springs as the
-bench candidate. Each spring pushes between a fixed wall bearing plane and the
+The carrier uses two **Lee Spring LCM060C12M** stock compression springs.
+Each spring pushes between a fixed wall bearing plane and the
 moving carrier; the pair acts in parallel.
 
 Source: [Lee Spring, LCM060C 12 M product page](https://www.leespring.com/product/compression-spring-lcm060c12m-music-wire),
@@ -80,22 +80,19 @@ tools/cad-venv/bin/python \
   --output-stem /tmp/lcm060c12m-18p322
 ```
 
-## Bench status
+## Installed duty
 
-This SKU is a **bench candidate**, not a production commitment. Validate both
-springs in the printed seats across the whole travel before freezing the part:
+The pair supplies the short separating movement that locks the collets after insertion,
+and returns the empty carrier to park. Derek's
+[physical observations](/hardware/reference/tee-connector/README.md#observed-push-connect-action)
+establish that a small tug engages a free collet and that insertion pushes it inward against
+spring-level force.
 
-- measure actual pair force at release, connected, squeeze, and park;
-- exercise the moving carrier for rubbing, cocking, coil bind, and spring escape;
-- guide the small-diameter spring with a rod or sleeve; a shallow locating seat
-  alone does not establish buckling margin;
-- use the actual bearing-plane separation, including recessed-seat depth, when
-  calling `build()` or calculating nominal load;
-- keep the zinc-plated music-wire spring dry. Lee describes the plating as light
-  corrosion resistance, not a wet-cavity material specification;
-- check the 5.99 mm OD tolerance against printed hole shrink and the guide against
-  the spring's 4.78 mm nominal ID.
+The fixed wall's diamond pilots and the carrier's recessed seats locate the two springs.
+Installed lengths and nominal pair forces at release, squeeze, connected and park are in the
+enclosure facts. Those values use the actual bearing-plane separation, including seat depth.
+The assembly check exercises full travel, equal grip motion and empty return; recorded physical
+loads belong to that assembly's log. No measured force for this printed mechanism is recorded.
 
-The selection is ready to bench when two physical springs, their printed seats,
-and the intended guides are exercised together. CAD clearance and catalog rate
-do not replace that test.
+The zinc-plated music-wire springs occupy the dry enclosure cavity. Their 5.99 mm OD tolerance,
+4.78 mm nominal ID and printed seat/guide clearances remain the installation dimensions.

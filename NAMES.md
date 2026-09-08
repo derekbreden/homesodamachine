@@ -86,7 +86,7 @@ they became.
 | **pump bay** | the compartment in `enclosure-front-top` the pump cartridge rides in | |
 | **collet plate** | the release face printed into front-top across the pump bay, holding the collets so the pump cartridge can be pulled | |
 | **tee carrier** | the two printed halves joined at a center lap, tying Y-C, Y-D, Y-F and Y-G into one Y-guided moving group | carrier plate, moving plate |
-| **service tab** | either recessed grip printed into a tee-carrier half, opposed by the cartridge pocket in the same hand during insertion | release tab, squeeze arm |
+| **service tab** | either closed finger cup printed into a tee-carrier half, guided by its flank opening and opposed by the cartridge pocket in the same hand during insertion | release tab, squeeze arm |
 | **carrier spring** | either of the two compression springs that push the tee carrier aft toward park and connected | return spring |
 | **bowed flex stub** | one of the four short formed LLDPE links between a moving carrier tee and fixed V-E/F/H/I, specified by exposed developed path rather than blank cut length | bow tube, flexible butt |
 | **collet press** | the printed 1/4-inch U-jaw and raised handle that depresses a push-connect collet around its tube | release tool, disconnect tool |
