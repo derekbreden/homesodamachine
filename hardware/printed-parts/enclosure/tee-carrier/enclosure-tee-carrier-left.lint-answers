@@ -7,8 +7,11 @@ click: x=-20.070 y=110.968 z=203.995
 [ceiling] Horizontal roof of the closed finger recess inside the rectangular sliding body. Removable support is accessible through the outward-facing mouth.
 click: x=-103.222 y=123.218 z=217.245
 
-[ceiling] Flat lower sliding face of the handhold, 0.15 mm above the closed enclosure's seam rail. Its underside takes accessible support from the print bed.
-click: x=-100.725 y=117.218 z=174.950
+[ceiling] The continuous inboard underside clearance stands 0.15 mm above the closed enclosure's seam rail. It retains the 2.295 mm pocket floor over the rail. Removable support is accessible from the print bed and both ends of the clearance.
+click: x=-98.725 y=117.218 z=174.950
+
+[ceiling] The outer grip floor is one continuous flat lower running bearing along the 42 mm handhold. It keeps the 6 mm floor and 0.15 mm guide clearance; support beneath it is exposed beside the rim before assembly.
+click: x=-105.650 y=117.218 z=171.245
 
 [ceiling] Lower edge of the tee-bearing web. The exterior rim extends below the web's insertion passage and stands on the bed; support beneath the web is exposed from its fore and aft sides.
 click: x=-51.500 y=112.218 z=171.245

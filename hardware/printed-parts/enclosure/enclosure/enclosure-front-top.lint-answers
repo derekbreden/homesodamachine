@@ -38,13 +38,6 @@ click: x=0.000 y=90.340 z=288.595
 click: x=0.000 y=90.290 z=308.895
 click: x=0.000 y=90.340 z=289.095
 
-[slope] The two spring guides on the tee wall are 4 mm diamond prisms along the spring axes, wholly inside the springs' round IDs. These four faces are their 45-degree lower flanks; they grow from each diamond's lower edge and the tee wall roots their fore ends. They guide the springs rather than carry a boss face. The production slice generates no support at either guide.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=48.945 y=96.396 z=189.245
-click: x=50.945 y=96.396 z=189.245
-click: x=-48.945 y=96.396 z=189.245
-click: x=-50.945 y=96.396 z=189.245
-
 [ceiling] The pump jack's receptacle roof and upper snap catch — square engagement faces for the module's tang and latch, inside the boss that stands on the plate cap's crown behind the ridge wall. The 14.9 mm roof bridges the boss's two side walls, the same span back-top's receptacle prints.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=0.000 y=86.935 z=310.395
@@ -54,5 +47,20 @@ click: x=0.000 y=90.290 z=308.895
 
 [ceiling] Upper sliding face of the rectangular carrier guide. It spans the opening and locates the handhold throughout its Y stroke, with 0.15 mm running clearance above the body. Removable support is accessible through the flank opening.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-103.000 y=117.143 z=221.395
-click: x=103.000 y=117.143 z=221.395
+click: x=-100.575 y=117.143 z=221.395
+click: x=100.575 y=117.143 z=221.395
+
+[ceiling] The upper web-bearing lands share one plane 0.15 mm above the carrier. They retain the moving web through the complete stroke and join the filled body and flank guides. Their undersides keep the flat running face; removable support is accessible through the open aft bay before assembly.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=-51.192 y=106.864 z=220.315
+click: x=51.192 y=106.864 z=220.315
+click: x=0.000 y=106.864 z=220.315
+click: x=-92.682 y=103.714 z=220.315
+click: x=92.682 y=103.714 z=220.315
+
+[ceiling] Each constant-section tee well ends at this common plane beneath the fixed valve-tray root. The 2.2 mm fore/aft span is the exposed underside of the surrounding supported stock, not a separate thin wall. Keep the valve support above and remove support through the full-height open well before the hardware is installed.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=-81.067 y=92.821 z=224.395
+click: x=-21.317 y=92.821 z=224.395
+click: x=21.317 y=92.821 z=224.395
+click: x=81.067 y=92.821 z=224.395
