@@ -22,7 +22,7 @@ import cadquery as cq
 GRID = 3.0
 DEPTH = 3.0 * GRID
 BACKING = GRID
-HEIGHT = 11.0 * GRID
+HEIGHT = 13.0 * GRID
 RUN = 6.0 * GRID
 RAMP = 2.0 * GRID
 OVERLAP = 0.05
@@ -32,24 +32,58 @@ OVERLAP = 0.05
 # vertex lands on the 3 mm grid; the lower arm reaches the full 9 mm and the
 # upper arm reaches 6 mm.  The space between them is the continuous S-shaped
 # cable channel below.
+#
+# THE SEAT IS THE TALL PART OF THAT CHANNEL, not the neck above it.  The cable
+# lies in the pocket the lower arm's own face makes against the host wall — the
+# `(2, 4)` to `(2, 7)` run, three grid of full 6 mm depth — and the S above it is
+# what it is pressed past to get there.  A seat one grid tall took a flat ribbon
+# and nothing else; at three it takes a round bundle, and the neck still closes
+# over whatever went in.  Everything above that face stands one seat higher for
+# it and the profile keeps every vertex on the grid.
 _UPPER = (
-    (0.0, 8.0), (2.0, 10.0), (2.0, 11.0), (0.0, 11.0),
+    (0.0, 10.0), (2.0, 12.0), (2.0, 13.0), (0.0, 13.0),
 )
 _LOWER = (
-    (0.0, 0.0), (3.0, 3.0), (3.0, 8.0), (2.0, 8.0),
-    (1.0, 7.0), (1.0, 6.0), (2.0, 5.0), (2.0, 4.0),
+    (0.0, 0.0), (3.0, 3.0), (3.0, 10.0), (2.0, 10.0),
+    (1.0, 9.0), (1.0, 8.0), (2.0, 7.0), (2.0, 4.0),
     (0.0, 4.0),
 )
 _CHANNEL = (
-    (3.0, 8.0), (2.0, 10.0), (0.0, 8.0), (0.0, 4.0),
-    (2.0, 4.0), (2.0, 5.0), (1.0, 6.0), (1.0, 7.0),
-    (2.0, 8.0),
+    (3.0, 10.0), (2.0, 12.0), (0.0, 10.0), (0.0, 4.0),
+    (2.0, 4.0), (2.0, 7.0), (1.0, 8.0), (1.0, 9.0),
+    (2.0, 10.0),
 )
 
 
 def projection(embed):
     """How far the completed clip stands proud of the wall."""
     return DEPTH - float(embed)
+
+
+def seat_top():
+    """The profile-up of the seat's upper edge — where a cable lying in the seat stops.
+
+    A caller placing the clip against a run of known height strikes this on that height:
+    the lead arrives at the top of the seat and lies in the `seat_height` below it.
+    """
+    return _LOWER[6][1] * GRID
+
+
+def seat_height():
+    """How tall the cable's own seat is — the run of the lower arm's face at full depth,
+    against the host wall, which is what decides the section the clip will take."""
+    return (_LOWER[6][1] - _LOWER[7][1]) * GRID
+
+
+def channel_mouth():
+    """The profile-up where the upper arm's 45° underside meets the wall face.
+
+    That underside is the one sloped plane the clip presents to its host, so a wall
+    already carrying a 45° of its own can be struck to continue straight through it —
+    the two read as one face rather than two with a step between.  This is the figure
+    a caller places the clip by when it wants that.
+    """
+    return _UPPER[0][1] * GRID
 
 
 def required_wall(embed):
@@ -159,13 +193,15 @@ def check():
             raise AssertionError("cable-clip geometry did not make valid solids")
         if not math.isclose(projection(embed), proud, abs_tol=1e-9):
             raise AssertionError("cable-clip projection no longer follows embedment")
+        # The wall is sized off the profile, so it still holds the whole clip when the
+        # section changes: the run lies along its −Y and the profile stands up its +Z.
         wall = cq.Solid.makeBox(
-            wall_thickness, 50.0, 45.0,
+            wall_thickness, RUN + 2.0 * GRID, HEIGHT + 2.0 * GRID,
             cq.Vector(-wall_thickness, 0.0, 0.0),
         )
         clipped = apply(
             cq.Workplane(obj=wall),
-            origin=(0.0, 34.0, 6.0),
+            origin=(0.0, RUN + GRID, GRID),
             outward=(1.0, 0.0, 0.0),
             along=(0.0, -1.0, 0.0),
             embed=embed,
