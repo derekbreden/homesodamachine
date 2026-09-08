@@ -1319,7 +1319,8 @@ def tee_carrier_spec(mcarry, squeeze_stood, plate) -> _carrier.CarrierSpec:
         tab_outer_x=_enc.appliance_width / 2.0 + base.slide_air + base.grip_rim_t,
         tab_z=tab_z,
         grip_back_x=round(aft_coil_outer_x + base.slide_air + base.finger_air, 6),
-        grip_floor_t=tab_z[0] - (_enc.z_seam + _enc.z_rise + base.slide_air),
+        grip_rail_outer_x=_enc._rail_x(_enc.interior_x()[1], -1.0, 'front')[0] + base.slide_air,
+        grip_rail_top_z=_enc.z_seam + _enc.z_rise + base.slide_air,
         release_offset_y=states["release"]["offset_y"],
         connected_offset_y=states["connected"]["offset_y"],
         park_offset_y=states["park"]["offset_y"],
@@ -1369,16 +1370,6 @@ def tee_carrier_interface(spec: _carrier.CarrierSpec, plate, squeeze_stood) -> d
                      max(getattr(b, axis + "max") for b in boxes) + CARRIER_TUBE_AIR)
                     for axis in "xyz")
         for name, boxes in sorted(tube_boxes.items())}
-    # The upper lap and both inner bows share one flat-fronted cavity. Joining their
-    # clearances leaves continuous stock around the opening instead of narrow partitions.
-    inner_bows = sorted((cavity for name, cavity in tube_cavities.items()
-                         if name.startswith("bow-")),
-                        key=lambda cavity: abs(sum(cavity[0]) / 2.0))[:2]
-    data["joint_work_x"] = (
-        min(data["joint_work_x"][0], *(cavity[0][0] for cavity in inner_bows)),
-        max(data["joint_work_x"][1], *(cavity[0][1] for cavity in inner_bows)))
-    data["joint_work_fore_y"] = min(
-        data["joint_work_fore_y"], *(cavity[1][0] for cavity in inner_bows))
     valve_cavities = []
     for name in "efhi":
         solid = solids[f"valve-v-{name}"]
@@ -1400,6 +1391,23 @@ def tee_carrier_interface(spec: _carrier.CarrierSpec, plate, squeeze_stood) -> d
             (min(bb.ymin + aft_valve_entry_y - spec.slide_air, valve_clearance_plane_y),
              body_aft_y + 1.0),
             (plate["z0"], bb.zmax + spec.slide_air)))
+    # Each tee, its ties, lower hairpin and upper valve passage share one constant well.
+    # The valve tray's own round port clearance is included in the same section, so the
+    # filled body's upper edge cannot leave a small ledge against that later cut.
+    tie_radius = ml.tee.BARREL_R + spec.tie_stock_t + spec.slide_air
+    port_radius = _enc._valve_tray._valve.port_radius + _enc._valve_tray.PORT_SLIP
+    well_half_x = max(spec.tie_slot_offset_x + spec.tie_slot_x / 2.0 + spec.slide_air,
+                      port_radius)
+    tee_wells = []
+    for x in spec.tee_xs:
+        paths = [cavity for cavity in (*tube_cavities.values(), *valve_cavities)
+                 if min(spec.tee_xs, key=lambda tx: abs(tx - sum(cavity[0]) / 2.0)) == x]
+        tee_wells.append((
+            (min(x - well_half_x, *(p[0][0] for p in paths)),
+             max(x + well_half_x, *(p[0][1] for p in paths))),
+            (min(tee_run_y + spec.release_offset_y - tie_radius,
+                 tee_run_y - port_radius, *(p[1][0] for p in paths)), body_aft_y + 1.0),
+            (plate["z0"], body_top_z)))
     data.update({
         "states": states,
         "assembly_state": plate["assembly_state"],
@@ -1424,11 +1432,14 @@ def tee_carrier_interface(spec: _carrier.CarrierSpec, plate, squeeze_stood) -> d
         "spring_load_end_air": CARRIER_SPRING_LOAD_END_AIR,
         "body_aft_y": body_aft_y,
         "body_top_z": body_top_z,
+        "body_face_y": min(load_fore_y, spec.web_fore_y + spec.release_offset_y
+                            - spec.tie_head[1] - spec.slide_air),
+        "tee_wells": tuple(tee_wells),
         "tee_xs": spec.tee_xs,
         "tee_run_y": tee_run_y,
         "tee_z": (min(b.zmin for b in tee_boxes), max(b.zmax for b in tee_boxes)),
         "tee_run_clear_r": ml.tee.BARREL_R + TEE_WALL_BORE_SLIP,
-        "tie_clear_r": ml.tee.BARREL_R + spec.tie_stock_t + spec.slide_air,
+        "tie_clear_r": tie_radius,
         "tie_slot_offset_x": spec.tie_slot_offset_x,
         "tie_slot_x": spec.tie_slot_x,
         "tie_slot_z": spec.tie_slot_z,
@@ -1515,6 +1526,21 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
 
     halves = {side: _carrier.build_half(spec, side).val() for side in (-1, 1)}
     carrier = cq.Compound.makeCompound(list(halves.values()))
+    # These passages continue through the completed part, including its valve trays.
+    # Clearance of the hardware alone would not find a thin shelf beside that hardware.
+    for index, (xs, ys, zs) in enumerate(interface["tee_wells"], 1):
+        read(f"continuous hardware well {index}", _carrier._box(*xs, *ys, *zs),
+             (("enclosure-front-top", wall),))
+    web_bearings = []
+    for state, row in interface["states"].items():
+        y0, y1 = spec.web_fore_y + row["offset_y"], spec.web_aft_y + row["offset_y"]
+        for name, z, sense in (("lower", spec.web_z[0] - spec.slide_air, -1),
+                               ("upper", spec.web_z[1] + spec.slide_air, 1)):
+            z0, z1 = sorted((z, z + sense * 0.001))
+            area = wall.intersect(_carrier._box(*spec.web_x, y0, y1, z0, z1).val()).Volume() / 0.001
+            web_bearings.append(area)
+            if area <= CARRIER_MOTION_OVERLAP_TOL:
+                failures.append(f"{state}: {name} web bearing is absent")
     fixed = tuple((name, solid) for name, (solid, _colour) in _solids(a).items()
                   if name.startswith(("coil-", "valve-")))
     closed_pieces = tuple((name, solid) for name, (solid, _colour) in _solids(a).items()
@@ -1711,7 +1737,8 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
         not failures,
         f"{readings} solid/envelope checks; maximum unintended overlap {max_overlap:.6f} mm³; "
         f"release/park overshoots {release_hit:.6f}/{park_hit:.6f} mm³; "
-        f"40 independent flank-capture readings, minimum contact {contact_min:.6f} mm³",
+        f"40 independent flank-capture readings, minimum contact {contact_min:.6f} mm³; "
+        f"minimum upper/lower web bearing {min(web_bearings):.3f} mm²",
         "0 mm³ unintended overlap; positive end-stop, X/Z and pitch/yaw/roll contact",
         tuple(failures),
     ))

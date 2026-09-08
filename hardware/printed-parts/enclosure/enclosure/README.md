@@ -1231,22 +1231,25 @@ load or invite a second tug.
 
 A filled body extends aft from the fixed tee wall to the moving carrier and joins both
 flanks. Its flat lower and upper lands carry the carrier web; the outboard guide openings
-carry the closed handholds and stop their release/park travel. Four aft-opening recesses
-surround the tee run arms, with branch journals continuing forward to the fixed collet plate.
-Each tie has a routing channel and an outboard head recess. Separate passages carry the bowed
-stubs and moving hairpin ends through their complete travel. The upper lap shares one
-flat-fronted cavity with the two inner bowed stubs. Fore and aft valve clearances meet on one
-plane wherever their height bands overlap.
+carry the closed handholds and stop their release/park travel. Four continuous aft-opening
+wells each carry a tee, both ties, the lower hairpin and the upper bowed tube and valve port.
+Their constant sections continue through the finished valve-tray junction. Branch journals
+continue forward to the fixed collet plate. One common face clears the tie heads and ends
+the spring bores; a second full-width face clears the upper lap's lateral entry.
 
-Two round spring bores terminate on the fixed wall. Each opens into a vertical loading well
-behind it; the spring enters compressed, seats in the parked carrier and extends forward into
-its bore. The rear recesses admit the aft valves from the loose piece's open underside before
+Each flank opening has one continuous lower edge at the web's insertion height. The closed
+handhold's outer floor follows it along the entire grip. One broad inboard underside
+clearance accommodates the enclosure seam rail.
+
+Two round spring bores terminate on the fixed wall and end on the body's common aft face.
+An opening through the upper land admits each compressed spring into the parked carrier;
+its fore end extends into the fixed bore. The rear recesses admit the aft valves from the loose piece's open underside before
 the carrier halves enter from the flanks. The carrier's upper lap clears the seated tees and
 fastens through two straight access bores in the empty cartridge bay.
 
-The fixed guide ceilings, tee recesses and tie channels keep their working faces. Support
+The fixed guide ceilings and tee wells keep their working faces. Support
 leaves through the open aft cavities before hardware is installed. The spring bores open into
-the loading wells for cleanup.
+the open bay for cleanup.
 
 ## The full-width opening
 
