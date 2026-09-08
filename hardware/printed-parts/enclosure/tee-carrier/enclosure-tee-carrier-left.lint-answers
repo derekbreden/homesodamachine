@@ -3,3 +3,12 @@ click: x=-79.820 y=110.968 z=179.995
 click: x=-20.070 y=110.968 z=179.995
 click: x=-79.820 y=110.968 z=203.995
 click: x=-20.070 y=110.968 z=203.995
+
+[ceiling] Horizontal roof of the closed finger recess inside the rectangular sliding body. Removable support is accessible through the outward-facing mouth.
+click: x=-103.222 y=123.218 z=217.245
+
+[ceiling] Flat lower sliding face of the handhold, 0.15 mm above the closed enclosure's seam rail. Its underside takes accessible support from the print bed.
+click: x=-100.725 y=117.218 z=174.950
+
+[ceiling] Lower edge of the tee-bearing web and center lap. The exterior rim extends below the web's insertion passage and stands on the bed; support beneath the web is exposed from its fore and aft sides.
+click: x=-44.000 y=107.968 z=171.245
