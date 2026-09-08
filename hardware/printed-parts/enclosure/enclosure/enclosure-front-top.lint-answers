@@ -47,16 +47,19 @@ click: x=0.000 y=90.290 z=308.895
 
 [ceiling] Upper sliding face of the rectangular carrier guide. It spans the opening and locates the handhold throughout its Y stroke, with 0.15 mm running clearance above the body. Removable support is accessible through the flank opening.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-100.575 y=117.143 z=221.395
-click: x=100.575 y=117.143 z=221.395
+click: x=-106.000 y=117.143 z=221.395
+click: x=106.000 y=117.143 z=221.395
+
+[ceiling] Flat ceiling of the internal grip recess. It carries the hidden retaining rim with 0.15 mm running clearance and continues to the aft valve tray's fore plane for inside-out loading. The enclosing stock keeps a broad, continuous section above the rim; support is removed through the open internal recess before hardware installation. The current production slice records both contact regions in the support ledger.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=-98.032 y=125.164 z=225.545
+click: x=98.032 y=125.164 z=225.545
 
 [ceiling] The upper web-bearing lands share one plane 0.15 mm above the carrier. They retain the moving web through the complete stroke and join the filled body and flank guides. Their undersides keep the flat running face; removable support is accessible through the open aft bay before assembly.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=-51.192 y=106.864 z=220.315
 click: x=51.192 y=106.864 z=220.315
 click: x=0.000 y=106.864 z=220.315
-click: x=-92.682 y=106.864 z=220.315
-click: x=92.682 y=106.864 z=220.315
 
 [ceiling] Each constant-section tee well ends at the fore-valve body's clearance plane. These flat crowns are the exposed undersides of the filled bridge where it joins the valve tray around its round port openings. Remove support through the open well before the hardware is installed.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
@@ -67,5 +70,5 @@ click: x=81.067 y=94.631 z=232.690
 
 [step] The faces at x=±103.650 are the standing walls of the front Z-seam's rail channels, set by the rail head and its running clearance in `_rail_channel_span`. The common floor joins this channel section below the flank's x=±104.500 interior face. The offset preserves the seam's sliding passage, with continuous enclosure stock behind the channel wall.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-103.650 y=142.729 z=170.297
-click: x=103.650 y=142.729 z=170.297
+click: x=-103.650 y=129.478 z=169.897
+click: x=103.650 y=129.478 z=169.897
