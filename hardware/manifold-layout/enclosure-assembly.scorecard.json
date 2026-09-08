@@ -1,5 +1,5 @@
 {
- "gatesPass": false,
+ "gatesPass": true,
  "size": [
   {
    "id": "enclosure",
@@ -800,15 +800,10 @@
    "id": "tee-carrier-motion",
    "label": "Tee carrier clears front-top through installation and all four working states, and both end stops and all five transverse constraints engage",
    "kind": "gate",
-   "status": "fail",
-   "value": "291 solid/envelope checks; maximum unintended overlap 25.250430 mm\u00b3; release/park overshoots 0.300000/0.300000 mm\u00b3; 40 independent flank-capture readings, minimum contact 0.323400 mm\u00b3; minimum upper/lower web bearing 121.250 mm\u00b2",
+   "status": "pass",
+   "value": "291 solid/envelope checks; maximum unintended overlap 0.000000 mm\u00b3; release/park overshoots 0.300000/0.300000 mm\u00b3; 40 independent flank-capture readings, minimum contact 0.323400 mm\u00b3; minimum upper/lower web bearing 121.250 mm\u00b2",
    "target": "0 mm\u00b3 unintended overlap; positive end-stop, X/Z and pitch/yaw/roll contact",
-   "detail": [
-    "half -1 complete lowered behind tees cup sweep crosses `enclosure-front-top` by 25.250430 mm\u00b3",
-    "half -1 complete lowered behind tees cup floor sweep crosses `enclosure-front-top` by 25.250430 mm\u00b3",
-    "half +1 complete lowered behind tees cup sweep crosses `enclosure-front-top` by 25.250430 mm\u00b3",
-    "half +1 complete lowered behind tees cup floor sweep crosses `enclosure-front-top` by 25.250430 mm\u00b3"
-   ],
+   "detail": [],
    "active": true
   },
   {
