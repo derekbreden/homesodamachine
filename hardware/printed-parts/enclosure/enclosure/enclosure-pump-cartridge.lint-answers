@@ -1,0 +1,4 @@
+[ceiling] The two pump-cartridge pull roofs share the neighboring tee-carrier grips' Z=217.245 roof plane because each hand squeezes those two faces as one motion. They remain broad, flat contact faces through the complete fingertip depth; pitching either roof into a corbel would make the paired grip surfaces disagree. The production slice gives each roof one bed-rooted tree with one interface, directly removable through the open side pocket.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step
+click: x=-97.000 y=41.458 z=217.245
+click: x=97.000 y=41.458 z=217.245
