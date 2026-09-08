@@ -2244,7 +2244,7 @@
    "aft_valve_entry_y": -6.15,
    "assembly_state": "connected",
    "body_aft_y": 116.80999999999997,
-   "body_face_y": 98.50800010000002,
+   "body_face_y": 98.3180001,
    "body_floor_aft_y": 167.56,
    "body_top_z": 232.69,
    "connected_offset_y": 2.15,
@@ -2428,7 +2428,7 @@
     20.07
    ],
    "spring_guide_d": 6.4,
-   "spring_guide_length": 5.708000100000021,
+   "spring_guide_length": 5.518000100000009,
    "spring_guide_xz": [
     [
      -49.94499999999999,
@@ -3124,7 +3124,7 @@
    true
   ]
  },
- "card": "c0c062eeda6106b2a21b0cdd17f8e462",
+ "card": "571519bb67795a62fc6aa8a6d1053b65",
  "card_ports": {
   "asse1022-assembly": {
    "tube-in": {
@@ -4192,8 +4192,8 @@
   }
  ],
  "schema": 2,
- "sources": "b2460f96dd64bd5b844f06581e60f662",
- "step": "23407bec307c9e65e2db870210e408c7",
+ "sources": "7d645b3cd020dedd243b3c97976ada0a",
+ "step": "48c68bc8d1a75c7ef78bcfd71be3ed28",
  "valve_tray_stations": [
   [
    173.56,

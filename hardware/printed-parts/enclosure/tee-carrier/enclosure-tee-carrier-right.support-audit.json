@@ -11,12 +11,12 @@
       0.0,
       1.0,
       -113.75,
-      -42.781993866,
+      -44.531993866,
       171.244987495
     ],
     "plate_to_cad_translation_mm": [
       -113.75,
-      -42.781994,
+      -44.531994,
       171.244987
     ],
     "replacement_mesh_bed_reseat_mm": -74.924988
@@ -24,9 +24,9 @@
   "first_layer_z_mm": 0.2,
   "inputs": {
     "gcode": "plate_1.gcode",
-    "gcode_sha256": "d065db81e5dc5285af441503c2540bea102f2301c1edfd8d37ce5c96667cce14",
+    "gcode_sha256": "8fd44748c9fa10af2969c202c64b84ad6b0c35bf806019bb3e142a6839b2f337",
     "model": "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.stl",
-    "model_sha256": "143daea93e6f15667f195ceea54f5c5073926f25fe071e6ce80abd946759dbd4",
+    "model_sha256": "b9d802bcec57199b5a3250dd04194e7e138bc4bdd43ba12d07571c55e344f974",
     "profile": "git:aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a:hardware/printed-parts/enclosure/enclosure/enclosure-front-top-petgf.3mf",
     "profile_sha256": "99abeeb25ce51dfa0b2a40dec920d4cc14b5c8501eb02096cd531394b479a41e"
   },
@@ -34,10 +34,10 @@
     {
       "bbox_cad_xyz_mm": [
         89.45,
-        94.018,
+        92.268,
         174.445,
         105.05,
-        140.418,
+        138.668,
         174.845
       ],
       "bbox_xy_mm": [
@@ -55,10 +55,10 @@
     {
       "bbox_cad_xyz_mm": [
         -4.95,
-        106.418,
+        104.668,
         209.845,
         13.05,
-        109.218,
+        107.468,
         210.245
       ],
       "bbox_xy_mm": [
@@ -76,10 +76,10 @@
     {
       "bbox_cad_xyz_mm": [
         93.45,
-        109.618,
+        107.868,
         216.645,
         106.65,
-        125.218,
+        123.468,
         217.045
       ],
       "bbox_xy_mm": [
@@ -123,10 +123,10 @@
       "base_z_mm": 0.2,
       "bbox_cad_xyz_mm": [
         -4.95,
-        97.618,
+        95.868,
         171.445,
         13.05,
-        109.218,
+        107.468,
         210.245
       ],
       "bbox_xy_mm": [
@@ -148,10 +148,10 @@
       "base_z_mm": 0.2,
       "bbox_cad_xyz_mm": [
         85.85,
-        89.218,
+        87.468,
         171.445,
         107.05,
-        145.218,
+        143.468,
         175.445
       ],
       "bbox_xy_mm": [
@@ -173,10 +173,10 @@
       "base_z_mm": 0.2,
       "bbox_cad_xyz_mm": [
         93.05,
-        109.618,
+        107.868,
         171.445,
         119.45,
-        125.618,
+        123.868,
         217.445
       ],
       "bbox_xy_mm": [

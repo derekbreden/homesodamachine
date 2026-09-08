@@ -115,7 +115,7 @@ Work with `enclosure-front-top` loose and its pump bay empty.
    one tee-bearing plane and both tabs travel together.
 5. Fit the aft valves from the open underside with their posts clear of the tray, then
    press each valve into its sockets. The joined carrier and tees stay at release.
-6. Tie each tee twice through its routing channels. Move the carrier to park. With fine bent-nose
+6. Tie each tee twice through its paired web slots. Move the carrier to park. With fine bent-nose
    pliers, hold each spring compressed above solid height, its axis along Y. Lower it through
    the inner tee well on the same side, stopping above the bare tee's upper end. Move it
    outward below the upper guide to its spring axis, then down to the seat. Enter its aft end
