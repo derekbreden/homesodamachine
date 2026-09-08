@@ -19,14 +19,14 @@
       -42.782001,
       171.244987
     ],
-    "replacement_mesh_bed_reseat_mm": -75.424988
+    "replacement_mesh_bed_reseat_mm": -74.924988
   },
   "first_layer_z_mm": 0.2,
   "inputs": {
     "gcode": "plate_1.gcode",
-    "gcode_sha256": "714624a818a64102dbe35b5803da8b807e1d566dffedac796d3189cae200bfd9",
+    "gcode_sha256": "69f58c2317c9f3a3425b18ae31f35807727f35a725988b79ecd4695f06f9ef4d",
     "model": "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.stl",
-    "model_sha256": "f6c9a4836b4ee19d57fe605e51807ac144716bd500b60f1b9e9a86dae8acd0bf",
+    "model_sha256": "fe8d17f75dc8a6471726557e34368e4dc60a571935f48c67c49fb476c2ec8bef",
     "profile": "git:aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a:hardware/printed-parts/enclosure/enclosure/enclosure-front-top-petgf.3mf",
     "profile_sha256": "99abeeb25ce51dfa0b2a40dec920d4cc14b5c8501eb02096cd531394b479a41e"
   },
@@ -76,17 +76,17 @@
     {
       "bbox_cad_xyz_mm": [
         93.05,
-        115.618,
+        109.618,
         216.645,
-        106.65,
-        131.218,
+        106.25,
+        125.218,
         217.045
       ],
       "bbox_xy_mm": [
         208.8,
-        158.4,
-        222.4,
-        174.0
+        152.4,
+        222.0,
+        168.0
       ],
       "build_up_mm": 45.2,
       "first_z_mm": 45.4,
@@ -173,17 +173,17 @@
       "base_z_mm": 0.2,
       "bbox_cad_xyz_mm": [
         93.05,
-        115.618,
+        109.618,
         171.445,
         119.45,
-        131.618,
+        125.618,
         217.445
       ],
       "bbox_xy_mm": [
         208.8,
-        158.4,
+        152.4,
         235.2,
-        174.4
+        168.4
       ],
       "first_interface_z_mm": 45.4,
       "id": "tree-3",
