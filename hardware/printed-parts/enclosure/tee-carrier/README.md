@@ -33,18 +33,19 @@ valves.
 ## Guidance and retention
 
 The fixed body runs continuously between the tee wall and both enclosure flanks. Four
-aft-opening cavities follow the tee bodies and their travel, with separate tie channels,
-head recesses and flexible-tube passages. Broad flat lands above and below the moving web
-continue into the flank guides. The upper center lap passes above the four tee bodies.
+continuous aft-opening wells each carry a tee, its ties, lower hairpin and upper valve
+passage. The body has one common face behind the ties and spring ends, and a second full-width
+face that clears the upper lap. Broad flat lands above and below the moving web continue
+into the flank guides.
 
 Each handhold is a rectangular sliding body behind its rounded exterior rim. The opening's
 flat upper and lower faces guide its [42 mm](GUIDE_LENGTH) bearing length, with
 [0.15 mm](GUIDE_AIR) running clearance on each side in Z. The opening's fore and aft faces
 are the release and park stops. The body stays inside all four faces throughout travel.
-The cup bottoms clear the enclosure's seam-rail heads. A short opening below each guide
-passes the web during lateral insertion; the outer rim covers that opening throughout
-travel. The upper lap passes through its own belt above the tees. The lower guide bears on either side of the web passage, and the closed
-enclosure's rail head runs beneath the cup.
+The opening has one continuous lower edge at the web's insertion height. The handhold's
+outer floor extends down to that edge along its complete length. Its inboard underside has
+one continuous clearance over the enclosure's seam-rail head. The outer floor is 6 mm thick;
+the floor over the rail is 2.295 mm thick. The upper lap passes above the tees.
 
 The two exterior rims face opposite enclosure flanks. Once the center lap is screwed
 together, movement toward either side seats the far rim against its flank. The rims retain
@@ -68,8 +69,9 @@ in [`tee_connector.py`](/hardware/reference/tee-connector/tee_connector.py).
 Only release and park are physical stops. The guide spans 6.15 mm. At park the web leaves
 1.742 mm to the aft coils. The two spring axes lie between coils at X ±49.945, Z 190.245 mm.
 Each spring bears in a 6.4 mm teardrop seat, 2 mm deep. Its fore end sits in a round bore
-within the fixed body's full section. A vertical loading well behind each bore admits the
-compressed spring; its floor and side walls surround the exposed coils. The return pair is
+within the fixed body's full section. Each bore has 9.712 mm of guidance and ends on the
+body's common aft face. An opening through the upper land admits the compressed spring.
+The return pair is
 Lee LCM060C12M.
 
 ## Assembly
@@ -106,7 +108,7 @@ and their routing channels open.
 Print both halves upright, +Z up, with the lower rim edge on the bed. The web begins
 [4.15 mm](WEB_BED_GAP) above that edge and takes removable support beneath it. The cup floor,
 pocket roof and rim overhangs also take support; the pocket opens directly onto the
-side for cleanup. The fixed body's guide and tie-channel ceilings take support, removed
+side for cleanup. The fixed body's guide ceilings take support, removed
 through the open aft cavities before assembly. Its spring bores open into the loading wells.
 All guide and hand-contact faces retain their full bearing sections.
 
@@ -124,7 +126,8 @@ bodies. Both end stops must engage on a
 0.001 mm overshoot. At every state, a 0.151 mm transverse displacement and a one-degree
 rotation in either sense about every axis must encounter the flank guides alone. These are
 rigid-body contact readings. Spring clearance uses the maximum catalog outside diameter
-through loading, seating and all four working states.
+through loading, seating and all four working states. The reading also checks the complete
+hardware wells for internal shelves and measures upper and lower web bearing at every state.
 
 The [observed collet action](/hardware/reference/tee-connector/README.md#observed-push-connect-action)
 establishes release under continuous restraint, locking after a short separating tug and

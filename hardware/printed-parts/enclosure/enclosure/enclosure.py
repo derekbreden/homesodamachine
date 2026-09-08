@@ -6002,66 +6002,47 @@ def _tee_wall(inner, y_joint, plate, bay):
     return slab
 
 
-def _tee_carrier_fixed_features(inner, plate, carrier):
-    """A filled wall-to-wall body around the tees, springs and carrier slide.
+def _tee_carrier_clearances(inner, plate, carrier):
+    """Four continuous hardware wells and common faces behind the moving carrier.
 
-    The aft-open tee cavities meet the fixed branch journals. Flat lower and upper lands
-    guide the full carrier web. Two bored spring pockets open into vertical loading wells.
-    All cavities remain open to the bench before the fore valves and flexible links go in.
+    The main face ends at the spring bores. The upper face clears the complete lap's
+    lateral entry. The lower and upper web bearings remain broad flat lands between wells.
     """
     if not carrier:
-        return None
+        return ()
     air = carrier["guide_slide_air"]
     fixed_y = carrier["fixed_spring_bearing_y"]
     aft = carrier["body_aft_y"]
     top = carrier["body_top_z"]
-    body = _ybox(inner[0], inner[1], fixed_y, aft, plate["z0"], top)
     web_z0, web_z1 = carrier["web_z"]
-    body = body.cut(_ybox(
+    cuts = [_ybox(
         inner[0] - 1.0, inner[1] + 1.0,
-        carrier["web_fore_y"] + carrier["release_offset_y"] - air, aft + 1.0,
-        web_z0 - air, web_z1 + air))
-    body = body.cut(_ybox(
+        carrier["body_face_y"], aft + 1.0,
+        web_z0 - air, carrier["joint_z"][0] - air), _ybox(
         inner[0] - 1.0, inner[1] + 1.0,
-        carrier["joint_entry_fore_y"], aft + 1.0,
-        carrier["joint_z"][0] - air, carrier["joint_z"][1] + air))
-    body = body.cut(_ybox(
-        *carrier["joint_work_x"], carrier["joint_work_fore_y"], aft + 1.0,
-        carrier["joint_z"][0] - air, carrier["joint_z"][1] + air))
-
-    run_y = carrier["tee_run_y"] + carrier["release_offset_y"]
-
-    def run_cavity(x, radius, z0, z1):
-        return _zcyl(radius, x, run_y, z0, z1).fuse(
-            _ybox(x - radius, x + radius, run_y, aft + 1.0, z0, z1))
-
+        carrier["joint_work_fore_y"], aft + 1.0,
+        carrier["joint_z"][0] - air, web_z1 + air)]
     for x, z in plate["holes"]:
-        body = body.cut(run_cavity(x, carrier["tee_run_clear_r"],
-                                  carrier["tee_z"][0] - air,
-                                  carrier["tee_z"][1] + air))
-        body = body.cut(_teardrop_y(plate["bore_r"], x, z, fixed_y - 1.0, aft + 1.0))
-    head_x, head_y, head_z = carrier["tie_head"]
-    for site in carrier["tie_sites"]:
-        x, z = site["tee_x"], site["band_z"]
-        half_z = max(carrier["tie_slot_z"], head_z) / 2.0 + air
-        body = body.cut(run_cavity(x, carrier["tie_clear_r"], z - half_z, z + half_z))
-        half_x = carrier["tie_slot_offset_x"] + carrier["tie_slot_x"] / 2.0 + air
-        body = body.cut(_ybox(x - half_x, x + half_x, run_y, aft + 1.0,
-                              z - half_z, z + half_z))
-        center_x = x + site["head_side"] * (carrier["tie_clear_r"] + head_x / 2.0)
-        body = body.cut(_ybox(center_x - head_x / 2.0 - air,
-                              center_x + head_x / 2.0 + air,
-                              carrier["web_fore_y"] + carrier["release_offset_y"] - head_y - air,
-                              aft + 1.0, z - half_z, z + half_z))
+        cuts.append(_teardrop_y(plate["bore_r"], x, z, fixed_y - 1.0, aft + 1.0))
     for x, z in carrier["spring_guide_xz"]:
         radius = carrier["spring_guide_d"] / 2.0
-        body = body.cut(_ycyl(radius, x, z, fixed_y, aft + 1.0))
+        cuts.append(_ycyl(radius, x, z, fixed_y, aft + 1.0))
         half = carrier["spring_load_width"] / 2.0
-        body = body.cut(_ybox(x - half, x + half, carrier["spring_load_fore_y"],
-                              aft + 1.0, z - radius, top + 1.0))
-    for xs, ys, zs in (*carrier["tube_cavities"], *carrier["valve_cavities"],
-                       *carrier["aft_valve_cavities"]):
-        body = body.cut(_ybox(*xs, *ys, *zs))
+        cuts.append(_ybox(x - half, x + half, carrier["spring_load_fore_y"],
+                          aft + 1.0, z - radius, top + 1.0))
+    for xs, ys, zs in (*carrier["tee_wells"], *carrier["aft_valve_cavities"]):
+        cuts.append(_ybox(*xs, *ys, *zs))
+    return tuple(cuts)
+
+
+def _tee_carrier_fixed_features(inner, plate, carrier):
+    """One filled body fused to the tee wall and both enclosure flanks."""
+    if not carrier:
+        return None
+    body = _ybox(inner[0], inner[1], carrier["fixed_spring_bearing_y"],
+                 carrier["body_aft_y"], plate["z0"], carrier["body_top_z"])
+    for cutter in _tee_carrier_clearances(inner, plate, carrier):
+        body = body.cut(cutter)
     return body
 
 
@@ -6076,10 +6057,8 @@ def _tee_carrier_service_slots(carrier):
     x0, x1 = carrier["service_slot_x"]
     y0, y1 = carrier["service_slot_y"]
     z0, z1 = carrier["service_slot_z"]
-    return tuple(
-        _ybox(xa, xb, y0, y1, z0, z1).fuse(
-            _ybox(xa, xb, *carrier["entry_slot_y"], *carrier["entry_slot_z"]))
-        for xa, xb in ((x0, x1), (-x1, -x0)))
+    return tuple(_ybox(xa, xb, y0, y1, z0, z1)
+                 for xa, xb in ((x0, x1), (-x1, -x0)))
 
 
 def _plate_lead(plate):
@@ -9208,6 +9187,10 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         piece = piece.cut(_funnel_cut(inner, outer, box.pack.funnel))
     if y_side == "front" and z_side == "top" and plate:
         piece = piece.fuse(_printed_collet_plate(plate))
+        # Continue the same hardware wells through the finished part, including the
+        # valve trays. Later fuses cannot leave shelves inside these common passages.
+        for cutter in _tee_carrier_clearances(inner, plate, box.pack.tee_carrier):
+            piece = piece.cut(cutter)
         # Flat guide openings continue through every wall, bearing body and seam feature.
         for slot in _tee_carrier_service_slots(box.pack.tee_carrier):
             piece = piece.cut(slot)
