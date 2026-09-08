@@ -461,17 +461,16 @@ cable_bore_dia = cable_sleeve_nom + 2.0 * cable_bore_air   # [14.7 mm](CABLE_BOR
 # the removable pump cartridge is clipped to the enclosure.
 display_loom_x_offset = 32.0
 pump_jack_clip_edge_land = 12.0
-pump_jack_clip_channel_centre = 7.0 * _cable_clip.GRID
 # AND THE FLANK CARRIES THE REST OF THAT RUN. What the ridge clip guides toward +X turns the
 # corner onto front-top's own +X face and runs aft to the main-board wall, so that face takes the
-# same unembedded clip at the same channel height, standing off the face `front_top_flank_t`
-# leaves. WHAT BOUNDS A STATION IS WHAT ALREADY STANDS ON THAT FACE:
-# ahead, the ridge clip's own proud face, which is where the corner turn ends; behind, the +X
-# Wago tower, which stands its own engagement off `interior_x` and so into this face's air. The
-# tower leaves one short band ahead of it and one long band aft of it, and the first station is
-# short because its band is. Stated as `(y0, run)` each, in the flank's own +Y order.
-flank_clip_stations = ((94.0, 5.0 * _cable_clip.GRID),
-                       (137.0, _cable_clip.RUN),
+# same unembedded clip, standing off the plane `front_top_flank_t` leaves.
+#
+# THEY STAND IN THE Y+ HALF OF THAT FACE, WHICH IS THE HALF THAT IS CLEAR. The +X Wago tower
+# stands its own engagement off `interior_x` and reaches into this face's air over its Y band,
+# and the fore end of the face is a corner the lead turns rather than a run it lies along. So
+# both stations are aft of the tower, on one uninterrupted stretch to the Y seam, and both take
+# the clip's full run. Stated as `(y0, run)` each, in the flank's own +Y order.
+flank_clip_stations = ((137.0, _cable_clip.RUN),
                        (179.0, _cable_clip.RUN))
 # The cover plate and the two screws through it — the same DIN 912 M3 cap screw every seam in
 # this machine takes, in the same ⌀`head_cbore_dia` flat-bottomed counterbore, landing
@@ -6152,7 +6151,7 @@ def _ridge_wall(inner, outer, plate, bay, funnel):
     face near +X and runs toward that edge, guiding the J13-to-jack lead to the main-board
     wall. The clip belongs to the enclosure-side lead; the removable cartridge and its plug are
     free of it. Where that lead leaves this rib the flank takes it over the corner, in the same
-    clip at the same channel height (`_flank_cable_clips`)."""
+    clip struck on the seam collar's own 45° (`_flank_cable_clips`)."""
     ry, rz = pcb_ridge(outer)
     fore, foot, t = plate["aft_y"], bay[2], ridge_wall_t
     ramp = ry + rz                    # the hole's end wall, y + z
@@ -6180,9 +6179,19 @@ def _ridge_wall(inner, outer, plate, bay, funnel):
     clip_start = clip_end - _cable_clip.RUN
     if clip_start <= jack[0] + _keystone.panel_footprint()[0] / 2.0:
         raise ValueError("the pump-jack cable clip no longer clears the receptacle boss")
+    # THE SEAT'S TOP EDGE STANDS ON THE LOOM'S OWN HEIGHT, so the lead comes off this rib at the
+    # height it crossed and lies in the seat below it. WHAT LIMITS THE CLIP HERE IS THE CROWN:
+    # this face ends at `aft_crown`, and a clip whose arms reach it leaves a ligament instead of
+    # a wall. So the clip keeps one `wall` of rib above it, and that is why it does not rise with
+    # the flank's (`_flank_cable_clips`), which are struck on the seam collar's 45° a storey up.
+    clip_z = loom[2] - _cable_clip.seat_top()
+    if clip_z + _cable_clip.HEIGHT + wall > aft_crown[1] + 1e-9:
+        raise ValueError(
+            f"the pump-jack cable clip tops out at {clip_z + _cable_clip.HEIGHT:.2f}, which "
+            f"leaves under {wall:g} mm of rib to this face's crown at {aft_crown[1]:.2f}")
     return _cable_clip.apply(
         slab,
-        origin=(clip_start, fore + t, loom[2] - pump_jack_clip_channel_centre),
+        origin=(clip_start, fore + t, clip_z),
         outward=(0.0, 1.0, 0.0),
         along=(1.0, 0.0, 0.0),
         embed=0.0,
@@ -6194,21 +6203,26 @@ def _flank_cable_clips(piece, box):
     """The +X flank's share of the run the ridge clip starts — `flank_clip_stations`, each the
     same unembedded clip, standing on front-top's own flank face and running aft.
 
-    THE CHANNEL HEIGHT IS THE RIDGE CLIP'S, so the lead turns the corner at one Z instead of
-    climbing through it: both faces meet at that corner and the cable lies against whichever one
-    it is on. The clip's up is the piece's print-up here as it is on the rib — `along × outward`
-    is +Z for a face looking −X with the run going +Y — so the flank clips lay the same way the
-    one Derek has stands, and neither adds a print question the rib had not already answered.
+    WHAT SETS THEIR HEIGHT IS THE SEAM COLLAR'S OWN 45°. The upper Y-seam socket stands on a web
+    that falls at 45° off the collar's floor to the lip face (`_front_socket`), and the clip
+    carries the same 45° under its upper arm (`cable_clip.channel_mouth`). Struck so the two are
+    ONE PLANE, the aftmost clip's underside runs straight on into that web instead of stepping
+    off it: what the print lays there is a single sloped face from the clip's fore end through
+    the collar, and what a hand meets is one surface rather than three. The stations are then
+    placed in Y and the plane places them in Z.
 
-    EVERY STATION IS BOUNDED BY WHAT IS ALREADY ON THE FACE. Ahead of the first: the ridge clip's
-    own proud face, which is where the corner turn ends and where this face's air begins. Behind
-    it: each +X Wago tower, which stands `wago_engage` off `interior_x` and reaches into this
-    face's air over its own Y band. And the Y seam, aft of which the face is back-top's. The
-    stations are stated, so the bounds are checked rather than assumed."""
+    THE CLIP'S UP IS THE PIECE'S PRINT-UP, as it is on the rib — `along × outward` is +Z for a
+    face looking −X with the run going +Y — so these lay the way the ridge clip lays and neither
+    asks the print a question the rib had not already answered.
+
+    EVERY STATION IS BOUNDED BY WHAT IS ALREADY ON THE FACE. Ahead: the ridge clip's own proud
+    face, where the corner turn ends and this face's air begins. Behind: each +X Wago tower,
+    which stands `wago_engage` off `interior_x` and reaches into that air over its own Y band.
+    And the Y seam, aft of which the face is back-top's. The stations are stated, so the bounds
+    are checked rather than assumed."""
     plate = box.pack.collet_plate
     fx = front_top_flank_face()[1]
-    _jack, loom = _ridge_stations(box.outer, plate, box.pump_bay)
-    z_origin = loom[2] - pump_jack_clip_channel_centre
+    z_origin = _seam_web_at(box, fx) - _cable_clip.channel_mouth()
     z_band = (z_origin, z_origin + _cable_clip.HEIGHT)
     corner = plate["aft_y"] + ridge_wall_t + _cable_clip.DEPTH
     towers = [(st[1] - wago_half(st[3])[0], st[1] + wago_half(st[3])[0],
@@ -6238,6 +6252,23 @@ def _flank_cable_clips(piece, box):
             run=run,
         ).val()
     return piece
+
+
+def _seam_web_at(box, x_face):
+    """Where the upper +X Y-seam socket's 45° web crosses the plane `x_face`, in Z.
+
+    `_front_socket` stands that collar on a right triangle whose hypotenuse falls from the pod
+    cap at the collar's floor to the lip face one `drop` below, and `drop` is the run — so the
+    web is the plane `x + z = x_cap + floor` on this wall, and this is that plane read at one X.
+    A feature that wants to continue the web rather than step off it strikes itself here."""
+    tops = [b for b in box.y_bosses if b[0] > 0 and b[3] > z_seam]
+    if not tops:
+        raise ValueError(
+            "front-top's +X flank has no Y-seam socket above the Z seam, and the flank cable "
+            "clips are struck on that socket's own 45° web")
+    x_in, x_ext, sx, z_boss = max(tops, key=lambda b: b[3])
+    x_cap = _boss_x(x_ext, sx)[3]
+    return x_cap + (z_boss - socket_r) - x_face
 
 
 def _teardrop_y(r, x, z, y0, y1, up=1.0):
@@ -10252,8 +10283,11 @@ def main():
         "FLANK_CLIPS": f"{len(flank_clip_stations)}",
         "FLANK_CLIP_Y": ", ".join(
             f"{y0:.4g}–{y0 + run:.4g}" for y0, run in flank_clip_stations) + " mm",
-        "FLANK_CLIP_FIRST_RUN": f"{flank_clip_stations[0][1]:.4g} mm",
+        "FLANK_CLIP_Z": (f"{_seam_web_at(box, front_top_flank_face()[1]):.5g} mm"
+                         if box.y_bosses else "this pack stands no seam socket"),
         "CABLE_CLIP_DEPTH": f"{_cable_clip.DEPTH:.4g} mm",
+        "CABLE_CLIP_HEIGHT": f"{_cable_clip.HEIGHT:.4g} mm",
+        "CABLE_CLIP_SEAT": f"{_cable_clip.seat_height():.4g} mm",
         "CABLE_CLIP_RUN": f"{_cable_clip.RUN:.4g} mm",
         "CABLE_CLIP_RAMP": f"{_cable_clip.RAMP:.4g} mm",
         "CABLE_CLIP_BACKING": f"{_cable_clip.BACKING:.4g} mm",
