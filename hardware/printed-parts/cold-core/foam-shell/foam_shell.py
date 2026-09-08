@@ -48,7 +48,6 @@ from _cold_core_interface import (
     front_port_floor_z,
     front_wall_x,
     mid_screw_x_offset,
-    end_screw_y_offset,
     outer_shell_foam_gap,
     port_lane_inner_y,
     port_lane_mid_y,
@@ -255,7 +254,6 @@ def main():
             "GASKET_T": f"{gasket_thickness:.4g} mm",
             "GASKET_W": f"{gasket_strip_width:.4g} mm",
             "MID_BOSS_OFFSET": f"{mid_screw_x_offset:.4g} mm",
-            "END_BOSS_OFFSET": f"{end_screw_y_offset:.4g} mm",
             # The station count, and what it costs in hardware. One insert per station per
             # face, one screw per insert — so a station added anywhere carries all three.
             "BOSS_COUNT": f"{len(attachment_xy_positions):g}",

@@ -251,7 +251,6 @@ def cold_core(m):
                          f"{cci.insert_length:.4g} mm",
         "INSERT_RELIEF": f"{cci.insert_pocket_depth - cci.insert_length:.4g} mm",
         "MID_BOSS_X": f"{PM}{cci.mid_screw_x_offset:.4g} mm",
-        "END_BOSS_Y": f"{PM}{cci.end_screw_y_offset:.4g} mm",
         "CAP_SCREW": f"M3 {X} {cci.cap_screw_length:.4g}",
         # The top cap (CC-06, CC-15).
         "CAP_CONDUITS": f"{len(cci.cap_conduits)}",
@@ -298,7 +297,7 @@ def cold_core(m):
             "WIND_LENGTH", "WIND_BAND_LOW", "WIND_BAND_HIGH"},
         "cc-05-press-shell-inserts": {
             "SHELL_INSERTS", "FACE_BOSSES", "INSERT_POCKET", "INSERT_RELIEF",
-            "MID_BOSS_X", "END_BOSS_Y", "CORE_FOOTPRINT"},
+            "MID_BOSS_X", "CORE_FOOTPRINT"},
         "cc-06-pour-cap-foam": {
             "CAP_CONDUITS", "DECK_COLUMNS", "CAP_CAVITY",
             "POUR_HOLE_D", "LID_VENT_D", "FACE_BOSSES", "CAP_SCREW"},

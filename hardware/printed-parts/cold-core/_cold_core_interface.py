@@ -519,15 +519,13 @@ state("forward-band-takes-a-bore", "The forward band still passes a line",
 # its closed end reaches within ~3 mm of the +Y wall, so its section spans x ±11.5 there. At
 # `mid_screw_x_offset` neither boss is near it, and neither ±Y wall is a special case of the
 # other.
-#   THE TWO END BOSSES stand one to a ±X wall, the only station either ±X run has. Their
+#   THE TWO END BOSSES stand centred on a ±X wall, the only station either ±X run has. Their
 # cylinder is tangent to the ±X face the same way a ±Y boss is tangent to its own, and the web
-# runs out to that face instead. In the SHELL that wall's centre is free — the two copper-plug
-# slots the front face is cut for stand at y ±77.5 and nothing else reaches it. What is not
-# free is the TOP LID's outer face, which is the deck the machine stands on: `water-3`'s tie
-# post (`cap_side_anchors`) covers the +X centre, and the funnel drain's berth notches the −X
-# edge over `drain_berth_span`. So the pair stands off centre by `end_screw_y_offset`, at
-# opposite signs — the same 180° turn the rest of the pattern answers to, which is what lets
-# the top cap install either way round.
+# runs out to that face instead. Both centres are clear: in the shell the two copper-plug slots
+# the front face is cut for stand at y ±77.5 and nothing else reaches it, and on the TOP LID's
+# outer face — the deck the machine stands on — the one body that would cover a centre is
+# `water-3`'s tie post, which stands along its own run and is set where this station is not
+# (`cap_side_anchors`, `cap_side_anchor_room`).
 #
 # The whole pattern is symmetric under a 180° turn about Z — balanced gasket compression, and
 # the top cap free to install either way round. Two bosses to a ±Y wall is what makes that
@@ -542,14 +540,6 @@ _end_boss_x = bag_pocket_outermost_x
 # without one. So the pair stands a little inboard of even, where the worst span on the run is
 # 91.5 mm against the third's 87.7 and nothing already standing in the cup moves at all.
 mid_screw_x_offset = 40.0
-# HOW FAR OFF THE ±X WALL'S CENTRE THE END BOSS STANDS, and both bodies it is clear of are on
-# the top lid rather than in the shell. `water-3`'s post is `cap_side_len` of footprint centred
-# on the cap's y 3.242, so a head recess clears it from 11.1 out; the drain berth runs to
-# `drain_berth_span`'s 15, so the partner station clears that from 18.1 out. The two are on
-# opposite ±X walls and the pattern turns one onto the other, so ONE figure has to clear both,
-# and this stands a little past the wider of them. `cap_side_anchor_room` and
-# `cap_anchor_room` are what hold it — the readings are taken where the bodies are.
-end_screw_y_offset = 20.0
 #: Every attachment station as `((x, y), wall)`, `wall` naming the exterior face its cylinder
 #: stands tangent to and its web runs out to — "x", "y", or "corner" for one against both.
 attachment_stations = (
@@ -557,7 +547,7 @@ attachment_stations = (
           for x_sign in (1, -1) for y_sign in (1, -1))
     + tuple(((x_sign * mid_screw_x_offset, y_sign * _boss_wall_y), "y")
             for x_sign in (1, -1) for y_sign in (1, -1))
-    + tuple(((x_sign * _boss_wall_x, x_sign * end_screw_y_offset), "x") for x_sign in (1, -1))
+    + tuple(((x_sign * _boss_wall_x, 0.0), "x") for x_sign in (1, -1))
 )
 attachment_xy_positions = [_xy for _xy, _wall in attachment_stations]
 
@@ -1526,7 +1516,7 @@ cap_side_anchors = {
     #   THE POST AND `_lines.CROSS_Y` ARE ONE FIGURE IN TWO FILES — the run crosses where this
     # grips it. `enclosure_assembly.cap_tube_anchors` is what refuses a post no leg passes
     # through, so the pair cannot drift apart quietly.
-    "water-3": SideAnchor((138.000, 3.242), 7.600, 3.375, 1.500),
+    "water-3": SideAnchor((138.000, -13.000), 7.600, 3.375, 1.500),
     # `fluid-18`'s gate-side hold: its crossing runs the crown storey fore of the pump, and
     # this post stands the whole of that storey off the lid to grip it — the blade's front
     # face one air fore of the pump's own, the pipe proud of it by less than its wrap. The
@@ -1649,10 +1639,12 @@ def cap_side_anchor_room(name):
     `cap_anchor_room` reads the up-opening ribs the same way and this is its twin, on the
     family that stands on the cap's side instead.
 
-    Read on the post's own rectangle, which is the whole of its footing: `cap_side_depth`
-    across the cap's X about its centre, `cap_side_len` down its Y."""
+    Read on the post's own rectangle, which is the whole of its footing. `centre` is NOT the
+    middle of it in both axes: in the cap's X it is the post's FRONT FACE, the plane
+    `axis_off` stands the pipe forward of, and the block runs `cap_side_depth` aft of that.
+    In the cap's Y it is the middle, and the block is `cap_side_len` long about it."""
     (cx, cy) = cap_side_anchors[name].centre
-    x0, x1 = cx - cap_side_depth / 2.0, cx + cap_side_depth / 2.0
+    x0, x1 = cx - cap_side_depth, cx
     y0, y1 = cy - cap_side_len / 2.0, cy + cap_side_len / 2.0
 
     def off(px, py, r):
@@ -1751,16 +1743,6 @@ def cap_conduit_station(name):
     x, y = cap_conduits[name]
     return ((x, y, 0.0), cap_conduit_axis)
 
-
-# THE FUNNEL DRAIN'S BERTH. The union hangs on the funnel's spout between the folded deck's
-# crossbar barrels and this core's front face, and the barrels ride
-# `manifold_layout.BARB_STANDOFF` aft — the drain follows (`funnel.neck_dy`), and the
-# top lid's fore edge is what gives: set back `drain_berth_depth` over the drain's column, in
-# the cap's own frame like `cap_side_anchors`. `water-3`'s crossing steps into the same
-# corner (`_lines.CROSS_DODGE_Y`). `pack-closes` and `clearance-floor` read the placed union
-# and the drawn run against the built core, so a berth outgrown reads red on the card.
-drain_berth_span = (-15.0, 15.0)     # cap Y, symmetric over the spout's column
-drain_berth_depth = 1.6              # off the lid's fore edge, at +X in the cap's frame
 
 
 def make_box(x_range, y_range, z_range):
