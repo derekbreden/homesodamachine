@@ -699,7 +699,7 @@ exterior settings of `enclosure-front-top-petgf.3mf` around their own mesh — t
 |---|---|---|---|---|
 | `enclosure-pump-cartridge` | 2 | 2 | bed | 51.00 mm |
 | `enclosure-pump-cap` | 2 | 2 | bed | 18.40 mm |
-| `enclosure-front-top` | 2 | 2 | bed | 122.60 mm |
+| `enclosure-front-top` | 4 | 15 | bed | 32.60 mm |
 | `enclosure-back-bottom` | 4 | 5 | 3 bed, **1 model** | **8.00 mm** |
 | `enclosure-front-bottom` | 4 | 4 | 2 bed, **2 model** | **8.00 mm** |
 | `enclosure-back-top` | 12 | 35 | 5 bed, **7 model** | **1.20 mm** |
@@ -707,8 +707,11 @@ exterior settings of `enclosure-front-top-petgf.3mf` around their own mesh — t
 `enclosure-pump-cartridge` has two bed-rooted bodies, one under each flat pull roof. Each
 reaches one interface after **51.00 mm** and leaves directly through its open side pocket. On
 the pump cap and front-top, every body roots on the print bed and stands 18 mm or more before
-it touches the model. Front-top's two
-bodies carry the pump-bay lintel and the pump-jack receptacle roof. The Y-seam blocks above the handhold roofs
+it touches the model. Front-top has one tree under the pump-bay lintel, one beneath each outer
+carrier guide and well crown, and a central tree reaching the spring bores, upper web bearings,
+inner well crowns and pump-jack receptacle roof. Remove those branches through the empty
+cartridge bay, flank openings and aft carrier recess before installing the hardware.
+The Y-seam blocks above the handhold roofs
 and their front passages have no separate support interfaces. Four bed-rooted bodies carry the
 handhold ceilings, one per flank on each bottom piece. Each has **34.20 mm** of build-up and
 comes out through the open bottom. The other bottom-quadrant supports carry one feature

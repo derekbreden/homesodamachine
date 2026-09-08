@@ -801,7 +801,7 @@
    "label": "Tee carrier clears front-top through installation and all four working states, and both end stops and all five transverse constraints engage",
    "kind": "gate",
    "status": "pass",
-   "value": "231 solid/envelope checks; maximum unintended overlap 0.000000 mm\u00b3; release/park overshoots 1.238780/0.821340 mm\u00b3; 40 independent flank-capture readings, minimum contact 0.323400 mm\u00b3; minimum upper/lower web bearing 139.975 mm\u00b2",
+   "value": "239 solid/envelope checks; maximum unintended overlap 0.000000 mm\u00b3; release/park overshoots 1.238780/0.821340 mm\u00b3; 40 independent flank-capture readings, minimum contact 0.323400 mm\u00b3; minimum upper/lower web bearing 139.975 mm\u00b2",
    "target": "0 mm\u00b3 unintended overlap; positive end-stop, X/Z and pitch/yaw/roll contact",
    "detail": [],
    "active": true
