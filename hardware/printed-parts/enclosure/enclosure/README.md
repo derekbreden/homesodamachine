@@ -833,7 +833,11 @@ exterior backing. The profile is asymmetric in its own up, and that up follows t
 back-top prints ceiling-down, so the run is laid along +Y and the profile's up is the box's −Z.
 Its two hooked sections grow from the wall on 45° faces toward the print's up, and the recessed
 channel ramps to the wall face over [6 mm](CABLE_CLIP_RAMP) at both ends of its [18 mm](CABLE_CLIP_RUN) run. It therefore
-adds no supported face to the ceiling-down back-top print. The plate's continuous lead leaves a
+adds no supported face to the ceiling-down back-top print. The seat that channel opens to — the
+run of the lower arm's face at full depth, against the wall, which is what decides the section a
+clip will take — is [9 mm](CABLE_CLIP_SEAT) of the profile's [39 mm](CABLE_CLIP_HEIGHT) height;
+the S above it is what a cable is pressed past to reach that seat, and it closes over whatever
+went in. The plate's continuous lead leaves a
 service loop between this fixed clip and the open pan.
 
 The **ASSE anchor** one storey above it looks print-down on its top. Outside the zip ties'
@@ -1504,15 +1508,19 @@ rib and the boss bridge.
 
 **That run does not stop at the rib.** Past the clip's +X end the lead turns the corner onto
 front-top's own +X flank face and runs aft to the main-board wall, and SIG-7 arrives forward
-along that same face, so the flank carries [3](FLANK_CLIPS) more of the identical unembedded clip
-at the identical channel height — over y [94–109, 137–155, 179–197 mm](FLANK_CLIP_Y). What bounds
-each station is what already stands on that face: ahead, the ridge clip's own proud body, which is
-where the corner turn ends; behind, the +X Wago tower, which stands its own engagement off
-`interior_x` and reaches into that air over its Y band; and the Y seam, aft of which the face is
-back-top's. The tower leaves one short band ahead of it and one long band aft, so the first
-station runs [15 mm](FLANK_CLIP_FIRST_RUN) where the other two run the clip's full
-[18 mm](CABLE_CLIP_RUN). `_flank_cable_clips` checks every one of those bounds rather than
-assuming them.
+along that same face, so the flank carries [2](FLANK_CLIPS) more of the identical unembedded
+clip, over y [137–155, 179–197 mm](FLANK_CLIP_Y). Both stand in the **Y+ half** of that face,
+which is the half that is clear: the +X Wago tower stands its own engagement off `interior_x`
+and reaches into this face's air over its Y band, and the fore end of the face is a corner the
+lead turns rather than a run it lies along. `_flank_cable_clips` checks each station against the
+tower, against the ridge clip's own proud body and against the Y seam rather than assuming them.
+
+**Their height is the seam collar's own 45°.** The upper Y-seam socket stands on a web falling at
+45° off the collar's floor to the lip face, and the clip carries the same 45° under its upper
+arm. The two are struck as **one plane** — the web crosses this flank's face at
+z [317.95 mm](FLANK_CLIP_Z), which is where each clip's own slope starts — so the aftmost clip's
+underside runs straight on into the collar instead of stepping off it, and the print lays one
+sloped face from the clip's fore end through the seam rather than three with steps between.
 
 ## Funnel opening
 
