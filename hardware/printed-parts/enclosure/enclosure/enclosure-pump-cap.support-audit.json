@@ -74,16 +74,6 @@
     }
   ],
   "piece": "enclosure-pump-cap",
-  "policy": {
-    "build_up_mm": {
-      "decent_from": 10.0,
-      "defect_under": 5.0,
-      "preference_saturates_at": 15.0
-    },
-    "preferred_root": "bed",
-    "root_and_build_up_are_independent": true,
-    "support_count": "minimize connected bodies which reach an interface"
-  },
   "schema": 1,
   "slicer": "BambuStudio 02.08.02.61",
   "slicer_settings": {
@@ -97,12 +87,6 @@
   },
   "summary": {
     "bed_rooted_bodies": 2,
-    "build_up_buckets": {
-      "10_to_15_mm": 0,
-      "15_mm_or_more": 2,
-      "5_to_10_mm": 0,
-      "under_5_mm": 0
-    },
     "interface_islands": 2,
     "model_rooted_bodies": 0,
     "shortest_build_up_mm": 18.4,

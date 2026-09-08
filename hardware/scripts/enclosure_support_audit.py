@@ -4,7 +4,10 @@
 The CAD assembly can prove that a ramp exists, but only the slicer knows whether it emitted a
 support, where that support begins, and how many separate interfaces a hand has to remove. This
 reader follows ``Support`` and ``Support interface`` extrusion paths through the layers and
-reports the independent readings stated by the enclosure's support-removal policy.
+reports what that slice laid: each connected support body, where it starts, how far it
+climbs before its first model interface, and how many separate interface islands a hand meets.
+These are measurements of one slice. They do not rank a design, and nothing here says a
+support is a fault.
 
 Typical use after extracting a history-only production profile and slicing a current enclosure
 STL through it::
@@ -42,10 +45,6 @@ from pathlib import Path
 GRID_MM = 0.4
 TREE_LINK_MM = 0.85
 INTERFACE_LINK_MM = 1.25
-SHORT_MM = 5.0
-DECENT_MM = 10.0
-SATURATED_MM = 15.0
-
 _WORD = re.compile(r"([A-Z])([-+]?(?:\d+(?:\.\d*)?|\.\d+))")
 _DEFAULT_SLICER = Path("/Applications/BambuStudio.app/Contents/MacOS/BambuStudio")
 
@@ -84,16 +83,11 @@ class LayerNode:
     cells: set[tuple[int, int]]
 
 
-# WHERE A SUPPORT MAY STAND. A piece printed on its ceiling carries its own first layers as the
-# floor under everything inboard, so a body rooted on that slab is the design, not a finding; on
-# every other piece a body rooted on the model is what the geometry moves to avoid.
-ROOT_POLICY = {
-    "enclosure-back-top": {
-        "preferred_root": "bed, or the ceiling slab that is the piece's own first layers",
-        "model_root": "expected",
-    },
-}
-DEFAULT_ROOT_POLICY = {"preferred_root": "bed", "model_root": "avoided"}
+# READING A ROOT. `root` says whether a body starts on the print bed or on model material,
+# and what that means depends on which face the piece prints on. `enclosure-back-top` prints
+# ceiling-down, so its ceiling slab IS the piece's own first layers: a body rooted on that slab
+# started on the flat the piece laid, which reads the same way a bed root does on a piece
+# printed floor-down. The field records where the body started; it does not grade it.
 
 
 def _sha256(path: Path) -> str:
@@ -601,14 +595,6 @@ def audit(gcode: Path, piece: str, model: Path | None = None,
             ], cad_transform)
     trees.sort(key=lambda row: int(row["id"].split("-")[1]))
 
-    buckets = {"under_5_mm": 0, "5_to_10_mm": 0, "10_to_15_mm": 0, "15_mm_or_more": 0}
-    for tree in trees:
-        value = tree["shortest_build_up_mm"]
-        key = ("under_5_mm" if value < SHORT_MM else
-               "5_to_10_mm" if value < DECENT_MM else
-               "10_to_15_mm" if value < SATURATED_MM else "15_mm_or_more")
-        buckets[key] += 1
-
     coordinate_frame = None
     if cad_transform:
         coordinate_frame = {
@@ -635,19 +621,11 @@ def audit(gcode: Path, piece: str, model: Path | None = None,
         "first_layer_z_mm": first_layer_z,
         "coordinate_frame": coordinate_frame,
         "slicer_settings": settings,
-        "policy": {
-            "support_count": "minimize connected bodies which reach an interface",
-            "root_and_build_up_are_independent": True,
-            "build_up_mm": {"defect_under": SHORT_MM, "decent_from": DECENT_MM,
-                            "preference_saturates_at": SATURATED_MM},
-            **ROOT_POLICY.get(piece, DEFAULT_ROOT_POLICY),
-        },
         "summary": {
             "support_bodies": len(trees),
             "interface_islands": len(interfaces),
             "bed_rooted_bodies": sum(tree["root"] == "bed" for tree in trees),
             "model_rooted_bodies": sum(tree["root"] == "model" for tree in trees),
-            "build_up_buckets": buckets,
             "shortest_build_up_mm": (min((tree["shortest_build_up_mm"] for tree in trees),
                                          default=None)),
         },
@@ -690,8 +668,7 @@ G1 X11 Y0 E1
     assert result["summary"]["support_bodies"] == 2, result
     assert result["summary"]["bed_rooted_bodies"] == 1, result
     assert result["summary"]["model_rooted_bodies"] == 1, result
-    assert result["summary"]["build_up_buckets"]["under_5_mm"] == 1, result
-    assert result["summary"]["build_up_buckets"]["5_to_10_mm"] == 1, result
+    assert sorted(tree["shortest_build_up_mm"] for tree in result["trees"]) == [0.2, 6.0], result
 
     model_rooted_fixture = """G90
 M83
