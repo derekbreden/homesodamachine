@@ -19,14 +19,15 @@ weight. The carrier follows the tubes forward until the fixed plate releases the
 
 The web thickens into a [16 mm](GRIP_BAR_T) front bar at each side. Each handhold has a closed
 finger recess [22 mm](FINGER_RUN) fore/aft, [40 mm](FINGER_HEIGHT) high and
-[11.855 mm](FINGER_DEPTH) deep, with [5 mm](GRIP_CORNER_R) corners and a
+[8.705 mm](FINGER_DEPTH) deep, with [5 mm](GRIP_CORNER_R) corners and a
 [3 mm](GRIP_EDGE_R) round at the mouth. The fingers
 bear on the front bar's aft face, opposing the thumb on the cartridge pocket's aft wall.
 
-The rim stands [3.15 mm](GRIP_PROJECTION) proud of the enclosure on each side; total width
-across both grips is [221.3 mm](GRIP_WIDTH). Its outline has [5 mm](GRIP_RIM_CORNER_R) corners
-and its exposed edge has a [1.5 mm](GRIP_RIM_EDGE_R) round. It overlaps every edge of its flank opening by
-at least [4 mm](GRIP_OVERLAP) throughout the stroke. The recess ends on a continuous
+Both outer faces finish flush with the enclosure; total width across the grips is
+[215 mm](GRIP_WIDTH). Each retaining rim sits behind the wall, with
+[5 mm](GRIP_RIM_CORNER_R) outline corners. It overlaps the opening's fore, aft and upper
+edges by at least [4 mm](GRIP_OVERLAP) throughout the stroke. Its lower edge clears the
+enclosure seam rail. The recess ends on a continuous
 [2.5 mm](GRIP_BACK_T) back, so the opening presents a finger pocket with no view into the
 valves.
 
@@ -39,7 +40,7 @@ face that clears the upper lap. The upper land is a continuous bridge into the f
 tray. The lower lands share a flat floor with the aft valve tray; four openings admit the
 valves from underneath and carry the moving hairpins. Both guide sections join the flanks.
 
-Each handhold is a rectangular sliding body behind its rounded exterior rim. The opening's
+Each handhold is a rectangular sliding body with an internal retaining rim. The opening's
 flat upper and lower faces guide its [42 mm](GUIDE_LENGTH) bearing length, with
 [0.15 mm](GUIDE_AIR) running clearance on each side in Z. The opening's fore and aft faces
 are the release and park stops. The body stays inside all four faces throughout travel.
@@ -48,8 +49,13 @@ outer floor extends down to that edge along its complete length. Its inboard und
 one continuous clearance over the enclosure's seam-rail head. The outer floor is 6 mm thick;
 the floor over the rail is 2.295 mm thick. The upper lap passes above the tees.
 
-The two exterior rims face opposite enclosure flanks. Once the center lap is screwed
-together, movement toward either side seats the far rim against its flank. The rims retain
+One broad recess in each flank runs from the outer tee well to the aft valve tray's fore
+plane. Its flat ceiling guides the rim and its outer wall forms the retaining shoulder.
+The recess leaves room to lower the complete cup inside the enclosure and move it outward
+into the opening.
+
+The two internal rims face opposite wall shoulders. Once the center lap is screwed
+together, movement toward either side seats that side's rim against its shoulder. The rims retain
 X; the upper/lower guide faces retain Z. Their separated fore/aft contact regions and the
 distance between the two handholds constrain pitch, yaw and roll. The rigid-body guide is
 complete with the tees, ties and springs absent.
@@ -80,20 +86,22 @@ Lee LCM060C12M.
 Work with `enclosure-front-top` loose and its pump bay empty.
 
 1. Insert the four bare tees from aft into their cavities and branch journals, then move
-   them fore to release. Fit the aft valves from the open underside, with their posts clear
-   of the tray, and press each valve into its sockets.
+   them fore to release. Both valve rows, Y-A/Y-B and the flexible links remain absent.
 2. Heat-set the two short M3 inserts into the right half from its fore-facing lap surface.
-   Feed the right half inward from outside the right flank, web first, with its handhold
-   against the opening's fore/release end. Seat its rim against the flank and move it aft
-   to park.
-3. Feed the left half inward through the left flank at connected, [1.5 mm](ENTRY_FROM_PARK)
-   fore of park. Its upper lap passes over the seated tees. Move the left
-   half fore to release. The parked right half leaves room for both motions.
+   Feed the left half through the open rear above the valve supports, with its cup inboard
+   of the flank and aligned with the outer tee well. Lower it behind the seated tees.
+   Move it outward until the cup is behind the wall shoulder, then fore to the opening's
+   release end. Push it outward into the opening until its face is flush with the enclosure.
+3. Bring the right half through the same route on the right. While its cup is behind the
+   wall shoulder, align it with the opening's aft/park end, then seat it outward. The left
+   half stays at release while the right enters.
 4. Move the right half forward to release to close the central lap. Feed both M3 × 8 screws
    through the two access bores in the empty cartridge bay and tighten them into the right
    half's inserts. The heads finish flush with the lap's fore face. Check that both web faces share
    one tee-bearing plane and both tabs travel together.
-5. Tie each tee twice through its routing channels. Move the carrier to park. With fine bent-nose
+5. Fit the aft valves from the open underside with their posts clear of the tray, then
+   press each valve into its sockets. The joined carrier and tees stay at release.
+6. Tie each tee twice through its routing channels. Move the carrier to park. With fine bent-nose
    pliers, hold each spring compressed above solid height, its axis along Y. Lower it through
    the inner tee well on the same side, stopping above the bare tee's upper end. Move it
    outward below the upper guide to its spring axis, then down to the seat. Enter its aft end
@@ -109,12 +117,19 @@ and their routing channels open.
 
 ## Print and verification
 
-Print both halves upright, +Z up, with the lower rim edge on the bed. The web begins
-[4.15 mm](WEB_BED_GAP) above that edge and takes removable support beneath it. The cup floor,
-pocket roof and rim overhangs also take support; the pocket opens directly onto the
+Print both halves upright, +Z up, with the web and outer cup floor on the bed. The internal
+rim begins [3.705 mm](RIM_BED_GAP) above the bed; its extensions and the pocket roof take
+removable support. The pocket opens directly onto the
 side for cleanup. The fixed body's guide ceilings take support, removed
 through the open aft cavities before assembly. Its spring bores open into the carrier recess.
 All guide and hand-contact faces retain their full bearing sections.
+
+The current production-profile readings are in
+[`enclosure-tee-carrier-left.support-audit.json`](enclosure-tee-carrier-left.support-audit.json)
+and [`enclosure-tee-carrier-right.support-audit.json`](enclosure-tee-carrier-right.support-audit.json).
+Each half has three bed-rooted support bodies: one under the rim and seam-rail relief,
+one under the central lap, and one under the finger-pocket roof. Their contact regions and
+removal routes are named in the enclosure's [support ledger](../enclosure/support-audit.json).
 
 `build_half(side=-1|1)` makes one valid print; `build_carrier()` compounds both installed
 halves. `interface()` supplies the enclosure's openings, stops, spring stations, installation
@@ -123,7 +138,8 @@ order and printed inventory. The generator exports `enclosure-tee-carrier-left` 
 
 The part selftest checks solids, bed fit, lap contact, fastener stack, tie paths, closed pocket
 backs, rim overlap and assembly clearance between halves. The appliance's `tee-carrier-motion`
-reading checks tee loading, aft-valve entry, complete lateral insertion sweeps, lap closure, fore screw/driver
+reading checks tee loading, complete rear-entry, lowering and outward-seating sweeps, aft-valve
+entry beside the joined carrier, lap closure, fore screw/driver
 access, spring loading, finger space and working
 travel against actual front-top, the closed lower enclosure, cartridge and fixed valve
 bodies. Both end stops must engage on a

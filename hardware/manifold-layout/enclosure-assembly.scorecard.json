@@ -5,17 +5,17 @@
    "id": "enclosure",
    "label": "the printed box, outside face to outside face",
    "min": [
-    -110.65,
+    -107.5,
     5.0,
     -6.0
    ],
    "max": [
-    110.65,
+    107.5,
     467.0,
     355.0
    ],
    "mm": [
-    221.3,
+    215.0,
     462.0,
     361.0
    ]
@@ -29,12 +29,12 @@
     -6.0
    ],
    "max": [
-    110.65,
+    107.5,
     531.891,
     361.0
    ],
    "mm": [
-    224.15,
+    221.0,
     526.891,
     367.0
    ]
@@ -801,7 +801,7 @@
    "label": "Tee carrier clears front-top through installation and all four working states, and both end stops and all five transverse constraints engage",
    "kind": "gate",
    "status": "pass",
-   "value": "239 solid/envelope checks; maximum unintended overlap 0.000000 mm\u00b3; release/park overshoots 1.238780/0.821340 mm\u00b3; 40 independent flank-capture readings, minimum contact 0.323400 mm\u00b3; minimum upper/lower web bearing 139.975 mm\u00b2",
+   "value": "291 solid/envelope checks; maximum unintended overlap 0.000000 mm\u00b3; release/park overshoots 0.300000/0.300000 mm\u00b3; 40 independent flank-capture readings, minimum contact 0.323400 mm\u00b3; minimum upper/lower web bearing 139.975 mm\u00b2",
    "target": "0 mm\u00b3 unintended overlap; positive end-stop, X/Z and pitch/yaw/roll contact",
    "detail": [],
    "active": true

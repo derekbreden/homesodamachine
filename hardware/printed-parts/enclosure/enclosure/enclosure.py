@@ -6056,18 +6056,22 @@ def _tee_carrier_fixed_features(inner, plate, carrier):
 
 
 def _tee_carrier_service_slots(carrier):
-    """Rectangular guide openings with flat upper/lower bearings and fore/aft end stops.
+    """Flush grip openings and one broad internal recess on each side.
 
-    Each closed handhold occupies its opening throughout the 6.15 mm stroke. Its outer rim
-    overlaps all four edges. The upper bearing is a supported print ceiling.
+    The wall's outer section retains the moving rim. Behind it, the recess opens onto the
+    outer tee well and continues to the aft tray's fore plane for inside-out assembly.
+    Its flat ceiling carries the retaining rim; the opening carries the cup and its end stops.
     """
     if not carrier:
         return ()
-    x0, x1 = carrier["service_slot_x"]
-    y0, y1 = carrier["service_slot_y"]
-    z0, z1 = carrier["service_slot_z"]
-    return tuple(_ybox(xa, xb, y0, y1, z0, z1)
-                 for xa, xb in ((x0, x1), (-x1, -x0)))
+    cuts = []
+    for name in ("service_slot", "service_recess"):
+        x0, x1 = carrier[name + "_x"]
+        y0, y1 = carrier[name + "_y"]
+        z0, z1 = carrier[name + "_z"]
+        cuts.extend(_ybox(xa, xb, y0, y1, z0, z1)
+                    for xa, xb in ((x0, x1), (-x1, -x0)))
+    return tuple(cuts)
 
 
 def _plate_lead(plate):

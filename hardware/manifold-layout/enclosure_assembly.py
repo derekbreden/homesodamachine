@@ -71,6 +71,7 @@ Run it
 """
 
 import collections
+from dataclasses import replace
 import functools
 import math
 import os
@@ -1306,7 +1307,7 @@ def tee_carrier_spec(mcarry, squeeze_stood, plate) -> _carrier.CarrierSpec:
     states = plate["carrier_states"]
     tab_z = (tee_axis_z + base.tab_z[0] - base.tee_axis_z,
              tee_axis_z + base.tab_z[1] - base.tee_axis_z)
-    return _carrier.CarrierSpec(
+    spec = _carrier.CarrierSpec(
         tee_xs=tee_xs,
         tee_axis_z=tee_axis_z,
         web_x=base.web_x,
@@ -1315,7 +1316,7 @@ def tee_carrier_spec(mcarry, squeeze_stood, plate) -> _carrier.CarrierSpec:
                fore_valve_bottom - base.slide_air),
         spring_xs=spring_xs,
         spring_axis_z=tee_axis_z,
-        tab_outer_x=_enc.appliance_width / 2.0 + base.slide_air + base.grip_rim_t,
+        tab_outer_x=_enc.appliance_width / 2.0,
         tab_z=tab_z,
         grip_back_x=round(aft_coil_outer_x + base.slide_air + base.finger_air, 6),
         grip_rail_outer_x=_enc._rail_x(_enc.interior_x()[1], -1.0, 'front')[0] + base.slide_air,
@@ -1328,6 +1329,9 @@ def tee_carrier_spec(mcarry, squeeze_stood, plate) -> _carrier.CarrierSpec:
         exterior_x=_enc.appliance_width / 2.0,
         guide_inner_x=flange_abs_x,
     )
+    aft_tray_fore_y = min(plane - sign * _vtray.SEAT
+                         for plane, sign, _seats in valve_tray_stations(solids) if sign < 0)
+    return replace(spec, entry_staging_y=aft_tray_fore_y - spec.rim_y[1] - spec.slide_air)
 
 
 def tee_carrier_interface(spec: _carrier.CarrierSpec, plate, squeeze_stood) -> dict:
@@ -1454,6 +1458,12 @@ def tee_carrier_interface(spec: _carrier.CarrierSpec, plate, squeeze_stood) -> d
         "body_face_y": min(load_fore_y, spec.web_fore_y + spec.release_offset_y
                             - spec.tie_head[1] - spec.slide_air),
         "tee_wells": tuple(tee_wells),
+        "service_recess_x": (max(well[0][1] for well in tee_wells) - spec.slide_air,
+                             spec.exterior_x - spec.grip_wall_t),
+        "service_recess_y": (spec.rim_y[0] + spec.release_offset_y - spec.slide_air,
+                             body_floor_aft_y),
+        "service_recess_z": (spec.grip_z[0] - spec.slide_air,
+                             spec.rim_z[1] + spec.slide_air),
         "tee_xs": spec.tee_xs,
         "tee_run_y": tee_run_y,
         "tee_z": (min(b.zmin for b in tee_boxes), max(b.zmax for b in tee_boxes)),
@@ -1490,7 +1500,8 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
     The carrier part's own selftest proves the two halves and their clamped lap joint.
     This is the complementary appliance reading: source-built front-top, including every tray,
     Wago well, stop, spring guide and service opening which can enter the moving envelope.
-    Complete rectangular sweeps enclose each half's lateral insertion; the remaining seating
+    Complete rectangular sweeps enclose each half's rear entry, lowering and outward seating;
+    the remaining seating
     motions use at most 0.7 mm between samples. Exact release and park allow tangent contact; a 0.001 mm
     overshoot at each end must produce positive intersection and thereby prove both stops exist.
     """
@@ -1505,7 +1516,7 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
     wall_box = wall.BoundingBox()
     local_y = (box.pack.collet_plate["fore_y"] - 1.0,
                max(row[0] for row in box.pack.valve_trays) + _enc._valve_tray.THICK + 1.0)
-    local_zmax = max(spec.grip_z[1],
+    local_zmax = max(spec.grip_z[1], spec.rim_z[1],
                      *(solid.BoundingBox().zmax for name, (solid, _color) in _solids(a).items()
                        if name in {f"{kind}-v-{v}" for kind in ("valve", "coil") for v in "cdgj"})) + 1.0
     local_wall = wall.intersect(_carrier._box(
@@ -1582,15 +1593,18 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
 
     seated_tees = tuple((name, tee_pose(shape, spec.release_offset_y))
                         for name, shape in squeeze_tees)
-    installation = (("enclosure-front-top", wall),
-                    *((name, solid) for name, solid in fixed if name in installed_names),
-                    *seated_tees)
+    carrier_installation = (("enclosure-front-top", wall), *seated_tees)
+    installation = (*carrier_installation,
+                    *((name, solid) for name, solid in fixed if name in installed_names))
     # The complete installed mechanism and its finger space clear the real enclosure.
     for state, row in interface["states"].items():
         dy = row["offset_y"]
         for side, shape in halves.items():
             read(f"{state} half {side:+d}", shape.translate((0.0, dy, 0.0)),
                  wall_and_fixed)
+            bb = shape.BoundingBox()
+            if max(abs(bb.xmin), abs(bb.xmax)) > spec.exterior_x + 1e-6:
+                failures.append(f"{state}: half {side:+d} exceeds the enclosure width")
         for side, finger in zip((-1, 1), _carrier.finger_probes(spec, dy)):
             read(f"{state} finger {side:+d}", finger, wall_and_fixed)
         spring_length = interface["spring_bearing_lengths"][state]
@@ -1627,9 +1641,10 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
         read(f"tee X{x:g} axial loading envelope", run.fuse(branch),
              (("enclosure-front-top", wall),))
 
-    # With the tees forward and carrier absent, each aft valve rises from the open underside
+    # With the tees and joined carrier at release, each aft valve rises from the open underside
     # with its posts clear of the tray, then presses its full post length into the sockets.
     entry_dy = interface["aft_valve_entry_y"]
+    release_carrier = carrier.translate((0, spec.release_offset_y, 0))
     for valve in "cdgj":
         parts = [(name, solid) for name, solid in fixed
                  if name in (f"coil-v-{valve}", f"valve-v-{valve}")]
@@ -1642,44 +1657,35 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
                 sweep = _carrier._box(bb.xmin, bb.xmax, bb.ymin, bb.ymax,
                                       bb.zmin + dz, bb.zmax).val()
                 read(f"{name} component {index} complete underside entry envelope", sweep,
-                     (("enclosure-front-top", wall), *seated_tees))
+                     (*carrier_installation, ("joined carrier at release", release_carrier)))
             count = sample_count(entry_dy)
             for i in range(count):
                 read(f"{name} post insertion {i + 1}/{count}",
                      shape.translate((0, entry_dy * (1 - i / (count - 1)), 0)),
-                     (("enclosure-front-top", wall), *seated_tees))
+                     (*carrier_installation, ("joined carrier at release", release_carrier)))
 
-    # Each half feeds from outside through its own guide opening. The right half parks aft;
-    # the left enters at connected. Their center lap passes above the four seated tees.
-    # Both halves then come fore to release and the two screws close their lap.
+    # Each half enters through the loose front-top's open rear above the valve supports,
+    # lowers through its outer tee well and seats from inside into the flank recess.
+    # The left half seats at release first. The right seats at park, then comes forward
+    # onto the left half's fore lap. Both valve rows are absent during this route.
     release = interface["states"]["release"]["offset_y"]
     park = interface["states"]["park"]["offset_y"]
-    right_park = halves[1].translate((0.0, park, 0.0))
     left_release = halves[-1].translate((0.0, release, 0.0))
     for side, entry_y in zip(interface["half_install_order"], interface["half_entry_offsets_y"]):
-        blockers = installation + ((("parked right half", right_park),) if side < 0 else ())
-        dx = side * interface["half_entry_shift_x"]
+        blockers = carrier_installation + ((("left half at release", left_release),) if side > 0 else ())
         envelopes = _carrier.insertion_envelopes(spec, side)
         outside = halves[side].cut(*(shape for _name, shape in envelopes)).Volume()
         if outside > CARRIER_MOTION_OVERLAP_TOL:
             failures.append(f"half {side:+d} has {outside:.6f} mm³ outside its insertion envelopes")
-        for name, shape in envelopes:
-            bb = shape.translate((0, entry_y, 0)).BoundingBox()
-            sweep = _carrier._box(min(bb.xmin, bb.xmin + dx), max(bb.xmax, bb.xmax + dx),
-                                  bb.ymin, bb.ymax, bb.zmin, bb.zmax).val()
-            read(f"half {side:+d} complete lateral {name} sweep", sweep, blockers)
-    count = sample_count(spec.connected_offset_y - release)
-    for i in range(count):
-        dy = spec.connected_offset_y + (release - spec.connected_offset_y) * i / (count - 1)
-        read(f"left half to release {i + 1}/{count}", halves[-1].translate((0, dy, 0)),
-             (*installation, ("parked right half", right_park)))
+        rear_y = wall_box.ymax - spec.rim_y[0] + spec.slide_air
+        for stage, name, sweep in _carrier.insertion_sweeps(spec, side, entry_y, rear_y):
+            read(f"half {side:+d} complete {stage} {name} sweep", sweep, blockers)
     count = sample_count(park - release)
     for i in range(count):
         dy = park + (release - park) * i / (count - 1)
         read(f"right half lap closure {i + 1}/{count}",
              halves[1].translate((0.0, dy, 0.0)),
-             (*installation, ("left half at release", left_release)))
-        # This path also reads the initial right-half movement from release to park.
+             (*carrier_installation, ("left half at release", left_release)))
         for side, shape in halves.items():
             read(f"half {side:+d} working travel {i + 1}/{count}",
                  shape.translate((0.0, dy, 0.0)), wall_and_fixed)
@@ -1736,7 +1742,8 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
         xa, xb = sorted((side * spec.guide_inner_x, side * spec.exterior_x))
         region = _carrier._box(xa, xb, spec.rim_y[0] + release - 1.0,
                                spec.rim_y[1] + park + 1.0,
-                               spec.rim_z[0] - 1.0, spec.rim_z[1] + 1.0).val()
+                               min(spec.rim_z[0], spec.grip_z[0]) - 1.0,
+                               spec.rim_z[1] + 1.0).val()
         guide_walls.append(wall.intersect(region))
     guides = cq.Compound.makeCompound(guide_walls)
     contact_min = math.inf
