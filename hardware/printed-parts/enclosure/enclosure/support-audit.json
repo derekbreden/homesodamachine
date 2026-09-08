@@ -96,7 +96,7 @@
       "support_bodies": [
         {
           "tree": "tree-1",
-          "name": "the ASSE fore round seat's lower arc; the ASSE aft round seat's lower arc; the water-split rib's seat lip \u2026",
+          "name": "ASSE round seats and drip-pan sleeve and berth",
           "first_contacts_cad_xyz_mm": [
             [
               -81.8,
@@ -115,20 +115,54 @@
               324.32
             ],
             [
+              -97.8,
+              346.3,
+              303.68,
+              -51.0,
+              436.3,
+              304.16
+            ],
+            [
+              -108.2,
+              349.5,
+              297.68,
+              -55.0,
+              433.1,
+              298.16
+            ],
+            [
+              -107.4,
+              353.9,
+              285.2,
+              -58.6,
+              429.1,
+              285.68
+            ]
+          ],
+          "root": "bed",
+          "build_up_mm": 28.56,
+          "interface_islands": 5,
+          "rationale": "The two round seats locate the ASSE fitting; the sleeve lid, rim-rebate shoulders and berth floor retain and support the removable pan. Their working sections remain round or flat as required. This bed-rooted tree reaches them through the open quadrant and pan openings."
+        },
+        {
+          "tree": "tree-2",
+          "name": "west anchor faces, PRV mouth, rail catches and identification pockets",
+          "first_contacts_cad_xyz_mm": [
+            [
+              -82.2,
+              465.5,
+              318.08,
+              -73.8,
+              467.9,
+              318.8
+            ],
+            [
               -93.4,
               219.9,
               312.32,
               -91.0,
-              230.3,
+              229.9,
               312.8
-            ],
-            [
-              -97.8,
-              345.9,
-              303.68,
-              -51.0,
-              436.7,
-              304.16
             ],
             [
               -102.2,
@@ -139,23 +173,7 @@
               301.76
             ],
             [
-              -108.2,
-              349.5,
-              297.68,
-              -54.6,
-              433.1,
-              298.16
-            ],
-            [
-              -107.4,
-              353.9,
-              285.2,
-              -58.6,
-              428.7,
-              285.68
-            ],
-            [
-              -93.0,
+              -93.4,
               246.3,
               284.24,
               -90.2,
@@ -177,6 +195,14 @@
               -98.2,
               253.5,
               279.68
+            ],
+            [
+              -82.2,
+              465.5,
+              255.68,
+              -73.8,
+              467.5,
+              256.4
             ],
             [
               -94.6,
@@ -204,12 +230,12 @@
             ]
           ],
           "root": "bed",
-          "build_up_mm": 28.56,
-          "interface_islands": 13,
-          "rationale": "Roots on the plate around the bedded piece or through its openings and reaches 13 interface island(s): the ASSE fore round seat's lower arc; the ASSE aft round seat's lower arc; the water-split rib's seat lip; the pan sleeve's lid; the flow-regulator rib's tie-band crown; the pan rim rebate's shoulders; the drip pan's berth floor; the flow-regulator rib's seat lip; the flavour line anchor's print-down flank; the flow-regulator rib's tie-band flank; the PRV mouth's floor; the west Z-seam foot's fore catch face; the west Z-seam foot's aft catch face."
+          "build_up_mm": 36.0,
+          "interface_islands": 10,
+          "rationale": "The water-split seat lip, flow-regulator crown, seat lip and tie-band flank, and flavour-line anchor flank retain their tube and tie clearances. The PRV mouth keeps its passage floor, the two west Z-seam foot faces bear against lift, and the identification pockets keep their locating arcs. This bed-rooted tree reaches the ten contact islands through the open quadrant and its wall passages."
         },
         {
-          "tree": "tree-2",
+          "tree": "tree-3",
           "name": "the water-split rib's tie-band crown; the water-split rib's tie-band flank",
           "first_contacts_cad_xyz_mm": [
             [
@@ -235,14 +261,14 @@
           "rationale": "Roots on the ceiling slab's interior face and reaches 2 interface island(s): the water-split rib's tie-band crown; the water-split rib's tie-band flank."
         },
         {
-          "tree": "tree-3",
+          "tree": "tree-4",
           "name": "the ASSE tie cavity's lower threshold",
           "first_contacts_cad_xyz_mm": [
             [
               -101.0,
               359.1,
               322.4,
-              -98.6,
+              -98.2,
               389.5,
               322.88
             ]
@@ -253,41 +279,15 @@
           "rationale": "Roots on the ceiling slab's interior face and reaches 1 interface island(s): the ASSE tie cavity's lower threshold."
         },
         {
-          "tree": "tree-4",
-          "name": "an identification-chip pocket's lower arc",
-          "first_contacts_cad_xyz_mm": [
-            [
-              -82.2,
-              465.5,
-              318.08,
-              -73.8,
-              467.9,
-              318.8
-            ],
-            [
-              -82.2,
-              465.5,
-              255.68,
-              -73.8,
-              467.5,
-              256.4
-            ]
-          ],
-          "root": "bed",
-          "build_up_mm": 36.0,
-          "interface_islands": 2,
-          "rationale": "Roots on the plate around the bedded piece or through its openings and reaches 2 interface island(s): an identification-chip pocket's lower arc."
-        },
-        {
           "tree": "tree-5",
           "name": "an identification-chip pocket's lower arc; the keystone pocket's floor; the keystone snap catch",
           "first_contacts_cad_xyz_mm": [
             [
-              -42.2,
+              -41.8,
               465.5,
               318.08,
-              -33.8,
-              467.9,
+              -33.4,
+              467.5,
               318.8
             ],
             [
@@ -326,7 +326,7 @@
           "first_contacts_cad_xyz_mm": [
             [
               -47.0,
-              408.3,
+              407.9,
               345.92,
               -28.6,
               410.3,
@@ -380,8 +380,8 @@
               -11.4,
               465.5,
               230.24,
-              88.6,
-              467.5,
+              89.0,
+              467.1,
               230.72
             ],
             [
@@ -503,45 +503,21 @@
       "support_bodies": [
         {
           "tree": "tree-1",
-          "name": "west handhold lifting ceiling and Y-seam passages",
+          "name": "west handhold lifting ceiling",
           "first_contacts_cad_xyz_mm": [
             [
               -106.6,
               177.025,
               28.4,
               -94.2,
-              213.825,
+              213.025,
               28.8
-            ],
-            [
-              -93.0,
-              210.625,
-              28.4,
-              -90.2,
-              213.825,
-              28.8
-            ],
-            [
-              -99.4,
-              204.225,
-              50.4,
-              -93.8,
-              205.425,
-              50.8
-            ],
-            [
-              -99.4,
-              204.225,
-              153.2,
-              -93.8,
-              205.425,
-              153.6
             ]
           ],
           "root": "bed",
           "build_up_mm": 34.2,
-          "interface_islands": 4,
-          "rationale": "The lifting ceiling keeps its flat hand-bearing face, and both Y-seam passages retain the clearance for their mating parts. The bed-rooted tree reaches these four interface islands through the open quadrant. Remove it through the handhold and seam openings before assembly."
+          "interface_islands": 1,
+          "rationale": "The lifting ceiling keeps its flat hand-bearing face. This bed-rooted support reaches it through the open bottom and is removed through the handhold before assembly."
         },
         {
           "tree": "tree-2",
@@ -549,7 +525,7 @@
           "first_contacts_cad_xyz_mm": [
             [
               -103.4,
-              95.025,
+              93.425,
               168.4,
               -99.0,
               190.225,
@@ -563,45 +539,21 @@
         },
         {
           "tree": "tree-3",
-          "name": "east handhold lifting ceiling and Y-seam passages",
+          "name": "east handhold lifting ceiling",
           "first_contacts_cad_xyz_mm": [
-            [
-              89.8,
-              210.625,
-              28.4,
-              92.2,
-              213.425,
-              28.8
-            ],
             [
               93.8,
               177.025,
               28.4,
               106.6,
-              213.825,
+              213.025,
               28.8
-            ],
-            [
-              94.2,
-              204.225,
-              50.4,
-              99.4,
-              205.825,
-              50.8
-            ],
-            [
-              94.2,
-              204.225,
-              153.2,
-              99.4,
-              205.825,
-              153.6
             ]
           ],
           "root": "bed",
           "build_up_mm": 34.2,
-          "interface_islands": 4,
-          "rationale": "The lifting ceiling keeps its flat hand-bearing face, and both Y-seam passages retain the clearance for their mating parts. The bed-rooted tree reaches these four interface islands through the open quadrant. Remove it through the handhold and seam openings before assembly."
+          "interface_islands": 1,
+          "rationale": "The lifting ceiling keeps its flat hand-bearing face. This bed-rooted support reaches it through the open bottom and is removed through the handhold before assembly."
         },
         {
           "tree": "tree-4",
@@ -609,7 +561,7 @@
           "first_contacts_cad_xyz_mm": [
             [
               99.0,
-              95.025,
+              93.425,
               168.4,
               103.4,
               190.225,

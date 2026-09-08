@@ -46,7 +46,6 @@ class CarrierSpec:
     tie_slot_offset_x: float = 8.5
     tie_slot_x: float = 1.5
     tie_slot_z: float = 3.5
-    tie_recess_depth: float = 1.2
     tie_stock_w: float = 2.5
     tie_stock_t: float = 1.0
     tie_head: tuple[float, float, float] = (5.0, 3.6, 2.8)
@@ -308,9 +307,8 @@ def _xz_prism(
 
 
 def _tie_cutters(spec: CarrierSpec):
-    """The sixteen through slots and eight aft flush-routing channels."""
+    """Sixteen through slots, with the complete web between each pair carrying its tie."""
     slots = []
-    recesses = []
     proud = 0.1
     for site in tie_sites(spec):
         for slot_x in site.slot_xs:
@@ -324,17 +322,17 @@ def _tie_cutters(spec: CarrierSpec):
                     site.band_z + spec.tie_slot_z / 2.0,
                 )
             )
-        recesses.append(
-            _box(
-                site.slot_xs[0] - spec.tie_slot_x / 2.0,
-                site.slot_xs[1] + spec.tie_slot_x / 2.0,
-                spec.web_aft_y - spec.tie_recess_depth,
-                spec.web_aft_y + proud,
-                site.band_z - spec.tie_slot_z / 2.0,
-                site.band_z + spec.tie_slot_z / 2.0,
-            )
-        )
-    return tuple(slots), tuple(recesses)
+    return tuple(slots)
+
+
+def tie_back_envelopes(spec=DEFAULT_SPEC):
+    """The eight straps crossing the full aft face between their through slots."""
+    return tuple(_box(
+        site.slot_xs[0] - spec.tie_stock_t / 2.0,
+        site.slot_xs[1] + spec.tie_stock_t / 2.0,
+        spec.web_aft_y, spec.web_aft_y + spec.tie_stock_t,
+        site.band_z - spec.tie_stock_w / 2.0,
+        site.band_z + spec.tie_stock_w / 2.0).val() for site in tie_sites(spec))
 
 
 def _service_tabs(spec):
@@ -383,8 +381,7 @@ def _carrier_blank(spec):
     for tab in _service_tabs(spec):
         body = body.union(tab)
     body = _open_finger_pockets(body, spec)
-    slots, recesses = _tie_cutters(spec)
-    for cutter in (*slots, *recesses):
+    for cutter in _tie_cutters(spec):
         body = body.cut(cutter)
     for x in spec.spring_xs:
         body = body.cut(_teardrop_y(
@@ -611,10 +608,20 @@ def selftest(spec=DEFAULT_SPEC):
         shifted = solid.translate((-side * spec.entry_shift_x, 0.0, 0.0)).BoundingBox()
         if max(abs(shifted.xmin), abs(shifted.xmax)) > spec.exterior_x - spec.slide_air:
             errors.append(f'half {side:+d} does not start inside the enclosure width')
-        slots, _ = _tie_cutters(spec)
-        for slot in slots:
+        for slot in _tie_cutters(spec):
             if solid.intersect(slot.val()).Volume() > 1e-5:
                 errors.append(f'half {side:+d} obstructs a tee tie slot')
+        for site in tie_sites(spec):
+            if (site.tee_x > 0) != (side > 0):
+                continue
+            backing = _box(
+                site.slot_xs[0] + spec.tie_slot_x / 2.0,
+                site.slot_xs[1] - spec.tie_slot_x / 2.0,
+                spec.web_fore_y, spec.web_aft_y,
+                site.band_z - spec.tie_slot_z / 2.0,
+                site.band_z + spec.tie_slot_z / 2.0).val()
+            if backing.cut(solid).Volume() > 1e-5:
+                errors.append(f'half {side:+d} has reduced tie backing at X{site.tee_x:g} Z{site.band_z:g}')
     if halves[-1].intersect(halves[1]).Volume() > 1e-5:
         errors.append('the two assembled halves overlap')
     contact = halves[-1].intersect(halves[1].translate((0.0, -0.001, 0.0))).Volume()
@@ -694,6 +701,7 @@ def sync_readme(spec=DEFAULT_SPEC):
     sys.path.insert(0, str(_hw.parent / 'tools'))
     from docgen import substitute_md
     values = {
+        'WEB_T': spec.web_t,
         'GRIP_BAR_T': spec.grip_bar_t, 'FINGER_RUN': spec.finger_run,
         'FINGER_HEIGHT': spec.tab_z[1] - spec.tab_z[0],
         'FINGER_DEPTH': spec.tab_outer_x - spec.grip_back_x - spec.grip_back_t,
