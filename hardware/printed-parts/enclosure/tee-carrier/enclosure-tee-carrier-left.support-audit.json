@@ -24,9 +24,9 @@
   "first_layer_z_mm": 0.2,
   "inputs": {
     "gcode": "plate_1.gcode",
-    "gcode_sha256": "ea23160395d3d8d29b08df439084b52d18a71d3ced8c5dbce70151e0f41aa18e",
+    "gcode_sha256": "519d7962cc9bc60d358249d821935f4acab4c4004512c9a9697014d000439eac",
     "model": "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.stl",
-    "model_sha256": "cf84804d116c2dec612e0156b52247188e470ab37906fe40c021373b30da61b7",
+    "model_sha256": "b271c2b5c692b6e714692cf38fb1de864f9cac687e5b6992f151e653c22b02ec",
     "profile": "git:aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a:hardware/printed-parts/enclosure/enclosure/enclosure-front-top-petgf.3mf",
     "profile_sha256": "99abeeb25ce51dfa0b2a40dec920d4cc14b5c8501eb02096cd531394b479a41e"
   },
@@ -34,17 +34,17 @@
     {
       "bbox_cad_xyz_mm": [
         -105.05,
-        88.818,
+        90.018,
         174.445,
-        -89.45,
-        145.618,
+        -89.85,
+        144.418,
         174.845
       ],
       "bbox_xy_mm": [
         109.2,
-        131.6,
-        124.8,
-        188.4
+        132.8,
+        124.4,
+        187.2
       ],
       "build_up_mm": 3.0,
       "first_z_mm": 3.2,
@@ -148,17 +148,17 @@
       "base_z_mm": 0.2,
       "bbox_cad_xyz_mm": [
         -108.25,
-        84.418,
+        85.218,
         171.445,
-        -85.45,
-        150.818,
+        -85.85,
+        150.018,
         175.445
       ],
       "bbox_xy_mm": [
         106.0,
-        127.2,
-        128.8,
-        193.6
+        128.0,
+        128.4,
+        192.8
       ],
       "first_interface_z_mm": 3.2,
       "id": "tree-2",
