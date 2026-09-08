@@ -588,7 +588,7 @@
               -107.8,
               5.025,
               282.8,
-              107.8,
+              107.4,
               72.625,
               283.2
             ]
@@ -600,23 +600,23 @@
         },
         {
           "tree": "tree-2",
-          "name": "west carrier guides and outer well crown",
+          "name": "west flush-grip guide, internal rim ceiling and outer well crown",
           "first_contacts_cad_xyz_mm": [
             [
-              -94.6,
-              97.425,
-              219.8,
-              -91.4,
-              117.025,
-              220.2
-            ],
-            [
-              -107.4,
+              -107.8,
               93.825,
               220.8,
-              -93.8,
+              -103.8,
               140.625,
               221.2
+            ],
+            [
+              -104.2,
+              83.425,
+              225.0,
+              -91.8,
+              167.025,
+              225.4
             ],
             [
               -91.0,
@@ -628,13 +628,13 @@
             ]
           ],
           "root": "bed",
-          "build_up_mm": 59.6,
+          "build_up_mm": 60.6,
           "interface_islands": 3,
-          "rationale": "The web bearing and handhold guide retain their flat sliding faces; the outer tee well continues to the valve-body clearance plane. Their support contacts are accessible through the flank opening and empty well before the hardware is installed."
+          "rationale": "The cup guide and internal retaining rim use flat sliding ceilings. The broad internal recess admits the complete grip from inside the enclosure and opens onto the outer tee well. Remove the support branches through that recess and the empty well before hardware is installed."
         },
         {
           "tree": "tree-3",
-          "name": "spring guides, upper carrier bearings, inner well crowns and pump-jack roof",
+          "name": "spring bores, upper web bearings, east grip recess, well crowns and pump-jack roof",
           "first_contacts_cad_xyz_mm": [
             [
               -51.4,
@@ -677,6 +677,22 @@
               220.2
             ],
             [
+              103.8,
+              93.825,
+              220.8,
+              107.8,
+              140.625,
+              221.2
+            ],
+            [
+              91.4,
+              83.425,
+              225.0,
+              104.2,
+              167.025,
+              225.4
+            ],
+            [
               -31.4,
               92.225,
               232.0,
@@ -693,6 +709,14 @@
               232.4
             ],
             [
+              71.0,
+              92.225,
+              232.0,
+              91.0,
+              97.425,
+              232.4
+            ],
+            [
               -7.0,
               85.025,
               310.4,
@@ -703,42 +727,8 @@
           ],
           "root": "bed",
           "build_up_mm": 32.6,
-          "interface_islands": 8,
-          "rationale": "The round spring bores, flat carrier bearings and rectangular jack entry retain their working sections. The joined tree reaches these faces through the empty aft recess, inner tee wells and cartridge bay, which provide access for removal before assembly."
-        },
-        {
-          "tree": "tree-4",
-          "name": "east carrier guides and outer well crown",
-          "first_contacts_cad_xyz_mm": [
-            [
-              91.0,
-              97.425,
-              219.8,
-              94.6,
-              116.625,
-              220.2
-            ],
-            [
-              93.8,
-              93.825,
-              220.8,
-              107.8,
-              140.625,
-              221.2
-            ],
-            [
-              71.4,
-              92.225,
-              232.0,
-              91.0,
-              97.425,
-              232.4
-            ]
-          ],
-          "root": "bed",
-          "build_up_mm": 59.6,
-          "interface_islands": 3,
-          "rationale": "The web bearing and handhold guide retain their flat sliding faces; the outer tee well continues to the valve-body clearance plane. Their support contacts are accessible through the flank opening and empty well before the hardware is installed."
+          "interface_islands": 11,
+          "rationale": "The spring bores guide the return pair; the web and grip ceilings keep their flat bearing faces. The east internal recess carries its retaining rim and the tee wells continue to the valve-body clearance. The pump-jack roof retains the keyed plug above this mechanism. These connected branches are removed through the empty cartridge bay, aft carrier recess and tee wells before assembly."
         }
       ]
     },
@@ -825,6 +815,128 @@
           "build_up_mm": 51.0,
           "interface_islands": 1,
           "rationale": "The pull keeps a flat roof at the neighboring tee-carrier grip's roof plane because both faces carry the same squeeze motion. One tree reaches that roof from the print bed through the open side pocket after 51.00 mm of build-up; the complete body is directly accessible for removal."
+        }
+      ]
+    },
+    "enclosure-tee-carrier-left": {
+      "status": "audited",
+      "profile": "git:aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a:hardware/printed-parts/enclosure/enclosure/enclosure-front-top-petgf.3mf",
+      "result": "../tee-carrier/enclosure-tee-carrier-left.support-audit.json",
+      "support_bodies": [
+        {
+          "tree": "tree-1",
+          "name": "closed finger-pocket roof",
+          "first_contacts_cad_xyz_mm": [
+            [
+              -106.25,
+              116.018,
+              216.645,
+              -99.05,
+              131.218,
+              217.045
+            ]
+          ],
+          "root": "bed",
+          "build_up_mm": 45.2,
+          "interface_islands": 1,
+          "rationale": "The pocket roof is the common hand-contact plane shared with the cartridge pull. Its rounded mouth gives direct access to remove this support from the loose half."
+        },
+        {
+          "tree": "tree-2",
+          "name": "internal rim and seam-rail relief",
+          "first_contacts_cad_xyz_mm": [
+            [
+              -105.05,
+              88.818,
+              174.445,
+              -93.85,
+              145.618,
+              174.845
+            ]
+          ],
+          "root": "bed",
+          "build_up_mm": 3.0,
+          "interface_islands": 1,
+          "rationale": "The retaining rim and grip root share a flat lower face above the enclosure seam rail. The 6 mm outer cup floor remains bedded. Support under the inboard relief and projecting rim ends is directly accessible on the loose half before it enters the enclosure."
+        },
+        {
+          "tree": "tree-3",
+          "name": "central M3 lap underside",
+          "first_contacts_cad_xyz_mm": [
+            [
+              -13.05,
+              100.418,
+              209.845,
+              8.95,
+              109.218,
+              210.245
+            ]
+          ],
+          "root": "bed",
+          "build_up_mm": 38.4,
+          "interface_islands": 1,
+          "rationale": "The lap has a flat fastening section above the tee run ends. Its underside is carried by a bed-rooted support removed from the open center end before joining the carrier halves."
+        }
+      ]
+    },
+    "enclosure-tee-carrier-right": {
+      "status": "audited",
+      "profile": "git:aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a:hardware/printed-parts/enclosure/enclosure/enclosure-front-top-petgf.3mf",
+      "result": "../tee-carrier/enclosure-tee-carrier-right.support-audit.json",
+      "support_bodies": [
+        {
+          "tree": "tree-1",
+          "name": "central M3 lap underside",
+          "first_contacts_cad_xyz_mm": [
+            [
+              -8.95,
+              106.018,
+              209.845,
+              9.05,
+              109.218,
+              210.245
+            ]
+          ],
+          "root": "bed",
+          "build_up_mm": 38.4,
+          "interface_islands": 1,
+          "rationale": "The lap has a flat fastening section above the tee run ends. Its underside is carried by a bed-rooted support removed from the open center end before joining the carrier halves."
+        },
+        {
+          "tree": "tree-2",
+          "name": "internal rim and seam-rail relief",
+          "first_contacts_cad_xyz_mm": [
+            [
+              93.45,
+              88.818,
+              174.445,
+              105.05,
+              145.618,
+              174.845
+            ]
+          ],
+          "root": "bed",
+          "build_up_mm": 3.0,
+          "interface_islands": 1,
+          "rationale": "The retaining rim and grip root share a flat lower face above the enclosure seam rail. The 6 mm outer cup floor remains bedded. Support under the inboard relief and projecting rim ends is directly accessible on the loose half before it enters the enclosure."
+        },
+        {
+          "tree": "tree-3",
+          "name": "closed finger-pocket roof",
+          "first_contacts_cad_xyz_mm": [
+            [
+              99.05,
+              115.618,
+              216.645,
+              106.65,
+              131.218,
+              217.045
+            ]
+          ],
+          "root": "bed",
+          "build_up_mm": 45.2,
+          "interface_islands": 1,
+          "rationale": "The pocket roof is the common hand-contact plane shared with the cartridge pull. Its rounded mouth gives direct access to remove this support from the loose half."
         }
       ]
     }

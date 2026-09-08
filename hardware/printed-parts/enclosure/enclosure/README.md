@@ -683,11 +683,12 @@ The result carries the model, profile and derived G-code hashes, the slicer's su
 all interface islands and both plate and CAD coordinates. The ledger supplies the human reason
 for each connected body that remains.
 
-**All six printable pieces are audited, each through a production project of its own.** The 3MF
+**The six enclosure pieces and both carrier halves are audited.** The six enclosure 3MF
 snapshots are retained only in Git history — five at `aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a` and
 back-top's ceiling-down project at `366d54ba040ecc7f1465c200e63e52410ffc0d4c`; they
-are evidence inputs rather than current files in this directory. No piece is re-oriented to be
-read: each beds on the face its own relief scheme is struck on — the Z− face on five of them,
+are evidence inputs rather than current files in this directory. Each carrier half is sliced
+through the front-top project's production settings with its own current mesh. No piece is re-oriented to be
+read: each enclosure piece beds on the face its own relief scheme is struck on — the Z− face on five of them,
 the ceiling's show face on back-top (`enclosure.print_up`), whose project carries that half
 turn in its build item. `enclosure-front-bottom-petgf.3mf` and `enclosure-back-bottom-petgf.3mf` carry the PET-GF15
 exterior settings of `enclosure-front-top-petgf.3mf` around their own mesh — the same clones
@@ -699,7 +700,9 @@ exterior settings of `enclosure-front-top-petgf.3mf` around their own mesh — t
 |---|---|---|---|---|
 | `enclosure-pump-cartridge` | 2 | 2 | bed | 51.00 mm |
 | `enclosure-pump-cap` | 2 | 2 | bed | 18.40 mm |
-| `enclosure-front-top` | 4 | 15 | bed | 32.60 mm |
+| `enclosure-front-top` | 3 | 15 | bed | 32.60 mm |
+| `enclosure-tee-carrier-left` | 3 | 3 | bed | 3.00 mm |
+| `enclosure-tee-carrier-right` | 3 | 3 | bed | 3.00 mm |
 | `enclosure-back-bottom` | 4 | 5 | 3 bed, **1 model** | **8.00 mm** |
 | `enclosure-front-bottom` | 4 | 4 | 2 bed, **2 model** | **8.00 mm** |
 | `enclosure-back-top` | 12 | 35 | 5 bed, **7 model** | **1.20 mm** |
@@ -707,10 +710,13 @@ exterior settings of `enclosure-front-top-petgf.3mf` around their own mesh — t
 `enclosure-pump-cartridge` has two bed-rooted bodies, one under each flat pull roof. Each
 reaches one interface after **51.00 mm** and leaves directly through its open side pocket. On
 the pump cap and front-top, every body roots on the print bed and stands 18 mm or more before
-it touches the model. Front-top has one tree under the pump-bay lintel, one beneath each outer
-carrier guide and well crown, and a central tree reaching the spring bores, upper web bearings,
-inner well crowns and pump-jack receptacle roof. Remove those branches through the empty
-cartridge bay, flank openings and aft carrier recess before installing the hardware.
+it touches the model. Front-top has one tree under the pump-bay lintel, one beneath the west
+grip opening, internal rim ceiling and outer well crown, and one joining the spring bores,
+upper web bearings, remaining well crowns, east grip recess and pump-jack receptacle roof.
+Remove those branches through the empty cartridge bay, tee wells and aft carrier recess
+before installing the hardware. Each carrier half has separate bed-rooted support under its
+rim and seam-rail relief, central lap, and finger-pocket roof. Remove those through the open
+side pocket and from the loose half's underside before assembly.
 The Y-seam blocks above the handhold roofs
 and their front passages have no separate support interfaces. Four bed-rooted bodies carry the
 handhold ceilings, one per flank on each bottom piece. Each has **34.20 mm** of build-up and
@@ -1193,16 +1199,18 @@ relax the grasp so the two springs settle the carrier at connected. The plate is
 the tee wall behind it.
 
 The [`tee carrier`](/hardware/printed-parts/enclosure/tee-carrier/README.md) is two printed
-halves with closed finger cups, joined by two M3 screws at the center. Each half feeds inward
-through its own flank opening from outside. The right half enters at release and parks while
-the left enters at connected; both come fore to release before the center lap closes. Springs
-and tees follow. Two teardrop tool passages through the aft valve tray give straight access
-to the center screws from the open rear.
+halves with closed finger cups, joined by two M3 screws at the center. Each half enters the
+loose front-top through its open rear above the valve supports, lowers through an outer tee
+well and seats outward into its side recess. The left half seats at release first; the
+right seats at park, then comes fore to close the lap. The four moving tees are already
+seated; both valve rows remain absent during carrier entry. Two access bores in the empty
+cartridge bay give straight access to the center screws.
 
 Each cup has a thick front bar, a closed back and a rounded mouth. Its rectangular body runs
 between the opening's flat upper and lower bearings; the fore and aft faces stop the stroke.
-An exterior rim overlaps every opening edge throughout travel. The two rims face opposite
-flanks and capture the joined carrier across X. The guide faces and rims locate the carrier
+The cup's outer face is flush with the enclosure. Its rim sits behind the wall in a broad
+internal recess. The two rims face opposite wall shoulders and capture the joined carrier
+across X. The guide faces and rims locate the carrier
 with the tees and springs absent. The part's README carries the grip, guide and rim dimensions.
 
 Each passage has an Ø8.5 mm circular bore and a tangent teardrop roof. It passes the
@@ -1253,13 +1261,16 @@ the spring bores; a second full-width face clears the upper lap's lateral entry.
 
 Each flank opening has one continuous lower edge at the web's insertion height. The closed
 handhold's outer floor follows it along the entire grip. One broad inboard underside
-clearance accommodates the enclosure seam rail.
+clearance accommodates the enclosure seam rail. Behind each flush grip opening, a single
+rectangular recess continues from the outer tee well to the aft tray's fore plane. The rim
+bears on its ceiling and against the remaining outer wall shoulder. That same recess admits
+the complete cup and retaining rim from inside the enclosure.
 
 Two round spring bores terminate on the fixed wall and end on the body's common aft face.
 Each compressed spring enters through an inner tee well above the seated tee, moves outward
 below the upper guide, and lowers to its seat in the parked carrier. Its fore end extends
-into the fixed bore. The rear recesses admit the aft valves from the loose piece's open underside before
-the carrier halves enter from the flanks. The carrier's upper lap clears the seated tees and
+into the fixed bore. The rear recesses admit the aft valves from the loose piece's open underside
+with the joined carrier at release. The carrier's upper lap clears the seated tees and
 fastens through two straight access bores in the empty cartridge bay.
 
 The fixed guide ceilings and tee wells keep their working faces. Support

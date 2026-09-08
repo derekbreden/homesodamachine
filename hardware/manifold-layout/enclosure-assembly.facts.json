@@ -329,18 +329,18 @@
    282.4950001
   ],
   "enclosure-tee-carrier-left": [
-   -110.6500001,
+   -107.5000001,
    87.5680001,
-   167.09500009999996,
+   171.24500009999997,
    9.0,
-   149.8680002,
+   149.86800010000002,
    225.39500009999998
   ],
   "enclosure-tee-carrier-right": [
    -9.0,
    87.5680001,
-   167.09500009999996,
-   110.6500001,
+   171.24500009999997,
+   107.5000001,
    149.86800010000002,
    225.39500009999998
   ],
@@ -2296,21 +2296,26 @@
    "grip_back_t": 2.5,
    "grip_back_x": 96.295,
    "grip_bar_t": 16.0,
-   "grip_outer_x": 110.65,
+   "grip_outer_x": 107.5,
    "grip_overlap": 4.0,
-   "grip_pocket_depth": 11.855000000000004,
-   "grip_projection": 3.1500000000000057,
+   "grip_pocket_depth": 8.704999999999998,
+   "grip_projection": 0.0,
    "grip_rail_outer_x": 103.65,
    "grip_rail_top_z": 174.95000000000002,
    "grip_rim_t": 3.0,
+   "grip_rim_x": [
+    101.35,
+    104.35
+   ],
    "grip_rim_y": [
     86.0680001,
     148.36800010000002
    ],
    "grip_rim_z": [
-    167.09500009999996,
+    174.95000000000002,
     225.39500009999998
    ],
+   "grip_wall_t": 3.0,
    "guide_bearing_length": 42.0,
    "guide_body_y": [
     96.21800010000001,
@@ -2322,14 +2327,17 @@
    ],
    "guide_slide_air": 0.15,
    "guide_travel": 6.15,
+   "half_entry_lift_z": 70.0,
    "half_entry_offsets_y": [
     -3.15,
-    1.5
+    3.0
    ],
-   "half_entry_shift_x": 116.65,
+   "half_entry_shift_x": 16.0,
+   "half_entry_shoulder_inset_x": 3.15,
+   "half_entry_staging_y": 19.041999899999986,
    "half_install_order": [
-    1,
-    -1
+    -1,
+    1
    ],
    "joint_count": 2,
    "joint_face_y": 106.21800010000001,
@@ -2362,9 +2370,21 @@
    ],
    "release_fore_stop_y": 93.0680001,
    "release_offset_y": -3.15,
+   "service_recess_x": [
+    91.56495949305345,
+    104.5
+   ],
+   "service_recess_y": [
+    82.7680001,
+    167.56
+   ],
+   "service_recess_z": [
+    171.09500009999996,
+    225.54500009999998
+   ],
    "service_slot_x": [
-    93.64999999999999,
-    111.65
+    104.5,
+    108.5
    ],
    "service_slot_y": [
     93.0680001,
@@ -2451,12 +2471,12 @@
    "tab_count": 2,
    "tab_pad_x": [
     [
-     -110.65,
+     -107.5,
      -98.795
     ],
     [
      98.795,
-     110.65
+     107.5
     ]
    ],
    "tab_slot_y_sweep": [
@@ -3067,7 +3087,7 @@
    true
   ]
  },
- "card": "32fbaaf1e610ee8f2f8cbbb98c587b80",
+ "card": "5d5c4cedffbabd8f2c31bb3f037cee24",
  "card_ports": {
   "asse1022-assembly": {
    "tube-in": {
@@ -4135,8 +4155,8 @@
   }
  ],
  "schema": 2,
- "sources": "a3739fbbef5a759927907b26f5985c15",
- "step": "8b2a267866c65657f50293377bcf0e1d",
+ "sources": "2f778de2f0d0d42c8e9324734d6895b9",
+ "step": "163326bdeb4b305d63c3d83a0e455cc0",
  "valve_tray_stations": [
   [
    173.56,
