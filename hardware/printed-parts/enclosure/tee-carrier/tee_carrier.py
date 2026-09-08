@@ -74,7 +74,8 @@ class CarrierSpec:
     grip_aft_t: float = 4.0
     grip_rim_t: float = 3.0
     grip_wall_t: float = 3.0
-    grip_overlap: float = 4.0
+    grip_overlap: float = 3.0
+    grip_top_overlap: float = 4.0
     grip_corner_r: float = 5.0
     grip_edge_r: float = 3.0
     grip_rim_corner_r: float = 5.0
@@ -116,7 +117,7 @@ class CarrierSpec:
 
     @property
     def rim_z(self):
-        margin = self.grip_overlap + self.slide_air
+        margin = self.grip_top_overlap + self.slide_air
         return self.grip_rail_top_z, self.grip_z[1] + margin
 
     @property
@@ -130,8 +131,8 @@ class CarrierSpec:
 
     @property
     def grip_root_x(self):
-        return (min(self.web_x[1], self.grip_back_x) - self.grip_root_overlap,
-                max(self.web_x[1], self.grip_back_x) + self.grip_root_overlap)
+        return (min(self.web_x[1] - self.grip_root_overlap, self.grip_back_x),
+                max(self.web_x[1], self.grip_back_x + self.grip_root_overlap))
 
     @property
     def state_offsets_y(self):

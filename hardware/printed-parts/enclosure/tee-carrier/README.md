@@ -26,7 +26,7 @@ bear on the front bar's aft face, opposing the thumb on the cartridge pocket's a
 Both outer faces finish flush with the enclosure; total width across the grips is
 [215 mm](GRIP_WIDTH). Each retaining rim sits behind the wall, with
 [5 mm](GRIP_RIM_CORNER_R) outline corners. It overlaps the opening's fore, aft and upper
-edges by at least [4 mm](GRIP_OVERLAP) throughout the stroke. Its lower edge clears the
+edges by at least [3 mm](GRIP_OVERLAP) throughout the stroke. Its lower edge clears the
 enclosure seam rail. The recess ends on a continuous
 [2.5 mm](GRIP_BACK_T) back, so the opening presents a finger pocket with no view into the
 valves.
