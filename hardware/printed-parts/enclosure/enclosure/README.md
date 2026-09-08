@@ -611,23 +611,20 @@ bodies. Neither is a question the vent geometry settles.
 ## Support-removal strategy
 
 A production-profile slice reports the connected support bodies which reach the model and their
-separate interface islands: the former is how many things a hand has to remove, the latter keeps
-a branching tree from hiding several distinct contact regions. Two further readings are recorded
-per body — its useful build-up, the vertical distance from its own base to its first model
-interface, and its root, the print bed or model material.
+separate interface islands. One body can reach several distinct contact regions. Two further
+readings are recorded per body: its build-up, the vertical distance from its own base to its
+first model interface, and its root, the print bed or model material.
 
-**These are measurements of one slice, and none of them ranks a design.** A support is not a
-fault. What a piece needs is settled by looking at the feature and the job it does; the slice
-then says what taking the support off will involve. A column can be the right answer, an ordinary
-corbel can be the right answer, and a flat carried by slicer support can be the right answer —
-the reading does not choose between them.
+**These are measurements of one slice, and none of them ranks a design.** Connected bodies and
+interface islands describe the support topology. Removal effort, trapped branches and contact
+finish are observations from the physical print.
 
 What a root means depends on the face the piece prints on. On a piece whose cavity opens toward
 the bed — the bottoms on their floors, front-top on its mouth — the bed and the model are two
 different places to start. On back-top the cavity opens away from the bed: the ceiling slab's
 interior face is the root every interior support has, a hidden flat the piece lays down in its
-own first layers, so a root there is that piece's own bed. The ledger names each retained body by
-the flat it carries and why that flat is flat.
+own first layers. The audit records that root as model material. The ledger names each body
+and the feature its interfaces contact.
 
 The face a feature works through keeps the shape its work requires, and support carries it.
 The C14 inlet's flange pocket keeps its floor, because that floor is what the receptacle lands
@@ -638,32 +635,21 @@ envelope; a pump boss lands on a flat shoulder. A corbel carries the material be
 those faces. It does not replace the bearing, locating, sliding, sealing, clamping, insertion or
 access face with a slope.
 
-Non-functional down-facing geometry is changed before support is accepted. On a piece printed
-with its ceiling on the bed the ground is right there, and a print-down face is carried by a
-**column** before it is carried by a corbel: the air between the face and the slab filled, with
-vertical walls, wherever no placed body stands in that air. The ASSE anchor's end sections are
-the example — the block goes on up from the V's arris to the slab pocket's roof as one rectangle,
-where a 45° wedge from the arris to the roof leaves a triangle of air nothing needed.
+The ground boss's full-width column joins the ceiling. The ASSE anchor's end sections continue
+from the V's arris to the slab pocket's roof as rectangular blocks. The `fluid-28` anchor has
+an ordinary corbel at each end. The flow-regulator anchor has two columns. Each tube-anchor and
+body-anchor end names its form in `TUBE_ANCHOR_END_FORMS` or `BODY_ANCHOR_END_FORMS`, and each
+Wago tower names its column in `WELL_COLUMNS`.
+
 `wedge-fills` reads every print-down slope on back-top against the pack: each is under a body
 or within a millimetre of one, in a room `enclosure_assembly.KEPT_WEDGES` names — a zip tie's
 loop over a crown, a screw head's pass, the cable clip's stated profile — or a wedge a column
-could replace, which the bound names with the viewer's pick text. Each tube-anchor and
-body-anchor end names its own form in `TUBE_ANCHOR_END_FORMS` or `BODY_ANCHOR_END_FORMS`, and
-each Wago tower names its column in `WELL_COLUMNS`; the ground boss's short column and the
-ordinary anchor corbel are each stated, not searched for. A corbel, chamfer or tangent teardrop
-is what remains where a column does not
-fit; it follows the exact feature it carries and reaches its whole supported face, and is not a
-generic triangle merely placed nearby. A corbel that reaches only part of its face is read by
-what it leaves: the remainder is a supported face still, and the corbel's end is one more
-printed wall that support has to come away from. A partial corbel therefore stands where it
-leaves less than it carries, or where a second wing at the span's other end roots a bridge
-between the two; a stub carrying the minority stands down, and the face is offered whole with
-nothing beside whatever carries it. Relay #2's upper bar keeps a 2.5 mm wing at each end and
-bridges the 15 mm between them; the main board's boss at y 241 offered 1.53 mm of wing on a
-7 mm floor and keeps none (`enclosure.east_boss_wings`). A feature on a wall preferentially
-ramps along that wall's normal — an X ramp from an X wall and a Y ramp from a Y wall — because the wall is the
-root that already prints. The corresponding exact solid, passage, clearance and motion gates
-remain hard constraints.
+could replace, which the bound names with the viewer's pick text. It is a goal row on the
+scorecard. The anchor and tower forms come from their site declarations.
+
+Relay #2's upper bar has a 2.5 mm wing at each end and bridges the 15 mm between them.
+The main board's boss at y 241 has no wing (`enclosure.east_boss_wings`). The corresponding
+solid, passage, clearance and motion checks read the assembled geometry.
 
 **A support audit does not authorize a layout or mechanism change.** It does not move a placed
 component, shorten a guide, narrow a bearing, reduce retention or alter a working envelope merely
