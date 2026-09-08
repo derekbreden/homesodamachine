@@ -1241,6 +1241,8 @@ carry the closed handholds and stop their release/park travel. Four continuous a
 wells each carry a tee, both ties, the lower hairpin and the upper bowed tube and valve port.
 Their constant sections continue through the finished valve-tray junction. The upper land
 forms a continuous bridge into the fore valve tray, up to its valve-body clearance plane.
+The aft coils' cases pass below this land; their terminal pairs pass through the tee wells,
+leaving one flat underside beside the outer wells.
 The lower lands continue as a flat floor into the aft valve tray; four broad openings admit
 that row's valves from underneath and carry the moving hairpins. Branch journals
 continue forward to the fixed collet plate. One common face clears the tie heads and ends
