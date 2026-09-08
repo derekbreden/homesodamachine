@@ -1234,7 +1234,9 @@ flanks. Its flat lower and upper lands carry the carrier web; the outboard guide
 carry the closed handholds and stop their release/park travel. Four aft-opening recesses
 surround the tee run arms, with branch journals continuing forward to the fixed collet plate.
 Each tie has a routing channel and an outboard head recess. Separate passages carry the bowed
-stubs and moving hairpin ends through their complete travel.
+stubs and moving hairpin ends through their complete travel. The upper lap shares one
+flat-fronted cavity with the two inner bowed stubs. Fore and aft valve clearances meet on one
+plane wherever their height bands overlap.
 
 Two round spring bores terminate on the fixed wall. Each opens into a vertical loading well
 behind it; the spring enters compressed, seats in the parked carrier and extends forward into
@@ -1481,10 +1483,14 @@ modular plug whose clip faces down into the empty pump bay. After the cartridge 
 hand reaches up through that bay, presses the clip, pulls the plug straight forward until it is
 clear of the plate cap, and lowers it through the bay without approaching the display body.
 
-SIG-7 still crosses the rib, at the same height but shifted [-32 mm](DISPLAY_LOOM_X) in X. Its
-four conductors remain in the 1/2" PET expandable braid, so its teardrop bore remains the opened
-figure — Ø[19.05 mm](CABLE_BORE) — with solid stock between that bore and the receptacle's boss.
-It locates nothing and carries nothing; the display loom is dressed after it is through.
+SIG-7 still crosses the rib, at the same height but shifted [+32 mm](DISPLAY_LOOM_X) in X —
+**east**, the side it arrives on, since the run comes forward from the power column along the +X
+wall. Its four conductors are one flat ribbon, and an expandable braid opens over what is inside
+it: over a single 4P ribbon the 1/2" sleeve lies at or under the
+[12.7 mm](CABLE_SLEEVE_NOM) nominal it is bought by and never reaches the ceiling that figure
+opens to, so the teardrop bore is that nominal with air all round — Ø[14.7 mm](CABLE_BORE) — with
+solid stock between it and the receptacle's boss. It locates nothing and carries nothing; the
+display loom is dressed after it is through.
 
 On the same rib's cavity face, one unembedded [9 mm](CABLE_CLIP_DEPTH)-deep cable clip runs toward
 +X and stops [12 mm](PUMP_JACK_CLIP_LAND) short of that edge. It guides and strain-relieves the
@@ -1492,6 +1498,18 @@ On the same rib's cavity face, one unembedded [9 mm](CABLE_CLIP_DEPTH)-deep cabl
 retain the cartridge's cord. The shifted loom bore remains teardropped because the piece beds on
 Z; the receptacle's aperture and pocket keep the module standard's rectangles, whose flat tops the
 rib and the boss bridge.
+
+**That run does not stop at the rib.** Past the clip's +X end the lead turns the corner onto
+front-top's own +X flank face and runs aft to the main-board wall, and SIG-7 arrives forward
+along that same face, so the flank carries [3](FLANK_CLIPS) more of the identical unembedded clip
+at the identical channel height — over y [94–109, 137–155, 179–197 mm](FLANK_CLIP_Y). What bounds
+each station is what already stands on that face: ahead, the ridge clip's own proud body, which is
+where the corner turn ends; behind, the +X Wago tower, which stands its own engagement off
+`interior_x` and reaches into that air over its Y band; and the Y seam, aft of which the face is
+back-top's. The tower leaves one short band ahead of it and one long band aft, so the first
+station runs [15 mm](FLANK_CLIP_FIRST_RUN) where the other two run the clip's full
+[18 mm](CABLE_CLIP_RUN). `_flank_cable_clips` checks every one of those bounds rather than
+assuming them.
 
 ## Funnel opening
 

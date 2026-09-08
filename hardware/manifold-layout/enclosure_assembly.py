@@ -1364,11 +1364,21 @@ def tee_carrier_interface(spec: _carrier.CarrierSpec, plate, squeeze_stood) -> d
                        for name, ends in ml.fore_stubs(offset).items()})
         for name, shape in shapes.items():
             tube_boxes[name].append(box(pose_manifold(shape).translate((0, PACK_Y, lift))))
-    tube_cavities = tuple(
-        tuple((min(getattr(b, axis + "min") for b in boxes) - CARRIER_TUBE_AIR,
-               max(getattr(b, axis + "max") for b in boxes) + CARRIER_TUBE_AIR)
-              for axis in "xyz")
-        for _name, boxes in sorted(tube_boxes.items()))
+    tube_cavities = {
+        name: tuple((min(getattr(b, axis + "min") for b in boxes) - CARRIER_TUBE_AIR,
+                     max(getattr(b, axis + "max") for b in boxes) + CARRIER_TUBE_AIR)
+                    for axis in "xyz")
+        for name, boxes in sorted(tube_boxes.items())}
+    # The upper lap and both inner bows share one flat-fronted cavity. Joining their
+    # clearances leaves continuous stock around the opening instead of narrow partitions.
+    inner_bows = sorted((cavity for name, cavity in tube_cavities.items()
+                         if name.startswith("bow-")),
+                        key=lambda cavity: abs(sum(cavity[0]) / 2.0))[:2]
+    data["joint_work_x"] = (
+        min(data["joint_work_x"][0], *(cavity[0][0] for cavity in inner_bows)),
+        max(data["joint_work_x"][1], *(cavity[0][1] for cavity in inner_bows)))
+    data["joint_work_fore_y"] = min(
+        data["joint_work_fore_y"], *(cavity[1][0] for cavity in inner_bows))
     valve_cavities = []
     for name in "efhi":
         solid = solids[f"valve-v-{name}"]
@@ -1381,12 +1391,14 @@ def tee_carrier_interface(spec: _carrier.CarrierSpec, plate, squeeze_stood) -> d
                                      getattr(vb, axis + "max") + spec.slide_air)
                                     for axis in "xyz"))
     aft_valve_entry_y = -(_enc._valve_tray.grip() + spec.slide_air)
+    valve_clearance_plane_y = max(cavity[1][1] for cavity in valve_cavities)
     aft_valve_cavities = []
     for name in "cdgj":
         bb = box(solids[f"coil-v-{name}"])
         aft_valve_cavities.append((
             (bb.xmin - spec.slide_air, bb.xmax + spec.slide_air),
-            (bb.ymin + aft_valve_entry_y - spec.slide_air, body_aft_y + 1.0),
+            (min(bb.ymin + aft_valve_entry_y - spec.slide_air, valve_clearance_plane_y),
+             body_aft_y + 1.0),
             (plate["z0"], bb.zmax + spec.slide_air)))
     data.update({
         "states": states,
@@ -1421,7 +1433,7 @@ def tee_carrier_interface(spec: _carrier.CarrierSpec, plate, squeeze_stood) -> d
         "tie_slot_x": spec.tie_slot_x,
         "tie_slot_z": spec.tie_slot_z,
         "tie_head": spec.tie_head,
-        "tube_cavities": tube_cavities,
+        "tube_cavities": tuple(tube_cavities.values()),
         "valve_cavities": tuple(valve_cavities),
         "aft_valve_entry_y": aft_valve_entry_y,
         "aft_valve_cavities": tuple(aft_valve_cavities),

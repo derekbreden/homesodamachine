@@ -10,5 +10,8 @@ click: x=-103.222 y=123.218 z=217.245
 [ceiling] Flat lower sliding face of the handhold, 0.15 mm above the closed enclosure's seam rail. Its underside takes accessible support from the print bed.
 click: x=-100.725 y=117.218 z=174.950
 
-[ceiling] Lower edge of the tee-bearing web and center lap. The exterior rim extends below the web's insertion passage and stands on the bed; support beneath the web is exposed from its fore and aft sides.
-click: x=-44.000 y=107.968 z=171.245
+[ceiling] Lower edge of the tee-bearing web. The exterior rim extends below the web's insertion passage and stands on the bed; support beneath the web is exposed from its fore and aft sides.
+click: x=-51.500 y=112.218 z=171.245
+
+[ceiling] Flat underside of the upper lap receiver, above the tee run ends. The receiver keeps its full 6 mm section and takes removable support exposed from the fore side before assembly.
+click: x=-2.000 y=104.968 z=210.465
