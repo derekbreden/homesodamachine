@@ -1636,12 +1636,12 @@ pump_face_backing = wall     # least printed stock behind the deepest front-face
 # of pitching the cartridge against its rails.
 #
 # Each pull is a rounded pocket in an exposed ±X flank. Fingers enter from the side and
-# hook the pocket's fore wall; its roof rises one-for-one to the open flank. The four pocket
-# corners and the hand-contact rim share the enclosure handholds' radii. The pocket is entirely
-# in the cradle and the top clamp has no hand feature at all.
+# hook the pocket's fore wall. Its flat roof is the neighboring carrier grip's roof: both
+# surfaces belong to the same two-handed squeeze. The four pocket corners and the hand-contact
+# rim share the enclosure handholds' radii. The pocket is entirely in the cradle and the top
+# clamp has no hand feature at all.
 pull_depth = 18.0            # fingertip reach inboard from each exposed flank
 pull_run = 28.0              # fore/aft clear opening between the pulling and pushing ledges
-pull_rise = 48.0             # nominal pocket height at the flank, before the rim round
 pull_floor_below_tubes = 12.0  # bed-rooted stock first; then the tube plane inside the mouth
 pull_corner_r = handhold_corner_r
 pull_edge_r = handhold_edge_r
@@ -5668,6 +5668,16 @@ def _pull_center_z(plate):
     return (plate["z0"] + plate["z1"]) / 2.0
 
 
+def _pull_roof_z(box):
+    """The common roof plane of a cartridge pull and its neighboring carrier grip."""
+    carrier = box.pack.tee_carrier
+    if not carrier or "tab_slot_z" not in carrier:
+        raise ValueError(
+            "a pump-cartridge pull wants the carrier grip's roof datum, and this box "
+            "carries no tee-carrier grip")
+    return carrier["tab_slot_z"][1]
+
+
 def pull_y_span(pump_trays):
     """Both pockets' fore and aft walls: `pull_run` centred on the cradle's own Y run, from
     its show face to its aft edge."""
@@ -5681,23 +5691,23 @@ def _cradle_pulls(box):
     Each opens on its own exposed flank between two Y-normal walls: the fore wall is the ledge
     the fingers pull on, the aft wall the one they push on, and the cradle keeps its stock
     beyond both. The floor stays `pull_floor_below_tubes` under the tube-axis plane, leaving a
-    bed-rooted lower ligament; at the inboard wall the pocket has `pull_rise - pull_depth` of
-    plumb finger room, then its roof climbs at 45 degrees to the open flank. The floor and roof
-    meet the fore and aft walls through round corners. Nothing is split across the clamp joint."""
+    bed-rooted lower ligament. Its roof is one flat plane at the neighboring carrier grip's
+    roof datum. The floor and roof meet the fore and aft walls through round corners. Nothing
+    is split across the clamp joint."""
     edge = _cap_x_span(box.pump_bay)[1]
     deep = edge - pull_depth
     z_mid = _pull_center_z(box.pack.collet_plate)
     z0 = z_mid - pull_floor_below_tubes
-    z1 = z0 + pull_rise
-    if pull_depth >= pull_rise:
+    z1 = _pull_roof_z(box)
+    if z1 - z0 <= 2.0 * pull_corner_r:
         raise ValueError(
-            f"a {pull_depth:g} mm-deep cradle pull has no printable roof inside its "
-            f"{pull_rise:g} mm opening")
+            f"a cradle pull from Z{z0:g} to its carrier-matched roof at Z{z1:g} "
+            f"cannot carry its {pull_corner_r:g} mm corner rounds")
     y0, y1 = pull_y_span(box.pack.pump_trays)
     out = []
     for sx in (+1.0, -1.0):
         section = ((sx * (edge + 1.0), z0), (sx * deep, z0),
-                   (sx * deep, z1 - pull_depth), (sx * (edge + 1.0), z1 + 1.0))
+                   (sx * deep, z1), (sx * (edge + 1.0), z1))
         cutter = _xz_prism(y0, y1, section)
         corners = [edge for edge in cutter.Edges()
                    if edge.BoundingBox().ylen < 1e-6 and edge.BoundingBox().xlen > 1.0]
@@ -5711,7 +5721,7 @@ def _round_cradle_pull_rims(solid, box):
     edge = _cap_x_span(box.pump_bay)[1]
     y0, y1 = pull_y_span(box.pack.pump_trays)
     z0 = _pull_center_z(box.pack.collet_plate) - pull_floor_below_tubes
-    z1 = z0 + pull_rise
+    z1 = _pull_roof_z(box)
     for x in (-edge, edge):
         rim = []
         for candidate in solid.Edges():
@@ -5736,7 +5746,7 @@ def pump_cartridge_figures(box):
     aft = pump_cartridge_aft_y(trays)
     z_mid = _pull_center_z(plate)
     pull_floor = z_mid - pull_floor_below_tubes
-    pull_top = pull_floor + pull_rise
+    pull_top = _pull_roof_z(box)
     clamp_edge = max(abs(cx) + _tray.half_width() for cx, _cy, _cz in trays)
     clamp_fore = min(cy - _tray.half_width() for _cx, cy, _cz in trays)
     clamp_aft = plate_guide_fore_y(plate) - cap_kiss
@@ -5761,14 +5771,13 @@ def pump_cartridge_figures(box):
         "PUMP_CARTRIDGE_BOTTOM_Z": f"{floor_top:.6g} mm",
         "PUMP_CARTRIDGE_TOP_Z": f"{cartridge_top:.6g} mm",
         "PUMP_CARTRIDGE_RISE": f"{(cartridge_top - floor_top):.6g} mm",
-        "PULL_RISE": f"{pull_rise:.4g} mm",
+        "PULL_RISE": f"{(pull_top - pull_floor):.4g} mm",
         "PULL_RUN": f"{pull_run:.4g} mm",
         "PULL_DEPTH": f"{pull_depth:.4g} mm",
         "PULL_CORNER_R": f"{pull_corner_r:.4g} mm",
         "PULL_EDGE_R": f"{pull_edge_r:.4g} mm",
-        "PULL_PLUMB": f"{(pull_rise - pull_depth):.4g} mm",
         "PULL_FLOOR_Z": f"{pull_floor:.5g} mm",
-        "PULL_TOP_Z": f"{pull_top:.5g} mm",
+        "PULL_TOP_Z": f"{pull_top:.6g} mm",
         "PULL_FLOOR_LIGAMENT": f"{(pull_floor - bay_floor_z(trays)[1]):.4g} mm",
         "PULL_RIM_FLOOR_LIGAMENT":
             f"{(pull_floor - pull_edge_r - bay_floor_z(trays)[1]):.4g} mm",
