@@ -88,7 +88,7 @@ test("/pcb view toggle exposes inner copper planes in stack order", async (t) =>
   }
 });
 
-test("/3d opening a selected component keeps the exact view", async () => {
+test("/3d opening a selected component and returning keep the exact view", async () => {
   const page = await browser.newPage();
   const assembly = "manifold-layout/enclosure-assembly.step";
   const part = "printed-parts/enclosure/enclosure/enclosure-back-top.step";
@@ -157,6 +157,49 @@ test("/3d opening a selected component keeps the exact view", async () => {
     assert.deepEqual(after.up, before.up, "camera roll moved during component drill");
     assert.deepEqual(after.target, before.target, "orbit focus moved during component drill");
     assert.deepEqual(after.components, ["enclosure-back-top"]);
+
+    // Move again while looking at the part alone. Taking the top-left ancestor
+    // reveals the assembly around that live view instead of restoring the view
+    // the assembly had before the drill.
+    const beforeReturn = await page.evaluate(() => {
+      const h = window.__hsm;
+      h.camera.position.set(42, 575, 327);
+      h.camera.up.set(0.12, 0.04, 0.99).normalize();
+      h.controls.target.set(76, 466, 304);
+      h.camera.lookAt(h.controls.target);
+      h.controls.update();
+      return {
+        position: h.camera.position.toArray(),
+        up: h.camera.up.toArray(),
+        target: h.controls.target.toArray(),
+      };
+    });
+
+    await page.click(".cad-crumb-step");
+    await page.waitForFunction(
+      (wanted) => window.__hsm?.mountedStepFile === wanted && window.__hsm.currentGroup,
+      { timeout: 30_000 },
+      assembly,
+    );
+
+    const returned = await page.evaluate(() => {
+      const h = window.__hsm;
+      const components = [...new Set(h.currentGroup.children
+        .filter((c) => c.isMesh && c.userData?.side === "front")
+        .map((c) => c.name))];
+      return {
+        position: h.camera.position.toArray(),
+        up: h.camera.up.toArray(),
+        target: h.controls.target.toArray(),
+        hasBackTop: components.includes("enclosure-back-top"),
+        componentCount: components.length,
+      };
+    });
+    assert.deepEqual(returned.position, beforeReturn.position, "camera position moved on return");
+    assert.deepEqual(returned.up, beforeReturn.up, "camera roll moved on return");
+    assert.deepEqual(returned.target, beforeReturn.target, "orbit focus moved on return");
+    assert.ok(returned.hasBackTop);
+    assert.ok(returned.componentCount > 1, "the larger assembly did not return around back-top");
   } finally {
     await page.evaluate(async (files) => {
       // Let scene.js's trailing 250 ms control-change save land first, then
