@@ -68,7 +68,8 @@ class CarrierSpec:
     grip_bar_t: float = 16.0
     grip_back_x: float = 96.295
     grip_back_t: float = 2.5
-    grip_floor_t: float = 2.295
+    grip_rail_outer_x: float = 103.65
+    grip_rail_top_z: float = 174.95
     grip_roof_t: float = 4.0
     grip_aft_t: float = 4.0
     grip_rim_t: float = 3.0
@@ -103,7 +104,7 @@ class CarrierSpec:
 
     @property
     def grip_z(self):
-        return self.tab_z[0] - self.grip_floor_t, self.tab_z[1] + self.grip_roof_t
+        return self.web_z[0], self.tab_z[1] + self.grip_roof_t
 
     @property
     def rim_y(self):
@@ -114,12 +115,6 @@ class CarrierSpec:
     def rim_z(self):
         margin = self.grip_overlap + self.slide_air
         return min(self.web_z[0], self.grip_z[0]) - margin, self.grip_z[1] + margin
-
-    @property
-    def entry_slot_y(self):
-        fore = self.web_fore_y + self.release_offset_y
-        aft = self.web_fore_y + self.spring_pad_t + self.connected_offset_y
-        return fore - self.slide_air, aft + self.slide_air
 
     @property
     def joint_z(self):
@@ -311,6 +306,11 @@ def _service_tabs(spec):
     """
     outer = spec.tab_outer_x
     body = _box(spec.grip_back_x, outer, *spec.grip_y, *spec.grip_z)
+    # The outer floor is one continuous lower bearing. Its inboard underside clears the
+    # enclosure's seam head along the complete grip length.
+    body = body.cut(_box(spec.grip_back_x - 1.0, spec.grip_rail_outer_x,
+                         spec.grip_y[0] - 1.0, spec.grip_y[1] + 1.0,
+                         spec.grip_z[0] - 1.0, spec.grip_rail_top_z))
     rim = (_box(spec.exterior_x + spec.slide_air, outer, *spec.rim_y, *spec.rim_z)
            .edges('|X').fillet(spec.grip_rim_corner_r)
            .faces('>X').edges().fillet(spec.grip_rim_edge_r))
@@ -326,7 +326,7 @@ def _service_tabs(spec):
              and spec.tab_z[0] - 1e-6 <= edge.Center().z <= spec.tab_z[1] + 1e-6]
     body = cq.Workplane(obj=body.val().fillet(spec.grip_edge_r, edges))
     root = _box(*spec.grip_root_x,
-                *spec.tab_y, spec.grip_z[0], spec.web_z[1])
+                *spec.tab_y, spec.grip_rail_top_z, spec.web_z[1])
     body = body.union(root)
     return body.mirror('YZ'), body
 
@@ -440,9 +440,11 @@ def insertion_envelopes(spec=DEFAULT_SPEC, side=1):
 
     rows.extend((
         ('grip root', handed(spec.grip_root_x), spec.tab_y,
-         (spec.grip_z[0], spec.web_z[1])),
+         (spec.grip_rail_top_z, spec.web_z[1])),
         ('cup', handed((spec.grip_back_x, spec.exterior_x + spec.slide_air)),
-         spec.grip_y, spec.grip_z),
+         spec.grip_y, (spec.grip_rail_top_z, spec.grip_z[1])),
+        ('cup floor', handed((spec.grip_rail_outer_x, spec.exterior_x + spec.slide_air)),
+         spec.grip_y, (spec.grip_z[0], spec.grip_rail_top_z)),
         ('rim', handed((spec.exterior_x + spec.slide_air, spec.tab_outer_x)),
          spec.rim_y, spec.rim_z)))
     return tuple((name, _box(*xs, *ys, *zs).val()) for name, xs, ys, zs in rows)
@@ -462,10 +464,6 @@ def interface(spec=DEFAULT_SPEC):
         'web_x': spec.web_x,
         'web_z': spec.web_z,
         'joint_z': spec.joint_z,
-        'joint_entry_fore_y': min(spec.joint_face_y + spec.release_offset_y,
-                                  spec.joint_fore_y + spec.connected_offset_y) - spec.slide_air,
-        'joint_work_x': (-spec.joint_half_x - spec.joint_root_x - spec.slide_air,
-                         spec.joint_half_x + spec.slide_air),
         'joint_work_fore_y': spec.joint_fore_y + spec.release_offset_y - spec.slide_air,
         'release_fore_stop_y': slot_y[0],
         'squeeze_reference_aft_y': spec.web_aft_y,
@@ -478,6 +476,8 @@ def interface(spec=DEFAULT_SPEC):
         'grip_pocket_depth': spec.tab_outer_x - spec.grip_back_x - spec.grip_back_t,
         'grip_back_x': spec.grip_back_x,
         'grip_back_t': spec.grip_back_t,
+        'grip_rail_outer_x': spec.grip_rail_outer_x,
+        'grip_rail_top_z': spec.grip_rail_top_z,
         'grip_rim_y': spec.rim_y,
         'grip_rim_z': spec.rim_z,
         'grip_rim_t': spec.grip_rim_t,
@@ -494,8 +494,6 @@ def interface(spec=DEFAULT_SPEC):
                            spec.tab_outer_x + 1.0),
         'service_slot_y': slot_y,
         'service_slot_z': slot_z,
-        'entry_slot_y': spec.entry_slot_y,
-        'entry_slot_z': (spec.web_z[0] - spec.slide_air, spec.grip_z[0]),
         'half_entry_shift_x': spec.entry_shift_x,
         'half_install_order': (1, -1),
         'half_entry_offsets_y': (spec.release_offset_y, spec.connected_offset_y),
@@ -561,7 +559,7 @@ def selftest(spec=DEFAULT_SPEC):
                 errors.append(f'carrier obstructs finger contact at y={dy:g}')
         overlap = min(data['service_slot_y'][0] - spec.rim_y[0] - dy,
                       spec.rim_y[1] + dy - data['service_slot_y'][1],
-                      min(data['service_slot_z'][0], data['entry_slot_z'][0]) - spec.rim_z[0],
+                      data['service_slot_z'][0] - spec.rim_z[0],
                       spec.rim_z[1] - data['service_slot_z'][1])
         if overlap < spec.grip_overlap - 1e-6:
             errors.append(f'grip rim overlaps its opening by only {overlap:g} mm')
