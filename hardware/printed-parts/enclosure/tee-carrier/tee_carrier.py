@@ -65,17 +65,16 @@ class CarrierSpec:
     slide_air: float = 0.15
     finger_run: float = 22.0
     finger_air: float = 0.2
-    grip_bar_t: float = 16.0
+    grip_border_y: float = 10.0
+    grip_center_aft_of_web: float = 5.0
     grip_back_x: float = 90.295
     grip_back_t: float = 2.5
     grip_rail_outer_x: float = 103.65
     grip_rail_top_z: float = 174.95
-    grip_roof_t: float = 4.0
-    grip_aft_t: float = 4.0
     grip_rim_t: float = 3.0
     grip_wall_t: float = 3.0
     grip_overlap: float = 3.0
-    grip_top_overlap: float = 4.0
+    grip_top_overlap: float = 3.0
     grip_corner_r: float = 5.0
     grip_edge_r: float = 3.0
     grip_rim_corner_r: float = 5.0
@@ -99,12 +98,27 @@ class CarrierSpec:
         return self.web_fore_y + self.web_t
 
     @property
+    def finger_y(self):
+        center = self.web_aft_y + self.grip_center_aft_of_web
+        return center - self.finger_run / 2.0, center + self.finger_run / 2.0
+
+    @property
+    def grip_bar_t(self):
+        return self.grip_border_y
+
+    @property
+    def grip_roof_t(self):
+        # Equal roof and outer-floor sections center the mouth vertically while
+        # the hand-contact roof stays on the cartridge's shared datum.
+        return self.tab_z[0] - self.web_z[0]
+
+    @property
     def tab_y(self):
-        return self.web_aft_y - self.grip_bar_t, self.web_aft_y
+        return self.finger_y[0] - self.grip_border_y, self.finger_y[0]
 
     @property
     def grip_y(self):
-        return self.tab_y[0], self.web_aft_y + self.finger_run + self.grip_aft_t
+        return self.tab_y[0], self.finger_y[1] + self.grip_border_y
 
     @property
     def grip_z(self):
@@ -316,36 +330,32 @@ def _tie_cutters(spec: CarrierSpec):
 
 
 def _service_tabs(spec):
-    """Flush closed finger cups with broad retaining rims behind the enclosure wall.
-
-    The fore bar thickens directly from the web. Its aft face bears the fingers' forward
-    pull. The two internal rims bear against opposite wall shoulders and capture X once
-    the halves are joined. The lower inboard face clears the enclosure's seam rail.
-    """
-    outer = spec.tab_outer_x
-    body = _box(spec.grip_back_x, outer, *spec.grip_y, *spec.grip_z)
-    # The outer floor is one continuous lower bearing. Its inboard underside clears the
-    # enclosure's seam head along the complete grip length.
+    """Flush grip blanks with broad rims behind the enclosure wall."""
+    body = _box(spec.grip_back_x, spec.tab_outer_x, *spec.grip_y, *spec.grip_z)
     body = body.cut(_box(spec.grip_back_x - 1.0, spec.grip_rail_outer_x,
                          spec.grip_y[0] - 1.0, spec.grip_y[1] + 1.0,
                          spec.grip_z[0] - 1.0, spec.grip_rail_top_z))
     rim = (_box(*spec.rim_x, *spec.rim_y, *spec.rim_z)
            .edges('|X').fillet(spec.grip_rim_corner_r))
     body = body.union(rim)
-    pocket_y = (spec.web_aft_y, spec.web_aft_y + spec.finger_run)
-    pocket = (_box(spec.grip_back_x + spec.grip_back_t, outer + 1.0,
-                   *pocket_y, *spec.tab_z).edges('|X').fillet(spec.grip_corner_r))
-    body = body.cut(pocket)
-    edges = [edge for edge in body.val().Edges()
-             if abs(edge.BoundingBox().xmin - outer) < 1e-6
-             and abs(edge.BoundingBox().xmax - outer) < 1e-6
-             and pocket_y[0] - 1e-6 <= edge.Center().y <= pocket_y[1] + 1e-6
-             and spec.tab_z[0] - 1e-6 <= edge.Center().z <= spec.tab_z[1] + 1e-6]
-    body = cq.Workplane(obj=body.val().fillet(spec.grip_edge_r, edges))
-    root = _box(*spec.grip_root_x,
-                *spec.tab_y, spec.grip_rail_top_z, spec.web_z[1])
+    root = _box(*spec.grip_root_x, *spec.tab_y,
+                spec.grip_rail_top_z, spec.web_z[1])
     body = body.union(root)
     return body.mirror('YZ'), body
+
+
+def _open_finger_pockets(body, spec):
+    """Cut both centered pockets through the united cups, roots and web."""
+    pocket = (_box(spec.grip_back_x + spec.grip_back_t, spec.tab_outer_x + 1.0,
+                   *spec.finger_y, *spec.tab_z).edges('|X').fillet(spec.grip_corner_r))
+    for cut in (pocket, pocket.mirror('YZ')):
+        body = body.cut(cut)
+    edges = [edge for edge in body.val().Edges()
+             if abs(abs(edge.BoundingBox().xmin) - spec.tab_outer_x) < 1e-6
+             and abs(abs(edge.BoundingBox().xmax) - spec.tab_outer_x) < 1e-6
+             and spec.finger_y[0] - 1e-6 <= edge.Center().y <= spec.finger_y[1] + 1e-6
+             and spec.tab_z[0] - 1e-6 <= edge.Center().z <= spec.tab_z[1] + 1e-6]
+    return cq.Workplane(obj=body.val().fillet(spec.grip_edge_r, edges))
 
 
 def joint_sites(spec=DEFAULT_SPEC):
@@ -364,6 +374,7 @@ def _carrier_blank(spec):
         body = body.union(_spring_rail(spec, x))
     for tab in _service_tabs(spec):
         body = body.union(tab)
+    body = _open_finger_pockets(body, spec)
     slots, recesses = _tie_cutters(spec)
     for cutter in (*slots, *recesses):
         body = body.cut(cutter)
@@ -420,8 +431,8 @@ def finger_probes(spec=DEFAULT_SPEC, offset_y=0.0):
     outer = spec.tab_outer_x + 1.0
     for side in (-1, 1):
         xa, xb = (inner, outer) if side > 0 else (-outer, -inner)
-        probes.append(_box(xa, xb, spec.web_aft_y + offset_y + spec.finger_air,
-                           spec.web_aft_y + offset_y + spec.finger_run - spec.finger_air,
+        probes.append(_box(xa, xb, spec.finger_y[0] + offset_y + spec.finger_air,
+                           spec.finger_y[1] + offset_y - spec.finger_air,
                            spec.tab_z[0] + spec.finger_air,
                            spec.tab_z[1] - spec.finger_air)
                       .edges('|X').fillet(spec.grip_corner_r).val())
@@ -535,7 +546,7 @@ def interface(spec=DEFAULT_SPEC):
         'grip_projection': spec.tab_outer_x - spec.exterior_x,
         'spring_seats': tuple((x, spec.web_fore_y, spec.spring_axis_z) for x in spec.spring_xs),
         'tab_slot_y_sweep': (spec.tab_y[0] + spec.release_offset_y,
-                              spec.web_aft_y + spec.park_offset_y),
+                              spec.tab_y[1] + spec.park_offset_y),
         'tab_slot_z': spec.tab_z,
         'tab_pad_x': ((-spec.tab_outer_x, -spec.grip_back_x - spec.grip_back_t),
                      (spec.grip_back_x + spec.grip_back_t, spec.tab_outer_x)),
@@ -555,6 +566,7 @@ def interface(spec=DEFAULT_SPEC):
         'joint_insert_length': enclosure_interface.heatset_len,
         'joint_count': len(joint_sites(spec)),
         'finger_run': spec.finger_run,
+        'finger_y': spec.finger_y,
         'printed_parts': ('enclosure-tee-carrier-left', 'enclosure-tee-carrier-right'),
         'tie_sites': tuple({'tee_x': site.tee_x, 'band_z': site.band_z,
                             'slot_xs': site.slot_xs, 'head_side': site.head_side}
@@ -573,6 +585,20 @@ def selftest(spec=DEFAULT_SPEC):
             errors.append(f'half {side:+d} exceeds the print bed')
         if max(abs(bb.xmin), abs(bb.xmax)) > spec.exterior_x + 1e-6:
             errors.append(f'half {side:+d} projects beyond the enclosure width')
+        show = [face for face in solid.Faces()
+                if face.geomType() == 'PLANE'
+                and abs(face.Center().x - side * spec.tab_outer_x) < 1e-6
+                and face.normalAt().x * side > 0.999 and face.innerWires()]
+        if len(show) != 1 or len(show[0].innerWires()) != 1:
+            errors.append(f'half {side:+d} has no single mouth in its flush face')
+        else:
+            outer = show[0].outerWire().BoundingBox()
+            mouth = show[0].innerWires()[0].BoundingBox()
+            for axis in 'yz':
+                a = getattr(mouth, axis + 'min') - getattr(outer, axis + 'min')
+                b = getattr(outer, axis + 'max') - getattr(mouth, axis + 'max')
+                if abs(a - b) > 1e-5:
+                    errors.append(f'half {side:+d} mouth is off-center along {axis.upper()}')
         shifted = solid.translate((-side * spec.entry_shift_x, 0.0, 0.0)).BoundingBox()
         if max(abs(shifted.xmin), abs(shifted.xmax)) > spec.exterior_x - spec.slide_air:
             errors.append(f'half {side:+d} does not start inside the enclosure width')
@@ -614,8 +640,7 @@ def selftest(spec=DEFAULT_SPEC):
     for side, shape in halves.items():
         xa, xb = sorted((side * (spec.grip_back_x + 0.1),
                          side * (spec.grip_back_x + spec.grip_back_t - 0.1)))
-        backing = _box(xa, xb, spec.web_aft_y, spec.web_aft_y + spec.finger_run,
-                       *spec.tab_z).val()
+        backing = _box(xa, xb, *spec.finger_y, *spec.tab_z).val()
         if backing.cut(shape).Volume() > 1e-5:
             errors.append(f'half {side:+d} has an opening through its finger-pocket back')
     for error in errors:
@@ -667,6 +692,7 @@ def sync_readme(spec=DEFAULT_SPEC):
         'GRIP_RIM_CORNER_R': spec.grip_rim_corner_r,
         'GRIP_PROJECTION': spec.tab_outer_x - spec.exterior_x,
         'GRIP_WIDTH': 2 * spec.tab_outer_x, 'GRIP_OVERLAP': spec.grip_overlap,
+        'GRIP_HEIGHT': spec.grip_z[1] - spec.grip_z[0],
         'GRIP_BACK_T': spec.grip_back_t, 'GUIDE_LENGTH': spec.grip_y[1] - spec.grip_y[0],
         'GUIDE_AIR': spec.slide_air, 'ENTRY_FROM_PARK': spec.park_offset_y - spec.connected_offset_y,
         'RIM_BED_GAP': spec.rim_z[0] - spec.web_z[0],
