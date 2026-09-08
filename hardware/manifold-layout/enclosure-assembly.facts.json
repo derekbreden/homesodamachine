@@ -330,18 +330,18 @@
   ],
   "enclosure-tee-carrier-left": [
    -107.5000001,
-   87.5680001,
+   88.5680001,
    171.24500009999997,
    9.0,
-   149.86800010000002,
+   148.86800010000002,
    225.39500009999998
   ],
   "enclosure-tee-carrier-right": [
    -9.0,
-   87.5680001,
+   88.5680001,
    171.24500009999997,
    107.5000001,
-   149.86800010000002,
+   148.86800010000002,
    225.39500009999998
   ],
   "flow-regulator": [
@@ -2297,7 +2297,7 @@
    "grip_back_x": 90.295,
    "grip_bar_t": 16.0,
    "grip_outer_x": 107.5,
-   "grip_overlap": 4.0,
+   "grip_overlap": 3.0,
    "grip_pocket_depth": 14.704999999999998,
    "grip_projection": 0.0,
    "grip_rail_outer_x": 103.65,
@@ -2308,8 +2308,8 @@
     104.35
    ],
    "grip_rim_y": [
-    86.0680001,
-    148.36800010000002
+    87.0680001,
+    147.36800010000002
    ],
    "grip_rim_z": [
     174.95000000000002,
@@ -2332,9 +2332,9 @@
     -3.15,
     3.0
    ],
-   "half_entry_shift_x": 16.0,
+   "half_entry_shift_x": 19.077500000000015,
    "half_entry_shoulder_inset_x": 3.15,
-   "half_entry_staging_y": 19.041999899999986,
+   "half_entry_staging_y": 20.041999899999986,
    "half_install_order": [
     -1,
     1
@@ -2375,7 +2375,7 @@
     104.5
    ],
    "service_recess_y": [
-    82.7680001,
+    83.7680001,
     167.56
    ],
    "service_recess_z": [
@@ -3087,7 +3087,7 @@
    true
   ]
  },
- "card": "ff42218055ffa4e8552a05e4f7faa442",
+ "card": "1c2f77981c6983d0d9fcc258bf0de221",
  "card_ports": {
   "asse1022-assembly": {
    "tube-in": {
@@ -4155,8 +4155,8 @@
   }
  ],
  "schema": 2,
- "sources": "b724243394c83d2eb4cee6acc52c491c",
- "step": "8277a73719b6e94d0ead62f774236648",
+ "sources": "debcb196c933c162bbec4d8acbdd0b54",
+ "step": "b9631980950cf87442edf272cfd8a0ed",
  "valve_tray_stations": [
   [
    173.56,
