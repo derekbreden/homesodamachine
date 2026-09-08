@@ -61,3 +61,25 @@ stands the noses, each depth is 1.65 mm deeper: 8.65, 10.15 and 11.65 mm
 The stand-in's 40.14 mm run span is 2.36 mm short of the tee's extended span, and every butt in
 the pack is drawn on the stand-in. `enclosure_assembly.collet_plate_spec` builds the collet
 plate's release stroke on `COLLET_TRAVEL`.
+
+## Observed push-connect action
+
+Derek's physical checks use a tube-tight collar to hold the collet while the tube moves:
+
+- With the collar continuously holding the collet in, the tube withdraws easily with a
+  small pull. Derek considers four times that single-connection effort comfortable for
+  cartridge removal.
+- A collet that is free to move follows an extracting tube outward and locks again, even
+  if it was pressed inward immediately beforehand. Release requires continued restraint
+  throughout withdrawal.
+- A very small separating tug on either the tube or the fitting draws the collet into its
+  locked position. The required movement is the collet's short travel; Derek judges the
+  effort compatible with spring return.
+- During insertion, the tube pushes an extended collet inward, including against a small
+  spring-level outward force.
+
+The fixed enclosure plate supplies the continuous collet restraint during cartridge removal.
+For insertion, the opposed cartridge/carrier grasp bottoms the tubes; relaxing the grasp
+allows the carrier springs to supply the short separating movement that engages the collets.
+These observations establish the connection action. They contain no instrumented force
+reading for the complete printed carrier or its spring pair.

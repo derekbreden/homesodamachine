@@ -5554,6 +5554,7 @@
     "reads": [
       "hardware/printed-parts/cadlib/fits.py",
       "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
+      "hardware/printed-parts/enclosure/tee-carrier/README.md",
       "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.step",
       "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.stl",
       "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step",
@@ -5564,11 +5565,16 @@
       "hardware/scripts/_material_base.py",
       "hardware/scripts/_measuring.py",
       "hardware/scripts/_mesh_payload.py",
+      "hardware/scripts/_realized.py",
       "hardware/scripts/_run_lock.py",
-      "hardware/scripts/flute_payload.py"
+      "hardware/scripts/flute_payload.py",
+      "tools/docgen/__init__.py"
     ],
-    "rewritten": [],
+    "rewritten": [
+      "hardware/printed-parts/enclosure/tee-carrier/README.md"
+    ],
     "writes": [
+      "hardware/printed-parts/enclosure/tee-carrier/README.md",
       "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.step",
       "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step"
     ]

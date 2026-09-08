@@ -1,12 +1,13 @@
-"""Two PET-GF carrier halves with integral service tabs and a central M3 lap joint.
+"""Two PET-GF carrier halves with closed sliding handholds and a central M3 lap joint.
 
-The four tees bear on one Y plane and are tied twice each. Each half carries one spring seat,
-guide ear and exterior service tab. Two M3 x 8 screws pass through the right half's counterbores
+The four tees bear on one Y plane and are tied twice each. Each half carries one spring seat
+and one deep service tab. Two M3 x 8 screws pass through the right half's counterbores
 into M3 x 4 heat-set inserts in the left half. The heads face aft, into the gap between coils.
 
-All geometry is in the enclosure frame: +Y aft, +Z up. Both halves print upright on their
-web's lower edge. Assembly is right half down and outward at release, right half to park,
-left half down and outward at release, then right half forward to close the lap.
+All geometry is in the enclosure frame: +Y aft, +Z up. Each half enters through its own flank
+opening from outside. The handholds' top and bottom faces guide Y travel; their opposed outer
+rims capture X once the central lap is screwed together. Each rim overlaps the opening at
+every working position, and each finger recess has its own closed back.
 """
 
 from __future__ import annotations
@@ -39,8 +40,6 @@ class CarrierSpec:
     spring_axis_z: float
     tab_outer_x: float
     tab_z: tuple[float, float]
-    guide_ear_outer_x: float = 98.35
-    guide_ear_z: tuple[float, float] = (184.245, 196.245)
     web_t: float = 2.5
     tie_band_offsets_z: tuple[float, float] = (-12.0, 12.0)
     tie_slot_offset_x: float = 8.5
@@ -61,11 +60,22 @@ class CarrierSpec:
     fixed_plate_aft_y: float = 81.290
     aft_coil_fore_y: float = 116.960
     exterior_x: float = 107.5
-    tab_recess: float = 0.3
-    lowering_cavity_half_x: float = 98.5
+    guide_inner_x: float = 98.5
     slide_air: float = 0.15
-    finger_run: float = 18.0
+    finger_run: float = 22.0
     finger_air: float = 0.2
+    grip_bar_t: float = 16.0
+    grip_back_x: float = 96.295
+    grip_back_t: float = 2.5
+    grip_floor_t: float = 2.295
+    grip_roof_t: float = 4.0
+    grip_aft_t: float = 4.0
+    grip_rim_t: float = 3.0
+    grip_overlap: float = 4.0
+    grip_corner_r: float = 5.0
+    grip_edge_r: float = 3.0
+    grip_rim_corner_r: float = 5.0
+    grip_rim_edge_r: float = 1.5
     joint_half_x: float = 6.0
     joint_root_x: float = 4.0
     joint_receiver_t: float = 5.0
@@ -83,7 +93,32 @@ class CarrierSpec:
 
     @property
     def tab_y(self):
-        return self.web_fore_y, self.web_aft_y
+        return self.web_aft_y - self.grip_bar_t, self.web_aft_y
+
+    @property
+    def grip_y(self):
+        return self.tab_y[0], self.web_aft_y + self.finger_run + self.grip_aft_t
+
+    @property
+    def grip_z(self):
+        return self.tab_z[0] - self.grip_floor_t, self.tab_z[1] + self.grip_roof_t
+
+    @property
+    def rim_y(self):
+        margin = self.park_offset_y - self.release_offset_y + self.grip_overlap
+        return self.grip_y[0] - margin, self.grip_y[1] + margin
+
+    @property
+    def rim_z(self):
+        margin = self.grip_overlap + self.slide_air
+        return min(self.web_z[0], self.grip_z[0]) - margin, self.grip_z[1] + margin
+
+    @property
+    def entry_slot_y(self):
+        fore = min(self.joint_face_y + self.release_offset_y,
+                   self.joint_fore_y + self.connected_offset_y)
+        aft = self.web_fore_y + self.spring_pad_t + self.connected_offset_y
+        return fore - self.slide_air, aft + self.slide_air
 
     @property
     def state_offsets_y(self):
@@ -103,14 +138,14 @@ class CarrierSpec:
 
     @property
     def entry_shift_x(self):
-        return self.tab_outer_x - self.lowering_cavity_half_x + self.slide_air
+        return self.exterior_x + self.joint_half_x + self.slide_air
 
 
 DEFAULT_SPEC = CarrierSpec(
     tee_xs=(-79.82, -20.07, 20.07, 79.82), tee_axis_z=190.245,
     web_x=(-94.0, 94.0), web_fore_y=109.718, web_z=(171.245, 209.245),
     spring_xs=(-49.945, 49.945), spring_axis_z=190.245,
-    tab_outer_x=107.2, tab_z=(197.0, 217.0),
+    tab_outer_x=110.65, tab_z=(177.245, 217.245),
 )
 
 
@@ -152,12 +187,7 @@ def tie_sites(spec: CarrierSpec) -> tuple[TieSite, ...]:
 
 
 def _spring_rail(spec: CarrierSpec, x: float):
-    """One bed-rooted thickening behind a spring seat.
-
-    A semicircular crown surrounds the teardrop seat.  The rectangle below the spring axis
-    carries that crown to the bed, so the extra 2.5 mm behind the web never begins as a
-    horizontal ledge in the print.
-    """
+    """A semicircular crown around the spring seat and a rectangle to the web's lower edge."""
     radius = spec.spring_pad_d / 2.0
     stem = _box(
         x - radius,
@@ -176,34 +206,6 @@ def _spring_rail(spec: CarrierSpec, x: float):
         )
     )
     return stem.union(crown)
-
-
-def _guide_ear_pair(spec: CarrierSpec):
-    """Two fixed-section ears for the enclosure's open-top guide/stop pockets.
-
-    Their Y faces are exactly the web faces: the pocket can therefore own both travel stops
-    without introducing a second carrier datum.  The ears sit between the two tie bands in Z
-    and outside the tie-head X stations, so they lower vertically into pockets without
-    crossing a tie path.
-    """
-    z0, z1 = spec.guide_ear_z
-    left = _box(
-        -spec.guide_ear_outer_x,
-        spec.web_x[0],
-        spec.web_fore_y,
-        spec.web_aft_y,
-        z0,
-        z1,
-    )
-    right = _box(
-        spec.web_x[1],
-        spec.guide_ear_outer_x,
-        spec.web_fore_y,
-        spec.web_aft_y,
-        z0,
-        z1,
-    )
-    return left.union(right)
 
 
 def _teardrop_y(
@@ -292,17 +294,32 @@ def _tie_cutters(spec: CarrierSpec):
 
 
 def _service_tabs(spec):
-    parts = []
-    for side in (-1, 1):
-        root = side * spec.web_x[1]
-        tip = side * spec.tab_outer_x
-        xa, xb = sorted((root, tip))
-        pad = _box(xa, xb, *spec.tab_y, *spec.tab_z)
-        lower = spec.tab_z[0] - (spec.tab_outer_x - spec.web_x[1])
-        ramp = _xz_prism(*spec.tab_y, (
-            (root, lower), (tip, spec.tab_z[0]), (root, spec.tab_z[0])))
-        parts.append(pad.union(ramp))
-    return parts
+    """Closed finger cups, rectangular guide bodies and overlapping exterior rims.
+
+    The fore bar thickens directly from the web. Its aft face bears the fingers' forward
+    pull. Four flat guide faces continue behind the rounded exterior rim. The two rims bear
+    against opposite exterior flanks and capture the joined carrier across X.
+    """
+    outer = spec.tab_outer_x
+    body = _box(spec.grip_back_x, outer, *spec.grip_y, *spec.grip_z)
+    rim = (_box(spec.exterior_x + spec.slide_air, outer, *spec.rim_y, *spec.rim_z)
+           .edges('|X').fillet(spec.grip_rim_corner_r)
+           .faces('>X').edges().fillet(spec.grip_rim_edge_r))
+    body = body.union(rim)
+    pocket_y = (spec.web_aft_y, spec.web_aft_y + spec.finger_run)
+    pocket = (_box(spec.grip_back_x + spec.grip_back_t, outer + 1.0,
+                   *pocket_y, *spec.tab_z).edges('|X').fillet(spec.grip_corner_r))
+    body = body.cut(pocket)
+    edges = [edge for edge in body.val().Edges()
+             if abs(edge.BoundingBox().xmin - outer) < 1e-6
+             and abs(edge.BoundingBox().xmax - outer) < 1e-6
+             and pocket_y[0] - 1e-6 <= edge.Center().y <= pocket_y[1] + 1e-6
+             and spec.tab_z[0] - 1e-6 <= edge.Center().z <= spec.tab_z[1] + 1e-6]
+    body = cq.Workplane(obj=body.val().fillet(spec.grip_edge_r, edges))
+    root = _box(spec.web_x[1] - 0.2, spec.grip_back_x + 0.2,
+                *spec.tab_y, spec.grip_z[0], spec.web_z[1])
+    body = body.union(root)
+    return body.mirror('YZ'), body
 
 
 def joint_sites(spec=DEFAULT_SPEC):
@@ -317,7 +334,6 @@ def _cylinder_y(diameter, y0, y1, x, z):
 
 def _carrier_blank(spec):
     body = _box(*spec.web_x, spec.web_fore_y, spec.web_aft_y, *spec.web_z)
-    body = body.union(_guide_ear_pair(spec))
     for x in spec.spring_xs:
         body = body.union(_spring_rail(spec, x))
     for tab in _service_tabs(spec):
@@ -339,9 +355,9 @@ def build_half(spec=DEFAULT_SPEC, side=1):
     bb = _carrier_blank(spec)
     span = spec.tab_outer_x + spec.slide_air
     xa, xb = (-span, split) if side < 0 else (split, span)
-    body = bb.intersect(_box(xa, xb, spec.joint_fore_y - 1.0,
-                            spec.web_aft_y + spec.spring_pad_t, spec.web_z[0] - 1.0,
-                            spec.tab_z[1] + 1.0))
+    bounds = bb.val().BoundingBox()
+    body = bb.intersect(_box(xa, xb, bounds.ymin - 1.0, bounds.ymax + 1.0,
+                            bounds.zmin - 1.0, bounds.zmax + 1.0))
     if side < 0:
         root = split - spec.joint_root_x
         body = body.union(_box(root, split, spec.joint_fore_y, spec.web_aft_y, *spec.web_z))
@@ -374,22 +390,22 @@ def build(spec=DEFAULT_SPEC):
 
 def finger_probes(spec=DEFAULT_SPEC, offset_y=0.0):
     probes = []
-    inner = spec.lowering_cavity_half_x + spec.slide_air + spec.finger_air
-    outer = spec.exterior_x + 1.0
+    inner = spec.grip_back_x + spec.grip_back_t + spec.finger_air
+    outer = spec.tab_outer_x + 1.0
     for side in (-1, 1):
         xa, xb = (inner, outer) if side > 0 else (-outer, -inner)
         probes.append(_box(xa, xb, spec.web_aft_y + offset_y + spec.finger_air,
-                           spec.web_aft_y + offset_y + spec.finger_run,
+                           spec.web_aft_y + offset_y + spec.finger_run - spec.finger_air,
                            spec.tab_z[0] + spec.finger_air,
-                           spec.tab_z[1] - spec.finger_air).val())
+                           spec.tab_z[1] - spec.finger_air)
+                      .edges('|X').fillet(spec.grip_corner_r).val())
     return tuple(probes)
 
 
 def interface(spec=DEFAULT_SPEC):
-    slot_y = (spec.web_fore_y + spec.release_offset_y - spec.slide_air,
-              spec.web_aft_y + spec.park_offset_y + spec.finger_run + spec.slide_air)
-    ramp_z = spec.tab_z[0] - (spec.tab_outer_x - spec.guide_ear_outer_x)
-    slot_z = (ramp_z - spec.slide_air, spec.tab_z[1] + spec.slide_air)
+    slot_y = (spec.grip_y[0] + spec.release_offset_y,
+              spec.grip_y[1] + spec.park_offset_y)
+    slot_z = (spec.grip_z[0] - spec.slide_air, spec.grip_z[1] + spec.slide_air)
     return {
         'squeeze_offset_y': 0.0,
         'release_offset_y': spec.release_offset_y,
@@ -397,27 +413,37 @@ def interface(spec=DEFAULT_SPEC):
         'park_offset_y': spec.park_offset_y,
         'web_fore_y': spec.web_fore_y,
         'web_aft_y': spec.web_aft_y,
-        'release_fore_stop_y': spec.web_fore_y + spec.release_offset_y,
+        'release_fore_stop_y': slot_y[0],
         'squeeze_reference_aft_y': spec.web_aft_y,
-        'park_aft_stop_y': spec.web_aft_y + spec.park_offset_y,
-        'guide_ear_x': ((-spec.guide_ear_outer_x, spec.web_x[0]),
-                        (spec.web_x[1], spec.guide_ear_outer_x)),
-        'guide_ear_y': spec.tab_y,
-        'guide_ear_z': spec.guide_ear_z,
+        'park_aft_stop_y': slot_y[1],
+        'guide_body_y': spec.grip_y,
+        'guide_body_z': spec.grip_z,
+        'guide_bearing_length': spec.grip_y[1] - spec.grip_y[0],
+        'guide_slide_air': spec.slide_air,
+        'grip_bar_t': spec.grip_bar_t,
+        'grip_pocket_depth': spec.tab_outer_x - spec.grip_back_x - spec.grip_back_t,
+        'grip_back_x': spec.grip_back_x,
+        'grip_back_t': spec.grip_back_t,
+        'grip_rim_y': spec.rim_y,
+        'grip_rim_z': spec.rim_z,
+        'grip_rim_t': spec.grip_rim_t,
+        'grip_overlap': spec.grip_overlap,
+        'grip_outer_x': spec.tab_outer_x,
+        'grip_projection': spec.tab_outer_x - spec.exterior_x,
         'spring_seats': tuple((x, spec.web_fore_y, spec.spring_axis_z) for x in spec.spring_xs),
-        'tab_slot_y_sweep': (spec.web_fore_y + spec.release_offset_y,
+        'tab_slot_y_sweep': (spec.tab_y[0] + spec.release_offset_y,
                               spec.web_aft_y + spec.park_offset_y),
         'tab_slot_z': spec.tab_z,
-        'tab_pad_x': ((-spec.tab_outer_x, -spec.lowering_cavity_half_x - spec.slide_air),
-                     (spec.lowering_cavity_half_x + spec.slide_air, spec.tab_outer_x)),
-        'service_slot_x': (spec.guide_ear_outer_x, spec.exterior_x + 1.0),
+        'tab_pad_x': ((-spec.tab_outer_x, -spec.grip_back_x - spec.grip_back_t),
+                     (spec.grip_back_x + spec.grip_back_t, spec.tab_outer_x)),
+        'service_slot_x': (spec.grip_back_x - spec.slide_air, spec.tab_outer_x + 1.0),
         'service_slot_y': slot_y,
         'service_slot_z': slot_z,
-        'service_slot_roof_z': slot_z[1] + (slot_y[1] - slot_y[0]) / 2.0,
-        'lowering_cavity_x': (-spec.lowering_cavity_half_x, spec.lowering_cavity_half_x),
-        'carrier_lowering_air_x': spec.slide_air,
+        'entry_slot_y': spec.entry_slot_y,
+        'entry_slot_z': (spec.web_z[0] - spec.slide_air, spec.grip_z[0]),
         'half_entry_shift_x': spec.entry_shift_x,
         'half_install_order': (1, -1),
+        'half_entry_offsets_y': (spec.release_offset_y, spec.connected_offset_y),
         'joint_sites': joint_sites(spec),
         'joint_face_y': spec.joint_face_y,
         'joint_fore_y': spec.joint_fore_y,
@@ -441,10 +467,10 @@ def selftest(spec=DEFAULT_SPEC):
             errors.append(f'half {side:+d} is not one valid solid')
         if bb.xlen > spec.bed_x or bb.ylen > spec.bed_y or bb.zlen > spec.bed_z:
             errors.append(f'half {side:+d} exceeds the print bed')
-        shifted = solid.translate((-side * spec.entry_shift_x, 0.0, 0.0)).BoundingBox()
-        air = spec.lowering_cavity_half_x - max(abs(shifted.xmin), abs(shifted.xmax))
+        shifted = solid.translate((side * spec.entry_shift_x, 0.0, 0.0)).BoundingBox()
+        air = (shifted.xmin if side > 0 else -shifted.xmax) - spec.exterior_x
         if air < spec.slide_air - 1e-6:
-            errors.append(f'half {side:+d} leaves {air:g} mm in its lowering position')
+            errors.append(f'half {side:+d} leaves {air:g} mm before its lateral insertion')
         slots, _ = _tie_cutters(spec)
         for slot in slots:
             if solid.intersect(slot.val()).Volume() > 1e-5:
@@ -461,9 +487,10 @@ def selftest(spec=DEFAULT_SPEC):
     right_park = halves[1].translate((0.0, spec.park_offset_y, 0.0))
     left_release = halves[-1].translate((0.0, spec.release_offset_y, 0.0))
     for i in range(31):
-        left = left_release.translate((spec.entry_shift_x * (1.0 - i / 30), 0, 0))
+        left = halves[-1].translate((-spec.entry_shift_x * (1.0 - i / 30),
+                                      spec.connected_offset_y, 0))
         if left.intersect(right_park).Volume() > 1e-5:
-            errors.append('left half crosses parked right half during outward entry')
+            errors.append('left half crosses parked right half during lateral insertion')
             break
     for i in range(31):
         dy = spec.park_offset_y + (spec.release_offset_y - spec.park_offset_y) * i / 30
@@ -471,15 +498,30 @@ def selftest(spec=DEFAULT_SPEC):
             errors.append('right half crosses left half while the lap closes')
             break
     complete = build_carrier(spec).val()
+    data = interface(spec)
     for dy in spec.state_offsets_y:
         for finger in finger_probes(spec, dy):
             if finger.intersect(complete.translate((0, dy, 0))).Volume() > 1e-5:
                 errors.append(f'carrier obstructs finger contact at y={dy:g}')
+        overlap = min(data['service_slot_y'][0] - spec.rim_y[0] - dy,
+                      spec.rim_y[1] + dy - data['service_slot_y'][1],
+                      min(data['service_slot_z'][0], data['entry_slot_z'][0]) - spec.rim_z[0],
+                      spec.rim_z[1] - data['service_slot_z'][1])
+        if overlap < spec.grip_overlap - 1e-6:
+            errors.append(f'grip rim overlaps its opening by only {overlap:g} mm')
+    # The finger recess ends on continuous back material; its front bar reaches the web.
+    for side, shape in halves.items():
+        xa, xb = sorted((side * (spec.grip_back_x + 0.1),
+                         side * (spec.grip_back_x + spec.grip_back_t - 0.1)))
+        backing = _box(xa, xb, spec.web_aft_y, spec.web_aft_y + spec.finger_run,
+                       *spec.tab_z).val()
+        if backing.cut(shape).Volume() > 1e-5:
+            errors.append(f'half {side:+d} has an opening through its finger-pocket back')
     for error in errors:
         print('FAIL', error)
     if not errors:
-        print(f'ok enclosure-tee-carrier: two valid halves, integral grips, '
-              f'{spec.entry_shift_x:g} mm outward entry, two M3 x '
+        print(f'ok enclosure-tee-carrier: two valid halves, closed grips, '
+              f'{spec.entry_shift_x:g} mm lateral entry, two M3 x '
               f'{spec.joint_screw_length:g} lap screws, eight unobstructed tie paths')
     return int(bool(errors))
 
@@ -495,11 +537,31 @@ def _export_printed_part(body, name):
     print(f'-> {name}.step / .stl')
 
 
+def sync_readme(spec=DEFAULT_SPEC):
+    """Dimensions of the printed handholds and their guide interface."""
+    sys.path.insert(0, str(_hw.parent / 'tools'))
+    from docgen import substitute_md
+    values = {
+        'GRIP_BAR_T': spec.grip_bar_t, 'FINGER_RUN': spec.finger_run,
+        'FINGER_HEIGHT': spec.tab_z[1] - spec.tab_z[0],
+        'FINGER_DEPTH': spec.tab_outer_x - spec.grip_back_x - spec.grip_back_t,
+        'GRIP_CORNER_R': spec.grip_corner_r, 'GRIP_EDGE_R': spec.grip_edge_r,
+        'GRIP_RIM_CORNER_R': spec.grip_rim_corner_r, 'GRIP_RIM_EDGE_R': spec.grip_rim_edge_r,
+        'GRIP_PROJECTION': spec.tab_outer_x - spec.exterior_x,
+        'GRIP_WIDTH': 2 * spec.tab_outer_x, 'GRIP_OVERLAP': spec.grip_overlap,
+        'GRIP_BACK_T': spec.grip_back_t, 'GUIDE_LENGTH': spec.grip_y[1] - spec.grip_y[0],
+        'GUIDE_AIR': spec.slide_air, 'ENTRY_FROM_PARK': spec.park_offset_y - spec.connected_offset_y,
+        'WEB_BED_GAP': spec.web_z[0] - spec.rim_z[0],
+    }
+    substitute_md(_here.parent / 'README.md', {key: f'{value:.6g} mm' for key, value in values.items()})
+
+
 def main():
     if selftest():
         return 1
     for side, name in ((-1, 'left'), (1, 'right')):
         _export_printed_part(build_half(side=side), f'enclosure-tee-carrier-{name}')
+    sync_readme()
     return 0
 
 
