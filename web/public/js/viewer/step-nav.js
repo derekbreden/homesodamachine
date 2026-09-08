@@ -25,6 +25,13 @@ import { probeEditor } from "./component-edit.js";
 // sideways to another assembly.
 let trail = [];
 
+// One entry per step between files in the live walk. A component step carries
+// the translation from the body in its parent assembly to the model opened for
+// it; a related-model step carries no translation because it has no body in the
+// parent picture. Entries beyond the current depth remain while browser Back is
+// standing above them, so Forward can take the same view down again.
+let legs = [];
+
 function label(file) {
   return file.slice(file.lastIndexOf("/") + 1).replace(/\.step$/i, "");
 }
@@ -85,6 +92,7 @@ export const walkDepth = () => pushed;
 // model being shown, so a one-step walk is a model opened on its own.
 export function setTrail(files, pushedHistory = false) {
   trail = files.slice(0, -1);
+  legs = new Array(Math.max(0, files.length - 1)).fill(null);
   pushed = pushedHistory ? 1 : 0;
   syncCrumb(files[files.length - 1]);
 }
@@ -160,8 +168,9 @@ function syncCrumb(file) {
 // ── The move ────────────────────────────────────────────────────────────────
 // Everything the open modal shows that belongs to a particular file, brought
 // over to `file`: its camera, name, scorecard bar and the port/box chips that
-// bar mounts, and which file the editor writes to. A component drill carries
-// the live camera; every other move takes the camera stored for its file.
+// bar mounts, and which file the editor writes to. A component step carries
+// the live camera in either direction; every unrelated move takes the camera
+// stored for its file.
 async function showStep(file, push, view = null) {
   const from = state.mountedDetail && state.mountedDetail.file;
   if (!from || file === from) return false;
@@ -178,15 +187,20 @@ async function showStep(file, push, view = null) {
   if (view) {
     // Stand in the same place relative to the opened body even when its source
     // file uses its own origin instead of the assembly's machine coordinates.
-    const destination = bodyCenter();
-    const shift = destination && view.anchor
-      ? destination.sub(view.anchor)
-      : new THREE.Vector3();
+    // A breadcrumb already carries that step's shift; a new component drill
+    // derives it from the two bodies while both ends are known.
+    const destination = view.shift ? null : bodyCenter();
+    const shift = view.shift
+      ? view.shift.clone()
+      : destination && view.anchor
+        ? destination.sub(view.anchor)
+        : new THREE.Vector3();
     camera.position.copy(view.position).add(shift);
     camera.up.copy(view.up);
     controls.target.copy(view.target).add(shift);
     controls.update();
     saveCameraState(file);
+    view.appliedShift = shift.clone();
   } else {
     applyCameraState(file);
   }
@@ -203,8 +217,16 @@ async function showStep(file, push, view = null) {
 async function drill(file, view = null) {
   const from = state.mountedDetail && state.mountedDetail.file;
   if (!from || file === from) return;
+  legs.length = trail.length;
+  const leg = { from, to: file, shift: null };
+  legs.push(leg);
   trail.push(from);
-  if (!(await showStep(file, true, view))) trail.pop();
+  if (!(await showStep(file, true, view))) {
+    trail.pop();
+    legs.pop();
+    return;
+  }
+  if (view && view.appliedShift) leg.shift = view.appliedShift.clone();
 }
 
 // A neighbouring or otherwise-related model keeps the view stored for that
@@ -227,17 +249,52 @@ export async function drillToComponent(file, component) {
   });
 }
 
+// The live view carried across a known run of component steps. A descent adds
+// each parent-to-child translation; an ascent subtracts it. A path containing
+// a related-model step has no common body to hold in frame and keeps that
+// file's own saved camera instead.
+function viewAcrossWalk(files) {
+  const current = state.mountedDetail && state.mountedDetail.file;
+  if (!current) return null;
+  const here = [...trail, current];
+  const down = here.length < files.length
+    && here.every((file, i) => files[i] === file);
+  const up = files.length < here.length
+    && files.every((file, i) => here[i] === file);
+  if (!down && !up) return null;
+
+  const start = Math.min(here.length, files.length) - 1;
+  const end = Math.max(here.length, files.length) - 1;
+  const path = down ? files : here;
+  const crossed = legs.slice(start, end);
+  if (crossed.length !== end - start || crossed.some((leg, i) =>
+    !leg || !leg.shift || leg.from !== path[start + i] || leg.to !== path[start + i + 1])) {
+    return null;
+  }
+
+  const shift = new THREE.Vector3();
+  for (const leg of crossed) shift.add(leg.shift);
+  if (up) shift.multiplyScalar(-1);
+  return {
+    position: camera.position.clone(),
+    up: camera.up.clone(),
+    target: controls.target.clone(),
+    shift,
+  };
+}
+
 // popstate landed on another STEP with this modal already open. Same move, no
 // new history entry — and the trail is taken from the URL rather than guessed
 // against it, so forward, back and a pasted path all leave it describing what
 // is shown. `files` is the whole walk, outermost first.
 export async function routeToStep(files) {
   const file = files[files.length - 1];
+  const view = viewAcrossWalk(files);
   // The move is one history entry per level, so the levels it crosses are the
   // entries it crosses — forwards or back.
   pushed = Math.max(0, pushed + (files.length - 1) - trail.length);
   trail = files.slice(0, -1);
-  await showStep(file, false);
+  await showStep(file, false, view);
   syncCrumb(file);
 }
 
@@ -248,6 +305,7 @@ export async function routeToStep(files) {
 // under it and still have to come off when the modal closes.
 export async function jumpToStep(file) {
   trail = [];
+  legs = [];
   const moved = await showStep(file, false);
   if (moved) history.replaceState(null, "", "#" + stepHash([file]));
   return moved;
