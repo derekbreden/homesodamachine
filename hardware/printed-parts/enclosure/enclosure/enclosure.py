@@ -1621,14 +1621,16 @@ pump_face_backing = wall     # least printed stock behind the deepest front-face
 # the resistance the hand is overcoming. Pulling on that plane produces translation instead
 # of pitching the cartridge against its rails.
 #
-# Each pull is a plain, stout pocket in an exposed ±X flank. Fingers enter from the side and
-# hook the pocket's fore wall; its roof rises one-for-one to the open flank, so it prints
-# without a flat bridge. The pocket is entirely in the cradle and the top clamp has no hand
-# feature at all.
+# Each pull is a rounded pocket in an exposed ±X flank. Fingers enter from the side and
+# hook the pocket's fore wall; its roof rises one-for-one to the open flank. The four pocket
+# corners and the hand-contact rim share the enclosure handholds' radii. The pocket is entirely
+# in the cradle and the top clamp has no hand feature at all.
 pull_depth = 18.0            # fingertip reach inboard from each exposed flank
 pull_run = 28.0              # fore/aft clear opening between the pulling and pushing ledges
-pull_rise = 48.0             # complete side-mouth height, including the 45-degree roof
+pull_rise = 48.0             # nominal pocket height at the flank, before the rim round
 pull_floor_below_tubes = 12.0  # bed-rooted stock first; then the tube plane inside the mouth
+pull_corner_r = handhold_corner_r
+pull_edge_r = handhold_edge_r
 
 
 # The whole description of one box — what `build_pieces` cuts the four pieces from: the pack it
@@ -5665,8 +5667,8 @@ def _cradle_pulls(box):
     the fingers pull on, the aft wall the one they push on, and the cradle keeps its stock
     beyond both. The floor stays `pull_floor_below_tubes` under the tube-axis plane, leaving a
     bed-rooted lower ligament; at the inboard wall the pocket has `pull_rise - pull_depth` of
-    plumb finger room, then its roof climbs at 45 degrees to the open flank. Nothing is split
-    across the clamp joint."""
+    plumb finger room, then its roof climbs at 45 degrees to the open flank. The floor and roof
+    meet the fore and aft walls through round corners. Nothing is split across the clamp joint."""
     edge = _cap_x_span(box.pump_bay)[1]
     deep = edge - pull_depth
     z_mid = _pull_center_z(box.pack.collet_plate)
@@ -5681,8 +5683,32 @@ def _cradle_pulls(box):
     for sx in (+1.0, -1.0):
         section = ((sx * (edge + 1.0), z0), (sx * deep, z0),
                    (sx * deep, z1 - pull_depth), (sx * (edge + 1.0), z1 + 1.0))
-        out.append(_xz_prism(y0, y1, section))
+        cutter = _xz_prism(y0, y1, section)
+        corners = [edge for edge in cutter.Edges()
+                   if edge.BoundingBox().ylen < 1e-6 and edge.BoundingBox().xlen > 1.0]
+        out.append(cutter.fillet(pull_corner_r, corners))
     return out
+
+
+def _round_cradle_pull_rims(solid, box):
+    """Round the complete exposed perimeter of each hand pocket."""
+    solid = solid.clean()
+    edge = _cap_x_span(box.pump_bay)[1]
+    y0, y1 = pull_y_span(box.pack.pump_trays)
+    z0 = _pull_center_z(box.pack.collet_plate) - pull_floor_below_tubes
+    z1 = z0 + pull_rise
+    for x in (-edge, edge):
+        rim = []
+        for candidate in solid.Edges():
+            b = candidate.BoundingBox()
+            if (abs(b.xmin - x) < 1e-6 and abs(b.xmax - x) < 1e-6
+                    and b.ymin >= y0 - 1e-6 and b.ymax <= y1 + 1e-6
+                    and b.zmin >= z0 - 1e-6 and b.zmax <= z1 + 1e-6):
+                rim.append(candidate)
+        if not rim:
+            raise ValueError(f"cradle pull at X{x:g} has no exterior hand-contact edge")
+        solid = solid.fillet(pull_edge_r, rim)
+    return solid
 
 
 def pump_cartridge_figures(box):
@@ -5723,10 +5749,14 @@ def pump_cartridge_figures(box):
         "PULL_RISE": f"{pull_rise:.4g} mm",
         "PULL_RUN": f"{pull_run:.4g} mm",
         "PULL_DEPTH": f"{pull_depth:.4g} mm",
+        "PULL_CORNER_R": f"{pull_corner_r:.4g} mm",
+        "PULL_EDGE_R": f"{pull_edge_r:.4g} mm",
         "PULL_PLUMB": f"{(pull_rise - pull_depth):.4g} mm",
         "PULL_FLOOR_Z": f"{pull_floor:.5g} mm",
         "PULL_TOP_Z": f"{pull_top:.5g} mm",
         "PULL_FLOOR_LIGAMENT": f"{(pull_floor - bay_floor_z(trays)[1]):.4g} mm",
+        "PULL_RIM_FLOOR_LIGAMENT":
+            f"{(pull_floor - pull_edge_r - bay_floor_z(trays)[1]):.4g} mm",
         "PULL_CENTER_Z": f"{z_mid:.5g} mm",
         "PULL_LEDGE": f"{y0:.4g} mm",
         "PULL_AFT_LEDGE": f"{y1:.4g} mm",
@@ -6231,7 +6261,7 @@ def build_pump_cartridge(box, halves_cache=None):
         solid = solid.cut(pull)
     for bore in _cap_screws(inner, plate, box.pack.pump_trays)[1]:
         solid = solid.cut(bore)
-    return _unified(solid)
+    return _unified(_round_cradle_pull_rims(solid, box))
 
 
 def _pump_cartridge_gross(box, halves_cache=None):
