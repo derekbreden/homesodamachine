@@ -442,22 +442,37 @@ display_pcb_cut_through = 3.0    # extra depth past the facet back, cutting a so
 # what it carries is one bead's start, not a load.
 ridge_wall_t = 3.0               # the rib under `pcb_ridge`, measured across it
 # THE RIB RUNS WALL TO WALL, so the loom that crosses it is bored through it. SIG-7 is the
-# enclosure display's own run — four 22 AWG in the 1/2" PET expandable braid `ledger/bom.md` §11
-# buys (`assembly/cable-assemblies.md`) — and a braid of that kind is BOUGHT by its nominal and
-# PASSES at what it opens to. The bore takes the opened figure, which is the braid's own ceiling,
-# so a loom never has to be squeezed through one. Nothing here is a fit: the bore locates
-# nothing, carries nothing, and the loom is dressed after it is through.
+# enclosure display's own run — four 22 AWG in ONE flat ribbon, in the 1/2" PET expandable braid
+# `ledger/bom.md` §11 buys (`assembly/cable-assemblies.md`). AN EXPANDABLE BRAID OPENS OVER WHAT
+# IS INSIDE IT AND NOTHING ELSE, and what is inside this one is a single 4P ribbon: it lies at or
+# under the nominal the sleeve is bought by and never approaches the 50% ceiling that figure
+# opens to. So the bore is the nominal with air all round it. Nothing here is a fit: the bore
+# locates nothing, carries nothing, and the loom is dressed after it is through.
 cable_sleeve_nom = 12.7          # 1/2" PET expandable braid, SIG-7's own
-cable_sleeve_open = 1.5 * cable_sleeve_nom   # a 50% expandable braid's ceiling — [19.05 mm](CABLE_BORE)
+cable_bore_air = 1.0             # all round it, because this is a pass and not a seat
+cable_bore_dia = cable_sleeve_nom + 2.0 * cable_bore_air   # [14.7 mm](CABLE_BORE)
 # THE CENTRE STATION IS THE PUMP JACK: a RiteAV RJ11 keystone jack, the module the +Y wall
 # holds for the umbilical, in this rib's centreline where a hand reaching up through the empty
-# pump bay finds it, its receptacle boss rooted on the plate cap's crown. SIG-7 crosses the
-# same rib on the -X side with solid stock between its opened braid and that boss. On +X, the
-# fixed J13-to-jack lead returns to the main board through one full-depth cable clip rooted on
-# this rib's cavity face. Nothing on the removable pump cartridge is clipped to the enclosure.
-display_loom_x_offset = -32.0
+# pump bay finds it, its receptacle boss rooted on the plate cap's crown. BOTH CROSSINGS STAND
+# ON +X, WHICH IS THE SIDE BOTH RUNS ARRIVE ON: SIG-7 comes forward along that flank from the
+# power column and passes the rib through its own bore, with solid stock between that bore and
+# the receptacle's boss; the fixed J13-to-jack lead comes down the same flank, turns the corner
+# and runs back west into one full-depth cable clip rooted on this rib's cavity face. Nothing on
+# the removable pump cartridge is clipped to the enclosure.
+display_loom_x_offset = 32.0
 pump_jack_clip_edge_land = 12.0
 pump_jack_clip_channel_centre = 7.0 * _cable_clip.GRID
+# AND THE FLANK CARRIES THE REST OF THAT RUN. What the ridge clip guides toward +X turns the
+# corner onto front-top's own +X face and runs aft to the main-board wall, so that face takes the
+# same unembedded clip at the same channel height, standing off the face `front_top_flank_t`
+# leaves. WHAT BOUNDS A STATION IS WHAT ALREADY STANDS ON THAT FACE:
+# ahead, the ridge clip's own proud face, which is where the corner turn ends; behind, the +X
+# Wago tower, which stands its own engagement off `interior_x` and so into this face's air. The
+# tower leaves one short band ahead of it and one long band aft of it, and the first station is
+# short because its band is. Stated as `(y0, run)` each, in the flank's own +Y order.
+flank_clip_stations = ((94.0, 5.0 * _cable_clip.GRID),
+                       (137.0, _cable_clip.RUN),
+                       (179.0, _cable_clip.RUN))
 # The cover plate and the two screws through it — the same DIN 912 M3 cap screw every seam in
 # this machine takes, in the same ⌀`head_cbore_dia` flat-bottomed counterbore, landing
 # `display_cover_seat_recess` under the 45° face so the plane closes over it.
@@ -2934,14 +2949,15 @@ def pcb_ridge(outer):
 
 def _ridge_stations(outer, plate, bay):
     """The two electrical stations in the rib's straight section, `(x, y, z)` each: the pump
-    jack's aperture centre on the box centreline, and the enclosure-display loom's bore west of
+    jack's aperture centre on the box centreline, and the enclosure-display loom's bore east of
     it.
 
     THE JACK'S RECEPTACLE STANDS ON THE PLATE CAP'S CROWN. Its boss's lower wall lands on
     `bay[2]`, which puts the aperture centre `POCKET_H / 2 + RECEPTACLE_WALL - POCKET_RISE`
     above that plane, so on this Z-bedded piece the boss roots on the crown and the rib and
     nothing of it hangs. The loom keeps the height it had on the centreline and moves only in
-    X, far enough west that its opened braid and the boss keep solid stock between them."""
+    X — east, onto the flank it arrives on, and far enough that its sleeve and the boss keep
+    solid stock between them."""
     ry, rz = pcb_ridge(outer)
     fore, foot = plate["aft_y"], bay[2]
     jog = ry + rz - fore
@@ -6149,14 +6165,15 @@ def _ridge_wall(inner, outer, plate, bay, funnel):
     TWO THINGS CROSS IT. The pump jack owns the centreline a hand finds behind the display: a
     RiteAV keystone receptacle (`_ridge_keystone`) whose aperture passes this rib, whose pocket,
     catches and boss stand aft of it in the cavity, and whose boss roots on the plate cap's
-    crown. The enclosure-display loom keeps its height and its teardropped `cable_sleeve_open`
-    bore but moves west. Both stay in the straight run, where the rib has two parallel faces,
-    and both remain below the ridge ramp.
+    crown. The enclosure-display loom keeps its height and its teardropped `cable_bore_dia`
+    bore but moves east, onto the flank it arrives on. Both stay in the straight run, where the
+    rib has two parallel faces, and both remain below the ridge ramp.
 
     THE FIXED PUMP LEAD IS RETAINED ON THIS WALL. One unembedded cable clip stands on the cavity
     face near +X and runs toward that edge, guiding the J13-to-jack lead to the main-board
     wall. The clip belongs to the enclosure-side lead; the removable cartridge and its plug are
-    free of it."""
+    free of it. Where that lead leaves this rib the flank takes it over the corner, in the same
+    clip at the same channel height (`_flank_cable_clips`)."""
     ry, rz = pcb_ridge(outer)
     fore, foot, t = plate["aft_y"], bay[2], ridge_wall_t
     ramp = ry + rz                    # the hole's end wall, y + z
@@ -6176,7 +6193,7 @@ def _ridge_wall(inner, outer, plate, bay, funnel):
          aft_crown,                                             # the one roof's aft crown
          (fore + t, foot)])
     jack, loom = _ridge_stations(outer, plate, bay)
-    slab = slab.cut(_teardrop_y(cable_sleeve_open / 2.0, loom[0], loom[2],
+    slab = slab.cut(_teardrop_y(cable_bore_dia / 2.0, loom[0], loom[2],
                                 fore - 1.0, fore + t + 1.0))
     slab = _ridge_keystone(slab, jack, t)
 
@@ -6192,6 +6209,56 @@ def _ridge_wall(inner, outer, plate, bay, funnel):
         embed=0.0,
         wall_thickness=t,
     ).val()
+
+
+def _flank_cable_clips(piece, box):
+    """The +X flank's share of the run the ridge clip starts — `flank_clip_stations`, each the
+    same unembedded clip, standing on front-top's own flank face and running aft.
+
+    THE CHANNEL HEIGHT IS THE RIDGE CLIP'S, so the lead turns the corner at one Z instead of
+    climbing through it: both faces meet at that corner and the cable lies against whichever one
+    it is on. The clip's up is the piece's print-up here as it is on the rib — `along × outward`
+    is +Z for a face looking −X with the run going +Y — so the flank clips lay the same way the
+    one Derek has stands, and neither adds a print question the rib had not already answered.
+
+    EVERY STATION IS BOUNDED BY WHAT IS ALREADY ON THE FACE. Ahead of the first: the ridge clip's
+    own proud face, which is where the corner turn ends and where this face's air begins. Behind
+    it: each +X Wago tower, which stands `wago_engage` off `interior_x` and reaches into this
+    face's air over its own Y band. And the Y seam, aft of which the face is back-top's. The
+    stations are stated, so the bounds are checked rather than assumed."""
+    plate = box.pack.collet_plate
+    fx = front_top_flank_face()[1]
+    _jack, loom = _ridge_stations(box.outer, plate, box.pump_bay)
+    z_origin = loom[2] - pump_jack_clip_channel_centre
+    z_band = (z_origin, z_origin + _cable_clip.HEIGHT)
+    corner = plate["aft_y"] + ridge_wall_t + _cable_clip.DEPTH
+    towers = [(st[1] - wago_half(st[3])[0], st[1] + wago_half(st[3])[0],
+               st[2] - wago_half(st[3])[1], st[2] + wago_half(st[3])[1])
+              for st in box.pack.side_wells if st[0] > 0]
+    for y0, run in flank_clip_stations:
+        y1 = y0 + run
+        if y0 < corner - 1e-9:
+            raise ValueError(
+                f"a flank cable clip at y {y0:.2f} stands in the ridge clip's own body, which "
+                f"ends at {corner:.2f} — the corner turn has nowhere to happen")
+        if y1 > box.y_joint + 1e-9:
+            raise ValueError(
+                f"a flank cable clip reaches y {y1:.2f}, past the Y seam at {box.y_joint:.2f}")
+        for ty0, ty1, tz0, tz1 in towers:
+            if y0 < ty1 and y1 > ty0 and z_band[0] < tz1 and z_band[1] > tz0:
+                raise ValueError(
+                    f"a flank cable clip over y {y0:.2f}..{y1:.2f} runs into the +X Wago tower "
+                    f"over y {ty0:.2f}..{ty1:.2f}")
+        piece = _cable_clip.apply(
+            piece,
+            origin=(fx, y0, z_origin),
+            outward=(-1.0, 0.0, 0.0),
+            along=(0.0, 1.0, 0.0),
+            embed=0.0,
+            wall_thickness=front_top_flank_t,
+            run=run,
+        ).val()
+    return piece
 
 
 def _teardrop_y(r, x, z, y0, y1, up=1.0):
@@ -9053,6 +9120,10 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         # it — and after the facet's own cuts, which the half took before it was split.
         piece = piece.fuse(_ridge_wall(
             inner, outer, box.pack.collet_plate, box.pump_bay, box.pack.funnel))
+        # And that clip's continuation round the corner, on the flank this piece's own section
+        # already put there. After `_side_wells`, whose tower is one of the two things bounding
+        # a station on that face — a clip fused before the well was cut would be cut by it.
+        piece = _flank_cable_clips(piece, box)
         if box.pack.tee_carrier:
             piece = piece.fuse(_tee_carrier_fixed_features(
                 inner, box.pack.collet_plate, box.pack.tee_carrier))
@@ -10186,7 +10257,8 @@ def main():
         "PLUG_DIA": f"{plug_dia:.4g} mm",
         "RIDGE_WALL_T": f"{ridge_wall_t:.4g} mm",
         "RIDGE_LEN": f"{display_pcb_x:.4g} mm",
-        "CABLE_BORE": f"{cable_sleeve_open:.4g} mm",
+        "CABLE_BORE": f"{cable_bore_dia:.4g} mm",
+        "CABLE_SLEEVE_NOM": f"{cable_sleeve_nom:.4g} mm",
         "DISPLAY_LOOM_X": f"{display_loom_x_offset:+.4g} mm",
         "PUMP_JACK_Z": (f"{_ridge_stations(bo, plate, box.pump_bay)[0][2]:.5g} mm"
                         if plate else "no bay on this pack"),
@@ -10194,6 +10266,10 @@ def main():
         "PUMP_JACK_BOSS_REACH": f"{_keystone.DEPTH - ridge_wall_t:.4g} mm",
         "PUMP_JACK_BODY": f"{_keystone.BODY_DEPTH:.4g} mm",
         "PUMP_JACK_CLIP_LAND": f"{pump_jack_clip_edge_land:.4g} mm",
+        "FLANK_CLIPS": f"{len(flank_clip_stations)}",
+        "FLANK_CLIP_Y": ", ".join(
+            f"{y0:.4g}–{y0 + run:.4g}" for y0, run in flank_clip_stations) + " mm",
+        "FLANK_CLIP_FIRST_RUN": f"{flank_clip_stations[0][1]:.4g} mm",
         "CABLE_CLIP_DEPTH": f"{_cable_clip.DEPTH:.4g} mm",
         "CABLE_CLIP_RUN": f"{_cable_clip.RUN:.4g} mm",
         "CABLE_CLIP_RAMP": f"{_cable_clip.RAMP:.4g} mm",
