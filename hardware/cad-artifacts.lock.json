@@ -2,8 +2,8 @@
   "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed \u2014 web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
   "release": {
     "tag": "cad-artifacts",
-    "asset": "cad-81df70a3bdea8098.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-81df70a3bdea8098.tar.gz",
+    "asset": "cad-8f5b66e7382b3e2a.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-8f5b66e7382b3e2a.tar.gz",
     "objects": "s-"
   },
   "source": {
@@ -13,7 +13,6 @@
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, its rule would not cut, or an interactive publication explicitly deferred that rule.",
     "paths": [],
     "members": [
-      "hardware/.cache/pump-roof/enclosure-pump-cartridge.step",
       "hardware/assembly/cards/deck.cover.png",
       "hardware/assembly/cards/deck.pdf",
       "hardware/assembly/scenes/glb/back-half.glb",
@@ -342,12 +341,11 @@
     ]
   },
   "bundle": {
-    "sha256": "81df70a3bdea80987c8ef1d430f47bd7be34b354288260a72e9b31e2da2429a1",
-    "bytes": 153578288,
-    "solids": 344
+    "sha256": "8f5b66e7382b3e2a4c2ec2240aafbf77ec731792011901b3f7233d5d70e19bdf",
+    "bytes": 153504556,
+    "solids": 343
   },
   "solids": {
-    "hardware/.cache/pump-roof/enclosure-pump-cartridge.step": "4f3c521165747f039ff44b338de914a5e9eece6e4fe0e39a3a65bedeed90c67d",
     "hardware/assembly/cards/deck.cover.png": "398873930d0b1df1c01ca3765c240e59705424f762d4991f00c8dfc84171ad4f",
     "hardware/assembly/cards/deck.pdf": "5340e3d3e5fb7c7885c7e952df5fe9b725df84cac071a1560b4c52a19b7f0ad5",
     "hardware/assembly/cards/img/asse1022-chain.png": "b4496207881e32ddf0f50d4b39b50bacb84bea32ebed80f955b133bf71c98fa1",
