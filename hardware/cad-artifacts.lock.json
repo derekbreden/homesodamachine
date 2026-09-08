@@ -2,8 +2,8 @@
   "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed \u2014 web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
   "release": {
     "tag": "cad-artifacts",
-    "asset": "cad-755dd954f17ec732.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-755dd954f17ec732.tar.gz",
+    "asset": "cad-d4bae85ae0c8f0c4.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-d4bae85ae0c8f0c4.tar.gz",
     "objects": "s-"
   },
   "source": {
@@ -12,12 +12,15 @@
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, its rule would not cut, or an interactive publication explicitly deferred that rule.",
     "paths": [
-      "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.lint-answers"
+      "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.lint-answers",
+      "web/public/checks.json"
     ],
     "members": [
       "hardware/.cache/pump-roof/enclosure-pump-cartridge.step",
       "hardware/assembly/cards/deck.cover.png",
       "hardware/assembly/cards/deck.pdf",
+      "hardware/assembly/cards/img/scene-front-top.png",
+      "hardware/assembly/cards/img/scene-front-top.png.scene.json",
       "hardware/assembly/scenes/glb/back-half.glb",
       "hardware/assembly/scenes/glb/back-top.glb",
       "hardware/assembly/scenes/glb/cap-lid-fill.glb",
@@ -344,14 +347,14 @@
     ]
   },
   "bundle": {
-    "sha256": "755dd954f17ec732d81f528c11ed0ad3f50bdeade20ce72d56f9fa7327a14ed7",
-    "bytes": 153351707,
+    "sha256": "d4bae85ae0c8f0c462939ce5f232bfa4a8ae64e7bb72e025e3692671c3dcd2e1",
+    "bytes": 153370863,
     "solids": 344
   },
   "solids": {
     "hardware/.cache/pump-roof/enclosure-pump-cartridge.step": "4f3c521165747f039ff44b338de914a5e9eece6e4fe0e39a3a65bedeed90c67d",
     "hardware/assembly/cards/deck.cover.png": "398873930d0b1df1c01ca3765c240e59705424f762d4991f00c8dfc84171ad4f",
-    "hardware/assembly/cards/deck.pdf": "548f93c1ab9fbcb7de874b13d12b7945f3a1a0204fcf4812841b9ab0646f1a6d",
+    "hardware/assembly/cards/deck.pdf": "801d0c950e1eabb633ee449d6d82b48a00d66549a1b4b54fc039265040ad0089",
     "hardware/assembly/cards/img/asse1022-chain.png": "b4496207881e32ddf0f50d4b39b50bacb84bea32ebed80f955b133bf71c98fa1",
     "hardware/assembly/cards/img/asse1022-chain.png.scene.json": "a1e16e37bf86a1bdd48b2fbea6f9666121c7ceb80a7bf2535e57149f630e50aa",
     "hardware/assembly/cards/img/coil-mandrel.png": "940824e2f4838d7165665784dddbc4fadba461f1e99435a877bfa8daed8714d0",
@@ -410,8 +413,8 @@
     "hardware/assembly/cards/img/scene-cold-core-open.png.scene.json": "8b06744ef0446760451530fc93c8cd40898bc80240d08d6d91910c5631e86300",
     "hardware/assembly/cards/img/scene-cold-core.png": "078eece92825d4369ec6bb0c9ca1b5e1df2169b20515bd3f70d2b8826e1c4761",
     "hardware/assembly/cards/img/scene-cold-core.png.scene.json": "86acfcf79c7bb47bc8f93ceb512d69ca8ad3a0b611d5f2763e89b5ceaa62683d",
-    "hardware/assembly/cards/img/scene-front-top.png": "39348c64b619954a02a7259b91d7b263b5ddb9de15ef15b05ea397e286c98a3e",
-    "hardware/assembly/cards/img/scene-front-top.png.scene.json": "14f89769ee302e321dddf23c89820b9661f888b5f5f941de9efaae4fd36ae5da",
+    "hardware/assembly/cards/img/scene-front-top.png": "cade8bf40e00620a74192ac18f12b64f2b9edc718b21664d5d9f76e5c18c5a03",
+    "hardware/assembly/cards/img/scene-front-top.png.scene.json": "e9e7df2d9560ccf7bc79ba8f5deaf3317463c52c51af76487bd515bec33b8ad0",
     "hardware/assembly/cards/img/scene-funnel-drain.png": "910bedca517f9e98d3530940cd20740c65aa84dd6b78f442882b0041557a8e40",
     "hardware/assembly/cards/img/scene-funnel-drain.png.scene.json": "6b12343fc06be59060a6fd189aa58a654dcc02402c436402005a716d0c7c6f85",
     "hardware/assembly/cards/img/scene-pump-cartridge.png": "3cd474e240858bb7e957114ef51af0f4eff8f54c7fd35847673ba39a8a2c21fd",
