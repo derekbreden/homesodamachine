@@ -1,13 +1,10 @@
 #!/usr/bin/env python3
 """Measure the support-removal topology in a production-profile Bambu G-code export.
 
-The CAD assembly can prove that a ramp exists, but only the slicer knows whether it emitted a
-support, where that support begins, and how many separate interfaces a hand has to remove. This
-reader follows ``Support`` and ``Support interface`` extrusion paths through the layers and
-reports what that slice laid: each connected support body, where it starts, how far it
-climbs before its first model interface, and how many separate interface islands a hand meets.
-These are measurements of one slice. They do not rank a design, and nothing here says a
-support is a fault.
+This reader follows ``Support`` and ``Support interface`` extrusion paths through the layers
+and reports each connected support body, where it starts, how far it climbs before its first
+model interface, and its separate interface islands. These are measurements of one slice.
+Removal effort and contact finish are observations from the physical print.
 
 Typical use after extracting a history-only production profile and slicing a current enclosure
 STL through it::
@@ -81,13 +78,6 @@ class DisjointSet:
 class LayerNode:
     z: float
     cells: set[tuple[int, int]]
-
-
-# READING A ROOT. `root` says whether a body starts on the print bed or on model material,
-# and what that means depends on which face the piece prints on. `enclosure-back-top` prints
-# ceiling-down, so its ceiling slab IS the piece's own first layers: a body rooted on that slab
-# started on the flat the piece laid, which reads the same way a bed root does on a piece
-# printed floor-down. The field records where the body started; it does not grade it.
 
 
 def _sha256(path: Path) -> str:
