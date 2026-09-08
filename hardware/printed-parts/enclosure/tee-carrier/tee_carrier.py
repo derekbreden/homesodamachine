@@ -1,13 +1,14 @@
 """Two PET-GF carrier halves with closed sliding handholds and a central M3 lap joint.
 
 The four tees bear on one Y plane and are tied twice each. Each half carries one spring seat
-and one deep service tab. Two M3 x 8 screws pass through the right half's counterbores
-into M3 x 4 heat-set inserts in the left half. The heads face aft, into the gap between coils.
+and one deep service tab. Two M3 x 8 screws pass through the left half's counterbores
+into M3 x 4 heat-set inserts in the right half. The heads face the empty cartridge bay.
 
 All geometry is in the enclosure frame: +Y aft, +Z up. Each half enters through its own flank
-opening from outside. The handholds' top and bottom faces guide Y travel; their opposed outer
-rims capture X once the central lap is screwed together. Each rim overlaps the opening at
-every working position, and each finger recess has its own closed back.
+opening from outside behind four seated tees. The central lap stands above their run ends.
+The fixed body's flat lands and the handholds' top and bottom faces guide Y travel; opposed
+outer rims capture X once the lap is screwed together. Each rim overlaps the opening at every
+working position, and each finger recess has its own closed back.
 """
 
 from __future__ import annotations
@@ -76,12 +77,13 @@ class CarrierSpec:
     grip_edge_r: float = 3.0
     grip_rim_corner_r: float = 5.0
     grip_rim_edge_r: float = 1.5
-    joint_half_x: float = 6.0
+    grip_root_overlap: float = 0.2
+    joint_half_x: float = 9.0
     joint_root_x: float = 4.0
-    joint_receiver_t: float = 5.0
-    joint_lap_t: float = 3.0
+    joint_receiver_t: float = 6.0
+    joint_lap_t: float = 6.0
     joint_head_depth: float = 3.0
-    joint_screw_offsets_z: tuple[float, float] = (-10.0, 10.0)
+    joint_screw_xs: tuple[float, float] = (-4.5, 4.5)
     joint_screw_length: float = 8.0
     bed_x: float = 325.0
     bed_y: float = 320.0
@@ -115,10 +117,17 @@ class CarrierSpec:
 
     @property
     def entry_slot_y(self):
-        fore = min(self.joint_face_y + self.release_offset_y,
-                   self.joint_fore_y + self.connected_offset_y)
+        fore = self.web_fore_y + self.release_offset_y
         aft = self.web_fore_y + self.spring_pad_t + self.connected_offset_y
         return fore - self.slide_air, aft + self.slide_air
+
+    @property
+    def joint_z(self):
+        return self.tee_axis_z + tee.RUN_HALF + self.slide_air, self.web_z[1]
+
+    @property
+    def grip_root_x(self):
+        return self.web_x[1] - self.grip_root_overlap, self.grip_back_x + self.grip_root_overlap
 
     @property
     def state_offsets_y(self):
@@ -126,11 +135,11 @@ class CarrierSpec:
 
     @property
     def joint_face_y(self):
-        return self.joint_head_seat_y - self.joint_lap_t
+        return self.web_aft_y - self.joint_lap_t
 
     @property
     def joint_head_seat_y(self):
-        return self.web_aft_y - self.joint_head_depth
+        return self.joint_fore_y + self.joint_head_depth
 
     @property
     def joint_fore_y(self):
@@ -143,7 +152,7 @@ class CarrierSpec:
 
 DEFAULT_SPEC = CarrierSpec(
     tee_xs=(-79.82, -20.07, 20.07, 79.82), tee_axis_z=190.245,
-    web_x=(-94.0, 94.0), web_fore_y=109.718, web_z=(171.245, 209.245),
+    web_x=(-94.0, 94.0), web_fore_y=109.718, web_z=(171.245, 220.165),
     spring_xs=(-49.945, 49.945), spring_axis_z=190.245,
     tab_outer_x=110.65, tab_z=(177.245, 217.245),
 )
@@ -316,15 +325,15 @@ def _service_tabs(spec):
              and pocket_y[0] - 1e-6 <= edge.Center().y <= pocket_y[1] + 1e-6
              and spec.tab_z[0] - 1e-6 <= edge.Center().z <= spec.tab_z[1] + 1e-6]
     body = cq.Workplane(obj=body.val().fillet(spec.grip_edge_r, edges))
-    root = _box(spec.web_x[1] - 0.2, spec.grip_back_x + 0.2,
+    root = _box(*spec.grip_root_x,
                 *spec.tab_y, spec.grip_z[0], spec.web_z[1])
     body = body.union(root)
     return body.mirror('YZ'), body
 
 
 def joint_sites(spec=DEFAULT_SPEC):
-    return tuple((0.0, spec.joint_head_seat_y, spec.tee_axis_z + dz)
-                 for dz in spec.joint_screw_offsets_z)
+    z = sum(spec.joint_z) / 2.0
+    return tuple((x, spec.joint_head_seat_y, z) for x in spec.joint_screw_xs)
 
 
 def _cylinder_y(diameter, y0, y1, x, z):
@@ -360,22 +369,22 @@ def build_half(spec=DEFAULT_SPEC, side=1):
                             bounds.zmin - 1.0, bounds.zmax + 1.0))
     if side < 0:
         root = split - spec.joint_root_x
-        body = body.union(_box(root, split, spec.joint_fore_y, spec.web_aft_y, *spec.web_z))
+        body = body.union(_box(root, split, spec.joint_fore_y, spec.web_aft_y, *spec.joint_z))
         body = body.union(_box(root, spec.joint_half_x, spec.joint_fore_y,
-                               spec.joint_face_y, *spec.web_z))
+                               spec.joint_face_y, *spec.joint_z))
     else:
         body = body.union(_box(split, spec.joint_half_x, spec.joint_face_y,
-                               spec.web_aft_y, *spec.web_z))
+                               spec.web_aft_y, *spec.joint_z))
     for x, seat_y, z in joint_sites(spec):
         body = body.cut(_cylinder_y(enclosure_interface.screw_clear_dia,
                                     spec.joint_fore_y - 1.0, spec.web_aft_y + 1.0, x, z))
-        if side > 0:
+        if side < 0:
             body = body.cut(_cylinder_y(enclosure_interface.head_cbore_dia,
-                                        seat_y, spec.web_aft_y + spec.slide_air, x, z))
+                                        spec.joint_fore_y - spec.slide_air, seat_y, x, z))
         else:
             body = body.cut(_cylinder_y(enclosure_interface.heatset_dia,
-                                        spec.joint_face_y - enclosure_interface.heatset_len,
-                                        spec.joint_face_y + spec.slide_air, x, z))
+                                        spec.joint_face_y - spec.slide_air,
+                                        spec.joint_face_y + enclosure_interface.heatset_len, x, z))
     return body
 
 
@@ -402,6 +411,43 @@ def finger_probes(spec=DEFAULT_SPEC, offset_y=0.0):
     return tuple(probes)
 
 
+def insertion_envelopes(spec=DEFAULT_SPEC, side=1):
+    """Rectangular bounds enclosing each half's web, joint, spring seat, root, cup and rim.
+
+    The assembly reads their complete lateral sweeps against the fixed body and preloaded
+    hardware. The cup and rim have separate bounds; the rim stays outside the enclosure.
+    """
+    split = -spec.joint_half_x
+    web_x = (spec.web_x[0], split) if side < 0 else (split, spec.web_x[1])
+    rows = [('web', web_x, (spec.web_fore_y, spec.web_aft_y), spec.web_z)]
+    radius = spec.spring_pad_d / 2.0
+    x = spec.spring_xs[0 if side < 0 else 1]
+    rows.append(('spring seat', (x - radius, x + radius),
+                 (spec.web_fore_y, spec.web_fore_y + spec.spring_pad_t),
+                 (spec.web_z[0], spec.spring_axis_z + radius)))
+    if side < 0:
+        rows.extend((
+            ('joint root', (split - spec.joint_root_x, split),
+             (spec.joint_fore_y, spec.web_aft_y), spec.joint_z),
+            ('joint tongue', (split - spec.joint_root_x, spec.joint_half_x),
+             (spec.joint_fore_y, spec.joint_face_y), spec.joint_z)))
+    else:
+        rows.append(('joint', (split, spec.joint_half_x),
+                     (spec.joint_face_y, spec.web_aft_y), spec.joint_z))
+
+    def handed(xs):
+        return xs if side > 0 else (-xs[1], -xs[0])
+
+    rows.extend((
+        ('grip root', handed(spec.grip_root_x), spec.tab_y,
+         (spec.grip_z[0], spec.web_z[1])),
+        ('cup', handed((spec.grip_back_x, spec.exterior_x + spec.slide_air)),
+         spec.grip_y, spec.grip_z),
+        ('rim', handed((spec.exterior_x + spec.slide_air, spec.tab_outer_x)),
+         spec.rim_y, spec.rim_z)))
+    return tuple((name, _box(*xs, *ys, *zs).val()) for name, xs, ys, zs in rows)
+
+
 def interface(spec=DEFAULT_SPEC):
     slot_y = (spec.grip_y[0] + spec.release_offset_y,
               spec.grip_y[1] + spec.park_offset_y)
@@ -413,6 +459,14 @@ def interface(spec=DEFAULT_SPEC):
         'park_offset_y': spec.park_offset_y,
         'web_fore_y': spec.web_fore_y,
         'web_aft_y': spec.web_aft_y,
+        'web_x': spec.web_x,
+        'web_z': spec.web_z,
+        'joint_z': spec.joint_z,
+        'joint_entry_fore_y': min(spec.joint_face_y + spec.release_offset_y,
+                                  spec.joint_fore_y + spec.connected_offset_y) - spec.slide_air,
+        'joint_work_x': (-spec.joint_half_x - spec.joint_root_x - spec.slide_air,
+                         spec.joint_half_x + spec.slide_air),
+        'joint_work_fore_y': spec.joint_fore_y + spec.release_offset_y - spec.slide_air,
         'release_fore_stop_y': slot_y[0],
         'squeeze_reference_aft_y': spec.web_aft_y,
         'park_aft_stop_y': slot_y[1],
@@ -436,7 +490,8 @@ def interface(spec=DEFAULT_SPEC):
         'tab_slot_z': spec.tab_z,
         'tab_pad_x': ((-spec.tab_outer_x, -spec.grip_back_x - spec.grip_back_t),
                      (spec.grip_back_x + spec.grip_back_t, spec.tab_outer_x)),
-        'service_slot_x': (spec.grip_back_x - spec.slide_air, spec.tab_outer_x + 1.0),
+        'service_slot_x': (min(spec.grip_back_x, spec.grip_root_x[0]) - spec.slide_air,
+                           spec.tab_outer_x + 1.0),
         'service_slot_y': slot_y,
         'service_slot_z': slot_z,
         'entry_slot_y': spec.entry_slot_y,
@@ -480,9 +535,10 @@ def selftest(spec=DEFAULT_SPEC):
     contact = halves[-1].intersect(halves[1].translate((0.0, -0.001, 0.0))).Volume()
     if contact < 0.1:
         errors.append('the lap has no mating bearing face')
-    if abs(spec.joint_head_seat_y - spec.joint_screw_length - spec.joint_fore_y) > 1e-6:
-        errors.append('joint screw does not finish flush with the carrier fore face')
-    if spec.joint_receiver_t <= enclosure_interface.heatset_len:
+    screw_tip_y = spec.joint_head_seat_y + spec.joint_screw_length
+    if not (spec.joint_face_y + enclosure_interface.heatset_len <= screw_tip_y < spec.web_aft_y):
+        errors.append('joint screw does not engage the full insert with aft backing')
+    if spec.joint_lap_t <= enclosure_interface.heatset_len:
         errors.append('the receiver has no material behind the insert')
     right_park = halves[1].translate((0.0, spec.park_offset_y, 0.0))
     left_release = halves[-1].translate((0.0, spec.release_offset_y, 0.0))
