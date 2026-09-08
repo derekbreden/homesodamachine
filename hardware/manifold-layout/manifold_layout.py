@@ -1335,7 +1335,7 @@ def report(assy: cq.Assembly) -> dict:
         if how == "spine":
             middle = spine_middle_length(SPINE[cid])
             note = (f"{math.pi * SPINE_DRAWN_R + middle:.2f} mm — two R{SPINE_R:g} "
-                    f"quarter-turns and a {middle:.2f} mm flexible middle")
+                    f"quarter-turns and a {middle:.2f} mm straight middle at release")
         elif how == "turn":
             note = f"{QUARTER_LEN:.2f} mm — one 90° turn at R{BEND_R:g}"
             if cid in SBENDS:
