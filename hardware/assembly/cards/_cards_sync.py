@@ -499,10 +499,10 @@ def sub_assemblies(m: Machine):
     assert len(cart_stubs) == len(m.box.collet_plate["holes"]), (
         f"the pump cartridge carries {len(cart_stubs)} barb tube(s) and the collet plate is bored "
         f"{len(m.box.collet_plate['holes'])} hole(s) — SA-09 stands one stub in every hole")
-    # WHAT EACH OF THEM STANDS PROUD OF ITS BARB, across the printed release face and its
-    # working gaps. One plate presses one plane, so the four are one figure or the card has no
-    # sentence: a stub the plate is not in the berth of releases nothing.
-    stands = {round(m.a.bb(n).ymax - m.a.bb(n).ymin, 6) for n in cart_stubs}
+    # The free cartridge's tube tips bottom with the cartridge fully seated and carrier aft.
+    # At the fore stop the same tubes bottom one carrier stroke short of cartridge seating.
+    stands = {round(m.box.collet_plate['seated_tube_bottom_y'] - m.a.bb(n).ymin, 6)
+              for n in cart_stubs}
     assert len(stands) == 1, (
         f"the four barb tubes stand {sorted(stands)} proud of their barbs — SA-09 quotes one "
         f"figure for all four, and one collet plate stands in one berth")

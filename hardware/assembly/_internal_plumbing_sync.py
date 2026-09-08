@@ -115,6 +115,7 @@ def main():
         # `_cards_ip` puts on IP-03 — a station added to the topology moves both.
         "MANIFOLD_VALVES": f"{sum(1 for n in _ml.P if n.startswith('V-'))}",
         "MANIFOLD_TEES": f"{sum(1 for n in _ml.P if n.startswith('Y-'))}",
+        "PUMP_TUBE_PROJECTION": f"{_ml.PUMP_TUBE_PROJECTION:.4g} mm",
         # What each of the flow meter's anchors leave alone at the outer end of its barrel —
         # the push-fit ring, off the layout that strikes the anchor's own band on it.
         "DIGITEN_COLLET_FREE": f"{_ea.DIGITEN_COLLET_FREE:.4g} mm",

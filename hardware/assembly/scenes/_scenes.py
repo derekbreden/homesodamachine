@@ -228,7 +228,7 @@ SCENES = (
         "pump-cartridge", "Pump cartridge",
         roots=("enclosure-pump-cartridge", "enclosure-pump-cap"), inner=(),
         flip=None, also=(), later=(),
-        cam=(0.9, -0.75, 0.55), up=(0, 0, 1), zoom=2.9, look="centre",
+        cam=(0.9, 0.75, 0.55), up=(0, 0, 1), zoom=2.9, look="centre",
         note="Upright on its lower cradle, the same pose in which it is assembled and installed: "
              "both complete pumps drop through straight wells until their stamped brackets bear "
              "on the cradle, then the small top clamp lowers over both octagonal bosses and takes "

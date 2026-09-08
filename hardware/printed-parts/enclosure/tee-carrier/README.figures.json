@@ -1,5 +1,6 @@
 {
   "/hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py": {
+    "AFT_COLLET_GAP": "0.5 mm",
     "FINGER_DEPTH": "14.705 mm",
     "FINGER_HEIGHT": "40 mm",
     "FINGER_RUN": "22 mm",
@@ -13,6 +14,7 @@
     "GRIP_WIDTH": "215 mm",
     "GUIDE_AIR": "0.15 mm",
     "GUIDE_LENGTH": "42 mm",
+    "GUIDE_TRAVEL": "2.15 mm",
     "RIM_BED_GAP": "3.705 mm"
   }
 }

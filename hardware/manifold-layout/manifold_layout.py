@@ -71,8 +71,8 @@ That flex joint lets the tee travel with the pump cartridge while the valve stay
 `BARB_STANDOFF` is the fore/aft projection
 where a tee meets a pump barb: `pump_station_lead` holds the moving pump end clear of the fixed
 plate-guide wall and `BARB_PLATE_BERTH` carries the collet plate that releases it. The fitted pump
-barb and fixed tee share their tube-centre plane, so `BARB_TUBE_LEN` is the straight's true
-centreline length. A barb is not a quick-connect; the four runs off the barbs are what the pump
+barb and carried tee share their tube-centre plane; `BARB_TUBE_LEN` is the exposed straight
+at the fore stop, ending on the fully depressed sleeve nose. A barb is not a quick-connect; the four runs off the barbs are what the pump
 cartridge releases against. The deck's height rides on the complete fore/aft projection one for
 one, and so does what the two source runs have left to step in.
 
@@ -176,17 +176,17 @@ FORE_VALVES = frozenset(("V-E", "V-F", "V-H", "V-I"))
 # The two outer aft valves stand inboard of their pump-connected tees. Their hairpins
 # lean between those axes; the room outside the coils belongs to the closed finger cups.
 OUTER_AFT_INSET = 6.0
-BARB_PLATE_BERTH = 5.7  # steel, its two airs and the millimetre off the barbs' own plane
+# Locate the two-stop carrier range fore of the aft valves' full post-insertion envelope.
+CARRIER_DATUM_SHIFT = -1.75
+BARB_PLATE_BERTH = 5.7  # pump/deck placement span around the fixed release section
 PUMP_BARB_Z = HEAD_W - _enc_if.pump_station_lead
 # World Z is this study's Y after `enclosure_assembly.pose_manifold` stands the pack. The
 # The fitted outlet height, pump drop and manifold rise place the two ends on one tube plane
 # while retaining the bracket's independent support datum.
 PUMP_Y = (kp.outlet_above_skirt_bottom - _enc_if.pump_station_drop
           - _enc_if.manifold_rise)
-# The exposed run's fore/aft projection between a pump barb and its anchor tee's branch collet.
-# Its fore portion is the moving pump end's lead; its aft portion is the steel plate's berth.
-# The deck stays where it is because the projection exactly returns what the pump station moves
-# forward.
+# The pump-to-deck placement span, measured to the reference's extended branch nose
+# with the tee body at the fore datum. `runs()` follows the sleeve's actual position.
 BARB_STANDOFF = BARB_PLATE_BERTH + _enc_if.pump_station_lead
 CROSSBAR = 0.0        # exposed tube between Y-A's and Y-B's branches. At 0 the two fittings
                       # meet face to face across the mirror plane and no tube is drawn.
@@ -204,7 +204,6 @@ PUMP_DX = INNER_X + LIMB_PITCH / 2.0         # each pump's centre off the mirror
 OUTER_X = PUMP_DX + LIMB_PITCH / 2.0         # the outer limbs'
 LIMB_STEP = (BARB_PITCH - LIMB_PITCH) / 2.0  # how far a tee steps toward its pump's own axis,
                                              # off the barb's column, when the pitch is closed
-BARB_TUBE_LEN = math.sqrt(BARB_STANDOFF ** 2 + PUMP_Y ** 2 + LIMB_STEP ** 2)
 # One straight tube leaning `LIMB_STEP` across as it climbs enters both its mouths at
 # `atan(LIMB_STEP / climb)`, so the climb the skew allows is the floor under the lead.
 BARB_LEAD_FLOOR = LIMB_STEP / math.tan(math.radians(FLAVOR_SKEW))
@@ -427,8 +426,8 @@ def flat_bodies() -> dict:
 # needs 58.4. `clashes()` measures the placed solids at full precision on every build, so the
 # number below is chosen against it and not against a reach.
 #
-# `HSM_DECK_SEP` builds another. Under the pair above the clash check goes red and names the
-# two bodies; over it the pack is taller for nothing.
+# `HSM_DECK_SEP` builds another. The carrier's fore datum leaves the aft row's
+# full post-insertion route clear while the fixed decks stay on these planes.
 DECK_SEP = float(os.environ.get("HSM_DECK_SEP", 59.4))
 FOLD_BINDS = ("a folded valve's underside", "the spades of the one beneath it")
 HINGE_Z = DECK_Z + DECK_SEP / 2.0
@@ -439,8 +438,8 @@ FOLD_AXIS = (cq.Vector(0.0, HINGE_Y, HINGE_Z), cq.Vector(1.0, HINGE_Y, HINGE_Z))
 # As the collets approach, the quarter circles open and the tangent middle shortens.
 # The complete developed length and both axial port tangents stay fixed.
 SPINE_R = float(os.environ.get("HSM_SPINE_R", MIN_BEND))
-SPINE_RELEASE_SEP = DECK_SEP - CARRIER_RELEASE
-SPINE_MIN_SEP = DECK_SEP - CARRIER_PARK
+SPINE_RELEASE_SEP = DECK_SEP - CARRIER_DATUM_SHIFT - CARRIER_RELEASE
+SPINE_MIN_SEP = DECK_SEP - CARRIER_DATUM_SHIFT - CARRIER_PARK
 SPINE_RELEASE_STRAIGHT = SPINE_RELEASE_SEP - 2.0 * SPINE_R
 
 _bounds.state(
@@ -465,7 +464,7 @@ SPINE_DRAWN_R = min(SPINE_R, SPINE_MIN_SEP / 2.0)
 # their inset valves and derive their own cut lengths in `spine_tube_length`.
 SPINE_MIDDLE_LEN = SPINE_RELEASE_SEP - 2.0 * SPINE_DRAWN_R
 SPINE_LEN = math.pi * SPINE_DRAWN_R + SPINE_MIDDLE_LEN
-SPINE_STRAIGHT = DECK_SEP - 2.0 * SPINE_DRAWN_R
+SPINE_STRAIGHT = DECK_SEP - CARRIER_DATUM_SHIFT - 2.0 * SPINE_DRAWN_R
 
 
 def fold_pt(p) -> tuple:
@@ -762,7 +761,7 @@ def _posed(name: str, p, d, carrier_offset: float = CARRIER_SQUEEZE):
     if name in SHIFT:
         p = tuple(p[i] + SHIFT[name][i] for i in range(3))
     if name in CARRIER_TEES:
-        p = (p[0], p[1], p[2] + carrier_offset)
+        p = (p[0], p[1], p[2] + CARRIER_DATUM_SHIFT + carrier_offset)
     return p, d
 
 
@@ -787,6 +786,29 @@ def branch_port(name: str, carrier_offset: float = CARRIER_SQUEEZE):
     b, d = P[name], P[name]["arg"]
     return _posed(name, (b["x"] + d[0] * TEE_BRANCH, b["y"], DECK_Z + d[2] * TEE_BRANCH), d,
                   carrier_offset)
+
+
+def carrier_collet_port(name: str, carrier_offset: float = CARRIER_SQUEEZE):
+    """The actual branch nose, including its depression against the fixed plate."""
+    p, axis = branch_port(name, carrier_offset)
+    reach = tee_solid().BoundingBox().ymax
+    inset = TEE_BRANCH - reach + tee.carrier_collet_depression(carrier_offset)
+    return tuple(p[i] - axis[i] * inset for i in range(3)), axis
+
+
+def carrier_tee(name: str, carrier_offset: float = CARRIER_SQUEEZE):
+    """One carried fitting with the measured branch-sleeve movement."""
+    b = P[name]
+    x_dir, z_dir = tee_dirs(b['arg'])
+    solid = tee.depress_branch(tee_solid(), tee.carrier_collet_depression(carrier_offset))
+    solid = place(solid, (b['x'], b['y'], DECK_Z), x_dir, z_dir)
+    if b['fold']:
+        solid = folded(solid)
+    if name in BENT:
+        solid = bent(solid, BENT[name])
+    if name in SHIFT:
+        solid = solid.translate(cq.Vector(*SHIFT[name]))
+    return solid.translate((0, 0, CARRIER_DATUM_SHIFT + carrier_offset))
 
 
 # NEITHER RESERVOIR HAS A JUNCTION. Each carries two mouths of its own — the draw on the
@@ -828,7 +850,7 @@ def spine_radius(carrier_offset: float = CARRIER_SQUEEZE, x: float = 0.0) -> flo
     separation + (pi - 2) * radius. Release sets the cut at the stock's minimum
     radius; the bends open as the carrier moves aft. Both port tangents remain axial.
     """
-    separation = math.hypot(DECK_SEP - carrier_offset, spine_offset_x(x))
+    separation = math.hypot(DECK_SEP - CARRIER_DATUM_SHIFT - carrier_offset, spine_offset_x(x))
     return (spine_tube_length(x) - separation) / (math.pi - 2.0)
 
 
@@ -850,7 +872,7 @@ def spine_tube_length(x: float) -> float:
 def spine_stations(x: float, carrier_offset: float = CARRIER_SQUEEZE):
     """Collet and quarter-tangent points on the plane joining the two actual axes."""
     r = spine_radius(carrier_offset, x)
-    a = cq.Vector(x, HINGE_Y, DECK_Z + carrier_offset)
+    a = cq.Vector(x, HINGE_Y, DECK_Z + CARRIER_DATUM_SHIFT + carrier_offset)
     d = cq.Vector(x + spine_offset_x(x), HINGE_Y, UPPER_Z)
     along = (d - a).normalized()
     back = cq.Vector(0.0, -r, 0.0)
@@ -871,7 +893,7 @@ def uturn(x: float, carrier_offset: float = CARRIER_SQUEEZE):
     envelope, including the increasing reach past the hinge, sizes the enclosure wells.
     """
     r = spine_radius(carrier_offset, x)
-    separation = math.hypot(DECK_SEP - carrier_offset, spine_offset_x(x))
+    separation = math.hypot(DECK_SEP - CARRIER_DATUM_SHIFT - carrier_offset, spine_offset_x(x))
     middle_chord = separation - 2.0 * r
     if r < MIN_BEND - 1e-9:
         raise ValueError(
@@ -995,13 +1017,19 @@ def bowed(a, b, developed: float = FORE_STUB_EXPOSED, d: float = TUBE_D):
 def runs(carrier_offset: float = CARRIER_SQUEEZE) -> dict:
     out = {"crossbar": (branch_port("Y-A", carrier_offset)[0],
                          branch_port("Y-B", carrier_offset)[0])}
-    out.update({t: (barb_station(t), branch_port(t, carrier_offset)[0]) for t in BARB_OF})
+    cartridge_offset = carrier_offset - CARRIER_PARK
+    out.update({t: (tuple(value + (cartridge_offset if axis == 2 else 0.0)
+                         for axis, value in enumerate(barb_station(t))),
+                    carrier_collet_port(t, carrier_offset)[0]) for t in BARB_OF})
     out.update({t: (branch_port(t, carrier_offset)[0], elbow_pose(*JOINS[t])[1]) for t in JOINS})
     return out
 
 
 # Squeeze-datum aliases preserve the reporting API; moving builds take fresh endpoints below.
 RUNS = runs()
+BARB_TUBE_LEN = math.dist(*RUNS['Y-C'])
+PUMP_TUBE_PROJECTION = (math.dist(barb_station('Y-C'), carrier_collet_port('Y-C', CARRIER_PARK)[0])
+                        + tee.INSERTION_EXTENDED)
 
 # The four short, bowed joints from each pump-barb tee to the fixed fore valve above it. Keys
 # live in ``SEGMENTS``'s construction column just as a straight lane key does, but their stock
@@ -1122,6 +1150,9 @@ def build_assembly(carrier_offset: float = CARRIER_SQUEEZE) -> cq.Assembly:
     state_stubs = fore_stubs(carrier_offset)
     for name, parts in flat_bodies().items():
         for label, solid, color in parts:
+            if name in CARRIER_TEES:
+                a.add(carrier_tee(name, carrier_offset), name=f"{label}-{name.lower()}", color=color)
+                continue
             if P[name]["fold"]:
                 solid = folded(solid)
             if name in BENT:
@@ -1131,10 +1162,12 @@ def build_assembly(carrier_offset: float = CARRIER_SQUEEZE) -> cq.Assembly:
             if name in CARRIER_TEES:
                 solid = solid.translate(cq.Vector(0.0, 0.0, carrier_offset))
             a.add(solid, name=f"{label}-{name.lower()}", color=color)
-    for tee, (gate, side) in JOINS.items():
+    for tee_name, (gate, side) in JOINS.items():
         a.add(build_elbow(gate, side), name=f"elbow-{gate.lower()}-i", color=C_TEE)
     for pname, px in PUMPS.items():
         head, boss, motor = build_pump(px)
+        cartridge_shift = (0.0, 0.0, carrier_offset - CARRIER_PARK)
+        head, boss, motor = (shape.translate(cartridge_shift) for shape in (head, boss, motor))
         a.add(head, name=f"{pname}-head", color=C_HEAD)
         a.add(boss, name=f"{pname}-boss", color=C_BOSS)
         a.add(motor, name=f"{pname}-motor", color=C_MOTOR)
@@ -1144,7 +1177,14 @@ def build_assembly(carrier_offset: float = CARRIER_SQUEEZE) -> cq.Assembly:
     # before the funnel's syrup meets it.
     for cid, _f, _t, how in SEGMENTS:
         if how in state_runs and dist(*state_runs[how]) > 1e-9:
-            a.add(straight(*state_runs[how]), name=f"tube-fluid-{cid}",
+            start, end = state_runs[how]
+            if how in BARB_OF:
+                # The cartridge carries this whole free projection, including the stock
+                # hidden inside its tee. Its loose-unit scene must show the full tube tip.
+                axis = carrier_collet_port(how, carrier_offset)[1]
+                depth = tee.INSERTION_EXTENDED - tee.carrier_collet_depression(carrier_offset)
+                end = tuple(end[i] - axis[i] * depth for i in range(3))
+            a.add(straight(start, end), name=f"tube-fluid-{cid}",
                   color=_routing.tube_color(f"fluid-{cid}"))
         elif how in state_stubs:
             a.add(bowed(*state_stubs[how]), name=f"tube-fluid-{cid}",
@@ -1444,6 +1484,13 @@ def selftest() -> int:
         name: branch_port(name, CARRIER_SQUEEZE)[0] for name in CARRIER_TEES
     }
     for state, offset in CARRIER_STATES.items():
+        # One physical tube length bottoms at both occupied stops. Its pump end follows
+        # the cartridge through the final seating stroke while the sleeve extends.
+        for name in sorted(BARB_OF):
+            exposed = dist(*runs(offset)[name])
+            depth = tee.INSERTION_EXTENDED - tee.carrier_collet_depression(offset)
+            if abs(exposed + depth - PUMP_TUBE_PROJECTION) > 1e-8:
+                failures.append(f'{state} {name} tube length does not bottom at its body stop')
         # Every carrier tee translates by exactly the state offset on the pack's +Z axis.
         for name in sorted(CARRIER_TEES):
             point = branch_port(name, offset)[0]

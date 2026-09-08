@@ -503,21 +503,45 @@
       "support_bodies": [
         {
           "tree": "tree-1",
-          "name": "west handhold lifting ceiling",
+          "name": "west handhold lifting ceiling and Y-seam passages",
           "first_contacts_cad_xyz_mm": [
             [
               -106.6,
               177.025,
               28.4,
               -94.2,
-              213.025,
+              213.825,
               28.8
+            ],
+            [
+              -93.0,
+              210.625,
+              28.4,
+              -90.2,
+              213.825,
+              28.8
+            ],
+            [
+              -99.4,
+              204.225,
+              50.4,
+              -93.8,
+              205.425,
+              50.8
+            ],
+            [
+              -99.4,
+              204.225,
+              153.2,
+              -93.8,
+              205.425,
+              153.6
             ]
           ],
           "root": "bed",
           "build_up_mm": 34.2,
-          "interface_islands": 1,
-          "rationale": "The handhold keeps a flat bearing ceiling for upward finger contact, with 12 mm of roof section above it. This support reaches the front half of that ceiling from the print bed through the open bottom, with 34.20 mm of build-up. The opening gives direct access to remove the complete body."
+          "interface_islands": 4,
+          "rationale": "The lifting ceiling keeps its flat hand-bearing face, and both Y-seam passages retain the clearance for their mating parts. The bed-rooted tree reaches these four interface islands through the open quadrant. Remove it through the handhold and seam openings before assembly."
         },
         {
           "tree": "tree-2",
@@ -525,7 +549,7 @@
           "first_contacts_cad_xyz_mm": [
             [
               -103.4,
-              91.825,
+              95.025,
               168.4,
               -99.0,
               190.225,
@@ -539,21 +563,45 @@
         },
         {
           "tree": "tree-3",
-          "name": "east handhold lifting ceiling",
+          "name": "east handhold lifting ceiling and Y-seam passages",
           "first_contacts_cad_xyz_mm": [
+            [
+              89.8,
+              210.625,
+              28.4,
+              92.2,
+              213.425,
+              28.8
+            ],
             [
               93.8,
               177.025,
               28.4,
               106.6,
-              213.025,
+              213.825,
               28.8
+            ],
+            [
+              94.2,
+              204.225,
+              50.4,
+              99.4,
+              205.825,
+              50.8
+            ],
+            [
+              94.2,
+              204.225,
+              153.2,
+              99.4,
+              205.825,
+              153.6
             ]
           ],
           "root": "bed",
           "build_up_mm": 34.2,
-          "interface_islands": 1,
-          "rationale": "The handhold keeps a flat bearing ceiling for upward finger contact, with 12 mm of roof section above it. This support reaches the front half of that ceiling from the print bed through the open bottom, with 34.20 mm of build-up. The opening gives direct access to remove the complete body."
+          "interface_islands": 4,
+          "rationale": "The lifting ceiling keeps its flat hand-bearing face, and both Y-seam passages retain the clearance for their mating parts. The bed-rooted tree reaches these four interface islands through the open quadrant. Remove it through the handhold and seam openings before assembly."
         },
         {
           "tree": "tree-4",
@@ -561,7 +609,7 @@
           "first_contacts_cad_xyz_mm": [
             [
               99.0,
-              91.825,
+              95.025,
               168.4,
               103.4,
               190.225,
@@ -586,10 +634,10 @@
           "first_contacts_cad_xyz_mm": [
             [
               -107.8,
-              5.025,
+              4.625,
               282.8,
-              107.4,
-              72.625,
+              107.8,
+              75.825,
               283.2
             ]
           ],
@@ -600,83 +648,51 @@
         },
         {
           "tree": "tree-2",
-          "name": "flush-grip guides, internal rim ceilings, spring bores, web bearings, well crowns and pump-jack roof",
+          "name": "west spring bore, carrier guides, web bearing and well crowns",
           "first_contacts_cad_xyz_mm": [
             [
               -51.4,
-              91.825,
+              95.025,
               192.8,
               -49.4,
-              101.425,
-              193.2
-            ],
-            [
-              48.6,
-              91.825,
-              192.8,
-              50.2,
-              101.425,
+              100.625,
               193.2
             ],
             [
               -65.4,
-              97.425,
+              101.025,
               219.8,
               -29.4,
               117.025,
               220.2
             ],
             [
-              -10.6,
-              97.825,
-              219.8,
-              11.4,
-              117.025,
-              220.2
-            ],
-            [
-              29.4,
-              97.425,
-              219.8,
-              65.8,
-              117.025,
-              220.2
-            ],
-            [
-              -107.8,
-              93.825,
+              -107.4,
+              97.025,
               222.8,
               -103.8,
-              140.625,
-              223.2
-            ],
-            [
-              103.8,
-              93.825,
-              222.8,
-              107.4,
-              140.625,
+              139.825,
               223.2
             ],
             [
               -104.2,
-              84.225,
+              91.425,
               226.0,
-              -87.4,
-              167.025,
-              226.4
-            ],
-            [
-              87.8,
-              84.225,
-              226.0,
-              104.2,
+              -87.8,
               167.025,
               226.4
             ],
             [
               -88.6,
-              92.225,
+              94.625,
+              232.0,
+              -82.2,
+              97.425,
+              232.4
+            ],
+            [
+              -77.4,
+              95.025,
               232.0,
               -66.2,
               97.425,
@@ -684,23 +700,89 @@
             ],
             [
               -29.0,
-              92.225,
+              94.625,
               232.0,
-              -11.4,
+              -22.6,
               97.425,
               232.4
             ],
             [
+              -17.8,
+              94.625,
+              232.0,
+              -11.4,
+              97.825,
+              232.4
+            ]
+          ],
+          "root": "bed",
+          "build_up_mm": 32.6,
+          "interface_islands": 8,
+          "rationale": "The round bore guides the return spring. Flat upper guide and web-bearing faces capture the carrier; the well crowns join into the valve tray. Remove this connected support through the open cartridge bay, aft recess and tee wells before installing hardware."
+        },
+        {
+          "tree": "tree-3",
+          "name": "center and east carrier bearings, well crowns and pump-jack roof",
+          "first_contacts_cad_xyz_mm": [
+            [
+              -10.6,
+              100.225,
+              219.8,
               11.4,
-              92.225,
+              117.025,
+              220.2
+            ],
+            [
+              29.8,
+              100.625,
+              219.8,
+              65.4,
+              117.025,
+              220.2
+            ],
+            [
+              103.8,
+              97.025,
+              222.8,
+              107.8,
+              139.825,
+              223.2
+            ],
+            [
+              87.8,
+              91.825,
+              226.0,
+              103.8,
+              167.025,
+              226.4
+            ],
+            [
+              11.0,
+              95.025,
+              232.0,
+              17.8,
+              97.425,
+              232.4
+            ],
+            [
+              22.2,
+              94.625,
               232.0,
               29.0,
-              98.225,
+              97.425,
               232.4
             ],
             [
               66.2,
-              92.225,
+              95.025,
+              232.0,
+              77.4,
+              97.825,
+              232.4
+            ],
+            [
+              82.2,
+              94.625,
               232.0,
               88.6,
               97.825,
@@ -708,17 +790,35 @@
             ],
             [
               -7.0,
-              85.025,
+              88.225,
               310.4,
               7.0,
-              89.025,
+              92.225,
               310.6
             ]
           ],
           "root": "bed",
+          "build_up_mm": 59.6,
+          "interface_islands": 9,
+          "rationale": "The central and east upper bearing faces guide the carrier while the well crowns join into the valve tray. The keyed jack roof seats its plug. Remove this connected support through the open cartridge bay, aft recess and tee wells before installing hardware."
+        },
+        {
+          "tree": "tree-4",
+          "name": "east spring-bore roof",
+          "first_contacts_cad_xyz_mm": [
+            [
+              48.6,
+              95.025,
+              192.8,
+              50.6,
+              100.225,
+              193.2
+            ]
+          ],
+          "root": "bed",
           "build_up_mm": 32.6,
-          "interface_islands": 14,
-          "rationale": "The cup guides and internal retaining rims retain their flat sliding ceilings. Their broad recesses admit the complete grips from inside the enclosure and open onto the tee wells. The spring bores guide the return pair, the upper web bearings capture the carrier, and the keyed pump-jack roof retains its plug. Remove this connected support through the empty cartridge bay, aft carrier recess and tee wells before installing hardware."
+          "interface_islands": 1,
+          "rationale": "The close round bore guides the return spring. Its roof stays round to retain that guidance. The loose front-top admits support removal through the bore mouth and adjacent spring-loading well."
         }
       ]
     },
@@ -733,10 +833,10 @@
           "first_contacts_cad_xyz_mm": [
             [
               -75.8,
-              17.76,
+              17.737,
               234.345,
               -24.2,
-              69.36,
+              69.337,
               234.545
             ]
           ],
@@ -751,10 +851,10 @@
           "first_contacts_cad_xyz_mm": [
             [
               24.2,
-              17.76,
+              17.737,
               234.345,
               75.8,
-              69.36,
+              69.337,
               234.545
             ]
           ],
@@ -821,15 +921,15 @@
               -106.25,
               109.618,
               216.645,
-              -93.05,
-              125.218,
+              -93.45,
+              124.818,
               217.045
             ]
           ],
           "root": "bed",
           "build_up_mm": 45.2,
           "interface_islands": 1,
-          "rationale": "The pocket roof is the common hand-contact plane shared with the cartridge pull. Its rounded mouth gives direct access to remove this support from the loose half."
+          "rationale": "The pocket roof is the flat hand-contact plane shared with the cartridge pull. The rounded mouth gives direct access to remove its support on the loose half."
         },
         {
           "tree": "tree-2",
@@ -837,17 +937,17 @@
           "first_contacts_cad_xyz_mm": [
             [
               -105.05,
-              90.018,
+              94.018,
               174.445,
-              -89.85,
-              144.418,
+              -90.25,
+              140.418,
               174.845
             ]
           ],
           "root": "bed",
           "build_up_mm": 3.0,
           "interface_islands": 1,
-          "rationale": "The retaining rim and grip root share a flat lower face above the enclosure seam rail. The 6 mm outer cup floor remains bedded. Support under the inboard relief and projecting rim ends is directly accessible on the loose half before it enters the enclosure."
+          "rationale": "The retaining rim and grip root share a flat lower face above the enclosure seam rail. The outer cup floor remains bedded. Support beneath the inboard relief and projecting rim ends is accessible on the loose half."
         },
         {
           "tree": "tree-3",
@@ -857,7 +957,7 @@
               -13.05,
               100.018,
               209.845,
-              8.95,
+              12.95,
               109.218,
               210.245
             ]
@@ -865,7 +965,7 @@
           "root": "bed",
           "build_up_mm": 38.4,
           "interface_islands": 1,
-          "rationale": "The lap has a flat fastening section above the tee run ends. Its underside is carried by a bed-rooted support removed from the open center end before joining the carrier halves."
+          "rationale": "The lap keeps its flat fastening section above the tee run ends. This bed-rooted support is removed through the open center end before joining the halves."
         }
       ]
     },
@@ -879,10 +979,10 @@
           "name": "central M3 lap underside",
           "first_contacts_cad_xyz_mm": [
             [
-              -8.95,
-              106.018,
+              -4.95,
+              106.418,
               209.845,
-              9.05,
+              13.05,
               109.218,
               210.245
             ]
@@ -890,35 +990,35 @@
           "root": "bed",
           "build_up_mm": 38.4,
           "interface_islands": 1,
-          "rationale": "The lap has a flat fastening section above the tee run ends. Its underside is carried by a bed-rooted support removed from the open center end before joining the carrier halves."
+          "rationale": "The lap keeps its flat fastening section above the tee run ends. This bed-rooted support is removed through the open center end before joining the halves."
         },
         {
           "tree": "tree-2",
           "name": "internal rim and seam-rail relief",
           "first_contacts_cad_xyz_mm": [
             [
-              89.85,
-              90.018,
+              89.45,
+              94.018,
               174.445,
-              104.65,
-              144.418,
+              105.05,
+              140.418,
               174.845
             ]
           ],
           "root": "bed",
           "build_up_mm": 3.0,
           "interface_islands": 1,
-          "rationale": "The retaining rim and grip root share a flat lower face above the enclosure seam rail. The 6 mm outer cup floor remains bedded. Support under the inboard relief and projecting rim ends is directly accessible on the loose half before it enters the enclosure."
+          "rationale": "The retaining rim and grip root share a flat lower face above the enclosure seam rail. The outer cup floor remains bedded. Support beneath the inboard relief and projecting rim ends is accessible on the loose half."
         },
         {
           "tree": "tree-3",
           "name": "closed finger-pocket roof",
           "first_contacts_cad_xyz_mm": [
             [
-              93.05,
+              93.45,
               109.618,
               216.645,
-              106.25,
+              106.65,
               125.218,
               217.045
             ]
@@ -926,7 +1026,7 @@
           "root": "bed",
           "build_up_mm": 45.2,
           "interface_islands": 1,
-          "rationale": "The pocket roof is the common hand-contact plane shared with the cartridge pull. Its rounded mouth gives direct access to remove this support from the loose half."
+          "rationale": "The pocket roof is the flat hand-contact plane shared with the cartridge pull. The rounded mouth gives direct access to remove its support on the loose half."
         }
       ]
     }

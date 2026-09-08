@@ -72,27 +72,28 @@ destroyed is a part that comes out by being destroyed.
   tee.** The PP0208E's own figures are in
   [`reference/tee-connector/`](/hardware/reference/tee-connector/README.md): a 1/4" tube meets
   resistance at 7 mm, is held from 8.5 mm and bottoms at 10 mm, all from the sleeve's face with
-  the sleeve pressed home, and one sleeve presses 1.65 mm. Those measurements set four carrier
-  states from the squeeze datum: release −3.15 mm, where the fixed face has spent the connection
-  gap and sleeve stroke; squeeze 0, finger-held while all four tubes bottom at 10 mm; connected
-  +1.5 mm, floating under the two aft-pushing springs with 8.5 mm of grip; and park +3 mm, the
-  final aft stop at first resistance and beyond connection reach. Only release and park are
-  fixed stops.
+  the sleeve pressed home, and one sleeve presses 1.65 mm. The fixed plate holds the sleeves
+  fully depressed at the fore stop. The carrier returns 2.15 mm to the aft stop, extending
+  the sleeves and leaving 0.5 mm of nose air. Release and squeeze share the fore stop;
+  connected and empty park share the aft stop. Tube projection reaches the aft internal stop
+  with the cartridge fully seated; at the fore stop it bottoms with the cartridge 2.15 mm shy
+  of seating. Relax the grips and push through that final stroke. The displayed appliance is fully aft.
 - **Exposed path length is not stock cut length.** Each of the four bowed flex stubs presents a
-  12 mm developed path across a 10 mm sleeve-face chord at squeeze. Its blank also includes the
+  12 mm developed path between sleeve faces separated by 10 mm in height and 1.75 mm fore/aft
+  at squeeze. Its blank also includes the
   insertion at both fittings, and the valve-side depth has not been measured. The tee–valve bow
   trial therefore owns the blank before production; no cut instruction may call that blank
   12 mm.
 - **The front-top assembly order follows the moving mechanism.** Insert the bare tees from
-  aft into the fixed body's cavities and move them to release. Raise the aft valves from the
-  open underside and press them into their sockets. Feed the right carrier half inward at
-  release, then park it; feed the left half inward at connected and move it to release. The
-  upper lap passes above the seated tees. Bring the right half fore and close the lap with
-  two M3 screws through the empty cartridge bay. Tie each tee twice; feed each compressed
-  spring through an inner tee well, outward below the upper guide and down to its seat;
-  install the fore valves and bowed stubs. After the chassis closes,
-  squeeze each cartridge pocket toward its carrier tab, bottom all four tubes and relax to
-  connected.
+  aft into the fixed body's cavities and move them to the fore stop. With both valve rows
+  absent, feed the left carrier half through the open rear, lower it through the outer tee
+  well and seat its cup outward at the fore stop. Seat the right half at the aft stop and
+  bring it fore to close the lap. Two M3 screws enter through the empty cartridge bay.
+  Raise the aft valves through the underside and press their posts into the tray. Tie each
+  tee twice; feed each compressed spring through an inner tee well, outward below the upper
+  guide and down to its seat. Install the fore valves and bowed stubs. After the chassis
+  closes, squeeze each cartridge pocket toward its carrier tab, bottom all four tubes and
+  relax to the aft stop.
 - **The collet action is physically established.** Derek's checks with a tube-tight collar
   show easy extraction while the collet is continuously held, relocking after a small
   separating tug, and insertion against spring-level collet tension. The fixed plate carries

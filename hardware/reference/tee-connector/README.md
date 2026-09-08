@@ -54,13 +54,22 @@ home, which is where the tube was marked.
 | the teeth hold | 8.5 mm (`GRIP_DEPTH`); at 8.4 mm the tube still draws out |
 | the tube bottoms | 10.0 mm (`INSERTION`) |
 
-The teeth, O-ring and stop are the body's, so from the extended sleeve face, where the model
-stands the noses, each depth is 1.65 mm deeper: 8.65, 10.15 and 11.65 mm
-(`FIRST_RESISTANCE_EXTENDED`, `GRIP_DEPTH_EXTENDED`, `INSERTION_EXTENDED`).
+The collet and its gripping teeth move during locking; the internal tube stop stays in the
+body. The measured sleeve stroke sets the carrier's fore-to-aft movement. The 7 and 8.5 mm
+insertion observations describe how the tube enters the fitting.
 
-The stand-in's 40.14 mm run span is 2.36 mm short of the tee's extended span, and every butt in
-the pack is drawn on the stand-in. `enclosure_assembly.collet_plate_spec` builds the collet
-plate's release stroke on `COLLET_TRAVEL`.
+At the fore stop the plate holds each sleeve fully depressed and a bottomed tube projects
+10 mm beyond that face. The return stroke is 2.15 mm: 1.65 mm of sleeve extension while its
+nose stays at the plate, followed by a 0.5 mm plate-to-nose gap. Tube length places each tip at the internal stop with the carrier aft and the cartridge
+fully seated: 11.65 mm beyond the extended sleeve. At the fore stop, the cartridge is
+2.15 mm short of seating when its tubes bottom. Relax the squeeze and advance it through
+that final 2.15 mm. Both the connected carrier and the empty carrier rest at the aft stop.
+The springs remain preloaded there; final cartridge seating may require a push.
+
+The stand-in's 40.14 mm run span is 2.36 mm short of the production tee's measured extended
+span. Its envelope locates the pack; `depress_branch` moves its branch sleeve by the measured
+PP0208E travel. `enclosure_assembly.collet_plate_spec` places the fixed face on those fully
+depressed noses. The internal tube-bottom station uses the measured 10 mm depth.
 
 ## Observed push-connect action
 

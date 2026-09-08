@@ -11,21 +11,22 @@
       0.0,
       1.0,
       -165.0,
-      -117.839998722,
+      -116.262999058,
       215.744995117
     ],
     "plate_to_cad_translation_mm": [
       -165.0,
-      -117.839999,
+      -116.262999,
       215.744995
     ],
     "replacement_mesh_bed_reseat_mm": 10.875
   },
+  "first_layer_z_mm": 0.2,
   "inputs": {
     "gcode": "plate_1.gcode",
-    "gcode_sha256": "d5a0ca4be51ab33b5042585361cee37d222fa2179b6c3e31528b7defcd56a2f4",
+    "gcode_sha256": "ab02672d691e84f286485783456469528356a8419c538b31808a684f5c38ca79",
     "model": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
-    "model_sha256": "a69279b3742da3463b4f82bb5791eb9a80421d25fc8efaf0c02d9f017f8bdfab",
+    "model_sha256": "e340215b6cd83c6573197c38699051daaf8538504a356697c916c082c0246acf",
     "profile": "git:aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a:hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap-petgf.3mf",
     "profile_sha256": "d50dd6389b9202491a5e71567ffc2f962acb484c4924a46088783e0ccf3208fa"
   },
@@ -33,17 +34,17 @@
     {
       "bbox_cad_xyz_mm": [
         -75.8,
-        17.76,
+        17.737,
         234.345,
         -24.2,
-        69.36,
+        69.337,
         234.545
       ],
       "bbox_xy_mm": [
         89.2,
-        135.6,
+        134.0,
         140.8,
-        187.2
+        185.6
       ],
       "build_up_mm": 18.4,
       "first_z_mm": 18.6,
@@ -54,17 +55,17 @@
     {
       "bbox_cad_xyz_mm": [
         24.2,
-        17.76,
+        17.737,
         234.345,
         75.8,
-        69.36,
+        69.337,
         234.545
       ],
       "bbox_xy_mm": [
         189.2,
-        135.6,
+        134.0,
         240.8,
-        187.2
+        185.6
       ],
       "build_up_mm": 18.4,
       "first_z_mm": 18.6,
@@ -78,9 +79,13 @@
   "slicer": "BambuStudio 02.08.02.61",
   "slicer_settings": {
     "layer_height": "0.2",
+    "support_bottom_z_distance": "0.2",
+    "support_interface_bottom_layers": "2",
     "support_interface_spacing": "0.5",
     "support_interface_top_layers": "2",
+    "support_object_xy_distance": "0.35",
     "support_on_build_plate_only": "0",
+    "support_style": "default",
     "support_threshold_angle": "30",
     "support_top_z_distance": "0.2",
     "support_type": "tree(auto)"
@@ -97,17 +102,17 @@
       "base_z_mm": 0.2,
       "bbox_cad_xyz_mm": [
         -75.8,
-        17.36,
+        17.337,
         215.945,
         -23.8,
-        69.36,
+        69.737,
         234.545
       ],
       "bbox_xy_mm": [
         89.2,
-        135.2,
+        133.6,
         141.2,
-        187.2
+        186.0
       ],
       "first_interface_z_mm": 18.6,
       "id": "tree-1",
@@ -122,17 +127,17 @@
       "base_z_mm": 0.2,
       "bbox_cad_xyz_mm": [
         23.8,
-        17.76,
+        17.337,
         215.945,
         75.8,
-        69.36,
+        69.337,
         234.545
       ],
       "bbox_xy_mm": [
         188.8,
-        135.6,
+        133.6,
         240.8,
-        187.2
+        185.6
       ],
       "first_interface_z_mm": 18.6,
       "id": "tree-2",
