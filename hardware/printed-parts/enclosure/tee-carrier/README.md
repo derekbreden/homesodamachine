@@ -35,8 +35,9 @@ valves.
 The fixed body runs continuously between the tee wall and both enclosure flanks. Four
 continuous aft-opening wells each carry a tee, its ties, lower hairpin and upper valve
 passage. The body has one common face behind the ties and spring ends, and a second full-width
-face that clears the upper lap. Broad flat lands above and below the moving web continue
-into the flank guides.
+face that clears the upper lap. The upper land is a continuous bridge into the fore valve
+tray. The lower lands share a flat floor with the aft valve tray; four openings admit the
+valves from underneath and carry the moving hairpins. Both guide sections join the flanks.
 
 Each handhold is a rectangular sliding body behind its rounded exterior rim. The opening's
 flat upper and lower faces guide its [42 mm](GUIDE_LENGTH) bearing length, with
@@ -70,8 +71,8 @@ Only release and park are physical stops. The guide spans 6.15 mm. At park the w
 1.742 mm to the aft coils. The two spring axes lie between coils at X ±49.945, Z 190.245 mm.
 Each spring bears in a 6.4 mm teardrop seat, 2 mm deep. Its fore end sits in a round bore
 within the fixed body's full section. Each bore has 9.712 mm of guidance and ends on the
-body's common aft face. An opening through the upper land admits the compressed spring.
-The return pair is
+body's common aft face. Compressed springs enter through the inner tee wells and cross
+below the uninterrupted upper land. The return pair is
 Lee LCM060C12M.
 
 ## Assembly
@@ -92,9 +93,12 @@ Work with `enclosure-front-top` loose and its pump bay empty.
    through the two access bores in the empty cartridge bay and tighten them into the right
    half's inserts. The heads finish flush with the lap's fore face. Check that both web faces share
    one tee-bearing plane and both tabs travel together.
-5. Tie each tee twice through its routing channels. Move the carrier to park. Compress each
-   spring above solid height, lower it into its loading well, enter its aft end into the carrier
-   seat and let its fore end extend into the fixed bore. Check empty return and full travel.
+5. Tie each tee twice through its routing channels. Move the carrier to park. With fine bent-nose
+   pliers, hold each spring compressed above solid height, its axis along Y. Lower it through
+   the inner tee well on the same side, stopping above the bare tee's upper end. Move it
+   outward below the upper guide to its spring axis, then down to the seat. Enter its aft end
+   into the carrier seat and let its fore end extend into the fixed bore. Check empty return
+   and full travel.
    Complete the fore valve row, bowed stubs and hairpins as described in
    [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md).
 
@@ -109,7 +113,7 @@ Print both halves upright, +Z up, with the lower rim edge on the bed. The web be
 [4.15 mm](WEB_BED_GAP) above that edge and takes removable support beneath it. The cup floor,
 pocket roof and rim overhangs also take support; the pocket opens directly onto the
 side for cleanup. The fixed body's guide ceilings take support, removed
-through the open aft cavities before assembly. Its spring bores open into the loading wells.
+through the open aft cavities before assembly. Its spring bores open into the carrier recess.
 All guide and hand-contact faces retain their full bearing sections.
 
 `build_half(side=-1|1)` makes one valid print; `build_carrier()` compounds both installed
