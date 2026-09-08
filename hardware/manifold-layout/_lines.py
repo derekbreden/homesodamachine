@@ -352,16 +352,23 @@ def _co2_1(F):
 # funnel, so the union is not there to measure against and this is a Y rather than a standoff.
 # `clearance-floor` is what holds the two apart, and it is what caught the facet growing.
 CROSS_Y = 176.5
-# THE DODGE ROUND THE DRAIN'S FALL. `fluid-4` drops one straight column off the spout, and that
-# column rides `funnel.neck_dy` aft with the folded deck's own standoff — so where the
-# crossing passes it, the lane steps aft into the cap lid's notched fore corner and comes back,
-# two shallow plan corners each way. Everywhere else the lane holds `CROSS_Y`: the reservoir
-# draws and `water-5` cross this storey on their own columns west of here, and the lane at
-# `CROSS_Y` is what clears them. The span is the fall's column and its air; the post that grips
-# this run stands in the dodge (`_cold_core_interface.cap_side_anchors["water-3"]`), so the
-# gate that refuses a post no leg passes through holds the pair together.
+# THE DODGE ONTO THE LID. `CROSS_Y` runs one and a half millimetres FORWARD of the core's own
+# front face, so over that stretch the lane has no lid beneath it and nothing there can hold it.
+# Where the run has to be gripped, it steps aft onto the lid and comes back — two shallow plan
+# corners each way — and the post that grips it stands on what it stepped onto
+# (`_cold_core_interface.cap_side_anchors["water-3"]`). The step is `cap_side_depth`'s own
+# front face plus the `axis_off` the pipe stands proud of it, which is what puts the axis here.
+#   THE SPAN IS THE POST'S, and it goes where the post goes: the aft flat has to run the post's
+# whole length under it or the pipe ramps inside the seat that grips it. `cap_tube_anchors`
+# refuses a post no leg passes through, which is what holds the two files together.
+#   IT SITS WEST OF THE CENTRELINE because that is the side with room. The run arrives from the
+# channel at `CHANNEL_X` and leaves on `CROSS_LIFT_X`, so east of centre the step's far corner
+# and the lift stand within a couple of millimetres of each other and the leg between them
+# falls under the stock's own bend radius. West of centre that leg is the whole crossing.
+#   Everywhere else the lane holds `CROSS_Y`: the reservoir draws and `water-5` cross this
+# storey on their own columns west of here, and the lane at `CROSS_Y` is what clears them.
 CROSS_DODGE_Y = 180.0
-CROSS_DODGE_SPAN = (-6.5, 10.0)
+CROSS_DODGE_SPAN = (-22.0, -5.5)
 CROSS_DODGE_RAMP = 8.0
 # And how far UNDER V-K's own inlet plane it runs. The funnel's disconnect hangs on the spout's
 # column and its ring stands in the storey this run used to cross on, so the crossing drops

@@ -227,11 +227,8 @@ could not develop in 2 mm anyway. That band reads as a reveal, which is what a s
 wall that is** — never the sign of its own coordinates, which for a boss centred on a
 ±X wall is neither. Four sit over the reservoir pockets' own far walls, near the ±X
 ends. Four more are mid-long-side, two to each ±Y wall, offset in X by
-±[40 mm](MID_BOSS_OFFSET). The last two stand one to each ±X wall, off that wall's
-centre by ±[20 mm](END_BOSS_OFFSET) at opposite signs — the centre itself is free in
-the shell but not on the top lid's face, where `water-3`'s tie post covers one and the
-funnel drain's berth notches the other. The whole pattern is symmetric under a 180°
-turn about Z, which is what leaves the top cap free to install either way round.
+±[40 mm](MID_BOSS_OFFSET). The last two stand centred on each ±X wall. The whole pattern is symmetric under a
+180° turn about Z, which is what leaves the top cap free to install either way round.
 
 That is a placement rule the PORT LANE sets, not a preference. A boss seated
 diagonally IN a corner — its cylinder tangent to the exterior arc, which is the
@@ -283,8 +280,7 @@ Both the cap and the lid carry the **same [10](BOSS_COUNT) ⌀[8 mm](BOSS_D) bos
 with teardrop corner-fill webs** as the outer shell (built from the one shared
 boss builder, so every mating part's boss cross-section is identical) — four at the
 corners, four at the mid-points of the long edges (two to each ±Y wall, offset in X by
-±[40 mm](MID_BOSS_OFFSET)) and one on each ±X wall (off centre by
-±[20 mm](END_BOSS_OFFSET) at opposite signs). Each position
+±[40 mm](MID_BOSS_OFFSET)) and one centred on each ±X wall. Each position
 passes a clearance hole for an M3 cap screw all the way through the part.
 See "Cap-to-outer-shell joinery" below.
 
