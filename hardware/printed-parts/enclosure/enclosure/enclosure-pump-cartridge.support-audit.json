@@ -21,11 +21,12 @@
     ],
     "replacement_mesh_bed_reseat_mm": 1.75
   },
+  "first_layer_z_mm": 0.2,
   "inputs": {
     "gcode": "plate_1.gcode",
-    "gcode_sha256": "0dcea6c5f9b0d723d02590cf141efa813c68814753f58e1c8e6e3b36b46c3c3b",
+    "gcode_sha256": "f183a3870078001eaae1b0c3e3a44f9d9afb69560deb29a4e7fab4982a5e561f",
     "model": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
-    "model_sha256": "d35cbf36964c512e8bee6a92a5712b2a84e60a9de784508b52d4f3859e6e14de",
+    "model_sha256": "48c7c121be1b789ffa84a85b17ebe5094e06e22f927f66c410b685ee87196f84",
     "profile": "git:aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a:hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge-petgf.3mf",
     "profile_sha256": "10f9a5824beb674ca0868137659211da5703d6626b73a335388ec471efc91c40"
   },
@@ -37,6 +38,7 @@
       "defect_under": 5.0,
       "preference_saturates_at": 15.0
     },
+    "model_root": "avoided",
     "preferred_root": "bed",
     "root_and_build_up_are_independent": true,
     "support_count": "minimize connected bodies which reach an interface"
@@ -45,9 +47,13 @@
   "slicer": "BambuStudio 02.08.02.61",
   "slicer_settings": {
     "layer_height": "0.2",
+    "support_bottom_z_distance": "0.2",
+    "support_interface_bottom_layers": "2",
     "support_interface_spacing": "0.5",
     "support_interface_top_layers": "2",
+    "support_object_xy_distance": "0.35",
     "support_on_build_plate_only": "0",
+    "support_style": "default",
     "support_threshold_angle": "30",
     "support_top_z_distance": "0.2",
     "support_type": "tree(auto)"

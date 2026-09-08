@@ -1237,7 +1237,7 @@ corners have [5 mm](PULL_CORNER_R) rounds, and its complete hand-contact rim has
 [3 mm](PULL_EDGE_R) round, matching the enclosure handholds. The rim opens outward around the
 nominal envelope. Its level floor at z [176.25 mm](PULL_FLOOR_Z) leaves
 [10.88 mm](PULL_FLOOR_LIGAMENT) of bed-rooted cradle below it,
-[7.885 mm](PULL_RIM_FLOOR_LIGAMENT) at the rounded exterior edge, and places the pull datum,
+[7.88 mm](PULL_RIM_FLOOR_LIGAMENT) at the rounded exterior edge, and places the pull datum,
 z [188.25 mm](PULL_CENTER_Z), 12 mm inside the mouth. At the deepest fingertip wall the
 straight vertical opening is [30 mm](PULL_PLUMB) high; its roof then climbs at 45° to the open
 flank and reaches z [224.25 mm](PULL_TOP_Z). A Y-normal wall closes each end of the pocket:
