@@ -42,7 +42,7 @@
     },
     {
       "check": "hardware/scripts/check_step_colours.py",
-      "note": "step colours: 196/196 carry the colour of what they are made of",
+      "note": "step colours: 193/193 carry the colour of what they are made of",
       "status": "ok"
     },
     {
@@ -52,12 +52,12 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 1505 tracked, 346 fetched solids, 55 tags",
+      "note": "paths: every reference lands — 1501 tracked, 343 fetched solids, 55 tags",
       "status": "ok"
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 456 of 1000 free, the next cut wants 3, and the whole lock reads by name in 150.0 MB against 152.5 MB of bundle",
+      "note": "check_release_room: 420 of 1000 free, the next cut wants 3, and the whole lock reads by name in 151.1 MB against 153.7 MB of bundle",
       "status": "ok"
     },
     {
@@ -77,32 +77,20 @@
     },
     {
       "check": "tools/bazel/check_declared_imports.py",
-      "note": "tools/cad-venv/bin/python tools/bazel/gen_build.py",
-      "status": "red"
+      "note": "check_declared_imports: every step holds what it imports, over 199 source(s) the graph names",
+      "status": "ok"
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 2 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 346 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 1 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 343 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds ae38f39ffb6b75d5b9b097423201918e for the 127 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at ad030ce90bca171d2db36676d8a4cc7a here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was taken from a different tree — it holds 94c6c227edf4360e553b8bfafce6fccb for the 127 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 0a04cb0c11c8f46bec951f8cc89f0016 here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
-    ],
-    "tools/bazel/check_declared_imports.py": [
-      "1 step(s) read a file importing a module the step does not hold:",
-      "    hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py",
-      "      reads hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py, which imports hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
-      "  the import edges are read off the source and written in seconds:",
-      "    tools/cad-venv/bin/python tools/bazel/check_declared_imports.py --fix",
-      "  a read this cannot see — a solid a lazy path loads — is recorded by watching a run.",
-      "  FIX THE IMPORTS FIRST: a trace of a run that died early records only what ran, so a",
-      "  step that cannot import yet is a step whose file loads were never reached.",
-      "    tools/cad-venv/bin/python tools/bazel/trace_inputs.py hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py",
-      "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
     ]
   },
   "green": false
