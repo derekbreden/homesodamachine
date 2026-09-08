@@ -41,8 +41,8 @@ bearing surfaces retain their full sections.
 
 The fixed body runs continuously between the tee wall and both enclosure flanks. Four
 continuous aft-opening wells each carry a tee, its ties, lower hairpin and upper valve
-passage. The body has one common face behind the ties and spring ends, and a second full-width
-face that clears the upper lap. The upper land is a continuous bridge into the fore valve
+passage. One common full-width face clears the ties, spring ends and upper lap.
+The upper land is a continuous bridge into the fore valve
 tray. The lower lands share a flat floor with the aft valve tray; four openings admit the
 valves from underneath and carry the moving hairpins. Both guide sections join the flanks.
 
@@ -124,10 +124,11 @@ Work with `enclosure-front-top` loose and its pump bay empty.
    Complete the fore valve row, bowed stubs and hairpins as described in
    [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md).
 
-Each tie crosses the web through two 1.5 × 3.5 mm slots, runs flush in the aft channel, then
-closes around the tee arm on the fore side. Clock every head away from the machine center and
-flush-cut its tail. No head stands behind the web. The center lap leaves all sixteen slots
-and their routing channels open.
+Each tie crosses the web through two 1.5 × 3.5 mm slots and bears across the complete
+[2.5 mm](WEB_T) web section between them. Its strap lies on the plain aft face and closes
+around the tee arm on the fore side. Clock every head away from the machine center and
+flush-cut its tail. The center lap leaves all sixteen slots open. Install the aft valves
+before fitting the ties; their insertion path passes behind the bare web.
 
 ## Print and verification
 

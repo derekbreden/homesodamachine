@@ -1370,6 +1370,10 @@ def tee_carrier_interface(spec: _carrier.CarrierSpec, plate, squeeze_stood) -> d
     load_length = _carrier_spring.SOLID_HEIGHT + CARRIER_SPRING_LOAD_ABOVE_SOLID
     load_fore_y = (spec.web_fore_y + spec.park_offset_y
                    - load_length - 2.0 * CARRIER_SPRING_LOAD_END_AIR)
+    # The spring-loading room, tie heads and complete lap share one clearance face.
+    # Carry that plane through the full web height between the two bearing lands.
+    body_face_y = min(load_fore_y, spec.web_fore_y + spec.release_offset_y
+                      - spec.tie_head[1] - spec.slide_air, data["joint_work_fore_y"])
     tube_boxes = collections.defaultdict(list)
     lift = spec.tee_axis_z - ml.branch_port(sorted(ml.CARRIER_TEES)[0])[0][1]
     for row in states.values():
@@ -1455,7 +1459,7 @@ def tee_carrier_interface(spec: _carrier.CarrierSpec, plate, squeeze_stood) -> d
         "spring_seat_d": spec.spring_seat_d,
         "spring_seat_depth": spec.spring_seat_depth,
         "spring_guide_d": _carrier_spring.HOLE_DIAMETER,
-        "spring_guide_length": load_fore_y - fixed_y,
+        "spring_guide_length": body_face_y - fixed_y,
         "spring_guide_xz": tuple((x, spec.spring_axis_z) for x in spec.spring_xs),
         "spring_load_length": load_length,
         "spring_load_fore_y": load_fore_y,
@@ -1466,8 +1470,7 @@ def tee_carrier_interface(spec: _carrier.CarrierSpec, plate, squeeze_stood) -> d
         "body_top_z": body_top_z,
         "body_floor_aft_y": body_floor_aft_y,
         "floor_cavities": tuple(floor_cavities),
-        "body_face_y": min(load_fore_y, spec.web_fore_y + spec.release_offset_y
-                            - spec.tie_head[1] - spec.slide_air),
+        "body_face_y": body_face_y,
         "tee_wells": tuple(tee_wells),
         "service_recess_x": (min(max(well[0][1] for well in tee_wells),
                                   spec.grip_back_x - spec.entry_shoulder_inset_x) - spec.slide_air,
@@ -1627,6 +1630,9 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
                 failures.append(f"{state}: half {side:+d} exceeds the enclosure width")
         for side, finger in zip((-1, 1), _carrier.finger_probes(spec, dy)):
             read(f"{state} finger {side:+d}", finger, wall_and_fixed)
+        for index, strap in enumerate(_carrier.tie_back_envelopes(spec), 1):
+            read(f"{state} tie {index} aft strap", strap.translate((0, dy, 0)),
+                 wall_and_fixed)
         spring_length = interface["spring_bearing_lengths"][state]
         for side, x in zip(("west", "east"), spec.spring_xs):
             fixed_y = interface["fixed_spring_bearing_y"]

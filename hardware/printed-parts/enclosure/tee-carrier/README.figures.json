@@ -15,6 +15,7 @@
     "GUIDE_AIR": "0.15 mm",
     "GUIDE_LENGTH": "42 mm",
     "GUIDE_TRAVEL": "2.15 mm",
-    "RIM_BED_GAP": "3.705 mm"
+    "RIM_BED_GAP": "3.705 mm",
+    "WEB_T": "2.5 mm"
   }
 }

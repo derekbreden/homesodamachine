@@ -4890,10 +4890,11 @@ def _pump_upper_well_fore_y(pump_trays):
 def _pump_upper_well_aft_y(plate):
     """The common Y+ wall of the two full-width upper insertion wells.
 
-    It is the plate cap's nominal fore plane, which is also the skirt support band's Y− edge.
-    The clamp ends one ``cap_kiss`` fore of it. Past this plane only the four fitted tube-casing
-    shafts continue; the closed middle of each pump and the centre span between pumps therefore
-    keep the same cap-following reinforcement without a fractional flat between two datums."""
+    It is the plate cap's nominal fore plane. The clamp ends one ``cap_kiss`` fore of it.
+    Past this plane only the four fitted tube-casing shafts continue; the closed middle of
+    each pump and the centre span between pumps keep their cap-following reinforcement.
+    At the bracket plane, this upper clearance meets the measured skirt insertion profile
+    and its three-millimetre rear band below."""
     return plate_guide_fore_y(plate)
 
 
@@ -6013,8 +6014,8 @@ def _tee_wall(inner, y_joint, plate, bay):
 def _tee_carrier_clearances(inner, plate, carrier):
     """Four continuous hardware wells and common faces behind the moving carrier.
 
-    The main face ends at the spring bores. The upper face clears the complete lap's
-    lateral entry. The lower and upper web bearings remain broad flat lands between wells.
+    One face ends the spring bores and clears the ties and complete lap's lateral entry.
+    The lower and upper web bearings remain broad flat lands between wells.
     """
     if not carrier:
         return ()
@@ -6025,10 +6026,7 @@ def _tee_carrier_clearances(inner, plate, carrier):
     cuts = [_ybox(
         inner[0] - 1.0, inner[1] + 1.0,
         carrier["body_face_y"], aft + 1.0,
-        web_z0 - air, carrier["joint_z"][0] - air), _ybox(
-        inner[0] - 1.0, inner[1] + 1.0,
-        carrier["joint_work_fore_y"], aft + 1.0,
-        carrier["joint_z"][0] - air, web_z1 + air)]
+        web_z0 - air, web_z1 + air)]
     for x, z in plate["holes"]:
         cuts.append(_teardrop_y(plate["bore_r"], x, z, fixed_y - 1.0, aft + 1.0))
     for x, z in carrier["spring_guide_xz"]:

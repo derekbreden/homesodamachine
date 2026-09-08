@@ -704,7 +704,7 @@ exterior settings of `enclosure-front-top-petgf.3mf` around their own mesh — t
 | `enclosure-tee-carrier-left` | 3 | 3 | bed | 3.00 mm |
 | `enclosure-tee-carrier-right` | 3 | 3 | bed | 3.00 mm |
 | `enclosure-back-bottom` | 4 | 5 | 3 bed, **1 model** | **8.00 mm** |
-| `enclosure-front-bottom` | 4 | 10 | 2 bed, **2 model** | **8.00 mm** |
+| `enclosure-front-bottom` | 4 | 4 | 2 bed, **2 model** | **8.00 mm** |
 | `enclosure-back-top` | 12 | 35 | 5 bed, **7 model** | **1.20 mm** |
 
 `enclosure-pump-cartridge` has two bed-rooted bodies, one under each flat pull roof. Each
@@ -718,9 +718,7 @@ before installing the hardware. Each carrier half has separate bed-rooted suppor
 rim and seam-rail relief, central lap, and finger-pocket roof. Remove those through the open
 side pocket and from the loose half's underside before assembly.
 Four bed-rooted bodies carry the handhold ceilings, one per flank on each bottom piece.
-Each has **34.20 mm** of build-up and comes out through the open bottom. On front-bottom,
-each of these trees also reaches the Y-seam passages above that handhold, with four
-interface islands per tree. The other bottom-quadrant supports carry one feature
+Each has **34.20 mm** of build-up and comes out through the open bottom. The other bottom-quadrant supports carry one feature
 standing on all four flanks: the **Z seam's slide-head catch**, the joint's one down-looking flat and the
 whole of its bearing against lift. Back-bottom's west catch reaches the bed from outside its
 flank through the 12 mm PRV passage that crosses it — the same opening that splits that catch
@@ -1261,8 +1259,8 @@ The aft coils' cases pass below this land; their terminal pairs pass through the
 leaving one flat underside beside the outer wells.
 The lower lands continue as a flat floor into the aft valve tray; four broad openings admit
 that row's valves from underneath and carry the moving hairpins. Branch journals
-continue forward to the fixed collet plate. One common face clears the tie heads and ends
-the spring bores; a second full-width face clears the upper lap's lateral entry.
+continue forward to the fixed collet plate. One common full-width face clears the tie heads,
+ends the spring bores and clears the upper lap's lateral entry.
 
 Each flank opening has one continuous lower edge at the web's insertion height. The closed
 handhold's outer floor follows it along the entire grip. One broad inboard underside
