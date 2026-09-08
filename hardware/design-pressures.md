@@ -12,6 +12,10 @@ counter. Every millimetre of envelope is a millimetre of someone's kitchen.
 factory, and tight tolerances are wanted. What a joint needs is access at the moment it is
 made, once.
 
+For the tee carrier, prefer tying the tees to the carrier on the bench before enclosure
+insertion. Fitting the ties in place is an acceptable tradeoff when it permits simpler or
+thicker geometry.
+
 **The operation inside design constraints**, which is where the machine spends its life.
 
 **Rigidity and a substantial feel.** Available internal volume around supported hardware
