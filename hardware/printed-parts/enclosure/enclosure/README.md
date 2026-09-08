@@ -661,11 +661,9 @@ piece, contact region, root kind, build-up and the geometric or functional reaso
 removed. This policy applies to every printable part in the enclosure assembly, not only the
 four shell quadrants.
 
-[`support-audit.json`](support-audit.json) is the coverage and retained-support ledger. An
-`audit-required` or `profile-required` piece is visible work for the support campaign, not a
-publication blocker and not permission to borrow another piece's settings. The audit is a design
-and quiet-time reconciliation tool; it is not part of the normal build or publish path and never
-holds a coherent visual iteration for a production slice.
+[`support-audit.json`](support-audit.json) associates each piece with its production profile and
+retained slice reading. Each reading identifies its model, profile and G-code by digest. It is
+a bench reference outside the normal build and publish path.
 [`enclosure_support_audit.py`](/hardware/scripts/enclosure_support_audit.py) reads an exported
 Bambu G-code directly, or refreshes only the mesh in a temporary copy of the named production
 project before slicing it:
@@ -727,12 +725,9 @@ Three pieces print on their **Z− face** — the bottom pieces floor-down on th
 floor slab, front-top mouth-down on its seam rim — and back-top prints on its
 **Z+ face**, its ceiling on the bed. The build axis is the box's own Z on every
 piece and the sign is the piece's (`enclosure.print_up`): where it is +Z the face
-that hangs is the one looking **down**, where it is −Z the one looking **up**, and
-every 45° relief on this box is struck on the side that hangs for its piece, and on
-back-top a face that hangs with only free air between it and the slab is carried by a
-column standing on the slab instead (`wedge-fills`): a corbel under a floor on a
-mouth-down piece is, on the ceiling-down one, a column where a column fits and a wedge
-over the crown only where a placed body stands in its air. Faces at 45° print either way. The anti-warp relief goes on the arrises
+that hangs is the one looking **down**, where it is −Z the one looking **up**.
+The mounting forms are described in [Support-removal strategy](#support-removal-strategy).
+The anti-warp relief goes on the arrises
 that run along the build axis: the box's four **standing verticals**, rounded to match the foam
 shell's 12 mm outer radius — concentric inner one wall in, so the wall is
 preserved.
