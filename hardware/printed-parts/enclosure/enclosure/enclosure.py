@@ -6193,16 +6193,10 @@ def _ridge_wall(inner, outer, plate, bay, funnel):
     clip_start = clip_end - _cable_clip.RUN
     if clip_start <= jack[0] + _keystone.panel_footprint()[0] / 2.0:
         raise ValueError("the pump-jack cable clip no longer clears the receptacle boss")
-    # THE SEAT'S TOP EDGE STANDS ON THE LOOM'S OWN HEIGHT, so the lead comes off this rib at the
-    # height it crossed and lies in the seat below it. WHAT LIMITS THE CLIP HERE IS THE CROWN:
-    # this face ends at `aft_crown`, and a clip whose arms reach it leaves a ligament instead of
-    # a wall. So the clip keeps one `wall` of rib above it, and that is why it does not rise with
-    # the flank's (`_flank_cable_clips`), which are struck on the seam collar's 45° a storey up.
-    clip_z = loom[2] - _cable_clip.seat_top()
-    if clip_z + _cable_clip.HEIGHT + wall > aft_crown[1] + 1e-9:
-        raise ValueError(
-            f"the pump-jack cable clip tops out at {clip_z + _cable_clip.HEIGHT:.2f}, which "
-            f"leaves under {wall:g} mm of rib to this face's crown at {aft_crown[1]:.2f}")
+    # The seat follows the loom's height while keeping a full wall thickness below
+    # the ridge crown. The lead reaches down into the seat where the crown sets its height.
+    clip_z = min(loom[2] - _cable_clip.seat_top(),
+                 aft_crown[1] - wall - _cable_clip.HEIGHT)
     return _cable_clip.apply(
         slab,
         origin=(clip_start, fore + t, clip_z),

@@ -60,7 +60,7 @@ crowns; the folded deck's at z [147.78](UPPER_Z2). The two inner limbs leave
 The four connections crossing the hinge — fluid-9, 17, 19 and 27 — each become one 180° hairpin
 with two quarter circles and a tangent straight between them. Both ends meet their collet on
 its own axis. Release sets the cut length at R[14](SPINE_R):
-[78.53](SPINE_LEN) mm for each inner hairpin and [78.82](OUTER_SPINE_LEN) mm for each outer one.
+[77.13](SPINE_LEN) mm for each inner hairpin and [77.43](OUTER_SPINE_LEN) mm for each outer one.
 As the carrier moves aft, the bend radii increase and the straight shortens, preserving the
 complete tube length.
 
@@ -75,12 +75,12 @@ member with no middle chord in it, and it is the worst to pick, because what the
 a turn is how far it reaches past the hinge — and that reach is the RADIUS. The radius therefore
 starts at the stock's floor, R[14](MIN_BEND2), and opens as the end separation decreases.
 
-The decks stand [59.4](DECK_SEP) mm apart, and that IS chosen. What stands over what is a
-folded valve's underside against the SPADE TERMINALS of the valve beneath it — two 0.8 mm tabs
-reaching 15 mm past a coil face, in a band 1.4 mm wide — and every bounding box that contains
-those tabs also contains the coil crown 6 mm above them, so a box solve asks for 91.6 where the
-metal needs 58.4. `HSM_DECK_SEP=` builds another: at 58.0 the clash check goes red at 15 mm³ a
-corner, at 59.4 it is clean. `HSM_SPINE_R=` moves the radius on its own.
+The decks stand [59.4](DECK_SEP) mm apart, clearing the folded valve undersides and the
+narrow terminals beneath them. The carrier's fore datum stands 1.75 mm fore of the hinge
+plane, leaving the aft valves' complete 6 mm post-insertion route beside its joined web.
+The hardware check reads the constituent solids; the enclosure check reads their complete
+installation sweep. `HSM_DECK_SEP=` builds another separation. `HSM_SPINE_R=` moves the bend
+radius on its own.
 
 ## The quarter turns
 
@@ -161,32 +161,37 @@ V-I-O and V-H-I for B — on the lower.
 
 ## Envelope
 
-[194](ENV_X) × [171](ENV_Y) × [242](ENV_Z) mm — [8.03](ENV_L) L of bounding box over the
+[194](ENV_X) × [169](ENV_Y) × [244](ENV_Z) mm — [7.97](ENV_L) L of bounding box over the
 bodies and the tube between them, with [0](CLASHES) pairs of placed solids sharing volume.
 Add one [14](STUB_LEN) mm mouth stub on each of the [8](MOUTH_COUNT2) and it is
-[194](REACH_X) × [171](REACH_Y) × [256](REACH_Z).
+[194](REACH_X) × [169](REACH_Y) × [258](REACH_Z).
 
 Two figures in [`manifold_layout.py`](manifold_layout.py) are the study's own rather than any
 part's. `BUTT` is the tube left outside a pair of butted quick-connects, and it is 0.
 
-`BARB_STANDOFF` is the [6.98](BARB_STANDOFF) mm fore/aft projection between each pump barb and
-its anchor tee's branch collet. Its first [1.28](PUMP_STATION_LEAD) mm holds the moving pump end
-clear of the fixed plate-guide wall; the remaining [5.7](BARB_PLATE_BERTH) mm is **the
-collet plate's berth**. The pump station uses a [3](PUMP_DROP) mm downward world-Z datum, while the stationary
-manifold stands 2 mm above its nominal datum. The fitted pump outlets meet the tee plane,
-so each straight is horizontal with a [6.98](BARB_TUBE_LEN) mm centreline length.
+`BARB_STANDOFF` is the [6.98](BARB_STANDOFF) mm pump-to-deck placement span, referenced
+to the extended branch nose at the nominal fore-deck plane. The pump station uses a
+[3](PUMP_DROP) mm downward world-Z datum, while the stationary manifold stands 2 mm above
+its nominal datum. The fitted pump outlets meet the tee plane. At the fore stop the sleeve
+is depressed and the exposed tube is [9.03](BARB_TUBE_LEN) mm from pump outlet to sleeve nose,
+with the cartridge 2.15 mm short of seating. The full tube projection includes its insertion
+to the internal body stop.
 Both pumps ride out of the box on their own pump cartridge and these four runs are what
 release. The collet plate is a 3.175 mm section printed into front-top, with four
 Ø8.5 mm teardrop passages around the Ø6.35 mm tubes. A passage passes its tube and stops the
-collet nose. Pulling the pump cartridge carries the four twice-tied tees and their carrier from
-connected at +1.5 mm to the release stop at −3.15 mm; the fixed plate holds the sleeves while
-the tubes leave. The two springs then return the empty carrier to park at +3 mm, beyond
-connection reach. To reinstall, squeeze both recessed service tabs to hold the carrier at 0,
-bottom all four tubes to 10 mm, and release the tabs so the springs settle the joints at the
-8.5 mm connected depth. Nothing is unscrewed for pump cartridge service.
+collet nose. Pulling the pump cartridge carries the four twice-tied tees to the fore stop;
+the fixed plate continuously holds the depressed sleeves while the tubes leave. The two
+springs return the empty carrier to the aft stop. To reinstall, use each hand to squeeze its
+cartridge pocket and carrier tab together, bottom all four tubes against their measured
+10 mm insertion stops, and relax the grasp. The carrier returns 2.15 mm aft, extending the
+sleeves and leaving 0.5 mm between their noses and the plate. Push the cartridge through its
+final 2.15 mm to seat it with the tubes bottomed 11.65 mm beyond the extended noses. Nothing is unscrewed for pump
+cartridge service.
 
-`enclosure_assembly.collet_plate_spec` places the release face 1.5 mm fore of the collet
-noses. `enclosure` joins its rectangular section to the tee wall while forming front-top.
+`enclosure_assembly.collet_plate_spec` places the release face on the actual fully depressed
+branch noses. The complete enclosure assembly is displayed at the aft stop with the cartridge fully seated.
+The standalone manifold study shows the fore stop and the pumps 2.15 mm short of seating.
+`enclosure` joins the plate's rectangular section to the tee wall while forming front-top.
 The floor joins, outer cheeks, upper cap and front-bottom feet are part of the
 enclosure's printed geometry. The pump cartridge's aft notches clear the cheeks.
 

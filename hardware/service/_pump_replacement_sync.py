@@ -11,6 +11,7 @@ service bench to the wrong collets.
 """
 
 import sys
+from functools import cache
 from pathlib import Path
 
 _here = Path(__file__).resolve().parent
@@ -50,6 +51,11 @@ BAY = "enclosure-front-top"
 EXPECTED = ("fluid-11", "fluid-12", "fluid-21", "fluid-22")
 
 
+@cache
+def _fastening_by_body():
+    return {name: by for name, by, _joint in _sc.mounts()}
+
+
 def holder(name: str, decked: frozenset):
     """The enclosure piece that holds one body, through whatever it rides.
 
@@ -60,7 +66,7 @@ def holder(name: str, decked: frozenset):
     still butt, while the four pump-barb tees land through bowed flex stubs."""
     if name in decked:
         return RIDES_OUT
-    by = _sc.fastened_by(name)
+    by = _fastening_by_body()[_sc.RIDES.get(name, name)]
     if by is not None:
         return by
     if name in _sc.TEE_LANDS:
@@ -138,8 +144,7 @@ def main():
     rest_gap = plate["rest_gap"]
 
     valves = [n for n in f.manifold_bodies if n.startswith("valve-v-")]
-    # Each released tube's own exposed length, barb plane to branch collet face. That gap is
-    # `manifold_layout.BARB_STANDOFF` is its fore/aft projection.
+    # Exposed length at the fore stop, with the cartridge one working stroke short of seating.
     berth = {cid: _ml.dist(*_ml.RUNS[how]) for cid, _f, _t, how in _ml.SEGMENTS
              if how in _ml.BARB_OF}
 
@@ -211,15 +216,12 @@ def main():
         "BODY_AIR":   f"{(plate['aft_y'] + rest_gap + _ml.tee.BRANCH_REACH - _ml.tee.HALF_W
                           - plate['stroke'] - plate['wall_aft_y']):.4g}",
         "TUBE_OD":    f"{od:.4g} mm",
-        # Four service states: offsets are enclosure +Y (aft) from the squeeze datum. Tube
-        # depth is the measured connector coordinate; squeeze bottoms at 10 mm, connected
-        # floats at the 8.5 mm first-grip depth, and empty park is beyond the 7 mm first
-        # resistance station.
+        "TUBE_PROJECTION": f"{_ml.PUMP_TUBE_PROJECTION:.4g} mm",
+        # Four operation names share two stops. The fore stop depresses the sleeves and
+        # bottoms the tubes; the connected and empty park positions share the aft stop.
         **{f"{name.upper()}_OFFSET": state_text(offset)
            for name, (offset, _depth) in states.items()},
         "SQUEEZE_DEPTH": f"{states['squeeze'][1]:g}",
-        "CONNECTED_DEPTH": f"{states['connected'][1]:g}",
-        "PARK_DEPTH": f"{states['park'][1]:g}",
         "CONNECTED_RELEASE_TRAVEL":
             f"{states['connected'][0] - states['release'][0]:g}",
         # The collar the boss lifts out of, off the module that draws the clamp. `internal-plumbing`

@@ -199,7 +199,7 @@ band. Each catch lies wholly over its six-millimetre foot and keeps a complete e
 outside its channel.
 
 **Lifting a seated top lands each foot's flat top face on its head's flat underside,
-along both whole runs** — [100 mm](RAIL_RUN_FRONT) per flank on the front column,
+along both whole runs** — [98 mm](RAIL_RUN_FRONT) per flank on the front column,
 [233 mm](RAIL_RUN_BACK) and [221 mm](RAIL_RUN_BACK_W) on the back — horizontal printed
 face on horizontal printed face, square faces bearing full from the first micron. The two
 back flanks differ by the PRV passage: it crosses the −X run and takes
@@ -488,7 +488,7 @@ field is symmetric in x whatever its pitch.
 plan is one of them. With the pump cartridge in, the bay storey shows the two narrow mouth
 returns outboard of the cavity planes; those two actual surfaces are two open rails.
 `_bay_storey_segments` carries their one global arc coordinate from one mouth edge to the other:
-[355.58 mm](STOREY_RUN) over the storey at z [177.8..283.5 mm](STOREY_BAND). The two open flanks
+[358.39 mm](STOREY_RUN) over the storey at z [177.8..283.5 mm](STOREY_BAND). The two open flanks
 and the lower tee face advance the phase but carry no cutter: the former are air, the latter is
 berthed or hidden, and the upper closure face stands on another Y plane. The datum remains
 **x = 0** and the pitch remains [5.1285 mm](FLUTE_PITCH), so both ledges retain the machine's
@@ -700,27 +700,27 @@ exterior settings of `enclosure-front-top-petgf.3mf` around their own mesh — t
 |---|---|---|---|---|
 | `enclosure-pump-cartridge` | 2 | 2 | bed | 51.00 mm |
 | `enclosure-pump-cap` | 2 | 2 | bed | 18.40 mm |
-| `enclosure-front-top` | 2 | 15 | bed | 32.60 mm |
+| `enclosure-front-top` | 4 | 19 | bed | 32.60 mm |
 | `enclosure-tee-carrier-left` | 3 | 3 | bed | 3.00 mm |
 | `enclosure-tee-carrier-right` | 3 | 3 | bed | 3.00 mm |
 | `enclosure-back-bottom` | 4 | 5 | 3 bed, **1 model** | **8.00 mm** |
-| `enclosure-front-bottom` | 4 | 4 | 2 bed, **2 model** | **8.00 mm** |
+| `enclosure-front-bottom` | 4 | 10 | 2 bed, **2 model** | **8.00 mm** |
 | `enclosure-back-top` | 12 | 35 | 5 bed, **7 model** | **1.20 mm** |
 
 `enclosure-pump-cartridge` has two bed-rooted bodies, one under each flat pull roof. Each
 reaches one interface after **51.00 mm** and leaves directly through its open side pocket. On
 the pump cap and front-top, every body roots on the print bed and stands 18 mm or more before
-it touches the model. Front-top has one tree under the pump-bay lintel and one joining the
-grip openings, internal rim ceilings, spring bores, upper web bearings, well crowns and
-pump-jack receptacle roof.
+it touches the model. Front-top has one tree under the pump-bay lintel, one joining the
+west spring bore, grip guide, upper web bearing and well crowns, one joining the center/east
+bearings, well crowns and pump-jack roof, and one under the east spring bore.
 Remove those branches through the empty cartridge bay, tee wells and aft carrier recess
 before installing the hardware. Each carrier half has separate bed-rooted support under its
 rim and seam-rail relief, central lap, and finger-pocket roof. Remove those through the open
 side pocket and from the loose half's underside before assembly.
-The Y-seam blocks above the handhold roofs
-and their front passages have no separate support interfaces. Four bed-rooted bodies carry the
-handhold ceilings, one per flank on each bottom piece. Each has **34.20 mm** of build-up and
-comes out through the open bottom. The other bottom-quadrant supports carry one feature
+Four bed-rooted bodies carry the handhold ceilings, one per flank on each bottom piece.
+Each has **34.20 mm** of build-up and comes out through the open bottom. On front-bottom,
+each of these trees also reaches the Y-seam passages above that handhold, with four
+interface islands per tree. The other bottom-quadrant supports carry one feature
 standing on all four flanks: the **Z seam's slide-head catch**, the joint's one down-looking flat and the
 whole of its bearing against lift. Back-bottom's west catch reaches the bed from outside its
 flank through the 12 mm PRV passage that crosses it — the same opening that splits that catch
@@ -1178,7 +1178,7 @@ stand [59.75 mm](CAP_TUBE_PITCH) apart. The physical pair spans
 centered on the casing axis and a straight 13 mm shaft continues through the complete vertical
 insertion path. The shafts, tube-side case room and upper well share the same outer X planes;
 printed wall remains between and outside the passages. The full-width upper wells end together
-at y [74.915 mm](PUMP_UPPER_WELL_AFT). Past that plane only the four individual shafts continue:
+at y [76.319 mm](PUMP_UPPER_WELL_AFT). Past that plane only the four individual shafts continue:
 the closed middle span on each pump and the centre span between the pumps all carry the same
 cap-following reinforcement to the cartridge's aft edge.
 
@@ -1189,7 +1189,7 @@ the complete flavour pack's common station.
 
 Nothing latches the cartridge in the enclosure. The four barb tubes gripped in the anchor
 tees' branch collets retain it, and the **collet plate** releases them: a 3.175 mm section
-printed into front-top, standing 1.5 mm fore of the four collet noses. Pull the cradle and
+printed into front-top, standing [0.5 mm](PLATE_REST_GAP) fore of the fully extended collet noses at the aft stop. Pull the cradle and
 the tubes draw the tees forward until their collet noses land on the printed release face;
 the collets open and the tubes pass back through the four plate passages. The fixed plate
 carries that reaction into the whole enclosure, which can be braced by a hand, foot, cupboard
@@ -1218,11 +1218,16 @@ Each passage has an Ø8.5 mm circular bore and a tangent teardrop roof. It passe
 catches the release nose's Ø11.43 mm rim. The four tube-centre stations are independent of
 the plate's rectangular outline, its upper cap and the cartridge's pull pockets.
 
-**The tee travels and the valve stays seated.** The modeled release travel is
-[3.15 mm](PLATE_STROKE): [1.5 mm](PLATE_REST_GAP) of nose air followed by
-[1.65 mm](SLEEVE_TRAVEL) of sleeve travel, the PP0208E's own stroke
-([`reference/tee-connector/`](/hardware/reference/tee-connector/README.md)). The tube stub
-flexes inside the two collets that hold it. Compliance is not modeled in the reference bodies.
+**The tee travels and the valve stays seated.** The complete release travel is
+[2.15 mm](PLATE_STROKE): [0.5 mm](PLATE_REST_GAP) of nose air followed by
+[1.65 mm](SLEEVE_TRAVEL) of sleeve depression, the PP0208E's measured stroke
+([`reference/tee-connector/`](/hardware/reference/tee-connector/README.md)). At the fore stop
+the fully depressed sleeves bear directly on the fixed plate and all four tubes bottom
+10 mm beyond that face with the cartridge 2.15 mm short of seating. Release the grips and
+push the cartridge through the remaining 2.15 mm; its tips then bottom at the aft body stops,
+11.65 mm beyond the extended sleeves. Squeeze and release share the fore stop. Connected and empty park
+share the aft stop, which is the position shown in the complete assembly. The modeled
+branch sleeves move inside their bodies; the spring loads remain catalog estimates.
 
 **The cradle ends at the skirt band's aft edge**, y [77.915 mm](PUMP_CARTRIDGE_AFT_Y): a plate-retention return or side skin
 cannot survive behind that plane.
@@ -1415,7 +1420,7 @@ case-derived octagon engages the white boss over its complete run and the should
 the can. Thus the cradle takes weight, the clamp prevents lift, and the octagon fixes X, Y and
 yaw. With the cartridge withdrawn, the clamp's vertical path keeps
 [4.305 mm](CLAMP_FRONT_SKIN) of smooth cradle skin ahead of its fore face. A
-[4.81 mm](CLAMP_AFT_WALL) wall remains aft of each octagon to locate the boss
+[6.214 mm](CLAMP_AFT_WALL) wall remains aft of each octagon to locate the boss
 against +Y.
 
 **Two M3 close one clamp onto one cradle.** Both screw heads are accessible from above in the
