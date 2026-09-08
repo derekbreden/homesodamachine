@@ -5,18 +5,12 @@ click: x=20.070 y=110.968 z=203.995
 click: x=79.820 y=110.968 z=203.995
 
 [ceiling] Horizontal roof of the closed finger recess inside the rectangular sliding body. Removable support is accessible through the outward-facing mouth.
-click: x=103.222 y=123.218 z=217.245
+click: x=101.647 y=123.218 z=217.245
 
-[ceiling] The continuous inboard underside clearance stands 0.15 mm above the closed enclosure's seam rail. It retains the 2.295 mm pocket floor over the rail. Removable support is accessible from the print bed and both ends of the clearance.
-click: x=98.725 y=117.218 z=174.950
+[ceiling] The internal rim and inboard grip underside share one flat face 0.15 mm above the closed enclosure's seam rail. The pocket retains its 2.295 mm floor over the rail. This bed-rooted support is accessible from both ends and the underside of the loose half before inside-out assembly; the current production slice names it in the support ledger.
+click: x=99.075 y=117.218 z=174.950
 
-[ceiling] The outer grip floor is one continuous flat lower running bearing along the 42 mm handhold. It keeps the 6 mm floor and 0.15 mm guide clearance; support beneath it is exposed beside the rim before assembly.
-click: x=105.650 y=117.218 z=171.245
-
-[ceiling] Lower edge of the tee-bearing web. The exterior rim extends below the web's insertion passage and stands on the bed; support beneath the web is exposed from its fore and aft sides.
-click: x=42.500 y=112.218 z=171.245
-
-[ceiling] Flat underside of the upper lap tongue, above the tee run ends. The tongue keeps its full 6 mm section and takes removable support exposed from the fore side before assembly.
+[ceiling] Flat underside of the aft lap receiver, above the tee run ends. The receiver keeps its full 6 mm section and takes removable support exposed from the fore side before assembly.
 click: x=0.000 y=107.968 z=210.465
 
 [step] Floor of the 4 mm-deep heat-set pocket inside the 6 mm lap. Its Y110.218 floor retains 2 mm of solid aft backing; the adjacent Y109.718 plane is the common tee-bearing web. The pocket depth follows the insert and its floor is internal to the screw joint.
