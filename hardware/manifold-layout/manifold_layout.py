@@ -68,8 +68,8 @@ collet butted to collet.
 tube in both collets, there is none between them. The four anchor tees are the exception: each
 stands 10 mm below its fore valve and the 12 mm of exposed LLDPE between them is laid in a bow.
 That flex joint lets the tee travel with the pump cartridge while the valve stays in its tray.
-`BARB_STANDOFF` is the fore/aft projection
-where a tee meets a pump barb: `pump_station_lead` holds the moving pump end clear of the fixed
+`BARB_STANDOFF` locates the nominal fore deck relative to the pump outlet:
+`pump_station_lead` holds the moving pump end clear of the fixed
 plate-guide wall and `BARB_PLATE_BERTH` carries the collet plate that releases it. The fitted pump
 barb and carried tee share their tube-centre plane; `BARB_TUBE_LEN` is the exposed straight
 at the fore stop, ending on the fully depressed sleeve nose. A barb is not a quick-connect; the four runs off the barbs are what the pump
@@ -180,13 +180,13 @@ OUTER_AFT_INSET = 6.0
 CARRIER_DATUM_SHIFT = -1.75
 BARB_PLATE_BERTH = 5.7  # pump/deck placement span around the fixed release section
 PUMP_BARB_Z = HEAD_W - _enc_if.pump_station_lead
-# World Z is this study's Y after `enclosure_assembly.pose_manifold` stands the pack. The
+# World Z is this study's Y after `enclosure_assembly.pose_manifold` stands the pack.
 # The fitted outlet height, pump drop and manifold rise place the two ends on one tube plane
 # while retaining the bracket's independent support datum.
 PUMP_Y = (kp.outlet_above_skirt_bottom - _enc_if.pump_station_drop
           - _enc_if.manifold_rise)
 # The pump-to-deck placement span, measured to the reference's extended branch nose
-# with the tee body at the fore datum. `runs()` follows the sleeve's actual position.
+# on the nominal fore-deck plane. `runs()` follows the sleeve's actual position.
 BARB_STANDOFF = BARB_PLATE_BERTH + _enc_if.pump_station_lead
 CROSSBAR = 0.0        # exposed tube between Y-A's and Y-B's branches. At 0 the two fittings
                       # meet face to face across the mirror plane and no tube is drawn.

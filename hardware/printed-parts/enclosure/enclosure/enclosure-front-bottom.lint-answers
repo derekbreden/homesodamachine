@@ -7,10 +7,8 @@ click: x=96.733 y=16.900 z=149.200
 
 [ceiling] The front Z-slide heads' square catches — each bottom rail overlaps the top's full-section foot by 5.00 mm and keeps 0.15 mm of running air, so its flat underside stands at z=160.00 + 8.70 + 0.15 = 168.85. Lifting the seated top lands its flat foot on this face along the whole rail, holding the screwless bottom-to-top seam against lift with full-face bearing. The arm already returns to the wall on its 45-degree under-flare; pitching this bearing face would turn the catch into a cam and give up the joint's square-catch contract.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
-click: x=-100.925 y=140.116 z=168.850
-click: x=100.925 y=140.116 z=168.850
-click: x=-100.925 y=141.198 z=168.850
-click: x=100.925 y=141.198 z=168.850
+click: x=-100.925 y=141.900 z=168.850
+click: x=100.925 y=141.900 z=168.850
 
 [slope] The Y-seam floor tongue's full-width 45-degree scarf nose — this is the bed-side face of the six-millimetre floor overlap, not a corbel hanging from either X wall. The tongue's broad underside is on the print bed and this face rises one millimetre per millimetre from it, leaving the cold-core bearing surface flat while lapping the front and back floor slabs.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
