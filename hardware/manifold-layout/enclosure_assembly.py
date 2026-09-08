@@ -1420,7 +1420,11 @@ def tee_carrier_interface(spec: _carrier.CarrierSpec, plate, squeeze_stood) -> d
                       port_radius)
     tee_wells = []
     for x in spec.tee_xs:
-        paths = [cavity for cavity in (*tube_cavities.values(), *valve_cavities)
+        # Tall coil terminals share the through-well with their tee. Their clearance
+        # continues on the well's common planes through the upper bridge.
+        upper_terminals = tuple(cavity for cavity in aft_valve_cavities
+                                if cavity[2][1] > spec.web_z[1])
+        paths = [cavity for cavity in (*tube_cavities.values(), *valve_cavities, *upper_terminals)
                  if min(spec.tee_xs, key=lambda tx: abs(tx - sum(cavity[0]) / 2.0)) == x]
         tee_wells.append((
             (min(x - well_half_x, *(p[0][0] for p in paths)),
@@ -1458,7 +1462,8 @@ def tee_carrier_interface(spec: _carrier.CarrierSpec, plate, squeeze_stood) -> d
         "body_face_y": min(load_fore_y, spec.web_fore_y + spec.release_offset_y
                             - spec.tie_head[1] - spec.slide_air),
         "tee_wells": tuple(tee_wells),
-        "service_recess_x": (max(well[0][1] for well in tee_wells) - spec.slide_air,
+        "service_recess_x": (min(max(well[0][1] for well in tee_wells),
+                                  spec.grip_back_x - spec.entry_shoulder_inset_x) - spec.slide_air,
                              spec.exterior_x - spec.grip_wall_t),
         "service_recess_y": (spec.rim_y[0] + spec.release_offset_y - spec.slide_air,
                              body_floor_aft_y),

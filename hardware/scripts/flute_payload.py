@@ -76,6 +76,7 @@ _ROOT = Path(__file__).resolve().parent.parent.parent
 #: question and a scene spanning several trees knows no better answer.
 ENCLOSURE_DIRS = (
     _ROOT / "hardware/printed-parts/enclosure/enclosure",
+    _ROOT / "hardware/printed-parts/enclosure/tee-carrier",
 )
 COLD_CORE_DIRS = (
     _ROOT / "hardware/printed-parts/cold-core/foam-shell",

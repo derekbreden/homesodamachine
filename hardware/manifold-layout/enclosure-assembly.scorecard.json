@@ -1,5 +1,5 @@
 {
- "gatesPass": true,
+ "gatesPass": false,
  "size": [
   {
    "id": "enclosure",
@@ -142,8 +142,8 @@
     "display \u2014 display-cover: 0.150 mm \u2014 seated against it",
     "co2-2 \u2014 enclosure-back-top: 0.199 mm \u2014 seated against it",
     "fluid-28 \u2014 enclosure-back-top: 0.199 mm \u2014 seated against it",
-    "fluid-18 \u2014 foam-assembly: 0.199 mm \u2014 seated against it",
     "carb-1 \u2014 enclosure-back-top: 0.199 mm \u2014 seated against it",
+    "fluid-18 \u2014 foam-assembly: 0.200 mm \u2014 seated against it",
     "discharge-chain \u2014 foam-assembly: 0.200 mm \u2014 seated against it",
     "suction-chain \u2014 foam-assembly: 0.200 mm \u2014 seated against it",
     "water-3 \u2014 foam-assembly: 0.340 mm \u2014 seated against it",
@@ -169,8 +169,8 @@
     "wago-sensors \u2014 foam-assembly: 1.600 mm",
     "fluid-1 \u2014 enclosure-front-top: 1.655 mm",
     "wago-reeds-b \u2014 foam-assembly: 1.700 mm",
-    "fluid-18 \u2014 coil-v-a: 1.710 mm",
     "fluid-14 \u2014 valve-v-a: 1.711 mm",
+    "fluid-18 \u2014 coil-v-a: 1.711 mm",
     "water-3 \u2014 fluid-26: 1.751 mm",
     "co2-2 \u2014 pcba: 1.876 mm",
     "water-7 \u2014 co2-2: 1.933 mm",
@@ -800,10 +800,15 @@
    "id": "tee-carrier-motion",
    "label": "Tee carrier clears front-top through installation and all four working states, and both end stops and all five transverse constraints engage",
    "kind": "gate",
-   "status": "pass",
-   "value": "291 solid/envelope checks; maximum unintended overlap 0.000000 mm\u00b3; release/park overshoots 0.300000/0.300000 mm\u00b3; 40 independent flank-capture readings, minimum contact 0.323400 mm\u00b3; minimum upper/lower web bearing 139.975 mm\u00b2",
+   "status": "fail",
+   "value": "291 solid/envelope checks; maximum unintended overlap 25.250430 mm\u00b3; release/park overshoots 0.300000/0.300000 mm\u00b3; 40 independent flank-capture readings, minimum contact 0.323400 mm\u00b3; minimum upper/lower web bearing 121.250 mm\u00b2",
    "target": "0 mm\u00b3 unintended overlap; positive end-stop, X/Z and pitch/yaw/roll contact",
-   "detail": [],
+   "detail": [
+    "half -1 complete lowered behind tees cup sweep crosses `enclosure-front-top` by 25.250430 mm\u00b3",
+    "half -1 complete lowered behind tees cup floor sweep crosses `enclosure-front-top` by 25.250430 mm\u00b3",
+    "half +1 complete lowered behind tees cup sweep crosses `enclosure-front-top` by 25.250430 mm\u00b3",
+    "half +1 complete lowered behind tees cup floor sweep crosses `enclosure-front-top` by 25.250430 mm\u00b3"
+   ],
    "active": true
   },
   {
@@ -851,7 +856,7 @@
    "label": "The front column's lip ring is clear at the seam height",
    "kind": "gate",
    "status": "pass",
-   "value": "seam at 160.00, lane 150.65..168.75",
+   "value": "seam at 160.00, lane 150.65..218.89",
    "target": "a lane containing it",
    "detail": [],
    "active": true
@@ -1220,7 +1225,7 @@
    "detail": [
     "carb-1: 145.6 mm, held at its anchor",
     "co2-2: 114.3 mm, held at its anchor",
-    "fluid-28: 163.2 mm, held at its anchor",
+    "fluid-28: 163.5 mm, held at its anchor",
     "fluid-18: 245.4 mm unheld \u2014 left loose; Flavor A's line to its rear union. The cold core's side post grips its crossing fore of the pump (`_cold_core_interface.cap_side_anchors`), and what runs loose past it is the fall and the union column's own straight \u2014 a column whose overhead is the ASSE drip pan's sleeve, the flow meter and the meter's down-line, and whose flanks are the pump's casting and the moisture plate's lane: nothing printed stands within a rib's reach of it. The slack sags toward the cap's open air below, away from every line beside it.",
     "fluid-4: 201.2 mm unheld \u2014 left loose; The funnel's own drain, and the one line in the machine a customer handles. It parts at the union under the spout every time the funnel goes to the dishwasher and is pushed back at the same collet, so the length between that joint and V-B has to give: a rib zip-tied across it would be a fixed point the customer works against, and the run would take the load at the collet instead of along its own length."
    ],

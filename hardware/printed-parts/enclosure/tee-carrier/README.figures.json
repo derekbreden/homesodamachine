@@ -1,6 +1,6 @@
 {
   "/hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py": {
-    "FINGER_DEPTH": "8.705 mm",
+    "FINGER_DEPTH": "14.705 mm",
     "FINGER_HEIGHT": "40 mm",
     "FINGER_RUN": "22 mm",
     "GRIP_BACK_T": "2.5 mm",

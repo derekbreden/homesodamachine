@@ -24,16 +24,16 @@
   "first_layer_z_mm": 0.2,
   "inputs": {
     "gcode": "plate_1.gcode",
-    "gcode_sha256": "a092c27f3fd2a30ffb1ac62a1569a3c1ade59fce44aabfc8682d1c7bd3cedcf9",
+    "gcode_sha256": "6dc9ccf2b25183244f863b32635bf95f2e4eaaaa5b5949e094ddea95da01862a",
     "model": "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.stl",
-    "model_sha256": "743051a9f33721ab057938ea2c73f56843502bf0701f9136fca8af7e2ea95b48",
+    "model_sha256": "5421a95ed9e3db8497a2f86578a09647769e24e180bef0c037890e8c6c404545",
     "profile": "git:aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a:hardware/printed-parts/enclosure/enclosure/enclosure-front-top-petgf.3mf",
     "profile_sha256": "99abeeb25ce51dfa0b2a40dec920d4cc14b5c8501eb02096cd531394b479a41e"
   },
   "interfaces": [
     {
       "bbox_cad_xyz_mm": [
-        93.45,
+        89.85,
         88.818,
         174.445,
         105.05,
@@ -41,7 +41,7 @@
         174.845
       ],
       "bbox_xy_mm": [
-        209.2,
+        205.6,
         131.6,
         220.8,
         188.4
@@ -75,7 +75,7 @@
     },
     {
       "bbox_cad_xyz_mm": [
-        99.05,
+        93.05,
         115.618,
         216.645,
         106.65,
@@ -83,7 +83,7 @@
         217.045
       ],
       "bbox_xy_mm": [
-        214.8,
+        208.8,
         158.4,
         222.4,
         174.0
@@ -147,18 +147,18 @@
     {
       "base_z_mm": 0.2,
       "bbox_cad_xyz_mm": [
-        89.85,
+        86.25,
         83.618,
         171.445,
         108.25,
-        150.418,
+        149.618,
         175.445
       ],
       "bbox_xy_mm": [
-        205.6,
+        202.0,
         126.4,
         224.0,
-        193.2
+        192.4
       ],
       "first_interface_z_mm": 3.2,
       "id": "tree-2",
@@ -172,17 +172,17 @@
     {
       "base_z_mm": 0.2,
       "bbox_cad_xyz_mm": [
-        99.05,
+        93.05,
         115.618,
         171.445,
-        120.25,
+        119.45,
         131.618,
         217.445
       ],
       "bbox_xy_mm": [
-        214.8,
+        208.8,
         158.4,
-        236.0,
+        235.2,
         174.4
       ],
       "first_interface_z_mm": 45.4,

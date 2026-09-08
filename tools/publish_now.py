@@ -131,17 +131,19 @@ def enclosure_drift(root: Path = None) -> tuple:
             "solids", {})
     except (OSError, ValueError):
         held = {}
-    directory = root / "hardware/printed-parts/enclosure/enclosure"
+    directories = ("hardware/printed-parts/enclosure/enclosure",
+                   "hardware/printed-parts/enclosure/tee-carrier")
     current = {
         path.relative_to(root).as_posix(): path
-        for path in directory.iterdir()
+        for rel_dir in directories
+        for path in ((root / rel_dir).iterdir() if (root / rel_dir).is_dir() else ())
         if (path.is_file()
             and path.name.startswith("enclosure-")
             and path.name.endswith((".step", ".stl", ".step.mesh")))
-    } if directory.is_dir() else {}
+    }
     locked = {
         rel for rel in held
-        if rel.startswith("hardware/printed-parts/enclosure/enclosure/")
+        if any(rel.startswith(directory + "/") for directory in directories)
         and Path(rel).name.startswith("enclosure-")
         and rel.endswith((".step", ".stl", ".step.mesh"))
     }
@@ -195,11 +197,16 @@ def refresh_enclosure_viewer() -> None:
     for host in hosts:
         if not host.is_file():
             raise RuntimeError(f"the viewer host is absent: {host.relative_to(ROOT)}")
-        landed = flute_payload.graft(host, fluted)
-        if landed != len(fluted):
+        # The enclosure aggregate contains its six wall pieces; the appliance also
+        # contains the moving carrier halves. Each host receives the surfaces it owns.
+        expected = {flute_payload.fluted_key(name, fluted)
+                    for name in flute_payload.payload_names(host)} - {None}
+        carried = {name: fluted[name] for name in expected}
+        landed = flute_payload.graft(host, carried)
+        if not expected or landed != len(expected):
             raise RuntimeError(
-                f"{host.relative_to(ROOT)} accepted {landed} of {len(fluted)} piece surface(s)")
-    print(f"  {len(fluted)} current enclosure surface(s) grafted into both viewer payloads")
+                f"{host.relative_to(ROOT)} accepted {landed} of {len(expected)} piece surface(s)")
+    print(f"  {len(fluted)} current enclosure surface(s) carried by their viewer hosts")
 
 
 def tell_the_site() -> None:

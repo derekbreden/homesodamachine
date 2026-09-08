@@ -141,6 +141,7 @@ def barren(root: Path, solid_hashes: dict) -> list:
 # (`faucet_shell.write_bed_file`) — the one piece of this machine that stands on a counter.
 BUNDLED_MESH_DIRS = (
     "hardware/printed-parts/enclosure/enclosure",
+    "hardware/printed-parts/enclosure/tee-carrier",
     "hardware/printed-parts/cold-core/foam-shell",
     "hardware/printed-parts/cold-core/foam-cap",
     "hardware/printed-parts/faucet/faucet-shell",
@@ -177,6 +178,7 @@ BUNDLED_GLB_DIRS = ("hardware/assembly/scenes/glb",)
 # /3d opens when anybody asks to look at the faucet.
 BUNDLED_PAYLOAD_DIRS = (
     "hardware/printed-parts/enclosure/enclosure",
+    "hardware/printed-parts/enclosure/tee-carrier",
     "hardware/printed-parts/cold-core/foam-shell",
     "hardware/printed-parts/cold-core/foam-cap",
     "hardware/printed-parts/faucet/faucet-shell",

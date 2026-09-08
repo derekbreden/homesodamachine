@@ -24,9 +24,9 @@
   "first_layer_z_mm": 0.2,
   "inputs": {
     "gcode": "plate_1.gcode",
-    "gcode_sha256": "c7732c578176e4a0e456c43522af411331e6b55e0c998d4b5947b99ba33a2ef7",
+    "gcode_sha256": "ea23160395d3d8d29b08df439084b52d18a71d3ced8c5dbce70151e0f41aa18e",
     "model": "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.stl",
-    "model_sha256": "47dfd9e2671fe8ac1ecf0533fc1adf60bf765a8e60f63bd05baff6d5cdd37e87",
+    "model_sha256": "cf84804d116c2dec612e0156b52247188e470ab37906fe40c021373b30da61b7",
     "profile": "git:aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a:hardware/printed-parts/enclosure/enclosure/enclosure-front-top-petgf.3mf",
     "profile_sha256": "99abeeb25ce51dfa0b2a40dec920d4cc14b5c8501eb02096cd531394b479a41e"
   },
@@ -36,14 +36,14 @@
         -105.05,
         88.818,
         174.445,
-        -93.85,
+        -89.45,
         145.618,
         174.845
       ],
       "bbox_xy_mm": [
         109.2,
         131.6,
-        120.4,
+        124.8,
         188.4
       ],
       "build_up_mm": 3.0,
@@ -55,7 +55,7 @@
     {
       "bbox_cad_xyz_mm": [
         -13.05,
-        100.418,
+        100.018,
         209.845,
         8.95,
         109.218,
@@ -63,7 +63,7 @@
       ],
       "bbox_xy_mm": [
         201.2,
-        143.2,
+        142.8,
         223.2,
         152.0
       ],
@@ -75,18 +75,18 @@
     },
     {
       "bbox_cad_xyz_mm": [
-        -106.25,
-        116.018,
+        -106.65,
+        115.618,
         216.645,
-        -99.05,
-        131.218,
+        -93.05,
+        130.818,
         217.045
       ],
       "bbox_xy_mm": [
-        108.0,
-        158.8,
-        115.2,
-        174.0
+        107.6,
+        158.4,
+        121.2,
+        173.6
       ],
       "build_up_mm": 45.2,
       "first_z_mm": 45.4,
@@ -122,18 +122,18 @@
     {
       "base_z_mm": 0.2,
       "bbox_cad_xyz_mm": [
-        -120.25,
+        -119.45,
         115.618,
         171.445,
-        -99.05,
-        131.218,
+        -93.05,
+        131.618,
         217.445
       ],
       "bbox_xy_mm": [
-        94.0,
+        94.8,
         158.4,
-        115.2,
-        174.0
+        121.2,
+        174.4
       ],
       "first_interface_z_mm": 45.4,
       "id": "tree-1",
@@ -147,18 +147,18 @@
     {
       "base_z_mm": 0.2,
       "bbox_cad_xyz_mm": [
-        -108.65,
+        -108.25,
         84.418,
         171.445,
-        -90.25,
-        150.018,
+        -85.45,
+        150.818,
         175.445
       ],
       "bbox_xy_mm": [
-        105.6,
+        106.0,
         127.2,
-        124.0,
-        192.8
+        128.8,
+        193.6
       ],
       "first_interface_z_mm": 3.2,
       "id": "tree-2",
@@ -172,18 +172,18 @@
     {
       "base_z_mm": 0.2,
       "bbox_cad_xyz_mm": [
-        -13.45,
-        97.218,
+        -13.05,
+        98.018,
         171.445,
         8.95,
-        109.218,
+        110.018,
         210.245
       ],
       "bbox_xy_mm": [
-        200.8,
-        140.0,
+        201.2,
+        140.8,
         223.2,
-        152.0
+        152.8
       ],
       "first_interface_z_mm": 38.6,
       "id": "tree-3",
