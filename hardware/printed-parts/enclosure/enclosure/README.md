@@ -610,38 +610,33 @@ bodies. Neither is a question the vent geometry settles.
 
 ## Support-removal strategy
 
-The enclosure is optimized for **how its supports come out**, not for the smallest total
-overhang area. A production-profile slice reports both the connected support bodies which reach
-the model and their separate interface islands: the former is the number of things a hand has to
-remove, while the latter keeps a branching tree from hiding several distinct contact regions.
-Fewer connected supports comes first. Supported area and support volume are only tie-breakers
-after that topology.
+A production-profile slice reports the connected support bodies which reach the model and their
+separate interface islands: the former is how many things a hand has to remove, the latter keeps
+a branching tree from hiding several distinct contact regions. Two further readings are recorded
+per body — its useful build-up, the vertical distance from its own base to its first model
+interface, and its root, the print bed or model material.
 
-The two other costs remain **independent readings**, not terms collapsed into a score:
+**These are measurements of one slice, and none of them ranks a design.** A support is not a
+fault. What a piece needs is settled by looking at the feature and the job it does; the slice
+then says what taking the support off will involve. A column can be the right answer, an ordinary
+corbel can be the right answer, and a flat carried by slicer support can be the right answer —
+the reading does not choose between them.
 
-- A support's useful build-up is the vertical distance from its own base to its first model
-  interface. Under **5 mm** is a defect, **5–10 mm** is marginal, and **10 mm or more** is a decent
-  length for the support to establish itself. Improvement is capped at **15 mm**: more length is
-  harmless, but earns no further preference.
-- A support's root is read against the face the piece prints on. On a piece whose cavity opens
-  toward the bed — the bottoms on their floors, front-top on its mouth — a support rooted on
-  the print bed is preferred irrespective of its length and a root on model material is a
-  defect of its own, so a short bed-rooted support and a long material-rooted support are
-  reported as two different compromises rather than traded against one another invisibly.
-  On back-top the cavity opens away from the bed: the ceiling slab's interior face is the
-  root every interior support has, a hidden flat the piece lays down in its first layers, and
-  a root there is that piece's own bed. Supports that start on material are expected on it,
-  and the ledger names each retained body by the flat it carries and why that flat is flat.
-
-A candidate which removes a whole separate support that was both short and rooted on model
-material wins on every count at once, and is the strongest fix the audit can name.
+What a root means depends on the face the piece prints on. On a piece whose cavity opens toward
+the bed — the bottoms on their floors, front-top on its mouth — the bed and the model are two
+different places to start. On back-top the cavity opens away from the bed: the ceiling slab's
+interior face is the root every interior support has, a hidden flat the piece lays down in its
+own first layers, so a root there is that piece's own bed. The ledger names each retained body by
+the flat it carries and why that flat is flat.
 
 The face a feature works through keeps the shape its work requires, and support carries it.
-The Z-seam catches are broad square planes because they bear against lift along the complete
-rails; the ASSE drip pan lies on a flat berth floor; a cross-pin keeps its square pass envelope;
-a pump boss lands on a flat shoulder. A corbel carries the material behind one of those faces.
-It does not replace the bearing, locating, sliding, sealing, clamping, insertion or access face
-with a slope.
+The C14 inlet's flange pocket keeps its floor, because that floor is what the receptacle lands
+on; each handhold keeps its flat lifting ceiling, because that ceiling is the surface a hand
+pulls up on; the Z-seam catches are broad square planes because they bear against lift along the
+complete rails; the ASSE drip pan lies on a flat berth floor; a cross-pin keeps its square pass
+envelope; a pump boss lands on a flat shoulder. A corbel carries the material behind one of
+those faces. It does not replace the bearing, locating, sliding, sealing, clamping, insertion or
+access face with a slope.
 
 Non-functional down-facing geometry is changed before support is accepted. On a piece printed
 with its ceiling on the bed the ground is right there, and a print-down face is carried by a
@@ -652,10 +647,11 @@ where a 45° wedge from the arris to the roof leaves a triangle of air nothing n
 `wedge-fills` reads every print-down slope on back-top against the pack: each is under a body
 or within a millimetre of one, in a room `enclosure_assembly.KEPT_WEDGES` names — a zip tie's
 loop over a crown, a screw head's pass, the cable clip's stated profile — or a wedge a column
-could replace, which the bound names with the viewer's pick text. Tube-anchor end webs default
-to the same pack reading in their `stand` station, while a site's per-end form may specify the
-ordinary corbel directly; Wago towers carry the pack reading in `column`, decided against the
-placed bodies. A corbel, chamfer or tangent teardrop is what remains where a column does not
+could replace, which the bound names with the viewer's pick text. Each tube-anchor and
+body-anchor end names its own form in `TUBE_ANCHOR_END_FORMS` or `BODY_ANCHOR_END_FORMS`, and
+each Wago tower names its column in `WELL_COLUMNS`; the ground boss's short column and the
+ordinary anchor corbel are each stated, not searched for. A corbel, chamfer or tangent teardrop
+is what remains where a column does not
 fit; it follows the exact feature it carries and reaches its whole supported face, and is not a
 generic triangle merely placed nearby. A corbel that reaches only part of its face is read by
 what it leaves: the remainder is a supported face still, and the corbel's end is one more
@@ -724,10 +720,8 @@ exterior settings of `enclosure-front-top-petgf.3mf` around their own mesh — t
 | `enclosure-front-bottom` | 4 | 4 | 2 bed, **2 model** | **8.00 mm** |
 | `enclosure-back-top` | 12 | 35 | 5 bed, **7 model** | **1.20 mm** |
 
-**One piece slices clean, and five pieces are the campaign's open work.**
 `enclosure-pump-cartridge` emits no support at all. On the pump cap and front-top, every body
-roots on the print bed and stands 18 mm or more before it
-touches the model, which is past the point the build-up reading saturates at. Front-top's two
+roots on the print bed and stands 18 mm or more before it touches the model. Front-top's two
 bodies carry the pump-bay lintel and the pump-jack receptacle roof. The Y-seam blocks above the handhold roofs
 and their front passages have no separate support interfaces. Four bed-rooted bodies carry the
 handhold ceilings, one per flank on each bottom piece. Each has **34.20 mm** of build-up and
@@ -737,9 +731,9 @@ whole of its bearing against lift. Back-bottom's west catch reaches the bed from
 flank through the 12 mm PRV passage that crosses it — the same opening that splits that catch
 into two interface islands. The other three have no such lane and root on the arm's own 45°
 under-flare **8.00 mm** below the catch they carry: front-bottom's pair and back-bottom's east
-catch are the only material-rooted bodies outside the 15 mm band.
+catch are the material-rooted bodies on the two bottoms.
 
-Back-top prints on its ceiling, so what a support reaches there is the set of faces that look print-down and cannot carry themselves: the drip pan's berth floor and its sleeve's lid, the nameplate bar's top and the pocket's lower rim, the C14's aperture and flange-pocket floors, the keystone pocket's floor, the tap-water ribs' tie-band flanks and the five ribs' 3.5 mm crown strips over their tie bands, the Z-seam feet's broad flat caught faces, the ASSE anchor's two round seats and its tie cavity's 3 mm lower threshold, and the identification-chip pockets' lower arcs on the rear face. The slice reaches them with **12 bodies** over **35 islands**, 5 rooted on the plate around the bedded piece — fore of its mouth, behind its rear face, through the funnel's opening — and 7 on the piece itself: the slab's interior face, which is that piece's own first layers, and the backing over each rib's tie channel; the shortest build-up is **1.20 mm**, the stub under a crown strip inside its 3 mm channel. The ASSE threshold at x −101.5..−98.5 is reached by a model-rooted tree with **28.32 mm** of build-up. The joined east mounting pad is the separate 2.25 mm wall-rooted bridge described above and has no support interface. The three rail-face islands join the two large bed-rooted trees, with **185.28 mm** of build-up to their interfaces. The reading is this project's: tree(auto) supports at a 35° threshold, 0.4 mm top and bottom Z distances, 0.6 mm from the object in XY and two interface layers, all carried in the reading's `slicer_settings`; a plate sliced with other support settings is audited again against that project. Back-bottom's two slide-head bodies carry the broad flat undersides: the west run from the bed through the PRV passage and the east from the arm's under-flare **8.00 mm** below. The three material-rooted slide-head bodies on the two bottoms remain open support work.
+Back-top prints on its ceiling, so what a support reaches there is the set of faces that look print-down and cannot carry themselves: the drip pan's berth floor and its sleeve's lid, the nameplate bar's top and the pocket's lower rim, the C14's aperture and flange-pocket floors, the keystone pocket's floor, the tap-water ribs' tie-band flanks and the five ribs' 3.5 mm crown strips over their tie bands, the Z-seam feet's broad flat caught faces, the ASSE anchor's two round seats and its tie cavity's 3 mm lower threshold, and the identification-chip pockets' lower arcs on the rear face. The slice reaches them with **12 bodies** over **35 islands**, 5 rooted on the plate around the bedded piece — fore of its mouth, behind its rear face, through the funnel's opening — and 7 on the piece itself: the slab's interior face, which is that piece's own first layers, and the backing over each rib's tie channel; the shortest build-up is **1.20 mm**, the stub under a crown strip inside its 3 mm channel. The ASSE threshold at x −101.5..−98.5 is reached by a model-rooted tree with **28.32 mm** of build-up. The joined east mounting pad is the separate 2.25 mm wall-rooted bridge described above and has no support interface. The three rail-face islands join the two large bed-rooted trees, with **185.28 mm** of build-up to their interfaces. The reading is this project's: tree(auto) supports at a 35° threshold, 0.4 mm top and bottom Z distances, 0.6 mm from the object in XY and two interface layers, all carried in the reading's `slicer_settings`; a plate sliced with other support settings is audited again against that project. Back-bottom's two slide-head bodies carry the broad flat undersides: the west run from the bed through the PRV passage and the east from the arm's under-flare **8.00 mm** below.
 
 ## Print orientation + corner relief
 
