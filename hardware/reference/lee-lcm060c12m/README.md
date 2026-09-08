@@ -88,7 +88,9 @@ and returns the empty carrier to park. Derek's
 establish that a small tug engages a free collet and that insertion pushes it inward against
 spring-level force.
 
-The fixed wall's diamond pilots and the carrier's recessed seats locate the two springs.
+The fixed body's round bores and the carrier's recessed seats locate the two springs.
+Each bore opens into a loading well that admits a compressed spring before the fore valve row
+and flexible links are installed.
 Installed lengths and nominal pair forces at release, squeeze, connected and park are in the
 enclosure facts. Those values use the actual bearing-plane separation, including seat depth.
 The assembly check exercises full travel, equal grip motion and empty return; recorded physical

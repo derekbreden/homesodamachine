@@ -421,7 +421,7 @@ MOUNTS = (
     ("tee-y-d", "enclosure-tee-carrier-right", "tie-capture"),
     ("tee-y-f", "enclosure-tee-carrier-left", "tie-capture"),
     ("tee-y-g", "enclosure-tee-carrier-left", "tie-capture"),
-    # Each spring is captive between the front-top's fixed diamond guide/bearing face and the
+    # Each spring is captive between front-top's bored guide/bearing face and the
     # carrier's recessed seat. The pair pushes aft and travels with neither printed endpoint.
     ("tee-carrier-spring-west",
      ("enclosure-front-top", "enclosure-tee-carrier-left"), "gap-press"),
@@ -710,7 +710,7 @@ TOUCHING_OK = {frozenset(p) for p in (
     # front-top piece carries instead of a lid.
     *(("enclosure-front-top", f"valve-v-{v}") for v in "cdefghij"),
     # The two compression springs terminate on printed bearing faces at both ends. Zero
-    # distance is the captive mechanism working; the diamond guide remains inside the coil ID.
+    # distance is the captive mechanism working; the fixed bore surrounds the coil OD.
     *((f"tee-carrier-spring-{side}", host)
       for side, half in (("west", "left"), ("east", "right"))
       for host in ("enclosure-front-top", f"enclosure-tee-carrier-{half}")),

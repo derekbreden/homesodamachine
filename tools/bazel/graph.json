@@ -5299,7 +5299,6 @@
       "hardware/printed-parts/cadlib/cable_clip.py",
       "hardware/printed-parts/cadlib/fits.py",
       "hardware/printed-parts/cadlib/flute_skin.py",
-      "hardware/printed-parts/cadlib/plan.py",
       "hardware/printed-parts/cadlib/reeding.py",
       "hardware/printed-parts/cadlib/snap.py",
       "hardware/printed-parts/cadlib/world_workplane.py",
@@ -5324,7 +5323,6 @@
       "hardware/reference/beduan-solenoid/beduan_solenoid.py",
       "hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
       "hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
-      "hardware/reference/molex-micro-fit-4/molex_micro_fit_4.py",
       "hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
       "hardware/reference/riteav-keystone/riteav_keystone.py",
       "hardware/reference/wago-221/wago_221.py",
@@ -5362,7 +5360,8 @@
       "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step",
       "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
       "hardware/printed-parts/enclosure/enclosure/enclosure.py",
-      "hardware/printed-parts/enclosure/enclosure/enclosure.step"
+      "hardware/printed-parts/enclosure/enclosure/enclosure.step",
+      "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh"
     ]
   },
   "hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py": {
@@ -5554,6 +5553,7 @@
     "reads": [
       "hardware/printed-parts/cadlib/fits.py",
       "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
+      "hardware/printed-parts/enclosure/tee-carrier/README.figures.json",
       "hardware/printed-parts/enclosure/tee-carrier/README.md",
       "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.step",
       "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.stl",
@@ -5571,9 +5571,11 @@
       "tools/docgen/__init__.py"
     ],
     "rewritten": [
+      "hardware/printed-parts/enclosure/tee-carrier/README.figures.json",
       "hardware/printed-parts/enclosure/tee-carrier/README.md"
     ],
     "writes": [
+      "hardware/printed-parts/enclosure/tee-carrier/README.figures.json",
       "hardware/printed-parts/enclosure/tee-carrier/README.md",
       "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.step",
       "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step"

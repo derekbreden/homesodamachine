@@ -1227,6 +1227,25 @@ fore of the pocket and [22.46 mm](PULL_AFT_STOCK) aft of it.
 Pulling force enters the one load-bearing cradle; the clamp has no separate grip to split the
 load or invite a second tug.
 
+## The tee carrier body
+
+A filled body extends aft from the fixed tee wall to the moving carrier and joins both
+flanks. Its flat lower and upper lands carry the carrier web; the outboard guide openings
+carry the closed handholds and stop their release/park travel. Four aft-opening recesses
+surround the tee run arms, with branch journals continuing forward to the fixed collet plate.
+Each tie has a routing channel and an outboard head recess. Separate passages carry the bowed
+stubs and moving hairpin ends through their complete travel.
+
+Two round spring bores terminate on the fixed wall. Each opens into a vertical loading well
+behind it; the spring enters compressed, seats in the parked carrier and extends forward into
+its bore. The rear recesses admit the aft valves from the loose piece's open underside before
+the carrier halves enter from the flanks. The carrier's upper lap clears the seated tees and
+fastens through two straight access bores in the empty cartridge bay.
+
+The fixed guide ceilings, tee recesses and tie channels keep their working faces. Support
+leaves through the open aft cavities before hardware is installed. The spring bores open into
+the loading wells for cleanup.
+
 ## The full-width opening
 
 **One opening spans the entire lower-cradle storey** (`_bay_cut`), from exterior side face to
