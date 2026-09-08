@@ -48,7 +48,7 @@ The arrangement above is the current pack — a working layout. It is free to re
 - The ASSE drip pan sits directly under the ASSE 1022 chain's atmospheric vent; the backflow preventer, the pan and the moisture sensor co-locate on the water-inlet path.
 - Everything the customer draws leaves by the rear umbilical, so the carbonated-water run from the core's outlet to its own bulkhead stays short.
 
-**What is still open:** the side grilles the crossing airflow needs — an intake on the −X face and an exhaust on the +X one — and what ducts the block's faces to them. The carrier mechanism also remains a physical bench gate: real bowed-stub blanks, paired spring force, center-joint retention, equal tab motion, empty return to park, release/reconnection and leak-free cycling must be measured before production release. In the assembly itself, the four moving tees are positively retained by eight ties to the carrier; the fixed wall journals locate them across the motion axis without fastening them along it.
+**What is still open:** the side grilles the crossing airflow needs — an intake on the −X face and an exhaust on the +X one — and what ducts the block's faces to them. The carrier’s collet action is established by [Derek’s physical observations](/hardware/reference/tee-connector/README.md#observed-push-connect-action). Its tube blanks are fitted during assembly, and the assembled unit’s dry cycle checks guided motion, retention, return and the flexible links. In the assembly itself, the four moving tees are positively retained by eight ties to the carrier; the fixed wall journals locate them across the motion axis without fastening them along it.
 
 ## What is on the front face
 

@@ -31,7 +31,9 @@ gooseneck's tip. The user's part is a container under the faucet.
 
 **The manifold stays in the appliance, but its four-tee carrier travels inside front-top.**
 [2](TIES_PER_TEE) ties per tee couple Y-C, Y-D, Y-F and Y-G in Y while the fixed wall journals their branch
-collars in X and Z. The integral service tabs travel with the carrier; the two springs
+collars in X and Z. Each integral service tab is a closed finger cup with a thick front bar.
+The cups run in the flank openings; their opposed rims retain the joined carrier sideways
+and cover the openings throughout travel. The two springs
 compress between it and fixed front-top. The tee-side ends of four bowed stubs and four
 hairpins follow the same stroke. Nothing in that mechanism rides out on the cartridge: the only
 tube ends that cross the bay's mouth are the four the pumps carry with them.
@@ -216,17 +218,10 @@ carrier flex links for seepage, rubbing or a link pulled taut.
 3. **A customer-facing transit mode is not written.** This procedure leaves the carbonator charged.
    The carbonator's only liquid outlet climbs to the faucet, and the factory's transit sequence is
    [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) step 13.
-4. **The complete carrier mechanism is not yet physically qualified.** Before this procedure
-   is released for production service, the four tee-to-valve bows must be bench-fitted to
-   12 mm exposed/developed paths across their 10 mm sleeve-face chords; 12 mm is not a stock
-   cut length, and the blank remains TBD by that fixture. Cycle and force-measure the complete
-   four-tee mechanism through release, squeeze, connected and park with all eight ties, two
-   springs, both integral tabs and the center joint, four bowed stubs, four moving hairpin ends and four real
-   cartridge tubes installed. It must release four together, return empty to park, settle
-   repeatably at connected and remain leak-free, without racking, rubbing, coil bind, buckling,
-   spring escape, center-joint loosening or tube damage. Catalog force calculations and collision-free
-   CAD do not close this gate; record it under
-   [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) Open item 7.
+4. **Bowed-stub stock lengths.** The four tee-to-valve links have 12 mm exposed paths across
+   10 mm sleeve-face chords. Their stock blanks also include both fittings' insertion depths;
+   the valve-side depth is not recorded. Factory assembly fits and records these lengths in
+   [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) step 5.
 
 ## Sources
 [value](NAME) texts are updated by:

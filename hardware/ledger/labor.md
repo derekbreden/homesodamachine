@@ -108,7 +108,7 @@ Every wetted and gas joint in the unit: the carbonator's four elbow stacks, the 
 | Route the seven cold-core penetrations; stack the copper plugs | CC-12, CC-13 | Done before the body foam locks them in | 10 |
 | CO2 path — +Y wall of back-top to cold core | IP-01 | | 10 |
 | Water path — +Y wall of back-top to cold core | IP-02 | Filter, backflow, pump, top-plate port | 10 |
-| Flavor manifold — fixed valves, moving tee carrier, pumps and channels | IP-03, IP-04 | [10](SOLENOIDS) fixed valves total. Aft valves first; right half entered and parked; left half entered; center lap screwed together; two springs fitted; four tees inserted individually and tied twice each; fore valves and four bench-fitted bowed stubs; cartridge connected by squeeze, bottom and release. Four hairpin ends travel with the carrier. This cadence remains untimed until the bow, spring-force and full-cycle bench gate closes | 15 |
+| Flavor manifold — fixed valves, moving tee carrier, pumps and channels | IP-03, IP-04 | [10](SOLENOIDS) fixed valves total. Aft valves first; right half entered and parked; left half entered; center lap screwed together; two springs fitted; four tees inserted individually and tied twice each; fore valves and four bench-fitted bowed stubs; cartridge connected by squeeze, bottom and release. Four hairpin ends travel with the carrier. The assembly time is an allowance; this cadence has no timed build reading | 15 |
 | Risers to the umbilical bulkheads | IP-05 | | 5 |
 | Witness and tidy every joint | IP-06 | The pass that makes the next leak someone else's fault | 5 |
 | **Plumbing** | | | **[70](LAB_SEC7)** |

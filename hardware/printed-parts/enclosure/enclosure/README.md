@@ -1184,12 +1184,17 @@ relax the grasp so the two springs settle the carrier at connected. The plate is
 the tee wall behind it.
 
 The [`tee carrier`](/hardware/printed-parts/enclosure/tee-carrier/README.md) is two printed
-halves with integral service tabs, joined by two M3 screws at the center. Each half lowers
-through the open cavity with its grip displaced inward, then slides outward through its
-flank opening. The right half parks while the left enters; the center lap closes before the
-springs and tees are fitted. Two teardrop tool passages through the aft valve tray give straight
-access to the center screws from the open rear. The flank openings leave finger space behind both grip faces through
-the complete release-to-park stroke.
+halves with closed finger cups, joined by two M3 screws at the center. Each half feeds inward
+through its own flank opening from outside. The right half enters at release and parks while
+the left enters at connected; both come fore to release before the center lap closes. Springs
+and tees follow. Two teardrop tool passages through the aft valve tray give straight access
+to the center screws from the open rear.
+
+Each cup has a thick front bar, a closed back and a rounded mouth. Its rectangular body runs
+between the opening's flat upper and lower bearings; the fore and aft faces stop the stroke.
+An exterior rim overlaps every opening edge throughout travel. The two rims face opposite
+flanks and capture the joined carrier across X. The guide faces and rims locate the carrier
+with the tees and springs absent. The part's README carries the grip, guide and rim dimensions.
 
 Each passage has an Ø8.5 mm circular bore and a tangent teardrop roof. It passes the
 Ø6.35 mm tube between the aligned pump and tee stations while the surrounding face

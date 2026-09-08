@@ -6005,29 +6005,10 @@ def _tee_wall(inner, y_joint, plate, bay):
 
 
 def _tee_carrier_fixed_features(carrier):
-    """Front-top's release/park stops and two support-free spring-guide prisms.
-
-    The ears lower through the open cavity and ride 0.15 mm inside the grown flank faces.  The
-    tee-wall journals supply X/Z guidance; these sidewall-rooted posts own only the two Y stops.
-    Each spring starts on the tee wall's aft face around a 4 mm diamond carried 10 mm along the
-    spring axis. The diamond's lower faces stand at 45 degrees in the print frame, and the whole
-    guide remains inside the spring's round ID.
-    """
+    """Two diamond spring pilots projecting aft from the fixed tee wall."""
     if not carrier:
         return None
-    x0, x1 = carrier["fore_stop_x"]
-    ax0, ax1 = carrier["aft_stop_x"]
-    z0, z1 = carrier["stop_z"]
-    depth = carrier["stop_depth"]
-    release_y = carrier["release_fore_stop_y"]
-    park_y = carrier["park_aft_stop_y"]
     out = None
-    for sign in (-1.0, 1.0):
-        fx0, fx1 = ((x0, x1) if sign > 0.0 else (-x1, -x0))
-        px0, px1 = ((ax0, ax1) if sign > 0.0 else (-ax1, -ax0))
-        pair = _ybox(fx0, fx1, release_y - depth, release_y, z0, z1).fuse(
-            _ybox(px0, px1, park_y, park_y + depth, z0, z1))
-        out = pair if out is None else out.fuse(pair)
     half = carrier["spring_guide_across"] / 2.0
     fixed_y = carrier["fixed_spring_bearing_y"]
     for x, z in carrier["spring_guide_xz"]:
@@ -6036,24 +6017,25 @@ def _tee_carrier_fixed_features(carrier):
             fixed_y + carrier["spring_guide_length"],
             ((x, z + half), (x + half, z), (x, z - half), (x - half, z)),
         )
-        out = out.fuse(guide)
+        out = guide if out is None else out.fuse(guide)
     return out
 
 
 def _tee_carrier_service_slots(carrier):
-    """Two gabled flank openings for the integral carrier grips and fingers behind them."""
+    """Rectangular guide openings with flat upper/lower bearings and fore/aft end stops.
+
+    Each closed handhold occupies its opening throughout the 6.15 mm stroke. Its outer rim
+    overlaps all four edges. The upper bearing is a supported print ceiling.
+    """
     if not carrier:
         return ()
     x0, x1 = carrier["service_slot_x"]
     y0, y1 = carrier["service_slot_y"]
     z0, z1 = carrier["service_slot_z"]
-    roof = carrier["service_slot_roof_z"]
-    ym = (y0 + y1) / 2.0
-    section = ((y0, z0), (y1, z0), (y1, z1), (ym, roof), (y0, z1))
-    return (
-        _yz_prism(x0, x1, section),
-        _yz_prism(-x1, -x0, section),
-    )
+    return tuple(
+        _ybox(xa, xb, y0, y1, z0, z1).fuse(
+            _ybox(xa, xb, *carrier["entry_slot_y"], *carrier["entry_slot_z"]))
+        for xa, xb in ((x0, x1), (-x1, -x0)))
 
 
 def _plate_lead(plate):

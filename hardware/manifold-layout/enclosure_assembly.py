@@ -1301,7 +1301,8 @@ def tee_carrier_spec(mcarry, squeeze_stood, plate) -> _carrier.CarrierSpec:
     spring_xs = ((tee_xs[0] + tee_xs[1]) / 2.0,
                  (tee_xs[2] + tee_xs[3]) / 2.0)
     flange_abs_x = min(abs(x) for x in _enc.front_top_flank_face())
-    guide_outer_x = flange_abs_x - fits.slip
+    aft_coil_outer_x = max(max(abs(box(solids[name]).xmin), abs(box(solids[name]).xmax))
+                          for name in aft_coils)
     states = plate["carrier_states"]
     tab_z = (tee_axis_z + base.tab_z[0] - base.tee_axis_z,
              tee_axis_z + base.tab_z[1] - base.tee_axis_z)
@@ -1314,28 +1315,23 @@ def tee_carrier_spec(mcarry, squeeze_stood, plate) -> _carrier.CarrierSpec:
                tee_axis_z + base.web_z[1] - base.tee_axis_z),
         spring_xs=spring_xs,
         spring_axis_z=tee_axis_z,
-        tab_outer_x=_enc.appliance_width / 2.0 - base.tab_recess,
+        tab_outer_x=_enc.appliance_width / 2.0 + base.slide_air + base.grip_rim_t,
         tab_z=tab_z,
-        guide_ear_outer_x=guide_outer_x,
-        guide_ear_z=(tee_axis_z + base.guide_ear_z[0] - base.tee_axis_z,
-                     tee_axis_z + base.guide_ear_z[1] - base.tee_axis_z),
+        grip_back_x=round(aft_coil_outer_x + base.slide_air + base.finger_air, 6),
+        grip_floor_t=tab_z[0] - (_enc.z_seam + _enc.z_rise + base.slide_air),
         release_offset_y=states["release"]["offset_y"],
         connected_offset_y=states["connected"]["offset_y"],
         park_offset_y=states["park"]["offset_y"],
         fixed_plate_aft_y=plate["aft_y"],
         aft_coil_fore_y=aft_coil_fore_y,
         exterior_x=_enc.appliance_width / 2.0,
-        lowering_cavity_half_x=flange_abs_x,
+        guide_inner_x=flange_abs_x,
     )
 
 
 def tee_carrier_interface(spec: _carrier.CarrierSpec, plate, squeeze_stood) -> dict:
     """Plain fixed/moving stations consumed by the enclosure and documentation."""
     data = _carrier.interface(spec)
-    solids = {name: solid for name, solid, _color in squeeze_stood}
-    aft_coils = tuple(f"coil-{name.lower()}" for name in ("V-C", "V-D", "V-G", "V-J"))
-    aft_coil_outer_x = max(
-        max(abs(box(solids[name]).xmin), abs(box(solids[name]).xmax)) for name in aft_coils)
     fixed_y = plate["wall_aft_y"]
     states = plate["carrier_states"]
     bearing = {
@@ -1367,12 +1363,6 @@ def tee_carrier_interface(spec: _carrier.CarrierSpec, plate, squeeze_stood) -> d
         "spring_guide_length": CARRIER_SPRING_GUIDE_LENGTH,
         "spring_guide_xz": tuple((x, spec.spring_axis_z) for x in spec.spring_xs),
         "exterior_abs_x": _enc.appliance_width / 2.0,
-        "fore_stop_x": (spec.web_x[1], _enc.appliance_width / 2.0),
-        "aft_stop_x": (round(aft_coil_outer_x + fits.slip, 6),
-                        _enc.appliance_width / 2.0),
-        # The Y stops terminate at the guide ears' crowns.
-        "stop_z": (plate["z0"], round(spec.guide_ear_z[1], 6)),
-        "stop_depth": 3.0,
         "ties_per_tee": len(spec.tie_band_offsets_z),
         "tee_count": len(spec.tee_xs),
         "spring_count": len(spec.spring_xs),
@@ -1395,7 +1385,7 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
     The carrier part's own selftest proves the two halves and their clamped lap joint.
     This is the complementary appliance reading: source-built front-top, including every tray,
     Wago well, stop, spring guide and service opening which can enter the moving envelope.  A
-    maximum 0.7 mm translation between samples keeps the long carrier descent from becoming an
+    maximum 0.7 mm translation between samples keeps the lateral insertion from becoming an
     endpoint-only check.  Exact release and park are allowed tangent contact; a 0.001 mm
     overshoot at each end must produce positive intersection and thereby prove both stops exist.
     """
@@ -1438,7 +1428,10 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
     halves = {side: _carrier.build_half(spec, side).val() for side in (-1, 1)}
     fixed = tuple((name, solid) for name, (solid, _colour) in _solids(a).items()
                   if name.startswith(("coil-", "valve-")))
-    wall_and_fixed = (("enclosure-front-top", wall), *fixed)
+    closed_pieces = tuple((name, solid) for name, (solid, _colour) in _solids(a).items()
+                          if name.startswith("enclosure-") and name != "enclosure-front-top"
+                          and name not in interface["printed_parts"])
+    wall_and_fixed = (("enclosure-front-top", wall), *fixed, *closed_pieces)
     installed_names = {f"{kind}-v-{v}" for kind in ("coil", "valve") for v in "cdgj"}
     installation = (("enclosure-front-top", wall),
                     *((name, solid) for name, solid in fixed if name in installed_names))
@@ -1460,27 +1453,26 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
                 (("enclosure-front-top", wall),),
             )
 
-    # Each integral grip enters inside its flank, then slides outward through its opening.
-    # The right half parks aft while the left half enters; its final forward stroke closes
-    # the lap. Springs and tees are fitted after the halves are joined in the open bay.
+    # Each half feeds from outside through its own guide opening. The right half parks aft;
+    # the left enters at connected, where its insert receiver clears the fixed spring pilot.
+    # Both halves then come fore to release and the two screws close their lap.
     release = interface["states"]["release"]["offset_y"]
     park = interface["states"]["park"]["offset_y"]
     right_park = halves[1].translate((0.0, park, 0.0))
     left_release = halves[-1].translate((0.0, release, 0.0))
-    for side in interface["half_install_order"]:
-        half = halves[side].translate((0.0, release, 0.0))
+    for side, entry_y in zip(interface["half_install_order"], interface["half_entry_offsets_y"]):
+        half = halves[side].translate((0.0, entry_y, 0.0))
         blockers = installation + ((("parked right half", right_park),) if side < 0 else ())
-        dx = -side * interface["half_entry_shift_x"]
-        access_lift = box.pump_bay[2] + fits.slip - half.BoundingBox().zmin
-        count = sample_count(access_lift)
-        for i in range(count):
-            dz = access_lift * (1.0 - i / (count - 1))
-            read(f"half {side:+d} descent {i + 1}/{count}",
-                 half.translate((dx, 0.0, dz)), blockers)
+        dx = side * interface["half_entry_shift_x"]
         count = sample_count(dx)
         for i in range(count):
-            read(f"half {side:+d} outward entry {i + 1}/{count}",
+            read(f"half {side:+d} lateral insertion {i + 1}/{count}",
                  half.translate((dx * (1.0 - i / (count - 1)), 0.0, 0.0)), blockers)
+    count = sample_count(spec.connected_offset_y - release)
+    for i in range(count):
+        dy = spec.connected_offset_y + (release - spec.connected_offset_y) * i / (count - 1)
+        read(f"left half to release {i + 1}/{count}", halves[-1].translate((0, dy, 0)),
+             (*installation, ("parked right half", right_park)))
     count = sample_count(park - release)
     for i in range(count):
         dy = park + (release - park) * i / (count - 1)
@@ -1510,14 +1502,49 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
     if park_hit <= CARRIER_MOTION_OVERLAP_TOL:
         failures.append("park stop does not engage after a 0.001 mm overshoot")
 
+    # Read capture on the two flank guides alone, independently of tees, ties and valves.
+    # Four translations exceed the running air by 0.001 mm; pitch, yaw and roll each exceed
+    # the guide's angular play. Positive contact must occur in both senses at every state.
+    guide_walls = []
+    for side in (-1, 1):
+        xa, xb = sorted((side * spec.guide_inner_x, side * spec.exterior_x))
+        region = _carrier._box(xa, xb, spec.rim_y[0] + release - 1.0,
+                               spec.rim_y[1] + park + 1.0,
+                               spec.rim_z[0] - 1.0, spec.rim_z[1] + 1.0).val()
+        guide_walls.append(wall.intersect(region))
+    guides = cq.Compound.makeCompound(guide_walls)
+    contact_min = math.inf
+    for state, row in interface["states"].items():
+        dy = row["offset_y"]
+        posed = carrier.translate((0.0, dy, 0.0))
+        center = (0.0, (spec.grip_y[0] + spec.grip_y[1]) / 2.0 + dy,
+                  (spec.grip_z[0] + spec.grip_z[1]) / 2.0)
+        for axis in (0, 2):
+            for sign in (-1, 1):
+                delta = [0.0, 0.0, 0.0]
+                delta[axis] = sign * (spec.slide_air + 0.001)
+                hit = posed.translate(tuple(delta)).intersect(guides).Volume()
+                contact_min = min(contact_min, hit)
+                if hit <= CARRIER_MOTION_OVERLAP_TOL:
+                    failures.append(f"{state}: flank guides do not capture {'XYZ'[axis]}{sign:+d}")
+        for axis in range(3):
+            tip = list(center)
+            tip[axis] += 1.0
+            for sign in (-1, 1):
+                hit = posed.rotate(center, tuple(tip), sign * 1.0).intersect(guides).Volume()
+                contact_min = min(contact_min, hit)
+                if hit <= CARRIER_MOTION_OVERLAP_TOL:
+                    failures.append(f"{state}: flank guides do not stop rotation about {'XYZ'[axis]}{sign:+d}")
+
     return record_bound(Bound(
         "tee-carrier-motion",
         "Tee carrier clears front-top through installation and all four working states, and "
-        "both end stops engage",
+        "both end stops and all five transverse constraints engage",
         not failures,
         f"{readings} live-solid poses; maximum unintended overlap {max_overlap:.6f} mm³; "
-        f"release/park 0.001 mm overshoots engage {release_hit:.6f}/{park_hit:.6f} mm³",
-        "0 mm³ unintended overlap; positive contact immediately beyond release and park",
+        f"release/park overshoots {release_hit:.6f}/{park_hit:.6f} mm³; "
+        f"40 independent flank-capture readings, minimum contact {contact_min:.6f} mm³",
+        "0 mm³ unintended overlap; positive end-stop, X/Z and pitch/yaw/roll contact",
         tuple(failures),
     ))
 

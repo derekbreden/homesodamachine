@@ -1,0 +1,20 @@
+{
+  "/hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py": {
+    "ENTRY_FROM_PARK": "1.5 mm",
+    "FINGER_DEPTH": "11.855 mm",
+    "FINGER_HEIGHT": "40 mm",
+    "FINGER_RUN": "22 mm",
+    "GRIP_BACK_T": "2.5 mm",
+    "GRIP_BAR_T": "16 mm",
+    "GRIP_CORNER_R": "5 mm",
+    "GRIP_EDGE_R": "3 mm",
+    "GRIP_OVERLAP": "4 mm",
+    "GRIP_PROJECTION": "3.15 mm",
+    "GRIP_RIM_CORNER_R": "5 mm",
+    "GRIP_RIM_EDGE_R": "1.5 mm",
+    "GRIP_WIDTH": "221.3 mm",
+    "GUIDE_AIR": "0.15 mm",
+    "GUIDE_LENGTH": "42 mm",
+    "WEB_BED_GAP": "4.15 mm"
+  }
+}
