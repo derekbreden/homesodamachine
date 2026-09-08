@@ -88,8 +88,9 @@ destroyed is a part that comes out by being destroyed.
   open underside and press them into their sockets. Feed the right carrier half inward at
   release, then park it; feed the left half inward at connected and move it to release. The
   upper lap passes above the seated tees. Bring the right half fore and close the lap with
-  two M3 screws through the empty cartridge bay. Tie each tee twice; load both springs into
-  their wells and seats; install the fore valves and bowed stubs. After the chassis closes,
+  two M3 screws through the empty cartridge bay. Tie each tee twice; feed each compressed
+  spring through an inner tee well, outward below the upper guide and down to its seat;
+  install the fore valves and bowed stubs. After the chassis closes,
   squeeze each cartridge pocket toward its carrier tab, bottom all four tubes and relax to
   connected.
 - **The collet action is physically established.** Derek's checks with a tube-tight collar

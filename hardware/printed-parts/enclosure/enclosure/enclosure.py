@@ -6012,7 +6012,6 @@ def _tee_carrier_clearances(inner, plate, carrier):
     air = carrier["guide_slide_air"]
     fixed_y = carrier["fixed_spring_bearing_y"]
     aft = carrier["body_aft_y"]
-    top = carrier["body_top_z"]
     web_z0, web_z1 = carrier["web_z"]
     cuts = [_ybox(
         inner[0] - 1.0, inner[1] + 1.0,
@@ -6026,20 +6025,22 @@ def _tee_carrier_clearances(inner, plate, carrier):
     for x, z in carrier["spring_guide_xz"]:
         radius = carrier["spring_guide_d"] / 2.0
         cuts.append(_ycyl(radius, x, z, fixed_y, aft + 1.0))
-        half = carrier["spring_load_width"] / 2.0
-        cuts.append(_ybox(x - half, x + half, carrier["spring_load_fore_y"],
-                          aft + 1.0, z - radius, top + 1.0))
-    for xs, ys, zs in (*carrier["tee_wells"], *carrier["aft_valve_cavities"]):
+    for xs, ys, zs in (*carrier["tee_wells"], *carrier["aft_valve_cavities"],
+                       *carrier["floor_cavities"]):
         cuts.append(_ybox(*xs, *ys, *zs))
     return tuple(cuts)
 
 
 def _tee_carrier_fixed_features(inner, plate, carrier):
-    """One filled body fused to the tee wall and both enclosure flanks."""
+    """Filled guide body and common floor joining the tee wall, valve trays and flanks."""
     if not carrier:
         return None
     body = _ybox(inner[0], inner[1], carrier["fixed_spring_bearing_y"],
                  carrier["body_aft_y"], plate["z0"], carrier["body_top_z"])
+    body = body.fuse(_ybox(
+        inner[0], inner[1], carrier["fixed_spring_bearing_y"],
+        carrier["body_floor_aft_y"], plate["z0"],
+        carrier["web_z"][0] - carrier["guide_slide_air"]))
     for cutter in _tee_carrier_clearances(inner, plate, carrier):
         body = body.cut(cutter)
     return body

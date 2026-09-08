@@ -801,7 +801,7 @@
    "label": "Tee carrier clears front-top through installation and all four working states, and both end stops and all five transverse constraints engage",
    "kind": "gate",
    "status": "pass",
-   "value": "227 solid/envelope checks; maximum unintended overlap 0.000000 mm\u00b3; release/park overshoots 1.238780/0.821340 mm\u00b3; 40 independent flank-capture readings, minimum contact 0.281906 mm\u00b3; minimum upper/lower web bearing 154.975 mm\u00b2",
+   "value": "231 solid/envelope checks; maximum unintended overlap 0.000000 mm\u00b3; release/park overshoots 1.238780/0.821340 mm\u00b3; 40 independent flank-capture readings, minimum contact 0.323400 mm\u00b3; minimum upper/lower web bearing 139.975 mm\u00b2",
    "target": "0 mm\u00b3 unintended overlap; positive end-stop, X/Z and pitch/yaw/roll contact",
    "detail": [],
    "active": true
@@ -821,7 +821,7 @@
    "label": "Every print-down slope on a ceiling-down piece has its stated carry",
    "kind": "goal",
    "status": "pass",
-   "value": "40 print-down slope(s): 27 under a body, 3 within 1 mm of one, 10 in a kept room, 0 could be columns",
+   "value": "39 print-down slope(s): 27 under a body, 3 within 1 mm of one, 9 in a kept room, 0 could be columns",
    "target": "no unaccounted slope a column could replace, and every named room standing",
    "detail": [],
    "active": false

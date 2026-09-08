@@ -1237,7 +1237,10 @@ A filled body extends aft from the fixed tee wall to the moving carrier and join
 flanks. Its flat lower and upper lands carry the carrier web; the outboard guide openings
 carry the closed handholds and stop their release/park travel. Four continuous aft-opening
 wells each carry a tee, both ties, the lower hairpin and the upper bowed tube and valve port.
-Their constant sections continue through the finished valve-tray junction. Branch journals
+Their constant sections continue through the finished valve-tray junction. The upper land
+forms a continuous bridge into the fore valve tray, up to its valve-body clearance plane.
+The lower lands continue as a flat floor into the aft valve tray; four broad openings admit
+that row's valves from underneath and carry the moving hairpins. Branch journals
 continue forward to the fixed collet plate. One common face clears the tie heads and ends
 the spring bores; a second full-width face clears the upper lap's lateral entry.
 
@@ -1246,8 +1249,9 @@ handhold's outer floor follows it along the entire grip. One broad inboard under
 clearance accommodates the enclosure seam rail.
 
 Two round spring bores terminate on the fixed wall and end on the body's common aft face.
-An opening through the upper land admits each compressed spring into the parked carrier;
-its fore end extends into the fixed bore. The rear recesses admit the aft valves from the loose piece's open underside before
+Each compressed spring enters through an inner tee well above the seated tee, moves outward
+below the upper guide, and lowers to its seat in the parked carrier. Its fore end extends
+into the fixed bore. The rear recesses admit the aft valves from the loose piece's open underside before
 the carrier halves enter from the flanks. The carrier's upper lap clears the seated tees and
 fastens through two straight access bores in the empty cartridge bay.
 
