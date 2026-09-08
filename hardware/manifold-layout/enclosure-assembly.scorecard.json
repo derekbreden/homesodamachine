@@ -5,17 +5,17 @@
    "id": "enclosure",
    "label": "the printed box, outside face to outside face",
    "min": [
-    -107.5,
+    -110.65,
     5.0,
     -6.0
    ],
    "max": [
-    107.5,
+    110.65,
     467.0,
     355.0
    ],
    "mm": [
-    215.0,
+    221.3,
     462.0,
     361.0
    ]
@@ -29,12 +29,12 @@
     -6.0
    ],
    "max": [
-    107.5,
+    110.65,
     531.891,
     361.0
    ],
    "mm": [
-    221.0,
+    224.15,
     526.891,
     367.0
    ]
@@ -798,11 +798,11 @@
   },
   {
    "id": "tee-carrier-motion",
-   "label": "Tee carrier clears front-top through installation and all four working states, and both end stops engage",
+   "label": "Tee carrier clears front-top through installation and all four working states, and both end stops and all five transverse constraints engage",
    "kind": "gate",
    "status": "pass",
-   "value": "408 live-solid poses; maximum unintended overlap 0.000000 mm\u00b3; release/park 0.001 mm overshoots engage 0.104598/0.054120 mm\u00b3",
-   "target": "0 mm\u00b3 unintended overlap; positive contact immediately beyond release and park",
+   "value": "392 live-solid poses; maximum unintended overlap 0.000000 mm\u00b3; release/park overshoots 0.799088/0.799088 mm\u00b3; 40 independent flank-capture readings, minimum contact 0.169200 mm\u00b3",
+   "target": "0 mm\u00b3 unintended overlap; positive end-stop, X/Z and pitch/yaw/roll contact",
    "detail": [],
    "active": true
   },
@@ -821,7 +821,7 @@
    "label": "Every print-down slope on a ceiling-down piece has its stated carry",
    "kind": "goal",
    "status": "pass",
-   "value": "40 print-down slope(s): 28 under a body, 2 within 1 mm of one, 10 in a kept room, 0 could be columns",
+   "value": "40 print-down slope(s): 27 under a body, 3 within 1 mm of one, 10 in a kept room, 0 could be columns",
    "target": "no unaccounted slope a column could replace, and every named room standing",
    "detail": [],
    "active": false
@@ -1073,26 +1073,6 @@
    "status": "pass",
    "value": "brim front at y 70.00, facet arris at 66.87",
    "target": "a 3 mm landing, so at or aft of 69.87",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "ceiling-show-cap",
-   "label": "The ceiling slab keeps a complete exterior wall over its whole field",
-   "kind": "gate",
-   "status": "pass",
-   "value": "3 mm cap; missing 0.0000 mm\u00b3",
-   "target": "a complete wall over the field, the funnel's own plan excepted",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "pieces-in-silhouette",
-   "label": "Every quadrant lies inside the appliance's own exterior",
-   "kind": "gate",
-   "status": "pass",
-   "value": "all four inside `outer`",
-   "target": "no face past the box's exterior on any axis",
    "detail": [],
    "active": true
   },
