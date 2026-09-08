@@ -138,7 +138,7 @@ The internal tee-carrier set is PET-GF: two halves with integral service tabs, j
 | Flavor reservoir body — right | 1 | PETG (translucent) | 0.382 | $4.28 <!--@printed--> |
 | Flavor reservoir cap — left | 1 | PETG (translucent) | 0.058 | $0.65 <!--@printed--> |
 | Flavor reservoir cap — right | 1 | PETG (translucent) | 0.058 | $0.65 <!--@printed--> |
-| Enclosure — front bottom + front top (two quadrants) | 1 set | PET-GF | 1.309 | $32.76 <!--@printed--> |
+| Enclosure — front bottom + front top (two quadrants) | 1 set | PET-GF | 1.310 | $32.77 <!--@printed--> |
 | Enclosure — pump cartridge + clamp (one set) | 1 set | PET-GF | 0.427 | $10.69 <!--@printed--> |
 | Tee carrier halves (two pieces) | 1 set ([2](CARRIER_PRINTS) pieces) | PET-GF | 0.063 | $1.57 <!--@printed--> |
 | Carbonator reed bridge | 1 | PETG | 0.008 | $0.09 <!--@printed--> |
@@ -153,7 +153,7 @@ The internal tee-carrier set is PET-GF: two halves with integral service tabs, j
 | Faucet shell (2-piece: base + tip) | 1 | PET-GF | 0.194 | $4.86 <!--@printed--> |
 | Faucet display cover plate | 1 | PET-GF | 0.007 | $0.18 <!--@printed--> |
 | Above-counter plate | 1 | PET-GF | 0.015 | $0.38 <!--@printed--> |
-| **Printed parts total** | | | **~7.03** | **[$161.85](BOM_SEC7)** |
+| **Printed parts total** | | | **~7.04** | **[$161.85](BOM_SEC7)** |
 
 By material: PETG ≈ 0.99 kg / $11.07 — of which the four translucent reservoir parts are ≈ 0.88 kg / $9.85 — and PET-GF ≈ 6.05 kg / $151.29.
 

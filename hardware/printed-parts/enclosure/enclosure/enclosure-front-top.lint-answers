@@ -55,8 +55,8 @@ file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=-51.192 y=106.864 z=220.315
 click: x=51.192 y=106.864 z=220.315
 click: x=0.000 y=106.864 z=220.315
-click: x=-92.682 y=103.714 z=220.315
-click: x=92.682 y=103.714 z=220.315
+click: x=-92.682 y=106.864 z=220.315
+click: x=92.682 y=106.864 z=220.315
 
 [ceiling] Each constant-section tee well ends at the fore-valve body's clearance plane. These flat crowns are the exposed undersides of the filled bridge where it joins the valve tray around its round port openings. Remove support through the open well before the hardware is installed.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
@@ -64,13 +64,6 @@ click: x=-81.067 y=94.631 z=232.690
 click: x=-21.317 y=94.631 z=232.690
 click: x=21.317 y=94.631 z=232.690
 click: x=81.067 y=94.631 z=232.690
-
-[ceiling] The outer aft-valve coils enter beneath these flat roofs. `aft_valve_cavities` sets the roof at the coil's top plus running clearance and opens the complete fore/aft insertion stroke. The upper bridge joins the enclosure above it; removable support is accessible from the open aft bay before the valves are fitted.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-66.982 y=113.660 z=226.825
-click: x=66.982 y=113.660 z=226.825
-click: x=-93.905 y=113.660 z=226.825
-click: x=93.905 y=113.660 z=226.825
 
 [step] The faces at x=±103.650 are the standing walls of the front Z-seam's rail channels, set by the rail head and its running clearance in `_rail_channel_span`. The common floor joins this channel section below the flank's x=±104.500 interior face. The offset preserves the seam's sliding passage, with continuous enclosure stock behind the channel wall.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
