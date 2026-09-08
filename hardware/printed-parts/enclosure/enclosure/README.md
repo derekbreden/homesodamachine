@@ -697,15 +697,17 @@ exterior settings of `enclosure-front-top-petgf.3mf` around their own mesh — t
 
 | piece | bodies | interface islands | root | shortest build-up |
 |---|---|---|---|---|
-| `enclosure-pump-cartridge` | 0 | 0 | — | — |
+| `enclosure-pump-cartridge` | 2 | 2 | bed | 51.00 mm |
 | `enclosure-pump-cap` | 2 | 2 | bed | 18.40 mm |
 | `enclosure-front-top` | 2 | 2 | bed | 122.60 mm |
 | `enclosure-back-bottom` | 4 | 5 | 3 bed, **1 model** | **8.00 mm** |
 | `enclosure-front-bottom` | 4 | 4 | 2 bed, **2 model** | **8.00 mm** |
 | `enclosure-back-top` | 12 | 35 | 5 bed, **7 model** | **1.20 mm** |
 
-`enclosure-pump-cartridge` emits no support at all. On the pump cap and front-top, every body
-roots on the print bed and stands 18 mm or more before it touches the model. Front-top's two
+`enclosure-pump-cartridge` has two bed-rooted bodies, one under each flat pull roof. Each
+reaches one interface after **51.00 mm** and leaves directly through its open side pocket. On
+the pump cap and front-top, every body roots on the print bed and stands 18 mm or more before
+it touches the model. Front-top's two
 bodies carry the pump-bay lintel and the pump-jack receptacle roof. The Y-seam blocks above the handhold roofs
 and their front passages have no separate support interfaces. Four bed-rooted bodies carry the
 handhold ceilings, one per flank on each bottom piece. Each has **34.20 mm** of build-up and
@@ -1216,15 +1218,15 @@ cannot survive behind that plane.
 
 **Both pulls belong to the cradle and stand on its own Y midline.** Each side pocket has a
 nominal envelope [18 mm](PULL_DEPTH) deep, [28 mm](PULL_RUN) fore/aft and
-[48 mm](PULL_RISE) high, centred at y [41.46 mm](PULL_CENTER_Y). Its four floor/roof-to-end-wall
+[41 mm](PULL_RISE) high, centred at y [41.46 mm](PULL_CENTER_Y). Its four floor/roof-to-end-wall
 corners have [5 mm](PULL_CORNER_R) rounds, and its complete hand-contact rim has a
 [3 mm](PULL_EDGE_R) round, matching the enclosure handholds. The rim opens outward around the
 nominal envelope. Its level floor at z [176.25 mm](PULL_FLOOR_Z) leaves
 [10.88 mm](PULL_FLOOR_LIGAMENT) of bed-rooted cradle below it,
 [7.88 mm](PULL_RIM_FLOOR_LIGAMENT) at the rounded exterior edge, and places the pull datum,
-z [188.25 mm](PULL_CENTER_Z), 12 mm inside the mouth. At the deepest fingertip wall the
-straight vertical opening is [30 mm](PULL_PLUMB) high; its roof then climbs at 45° to the open
-flank and reaches z [224.25 mm](PULL_TOP_Z). A Y-normal wall closes each end of the pocket:
+z [188.25 mm](PULL_CENTER_Z), 12 mm inside the mouth. Its roof is one flat plane through the
+complete fingertip depth at z [217.245 mm](PULL_TOP_Z), the same plane as the neighboring
+tee-carrier grip's roof. A Y-normal wall closes each end of the pocket:
 the fore wall at y [27.46 mm](PULL_LEDGE) is the ledge the fingers pull on, the aft wall at
 y [55.46 mm](PULL_AFT_LEDGE) the one they push on, with [22.46 mm](PULL_FORE_STOCK) of cradle
 fore of the pocket and [22.46 mm](PULL_AFT_STOCK) aft of it.
@@ -1414,7 +1416,9 @@ one service clamp.
 
 **The lower cradle prints on its Z− floor.** Its filled bearing block, flush front, rounded
 corners and both flank skins begin together on that bed and rise plumb. The two
-pull roofs climb at 45° and the pump wells remain open above. The top clamp's complete
+pull roofs are flat at the neighboring carrier grips' roof plane. The production profile gives
+each one a bed-rooted tree with one interface, directly removable through its open side pocket.
+The pump wells remain open above. The top clamp's complete
 field begins on one broad Z− bed face. Its only internal down-facing transitions are the two
 functional boss-to-can shoulders, 19 mm above that face and open through the fitted bores for
 support removal. Both screw heads remain accessible from the top.
