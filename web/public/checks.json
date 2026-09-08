@@ -16,6 +16,11 @@
       "status": "ok"
     },
     {
+      "check": "hardware/scripts/check_flutes.py",
+      "note": "✓ every payload stands within the budget its print was cut to",
+      "status": "ok"
+    },
+    {
       "check": "hardware/scripts/check_ledger.py",
       "note": "✓ every part the instructions name is carried by bom.md or tools.md, and every procedure has a driver.",
       "status": "ok"
