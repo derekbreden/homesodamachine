@@ -8,19 +8,19 @@
     "MT_DUTY": "65 %",
     "MT_H_BULK": "33.3",
     "MT_H_CURE": "41.0",
-    "MT_H_EXT": "103.1",
+    "MT_H_EXT": "102.8",
     "MT_H_PETGF": "15.1",
-    "MT_H_PRINT": "179.0",
-    "MT_H_PRINT_WALL": "89.5",
+    "MT_H_PRINT": "178.7",
+    "MT_H_PRINT_WALL": "89.3",
     "MT_H_RUN": "9.0",
     "MT_H_SMALL": "3.9",
     "MT_H_SOAK": "2.6",
     "MT_H_TIGHT": "22.9",
     "MT_H_TOOL": "0.6",
-    "MT_H_TURN": "117.5",
-    "MT_KG": "7.035",
+    "MT_H_TURN": "117.3",
+    "MT_KG": "7.024",
     "MT_KG_BULK": "2.507",
-    "MT_KG_EXT": "3.306",
+    "MT_KG_EXT": "3.295",
     "MT_KG_PETGF": "0.216",
     "MT_KG_PETG_UNIT": "0.99",
     "MT_KG_SMALL": "0.109",
@@ -44,6 +44,6 @@
     "MT_RATE_TIGHT": "26",
     "MT_RATE_TOOL": "36",
     "MT_UNITS_YEAR": "~64",
-    "MT_UNITS_YEAR_3": "~95"
+    "MT_UNITS_YEAR_3": "~96"
   }
 }
