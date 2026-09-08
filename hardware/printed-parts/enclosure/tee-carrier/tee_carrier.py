@@ -66,7 +66,7 @@ class CarrierSpec:
     finger_run: float = 22.0
     finger_air: float = 0.2
     grip_bar_t: float = 16.0
-    grip_back_x: float = 96.295
+    grip_back_x: float = 90.295
     grip_back_t: float = 2.5
     grip_rail_outer_x: float = 103.65
     grip_rail_top_z: float = 174.95
@@ -79,7 +79,7 @@ class CarrierSpec:
     grip_edge_r: float = 3.0
     grip_rim_corner_r: float = 5.0
     grip_root_overlap: float = 0.2
-    entry_inset_x: float = 16.0
+    entry_inset_x: float | None = None
     entry_staging_y: float = 18.5
     entry_lift_z: float = 70.0
     joint_half_x: float = 9.0
@@ -130,7 +130,8 @@ class CarrierSpec:
 
     @property
     def grip_root_x(self):
-        return self.web_x[1] - self.grip_root_overlap, self.grip_back_x + self.grip_root_overlap
+        return (min(self.web_x[1], self.grip_back_x) - self.grip_root_overlap,
+                max(self.web_x[1], self.grip_back_x) + self.grip_root_overlap)
 
     @property
     def state_offsets_y(self):
@@ -150,7 +151,11 @@ class CarrierSpec:
 
     @property
     def entry_shift_x(self):
-        return self.entry_inset_x
+        if self.entry_inset_x is not None:
+            return self.entry_inset_x
+        # Lower the complete cup on the outer tee-well axis before seating it
+        # outward. This follows the cup depth and keeps its floor inside the well.
+        return (self.grip_back_x + self.tab_outer_x) / 2.0 - max(self.tee_xs)
 
     @property
     def entry_shoulder_inset_x(self):
@@ -621,12 +626,29 @@ def selftest(spec=DEFAULT_SPEC):
     return int(bool(errors))
 
 
-def _export_printed_part(body, name):
+def _export_printed_part(body, name, spec=DEFAULT_SPEC):
+    import enclosure as enclosure
+    import _box_spec
+    import trimesh
     from flute_payload import cut
 
     step = _here.parent / f'{name}.step'
     stl = _here.parent / f'{name}.stl'
-    cq.exporters.export(body, str(stl), tolerance=0.02, angularTolerance=0.15)
+    box, _bounds = _box_spec.read(enclosure.Box, enclosure.Bound,
+                                  (enclosure.Pack, enclosure.PortField, enclosure.Nameplate))
+    # Strike the show face on the enclosure's field at the connected resting pose.
+    # The skin cuts inward; the opening, rounded hand contact and internal guides
+    # retain their surfaces. Travel moves the finished grooves with the carrier.
+    mesh = enclosure._piece_mesh(body.val())
+    mesh.apply_translation((0.0, spec.connected_offset_y, 0.0))
+    mesh = enclosure._flute_skin.flute(
+        mesh, enclosure.flute_rails(box)[:1], enclosure.flute_pitch(box.outer),
+        enclosure.flute_depth, enclosure.flute_rise)
+    mesh.apply_translation((0.0, -spec.connected_offset_y, 0.0))
+    mesh.export(str(stl))
+    printed = trimesh.load_mesh(str(stl))
+    if not printed.is_watertight or enclosure._flute_skin.non_manifold_edges(printed):
+        raise ValueError(f'{name} fluted print is not a closed manifold mesh')
     export_assembly(one_body(body, name, M_PETGF_BLACK), str(step))
     cut(step, stl)
     print(f'-> {name}.step / .stl')

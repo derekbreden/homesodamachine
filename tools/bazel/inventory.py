@@ -116,7 +116,8 @@ ACTION_INTERMEDIATE = frozenset({
 # because every action has to hold them.
 _FLUTE_ROOTS = {
     "hardware/scripts/flute_payload_enclosure.py": (
-        "hardware/printed-parts/enclosure/enclosure/",),
+        "hardware/printed-parts/enclosure/enclosure/",
+        "hardware/printed-parts/enclosure/tee-carrier/"),
     "hardware/scripts/flute_payload_cold_core.py": (
         "hardware/printed-parts/cold-core/foam-cap/",
         "hardware/printed-parts/cold-core/foam-shell/"),

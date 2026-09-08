@@ -57,19 +57,23 @@ crowns; the folded deck's at z [147.78](UPPER_Z2). The two inner limbs leave
 
 ## The fold
 
-The four connections crossing the hinge — fluid-9, 17, 19 and 27 — each become one 180° turn:
-a quarter-turn of R[14](SPINE_R), a constant [34.55](SPINE_MIDDLE_LEN) mm middle member, and a
-quarter-turn back, [78.53](SPINE_LEN) mm of tube. Both ends meet their collet on its own axis.
-At full release the middle member is straight; at squeeze its chord is
-[31.40](SPINE_STRAIGHT) mm, and it bows laterally as the carrier moves farther aft. The two R14
-quarters and the cut length do not change between states.
+The four connections crossing the hinge — fluid-9, 17, 19 and 27 — each become one 180° hairpin
+with two quarter circles and a tangent straight between them. Both ends meet their collet on
+its own axis. Release sets the cut length at R[14](SPINE_R):
+[78.53](SPINE_LEN) mm for each inner hairpin and [78.82](OUTER_SPINE_LEN) mm for each outer one.
+As the carrier moves aft, the bend radii increase and the straight shortens, preserving the
+complete tube length.
+
+V-G and V-J stand [6](OUTER_AFT_INSET) mm inboard of their pump-connected tees. Their hairpins
+lean between the two axes. The valves' tray sockets and external tube routes follow their
+placed ports; the tees keep their pump alignment. The room outside those coils carries the
+deeper closed finger cups.
 
 **The radius and the deck separation are two different numbers.** Any 180° that ends on both
 collet axes will join them, and that family is one parameter wide: the semicircle is only the
 member with no middle chord in it, and it is the worst to pick, because what the pack pays for
 a turn is how far it reaches past the hinge — and that reach is the RADIUS. The radius therefore
-stays on the stock's floor, R[14](MIN_BEND2), while the middle member takes up the changing end
-separation without changing developed length.
+starts at the stock's floor, R[14](MIN_BEND2), and opens as the end separation decreases.
 
 The decks stand [59.4](DECK_SEP) mm apart, and that IS chosen. What stands over what is a
 folded valve's underside against the SPADE TERMINALS of the valve beneath it — two 0.8 mm tabs
@@ -157,10 +161,10 @@ V-I-O and V-H-I for B — on the lower.
 
 ## Envelope
 
-[194](ENV_X) × [169](ENV_Y) × [242](ENV_Z) mm — [7.91](ENV_L) L of bounding box over the
+[194](ENV_X) × [171](ENV_Y) × [242](ENV_Z) mm — [8.03](ENV_L) L of bounding box over the
 bodies and the tube between them, with [0](CLASHES) pairs of placed solids sharing volume.
 Add one [14](STUB_LEN) mm mouth stub on each of the [8](MOUTH_COUNT2) and it is
-[194](REACH_X) × [169](REACH_Y) × [256](REACH_Z).
+[194](REACH_X) × [171](REACH_Y) × [256](REACH_Z).
 
 Two figures in [`manifold_layout.py`](manifold_layout.py) are the study's own rather than any
 part's. `BUTT` is the tube left outside a pair of butted quick-connects, and it is 0.
