@@ -68,24 +68,32 @@ complete with the tees, ties and springs absent.
 
 ## Frame and motion
 
-The source returns installed geometry: +Y aft, +Z up. The squeeze datum bottoms all four
-cartridge tubes in their tee ports. Offsets come from the measured PP0208E insertion depths
-in [`tee_connector.py`](/hardware/reference/tee-connector/tee_connector.py).
+The source returns installed geometry: +Y aft, +Z up. There are two physical stops, separated
+by [2.15 mm](GUIDE_TRAVEL). The fore stop holds all four branch sleeves fully depressed against
+the fixed plate. The aft stop leaves [0.5 mm](AFT_COLLET_GAP) between the fully extended noses
+and the plate. The complete appliance is rendered at the aft stop.
 
-| State | Carrier Y offset | Contact |
-|---|---:|---|
-| Release | −3.15 mm | Fore stop; fixed plate depresses the collets |
-| Squeeze | 0 mm | Opposed cartridge/tab grasp; tubes bottomed |
-| Connected | +1.50 mm | Floating under spring load; tubes gripped |
-| Park | +3.00 mm | Aft stop; empty carrier |
+| Operation | Physical position | Contact |
+|---|---|---|
+| Release | Fore stop | Fixed plate continuously holds the sleeves while tubes withdraw |
+| Squeeze | Fore stop | Opposed cartridge/tab grasp bottoms tubes 10 mm beyond the depressed sleeves, cartridge 2.15 mm short of seating |
+| Connected | Aft stop | Cartridge fully seated; tubes bottom 11.65 mm beyond the extended sleeves; springs hold the carrier aft |
+| Park | Aft stop | Empty carrier held against the same stop |
 
-Only release and park are physical stops. The guide spans 6.15 mm. At park the web leaves
-1.742 mm to the aft coils. The two spring axes lie between coils at X ±49.945, Z 190.245 mm.
-Each spring bears in a 6.4 mm teardrop seat, 2 mm deep. Its fore end sits in a round bore
-within the fixed body's full section. Each bore has 9.712 mm of guidance and ends on the
-body's common aft face. Compressed springs enter through the inner tee wells and cross
-below the uninterrupted upper land. The return pair is
-Lee LCM060C12M.
+The stroke is the measured PP0208E sleeve travel plus the aft gap. The return first extends
+the sleeves while their noses remain against the plate, then opens the small nose gap.
+Release the grips and push the cartridge through its final 2.15 mm to seat it with the tubes
+bottomed at the aft stop. The spring loads are catalog estimates; the assembled dry cycle checks return
+with the four actual tubes and flexible links installed.
+
+The opening's fore/aft faces are travel stops. At a stop the corresponding end gap is zero;
+the opposite end has the full working stroke. The [0.15 mm](GUIDE_AIR) clearance is across
+the sliding bearings in X and Z.
+
+The two spring axes lie between coils at X ±49.945, Z 190.245 mm. Each spring bears in a
+6.4 mm teardrop seat, 2 mm deep. Its fore end sits in a round bore within the fixed body's
+full section. Compressed springs enter through the inner tee wells and cross below the
+uninterrupted upper land. The return pair is Lee LCM060C12M.
 
 ## Assembly
 

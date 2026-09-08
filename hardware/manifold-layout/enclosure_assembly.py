@@ -1205,12 +1205,12 @@ def pump_tray_plans(a=None, shell=None) -> dict:
 
 # --- the integral printed collet plate ---------------------------------------
 PLATE_T = 3.175
-PLATE_REST_GAP = 1.5
+PLATE_REST_GAP = ml.tee.CARRIER_AFT_COLLET_GAP
 PLATE_HOLE_D = 8.5
 COLLET_NOSE_R = 5.715
 TEE_WALL_BORE_SLIP = 0.25
 TEE_WALL_BODY_AIR = 1.454
-CARRIER_ASSEMBLY_STATE = "connected"
+CARRIER_ASSEMBLY_STATE = "connected"  # the fully aft stop, with the cartridge present
 CARRIER_TUBE_AIR = 0.3
 CARRIER_SPRING_LOAD_ABOVE_SOLID = 1.0
 CARRIER_SPRING_LOAD_END_AIR = 1.0
@@ -1232,7 +1232,7 @@ def collet_plate_spec(mcarry, tray_stations) -> dict:
     """
     holes, faces = [], []
     for t in sorted(ml.BARB_OF):
-        (px, py, pz), _axis = mcarry(ml.branch_port(t, ml.CARRIER_SQUEEZE))
+        (px, py, pz), _axis = mcarry(ml.carrier_collet_port(t, ml.CARRIER_SQUEEZE))
         holes.append((round(px, 6), round(pz, 6)))
         faces.append(py)
     if max(faces) - min(faces) > 1e-6:
@@ -1240,32 +1240,37 @@ def collet_plate_spec(mcarry, tray_stations) -> dict:
     hole_z = holes[0][1]
     if max(abs(hz - hole_z) for _hx, hz in holes) > 1e-6:
         raise ValueError("the four branch collets need one tube-centre elevation")
-    aft = faces[0] - PLATE_REST_GAP
+    aft = faces[0]
     z0 = _enc.z_seam
     nominal_hole_z = hole_z - _enc._interface.manifold_rise
     x1 = _enc.interior_x()[1] - _enc.plate_step_in()
     tee = ml.tee
     stroke = PLATE_REST_GAP + tee.COLLET_TRAVEL
     states = {
-        name: {"offset_y": round(offset, 6), "tube_depth": round(depth, 6)}
+        name: {"offset_y": round(offset, 6),
+               "tube_depth": None if depth is None else round(depth, 6),
+               "cartridge_offset_y": None if depth is None else round(offset - stroke, 6),
+               "tube_bottom_y": round(aft + tee.INSERTION + offset, 6),
+               "collet_depression": round(tee.carrier_collet_depression(offset), 6),
+               "plate_gap": round(max(0.0, offset - tee.COLLET_TRAVEL), 6)}
         for name, (offset, depth) in ml.tee.CARRIER_STATES.items()
     }
     if tuple(states) != ("release", "squeeze", "connected", "park"):
         raise ValueError(f"tee carrier states are not in assembly order: {tuple(states)}")
-    if abs(-states["release"]["offset_y"] - stroke) > 1e-9:
+    if abs(states["park"]["offset_y"] - states["release"]["offset_y"] - stroke) > 1e-9:
         raise ValueError(
-            f"carrier release is {-states['release']['offset_y']:g} mm, not plate stroke "
-            f"{stroke:g} mm")
+            f"carrier stops do not span the measured sleeve stroke plus {PLATE_REST_GAP:g} mm")
     return {"holes": tuple(sorted(holes)),
             "aft_y": round(aft, 6), "fore_y": round(aft - PLATE_T, 6),
             "z0": round(z0, 6), "z1": round(2.0 * nominal_hole_z - z0, 6),
             "x0": round(-x1, 6), "x1": round(x1, 6), "hole_d": PLATE_HOLE_D,
             "seat_z": round(_enc.bay_floor_z(tray_stations)[1], 6),
-            "wall_aft_y": round(faces[0] + tee.BRANCH_REACH - tee.HALF_W
-                                - stroke - TEE_WALL_BODY_AIR, 6),
+            "wall_aft_y": round(faces[0] - tee.COLLET_TRAVEL
+                                + tee.BRANCH_REACH - tee.HALF_W - TEE_WALL_BODY_AIR, 6),
             "bore_r": round(tee.BARREL_R + TEE_WALL_BORE_SLIP, 6),
             "rest_gap": PLATE_REST_GAP, "stroke": round(stroke, 6),
-            "stroke_ceiling": round(PLATE_REST_GAP + tee.COLLET_PROUD, 6),
+            "tube_bottom_y": round(aft + tee.INSERTION, 6),
+            "seated_tube_bottom_y": round(aft + tee.INSERTION + stroke, 6),
             "carrier_states": states,
             "guide_travel": round(
                 states["park"]["offset_y"] - states["release"]["offset_y"], 6),
@@ -1351,6 +1356,8 @@ def tee_carrier_interface(spec: _carrier.CarrierSpec, plate, squeeze_stood) -> d
         name: round(2.0 * _carrier_spring.catalog_load_estimate(length), 6)
         for name, length in bearing.items()
     }
+    if max(bearing.values()) >= _carrier_spring.FREE_LENGTH - _carrier_spring.FREE_LENGTH_TOLERANCE:
+        raise ValueError("carrier spring loses preload at its minimum catalog free length")
     body_aft_y = spec.aft_coil_fore_y - spec.slide_air
     solids = {name: solid for name, solid, _color in squeeze_stood}
     trays = valve_tray_stations(solids)
@@ -1583,21 +1590,29 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
                           and name not in interface["printed_parts"])
     wall_and_fixed = (("enclosure-front-top", wall), *fixed, *closed_pieces)
     installed_names = {f"{kind}-v-{v}" for kind in ("coil", "valve") for v in "cdgj"}
-    tee_names = {ml.body_name(name) for name in ml.CARRIER_TEES}
-    squeeze_tees = tuple((name, solid.translate((0, -spec.connected_offset_y, 0)))
-                         for name, (solid, _color) in _solids(a).items() if name in tee_names)
     plate = box.pack.collet_plate
+    lift = spec.tee_axis_z - ml.branch_port(sorted(ml.CARRIER_TEES)[0])[0][1]
 
-    def tee_pose(shape, dy):
-        moved = shape.translate((0, dy, 0))
-        bb = moved.BoundingBox()
-        # The fixed release plane bounds the retracted sleeve's fore envelope.
-        return moved.intersect(_carrier._box(
-            bb.xmin - 1, bb.xmax + 1, plate["aft_y"], bb.ymax + 1,
-            bb.zmin - 1, bb.zmax + 1).val())
+    def tee_pose(name, dy):
+        return pose_manifold(ml.carrier_tee(name, dy)).translate((0, PACK_Y, lift))
 
-    seated_tees = tuple((name, tee_pose(shape, spec.release_offset_y))
-                        for name, shape in squeeze_tees)
+    seated_tees = tuple((ml.body_name(name), tee_pose(name, spec.release_offset_y))
+                        for name in sorted(ml.CARRIER_TEES))
+    # Read the actual release rims against the actual fixed plate. A slight forward
+    # displacement must engage every rim, independently of the carrier's guide stops.
+    nose_contacts = []
+    for name, shape in seated_tees:
+        nose = shape.intersect(_carrier._box(
+            *spec.web_x, plate['aft_y'] - 0.01, plate['aft_y'] + 0.01,
+            spec.tee_axis_z - COLLET_NOSE_R, spec.tee_axis_z + COLLET_NOSE_R).val())
+        contact = nose.translate((0, -0.001, 0)).intersect(wall).Volume() / 0.001
+        nose_contacts.append(contact)
+        if contact <= CARRIER_MOTION_OVERLAP_TOL:
+            failures.append(f'{name}: fully depressed nose has no fixed-plate bearing')
+    if abs(plate['tube_bottom_y'] - plate['aft_y'] - ml.tee.INSERTION) > 1e-6:
+        failures.append('the fore tube-bottom station does not match the measured insertion')
+    if abs(spec.park_offset_y - spec.release_offset_y - ml.tee.CARRIER_STROKE) > 1e-6:
+        failures.append('the physical guide stroke differs from the measured sleeve travel plus aft gap')
     carrier_installation = (("enclosure-front-top", wall), *seated_tees)
     installation = (*carrier_installation,
                     *((name, solid) for name, solid in fixed if name in installed_names))
@@ -1621,8 +1636,30 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
                             fixed_y, fixed_y + spring_length),
                 (("enclosure-front-top", wall),),
             )
-        for name, shape in squeeze_tees:
-            read(f"{state} {name}", tee_pose(shape, dy), (("enclosure-front-top", wall),))
+        for name in sorted(ml.CARRIER_TEES):
+            shape = tee_pose(name, dy)
+            read(f"{state} {name}", shape, (("enclosure-front-top", wall),))
+            gap = shape.BoundingBox().ymin - plate['aft_y']
+            if abs(gap - row['plate_gap']) > ml.tee.MEASURE_TOL:
+                failures.append(f'{state} {name}: actual collet-to-plate gap {gap:.6f} mm')
+            aft_shape = tee_pose(name, spec.park_offset_y)
+            sleeve_travel = (shape.BoundingBox().ymin - aft_shape.BoundingBox().ymin
+                             - dy + spec.park_offset_y)
+            if abs(sleeve_travel - row['collet_depression']) > ml.tee.MEASURE_TOL:
+                failures.append(f'{state} {name}: actual sleeve depression {sleeve_travel:.6f} mm')
+            if row['tube_depth'] is not None:
+                cartridge_offset = row['cartridge_offset_y']
+                tip_y = plate['seated_tube_bottom_y'] + cartridge_offset
+                if (abs(tip_y - row['tube_bottom_y']) > 1e-6 or
+                        abs(tip_y - shape.BoundingBox().ymin - row['tube_depth']) > ml.tee.MEASURE_TOL):
+                    failures.append(f'{state} {name}: cartridge tube does not reach its body stop')
+                if abs(cartridge_offset - dy + spec.park_offset_y) > 1e-6:
+                    failures.append(f'{state} {name}: cartridge seating travel differs from carrier travel')
+                axis_x = shape.BoundingBox().center.x
+                tube = _enc._ycyl(ml.tee.TUBE_D / 2, axis_x, spec.tee_axis_z,
+                                  plate['fore_y'] - ml.tee.CARRIER_STROKE, tip_y)
+                read(f'{state} {name} tube to measured internal stop', tube,
+                     (("enclosure-front-top", wall), (name, shape)))
         lift = spec.tee_axis_z - ml.branch_port(sorted(ml.CARRIER_TEES)[0])[0][1]
         tubes = {f"spine-{cid}": ml.uturn(x, dy) for cid, x in ml.SPINE.items()}
         tubes.update({f"bow-{name}": ml.bowed(*ends) for name, ends in ml.fore_stubs(dy).items()})
@@ -1694,6 +1731,9 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
         for side, shape in halves.items():
             read(f"half {side:+d} working travel {i + 1}/{count}",
                  shape.translate((0.0, dy, 0.0)), wall_and_fixed)
+        for name in sorted(ml.CARRIER_TEES):
+            read(f'{name} sleeve and body travel {i + 1}/{count}', tee_pose(name, dy),
+                 (("enclosure-front-top", wall),))
 
     # Both M3 heads and the driver pass through the empty cartridge bay and fixed body.
     for x, seat_y, z in _carrier.joint_sites(spec):
@@ -1782,7 +1822,12 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
         f"{readings} solid/envelope checks; maximum unintended overlap {max_overlap:.6f} mm³; "
         f"release/park overshoots {release_hit:.6f}/{park_hit:.6f} mm³; "
         f"40 independent flank-capture readings, minimum contact {contact_min:.6f} mm³; "
-        f"minimum upper/lower web bearing {min(web_bearings):.3f} mm²",
+        f"minimum upper/lower web bearing {min(web_bearings):.3f} mm²; "
+        f"minimum depressed-collet bearing {min(nose_contacts):.3f} mm²; "
+        f"fore tube bottom {plate['tube_bottom_y']:.3f} mm Y, "
+        f"{ml.tee.INSERTION:g} mm beyond the depressed sleeve; "
+        f"seated cartridge tube bottom {plate['seated_tube_bottom_y']:.3f} mm Y, "
+        f"{ml.tee.CARRIER_STROKE:g} mm final cartridge seating travel",
         "0 mm³ unintended overlap; positive end-stop, X/Z and pitch/yaw/roll contact",
         tuple(failures),
     ))

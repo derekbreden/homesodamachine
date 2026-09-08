@@ -50,8 +50,8 @@ BARREL_R = 6.858
 # CLEAR. These are the band that IS that radius, which is what a bore can BEAR on: a journal
 # closed on the collar holds the arm across its own axis and leaves it free along it.
 # `BODY_FACE` is where the collar ends and the collet stands out of it, so `COLLET_PROUD` is
-# the collet's whole exposed length — press it that far and the grip is fully open, which makes
-# it the CEILING on any release stroke built around this fitting. The same three figures the
+# the stand-in collet's exposed length. The operating stroke comes from the measured
+# production sleeve travel below. The same three figures the
 # calipered members of this family carry (`../jg-pp0408w/`, `../jg-pp061208w/`,
 # `../jg-pp451223w/`), read off the solid here because this one is harvested.
 CAP_NEAR = 12.815         # the collar's inboard end, off the body centre
@@ -65,32 +65,54 @@ ARM_R = 6.6415            # what the arm stands from that root out to the collar
 # Calipered on the production tee, not read off the stand-in STEP, so `stations_hold` does not
 # hold them. The two spans are collet face to collet face along the run. The three depths are
 # how far a 1/4" tube stands inside one collet from the sleeve's face WITH THE SLEEVE PRESSED
-# HOME, which is where the tube was marked: pressed, the sleeve sits on the body. The teeth,
-# O-ring and stop are the body's, so from the EXTENDED sleeve face, where `RUN_HALF` and
-# `BRANCH_REACH` stand the noses, each depth is one `COLLET_TRAVEL` deeper.
+# HOME, which is where the tube was marked. These are insertion observations; the collet
+# and its gripping teeth move during locking, while the tube's internal stop stays in the body.
 RUN_SPAN = 42.5            # sleeves extended
 RUN_SPAN_PRESSED = 39.2    # both sleeves pressed home
 COLLET_TRAVEL = (RUN_SPAN - RUN_SPAN_PRESSED) / 2.0   # one sleeve's stroke, 1.65
 FIRST_RESISTANCE = 7.0     # the tube first meets the mechanism
 GRIP_DEPTH = 8.5           # the teeth hold from here in; at 8.4 the tube still draws out
 INSERTION = 10.0           # the tube bottoms
-FIRST_RESISTANCE_EXTENDED = FIRST_RESISTANCE + COLLET_TRAVEL   # 8.65, from the extended nose
-GRIP_DEPTH_EXTENDED = GRIP_DEPTH + COLLET_TRAVEL               # 10.15
-INSERTION_EXTENDED = INSERTION + COLLET_TRAVEL                 # 11.65
+INSERTION_EXTENDED = INSERTION + COLLET_TRAVEL  # fixed stop depth from an extended nose
 
-# The carrier's four named states, all derived from the measured sleeve and insertion depths.
-# Offset is enclosure +Y (aft) from the squeeze datum.  Only release and park are fixed stops;
-# squeeze is held by the service tabs and connected floats under spring load on the teeth.
-CARRIER_RELEASE_OFFSET = -(INSERTION - GRIP_DEPTH + COLLET_TRAVEL)
+# The fore stop holds the branch sleeve fully depressed against the fixed plate.
+# Release and squeeze share that stop; connected and empty park share the aft stop.
+CARRIER_AFT_COLLET_GAP = 0.5
+CARRIER_STROKE = COLLET_TRAVEL + CARRIER_AFT_COLLET_GAP
+CARRIER_MAX_STROKE = 2.5
+if not COLLET_TRAVEL <= CARRIER_STROKE <= CARRIER_MAX_STROKE:
+    raise ValueError('carrier stroke must release the sleeve within the 2.5 mm travel limit')
+CARRIER_RELEASE_OFFSET = 0.0
 CARRIER_SQUEEZE_OFFSET = 0.0
-CARRIER_CONNECTED_OFFSET = INSERTION - GRIP_DEPTH
-CARRIER_PARK_OFFSET = INSERTION - FIRST_RESISTANCE
+CARRIER_CONNECTED_OFFSET = CARRIER_STROKE
+CARRIER_PARK_OFFSET = CARRIER_STROKE
 CARRIER_STATES = {
-    "release": (CARRIER_RELEASE_OFFSET, INSERTION_EXTENDED),
+    "release": (CARRIER_RELEASE_OFFSET, INSERTION),
     "squeeze": (CARRIER_SQUEEZE_OFFSET, INSERTION),
-    "connected": (CARRIER_CONNECTED_OFFSET, GRIP_DEPTH),
-    "park": (CARRIER_PARK_OFFSET, FIRST_RESISTANCE),
+    "connected": (CARRIER_CONNECTED_OFFSET, INSERTION_EXTENDED),
+    "park": (CARRIER_PARK_OFFSET, None),
 }
+# Each occupied stop describes a tube bottomed against the tee body's internal stop.
+# The cartridge is one carrier stroke short of seating at fore and fully seated at aft.
+# Park names the empty-carrier use of that same aft stop, so it has no tube-depth entry.
+
+
+def carrier_collet_depression(offset: float) -> float:
+    """Branch-sleeve depression while its nose bears against the fixed plate."""
+    return min(COLLET_TRAVEL, max(0.0, COLLET_TRAVEL - offset))
+
+
+def depress_branch(solid, depression: float):
+    """The stand-in tee with only its branch sleeve translated into the body."""
+    if not 0.0 <= depression <= COLLET_TRAVEL + 1e-9:
+        raise ValueError(f'branch depression {depression:g} exceeds the measured sleeve stroke')
+    if depression <= 1e-9:
+        return solid
+    bb = solid.BoundingBox()
+    cutter = cq.Solid.makeBox(bb.xlen + 2, bb.ymax - BODY_FACE + 1, bb.zlen + 2,
+                              cq.Vector(bb.xmin - 1, BODY_FACE, bb.zmin - 1))
+    sleeve = solid.intersect(cutter)
+    return solid.cut(cutter).fuse(sleeve.translate((0, -depression, 0))).clean()
 
 
 def run(sign):

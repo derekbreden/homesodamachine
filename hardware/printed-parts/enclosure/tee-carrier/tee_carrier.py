@@ -58,7 +58,7 @@ class CarrierSpec:
     release_offset_y: float = tee.CARRIER_RELEASE_OFFSET
     connected_offset_y: float = tee.CARRIER_CONNECTED_OFFSET
     park_offset_y: float = tee.CARRIER_PARK_OFFSET
-    fixed_plate_aft_y: float = 81.290
+    fixed_plate_aft_y: float = 82.694
     aft_coil_fore_y: float = 116.960
     exterior_x: float = 107.5
     guide_inner_x: float = 98.5
@@ -87,7 +87,6 @@ class CarrierSpec:
     joint_receiver_t: float = 6.0
     joint_lap_t: float = 6.0
     joint_head_depth: float = 3.0
-    joint_screw_xs: tuple[float, float] = (-4.5, 4.5)
     joint_screw_length: float = 8.0
     bed_x: float = 325.0
     bed_y: float = 320.0
@@ -144,6 +143,15 @@ class CarrierSpec:
         return self.tee_axis_z + tee.RUN_HALF + self.slide_air, self.web_z[1]
 
     @property
+    def joint_receiver_x(self):
+        return -self.joint_half_x + self.joint_root_x, self.joint_half_x + self.joint_root_x
+
+    @property
+    def joint_screw_xs(self):
+        return (self.joint_root_x - self.joint_half_x / 2,
+                self.joint_root_x + self.joint_half_x / 2)
+
+    @property
     def grip_root_x(self):
         return (min(self.web_x[1] - self.grip_root_overlap, self.grip_back_x),
                 max(self.web_x[1], self.grip_back_x + self.grip_root_overlap))
@@ -179,7 +187,7 @@ class CarrierSpec:
 
 DEFAULT_SPEC = CarrierSpec(
     tee_xs=(-79.82, -20.07, 20.07, 79.82), tee_axis_z=190.245,
-    web_x=(-94.0, 94.0), web_fore_y=109.718, web_z=(171.245, 220.165),
+    web_x=(-94.0, 94.0), web_fore_y=107.968, web_z=(171.245, 220.165),
     spring_xs=(-49.945, 49.945), spring_axis_z=190.245,
     tab_outer_x=107.5, tab_z=(177.245, 217.245),
 )
@@ -391,17 +399,17 @@ def build_half(spec=DEFAULT_SPEC, side=1):
     split = -spec.joint_half_x
     bb = _carrier_blank(spec)
     span = spec.tab_outer_x + spec.slide_air
-    xa, xb = (-span, split) if side < 0 else (split, span)
+    xa, xb = (-span, split) if side < 0 else (spec.joint_receiver_x[0], span)
     bounds = bb.val().BoundingBox()
     body = bb.intersect(_box(xa, xb, bounds.ymin - 1.0, bounds.ymax + 1.0,
                             bounds.zmin - 1.0, bounds.zmax + 1.0))
     if side < 0:
         root = split - spec.joint_root_x
         body = body.union(_box(root, split, spec.joint_fore_y, spec.web_aft_y, *spec.joint_z))
-        body = body.union(_box(root, spec.joint_half_x, spec.joint_fore_y,
+        body = body.union(_box(root, spec.joint_receiver_x[1], spec.joint_fore_y,
                                spec.joint_face_y, *spec.joint_z))
     else:
-        body = body.union(_box(split, spec.joint_half_x, spec.joint_face_y,
+        body = body.union(_box(*spec.joint_receiver_x, spec.joint_face_y,
                                spec.web_aft_y, *spec.joint_z))
     for x, seat_y, z in joint_sites(spec):
         body = body.cut(_cylinder_y(enclosure_interface.screw_clear_dia,
@@ -446,7 +454,8 @@ def insertion_envelopes(spec=DEFAULT_SPEC, side=1):
     seated tees. Separate cup-floor bounds retain the real seam-rail relief.
     """
     split = -spec.joint_half_x
-    web_x = (spec.web_x[0], split) if side < 0 else (split, spec.web_x[1])
+    web_x = ((spec.web_x[0], split) if side < 0
+             else (spec.joint_receiver_x[0], spec.web_x[1]))
     rows = [('web', web_x, (spec.web_fore_y, spec.web_aft_y), spec.web_z)]
     radius = spec.spring_pad_d / 2.0
     x = spec.spring_xs[0 if side < 0 else 1]
@@ -457,10 +466,10 @@ def insertion_envelopes(spec=DEFAULT_SPEC, side=1):
         rows.extend((
             ('joint root', (split - spec.joint_root_x, split),
              (spec.joint_fore_y, spec.web_aft_y), spec.joint_z),
-            ('joint tongue', (split - spec.joint_root_x, spec.joint_half_x),
+            ('joint tongue', (split - spec.joint_root_x, spec.joint_receiver_x[1]),
              (spec.joint_fore_y, spec.joint_face_y), spec.joint_z)))
     else:
-        rows.append(('joint', (split, spec.joint_half_x),
+        rows.append(('joint', spec.joint_receiver_x,
                      (spec.joint_face_y, spec.web_aft_y), spec.joint_z))
 
     def handed(xs):
@@ -694,7 +703,9 @@ def sync_readme(spec=DEFAULT_SPEC):
         'GRIP_WIDTH': 2 * spec.tab_outer_x, 'GRIP_OVERLAP': spec.grip_overlap,
         'GRIP_HEIGHT': spec.grip_z[1] - spec.grip_z[0],
         'GRIP_BACK_T': spec.grip_back_t, 'GUIDE_LENGTH': spec.grip_y[1] - spec.grip_y[0],
-        'GUIDE_AIR': spec.slide_air, 'ENTRY_FROM_PARK': spec.park_offset_y - spec.connected_offset_y,
+        'GUIDE_AIR': spec.slide_air,
+        'GUIDE_TRAVEL': spec.park_offset_y - spec.release_offset_y,
+        'AFT_COLLET_GAP': tee.CARRIER_AFT_COLLET_GAP,
         'RIM_BED_GAP': spec.rim_z[0] - spec.web_z[0],
     }
     substitute_md(_here.parent / 'README.md', {key: f'{value:.6g} mm' for key, value in values.items()})
