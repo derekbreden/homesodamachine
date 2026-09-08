@@ -586,10 +586,10 @@
           "first_contacts_cad_xyz_mm": [
             [
               -107.8,
-              4.625,
+              5.025,
               282.8,
               107.8,
-              75.825,
+              74.225,
               283.2
             ]
           ],
@@ -600,35 +600,19 @@
         },
         {
           "tree": "tree-2",
-          "name": "west spring bore, carrier guides, web bearing and well crowns",
+          "name": "west grip guide, retaining-rim recess and outer well crown",
           "first_contacts_cad_xyz_mm": [
             [
-              -51.4,
-              95.025,
-              192.8,
-              -49.4,
-              100.625,
-              193.2
-            ],
-            [
-              -65.4,
-              101.025,
-              219.8,
-              -29.4,
-              117.025,
-              220.2
-            ],
-            [
-              -107.4,
-              97.025,
+              -107.8,
+              95.425,
               222.8,
               -103.8,
-              139.825,
+              137.825,
               223.2
             ],
             [
-              -104.2,
-              91.425,
+              -103.8,
+              89.825,
               226.0,
               -87.8,
               167.025,
@@ -636,141 +620,125 @@
             ],
             [
               -88.6,
-              94.625,
-              232.0,
-              -82.2,
-              97.425,
-              232.4
-            ],
-            [
-              -77.4,
-              95.025,
+              93.025,
               232.0,
               -66.2,
-              97.425,
-              232.4
-            ],
-            [
-              -29.0,
-              94.625,
-              232.0,
-              -22.6,
-              97.425,
-              232.4
-            ],
-            [
-              -17.8,
-              94.625,
-              232.0,
-              -11.4,
               97.825,
               232.4
             ]
           ],
           "root": "bed",
-          "build_up_mm": 32.6,
-          "interface_islands": 8,
-          "rationale": "The round bore guides the return spring. Flat upper guide and web-bearing faces capture the carrier; the well crowns join into the valve tray. Remove this connected support through the open cartridge bay, aft recess and tee wells before installing hardware."
+          "build_up_mm": 62.6,
+          "interface_islands": 3,
+          "rationale": "The flat guide and recess ceiling capture the sliding handhold and its hidden retaining rim. The outer well crown joins the carrier body into the valve tray. Remove this connected support through the flank opening, internal recess and outer tee well before installing hardware."
         },
         {
           "tree": "tree-3",
-          "name": "center and east carrier bearings, well crowns and pump-jack roof",
+          "name": "both spring bores, upper web bearings, inner well crowns and pump-jack roof",
           "first_contacts_cad_xyz_mm": [
             [
-              -10.6,
-              100.225,
+              -51.4,
+              93.425,
+              192.8,
+              -49.4,
+              98.225,
+              193.2
+            ],
+            [
+              48.6,
+              93.025,
+              192.8,
+              50.6,
+              98.625,
+              193.2
+            ],
+            [
+              -65.4,
+              99.025,
               219.8,
-              11.4,
+              -29.4,
               117.025,
               220.2
             ],
             [
-              29.8,
-              100.625,
+              -10.6,
+              99.025,
+              219.8,
+              10.6,
+              117.025,
+              220.2
+            ],
+            [
+              29.4,
+              99.025,
               219.8,
               65.4,
               117.025,
               220.2
             ],
             [
+              -29.0,
+              93.425,
+              232.0,
+              -11.4,
+              97.825,
+              232.4
+            ],
+            [
+              11.4,
+              93.025,
+              232.0,
+              29.0,
+              98.225,
+              232.4
+            ],
+            [
+              -7.0,
+              86.625,
+              310.4,
+              7.0,
+              90.225,
+              310.6
+            ]
+          ],
+          "root": "bed",
+          "build_up_mm": 32.6,
+          "interface_islands": 8,
+          "rationale": "The round bores guide the return springs, the flat upper bearings guide the carrier, and the inner well crowns join the valve tray. The keyed jack roof seats its plug. Remove this connected support through the empty cartridge bay, aft recess and inner tee wells before installing hardware."
+        },
+        {
+          "tree": "tree-4",
+          "name": "east grip guide, retaining-rim recess and outer well crown",
+          "first_contacts_cad_xyz_mm": [
+            [
               103.8,
-              97.025,
+              95.425,
               222.8,
               107.8,
-              139.825,
+              137.825,
               223.2
             ],
             [
               87.8,
-              91.825,
+              89.825,
               226.0,
               103.8,
               167.025,
               226.4
             ],
             [
-              11.0,
-              95.025,
-              232.0,
-              17.8,
-              97.425,
-              232.4
-            ],
-            [
-              22.2,
-              94.625,
-              232.0,
-              29.0,
-              97.425,
-              232.4
-            ],
-            [
               66.2,
-              95.025,
-              232.0,
-              77.4,
-              97.825,
-              232.4
-            ],
-            [
-              82.2,
-              94.625,
+              93.025,
               232.0,
               88.6,
-              97.825,
+              97.425,
               232.4
-            ],
-            [
-              -7.0,
-              88.225,
-              310.4,
-              7.0,
-              92.225,
-              310.6
             ]
           ],
           "root": "bed",
-          "build_up_mm": 59.6,
-          "interface_islands": 9,
-          "rationale": "The central and east upper bearing faces guide the carrier while the well crowns join into the valve tray. The keyed jack roof seats its plug. Remove this connected support through the open cartridge bay, aft recess and tee wells before installing hardware."
-        },
-        {
-          "tree": "tree-4",
-          "name": "east spring-bore roof",
-          "first_contacts_cad_xyz_mm": [
-            [
-              48.6,
-              95.025,
-              192.8,
-              50.6,
-              100.225,
-              193.2
-            ]
-          ],
-          "root": "bed",
-          "build_up_mm": 32.6,
-          "interface_islands": 1,
-          "rationale": "The close round bore guides the return spring. Its roof stays round to retain that guidance. The loose front-top admits support removal through the bore mouth and adjacent spring-loading well."
+          "build_up_mm": 62.6,
+          "interface_islands": 3,
+          "rationale": "The flat guide and recess ceiling capture the sliding handhold and its hidden retaining rim. The outer well crown joins the carrier body into the valve tray. Remove this connected support through the flank opening, internal recess and outer tee well before installing hardware."
         }
       ]
     },
@@ -785,10 +753,10 @@
           "first_contacts_cad_xyz_mm": [
             [
               -75.8,
-              17.737,
+              17.662,
               234.345,
               -24.2,
-              69.337,
+              69.262,
               234.545
             ]
           ],
@@ -803,10 +771,10 @@
           "first_contacts_cad_xyz_mm": [
             [
               24.2,
-              17.737,
+              17.662,
               234.345,
               75.8,
-              69.337,
+              69.262,
               234.545
             ]
           ],
@@ -871,10 +839,10 @@
           "first_contacts_cad_xyz_mm": [
             [
               -106.25,
-              109.618,
+              107.868,
               216.645,
               -93.45,
-              124.818,
+              123.068,
               217.045
             ]
           ],
@@ -889,10 +857,10 @@
           "first_contacts_cad_xyz_mm": [
             [
               -105.05,
-              94.018,
+              92.268,
               174.445,
               -90.25,
-              140.418,
+              138.668,
               174.845
             ]
           ],
@@ -907,10 +875,10 @@
           "first_contacts_cad_xyz_mm": [
             [
               -13.05,
-              100.018,
+              98.268,
               209.845,
               12.95,
-              109.218,
+              107.468,
               210.245
             ]
           ],
@@ -932,10 +900,10 @@
           "first_contacts_cad_xyz_mm": [
             [
               -4.95,
-              106.418,
+              104.668,
               209.845,
               13.05,
-              109.218,
+              107.468,
               210.245
             ]
           ],
@@ -950,10 +918,10 @@
           "first_contacts_cad_xyz_mm": [
             [
               89.45,
-              94.018,
+              92.268,
               174.445,
               105.05,
-              140.418,
+              138.668,
               174.845
             ]
           ],
@@ -968,10 +936,10 @@
           "first_contacts_cad_xyz_mm": [
             [
               93.45,
-              109.618,
+              107.868,
               216.645,
               106.65,
-              125.218,
+              123.468,
               217.045
             ]
           ],
