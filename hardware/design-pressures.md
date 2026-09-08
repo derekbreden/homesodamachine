@@ -14,6 +14,13 @@ made, once.
 
 **The operation inside design constraints**, which is where the machine spends its life.
 
+**Rigidity and a substantial feel.** Available internal volume around supported hardware
+belongs to the structure. The tee carrier's fixed body fills the space south (Y−) of its
+backing, connecting the tee journals, spring pockets and broad plate guides into both enclosure
+flanks. Hardware, travel, tubing and assembly motions define the cavities; the remaining stock
+forms continuous sections with clean flat working faces. Minimizing material is not an objective
+for this body.
+
 ## Not optimised
 
 **Field service.** One operation: the pump swap in
@@ -76,15 +83,15 @@ destroyed is a part that comes out by being destroyed.
   insertion at both fittings, and the valve-side depth has not been measured. The tee–valve bow
   trial therefore owns the blank before production; no cut instruction may call that blank
   12 mm.
-- **The front-top assembly order follows the moving mechanism.** Install the aft valves; feed
-  the right carrier half inward through its flank at release, then park it; feed the left half
-  inward at connected and move it to release; bring the right half fore, close the center lap
-  with two M3 screws from aft and fit both
-  springs; insert the four tees individually through
-  their fixed journals; tie each tee twice; install the fore valves and four bench-fitted bowed
-  stubs; then, after the chassis closes, squeeze each cartridge pocket toward its carrier tab, bottom all four tubes and
-  release to connected. A free-standing subassembly remains a convenience of the bench, not a
-  reason to reverse those joint motions.
+- **The front-top assembly order follows the moving mechanism.** Insert the bare tees from
+  aft into the fixed body's cavities and move them to release. Raise the aft valves from the
+  open underside and press them into their sockets. Feed the right carrier half inward at
+  release, then park it; feed the left half inward at connected and move it to release. The
+  upper lap passes above the seated tees. Bring the right half fore and close the lap with
+  two M3 screws through the empty cartridge bay. Tie each tee twice; load both springs into
+  their wells and seats; install the fore valves and bowed stubs. After the chassis closes,
+  squeeze each cartridge pocket toward its carrier tab, bottom all four tubes and relax to
+  connected.
 - **The collet action is physically established.** Derek's checks with a tube-tight collar
   show easy extraction while the collet is continuously held, relocking after a small
   separating tug, and insertion against spring-level collet tension. The fixed plate carries

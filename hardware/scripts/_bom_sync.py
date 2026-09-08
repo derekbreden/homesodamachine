@@ -336,7 +336,7 @@ m3x12_per_build = touchflo_screws_per_build
 #   +X wall bosses       — the bore ends at `flute_backing`; deeper walks the power column in
 #   pump-clamp bosses    — the screw is thread-limited at 4 mm anyway, over 2.2 mm of cradle
 #   faucet display cover — the shell's own land, one screw
-#   tee-carrier lap      — a 5 mm receiver, with a 4 mm insert and screw-end relief
+#   tee-carrier lap      — a 6 mm receiver, with a 4 mm insert and 2 mm backing
 #   Y-seam sockets       — pilot is `screw_len - seam_pin_shank_len`; longer wants an M3x12
 m3_long_inserts_per_build = (
     foam_cap_inserts_per_build

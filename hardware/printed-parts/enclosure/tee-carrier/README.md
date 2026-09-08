@@ -2,8 +2,9 @@
 
 Two PET-GF halves joined by two M3 × 8 socket-head screws and two short M3 × 4 mm heat-set
 inserts. Each half includes a closed service-tab handhold and a spring seat. Eight zip ties hold
-Y-C, Y-D, Y-F and Y-G against the common web plane. The fixed tee wall journals their branch
-collars in X and Z; the joined carrier couples their Y motion.
+Y-C, Y-D, Y-F and Y-G against the common web plane. A filled body in enclosure-front-top
+surrounds their run arms, journals their branch collars and carries the spring pockets and
+carrier bearings. The joined carrier couples their Y motion.
 
 ## The grasp
 
@@ -31,13 +32,18 @@ valves.
 
 ## Guidance and retention
 
+The fixed body runs continuously between the tee wall and both enclosure flanks. Four
+aft-opening cavities follow the tee bodies and their travel, with separate tie channels,
+head recesses and flexible-tube passages. Broad flat lands above and below the moving web
+continue into the flank guides. The upper center lap passes above the four tee bodies.
+
 Each handhold is a rectangular sliding body behind its rounded exterior rim. The opening's
 flat upper and lower faces guide its [42 mm](GUIDE_LENGTH) bearing length, with
 [0.15 mm](GUIDE_AIR) running clearance on each side in Z. The opening's fore and aft faces
 are the release and park stops. The body stays inside all four faces throughout travel.
 The cup bottoms clear the enclosure's seam-rail heads. A short opening below each guide
-passes the web and center lap during lateral insertion; the outer rim covers that opening
-throughout travel. The lower guide bears on either side of this passage, and the closed
+passes the web during lateral insertion; the outer rim covers that opening throughout
+travel. The upper lap passes through its own belt above the tees. The lower guide bears on either side of the web passage, and the closed
 enclosure's rail head runs beneath the cup.
 
 The two exterior rims face opposite enclosure flanks. Once the center lap is screwed
@@ -61,26 +67,32 @@ in [`tee_connector.py`](/hardware/reference/tee-connector/tee_connector.py).
 
 Only release and park are physical stops. The guide spans 6.15 mm. At park the web leaves
 1.742 mm to the aft coils. The two spring axes lie between coils at X ±49.945, Z 190.245 mm.
-Each spring bears in a 6.4 mm teardrop seat, 2 mm deep, and surrounds the fixed wall's diamond
-guide. The return pair is Lee LCM060C12M.
+Each spring bears in a 6.4 mm teardrop seat, 2 mm deep. Its fore end sits in a round bore
+within the fixed body's full section. A vertical loading well behind each bore admits the
+compressed spring; its floor and side walls surround the exposed coils. The return pair is
+Lee LCM060C12M.
 
 ## Assembly
 
-Work with `enclosure-front-top` loose, its aft valve row installed and the pump bay empty.
+Work with `enclosure-front-top` loose and its pump bay empty.
 
-1. Heat-set the two short M3 inserts into the left half from its aft-facing lap surface.
-2. Feed the right half inward from outside the right flank, web first, with its handhold
+1. Insert the four bare tees from aft into their cavities and branch journals, then move
+   them fore to release. Fit the aft valves from the open underside, with their posts clear
+   of the tray, and press each valve into its sockets.
+2. Heat-set the two short M3 inserts into the right half from its fore-facing lap surface.
+   Feed the right half inward from outside the right flank, web first, with its handhold
    against the opening's fore/release end. Seat its rim against the flank and move it aft
    to park.
 3. Feed the left half inward through the left flank at connected, [1.5 mm](ENTRY_FROM_PARK)
-   fore of park. Its insert receiver passes behind the fixed spring pilot. Move the left
+   fore of park. Its upper lap passes over the seated tees. Move the left
    half fore to release. The parked right half leaves room for both motions.
 4. Move the right half forward to release to close the central lap. Feed both M3 × 8 screws
-   from aft through the two tool passages in the valve tray and the gap between coils and tighten them into the left half's
-   inserts. The heads finish flush with the web's aft face. Check that both web faces share
+   through the two access bores in the empty cartridge bay and tighten them into the right
+   half's inserts. The heads finish flush with the lap's fore face. Check that both web faces share
    one tee-bearing plane and both tabs travel together.
-5. Fit both compression springs between their fixed pilots and recessed carrier seats while
-   the bay is open. Insert the four tees through their journals and tie each tee twice.
+5. Tie each tee twice through its routing channels. Move the carrier to park. Compress each
+   spring above solid height, lower it into its loading well, enter its aft end into the carrier
+   seat and let its fore end extend into the fixed bore. Check empty return and full travel.
    Complete the fore valve row, bowed stubs and hairpins as described in
    [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md).
 
@@ -94,8 +106,9 @@ and their routing channels open.
 Print both halves upright, +Z up, with the lower rim edge on the bed. The web begins
 [4.15 mm](WEB_BED_GAP) above that edge and takes removable support beneath it. The cup floor,
 pocket roof and rim overhangs also take support; the pocket opens directly onto the
-side for cleanup. The enclosure guide's upper face is a flat supported ceiling. All guide
-and hand-contact faces retain their full bearing sections.
+side for cleanup. The fixed body's guide and tie-channel ceilings take support, removed
+through the open aft cavities before assembly. Its spring bores open into the loading wells.
+All guide and hand-contact faces retain their full bearing sections.
 
 `build_half(side=-1|1)` makes one valid print; `build_carrier()` compounds both installed
 halves. `interface()` supplies the enclosure's openings, stops, spring stations, installation
@@ -104,12 +117,14 @@ order and printed inventory. The generator exports `enclosure-tee-carrier-left` 
 
 The part selftest checks solids, bed fit, lap contact, fastener stack, tie paths, closed pocket
 backs, rim overlap and assembly clearance between halves. The appliance's `tee-carrier-motion`
-reading checks lateral insertion, lap closure, screw/driver access, finger space and working
+reading checks tee loading, aft-valve entry, complete lateral insertion sweeps, lap closure, fore screw/driver
+access, spring loading, finger space and working
 travel against actual front-top, the closed lower enclosure, cartridge and fixed valve
 bodies. Both end stops must engage on a
 0.001 mm overshoot. At every state, a 0.151 mm transverse displacement and a one-degree
 rotation in either sense about every axis must encounter the flank guides alone. These are
-rigid-body contact readings.
+rigid-body contact readings. Spring clearance uses the maximum catalog outside diameter
+through loading, seating and all four working states.
 
 The [observed collet action](/hardware/reference/tee-connector/README.md#observed-push-connect-action)
 establishes release under continuous restraint, locking after a short separating tug and
