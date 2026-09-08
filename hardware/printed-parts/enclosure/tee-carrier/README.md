@@ -19,7 +19,7 @@ weight. The carrier follows the tubes forward until the fixed plate releases the
 
 The web thickens into a [16 mm](GRIP_BAR_T) front bar at each side. Each handhold has a closed
 finger recess [22 mm](FINGER_RUN) fore/aft, [40 mm](FINGER_HEIGHT) high and
-[8.705 mm](FINGER_DEPTH) deep, with [5 mm](GRIP_CORNER_R) corners and a
+[14.705 mm](FINGER_DEPTH) deep, with [5 mm](GRIP_CORNER_R) corners and a
 [3 mm](GRIP_EDGE_R) round at the mouth. The fingers
 bear on the front bar's aft face, opposing the thumb on the cartridge pocket's aft wall.
 
@@ -30,6 +30,11 @@ edges by at least [4 mm](GRIP_OVERLAP) throughout the stroke. Its lower edge cle
 enclosure seam rail. The recess ends on a continuous
 [2.5 mm](GRIP_BACK_T) back, so the opening presents a finger pocket with no view into the
 valves.
+
+The outer grip faces carry the enclosure's inward-cut flute profile, aligned with its field
+at the connected resting position. The grooves travel with the carrier. Their fade follows
+the pocket mouth and the body's exposed edges; the rounded hand contact and internal
+bearing surfaces retain their full sections.
 
 ## Guidance and retention
 

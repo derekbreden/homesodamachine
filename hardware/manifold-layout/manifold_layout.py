@@ -173,6 +173,9 @@ FORE_STUB_GAP = 10.0
 # The valve's own insertion depth is not measured, so the cut length remains a bench figure.
 FORE_STUB_EXPOSED = 12.0
 FORE_VALVES = frozenset(("V-E", "V-F", "V-H", "V-I"))
+# The two outer aft valves stand inboard of their pump-connected tees. Their hairpins
+# lean between those axes; the room outside the coils belongs to the closed finger cups.
+OUTER_AFT_INSET = 6.0
 BARB_PLATE_BERTH = 5.7  # steel, its two airs and the millimetre off the barbs' own plane
 PUMP_BARB_Z = HEAD_W - _enc_if.pump_station_lead
 # World Z is this study's Y after `enclosure_assembly.pose_manifold` stands the pack. The
@@ -432,11 +435,9 @@ HINGE_Z = DECK_Z + DECK_SEP / 2.0
 UPPER_Z = DECK_Z + DECK_SEP                  # the folded deck's port-axis height
 FOLD_AXIS = (cq.Vector(0.0, HINGE_Y, HINGE_Z), cq.Vector(1.0, HINGE_Y, HINGE_Z))
 
-# The spine turn's radius is not the deck separation's business. The moving lower end is
-# furthest from its fixed upper end at release, so that state uses the stock's minimum radius
-# and fixes the CUT LENGTH. As the carrier moves aft, the same two R14 quarters stay put and
-# the constant-length middle member bows laterally as its chord shortens. This keeps every
-# state tangent to both collets without inventing or removing tube.
+# Release sets each hairpin's tube length using the stock's minimum bend radius.
+# As the collets approach, the quarter circles open and the tangent middle shortens.
+# The complete developed length and both axial port tangents stay fixed.
 SPINE_R = float(os.environ.get("HSM_SPINE_R", MIN_BEND))
 SPINE_RELEASE_SEP = DECK_SEP - CARRIER_RELEASE
 SPINE_MIN_SEP = DECK_SEP - CARRIER_PARK
@@ -460,9 +461,8 @@ _bounds.state(
     f"to {SPINE_MIN_SEP / 2.0:g} — a semicircle — or stand the decks further apart. The "
     "park spine is drawn at that semicircle meanwhile.")
 SPINE_DRAWN_R = min(SPINE_R, SPINE_MIN_SEP / 2.0)
-# The central member is cut for the furthest-apart (release) endpoints.  At later states its
-# chord shortens and it bows laterally, while the two R14 quarters and the pack's lower envelope
-# stay where the established fold put them.
+# These figures describe the inner hairpins at release. The outer pair lean toward
+# their inset valves and derive their own cut lengths in `spine_tube_length`.
 SPINE_MIDDLE_LEN = SPINE_RELEASE_SEP - 2.0 * SPINE_DRAWN_R
 SPINE_LEN = math.pi * SPINE_DRAWN_R + SPINE_MIDDLE_LEN
 SPINE_STRAIGHT = DECK_SEP - 2.0 * SPINE_DRAWN_R
@@ -635,6 +635,8 @@ def source_step(name: str) -> tuple:
 # they are stepping toward is −Y.
 SHIFT = {n: source_cross(n) + (SOURCE_TRAVEL,) for n in SOURCE_SPREAD}
 SHIFT.update({n: (0.0, FORE_STUB_GAP, 0.0) for n in FORE_VALVES})
+SHIFT.update({n: (-math.copysign(OUTER_AFT_INSET, P[n]["x"]), 0.0, 0.0)
+              for n in ("V-G", "V-J")})
 
 
 def bend_pt(p, z0: float) -> tuple:
@@ -819,56 +821,57 @@ def elbow_pose(gate: str, side: float) -> tuple:
 
 # --- Bodies ----------------------------------------------------------------
 
-def spine_radius(carrier_offset: float = CARRIER_SQUEEZE) -> float:
-    """The fixed radius of both quarter turns at every carrier state."""
-    return SPINE_DRAWN_R
+def spine_radius(carrier_offset: float = CARRIER_SQUEEZE, x: float = 0.0) -> float:
+    """Quarter radius preserving the full tube length as its collets approach.
+
+    A pair of quarter circles and their tangent middle has length
+    separation + (pi - 2) * radius. Release sets the cut at the stock's minimum
+    radius; the bends open as the carrier moves aft. Both port tangents remain axial.
+    """
+    separation = math.hypot(DECK_SEP - carrier_offset, spine_offset_x(x))
+    return (spine_tube_length(x) - separation) / (math.pi - 2.0)
+
+
+def spine_offset_x(x: float) -> float:
+    """The fixed valve's cross-axis offset from its carried tee."""
+    return -math.copysign(OUTER_AFT_INSET, x) if abs(abs(x) - OUTER_X) < 1e-6 else 0.0
+
+
+def spine_middle_length(x: float) -> float:
+    """Straight middle at the furthest-apart, released endpoints."""
+    return math.hypot(SPINE_RELEASE_SEP, spine_offset_x(x)) - 2.0 * SPINE_DRAWN_R
+
+
+def spine_tube_length(x: float) -> float:
+    """Full developed length, shared by every state of one hairpin."""
+    return math.pi * SPINE_DRAWN_R + spine_middle_length(x)
+
+
+def spine_stations(x: float, carrier_offset: float = CARRIER_SQUEEZE):
+    """Collet and quarter-tangent points on the plane joining the two actual axes."""
+    r = spine_radius(carrier_offset, x)
+    a = cq.Vector(x, HINGE_Y, DECK_Z + carrier_offset)
+    d = cq.Vector(x + spine_offset_x(x), HINGE_Y, UPPER_Z)
+    along = (d - a).normalized()
+    back = cq.Vector(0.0, -r, 0.0)
+    return a, a + back + along * r, d + back - along * r, d, along
 
 
 def spine_middle(x: float, a: cq.Vector, b: cq.Vector):
-    """The constant-length centre member between the two fixed-radius quarters.
-
-    Release is straight.  As its endpoints approach one another the same developed length bows
-    away from the centreline in X, keeping the fold's Y reach and both quarter tangencies fixed.
-    """
-    chord = (b - a).Length
-    if chord > SPINE_MIDDLE_LEN + 1e-9:
-        raise ValueError(
-            f"spine middle chord {chord:.3f} exceeds its {SPINE_MIDDLE_LEN:.3f} mm cut")
-    if abs(chord - SPINE_MIDDLE_LEN) < 1e-9:
-        return cq.Edge.makeLine(a, b)
-    outward = cq.Vector(math.copysign(1.0, x), 0.0, 0.0)
-
-    def spline(sag: float):
-        return cq.Edge.makeSpline(
-            [a, (a + b) * 0.5 + outward * sag, b],
-            tangents=(cq.Vector(0.0, 0.0, 1.0), cq.Vector(0.0, 0.0, 1.0)),
-        )
-
-    lo, hi = 0.0, SPINE_MIDDLE_LEN
-    while spline(hi).Length() < SPINE_MIDDLE_LEN:
-        hi *= 2.0
-    for _ in range(60):
-        sag = (lo + hi) / 2.0
-        if spline(sag).Length() < SPINE_MIDDLE_LEN:
-            lo = sag
-        else:
-            hi = sag
-    return spline((lo + hi) / 2.0)
+    """The straight tangent member between one state's quarter circles."""
+    return cq.Edge.makeLine(a, b)
 
 
 def uturn(x: float, carrier_offset: float = CARRIER_SQUEEZE):
-    """One spine turn, in the limb's own vertical plane: out of the anchor tee's front collet on
-    the lower deck, a quarter-turn of `SPINE_R` onto the climb, `SPINE_STRAIGHT` of straight, and
-    a quarter-turn back onto the folded body's collet over it. Both ends meet their collet on its
-    own axis, so the run carries no straight tube at either END — the straight is in the middle,
-    and it is what lets the radius sit at the stock's floor instead of half the deck gap.
+    """A constant-length hairpin joining the carried tee and fixed valve on their axes.
 
-    The whole turn reaches `SPINE_R` past the hinge and no further, which is the only part of it
-    the pack pays for. It turns at `SPINE_DRAWN_R`, which is that radius or the semicircle —
-    a radius the decks have no room for leaves the two arcs sharing no point, and a wire that
-    does not close is not a turn drawn badly but a turn not drawn."""
-    r = spine_radius(carrier_offset)
-    separation = DECK_SEP - carrier_offset
+    The two quarter circles share the plane of the collets and their separation vector.
+    Their radius grows as that separation closes, taking length from the tangent middle.
+    The outer pair lean across X to meet their inset valves. The complete operating
+    envelope, including the increasing reach past the hinge, sizes the enclosure wells.
+    """
+    r = spine_radius(carrier_offset, x)
+    separation = math.hypot(DECK_SEP - carrier_offset, spine_offset_x(x))
     middle_chord = separation - 2.0 * r
     if r < MIN_BEND - 1e-9:
         raise ValueError(
@@ -878,19 +881,15 @@ def uturn(x: float, carrier_offset: float = CARRIER_SQUEEZE):
         raise ValueError(
             f"carrier offset {carrier_offset:+.3f} leaves {separation:.3f} mm between spine "
             f"ends, under the two R{r:.3f} turns")
-    back = HINGE_Y - r
     k = r * (1.0 - math.sqrt(0.5))                       # a quarter-turn's own 45° offset
-    lower_z = DECK_Z + carrier_offset
-    a = cq.Vector(x, HINGE_Y, lower_z)                   # moving lower collet, opening −Y
-    b = cq.Vector(x, back, lower_z + r)                  # onto the climb
-    c = cq.Vector(x, back, UPPER_Z - r)                  # off it again
-    d = cq.Vector(x, HINGE_Y, UPPER_Z)                   # upper collet, opening −Y
+    a, b, c, d, along = spine_stations(x, carrier_offset)
+    arc_back = cq.Vector(0.0, -r * math.sqrt(0.5), 0.0)
     edges = [cq.Edge.makeThreePointArc(
-        a, cq.Vector(x, HINGE_Y - r * math.sqrt(0.5), lower_z + k), b)]
+        a, a + arc_back + along * k, b)]
     if middle_chord > 1e-9:
         edges.append(spine_middle(x, b, c))
     edges.append(cq.Edge.makeThreePointArc(
-        c, cq.Vector(x, HINGE_Y - r * math.sqrt(0.5), UPPER_Z - k), d))
+        c, d + arc_back - along * k, d))
     prof = cq.Wire.makeCircle(TUBE_D / 2.0, a, cq.Vector(0.0, -1.0, 0.0))
     return cq.Solid.sweep(prof, [], cq.Wire.assembleEdges(edges),
                           makeSolid=True, isFrenet=True)
@@ -1334,8 +1333,9 @@ def report(assy: cq.Assembly) -> dict:
     print(f"\n{len(SEGMENTS)} connections")
     for cid, frm, to, how in SEGMENTS:
         if how == "spine":
-            note = (f"{SPINE_LEN:.2f} mm — 180° at R{SPINE_R:g}, "
-                    f"two quarter-turns and {SPINE_STRAIGHT:.2f} mm of straight")
+            middle = spine_middle_length(SPINE[cid])
+            note = (f"{math.pi * SPINE_DRAWN_R + middle:.2f} mm — two R{SPINE_R:g} "
+                    f"quarter-turns and a {middle:.2f} mm flexible middle")
         elif how == "turn":
             note = f"{QUARTER_LEN:.2f} mm — one 90° turn at R{BEND_R:g}"
             if cid in SBENDS:
@@ -1387,9 +1387,9 @@ def report(assy: cq.Assembly) -> dict:
     f, u = FOLD_BINDS
     print(f"fold: hinge at y {HINGE_Y:.2f} z {HINGE_Z:.2f}, decks at z {DECK_Z:.2f} and "
           f"{UPPER_Z:.2f} — {DECK_SEP:g} apart, which {f} standing over {u} sets")
-    print(f"spine: {len(SPINE)} turns, each 2 fixed quarter-turns at R{SPINE_R:g} and "
-          f"a {SPINE_MIDDLE_LEN:.2f} mm constant-length middle member "
-          f"({SPINE_STRAIGHT:.2f} mm chord at squeeze), reaching {SPINE_R:g} mm past the hinge")
+    print(f"spine: {len(SPINE)} constant-length hairpins, "
+          f"{spine_tube_length(INNER_X):.2f} mm inner and {spine_tube_length(OUTER_X):.2f} mm outer; "
+          f"quarter radii R{SPINE_R:g} at release to R{spine_radius(CARRIER_PARK, OUTER_X):.3f} at park")
     steps = [(v, *source_step(v)) for v in SBENDS.values()]
     hairpins = hairpins_drawn()
     print(f"step: {len(SBENDS)} two-arc steps at R{BEND_R:g}, each {SOURCE_TRAVEL:g} along the "
@@ -1433,7 +1433,7 @@ def report(assy: cq.Assembly) -> dict:
 def selftest() -> int:
     """Exercise every measured carrier state, including the two states not exported by main.
 
-    The four short stubs and four spine middles are flexible members, but their developed
+    The four short stubs and four complete hairpins are flexible members, but their developed
     lengths are not flexible numbers.  This holds those lengths, the moving tee stations and
     the complete state's solid validity together so a later pose cannot silently stretch a
     line or leave only the connected rendering buildable.
@@ -1463,19 +1463,24 @@ def selftest() -> int:
             if not shape.isValid() or len(shape.Solids()) != 1:
                 failures.append(f"{state} {name} bowed stub is not one valid solid")
 
-        # The two fixed R14 quarters leave a shorter chord as the tee moves aft; the
-        # middle member itself remains the release-state developed length.
-        r = spine_radius(offset)
-        lower_z = DECK_Z + offset
-        back = HINGE_Y - r
+        # The opening bends and shortening middle preserve one full tube length.
         for cid, x in sorted(SPINE.items()):
-            b = cq.Vector(x, back, lower_z + r)
-            c = cq.Vector(x, back, UPPER_Z - r)
+            a, b, c, d, _along = spine_stations(x, offset)
+            endpoints = next((frm.rsplit('-', 1)[0], to.rsplit('-', 1)[0])
+                             for ident, frm, to, _how in SEGMENTS if ident == cid)
+            gate = next(name for name in endpoints if name.startswith('V-'))
+            anchor = next(name for name in endpoints if name.startswith('Y-'))
+            if (dist(a.toTuple(), port(anchor, 'front', offset)) > 1e-8
+                    or dist(d.toTuple(), port(gate, 'back', offset)) > 1e-8):
+                failures.append(f"{state} fluid-{cid} spine misses its placed collet")
             middle = spine_middle(x, b, c)
-            if abs(middle.Length() - SPINE_MIDDLE_LEN) > 1e-6:
+            developed = middle.Length() + math.pi * spine_radius(offset, x)
+            if abs(developed - spine_tube_length(x)) > 1e-6:
                 failures.append(
-                    f"{state} fluid-{cid} middle is {middle.Length():.6f} mm, "
-                    f"wants {SPINE_MIDDLE_LEN:.6f}")
+                    f"{state} fluid-{cid} is {developed:.6f} mm, "
+                    f"wants {spine_tube_length(x):.6f}")
+            if spine_radius(offset, x) < MIN_BEND - 1e-8:
+                failures.append(f"{state} fluid-{cid} is below the tube's bend-radius floor")
             shape = uturn(x, offset)
             if not shape.isValid() or len(shape.Solids()) != 1:
                 failures.append(f"{state} fluid-{cid} spine is not one valid solid")
@@ -1503,7 +1508,7 @@ def selftest() -> int:
     print(f"PASS: four carrier states build and close cleanly ({states} mm)")
     print(
         f"PASS: four {FORE_STUB_EXPOSED:g} mm exposed bows and four "
-        f"{SPINE_MIDDLE_LEN:.3f} mm spine middles keep their developed lengths")
+        "hairpins keep their developed lengths and meet their placed collets")
     return 0
 
 
@@ -1526,6 +1531,9 @@ def main():
             "SPINE_R": f"{SPINE_R:g}", "SPINE_LEN": f"{SPINE_LEN:.2f}",
             "SPINE_STRAIGHT": f"{SPINE_STRAIGHT:.2f}",
             "SPINE_MIDDLE_LEN": f"{SPINE_MIDDLE_LEN:.2f}",
+            "OUTER_AFT_INSET": f"{OUTER_AFT_INSET:g}",
+            "OUTER_SPINE_MIDDLE_LEN": f"{spine_middle_length(OUTER_X):.2f}",
+            "OUTER_SPINE_LEN": f"{math.pi * SPINE_DRAWN_R + spine_middle_length(OUTER_X):.2f}",
             "DECK_SEP": f"{DECK_SEP:g}",
             "SPINE_COUNT": str(len(SPINE)), "MIN_BEND2": f"{MIN_BEND:g}",
             "QUARTER_R": f"{BEND_R:g}", "QUARTER_LEN": f"{QUARTER_LEN:.2f}",

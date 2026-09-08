@@ -588,7 +588,7 @@
               -107.8,
               5.025,
               282.8,
-              107.4,
+              107.8,
               72.625,
               283.2
             ]
@@ -611,19 +611,19 @@
               221.2
             ],
             [
-              -104.2,
-              83.425,
+              -103.8,
+              83.025,
               225.0,
-              -91.8,
+              -87.8,
               167.025,
               225.4
             ],
             [
-              -91.0,
+              -88.6,
               92.225,
               232.0,
-              -71.0,
-              97.425,
+              -66.2,
+              97.825,
               232.4
             ]
           ],
@@ -634,7 +634,7 @@
         },
         {
           "tree": "tree-3",
-          "name": "spring bores, upper web bearings, east grip recess, well crowns and pump-jack roof",
+          "name": "spring bores, upper web bearings, inner well crowns and pump-jack roof",
           "first_contacts_cad_xyz_mm": [
             [
               -51.4,
@@ -653,47 +653,31 @@
               193.2
             ],
             [
-              -70.6,
-              97.425,
-              219.8,
-              -31.8,
-              117.025,
-              220.2
-            ],
-            [
-              -11.0,
+              -65.8,
               97.825,
               219.8,
-              10.6,
+              -29.4,
               117.025,
               220.2
             ],
             [
-              31.8,
+              -10.6,
               97.425,
               219.8,
-              70.6,
+              11.0,
               117.025,
               220.2
             ],
             [
-              103.8,
-              93.825,
-              220.8,
-              107.8,
-              140.625,
-              221.2
+              29.4,
+              97.425,
+              219.8,
+              65.8,
+              117.025,
+              220.2
             ],
             [
-              91.4,
-              83.425,
-              225.0,
-              104.2,
-              167.025,
-              225.4
-            ],
-            [
-              -31.4,
+              -29.0,
               92.225,
               232.0,
               -11.4,
@@ -704,16 +688,8 @@
               11.4,
               92.225,
               232.0,
-              31.4,
+              29.0,
               98.225,
-              232.4
-            ],
-            [
-              71.0,
-              92.225,
-              232.0,
-              91.0,
-              97.425,
               232.4
             ],
             [
@@ -727,8 +703,42 @@
           ],
           "root": "bed",
           "build_up_mm": 32.6,
-          "interface_islands": 11,
-          "rationale": "The spring bores guide the return pair; the web and grip ceilings keep their flat bearing faces. The east internal recess carries its retaining rim and the tee wells continue to the valve-body clearance. The pump-jack roof retains the keyed plug above this mechanism. These connected branches are removed through the empty cartridge bay, aft carrier recess and tee wells before assembly."
+          "interface_islands": 8,
+          "rationale": "The spring bores guide the return pair and the web ceilings retain their flat bearing faces. The inner tee wells continue to the valve-body clearance. The pump-jack roof retains the keyed plug above this mechanism. These connected branches are removed through the empty cartridge bay, aft carrier recess and tee wells before assembly."
+        },
+        {
+          "tree": "tree-4",
+          "name": "east flush-grip guide, internal rim ceiling and outer well crown",
+          "first_contacts_cad_xyz_mm": [
+            [
+              103.8,
+              93.825,
+              220.8,
+              107.4,
+              140.625,
+              221.2
+            ],
+            [
+              87.4,
+              83.425,
+              225.0,
+              103.8,
+              167.025,
+              225.4
+            ],
+            [
+              66.2,
+              92.225,
+              232.0,
+              88.6,
+              97.425,
+              232.4
+            ]
+          ],
+          "root": "bed",
+          "build_up_mm": 60.6,
+          "interface_islands": 3,
+          "rationale": "The cup guide and internal retaining rim use flat sliding ceilings. The broad internal recess admits the complete grip from inside the enclosure and opens onto the outer tee well. Remove the support branches through that recess and the empty well before hardware is installed."
         }
       ]
     },
@@ -828,11 +838,11 @@
           "name": "closed finger-pocket roof",
           "first_contacts_cad_xyz_mm": [
             [
-              -106.25,
-              116.018,
+              -106.65,
+              115.618,
               216.645,
-              -99.05,
-              131.218,
+              -93.05,
+              130.818,
               217.045
             ]
           ],
@@ -849,7 +859,7 @@
               -105.05,
               88.818,
               174.445,
-              -93.85,
+              -89.45,
               145.618,
               174.845
             ]
@@ -865,7 +875,7 @@
           "first_contacts_cad_xyz_mm": [
             [
               -13.05,
-              100.418,
+              100.018,
               209.845,
               8.95,
               109.218,
@@ -907,7 +917,7 @@
           "name": "internal rim and seam-rail relief",
           "first_contacts_cad_xyz_mm": [
             [
-              93.45,
+              89.85,
               88.818,
               174.445,
               105.05,
@@ -925,7 +935,7 @@
           "name": "closed finger-pocket roof",
           "first_contacts_cad_xyz_mm": [
             [
-              99.05,
+              93.05,
               115.618,
               216.645,
               106.65,
