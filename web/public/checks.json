@@ -57,13 +57,13 @@
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 403 of 1000 free, the next cut wants 3, and the whole lock reads by name in 131.2 MB against 133.0 MB of bundle",
+      "note": "check_release_room: 396 of 1000 free, the next cut wants 3, and the whole lock reads by name in 131.2 MB against 132.9 MB of bundle",
       "status": "ok"
     },
     {
       "check": "tools/check_web_tests.py",
-      "note": "check_web_tests: web's suite passes",
-      "status": "ok"
+      "note": "cd web && npm test",
+      "status": "red"
     },
     {
       "check": "tools/bazel/check_build_file.py",
@@ -82,10 +82,15 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 1 of 8 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 324 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 1 of 13 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 325 member(s) keep their provenance",
       "status": "ok"
     }
   ],
-  "detail": {},
-  "green": true
+  "detail": {
+    "tools/check_web_tests.py": [
+      "the suite did not finish within 300s",
+      "  cd web && npm test"
+    ]
+  },
+  "green": false
 }
