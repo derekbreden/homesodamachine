@@ -52,7 +52,7 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 1451 tracked, 327 fetched solids, 55 tags",
+      "note": "paths: every reference lands — 1455 tracked, 327 fetched solids, 55 tags",
       "status": "ok"
     },
     {
@@ -62,8 +62,8 @@
     },
     {
       "check": "tools/check_web_tests.py",
-      "note": "cd web && npm test",
-      "status": "red"
+      "note": "check_web_tests: web's suite passes",
+      "status": "ok"
     },
     {
       "check": "tools/bazel/check_build_file.py",
@@ -82,7 +82,7 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 2 of 16 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 327 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 13 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 327 member(s) keep their provenance",
       "status": "ok"
     }
   ],
@@ -97,11 +97,6 @@
       "the lock does not carry `release.objects`, so every deploy reads the whole bundle for members it already has",
       "check_release_room: 1 thing(s) stand between a cut and the site",
       "    tools/cad-venv/bin/python tools/cad-artifacts/pack.py --room"
-    ],
-    "tools/check_web_tests.py": [
-      "1 test(s) in web/ fail:",
-      "    the funnel offers all three mold models",
-      "  cd web && npm test"
     ]
   },
   "green": false
