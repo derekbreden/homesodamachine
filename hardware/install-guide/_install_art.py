@@ -89,6 +89,8 @@ CYLINDER_LANE = 133.0
 # Catalogue sizes for the things with no CAD.
 CYLINDER_D, CYLINDER_H = 133.0, 457.0
 FILTER_D, FILTER_L = 63.0, 311.0
+BOTTLE_D, BOTTLE_H = 72.0, 190.0
+BOTTLE_NECK_D, BOTTLE_NECK_H = 27.0, 34.0
 TUBE_D = 6.35
 
 STONE = cq.Color(0.55, 0.55, 0.58, 1.0)
@@ -100,6 +102,8 @@ WHITE_TUBE = cq.Color(0.90, 0.90, 0.93, 1.0)
 RED_TUBE = cq.Color(0.78, 0.20, 0.20, 1.0)
 BLUE_TUBE = cq.Color(0.16, 0.40, 0.75, 1.0)
 BLACK_PART = cq.Color(0.10, 0.10, 0.12, 1.0)
+CONCENTRATE = cq.Color(0.30, 0.10, 0.13, 1.0)
+BOTTLE_PET = cq.Color(0.86, 0.87, 0.90, 1.0)
 FILTER_BODY = cq.Color(0.905, 0.915, 0.94, 1.0)
 FILTER_CAP = cq.Color(0.42, 0.45, 0.49, 1.0)
 PRINTED = cq.Color(0.26, 0.27, 0.30, 1.0)
@@ -412,6 +416,28 @@ def s_the_socket():
 #: and the flutes live in the payload beside it, so these carry that skin across.
 FLUTED = frozenset({"the-back-face", "the-socket"})
 
+def s_bottle_in_funnel():
+    """The one action after the last push: a 440 mL bottle upended over the funnel."""
+    a = cq.Assembly(name="bottle-scene")
+    _machine(a)
+    mouth_x = (HOPPER_X0 + HOPPER_X1) / 2.0
+    mouth_y = (HOPPER_Y0 + HOPPER_Y1) / 2.0
+    top = 355.0
+    # Neck down in the funnel's throat, shoulder just clear of the mouth, body above it.
+    neck_z = top - 16.0
+    _add(a, _cyl(mouth_x, mouth_y, neck_z, BOTTLE_NECK_D, BOTTLE_NECK_H),
+         "bottle-neck", BOTTLE_PET)
+    shoulder = neck_z + BOTTLE_NECK_H
+    _add(a, cq.Workplane("XY", origin=(mouth_x, mouth_y, shoulder))
+         .circle(BOTTLE_NECK_D / 2.0).workplane(offset=26.0).circle(BOTTLE_D / 2.0).loft(),
+         "bottle-shoulder", BOTTLE_PET)
+    _add(a, _cyl(mouth_x, mouth_y, shoulder + 26.0, BOTTLE_D, BOTTLE_H),
+         "bottle-body", CONCENTRATE)
+    _add(a, _cyl(mouth_x, mouth_y, shoulder + 26.0 + BOTTLE_H, BOTTLE_D * 0.62, 4.0),
+         "bottle-base", BOTTLE_PET)
+    return a
+
+
 def s_regulator():
     """The regulator the guide names three things on: which dial is which, the knob that
     sets the pressure, and the brass nut on the flare below it."""
@@ -482,6 +508,8 @@ SCENES = {
                                                 size="2200x1200")),
     # One span and one frame for both, and no trim, so the two halves of the fork are
     # at the same scale in the same box: the comparison is the whole picture.
+    "bottle-in-funnel": (s_bottle_in_funnel, dict(cam=(0.55, -1.0, 0.62),
+                          target=(0.0, 150.0, 405.0), span=395.0, size="1500x1180")),
     "kitchen-push": (s_kitchen_push, dict(cam=(1.05, -1.72, 0.72), target=(-46.0, 8.0, 100.0),
                                           span=88.0, size="1500x980", trim=False)),
     "kitchen-hose": (s_kitchen_hose, dict(cam=(1.05, 1.70, 0.62), target=(10.0, 53.0, 150.0),
