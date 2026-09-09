@@ -12,6 +12,12 @@
 // file understands becomes a call in machine.h, and every answer it sends is
 // something the machine announced.
 
+// The most payload bytes one queued announcement carries. Everything the main
+// board volunteers waits here for the enclosure's next turn, so a payload that
+// outgrows this is silently truncated on the way out — hence the asserts at
+// every site that queues one.
+constexpr uint8_t LINK_ANNOUNCE_MAX = 20;
+
 void linkBegin();
 
 // Publish the shared idle state to the enclosure at its next turn.

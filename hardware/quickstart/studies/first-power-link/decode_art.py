@@ -1,4 +1,4 @@
-"""Decode the exact RGB565 art compiled into the two shipping displays."""
+"""Decode the exact RGB565 art the two appliance displays are built with."""
 
 from __future__ import annotations
 
@@ -35,16 +35,16 @@ def decode(source: Path, target: Path, width: int, height: int) -> None:
 
 OUT.mkdir(parents=True, exist_ok=True)
 decode(
-    ROOT / "firmware/src_config/images/flavor0_240.h",
-    OUT / "front-flavor-1.png",
-    240,
-    240,
+    ROOT / "firmware/src_faucet/images/flavor0_faucet.h",
+    OUT / "faucet-flavor-1.png",
+    172,
+    320,
 )
 decode(
-    ROOT / "firmware/src_config/images/flavor1_240.h",
-    OUT / "front-flavor-2.png",
-    240,
-    240,
+    ROOT / "firmware/src_faucet/images/flavor1_faucet.h",
+    OUT / "faucet-flavor-2.png",
+    172,
+    320,
 )
 decode(
     ROOT / "firmware/src_front/images/anim_07.h",

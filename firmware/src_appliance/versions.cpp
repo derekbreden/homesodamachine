@@ -19,7 +19,7 @@ void versionsService() {
     // noticed without anyone asking.
     if (millis() - askedAtMs < 15000) return;
     askedAtMs = millis();
-    if (!faucetV[0]) faucetLinkSendOta(MSG_VERSION_QUERY, nullptr, 0);
+    faucetLinkSendOta(MSG_VERSION_QUERY, nullptr, 0);
     linkQueueOta(MSG_VERSION_QUERY, nullptr, 0);
 }
 

@@ -2,7 +2,7 @@
 
 The Waveshare ESP32-S3-Touch-LCD-1.47 at the end of the gooseneck. Its 172×320 logo is the
 glass-facing flavor selector, and its P1 GPIO43 TX / GPIO44 RX pins cross to the main
-board's J3 IO35 RX / IO33 TX pins at 115200 baud.
+board's J3 IO35 RX / IO33 TX pins at 921600 baud.
 
 This display carries artwork for every logo a channel can be given and renders whichever one the
 main board says that channel wears — `MSG_RESP_FLAVOR_ART`, published on every change and
@@ -13,9 +13,9 @@ The assignment is set from the enclosure's Choose card and persisted by the main
 
 A bright-screen touch-down changes the logo immediately. The handler only updates LVGL state
 and appends a small fixed-memory intent; UART framing, acknowledgement and both flash writes
-run later from `loop()`. The normal full-screen redraw remains about 40 ms. After 60 seconds
-without input the backlight fades to duty 8, and the first touch at that level is consumed by
-the wake: it sends no flavor request and does not dirty either store.
+run later from `loop()`. The normal full-screen redraw remains about 40 ms. When the main
+board says both glasses are done the backlight fades to duty 8, and the first touch at that
+level is consumed by the wake: it sends no flavor request and does not dirty either store.
 
 The main board's buzzer makes the tick after the absolute selection reaches J3. A fresh tap
 carries the audible flag; retries reuse the same token, so a lost response cannot make a

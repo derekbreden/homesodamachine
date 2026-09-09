@@ -5273,7 +5273,7 @@ void loop() {
     // The main board no longer speaks unprompted — a prime that timed out or a
     // pump that finished waits for a frame to answer. This poll is what collects
     // those, so it is the ceiling on how stale news from the base can be. A poll
-    // pair is ~50 bytes; at 115200 that is 1% of the pair at this interval.
+    // pair is ~50 bytes; at 460800 that is a quarter of a percent of the pair.
     if (millis() - statusAskedMs >= 1000) {
       statusAskedMs = millis();
       j9Post(MSG_STATUS_REQ, nullptr, 0);

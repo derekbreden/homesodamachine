@@ -147,7 +147,7 @@ wraps the command and proves the result with a fresh USB attachment and the disp
 
 J3 is not RS485. `Serial2` maps IO33 TX / IO35 RX to the faucet's GPIO44 RX / GPIO43 TX
 over separate 3.3 V logic conductors. `ProtoLink` therefore runs its full-duplex Fd transport
-at 115200 baud; ROM boot text from faucet GPIO43 is simply discarded until framed traffic
+at 921600 baud; ROM boot text from faucet GPIO43 is simply discarded until framed traffic
 passes CRC.
 
 The touch display changes its logo before it queues link work. Requests carry the resulting
