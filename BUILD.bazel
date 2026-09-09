@@ -3581,6 +3581,11 @@ genrule(
         "hardware/install-guide/19-if-unsure.html",
         "hardware/install-guide/20-back.html",
         "pysrc/hardware/install-guide/_build.py",
+        ":out/install-art/hardware/install-guide/art/cabinet-plan.png",
+        ":out/install-art/hardware/install-guide/art/collet-press.png",
+        ":out/install-art/hardware/install-guide/art/filter-in-cabinet.png",
+        ":out/install-art/hardware/install-guide/art/opening.png",
+        ":out/install-art/hardware/install-guide/art/power-socket.png",
         "hardware/install-guide/style.css",
         ":out/cad-art/hardware/quickstart/art/faucet-front.png",
         ":out/cad-art/hardware/quickstart/art/faucet-side-pressed.png",
@@ -3634,6 +3639,86 @@ HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/pyth
 cp hardware/install-guide/install-guide.cover.png $$O0
 cp hardware/install-guide/install-guide.pdf $$O1
 cp hardware/install-guide/install-guide.pdf.json $$O2
+""",
+)
+
+genrule(
+    name = "install-art",
+    srcs = [
+        ":out/under-counter-plate/hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf",
+        "pysrc/hardware/faucet-layout/faucet_assembly.py",
+        "pysrc/hardware/install-guide/_install_art.py",
+        ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step",
+        ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step.mesh",
+        "pysrc/hardware/printed-parts/cadlib/fits.py",
+        "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
+        "pysrc/hardware/printed-parts/cadlib/reeding.py",
+        "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
+        ":out/collet-press/hardware/printed-parts/collet-press/collet-press.step",
+        "pysrc/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py",
+        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/printed-parts/faucet/_faucet_interface.py",
+        "pysrc/hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
+        "pysrc/hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
+        "pysrc/hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
+        "pysrc/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+        "pysrc/hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py",
+        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step",
+        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-a.step",
+        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step",
+        "pysrc/hardware/printed-parts/faucet/tube-collar/tube_collar.py",
+        "pysrc/hardware/quickstart/_cad_art.py",
+        "pysrc/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
+        "pysrc/hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
+        ":out/westbrass-reference/hardware/reference/touch-flo-faucet/westbrass-reference/westbrass-reference.step",
+        "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_material_base.py",
+        "pysrc/hardware/scripts/_materials.py",
+        "pysrc/hardware/scripts/_measuring.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_stated_bounds.py",
+        "pysrc/tools/docgen/__init__.py",
+        "tools/render/browser.js",
+        "tools/render/render-step-posed.js",
+        "web/server.js",
+        ":node-packages",
+    ],
+    outs = [
+        "out/install-art/hardware/install-guide/art/cabinet-plan.png",
+        "out/install-art/hardware/install-guide/art/collet-press.png",
+        "out/install-art/hardware/install-guide/art/filter-in-cabinet.png",
+        "out/install-art/hardware/install-guide/art/opening.png",
+        "out/install-art/hardware/install-guide/art/power-socket.png",
+    ],
+    tags = ["requires-network"],
+    cmd = """
+set -e
+O0=$$PWD/$(location out/install-art/hardware/install-guide/art/cabinet-plan.png)
+O1=$$PWD/$(location out/install-art/hardware/install-guide/art/collet-press.png)
+O2=$$PWD/$(location out/install-art/hardware/install-guide/art/filter-in-cabinet.png)
+O3=$$PWD/$(location out/install-art/hardware/install-guide/art/opening.png)
+O4=$$PWD/$(location out/install-art/hardware/install-guide/art/power-socket.png)
+for f in $(SRCS); do
+  case $$f in
+    */node_modules/*) continue;;
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    */pysrc/*) t=$${f##*/pysrc/};;
+    *) t=$$f;;
+  esac
+  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+done
+cd work
+ln -sfn $$HSM_WORKSPACE/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/install-guide/_install_art.py > /dev/null
+cp hardware/install-guide/art/cabinet-plan.png $$O0
+cp hardware/install-guide/art/collet-press.png $$O1
+cp hardware/install-guide/art/filter-in-cabinet.png $$O2
+cp hardware/install-guide/art/opening.png $$O3
+cp hardware/install-guide/art/power-socket.png $$O4
 """,
 )
 
@@ -10070,6 +10155,14 @@ genrule(
     name = "pysrc-3c86134d3caa",
     srcs = ["hardware/install-guide/_build.py"],
     outs = ["pysrc/hardware/install-guide/_build.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-7f35251849f5",
+    srcs = ["hardware/install-guide/_install_art.py"],
+    outs = ["pysrc/hardware/install-guide/_install_art.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -21676,6 +21769,7 @@ filegroup(
         ":under-counter-plate",
         ":faucet-assembly",
         ":install-guide-build",
+        ":install-art",
         ":enclosure-assembly",
         ":enclosure-box",
         ":manifold-layout",
