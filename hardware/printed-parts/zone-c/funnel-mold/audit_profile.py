@@ -35,6 +35,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('project', type=Path)
     parser.add_argument('--provenance', type=Path, required=True)
+    parser.add_argument('--preset-bundle', type=Path)
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args()
     origin = json.loads(args.provenance.read_text())
@@ -46,6 +47,7 @@ def main():
         local = ET.fromstring(archive.read('Metadata/model_settings.config'))
         ranges = ET.fromstring(archive.read('Metadata/layer_config_ranges.xml'))
         sliced = ET.fromstring(archive.read('Metadata/slice_info.config'))
+        model = ET.fromstring(archive.read('3D/3dmodel.model'))
         assert not any('filament_settings_' in name or 'custom_gcode' in name for name in names)
         assert archive.testzip() is None, 'ZIP checksum failure'
 
@@ -55,15 +57,8 @@ def main():
         if key in supplied:
             record = dict(supplied[key])
             original = record.pop('value')
-            if not equivalent(key, original, value):
-                assert key == 'filament_prime_volume' and original == ['30'] and value == ['45'], (key, original, value)
-                record['slicer_rewrite'] = (
-                    'BambuStudio CLI sets filament_prime_volume to 45 for a BBL 3MF '
-                    'when no filament file is loaded separately. Prime tower is disabled '
-                    'and these plates contain no material changes.')
-                record['implementation'] = 'https://github.com/bambulab/BambuStudio/blob/master/src/BambuStudio.cpp'
-                record['supplied_value'] = original
-            elif original != value:
+            assert equivalent(key, original, value), (key, original, value)
+            if original != value:
                 normalized.append({'setting': key, 'supplied': original, 'serialized': value})
         elif key == 'wall_sequence':
             record = dict(supplied['wall_infill_order'])
@@ -80,7 +75,13 @@ def main():
     object_data = {'name', 'extruder'}
     part_data = {'name', 'matrix', 'source_file', 'source_object_id', 'source_volume_id',
                  'source_offset_x', 'source_offset_y', 'source_offset_z'}
-    for index, obj in enumerate(local.findall('object'), 1):
+    core = '{http://schemas.microsoft.com/3dmanufacturing/core/2015/02}'
+    body_ids = [item.get('objectid') for item in model.findall(f'{core}build/{core}item')]
+    local_objects = {obj.get('id'): obj for obj in local.findall('object')}
+    assert len(body_ids) == len(set(body_ids)) == len(local_objects)
+    for index, body_id in enumerate(body_ids, 1):
+        # Layer-range IDs follow model order, independently of metadata XML order.
+        obj = local_objects[body_id]
         md = {m.get('key'): m.get('value') for m in obj.findall('metadata') if m.get('key')}
         name = md['name'].removeprefix('Funnel mold ')
         overrides = {k: v for k, v in md.items() if k not in object_data}
@@ -125,6 +126,29 @@ def main():
     assert settings['seam_slope_type'] == 'none' and settings['filament_scarf_seam_type'] == ['none']
     assert settings['filament_max_volumetric_speed'] == ['16', '18']
     assert settings['filament_self_index'] == ['1', '1']
+    assert settings['enable_arc_fitting'] == '0'
+    assert settings['filament_prime_volume'] == ['45']
+    assert settings['print_settings_id'] == recipe['process_name']
+    assert settings['filament_settings_id'] == [recipe['filament_name']]
+    bundle = args.preset_bundle or args.project.parent/'funnel-mold-hf08-z-trim-presets.bbscfg'
+    with zipfile.ZipFile(bundle) as archive:
+        profiles = {name: json.loads(archive.read(name)) for name in archive.namelist()}
+    expected_names = [f'Bambu Lab H2C 0.8 High Flow +{v:.2f} Z trim.json'
+                      for v in recipe['z_trim']['available_mm']]
+    expected_names += [recipe['process_name']+'.json', recipe['filament_name']+'.json']
+    assert set(profiles) == set(expected_names)
+    machine = profiles[settings['printer_settings_id']+'.json']
+    assert machine['machine_start_gcode'] == settings['machine_start_gcode']
+    assert machine['default_nozzle_volume_type'] == settings['default_nozzle_volume_type']
+    for kind in ('process', 'filament'):
+        profile = profiles[recipe[kind+'_name']+'.json']
+        assert profile['inherits'] == recipe['system_presets'][kind]
+        assert profile['from'] == 'User'
+        for key, choice in recipe[kind+'_settings'].items():
+            assert equivalent(key, choice['value'], profile[key]), (kind, key)
+            assert equivalent(key, profile[key], settings[key]), (kind, key)
+    assert profiles[recipe['process_name']+'.json']['compatible_printers'] == settings['print_compatible_printers']
+    assert [profiles[recipe['filament_name']+'.json']['filament_id']] == settings['filament_ids']
     report = {
         'project': args.project.name,
         'project_sha256': hashlib.sha256(args.project.read_bytes()).hexdigest(),
@@ -141,6 +165,12 @@ def main():
         'objects': objects,
         'plates': plates,
         'archive_members': names,
+        'preset_bundle': {'file': bundle.name,
+                          'sha256': hashlib.sha256(bundle.read_bytes()).hexdigest(),
+                          'presets': expected_names,
+                          'all_recipe_settings_match_saved_presets': True,
+                          'selected_machine_start_code_matches': True,
+                          'filament_material_id_matches': True},
         'extra_filament_or_per_layer_gcode_files': [],
         'physical_validation': 'The 18 mm3/s flow target, 60 mm/s finishing speed, coating result and extraction load remain subject to the actual spool, witnesses and assembled tooling. Z trim is the user-observed plate calibration.'
     }

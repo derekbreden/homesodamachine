@@ -17,10 +17,12 @@ project, including local settings that are not visible in the global profile.
    templates. The user's measured plate trim is an explicit edit to the plate
    compensation block. Both +0.04 and +0.18 mm are provided; +0.04 is selected.
 2. **Process:** `0.40mm Standard @BBL H2C 0.8 nozzle`. The recipe changes structural
-   filling, wall generation, the top-surface speed, brim and seam gap.
+   filling, wall generation, the top-surface speed, brim and seam gap. Arc fitting
+   is disabled to agree with the connected printer's curve-planning enhancement.
 3. **Filament:** `Bambu PETG Translucent @BBL H2C 0.8 nozzle`. The recipe changes
    temperature to 255 °C, the High Flow cap to 18 mm³/s and the cost estimate to
-   the ledger's acquired-material cost. The vendor's 0.97 flow ratio, cooling,
+   the ledger's acquired-material cost. Prime volume is explicitly 45 mm³.
+   The vendor's 0.97 flow ratio, cooling,
    bed temperatures and retraction overrides remain in force.
 4. **Objects and modifiers:** only the specified 60 mm/s outer-wall speed and
    2,000 mm/s² outer-wall acceleration. The witnesses receive the same settings
@@ -38,9 +40,10 @@ four columns: left Standard, left High Flow, right Standard, right High Flow.
 The unused right slot is represented as Standard; it is not used by this print.
 The print file does not set the machine's real nozzle inventory or AMS backup spools.
 Each plate explicitly records `bed_type: Textured PEI Plate`; its bed choice does
-not depend on the preceding project's global plate selector. The two trim profiles
-are saved as Bambu Studio User presets, with start-code templates matching the
-respective 3MFs. [Installation and selection](print-profile.md) precede opening the
+not depend on the preceding project's global plate selector. Both trim profiles,
+the filament and the process are saved as Bambu Studio User presets. Their values
+match the respective 3MFs, including the filament's material identifier. The process
+is compatible with both trim profiles. [Installation and selection](print-profile.md) precede opening the
 project on a fresh Bambu Studio installation.
 
 ## Controls with practical consequences
@@ -71,17 +74,17 @@ for. Fourteen supplied preset keys are not serialized; the JSON retains their
 origins and accounts for `wall_infill_order` at `wall_sequence`. Bambu omits the
 remaining obsolete or unrecognized fields from the effective configuration.
 
-Bambu's CLI explicitly sets **`filament_prime_volume` to 45 mm³** when slicing a BBL
-3MF without a separately loaded filament file, even though the selected filament
-preset supplies 30. That assignment is present in
-[the CLI implementation](https://github.com/bambulab/BambuStudio/blob/master/src/BambuStudio.cpp).
-It is recorded as a slicer rewrite. The project has no prime tower or material
-changes. This field is not the extrusion-flow cap.
+The recipe and saved filament preset explicitly set **`filament_prime_volume` to
+45 mm³**, matching the CLI's serialized value. The project has no prime tower or
+material changes. This field is not the extrusion-flow cap. All supplied active
+settings must match the exported values; the audit allows representation changes
+but no unexplained value rewrites.
 
 Slice results, actual extrusion paths and checksums are recorded in
-[print-profile.json](print-profile.json). The full project is also opened and
-re-sliced by the CLI to check that the exported settings and layer ranges survive
-a reload. Validation uses `--slice 0` for all plates. In this installed CLI,
+[print-profile.json](print-profile.json). The project is opened and saved in Bambu
+Studio with all three saved preset selectors clean, then re-sliced by the CLI to
+check the settings, plate assignments and layer ranges after a GUI save. Validation
+uses `--slice 0` for all plates. In this installed CLI,
 selective loading with `--slice 1` crashes on the variable-layer project; the
 fully exported projects already contain separate G-code for all three plates.
 This is not a tested command for regenerating a single plate.
@@ -99,6 +102,6 @@ tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel-mold/audit_profil
 ```
 
 Use `--z-trim 0.18` on the generator and a separate output directory for the alternate
-calibration. The generator writes a bundle containing both printer presets beside
+calibration. The generator writes a bundle containing all four saved presets beside
 its output. Machine start-code changes must preserve the manufacturer's code outside
 the explicit plate-compensation block.

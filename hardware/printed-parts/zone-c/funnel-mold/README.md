@@ -57,15 +57,15 @@ left 0.8 mm High Flow nozzle and PETG Translucent. The shallow slopes use 0.16 m
 layers; straight structural sections use 0.40 mm. The default plate trim is
 **+0.04 mm**. A fully sliced
 [+0.18 mm version](funnel-mold-petg-hf08-variable-016-040-z018.3mf) and a
-[bundle containing both printer presets](funnel-mold-hf08-z-trim-presets.bbscfg)
-are available. These are the user's build-plate calibrations, applicable across
+[bundle containing both printer trims, filament and process presets](funnel-mold-hf08-z-trim-presets.bbscfg)
+are available. The trims are the user's build-plate calibrations, applicable across
 nozzle and material changes.
 [Print settings and inspection](print-profile.md) accompany the sliced project.
 Print all three small witnesses first: finish, hardware fits and guide pin. Each
 large plate is an independent print job. Modifier volumes keep the forming skins,
 rod boss, registration faces and hardware fits at 60 mm/s outer wall speed.
-The high-flow filament cap is 18 mm³/s. The cavity estimates 22 h 49 min and the
-core 18 h 22 min; these are slicer estimates. Both large plates exceed a 1 kg
+The high-flow filament cap is 18 mm³/s. The cavity estimates 22 h 51 min and the
+core 18 h 24 min; these are slicer estimates. Both large plates exceed a 1 kg
 spool. Arrange enough dry filament and compatible spool backup before starting.
 
 [The recipe](print-recipe.json) names every intentional process and filament
