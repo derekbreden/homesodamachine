@@ -93,6 +93,28 @@ M_TINNED_STEEL = cq.Color(0.78, 0.79, 0.80)
 # The GASHER check valve's nickel-plated copper body — a plated white metal, warmer than steel
 # and a shade down from it.
 M_NICKEL_PLATE = cq.Color(0.76, 0.75, 0.71)
+# Bright chrome over brass — the shipped Wellbom CGA-320 regulator's body, its cylinder nut and
+# every stem off it (`ledger/bom.md` §4, `reference/wellbom-regulator`). Polished where the
+# nickel above is not, and cooler than it.
+M_CHROME_PLATE = cq.Color(0.80, 0.82, 0.85)
+
+# --- what a dial and a control knob are made of -------------------------------
+# The Wellbom regulator stands on the customer's own cylinder, which is where the only pressure
+# gauges and the only moulded control knobs on this machine are.
+#
+# Moulded black thermoplastic, glossy in the hand — the pressure-adjustment knob and the ON-OFF
+# knob under it.
+M_MOULDED_BLACK = cq.Color(0.075, 0.075, 0.085)
+# A gauge's black: the painted steel case and bezel around the dial, and the scale and needle
+# printed on the dial's own face.
+M_GAUGE_BLACK = cq.Color(0.125, 0.125, 0.135)
+# The dial ground they are printed on.
+M_GAUGE_WHITE = cq.Color(0.96, 0.96, 0.95)
+# The second scale beside them, in the red a dual-scale dial prints its other unit in.
+M_GAUGE_RED = cq.Color(0.78, 0.10, 0.12)
+# The band on the outlet dial that marks the range the vendor carbonates soda in.
+M_GAUGE_GREEN = cq.Color(0.13, 0.72, 0.16)
+
 # --- the cold core's own bodies, by what each one is --------------------------
 # `cold-core-layout/cold_core_assembly` places these and the generators below cut them, so the
 # two read the same constant.
@@ -237,7 +259,14 @@ FINISHES = [
     (M_TINNED_STEEL,     0.40, _METAL),        # "the SF76E's tin-plated case"
     (M_ZINC_PLATED_STEEL, 0.45, _METAL),       # zinc-plated and baked music wire
     (M_NICKEL_PLATE,     0.25, _METAL),        # "a plated white metal"
+    (M_CHROME_PLATE,     0.10, _METAL),        # "polished where the nickel above is not"
     (M_COPPER,           0.30, _METAL),
+    # the dial and the knobs on the shipped regulator
+    (M_MOULDED_BLACK,    0.30, _DIELECTRIC),   # "glossy in the hand"
+    (M_GAUGE_BLACK,      0.55, _DIELECTRIC),   # painted steel, and ink standing on a dial
+    (M_GAUGE_WHITE,      0.55, _DIELECTRIC),
+    (M_GAUGE_RED,        0.55, _DIELECTRIC),
+    (M_GAUGE_GREEN,      0.55, _DIELECTRIC),
     # the boards
     (C_PCBA,             0.50, _DIELECTRIC),   # solder mask
     # the bought-in bodies
