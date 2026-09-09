@@ -1,6 +1,6 @@
 {
   "project": "funnel-mold-petg-hf08-variable-016-040.3mf",
-  "project_sha256": "711eb3d6b311465e9e076d0141faecc3b8fcd89bcd25a85114db1449668a4b41",
+  "project_sha256": "3b4a12aa563f9eefe872d80f36e992056834b363565f8fa023c34cc85b3c4b55",
   "slicer_version": "02.08.02.61",
   "inputs": "Current STL files, print-recipe.json and installed Bambu system presets; no prior 3MF or user preset is read by prepare_print.py.",
   "system_preset_sha256": {
@@ -3840,6 +3840,7 @@
   ],
   "plates": [
     {
+      "bed_type": "Textured PEI Plate",
       "plater_id": "1",
       "plater_name": "Finish and hardware witnesses - print first",
       "locked": "false",
@@ -3853,6 +3854,7 @@
       "pick_file": "Metadata/pick_1.png"
     },
     {
+      "bed_type": "Textured PEI Plate",
       "plater_id": "2",
       "plater_name": "Cavity - vented ribs and bearing pads",
       "locked": "false",
@@ -3866,6 +3868,7 @@
       "pick_file": "Metadata/pick_2.png"
     },
     {
+      "bed_type": "Textured PEI Plate",
       "plater_id": "3",
       "plater_name": "Core - guided screw extraction",
       "locked": "false",

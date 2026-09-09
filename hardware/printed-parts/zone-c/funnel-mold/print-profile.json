@@ -1,6 +1,6 @@
 {
   "project": "funnel-mold-petg-hf08-variable-016-040.3mf",
-  "project_sha256": "711eb3d6b311465e9e076d0141faecc3b8fcd89bcd25a85114db1449668a4b41",
+  "project_sha256": "3b4a12aa563f9eefe872d80f36e992056834b363565f8fa023c34cc85b3c4b55",
   "source_project_sha256": "9ad3fd06fec742417cfca3cd3cbb73a2a89342f1ac04c6feaefe29a115b89790",
   "slicer": "BambuStudio 02.08.02.61",
   "meshes": {
@@ -3057,7 +3057,7 @@
   ],
   "alternate_trim": {
     "project": "funnel-mold-petg-hf08-variable-016-040-z018.3mf",
-    "project_sha256": "b10ffdf50433e4cfb73422178158b9213f34e8928cf305a3b22d280bb9544aa2",
+    "project_sha256": "0248cc8ac3967a8966f5d8b900c747eafb2809af124910f3e7fc72a1f4db7490",
     "settings_differences_from_default": [
       "machine_start_gcode",
       "printer_settings_id"
@@ -5768,5 +5768,92 @@
       "Bambu Lab A2L 0.8 nozzle"
     ],
     "wall_loops": 4
+  },
+  "plate_preset_verification": {
+    "date": "2026-09-09",
+    "projects": [
+      {
+        "project": "funnel-mold-petg-hf08-variable-016-040.3mf",
+        "project_sha256": "3b4a12aa563f9eefe872d80f36e992056834b363565f8fa023c34cc85b3c4b55",
+        "plate_bed_type": "Textured PEI Plate",
+        "all_three_plates_explicit": true,
+        "modified_archive_members": [
+          "Metadata/model_settings.config"
+        ],
+        "project_settings_unchanged": true,
+        "all_other_archive_members_unchanged": true,
+        "printer_preset": "Bambu Lab H2C 0.8 High Flow +0.04 Z trim",
+        "gcodes": [
+          {
+            "file": "Metadata/plate_1.gcode",
+            "sha256": "fe3779ac3280e08543e2c824031b6231ef602fc05596015652573802f22f7a64",
+            "unchanged": true
+          },
+          {
+            "file": "Metadata/plate_3.gcode",
+            "sha256": "a4dd2d281b2845860fafd960f1992d54b4889ae4177c242f1958f267b3e4826d",
+            "unchanged": true
+          },
+          {
+            "file": "Metadata/plate_2.gcode",
+            "sha256": "5eaacf9f52d4382c3b7beb0d776726af54ddaa5d65cb2624c89cb68f36ee581b",
+            "unchanged": true
+          }
+        ]
+      },
+      {
+        "project": "funnel-mold-petg-hf08-variable-016-040-z018.3mf",
+        "project_sha256": "0248cc8ac3967a8966f5d8b900c747eafb2809af124910f3e7fc72a1f4db7490",
+        "plate_bed_type": "Textured PEI Plate",
+        "all_three_plates_explicit": true,
+        "modified_archive_members": [
+          "Metadata/model_settings.config"
+        ],
+        "project_settings_unchanged": true,
+        "all_other_archive_members_unchanged": true,
+        "printer_preset": "Bambu Lab H2C 0.8 High Flow +0.18 Z trim",
+        "gcodes": [
+          {
+            "file": "Metadata/plate_1.gcode",
+            "sha256": "1cc5c018f39b4f78e6d0919159171081d1023ccc8035c7dcd3db26cc7c3b28e5",
+            "unchanged": true
+          },
+          {
+            "file": "Metadata/plate_3.gcode",
+            "sha256": "4a57c6feda5aebeb00723c497bdbd3d6648a4b53634d9e5aad9ce73494a7fe20",
+            "unchanged": true
+          },
+          {
+            "file": "Metadata/plate_2.gcode",
+            "sha256": "0e4b9395c07c5d50141aaaa752b692a533b296c249703aec8b929ddec387cd30",
+            "unchanged": true
+          }
+        ]
+      }
+    ],
+    "method": "Each existing slice records its effective Textured PEI Plate choice explicitly in all three plate metadata records. All G-code, geometry, variable layers, settings, thumbnails and other archive members match the verified slices byte for byte.",
+    "gui_checks": {
+      "default_project_opens_with_saved_preset": true,
+      "alternate_project_opens_with_saved_preset": true,
+      "modified_printer_marker_absent_for_both": true,
+      "default_project_explicit_textured_pei_plate_visible": true,
+      "alternate_project_explicit_textured_pei_plate_visible": true
+    },
+    "presets_installed": [
+      {
+        "name": "Bambu Lab H2C 0.8 High Flow +0.04 Z trim",
+        "from": "User",
+        "start_template_matches_project": true,
+        "default_nozzle_volume_type_matches_project": true,
+        "registered_by_bambu_studio": true
+      },
+      {
+        "name": "Bambu Lab H2C 0.8 High Flow +0.18 Z trim",
+        "from": "User",
+        "start_template_matches_project": true,
+        "default_nozzle_volume_type_matches_project": true,
+        "registered_by_bambu_studio": true
+      }
+    ]
   }
 }
