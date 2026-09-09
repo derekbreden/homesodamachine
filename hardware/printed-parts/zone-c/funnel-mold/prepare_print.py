@@ -78,6 +78,40 @@ def trimmed_start_gcode(stock, trim):
     return stock[:start] + block + stock[end:]
 
 
+def printer_names(recipe):
+    return [recipe['system_presets']['machine']] + [
+        f'Bambu Lab H2C 0.8 High Flow +{v:.2f} Z trim'
+        for v in recipe['z_trim']['available_mm']]
+
+
+def preset_bundle(root, recipe, version, destination):
+    """Save all three selectors' presets with their stock parents and recipe edits."""
+    stock, _, _ = system_preset(root, 'machine', recipe['system_presets']['machine'], {})
+    profiles = []
+    for offset in recipe['z_trim']['available_mm']:
+        name = f'Bambu Lab H2C 0.8 High Flow +{offset:.2f} Z trim'
+        profiles.append({'from': 'User', 'inherits': recipe['system_presets']['machine'],
+            'name': name, 'printer_settings_id': name, 'version': version,
+            'machine_start_gcode': trimmed_start_gcode(stock['machine_start_gcode'], offset),
+            'default_nozzle_volume_type': ['High Flow', 'Standard']})
+    for kind, identity in (('process', 'print_settings_id'), ('filament', 'filament_settings_id')):
+        name = recipe[f'{kind}_name']
+        assert not any(c in name for c in '/\\'), 'Preset names must also be valid filenames.'
+        profile = {'from': 'User', 'inherits': recipe['system_presets'][kind],
+                   'name': name, 'version': version,
+                   identity: [name] if kind == 'filament' else name,
+                   **{key: choice['value'] for key, choice in recipe[f'{kind}_settings'].items()}}
+        if kind == 'process':
+            profile['compatible_printers'] = printer_names(recipe)
+        else:
+            _, _, ids = system_preset(root, kind, recipe['system_presets'][kind], {})
+            profile['filament_id'] = ids['filament_id']
+        profiles.append(profile)
+    with zipfile.ZipFile(destination, 'w', zipfile.ZIP_DEFLATED) as archive:
+        for profile in profiles:
+            archive.writestr(profile['name']+'.json', json.dumps(profile, indent=2)+'\n')
+
+
 def fresh_settings(root, recipe, trim):
     values, sources, files = {}, {}, {}
     filament_id = None
@@ -110,8 +144,7 @@ def fresh_settings(root, recipe, trim):
         'extruder_nozzle_stats': ['High Flow#1', 'Standard#1'],
         'extruder_nozzle_stats_new': ['High Flow#1', 'Standard#1'],
         'curr_bed_type': 'Textured PEI Plate',
-        'print_compatible_printers': [recipe['system_presets']['machine']] + [
-            f'Bambu Lab H2C 0.8 High Flow +{v:.2f} Z trim' for v in recipe['z_trim']['available_mm']],
+        'print_compatible_printers': printer_names(recipe),
     }
     for key, value in assignment.items():
         values[key] = value
@@ -284,19 +317,9 @@ def main():
         for name in keep: archive.writestr(name, data[name])
     provenance['input_3mf_sha256'] = hashlib.sha256(args.output.read_bytes()).hexdigest()
     args.output.with_suffix('.provenance.json').write_text(json.dumps(provenance, indent=2)+'\n')
-    # Bambu configuration bundles provide both plate calibrations in the
-    # printer selector; the 3MF embeds the selected one, +0.04 mm by default.
+    # Install both printer trims, the process and the filament as saved presets.
     bundle = args.output.parent/'funnel-mold-hf08-z-trim-presets.bbscfg'
-    stock, _, _ = system_preset(args.presets, 'machine', recipe['system_presets']['machine'], {})
-    with zipfile.ZipFile(bundle, 'w', zipfile.ZIP_DEFLATED) as archive:
-        for offset in recipe['z_trim']['available_mm']:
-            name = f'Bambu Lab H2C 0.8 High Flow +{offset:.2f} Z trim'
-            profile = {'from': 'User', 'inherits': recipe['system_presets']['machine'],
-                'name': name, 'printer_settings_id': name, 'version': version,
-                'machine_start_gcode': trimmed_start_gcode(stock['machine_start_gcode'], offset),
-                'nozzle_volume_type': ['High Flow', 'Standard'],
-                'default_nozzle_volume_type': ['High Flow', 'Standard']}
-            archive.writestr(name+'.json', json.dumps(profile, indent=2))
+    preset_bundle(args.presets, recipe, version, bundle)
 
 
 if __name__ == '__main__':

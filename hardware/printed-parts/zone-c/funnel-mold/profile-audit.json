@@ -1,6 +1,6 @@
 {
   "project": "funnel-mold-petg-hf08-variable-016-040.3mf",
-  "project_sha256": "3b4a12aa563f9eefe872d80f36e992056834b363565f8fa023c34cc85b3c4b55",
+  "project_sha256": "993aa7db81a4eb00691f8563e8d9395eb7783adbccfdb04c38e5e13f2415cbb0",
   "slicer_version": "02.08.02.61",
   "inputs": "Current STL files, print-recipe.json and installed Bambu system presets; no prior 3MF or user preset is read by prepare_print.py.",
   "system_preset_sha256": {
@@ -39,7 +39,7 @@
       "process": "0.40mm Standard @BBL H2C 0.8 nozzle",
       "filament": "Bambu PETG Translucent @BBL H2C 0.8 nozzle"
     },
-    "process_name": "Funnel mold - 0.16 mm slopes / 0.40 mm structure",
+    "process_name": "Funnel mold - 0.16 mm slopes - 0.40 mm structure",
     "filament_name": "Funnel mold PETG Translucent - HF 255C 18mm3s",
     "z_trim": {
       "default_mm": 0.04,
@@ -50,6 +50,10 @@
       "reason": "User-observed build-plate calibration persists across nozzle, nozzle-size and material changes. Both offsets must be available; translucent PETG on the current plate uses +0.04 mm. Add the selected offset to the current stock machine's plate compensation."
     },
     "process_settings": {
+      "enable_arc_fitting": {
+        "value": "0",
+        "reason": "Bambu Studio disables arc fitting when syncing the connected machine's curve-planning enhancement. Save that firmware-compatible choice in the process and generate matching straight-segment toolpaths."
+      },
       "wall_generator": {
         "value": "arachne",
         "reason": "Variable-width paths fill the 2.4 mm ribs and narrow transitions without relying on exact multiples of the nominal 0.82 mm bead."
@@ -113,6 +117,12 @@
       }
     },
     "filament_settings": {
+      "filament_prime_volume": {
+        "value": [
+          "45"
+        ],
+        "reason": "Explicitly retain the 45 mm3 value in the verified slice so the installed filament preset and project agree. These plates have no prime tower or material changes."
+      },
       "nozzle_temperature": {
         "value": [
           "255",
@@ -581,8 +591,8 @@
     },
     "different_settings_to_system": {
       "value": [
-        "wall_generator;wall_loops;sparse_infill_density;sparse_infill_pattern;top_shell_layers;bottom_shell_layers;top_shell_thickness;bottom_shell_thickness;top_one_wall_type;top_surface_speed;seam_gap;brim_type;brim_width;enable_prime_tower",
-        "nozzle_temperature;nozzle_temperature_initial_layer;filament_max_volumetric_speed;filament_cost",
+        "enable_arc_fitting;wall_generator;wall_loops;sparse_infill_density;sparse_infill_pattern;top_shell_layers;bottom_shell_layers;top_shell_thickness;bottom_shell_thickness;top_one_wall_type;top_surface_speed;seam_gap;brim_type;brim_width;enable_prime_tower",
+        "filament_prime_volume;nozzle_temperature;nozzle_temperature_initial_layer;filament_max_volumetric_speed;filament_cost",
         "machine_start_gcode;default_nozzle_volume_type;nozzle_volume_type"
       ],
       "generator": "fresh_settings",
@@ -607,8 +617,9 @@
       "slicer_default": "02.08.02.61"
     },
     "enable_arc_fitting": {
-      "value": "1",
-      "preset": "process/fdm_process_common.json"
+      "value": "0",
+      "recipe": "process_settings",
+      "reason": "Bambu Studio disables arc fitting when syncing the connected machine's curve-planning enhancement. Save that firmware-compatible choice in the process and generate matching straight-segment toolpaths."
     },
     "enable_circle_compensation": {
       "value": "0",
@@ -1173,12 +1184,8 @@
       "value": [
         "45"
       ],
-      "preset": "filament/Bambu PETG Translucent @BBL H2C 0.8 nozzle.json",
-      "slicer_rewrite": "BambuStudio CLI sets filament_prime_volume to 45 for a BBL 3MF when no filament file is loaded separately. Prime tower is disabled and these plates contain no material changes.",
-      "implementation": "https://github.com/bambulab/BambuStudio/blob/master/src/BambuStudio.cpp",
-      "supplied_value": [
-        "30"
-      ]
+      "recipe": "filament_settings",
+      "reason": "Explicitly retain the 45 mm3 value in the verified slice so the installed filament preset and project agree. These plates have no prime tower or material changes."
     },
     "filament_prime_volume_nc": {
       "value": [
@@ -2525,7 +2532,7 @@
       "preset": "process/fdm_process_common.json"
     },
     "print_settings_id": {
-      "value": "Funnel mold - 0.16 mm slopes / 0.40 mm structure",
+      "value": "Funnel mold - 0.16 mm slopes - 0.40 mm structure",
       "generator": "fresh_settings",
       "reason": "One PETG filament on the left 0.8 mm High Flow nozzle, textured PEI; named source presets."
     },
@@ -3840,10 +3847,10 @@
   ],
   "plates": [
     {
-      "bed_type": "Textured PEI Plate",
       "plater_id": "1",
       "plater_name": "Finish and hardware witnesses - print first",
       "locked": "false",
+      "bed_type": "Textured PEI Plate",
       "filament_map_mode": "Manual",
       "filament_maps": "1",
       "filament_volume_maps": "1",
@@ -3854,10 +3861,10 @@
       "pick_file": "Metadata/pick_1.png"
     },
     {
-      "bed_type": "Textured PEI Plate",
       "plater_id": "2",
       "plater_name": "Cavity - vented ribs and bearing pads",
       "locked": "false",
+      "bed_type": "Textured PEI Plate",
       "filament_map_mode": "Manual",
       "filament_maps": "1",
       "filament_volume_maps": "1",
@@ -3868,10 +3875,10 @@
       "pick_file": "Metadata/pick_2.png"
     },
     {
-      "bed_type": "Textured PEI Plate",
       "plater_id": "3",
       "plater_name": "Core - guided screw extraction",
       "locked": "false",
+      "bed_type": "Textured PEI Plate",
       "filament_map_mode": "Manual",
       "filament_maps": "1",
       "filament_volume_maps": "1",
@@ -3904,8 +3911,8 @@
     "Metadata/plate_3.json",
     "3D/3dmodel.model",
     "3D/_rels/3dmodel.model.rels",
-    "3D/Objects/object_5.model",
     "3D/Objects/object_1.model",
+    "3D/Objects/object_5.model",
     "3D/Objects/object_4.model",
     "3D/Objects/object_3.model",
     "3D/Objects/object_2.model",
@@ -3924,6 +3931,19 @@
     "Metadata/filament_sequence.json",
     "_rels/.rels"
   ],
+  "preset_bundle": {
+    "file": "funnel-mold-hf08-z-trim-presets.bbscfg",
+    "sha256": "a8a739dd7a28d0d44b6edd642812ed878f204356a17af638314202421e660369",
+    "presets": [
+      "Bambu Lab H2C 0.8 High Flow +0.04 Z trim.json",
+      "Bambu Lab H2C 0.8 High Flow +0.18 Z trim.json",
+      "Funnel mold - 0.16 mm slopes - 0.40 mm structure.json",
+      "Funnel mold PETG Translucent - HF 255C 18mm3s.json"
+    ],
+    "all_recipe_settings_match_saved_presets": true,
+    "selected_machine_start_code_matches": true,
+    "filament_material_id_matches": true
+  },
   "extra_filament_or_per_layer_gcode_files": [],
   "physical_validation": "The 18 mm3/s flow target, 60 mm/s finishing speed, coating result and extraction load remain subject to the actual spool, witnesses and assembled tooling. Z trim is the user-observed plate calibration."
 }
