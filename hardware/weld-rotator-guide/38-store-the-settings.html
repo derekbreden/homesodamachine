@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><link rel="stylesheet" href="style.css"></head>
+<body>
+<article class="card">
+  <header>
+    <span class="eyebrow"><b>Controller</b> &middot; step 27</span>
+    <h1>Store the settings</h1>
+    <i class="rule"></i>
+    <p class="lede">Same cable, same socket. Open the serial console at 115200 baud and type
+      these. They persist in NVS, so you do this once.</p>
+  </header>
+  <main>
+    <pre class="console"><i># the console is serviced only while the table is stopped</i>
+<b>status</b>       <i>read back everything it currently holds</i>
+<b>mode jog</b>     <i>the pedal follows your foot, for setup</i>
+<b>direction cw</b> <i>tube direction, viewed from above</i>
+<b>speed 8.0</b>    <i>bead travel, mm/s. 5 to 15 accepted</i>
+<b>overlap 20</b>   <i>degrees past 360 the lap runs</i>
+<b>status</b>       <i>read it back again and check every line</i></pre>
+    <div class="split">
+      <div>
+        <h2>The rest of the vocabulary</h2>
+        <table>
+          <tr><td class="k mono">mode lap</td><td>The weld mode. Hold for a counted 380&deg;.</td></tr>
+          <tr><td class="k mono">direction ccw</td><td>The other way.</td></tr>
+          <tr><td class="k mono">dirinvert on</td><td>Flips which way <span class="mono">cw</span> means. Issued once, on page&nbsp;40, if the table turns the wrong way.</td></tr>
+          <tr><td class="k mono">defaults</td><td>Back to 8.0 mm/s, 20&deg;, lap, cw.</td></tr>
+        </table>
+      </div>
+      <div>
+        <div class="mind">
+          <span class="mind-label">Commands are taken only while stopped</span>
+          <p>Deliberately. Serial formatting and a flash write both take time, and neither may
+            stretch the interval between two weld-step pulses. <b>The pedal is the live stop
+            control</b>, not the console.</p>
+        </div>
+        <div class="mind">
+          <span class="mind-label">Why 8.0</span>
+          <p>It sits in the middle of the useful window, runs the table at 1.235&nbsp;rpm, and
+            completes a 380&deg; lap in 51.3&nbsp;s. Page&nbsp;47 has the whole table.</p>
+        </div>
+      </div>
+    </div>
+    <div class="gate">
+      <span class="gate-label">Gate &mdash; <span class="mono">status</span> reads back what you typed</span>
+      <p>Mode <span class="mono">jog</span>, speed 8.0, overlap 20, direction
+        <span class="mono">cw</span>. <span class="fail">If a line did not take, the table was
+        not stopped when you sent it</span> &mdash; send it again.</p>
+    </div>
+  </main>
+  <footer><span>Weld rotator &middot; build guide</span><span class="folio">38</span></footer>
+</article>
+</body>
+</html>

@@ -130,6 +130,13 @@ hardware/assembly/cards/tools/out/
 # (hardware/quickstart/_build.py).
 hardware/quickstart/out/
 
+# The weld-rotator build guide's page renders, and the staged STEPs its art pass writes while a
+# browser is looking at them. The guide itself — its HTML, its `art/*.png`, its bound PDF, its
+# cover and its `.pdf.json` — is in the index; that document is drawn by hand and is not a step
+# of the build (hardware/weld-rotator-guide/README.md). `tools/cad-artifacts/pack.py`'s
+# NOT_BUNDLED_DIRS names this directory too.
+hardware/weld-rotator-guide/out/
+
 # The bound Quick Start and the pictures in it, drawn by hardware/quickstart/quickstart_art.py
 # and _build.py off the same solids as everything else. They arrive the road every solid takes:
 # `pack.py`'s BUNDLED_ART_DIRS and BUNDLED_ART_FILES put them in the release asset,

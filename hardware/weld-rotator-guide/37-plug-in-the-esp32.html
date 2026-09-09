@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><link rel="stylesheet" href="style.css"></head>
+<body>
+<article class="card">
+  <header>
+    <span class="eyebrow"><b>Controller</b> &middot; step 26</span>
+    <h1>Plug the ESP32 into the laptop</h1>
+    <i class="rule"></i>
+    <p class="lede">The board's own Micro-USB, straight to the laptop. Its onboard CP2102
+      carries the upload, resets the board into the bootloader by itself, and powers it while
+      it is connected.</p>
+  </header>
+  <main>
+    <ol class="actions">
+      <li><b>Unplug the 24&nbsp;V brick.</b> If it was ever plugged in, unplug it now. The
+        motor must be dead for everything on this page and the next.</li>
+      <li>Take the Micro-USB <b>data</b> cable &mdash; the one that has flashed this project's
+        other DevKitC boards, not a charge-only cable.</li>
+      <li>Plug it into the ESP32's own Micro-USB socket. Not the 5&nbsp;V adapter's tip: that
+        comes back on page&nbsp;39.</li>
+      <li>Plug the other end into the laptop.</li>
+      <li>Tell me it is connected. I will build and upload
+        <span class="mono">firmware/src_weld_rotator/</span> to it.</li>
+    </ol>
+    <div class="gate">
+      <span class="gate-label">Gate &mdash; the board is on the bus</span>
+      <p>A new serial device appears on the laptop. On this Mac it will be a
+        <span class="mono">/dev/cu.usbserial-*</span> or
+        <span class="mono">/dev/cu.SLAB_USBtoUART</span>.
+        <span class="fail">No device means a charge-only cable, or the wrong socket.</span></p>
+    </div>
+    <div class="mind">
+      <span class="mind-label">Nothing about the upload opens a motor</span>
+      <p>Building and flashing touches no motor terminal, and the driver has no power. The
+        host's USB is what powers the board through this step and the next.</p>
+    </div>
+    <div class="split">
+      <div>
+        <h3>What lands on it</h3>
+        <ul class="dots">
+          <li>A controller that boots motionless and will not arm until it has seen the pedal
+            released once.</li>
+          <li><span class="mono">lap</span> mode: press and hold for one counted 380&deg;
+            move. Release early and it aborts.</li>
+          <li><span class="mono">jog</span> mode: follows the pedal continuously, for
+            indicating and setup.</li>
+          <li>Settings stored in NVS, so they survive being unplugged.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Defaults it arrives with</h3>
+        <table>
+          <tr><td class="k">Mode</td><td class="num"><span class="mono">lap</span></td></tr>
+          <tr><td class="k">Bead travel</td><td class="num">8.0 mm/s</td></tr>
+          <tr><td class="k">Overlap</td><td class="num">20&deg;</td></tr>
+          <tr><td class="k">Direction</td><td class="num"><span class="mono">cw</span></td></tr>
+          <tr><td class="k">Console</td><td class="num">115200 baud</td></tr>
+        </table>
+      </div>
+    </div>
+  </main>
+  <footer><span>Weld rotator &middot; build guide</span><span class="folio">37</span></footer>
+</article>
+</body>
+</html>
