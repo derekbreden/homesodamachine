@@ -14,8 +14,6 @@
     "paths": [
       "firmware/src_appliance/ota.cpp",
       "hardware/manifold-layout/enclosure-assembly.facts.json",
-      "hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py",
-      "hardware/printed-parts/enclosure/nameplate/nameplate.py",
       "hardware/printed-parts/zone-c/funnel-mold/extraction-loads.json",
       "hardware/quickstart/plumbing/art/plumbing-pre-tee.png",
       "hardware/quickstart/plumbing/art/plumbing-tee-installed.png",
