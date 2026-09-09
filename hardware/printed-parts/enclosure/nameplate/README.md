@@ -18,11 +18,11 @@ thickens to behind it, the two screw bosses and their heat-set bores are cut by
 
    homesodamachine.com/u/0001       ← centred below the screw line
 
-               SERIAL  0001        ← all details share one small size and the name's left edge
-               120V 60Hz 5A 600W
-               120V 60Hz ONLY
-               NOT FOR 240V
-       [flame] FLAMMABLE REFRIGERANT
+            SERIAL  0001           ← all details share one small size, each line centred
+         120V 60Hz 5A 600W
+           120V 60Hz ONLY
+            NOT FOR 240V
+  [flame] FLAMMABLE REFRIGERANT
 ```
 
 The details block starts with the serial and ends with a white flame and `FLAMMABLE REFRIGERANT`.
@@ -49,14 +49,15 @@ Not UL-listed or ETL-listed; the plate carries no UL or ETL mark.
 One face, `bulkhead_ring.WORD_FONT`, in three levels:
 
 - The brand: a [28 mm](LOGO_H) glass mark beside `HOME`, `SODA` and `MACHINE` on three lines,
-  set at [11.2](TITLE_EM), with caps [8.53 mm](TITLE_CAP) high. The complete lockup is [79.02 mm](LOCKUP_W) wide.
+  set at [10.2](TITLE_EM), with caps [7.77 mm](TITLE_CAP) high and [2.8 mm](TITLE_GAP) between lines.
+  The complete lockup is [74.47 mm](LOCKUP_W) wide.
 - The unit link: [5.5](LINK_EM), caps [4.19 mm](LINK_CAP) high, centred below the screw line.
   Its width is [79.97 mm](LINK_W). Every serial is four digits on one advance, so its width
   holds from unit 0001 to 9999.
 - The details: serial, ratings, voltage warnings and refrigerant notice at [2.8](BODY_EM),
-  with caps [2.13 mm](BODY_CAP) high, all aligned to the name's left edge with equal line spacing.
-  Each letter has [0.1 mm](DETAIL_TRACKING) of extra spacing. The [2.13 mm](FLAME_H) flame hangs
-  beside the final line at the same height as its caps.
+  with caps [2.13 mm](BODY_CAP) high, each line centred on the plate with equal line spacing.
+  Each letter has [0.1 mm](DETAIL_TRACKING) of extra spacing. The [2.13 mm](FLAME_H) flame and
+  refrigerant wording are centred together as the final line, with the flame at cap height.
 
 The detail letter strokes and the plate between adjacent letters are measured against the print
 profile's 0.22 mm bead.
