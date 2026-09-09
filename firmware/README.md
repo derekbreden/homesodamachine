@@ -22,6 +22,12 @@ and the volume/quiet-hours settings behind it. The appliance and the bench share
 table on purpose: a board on the line makes exactly the sounds a customer's machine makes.
 Neither display carries a sounder, so every sound the machine makes is made on the main board.
 
+Two of those libraries have their decision in a library of its own, so a host can ask it:
+[`lib/sound_policy`](lib/sound_policy/sound_policy.h) is what a volume setting and a quiet
+window do to a sound — including the exemption that keeps the gas alarm out of their reach —
+and [`lib/echo_policy`](lib/echo_policy/echo_policy.h) is which byte off J9 is the main board's
+own echo, and what a byte that is not one means. Neither reaches Arduino.
+
 `src_pcba_bench/` is the bench rig for a **bare** board, one board per fab batch, and goes no further than the bench. It answers whether the fab built what [`pcba.tsx`](/hardware/pcb/pcba/pcba.tsx) describes — it reads every device, and behind `arm` it drives both relays, both DRV8870 pumps and the buzzer, one output at a time for 120 s so each can be metered at its connector. It also carries the buzzer's range — `ladder`, `duty`, `palette`, played once at boot — which is where the machine's alarms and acks get designed ([`src_pcba_bench/README.md`](src_pcba_bench/README.md)). It never writes `IODIR` or `GPPU` on either MCP23017, so the ten manifold valves, V-K and the condenser fan — everything behind the two expanders — stay dark, and no reed is ever read on a pull-up. It answered batch 2 on the bench: [`/hardware/pcb/pcba/bench-log.md`](/hardware/pcb/pcba/bench-log.md).
 
 ## J9 is one pair, and both ends take turns
@@ -164,8 +170,10 @@ Three constraints the main board and the supply impose, each carried by a part t
 - **`GPPU` written on both MCP23017s.** No loom carries a resistor and the main board pulls none of the reed inputs ([`pcba.tsx`](/hardware/pcb/pcba/pcba.tsx), U2 GPB4-7 / U3 GPB6-7), so every reed reads its expander's internal pull-up or floats.
 
 `pio test -e native` holds these policies off-board: it checks the canonical operation table,
-all logical valve transitions, the complete physical expander map and fault parking, and pump
-deadline boundaries without opening a serial port. See [`test/README.md`](test/README.md).
+all logical valve transitions, the complete physical expander map and fault parking, pump
+deadline boundaries, the pour's duty shape, the echo matcher's resync, and the gas alarm's
+exemption from every volume and quiet-hours setting the two can be in — without opening a
+serial port. See [`test/README.md`](test/README.md).
 
 ## Appliance displays
 

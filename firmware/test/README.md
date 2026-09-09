@@ -23,7 +23,13 @@ average over the last, a cooldown that holds the path open when flow returns ins
 closes it when nothing does — the 120 s ceiling a meter that never stops pulsing runs into, and
 the sample period and pulse counts the meter is read through. `test_pcba_expanders` checks the
 logical-to-physical valve map, safe MCP23017 initialization, active-low reed decoding,
-cross-expander break-before-make writes, and fail-park behavior. They run on the build host
+cross-expander break-before-make writes, and fail-park behavior. `test_sound_policy` walks
+every volume against every quiet ceiling at every hour including no clock at all, and holds
+the gas alarm at full through all of them; it also checks the quiet window's midnight wrap,
+its empty case, and that the duty conversion is linear in amplitude rather than in duty.
+`test_echo_policy` checks that a frame the main board sent comes back and is swallowed whole,
+that a collision abandons the outstanding echo instead of eating the far end's next frame,
+and that the ring wraps under sustained traffic and holds a whole stuffed J9 frame. They run on the build host
 and are safe with every USB device connected. `test_weld_rotator_policy` checks the purchased
 20T:90T drive ratio, speed envelope, exact 380-degree lap count, boot-held pedal lockout,
 deadman release, and jog/lap state transitions.

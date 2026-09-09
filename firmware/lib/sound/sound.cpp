@@ -3,6 +3,7 @@
 #include <math.h>
 
 #include "sound.h"
+#include "sound_policy.h"
 
 static const float PIf = 3.14159265f;
 
@@ -212,21 +213,6 @@ static void drive(int hz, uint8_t dutyPct) {
     ledcWrite(buzzPin, (uint32_t)dutyPct * LEDC_FULL / 100);
 }
 
-// Duty is not loudness. The diaphragm follows the pulse train's fundamental,
-// whose amplitude goes as sin(pi*d) — so a volume control that scaled duty
-// directly would barely move across the top half of its travel. The scaling is
-// done in amplitude and converted back to a duty here. asinf() always returns
-// the branch below 50%, which is the one that is not a mirror.
-static uint8_t dutyScaled(uint8_t nominalDuty, float factor) {
-    if (!nominalDuty || factor <= 0.0f) return 0;
-    float amp = sinf(PIf * (float)nominalDuty / 100.0f) * factor;
-    if (amp <= 0.0f)  return 0;
-    if (amp >= 1.0f)  return SOUND_MAX_DUTY;
-    float d = asinf(amp) * 100.0f / PIf;
-    if (d < 1.0f) d = 1.0f;            // a nonzero level always makes something
-    return (uint8_t)(d + 0.5f);
-}
-
 // ════════════════════════════════════════════════════════════
 //  Settings
 // ════════════════════════════════════════════════════════════
@@ -234,21 +220,20 @@ static uint8_t dutyScaled(uint8_t nominalDuty, float factor) {
 static Preferences prefs;
 static const char *NVS_NS = "hsmsound";
 
-static uint8_t volumePct  = 70;
-static bool    quietOn    = false;
-static uint8_t quietStart = 22;
-static uint8_t quietEnd   = 7;
-static uint8_t quietPct   = 25;
+static sound_policy::Settings settings;
 
 static int (*hourNowFn)() = nullptr;
 
+// What the clock says, or sound_policy::kNoHour when there is none to ask.
+static int hourNow() { return hourNowFn ? hourNowFn() : sound_policy::kNoHour; }
+
 static void settingsSave() {
     if (!prefs.begin(NVS_NS, false)) return;
-    prefs.putUChar("vol",    volumePct);
-    prefs.putBool ("qOn",    quietOn);
-    prefs.putUChar("qStart", quietStart);
-    prefs.putUChar("qEnd",   quietEnd);
-    prefs.putUChar("qVol",   quietPct);
+    prefs.putUChar("vol",    settings.volume);
+    prefs.putBool ("qOn",    settings.quietOn);
+    prefs.putUChar("qStart", settings.quietStart);
+    prefs.putUChar("qEnd",   settings.quietEnd);
+    prefs.putUChar("qVol",   settings.quietVolume);
     prefs.end();
 }
 
@@ -258,16 +243,13 @@ static void settingsLoad() {
     // console of every factory-fresh board. Opening read-write creates it quietly,
     // and the defaults above stand until something calls a setter.
     if (!prefs.begin(NVS_NS, false)) return;
-    volumePct  = prefs.getUChar("vol",    volumePct);
-    quietOn    = prefs.getBool ("qOn",    quietOn);
-    quietStart = prefs.getUChar("qStart", quietStart);
-    quietEnd   = prefs.getUChar("qEnd",   quietEnd);
-    quietPct   = prefs.getUChar("qVol",   quietPct);
+    settings.volume      = prefs.getUChar("vol",    settings.volume);
+    settings.quietOn     = prefs.getBool ("qOn",    settings.quietOn);
+    settings.quietStart  = prefs.getUChar("qStart", settings.quietStart);
+    settings.quietEnd    = prefs.getUChar("qEnd",   settings.quietEnd);
+    settings.quietVolume = prefs.getUChar("qVol",   settings.quietVolume);
     prefs.end();
-    if (volumePct > 100) volumePct = 100;
-    if (quietPct  > 100) quietPct  = 100;
-    if (quietStart > 23) quietStart = 0;
-    if (quietEnd   > 23) quietEnd   = 0;
+    settings = sound_policy::clamped(settings);
 }
 
 void soundSetClock(int (*hourNow)()) { hourNowFn = hourNow; }
@@ -276,42 +258,35 @@ void soundSetClock(int (*hourNow)()) { hourNowFn = hourNow; }
 // order to go quiet would go quiet at the wrong time, which is worse than not
 // going quiet at all.
 bool soundInQuietHours() {
-    if (!quietOn || !hourNowFn) return false;
-    int h = hourNowFn();
-    if (h < 0 || h > 23)           return false;
-    if (quietStart == quietEnd)    return false;
-    if (quietStart < quietEnd)     return h >= quietStart && h < quietEnd;
-    return h >= quietStart || h < quietEnd;   // the window wraps midnight
+    return sound_policy::inQuietHours(settings, hourNow());
 }
 
 uint8_t soundLevelFor(SoundId id) {
     if (id == SND_NONE || id >= SND_COUNT) return 0;
-    // The one exemption in the file. A gas alarm a setting could mute would be a
-    // safety defect, so it is answered before any setting is consulted.
-    if (kSound[id].flags & SND_F_UNSILENCEABLE) return 100;
-    uint8_t lvl = volumePct;
-    if (soundInQuietHours() && quietPct < lvl) lvl = quietPct;
-    return lvl;
+    return sound_policy::levelFor(settings, hourNow(),
+                                  (kSound[id].flags & SND_F_UNSILENCEABLE) != 0);
 }
 
 void soundSetVolume(uint8_t pct) {
-    volumePct = pct > 100 ? 100 : pct;
+    settings.volume = pct;
+    settings = sound_policy::clamped(settings);
     settingsSave();
 }
 
 void soundSetQuiet(bool on, uint8_t startHour, uint8_t endHour, uint8_t qPct) {
-    quietOn    = on;
-    quietStart = startHour > 23 ? 0 : startHour;
-    quietEnd   = endHour   > 23 ? 0 : endHour;
-    quietPct   = qPct > 100 ? 100 : qPct;
+    settings.quietOn     = on;
+    settings.quietStart  = startHour;
+    settings.quietEnd    = endHour;
+    settings.quietVolume = qPct;
+    settings = sound_policy::clamped(settings);
     settingsSave();
 }
 
-uint8_t soundVolume()      { return volumePct; }
-bool    soundQuietOn()     { return quietOn; }
-uint8_t soundQuietStart()  { return quietStart; }
-uint8_t soundQuietEnd()    { return quietEnd; }
-uint8_t soundQuietVolume() { return quietPct; }
+uint8_t soundVolume()      { return settings.volume; }
+bool    soundQuietOn()     { return settings.quietOn; }
+uint8_t soundQuietStart()  { return settings.quietStart; }
+uint8_t soundQuietEnd()    { return settings.quietEnd; }
+uint8_t soundQuietVolume() { return settings.quietVolume; }
 
 const Sound *soundInfo(SoundId id) {
     return (id == SND_NONE || id >= SND_COUNT) ? nullptr : &kSound[id];
@@ -346,7 +321,7 @@ static void applyStep(uint32_t elapsed) {
             return;
 
         case TONE_DECAY:
-            drive(s.hz, dutyScaled(s.duty, curFactor * expf(-3.2f * span)));
+            drive(s.hz, sound_policy::dutyForFactor(s.duty, curFactor * expf(-3.2f * span)));
             return;
 
         case TONE_SLIDE: {
@@ -354,20 +329,20 @@ static void applyStep(uint32_t elapsed) {
             // stalls at the top and spends its time down where the diaphragm is quiet.
             int from = s.hz ? s.hz : 1;
             int to   = s.arg ? s.arg : from;
-            drive((int)(from * powf((float)to / (float)from, span)), dutyScaled(s.duty, curFactor));
+            drive((int)(from * powf((float)to / (float)from, span)), sound_policy::dutyForFactor(s.duty, curFactor));
             return;
         }
 
         case TONE_TREMOLO: {
             float rate = s.arg ? (float)s.arg : 8.0f;
             float amp  = 0.55f + 0.45f * sinf(2.0f * PIf * rate * (float)elapsed / 1000.0f);
-            drive(s.hz, dutyScaled(s.duty, curFactor * amp));
+            drive(s.hz, sound_policy::dutyForFactor(s.duty, curFactor * amp));
             return;
         }
 
         case TONE_FLAT:
         default:
-            drive(s.hz, dutyScaled(s.duty, curFactor));
+            drive(s.hz, sound_policy::dutyForFactor(s.duty, curFactor));
             return;
     }
 }
