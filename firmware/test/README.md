@@ -16,7 +16,12 @@ the clean cycle's two steps per channel, its full-reed and empty-reed-plus-tail 
 sum of what is left of a cycle, and its wire contract, the reservoir gauge's reading of one
 float passing four reeds up through a fill and down through a draw, and the air cycles' steps — the dry
 sweep of both channels that draws on no reservoir, and the purge that airs one and draws it
-out. `test_pcba_expanders` checks the
+out. `test_pour_policy` checks the pour's cycle timing at 1:20, 1:6 and 1:24, the clamps either
+side of the flow reading and the floor and ceiling on the two phases, the sequence one pour
+walks — valves and pump opening on the first reading, each cycle's timing taken from the
+average over the last, a cooldown that holds the path open when flow returns inside it and
+closes it when nothing does — the 120 s ceiling a meter that never stops pulsing runs into, and
+the sample period and pulse counts the meter is read through. `test_pcba_expanders` checks the
 logical-to-physical valve map, safe MCP23017 initialization, active-low reed decoding,
 cross-expander break-before-make writes, and fail-park behavior. They run on the build host
 and are safe with every USB device connected. `test_weld_rotator_policy` checks the purchased
