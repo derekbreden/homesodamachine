@@ -2,8 +2,8 @@
   "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed \u2014 web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
   "release": {
     "tag": "cad-artifacts",
-    "asset": "cad-9c6e356fc17db35f.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-9c6e356fc17db35f.tar.gz",
+    "asset": "cad-2f7e7eef2924ebad.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-2f7e7eef2924ebad.tar.gz",
     "objects": "s-"
   },
   "source": {
@@ -12,7 +12,6 @@
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, its rule would not cut, or an interactive publication explicitly deferred that rule.",
     "paths": [
-      "hardware/install-guide/_build.py",
       "hardware/install-guide/_install_art.py"
     ],
     "members": [
@@ -50,8 +49,9 @@
       "hardware/install-guide/art/cabinet-plan.png",
       "hardware/install-guide/art/collet-press.png",
       "hardware/install-guide/art/filter-in-cabinet.png",
-      "hardware/install-guide/art/one-face.png",
       "hardware/install-guide/art/opening.png",
+      "hardware/install-guide/art/the-back-face.png",
+      "hardware/install-guide/art/the-socket.png",
       "hardware/install-guide/install-guide.cover.png",
       "hardware/install-guide/install-guide.pdf",
       "hardware/manifold-layout/enclosure-assembly.step",
@@ -367,9 +367,9 @@
     ]
   },
   "bundle": {
-    "sha256": "9c6e356fc17db35f36b6a4846fa573c3e2eb1f35de887d4e7b00bc540140dff3",
-    "bytes": 141727558,
-    "solids": 334
+    "sha256": "2f7e7eef2924ebad058e9743a9d46a128e3d297d3768bb59f5d00008e05f2a17",
+    "bytes": 142527809,
+    "solids": 335
   },
   "solids": {
     "hardware/.cache/pump-roof/enclosure-pump-cartridge.step": "4f3c521165747f039ff44b338de914a5e9eece6e4fe0e39a3a65bedeed90c67d",
@@ -460,12 +460,13 @@
     "hardware/faucet-layout/faucet-assembly.step": "1822a620402298d872ac7a5e84a0106f31dbe4ae4b531f4a6fccfd72c22cce21",
     "hardware/faucet-layout/faucet-assembly.step.mesh": "f2f8ee191c7d6b363298605193d1897e71a2ece3f2da74c75154f57e7bfa0e29",
     "hardware/install-guide/art/cabinet-plan.png": "eab3fee857faa2de08cbc7c344ea8f62a386fb2e859bcf494650a5c6a885d1ec",
-    "hardware/install-guide/art/collet-press.png": "d8b3326cdfcfb5bee2ec7adf3f765142ef10cbc359a52fb6116923fbcc9a31cd",
-    "hardware/install-guide/art/filter-in-cabinet.png": "b799c58acc3dec7791f4aa6e9940e4583ce8236d578e0633cbabfcbfb576cec6",
-    "hardware/install-guide/art/one-face.png": "4a6455084621bb88adab0364c3fb8db073c6c671f34000c565faa6c2ce04ec48",
+    "hardware/install-guide/art/collet-press.png": "5945775594bfceebbc57be94be31ba0f59a3ee98577de89538c0c5998986b258",
+    "hardware/install-guide/art/filter-in-cabinet.png": "afeadd89bcc830706cfe1f5569ca85ec12e0d52a730908a12987d68eda003109",
     "hardware/install-guide/art/opening.png": "bb537519eb4390eddab5da928cf4ad31cbd0401bdbc05421ce628088ea7c3ebd",
+    "hardware/install-guide/art/the-back-face.png": "d29f718f1a24bc4adf524ee77dee320fa969030ce94c0898603af08c8edbbd44",
+    "hardware/install-guide/art/the-socket.png": "8ed463c714698d569d85f90333cc530df997ab4d2681a53f625cfba784ccae91",
     "hardware/install-guide/install-guide.cover.png": "e059cdb7e70f15b5e11aedf69fe10ffc7c4c11fb228539fd204c60573e13635a",
-    "hardware/install-guide/install-guide.pdf": "08bf35a19feb9108cec8720b3266c14974613e2a725684a31a34e04360b2ec4f",
+    "hardware/install-guide/install-guide.pdf": "c63be41c72805438e7e50762d70f686a4bb4752a3577bcfeee3962a49b83b388",
     "hardware/manifold-layout/enclosure-assembly.step": "29dfdd90353a8ad69f8715c6d3e1c9b0033d470a35db5c819e8de31f1a99c84b",
     "hardware/manifold-layout/enclosure-assembly.step.mesh": "b1d7a48b5f7711eb259dc4ba32937f17bcb29bfdb36e181180e6e7df68c6d455",
     "hardware/manifold-layout/manifold-layout.step": "77649fc47b26af27c477871a21f53c2ee9852272e19980f16fd41b589bf4b27f",
