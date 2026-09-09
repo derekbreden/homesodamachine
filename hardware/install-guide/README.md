@@ -31,23 +31,24 @@ nothing else in the booklet is round. Coral `#d64050` is the sheet's cue color: 
 lockup and marks the one thing on a leaf that will bite, and it is never decoration. Blue, red,
 white and black name fluids and nothing else — the four the bulkhead rings wear.
 
-**This guide draws no CAD of its own.** Every picture in it is a view
-[`../quickstart/`](/hardware/quickstart/README.md) has already cut, from the same solids, so a
-change to the machine reaches both documents through one set of renders. The older-kitchen spread
-is the four registered scenes in
-[`../quickstart/plumbing/`](/hardware/quickstart/plumbing/README.md); the appliance, faucet and
-rear-panel plates are `../quickstart/art/`. The one drawing made here is the path map on leaf 5,
-an inline SVG, because the thing it shows — seven crossings on one face, and where each one comes
-from — has no camera.
+**The guide composes its own frames.** [`_install_art.py`](_install_art.py) beside this file
+registers one scene per leaf that asks for one and lands it in `art/`, off the same solids the
+quick start draws from and through the same posed renderer, so a change to the machine reaches
+both documents. The two rear-face leaves stand on the machine's own rear children — the shell with
+its flutes, the coloured bulkhead rings, the inlet, the jack, the nameplate — with the customer's
+C13 cordset built in that module beside them. The older-kitchen spread is the four registered
+scenes in [`../quickstart/plumbing/`](/hardware/quickstart/plumbing/README.md); leaf 8's
+below-counter plate is `../quickstart/art/`. Leaf 5's path map is an inline SVG: what it shows —
+seven crossings on one face, and where each one comes from — has no camera.
 
 Art is a background on an empty box, never an `<img>`. A crop is then a background rectangle
 rather than an element hanging out of a clipped parent, which is the one shape the renderer's clip
 gate cannot tell from a mistake.
 
 **A crop is `contain` or `cover` and `center`, never a measured offset in pixels.** These leaves
-draw from two kinds of render. Some are cut to a literal box — `machine-back-close` is always
-720 x 560 — and what moves inside them is the machine: redraw the nameplate and the lettering sits
-somewhere new in the same frame. Others are trimmed to their own content, so the frame itself is
+draw from two kinds of render. Some are cut to a literal box — `mount-tighten-close` is always
+772 x 560 — and what moves inside them is the machine: redraw the part and it sits somewhere new
+in the same frame. Others are trimmed to their own content, so the frame itself is
 whatever the subject measured that day. Either way an offset taken off yesterday's pixels points at
 nothing today, and it fails silently: the page renders, it is simply aimed somewhere else. The two
 keywords are measured against whatever arrives, so they keep aiming at the subject.
