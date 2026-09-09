@@ -2,6 +2,8 @@
 
 #include <stdint.h>
 
+#include "sound_policy.h"
+
 // ════════════════════════════════════════════════════════════
 //  The machine's one voice — U8, off IO13
 // ════════════════════════════════════════════════════════════
@@ -49,7 +51,7 @@
 // nothing when there is no sound.
 
 // ── Drive limits ──────────────────────────────────────────────────────────
-static const int SOUND_MAX_DUTY      = 50;    // % — the loudest a note gets; above this it mirrors
+// SOUND_MAX_DUTY is sound_policy.h's, beside the conversion that clamps to it.
 static const int SOUND_RESONANCE_HZ  = 4000;  // where the diaphragm is loudest; `ladder` measures it
 static const int SOUND_LEDC_BITS     = 10;    // 0..1023; the 80 MHz APB holds this from ~77 Hz up
 static const int SOUND_SHAPE_TICK_MS = 5;     // how often a shaped step is recomputed
