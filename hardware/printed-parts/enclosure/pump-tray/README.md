@@ -6,7 +6,7 @@ case-derived collar used twice in `enclosure-pump-cap`. It is not a separate pri
 surfaces: a plate and 45° ramp at the pump's bracket plane, the boss's octagonal bore wall,
 and one shoulder around the motor can.
 
-The flavour manifold carries two KPHM400 pumps, so the top clamp contains
+The flavour manifold carries two KPHM600-SW3B17 pumps, so the top clamp contains
 [2](TRAY_COUNT) collars.
 
 | | |

@@ -73,6 +73,21 @@ witness_ramp_run = 20.0
 witness_rail_w = 4.0
 witness_rail_gap = 3.0
 
+# One station repeats at 90 degrees around the four sides, inside the square
+# mold's existing circumscribed circle (the chamber is round).
+jack_x, jack_y = 119.0, 6.0
+washer_y = 14.0
+washer_od, washer_pocket_d = 25.0, 25.4
+washer_thickness_range = (0.8, 2.0)
+jack_length, jack_pitch, jack_hole = 50.0, 0.8, 5.8
+nut_width, nut_thickness = 8.0, 4.0
+nut_slot_width, nut_slot_height = 8.4, 4.4
+guide_x, guide_y = 119.0, -22.0
+guide_width, guide_bore, guide_outside = 8.0, 8.6, 15.0
+guide_drop, guide_top, guide_bottom = 50.0, 6.0, 20.0
+extraction_stroke = 32.0
+chamber_nominal_id = 11.8 * 25.4
+
 
 def _box(w, d, z0, z1, cx=0.0, cy=0.0):
     return (cq.Workplane("XY").box(w, d, z1-z0, centered=(True, True, False))
@@ -87,6 +102,108 @@ def _one(shape, name):
     shape = shape.clean()
     assert shape.isValid() and len(shape.Solids()) == 1, f"{name}: invalid or disconnected solid"
     return shape.Solids()[0]
+
+
+def _quarter(shape, angle):
+    return shape.rotate((0, 0, 0), (0, 0, 1), angle)
+
+
+def _gusset(x0, x1, z1, y, thickness):
+    """45-degree support rooted in the cavity's X=80 rib, not its empty bays."""
+    wire = cq.Wire.makePolygon([cq.Vector(x0, y-thickness/2, z1-(x1-x0)),
+        cq.Vector(x1, y-thickness/2, z1), cq.Vector(x0, y-thickness/2, z1),
+        cq.Vector(x0, y-thickness/2, z1-(x1-x0))])
+    return cq.Solid.extrudeLinear(wire, [], cq.Vector(0, thickness, 0))
+
+
+def _guide_post(z0, z1, x, y):
+    post = cq.Workplane(obj=_box(guide_width, guide_width, z0, z1, x, y))
+    return post.edges('|Z').chamfer(0.6).faces('<Z').edges().chamfer(0.8).val()
+
+
+def _guide_socket(z0, z1, x, y):
+    bore = _box(guide_bore, guide_bore, z0-1, z1+1, x, y)
+    entry = (cq.Workplane('XY').workplane(offset=z1-0.6).center(x, y)
+        .rect(guide_bore, guide_bore).workplane(offset=0.61)
+        .rect(guide_bore+1.22, guide_bore+1.22).loft().val())
+    return bore.fuse(entry)
+
+
+def _nut_cut(top_z, x, y, exit_x):
+    start = x-nut_slot_width/2
+    return _box(exit_x-start, nut_slot_width, top_z+1.2,
+        top_z+1.2+nut_slot_height, (start+exit_x)/2, y)
+
+
+def build_extraction(top_z):
+    """Open, integral guides and four steel-thread / steel-bearing screw jacks."""
+    pad_floor = top_z-3.0
+    pad_bottom = pad_floor-forming_skin
+    # The conical corbel supports the full circular pocket at 45 degrees.
+    # Its small foot stands on a radial web reaching the X=80 structural rib.
+    cone_bottom = pad_bottom-12.5
+    pad = _cyl(15.5, pad_floor+1.2, pad_bottom, jack_x, washer_y)
+    pad = pad.fuse(cq.Solid.makeCone(3.0, 15.5, 12.5,
+        cq.Vector(jack_x, washer_y, cone_bottom), cq.Vector(0, 0, 1)),
+        _gusset(78.4, jack_x+3.0, cone_bottom, washer_y, 4.8))
+    pad = pad.cut(_cyl(washer_pocket_d/2, top_z+1, pad_floor, jack_x, washer_y))
+    sleeve = _box(guide_outside, guide_outside, top_z-guide_bottom,
+                   top_z-guide_top, guide_x, guide_y)
+    socket = _guide_socket(top_z-guide_bottom, top_z-guide_top, guide_x, guide_y)
+    sleeve = sleeve.cut(socket)
+    guide_webs = [_gusset(78.4, guide_x+guide_outside/2, top_z-guide_bottom,
+                    guide_y+s*(guide_outside/2-forming_skin/2), forming_skin)
+                  for s in (-1, 1)]
+    lower = pad.fuse(sleeve, *guide_webs)
+    arm = _box(46, 24, top_z, top_z+10, 110, jack_y)
+    guide_arm = _box(45, 18, top_z+2, top_z+10, 109.5, guide_y)
+    outer_rail = _box(8, 49, top_z+2, top_z+10, 128, -6.5)
+    post = _guide_post(top_z-guide_drop, top_z+10, guide_x, guide_y)
+    # The mark meets the sleeve mouth after 32 mm of lift; it is a witness mark,
+    # not a catch that would prevent removing the core after the rod is clear.
+    mark_z = top_z-guide_top-extraction_stroke
+    post = post.cut(_box(0.4, 5.0, mark_z-0.4, mark_z+0.4,
+                        guide_x+guide_width/2-0.15, guide_y))
+    upper = arm.fuse(guide_arm, outer_rail, post)
+    upper = upper.cut(_cyl(jack_hole/2, top_z+11, top_z-1, jack_x, jack_y),
+                      _nut_cut(top_z, jack_x, jack_y, 134))
+    upper = _one(upper, 'extraction upper station')
+    # Pads/sleeves, threads and sliding faces use the precision surface speed.
+    slow_lower = _cyl(16, top_z, pad_bottom, jack_x, washer_y).fuse(
+        _box(16, 16, top_z-guide_bottom, top_z-guide_top, guide_x, guide_y))
+    slow_upper = arm.fuse(post)
+    lower_all = cq.Compound.makeCompound([_quarter(lower, a) for a in range(0, 360, 90)])
+    upper_all = cq.Compound.makeCompound([_quarter(upper, a) for a in range(0, 360, 90)])
+    lower_slow = cq.Compound.makeCompound([_quarter(slow_lower, a) for a in range(0, 360, 90)])
+    upper_slow = cq.Compound.makeCompound([_quarter(slow_upper, a) for a in range(0, 360, 90)])
+    hardware = []
+    for a in range(0, 360, 90):
+        washer = _cyl(washer_od/2, pad_floor+1.0, pad_floor, jack_x, washer_y).cut(
+            _cyl(2.7, pad_floor+2.0, pad_floor-1, jack_x, washer_y))
+        # Smooth shaft/head representations; the purchased steel supplies threads.
+        tip_z = pad_floor+1.0
+        screw = _cyl(2.5, tip_z+jack_length, tip_z, jack_x, jack_y).fuse(
+            _cyl(4.25, tip_z+jack_length+5, tip_z+jack_length, jack_x, jack_y))
+        nut = _box(nut_width, nut_width, top_z+1.6, top_z+5.6, jack_x, jack_y).cut(
+            _cyl(2.5, top_z+6, top_z+1, jack_x, jack_y))
+        hardware.extend([(f'washer-{a//90+1}', _quarter(washer, a)),
+                         (f'jack-screw-{a//90+1}', _quarter(screw, a)),
+                         (f'square-nut-{a//90+1}', _quarter(nut, a))])
+    return lower_all, upper_all, lower_slow, upper_slow, hardware
+
+
+def build_hardware_witness():
+    """Nut seat in the inverted core's print orientation, sleeve and washer seat."""
+    nut_block = _box(34, 20, 0, 10, -1, 0)
+    nut_cut = _nut_cut(0, 0, 0, 17).rotate((0, 0, 0), (1, 0, 0), 180).translate((0, 0, 10))
+    nut_block = nut_block.cut(nut_cut, _cyl(jack_hole/2, 11, -1))
+    sleeve = _box(guide_outside, guide_outside, 0, 14, -23, 0).cut(
+        _guide_socket(0, 14, -23, 0))
+    pad = _cyl(15.5, 4.4, 0, 0, 25).cut(_cyl(washer_pocket_d/2, 5, 3.2, 0, 25))
+    coupon = _one(nut_block.fuse(sleeve, pad), 'hardware witness')
+    pin = _guide_post(-24, 0, 0, 0).fuse(_box(14, 14, 0, 3))
+    pin = pin.rotate((0, 0, 0), (1, 0, 0), 180).translate((0, 0, 3))
+    return coupon, _one(pin, 'guide witness')
 
 
 def _expanded(shape, distance):
@@ -240,6 +357,26 @@ def build():
     core_slow = core_skin.fuse(skirt, socket_back,
         _box(plate_w, plate_d, top_z, top_z+finish_allowance+forming_skin, ocx, ocy))
     cavity, core = cavity.translate(shift), core.translate(shift)
+    assembly_top = top_z-floor_z
+    lower, upper, lower_slow, upper_slow, hardware = build_extraction(assembly_top)
+    lower = lower.cut(forming_void.translate(shift))
+    cavity = _one(cavity.fuse(*lower.Solids()), 'cavity with jacks')
+    core = _one(core.fuse(*upper.Solids()), 'core with jacks')
+    cavity_slow = cavity_slow.translate(shift).fuse(*lower_slow.Solids())
+    core_slow = core_slow.translate(shift).fuse(*upper_slow.Solids())
+    assert cavity.intersect(core).Volume() < 0.001, 'extraction fixtures interfere at closure'
+    # A rectangular swept envelope contains each chamfered post at every point
+    # from seated through complete withdrawal. Its clearance is continuous.
+    for a in range(0, 360, 90):
+        swept_post = _quarter(_box(guide_width, guide_width, assembly_top-guide_drop,
+            assembly_top+guide_drop+10, guide_x, guide_y), a)
+        assert cavity.intersect(swept_post).Volume() < 0.001, 'guide sweep blocked'
+    assert guide_drop-extraction_stroke-guide_top >= 12.0, 'insufficient guide engagement'
+    assert extraction_stroke > rod_socket, 'rod still engaged at working stroke'
+    for washer_t in washer_thickness_range:
+        tip_z = assembly_top-3.0+washer_t
+        assert tip_z < assembly_top+1.2, 'screw misses full nut thickness'
+        assert tip_z+jack_length-(assembly_top+10+extraction_stroke) >= 5.0, 'head bottoms before release'
     info = {
         'cast': cast.translate(shift), 'rod': rod.translate(shift),
         'rod_len': rod_len, 'rod_below': rod_below, 'rod_socket': rod_socket,
@@ -250,8 +387,8 @@ def build():
         'cavity_volume': cavity.Volume(), 'core_volume': core.Volume(),
         'cavity_air_z': back_vent_depth, 'core_air_z': top_z+plate_thk-back_vent_depth-floor_z,
         'forming_void': forming_void.translate(shift),
-        'cavity_slow': cavity_slow.translate(shift),
-        'core_slow': core_slow.translate(shift),
+        'cavity_slow': cavity_slow, 'core_slow': core_slow,
+        'assembly_top': assembly_top, 'hardware': hardware,
     }
     return cavity, core, info
 
@@ -259,7 +396,9 @@ def build():
 def main():
     cavity, core, info = build()
     here = _here.parent
-    for name, shape in [('cavity', cavity), ('core', core), ('finish-witness', build_witness())]:
+    hardware_witness, guide_witness = build_hardware_witness()
+    for name, shape in [('cavity', cavity), ('core', core), ('finish-witness', build_witness()),
+                        ('hardware-witness', hardware_witness), ('guide-witness', guide_witness)]:
         stem = f'funnel-mold-{name}'
         export_assembly(one_body(cq.Workplane(obj=shape), stem, M_PETG_BLACK),
                         str(here / f'{stem}.step'))
@@ -278,9 +417,11 @@ def main():
             tolerance=0.02, angularTolerance=0.08)
     assy = cq.Assembly()
     assy.add(cavity, name='cavity', color=M_PETG_BLACK)
-    assy.add(info['cast'].translate((0, 0, 45)), name='funnel', color=M_SILICONE_BLACK)
-    assy.add(core.translate((0, 0, 100)), name='core', color=M_PETG_BLACK)
-    assy.add(info['rod'].translate((0, 0, 72)), name='rod', color=M_STAINLESS)
+    assy.add(info['cast'], name='funnel', color=M_SILICONE_BLACK)
+    assy.add(core, name='core', color=M_PETG_BLACK)
+    assy.add(info['rod'], name='rod', color=M_STAINLESS)
+    for name, shape in info['hardware']:
+        assy.add(shape, name=name, color=M_STAINLESS)
     export_assembly(assy, str(here / 'funnel-mold-assembly.step'))
     cbb, kbb = info['cavity_bb'], info['core_bb']
     print(f"cavity {info['cavity_volume']/1000:.2f} mL; core {info['core_volume']/1000:.2f} mL PETG", flush=True)

@@ -190,7 +190,7 @@ floor_t = 6.0
 # on the +Y wall seats on this same plane.
 rear_seam_clear = _interface.rear_seam_clear
 # The same standoff at the front, so the front column's Z lip keeps a full-width
-# front segment behind the refrigeration stratum instead of giving it up.
+# front segment behind the compressor bay instead of giving it up.
 front_seam_clear = 3.0
 corner_round = 12.          # standing-vertical (Z) print-corner relief radius (anti-warp on the bed)
 
@@ -455,7 +455,7 @@ cable_bore_dia = cable_sleeve_nom + 2.0 * cable_bore_air   # [14.7 mm](CABLE_BOR
 # holds for the umbilical, in this rib's centreline where a hand reaching up through the empty
 # pump bay finds it, its receptacle boss rooted on the bay bulkhead's crown. BOTH CROSSINGS STAND
 # ON +X, WHICH IS THE SIDE BOTH RUNS ARRIVE ON: SIG-7 comes forward along that flank from the
-# power column and passes the rib through its own bore, with solid stock between that bore and
+# electronics bay and passes the rib through its own bore, with solid stock between that bore and
 # the receptacle's boss; the fixed J13-to-jack lead comes down the same flank, turns the corner
 # and runs back west into one full-depth cable clip rooted on this rib's cavity face. Nothing on
 # the removable pump cartridge is clipped to the enclosure.
@@ -583,7 +583,7 @@ mount_boss_dia = _interface.mount_boss_dia
 # What that section keeps round its insert, which is the material any boss in this machine
 # stands a heat-set in.
 boss_ligament = _interface.boss_ligament
-# Assembly air between a power-column body's exact envelope and a corbel that has to begin
+# Assembly air between a electronics-bay body's exact envelope and a corbel that has to begin
 # behind it. Most corbels reach their mounting face; this is spent only where the body itself
 # crosses the otherwise printable 45 degree wedge.
 east_boss_corbel_clear = 1.0
@@ -1215,7 +1215,7 @@ def c14_mount_half(bore_w, bore_h, screw_reach):
 #
 # WHAT STANDS ON A FLANK READS THE FACE THAT IS ACTUALLY THERE. Wago wells and the drip-pan
 # sleeve cut their own berths through the whole section; the two fitting anchors give their zip
-# tie lanes back to `interior_x`; and the +X power column keeps its full insert-length boss datum
+# tie lanes back to `interior_x`; and the +X electronics bay keeps its full insert-length boss datum
 # clear of this face. The one routed tube that crosses the new stock gets the named support-free
 # relief below.
 back_top_flank_t = 9.0
@@ -1233,7 +1233,7 @@ back_top_flank_reliefs = (
 #
 # AND THE STOREY UNDER IT CARRIES MORE, because down there nothing is in the way. The only
 # body on this floor is the cold core, and it packs `side_band_inset` off `interior_x` — so
-# where back-top's flank has the vent slots' mullions and the power column against it, this
+# where back-top's flank has the vent slots' mullions and the electronics bay against it, this
 # one has 14 mm of air on both sides and spends 3 of it.
 #
 # IT IS TAKEN INWARD off `lip_face_x`, the face the lip's own underwall would otherwise leave.
@@ -1350,7 +1350,7 @@ def back_top_ceiling_stock(y_joint=None, lane=None):
 # one full flute depth fits between that plane and the pump-pocket datum, so the removable face
 # needs no step outside the fixed wall. What noses into the section gets a RELIEF, 45°-chamfered
 # like every pocket on this box
-# (`front_reliefs`): the refrigeration stratum keeps the face it was packed against, and the
+# (`front_reliefs`): the compressor bay keeps the face it was packed against, and the
 # pump bay roots on pocket floors struck by its own wrap rule. `box-front` reads the pack against
 # the relieved surface, region by region, not one plane.
 front_wall = 9.0
@@ -1358,7 +1358,7 @@ front_plane_y = 14.0
 # One full groove depth stands ahead of the pump pocket datum so the groove floors, not their
 # peaks, retain the pocket's complete printable backing.
 pump_show_growth = flute_depth
-# The refrigeration stratum's reliefs: two stated pockets over what THE COMPRESSOR ALONE
+# The compressor bay's reliefs: two stated pockets over what THE COMPRESSOR ALONE
 # carries fore of the front wall's own interior plane — its plate's front strip and its power
 # box, each floored on the face the can packs to. The shell's belly never reaches the wall,
 # the condenser bears on the plane through its rails and
@@ -6868,7 +6868,7 @@ def _side_wells(solid, inner, stations, y0, y1, z0, z1, up=1.0):
 #
 # THE LIP LANDS ON THE CORE. The rib's east face is the core's own west flank, so the mouth
 # closes on that flank all round the tube's cut end. The core is located by its own two corner
-# blocks and comes down as one unit (`cards/en-05-seat-cold-core`), so what the wall presents
+# blocks and comes down as one unit (`cards/en-06-seat-cold-core`), so what the wall presents
 # it is a target and not a fit: the mouth is `vent_channel_w` on a side against a tube less
 # than half that across, and the balance is the room the core has to land in.
 #

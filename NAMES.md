@@ -81,7 +81,7 @@ they became.
 | **+X wall of back-top** | the east flank of the rear upper quadrant, carrying the main board and its relay | |
 | **+Y wall of back-top** | the rear face of the same quadrant, carrying every through-wall crossing | rear wall, back wall, back panel |
 | **compressor bay** | the volume in the enclosure's front-bottom the compressor and condenser stand in | refrigeration bay, refrigeration stratum, refrigeration compartment |
-| **electronics bay** | the +X lane of back-top, where the main board, PSU, both relay modules and the AC inlet bolt to the wall's bosses | power column, electronics shelf |
+| **electronics bay** | the +X lane of back-top, where the main board, PSU, both relay modules and the AC inlet bolt to the wall's bosses | electronics bay, electronics shelf |
 | **pump cartridge** | the removable unit carrying the pumps, that rides out of the pump bay | cartridge |
 | **pump bay** | the compartment in `enclosure-front-top` the pump cartridge rides in | |
 | **collet plate** | the release face printed into front-top across the pump bay, holding the collets so the pump cartridge can be pulled | |
@@ -112,3 +112,5 @@ to **Derek approved** when he recognises them, or are replaced when he doesn't.
 | **pump plug** | the RJ11 6P4C plug on the pump cartridge's cord, that clicks into the pump jack | cartridge plug |
 | **install kit** | the box beside the appliance in the carton holding what the install needs beyond the faucet bag: the customer's plumbing, the collet press, the line cord, the documentation packet | installer kit |
 | **cold kit** | the bagged bonus in the install kit — the tube cutter, the loose foam segments and its own guide — for trimming and insulating the run to the faucet | cold optimization kit, cold enhancing kit, cold-line kit |
+| **quick start** | the wordless one-sheet drawing of the six install actions, lying face up on top of the packing | quickstart sheet, install sheet |
+| **install guide** | the bound booklet in the install kit that carries what the quick start cannot say in pictures | manual, install booklet, owner's guide |

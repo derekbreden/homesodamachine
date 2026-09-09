@@ -1,4 +1,4 @@
-"""The enclosure assembly — the refrigeration stratum, the flavor manifold standing on it,
+"""The enclosure assembly — the compressor bay, the flavor manifold standing on it,
 and the cold core behind the pair.
 
 Four bodies, mated face to face with nothing between them:
@@ -17,7 +17,7 @@ re-dressed to reach whichever face is convenient, so such a joint crosses a plan
 already share and both of its stations are ONE POINT READ TWICE.
 
 NEITHER OF THE TWO REACHES THE CORE. It is packed off the +Y wall of back-top (`rear_seam_clear`) rather
-than butted against the stratum, so what stands between them is a LANE, and the loop's two legs
+than butted against the compressor bay, so what stands between them is a LANE, and the loop's two legs
 that cross it are cut and brazed copper `_lines` draws like any other run — the condenser's
 liquid line straight across it on one column and one plane, the compressor's suction out of its
 own west tangent and back across the lane on a diagonal. `JOINT_STATIONS` names the two mouths of
@@ -1860,7 +1860,7 @@ _COND_UNPRINTED = "NOT PRINTED — no piece owns this station"
 # those two are struck on, read off the placed core.
 #
 # THE LANE THE HOLD-DOWNS STAND IN, off the machine's own centreline. The aft cap carries the
-# water pump inboard of it, the power column outboard on the +X flank, and the +Y wall of back-top's two
+# water pump inboard of it, the electronics bay outboard on the +X flank, and the +Y wall of back-top's two
 # flavour unions run through the band on the −X one; this is the strip clear of all four, taken
 # on both flanks so the pair is a mirror.
 CORE_HOLD_LANE = (58.0, 67.0)
@@ -3587,7 +3587,7 @@ _ROUTED: set = set()
 
 # --- the +X wall's own seat ------------------------------------------------
 #
-# The power column hangs ON back-top's +X flank. Its mounted bodies stand on the D bosses' own
+# The electronics bay hangs ON back-top's +X flank. Its mounted bodies stand on the D bosses' own
 # tips, one complete heat-set-and-blind-relief run inboard of the box's base interior plane.
 # Back-top's added flank stock surrounds those stems and stops short of the body plane; the bore
 # still carries one full M3 heat-set and its blind-end relief, with the wall section capping it.
@@ -3971,7 +3971,7 @@ def wago_wells(row, cluster, over):
     return tuple(out)
 
 
-# --- what fastens the power column to the +X wall --------------------------
+# --- what fastens the electronics bay to the +X wall --------------------------
 #
 # Every body on that flank is turned so its own MOUNTING PLANE faces the wall and stands on
 # the wall seat: the brick's potted base, the main board's underside, the relay's PCB underside,
@@ -4165,7 +4165,7 @@ def wall_mounts(*mounted, blockers=()):
     stood_down = [row for row in plain if row[6]]
     record_bound(Bound(
         "east-boss-corbels",
-        "Every +X-wall power-column boss has a flat D stem or shares a bar, and its candidate "
+        "Every +X-wall electronics-bay boss has a flat D stem or shares a bar, and its candidate "
         "45 degree corbel clears the installed bodies",
         not bad,
         f"{len(out) - len(bad)}/{len(out)} clear; {full} reach their mounting face across "
@@ -4283,7 +4283,7 @@ def wall_mounts(*mounted, blockers=()):
 
     record_bound(Bound(
         "east-boss-fills",
-        "The reviewed power-column fills are rectangular and clear of the installed pack",
+        "The reviewed electronics-bay fills are rectangular and clear of the installed pack",
         not fill_bad,
         f"{len(fills) - len({label for label, _name, _volume in fill_bad})}/{len(fills)} clear",
         "one ground-stack ceiling column, one upper pcba/relay-2 pad union, and two relay-1 "

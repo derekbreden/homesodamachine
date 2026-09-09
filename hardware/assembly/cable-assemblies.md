@@ -86,13 +86,13 @@ Conductor counts are the main board's connector pin counts (`pcba.tsx` J1–J11 
 | Reservoir A reeds | J6 | [5](J6_PINS) (4 reed + GND) | 22 AWG black | reed leads; GND → **221-415** at the reservoir | 1/4" |
 | Reservoir B + carb reeds | J7 | [7](J7_PINS) (6 reed + GND) | 22 AWG black | reed leads; female JST-XH housing (XHP-7) + XH contacts — the same 7P housing as SENSORS (J4), so **label both looms at the housing** (a swap would put J4's 3V3/5V on the MCP reed inputs); GND → **221-420** | 1/4" |
 | Sensors | J4 | [7](J4_PINS) | 22 AWG black | DS18B20 / flow / moisture (DO + switched VCC); GND → **221-415** on the −X wall aft, where all three land | 1/4" |
-| Relays | J5 | [4](J5_PINS) (`IO19` / `IO2` / `V5` / GND) | 22 AWG black 4P ribbon | XH at J5; screw terminals at both relay modules, `V5`/GND teed to both at the relay end (LV-1/2/3 — lands in the column at [`power-column.md`](/hardware/assembly/power-column.md)) | 1/4" |
+| Relays | J5 | [4](J5_PINS) (`IO19` / `IO2` / `V5` / GND) | 22 AWG black 4P ribbon | XH at J5; screw terminals at both relay modules, `V5`/GND teed to both at the relay end (LV-1/2/3 — lands in the column at [`electronics-bay.md`](/hardware/assembly/electronics-bay.md)) | 1/4" |
 | Faucet display | J3 / SIG-6 | [4](J3_PINS) (TX / RX / 5 V / GND) | 22 AWG black | **Ends at the wall, not at the faucet** — XH on J3, 110 IDC on the back of the keystone jack the umbilical plugs into. The ribbon outboard of that jack is the umbilical's, built at [`faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md). **The TTL lines are ESD-clamped on the main board at U1** (D10/D11, 2× low-cap TVS — see the ESD note below); a faucet-end TVS is now optional | 1/2" |
 | Enclosure display | J9 / SIG-7 | [4](J9_PINS) (`B` / `A` / GND / `V12`) | 22 AWG black 4P ribbon | A/B pair to the 4.3B's RS485 terminals; `V12` + GND to its 7–36 V screw input on the same loom | 1/2" |
 | Gas sensor | J11 | [4](J11_PINS) (GND / `V5` / `DOUT` / `AOUT`) | 22 AWG black 4P ribbon | MQ-6 leads | 1/4" |
 | Pumps — fixed half | J13 / DC-5 | [4](J13_PINS) (`AM2` / `AM1` / `BM2` / `BM1`) | 22 AWG black 4P ribbon, 350 mm | XH contacts at J13; 110 IDC punchdown on the pump jack | — |
 | Pumps — cartridge cord | pump plug / DC-5 | 4, same order | 28 AWG black 4P ribbon, 400 mm | 3-prong RJ11 6P4C plug at the jack; female Fastons stay on the pump-motor tabs | — |
-| 12 V input | J10 / DC-4 | [2](J10_PINS) (`V12` / GND) | 16 AWG | ferrules under the J10 screw clamps; from the power column's 12 V distribution block (lands in the column at [`power-column.md`](/hardware/assembly/power-column.md)) | — |
+| 12 V input | J10 / DC-4 | [2](J10_PINS) (`V12` / GND) | 16 AWG | ferrules under the J10 screw clamps; from the electronics bay's 12 V distribution block (lands in the column at [`electronics-bay.md`](/hardware/assembly/electronics-bay.md)) | — |
 | AC mains | AC-1…6 | per run | 16 AWG (black/white/green) + 18 AWG SJOOW | ferrules → **221-413**; current-donor external-interface connector TBD at compressor; rings to ground | SJOOW jacket on the compressor lead |
 
 ### Pump jack — DC-5

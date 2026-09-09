@@ -108,9 +108,9 @@ Every wetted and gas joint in the unit: the carbonator's four elbow stacks, the 
 | Route the seven cold-core penetrations; stack the copper plugs | CC-12, CC-13 | Done before the body foam locks them in | 10 |
 | CO2 path — +Y wall of back-top to cold core | IP-01 | | 10 |
 | Water path — +Y wall of back-top to cold core | IP-02 | Filter, backflow, pump, top-plate port | 10 |
-| Flavor manifold — fixed valves, moving tee carrier, pumps and channels | IP-03, IP-04 | [10](SOLENOIDS) fixed valves total. Bare tees seated first; aft valves inserted from the open underside; right half entered and parked; left half entered; upper lap screwed together through the empty cartridge bay; four tees tied twice each; compressed springs fed through the inner tee wells to their seats below the upper guide; fore valves and four bench-fitted bowed stubs; cartridge connected by squeeze, bottom and release. Four hairpin ends travel with the carrier. The assembly time is an allowance; this cadence has no timed build reading | 15 |
-| Risers to the umbilical bulkheads | IP-05 | | 5 |
-| Witness and tidy every joint | IP-06 | The pass that makes the next leak someone else's fault | 5 |
+| Flavor manifold — fixed valves, moving tee carrier, pumps and channels | IP-03, IP-05 | [10](SOLENOIDS) fixed valves total. Bare tees seated first; aft valves inserted from the open underside; right half entered and parked; left half entered; upper lap screwed together through the empty cartridge bay; four tees tied twice each; compressed springs fed through the inner tee wells to their seats below the upper guide; fore valves and four bench-fitted bowed stubs; cartridge connected by squeeze, bottom and release. Four hairpin ends travel with the carrier. The assembly time is an allowance; this cadence has no timed build reading | 15 |
+| Risers to the umbilical bulkheads | IP-07 | | 5 |
+| Witness and tidy every joint | IP-08 | The pass that makes the next leak someone else's fault | 5 |
 | **Plumbing** | | | **[70](LAB_SEC7)** |
 
 ## 8. Assembly
@@ -128,7 +128,7 @@ Everything that is putting parts together with fasteners and hands. Printer tend
 | Lower the carbonator; seat the reservoirs in their pockets | CC-10, CC-11 | | 5 |
 | Press the wall's Wago wells; mount PSU, relays, PCBA | ES-01, ES-03 | Onto `enclosure-back-top`'s [17](SHELF_INSERTS) +X wall bosses | 5 |
 | Stage the eight printed enclosure pieces and the +Y wall's seven bodies; bolt the compressor down to the slab | EN-01, EN-02, EN-03 | Four quadrants, cartridge, pump clamp, two tee-carrier halves with integral service tabs; rear-wall set includes the RJ11 keystone. Four floor posts, one M5 and a fender washer each, snugged onto the post crowns | 10 |
-| Seat the cold core; condenser, power column, close the box, ASSE drip pan | EN-04, EN-05, EN-06, EN-07, EN-08 | | 10 |
+| Seat the cold core; condenser, electronics bay, close the box, ASSE drip pan | EN-04, EN-06, EN-07, EN-08, EN-09 | | 10 |
 | Cut, route and sleeve the umbilical; bag it with the under-counter plate | FU-01, FU-02, FU-03, FU-04 | Three LLDPE tubes, braid, the bag | 10 |
 | Assemble the faucet — two-piece touch-flo shell, plate, gasket, o-ring | — | PET-GF shell, printed TPU seals | 5 |
 | **Assembly** | | | **[120](LAB_SEC8)** |

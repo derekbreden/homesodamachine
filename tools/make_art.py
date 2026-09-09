@@ -2,17 +2,15 @@
 """A display's art partition image, laid out from the headers in its tree.
 
     ~/.platformio/penv/bin/python tools/make_art.py enclosure
-    ~/.platformio/penv/bin/python tools/make_art.py rotary
 
-Two boards carry pixels that dwarf their code. The enclosure display's loading
-animation is 16 frames of 360x360 RGB565 — 3.96 MB. The rotary display's
-animation and flavor faces are 19 of 240x240 — 2.09 MB, of a 3.19 MB app.
+The enclosure display carries pixels that dwarf its code: its loading animation
+is 16 frames of 360x360 RGB565 — 3.96 MB.
 
 In its own partition the art is still memory-mapped and still costs nothing at
 runtime — `esp_partition_mmap` hands back a real pointer through the same MMU
 path — and an update of the code carries the code.
 
-The headers under each tree's `images/` stay the source. This reads them and
+The headers under the tree's `images/` stay the source. This reads them and
 lays the pixels out back to back behind a small header, so what lands on flash
 is provably what is in the tree. `firmware/lib/board_art` is what reads it back.
 """
@@ -40,13 +38,6 @@ BOARDS = {
         "images": os.path.join(REPO, "firmware", "src_front", "images"),
         "size_px": 360,
         "names": [f"anim_{i:02d}" for i in range(16)],
-    },
-    "rotary": {
-        "env": "esp32s3_config",
-        "images": os.path.join(REPO, "firmware", "src_config", "images"),
-        "size_px": 240,
-        "names": [f"anim_{i:02d}" for i in range(16)] +
-                 ["flavor0_240", "flavor1_240", "flavor2_240"],
     },
 }
 

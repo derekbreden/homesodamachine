@@ -407,7 +407,7 @@ front_port_pitch = 2 * port_hole_radius + port_lane_wall
 # the floor its material.
 front_port_floor_z = bag_pocket_floor_top_z + port_lane_wall + port_hole_radius
 # AND WHAT HOLDS IT UP OFF THAT IS THE APPLIANCE'S OWN FLOOR. The core stands on `enclosure`'s
-# slab with the refrigeration stratum mated to this face, and both coppers cross here — so a slot
+# slab with the compressor bay mated to this face, and both coppers cross here — so a slot
 # that sits at the bottom of its lane puts the evaporator's two legs in the slab's material
 # instead of the machine's air. `enclosure_assembly` reads that on `clearance-floor`, `port-leads`
 # and `lines-clear`, all three against the loop rather than against this figure.
@@ -698,7 +698,7 @@ deck_mount_cap_gap = 1.5
 # plain washer under its head passes down each bore, through the lid, into the insert below. The
 # pad is the pump's isolator and the washer is what spreads the head over it, so `seat` on that
 # row is the pad plus that washer.
-#   Every other body standing on this cap is carried some other way: the power column hangs on
+#   Every other body standing on this cap is carried some other way: the electronics bay hangs on
 # the enclosure's own wall bosses (`enclosure_assembly.wall_mounts`), and the three valves press
 # into the cradles below, which take no screw.
 DeckMount = namedtuple("DeckMount", "centre pitch_x pitch_y standoff seat screw")

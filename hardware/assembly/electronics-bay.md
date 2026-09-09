@@ -1,6 +1,6 @@
-# Power Column
+# Electronics bay
 
-The production procedure for the appliance's power column — the parts that stand as one column down the enclosure's **+X wall** in the band above the cold core, feet on its foam-cap lid: the main board, the Mean Well PSU, both Teyleten relay modules, the AC + DC distribution, and the ground bus. Each is turned so its own mounting plane faces that wall, and each bolts to printed bosses reaching in off it. The five lever nuts, which have no hole to bolt with, press into wells printed on that same wall. **There is no tray and no carrier under any of it.** Feeds [`enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md) alongside [`faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md).
+The production procedure for the appliance's electronics bay — the parts that stand as one column down the enclosure's **+X wall** in the band above the cold core, feet on its foam-cap lid: the main board, the Mean Well PSU, both Teyleten relay modules, the AC + DC distribution, and the ground bus. Each is turned so its own mounting plane faces that wall, and each bolts to printed bosses reaching in off it. The five lever nuts, which have no hole to bolt with, press into wells printed on that same wall. **There is no tray and no carrier under any of it.** Feeds [`enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md) alongside [`faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md).
 
 All controller, driver, and logic-rail electronics live on the one JLCPCB-assembled main board ([`/hardware/pcb/pcba/pcba.tsx`](/hardware/pcb/pcba/pcba.tsx), the canonical pin map): the bare ESP32-WROOM-32E, both MCP23017 expanders, the DS3231 RTC, both TBD62083 solenoid/fan sink drivers, both DRV8870 pump H-bridges, the RS485 transceiver, and the on-board 5 V buck + 3.3 V LDO rails. The main board arrives assembled — nothing is soldered in this column; every field interface is a labeled edge connector (J1–J14), and every loom lands there or on a relay module's screw terminals. Topology lives in [`/hardware/wiring/power.mmd`](/hardware/wiring/power.mmd) (AC + 12 V), [`/hardware/wiring/esp32-pinout.mmd`](/hardware/wiring/esp32-pinout.mmd) (pin map), and [`/hardware/wiring/valve-control.mmd`](/hardware/wiring/valve-control.mmd) (expander fan-out). Run-by-run gauges, lengths, and terminations live in [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md).
 
@@ -8,7 +8,7 @@ All controller, driver, and logic-rail electronics live on the one JLCPCB-assemb
 
 In: the main board, the Teyleten 3.3 V opto-isolated relays ×2, the Mean Well IRM-90-12ST PSU, Wago 221-413 lever blocks ×[5](WAGO_COUNT) for the AC and 12 V distribution, the solid-copper ground bus (ring-terminal stack), 16 AWG appliance wire + 22 AWG hookup wire + crimp ferrules/forks/rings, and the RELAYS J5 loom from [`cable-assemblies.md`](/hardware/assembly/cable-assemblies.md).
 
-Out: one bench-built power column with the main board and both relay modules mounted, the AC distribution block populated (H/N/G Wagos seated, three loads landed), the DC distribution block populated (12 V trunk in from the PSU, branches to relay #2 and the main board's J10 inlet), the RELAYS J5 loom landed at both ends, the ground bus prepared with a labeled ring-terminal landing per exposed-metal load, and AC + DC pigtails landed and labeled by run-ID — AC-1 (H/N/G) from the C14 inlet to the Wagos, the inlet-side ends hanging long for the C14 inlet termination, and the DC-3 diaphragm-pump pigtail staged. Relay #1's NO contact, the N Wago's third port, and the ground bus stand open for the AC-4/5/6 SJOOW lead built and landed at [`wiring.md`](/hardware/assembly/wiring.md) §2. Unpowered.
+Out: one bench-built electronics bay with the main board and both relay modules mounted, the AC distribution block populated (H/N/G Wagos seated, three loads landed), the DC distribution block populated (12 V trunk in from the PSU, branches to relay #2 and the main board's J10 inlet), the RELAYS J5 loom landed at both ends, the ground bus prepared with a labeled ring-terminal landing per exposed-metal load, and AC + DC pigtails landed and labeled by run-ID — AC-1 (H/N/G) from the C14 inlet to the Wagos, the inlet-side ends hanging long for the C14 inlet termination, and the DC-3 diaphragm-pump pigtail staged. Relay #1's NO contact, the N Wago's third port, and the ground bus stand open for the AC-4/5/6 SJOOW lead built and landed at [`wiring.md`](/hardware/assembly/wiring.md) §2. Unpowered.
 
 Not in scope: bolting these bodies onto the enclosure's +X wall, including chassis-ground-stud landing — that is [`enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md). Landing the AC pigtails into the C14 inlet's solder-tab pins, and building the AC-4/5/6 SJOOW lead and joining it to the compressor's factory-external electrical interface and terminal-box earth screw — that is [`wiring.md`](/hardware/assembly/wiring.md), along with every field loom (J1–J4, J6–J9, J11, J13 all land there). Loom fabrication — that is [`cable-assemblies.md`](/hardware/assembly/cable-assemblies.md). Flashing firmware and first power-up — that is [`firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md). The ESP32-S3-Touch-LCD-4.3" enclosure display is let into the 45° facet chamfered across `enclosure-front-top`'s top-front arris per [`/hardware/printed-parts/enclosure/enclosure/README.md`](/hardware/printed-parts/enclosure/enclosure/README.md); its SIG-7 RS485 link lands on the main board's J9 at system integration.
 
@@ -93,18 +93,18 @@ This is the only loom that lands at column-build time — both its ends live in 
 
 ### 7. Pre-power continuity + isolation check
 
-Before the power column leaves the bench, unpowered:
+Before the electronics bay leaves the bench, unpowered:
 
 - AC side: continuity from each AC-1 pigtail (C14-inlet-side end) through its Wago block to every named out-leg. Confirm no continuity between the H bus and the G bus, the N bus and the G bus, or the H bus and the N bus.
 - DC side: continuity from each DC-1 trunk pair through the distribution block to every named branch. Confirm correct polarity at each branch — at the J10 clamps, the conductor under the `V12` screw must trace to the PSU +.
 - Ground bus: continuity from every ring-terminal pigtail on the bus back to the AC-1 G stub (the C14-inlet-side pigtail).
 - J5 loom: seated square on its wafer, screw terminals tugged.
 
-First power-on happens at [`firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md), after the power column is installed and the chassis-ground bonds are landed.
+First power-on happens at [`firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md), after the electronics bay is installed and the chassis-ground bonds are landed.
 
 ## Output condition
 
-A finished power column is:
+A finished electronics bay is:
 
 - Fully wired and staged — the main board, the PSU and both relay modules ESD-handled and left in their packaging, each labeled with the wall station it bolts to at [`enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md) §5
 - AC distribution block landed with the three Wago 221-413 levers locked, AC-2 + AC-3 internal stubs terminated at the PSU primary and relay #1 contact input
@@ -122,4 +122,4 @@ A finished power column is:
 
 ## Sources
 [value](NAME) texts are updated by:
-- `/hardware/assembly/_power_column_sync.py`
+- `/hardware/assembly/_electronics_bay_sync.py`
