@@ -96,10 +96,8 @@ PAGE_ASSETS = (
     QUICKSTART / "quick-start.cover.png",
     ART / "machine-front.png",
     ART / "machine-back-iso.png",
-    ART / "machine-back-close.png",
     ART / "machine-funnel-close.png",
     ART / "machine-ports-action.png",
-    ART / "connect-rear-open.png",
     ART / "faucet-front.png",
     ART / "faucet-side-pressed.png",
     ART / "mount-tighten-close.png",
@@ -111,6 +109,8 @@ PAGE_ASSETS = (
     OWN_ART / "collet-press.png",
     OWN_ART / "filter-in-cabinet.png",
     OWN_ART / "opening.png",
+    OWN_ART / "the-back-face.png",
+    OWN_ART / "the-socket.png",
 )
 
 
