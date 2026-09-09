@@ -56,6 +56,8 @@ MACHINE_MESH = _cad_art.MACHINE_MESH
 MACHINE_FACTS = _cad_art.MACHINE_FACTS
 COLLET_PRESS = HARDWARE / "printed-parts" / "collet-press" / "collet-press.step"
 REGULATOR_DIR = HARDWARE / "reference" / "wellbom-regulator"
+PLUMBING_DIR = HARDWARE / "quickstart" / "plumbing"
+MODERN_DIR = PLUMBING_DIR / "modern"
 C14_SOURCE = Path(_c14.__file__).resolve()
 
 
@@ -435,6 +437,42 @@ def s_regulator():
     return a
 
 
+def _load(directory, stem):
+    import importlib.util
+    path = directory / f"{stem}.py"
+    note_read(path)
+    spec = importlib.util.spec_from_file_location(stem, path)
+    module = importlib.util.module_from_spec(spec)
+    # A dataclass defined in the module resolves its annotations through
+    # sys.modules[__module__], so the entry has to exist before it executes.
+    sys.modules[stem] = module
+    sys.path.insert(0, str(directory))
+    try:
+        spec.loader.exec_module(module)
+    finally:
+        sys.path.remove(str(directory))
+    return module
+
+
+def s_kitchen_push():
+    """The newer cold side: a 1/4-inch line on a push fitting, nothing to turn."""
+    return _load(MODERN_DIR, "render_modern_tee").build_water_on()
+
+
+def s_kitchen_hose():
+    """The older cold side: a braided hose on a shut-off valve, no 1/4-inch line anywhere.
+
+    The sheet's own wall plane comes out: every picture in this guide floats on the card's
+    field, and the escutcheon and copper stub already say the stop comes out of a wall.
+    """
+    scene = _load(PLUMBING_DIR, "plumbing_scenes").build_scenes()["plumbing-valve-on"]
+    kept = cq.Assembly(name="kitchen-hose")
+    for child in scene.children:
+        if child.name != "finished-wall":
+            kept.add(child)
+    return kept
+
+
 SCENES = {
     "cabinet-plan": (s_cabinet_plan, dict(cam=(0.0, 0.0, 1.0), up=(0, 1, 0),
                                       size="1700x2000")),
@@ -442,6 +480,12 @@ SCENES = {
                                 span=120.0, size="1900x1600")),
     "filter-in-cabinet": (s_filter_in_cabinet, dict(cam=(0.32, -1.0, 0.52),
                                                 size="2200x1200")),
+    # One span and one frame for both, and no trim, so the two halves of the fork are
+    # at the same scale in the same box: the comparison is the whole picture.
+    "kitchen-push": (s_kitchen_push, dict(cam=(1.05, -1.72, 0.72), target=(-46.0, 8.0, 100.0),
+                                          span=88.0, size="1500x980", trim=False)),
+    "kitchen-hose": (s_kitchen_hose, dict(cam=(1.05, 1.70, 0.62), target=(10.0, 53.0, 150.0),
+                                          span=88.0, size="1500x980", trim=False)),
     "regulator": (s_regulator, dict(cam=(0.10, 1.0, 0.16), size="1700x1500")),
     "collet-press": (s_collet_press, dict(cam=(-0.5, -0.9, 0.85), size="1700x1100")),
     # On the wall's own column, tilted down. Screen up is world up, so every row is level. The
