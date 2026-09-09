@@ -6,13 +6,13 @@ The project is built from three explicit inputs: **the current STL geometry,
 It reads no other 3MF and no user-profile directory.
 
 [profile-audit.json](profile-audit.json) accounts for **all 579 effective saved
-settings** in the sliced reference at Git revision `7aa5b50e4`, the five objects,
+settings** in the current sliced project, the five objects,
 two modifiers, three plate assignments and every
 layer-height range. It records the source-file hashes and actual serialized
 values. [audit_profile.py](/tools/funnel-mold-print/audit_profile.py) checks the recipe against the sliced
 project, including local settings that are not visible in the global profile.
-[print-start-check.json](print-start-check.json) compares the current editable
-save and the submitted cavity job against that reference.
+[print-start-check.json](print-start-check.json) records the separate first-run
+job identified in [the print log](print-log.md).
 
 ## Sources and precedence
 
@@ -61,7 +61,7 @@ project on a fresh Bambu Studio installation.
 | Seam | Stock conventional aligned seam, with an explicit 0% gap. Scarf is disabled in both process and filament settings. |
 | Travel | Stock retract/lift and travel limits. Avoid-crossing-wall detours are disabled. |
 | Dimensions | No XY contour/hole compensation. Stock 0.15 mm elephant-foot compensation and 0.012 mm slicing resolution remain active. Nominal widths are 0.82 mm and vary with Arachne. |
-| Plate contact | Stock 0.40 mm first layer plus the user's explicit plate trim; stock 70 °C textured-PEI temperature and an explicit 6 mm outer brim. |
+| Plate contact | Stock 0.40 mm first layer plus the user's explicit plate trim; stock 70 °C textured-PEI temperature; permanent rounded CAD feet, brim disabled and skirt loops zero. |
 | Extra processing | No post-processing commands, extra filament config files, custom per-layer G-code, support, raft, ironing or prime tower. |
 
 The slicer's compiled defaults and machine firmware remain software dependencies;
@@ -99,9 +99,9 @@ Bambu resource hashes and version in the audit identify the exact preset inputs.
 A different installation is a new slice to inspect.
 
 ```sh
-tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel-mold/prepare_print.py --output /tmp/funnel-mold-build/input.3mf
+tools/cad-venv/bin/python tools/funnel-mold-print/prepare_print.py --output /tmp/funnel-mold-build/input.3mf
 /Applications/BambuStudio.app/Contents/MacOS/BambuStudio --arrange 0 --slice 0 --outputdir /tmp/funnel-mold-build --export-3mf funnel-mold-petg-hf08-variable-016-040.3mf /tmp/funnel-mold-build/input.3mf
-tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel-mold/audit_profile.py /tmp/funnel-mold-build/funnel-mold-petg-hf08-variable-016-040.3mf --provenance /tmp/funnel-mold-build/input.provenance.json --output /tmp/funnel-mold-build/profile-audit.json
+tools/cad-venv/bin/python tools/funnel-mold-print/audit_profile.py /tmp/funnel-mold-build/funnel-mold-petg-hf08-variable-016-040.3mf --provenance /tmp/funnel-mold-build/input.provenance.json --output /tmp/funnel-mold-build/profile-audit.json
 ```
 
 Use `--z-trim 0.18` on the generator and a separate output directory for the alternate
