@@ -21,12 +21,31 @@ GRAPH = _HERE.parent / "graph.json"
 # generated STL, and a check may inspect that profile explicitly, but changing the workspace
 # cannot change any CAD solid or generated document. Keeping this boundary here means neither a
 # directory scan observed by the tracer nor a tracked 3MF can leak into a Bazel action.
-BUILD_INERT_SUFFIXES = (".3mf",)
+# A `.bbscfg` is that workspace's presets saved loose: the filament and process a slicer is
+# pointed at before it opens a project.
+BUILD_INERT_SUFFIXES = (".3mf", ".bbscfg")
+
+# THE SLICER'S SIDE OF A PART, WRITTEN OUT AS JSON. The recipe a print run is asked for, the
+# settings the slicer resolved it to, the audit that holds those two against each other, and the
+# reading taken off the machine at the start of the print. Nozzles, chamber temperatures, layer
+# heights and plate trims, downstream of a solid that is already cut.
+#
+# NAMED ONE BY ONE, because `.json` beside a part is the tree's load-bearing kind: `.figures.json`
+# carries a doc's derived numbers, `.scene.json` a render, `.facts.json` a measured solid, and
+# `cad-artifacts.lock.json` the shipped bundle. A fifth slicer record joins by being named here.
+BUILD_INERT_BASENAMES = frozenset({
+    "print-recipe.json",
+    "print-profile.json",
+    "print-start-check.json",
+    "profile-audit.json",
+})
 
 
 def build_inert(path: str) -> bool:
     """Whether ``path`` is deliberately outside every generated build action."""
-    return str(path).lower().endswith(BUILD_INERT_SUFFIXES)
+    text = str(path).lower()
+    return (text.endswith(BUILD_INERT_SUFFIXES)
+            or text.rpartition("/")[2] in BUILD_INERT_BASENAMES)
 
 #: WHICH KIND OF WRITE IT WAS IS THE WRITER'S TO SAY, and `graph.json` carries the answer:
 #: `rewritten` is what `docgen` and `_cardgen` read and wrote back, and the rest of `writes`

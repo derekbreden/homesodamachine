@@ -1,9 +1,17 @@
-"""Prepare the three-plate Bambu project from the generated STL files.
+"""Prepare the three-plate Bambu project from the funnel mold's generated STL files.
 
 Run with the project's CadQuery Python. The only inputs are the generated STL
 files, print-recipe.json and Bambu Studio's installed system presets. --output
 is an unsliced 3MF. Slice it in the matching Bambu Studio version before use.
 Every supplied setting has a source in the accompanying provenance JSON.
+
+    tools/cad-venv/bin/python tools/funnel-mold-print/prepare_print.py \
+        --output /tmp/funnel-mold-input.3mf
+
+RUN BY HAND, AND NOT A STEP OF THE BUILD. It sits under `tools/`, which
+`tools/bazel/trace_inputs.py` names in `ELSEWHERE` and `affected.py`'s
+`artifact_unknown` answers no for; the part it prepares is at
+`hardware/printed-parts/zone-c/funnel-mold/`, whose README carries the rest.
 """
 from pathlib import Path
 import argparse
@@ -17,6 +25,7 @@ import xml.etree.ElementTree as ET
 import trimesh
 
 HERE = Path(__file__).resolve().parent
+MOLD = HERE.parents[1] / 'hardware' / 'printed-parts' / 'zone-c' / 'funnel-mold'
 PROJECT = 'funnel-mold-petg-hf08-variable-016-040.3mf'
 CORE = 'http://schemas.microsoft.com/3dmanufacturing/core/2015/02'
 PROD = 'http://schemas.microsoft.com/3dmanufacturing/production/2015/06'
@@ -181,7 +190,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--presets', type=Path, default=Path(
         '/Applications/BambuStudio.app/Contents/Resources/profiles/BBL'))
-    parser.add_argument('--recipe', type=Path, default=HERE/'print-recipe.json')
+    parser.add_argument('--recipe', type=Path, default=MOLD/'print-recipe.json')
     parser.add_argument('--z-trim', type=float, choices=(0.04, 0.18))
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args()
@@ -214,9 +223,9 @@ def main():
               ('guide-witness', 1, (140, 190), False)]
     object_paths = []
     for i, (name, plate, xy, flip) in enumerate(layout, 1):
-        mesh = trimesh.load(HERE/f'funnel-mold-{name}.stl', force='mesh', process=True)
+        mesh = trimesh.load(MOLD/f'funnel-mold-{name}.stl', force='mesh', process=True)
         provenance['mesh_files'][f'funnel-mold-{name}.stl'] = hashlib.sha256(
-            (HERE/f'funnel-mold-{name}.stl').read_bytes()).hexdigest()
+            (MOLD/f'funnel-mold-{name}.stl').read_bytes()).hexdigest()
         assert mesh.is_watertight and mesh.is_winding_consistent and mesh.body_count == 1, name
         center = mesh.bounds.mean(axis=0); height = mesh.extents[2]
         oid, pid = str(2*i), str(2*i-1)
@@ -251,9 +260,9 @@ def main():
         ET.SubElement(part, 'mesh_stat', face_count=str(len(mesh.faces)), edges_fixed='0',
             degenerate_facets='0', facets_removed='0', facets_reversed='0', backwards_edges='0')
         if name in ('cavity', 'core'):
-            zone = trimesh.load(HERE/f'funnel-mold-{name}-surface-zone.stl', force='mesh', process=True)
+            zone = trimesh.load(MOLD/f'funnel-mold-{name}-surface-zone.stl', force='mesh', process=True)
             provenance['mesh_files'][f'funnel-mold-{name}-surface-zone.stl'] = hashlib.sha256(
-                (HERE/f'funnel-mold-{name}-surface-zone.stl').read_bytes()).hexdigest()
+                (MOLD/f'funnel-mold-{name}-surface-zone.stl').read_bytes()).hexdigest()
             zone.update_faces(zone.nondegenerate_faces()); zone.remove_unreferenced_vertices()
             assert zone.is_watertight and zone.is_winding_consistent, name
             zid = str(100+i); mesh_object(subr, zid, zone, center); component(zid)
