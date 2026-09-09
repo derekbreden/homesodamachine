@@ -33,10 +33,9 @@ two defenses:
 
 The two 800×480 RGB565 framebuffers (~1.5 MB) live in PSRAM, so OPI PSRAM is
 mandatory — the `esp32-s3-devkitc1-n16r8` board def in `platformio.ini` enables
-it (`memory_type = qio_opi`, `-DBOARD_HAS_PSRAM`). The animation frames are
-compiled into flash (~4 MB of `.rodata`), which overflows the shared 4 MB app
-slot, so this env uses `firmware/partitions_s3_front.csv` (16 MB layout, large
-app partition). The panel is initialized on a watchdog'd background task: if
+it (`memory_type = qio_opi`, `-DBOARD_HAS_PSRAM`). `firmware/partitions_s3_front.csv`
+is the 16 MB layout: two app slots and the `art` partition the animation is
+mapped out of. The panel is initialized on a watchdog'd background task: if
 `esp_lcd` ever blocks, `setup()` times out and `loop()` keeps serial alive, so
 the board stays flashable without a manual BOOT-button recovery.
 
@@ -67,15 +66,16 @@ error counters to remain unchanged.
 
 ## Operation lock and animation
 
-The 16-frame glass/bubbles loop (the same animation the config display uses) is
-generated from the app-icon artwork at 360×360 by:
+The 16-frame glass/bubbles loop is generated from the app-icon artwork at
+360×360 by:
 
 ```
-tools/cad-venv/bin/python tools/gen_animation_frames.py --size 360 \
-    --header-dir firmware/src_front/images
+tools/cad-venv/bin/python tools/gen_animation_frames.py
 ```
 
-which writes `images/anim_00.h`..`anim_15.h` (RGB565 PROGMEM). LVGL cycles them
+which writes `images/anim_00.h`..`anim_15.h`. `tools/make_art.py enclosure` lays
+those out as the `art` partition and `pre_build.py` runs it for this
+environment, so LVGL is handed a pointer into mapped flash. It cycles them
 at ~10 fps only on a full-screen operation lock: animation on the left, and a
 modal naming the operation on the right. The reusable lock is the surface for
 the funnel fill and the clean cycle — where the modal widens to carry the
@@ -256,7 +256,7 @@ Newline-terminated, 115200 baud over the native USB CDC:
 
 ## RS485 link to the base ESP32 (J9 / SIG-7)
 
-The onboard SP3485 is on **GPIO43/44** at 115200 8N1, wired to the main board's **J9**
+The onboard SP3485 is on **GPIO43/44** at 460800 8N1, wired to the main board's **J9**
 (`B · A · GND · V12`) — the same 4-wire loom carries the pair and the 7–36 V input.
 Direction switching is automatic at both ends, so there is no DE line; the board's own
 120 Ω termination is a DIP switch, off as shipped, and the base carries R6 across the

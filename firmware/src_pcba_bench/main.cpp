@@ -401,7 +401,7 @@ static const int PIN_485_RO = 34;
 // take the link down and put it back. EchoCancel (rs485_echo.h) wraps it — `RS485:LOOP`
 // on the 4.3B reads `no echo` in both pin orientations, and this end reads its own.
 
-static const long RS485_BAUD = 115200;
+static const long RS485_BAUD = 460800;   // U7's auto-direction is specified to 500 kbps
 static bool rs485Up = false;
 static unsigned long maxLoopMs = 0;   // the base metering a pump cannot afford a stall
 static EchoCancel j9Stream(Serial1);
@@ -1282,7 +1282,7 @@ static bool dispatch(const String &line) {
     else if (line == "rtc")  cmdRtc();
     else if (line == "bus")  cmdBus();
     else if (line == "rs485") cmdRs485();
-    else if (line == "rs485link") { if (!rs485Up) rs485Begin(); Serial.println("\nJ9 link up on IO32/IO34 @ 115200"); }
+    else if (line == "rs485link") { if (!rs485Up) rs485Begin(); Serial.printf("\nJ9 link up on IO%d/IO%d @ %ld\n", PIN_485_DI, PIN_485_RO, RS485_BAUD); }
     else if (line == "link") {
         Serial.printf("\nJ9 %s — TinyProto Hdlc, frames rx %lu / tx %lu, last rx %lu ms ago, echo outstanding %u byte(s)\n",
                       rs485Up ? "up" : "DOWN",

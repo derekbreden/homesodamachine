@@ -200,7 +200,7 @@ One vector design that works as: the S3 screensaver (animated, looping), the iOS
 - **Audience:** iOS developers, designers, anyone interested in brand consistency across platforms.
 - **Shareability:** Moderate-high. Multi-platform design consistency is satisfying to see.
 - **Trust signal:** Strong. "This person cares about polish across every surface" = "this is a real product."
-- **Where it lives:** `ios/SodaMachine/SodaMachine/Views/GlassAnimationView.swift`, `src_config/` (screensaver frames), app icon assets
+- **Where it lives:** `ios/SodaMachine/SodaMachine/Views/GlassAnimationView.swift`, `firmware/src_front/images/` (animation frames), app icon assets
 
 ### 8. Two Microcontrollers, One System (2-3 minutes)
 

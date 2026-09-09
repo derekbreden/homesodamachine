@@ -7,8 +7,8 @@
 
 // Each chunk plus its 4-byte offset has to fit what its link can carry, and
 // the length that carries it has to be wide enough to say so.
-static_assert(sizeof(OtaBeginPayload) <= 12,
-              "OTA_BEGIN is queued in link.cpp's Announce.data");
+static_assert(sizeof(OtaBeginPayload) <= LINK_ANNOUNCE_MAX,
+              "OTA_BEGIN is queued in link.cpp's announcement queue");
 static_assert(OTA_CHUNK_J9 + 4 <= J9_MAX_PAYLOAD,
               "a J9 chunk plus its offset has to fit one HDLC frame");
 static_assert(OTA_CHUNK_J3 + 4 <= UINT16_MAX, "the send length is uint16_t");
@@ -54,6 +54,10 @@ static uint8_t   buf[OTA_CHUNK_J3];
 static uint16_t  bufLen = 0;
 static uint32_t  bufOffset = 0;
 static bool      bufFull = false;
+
+// Where the transfer had reached when the stall clock was last set.
+static uint32_t  stallAtOffset = 0;
+static uint32_t  stallSinceMs = 0;
 
 // Raw-mode state: how many bytes of the current chunk the host still owes.
 static uint16_t  hostOwes = 0;
@@ -202,6 +206,8 @@ void otaOnSrcBegin(const uint8_t *payload, uint16_t plen) {
     sawReceiver = false;
     bufFull = false;
     bufLen = 0;
+    stallAtOffset = 0;
+    stallSinceMs = millis();
     hostOwes = hostGot = 0;
 
     Serial.printf("\nOTA:BEGIN %s size=%lu crc=%08lX kind=%u via J3\n",
@@ -314,12 +320,13 @@ void otaService() {
     // A session that stops moving says so. While the host owes bytes the
     // console reads raw and answers nothing, so without this a stall is
     // indistinguishable from a board that has stopped existing.
-    static uint32_t lastMoveMs = 0;
-    static uint32_t lastSeen = 0;
-    if (lastReported != lastSeen) { lastSeen = lastReported; lastMoveMs = millis(); }
-    if (lastMoveMs == 0) lastMoveMs = millis();
-    if (millis() - lastMoveMs >= 4000) {
-        lastMoveMs = millis();
+    //
+    // What says it is moving is bufOffset — where in the image the chunk this
+    // board holds begins. It advances once per chunk on every path, including
+    // `ota self`, where there is no far end to report progress at all.
+    if (bufOffset != stallAtOffset) { stallAtOffset = bufOffset; stallSinceMs = millis(); }
+    if (millis() - stallSinceMs >= 4000) {
+        stallSinceMs = millis();
         Serial.printf("\nOTA:STALL owes=%u got=%u bufOff=%lu bufLen=%u full=%d seen=%d\n",
                       hostOwes, hostGot, (unsigned long)bufOffset, bufLen,
                       (int)bufFull, (int)sawReceiver);
@@ -386,6 +393,8 @@ void otaConsole(const String &line) {
     sawReceiver = false;
     bufFull = false;
     bufLen = 0;
+    stallAtOffset = 0;
+    stallSinceMs = millis();
 
     Serial.printf("\nOTA:BAUD %lu\n", (unsigned long)OTA_CONSOLE_BAUD_FAST);
     delay(20);
