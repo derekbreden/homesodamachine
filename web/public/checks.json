@@ -52,12 +52,12 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "1 reference(s) name a path nothing holds.",
+      "note": "3 reference(s) name a path nothing holds.",
       "status": "red"
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 391 of 1000 free, the next cut wants 3, and the whole lock reads by name in 134.0 MB against 135.8 MB of bundle",
+      "note": "check_release_room: 376 of 1000 free, the next cut wants 3, and the whole lock reads by name in 134.0 MB against 135.8 MB of bundle",
       "status": "ok"
     },
     {
@@ -67,8 +67,8 @@
     },
     {
       "check": "tools/bazel/check_build_file.py",
-      "note": "tools/cad-venv/bin/python tools/bazel/gen_build.py",
-      "status": "red"
+      "note": "check_build_file: BUILD.bazel is what the graph writes; 3MFs are build-inert",
+      "status": "ok"
     },
     {
       "check": "tools/bazel/check_ci_targets.py",
@@ -82,44 +82,20 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 1 of 3 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 325 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 1 of 10 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 325 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
-    "tools/bazel/check_build_file.py": [
-      "BUILD.bazel is not what the graph would write now:",
-      "  --- BUILD.bazel",
-      "  +++ what gen_build.py writes now",
-      "  @@ -6813,7 +6813,11 @@",
-      "       outs = [",
-      "           \"out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-assembly.step\",",
-      "           \"out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-cavity.step\",",
-      "  +        \"out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-cavity.stl\",",
-      "           \"out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-core.step\",",
-      "  +        \"out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-core.stl\",",
-      "  +        \"out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-finish-witness.step\",",
-      "  +        \"out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-finish-witness.stl\",",
-      "           \"out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/README.figures.json\",",
-      "           \"out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/README.md\",",
-      "       ],",
-      "  @@ -6821,9 +6825,13 @@",
-      "   set -e",
-      "   O0=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-assembly.step)",
-      "   O1=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-cavity.step)",
-      "  -O2=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-core.step)",
-      "  -O3=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/README.figures.json)",
-      "  … 32 more line(s)",
-      "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
-    ],
     "tools/check_paths.py": [
-      "hardware/printed-parts/zone-c/funnel-mold/README.md:44 — hardware/printed-parts/zone-c/funnel-mold/funnel-mold-vacuum-petg-08-016.3mf is held nowhere, and no tag is named for it",
-      "1 reference(s) name a path nothing holds."
+      "firmware/README.md:437 — firmware/src_config/main.cpp is held nowhere, and no tag is named for it",
+      "  firmware/README.md:453 — firmware/partitions_s3.csv is held nowhere, and no tag is named for it",
+      "  future/pie-in-the-sky/single-pump-flavor-switching.md:46 — firmware/src_prototype/main.cpp is held nowhere, and no tag is named for it",
+      "3 reference(s) name a path nothing holds."
     ],
     "tools/check_web_tests.py": [
-      "2 test(s) in web/ fail:",
+      "1 test(s) in web/ fail:",
       "    the funnel offers all three mold models",
-      "    the artifact lock pins every committed viewer scorecard",
       "  cd web && npm test"
     ]
   },
