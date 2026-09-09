@@ -258,11 +258,12 @@ def internal_plumbing(m):
     # squeezes through and the stroke it then pushes through are the same value read once.
     carrier, plate = box.tee_carrier, box.collet_plate
     fore, home = plate["carrier_states"]["release"], plate["carrier_states"]["connected"]
-    assert abs(fore["cartridge_offset_y"]) == plate["stroke"], (
+    assert abs(abs(fore["cartridge_offset_y"]) - plate["stroke"]) < 1e-6, (
         f"the cartridge stands {abs(fore['cartridge_offset_y'])} mm short at the fore stop and "
         f"the carrier's stroke is {plate['stroke']} mm — IP-06 pushes through one figure twice, "
         f"once to bottom the tubes and once to seat the face")
-    assert home["plate_gap"] == plate["rest_gap"] and fore["plate_gap"] == 0, (
+    assert (abs(home["plate_gap"] - plate["rest_gap"]) < 1e-6
+            and abs(fore["plate_gap"]) < 1e-6), (
         f"the nose gap reads {home['plate_gap']} connected and {fore['plate_gap']} at squeeze — "
         f"IP-06 has the plate touching only while the sleeves are down")
     # One stub per collet passage, and the tees the carrier moves are the barb tees' own.

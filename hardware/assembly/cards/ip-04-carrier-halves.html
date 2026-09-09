@@ -53,79 +53,71 @@
         <style>
           .ink   { fill: #eef0f3; stroke: #1d1d26; stroke-width: 3; }
           .move  { fill: #dfe6f3; stroke: #2268c2; stroke-width: 3.5; }
-          .edge  { stroke: #1d1d26; stroke-width: 2.5; fill: none; }
-          .arrow { stroke: #2268c2; stroke-width: 3.5; fill: none; stroke-linecap: round; }
+          .stem  { stroke: #1d1d26; stroke-width: 2.5; fill: none; }
+          .coil  { stroke: #2268c2; stroke-width: 3.5; fill: none; stroke-linecap: round; }
+          .lap   { stroke: #1d1d26; stroke-width: 2.5; stroke-dasharray: 7 6; }
           .lbl   { font: 600 24px 'IBM Plex Sans','Helvetica Neue',sans-serif; fill: #1d1d26; }
           .sub   { font: 400 21px 'IBM Plex Sans','Helvetica Neue',sans-serif; fill: #70707c; }
           .node  { font: 700 23px 'IBM Plex Mono',Menlo,monospace; fill: #1d1d26; }
         </style>
 
-        <text class="lbl" x="20" y="32">PLAN &#183; front of the machine at the bottom</text>
+        <text class="lbl" x="20" y="30">PLAN &#183; front of the machine at the bottom</text>
+        <text class="sub" x="20" y="60">Journals hold each tee in X and Z</text>
+        <text class="sub" x="20" y="84">and leave its Y stroke free.</text>
 
-        <!-- the fixed body: bay bulkhead, journals, release plate -->
-        <path class="ink" d="M60 300 L640 300 L640 360 L60 360 Z"/>
-        <text class="sub" x="72" y="338">fixed release plate &#183; part of front-top</text>
-
-        <!-- four teardrop passages -->
-        <g class="ink">
-          <circle cx="150" cy="330" r="13"/><circle cx="290" cy="330" r="13"/>
-          <circle cx="410" cy="330" r="13"/><circle cx="550" cy="330" r="13"/>
-        </g>
-
-        <!-- the joined carrier, one body across, with its two grips out the flanks -->
-        <path class="move" d="M40 190 L660 190 L660 250 L40 250 Z"/>
-        <path class="move" d="M18 200 L40 200 L40 240 L18 240 Z"/>
-        <path class="move" d="M660 200 L682 200 L682 240 L660 240 Z"/>
-        <text class="lbl" x="300" y="228">joined carrier</text>
-        <text class="sub" x="14" y="272">grip tab</text>
-        <text class="sub" x="612" y="272">grip tab</text>
-
-        <!-- the lap joint at centre, two screws -->
-        <g class="ink"><circle cx="333" cy="220" r="7"/><circle cx="367" cy="220" r="7"/></g>
-        <path class="edge" d="M350 190 L350 250"/>
-        <text class="sub" x="286" y="180">lap &#183; 2 screws</text>
-
-        <!-- four tees riding it -->
+        <!-- the four moving tees -->
         <g class="move">
-          <rect x="126" y="120" width="48" height="48" rx="6"/>
-          <rect x="266" y="120" width="48" height="48" rx="6"/>
-          <rect x="386" y="120" width="48" height="48" rx="6"/>
-          <rect x="526" y="120" width="48" height="48" rx="6"/>
+          <rect x="162" y="106" width="56" height="52" rx="7"/>
+          <rect x="282" y="106" width="56" height="52" rx="7"/>
+          <rect x="402" y="106" width="56" height="52" rx="7"/>
+          <rect x="522" y="106" width="56" height="52" rx="7"/>
         </g>
-        <text class="node" x="150" y="150" text-anchor="middle">Y-C</text>
-        <text class="node" x="290" y="150" text-anchor="middle">Y-D</text>
-        <text class="node" x="410" y="150" text-anchor="middle">Y-F</text>
-        <text class="node" x="550" y="150" text-anchor="middle">Y-G</text>
+        <text class="node" x="190" y="140" text-anchor="middle">Y-C</text>
+        <text class="node" x="310" y="140" text-anchor="middle">Y-D</text>
+        <text class="node" x="430" y="140" text-anchor="middle">Y-F</text>
+        <text class="node" x="550" y="140" text-anchor="middle">Y-G</text>
 
-        <!-- branch collets down through the plate -->
-        <g class="edge">
-          <path d="M150 168 L150 300"/><path d="M290 168 L290 300"/>
-          <path d="M410 168 L410 300"/><path d="M550 168 L550 300"/>
+        <!-- each tee's branch collet, down through the carrier into its passage -->
+        <g class="stem">
+          <path d="M190 158 L190 318"/><path d="M310 158 L310 318"/>
+          <path d="M430 158 L430 318"/><path d="M550 158 L550 318"/>
         </g>
 
-        <!-- the two springs, fore of the web -->
-        <g class="arrow">
-          <path d="M92 220 l10 -12 l10 24 l10 -24 l10 24 l10 -12"/>
-          <path d="M588 220 l10 -12 l10 24 l10 -24 l10 24 l10 -12"/>
-        </g>
-        <text class="sub" x="72" y="106">spring</text>
-        <text class="sub" x="568" y="106">spring</text>
+        <text class="sub" x="78" y="188">spring</text>
+        <text class="sub" x="562" y="188">spring</text>
 
-        <!-- travel -->
-        <g class="arrow">
-          <path d="M350 402 L350 442"/><path d="M343 432 L350 442 L357 432"/>
-          <path d="M350 402 L350 442" opacity="0"/>
+        <!-- the joined carrier: one body across, a grip out each flank -->
+        <path class="move" d="M78 196 L622 196 L622 258 L78 258 Z"/>
+        <path class="move" d="M44 208 L78 208 L78 246 L44 246 Z"/>
+        <path class="move" d="M622 208 L656 208 L656 246 L622 246 Z"/>
+        <path class="lap" d="M350 196 L350 258"/>
+        <g class="ink"><circle cx="332" cy="214" r="7"/><circle cx="368" cy="214" r="7"/></g>
+        <g class="coil">
+          <path d="M96 227 l12 -13 l12 26 l12 -26 l12 26 l12 -13"/>
+          <path d="M544 227 l12 -13 l12 26 l12 -26 l12 26 l12 -13"/>
         </g>
-        <text class="lbl" x="368" y="418">release &#8594; park</text>
-        <text class="sub" x="368" y="444">one Y stroke, both tabs together</text>
+        <text class="sub" x="20" y="284">grip tab</text>
+        <text class="sub" x="592" y="284">grip tab</text>
 
-        <text class="sub" x="20" y="70">Journals hold the tees in X and Z</text>
-        <text class="sub" x="20" y="96">and leave Y free &#8212; the carrier is</text>
-        <text class="sub" x="20" y="122" opacity="0">.</text>
+        <!-- the fixed plate, bored one passage per branch -->
+        <path class="ink" d="M96 292 L604 292 L604 344 L96 344 Z"/>
+        <g class="ink">
+          <circle cx="190" cy="318" r="13"/><circle cx="310" cy="318" r="13"/>
+          <circle cx="430" cy="318" r="13"/><circle cx="550" cy="318" r="13"/>
+        </g>
+        <text class="sub" x="96" y="372">fixed release plate &#8212; part of front-top, and it never moves</text>
+
+        <!-- the one stroke the whole block takes -->
+        <g class="coil">
+          <path d="M190 396 L190 436"/><path d="M182 426 L190 436 L198 426"/>
+        </g>
+        <text class="lbl" x="216" y="410">release &#8594; park</text>
+        <text class="sub" x="216" y="436">one Y stroke, both tabs together</text>
       </svg>
-      <div class="cap"><b>The carrier block, looking down</b> &#8212; schematic.
-      Four tees on one body, two grips out the flanks, two springs returning it
-      aft. The plate under it belongs to front-top and never moves.</div>
+      <div class="cap"><b>The carrier block, looking down</b> &#8212; schematic. Four
+      tees tied to one body that spans the piece, a grip out each flank, two springs
+      returning it aft, and the lap at centre closed by two screws. The plate under it
+      belongs to front-top and never moves.</div>
     </div>
   </div>
 </main>
