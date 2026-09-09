@@ -1,0 +1,8 @@
+[sliver] Uncoated witness rails are modeled 0.20 mm above the measuring strip. Measure the actual printed step because 0.16 mm layer quantization affects its height.
+file: hardware/printed-parts/zone-c/funnel-mold/funnel-mold-finish-witness.step
+click: x=26.000 y=0.000 z=10.100
+click: x=-26.000 y=0.000 z=10.100
+
+[ceiling] Deliberate 17.6 mm bridge witness matching the rib gap. Its underside is open for inspection, with a 3.2 mm roof above. Print and inspect this coupon before the mold plates.
+file: hardware/printed-parts/zone-c/funnel-mold/funnel-mold-finish-witness.step
+click: x=-14.000 y=0.000 z=6.800

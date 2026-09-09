@@ -1,0 +1,11 @@
+[sliver] Boundary of the 0.20 mm brim-forming recess. The substantial perimeter plate carries this shallow finishing step; coat to the measured allowance while keeping the registration lands masked.
+file: hardware/printed-parts/zone-c/funnel-mold/funnel-mold-core.step
+click: x=86.700 y=0.000 z=74.749
+click: x=0.000 y=86.700 z=74.749
+click: x=0.000 y=-86.700 z=74.749
+click: x=-86.700 y=0.000 z=74.749
+
+[ceiling] Blind rod-socket backing cap, printed inverted. These two small roof patches bridge from the centre ribs and surrounding boss; at least 3.2 mm of modeled solid backing closes the socket above them. The bridge undersides face the open back, outside the silicone-forming surface.
+file: hardware/printed-parts/zone-c/funnel-mold/funnel-mold-core.step
+click: x=4.681 y=3.812 z=66.000
+click: x=4.681 y=-3.812 z=66.000
