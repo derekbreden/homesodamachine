@@ -54,13 +54,14 @@ services:
         - web/**
         - updates/**
         - render.yaml
-        # THE ONE HARDWARE PATH THAT DEPLOYS. Everything else under `hardware/` reaches a running
-        # container as data — the artifact lock moves and `web/lib/artifacts-live.js` brings its
-        # members down without a restart. The weld-rotator build guide is drawn by hand and its
-        # PDF, cover and sidecar are in git rather than in that lock
-        # (hardware/weld-rotator-guide/README.md), so a clone is what carries them and a deploy
-        # is what makes a clone. It changes when a person redraws it, which is rarely.
+        # THE HARDWARE PATHS THAT DEPLOY, AND WHY THEY ARE THE ONLY ONES. Everything else under
+        # `hardware/` reaches a running container as data — the artifact lock moves and
+        # `web/lib/artifacts-live.js` brings its members down without a restart. These two
+        # directories hold hand-drawn build guides whose PDFs, covers and sidecars are in git
+        # rather than in that lock, so a clone is what carries them and a deploy is what makes a
+        # clone. Each changes when a person redraws it, which is rarely.
         - hardware/weld-rotator-guide/**
+        - hardware/funnel-mold-guide/**
       ignoredPaths:
         # THE VERDICT IS DATA UNDER A CODE PATH. `checks_now.py` pins a reading after every
         # commit, and under `web/**` each one was an `npm ci`, a fetch and a restart — 24 of the

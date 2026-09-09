@@ -12,13 +12,16 @@ ONE HTML FILE IS EXACTLY ONE PAGE. The renderer prints page 1 and nothing else, 
 whose content outgrows it loses its tail rather than flowing. It also fails the run on
 OVERFLOW, SPILL and CLIPPED against `.card > header|main|footer`. Fix the leaf, not the check.
 
-These bytes are in git, not in the release asset. Nothing regenerates them: this file is
-underscore-prefixed, so `web/dev-server/deps.js` does not run it as a generator, it is in no
-Bazel target, and its directory is in no bundle list. The site finds the PDFs by walking
+RUN BY HAND. NOT A STEP OF THE BUILD — `hardware/funnel-mold-guide/README.md` names what holds
+that. This module lives under `tools/`, which `tools/bazel/trace_inputs.py` names in `ELSEWHERE`,
+so no sweep traces it into a rule and no changed-path reading widens a slice to reach it.
+
+These bytes are in git, not in the release asset, and they reach the served disk on the deploy
+`render.yaml`'s build filter names for the guide directory. The site finds the PDFs by walking
 `hardware/` for a `.pdf` beside a `.pdf.json`. Run it by hand when the pages or the art move:
 
-    tools/cad-venv/bin/python hardware/funnel-mold-guide/_art.py     # the pictures
-    tools/cad-venv/bin/python hardware/funnel-mold-guide/_build.py   # the documents
+    tools/cad-venv/bin/python tools/funnel-mold-guide/_art.py     # the pictures
+    tools/cad-venv/bin/python tools/funnel-mold-guide/_build.py   # the documents
 """
 
 from __future__ import annotations
@@ -34,10 +37,11 @@ from pathlib import Path
 os.environ.setdefault("HSM_NO_BUILD_LOCK", "1")
 
 HERE = Path(__file__).resolve().parent
-REPO_ROOT = next(p for p in HERE.parents if (p / "tools" / "render").is_dir())
-HARDWARE = next(p for p in HERE.parents if p.name == "hardware")
-ART = HERE / "art"
-OUT = HERE / "out"
+REPO_ROOT = HERE.parents[1]
+HARDWARE = REPO_ROOT / "hardware"
+GUIDE = HARDWARE / "funnel-mold-guide"
+ART = GUIDE / "art"
+OUT = GUIDE / "out"
 FONTS = HARDWARE / "assembly" / "cards" / "fonts"
 
 sys.path.insert(0, str(HARDWARE / "scripts"))
@@ -69,7 +73,7 @@ RENDER_ACTION_TIMEOUT_SECONDS = 900
 
 
 def leaves(prefix: str) -> list[Path]:
-    return sorted(HERE.glob(f"{prefix}*.html"))
+    return sorted(GUIDE.glob(f"{prefix}*.html"))
 
 
 def all_leaves() -> list[Path]:
@@ -93,7 +97,7 @@ def render_pages() -> int:
     # Everything Chrome fetches. A page drawn against a picture that never arrived renders
     # clean and wrong, so the sandbox is told about each file by name.
     assets = [
-        HERE / "style.css",
+        GUIDE / "style.css",
         FONTS / "IBMPlexSans-400-700-normal-latin.woff2",
         FONTS / "IBMPlexSans-400-700-italic-latin.woff2",
         FONTS / "IBMPlexMono-400-normal-latin.woff2",
@@ -114,7 +118,7 @@ def render_pages() -> int:
     try:
         result = subprocess.run(
             [
-                "node", str(renderer), "--batch", str(HERE), str(OUT),
+                "node", str(renderer), "--batch", str(GUIDE), str(OUT),
                 "--size", f"{CANVAS_W}x{CANVAS_H}",
                 "--dpr", "1.2",
                 "--pdf", PAGE_SIZE,
@@ -156,11 +160,11 @@ def bind_one(doc: dict) -> int:
         with open(out_path, "wb") as handle:
             writer.write(handle)
 
-    pdf = HERE / f"{stem}.pdf"
-    cover = HERE / f"{stem}.cover.png"
+    pdf = GUIDE / f"{stem}.pdf"
+    cover = GUIDE / f"{stem}.cover.png"
     export_pdf(assemble, str(pdf))
     write_cover(OUT / f"{order[0]}.png", cover)
-    sidecar = HERE / f"{stem}.pdf.json"
+    sidecar = GUIDE / f"{stem}.pdf.json"
     text = json.dumps(
         {
             "title": doc["title"],
