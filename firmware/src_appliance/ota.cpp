@@ -55,8 +55,11 @@ static uint16_t  bufLen = 0;
 static uint32_t  bufOffset = 0;
 static bool      bufFull = false;
 
-// Where the transfer had reached when the stall clock was last set.
-static uint32_t  stallAtOffset = 0;
+// Where the transfer had reached when the stall clock was last set. A session
+// opens at kStallUnstarted rather than at 0, because the first chunk of every
+// image is at offset 0 and would otherwise read as no movement at all.
+static const uint32_t kStallUnstarted = 0xFFFFFFFFu;
+static uint32_t  stallAtOffset = kStallUnstarted;
 static uint32_t  stallSinceMs = 0;
 
 // Raw-mode state: how many bytes of the current chunk the host still owes.
@@ -206,7 +209,7 @@ void otaOnSrcBegin(const uint8_t *payload, uint16_t plen) {
     sawReceiver = false;
     bufFull = false;
     bufLen = 0;
-    stallAtOffset = 0;
+    stallAtOffset = kStallUnstarted;
     stallSinceMs = millis();
     hostOwes = hostGot = 0;
 
@@ -393,7 +396,7 @@ void otaConsole(const String &line) {
     sawReceiver = false;
     bufFull = false;
     bufLen = 0;
-    stallAtOffset = 0;
+    stallAtOffset = kStallUnstarted;
     stallSinceMs = millis();
 
     Serial.printf("\nOTA:BAUD %lu\n", (unsigned long)OTA_CONSOLE_BAUD_FAST);
