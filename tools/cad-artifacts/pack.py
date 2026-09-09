@@ -73,6 +73,9 @@ NOT_BUNDLED_DIRS = (
     "hardware/quickstart/plumbing/out",      # the scene renderer's workings beside its STEPs
     "hardware/quickstart/studies",           # drawn by hand; the graph declares none of it
     "hardware/install-guide/out",            # a leaf's own two renders; no route serves one
+    # a hand-run guide's page renders and its art pass's staged STEPs; the walk above reaches
+    # every `.step` under `hardware/` (hardware/weld-rotator-guide/README.md)
+    "hardware/weld-rotator-guide/out",
 )
 
 #: Solids with no builder in this tree — `y_divider.py:3` says it of its own. A generator reads

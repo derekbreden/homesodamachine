@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><link rel="stylesheet" href="style.css"></head>
+<body>
+<article class="card">
+  <header>
+    <span class="eyebrow"><b>Print</b> &middot; step 1</span>
+    <h1>Print the coupon first</h1>
+    <i class="rule"></i>
+    <p class="lede">Twelve grooves and both flanges, off the same profile the turntable will
+      use. It costs twenty minutes and it is the only thing standing between a bad tooth
+      profile and a scrapped nine-hour print.</p>
+  </header>
+  <main>
+    <div class="split">
+      <figure class="short"><img src="art/coupon.png" alt="The twelve-tooth pulley coupon">
+        <figcaption><span class="mono">weld-rotator-pulley-coupon.step</span>, printed flat.</figcaption></figure>
+      <div>
+        <h2>The profile</h2>
+        <p>Polymaker Fiberon PET-GF15, dried, the project's PET-GF profile through the 0.4&nbsp;mm
+          nozzle: first layer at the print's own <b>280&nbsp;&deg;C</b> and a
+          <b>+0.17&nbsp;mm z-trim</b>
+          (<span class="mono">hardware/printed-parts/z-trim.md</span>).</p>
+        <p>Print the coupon flat. Do not change anything about the profile between the coupon
+          and the turntable &mdash; that identity is the whole reason the coupon means
+          something.</p>
+      </div>
+    </div>
+    <ol class="actions">
+      <li>Dry the spool. Load the PET-GF profile and confirm the z-trim is applied.</li>
+      <li>Print <span class="mono">weld-rotator-pulley-coupon.step</span> flat, no support.</li>
+      <li>Let it cool completely. Do not deburr the grooves.</li>
+      <li>Take the <b>delivered</b> 550-5M-15 belt &mdash; the physical one, not a spare of a
+        different brand &mdash; and press its teeth into the coupon by hand.</li>
+      <li>Run a fingernail along both flanges and look down the row of twelve.</li>
+    </ol>
+    <div class="gate">
+      <span class="gate-label">Gate &mdash; the belt against the coupon</span>
+      <p>Every one of the twelve teeth seats to the groove root, and the belt's edges sit
+        <b>between</b> both flanges without riding up either one.
+        <span class="fail">If the belt rides a flange, or if any tooth stands proud, stop.</span>
+        The turntable's 45 engaged teeth will accumulate that error over 142&nbsp;mm of
+        diameter. Fix the profile and print a second coupon.</p>
+    </div>
+  </main>
+  <footer><span>Weld rotator &middot; build guide</span><span class="folio">8</span></footer>
+</article>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><link rel="stylesheet" href="style.css"></head>
+<body>
+<article class="card">
+  <header>
+    <span class="eyebrow"><b>Welding with it</b> &middot; reference</span>
+    <h1>The numbers</h1>
+    <i class="rule"></i>
+    <p class="lede">Travel speed is the recipe setting; table rpm follows from it. The
+      controller clamps every command into the 5&ndash;15&nbsp;mm/s window &mdash; a
+      commissioning range, not a qualified weld schedule.</p>
+  </header>
+  <main>
+    <div class="split wide-left">
+      <div>
+        <table>
+          <tr><th class="num">Travel</th><th class="num">Table</th><th class="num">360&deg;</th><th class="num">380&deg;</th><th class="num">Pulses/s</th></tr>
+          <tr><td class="k num">5 mm/s</td><td class="num">0.772 rpm</td><td class="num">77.7 s</td><td class="num">82.0 s</td><td class="num">185.3</td></tr>
+          <tr><td class="k num">6 mm/s</td><td class="num">0.926 rpm</td><td class="num">64.8 s</td><td class="num">68.4 s</td><td class="num">222.3</td></tr>
+          <tr class="hi"><td class="k num"><b>8 mm/s</b></td><td class="num"><b>1.235 rpm</b></td><td class="num"><b>48.6 s</b></td><td class="num"><b>51.3 s</b></td><td class="num"><b>296.4</b></td></tr>
+          <tr><td class="k num">10 mm/s</td><td class="num">1.544 rpm</td><td class="num">38.9 s</td><td class="num">41.0 s</td><td class="num">370.6</td></tr>
+          <tr><td class="k num">12 mm/s</td><td class="num">1.853 rpm</td><td class="num">32.4 s</td><td class="num">34.2 s</td><td class="num">444.7</td></tr>
+          <tr><td class="k num">15 mm/s</td><td class="num">2.316 rpm</td><td class="num">25.9 s</td><td class="num">27.3 s</td><td class="num">555.8</td></tr>
+        </table>
+        <h2>The joint</h2>
+        <table>
+          <tr><td class="k">End plate</td><td class="num">ID-fit plug, 6.35 mm recess</td></tr>
+          <tr><td class="k">Weld-circle diameter</td><td class="num">123.70 mm</td></tr>
+          <tr><td class="k">One revolution at the bead</td><td class="num">388.61 mm</td></tr>
+          <tr><td class="k">Rotating mass, 1st / 2nd closure</td><td class="num">1.40 / 2.01 kg</td></tr>
+        </table>
+        <h2>The drive</h2>
+        <table>
+          <tr><td class="k">Reduction</td><td class="num">4.5:1 &mdash; 20T to 90T</td></tr>
+          <tr><td class="k">Driver microstepping</td><td class="num">3,200 pulses/motor rev</td></tr>
+          <tr><td class="k">Table resolution</td><td class="num">14,400 pulses/rev</td></tr>
+          <tr><td class="k">One pulse</td><td class="num">0.025&deg;, or 0.027 mm at the bead</td></tr>
+          <tr><td class="k">Default lap</td><td class="num">15,200 pulses = 380&deg;</td></tr>
+          <tr><td class="k">Motor speed at 8 mm/s</td><td class="num">5.558 rpm</td></tr>
+          <tr><td class="k">Belt centre distance</td><td class="num">125.1 mm nominal</td></tr>
+        </table>
+      </div>
+      <figure class="xtall"><img src="art/elevation.png" alt="The rig in elevation with a tube">
+        <figcaption>The tube's working rim stands <b>238.4&nbsp;mm</b> above the bench. The
+          highest PET-GF anywhere near it is the ground arm at 91&nbsp;mm, so there is more
+          than 125&nbsp;mm of metal between the closure weld and any printed
+          structure.</figcaption>
+        <p style="margin-top:26px;font-size:38px">Start at 8 and change one variable at a time
+          after the first 316L coupon. Coupon evidence sets the production value.</p></figure>
+    </div>
+  </main>
+  <footer><span>Weld rotator &middot; build guide</span><span class="folio">47</span></footer>
+</article>
+</body>
+</html>

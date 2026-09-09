@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><link rel="stylesheet" href="style.css"></head>
+<body>
+<article class="card back">
+  <header>
+    <span class="eyebrow"><b>Where everything lives</b></span>
+    <h1>The rest of it</h1>
+    <i class="rule"></i>
+    <p class="lede">This guide is the build. These are the files it stands on, and where to go
+      when a number here is not enough.</p>
+  </header>
+  <main>
+    <table>
+      <tr><th>For</th><th>Read</th></tr>
+      <tr><td class="k">The fixture, subsystem by subsystem</td><td class="mono">hardware/assembly/weld-rotation-rig.md</td></tr>
+      <tr><td class="k">Printable geometry, STEP files, print notes</td><td class="mono">hardware/printed-parts/fixtures/weld-rotator/README.md</td></tr>
+      <tr><td class="k">The controller's own reference</td><td class="mono">firmware/src_weld_rotator/README.md</td></tr>
+      <tr><td class="k">What the fixture is tooling for</td><td class="mono">hardware/assembly/pressure-vessel.md</td></tr>
+      <tr><td class="k">Every part, order and status</td><td class="mono">hardware/ledger/purchases.md</td></tr>
+      <tr><td class="k">The print profile's first layer</td><td class="mono">hardware/printed-parts/z-trim.md</td></tr>
+      <tr><td class="k">These pictures, and how to redraw them</td><td class="mono">tools/weld-rotator-guide/rotator_art.py</td></tr>
+      <tr><td class="k">This document</td><td class="mono">hardware/weld-rotator-guide/README.md</td></tr>
+    </table>
+    <h2>Regenerating the fixture</h2>
+    <pre class="console">tools/cad-venv/bin/python \
+  hardware/printed-parts/fixtures/weld-rotator/weld_rotator.py
+tools/cad-venv/bin/python \
+  hardware/printed-parts/fixtures/weld-rotator/weld_rotator.py selftest
+tools/cad-venv/bin/python \
+  hardware/assembly/_weld_rotation_rig_sync.py</pre>
+    <h2>Rebuilding the controller</h2>
+    <pre class="console">~/.platformio/penv/bin/pio test -e native -f test_weld_rotator_policy
+~/.platformio/penv/bin/pio run -e weld_rotator</pre>
+    <div class="mind">
+      <span class="mind-label">This document is frozen</span>
+      <p>It is not in the build graph and the tree's build does not rebuild it. It was drawn
+        once, by hand, and committed. It follows the fixture when someone runs
+        <span class="mono">tools/weld-rotator-guide/rotator_art.py</span> and
+        <span class="mono">tools/weld-rotator-guide/build.py</span>, and not before.</p>
+    </div>
+  </main>
+  <footer><span>Weld rotator &middot; build guide &middot; homesodamachine.com/drawings</span><span class="folio">48</span></footer>
+</article>
+</body>
+</html>

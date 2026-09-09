@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><link rel="stylesheet" href="style.css"></head>
+<body>
+<article class="card">
+  <header>
+    <span class="eyebrow"><b>Commissioning</b> &middot; gate 2</span>
+    <h1>Time three revolutions</h1>
+    <i class="rule"></i>
+    <p class="lede">Still no tube. This is the reading that says the drive is actually turning
+      at the speed the controller believes it is.</p>
+  </header>
+  <main>
+    <table>
+      <tr><th>Set</th><th class="num">Table</th><th class="num">One revolution</th><th class="num">Accept</th></tr>
+      <tr><td class="k mono">speed 5</td><td class="num">0.772 rpm</td><td class="num"><b>77.7 s</b></td><td class="num">76.9&ndash;78.5 s</td></tr>
+      <tr class="hi"><td class="k mono">speed 8</td><td class="num">1.235 rpm</td><td class="num"><b>48.6 s</b></td><td class="num">48.1&ndash;49.1 s</td></tr>
+      <tr><td class="k mono">speed 15</td><td class="num">2.316 rpm</td><td class="num"><b>25.9 s</b></td><td class="num">25.6&ndash;26.2 s</td></tr>
+    </table>
+    <ol class="actions">
+      <li>Stay in <span class="mono">mode jog</span>. Set <span class="mono">speed 5</span>.</li>
+      <li>Line the index mark up with a fixed point on the base &mdash; a corner, a bench hole,
+        anything that does not move.</li>
+      <li>Hold the pedal and start the stopwatch as the mark passes the point. Stop it as the
+        mark comes back round.</li>
+      <li>Repeat at <span class="mono">speed 8</span> and <span class="mono">speed 15</span>.</li>
+      <li>Listen while each one runs.</li>
+    </ol>
+    <div class="gate">
+      <span class="gate-label">Gate &mdash; &plusmn;1% on all three, and no noise</span>
+      <p>Each time lands inside its accept column. <span class="fail">A stall, a skipped tooth,
+        or an audible step loss fails the drive</span> &mdash; and it fails it here, at zero
+        load, which means it will certainly fail under a 2&nbsp;kg vessel.</p>
+    </div>
+    <div class="mind">
+      <span class="mind-label">A time that is long, evenly, on all three</span>
+      <p>That is a belt slipping teeth, not a motor losing steps. Re-check the tension twist
+        and the tracking on page&nbsp;27.</p>
+    </div>
+  </main>
+  <footer><span>Weld rotator &middot; build guide</span><span class="folio">41</span></footer>
+</article>
+</body>
+</html>

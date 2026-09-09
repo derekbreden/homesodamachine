@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><link rel="stylesheet" href="style.css"></head>
+<body>
+<article class="card">
+  <header>
+    <span class="eyebrow"><b>Controller</b> &middot; step 23</span>
+    <h1>Set the driver switches</h1>
+    <i class="rule"></i>
+    <p class="lede">Eight DIP switches on the DM542T. Set them with the driver unpowered,
+      before anything is wired to it.</p>
+  </header>
+  <main>
+    <div class="dip">
+      <div class="sw on"><div class="n">SW1</div><div class="lever"></div><div class="p">ON</div></div>
+      <div class="sw off"><div class="n">SW2</div><div class="lever"></div><div class="p">OFF</div></div>
+      <div class="sw off"><div class="n">SW3</div><div class="lever"></div><div class="p">OFF</div></div>
+      <div class="sw off"><div class="n">SW4</div><div class="lever"></div><div class="p">OFF</div></div>
+      <div class="sw on"><div class="n">SW5</div><div class="lever"></div><div class="p">ON</div></div>
+      <div class="sw on"><div class="n">SW6</div><div class="lever"></div><div class="p">ON</div></div>
+      <div class="sw off"><div class="n">SW7</div><div class="lever"></div><div class="p">OFF</div></div>
+      <div class="sw on"><div class="n">SW8</div><div class="lever"></div><div class="p">ON</div></div>
+    </div>
+    <p class="dim" style="font-size:36px;margin-top:20px">Coral is the lever pushed to the ON
+      end of its travel. Check the silkscreen on your own driver for which end that is &mdash;
+      it is marked.</p>
+    <div class="split">
+      <div>
+        <h2>What those eight mean</h2>
+        <table>
+          <tr><td class="k">SW1&ndash;SW4</td><td>Peak current, <b>3.76&nbsp;A</b></td></tr>
+          <tr><td class="k">SW5</td><td>Standstill current, <b>50%</b></td></tr>
+          <tr><td class="k">SW6&ndash;SW8</td><td>Microstepping, <b>3,200 pulses/rev</b></td></tr>
+        </table>
+        <p>3.76&nbsp;A is the DM542T table's closest setting to the manual's
+          <em>phase current &times; 1.4</em> peak rule for a 2.8&nbsp;A/phase motor. The
+          standstill reduction limits motor heating while you are setting the welder up.</p>
+      </div>
+      <div>
+        <h2>Also on the driver</h2>
+        <ul class="dots">
+          <li>Find the <b>signal-voltage selector</b> and set it to <b>5&nbsp;V</b>. It is
+            separate from the eight DIP switches. Get this wrong and the ULN2803A's sunk
+            outputs will not register as pulses.</li>
+          <li>Leave <span class="mono">ENA+</span> and <span class="mono">ENA-</span>
+            unconnected. The driver is enabled by default.</li>
+        </ul>
+        <div class="mind">
+          <span class="mind-label">3,200 is load-bearing</span>
+          <p>The firmware's pulse counts assume it: 3,200 &times; 4.5 = <b>14,400 pulses per
+            table revolution</b>, and a 380&deg; lap is 15,200 of them. Change SW6&ndash;SW8 and
+            every lap is the wrong length.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer><span>Weld rotator &middot; build guide</span><span class="folio">34</span></footer>
+</article>
+</body>
+</html>

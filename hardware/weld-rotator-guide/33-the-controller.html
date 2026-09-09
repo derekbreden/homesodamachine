@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><link rel="stylesheet" href="style.css"></head>
+<body>
+<article class="card">
+  <header>
+    <span class="eyebrow"><b>Controller</b> &middot; step 22</span>
+    <h1>What the controller is</h1>
+    <i class="rule"></i>
+    <p class="lede">Two supplies that never meet, one dry-contact pedal, and an ESP32 that
+      counts pulses. Read this page before you strip a single wire.</p>
+  </header>
+  <main>
+    <svg class="wiring" viewBox="0 0 2400 780" role="img" aria-label="Block diagram of the controller">
+      <!-- 5 V logic island -->
+      <rect class="box" x="40" y="60" width="420" height="180" rx="14"/>
+      <text class="lbl" x="250" y="130" text-anchor="middle">5 V / 3 A adapter</text>
+      <text class="sub" x="250" y="180" text-anchor="middle">Micro-USB tip</text>
+      <text class="sub" x="250" y="215" text-anchor="middle">logic only</text>
+
+      <rect class="box" x="40" y="380" width="420" height="180" rx="14"/>
+      <text class="lbl" x="250" y="450" text-anchor="middle">Foot pedal</text>
+      <text class="sub" x="250" y="500" text-anchor="middle">HimaPro 50122, SPDT</text>
+      <text class="sub" x="250" y="535" text-anchor="middle">COM &ndash; NO, dry contact</text>
+
+      <rect class="box" x="640" y="200" width="420" height="340" rx="14"/>
+      <text class="lbl" x="850" y="300" text-anchor="middle">ESP32</text>
+      <text class="lbl" x="850" y="350" text-anchor="middle">DevKitC-32E</text>
+      <text class="sub" x="850" y="410" text-anchor="middle">counts the pulses,</text>
+      <text class="sub" x="850" y="445" text-anchor="middle">watches the pedal,</text>
+      <text class="sub" x="850" y="480" text-anchor="middle">stores the settings</text>
+
+      <rect class="box" x="1240" y="250" width="360" height="240" rx="14"/>
+      <text class="lbl" x="1420" y="340" text-anchor="middle">ULN2803A</text>
+      <text class="sub" x="1420" y="395" text-anchor="middle">two channels,</text>
+      <text class="sub" x="1420" y="430" text-anchor="middle">open-collector sinks</text>
+
+      <rect class="box" x="1780" y="200" width="380" height="340" rx="14"/>
+      <text class="lbl" x="1970" y="290" text-anchor="middle">DM542T</text>
+      <text class="sub" x="1970" y="345" text-anchor="middle">step / direction</text>
+      <text class="sub" x="1970" y="380" text-anchor="middle">driver</text>
+      <text class="sub" x="1970" y="440" text-anchor="middle">logic selector</text>
+      <text class="lbl" x="1970" y="485" text-anchor="middle">set to 5 V</text>
+
+      <rect class="box-dim" x="1780" y="620" width="380" height="140" rx="14"/>
+      <text class="lbl" x="1970" y="675" text-anchor="middle">NEMA 23</text>
+      <text class="sub" x="1970" y="720" text-anchor="middle">23HS30-2804S</text>
+
+      <rect class="box-dim" x="1240" y="620" width="360" height="140" rx="14"/>
+      <text class="lbl" x="1420" y="675" text-anchor="middle">24 V / 4 A brick</text>
+      <text class="sub" x="1420" y="720" text-anchor="middle">power stage only</text>
+
+      <!-- wires -->
+      <path class="w-pwr" d="M250 240 L250 300 L640 300"/>
+      <path class="w-sig" d="M250 380 L250 440 L640 440"/>
+      <path class="w-sig" d="M1060 370 L1240 370"/>
+      <path class="w-sig" d="M1600 370 L1780 370"/>
+      <path class="w-pwr" d="M1420 620 L1420 560 L1700 560 L1700 460 L1780 460"/>
+      <path class="w" d="M1970 540 L1970 620"/>
+
+      <text class="sub" x="450" y="285" text-anchor="middle">5 V</text>
+      <text class="sub" x="452" y="425" text-anchor="middle">3.3 V</text>
+      <text class="sub" x="1150" y="345" text-anchor="middle">PUL, DIR</text>
+      <text class="sub" x="1690" y="345" text-anchor="middle">sunk to 0 V</text>
+      <text class="sub" x="1735" y="620" text-anchor="middle">24 V</text>
+      <text class="sub" x="2050" y="590" text-anchor="middle">4 leads</text>
+    </svg>
+    <div class="key">
+      <span><i style="background:#3a68ac"></i>supply</span>
+      <span><i style="background:#d64050"></i>signal</span>
+      <span><i style="background:#1a1a2e"></i>motor phase</span>
+    </div>
+    <div class="mind">
+      <span class="mind-label">The two supplies never meet</span>
+      <p>The 5&nbsp;V adapter powers the ESP32 and both 5&nbsp;V signal loops. The 24&nbsp;V
+        brick powers <em>only</em> the DM542T's power stage and the motor. They stay separate
+        across the driver's own opto-isolators.
+        <b>Never connect 24&nbsp;V to the ESP32.</b></p>
+    </div>
+    <div class="mind">
+      <span class="mind-label">The pedal is not a power switch</span>
+      <p>It carries 3.3&nbsp;V through a 4.7&nbsp;k&Omega; pull-up and nothing else. Opening the
+        contact &mdash; releasing it, or pulling a lead out &mdash; always stops new pulses.
+        The controller also refuses to move at boot until it has seen the pedal released
+        once.</p>
+    </div>
+  </main>
+  <footer><span>Weld rotator &middot; build guide</span><span class="folio">33</span></footer>
+</article>
+</body>
+</html>
