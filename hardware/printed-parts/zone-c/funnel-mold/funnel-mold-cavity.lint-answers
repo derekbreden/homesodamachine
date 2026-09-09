@@ -1,0 +1,17 @@
+[sliver] Normal-offset joining faces at the collar transition. The 0.20 mm strips bound the forming allowance and join the continuous 3.2 mm skin; they are not 0.20 mm structural walls.
+file: hardware/printed-parts/zone-c/funnel-mold/funnel-mold-cavity.step
+click: x=0.000 y=-79.600 z=53.339
+click: x=79.600 y=39.750 z=53.339
+click: x=79.500 y=-79.600 z=60.894
+click: x=79.600 y=-79.500 z=60.894
+
+[sliver] Start of the 45-degree registration corbel. The residual flat projects at most 0.313 mm from its supporting backing skin, less than half the 0.8 mm extrusion width. The remaining rise grows outward gradually; the final slice has no cantilever warning.
+file: hardware/printed-parts/zone-c/funnel-mold/funnel-mold-cavity.step
+click: x=10.000 y=-80.350 z=50.649
+click: x=-10.000 y=-80.350 z=50.649
+click: x=50.000 y=-80.346 z=50.649
+click: x=-50.000 y=-80.346 z=50.649
+click: x=30.000 y=-80.348 z=50.649
+click: x=-30.000 y=-80.348 z=50.649
+click: x=69.438 y=-80.343 z=50.649
+click: x=-69.199 y=-80.343 z=50.649

@@ -12,6 +12,7 @@ connect the open backs to the chamber even against a flat shelf or clamp board.
 """
 
 import math
+import os
 import sys
 from pathlib import Path
 
@@ -27,6 +28,7 @@ sys.path[:0] = [str(_repo / "hardware/scripts"),
 import fits
 from _cadq_export import export_assembly
 from _materials import M_PETG_BLACK, M_SILICONE_BLACK, M_STAINLESS, one_body
+from flute_payload import cut as write_print_payload
 from docgen import substitute_md
 import funnel as HF
 
@@ -267,6 +269,8 @@ def main():
         mesh.remove_unreferenced_vertices()
         assert mesh.is_watertight and mesh.is_winding_consistent and mesh.body_count == 1
         mesh.export(here / f'{stem}.stl')
+        if not os.environ.get('HSM_SKIP_MESH_PAYLOAD'):
+            write_print_payload(here / f'{stem}.step', here / f'{stem}.stl')
         print(f'-> {stem}.step / .stl ({shape.Volume()/1000:.2f} mL PETG)', flush=True)
     for name in ('cavity', 'core'):
         cq.exporters.export(info[f'{name}_slow'],

@@ -18,7 +18,8 @@ coating, spray count, or printer.
   [20 mm](RIB_PITCH) centres and three cross ribs. The registration band extends
   [8 mm](MOLD_WALL) outside the nominal brim. Its feet stand [10 mm](MOLD_BASE)
   below the nominal blind tip floor. A pedestal carries that closed floor to the
-  bed. The spaces between ribs open underneath.
+  bed. A 45° corbel carries the registration band outward from the collar. The
+  spaces between ribs open underneath.
 - **Core:** [201.0 × 201.0 × 50.4 mm](CORE_DIMS), printed upside down, with the
   forming plug upward. Its back opens between the ribs. A [10 mm](PLATE_THK)
   perimeter plate forms the brim and carries the pour and silicone vents; its
@@ -39,6 +40,8 @@ spaces are CAD features open to the chamber. Printed road-to-road porosity still
 requires a continuous coating on **both** forming faces; ventilation alone does
 not make a printed mold airtight. Backing channels equalize chamber pressure;
 this tooling has no pressure-vessel rating.
+
+![Mold structure and section](mold-structure.png)
 
 ## Print
 
@@ -171,10 +174,10 @@ tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel-mold/funnel_mold.
 Outputs the cavity, core and finish-witness STEP/STL files and the exploded mold
 assembly. The two mold halves share the assembly frame; invert the core for print.
 The print project also retains the printer's Z-trim profile; re-slice after changing
-geometry, finishing allowance, material, nozzle or machine settings.
+geometry, finishing allowance, material, nozzle or machine settings. Geometry
+changes require reloading the generated body STLs and their `surface-zone.stl`
+modifiers before slicing; the 3MF stores its own copies of those meshes.
 
 ## Sources
-
 [value](NAME) texts are updated by:
 - `/hardware/printed-parts/zone-c/funnel-mold/funnel_mold.py`
-
