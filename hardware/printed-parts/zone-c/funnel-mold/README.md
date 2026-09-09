@@ -13,21 +13,22 @@ coating, spray count, or printer.
 
 ## Structure and vacuum paths
 
-- **Cavity:** [269.0 × 269.0 × 74.6 mm](CAVITY_DIMS), opening upward. Its forming
+- **Cavity:** [270.0 × 270.0 × 74.6 mm](CAVITY_DIMS), opening upward. Its forming
   skin is [3.2 mm](FORMING_SKIN), carried by [2.4 mm](RIB_THK) ribs on
   [20 mm](RIB_PITCH) centres and three cross ribs. The registration band extends
   [8 mm](MOLD_WALL) outside the nominal brim. Its feet stand [10 mm](MOLD_BASE)
   below the nominal blind tip floor. A pedestal carries that closed floor to the
   bed. A 45° corbel carries the registration band outward from the collar. The
-  spaces between ribs open underneath. External washer pads and guide sleeves
-  stand on 45° braces. Short feet beneath the Y-side brace roots connect them
-  to the existing X ribs; the backing-air channels pass through those feet.
-- **Core:** [266.0 × 266.0 × 60.0 mm](CORE_DIMS), printed upside down, with the
-  forming plug upward. Its back opens between the ribs. A [10 mm](PLATE_THK)
+  spaces between ribs open underneath. Each washer rests on a solid 32 mm column reaching the bed. Paired 6.4 mm
+  full-height walls connect each bearing column and guide tower to the cavity
+  ribs. The 22 mm guide towers have an open relieved bore below the 14 mm
+  bearing length, and a 3 mm side air exit at their feet.
+- **Core:** [270.0 × 270.0 × 64.0 mm](CORE_DIMS), printed upside down, with the
+  forming plug upward. Its back opens between the ribs. A [14 mm](PLATE_THK)
   perimeter plate forms the brim and carries the pour and silicone vents; its
   skirt registers over the cavity for [10 mm](LIP_H). A continuous skin and boss
-  surround the rod socket, including its blind end. Four ears carry steel square
-  nuts for the screw jacks; four integral guide posts point down into sleeves on
+  surround the rod socket, including its blind end. Four 66 mm wide × 14 mm thick arms carry steel square
+  nuts beneath 8.4 mm bearing roofs; four integral guide posts point down into sleeves on
   the cavity. The posts print upward with the inverted core.
 - **Backing air:** transverse [3 mm](BACK_VENT_D) channels connect the rib bays
   to the outside. Cavity channels sit near the feet; core channels sit near its

@@ -1,8 +1,8 @@
 {
   "/hardware/printed-parts/zone-c/funnel-mold/funnel_mold.py": {
     "BACK_VENT_D": "3 mm",
-    "CAVITY_DIMS": "269.0 \u00d7 269.0 \u00d7 74.6 mm",
-    "CORE_DIMS": "266.0 \u00d7 266.0 \u00d7 60.0 mm",
+    "CAVITY_DIMS": "270.0 \u00d7 270.0 \u00d7 74.6 mm",
+    "CORE_DIMS": "270.0 \u00d7 270.0 \u00d7 64.0 mm",
     "FILL_D": "11 mm",
     "FILL_DISH": "20 mm",
     "FINISH_ALLOWANCE": "0.20 mm",
@@ -11,7 +11,7 @@
     "MOLD_BASE": "10 mm",
     "MOLD_VENT_D": "2.5 mm",
     "MOLD_WALL": "8 mm",
-    "PLATE_THK": "10 mm",
+    "PLATE_THK": "14 mm",
     "RIB_PITCH": "20 mm",
     "RIB_THK": "2.4 mm",
     "ROD_BELOW": "22.0 mm",
