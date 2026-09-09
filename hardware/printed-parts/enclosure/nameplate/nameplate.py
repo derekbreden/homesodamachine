@@ -205,31 +205,27 @@ def seat() -> tuple:
 # on its own letterforms against the 0.2 mm profile's bead.
 FONT = _ring.WORD_FONT
 FONT_KIND = _ring.WORD_KIND
-TITLE_EM = 9.5
+TITLE_EM = 11.2
 LINK_EM = 5.5
-SERIAL_EM = 3.8
-BODY_EM = 3.2
+BODY_EM = 2.8
 DETAIL_TRACKING = 0.1
 # The type's recess depth; its outboard face is flush with the plate.
 INK_DEPTH = _ring.WORD_DEPTH
 # The bead the 0.2 mm tip lays, and the tip itself.
 BEAD = _ring.WORD_BEAD
 NOZZLE = _ring.WORD_NOZZLE
-# The brand's top margin, air between its two lines, and the details below the link, in mm.
-BRAND_MARGIN = 5.0
-TITLE_GAP = 1.8
-DETAIL_TOP = -8.0
-DETAIL_GAP = 1.4
+# The brand's top margin, air between its three lines, and the link and details below, in mm.
+BRAND_MARGIN = 4.5
+TITLE_GAP = 1.4
+LINK_MID = -6.4
+DETAIL_TOP = -13.4
+DETAIL_GAP = 1.2
 # The glass mark standing beside the name, the air between them, and its stroke.
-LOGO_H = 20.0
-LOGO_STROKE = 1.1
-LOGO_GAP = 4.0
-# The refrigerant notice closes the details block.
-HAZARD_EM = 2.8
-HAZARD_TRACKING = 0.08
-FLAME_H = 3.0
+LOGO_H = 28.0
+LOGO_STROKE = 1.2
+LOGO_GAP = 5.5
+# The flame hangs beside the detail column at the shared cap height.
 FLAME_GAP = 1.2
-HAZARD_GAP = 1.8
 
 
 def _flat(s: str, em: float):
@@ -375,14 +371,16 @@ def _flame_outline():
     return p
 
 
-def build_flame(height: float = FLAME_H):
+def build_flame(height: float | None = None):
     """The flame as a flat XY solid `INK_DEPTH` thick, filled."""
+    if height is None:
+        height = cap_height(BODY_EM)
     s = height / _FLAME_SVG_H
     pts = [_icon_xy(q, s) for q in _flame_outline()]
     return cq.Workplane("XY").polyline(pts).close().extrude(INK_DEPTH).val()
 
 
-def flame_width(height: float = FLAME_H) -> float:
+def flame_width(height: float | None = None) -> float:
     return build_flame(height).BoundingBox().xlen
 
 
@@ -396,17 +394,12 @@ def tracked_text(s: str, em: float, tracking: float):
     ])
 
 
-def hazard_text():
-    """The refrigerant notice's letterforms."""
-    return tracked_text(_plan.hazard_line, HAZARD_EM, HAZARD_TRACKING)
-
-
 def detail_rows(unit: int):
-    """The serial and ratings, in reading order, with their printed letterforms."""
+    """Serial, ratings and refrigerant notice in one small type size, in reading order."""
     text = lines(unit)
-    return [(text["serial"][0], tracked_text(text["serial"][0], SERIAL_EM, DETAIL_TRACKING))] + [
+    return [
         (s, tracked_text(s, BODY_EM, DETAIL_TRACKING))
-        for s in text["input"] + text["warn"]
+        for s in text["serial"] + text["input"] + text["warn"] + text["hazard"]
     ]
 
 
@@ -431,29 +424,25 @@ def build_ink(unit: int):
         z -= h + TITLE_GAP
 
     link = text["url"][0]
-    parts.append(line(link, link_em(), text_width(link, link_em()) / 2.0, 0.0))
+    parts.append(line(link, link_em(), text_width(link, link_em()) / 2.0, LINK_MID))
 
     z = DETAIL_TOP
-    for _s, flat in detail_rows(unit):
+    for s, flat in detail_rows(unit):
         upright = _upright(flat)
         h = upright.BoundingBox().zlen
         parts.append(_place(upright, column_left, z - h / 2.0))
+        if s == text["hazard"][0]:
+            flame = _upright(build_flame())
+            parts.append(_place(flame, column_left + flame.BoundingBox().xlen + FLAME_GAP,
+                                z - h / 2.0))
         z -= h + DETAIL_GAP
-
-    z -= HAZARD_GAP - DETAIL_GAP
-    flame = _upright(build_flame())
-    hazard = _upright(hazard_text())
-    haz_h = max(flame.BoundingBox().zlen, hazard.BoundingBox().zlen)
-    parts.append(_place(flame, column_left, z - haz_h / 2.0))
-    parts.append(_place(hazard, column_left - flame.BoundingBox().xlen - FLAME_GAP,
-                        z - haz_h / 2.0))
     return cq.Compound.makeCompound(parts)
 
 
 def lines(unit: int) -> dict:
     """Every string one unit's plate carries, by the block it stands in."""
     return {
-        "name": ("HOME SODA", "MACHINE"),
+        "name": ("HOME", "SODA", "MACHINE"),
         "serial": (f"SERIAL  {_plan.serial_of(unit)}",),
         "input": (_plan.input_rating,),
         "warn": (_plan.warning_line, _plan.warning_line_2),
@@ -463,7 +452,7 @@ def lines(unit: int) -> dict:
 
 
 def _stack_height(unit: int) -> float:
-    """How tall the centred stack stands, off the built solids."""
+    """How tall the complete lettering stands, off the built solids."""
     return build_ink(unit).BoundingBox().zlen
 
 
@@ -569,13 +558,12 @@ def selftest() -> int:
         if abs(sx) + SHANK_DIA / 2.0 > WIDTH / 2.0 - BEVEL - 1e-9:
             fails.append(f"the shank at x {sx:g} breaks out of the chamfer and the plate has no "
                          f"face on the bed round it")
-    for em in (TITLE_EM, SERIAL_EM, BODY_EM, HAZARD_EM, link_em()):
+    for em in (TITLE_EM, BODY_EM, link_em()):
         got = _min_stroke(_flat("MACHINE", em))
         if got < BEAD:
             fails.append(f"type at em {em:g} carries a {got:.3f} mm stroke and the profile lays "
                          f"a {BEAD:g} bead")
-    fine = hazard_text()
-    for s, flat in detail_rows(1) + [(_plan.hazard_line, fine)]:
+    for s, flat in detail_rows(1):
         letters = sorted(flat.Solids(), key=lambda s: s.BoundingBox().xmin)
         bridge = min(a.distance(b) for a, b in zip(letters, letters[1:]))
         if bridge < BEAD:
@@ -583,13 +571,13 @@ def selftest() -> int:
                          f"and the profile lays a {BEAD:g} bead")
         if _min_stroke(flat) < BEAD:
             fails.append(f"'{s}' has a stroke narrower than the {BEAD:g} bead")
-    # The link occupies the band between the two complete screw seats.
-    room = 2.0 * (screw_stations()[0][0] - SEAT_DIA / 2.0)
+    # The link spans the plate below the screw line; the actual ink clears both seats below.
+    room = WIDTH - 4.0
     for unit in (1, 9999):
         s = lines(unit)["url"][0]
         got = text_width(s, link_em())
         if got > room:
-            fails.append(f"'{s}' sets {got:.2f} mm wide between screw seats {room:.2f} apart")
+            fails.append(f"'{s}' sets {got:.2f} mm wide in a {room:.2f} mm field")
     tall = _stack_height(1)
     if tall > HEIGHT + 1e-9:
         fails.append(f"the stack stands {tall:.2f} mm tall on a plate {HEIGHT:g} high")
@@ -703,14 +691,10 @@ def main(unit: int):
         "BOSS_STEM_D": f"{boss_stem_d():g} mm",
         "TITLE_EM": f"{TITLE_EM:g}",
         "TITLE_CAP": f"{cap_height(TITLE_EM):.3g} mm",
-        "SERIAL_EM": f"{SERIAL_EM:g}",
         "BODY_EM": f"{BODY_EM:g}",
         "BODY_CAP": f"{cap_height(BODY_EM):.3g} mm",
         "DETAIL_TRACKING": f"{DETAIL_TRACKING:g} mm",
-        "HAZARD_EM": f"{HAZARD_EM:g}",
-        "HAZARD_CAP": f"{cap_height(HAZARD_EM):.3g} mm",
-        "HAZARD_TRACKING": f"{HAZARD_TRACKING:g} mm",
-        "FLAME_H": f"{FLAME_H:g} mm",
+        "FLAME_H": f"{cap_height(BODY_EM):.3g} mm",
         "LINK_EM": f"{link_em():.3g}",
         "LINK_CAP": f"{cap_height(link_em()):.3g} mm",
         "LINK_W": f"{text_width(lines(unit)['url'][0], link_em()):.4g} mm",
