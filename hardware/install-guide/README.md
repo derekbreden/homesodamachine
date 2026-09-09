@@ -84,18 +84,12 @@ artwork behind them.
 Every leaf here says only what the tree knows. These are the places a buyer would want a sentence
 and there is no sentence to give, listed so the booklet is not mistaken for complete:
 
-- **The older-kitchen tee's 1/4-inch joint.** No ferrule, nut or tube insert is called out for the
-  HAOCHEN's compression outlet anywhere in [`bom.md`](/hardware/ledger/bom.md) — the one stiffener
-  the build buys is spoken for at the Westbrass. This is the one step in the booklet a buyer cannot
-  finish with what ships, so leaf 11 says so and sends them to the consultation before they start
-  it. Wrench sizes, tightening spec and whether PTFE tape belongs on any customer joint are equally
-  unstated.
-- **Which stops scenario B fits.** `bom.md` "External / user-supplied" says a 3/8" *or 1/2"* angle
-  stop; the part and [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) say 3/8"
-  only. Leaf 11 sends a buyer with anything else to the consultation.
-- **How the white run reaches a scenario-B tee.** [`finish-pack-ship.md`](/hardware/assembly/finish-pack-ship.md)
-  §6 ties that run into the PP0208E's branch at the bench, and the older kitchen does not use that
-  tee.
+- **The wrench spec on the older-kitchen tee.** Its two threaded joints are the only ones the buyer
+  makes, and no wrench size, tightening figure or PTFE-tape policy is stated for them anywhere in
+  the tree. Leaf 11 says snug and a little more, which is what a compression nut on its own washer
+  wants and is the most that is true today.
+- **A kitchen whose stop is not 3/8 inch.** The kit holds one older-path tee and it is 3/8". Leaf 11
+  sends anyone else to the consultation, and no second adapter is specified.
 - **Mounting the regulator on the cylinder.** No CGA-320 make-up is written. Leaf 13 hands the job
   to the shop that fills the cylinder, which is true advice and not a procedure.
 - **CO2 cylinder handling.** No standing, restraint, storage or valve guidance exists in the tree.

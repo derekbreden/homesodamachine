@@ -392,7 +392,7 @@ tr:last-child td { border-bottom: none; }
    One region of the source fills every one of these plates, so the four states stay registered
    on the page the way they are registered in the camera. */
 .plate-stop {
-  height: 640px;
+  height: 560px;
   background-color: #d0d0ce;
   background-size: 1560px auto;
   background-position: -457px -218px;
