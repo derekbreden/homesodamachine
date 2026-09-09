@@ -6,9 +6,9 @@ documents still cannot drift.
 
 Presentation cuts, the kind `_cad_art` makes and for the same reasons:
 
-- the cabinet, the countertop slab, the CO2 cylinder and its regulator, the filter cartridge,
-  the concentrate bottle and the cord housing have no source CAD. Each is a plain block or
-  cylinder drawn to its catalogue size, and none is a dimensional authority;
+- the cabinet, the countertop slab, the CO2 cylinder and its regulator, the filter cartridge and
+  the customer's power cord have no source CAD. Each is drawn to its catalogue size — the cord to
+  the inlet it mates with — and none is a dimensional authority;
 - a clearance is a coral pad lying on the cabinet floor where the air has to be, so it states a
   footprint without standing in front of the appliance;
 - coral marks the one thing the reader's hands are on, which is what it already means in the
@@ -42,14 +42,20 @@ OUT = HERE / "out"
 
 sys.path.insert(0, str(HARDWARE / "scripts"))
 sys.path.insert(0, str(HARDWARE / "quickstart"))
+sys.path.insert(0, str(HARDWARE / "printed-parts" / "cadlib"))
+sys.path.insert(0, str(HARDWARE / "reference" / "iec-c14-inlet"))
 
 from _cadq_export import import_step, note_read, note_write  # noqa: E402
+from world_workplane import xz_plane_y_up  # noqa: E402
+import iec_c14_inlet as _c14  # noqa: E402
 import _cad_art  # noqa: E402
 
 RENDERER = _cad_art.RENDERER
 MACHINE_STEP = _cad_art.MACHINE_STEP
 MACHINE_MESH = _cad_art.MACHINE_MESH
+MACHINE_FACTS = _cad_art.MACHINE_FACTS
 COLLET_PRESS = HARDWARE / "printed-parts" / "collet-press" / "collet-press.step"
+C14_SOURCE = Path(_c14.__file__).resolve()
 
 
 # The appliance's own frame, read off `enclosure-assembly.step` and its facts: X across the
@@ -198,6 +204,101 @@ def _floor(x0, y0, sx, sy):
     return _box(x0, y0, -24.0, sx, sy, 18.0)
 
 
+# --- the back face ----------------------------------------------------------
+#
+# The children of `enclosure-assembly.step` a customer standing behind the machine can see. Each
+# carries its own colour out of the STEP: the shell dark, the four bulkhead rings in the fluids'
+# colours, the nameplate's ink white.
+REAR_CHILDREN = frozenset({
+    "c14-inlet",
+    "keystone-jack",
+    "co2-inlet",
+    "bulkhead-water",
+    "bulkhead-carb",
+    "bulkhead-flavor-a",
+    "bulkhead-flavor-b",
+    "funnel",
+    "nameplate",
+    "nameplate-ink",
+    "enclosure-back-bottom",
+    "enclosure-back-top",
+})
+REAR_RING_PREFIX = "bulkhead-ring-"
+
+#: `enclosure-assembly.facts.json`. The show face is the wall's +Y plane and the inlet stands on
+#: the top port row's own storey, so the cord goes in level with the tubes.
+_FACTS = json.loads(MACHINE_FACTS.read_text())
+REAR_FACE_Y = _FACTS["box"]["outer"][3]
+C14_STATION = tuple(_FACTS["constants"]["C14_STATION"])
+
+# The mating half of `reference/iec-c14-inlet`: the customer's own cord, which has no source CAD.
+# Its socket is that inlet's shroud plus a slip; wall, body, boot and cable are the catalogue
+# sizes of a moulded 18 AWG cordset.
+C13_SLIP = 0.35
+C13_WALL = 3.5
+C13_BODY_LEN = 31.0
+C13_BOOT_LEN = 30.0
+C13_BOOT_D = (14.5, 9.0)
+C13_CABLE_D = 7.8
+CORDSET = cq.Color(0.035, 0.038, 0.043, 1.0)
+
+
+def _rear_face(assembly):
+    """Add the machine's rear-visible children, colours and all."""
+    for child in cq.Assembly.load(str(MACHINE_STEP)).children:
+        if child.name in REAR_CHILDREN or child.name.startswith(REAR_RING_PREFIX):
+            assembly.add(child)
+    return assembly
+
+
+def _prism(w, h, r, length):
+    """A rounded rectangular prism on the show face's own plane, running `length` in +Y."""
+    return (cq.Workplane(xz_plane_y_up)
+            .rect(w, h).extrude(length).edges("|Y").fillet(r))
+
+
+def _cable(points, diameter, tangents):
+    """A round cord swept along a spline through `points`."""
+    vectors = [cq.Vector(*point) for point in points]
+    path = cq.Edge.makeSpline(vectors, tangents=[cq.Vector(*t) for t in tangents], scale=False)
+    profile = cq.Wire.makeCircle(diameter / 2.0, vectors[0], cq.Vector(*tangents[0]))
+    return cq.Solid.sweep(profile, [], path, makeSolid=True, isFrenet=False)
+
+
+def _c13_cordset(gap):
+    """The cord end on the inlet's mating axis, `gap` millimetres out from the show face.
+
+    The socket the shroud enters, the moulding round it, the strain relief and the cord. Its
+    three contact slots stand where the inlet's own blades do.
+    """
+    x, z = C14_STATION
+    y0 = REAR_FACE_Y + gap
+    socket_w = _c14.SHROUD_W + 2.0 * C13_SLIP
+    socket_h = _c14.SHROUD_H + 2.0 * C13_SLIP
+    socket_depth = _c14.SHROUD_PROUD + 0.8
+
+    body = _prism(socket_w + 2.0 * C13_WALL, socket_h + 2.0 * C13_WALL, 3.0, C13_BODY_LEN)
+    body = body.faces(">Y").chamfer(1.2)
+    body = body.cut(_prism(socket_w, socket_h, _c14.SHROUD_FILLET + C13_SLIP, socket_depth))
+    for blade in _c14.build_blades().val().Solids():
+        bb = blade.BoundingBox()
+        body = body.cut(_box(bb.xmin - 0.3, socket_depth, bb.zmin - 0.3,
+                             bb.xlen + 0.6, C13_BODY_LEN, bb.zlen + 0.6))
+    boot = (cq.Workplane(xz_plane_y_up).workplane(offset=C13_BODY_LEN)
+            .circle(C13_BOOT_D[0] / 2.0)
+            .workplane(offset=C13_BOOT_LEN).circle(C13_BOOT_D[1] / 2.0).loft())
+
+    tail = C13_BODY_LEN + C13_BOOT_LEN
+    cord = _cable(
+        ((0.0, tail, 0.0), (0.0, tail + 26.0, 0.0),
+         (7.0, tail + 48.0, -58.0), (11.0, tail + 55.0, -175.0)),
+        C13_CABLE_D,
+        ((0.0, 1.0, 0.0), (0.0, 0.0, -1.0)),
+    )
+    parts = [body.val(), boot.val(), cord]
+    return cq.Compound.makeCompound(parts).translate((x, y0, z))
+
+
 # --- scenes -----------------------------------------------------------------
 
 def s_cabinet_plan():
@@ -276,6 +377,26 @@ def s_collet_press():
     return a
 
 
+def s_the_back_face():
+    """The face with nothing in it: seven stations to count, in two rows and four columns."""
+    return _rear_face(cq.Assembly(name="the-back-face-scene"))
+
+
+def s_the_socket():
+    """The top row's left-hand end with the cord home in it and its tail falling away.
+
+    Home is the show face. The wall's opening is cut to the shroud alone and the shroud stands
+    0.75 mm out of it, so the cordset's moulding comes to rest on the wall itself.
+    """
+    a = _rear_face(cq.Assembly(name="the-socket-scene"))
+    a.add(_c13_cordset(0.5), name="c13-cordset", color=CORDSET)
+    return a
+
+
+#: Scenes standing on the machine's printed bodies. `enclosure-assembly.step` is a smooth prism
+#: and the flutes live in the payload beside it, so these carry that skin across.
+FLUTED = frozenset({"the-back-face", "the-socket"})
+
 SCENES = {
     "cabinet-plan": (s_cabinet_plan, dict(cam=(0.16, -0.40, 1.0), size="2000x2000")),
     "opening": (s_opening, dict(cam=(0.42, -0.80, 0.95), target=(0.0, 0.0, 24.0),
@@ -283,7 +404,33 @@ SCENES = {
     "filter-in-cabinet": (s_filter_in_cabinet, dict(cam=(0.32, -1.0, 0.52),
                                                 size="2200x1200")),
     "collet-press": (s_collet_press, dict(cam=(-0.5, -0.9, 0.85), size="1700x1100")),
+    # On the wall's own column, tilted down. Screen up is world up, so every row is level. The
+    # frame holds both port rows, the inlet, the jack, the nameplate, and a sliver of the top
+    # face over the wall's top edge.
+    "the-back-face": (s_the_back_face, dict(cam=(0.0, 1.0, 0.16),
+                                            target=(-3.0, REAR_FACE_Y, 292.0),
+                                            span=70.5, size="2200x1540")),
+    # Off the column, on the top row: the four collets, the inlet with the cord home in it, and
+    # the tail leaving past the machine's +X corner.
+    "the-socket": (s_the_socket, dict(cam=(-0.26, 1.0, 0.16),
+                                      target=(5.0, REAR_FACE_Y, 334.1),
+                                      span=31.7, size="2200x668")),
 }
+
+
+def _graft_flutes(step: Path) -> None:
+    """Put the machine's printed skin on the bodies this scene borrowed from it.
+
+    The flutes live in `enclosure-assembly.step.mesh` and not in the solid beside it. Every body
+    built in this file keeps the surface its own solid tessellates to.
+    """
+    import flute_payload
+
+    source = flute_payload.read_payload(MACHINE_MESH) or []
+    landed = flute_payload.graft(Path(str(step) + ".mesh"),
+                                 {entry["name"]: entry for entry in source})
+    if landed < 3:
+        raise RuntimeError(f"{step.name}: {landed} appliance meshes landed, not the rear bodies")
 
 
 def render(names: list[str]) -> None:
@@ -292,14 +439,19 @@ def render(names: list[str]) -> None:
     note_read(RENDERER)
     note_read(MACHINE_STEP)
     note_read(MACHINE_MESH)
+    note_read(MACHINE_FACTS)
     note_read(COLLET_PRESS)
+    note_read(C14_SOURCE)
     with tempfile.TemporaryDirectory(prefix="install-art-", dir=OUT) as directory:
         work = Path(directory)
         jobs = []
         for name in names:
             build, pose = SCENES[name]
             step = work / f"{name}.step"
-            _cad_art._export_colored(build(), step)
+            fluted = name in FLUTED
+            _cad_art._export_colored(build(), step, mesh=fluted)
+            if fluted:
+                _graft_flutes(step)
             jobs.append({
                 "step": str(step.relative_to(HARDWARE)),
                 "out": str(ART / f"{name}.png"),
