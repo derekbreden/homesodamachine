@@ -748,7 +748,7 @@ static bool ch422gWriteLocked(uint8_t addr, uint8_t val) {
   Wire.beginTransmission(addr);  // addr is the 7-bit "register"/command address
   Wire.write(val);               // single data byte, no register pointer
   const uint8_t result = Wire.endTransmission();
-  if (result != 0) exioWriteErrors++;
+  if (result != 0) exioWriteErrors = exioWriteErrors + 1;
   return result == 0;
 }
 
@@ -862,7 +862,7 @@ static bool panelQueueVsyncAction(PanelVsyncAction action) {
   if (panelVsyncAction == PANEL_VSYNC_NONE) {
     panelVsyncAction = action;
     panelVsyncActionDone = false;
-    panelVsyncActionsQueued++;
+    panelVsyncActionsQueued = panelVsyncActionsQueued + 1;
     queued = true;
   }
   portEXIT_CRITICAL(&panelVsyncActionMux);
@@ -903,14 +903,14 @@ static void panelVsyncTask(void *arg) {
 
     if ((uint32_t)(esp_cpu_get_cycle_count() - panelVsyncCycleAt) >
         PANEL_VSYNC_ACTION_WINDOW_CYCLES) {
-      panelVsyncLateRetries++;
+      panelVsyncLateRetries = panelVsyncLateRetries + 1;
       continue;
     }
 
     // Waiting here would make an expander write land after the blank. Give the
     // touch transaction the current frame, then retry at the next VSYNC.
     if (!i2cTake(0)) {
-      panelVsyncBusRetries++;
+      panelVsyncBusRetries = panelVsyncBusRetries + 1;
       continue;
     }
 
@@ -926,7 +926,7 @@ static void panelVsyncTask(void *arg) {
     if ((uint32_t)(esp_cpu_get_cycle_count() - panelVsyncCycleAt) >
         PANEL_VSYNC_ACTION_WINDOW_CYCLES) {
       i2cGive();
-      panelVsyncLateRetries++;
+      panelVsyncLateRetries = panelVsyncLateRetries + 1;
       continue;
     }
 
@@ -940,7 +940,7 @@ static void panelVsyncTask(void *arg) {
     i2cGive();
 
     if (!ok) {
-      panelVsyncWriteErrors++;
+      panelVsyncWriteErrors = panelVsyncWriteErrors + 1;
       continue;
     }
 
@@ -948,7 +948,7 @@ static void panelVsyncTask(void *arg) {
     if (panelVsyncAction == action) {
       panelVsyncAction = PANEL_VSYNC_NONE;
       panelVsyncActionDone = true;
-      panelVsyncActionsDone++;
+      panelVsyncActionsDone = panelVsyncActionsDone + 1;
     }
     portEXIT_CRITICAL(&panelVsyncActionMux);
   }
