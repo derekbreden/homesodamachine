@@ -86,8 +86,9 @@ field that box has no visible edge, so a run leaving it mid-field leaves a squar
 the open — the tee sequence's original line and the union's supply side both do. Every connector
 and tube is a CAD solid.
 
-`plumbing/plumbing_scenes.py` retains the separate older-home braided-hose study assets. They are
-not scenes or dependencies of this modern push-fit guide.
+`plumbing/plumbing_scenes.py` draws the older-home braided-hose path — scenario B, the angle-stop
+add-a-tee. Those four scenes are the [install guide](/hardware/install-guide/README.md)'s, not this
+sheet's: this sheet draws one water path and the booklet beside it carries the other.
 
 ## Appliance rear connections
 

@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><link rel="stylesheet" href="style.css"></head>
+<body>
+<article class="card">
+  <header>
+    <span class="eyebrow">Before you start</span>
+    <h1>The whole path</h1>
+    <i class="rule"></i>
+    <p class="lede">Seven things cross into the appliance, and they all cross on the same face.
+      This is what you are building.</p>
+  </header>
+  <main>
+    <svg class="path-map" viewBox="0 0 1380 1310" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="flow" viewBox="0 0 12 12" refX="9" refY="6" markerWidth="7" markerHeight="7"
+                orient="auto"><path d="M0 1L11 6L0 11Z" fill="#6d6a74"/></marker>
+      </defs>
+
+      <!-- counter -->
+      <rect x="0" y="52" width="1380" height="26" fill="#cfc7bb"/>
+      <text class="lbl" x="1372" y="42" text-anchor="end">COUNTERTOP</text>
+
+      <!-- faucet -->
+      <path d="M170 52V22a20 20 0 0 1 20-20h44a20 20 0 0 1 20 20v14"
+            fill="none" stroke="#23232a" stroke-width="15" stroke-linecap="round"/>
+      <rect x="144" y="36" width="52" height="16" rx="4" fill="#23232a"/>
+      <text class="lbl" x="290" y="34">FAUCET</text>
+
+      <!-- umbilical: one sleeved run down and across, splitting at the appliance -->
+      <path d="M170 78V300Q170 340 210 340H700" fill="none" stroke="#a9a49b" stroke-width="26"
+            stroke-linecap="round"/>
+      <text class="lbl" x="232" y="150" transform="rotate(90 232 150)">SLEEVED TOGETHER</text>
+      <path d="M700 340H760Q800 340 800 380V400Q800 430 840 430H900" fill="none" stroke="#1f6feb" stroke-width="11"/>
+      <path d="M700 340H770Q810 340 810 380V450Q810 490 850 490H900" fill="none" stroke="#262629" stroke-width="11"/>
+      <path d="M700 340H780Q820 340 820 380V510Q820 550 860 550H900" fill="none" stroke="#262629" stroke-width="11"/>
+      <path d="M700 340H790Q830 340 830 380V570Q830 610 870 610H900" fill="none" stroke="#6d6a74" stroke-width="7"/>
+
+      <!-- cold water: valve, tee, filter -->
+      <path d="M300 200H900" fill="none" stroke="#c3bcb0" stroke-width="13"/>
+      <path d="M430 200V128" fill="none" stroke="#c3bcb0" stroke-width="13" marker-end="url(#flow)"/>
+      <text class="lbl" x="454" y="140">YOUR EXISTING LINE</text>
+      <rect x="272" y="172" width="56" height="56" rx="7" fill="#fff" stroke="#23232a" stroke-width="8"/>
+      <path d="M286 200h28" stroke="#1f6feb" stroke-width="11" stroke-linecap="round"/>
+      <text class="lbl" x="300" y="272" text-anchor="middle">VALVE</text>
+      <circle cx="430" cy="200" r="16" fill="#23232a"/>
+      <text class="lbl" x="430" y="272" text-anchor="middle">TEE</text>
+      <rect x="560" y="168" width="232" height="64" rx="32" fill="#fff" stroke="#23232a" stroke-width="8"/>
+      <text class="lbl" x="676" y="272" text-anchor="middle">FILTER</text>
+
+      <!-- cylinder and regulator -->
+      <rect x="246" y="880" width="118" height="362" rx="40" fill="#cfc7bb" stroke="#23232a" stroke-width="7"/>
+      <rect x="282" y="830" width="46" height="52" fill="#8f8a80"/>
+      <rect x="252" y="788" width="106" height="46" rx="8" fill="#fff" stroke="#23232a" stroke-width="7"/>
+      <circle cx="280" cy="811" r="11" fill="none" stroke="#23232a" stroke-width="5"/>
+      <circle cx="330" cy="811" r="11" fill="none" stroke="#23232a" stroke-width="5"/>
+      <text class="lbl" x="305" y="1288" text-anchor="middle">CYLINDER + REGULATOR</text>
+      <path d="M358 812H900" fill="none" stroke="#d63a3a" stroke-width="11"/>
+
+      <!-- cord -->
+      <path d="M900 1080H760Q720 1080 720 1120V1176" fill="none" stroke="#23232a" stroke-width="9"/>
+      <rect x="678" y="1176" width="84" height="66" rx="8" fill="#fff" stroke="#23232a" stroke-width="7"/>
+      <circle cx="702" cy="1206" r="7" fill="#23232a"/><circle cx="738" cy="1206" r="7" fill="#23232a"/>
+      <text class="lbl" x="720" y="1288" text-anchor="middle">120 V OUTLET</text>
+
+      <path d="M170 1250H1300" stroke="#cfc7bb" stroke-width="12" stroke-linecap="round"/>
+
+      <!-- the appliance -->
+      <path d="M1024 96h150l-16 44h-118Z" fill="#23232a"/>
+      <text class="lbl" x="1196" y="126">FUNNEL</text>
+      <rect x="900" y="140" width="400" height="1060" rx="18" fill="#23232a"/>
+
+      <circle cx="900" cy="200" r="21" fill="#fff" stroke="#23232a" stroke-width="6"/>
+      <text class="port" x="938" y="212">TAP</text>
+      <circle cx="900" cy="430" r="21" fill="#1f6feb"/><text class="port" x="938" y="442">SODA</text>
+      <circle cx="900" cy="490" r="21" fill="#3a3a42"/><text class="port" x="938" y="502">FLAVOR</text>
+      <circle cx="900" cy="550" r="21" fill="#3a3a42"/><text class="port" x="938" y="562">FLAVOR</text>
+      <rect x="882" y="592" width="36" height="36" rx="4" fill="#8f8a80"/>
+      <text class="port" x="938" y="622">the faucet's plug</text>
+      <circle cx="900" cy="800" r="21" fill="#d63a3a"/><text class="port" x="938" y="812">CO2</text>
+      <rect x="878" y="1060" width="42" height="40" rx="4" fill="#8f8a80"/>
+      <text class="port" x="938" y="1092">power</text>
+    </svg>
+    <p class="plate-caption">Five tubes, one plug and one cord — every one of them on the same
+      face of the appliance.</p>
+    <p>Nothing crosses into this machine anywhere else. Your whole share of it is the outside of
+      that one face: what each line comes from, and pushing it home. The Quick Start draws the
+      pushing; the pages after this one are everything at the far end of each line.</p>
+  </main>
+  <footer><span>Home Soda Machine &middot; Install Guide</span><span class="folio">5</span></footer>
+</article>
+</body>
+</html>
