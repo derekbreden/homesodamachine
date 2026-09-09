@@ -1,111 +1,115 @@
 # Funnel mold print project
 
-[funnel-mold-petg-08-016.3mf](funnel-mold-petg-08-016.3mf) contains the cavity and
-core meshes, editable process and filament settings, and both plates' sliced G-code.
-The two solids match the supplied mold meshes within the slicer's floating-point
-serialization. The core is rotated 180° about X, with its plate on the bed and its
-forming plug upward. Neither solid is scaled or cut.
+[funnel-mold-vacuum-petg-08-016.3mf](funnel-mold-vacuum-petg-08-016.3mf) holds three
+editable objects, two surface-speed modifiers, the complete printer/filament/process
+settings, native thumbnails and all three plates' sliced G-code. The mold geometry
+comes from [funnel_mold.py](funnel_mold.py); [structure and finishing](README.md)
+define the intended finished dimensions and bench procedure.
 
 ## Plates
 
 Bambu Studio 02.08.02.61 estimates:
 
 | Plate | Orientation | Time | PETG | Layers |
-|---|---|---|---|---|
-| 1 — Cavity | Opening up | 21 h 3 min 42 s | 744.36 g | 466 |
-| 2 — Core | Plate down, plug up | 13 h 38 min 59 s | 485.37 g | 315 |
+|---|---|---:|---:|---:|
+| 1 — Finish witness | Flat datum on bed | 39 min 7 s | 15.32 g | 95 |
+| 2 — Cavity | Opening up | 22 h 3 min 15 s | 588.43 g | 466 |
+| 3 — Core | Open back on bed, forming plug up | 19 h 41 min 41 s | 567.48 g | 314 |
 
-These are separate print jobs. Combined material is 1,229.73 g. A full 1 kg spool
-covers either plate; the remainder after the cavity does not cover the core.
-Physical print, surface finish, vacuum behavior and silicone-release results are
-not yet recorded.
+Each plate is a separate job. The combined estimate is 1,171.24 g. Start each
+large plate with enough dry filament: one full 1 kg spool covers either half,
+but the remainder after the cavity will not cover the core. These are slicer
+estimates; the cavity has less than two hours of margin under 24 hours.
+
+Print the witness first. Physical print time, vacuum behavior, finishing and
+silicone-release results have not yet been established for this geometry.
 
 ## Settings
 
 | Setting | Value |
 |---|---|
 | Printer | Bambu Lab H2C 0.8 Standard +0.04 Z trim |
-| Filament assignment | Left nozzle, Standard flow, manual assignment on both plates |
-| Filament | PETG Translucent, 255 °C throughout; flow ratio 0.97 |
+| Assignment | Left nozzle, Standard flow; manual assignment on all plates |
+| Filament | PETG Translucent, 255 °C throughout, flow ratio 0.97 |
 | Bed | Textured PEI, 70 °C throughout |
 | Layers | 0.16 mm; first layer 0.30 mm |
-| Walls | Arachne, four requested loops, 0.80 mm width |
+| Walls | Arachne, four requested loops, nominal width 0.80 mm |
 | Fill / top / first-layer width | 0.90 mm |
-| Top shell | 13 layers, minimum vertical thickness 2.08 mm |
-| Bottom shell | 10 layers, minimum thickness 1.60 mm |
-| Interior | 15% gyroid |
-| Outer wall / top surface speed | 30 / 30 mm/s requested |
-| Inner wall / solid fill / sparse fill speed | 80 / 90 / 100 mm/s requested |
-| First-layer wall / fill speed | 25 / 35 mm/s requested |
-| Maximum volumetric speed | 12 mm³/s |
+| Top and bottom shell | 20 layers; minimum vertical thickness 3.20 mm |
+| Residual fill | 100% rectilinear (`zig-zag` in the project format) |
+| Forming / registration outer walls | 30 mm/s through CAD-shaped modifiers |
+| Exposed backing-rib outer walls | 80 mm/s |
+| Witness outer walls / top surfaces | 30 / 30 mm/s |
+| Inner walls / solid fill / other fill | 80 / 90 / 100 mm/s requested |
+| Bridges / internal bridges | 20 / 30 mm/s |
+| First-layer walls / fill | 25 / 35 mm/s |
+| Maximum volumetric speed | 12 mm³/s requested |
 | Outer-wall / top-surface acceleration | 1,000 mm/s² |
-| Normal part cooling | 20–40%; off for first three layers; auxiliary fan off |
+| Normal cooling | 20–40%; first three layers off; auxiliary fan off |
 | Overhang cooling | 90% override |
-| Seam | Aligned scarf, inner walls included, conditional scarf off, gap 0% |
-| Brim | Outside only, 6 mm, 0.15 mm separation |
+| Seam | Aligned scarf, including inner walls; conditional scarf off; gap 0% |
+| Brim | Outer only, 6 mm wide, 0.15 mm separation |
+| Travel | Avoid crossing walls, with a 30 mm maximum additional detour |
 | Supports / ironing | Disabled / disabled |
 | XY contour / hole compensation | Zero / zero |
 
-The active printer retains the reservoir trial's Z trim: an early `G29.1 Z0`
-reset and a single final `G29.1 Z0.02` on textured PEI. Both nozzle slots are
-configured as 0.8 mm Standard; the sliced plates use the left slot. The optional
-printer presets remain in the reservoir's
-[Z-trim bundle](../../cold-core/reservoir/reservoir-08-z-trim-presets.bbscfg).
-Changing the printer, nozzle, trim or material requires slicing again.
+The large air spaces are modeled open bays. Solid fill applies only to the skins,
+ribs and frame. The cavity registration band has a 45° supporting corbel; the
+blind spout floor stands on a pedestal. The core's rod socket has a closed boss.
+
+The active printer retains an early `G29.1 Z0` and a final `G29.1 Z0.02` on
+textured PEI, corresponding to the stock PEI adjustment plus the saved +0.04 mm
+trim. Both nozzle slots are configured as 0.8 mm Standard. Machine start, end and
+filament-change templates match the retained printer profile. Re-slice after
+changing printer, nozzle, trim, filament, geometry or finishing allowance.
 
 ## Inspection
 
-[Inspection readings](print-profile.json) identify the project, meshes and G-code
-by digest. Both embedded G-code files match their CLI exports and their MD5 entries.
-Both plates return slicing success with empty plate-warning fields. All model and
-brim extrusion stays inside the 330 × 320 mm printable area. Neither plate contains
-support paths. Native Bambu Studio thumbnails show the print orientation.
+[Machine-readable inspection](print-profile.json) identifies the project, meshes
+and G-code by digest. All three embedded G-code files match their CLI exports and
+MD5 entries. Each mesh is one closed, consistently wound body. The sliced mesh
+coordinates agree with the generated input within 0.000002 mm after accounting
+for local-origin translation; triangle connectivity is unchanged.
 
-The cavity mesh has 97,938 triangles; the core has 89,778. Each is one closed,
-consistently wound body. The cavity is 189 × 189 × 74.649 mm; the core is
-201 × 201 × 50.640 mm in its print orientation.
+All plates return success with empty warning fields. All model and brim extrusion
+stays within the 330 × 320 mm printable area, and no support paths are present.
+The final cavity has 85,010 triangles; core 30,390; witness 56. The cavity is
+189 × 189 × 74.649 mm; the core is 201 × 201 × 50.436 mm in its print orientation.
 
-Selected layers cover the bottom skins, interior fill, blind cavity tip, sloping
-forming faces, rim, registration skirt, pour dish, five vents and rod socket.
-The socket is open from its blind floor toward the core tip. The pour dish is
-the core's only downward-facing surface above the bed. It occupies the first
-4 mm and does not form the funnel's wetted face.
+Across 16 inspected mold layers, 7,381 outer-wall segments whose midpoints lie
+inside the surface modifiers stay at or below 30 mm/s. Exposed ribs reach 80 mm/s.
+On extrusion segments longer than 1 mm, the largest calculated filament flow is
+11.653 mm³/s after the 0.97 flow ratio. Submillimetre G-code segments have larger
+local ratios from coordinate/extrusion rounding; the JSON retains those readings.
 
-The five vents retain nominal clear diameters of about 2.42–2.43 mm above the
-first layer. The rod socket reads about 6.39–6.40 mm through its body and 6.32 mm
-at its last printed layer. These are centerline-and-width readings; the ground
-6.35 mm rod still needs a physical fit check and the entrance may need clearing.
-The core's final extrusion is at Z 50.54 mm. The source mesh reaches 50.640 mm.
+At backing-channel mid-height, every row retains approximately 3.00 mm of clear
+width through the ribs. The five silicone vents retain about 2.42 mm diameter
+above the first layer. The pour throat retains about 10.96 mm; its dish is wider.
+The rod socket reads about 6.39–6.40 mm through its body, but its final thin entry
+lip narrows to about 6.16 mm in the toolpath. **Clear that entry lip and fit the
+actual 6.35 mm ground rod before coating.** It must slide freely to 28.8 mm depth;
+use a depth stop and keep the blind end intact. Keep the socket uncoated.
 
-Outer-wall extrusion reaches 30 mm/s on the cavity. The core includes short
-45 mm/s outer-wall segments in the pour-dish layers; the inspected forming-face
-layers stay at or below 30 mm/s. The nominal 12 mm³/s flow cap is below the
-installed Bambu PETG Translucent H2C 0.8 profile's 16 mm³/s value.
+These passage readings use minimum distance to an extrusion centreline less half
+the annotated line width. They describe nominal toolpath footprints, not measured
+plastic. Final core extrusion reaches Z 50.38 mm.
 
-![Selected extrusion centerlines](print-paths.png)
+The geometry was published and then reviewed with geometry lint in the intended
+print orientations. Its 21 findings have specific anchored answers: finishing
+steps, small corbel-start ledges, the rod-boss bridge and the deliberate witness
+bridge. The witness tests the 17.6 mm span before a large print.
 
-The paths and line widths describe the slicer's output, not measured deposited
-plastic or a leak test. Scarf ramps and speed transitions remain in the G-code.
+![Selected extrusion centre lines](print-paths.png)
 
 ## At the bench
 
-Dry the PETG before printing and feed it from dry storage. Bambu specifies
+Dry the PETG and feed it from dry storage. Bambu specifies
 [65 °C for 8 hours](https://us.store.bambulab.com/products/petg-translucent?id=42479468281992)
-in a blast drying oven. Check the first layer and let each plate cool before removal.
+in a blast drying oven. Let each plate cool before removing it, then clear all
+backing channels, pour/vent passages and the rod entrance. Dry-assemble the halves
+and check that the registration lands seat flat.
 
-Clear all five vents and the pour port. Check the ground rod's slip fit and socket
-depth before coating. Dry-assemble the halves: the skirt slides squarely over the
-cavity and the parting lands seat without rocking. Keep the socket, registration
-fit and parting lands free of pooled coating.
-
-The core's forming surface carries the funnel's inside finish. Sand and seal it,
-then coupon-test the exact PETG, sealer, release and silicone combination for cure
-and repeated release before casting a funnel. The 0.16 mm terraces remain physical
-features until finished. Smooth-On's
-[sealer and release tests](https://www.smooth-on.com/support/faq/210/) show that
-compatibility depends on the silicone and finish combination; a gloss acrylic
-coating alone does not establish compatibility with BBDINO.
-
-Degassing mixed silicone in a separate cup keeps the mold out of that vacuum cycle.
-Vacuum exposure of a filled mold also depends on sealing its cavity face: its sparse
-interior contains air, and an unsealed casting face can pass that air into silicone.
+Both forming faces require the measured 0.20 mm net finishing growth described
+in [the finishing procedure](README.md#measure-the-finish). Mask registration
+lands, the socket and every backing-air passage. Trial the actual coating,
+release and BBDINO batch on the witness before coating the mold or casting.
