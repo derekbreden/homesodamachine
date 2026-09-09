@@ -17,7 +17,7 @@ wiring, and the tear-down.
 A board and a USB-C cable. Nothing else is required, and nothing is hand-wired.
 
 - 12 V into **J10** (the screw terminal, SE corner) — `PWR` and `5V` light from the rails alone.
-- A plain USB-C cable into **J14** (west edge, above the WROOM). The on-board CH340C (U13)
+- A plain USB-C cable into **J14** (west edge, above the WROOM). The on-board CH340B (U13)
   is the bridge and the cross-coupled NPN pair (Q2/Q3) does the auto-reset, so no button
   presses and no external programmer.
 
@@ -50,10 +50,14 @@ press Enter once to reach a `>` prompt. Type `help` for the list:
 | `scan` | The I²C bus reaches all three devices — 0x20, 0x21, 0x68 |
 | `bus` | Whether R19/R20 are visible from IO21/IO22 across J8's barrel junction |
 | `rtc` | U6 DS3231 answers, reports die temperature, and its seconds actually advance |
+| `rtc set` | The clock takes a time, runs on battery and clears OSF — pull both supplies, come back, and `rtc` says whether BT1 carried it |
 | `mcp` | Both MCP23017s: register reads, plus a write round-trip that never touches a pin |
 | `in` | Every off-board signal pin, and the two gas dividers in millivolts |
+| `wifi` | The WROOM's RF section and the board-edge antenna hear the room they are in — boot runs it too |
 | `rs485` | DI → U7 → A/B → U7 → RO closes entirely on-board, through R6's termination |
+| `rs485link` | J9 comes back up after `drive io32` has held IO32 as a plain pin |
 | `link` | J9 frame counters and the echo canceller's outstanding count |
+| `j9raw` | Whatever arrives on IO34 over 5 s, byte for byte, below HDLC and the canceller |
 | `pumpmsg` | Sends the display's own `MSG_PUMP_RUN` frame back at it |
 | `watch` | Audible continuity probe — touch a connector pin to its GND and hold until it beeps |
 | `walk` | The three firmware LEDs are on the GPIO the map says they are |
@@ -62,6 +66,7 @@ press Enter once to reach a `>` prompt. Type `help` for the list:
 | `sound list` / `sound <name>` / `sound all` | The machine's own sounds, from the same table the appliance plays |
 | `tone` / `sweep` | One note, or one slide, at a named pitch and duty |
 | `arm` / `drive` | Drive one output for 120 s so it can be metered at its connector |
+| `interlock` | IO19 raised alone until the next reset, so J5.IO19 carries U15's verdict on the gas line — probe it against GND with J5 empty |
 | `pump` | Run a peristaltic pump on J13 through a DRV8870 (audible) |
 | `all` | The whole sweep |
 
