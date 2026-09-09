@@ -6812,8 +6812,10 @@ genrule(
     ),
     outs = [
         "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-assembly.step",
+        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-cavity-surface-zone.stl",
         "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-cavity.step",
         "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-cavity.stl",
+        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-core-surface-zone.stl",
         "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-core.step",
         "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-core.stl",
         "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-finish-witness.step",
@@ -6824,14 +6826,16 @@ genrule(
     cmd = """
 set -e
 O0=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-assembly.step)
-O1=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-cavity.step)
-O2=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-cavity.stl)
-O3=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-core.step)
-O4=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-core.stl)
-O5=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-finish-witness.step)
-O6=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-finish-witness.stl)
-O7=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/README.figures.json)
-O8=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/README.md)
+O1=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-cavity-surface-zone.stl)
+O2=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-cavity.step)
+O3=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-cavity.stl)
+O4=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-core-surface-zone.stl)
+O5=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-core.step)
+O6=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-core.stl)
+O7=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-finish-witness.step)
+O8=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-finish-witness.stl)
+O9=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/README.figures.json)
+O10=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/README.md)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -6849,14 +6853,16 @@ ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel-mold/funnel_mold.py > /dev/null
 cp hardware/printed-parts/zone-c/funnel-mold/funnel-mold-assembly.step $$O0
-cp hardware/printed-parts/zone-c/funnel-mold/funnel-mold-cavity.step $$O1
-cp hardware/printed-parts/zone-c/funnel-mold/funnel-mold-cavity.stl $$O2
-cp hardware/printed-parts/zone-c/funnel-mold/funnel-mold-core.step $$O3
-cp hardware/printed-parts/zone-c/funnel-mold/funnel-mold-core.stl $$O4
-cp hardware/printed-parts/zone-c/funnel-mold/funnel-mold-finish-witness.step $$O5
-cp hardware/printed-parts/zone-c/funnel-mold/funnel-mold-finish-witness.stl $$O6
-cp hardware/printed-parts/zone-c/funnel-mold/README.figures.json $$O7
-cp hardware/printed-parts/zone-c/funnel-mold/README.md $$O8
+cp hardware/printed-parts/zone-c/funnel-mold/funnel-mold-cavity-surface-zone.stl $$O1
+cp hardware/printed-parts/zone-c/funnel-mold/funnel-mold-cavity.step $$O2
+cp hardware/printed-parts/zone-c/funnel-mold/funnel-mold-cavity.stl $$O3
+cp hardware/printed-parts/zone-c/funnel-mold/funnel-mold-core-surface-zone.stl $$O4
+cp hardware/printed-parts/zone-c/funnel-mold/funnel-mold-core.step $$O5
+cp hardware/printed-parts/zone-c/funnel-mold/funnel-mold-core.stl $$O6
+cp hardware/printed-parts/zone-c/funnel-mold/funnel-mold-finish-witness.step $$O7
+cp hardware/printed-parts/zone-c/funnel-mold/funnel-mold-finish-witness.stl $$O8
+cp hardware/printed-parts/zone-c/funnel-mold/README.figures.json $$O9
+cp hardware/printed-parts/zone-c/funnel-mold/README.md $$O10
 """,
 )
 
