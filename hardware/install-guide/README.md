@@ -17,17 +17,17 @@ That makes the sheet's six clusters this booklet's spine. Everything here is eit
 
 | Leaves | |
 |---|---|
-| 2–7 | before the first action: the two documents, the kit, the opening, the cabinet, the whole path |
+| 2–7 | before the first action: how to read the two documents, the kit, what the buyer brings, the whole path, the opening, the cabinet |
 | 8 | alongside `1` `2` — the seat the sheet cannot show, and why the tubes stay long |
 | 9–11 | alongside `3` `4` `5` — which kitchen the buyer has, and the older path the sheet does not draw |
 | 12–15 | the four things the sheet has no scene for: the filter, the cylinder, the ports read by name, the cord |
-| 16–20 | after the last push: the first hour, keeping it, the ratings, and where service lives |
+| 16–20 | after the last push: the first hour, keeping it, the ratings, what to check, and where service lives |
 
 ## How it is drawn
 
 The palette is the quick start's, unchanged, because the two are read in the same hour. Warm
 stone `#ded7cd` is the sheet's field, so a stone disc on a page here is a step on that sheet, and
-nothing else in the booklet is round. Coral `#d64050` is the sheet's cue colour: here it rules the
+nothing else in the booklet is round. Coral `#d64050` is the sheet's cue color: here it rules the
 lockup and marks the one thing on a leaf that will bite, and it is never decoration. Blue, red,
 white and black name fluids and nothing else — the four the bulkhead rings wear.
 
@@ -69,12 +69,15 @@ multiple of four because the booklet folds in fours.
 
 ## Print
 
-Print `install-guide.pdf` on US Letter, plain stock, **duplex, flip on short edge**, at 100 %,
-with the driver's own booklet imposition — the PDF is in reading order and the driver puts the
-leaves on the sheets. Five sheets. Fold the stack once across the short axis and put two staples
-in the fold. Check the fold falls between spreads, that the older-kitchen pair stays on one
-opening, and that a grayscale copy still separates the coral callouts from the artwork behind
-them.
+The PDF is in reading order; the imposition is the printer driver's. Print on US Letter, plain
+stock, at 100 %, **two-sided with the driver's own booklet layout** — that is the setting that
+puts leaves 20 and 1 on one side of the first sheet and folds twenty half-letter pages onto five
+letter ones, and it sets the duplex flip itself. Fold the stack once down the middle and put two
+staples in the fold.
+
+Check the fold falls between spreads and not through one, that the older-kitchen pair (10 and 11)
+lands on a single opening, and that a grayscale copy still separates the coral callouts from the
+artwork behind them.
 
 ## What this guide does not yet state
 
@@ -108,7 +111,7 @@ and there is no sentence to give, listed so the booklet is not mistaken for comp
   neither. Leaf 18 carries the refrigerant and charge-mass statement, which is the condition on
   *instructions*; where the two on-unit markings go is owned by nothing.
 - **The first hour.** Leaf 16 describes the appliance as designed. `src_appliance/` runs one
-  flavour pump and nothing else today
+  flavor pump and nothing else today
   ([`firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md)), so no
   fill, chill or pour behind that leaf is exercised yet.
 - **Service.** Leaf 20 sends the buyer to the link the nameplate letters. No warranty term, RMA
