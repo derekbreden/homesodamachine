@@ -60,6 +60,9 @@ plus 133 mm plus a working gap is what the pair asks of the slot.
   face and somewhere to set it down are on top of it. This is the one service access that
   faces the room rather than a wall
   ([`service/pump-replacement.md`](/hardware/service/pump-replacement.md)).
+  **It is a draw, not a standing clearance.** The pull-forward above is what answers it: the
+  appliance comes out to the cabinet face on the day the cartridge is wanted, so the floor in
+  front of it is the cabinet's to use the rest of the time.
 - **A gap at each side face** — the condenser draws through the grille on one side and
   exhausts through the other.
 - **Headroom over the top wall** — the funnel is filled by inverting a 440 mL

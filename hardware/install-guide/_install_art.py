@@ -65,8 +65,14 @@ PORT_FACE_Y = 476.5
 PORT_Z_UPPER, PORT_Z_LOWER = 336.2, 273.8
 PORT_X_WEST, PORT_X_EAST = -78.1, -37.8
 
-# The four clearances page 7 asks the reader to leave, and the width page 7 asks beside them.
-CLEAR_BEHIND, CLEAR_FRONT, CLEAR_SIDE = 60.0, 71.0, 25.0
+# The clearances page 7 asks the reader to leave. There is no pad in front: the pump cartridge's
+# own draw is a service motion, and the umbilical's 300 mm service loop is what answers it — the
+# appliance comes out to the cabinet face on the day it is wanted rather than standing off the
+# doors for the years it is not (`marketing/install-envelope.md`). Behind is 60 mm because the lead
+# turns 90° at R12 off a collet standing 9.5 mm proud, and that one is permanent. The side gap is
+# the one the machine needs every hour it runs and the one this tree has never put a number on, so
+# the pad here states a gap without claiming a figure.
+CLEAR_BEHIND, CLEAR_SIDE = 60.0, 60.0
 CYLINDER_LANE = 133.0
 
 # Catalogue sizes for the things with no CAD.
@@ -139,17 +145,16 @@ def _floor(x0, y0, sx, sy):
 # --- scenes -----------------------------------------------------------------
 
 def s_cabinet_plan():
-    """The slot the appliance stands in, with the four clearances lying on the cabinet floor."""
+    """The slot the appliance stands in, with the clearances lying on the cabinet floor."""
     a = cq.Assembly(name="cabinet-plan-scene")
     _machine(a)
     x0 = BOX_X0 - CLEAR_SIDE - CYLINDER_LANE - 30.0
     x1 = BOX_X1 + CLEAR_SIDE + 30.0
-    _add(a, _floor(x0, BOX_Y0 - CLEAR_FRONT - 40.0, x1 - x0,
-                   BOX_Y1 - BOX_Y0 + CLEAR_FRONT + CLEAR_BEHIND + 80.0),
+    _add(a, _floor(x0, BOX_Y0 - 40.0, x1 - x0,
+                   BOX_Y1 - BOX_Y0 + CLEAR_BEHIND + 80.0),
          "cabinet-floor", CABINET)
     pads = (
         ("behind", BOX_X0, BOX_Y1, BOX_X1 - BOX_X0, CLEAR_BEHIND),
-        ("front", BOX_X0, BOX_Y0 - CLEAR_FRONT, BOX_X1 - BOX_X0, CLEAR_FRONT),
         ("side-west", BOX_X0 - CLEAR_SIDE, BOX_Y0, CLEAR_SIDE, BOX_Y1 - BOX_Y0),
         ("side-east", BOX_X1, BOX_Y0, CLEAR_SIDE, BOX_Y1 - BOX_Y0),
     )
