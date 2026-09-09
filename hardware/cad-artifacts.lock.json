@@ -2,8 +2,9 @@
   "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed \u2014 web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
   "release": {
     "tag": "cad-artifacts",
-    "asset": "cad-2fd17c6988514073.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-2fd17c6988514073.tar.gz"
+    "asset": "cad-8ad1e3e119146a56.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-8ad1e3e119146a56.tar.gz",
+    "objects": "s-"
   },
   "source": {
     "commit": "2eaea329d128836d567f242e6e87a7e187a4fb53"
@@ -11,13 +12,12 @@
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, its rule would not cut, or an interactive publication explicitly deferred that rule.",
     "paths": [
-      "hardware/funnel-mold-guide/_art.py",
-      "hardware/funnel-mold-guide/_build.py",
-      "hardware/funnel-mold-guide/funnel-mold.pdf.json",
-      "hardware/manifold-layout/enclosure-assembly.facts.json",
-      "hardware/printed-parts/enclosure/nameplate/nameplate.py",
+      ".gitignore",
       "hardware/printed-parts/zone-c/funnel-mold/prepare_print.py",
       "hardware/printed-parts/zone-c/funnel-mold/print-recipe.json",
+      "hardware/weld-rotator-guide/weld-rotator-guide.pdf.json",
+      "tools/cad-artifacts/pack.py",
+      "tools/weld-rotator-guide/build.py",
       "tools/weld-rotator-guide/rotator_art.py"
     ],
     "members": [
@@ -432,8 +432,8 @@
     ]
   },
   "bundle": {
-    "sha256": "2fd17c69885140730f0ba43e9bf60aeb44b49b9cb9ea0663f8c6cadbc88d4680",
-    "bytes": 140310472,
+    "sha256": "8ad1e3e119146a5659097b974d35c1175e47f0cd64b857bdb1d8fa5f31fbed25",
+    "bytes": 140314206,
     "solids": 329
   },
   "solids": {
@@ -527,7 +527,7 @@
     "hardware/install-guide/install-guide.cover.png": "e059cdb7e70f15b5e11aedf69fe10ffc7c4c11fb228539fd204c60573e13635a",
     "hardware/install-guide/install-guide.pdf": "178a5ecbb2a65d4483cd4cade314fbfa2bf6d2dfd2c33c11f8434f5ca28ef490",
     "hardware/manifold-layout/enclosure-assembly.step": "e2127b8ac18b898b15b904c2b6ff8bfc90d3f4038ad27373418b1eb858f7ab84",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "5ed33e74667d27eb4134e62bf9075a4bf513246dc97ee1964d7390df25c407e1",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "13f6fcf3ea1f25fd3fb57528be8b3b1935d61e0048110b8b76fac14626bbae8c",
     "hardware/manifold-layout/manifold-layout.step": "77649fc47b26af27c477871a21f53c2ee9852272e19980f16fd41b589bf4b27f",
     "hardware/manifold-layout/manifold-layout.step.mesh": "41c54b8e9a00621135935b120072810e7e8c9163200a7613b53a840460b795f3",
     "hardware/pcb/pcba/out/pcba.glb": "819d2d6a51579a8c3ee66bcb9432075bc50ca77cf129bd828ea538b8fc72b767",
@@ -592,7 +592,7 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl": "345eee377789f7e49cd594d4a0ddfaf8b73fc9f340a35211ef66f92e5e8860e4",
     "hardware/printed-parts/enclosure/enclosure/enclosure.step": "fc8d6390da67f857ebedd4634b2d44253d685765c61c13019940b7e74fc7f242",
     "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": "a804e599b7fbc1e885e4cc877d152870e88e4b42fd533e080ffe8ab1bbaa32dc",
-    "hardware/printed-parts/enclosure/nameplate/nameplate-001.step": "f0275db17caf5d3ee94b76fc19b6dbf0dd347dc83fe41aa1cecdf22c61c637ea",
+    "hardware/printed-parts/enclosure/nameplate/nameplate-001.step": "b915f423e7ea2d2740d0b9e8792b9066b4a91d790ab7fecef0f9ce3e9d756d27",
     "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.step": "314829fea1957d607be0d80fa77e8867f5c840bcb7758f43c2110a6043beaf1d",
     "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.step.mesh": "8cc78ab6e5e51ff10f807e19d1c19914f0f8cd8eda8908ec0214d8175abdc3f1",
     "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.stl": "1d17fdf9acba3a21a0b5062956954a1efa11bdb67ff7d3714b9b62c9b13d815b",
