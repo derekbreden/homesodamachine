@@ -1,5 +1,5 @@
 {
- "gatesPass": false,
+ "gatesPass": true,
  "size": [
   {
    "id": "enclosure",
@@ -800,15 +800,10 @@
    "id": "tee-carrier-motion",
    "label": "Tee carrier clears front-top through installation and all four working states, and both end stops and all five transverse constraints engage",
    "kind": "gate",
-   "status": "fail",
-   "value": "340 solid/envelope checks; maximum unintended overlap 0.000000 mm\u00b3; release/park overshoots 0.312000/0.312000 mm\u00b3; 40 independent flank-capture readings, minimum contact 0.323400 mm\u00b3; minimum upper/lower web bearing 142.104 mm\u00b2; minimum depressed-collet bearing 0.000 mm\u00b2; fore tube bottom 92.694 mm Y, 10 mm beyond the depressed sleeve; seated cartridge tube bottom 94.844 mm Y, 2.15 mm final cartridge seating travel",
+   "status": "pass",
+   "value": "340 solid/envelope checks; maximum unintended overlap 0.000000 mm\u00b3; release/park overshoots 0.312000/0.312000 mm\u00b3; 40 independent flank-capture readings, minimum contact 0.323400 mm\u00b3; minimum upper/lower web bearing 142.104 mm\u00b2; minimum depressed-collet bearing 27.613 mm\u00b2; fore tube bottom 92.694 mm Y, 10 mm beyond the depressed sleeve; seated cartridge tube bottom 94.844 mm Y, 2.15 mm final cartridge seating travel",
    "target": "0 mm\u00b3 unintended overlap; positive end-stop, X/Z and pitch/yaw/roll contact",
-   "detail": [
-    "tee-y-c: fully depressed nose has no fixed-plate bearing",
-    "tee-y-d: fully depressed nose has no fixed-plate bearing",
-    "tee-y-f: fully depressed nose has no fixed-plate bearing",
-    "tee-y-g: fully depressed nose has no fixed-plate bearing"
-   ],
+   "detail": [],
    "active": true
   },
   {
