@@ -13,28 +13,35 @@ imposes, so page count is free. One HTML leaf is exactly one page: the renderer 
 nothing else, and fails the run on `OVERFLOW`, `SPILL` or `CLIPPED` against
 `.card > header|main|footer`.
 
-## These are made by hand and stay out of the build
+## THESE ARE MADE BY HAND AND ARE NOT A STEP OF THE BUILD. LEAVE THEM THAT WAY.
 
-`_art.py` and `_build.py` are underscore-prefixed, so
-[`web/dev-server/deps.js`](/web/dev-server/deps.js) does not run them as generators. This
-directory is in no Bazel target, in no `BUNDLED_ART_DIRS` list, and in no `.gitignore` entry —
-the PDFs, their covers and their sidecars are committed bytes. The site finds them by walking
-`hardware/` for a `.pdf` beside a `.pdf.json`, so nothing registers them anywhere.
+The two generators live at [`tools/funnel-mold-guide/`](/tools/funnel-mold-guide/), which is
+where a hand-run pair has to sit for that to be true — the same place
+[`weld-rotator-guide`](/hardware/weld-rotator-guide/README.md) keeps its own.
 
-Two readings this does not cover. `trace_inputs.py`'s `_generators` takes every tracked `.py`
-outside `ELSEWHERE = ("tools/", "hardware/pcb/pcba/")` that holds the literal
-`__name__ == "__main__"`; both of these do, so a full sweep traces them and `gen_build.py`
-gives each a rule. And `affected.py --artifacts` over the commit that added them names both as
-paths it cannot scope, which widens that slice to every artifact rule.
-`tools/weld-rotator-guide/` is the same kind of pair placed where neither reading reaches it
-([`weld-rotator-guide/README.md`](/hardware/weld-rotator-guide/README.md)).
+Three readings hold them out, and all three answer to the directory the scripts sit in:
+
+- `trace_inputs.py`'s `_generators` takes every tracked `.py` that holds the literal
+  `__name__ == "__main__"` **outside** `ELSEWHERE = ("tools/", "hardware/pcb/pcba/")`. Under
+  `tools/`, a full sweep does not trace them, so `gen_build.py` gives them no rule.
+- `affected.py`'s `artifact_unknown` answers no for a `tools/` path outside its own machinery
+  list. Under `hardware/`, an untraced `.py` is a path it cannot scope, and one such file
+  widens the artifact slice to **all 73 rules** — a whole-tree CAD cut, on the lane
+  `tools/publish_now.py` runs, for a document the tree does not build.
+- [`web/dev-server/deps.js`](/web/dev-server/deps.js) does not run an underscore-prefixed file
+  as a generator.
+
+This directory is in no Bazel target and in no `BUNDLED_ART_DIRS` list. The PDFs, their covers
+and their sidecars are committed bytes, and the site finds them by walking `hardware/` for a
+`.pdf` beside a `.pdf.json`. They reach the served disk on the deploy
+[`render.yaml`](/render.yaml)'s build filter names for this directory.
 
 They carry the numbers the funnel mold's source files held on **2026-09-09**. A printed guide is
 a snapshot; when the geometry moves, run both scripts again and commit the new PDFs.
 
 ```sh
-tools/cad-venv/bin/python hardware/funnel-mold-guide/_art.py     # the pictures
-tools/cad-venv/bin/python hardware/funnel-mold-guide/_build.py   # the documents
+tools/cad-venv/bin/python tools/funnel-mold-guide/_art.py     # the pictures
+tools/cad-venv/bin/python tools/funnel-mold-guide/_build.py   # the documents
 ```
 
 ## What they draw from

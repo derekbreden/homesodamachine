@@ -4,11 +4,14 @@ Every figure in the two guides is one of these renders or an inline SVG drawn in
 that carries it. The renders come from the same STEP files `funnel_mold.py` exports, through
 the viewer the assembly cards use, so a camera here sees the shipped geometry and nothing else.
 
-    tools/cad-venv/bin/python hardware/funnel-mold-guide/_art.py
+RUN BY HAND. NOT A STEP OF THE BUILD — `hardware/funnel-mold-guide/README.md` names what holds
+that. This module lives under `tools/`, which `tools/bazel/trace_inputs.py` names in `ELSEWHERE`,
+so no sweep traces it into a rule and no changed-path reading widens a slice to reach it.
 
-Underscore-prefixed: `web/dev-server/deps.js` does not run it as a generator. It is run by
-hand, its output is committed, and nothing reruns it on a build. Re-run it when
-`funnel_mold.py` moves, then rebuild the guides with `_build.py`.
+    tools/cad-venv/bin/python tools/funnel-mold-guide/_art.py
+
+Its output is committed. Re-run it when `funnel_mold.py` moves, then rebuild the guides with
+`_build.py`.
 
 Poses are Z-up (`--up 0,0,1`); the model's own frame puts the cavity's feet at Z=0 and the
 assembled stack above it. `trim` crops to the navy field, so a panel in the page carries the
@@ -23,8 +26,9 @@ import sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-REPO_ROOT = next(p for p in HERE.parents if (p / "tools" / "render").is_dir())
-ART = HERE / "art"
+REPO_ROOT = HERE.parents[1]
+GUIDE = REPO_ROOT / "hardware" / "funnel-mold-guide"
+ART = GUIDE / "art"
 MOLD = "printed-parts/zone-c/funnel-mold/"
 FUNNEL = "printed-parts/zone-c/funnel/"
 
