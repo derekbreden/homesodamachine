@@ -6813,7 +6813,11 @@ genrule(
     outs = [
         "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-assembly.step",
         "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-cavity.step",
+        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-cavity.stl",
         "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-core.step",
+        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-core.stl",
+        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-finish-witness.step",
+        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-finish-witness.stl",
         "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/README.figures.json",
         "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/README.md",
     ],
@@ -6821,9 +6825,13 @@ genrule(
 set -e
 O0=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-assembly.step)
 O1=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-cavity.step)
-O2=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-core.step)
-O3=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/README.figures.json)
-O4=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/README.md)
+O2=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-cavity.stl)
+O3=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-core.step)
+O4=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-core.stl)
+O5=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-finish-witness.step)
+O6=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-finish-witness.stl)
+O7=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/README.figures.json)
+O8=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/README.md)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -6842,9 +6850,13 @@ D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel-mold/funnel_mold.py > /dev/null
 cp hardware/printed-parts/zone-c/funnel-mold/funnel-mold-assembly.step $$O0
 cp hardware/printed-parts/zone-c/funnel-mold/funnel-mold-cavity.step $$O1
-cp hardware/printed-parts/zone-c/funnel-mold/funnel-mold-core.step $$O2
-cp hardware/printed-parts/zone-c/funnel-mold/README.figures.json $$O3
-cp hardware/printed-parts/zone-c/funnel-mold/README.md $$O4
+cp hardware/printed-parts/zone-c/funnel-mold/funnel-mold-cavity.stl $$O2
+cp hardware/printed-parts/zone-c/funnel-mold/funnel-mold-core.step $$O3
+cp hardware/printed-parts/zone-c/funnel-mold/funnel-mold-core.stl $$O4
+cp hardware/printed-parts/zone-c/funnel-mold/funnel-mold-finish-witness.step $$O5
+cp hardware/printed-parts/zone-c/funnel-mold/funnel-mold-finish-witness.stl $$O6
+cp hardware/printed-parts/zone-c/funnel-mold/README.figures.json $$O7
+cp hardware/printed-parts/zone-c/funnel-mold/README.md $$O8
 """,
 )
 
