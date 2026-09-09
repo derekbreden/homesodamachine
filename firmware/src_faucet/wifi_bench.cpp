@@ -91,13 +91,12 @@ static void pushLoop(void *) {
     // Every rendition, out of the master copy this board keeps, behind the
     // header that tells the sink this is a picture and not the bench.
     uint32_t bytes = 0;
-    // The same number the main board is told this slot should be — one
-    // definition, so the header and the reconcile cannot disagree.
-    const uint32_t crc = faucetEnclosureCrc(imageSlot);
-    for (uint8_t i = 0; i < IMAGE_BUNDLE_ENCLOSURE_COUNT; i++) {
-      const uint8_t r = (uint8_t)(IMAGE_BUNDLE_ENCLOSURE_AT + i);
-      if (!imageStorePixels(imageSlot, r)) { err = WIFI_BENCH_ERR_WRITE; break; }
-      bytes += (uint32_t)IMAGE_BUNDLE[r].w * IMAGE_BUNDLE[r].h * 2;
+    // The same number the main board is told this slot holds — one definition,
+    // so the header, the far store and the reconcile cannot disagree.
+    const uint32_t crc = imageStoreCrc(imageSlot);
+    for (uint8_t i = 0; i < IMAGE_BUNDLE_COUNT; i++) {
+      if (!imageStorePixels(imageSlot, i)) { err = WIFI_BENCH_ERR_WRITE; break; }
+      bytes += (uint32_t)IMAGE_BUNDLE[i].w * IMAGE_BUNDLE[i].h * 2;
     }
     if (!crc) err = WIFI_BENCH_ERR_WRITE;
 
@@ -107,10 +106,9 @@ static void pushLoop(void *) {
         err = WIFI_BENCH_ERR_WRITE;
     }
 
-    for (uint8_t i = 0; i < IMAGE_BUNDLE_ENCLOSURE_COUNT && !err; i++) {
-      const uint8_t r = (uint8_t)(IMAGE_BUNDLE_ENCLOSURE_AT + i);
-      const uint8_t *px = (const uint8_t *)imageStorePixels(imageSlot, r);
-      const uint32_t n = (uint32_t)IMAGE_BUNDLE[r].w * IMAGE_BUNDLE[r].h * 2;
+    for (uint8_t i = 0; i < IMAGE_BUNDLE_COUNT && !err; i++) {
+      const uint8_t *px = (const uint8_t *)imageStorePixels(imageSlot, i);
+      const uint32_t n = (uint32_t)IMAGE_BUNDLE[i].w * IMAGE_BUNDLE[i].h * 2;
       uint32_t at = 0;
       while (at < n) {
         size_t want = n - at;
@@ -170,10 +168,10 @@ static void pushLoop(void *) {
 
 bool wifiImagePush(uint8_t slot) {
   if (running) return false;
-  if (!imageStorePixels(slot, IMAGE_BUNDLE_ENCLOSURE_AT)) return false;
+  if (!imageStorePixels(slot, 0)) return false;
   sendImage = true;
   imageSlot = slot;
-  return wifiBenchPush(imageEnclosureBytes(), WIFI_BENCH_CHANNEL, WIFI_PUSH_F_QUIET_BLE);
+  return wifiBenchPush(imageBundleBytes(), WIFI_BENCH_CHANNEL, WIFI_PUSH_F_QUIET_BLE);
 }
 
 bool wifiBenchPush(uint32_t bytes, uint8_t channel, uint8_t flags) {

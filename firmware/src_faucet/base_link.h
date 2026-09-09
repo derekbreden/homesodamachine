@@ -47,7 +47,6 @@ void faucetRequestRelay(uint8_t slot);
 
 // The identity of a slot, which is the same number on both boards — so the main
 // board can hold the two stores against each other. Zero where the slot is empty.
-uint32_t faucetEnclosureCrc(uint8_t slot);
 
 // A picture was removed here; remove it from the rest of the machine too.
 void faucetRequestErase(uint8_t slot);

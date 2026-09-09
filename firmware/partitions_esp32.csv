@@ -9,7 +9,7 @@
 # the app slots — a USB reflash writes 0x1000/0x8000/0xe000/0x10000 and leaves
 # it alone, so a partition change does not cost the machine its selection.
 #
-# app: 427 KB in a 768 KB slot.
+# app: 464 KB in a 768 KB slot.
 # Name,   Type, SubType, Offset,   Size,     Flags
 nvs,      data, nvs,     0x9000,   0x5000,
 otadata,  data, ota,     0xe000,   0x2000,

@@ -16,10 +16,11 @@
 // the instant the board boots.
 //
 // ONE PICTURE IS A BUNDLE, BECAUSE ONE PICTURE IS WORN AT SEVERAL SIZES. The
-// enclosure shows a logo as a card, a mid, a thumb and a head; the faucet fills
-// its whole glass with one. Every size is resampled on the phone rather than
+// faucet fills its whole glass with the largest; the enclosure anchors a detail
+// page on that same one, wears the middle on a Choose card and previews the
+// smallest in its picker. Every size is resampled on the phone rather than
 // zoomed at draw time, so a custom face is as sharp as a factory one. A slot
-// holds all the sizes its board needs, and either has all of them or none.
+// holds every size, and either has all of them or none.
 //
 // WRITING IS THE RARE CASE AND IT IS WHAT COSTS. On the enclosure a flash write
 // suspends the cache its scan-out reaches PSRAM through, so the panel comes down

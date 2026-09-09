@@ -498,8 +498,6 @@ struct __attribute__((packed)) ImageRenditionSpec {
 };
 
 constexpr uint8_t IMAGE_BUNDLE_COUNT = 3;
-constexpr uint8_t IMAGE_BUNDLE_ENCLOSURE_AT    = 0;
-constexpr uint8_t IMAGE_BUNDLE_ENCLOSURE_COUNT = IMAGE_BUNDLE_COUNT;
 
 // index 0: the faucet's whole glass, and the enclosure's detail anchor — the
 //          picture at the size the faucet will wear it, standing under the back
@@ -523,15 +521,6 @@ inline uint32_t imageBundleBytes() {
   uint32_t n = 0;
   for (uint8_t i = 0; i < IMAGE_BUNDLE_COUNT; i++)
     n += (uint32_t)IMAGE_BUNDLE[i].w * IMAGE_BUNDLE[i].h * 2;
-  return n;
-}
-
-inline uint32_t imageEnclosureBytes() {
-  uint32_t n = 0;
-  for (uint8_t i = 0; i < IMAGE_BUNDLE_ENCLOSURE_COUNT; i++) {
-    const ImageRenditionSpec &r = IMAGE_BUNDLE[IMAGE_BUNDLE_ENCLOSURE_AT + i];
-    n += (uint32_t)r.w * r.h * 2;
-  }
   return n;
 }
 
@@ -676,8 +665,7 @@ struct __attribute__((packed)) StatusPayload {
   uint32_t framesTx;
   uint16_t gasMv;         // MQ-6 divider, 0 with no sensor fitted
   uint8_t  flags;         // see STATUS_F_* below
-  uint8_t  primeChannel;  // valid while STATUS_F_PRIMING or STATUS_F_FILLING
-  char     version[16];   // the main board build these readings came from
+  uint8_t  primeChannel;  // the channel of whatever operation the flags name
   uint8_t  j9ReplyHighWater;  // maximum replies emitted for one received J9 turn
   uint32_t j9ReplyOverruns;   // turns that emitted more than one reply
   uint8_t  reeds[2];      // each reservoir's closed reeds, bit 0 empty .. bit 3 full
@@ -686,7 +674,7 @@ struct __attribute__((packed)) StatusPayload {
   uint8_t  ratio[2];      // what each channel pours at
 };
 
-static_assert(sizeof(StatusPayload) == 48, "main board status wire layout drift");
+static_assert(sizeof(StatusPayload) == 32, "main board status wire layout drift");
 
 constexpr uint8_t STATUS_F_GAS_TRIP = 1 << 0;  // the LM393 comparator has tripped
 constexpr uint8_t STATUS_F_PRIMING  = 1 << 1;  // a prime hold is live
@@ -910,7 +898,7 @@ struct __attribute__((packed)) ImageWireHeader {
   uint32_t magic;
   uint8_t  slot;
   uint8_t  reserved[3];
-  uint32_t bytes;    // the enclosure's four renditions, and only those
+  uint32_t bytes;    // one whole bundle: every rendition, in order
   uint32_t crc32;
 };
 
@@ -935,12 +923,10 @@ struct __attribute__((packed)) ImageSlotPayload {
 };
 
 // WHAT EACH BOARD SAYS IT IS HOLDING, IN TERMS THE OTHER CAN BE COMPARED WITH.
-// The two stores keep different things — the faucet every rendition, the
-// enclosure only the four it draws — so their own crcs are not the same number
-// for the same picture and cannot be held against each other. `crc` is instead
-// the identity of the ENCLOSURE'S copy, from both ends: what that board holds,
-// and what the faucet would send it. Equal is in sync; anything else is a
-// difference the machine can act on without a person noticing it first.
+// Both stores hold the same bundle byte for byte, so a slot's own crc32 is its
+// identity on either board and `crc` is one number both ends can state. Equal
+// is in sync; anything else is a difference the machine can act on without a
+// person noticing it first.
 struct __attribute__((packed)) ImagesPayload {
   uint8_t  board;        // OTA_TGT_*
   uint8_t  slots;        // custom slots this display keeps

@@ -5,7 +5,7 @@
 # The update path this serves is `firmware/README.md`, "A shipped unit is
 # updated from the iOS app".
 #
-# app: 1.04 MB in a 3 MB slot.
+# app: 1.82 MB in a 3 MB slot.
 # Name,   Type, SubType, Offset,   Size,     Flags
 nvs,      data, nvs,     0x9000,   0x5000,
 otadata,  data, ota,     0xe000,   0x2000,

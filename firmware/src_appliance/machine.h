@@ -11,13 +11,11 @@
 // and the three limits in main.cpp's header are held here.
 //
 // What is implemented today is one flavor pump turning — held from the glass,
-// or bounded from the console — the funnel fill, which holds a channel's
-// three funnel-path valves open while that pump draws, and the clean cycle,
-// which puts tap water through the channel in rounds of a fill through the
-// idle pump and a pumped flush out the faucet. The two MCP23017s are
-// initialized fail-closed: every output is parked low and the reed inputs have
-// internal pull-ups. Nothing else opens a valve or runs the fan, and neither
-// relay is ever driven.
+// or bounded from the console — the funnel fill, the clean cycle, the two air
+// cycles, the pour the flow meter opens, and the commissioning self-test that
+// walks every solenoid, the condenser fan and both pumps one load at a time.
+// The two MCP23017s are initialized fail-closed: every output is parked low and
+// the reed inputs have internal pull-ups. Neither relay is ever driven.
 
 enum MachineState : uint8_t {
     ST_IDLE,      // nothing driven

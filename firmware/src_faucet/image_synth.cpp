@@ -7,8 +7,9 @@
 
 namespace {
 
-// Widest rendition in the bundle, in bytes. One row is the working buffer.
-constexpr uint16_t ROW_MAX = 240 * 2;
+// One row of the widest rendition, in bytes. That row is the working buffer.
+constexpr uint16_t ROW_MAX = 172 * 2;
+static_assert(IMAGE_BUNDLE[0].w * 2 <= ROW_MAX, "a row has to fit the buffer that makes it");
 
 // Deterministic, and different per rendition so a mix-up between them shows as
 // a colour rather than as a plausible picture.

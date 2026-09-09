@@ -10,7 +10,7 @@
 # every update of code that never touches it. Built by
 # `tools/make_art.py enclosure`, read through `firmware/lib/board_art`.
 #
-# app: 1.5 MB in a 2.5 MB slot. art: 4,147,232 B in 4 MB.
+# app: 2.12 MB in a 2.5 MB slot — 85% of it. art: 4,147,232 B in 4 MB.
 # Name,   Type, SubType, Offset,   Size,     Flags
 nvs,      data, nvs,     0x9000,   0x5000,
 otadata,  data, ota,     0xe000,   0x2000,

@@ -12,7 +12,6 @@
 #include "proto_link.h"
 #include "rs485_echo.h"
 #include "sound.h"
-#include "fw_version.h"
 
 // The wire ids in proto_msg.h and the SoundId enum in lib/sound are two halves of
 // one contract, and this is the seam that translates between them. Asserting the
@@ -372,11 +371,6 @@ static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len) {
         return;
     }
 
-    // The logo a channel wears is main-board-owned like the selection, so the
-    // enclosure states the pair and reads back what the main board now holds.
-    // Firmware for this display. A request is answered from the held chunk if
-    // the main board has it; otherwise this turn passes and the host is asked,
-    // and the enclosure's next poll gets the bytes.
     if (type == MSG_RESP_VERSION && plen >= sizeof(VersionPayload)) {
         VersionPayload v;
         memcpy(&v, payload, sizeof(v));
@@ -384,6 +378,9 @@ static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len) {
         versionsOnReport(OTA_TGT_ENCLOSURE, v.version, v.artCrc32);
         return;
     }
+    // Firmware for this display. A request is answered from the held chunk if
+    // the main board has it; otherwise this turn passes and the host is asked,
+    // and the enclosure's next poll gets the bytes.
     if (type == MSG_OTA_REQ)  { otaOnRequest(OTA_TGT_ENCLOSURE, payload, plen); return; }
     if (type == MSG_RESP_OTA) { otaOnState(OTA_TGT_ENCLOSURE, payload, plen);   return; }
 
@@ -395,6 +392,8 @@ static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len) {
         return;
     }
 
+    // The logo a channel wears is main-board-owned like the selection, so the
+    // enclosure states the pair and reads back what the main board now holds.
     if (type == MSG_FLAVOR_ART_QUERY) {
         FlavorArtPayload art{{flavorArt(0), flavorArt(1)}};
         link->send(MSG_RESP_FLAVOR_ART, &art, sizeof(art));
@@ -589,7 +588,6 @@ static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len) {
                        | (machineIsAiring()    ? STATUS_F_AIRING   : 0)
                        | (machineIsPouring()   ? STATUS_F_POURING  : 0);
         s.primeChannel = machinePumpChannel();
-        strncpy(s.version, FW_VERSION, sizeof(s.version) - 1);
         s.j9ReplyHighWater = j9TurnReplyHighWater;
         s.j9ReplyOverruns = j9TurnReplyOverruns;
         MachineLevels lv;
@@ -806,6 +804,7 @@ bool linkDisplayUsbReattach() {
 // Told, not asked: the enclosure answers a query with its own state on its own
 // turn, and nothing here waits for it. Both run unattended — the image
 // reconcile asks every thirty seconds on an idle machine — so both queue.
+// Take a picture back off the enclosure, and ask what it is holding.
 void linkImageErase(uint8_t slot) {
     ImageSlotPayload req{slot};
     announceQueue(MSG_IMAGE_ERASE, &req, sizeof(req));
