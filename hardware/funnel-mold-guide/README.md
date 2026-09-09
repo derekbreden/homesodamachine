@@ -40,9 +40,25 @@ They carry the numbers the funnel mold's source files held on **2026-09-09**. A 
 a snapshot; when the geometry moves, run both scripts again and commit the new PDFs.
 
 ```sh
-tools/cad-venv/bin/python tools/funnel-mold-guide/_art.py     # the pictures
-tools/cad-venv/bin/python tools/funnel-mold-guide/_build.py   # the documents
+tools/cad-venv/bin/python tools/funnel-mold-guide/_art.py         # cameras on the solids
+tools/cad-venv/bin/python tools/funnel-mold-guide/mold_scenes.py  # staged scenes
+tools/cad-venv/bin/python tools/funnel-mold-guide/_build.py       # the documents
 ```
+
+## Two kinds of picture
+
+`_art.py` puts a camera on a solid that already exists — what the cavity looks like off the
+bed, what the rod socket looks like from below. It answers *what is this*.
+
+[`mold_scenes.py`](/tools/funnel-mold-guide/mold_scenes.py) builds a picture for a step:
+only the bodies that step touches, standing in the mold's own frame, with the one thing the
+step moves lifted off its seat along the axis it travels and painted coral. It answers *what do
+I do*. The offset is the arrow, so those pages carry no annotation — one displacement constant
+everywhere, and the gap reads as a direction of assembly rather than as framing.
+
+The colour is the legend and both documents declare it on their second leaf: coral is the body
+this step moves, the cavity is teal, the core ochre, the silicone dark, and blue-grey is a thing
+on the bench rather than part of the mold.
 
 ## What they draw from
 

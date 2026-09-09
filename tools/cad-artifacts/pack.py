@@ -76,6 +76,12 @@ NOT_BUNDLED_DIRS = (
     # a hand-run guide's page renders and its art pass's staged STEPs; the walk above reaches
     # every `.step` under `hardware/` (hardware/weld-rotator-guide/README.md)
     "hardware/weld-rotator-guide/out",
+    # The funnel guides are drawn BY HAND and committed to git, not packed (their own README
+    # says why). This is where their page renders land, and where `mold_scenes.py` stages the
+    # STEP for each figure while a browser is looking at it; the `.step` walk above reaches
+    # every `.step` under `hardware/`, and one orphaned by a killed hand run would otherwise
+    # arrive as an output no generator declares.
+    "hardware/funnel-mold-guide/out",
 )
 
 #: Solids with no builder in this tree — `y_divider.py:3` says it of its own. A generator reads
