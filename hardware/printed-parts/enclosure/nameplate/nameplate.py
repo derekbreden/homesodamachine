@@ -118,11 +118,8 @@ CORNER_R = 3.0
 # ceiling. 45° is `enclosure.relief_chamfer`, the angle every relief ceiling on this box rises at
 # — struck square here, which is that angle, and `selftest` holds the two together.
 BEVEL = CORNER_R
-# The plate across and up. The width is the FIELD'S, less a margin at each end, so the plate runs
-# the whole of what the wall leaves it. The height is the stack standing on it plus HALF the
-# padding the width came out with — the plate is landscape and its quiet band is landscape with
-# it. `enclosure_assembly.check_nameplate` reads both back against the wall; `selftest` reads
-# them against the type.
+# The plate's envelope in the field east of the flavour chips. `enclosure_assembly.check_nameplate`
+# reads it against the wall; `selftest` reads the lettering and screw seats within it.
 WIDTH = 104.53
 HEIGHT = 66.07
 
@@ -213,8 +210,7 @@ LINK_EM = 5.5
 SERIAL_EM = 3.8
 BODY_EM = 3.2
 DETAIL_TRACKING = 0.1
-# How deep the type's recess is cut into the plate's face — `bulkhead_ring.WORD_DEPTH`, half the
-# plate, so the colour behind the lettering is as thick as the lettering.
+# The type's recess depth; its outboard face is flush with the plate.
 INK_DEPTH = _ring.WORD_DEPTH
 # The bead the 0.2 mm tip lays, and the tip itself.
 BEAD = _ring.WORD_BEAD
