@@ -108,10 +108,11 @@ def main():
         metadata = {m.get('key'): m.get('value') for m in plate.findall('metadata')}
         allowed = {'plater_id', 'plater_name', 'locked', 'filament_map_mode', 'filament_maps',
                    'filament_volume_maps', 'gcode_file', 'thumbnail_file', 'thumbnail_no_light_file',
-                   'top_file', 'pick_file'}
+                   'top_file', 'pick_file', 'bed_type'}
         assert not set(metadata)-allowed, metadata
         assert metadata['filament_maps'] == metadata['filament_volume_maps'] == '1'
         assert metadata['filament_map_mode'] == 'Manual'
+        assert metadata['bed_type'] == settings['curr_bed_type'] == 'Textured PEI Plate'
         plates.append(metadata)
     assert len(objects) == 5 and len(plates) == 3
     for plate in sliced.findall('plate'):

@@ -254,6 +254,7 @@ def main():
         metadata(plate, 'filament_map_mode', 'Manual')
         metadata(plate, 'filament_maps', '1')
         metadata(plate, 'filament_volume_maps', '1')
+        metadata(plate, 'bed_type', settings['curr_bed_type'])
         for oid, identify in instances[i]:
             instance = ET.SubElement(plate, 'model_instance')
             metadata(instance, 'object_id', oid); metadata(instance, 'instance_id', 0)
