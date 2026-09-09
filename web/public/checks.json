@@ -52,7 +52,7 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "8 reference(s) name a path nothing holds.",
+      "note": "9 reference(s) name a path nothing holds.",
       "status": "red"
     },
     {
@@ -67,8 +67,8 @@
     },
     {
       "check": "tools/bazel/check_build_file.py",
-      "note": "tools/cad-venv/bin/python tools/bazel/gen_build.py",
-      "status": "red"
+      "note": "check_build_file: BUILD.bazel is what the graph writes; 3MFs are build-inert",
+      "status": "ok"
     },
     {
       "check": "tools/bazel/check_ci_targets.py",
@@ -82,7 +82,7 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 29 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 325 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 65 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 325 member(s) keep their provenance",
       "status": "ok"
     }
   ],
@@ -93,21 +93,17 @@
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ],
-    "tools/bazel/check_build_file.py": [
-      "BUILD.bazel is not what the graph would write now:",
-      "  1 build-graph generator(s) are absent from the tree — hardware/assembly/_power_column_sync.py among them. Re-trace the renamed generator or remove its stale graph entry.",
-      "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
-    ],
     "tools/check_paths.py": [
       "hardware/assembly/faucet-and-umbilical.md:144 — hardware/install-guide/README.md is held nowhere, and no tag is named for it",
       "  hardware/assembly/finish-pack-ship.md:28 — hardware/install-guide/README.md is held nowhere, and no tag is named for it",
       "  hardware/assembly/finish-pack-ship.md:116 — hardware/install-guide/README.md is held nowhere, and no tag is named for it",
       "  hardware/ledger/bom.md:326 — hardware/install-guide/README.md is held nowhere, and no tag is named for it",
       "  hardware/ledger/bom.md:327 — hardware/install-guide/README.md is held nowhere, and no tag is named for it",
+      "  hardware/printed-parts/zone-c/funnel-mold/extraction.md:5 — hardware/printed-parts/zone-c/funnel-mold/funnel-mold-guided-vacuum-petg-08-016.3mf is held nowhere, and no tag is named for it",
       "  hardware/quickstart/README.md:61 — hardware/install-guide/README.md is held nowhere, and no tag is named for it",
       "  marketing/target-market.md:41 — hardware/install-guide/README.md is held nowhere, and no tag is named for it",
       "  marketing/unboxing-and-quickstart.md:42 — hardware/install-guide/README.md is held nowhere, and no tag is named for it",
-      "8 reference(s) name a path nothing holds."
+      "9 reference(s) name a path nothing holds."
     ],
     "tools/check_web_tests.py": [
       "2 test(s) in web/ fail:",
