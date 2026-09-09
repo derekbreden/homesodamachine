@@ -416,6 +416,22 @@ def s_the_socket():
 #: and the flutes live in the payload beside it, so these carry that skin across.
 FLUTED = frozenset({"the-back-face", "the-socket", "nameplate"})
 
+def s_two_tees():
+    """The kit's two tees at one scale. Everything else in the box is unmistakable;
+    these two are a black fitting and a white one, and page 9 decides between them."""
+    a = cq.Assembly(name="two-tees")
+    black = _load(HARDWARE / "reference" / "jg-pp0208e-tee", "jg_pp0208e_tee")
+    _add(a, black.build_jg_pp0208e_tee().translate((30.0, 0.0, 0.0)),
+         "black-tee", BLACK_PART)
+    plumbing = _load(PLUMBING_DIR, "plumbing_scenes")
+    white = cq.Assembly(name="white-tee")
+    # Its own builder stands it on z=0; both tees sit on one centreline here.
+    plumbing._add_tee(white, origin=(-12.0, 0.0, -30.8), open_ports=True)
+    for child in white.children:
+        a.add(child)
+    return a
+
+
 def s_nameplate():
     """The plate the back cover sends the reader to, with the serial and its link on it."""
     a = cq.Assembly(name="nameplate-scene")
@@ -580,6 +596,7 @@ SCENES = {
                                                 size="2200x1200")),
     # One span and one frame for both, and no trim, so the two halves of the fork are
     # at the same scale in the same box: the comparison is the whole picture.
+    "two-tees": (s_two_tees, dict(cam=(0.25, 1.0, 0.32), size="1600x900")),
     "nameplate": (s_nameplate, dict(cam=(-0.14, 1.0, 0.10),
                    target=(38.16, 467.0, 262.9), span=132.0, size="1600x1100")),
     "plate-sideways": (s_plate_sideways, dict(cam=(0.42, -0.9, -0.62),
