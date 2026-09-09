@@ -28,7 +28,7 @@ constexpr uint8_t MSG_RESP_PRIME       = 0x17;  // PrimeStatePayload: every prim
 constexpr uint8_t MSG_RESP_STATUS      = 0x18;  // StatusPayload
 
 // Error responses. 0xE1..0xE9 is the whole range and a receiver tests against
-// it; the gaps inside are retired ids.
+// it; the gaps inside are reserved.
 constexpr uint8_t MSG_ERR_SLOT_INVALID   = 0xE1;
 // 0xE2 reserved
 constexpr uint8_t MSG_ERR_BUSY           = 0xE3;
