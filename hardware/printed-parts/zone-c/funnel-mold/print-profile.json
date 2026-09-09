@@ -6866,5 +6866,29 @@
   },
   "bed_foot_verification": "bed-foot-verification.json",
   "no_brim_or_skirt_paths_in_both_trim_projects": true,
-  "bed_foot_verification_sha256": "68be06643e1f320c625968cf628c1155778af114ad7f384dc250a1683bb8d499"
+  "bed_foot_verification_sha256": "68be06643e1f320c625968cf628c1155778af114ad7f384dc250a1683bb8d499",
+  "geometry_lint": {
+    "review": "Intentional 1.2 mm tall side faces of the 6.4 mm rib-foot lands and the existing chamfers, finishing steps and bridges are anchored in each lint-answers file. No unanswered findings remain.",
+    "result": [
+      "funnel-mold-cavity.stl \u00b7 102226 printed facets \u00b7 0 findings \u00b7 137 answered",
+      "",
+      "funnel-mold-core.stl \u00b7 41200 printed facets \u00b7 0 findings \u00b7 118 answered"
+    ]
+  },
+  "published_cad_checks": [
+    {
+      "part": "cavity",
+      "bytes": 7051680,
+      "published_sha256": "1dc7c3e1208004d7092a9ac8965b9b308f396b83cecc5cb5fe8f663a50bdf47d",
+      "current_sha256": "1dc7c3e1208004d7092a9ac8965b9b308f396b83cecc5cb5fe8f663a50bdf47d",
+      "matches": true
+    },
+    {
+      "part": "core",
+      "bytes": 4004153,
+      "published_sha256": "9056bd4d23fc1f2c271533395fd8cfba5889c8aae375227441fcdb1da8412d5c",
+      "current_sha256": "9056bd4d23fc1f2c271533395fd8cfba5889c8aae375227441fcdb1da8412d5c",
+      "matches": true
+    }
+  ]
 }
