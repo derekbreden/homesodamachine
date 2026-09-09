@@ -56,8 +56,11 @@ labelled **the guide's call, not spec**, so it cannot be read as a value some fi
 - which of the two owned coatings to try first
 - what to cut the sacrificial tip with
 
-Working time, cure time and the post-cure schedule belong to the silicone's datasheet. The guides
-say so and leave a place to write them down rather than printing a number this tree does not own.
+Working time, cure and the post-cure are the silicone's own, and they stand beside the mold in
+[`funnel-mold/silicone.md`](/hardware/printed-parts/zone-c/funnel-mold/silicone.md): 30 min at
+23 °C, 5 h to demold, 24 h to full strength, the two places the maker's listing disagrees with
+itself, and the post-cure it does not state at all. The guides print those and still leave a page
+to log what a run actually did.
 
 ## Style
 
