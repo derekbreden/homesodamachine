@@ -14,9 +14,10 @@
 #include "soc/gpio_reg.h"
 #include "soc/io_mux_reg.h"
 
-// Implemented by this tree's local ESP-IDF v5.5.4 RGB driver configuration.
-// It increments only when an actual bounce-buffer shortfall requires scan
-// recovery; normal wake cycles must leave it unchanged.
+// Implemented by esp_lcd_panel_rgb_local.c, this tree's copy of the ESP-IDF
+// v5.5.4 RGB driver. It increments only when an actual bounce-buffer shortfall
+// requires scan recovery; a PANEL:REALIGN resets the same way and is not
+// counted, and normal wake cycles must leave it unchanged.
 extern "C" uint32_t home_soda_rgb_restart_count(void);
 // Static Font Awesome icons keep the customer rail and full-card actions crisp
 // without asking LVGL to transform text at runtime.
