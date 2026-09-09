@@ -20,7 +20,7 @@
     "LINK_CAP": "4.19 mm",
     "LINK_EM": "5.5",
     "LINK_W": "79.97 mm",
-    "LOCKUP_W": "79.02 mm",
+    "LOCKUP_W": "74.47 mm",
     "LOGO_H": "28 mm",
     "NAMEPLATE_CBORE_DEPTH": "3 mm",
     "NAMEPLATE_FLOOR": "1.5 mm",
@@ -38,8 +38,9 @@
     "POCKET_SOFFIT": "147.8 mm\u00b2",
     "POCKET_SOFFIT_SQUARE": "443.4 mm\u00b2",
     "RING_T": "2 mm",
-    "TITLE_CAP": "8.53 mm",
-    "TITLE_EM": "11.2",
+    "TITLE_CAP": "7.77 mm",
+    "TITLE_EM": "10.2",
+    "TITLE_GAP": "2.8 mm",
     "WALL_T": "3 mm"
   }
 }
