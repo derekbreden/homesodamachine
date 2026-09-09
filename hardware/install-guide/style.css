@@ -402,29 +402,17 @@ tr:last-child td { border-bottom: none; }
   letter-spacing: 0.06em;
 }
 
-/* The older-kitchen scenes are 2000 x 1100 frames with a tall assembly in the middle of them.
-   One region of the source fills every one of these plates, so the four states stay registered
-   on the page the way they are registered in the camera. */
-.plate-stop {
-  height: 560px;
-  background-color: #d0d0ce;
-  background-size: 1560px auto;
-  background-position: -457px -218px;
+/* The older-kitchen pairs. Each pair is rendered on one camera with the frame kept, so the
+   two states stay registered against each other and `contain` is all the page has to do. */
+.plate-stop, .plate-tee {
+  height: 520px;
+  background-size: contain;
+  background-position: center;
 }
-.plate-valve-on { background-image: url("../quickstart/plumbing/art/plumbing-valve-on.png"); }
-.plate-valve-off { background-image: url("../quickstart/plumbing/art/plumbing-valve-off.png"); }
-
-/* The tee pair needs more of the frame than the valve pair does — its staged pieces stand out to
-   the installer's left — so it takes its own window. Registration is within a pair, and the two
-   pairs are on facing pages rather than one. */
-.plate-tee {
-  height: 560px;
-  background-color: #d0d0ce;
-  background-size: 1166px auto;
-  background-position: -163px -122px;
-}
-.plate-pre-tee { background-image: url("../quickstart/plumbing/art/plumbing-pre-tee.png"); }
-.plate-tee-in { background-image: url("../quickstart/plumbing/art/plumbing-tee-installed.png"); }
+.plate-valve-on { background-image: url("art/stop-open.png"); }
+.plate-valve-off { background-image: url("art/stop-closed.png"); }
+.plate-pre-tee { background-image: url("art/tee-before.png"); }
+.plate-tee-in { background-image: url("art/tee-after.png"); }
 
 /* A fork in the guide: the question the buyer answers by looking, and what that answer costs. */
 .choice { margin-top: 34px; padding-left: 34px; border-left: 7px solid var(--field-deep); }

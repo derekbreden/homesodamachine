@@ -474,6 +474,26 @@ def s_bottle_in_funnel():
     return a
 
 
+def s_stop_open():
+    """The cold shut-off as it stands, lever in line with the outlet."""
+    return _plumbing("plumbing-valve-on")
+
+
+def s_stop_closed():
+    """The same valve, a quarter turn: lever across the outlet."""
+    return _plumbing("plumbing-valve-off")
+
+
+def s_tee_before():
+    """The hose off the stop, and the tee subassembly waiting to go between them."""
+    return _plumbing("plumbing-pre-tee")
+
+
+def s_tee_after():
+    """The tee in, the hose back on top of it, the appliance's run in its branch."""
+    return _plumbing("plumbing-tee-installed")
+
+
 def s_regulator():
     """The regulator the guide names three things on: which dial is which, the knob that
     sets the pressure, and the brass nut on the flare below it."""
@@ -521,18 +541,27 @@ def s_kitchen_push():
     return _load(MODERN_DIR, "render_modern_tee").build_water_on()
 
 
+def _plumbing(name):
+    """One of the sheet's four under-sink scenes, without its wall plane.
+
+    Every picture in this guide floats on the card's field; the escutcheon and the copper
+    stub already say the stop comes out of a wall.
+    """
+    scene = _load(PLUMBING_DIR, "plumbing_scenes").build_scenes()[name]
+    kept = cq.Assembly(name=name)
+    for child in scene.children:
+        if child.name != "finished-wall":
+            kept.add(child)
+    return kept
+
+
 def s_kitchen_hose():
     """The older cold side: a braided hose on a shut-off valve, no 1/4-inch line anywhere.
 
     The sheet's own wall plane comes out: every picture in this guide floats on the card's
     field, and the escutcheon and copper stub already say the stop comes out of a wall.
     """
-    scene = _load(PLUMBING_DIR, "plumbing_scenes").build_scenes()["plumbing-valve-on"]
-    kept = cq.Assembly(name="kitchen-hose")
-    for child in scene.children:
-        if child.name != "finished-wall":
-            kept.add(child)
-    return kept
+    return _plumbing("plumbing-valve-on")
 
 
 SCENES = {
@@ -546,6 +575,11 @@ SCENES = {
     # at the same scale in the same box: the comparison is the whole picture.
     "plate-sideways": (s_plate_sideways, dict(cam=(0.42, -0.9, -0.62),
                         target=(0.0, -22.0, -44.0), span=150.0, size="1500x1150")),
+    # One camera per pair, and no trim, so before and after are the same frame.
+    "stop-open": (s_stop_open, dict(cam=(1.05, 1.70, 0.62), target=(-6.0, 44.0, 96.0), span=86.0, size="1250x1150", trim=False)),
+    "stop-closed": (s_stop_closed, dict(cam=(1.05, 1.70, 0.62), target=(-6.0, 44.0, 96.0), span=86.0, size="1250x1150", trim=False)),
+    "tee-before": (s_tee_before, dict(cam=(1.05, 1.70, 0.62), target=(-6.0, 44.0, 112.0), span=132.0, size="1250x1150", trim=False)),
+    "tee-after": (s_tee_after, dict(cam=(1.05, 1.70, 0.62), target=(-6.0, 44.0, 112.0), span=132.0, size="1250x1150", trim=False)),
     "bottle-in-funnel": (s_bottle_in_funnel, dict(cam=(0.55, -1.0, 0.62),
                           target=(0.0, 150.0, 405.0), span=395.0, size="1500x1180")),
     "kitchen-push": (s_kitchen_push, dict(cam=(1.05, -1.72, 0.72), target=(-46.0, 8.0, 100.0),
