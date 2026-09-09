@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><link rel="stylesheet" href="style.css"></head>
+<body>
+<article class="card">
+  <header>
+    <div class="eyebrow"><span class="phase">The part</span><span class="folio">15</span></div>
+    <h1>Cut at the shoulder</h1>
+    <i class="rule"></i>
+  </header>
+  <main>
+    <p class="lede">The spout is cast <span class="dim">12 mm</span> too long on purpose, and
+      the last <span class="dim">2 mm</span> of that is solid. One cut, at a step you can feel,
+      opens the bore the rod already made.</p>
+
+    <figure>
+      <div class="panel" style="padding:44px 40px 24px">
+        <svg viewBox="0 0 2100 780" role="img" aria-label="The trim shoulder at the spout exit">
+          <style>
+            .sil  { fill: #2f2f35; opacity: .80; }
+            .scrap{ fill: #2f2f35; opacity: .26; }
+            .bore { fill: #ffffff; stroke: #6d6a74; stroke-width: 3; }
+            .cut  { stroke: #d64050; stroke-width: 8; stroke-dasharray: 24 16; }
+            .lbl  { font: 700 36px "IBM Plex Sans", sans-serif; fill: #1d1d26; }
+            .sub  { font: 400 30px "IBM Plex Sans", sans-serif; fill: #6d6a74; }
+            .dimn { stroke: #2b7c94; stroke-width: 3; fill: none; }
+            .num  { font: 600 33px "IBM Plex Mono", monospace; fill: #2b7c94; }
+            .cor  { font: 700 36px "IBM Plex Mono", monospace; fill: #d64050; }
+          </style>
+          <!-- Spout in section, axis horizontal, 26 px/mm. Shoulder at x = 1184. -->
+          <rect class="sil"   x="300"  y="192" width="884" height="476"/>
+          <rect class="scrap" x="1184" y="217" width="312" height="426"/>
+          <rect class="bore"  x="300"  y="348" width="1144" height="164"/>
+          <line class="cut" x1="1184" y1="120" x2="1184" y2="720"/>
+          <text class="cor" x="1184" y="96" text-anchor="middle">cut here</text>
+
+          <text class="lbl" x="340" y="160">the funnel</text>
+          <text class="lbl" x="1230" y="160">scrap</text>
+
+          <g class="dimn">
+            <path d="M1300 192 H1620"/><path d="M1300 217 H1620"/>
+            <path d="M1620 192 V217"/><path d="M1620 204 L1680 150"/>
+          </g>
+          <text class="num" x="1560" y="130">1 mm radial step</text>
+          <text class="sub" x="1560" y="172">index the blade here</text>
+
+          <g class="dimn">
+            <path d="M1184 716 H1496"/><path d="M1184 690 V742"/><path d="M1496 690 V742"/>
+          </g>
+          <text class="num" x="1340" y="700" text-anchor="middle">12 mm</text>
+
+          <g class="dimn"><path d="M1444 430 H1560"/></g>
+          <text class="num" x="1560" y="418">2 mm solid</text>
+          <text class="sub" x="1560" y="460">closed over the rod's end</text>
+
+          <text class="sub" x="300" y="716">bore formed by the rod &middot;
+            <tspan font-family="IBM Plex Mono, monospace">6.35 mm</tspan></text>
+          <text class="sub" x="300" y="762">Schematic, section along the spout axis, 26 px per mm</text>
+        </svg>
+      </div>
+      <figcaption>Cut against the step and the finished bore is already ground to size by the
+        dowel. Everything to the right of the dashed line is scrap.</figcaption>
+    </figure>
+
+    <ol class="steps small">
+      <li><span class="lead">Find the shoulder by touch</span>, then cut square to the axis with
+        a fresh, thin, very sharp blade in one pass. A sawing cut leaves a lip that fouls the
+        drain stub.</li>
+      <li><span class="lead">Trim the six pips</span> &mdash; one from the pour throat, five from
+        the vents &mdash; flush with the brim, without gouging it.</li>
+      <li><span class="lead">Check the bore.</span> Round, clean, unmarked, all the way
+        through. This is the surface a push-fit collet will grip through the drain stub.</li>
+    </ol>
+
+    <div class="call note">
+      <span class="tag">Why the tip is there at all</span>
+      A spout that ended at its finished length would have to be cast against a free rod end in
+      open silicone, and its last millimetre would be the worst-formed part of the funnel.
+      Casting 12 mm past the exit puts that region in the scrap, and leaves the cut face square
+      on material that formed against a mold wall.
+    </div>
+  </main>
+  <footer>
+    <div class="done">
+      <span class="tag">Done when</span>
+      The spout ends square at the shoulder with an open 6.35 mm bore, and the brim carries no
+      pips.
+    </div>
+    <div class="src">README.md &sect; Rod and trim shoulder &middot; funnel_mold.py</div>
+  </footer>
+</article>
+</body>
+</html>

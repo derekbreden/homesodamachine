@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><link rel="stylesheet" href="style.css"></head>
+<body>
+<article class="card">
+  <header>
+    <div class="eyebrow"><span class="phase">Finish</span><span class="folio">14</span></div>
+    <h1>What 0.20 mm buys</h1>
+    <i class="rule"></i>
+  </header>
+  <main>
+    <p class="lede">Both forming faces are printed <em>away</em> from the funnel's real size.
+      The cavity is grown <span class="dim act">0.20 mm</span> everywhere; the core's plug is
+      shrunk by the same. Finishing puts that thickness back as coating. The mold is only the
+      right size once it is coated.</p>
+
+    <figure>
+      <div class="panel" style="padding:44px 40px 26px">
+        <svg viewBox="0 0 2100 520" role="img" aria-label="Where the finishing allowance goes">
+          <style>
+            .cav { fill: #2b7c94; opacity: .18; stroke: #2b7c94; stroke-width: 4; }
+            .cor { fill: #d3922e; opacity: .22; stroke: #d3922e; stroke-width: 4; }
+            .sil { fill: #2f2f35; opacity: .10; stroke: #2f2f35; stroke-width: 3; }
+            .film { stroke: #d64050; stroke-width: 9; fill: none; }
+            .lbl { font: 600 34px "IBM Plex Sans", sans-serif; fill: #1d1d26; }
+            .sub { font: 400 29px "IBM Plex Sans", sans-serif; fill: #6d6a74; }
+            .cor-t { font: 600 32px "IBM Plex Mono", monospace; fill: #d64050; }
+          </style>
+          <!-- One wall of the funnel, seen in section, with a coat on each side of it. -->
+          <text class="lbl" x="60" y="52">Cavity &mdash; forms the outside</text>
+          <path class="cav" d="M60 120 H900 V420 H60 Z"/>
+          <line class="film" x1="900" y1="120" x2="900" y2="420"/>
+          <text class="sub" x="120" y="290">printed 0.20 mm wide of nominal</text>
+
+          <path class="sil" d="M912 120 H1188 V420 H912 Z"/>
+          <text class="lbl" x="1050" y="270" text-anchor="middle">silicone</text>
+          <text class="sub" x="1050" y="316" text-anchor="middle">nominal</text>
+
+          <line class="film" x1="1200" y1="120" x2="1200" y2="420"/>
+          <path class="cor" d="M1200 120 H2040 V420 H1200 Z"/>
+          <text class="lbl" x="1520" y="52">Core &mdash; forms the inside</text>
+          <text class="sub" x="1420" y="290">printed 0.20 mm shy of nominal</text>
+
+          <text class="cor-t" x="900" y="96" text-anchor="middle">coat</text>
+          <text class="cor-t" x="1200" y="96" text-anchor="middle">coat</text>
+
+          <text class="sub" x="60" y="490">Schematic, section through one wall &middot; the two
+            coral films are the finishing coat, and together they are what makes the gap
+            nominal</text>
+        </svg>
+      </div>
+      <figcaption>Net growth is <b>dry coating left, minus PETG removed by sanding</b>. It is a
+        target you measure on the coupon, not a property of a can of anything.</figcaption>
+    </figure>
+
+    <div class="call note">
+      <span class="tag">The arithmetic that catches people</span>
+      A <span class="dim">0.20 mm</span> film on both walls of a channel closes it by
+      <span class="dim">0.40 mm</span>; on both sides of a boss it opens it by
+      <span class="dim">0.40 mm</span>. Record the cavity's collar width and the core's width
+      at matching stations <b>before</b> you coat, and you can read the film directly
+      afterwards.
+    </div>
+  </main>
+  <footer>
+    <div class="src">README.md &sect; Measure the finish &middot; funnel_mold.py</div>
+  </footer>
+</article>
+</body>
+</html>

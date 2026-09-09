@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><link rel="stylesheet" href="style.css"></head>
+<body>
+<article class="card">
+  <header>
+    <div class="eyebrow"><span class="phase">The run</span><span class="folio">2</span></div>
+    <h1>The whole cast</h1>
+    <i class="rule"></i>
+  </header>
+  <main>
+    <p class="lede">Eleven moves. Five of them happen inside one working time and cannot be
+      paused, so everything they need is laid out before the tins are opened.</p>
+
+    <figure>
+      <div class="panel" style="padding:40px 40px 26px">
+        <svg viewBox="0 0 2100 720" role="img" aria-label="The phases of one cast">
+          <style>
+            .prep { fill: #eceef1; stroke: #1d1d26; stroke-width: 3; }
+            .live { fill: #d64050; opacity: .16; stroke: #d64050; stroke-width: 4; }
+            .wait { fill: #2b7c94; opacity: .16; stroke: #2b7c94; stroke-width: 4; }
+            .out  { fill: #d3922e; opacity: .20; stroke: #d3922e; stroke-width: 4; }
+            .st   { font: 600 32px "IBM Plex Sans", sans-serif; fill: #1d1d26; }
+            .bnd  { font: 700 32px "IBM Plex Sans", sans-serif; letter-spacing: .1em; }
+            .sub  { font: 400 29px "IBM Plex Sans", sans-serif; fill: #6d6a74; }
+          </style>
+          <text class="bnd" x="60" y="46" fill="#6d6a74">BEFORE THE CLOCK</text>
+          <rect class="prep" x="60" y="70" width="600" height="96" rx="10"/>
+          <text class="st" x="86" y="128">Set out &middot; release &middot; rod &middot; nuts and washers</text>
+          <text class="sub" x="60" y="206">pages 3&ndash;4 &middot; the mold is closed empty and ready to open</text>
+
+          <text class="bnd" x="60" y="300" fill="#d64050">THE WORKING TIME</text>
+          <g>
+            <rect class="live" x="60" y="324" width="370" height="96" rx="10"/>
+            <text class="st" x="86" y="382">Weigh &amp; mix</text>
+            <rect class="live" x="446" y="324" width="330" height="96" rx="10"/>
+            <text class="st" x="472" y="382">Degas the cup</text>
+            <rect class="live" x="792" y="324" width="300" height="96" rx="10"/>
+            <text class="st" x="818" y="382">Pour</text>
+            <rect class="live" x="1108" y="324" width="380" height="96" rx="10"/>
+            <text class="st" x="1134" y="382">Lower the core</text>
+            <rect class="live" x="1504" y="324" width="536" height="96" rx="10"/>
+            <text class="st" x="1530" y="382">Vacuum, top up, admit air</text>
+          </g>
+          <text class="sub" x="60" y="460">pages 5&ndash;9 &middot; no pauses, no fetching &mdash;
+            the tin's working time is the whole budget</text>
+
+          <text class="bnd" x="60" y="556" fill="#2b7c94">THEN WAIT</text>
+          <rect class="wait" x="60" y="580" width="560" height="90" rx="10"/>
+          <text class="st" x="86" y="634">Hold seated &middot; cure</text>
+          <text class="bnd" x="720" y="556" fill="#d3922e">THEN THE PART</text>
+          <rect class="out" x="720" y="580" width="1320" height="90" rx="10"/>
+          <text class="st" x="746" y="634">Zero &middot; jack 32 mm &middot; peel &middot; draw the rod &middot; trim &middot; wash &middot; bake</text>
+        </svg>
+      </div>
+      <figcaption>The red band is the only part of this you cannot stop in the middle of.</figcaption>
+    </figure>
+
+    <div class="call critical">
+      <span class="tag">&#9940; The numbers this guide does not have</span>
+      <b>Working time, cure time and post-cure schedule are on the silicone's own datasheet</b>,
+      not in this machine's files. Read the tin before you start and write its numbers in the
+      margin here. Figures for those quoted elsewhere in the project are planning estimates.
+    </div>
+  </main>
+  <footer>
+    <div class="src">README.md &sect; Cast and extract &middot; extraction.md &sect; Assemble, cast and extract</div>
+  </footer>
+</article>
+</body>
+</html>

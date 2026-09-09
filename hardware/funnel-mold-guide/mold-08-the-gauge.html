@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><link rel="stylesheet" href="style.css"></head>
+<body>
+<article class="card">
+  <header>
+    <div class="eyebrow"><span class="phase">Print &middot; plate 1</span><span class="folio">8</span></div>
+    <h1>Measure the bare coupon</h1>
+    <i class="rule"></i>
+  </header>
+  <main>
+    <p class="lede">The finish witness is a gauge for one number:
+      <span class="dim act">0.20 mm</span> of net growth. Its two end rails stand exactly that
+      far above its measuring flat, so when the coated flat comes up level with the rails, the
+      process is on target. Measure it <strong>before</strong> you coat anything.</p>
+
+    <figure>
+      <div class="panel" style="padding:40px 40px 26px">
+        <svg viewBox="0 0 2100 660" role="img" aria-label="The rail step on the finish witness">
+          <style>
+            .petg { fill: #eef0f3; stroke: #1d1d26; stroke-width: 4; }
+            .coat { fill: #2b7c94; opacity: .30; stroke: #2b7c94; stroke-width: 4; }
+            .datum { stroke: #d64050; stroke-width: 4; stroke-dasharray: 18 12; }
+            .dimn { stroke: #2b7c94; stroke-width: 3; fill: none; }
+            .lbl { font: 600 34px "IBM Plex Sans", sans-serif; fill: #1d1d26; }
+            .sub { font: 400 29px "IBM Plex Sans", sans-serif; fill: #6d6a74; }
+            .num { font: 600 33px "IBM Plex Mono", monospace; fill: #2b7c94; }
+            .cor { font: 600 31px "IBM Plex Mono", monospace; fill: #d64050; }
+          </style>
+
+          <!-- Left half: as printed. Right half: after finishing. One datum across both. -->
+          <text class="lbl" x="60" y="52">As printed</text>
+          <text class="sub" x="60" y="96">measure here, at several marked stations</text>
+          <path class="petg" d="M60 300 H300 V210 H700 V300 H940 V560 H60 Z"/>
+          <line class="datum" x1="40" y1="210" x2="2060" y2="210"/>
+          <text class="cor" x="1040" y="196" text-anchor="middle">rail tops &mdash; the datum</text>
+          <g class="dimn">
+            <path d="M500 210 V300"/><path d="M470 210 H530"/><path d="M470 300 H530"/>
+          </g>
+          <text class="num" x="548" y="268">0.20 mm</text>
+          <text class="sub" x="150" y="360">rail</text>
+          <text class="sub" x="440" y="360">measuring flat</text>
+          <text class="sub" x="800" y="360">rail</text>
+
+          <text class="lbl" x="1200" y="52">After finishing</text>
+          <text class="sub" x="1200" y="96">rails masked and still bare</text>
+          <path class="petg" d="M1200 300 H1440 V210 H1840 V300 H2060 V560 H1200 Z"/>
+          <path class="coat" d="M1440 300 H1840 V210 H1440 Z"/>
+          <g class="dimn">
+            <path d="M1640 210 V300"/><path d="M1610 210 H1670"/><path d="M1610 300 H1670"/>
+          </g>
+          <text class="num" x="1700" y="268">grown 0.20</text>
+          <text class="sub" x="1330" y="360">bare</text>
+          <text class="sub" x="1530" y="360">coated and sanded flush</text>
+
+          <text class="sub" x="60" y="628">Section through the coupon's end rails &middot;
+            schematic, the step magnified &middot; a straightedge across the rails is the check</text>
+        </svg>
+      </div>
+      <figcaption>The rails are the zero. Everything you do to the flat is read as a
+        <b>difference</b> from them, which is what makes a caliper good enough for a
+        <span class="dim">&plusmn;0.05 mm</span> target.</figcaption>
+    </figure>
+
+    <ol class="steps small">
+      <li><span class="lead">Mark stations along the flat</span> and record the uncoated
+        thickness at each with calipers. Several &mdash; one reading is not a measurement.</li>
+      <li><span class="lead">Measure the actual printed rail step too.</span> It is modelled at
+        0.20 mm, but layer quantisation and first-layer error move it. The number you write
+        down is the gauge, not the number in the CAD.</li>
+      <li><span class="lead">Keep the rails and the underside bare</span> from here on. They
+        are the datum and the bridge inspection window.</li>
+      <li><span class="lead">Use the ramp as the honest half of the test.</span> It is cut at
+        the funnel's own floor grade, so it asks the question a flat cannot: does your process
+        take the layer terraces off a shallow slope <em>without</em> rounding the transitions
+        at the top and bottom of it, and without the coating pooling at the foot of the
+        grade?</li>
+    </ol>
+
+    <div class="call note">
+      <span class="tag">Two numbers, not one</span>
+      A spray builds differently on a floor than on a wall. Measure a vertical face separately
+      from the flat and record both &mdash; the mold has far more vertical forming surface than
+      horizontal.
+    </div>
+  </main>
+  <footer>
+    <div class="done">
+      <span class="tag">Done when</span>
+      You have written down the bare flat thickness at each marked station and the real rail
+      step. Nothing is coated yet.
+    </div>
+    <div class="src">README.md &sect; Measure the finish &middot; funnel_mold.py</div>
+  </footer>
+</article>
+</body>
+</html>
