@@ -57,8 +57,8 @@
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "tools/cad-venv/bin/python tools/cad-artifacts/pack.py --room",
-      "status": "red"
+      "note": "check_release_room: 351 of 1000 free, the next cut wants 3, and the whole lock reads by name in 137.0 MB against 138.9 MB of bundle",
+      "status": "ok"
     },
     {
       "check": "tools/check_web_tests.py",
@@ -82,7 +82,7 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 12 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 327 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 5 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 327 member(s) keep their provenance",
       "status": "ok"
     }
   ],
@@ -92,11 +92,6 @@
       "  enclosure-assembly.facts.json was taken from a different tree — it holds 78e743e0b0e479198ce89441f873bb27 for the 124 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at c724c24e2a34c57ab541de0e50c77277 here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
-    ],
-    "tools/check_release_room.py": [
-      "the lock does not carry `release.objects`, so every deploy reads the whole bundle for members it already has",
-      "check_release_room: 1 thing(s) stand between a cut and the site",
-      "    tools/cad-venv/bin/python tools/cad-artifacts/pack.py --room"
     ]
   },
   "green": false
