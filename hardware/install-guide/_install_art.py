@@ -414,7 +414,14 @@ def s_the_socket():
 
 #: Scenes standing on the machine's printed bodies. `enclosure-assembly.step` is a smooth prism
 #: and the flutes live in the payload beside it, so these carry that skin across.
-FLUTED = frozenset({"the-back-face", "the-socket"})
+FLUTED = frozenset({"the-back-face", "the-socket", "nameplate"})
+
+def s_nameplate():
+    """The plate the back cover sends the reader to, with the serial and its link on it."""
+    a = cq.Assembly(name="nameplate-scene")
+    _rear_face(a)
+    return a
+
 
 def s_plate_sideways():
     """The under-counter plate coming in from the side, which is the only way it goes on.
@@ -573,6 +580,8 @@ SCENES = {
                                                 size="2200x1200")),
     # One span and one frame for both, and no trim, so the two halves of the fork are
     # at the same scale in the same box: the comparison is the whole picture.
+    "nameplate": (s_nameplate, dict(cam=(-0.14, 1.0, 0.10),
+                   target=(38.16, 467.0, 262.9), span=132.0, size="1600x1100")),
     "plate-sideways": (s_plate_sideways, dict(cam=(0.42, -0.9, -0.62),
                         target=(0.0, -22.0, -44.0), span=150.0, size="1500x1150")),
     # One camera per pair, and no trim, so before and after are the same frame.
