@@ -42,8 +42,8 @@ Filament drying is not per-unit: the AMS 2 Pro dries PETG in place and feeds the
 
 | Process | Machine | Notes | Hours |
 |---|---|---|---:|
-| Silicone funnel — room-temperature cure to demold | The mold | BBDINO 40A; [funnel-mold](/hardware/printed-parts/zone-c/funnel-mold/README.md) defers to the maker's cure instructions and carries no time, so 5 h is a placeholder, not a datasheet figure | 5.0 |
-| Silicone funnel — food-contact post-cure bake | Oven at ~200 °C | The drive-off bake is the food-contact acceptance gate, not the room-temp cure; the schedule is the silicone's own, so ~200 °C for 4 h is a placeholder until the datasheet is read | 4.0 |
+| Silicone funnel — room-temperature cure to demold | The mold | BBDINO 40A: the maker's 5 h to demold at 23 °C, per [silicone.md](/hardware/printed-parts/zone-c/funnel-mold/silicone.md). Full use at 24 h; a cool shop lengthens both | 5.0 |
+| Silicone funnel — food-contact post-cure bake | Oven at ~200 °C | The drive-off bake is the food-contact acceptance gate, not the room-temp cure. **The maker states no post-cure schedule** ([silicone.md](/hardware/printed-parts/zone-c/funnel-mold/silicone.md)); 4 h at ~200 °C is a placeholder, under the cured material's 230 °C ceiling, until the trial is run | 4.0 |
 | Body foam — pour to trimmable | In the part | Cure time is an **open item** in [cold-core.md](/hardware/assembly/cold-core.md); 4 h is a placeholder for a 2 lb pour foam, not a datasheet figure | 4.0 |
 | Cap foams — pour to trimmable, both caps | In the part | Same open item; the two caps pour together | 4.0 |
 | PRV-shroud caulk — full cure | Bench shelf | ≥24 h for 100 % RTV, but the subassembly is built ahead and shelves indefinitely — off the critical path | 24.0 |

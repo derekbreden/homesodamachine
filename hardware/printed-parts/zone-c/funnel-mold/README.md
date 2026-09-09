@@ -151,7 +151,8 @@ below the shoulder is scrap.
 
 ## Cast and extract
 
-Use the silicone manufacturer's mixing, working-time and cure instructions.
+The silicone's own mixing, working-time and cure figures are [silicone.md](silicone.md),
+with the two places its listing disagrees with itself and the post-cure it does not state.
 Degas the mixed silicone in a separate container with ample expansion headspace.
 Pour into the open cavity, filling the spout from below, then lower the core
 slowly and let displaced air and excess silicone escape through the brim ports.
