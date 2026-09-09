@@ -12,16 +12,19 @@ thickens to behind it, the two screw bosses and their heat-set bores are cut by
 ## What it says
 
 ```
-        HOME SODA MACHINE          ← the glass mark and the name, one lockup
-          SERIAL  0001
-       120V 60Hz 5A 600W
-        120V 60Hz ONLY
-         NOT FOR 240V
-   homesodamachine.com/u/0001      ← as wide as the lockup, and it sets that way at every unit
-         flammable refrigerant    ← small caps and a flame, in the footer
+      [glass]  HOME SODA            ← large mark and two lines of large type
+               MACHINE
+
+   homesodamachine.com/u/0001      ← centred on the screw line
+
+              SERIAL  0001         ← the small details share the name's left edge
+              120V 60Hz 5A 600W
+              120V 60Hz ONLY
+              NOT FOR 240V
+              [flame] FLAMMABLE REFRIGERANT
 ```
 
-The footer carries a white flame and `FLAMMABLE REFRIGERANT`, centred below the unit link.
+The details block starts with the serial and ends with a white flame and `FLAMMABLE REFRIGERANT`.
 The [install guide](/hardware/install-guide/README.md) records the refrigerant and charge mass.
 Product marking requirements are recorded in
 [`/business/regulatory.md`](/business/regulatory.md).
@@ -42,12 +45,16 @@ Not UL-listed or ETL-listed; the plate carries no UL or ETL mark.
 
 ## The type
 
-One face, `bulkhead_ring.WORD_FONT`. The name and the block are set at
-[6.5](TITLE_EM) — `bulkhead_ring.WORD_SIZE`, the em the bulkhead rings beside this plate are
-lettered at. The link is set at [6.05](LINK_EM): the em that brings it out at
-[88.8 mm](LOCKUP_W), the lockup's own width, so the plate is bracketed top and bottom by two
-marks that measure the same. Every serial is four digits and this face sets figures on one
-advance, so that holds from unit 0001 to 9999.
+One face, `bulkhead_ring.WORD_FONT`, in three levels:
+
+- The brand: a [20 mm](LOGO_H) glass mark beside `HOME SODA` over `MACHINE`, set at
+  [9.5](TITLE_EM), with caps [7.24 mm](TITLE_CAP) high. The complete lockup is [78.07 mm](LOCKUP_W) wide.
+- The unit link: [5.5](LINK_EM), caps [4.19 mm](LINK_CAP) high, centred between the screws.
+  Its width is [79.97 mm](LINK_W). Every serial is four digits on one advance, so its width
+  holds from unit 0001 to 9999.
+- The details: serial at [3.8](SERIAL_EM), ratings at [3.2](BODY_EM) with caps
+  [2.44 mm](BODY_CAP) high, all aligned to the name's left edge. Each letter has
+  [0.1 mm](DETAIL_TRACKING) of extra spacing.
 
 The refrigerant footer is set at [2.8](HAZARD_EM), with caps [2.13 mm](HAZARD_CAP) high and
 [0.08 mm](HAZARD_TRACKING) of added space between letters, beside a [3 mm](FLAME_H) flame.
