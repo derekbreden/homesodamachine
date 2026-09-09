@@ -2,8 +2,8 @@
   "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed \u2014 web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
   "release": {
     "tag": "cad-artifacts",
-    "asset": "cad-0b3812e119e301d6.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-0b3812e119e301d6.tar.gz",
+    "asset": "cad-2643b1fe3b71c905.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-2643b1fe3b71c905.tar.gz",
     "objects": "s-"
   },
   "source": {
@@ -11,7 +11,9 @@
   },
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, its rule would not cut, or an interactive publication explicitly deferred that rule.",
-    "paths": [],
+    "paths": [
+      "tools/funnel-mold-print/audit_profile.py"
+    ],
     "members": [
       "hardware/.cache/pump-roof/enclosure-pump-cartridge.step",
       "hardware/assembly/cards/deck.cover.png",
@@ -44,6 +46,12 @@
       "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step",
       "hardware/faucet-layout/faucet-assembly.step",
       "hardware/faucet-layout/faucet-assembly.step.mesh",
+      "hardware/install-guide/art/cabinet-plan.png",
+      "hardware/install-guide/art/collet-press.png",
+      "hardware/install-guide/art/filter-in-cabinet.png",
+      "hardware/install-guide/art/one-face.png",
+      "hardware/install-guide/art/opening.png",
+      "hardware/install-guide/art/power-socket.png",
       "hardware/install-guide/install-guide.cover.png",
       "hardware/install-guide/install-guide.pdf",
       "hardware/manifold-layout/enclosure-assembly.step",
@@ -316,6 +324,7 @@
       "//:ground-ring-stack",
       "//:holders",
       "//:iec-c14-inlet",
+      "//:install-art",
       "//:install-guide-build",
       "//:jg-bulkhead-union",
       "//:jg-pp010822e",
@@ -358,9 +367,9 @@
     ]
   },
   "bundle": {
-    "sha256": "0b3812e119e301d6627602fc935abb5586213d397c16ac9c75e55aa9e04787d6",
-    "bytes": 140384843,
-    "solids": 329
+    "sha256": "2643b1fe3b71c905f41f67fbe6f645504f28ef879f89721d43403ce5faaea0bc",
+    "bytes": 141661716,
+    "solids": 335
   },
   "solids": {
     "hardware/.cache/pump-roof/enclosure-pump-cartridge.step": "4f3c521165747f039ff44b338de914a5e9eece6e4fe0e39a3a65bedeed90c67d",
@@ -432,8 +441,8 @@
     "hardware/assembly/cards/img/wago-column.png.scene.json": "f09500dd6a521ed93bf301084e029f7a7885ea7a2774e6c5ad1712c3fb608dc5",
     "hardware/assembly/cards/img/water-split.png": "4024c8960b690a3535d1632a533c962c35aa3c8c9213585e053497d65bce32c7",
     "hardware/assembly/cards/img/water-split.png.scene.json": "1a6116c4c11f6027728701d4b15da653fe79a13e0f5a4cc693412cbc3b9fccc5",
-    "hardware/assembly/scenes/glb/back-half.glb": "b0d737df804a6aad3566e8e17e0a7054136b282a0d55c987043312d9d792c9d7",
-    "hardware/assembly/scenes/glb/back-top.glb": "20f50032cfa0caae58c90ad92741b74457accd856daa9dad3ffa4e3c38a3696c",
+    "hardware/assembly/scenes/glb/back-half.glb": "27f99b003889f68f8b7ea0610a758cc0f484e69befc6f6ac96694347877f315c",
+    "hardware/assembly/scenes/glb/back-top.glb": "7ab756c91ec401a16388d51967bb69854552cca649e3ce7004d7ff0810b42c6c",
     "hardware/assembly/scenes/glb/cap-lid-fill.glb": "3f41dada059f09b897b1e4bdc45ff2b638d9b27b179a914051bb77711cf0e770",
     "hardware/assembly/scenes/glb/cap-lid.glb": "2663ed08ac575e3ae488cf51f763b8bee93f5bdd74a3306e1f0c5e8f29f4edca",
     "hardware/assembly/scenes/glb/cold-core-open.glb": "8363d5006622ebc5c72e643deb12768460970900dd680ff99a89b77695e9c8a4",
@@ -450,10 +459,16 @@
     "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step": "bb6d47d7641a9759e444da2f68ea12d48ddcc19f36bcfcd4227414a5d75d538a",
     "hardware/faucet-layout/faucet-assembly.step": "1822a620402298d872ac7a5e84a0106f31dbe4ae4b531f4a6fccfd72c22cce21",
     "hardware/faucet-layout/faucet-assembly.step.mesh": "f2f8ee191c7d6b363298605193d1897e71a2ece3f2da74c75154f57e7bfa0e29",
+    "hardware/install-guide/art/cabinet-plan.png": "47f9a9295fb83c3cbb9879e6728f8350a53d30c94ea142823a15db878c648753",
+    "hardware/install-guide/art/collet-press.png": "d8b3326cdfcfb5bee2ec7adf3f765142ef10cbc359a52fb6116923fbcc9a31cd",
+    "hardware/install-guide/art/filter-in-cabinet.png": "b799c58acc3dec7791f4aa6e9940e4583ce8236d578e0633cbabfcbfb576cec6",
+    "hardware/install-guide/art/one-face.png": "4a6455084621bb88adab0364c3fb8db073c6c671f34000c565faa6c2ce04ec48",
+    "hardware/install-guide/art/opening.png": "bb537519eb4390eddab5da928cf4ad31cbd0401bdbc05421ce628088ea7c3ebd",
+    "hardware/install-guide/art/power-socket.png": "85ce01a7d26c750a70ddd963c3ad3c74fec0355ddfa573ba40fa9ab3aa1f5ccd",
     "hardware/install-guide/install-guide.cover.png": "e059cdb7e70f15b5e11aedf69fe10ffc7c4c11fb228539fd204c60573e13635a",
-    "hardware/install-guide/install-guide.pdf": "abc36b4462f111c383288ef7f69540e5ca17dacdb4dc2829433703c3bfa46dfa",
-    "hardware/manifold-layout/enclosure-assembly.step": "e2127b8ac18b898b15b904c2b6ff8bfc90d3f4038ad27373418b1eb858f7ab84",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "13f6fcf3ea1f25fd3fb57528be8b3b1935d61e0048110b8b76fac14626bbae8c",
+    "hardware/install-guide/install-guide.pdf": "2d9a61352453a7a44dd71ae8a63143cf32b81082a10012382fa18ffe3d5756c4",
+    "hardware/manifold-layout/enclosure-assembly.step": "29dfdd90353a8ad69f8715c6d3e1c9b0033d470a35db5c819e8de31f1a99c84b",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "b1d7a48b5f7711eb259dc4ba32937f17bcb29bfdb36e181180e6e7df68c6d455",
     "hardware/manifold-layout/manifold-layout.step": "77649fc47b26af27c477871a21f53c2ee9852272e19980f16fd41b589bf4b27f",
     "hardware/manifold-layout/manifold-layout.step.mesh": "41c54b8e9a00621135935b120072810e7e8c9163200a7613b53a840460b795f3",
     "hardware/pcb/pcba/out/pcba.glb": "819d2d6a51579a8c3ee66bcb9432075bc50ca77cf129bd828ea538b8fc72b767",
@@ -603,9 +618,9 @@
     "hardware/printed-parts/shop-storage/holders/tip-index.step": "f47eeed7af99b0ff7d8cc36c1d9f9b88749ddb2660f84d95ccd3259f6be77c13",
     "hardware/printed-parts/shop-storage/holders/tube-comb.step": "06499dc519fb5d8c6ccf5661b551aef792a8f9360283e6ffc4012cc783f1bf68",
     "hardware/printed-parts/shop-storage/holders/xh-tub.step": "e427678f733f9c585b5c65757a0813e2fbf0b884a5099801ee92a956810e4d79",
-    "hardware/printed-parts/zone-c/funnel-mold/funnel-mold-assembly.step": "6c016287bbf6881d65ff4fed303cffca8df169b76646427bf43bcfe9b5156939",
-    "hardware/printed-parts/zone-c/funnel-mold/funnel-mold-cavity.step": "8ae10ee9d5a719585bb8a73f4736608723e39cab99818864607c73a40e34d52c",
-    "hardware/printed-parts/zone-c/funnel-mold/funnel-mold-core.step": "b4a3f312f2cc78d3cfba7be7b4b044812696ccad0d1021be415b29571bc0e2bc",
+    "hardware/printed-parts/zone-c/funnel-mold/funnel-mold-assembly.step": "aee700c2f5a3320b21b19d4561c966bfb9d99523a25e16c672f207e74aeacf9a",
+    "hardware/printed-parts/zone-c/funnel-mold/funnel-mold-cavity.step": "1dc7c3e1208004d7092a9ac8965b9b308f396b83cecc5cb5fe8f663a50bdf47d",
+    "hardware/printed-parts/zone-c/funnel-mold/funnel-mold-core.step": "9056bd4d23fc1f2c271533395fd8cfba5889c8aae375227441fcdb1da8412d5c",
     "hardware/printed-parts/zone-c/funnel-mold/funnel-mold-finish-witness.step": "eaf11159ed5e72d239059c09c23cee9970a65df681fd317da2e9c14277734e07",
     "hardware/printed-parts/zone-c/funnel-mold/funnel-mold-guide-witness.step": "e6e9d4b994f0fdcd23e169f93d537f6fd7884c2c5f601a13553c462ea211ff2e",
     "hardware/printed-parts/zone-c/funnel-mold/funnel-mold-hardware-witness.step": "2b3f02a26be189c3e4dde705916132261f96f78921ec8e9df20a24c9ef65fc94",
