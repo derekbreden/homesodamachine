@@ -2,8 +2,8 @@
   "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed \u2014 web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
   "release": {
     "tag": "cad-artifacts",
-    "asset": "cad-ad0cd59fa9a7228b.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-ad0cd59fa9a7228b.tar.gz",
+    "asset": "cad-6e6b9f8233eba1b7.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-6e6b9f8233eba1b7.tar.gz",
     "objects": "s-"
   },
   "source": {
@@ -60,6 +60,7 @@
       "hardware/install-guide/art/tee-before.png",
       "hardware/install-guide/art/the-back-face.png",
       "hardware/install-guide/art/the-socket.png",
+      "hardware/install-guide/art/two-tees.png",
       "hardware/install-guide/install-guide.cover.png",
       "hardware/install-guide/install-guide.pdf",
       "hardware/manifold-layout/enclosure-assembly.step",
@@ -377,9 +378,9 @@
     ]
   },
   "bundle": {
-    "sha256": "ad0cd59fa9a7228b7a69e5d13f35d3afa2f52ed41e61d4d22322759e9dad5f9b",
-    "bytes": 145373424,
-    "solids": 347
+    "sha256": "6e6b9f8233eba1b781ad7e08c379694696a74b8df30e307caa7164962191999f",
+    "bytes": 145563062,
+    "solids": 348
   },
   "solids": {
     "hardware/.cache/pump-roof/enclosure-pump-cartridge.step": "4f3c521165747f039ff44b338de914a5e9eece6e4fe0e39a3a65bedeed90c67d",
@@ -485,8 +486,9 @@
     "hardware/install-guide/art/tee-before.png": "e8f02cce50ee4f0b430eb09f912d0e730f7d28024d300a8f32f962dd4b8b22fe",
     "hardware/install-guide/art/the-back-face.png": "2e85e21096892db0c61f5187eb3ebbddac724622312ed979fa4a46a123a80fad",
     "hardware/install-guide/art/the-socket.png": "6af01d94b559dd77ddb53a3807024e9e0f37fbc379f81053f3ec31e762e46680",
+    "hardware/install-guide/art/two-tees.png": "2a0b69bf7b013c7fdaec51d5d4df1167263af0c0a6412c9f3e0aaa547261b2c4",
     "hardware/install-guide/install-guide.cover.png": "e059cdb7e70f15b5e11aedf69fe10ffc7c4c11fb228539fd204c60573e13635a",
-    "hardware/install-guide/install-guide.pdf": "c6250589f3514bc98da31f57ec625f1f6be1405636dfac50ea2d4f6de916afcb",
+    "hardware/install-guide/install-guide.pdf": "a6a558b9c25bce27d03609eedc9d87222effd8822d1c0edb0d1afbf48f3c8e2d",
     "hardware/manifold-layout/enclosure-assembly.step": "29dfdd90353a8ad69f8715c6d3e1c9b0033d470a35db5c819e8de31f1a99c84b",
     "hardware/manifold-layout/enclosure-assembly.step.mesh": "96e10511ab50545a41fc781d1d675fed038dbc37f8dc9babf7090c516f34fe65",
     "hardware/manifold-layout/manifold-layout.step": "77649fc47b26af27c477871a21f53c2ee9852272e19980f16fd41b589bf4b27f",
