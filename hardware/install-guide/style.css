@@ -353,9 +353,14 @@ tr:last-child td { border-bottom: none; }
   border-radius: 6px;
   background: var(--action);
 }
-.cover-foot {
+/* The cover feet are prose, not the running foot's two ends — they take neither its row
+   layout nor its rule. */
+.card > footer.cover-foot {
+  display: block;
   flex: none;
   padding: 60px 135px 116px;
+  border-top: none;
+  color: var(--ink);
   font-size: 38px;
   line-height: 1.42;
 }

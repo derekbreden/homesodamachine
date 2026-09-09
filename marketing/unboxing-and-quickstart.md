@@ -57,7 +57,7 @@ and 100 %. Check the page at actual size, at quarter scale, and in grayscale. Ob
 state, open mating faces, collar words, both black flavor tubes, and the before/connected
 distinction must remain legible without the instructional copy.
 
-Print `hardware/install-guide/install-guide.pdf` on US Letter, **duplex, flip on short edge**, at
-100 %, and fold and staple as the guide's own README states. Check that the fold falls between
-spreads, that no step breaks across a leaf, and that the grayscale copy still separates the coral
-callouts from the artwork behind them.
+Print `hardware/install-guide/install-guide.pdf` on US Letter at 100 %, two-sided, with the
+driver's booklet layout, and fold and staple as the guide's own README states. Check that the fold
+falls between spreads, that no step breaks across a leaf, and that the grayscale copy still
+separates the coral callouts from the artwork behind them.
