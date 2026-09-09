@@ -101,12 +101,13 @@ to **Derek approved** when he recognises them, or are replaced when he doesn't.
 
 | Name | Point at | Not |
 | --- | --- | --- |
-| **job kit** | one bench job's tools and consumables stacked on one Gridfinity footprint, under `printed-parts/shop-storage/` | tool tray, tool caddy, organizer |
-| **job stack** | a job kit whose storeys are bins closed by a rack or a tray, unstacked to work from | |
-| **job tower** | a job kit whose storeys stand in a carcass with head-down tool sockets on top | |
-| **storey** | one stacked body of a job kit — a bin, a drawer, a tray or the rack | tier, layer, level |
-| **job rack** | the storey of a job kit that holds its tools: a solid Gridfinity blank with sockets cut from its top | tool rack, tool holder |
-| **bench dock** | the printed Gridfinity baseplate a job kit stands on | dock plate, base |
+| **holder** | one printed Gridfinity module of `printed-parts/shop-storage/`, holding one kind of thing | tool tray, tool caddy, organizer, bin |
+| **tub** | a holder that is an open bin, plain or divided: loose stock, and anything that just stands | drawer, box |
+| **cradle** | a holder that is a 90-degree V trough: anything round, at any radius, free to turn | spool shelf, reel rest |
+| **comb** | a holder slotted one slot per tool, each slot a parallel throat closing to a taper | tool rack, plier holder |
+| **index** | a holder bored at nominal diameters, for things whose size is a standard | bit holder, tip stand |
+| **bench dock** | the printed Gridfinity baseplate a holder stands on | dock plate, base |
+| **parcel figure** | a dimension that is a listing's shipping box: an upper bound on the thing inside it, and no lower bound at all | product dimensions, listing envelope |
 | **pump jack** | the RiteAV RJ11 keystone jack in the ridge wall behind the enclosure display, that the pump cartridge's cord plugs into | pump connector, cartridge jack, pump socket |
 | **pump plug** | the RJ11 6P4C plug on the pump cartridge's cord, that clicks into the pump jack | cartridge plug |
 | **install kit** | the box beside the appliance in the carton holding what the install needs beyond the faucet bag: the customer's plumbing, the collet press, the line cord, the documentation packet | installer kit |

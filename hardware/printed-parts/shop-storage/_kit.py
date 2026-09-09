@@ -1,11 +1,13 @@
-"""Shared vocabulary of the shop-storage job kits.
+"""The Gridfinity vocabulary the holders are cut from.
 
 Frame: world +Z is up, +Y is the operator-facing front, and +X is the operator's right.
-Every storey is built in its own print orientation with its bottom at Z=0, and the kit
-frame places it on the storey below by its seat. Every storey is a stock cq-gridfinity
-body on the 42 mm grid: an open bin, a solid lipped blank a rack is cut from, or the
-baseplate the kit docks on. The library's label ledge stands on the +Y wall, so a bin
-built here already faces the operator.
+Every holder is built in its print orientation with its bottom at Z=0. Every one of them
+is a stock cq-gridfinity body on the 42 mm grid: an open bin, a solid lipped blank a comb
+or an index is cut from, or the baseplate they all dock on. The library's label ledge
+stands on the +Y wall, so a bin built here already faces the operator.
+
+[`_holder.py`](_holder.py) is the layer above: the four shapes, and the rule about which
+figures each of them is allowed to read.
 """
 
 import sys
@@ -49,14 +51,14 @@ h2c_build_z = 320.0
 dock_extra_depth = 6.0
 dock_seat_z = dock_extra_depth - seat_clearance
 
-#: The lip ring on a lipped storey, measured in from its outer wall. Inside it, a solid
-#: blank's top is a flat plateau at the storey's top reference, and a rack's sockets are
+#: The lip ring on a lipped body, measured in from its outer wall. Inside it, a solid
+#: blank's top is a flat plateau at the body's top reference, and every slot and bore is
 #: cut from that plateau.
 lip_inset = 2.6
 
 #: One of the library's own bins, kept for the figures it derives rather than the body
-#: it renders. A kit's bin carries a label ledge and may carry dividers, and both of
-#: those change what the library thinks is safe to fillet.
+#: it renders. A tub carries a label ledge and may carry dividers, and both of those
+#: change what the library thinks is safe to fillet.
 _stock_bin = GridfinityBox(1, 2, 1, labels=True, width_div=1)
 
 wall_thickness = GR_WALL
@@ -80,7 +82,7 @@ kit_color = M_PETG_BLACK
 
 
 def outer_size(units):
-    """The outside of a storey across `units` grid cells."""
+    """The outside of a holder across `units` grid cells."""
     return units * grid_unit - grid_clearance
 
 
@@ -90,47 +92,31 @@ def inner_size(units):
 
 
 def top_reference_z(height_u):
-    """The stacking reference of a storey `height_u` units tall; its lip rises above it."""
+    """The stacking reference of a holder `height_u` units tall; its lip rises above it."""
     return height_u * height_unit
 
 
-def seat_on_bin_z(height_u):
-    """Where the next storey's Z=0 lands on an open bin of `height_u`.
-
-    A bin's label ledge and its dividers rise to its top reference, and the storey
-    above stands on them. A bin with neither seats the next storey on its lip chamfer,
-    0.35 mm lower, and `assert_stack_seated` refuses it: every bin in a kit carries a
-    ledge or a divider."""
-    return top_reference_z(height_u)
-
-
-def seat_on_blank_z(height_u):
-    """Where the next storey's Z=0 lands on a solid lipped blank of `height_u`."""
-    return top_reference_z(height_u)
-
-
 def plateau_half(units):
-    """Half the flat top of a lipped blank across `units` cells: where sockets may open."""
+    """Half the flat top of a lipped blank across `units` cells: where a cut may open."""
     return outer_size(units) / 2.0 - lip_inset
 
 
 def cavity_depth(height_u):
-    """Floor to top reference: the whole void `bin_cavity` returns, and how tall a thing
-    standing in a storey `height_u` units tall may be."""
+    """Floor to top reference: how tall a thing standing in a `height_u` tub may be."""
     return top_reference_z(height_u) - bin_floor_z
 
 
 def interior_ceiling_z(height_u):
     """A bin's interior ceiling: the shelf its stacking lip stands on.
 
-    `bin_cavity` runs on past it to the top reference, into the pocket the next storey's
-    base foot drops into. A content that stops below this ceiling meets nothing when the
-    kit closes; one that passes containment above it is crushed by the storey above."""
+    The cavity runs on past it to the top reference, into the pocket a stacked body's
+    base foot drops into. A content that stops below this ceiling is clear of anything
+    stacked on top of the tub; one that stands past it is crushed by it."""
     return bin_floor_z + GridfinityBox(1, 2, height_u).int_height
 
 
 def label_ledge_drop(height_u, divider=False):
-    """How far the library's label ledge hangs below a storey's top reference.
+    """How far the library's label ledge hangs below a tub's top reference.
 
     The ledge on the bin's own +Y wall is the deeper of the two the library draws; the
     one along a divider is shallower, having no lip to clear. `bin_cavity` leaves both
@@ -193,13 +179,13 @@ def cell_floor_area(x_u, y_u, length_div=0, width_div=0, margin=0.0):
 # ============================================================
 
 def bin_body(x_u, y_u, height_u, **features):
-    """An open bin with its stacking lip. `features` are the library's own: length_div,
-    width_div, labels, scoops, scoop_rad, label_width, wall_th."""
+    """An open bin with its stacking lip: a tub. `features` are the library's own:
+    length_div, width_div, labels, scoops, scoop_rad, label_width, wall_th."""
     return GridfinityBox(x_u, y_u, height_u, **features).render()
 
 
 def blank_body(x_u, y_u, height_u):
-    """A solid lipped blank: rack stock, and a seat for the storey above."""
+    """A solid lipped blank: what a comb and an index are cut from."""
     return GridfinityBox(x_u, y_u, height_u, solid=True).render()
 
 
@@ -302,14 +288,14 @@ def cone(bottom_diameter, top_diameter, height, center_x=0.0, center_y=0.0, z_bo
 
 
 def pocket(width, depth, center_x, center_y, floor_z, top_z, radius=3.0):
-    """A cutter for a rectangular socket or well, open 0.2 mm past `top_z`."""
+    """A cutter for a rectangular well, open 0.2 mm past `top_z`."""
     return placed_prism(
         width, depth, top_z - floor_z + 0.2, center_x, center_y, z_bottom=floor_z, radius=radius
     )
 
 
 def round_pocket(diameter, center_x, center_y, floor_z, top_z):
-    """A cutter for a round socket or well, open 0.2 mm past `top_z`."""
+    """A cutter for a bore, open 0.2 mm past `top_z`."""
     return cylinder(diameter, top_z - floor_z + 0.2, center_x, center_y, floor_z)
 
 
@@ -334,65 +320,6 @@ def socket_ring(pocket_width, pocket_depth, center_x, center_y, bottom_z, top_z,
         radius=max(radius - wall, 1.0),
     )
     return outer.cut(inner)
-
-
-# ============================================================
-# THE STACK
-# ============================================================
-
-class Storey:
-    """One stacked body: `kind` is "bin" (open, lipped) or "blank" (solid, lipped)."""
-
-    def __init__(self, name, shape, height_u, kind="bin"):
-        if kind not in ("bin", "blank"):
-            raise ValueError(f"{name}: storey kind {kind!r} is not bin or blank")
-        self.name = name
-        self.shape = shape
-        self.height_u = height_u
-        self.kind = kind
-
-    def seat_above(self):
-        """Where the next storey's Z=0 lands, in this storey's own frame."""
-        if self.kind == "bin":
-            return seat_on_bin_z(self.height_u)
-        return seat_on_blank_z(self.height_u)
-
-
-def stack_seats(storeys):
-    """The kit-frame Z of each storey, bottom to top, the first on the dock at Z=0."""
-    seats = []
-    z = dock_seat_z
-    for storey in storeys:
-        seats.append(z)
-        z += storey.seat_above()
-    return seats
-
-
-def exploded_seats(seats, lift):
-    """The same storeys lifted apart by `lift` per storey, the bottom one staying put."""
-    return [z + lift * index for index, z in enumerate(seats)]
-
-
-def kit_assembly(name, dock, storeys, seats, references=(), color=kit_color):
-    """The kit in its own frame. `references` are (name, shape, color, storey_index)
-    envelopes of what the kit holds, each riding with its storey."""
-    assembly = cq.Assembly(name=name)
-    assembly.add(dock, name=f"{name}-dock", color=color)
-    for storey, z in zip(storeys, seats):
-        assembly.add(
-            storey.shape,
-            name=storey.name,
-            loc=cq.Location(cq.Vector(0.0, 0.0, z)),
-            color=color,
-        )
-    for ref_name, shape, ref_color, storey_index in references:
-        assembly.add(
-            shape,
-            name=ref_name,
-            loc=cq.Location(cq.Vector(0.0, 0.0, seats[storey_index])),
-            color=ref_color,
-        )
-    return assembly
 
 
 # ============================================================
@@ -437,15 +364,6 @@ def assert_seated(name, lower, upper, upper_z, max_overlap=0.05, max_gap=0.02):
     if gap > max_gap:
         raise ValueError(f"{name}: {gap:.3f} mm interface gap")
     print(f"   {name}: {overlap:.4f} mm^3 overlap, {gap:.4f} mm gap")
-
-
-def assert_stack_seated(dock, storeys, seats):
-    """Every interface of a kit: the dock under the first storey, each storey under the next."""
-    assert_seated(f"dock to {storeys[0].name}", dock, storeys[0].shape, seats[0])
-    for lower, upper, lower_z, upper_z in zip(storeys, storeys[1:], seats, seats[1:]):
-        assert_seated(
-            f"{lower.name} to {upper.name}", lower.shape, upper.shape, upper_z - lower_z
-        )
 
 
 def assert_clear(name, body, reference, max_overlap=0.02):
@@ -496,7 +414,7 @@ def assert_under_ceiling(name, shape, height_u, headroom=0.0):
     """A stored thing stops `headroom` clear of the bin's interior ceiling.
 
     Containment does not say this on its own: `bin_cavity` runs up into the lip pocket
-    the storey above lands its base foot in."""
+    a stacked body lands its base foot in."""
     gap = interior_ceiling_z(height_u) - bbox(shape).zmax
     if gap < headroom:
         raise ValueError(
@@ -508,10 +426,10 @@ def assert_under_ceiling(name, shape, height_u, headroom=0.0):
 
 
 def assert_inside_plateau(name, reach_x, reach_y, x_u, y_u=None, margin=0.0):
-    """A socket cut from a rack opens inside the plateau, never through the lip ring.
+    """A cut opens inside the plateau, never through the lip ring.
 
-    `reach_x` and `reach_y` are how far the socket runs from the storey's centre line.
-    Past the plateau a socket opens into the stacking lip, and the storey above loses
+    `reach_x` and `reach_y` are how far the cut runs from the holder's centre line. Past
+    the plateau it opens into the stacking lip, and whatever stacks on the holder loses
     the ring it seats on."""
     half_x = plateau_half(x_u)
     half_y = plateau_half(x_u if y_u is None else y_u)
@@ -537,7 +455,8 @@ def export_parts(out_dir, parts, color=kit_color):
         print(f"-> {out.name}")
 
 
-def export_kit(out_dir, name, assembly):
+def export_assembly_step(out_dir, name, assembly):
+    """One STEP for a witness assembly: a holder with what it holds beside it."""
     out = Path(out_dir) / f"{name}.step"
     export_assembly(assembly, str(out))
     print(f"-> {out.name}")
