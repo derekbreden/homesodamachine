@@ -34,22 +34,23 @@ white and black name fluids and nothing else — the four the bulkhead rings wea
 **The guide composes its own frames.** [`_install_art.py`](_install_art.py) beside this file
 registers one scene per leaf that asks for one and lands it in `art/`, off the same solids the
 quick start draws from and through the same posed renderer, so a change to the machine reaches
-both documents. The two rear-face leaves stand on the machine's own rear children — the shell with
-its flutes, the coloured bulkhead rings, the inlet, the jack, the nameplate — with the customer's
-C13 cordset built in that module beside them. The older-kitchen spread is the four registered
-scenes in [`../quickstart/plumbing/`](/hardware/quickstart/plumbing/README.md); leaf 8's
-below-counter plate is `../quickstart/art/`. Leaf 5's path map is an inline SVG: what it shows —
+both documents. The two rear-face leaves and the back cover stand on the machine's own rear
+children — the shell with its flutes, the coloured bulkhead rings, the inlet, the jack, the
+nameplate — with the customer's C13 cordset built in that module beside them. The older-kitchen
+pairs, the fork on leaf 9 and the tees on leaf 3 call
+[`../quickstart/plumbing/`](/hardware/quickstart/plumbing/README.md)'s own scene builders and pose
+this guide's cameras on them: a pair is rendered on one camera with its frame kept, so its two
+states stay registered against each other. Leaf 5's path map is an inline SVG: what it shows —
 seven crossings on one face, and where each one comes from — has no camera.
 
 Art is a background on an empty box, never an `<img>`. A crop is then a background rectangle
 rather than an element hanging out of a clipped parent, which is the one shape the renderer's clip
 gate cannot tell from a mistake.
 
-**A crop is `contain` or `cover` and `center`, never a measured offset in pixels.** These leaves
-draw from two kinds of render. Some are cut to a literal box — `mount-tighten-close` is always
-772 x 560 — and what moves inside them is the machine: redraw the part and it sits somewhere new
-in the same frame. Others are trimmed to their own content, so the frame itself is
-whatever the subject measured that day. Either way an offset taken off yesterday's pixels points at
+**A crop is `contain` or `cover` and `center`, never a measured offset in pixels.** These leaves draw from two kinds of
+render. A frame kept whole holds a pair registered, and what moves inside it is the machine:
+redraw the part and it sits somewhere new in the same frame. A frame trimmed to its own content
+is whatever the subject measured that day. Either way an offset taken off yesterday's pixels points at
 nothing today, and it fails silently: the page renders, it is simply aimed somewhere else. The two
 keywords are measured against whatever arrives, so they keep aiming at the subject.
 
