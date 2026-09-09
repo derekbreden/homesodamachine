@@ -1,6 +1,6 @@
 {
   "project": "funnel-mold-petg-hf08-variable-016-040.3mf",
-  "project_sha256": "993aa7db81a4eb00691f8563e8d9395eb7783adbccfdb04c38e5e13f2415cbb0",
+  "project_sha256": "f251a98fdbc122e0945d689a569a0db7459d2e80b04303abe74c3a53cbd90a7d",
   "slicer_version": "02.08.02.61",
   "inputs": "Current STL files, print-recipe.json and installed Bambu system presets; no prior 3MF or user preset is read by prepare_print.py.",
   "system_preset_sha256": {
@@ -26,9 +26,9 @@
   },
   "mesh_files_sha256": {
     "funnel-mold-finish-witness.stl": "7aa3cb037bdc71eda8ab902a7946a117553fa96ec677270bf77ead5f08a3d027",
-    "funnel-mold-cavity.stl": "11ae3fb698f9fc2b378a55a933b742a3a172c7f87fcfc3d78b43519c10d474e7",
+    "funnel-mold-cavity.stl": "d8ace066d6f5d5eec0c802f1e81b268d98458410b0a87f98252a344a618f462d",
     "funnel-mold-cavity-surface-zone.stl": "b2eac6fdf2e52bd5172ee31c511074117c7a3b67eb9936456765b1fc6f746170",
-    "funnel-mold-core.stl": "bd66966a42f4db0cee393126e1528b5a259fb5bcce02cf0b807cc82cd5a2a9c0",
+    "funnel-mold-core.stl": "aca941e16c0d5400bad3bd18566601ded041d31d10382fe58476cd0fd09b2026",
     "funnel-mold-core-surface-zone.stl": "cd28275862e54ec2c8cfe3d0959246c690993d8a0464bb5db9bff2f76441b413",
     "funnel-mold-hardware-witness.stl": "efadb0a406cccd4a8897a52a3f1c99b3dff833e62289c8070b4b2d6a765f51cf",
     "funnel-mold-guide-witness.stl": "99fb09ecc31a89a7ca0f427417a11ba3dd29218093bd34ed2120d2adf383d951"
@@ -39,7 +39,7 @@
       "process": "0.40mm Standard @BBL H2C 0.8 nozzle",
       "filament": "Bambu PETG Translucent @BBL H2C 0.8 nozzle"
     },
-    "process_name": "Funnel mold - 0.16 mm slopes - 0.40 mm structure",
+    "process_name": "Funnel mold - no brim - 0.16 mm slopes - 0.40 mm structure",
     "filament_name": "Funnel mold PETG Translucent - HF 255C 18mm3s",
     "z_trim": {
       "default_mm": 0.04,
@@ -104,12 +104,16 @@
         "reason": "A closed conventional seam avoids intentionally removing material where skins and loaded walls join. Scarf seams remain disabled by the stock presets."
       },
       "brim_type": {
-        "value": "outer_only",
-        "reason": "Anchor the large footprints and projecting structural features while keeping brims out of the open backing bays."
+        "value": "no_brim",
+        "reason": "Permanent rounded feet, an 8 mm perimeter frame and 6.4 mm rib lands provide bed contact as connected structural material. The user's brim lifted during the cavity print."
       },
       "brim_width": {
-        "value": "6",
-        "reason": "Six millimetres of external brim fits within the bed and supports the long PETG print's feet."
+        "value": "0",
+        "reason": "No removable brim is generated around any object."
+      },
+      "skirt_loops": {
+        "value": "0",
+        "reason": "No separate skirt is needed; retain the machine's stock nozzle-cleaning and priming sequence."
       },
       "enable_prime_tower": {
         "value": "0",
@@ -399,14 +403,14 @@
       "preset": "process/fdm_process_common.json"
     },
     "brim_type": {
-      "value": "outer_only",
+      "value": "no_brim",
       "recipe": "process_settings",
-      "reason": "Anchor the large footprints and projecting structural features while keeping brims out of the open backing bays."
+      "reason": "Permanent rounded feet, an 8 mm perimeter frame and 6.4 mm rib lands provide bed contact as connected structural material. The user's brim lifted during the cavity print."
     },
     "brim_width": {
-      "value": "6",
+      "value": "0",
       "recipe": "process_settings",
-      "reason": "Six millimetres of external brim fits within the bed and supports the long PETG print's feet."
+      "reason": "No removable brim is generated around any object."
     },
     "chamber_temperatures": {
       "value": [
@@ -591,7 +595,7 @@
     },
     "different_settings_to_system": {
       "value": [
-        "enable_arc_fitting;wall_generator;wall_loops;sparse_infill_density;sparse_infill_pattern;top_shell_layers;bottom_shell_layers;top_shell_thickness;bottom_shell_thickness;top_one_wall_type;top_surface_speed;seam_gap;brim_type;brim_width;enable_prime_tower",
+        "enable_arc_fitting;wall_generator;wall_loops;sparse_infill_density;sparse_infill_pattern;top_shell_layers;bottom_shell_layers;top_shell_thickness;bottom_shell_thickness;top_one_wall_type;top_surface_speed;seam_gap;brim_type;brim_width;skirt_loops;enable_prime_tower",
         "filament_prime_volume;nozzle_temperature;nozzle_temperature_initial_layer;filament_max_volumetric_speed;filament_cost",
         "machine_start_gcode;default_nozzle_volume_type;nozzle_volume_type"
       ],
@@ -2532,7 +2536,7 @@
       "preset": "process/fdm_process_common.json"
     },
     "print_settings_id": {
-      "value": "Funnel mold - 0.16 mm slopes - 0.40 mm structure",
+      "value": "Funnel mold - no brim - 0.16 mm slopes - 0.40 mm structure",
       "generator": "fresh_settings",
       "reason": "One PETG filament on the left 0.8 mm High Flow nozzle, textured PEI; named source presets."
     },
@@ -2845,7 +2849,8 @@
     },
     "skirt_loops": {
       "value": "0",
-      "preset": "process/fdm_process_common.json"
+      "recipe": "process_settings",
+      "reason": "No separate skirt is needed; retain the machine's stock nozzle-cleaning and priming sequence."
     },
     "skirt_per_object": {
       "value": "1",
@@ -3933,11 +3938,11 @@
   ],
   "preset_bundle": {
     "file": "funnel-mold-hf08-z-trim-presets.bbscfg",
-    "sha256": "a8a739dd7a28d0d44b6edd642812ed878f204356a17af638314202421e660369",
+    "sha256": "13a0ad6202d8d94e56bcda45d0949aec439e29110d19c0f3950e30d131fa57bc",
     "presets": [
       "Bambu Lab H2C 0.8 High Flow +0.04 Z trim.json",
       "Bambu Lab H2C 0.8 High Flow +0.18 Z trim.json",
-      "Funnel mold - 0.16 mm slopes - 0.40 mm structure.json",
+      "Funnel mold - no brim - 0.16 mm slopes - 0.40 mm structure.json",
       "Funnel mold PETG Translucent - HF 255C 18mm3s.json"
     ],
     "all_recipe_settings_match_saved_presets": true,
@@ -3945,7 +3950,5 @@
     "filament_material_id_matches": true
   },
   "extra_filament_or_per_layer_gcode_files": [],
-  "physical_validation": "The 18 mm3/s flow target, 60 mm/s finishing speed, coating result and extraction load remain subject to the actual spool, witnesses and assembled tooling. Z trim is the user-observed plate calibration.",
-  "project_reference": "git:7aa5b50e4:hardware/printed-parts/zone-c/funnel-mold/funnel-mold-petg-hf08-variable-016-040.3mf",
-  "current_print_start_check": "print-start-check.json"
+  "physical_validation": "The 18 mm3/s flow target, 60 mm/s finishing speed, coating result and extraction load remain subject to the actual spool, witnesses and assembled tooling. Z trim is the user-observed plate calibration."
 }

@@ -4,9 +4,9 @@
 uses the H2C's **left 0.8 mm High Flow nozzle**, PETG Translucent at 255 °C,
 0.16 mm layers through the shallow slopes and 0.40 mm through straight
 structural sections. It contains five editable bodies, two surface-speed
-modifiers and native thumbnails. This editable save contains no embedded G-code;
-slice the intended plate before printing. The [cavity print record](print-log.md)
-links the exact G-code job submitted on 2026-09-09.
+modifiers and native thumbnails. Both trim projects are fully sliced with no
+brim or skirt. Permanent rounded feet provide the bed contact. The
+[cavity print record](print-log.md) retains the separate first-run job archive.
 
 [**Alternate project — +0.18 mm trim**](funnel-mold-petg-hf08-variable-016-040-z018.3mf)
 is fully sliced. The [preset bundle](funnel-mold-hf08-z-trim-presets.bbscfg)
@@ -19,7 +19,7 @@ Bambu Studio imports four configurations, available as **User presets**:
 | Printer, default | `Bambu Lab H2C 0.8 High Flow +0.04 Z trim` |
 | Printer, alternate | `Bambu Lab H2C 0.8 High Flow +0.18 Z trim` |
 | Filament | `Funnel mold PETG Translucent - HF 255C 18mm3s` |
-| Process | `Funnel mold - 0.16 mm slopes - 0.40 mm structure` |
+| Process | `Funnel mold - no brim - 0.16 mm slopes - 0.40 mm structure` |
 
 All four are installed in the current Bambu Studio account. Each 3MF references
 its matching saved presets, which open without modified-setting markers.
@@ -28,9 +28,7 @@ the mold filament and the mold process from their saved lists, then re-slice all
 plates. The object-specific fine-layer bands and surface-speed modifiers live in
 the 3MF; a process preset alone does not create those geometry-specific settings.
 All three plates explicitly select **Textured PEI Plate** in their plate settings.
-In the saved default project, cavity and core use manual left High Flow assignment;
-the witness plate uses automatic right-extruder assignment. Select left High Flow
-on the witness plate before printing it with this recipe.
+All three plates explicitly use manual left High Flow assignment.
 The trim is the user's observed build-plate correction across nozzle, size and
 material changes. **+0.04 mm is the default for translucent PETG on the current plate.**
 
@@ -43,16 +41,16 @@ Bambu Studio 02.08.02.61 estimates for the default project:
 
 | Plate | Orientation | Time | PETG | Layers |
 |---|---|---:|---:|---:|
-| 1 — Finish, hardware and guide witnesses | Flat datums on bed | 1 h 15 min 14 s | 60.56 g | 171 |
-| 2 — Cavity | Opening up | 22 h 50 min 34 s | 1271.49 g | 315 |
-| 3 — Core | Open back on bed; forming plug and blades up | 18 h 23 min 52 s | 1025.98 g | 309 |
+| 1 — Finish, hardware and guide witnesses | Flat datums on bed | 1 h 13 min 28 s | 58.80 g | 171 |
+| 2 — Cavity | Opening up | 23 h 23 min 12 s | 1305.22 g | 315 |
+| 3 — Core | Open back on bed; forming plug and blades up | 18 h 39 min 1 s | 1043.63 g | 309 |
 
-Each plate is an independent job. Total material is **2,358.03 g**; prepare
+Each plate is an independent job. Total material is **2,407.65 g**; prepare
 approximately **3 kg of dry PETG** including reserve. Both large plates exceed
 a 1 kg spool. Arrange compatible automatic spool backup, or a supervised runout
 change, before starting. The project does not configure physical backup spools.
 These are estimates rather than measured print durations; the cavity has about
-69 minutes of estimated margin below one day.
+37 minutes of estimated margin below one day.
 
 Print all three witnesses first. Inspect the 17.6 mm backing bridge, test the
 square-nut and guide fits, and trial the complete coating/release/silicone
@@ -97,7 +95,7 @@ describes its interaction with line width, layer height and requested speeds.
 
 | Setting | Active value |
 |---|---|
-| Printer / assignment | H2C 0.8; left High Flow; one PETG filament; cavity/core manual; witness reassignment described above |
+| Printer / assignment | H2C 0.8; left High Flow; one PETG filament; every plate manual |
 | Bed / trim | Textured PEI, 70 °C; default +0.04 mm, alternate +0.18 mm |
 | Nozzle temperature | 255 °C, including the first layer |
 | Flow ratio / volumetric cap | Vendor 0.97 / requested 18 mm³/s for High Flow |
@@ -113,7 +111,7 @@ describes its interaction with line width, layer height and requested speeds.
 | Bridges | Stock 30 mm/s process setting |
 | Cooling | Stock 20–60%; first three layers off; auxiliary fan off; overhang override 90% |
 | Seam | Conventional aligned seam; 0% gap; scarf disabled |
-| Brim | External only, 6 mm wide, stock 0.10 mm separation |
+| Brim | Disabled (`no_brim`, width 0); skirt loops 0 |
 | Supports / raft / ironing / prime tower | Disabled |
 | XY contour / hole compensation | Zero / zero; stock 0.15 mm elephant-foot compensation |
 | Travel | Stock retract/lift and travel behavior; avoid-crossing-wall detours disabled |
@@ -136,20 +134,27 @@ Re-slice all plates after changing the printer, nozzle, material, process or geo
 
 [Print inspection](print-profile.json) records project and G-code digests, slice
 results, the configuration audit, geometry comparisons and toolpath measurements.
-Its default sliced-project reference is recorded at Git revision `7aa5b50e4`;
-[the print-start check](print-start-check.json) covers the editable save and the
-submitted cavity job. Both reference trim slices return success with empty plate warning fields. All six
-embedded G-code files match their CLI exports and MD5 entries. No support paths
-are present. Model and brim footprints stay inside the bed.
+Both trim slices return success with empty plate warning fields. All six
+embedded G-code files match their CLI exports and MD5 entries. No brim, skirt or
+support paths are present. All deposited model paths stay inside the bed.
+[The print-start check](print-start-check.json) belongs to the first-run job
+recorded in [the print log](print-log.md).
+
+[Foot verification](bed-foot-verification.json) confirms that geometry beyond
+the first 3.2 mm of each print is unchanged. The cavity has an 8 mm rounded
+frame, 6.4 mm tapered rib bases and expanded hardware feet; the core has matching
+rib feet and rounded perimeter and arm pads. Nominal bed contact is 267.9 cm²
+for the cavity and 422.3 cm² for the core. These are permanent solid features.
+Backing-air exits remain open through them.
 
 The five bodies are closed, consistently wound, connected meshes. All seven
 components, including modifiers, retain their geometry and placement within
-0.000002 mm through slicing. The cavity CAD envelope is 270 × 270 × 74.649 mm;
-the inverted core is 270 × 270 × 68 mm. Layer quantization puts their final
+0.000002 mm through slicing. The cavity CAD envelope is 274 × 274 × 74.649 mm;
+the inverted core is 274 × 274 × 68 mm. Layer quantization puts their final
 commanded heights at 74.64 and 68.16 mm respectively; these are not metrology
 readings from a physical print.
 
-Across 80 sampled mold layers, **19,710** outer-wall segments inside the surface
+Across 80 sampled mold layers, **19,694** outer-wall segments inside the surface
 modifiers stay at or below 60 mm/s. The full shallow-ramp bands use 0.16 mm
 layers. The greatest calculated flow on extrusion moves longer than 1 mm is
 about **17.48 mm³/s**, including the 0.97 flow ratio and G-code rounding. The
