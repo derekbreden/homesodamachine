@@ -81,7 +81,13 @@ Both caps pour in that same top-face fixture, one after the other. The top cap i
 
 The two caps pour identically but they are **not** the same part: only `foam-cap-top` carries the **deck-mount columns**, and only `foam-cap-lid-top` carries their clearance holes and the [3](CAP_CRADLES) **valve cradles** on its outer face. The columns stand on the cap's floor, so the foam pours around their shanks and they are trimmed to nothing. [4](CAP_DECK_INSERTS) columns on the water pump's own bolt pattern, all flush at the cap's mouth rim under the lid; the pump's bracket bolts down into them through the lid, and the pattern they make is the cap's rotation key ([`bom.md`](/hardware/ledger/bom.md) §7). They are owned by [`_cold_core_interface.deck_mounts`](/hardware/printed-parts/cold-core/_cold_core_interface.py). Set a ruthex M3 short into each column's top bore before the pour, the same iron and the same feel as the twelve shell-face inserts at step 2.
 
-A cradle is four bosses standing off the lid's outer face ([`_cold_core_interface.cap_cradles`](/hardware/printed-parts/cold-core/_cold_core_interface.py), [`valve-seat/`](/hardware/printed-parts/valve-seat/)), one under each of the Beduan's corner posts, each with a blind socket. There is nothing between them — the valve's port hangs down into that gap. The valve presses in — no insert, no screw, nothing bonded. The pour hole opens in that same face and its nearest boss stands [1.5 mm](POUR_CRADLE_GAP) off it, so trim the cured foam to the plate and not into a boss. Keep the caps labeled — the top one also goes on rotated 180° at step 7. Geometry detail at [`/hardware/printed-parts/cold-core/foam-cap/foam_cap.py`](/hardware/printed-parts/cold-core/foam-cap/foam_cap.py).
+Each valve cradle is a broad rectangular plinth with four blind sockets
+([`valve-seat/`](/hardware/printed-parts/valve-seat/)). The valve presses into the sockets and
+its round body rests on the plinth beside an open port channel. A vertical edge passage
+clears the reservoir-B fill conduit. The pour hole has [1.5 mm](POUR_CRADLE_GAP) of land to
+the nearest plinth; trim the cured foam to the plate. Keep the caps labeled — the top one
+also goes on rotated 180° at step 7. Geometry detail at
+[`foam_cap.py`](/hardware/printed-parts/cold-core/foam-cap/foam_cap.py).
 
 **The power column's inserts are not here.** It bolts to printed bosses on `enclosure-back-top`'s +X wall, whose ruthex shorts are pressed at [`enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md) §1 — a different part, a different print, a different bench.
 

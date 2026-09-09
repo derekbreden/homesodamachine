@@ -921,8 +921,8 @@ def carry_stated_bounds() -> None:
 # --- the valve cradles printed in the core's cap ---------------------------
 #
 # Every valve standing on the cap face presses into a cradle printed there
-# (`_cold_core_interface.cap_cradles`) — four bosses (`valve_seat`) standing off the lid's own
-# off the lid's outer face. The stations live in the CAP'S frame, because a seat belongs to the
+# (`_cold_core_interface.cap_cradles`) — a socketed plinth (`valve_seat`) standing
+# on the lid's outer face. The stations live in the CAP'S frame, because a seat belongs to the
 # part it is printed in; what this holds is that the printed seat and the placed valve are the
 # same place.
 #   NOTHING HERE CHOOSES A POSE. Two of the three valves ride the flavour pack, which is stood
@@ -1243,7 +1243,7 @@ def collet_plate_spec(mcarry, tray_stations) -> dict:
     aft = faces[0]
     z0 = _enc.z_seam
     nominal_hole_z = hole_z - _enc._interface.manifold_rise
-    x1 = _enc.interior_x()[1] - _enc.plate_step_in()
+    x1 = _enc.interior_x()[1]
     tee = ml.tee
     stroke = PLATE_REST_GAP + tee.COLLET_TRAVEL
     states = {
@@ -4763,7 +4763,7 @@ def build_flowreg(split_carry):
 # plane and on one column and meet face to face, so the joint is a butt. The cap prints its
 # three cradles on that same row (`_cold_core_interface.cap_cradles`), and `cap-valve-row`
 # measures it.
-# THE VALVE'S SEAT is the cradle's. The cap prints four bosses (`valve_seat`) at this
+# THE VALVE'S SEAT is the cradle's. The cap prints a socketed plinth (`valve_seat`) at this
 # valve's own station (`_cold_core_interface.cap_cradles`), and what a seat says is where the
 # Beduan's Z = 0 — the underside of its white body — stands once its four posts are pressed
 # home. So the seat is read off the part that carries it rather than stated here, and a cradle
@@ -6213,7 +6213,7 @@ PUMP_PLUG_W = 10.0           # across the body outside the jack, with air
 PUMP_PLUG_OVER_PORT = 2.0    # the body over the port's own height, outside the jack
 PUMP_PLUG_CLIP_H = 4.0       # the clip lever under the body, pressed or released
 PUMP_PLUG_OUT = 14.0         # the body standing out of the aperture
-PUMP_PLUG_PULL = 17.0        # the pull that frees the plug and carries it clear of the plate cap
+PUMP_PLUG_PULL = 17.0        # the pull that frees the plug and carries it clear of the bay bulkhead
 PUMP_PLUG_FINGER = 15.0      # the fingertip's room under the clip lever
 PUMP_PLUG_FINGER_RUN = (8.0, 16.0)   # where under the plug the lever is pressed, off the face
 PUMP_JACK_SERVICE_OVERLAP_TOL = 1e-6
@@ -6241,7 +6241,7 @@ def _pump_plug_envelope():
 
 def _pump_jack_service_bound(display, front_top, enclosure_box) -> Bound:
     """Prove the unplug through the empty pump bay: a fingertip on the clip under the plug, the
-    plug pulled straight fore until it is clear of the plate cap, then lowered through the bay.
+    plug pulled straight fore until it is clear of the bay bulkhead, then lowered through the bay.
 
     The plug envelope is swept over the whole pull and the whole drop, so every pose between
     the endpoints is inside what is tested, and the fingertip's room under the clip is a box of
@@ -6285,24 +6285,24 @@ def _pump_jack_service_bound(display, front_top, enclosure_box) -> Bound:
     _origin, clip_axis = carry(((0.0, 0.0, 0.0), (0.0, 0.0, -1.0)))
     if clip_axis[2] > -0.999:
         failures.append(f"the plug's clip faces {clip_axis}, not down into the pump bay")
-    cap_air = (_enc.plate_guide_fore_y(enclosure_box.pack.collet_plate)
+    cap_air = (_enc.bay_back_y(enclosure_box.pack.collet_plate)
                - (face_y + _keystone.PORT_DEPTH - PUMP_PLUG_PULL))
     if cap_air < 0.0:
-        failures.append(f"the pulled plug still stands {-cap_air:.3f} mm over the plate cap")
+        failures.append(f"the pulled plug still stands {-cap_air:.3f} mm over the bay bulkhead")
 
     wall_air = service_path.distance(wall)
     display_air = service_path.distance(glass)
     return record_bound(Bound(
         "pump-jack-service",
-        "Pump plug's clip faces the empty bay and its full unplug, clear-the-cap and lower path "
+        "Pump plug's clip faces the empty bay and its full unplug, clear-the-bulkhead and lower path "
         "clears front-top and the display",
         not failures,
         f"{PUMP_PLUG_PULL:.3f} mm pull; {overlaps['enclosure-front-top'][0]:.6f}/"
         f"{overlaps['display'][0]:.6f} mm³ path overlap; "
         f"{overlaps['enclosure-front-top'][1]:.6f}/{overlaps['display'][1]:.6f} mm³ finger "
-        f"overlap; {wall_air:.3f}/{display_air:.3f} mm path air; {cap_air:.3f} mm past the cap",
+        f"overlap; {wall_air:.3f}/{display_air:.3f} mm path air; {cap_air:.3f} mm past the bulkhead",
         f"0 mm³ overlap; clip down; {PUMP_PLUG_FINGER:.3g} mm finger room; pulled plug fore of "
-        f"the plate cap",
+        f"the bay bulkhead",
         tuple(failures),
     ))
 

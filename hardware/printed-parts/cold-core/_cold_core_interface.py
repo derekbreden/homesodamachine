@@ -797,22 +797,12 @@ for _name in deck_mounts:
 # --- Valve cradles on the lid's outer face -----------------------------------
 #
 # A CRADLE IS FOUR BOSSES ON THE TOP LID'S OUTER FACE, with nothing between them: one under each
-# of the Beduan's corner posts, each carrying a blind socket the post presses into. Nothing bolts
-# the valve and nothing is bonded — the four posts in their sockets are the whole of the
-# retention, and the valve's own round boss lands on the boss tops. A cradle takes no insert, no
-# screw and no lid hole.
-#   `valve_seat` builds the bosses and `foam_cap.add_cradles` stands them; the numbers below are
-# that module's, held against it there.
-#
-# Per cradle: the valve's centre in the CAP'S OWN frame, the yaw its port axis takes off the
-# cap's +X, and the SEAT — how far the valve's own mounting plane (the Beduan's Z = 0) stands
-# over the lid's outer face, which is what sets the bosses' height.
-#   Two valves ride the flavour pack, so their seats carry its independent manifold rise.
-# `enclosure_assembly.cradle_rows` reads all three stations against the placed valves.
-#   V-K'S SEAT IS THE SUCTION CHAIN'S. The valve's outlet and that chain's collet meet face to
-# face, so the two mouths lie on one plane or the joint stops being a butt. The chain lies in the rib `cap_anchors` stands, and
-# this seat is what brings the valve's own `beduan_solenoid.port_center_z` up to meet it. A seat
-# is boss height standing on the lid's face, so it bores nothing into the plate at any value.
+# of the Beduan's corner posts, in one broad plinth. The valve's round body lands
+# on the plinth beside its open port channel. The sockets retain the valve without
+# screws or inserts. `valve_seat` builds the plinth; `foam_cap` places it on the lid.
+# Each station gives the centre, port-axis yaw from cap +X, and mounting-plane
+# height above the lid. The flavour valves carry the manifold rise; V-K meets the
+# suction chain at its existing port plane.
 Cradle = namedtuple("Cradle", "centre yaw seat")
 cap_cradles = {
     #                      centre           yaw    seat
@@ -826,6 +816,8 @@ cap_cradle_corner_inset = 12.2       # `beduan_solenoid.corner_inset`
 cap_cradle_socket_radius = 3.6       # `valve_seat.socket_radius`
 cap_cradle_wall = 3.0                # `valve_seat.wall`
 cap_cradle_boss_radius = cap_cradle_socket_radius + cap_cradle_wall
+cap_cradle_half = cap_cradle_corner_inset + cap_cradle_boss_radius
+cap_cradle_corner_radius = cap_cradle_wall
 
 # What a cradle holds off every other thing cut in the lid's outer face. Nothing is poured
 # between them — this face is the machine's room, not the cup's — so the fence is the
@@ -843,34 +835,55 @@ def cap_cradle_xy(name):
                  for sx in (-1, 1) for sy in (-1, 1))
 
 
+def cap_cradle_circle_gap(name, x, y, radius):
+    """Plan clearance from a circular opening to the rounded plinth outline."""
+    (cx, cy), yaw, _seat = cap_cradles[name]
+    th = math.radians(yaw)
+    dx, dy = x - cx, y - cy
+    px = abs(math.cos(th) * dx + math.sin(th) * dy)
+    py = abs(-math.sin(th) * dx + math.cos(th) * dy)
+    core = cap_cradle_half - cap_cradle_corner_radius
+    qx, qy = px - core, py - core
+    return (math.hypot(max(qx, 0.0), max(qy, 0.0))
+            + min(max(qx, qy), 0.0) - cap_cradle_corner_radius - radius)
+
+
+def cap_cradle_rectangle_gap(name, x0, x1, y0, y1):
+    """Plan clearance to an axis-aligned rectangle at these cap stations."""
+    (cx, cy), yaw, _seat = cap_cradles[name]
+    assert math.isclose(yaw % 90.0, 0.0), "plinth rectangle reading needs an axial station"
+    core = cap_cradle_half - cap_cradle_corner_radius
+    dx = max(x0 - (cx + core), (cx - core) - x1, 0.0)
+    dy = max(y0 - (cy + core), (cy - core) - y1, 0.0)
+    return math.hypot(dx, dy) - cap_cradle_corner_radius
+
+
 def cap_cradle_room(name):
-    """The least room this cradle leaves to anything else opening on the lid's outer face:
-    `(mm, what)` — a conduit's entry countersink, a clamp screw's counterbore, the pour hole,
-    a vent, another cradle. Read on the four bosses, which are the whole of a cradle."""
+    """Least plan clearance around the plinth and its conduit edge passages."""
     room = []
-    for x, y in cap_cradle_xy(name):
-        for cname, (bx, by) in cap_conduits.items():
-            room.append((math.hypot(x - bx, y - by)
-                         - cap_conduit_entry_relief_radius - cap_cradle_boss_radius,
-                         f"the {cname} conduit's entry"))
-        for bx, by in attachment_xy_positions:
-            room.append((math.hypot(x - bx, y - by)
-                         - head_cbore_radius - cap_cradle_boss_radius,
-                         "a clamp screw's counterbore"))
-        for dname in deck_mounts:
-            for dx, dy in deck_mount_xy(dname):
-                room.append((math.hypot(x - dx, y - dy)
-                             - deck_lid_hole_radius(dname) - cap_cradle_boss_radius,
-                             f"the {dname} mount's lid hole"))
-        room.append((min(outer_shell_x_length / 2.0 - abs(x),
-                         outer_shell_y_length / 2.0 - abs(y))
-                     - cap_cradle_boss_radius, "the lid's own edge"))
-        for other in cap_cradles:
-            if other == name:
-                continue
-            for ox, oy in cap_cradle_xy(other):
-                room.append((math.hypot(x - ox, y - oy) - 2.0 * cap_cradle_boss_radius,
-                             f"the {other} cradle"))
+    for cname, (x, y) in cap_conduits.items():
+        gap = cap_cradle_circle_gap(name, x, y, cap_conduit_entry_relief_radius)
+        # The plinth opens a full-height passage with this radial clearance.
+        room.append((max(gap, cap_cradle_room_gap), f"the {cname} conduit passage"))
+    for x, y in attachment_xy_positions:
+        room.append((cap_cradle_circle_gap(name, x, y, head_cbore_radius),
+                     "a clamp screw's counterbore"))
+    for dname in deck_mounts:
+        for x, y in deck_mount_xy(dname):
+            room.append((cap_cradle_circle_gap(name, x, y, deck_lid_hole_radius(dname)),
+                         f"the {dname} mount's lid hole"))
+    cx, cy = cap_cradles[name].centre
+    room.append((min(outer_shell_x_length / 2.0 - abs(cx),
+                     outer_shell_y_length / 2.0 - abs(cy)) - cap_cradle_half,
+                 "the lid's own edge"))
+    for other, station in cap_cradles.items():
+        if other == name:
+            continue
+        ox, oy = station.centre
+        # The rectangle includes the other plinth's rounded corners.
+        room.append((cap_cradle_rectangle_gap(name, ox-cap_cradle_half, ox+cap_cradle_half,
+                                              oy-cap_cradle_half, oy+cap_cradle_half),
+                     f"the {other} plinth"))
     return min(room)
 
 
@@ -1174,18 +1187,7 @@ for _name in cap_conduits:
 
 
 def foam_cap_lid_pour_xy():
-    """The pour hole's centre in the lid — the +X half, on the LEAST offset off the cap's
-    own centreline that clears every deck-mount station and every valve cradle.
-
-    A station this hole swallows is a screw with no lid under its head, and a cradle it swallows
-    is a boss standing on the hole's own edge. So the hole holds its own radius, the thing it is
-    clearing and the pour
-    gap off each of them, and takes the smallest shift that buys it — the pour wants the cap's
-    middle, and every millimetre off it is spent.
-
-    `deck_mount_cap_room` prices a station against everything standing in the CUP and
-    `cap_cradle_room` prices a cradle against everything cut in the LID; this is the same fence
-    read from the pour's side, which is what is free to move."""
+    """Pour centre nearest the cap centreline with room beside mounts and plinths."""
     x = outer_shell_x_length / 2 - foam_cap_lid_hole_inset
     bands = []
 
@@ -1199,10 +1201,15 @@ def foam_cap_lid_pour_xy():
         for sx, sy in deck_mount_xy(name):
             fence(sx, sy, foam_cap_lid_pour_radius + screw_clearance_radius
                   + deck_mount_cap_gap)
-    for name in cap_cradles:
-        for sx, sy in cap_cradle_xy(name):
-            fence(sx, sy, foam_cap_lid_pour_radius + cap_cradle_boss_radius
-                  + deck_mount_cap_gap)
+    for name, station in cap_cradles.items():
+        assert math.isclose(station.yaw % 90.0, 0.0)
+        cx, cy = station.centre
+        core = cap_cradle_half - cap_cradle_corner_radius
+        reach = foam_cap_lid_pour_radius + deck_mount_cap_gap + cap_cradle_corner_radius
+        dx = max(abs(x - cx) - core, 0.0)
+        if dx < reach:
+            half = core + math.sqrt(reach * reach - dx * dx)
+            bands.append((cy - half, cy + half))
     # MERGE FIRST, THEN STEP. Two stations near each other throw overlapping bands, and a
     # hole stepped off one lands inside the next — so the bands are run together into the
     # spans they actually close before the offset is read, and the answer is the nearer edge
@@ -1244,42 +1251,34 @@ for _name in deck_mounts:
             f"leaves a land under the screw's head")
 
 
-# Every cradle stands its own room off everything else the lid's outer face opens — including
-# the pour hole, which moved to make it. This is read after the conduits and the pour, because
-# it is read against them.
+# Clearances are read on the complete plinth outline. Its conduit passages are
+# cut separately; each socket keeps its complete surrounding wall beside them.
 _cradle_room = bound(
-    "cradle-room", "Every cradle boss stands its room off everything else the face opens",
+    "cradle-room", "Every plinth clears the other openings on the lid",
     f"{cap_cradle_room_gap:g} mm off the nearest")
 _cradle_pour = bound(
-    "cradle-pour", "Every cradle boss has a floor under it where the pour hole is",
+    "cradle-pour", "Every plinth leaves a land beside the pour hole",
     f"{cap_cradle_room_gap:g} mm off the pour hole")
 _cradle_vent = bound(
-    "cradle-vent", "Every cradle boss has a floor under it where the vents are",
+    "cradle-vent", "Every plinth clears both vents",
     f"{cap_cradle_room_gap:g} mm off either vent")
 for _name in cap_cradles:
     _room, _what = cap_cradle_room(_name)
-    _cradle_room(
-        _room >= cap_cradle_room_gap - 1e-9,
-        f"valve cradle {_name}: a boss stands {_room:.3f} mm off {_what}, inside the "
-        f"{cap_cradle_room_gap:g} mm this face keeps between two things it opens")
-    _px, _py = foam_cap_lid_pour_xy()
-    for _sx, _sy in cap_cradle_xy(_name):
-        _room = (math.hypot(_px - _sx, _py - _sy)
-                 - foam_cap_lid_pour_radius - cap_cradle_boss_radius)
-        _cradle_pour(
-            _room >= cap_cradle_room_gap - 1e-9,
-            f"valve cradle {_name}: a boss at ({_sx:g}, {_sy:g}) stands {_room:.3f} mm "
-            f"off the pour hole, inside the {cap_cradle_room_gap:g} mm that leaves the boss a "
-            f"floor under it")
+    _cradle_room(_room >= cap_cradle_room_gap - 1e-9,
+                 f"valve plinth {_name}: {_room:.3f} mm off {_what}")
+    _room = cap_cradle_circle_gap(_name, *foam_cap_lid_pour_xy(), foam_cap_lid_pour_radius)
+    _cradle_pour(_room >= cap_cradle_room_gap - 1e-9,
+                 f"valve plinth {_name}: {_room:.3f} mm off the pour hole")
     for _hx, _hy in foam_cap_lid_vent_xy():
-        for _sx, _sy in cap_cradle_xy(_name):
-            _room = (math.hypot(_hx - _sx, _hy - _sy)
-                     - foam_cap_lid_vent_radius - cap_cradle_boss_radius)
-            _cradle_vent(
-                _room >= cap_cradle_room_gap - 1e-9,
-                f"valve cradle {_name}: a boss at ({_sx:g}, {_sy:g}) stands "
-                f"{_room:.3f} mm off a vent, inside the {cap_cradle_room_gap:g} mm that "
-                f"leaves the boss a floor under it")
+        _room = cap_cradle_circle_gap(_name, _hx, _hy, foam_cap_lid_vent_radius)
+        _cradle_vent(_room >= cap_cradle_room_gap - 1e-9,
+                     f"valve plinth {_name}: {_room:.3f} mm off a vent")
+    for _sx, _sy in cap_cradle_xy(_name):
+        for _hx, _hy in cap_conduits.values():
+            _room = (math.hypot(_sx - _hx, _sy - _hy)
+                     - cap_cradle_boss_radius - cap_conduit_entry_relief_radius)
+            _cradle_room(_room >= cap_cradle_room_gap - 1e-9,
+                         f"valve plinth {_name}: conduit passage preserves each socket wall")
 
 
 # --- Chain anchors on the lid's outer face -----------------------------------
@@ -1419,8 +1418,8 @@ def cap_anchor_room(name):
             room.append((off(dx, dy, deck_lid_hole_radius(dname)),
                          f"the {dname} mount's lid hole"))
     for vname in cap_cradles:
-        for sx, sy in cap_cradle_xy(vname):
-            room.append((off(sx, sy, cap_cradle_boss_radius), f"the {vname} cradle"))
+        room.append((cap_cradle_rectangle_gap(vname, x0, x1, y0, y1),
+                     f"the {vname} plinth"))
     room.append((off(*foam_cap_lid_pour_xy(), foam_cap_lid_pour_radius), "the pour hole"))
     for hx, hy in foam_cap_lid_vent_xy():
         room.append((off(hx, hy, foam_cap_lid_vent_radius), "a vent"))
@@ -1664,8 +1663,8 @@ def cap_side_anchor_room(name):
             room.append((off(dx, dy, deck_lid_hole_radius(dname)),
                          f"the {dname} mount's lid hole"))
     for vname in cap_cradles:
-        for sx, sy in cap_cradle_xy(vname):
-            room.append((off(sx, sy, cap_cradle_boss_radius), f"the {vname} cradle"))
+        room.append((cap_cradle_rectangle_gap(vname, x0, x1, y0, y1),
+                     f"the {vname} plinth"))
     for aname in cap_anchors:
         room.append((off(*cap_anchors[aname].centre,
                          cap_anchors[aname].seat_r + cap_anchor_wall),
