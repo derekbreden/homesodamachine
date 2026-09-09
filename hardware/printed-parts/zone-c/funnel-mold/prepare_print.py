@@ -25,7 +25,8 @@ qn = lambda tag: f'{{{CORE}}}{tag}'
 uid = lambda: str(uuid.uuid4())
 PRECISION = {'outer_wall_speed': '30,30,30,30',
              'inner_wall_speed': '80,80,80,80',
-             'outer_wall_acceleration': '1000,1000,1000,1000'}
+             'outer_wall_acceleration': '1000,1000,1000,1000',
+             'inner_wall_acceleration': '3000,3000,3000,3000'}
 
 
 def metadata(node, key, value):
@@ -56,7 +57,8 @@ def main():
     settings = json.loads(data['Metadata/project_settings.config'])
     settings.update({'print_settings_id': 'Funnel mold guided vacuum PETG 0.8 - 0.16mm',
         'outer_wall_speed': ['100']*4, 'inner_wall_speed': ['100']*4,
-        'outer_wall_acceleration': ['3000']*4,
+        'outer_wall_acceleration': ['5000']*4, 'inner_wall_acceleration': ['5000']*4,
+        'default_acceleration': ['6000']*4,
         'sparse_infill_density': '100%', 'sparse_infill_pattern': 'zig-zag',
         'bridge_speed': ['20']*4, 'internal_bridge_speed': ['30']*4,
         'overhang_2_4_speed': ['30']*4, 'max_travel_detour_distance': '30',
