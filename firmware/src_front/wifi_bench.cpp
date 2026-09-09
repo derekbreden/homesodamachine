@@ -107,7 +107,7 @@ static void sinkLoop(void *) {
 
   if (buf) stage = 5;
   while (sinkRun) {
-    WiFiClient client = server.available();
+    WiFiClient client = server.accept();
     if (!client) {
       vTaskDelay(pdMS_TO_TICKS(20));
       continue;

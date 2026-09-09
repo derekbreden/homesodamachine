@@ -1080,7 +1080,7 @@ static uint8_t  pourChannel = 0;
 static uint32_t pourCycles  = 0;
 static uint32_t pourStartMs = 0;
 
-static void IRAM_ATTR flowIsr() { flowEdges++; }
+static void IRAM_ATTR flowIsr() { flowEdges = flowEdges + 1; }
 
 static void pourClose(const char *how) {
     if (pour.pumpOn() || state == ST_POURING) pumpPark(pourChannel);

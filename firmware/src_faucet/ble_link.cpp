@@ -232,7 +232,6 @@ void bleLinkBegin() {
   NimBLECharacteristic *rx =
       svc->createCharacteristic(NUS_RX, NIMBLE_PROPERTY::WRITE | NIMBLE_PROPERTY::WRITE_NR);
   rx->setCallbacks(new RxCB());
-  svc->start();
 
   BleOtaSeams seams{};
   seams.notify = notify;
