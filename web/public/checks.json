@@ -7,8 +7,8 @@
     },
     {
       "check": "hardware/scripts/check_facts_current.py",
-      "note": "tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py",
-      "status": "red"
+      "note": "and the 124 sources behind them stand where they stood when it was written",
+      "status": "ok"
     },
     {
       "check": "hardware/scripts/check_finishes.py",
@@ -22,7 +22,7 @@
     },
     {
       "check": "hardware/scripts/check_payloads.py",
-      "note": "payloads: 21 solid(s) cut from the bytes beside them, 11 scene(s) at the finishes this tree states",
+      "note": "payloads: 21 solid(s) cut from the bytes beside them, 13 scene(s) at the finishes this tree states",
       "status": "ok"
     },
     {
@@ -52,12 +52,12 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 1462 tracked, 327 fetched solids, 55 tags",
+      "note": "paths: every reference lands — 1462 tracked, 329 fetched solids, 55 tags",
       "status": "ok"
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 351 of 1000 free, the next cut wants 3, and the whole lock reads by name in 137.0 MB against 138.9 MB of bundle",
+      "note": "check_release_room: 322 of 1000 free, the next cut wants 3, and the whole lock reads by name in 138.5 MB against 140.4 MB of bundle",
       "status": "ok"
     },
     {
@@ -82,17 +82,10 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 17 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 327 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 24 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 329 member(s) keep their provenance",
       "status": "ok"
     }
   ],
-  "detail": {
-    "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken beside a different enclosure-assembly.scorecard.json — it holds 6d23cd2f139a0e20f8a35a5943e6ae52, enclosure-assembly.scorecard.json here is 381fc397073bbbe0da8df73eaef599cd",
-      "  enclosure-assembly.facts.json was taken from a different tree — it holds 78e743e0b0e479198ce89441f873bb27 for the 124 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at c3dcd9d0c188583b62cbb5c2644b377e here. The three artifacts agree with each other and describe a machine that has since moved.",
-      "  the three come off one run:",
-      "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
-    ]
-  },
-  "green": false
+  "detail": {},
+  "green": true
 }
