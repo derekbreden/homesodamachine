@@ -2,8 +2,8 @@
   "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed \u2014 web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
   "release": {
     "tag": "cad-artifacts",
-    "asset": "cad-2f7e7eef2924ebad.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-2f7e7eef2924ebad.tar.gz",
+    "asset": "cad-a0a19930283a6e20.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-a0a19930283a6e20.tar.gz",
     "objects": "s-"
   },
   "source": {
@@ -11,9 +11,7 @@
   },
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, its rule would not cut, or an interactive publication explicitly deferred that rule.",
-    "paths": [
-      "hardware/install-guide/_install_art.py"
-    ],
+    "paths": [],
     "members": [
       "hardware/.cache/pump-roof/enclosure-pump-cartridge.step",
       "hardware/assembly/cards/deck.cover.png",
@@ -257,6 +255,7 @@
       "hardware/reference/iec-c14-inlet/iec-c14-inlet.step",
       "hardware/reference/jg-bulkhead-union/jg-bulkhead-union.step",
       "hardware/reference/jg-pp010822e/jg-pp010822e.step",
+      "hardware/reference/jg-pp0208e-tee/jg-pp0208e-tee.step",
       "hardware/reference/jg-pp0408w/jg-pp0408w.step",
       "hardware/reference/jg-pp061208w/jg-pp061208w.step",
       "hardware/reference/jg-pp451223w/jg-pp451223w.step",
@@ -282,6 +281,7 @@
       "hardware/reference/wago-221/wago-221-415.step",
       "hardware/reference/wago-221/wago-221-420.step",
       "hardware/reference/waveshare-43b-display/waveshare-43b-display.step",
+      "hardware/reference/wellbom-regulator/wellbom-regulator.step",
       "hardware/reference/worm-clamp/worm-clamp.step",
       "hardware/reference/wr1110-regulator/wr1110-regulator.step"
     ],
@@ -367,9 +367,9 @@
     ]
   },
   "bundle": {
-    "sha256": "2f7e7eef2924ebad058e9743a9d46a128e3d297d3768bb59f5d00008e05f2a17",
-    "bytes": 142527809,
-    "solids": 335
+    "sha256": "a0a19930283a6e200c3726e189d7c15d81c742a30f44db2c7d068c13adfe7a27",
+    "bytes": 143953542,
+    "solids": 337
   },
   "solids": {
     "hardware/.cache/pump-roof/enclosure-pump-cartridge.step": "4f3c521165747f039ff44b338de914a5e9eece6e4fe0e39a3a65bedeed90c67d",
@@ -441,17 +441,17 @@
     "hardware/assembly/cards/img/wago-column.png.scene.json": "f09500dd6a521ed93bf301084e029f7a7885ea7a2774e6c5ad1712c3fb608dc5",
     "hardware/assembly/cards/img/water-split.png": "4024c8960b690a3535d1632a533c962c35aa3c8c9213585e053497d65bce32c7",
     "hardware/assembly/cards/img/water-split.png.scene.json": "1a6116c4c11f6027728701d4b15da653fe79a13e0f5a4cc693412cbc3b9fccc5",
-    "hardware/assembly/scenes/glb/back-half.glb": "27f99b003889f68f8b7ea0610a758cc0f484e69befc6f6ac96694347877f315c",
+    "hardware/assembly/scenes/glb/back-half.glb": "b022ad62c818e36789b0addd2a9845c229f94e213a7b12e8d86f809fc92e56a1",
     "hardware/assembly/scenes/glb/back-top.glb": "7ab756c91ec401a16388d51967bb69854552cca649e3ce7004d7ff0810b42c6c",
-    "hardware/assembly/scenes/glb/cap-lid-fill.glb": "3f41dada059f09b897b1e4bdc45ff2b638d9b27b179a914051bb77711cf0e770",
-    "hardware/assembly/scenes/glb/cap-lid.glb": "2663ed08ac575e3ae488cf51f763b8bee93f5bdd74a3306e1f0c5e8f29f4edca",
-    "hardware/assembly/scenes/glb/cold-core-open.glb": "8363d5006622ebc5c72e643deb12768460970900dd680ff99a89b77695e9c8a4",
-    "hardware/assembly/scenes/glb/cold-core.glb": "eced2ac87b3fdbd590fde1e64a16b6bf69f3463ba48f2676edef3597c4a3bd95",
+    "hardware/assembly/scenes/glb/cap-lid-fill.glb": "ec1336d018f1a54e4527067d56cea2f79d935d7e23adea19415605bb31d5bf10",
+    "hardware/assembly/scenes/glb/cap-lid.glb": "e3800be7ec29b05cf437695e9934b27f1a0344f3872795acf51c13a12c0d453f",
+    "hardware/assembly/scenes/glb/cold-core-open.glb": "1dbb887f0c3728368da2dcfe71188ffd1f5f11bc631d1ae3da57fffaf036eccf",
+    "hardware/assembly/scenes/glb/cold-core.glb": "0876496e03a111cf346ccd4702d01af013caadfd31b88b7c1289bb29f788aad2",
     "hardware/assembly/scenes/glb/en04-compressor-bay.glb": "bb00c5e5d2498f4792136ada48cc4a4b9d5ecfc58ba4a52ba3385b2a42fabe7a",
     "hardware/assembly/scenes/glb/en04-stratum.glb": "bb00c5e5d2498f4792136ada48cc4a4b9d5ecfc58ba4a52ba3385b2a42fabe7a",
     "hardware/assembly/scenes/glb/en06-column.glb": "aa450f50d17f6cd38f4e5ecf06fafb16e7fb7fa4e395a8078a38ebf0172263a2",
     "hardware/assembly/scenes/glb/en07-electronics-bay.glb": "aa450f50d17f6cd38f4e5ecf06fafb16e7fb7fa4e395a8078a38ebf0172263a2",
-    "hardware/assembly/scenes/glb/front-top.glb": "4f696e558c60832b8ca0bf279ce760d655021d29283049694ec6a60ebcdb7612",
+    "hardware/assembly/scenes/glb/front-top.glb": "ad1d87353d139e4ac778477d57a6973afe374dcef131af695a0fe4e6595d1498",
     "hardware/assembly/scenes/glb/funnel-drain.glb": "120682675217620676dd3ecbcbd1ef540aa0a42a05fc6f3e01491c2af1e86587",
     "hardware/assembly/scenes/glb/pump-cartridge.glb": "32c02bfa1aa4426f200aec6ba978817e2a40297d03ec9602367932a8b886990a",
     "hardware/cold-core-layout/cold-core-assembly.step": "a9778e4fd3ea03db1071bef1b5b2c787ef5c3f20b69b1277bccd3ffaec8853d9",
@@ -459,16 +459,16 @@
     "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step": "bb6d47d7641a9759e444da2f68ea12d48ddcc19f36bcfcd4227414a5d75d538a",
     "hardware/faucet-layout/faucet-assembly.step": "1822a620402298d872ac7a5e84a0106f31dbe4ae4b531f4a6fccfd72c22cce21",
     "hardware/faucet-layout/faucet-assembly.step.mesh": "f2f8ee191c7d6b363298605193d1897e71a2ece3f2da74c75154f57e7bfa0e29",
-    "hardware/install-guide/art/cabinet-plan.png": "eab3fee857faa2de08cbc7c344ea8f62a386fb2e859bcf494650a5c6a885d1ec",
+    "hardware/install-guide/art/cabinet-plan.png": "0ad6737855d422e1e4305882ff6380f2218c185e97c1217adb7782020168eabd",
     "hardware/install-guide/art/collet-press.png": "5945775594bfceebbc57be94be31ba0f59a3ee98577de89538c0c5998986b258",
-    "hardware/install-guide/art/filter-in-cabinet.png": "afeadd89bcc830706cfe1f5569ca85ec12e0d52a730908a12987d68eda003109",
-    "hardware/install-guide/art/opening.png": "bb537519eb4390eddab5da928cf4ad31cbd0401bdbc05421ce628088ea7c3ebd",
-    "hardware/install-guide/art/the-back-face.png": "d29f718f1a24bc4adf524ee77dee320fa969030ce94c0898603af08c8edbbd44",
-    "hardware/install-guide/art/the-socket.png": "8ed463c714698d569d85f90333cc530df997ab4d2681a53f625cfba784ccae91",
+    "hardware/install-guide/art/filter-in-cabinet.png": "03f0fa06ce2fedb4af556ed83f3a01c4bd6864a31e0f799d23f10b65a4257686",
+    "hardware/install-guide/art/opening.png": "799eeaff1ff10e7a80e21099d135de0237ee233554f18fd1086664c6122e5c1b",
+    "hardware/install-guide/art/the-back-face.png": "2e85e21096892db0c61f5187eb3ebbddac724622312ed979fa4a46a123a80fad",
+    "hardware/install-guide/art/the-socket.png": "6af01d94b559dd77ddb53a3807024e9e0f37fbc379f81053f3ec31e762e46680",
     "hardware/install-guide/install-guide.cover.png": "e059cdb7e70f15b5e11aedf69fe10ffc7c4c11fb228539fd204c60573e13635a",
-    "hardware/install-guide/install-guide.pdf": "c63be41c72805438e7e50762d70f686a4bb4752a3577bcfeee3962a49b83b388",
+    "hardware/install-guide/install-guide.pdf": "17940dfc4d206a7a684db2d8f1c7dc3f7d6481eda3a4e2c37ec67d0067251c65",
     "hardware/manifold-layout/enclosure-assembly.step": "29dfdd90353a8ad69f8715c6d3e1c9b0033d470a35db5c819e8de31f1a99c84b",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "b1d7a48b5f7711eb259dc4ba32937f17bcb29bfdb36e181180e6e7df68c6d455",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "96e10511ab50545a41fc781d1d675fed038dbc37f8dc9babf7090c516f34fe65",
     "hardware/manifold-layout/manifold-layout.step": "77649fc47b26af27c477871a21f53c2ee9852272e19980f16fd41b589bf4b27f",
     "hardware/manifold-layout/manifold-layout.step.mesh": "41c54b8e9a00621135935b120072810e7e8c9163200a7613b53a840460b795f3",
     "hardware/pcb/pcba/out/pcba.glb": "819d2d6a51579a8c3ee66bcb9432075bc50ca77cf129bd828ea538b8fc72b767",
@@ -680,6 +680,7 @@
     "hardware/reference/iec-c14-inlet/iec-c14-inlet.step": "295501f60f728c37e40e8905f296a1817a2e3fb844d1abfae4cd23e65d531bf8",
     "hardware/reference/jg-bulkhead-union/jg-bulkhead-union.step": "6991ac244069c1e6dc73f8bb786e7b08dfcca519fd88650862462f4a0465562d",
     "hardware/reference/jg-pp010822e/jg-pp010822e.step": "98438485a8a3a5cde89adb572091d09d09a3097f5f09791642b0e0db874e12cf",
+    "hardware/reference/jg-pp0208e-tee/jg-pp0208e-tee.step": "231311fedf8cfe57d46ff9c2cc6969efeb878e65d30b14eefd5dce97b8bab17f",
     "hardware/reference/jg-pp0408w/jg-pp0408w.step": "987eccd988d461a87babb024bc4cd7e538777467449bfceea7ead8ed5d4dfded",
     "hardware/reference/jg-pp061208w/jg-pp061208w.step": "2aaf4aa150f0db01db46229494b6d82b40dc54dd98550b36b0924af6e5d37004",
     "hardware/reference/jg-pp451223w/jg-pp451223w.step": "01288f13c01e9153c01cc891ccb825da5bc08485613067919d2fc3de87505cdf",
@@ -705,6 +706,7 @@
     "hardware/reference/wago-221/wago-221-415.step": "83d75c210b172e3f19100b23194b2f453c8398f2f95a7887b0ce2471249da065",
     "hardware/reference/wago-221/wago-221-420.step": "03568637dc67a1ba7b5648ec1deb53e7238ebec2ead968eefdc8f4e7be2a575c",
     "hardware/reference/waveshare-43b-display/waveshare-43b-display.step": "6efb83f5a4b7c8b48d8e6fd9f862ae9461363068cf6eaf5b105bf35b6e5bb6c4",
+    "hardware/reference/wellbom-regulator/wellbom-regulator.step": "47398948d9bcaee8212ae3f6801dce807532eed7cc6ecc12a25a0911eca7f1b0",
     "hardware/reference/worm-clamp/worm-clamp.step": "87d7406a23653f1903267074844297dd9003fa066e2daf0d392cb3a46ac52dda",
     "hardware/reference/wr1110-regulator/wr1110-regulator.step": "67440d7fd631df225d8413e61fd233c27677d94d3db3d5610bc129b2c9e2cf54"
   },
