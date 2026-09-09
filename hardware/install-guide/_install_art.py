@@ -55,6 +55,7 @@ MACHINE_STEP = _cad_art.MACHINE_STEP
 MACHINE_MESH = _cad_art.MACHINE_MESH
 MACHINE_FACTS = _cad_art.MACHINE_FACTS
 COLLET_PRESS = HARDWARE / "printed-parts" / "collet-press" / "collet-press.step"
+REGULATOR_DIR = HARDWARE / "reference" / "wellbom-regulator"
 C14_SOURCE = Path(_c14.__file__).resolve()
 
 
@@ -143,12 +144,11 @@ def _run(points, diameter=TUBE_D):
 def _bend(points, diameter=TUBE_D, radius=55.0, steps=20):
     """A tube along axis-aligned segments whose corners are swept, not broken.
 
-    Every turn is a quarter arc of `radius` tangent to both legs, sampled into
-    stubs with a ball at each joint, so the run reads as the easy curve a
-    1/4-inch line actually takes. `_run` puts one ball at the corner itself,
-    which is the kink the filter page tells you not to make. The pieces overlap
-    in a compound rather than a boolean union: same colour, one read, no solid
-    modelling for a shape that is only ever looked at.
+    Each turn is a quarter arc of `radius` tangent to both legs, in whatever plane
+    the two legs span, sampled into stubs with a ball at each joint. `_run` puts
+    one ball at the corner itself, which is the kink the filter page tells you not
+    to make. The pieces overlap in a compound rather than a boolean union: same
+    colour, one read, no solid modelling for a shape that is only looked at.
     """
     samples = [list(points[0])]
     for i, corner in enumerate(points[1:-1], start=1):
@@ -156,19 +156,13 @@ def _bend(points, diameter=TUBE_D, radius=55.0, steps=20):
         v = _unit([points[i + 1][k] - corner[k] for k in range(3)])
         if abs(sum(a * b for a, b in zip(u, v))) > 1e-6:
             raise ValueError("a bend turns a square corner")
-        entry = [corner[k] - u[k] * radius for k in range(3)]
         centre = [corner[k] - u[k] * radius + v[k] * radius for k in range(3)]
-        exit_ = [corner[k] + v[k] * radius for k in range(3)]
-        a1 = math.atan2(entry[1] - centre[1], entry[0] - centre[0])
-        a2 = math.atan2(exit_[1] - centre[1], exit_[0] - centre[0])
-        turn = (a2 - a1 + math.pi) % (2.0 * math.pi) - math.pi
-        samples.append(entry)
-        for step in range(1, steps + 1):
-            angle = a1 + turn * step / steps
-            samples.append([centre[0] + radius * math.cos(angle),
-                            centre[1] + radius * math.sin(angle),
-                            centre[2]])
-        samples[-1] = exit_
+        # From the centre the entry lies at -v*R and the exit at +u*R, so the arc
+        # between them is centre + R*(-v cos t + u sin t) over a quarter turn.
+        for step in range(steps + 1):
+            t = math.pi / 2.0 * step / steps
+            samples.append([centre[k] + radius * (-v[k] * math.cos(t) + u[k] * math.sin(t))
+                            for k in range(3)])
     samples.append(list(points[-1]))
 
     pieces = []
@@ -191,6 +185,7 @@ def _unit(vec):
 
 
 
+
 def _add(assembly, shape, name, color):
     if shape is not None:
         assembly.add(shape, name=name, color=color)
@@ -201,6 +196,19 @@ def _machine(assembly):
     for child in cq.Assembly.load(str(MACHINE_STEP)).children:
         assembly.add(child)
     return assembly
+
+
+def _hex(x, y, z, across_flats, length, axis="Z"):
+    """A hexagonal prism of `across_flats`, from (x, y, z) along `axis`."""
+    r = across_flats / math.sqrt(3.0)
+    pts = [(r * math.cos(math.radians(a)), r * math.sin(math.radians(a)))
+           for a in range(0, 360, 60)]
+    base = cq.Workplane("XY", origin=(x, y, z)).polyline(pts).close().extrude(length)
+    if axis == "Z":
+        return base
+    if axis == "Y":
+        return base.rotate((x, y, z), (x + 1.0, y, z), -90.0)
+    return base.rotate((x, y, z), (x, y + 1.0, z), 90.0)
 
 
 def _floor(x0, y0, sx, sy):
@@ -402,6 +410,31 @@ def s_the_socket():
 #: and the flutes live in the payload beside it, so these carry that skin across.
 FLUTED = frozenset({"the-back-face", "the-socket"})
 
+def s_regulator():
+    """The regulator the guide names three things on: which dial is which, the knob that
+    sets the pressure, and the brass nut on the flare below it."""
+    import importlib.util
+    spec = importlib.util.spec_from_file_location(
+        "wellbom_regulator", REGULATOR_DIR / "wellbom_regulator.py")
+    reg = importlib.util.module_from_spec(spec)
+    note_read(REGULATOR_DIR / "wellbom_regulator.py")
+    spec.loader.exec_module(reg)
+
+    a = reg.build_assembly()
+    tip, _ = reg.outlet()
+    # The MI4508F4SLF's swivel nut, and the red tether leaving it for the appliance.
+    nut_len = 14.0
+    _add(a, _hex(tip[0], tip[1], tip[2] - nut_len, reg.OUTLET_HEX_FLATS, nut_len),
+         "tether-swivel-nut", BRASS)
+    top = tip[2] - nut_len
+    # The tether leaves sideways rather than hanging: the page's picture has to be wider
+    # than it is tall or the two dials print too small to read.
+    _add(a, _bend([(tip[0], tip[1], top), (tip[0], tip[1], top - 46.0),
+                   (tip[0] + 120.0, tip[1], top - 46.0)], radius=22.0),
+         "red-tether", RED_TUBE)
+    return a
+
+
 SCENES = {
     "cabinet-plan": (s_cabinet_plan, dict(cam=(0.0, 0.0, 1.0), up=(0, 1, 0),
                                       size="1700x2000")),
@@ -409,6 +442,7 @@ SCENES = {
                                 span=120.0, size="1900x1600")),
     "filter-in-cabinet": (s_filter_in_cabinet, dict(cam=(0.32, -1.0, 0.52),
                                                 size="2200x1200")),
+    "regulator": (s_regulator, dict(cam=(0.10, 1.0, 0.16), size="1700x1500")),
     "collet-press": (s_collet_press, dict(cam=(-0.5, -0.9, 0.85), size="1700x1100")),
     # On the wall's own column, tilted down. Screen up is world up, so every row is level. The
     # frame holds both port rows, the inlet, the jack, the nameplate, and a sliver of the top
