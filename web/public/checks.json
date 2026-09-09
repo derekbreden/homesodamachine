@@ -52,7 +52,7 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "4 reference(s) name a path nothing holds.",
+      "note": "8 reference(s) name a path nothing holds.",
       "status": "red"
     },
     {
@@ -77,19 +77,19 @@
     },
     {
       "check": "tools/bazel/check_declared_imports.py",
-      "note": "check_declared_imports: every step holds what it imports, over 188 source(s) the graph names",
+      "note": "check_declared_imports: every step holds what it imports, over 189 source(s) the graph names",
       "status": "ok"
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 98 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 325 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 29 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 325 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
     "hardware/scripts/check_facts_current.py": [
       "enclosure-assembly.facts.json was taken beside a different enclosure-assembly.scorecard.json — it holds 6d23cd2f139a0e20f8a35a5943e6ae52, enclosure-assembly.scorecard.json here is 381fc397073bbbe0da8df73eaef599cd",
-      "  enclosure-assembly.facts.json was taken from a different tree — it holds 78e743e0b0e479198ce89441f873bb27 for the 124 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at a60378b26cd4ef7daad473edfe352591 here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "  enclosure-assembly.facts.json was taken from a different tree — it holds 78e743e0b0e479198ce89441f873bb27 for the 124 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at c724c24e2a34c57ab541de0e50c77277 here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ],
@@ -99,11 +99,15 @@
       "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
     ],
     "tools/check_paths.py": [
-      "hardware/README.md:86 — hardware/install-guide is held nowhere, and no tag is named for it",
+      "hardware/assembly/faucet-and-umbilical.md:144 — hardware/install-guide/README.md is held nowhere, and no tag is named for it",
       "  hardware/assembly/finish-pack-ship.md:28 — hardware/install-guide/README.md is held nowhere, and no tag is named for it",
+      "  hardware/assembly/finish-pack-ship.md:116 — hardware/install-guide/README.md is held nowhere, and no tag is named for it",
+      "  hardware/ledger/bom.md:326 — hardware/install-guide/README.md is held nowhere, and no tag is named for it",
+      "  hardware/ledger/bom.md:327 — hardware/install-guide/README.md is held nowhere, and no tag is named for it",
       "  hardware/quickstart/README.md:61 — hardware/install-guide/README.md is held nowhere, and no tag is named for it",
+      "  marketing/target-market.md:41 — hardware/install-guide/README.md is held nowhere, and no tag is named for it",
       "  marketing/unboxing-and-quickstart.md:42 — hardware/install-guide/README.md is held nowhere, and no tag is named for it",
-      "4 reference(s) name a path nothing holds."
+      "8 reference(s) name a path nothing holds."
     ],
     "tools/check_web_tests.py": [
       "2 test(s) in web/ fail:",
