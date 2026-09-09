@@ -399,6 +399,16 @@ tr:last-child td { border-bottom: none; }
 }
 .plate-valve-on { background-image: url("../quickstart/plumbing/art/plumbing-valve-on.png"); }
 .plate-valve-off { background-image: url("../quickstart/plumbing/art/plumbing-valve-off.png"); }
+
+/* The tee pair needs more of the frame than the valve pair does — its staged pieces stand out to
+   the installer's left — so it takes its own window. Registration is within a pair, and the two
+   pairs are on facing pages rather than one. */
+.plate-tee {
+  height: 560px;
+  background-color: #d0d0ce;
+  background-size: 1166px auto;
+  background-position: -163px -122px;
+}
 .plate-pre-tee { background-image: url("../quickstart/plumbing/art/plumbing-pre-tee.png"); }
 .plate-tee-in { background-image: url("../quickstart/plumbing/art/plumbing-tee-installed.png"); }
 

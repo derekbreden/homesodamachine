@@ -1,7 +1,9 @@
 # Older-home braided-hose scenes
 
-The installer path for a 3/8-inch braided faucet hose and a threaded angle-stop tee — scenario B,
-the kitchen the Quick Start does not draw. These four scenes are the
+The installer path for a 3/8-inch braided faucet hose and the John Guest Speedfit ASVPP1LF angle
+stop adapter valve — scenario B, the kitchen the Quick Start does not draw. The adapter's two
+3/8-inch run ends are wrench joints; its 1/4-inch branch is a push-fit collet under its own
+quarter-turn lever, so the appliance's white tube goes in by hand. These four scenes are the
 [install guide](/hardware/install-guide/README.md)'s older-kitchen spread, and they are not pages
 or build dependencies of the modern push-fit sheet.
 
@@ -10,10 +12,10 @@ or build dependencies of the modern push-fit sheet.
 - `plumbing-valve-on` — the original braided faucet supply is connected directly to the open
   quarter-turn cold-water stop.
 - `plumbing-valve-off` — the same scene with the lever rotated 90 degrees across the flow path.
-- `plumbing-pre-tee` — the stop is closed and bare; the faucet connector, tee, and white appliance
-  branch are separated with visible air at every mating face.
-- `plumbing-tee-installed` — the tee is seated between the stop and faucet supply, with its white
-  1/4-inch appliance branch connected at the side port.
+- `plumbing-pre-tee` — the stop is closed and bare; the faucet connector, the adapter valve, and
+  the white appliance branch are separated with visible air at every mating face.
+- `plumbing-tee-installed` — the adapter valve is seated between the stop and faucet supply, with
+  the white 1/4-inch appliance branch pushed home in its branch collet.
 
 All objects are modeled solids. There are no instruction arrows or text inside the CAD.
 
