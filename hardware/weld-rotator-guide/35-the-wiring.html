@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><link rel="stylesheet" href="style.css"></head>
+<body>
+<article class="card">
+  <header>
+    <span class="eyebrow"><b>Controller</b> &middot; step 24</span>
+    <h1>The wiring</h1>
+    <i class="rule"></i>
+    <p class="lede">Every conductor in the controller, once. Ferrule the ends, sleeve the pedal
+      lead in 1/4&nbsp;inch braid, and leave both supplies unplugged until page&nbsp;36 passes.</p>
+  </header>
+  <main>
+    <svg class="wiring" viewBox="0 0 2400 1620" role="img"
+         aria-label="Wiring diagram: pedal, ESP32, ULN2803A, DM542T, motor and both supplies">
+      <!-- ============ boxes ============ -->
+      <rect class="box" x="40" y="120" width="300" height="240" rx="14"/>
+      <text class="lbl" x="190" y="185" text-anchor="middle">Pedal</text>
+      <text class="sub" x="190" y="228" text-anchor="middle">HimaPro</text>
+      <text class="sub" x="190" y="262" text-anchor="middle">50122</text>
+      <text class="pin" x="140" y="336" text-anchor="middle">NO</text>
+      <text class="pin" x="272" y="336" text-anchor="middle">COM</text>
+
+      <rect class="box" x="440" y="520" width="620" height="680" rx="14"/>
+      <text class="lbl" x="750" y="600" text-anchor="middle">ESP32-DevKitC-32E</text>
+      <text class="pin" x="462" y="712">GPIO27</text>
+      <text class="pin" x="462" y="792">3V3</text>
+      <text class="pin" x="462" y="912">GND</text>
+      <text class="pin" x="1038" y="652" text-anchor="end">GPIO25</text>
+      <text class="pin" x="1038" y="752" text-anchor="end">GPIO26</text>
+      <text class="pin" x="1038" y="912" text-anchor="end">VIN / 5V</text>
+      <text class="pin" x="1038" y="1032" text-anchor="end">GND</text>
+      <text class="sub" x="750" y="1155" text-anchor="middle">Micro-USB</text>
+
+      <rect class="box" x="1240" y="560" width="420" height="340" rx="14"/>
+      <text class="lbl" x="1450" y="632" text-anchor="middle">ULN2803A</text>
+      <text class="pin" x="1262" y="702">IN1</text>
+      <text class="pin" x="1262" y="802">IN2</text>
+      <text class="pin" x="1262" y="872">GND</text>
+      <text class="pin" x="1638" y="702" text-anchor="end">OUT1</text>
+      <text class="pin" x="1638" y="802" text-anchor="end">OUT2</text>
+      <text class="sub" x="1450" y="872" text-anchor="middle">COM &mdash; leave open</text>
+
+      <rect class="box" x="1840" y="240" width="520" height="880" rx="14"/>
+      <text class="lbl" x="2100" y="312" text-anchor="middle">DM542T</text>
+      <text class="sub" x="2100" y="356" text-anchor="middle">logic selector &rarr; 5 V</text>
+      <text class="pin" x="1862" y="450">PUL+</text>
+      <text class="pin" x="1862" y="530">PUL&minus;</text>
+      <text class="pin" x="1862" y="610">DIR+</text>
+      <text class="pin" x="1862" y="690">DIR&minus;</text>
+      <text class="pin" x="1862" y="770" fill="#6d6a74">ENA+</text>
+      <text class="pin" x="1862" y="826" fill="#6d6a74">ENA&minus;</text>
+      <text class="sub" x="2010" y="800">leave both open</text>
+      <text class="pin" x="1900" y="1090" text-anchor="middle">VDC</text>
+      <text class="pin" x="1980" y="1090" text-anchor="middle">GND</text>
+      <text class="pin" x="2100" y="1090" text-anchor="middle">A+</text>
+      <text class="pin" x="2180" y="1090" text-anchor="middle">A&minus;</text>
+      <text class="pin" x="2260" y="1090" text-anchor="middle">B+</text>
+      <text class="pin" x="2340" y="1090" text-anchor="middle">B&minus;</text>
+
+      <rect class="box-dim" x="2060" y="1340" width="340" height="220" rx="14"/>
+      <text class="lbl" x="2230" y="1412" text-anchor="middle">NEMA 23</text>
+      <text class="sub" x="2230" y="1456" text-anchor="middle">23HS30-2804S</text>
+      <text class="sub" x="2230" y="1508" text-anchor="middle">blk / grn / red / blu</text>
+
+      <rect class="box-dim" x="1180" y="1340" width="560" height="200" rx="14"/>
+      <text class="lbl" x="1460" y="1408" text-anchor="middle">24 V / 4 A brick</text>
+      <text class="sub" x="1460" y="1452" text-anchor="middle">barrel-to-wire connector</text>
+      <text class="pin" x="1806" y="1400" text-anchor="middle">+</text>
+      <text class="pin" x="1806" y="1470" text-anchor="middle">&minus;</text>
+
+      <rect class="box-dim" x="40" y="1320" width="380" height="200" rx="14"/>
+      <text class="lbl" x="230" y="1388" text-anchor="middle">5 V / 3 A adapter</text>
+      <text class="sub" x="230" y="1432" text-anchor="middle">Micro-USB tip</text>
+      <text class="sub" x="230" y="1482" text-anchor="middle">bench use only</text>
+
+      <!-- ============ pedal ============ -->
+      <path class="w-sig" d="M140 360 L140 712 L440 712"/>
+      <path class="w-gnd" d="M272 360 L272 912 L440 912"/>
+
+      <!-- The external 4.7 k pull-up sits between 3V3 and the GPIO27 node, which is also where
+           the pedal's NO lands. A broken pedal wire then reads released. -->
+      <path class="w-pwr" d="M440 792 L350 792 L350 712"/>
+      <circle class="dotp" cx="350" cy="712" r="9"/>
+      <rect x="366" y="764" width="60" height="56" rx="8" fill="#fff" stroke="#3a68ac" stroke-width="6"/>
+      <text class="sub" x="396" y="880" text-anchor="middle">4.7 k&Omega;</text>
+
+      <!-- ============ ESP32 to ULN ============ -->
+      <path class="w-sig" d="M1060 652 L1240 652 L1240 702"/>
+      <path class="w-sig" d="M1060 752 L1180 752 L1180 802 L1240 802"/>
+      <path class="w-gnd" d="M1060 1032 L1140 1032 L1140 872 L1240 872"/>
+
+      <!-- ============ ULN out to driver ============ -->
+      <path class="w-sig" d="M1660 702 L1760 702 L1760 530 L1840 530"/>
+      <path class="w-sig" d="M1660 802 L1720 802 L1720 690 L1840 690"/>
+
+      <!-- ============ ESP32 5 V to PUL+ and DIR+ ============ -->
+      <path class="w-pwr" d="M1060 912 L1120 912 L1120 180 L1800 180 L1800 450 L1840 450"/>
+      <path class="w-pwr" d="M1800 450 L1800 610 L1840 610"/>
+      <circle class="dotp" cx="1800" cy="450" r="9"/>
+
+      <!-- ============ 24 V ============ -->
+      <path class="w-pwr" d="M1740 1400 L1900 1400 L1900 1120"/>
+      <path class="w-gnd" d="M1740 1470 L1980 1470 L1980 1120"/>
+
+      <!-- ============ motor phases ============ -->
+      <path class="w" d="M2100 1340 L2100 1120"/>
+      <path class="w" d="M2180 1340 L2180 1120"/>
+      <path class="w" d="M2260 1340 L2260 1120"/>
+      <path class="w" d="M2340 1340 L2340 1120"/>
+      <text class="sub" x="2094" y="1256" text-anchor="end" transform="rotate(-90 2094 1256)">black</text>
+      <text class="sub" x="2174" y="1256" text-anchor="end" transform="rotate(-90 2174 1256)">green</text>
+      <text class="sub" x="2254" y="1256" text-anchor="end" transform="rotate(-90 2254 1256)">red</text>
+      <text class="sub" x="2334" y="1256" text-anchor="end" transform="rotate(-90 2334 1256)">blue</text>
+
+      <!-- ============ 5 V into the ESP32's own socket ============ -->
+      <path class="w-pwr" d="M420 1420 L750 1420 L750 1200"/>
+    </svg>
+    <div class="key">
+      <span><i style="background:#3a68ac"></i>supply</span>
+      <span><i style="background:#d64050"></i>signal</span>
+      <span><i style="background:#6d6a74"></i>0 V return</span>
+      <span><i style="background:#1a1a2e"></i>motor phase</span>
+    </div>
+    <div class="split">
+      <div>
+        <h2>Making each joint</h2>
+        <ol class="actions">
+          <li>Strip 22 AWG to the ferrule's barrel length, crimp a ferrule on every end that
+            lands in a screw terminal, and heat-shrink the transition.</li>
+          <li>Twist the pedal's <span class="mono">COM</span> and <span class="mono">NO</span>
+            conductors together along their whole run and sleeve them in 1/4&nbsp;inch
+            braid.</li>
+          <li>Fit the 4.7&nbsp;k&Omega; resistor at the <b>controller</b> end, not the pedal
+            end.</li>
+          <li>Leave the 5&nbsp;V adapter and the 24&nbsp;V brick unplugged. They do not go in
+            until page&nbsp;36 has passed and page&nbsp;39 says so.</li>
+        </ol>
+      </div>
+      <div>
+        <div class="mind">
+          <span class="mind-label">A broken pedal wire reads released</span>
+          <p>That is the point of the external pull-up. It also drops the input impedance
+            enough to reject the noise a laser welder puts on a long bench lead.</p>
+        </div>
+        <div class="mind">
+          <span class="mind-label">Left open on purpose</span>
+          <p>The ULN2803A's <span class="mono">COM</span> flyback terminal, and both
+            <span class="mono">ENA</span> terminals on the driver. Three terminals with nothing
+            in them is correct.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer><span>Weld rotator &middot; build guide</span><span class="folio">35</span></footer>
+</article>
+</body>
+</html>

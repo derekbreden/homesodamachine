@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><link rel="stylesheet" href="style.css"></head>
+<body>
+<article class="card">
+  <header>
+    <span class="eyebrow"><b>Controller</b> &middot; step 28</span>
+    <h1>Move to bench power</h1>
+    <i class="rule"></i>
+    <p class="lede">Settings stored. Now the board comes off the laptop and onto the 5&nbsp;V
+      adapter, and the 24&nbsp;V brick goes in for the first time.</p>
+  </header>
+  <main>
+    <ol class="actions">
+      <li>Close the serial console.</li>
+      <li>Unplug the Micro-USB from the laptop end.</li>
+      <li>Fit the <b>Micro-USB tip</b> to the universal 5&nbsp;V / 3&nbsp;A adapter and plug it
+        into the ESP32's same Micro-USB socket.</li>
+      <li>Plug the 5&nbsp;V adapter into the wall. The board's power LED comes up.</li>
+      <li>Confirm the pedal is <b>released</b> and that nothing &mdash; hand, cloth, cable
+        &mdash; is inside the belt path or on the turntable.</li>
+      <li>Plug the 24&nbsp;V brick into the wall. The DM542T's LED comes up and the motor
+        becomes stiff to turn by hand: that is the standstill current, and it is correct.</li>
+    </ol>
+    <div class="gate">
+      <span class="gate-label">Gate &mdash; nothing moves</span>
+      <p>With both supplies live and the pedal released, the table stands still and stays
+        still. <span class="fail">Any motion at all here means a pulse is being generated with
+        no pedal</span> &mdash; pull the 24&nbsp;V and go back to page&nbsp;36.</p>
+    </div>
+    <div class="mind">
+      <span class="mind-label">Order matters, both ways</span>
+      <p>5&nbsp;V first, then 24&nbsp;V. Coming down, 24&nbsp;V first, then 5&nbsp;V. The
+        driver's inputs should never see a floating logic side with its power stage live.</p>
+    </div>
+    <div class="mind">
+      <span class="mind-label">The console is still there</span>
+      <p>The onboard CP2102 drives <span class="mono">RX0/TX0</span> whenever the board has USB
+        power, so nothing external is ever wired to those pins. To change a setting later,
+        swap the tip back for the laptop cable.</p>
+    </div>
+  </main>
+  <footer><span>Weld rotator &middot; build guide</span><span class="folio">39</span></footer>
+</article>
+</body>
+</html>
