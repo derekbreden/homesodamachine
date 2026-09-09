@@ -27,11 +27,16 @@ for angle in range(0, 360, 90):
         (root_end+mold.station_arm_root)/2), angle)
     column_missing = column.cut(cavity).Volume()
     arm_missing = arm.cut(core).Volume()
+    blade = mold._quarter(mold._box(mold.guide_width-1.2, mold.guide_depth-1.2,
+        top-mold.guide_drop+0.8, top, mold.guide_x, mold.guide_y), angle)
+    blade_missing = blade.cut(core).Volume()
     assert column_missing < 0.001, (angle, 'column neck or void', column_missing)
     assert arm_missing < 0.001, (angle, 'arm root is interrupted', arm_missing)
+    assert blade_missing < 0.001, (angle, 'guide blade is interrupted', blade_missing)
     records.append({'station_degrees': angle,
                     'missing_column_stock_mm3': column_missing,
-                    'missing_arm_root_stock_mm3': arm_missing})
+                    'missing_arm_root_stock_mm3': arm_missing,
+                    'missing_inscribed_blade_stock_mm3': blade_missing})
 
 radius = mold.column_radius
 column_area = math.pi * radius**2
@@ -61,6 +66,18 @@ def load_case(force):
         'nut_roof_simple_beam_screen_MPa': 3*force*mold.nut_slot_width/(2*mold.nut_width*nut_roof**2),
     }
 
+def lateral_case(force):
+    width, depth = mold.guide_width-1.2, mold.guide_depth-1.2
+    reach = mold.guide_drop
+    # The inscribed rectangle remains inside the corner chamfers and travel mark.
+    inertia_x, inertia_y = width*depth**3/12, depth*width**3/12
+    return {'tip_force_N': force, 'free_reach_mm': reach,
+        'inscribed_section_mm': [width, depth],
+        'radial_load_root_nominal_bending_MPa': force*reach*(width/2)/inertia_y,
+        'tangential_load_root_nominal_bending_MPa': force*reach*(depth/2)/inertia_x,
+        'radial_tip_deflection_at_assumed_modulus_mm': force*reach**3/(3*modulus*inertia_y),
+        'tangential_tip_deflection_at_assumed_modulus_mm': force*reach**3/(3*modulus*inertia_x)}
+
 report = {
     'purpose': 'Continuous stock verification and nominal section screening; no rated lifting load.',
     'source_sha256': hashlib.sha256((here/'funnel_mold.py').read_bytes()).hexdigest(),
@@ -71,17 +88,21 @@ report = {
         'column_area_mm2': column_area, 'screw_eccentricity': abs(mold.washer_y-mold.jack_y),
         'arm_width': arm_width, 'arm_height': arm_height, 'arm_screen_span': arm_span,
         'wall_pair_total_thickness': wall_width, 'wall_height': wall_height,
-        'wall_screen_span': wall_span, 'nut_roof': nut_roof},
+        'wall_screen_span': wall_span, 'nut_roof': nut_roof,
+        'guide_blade': [mold.guide_width, mold.guide_depth],
+        'guide_root_shoulder': mold.guide_root_run},
     'assumed_elastic_modulus_MPa': modulus,
     'suction_sensitivity': {'condition': 'Hypothetical perfect vacuum over the entire core mouth at one standard atmosphere outside; excludes adhesion and friction.',
         'mouth_width_mm': funnel['bore_w'], 'mouth_depth_mm': funnel['bore_d'],
         'projected_area_mm2': mouth_area, 'total_force_N': sealed_mouth_force,
         'equal_force_per_jack_N': sealed_mouth_force/4},
     'load_cases': [load_case(f) for f in (250.0, sealed_mouth_force/4, 1000.0)],
+    'lateral_guide_cases': [lateral_case(f) for f in (50.0, 100.0)],
     'model_limits': [
         'Column: eccentric compression on a solid circular section, ignoring the additional stiffness of its walls.',
         'Arm and paired walls: rectangular cantilevers fixed at the stated roots. The true mold distributes load in three dimensions.',
         'Nut: mean pressure over its square footprint excluding the printed clearance bore. The roof screen is an 8 mm wide beam spanning the 8.4 mm slot under a central point load.',
+        'Guide: full free reach loaded at its tip in either horizontal direction. The 10.8 x 38.8 mm inscribed rectangle excludes corner chamfers and the shallow travel mark; the 6 mm root shoulder and guide-sleeve restraint receive no stiffness credit.',
         'Local stress concentrations, interlayer defects, creep, coating adhesion and silicone extraction force are not quantified.',
         'No factor of safety or certified capacity is inferred from supplier coupon strengths.',
     ],

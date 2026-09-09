@@ -1,6 +1,6 @@
 # Controlled core extraction
 
-Four M5 screw jacks lift the core while four long printed guides keep it aligned.
+Four M5 screw jacks lift the core while four broad printed guide blades keep it aligned.
 The ears, nut seats, washer pockets, guides and their supports are integral to
 [funnel-mold-guided-vacuum-petg-08-016.3mf](funnel-mold-guided-vacuum-petg-08-016.3mf).
 All four stations lie outside the forming surfaces, at the middle of each side.
@@ -17,8 +17,11 @@ engagement is steel.
 
 ![One extraction station, seated and raised](extraction.png)
 
-The guide towers continue to the base. Their bores widen to 14.6 mm below the
-upper bearing length, with a 45° transition and an external 3 mm air passage.
+The 12 × 40 mm blades join the core through 6 mm flared root shoulders. Their
+base footprints are 24 × 52 mm. The guide towers continue to the cavity base;
+their 12.6 × 40.6 mm bearing openings widen to 16.6 × 44.6 mm below the upper
+14 mm bearing length. A 45° transition and an external 3 mm air passage keep
+the relieved space open to the chamber.
 
 The four screws control displacement separately. Equal turns keep the core
 level; they do not equalize force automatically. Use the included hand hex key,
@@ -48,9 +51,9 @@ and free of burrs, and replace a washer if its bearing track becomes deeply scor
 | Jack clearance bore | 5.8 mm diameter |
 | Side-entry square-nut slot | 8.4 mm wide × 4.4 mm high |
 | Nut-bearing roof | 8.4 mm thick |
-| Downward core guide | 10 mm square, 0.6 mm corner chamfers, 0.8 mm tip lead-in |
-| Cavity guide sleeve | 10.6 mm square bore, 14 mm bearing length; 22 mm tower |
-| Guide reach below core parting plane | 50 mm |
+| Downward core guide | 12 × 40 mm blade, 6 mm flared root, 0.6 mm corner chamfers, 0.8 mm tip lead-in |
+| Cavity guide sleeve | 12.6 × 40.6 mm bore; 14 mm bearing length; 6.4 mm walls |
+| Guide reach below core parting plane | 54 mm |
 | Controlled working lift | **32 mm** |
 | Guide overlap at 32 mm lift | **12 mm** |
 | Rod's initial socket engagement | 28.8 mm |
@@ -62,9 +65,8 @@ can then lift free of the guides; the screws leave their washers with it. The
 chamfered guide tips enter their sleeves before the forming plug enters the
 cavity when assembling.
 
-The additions stay inside the original core's corner-to-corner circle, about
-284.3 mm diameter. The owned chamber is listed in the tool ledger with an 11.8-inch
-(299.7 mm) interior. Verify the actual opening, shelf and catch-tray clearance;
+The CAD fit check compares every outer vertex with the owned chamber's listed
+11.8-inch (299.7 mm) interior. The guide-tower corners are the outermost features. Verify the actual opening, shelf and catch-tray clearance;
 clamps and tray rims need their own space. Keep all backing-air exits exposed.
 
 ## Print the small fits first

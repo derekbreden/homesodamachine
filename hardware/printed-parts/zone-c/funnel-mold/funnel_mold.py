@@ -82,9 +82,11 @@ washer_thickness_range = (0.8, 2.0)
 jack_length, jack_pitch, jack_hole = 50.0, 0.8, 5.8
 nut_width, nut_thickness = 8.0, 4.0
 nut_slot_width, nut_slot_height = 8.4, 4.4
-guide_x, guide_y = 119.0, -22.0
-guide_width, guide_bore, guide_outside = 10.0, 10.6, 22.0
-guide_drop, guide_top, guide_bottom = 50.0, 6.0, 20.0
+guide_x = 119.0
+guide_width, guide_depth = 12.0, 40.0
+guide_bore, guide_bore_depth = guide_width+0.6, guide_depth+0.6
+guide_drop, guide_top, guide_bottom = 54.0, 10.0, 24.0
+guide_root_run = 6.0
 extraction_stroke = 32.0
 chamber_nominal_id = 11.8 * 25.4
 column_radius = 16.0
@@ -94,6 +96,10 @@ station_top_gap = 0.6
 station_arm_root, station_arm_end = 87.0, 135.0
 station_arm_width = 66.0
 guide_relief = guide_bore + 4.0
+guide_relief_depth = guide_bore_depth + 4.0
+guide_outside = guide_bore + 2*station_wall
+guide_outside_depth = guide_bore_depth + 2*station_wall
+guide_y = -(guide_outside_depth+rib_thk)/2
 
 
 def _box(w, d, z0, z1, cx=0.0, cy=0.0):
@@ -116,15 +122,15 @@ def _quarter(shape, angle):
 
 
 def _guide_post(z0, z1, x, y):
-    post = cq.Workplane(obj=_box(guide_width, guide_width, z0, z1, x, y))
+    post = cq.Workplane(obj=_box(guide_width, guide_depth, z0, z1, x, y))
     return post.edges('|Z').chamfer(0.6).faces('<Z').edges().chamfer(0.8).val()
 
 
 def _guide_socket(z0, z1, x, y):
-    bore = _box(guide_bore, guide_bore, z0-1, z1+1, x, y)
+    bore = _box(guide_bore, guide_bore_depth, z0-1, z1+1, x, y)
     entry = (cq.Workplane('XY').workplane(offset=z1-0.6).center(x, y)
-        .rect(guide_bore, guide_bore).workplane(offset=0.61)
-        .rect(guide_bore+1.22, guide_bore+1.22).loft().val())
+        .rect(guide_bore, guide_bore_depth).workplane(offset=0.61)
+        .rect(guide_bore+1.22, guide_bore_depth+1.22).loft().val())
     return bore.fuse(entry)
 
 
@@ -140,42 +146,54 @@ def build_extraction(top_z):
     tie_top = top_z-lip_h-station_top_gap
     pad = _cyl(column_radius, pad_floor+1.2, 0, jack_x, washer_y)
     pad = pad.cut(_cyl(washer_pocket_d/2, top_z+1, pad_floor, jack_x, washer_y))
-    sleeve = _box(guide_outside, guide_outside, 0, top_z-guide_top, guide_x, guide_y)
+    sleeve = _box(guide_outside, guide_outside_depth, 0, top_z-guide_top, guide_x, guide_y)
     socket = _guide_socket(top_z-guide_bottom, top_z-guide_top, guide_x, guide_y)
     relief_top = top_z-guide_bottom-(guide_relief-guide_bore)/2
-    relief = _box(guide_relief, guide_relief, -1, relief_top, guide_x, guide_y)
+    relief = _box(guide_relief, guide_relief_depth, -1, relief_top, guide_x, guide_y)
     relief = relief.fuse(cq.Workplane('XY').workplane(offset=relief_top)
-        .center(guide_x, guide_y).rect(guide_relief, guide_relief)
+        .center(guide_x, guide_y).rect(guide_relief, guide_relief_depth)
         .workplane(offset=(guide_relief-guide_bore)/2)
-        .rect(guide_bore, guide_bore).loft().val())
+        .rect(guide_bore, guide_bore_depth).loft().val())
     sleeve = sleeve.cut(socket, relief)
     walls = []
     pad_wall_spread = 2*(washer_y-rib_thk/2-station_wall/2)
     for x, y, spread in [(jack_x, washer_y, pad_wall_spread),
-                          (guide_x, guide_y, guide_outside-station_wall)]:
+                          (guide_x, guide_y, guide_outside_depth-station_wall)]:
         walls.extend(_box(x-station_root, station_wall, 0, tie_top,
                      (station_root+x)/2, y+s*spread/2) for s in (-1, 1))
     lower = pad.fuse(sleeve, *walls)
     guide_air = cq.Solid.makeCylinder(back_vent_d/2, guide_outside,
         cq.Vector(guide_x, guide_y, back_vent_depth), cq.Vector(1, 0, 0))
     lower = lower.cut(guide_air, socket, relief)
-    arm = _box(station_arm_end-station_arm_root, station_arm_width,
-               top_z, top_z+plate_thk, (station_arm_root+station_arm_end)/2)
+    guide_arm_end = guide_x+guide_width/2+guide_root_run
+    guide_arm_low = guide_y-guide_depth/2-guide_root_run
+    arm_low, arm_high = -station_arm_width/2, station_arm_width/2
+    corner_run = station_arm_end-guide_arm_end
+    arm_plan = [(station_arm_root, guide_arm_low), (guide_arm_end, guide_arm_low),
+                (guide_arm_end, arm_low-corner_run), (station_arm_end, arm_low),
+                (station_arm_end, arm_high), (station_arm_root, arm_high),
+                (station_arm_root, guide_arm_low)]
+    arm = (cq.Workplane('XY').workplane(offset=top_z)
+           .polyline(arm_plan).wire().extrude(plate_thk).val())
     post = _guide_post(top_z-guide_drop, top_z+plate_thk, guide_x, guide_y)
+    shoulder = (cq.Workplane('XY').workplane(offset=top_z-guide_root_run)
+        .center(guide_x, guide_y).rect(guide_width, guide_depth)
+        .workplane(offset=guide_root_run)
+        .rect(guide_width+2*guide_root_run, guide_depth+2*guide_root_run).loft().val())
     # The mark meets the sleeve mouth after 32 mm of lift; it is a witness mark,
     # not a catch that would prevent removing the core after the rod is clear.
     mark_z = top_z-guide_top-extraction_stroke
     post = post.cut(_box(0.4, 5.0, mark_z-0.4, mark_z+0.4,
                         guide_x+guide_width/2-0.15, guide_y))
-    upper = arm.fuse(post)
+    upper = arm.fuse(post, shoulder)
     upper = upper.cut(_cyl(jack_hole/2, top_z+plate_thk+1, top_z-1, jack_x, jack_y),
                       _nut_cut(top_z, jack_x, jack_y, station_arm_end+1))
     upper = _one(upper, 'extraction upper station')
     # Pads/sleeves, threads and sliding faces use the precision surface speed.
     slow_lower = _cyl(column_radius+0.5, top_z, pad_floor-forming_skin, jack_x, washer_y).fuse(
-        _box(guide_outside+1, guide_outside+1, top_z-guide_bottom,
+        _box(guide_outside+1, guide_outside_depth+1, top_z-guide_bottom,
              top_z-guide_top, guide_x, guide_y))
-    slow_upper = arm.fuse(post)
+    slow_upper = arm.fuse(post, shoulder)
     lower_stations = [_quarter(lower, a) for a in range(0, 360, 90)]
     lower_all = cq.Compound.makeCompound(lower_stations)
     upper_all = cq.Compound.makeCompound([_quarter(upper, a) for a in range(0, 360, 90)])
@@ -202,11 +220,11 @@ def build_hardware_witness():
     nut_block = _box(34, 20, 0, plate_thk, -1, 0)
     nut_cut = _nut_cut(0, 0, 0, 17).rotate((0, 0, 0), (1, 0, 0), 180).translate((0, 0, plate_thk))
     nut_block = nut_block.cut(nut_cut, _cyl(jack_hole/2, plate_thk+1, -1))
-    sleeve = _box(guide_outside, guide_outside, 0, 14, -26, 0).cut(
+    sleeve = _box(guide_outside, guide_outside_depth, 0, 14, -26, 0).cut(
         _guide_socket(0, 14, -26, 0))
     pad = _cyl(column_radius, 4.4, 0, 0, 25).cut(_cyl(washer_pocket_d/2, 5, 3.2, 0, 25))
     coupon = _one(nut_block.fuse(sleeve, pad), 'hardware witness')
-    pin = _guide_post(-24, 0, 0, 0).fuse(_box(14, 14, 0, 3))
+    pin = _guide_post(-24, 0, 0, 0).fuse(_box(guide_width+6, guide_depth+6, 0, 3))
     pin = pin.rotate((0, 0, 0), (1, 0, 0), 180).translate((0, 0, 3))
     return coupon, _one(pin, 'guide witness')
 
@@ -373,7 +391,7 @@ def build():
     # A rectangular swept envelope contains each chamfered post at every point
     # from seated through complete withdrawal. Its clearance is continuous.
     for a in range(0, 360, 90):
-        swept_post = _quarter(_box(guide_width, guide_width, assembly_top-guide_drop,
+        swept_post = _quarter(_box(guide_width, guide_depth, assembly_top-guide_drop,
             assembly_top+guide_drop+plate_thk, guide_x, guide_y), a)
         assert cavity.intersect(swept_post).Volume() < 0.001, 'guide sweep blocked'
     assert guide_drop-extraction_stroke-guide_top >= 12.0, 'insufficient guide engagement'
