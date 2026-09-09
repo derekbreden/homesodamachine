@@ -44,6 +44,7 @@ foot_frame = 3.2
 frame_height = 2.4
 back_vent_d = 3.0
 back_vent_depth = 3.0
+register_corbel_run = 14.0
 cavity_air_rows = (-80.0, -32.0, 32.0, 80.0)
 core_air_rows = (-68.0, -32.0, 32.0, 68.0)
 # Net surface growth: dry coating remaining minus substrate removed by sanding.
@@ -163,6 +164,11 @@ def build():
     backing = _expanded(nominal_envelope, finish_allowance+forming_skin)
     cavity_blank = _box(block_w, block_d, floor_z, top_z, ocx, ocy)
     top_register = _box(block_w, block_d, top_z-lip_h, top_z, ocx, ocy)
+    # The broad registration band grows out from the collar on a 45-degree
+    # corbel; its underside must not start with an unsupported outward step.
+    register_corbel = (cq.Workplane('XY').workplane(offset=top_z-lip_h-register_corbel_run)
+        .center(ocx, ocy).rect(block_w-2*register_corbel_run, block_d-2*register_corbel_run)
+        .workplane(offset=register_corbel_run).rect(block_w, block_d).loft().val())
     foot = _box(block_w, block_d, floor_z, floor_z+frame_height, ocx, ocy).cut(
         _box(block_w-2*foot_frame, block_d-2*foot_frame,
              floor_z-1, floor_z+frame_height+1, ocx, ocy))
@@ -171,7 +177,7 @@ def build():
     # not begin as a cantilever between the ribs.
     tip_pedestal = _cyl(m['spout_or']+finish_allowance+forming_skin,
                         neck_z, floor_z, ncx, ncy)
-    cavity = backing.fuse(top_register, foot, ribs, tip_pedestal,
+    cavity = backing.fuse(top_register, register_corbel, foot, ribs, tip_pedestal,
                           tol=boolean_tol).intersect(cavity_blank)
     cavity = cavity.cut(forming_void)
     cavity_air = _air_channels(block_w, cavity_air_rows, floor_z+back_vent_depth, ocx, ocy)
