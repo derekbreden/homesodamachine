@@ -109,6 +109,10 @@ static void fillSoundCfg(SoundCfgPayload &c) {
 // window right after a frame arrives, when the glass is known to be listening
 // rather than talking. The glass polls on an interval for exactly this reason,
 // so the wait is bounded by that poll and not by whether anyone touches anything.
+// Every question the console puts to the glass waits here too — askEnclosure()
+// below posts it and then watches for the answer — so the only frames this file
+// puts on the pair without a turn are linkPing's, which is a bench command with
+// nobody expected to answer it.
 // An air state is 20 bytes and is the widest thing queued here; a clean state
 // is 19, a fill state 12, an OTA begin 11, and every other announcement fits in 8.
 struct Announce { uint8_t type; uint8_t len; uint8_t data[LINK_ANNOUNCE_MAX]; };
@@ -757,51 +761,40 @@ void linkService() {
     j9.service();
 }
 
+// A question the console puts to the enclosure. The main board does not
+// interrupt the pair, so this waits in the announcement queue like everything
+// else the machine volunteers and leaves inside the turn the display's next
+// poll opens. That poll is 250 ms while lit and 500 ms while dark, so the wait
+// is one of those plus whatever is already queued ahead of it — and a queue
+// that never drains is a display that has stopped answering, which is the
+// thing the deadline is here to report.
+static bool askEnclosure(uint8_t type, const void *data, uint8_t len,
+                         const bool &ack, uint32_t waitMs = 3000) {
+    announceQueue(type, data, len);
+    const unsigned long until = millis() + waitMs;
+    while ((long)(millis() - until) < 0 && !ack) {
+        j9.service();
+        delay(2);
+    }
+    return ack;
+}
+
 bool linkTestScreen(uint16_t seconds) {
     testScreenAck = false;
     TestScreenPayload req{seconds};
-    // A main-board-originated frame can meet a status poll on the half-duplex pair.
-    for (uint8_t attempt = 0; attempt < 3 && !testScreenAck; attempt++) {
-        j9.send(MSG_TEST_SCREEN, &req, sizeof(req));
-        unsigned long until = millis() + 200;
-        while ((long)(millis() - until) < 0 && !testScreenAck) {
-            j9.service();
-            delay(2);
-        }
-    }
-    return testScreenAck;
+    return askEnclosure(MSG_TEST_SCREEN, &req, sizeof(req), testScreenAck);
 }
 
 bool linkUiShow(uint8_t rail, uint8_t channel, uint8_t act) {
     uiShowAck = false;
     uiShown = false;
     UiShowPayload req{rail, channel, act};
-    // A main-board-originated frame can meet a status poll on the half-duplex pair.
-    for (uint8_t attempt = 0; attempt < 3 && !uiShowAck; attempt++) {
-        j9.send(MSG_UI_SHOW, &req, sizeof(req));
-        unsigned long until = millis() + 200;
-        while ((long)(millis() - until) < 0 && !uiShowAck) {
-            j9.service();
-            delay(2);
-        }
-    }
-    return uiShowAck && uiShown;
+    return askEnclosure(MSG_UI_SHOW, &req, sizeof(req), uiShowAck) && uiShown;
 }
 
 bool linkDisplayUsbReattach() {
     displayUsbReattachAck = false;
-
-    // Retry because this explicit development request is the rare
-    // main-board-originated frame and can meet a status poll on the half-duplex pair.
-    for (uint8_t attempt = 0; attempt < 3 && !displayUsbReattachAck; attempt++) {
-        j9.send(MSG_DISPLAY_USB_REATTACH, nullptr, 0);
-        unsigned long until = millis() + 200;
-        while ((long)(millis() - until) < 0 && !displayUsbReattachAck) {
-            j9.service();
-            delay(2);
-        }
-    }
-    if (displayUsbReattachAck) {
+    if (askEnclosure(MSG_DISPLAY_USB_REATTACH, nullptr, 0, displayUsbReattachAck)) {
         Serial.println("\nDISPLAY_USB:APP accepted — USB PHY will detach and timer-wake");
         return true;
     }
@@ -810,39 +803,25 @@ bool linkDisplayUsbReattach() {
     return false;
 }
 
-// The enclosure raises the bench AP, so this is a main-board-originated frame on
-// a pair whose rule is that the main board answers. Same shape as the USB
-// reattach above and for the same reason: it can meet a status poll, and the far
-// end's transition takes long enough that the first answer may be late. Raising
-// an AP that is already up is free at the other end, so a retry costs nothing.
-// The enclosure answers inside its own next turn, like every other question
-// put to it, so this only has to reach the pair once.
-bool linkImageErase(uint8_t slot) {
+// Told, not asked: the enclosure answers a query with its own state on its own
+// turn, and nothing here waits for it. Both run unattended — the image
+// reconcile asks every thirty seconds on an idle machine — so both queue.
+void linkImageErase(uint8_t slot) {
     ImageSlotPayload req{slot};
-    return j9.send(MSG_IMAGE_ERASE, &req, sizeof(req)) >= 0;
+    announceQueue(MSG_IMAGE_ERASE, &req, sizeof(req));
 }
 
-bool linkImagesQuery(uint8_t verbose) {
+void linkImagesQuery(uint8_t verbose) {
     ImagesQueryPayload q{verbose};
-    return j9.send(MSG_IMAGES_QUERY, &q, sizeof(q)) >= 0;
+    announceQueue(MSG_IMAGES_QUERY, &q, sizeof(q));
 }
 
-// One main-board-originated frame on a pair whose rule is that the main board
-// answers, so it retries: it can meet the enclosure's own poll. 0 drops the
-// radio, 1 raises it, 2 only asks, 4 raises it for a picture. All of them are
-// answered the same way.
+// 0 drops the radio, 1 raises it, 2 only asks, 3 raises it with the panel left
+// running, 4 raises it for a picture. All of them are answered the same way.
 static bool linkWifiAsk(uint8_t what) {
     wifiApAck = false;
     WifiApPayload req{what, WIFI_BENCH_CHANNEL};
-    for (uint8_t attempt = 0; attempt < 4 && !wifiApAck; attempt++) {
-        j9.send(MSG_WIFI_BENCH_AP, &req, sizeof(req));
-        unsigned long until = millis() + 400;
-        while ((long)(millis() - until) < 0 && !wifiApAck) {
-            j9.service();
-            delay(2);
-        }
-    }
-    return wifiApAck;
+    return askEnclosure(MSG_WIFI_BENCH_AP, &req, sizeof(req), wifiApAck);
 }
 
 bool linkWifiAp(bool on) { return linkWifiApMode(on ? 1 : 0); }
