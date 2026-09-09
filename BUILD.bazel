@@ -3085,6 +3085,7 @@ genrule(
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step.mesh",
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step",
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step.mesh",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.lint-answers",
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
@@ -3822,7 +3823,6 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/cable_clip.py",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
         "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
-        "pysrc/hardware/printed-parts/cadlib/plan.py",
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
@@ -3906,7 +3906,6 @@ genrule(
         "pysrc/hardware/reference/lee-lcm060c12m/lee_lcm060c12m.py",
         ":out/meanwell-irm90/hardware/reference/meanwell-irm90/meanwell-irm90.step",
         "pysrc/hardware/reference/meanwell-irm90/meanwell_irm90.py",
-        "pysrc/hardware/reference/molex-micro-fit-4/molex_micro_fit_4.py",
         ":out/mq6-gas-sensor/hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step",
         "pysrc/hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
         "pysrc/hardware/reference/multiplex-asse1022/multiplex_asse1022.py",
@@ -4206,6 +4205,7 @@ genrule(
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step.mesh",
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step",
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step.mesh",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.lint-answers",
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
@@ -6570,12 +6570,12 @@ cp hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py $$O3
 )
 
 genrule(
-    name = "copper-kit",
+    name = "holders",
     srcs = [
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "hardware/printed-parts/shop-storage/README.md",
         "pysrc/hardware/printed-parts/shop-storage/_kit.py",
-        "hardware/printed-parts/shop-storage/copper/README.md",
-        "pysrc/hardware/printed-parts/shop-storage/copper/copper_kit.py",
+        "pysrc/hardware/printed-parts/shop-storage/holders.py",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
@@ -6583,34 +6583,99 @@ genrule(
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
-    ] + glob(
-        [
-            "hardware/printed-parts/shop-storage/copper/README.figures.json",
-        ],
-        allow_empty = True,
-    ),
+    ],
     outs = [
-        "out/copper-kit/hardware/printed-parts/shop-storage/copper/copper-dock.step",
-        "out/copper-kit/hardware/printed-parts/shop-storage/copper/copper-fittings.step",
-        "out/copper-kit/hardware/printed-parts/shop-storage/copper/copper-kit-open.step",
-        "out/copper-kit/hardware/printed-parts/shop-storage/copper/copper-kit.step",
-        "out/copper-kit/hardware/printed-parts/shop-storage/copper/copper-quiver.step",
-        "out/copper-kit/hardware/printed-parts/shop-storage/copper/copper-rack.step",
-        "out/copper-kit/hardware/printed-parts/shop-storage/copper/copper-service.step",
-        "out/copper-kit/hardware/printed-parts/shop-storage/copper/README.figures.json",
-        "out/copper-kit/hardware/printed-parts/shop-storage/copper/README.md",
+        "out/holders/hardware/printed-parts/shop-storage/holders/adapter-tub.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/brush-quiver.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/bulkhead-tub.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/copper-tub.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/crimp-comb.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/cut-comb.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/deburr-tub.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/depressor-quiver.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/die-tub.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/dock-3x3.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/dowel-index.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/drill-index.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/ferrule-tub.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/fine-comb.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/flux-tub.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/heat-gun-tub.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/hotend-tub.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/insert-tub.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/junction-tub.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/keystone-tub.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/lever-tub.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/m3-tub.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/m5-tub.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/npt-tub.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/pigment-tub.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/pressure-tub.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/punch-comb.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/reel-cradle-witness.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/reel-cradle.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/reel-spacer.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/roll-cradle.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/roll-spacer.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/saw-tub.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/service-tub.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/shrink-tub.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/small-tub.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/stock-tub.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/strip-comb.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/terminal-tub.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/tie-tub.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/tip-index.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/tube-comb.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/xh-tub.step",
+        "out/holders/hardware/printed-parts/shop-storage/README.md",
     ],
     cmd = """
 set -e
-O0=$$PWD/$(location out/copper-kit/hardware/printed-parts/shop-storage/copper/copper-dock.step)
-O1=$$PWD/$(location out/copper-kit/hardware/printed-parts/shop-storage/copper/copper-fittings.step)
-O2=$$PWD/$(location out/copper-kit/hardware/printed-parts/shop-storage/copper/copper-kit-open.step)
-O3=$$PWD/$(location out/copper-kit/hardware/printed-parts/shop-storage/copper/copper-kit.step)
-O4=$$PWD/$(location out/copper-kit/hardware/printed-parts/shop-storage/copper/copper-quiver.step)
-O5=$$PWD/$(location out/copper-kit/hardware/printed-parts/shop-storage/copper/copper-rack.step)
-O6=$$PWD/$(location out/copper-kit/hardware/printed-parts/shop-storage/copper/copper-service.step)
-O7=$$PWD/$(location out/copper-kit/hardware/printed-parts/shop-storage/copper/README.figures.json)
-O8=$$PWD/$(location out/copper-kit/hardware/printed-parts/shop-storage/copper/README.md)
+O0=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/adapter-tub.step)
+O1=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/brush-quiver.step)
+O2=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/bulkhead-tub.step)
+O3=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/copper-tub.step)
+O4=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/crimp-comb.step)
+O5=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/cut-comb.step)
+O6=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/deburr-tub.step)
+O7=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/depressor-quiver.step)
+O8=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/die-tub.step)
+O9=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/dock-3x3.step)
+O10=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/dowel-index.step)
+O11=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/drill-index.step)
+O12=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/ferrule-tub.step)
+O13=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/fine-comb.step)
+O14=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/flux-tub.step)
+O15=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/heat-gun-tub.step)
+O16=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/hotend-tub.step)
+O17=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/insert-tub.step)
+O18=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/junction-tub.step)
+O19=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/keystone-tub.step)
+O20=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/lever-tub.step)
+O21=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/m3-tub.step)
+O22=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/m5-tub.step)
+O23=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/npt-tub.step)
+O24=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/pigment-tub.step)
+O25=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/pressure-tub.step)
+O26=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/punch-comb.step)
+O27=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/reel-cradle-witness.step)
+O28=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/reel-cradle.step)
+O29=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/reel-spacer.step)
+O30=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/roll-cradle.step)
+O31=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/roll-spacer.step)
+O32=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/saw-tub.step)
+O33=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/service-tub.step)
+O34=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/shrink-tub.step)
+O35=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/small-tub.step)
+O36=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/stock-tub.step)
+O37=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/strip-comb.step)
+O38=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/terminal-tub.step)
+O39=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/tie-tub.step)
+O40=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/tip-index.step)
+O41=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/tube-comb.step)
+O42=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/xh-tub.step)
+O43=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/README.md)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -6626,643 +6691,51 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/shop-storage/copper/copper_kit.py > /dev/null
-cp hardware/printed-parts/shop-storage/copper/copper-dock.step $$O0
-cp hardware/printed-parts/shop-storage/copper/copper-fittings.step $$O1
-cp hardware/printed-parts/shop-storage/copper/copper-kit-open.step $$O2
-cp hardware/printed-parts/shop-storage/copper/copper-kit.step $$O3
-cp hardware/printed-parts/shop-storage/copper/copper-quiver.step $$O4
-cp hardware/printed-parts/shop-storage/copper/copper-rack.step $$O5
-cp hardware/printed-parts/shop-storage/copper/copper-service.step $$O6
-cp hardware/printed-parts/shop-storage/copper/README.figures.json $$O7
-cp hardware/printed-parts/shop-storage/copper/README.md $$O8
-""",
-)
-
-genrule(
-    name = "drill-press-kit",
-    srcs = [
-        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-        "pysrc/hardware/printed-parts/shop-storage/_kit.py",
-        "hardware/printed-parts/shop-storage/drill-press/README.md",
-        "pysrc/hardware/printed-parts/shop-storage/drill-press/drill_press_kit.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_material_base.py",
-        "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_realized.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/tools/docgen/__init__.py",
-    ] + glob(
-        [
-            "hardware/printed-parts/shop-storage/drill-press/README.figures.json",
-        ],
-        allow_empty = True,
-    ),
-    outs = [
-        "out/drill-press-kit/hardware/printed-parts/shop-storage/drill-press/drill-press-dock.step",
-        "out/drill-press-kit/hardware/printed-parts/shop-storage/drill-press/drill-press-index.step",
-        "out/drill-press-kit/hardware/printed-parts/shop-storage/drill-press/drill-press-kit-open.step",
-        "out/drill-press-kit/hardware/printed-parts/shop-storage/drill-press/drill-press-kit.step",
-        "out/drill-press-kit/hardware/printed-parts/shop-storage/drill-press/drill-press-saw.step",
-        "out/drill-press-kit/hardware/printed-parts/shop-storage/drill-press/README.figures.json",
-        "out/drill-press-kit/hardware/printed-parts/shop-storage/drill-press/README.md",
-    ],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/drill-press-kit/hardware/printed-parts/shop-storage/drill-press/drill-press-dock.step)
-O1=$$PWD/$(location out/drill-press-kit/hardware/printed-parts/shop-storage/drill-press/drill-press-index.step)
-O2=$$PWD/$(location out/drill-press-kit/hardware/printed-parts/shop-storage/drill-press/drill-press-kit-open.step)
-O3=$$PWD/$(location out/drill-press-kit/hardware/printed-parts/shop-storage/drill-press/drill-press-kit.step)
-O4=$$PWD/$(location out/drill-press-kit/hardware/printed-parts/shop-storage/drill-press/drill-press-saw.step)
-O5=$$PWD/$(location out/drill-press-kit/hardware/printed-parts/shop-storage/drill-press/README.figures.json)
-O6=$$PWD/$(location out/drill-press-kit/hardware/printed-parts/shop-storage/drill-press/README.md)
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    */pysrc/*) t=$${f##*/pysrc/};;
-    *) t=$$f;;
-  esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/shop-storage/drill-press/drill_press_kit.py > /dev/null
-cp hardware/printed-parts/shop-storage/drill-press/drill-press-dock.step $$O0
-cp hardware/printed-parts/shop-storage/drill-press/drill-press-index.step $$O1
-cp hardware/printed-parts/shop-storage/drill-press/drill-press-kit-open.step $$O2
-cp hardware/printed-parts/shop-storage/drill-press/drill-press-kit.step $$O3
-cp hardware/printed-parts/shop-storage/drill-press/drill-press-saw.step $$O4
-cp hardware/printed-parts/shop-storage/drill-press/README.figures.json $$O5
-cp hardware/printed-parts/shop-storage/drill-press/README.md $$O6
-""",
-)
-
-genrule(
-    name = "fasteners-kit",
-    srcs = [
-        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-        "pysrc/hardware/printed-parts/shop-storage/_kit.py",
-        "hardware/printed-parts/shop-storage/fasteners/README.md",
-        "pysrc/hardware/printed-parts/shop-storage/fasteners/fasteners_kit.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_material_base.py",
-        "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_realized.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/tools/docgen/__init__.py",
-    ] + glob(
-        [
-            "hardware/printed-parts/shop-storage/fasteners/README.figures.json",
-        ],
-        allow_empty = True,
-    ),
-    outs = [
-        "out/fasteners-kit/hardware/printed-parts/shop-storage/fasteners/fasteners-dock.step",
-        "out/fasteners-kit/hardware/printed-parts/shop-storage/fasteners/fasteners-kit-open.step",
-        "out/fasteners-kit/hardware/printed-parts/shop-storage/fasteners/fasteners-kit.step",
-        "out/fasteners-kit/hardware/printed-parts/shop-storage/fasteners/fasteners-m3.step",
-        "out/fasteners-kit/hardware/printed-parts/shop-storage/fasteners/fasteners-m5.step",
-        "out/fasteners-kit/hardware/printed-parts/shop-storage/fasteners/fasteners-small.step",
-        "out/fasteners-kit/hardware/printed-parts/shop-storage/fasteners/fasteners-tray.step",
-        "out/fasteners-kit/hardware/printed-parts/shop-storage/fasteners/README.figures.json",
-        "out/fasteners-kit/hardware/printed-parts/shop-storage/fasteners/README.md",
-    ],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/fasteners-kit/hardware/printed-parts/shop-storage/fasteners/fasteners-dock.step)
-O1=$$PWD/$(location out/fasteners-kit/hardware/printed-parts/shop-storage/fasteners/fasteners-kit-open.step)
-O2=$$PWD/$(location out/fasteners-kit/hardware/printed-parts/shop-storage/fasteners/fasteners-kit.step)
-O3=$$PWD/$(location out/fasteners-kit/hardware/printed-parts/shop-storage/fasteners/fasteners-m3.step)
-O4=$$PWD/$(location out/fasteners-kit/hardware/printed-parts/shop-storage/fasteners/fasteners-m5.step)
-O5=$$PWD/$(location out/fasteners-kit/hardware/printed-parts/shop-storage/fasteners/fasteners-small.step)
-O6=$$PWD/$(location out/fasteners-kit/hardware/printed-parts/shop-storage/fasteners/fasteners-tray.step)
-O7=$$PWD/$(location out/fasteners-kit/hardware/printed-parts/shop-storage/fasteners/README.figures.json)
-O8=$$PWD/$(location out/fasteners-kit/hardware/printed-parts/shop-storage/fasteners/README.md)
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    */pysrc/*) t=$${f##*/pysrc/};;
-    *) t=$$f;;
-  esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/shop-storage/fasteners/fasteners_kit.py > /dev/null
-cp hardware/printed-parts/shop-storage/fasteners/fasteners-dock.step $$O0
-cp hardware/printed-parts/shop-storage/fasteners/fasteners-kit-open.step $$O1
-cp hardware/printed-parts/shop-storage/fasteners/fasteners-kit.step $$O2
-cp hardware/printed-parts/shop-storage/fasteners/fasteners-m3.step $$O3
-cp hardware/printed-parts/shop-storage/fasteners/fasteners-m5.step $$O4
-cp hardware/printed-parts/shop-storage/fasteners/fasteners-small.step $$O5
-cp hardware/printed-parts/shop-storage/fasteners/fasteners-tray.step $$O6
-cp hardware/printed-parts/shop-storage/fasteners/README.figures.json $$O7
-cp hardware/printed-parts/shop-storage/fasteners/README.md $$O8
-""",
-)
-
-genrule(
-    name = "fittings-kit",
-    srcs = [
-        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-        "pysrc/hardware/printed-parts/shop-storage/_kit.py",
-        "hardware/printed-parts/shop-storage/fittings/README.md",
-        "pysrc/hardware/printed-parts/shop-storage/fittings/fittings_kit.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_material_base.py",
-        "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_realized.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/tools/docgen/__init__.py",
-    ] + glob(
-        [
-            "hardware/printed-parts/shop-storage/fittings/README.figures.json",
-        ],
-        allow_empty = True,
-    ),
-    outs = [
-        "out/fittings-kit/hardware/printed-parts/shop-storage/fittings/fittings-adapters.step",
-        "out/fittings-kit/hardware/printed-parts/shop-storage/fittings/fittings-bulkheads.step",
-        "out/fittings-kit/hardware/printed-parts/shop-storage/fittings/fittings-dock.step",
-        "out/fittings-kit/hardware/printed-parts/shop-storage/fittings/fittings-junctions.step",
-        "out/fittings-kit/hardware/printed-parts/shop-storage/fittings/fittings-kit-open.step",
-        "out/fittings-kit/hardware/printed-parts/shop-storage/fittings/fittings-kit.step",
-        "out/fittings-kit/hardware/printed-parts/shop-storage/fittings/fittings-npt.step",
-        "out/fittings-kit/hardware/printed-parts/shop-storage/fittings/fittings-rack.step",
-        "out/fittings-kit/hardware/printed-parts/shop-storage/fittings/fittings-stock.step",
-        "out/fittings-kit/hardware/printed-parts/shop-storage/fittings/README.figures.json",
-        "out/fittings-kit/hardware/printed-parts/shop-storage/fittings/README.md",
-    ],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/fittings-kit/hardware/printed-parts/shop-storage/fittings/fittings-adapters.step)
-O1=$$PWD/$(location out/fittings-kit/hardware/printed-parts/shop-storage/fittings/fittings-bulkheads.step)
-O2=$$PWD/$(location out/fittings-kit/hardware/printed-parts/shop-storage/fittings/fittings-dock.step)
-O3=$$PWD/$(location out/fittings-kit/hardware/printed-parts/shop-storage/fittings/fittings-junctions.step)
-O4=$$PWD/$(location out/fittings-kit/hardware/printed-parts/shop-storage/fittings/fittings-kit-open.step)
-O5=$$PWD/$(location out/fittings-kit/hardware/printed-parts/shop-storage/fittings/fittings-kit.step)
-O6=$$PWD/$(location out/fittings-kit/hardware/printed-parts/shop-storage/fittings/fittings-npt.step)
-O7=$$PWD/$(location out/fittings-kit/hardware/printed-parts/shop-storage/fittings/fittings-rack.step)
-O8=$$PWD/$(location out/fittings-kit/hardware/printed-parts/shop-storage/fittings/fittings-stock.step)
-O9=$$PWD/$(location out/fittings-kit/hardware/printed-parts/shop-storage/fittings/README.figures.json)
-O10=$$PWD/$(location out/fittings-kit/hardware/printed-parts/shop-storage/fittings/README.md)
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    */pysrc/*) t=$${f##*/pysrc/};;
-    *) t=$$f;;
-  esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/shop-storage/fittings/fittings_kit.py > /dev/null
-cp hardware/printed-parts/shop-storage/fittings/fittings-adapters.step $$O0
-cp hardware/printed-parts/shop-storage/fittings/fittings-bulkheads.step $$O1
-cp hardware/printed-parts/shop-storage/fittings/fittings-dock.step $$O2
-cp hardware/printed-parts/shop-storage/fittings/fittings-junctions.step $$O3
-cp hardware/printed-parts/shop-storage/fittings/fittings-kit-open.step $$O4
-cp hardware/printed-parts/shop-storage/fittings/fittings-kit.step $$O5
-cp hardware/printed-parts/shop-storage/fittings/fittings-npt.step $$O6
-cp hardware/printed-parts/shop-storage/fittings/fittings-rack.step $$O7
-cp hardware/printed-parts/shop-storage/fittings/fittings-stock.step $$O8
-cp hardware/printed-parts/shop-storage/fittings/README.figures.json $$O9
-cp hardware/printed-parts/shop-storage/fittings/README.md $$O10
-""",
-)
-
-genrule(
-    name = "harness-kit",
-    srcs = [
-        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-        "pysrc/hardware/printed-parts/shop-storage/_kit.py",
-        "hardware/printed-parts/shop-storage/harness/README.md",
-        "pysrc/hardware/printed-parts/shop-storage/harness/harness_kit.py",
-        "pysrc/hardware/reference/wago-221/wago_221.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_material_base.py",
-        "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_realized.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/tools/docgen/__init__.py",
-    ] + glob(
-        [
-            "hardware/printed-parts/shop-storage/harness/README.figures.json",
-        ],
-        allow_empty = True,
-    ),
-    outs = [
-        "out/harness-kit/hardware/printed-parts/shop-storage/harness/harness-dock.step",
-        "out/harness-kit/hardware/printed-parts/shop-storage/harness/harness-ferrules.step",
-        "out/harness-kit/hardware/printed-parts/shop-storage/harness/harness-kit-open.step",
-        "out/harness-kit/hardware/printed-parts/shop-storage/harness/harness-kit.step",
-        "out/harness-kit/hardware/printed-parts/shop-storage/harness/harness-levers.step",
-        "out/harness-kit/hardware/printed-parts/shop-storage/harness/harness-rack.step",
-        "out/harness-kit/hardware/printed-parts/shop-storage/harness/harness-shrink.step",
-        "out/harness-kit/hardware/printed-parts/shop-storage/harness/harness-terminals.step",
-        "out/harness-kit/hardware/printed-parts/shop-storage/harness/harness-ties.step",
-        "out/harness-kit/hardware/printed-parts/shop-storage/harness/README.figures.json",
-        "out/harness-kit/hardware/printed-parts/shop-storage/harness/README.md",
-    ],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/harness-kit/hardware/printed-parts/shop-storage/harness/harness-dock.step)
-O1=$$PWD/$(location out/harness-kit/hardware/printed-parts/shop-storage/harness/harness-ferrules.step)
-O2=$$PWD/$(location out/harness-kit/hardware/printed-parts/shop-storage/harness/harness-kit-open.step)
-O3=$$PWD/$(location out/harness-kit/hardware/printed-parts/shop-storage/harness/harness-kit.step)
-O4=$$PWD/$(location out/harness-kit/hardware/printed-parts/shop-storage/harness/harness-levers.step)
-O5=$$PWD/$(location out/harness-kit/hardware/printed-parts/shop-storage/harness/harness-rack.step)
-O6=$$PWD/$(location out/harness-kit/hardware/printed-parts/shop-storage/harness/harness-shrink.step)
-O7=$$PWD/$(location out/harness-kit/hardware/printed-parts/shop-storage/harness/harness-terminals.step)
-O8=$$PWD/$(location out/harness-kit/hardware/printed-parts/shop-storage/harness/harness-ties.step)
-O9=$$PWD/$(location out/harness-kit/hardware/printed-parts/shop-storage/harness/README.figures.json)
-O10=$$PWD/$(location out/harness-kit/hardware/printed-parts/shop-storage/harness/README.md)
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    */pysrc/*) t=$${f##*/pysrc/};;
-    *) t=$$f;;
-  esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/shop-storage/harness/harness_kit.py > /dev/null
-cp hardware/printed-parts/shop-storage/harness/harness-dock.step $$O0
-cp hardware/printed-parts/shop-storage/harness/harness-ferrules.step $$O1
-cp hardware/printed-parts/shop-storage/harness/harness-kit-open.step $$O2
-cp hardware/printed-parts/shop-storage/harness/harness-kit.step $$O3
-cp hardware/printed-parts/shop-storage/harness/harness-levers.step $$O4
-cp hardware/printed-parts/shop-storage/harness/harness-rack.step $$O5
-cp hardware/printed-parts/shop-storage/harness/harness-shrink.step $$O6
-cp hardware/printed-parts/shop-storage/harness/harness-terminals.step $$O7
-cp hardware/printed-parts/shop-storage/harness/harness-ties.step $$O8
-cp hardware/printed-parts/shop-storage/harness/README.figures.json $$O9
-cp hardware/printed-parts/shop-storage/harness/README.md $$O10
-""",
-)
-
-genrule(
-    name = "hotends-kit",
-    srcs = [
-        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-        "pysrc/hardware/printed-parts/shop-storage/_kit.py",
-        "hardware/printed-parts/shop-storage/hotends/README.md",
-        "pysrc/hardware/printed-parts/shop-storage/hotends/hotends_kit.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_material_base.py",
-        "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_realized.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/tools/docgen/__init__.py",
-    ] + glob(
-        [
-            "hardware/printed-parts/shop-storage/hotends/README.figures.json",
-        ],
-        allow_empty = True,
-    ),
-    outs = [
-        "out/hotends-kit/hardware/printed-parts/shop-storage/hotends/hotends-dock.step",
-        "out/hotends-kit/hardware/printed-parts/shop-storage/hotends/hotends-kit-open.step",
-        "out/hotends-kit/hardware/printed-parts/shop-storage/hotends/hotends-kit.step",
-        "out/hotends-kit/hardware/printed-parts/shop-storage/hotends/hotends-rack.step",
-        "out/hotends-kit/hardware/printed-parts/shop-storage/hotends/hotends-swap.step",
-        "out/hotends-kit/hardware/printed-parts/shop-storage/hotends/README.figures.json",
-        "out/hotends-kit/hardware/printed-parts/shop-storage/hotends/README.md",
-    ],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/hotends-kit/hardware/printed-parts/shop-storage/hotends/hotends-dock.step)
-O1=$$PWD/$(location out/hotends-kit/hardware/printed-parts/shop-storage/hotends/hotends-kit-open.step)
-O2=$$PWD/$(location out/hotends-kit/hardware/printed-parts/shop-storage/hotends/hotends-kit.step)
-O3=$$PWD/$(location out/hotends-kit/hardware/printed-parts/shop-storage/hotends/hotends-rack.step)
-O4=$$PWD/$(location out/hotends-kit/hardware/printed-parts/shop-storage/hotends/hotends-swap.step)
-O5=$$PWD/$(location out/hotends-kit/hardware/printed-parts/shop-storage/hotends/README.figures.json)
-O6=$$PWD/$(location out/hotends-kit/hardware/printed-parts/shop-storage/hotends/README.md)
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    */pysrc/*) t=$${f##*/pysrc/};;
-    *) t=$$f;;
-  esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/shop-storage/hotends/hotends_kit.py > /dev/null
-cp hardware/printed-parts/shop-storage/hotends/hotends-dock.step $$O0
-cp hardware/printed-parts/shop-storage/hotends/hotends-kit-open.step $$O1
-cp hardware/printed-parts/shop-storage/hotends/hotends-kit.step $$O2
-cp hardware/printed-parts/shop-storage/hotends/hotends-rack.step $$O3
-cp hardware/printed-parts/shop-storage/hotends/hotends-swap.step $$O4
-cp hardware/printed-parts/shop-storage/hotends/README.figures.json $$O5
-cp hardware/printed-parts/shop-storage/hotends/README.md $$O6
-""",
-)
-
-genrule(
-    name = "jst-crimping-tower",
-    srcs = [
-        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-        "pysrc/hardware/printed-parts/shop-storage/_kit.py",
-        "hardware/printed-parts/shop-storage/jst-crimping/README.md",
-        "pysrc/hardware/printed-parts/shop-storage/jst-crimping/jst_crimping_tower.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_material_base.py",
-        "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_realized.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/tools/docgen/__init__.py",
-    ] + glob(
-        [
-            "hardware/printed-parts/shop-storage/jst-crimping/README.figures.json",
-        ],
-        allow_empty = True,
-    ),
-    outs = [
-        "out/jst-crimping-tower/hardware/printed-parts/shop-storage/jst-crimping/consumables-drawer.step",
-        "out/jst-crimping-tower/hardware/printed-parts/shop-storage/jst-crimping/gridfinity-shelf.step",
-        "out/jst-crimping-tower/hardware/printed-parts/shop-storage/jst-crimping/jst-crimping-tower.step",
-        "out/jst-crimping-tower/hardware/printed-parts/shop-storage/jst-crimping/spool-shelf.step",
-        "out/jst-crimping-tower/hardware/printed-parts/shop-storage/jst-crimping/tool-rack.step",
-        "out/jst-crimping-tower/hardware/printed-parts/shop-storage/jst-crimping/tower-base.step",
-        "out/jst-crimping-tower/hardware/printed-parts/shop-storage/jst-crimping/README.figures.json",
-        "out/jst-crimping-tower/hardware/printed-parts/shop-storage/jst-crimping/README.md",
-    ],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/jst-crimping-tower/hardware/printed-parts/shop-storage/jst-crimping/consumables-drawer.step)
-O1=$$PWD/$(location out/jst-crimping-tower/hardware/printed-parts/shop-storage/jst-crimping/gridfinity-shelf.step)
-O2=$$PWD/$(location out/jst-crimping-tower/hardware/printed-parts/shop-storage/jst-crimping/jst-crimping-tower.step)
-O3=$$PWD/$(location out/jst-crimping-tower/hardware/printed-parts/shop-storage/jst-crimping/spool-shelf.step)
-O4=$$PWD/$(location out/jst-crimping-tower/hardware/printed-parts/shop-storage/jst-crimping/tool-rack.step)
-O5=$$PWD/$(location out/jst-crimping-tower/hardware/printed-parts/shop-storage/jst-crimping/tower-base.step)
-O6=$$PWD/$(location out/jst-crimping-tower/hardware/printed-parts/shop-storage/jst-crimping/README.figures.json)
-O7=$$PWD/$(location out/jst-crimping-tower/hardware/printed-parts/shop-storage/jst-crimping/README.md)
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    */pysrc/*) t=$${f##*/pysrc/};;
-    *) t=$$f;;
-  esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/shop-storage/jst-crimping/jst_crimping_tower.py > /dev/null
-cp hardware/printed-parts/shop-storage/jst-crimping/consumables-drawer.step $$O0
-cp hardware/printed-parts/shop-storage/jst-crimping/gridfinity-shelf.step $$O1
-cp hardware/printed-parts/shop-storage/jst-crimping/jst-crimping-tower.step $$O2
-cp hardware/printed-parts/shop-storage/jst-crimping/spool-shelf.step $$O3
-cp hardware/printed-parts/shop-storage/jst-crimping/tool-rack.step $$O4
-cp hardware/printed-parts/shop-storage/jst-crimping/tower-base.step $$O5
-cp hardware/printed-parts/shop-storage/jst-crimping/README.figures.json $$O6
-cp hardware/printed-parts/shop-storage/jst-crimping/README.md $$O7
-""",
-)
-
-genrule(
-    name = "pour-kit",
-    srcs = [
-        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-        "pysrc/hardware/printed-parts/shop-storage/_kit.py",
-        "hardware/printed-parts/shop-storage/pour/README.md",
-        "pysrc/hardware/printed-parts/shop-storage/pour/pour_kit.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_material_base.py",
-        "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_realized.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/tools/docgen/__init__.py",
-        "tools/render/browser.js",
-        "tools/render/render-step-posed.js",
-        "web/server.js",
-        ":node-packages",
-    ] + glob(
-        [
-            "hardware/printed-parts/shop-storage/pour/README.figures.json",
-        ],
-        allow_empty = True,
-    ),
-    outs = [
-        "out/pour-kit/hardware/printed-parts/shop-storage/pour/pour-dock.step",
-        "out/pour-kit/hardware/printed-parts/shop-storage/pour/pour-gauge.step",
-        "out/pour-kit/hardware/printed-parts/shop-storage/pour/pour-kit-open.step",
-        "out/pour-kit/hardware/printed-parts/shop-storage/pour/pour-kit.step",
-        "out/pour-kit/hardware/printed-parts/shop-storage/pour/pour-mix.step",
-        "out/pour-kit/hardware/printed-parts/shop-storage/pour/pour-rack.step",
-        "out/pour-kit/hardware/printed-parts/shop-storage/pour/README.figures.json",
-        "out/pour-kit/hardware/printed-parts/shop-storage/pour/README.md",
-    ],
-    tags = ["requires-network"],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/pour-kit/hardware/printed-parts/shop-storage/pour/pour-dock.step)
-O1=$$PWD/$(location out/pour-kit/hardware/printed-parts/shop-storage/pour/pour-gauge.step)
-O2=$$PWD/$(location out/pour-kit/hardware/printed-parts/shop-storage/pour/pour-kit-open.step)
-O3=$$PWD/$(location out/pour-kit/hardware/printed-parts/shop-storage/pour/pour-kit.step)
-O4=$$PWD/$(location out/pour-kit/hardware/printed-parts/shop-storage/pour/pour-mix.step)
-O5=$$PWD/$(location out/pour-kit/hardware/printed-parts/shop-storage/pour/pour-rack.step)
-O6=$$PWD/$(location out/pour-kit/hardware/printed-parts/shop-storage/pour/README.figures.json)
-O7=$$PWD/$(location out/pour-kit/hardware/printed-parts/shop-storage/pour/README.md)
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    */pysrc/*) t=$${f##*/pysrc/};;
-    *) t=$$f;;
-  esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/shop-storage/pour/pour_kit.py > /dev/null
-cp hardware/printed-parts/shop-storage/pour/pour-dock.step $$O0
-cp hardware/printed-parts/shop-storage/pour/pour-gauge.step $$O1
-cp hardware/printed-parts/shop-storage/pour/pour-kit-open.step $$O2
-cp hardware/printed-parts/shop-storage/pour/pour-kit.step $$O3
-cp hardware/printed-parts/shop-storage/pour/pour-mix.step $$O4
-cp hardware/printed-parts/shop-storage/pour/pour-rack.step $$O5
-cp hardware/printed-parts/shop-storage/pour/README.figures.json $$O6
-cp hardware/printed-parts/shop-storage/pour/README.md $$O7
-""",
-)
-
-genrule(
-    name = "solder-kit",
-    srcs = [
-        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-        "pysrc/hardware/printed-parts/shop-storage/_kit.py",
-        "hardware/printed-parts/shop-storage/solder/README.md",
-        "pysrc/hardware/printed-parts/shop-storage/solder/solder_kit.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_material_base.py",
-        "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_realized.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/tools/docgen/__init__.py",
-    ] + glob(
-        [
-            "hardware/printed-parts/shop-storage/solder/README.figures.json",
-        ],
-        allow_empty = True,
-    ),
-    outs = [
-        "out/solder-kit/hardware/printed-parts/shop-storage/solder/solder-dock.step",
-        "out/solder-kit/hardware/printed-parts/shop-storage/solder/solder-kit-open.step",
-        "out/solder-kit/hardware/printed-parts/shop-storage/solder/solder-kit.step",
-        "out/solder-kit/hardware/printed-parts/shop-storage/solder/solder-rework.step",
-        "out/solder-kit/hardware/printed-parts/shop-storage/solder/solder-stock.step",
-        "out/solder-kit/hardware/printed-parts/shop-storage/solder/solder-tips.step",
-        "out/solder-kit/hardware/printed-parts/shop-storage/solder/README.figures.json",
-        "out/solder-kit/hardware/printed-parts/shop-storage/solder/README.md",
-    ],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/solder-kit/hardware/printed-parts/shop-storage/solder/solder-dock.step)
-O1=$$PWD/$(location out/solder-kit/hardware/printed-parts/shop-storage/solder/solder-kit-open.step)
-O2=$$PWD/$(location out/solder-kit/hardware/printed-parts/shop-storage/solder/solder-kit.step)
-O3=$$PWD/$(location out/solder-kit/hardware/printed-parts/shop-storage/solder/solder-rework.step)
-O4=$$PWD/$(location out/solder-kit/hardware/printed-parts/shop-storage/solder/solder-stock.step)
-O5=$$PWD/$(location out/solder-kit/hardware/printed-parts/shop-storage/solder/solder-tips.step)
-O6=$$PWD/$(location out/solder-kit/hardware/printed-parts/shop-storage/solder/README.figures.json)
-O7=$$PWD/$(location out/solder-kit/hardware/printed-parts/shop-storage/solder/README.md)
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    */pysrc/*) t=$${f##*/pysrc/};;
-    *) t=$$f;;
-  esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/shop-storage/solder/solder_kit.py > /dev/null
-cp hardware/printed-parts/shop-storage/solder/solder-dock.step $$O0
-cp hardware/printed-parts/shop-storage/solder/solder-kit-open.step $$O1
-cp hardware/printed-parts/shop-storage/solder/solder-kit.step $$O2
-cp hardware/printed-parts/shop-storage/solder/solder-rework.step $$O3
-cp hardware/printed-parts/shop-storage/solder/solder-stock.step $$O4
-cp hardware/printed-parts/shop-storage/solder/solder-tips.step $$O5
-cp hardware/printed-parts/shop-storage/solder/README.figures.json $$O6
-cp hardware/printed-parts/shop-storage/solder/README.md $$O7
-""",
-)
-
-genrule(
-    name = "umbilical-kit",
-    srcs = [
-        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-        "pysrc/hardware/printed-parts/shop-storage/_kit.py",
-        "hardware/printed-parts/shop-storage/umbilical/README.md",
-        "pysrc/hardware/printed-parts/shop-storage/umbilical/umbilical_kit.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_material_base.py",
-        "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_realized.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/tools/docgen/__init__.py",
-    ] + glob(
-        [
-            "hardware/printed-parts/shop-storage/umbilical/README.figures.json",
-        ],
-        allow_empty = True,
-    ),
-    outs = [
-        "out/umbilical-kit/hardware/printed-parts/shop-storage/umbilical/umbilical-dock.step",
-        "out/umbilical-kit/hardware/printed-parts/shop-storage/umbilical/umbilical-kit-open.step",
-        "out/umbilical-kit/hardware/printed-parts/shop-storage/umbilical/umbilical-kit.step",
-        "out/umbilical-kit/hardware/printed-parts/shop-storage/umbilical/umbilical-rack.step",
-        "out/umbilical-kit/hardware/printed-parts/shop-storage/umbilical/umbilical-ribbon.step",
-        "out/umbilical-kit/hardware/printed-parts/shop-storage/umbilical/umbilical-stand.step",
-        "out/umbilical-kit/hardware/printed-parts/shop-storage/umbilical/umbilical-terminations.step",
-        "out/umbilical-kit/hardware/printed-parts/shop-storage/umbilical/README.figures.json",
-        "out/umbilical-kit/hardware/printed-parts/shop-storage/umbilical/README.md",
-    ],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/umbilical-kit/hardware/printed-parts/shop-storage/umbilical/umbilical-dock.step)
-O1=$$PWD/$(location out/umbilical-kit/hardware/printed-parts/shop-storage/umbilical/umbilical-kit-open.step)
-O2=$$PWD/$(location out/umbilical-kit/hardware/printed-parts/shop-storage/umbilical/umbilical-kit.step)
-O3=$$PWD/$(location out/umbilical-kit/hardware/printed-parts/shop-storage/umbilical/umbilical-rack.step)
-O4=$$PWD/$(location out/umbilical-kit/hardware/printed-parts/shop-storage/umbilical/umbilical-ribbon.step)
-O5=$$PWD/$(location out/umbilical-kit/hardware/printed-parts/shop-storage/umbilical/umbilical-stand.step)
-O6=$$PWD/$(location out/umbilical-kit/hardware/printed-parts/shop-storage/umbilical/umbilical-terminations.step)
-O7=$$PWD/$(location out/umbilical-kit/hardware/printed-parts/shop-storage/umbilical/README.figures.json)
-O8=$$PWD/$(location out/umbilical-kit/hardware/printed-parts/shop-storage/umbilical/README.md)
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    */pysrc/*) t=$${f##*/pysrc/};;
-    *) t=$$f;;
-  esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/shop-storage/umbilical/umbilical_kit.py > /dev/null
-cp hardware/printed-parts/shop-storage/umbilical/umbilical-dock.step $$O0
-cp hardware/printed-parts/shop-storage/umbilical/umbilical-kit-open.step $$O1
-cp hardware/printed-parts/shop-storage/umbilical/umbilical-kit.step $$O2
-cp hardware/printed-parts/shop-storage/umbilical/umbilical-rack.step $$O3
-cp hardware/printed-parts/shop-storage/umbilical/umbilical-ribbon.step $$O4
-cp hardware/printed-parts/shop-storage/umbilical/umbilical-stand.step $$O5
-cp hardware/printed-parts/shop-storage/umbilical/umbilical-terminations.step $$O6
-cp hardware/printed-parts/shop-storage/umbilical/README.figures.json $$O7
-cp hardware/printed-parts/shop-storage/umbilical/README.md $$O8
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/shop-storage/holders.py > /dev/null
+cp hardware/printed-parts/shop-storage/holders/adapter-tub.step $$O0
+cp hardware/printed-parts/shop-storage/holders/brush-quiver.step $$O1
+cp hardware/printed-parts/shop-storage/holders/bulkhead-tub.step $$O2
+cp hardware/printed-parts/shop-storage/holders/copper-tub.step $$O3
+cp hardware/printed-parts/shop-storage/holders/crimp-comb.step $$O4
+cp hardware/printed-parts/shop-storage/holders/cut-comb.step $$O5
+cp hardware/printed-parts/shop-storage/holders/deburr-tub.step $$O6
+cp hardware/printed-parts/shop-storage/holders/depressor-quiver.step $$O7
+cp hardware/printed-parts/shop-storage/holders/die-tub.step $$O8
+cp hardware/printed-parts/shop-storage/holders/dock-3x3.step $$O9
+cp hardware/printed-parts/shop-storage/holders/dowel-index.step $$O10
+cp hardware/printed-parts/shop-storage/holders/drill-index.step $$O11
+cp hardware/printed-parts/shop-storage/holders/ferrule-tub.step $$O12
+cp hardware/printed-parts/shop-storage/holders/fine-comb.step $$O13
+cp hardware/printed-parts/shop-storage/holders/flux-tub.step $$O14
+cp hardware/printed-parts/shop-storage/holders/heat-gun-tub.step $$O15
+cp hardware/printed-parts/shop-storage/holders/hotend-tub.step $$O16
+cp hardware/printed-parts/shop-storage/holders/insert-tub.step $$O17
+cp hardware/printed-parts/shop-storage/holders/junction-tub.step $$O18
+cp hardware/printed-parts/shop-storage/holders/keystone-tub.step $$O19
+cp hardware/printed-parts/shop-storage/holders/lever-tub.step $$O20
+cp hardware/printed-parts/shop-storage/holders/m3-tub.step $$O21
+cp hardware/printed-parts/shop-storage/holders/m5-tub.step $$O22
+cp hardware/printed-parts/shop-storage/holders/npt-tub.step $$O23
+cp hardware/printed-parts/shop-storage/holders/pigment-tub.step $$O24
+cp hardware/printed-parts/shop-storage/holders/pressure-tub.step $$O25
+cp hardware/printed-parts/shop-storage/holders/punch-comb.step $$O26
+cp hardware/printed-parts/shop-storage/holders/reel-cradle-witness.step $$O27
+cp hardware/printed-parts/shop-storage/holders/reel-cradle.step $$O28
+cp hardware/printed-parts/shop-storage/holders/reel-spacer.step $$O29
+cp hardware/printed-parts/shop-storage/holders/roll-cradle.step $$O30
+cp hardware/printed-parts/shop-storage/holders/roll-spacer.step $$O31
+cp hardware/printed-parts/shop-storage/holders/saw-tub.step $$O32
+cp hardware/printed-parts/shop-storage/holders/service-tub.step $$O33
+cp hardware/printed-parts/shop-storage/holders/shrink-tub.step $$O34
+cp hardware/printed-parts/shop-storage/holders/small-tub.step $$O35
+cp hardware/printed-parts/shop-storage/holders/stock-tub.step $$O36
+cp hardware/printed-parts/shop-storage/holders/strip-comb.step $$O37
+cp hardware/printed-parts/shop-storage/holders/terminal-tub.step $$O38
+cp hardware/printed-parts/shop-storage/holders/tie-tub.step $$O39
+cp hardware/printed-parts/shop-storage/holders/tip-index.step $$O40
+cp hardware/printed-parts/shop-storage/holders/tube-comb.step $$O41
+cp hardware/printed-parts/shop-storage/holders/xh-tub.step $$O42
+cp hardware/printed-parts/shop-storage/README.md $$O43
 """,
 )
 
@@ -10936,81 +10409,9 @@ genrule(
 )
 
 genrule(
-    name = "pysrc-c3d7aea01265",
-    srcs = ["hardware/printed-parts/shop-storage/copper/copper_kit.py"],
-    outs = ["pysrc/hardware/printed-parts/shop-storage/copper/copper_kit.py"],
-    tools = ["tools/bazel/pysrc.py"],
-    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
-)
-
-genrule(
-    name = "pysrc-6d9df5bf0c0b",
-    srcs = ["hardware/printed-parts/shop-storage/drill-press/drill_press_kit.py"],
-    outs = ["pysrc/hardware/printed-parts/shop-storage/drill-press/drill_press_kit.py"],
-    tools = ["tools/bazel/pysrc.py"],
-    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
-)
-
-genrule(
-    name = "pysrc-1a2c09395b70",
-    srcs = ["hardware/printed-parts/shop-storage/fasteners/fasteners_kit.py"],
-    outs = ["pysrc/hardware/printed-parts/shop-storage/fasteners/fasteners_kit.py"],
-    tools = ["tools/bazel/pysrc.py"],
-    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
-)
-
-genrule(
-    name = "pysrc-04b7a4ee5694",
-    srcs = ["hardware/printed-parts/shop-storage/fittings/fittings_kit.py"],
-    outs = ["pysrc/hardware/printed-parts/shop-storage/fittings/fittings_kit.py"],
-    tools = ["tools/bazel/pysrc.py"],
-    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
-)
-
-genrule(
-    name = "pysrc-b0f674d4c7cc",
-    srcs = ["hardware/printed-parts/shop-storage/harness/harness_kit.py"],
-    outs = ["pysrc/hardware/printed-parts/shop-storage/harness/harness_kit.py"],
-    tools = ["tools/bazel/pysrc.py"],
-    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
-)
-
-genrule(
-    name = "pysrc-39d13cfaa987",
-    srcs = ["hardware/printed-parts/shop-storage/hotends/hotends_kit.py"],
-    outs = ["pysrc/hardware/printed-parts/shop-storage/hotends/hotends_kit.py"],
-    tools = ["tools/bazel/pysrc.py"],
-    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
-)
-
-genrule(
-    name = "pysrc-82af05c2e19a",
-    srcs = ["hardware/printed-parts/shop-storage/jst-crimping/jst_crimping_tower.py"],
-    outs = ["pysrc/hardware/printed-parts/shop-storage/jst-crimping/jst_crimping_tower.py"],
-    tools = ["tools/bazel/pysrc.py"],
-    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
-)
-
-genrule(
-    name = "pysrc-bef0ed916e5b",
-    srcs = ["hardware/printed-parts/shop-storage/pour/pour_kit.py"],
-    outs = ["pysrc/hardware/printed-parts/shop-storage/pour/pour_kit.py"],
-    tools = ["tools/bazel/pysrc.py"],
-    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
-)
-
-genrule(
-    name = "pysrc-8134ba76de1e",
-    srcs = ["hardware/printed-parts/shop-storage/solder/solder_kit.py"],
-    outs = ["pysrc/hardware/printed-parts/shop-storage/solder/solder_kit.py"],
-    tools = ["tools/bazel/pysrc.py"],
-    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
-)
-
-genrule(
-    name = "pysrc-baec7549dee3",
-    srcs = ["hardware/printed-parts/shop-storage/umbilical/umbilical_kit.py"],
-    outs = ["pysrc/hardware/printed-parts/shop-storage/umbilical/umbilical_kit.py"],
+    name = "pysrc-ed18464c1be7",
+    srcs = ["hardware/printed-parts/shop-storage/holders.py"],
+    outs = ["pysrc/hardware/printed-parts/shop-storage/holders.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -16690,6 +16091,17 @@ sh_test(
 )
 
 sh_test(
+    name = "bound-selftest",
+    srcs = ["tools/bazel/selftest.sh"],
+    data = [
+        "hardware/printed-parts/shop-storage/_bound.py",
+    ],
+    args = ["hardware/printed-parts/shop-storage/_bound.py"],
+    size = "large",
+    tags = ["local"],
+)
+
+sh_test(
     name = "kit-selftest",
     srcs = ["tools/bazel/selftest.sh"],
     data = [
@@ -22119,16 +21531,7 @@ filegroup(
         ":tee-valve-bow-trial",
         ":weld-rotator",
         ":fuse-clamp",
-        ":copper-kit",
-        ":drill-press-kit",
-        ":fasteners-kit",
-        ":fittings-kit",
-        ":harness-kit",
-        ":hotends-kit",
-        ":jst-crimping-tower",
-        ":pour-kit",
-        ":solder-kit",
-        ":umbilical-kit",
+        ":holders",
         ":valve-seat",
         ":funnel-mold",
         ":funnel",

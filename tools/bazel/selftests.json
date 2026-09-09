@@ -420,6 +420,9 @@
     "hardware/scripts/_stated_bounds.py",
     "tools/docgen/__init__.py"
   ],
+  "hardware/printed-parts/shop-storage/_bound.py": [
+    "hardware/printed-parts/shop-storage/_bound.py"
+  ],
   "hardware/printed-parts/shop-storage/_kit.py": [
     "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
     "hardware/printed-parts/shop-storage/_kit.py",
