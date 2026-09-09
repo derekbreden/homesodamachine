@@ -433,12 +433,10 @@ tr:last-child td { border-bottom: none; }
   min-height: 0;
   margin: 70px 96px 0;
   padding-top: 0;
-  border-radius: 10px;
-  background-color: var(--paper);
-  background-image: url("../quickstart/art/machine-back-close.png");
+  background-image: url("art/nameplate.png");
   background-repeat: no-repeat;
-  background-position: 26% 62%;
-  background-size: 1560px auto;
+  background-position: center;
+  background-size: contain;
 }
 .back-cover .cover-foot { padding: 56px 135px 116px; font-size: 35px; }
 .back-cover .cover-foot p + p { margin-top: 26px; }
