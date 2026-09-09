@@ -63,10 +63,10 @@ One cast part per unit: the funnel, ~153 g of 1:1 platinum silicone poured into 
 
 | Operation | Cards | Notes | Minutes |
 |---|---|---|---:|
-| Release the cavity, release the sealed core, close and clamp | — | Ease Release 200 on both faces every pour | 5 |
+| Release both forming faces, seat the rod, set the nuts and washers | — | Ease Release 200 on both faces every pour | 5 |
 | Weigh, pigment, mix and vacuum-degas 153 g of silicone | — | 1:1 by weight, ≤2 % black pigment, chamber until it falls back | 10 |
-| Pour through the port, watch the five vents, rack to cure | — | Cure is unattended | 5 |
-| Demold, trim the port and vent flash | — | 3 mm wall, 40A — it wants to tear if the release is thin | 5 |
+| Pour the open cavity, lower the core, vacuum and top up, rack to cure | — | The cure and the vacuum hold are unattended | 5 |
+| Demold, trim the sacrificial tip and the port and vent flash | — | 6 mm wall, 40A — the spout still wants to tear if the release is thin | 5 |
 | Post-cure bake — load and unload the oven | — | Bake is unattended | 5 |
 | Re-sand, re-seal and re-release the core as the film wears | — | Amortized across the pulls one seal coat survives | 5 |
 | **Silicone casting** | | | **[35](LAB_SEC4)** |
