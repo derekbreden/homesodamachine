@@ -21,6 +21,14 @@ directory is in no Bazel target, in no `BUNDLED_ART_DIRS` list, and in no `.giti
 the PDFs, their covers and their sidecars are committed bytes. The site finds them by walking
 `hardware/` for a `.pdf` beside a `.pdf.json`, so nothing registers them anywhere.
 
+Two readings this does not cover. `trace_inputs.py`'s `_generators` takes every tracked `.py`
+outside `ELSEWHERE = ("tools/", "hardware/pcb/pcba/")` that holds the literal
+`__name__ == "__main__"`; both of these do, so a full sweep traces them and `gen_build.py`
+gives each a rule. And `affected.py --artifacts` over the commit that added them names both as
+paths it cannot scope, which widens that slice to every artifact rule.
+`tools/weld-rotator-guide/` is the same kind of pair placed where neither reading reaches it
+([`weld-rotator-guide/README.md`](/hardware/weld-rotator-guide/README.md)).
+
 They carry the numbers the funnel mold's source files held on **2026-09-09**. A printed guide is
 a snapshot; when the geometry moves, run both scripts again and commit the new PDFs.
 
