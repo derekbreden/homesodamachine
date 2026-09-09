@@ -29,9 +29,11 @@
 // sin(pi*d) spends about 24 dB between a 2% pulse and a 50% one, and that is
 // the whole dynamic range this machine has. It is spent deliberately: the tick
 // a user hears hundreds of times sits at the bottom, and the gas alarm — the
-// one sound that has to carry into another room — holds the top alone. A tick
-// at full duty would leave the alarm nowhere to go, which is why SND_TICK is
-// quiet and why nothing but SND_ALARM is allowed at SOUND_MAX_DUTY.
+// one sound that has to carry into another room — holds the top of what a
+// machine plays. A tick at full duty would leave the alarm nowhere to go, which
+// is why SND_TICK is quiet and why SND_ALARM is the only sound in an appliance
+// at SOUND_MAX_DUTY. SND_PROBE is there too and is the bench's, sounded by a
+// hand on a jumper and by nothing in this firmware.
 //
 // ── Silencing ─────────────────────────────────────────────────────────────
 // Volume, mute and quiet hours all apply to every sound EXCEPT those carrying

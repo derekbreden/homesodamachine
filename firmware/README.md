@@ -34,7 +34,7 @@ So the rule, and it is a rule rather than an optimisation:
 
 - **The main board answers; it never interrupts.** Every frame it puts on the pair goes out inside the window immediately after one arrives. Anything the machine wants to volunteer — a prime that timed out, a bounded run that finished, the image reconcile asking both stores what they hold — is queued in [`src_appliance/link.cpp`](src_appliance/link.cpp) and flushed in that window, and so is every question the console puts to the glass. `linkPing` is the one deliberate exception, and it is a bench command with nobody expected to answer.
 - **The glass sends one frame at a time.** Everything posts to the outbound queue in [`src_front/main.cpp`](src_front/main.cpp), and the next frame waits for the answer or for the turnaround window to lapse. The exception is a reply made from inside the turn that asked for it — `MSG_RESP_UI_SHOW`, `MSG_RESP_TEST_SCREEN` and `MSG_RESP_DISPLAY_USB_REATTACH` answer on the wire the main board is still holding open. One press is one frame — a button that already speaks for itself sends no separate click, and the main board makes the tick off the command it received.
-- **The glass polls on an interval,** because the main board no longer speaks unprompted. That poll is the ceiling on how stale news from the base can be.
+- **The glass polls on an interval,** because that poll is the only window the main board has to speak in. It is the ceiling on how stale news from the base can be.
 
 HOME's flavor query is one of those turns: 250 ms while lit and 500 ms while dark.
 It carries main board flavor truth and durability to the enclosure, including selections
@@ -160,7 +160,7 @@ images relay <slot>    carry one to the enclosure over the radio
 Three constraints the main board and the supply impose, each carried by a part that pays for a violation. They are in [`firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md) §9 as well, where the factory confirms them per unit.
 
 - **At most 3 solenoid valves energized at once.** Eight coils on MANIFOLD A draw 2.4–3.7 A through J1's `COM` contact, rated ~3 A, and dissipate it in one SOIC-18 (U4). The canonical valve states open at most three ([`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topology.md)); the ceiling is [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md) "Solenoid COM current budget".
-- **Relay #2 (`IO2`) off while a dispense is open.** The main board peaks at 3.33 A and the SeaFlo diaphragm pump at 5 A on the same 12 V rail — 8.32 A together, against a 6.7 A supply. The carbonator's low reed asserts mid-pour, so the refill it queues waits for the dispense window to close ([`/hardware/assembly/acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) step 5). Nothing in hardware enforces this.
+- **Relay #2 (`IO2`) off while a dispense is open.** The main board peaks at 3.33 A and the SeaFlo diaphragm pump at 5 A on the same 12 V rail — 8.32 A together, against a 6.7 A supply. The carbonator's low reed asserts mid-pour, so the refill it queues waits for the dispense window to close ([`/hardware/assembly/acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) step 5). Nothing in hardware enforces this. `machine_policy::kRefillDuringDispense` is the policy that refuses such a plan and `machineDispenseWindowOpen()` is the accessor that asks; neither relay is driven yet, so nothing has cause to.
 - **`GPPU` written on both MCP23017s.** No loom carries a resistor and the main board pulls none of the reed inputs ([`pcba.tsx`](/hardware/pcb/pcba/pcba.tsx), U2 GPB4-7 / U3 GPB6-7), so every reed reads its expander's internal pull-up or floats.
 
 `pio test -e native` holds these policies off-board: it checks the canonical operation table,
@@ -343,7 +343,7 @@ pio run -e pcba_bench -t upload
 
 For a bare main board on the bench, not an assembled machine. See [`src_pcba_bench/README.md`](src_pcba_bench/README.md) for its command table.
 
-Both go over a plain USB-C cable into J14; the on-board CH340C bridges and Q2/Q3 auto-reset, so no button presses.
+Both go over a plain USB-C cable into J14; the on-board CH340B bridges and Q2/Q3 auto-reset, so no button presses.
 
 ### Flash the enclosure display's art partition
 

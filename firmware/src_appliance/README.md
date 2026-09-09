@@ -16,6 +16,16 @@ The glass-facing operations are one flavor pump, the funnel fill, the clean cycl
 cycle before a pump replacement. The main board also establishes and reports the safe I/O
 foundation the next connected bench uses.
 
+- **The pour.** Carbonated water flowing at the faucet opens the selected channel's dispense
+  path — its draw and its flavor tube, `DispenseA/B` — and bursts that channel's pump into the
+  stream on a duty cycle that follows the flow. The DIGITEN meter's falling edges are counted
+  on an interrupt at IO25 and read every 50 ms; a cycle's on and off times are locked at its
+  start from that reading and the channel's ratio, which [`/firmware/README.md`](/firmware/README.md)
+  "The pour" puts in numbers. A reading of zero inside a cycle sends it into a second's cooldown
+  with the pump off, and a cooldown that ends with nothing flowing closes the path; a meter that
+  never stops pulsing ends the pour at 120 s on `fault`. Nothing is injected while
+  another operation runs, while the expanders are unverified, or under the gas alarm — the
+  water still pours. `flow <n> [s]` stands in for the meter on a bench with no water in it.
 - **The air cycles.** The funnel dry and open to air, a pump carrying air along the flavor
   path one topology state at a time. `MSG_AIR_START { DRY }` from the enclosure's Settings
   page, or `dry [s]` from the console, runs Air Purge In then Air Purge Through on channel A
@@ -78,9 +88,9 @@ foundation the next connected bench uses.
 
 At boot both MCP23017 output latches are cleared before Port A becomes output, their complete
 safety configuration is read back, and Port B gets the internal pull-ups the reed looms rely
-on. The funnel fill and the clean cycle are the runtime operations that open valves — one
-topology state at a time, at most three valves — and each parks them the instant a write or a
-reed read fails. Nothing runs the condenser fan and neither relay is ever driven.
+on. Every operation that opens a valve opens one topology state at a time, at most three
+valves, and parks them the instant a write or a reed read fails. The condenser fan turns under
+the self-test and nowhere else, and neither relay is ever driven.
 
 ## The files
 
@@ -119,17 +129,27 @@ pio device monitor -e appliance
 | `art [<a> <b>]` | read or set which logo each channel wears, persisted in NVS and published to both glasses |
 | `dry [s]` | before a pump replacement: air in then through to the faucet, on each channel in turn; `s` caps every step |
 | `purge <a\|b> [s]` | air into that reservoir, then the reservoir out the faucet until its empty reed opens; `s` caps every step |
+| `flow <n> [s]` | the meter without water: `n` pulses per 50 ms for `s` s (default 5), and the selected channel pours against that reading |
 | `selftest` | [`firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md) §7: V-A through V-K for a quarter second each, the condenser fan for a second, then each pump for a second, one load at a time, each parked and read back before the next |
 | `stop` | end whatever is running |
 | `status` | machine state, uptime, heap, verified MCP configuration/output park, all ten reeds |
 | `link` | J9 frames/echo plus J3 connection, synchronization, state heartbeats, duplicates and invalid frames |
 | `ping` | put a frame on the pair and read its echo back |
 | `display usb` | explicitly detach/wake the enclosure display's USB PHY |
+| `wake` | light both glasses, as a finger on either would |
+| `idle` | awake or asleep, and how far into the quiet stretch |
 | `test [s\|off]` | the camera's test screen on the enclosure display for `s` seconds (default 120); both glasses stay lit meanwhile |
 | `sound <name>` | play one of the machine's sounds; `sound list` names them and what each would play at |
 | `volume [0-100]` | how loud everything but the alarm is, persisted in NVS |
 | `quiet [on\|off] [start] [end] [pct]` | quiet hours, read off the DS3231, persisted |
 | `rtc [set <YYYY-MM-DD> <HH:MM:SS>]` | the clock quiet hours reads |
+| `ota [<self\|faucet\|enclosure\|art> <size> <crc32>]` | open a transfer with the console as its source; bare, it says whether this board has a spare slot to take one |
+| `versions` | what each board on this machine is running, and the enclosure's art crc |
+| `identity [<name>]` | the model and unit a scanning phone sees, and what to call this one |
+| `ble` | the radio, asked of the display that has it |
+| `images` | what pictures each display holds; `images sync` reconciles now, `images erase\|relay\|test <slot>` act on one |
+| `wifi [on\|off\|<KB>[q]]` | the radio bench: the enclosure sinks, the faucet sends |
+| `bench j3 [<KB>]` | push at J3 as fast as its window will take frames |
 
 `ping` separates the main board's half of J9 from the far end. U7's `/RE` is tied to GND, so a
 frame sent here returns to IO34 through the transceiver whether or not anything is on the
@@ -204,6 +224,7 @@ times sits at the bottom, and the gas alarm holds the top alone:
 | `welcome` | event | 28 | the boot chime — a major triad arpeggiated, restated a third higher, into resonance |
 | `fault` | fault | 34 | needs attention, nothing is leaking |
 | `alarm` | ALARM | 50 | gas trip — loops, and cannot be silenced |
+| `probe` | event | 50 | the bench's continuity probe — one pitch per net, so a jumper needs no screen; the appliance never plays it |
 | `engage` | event | 24 | a held control took — a rising sweep |
 | `release` | event | 24 | it let go, deliberately or not — the mirror, falling |
 | `note` | ui | — | a scratch note `soundPlayNote()` fills; pitch is the reading |
@@ -269,6 +290,10 @@ They are in `main.cpp`'s header, in
 the factory confirms them per unit, and in [`/firmware/README.md`](/firmware/README.md) with
 the part that pays for each. At most 3 solenoid valves energized at once; relay #2 off while
 a dispense is open; `GPPU` written on both MCP23017s.
+
+`machine_policy::kRefillDuringDispense` refuses a `CarbonatorRefill` plan whose `SafetyContext`
+carries an open dispense window, and `machineDispenseWindowOpen()` is the accessor that asks;
+neither relay is driven yet, so nothing has cause to.
 
 The canonical operation plans and timing policy live in
 [`/firmware/lib/machine_policy`](/firmware/lib/machine_policy/machine_policy.h). They have no
