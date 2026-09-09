@@ -21,15 +21,16 @@ coating, spray count, or printer.
   bed. A 45° corbel carries the registration band outward from the collar. The
   spaces between ribs open underneath. Each washer rests on a solid 32 mm column reaching the bed. Paired 6.4 mm
   full-height walls connect each bearing column and guide tower to the cavity
-  ribs. The 22 mm guide towers have an open relieved bore below the 14 mm
+  ribs. The broad guide towers have an open relieved bore below the 14 mm
   bearing length, and a 3 mm side air exit at their feet.
-- **Core:** [270.0 × 270.0 × 64.0 mm](CORE_DIMS), printed upside down, with the
+- **Core:** [270.0 × 270.0 × 68.0 mm](CORE_DIMS), printed upside down, with the
   forming plug upward. Its back opens between the ribs. A [14 mm](PLATE_THK)
   perimeter plate forms the brim and carries the pour and silicone vents; its
   skirt registers over the cavity for [10 mm](LIP_H). A continuous skin and boss
   surround the rod socket, including its blind end. Four 66 mm wide × 14 mm thick arms carry steel square
-  nuts beneath 8.4 mm bearing roofs; four integral guide posts point down into sleeves on
-  the cavity. The posts print upward with the inverted core.
+  nuts beneath 8.4 mm bearing roofs; four integral 12 × 40 mm guide blades point down into matching guides on
+  the cavity. Each blade has a 6 mm flared root shoulder and prints upward with
+  the inverted core.
 - **Backing air:** transverse [3 mm](BACK_VENT_D) channels connect the rib bays
   to the outside. Cavity channels sit near the feet; core channels sit near its
   open back. They remain exposed with a flat chamber shelf under the cavity or
