@@ -10,7 +10,7 @@ In: one hydro-tested + passivated carbonator (output of [`pressure-vessel.md`](/
 
 Out: a fully foam-poured cold core, capped + gasketed top and bottom, with the wound evaporator coil bonded around the carbonator and its inlet/outlet stubs protruding through the foam-shell's copper-plug exits — [200 mm](PROT_INLET) of inlet stub, [175 mm](PROT_OUTLET) of outlet stub, measured from the plug face.
 
-Not in scope: refrigerant-loop integration ([`refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md)) — brazing of the coil stubs onto the donor unit's cap tube and suction line, vacuum, charge, run-up. Also not in scope: enclosure-side assembly (power column, compressor + condenser + fan placement, AC wiring), faucet install, final integration.
+Not in scope: refrigerant-loop integration ([`refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md)) — brazing of the coil stubs onto the donor unit's cap tube and suction line, vacuum, charge, run-up. Also not in scope: enclosure-side assembly (electronics bay, compressor + condenser + fan placement, AC wiring), faucet install, final integration.
 
 ## Inputs per appliance
 
@@ -33,7 +33,7 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §5 (
 | Flavor reservoir × 2 (printed) | [`/hardware/printed-parts/cold-core/reservoir/`](/hardware/printed-parts/cold-core/reservoir/) | Print, Bambu PETG Translucent Clear (32101) — the wall reads fill state; the wetted surface is qualified by [`wetted-surface-test.md`](/hardware/printed-parts/cold-core/reservoir/wetted-surface-test.md), not by the spool |
 | M3 × 25 mm SHCS, 12.9 alloy, black oxide × 12 (foam-cap clamp screws) | BNUOK B0DJQGF665 | ACQUIRED |
 | M3 × 12 mm SHCS, 304 stainless (18-8) × 12 (reservoir-cap screws) | BNUOK B0DJQGMQZM | ON-ORDER |
-| ruthex M3 **full-length** heat-set inserts × [36](CC_INSERTS) — every one this procedure presses ([24](CAP_INSERTS) foam-caps: [20](CAP_CLAMP_INSERTS) clamp bosses plus [4](CAP_DECK_INSERTS) deck-mount columns, + [12](RES_INSERTS) reservoir). **RX-M3x5.7, not the short RX-M3Sx4.0** — both bags are brass M3 in a ⌀4 hole and only the body length tells them apart, so check the trough label before the iron goes on. Every pocket in this procedure was already bored deep enough for the long body. The touch-flo plate's and the power column's are the SHORT one and are pressed elsewhere; `bom.md` §13 carries the appliance total | ruthex B08BCRZZS3 (100-pc bag) | ON-ORDER |
+| ruthex M3 **full-length** heat-set inserts × [36](CC_INSERTS) — every one this procedure presses ([24](CAP_INSERTS) foam-caps: [20](CAP_CLAMP_INSERTS) clamp bosses plus [4](CAP_DECK_INSERTS) deck-mount columns, + [12](RES_INSERTS) reservoir). **RX-M3x5.7, not the short RX-M3Sx4.0** — both bags are brass M3 in a ⌀4 hole and only the body length tells them apart, so check the trough label before the iron goes on. Every pocket in this procedure was already bored deep enough for the long body. The touch-flo plate's and the electronics bay's are the SHORT one and are pressed elsewhere; `bom.md` §13 carries the appliance total | ruthex B08BCRZZS3 (100-pc bag) | ON-ORDER |
 | LVDALAB PTFE membrane filter Ø13 mm × 0.45 µm × 2 (reservoir vent) | B0D41KT345 (100-pc bag = 50 builds) | ON-ORDER |
 | Pour-in-place 2 lb 2-part closed-cell PU foam, 1 qt kit | Fiberglass Supply Depot B08R7TX8QJ | ON-ORDER |
 | Foam-pour consumables (mixing cups × 4, stir sticks × 4, nitrile gloves × 1 pair per build) | B08JHH1DBF / B09H6ZP447 / B0G8SSMVKW | ACQUIRED |
@@ -89,7 +89,7 @@ the nearest plinth; trim the cured foam to the plate. Keep the caps labeled — 
 also goes on rotated 180° at step 7. Geometry detail at
 [`foam_cap.py`](/hardware/printed-parts/cold-core/foam-cap/foam_cap.py).
 
-**The power column's inserts are not here.** It bolts to printed bosses on `enclosure-back-top`'s +X wall, whose ruthex shorts are pressed at [`enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md) §1 — a different part, a different print, a different bench.
+**The electronics bay's inserts are not here.** It bolts to printed bosses on `enclosure-back-top`'s +X wall, whose ruthex shorts are pressed at [`enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md) §1 — a different part, a different print, a different bench.
 
 ### 4. Reservoir subassembly (both, at the bench)
 

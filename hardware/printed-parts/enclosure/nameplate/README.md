@@ -21,7 +21,7 @@ thickens to behind it, the two screw bosses and their heat-set bores are cut by
 ```
 
 The warning offsets the "250V 10A" spec stamp moulded into the C14 inlet standing above it on
-the same wall. The link is where everything beyond the printed quick start lives — warranty,
+the same wall. The link is where everything beyond the two printed documents lives — warranty,
 RMA, troubleshooting, BOM, support contact and ongoing care — per
 [`/marketing/unboxing-and-quickstart.md`](/marketing/unboxing-and-quickstart.md).
 

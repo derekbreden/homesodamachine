@@ -886,7 +886,7 @@ def _fluid_4(F, solids):
 # The carbonated-water riser's deck station stands this far forward of its cap-conduit axis.
 # Its source is a countersunk lid bore which expressly accepts `CAP_BORE_SKEW`, so the run leans
 # gently over the full climb rather than spending another pair of corners on a one-millimetre
-# dogleg. At the power column that lean keeps the tube one `clearance-floor` off the populated
+# dogleg. At the electronics bay that lean keeps the tube one `clearance-floor` off the populated
 # main board while the horizontal deck leg and its ceiling anchor remain straight.
 CARB_1_FORWARD_LEAN = 1.0
 

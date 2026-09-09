@@ -18,7 +18,7 @@ about the hinge the four barb tees' front collets stand on.
 | | |
 |---|---|
 | 10 × valve | Beduan 12 V NC solenoid ([`reference/beduan-solenoid`](/hardware/reference/beduan-solenoid/README.md)) — [59](VALVE_LEN) mm collet face to collet face, straight through, port axis [11.3](VALVE_PORT_Z) mm over its own mounting plane. Two of them pack no closer than [34.25](VALVE_PITCH) mm. |
-| 2 × pump | Kamoer KPHM400 ([`reference/kamoer-kphm400`](/hardware/reference/kamoer-kphm400/)) — two barbs [59.75](BARB_PITCH) mm apart on one face, both facing the same way, [24.38](BARB_INSET) mm back from the head's front face. |
+| 2 × pump | Kamoer KPHM600-SW3B17, modelled on the measured KPHM400 head ([`reference/kamoer-kphm400`](/hardware/reference/kamoer-kphm400/)) — two barbs [59.75](BARB_PITCH) mm apart on one face, both facing the same way, [24.38](BARB_INSET) mm back from the head's front face. |
 | [6](TEE_COUNT2) × tee | John Guest PP0208E ([`reference/tee-connector`](/hardware/reference/tee-connector/README.md)) — run collets [20.07](TEE_RUN) mm either side of the body centre, [40.14](TEE_SPAN) mm end to end, branch reaching the same distance. |
 | 0 × Y-divider | Its two outlets stand [14.7](DIVIDER_PITCH) mm apart ([`reference/y-divider`](/hardware/reference/y-divider/README.md)). |
 | [8](TUBE_COUNT2) × tube | 1/4" OD LLDPE — four straight runs across the collet plate's berth from the pump barbs to the anchor tees, and [4](FORE_STUB_COUNT) bowed flex stubs above those tees. |
@@ -195,14 +195,14 @@ The standalone manifold study shows the fore stop and the pumps 2.15 mm short of
 The floor joins, outer cheeks, upper cap and front-bottom feet are part of the
 enclosure's printed geometry. The pump cartridge's aft notches clear the cheeks.
 
-## Standing it on the refrigeration stratum
+## Standing it on the compressor bay
 
 [`enclosure_assembly.py`](enclosure_assembly.py) → `enclosure-assembly.step` mates its bodies with nothing between
 them: the compressor's own +X tangent to the condenser's intake face, while the pack's pose is
 read from the lowest release-state hairpin envelope over the pair's crown. That envelope is a
 placement datum, not a load path: the eight fixed valves bear in front-top's two trays and the
 four moving tees are retained by the guided carrier. The cold core is not one of the pair — it
-is packed off the +Y wall of back-top instead, so a LANE stands between it and the stratum, and
+is packed off the +Y wall of back-top instead, so a LANE stands between it and the compressor bay, and
 the two legs of the loop that cross it are drawn in copper.
 
 The gaps that ARE 0 are by intent, and the refrigerant loop is what they are for. The compressor

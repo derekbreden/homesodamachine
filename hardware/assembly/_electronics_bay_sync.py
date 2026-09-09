@@ -1,6 +1,6 @@
-"""Doc-sync driver for hardware/assembly/power-column.md.
+"""Doc-sync driver for hardware/assembly/electronics-bay.md.
 
-Run: tools/cad-venv/bin/python hardware/assembly/_power_column_sync.py
+Run: tools/cad-venv/bin/python hardware/assembly/_electronics_bay_sync.py
 """
 
 import sys
@@ -89,10 +89,10 @@ def main():
     }
 
     substitute_md(
-        _here / "power-column.md",
+        _here / "electronics-bay.md",
         variables=variables,
     )
-    print("-> power-column.md")
+    print("-> electronics-bay.md")
 
 
 if __name__ == "__main__":

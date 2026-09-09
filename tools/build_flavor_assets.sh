@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # Regenerate every flavor placeholder asset from the designs in
-# tools/gen_flavor_placeholders.py: master PNGs, the firmware RGB565 seed
-# headers (S3 rotary 240×240 + RP2040 128×115 + the three 43:80 renditions the
-# faucet and the enclosure draw), and the iOS demo-mode bundle copies.
+# tools/gen_flavor_placeholders.py: master PNGs, the firmware RGB565 factory
+# headers (the three 43:80 renditions the faucet and the enclosure draw between
+# them), and the iOS demo-mode bundle copies.
 #
 # Edit a design in tools/gen_flavor_placeholders.py, run this, commit.
 set -euo pipefail
@@ -12,7 +12,7 @@ PY=tools/cad-venv/bin/python
 echo "[1/3] masters    -> images/flavor_N.png"
 "$PY" tools/gen_flavor_placeholders.py
 
-echo "[2/3] RGB565     -> firmware/src_config/images + firmware/src_display + firmware/src_faucet/images"
+echo "[2/3] RGB565     -> firmware/src_faucet/images + firmware/src_front/images"
 "$PY" tools/png_to_rgb565.py
 
 echo "[3/3] iOS bundle -> ios/SodaMachine/SodaMachine/FlavorImages"
@@ -20,4 +20,4 @@ dest=ios/SodaMachine/SodaMachine/FlavorImages
 mkdir -p "$dest"
 cp images/flavor_1.png images/flavor_2.png images/flavor_3.png images/flavor_4.png "$dest/"
 
-echo "Done. LittleFS data image (needs hardware): tools/upload_image.py --build-data"
+echo "Done."

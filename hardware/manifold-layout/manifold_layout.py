@@ -1,4 +1,4 @@
-"""Manifold layout — the ten flavor valves, both KPHM400 pumps and the six junctions
+"""Manifold layout — the ten flavor valves, both KPHM600-SW3B17 pumps and the six junctions
 between them, placed with nothing else in the box.
 
 Nothing here is seated in the enclosure, no tray carries anything, and no reservoir, gooseneck,

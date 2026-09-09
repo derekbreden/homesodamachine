@@ -34,20 +34,25 @@ water into a bottle that is flat before it reaches the glass
 
 One hole through the countertop, then an afternoon of push-fittings.
 
-The buyer or their installer cuts a 1-3/8" opening through the counter, and the shipped guide
-begins at the prepared opening
+The buyer or their installer cuts a 1-3/8" opening through the counter, and the quick start begins
+at the prepared opening
 ([`faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md) "Not in scope"). On
-stone that is a diamond core bit, and usually a countertop pro.
+stone that is a diamond core bit, and usually a countertop pro. The hole, and everything else the
+sheet does not draw, is in the [install guide](/hardware/install-guide/README.md) beside it.
 
 Downstream of the hole the single sheet in
-[`/hardware/quickstart/`](/hardware/quickstart/README.md) draws every step, and each one is push-fit
-or hand-tight: lower the complete factory faucet-and-umbilical assembly through the
-opening, slide the under-counter plate around the tubes, hand-tighten the retained nut; close
-the cold-water valve; press the collet on the existing 1/4" plastic line, add the supplied tee
-and short tube, reconnect the original line, and push the new white branch — through the
-supplied filter — into the third port; push each of the five tubes into its lettered,
-colour-matched port on the rear wall; click one RJ11 plug into the jack beside them; plug in one
-cord. No threaded fitting is opened at any point, and nothing is cut.
+[`/hardware/quickstart/`](/hardware/quickstart/README.md) draws the six actions the buyer's hands
+perform, and every one of them is push-fit or hand-tight: lower the complete factory
+faucet-and-umbilical assembly through the opening, slide the under-counter plate around the tubes,
+hand-tighten the retained nut; close the cold-water valve; press the collet on the existing 1/4"
+plastic line, add the supplied tee assembly, reconnect the original line; push each of the five
+tubes into its lettered, colour-matched port on the rear wall and click one RJ11 plug into the jack
+beside them. Nothing on that path is cut, and no water fitting is opened with a wrench.
+
+The install guide carries the rest of the afternoon: plug in the cord, hang the filter in the white
+run, and stand the CO2 cylinder in the cabinet under the regulator that ships with the appliance —
+the one place on the buyer's path where a thread is made up rather than a collet pushed. A kitchen
+on the older water path makes one more, at its angle stop, and that is the wrench in this install.
 
 Beside the install kit rides the cold kit — a tube cutter, foam sleeves and its own guide — for
 the buyer who wants the run to the faucet as short and as insulated as their cabinet allows. It

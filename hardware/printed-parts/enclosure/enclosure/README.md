@@ -36,8 +36,8 @@ clash in `pack-closes` at the body that overran.
 front, where the wall stands one `front_seam_clear` ahead of the frontmost body
 placed by
 [`../../../manifold-layout/enclosure_assembly.py`](/hardware/manifold-layout/enclosure_assembly.py).
-The refrigeration stratum stands on the floor at the front and the cold core sits
-behind it, front face mated flush against the stratum's aft plane.
+The compressor bay stands on the floor at the front and the cold core sits
+behind it, front face mated flush against the compressor bay's aft plane.
 
 Both columns take their bottom↔top seam on **one stated plane**, `enclosure.z_seam`,
 inside the band both of a column's pieces print in (`_bed_band`): the piece under the
@@ -47,7 +47,7 @@ pieces meet at a four-way corner on each side wall.
 
 Neither column leaves the plane an **open band** — a range with `z_joint_clear` of air
 on either side of it, read off the pack, where no body straddles the seam and neither
-does whatever holds one. The refrigeration stratum and the flavour deck run the front
+does whatever holds one. The compressor bay and the flavour deck run the front
 column solid; the cold core stands from the floor slab and the whole service bay
 stands on its lid in the back. So the seam runs **through** both columns, on the lane
 each lip needs — the cavity's own one-`wall` skin (`_lip_band`, the same shape `_z_lip`
@@ -307,7 +307,7 @@ a wall that ever loses one is visible rather than silent.
 Each printed piece fits the H2C left-nozzle build envelope (325 × 320 × 320 mm)
 even though the whole enclosure does not — that is the point of the split.
 
-## Power-column boss corbels
+## Electronics-bay boss corbels
 
 The +X wall of back-top carries one horizontal boss for every mounting hole in the PSU, main
 board, two relays and ground stack: 17 in all. back-top beds on its ceiling's outer face, so its
@@ -374,7 +374,7 @@ rail below it.
 ## The box closes in four motions
 
 The slides fix the order, and the order is the service story backwards. **Front column**,
-on the bench: the refrigeration stratum seats in front-bottom, and front-top — carrying the
+on the bench: the compressor bay seats in front-bottom, and front-top — carrying the
 flavour pack made up into its trays and tee wall — slides AFT onto it, in from the front. **Back column**,
 on the bench, empty: back-top — carrying the chain, the meter, the ceiling's anchors and the
 wall electronics — slides FORE onto a bare back-bottom, over nothing. **The core rides in
@@ -419,7 +419,7 @@ Four features, two mirror pairs, and nothing on either that is not a face of the
   [8 mm](CORE_HOLD_LAND) over the crown. The foot lands on the cap — 0 by intent, the way a seat
   in this box lands on the face it takes unless something else locates it — and that straight is
   what makes the foot a flange on a web instead of a cantilever. The lane is the one strip of the aft crown clear of
-  the water pump inboard, the power column outboard and the +Y wall's two flavour unions in the
+  the water pump inboard, the electronics bay outboard and the +Y wall's two flavour unions in the
   band, taken on both flanks so the pair is a mirror.
 
 The slab takes the weight and the +Y wall takes the aft, so the four between them close every
@@ -1349,7 +1349,7 @@ noses into the section gets a 45°-chamfered relief (`_front_relief_cuts`): two 
 compressor pockets following the mounting plate's front strip and the power box, both floored
 on the can's own kiss, and one pocket per pump in the
 lower cradle's face, floored where the pump head and bracket insertion well puts its root
-(`pump_relief_floor`). The compressor is the only body in the refrigeration stratum
+(`pump_relief_floor`). The compressor is the only body in the compressor bay
 standing fore of the wall's interior plane — the condenser bears on that plane through
 its rails and the fuse clamp stands clear behind it — so the wall keeps its full section
 across the rest of the front. `box-front` reads every placed body against the relieved
@@ -1472,7 +1472,7 @@ hand reaches up through that bay, presses the clip, pulls the plug straight forw
 clear of the bulkhead, and lowers it through the bay without approaching the display body.
 
 SIG-7 still crosses the rib, at the same height but shifted [+32 mm](DISPLAY_LOOM_X) in X —
-**east**, the side it arrives on, since the run comes forward from the power column along the +X
+**east**, the side it arrives on, since the run comes forward from the electronics bay along the +X
 wall. Its four conductors are one flat ribbon, and an expandable braid opens over what is inside
 it: over a single 4P ribbon the 1/2" sleeve lies at or under the
 [12.7 mm](CABLE_SLEEVE_NOM) nominal it is bought by and never reaches the ceiling that figure

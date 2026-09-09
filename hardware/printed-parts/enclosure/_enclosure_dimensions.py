@@ -75,16 +75,16 @@ APPLIANCE_D = _OUTER[3] - _OUTER[2]
 APPLIANCE_H = _OUTER[5] - _OUTER[4]
 WALL_STANDOFF = enclosure.side_band_inset
 
-# --- the refrigeration stratum, on the floor at the front -------------------
+# --- the compressor bay, on the floor at the front -------------------
 _COMP, _COND = _bb("compressor"), _bb("condenser+fan")
 COMPRESSOR_ROOF = _COMP.zmax
-STRATUM_TOP = max(_COMP.zmax, _COND.zmax)     # the crown the manifold sets down on
-STRATUM_STEP = abs(_COMP.zmax - _COND.zmax)   # how far the pair's two crowns differ
-STRATUM_W = _COND.xmax - _COMP.xmin           # the two mated, across the machine
-# THE STRATUM IS THE PAIR, front to back as well as across. The condenser stands aft of the
+COMP_BAY_TOP = max(_COMP.zmax, _COND.zmax)     # the crown the manifold sets down on
+COMP_BAY_STEP = abs(_COMP.zmax - _COND.zmax)   # how far the pair's two crowns differ
+COMP_BAY_W = _COND.xmax - _COMP.xmin           # the two mated, across the machine
+# THE COMPRESSOR BAY IS THE PAIR, front to back as well as across. The condenser stands aft of the
 # compressor and reaches the core's front face; the compressor's plate reaches further forward,
 # so the depth the front wall follows is the pair's box and not either body's.
-STRATUM_D = _COMP.add(_COND).ylen
+COMP_BAY_D = _COMP.add(_COND).ylen
 CONDENSER_ACROSS = _cond.AIRFLOW                # the fan's own axis, the short one
 CONDENSER_LONG = _cond.FACE_A
 CONDENSER_STANDING = _cond.FACE_B
@@ -93,14 +93,14 @@ MATE_X = _COMP.xmax                           # the plane the two bodies meet on
 
 # --- the cold core, on the floor behind it ---------------------------------
 _FOAM = _bb("foam-assembly")
-CORE_FRONT_Y = _FOAM.ymin                       # its front face — the stratum's aft plane
+CORE_FRONT_Y = _FOAM.ymin                       # its front face — the compressor bay's aft plane
 # The lid's OUTER FACE, which is the plane every body standing on the core is placed off.
 # The cap prints a valve cradle at each of its stations off that face, and the rails of those
 # cradles are what the solid's own `zmax` reaches — so the lid's height is read where
 # `enclosure_assembly` states it, and not off the box.
 CORE_CROWN = _F.faces["foam-assembly.cap"]
 
-# --- the flavour manifold, on the stratum's crown --------------------------
+# --- the flavour manifold, on the compressor bay's crown --------------------------
 # `enclosure_assembly._manifold` is what names a body as the pack's rather than a standalone, so
 # the pack measures here exactly as it measures in the assembly's own report.
 _MANIFOLD = _group(lambda n: n in _MANIFOLD_NAMES)
@@ -110,7 +110,7 @@ MANIFOLD_H = _MANIFOLD.zmax - _MANIFOLD.zmin
 MANIFOLD_TOP = _MANIFOLD.zmax
 # What the pack actually sets down on is the four spine hairpins, so the pump-head faces
 # stand off the crown by whatever the arcs under them reach.
-PUMP_FACE_CLEAR = min(_bb(n).zmin for n in _SOLIDS if n.endswith("-head")) - STRATUM_TOP
+PUMP_FACE_CLEAR = min(_bb(n).zmin for n in _SOLIDS if n.endswith("-head")) - COMP_BAY_TOP
 DECK_SEP = _ml.DECK_SEP                         # the two valve decks, deck to deck
 # The pack overhangs the core's front face, and what it clears there is the core's own crown.
 _OVER = [n for n in _SOLIDS if n in _MANIFOLD_NAMES and _bb(n).ymax > CORE_FRONT_Y + 1e-6]
@@ -163,11 +163,11 @@ def main():
         "APPLIANCE_DEPTH": f"{APPLIANCE_D:.4g} mm",
         "APPLIANCE_HEIGHT": f"{APPLIANCE_H:.4g} mm",
         "WALL_STANDOFF": f"{WALL_STANDOFF:.4g}",
-        # The refrigeration stratum.
-        "STRATUM_W": f"{STRATUM_W:.4g}",
-        "STRATUM_D": f"{STRATUM_D:.4g}",
-        "STRATUM_TOP": f"{STRATUM_TOP:.4g}",
-        "STRATUM_STEP": f"{STRATUM_STEP:.4g}",
+        # The compressor bay.
+        "COMP_BAY_W": f"{COMP_BAY_W:.4g}",
+        "COMP_BAY_D": f"{COMP_BAY_D:.4g}",
+        "COMP_BAY_TOP": f"{COMP_BAY_TOP:.4g}",
+        "COMP_BAY_STEP": f"{COMP_BAY_STEP:.4g}",
         "COMPRESSOR_ROOF": f"{COMPRESSOR_ROOF:.4g}",
         "MATE_X": f"{MATE_X:.4g}",
         "CONDENSER_ACROSS": f"{CONDENSER_ACROSS:.4g}",

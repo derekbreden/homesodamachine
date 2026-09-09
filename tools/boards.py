@@ -26,7 +26,6 @@ ESP32_S3 = (0x303A, 0x1001)   # any ESP32-S3's native USB JTAG/serial
 S3_ENVS = [
     ("esp32s3_front",  "4.3B enclosure display"),
     ("esp32s3_faucet", '1.47" faucet display'),
-    ("esp32s3_config", '1.28" round rotary display'),
 ]
 
 # Every S3 reports the same VID:PID, but each reports its own MAC as the USB

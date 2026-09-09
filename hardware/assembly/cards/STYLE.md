@@ -21,10 +21,15 @@ Every card is `header` / `main` / `footer` inside `.card`:
 - **main** — two `.col`s: text left (`flex:1`), visuals right (fixed
   `width: 760px`–`800px`). A card that is mostly diagram may flip the ratio.
 - **footer** — `.done` ("DONE WHEN" + one observable acceptance sentence) and
-  `.src` (source doc §, generator files, `rev` date).
+  `.src`, two lines: the source docs and § on the first, the generator files and
+  the `rev` date on the second. **`rev` is the day this card's own craft last
+  moved** — a step reworded, a figure added, a picture recut. A tree-wide sweep
+  that renames a thing on every card does not move it; the card is still saying
+  what it said.
 
-`<body class="pv">` picks the subsystem accent; codes and colors are in
-`style.css` and the deck table in [README.md](README.md).
+`<body class="pv">` picks the subsystem accent. Every code and its color is one
+`body.<code>` rule in [`style.css`](style.css); the deck table naming each code
+is in [README.md](README.md).
 
 ## Voice
 

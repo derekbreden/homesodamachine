@@ -21,11 +21,9 @@ DIA = "&#8960;"     # ⌀
 def internal_plumbing(m):
     """The runs `_lines.py` draws between the bodies `enclosure_assembly.py` places, the
     manifold's own census, and the row of unions the risers land on."""
-    import enclosure_assembly as _ea
     import manifold_layout as _ml
     import _lines
     import _scorecard as _card
-    import digiten_flow_sensor as _digiten
     import asse_drip_pan as _pan
     from _cold_core_interface import cap_conduit_bore_radius, cap_cradles
 
@@ -77,12 +75,12 @@ def internal_plumbing(m):
         f"`co2-2` runs {runs['co2-2'].frm} → {runs['co2-2'].to} — IP-01 takes the regulator's "
         f"outlet down onto the cold core's own `co2-in` cap conduit")
     # Every warm-side termination on the core opens UPWARD on the lid, so a line
-    # arrives at the deck and leans into a countersunk lip. IP-01 and IP-05 both
+    # arrives at the deck and leans into a countersunk lip. IP-01 and IP-07 both
     # draw that, and neither is drawing a fitting.
     for conduit in ("co2-in", "water-in", "carb-water-out"):
         assert port("foam-assembly", conduit)[1] == UP, (
-            f"the core's `{conduit}` no longer opens upward — IP-01/IP-02/IP-05 lay a tube end "
-            f"into it from the deck the power column stands on")
+            f"the core's `{conduit}` no longer opens upward — IP-01/IP-02/IP-07 lay a tube end "
+            f"into it from the deck the electronics bay stands on")
 
     # ── the water path (IP-02) ─────────────────────────────────────────────
     # THERE IS NO `water-1`. The bulkhead's inboard collet and the ASSE chain's
@@ -99,12 +97,12 @@ def internal_plumbing(m):
         "the +Y wall union's inboard collet and the ASSE chain's inlet no longer stand on one "
         "point — IP-02 meets them face to face with nothing between them to turn")
     # The split's branch looks straight DOWN at the storey the pump stands on, so
-    # `water-3` leaves the west lane by falling out of it. IP-02 and IP-04 both
-    # draw that branch, and IP-04's caption is about which way it points.
+    # `water-3` leaves the west lane by falling out of it. IP-02 and IP-05 both
+    # draw that branch, and IP-05's caption is about which way it points.
     split_branch = port("water-split", "to-vk")[1]
     assert split_branch == DOWN, (
         f"the water split's branch points {split_branch} — IP-02 drops `water-3` out of the west "
-        f"lane and IP-04's caption is about that branch")
+        f"lane and IP-05's caption is about that branch")
     # A run with no corner is a butt-length cut to two grips; a run with corners
     # is a route. Three of this procedure's lines are the first kind and the cards
     # say so in those words.
@@ -116,7 +114,7 @@ def internal_plumbing(m):
     # mouths forward, so the run leaves one, turns through 180° in the room ahead of the pair
     # and comes back into the other — two stock quarter-turns with no straight in it.
     assert corners("fluid-1") == 2, (
-        f"`fluid-1` turns {corners('fluid-1')} time(s) — IP-04 stands the flow regulator over "
+        f"`fluid-1` turns {corners('fluid-1')} time(s) — IP-05 stands the flow regulator over "
         f"the split on one column, both mouths forward, and a hairpin is two quarter-turns")
     # `water-2` is the tap's step off the panel deck onto the lane under the funnel's
     # bowl, so it is a route and IP-02 bends it. Its two corners are the one lean.
@@ -127,12 +125,12 @@ def internal_plumbing(m):
     # The two pump-port stubs: the only runs on the machine drawn on the reinforced
     # PVC's own bend floor, which is what makes them the only clamped joints. Both
     # ends of each is a barb, and IP-02 closes a clamp on every one — so the clamp
-    # count is that census and not a number kept beside it. IP-06 witnesses the same
+    # count is that census and not a number kept beside it. IP-08 witnesses the same
     # clamps, so the two cards cannot count them differently.
     hose_stubs = sorted(rid for rid, r in runs.items() if r.bend == _lines.HOSE_BEND)
     assert hose_stubs == ["water-6", "water-7"], (
         f"the reinforced-PVC stubs are {hose_stubs} — IP-02 cuts the pump's two ports and "
-        f"IP-06 witnesses their clamps, and every other line on the machine is push-fit")
+        f"IP-08 witnesses their clamps, and every other line on the machine is push-fit")
     pump_clamps = 2 * len(hose_stubs)
 
     # The carbonated riser is cut per run, and the meter standing between the two runs
@@ -140,31 +138,31 @@ def internal_plumbing(m):
     # the riser would leave one run, and FU-03 would sleeve one piece.
     carb_runs = sorted(rid for rid in runs if rid.startswith("carb-"))
     assert carb_runs == ["carb-1", "carb-2"], (
-        f"the carbonated riser is {carb_runs} — IP-05 climbs it in two lengths with the "
+        f"the carbonated riser is {carb_runs} — IP-07 climbs it in two lengths with the "
         f"DIGITEN made up between them, and FU-03 foams one piece per run")
 
-    # ── the flavor manifold (IP-03, IP-04) ─────────────────────────────────
+    # ── the flavor manifold (IP-03, IP-05) ─────────────────────────────────
     valves = sorted(n for n in _ml.P if n.startswith("V-"))
     tees = sorted(n for n in _ml.P if n.startswith("Y-"))
     # IP-03 lays out the junctions BY NAME. Y-E and Y-H were the two reservoir
     # junctions; neither reservoir has one now, so the names have to be read off
     # the pack rather than typed beside the count.
     assert tees == ["Y-A", "Y-B", "Y-C", "Y-D", "Y-F", "Y-G"], (
-        f"the pack's junctions are {tees} — IP-03 lays them out by name and IP-04 maps them")
+        f"the pack's junctions are {tees} — IP-03 lays them out by name and IP-05 maps them")
     assert not _ml.JOINS, (
         f"{len(_ml.JOINS)} elbow(s) are posed in the pack — IP-03 says every junction is a Tee "
         f"and every valve is butted collet to collet, so an elbow is a fitting no card fits")
     # NEITHER RESERVOIR HAS A JUNCTION. Each carries two mouths of its own, so a
     # fill valve reaches its fill conduit and a draw conduit reaches its draw
-    # valve with nothing standing between — which is what IP-04's channel map
+    # valve with nothing standing between — which is what IP-05's channel map
     # draws, and what a returning Y would silently make wrong.
     for rid, end in (("fluid-14", "reservoir-a-fill"), ("fluid-24", "reservoir-b-fill")):
         assert runs[rid].to == f"foam-assembly.{end}", (
-            f"`{rid}` lands on {runs[rid].to} — IP-04 takes the fill valve's outlet straight "
+            f"`{rid}` lands on {runs[rid].to} — IP-05 takes the fill valve's outlet straight "
             f"onto the reservoir's own fill conduit, with no junction between")
     for rid, end in (("fluid-16", "reservoir-a"), ("fluid-26", "reservoir-b")):
         assert runs[rid].frm == f"foam-assembly.{end}", (
-            f"`{rid}` starts at {runs[rid].frm} — IP-04 draws the reservoir's own draw conduit "
+            f"`{rid}` starts at {runs[rid].frm} — IP-05 draws the reservoir's own draw conduit "
             f"straight up into its valve, with no junction between")
     # The manifold's tube inventory comes out of `fluid-topology.md`'s own tables
     # via the scorecard, so IP-03's pre-cut count cannot drift from the topology
@@ -174,21 +172,21 @@ def internal_plumbing(m):
     butted = sum(1 for c in fluid if c.made == "butt")
     hairpins = sum(1 for c in fluid if c.made == "fold")
 
-    # ── the union rectangle and the risers (IP-05, FU-04, WR-05) ───────────
+    # ── the union rectangle and the risers (IP-07, FU-04, WR-05) ───────────
     # Read as an ARRANGEMENT: two columns, two storeys, the two flavor unions
-    # sharing the lower one, and which corner each tube lands in. IP-05 and FU-04
+    # sharing the lower one, and which corner each tube lands in. IP-07 and FU-04
     # both describe that arrangement.
     zs = {round(port(n, "tube-in")[0][2], 6) for n in a.constants["PANEL_X"]}
     assert len(zs) == 2, (
-        f"the riser unions stand on {len(zs)} stratum/strata — IP-05 and FU-04 send the "
+        f"the riser unions stand on {len(zs)} stratum/strata — IP-07 and FU-04 send the "
         f"bundle to two, the flavor pair under the storey the carb riser lands in")
     lower = {n for n in a.constants["PANEL_X"] if round(port(n, "tube-in")[0][2], 6) == round(min(zs), 6)}
     assert lower == {"bulkhead-flavor-a", "bulkhead-flavor-b"}, (
-        f"the lower storey carries {sorted(lower)} — IP-05 sends both flavor risers there and "
+        f"the lower storey carries {sorted(lower)} — IP-07 sends both flavor risers there and "
         f"the carb riser alone to the storey over them")
     cols = {n: round(x, 3) for n, x in a.constants["PANEL_X"].items()}
     assert cols["bulkhead-carb"] == cols["bulkhead-flavor-a"] != cols["bulkhead-flavor-b"], (
-        f"the three riser unions stand on columns {cols} — IP-05 sends the carb riser up the "
+        f"the three riser unions stand on columns {cols} — IP-07 sends the carb riser up the "
         f"nozzle-A union's own column and the nozzle-B riser up the one beside it")
     # The meter splits the riser rather than hanging off it: both its mouths are
     # the riser's, it lies on the carb union's own column and stratum, and it
@@ -196,10 +194,10 @@ def internal_plumbing(m):
     meter_in, meter_out = port("digiten-flow", "inlet"), port("digiten-flow", "outlet")
     union_in = port("bulkhead-carb", "tube-in")
     assert meter_out[0][0] == union_in[0][0] and meter_out[0][2] == union_in[0][2], (
-        "the DIGITEN no longer lies on the carb union's own column and stratum — WR-05 and IP-05 "
+        "the DIGITEN no longer lies on the carb union's own column and stratum — WR-05 and IP-07 "
         "both put it inline on the riser, and `carb-2` is a straight because of it")
     assert meter_out[0][1] < union_in[0][1] and meter_in[0][1] < meter_out[0][1], (
-        "the DIGITEN no longer lies fore and aft forward of the carb union — IP-05 closes "
+        "the DIGITEN no longer lies fore and aft forward of the carb union — IP-07 closes "
         "`carb-1` into its inlet from the deck and `carb-2` out of its outlet into the union")
     boss = a.carried_points["digiten-flow.wire_exit"]["axis"]
     boss = tuple(round(v, 6) for v in boss)
@@ -207,12 +205,12 @@ def internal_plumbing(m):
         f"the meter's pigtail boss points {boss} — WR-05 reaches it from the +X flank the "
         f"controller board stands on")
     # `fluid-18` is the appliance's longest single run, which is the whole reason
-    # IP-05 warns the bench about it.
+    # IP-07 warns the bench about it.
     longest = max(a.runs, key=lambda r: r.length).id
     assert longest == "fluid-18", (
-        f"the longest run in the appliance is `{longest}` — IP-05 calls the flavor-A riser that")
+        f"the longest run in the appliance is `{longest}` — IP-07 calls the flavor-A riser that")
 
-    # ── V-K and the vent (WR-04, IP-06) ────────────────────────────────────
+    # ── V-K and the vent (WR-04, IP-08) ────────────────────────────────────
     # V-K is the one valve outside the manifold. It presses into a cradle the cold core's
     # cap lid prints for it — four corner posts into four sockets, nothing bolted — forward
     # of the suction chain and firing aft. Not the +Y wall beside the water inlet, which
@@ -245,11 +243,36 @@ def internal_plumbing(m):
     assert port("vk-solenoid", "outlet")[1] == (0.0, 1.0, 0.0), (
         "V-K no longer fires aft into the collet that feeds the pump — IP-02 mounts it taking "
         "no turn at all because its own frame already runs the flow that way")
-    # The vent weeps to atmosphere and the drip IS the telltale, so IP-06 walks
+    # The vent weeps to atmosphere and the drip IS the telltale, so IP-08 walks
     # the column straight down from its tip to the pan.
     assert port("asse1022-assembly", "vent-tip")[1] == DOWN, (
-        "the ASSE vent no longer hangs straight down — IP-06 checks the fall's column clear from "
+        "the ASSE vent no longer hangs straight down — IP-08 checks the fall's column clear from "
         "the stub's tip to the ASSE drip pan")
+
+    # ── the moving carrier and its cartridge (IP-04, IP-06, EN-05) ─────────
+    # THE WHOLE CONNECTION CYCLE IS ONE READING, and it is the machine's, not a card's.
+    # `carrier_states` is what `enclosure_assembly` solves the two stops from: at the fore
+    # stop the sleeves are fully depressed and the cartridge still stands short of its face;
+    # relax, and the springs take the carrier aft, the sleeves extend, and the same tubes
+    # end up deeper. Every figure a hand needs comes out of that one dict, so the stroke it
+    # squeezes through and the stroke it then pushes through are the same value read once.
+    carrier, plate = box.tee_carrier, box.collet_plate
+    fore, home = plate["carrier_states"]["release"], plate["carrier_states"]["connected"]
+    assert abs(fore["cartridge_offset_y"]) == plate["stroke"], (
+        f"the cartridge stands {abs(fore['cartridge_offset_y'])} mm short at the fore stop and "
+        f"the carrier's stroke is {plate['stroke']} mm — IP-06 pushes through one figure twice, "
+        f"once to bottom the tubes and once to seat the face")
+    assert home["plate_gap"] == plate["rest_gap"] and fore["plate_gap"] == 0, (
+        f"the nose gap reads {home['plate_gap']} connected and {fore['plate_gap']} at squeeze — "
+        f"IP-06 has the plate touching only while the sleeves are down")
+    # One stub per collet passage, and the tees the carrier moves are the barb tees' own.
+    assert len(plate["holes"]) == len(_ml.CARRIER_TEES) == len(_ml.BARB_OF), (
+        f"the plate is bored {len(plate['holes'])} holes, the carrier moves "
+        f"{len(_ml.CARRIER_TEES)} tees and the pumps stand {len(_ml.BARB_OF)} barbs — IP-04 and "
+        f"IP-06 count one passage per moving tee per barb, all the way through")
+    # Two ties per tee, on the machine's own tee census rather than on the number eight.
+    carrier_ties = 2 * len(_ml.CARRIER_TEES)
+    aft_valves = sorted(_ml.CARRIER_TEES)
 
     facts = {
         # CO2 — IP-01.
@@ -257,9 +280,9 @@ def internal_plumbing(m):
         "CO2_2_LEN": mm("co2-2"),
         "CO2_2_CORNERS": f"{corners('co2-2')}",
         "CAP_CONDUIT_D": f"{DIA}{2 * cap_conduit_bore_radius:.4g} mm",
-        # Water — IP-02, IP-06. The two pump-port stubs are the only 3/8" in the
+        # Water — IP-02, IP-08. The two pump-port stubs are the only 3/8" in the
         # machine and the only clamped joints; one count under one name, because
-        # IP-02 closes them and IP-06 witnesses them.
+        # IP-02 closes them and IP-08 witnesses them.
         "WATER_2_LEN": mm("water-2"),
         "WATER_3_CORNERS": f"{corners('water-3')}",
         "WATER_5_CORNERS": f"{corners('water-5')}",
@@ -268,7 +291,7 @@ def internal_plumbing(m):
         "PVC_BEND_R": f"{runs['water-7'].bend:.4g} mm",
         "PUMP_CLAMPS": f"{pump_clamps}",
         "VENT_GAP": f"{_pan.VENT_GAP:.4g} mm",
-        # The manifold — IP-03, IP-04.
+        # The manifold — IP-03, IP-05.
         "MANIFOLD_VALVES": f"{len(valves)}",
         "MANIFOLD_TEES": f"{len(tees)}",
         "MANIFOLD_SEGMENTS": f"{len(fluid)}",
@@ -277,12 +300,26 @@ def internal_plumbing(m):
         "MANIFOLD_HAIRPINS": f"{hairpins}",
         "BARB_TEES": f"{len(_ml.BARB_OF)}",
         "SPLIT_BRANCH": "down",
-        # The row on the +Y wall — IP-05, FU-04.
+        # The moving carrier — IP-04, and the plate EN-05 sights through.
+        "CARRIER_TEES": f"{len(_ml.CARRIER_TEES)}",
+        "CARRIER_TEE_NAMES": ", ".join(aft_valves),
+        "CARRIER_HALVES": f"{len(carrier['half_install_order'])}",
+        "CARRIER_JOINT_SCREWS": f"{carrier['joint_count']}",
+        "CARRIER_SPRINGS": f"{len(carrier['spring_seats'])}",
+        "CARRIER_TIES": f"{carrier_ties}",
+        "PLATE_HOLES": f"{len(plate['holes'])}",
+        # The connection cycle — IP-06. Four figures, one dict, one mechanism.
+        "PLATE_STROKE": f"{plate['stroke']:.4g} mm",
+        "PLATE_REST_GAP": f"{plate['rest_gap']:.4g} mm",
+        "SLEEVE_TRAVEL": f"{plate['stroke'] - plate['rest_gap']:.4g} mm",
+        "TUBE_DEPTH_SQUEEZE": f"{fore['tube_depth']:.4g} mm",
+        "TUBE_DEPTH_HOME": f"{home['tube_depth']:.4g} mm",
+        # The row on the +Y wall — IP-07, FU-04.
         "UMBILICAL_UNIONS": f"{len(a.constants["PANEL_X"])}",
         "UMBILICAL_DROP": f"{max(zs) - min(zs):.4g} mm",
         "FLAVOR_A_STATION": "middle",
         "FLAVOR_B_END": "west",
-        # The three risers — IP-05, WR-05.
+        # The three risers — IP-07, WR-05.
         "CARB_1_LEN": mm("carb-1"),
         "CARB_1_CORNERS": f"{corners('carb-1')}",
         "CARB_2_LEN": mm("carb-2"),
@@ -304,14 +341,20 @@ def internal_plumbing(m):
             "SUCTION_STUB_LEN", "DISCHARGE_STUB_LEN", "PVC_BEND_R", "PUMP_CLAMPS"},
         "ip-03-manifold-valves-tees": {
             "MANIFOLD_VALVES", "MANIFOLD_TEES", "MANIFOLD_SEGMENTS", "MANIFOLD_LIMBS",
-            "MANIFOLD_BUTTS", "MANIFOLD_HAIRPINS"},
-        "ip-04-manifold-pumps-channels": {
+            "MANIFOLD_BUTTS", "MANIFOLD_HAIRPINS", "CARRIER_TEES", "CARRIER_TEE_NAMES"},
+        "ip-04-carrier-halves": {
+            "CARRIER_TEES", "CARRIER_TEE_NAMES", "CARRIER_HALVES", "CARRIER_JOINT_SCREWS",
+            "CARRIER_SPRINGS", "CARRIER_TIES"},
+        "ip-05-manifold-pumps-channels": {
             "MANIFOLD_VALVES", "MANIFOLD_TEES", "BARB_TEES", "SPLIT_BRANCH"},
-        "ip-05-risers": {
+        "ip-06-seat-pump-cartridge": {
+            "PLATE_HOLES", "PLATE_STROKE", "PLATE_REST_GAP", "SLEEVE_TRAVEL",
+            "TUBE_DEPTH_SQUEEZE", "TUBE_DEPTH_HOME", "SA09_STUBS"},
+        "ip-07-risers": {
             "UMBILICAL_UNIONS", "PORT_COL_PITCH", "UMBILICAL_DROP", "CARB_END",
             "FLAVOR_A_STATION", "FLAVOR_B_END", "CARB_1_LEN", "CARB_1_CORNERS", "CARB_2_LEN",
             "FLUID_18_LEN", "FLUID_28_LEN", "CARB_FOAM_PIECES"},
-        "ip-06-witness-tidy": {"PUMP_CLAMPS", "VENT_GAP"},
+        "ip-08-witness-tidy": {"PUMP_CLAMPS", "VENT_GAP"},
         "wr-04-cabinet-12v-runs": {"VK_SIDE"},
         "wr-05-signal-looms": {"CARB_2_LEN", "METER_BOSS"},
     }

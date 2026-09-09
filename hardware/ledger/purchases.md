@@ -91,7 +91,7 @@ Stainless carbonator fabrication: 316 SS round-tube body + 1/4" laser-cut 316 SS
 | uxcell HTD-5M timing pulley, 20 teeth × 15 mm belt, 6.35 mm bore — exact replacement for the missing pulley above; Amazon estimates 2026-09-05 | [B0747KM7MN](https://www.amazon.com/dp/B0747KM7MN) | 1 | $9.64 | 112-6708194-8872235 | 2026-09-02 | — | ON-ORDER |
 | ~~M5 × 12 mm 90° countersunk socket screws, 100 pc, 10.9 carbon steel~~ — 9.8 mm head; too short for the motor carriage: past the 8 mm arm, 12 mm ends 1 mm below the top of the 23HS30-2804S's 5 mm flange ear, so no nut reaches it. Spare stock | [B0DX1Y2Z6J](https://www.amazon.com/dp/B0DX1Y2Z6J) | 1 pk (100) | $8.03 | 112-1967009-0797830 | 2026-09-02 | 2026-09-03 | ACQUIRED (spare stock) |
 | M5 × 20 mm 90° countersunk socket screws, 50 pc, 10.9 carbon steel, black, 9.8 mm head — two rise through the printed motor-carriage arms and the 23HS30-2804S's Ø5.2 flange holes into nuts in the motor's open corner channels: 8 mm arm, 5 mm flange ear, 4 mm nut, 3 mm proud. DIN 7991, 3 mm hex; Amazon estimates 2026-09-05 | [B0DX1G3Y6W](https://www.amazon.com/dp/B0DX1G3Y6W) | 1 pk (50) | $8.57 | 112-7484636-2926665 | 2026-09-03 | — | ON-ORDER |
-| M5 × 0.8 square nuts, 100 pc, 304 stainless, 8 mm across × 4 mm thick — the motor-carriage nut if it drops into the 23HS30-2804S's 9 mm corner channel, where its flats on the channel's two walls hold it against the screw; Amazon estimates 2026-09-05 | [B0F6B5X6CX](https://www.amazon.com/dp/B0F6B5X6CX) | 1 pk (100) | $7.50 | 112-9248875-1573807 | 2026-09-03 | — | ON-ORDER |
+| M5 × 0.8 square nuts, 100 pc, 304 stainless, 8 mm across × 4 mm thick — the motor-carriage nut if it drops into the 23HS30-2804S's 9 mm corner channel, where its flats on the channel's two walls hold it against the screw; four also seat in the funnel-mold extraction ears | [B0F6B5X6CX](https://www.amazon.com/dp/B0F6B5X6CX) | 1 pk (100) | $7.50 | 112-9248875-1573807 | 2026-09-03 | 2026-09-05 | ACQUIRED |
 | Juvielich M5 × 0.8 hex nuts, 100 pc, 304 stainless, DIN 934, 8 mm across flats × 4 mm high — the motor-carriage nut if the corner channel takes its 9.2 mm corners; Amazon estimates 2026-09-05 | [B0D1X2YBLJ](https://www.amazon.com/dp/B0D1X2YBLJ) | 1 pk (100) | $6.10 | 112-8159134-3631449 | 2026-09-03 | — | ON-ORDER |
 
 ## 2. CO2 subsystem
@@ -454,7 +454,7 @@ Ice-maker donor units and copper coil for the chill loop.
 | BNUOK M3 × 25 mm Hex Socket Head Cap Screws, 60 pc, 12.9 alloy steel, black oxide finish | [B0DJQGF665](https://www.amazon.com/dp/B0DJQGF665) | 1 pk (60) | $8.57 | 112-2495614-5144234 | 2026-05-10 | 2026-05-11 | ACQUIRED |
 | BNUOK M3 × 12 mm Hex Socket Head Cap Screws, 120 pc, 12.9 alloy steel, black oxide finish | [B0DJQGVK8S](https://www.amazon.com/dp/B0DJQGVK8S) | 1 pk (120) | $8.57 | 112-0144900-5988250 | 2026-05-10 | 2026-05-11 | ACQUIRED (spare stock) |
 | BNUOK M3 × 10 mm Hex Socket Head Cap Screws, 120 pc, 12.9 alloy steel, black oxide finish | [B0DJQGGDP2](https://www.amazon.com/dp/B0DJQGGDP2) | 1 pk (120) | $8.57 | 112-6542724-2528248 | 2026-06-22 | 2026-06-24 | ACQUIRED |
-| BNUOK M3 × 8 mm Hex Socket Head Cap Screws, 120 pc, 12.9 alloy steel, black oxide finish — power-column screws (bom.md §13), the black-oxide pick for the M3×8 line (hidden dry-zone hardware, no corrosion/cosmetic driver, 12.9 alloy is stronger; matches the other BNUOK black screws). Same parent listing as the M3×10 above | [B0DJQGPRPV](https://www.amazon.com/dp/B0DJQGPRPV) | 1 pk (120) | $7.71 | 112-6198023-2829830 | 2026-07-14 | 2026-07-16 | ACQUIRED |
+| BNUOK M3 × 8 mm Hex Socket Head Cap Screws, 120 pc, 12.9 alloy steel, black oxide finish — electronics-bay screws (bom.md §13), the black-oxide pick for the M3×8 line (hidden dry-zone hardware, no corrosion/cosmetic driver, 12.9 alloy is stronger; matches the other BNUOK black screws). Same parent listing as the M3×10 above | [B0DJQGPRPV](https://www.amazon.com/dp/B0DJQGPRPV) | 1 pk (120) | $7.71 | 112-6198023-2829830 | 2026-07-14 | 2026-07-16 | ACQUIRED |
 | BNUOK M3 × 12 mm Hex Socket Head Cap Screws, 120 pc, 304 stainless steel (18-8), bright finish | [B0DJQGMQZM](https://www.amazon.com/dp/B0DJQGMQZM) | 1 pk (120) | $8.66 | 112-3709957-5726619 | 2026-06-02 | 2026-06-03 | ACQUIRED |
 | Sutemribor M2 × 6 mm Hex Socket Head Cap Screws, 105 pc, M2-0.4, 12.9 alloy steel, black oxide finish, fully threaded | [B0CXQ7Q7L3](https://www.amazon.com/dp/B0CXQ7Q7L3) | 1 pk (105) | $18.22 | 112-1905695-2405047 | 2026-06-22 | 2026-06-24 | ACQUIRED |
 | LVDALAB PTFE Membrane Filter, ø13 mm × 0.45 µm, 100 pc, non-sterile | [B0D41KT345](https://www.amazon.com/dp/B0D41KT345) | 1 pk (100) | $13.23 | 112-4393734-6836206 | 2026-05-11 | 2026-05-12 | ACQUIRED |
@@ -663,6 +663,7 @@ Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C funne
 | TCP Global 32 oz / 1000 mL graduated mixing cups (25-pk) — silicone-degassing batch cups, sized for the 3–4× vacuum rise of a ~135 mL pour | [B08HNCGY4N](https://www.amazon.com/dp/B08HNCGY4N) | 1 pk (25) | $19.29 | 112-0401256-3893007 | 2026-06-22 | 2026-06-22 | ACQUIRED |
 | POWERTEC 71476 hardened steel dowel pins, 1/4" × 2" (10-pk) — **the funnel mould's spout bore**: dropped into a socket up the core's ramp cone, it is the whole of the Ø6.35 round below the ramp tip ([funnel-mold/README.md](/hardware/printed-parts/zone-c/funnel-mold/README.md)). Ground to 0.0001"–0.0005" on diameter against ASME dimensional standard — the socket carries 0.1 mm of slip, so the rod's own tolerance has to be a fraction of that, which the 0.005"–0.01" shelf-peg grade is not. Stock, so it is tooling and not a per-unit line: a bent one is replaced from the drawer with the core untouched. $16.99 + $1.23 NE tax | [B086DCHYQK](https://www.amazon.com/dp/B086DCHYQK) | 1 pk (10) | $18.22 | 112-8827949-5565840 | 2026-08-24 | 2026-08-26 | ACQUIRED |
 | Krylon K01303 Crystal Clear Acrylic, 11 oz gloss — clear-acrylic seal for the printed core's food-contact face: seals the print porosity and releases the platinum silicone without inhibiting the cure (acrylic, not enamel); finished + coupon-tested per [funnel-mold/README.md](/hardware/printed-parts/zone-c/funnel-mold/README.md) "Finish the core" | [B00023JE7K](https://www.amazon.com/dp/B00023JE7K) | 1 | $10.61 | 112-5591371-7092233 | 2026-06-23 | 2026-06-25 | ACQUIRED |
+| SVLING M5 × 0.8 × 50 mm fully threaded socket-head cap screws, 40 pc, 12.9 alloy steel, black, 4 mm hex key included — four screw jacks for the funnel mold; $7.99 + $0.58 tax, shipping $0.00. Amazon order details verified 2026-09-08; arriving 2026-09-11 | [B0GHNQFZYR](https://www.amazon.com/dp/B0GHNQFZYR) | 1 pk (40) | $8.57 | 112-6085763-5397009 | 2026-09-08 | — | ON-ORDER |
 
 ---
 
@@ -679,19 +680,19 @@ Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C funne
 
 | Status | $ |
 |---|---|
-| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$33,468.05](LEDGER_ACQUIRED_HW) |
+| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$33,475.55](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$5,437.54](LEDGER_LABOR) |
-| ACQUIRED (combined) | [$38,905.59](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$718.62](LEDGER_ON_ORDER) |
+| ACQUIRED (combined) | [$38,913.09](LEDGER_ACQUIRED_COMBINED) |
+| ON-ORDER | [$719.69](LEDGER_ON_ORDER) |
 | MISSING — paid, not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$39,677.28](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$39,685.85](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
 | § | Section | $ |
 |---|---|---|
-| 1 | Carbonator fabrication | [$4,545.11](LEDGER_SEC1) |
+| 1 | Carbonator fabrication | [$4,552.61](LEDGER_SEC1) |
 | 2 | CO2 subsystem (incl. Lillium prototype carbonator $1,129) | [$1,834.42](LEDGER_SEC2) |
 | 3 | Water supply + backflow prevention | [$889.15](LEDGER_SEC3) |
 | 4 | Carbonator plumbing | [$225.27](LEDGER_SEC4) |

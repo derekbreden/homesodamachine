@@ -33,10 +33,10 @@
     "PUMP_CROWN": "320.4",
     "PUMP_FACE_CLEAR": "19.87",
     "ROUTED_N": "39",
-    "STRATUM_D": "160",
-    "STRATUM_STEP": "11",
-    "STRATUM_TOP": "146",
-    "STRATUM_W": "173.6",
+    "COMP_BAY_D": "160",
+    "COMP_BAY_STEP": "11",
+    "COMP_BAY_TOP": "146",
+    "COMP_BAY_W": "173.6",
     "WALL_STANDOFF": "14",
     "WATER_PORT_Z": "336.2"
   }

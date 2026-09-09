@@ -141,7 +141,7 @@ The TPU gasket is already on the shank from step 2 and is not in the bag. Into t
 
 The other two stations on that wall take the customer's own runs — the tap-water run to their tee and the tether to their cylinder's regulator. Those ship made up in the install kit, each wearing its collar, `TAP` and `CO2`, from [`finish-pack-ship.md`](/hardware/assembly/finish-pack-ship.md) §6.
 
-The customer-facing install instructions live in the visual quick start that ships at the top of the appliance carton ([`/hardware/quickstart/`](/hardware/quickstart/README.md)); its packing and content contract is [`/marketing/unboxing-and-quickstart.md`](/marketing/unboxing-and-quickstart.md).
+The customer-facing install instructions are the two printed documents in the carton: the visual quick start on top of the packing ([`/hardware/quickstart/`](/hardware/quickstart/README.md)), which draws these actions, and the install guide in the kit ([`/hardware/install-guide/`](/hardware/install-guide/README.md)), which carries the opening, the cylinder, the cord and the first pour. What each one owns is [`/marketing/unboxing-and-quickstart.md`](/marketing/unboxing-and-quickstart.md).
 
 Bag, seal, label with build number and the part identifier `FAUCET-UMBILICAL-SUBASSEMBLY`, set aside for [`finish-pack-ship.md`](/hardware/assembly/finish-pack-ship.md) (TBD).
 

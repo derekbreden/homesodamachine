@@ -56,7 +56,7 @@ from docgen import load_module, substitute_md, substitute_py_comments  # noqa: E
 # Every ruthex short this procedure presses, off the patterns that hold them.
 # The shell clamps a cap on each face; the top cap's deck-mount columns take one
 # each; each reservoir cap takes its own wall-top ring. Nothing else on this bench
-# is threaded — the power column's inserts are the enclosure's `east_bosses`, and
+# is threaded — the electronics bay's inserts are the enclosure's `east_bosses`, and
 # `enclosure-mechanical.md` §1 presses those.
 CAP_CLAMP_INSERTS = len(attachment_xy_positions) * 2
 # And what ONE face takes, which is how the bench works it — a face at a time.

@@ -1,0 +1,127 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="ip">
+<div class="card">
+
+<header>
+  <div class="code">IP-06</div>
+  <h1>Seat the pump cartridge</h1>
+  <div class="deckpos"><b>Internal plumbing &#183; 06/8</b>The appliance</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede"><strong>Only after the chassis is closed (EN-08).</strong>
+    The cartridge is built at SA-09 and stays out of the bay until now &#8212;
+    this is its one insertion method, and both hands do it at once.</p>
+
+    <div class="critical"><span class="sign">&#9940;</span>
+      <div><b>Never push a tube into a standing collet.</b> The sleeves come
+      down first and the tube goes in through a held-open collet. A tube driven
+      against a closed sleeve tears its grip and the joint never holds again.</div>
+    </div>
+
+    <ol class="steps">
+      <li><b>Present all
+        <span class="dim" data-gen="SA09_STUBS">4</span> tubes</b> through the
+        fixed plate's
+        <span class="dim" data-gen="PLATE_HOLES">4</span> passages, cartridge
+        square to the bay mouth.</li>
+      <li><b>Squeeze &#8212; each hand spans one pocket and its tab.</b>
+        Cartridge aft, carrier fore, until all four tubes bottom at the fore
+        stop. Sleeves fully down, plate touching, tubes in
+        <span class="dim" data-gen="TUBE_DEPTH_SQUEEZE">10 mm</span>. The face
+        is still <span class="dim" data-gen="PLATE_STROKE">2.15 mm</span> shy.</li>
+      <li><b>Relax both hands together.</b> The springs take the carrier aft,
+        the sleeves extend over the tubes and the nose opens its
+        <span class="dim" data-gen="PLATE_REST_GAP">0.5 mm</span> of air.
+        <b>Let go of both at the same moment</b> &#8212; one tab released early
+        cocks the carrier.</li>
+      <li><b>Push through the last
+        <span class="dim" data-gen="PLATE_STROKE">2.15 mm</span></b> until the
+        face is flush. The same tubes now sit
+        <span class="dim" data-gen="TUBE_DEPTH_HOME">11.65 mm</span> deep.</li>
+      <li><b>Tug every tube.</b> Four gentle pulls, straight out. Neither tab
+        may read park.</li>
+    </ol>
+
+    <div class="tools">
+      <span class="lbl">Tools</span>
+      bare hands &#183; shop light down the bay
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:640px">
+    <div class="panel light">
+      <svg viewBox="0 0 640 520" xmlns="http://www.w3.org/2000/svg">
+        <style>
+          .ink   { fill: #eef0f3; stroke: #1d1d26; stroke-width: 3; }
+          .cart  { fill: #dfe6f3; stroke: #2268c2; stroke-width: 3; }
+          .tube  { stroke: #1d1d26; stroke-width: 5; fill: none; stroke-linecap: round; }
+          .dimn  { stroke: #2268c2; stroke-width: 2.5; fill: none; }
+          .lbl   { font: 600 23px 'IBM Plex Sans','Helvetica Neue',sans-serif; fill: #1d1d26; }
+          .sub   { font: 400 20px 'IBM Plex Sans','Helvetica Neue',sans-serif; fill: #70707c; }
+          .num   { font: 700 24px 'IBM Plex Mono',Menlo,monospace; fill: #2268c2; }
+        </style>
+
+        <!-- ── stage 1: squeeze ─────────────────────────────────────── -->
+        <text class="lbl" x="16" y="30">SQUEEZE &#8212; tubes bottom, face still short</text>
+        <!-- plate -->
+        <path class="ink" d="M300 52 L330 52 L330 172 L300 172 Z"/>
+        <!-- sleeve, fully depressed against the plate -->
+        <path class="ink" d="M330 76 L372 76 L372 148 L330 148 Z"/>
+        <!-- cartridge face, standing short -->
+        <path class="cart" d="M196 52 L226 52 L226 172 L196 172 Z"/>
+        <!-- tube through -->
+        <path class="tube" d="M226 112 L410 112"/>
+        <!-- the short gap -->
+        <g class="dimn">
+          <path d="M226 192 L300 192"/>
+          <path d="M226 184 L226 200"/><path d="M300 184 L300 200"/>
+        </g>
+        <text class="num" x="200" y="222" data-gen="PLATE_STROKE">2.15 mm</text>
+        <text class="sub" x="340" y="196">sleeves down, no nose air</text>
+        <text class="sub" x="416" y="106">tube in
+          <tspan class="num" font-size="21" data-gen="TUBE_DEPTH_SQUEEZE">10 mm</tspan></text>
+
+        <!-- ── stage 2: home ────────────────────────────────────────── -->
+        <text class="lbl" x="16" y="308">CONNECTED &#8212; relax, then push it home</text>
+        <path class="ink" d="M300 330 L330 330 L330 450 L300 450 Z"/>
+        <!-- sleeve extended, standing off the plate -->
+        <path class="ink" d="M344 354 L386 354 L386 426 L344 426 Z"/>
+        <path class="cart" d="M270 330 L300 330 L300 450 L270 450 Z"/>
+        <path class="tube" d="M300 390 L424 390"/>
+        <g class="dimn">
+          <path d="M330 470 L344 470"/>
+          <path d="M330 462 L330 478"/><path d="M344 462 L344 478"/>
+          <path d="M344 470 L392 470" stroke-dasharray="6 6"/>
+        </g>
+        <text class="num" x="398" y="478" data-gen="PLATE_REST_GAP">0.5 mm</text>
+        <text class="sub" x="398" y="502">of nose air</text>
+        <text class="sub" x="16" y="470">face flush</text>
+        <text class="sub" x="430" y="384">tube in
+          <tspan class="num" font-size="21" data-gen="TUBE_DEPTH_HOME">11.65 mm</tspan></text>
+
+        <text class="sub" x="16" y="248">The sleeve travels
+          <tspan class="num" font-size="20" data-gen="SLEEVE_TRAVEL">1.65 mm</tspan>
+          between the two.</text>
+      </svg>
+      <div class="cap"><b>One tube, both stops</b> &#8212; mm &#183; schematic,
+      side on. The plate never moves; the cartridge and the carrier move toward
+      each other and then apart.</div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>The face is flush all round, both tabs settled at the same stop, and all four tubes hold a gentle tug &#8212; ready to plug at WR-04.</div>
+  <div class="src">internal-plumbing.md &#167;3 &#183; enclosure-mechanical.md &#167;6<br>_cards_sync.py &#183; rev 2026-09-08</div>
+</footer>
+
+</div>
+</body>
+</html>

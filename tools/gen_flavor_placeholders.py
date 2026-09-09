@@ -261,7 +261,7 @@ def render(flavor, out_size):
     return img.resize((out_size, out_size), Image.LANCZOS)
 
 
-# ── Preview contact sheet (one row per flavor: square / circle / RP2040) ──────
+# ── Preview contact sheet (one row per flavor: square / circle) ──────────────
 
 def circle_crop(img, bg=NAVY):
     out = Image.new("RGB", img.size, bg)
@@ -273,7 +273,7 @@ def circle_crop(img, bg=NAVY):
 
 def contact_sheet(masters):
     pad, cell, lab = 16, 240, 22
-    cols, headers = [cell, cell, 128], ["square 240", "circle 240 (S3/iOS)", "128×115 (RP2040)"]
+    cols, headers = [cell, cell], ["square 240", "circle 240 (iOS)"]
     row_h = cell + lab + pad
     sheet = Image.new("RGB", (pad + sum(c + pad for c in cols), pad + len(masters) * row_h), (12, 12, 20))
     d = ImageDraw.Draw(sheet)
@@ -286,7 +286,7 @@ def contact_sheet(masters):
     for r, m in enumerate(masters):
         y = pad + r * row_h + lab
         sq = m.resize((cell, cell), Image.LANCZOS)
-        for cx, im in zip(xs, [sq, circle_crop(sq), m.resize((128, 115), Image.LANCZOS)]):
+        for cx, im in zip(xs, [sq, circle_crop(sq)]):
             sheet.paste(im, (cx, y))
     return sheet
 

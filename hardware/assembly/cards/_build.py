@@ -7,9 +7,16 @@ TWO ARTIFACTS OFF ONE LAYOUT. The PNG is a pixel grid, and it is what goes to
 the printer one card at a time on 4x6 gloss. The PDF is the same page printed
 rather than captured — type stays type — so the whole deck is one file a person
 can read on a screen, hand to a printer, or download off the site, at a
-fifteenth the bytes the same pages cost as pixels. That is what makes it a file
-git carries and out/ does not: deck.pdf sits beside the cards, and the site
-serves it (web/contracts/documents.js).
+fifteenth the bytes the same pages cost as pixels.
+
+NOTHING THIS FILE WRITES IS CARRIED IN GIT. deck.pdf, deck.cover.png and out/ are
+all ignored, and so are the pictures under img/ that the pages are drawn around.
+They reach a deploy the road every solid in this tree takes: pack.py's
+BUNDLED_ART_DIRS puts them in the release asset, cad-artifacts.lock.json names
+each by sha256, and web/scripts/fetch-cad-artifacts.mjs lands them on the disk the
+site serves from (web/contracts/cards.js). The one thing beside the cards that git
+does carry is deck.pdf.json, the sidecar the site lists the deck by — text a writer
+composes, not pixels a browser draws.
 
 The deck is a thing a bench holds while it builds an appliance, so it is gated
 before it is printed: `_cards_sync.py --check` builds the appliance and reads
@@ -40,8 +47,8 @@ REPO_ROOT = next(p for p in CARDS_DIR.parents if (p / "tools" / "render").is_dir
 # it resolves to the nearest copy — the tree this file stands in.
 HARDWARE = next(p for p in CARDS_DIR.parents if p.name == "hardware")
 OUT_DIR = CARDS_DIR / "out"
-#: The deck as one file, committed beside the cards it is made of, and the
-#: picture of its first page the site shows to open it.
+#: The deck as one file, written beside the cards it is made of, and the picture of its
+#: first page the site shows to open it. Both are build outputs and neither is carried.
 DECK_PDF = CARDS_DIR / "deck.pdf"
 DECK_COVER = CARDS_DIR / "deck.cover.png"
 DECK_SIDECAR = CARDS_DIR / "deck.pdf.json"
@@ -49,12 +56,12 @@ DECK_SIDECAR = CARDS_DIR / "deck.pdf.json"
 sys.path.insert(0, str(HARDWARE / "scripts"))
 from _cadq_export import export_pdf, note_read, note_write  # noqa: E402
 
-# Deck order = the build order of /hardware/README.md "Build order" — which is the
-# procedure docs' own dependency chain, not their filename order. The three bench
-# subsystems (ca, es, fu) feed en; ip needs the chassis en closes up; wr needs the
-# lines ip lays in.
-SUBSYSTEM_ORDER = ["pv", "cc", "rl", "ca", "pc", "fu", "en", "ip", "wr", "fc", "ab", "fs",
-                   "sa", "gt"]
+sys.path.insert(0, str(CARDS_DIR))
+from _cardgen import SUBSYSTEM_ORDER  # noqa: E402
+
+# Deck order comes from _cardgen, which is also where the cover's contents table and
+# README's deck tables read it. One list, three readers, and no way for the pages to
+# print in an order the cover does not table.
 
 PAGE_W, PAGE_H = 6 * 72, 4 * 72  # points
 
@@ -84,10 +91,10 @@ def render_cards() -> int:
     and both are things to look at on the printed deck — so the deck is still
     printed, from whatever rendered, and the status decides this build's own."""
     # A PAGE IS DRAWN BY NODE, below Python, and the deck beside it is not. Only the deck was
-    # ever declared, so `sync_tree` carried `deck.pdf` and left a hundred and six pages of the
-    # tree at whatever the last hand run wrote — a green build and a clean carry beside a page
-    # showing a part that has since changed. The renderer is read whether or not this run
-    # reaches it; the pages are what the run makes.
+    # ever declared, so `sync_tree` carried `deck.pdf` and left every page of the tree at
+    # whatever the last hand run wrote — a green build and a clean carry beside a page showing
+    # a part that has since changed. The renderer is read whether or not this run reaches it;
+    # the pages are what the run makes.
     renderer = REPO_ROOT / "tools" / "render" / "render-card.js"
     note_read(renderer)
     for stem in sorted(p.stem for p in CARDS_DIR.glob("*.html")):
@@ -176,14 +183,14 @@ def build_pdf() -> int:
         # A card's render comes back out of the browser as a Flate RGB bitmap
         # about nine times the PNG it was drawn from. Re-encoded at 92 it costs
         # a third of that and moves no pixel by more than 3 of 255 — measured on
-        # es-02, the largest. Type and rules are vector and untouched.
+        # the largest page in the deck. Type and rules are vector and untouched.
         for page in writer.pages:
             for img in page.images:
                 if len(img.data) > IMAGE_RECOMPRESS_ABOVE:
                     img.replace(img.image, quality=IMAGE_QUALITY)
         # Every appended document brought its own copy of the font subsets and
-        # the shared resources; one page of a hundred and three needs one of
-        # each. Held to: the deck goes 21.5 MB -> 8.8 MB and no page moves.
+        # the shared resources; one page of the deck needs one of each. Held to:
+        # the deck goes 21.5 MB -> 8.8 MB and no page moves.
         writer.compress_identical_objects()
         writer.add_metadata({"/Title": DECK_TITLE, "/Author": "", "/Producer": "", "/Creator": ""})
         with open(out_path, "wb") as fh:
@@ -220,7 +227,6 @@ def build_pdf() -> int:
 
 def check_machine() -> None:
     """Every card's derived figures against the appliance it describes."""
-    sys.path.insert(0, str(CARDS_DIR))
     import _cards_sync
 
     if _cards_sync.main(check=True):

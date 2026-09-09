@@ -59,7 +59,7 @@ with it and the camera stays a camera.
 **`later` is what the piece holds and the unit has not got yet.** The ASSE drip pan rides channels
 printed on `enclosure-back-top` and the funnel sits in an opening `enclosure-front-top` takes its
 share of — the fastening table is right about both — and each arrives through a wall with the box
-already standing ([EN-08](/hardware/assembly/cards/en-08-asse-drip-pan.html), FS). So neither is on
+already standing ([EN-09](/hardware/assembly/cards/en-09-asse-drip-pan.html), FS). So neither is on
 its bench unit and neither is in its picture, and whatever stands on one goes with it: the
 moisture plate lies in the tray. A name here the roots do not hold is reported.
 

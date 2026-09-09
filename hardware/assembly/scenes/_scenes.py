@@ -322,11 +322,11 @@ SCENES = (
              "its sleeve through the −X wall, with the box standing.",
     ),
     # TWO UNITS THAT ARE NOT BUILT ON A PIECE. Both of these are a group of bodies a card names
-    # together — the refrigeration stratum, the power column — and neither is a printed part or a
+    # together — the compressor bay, the electronics bay — and neither is a printed part or a
     # file. `roots` takes the bodies themselves and the fastening table brings what hangs off
     # them, which is how the compressor arrives carrying its own cutoff and clamp.
     Scene(
-        "en04-stratum", "The refrigeration stratum",
+        "en04-compressor-bay", "The compressor bay",
         roots=("compressor", "condenser+fan"), inner=(), flip=None, also=(), later=(),
         # Off the front-left corner and above, which is the corner the pair presents to a
         # bench: the can's own flank, the block beside it, and the joint drawn between them.
@@ -335,7 +335,7 @@ SCENES = (
              "the discharge joint made on that line — the pair as it stands on the floor slab.",
     ),
     Scene(
-        "en06-column", "The power column",
+        "en07-electronics-bay", "The electronics bay",
         roots=("psu", "pcba", "relay-1", "relay-2", "ground-stack"),
         inner=(), flip=None, also=(), later=(),
         # Square on to the +X flank the column stands down, from inside the box.
@@ -390,13 +390,13 @@ PARTS = (
          cam=(0.35, 1.0, 0.3)),
     Part("en03-compressor", "Compressor",
          "hardware/reference/compressor/compressor.step"),
-    Part("en05-coldcore", "Cold core",
+    Part("en06-coldcore", "Cold core",
          "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step",
          cam=(0.8, -1.0, 0.5)),
-    Part("en08-asse-drip-pan", "ASSE drip pan",
+    Part("en09-asse-drip-pan", "ASSE drip pan",
          "hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.step",
          cam=(0.75, -1.0, 0.55)),
-    Part("en09-funnel", "Funnel",
+    Part("en10-funnel", "Funnel",
          "hardware/printed-parts/zone-c/funnel/funnel.step"),
     # Along the +X wall's INNER face, which is the face the bosses reach in off — so the camera
     # stands across the box, and the walls between it and them are drawn through.
@@ -425,11 +425,6 @@ PARTS = (
          cam=(-1.0, -1.0, 1.0), up=(-1, 0, 0)),
     Part("coil-mandrel", "Coil mandrel",
          "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step"),
-    # 185 mm of plug, 8.5 across. NEARLY DOWN ITS OWN AXIS is the only view of it that is not a
-    # line: what there is to see is the section, and the length foreshortens behind it.
-    Part("copper-plug", "Copper plug, port column",
-         "hardware/printed-parts/cold-core/copper-plugs/copper-plug-port.step",
-         cam=(0.22, -0.28, 1.0), zoom=2.2),
     # Through the walls: the card is about the pack, and this box is black PETG.
     Part("enclosure-assembly", "The machine, packed",
          "hardware/manifold-layout/enclosure-assembly.step",

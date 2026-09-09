@@ -6,6 +6,12 @@ deck walks the whole build in the order of [`/hardware/assembly/`](/hardware/ass
 procedure docs. A card is a rendering of its procedure step — when a procedure
 changes, its cards rebuild.
 
+Two of those docs have no cards and want none.
+[`handwork.md`](/hardware/assembly/handwork.md) frames the skilled-hand tasks and
+hands each one to the production procedure that owns it, so its cards are those
+docs' cards; [`weld-rotation-rig.md`](/hardware/assembly/weld-rotation-rig.md)
+builds a bench fixture, which is tooling and ships in nothing.
+
 **The `SA` cards are a different animal**: one per finished sub-assembly rather
 than per operation. A unit card is a large picture of what one unit looks like
 when it leaves the bench, and a column naming each thing on it and the joint that
@@ -33,20 +39,28 @@ the reason a step is shaped the way it is. See [The gate](#the-gate).
   `.scene.json` naming the geometry it was drawn of, so a picture and the part it pictures
   cannot drift apart quietly. A file here with no sidecar is one nothing draws.
 - `out/` — one PNG and one PDF per card, both 6 × 4 in: the PNG is what a printer is handed
-  a card at a time, the PDF is a page of the bound deck. Built rather than carried:
-  `.gitignore` holds the directory out, and a checkout has it after `_build.py` below and not
-  before.
-- `deck.pdf` — the whole deck as one file, and `deck.cover.png` + `deck.pdf.json` beside it, which
-  are how the site lists it (`web/contracts/documents.js`). These three ARE carried: the pages are
+  a card at a time, the PDF is a page of the bound deck.
+- `deck.pdf` — the whole deck as one file, with `deck.cover.png` beside it: the pages are
   printed off the browser's layout rather than captured off it, so the deck is vector and a
   fifteenth the size of the same pages as pixels.
+
+  **Only the card HTML is carried. The pictures and the bound deck are not** — `img/`,
+  `out/`, `deck.pdf` and `deck.cover.png` are all `.gitignore`d, and a checkout has none of
+  them until a build writes them or a release lands them. They travel the road every solid
+  in this tree travels: `pack.py`'s `BUNDLED_ART_DIRS` puts them in the release asset,
+  [`cad-artifacts.lock.json`](/hardware/cad-artifacts.lock.json) names each by sha256, and
+  `web/scripts/fetch-cad-artifacts.mjs` puts them on the disk a deploy serves from.
+  `deck.pdf.json` is the exception and is carried: it is the sidecar the site lists the deck
+  by (`web/contracts/cards.js`), and it is text a writer composes rather than pixels a
+  browser draws.
 - [`_build.py`](_build.py) — runs the gate, renders every card HTML to `out/`
   via [`tools/render/render-card.js`](/tools/render/render-card.js), and
   binds the pages into `deck.pdf`. Underscore-prefixed: the dev-server never runs it.
 - [`_cards_sync.py`](_cards_sync.py) — the doc-sync driver: every figure the
-  cards state that the machine owns, derived from `enclosure_assembly.machine()`, plus
-  which card carries which. [`_cardgen.py`](_cardgen.py) — the marker syntax and
-  the checks. Both underscore-prefixed for the same reason.
+  cards state that the machine owns, read off the last build's `_facts.read()`, plus
+  which card carries which, plus the deck table below. [`_cardgen.py`](_cardgen.py) —
+  the marker syntax, the deck order, and the checks. Both underscore-prefixed for the
+  same reason.
 
 ```
 tools/cad-venv/bin/python hardware/assembly/cards/_build.py
@@ -93,6 +107,13 @@ A new subsystem is one function taking the built machine and returning
 across the whole deck**, so two cards cannot state the same wall's boss count
 and disagree. A card stating nothing the machine owns needs no entry.
 
+**The deck table below is held to the cards the same way.** Its rows are not a
+second copy of the titles a bench reads — the driver renders each card's `h1`,
+markers resolved, and writes the row from it. So a title that changes on the
+card changes here, a card added or deleted adds or deletes its row, and a count
+in a title stays the machine's. Nothing in this file below "The deck" is typed
+twice.
+
 A part named on a card resolves to a line in [`bom.md`](/hardware/ledger/bom.md)
 or [`tools.md`](/hardware/ledger/tools.md) — the two ledgers a build draws on.
 `purchases.md` and `inventory.md` record what was bought, which is a different
@@ -111,30 +132,34 @@ tools/cad-venv/bin/python hardware/scripts/check_ledger.py
 
 Subsystems print in the build order of [`/hardware/README.md`](/hardware/README.md)
 "Build order" — the procedure docs' dependency chain, held in one place as
-`SUBSYSTEM_ORDER` in [`_build.py`](_build.py). A card's number is its position
-*within* its subsystem, not in the deck, so the three bench subsystems (CA, ES,
+`SUBSYSTEM_ORDER` in [`_cardgen.py`](_cardgen.py), which is where both the page
+order and the cover's own table read it. A card's number is its position
+*within* its subsystem, not in the deck, so the three bench subsystems (CA, EB,
 FU) can be built whenever before the chassis needs them. Where one subsystem's
-first card depends on another's last, the card says so by code. Per-subsystem
-accent colors are defined in `STYLE.md`.
+first card depends on another's last, the card says so by code. **The cover's
+contents table is this same order**, and it is the deck's own shape rather than
+the machine's, so [`_cards_sync.py`](_cards_sync.py)'s `deck()` reads both the
+counts and the order off the card files. Per-subsystem accent colors are the
+`body.<code>` rules in [`style.css`](style.css), one line each.
 
 ### PV — Pressure vessel ([pressure-vessel.md](/hardware/assembly/pressure-vessel.md))
 
 | Card | Operation |
 |---|---|
 | PV-01 | Chamfer the end-plate port holes |
-| PV-02 | Tap 1/4"-18 NPT — four ports |
+| PV-02 | Tap 1/4″-18 NPT — four ports |
 | PV-03 | Drill the rod register — both plates |
 | PV-04 | Break the plate edges — asymmetric |
 | PV-05 | Cut the level rods — three per appliance |
-| PV-06 | Tack-weld the float rod to the bottom plate |
+| PV-06 | Dress the bottom plate — rod tacked, sparge barb in |
 | PV-07 | Deburr the tube + prep the weld surfaces |
 | PV-08 | Weld the bottom plate to the tube |
-| PV-09 | Close the carbonator — float in, top plate welded |
+| PV-09 | Close the carbonator — float, sparge, top plate |
 | PV-10 | Dye-penetrant inspection of the closure welds |
 | PV-11 | Hydro test — 180 PSI, 30 minutes |
 | PV-12 | Citric-acid passivation |
 | PV-13 | Build the PRV-shroud subassembly |
-| PV-14 | Install the port fittings, sparge stone, PRV |
+| PV-14 | Install the port fittings and the PRV |
 
 ### CC — Cold core ([cold-core.md](/hardware/assembly/cold-core.md))
 
@@ -144,14 +169,14 @@ accent colors are defined in `STYLE.md`.
 | CC-02 | Dress the carbonator wall — reeds, probe, foil |
 | CC-03 | Transfer the coil + set the band |
 | CC-04 | Bond the coil probe + close the foil over the coil |
-| CC-05 | Press the shell inserts — twelve |
+| CC-05 | Press the shell inserts |
 | CC-06 | Pour the cap foam — both caps |
 | CC-07 | Build the reed columns |
 | CC-08 | Seat the reservoir rods + floats |
 | CC-09 | Close the reservoirs — gasket, cap, vent |
-| CC-10 | Lower the carbonator — elbow already on it |
+| CC-10 | Lower the carbonator — fittings already on it |
 | CC-11 | Seat the reservoirs in their pockets |
-| CC-12 | Route the seven penetrations |
+| CC-12 | Route the 9 penetrations |
 | CC-13 | Stack the copper plugs |
 | CC-14 | Pour the body foam |
 | CC-15 | Reed columns in, gaskets on, caps down |
@@ -176,42 +201,44 @@ accent colors are defined in `STYLE.md`.
 | CA-01 | Build a harness — cut, crimp, sleeve, test |
 | CA-02 | The harness schedule |
 
-### PC — Power column ([power-column.md](/hardware/assembly/power-column.md))
+### PC — Electronics bay ([electronics-bay.md](/hardware/assembly/electronics-bay.md))
 
 | Card | Operation |
 |---|---|
-| PC-01 | Prepare the wall |
-| PC-02 | Stage the AC distribution + ground bus |
-| PC-03 | Stage the PSU, relays, PCBA |
-| PC-04 | Land the AC pigtails |
-| PC-05 | Stage DC distribution + 12 V branches |
-| PC-06 | Land the RELAYS J5 loom |
-| PC-07 | Pre-power continuity + isolation check |
+| EB-01 | Prepare the wall |
+| EB-02 | Stage the AC distribution + ground bus |
+| EB-03 | Stage the PSU, relays, PCBA |
+| EB-04 | Land the AC pigtails |
+| EB-05 | Stage DC distribution + 12 V branches |
+| EB-06 | Land the RELAYS J5 loom |
+| EB-07 | Pre-power continuity + isolation check |
 
 ### FU — Faucet + umbilical ([faucet-and-umbilical.md](/hardware/assembly/faucet-and-umbilical.md))
 
 | Card | Operation |
 |---|---|
 | FU-01 | Cut the three LLDPE tubes |
-| FU-02 | Route the tubes through the shell |
+| FU-02 | Preload + route the factory assembly |
 | FU-03 | Insulate and sleeve, a segment at a time |
 | FU-04 | Bag with the under-counter plate |
 
 ### EN — Enclosure mechanical ([enclosure-mechanical.md](/hardware/assembly/enclosure-mechanical.md))
 
-One card per procedure step, in the procedure's own order.
+In the procedure's own order. Step 3 stands two bodies on the slab and takes two
+cards; every other step takes one.
 
 | Card | Operation |
 |---|---|
 | EN-01 | Stage the printed pieces |
-| EN-02 | Seat the +Y wall's connection bodies |
+| EN-02 | Seat the connection bodies on the +Y wall of back-top |
 | EN-03 | Bolt the compressor down to the slab |
-| EN-04 | Stand the condenser on the compressor's tangent |
-| EN-05 | Seat the cold core behind the stratum |
-| EN-06 | Stand the power column on the +X flank |
-| EN-07 | Close the box |
-| EN-08 | Slide the ASSE drip pan in through the −X wall |
-| EN-09 | Display into the facet, funnel opening clear |
+| EN-04 | Stand the condenser on the compressor’s tangent |
+| EN-05 | Close the front column |
+| EN-06 | Stage the cold core for its ride |
+| EN-07 | Stand the electronics bay on the +X flank |
+| EN-08 | Close the box |
+| EN-09 | Slide the ASSE drip pan in through the −X wall |
+| EN-10 | Display into the facet, funnel opening clear |
 
 ### IP — Internal plumbing ([internal-plumbing.md](/hardware/assembly/internal-plumbing.md))
 
@@ -220,9 +247,11 @@ One card per procedure step, in the procedure's own order.
 | IP-01 | CO2 path — +Y wall to cold core |
 | IP-02 | Water path — +Y wall to cold core |
 | IP-03 | Flavor manifold — valves and tees |
-| IP-04 | Flavor manifold — pumps and channels |
-| IP-05 | Risers to the umbilical bulkheads |
-| IP-06 | Witness and tidy every joint |
+| IP-04 | Flavor manifold — the moving carrier |
+| IP-05 | Flavor manifold — pumps and channels |
+| IP-06 | Seat the pump cartridge |
+| IP-07 | Risers to the umbilical bulkheads |
+| IP-08 | Witness and tidy every joint |
 
 ### WR — Wiring ([wiring.md](/hardware/assembly/wiring.md))
 

@@ -37,6 +37,7 @@ not its craft.
 """
 
 import os
+import re
 import sys
 from collections import Counter, namedtuple
 from pathlib import Path
@@ -56,7 +57,7 @@ for _p in ("manifold-layout", "printed-parts/cadlib", "printed-parts/cold-core",
     sys.path.insert(0, str(_hw / _p.replace("/", os.sep)))
 
 sys.path.insert(0, str(CARDS_DIR))
-from _cardgen import sync  # noqa: E402
+from _cardgen import COVER, SUBSYSTEM_ORDER, sync  # noqa: E402
 from _cards_ip import internal_plumbing  # noqa: E402  — IP + WR + FU
 from _cards_cc import cold_core, refrigerant_loop  # noqa: E402
 from _cards_fs import bench  # noqa: E402  — PV + CA + FC + AB + FS + GT
@@ -83,10 +84,6 @@ def _machine() -> Machine:
 
 
 # ═══ 00 — The cover ════════════════════════════════════════════════════════
-
-#: The page the deck opens on, which is not one of the operations it tables.
-COVER = "00-cover"
-
 
 def deck(_m: Machine):
     """The cover's contents table and its count of the whole: the deck's own shape.
@@ -123,6 +120,25 @@ def deck(_m: Machine):
             f"the {code.upper()} deck is numbered {numbers} — the cover tables one figure "
             f"for how many cards it holds and how far it runs; renumber it")
 
+    # EVERY DECK HAS A ROW, AND THE ROWS RUN IN THE ORDER THE PAGES DO. The counts on this
+    # page have always been derived and the ORDER never was, so the cover was free to list
+    # the decks in the stylesheet's declaration order while `_build.py` bound the pages in
+    # `SUBSYSTEM_ORDER` — IP tabled fourth in a deck that prints it eighth. A contents table
+    # that sends a hand to the wrong place is worse than none, and the counts beside it being
+    # right is exactly what makes it convincing.
+    # Read the ROW'S OWN CHIP, not every `CARDS_` name on the page: `CARDS_SA` lands twice,
+    # once as the sub-assembly row and once in the footer's clause about the unit cards, and
+    # a scan of the whole file reads the deck order as ending `… SA GT SA`.
+    tabled = re.findall(r'<span class="tcode"[^>]*>([A-Z]{2})</span>',
+                        (CARDS_DIR / f"{COVER}.html").read_text())
+    expected = [c.upper() for c in SUBSYSTEM_ORDER if c in counts]
+    assert tabled == expected, (
+        f"the cover tables the decks {tabled} and `_build.py` binds them {expected} — a bench "
+        f"reads the cover to find a deck, so the table is the page order or it is a wrong map")
+    assert set(counts) <= set(SUBSYSTEM_ORDER), (
+        f"{sorted(set(counts) - set(SUBSYSTEM_ORDER))} is a deck of cards with no place in "
+        f"`_cardgen.SUBSYSTEM_ORDER` — its pages sort to the back and the cover cannot table it")
+
     facts = {
         # The deck's length, less the page that states it.
         "CARDS_TOTAL": f"{len(stems)}",
@@ -155,7 +171,7 @@ def enclosure(m: Machine):
 
     # ── what the cards' sentences stand on ────────────────────────────────
     # EN-01 stages four quadrants, the pump cartridge that rides out of their bay and the cap
-    # screwed under it; EN-07 cross-pins the quadrants alone. THE THREE ARE HELD THREE
+    # screwed under it; EN-08 cross-pins the quadrants alone. THE THREE ARE HELD THREE
     # DIFFERENT WAYS — a quadrant is cross-pinned, the pump cartridge slides and is pinned by
     # nothing, the cap is screwed to the pump cartridge on the bench — so a piece added or
     # renamed has no number in these sentences to drift, and this is the only thing that can
@@ -163,15 +179,15 @@ def enclosure(m: Machine):
     assert pieces == ["back-bottom", "back-top", "front-bottom",
                       "front-top", "pump-cap", "pump-cartridge"], (
         f"the box prints as {pieces} and EN-01 stages four quadrants, one pump cartridge and "
-        f"its cap, EN-07 cross-pins the quadrants alone — restate them, "
+        f"its cap, EN-08 cross-pins the quadrants alone — restate them, "
         f"or the deck ships a card for a part that is not made")
     quadrants = [p for p in pieces if not p.startswith("pump-")]
-    # EN-01 tables ONE Z seam for both columns and EN-07 draws it as one level line
+    # EN-01 tables ONE Z seam for both columns and EN-08 draws it as one level line
     # round the box, the four pieces meeting at a four-way corner on each side wall.
     # Two planes again and both cards are drawing a box that is not this one.
     assert abs(box.splits[0] - box.splits[1]) < 1e-9, (
         f"the Z seams stand at {box.splits} — EN-01 tables one seam for both columns "
-        f"and EN-07 draws them on one rule; say what they are instead")
+        f"and EN-08 draws them on one rule; say what they are instead")
     # EN-02: "no connection is cut in the front wall" — the pump bay is the one
     # opening cut there and the pump cartridge's face closes it — which is why CO2 comes
     # in at the back. EN-04: the condenser's air still has no route through a side
@@ -181,14 +197,14 @@ def enclosure(m: Machine):
         f"{len(pack.front_ports)} station(s) are cut in the front wall — EN-02 says no "
         f"connection is, and EN-02's whole CO2 paragraph is about that. The pump cartridge is "
         f"a piece of that wall, not a station in it")
-    # EN-06: "every one of those bosses is on `enclosure-back-top`", which is what
-    # makes the power column bench work on that piece rather than work inside a
+    # EN-07: "every one of those bosses is on `enclosure-back-top`", which is what
+    # makes the electronics bay bench work on that piece rather than work inside a
     # standing box. A boss forward of the Y seam or below the back Z seam is in a
     # different piece and the step is a different step.
     stray = [b for b in box.east_bosses if b[0] < box.y_joint or b[1] < box.splits[1]]
     assert not stray, (
-        f"{len(stray)} +X wall boss(es) fall outside `enclosure-back-top` ({stray}) — EN-06 "
-        f"offers the whole power column up to that one piece on the bench")
+        f"{len(stray)} +X wall boss(es) fall outside `enclosure-back-top` ({stray}) — EN-07 "
+        f"offers the whole electronics bay up to that one piece on the bench")
     # EN-03: "it is the only body in the box that is bolted down", and every post under
     # it goes through one of its own feet. Both sentences are this one reading — the
     # slab's whole boss census against the compressor's own mounting pattern — and
@@ -197,13 +213,13 @@ def enclosure(m: Machine):
         f"the floor slab stands {len(pack.floor_bosses)} boss(es) and the compressor's "
         f"plate has {len(_comp.mount_pattern())} holes — EN-03 fastens one body on four "
         f"posts and says nothing else in the box is bolted down")
-    # EN-05: the core is reached through its LID, and the face it mates against the stratum
+    # EN-06: the core is reached through its LID, and the face it mates against the compressor bay
     # carries the copper/PRV slot and no round bore at all. Both reed cables are conduits in
     # the cap for that reason — a station on the front face is a fitting behind the condenser.
     assert {"reed-cable-a", "reed-cable-b"} <= set(cap_conduits), (
         f"the cap carries {sorted(cap_conduits)} and neither reed cable is among them — "
-        f"EN-05 brings both up their own channels and out the lid, because the front face "
-        f"is mated shut against the stratum")
+        f"EN-06 brings both up their own channels and out the lid, because the front face "
+        f"is mated shut against the compressor bay")
 
     # The two bores in that wall, taken from the functions that STRIKE them rather
     # than recomputed beside them. `pack.back_ports` is the list `enclosure._port_cuts`
@@ -248,10 +264,10 @@ def enclosure(m: Machine):
     funnel_pieces = ("both top pieces" if hy1 > box.y_joint
                      else "`enclosure-front-top`")
     assert abs((hx0 + hx1) / 2.0 - (ox0 + ox1) / 2.0) < 1e-6, (
-        "the funnel opening is off centre across the box and EN-09 sends the bench "
+        "the funnel opening is off centre across the box and EN-10 sends the bench "
         "straight down it — say where it is instead")
 
-    # The refrigeration stratum's own width across the pair as it stands, and the cold
+    # The compressor bay's own width across the pair as it stands, and the cold
     # core's beside it. A body ON THE FLOOR is held one `side_band_inset` in from the ±X
     # walls where it meets one of the seam's bosses in depth AND in height, so each mouth,
     # plug and socket collar seats at full section. Both figures are carried because the
@@ -265,7 +281,7 @@ def enclosure(m: Machine):
         # The box.
         "BOX_SIZE": f"{ox1 - ox0:.0f} {X} {oy1 - oy0:.0f} {X} {oz1 - oz0:.0f} mm",
         "BOX_PIECES": f"{len(pieces)}",
-        # EN-07 pins the quadrants and nothing else: the pump cartridge is held by its
+        # EN-08 pins the quadrants and nothing else: the pump cartridge is held by its
         # rails and comes out in the user's hands, so it is not one of the pieces
         # a screw crosses.
         "BOX_QUADRANTS": f"{len(quadrants)}",
@@ -275,12 +291,12 @@ def enclosure(m: Machine):
         # seam is a level line round the box, so a second name for the back column's
         # half of it would be a fact that can only ever agree with this one.
         "Z_SEAM_FRONT": f"{box.splits[0]:.4g}",
-        "STRATUM_X": f"{_span('compressor', 'condenser+fan'):.0f} mm",
+        "COMP_BAY_X": f"{_span('compressor', 'condenser+fan'):.0f} mm",
         "CORE_X": f"{_span('foam-assembly'):.0f} mm",
         "SIDE_BAND": f"{m.a.constants['side_band_inset']:.4g} mm",
         # Inserts set while the box is still open bench (EN-01). The +X wall's
-        # count is one fact under one name: EN-01 presses those inserts, EN-06
-        # drives their screws and PC-01/PC-03 send the bench to them, and four
+        # count is one fact under one name: EN-01 presses those inserts, EN-07
+        # drives their screws and EB-01/EB-03 send the bench to them, and four
         # cards stating one wall's boss chain cannot be allowed to disagree.
         "WALL_BOSSES": f"{len(box.east_bosses)}",
         "C14_INSERTS": f"{len(box.c14)}",
@@ -295,7 +311,7 @@ def enclosure(m: Machine):
         "C14_FLANGE_W": f"{c14_w:.4g} mm",
         "AC_RECESS": f"{ac_inlet_recess_depth_min:.4g}{NDASH}"
                      f"{ac_inlet_recess_depth_max:.4g} mm",
-        # The refrigeration stratum (EN-03, EN-04). The compressor's figures are the
+        # The compressor bay (EN-03, EN-04). The compressor's figures are the
         # donor's own — a plate and a bolt pattern a bench measures with calipers —
         # and its crown is read off the placed body, which stands on the slab.
         "FLOOR_BOSSES": f"{len(pack.floor_bosses)}",
@@ -304,12 +320,17 @@ def enclosure(m: Machine):
         "COMP_PLATE": f"{_comp.BASE_X:.4g} {X} {_comp.BASE_Y:.4g} mm",
         "COMP_CROWN": f"{m.a.bb('compressor').zmax:.4g} mm",
         "SIDE_OPENINGS": f"{len(box.east_ports)}",
-        # The cold core (EN-05).
+        # The cold core (EN-06).
         "CORE_FOOTPRINT": f"{outer_shell_x_length:.4g} {X} {outer_shell_y_length:.4g} mm",
         "CAP_CONDUITS": f"{len(cap_conduits)}",
-        # The funnel opening (EN-09).
+        # The funnel opening (EN-10).
         "FUNNEL_PIECES": funnel_pieces,
-        # What the closed chassis reads as (EN-07).
+        # The front column's slide (EN-05) — how far front-top stands proud of the
+        # bottom piece's front wall when its mouth first takes the shoulder.
+        "RAIL_TRAVEL_FRONT": f"{_enc._z_rail_travel(
+            box.inner, box.y_joint, 'front',
+            box.collet_plate if box.pump_bay else None, box.vent_chase):.4g} mm",
+        # What the closed chassis reads as (EN-08).
         "BODY_COUNT": f"{len(_card.mounts())}",
     }
 
@@ -319,7 +340,7 @@ def enclosure(m: Machine):
             "WALL_BOSSES", "C14_INSERTS"},
         # UMBILICAL_DROP is the internal-plumbing subsystem's name for the gap between
         # the two storeys, and one namespace spans the deck: EN-02 states the same
-        # rectangle IP-05 rides, so it reads the storey pitch off the same fact rather
+        # rectangle IP-07 rides, so it reads the storey pitch off the same fact rather
         # than deriving a second one that could drift from it.
         "en-02-y-wall-bodies": {
             "BACK_BODIES", "PORT_COL_PITCH", "UMBILICAL_DROP", "CARB_END",
@@ -328,22 +349,25 @@ def enclosure(m: Machine):
         "en-03-bolt-the-compressor-down": {
             "FLOOR_BOSSES", "COMP_MOUNT_D", "COMP_MOUNT_PITCH", "COMP_PLATE",
             "COMP_CROWN"},
-        "en-04-stand-the-stratum": {
-            "STRATUM_X", "CORE_X", "SIDE_BAND", "SIDE_OPENINGS"},
-        "en-05-seat-cold-core": {
+        "en-04-stand-the-compressor-bay": {
+            "COMP_BAY_X", "CORE_X", "SIDE_BAND", "SIDE_OPENINGS"},
+        # EN-05 closes the front column onto the piece that carries the carrier
+        # mechanism, so what it states is the plate's, and IP derives it.
+        "en-05-close-front-column": {"RAIL_TRAVEL_FRONT", "PLATE_HOLES"},
+        "en-06-seat-cold-core": {
             "CORE_FOOTPRINT", "CAP_CONDUITS", "CORE_FRONT_PORTS"},
-        "en-07-close-the-box": {
+        "en-08-close-the-box": {
             "BOX_QUADRANTS", "Y_SEAM", "Z_SEAM_FRONT",
             "BODY_COUNT"},
-        "en-09-display-and-funnel": {"FUNNEL_PIECES"},
+        "en-10-display-and-funnel": {"FUNNEL_PIECES"},
     }
     return facts, cards
 
 
-# ═══ ES — Power column ════════════════════════════════════════════════
+# ═══ EB — Electronics bay ══════════════════════════════════════════════════
 
-def power_column(m: Machine):
-    """`power-column.md`: the five bodies of the power column, and the +X wall
+def electronics_bay(m: Machine):
+    """`electronics-bay.md`: the five bodies of the electronics bay, and the +X wall
     bosses each one's own hole pattern stands there."""
     import ground_ring_stack as _gnd
     import meanwell_irm90 as _psu
@@ -353,7 +377,7 @@ def power_column(m: Machine):
     # One boss per hole in each body's own pattern, carried through that body's own
     # placement (`enclosure_assembly.wall_mounts`). Counting the patterns here and the wall
     # there is the check: if they disagree, a body is mounted by something other
-    # than its own holes and PC-01's table is describing a different machine.
+    # than its own holes and EB-01's table is describing a different machine.
     column = {"PSU_BOSSES": len(_psu.holes),
               "MAIN_BOARD_BOSSES": len(_pcba.board.holes),
               "RELAY1_BOSSES": len(_relay.holes),
@@ -361,7 +385,7 @@ def power_column(m: Machine):
               "GND_BOSSES": len(_gnd.holes)}
     assert sum(column.values()) == len(m.box.east_bosses), (
         f"the five bodies' own patterns hold {sum(column.values())} holes and the +X wall "
-        f"stands {len(m.box.east_bosses)} bosses — PC-01's table is the wall's census, so "
+        f"stands {len(m.box.east_bosses)} bosses — EB-01's table is the wall's census, so "
         f"one of them has gained a station the other has not")
 
     # The screw schedule falls out of the same patterns: one M3 in through each
@@ -384,23 +408,22 @@ def power_column(m: Machine):
         "COLUMN_INSERTS_HERE": "0",
         **{k: str(v) for k, v in column.items()},
     }
-    # EN-06 is an enclosure card and its figures are the column's — it drives the
+    # EN-07 is an enclosure card and its figures are the column's — it drives the
     # screws this bench stages for. A card is registered by whichever subsystem
     # derives what it says, and `collect` merges one namespace across the deck.
     column_names = {"WALL_BOSSES", *column}
     cards = {
-        "pc-01-prepare-the-wall": {
+        "eb-01-prepare-the-wall": {
             *column_names, "COLUMN_SCREWS_M3X8", "COLUMN_SCREWS_M3X10",
             "COLUMN_INSERTS_HERE"},
-        "pc-03-stage-psu-relays-board": {
+        "eb-03-stage-psu-relays-board": {
             "WALL_BOSSES", "MAIN_BOARD_BOSSES", "COLUMN_INSERTS_HERE", "MAIN_BOARD_SIZE"},
-        "en-06-power-column": {
+        "en-07-electronics-bay": {
             *column_names, "COLUMN_SCREWS_M3X8", "COLUMN_SCREWS_M3X10"},
     }
     return facts, cards
 
 
-# One function per subsystem, in deck order. `_build.py` runs all of them.
 # ═══ SA — Sub-assembly states ══════════════════════════════════════════════
 
 def sub_assemblies(m: Machine):
@@ -605,7 +628,10 @@ def sub_assemblies(m: Machine):
     cards = {
         "sa-01-back-top": {"SA01_BOSSED", "SA01_CAPTURED", "SA01_RIB_RUNS", "WALL_BOSSES",
                            "FLUID_18_LEN"},
-        "sa-02-front-top": {"SA02_SEATED", "SA02_WELLS"},
+        # The carrier's own figures are the IP subsystem's — SA-02 states what the piece
+        # leaves the bench carrying, and `collect` merges one namespace across the deck.
+        "sa-02-front-top": {"SA02_SEATED", "SA02_WELLS", "CARRIER_TEES",
+                            "CARRIER_HALVES", "CARRIER_TIES", "CARRIER_SPRINGS"},
         "sa-03-cap-lid-fill": {"CAP_POUR_SCREWS", "CAP_CONDUITS"},
         "sa-04-cap-lid": {"PUMP_MOUNT_SCREWS", "SA04_CRADLES", "SA04_CHAINS", "SA04_RIB_RUNS",
                           "SA04_RIB_EMPTY"},
@@ -621,7 +647,10 @@ def sub_assemblies(m: Machine):
     return facts, cards
 
 
-SUBSYSTEMS = (deck, enclosure, power_column, cold_core, refrigerant_loop,
+#: One function per subsystem. The order here is the order faults are reported in and
+#: nothing else — the deck's own page order is `_cardgen.SUBSYSTEM_ORDER`, and a subsystem
+#: function may register a card of another deck (EB derives what EN-07 states).
+SUBSYSTEMS = (deck, enclosure, electronics_bay, cold_core, refrigerant_loop,
               internal_plumbing, bench, sub_assemblies)
 
 
@@ -629,7 +658,7 @@ def collect(machine: Machine = None):
     """Every subsystem's facts and registry, merged.
 
     A name derived twice must be derived to the same value: one namespace across
-    the deck is what stops an EN card and an ES card stating the same wall's boss
+    the deck is what stops an EN card and an EB card stating the same wall's boss
     count and disagreeing. This is `docgen.lint`'s cross-file check, held inside
     the one driver that owns every card."""
     machine = _machine() if machine is None else machine
