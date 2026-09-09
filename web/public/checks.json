@@ -52,8 +52,8 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "7 reference(s) name a path nothing holds.",
-      "status": "red"
+      "note": "paths: every reference lands — 1539 tracked, 329 fetched solids, 55 tags",
+      "status": "ok"
     },
     {
       "check": "tools/check_release_room.py",
@@ -82,7 +82,7 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 1 of 102 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 329 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 1 of 99 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 329 member(s) keep their provenance",
       "status": "ok"
     }
   ],
@@ -91,16 +91,6 @@
       "enclosure-assembly.facts.json was taken from a different tree — it holds 16bd61e06195e6f2a8435f2e79655762 for the 124 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 796d1040ecbf41268cf085db3a9c8454 here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
-    ],
-    "tools/check_paths.py": [
-      "hardware/printed-parts/zone-c/funnel-mold/README.md:54 — hardware/printed-parts/zone-c/funnel-mold/funnel-mold-petg-hf08-variable-016-040.3mf is held nowhere, and no tag is named for it",
-      "  hardware/printed-parts/zone-c/funnel-mold/README.md:59 — hardware/printed-parts/zone-c/funnel-mold/funnel-mold-petg-hf08-variable-016-040-z018.3mf is held nowhere, and no tag is named for it",
-      "  hardware/printed-parts/zone-c/funnel-mold/README.md:60 — hardware/printed-parts/zone-c/funnel-mold/funnel-mold-hf08-z-trim-presets.bbscfg is held nowhere, and no tag is named for it",
-      "  hardware/printed-parts/zone-c/funnel-mold/extraction.md:5 — hardware/printed-parts/zone-c/funnel-mold/funnel-mold-petg-hf08-variable-016-040.3mf is held nowhere, and no tag is named for it",
-      "  hardware/printed-parts/zone-c/funnel-mold/print-profile.md:3 — hardware/printed-parts/zone-c/funnel-mold/funnel-mold-petg-hf08-variable-016-040.3mf is held nowhere, and no tag is named for it",
-      "  hardware/printed-parts/zone-c/funnel-mold/print-profile.md:9 — hardware/printed-parts/zone-c/funnel-mold/funnel-mold-petg-hf08-variable-016-040-z018.3mf is held nowhere, and no tag is named for it",
-      "  hardware/printed-parts/zone-c/funnel-mold/print-profile.md:10 — hardware/printed-parts/zone-c/funnel-mold/funnel-mold-hf08-z-trim-presets.bbscfg is held nowhere, and no tag is named for it",
-      "7 reference(s) name a path nothing holds."
     ],
     "tools/check_web_tests.py": [
       "1 test(s) in web/ fail:",
