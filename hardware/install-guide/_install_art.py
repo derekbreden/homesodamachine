@@ -61,7 +61,7 @@ C14_SOURCE = Path(_c14.__file__).resolve()
 # The appliance's own frame, read off `enclosure-assembly.step` and its facts: X across the
 # front, Y from the front face back, Z up from the cabinet floor.
 BOX_X0, BOX_X1 = -113.5, 107.5
-BOX_Y0, BOX_Y1 = 5.0, 462.0
+BOX_Y0, BOX_Y1 = 5.0, 467.0
 BOX_Z0, BOX_Z1 = -6.0, 361.0
 BOX_MID_X = (BOX_X0 + BOX_X1) / 2.0
 
@@ -78,15 +78,14 @@ PORT_X_WEST, PORT_X_EAST = -78.1, -37.8
 # appliance comes out to the cabinet face on the day it is wanted rather than standing off the
 # doors for the years it is not (`marketing/install-envelope.md`). Behind is 60 mm because the lead
 # turns 90° at R12 off a collet standing 9.5 mm proud, and that one is permanent. The side gap is
-# the one the machine needs every hour it runs and the one this tree has never put a number on, so
-# the pad here states a gap without claiming a figure.
+# the one the machine needs every hour it runs; 40 mm is derived in `marketing/install-envelope.md`
+# so its intake and its exhaust are not the same air.
 CLEAR_BEHIND, CLEAR_SIDE = 60.0, 40.0
 CYLINDER_LANE = 133.0
 
 # Catalogue sizes for the things with no CAD.
-CYLINDER_D, CYLINDER_H = 178.0, 508.0
-FILTER_D, FILTER_L = 64.0, 305.0
-BOTTLE_D, BOTTLE_H = 72.0, 190.0
+CYLINDER_D, CYLINDER_H = 133.0, 457.0
+FILTER_D, FILTER_L = 63.0, 311.0
 TUBE_D = 6.35
 
 STONE = cq.Color(0.55, 0.55, 0.58, 1.0)
@@ -101,6 +100,7 @@ BLACK_PART = cq.Color(0.10, 0.10, 0.12, 1.0)
 FILTER_BODY = cq.Color(0.905, 0.915, 0.94, 1.0)
 FILTER_CAP = cq.Color(0.42, 0.45, 0.49, 1.0)
 PRINTED = cq.Color(0.26, 0.27, 0.30, 1.0)
+CYLINDER = cq.Color(0.40, 0.42, 0.47, 1.0)
 
 
 def _box(x0, y0, z0, sx, sy, sz):
@@ -197,7 +197,10 @@ def _add(assembly, shape, name, color):
 
 
 def _machine(assembly):
-    assembly.add(import_step(str(MACHINE_STEP)), name="appliance")
+    """The whole appliance with the colours its own STEP carries."""
+    for child in cq.Assembly.load(str(MACHINE_STEP)).children:
+        assembly.add(child)
+    return assembly
 
 
 def _floor(x0, y0, sx, sy):
@@ -318,7 +321,7 @@ def s_cabinet_plan():
     for name, px, py, sx, sy in pads:
         _add(a, _box(px, py, -6.0, sx, sy, 10.0), f"clear-{name}", CORAL)
     cx = BOX_X0 - CLEAR_SIDE - CYLINDER_LANE / 2.0
-    _add(a, _cyl(cx, BOX_Y0 + 150.0, -6.0, CYLINDER_D, CYLINDER_H), "co2-cylinder", STEEL)
+    _add(a, _cyl(cx, BOX_Y0 + 150.0, -6.0, CYLINDER_D, CYLINDER_H), "co2-cylinder", CYLINDER)
     return a
 
 
@@ -341,11 +344,13 @@ def s_opening():
     )
     _add(a, slab, "countertop", STONE)
     lift = 128.0
-    for name in ("flavor_tube_pos_x", "flavor_tube_neg_x", "soda_umbilical_tube"):
+    for name, colour in (("flavor_tube_pos_x", BLACK_PART),
+                         ("flavor_tube_neg_x", BLACK_PART),
+                         ("soda_umbilical_tube", BLUE_TUBE)):
         child = parts.get(name)
         if child is not None:
             _add(a, _cad_art._clip_z(child.obj, -70.0, 40.0).translate((0, 0, lift)),
-                 name, BLACK_PART)
+                 name, colour)
     shank = parts.get("westbrass")
     if shank is not None:
         _add(a, _cad_art._clip_z(shank.obj, -70.0, 40.0).translate((0, 0, lift)), "shank", STEEL)
@@ -398,7 +403,8 @@ def s_the_socket():
 FLUTED = frozenset({"the-back-face", "the-socket"})
 
 SCENES = {
-    "cabinet-plan": (s_cabinet_plan, dict(cam=(0.16, -0.40, 1.0), size="2000x2000")),
+    "cabinet-plan": (s_cabinet_plan, dict(cam=(0.0, 0.0, 1.0), up=(0, 1, 0),
+                                      size="1700x2000")),
     "opening": (s_opening, dict(cam=(0.42, -0.80, 0.95), target=(0.0, 0.0, 24.0),
                                 span=120.0, size="1900x1600")),
     "filter-in-cabinet": (s_filter_in_cabinet, dict(cam=(0.32, -1.0, 0.52),
