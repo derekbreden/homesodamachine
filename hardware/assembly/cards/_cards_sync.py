@@ -120,12 +120,10 @@ def deck(_m: Machine):
             f"the {code.upper()} deck is numbered {numbers} — the cover tables one figure "
             f"for how many cards it holds and how far it runs; renumber it")
 
-    # EVERY DECK HAS A ROW, AND THE ROWS RUN IN THE ORDER THE PAGES DO. The counts on this
-    # page have always been derived and the ORDER never was, so the cover was free to list
-    # the decks in the stylesheet's declaration order while `_build.py` bound the pages in
-    # `SUBSYSTEM_ORDER` — IP tabled fourth in a deck that prints it eighth. A contents table
-    # that sends a hand to the wrong place is worse than none, and the counts beside it being
-    # right is exactly what makes it convincing.
+    # EVERY DECK HAS A ROW, AND THE ROWS RUN IN THE ORDER THE PAGES DO. A count on this page
+    # is derived and so is the order: both are the deck's own shape, and a contents table is
+    # only worth reading if it agrees with the binding. Nothing else compares the two — the
+    # cover is drawn by hand and `_build.py` sorts the pages — so this is what holds them.
     # Read the ROW'S OWN CHIP, not every `CARDS_` name on the page: `CARDS_SA` lands twice,
     # once as the sub-assembly row and once in the footer's clause about the unit cards, and
     # a scan of the whole file reads the deck order as ending `… SA GT SA`.
