@@ -172,7 +172,13 @@ def build_extraction(top_z):
     slow_lower = _cyl(16, top_z, pad_bottom, jack_x, washer_y).fuse(
         _box(16, 16, top_z-guide_bottom, top_z-guide_top, guide_x, guide_y))
     slow_upper = arm.fuse(post)
-    lower_all = cq.Compound.makeCompound([_quarter(lower, a) for a in range(0, 360, 90)])
+    lower_stations = [_quarter(lower, a) for a in range(0, 360, 90)]
+    # The cavity has X ribs every 20 mm, but Y cross ribs only at 0 and +/-64.
+    # Short feet under the Y-side brace roots grow directly from the bed and
+    # tie those roots into the X ribs. Their 6.4 mm width leaves material on
+    # both sides of the 3 mm backing-air bore, which is cut below.
+    lower_stations.extend(_box(64, 6.4, 0, 16, -2, y) for y in (-80, 80))
+    lower_all = cq.Compound.makeCompound(lower_stations)
     upper_all = cq.Compound.makeCompound([_quarter(upper, a) for a in range(0, 360, 90)])
     lower_slow = cq.Compound.makeCompound([_quarter(slow_lower, a) for a in range(0, 360, 90)])
     upper_slow = cq.Compound.makeCompound([_quarter(slow_upper, a) for a in range(0, 360, 90)])
@@ -359,7 +365,7 @@ def build():
     cavity, core = cavity.translate(shift), core.translate(shift)
     assembly_top = top_z-floor_z
     lower, upper, lower_slow, upper_slow, hardware = build_extraction(assembly_top)
-    lower = lower.cut(forming_void.translate(shift))
+    lower = lower.cut(forming_void.translate(shift), *(c.translate(shift) for c in cavity_air))
     cavity = _one(cavity.fuse(*lower.Solids()), 'cavity with jacks')
     core = _one(core.fuse(*upper.Solids()), 'core with jacks')
     cavity_slow = cavity_slow.translate(shift).fuse(*lower_slow.Solids())

@@ -57,8 +57,8 @@ def main():
     settings = json.loads(data['Metadata/project_settings.config'])
     settings.update({'print_settings_id': 'Funnel mold guided vacuum PETG 0.8 - 0.16mm',
         'outer_wall_speed': ['100']*4, 'inner_wall_speed': ['100']*4,
-        'outer_wall_acceleration': ['5000']*4, 'inner_wall_acceleration': ['5000']*4,
-        'default_acceleration': ['6000']*4,
+        'outer_wall_acceleration': ['6000']*4, 'inner_wall_acceleration': ['6000']*4,
+        'default_acceleration': ['8000']*4,
         'sparse_infill_density': '100%', 'sparse_infill_pattern': 'zig-zag',
         'bridge_speed': ['20']*4, 'internal_bridge_speed': ['30']*4,
         'overhang_2_4_speed': ['30']*4, 'max_travel_detour_distance': '30',
