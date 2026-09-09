@@ -1,5 +1,5 @@
 {
- "gatesPass": true,
+ "gatesPass": false,
  "size": [
   {
    "id": "enclosure",
@@ -141,12 +141,12 @@
     "display-cover \u2014 display-gasket: 0.000 mm \u2014 seated against it",
     "display \u2014 display-cover: 0.150 mm \u2014 seated against it",
     "co2-2 \u2014 enclosure-back-top: 0.199 mm \u2014 seated against it",
+    "water-3 \u2014 foam-assembly: 0.199 mm \u2014 seated against it",
     "fluid-28 \u2014 enclosure-back-top: 0.199 mm \u2014 seated against it",
     "carb-1 \u2014 enclosure-back-top: 0.199 mm \u2014 seated against it",
     "fluid-18 \u2014 foam-assembly: 0.200 mm \u2014 seated against it",
     "discharge-chain \u2014 foam-assembly: 0.200 mm \u2014 seated against it",
     "suction-chain \u2014 foam-assembly: 0.200 mm \u2014 seated against it",
-    "water-3 \u2014 foam-assembly: 0.340 mm \u2014 seated against it",
     "keystone-jack \u2014 bulkhead-ring-carb: 1.001 mm",
     "seaflo-pump \u2014 bulkhead-flavor-a: 1.004 mm",
     "carb-1 \u2014 suction-chain: 1.113 mm",
@@ -370,30 +370,30 @@
   },
   {
    "id": "cradle-room",
-   "label": "Every cradle boss stands its room off everything else the face opens",
+   "label": "Every plinth clears the other openings on the lid",
    "kind": "gate",
    "status": "pass",
-   "value": "3/3 hold",
+   "value": "111/111 hold",
    "target": "1 mm off the nearest",
    "detail": [],
    "active": true
   },
   {
    "id": "cradle-pour",
-   "label": "Every cradle boss has a floor under it where the pour hole is",
+   "label": "Every plinth leaves a land beside the pour hole",
    "kind": "gate",
    "status": "pass",
-   "value": "12/12 hold",
+   "value": "3/3 hold",
    "target": "1 mm off the pour hole",
    "detail": [],
    "active": true
   },
   {
    "id": "cradle-vent",
-   "label": "Every cradle boss has a floor under it where the vents are",
+   "label": "Every plinth clears both vents",
    "kind": "gate",
    "status": "pass",
-   "value": "24/24 hold",
+   "value": "6/6 hold",
    "target": "1 mm off either vent",
    "detail": [],
    "active": true
@@ -800,19 +800,24 @@
    "id": "tee-carrier-motion",
    "label": "Tee carrier clears front-top through installation and all four working states, and both end stops and all five transverse constraints engage",
    "kind": "gate",
-   "status": "pass",
-   "value": "340 solid/envelope checks; maximum unintended overlap 0.000000 mm\u00b3; release/park overshoots 0.312000/0.312000 mm\u00b3; 40 independent flank-capture readings, minimum contact 0.323400 mm\u00b3; minimum upper/lower web bearing 142.104 mm\u00b2; minimum depressed-collet bearing 27.613 mm\u00b2; fore tube bottom 92.694 mm Y, 10 mm beyond the depressed sleeve; seated cartridge tube bottom 94.844 mm Y, 2.15 mm final cartridge seating travel",
+   "status": "fail",
+   "value": "340 solid/envelope checks; maximum unintended overlap 0.000000 mm\u00b3; release/park overshoots 0.312000/0.312000 mm\u00b3; 40 independent flank-capture readings, minimum contact 0.323400 mm\u00b3; minimum upper/lower web bearing 142.104 mm\u00b2; minimum depressed-collet bearing 0.000 mm\u00b2; fore tube bottom 92.694 mm Y, 10 mm beyond the depressed sleeve; seated cartridge tube bottom 94.844 mm Y, 2.15 mm final cartridge seating travel",
    "target": "0 mm\u00b3 unintended overlap; positive end-stop, X/Z and pitch/yaw/roll contact",
-   "detail": [],
+   "detail": [
+    "tee-y-c: fully depressed nose has no fixed-plate bearing",
+    "tee-y-d: fully depressed nose has no fixed-plate bearing",
+    "tee-y-f: fully depressed nose has no fixed-plate bearing",
+    "tee-y-g: fully depressed nose has no fixed-plate bearing"
+   ],
    "active": true
   },
   {
    "id": "pump-jack-service",
-   "label": "Pump plug's clip faces the empty bay and its full unplug, clear-the-cap and lower path clears front-top and the display",
+   "label": "Pump plug's clip faces the empty bay and its full unplug, clear-the-bulkhead and lower path clears front-top and the display",
    "kind": "gate",
    "status": "pass",
-   "value": "17.000 mm pull; 0.000000/0.000000 mm\u00b3 path overlap; 0.000000/0.000000 mm\u00b3 finger overlap; 0.000/5.868 mm path air; 2.625 mm past the cap",
-   "target": "0 mm\u00b3 overlap; clip down; 15 mm finger room; pulled plug fore of the plate cap",
+   "value": "17.000 mm pull; 0.000000/0.000000 mm\u00b3 path overlap; 0.000000/0.000000 mm\u00b3 finger overlap; 0.000/5.868 mm path air; 5.825 mm past the bulkhead",
+   "target": "0 mm\u00b3 overlap; clip down; 15 mm finger room; pulled plug fore of the bay bulkhead",
    "detail": [],
    "active": true
   },
