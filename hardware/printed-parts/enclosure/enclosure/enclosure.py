@@ -6014,10 +6014,14 @@ def _teardrop_x(r, y, z, x0, x1, up=1.0):
 
 
 def _tee_bore(plate, hx, hz):
-    """One tee's support-free collar-clear bore through the wall's complete section."""
+    """The tee journal begins exactly at the collet's release-bearing plane.
+
+    Its fore termination leaves the full release shoulder in the bulkhead. Only
+    the open aft end overruns the wall for a clean through cut.
+    """
     return _teardrop_y(
         plate["bore_r"], hx, hz,
-        plate["aft_y"] - 1.0,
+        plate["aft_y"],
         plate["wall_aft_y"] + 1.0)
 
 
