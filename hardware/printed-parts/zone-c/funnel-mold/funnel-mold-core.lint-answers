@@ -1,50 +1,50 @@
-[step] Recessed 32 mm travel witness on the outside of the solid guide post: 0.35 mm deep, 0.8 mm high and 5 mm wide. Its edges are deliberate marks, not thin structural walls; the post remains at least 7.65 mm across here.
+[step] Recessed 32 mm travel witness on the outside of the solid guide post: 0.35 mm deep, 0.8 mm high and 5 mm wide. Its edges are deliberate marks, not thin structural walls; the blade remains at least 11.65 mm across the recessed face here.
 file: hardware/printed-parts/zone-c/funnel-mold/funnel-mold-core.step
-click: x=-122.650 y=22.000 z=36.649
-click: x=-22.000 y=-122.650 z=36.649
-click: x=22.000 y=122.650 z=36.649
-click: x=122.650 y=-22.000 z=36.649
+click: x=-124.650 y=27.900 z=32.649
+click: x=-27.900 y=-124.650 z=32.649
+click: x=27.900 y=124.650 z=32.649
+click: x=124.650 y=-27.900 z=32.649
 
-[sliver] The 0.6 mm corner chamfer on a solid 8 mm square guide creates a 0.849 mm diagonal face. This is an edge treatment on the full post, not an isolated thin wall. The hardware witness checks the sliding fit before the large print.
+[sliver] The 0.6 mm corner chamfer on a solid 12 x 40 mm guide blade creates a 0.849 mm diagonal face. This is an edge treatment on the full blade, not an isolated thin wall. The hardware witness checks the sliding fit before the large print.
 file: hardware/printed-parts/zone-c/funnel-mold/funnel-mold-core.step
-click: x=-122.713 y=18.287 z=51.049
-click: x=115.315 y=-25.685 z=51.049
-click: x=18.291 y=115.291 z=51.049
-click: x=-25.689 y=-122.689 z=51.049
-click: x=-115.302 y=18.302 z=51.049
-click: x=122.701 y=-25.701 z=51.049
-click: x=25.701 y=115.299 z=51.049
-click: x=-18.302 y=-122.698 z=51.049
-click: x=115.300 y=-18.300 z=51.049
-click: x=-25.700 y=-115.300 z=51.049
-click: x=18.300 y=122.700 z=51.049
-click: x=-122.700 y=25.700 z=51.049
-click: x=-18.300 y=-115.300 z=51.049
-click: x=-115.300 y=25.700 z=51.049
-click: x=122.700 y=-18.300 z=51.049
-click: x=25.700 y=122.700 z=51.049
+click: x=113.317 y=-47.583 z=45.049
+click: x=-124.712 y=8.188 z=45.049
+click: x=8.190 y=113.290 z=45.049
+click: x=-47.591 y=-124.691 z=45.049
+click: x=124.701 y=-47.601 z=45.049
+click: x=-113.302 y=8.202 z=45.049
+click: x=-8.202 y=-124.698 z=45.049
+click: x=47.602 y=113.298 z=45.049
+click: x=113.300 y=-8.200 z=45.049
+click: x=-47.600 y=-113.300 z=45.049
+click: x=8.200 y=124.700 z=45.049
+click: x=-124.700 y=47.600 z=45.049
+click: x=-8.200 y=-113.300 z=45.049
+click: x=-113.300 y=47.600 z=45.049
+click: x=124.700 y=-8.200 z=45.049
+click: x=47.600 y=124.700 z=45.049
 
-[sliver] Recessed 32 mm travel witness on the outside of the solid guide post: 0.35 mm deep, 0.8 mm high and 5 mm wide. Its edges are deliberate marks, not thin structural walls; the post remains at least 7.65 mm across here.
+[sliver] Recessed 32 mm travel witness on the outside of the solid guide post: 0.35 mm deep, 0.8 mm high and 5 mm wide. Its edges are deliberate marks, not thin structural walls; the blade remains at least 11.65 mm across the recessed face here.
 file: hardware/printed-parts/zone-c/funnel-mold/funnel-mold-core.step
-click: x=-122.650 y=22.000 z=36.649
-click: x=-22.000 y=-122.650 z=36.649
-click: x=-122.825 y=22.000 z=37.049
-click: x=22.000 y=122.825 z=37.049
-click: x=122.825 y=-22.000 z=37.049
-click: x=-22.000 y=-122.825 z=37.049
-click: x=-122.825 y=22.000 z=36.249
-click: x=22.000 y=122.825 z=36.249
-click: x=122.825 y=-22.000 z=36.249
-click: x=-22.000 y=-122.825 z=36.249
-click: x=22.000 y=122.650 z=36.649
-click: x=122.650 y=-22.000 z=36.649
+click: x=-124.650 y=27.900 z=32.649
+click: x=-27.900 y=-124.650 z=32.649
+click: x=-124.825 y=27.900 z=33.049
+click: x=27.900 y=124.825 z=33.049
+click: x=124.825 y=-27.900 z=33.049
+click: x=-27.900 y=-124.825 z=33.049
+click: x=-124.825 y=27.900 z=32.249
+click: x=27.900 y=124.825 z=32.249
+click: x=124.825 y=-27.900 z=32.249
+click: x=-27.900 y=-124.825 z=32.249
+click: x=27.900 y=124.650 z=32.649
+click: x=124.650 y=-27.900 z=32.649
 
-[ceiling] The nut-slot retaining lip prints over the 8.4 mm slot width, between supported sidewalls. The opening stays accessible from the outside for inspection and nut insertion. The separate 4.4 mm roof that carries extraction load prints against the bed. The hardware witness checks this same bridge and nut fit first.
+[ceiling] The nut-slot retaining lip prints over the 8.4 mm slot width, between supported sidewalls. The opening stays accessible from the outside for inspection and nut insertion. The separate 8.4 mm roof that carries extraction load prints against the bed. The hardware witness checks this same bridge and nut fit first.
 file: hardware/printed-parts/zone-c/funnel-mold/funnel-mold-core.step
-click: x=-123.900 y=-6.000 z=75.849
-click: x=-6.000 y=123.900 z=75.849
-click: x=123.900 y=6.000 z=75.849
-click: x=6.000 y=-123.900 z=75.849
+click: x=-124.900 y=-6.000 z=75.849
+click: x=-6.000 y=124.900 z=75.849
+click: x=124.900 y=6.000 z=75.849
+click: x=6.000 y=-124.900 z=75.849
 
 [sliver] Boundary of the 0.20 mm brim-forming recess. The substantial perimeter plate carries this shallow finishing step; coat to the measured allowance while keeping the registration lands masked.
 file: hardware/printed-parts/zone-c/funnel-mold/funnel-mold-core.step

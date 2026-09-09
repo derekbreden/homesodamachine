@@ -1,0 +1,134 @@
+{
+  "purpose": "Continuous stock verification and nominal section screening; no rated lifting load.",
+  "source_sha256": "0f49946cde3408e24951071929a987380ab78d7040d8a632f5499c615b6b415a",
+  "step_sha256": {
+    "cavity": "8ae10ee9d5a719585bb8a73f4736608723e39cab99818864607c73a40e34d52c",
+    "core": "b4a3f312f2cc78d3cfba7be7b4b044812696ccad0d1021be415b29571bc0e2bc"
+  },
+  "continuous_stock_checks": [
+    {
+      "station_degrees": 0,
+      "missing_column_stock_mm3": 0.0,
+      "missing_arm_root_stock_mm3": 0.0,
+      "missing_inscribed_blade_stock_mm3": 0.0
+    },
+    {
+      "station_degrees": 90,
+      "missing_column_stock_mm3": 0.0,
+      "missing_arm_root_stock_mm3": 0.0,
+      "missing_inscribed_blade_stock_mm3": 0.0
+    },
+    {
+      "station_degrees": 180,
+      "missing_column_stock_mm3": 0.0,
+      "missing_arm_root_stock_mm3": 0.0,
+      "missing_inscribed_blade_stock_mm3": 0.0
+    },
+    {
+      "station_degrees": 270,
+      "missing_column_stock_mm3": 0.0,
+      "missing_arm_root_stock_mm3": 0.0,
+      "missing_inscribed_blade_stock_mm3": 0.0
+    }
+  ],
+  "sections_mm": {
+    "column_diameter": 32.0,
+    "column_height": 71.649232963716,
+    "column_area_mm2": 804.247719318987,
+    "screw_eccentricity": 8.0,
+    "arm_width": 66.0,
+    "arm_height": 14.0,
+    "arm_screen_span": 32.0,
+    "wall_pair_total_thickness": 12.8,
+    "wall_height": 64.04923296371601,
+    "wall_screen_span": 40.0,
+    "nut_roof": 8.399999999999999,
+    "guide_blade": [
+      12.0,
+      40.0
+    ],
+    "guide_root_shoulder": 6.0
+  },
+  "assumed_elastic_modulus_MPa": 1000.0,
+  "suction_sensitivity": {
+    "condition": "Hypothetical perfect vacuum over the entire core mouth at one standard atmosphere outside; excludes adhesion and friction.",
+    "mouth_width_mm": 147.0,
+    "mouth_depth_mm": 147.0,
+    "projected_area_mm2": 21609.0,
+    "total_force_N": 2189.531925,
+    "equal_force_per_jack_N": 547.38298125
+  },
+  "load_cases": [
+    {
+      "force_per_jack_N": 250.0,
+      "four_equal_jacks_total_N": 1000.0,
+      "column_max_nominal_normal_stress_MPa": 0.9325484946790743,
+      "arm_root_nominal_bending_MPa": 3.7105751391465676,
+      "arm_tip_deflection_at_assumed_modulus_mm": 0.18093471154695645,
+      "paired_wall_nominal_bending_MPa": 1.1426505012942176,
+      "nut_average_bearing_pressure_MPa": 6.652615317139918,
+      "nut_roof_simple_beam_screen_MPa": 5.580357142857145
+    },
+    {
+      "force_per_jack_N": 547.38298125,
+      "four_equal_jacks_total_N": 2189.531925,
+      "column_max_nominal_normal_stress_MPa": 2.0418447007105254,
+      "arm_root_nominal_bending_MPa": 8.124422727272727,
+      "arm_tip_deflection_at_assumed_modulus_mm": 0.3961623272727272,
+      "paired_wall_nominal_bending_MPa": 2.5018697517009434,
+      "nut_average_bearing_pressure_MPa": 14.566113621621847,
+      "nut_roof_simple_beam_screen_MPa": 12.218370117187506
+    },
+    {
+      "force_per_jack_N": 1000.0,
+      "four_equal_jacks_total_N": 4000.0,
+      "column_max_nominal_normal_stress_MPa": 3.730193978716297,
+      "arm_root_nominal_bending_MPa": 14.84230055658627,
+      "arm_tip_deflection_at_assumed_modulus_mm": 0.7237388461878258,
+      "paired_wall_nominal_bending_MPa": 4.5706020051768705,
+      "nut_average_bearing_pressure_MPa": 26.61046126855967,
+      "nut_roof_simple_beam_screen_MPa": 22.32142857142858
+    }
+  ],
+  "lateral_guide_cases": [
+    {
+      "tip_force_N": 50.0,
+      "free_reach_mm": 54.0,
+      "inscribed_section_mm": [
+        10.8,
+        38.8
+      ],
+      "radial_load_root_nominal_bending_MPa": 3.579610538373425,
+      "tangential_load_root_nominal_bending_MPa": 0.9963864385163143,
+      "radial_tip_deflection_at_assumed_modulus_mm": 0.6443298969072164,
+      "tangential_tip_deflection_at_assumed_modulus_mm": 0.04992204217720916
+    },
+    {
+      "tip_force_N": 100.0,
+      "free_reach_mm": 54.0,
+      "inscribed_section_mm": [
+        10.8,
+        38.8
+      ],
+      "radial_load_root_nominal_bending_MPa": 7.15922107674685,
+      "tangential_load_root_nominal_bending_MPa": 1.9927728770326285,
+      "radial_tip_deflection_at_assumed_modulus_mm": 1.2886597938144329,
+      "tangential_tip_deflection_at_assumed_modulus_mm": 0.09984408435441831
+    }
+  ],
+  "model_limits": [
+    "Column: eccentric compression on a solid circular section, ignoring the additional stiffness of its walls.",
+    "Arm and paired walls: rectangular cantilevers fixed at the stated roots. The true mold distributes load in three dimensions.",
+    "Nut: mean pressure over its square footprint excluding the printed clearance bore. The roof screen is an 8 mm wide beam spanning the 8.4 mm slot under a central point load.",
+    "Guide: full free reach loaded at its tip in either horizontal direction. The 10.8 x 38.8 mm inscribed rectangle excludes corner chamfers and the shallow travel mark; the 6 mm root shoulder and guide-sleeve restraint receive no stiffness credit.",
+    "Local stress concentrations, interlayer defects, creep, coating adhesion and silicone extraction force are not quantified.",
+    "No factor of safety or certified capacity is inferred from supplier coupon strengths."
+  ],
+  "material_reference": {
+    "url": "https://store.bblcdn.com/fd2c725549734dcd9c14004fdca8a4d4.pdf",
+    "title": "Bambu PETG Translucent Technical Data Sheet V1.0",
+    "tensile_Z_typical_MPa": 29,
+    "bending_Z_typical_MPa": 55,
+    "specimen_note": "Supplier specimens were dried/annealed at 65 C for eight hours. Values are comparative coupon data, not allowables for this unannealed tooling."
+  }
+}

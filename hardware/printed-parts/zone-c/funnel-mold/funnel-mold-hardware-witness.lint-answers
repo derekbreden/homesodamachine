@@ -1,3 +1,3 @@
 [ceiling] Nut-slot fit and bridge witness in the core print orientation. The retaining lip spans the 8.4 mm slot width between solid sidewalls; inspect it and pass the actual square nut and M5 screw before the large mold print.
 file: hardware/printed-parts/zone-c/funnel-mold/funnel-mold-hardware-witness.step
-click: x=5.900 y=0.000 z=8.800
+click: x=5.900 y=0.000 z=12.800
