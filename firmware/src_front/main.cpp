@@ -190,9 +190,9 @@ static SemaphoreHandle_t frameDoneSem = nullptr;
 static void *fb0 = nullptr, *fb1 = nullptr;
 
 // ── LVGL display buffer ──
-// In full-refresh double-buffer mode LVGL's two draw buffers ARE the two panel
-// framebuffers (zero-copy: flush submits the just-drawn one), so no separate draw
-// buffer is allocated.
+// LVGL's two draw buffers ARE the two panel framebuffers, so a flush is a page
+// flip and copies nothing; no separate draw buffer is allocated. setup() runs
+// them in direct_mode, which clips a repaint to the area that changed.
 static lv_disp_draw_buf_t draw_buf;
 static uint32_t flushCount = 0;   // frame submissions completed, per GET_DIAG
 static volatile uint32_t vsyncCount = 0;
@@ -1990,7 +1990,6 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
 
   if (type == MSG_RESP_STATUS && plen >= sizeof(StatusPayload)) {
     memcpy(&ctrlStatus, payload, sizeof(ctrlStatus));
-    ctrlStatus.version[sizeof(ctrlStatus.version) - 1] = '\0';
     ctrlStatusMs = millis();
     // The gauges, and — unless a step of this glass's is still unanswered —
     // what each channel pours at.
@@ -5131,10 +5130,8 @@ void loop() {
   // A press that spoke for itself needs no click frame: the main board ticks on
   // the command it received. Only a press that said nothing else sends one, and
   // it goes out here rather than from inside the LVGL callback, so one press can
-  // never put two frames on the pair back to back.
-  // A press that landed on a button has already put a frame on the pair — its
-  // own command, or the tick below — and the main board reads either as
-  // presence. Only a press that stayed silent has to say so on its own.
+  // never put two frames on the pair back to back. The main board reads either
+  // frame as presence, so only a silent press has to report itself.
   const bool pressSpoke = clickPending;
   if (clickPending) {
     clickPending = false;

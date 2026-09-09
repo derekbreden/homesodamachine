@@ -33,7 +33,9 @@
 //   2. Relay #2 (IO2) de-energized while a dispense is open. The main board
 //      peaks at 3.33 A and the SeaFlo at 5 A on one 6.7 A supply. The
 //      carbonator's low reed asserts mid-pour, so the refill it queues
-//      waits for the dispense window to close.
+//      waits for the dispense window to close. machine_policy holds this as
+//      kRefillDuringDispense and machineDispenseWindowOpen() is what asks;
+//      neither relay is driven yet, so nothing has cause to.
 //   3. GPPU written on both MCP23017s. No loom carries a resistor and
 //      the main board pulls none of the reed inputs, so a reed with no
 //      pull-up floats.
@@ -53,9 +55,13 @@
 // The clean cycle puts tap water through a channel three rounds over — a fill
 // through the idle pump until the full reed closes, then a pumped flush out
 // the faucet until the empty reed opens — from the enclosure or the console.
-// Both MCP23017s boot with every output verified low and every reed input on
-// its internal pull-up; status reads those inputs on explicit request. Nothing
-// else opens a valve or runs the fan, and neither relay is ever driven.
+// The air cycles sweep the flavor path dry before a pump replacement, or air a
+// rinsed reservoir out the faucet. The pour opens the selected channel's
+// dispense path on the flow meter and bursts its pump against the reading. The
+// self-test walks every solenoid, the condenser fan and both pumps, one load at
+// a time. Both MCP23017s boot with every output verified low and every reed
+// input on its internal pull-up; status reads those inputs on explicit request.
+// Neither relay is ever driven.
 
 #include "ota.h"
 
@@ -224,10 +230,13 @@ static void help() {
     Serial.println("  flavor [a|b]      selected flavor (main-board-owned and persisted)");
     Serial.printf ("  ratio [a|b] [%u-%u]  what a channel pours at, 1:n water to concentrate (persisted)\n",
                    FLAVOR_RATIO_MIN, FLAVOR_RATIO_MAX);
+    Serial.printf ("  art [<a> <b>]     which logo each channel wears, 0-%u (persisted, published to both)\n",
+                   FLAVOR_ART_COUNT - 1);
     Serial.println("  link              J9 enclosure display and J3 faucet links");
     Serial.println("  ping              put a frame on the pair and read its echo back");
     Serial.println("  display usb       make the externally-powered display reattach to USB");
     Serial.println("  wake              light both glasses, as a finger on either would");
+    Serial.println("  idle              awake or asleep, and how far into the quiet stretch");
     Serial.println("  test [s|off]      the camera's test screen on the enclosure, s seconds (default 120)");
     Serial.println("  ui <page> [a|b] [go]   a customer page on the enclosure: choose, prime, fill, clean or");
     Serial.println("                    settings; with a flavor, that flavor's own page; go presses its START");
@@ -236,7 +245,14 @@ static void help() {
     Serial.println("  volume [0-100]    how loud everything but the alarm is (persisted)");
     Serial.println("  quiet [on|off] [start] [end] [pct]   quiet hours, off the DS3231 (persisted)");
     Serial.println("  rtc [set <YYYY-MM-DD> <HH:MM:SS>]    the clock quiet hours reads");
-    Serial.println("  ota [<self|faucet|enclosure> <size> <crc32>]   firmware over the link");
+    Serial.println("  ota [<self|faucet|enclosure|art> <size> <crc32>]   firmware over the link");
+    Serial.println("  versions          what each board on this machine is running");
+    Serial.println("  identity [<name>] the model and unit a phone sees, and what to call it");
+    Serial.println("  ble               the radio, asked of the display that has it");
+    Serial.println("  images            what pictures each display holds; 'images sync' reconciles now,");
+    Serial.println("                    'images erase|relay|test <slot>' act on one");
+    Serial.println("  wifi [on|off|<KB>[q]]   the radio bench: the enclosure sinks, the faucet sends");
+    Serial.println("  bench j3 [<KB>]   push at J3 as fast as its window will take frames");
     Serial.println("  help              this");
     Serial.println("\n  The enclosure opens prime mode for one flavor. Either display can then");
     Serial.println("  own the held pump; it stops on lift, a stale hold/session, disconnect, or at");
