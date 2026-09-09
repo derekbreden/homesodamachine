@@ -6,27 +6,27 @@
   "chamber_nominal_id_mm": 299.72,
   "geometry": {
     "cavity": {
-      "volume_mm3": 1047037.8389108226,
+      "volume_mm3": 1076848.115388252,
       "valid_solid": true,
       "solids": 1,
       "mesh_watertight": true,
       "mesh_winding_consistent": true,
       "mesh_bodies": 1,
-      "max_radius_mm": 142.56945335358844,
-      "chamber_radial_clearance_mm": 7.2905466464115705
+      "max_radius_mm": 143.2396364924057,
+      "chamber_radial_clearance_mm": 6.6203635075943055
     },
     "core": {
-      "volume_mm3": 833357.369790872,
+      "volume_mm3": 850793.3397594236,
       "valid_solid": true,
       "solids": 1,
       "mesh_watertight": true,
       "mesh_winding_consistent": true,
       "mesh_bodies": 1,
-      "max_radius_mm": 142.12846301849606,
-      "chamber_radial_clearance_mm": 7.73153698150395
+      "max_radius_mm": 143.65524881995037,
+      "chamber_radial_clearance_mm": 6.204751180049641
     }
   },
-  "forming_geometry": "Original cavity and core constructions retained; fixture geometry is fused afterward. Cavity additions are cut by the same offset forming void; core additions start outside the forming brim.",
+  "forming_geometry": "Forming geometry and extraction fits are outside the 3.2 mm printed foot band; bed-foot-verification.json records a restricted-volume comparison against the preceding CAD.",
   "motion_intersection_mm3": {
     "0": 0.0,
     "0.2": 0.0,
@@ -126,7 +126,7 @@
     "minimum_hole_edge_margin_mm": 2.5999999999999996,
     "minimum_outer_edge_margin_mm": 1.8
   },
-  "geometry_source_sha256": "0f49946cde3408e24951071929a987380ab78d7040d8a632f5499c615b6b415a",
+  "geometry_source_sha256": "ebb14936cd550c9ca7a63a985a8941e46b16f27d747c04c54fde6a9c3848d03b",
   "hardware_purchase": {
     "asin": "B0GHNQFZYR",
     "screw": "M5-0.8 x 50 mm fully threaded socket head",
