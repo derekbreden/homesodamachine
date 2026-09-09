@@ -1,9 +1,10 @@
 """Build the Home Soda Machine install guide — the bound booklet that ships in the install kit.
 
 The quick start draws the six actions; this guide carries everything they stand on. Its
-pictures are the same solids, in views `hardware/quickstart/` has already cut, so a change to
-the machine reaches both documents through one set of renders and neither can drift from the
-other. Nothing here draws CAD of its own.
+pictures come off the same solids: the views `hardware/quickstart/` has already cut, and the
+per-page frames `_install_art.py` composes beside this file. Both go through the one posed
+renderer, so a change to the machine reaches both documents and neither can drift from the
+other.
 
     install-guide.pdf         the bound booklet, in reading order
     install-guide.cover.png   the cover for the drawings shelf
@@ -82,6 +83,7 @@ RENDER_ACTION_TIMEOUT_SECONDS = 600
 
 FONTS = HARDWARE / "assembly" / "cards" / "fonts"
 ART = QUICKSTART / "art"
+OWN_ART = HERE / "art"
 PLUMBING_ART = QUICKSTART / "plumbing" / "art"
 
 # Everything Chrome fetches. A file absent here is a file the sandbox does not have, and a page
@@ -104,6 +106,11 @@ PAGE_ASSETS = (
     PLUMBING_ART / "plumbing-valve-off.png",
     PLUMBING_ART / "plumbing-pre-tee.png",
     PLUMBING_ART / "plumbing-tee-installed.png",
+    OWN_ART / "cabinet-plan.png",
+    OWN_ART / "collet-press.png",
+    OWN_ART / "filter-in-cabinet.png",
+    OWN_ART / "opening.png",
+    OWN_ART / "power-socket.png",
 )
 
 

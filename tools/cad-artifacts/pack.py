@@ -195,8 +195,9 @@ BUNDLED_PAYLOAD_DIRS = (
 #: `cards-build` draw them off the same solids as everything else here, `walkDocuments` serves a
 #: PDF off this tree at request time and the cards' own pictures are what `/3d` shows beside a
 #: part. The studies, a card's or a leaf's local renders and the renderer's fonts are held out
-#: above. The install guide contributes only its bound PDF and its cover: every picture in it is
-#: a quick-start render, already bundled by the directory above it.
+#: above. The install guide carries its bound PDF, its cover, and the per-page frames
+#: `install-guide/_install_art.py` composes; the quick-start views it also draws on are bundled
+#: by the directory above it.
 BUNDLED_ART_DIRS = (
     "hardware/quickstart",
     "hardware/install-guide",
