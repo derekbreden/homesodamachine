@@ -394,7 +394,6 @@ private struct SettingsPageView: View {
     @Binding var inClean: Bool
     @State private var showResetAlert = false
     @State private var resetting = false
-    @State private var inFirmware = false
     @State private var inMachines = false
 
     var body: some View {
@@ -421,11 +420,6 @@ private struct SettingsPageView: View {
                         inClean = true
                     }
                     .disabled(!ble.linked)
-                    if !ble.demoMode {
-                        settingsButton("Firmware") {
-                            inFirmware = true
-                        }
-                    }
                     settingsButton("Factory Reset") {
                         showResetAlert = true
                     }
@@ -439,13 +433,6 @@ private struct SettingsPageView: View {
                     }
                 }
             }
-        }
-        .sheet(isPresented: $inFirmware) {
-            ZStack {
-                Theme.background.ignoresSafeArea()
-                FirmwareUpdateView()
-            }
-            .presentationBackground(Theme.background)
         }
         .sheet(isPresented: $inMachines) {
             YourMachinesView()
