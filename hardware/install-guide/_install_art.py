@@ -416,6 +416,42 @@ def s_the_socket():
 #: and the flutes live in the payload beside it, so these carry that skin across.
 FLUTED = frozenset({"the-back-face", "the-socket"})
 
+def s_plate_sideways():
+    """The under-counter plate coming in from the side, which is the only way it goes on.
+
+    Seen from under the counter, so its open edge is toward the reader and the shank it
+    has to pass is in the same frame. The plate is drawn part-way in: its seat is where
+    the sheet already draws it, and what this leaf has to show is the travel.
+    """
+    fa = _cad_art._load_faucet_module()
+    parts = _cad_art._children_by_name(fa.build_assembly())
+    a = cq.Assembly(name="plate-scene")
+    slab = (
+        cq.Workplane("XY")
+        .workplane(offset=fa.countertop_bottom_z)
+        .box(178.0, 178.0, fa.countertop_thickness, centered=(True, True, False))
+        .cut(
+            cq.Workplane("XY")
+            .workplane(offset=fa.countertop_bottom_z - 1.0)
+            .center(0.0, fa.countertop_hole_center_y)
+            .circle(fa.hole_radius)
+            .extrude(fa.countertop_thickness + 2.0)
+        )
+    )
+    _add(a, slab, "countertop", STONE)
+    for name, colour in (("westbrass", STEEL),
+                         ("flavor_tube_pos_x", BLACK_PART),
+                         ("flavor_tube_neg_x", BLACK_PART),
+                         ("soda_umbilical_tube", BLUE_TUBE)):
+        child = parts.get(name)
+        if child is not None:
+            _add(a, _cad_art._clip_z(child.obj, -120.0, -30.0), name, colour)
+    plate = parts.get("under_counter_plate")
+    if plate is not None:
+        _add(a, plate.obj.translate((0.0, -48.0, 0.0)), "under-counter-plate", STEEL)
+    return a
+
+
 def s_bottle_in_funnel():
     """The one action after the last push: a 440 mL bottle upended over the funnel."""
     a = cq.Assembly(name="bottle-scene")
@@ -508,6 +544,8 @@ SCENES = {
                                                 size="2200x1200")),
     # One span and one frame for both, and no trim, so the two halves of the fork are
     # at the same scale in the same box: the comparison is the whole picture.
+    "plate-sideways": (s_plate_sideways, dict(cam=(0.42, -0.9, -0.62),
+                        target=(0.0, -22.0, -44.0), span=150.0, size="1500x1150")),
     "bottle-in-funnel": (s_bottle_in_funnel, dict(cam=(0.55, -1.0, 0.62),
                           target=(0.0, 150.0, 405.0), span=395.0, size="1500x1180")),
     "kitchen-push": (s_kitchen_push, dict(cam=(1.05, -1.72, 0.72), target=(-46.0, 8.0, 100.0),
