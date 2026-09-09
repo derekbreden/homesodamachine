@@ -44,6 +44,13 @@ Art is a background on an empty box, never an `<img>`. A crop is then a backgrou
 rather than an element hanging out of a clipped parent, which is the one shape the renderer's clip
 gate cannot tell from a mistake.
 
+**A crop is `contain` or `cover` and `center`, never a measured offset in pixels.** The renders
+these leaves draw from are centred in their own frames and fill them, but the frames themselves are
+whatever the camera cut that day — a regeneration changes their dimensions, and a plate fitted to
+the old ones then aims at nothing. Absolute offsets read as a subject sliding off its plate, or as
+solid ground where a field should be, and they fail silently: the page renders, it is simply
+pointed somewhere else. The two keywords survive any frame the generator hands them.
+
 Every leaf wears `.card > header|main|footer`, which is the anatomy the renderer's spill gate
 measures: a leaf whose text outgrows its page fails the build rather than printing short.
 
