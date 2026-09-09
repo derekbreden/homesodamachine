@@ -501,13 +501,18 @@ def artifact_presentation_only(path: str) -> bool:
     the CAD slice while letting ordinary README/card edits advance the deployment lock without
     recutting solids. Slicer workspaces are stronger: they are build-inert even if a diagnostic
     check reads one.
+
+    A `.pdf.json` IS ONE OF THESE. It is what `walkDocuments` finds a bound document through —
+    a title, a page count and a cover name. A hand-drawn guide's sidecar has no generator on
+    either side of it, and left off this list one such file widens the artifact slice to all 73
+    rules: a whole-tree cut for a document the tree does not build.
     """
     if build_inert(path):
         return True
     if not path.startswith("hardware/"):
         return False
     if not (path.endswith((".md", ".mmd", ".html", ".png", ".svg", ".pdf", ".css",
-                           ".figures.json", ".scene.json"))):
+                           ".figures.json", ".scene.json", ".pdf.json"))):
         return False
     graph, artifact_gens = _artifact_presentation_context()
     if not graph:
