@@ -109,14 +109,19 @@ static void fillSoundCfg(SoundCfgPayload &c) {
 // window right after a frame arrives, when the glass is known to be listening
 // rather than talking. The glass polls on an interval for exactly this reason,
 // so the wait is bounded by that poll and not by whether anyone touches anything.
-// 20 bytes because CleanStatePayload is 19 and is queued here like anything
-// else the main board volunteers; OtaBeginPayload is 10, a fill state 12, and
-// every other announcement fits in 8.
-struct Announce { uint8_t type; uint8_t len; uint8_t data[20]; };
-static_assert(sizeof(FillStatePayload) <= sizeof(Announce::data),
+// An air state is 20 bytes and is the widest thing queued here; a clean state
+// is 19, a fill state 12, an OTA begin 11, and every other announcement fits in 8.
+struct Announce { uint8_t type; uint8_t len; uint8_t data[LINK_ANNOUNCE_MAX]; };
+static_assert(sizeof(FillStatePayload) <= LINK_ANNOUNCE_MAX,
               "a fill state must fit an announcement");
-static_assert(sizeof(CleanStatePayload) <= sizeof(Announce::data),
+static_assert(sizeof(CleanStatePayload) <= LINK_ANNOUNCE_MAX,
               "a clean state must fit an announcement");
+static_assert(sizeof(AirStatePayload) <= LINK_ANNOUNCE_MAX,
+              "an air state must fit an announcement");
+static_assert(sizeof(IdlePayload) <= LINK_ANNOUNCE_MAX,
+              "an idle state must fit an announcement");
+static_assert(sizeof(FlavorArtPayload) <= LINK_ANNOUNCE_MAX,
+              "a flavor art pair must fit an announcement");
 static const uint8_t ANN_DEPTH = 4;
 static Announce annQ[ANN_DEPTH];
 static uint8_t  annHead = 0, annTail = 0, annCount = 0;
