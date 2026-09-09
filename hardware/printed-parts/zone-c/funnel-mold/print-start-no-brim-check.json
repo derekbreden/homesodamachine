@@ -629,5 +629,68 @@
     "first_layer_complete": false,
     "camera_observation": "The bed was unobstructed during leveling. Early model paths are visible during layer 1; adhesion is not yet established from this partial camera view."
   },
-  "user_report": "Print started. 3mf saved."
+  "user_report": "Print started. 3mf saved.",
+  "chamber_fit_check": {
+    "chamber_dimension_source": "hardware/ledger/tools.md: PB Motor Tech B0D78ZM928 listed 11.8-inch inside diameter; no physical opening measurement recorded",
+    "chamber_assumed_inner_diameter_mm": 299.72,
+    "saved_project_sha256": "995cb2792a8faac9fa28096cdd6da5495f1e92d770da1f77af1abf31c6d7cc27",
+    "parts": {
+      "cavity": {
+        "xy_span_mm": [
+          273.9985656738281,
+          273.9985656738281
+        ],
+        "circumscribed_diameter_mm": 286.4792729848114,
+        "radial_clearance_mm": 6.6203635075943055,
+        "outermost_point_assembly_mm": [
+          -52.649173736572266,
+          -133.21282958984375,
+          0.0
+        ],
+        "saved_3mf_circumscribed_diameter_mm": 286.4792737208168
+      },
+      "core": {
+        "xy_span_mm": [
+          274.0,
+          274.0
+        ],
+        "circumscribed_diameter_mm": 287.31049763990075,
+        "radial_clearance_mm": 6.204751180049641,
+        "outermost_point_assembly_mm": [
+          -54.665367126464844,
+          -132.84776306152344,
+          88.64923095703125
+        ],
+        "saved_3mf_circumscribed_diameter_mm": 287.3104975059695
+      }
+    },
+    "sent_gcode_sha256": "819476bd9670186747b76c0480afd443814f5af4ab1725e6982583baf102e81c",
+    "sent_cavity_toolpath_envelope": {
+      "method": "Maximum radius of deposited straight-segment endpoints from the model center, plus half the annotated road width. This is a conservative nominal bead envelope, not measured plastic.",
+      "print_plate_center_mm": [
+        149.5,
+        160
+      ],
+      "deposited_segments_checked": 1929099,
+      "all_layer_diameter_bound_mm": 286.4783250576349,
+      "all_layer_radial_clearance_bound_mm": 6.620837471182568,
+      "first_layer_diameter_bound_mm": 286.1761202490491,
+      "first_layer_radial_clearance_bound_mm": 6.771939875475454,
+      "outermost_segment": {
+        "endpoints_plate_xy_mm": [
+          [
+            202.515,
+            292.583
+          ],
+          [
+            201.996,
+            292.832
+          ]
+        ],
+        "line_width_mm": 0.819996,
+        "layer_z_mm": 3.28,
+        "feature": "Outer wall"
+      }
+    }
+  }
 }
