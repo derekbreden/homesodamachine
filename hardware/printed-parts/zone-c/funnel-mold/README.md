@@ -90,10 +90,11 @@ platinum-compatible release film.
 
 ## Print
 
-- **Material:** PETG (the cheap workhorse; the cold-core foam shells print in it
-  too). Both halves print flat as drawn — cavity opening up, core plate down. Printed
-  that way the core's highest point is the ramp cone, and the socket is a plain
-  vertical hole down its axis; there is no slender tower on either half.
+- [**Print project: funnel-mold-petg-08-016.3mf**](funnel-mold-petg-08-016.3mf).
+  H2C, left 0.8 mm Standard nozzle, PETG Translucent, 0.16 mm layers.
+  Two independent plates: cavity opening up, core plate down with its plug upward.
+  Estimated cavity **21 h 4 min / 744 g**; core **13 h 39 min / 485 g**.
+  [Settings and toolpath inspection](print-profile.md) accompany the project.
 - **Food-contact finish:** the core plug forms the funnel's inside (food-contact)
   surface, so its texture telegraphs into the silicone. Smooth + seal the plug —
   light sand, then a hard **gloss clear-acrylic** seal coat (not a matte
@@ -102,17 +103,14 @@ platinum-compatible release film.
   surface both traps concentrate and outgasses under vacuum. The cavity (outside)
   face can stay as-printed. Full procedure — seal, release, coupon-test — under
   "Finish the core" below.
-- **Open the socket before the first pour.** It models at
-  [6.45 mm](ROD_SOCKET_D) and printed PETG holes come out under it. Test-fit the rod
-  dry; if it does not drop in under its own weight, run a **1/4" bit** down the
-  socket — in PETG that leaves ~6.4–6.5 mm, which is the fit as drawn. Do this
-  *before* the core is sealed and released, so the swarf goes with the sanding.
-- **Critical bridge:** printed opening-up, the cavity's flange-seat ledge (the
-  downward-facing shelf where the bowl recess meets the throat) is a short bridge
-  that forms the bowl-rim seal — verify it prints clean.
-- No supports needed; the pour port and vents are vertical through-holes, and the
-  pour dish is a cone that only ever widens toward the plate's top — printed plate
-  down, every layer of it is larger than the one under it.
+- **Fit the socket before finishing.** It models at [6.45 mm](ROD_SOCKET_D).
+  The actual ground rod checks the slip fit and the [28.8 mm](ROD_SOCKET) depth.
+  Clear or ream the socket as needed, with a depth stop; keep coating out of it.
+  A nominal drill diameter alone does not establish the finished fit.
+- Both plates slice without supports. The cavity has no downward-facing surfaces
+  above its bed face. With the core plate down, the pour dish narrows from 20 to
+  11 mm over the first 4 mm of height: a 4.5 mm radial overhang spread over those
+  layers. Its opening remains clear in the slice. The five vents are vertical.
 
 ## Finish the core
 
@@ -138,12 +136,11 @@ Finishing the core (owned = already in the ledger):
    99.9 % IPA (owned, [B0BZ21DBJ6](https://www.amazon.com/dp/B0BZ21DBJ6)) and let it
    flash off.
 2. **Seal** with 2–3 thin coats of **gloss clear acrylic** — Krylon K01303 Crystal
-   Clear Acrylic ([B00023JE7K](https://www.amazon.com/dp/B00023JE7K)). A hard,
-   glossy, low-surface-energy film: it seals the print porosity (no outgassing
-   through the face under vacuum), is amine/sulfur/tin-free so it does not inhibit
-   the cure, and bonds to PETG. *Not* a high-build filler — at 0.08 mm the texture
-   is shallow.
-   - **Only if the 0.08 mm texture still telegraphs through:** one thin
+   Clear Acrylic ([B00023JE7K](https://www.amazon.com/dp/B00023JE7K)). The hard
+   film covers the finished PETG face. The seal coats follow that surface; they
+   do not fill the print's 0.16 mm terraces. Adhesion, cure compatibility and
+   release are checked on the exact stack in step 5.
+   - **If the printed texture still telegraphs through:** one thin
      self-leveling epoxy base coat — Smooth-On XTC-3D
      ([B01BKSLI9M](https://www.amazon.com/dp/B01BKSLI9M)) — *under* the acrylic to
      fill it glassy. The acrylic still goes on top as the release skin; epoxy alone
