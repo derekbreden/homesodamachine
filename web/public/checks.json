@@ -52,7 +52,7 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 1461 tracked, 327 fetched solids, 55 tags",
+      "note": "paths: every reference lands — 1462 tracked, 327 fetched solids, 55 tags",
       "status": "ok"
     },
     {
@@ -82,14 +82,14 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 9 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 327 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 17 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 327 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
     "hardware/scripts/check_facts_current.py": [
       "enclosure-assembly.facts.json was taken beside a different enclosure-assembly.scorecard.json — it holds 6d23cd2f139a0e20f8a35a5943e6ae52, enclosure-assembly.scorecard.json here is 381fc397073bbbe0da8df73eaef599cd",
-      "  enclosure-assembly.facts.json was taken from a different tree — it holds 78e743e0b0e479198ce89441f873bb27 for the 124 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at c724c24e2a34c57ab541de0e50c77277 here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "  enclosure-assembly.facts.json was taken from a different tree — it holds 78e743e0b0e479198ce89441f873bb27 for the 124 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at c3dcd9d0c188583b62cbb5c2644b377e here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ]
