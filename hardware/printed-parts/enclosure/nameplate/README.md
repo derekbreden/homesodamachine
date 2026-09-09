@@ -18,7 +18,20 @@ thickens to behind it, the two screw bosses and their heat-set bores are cut by
         120V 60Hz ONLY
          NOT FOR 240V
    homesodamachine.com/u/0001      ← as wide as the lockup, and it sets that way at every unit
+         flammable refrigerant    ← small caps and a flame, in the footer
 ```
+
+The footer carries a white flame and `FLAMMABLE REFRIGERANT`, centred below the unit link.
+The [install guide](/hardware/install-guide/README.md) records the refrigerant and charge mass.
+Product marking requirements are recorded in
+[`/business/regulatory.md`](/business/regulatory.md).
+
+The refrigerant marking specification remains unresolved. EPA's current
+[R-600a stand-alone equipment listing](https://www.epa.gov/snap/substitutes-stand-alone-equipment)
+links to the [April 2015 rule, pages 19459 and 19493](https://www.govinfo.gov/content/pkg/FR-2015-04-10/pdf/2015-07895.pdf),
+which specifies longer warnings and letters at least 6.4 mm high for that category. The applicable
+end-use classification and complete marking requirements for this household dispenser have not
+been established here. The small nameplate footer is an informational notice.
 
 The warning offsets the "250V 10A" spec stamp moulded into the C14 inlet standing above it on
 the same wall. The link is where everything beyond the two printed documents lives — warranty,
@@ -29,12 +42,17 @@ Not UL-listed or ETL-listed; the plate carries no UL or ETL mark.
 
 ## The type
 
-One face, `bulkhead_ring.WORD_FONT`, in two registers. The name and the block are set at
+One face, `bulkhead_ring.WORD_FONT`. The name and the block are set at
 [6.5](TITLE_EM) — `bulkhead_ring.WORD_SIZE`, the em the bulkhead rings beside this plate are
 lettered at. The link is set at [6.05](LINK_EM): the em that brings it out at
 [88.8 mm](LOCKUP_W), the lockup's own width, so the plate is bracketed top and bottom by two
 marks that measure the same. Every serial is four digits and this face sets figures on one
 advance, so that holds from unit 0001 to 9999.
+
+The refrigerant footer is set at [2.8](HAZARD_EM), with caps [2.13 mm](HAZARD_CAP) high and
+[0.08 mm](HAZARD_TRACKING) of added space between letters, beside a [3 mm](FLAME_H) flame.
+Its letter strokes and the plate between adjacent letters are measured against the print
+profile's 0.22 mm bead.
 
 The lettering lies in a recess [1 mm](INK_DEPTH) into the plate's face and fills it flush — the
 bulkhead ring's construction at another size, printed in a second filament.

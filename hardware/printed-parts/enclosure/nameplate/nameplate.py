@@ -204,8 +204,8 @@ def seat() -> tuple:
 # --- the type --------------------------------------------------------------
 #
 # One face, `bulkhead_ring.WORD_FONT` — what the rings beside this plate are lettered in and
-# what the customer's sheet is set in — at three sizes. `FINE_EM` is the smallest, and the
-# bridge and the stroke it leaves are what `selftest` holds against the tip.
+# what the customer's sheet is set in. The footer's stroke and letter spacing are measured
+# on its own letterforms against the 0.2 mm profile's bead.
 FONT = _ring.WORD_FONT
 FONT_KIND = _ring.WORD_KIND
 TITLE_EM = _ring.WORD_SIZE
@@ -218,14 +218,20 @@ INK_DEPTH = _ring.WORD_DEPTH
 # The bead the 0.2 mm tip lays, and the tip itself.
 BEAD = _ring.WORD_BEAD
 NOZZLE = _ring.WORD_NOZZLE
-# Leading inside a block of lines, and the air between two blocks, both as multiples of the em.
-# Every line is caps and there are no descenders to clear.
+# Leading inside the ratings block as a multiple of the em; gaps between blocks in mm.
 LEADING = 1.14
-BLOCK_GAP = 0.62
+BLOCK_GAP = 3.0
+LINK_GAP = 2.0
 # The glass mark standing beside the name, the air between them, and its stroke.
 LOGO_H = 15.0
 LOGO_STROKE = 0.9
 LOGO_GAP = 5.0
+# The refrigerant notice is a centred footer below the unit link.
+HAZARD_EM = 2.8
+HAZARD_TRACKING = 0.08
+FLAME_H = 3.0
+FLAME_GAP = 1.2
+HAZARD_GAP = 1.3
 
 
 def _flat(s: str, em: float):
@@ -352,44 +358,97 @@ def logo_width(height: float = LOGO_H, stroke: float = LOGO_STROKE) -> float:
     return build_logo(height, stroke).BoundingBox().xlen
 
 
+# --- the flame -------------------------------------------------------------
+#
+# A flame silhouette, drawn in the icon frame `_icon_xy` reads — the same
+# 1024 viewBox, Y down, that the glass is drawn in. The mark is filled where the glass is stroked,
+# so it takes a closed polyline rather than an `offset2D` outline.
+_FLAME_SVG_H = 800.0
+
+
+def _flame_outline():
+    p = [(500, 112)]
+    p += _qbez((500, 112), (640, 300), (632, 430))
+    p += _qbez((632, 430), (628, 520), (690, 556))
+    p += _qbez((690, 556), (742, 470), (734, 392))
+    p += _qbez((734, 392), (830, 520), (826, 660))
+    p += _qbez((826, 660), (820, 830), (512, 912))
+    p += _qbez((512, 912), (204, 830), (198, 660))
+    p += _qbez((198, 660), (194, 520), (268, 420))
+    p += _qbez((268, 420), (300, 540), (356, 556))
+    p += _qbez((356, 556), (398, 470), (372, 352))
+    p += _qbez((372, 352), (400, 200), (500, 112))
+    return p
+
+
+def build_flame(height: float = FLAME_H):
+    """The flame as a flat XY solid `INK_DEPTH` thick, filled."""
+    s = height / _FLAME_SVG_H
+    pts = [_icon_xy(q, s) for q in _flame_outline()]
+    return cq.Workplane("XY").polyline(pts).close().extrude(INK_DEPTH).val()
+
+
+def flame_width(height: float = FLAME_H) -> float:
+    return build_flame(height).BoundingBox().xlen
+
+
+def hazard_text():
+    """The footer's words, with extra space between consecutive letterforms."""
+    letters = sorted(_flat(_plan.hazard_line, HAZARD_EM).Solids(),
+                     key=lambda s: s.BoundingBox().xmin)
+    return cq.Compound.makeCompound([
+        letter.translate(cq.Vector(i * HAZARD_TRACKING, 0, 0))
+        for i, letter in enumerate(letters)
+    ])
+
+
 # --- the layout ------------------------------------------------------------
 
 def build_ink(unit: int):
-    """Everything the plate says, as one solid in the second filament — three things, each
-    centred on the plate's axis: the brand lockup, the block of what it is, and the link."""
+    """The brand lockup, ratings, unit link and refrigerant footer, centred on the plate."""
     text = lines(unit)
     block = text["serial"] + text["input"] + text["warn"]
     step = BODY_EM * LEADING
-    gap = BODY_EM * BLOCK_GAP
+    gap = BLOCK_GAP
 
     logo = _upright(build_logo())
     lb = logo.BoundingBox()
     name = _upright(_flat(text["name"][0], TITLE_EM))
     nb = name.BoundingBox()
+    flame = _upright(build_flame())
+    fb = flame.BoundingBox()
+    hazard = _upright(hazard_text())
+    hb = hazard.BoundingBox()
+    haz_h = max(fb.zlen, hb.zlen)
     lock_w = lb.xlen + LOGO_GAP + nb.xlen
     lock_h = max(lb.zlen, nb.zlen)
     link = text["url"][0]
     link_h = cap_height(link_em())
 
-    tall = lock_h + gap + len(block) * step + gap + link_h
+    tall = lock_h + gap + len(block) * step + LINK_GAP + link_h + HAZARD_GAP + haz_h
     z = tall / 2.0
 
     parts = []
     lock_left = lock_w / 2.0
+    mid = z - lock_h / 2.0
     parts.append(logo.translate(cq.Vector(lock_left - lb.xmax,
                                           THICK - INK_DEPTH - lb.ymin,
-                                          z - lock_h / 2.0 - (lb.zmin + lb.zmax) / 2.0)))
+                                          mid - (lb.zmin + lb.zmax) / 2.0)))
     parts.append(name.translate(cq.Vector(lock_left - lb.xlen - LOGO_GAP - nb.xmax,
                                           THICK - INK_DEPTH - nb.ymin,
-                                          z - lock_h / 2.0 - (nb.zmin + nb.zmax) / 2.0)))
+                                          mid - (nb.zmin + nb.zmax) / 2.0)))
     z -= lock_h + gap
 
     for s in block:
         parts.append(line(s, BODY_EM, text_width(s, BODY_EM) / 2.0, z - step / 2.0))
         z -= step
-    z -= gap
+    z -= LINK_GAP
 
     parts.append(line(link, link_em(), text_width(link, link_em()) / 2.0, z - link_h / 2.0))
+    z -= link_h + HAZARD_GAP
+    haz_left = (fb.xlen + FLAME_GAP + hb.xlen) / 2.0
+    parts.append(_place(flame, haz_left, z - haz_h / 2.0))
+    parts.append(_place(hazard, haz_left - fb.xlen - FLAME_GAP, z - haz_h / 2.0))
 
     ink = parts[0]
     for p in parts[1:]:
@@ -407,6 +466,7 @@ def lines(unit: int) -> dict:
         "serial": (f"SERIAL  {_plan.serial_of(unit)}",),
         "input": (_plan.input_rating,),
         "warn": (_plan.warning_line, _plan.warning_line_2),
+        "hazard": (_plan.hazard_line,),
         "url": (_plan.unit_url_plain(unit),),
     }
 
@@ -518,22 +578,33 @@ def selftest() -> int:
         if abs(sx) + SHANK_DIA / 2.0 > WIDTH / 2.0 - BEVEL - 1e-9:
             fails.append(f"the shank at x {sx:g} breaks out of the chamfer and the plate has no "
                          f"face on the bed round it")
-    for em in (TITLE_EM, BODY_EM, link_em()):
+    for em in (TITLE_EM, BODY_EM, HAZARD_EM, link_em()):
         got = _min_stroke(_flat("MACHINE", em))
         if got < BEAD:
             fails.append(f"type at em {em:g} carries a {got:.3f} mm stroke and the profile lays "
                          f"a {BEAD:g} bead")
+    fine = hazard_text()
+    letters = sorted(fine.Solids(), key=lambda s: s.BoundingBox().xmin)
+    bridge = min(a.distance(b) for a, b in zip(letters, letters[1:]))
+    if bridge < BEAD:
+        fails.append(f"the refrigerant footer leaves a {bridge:.3f} mm bridge between letters "
+                     f"and the profile lays a {BEAD:g} bead")
+    if _min_stroke(fine) < BEAD:
+        fails.append(f"the refrigerant footer's stroke is narrower than the {BEAD:g} bead")
     # The lockup is the widest mark set on the plate and `WIDTH` is the field's, so what a line
     # has to fit inside is the lockup, not the plate — the block's lines and the warning are
     # free text and this is where one set too long shows up.
     room = lockup_width()
     for key, row in lines(1).items():
         for s in row:
-            em = {"name": TITLE_EM, "url": link_em()}.get(key, BODY_EM)
-            got = text_width(s, em)
-            if got > room + 1e-9:
-                fails.append(f"'{s}' sets {got:.2f} mm wide and the lockup the plate is sized "
-                             f"on measures {room:.2f}")
+            em = {"name": TITLE_EM, "url": link_em(),
+                  "hazard": HAZARD_EM}.get(key, BODY_EM)
+            got = fine.BoundingBox().xlen if key == "hazard" else text_width(s, em)
+            # The hazard line does not have the row to itself: the flame stands in front of it.
+            here = room - flame_width() - FLAME_GAP if key == "hazard" else room
+            if got > here + 1e-9:
+                fails.append(f"'{s}' sets {got:.2f} mm wide and the room it stands in "
+                             f"measures {here:.2f}")
     tall = _stack_height(1)
     if tall > HEIGHT + 1e-9:
         fails.append(f"the stack stands {tall:.2f} mm tall on a plate {HEIGHT:g} high")
@@ -636,6 +707,10 @@ def main(unit: int):
         "BOSS_STEM_D": f"{boss_stem_d():g} mm",
         "TITLE_EM": f"{TITLE_EM:g}",
         "BODY_EM": f"{BODY_EM:g}",
+        "HAZARD_EM": f"{HAZARD_EM:g}",
+        "HAZARD_CAP": f"{cap_height(HAZARD_EM):.3g} mm",
+        "HAZARD_TRACKING": f"{HAZARD_TRACKING:g} mm",
+        "FLAME_H": f"{FLAME_H:g} mm",
         "LINK_EM": f"{link_em():.3g}",
         "LOCKUP_W": f"{lockup_width():.4g} mm",
         "INK_DEPTH": f"{INK_DEPTH:g} mm",

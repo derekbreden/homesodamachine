@@ -23,6 +23,8 @@ layer_height_max = 0.12             # mm
 input_rating = "120V 60Hz 5A 600W"
 warning_line = "120V 60Hz ONLY"
 warning_line_2 = "NOT FOR 240V"
+# The words beside the flame in the nameplate's footer.
+hazard_line = "FLAMMABLE REFRIGERANT"
 portal_host = "homesodamachine.com"
 
 
