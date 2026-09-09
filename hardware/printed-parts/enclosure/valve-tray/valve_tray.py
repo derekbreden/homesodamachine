@@ -85,7 +85,7 @@ SEAT = -_seat.seat_top_z
 # is longer than the plate is high, so the channel is open at both — in the piece's own print
 # orientation it runs UP the standing plate and prints as a notch in the section, nothing
 # bridged and nothing to pick out. One millimetre is the box's own figure for air round a body.
-PORT_SLIP = 1.0
+PORT_SLIP = _seat.port_air
 
 
 def reach() -> float:

@@ -1,28 +1,11 @@
-"""A VALVE SEAT IS FOUR SOCKETS, and four bosses where the face is too thin to hold them.
+"""Four blind sockets locating a Beduan valve on a printed face.
 
-One blind socket under each of the Beduan solenoid's four corner posts, the post pressed into
-it. A face `socket_depth` deep and one wall over takes them sunk (`build_sockets`) and the
-valve lands on that face; a thinner one stands a boss round each instead (`build_seat`) and the
-valve lands on the four boss tops. THE POSTS IN THEIR SOCKETS ARE THE WHOLE OF THE RETENTION — nothing
-bolts a valve down in this machine, nothing is bonded, and the valve's own round body boss
-lands on the boss tops, which is what sets its height.
+`build_sockets` supplies the cuts for the enclosure's valve trays. `build_seat`
+supplies a raised plinth for the cold-core lid: one rectangular body with rounded
+corners, four sockets and an open cylindrical port channel. The valve's round body
+lands on the broad top faces beside that channel.
 
-The valve's PORT hangs below those tops and runs between them, and the bosses stand off it by
-more than the clearance their own sockets are cut on. `port_clearance` reads that gap;
-`fouled_volume` reads the whole of it, and a seat and the valve it holds share no volume.
-
-Built in the VALVE'S OWN FRAME — origin at the footprint centre, z = 0 the mounting plane its
-four corner posts stand on — so a consumer turns and drops one onto its own face. A square of
-four round bosses is carried onto itself by a quarter turn, so a station's yaw locates the
-valve and does not turn the print.
-
-The seat's numbers are the valve's own (`hardware/reference/beduan-solenoid/`) plus two
-clearances and a wall. Two parts print these seats: the cold core's cap lid carries three
-(`_cold_core_interface.cap_cradles`, `foam_cap.add_cradles`) and the two valve trays carry
-four apiece (`printed-parts/enclosure/valve-tray/`) — one plate per deck of the flavour pack,
-wall to wall in `enclosure-front-top`.
-
-    tools/cad-venv/bin/python hardware/printed-parts/valve-seat/valve_seat.py
+Geometry is in the valve's frame, with its mounting plane at Z0 and port axis on Y.
 """
 
 import math
@@ -45,23 +28,21 @@ from docgen import substitute_md
 # --- what the valve brings ---------------------------------------------------
 corner_inset = valve.corner_inset             # a corner post's centre off the footprint centre
 corner_post_radius = valve.corner_boss_radius
-# The round body boss begins here, so this is where a seat's boss tops land: the valve rests on
-# them, and everything below is the posts-only band the sockets reach into.
+# The valve's round body bears on this plane; the sockets hold its posts below it.
 seat_top_z = valve.boss_z_range[0]
 
 # --- what the seat adds ------------------------------------------------------
 socket_clearance = 0.2   # radial, post to socket — the press fit
-wall = 3.0               # material around a socket, which IS the boss
+wall = 3.0               # minimum material outside a socket
 socket_floor_z = -1.0    # the socket floor, under the post tips at z = 0, so a post bottoms out
                          # on nothing and the round boss alone sets the valve's height
 
 socket_radius = corner_post_radius + socket_clearance
 boss_radius = socket_radius + wall
 
-# The four bosses stand clear of one another, so a seat is four separate posts.
-assert corner_inset >= boss_radius, (
-    f"a boss of r{boss_radius:g} on a {corner_inset:g} mm inset touches its neighbour — four "
-    f"bosses that meet are a plate with scallops in it, and this seat has no plate")
+seat_half = corner_inset + boss_radius
+seat_corner_radius = wall
+port_air = 1.0
 
 
 def socket_depth():
@@ -71,17 +52,7 @@ def socket_depth():
 
 
 def build_sockets():
-    """The four SOCKETS of one seat, in the valve's own frame — nothing else.
-
-    A BOSS IS MATERIAL ROUND A SOCKET. A face already thick enough to hold one IS that material,
-    so what such a face needs is the hole and nothing else: same `socket_radius`, same
-    `socket_floor_z` to `seat_top_z`, opening on the face the valve lands on. The post grips the
-    same depth, bottoms on the same nothing, and the round body boss lands on the face rather
-    than on four boss tops.
-
-    A consumer CUTS this where it would FUSE `build_seat` — the two are the same seat, sunk or
-    stood, and a face that can take one does not want the other. `valve_tray` sinks; the cold
-    core's cap lid, whose own lid is thinner than a socket is deep, stands."""
+    """Four blind socket cuts in the valve frame, opening at its bearing plane."""
     sockets = None
     for sx in (-1.0, 1.0):
         for sy in (-1.0, 1.0):
@@ -97,39 +68,31 @@ def build_sockets():
 
 
 def build_seat(seat):
-    """The four bosses of one valve seat, in the valve's own frame.
-
-    `seat` is how far the valve's mounting plane stands over the face the bosses grow from, so
-    each boss runs from z = −`seat` up to `seat_top_z` and the whole of it is that one face's
-    material. The socket is cut through the top, which is what makes it blind from above and
-    open to nothing below."""
+    """A plinth from Z=-seat to the valve's bearing plane, with four blind sockets."""
     assert seat >= -socket_floor_z - 1e-9, (
-        f"a seat of {seat:g} mm stands the valve's mounting plane closer to the face than the "
-        f"{-socket_floor_z:g} mm its socket floor drops below that plane — the socket would "
-        f"bore out through whatever the boss is standing on")
-    bosses = None
-    for sx in (-1.0, 1.0):
-        for sy in (-1.0, 1.0):
-            boss = (
-                cq.Workplane("XY")
-                .workplane(offset=-seat)
-                .center(sx * corner_inset, sy * corner_inset)
-                .circle(boss_radius)
-                .extrude(seat + seat_top_z)
-            )
-            bosses = boss if bosses is None else bosses.union(boss)
-    return bosses.cut(build_sockets())
+        f"seat {seat:g} leaves the socket floor below the supporting face")
+    solid = (cq.Workplane("XY").workplane(offset=-seat)
+             .rect(2.0 * seat_half, 2.0 * seat_half)
+             .extrude(seat + seat_top_z)
+             .edges("|Z").fillet(seat_corner_radius))
+    return solid.cut(build_sockets()).cut(build_port_channel(2.0 * seat_half + 2.0))
+
+
+def build_port_channel(length):
+    """The valve barrel's circular clearance, open through both Y faces."""
+    return (cq.Workplane("XZ").center(0.0, valve.port_center_z)
+            .circle(valve.port_radius + port_air).extrude(length / 2.0, both=True))
 
 
 def seat_volume(seat):
-    """One seat's material, in closed form — four cylinders less four sockets.
-
-    Exact, because the bosses stand clear of one another and every socket floor is above the
-    face (both settled above). A consumer holds the material its face GAINED against this sum,
-    which is what says every boss stands where it was put and on nothing that was already
-    open."""
-    return 4.0 * math.pi * (boss_radius ** 2 * (seat + seat_top_z)
-                            - socket_radius ** 2 * (seat_top_z - socket_floor_z))
+    """Plinth volume: rounded rectangle, four sockets and the circular port segment."""
+    area = (2.0 * seat_half) ** 2 - (4.0 - math.pi) * seat_corner_radius ** 2
+    r = valve.port_radius + port_air
+    d = valve.port_center_z - seat_top_z
+    channel_section = r * r * math.acos(d / r) - d * math.sqrt(r * r - d * d)
+    return (area * (seat + seat_top_z)
+            - 4.0 * math.pi * socket_radius ** 2 * socket_depth()
+            - 2.0 * seat_half * channel_section)
 
 
 def _distance(a, b):
@@ -139,51 +102,33 @@ def _distance(a, b):
 
 
 def port_clearance():
-    """The gap between a boss and the valve's PORT.
-
-    Read at a boss's inboard top edge, its nearest material to the port, and so independent of
-    the seat height: a boss's top is at `seat_top_z` whatever it stands on, and the port hangs
-    at the same place over it either way."""
-    boss = (cq.Workplane("XY")
-            .center(corner_inset, corner_inset)
-            .circle(boss_radius)
-            .extrude(seat_top_z))
-    return _distance(boss.val(), valve.build_port().val())
+    """The distance from the finished plinth to the valve's port barrel."""
+    return _distance(build_seat(-socket_floor_z).val(), valve.build_port().val())
 
 
 def fouled_volume(seat):
-    """How much of the valve a seat stands inside — 0 mm³, or a boss is in the valve's way.
-
-    Zero is not a near miss rounded down. A socket is cut `socket_clearance` wider than the post
-    it takes and its floor drops below the post's tip, so the posts hang in their sockets
-    touching nothing; the round boss lands flat on the boss tops, which is contact across a
-    plane and no volume at all."""
+    """Native overlap between the finished plinth and its seated valve."""
     solid = valve.build_beduan_solenoid().val()
     return sum(b.intersect(solid).Volume() for b in build_seat(seat).solids().vals())
 
 
 def main():
-    # A seat at the shallowest height there is: its socket floors land ON the face, and it bores
-    # nothing into the part under it. Every deeper seat only lifts the same four bosses.
+    # The shallowest plinth puts the socket floors on its supporting face.
     shallowest = -socket_floor_z
     gap = port_clearance()
     foul = fouled_volume(shallowest)
     print(f"seat at {shallowest:g} mm: {seat_volume(shallowest):.1f} mm^3, "
           f"port clearance {gap:.4f} mm, fouls the valve by {foul:.6f} mm^3")
-    # The floor is the seat's own press fit: a boss stands off the valve's port by at least what
-    # its socket is cut wider than the post, so a seat clears a valve as freely as it grips one.
-    assert gap >= socket_clearance - 1e-9, (
-        f"a boss stands {gap:.4f} mm off the valve's port, inside the {socket_clearance:g} mm "
-        f"its own socket is cut on")
-    assert foul <= 1e-6, (
-        f"the seat stands {foul:.3f} mm^3 inside the valve it holds — a seat and its valve "
-        f"share the socket walls' clearance and the boss tops' plane, and no volume")
+    assert math.isclose(gap, port_air, abs_tol=1e-6), f"port channel clearance {gap:g}"
+    assert foul <= 1e-6, f"the plinth intersects its valve by {foul:.3f} mm^3"
 
     substitute_md(
         _here.parent / "README.md",
         variables={
             "POST_DIA": f"{2 * corner_post_radius:.4g}",
             "SOCKET_DIA": f"{2 * socket_radius:.4g}",
+            "PLINTH_WIDTH": f"{2.0 * seat_half:.4g}",
+            "PLINTH_CORNER": f"{seat_corner_radius:.4g}",
             "BOSS_DIA": f"{2 * boss_radius:.4g}",
             "SOCKET_CLEAR": f"{socket_clearance:.4g} mm",
             "WALL": f"{wall:.4g} mm",

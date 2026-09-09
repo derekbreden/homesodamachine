@@ -5,6 +5,7 @@ that compresses between the cap and the outer-shell mating face.
 Printed twice per build (one stack on each end of the shell)."""
 
 import itertools
+import cadquery as cq
 import math
 import sys
 from pathlib import Path
@@ -41,11 +42,14 @@ from _cold_core_interface import (
     corner_round_radius,
     flute_depth,
     foam_cap_lid_pour_radius,
+    foam_cap_lid_pour_xy,
     foam_cap_lid_vent_radius,
+    foam_cap_lid_vent_xy,
     head_pad_height,
     screw_clearance_radius,
     screw_head_height,
     head_cbore_depth,
+    head_cbore_radius,
     deck_mounts,
     deck_mount_xy,
     deck_mount_boss_radius,
@@ -62,6 +66,9 @@ from _cold_core_interface import (
     cap_cradle_boss_radius,
     cap_cradle_socket_radius,
     cap_cradle_wall,
+    cap_cradle_room_gap,
+    cap_cradle_half,
+    cap_cradle_corner_radius,
     cap_anchors,
     cap_anchor_axis_over_face,
     cap_side_anchors,
@@ -193,34 +200,33 @@ def add_deck_mounts(cap):
     return cap
 
 
-# `_cold_core_interface` fences every cradle on a boss, and `valve_seat` builds the boss.
-assert (cap_cradle_corner_inset, cap_cradle_socket_radius, cap_cradle_wall) == (
-        seat.corner_inset, seat.socket_radius, seat.wall), (
-    f"the cap fences its cradles on ({cap_cradle_corner_inset:g}, {cap_cradle_socket_radius:g}, "
-    f"{cap_cradle_wall:g}) and `valve_seat` builds them on ({seat.corner_inset:g}, "
-    f"{seat.socket_radius:g}, {seat.wall:g}) — one seat, one fence")
-assert cap_cradle_boss_radius == seat.boss_radius, (
-    f"the cap fences a cradle at r{cap_cradle_boss_radius:g} and `valve_seat` stands bosses at "
-    f"r{seat.boss_radius:g} — the fence is drawn on the boss and there is nothing else to draw "
-    f"it on")
+# The interface readings and the solid builder share one plinth footprint.
+assert (cap_cradle_corner_inset, cap_cradle_socket_radius, cap_cradle_wall,
+        cap_cradle_half, cap_cradle_corner_radius) == (
+        seat.corner_inset, seat.socket_radius, seat.wall,
+        seat.seat_half, seat.seat_corner_radius)
+
+
+def cradle_shape(name, face_z):
+    """One socketed valve plinth, with the lid conduits open along its edge."""
+    station = cap_cradles[name]
+    cx, cy = station.centre
+    plinth = (seat.build_seat(station.seat)
+              .rotate((0.0, 0.0, 0.0), (0.0, 0.0, 1.0), station.yaw + 90.0)
+              .translate((cx, cy, face_z + station.seat)))
+    for x, y in cap_conduits.values():
+        passage = (WorldWorkplane(xy_plane_z_up).workplane(offset=face_z)
+                   .center(x, y)
+                   .circle(cap_conduit_entry_relief_radius + cap_cradle_room_gap)
+                   .extrude(station.seat + seat.seat_top_z + 1.0).unwrap())
+        plinth = plinth.cut(passage)
+    return plinth
 
 
 def add_cradles(lid, face_z):
-    """Every valve cradle, standing on the lid's outer face at `face_z`.
-
-    A CRADLE IS FOUR BOSSES (`valve_seat`) and nothing between them — the valve's corner posts
-    press into their sockets and its round boss lands on their tops. `main` holds the lid's gain
-    against `valve_seat.seat_volume` summed over the stations, which is what says no boss has
-    swallowed a hole the lid is cut with or run into its neighbour."""
-    for name, station in cap_cradles.items():
-        # A SEAT OF FOUR BOSSES IS SQUARE, so a quarter turn carries it onto itself and a
-        # station's yaw locates its valve without turning the print.
-        assert station.yaw % 90.0 == 0.0, (
-            f"cradle {name} stands its valve at {station.yaw:g}° — a seat's four bosses are "
-            f"square, and only a quarter turn carries them onto themselves")
-        (cx, cy) = station.centre
-        lid = lid.union(
-            seat.build_seat(station.seat).translate((cx, cy, face_z + station.seat)))
+    """Three plinths joined to the lid, with port channels on each valve's axis."""
+    for name in cap_cradles:
+        lid = lid.union(cradle_shape(name, face_z))
     return lid
 
 
@@ -433,7 +439,8 @@ def main():
            + cap_conduit_bore_radius * cap_conduit_entry_relief_radius
            + cap_conduit_entry_relief_radius ** 2)
         - math.pi * cap_conduit_bore_radius ** 2 * wall_and_floor_thickness)
-    cradle_volume = sum(seat.seat_volume(s.seat) for s in cap_cradles.values())
+    cradle_volume = sum(cradle_shape(name, lid_total_height).val().Volume()
+                        for name in cap_cradles)
     # An anchor is priced the way it is laid down: one box the rib's length carrying a HALF bore
     # (the cylinder's own axis is the box's top face, so exactly half of it lies in the material),
     # and two end bands from the face up to that box. The bands stand a `cap_anchor_wall` clear of
@@ -481,10 +488,8 @@ def main():
     #   The two lids differ by that band, by the openings the top one alone is cut with, and by
     # the cradles and anchors it alone stands — nothing else is cut into or built onto one end
     # of the stack and not the other.
-    #   The cradles are priced in closed form — four cylinders less four sockets per station
-    # (`valve_seat.seat_volume`). The bosses are fused onto a face they only touch, so the lid
-    # gains that sum and no more; a boss that plugged one of the lid's own openings, ran into its
-    # neighbour, or grew a plate between the four comes up short here.
+    # The three plinths include their conduit edge passages. Their complete volume
+    # joins the lid above its face; none may cover a floor opening or another anchor.
     cap_expect = deck_column_volume + conduit_column_volume
     lid_expect = (deck_lid_hole_volume + conduit_lid_hole_volume
                   + conduit_lid_relief_volume - cradle_volume - anchor_volume
@@ -502,14 +507,35 @@ def main():
     assert math.isclose(lid_diff, lid_expect, rel_tol=1e-6), \
         f"lid diff {lid_diff:.6f} != expected deck-column holes = {lid_expect:.6f}"
     assert len(cap_top.solids().vals()) == 1, "cap_top must be a single solid"
-    # Every boss landed on the lid. One that missed it is a solid of its own.
+    # Every plinth and anchor joins the lid.
     assert len(lid_top.solids().vals()) == 1, "lid_top must be a single solid"
 
-    # And no cradle stands inside the valve it holds.
-    for _name, _station in cap_cradles.items():
-        _foul = seat.fouled_volume(_station.seat)
-        assert _foul <= 1e-6, (
-            f"cradle {_name} stands {_foul:.3f} mm^3 inside its own valve")
+    # Each valve lands at the original bearing plane, and every lid opening remains clear.
+    for name, station in cap_cradles.items():
+        plinth = cradle_shape(name, lid_total_height).val()
+        native_valve = (seat.valve.build_beduan_solenoid()
+                        .rotate((0.0, 0.0, 0.0), (0.0, 0.0, 1.0), station.yaw + 90.0)
+                        .translate((*station.centre, lid_total_height + station.seat)).val())
+        assert plinth.intersect(native_valve).Volume() <= 1e-6, (
+            f"cradle {name} intersects its seated valve")
+        openings = [
+            ("pour", cq.Vector(*foam_cap_lid_pour_xy(), lid_total_height),
+             foam_cap_lid_pour_radius),
+        ]
+        openings.extend(("vent", cq.Vector(*xy, lid_total_height), foam_cap_lid_vent_radius)
+                        for xy in foam_cap_lid_vent_xy())
+        openings.extend((f"deck {key}", cq.Vector(*xy, lid_total_height), deck_lid_hole_radius(key))
+                        for key in deck_mounts for xy in deck_mount_xy(key))
+        openings.extend((f"conduit {key}", cq.Vector(*xy, lid_total_height),
+                         cap_conduit_entry_relief_radius)
+                        for key, xy in cap_conduits.items())
+        openings.extend(("clamp screw", cq.Vector(*xy, lid_total_height),
+                         head_cbore_radius) for xy in attachment_xy_positions)
+        for label, point, radius in openings:
+            passage = cq.Solid.makeCylinder(
+                radius, station.seat + seat.seat_top_z + 1.0, point)
+            assert plinth.intersect(passage).Volume() <= 1e-6, (
+                f"cradle {name} covers {label}")
 
     # What is under a head is still one wall of PET-GF — the same land the head
     # clamps on when it sits on a flat lid, which is what makes the recess a
@@ -523,7 +549,7 @@ def main():
     # nominal) on each counterbore floor: it shares no volume with the lid, and
     # the lid is no taller than its own plate + pad + whatever stands on its
     # outer face. The bottom lid stands nothing there, so its outer face is a
-    # plane; the top lid's extra height is the taller of its cradle bosses and
+    # plane; the top lid's extra height is the taller of its valve plinths and
     # its chain anchors, whose crown is the seated body's own axis.
     cradle_proud = max((s.seat + seat.seat_top_z for s in cap_cradles.values()), default=0.0)
     anchor_proud = max((cap_anchor_axis_over_face(n) for n in cap_anchors), default=0.0)
