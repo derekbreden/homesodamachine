@@ -1082,17 +1082,6 @@ static uint32_t pourStartMs = 0;
 
 static void IRAM_ATTR flowIsr() { flowEdges++; }
 
-static const char *pourActionName(machine_policy::PourAction a) {
-    switch (a) {
-        case machine_policy::PourAction::Start:   return "start";
-        case machine_policy::PourAction::PumpOn:  return "burst";
-        case machine_policy::PourAction::PumpOff: return "rest";
-        case machine_policy::PourAction::Stop:    return "stop";
-        case machine_policy::PourAction::Ceiling: return "ceiling";
-        default:                                  return "none";
-    }
-}
-
 static void pourClose(const char *how) {
     if (pour.pumpOn() || state == ST_POURING) pumpPark(pourChannel);
     if (!pcba::expanders().apply(pcba::ExpanderOutputs())) pcba::expanders().parkAll();
@@ -1172,7 +1161,6 @@ static void pourService(uint32_t now) {
         case machine_policy::PourAction::None:
             break;
     }
-    (void)pourActionName;
 }
 
 bool machineIsPouring()          { return state == ST_POURING; }

@@ -76,7 +76,7 @@ struct ToneStep {
 // pre-empts. So a tick never truncates a chime, and the alarm truncates anything.
 enum SoundPriority : uint8_t {
     PRIO_UI    = 0,  // tick — the droppable one
-    PRIO_EVENT = 1,  // ack, chime, refuse, ready
+    PRIO_EVENT = 1,  // ack, chime, refuse, welcome, engage, release
     PRIO_FAULT = 2,  // something needs attention
     PRIO_ALARM = 3,  // gas — pre-empts everything and ignores every silencer
 };

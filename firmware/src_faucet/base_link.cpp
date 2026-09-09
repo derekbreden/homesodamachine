@@ -1,7 +1,5 @@
 #include <Arduino.h>
 #include <driver/gpio.h>
-#include <esp_system.h>
-
 #include "base_link.h"
 #include "ble_link.h"
 #include "fw_version.h"
@@ -435,7 +433,7 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
     im.bundleBytes = imageStoreBundleBytes();
     for (uint8_t i = 0; i < im.slots; i++) {
       if (imageStoreOccupied(i)) { im.occupancy |= (uint8_t)(1u << i); ++im.held; }
-      im.crc[i] = faucetEnclosureCrc(i);   // what the enclosure's copy should be
+      im.crc[i] = imageStoreCrc(i);   // the same number the enclosure states
     }
     base.trySend(MSG_RESP_IMAGES, &im, sizeof(im));
     if (!verbose) return;
@@ -533,9 +531,13 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
     return;
   }
 
+  // An error frame carries a channel number and no token, so it cannot say
+  // which request it answers. A selection is absolute and retried on its own
+  // clock, and the main board's heartbeat settles it either way — so this is
+  // counted and nothing is dropped on its account. Retiring the head here
+  // cancelled a pending selection whenever the main board refused some other
+  // frame, which is what an older main board does to every id it does not know.
   if (type >= MSG_ERR_SLOT_INVALID && type <= MSG_ERR_UNSUPPORTED) {
-    if (queueCount) popQueue();
-    synchronized = false;
     ++staleResponses;
   }
 }
@@ -636,17 +638,6 @@ void faucetSayRead(uint8_t slot, uint32_t bytes) {
 void faucetRequestErase(uint8_t slot) {
   ImageSlotPayload req{slot};
   base.trySend(MSG_IMAGE_ERASE, &req, sizeof(req));
-}
-
-// ── What a slot is, in a number both boards can say ───────────────────────
-// Both stores hold the same bundle, so a slot's own crc is its identity on
-// either board: this is the one the phone computed over the pixels it sent, the
-// one this board's header keeps, and the one wifiImagePush puts in the header it
-// pushes on — so the wire, the far store and the reconcile cannot drift apart.
-// Zero where the slot is empty, which is nothing owed rather than a difference.
-uint32_t faucetEnclosureCrc(uint8_t slot) {
-  if (slot >= FLAVOR_ART_CUSTOM) return 0;
-  return imageStoreCrc(slot);
 }
 
 void faucetRequestRelay(uint8_t slot) {

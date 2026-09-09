@@ -35,8 +35,6 @@ uint32_t lastPrimeRevision = 0;
 uint32_t lastPrimeStatePublicationMs = 0;
 uint32_t primeStatePublications = 0;
 uint32_t primeHeartbeatPublications = 0;
-// A faucet display that just came up renders from artwork it has not been told
-// yet, so the pair is published once per connection as well as on every change.
 // A slot the faucet says is ready to carry, or 0xFF for none. Read and cleared
 // by the loop, because standing the enclosure's radio up blocks.
 uint8_t relayWanted = 0xFF;
@@ -48,6 +46,8 @@ WifiPushResultPayload pushResult{};
 bool pushResultFresh = false;
 // A slot the phone removed, for the loop to carry to the rest of the machine.
 uint8_t eraseWanted = 0xFF;
+// A faucet display that just came up renders from artwork it has not been told
+// yet, so the pair is published once per connection as well as on every change.
 bool artPublished = false;
 
 void observeConnectionEpoch() {
@@ -184,9 +184,6 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
         return;
     }
 
-    // A picture landed on the faucet. The hop that follows blocks for seconds,
-    // so it is noted here and run from the loop rather than from inside the
-    // frame that asked for it.
     // A picture the phone removed. The faucet has already dropped its own copy;
     // the enclosure holds another and cannot be told directly, and a channel
     // may still be wearing a face that no longer exists. Both are the machine's
@@ -198,6 +195,9 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
         return;
     }
 
+    // A picture landed on the faucet. The hop that follows blocks for seconds,
+    // so it is noted here and run from the loop rather than from inside the
+    // frame that asked for it.
     if (type == MSG_IMAGE_RELAY_REQ && plen >= sizeof(ImageSlotPayload)) {
         ImageSlotPayload req;
         memcpy(&req, payload, sizeof(req));
@@ -486,9 +486,7 @@ bool faucetLinkSendOta(uint8_t type, const void *data, uint16_t len) {
     return faucet.trySend(type, data, len) >= 0;
 }
 
-// Push into TinyProto's window as fast as it will take frames, servicing the
-// link whenever it is full. No flash write and no per-chunk answer: what comes
-// back is what J3 carries, which is the number the OTA pull is measured against.
+// What the loop takes off this link and runs where blocking is allowed.
 uint8_t faucetLinkTakeEraseRequest() {
     const uint8_t slot = eraseWanted;
     eraseWanted = 0xFF;
@@ -543,6 +541,9 @@ bool faucetLinkImagesQuery(uint8_t verbose) {
     return faucet.trySend(MSG_IMAGES_QUERY, &q, sizeof(q)) >= 0;
 }
 
+// Push into TinyProto's window as fast as it will take frames, servicing the
+// link whenever it is full. No flash write and no per-chunk answer: what comes
+// back is what J3 carries, which is the number the OTA pull is measured against.
 bool faucetLinkBenchPush(uint32_t bytes) {
     BenchBeginPayload begin{bytes};
     if (faucet.trySend(MSG_BENCH_BEGIN, &begin, sizeof(begin)) < 0) return false;
