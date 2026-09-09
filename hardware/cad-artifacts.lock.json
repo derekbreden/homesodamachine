@@ -2,8 +2,8 @@
   "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed \u2014 web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
   "release": {
     "tag": "cad-artifacts",
-    "asset": "cad-e0138e6a4bb35368.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-e0138e6a4bb35368.tar.gz",
+    "asset": "cad-9c6e356fc17db35f.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-9c6e356fc17db35f.tar.gz",
     "objects": "s-"
   },
   "source": {
@@ -12,7 +12,8 @@
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, its rule would not cut, or an interactive publication explicitly deferred that rule.",
     "paths": [
-      "hardware/install-guide/_build.py"
+      "hardware/install-guide/_build.py",
+      "hardware/install-guide/_install_art.py"
     ],
     "members": [
       "hardware/.cache/pump-roof/enclosure-pump-cartridge.step",
@@ -51,7 +52,6 @@
       "hardware/install-guide/art/filter-in-cabinet.png",
       "hardware/install-guide/art/one-face.png",
       "hardware/install-guide/art/opening.png",
-      "hardware/install-guide/art/power-socket.png",
       "hardware/install-guide/install-guide.cover.png",
       "hardware/install-guide/install-guide.pdf",
       "hardware/manifold-layout/enclosure-assembly.step",
@@ -367,9 +367,9 @@
     ]
   },
   "bundle": {
-    "sha256": "e0138e6a4bb35368e6ad93e1f6d6aabbcd2b0cc69313c1d85feac35da7651b5b",
-    "bytes": 141747227,
-    "solids": 335
+    "sha256": "9c6e356fc17db35f36b6a4846fa573c3e2eb1f35de887d4e7b00bc540140dff3",
+    "bytes": 141727558,
+    "solids": 334
   },
   "solids": {
     "hardware/.cache/pump-roof/enclosure-pump-cartridge.step": "4f3c521165747f039ff44b338de914a5e9eece6e4fe0e39a3a65bedeed90c67d",
@@ -464,9 +464,8 @@
     "hardware/install-guide/art/filter-in-cabinet.png": "b799c58acc3dec7791f4aa6e9940e4583ce8236d578e0633cbabfcbfb576cec6",
     "hardware/install-guide/art/one-face.png": "4a6455084621bb88adab0364c3fb8db073c6c671f34000c565faa6c2ce04ec48",
     "hardware/install-guide/art/opening.png": "bb537519eb4390eddab5da928cf4ad31cbd0401bdbc05421ce628088ea7c3ebd",
-    "hardware/install-guide/art/power-socket.png": "85ce01a7d26c750a70ddd963c3ad3c74fec0355ddfa573ba40fa9ab3aa1f5ccd",
     "hardware/install-guide/install-guide.cover.png": "e059cdb7e70f15b5e11aedf69fe10ffc7c4c11fb228539fd204c60573e13635a",
-    "hardware/install-guide/install-guide.pdf": "780743418c273935842c23a68004a5fa4528ceae17aaaadba2c055e7e3755b08",
+    "hardware/install-guide/install-guide.pdf": "08bf35a19feb9108cec8720b3266c14974613e2a725684a31a34e04360b2ec4f",
     "hardware/manifold-layout/enclosure-assembly.step": "29dfdd90353a8ad69f8715c6d3e1c9b0033d470a35db5c819e8de31f1a99c84b",
     "hardware/manifold-layout/enclosure-assembly.step.mesh": "b1d7a48b5f7711eb259dc4ba32937f17bcb29bfdb36e181180e6e7df68c6d455",
     "hardware/manifold-layout/manifold-layout.step": "77649fc47b26af27c477871a21f53c2ee9852272e19980f16fd41b589bf4b27f",
