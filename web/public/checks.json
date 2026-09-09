@@ -52,7 +52,7 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 1463 tracked, 329 fetched solids, 55 tags",
+      "note": "paths: every reference lands — 1532 tracked, 329 fetched solids, 55 tags",
       "status": "ok"
     },
     {
@@ -62,8 +62,8 @@
     },
     {
       "check": "tools/check_web_tests.py",
-      "note": "check_web_tests: web's suite passes",
-      "status": "ok"
+      "note": "cd web && npm test",
+      "status": "red"
     },
     {
       "check": "tools/bazel/check_build_file.py",
@@ -82,13 +82,13 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 1 of 190 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 329 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 1 of 97 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 329 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds 16bd61e06195e6f2a8435f2e79655762 for the 124 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 9f3ba71e09f03b524d7ab623e1688b5c here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was taken from a different tree — it holds 16bd61e06195e6f2a8435f2e79655762 for the 124 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 796d1040ecbf41268cf085db3a9c8454 here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ],
@@ -96,6 +96,11 @@
       "the lock does not carry `release.objects`, so every deploy reads the whole bundle for members it already has",
       "check_release_room: 1 thing(s) stand between a cut and the site",
       "    tools/cad-venv/bin/python tools/cad-artifacts/pack.py --room"
+    ],
+    "tools/check_web_tests.py": [
+      "1 test(s) in web/ fail:",
+      "    EXCLUDED_DIRS is every out/ .gitignore holds under hardware",
+      "  cd web && npm test"
     ]
   },
   "green": false
