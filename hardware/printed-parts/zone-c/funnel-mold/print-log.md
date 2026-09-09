@@ -20,7 +20,8 @@ contains the G-code from that Bambu Studio session; its embedded checksum passes
 
 [The start check](print-start-check.json) records the saved-project and job
 digests, geometry comparison, complete setting differences, nozzle assignment and
-layer-schedule comparison. The saved editable project contains no embedded G-code.
+layer-schedule comparison. The first-run editable save is retained at Git
+revision `f039270ea` and contains no embedded G-code.
 The cavity and core retain manual left High Flow assignment. The witness plate
 records automatic assignment to the right extruder.
 
@@ -28,4 +29,18 @@ Camera observation during preparation: a small purge clump near the rear-left
 of the plate. Derek: “I hit it with some canned air.” The following camera view
 shows a clear plate during auto bed leveling, with the bed at 70 °C.
 
-First-layer quality and completed-print outcome are not yet recorded.
+Derek reported the first run had adhesion trouble: “The brim lifted up and
+caused some problems on our first run.” He requested a brim-free mold with
+intentional permanent contact material. The extent of damage and the final
+stop time were not recorded.
+
+## Permanent-feet project — 2026-09-09
+
+The [current editable project](funnel-mold-petg-hf08-variable-016-040.3mf) has
+permanent rounded feet, an 8 mm cavity frame and 6.4 mm rib lands. Its saved
+process is `Funnel mold - no brim - 0.16 mm slopes - 0.40 mm structure`.
+Brim and skirt are disabled on all three plates. Both +0.04 and +0.18 mm trim
+variants are sliced and inspected; +0.04 mm is the default.
+
+The cavity estimates 23 h 23 min and the core 18 h 39 min. Physical adhesion
+and completed-print outcome for this geometry are not yet recorded.

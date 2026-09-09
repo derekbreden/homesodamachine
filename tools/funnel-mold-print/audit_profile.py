@@ -52,6 +52,11 @@ def main():
         ranges = ET.fromstring(archive.read('Metadata/layer_config_ranges.xml'))
         sliced = ET.fromstring(archive.read('Metadata/slice_info.config'))
         model = ET.fromstring(archive.read('3D/3dmodel.model'))
+        for name in names:
+            if name.endswith('.gcode'):
+                gcode = archive.read(name)
+                assert b'; FEATURE: Brim' not in gcode, name
+                assert b'; FEATURE: Skirt' not in gcode, name
         assert not any('filament_settings_' in name or 'custom_gcode' in name for name in names)
         assert archive.testzip() is None, 'ZIP checksum failure'
 
@@ -126,6 +131,8 @@ def main():
     assert settings['post_process'] == []
     assert settings['before_layer_change_gcode'] == ''
     assert settings['enable_support'] == settings['enable_prime_tower'] == '0'
+    assert settings['brim_type'] == 'no_brim'
+    assert float(settings['brim_width']) == float(settings['skirt_loops']) == 0
     assert settings['xy_contour_compensation'] == settings['xy_hole_compensation'] == '0'
     assert settings['seam_slope_type'] == 'none' and settings['filament_scarf_seam_type'] == ['none']
     assert settings['filament_max_volumetric_speed'] == ['16', '18']
