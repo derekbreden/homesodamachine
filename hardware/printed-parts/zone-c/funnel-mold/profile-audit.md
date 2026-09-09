@@ -6,13 +6,15 @@ The project is built from three explicit inputs: **the current STL geometry,
 It reads no other 3MF and no user-profile directory.
 
 [profile-audit.json](profile-audit.json) accounts for **all 579 effective saved
-settings** in the current sliced project, the five objects,
+settings** in the reviewed sliced project at Git revision `911c25b1c`, the five objects,
 two modifiers, three plate assignments and every
 layer-height range. It records the source-file hashes and actual serialized
 values. [audit_profile.py](/tools/funnel-mold-print/audit_profile.py) checks the recipe against the sliced
 project, including local settings that are not visible in the global profile.
-[print-start-check.json](print-start-check.json) records the separate first-run
-job identified in [the print log](print-log.md).
+[print-start-no-brim-check.json](print-start-no-brim-check.json) verifies the
+current editable save and the exact no-brim cavity job sent to Mark2. The save
+contains no embedded G-code. [print-start-check.json](print-start-check.json)
+records the separate first-run job identified in [the print log](print-log.md).
 
 ## Sources and precedence
 
@@ -40,7 +42,11 @@ The physical nozzle assignment is explicit: one filament on **left extruder 1,
 0.8 mm High Flow**. Standard and High Flow are separate filament parameter columns;
 their flow caps are 16 and 18 mm³/s respectively. Machine and process arrays contain
 four columns: left Standard, left High Flow, right Standard, right High Flow.
-The unused right slot is represented as Standard; it is not used by this print.
+The reviewed reference represents the unused right slot as Standard. The current
+connected-printer save records its right slot as Hybrid, advertising Standard
+and High Flow; all active left values remain the same. The cavity's Auto For
+Flush assignment resolves to left High Flow, as the sent job's nozzle record
+confirms. The witnesses and core retain manual left High Flow assignment.
 The print file does not set the machine's real nozzle inventory or AMS backup spools.
 Each plate explicitly records `bed_type: Textured PEI Plate`; its bed choice does
 not depend on the preceding project's global plate selector. Both trim profiles,
@@ -89,7 +95,7 @@ Studio with all three saved preset selectors clean, then re-sliced by the CLI to
 check the settings, plate assignments and layer ranges after a GUI save. Validation
 uses `--slice 0` for all plates. In this installed CLI,
 selective loading with `--slice 1` crashes on the variable-layer project; the
-fully exported projects already contain separate G-code for all three plates.
+reviewed fully sliced reference contains separate G-code for all three plates.
 This is not a tested command for regenerating a single plate.
 
 ## Reproduce

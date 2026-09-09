@@ -4,9 +4,10 @@
 uses the H2C's **left 0.8 mm High Flow nozzle**, PETG Translucent at 255 °C,
 0.16 mm layers through the shallow slopes and 0.40 mm through straight
 structural sections. It contains five editable bodies, two surface-speed
-modifiers and native thumbnails. Both trim projects are fully sliced with no
-brim or skirt. Permanent rounded feet provide the bed contact. The
-[cavity print record](print-log.md) retains the separate first-run job archive.
+modifiers and native thumbnails. The current editable save contains the models
+and settings without embedded G-code. Brim and skirt are disabled; permanent
+rounded feet provide the bed contact. The [cavity print record](print-log.md)
+links the exact job archive for the active no-brim print and the first attempt.
 
 [**Alternate project — +0.18 mm trim**](funnel-mold-petg-hf08-variable-016-040-z018.3mf)
 is fully sliced. The [preset bundle](funnel-mold-hf08-z-trim-presets.bbscfg)
@@ -28,7 +29,9 @@ the mold filament and the mold process from their saved lists, then re-slice all
 plates. The object-specific fine-layer bands and surface-speed modifiers live in
 the 3MF; a process preset alone does not create those geometry-specific settings.
 All three plates explicitly select **Textured PEI Plate** in their plate settings.
-All three plates explicitly use manual left High Flow assignment.
+All three plates select the left High Flow nozzle. In the current default save,
+the cavity uses Auto For Flush with left High Flow selected; the witnesses and
+core use manual assignment. The alternate project uses manual assignment throughout.
 The trim is the user's observed build-plate correction across nozzle, size and
 material changes. **+0.04 mm is the default for translucent PETG on the current plate.**
 
@@ -37,7 +40,8 @@ accompany the project. The forming geometry has a 0.20 mm net finishing allowanc
 
 ## Plates
 
-Bambu Studio 02.08.02.61 estimates for the default project:
+Bambu Studio 02.08.02.61 estimates from the reviewed three-plate slice at Git
+revision `911c25b1c`; the active cavity job has the same estimate:
 
 | Plate | Orientation | Time | PETG | Layers |
 |---|---|---:|---:|---:|
@@ -95,7 +99,7 @@ describes its interaction with line width, layer height and requested speeds.
 
 | Setting | Active value |
 |---|---|
-| Printer / assignment | H2C 0.8; left High Flow; one PETG filament; every plate manual |
+| Printer / assignment | H2C 0.8; left High Flow; one PETG filament; cavity Auto For Flush, witnesses and core manual |
 | Bed / trim | Textured PEI, 70 °C; default +0.04 mm, alternate +0.18 mm |
 | Nozzle temperature | 255 °C, including the first layer |
 | Flow ratio / volumetric cap | Vendor 0.97 / requested 18 mm³/s for High Flow |
@@ -133,12 +137,16 @@ Re-slice all plates after changing the printer, nozzle, material, process or geo
 ## Verification
 
 [Print inspection](print-profile.json) records project and G-code digests, slice
-results, the configuration audit, geometry comparisons and toolpath measurements.
+results, the configuration audit, geometry comparisons and toolpath measurements
+for the fully sliced reference at Git revision `911c25b1c`.
 Both trim slices return success with empty plate warning fields. All six
 embedded G-code files match their CLI exports and MD5 entries. No brim, skirt or
 support paths are present. All deposited model paths stay inside the bed.
-[The print-start check](print-start-check.json) belongs to the first-run job
-recorded in [the print log](print-log.md).
+[The no-brim print-start check](print-start-no-brim-check.json) verifies the
+current editable save and the exact cavity job sent to Mark2. Its first-layer
+commands match the reviewed slice apart from progress reports. The separate
+[first-run check](print-start-check.json) belongs to the earlier job in
+[the print log](print-log.md).
 
 [Foot verification](bed-foot-verification.json) confirms that geometry beyond
 the first 3.2 mm of each print is unchanged. The cavity has an 8 mm rounded
