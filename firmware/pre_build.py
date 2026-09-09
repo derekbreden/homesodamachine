@@ -23,9 +23,6 @@ timestamp = time.strftime("%b %d %Y %H:%M:%S")
 # Every environment that names this script in extra_scripts is a key here.
 SRC_DIR = {
     "appliance": "firmware/src_appliance",
-    "prototype": "firmware/src_prototype",
-    "rp2040_display": "firmware/src_display",
-    "esp32s3_config": "firmware/src_config",
     "esp32s3_faucet": "firmware/src_faucet",
     "esp32s3_front": "firmware/src_front",
     "pcba_bench": "firmware/src_pcba_bench",
@@ -131,8 +128,6 @@ elif os.path.isfile(build_time_path):
 # TinyProtocol.cpp and TinySerialFdLink.cpp reference internal macros
 # (FD_BUF_SIZE_EX) that fail to compile. We only need TinyProtocolFd,
 # so remove the broken convenience wrappers from all environments.
-# Also rename tiny_types.c → tiny_types.cpp so Arduino HAL functions
-# (millis, delay) resolve correctly on the earlephilhower RP2040 core.
 libdeps_dir = os.path.join(env.subst("$PROJECT_DIR"), ".pio", "libdeps", env_name, "Tiny Protocol", "src")
 if os.path.isdir(libdeps_dir):
     for bad_file in [
@@ -142,20 +137,6 @@ if os.path.isdir(libdeps_dir):
         full = os.path.join(libdeps_dir, bad_file)
         if os.path.isfile(full):
             os.remove(full)
-
-    # Rename .c → .cpp and inject #include <Arduino.h> so that
-    # millis/delay/etc resolve on the RP2040 earlephilhower core.
-    c_file = os.path.join(libdeps_dir, "hal", "tiny_types.c")
-    cpp_file = os.path.join(libdeps_dir, "hal", "tiny_types.cpp")
-    if os.path.isfile(c_file) and not os.path.isfile(cpp_file):
-        os.rename(c_file, cpp_file)
-    if os.path.isfile(cpp_file):
-        with open(cpp_file, "r") as f:
-            content = f.read()
-        if "#include <Arduino.h>" not in content:
-            content = '#include <Arduino.h>\n' + content
-            with open(cpp_file, "w") as f:
-                f.write(content)
 
     # Patch TinyProtocolFd.cpp: increase retry_timeout from 200ms to 2000ms
     # and retries from 2 to 4. The 200ms default is too aggressive — the main
@@ -175,14 +156,12 @@ if os.path.isdir(libdeps_dir):
             with open(fd_cpp, "w") as f:
                 f.write(content)
 
-# ── The display art partitions ────────────────────────────────────────────
-# Neither display compiles its pixels into its image any more; each has an
-# `art` partition (firmware/partitions_s3_front.csv, firmware/partitions_s3.csv)
-# and firmware/lib/board_art maps it. Laying the blob out here rather than by
-# hand is what keeps it and the firmware from drifting: both come from this
-# tree, in one build.
-ART_BOARD = {"esp32s3_front": ("enclosure", "src_front"),
-             "esp32s3_config": ("rotary", "src_config")}
+# ── The enclosure display's art partition ─────────────────────────────────
+# The loading animation is not in that board's image; it is in the `art`
+# partition (firmware/partitions_s3_front.csv) and firmware/lib/board_art maps
+# it. Laying the blob out here rather than by hand is what keeps it and the
+# firmware from drifting: both come from this tree, in one build.
+ART_BOARD = {"esp32s3_front": ("enclosure", "src_front")}
 if env_name in ART_BOARD:
     board, tree = ART_BOARD[env_name]
     art_out = os.path.join(env.subst("$BUILD_DIR"), "art.bin")

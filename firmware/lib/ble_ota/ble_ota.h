@@ -8,15 +8,14 @@
 //  A phone's end of an image, on whichever board holds the radio
 // ════════════════════════════════════════════════════════════
 //
-// Two boards hold one: the appliance's faucet display and the prototype's
-// rotary display. Each runs its own GATT server, and each answers the same
-// four frames over it — so the session between the phone and the machine is
-// here, once, and what differs stays with the server that owns it.
+// The faucet display runs the GATT server the phone talks to, and the session
+// between the phone and the machine is here.
 //
 //     [type:1][len:2 LE][payload]
 //
-// 0x01..0x04 are the text and image-upload vocabulary the rotary display
-// already spoke. Firmware starts at 0x10 so nothing here reads as one of those.
+// 0x01..0x04 are a text and image-upload vocabulary the phone speaks to the
+// prototype under the counter. Firmware starts at 0x10 so nothing here reads as
+// one of those.
 //
 // THE BOARD HOLDING THE RADIO STORES NO IMAGE. The pull that runs from a
 // receiver to the relay runs one link further out to the phone: the relay asks

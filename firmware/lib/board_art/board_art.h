@@ -7,9 +7,8 @@
 //  Images in a partition of their own
 // ════════════════════════════════════════════════════════════
 //
-// Two displays carry pixels that dwarf their code. The enclosure's loading
-// animation is 16 frames of 360x360 RGB565; the rotary display's animation and
-// flavor faces are 19 of 240x240. Compiled in, every update of code that never
+// The enclosure display carries pixels that dwarf its code: a loading animation
+// of 16 frames at 360x360 RGB565. Compiled in, every update of code that never
 // touches a pixel carried them anyway.
 //
 // In the `art` partition they are mapped through the MMU exactly as const

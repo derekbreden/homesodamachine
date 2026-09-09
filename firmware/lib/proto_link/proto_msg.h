@@ -7,51 +7,32 @@
 //  Message type constants for inter-MCU protocol over TinyProto
 // ════════════════════════════════════════════════════════════
 //
-// Each message is sent as a TinyProto I-frame with the message
-// type in payload[0] and application data in payload[1..N].
-//
-// Image uploads use a state-based protocol: after MSG_UPLOAD_START,
-// all subsequent frames are raw image data (no type byte) until
-// expectedSize bytes are received, followed by MSG_UPLOAD_DONE.
-// TinyProto handles fragmentation, acking, and retransmission
-// internally — no per-chunk acks or sequence numbers needed.
+// Each message is sent as a frame with the message type in payload[0] and
+// application data in payload[1..N]. J9 carries them as bare HDLC between the
+// main board and the enclosure display; J3 carries them inside TinyProto Fd
+// between the main board and the faucet display.
 
-// Commands (ESP32 → device)
-constexpr uint8_t MSG_UPLOAD_START     = 0x01;
-// 0x02 reserved
-constexpr uint8_t MSG_UPLOAD_DONE      = 0x03;
-constexpr uint8_t MSG_QUERY_COUNT      = 0x04;
-constexpr uint8_t MSG_DELETE_IMAGE     = 0x05;
-constexpr uint8_t MSG_SWAP_IMAGES      = 0x06;
-constexpr uint8_t MSG_UPLOAD_PNG_START = 0x07;
-constexpr uint8_t MSG_UPLOAD_RP_START  = 0x08;
-constexpr uint8_t MSG_DEVICE_READY     = 0x09;  // device → ESP32: "I'm ready" + image count
-constexpr uint8_t MSG_PUMP_RUN         = 0x0A;  // display → ESP32: run one pump now
+// Commands a display puts to the main board
+// 0x01..0x09 reserved
+constexpr uint8_t MSG_PUMP_RUN         = 0x0A;  // PumpRunPayload: run one pump now
 constexpr uint8_t MSG_PRIME_START      = 0x0B;  // ChannelPayload: begin priming, finger down
 constexpr uint8_t MSG_PRIME_TICK       = 0x0C;  // ChannelPayload: still held (every PRIME_TICK_MS)
 constexpr uint8_t MSG_PRIME_STOP       = 0x0D;  // ChannelPayload: finger up
 constexpr uint8_t MSG_STATUS_REQ       = 0x0E;  // no payload: answer with StatusPayload
 constexpr uint8_t MSG_CLEAN_START      = 0x0F;  // ChannelPayload: run the clean cycle
 
-// Responses (device → ESP32)
-constexpr uint8_t MSG_RESP_READY       = 0x10;
-// 0x11 reserved
-constexpr uint8_t MSG_RESP_UPLOAD_OK   = 0x12;
-constexpr uint8_t MSG_RESP_DELETE_OK   = 0x13;
-constexpr uint8_t MSG_RESP_COUNT       = 0x14;
-constexpr uint8_t MSG_RESP_SWAP_OK     = 0x15;
+// What the main board answers with
+// 0x10..0x15 reserved
 constexpr uint8_t MSG_RESP_PUMP_DONE   = 0x16;  // ResponsePayload: the channel that ran
 constexpr uint8_t MSG_RESP_PRIME       = 0x17;  // PrimeStatePayload: every prime state change
 constexpr uint8_t MSG_RESP_STATUS      = 0x18;  // StatusPayload
 
-// Error responses (device → ESP32)
+// Error responses. 0xE1..0xE9 is the whole range and a receiver tests against
+// it; the gaps inside are retired ids.
 constexpr uint8_t MSG_ERR_SLOT_INVALID   = 0xE1;
-constexpr uint8_t MSG_ERR_NO_SPACE       = 0xE2;
+// 0xE2 reserved
 constexpr uint8_t MSG_ERR_BUSY           = 0xE3;
-// 0xE4, 0xE5 reserved
-constexpr uint8_t MSG_ERR_WRITE          = 0xE6;
-constexpr uint8_t MSG_ERR_SIZE_MISMATCH  = 0xE7;
-constexpr uint8_t MSG_ERR_CRC32_MISMATCH = 0xE8;
+// 0xE4..0xE8 reserved
 constexpr uint8_t MSG_ERR_UNSUPPORTED    = 0xE9;  // this main board has no such subsystem
 
 // ── Sound (0x20..) ────────────────────────────────────────────────────────
@@ -84,10 +65,9 @@ constexpr uint8_t MSG_FLAVOR_SELECT      = 0x27;  // FlavorRequestPayload: a new
 constexpr uint8_t MSG_RESP_FLAVOR_STATE  = 0x28;  // FlavorStatePayload: main board's resulting truth
 constexpr uint8_t MSG_FLAVOR_QUERY       = 0x29;  // enclosure poll: request main board truth
 
-// Main-board-owned prime-ready session (0x2A..0x2F). The legacy 0x0B..0x0D
-// ChannelPayload contract remains intact for commissioning and older images;
-// session holds use distinct ids so their tokenized payload can never be
-// mistaken for that one-byte shape.
+// Main-board-owned prime-ready session (0x2A..0x2F). 0x0B..0x0D above is the
+// one-byte hold the bench console drives; session holds carry tokens and take
+// distinct ids so the two payload shapes can never be read for each other.
 constexpr uint8_t MSG_PRIME_SESSION_SET        = 0x2A;  // PrimeSessionRequestPayload
 constexpr uint8_t MSG_PRIME_SESSION_QUERY      = 0x2B;  // PrimeSessionQueryPayload
 constexpr uint8_t MSG_RESP_PRIME_SESSION       = 0x2C;  // PrimeSessionStatePayload
@@ -102,9 +82,10 @@ constexpr uint8_t MSG_FILL_START       = 0x30;  // ChannelPayload: draw funnel �
 
 // ── Which logo a channel wears ────────────────────────────────────────────
 // The logo is a channel's identity on every glass: it fills the faucet display,
-// the round display, and a Choose card. The main board owns the assignment and
-// persists it beside the selection, so a channel that changes contents changes
-// face everywhere rather than on the surface that happened to set it.
+// and the enclosure wears it on a Choose card, a detail page and a picker tile.
+// The main board owns the assignment and persists it beside the selection, so a
+// channel that changes contents changes face everywhere rather than on the
+// surface that happened to set it.
 constexpr uint8_t MSG_FLAVOR_ART_SET   = 0x31;  // FlavorArtPayload: both channels
 constexpr uint8_t MSG_FLAVOR_ART_QUERY = 0x32;  // no payload: answer with the pair
 constexpr uint8_t MSG_RESP_FLAVOR_ART  = 0x33;  // FlavorArtPayload: resulting truth
@@ -300,25 +281,6 @@ constexpr uint8_t MSG_TEXT = 0xFE;
 // ════════════════════════════════════════════════════════════
 //  Payload structs (packed, little-endian)
 // ════════════════════════════════════════════════════════════
-
-struct __attribute__((packed)) UploadStartPayload {
-  uint8_t  slot;
-  uint32_t size;
-};
-
-struct __attribute__((packed)) UploadDonePayload {
-  uint8_t  slot;
-  uint32_t crc32;
-};
-
-struct __attribute__((packed)) SlotPayload {
-  uint8_t slot;
-};
-
-struct __attribute__((packed)) SwapPayload {
-  uint8_t slotA;
-  uint8_t slotB;
-};
 
 struct __attribute__((packed)) ResponsePayload {
   uint8_t value;

@@ -115,7 +115,7 @@ void test_pour_that_never_ends_hits_the_ceiling() {
     TEST_ASSERT_FALSE(pour.pumpOn());
 }
 
-void test_sample_period_and_readings_are_the_prototypes() {
+void test_sample_period_and_readings_are_the_meters() {
     TEST_ASSERT_EQUAL_UINT32(50, kFlowSampleMs);
     TEST_ASSERT_EQUAL_UINT32(1, kFlowMinPulses);
     TEST_ASSERT_EQUAL_UINT32(6, kFlowFullPulses);
@@ -130,6 +130,6 @@ int main(int, char **) {
     RUN_TEST(test_pour_starts_on_flow_cycles_and_stops_after_a_cooldown);
     RUN_TEST(test_flow_returning_during_cooldown_keeps_the_valves_open);
     RUN_TEST(test_pour_that_never_ends_hits_the_ceiling);
-    RUN_TEST(test_sample_period_and_readings_are_the_prototypes);
+    RUN_TEST(test_sample_period_and_readings_are_the_meters);
     return UNITY_END();
 }
