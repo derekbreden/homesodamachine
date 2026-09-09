@@ -52,8 +52,8 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "3 reference(s) name a path nothing holds.",
-      "status": "red"
+      "note": "paths: every reference lands — 1423 tracked, 325 fetched solids, 55 tags",
+      "status": "ok"
     },
     {
       "check": "tools/check_release_room.py",
@@ -82,17 +82,11 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 1 of 10 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 325 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 8 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 325 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
-    "tools/check_paths.py": [
-      "firmware/README.md:437 — firmware/src_config/main.cpp is held nowhere, and no tag is named for it",
-      "  firmware/README.md:453 — firmware/partitions_s3.csv is held nowhere, and no tag is named for it",
-      "  future/pie-in-the-sky/single-pump-flavor-switching.md:46 — firmware/src_prototype/main.cpp is held nowhere, and no tag is named for it",
-      "3 reference(s) name a path nothing holds."
-    ],
     "tools/check_web_tests.py": [
       "1 test(s) in web/ fail:",
       "    the funnel offers all three mold models",
