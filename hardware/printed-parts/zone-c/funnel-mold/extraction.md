@@ -9,11 +9,16 @@ The forming geometry retains its 0.20 mm net finishing allowance.
 A screw passes through a captive square nut in the core ear. Its tip rests on
 the solid ring of a steel washer in the cavity's pocket. Turning clockwise tries
 to advance the screw downward; the washer stops its tip, so the nut and core
-rise. The washer spreads the load into a solid pad, a 45° corbel and a radial web
-rooted in the cavity's structural rib. The nut lifts against a 4.4 mm printed
-roof; the threaded engagement is steel.
+rise. The washer spreads the load into a solid 32 mm column extending to the
+base plane. Paired 6.4 mm walls connect the column to the cavity through its
+height. Each lifting arm is 66 mm wide and 14 mm thick, continuous with the
+core perimeter plate. The nut lifts against an 8.4 mm printed roof; the threaded
+engagement is steel.
 
 ![One extraction station, seated and raised](extraction.png)
+
+The guide towers continue to the base. Their bores widen to 14.6 mm below the
+upper bearing length, with a 45° transition and an external 3 mm air passage.
 
 The four screws control displacement separately. Equal turns keep the core
 level; they do not equalize force automatically. Use the included hand hex key,
@@ -42,14 +47,14 @@ and free of burrs, and replace a washer if its bearing track becomes deeply scor
 |---|---|
 | Jack clearance bore | 5.8 mm diameter |
 | Side-entry square-nut slot | 8.4 mm wide × 4.4 mm high |
-| Nut-bearing roof | 4.4 mm thick |
-| Downward core guide | 8 mm square, 0.6 mm corner chamfers, 0.8 mm tip lead-in |
-| Cavity guide sleeve | 8.6 mm square bore, 14 mm long, chamfered entry |
+| Nut-bearing roof | 8.4 mm thick |
+| Downward core guide | 10 mm square, 0.6 mm corner chamfers, 0.8 mm tip lead-in |
+| Cavity guide sleeve | 10.6 mm square bore, 14 mm bearing length; 22 mm tower |
 | Guide reach below core parting plane | 50 mm |
 | Controlled working lift | **32 mm** |
 | Guide overlap at 32 mm lift | **12 mm** |
 | Rod's initial socket engagement | 28.8 mm |
-| Screw-head clearance after 32 mm lift | 5.8–7.0 mm for the stated washer range |
+| Screw-head clearance after 32 mm lift | 1.8–3.0 mm for the stated washer range |
 
 Four shallow marks on the outside faces of the guide posts align with the
 sleeve mouths at 32 mm lift. These are travel witnesses, not hard stops. The core
