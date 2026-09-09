@@ -41,61 +41,57 @@
 
   <div class="col" style="flex:none; width:640px">
     <div class="panel light">
-      <svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg">
+      <svg viewBox="0 0 640 430" xmlns="http://www.w3.org/2000/svg">
         <style>
           .ink   { fill: #eef0f3; stroke: #1d1d26; stroke-width: 3; }
           .ghost { fill: none; stroke: #9aa0aa; stroke-width: 2.5; stroke-dasharray: 9 7; }
           .arrow { stroke: #4a5d52; stroke-width: 3.5; fill: none; stroke-linecap: round; }
           .dimn  { stroke: #4a5d52; stroke-width: 2.5; fill: none; }
-          .lbl   { font: 600 24px 'IBM Plex Sans','Helvetica Neue',sans-serif; fill: #1d1d26; }
-          .sub   { font: 400 21px 'IBM Plex Sans','Helvetica Neue',sans-serif; fill: #70707c; }
-          .num   { font: 700 25px 'IBM Plex Mono',Menlo,monospace; fill: #4a5d52; }
+          .lbl   { font: 600 23px 'IBM Plex Sans','Helvetica Neue',sans-serif; fill: #1d1d26; }
+          .sub   { font: 400 20px 'IBM Plex Sans','Helvetica Neue',sans-serif; fill: #70707c; }
+          .num   { font: 700 24px 'IBM Plex Mono',Menlo,monospace; fill: #4a5d52; }
         </style>
 
-        <text class="lbl" x="16" y="30">SIDE ELEVATION &#183; front at left</text>
+        <text class="lbl" x="16" y="28">SIDE ELEVATION &#183; front at left</text>
 
-        <!-- front-bottom, standing -->
-        <path class="ink" d="M150 380 L150 250 L430 250 L430 380 Z"/>
-        <text class="sub" x="166" y="322">front-bottom</text>
-        <text class="sub" x="166" y="348">rails + stop blocks</text>
+        <!-- front-top staged, proud of the box and about to enter -->
+        <text class="sub" x="62" y="72">staged</text>
+        <path class="ghost" d="M62 240 L62 160 L104 122 L330 122 L330 240 Z"/>
 
-        <!-- front-top at home -->
-        <path class="ink" d="M150 250 L150 130 L196 92 L430 92 L430 250 Z"/>
-        <text class="sub" x="214" y="178">front-top, home</text>
+        <!-- front-bottom, standing, with the rails and stops that take the mouth -->
+        <path class="ink" d="M186 240 L456 240 L456 344 L186 344 Z"/>
 
-        <!-- front-top staged proud of the box, ghosted -->
-        <path class="ghost" d="M20 250 L20 130 L66 92 L300 92 L300 250 Z"/>
-        <text class="sub" x="26" y="76">staged</text>
+        <!-- front-top home on it -->
+        <path class="ink" d="M186 240 L186 160 L228 122 L456 122 L456 240 Z"/>
+        <text class="lbl" x="352" y="160">home</text>
 
-        <!-- the travel -->
-        <g class="dimn">
-          <path d="M20 288 L150 288"/>
-          <path d="M20 280 L20 296"/><path d="M150 280 L150 296"/>
-        </g>
-        <text class="num" x="26" y="318" data-gen="RAIL_TRAVEL_FRONT">103.2 mm</text>
-
+        <!-- the slide -->
         <g class="arrow">
-          <path d="M240 170 L360 170"/><path d="M348 162 L360 170 L348 178"/>
+          <path d="M250 200 L340 200"/><path d="M328 192 L340 200 L328 208"/>
         </g>
-        <text class="sub" x="250" y="152">slides aft</text>
+        <text class="sub" x="252" y="188">slides aft</text>
 
-        <!-- the release plate and its four passages, in the bay mouth -->
-        <path class="ink" d="M196 214 L360 214 L360 240 L196 240 Z"/>
+        <!-- the release plate in the open bay mouth, one passage per branch collet -->
+        <path class="ink" d="M214 254 L430 254 L430 292 L214 292 Z"/>
         <g class="ink">
-          <circle cx="222" cy="227" r="8"/><circle cx="270" cy="227" r="8"/>
-          <circle cx="304" cy="227" r="8"/><circle cx="340" cy="227" r="8"/>
+          <circle cx="252" cy="273" r="9"/><circle cx="318" cy="273" r="9"/>
+          <circle cx="358" cy="273" r="9"/><circle cx="404" cy="273" r="9"/>
         </g>
-        <text class="sub" x="378" y="234">release plate &#183;
-          <tspan class="num" font-size="21" data-gen="PLATE_HOLES">4</tspan> passages</text>
+        <text class="sub" x="214" y="322">front-bottom &#183; rails + stops</text>
 
-        <!-- the bay itself, empty -->
-        <path class="ghost" d="M196 250 L360 250 L360 330 L196 330 Z"/>
-        <text class="sub" x="212" y="296">pump bay &#8212; empty</text>
-        <text class="sub" x="212" y="322">until IP-06</text>
+        <!-- how far it stands proud before the draw -->
+        <g class="dimn">
+          <path d="M62 372 L186 372"/>
+          <path d="M62 362 L62 382"/><path d="M186 362 L186 382"/>
+        </g>
+        <text class="num" x="62" y="404" data-gen="RAIL_TRAVEL_FRONT">103.2 mm</text>
+        <text class="sub" x="62" y="426">proud of the front wall</text>
 
-        <text class="sub" x="452" y="126">The core stays on</text>
-        <text class="sub" x="452" y="152">its cart through</text>
-        <text class="sub" x="452" y="178">this step (EN-06).</text>
+        <!-- the gutter: what this step does not touch -->
+        <text class="sub" x="476" y="200">release plate,</text>
+        <text class="sub" x="476" y="224"><tspan class="num" font-size="20" data-gen="PLATE_HOLES">4</tspan> passages</text>
+        <text class="sub" x="476" y="284">pump bay stays</text>
+        <text class="sub" x="476" y="308">empty until IP-06</text>
       </svg>
       <div class="cap"><b>One slide, no fasteners</b> &#8212; mm &#183;
       schematic. The Z seam takes no screw here; the ceiling pair at EN-08 is

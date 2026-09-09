@@ -57,9 +57,9 @@ from pathlib import Path
 #:
 #: IT LIVES HERE BECAUSE THREE THINGS READ IT AND THEY MUST AGREE. `_build.py` sorts the
 #: bound pages by it, the cover's contents table is printed in it, and `README.md`'s deck
-#: tables are written in it. It sat in `_build.py` alone, and the cover — written against
-#: the stylesheet's declaration order instead — listed IP fourth in a deck that prints it
-#: eighth. A bench reading the cover looked for a deck four pages from where it is.
+#: tables are written in it. A bench finds a deck by reading the cover, so a table in any
+#: other order sends a hand to the wrong place — with the counts beside it still right,
+#: which is exactly what makes a wrong table convincing.
 SUBSYSTEM_ORDER = ["pv", "cc", "rl", "ca", "eb", "fu", "en", "ip", "wr", "fc", "ab", "fs",
                    "sa", "gt"]
 
@@ -160,11 +160,11 @@ def title_of(text: str, variables: dict) -> str:
 def sync_titles(cards_dir: Path, readme: Path, variables: dict, check: bool = False) -> list:
     """Hold `README.md`'s deck table to the titles the cards print; return the faults.
 
-    THE TABLE IS A HUNDRED AND TWO TITLES TYPED A SECOND TIME, and every one of them was
-    free to drift from the card it names — nine had, and the worst of them tabled seven
-    penetrations beside a card that gates the figure and prints nine. A row is written from
-    its card here for the same reason a figure is written from the machine: the reading a
-    reader trusts has to be the one the thing itself gives."""
+    A ROW IS WRITTEN FROM ITS CARD, for the same reason a figure is written from the
+    machine: the reading a reader trusts has to be the one the thing itself gives. Typed
+    beside the card instead, a row is free to drift from it, and a title carrying a derived
+    count drifts the moment the machine moves — the table would go on naming a figure the
+    card no longer prints, with nothing to say so."""
     faults = []
     text = readme.read_text()
     titles = {}
