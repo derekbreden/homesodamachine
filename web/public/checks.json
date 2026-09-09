@@ -67,8 +67,8 @@
     },
     {
       "check": "tools/bazel/check_build_file.py",
-      "note": "tools/cad-venv/bin/python tools/bazel/gen_build.py",
-      "status": "red"
+      "note": "check_build_file: BUILD.bazel is what the graph writes; 3MFs are build-inert",
+      "status": "ok"
     },
     {
       "check": "tools/bazel/check_ci_targets.py",
@@ -77,12 +77,12 @@
     },
     {
       "check": "tools/bazel/check_declared_imports.py",
-      "note": "check_declared_imports: every step holds what it imports, over 189 source(s) the graph names",
+      "note": "check_declared_imports: every step holds what it imports, over 0 staged source(s)",
       "status": "ok"
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 11 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 325 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 26 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 327 member(s) keep their provenance",
       "status": "ok"
     }
   ],
@@ -93,33 +93,8 @@
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ],
-    "tools/bazel/check_build_file.py": [
-      "BUILD.bazel is not what the graph would write now:",
-      "  --- BUILD.bazel",
-      "  +++ what gen_build.py writes now",
-      "  @@ -1145,12 +1145,18 @@",
-      "           \"hardware/assembly/cards/en-01-stage-the-printed-pieces.html\",",
-      "           \"hardware/assembly/cards/en-02-y-wall-bodies.html\",",
-      "           \"hardware/assembly/cards/en-03-bolt-the-compressor-down.html\",",
-      "  +        \"hardware/assembly/cards/en-04-stand-the-compressor-bay.html\",",
-      "           \"hardware/assembly/cards/en-04-stand-the-stratum.html\",",
-      "  +        \"hardware/assembly/cards/en-05-close-front-column.html\",",
-      "           \"hardware/assembly/cards/en-05-seat-cold-core.html\",",
-      "           \"hardware/assembly/cards/en-06-power-column.html\",",
-      "  +        \"hardware/assembly/cards/en-06-seat-cold-core.html\",",
-      "           \"hardware/assembly/cards/en-07-close-the-box.html\",",
-      "  +        \"hardware/assembly/cards/en-07-electronics-bay.html\",",
-      "  +        \"hardware/assembly/cards/en-08-close-the-box.html\",",
-      "           \"hardware/assembly/cards/en-09-asse-drip-pan.html\",",
-      "           \"hardware/assembly/cards/en-09-display-and-funnel.html\",",
-      "  +        \"hardware/assembly/cards/en-10-display-and-funnel.html\",",
-      "           \"hardware/assembly/cards/fc-01-first-dc-power-on.html\",",
-      "           \"hardware/assembly/cards/fc-02-flash-three-esp32s.html\",",
-      "  … 420 more line(s)",
-      "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
-    ],
     "tools/check_paths.py": [
-      "hardware/printed-parts/zone-c/funnel-mold/README.md:51 — hardware/printed-parts/zone-c/funnel-mold/funnel-mold-guided-vacuum-petg-08-016.3mf is held nowhere, and no tag is named for it",
+      "hardware/printed-parts/zone-c/funnel-mold/README.md:52 — hardware/printed-parts/zone-c/funnel-mold/funnel-mold-guided-vacuum-petg-08-016.3mf is held nowhere, and no tag is named for it",
       "  hardware/printed-parts/zone-c/funnel-mold/extraction.md:5 — hardware/printed-parts/zone-c/funnel-mold/funnel-mold-guided-vacuum-petg-08-016.3mf is held nowhere, and no tag is named for it",
       "2 reference(s) name a path nothing holds."
     ],
