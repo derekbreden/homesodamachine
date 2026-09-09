@@ -37,6 +37,11 @@ their flow caps are 16 and 18 mm³/s respectively. Machine and process arrays co
 four columns: left Standard, left High Flow, right Standard, right High Flow.
 The unused right slot is represented as Standard; it is not used by this print.
 The print file does not set the machine's real nozzle inventory or AMS backup spools.
+Each plate explicitly records `bed_type: Textured PEI Plate`; its bed choice does
+not depend on the preceding project's global plate selector. The two trim profiles
+are saved as Bambu Studio User presets, with start-code templates matching the
+respective 3MFs. [Installation and selection](print-profile.md) precede opening the
+project on a fresh Bambu Studio installation.
 
 ## Controls with practical consequences
 

@@ -9,7 +9,17 @@ modifiers, native thumbnails and all three plates of sliced G-code.
 [**Alternate project — +0.18 mm trim**](funnel-mold-petg-hf08-variable-016-040-z018.3mf)
 is also fully sliced. The [printer preset bundle](funnel-mold-hf08-z-trim-presets.bbscfg)
 contains both trims for Bambu Studio's printer selector. Import the bundle with
-**File → Import → Import Configs** if those presets are not already installed.
+**File → Import → Import Configs before opening either 3MF** on a new installation.
+Bambu Studio confirms that two configurations were imported. The printer selector's
+**User presets** section then contains:
+
+- `Bambu Lab H2C 0.8 High Flow +0.04 Z trim`
+- `Bambu Lab H2C 0.8 High Flow +0.18 Z trim`
+
+Both are installed in the current Bambu Studio account. Each 3MF references its
+matching saved printer preset. Select the intended High Flow trim from that list
+after a printer sync changes the selection, then re-slice all plates. All three
+plates explicitly select **Textured PEI Plate** in their plate settings.
 The trim is the user's observed build-plate correction across nozzle, size and
 material changes. **+0.04 mm is the default for translucent PETG on the current plate.**
 
