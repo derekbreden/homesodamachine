@@ -2,8 +2,8 @@
   "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed \u2014 web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
   "release": {
     "tag": "cad-artifacts",
-    "asset": "cad-d785e56246824784.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-d785e56246824784.tar.gz",
+    "asset": "cad-f3f12f3fff6d24d3.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-f3f12f3fff6d24d3.tar.gz",
     "objects": "s-"
   },
   "source": {
@@ -13,8 +13,8 @@
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, its rule would not cut, or an interactive publication explicitly deferred that rule.",
     "paths": [
       "BUILD.bazel",
-      "hardware/printed-parts/zone-c/funnel-mold/funnel_mold.py",
-      "hardware/printed-parts/zone-c/funnel-mold/prepare_print.py",
+      "hardware/assembly/cards/_cards_ip.py",
+      "hardware/install-guide/install-guide.pdf.json",
       "tools/bazel/graph.json"
     ],
     "members": [
@@ -103,6 +103,8 @@
       "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step",
       "hardware/faucet-layout/faucet-assembly.step",
       "hardware/faucet-layout/faucet-assembly.step.mesh",
+      "hardware/install-guide/install-guide.cover.png",
+      "hardware/install-guide/install-guide.pdf",
       "hardware/manifold-layout/enclosure-assembly.step",
       "hardware/manifold-layout/enclosure-assembly.step.mesh",
       "hardware/manifold-layout/manifold-layout.step",
@@ -382,6 +384,7 @@
       "//:ground-ring-stack",
       "//:holders",
       "//:iec-c14-inlet",
+      "//:install-guide-build",
       "//:jg-bulkhead-union",
       "//:jg-pp010822e",
       "//:jg-pp0408w",
@@ -422,9 +425,9 @@
     ]
   },
   "bundle": {
-    "sha256": "d785e562468247842f5b072f1f0d2bb24324dfb02bcb7719a561fe6d6e67c1cf",
-    "bytes": 136546915,
-    "solids": 325
+    "sha256": "f3f12f3fff6d24d3fe96297952fbdbab4f6f6b8ad3425788639e5065fdf51fe8",
+    "bytes": 138583277,
+    "solids": 327
   },
   "solids": {
     "hardware/.cache/pump-roof/enclosure-pump-cartridge.step": "4f3c521165747f039ff44b338de914a5e9eece6e4fe0e39a3a65bedeed90c67d",
@@ -512,6 +515,8 @@
     "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step": "bb6d47d7641a9759e444da2f68ea12d48ddcc19f36bcfcd4227414a5d75d538a",
     "hardware/faucet-layout/faucet-assembly.step": "1822a620402298d872ac7a5e84a0106f31dbe4ae4b531f4a6fccfd72c22cce21",
     "hardware/faucet-layout/faucet-assembly.step.mesh": "f2f8ee191c7d6b363298605193d1897e71a2ece3f2da74c75154f57e7bfa0e29",
+    "hardware/install-guide/install-guide.cover.png": "a802f5f207933b138eb4b96a4d7a046f931b74764b93a206ca14e9893e685093",
+    "hardware/install-guide/install-guide.pdf": "38559f4ed98745f529de17d3f9291b881adab94493bab6ac5176232110bc5e81",
     "hardware/manifold-layout/enclosure-assembly.step": "175a7b45c159dbeb9447ff0f5318ea8c7466942e0c87261a9cff006531b75ae7",
     "hardware/manifold-layout/enclosure-assembly.step.mesh": "c5b089789a19f4be15fc849179e06096c52de6658524f7748c842352d8e67f15",
     "hardware/manifold-layout/manifold-layout.step": "77649fc47b26af27c477871a21f53c2ee9852272e19980f16fd41b589bf4b27f",
@@ -663,8 +668,8 @@
     "hardware/printed-parts/shop-storage/holders/tip-index.step": "f47eeed7af99b0ff7d8cc36c1d9f9b88749ddb2660f84d95ccd3259f6be77c13",
     "hardware/printed-parts/shop-storage/holders/tube-comb.step": "06499dc519fb5d8c6ccf5661b551aef792a8f9360283e6ffc4012cc783f1bf68",
     "hardware/printed-parts/shop-storage/holders/xh-tub.step": "e427678f733f9c585b5c65757a0813e2fbf0b884a5099801ee92a956810e4d79",
-    "hardware/printed-parts/zone-c/funnel-mold/funnel-mold-assembly.step": "7041cc5e9c57349be7ef45fe868ce1c9200d0a982f401d1ca28485ec671b04db",
-    "hardware/printed-parts/zone-c/funnel-mold/funnel-mold-cavity.step": "da4534804d04e2c701de2cb63125260f2c94fe21ea35c571e551c830517697fa",
+    "hardware/printed-parts/zone-c/funnel-mold/funnel-mold-assembly.step": "fee02f06c5bcfb5cd5fe30aa344cedc919b7b58555e238302e762dd26b845c40",
+    "hardware/printed-parts/zone-c/funnel-mold/funnel-mold-cavity.step": "ba5ba8958e617edb6ab9c818647fba3d41895237d5ed7f58441feaa5a24d857a",
     "hardware/printed-parts/zone-c/funnel-mold/funnel-mold-core.step": "771583682f85853ad8c749a4e3c948f1ccb0f46a88fa1b72a16ee2d99c0e4ee4",
     "hardware/printed-parts/zone-c/funnel-mold/funnel-mold-finish-witness.step": "eaf11159ed5e72d239059c09c23cee9970a65df681fd317da2e9c14277734e07",
     "hardware/printed-parts/zone-c/funnel-mold/funnel-mold-guide-witness.step": "e334422b4f17d3c18056739456b951236a427e3324bcc704cede5e5ba2489250",
