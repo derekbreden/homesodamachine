@@ -167,7 +167,12 @@ def build():
         _box(block_w-2*foot_frame, block_d-2*foot_frame,
              floor_z-1, floor_z+frame_height+1, ocx, ocy))
     ribs = _ribs(block_w, block_d, floor_z, top_z, ocx, ocy)
-    cavity = backing.fuse(top_register, foot, ribs, tol=boolean_tol).intersect(cavity_blank)
+    # Carry the blind spout floor directly to the bed; its rounded backing must
+    # not begin as a cantilever between the ribs.
+    tip_pedestal = _cyl(m['spout_or']+finish_allowance+forming_skin,
+                        neck_z, floor_z, ncx, ncy)
+    cavity = backing.fuse(top_register, foot, ribs, tip_pedestal,
+                          tol=boolean_tol).intersect(cavity_blank)
     cavity = cavity.cut(forming_void)
     cavity_air = _air_channels(block_w, cavity_air_rows, floor_z+back_vent_depth, ocx, ocy)
     cavity = _one(cavity.cut(*cavity_air), 'cavity')
@@ -181,6 +186,7 @@ def build():
                                           top_z+1, ocx, ocy)), 'nominal plug')
     plug = _contracted_plug(nominal_plug, finish_allowance, top_z)
     interior = _contracted_plug(nominal_plug, finish_allowance+forming_skin, top_z)
+    core_skin = plug.cut(interior)
     chimney = _box(m['bore_w']-2*(finish_allowance+forming_skin),
                    m['bore_d']-2*(finish_allowance+forming_skin),
                    top_z, top_z+plate_thk+1, ocx, ocy)
@@ -220,6 +226,11 @@ def build():
     funnel = HF.build()[0].val()
     cast = funnel.fuse(tip.cut(rod))
     shift = (-ocx, -ocy, -floor_z)
+    # Modifier volumes overlap only modeled material. They retain the careful
+    # surface speed while the exposed reinforcing ribs use the bulk-wall speed.
+    cavity_slow = backing.fuse(top_register).intersect(cavity_blank)
+    core_slow = core_skin.fuse(skirt, socket_back,
+        _box(plate_w, plate_d, top_z, top_z+finish_allowance+forming_skin, ocx, ocy))
     cavity, core = cavity.translate(shift), core.translate(shift)
     info = {
         'cast': cast.translate(shift), 'rod': rod.translate(shift),
@@ -231,6 +242,8 @@ def build():
         'cavity_volume': cavity.Volume(), 'core_volume': core.Volume(),
         'cavity_air_z': back_vent_depth, 'core_air_z': top_z+plate_thk-back_vent_depth-floor_z,
         'forming_void': forming_void.translate(shift),
+        'cavity_slow': cavity_slow.translate(shift),
+        'core_slow': core_slow.translate(shift),
     }
     return cavity, core, info
 
@@ -249,6 +262,10 @@ def main():
         assert mesh.is_watertight and mesh.is_winding_consistent and mesh.body_count == 1
         mesh.export(here / f'{stem}.stl')
         print(f'-> {stem}.step / .stl ({shape.Volume()/1000:.2f} mL PETG)', flush=True)
+    for name in ('cavity', 'core'):
+        cq.exporters.export(info[f'{name}_slow'],
+            str(here / f'funnel-mold-{name}-surface-zone.stl'),
+            tolerance=0.02, angularTolerance=0.08)
     assy = cq.Assembly()
     assy.add(cavity, name='cavity', color=M_PETG_BLACK)
     assy.add(info['cast'].translate((0, 0, 45)), name='funnel', color=M_SILICONE_BLACK)
