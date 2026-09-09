@@ -39,8 +39,7 @@ void linkQueueOta(uint8_t type, const void *data, uint8_t len);
 bool linkReplyOta(uint8_t type, const void *data, uint16_t len);
 
 // Raise or drop the radio bench's access point on the enclosure display, which
-// is the sink for it. Retried, because this is a main-board-originated frame on
-// a pair the main board otherwise only answers on.
+// is the sink for it.
 bool linkWifiAp(bool on);
 
 // 1 raises it with the panel taken down, 3 leaves the panel running, 4 takes
@@ -52,14 +51,14 @@ bool linkWifiApMode(uint8_t mode);
 
 // What pictures the enclosure is holding. Both boards' answers land in
 // imagesReport(), which prints them only when a person asked.
-bool linkImagesQuery(uint8_t verbose);
+void linkImagesQuery(uint8_t verbose);
 
 // One store's account of itself, from either link. Defined in main.cpp, which
 // is the only place that can hold the two of them against each other.
 void imagesReport(const ImagesPayload &im);
 
 // Take a picture back off the enclosure.
-bool linkImageErase(uint8_t slot);
+void linkImageErase(uint8_t slot);
 
 // What the sink has counted. False if the display did not answer.
 bool linkWifiApState(WifiApStatePayload &out);
