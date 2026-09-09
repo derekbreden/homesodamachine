@@ -700,7 +700,7 @@ exterior settings of `enclosure-front-top-petgf.3mf` around their own mesh — t
 |---|---|---|---|---|
 | `enclosure-pump-cartridge` | 2 | 2 | bed | 51.00 mm |
 | `enclosure-pump-cap` | 2 | 2 | bed | 18.40 mm |
-| `enclosure-front-top` | 4 | 15 | bed | 32.60 mm |
+| `enclosure-front-top` | 2 | 15 | bed | 32.60 mm |
 | `enclosure-tee-carrier-left` | 3 | 3 | bed | 3.00 mm |
 | `enclosure-tee-carrier-right` | 3 | 3 | bed | 3.00 mm |
 | `enclosure-back-bottom` | 4 | 5 | 3 bed, **1 model** | **8.00 mm** |
@@ -710,9 +710,9 @@ exterior settings of `enclosure-front-top-petgf.3mf` around their own mesh — t
 `enclosure-pump-cartridge` has two bed-rooted bodies, one under each flat pull roof. Each
 reaches one interface after **51.00 mm** and leaves directly through its open side pocket. On
 the pump cap and front-top, every body roots on the print bed and stands 18 mm or more before
-it touches the model. Front-top has one tree under the pump-bay lintel, one under each
-grip guide and retaining-rim recess that also reaches its outer well crown, and one joining
-both spring bores, the upper web bearings, inner well crowns and pump-jack roof.
+it touches the model. Front-top has one tree under the pump-bay lintel and one joining
+both spring bores, the upper web bearings, both grip guides and retaining-rim recesses,
+all four well crowns and the pump-jack roof.
 Remove those branches through the empty cartridge bay, tee wells and aft carrier recess
 before installing the hardware. Each carrier half has separate bed-rooted support under its
 rim and seam-rail relief, central lap, and finger-pocket roof. Remove those through the open

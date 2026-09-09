@@ -7,4 +7,4 @@ click: x=68.500 y=43.500 z=8.200
 [ceiling] These are the zip-tie windows through the fluid-18 and water-3 side anchors. Each roof bridges 3.5 mm along Y between complete 3 mm flanks; the 8.3 mm extent along X is the tunnel depth after the back-channel relief. The short space below the roof is the tie's required passage (3 mm for fluid-18 and 1.225 mm for water-3), not a cavity intended to receive a support body.
 file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
 click: x=47.525 y=34.000 z=44.625
-click: x=133.850 y=3.242 z=6.425
+click: x=133.850 y=-13.000 z=6.425
