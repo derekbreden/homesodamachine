@@ -1,139 +1,162 @@
 # Funnel mold print project
 
-[**funnel-mold-guided-vacuum-petg-08-016.3mf**](funnel-mold-guided-vacuum-petg-08-016.3mf)
-contains five editable bodies, two precision-speed modifiers, the complete
-printer/filament/process configuration, native thumbnails and three plates of
-sliced G-code. The mold includes vented structural backing, 0.20 mm of net
-finishing allowance and four guided M5 screw jacks.
+[**Default project — +0.04 mm trim**](funnel-mold-petg-hf08-variable-016-040.3mf)
+uses the H2C's **left 0.8 mm High Flow nozzle**, PETG Translucent at 255 °C,
+0.16 mm layers through the shallow slopes and 0.40 mm through straight
+structural sections. It contains five editable bodies, two surface-speed
+modifiers, native thumbnails and all three plates of sliced G-code.
+
+[**Alternate project — +0.18 mm trim**](funnel-mold-petg-hf08-variable-016-040-z018.3mf)
+is also fully sliced. The [printer preset bundle](funnel-mold-hf08-z-trim-presets.bbscfg)
+contains both trims for Bambu Studio's printer selector. Import the bundle with
+**File → Import → Import Configs** if those presets are not already installed.
+The trim is the user's observed build-plate correction across nozzle, size and
+material changes. **+0.04 mm is the default for translucent PETG on the current plate.**
 
 [Structure and finishing](README.md) and [extraction hardware and use](extraction.md)
-are part of the print instructions. The forming faces require finishing before
-casting to nominal dimensions.
+accompany the project. The forming geometry has a 0.20 mm net finishing allowance.
 
 ## Plates
 
-Bambu Studio 02.08.02.61 estimates:
+Bambu Studio 02.08.02.61 estimates for the default project:
 
 | Plate | Orientation | Time | PETG | Layers |
 |---|---|---:|---:|---:|
-| 1 — Finish, hardware and guide witnesses | Flat datums on bed | 2 h 13 min 51 s | 59.70 g | 168 |
-| 2 — Cavity | Opening up | 37 h 40 min 8 s | 1271.48 g | 466 |
-| 3 — Core | Open back on bed; forming plug and blades up | 31 h 8 min 28 s | 1015.91 g | 424 |
+| 1 — Finish, hardware and guide witnesses | Flat datums on bed | 1 h 15 min 0 s | 60.56 g | 171 |
+| 2 — Cavity | Opening up | 22 h 49 min 7 s | 1271.49 g | 315 |
+| 3 — Core | Open back on bed; forming plug and blades up | 18 h 22 min 9 s | 1025.95 g | 309 |
 
-Each plate is an independent print job. Total filament across the three plates
-is **2,347.09 g**. Prepare approximately **3 kg of dry PETG**, allowing for
-purging, the witnesses and reserve. Both large plates exceed a 1 kg spool: arrange
-compatible automatic spool backup before starting, or provide a supervised
-runout change. The saved project does not configure the printer's physical
-backup spools. These are estimates, not measured print durations; both large
-plates run longer than one day.
+Each plate is an independent job. Total material is **2,358.00 g**; prepare
+approximately **3 kg of dry PETG** including reserve. Both large plates exceed
+a 1 kg spool. Arrange compatible automatic spool backup, or a supervised runout
+change, before starting. The project does not configure physical backup spools.
+These are estimates rather than measured print durations; the cavity has about
+71 minutes of estimated margin below one day.
 
-Print the three witnesses first. Use them to verify the 17.6 mm backing bridge,
-finishing process, square-nut fit, washer fit and guide sliding fit. The existing
-M5 × 10 screws can check the nut thread before the M5 × 50 pack arrives. The
-assembled extraction mechanism uses the 50 mm screws.
+Print all three witnesses first. Inspect the 17.6 mm backing bridge, test the
+square-nut and guide fits, and trial the complete coating/release/silicone
+combination. The 18 mm³/s flow target and 60 mm/s surface speed need to produce
+sound extrusion on the actual dry spool and high-flow nozzle before either long
+print. The witness is a useful part trial; it is not a measured maximum-flow
+calibration or an extraction-load certification.
 
-## Settings
+## Layer height and flow
 
-| Setting | Value |
+The forming ramps are shallow: at 15°, an ideal 0.16 mm layer makes a terrace
+about 0.60 mm wide. At 0.32 mm that becomes 1.19 mm, and at 0.40 mm 1.49 mm.
+These geometric figures describe the staircase, not measured deposited beads.
+Coarse layers on the shallow undersides also extend farther than a nominal
+0.82 mm road can overlap. Fine bands cover both the undersides and the finished
+forming ramps. The backing walls and straight guide sections use coarse layers.
+
+| Body | Fine-layer bands, measured up from its print bed |
 |---|---|
-| Printer | Bambu Lab H2C 0.8 Standard +0.04 Z trim |
-| Assignment | Left nozzle, Standard flow; manual assignment on all plates |
-| Filament | PETG Translucent, 255 °C, flow ratio 0.97 |
-| Bed | Textured PEI, 70 °C |
-| Layers | 0.16 mm; first layer 0.30 mm |
-| Walls | Arachne, four requested loops, nominal 0.80 mm width |
-| Fill / top / first-layer width | 0.90 mm |
-| Top / bottom shell | 20 layers; minimum vertical thickness 3.20 mm |
-| Residual fill | 100% rectilinear (`zig-zag` in the project format) |
-| Precision zones | Forming skins, registration, rod boss, guide posts/sleeves, nut seats and washer pockets |
-| Precision outer / inner walls | 30 / 80 mm/s; acceleration 1,000 / 3,000 mm/s² |
-| Exposed reinforcement outer / inner walls | 100 / 100 mm/s requested; acceleration 6,000 mm/s² |
-| General / top-surface acceleration | 8,000 / 1,000 mm/s² |
-| Solid fill / other fill / top surfaces | 90 / 100 / 30 mm/s requested |
-| Bridges / internal bridges | 20 / 30 mm/s |
-| First-layer walls / fill | 25 / 35 mm/s |
-| Volumetric limit | 12 mm³/s requested |
-| Normal cooling | 20–40%; first three layers off; auxiliary fan off |
-| Overhang cooling | 90% override |
-| Seam | Aligned scarf, including inner walls; conditional scarf off; gap 0% |
-| Brim | Outer only, 6 mm wide, 0.15 mm separation |
-| Travel | Avoid crossing walls; maximum additional detour 30 mm |
-| Supports / ironing | Disabled / disabled |
-| XY contour / hole compensation | Zero / zero |
+| Cavity | 0.40–5, 9–11, 30.5–54, 70.5–74.65 mm |
+| Inverted core | 0.40–5, 8–14.5, 22–23.5, 32–57 mm |
+| Finish witness | 0.40–5, 6.2–15.4 mm |
+| Hardware witness | 0.40–5, 8–14 mm |
+| Guide witness | 0.40 mm nominal layers throughout |
 
-All remaining modeled material prints solid. The open rib bays and 3 mm air
-channels provide backing ventilation. Each 32 mm washer-bearing column reaches
-the bed, with paired 6.4 mm full-height walls connecting it to the cavity. Each
-12 × 40 mm guide blade joins the core through a 6 mm flared shoulder; its tower
-has a 12.6 × 40.6 mm upper bearing and a relieved bore below. Both transition
-slopes grow continuously from supported material in their print orientation.
-The nut-slot retaining lips bridge 8.4 mm. The separate 8.4 mm roofs carrying
-the nuts print on the bed side of the 14 mm core plate.
+The first layer is 0.40 mm. Each fine band has an individual geometric reason in
+[print-recipe.json](print-recipe.json). On the shared witness plate, Bambu merges
+the objects' layer schedules; the reported plate layer count includes that schedule.
 
-The retained machine templates issue `G29.1 Z0` and then `G29.1 Z0.02` on textured
-PEI, combining the stock PEI adjustment with the saved +0.04 mm trim. Both slots
-are configured as 0.8 mm Standard. Machine start, end and filament-change templates
-match the retained printer profile. If native Preview requests filament grouping,
-retain **Custom** with PETG on **Left Extruder (1)**. Confirm the intended 0.8 mm
-Standard nozzle after any hardware sync. Re-slice after changing the printer, nozzle,
-trim, filament, geometry or finishing allowance.
+The installed Bambu H2C 0.8 PETG Translucent preset supplies **16 mm³/s** for
+both Standard and High Flow. This mold's High Flow variant requests **18 mm³/s**;
+the Standard variant remains at the manufacturer's 16. With all other recipe
+settings held constant, slicing at 16 estimates **24 h 35 min** for the cavity
+and **19 h 46 min** for the core. The 18 target estimates the times above.
+A volumetric cap is a setting for a particular material/hotend/temperature
+combination, not an intrinsic PETG limit. [Prusa's explanation](https://help.prusa3d.com/article/max-volumetric-speed_127176)
+describes its interaction with line width, layer height and requested speeds.
+
+![Layer bands and flow comparison](layer-plan.png)
+
+## Active settings
+
+[The configuration audit](profile-audit.md) explains the complete setting stack.
+
+| Setting | Active value |
+|---|---|
+| Printer / assignment | H2C 0.8; left High Flow; one PETG filament; manual assignment on each plate |
+| Bed / trim | Textured PEI, 70 °C; default +0.04 mm, alternate +0.18 mm |
+| Nozzle temperature | 255 °C, including the first layer |
+| Flow ratio / volumetric cap | Vendor 0.97 / requested 18 mm³/s for High Flow |
+| Nominal widths | Vendor 0.82 mm; Arachne varies widths locally |
+| Walls | Four requested loops; inner then outer |
+| Residual fill | 100% alternating rectilinear (`zig-zag`) |
+| Top / bottom stock | Eight requested layers and a 3.20 mm physical minimum on each side |
+| Top surfaces | 60 mm/s; 2,000 mm/s² acceleration |
+| Surface modifiers | Outer walls 60 mm/s; 2,000 mm/s² acceleration |
+| Structural speeds | Stock H2C 0.40 process; actual speeds limited by flow, feature geometry and cooling |
+| General / structural outer acceleration | Stock 8,000 / 5,000 mm/s² |
+| First-layer walls / fill | Stock 50 / 105 mm/s requests, also limited by flow |
+| Bridges | Stock 30 mm/s process setting |
+| Cooling | Stock 20–60%; first three layers off; auxiliary fan off; overhang override 90% |
+| Seam | Conventional aligned seam; 0% gap; scarf disabled |
+| Brim | External only, 6 mm wide, stock 0.10 mm separation |
+| Supports / raft / ironing / prime tower | Disabled |
+| XY contour / hole compensation | Zero / zero; stock 0.15 mm elephant-foot compensation |
+| Travel | Stock retract/lift and travel behavior; avoid-crossing-wall detours disabled |
+
+All remaining CAD stock prints solid. The CAD rib bays and air channels supply
+ventilation. Preserve them through finishing. Keep guides, nut seats, washer
+seats and the rod socket uncoated.
+
+The machine's start, end, tool-change and calibration templates come from the
+installed H2C preset. The only custom machine-code edit is the explicit plate-trim
+block. On textured PEI with this 0.8 mm nozzle, the default issues
+`G29.1 Z0` then `G29.1 Z0.02`: stock −0.02 plus user +0.04. The alternate issues
+`G29.1 Z0` then `G29.1 Z0.16`: stock −0.02 plus user +0.18.
+Confirm left 0.8 mm High Flow and the intended trim after any hardware sync.
+Re-slice all plates after changing the printer, nozzle, material, process or geometry.
 
 ## Verification
 
-[Print inspection](print-profile.json) identifies the project, meshes and G-code
-by digest. All three embedded G-code files match the CLI exports and their MD5
-entries. All five bodies are closed, consistently wound, connected meshes. Triangle
-connectivity is unchanged by slicing; vertices agree within 0.000002 mm after
-accounting for local-origin translation. Two modifier volumes retain their
-positions relative to the corresponding body.
+[Print inspection](print-profile.json) records project and G-code digests, slice
+results, the configuration audit, geometry comparisons and toolpath measurements.
+Both trim projects return success with empty plate warning fields. All six
+embedded G-code files match their CLI exports and MD5 entries. No support paths
+are present. Model and brim footprints stay inside the bed.
 
-All three plates return success with empty warning fields. Model and brim
-extrusion stays inside the 330 × 320 mm printable area, with no support paths.
-The cavity is 270 × 270 × 74.649 mm; the inverted core is 270 × 270 × 68 mm.
+The five bodies are closed, consistently wound, connected meshes. All seven
+components, including modifiers, retain their geometry and placement within
+0.000002 mm through slicing. The cavity CAD envelope is 270 × 270 × 74.649 mm;
+the inverted core is 270 × 270 × 68 mm. Layer quantization puts their final
+commanded heights at 74.64 and 68.16 mm respectively; these are not metrology
+readings from a physical print.
 
-Across 81 sampled mold layers, **38,157** outer-wall segments inside the
-precision modifiers stay at or below **30 mm/s**. Exposed reinforcement reaches
-100 mm/s. The largest calculated flow on extrusion segments longer than 1 mm
-is 11.655 mm³/s after the flow ratio. The JSON also retains the larger local
-ratios on tiny segments caused by coordinate/extrusion rounding.
+Across 80 sampled mold layers, **24,407** outer-wall segments inside the surface
+modifiers stay at or below 60 mm/s. The full shallow-ramp bands use 0.16 mm
+layers. The greatest calculated flow on extrusion moves longer than 1 mm is
+about **17.48 mm³/s**, including the 0.97 flow ratio and G-code rounding. The
+inspection also records the larger ratios on tiny rounded segments. Circular
+paths are included in these measurements.
 
-| Passage / fit | Nominal footprint read from the final paths |
+| Passage / fit | Reading from the final paths |
 |---|---|
 | Four guide blades | 12.00 × 40.00 mm |
 | Four guide bearings | 12.60 × 40.60 mm clear |
 | Four square-nut slots | 8.40 mm clear width |
-| Four jack-screw bores | About 5.74–5.76 mm diameter |
-| Four washer pockets | About 25.37 mm diameter |
-| Backing-air channels | About 3.00 mm clear width at mid-height |
-| Silicone vents | About 2.42 mm diameter above the first layer |
-| Pour throat | About 10.95–10.96 mm diameter |
-| Rod socket | About 6.39–6.40 mm through its body; about 6.16 mm at the thin entry lip |
+| Four jack-screw bores | About 5.75–5.76 mm diameter |
+| Four washer pockets | About 25.37–25.39 mm diameter |
+| Backing-air channels and tower exits | About 2.99 mm clear at the sampled mid-height |
+| Silicone vents | About 2.43–2.45 mm above the first layer |
+| Pour throat | About 10.97 mm diameter |
+| Rod socket | About 6.40 mm through its body; about 6.10 mm at the thin entry lip |
 
-These readings subtract half the annotated extrusion width from the distance
-to a path centreline. They describe toolpaths, not measured plastic. **Clear the
-rod socket's narrow entry lip and fit the actual 6.35 mm rod before coating.** It
-must slide freely to 28.8 mm depth. Use a depth stop and preserve the blind end.
-Keep the socket, guides, nut seats, washer seats and air channels uncoated.
+Clearance readings subtract half the annotated road width from the distance to
+its centreline. Arc sampling adds at most 0.002 mm sagitta. They describe nominal
+toolpaths, not measured plastic. **Deburr the rod socket's narrow entry lip and
+fit the actual 6.35 mm rod before coating.** It must slide freely to 28.8 mm depth.
+Use a depth stop and preserve the blind end. Check all small fits on the witnesses.
 
-[Mechanical verification](mechanical-verification.json) records zero collisions
-at 16 positions from closure through 58 mm lift,
-a continuous clearance check for each guide's swept envelope, and clearance of
-the modeled hardware. At 32 mm working lift, guides retain 12 mm engagement and
-screw heads retain 1.8–3.0 mm clearance for 0.8–2.0 mm washers. The maximum mold
-radius is 142.57 mm, leaving 7.29 mm nominal radial space in the listed
-299.72 mm chamber. Check the actual opening and catch tray, including any
-holding hardware.
-
-[Extraction section checks](extraction-loads.json) verify continuous stock and
-screen vertical jack loads and lateral blade-tip loads in both directions.
-[The extraction guide](extraction.md#load-checks) explains the assumptions and
-limits. No measured extraction load or certified lifting capacity is assigned.
-
-The geometry was published and then linted in the intended print orientations.
-All 63 findings have specific anchored answers in the adjacent `.lint-answers`
-files: finishing steps, guide chamfers and travel marks, registration transitions,
-and deliberate bridges. The print and extraction forces still need bench validation.
+[Mechanical verification](mechanical-verification.json) records the guide sweep,
+hardware clearances and chamber envelope. At 32 mm working lift the guides retain
+12 mm nominal engagement; the screw heads retain 1.8–3.0 mm clearance for
+0.8–2.0 mm washers. [Section checks](extraction-loads.json) screen the arms and
+blades for vertical and lateral loads. The [extraction instructions](extraction.md)
+state the assumptions; no measured extraction force or certified capacity is assigned.
 
 ![Mold extrusion sections](print-paths.png)
 
@@ -141,14 +164,10 @@ and deliberate bridges. The print and extraction forces still need bench validat
 
 ## At the bench
 
-Dry the PETG and feed it from dry storage. Bambu specifies
-[65 °C for 8 hours](https://us.store.bambulab.com/products/petg-translucent?id=42479468281992)
-in a blast drying oven. Let the parts cool on the plate before removal. Clear
-all backing-air paths and the pour, silicone vents and rod entrance.
-
-Check all small fits first, then dry-assemble the large halves and run the full
-extraction stroke. Finish both forming faces to the measured 0.20 mm net growth
-in [the finishing procedure](README.md#measure-the-finish). Trial the actual PETG,
-coating, release and silicone batch together before coating the mold or casting.
-Use a hand hex key for extraction, advancing opposite sides equally. The jacks
-lift the core; the casting's holding arrangement keeps it seated during cure.
+Dry the PETG, feed it from dry storage and print the witnesses. Let the mold halves
+cool on the bed before removal. Clear the backing-air paths, silicone vents, pour
+passage and rod entrance. Dry-assemble the halves and check the complete extraction
+stroke before finishing. Finish both forming faces to the measured 0.20 mm net
+growth described in [the finishing procedure](README.md#measure-the-finish).
+Test the actual coating, release and silicone batch together before casting.
+Use a hand hex key for extraction, advancing opposite sides equally.
