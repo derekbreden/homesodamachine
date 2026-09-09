@@ -23,6 +23,8 @@ What stands as it stands:
   [`build.py`](/tools/weld-rotator-guide/build.py) binds the book. `tools/bazel/trace_inputs.py`
   names `tools/` in `ELSEWHERE`.
 - Neither script keeps `note_read` / `note_write` bookkeeping.
+- `web/dev-server/server.js` discovers generators under `CONTENT_ROOTS`, which is
+  `[HARDWARE_DIR]`.
 - `art/*.png`, `weld-rotator-guide.pdf`, its cover and its `.pdf.json` are in the git index.
   This directory is absent from `pack.py`'s `BUNDLED_ART_DIRS`; `out/` is in its
   `NOT_BUNDLED_DIRS` and in `.gitignore`.
