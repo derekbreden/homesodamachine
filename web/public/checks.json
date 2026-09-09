@@ -57,7 +57,7 @@
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 370 of 1000 free, the next cut wants 3, and the whole lock reads by name in 134.7 MB against 136.5 MB of bundle",
+      "note": "check_release_room: 365 of 1000 free, the next cut wants 3, and the whole lock reads by name in 136.7 MB against 138.6 MB of bundle",
       "status": "ok"
     },
     {
@@ -77,12 +77,12 @@
     },
     {
       "check": "tools/bazel/check_declared_imports.py",
-      "note": "check_declared_imports: every step holds what it imports, over 0 staged source(s)",
+      "note": "check_declared_imports: every step holds what it imports, over 190 source(s) the graph names",
       "status": "ok"
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 26 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 327 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 14 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 327 member(s) keep their provenance",
       "status": "ok"
     }
   ],
