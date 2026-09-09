@@ -2,8 +2,9 @@
   "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed \u2014 web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
   "release": {
     "tag": "cad-artifacts",
-    "asset": "cad-cce4acc1eb938bc5.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-cce4acc1eb938bc5.tar.gz"
+    "asset": "cad-06589f37d0afc541.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-06589f37d0afc541.tar.gz",
+    "objects": "s-"
   },
   "source": {
     "commit": "2eaea329d128836d567f242e6e87a7e187a4fb53"
@@ -11,11 +12,8 @@
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, its rule would not cut, or an interactive publication explicitly deferred that rule.",
     "paths": [
-      "hardware/printed-parts/zone-c/funnel-mold/funnel-mold-cavity.lint-answers",
-      "hardware/printed-parts/zone-c/funnel-mold/funnel-mold-core.lint-answers",
-      "hardware/printed-parts/zone-c/funnel-mold/funnel-mold-finish-witness.lint-answers",
-      "hardware/printed-parts/zone-c/funnel-mold/funnel-mold-guide-witness.lint-answers",
-      "hardware/printed-parts/zone-c/funnel-mold/funnel-mold-hardware-witness.lint-answers"
+      "hardware/ledger/bom.md",
+      "result.json"
     ],
     "members": [
       "hardware/.cache/pump-roof/enclosure-pump-cartridge.step",
@@ -333,14 +331,14 @@
     ]
   },
   "bundle": {
-    "sha256": "cce4acc1eb938bc50ce0e9adddcf0dd0a707d9b4c0cab4d6590b9fbbabc87760",
-    "bytes": 138668519,
+    "sha256": "06589f37d0afc5417f3cd5ec6de4b6b573a35a2a193c59eec53976fff6abd190",
+    "bytes": 138856839,
     "solids": 327
   },
   "solids": {
     "hardware/.cache/pump-roof/enclosure-pump-cartridge.step": "4f3c521165747f039ff44b338de914a5e9eece6e4fe0e39a3a65bedeed90c67d",
     "hardware/assembly/cards/deck.cover.png": "37623a1f885294de99a7e838fe9563f769e11c9eb822960ffa6d9a0c02e5ff0f",
-    "hardware/assembly/cards/deck.pdf": "6b69645dab5324619a76739e6e81df904ecb13a7508b8e87ae759dafc62a3c63",
+    "hardware/assembly/cards/deck.pdf": "0564c94f31e7e0c0f3f7cc28940eacf0cb2d7e0dbc62fff15707f720157927d4",
     "hardware/assembly/cards/img/asse1022-chain.png": "b4496207881e32ddf0f50d4b39b50bacb84bea32ebed80f955b133bf71c98fa1",
     "hardware/assembly/cards/img/asse1022-chain.png.scene.json": "a1e16e37bf86a1bdd48b2fbea6f9666121c7ceb80a7bf2535e57149f630e50aa",
     "hardware/assembly/cards/img/coil-mandrel.png": "940824e2f4838d7165665784dddbc4fadba461f1e99435a877bfa8daed8714d0",
@@ -576,12 +574,12 @@
     "hardware/printed-parts/shop-storage/holders/tip-index.step": "f47eeed7af99b0ff7d8cc36c1d9f9b88749ddb2660f84d95ccd3259f6be77c13",
     "hardware/printed-parts/shop-storage/holders/tube-comb.step": "06499dc519fb5d8c6ccf5661b551aef792a8f9360283e6ffc4012cc783f1bf68",
     "hardware/printed-parts/shop-storage/holders/xh-tub.step": "e427678f733f9c585b5c65757a0813e2fbf0b884a5099801ee92a956810e4d79",
-    "hardware/printed-parts/zone-c/funnel-mold/funnel-mold-assembly.step": "fee02f06c5bcfb5cd5fe30aa344cedc919b7b58555e238302e762dd26b845c40",
-    "hardware/printed-parts/zone-c/funnel-mold/funnel-mold-cavity.step": "ba5ba8958e617edb6ab9c818647fba3d41895237d5ed7f58441feaa5a24d857a",
-    "hardware/printed-parts/zone-c/funnel-mold/funnel-mold-core.step": "771583682f85853ad8c749a4e3c948f1ccb0f46a88fa1b72a16ee2d99c0e4ee4",
+    "hardware/printed-parts/zone-c/funnel-mold/funnel-mold-assembly.step": "4db1b4135bace1410bc15cf9e2ca138e9653d97b0df94b0a15fba4d01e41d213",
+    "hardware/printed-parts/zone-c/funnel-mold/funnel-mold-cavity.step": "f8dec1b9f6558c880af9b4500f3fd32cd1d1dc86d09b046bb1dad923c857fab5",
+    "hardware/printed-parts/zone-c/funnel-mold/funnel-mold-core.step": "05e13968ffa18eb884af685fd72c56b98dc0cfec74d29c7ce094bd11ee2db1ea",
     "hardware/printed-parts/zone-c/funnel-mold/funnel-mold-finish-witness.step": "eaf11159ed5e72d239059c09c23cee9970a65df681fd317da2e9c14277734e07",
-    "hardware/printed-parts/zone-c/funnel-mold/funnel-mold-guide-witness.step": "e334422b4f17d3c18056739456b951236a427e3324bcc704cede5e5ba2489250",
-    "hardware/printed-parts/zone-c/funnel-mold/funnel-mold-hardware-witness.step": "a2ffeaa93b1f5676d8d58038f555198cf018b0ca60d7e95a9b744fb7c36675db",
+    "hardware/printed-parts/zone-c/funnel-mold/funnel-mold-guide-witness.step": "6c1a62077084098e9f42de911c186436500a01f3db960000f7460d6e913bce7a",
+    "hardware/printed-parts/zone-c/funnel-mold/funnel-mold-hardware-witness.step": "d0ae2ce9318f5cbf8e352735f0812868d293bf71653fd1fcd6b543b0b0f4e267",
     "hardware/printed-parts/zone-c/funnel/funnel.step": "50cd88887b0056171c27f60bd4e20a3e92605cf8b0d0b3c137fdf62aaf853f35",
     "hardware/quickstart/art/colors.css": "f2914e84e5ec5f2cd52fcfe401d2dec13734c003f134c9bde44b9b2adcd0a8a0",
     "hardware/quickstart/art/connect-rear-connected.png": "783b69f557b5adc70a366281daa326c0af8d9a951290facdfa61d81a70e64261",
