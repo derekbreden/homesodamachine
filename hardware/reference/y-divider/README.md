@@ -2,7 +2,7 @@
 
 `y-divider.step` is **McMaster 51055K417**, a 1/4" push-to-connect
 drinking-water divider, used as a close stand-in for the **John Guest
-PP2308E** two-way divider in the BOM (`hardware/bom.md`) — the part every
+PP2308E** two-way divider in the BOM (`hardware/ledger/bom.md`) — the part every
 Y-junction (Y-A/B/C/D/E/F/G/H/KA/KB) in the
 [fluid topology](/hardware/topology/fluid-topology.md) is built from. It is
 not the exact part, but it is geometrically very close for layout work.

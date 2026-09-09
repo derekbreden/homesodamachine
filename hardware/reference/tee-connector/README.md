@@ -3,7 +3,7 @@
 The production fitting is the **John Guest PP0208E** 1/4" union tee, black PP
 — the part every Tee junction (Y-C/D/E/F/G/H/KA/KB) in the
 [fluid topology](/hardware/topology/fluid-topology.md) is built from, committed
-in the BOM (`hardware/bom.md` §8).
+in the BOM (`hardware/ledger/bom.md` §8).
 
 `tee-connector.step` is **McMaster 51175K143**, a 1/4" push-to-connect
 drinking-water tee — simply a STEP that happened to be available, used as a
