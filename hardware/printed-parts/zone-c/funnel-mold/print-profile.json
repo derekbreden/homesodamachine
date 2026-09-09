@@ -6887,5 +6887,7 @@
     "live_nozzle_sync_test_completed": false,
     "live_nozzle_sync_test_note": "The device reported left 0.8 mm High Flow. The Sync Nozzle status dialog could not be accepted because its confirmation control was clipped; it was canceled. The preset and GUI save/re-slice checks above completed.",
     "gui_both_trim_projects_open_clean": true
-  }
+  },
+  "project_reference": "git:7aa5b50e4:hardware/printed-parts/zone-c/funnel-mold/funnel-mold-petg-hf08-variable-016-040.3mf",
+  "current_print_start_check": "print-start-check.json"
 }

@@ -4,10 +4,12 @@
 uses the H2C's **left 0.8 mm High Flow nozzle**, PETG Translucent at 255 °C,
 0.16 mm layers through the shallow slopes and 0.40 mm through straight
 structural sections. It contains five editable bodies, two surface-speed
-modifiers, native thumbnails and all three plates of sliced G-code.
+modifiers and native thumbnails. This editable save contains no embedded G-code;
+slice the intended plate before printing. The [cavity print record](print-log.md)
+links the exact G-code job submitted on 2026-09-09.
 
 [**Alternate project — +0.18 mm trim**](funnel-mold-petg-hf08-variable-016-040-z018.3mf)
-is also fully sliced. The [preset bundle](funnel-mold-hf08-z-trim-presets.bbscfg)
+is fully sliced. The [preset bundle](funnel-mold-hf08-z-trim-presets.bbscfg)
 contains both printer trims, the filament and the process. Import the bundle with
 **File → Import → Import Configs before opening either 3MF** on a new installation.
 Bambu Studio imports four configurations, available as **User presets**:
@@ -26,6 +28,9 @@ the mold filament and the mold process from their saved lists, then re-slice all
 plates. The object-specific fine-layer bands and surface-speed modifiers live in
 the 3MF; a process preset alone does not create those geometry-specific settings.
 All three plates explicitly select **Textured PEI Plate** in their plate settings.
+In the saved default project, cavity and core use manual left High Flow assignment;
+the witness plate uses automatic right-extruder assignment. Select left High Flow
+on the witness plate before printing it with this recipe.
 The trim is the user's observed build-plate correction across nozzle, size and
 material changes. **+0.04 mm is the default for translucent PETG on the current plate.**
 
@@ -92,7 +97,7 @@ describes its interaction with line width, layer height and requested speeds.
 
 | Setting | Active value |
 |---|---|
-| Printer / assignment | H2C 0.8; left High Flow; one PETG filament; manual assignment on each plate |
+| Printer / assignment | H2C 0.8; left High Flow; one PETG filament; cavity/core manual; witness reassignment described above |
 | Bed / trim | Textured PEI, 70 °C; default +0.04 mm, alternate +0.18 mm |
 | Nozzle temperature | 255 °C, including the first layer |
 | Flow ratio / volumetric cap | Vendor 0.97 / requested 18 mm³/s for High Flow |
@@ -131,7 +136,9 @@ Re-slice all plates after changing the printer, nozzle, material, process or geo
 
 [Print inspection](print-profile.json) records project and G-code digests, slice
 results, the configuration audit, geometry comparisons and toolpath measurements.
-Both trim projects return success with empty plate warning fields. All six
+Its default sliced-project reference is recorded at Git revision `7aa5b50e4`;
+[the print-start check](print-start-check.json) covers the editable save and the
+submitted cavity job. Both reference trim slices return success with empty plate warning fields. All six
 embedded G-code files match their CLI exports and MD5 entries. No support paths
 are present. Model and brim footprints stay inside the bed.
 
