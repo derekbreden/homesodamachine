@@ -1,0 +1,143 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="ip">
+<div class="card">
+
+<header>
+  <div class="code">IP-04</div>
+  <h1>Flavor manifold<br>&#8212; the moving carrier</h1>
+  <div class="deckpos"><b>Internal plumbing &#183; 04/8</b>The appliance</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede">Bench work on <strong>loose <code>enclosure-front-top</code></strong>,
+    before that piece joins anything. Everything enters through the open rear
+    and seats <b>outward</b> into the flanks &#8212; nothing goes in from the front.</p>
+
+    <ol class="steps">
+      <li><b>Seat the
+        <span class="dim" data-gen="CARRIER_TEES">4</span> moving tees</b>
+        (<span data-gen="CARRIER_TEE_NAMES">Y-C, Y-D, Y-F, Y-G</span>) from aft
+        into their journals, each one forward to <b>release</b>. Rows and
+        carrier still absent.</li>
+      <li><b>Join the
+        <span class="dim" data-gen="CARRIER_HALVES">2</span> halves.</b> Left in
+        at release, right at park, each lowered behind the tees and pushed
+        outward until its face is flush. Bring the right fore and close the lap
+        with <span class="dim" data-gen="CARRIER_JOINT_SCREWS">2</span> M3
+        &#215; 8 through the empty cartridge bay.</li>
+      <li><b>Aft valves up from underneath</b> &#8212; V-C, V-D, V-G, V-J,
+        posts clear of the tray, then pressed fully home. Carrier stays at
+        release.</li>
+      <li><b>Tie and spring.</b>
+        <span class="dim" data-gen="CARRIER_TIES">8</span> ties, two per tee,
+        every head to the tee side. Then the
+        <span class="dim" data-gen="CARRIER_SPRINGS">2</span> springs, held
+        compressed down the inner wells to their seats.</li>
+      <li><b>Fore valves and the bowed stubs last</b> &#8212; V-E, V-F, V-H,
+        V-I pressed in, then one bench-fit blank per tee so the exposed tube
+        stands <span class="dim">12</span>&nbsp;mm between sleeve faces.</li>
+    </ol>
+
+    <div class="tools">
+      <span class="lbl">Tools</span>
+      bent-nose pliers &#183; 4&Prime; ties &#183; flush cutter &#183; 2.5 mm hex
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:700px">
+    <div class="panel light">
+      <svg viewBox="0 0 700 470" xmlns="http://www.w3.org/2000/svg">
+        <style>
+          .ink   { fill: #eef0f3; stroke: #1d1d26; stroke-width: 3; }
+          .move  { fill: #dfe6f3; stroke: #2268c2; stroke-width: 3.5; }
+          .edge  { stroke: #1d1d26; stroke-width: 2.5; fill: none; }
+          .arrow { stroke: #2268c2; stroke-width: 3.5; fill: none; stroke-linecap: round; }
+          .lbl   { font: 600 24px 'IBM Plex Sans','Helvetica Neue',sans-serif; fill: #1d1d26; }
+          .sub   { font: 400 21px 'IBM Plex Sans','Helvetica Neue',sans-serif; fill: #70707c; }
+          .node  { font: 700 23px 'IBM Plex Mono',Menlo,monospace; fill: #1d1d26; }
+        </style>
+
+        <text class="lbl" x="20" y="32">PLAN &#183; front of the machine at the bottom</text>
+
+        <!-- the fixed body: bay bulkhead, journals, release plate -->
+        <path class="ink" d="M60 300 L640 300 L640 360 L60 360 Z"/>
+        <text class="sub" x="72" y="338">fixed release plate &#183; part of front-top</text>
+
+        <!-- four teardrop passages -->
+        <g class="ink">
+          <circle cx="150" cy="330" r="13"/><circle cx="290" cy="330" r="13"/>
+          <circle cx="410" cy="330" r="13"/><circle cx="550" cy="330" r="13"/>
+        </g>
+
+        <!-- the joined carrier, one body across, with its two grips out the flanks -->
+        <path class="move" d="M40 190 L660 190 L660 250 L40 250 Z"/>
+        <path class="move" d="M18 200 L40 200 L40 240 L18 240 Z"/>
+        <path class="move" d="M660 200 L682 200 L682 240 L660 240 Z"/>
+        <text class="lbl" x="300" y="228">joined carrier</text>
+        <text class="sub" x="14" y="272">grip tab</text>
+        <text class="sub" x="612" y="272">grip tab</text>
+
+        <!-- the lap joint at centre, two screws -->
+        <g class="ink"><circle cx="333" cy="220" r="7"/><circle cx="367" cy="220" r="7"/></g>
+        <path class="edge" d="M350 190 L350 250"/>
+        <text class="sub" x="286" y="180">lap &#183; 2 screws</text>
+
+        <!-- four tees riding it -->
+        <g class="move">
+          <rect x="126" y="120" width="48" height="48" rx="6"/>
+          <rect x="266" y="120" width="48" height="48" rx="6"/>
+          <rect x="386" y="120" width="48" height="48" rx="6"/>
+          <rect x="526" y="120" width="48" height="48" rx="6"/>
+        </g>
+        <text class="node" x="150" y="150" text-anchor="middle">Y-C</text>
+        <text class="node" x="290" y="150" text-anchor="middle">Y-D</text>
+        <text class="node" x="410" y="150" text-anchor="middle">Y-F</text>
+        <text class="node" x="550" y="150" text-anchor="middle">Y-G</text>
+
+        <!-- branch collets down through the plate -->
+        <g class="edge">
+          <path d="M150 168 L150 300"/><path d="M290 168 L290 300"/>
+          <path d="M410 168 L410 300"/><path d="M550 168 L550 300"/>
+        </g>
+
+        <!-- the two springs, fore of the web -->
+        <g class="arrow">
+          <path d="M92 220 l10 -12 l10 24 l10 -24 l10 24 l10 -12"/>
+          <path d="M588 220 l10 -12 l10 24 l10 -24 l10 24 l10 -12"/>
+        </g>
+        <text class="sub" x="72" y="106">spring</text>
+        <text class="sub" x="568" y="106">spring</text>
+
+        <!-- travel -->
+        <g class="arrow">
+          <path d="M350 402 L350 442"/><path d="M343 432 L350 442 L357 432"/>
+          <path d="M350 402 L350 442" opacity="0"/>
+        </g>
+        <text class="lbl" x="368" y="418">release &#8594; park</text>
+        <text class="sub" x="368" y="444">one Y stroke, both tabs together</text>
+
+        <text class="sub" x="20" y="70">Journals hold the tees in X and Z</text>
+        <text class="sub" x="20" y="96">and leave Y free &#8212; the carrier is</text>
+        <text class="sub" x="20" y="122" opacity="0">.</text>
+      </svg>
+      <div class="cap"><b>The carrier block, looking down</b> &#8212; schematic.
+      Four tees on one body, two grips out the flanks, two springs returning it
+      aft. The plate under it belongs to front-top and never moves.</div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>Both tabs move and settle together over full travel, every tee on the common bearing plane, all four bows clear through release-to-park, and the empty carrier returns to park on its own.</div>
+  <div class="src">internal-plumbing.md &#167;3 &#183; tee-carrier/README.md<br>_cards_sync.py &#183; rev 2026-09-08</div>
+</footer>
+
+</div>
+</body>
+</html>

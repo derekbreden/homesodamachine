@@ -40,11 +40,31 @@ checks all of it at once, reporting every disagreement rather than the first:
 
 Then, per marker, the card's text against the machine's value. `--check` reports
 and exits 2; the default rewrites the card.
+
+Last, `sync_titles` holds `README.md`'s deck table to the titles those same cards
+print — a row is written from its card, never typed beside it — and reports a card
+with no row and a row with no card.
 """
 
 import re
 import sys
 from pathlib import Path
+
+# ── the deck's own order ───────────────────────────────────────────────────
+#: Deck order = the build order of /hardware/README.md "Build order" — the procedure docs'
+#: own dependency chain, not their filename order. The three bench subsystems (ca, eb, fu)
+#: feed en; ip needs the chassis en closes up; wr needs the lines ip lays in.
+#:
+#: IT LIVES HERE BECAUSE THREE THINGS READ IT AND THEY MUST AGREE. `_build.py` sorts the
+#: bound pages by it, the cover's contents table is printed in it, and `README.md`'s deck
+#: tables are written in it. It sat in `_build.py` alone, and the cover — written against
+#: the stylesheet's declaration order instead — listed IP fourth in a deck that prints it
+#: eighth. A bench reading the cover looked for a deck four pages from where it is.
+SUBSYSTEM_ORDER = ["pv", "cc", "rl", "ca", "eb", "fu", "en", "ip", "wr", "fc", "ab", "fs",
+                   "sa", "gt"]
+
+#: The page the deck opens on, which is not one of the operations it tables.
+COVER = "00-cover"
 
 # One marked element. `attrs` and `value` admit no angle bracket, so an element
 # with a child cannot match — which is how the text-only rule is enforced rather
@@ -106,6 +126,77 @@ def _rewritten(text: str, variables: dict) -> str:
     return "".join(out)
 
 
+#: One row of the deck table in `README.md`: `| PV-03 | Drill the rod register — both plates |`.
+TABLE_ROW = re.compile(r"^\|\s*(?P<code>[A-Z]{2}-\d{2})\s*\|\s*(?P<title>.*?)\s*\|\s*$", re.M)
+
+#: The entities a card spells its title with, and the character each prints as. The README is
+#: read by a person in a text editor, so it carries the character; the card is read by a
+#: browser at 300 dpi, so it carries the entity. One title, two spellings, and this is the
+#: whole of the difference between them.
+_ENTITIES = {
+    "&#8212;": "—", "&mdash;": "—", "&#8211;": "–", "&ndash;": "–",
+    "&#8217;": "’", "&rsquo;": "’", "&#8722;": "−",
+    "&Prime;": "″", "&#8243;": "″", "&#215;": "×", "&times;": "×",
+    "&#8960;": "⌀", "&amp;": "&", "&nbsp;": " ", "&#160;": " ",
+}
+
+
+def title_of(text: str, variables: dict) -> str:
+    """A card's `h1` as it prints: markers resolved, `<br>` a space, entities characters.
+
+    This is the reading the README's deck table is written from, so the row a reader scans
+    and the title a bench reads off the printed card are one string and cannot part."""
+    h1 = re.search(r"<h1[^>]*>(.*?)</h1>", text, re.S)
+    if not h1:
+        return ""
+    body = _rewritten(h1.group(1), variables) if variables else h1.group(1)
+    body = re.sub(r"<br\s*/?>", " ", body)
+    body = re.sub(r"<[^>]+>", "", body)
+    for entity, char in _ENTITIES.items():
+        body = body.replace(entity, char)
+    return re.sub(r"\s+", " ", body).strip()
+
+
+def sync_titles(cards_dir: Path, readme: Path, variables: dict, check: bool = False) -> list:
+    """Hold `README.md`'s deck table to the titles the cards print; return the faults.
+
+    THE TABLE IS A HUNDRED AND TWO TITLES TYPED A SECOND TIME, and every one of them was
+    free to drift from the card it names — nine had, and the worst of them tabled seven
+    penetrations beside a card that gates the figure and prints nine. A row is written from
+    its card here for the same reason a figure is written from the machine: the reading a
+    reader trusts has to be the one the thing itself gives."""
+    faults = []
+    text = readme.read_text()
+    titles = {}
+    for path in sorted(cards_dir.glob("*.html")):
+        if path.stem == COVER:
+            continue
+        code = f"{path.stem[:2].upper()}-{path.stem[3:5]}"
+        titles[code] = title_of(path.read_text(), variables)
+
+    tabled = {m.group("code"): m.group("title") for m in TABLE_ROW.finditer(text)}
+    for code in sorted(set(titles) - set(tabled)):
+        faults.append(f"README.md: {code} is a card and has no row in the deck table — "
+                      f"add it to that subsystem's section, title and all")
+    for code in sorted(set(tabled) - set(titles)):
+        faults.append(f"README.md: the deck table rows {code} and no such card is authored")
+
+    drift = {c: t for c, t in titles.items() if c in tabled and tabled[c] != t}
+    if check:
+        faults += [f"README.md: {c} — table says {tabled[c]!r}, card prints {t!r}"
+                   for c, t in sorted(drift.items())]
+    elif drift:
+        def row(m):
+            code = m.group("code")
+            return f"| {code} | {titles[code]} |" if code in drift else m.group(0)
+        readme.write_text(TABLE_ROW.sub(row, text))
+        _note_target(readme)
+        print(f"   README.md deck table: {', '.join(sorted(drift))}")
+    elif titles:
+        _note_target(readme)
+    return faults
+
+
 def sync(cards_dir: Path, variables: dict, registry: dict, check: bool = False) -> int:
     """Hold every card in `cards_dir` to `variables`; return a process exit code.
 
@@ -150,8 +241,8 @@ def sync(cards_dir: Path, variables: dict, registry: dict, check: bool = False) 
 
         # A CARD THIS RUN MAINTAINS, whether or not this run moved it. Recording it where the
         # write happens records the cards that drifted on one particular run — one of the
-        # hundred and sixteen, on the run that traced this — and a card left out is a card
-        # the action may rewrite and never hand back.
+        # registered ones, on the run that traced this — and a card left out is a card the
+        # action may rewrite and never hand back.
         _note_target(path)
 
         drift = [(n, v) for n, v, _s, _e in found
@@ -167,6 +258,10 @@ def sync(cards_dir: Path, variables: dict, registry: dict, check: bool = False) 
         faults.append(
             f"{name}: derived and on no card — either a card states it or this driver "
             f"stops deriving it. A fact nobody carries is coverage the gate does not have")
+
+    # The deck table, held to the same cards by the same run. It is last because it reads the
+    # resolved titles, and a card whose markers are wrong has a title that is wrong with them.
+    faults += sync_titles(cards_dir, cards_dir / "README.md", variables, check=check)
 
     if faults:
         print(f"cards out of step with the machine ({len(faults)}):", file=sys.stderr)

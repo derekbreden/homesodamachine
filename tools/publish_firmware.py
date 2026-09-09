@@ -19,9 +19,7 @@ THE VERSION STRING IS THE BOARD'S OWN. `pre_build.py` writes `FW_VERSION` into e
 HEAD's date and short SHA, the board reports that string, and the manifest carries the same one.
 "Is this machine current" is a comparison of that string against itself.
 
-The two trees a phone never reaches: `pcba_bench` goes no further than the bench, always on USB.
-`rp2040_display` runs on an RP2040, whose ROM offers USB and nothing else — it takes an image
-through BOOTSEL and a cable.
+The tree a phone never reaches: `pcba_bench` goes no further than the bench, always on USB.
 """
 
 from __future__ import annotations
@@ -77,26 +75,6 @@ TARGETS = {
         # firmware used to compile in, so it carries no version of its own.
         "kind": "art",
         "art_board": "enclosure",
-    },
-    "rotary_art": {
-        "env": "esp32s3_config",
-        "src": "src_config",
-        "machine": "prototype",
-        "what": "the rotary display's animation and flavor faces",
-        "kind": "art",
-        "art_board": "rotary",
-    },
-    "prototype": {
-        "env": "prototype",
-        "src": "src_prototype",
-        "machine": "prototype",
-        "what": "the prototype's main ESP32",
-    },
-    "rotary": {
-        "env": "esp32s3_config",
-        "src": "src_config",
-        "machine": "prototype",
-        "what": "the prototype's 1.28\" rotary display",
     },
 }
 

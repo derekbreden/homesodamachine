@@ -12,21 +12,27 @@ legend:
 5. insert the supplied tube-and-tee assembly, then reconnect the released line;
 6. connect the five tubes and RJ11 signal lead to the appliance rear panel.
 
-The sheet reads as a clockwise ring of photographs of the customer's own sink. Each physical
-action uses registered before and after states from one camera: the before state carries the cue
-on the part that moves, and the result stays clean. The changed pose remains legible with the cue
-covered, and the before state plus cue predicts the result. Cue anchors and directions follow the
-model's projected travel, while line weight, head construction and halo remain fixed page
-dimensions at every scene scale. Cameras close in until the moving part and its travel survive
-arm's-length reading; the release closeup exaggerates the collet's short physical stroke for that
-reason.
+The sheet reads as a clockwise ring. Each physical action uses registered states from one camera:
+the state a cue sits on is the state before that action, the cue rides the part that moves, and
+the state after it stays clean. A cluster is a chain, not always a pair — the plate and its nut
+run cue, cue, with the tightened nut left undrawn because a tight nut and a loose one are the same
+picture; the tee runs cue, cue, clean across three states; the rear panel carries no cue at all,
+because six leads already aimed at six ports are their own arrow. The changed pose remains legible
+with the cue covered, and the state a cue sits on plus that cue predicts the state after it. Cue
+anchors and directions follow the model's projected travel, while line weight, head construction
+and halo remain fixed page dimensions at every scene scale. Cameras close in until the moving part
+and its travel survive arm's-length reading; the release closeup exaggerates the collet's short
+physical stroke for that reason.
 
 Every pictured object has the form in which the customer receives it, and the sequence contains
-only work the customer performs. The white run arrives with its filter and `TAP` collar installed;
-the red tether arrives with its flare connector and `CO2` collar installed; the faucet tails carry
-their collars from the umbilical bench. Nothing on this sheet is cut, trimmed, insulated or
-threaded through a collar. The cutter and loose foam belong to the separately bagged cold kit and
-its own guide.
+only work the customer performs. The tee arrives already carrying its short jumper and the white
+run, made up as one piece at the pack bench, which is why step 5 opens with a subassembly rather
+than three loose parts
+([`/hardware/assembly/finish-pack-ship.md`](/hardware/assembly/finish-pack-ship.md) §6). The white
+run arrives with its filter and `TAP` collar installed; the red tether arrives with its flare
+connector and `CO2` collar installed; the faucet tails carry their collars from the umbilical
+bench. Nothing on this sheet is cut, trimmed, insulated or threaded through a collar. The cutter
+and loose foam belong to the separately bagged cold kit and its own guide.
 
 The clockwork composition sets six warm-stone fields (`#ded7cd`) clockwise around a white centre.
 The centre places the glass mark and compact uppercase product name above a large `Quick Start`
@@ -51,8 +57,11 @@ it reaches the appliance `TAP` inlet. No threaded fitting is opened during this 
 
 The opening sequence shows one physical story: lower the complete factory assembly through the
 prepared opening, seat it, slide the open under-counter plate around the attached tubes, and
-hand-tighten the retained nut. The exact same 220 x 72 mm countertop window appears in every
-state. It is long on the plate's slide axis and narrow across the real under-sink working space.
+hand-tighten the retained nut. The opening the faucet drops through is the customer's own 1-3/8
+inch hole, drilled before the sheet begins — the [install guide](/hardware/install-guide/README.md)
+is where that hole is stated.
+The slab carrying it is the same 220 x 72 mm prop in every state — long on the plate's slide axis
+and narrow across the real under-sink working space, so the four frames read as one counter.
 The retracted plate stays visibly clear of the washer and nut before it moves.
 
 ## Cold-water connection
@@ -72,8 +81,10 @@ declares 1.335 mm physical collet travel and 16 mm tube insertion; the macro ill
 2.4 mm depressed position so the wordless state change remains visible at print size. The
 customer-facing PP0208E tee is built from John Guest's published 1/4-inch dimensions: 39.0 mm run
 span, 19.5 mm port reach, 15.7 mm insertion depth, 16.3 mm maximum body diameter, and 4.3 mm bore.
-Long tubes continue through the crop; no arbitrary remote tube end is shown. Every connector and
-tube is a CAD solid.
+No tube is drawn to an invented end: every long tube runs out of its own scene box. On a flat
+field that box has no visible edge, so a run leaving it mid-field leaves a square end standing in
+the open — the tee sequence's original line and the union's supply side both do. Every connector
+and tube is a CAD solid.
 
 `plumbing/plumbing_scenes.py` retains the separate older-home braided-hose study assets. They are
 not scenes or dependencies of this modern push-fit guide.

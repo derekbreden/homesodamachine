@@ -207,7 +207,7 @@ faucet_display_cover_stations = ((0.0, display_cover_screw_s),)
 faucet_display_cover_inserts_per_build = len(faucet_display_cover_stations)
 faucet_display_cover_screws_per_build = faucet_display_cover_inserts_per_build
 
-# Electronics-shelf hardware (Zone B, assembly/power-column.md). The power column
+# Electronics-shelf hardware (Zone B, assembly/electronics-bay.md). The electronics bay
 # bolts to `enclosure-back-top`'s +X wall: `enclosure_assembly.wall_mounts` stands ONE BOSS PER
 # HOLE in each body's own mounting pattern, and each boss is bored for a ruthex short.
 # So the count is the pack's, not a number typed here — a body that gains a hole gains a
@@ -333,7 +333,7 @@ m3x12_per_build = touchflo_screws_per_build
 #
 # Short insert families and the stock available behind their seats:
 #   touch-flo base pods  — the pod is 8 boss hole + pocket + 3 cap = the visible base cylinder
-#   +X wall bosses       — the bore ends at `flute_backing`; deeper walks the power column in
+#   +X wall bosses       — the bore ends at `flute_backing`; deeper walks the electronics bay in
 #   pump-clamp bosses    — the screw is thread-limited at 4 mm anyway, over 2.2 mm of cradle
 #   faucet display cover — the shell's own land, one screw
 #   tee-carrier lap      — a 6 mm receiver, with a 4 mm insert and 2 mm backing

@@ -328,7 +328,7 @@ def gather(whole=None, module=None):
 
     # WHAT A DRIVER WOULD IMPORT THE CAD TO READ. These are module-level and cost no build,
     # but reaching them means loading cadquery and the forty modules behind it — which is the
-    # whole of what `_power_column_sync` pays to learn how many poles a Wago row has.
+    # whole of what `_electronics_bay_sync` pays to learn how many poles a Wago row has.
     constants = {
         "C14_STATION": _plain(ea.C14_STATION),
         "DIGITEN_COLLET_FREE": _plain(ea.DIGITEN_COLLET_FREE),

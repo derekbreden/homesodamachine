@@ -2,7 +2,7 @@
 // view does it by dissolving them rather than by blinking them off.
 //
 // Isolating a sub-assembly is a change to `mesh.visible`, which is one frame
-// wide: the cabinet, the compressor, the manifold and the power column are
+// wide: the cabinet, the compressor, the manifold and the electronics bay are
 // there and then they are not. Under camera motion that reads as a glitch, not
 // as a reveal.
 //

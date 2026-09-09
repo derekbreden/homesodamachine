@@ -760,7 +760,7 @@
   },
   {
    "id": "east-boss-corbels",
-   "label": "Every +X-wall power-column boss has a flat D stem or shares a bar, and its candidate 45 degree corbel clears the installed bodies",
+   "label": "Every +X-wall electronics-bay boss has a flat D stem or shares a bar, and its candidate 45 degree corbel clears the installed bodies",
    "kind": "gate",
    "status": "pass",
    "value": "17/17 clear; 14 reach their mounting face across their whole width and 1 use blocker-profiled split corbels, 1 are held back across their whole width (1 with offered wing(s) stood down); 4 hole pair(s) share a bar",
@@ -773,7 +773,7 @@
   },
   {
    "id": "east-boss-fills",
-   "label": "The reviewed power-column fills are rectangular and clear of the installed pack",
+   "label": "The reviewed electronics-bay fills are rectangular and clear of the installed pack",
    "kind": "gate",
    "status": "pass",
    "value": "4/4 clear",

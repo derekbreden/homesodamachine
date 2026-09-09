@@ -79,7 +79,7 @@ export const ASSEMBLIES = [
     id: "enclosure-assembly",
     label: "Enclosure assembly",
     model: "manifold-layout/enclosure-assembly.step",
-    note: "The whole appliance — the refrigeration stratum, the cold core standing on it, the " +
+    note: "The whole appliance — the compressor bay, the cold core standing on it, the " +
           "flavor manifold over that, and the printed box around them all.",
     // The directories the enclosure alone places from.
     holds: [
