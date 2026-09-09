@@ -208,16 +208,6 @@ def s_filter_in_cabinet():
     return a
 
 
-def s_power_socket():
-    """The recessed inlet at the left of the back face, with the cord housing sat down in it."""
-    a = cq.Assembly(name="power-socket-scene")
-    _machine(a)
-    _add(a, _box(-108.0, PORT_FACE_Y - 2.0, 300.0, 26.0, 34.0, 22.0), "cord-housing", CORAL)
-    _add(a, _run([(-95.0, PORT_FACE_Y + 32.0, 311.0), (-95.0, PORT_FACE_Y + 120.0, 311.0)], 8.0),
-         "cord", BLACK_PART)
-    return a
-
-
 def s_collet_press():
     """The little printed tool: what takes any 1/4 inch push fitting in this system apart."""
     a = cq.Assembly(name="collet-press-scene")
@@ -231,9 +221,6 @@ SCENES = {
                                 span=120.0, size="1900x1600")),
     "filter-in-cabinet": (s_filter_in_cabinet, dict(cam=(0.32, -1.0, 0.52),
                                                 size="2200x1200")),
-    "power-socket": (s_power_socket, dict(cam=(0.55, 1.0, 0.30),
-                                          target=(-92.0, 486.0, 314.0), span=95.0,
-                                          size="1900x1500")),
     "collet-press": (s_collet_press, dict(cam=(0.6, -1.0, 0.75), size="1700x1100")),
 }
 

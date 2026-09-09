@@ -111,7 +111,6 @@ PAGE_ASSETS = (
     OWN_ART / "collet-press.png",
     OWN_ART / "filter-in-cabinet.png",
     OWN_ART / "opening.png",
-    OWN_ART / "power-socket.png",
 )
 
 
