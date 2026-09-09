@@ -4,6 +4,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+// A copy of ESP-IDF v5.5.4 components/esp_lcd/rgb/esp_lcd_panel_rgb.c, compiled
+// into this environment in place of the archive member. It differs from that
+// file in six places, each marked below by the comment that explains it:
+// CONFIG_LCD_RGB_RESTART_IN_VSYNC forced to 0 and CONFIG_LCD_RGB_ISR_IRAM_SAFE
+// to 1, the private header renamed to esp_lcd_common_local.h, and the recovery
+// counter home_soda_rgb_restart_count() with the two lines that maintain it.
+// Everything else is upstream, so a rebase is a diff of those six against a
+// newer release.
+
 #include <stdlib.h>
 #include <stdarg.h>
 #include <sys/cdefs.h>
@@ -90,9 +99,10 @@
 #define RGB_LCD_PANEL_BOUNCE_BUF_NUM     2 // bounce buffer number
 
 static const char *TAG = "lcd_panel.rgb";
-// The only state added to the ESP-IDF v5.5.4 driver copy: a small observable
-// counter for genuine recovery resets. The enclosure display's wake test requires
-// it not to grow.
+// The only state added to the ESP-IDF v5.5.4 driver copy: the count of missed
+// bounce-buffer EOFs this driver caught and recovered. esp_lcd_rgb_panel_restart()
+// resets the same way and is not counted here — an operator who asked for a
+// realign knows they did. The enclosure display's wake test requires it not to grow.
 static volatile uint32_t rgb_panel_restart_count = 0;
 
 
@@ -1129,6 +1139,8 @@ static IRAM_ATTR void lcd_rgb_panel_try_restart_transmission(esp_rgb_panel_t *pa
     }
     if (panel->bb_eof_count < panel->expect_eof_count) {
         do_restart = true;
+        // Counted here rather than below, where an explicit realign also lands.
+        rgb_panel_restart_count++;
     }
     panel->bb_eof_count = 0;
     portEXIT_CRITICAL_ISR(&panel->spinlock);
@@ -1137,11 +1149,6 @@ static IRAM_ATTR void lcd_rgb_panel_try_restart_transmission(esp_rgb_panel_t *pa
     if (!do_restart) {
         return;
     }
-    // Exposed below for the enclosure display's non-actuating wake-cycle check. A healthy
-    // continuous stream does not need a reset; a change here means the driver
-    // caught a real missed bounce-buffer EOF and recovered it.
-    rgb_panel_restart_count++;
-
     if (panel->bb_size) {
         // Catch de-synced frame buffer and reset if needed.
         if (panel->bounce_pos_px > bb_size_px * 2) {
