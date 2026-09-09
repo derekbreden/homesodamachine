@@ -21,8 +21,7 @@ sys.path.insert(0, str(_hw / "printed-parts" / "cold-core"))
 from _cold_core_interface import (  # noqa: E402
     attachment_xy_positions,
     cap_cradles,
-    cap_cradle_boss_radius,
-    cap_cradle_xy,
+    cap_cradle_circle_gap,
     deck_mounts,
     deck_mount_xy,
     co2_inlet_y,
@@ -65,15 +64,11 @@ CAP_FACE_SCREWS = len(attachment_xy_positions)
 CAP_DECK_INSERTS = sum(len(deck_mount_xy(n)) for n in deck_mounts)
 RESERVOIR_INSERTS = len(insert_positions_for_side_plus_1) * 2
 
-# What the bench's trim knife has to work in. The pour hole and the valve cradles open in
-# the ONE face — the top lid's outer one — so the least a pad's corner arc stands off the
-# hole is the land the cured foam is cut back to. Read on the four bosses, which are the
-# pad's nearest material to the hole, exactly as `_cold_core_interface.cap_cradle_room` does.
+# The land between the pour opening and the nearest complete plinth outline.
 _POUR_XY = foam_cap_lid_pour_xy()
 POUR_CRADLE_GAP = min(
-    math.hypot(_POUR_XY[0] - x, _POUR_XY[1] - y)
-    - foam_cap_lid_pour_radius - cap_cradle_boss_radius
-    for name in cap_cradles for x, y in cap_cradle_xy(name)
+    cap_cradle_circle_gap(name, *_POUR_XY, foam_cap_lid_pour_radius)
+    for name in cap_cradles
 )
 
 
