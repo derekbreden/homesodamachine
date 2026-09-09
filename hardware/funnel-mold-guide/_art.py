@@ -147,6 +147,18 @@ VIEWS = [
             "--caption", "Cut at the parting plane: the cast funnel and the rod in the cavity",
         ],
     ),
+    # The casting guide's cover: the same cut, without the leaders and the scale bar, which
+    # are unreadable at cover size and read as noise on a shelf.
+    (
+        "cast-cover",
+        [
+            "--view", "iso",
+            "--clip", "z:0,76",
+            "--only", "cavity,funnel,rod",
+            "--hide", "core,jack-screw-*,square-nut-*,washer-*",
+            "--no-label", "--no-grid",
+        ],
+    ),
     (
         "mold-section",
         [
