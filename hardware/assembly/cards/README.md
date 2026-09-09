@@ -201,7 +201,7 @@ counts and the order off the card files. Per-subsystem accent colors are the
 | CA-01 | Build a harness — cut, crimp, sleeve, test |
 | CA-02 | The harness schedule |
 
-### PC — Electronics bay ([electronics-bay.md](/hardware/assembly/electronics-bay.md))
+### EB — Electronics bay ([electronics-bay.md](/hardware/assembly/electronics-bay.md))
 
 | Card | Operation |
 |---|---|

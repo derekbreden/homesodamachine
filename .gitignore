@@ -143,6 +143,19 @@ hardware/quickstart/quick-start.cover.png
 hardware/quickstart/quick-start.pdf
 hardware/quickstart/quick-start.pdf.json
 
+# The install guide's own leaf renders, the same pair per leaf for the same reasons
+# (hardware/install-guide/_build.py).
+hardware/install-guide/out/
+
+# The bound install guide and its cover. Every picture in it is a quick-start render, so this
+# directory draws nothing of its own and no `art/` line belongs here. The two files below arrive
+# the road every solid takes: `pack.py`'s BUNDLED_ART_DIRS puts them in the release asset,
+# hardware/cad-artifacts.lock.json names each by sha256, and web/scripts/fetch-cad-artifacts.mjs
+# puts them on the disk a deploy serves from — `walkDocuments` finds the PDF there through its
+# sidecar. That sidecar is text a writer composes, so it stays in git, as the deck's does.
+hardware/install-guide/install-guide.cover.png
+hardware/install-guide/install-guide.pdf
+
 # The scene meshes the parts viewer opens as themselves, cut by
 # hardware/assembly/scenes/render_scenes.py. `web/public/js/viewer/parts.js` names `glb` a build
 # directory and hands one to `openGlbDetail`. They arrive the road every solid takes:
