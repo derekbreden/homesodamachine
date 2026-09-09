@@ -205,7 +205,7 @@ def seat() -> tuple:
 # on its own letterforms against the 0.2 mm profile's bead.
 FONT = _ring.WORD_FONT
 FONT_KIND = _ring.WORD_KIND
-TITLE_EM = 11.2
+TITLE_EM = 10.2
 LINK_EM = 5.5
 BODY_EM = 2.8
 DETAIL_TRACKING = 0.1
@@ -216,7 +216,7 @@ BEAD = _ring.WORD_BEAD
 NOZZLE = _ring.WORD_NOZZLE
 # The brand's top margin, air between its three lines, and the link and details below, in mm.
 BRAND_MARGIN = 4.5
-TITLE_GAP = 1.4
+TITLE_GAP = 2.8
 LINK_MID = -6.4
 DETAIL_TOP = -13.4
 DETAIL_GAP = 1.2
@@ -224,7 +224,7 @@ DETAIL_GAP = 1.2
 LOGO_H = 28.0
 LOGO_STROKE = 1.2
 LOGO_GAP = 5.5
-# The flame hangs beside the detail column at the shared cap height.
+# The flame joins the final centred detail line at the shared cap height.
 FLAME_GAP = 1.2
 
 
@@ -429,12 +429,16 @@ def build_ink(unit: int):
     z = DETAIL_TOP
     for s, flat in detail_rows(unit):
         upright = _upright(flat)
-        h = upright.BoundingBox().zlen
-        parts.append(_place(upright, column_left, z - h / 2.0))
+        bb = upright.BoundingBox()
+        h = bb.zlen
+        text_left = bb.xlen / 2.0
         if s == text["hazard"][0]:
             flame = _upright(build_flame())
-            parts.append(_place(flame, column_left + flame.BoundingBox().xlen + FLAME_GAP,
+            flame_span = flame.BoundingBox().xlen + FLAME_GAP
+            text_left -= flame_span / 2.0
+            parts.append(_place(flame, text_left + flame_span,
                                 z - h / 2.0))
+        parts.append(_place(upright, text_left, z - h / 2.0))
         z -= h + DETAIL_GAP
     return cq.Compound.makeCompound(parts)
 
@@ -691,6 +695,7 @@ def main(unit: int):
         "BOSS_STEM_D": f"{boss_stem_d():g} mm",
         "TITLE_EM": f"{TITLE_EM:g}",
         "TITLE_CAP": f"{cap_height(TITLE_EM):.3g} mm",
+        "TITLE_GAP": f"{TITLE_GAP:g} mm",
         "BODY_EM": f"{BODY_EM:g}",
         "BODY_CAP": f"{cap_height(BODY_EM):.3g} mm",
         "DETAIL_TRACKING": f"{DETAIL_TRACKING:g} mm",
