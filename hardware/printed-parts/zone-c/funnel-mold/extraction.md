@@ -65,9 +65,19 @@ can then lift free of the guides; the screws leave their washers with it. The
 chamfered guide tips enter their sleeves before the forming plug enters the
 cavity when assembling.
 
-The CAD fit check compares every outer vertex with the owned chamber's listed
-11.8-inch (299.7 mm) interior. The guide-tower corners are the outermost features. Verify the actual opening, shelf and catch-tray clearance;
-clamps and tray rims need their own space. Keep all backing-air exits exposed.
+The fit check includes the permanent feet and compares every mesh vertex with
+the owned chamber's listed 11.8-inch (299.7 mm) inside diameter. The cavity fits
+inside a 286.5 mm circle; the cavity and core together fit inside a 287.3 mm
+circle. Centered in the nominal chamber, their minimum wall gaps are 6.6 and
+6.2 mm respectively. The [sent-job check](print-start-no-brim-check.json) also
+measures all cavity extrusion paths, including their annotated bead widths:
+the enclosing diameter is at most 286.5 mm.
+
+The actual chamber opening, shelf and catch-tray clearances have no recorded
+physical measurement. Clamps and tray rims need their own space. Keep all
+backing-air exits exposed.
+
+![Current mold footprints inside the nominal chamber wall](chamber-fit.png)
 
 ## Print the small fits first
 
