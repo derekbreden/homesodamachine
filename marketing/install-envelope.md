@@ -63,8 +63,16 @@ plus 133 mm plus a working gap is what the pair asks of the slot.
   **It is a draw, not a standing clearance.** The pull-forward above is what answers it: the
   appliance comes out to the cabinet face on the day the cartridge is wanted, so the floor in
   front of it is the cabinet's to use the rest of the time.
-- **A gap at each side face** — the condenser draws through the grille on one side and
-  exhausts through the other.
+- **40 mm at each side face** — the condenser draws through the grille on one side and
+  exhausts through the other, and this is the gap that keeps the cabinet from being the
+  restriction. The loop rejects the evaporator's duty plus the compressor's work, both of them
+  ~90–120 W class ([`reference/ice-maker/`](/hardware/reference/ice-maker/README.md),
+  [`reference/compressor/`](/hardware/reference/compressor/README.md)), so ~240 W at worst. Carried
+  on a 10 K rise that is 21 L/s, and holding the approach velocity in the side slot to 1.5 m/s —
+  where the dynamic head is 1.3 Pa against a finstack's tens — asks 138 cm² of slot. Fed from the
+  front and the back over the box's own 361 mm, that is 19 mm, and 40 doubles it for dust, for a
+  cabinet that is never as clear as a drawing, and for an approach that is never even. It fits the
+  30" cabinet with the cylinder still beside it.
 - **Headroom over the top wall** — the funnel is filled by inverting a 440 mL
   concentrate bottle over it
   ([`zone-c/README.md`](/hardware/printed-parts/zone-c/README.md)).

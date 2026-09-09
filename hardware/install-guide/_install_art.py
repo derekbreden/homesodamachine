@@ -72,7 +72,7 @@ PORT_X_WEST, PORT_X_EAST = -78.1, -37.8
 # turns 90° at R12 off a collet standing 9.5 mm proud, and that one is permanent. The side gap is
 # the one the machine needs every hour it runs and the one this tree has never put a number on, so
 # the pad here states a gap without claiming a figure.
-CLEAR_BEHIND, CLEAR_SIDE = 60.0, 60.0
+CLEAR_BEHIND, CLEAR_SIDE = 60.0, 40.0
 CYLINDER_LANE = 133.0
 
 # Catalogue sizes for the things with no CAD.
