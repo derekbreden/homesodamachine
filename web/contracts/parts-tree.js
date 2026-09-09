@@ -68,6 +68,7 @@ export const EXCLUDED_DIRS = [
   "assembly/cards/out",
   "assembly/cards/tools/out",
   "assembly/scenes/out",
+  "funnel-mold-guide/out",
   "install-guide/out",
   "pcb/pcba/out",
   "quickstart/out",
