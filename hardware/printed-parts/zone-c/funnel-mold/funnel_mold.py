@@ -145,13 +145,13 @@ def build_extraction(top_z):
     pad = _cyl(15.5, pad_floor+1.2, pad_bottom, jack_x, washer_y)
     pad = pad.fuse(cq.Solid.makeCone(3.0, 15.5, 12.5,
         cq.Vector(jack_x, washer_y, cone_bottom), cq.Vector(0, 0, 1)),
-        _gusset(78.4, jack_x+3.0, cone_bottom, washer_y, 4.8))
+        _gusset(79.0, jack_x+3.0, cone_bottom, washer_y, 4.8))
     pad = pad.cut(_cyl(washer_pocket_d/2, top_z+1, pad_floor, jack_x, washer_y))
     sleeve = _box(guide_outside, guide_outside, top_z-guide_bottom,
                    top_z-guide_top, guide_x, guide_y)
     socket = _guide_socket(top_z-guide_bottom, top_z-guide_top, guide_x, guide_y)
     sleeve = sleeve.cut(socket)
-    guide_webs = [_gusset(78.4, guide_x+guide_outside/2, top_z-guide_bottom,
+    guide_webs = [_gusset(79.0, guide_x+guide_outside/2, top_z-guide_bottom,
                     guide_y+s*(guide_outside/2-forming_skin/2), forming_skin)
                   for s in (-1, 1)]
     lower = pad.fuse(sleeve, *guide_webs)
