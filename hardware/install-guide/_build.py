@@ -99,6 +99,7 @@ PAGE_ASSETS = (
     ART / "machine-back-close.png",
     ART / "machine-funnel-close.png",
     ART / "machine-ports-action.png",
+    ART / "connect-rear-open.png",
     ART / "faucet-front.png",
     ART / "faucet-side-pressed.png",
     ART / "mount-tighten-close.png",
