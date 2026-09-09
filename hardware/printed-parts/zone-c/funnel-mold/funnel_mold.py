@@ -150,7 +150,8 @@ def build_extraction(top_z):
         .rect(guide_bore, guide_bore).loft().val())
     sleeve = sleeve.cut(socket, relief)
     walls = []
-    for x, y, spread in [(jack_x, washer_y, 18.0),
+    pad_wall_spread = 2*(washer_y-rib_thk/2-station_wall/2)
+    for x, y, spread in [(jack_x, washer_y, pad_wall_spread),
                           (guide_x, guide_y, guide_outside-station_wall)]:
         walls.extend(_box(x-station_root, station_wall, 0, tie_top,
                      (station_root+x)/2, y+s*spread/2) for s in (-1, 1))
