@@ -2,7 +2,7 @@
 
 Four M5 screw jacks lift the core while four broad printed guide blades keep it aligned.
 The ears, nut seats, washer pockets, guides and their supports are integral to
-[funnel-mold-guided-vacuum-petg-08-016.3mf](funnel-mold-guided-vacuum-petg-08-016.3mf).
+[funnel-mold-petg-hf08-variable-016-040.3mf](funnel-mold-petg-hf08-variable-016-040.3mf).
 All four stations lie outside the forming surfaces, at the middle of each side.
 The forming geometry retains its 0.20 mm net finishing allowance.
 

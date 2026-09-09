@@ -1,0 +1,3926 @@
+{
+  "project": "funnel-mold-petg-hf08-variable-016-040.3mf",
+  "project_sha256": "711eb3d6b311465e9e076d0141faecc3b8fcd89bcd25a85114db1449668a4b41",
+  "slicer_version": "02.08.02.61",
+  "inputs": "Current STL files, print-recipe.json and installed Bambu system presets; no prior 3MF or user preset is read by prepare_print.py.",
+  "system_preset_sha256": {
+    "machine/Bambu Lab H2C 0.8 nozzle.json": "6ffe6f54b3bbf5d8cd4f102abdc65aa9cf9feeaa5c141f4a072c04696e581395",
+    "machine/Bambu Lab H2C 0.4 nozzle.json": "54236b5f3eedf6c8468a9c3b921ecaabc04e1e3404f3d0239829fb81c3488491",
+    "machine/fdm_bbl_3dp_002_common.json": "f7ce729c4f2d7ba7dd9b2328b8172ada496a8a4e7e41f5f0139e2692b0a106af",
+    "machine/fdm_machine_common.json": "26ef8ee697849323e67d8e1a9026c175cebe3397e38c5091dddb5cd3fc52e94c",
+    "machine/Bambu Lab H2C 0.4 nozzle template machine_start_gcode.json": "b473d17fe7af0f2e431f8003782d0ab1f74b7a1e2ce73e265b3d7716e9ec8ce5",
+    "machine/Bambu Lab H2C 0.4 nozzle template machine_end_gcode.json": "2adc660220d954417396f6252ae989b74be13b563b5894ba3eea16ad14914d45",
+    "machine/Bambu Lab H2C 0.4 nozzle template time_lapse_gcode.json": "6ec28b73bf076dc25146d327130dad4332319d69a1d752516f5f343a67b44c61",
+    "machine/Bambu Lab H2C 0.4 nozzle template wrapping_detection_gcode.json": "ba7dfb833eedba7e9b73086a52e24f3261c95c449d9cbe5ef266378584e1a5b3",
+    "machine/Bambu Lab H2C 0.4 nozzle template change_filament_gcode.json": "e4bd43dfb6717d9502c61981b95c89b24ae5aac6ade75799570f705f72f83625",
+    "machine/Bambu Lab H2C 0.4 nozzle template layer_change_gcode.json": "6a56c2b1bd15d945d68bd0b406ac44c36afd9008785c04f9b9ca73c9f2e95889",
+    "process/0.40mm Standard @BBL H2C 0.8 nozzle.json": "853f830aa8ad60c05c3daea359ae620700a8d15332284d89353bc074d814817d",
+    "process/fdm_process_dual_0.40_nozzle_0.8.json": "2d2ab2168b4286f8105d376eac4841d23f7e183fe9f93c9989f5a9bef780b6a9",
+    "process/fdm_process_dual_common.json": "743303a5c3c1962f8c8d178d21e23fc409027ea48574017db51230eac72bd063",
+    "process/fdm_process_common.json": "d7981c4b92854f251b8697e1bb621c63fe393f263fb8024ab63c401525d543d7",
+    "filament/Bambu PETG Translucent @BBL H2C 0.8 nozzle.json": "5b285fb7b2a13300252b3418e8221f1d546407535cf9e6fe16017d0b21a9e4b8",
+    "filament/Bambu PETG Translucent @base.json": "574cd9a7e48cc13219acd45e92cc58f4d1df4577d949fc130b5eafc88200a0cc",
+    "filament/fdm_filament_pet.json": "3ed1b36367fe6df800103a9deaaa036f9d79c7afda3f3a17514dff23aa96c7d8",
+    "filament/fdm_filament_common.json": "8c7105b7d59a28f600c43a946f067b8b4d707b9711c0bf6b88e9166e48878548",
+    "filament/fdm_filament_template_direct_dual.json": "e0f564b83f3ef70cce4de1401dd7cd855d6fbd834343cb8f4292f2a1ac3efc51"
+  },
+  "mesh_files_sha256": {
+    "funnel-mold-finish-witness.stl": "7aa3cb037bdc71eda8ab902a7946a117553fa96ec677270bf77ead5f08a3d027",
+    "funnel-mold-cavity.stl": "11ae3fb698f9fc2b378a55a933b742a3a172c7f87fcfc3d78b43519c10d474e7",
+    "funnel-mold-cavity-surface-zone.stl": "b2eac6fdf2e52bd5172ee31c511074117c7a3b67eb9936456765b1fc6f746170",
+    "funnel-mold-core.stl": "bd66966a42f4db0cee393126e1528b5a259fb5bcce02cf0b807cc82cd5a2a9c0",
+    "funnel-mold-core-surface-zone.stl": "cd28275862e54ec2c8cfe3d0959246c690993d8a0464bb5db9bff2f76441b413",
+    "funnel-mold-hardware-witness.stl": "efadb0a406cccd4a8897a52a3f1c99b3dff833e62289c8070b4b2d6a765f51cf",
+    "funnel-mold-guide-witness.stl": "99fb09ecc31a89a7ca0f427417a11ba3dd29218093bd34ed2120d2adf383d951"
+  },
+  "recipe": {
+    "system_presets": {
+      "machine": "Bambu Lab H2C 0.8 nozzle",
+      "process": "0.40mm Standard @BBL H2C 0.8 nozzle",
+      "filament": "Bambu PETG Translucent @BBL H2C 0.8 nozzle"
+    },
+    "process_name": "Funnel mold - 0.16 mm slopes / 0.40 mm structure",
+    "filament_name": "Funnel mold PETG Translucent - HF 255C 18mm3s",
+    "z_trim": {
+      "default_mm": 0.04,
+      "available_mm": [
+        0.04,
+        0.18
+      ],
+      "reason": "User-observed build-plate calibration persists across nozzle, nozzle-size and material changes. Both offsets must be available; translucent PETG on the current plate uses +0.04 mm. Add the selected offset to the current stock machine's plate compensation."
+    },
+    "process_settings": {
+      "wall_generator": {
+        "value": "arachne",
+        "reason": "Variable-width paths fill the 2.4 mm ribs and narrow transitions without relying on exact multiples of the nominal 0.82 mm bead."
+      },
+      "wall_loops": {
+        "value": "4",
+        "reason": "Four requested loops reinforce forming skins and hardware seats; all residual stock is also solid."
+      },
+      "sparse_infill_density": {
+        "value": "100%",
+        "reason": "The CAD already contains open rib bays and air channels. All material left in its skins, ribs, arms and columns is structural stock."
+      },
+      "sparse_infill_pattern": {
+        "value": "zig-zag",
+        "reason": "Alternating rectilinear solid fill avoids crossing grid lines within a layer."
+      },
+      "top_shell_layers": {
+        "value": "8",
+        "reason": "Eight 0.40 mm layers provide 3.2 mm; the independent physical minimum also covers fine-layer bands."
+      },
+      "bottom_shell_layers": {
+        "value": "8",
+        "reason": "Eight 0.40 mm layers provide 3.2 mm; the independent physical minimum also covers fine-layer bands."
+      },
+      "top_shell_thickness": {
+        "value": "3.2",
+        "reason": "Maintain the modeled forming-skin thickness as solid surface stock through variable layer heights."
+      },
+      "bottom_shell_thickness": {
+        "value": "3.2",
+        "reason": "Maintain the modeled forming-skin thickness as solid surface stock through variable layer heights."
+      },
+      "top_one_wall_type": {
+        "value": "not apply",
+        "reason": "Retain requested wall loops where hardware seats and the parting plate reach a top surface."
+      },
+      "top_surface_speed": {
+        "value": [
+          "60",
+          "60",
+          "60",
+          "60"
+        ],
+        "reason": "A deliberate finishing-speed target for flat forming surfaces and hardware seats; physical finish is checked with the witnesses."
+      },
+      "seam_gap": {
+        "value": "0%",
+        "reason": "A closed conventional seam avoids intentionally removing material where skins and loaded walls join. Scarf seams remain disabled by the stock presets."
+      },
+      "brim_type": {
+        "value": "outer_only",
+        "reason": "Anchor the large footprints and projecting structural features while keeping brims out of the open backing bays."
+      },
+      "brim_width": {
+        "value": "6",
+        "reason": "Six millimetres of external brim fits within the bed and supports the long PETG print's feet."
+      },
+      "enable_prime_tower": {
+        "value": "0",
+        "reason": "Each plate uses one filament and one nozzle, with no material changes."
+      }
+    },
+    "filament_settings": {
+      "nozzle_temperature": {
+        "value": [
+          "255",
+          "255"
+        ],
+        "reason": "255 C is within the manufacturer's PETG Translucent range and provides melting margin for the proposed 18 mm3/s high-flow setting. Verify the actual dry spool and nozzle with the witnesses and flow calibration."
+      },
+      "nozzle_temperature_initial_layer": {
+        "value": [
+          "255",
+          "255"
+        ],
+        "reason": "Use the same melt temperature for the stock 0.40 mm first layer and the remaining print."
+      },
+      "filament_max_volumetric_speed": {
+        "value": [
+          "16",
+          "18"
+        ],
+        "reason": "Standard retains the vendor's 16 mm3/s. High Flow uses the user's proposed 18 mm3/s as a calibration target, not a measured capacity claim."
+      },
+      "filament_cost": {
+        "value": [
+          "11.20"
+        ],
+        "reason": "The hardware ledger's acquired Bambu PETG cost per kilogram; this affects cost estimates only."
+      }
+    },
+    "precision_settings": {
+      "outer_wall_speed": {
+        "value": [
+          "60",
+          "60",
+          "60",
+          "60"
+        ],
+        "reason": "Limit the forming faces, registration and hardware fits to a defined surface-speed target while reinforcement uses the stock process speeds and volumetric cap."
+      },
+      "outer_wall_acceleration": {
+        "value": [
+          "2000",
+          "2000",
+          "2000",
+          "2000"
+        ],
+        "reason": "Reduce acceleration at forming and fit surfaces to limit ringing; the value is an engineering starting point verified on the physical witnesses."
+      }
+    },
+    "layer_ranges_mm": {
+      "finish-witness": [
+        {
+          "min_z": 0.4,
+          "max_z": 5,
+          "layer_height": 0.16,
+          "reason": "Represent the mold's fine layers around the backing channels."
+        },
+        {
+          "min_z": 6.2,
+          "max_z": 15.4,
+          "layer_height": 0.16,
+          "reason": "Bridge roof and the full 15-degree finishing ramp."
+        }
+      ],
+      "cavity": [
+        {
+          "min_z": 0.4,
+          "max_z": 5,
+          "layer_height": 0.16,
+          "reason": "Three-millimetre backing-air channels and their crowns."
+        },
+        {
+          "min_z": 9,
+          "max_z": 11,
+          "layer_height": 0.16,
+          "reason": "Blind spout tip and pocket floor."
+        },
+        {
+          "min_z": 30.5,
+          "max_z": 54,
+          "layer_height": 0.16,
+          "reason": "The full shallow underside and forming ramp, including a margin beyond their analytic face bounds."
+        },
+        {
+          "min_z": 70.5,
+          "max_z": 74.65,
+          "layer_height": 0.16,
+          "reason": "Washer-seat floors and the finished upper datum."
+        }
+      ],
+      "core": [
+        {
+          "min_z": 0.4,
+          "max_z": 5,
+          "layer_height": 0.16,
+          "reason": "Backing-air channels and their crowns in the inverted print orientation."
+        },
+        {
+          "min_z": 8,
+          "max_z": 14.5,
+          "layer_height": 0.16,
+          "reason": "Square-nut side entries, retaining lips and the parting face."
+        },
+        {
+          "min_z": 22,
+          "max_z": 23.5,
+          "layer_height": 0.16,
+          "reason": "Blind rod-socket transition."
+        },
+        {
+          "min_z": 32,
+          "max_z": 57,
+          "layer_height": 0.16,
+          "reason": "The full shallow underside and forming ramp, rod socket and working-stroke marks in the inverted print orientation."
+        }
+      ],
+      "hardware-witness": [
+        {
+          "min_z": 0.4,
+          "max_z": 5,
+          "layer_height": 0.16,
+          "reason": "Reproduce the core's initial layer schedule."
+        },
+        {
+          "min_z": 8,
+          "max_z": 14,
+          "layer_height": 0.16,
+          "reason": "Reproduce the core's square-nut slots and retaining lips."
+        }
+      ],
+      "guide-witness": []
+    }
+  },
+  "effective_setting_count": 579,
+  "settings": {
+    "accel_to_decel_enable": {
+      "value": "0",
+      "slicer_default": "02.08.02.61"
+    },
+    "accel_to_decel_factor": {
+      "value": "50%",
+      "slicer_default": "02.08.02.61"
+    },
+    "activate_air_filtration": {
+      "value": [
+        "0"
+      ],
+      "preset": "filament/fdm_filament_common.json"
+    },
+    "additional_cooling_fan_speed": {
+      "value": [
+        "0"
+      ],
+      "preset": "filament/fdm_filament_common.json"
+    },
+    "additional_fan_full_speed_layer": {
+      "value": [
+        "0"
+      ],
+      "preset": "filament/fdm_filament_common.json"
+    },
+    "alternate_extra_wall": {
+      "value": "0",
+      "slicer_default": "02.08.02.61"
+    },
+    "ams_filament_load_time_ams": {
+      "value": "0",
+      "slicer_default": "02.08.02.61"
+    },
+    "ams_filament_load_time_ams_lite": {
+      "value": "0",
+      "slicer_default": "02.08.02.61"
+    },
+    "ams_filament_load_time_n3f_s": {
+      "value": "0",
+      "slicer_default": "02.08.02.61"
+    },
+    "ams_filament_unload_time_ams": {
+      "value": "0",
+      "slicer_default": "02.08.02.61"
+    },
+    "ams_filament_unload_time_ams_lite": {
+      "value": "0",
+      "slicer_default": "02.08.02.61"
+    },
+    "ams_filament_unload_time_n3f_s": {
+      "value": "0",
+      "slicer_default": "02.08.02.61"
+    },
+    "apply_scarf_seam_on_circles": {
+      "value": "1",
+      "slicer_default": "02.08.02.61"
+    },
+    "auxiliary_fan": {
+      "value": "1",
+      "preset": "machine/fdm_machine_common.json"
+    },
+    "avoid_crossing_wall_includes_support": {
+      "value": "0",
+      "preset": "process/fdm_process_common.json"
+    },
+    "bed_custom_model": {
+      "value": "",
+      "slicer_default": "02.08.02.61"
+    },
+    "bed_custom_texture": {
+      "value": "",
+      "slicer_default": "02.08.02.61"
+    },
+    "bed_exclude_area": {
+      "value": [],
+      "preset": "machine/fdm_bbl_3dp_002_common.json"
+    },
+    "bed_heat_soak_area": {
+      "value": [],
+      "slicer_default": "02.08.02.61"
+    },
+    "bed_temperature_formula": {
+      "value": "by_highest_temp",
+      "preset": "machine/fdm_bbl_3dp_002_common.json"
+    },
+    "before_layer_change_gcode": {
+      "value": "",
+      "slicer_default": "02.08.02.61"
+    },
+    "best_object_pos": {
+      "value": "0.3,0.5",
+      "preset": "machine/fdm_bbl_3dp_002_common.json"
+    },
+    "bottom_color_penetration_layers": {
+      "value": "3",
+      "preset": "process/fdm_process_common.json"
+    },
+    "bottom_shell_layers": {
+      "value": "8",
+      "recipe": "process_settings",
+      "reason": "Eight 0.40 mm layers provide 3.2 mm; the independent physical minimum also covers fine-layer bands."
+    },
+    "bottom_shell_thickness": {
+      "value": "3.2",
+      "recipe": "process_settings",
+      "reason": "Maintain the modeled forming-skin thickness as solid surface stock through variable layer heights."
+    },
+    "bottom_surface_density": {
+      "value": "100%",
+      "preset": "process/fdm_process_common.json"
+    },
+    "bottom_surface_pattern": {
+      "value": "monotonic",
+      "preset": "process/fdm_process_common.json"
+    },
+    "bridge_angle": {
+      "value": "0",
+      "slicer_default": "02.08.02.61"
+    },
+    "bridge_flow": {
+      "value": "1",
+      "preset": "process/fdm_process_dual_0.40_nozzle_0.8.json"
+    },
+    "bridge_no_support": {
+      "value": "0",
+      "preset": "process/fdm_process_common.json"
+    },
+    "bridge_speed": {
+      "value": [
+        "30",
+        "30",
+        "30",
+        "30"
+      ],
+      "preset": "process/fdm_process_dual_0.40_nozzle_0.8.json"
+    },
+    "brim_object_gap": {
+      "value": "0.1",
+      "preset": "process/fdm_process_common.json"
+    },
+    "brim_type": {
+      "value": "outer_only",
+      "recipe": "process_settings",
+      "reason": "Anchor the large footprints and projecting structural features while keeping brims out of the open backing bays."
+    },
+    "brim_width": {
+      "value": "6",
+      "recipe": "process_settings",
+      "reason": "Six millimetres of external brim fits within the bed and supports the long PETG print's feet."
+    },
+    "chamber_temperatures": {
+      "value": [
+        "0"
+      ],
+      "preset": "filament/fdm_filament_common.json"
+    },
+    "change_filament_gcode": {
+      "value": ";======== H2C filament_change ========\n;===== 20260413 =====\nM993 A2 B2 C2 ; nozzle cam detection allow status save.\nM993 A0 B0 C0 ; nozzle cam detection not allowed.\n\n{if (filament_type[next_filament_id] == \"PLA\") ||  (filament_type[next_filament_id] == \"PETG\")\n ||  (filament_type[next_filament_id] == \"PLA-CF\")  ||  (filament_type[next_filament_id] == \"PETG-CF\")}\nM1015.4 S1 K0 ;disable E air printing detect\n{else}\nM1015.4 S0 ; disable E air printing detect\n{endif}\n\nM620 S[next_filament_id]A H[next_hotend]\nM1002 gcode_claim_action : 4\nM204 S9000\n\nG1 Z{max_layer_z + 3.0} F1200\n\nM400\nM106 P1 S0\nM106 P2 S0\n\n{if toolchange_count == 2}\n; get travel path for change filament\n;M620.1 X[travel_point_1_x] Y[travel_point_1_y] F21000 P0\n;M620.1 X[travel_point_2_x] Y[travel_point_2_y] F21000 P1\n;M620.1 X[travel_point_3_x] Y[travel_point_3_y] F21000 P2\n{endif}\n\n{if wipe_tower_center_pos_valid}\n    M620.14 X[wipe_tower_center_pos_x] Y[wipe_tower_center_pos_y]\n{else}\n    M620.14 X95.5 Y336\n{endif}\n\n{if ((filament_type[current_filament_id] == \"PLA\") || (filament_type[current_filament_id] == \"PLA-CF\") || (filament_type[current_filament_id] == \"PETG\")) && (nozzle_diameter_at_nozzle_id[current_nozzle_id] == 0.2)}\nM620.10 A0 F74.8347 L[flush_length] H{nozzle_diameter_at_nozzle_id[current_nozzle_id]} T{flush_temperatures[current_filament_id]} P[old_filament_temp] S1\n{else}\nM620.10 A0 F{flush_volumetric_speeds[current_filament_id]/2.4053*60*0.8} L[flush_length] H{nozzle_diameter_at_nozzle_id[current_nozzle_id]} T{flush_temperatures[current_filament_id]} P[old_filament_temp] S1\n{endif}\n\n{if ((filament_type[next_filament_id] == \"PLA\") || (filament_type[next_filament_id] == \"PLA-CF\") || (filament_type[next_filament_id] == \"PETG\")) && (nozzle_diameter_at_nozzle_id[next_nozzle_id] == 0.2)}\nM620.10 A1 F74.8347 L[flush_length] H{nozzle_diameter_at_nozzle_id[next_nozzle_id]} T{flush_temperatures[next_filament_id]} P[new_filament_temp] S1\n{else}\nM620.10 A1 F{flush_volumetric_speeds[next_filament_id]/2.4053*60*0.8} L[flush_length] H{nozzle_diameter_at_nozzle_id[next_nozzle_id]} T{flush_temperatures[next_filament_id]} P[new_filament_temp] S1\n{endif}\n\n{if long_retraction_when_cut}\nM620.11 P1 I[current_filament_id] B[current_hotend] E-{retraction_distance_when_cut} F{max((flush_volumetric_speeds[current_filament_id]/2.4053*60), 200)}\n{else}\nM620.11 P0 I[current_filament_id] B[current_hotend] E0\n{endif}\n\n\nM620.15 P[filament_pre_cooling_temperature_nc[next_filament_id]]\nM620.15 C{new_filament_temp - filament_cooling_before_tower[next_filament_id]}\nM620.11 O1 T[filament_retract_length_nc]\n\n{if long_retraction_when_ec}\nM620.11 K1 I[current_filament_id] B[current_hotend] R{retraction_distance_when_ec} F{max((flush_volumetric_speeds[current_filament_id]/2.4053*60), 200)}\n{else}\nM620.11 K0 I[current_filament_id] B[current_hotend] R0\n{endif}\n\nM620.15 C{new_filament_temp - filament_cooling_before_tower[next_filament_id]}\n\nM628 S1\n{if filament_type[current_filament_id] == \"TPU\"}\nM620.11 S0 L0 I[current_filament_id] B[current_hotend] E-{retraction_distances_when_cut[current_filament_id]} F{max((flush_volumetric_speeds[current_filament_id]/2.4053*60), 200)}\n{else}\n{if (filament_type[current_filament_id] == \"PA\") || (filament_type[current_filament_id] == \"PA-GF\")}\nM620.11 S1 L0 I[current_filament_id] B[current_hotend] R4 D2 E-{retraction_distances_when_cut[current_filament_id]} F{max((flush_volumetric_speeds[current_filament_id]/2.4053*60), 200)}\n{else}\nM620.11 S1 L0 I[current_filament_id] B[current_hotend] R10 D8 E-{retraction_distances_when_cut[current_filament_id]} F{max((flush_volumetric_speeds[current_filament_id]/2.4053*60), 200)}\n{endif}\n{endif}\nM629\n\n{if (filament_type[current_filament_id] == \"TPU\") && (filament_map[current_filament_id] == 2) && (nozzle_volume_types[current_nozzle_id] != \"TPU High Flow\")}\nM620.11 H2 C331\n{else}\nM620.11 H0\n{endif}\n\n{if  (nozzle_volume_types[current_nozzle_id] == \"TPU High Flow\") && (filament_map[current_filament_id] == 2) && (filament_map[next_filament_id] == 1)}\n;sw from R2L&TPU kit, travel run a distance for sketch TPU\nG1 X30 Y30 F5000\nM400\nG1 X300 Y30 F5000\nM400\n{endif}\n\nT[next_filament_id] H[next_hotend]\n\n;deretract\n{if filament_type[next_filament_id] == \"TPU\"}\n{else}\n{if (filament_type[next_filament_id] == \"PA\") || (filament_type[next_filament_id] == \"PA-GF\")}\n;VG1 E1 F{max(new_filament_e_feedrate, 200)}\n;VG1 E1 F{max(new_filament_e_feedrate/2, 100)}\n{else}\n;VG1 E4 F{max(new_filament_e_feedrate, 200)}\n;VG1 E4 F{max(new_filament_e_feedrate/2, 100)}\n{endif}\n{endif}\n\n; VFLUSH_START\n\n{if flush_length>41.5}\n;VG1 E41.5 F{min(old_filament_e_feedrate,new_filament_e_feedrate)}\n;VG1 E{flush_length-41.5} F{new_filament_e_feedrate}\n{else}\n;VG1 E{flush_length} F{min(old_filament_e_feedrate,new_filament_e_feedrate)}\n{endif}\n\nSYNC T{ceil(flush_length / 125) * 5}\n\n; compensate for heating and cooling\n{if flush_length > 0}\n{if flush_temperatures[next_filament_id] > new_filament_temp}\nSYNC T{(flush_temperatures[next_filament_id]-(new_filament_temp - filament_cooling_before_tower[next_filament_id]))/hotend_cooling_rate[filament_map[next_filament_id]-1]}\nSYNC T{(flush_temperatures[next_filament_id]-(new_filament_temp - filament_cooling_before_tower[next_filament_id]))/hotend_heating_rate[filament_map[next_filament_id]-1]}\n{else}\nSYNC T{(new_filament_temp - filament_cooling_before_tower[next_filament_id] -flush_temperatures[next_filament_id])/hotend_cooling_rate[filament_map[next_filament_id]-1]}\nSYNC T{(new_filament_temp - filament_cooling_before_tower[next_filament_id] -flush_temperatures[next_filament_id])/hotend_heating_rate[filament_map[next_filament_id]-1]}\n{endif}\n{endif}\n\n; VFLUSH_END\n\nM1002 set_filament_type:{filament_type[next_filament_id]}\n\nM400\nM83\n{if next_filament_id < 255}\n\n\nM620.10 R{new_extruder_retracted_length}\n\n{if (print_sequence == \"by object\" && !has_wipe_tower)}\nM628 S0 F1 L10.0\n; VFLUSH_START\n;VG1 E10 F[new_filament_e_feedrate]\n; VFLUSH_END\n{else}\nM628 S0\n{endif}\n;VM109 S[new_filament_temp]\n\nM629\nM400\n\n;prime_tower_interface\n{if is_prime_tower_interface && filament_tower_interface_purge_volume !=0}\nG150.1\nM620.13 W0 L{filament_tower_interface_purge_volume} T{filament_tower_interface_print_temp} R0.0\n{endif}\n;prime_tower_interface\n\nM983.3 F{filament_max_volumetric_speed[next_filament_id]/2.4} A0.4 R{new_extruder_retracted_length}\n\n\nM400\n{if wipe_avoid_perimeter}\nG387 Y320 J1 F10000\nG1 X{wipe_avoid_pos_x} F30000\n{endif}\nG387 Y295 J1 F30000\nG387 Y265 J1 F18000\nG1 Z{max_layer_z + 3.0} F3000\n{if layer_z <= (initial_layer_print_height + 0.001)}\nM204 S[initial_layer_acceleration]\n{else}\nM204 S[default_acceleration]\n{endif}\n{else}\nG1 X[x_after_toolchange] Y[y_after_toolchange] Z[z_after_toolchange] F12000\n{endif}\nM621 S[next_filament_id]A\n\nM622.1 S0 ;for prev version, default skip\nM1002 judge_flag powerloss_resume_flag\nM622 J1\nM983.3 F{filament_max_volumetric_speed[next_filament_id]/2.4} A0.4 R{new_extruder_retracted_length}\nM400\n{if wipe_avoid_perimeter}\nG387 Y320 J1 F10000\nG1 X{wipe_avoid_pos_x} F30000\n{endif}\nG387 Y295 J1 F30000\nG387 Y265 J1 F18000\nG1 Z{max_layer_z + 3.0} F3000\n{if layer_z <= (initial_layer_print_height + 0.001)}\nM204 S[initial_layer_acceleration]\n{else}\nM204 S[default_acceleration]\n{endif}\nM1002 set_flag powerloss_resume_flag=0\nM623\n\nM993 A3 B3 C3 ; nozzle cam detection allow status restore.\n\n{if (filament_type[next_filament_id]  == \"TPU\")}\nM1015.3 S1;enable tpu clog detect\n{else}\nM1015.3 S0;disable tpu clog detect\n{endif}\n\n{if (filament_type[next_filament_id] == \"PLA\") ||  (filament_type[next_filament_id] == \"PETG\")\n ||  (filament_type[next_filament_id] == \"PLA-CF\")  ||  (filament_type[next_filament_id] == \"PETG-CF\")}\nM1015.4 S1 K1 H{nozzle_diameter_at_nozzle_id[next_nozzle_id]} ;enable E air printing detect\n{else}\nM1015.4 S0 ; disable E air printing detect\n{endif}\n\nM620.6 I[next_filament_id] H[next_hotend] W1 ;enable ams air printing detect\nM620 O{toolchange_count + 1}\nM1002 gcode_claim_action : 0",
+      "preset": "machine/Bambu Lab H2C 0.4 nozzle template change_filament_gcode.json"
+    },
+    "circle_compensation_manual_offset": {
+      "value": "0",
+      "preset": "process/fdm_process_common.json"
+    },
+    "circle_compensation_speed": {
+      "value": [
+        "200"
+      ],
+      "preset": "filament/fdm_filament_common.json"
+    },
+    "close_additional_fan_first_x_layers": {
+      "value": [
+        "3"
+      ],
+      "preset": "filament/fdm_filament_common.json"
+    },
+    "close_fan_the_first_x_layers": {
+      "value": [
+        "3"
+      ],
+      "preset": "filament/fdm_filament_common.json"
+    },
+    "compatible_printers_condition": {
+      "value": "",
+      "preset": "process/fdm_process_common.json"
+    },
+    "complete_print_exhaust_fan_speed": {
+      "value": [
+        "70"
+      ],
+      "preset": "filament/fdm_filament_common.json"
+    },
+    "cool_plate_temp": {
+      "value": [
+        "0"
+      ],
+      "preset": "filament/Bambu PETG Translucent @base.json"
+    },
+    "cool_plate_temp_initial_layer": {
+      "value": [
+        "0"
+      ],
+      "preset": "filament/Bambu PETG Translucent @base.json"
+    },
+    "cooling_filter_enabled": {
+      "value": "0",
+      "preset": "machine/fdm_machine_common.json"
+    },
+    "cooling_perimeter_transition_distance": {
+      "value": [
+        "10"
+      ],
+      "preset": "filament/fdm_filament_common.json"
+    },
+    "cooling_slowdown_logic": {
+      "value": [
+        "uniform_cooling"
+      ],
+      "preset": "filament/fdm_filament_common.json"
+    },
+    "counter_coef_1": {
+      "value": [
+        "0"
+      ],
+      "preset": "filament/fdm_filament_common.json"
+    },
+    "counter_coef_2": {
+      "value": [
+        "0.008"
+      ],
+      "preset": "filament/fdm_filament_common.json"
+    },
+    "counter_coef_3": {
+      "value": [
+        "-0.041"
+      ],
+      "preset": "filament/fdm_filament_common.json"
+    },
+    "counter_limit_max": {
+      "value": [
+        "0.033"
+      ],
+      "preset": "filament/fdm_filament_common.json"
+    },
+    "counter_limit_min": {
+      "value": [
+        "-0.035"
+      ],
+      "preset": "filament/fdm_filament_common.json"
+    },
+    "counterbore_hole_bridging": {
+      "value": "none",
+      "slicer_default": "02.08.02.61"
+    },
+    "curr_bed_type": {
+      "value": "Textured PEI Plate",
+      "generator": "fresh_settings",
+      "reason": "One PETG filament on the left 0.8 mm High Flow nozzle, textured PEI; named source presets."
+    },
+    "default_acceleration": {
+      "value": [
+        "8000",
+        "8000",
+        "8000",
+        "8000"
+      ],
+      "preset": "process/0.40mm Standard @BBL H2C 0.8 nozzle.json"
+    },
+    "default_ams_type": {
+      "value": "-1",
+      "slicer_default": "02.08.02.61"
+    },
+    "default_filament_colour": {
+      "value": [
+        ""
+      ],
+      "slicer_default": "02.08.02.61"
+    },
+    "default_filament_profile": {
+      "value": [
+        "Bambu PLA Basic @BBL H2C 0.8 nozzle"
+      ],
+      "preset": "machine/Bambu Lab H2C 0.8 nozzle.json"
+    },
+    "default_jerk": {
+      "value": "0",
+      "slicer_default": "02.08.02.61"
+    },
+    "default_nozzle_volume_type": {
+      "value": [
+        "High Flow",
+        "Standard"
+      ],
+      "generator": "fresh_settings",
+      "reason": "One PETG filament on the left 0.8 mm High Flow nozzle, textured PEI; named source presets."
+    },
+    "default_print_profile": {
+      "value": "0.40mm Standard @BBL H2C 0.8 nozzle",
+      "preset": "machine/Bambu Lab H2C 0.8 nozzle.json"
+    },
+    "deretraction_speed": {
+      "value": [
+        "30",
+        "30",
+        "30",
+        "30"
+      ],
+      "preset": "machine/Bambu Lab H2C 0.8 nozzle.json"
+    },
+    "detect_floating_vertical_shell": {
+      "value": "1",
+      "preset": "process/fdm_process_common.json"
+    },
+    "detect_narrow_internal_solid_infill": {
+      "value": "1",
+      "slicer_default": "02.08.02.61"
+    },
+    "detect_overhang_wall": {
+      "value": "1",
+      "preset": "process/fdm_process_common.json"
+    },
+    "detect_thin_wall": {
+      "value": "0",
+      "preset": "process/fdm_process_common.json"
+    },
+    "diameter_limit": {
+      "value": [
+        "50"
+      ],
+      "preset": "filament/fdm_filament_common.json"
+    },
+    "different_settings_to_system": {
+      "value": [
+        "wall_generator;wall_loops;sparse_infill_density;sparse_infill_pattern;top_shell_layers;bottom_shell_layers;top_shell_thickness;bottom_shell_thickness;top_one_wall_type;top_surface_speed;seam_gap;brim_type;brim_width;enable_prime_tower",
+        "nozzle_temperature;nozzle_temperature_initial_layer;filament_max_volumetric_speed;filament_cost",
+        "machine_start_gcode;default_nozzle_volume_type;nozzle_volume_type"
+      ],
+      "generator": "fresh_settings",
+      "reason": "One PETG filament on the left 0.8 mm High Flow nozzle, textured PEI; named source presets."
+    },
+    "draft_shield": {
+      "value": "disabled",
+      "preset": "process/fdm_process_common.json"
+    },
+    "during_print_exhaust_fan_speed": {
+      "value": [
+        "70"
+      ],
+      "preset": "filament/fdm_filament_common.json"
+    },
+    "elefant_foot_compensation": {
+      "value": "0.15",
+      "preset": "process/fdm_process_dual_0.40_nozzle_0.8.json"
+    },
+    "embedding_wall_into_infill": {
+      "value": "0",
+      "slicer_default": "02.08.02.61"
+    },
+    "enable_arc_fitting": {
+      "value": "1",
+      "preset": "process/fdm_process_common.json"
+    },
+    "enable_circle_compensation": {
+      "value": "0",
+      "preset": "process/fdm_process_common.json"
+    },
+    "enable_filament_dynamic_map": {
+      "value": "0",
+      "slicer_default": "02.08.02.61"
+    },
+    "enable_height_slowdown": {
+      "value": [
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "preset": "process/fdm_process_dual_common.json"
+    },
+    "enable_long_retraction_when_cut": {
+      "value": "2",
+      "preset": "machine/Bambu Lab H2C 0.4 nozzle.json"
+    },
+    "enable_mixed_color_sublayer": {
+      "value": "0",
+      "slicer_default": "02.08.02.61"
+    },
+    "enable_order_independent_overlap_carving": {
+      "value": "0",
+      "slicer_default": "02.08.02.61"
+    },
+    "enable_overhang_bridge_fan": {
+      "value": [
+        "1"
+      ],
+      "slicer_default": "02.08.02.61"
+    },
+    "enable_overhang_speed": {
+      "value": [
+        "1",
+        "1",
+        "1",
+        "1"
+      ],
+      "preset": "process/fdm_process_dual_common.json"
+    },
+    "enable_pre_heating": {
+      "value": "1",
+      "preset": "machine/Bambu Lab H2C 0.4 nozzle.json"
+    },
+    "enable_pressure_advance": {
+      "value": [
+        "0"
+      ],
+      "slicer_default": "02.08.02.61"
+    },
+    "enable_prime_tower": {
+      "value": "0",
+      "recipe": "process_settings",
+      "reason": "Each plate uses one filament and one nozzle, with no material changes."
+    },
+    "enable_support": {
+      "value": "0",
+      "preset": "process/fdm_process_common.json"
+    },
+    "enable_support_ironing": {
+      "value": "0",
+      "preset": "process/fdm_process_common.json"
+    },
+    "enable_tower_interface_features": {
+      "value": "1",
+      "preset": "process/0.40mm Standard @BBL H2C 0.8 nozzle.json"
+    },
+    "enable_wrapping_detection": {
+      "value": "0",
+      "preset": "process/fdm_process_common.json"
+    },
+    "enforce_support_layers": {
+      "value": "0",
+      "slicer_default": "02.08.02.61"
+    },
+    "eng_plate_temp": {
+      "value": [
+        "70"
+      ],
+      "preset": "filament/Bambu PETG Translucent @base.json"
+    },
+    "eng_plate_temp_initial_layer": {
+      "value": [
+        "70"
+      ],
+      "preset": "filament/Bambu PETG Translucent @base.json"
+    },
+    "ensure_vertical_shell_thickness": {
+      "value": "enabled",
+      "slicer_default": "02.08.02.61"
+    },
+    "exclude_object": {
+      "value": "1",
+      "slicer_default": "02.08.02.61"
+    },
+    "extruder_ams_count": {
+      "value": [],
+      "slicer_default": "02.08.02.61"
+    },
+    "extruder_clearance_dist_to_rod": {
+      "value": "50",
+      "preset": "machine/Bambu Lab H2C 0.4 nozzle.json"
+    },
+    "extruder_clearance_height_to_lid": {
+      "value": "201",
+      "preset": "machine/Bambu Lab H2C 0.4 nozzle.json"
+    },
+    "extruder_clearance_height_to_rod": {
+      "value": "47.4",
+      "preset": "machine/Bambu Lab H2C 0.4 nozzle.json"
+    },
+    "extruder_clearance_max_radius": {
+      "value": "96",
+      "preset": "machine/Bambu Lab H2C 0.4 nozzle.json"
+    },
+    "extruder_colour": {
+      "value": [
+        "#018001",
+        "#018001"
+      ],
+      "preset": "machine/fdm_bbl_3dp_002_common.json"
+    },
+    "extruder_max_nozzle_count": {
+      "value": [
+        "1",
+        "6"
+      ],
+      "preset": "machine/Bambu Lab H2C 0.4 nozzle.json"
+    },
+    "extruder_nozzle_stats": {
+      "value": [
+        "High Flow#1",
+        "Standard#1"
+      ],
+      "generator": "fresh_settings",
+      "reason": "One PETG filament on the left 0.8 mm High Flow nozzle, textured PEI; named source presets."
+    },
+    "extruder_nozzle_stats_new": {
+      "value": [
+        "High Flow#1",
+        "Standard#1"
+      ],
+      "generator": "fresh_settings",
+      "reason": "One PETG filament on the left 0.8 mm High Flow nozzle, textured PEI; named source presets."
+    },
+    "extruder_offset": {
+      "value": [
+        "0x0",
+        "0x0"
+      ],
+      "preset": "machine/fdm_bbl_3dp_002_common.json"
+    },
+    "extruder_printable_area": {
+      "value": [
+        "0x0,325x0,325x320,0x320",
+        "25x0,330x0,330x320,25x320"
+      ],
+      "preset": "machine/Bambu Lab H2C 0.4 nozzle.json"
+    },
+    "extruder_printable_height": {
+      "value": [
+        "320",
+        "325"
+      ],
+      "preset": "machine/fdm_bbl_3dp_002_common.json"
+    },
+    "extruder_type": {
+      "value": [
+        "Direct Drive",
+        "Direct Drive"
+      ],
+      "preset": "machine/fdm_bbl_3dp_002_common.json"
+    },
+    "extruder_variant_list": {
+      "value": [
+        "Direct Drive Standard,Direct Drive High Flow",
+        "Direct Drive Standard,Direct Drive High Flow"
+      ],
+      "preset": "machine/Bambu Lab H2C 0.8 nozzle.json"
+    },
+    "fan_cooling_layer_time": {
+      "value": [
+        "30"
+      ],
+      "preset": "filament/Bambu PETG Translucent @base.json"
+    },
+    "fan_direction": {
+      "value": "left",
+      "preset": "machine/Bambu Lab H2C 0.4 nozzle.json"
+    },
+    "fan_max_speed": {
+      "value": [
+        "60"
+      ],
+      "preset": "filament/Bambu PETG Translucent @BBL H2C 0.8 nozzle.json"
+    },
+    "fan_min_speed": {
+      "value": [
+        "20"
+      ],
+      "preset": "filament/Bambu PETG Translucent @BBL H2C 0.8 nozzle.json"
+    },
+    "farthest_point_timelapse": {
+      "value": "1",
+      "preset": "machine/Bambu Lab H2C 0.4 nozzle.json"
+    },
+    "filament_adaptive_volumetric_speed": {
+      "value": [
+        "0",
+        "0"
+      ],
+      "preset": "filament/fdm_filament_template_direct_dual.json"
+    },
+    "filament_adhesiveness_category": {
+      "value": [
+        "300"
+      ],
+      "preset": "filament/fdm_filament_pet.json"
+    },
+    "filament_bridge_speed": {
+      "value": [
+        "25",
+        "25"
+      ],
+      "preset": "filament/fdm_filament_template_direct_dual.json"
+    },
+    "filament_change_length": {
+      "value": [
+        "4"
+      ],
+      "preset": "filament/Bambu PETG Translucent @BBL H2C 0.8 nozzle.json"
+    },
+    "filament_change_length_nc": {
+      "value": [
+        "4"
+      ],
+      "preset": "filament/Bambu PETG Translucent @BBL H2C 0.8 nozzle.json"
+    },
+    "filament_colour": {
+      "value": [
+        "#DDEBF0"
+      ],
+      "generator": "fresh_settings",
+      "reason": "One PETG filament on the left 0.8 mm High Flow nozzle, textured PEI; named source presets."
+    },
+    "filament_cooling_before_tower": {
+      "value": [
+        "10",
+        "10"
+      ],
+      "preset": "filament/Bambu PETG Translucent @BBL H2C 0.8 nozzle.json"
+    },
+    "filament_cost": {
+      "value": [
+        "11.2"
+      ],
+      "recipe": "filament_settings",
+      "reason": "The hardware ledger's acquired Bambu PETG cost per kilogram; this affects cost estimates only."
+    },
+    "filament_density": {
+      "value": [
+        "1.25"
+      ],
+      "preset": "filament/Bambu PETG Translucent @base.json"
+    },
+    "filament_deretraction_speed": {
+      "value": [
+        "nil",
+        "nil"
+      ],
+      "preset": "filament/fdm_filament_template_direct_dual.json"
+    },
+    "filament_dev_ams_drying_ams_limitations": {
+      "value": [
+        "1",
+        "0"
+      ],
+      "preset": "filament/fdm_filament_pet.json"
+    },
+    "filament_dev_ams_drying_heat_distortion_temperature": {
+      "value": [
+        "75"
+      ],
+      "preset": "filament/fdm_filament_pet.json"
+    },
+    "filament_dev_ams_drying_temperature": {
+      "value": [
+        "65",
+        "65",
+        "55",
+        "55"
+      ],
+      "preset": "filament/Bambu PETG Translucent @BBL H2C 0.8 nozzle.json"
+    },
+    "filament_dev_ams_drying_time": {
+      "value": [
+        "12",
+        "12",
+        "12",
+        "12"
+      ],
+      "preset": "filament/Bambu PETG Translucent @BBL H2C 0.8 nozzle.json"
+    },
+    "filament_dev_chamber_drying_bed_temperature": {
+      "value": [
+        "80"
+      ],
+      "preset": "filament/fdm_filament_pet.json"
+    },
+    "filament_dev_chamber_drying_time": {
+      "value": [
+        "12"
+      ],
+      "preset": "filament/fdm_filament_common.json"
+    },
+    "filament_dev_drying_cooling_temperature": {
+      "value": [
+        "55"
+      ],
+      "preset": "filament/fdm_filament_pet.json"
+    },
+    "filament_dev_drying_softening_temperature": {
+      "value": [
+        "60"
+      ],
+      "preset": "filament/fdm_filament_pet.json"
+    },
+    "filament_diameter": {
+      "value": [
+        "1.75"
+      ],
+      "preset": "filament/fdm_filament_common.json"
+    },
+    "filament_enable_overhang_speed": {
+      "value": [
+        "1",
+        "1"
+      ],
+      "preset": "filament/fdm_filament_template_direct_dual.json"
+    },
+    "filament_end_gcode": {
+      "value": [
+        "; filament end gcode \n"
+      ],
+      "preset": "filament/Bambu PETG Translucent @BBL H2C 0.8 nozzle.json"
+    },
+    "filament_extruder_compatibility": {
+      "value": [
+        "0"
+      ],
+      "preset": "filament/fdm_filament_common.json"
+    },
+    "filament_extruder_variant": {
+      "value": [
+        "Direct Drive Standard",
+        "Direct Drive High Flow"
+      ],
+      "preset": "filament/fdm_filament_template_direct_dual.json"
+    },
+    "filament_flow_ratio": {
+      "value": [
+        "0.97",
+        "0.97"
+      ],
+      "preset": "filament/Bambu PETG Translucent @BBL H2C 0.8 nozzle.json"
+    },
+    "filament_flush_temp": {
+      "value": [
+        "0",
+        "0"
+      ],
+      "preset": "filament/fdm_filament_template_direct_dual.json"
+    },
+    "filament_flush_temp_fast": {
+      "value": [
+        "0",
+        "0"
+      ],
+      "preset": "filament/fdm_filament_template_direct_dual.json"
+    },
+    "filament_flush_volumetric_speed": {
+      "value": [
+        "0",
+        "0"
+      ],
+      "preset": "filament/fdm_filament_template_direct_dual.json"
+    },
+    "filament_ids": {
+      "value": [
+        "GFG01"
+      ],
+      "generator": "fresh_settings",
+      "reason": "One PETG filament on the left 0.8 mm High Flow nozzle, textured PEI; named source presets."
+    },
+    "filament_is_mixed": {
+      "value": [
+        "0"
+      ],
+      "slicer_default": "02.08.02.61"
+    },
+    "filament_is_support": {
+      "value": [
+        "0"
+      ],
+      "preset": "filament/fdm_filament_common.json"
+    },
+    "filament_long_retractions_when_cut": {
+      "value": [
+        "nil",
+        "nil"
+      ],
+      "preset": "filament/fdm_filament_template_direct_dual.json"
+    },
+    "filament_map": {
+      "value": [
+        "1"
+      ],
+      "generator": "fresh_settings",
+      "reason": "One PETG filament on the left 0.8 mm High Flow nozzle, textured PEI; named source presets."
+    },
+    "filament_map_2": {
+      "value": [
+        "1"
+      ],
+      "generator": "fresh_settings",
+      "reason": "One PETG filament on the left 0.8 mm High Flow nozzle, textured PEI; named source presets."
+    },
+    "filament_map_mode": {
+      "value": "Manual",
+      "generator": "fresh_settings",
+      "reason": "One PETG filament on the left 0.8 mm High Flow nozzle, textured PEI; named source presets."
+    },
+    "filament_max_volumetric_speed": {
+      "value": [
+        "16",
+        "18"
+      ],
+      "recipe": "filament_settings",
+      "reason": "Standard retains the vendor's 16 mm3/s. High Flow uses the user's proposed 18 mm3/s as a calibration target, not a measured capacity claim."
+    },
+    "filament_metal_stickiness": {
+      "value": [
+        "High"
+      ],
+      "preset": "filament/fdm_filament_pet.json"
+    },
+    "filament_minimal_purge_on_wipe_tower": {
+      "value": [
+        "15"
+      ],
+      "preset": "filament/fdm_filament_common.json"
+    },
+    "filament_mixed_components": {
+      "value": [
+        ""
+      ],
+      "slicer_default": "02.08.02.61"
+    },
+    "filament_mixed_gradient": {
+      "value": [
+        "0"
+      ],
+      "slicer_default": "02.08.02.61"
+    },
+    "filament_mixed_gradient_curve": {
+      "value": [
+        ""
+      ],
+      "slicer_default": "02.08.02.61"
+    },
+    "filament_mixed_gradient_per_part": {
+      "value": [
+        "0"
+      ],
+      "slicer_default": "02.08.02.61"
+    },
+    "filament_mixed_gradient_range": {
+      "value": [
+        ""
+      ],
+      "slicer_default": "02.08.02.61"
+    },
+    "filament_mixed_sublayer_ratios": {
+      "value": [
+        ""
+      ],
+      "slicer_default": "02.08.02.61"
+    },
+    "filament_notes": {
+      "value": "",
+      "slicer_default": "02.08.02.61"
+    },
+    "filament_nozzle_map": {
+      "value": [
+        "0"
+      ],
+      "generator": "fresh_settings",
+      "reason": "One PETG filament on the left 0.8 mm High Flow nozzle, textured PEI; named source presets."
+    },
+    "filament_overhang_1_4_speed": {
+      "value": [
+        "0",
+        "0"
+      ],
+      "preset": "filament/fdm_filament_template_direct_dual.json"
+    },
+    "filament_overhang_2_4_speed": {
+      "value": [
+        "50",
+        "50"
+      ],
+      "preset": "filament/fdm_filament_template_direct_dual.json"
+    },
+    "filament_overhang_3_4_speed": {
+      "value": [
+        "30",
+        "30"
+      ],
+      "preset": "filament/fdm_filament_template_direct_dual.json"
+    },
+    "filament_overhang_4_4_speed": {
+      "value": [
+        "10",
+        "10"
+      ],
+      "preset": "filament/fdm_filament_template_direct_dual.json"
+    },
+    "filament_overhang_totally_speed": {
+      "value": [
+        "10",
+        "10"
+      ],
+      "preset": "filament/fdm_filament_template_direct_dual.json"
+    },
+    "filament_pre_cooling_temperature": {
+      "value": [
+        "0",
+        "0"
+      ],
+      "preset": "filament/fdm_filament_template_direct_dual.json"
+    },
+    "filament_pre_cooling_temperature_nc": {
+      "value": [
+        "205",
+        "205"
+      ],
+      "preset": "filament/Bambu PETG Translucent @BBL H2C 0.8 nozzle.json"
+    },
+    "filament_preheat_temperature_delta": {
+      "value": [
+        "20",
+        "20"
+      ],
+      "preset": "filament/Bambu PETG Translucent @BBL H2C 0.8 nozzle.json"
+    },
+    "filament_prime_volume": {
+      "value": [
+        "45"
+      ],
+      "preset": "filament/Bambu PETG Translucent @BBL H2C 0.8 nozzle.json",
+      "slicer_rewrite": "BambuStudio CLI sets filament_prime_volume to 45 for a BBL 3MF when no filament file is loaded separately. Prime tower is disabled and these plates contain no material changes.",
+      "implementation": "https://github.com/bambulab/BambuStudio/blob/master/src/BambuStudio.cpp",
+      "supplied_value": [
+        "30"
+      ]
+    },
+    "filament_prime_volume_nc": {
+      "value": [
+        "30"
+      ],
+      "preset": "filament/Bambu PETG Translucent @BBL H2C 0.8 nozzle.json"
+    },
+    "filament_printable": {
+      "value": [
+        "3"
+      ],
+      "preset": "filament/fdm_filament_common.json"
+    },
+    "filament_ramming_travel_time": {
+      "value": [
+        "0",
+        "0"
+      ],
+      "preset": "filament/Bambu PETG Translucent @BBL H2C 0.8 nozzle.json"
+    },
+    "filament_ramming_travel_time_nc": {
+      "value": [
+        "1",
+        "1"
+      ],
+      "preset": "filament/Bambu PETG Translucent @BBL H2C 0.8 nozzle.json"
+    },
+    "filament_ramming_volumetric_speed": {
+      "value": [
+        "-1",
+        "-1"
+      ],
+      "preset": "filament/fdm_filament_template_direct_dual.json"
+    },
+    "filament_ramming_volumetric_speed_nc": {
+      "value": [
+        "-1",
+        "-1"
+      ],
+      "preset": "filament/fdm_filament_template_direct_dual.json"
+    },
+    "filament_retract_before_wipe": {
+      "value": [
+        "nil",
+        "nil"
+      ],
+      "preset": "filament/fdm_filament_template_direct_dual.json"
+    },
+    "filament_retract_length_nc": {
+      "value": [
+        "18",
+        "18"
+      ],
+      "preset": "filament/Bambu PETG Translucent @BBL H2C 0.8 nozzle.json"
+    },
+    "filament_retract_restart_extra": {
+      "value": [
+        "nil",
+        "nil"
+      ],
+      "preset": "filament/fdm_filament_template_direct_dual.json"
+    },
+    "filament_retract_when_changing_layer": {
+      "value": [
+        "nil",
+        "nil"
+      ],
+      "preset": "filament/fdm_filament_template_direct_dual.json"
+    },
+    "filament_retraction_distances_when_cut": {
+      "value": [
+        "nil",
+        "nil"
+      ],
+      "preset": "filament/fdm_filament_template_direct_dual.json"
+    },
+    "filament_retraction_length": {
+      "value": [
+        "0.4",
+        "0.4"
+      ],
+      "preset": "filament/Bambu PETG Translucent @BBL H2C 0.8 nozzle.json"
+    },
+    "filament_retraction_minimum_travel": {
+      "value": [
+        "nil",
+        "nil"
+      ],
+      "preset": "filament/fdm_filament_template_direct_dual.json"
+    },
+    "filament_retraction_speed": {
+      "value": [
+        "nil",
+        "nil"
+      ],
+      "preset": "filament/fdm_filament_template_direct_dual.json"
+    },
+    "filament_scarf_gap": {
+      "value": [
+        "0%"
+      ],
+      "preset": "filament/fdm_filament_common.json"
+    },
+    "filament_scarf_height": {
+      "value": [
+        "10%"
+      ],
+      "preset": "filament/fdm_filament_common.json"
+    },
+    "filament_scarf_length": {
+      "value": [
+        "10"
+      ],
+      "preset": "filament/fdm_filament_common.json"
+    },
+    "filament_scarf_seam_type": {
+      "value": [
+        "none"
+      ],
+      "preset": "filament/fdm_filament_common.json"
+    },
+    "filament_self_index": {
+      "value": [
+        "1",
+        "1"
+      ],
+      "generator": "fresh_settings",
+      "reason": "One PETG filament on the left 0.8 mm High Flow nozzle, textured PEI; named source presets."
+    },
+    "filament_settings_id": {
+      "value": [
+        "Funnel mold PETG Translucent - HF 255C 18mm3s"
+      ],
+      "generator": "fresh_settings",
+      "reason": "One PETG filament on the left 0.8 mm High Flow nozzle, textured PEI; named source presets."
+    },
+    "filament_shrink": {
+      "value": [
+        "100%"
+      ],
+      "preset": "filament/fdm_filament_common.json"
+    },
+    "filament_soluble": {
+      "value": [
+        "0"
+      ],
+      "preset": "filament/fdm_filament_common.json"
+    },
+    "filament_start_gcode": {
+      "value": [
+        "; filament start gcode\n"
+      ],
+      "preset": "filament/Bambu PETG Translucent @BBL H2C 0.8 nozzle.json"
+    },
+    "filament_tower_interface_pre_extrusion_dist": {
+      "value": [
+        "10"
+      ],
+      "preset": "filament/fdm_filament_common.json"
+    },
+    "filament_tower_interface_pre_extrusion_length": {
+      "value": [
+        "0"
+      ],
+      "preset": "filament/fdm_filament_common.json"
+    },
+    "filament_tower_interface_print_temp": {
+      "value": [
+        "-1"
+      ],
+      "preset": "filament/fdm_filament_common.json"
+    },
+    "filament_tower_interface_purge_volume": {
+      "value": [
+        "20"
+      ],
+      "preset": "filament/fdm_filament_common.json"
+    },
+    "filament_tower_ironing_area": {
+      "value": [
+        "4"
+      ],
+      "preset": "filament/fdm_filament_common.json"
+    },
+    "filament_type": {
+      "value": [
+        "PETG"
+      ],
+      "preset": "filament/fdm_filament_pet.json"
+    },
+    "filament_velocity_adaptation_factor": {
+      "value": [
+        "1"
+      ],
+      "preset": "filament/fdm_filament_common.json"
+    },
+    "filament_vendor": {
+      "value": [
+        "Bambu Lab"
+      ],
+      "preset": "filament/Bambu PETG Translucent @base.json"
+    },
+    "filament_volume_map": {
+      "value": [
+        "1"
+      ],
+      "generator": "fresh_settings",
+      "reason": "One PETG filament on the left 0.8 mm High Flow nozzle, textured PEI; named source presets."
+    },
+    "filament_wipe": {
+      "value": [
+        "1",
+        "1"
+      ],
+      "preset": "filament/Bambu PETG Translucent @BBL H2C 0.8 nozzle.json"
+    },
+    "filament_wipe_distance": {
+      "value": [
+        "1",
+        "1"
+      ],
+      "preset": "filament/Bambu PETG Translucent @BBL H2C 0.8 nozzle.json"
+    },
+    "filament_z_hop": {
+      "value": [
+        "nil",
+        "nil"
+      ],
+      "preset": "filament/fdm_filament_template_direct_dual.json"
+    },
+    "filament_z_hop_types": {
+      "value": [
+        "Spiral Lift",
+        "Spiral Lift"
+      ],
+      "preset": "filament/Bambu PETG Translucent @BBL H2C 0.8 nozzle.json"
+    },
+    "filename_format": {
+      "value": "{input_filename_base}_{filament_type[0]}_{print_time}.gcode",
+      "preset": "process/fdm_process_common.json"
+    },
+    "fill_multiline": {
+      "value": "1",
+      "preset": "process/fdm_process_common.json"
+    },
+    "filter_out_gap_fill": {
+      "value": "0",
+      "slicer_default": "02.08.02.61"
+    },
+    "first_layer_print_sequence": {
+      "value": [
+        "0"
+      ],
+      "slicer_default": "02.08.02.61"
+    },
+    "first_x_layer_fan_speed": {
+      "value": [
+        "0"
+      ],
+      "preset": "filament/Bambu PETG Translucent @BBL H2C 0.8 nozzle.json"
+    },
+    "first_x_layer_part_fan_speed": {
+      "value": [
+        "0"
+      ],
+      "slicer_default": "02.08.02.61"
+    },
+    "flush_into_infill": {
+      "value": "0",
+      "slicer_default": "02.08.02.61"
+    },
+    "flush_into_objects": {
+      "value": "0",
+      "slicer_default": "02.08.02.61"
+    },
+    "flush_into_support": {
+      "value": "1",
+      "slicer_default": "02.08.02.61"
+    },
+    "flush_multiplier": {
+      "value": [
+        "1",
+        "1"
+      ],
+      "slicer_default": "02.08.02.61"
+    },
+    "flush_multiplier_fast": {
+      "value": [
+        "1.2",
+        "1.2"
+      ],
+      "slicer_default": "02.08.02.61"
+    },
+    "flush_volumes_matrix": {
+      "value": [
+        "0",
+        "0"
+      ],
+      "slicer_default": "02.08.02.61"
+    },
+    "flush_volumes_vector": {
+      "value": [
+        "140",
+        "140",
+        "140",
+        "140",
+        "140",
+        "140",
+        "140",
+        "140"
+      ],
+      "slicer_default": "02.08.02.61"
+    },
+    "from": {
+      "value": "project",
+      "slicer_default": "02.08.02.61"
+    },
+    "full_fan_speed_layer": {
+      "value": [
+        "0"
+      ],
+      "preset": "filament/fdm_filament_common.json"
+    },
+    "fuzzy_skin": {
+      "value": "none",
+      "preset": "process/fdm_process_common.json"
+    },
+    "fuzzy_skin_first_layer": {
+      "value": "0",
+      "preset": "process/fdm_process_common.json"
+    },
+    "fuzzy_skin_mode": {
+      "value": "displacement",
+      "preset": "process/fdm_process_common.json"
+    },
+    "fuzzy_skin_noise_type": {
+      "value": "classic",
+      "preset": "process/fdm_process_common.json"
+    },
+    "fuzzy_skin_octaves": {
+      "value": "4",
+      "preset": "process/fdm_process_common.json"
+    },
+    "fuzzy_skin_persistence": {
+      "value": "0.5",
+      "preset": "process/fdm_process_common.json"
+    },
+    "fuzzy_skin_point_distance": {
+      "value": "0.8",
+      "preset": "process/fdm_process_common.json"
+    },
+    "fuzzy_skin_scale": {
+      "value": "1",
+      "preset": "process/fdm_process_common.json"
+    },
+    "fuzzy_skin_thickness": {
+      "value": "0.3",
+      "preset": "process/fdm_process_common.json"
+    },
+    "gap_infill_speed": {
+      "value": [
+        "50",
+        "50",
+        "50",
+        "50"
+      ],
+      "preset": "process/fdm_process_dual_common.json"
+    },
+    "gcode_add_line_number": {
+      "value": "0",
+      "slicer_default": "02.08.02.61"
+    },
+    "gcode_flavor": {
+      "value": "marlin",
+      "preset": "machine/fdm_machine_common.json"
+    },
+    "grab_length": {
+      "value": [
+        "0",
+        "0"
+      ],
+      "preset": "machine/fdm_bbl_3dp_002_common.json"
+    },
+    "group_algo_with_time": {
+      "value": "0",
+      "preset": "machine/fdm_machine_common.json"
+    },
+    "has_filament_switcher": {
+      "value": "0",
+      "slicer_default": "02.08.02.61"
+    },
+    "has_scarf_joint_seam": {
+      "value": "0",
+      "slicer_default": "02.08.02.61"
+    },
+    "head_wrap_detect_zone": {
+      "value": [],
+      "preset": "machine/fdm_bbl_3dp_002_common.json"
+    },
+    "hole_coef_1": {
+      "value": [
+        "0"
+      ],
+      "preset": "filament/fdm_filament_common.json"
+    },
+    "hole_coef_2": {
+      "value": [
+        "-0.008"
+      ],
+      "preset": "filament/fdm_filament_common.json"
+    },
+    "hole_coef_3": {
+      "value": [
+        "0.23415"
+      ],
+      "preset": "filament/fdm_filament_common.json"
+    },
+    "hole_limit_max": {
+      "value": [
+        "0.22"
+      ],
+      "preset": "filament/fdm_filament_common.json"
+    },
+    "hole_limit_min": {
+      "value": [
+        "0.088"
+      ],
+      "preset": "filament/fdm_filament_common.json"
+    },
+    "hot_plate_temp": {
+      "value": [
+        "70"
+      ],
+      "preset": "filament/Bambu PETG Translucent @base.json"
+    },
+    "hot_plate_temp_initial_layer": {
+      "value": [
+        "70"
+      ],
+      "preset": "filament/Bambu PETG Translucent @base.json"
+    },
+    "hotend_cooling_rate": {
+      "value": [
+        "1.6",
+        "1.6",
+        "3.4",
+        "3.4"
+      ],
+      "preset": "machine/Bambu Lab H2C 0.8 nozzle.json"
+    },
+    "hotend_heating_rate": {
+      "value": [
+        "3.5",
+        "3.5",
+        "13.3",
+        "13.3"
+      ],
+      "preset": "machine/Bambu Lab H2C 0.8 nozzle.json"
+    },
+    "impact_strength_z": {
+      "value": [
+        "7.2"
+      ],
+      "preset": "filament/Bambu PETG Translucent @base.json"
+    },
+    "independent_support_layer_height": {
+      "value": "1",
+      "slicer_default": "02.08.02.61"
+    },
+    "infill_combination": {
+      "value": "0",
+      "preset": "process/fdm_process_common.json"
+    },
+    "infill_direction": {
+      "value": "45",
+      "preset": "process/fdm_process_common.json"
+    },
+    "infill_instead_top_bottom_surfaces": {
+      "value": "0",
+      "preset": "process/fdm_process_common.json"
+    },
+    "infill_jerk": {
+      "value": "9",
+      "slicer_default": "02.08.02.61"
+    },
+    "infill_lock_depth": {
+      "value": "1",
+      "preset": "process/fdm_process_common.json"
+    },
+    "infill_rotate_step": {
+      "value": "0",
+      "preset": "process/fdm_process_common.json"
+    },
+    "infill_shift_step": {
+      "value": "0.4",
+      "preset": "process/fdm_process_common.json"
+    },
+    "infill_wall_overlap": {
+      "value": "15%",
+      "preset": "process/fdm_process_common.json"
+    },
+    "inherits_group": {
+      "value": [
+        "0.40mm Standard @BBL H2C 0.8 nozzle",
+        "Bambu PETG Translucent @BBL H2C 0.8 nozzle",
+        "Bambu Lab H2C 0.8 nozzle"
+      ],
+      "generator": "fresh_settings",
+      "reason": "One PETG filament on the left 0.8 mm High Flow nozzle, textured PEI; named source presets."
+    },
+    "initial_layer_acceleration": {
+      "value": [
+        "500",
+        "500",
+        "500",
+        "500"
+      ],
+      "preset": "process/fdm_process_dual_common.json"
+    },
+    "initial_layer_flow_ratio": {
+      "value": "1",
+      "slicer_default": "02.08.02.61"
+    },
+    "initial_layer_infill_speed": {
+      "value": [
+        "105",
+        "105",
+        "105",
+        "105"
+      ],
+      "preset": "process/0.40mm Standard @BBL H2C 0.8 nozzle.json"
+    },
+    "initial_layer_jerk": {
+      "value": "9",
+      "slicer_default": "02.08.02.61"
+    },
+    "initial_layer_line_width": {
+      "value": "0.82",
+      "preset": "process/fdm_process_dual_0.40_nozzle_0.8.json"
+    },
+    "initial_layer_print_height": {
+      "value": "0.4",
+      "preset": "process/fdm_process_dual_0.40_nozzle_0.8.json"
+    },
+    "initial_layer_speed": {
+      "value": [
+        "50",
+        "50",
+        "50",
+        "50"
+      ],
+      "preset": "process/0.40mm Standard @BBL H2C 0.8 nozzle.json"
+    },
+    "initial_layer_travel_acceleration": {
+      "value": [
+        "6000",
+        "6000",
+        "6000",
+        "6000"
+      ],
+      "preset": "process/fdm_process_dual_common.json"
+    },
+    "inner_wall_acceleration": {
+      "value": [
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "preset": "process/fdm_process_dual_common.json"
+    },
+    "inner_wall_jerk": {
+      "value": "9",
+      "slicer_default": "02.08.02.61"
+    },
+    "inner_wall_line_width": {
+      "value": "0.82",
+      "preset": "process/fdm_process_dual_0.40_nozzle_0.8.json"
+    },
+    "inner_wall_speed": {
+      "value": [
+        "300",
+        "600",
+        "300",
+        "600"
+      ],
+      "preset": "process/0.40mm Standard @BBL H2C 0.8 nozzle.json"
+    },
+    "interface_shells": {
+      "value": "0",
+      "preset": "process/fdm_process_common.json"
+    },
+    "interlocking_beam": {
+      "value": "0",
+      "slicer_default": "02.08.02.61"
+    },
+    "interlocking_beam_layer_count": {
+      "value": "2",
+      "slicer_default": "02.08.02.61"
+    },
+    "interlocking_beam_width": {
+      "value": "0.8",
+      "slicer_default": "02.08.02.61"
+    },
+    "interlocking_boundary_avoidance": {
+      "value": "2",
+      "slicer_default": "02.08.02.61"
+    },
+    "interlocking_depth": {
+      "value": "2",
+      "slicer_default": "02.08.02.61"
+    },
+    "interlocking_orientation": {
+      "value": "22.5",
+      "slicer_default": "02.08.02.61"
+    },
+    "internal_bridge_support_thickness": {
+      "value": "0.8",
+      "preset": "process/fdm_process_common.json"
+    },
+    "internal_solid_infill_line_width": {
+      "value": "0.82",
+      "preset": "process/fdm_process_dual_0.40_nozzle_0.8.json"
+    },
+    "internal_solid_infill_pattern": {
+      "value": "zig-zag",
+      "slicer_default": "02.08.02.61"
+    },
+    "internal_solid_infill_speed": {
+      "value": [
+        "250",
+        "600",
+        "250",
+        "600"
+      ],
+      "preset": "process/0.40mm Standard @BBL H2C 0.8 nozzle.json"
+    },
+    "ironing_direction": {
+      "value": "45",
+      "slicer_default": "02.08.02.61"
+    },
+    "ironing_fan_speed": {
+      "value": [
+        "-1"
+      ],
+      "slicer_default": "02.08.02.61"
+    },
+    "ironing_flow": {
+      "value": "10%",
+      "preset": "process/fdm_process_common.json"
+    },
+    "ironing_inset": {
+      "value": "0.41",
+      "preset": "process/fdm_process_dual_0.40_nozzle_0.8.json"
+    },
+    "ironing_pattern": {
+      "value": "zig-zag",
+      "slicer_default": "02.08.02.61"
+    },
+    "ironing_spacing": {
+      "value": "0.15",
+      "preset": "process/fdm_process_common.json"
+    },
+    "ironing_speed": {
+      "value": "30",
+      "preset": "process/fdm_process_common.json"
+    },
+    "ironing_type": {
+      "value": "no ironing",
+      "preset": "process/fdm_process_common.json"
+    },
+    "is_infill_first": {
+      "value": "0",
+      "slicer_default": "02.08.02.61"
+    },
+    "layer_change_gcode": {
+      "value": "; layer num/total_layer_count: {layer_num+1}/[total_layer_count]\n; update layer progress\nM73 L{layer_num+1}\nM991 S0 P{layer_num} ;notify layer change",
+      "preset": "machine/Bambu Lab H2C 0.4 nozzle template layer_change_gcode.json"
+    },
+    "layer_height": {
+      "value": "0.4",
+      "preset": "process/fdm_process_dual_0.40_nozzle_0.8.json"
+    },
+    "line_width": {
+      "value": "0.82",
+      "preset": "process/fdm_process_dual_0.40_nozzle_0.8.json"
+    },
+    "locked_skeleton_infill_pattern": {
+      "value": "zigzag",
+      "preset": "process/fdm_process_common.json"
+    },
+    "locked_skin_infill_pattern": {
+      "value": "crosszag",
+      "preset": "process/fdm_process_common.json"
+    },
+    "long_retractions_when_cut": {
+      "value": [
+        "1",
+        "1",
+        "1",
+        "1"
+      ],
+      "preset": "machine/Bambu Lab H2C 0.8 nozzle.json"
+    },
+    "long_retractions_when_ec": {
+      "value": [
+        "1",
+        "1"
+      ],
+      "preset": "filament/fdm_filament_template_direct_dual.json"
+    },
+    "machine_bed_mass_Y": {
+      "value": "0",
+      "preset": "machine/fdm_machine_common.json"
+    },
+    "machine_end_gcode": {
+      "value": ";===== machine: H2C end =====\n;====== date: 20260729 ======\n\nM1003 S0\nM73 P100 R0\n\nG392 S0 ;turn off nozzle clog detect\nM993 A0 B0 C0 ; nozzle cam detection not allowed.\n\nM400 ; wait for buffer to clear\nG92 E0 ; zero the extruder\nM211 Z1\nM640.2 R0\n\nG90\nG1 Z{max_layer_z + 0.4} F900 ; lower z a little\nM1002 judge_flag timelapse_record_flag\nM622 J1\n    G150.3\n    M400 ; wait all motion done\n    M991 S0 P-1 ;end smooth timelapse at safe pos\n    M400 S5 ;wait for last picture to be taken\nM623  ;end of \"timelapse_record_flag\"\n\nG90\nG1 Z{max_layer_z + 10} F900 ; lower z a little\n\nG90\nM141 S0 ; turn off chamber heating\nM140 S0 ; turn off bed\nM106 S0 ; turn off fan\nM106 P2 S0 ; turn off remote part cooling fan\nM106 P3 S0 ; turn off chamber cooling fan\nM106 P9 S0 ; turn off ext toodhead cooling fan\n\n; pull back filament to AMS\nM620 S65535\n{if long_retraction_when_cut}\nM620.11 P1 I[current_filament_id] B[current_hotend] E-{retraction_distance_when_cut} F{max((flush_volumetric_speeds[current_filament_id]/2.4053*60), 200)}\n{else}\nM620.11 P0 I[current_filament_id] B[current_hotend] E0\n{endif}\n\n{if long_retraction_when_ec}\nM620.11 K1 I[current_filament_id] B[current_hotend] R{retraction_distance_when_ec} F{max((flush_volumetric_speeds[current_filament_id]/2.4053*60), 200)}\n{else}\nM620.11 K0 I[current_filament_id] B[current_hotend] R0\n{endif}\n\nM620.11 P1 I[current_filament_id] B[current_hotend] E-14\nT65535\nG150.2\nM621 S65535\n\nM620 S65279\nT65279\nG150.2\nM621 S65279\n\nG150.3\n\nM104 S0 T0; turn off hotend\nM104 S0 T1; turn off hotend\n\nM400 ; wait all motion done\nM17 S\nM17 Z0.4 ; lower z motor current to reduce impact if there is something in the bottom\n{if (100.0 - max_layer_z/2) > 0}\n    {if (max_layer_z + 100.0 - max_layer_z/2) < 320}\n        G1 Z{max_layer_z + 100.0 - max_layer_z/2} F600\n        G1 Z{max_layer_z + 98.0 - max_layer_z/2}\n    {else}\n        G1 Z320 F600\n        G1 Z320\n    {endif}\n{else}\n    {if (max_layer_z + 4.0) < 320}\n        G1 Z{max_layer_z + 4.0} F600\n        G1 Z{max_layer_z + 2.0}\n    {else}\n        G1 Z320 F600\n        G1 Z320\n    {endif}\n{endif}\nM400 P100\nM17 R ; restore z current\n\nM220 S100  ; Reset feedrate magnitude\nM201.2 K1.0 ; Reset acc magnitude\nM73.2   R1.0 ;Reset left time magnitude\nM1002 set_gcode_claim_speed_level : 0\n\nM1015.4 S0 K0 ;disable air printing detect\n\n\n;=====printer finish air purification=========\nM622.1 S0\nM1002 judge_flag print_finish_air_filt_flag\n\nM622 J1\nM1002 gcode_claim_action : 66\nM145 P1\nM106 P6 S255\nM400 S180\nM106 P6 S0\nM623\n\nM622 J2\nM1002 gcode_claim_action : 66\nM145 P0\nM106 P3 S127\nM400 S180\nM106 P3 S0\nM623\n;=====printer finish air purification=========\n\n;=====printer finish  sound=========\nM17\nM400 S1\nM1006 S1\nM1006 A53 B10 L99 C53 D10 M99 E53 F10 N99\nM1006 A57 B10 L99 C57 D10 M99 E57 F10 N99\nM1006 A0 B15 L0 C0 D15 M0 E0 F15 N0\nM1006 A53 B10 L99 C53 D10 M99 E53 F10 N99\nM1006 A57 B10 L99 C57 D10 M99 E57 F10 N99\nM1006 A0 B15 L0 C0 D15 M0 E0 F15 N0\nM1006 A48 B10 L99 C48 D10 M99 E48 F10 N99\nM1006 A0 B15 L0 C0 D15 M0 E0 F15 N0\nM1006 A60 B10 L99 C60 D10 M99 E60 F10 N99\nM1006 W\n;=====printer finish  sound=========\nM400\nM18\n\n",
+      "preset": "machine/Bambu Lab H2C 0.4 nozzle template machine_end_gcode.json"
+    },
+    "machine_hotend_change_time": {
+      "value": "0",
+      "preset": "machine/fdm_machine_common.json"
+    },
+    "machine_load_filament_time": {
+      "value": "15",
+      "preset": "machine/Bambu Lab H2C 0.4 nozzle.json"
+    },
+    "machine_max_acceleration_e": {
+      "value": [
+        "5000",
+        "5000",
+        "5000",
+        "5000",
+        "5000",
+        "5000",
+        "5000",
+        "5000"
+      ],
+      "preset": "machine/Bambu Lab H2C 0.8 nozzle.json"
+    },
+    "machine_max_acceleration_extruding": {
+      "value": [
+        "20000",
+        "20000",
+        "20000",
+        "20000",
+        "20000",
+        "20000",
+        "20000",
+        "20000"
+      ],
+      "preset": "machine/Bambu Lab H2C 0.8 nozzle.json"
+    },
+    "machine_max_acceleration_retracting": {
+      "value": [
+        "5000",
+        "5000",
+        "5000",
+        "5000",
+        "5000",
+        "5000",
+        "5000",
+        "5000"
+      ],
+      "preset": "machine/Bambu Lab H2C 0.8 nozzle.json"
+    },
+    "machine_max_acceleration_travel": {
+      "value": [
+        "9000",
+        "9000",
+        "9000",
+        "9000",
+        "9000",
+        "9000",
+        "9000",
+        "9000"
+      ],
+      "preset": "machine/Bambu Lab H2C 0.8 nozzle.json"
+    },
+    "machine_max_acceleration_x": {
+      "value": [
+        "20000",
+        "20000",
+        "20000",
+        "20000",
+        "20000",
+        "20000",
+        "20000",
+        "20000"
+      ],
+      "preset": "machine/Bambu Lab H2C 0.8 nozzle.json"
+    },
+    "machine_max_acceleration_y": {
+      "value": [
+        "20000",
+        "20000",
+        "20000",
+        "20000",
+        "20000",
+        "20000",
+        "20000",
+        "20000"
+      ],
+      "preset": "machine/Bambu Lab H2C 0.8 nozzle.json"
+    },
+    "machine_max_acceleration_z": {
+      "value": [
+        "500",
+        "500",
+        "500",
+        "500",
+        "500",
+        "500",
+        "500",
+        "500"
+      ],
+      "preset": "machine/Bambu Lab H2C 0.8 nozzle.json"
+    },
+    "machine_max_force_Y": {
+      "value": "0",
+      "preset": "machine/fdm_machine_common.json"
+    },
+    "machine_max_jerk_e": {
+      "value": [
+        "2.5",
+        "2.5",
+        "2.5",
+        "2.5",
+        "2.5",
+        "2.5",
+        "2.5",
+        "2.5"
+      ],
+      "preset": "machine/Bambu Lab H2C 0.8 nozzle.json"
+    },
+    "machine_max_jerk_x": {
+      "value": [
+        "9",
+        "9",
+        "9",
+        "9",
+        "9",
+        "9",
+        "9",
+        "9"
+      ],
+      "preset": "machine/Bambu Lab H2C 0.8 nozzle.json"
+    },
+    "machine_max_jerk_y": {
+      "value": [
+        "9",
+        "9",
+        "9",
+        "9",
+        "9",
+        "9",
+        "9",
+        "9"
+      ],
+      "preset": "machine/Bambu Lab H2C 0.8 nozzle.json"
+    },
+    "machine_max_jerk_z": {
+      "value": [
+        "3",
+        "3",
+        "3",
+        "3",
+        "3",
+        "3",
+        "3",
+        "3"
+      ],
+      "preset": "machine/Bambu Lab H2C 0.8 nozzle.json"
+    },
+    "machine_max_printed_mass": {
+      "value": "0",
+      "preset": "machine/fdm_machine_common.json"
+    },
+    "machine_max_speed_e": {
+      "value": [
+        "50",
+        "50",
+        "50",
+        "50",
+        "50",
+        "50",
+        "50",
+        "50"
+      ],
+      "preset": "machine/Bambu Lab H2C 0.8 nozzle.json"
+    },
+    "machine_max_speed_x": {
+      "value": [
+        "1000",
+        "1000",
+        "1000",
+        "1000",
+        "1000",
+        "1000",
+        "1000",
+        "1000"
+      ],
+      "preset": "machine/Bambu Lab H2C 0.8 nozzle.json"
+    },
+    "machine_max_speed_y": {
+      "value": [
+        "1000",
+        "1000",
+        "1000",
+        "1000",
+        "1000",
+        "1000",
+        "1000",
+        "1000"
+      ],
+      "preset": "machine/Bambu Lab H2C 0.8 nozzle.json"
+    },
+    "machine_max_speed_z": {
+      "value": [
+        "30",
+        "30",
+        "30",
+        "30",
+        "30",
+        "30",
+        "30",
+        "30"
+      ],
+      "preset": "machine/Bambu Lab H2C 0.8 nozzle.json"
+    },
+    "machine_min_extruding_rate": {
+      "value": [
+        "0",
+        "0"
+      ],
+      "preset": "machine/fdm_bbl_3dp_002_common.json"
+    },
+    "machine_min_travel_rate": {
+      "value": [
+        "0",
+        "0"
+      ],
+      "preset": "machine/fdm_bbl_3dp_002_common.json"
+    },
+    "machine_pause_gcode": {
+      "value": "M400 U1",
+      "preset": "machine/fdm_bbl_3dp_002_common.json"
+    },
+    "machine_prepare_compensation_time": {
+      "value": "260",
+      "preset": "machine/fdm_machine_common.json"
+    },
+    "machine_start_gcode": {
+      "value": ";===== machine: H2C =========================\n;===== date: 20260608 =====================\n\n;M1002 set_flag extrude_cali_flag=1\n;M1002 set_flag g29_before_print_flag=1\n;M1002 set_flag auto_cali_toolhead_offset_flag=1\n;M1002 set_flag build_plate_detect_flag=1\n\nM993 A0 B0 C0 ; nozzle cam detection not allowed.\n\nM400\n;M73 P99\n\nM960 S10 P1 ; ext fan led\n\n;=====printer start sound ===================\nM17\nM400 S1\nM1006 S1\nM1006 A53 B9 L99 C53 D9 M99 E53 F9 N99\nM1006 A56 B9 L99 C56 D9 M99 E56 F9 N99\nM1006 A61 B9 L99 C61 D9 M99 E61 F9 N99\nM1006 A53 B9 L99 C53 D9 M99 E53 F9 N99\nM1006 A56 B9 L99 C56 D9 M99 E56 F9 N99\nM1006 A61 B18 L99 C61 D18 M99 E61 F18 N99\nM1006 W\n;=====printer start sound ===================\n\n;===== reset machine status =================\nM204 S10000\nM630 S0 P0\n\nG90\nM17 D ; reset motor current to default\nM960 S5 P1 ; turn on logo lamp\nG90\nM1002 set_gcode_claim_speed_level 5 ;Reset speed level\nM220 S100 ;Reset Feedrate\nM221 S100 ;Reset Flowrate\nM73.2   R1.0 ;Reset left time magnitude\nG29.1 Z{+0.0} ; clear z-trim value first\nM983.1 M1\nM901 D4\nM481 S0 ; turn off cutter pos comp\nG28.140 D0; reset pre-extrude z pos\n;===== reset machine status =================\n\nM620 M ;enable remap\nM620 N ;enable hotend remap\nM620 T0 ;print tmpr\nM620 T1 ;sn -> pos\nM620 T2 ;filament_id\n\n;===== start to heat heatbed & hotend==========\n\n    M104 O-80 A\n    M140 D[bed_temperature_initial_layer_single]\n\n;===== start to heat heatbead & hotend==========\n\n;===== avoid end stop =================\nG91\nG380 S2 Z42 F1200\nG380 S2 Z-12 F1200\nG90\n;===== avoid end stop =================\n\n;==== set airduct mode ====\n\n{if (overall_chamber_temperature >= 40)}\n\n    M145 P1 ; set airduct mode to heating mode for heating\n    M106 P2 S0 ; turn off auxiliary fan\n    M106 P3 S0 ; turn off chamber fan\n\n{else}\n    M145 P0 ; set airduct mode to cooling mode for cooling\n    M106 P2 S178 ; turn on auxiliary fan for cooling\n    M106 P3 S127 ; turn on chamber fan for cooling\n\n    M1002 gcode_claim_action : 29\n    M191 S0 ; wait for chamber temp\n    M106 P2 S0 ; turn off auxiliary fan\n    {if (min_vitrification_temperature <= 50)}\n        {if (nozzle_diameter_at_nozzle_id[initial_nozzle_id] == 0.2)}\n            M142 P1 R30 S35 T40 U0.3 V0.5 W0.8 O40 ; set PLA/TPU ND0.2 chamber autocooling\n        {else}\n            M142 P1 R30 S40 T45 U0.3 V0.5 W0.8 O45; set PLA/TPU ND0.4 chamber autocooling\n        {endif}\n    {else}\n        {if (!is_all_bbl_filament)}\n            M142 P1 R35 S40 T45 U0.3 V0.5 W0.8 O45 L1 ; set third-party PETG chamber autocooling\n        {else}\n            {if (nozzle_diameter_at_nozzle_id[initial_nozzle_id] == 0.2)}\n                M142 P1 R35 S45 T50 U0.3 V0.5 W0.8 O50 L1 ; set PETG ND0.2 chamber autocooling\n            {else}\n                M142 P1 R35 S50 T55 U0.3 V0.5 W0.8 O55 L1 ; set PETG ND0.4 chamber autocooling\n            {endif}\n        {endif}\n    {endif}\n{if(cooling_filter_enabled)}\nM145.2 P0 F0\n{else}\nM145.2 P0 F1\n{endif}\n{endif}\n;==== set airduct mode ====\n\n\n;====== cog noise reduction=================\nM982.2 S1 ; turn on cog noise reduction\n\n;===== first homing start =====\nM1002 gcode_claim_action : 13\n\nM640 S\nM640.1 R\nM641\nG28 X T300\nT1000\n\nG150.3\nM972 S24 P0 T2000 ; live-view camera foolproof\nM972 S46 P0 T5000 ; vortek anti-collision\nM640.1 S\nM640.4\n{if (first_non_support_filaments[0] != -1)}\nM640 S\nM640.8 T A{first_non_support_filaments[0]} H{first_non_support_hotend[0]}\nM640.7 L\nM641\n{endif}\n\n\n{if wipe_tower_center_pos_valid}\n    M620.14 X[wipe_tower_center_pos_x] Y[wipe_tower_center_pos_y]\n{else}\n    M620.14 X95.5 Y336\n{endif}\n\n\nG150.1 F18000 ; wipe mouth to avoid filament stick to heatbed\nG150.3 F18000\nM400 P200\n\nM1002 gcode_claim_action : 74 ; Heatbed surface foreign object detection\nM104 S0\n{if curr_bed_type==\"Textured PEI Plate\"}\nM972 S26 P0 C0\n{else}\nM972 S36 P0 C0 X1\n{endif}\nM972 S35 P0 C0\n\nM972 S41 P0 T5000 ; trash can anti-collision\n\nM1009 Q1 L1\nG91\nG380 S2 Z30 F1200 ; lower heatbed to move toolhead\nG90\nG1 X175 Y160 F30000\nG28 Z P0 T250\nM1009 Q1 L0\n\n\n;===== first homing end =====\n\n;===== detection start =====\n\nM1002 judge_flag build_plate_detect_flag\nM104 S0\nM622 S1\n    ;M1002 gcode_claim_action : 11 ; Indentifying build plate type\n    M972 S19 P0 C0    ; heatbed presence detection\n    M972 S31 P0 T5000 ; toolhead camera dirty detection\n    ;M1002 gcode_claim_action : 73 ; Build plate alignment detection\n    M972 S34 P0 T5000 ; heatbed plate offset detection\nM623\n\nM1002 gcode_claim_action : 72 ; Hotend Type Detection\nT1001\nM972 S14 P0 T5000 ; nozzle type detection\n\nM104 S{nozzle_temperature_initial_layer[initial_no_support_filament_id]} T{filament_map[initial_no_support_filament_id] % 2} ; rise temp in advance\n\nG151 P{filament_map[initial_no_support_filament_id] % 2} M ; plug the heat nozzle\n\n{if max_print_z >= 145}\nM1002 gcode_claim_action : 75 ; Heatbed underside foreign object detection\nG3811 Z{max_print_z}  ; Detect obstacles at the bottom of the heated bed\n{endif}\n\n;===== detection end =====\n\nM400\n;M73 P99\n\n;===== prepare print temperature and material ==========\nM400\nM211 X0 Y0 Z0 ;turn off soft endstop\nM975 S1 ; turn on input shaping\n\nG29.2 S0 ; avoid invalid abl data\n\n{if ((filament_type[initial_no_support_filament_id] == \"PLA\") || (filament_type[initial_no_support_filament_id] == \"PLA-CF\") || (filament_type[initial_no_support_filament_id] == \"PETG\")) && (nozzle_diameter_at_nozzle_id[initial_nozzle_id] == 0.2)}\nM620.10 A0 F74.8347 H{nozzle_diameter_at_nozzle_id[initial_nozzle_id]} T{flush_temperatures[initial_no_support_filament_id]} P{nozzle_temperature_initial_layer[initial_no_support_filament_id]} S1\nM620.10 A1 F74.8347 H{nozzle_diameter_at_nozzle_id[initial_nozzle_id]} T{flush_temperatures[initial_no_support_filament_id]} P{nozzle_temperature_initial_layer[initial_no_support_filament_id]} S1\n{else}\nM620.10 A0 F{flush_volumetric_speeds[initial_no_support_filament_id]/2.4053*60*0.8} H{nozzle_diameter_at_nozzle_id[initial_nozzle_id]} T{flush_temperatures[initial_no_support_filament_id]} P{nozzle_temperature_initial_layer[initial_no_support_filament_id]} S1\nM620.10 A1 F{flush_volumetric_speeds[initial_no_support_filament_id]/2.4053*60*0.8} H{nozzle_diameter_at_nozzle_id[initial_nozzle_id]} T{flush_temperatures[initial_no_support_filament_id]} P{nozzle_temperature_initial_layer[initial_no_support_filament_id]} S1\n{endif}\n\nM620.11 P1 I[initial_no_support_filament_id] B[initial_no_support_hotend] E0\n\n{if long_retraction_when_ec }\nM620.11 K1 I[initial_no_support_filament_id] B[initial_no_support_hotend] R{retraction_distance_when_ec} F{max((flush_volumetric_speeds[initial_no_support_filament_id]/2.4053*60), 200)}\n{else}\nM620.11 K0 I[initial_no_support_filament_id] B[initial_no_support_hotend] R0\n{endif}\n\nM628 S1\n{if filament_type[initial_no_support_filament_id] == \"TPU\"}\n    M620.11 S0 L0 I[initial_no_support_filament_id] B[initial_no_support_hotend] E-{retraction_distances_when_cut[initial_no_support_filament_id]} F{flush_volumetric_speeds[initial_no_support_filament_id]/2.4053*60}\n{else}\n{if (filament_type[initial_no_support_filament_id] == \"PA\") ||  (filament_type[initial_no_support_filament_id] == \"PA-GF\")}\n    M620.11 S1 L0 I[initial_no_support_filament_id] B[initial_no_support_hotend] R4 D2 E-{retraction_distances_when_cut[initial_no_support_filament_id]} F{flush_volumetric_speeds[initial_no_support_filament_id]/2.4053*60}\n{else}\n    M620.11 S1 L0 I[initial_no_support_filament_id] B[initial_no_support_hotend] R10 D8 E-{retraction_distances_when_cut[initial_no_support_filament_id]} F{flush_volumetric_speeds[initial_no_support_filament_id]/2.4053*60}\n{endif}\n{endif}\nM629\n\nM620 S[initial_no_support_filament_id]A H[initial_no_support_hotend] ; switch material if AMS exist\nM1002 gcode_claim_action : 4\nM1002 set_filament_type:UNKNOWN\nM400\nT[initial_no_support_filament_id] H[initial_no_support_hotend]\nM400\nM628 S0\nM629\nM400\nM1002 set_filament_type:{filament_type[initial_no_support_filament_id]}\nM621 S[initial_no_support_filament_id]A\n\nM104 S{nozzle_temperature_initial_layer[initial_no_support_filament_id]}\nM400\nM106 P1 S0\n\nG91\nG1 Y-16 F60000\nG90\n\nG29.2 S1\n;===== prepare print temperature and material ==========\n\n\nM400\n;M73 P99\n\n;===== xy ofst cali start =====\n\nM1002 judge_flag auto_cali_toolhead_offset_flag\n\nM622 J2\n    M1002 gcode_claim_action : 54\n    M190 D[bed_temperature_initial_layer_single]\n\n    M1002 gcode_claim_action : 39\n    M620 D[initial_no_support_hotend]\n    G383.3 U140 L{initial_no_support_filament_id}\nM623\n\nM622 J1\n    M1002 gcode_claim_action : 54\n    M190 D[bed_temperature_initial_layer_single]\n\n    M1002 gcode_claim_action : 39\n    M620 D[initial_no_support_hotend]\n    G383 O2 U140 L{initial_no_support_filament_id}\nM623\n\n;===== xy ofst cali end =====\n\n;===== start to heat heatbed & hotend==========\n\n    M1002 set_filament_type:{filament_type[initial_no_support_filament_id]}\n    G150.3\n    M104 S{nozzle_temperature_initial_layer[initial_no_support_filament_id]}\n    M140 S[bed_temperature_initial_layer_single]\n\n    ;===== set chamber temperature ==========\n    {if (overall_chamber_temperature >= 40)}\n        M145 P1 ; set airduct mode to heating mode\n        M141 S[overall_chamber_temperature] ; Let Chamber begin to heat\n    {endif}\n    ;===== set chamber temperature ==========\n\n;===== start to heat heatbead & hotend==========\n\n\n\nM400\n;M73 P99\n\n;===== auto extrude cali start =========================\nM975 S1\nM1002 judge_flag extrude_cali_flag\n\nM622 J0\n    M983.3 F{filament_max_volumetric_speed[initial_no_support_filament_id]/2.4} A0.4 ; cali dynamic extrusion compensation\nM623\n\nM622 J1\n    M1002 set_filament_type:{filament_type[initial_no_support_filament_id]}\n    M1002 gcode_claim_action : 8\n\n    M109 S{nozzle_temperature[initial_no_support_filament_id]}\n\n    G90\n    M83\n    M983.3 F{filament_max_volumetric_speed[initial_no_support_filament_id]/2.4} A0.4 ; cali dynamic extrusion compensation\n\n    M400\n    M106 P1 S255\n    M400 S5\n    M106 P1 S0\n    G150.3\nM623\n\nM622 J2\n    M1002 set_filament_type:{filament_type[initial_no_support_filament_id]}\n    M1002 gcode_claim_action : 8\n\n    M109 S{nozzle_temperature[initial_no_support_filament_id]}\n\n    G90\n    M83\n    M983.3 F{filament_max_volumetric_speed[initial_no_support_filament_id]/2.4} A0.4 ; cali dynamic extrusion compensation\n\n    M400\n    M106 P1 S255\n    M400 S5\n    M106 P1 S0\n    G150.3\nM623\n\n;===== auto extrude cali end =========================\n\n{if filament_type[initial_no_support_filament_id] == \"TPU\"}\n    G150.2\n    G150.1\n    G150.2\n    G150.1\n    G150.2\n    G150.1\n{else}\n    G150.3\n    M106 P1 S0\n    M400 S2\n    M109 S{nozzle_temperature[initial_no_support_filament_id]} ; wait tmpr to extrude\n    M83\n    {if(nozzle_diameter_at_nozzle_id[initial_nozzle_id] == 0.8)}\n        G1 E60 F{filament_max_volumetric_speed[initial_no_support_filament_id]/2.4053*60}\n    {else}\n        G1 E45 F{filament_max_volumetric_speed[initial_no_support_filament_id]/2.4053*60}\n    {endif}\n    G1 E-3 F1800\n    M400 P500\n    G150.2\n    G150.1\n{endif}\n\nG91\nG1 Y-16 F12000 ; move away from the trash bin\nG90\n\nM400\n;M73 P99\n\n;===== wipe right nozzle start =====\n\nM1002 gcode_claim_action : 14\n    G150 T{nozzle_temperature_initial_layer[initial_no_support_filament_id]}\n    {if (overall_chamber_temperature >= 40)}\n        G150 T{nozzle_temperature_initial_layer[initial_no_support_filament_id] - 80}\n    {endif}\nM106 S255 ; turn on fan to cool the nozzle\n\n;===== wipe left nozzle end =====\n\nM400\n;M73 P99\n\nM1002 judge_flag auto_cali_toolhead_offset_flag\nM622 J0\n    G91\n    G1 Z5 F1200\n    G90\n    M1012.7\n    G383.7 U140 J0\nM623\n\n{if (overall_chamber_temperature >= 40)}\n    M1002 gcode_claim_action : 49\n    M191 S[overall_chamber_temperature] ; wait for chamber temp\n{endif}\n\nM400\n;M73 P99\n\n;===== bed leveling ==================================\n\nM1002 judge_flag g29_before_print_flag\n\nM190 S[bed_temperature_initial_layer_single]; ensure bed temp\nM109 S140 A\nM106 S0 ; turn off fan , too noisy\n\nG91\nG1 Z10 F1200\n{if (first_non_support_filaments[0] != -1) && filament_type[initial_no_support_filament_id] != \"TPU\"}\nM640 S\nM640.7 U\nM640.7 L\nM640.2 R1\nM641\n{endif}\nG90\nG1 X175 Y160 F30000\n\nM622 J1\n    M1002 gcode_claim_action : 1\n    G29.20 A3\n    G29 A1 O X{first_layer_print_min[0]} Y{first_layer_print_min[1]} I{first_layer_print_size[0]} J{first_layer_print_size[1]} R\n    M400\nM623\n\nM622 J2\n    M1002 gcode_claim_action : 1\n    {if has_tpu_in_first_layer}\n        G29.20 A3\n        G29 A1 O X{first_layer_print_min[0]} Y{first_layer_print_min[1]} I{first_layer_print_size[0]} J{first_layer_print_size[1]} R\n    {else}\n        G29.20 A4\n        G29 A2 O X{first_layer_print_min[0]} Y{first_layer_print_min[1]} I{first_layer_print_size[0]} J{first_layer_print_size[1]} R\n    {endif}\n    M400\nM623\n\nM622 J0\n    G28 R\nM623\n\n;===== bed leveling end ================================\n\nG39.1 ; cali nozzle wrapped detection pos\n\nG90\nG1 Z5 F1200\nG1 X270 Y-0.5 F60000\nG28.140 S0 ; cali pre-extrude z pos\n\n;============switch again==================\nM211 X0 Y0 Z0 ;turn off soft endstop\nG91\nG1 Z6 F1200\nG90\nM1002 set_filament_type:{filament_type[initial_no_support_filament_id]}\nM620 S[initial_no_support_filament_id]A H[initial_no_support_hotend]\nM400\nT[initial_no_support_filament_id] H[initial_no_support_hotend]\nM400\nM628 S0\nM629\nM400\nM621 S[initial_no_support_filament_id]A\n\n;============switch again==================\n\nM400\n;M73 P99\n\nM141 S[overall_chamber_temperature]\n\n;===== mech mode sweep start =====\n    M1002 gcode_claim_action : 3\n\n    G90\n    G1 Z5 F1200\n    G1 X165 Y160 F20000\n    M400 P200\n\n    M970.3 Q1 A5 K0 O1\n    M974 Q1 S2 P0\n\n    M970.3 Q0 A5 K0 O1\n    M974 Q0 S2 P0\n\n    M970.2 Q2 K0 W38 Z0.01\n    M974 Q2 S2 P0\n\n    M975 S1\n;===== mech mode sweep end =====\n\n;===== wait temperature reaching the reference value =======\n\nM140 S[bed_temperature_initial_layer_single]\nM190 S[bed_temperature_initial_layer_single]\n\n    ;========turn off light and fans =============\n    M960 S1 P0 ; turn off laser\n    M960 S2 P0 ; turn off laser\n    M106 S0 ; turn off fan\n    M106 P2 S0 ; turn off big fan\n    ;==== set ext toodhead cooling fan ====\n    {if (min_vitrification_temperature <= 50)}\n    M106 P9 S255\n    {endif}\n    ;============set motor current==================\n    M400 S1\n\n;===== wait temperature reaching the reference value =======\n\nM400\n;M73 P99\n\n;===== plate compensation plus user-calibrated +0.04 mm Z trim =====\n{if curr_bed_type==\"Textured PEI Plate\"}\n    {if nozzle_diameter_at_nozzle_id[initial_nozzle_id] == 0.2}\n        G29.1 Z{0.04 - 0.01}\n    {else}\n        G29.1 Z{0.04 - 0.02}\n    {endif}\n{else}\n    {if nozzle_diameter_at_nozzle_id[initial_nozzle_id] == 0.2}\n        G29.1 Z{0.04 + 0.01}\n    {else}\n        G29.1 Z{0.04}\n    {endif}\n{endif}\nG150.1\n\nM975 S1 ; turn on mech mode supression\nM983.4 S1 ; turn on deformation compensation\nG29.2 S1 ; turn on pos comp\nG29.7 S1\n\nG90\nG1 Z5 F1200\nG1 Y295 F30000\nG1 Y265 F18000\n\n;===== nozzle load line ===============================\n    G29.2 S1 ; ensure z comp turn on\n    G90\n    M83\n    G1 Z5 F1200\n    G1 X270 Y-0.5 F60000\n    G28.14 R0\n    G29.2 S0\n    G91\n    G1 Z0.8 F1200\n    G90\n    G1 X250 F60000\n    M104 S{nozzle_temperature_initial_layer[initial_no_support_filament_id]}\n\n    ========== record data ==========\n    M1026\n    M1012.8\n    M1012.9\n    G29.9\n    ========== record data ==========\n\n    M400 P50\n    M500 D1\n    M400 S3\n    M109 S{nozzle_temperature_initial_layer[initial_no_support_filament_id]}\n    M83\n{if nozzle_diameter_at_nozzle_id[initial_nozzle_id] == 0.8}\n    G1 E5 F{filament_max_volumetric_speed[initial_no_support_filament_id]/2.4053*60}\n{endif}\n{if (filament_type[initial_no_support_filament_id] == \"TPU\")}\n    G1 E5 F{filament_max_volumetric_speed[initial_no_support_filament_id]/2.4053*60}\n{endif}\n    G1 E5 F{filament_max_volumetric_speed[initial_no_support_filament_id]/2.4053*60}\n    G1 X290 E10 F{filament_max_volumetric_speed[initial_no_support_filament_id]/2.4053*60}\n    G91\n    G3 Z0.4 I1.217 J0 P1 F60000\n    G90\n    M83\n    G29.2 S1 ; ensure z comp turn on\n;===== noozle load line end ===========================\n\nM400\n;M73 P99\n\nM993 A1 B1 C1 ; nozzle cam detection allowed.\n\n{if (filament_type[initial_no_support_filament_id] == \"TPU\")}\nM1015.3 S1;enable tpu clog detect\n{else}\nM1015.3 S0;disable tpu clog detect\n{endif}\n\n{if (filament_type[initial_no_support_filament_id] == \"PLA\") ||  (filament_type[initial_no_support_filament_id] == \"PETG\")\n ||  (filament_type[initial_no_support_filament_id] == \"PLA-CF\")  ||  (filament_type[initial_no_support_filament_id] == \"PETG-CF\")}\nM1015.4 S1 K1 H{nozzle_diameter_at_nozzle_id[initial_nozzle_id]} ;enable E air printing detect\n{else}\nM1015.4 S0 K0 H{nozzle_diameter_at_nozzle_id[initial_nozzle_id]} ;disable E air printing detect\n{endif}\n\nM620.6 I[initial_no_support_filament_id] H[initial_no_support_hotend] W1 ;enable ams air printing detect\nM620 O1\n\nM211 Z1\nG29.99\nM1002 gcode_claim_action : 0\nM400\n",
+      "preset": "machine/Bambu Lab H2C 0.4 nozzle template machine_start_gcode.json",
+      "generator": "trimmed_start_gcode",
+      "z_trim_mm": 0.04,
+      "reason": "User-observed build-plate calibration persists across nozzle, nozzle-size and material changes. Both offsets must be available; translucent PETG on the current plate uses +0.04 mm. Add the selected offset to the current stock machine's plate compensation."
+    },
+    "machine_switch_extruder_time": {
+      "value": "5",
+      "preset": "machine/fdm_bbl_3dp_002_common.json"
+    },
+    "machine_unload_filament_time": {
+      "value": "15",
+      "preset": "machine/Bambu Lab H2C 0.4 nozzle.json"
+    },
+    "master_extruder_id": {
+      "value": "2",
+      "preset": "machine/Bambu Lab H2C 0.4 nozzle.json"
+    },
+    "max_bridge_length": {
+      "value": "0",
+      "preset": "process/fdm_process_common.json"
+    },
+    "max_layer_height": {
+      "value": [
+        "0.56",
+        "0.56"
+      ],
+      "preset": "machine/Bambu Lab H2C 0.8 nozzle.json"
+    },
+    "max_travel_detour_distance": {
+      "value": "0",
+      "preset": "process/fdm_process_common.json"
+    },
+    "min_bead_width": {
+      "value": "85%",
+      "slicer_default": "02.08.02.61"
+    },
+    "min_feature_size": {
+      "value": "25%",
+      "slicer_default": "02.08.02.61"
+    },
+    "min_layer_height": {
+      "value": [
+        "0.16",
+        "0.16"
+      ],
+      "preset": "machine/Bambu Lab H2C 0.8 nozzle.json"
+    },
+    "minimum_sparse_infill_area": {
+      "value": "15",
+      "preset": "process/fdm_process_common.json"
+    },
+    "mmu_segmented_region_interlocking_depth": {
+      "value": "0",
+      "slicer_default": "02.08.02.61"
+    },
+    "mmu_segmented_region_max_width": {
+      "value": "0",
+      "slicer_default": "02.08.02.61"
+    },
+    "monotonic_travel_into_wall": {
+      "value": "45%",
+      "preset": "process/fdm_process_dual_common.json"
+    },
+    "name": {
+      "value": "project_settings",
+      "slicer_default": "02.08.02.61"
+    },
+    "no_slow_down_for_cooling_on_outwalls": {
+      "value": [
+        "0"
+      ],
+      "preset": "filament/fdm_filament_common.json"
+    },
+    "nozzle_diameter": {
+      "value": [
+        "0.8",
+        "0.8"
+      ],
+      "preset": "machine/Bambu Lab H2C 0.8 nozzle.json"
+    },
+    "nozzle_flush_dataset": {
+      "value": [
+        "1",
+        "2",
+        "1",
+        "2"
+      ],
+      "preset": "machine/Bambu Lab H2C 0.8 nozzle.json"
+    },
+    "nozzle_height": {
+      "value": "4",
+      "preset": "machine/fdm_machine_common.json"
+    },
+    "nozzle_temperature": {
+      "value": [
+        "255",
+        "255"
+      ],
+      "recipe": "filament_settings",
+      "reason": "255 C is within the manufacturer's PETG Translucent range and provides melting margin for the proposed 18 mm3/s high-flow setting. Verify the actual dry spool and nozzle with the witnesses and flow calibration."
+    },
+    "nozzle_temperature_initial_layer": {
+      "value": [
+        "255",
+        "255"
+      ],
+      "recipe": "filament_settings",
+      "reason": "Use the same melt temperature for the stock 0.40 mm first layer and the remaining print."
+    },
+    "nozzle_temperature_range_high": {
+      "value": [
+        "270"
+      ],
+      "preset": "filament/Bambu PETG Translucent @base.json"
+    },
+    "nozzle_temperature_range_low": {
+      "value": [
+        "230"
+      ],
+      "preset": "filament/Bambu PETG Translucent @base.json"
+    },
+    "nozzle_type": {
+      "value": [
+        "hardened_steel",
+        "hardened_steel",
+        "hardened_steel",
+        "hardened_steel"
+      ],
+      "preset": "machine/Bambu Lab H2C 0.8 nozzle.json"
+    },
+    "nozzle_volume": {
+      "value": [
+        "130",
+        "133",
+        "145",
+        "148"
+      ],
+      "preset": "machine/Bambu Lab H2C 0.8 nozzle.json"
+    },
+    "nozzle_volume_type": {
+      "value": [
+        "High Flow",
+        "Standard"
+      ],
+      "generator": "fresh_settings",
+      "reason": "One PETG filament on the left 0.8 mm High Flow nozzle, textured PEI; named source presets."
+    },
+    "only_one_wall_first_layer": {
+      "value": "0",
+      "slicer_default": "02.08.02.61"
+    },
+    "ooze_prevention": {
+      "value": "0",
+      "slicer_default": "02.08.02.61"
+    },
+    "other_layers_print_sequence": {
+      "value": [
+        "0"
+      ],
+      "slicer_default": "02.08.02.61"
+    },
+    "other_layers_print_sequence_nums": {
+      "value": "0",
+      "slicer_default": "02.08.02.61"
+    },
+    "outer_wall_acceleration": {
+      "value": [
+        "5000",
+        "5000",
+        "5000",
+        "5000"
+      ],
+      "preset": "process/fdm_process_dual_common.json"
+    },
+    "outer_wall_jerk": {
+      "value": "9",
+      "slicer_default": "02.08.02.61"
+    },
+    "outer_wall_line_width": {
+      "value": "0.82",
+      "preset": "process/fdm_process_dual_0.40_nozzle_0.8.json"
+    },
+    "outer_wall_speed": {
+      "value": [
+        "200",
+        "500",
+        "200",
+        "500"
+      ],
+      "preset": "process/0.40mm Standard @BBL H2C 0.8 nozzle.json"
+    },
+    "overhang_1_4_speed": {
+      "value": [
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "preset": "process/fdm_process_dual_common.json"
+    },
+    "overhang_2_4_speed": {
+      "value": [
+        "50",
+        "50",
+        "50",
+        "50"
+      ],
+      "preset": "process/fdm_process_dual_common.json"
+    },
+    "overhang_3_4_speed": {
+      "value": [
+        "30",
+        "30",
+        "30",
+        "30"
+      ],
+      "preset": "process/0.40mm Standard @BBL H2C 0.8 nozzle.json"
+    },
+    "overhang_4_4_speed": {
+      "value": [
+        "10",
+        "10",
+        "10",
+        "10"
+      ],
+      "preset": "process/0.40mm Standard @BBL H2C 0.8 nozzle.json"
+    },
+    "overhang_fan_speed": {
+      "value": [
+        "90"
+      ],
+      "preset": "filament/Bambu PETG Translucent @base.json"
+    },
+    "overhang_fan_threshold": {
+      "value": [
+        "10%"
+      ],
+      "preset": "filament/Bambu PETG Translucent @base.json"
+    },
+    "overhang_threshold_participating_cooling": {
+      "value": [
+        "95%"
+      ],
+      "slicer_default": "02.08.02.61"
+    },
+    "overhang_totally_speed": {
+      "value": [
+        "10",
+        "10",
+        "10",
+        "10"
+      ],
+      "preset": "process/fdm_process_dual_common.json"
+    },
+    "override_filament_scarf_seam_setting": {
+      "value": "0",
+      "preset": "process/fdm_process_common.json"
+    },
+    "override_process_overhang_speed": {
+      "value": [
+        "0",
+        "0"
+      ],
+      "preset": "filament/fdm_filament_template_direct_dual.json"
+    },
+    "physical_extruder_map": {
+      "value": [
+        "1",
+        "0"
+      ],
+      "preset": "machine/fdm_bbl_3dp_002_common.json"
+    },
+    "post_process": {
+      "value": [],
+      "slicer_default": "02.08.02.61"
+    },
+    "pre_start_fan_time": {
+      "value": [
+        "2"
+      ],
+      "preset": "filament/Bambu PETG Translucent @BBL H2C 0.8 nozzle.json"
+    },
+    "precise_outer_wall": {
+      "value": "0",
+      "slicer_default": "02.08.02.61"
+    },
+    "precise_z_height": {
+      "value": "0",
+      "slicer_default": "02.08.02.61"
+    },
+    "pressure_advance": {
+      "value": [
+        "0.02"
+      ],
+      "slicer_default": "02.08.02.61"
+    },
+    "prime_tower_brim_width": {
+      "value": "-1",
+      "preset": "process/0.40mm Standard @BBL H2C 0.8 nozzle.json"
+    },
+    "prime_tower_enable_framework": {
+      "value": "0",
+      "preset": "process/fdm_process_common.json"
+    },
+    "prime_tower_extra_rib_length": {
+      "value": "0",
+      "slicer_default": "02.08.02.61"
+    },
+    "prime_tower_fillet_wall": {
+      "value": "1",
+      "slicer_default": "02.08.02.61"
+    },
+    "prime_tower_flat_ironing": {
+      "value": "1",
+      "preset": "process/fdm_process_dual_common.json"
+    },
+    "prime_tower_infill_gap": {
+      "value": "150%",
+      "slicer_default": "02.08.02.61"
+    },
+    "prime_tower_lift_height": {
+      "value": "-1",
+      "preset": "process/fdm_process_common.json"
+    },
+    "prime_tower_lift_speed": {
+      "value": "90",
+      "preset": "process/fdm_process_common.json"
+    },
+    "prime_tower_max_speed": {
+      "value": "90",
+      "preset": "process/fdm_process_common.json"
+    },
+    "prime_tower_rib_wall": {
+      "value": "1",
+      "slicer_default": "02.08.02.61"
+    },
+    "prime_tower_rib_width": {
+      "value": "8",
+      "slicer_default": "02.08.02.61"
+    },
+    "prime_tower_skip_points": {
+      "value": "1",
+      "slicer_default": "02.08.02.61"
+    },
+    "prime_tower_width": {
+      "value": "60",
+      "preset": "process/0.40mm Standard @BBL H2C 0.8 nozzle.json"
+    },
+    "prime_volume_mode": {
+      "value": "Default",
+      "slicer_default": "02.08.02.61"
+    },
+    "print_compatible_printers": {
+      "value": [
+        "Bambu Lab H2C 0.8 nozzle",
+        "Bambu Lab H2C 0.8 High Flow +0.04 Z trim",
+        "Bambu Lab H2C 0.8 High Flow +0.18 Z trim"
+      ],
+      "generator": "fresh_settings",
+      "reason": "One PETG filament on the left 0.8 mm High Flow nozzle, textured PEI; named source presets."
+    },
+    "print_extruder_id": {
+      "value": [
+        "1",
+        "1",
+        "2",
+        "2"
+      ],
+      "preset": "process/fdm_process_dual_common.json"
+    },
+    "print_extruder_variant": {
+      "value": [
+        "Direct Drive Standard",
+        "Direct Drive High Flow",
+        "Direct Drive Standard",
+        "Direct Drive High Flow"
+      ],
+      "preset": "process/fdm_process_dual_common.json"
+    },
+    "print_flow_ratio": {
+      "value": "1",
+      "slicer_default": "02.08.02.61"
+    },
+    "print_in_clockwise": {
+      "value": "0",
+      "preset": "machine/fdm_machine_common.json"
+    },
+    "print_sequence": {
+      "value": "by layer",
+      "preset": "process/fdm_process_common.json"
+    },
+    "print_settings_id": {
+      "value": "Funnel mold - 0.16 mm slopes / 0.40 mm structure",
+      "generator": "fresh_settings",
+      "reason": "One PETG filament on the left 0.8 mm High Flow nozzle, textured PEI; named source presets."
+    },
+    "printable_area": {
+      "value": [
+        "0x0",
+        "330x0",
+        "330x320",
+        "0x320"
+      ],
+      "preset": "machine/Bambu Lab H2C 0.4 nozzle.json"
+    },
+    "printable_height": {
+      "value": "325",
+      "preset": "machine/fdm_bbl_3dp_002_common.json"
+    },
+    "printer_extruder_id": {
+      "value": [
+        "1",
+        "1",
+        "2",
+        "2"
+      ],
+      "preset": "machine/Bambu Lab H2C 0.8 nozzle.json"
+    },
+    "printer_extruder_variant": {
+      "value": [
+        "Direct Drive Standard",
+        "Direct Drive High Flow",
+        "Direct Drive Standard",
+        "Direct Drive High Flow"
+      ],
+      "preset": "machine/Bambu Lab H2C 0.8 nozzle.json"
+    },
+    "printer_model": {
+      "value": "Bambu Lab H2C",
+      "preset": "machine/Bambu Lab H2C 0.8 nozzle.json"
+    },
+    "printer_notes": {
+      "value": "",
+      "slicer_default": "02.08.02.61"
+    },
+    "printer_settings_id": {
+      "value": "Bambu Lab H2C 0.8 High Flow +0.04 Z trim",
+      "generator": "fresh_settings",
+      "reason": "One PETG filament on the left 0.8 mm High Flow nozzle, textured PEI; named source presets."
+    },
+    "printer_structure": {
+      "value": "corexy",
+      "preset": "machine/fdm_machine_common.json"
+    },
+    "printer_technology": {
+      "value": "FFF",
+      "preset": "machine/fdm_machine_common.json"
+    },
+    "printer_variant": {
+      "value": "0.8",
+      "preset": "machine/Bambu Lab H2C 0.8 nozzle.json"
+    },
+    "printing_by_object_gcode": {
+      "value": "",
+      "slicer_default": "02.08.02.61"
+    },
+    "process_notes": {
+      "value": "",
+      "slicer_default": "02.08.02.61"
+    },
+    "raft_contact_distance": {
+      "value": "0.1",
+      "slicer_default": "02.08.02.61"
+    },
+    "raft_expansion": {
+      "value": "1.5",
+      "slicer_default": "02.08.02.61"
+    },
+    "raft_first_layer_density": {
+      "value": "90%",
+      "slicer_default": "02.08.02.61"
+    },
+    "raft_first_layer_expansion": {
+      "value": "-1",
+      "slicer_default": "02.08.02.61"
+    },
+    "raft_layers": {
+      "value": "0",
+      "preset": "process/fdm_process_common.json"
+    },
+    "reduce_crossing_wall": {
+      "value": "0",
+      "preset": "process/fdm_process_common.json"
+    },
+    "reduce_fan_stop_start_freq": {
+      "value": [
+        "1"
+      ],
+      "preset": "filament/fdm_filament_pet.json"
+    },
+    "reduce_infill_retraction_mode": {
+      "value": "Auto",
+      "preset": "process/fdm_process_common.json"
+    },
+    "required_nozzle_HRC": {
+      "value": [
+        "3"
+      ],
+      "preset": "filament/fdm_filament_common.json"
+    },
+    "resolution": {
+      "value": "0.012",
+      "preset": "process/fdm_process_common.json"
+    },
+    "retract_before_wipe": {
+      "value": [
+        "0%",
+        "0%",
+        "0%",
+        "0%"
+      ],
+      "preset": "machine/Bambu Lab H2C 0.8 nozzle.json"
+    },
+    "retract_length_toolchange": {
+      "value": [
+        "2",
+        "2",
+        "2",
+        "2"
+      ],
+      "preset": "machine/Bambu Lab H2C 0.8 nozzle.json"
+    },
+    "retract_lift_above": {
+      "value": [
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "preset": "machine/Bambu Lab H2C 0.8 nozzle.json"
+    },
+    "retract_lift_below": {
+      "value": [
+        "319",
+        "319",
+        "319",
+        "319"
+      ],
+      "preset": "machine/Bambu Lab H2C 0.8 nozzle.json"
+    },
+    "retract_restart_extra": {
+      "value": [
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "preset": "machine/Bambu Lab H2C 0.8 nozzle.json"
+    },
+    "retract_restart_extra_toolchange": {
+      "value": [
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "preset": "machine/Bambu Lab H2C 0.8 nozzle.json"
+    },
+    "retract_when_changing_layer": {
+      "value": [
+        "1",
+        "1",
+        "1",
+        "1"
+      ],
+      "preset": "machine/Bambu Lab H2C 0.8 nozzle.json"
+    },
+    "retraction_distances_when_cut": {
+      "value": [
+        "14",
+        "14",
+        "14",
+        "14"
+      ],
+      "preset": "machine/Bambu Lab H2C 0.8 nozzle.json"
+    },
+    "retraction_distances_when_ec": {
+      "value": [
+        "10",
+        "10"
+      ],
+      "preset": "filament/fdm_filament_template_direct_dual.json"
+    },
+    "retraction_length": {
+      "value": [
+        "3",
+        "3",
+        "3",
+        "3"
+      ],
+      "preset": "machine/Bambu Lab H2C 0.8 nozzle.json"
+    },
+    "retraction_minimum_travel": {
+      "value": [
+        "1",
+        "1",
+        "1",
+        "1"
+      ],
+      "preset": "machine/Bambu Lab H2C 0.8 nozzle.json"
+    },
+    "retraction_speed": {
+      "value": [
+        "30",
+        "30",
+        "30",
+        "30"
+      ],
+      "preset": "machine/Bambu Lab H2C 0.8 nozzle.json"
+    },
+    "role_base_wipe_speed": {
+      "value": "1",
+      "slicer_default": "02.08.02.61"
+    },
+    "scan_first_layer": {
+      "value": "0",
+      "preset": "machine/fdm_machine_common.json"
+    },
+    "scarf_angle_threshold": {
+      "value": "155",
+      "preset": "process/fdm_process_common.json"
+    },
+    "seam_gap": {
+      "value": "0%",
+      "recipe": "process_settings",
+      "reason": "A closed conventional seam avoids intentionally removing material where skins and loaded walls join. Scarf seams remain disabled by the stock presets."
+    },
+    "seam_placement_away_from_overhangs": {
+      "value": "0",
+      "preset": "process/fdm_process_common.json"
+    },
+    "seam_position": {
+      "value": "aligned",
+      "preset": "process/fdm_process_common.json"
+    },
+    "seam_slope_conditional": {
+      "value": "1",
+      "slicer_default": "02.08.02.61"
+    },
+    "seam_slope_entire_loop": {
+      "value": "0",
+      "slicer_default": "02.08.02.61"
+    },
+    "seam_slope_gap": {
+      "value": "0",
+      "preset": "process/fdm_process_common.json"
+    },
+    "seam_slope_inner_walls": {
+      "value": "1",
+      "slicer_default": "02.08.02.61"
+    },
+    "seam_slope_min_length": {
+      "value": "10",
+      "preset": "process/fdm_process_common.json"
+    },
+    "seam_slope_start_height": {
+      "value": "10%",
+      "preset": "process/fdm_process_common.json"
+    },
+    "seam_slope_steps": {
+      "value": "10",
+      "slicer_default": "02.08.02.61"
+    },
+    "seam_slope_type": {
+      "value": "none",
+      "preset": "process/fdm_process_common.json"
+    },
+    "silent_mode": {
+      "value": "0",
+      "preset": "machine/fdm_machine_common.json"
+    },
+    "single_extruder_multi_material": {
+      "value": "1",
+      "preset": "machine/fdm_machine_common.json"
+    },
+    "skeleton_infill_density": {
+      "value": "15%",
+      "preset": "process/fdm_process_common.json"
+    },
+    "skeleton_infill_line_width": {
+      "value": "0.82",
+      "preset": "process/fdm_process_dual_0.40_nozzle_0.8.json"
+    },
+    "skin_infill_density": {
+      "value": "15%",
+      "preset": "process/fdm_process_common.json"
+    },
+    "skin_infill_depth": {
+      "value": "2",
+      "preset": "process/fdm_process_common.json"
+    },
+    "skin_infill_line_width": {
+      "value": "0.82",
+      "preset": "process/fdm_process_dual_0.40_nozzle_0.8.json"
+    },
+    "skirt_distance": {
+      "value": "2",
+      "preset": "process/fdm_process_common.json"
+    },
+    "skirt_height": {
+      "value": "1",
+      "preset": "process/fdm_process_common.json"
+    },
+    "skirt_loops": {
+      "value": "0",
+      "preset": "process/fdm_process_common.json"
+    },
+    "skirt_per_object": {
+      "value": "1",
+      "preset": "process/fdm_process_common.json"
+    },
+    "slice_closing_radius": {
+      "value": "0.049",
+      "slicer_default": "02.08.02.61"
+    },
+    "slicing_mode": {
+      "value": "regular",
+      "slicer_default": "02.08.02.61"
+    },
+    "slow_down_for_layer_cooling": {
+      "value": [
+        "1"
+      ],
+      "preset": "filament/fdm_filament_common.json"
+    },
+    "slow_down_layer_time": {
+      "value": [
+        "8"
+      ],
+      "preset": "filament/Bambu PETG Translucent @BBL H2C 0.8 nozzle.json"
+    },
+    "slow_down_min_speed": {
+      "value": [
+        "10",
+        "10"
+      ],
+      "preset": "filament/fdm_filament_template_direct_dual.json"
+    },
+    "slowdown_end_acc": {
+      "value": [
+        "100000",
+        "100000",
+        "100000",
+        "100000"
+      ],
+      "preset": "process/fdm_process_dual_common.json"
+    },
+    "slowdown_end_height": {
+      "value": [
+        "400",
+        "400",
+        "400",
+        "400"
+      ],
+      "preset": "process/fdm_process_dual_common.json"
+    },
+    "slowdown_end_speed": {
+      "value": [
+        "1000",
+        "1000",
+        "1000",
+        "1000"
+      ],
+      "preset": "process/fdm_process_dual_common.json"
+    },
+    "slowdown_start_acc": {
+      "value": [
+        "100000",
+        "100000",
+        "100000",
+        "100000"
+      ],
+      "preset": "process/fdm_process_dual_common.json"
+    },
+    "slowdown_start_height": {
+      "value": [
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "preset": "process/fdm_process_dual_common.json"
+    },
+    "slowdown_start_speed": {
+      "value": [
+        "1000",
+        "1000",
+        "1000",
+        "1000"
+      ],
+      "preset": "process/fdm_process_dual_common.json"
+    },
+    "small_perimeter_speed": {
+      "value": [
+        "50%",
+        "50%",
+        "50%",
+        "50%"
+      ],
+      "preset": "process/fdm_process_dual_common.json"
+    },
+    "small_perimeter_threshold": {
+      "value": [
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "preset": "process/fdm_process_dual_common.json"
+    },
+    "smooth_coefficient": {
+      "value": "4",
+      "preset": "process/fdm_process_dual_common.json"
+    },
+    "smooth_speed_discontinuity_area": {
+      "value": "1",
+      "slicer_default": "02.08.02.61"
+    },
+    "solid_infill_filament": {
+      "value": "0",
+      "preset": "process/fdm_process_common.json"
+    },
+    "sparse_infill_acceleration": {
+      "value": [
+        "100%",
+        "100%",
+        "100%",
+        "100%"
+      ],
+      "preset": "process/fdm_process_dual_common.json"
+    },
+    "sparse_infill_anchor": {
+      "value": "400%",
+      "slicer_default": "02.08.02.61"
+    },
+    "sparse_infill_anchor_max": {
+      "value": "20",
+      "slicer_default": "02.08.02.61"
+    },
+    "sparse_infill_density": {
+      "value": "100%",
+      "recipe": "process_settings",
+      "reason": "The CAD already contains open rib bays and air channels. All material left in its skins, ribs, arms and columns is structural stock."
+    },
+    "sparse_infill_filament": {
+      "value": "0",
+      "preset": "process/fdm_process_common.json"
+    },
+    "sparse_infill_lattice_angle_1": {
+      "value": "-45",
+      "preset": "process/fdm_process_common.json"
+    },
+    "sparse_infill_lattice_angle_2": {
+      "value": "45",
+      "preset": "process/fdm_process_common.json"
+    },
+    "sparse_infill_line_width": {
+      "value": "0.82",
+      "preset": "process/fdm_process_dual_0.40_nozzle_0.8.json"
+    },
+    "sparse_infill_pattern": {
+      "value": "zig-zag",
+      "recipe": "process_settings",
+      "reason": "Alternating rectilinear solid fill avoids crossing grid lines within a layer."
+    },
+    "sparse_infill_speed": {
+      "value": [
+        "350",
+        "600",
+        "350",
+        "600"
+      ],
+      "preset": "process/0.40mm Standard @BBL H2C 0.8 nozzle.json"
+    },
+    "spiral_mode": {
+      "value": "0",
+      "preset": "process/fdm_process_common.json"
+    },
+    "spiral_mode_max_xy_smoothing": {
+      "value": "200%",
+      "slicer_default": "02.08.02.61"
+    },
+    "spiral_mode_smooth": {
+      "value": "0",
+      "slicer_default": "02.08.02.61"
+    },
+    "standby_temperature_delta": {
+      "value": "-5",
+      "preset": "process/fdm_process_common.json"
+    },
+    "start_end_points": {
+      "value": [
+        "30x-3",
+        "54x245"
+      ],
+      "slicer_default": "02.08.02.61"
+    },
+    "supertack_plate_temp": {
+      "value": [
+        "60"
+      ],
+      "preset": "filament/Bambu PETG Translucent @BBL H2C 0.8 nozzle.json"
+    },
+    "supertack_plate_temp_initial_layer": {
+      "value": [
+        "60"
+      ],
+      "preset": "filament/Bambu PETG Translucent @BBL H2C 0.8 nozzle.json"
+    },
+    "support_air_filtration": {
+      "value": "0",
+      "preset": "machine/fdm_machine_common.json"
+    },
+    "support_angle": {
+      "value": "0",
+      "slicer_default": "02.08.02.61"
+    },
+    "support_base_pattern": {
+      "value": "default",
+      "preset": "process/fdm_process_common.json"
+    },
+    "support_base_pattern_spacing": {
+      "value": "2.5",
+      "preset": "process/fdm_process_common.json"
+    },
+    "support_bottom_interface_spacing": {
+      "value": "0.5",
+      "slicer_default": "02.08.02.61"
+    },
+    "support_bottom_z_distance": {
+      "value": "0.2",
+      "preset": "process/fdm_process_common.json"
+    },
+    "support_chamber_temp_control": {
+      "value": "1",
+      "preset": "machine/Bambu Lab H2C 0.4 nozzle.json"
+    },
+    "support_cooling_filter": {
+      "value": "1",
+      "preset": "machine/Bambu Lab H2C 0.4 nozzle.json"
+    },
+    "support_critical_regions_only": {
+      "value": "0",
+      "slicer_default": "02.08.02.61"
+    },
+    "support_expansion": {
+      "value": "0",
+      "preset": "process/fdm_process_common.json"
+    },
+    "support_fast_purge_mode": {
+      "value": "0",
+      "preset": "machine/fdm_machine_common.json"
+    },
+    "support_filament": {
+      "value": "0",
+      "preset": "process/fdm_process_common.json"
+    },
+    "support_interface_bottom_layers": {
+      "value": "2",
+      "preset": "process/fdm_process_common.json"
+    },
+    "support_interface_filament": {
+      "value": "0",
+      "preset": "process/fdm_process_common.json"
+    },
+    "support_interface_loop_pattern": {
+      "value": "0",
+      "preset": "process/fdm_process_common.json"
+    },
+    "support_interface_not_for_body": {
+      "value": "1",
+      "slicer_default": "02.08.02.61"
+    },
+    "support_interface_pattern": {
+      "value": "auto",
+      "preset": "process/fdm_process_common.json"
+    },
+    "support_interface_spacing": {
+      "value": "0.5",
+      "preset": "process/fdm_process_common.json"
+    },
+    "support_interface_speed": {
+      "value": [
+        "80",
+        "80",
+        "80",
+        "80"
+      ],
+      "preset": "process/fdm_process_dual_common.json"
+    },
+    "support_interface_top_layers": {
+      "value": "2",
+      "preset": "process/fdm_process_common.json"
+    },
+    "support_ironing_direction": {
+      "value": "0",
+      "preset": "process/fdm_process_common.json"
+    },
+    "support_ironing_flow": {
+      "value": "10%",
+      "preset": "process/fdm_process_common.json"
+    },
+    "support_ironing_inset": {
+      "value": "0",
+      "preset": "process/fdm_process_common.json"
+    },
+    "support_ironing_pattern": {
+      "value": "zig-zag",
+      "preset": "process/fdm_process_common.json"
+    },
+    "support_ironing_spacing": {
+      "value": "0.15",
+      "preset": "process/fdm_process_common.json"
+    },
+    "support_ironing_speed": {
+      "value": "30",
+      "preset": "process/fdm_process_common.json"
+    },
+    "support_line_width": {
+      "value": "0.82",
+      "preset": "process/fdm_process_dual_0.40_nozzle_0.8.json"
+    },
+    "support_object_first_layer_gap": {
+      "value": "0.2",
+      "slicer_default": "02.08.02.61"
+    },
+    "support_object_skip_flush": {
+      "value": "0",
+      "preset": "machine/Bambu Lab H2C 0.4 nozzle.json"
+    },
+    "support_object_xy_distance": {
+      "value": "0.35",
+      "preset": "process/fdm_process_common.json"
+    },
+    "support_on_build_plate_only": {
+      "value": "0",
+      "preset": "process/fdm_process_common.json"
+    },
+    "support_remove_small_overhang": {
+      "value": "1",
+      "slicer_default": "02.08.02.61"
+    },
+    "support_speed": {
+      "value": [
+        "150",
+        "150",
+        "150",
+        "150"
+      ],
+      "preset": "process/fdm_process_dual_common.json"
+    },
+    "support_style": {
+      "value": "default",
+      "preset": "process/fdm_process_common.json"
+    },
+    "support_threshold_angle": {
+      "value": "30",
+      "preset": "process/fdm_process_common.json"
+    },
+    "support_top_z_distance": {
+      "value": "0.2",
+      "preset": "process/fdm_process_common.json"
+    },
+    "support_type": {
+      "value": "tree(auto)",
+      "preset": "process/fdm_process_common.json"
+    },
+    "symmetric_infill_y_axis": {
+      "value": "0",
+      "preset": "process/fdm_process_common.json"
+    },
+    "temperature_vitrification": {
+      "value": [
+        "55"
+      ],
+      "preset": "filament/Bambu PETG Translucent @BBL H2C 0.8 nozzle.json"
+    },
+    "template_custom_gcode": {
+      "value": "",
+      "slicer_default": "02.08.02.61"
+    },
+    "textured_plate_temp": {
+      "value": [
+        "70"
+      ],
+      "preset": "filament/Bambu PETG Translucent @base.json"
+    },
+    "textured_plate_temp_initial_layer": {
+      "value": [
+        "70"
+      ],
+      "preset": "filament/Bambu PETG Translucent @base.json"
+    },
+    "thick_bridges": {
+      "value": "0",
+      "slicer_default": "02.08.02.61"
+    },
+    "thumbnail_size": {
+      "value": [
+        "50x50"
+      ],
+      "slicer_default": "02.08.02.61"
+    },
+    "time_lapse_gcode": {
+      "value": ";===== machine: H2C timelapse =====\n;======== date: 20260731 ========\n\n; SKIPPABLE_START\n; SKIPTYPE: timelapse\n\nM1002 judge_flag timelapse_record_flag\nM622 J1\n    {if !spiral_mode && !timelapse_inline_photo}\n        M993 A2 B2 C2\n        M993 A0 B0 C0\n    {endif}\n\n    {if !spiral_mode && !(has_timelapse_safe_pos) }\n        {if most_used_physical_extruder_id!= curr_physical_extruder_id || timelapse_type == 1}\n            M83\n            G1 Z{max_layer_z + 0.4} F1200\n            M400\n        {endif}\n    {endif}\n\n    {if timelapse_inline_photo}\n        M971 S11 C10 O0\n        M1004 S5 P1  ; external shutter\n    {elsif has_timelapse_safe_pos && !spiral_mode}\n        M9711 M{timelapse_type} E{most_used_physical_extruder_id} U{timelapse_pos_x} V{timelapse_pos_y} Z{layer_z + (farthest_point_timelapse_enabled ? 0.0 : 0.4)} S11 C10 O0 T3000\n    {else}\n        {if spiral_mode}\n            M971 S11 C10 O0\n            M1004 S5 P1  ; external shutter\n        {else}\n            M9711 M{timelapse_type} E{most_used_physical_extruder_id} Z{layer_z + (farthest_point_timelapse_enabled ? 0.0 : 0.4)} S11 C10 O0 T3000\n        {endif}\n    {endif}\n\n    {if !spiral_mode && !(has_timelapse_safe_pos) }\n        {if most_used_physical_extruder_id!= curr_physical_extruder_id || timelapse_type == 1}\n            G90\n            G1 Z{max_layer_z + 3.0} F1200\n            G1 Y295 F30000\n            G1 Y265 F18000\n            M83\n        {endif}\n    {endif}\n    \n    {if !spiral_mode && !timelapse_inline_photo}\n        M993 A3 B3 C3\n    {endif}\nM623\n; SKIPPABLE_END\n",
+      "preset": "machine/Bambu Lab H2C 0.4 nozzle template time_lapse_gcode.json"
+    },
+    "timelapse_type": {
+      "value": "0",
+      "slicer_default": "02.08.02.61"
+    },
+    "top_area_threshold": {
+      "value": "200%",
+      "slicer_default": "02.08.02.61"
+    },
+    "top_color_penetration_layers": {
+      "value": "3",
+      "preset": "process/fdm_process_common.json"
+    },
+    "top_one_wall_type": {
+      "value": "not apply",
+      "recipe": "process_settings",
+      "reason": "Retain requested wall loops where hardware seats and the parting plate reach a top surface."
+    },
+    "top_shell_layers": {
+      "value": "8",
+      "recipe": "process_settings",
+      "reason": "Eight 0.40 mm layers provide 3.2 mm; the independent physical minimum also covers fine-layer bands."
+    },
+    "top_shell_thickness": {
+      "value": "3.2",
+      "recipe": "process_settings",
+      "reason": "Maintain the modeled forming-skin thickness as solid surface stock through variable layer heights."
+    },
+    "top_solid_infill_flow_ratio": {
+      "value": [
+        "1",
+        "1",
+        "1",
+        "1"
+      ],
+      "preset": "process/fdm_process_dual_common.json"
+    },
+    "top_surface_acceleration": {
+      "value": [
+        "2000",
+        "2000",
+        "2000",
+        "2000"
+      ],
+      "preset": "process/fdm_process_dual_common.json"
+    },
+    "top_surface_density": {
+      "value": "100%",
+      "preset": "process/fdm_process_common.json"
+    },
+    "top_surface_jerk": {
+      "value": "9",
+      "slicer_default": "02.08.02.61"
+    },
+    "top_surface_line_width": {
+      "value": "0.82",
+      "preset": "process/fdm_process_dual_0.40_nozzle_0.8.json"
+    },
+    "top_surface_pattern": {
+      "value": "monotonic",
+      "preset": "process/fdm_process_dual_0.40_nozzle_0.8.json"
+    },
+    "top_surface_speed": {
+      "value": [
+        "60",
+        "60",
+        "60",
+        "60"
+      ],
+      "recipe": "process_settings",
+      "reason": "A deliberate finishing-speed target for flat forming surfaces and hardware seats; physical finish is checked with the witnesses."
+    },
+    "top_z_overrides_xy_distance": {
+      "value": "0",
+      "slicer_default": "02.08.02.61"
+    },
+    "travel_acceleration": {
+      "value": [
+        "10000",
+        "10000",
+        "10000",
+        "10000"
+      ],
+      "preset": "process/fdm_process_dual_common.json"
+    },
+    "travel_jerk": {
+      "value": "9",
+      "slicer_default": "02.08.02.61"
+    },
+    "travel_short_distance_acceleration": {
+      "value": [
+        "250",
+        "250",
+        "250",
+        "250"
+      ],
+      "preset": "process/fdm_process_dual_common.json"
+    },
+    "travel_speed": {
+      "value": [
+        "1000",
+        "1000",
+        "1000",
+        "1000"
+      ],
+      "preset": "process/0.40mm Standard @BBL H2C 0.8 nozzle.json"
+    },
+    "travel_speed_z": {
+      "value": [
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "preset": "process/fdm_process_dual_common.json"
+    },
+    "tree_support_branch_angle": {
+      "value": "45",
+      "preset": "process/fdm_process_common.json"
+    },
+    "tree_support_branch_diameter": {
+      "value": "2",
+      "preset": "process/fdm_process_common.json"
+    },
+    "tree_support_branch_diameter_angle": {
+      "value": "5",
+      "slicer_default": "02.08.02.61"
+    },
+    "tree_support_branch_distance": {
+      "value": "5",
+      "slicer_default": "02.08.02.61"
+    },
+    "tree_support_wall_count": {
+      "value": "-1",
+      "preset": "process/fdm_process_common.json"
+    },
+    "upward_compatible_machine": {
+      "value": [
+        "Bambu Lab H2S 0.8 nozzle",
+        "Bambu Lab H2D 0.8 nozzle",
+        "Bambu Lab H2D Pro 0.8 nozzle",
+        "Bambu Lab A2L 0.8 nozzle"
+      ],
+      "preset": "machine/Bambu Lab H2C 0.8 nozzle.json"
+    },
+    "use_firmware_retraction": {
+      "value": "0",
+      "slicer_default": "02.08.02.61"
+    },
+    "use_relative_e_distances": {
+      "value": "1",
+      "slicer_default": "02.08.02.61"
+    },
+    "version": {
+      "value": "02.08.02.61",
+      "slicer_default": "02.08.02.61"
+    },
+    "vertical_shell_speed": {
+      "value": [
+        "80%",
+        "80%",
+        "80%",
+        "80%"
+      ],
+      "preset": "process/fdm_process_dual_common.json"
+    },
+    "volumetric_speed_coefficients": {
+      "value": [
+        "0 0 0 0 0 0",
+        "0 0 0 0 0 0"
+      ],
+      "preset": "filament/fdm_filament_template_direct_dual.json"
+    },
+    "wall_distribution_count": {
+      "value": "1",
+      "slicer_default": "02.08.02.61"
+    },
+    "wall_filament": {
+      "value": "0",
+      "preset": "process/fdm_process_common.json"
+    },
+    "wall_generator": {
+      "value": "arachne",
+      "recipe": "process_settings",
+      "reason": "Variable-width paths fill the 2.4 mm ribs and narrow transitions without relying on exact multiples of the nominal 0.82 mm bead."
+    },
+    "wall_loops": {
+      "value": "4",
+      "recipe": "process_settings",
+      "reason": "Four requested loops reinforce forming skins and hardware seats; all residual stock is also solid."
+    },
+    "wall_sequence": {
+      "value": "inner wall/outer wall",
+      "preset": "process/fdm_process_common.json",
+      "slicer_legacy_name": "wall_infill_order"
+    },
+    "wall_transition_angle": {
+      "value": "10",
+      "slicer_default": "02.08.02.61"
+    },
+    "wall_transition_filter_deviation": {
+      "value": "25%",
+      "slicer_default": "02.08.02.61"
+    },
+    "wall_transition_length": {
+      "value": "100%",
+      "slicer_default": "02.08.02.61"
+    },
+    "wipe": {
+      "value": [
+        "1",
+        "1",
+        "1",
+        "1"
+      ],
+      "preset": "machine/Bambu Lab H2C 0.8 nozzle.json"
+    },
+    "wipe_distance": {
+      "value": [
+        "2",
+        "2",
+        "2",
+        "2"
+      ],
+      "preset": "machine/Bambu Lab H2C 0.8 nozzle.json"
+    },
+    "wipe_speed": {
+      "value": "80%",
+      "slicer_default": "02.08.02.61"
+    },
+    "wipe_tower_no_sparse_layers": {
+      "value": "0",
+      "preset": "process/fdm_process_common.json"
+    },
+    "wipe_tower_rotation_angle": {
+      "value": "0",
+      "slicer_default": "02.08.02.61"
+    },
+    "wipe_tower_x": {
+      "value": [
+        "15"
+      ],
+      "slicer_default": "02.08.02.61"
+    },
+    "wipe_tower_y": {
+      "value": [
+        "220"
+      ],
+      "slicer_default": "02.08.02.61"
+    },
+    "wrapping_detection_gcode": {
+      "value": ";===== machine: H2C =========================\n;===== date: 20251104 =====================\n\n{if !spiral_mode}\n    {if layer_num == 3 || layer_num == 10 || layer_num == 19}\n        M993 A2 B2 C2 ; nozzle cam detection allow status save.\n        M993 A0 B0 C0 ; nozzle cam detection not allowed.\n\n        M400 P100\n\n        G39\n\n        G90\n        G1 Y295 F30000\n        G1 Y265 F18000\n        \n        M993 A3 B3 C3 ; nozzle cam detection allow status restore.\n    {endif}\n{endif}\n",
+      "preset": "machine/Bambu Lab H2C 0.4 nozzle template wrapping_detection_gcode.json"
+    },
+    "wrapping_detection_layers": {
+      "value": "20",
+      "slicer_default": "02.08.02.61"
+    },
+    "wrapping_exclude_area": {
+      "value": [
+        "145x310",
+        "251x310",
+        "251x326",
+        "145x326"
+      ],
+      "preset": "machine/Bambu Lab H2C 0.4 nozzle.json"
+    },
+    "xy_contour_compensation": {
+      "value": "0",
+      "preset": "process/fdm_process_common.json"
+    },
+    "xy_hole_compensation": {
+      "value": "0",
+      "preset": "process/fdm_process_common.json"
+    },
+    "z_direction_outwall_speed_continuous": {
+      "value": "1",
+      "preset": "process/fdm_process_dual_common.json"
+    },
+    "z_hop": {
+      "value": [
+        "0.4",
+        "0.4",
+        "0.4",
+        "0.4"
+      ],
+      "preset": "machine/Bambu Lab H2C 0.8 nozzle.json"
+    },
+    "z_hop_types": {
+      "value": [
+        "Auto Lift",
+        "Auto Lift",
+        "Auto Lift",
+        "Auto Lift"
+      ],
+      "preset": "machine/Bambu Lab H2C 0.8 nozzle.json"
+    }
+  },
+  "representation_normalizations": [
+    {
+      "setting": "best_object_pos",
+      "supplied": "0.3x0.5",
+      "serialized": "0.3,0.5"
+    },
+    {
+      "setting": "bottom_surface_density",
+      "supplied": "100",
+      "serialized": "100%"
+    },
+    {
+      "setting": "enable_long_retraction_when_cut",
+      "supplied": [
+        "2"
+      ],
+      "serialized": "2"
+    },
+    {
+      "setting": "filament_cost",
+      "supplied": [
+        "11.20"
+      ],
+      "serialized": [
+        "11.2"
+      ]
+    },
+    {
+      "setting": "filament_dev_chamber_drying_time",
+      "supplied": [
+        "12.0"
+      ],
+      "serialized": [
+        "12"
+      ]
+    },
+    {
+      "setting": "fuzzy_skin_scale",
+      "supplied": "1.0",
+      "serialized": "1"
+    },
+    {
+      "setting": "infill_lock_depth",
+      "supplied": "1.0",
+      "serialized": "1"
+    },
+    {
+      "setting": "monotonic_travel_into_wall",
+      "supplied": "45.0",
+      "serialized": "45%"
+    },
+    {
+      "setting": "skin_infill_depth",
+      "supplied": "2.0",
+      "serialized": "2"
+    },
+    {
+      "setting": "support_ironing_inset",
+      "supplied": "0.0",
+      "serialized": "0"
+    },
+    {
+      "setting": "top_surface_density",
+      "supplied": "100",
+      "serialized": "100%"
+    }
+  ],
+  "input_keys_not_serialized": {
+    "extruder_height_gap": {
+      "value": "5",
+      "preset": "machine/Bambu Lab H2C 0.4 nozzle.json"
+    },
+    "extruder_clearance_radius": {
+      "value": "49",
+      "preset": "machine/Bambu Lab H2C 0.4 nozzle.json"
+    },
+    "deretract_speed_extruder_change": {
+      "value": [
+        "15",
+        "15",
+        "15",
+        "15"
+      ],
+      "preset": "machine/Bambu Lab H2C 0.8 nozzle.json"
+    },
+    "unprintable_filament_types": {
+      "value": [
+        "TPU",
+        "PPS-CF,PPA-CF"
+      ],
+      "preset": "machine/Bambu Lab H2C 0.4 nozzle.json"
+    },
+    "adaptive_layer_height": {
+      "value": "0",
+      "preset": "process/fdm_process_common.json"
+    },
+    "layer_time_smoothing": {
+      "value": "0",
+      "preset": "process/fdm_process_common.json"
+    },
+    "layer_time_smoothing_threshold": {
+      "value": "30",
+      "preset": "process/fdm_process_common.json"
+    },
+    "only_one_wall_top": {
+      "value": "1",
+      "preset": "process/fdm_process_common.json"
+    },
+    "wall_infill_order": {
+      "value": "inner wall/outer wall/infill",
+      "preset": "process/fdm_process_common.json"
+    },
+    "filament_long_retractions_when_ec": {
+      "value": [
+        "nil"
+      ],
+      "preset": "filament/fdm_filament_common.json"
+    },
+    "filament_retraction_distances_when_ec": {
+      "value": [
+        "nil"
+      ],
+      "preset": "filament/fdm_filament_common.json"
+    },
+    "filament_ingredients_safe": {
+      "value": "1",
+      "preset": "filament/fdm_filament_common.json"
+    },
+    "filament_emission_safe": {
+      "value": "1",
+      "preset": "filament/fdm_filament_common.json"
+    },
+    "filament_contact_safe": {
+      "value": "1",
+      "preset": "filament/fdm_filament_common.json"
+    }
+  },
+  "input_keys_note": "Bambu omits obsolete/unrecognized fields and rewrites legacy names. wall_infill_order is accounted for at wall_sequence. Only the effective settings above are the saved print configuration.",
+  "objects": [
+    {
+      "name": "finish-witness",
+      "object_overrides": {
+        "outer_wall_acceleration": "2000,2000,2000,2000",
+        "outer_wall_speed": "60,60,60,60"
+      },
+      "parts": [
+        {
+          "name": "funnel-mold-finish-witness.stl",
+          "type": "normal_part",
+          "overrides": {}
+        }
+      ],
+      "layer_ranges": [
+        {
+          "min_z": 0.4,
+          "max_z": 5,
+          "layer_height": 0.16,
+          "reason": "Represent the mold's fine layers around the backing channels."
+        },
+        {
+          "min_z": 6.2,
+          "max_z": 15.4,
+          "layer_height": 0.16,
+          "reason": "Bridge roof and the full 15-degree finishing ramp."
+        }
+      ]
+    },
+    {
+      "name": "cavity",
+      "object_overrides": {},
+      "parts": [
+        {
+          "name": "funnel-mold-cavity.stl",
+          "type": "normal_part",
+          "overrides": {}
+        },
+        {
+          "name": "funnel-mold-cavity-surface-zone.stl",
+          "type": "modifier_part",
+          "overrides": {
+            "outer_wall_acceleration": "2000,2000,2000,2000",
+            "outer_wall_speed": "60,60,60,60"
+          }
+        }
+      ],
+      "layer_ranges": [
+        {
+          "min_z": 0.4,
+          "max_z": 5,
+          "layer_height": 0.16,
+          "reason": "Three-millimetre backing-air channels and their crowns."
+        },
+        {
+          "min_z": 9,
+          "max_z": 11,
+          "layer_height": 0.16,
+          "reason": "Blind spout tip and pocket floor."
+        },
+        {
+          "min_z": 30.5,
+          "max_z": 54,
+          "layer_height": 0.16,
+          "reason": "The full shallow underside and forming ramp, including a margin beyond their analytic face bounds."
+        },
+        {
+          "min_z": 70.5,
+          "max_z": 74.65,
+          "layer_height": 0.16,
+          "reason": "Washer-seat floors and the finished upper datum."
+        }
+      ]
+    },
+    {
+      "name": "core",
+      "object_overrides": {},
+      "parts": [
+        {
+          "name": "funnel-mold-core.stl",
+          "type": "normal_part",
+          "overrides": {}
+        },
+        {
+          "name": "funnel-mold-core-surface-zone.stl",
+          "type": "modifier_part",
+          "overrides": {
+            "outer_wall_acceleration": "2000,2000,2000,2000",
+            "outer_wall_speed": "60,60,60,60"
+          }
+        }
+      ],
+      "layer_ranges": [
+        {
+          "min_z": 0.4,
+          "max_z": 5,
+          "layer_height": 0.16,
+          "reason": "Backing-air channels and their crowns in the inverted print orientation."
+        },
+        {
+          "min_z": 8,
+          "max_z": 14.5,
+          "layer_height": 0.16,
+          "reason": "Square-nut side entries, retaining lips and the parting face."
+        },
+        {
+          "min_z": 22,
+          "max_z": 23.5,
+          "layer_height": 0.16,
+          "reason": "Blind rod-socket transition."
+        },
+        {
+          "min_z": 32,
+          "max_z": 57,
+          "layer_height": 0.16,
+          "reason": "The full shallow underside and forming ramp, rod socket and working-stroke marks in the inverted print orientation."
+        }
+      ]
+    },
+    {
+      "name": "hardware-witness",
+      "object_overrides": {
+        "outer_wall_acceleration": "2000,2000,2000,2000",
+        "outer_wall_speed": "60,60,60,60"
+      },
+      "parts": [
+        {
+          "name": "funnel-mold-hardware-witness.stl",
+          "type": "normal_part",
+          "overrides": {}
+        }
+      ],
+      "layer_ranges": [
+        {
+          "min_z": 0.4,
+          "max_z": 5,
+          "layer_height": 0.16,
+          "reason": "Reproduce the core's initial layer schedule."
+        },
+        {
+          "min_z": 8,
+          "max_z": 14,
+          "layer_height": 0.16,
+          "reason": "Reproduce the core's square-nut slots and retaining lips."
+        }
+      ]
+    },
+    {
+      "name": "guide-witness",
+      "object_overrides": {
+        "outer_wall_acceleration": "2000,2000,2000,2000",
+        "outer_wall_speed": "60,60,60,60"
+      },
+      "parts": [
+        {
+          "name": "funnel-mold-guide-witness.stl",
+          "type": "normal_part",
+          "overrides": {}
+        }
+      ],
+      "layer_ranges": []
+    }
+  ],
+  "plates": [
+    {
+      "plater_id": "1",
+      "plater_name": "Finish and hardware witnesses - print first",
+      "locked": "false",
+      "filament_map_mode": "Manual",
+      "filament_maps": "1",
+      "filament_volume_maps": "1",
+      "gcode_file": "Metadata/plate_1.gcode",
+      "thumbnail_file": "Metadata/plate_1.png",
+      "thumbnail_no_light_file": "Metadata/plate_no_light_1.png",
+      "top_file": "Metadata/top_1.png",
+      "pick_file": "Metadata/pick_1.png"
+    },
+    {
+      "plater_id": "2",
+      "plater_name": "Cavity - vented ribs and bearing pads",
+      "locked": "false",
+      "filament_map_mode": "Manual",
+      "filament_maps": "1",
+      "filament_volume_maps": "1",
+      "gcode_file": "Metadata/plate_2.gcode",
+      "thumbnail_file": "Metadata/plate_2.png",
+      "thumbnail_no_light_file": "Metadata/plate_no_light_2.png",
+      "top_file": "Metadata/top_2.png",
+      "pick_file": "Metadata/pick_2.png"
+    },
+    {
+      "plater_id": "3",
+      "plater_name": "Core - guided screw extraction",
+      "locked": "false",
+      "filament_map_mode": "Manual",
+      "filament_maps": "1",
+      "filament_volume_maps": "1",
+      "gcode_file": "Metadata/plate_3.gcode",
+      "thumbnail_file": "Metadata/plate_3.png",
+      "thumbnail_no_light_file": "Metadata/plate_no_light_3.png",
+      "top_file": "Metadata/top_3.png",
+      "pick_file": "Metadata/pick_3.png"
+    }
+  ],
+  "archive_members": [
+    "[Content_Types].xml",
+    "Metadata/plate_1.png",
+    "Metadata/plate_1_small.png",
+    "Metadata/plate_2.png",
+    "Metadata/plate_2_small.png",
+    "Metadata/plate_3.png",
+    "Metadata/plate_3_small.png",
+    "Metadata/plate_no_light_1.png",
+    "Metadata/plate_no_light_2.png",
+    "Metadata/plate_no_light_3.png",
+    "Metadata/top_1.png",
+    "Metadata/pick_1.png",
+    "Metadata/top_2.png",
+    "Metadata/pick_2.png",
+    "Metadata/top_3.png",
+    "Metadata/pick_3.png",
+    "Metadata/plate_1.json",
+    "Metadata/plate_2.json",
+    "Metadata/plate_3.json",
+    "3D/3dmodel.model",
+    "3D/_rels/3dmodel.model.rels",
+    "3D/Objects/object_5.model",
+    "3D/Objects/object_1.model",
+    "3D/Objects/object_4.model",
+    "3D/Objects/object_3.model",
+    "3D/Objects/object_2.model",
+    "Metadata/layer_config_ranges.xml",
+    "Metadata/project_settings.config",
+    "Metadata/plate_1.gcode.md5",
+    "Metadata/plate_2.gcode.md5",
+    "Metadata/plate_3.gcode.md5",
+    "Metadata/plate_1.gcode",
+    "Metadata/plate_3.gcode",
+    "Metadata/plate_2.gcode",
+    "Metadata/_rels/model_settings.config.rels",
+    "Metadata/model_settings.config",
+    "Metadata/cut_information.xml",
+    "Metadata/slice_info.config",
+    "Metadata/filament_sequence.json",
+    "_rels/.rels"
+  ],
+  "extra_filament_or_per_layer_gcode_files": [],
+  "physical_validation": "The 18 mm3/s flow target, 60 mm/s finishing speed, coating result and extraction load remain subject to the actual spool, witnesses and assembled tooling. Z trim is the user-observed plate calibration."
+}
