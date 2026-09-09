@@ -702,6 +702,20 @@ genrule(
          and not artifact_unknown("hardware/printed-parts/petgf.3mf")
          and not artifact_unknown("hardware/printed-parts/petgf.3mf", True)
          and artifact_presentation_only("hardware/printed-parts/petgf.3mf"))
+    _slicer = ["hardware/printed-parts/zone-c/funnel-mold/print-recipe.json",
+               "hardware/printed-parts/zone-c/funnel-mold/print-profile.json",
+               "hardware/printed-parts/zone-c/funnel-mold/print-start-check.json",
+               "hardware/printed-parts/zone-c/funnel-mold/profile-audit.json",
+               "hardware/printed-parts/zone-c/funnel-mold/"
+               "funnel-mold-hf08-z-trim-presets.bbscfg"]
+    hold("a preset bundle and the four print records are inert with the project",
+         all(build_inert(p) and not read_kind(p) and not artifact_unknown(p)
+             and not artifact_unknown(p, True) for p in _slicer)
+         and unscoped_changes(_slicer, [], True) == []
+         and not build_inert(
+             "hardware/printed-parts/zone-c/funnel-mold/README.figures.json")
+         and artifact_unknown(
+             "hardware/printed-parts/zone-c/funnel-mold/mechanical-verification.json", True))
     hold("a data-bearing document stays in the artifact slice",
          not artifact_presentation_only("hardware/ledger/bom.md"))
     hold("only artifact inputs widen the artifact slice",
@@ -735,7 +749,7 @@ genrule(
         print("  --   bazel query holds skipped: a query under `bazel test` waits on its own "
               "server. Run `affected.py selftest` from a shell for them.")
         print(f"affected selftest {holds}/{holds} (of the holds this run can take)")
-        return 0 if holds == 16 else 1
+        return 0 if holds == 17 else 1
 
     src = ["hardware/printed-parts/cold-core/foam-cap/foam_cap.py"]
     hit, miss = known(src)
@@ -749,8 +763,8 @@ genrule(
     hold("nothing changed is no targets", targets([]) == [] and changed() is not None)
     hold("artifact rules are a strict build slice",
          "//:display-cover" in artifact_targets() and "//:everything" not in artifact_targets())
-    print(f"affected selftest {holds}/22")
-    return 0 if holds == 22 else 1
+    print(f"affected selftest {holds}/23")
+    return 0 if holds == 23 else 1
 
 
 def say_if_unshimmed() -> None:

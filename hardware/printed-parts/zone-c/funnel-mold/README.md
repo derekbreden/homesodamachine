@@ -197,16 +197,34 @@ Outputs the cavity, core, finish witness, hardware witness and guide-pin
 STEP/STL files and the assembled mold with its steel hardware. The two mold halves share the assembly frame; invert the core for print.
 The print project also retains the printer's Z-trim profile; re-slice after changing
 geometry, finishing allowance, material, nozzle or machine settings.
-[prepare_print.py](prepare_print.py) loads the generated body STLs and their
-`surface-zone.stl` modifiers into three plates, retaining the named project's
+[prepare_print.py](/tools/funnel-mold-print/prepare_print.py) loads the generated body STLs and
+their `surface-zone.stl` modifiers into three plates, retaining the named project's
 machine and filament configuration. For example:
 
 ```sh
-tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel-mold/prepare_print.py --output /tmp/funnel-mold-input.3mf
+tools/cad-venv/bin/python tools/funnel-mold-print/prepare_print.py --output /tmp/funnel-mold-input.3mf
 ```
 
 The prepared file is unsliced. Slice it in Bambu Studio and inspect its actual
 paths and time estimates; the delivered 3MF already contains the verified slice.
+[audit_profile.py](/tools/funnel-mold-print/audit_profile.py) reads that sliced project back into
+[profile-audit.json](profile-audit.json).
+
+## The print preparation runs by hand
+
+Both scripts sit in [`tools/funnel-mold-print/`](/tools/funnel-mold-print/), beside
+[`tools/funnel-mold-guide/`](/tools/funnel-mold-guide/) and
+[`tools/weld-rotator-guide/`](/tools/weld-rotator-guide/). Two readings answer to that directory:
+`tools/bazel/trace_inputs.py` names `tools/` in `ELSEWHERE`, so a full sweep traces neither into a
+Bazel rule, and `affected.py`'s `artifact_unknown` answers no for a path under it, so an edit to
+one leaves the artifact slice where it was rather than widening it to all 73 rules.
+
+The slicer records they read and write — [print-recipe.json](print-recipe.json),
+[print-profile.json](print-profile.json), [profile-audit.json](profile-audit.json),
+[print-start-check.json](print-start-check.json) and the
+[`.bbscfg` bundle](funnel-mold-hf08-z-trim-presets.bbscfg) — are named in
+`tools/bazel/inventory.py`'s `build_inert`, which holds them outside every build action the way
+it holds the `.3mf` projects beside them.
 
 ## Sources
 [value](NAME) texts are updated by:

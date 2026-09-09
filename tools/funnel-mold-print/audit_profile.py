@@ -3,6 +3,10 @@
 Pass the .provenance.json emitted by prepare_print.py alongside its unsliced
 input. Bambu Studio supplies the built-in defaults and serializes the result;
 this audit records that final configuration, including local overrides.
+
+RUN BY HAND, AND NOT A STEP OF THE BUILD, on the same terms as prepare_print.py
+beside it. The part it reports on is at
+`hardware/printed-parts/zone-c/funnel-mold/`, whose README carries the rest.
 """
 from pathlib import Path
 import argparse

@@ -2,14 +2,14 @@
 
 The project is built from three explicit inputs: **the current STL geometry,
 [print-recipe.json](print-recipe.json), and the installed Bambu system presets**.
-[prepare_print.py](prepare_print.py) constructs the 3MF from those inputs.
+[prepare_print.py](/tools/funnel-mold-print/prepare_print.py) constructs the 3MF from those inputs.
 It reads no other 3MF and no user-profile directory.
 
 [profile-audit.json](profile-audit.json) accounts for **all 579 effective saved
 settings** in the sliced reference at Git revision `7aa5b50e4`, the five objects,
 two modifiers, three plate assignments and every
 layer-height range. It records the source-file hashes and actual serialized
-values. [audit_profile.py](audit_profile.py) checks the recipe against the sliced
+values. [audit_profile.py](/tools/funnel-mold-print/audit_profile.py) checks the recipe against the sliced
 project, including local settings that are not visible in the global profile.
 [print-start-check.json](print-start-check.json) compares the current editable
 save and the submitted cavity job against that reference.
