@@ -1,6 +1,6 @@
-[sliver] The 0.6 mm corner chamfer on a solid 8 mm square guide creates a 0.849 mm diagonal face. This is an edge treatment on the full post, not an isolated thin wall. The hardware witness checks the sliding fit before the large print.
+[sliver] The 0.6 mm corner chamfer on a solid 12 x 40 mm guide blade creates a 0.849 mm diagonal face. This is an edge treatment on the full blade, not an isolated thin wall. The hardware witness checks the sliding fit before the large print.
 file: hardware/printed-parts/zone-c/funnel-mold/funnel-mold-guide-witness.step
-click: x=-3.700 y=-3.700 z=14.600
-click: x=-3.700 y=3.700 z=14.600
-click: x=3.700 y=-3.700 z=14.600
-click: x=3.700 y=3.700 z=14.600
+click: x=-5.700 y=-19.700 z=14.600
+click: x=-5.700 y=19.700 z=14.600
+click: x=5.700 y=-19.700 z=14.600
+click: x=5.700 y=19.700 z=14.600

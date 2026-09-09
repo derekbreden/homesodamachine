@@ -6,17 +6,17 @@
   "chamber_nominal_id_mm": 299.72,
   "geometry": {
     "cavity": {
-      "volume_mm3": 572829.5706041154,
+      "volume_mm3": 1047037.8389108226,
       "valid_solid": true,
       "solids": 1,
       "mesh_watertight": true,
       "mesh_winding_consistent": true,
       "mesh_bodies": 1,
-      "max_radius_mm": 135.32067075961893,
-      "chamber_radial_clearance_mm": 14.539329240381079
+      "max_radius_mm": 142.56945335358844,
+      "chamber_radial_clearance_mm": 7.2905466464115705
     },
     "core": {
-      "volume_mm3": 526810.4375796044,
+      "volume_mm3": 833357.369790872,
       "valid_solid": true,
       "solids": 1,
       "mesh_watertight": true,
@@ -41,7 +41,9 @@
     "32": 0.0,
     "38": 0.0,
     "44": 0.0,
-    "50": 0.0
+    "50": 0.0,
+    "54": 0.0,
+    "58": 0.0
   },
   "guide_sweeps": [
     {
@@ -112,8 +114,8 @@
     }
   ],
   "screw_head_clearance_at_full_lift_mm": [
-    5.799999999999997,
-    7.0
+    1.7999999999999972,
+    3.0
   ],
   "nut_full_thread_engagement_mm": 4.0,
   "washer_bearing": {
@@ -124,7 +126,7 @@
     "minimum_hole_edge_margin_mm": 2.5999999999999996,
     "minimum_outer_edge_margin_mm": 1.8
   },
-  "geometry_source_sha256": "4d1276d01b3ff089ebadbd6bc3ab55f1537318894e62f270cc38bee7f7a3ed29",
+  "geometry_source_sha256": "0f49946cde3408e24951071929a987380ab78d7040d8a632f5499c615b6b415a",
   "hardware_purchase": {
     "asin": "B0GHNQFZYR",
     "screw": "M5-0.8 x 50 mm fully threaded socket head",

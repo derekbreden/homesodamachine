@@ -1,34 +1,14 @@
-[step] The broad Y-side root foot extends 0.5 mm beyond this guide brace. This supported edge transition is outside the forming surfaces; it is part of a 64 mm wide, 16 mm high foot, not a 0.5 mm wall.
+[sliver] Start of the 45-degree registration corbel. These residual flats project at most 0.313 mm from the supporting skin, less than half a nominal 0.8 mm extrusion width. The corbel then grows outward gradually above the continuous forming skin.
 file: hardware/printed-parts/zone-c/funnel-mold/funnel-mold-cavity.step
-click: x=30.000 y=81.100 z=13.675
-
-[sliver] Start of the 45-degree registration corbel. These residual flats project at most 0.313 mm from the supporting skin, less than half a nominal 0.8 mm extrusion width. The corbel then grows outward gradually; the final cavity slice has zero detected cantilever distance and no floating-region warning.
-file: hardware/printed-parts/zone-c/funnel-mold/funnel-mold-cavity.step
-click: x=-7.850 y=-80.350 z=50.649
-click: x=6.400 y=-80.350 z=50.649
-click: x=-34.150 y=-80.348 z=50.649
-click: x=-23.750 y=-80.349 z=50.649
-click: x=-50.000 y=-80.346 z=50.649
+click: x=-30.000 y=-80.348 z=50.649
+click: x=32.800 y=-80.348 z=50.649
+click: x=-13.200 y=-80.350 z=50.649
+click: x=13.200 y=-80.350 z=50.649
+click: x=-44.700 y=-80.347 z=50.649
+click: x=-56.700 y=-80.346 z=50.649
 click: x=50.000 y=-80.346 z=50.649
-click: x=30.000 y=-80.348 z=50.649
 click: x=69.438 y=-80.343 z=50.649
 click: x=-69.199 y=-80.343 z=50.649
-
-[ceiling] Bottom crosswall of an open guide sleeve. Its 8.6 mm clear span bridges between the two full-height side braces; the bore remains open above and below. This is outside the forming cavity. The final support-free slice has no floating-region warning; inspect the bridge and pass the guide pin through it.
-file: hardware/printed-parts/zone-c/funnel-mold/funnel-mold-cavity.step
-click: x=-22.000 y=-113.100 z=54.649
-click: x=-22.000 y=-124.900 z=54.649
-click: x=113.100 y=-22.000 z=54.649
-click: x=124.900 y=-22.000 z=54.649
-click: x=22.000 y=113.100 z=54.649
-click: x=22.000 y=124.900 z=54.649
-click: x=-113.100 y=22.000 z=54.649
-click: x=-124.900 y=22.000 z=54.649
-
-[slope] Intentional 45-degree underside of the washer-support web. Its root grows from the 16 mm high Y-side foot, tied into the existing X ribs and open to the backing-air channel. The slope carries the supported washer pad outside the forming faces; the final slice grows continuously from its foot.
-file: hardware/printed-parts/zone-c/funnel-mold/funnel-mold-cavity.step
-click: x=14.000 y=-102.024 z=35.976
-click: x=-14.000 y=102.024 z=35.976
 
 [sliver] Normal-offset joining faces at the collar transition. The 0.20 mm strips bound the forming allowance and join the continuous 3.2 mm skin; they are not structural walls of that thickness.
 file: hardware/printed-parts/zone-c/funnel-mold/funnel-mold-cavity.step
