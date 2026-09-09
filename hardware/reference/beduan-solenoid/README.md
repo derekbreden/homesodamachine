@@ -2,7 +2,7 @@
 
 A coarse keep-out envelope for the Beduan 12V DC normally-closed solenoid
 valve (2-way, 1/4" quick-connect — Amazon B07NWCQJK9), the off-the-shelf
-valve used 12× per unit on the fluid-topology manifold (`hardware/bom.md`).
+valve used 12× per unit on the fluid-topology manifold (`hardware/ledger/bom.md`).
 This is a purchased part, not a printed one — the model is for rack and
 manifold layout, not a manufacturing drawing.
 
