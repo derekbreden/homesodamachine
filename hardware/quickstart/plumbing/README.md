@@ -1,7 +1,9 @@
-# Older-home braided-hose plumbing study
+# Older-home braided-hose scenes
 
-These assets support the separate installer path for a 3/8-inch braided faucet hose and threaded
-angle-stop tee. They are not pages or build dependencies of the modern push-fit Quick Start.
+The installer path for a 3/8-inch braided faucet hose and a threaded angle-stop tee — scenario B,
+the kitchen the Quick Start does not draw. These four scenes are the
+[install guide](/hardware/install-guide/README.md)'s older-kitchen spread, and they are not pages
+or build dependencies of the modern push-fit sheet.
 
 `plumbing_scenes.py` generates four registered under-sink installation scenes:
 

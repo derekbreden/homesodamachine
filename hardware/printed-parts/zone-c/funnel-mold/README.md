@@ -13,18 +13,21 @@ coating, spray count, or printer.
 
 ## Structure and vacuum paths
 
-- **Cavity:** [189.0 × 189.0 × 74.6 mm](CAVITY_DIMS), opening upward. Its forming
+- **Cavity:** [269.0 × 269.0 × 74.6 mm](CAVITY_DIMS), opening upward. Its forming
   skin is [3.2 mm](FORMING_SKIN), carried by [2.4 mm](RIB_THK) ribs on
   [20 mm](RIB_PITCH) centres and three cross ribs. The registration band extends
   [8 mm](MOLD_WALL) outside the nominal brim. Its feet stand [10 mm](MOLD_BASE)
   below the nominal blind tip floor. A pedestal carries that closed floor to the
   bed. A 45° corbel carries the registration band outward from the collar. The
-  spaces between ribs open underneath.
-- **Core:** [201.0 × 201.0 × 50.4 mm](CORE_DIMS), printed upside down, with the
+  spaces between ribs open underneath. External washer pads and guide sleeves
+  stand on 45° braces rooted in the structural ribs.
+- **Core:** [266.0 × 266.0 × 60.0 mm](CORE_DIMS), printed upside down, with the
   forming plug upward. Its back opens between the ribs. A [10 mm](PLATE_THK)
   perimeter plate forms the brim and carries the pour and silicone vents; its
   skirt registers over the cavity for [10 mm](LIP_H). A continuous skin and boss
-  surround the rod socket, including its blind end.
+  surround the rod socket, including its blind end. Four ears carry steel square
+  nuts for the screw jacks; four integral guide posts point down into sleeves on
+  the cavity. The posts print upward with the inverted core.
 - **Backing air:** transverse [3 mm](BACK_VENT_D) channels connect the rib bays
   to the outside. Cavity channels sit near the feet; core channels sit near its
   open back. They remain exposed with a flat chamber shelf under the cavity or
@@ -45,13 +48,14 @@ this tooling has no pressure-vessel rating.
 
 ## Print
 
-[**funnel-mold-vacuum-petg-08-016.3mf**](funnel-mold-vacuum-petg-08-016.3mf)
-contains separate plates for the finish witness, cavity and core. Use the H2C's
+[**funnel-mold-guided-vacuum-petg-08-016.3mf**](funnel-mold-guided-vacuum-petg-08-016.3mf)
+contains separate plates for the small witnesses, cavity and core. Use the H2C's
 left 0.8 mm Standard nozzle and PETG Translucent, at 0.16 mm layers.
 [Print settings and inspection](print-profile.md) accompany the sliced project.
-Print the witness first. Each large plate is an independent print job. Modifier
-volumes keep the forming skins, rod boss and registration faces at 30 mm/s outer
-wall speed; exposed backing ribs may print at 80 mm/s.
+Print all three small witnesses first: finish, hardware fits and guide pin. Each
+large plate is an independent print job. Modifier volumes keep the forming skins,
+rod boss, registration faces and hardware fits at 30 mm/s outer wall speed;
+exposed backing ribs may print at 100 mm/s.
 
 The forming skins bridge the spaces between the ribs. Those bridge undersides
 face the open backs; the silicone-facing surfaces grow above the full skin
@@ -145,18 +149,19 @@ cured; keep backing-channel exits uncovered.
 
 Demold in three independent movements:
 
-1. Lift the core evenly and axially off the rod. Its skirt guides the initial
-   [10 mm](LIP_H); keep it level for the rest of the socket's engagement. The rod
-   may move with the silicone, so observe it rather than assuming it has stayed
-   perfectly stationary. Do not rock the core to release it.
+1. Use the four screw jacks in equal quarter-turns, in opposite-side pairs, to
+   raise the core 32 mm. The external guides retain 12 mm of engagement at that
+   stroke, while the rod socket is 28.8 mm deep. Observe the rod: adhesion may
+   lift it with the core. Continue straight upward by hand until the guides
+   clear. Do not rock the core to release it.
 2. Peel/lift the silicone funnel from the cavity, supporting its brim and spout.
 3. Draw the rod axially from the silicone, gripping the exposed part without
    damaging its sealing surface. Trim the sacrificial tip and the pour/vent pips.
 
-[Controlled extraction proposal](extraction.md) describes four steel jack screws,
-captive nuts and steel bearing pads outside the forming faces. The delivered mold
-has its registration skirt and manual extraction geometry; the jack mechanism
-is a proposed addition, with hardware links and a defined travel requirement.
+[Controlled extraction](extraction.md) gives the installed geometry, verified
+hardware, fit checks and assembly procedure. Keep the nuts, guides and washer
+seats uncoated. The screw jacks lift the core; the holding arrangement must keep
+it seated during casting and cure.
 
 Inspect the cast for voids, tacky areas, torn spout walls and dimensional fit.
 Wash and post-cure the silicone according to the exact product's food-contact
@@ -171,12 +176,20 @@ funnel for food contact.
 tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel-mold/funnel_mold.py
 ```
 
-Outputs the cavity, core and finish-witness STEP/STL files and the exploded mold
-assembly. The two mold halves share the assembly frame; invert the core for print.
+Outputs the cavity, core, finish witness, hardware witness and guide-pin
+STEP/STL files and the assembled mold with its steel hardware. The two mold halves share the assembly frame; invert the core for print.
 The print project also retains the printer's Z-trim profile; re-slice after changing
-geometry, finishing allowance, material, nozzle or machine settings. Geometry
-changes require reloading the generated body STLs and their `surface-zone.stl`
-modifiers before slicing; the 3MF stores its own copies of those meshes.
+geometry, finishing allowance, material, nozzle or machine settings.
+[prepare_print.py](prepare_print.py) loads the generated body STLs and their
+`surface-zone.stl` modifiers into three plates, retaining the named project's
+machine and filament configuration. For example:
+
+```sh
+tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel-mold/prepare_print.py --output /tmp/funnel-mold-input.3mf
+```
+
+The prepared file is unsliced. Slice it in Bambu Studio and inspect its actual
+paths and time estimates; the delivered 3MF already contains the verified slice.
 
 ## Sources
 [value](NAME) texts are updated by:

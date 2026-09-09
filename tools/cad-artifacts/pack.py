@@ -72,6 +72,7 @@ NOT_BUNDLED_DIRS = (
     "hardware/quickstart/out",               # where a mount study lands; no rule declares one
     "hardware/quickstart/plumbing/out",      # the scene renderer's workings beside its STEPs
     "hardware/quickstart/studies",           # drawn by hand; the graph declares none of it
+    "hardware/install-guide/out",            # a leaf's own two renders; no route serves one
 )
 
 #: Solids with no builder in this tree — `y_divider.py:3` says it of its own. A generator reads
@@ -186,12 +187,18 @@ BUNDLED_PAYLOAD_DIRS = (
     "hardware/faucet-layout",
 )
 
-#: Drawn pages and the pictures in them: the Quick Start's sheet, the assembly cards and the
-#: tool deck. `quickstart-build` and `cards-build` draw them off the same solids as everything
-#: else here, `walkDocuments` serves a PDF off this tree at request time and the cards' own
-#: pictures are what `/3d` shows beside a part. The studies, a card's local renders and the
-#: renderer's fonts are held out above.
-BUNDLED_ART_DIRS = ("hardware/quickstart", "hardware/assembly/cards")
+#: Drawn pages and the pictures in them: the Quick Start's sheet, the install guide bound beside
+#: it, the assembly cards and the tool deck. `quickstart-build`, `install-guide-build` and
+#: `cards-build` draw them off the same solids as everything else here, `walkDocuments` serves a
+#: PDF off this tree at request time and the cards' own pictures are what `/3d` shows beside a
+#: part. The studies, a card's or a leaf's local renders and the renderer's fonts are held out
+#: above. The install guide contributes only its bound PDF and its cover: every picture in it is
+#: a quick-start render, already bundled by the directory above it.
+BUNDLED_ART_DIRS = (
+    "hardware/quickstart",
+    "hardware/install-guide",
+    "hardware/assembly/cards",
+)
 
 #: What a drawn page is made of. `.png.scene.json` rides beside the picture it describes and
 #: moves with it.

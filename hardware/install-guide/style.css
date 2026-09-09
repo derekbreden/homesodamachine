@@ -364,3 +364,65 @@ tr:last-child td { border-bottom: none; }
 
 .back { justify-content: space-between; }
 .back-mark { width: 84px; height: 84px; border-radius: 19px; }
+
+/* The one drawing this guide makes of its own: everything the buyer connects, on one page,
+   in the colours those things wear on the machine. */
+.path-map { display: block; width: 100%; height: auto; margin-top: 16px; }
+.path-map .lbl {
+  fill: var(--muted);
+  font-family: var(--sans);
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+.path-map .port {
+  fill: #fff;
+  font-family: var(--sans);
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+/* The older-kitchen scenes are 2000 x 1100 frames with a tall assembly in the middle of them.
+   One region of the source fills every one of these plates, so the four states stay registered
+   on the page the way they are registered in the camera. */
+.plate-stop {
+  height: 640px;
+  background-color: #d0d0ce;
+  background-size: 1560px auto;
+  background-position: -457px -218px;
+}
+.plate-valve-on { background-image: url("../quickstart/plumbing/art/plumbing-valve-on.png"); }
+.plate-valve-off { background-image: url("../quickstart/plumbing/art/plumbing-valve-off.png"); }
+.plate-pre-tee { background-image: url("../quickstart/plumbing/art/plumbing-pre-tee.png"); }
+.plate-tee-in { background-image: url("../quickstart/plumbing/art/plumbing-tee-installed.png"); }
+
+/* A fork in the guide: the question the buyer answers by looking, and what that answer costs. */
+.choice { margin-top: 34px; padding-left: 34px; border-left: 7px solid var(--field-deep); }
+.choice-q { font-size: 41px; font-style: italic; line-height: 1.36; }
+.choice p + p { margin-top: 18px; }
+
+/* The back cover answers the front: same stone, same lockup, and the one picture a buyer needs
+   to find again a year from now. */
+.back-title {
+  margin-top: 46px;
+  font-size: 96px;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.02;
+}
+.back-cover > main.back-art {
+  flex: 1 1 auto;
+  min-height: 0;
+  margin: 70px 96px 0;
+  padding-top: 0;
+  border-radius: 10px;
+  background-color: var(--paper);
+  background-image: url("../quickstart/art/machine-back-close.png");
+  background-repeat: no-repeat;
+  background-position: 26% 62%;
+  background-size: 1560px auto;
+}
+.back-cover .cover-foot { padding: 56px 135px 116px; font-size: 35px; }
+.back-cover .cover-foot p + p { margin-top: 26px; }
+.back-sign { color: var(--muted); font-style: italic; }

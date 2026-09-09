@@ -62,6 +62,7 @@ _NODE = ("tools/render/", "web/")
 _NODE_RUNTIME_CONSUMERS = {
     "hardware/assembly/cards/_build.py": ":render-card-runtime",
     "hardware/assembly/cards/tools/_build.py": ":render-card-runtime",
+    "hardware/install-guide/_build.py": ":render-card-runtime",
     "hardware/quickstart/_build.py": ":render-card-runtime",
     "hardware/quickstart/quickstart_art.py": ":render-step-posed-runtime",
     "hardware/quickstart/plumbing/modern/render_modern_tee.py": ":render-step-posed-runtime",
