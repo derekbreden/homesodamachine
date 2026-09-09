@@ -26,18 +26,33 @@ const ALL = walkFiles(HW, ".step").sort();
 const FUNNEL = "printed-parts/zone-c/funnel/funnel.step";
 const MOLD_DIR = "printed-parts/zone-c/funnel-mold";
 
-test("the funnel offers all three mold models", () => {
-  const rel = relatedSteps(FUNNEL, ALL);
-  const molds = rel.filter((r) => r.file.startsWith(MOLD_DIR + "/"));
-  assert.equal(molds.length, 3, JSON.stringify(rel, null, 2));
-  for (const m of molds) assert.equal(m.kind, "from");
+// THE MOLD DIRECTORY IS THE FUNNEL'S WHOLE TOOLING PACKAGE, not just the bodies
+// that close on the silicone: the cavity and core, the assembly of the two, and
+// the small witnesses printed alongside them to gauge the finish, the hardware
+// fits and the guide pins. A hand making a funnel prints all of them, so the rail
+// offers all of them, and this counts what the tree holds rather than a number
+// typed here — a witness added is a chip added, with nothing to update.
+test("the funnel offers every model in its mold directory", () => {
+  const inMold = ALL.filter((f) => f.startsWith(MOLD_DIR + "/"));
+  const offered = relatedSteps(FUNNEL, ALL).filter((r) => r.file.startsWith(MOLD_DIR + "/"));
+  assert.deepEqual(offered.map((r) => r.file), inMold, JSON.stringify(offered, null, 2));
+  for (const m of offered) assert.equal(m.kind, "from");
 });
 
-test("each mold half offers the funnel back", () => {
-  for (const half of ALL.filter((f) => f.startsWith(MOLD_DIR + "/"))) {
-    const rel = relatedSteps(half, ALL);
+// And the bodies themselves are named, so a mold deleted or renamed out of that
+// directory fails here rather than passing on an empty set.
+test("the mold's own cavity, core and assembly are among them", () => {
+  const offered = new Set(relatedSteps(FUNNEL, ALL).map((r) => r.file));
+  for (const body of ["assembly", "cavity", "core"]) {
+    assert.ok(offered.has(`${MOLD_DIR}/funnel-mold-${body}.step`), body);
+  }
+});
+
+test("every model in the mold directory offers the funnel back", () => {
+  for (const model of ALL.filter((f) => f.startsWith(MOLD_DIR + "/"))) {
+    const rel = relatedSteps(model, ALL);
     const back = rel.find((r) => r.file === FUNNEL);
-    assert.ok(back, `${half} does not reach the funnel`);
+    assert.ok(back, `${model} does not reach the funnel`);
     assert.equal(back.kind, "of");
   }
 });
