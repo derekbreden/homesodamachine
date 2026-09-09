@@ -42,8 +42,14 @@ forming_skin = 3.2
 rib_thk = 2.4
 rib_pitch = 20.0
 cross_rib_pitch = 64.0
-foot_frame = 3.2
-frame_height = 2.4
+foot_frame = 8.0
+frame_height = 3.2
+frame_corner_radius = 10.0
+rib_foot_width = 6.4
+rib_foot_land = 1.2
+rib_foot_rise = (rib_foot_width-rib_thk)/2
+fixture_foot_margin = 2.0
+fixture_foot_radius = 6.4
 back_vent_d = 3.0
 back_vent_depth = 3.0
 register_corbel_run = 14.0
@@ -111,6 +117,35 @@ def _cyl(r, z_top, z_bot, cx=0.0, cy=0.0):
     return cq.Solid.makeCylinder(r, z_top-z_bot, cq.Vector(cx, cy, z_bot), cq.Vector(0, 0, 1))
 
 
+def _rounded_box(w, d, z0, z1, radius, cx=0.0, cy=0.0):
+    return cq.Workplane(obj=_box(w, d, z0, z1, cx, cy)).edges('|Z').fillet(radius).val()
+
+
+def _foot_ring(w, d, z0, z1, radius, cx=0.0, cy=0.0):
+    outer = _rounded_box(w, d, z0, z1, radius, cx, cy)
+    inner = _rounded_box(w-2*foot_frame, d-2*foot_frame, z0-1, z1+1,
+                         max(radius-foot_frame, rib_thk), cx, cy)
+    return outer.cut(inner)
+
+
+def _rib_feet(w, d, bed_z, cx=0.0, cy=0.0, print_up=1):
+    """Broad flat rib lands taper inward at 45 degrees above the first 1.2 mm."""
+    def beam(length):
+        land = _box(rib_foot_width, length, 0, rib_foot_land)
+        taper = (cq.Workplane('XY').workplane(offset=rib_foot_land)
+            .rect(rib_foot_width, length).workplane(offset=rib_foot_rise)
+            .rect(rib_thk, length).loft().val())
+        return land.fuse(taper)
+    count = math.floor((w/2-foot_frame)/rib_pitch)
+    along_y, along_x = beam(d), beam(w).rotate((0, 0, 0), (0, 0, 1), 90)
+    feet = [along_y.translate((i*rib_pitch, 0, 0)) for i in range(-count, count+1)]
+    feet.extend(along_x.translate((0, y, 0)) for y in (-cross_rib_pitch, 0, cross_rib_pitch))
+    shape = feet[0].fuse(*feet[1:], tol=boolean_tol)
+    if print_up < 0:
+        shape = shape.rotate((0, 0, 0), (1, 0, 0), 180)
+    return shape.translate((cx, cy, bed_z))
+
+
 def _one(shape, name):
     shape = shape.clean()
     assert shape.isValid() and len(shape.Solids()) == 1, f"{name}: invalid or disconnected solid"
@@ -155,13 +190,17 @@ def build_extraction(top_z):
         .workplane(offset=(guide_relief-guide_bore)/2)
         .rect(guide_bore, guide_bore_depth).loft().val())
     sleeve = sleeve.cut(socket, relief)
+    pad_foot = _cyl(column_radius+fixture_foot_margin, frame_height, 0, jack_x, washer_y)
+    guide_foot = _rounded_box(guide_outside+2*fixture_foot_margin,
+        guide_outside_depth+2*fixture_foot_margin, 0, frame_height,
+        fixture_foot_radius, guide_x, guide_y)
     walls = []
     pad_wall_spread = 2*(washer_y-rib_thk/2-station_wall/2)
     for x, y, spread in [(jack_x, washer_y, pad_wall_spread),
                           (guide_x, guide_y, guide_outside_depth-station_wall)]:
         walls.extend(_box(x-station_root, station_wall, 0, tie_top,
                      (station_root+x)/2, y+s*spread/2) for s in (-1, 1))
-    lower = pad.fuse(sleeve, *walls)
+    lower = pad.fuse(sleeve, pad_foot, guide_foot, *walls)
     guide_air = cq.Solid.makeCylinder(back_vent_d/2, guide_outside,
         cq.Vector(guide_x, guide_y, back_vent_depth), cq.Vector(1, 0, 0))
     lower = lower.cut(guide_air, socket, relief)
@@ -175,6 +214,10 @@ def build_extraction(top_z):
                 (station_arm_root, guide_arm_low)]
     arm = (cq.Workplane('XY').workplane(offset=top_z)
            .polyline(arm_plan).wire().extrude(plate_thk).val())
+    arm_outline = cq.Workplane('XY').polyline(arm_plan).wire().val()
+    arm_foot_wire = arm_outline.offset2D(fixture_foot_margin, kind='arc')[0]
+    arm_foot = cq.Solid.extrudeLinear(arm_foot_wire, [], cq.Vector(0, 0, frame_height))
+    arm_foot = arm_foot.translate((0, 0, top_z+plate_thk-frame_height))
     post = _guide_post(top_z-guide_drop, top_z+plate_thk, guide_x, guide_y)
     shoulder = (cq.Workplane('XY').workplane(offset=top_z-guide_root_run)
         .center(guide_x, guide_y).rect(guide_width, guide_depth)
@@ -185,7 +228,7 @@ def build_extraction(top_z):
     mark_z = top_z-guide_top-extraction_stroke
     post = post.cut(_box(0.4, 5.0, mark_z-0.4, mark_z+0.4,
                         guide_x+guide_width/2-0.15, guide_y))
-    upper = arm.fuse(post, shoulder)
+    upper = arm.fuse(post, shoulder, arm_foot)
     upper = upper.cut(_cyl(jack_hole/2, top_z+plate_thk+1, top_z-1, jack_x, jack_y),
                       _nut_cut(top_z, jack_x, jack_y, station_arm_end+1))
     upper = _one(upper, 'extraction upper station')
@@ -311,15 +354,15 @@ def build():
     register_corbel = (cq.Workplane('XY').workplane(offset=top_z-lip_h-register_corbel_run)
         .center(ocx, ocy).rect(block_w-2*register_corbel_run, block_d-2*register_corbel_run)
         .workplane(offset=register_corbel_run).rect(block_w, block_d).loft().val())
-    foot = _box(block_w, block_d, floor_z, floor_z+frame_height, ocx, ocy).cut(
-        _box(block_w-2*foot_frame, block_d-2*foot_frame,
-             floor_z-1, floor_z+frame_height+1, ocx, ocy))
+    foot = _foot_ring(block_w, block_d, floor_z, floor_z+frame_height,
+                      frame_corner_radius, ocx, ocy)
     ribs = _ribs(block_w, block_d, floor_z, top_z, ocx, ocy)
+    rib_feet = _rib_feet(block_w, block_d, floor_z, ocx, ocy)
     # Carry the blind spout floor directly to the bed; its rounded backing must
     # not begin as a cantilever between the ribs.
     tip_pedestal = _cyl(m['spout_or']+finish_allowance+forming_skin,
                         neck_z, floor_z, ncx, ncy)
-    cavity = backing.fuse(top_register, register_corbel, foot, ribs, tip_pedestal,
+    cavity = backing.fuse(top_register, register_corbel, foot, ribs, rib_feet, tip_pedestal,
                           tol=boolean_tol).intersect(cavity_blank)
     cavity = cavity.cut(forming_void)
     cavity_air = _air_channels(block_w, cavity_air_rows, floor_z+back_vent_depth, ocx, ocy)
@@ -351,6 +394,10 @@ def build():
     skirt = _box(plate_w, plate_d, top_z-lip_h, top_z, ocx, ocy).cut(
         _box(block_w+2*lip_gap, block_d+2*lip_gap, top_z-lip_h-1, top_z, ocx, ocy))
     core = plug.fuse(plate, skirt).cut(interior)
+    core_back = top_z+plate_thk
+    core_foot = _foot_ring(plate_w+2*fixture_foot_margin, plate_d+2*fixture_foot_margin,
+        core_back-frame_height, core_back, fixture_foot_radius, ocx, ocy)
+    core = core.fuse(core_foot, _rib_feet(plate_w, plate_d, core_back, ocx, ocy, print_up=-1))
     core = core.cut(_cyl(socket_r, rod_top, neck_z-1, ncx, ncy))
     fill_d = m['rim_ring']-2*fill_port_land
     rx, ry = out_w/2-m['rim_ring']/2, out_d/2-m['rim_ring']/2
@@ -361,7 +408,7 @@ def build():
              cq.Solid.makeCone(fill_d/2, fill_dish_d/2, fill_dish_h,
                 cq.Vector(*fill_xy, top_z+plate_thk-fill_dish_h), cq.Vector(0, 0, 1))]
     ports.extend(_cyl(vent_id/2, top_z+plate_thk+1, top_z-1, *xy) for xy in vents)
-    core_air = _air_channels(plate_w, core_air_rows,
+    core_air = _air_channels(plate_w+2*fixture_foot_margin, core_air_rows,
                             top_z+plate_thk-back_vent_depth, ocx, ocy)
     core = _one(core.cut(*ports, *core_air), 'core')
 
@@ -465,6 +512,9 @@ def main():
         'N_VENTS': str(info['n_vents']), 'FORMING_SKIN': f'{forming_skin:g} mm',
         'RIB_THK': f'{rib_thk:g} mm', 'RIB_PITCH': f'{rib_pitch:g} mm',
         'BACK_VENT_D': f'{back_vent_d:g} mm', 'FINISH_ALLOWANCE': f'{finish_allowance:.2f} mm',
+        'FOOT_FRAME': f'{foot_frame:g} mm', 'FOOT_HEIGHT': f'{frame_height:g} mm',
+        'FOOT_CORNER': f'{frame_corner_radius:g} mm', 'RIB_FOOT': f'{rib_foot_width:g} mm',
+        'FIXTURE_FOOT_MARGIN': f'{fixture_foot_margin:g} mm',
     })
 
 

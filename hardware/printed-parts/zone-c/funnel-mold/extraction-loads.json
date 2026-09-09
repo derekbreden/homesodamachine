@@ -1,9 +1,9 @@
 {
   "purpose": "Continuous stock verification and nominal section screening; no rated lifting load.",
-  "source_sha256": "0f49946cde3408e24951071929a987380ab78d7040d8a632f5499c615b6b415a",
+  "source_sha256": "ebb14936cd550c9ca7a63a985a8941e46b16f27d747c04c54fde6a9c3848d03b",
   "step_sha256": {
-    "cavity": "8ae10ee9d5a719585bb8a73f4736608723e39cab99818864607c73a40e34d52c",
-    "core": "b4a3f312f2cc78d3cfba7be7b4b044812696ccad0d1021be415b29571bc0e2bc"
+    "cavity": "1dc7c3e1208004d7092a9ac8965b9b308f396b83cecc5cb5fe8f663a50bdf47d",
+    "core": "9056bd4d23fc1f2c271533395fd8cfba5889c8aae375227441fcdb1da8412d5c"
   },
   "continuous_stock_checks": [
     {
