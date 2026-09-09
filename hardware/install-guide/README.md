@@ -109,12 +109,6 @@ and there is no sentence to give, listed so the booklet is not mistaken for comp
   drives the compressor either way, so the chill behind that leaf is not exercised.
 - **Service.** Leaf 20 sends the buyer to the link the nameplate letters. No warranty term, RMA
   path, support address or `/u/NNNN` route exists.
-- **The CO2 setpoint band.** Leaf 13 repeats the tree's own customer guidance verbatim —
-  [`pressure-vessel.md`](/hardware/assembly/pressure-vessel.md) "CO2 supply": set the primary
-  anywhere in 70–100 PSI, because the in-appliance WR1110 holds the appliance side at 90 PSI
-  "regardless of where the primary is set". A fixed 90 PSI regulator can only reduce, so a primary
-  left at 70 gives the carbonator 70 and not 90. Either the band or the "regardless" wants
-  revisiting upstream; the leaf follows whichever the tree lands on.
 - **The CO2 station's bulkhead ring.** Leaf 13 tells the buyer to find a red-ringed port.
   [`bulkhead-ring/README.md`](/hardware/printed-parts/enclosure/bulkhead-ring/README.md) gives that
   ring its colour and the rear-panel render draws it, while
