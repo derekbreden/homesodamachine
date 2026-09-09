@@ -100,6 +100,14 @@ and there is no sentence to give, listed so the booklet is not mistaken for comp
   sends anyone else to the consultation, and no second adapter is specified.
 - **Mounting the regulator on the cylinder.** No CGA-320 make-up is written. Leaf 13 hands the job
   to the shop that fills the cylinder, which is true advice and not a procedure.
+- **The tether's flare joint.** The buyer seats the MI4508F4SLF swivel nut on the Wellbom's
+  7/16"-20 male flare, metal cone on metal cone. `bom.md` §4 states that joint as hand-tight and
+  no tool, and no torque figure, turn-past-contact figure or flare-washer policy exists anywhere
+  in the tree. Leaf 13 carries the tree's word and nothing beyond it.
+- **What the mains cord needs behind the appliance.** The shipped cord is a straight C13, and its
+  housing seats against the wall rather than entering it — the C14's shroud stands
+  [0.75 mm](C14_SHROUD_PROUD) proud inside an aperture smaller than the housing. No figure exists
+  for the depth that connector and its bend want, so the 60 mm on leaf 7 is read off the tubes.
 - **CO2 cylinder handling.** No standing, restraint, storage or valve guidance exists in the tree.
   The line on leaf 13 is the minimum a shipped document can responsibly carry, not a stated policy.
 - **The filter.** Flow direction and mounting are unstated; leaf 12 leans on the run shipping made
