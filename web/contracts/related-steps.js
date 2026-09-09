@@ -10,7 +10,13 @@
 // is modelled in `printed-parts/zone-c/funnel/` and its mold in
 // `printed-parts/zone-c/funnel-mold/` — siblings, one leaf extending the other
 // at a `-` boundary. That is the whole rule, and it reads both ways, so the
-// funnel offers its mold and each mold half offers the funnel back.
+// funnel offers its mold and every model in that mold offers the funnel back.
+//
+// A DIRECTORY IS OFFERED WHOLE. `funnel-mold/` holds the cavity and core, the
+// assembly of the two, and the small witnesses printed beside them to gauge the
+// finish, the hardware fits and the guide pins — and a hand making a funnel
+// prints all of them. Reading the directory name and nothing else is what keeps
+// that true without a list here of which models count as tooling.
 //
 // It also offers the other models in a part's own directory, which is how the
 // reed bridge reaches its setting gauge.
@@ -101,7 +107,10 @@ export function relatedStepsForComponent(name, allFiles) {
  * @returns {{file: string, kind: "beside"|"from"|"of"|"makes"|"made-on"}[]}
  *   `beside`  — another model in this part's own directory
  *   `from`    — a directory named for this one: the mold of this part
- *   `of`      — the directory this one is named for: the part this mold casts
+ *   `of`      — the directory this one is named for: the part this tooling is made
+ *                for. A mold directory holds the bodies that close on the part and
+ *                the witnesses printed to gauge them, and only the assembled pair
+ *                casts, so the kind says tooling rather than casting.
  *   `makes`   — a part this fixture is built to make (declared, see FIXTURES)
  *   `made-on` — the fixture this part is made on (declared, see FIXTURES)
  */
@@ -146,7 +155,7 @@ export const KIND_CAPTIONS = {
   "used-with": "Used with",
   beside: "Beside it",
   from: "Made for it",
-  of: "Casts",
+  of: "Tooling for",
   "made-on": "Made on",
   makes: "Makes",
 };
