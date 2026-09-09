@@ -15,15 +15,9 @@
 //
 // Single-core usage: call service() each loop iteration (RX + TX).
 // Dual-core (ESP32): call serviceRx() on core 0, serviceTx() on core 1.
-//   NOTE: RP2040 SerialPIO is NOT thread-safe across cores — use
-//   single-core service() only on RP2040.
 //
 // send() and sendText() retry if the TX window is full, pumping
 // serviceRx() to process ACKs until a slot opens (up to 2s timeout).
-//
-// For large transfers (image uploads), use the raw handle via
-// getHandle() with the C API tiny_fd_send() which blocks until
-// all fragments are queued/sent.
 
 // Four frames allow pipelined transmission for throughput. The shared value
 // is also used to prove the main board's prime-token replay window covers
@@ -44,10 +38,8 @@ struct ProtoLink {
   Stream *serial = nullptr;
   const char *name = "";
 
-  // Application callback — fires for each received message/frame.
-  // During uploads: raw image data frames (no type byte).
-  // Otherwise: msgType is payload[0], payload points past the type byte.
-  // The callback must handle both cases based on application state.
+  // Application callback — fires for each received frame. msgType is
+  // payload[0]; payload points past the type byte.
   void (*onMessage)(ProtoLink *link, const uint8_t *data, uint16_t len) = nullptr;
 
   // TinyProto can report DISCONNECTED then CONNECTED while consuming one RX
@@ -167,11 +159,6 @@ struct ProtoLink {
     return proto.getStatus() == TINY_SUCCESS;
   }
 
-  // Access raw C handle for tiny_fd_send() (blocking large transfers)
-  tiny_fd_handle_t getHandle() {
-    return proto.getHandle();
-  }
-
 private:
   // Retry proto.write() on TINY_ERR_TIMEOUT (window full), pumping RX
   // to process ACKs and free window slots. Returns final result.
@@ -221,8 +208,8 @@ private:
 //
 // ProtoLink above is TinyProto Fd — connection-oriented HDLC with windowing, ACKs and
 // keepalives, and both ends transmitting whenever they have something to say. That is
-// what a point-to-point full-duplex UART wants, and it is what the RP2040 and S3 links
-// run.
+// what a point-to-point full-duplex UART wants, and it is what J3 runs between the
+// main board and the faucet display.
 //
 // The RS485 pair is one wire in each direction shared by both ends. On it, two ends that
 // transmit on their own schedule collide, and because their retry timing matches they

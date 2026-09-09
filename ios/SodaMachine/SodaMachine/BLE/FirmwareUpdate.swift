@@ -50,16 +50,14 @@ struct FirmwareImage: Codable, Identifiable, Equatable {
 
     var otaKind: OTAKind { kind == "art" ? .art : .app }
 
-    /// Where this image goes, given which machine the phone is pointed at. The
-    /// board with the radio differs between the two, and the byte follows it.
+    /// Which board on the appliance this image goes to. The appliance is the
+    /// machine the phone updates.
     func otaTarget(on model: MachineModel) -> OTATarget? {
         switch (model, target) {
         case (.appliance, "appliance"): return .mainBoard
         case (.appliance, "faucet"):    return .radioBoard
         case (.appliance, "enclosure"): return .farDisplay
         case (.appliance, "art"):       return .farDisplay
-        case (.prototype, "prototype"): return .mainBoard
-        case (.prototype, "rotary"):    return .radioBoard
         default: return nil
         }
     }
@@ -71,9 +69,10 @@ struct FirmwareManifest: Codable {
     let unproven: [String]
     let images: [FirmwareImage]
 
+    /// What is published for the machine the phone is pointed at.
     func images(for model: MachineModel) -> [FirmwareImage] {
-        let want = model == .prototype ? "prototype" : "appliance"
-        return images.filter { $0.machine == want && $0.available }
+        guard model == .appliance else { return [] }
+        return images.filter { $0.machine == "appliance" && $0.available }
     }
 }
 

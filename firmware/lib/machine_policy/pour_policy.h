@@ -11,8 +11,8 @@
 // and the channel's ratio; the next cycle takes the average reading over the
 // last. A reading of zero inside a cycle sends the cycle into a cooldown with
 // the pump off, and a cooldown that ends with nothing flowing ends the pour.
-// This is src_prototype's loop, made pure so the timing and the sequence can
-// be checked without a meter.
+// Nothing here reaches Arduino, so the timing and the sequence are checked
+// without a meter.
 namespace machine_policy {
 
 constexpr uint32_t kFlowSampleMs      = 50;
