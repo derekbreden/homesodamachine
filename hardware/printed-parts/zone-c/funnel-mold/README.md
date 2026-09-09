@@ -1,254 +1,179 @@
 # Funnel silicone mold
 
-The two-piece printed mold that casts the Zone C [funnel](/hardware/printed-parts/zone-c/funnel/README.md)
-in food-grade platinum silicone. The funnel is a hollow [6 mm](SIL_WALL) shell,
-so the silicone forms in the gap between an outer **cavity** and an inner
-**core** — it is injection-molding geometry, hand-poured. Two printed pieces and
-one piece of stock: a [6.35 mm](ROD_D) dowel is the spout's bore.
+Two printed PETG halves cast the Zone C [funnel](../funnel/README.md) around a
+[6.35 mm](ROD_D) × [50.8 mm](ROD_LEN) ground steel dowel. The finished funnel is
+nominally a [6 mm](SIL_WALL) shell; the pour, including the sacrificial tip, is
+about [135 mL](SIL_VOLUME). `funnel.build_solids()` owns its finished geometry.
 
-The mold is a parametric derivative of the funnel: `funnel.build_solids()`
-returns the funnel's exterior and bore as separate solids, and the two mold
-halves are those Booleaned out of blocks. Change the funnel and the mold follows.
+The printed forming surfaces reserve [0.20 mm](FINISH_ALLOWANCE) of **net
+finishing growth**. Both halves require finishing before casting to nominal
+size. Net growth is the dry coating left after finishing, minus the PETG removed
+by sanding. It is a target to measure, not a measured property of a particular
+coating, spray count, or printer.
 
-## The two halves
+## Structure and vacuum paths
 
-- **Cavity** ([189.0 × 189.0 × 74.6 mm](CAVITY_DIMS)). A block with the funnel exterior
-  carved out, opening up. The catch bowl sits in a recess at the top rim. Below the
-  spout's own exit face the pocket carries on [12 mm](TIP_BUFFER) further as a
-  **blind** drafted bore, stepped [1 mm](TIP_STEP) inside the spout's radius —
-  nothing passes the floor. Wall [8 mm](MOLD_WALL) around the part, floor
-  [10 mm](MOLD_BASE) under the closed tip.
-- **Core** ([201.0 × 201.0 × 50.6 mm](CORE_DIMS)). The funnel interior (the bore) as a plug,
-  hanging from a [10 mm](PLATE_THK) top plate that forms the bowl rim's top face and
-  registers over the cavity by a skirt that drops over its outside. **The plug stops
-  at the ramp tip**: below it the [6.35 mm](SPOUT_BORE) round is the rod's, not the
-  print's, and a [28.8 mm](ROD_SOCKET) socket bores up the cone to take it. Nothing
-  slender is printed — the core's tallest feature is now the cone itself. A
-  [11 mm](FILL_D) pour port and [5](N_VENTS) [2.5 mm](MOLD_VENT_D)
-  vents pass through the plate, set over the bowl's rim ring so they open into
-  the silicone. The port takes the **whole ring** less a [1 mm](FILL_LAND) land —
-  it is not a size but whatever the ring leaves, and it grew when the wall did. A
-  [20 mm](FILL_DISH) cone necks down into it from the plate's top face: the dish is
-  what the cup is aimed at, and it lives in the plate's own top with no silicone
-  under it, so the ring does not hold it.
-- **Rod** — a [6.35 mm](ROD_D) × [50.8 mm](ROD_LEN) ground steel dowel (¼" × 2",
-  a drawer item). [28.8 mm](ROD_SOCKET) of it lives in the core's socket and
-  [22.0 mm](ROD_BELOW) stands in silicone; it **bottoms** in the socket, so the stock
-  length sets its own reach and nothing is measured on assembly. It touches no part
-  of the mould but that socket, and stops [2 mm](TIP_CAP) short of the pocket's
-  blind floor. Slip fit — the core lifts **off** it. Writes no STEP: it is stock,
-  billed as a length the way the drain stub is.
-  **Buy it ground.** The socket carries [0.1 mm](ROD_FIT) of slip, so the rod's own
-  diameter tolerance has to be a fraction of that: ASME-standard ground dowel pins
-  hold 0.0025–0.013 mm and any of them will do. Pins sold on a 0.13–0.25 mm band —
-  the cheap bearing-steel shelf-peg grade — carry more error than this fit has room
-  for, and will either not enter the socket or rattle in it.
+- **Cavity:** [189.0 × 189.0 × 74.6 mm](CAVITY_DIMS), opening upward. Its forming
+  skin is [3.2 mm](FORMING_SKIN), carried by [2.4 mm](RIB_THK) ribs on
+  [20 mm](RIB_PITCH) centres and three cross ribs. The registration band extends
+  [8 mm](MOLD_WALL) outside the nominal brim. Its feet stand [10 mm](MOLD_BASE)
+  below the nominal blind tip floor. The spaces between ribs open underneath.
+- **Core:** [201.0 × 201.0 × 50.4 mm](CORE_DIMS), printed upside down, with the
+  forming plug upward. Its back opens between the ribs. A [10 mm](PLATE_THK)
+  perimeter plate forms the brim and carries the pour and silicone vents; its
+  skirt registers over the cavity for [10 mm](LIP_H). A continuous skin and boss
+  surround the rod socket, including its blind end.
+- **Backing air:** transverse [3 mm](BACK_VENT_D) channels connect the rib bays
+  to the outside. Cavity channels sit near the feet; core channels sit near its
+  open back. They remain exposed with a flat chamber shelf under the cavity or
+  a clamp board over the core. They must remain free of coating and silicone.
+  They do not connect to the forming cavity, rod socket, pour port or silicone vents.
+- **Silicone air:** five [2.5 mm](MOLD_VENT_D) vents communicate with the brim.
+  The [11 mm](FILL_D) pour throat opens through a [20 mm](FILL_DISH) dish.
+  These passages remain open during casting and vacuum. Keep a catch tray under
+  the mold for foam and overflow.
 
-## The spout's bore is not printed
-
-**The rod is not fixed to the plate**, so nothing that frees the plug reaches it. That
-matters because a Ø6.35 column buried this deep parts at about **34 N** sideways and
-takes about **950 N** to pull apart — a 28× asymmetry, and the whole of demold is
-keeping on the right side of it. The column is also only **1 %** of the core's contact
-with the silicone: it is never what is holding on, only what is in reach while the plug
-and the ramp cone are being freed.
-
-Off the plate, it is out of reach. Demold becomes **three independent axial moves** —
-core off the rod, funnel out of the cavity, rod out of the cast, each one straight and
-each one on its own. Two more things come with the choice: that bore is a **sealing**
-bore (the worm clamp closes silicone moulded on this surface onto the drain stub), and
-ground stock is rounder and smoother than a printed column of the same nominal; and a
-bent rod is replaced from the drawer with the core's own finish untouched.
-
-The socket carries [0.1 mm](ROD_FIT) of slip on diameter — small deliberately, since
-it is the one place silicone could wick past the rod, and it will not cross that in a
-pot life.
-
-## The tip is cast long and closed, and cut afterwards
-
-The mould does not form the spout's exit face. Forming it is what asked for a
-Ø6.35 column driven through a zero-clearance hole in the cavity floor, and a column
-loaded sideways on assembly is a column that snaps. Instead the spout casts
-[12 mm](TIP_BUFFER) PAST that face into a blind pocket and closes there. Nothing is
-pressed into anything; the rod hangs free the whole way down.
-
-The rod runs the full buffer, so the cast tube is **open bore wherever it is cut** —
-the cut only has to land in the right place, not make the hole. And the buffer steps
-[1 mm](TIP_STEP) in at the exit plane, which leaves an annular shoulder facing down
-at exactly the spout length the drain joint is dimensioned to. Lay a razor flat on
-that shoulder and sweep: that is the cut, and it is the funnel's real length. It
-steps **in** rather than out so every face below the funnel still narrows downward
-and the scrap draws up out of its own bore with the part. Everything below the
-shoulder is scrap — under a third of a millilitre of it.
-
-Because the part is a funnel — everything narrows downward — both halves pull
-straight up; no split halves, no side draft. The forming surfaces carry **no
-release clearance**: the mold face *is* the part face, so the wall comes out
-exactly [6 mm](SIL_WALL) and the collar still press-fits the Zone C opening
-(platinum silicone shrinks ~0.1 %). Release is by silicone flex + a
-platinum-compatible release film.
+The print uses solid fill within the modeled skins and ribs. The large air
+spaces are CAD features open to the chamber. Printed road-to-road porosity still
+requires a continuous coating on **both** forming faces; ventilation alone does
+not make a printed mold airtight. Backing channels equalize chamber pressure;
+this tooling has no pressure-vessel rating.
 
 ## Print
 
-- [**Print project: funnel-mold-petg-08-016.3mf**](funnel-mold-petg-08-016.3mf).
-  H2C, left 0.8 mm Standard nozzle, PETG Translucent, 0.16 mm layers.
-  Two independent plates: cavity opening up, core plate down with its plug upward.
-  Estimated cavity **21 h 4 min / 744 g**; core **13 h 39 min / 485 g**.
-  [Settings and toolpath inspection](print-profile.md) accompany the project.
-- **Food-contact finish:** the core plug forms the funnel's inside (food-contact)
-  surface, so its texture telegraphs into the silicone. Smooth + seal the plug —
-  light sand, then a hard **gloss clear-acrylic** seal coat (not a matte
-  filler-primer, which is micro-porous and grips/tears soft silicone; not enamel,
-  which can inhibit the cure). PETG can't be vapor-smoothed, and a rough inner
-  surface both traps concentrate and outgasses under vacuum. The cavity (outside)
-  face can stay as-printed. Full procedure — seal, release, coupon-test — under
-  "Finish the core" below.
-- **Fit the socket before finishing.** It models at [6.45 mm](ROD_SOCKET_D).
-  The actual ground rod checks the slip fit and the [28.8 mm](ROD_SOCKET) depth.
-  Clear or ream the socket as needed, with a depth stop; keep coating out of it.
-  A nominal drill diameter alone does not establish the finished fit.
-- Both plates slice without supports. The cavity has no downward-facing surfaces
-  above its bed face. With the core plate down, the pour dish narrows from 20 to
-  11 mm over the first 4 mm of height: a 4.5 mm radial overhang spread over those
-  layers. Its opening remains clear in the slice. The five vents are vertical.
+[**funnel-mold-vacuum-petg-08-016.3mf**](funnel-mold-vacuum-petg-08-016.3mf)
+contains separate plates for the finish witness, cavity and core. Use the H2C's
+left 0.8 mm Standard nozzle and PETG Translucent, at 0.16 mm layers.
+[Print settings and inspection](print-profile.md) accompany the sliced project.
+Print the witness first. Each large plate is an independent print job.
 
-## Finish the core
+The forming skins bridge the spaces between the ribs. Those bridge undersides
+face the open backs; the silicone-facing surfaces grow above the full skin
+thickness. Clear loose strings from the bays and every transverse air passage.
+Let the parts cool on the bed before removal, then check that both registration
+lands are flat and the skirt seats without rocking.
 
-The core plug forms the funnel's **wetted inside face**, so its surface
-telegraphs into the silicone and sets how the cast releases. The two halves get
-different finishes:
+PETG Translucent is the specified room-temperature tooling material. The coating
+provides the finished contact surface. Glass-filled PET would need its own
+filament tuning and finishing trial; annealing would also require dimensional
+checks against the nominal funnel.
 
-- **Cavity (cosmetic outside):** leave as-printed; mist Mann Ease Release 200
-  ([§21](/hardware/ledger/purchases.md)) every pour.
-- **Core (food-contact inside):** **seal** it with a hard clear acrylic and run a
-  light release on it too — *not* a filler-primer, and *not* release-free.
+## Measure the finish
 
-Why not a filler-primer: sanded back it cures matte and micro-porous, which a soft
-40A silicone keys into and tears against on demold (a grip surface, not a release
-surface), and enamel-class primers can inhibit the cure. Why not release-free: a
-cured film alone does not reliably release soft silicone over many pulls — it
-grips and can delaminate. Sealing and releasing are two separate jobs; do both.
+The **finish witness** has a flat measuring strip, two end rails and a ramp at
+the funnel's floor grade. Its underside includes the same 17.6 mm rib-to-rib
+bridge span as the mold; inspect that roof for sound attachment at both ends. Keep its underside and rails uncoated. The central flat
+is modeled one finishing allowance below the rails; a straightedge across them
+helps inspect the result. Layer quantization and first-layer error affect that
+printed step: measure the actual coupon before relying on the rails as a gauge.
 
-Finishing the core (owned = already in the ledger):
+1. Measure and record the uncoated flat thickness at several marked stations with
+   calipers or a micrometer. Check the actual rail step as well. Use the ramp to
+   judge whether the same finishing process removes terraces without rounding
+   its transitions.
+2. Lightly abrade, clean and dry. Apply a sandable, fully cured sealing coat to
+   the flat, ramp and vertical test face. Measure from the same uncoated datum
+   after sanding and polishing. The flat should gain
+   [0.20 mm](FINISH_ALLOWANCE); use ±0.05 mm as the finishing-process target.
+   Measure the vertical face separately and inspect the ramp for pooling.
+3. The owned Craft Resin Arts & Crafts epoxy and Krylon gloss acrylic are
+   candidate coats for the measured trial. XTC-3D is a purpose-made leveling
+   alternative. Follow its
+   [technical instructions](https://www.smooth-on.com/products/xtc-3d/), fully
+   cure it, then sand/polish to the measured target. The manufacturer describes
+   coverage at roughly 0.4 mm applied thickness; that is not this mold's required
+   finished film. Apply its specified release before molding silicone against it.
+   The owned Krylon gloss acrylic is another coating to test; its dry film must
+   meet the same dimensional and sealing checks.
+4. Test the **actual PETG, finishing coat, release and BBDINO batch** together.
+   The sample must cure through, release cleanly and survive repeated demolding.
+   Smooth-On's [compatibility tests](https://www.smooth-on.com/support/faq/210/)
+   concern named materials and do not certify the BBDINO combination.
+5. Apply the proven process to both forming faces. Keep the registration skirt,
+   parting lands, rod socket, backing bays, air channels and port bores masked.
+   Finish up to the forming-face edges without rounding the trim shoulder or
+   leaving a coating bead on the parting land. Inspect the narrow spout pocket
+   particularly carefully for pooling.
 
-1. **Light-sand** the core with the Shineboc wet/dry sponges (owned,
-   [B0D8ZC6HKY](https://www.amazon.com/dp/B0D8ZC6HKY)), ~320 → 600 grit; wipe with
-   99.9 % IPA (owned, [B0BZ21DBJ6](https://www.amazon.com/dp/B0BZ21DBJ6)) and let it
-   flash off.
-2. **Seal** with 2–3 thin coats of **gloss clear acrylic** — Krylon K01303 Crystal
-   Clear Acrylic ([B00023JE7K](https://www.amazon.com/dp/B00023JE7K)). The hard
-   film covers the finished PETG face. The seal coats follow that surface; they
-   do not fill the print's 0.16 mm terraces. Adhesion, cure compatibility and
-   release are checked on the exact stack in step 5.
-   - **If the printed texture still telegraphs through:** one thin
-     self-leveling epoxy base coat — Smooth-On XTC-3D
-     ([B01BKSLI9M](https://www.amazon.com/dp/B01BKSLI9M)) — *under* the acrylic to
-     fill it glassy. The acrylic still goes on top as the release skin; epoxy alone
-     is not a release face and must be fully cured.
-3. **Let it fully gas off before casting** — solvent (or, for the epoxy base,
-   uncured resin) left in the film inhibits platinum cure. Wait until there is no
-   solvent smell.
-4. **Release the core too:** a light mist of Mann Ease Release 200 on the cured
-   acrylic. It is an addition-cure-compatible *film*, not a silicone-fluid release
-   (which would prime the silicone to bond), so it does not add the D4/D5/D6
-   siloxane the screen is chasing — and the funnel's ~200 °C post-cure bake +
-   [wetted-surface screen](/hardware/printed-parts/cold-core/reservoir/wetted-surface-test.md)
-   is the food-contact gate that clears any trace. Keep silicone-fluid "food-grade"
-   releases off it.
-5. **Coupon-test the exact stack, on every re-coat:** cast a BBDINO 40A pad on a
-   scrap carrying the *same* sand → acrylic → release finish, room-temp cure, and
-   check both that it cures firm (no tacky face) **and** peels clean — then peel it
-   a few more times on the same coupon, since grip/fusing shows up over repeated
-   demolds, not the first.
+Before coating, record the cavity's collar width and the core's width at matching
+stations. A [0.20 mm](FINISH_ALLOWANCE) net film reduces an internal width by
+0.40 mm and increases an external width by 0.40 mm. Compare the finished faces
+with the nominal funnel CAD, including the brim thickness and ramp transitions.
+The coupon measures the finishing process; it does not establish uniform film
+thickness over an entire mold. A first cast provides the final dimensional and
+surface check.
 
-Re-coat the acrylic when it dulls or bald-spots; it is the wear surface that gates
-how many funnels the mold yields. If PETG + acrylic can't pass the coupon, the
-fallback is a natively smooth SLA-printed core (fully UV-cured + IPA-washed +
-sealed the same way — resin is the worst cure inhibitor, so the wash discipline
-and coupon test are mandatory).
+Dry-run the empty assembled mold in the chamber, then inspect for distortion,
+coating damage and obstructed channels. Use a small coated cavity patch under
+silicone during the coupon trial to look for continuing bubbles from the print.
+Fully cure and dry the coatings before that trial.
 
-## Cast
+## Rod and trim shoulder
 
-1. **Silicone.** Food-grade platinum-cure, **Shore A 40** (the BBDINO 40A kit in
-   [purchases.md §21](/hardware/ledger/purchases.md)). Soft is right here: it
-   peels off the rigid core without tearing the 2 mm spout, conforms and seals at
-   the press-fit collar, and flexes to clean — and the funnel never has to be
-   self-supporting, since the rigid opening cradles it during a pour. Select for
-   **high tear-strength / elongation**; the 2 mm spout wall is the weak link on
-   demold. One funnel is about [135 mL](SIL_VOLUME) of silicone. BBDINO rates it
-   food-contact safe for **fat-free foods** — fine here: the concentrate is a
-   sugar/sucralose syrup with no fat.
-2. **Release + inhibition.** Platinum silicone is cure-poisoned by sulfur, tin,
-   amines, and many release agents — a bad release leaves an uncured, tacky layer
-   on the food face. Use a **platinum-compatible (addition-cure) release**, or
-   none if a test shows bare PETG demolds clean. **Patch-test the actual silicone
-   *and* release on a PETG coupon first** (not just bare PETG). Keep latex gloves
-   and sulfur-bearing clay/tape away from the mold.
-3. **Degas + pour.** With a chamber, pour degassed silicone into the **open
-   cavity** and pull vacuum on it — the spout fills bottom-up and air rises out —
-   then lower the core slowly so it displaces silicone up and out the top vents.
-   Keep the mold slightly **under-filled / degas the open cavity before seating the
-   core** so the ~3× vacuum rise doesn't overflow and starve the part.
-   Without a chamber, seat the core and pour through the port: it is
-   [11 mm](FILL_D) into a [20 mm](FILL_DISH) dish, which is a pour and not a
-   trickle, and the vents weep when the mould is full. What that path risks is voids
-   in the deep spout — and the **bottom [12 mm](TIP_BUFFER) of that spout is
-   scrap**, cut off at the shoulder, so the deepest and most void-prone part of the
-   pocket is not part of the funnel. Inspect the cut face; a void above the shoulder
-   is a re-pour.
-4. **Clamp.** Hold the plate down with clamps or weight through the plate while it
-   cures; a loosely-held plate flashes a soft fill at the rim parting line.
-5. **Cure, then demold — in three pulls, every one of them straight.** BBDINO 40A
-   cures at room temperature, ~5 h to demold; respect the full time before pulling
-   the spout. Then, in order:
-   - **The core off the rod.** Lift the plate evenly. The skirt holds the core square
-     on the cavity for the first [10 mm](LIP_H); past that keep it level by hand —
-     never rock it. The rod stays behind, standing in the cast.
-   - **The funnel out of the cavity.** Grip the brim and lift; the scrap tip is
-     drafted and breaks its own seal at once.
-   - **The rod out of the funnel.** [22.0 mm](ROD_BELOW) of it stands proud below the
-     ramp tip: grip that with pliers and draw it straight out. It is stock, it is
-     ground round, and it is not attached to anything that could lever it.
+The [6.35 mm](SPOUT_BORE) bore is formed by the owned ground dowel, without a
+printed slender core. Its socket is modeled at [6.45 mm](ROD_SOCKET_D), providing
+[0.1 mm](ROD_FIT) diametral clearance. Fit the actual pin before finishing and
+clear or ream the socket with a depth stop as necessary. It must slide freely and
+bottom at [28.8 mm](ROD_SOCKET). Keep coating out of it.
 
-   Wicking a little IPA into the annulus as the rod starts to move kills the
-   adhesion; the blind tip's vacuum is about 3 N and is not worth designing around.
-6. **Trim — the tip, then the sprue.** The part comes out of the mould with growths
-   on it, and one pass with a fresh razor takes them all.
-   - **The tip.** The spout casts long and closed. Lay the blade flat against the
-     shoulder [1 mm](TIP_STEP) below the spout's outer face and sweep it round — the
-     cut lands on the funnel's real spout length and opens a bore the rod already
-     formed. Discard the [12 mm](TIP_BUFFER) below it. **The funnel is not a funnel
-     until this cut is made**; `reference/funnel-drain-stub` takes the whole of that
-     spout as the clamp land, so a tip left on is a spout that will not meet the
-     union's collet face.
-   - **The sprue and the vent pips.** The port and the vents leave columns standing
-     on the brim's TOP face. That face is flat and it is its own jig: lay the blade
-     on it and take them flush. It shows above the top wall, so the
-     [11 mm](FILL_D) sprue scar is the one cosmetic mark the pour leaves — on black
-     silicone a flush cut reads as matte against gloss and nothing more.
-7. **Post-cure bake — the funnel alone, out of the mould.** For food contact, add a
-   drive-off **bake of ~4 h at ~200 °C (392 °F)** (industry norm 160–200 °C, 2–6 h):
-   the high-temp soak clears residual platinum + cyclic siloxanes (D4/D5/D6) and
-   improves compression set so the collar holds; a filament dryer (≤110 °C) is far
-   too cool. Cured BBDINO 40A is rated to **230 °C / 446 °F**, so the funnel sits
-   well within its limit — **the PETG mould does not.** PETG goes soft around 80 °C
-   and this bake would slump both halves, so the mould never sees the oven, which is
-   why the demold above comes first. Stand the funnel **inverted** on the rack, brim
-   down and spout up: the brim is a flat [173 mm](BRIM_SQ) square and carries it, where
-   the right way up stands the whole part on a freshly cut spout. That is why the trim
-   comes first — with the sprue and the vent pips still standing, the brim is not flat
-   and the funnel bakes rocking on six little columns. One per bake — two
-   abreast leaves no gap for the convection. This bake — not BBDINO's room-temp cure —
-   is the food-contact acceptance gate — see
-   [wetted-surface-test.md](/hardware/printed-parts/cold-core/reservoir/wetted-surface-test.md).
-8. **Reuse.** Reapply release every pour and inspect/clean the PETG faces between
-   cycles — a reused mold accumulates cured film and bald spots.
+The remaining [22.0 mm](ROD_BELOW) of rod stands in silicone. It stops
+[2 mm](TIP_CAP) above the blind pocket floor. The spout casts
+[12 mm](TIP_BUFFER) past its intended end; that extra tip closes around the rod.
+A [1 mm](TIP_STEP) radial step at the nominal exit creates the blade's trim
+shoulder. Cut there after demolding to expose the already formed bore. The tip
+below the shoulder is scrap.
+
+## Cast and extract
+
+Use the silicone manufacturer's mixing, working-time and cure instructions.
+Degas the mixed silicone in a separate container with ample expansion headspace.
+Pour into the open cavity, filling the spout from below, then lower the core
+slowly and let displaced air and excess silicone escape through the brim ports.
+Top up the pour dish as necessary to keep the casting full.
+
+A vacuum cycle on the filled mold requires room for foaming and open pour/vent
+passages. Admit air slowly, inspect the fill level and top up while the silicone
+is still workable. An underfilled mold does not become complete simply because
+it has been degassed. Hold the core seated evenly until the silicone has fully
+cured; keep backing-channel exits uncovered.
+
+Demold in three independent movements:
+
+1. Lift the core evenly and axially off the rod. Its skirt guides the initial
+   [10 mm](LIP_H); keep it level for the rest of the socket's engagement. The rod
+   may move with the silicone, so observe it rather than assuming it has stayed
+   perfectly stationary. Do not rock the core to release it.
+2. Peel/lift the silicone funnel from the cavity, supporting its brim and spout.
+3. Draw the rod axially from the silicone, gripping the exposed part without
+   damaging its sealing surface. Trim the sacrificial tip and the pour/vent pips.
+
+[Controlled extraction proposal](extraction.md) describes four steel jack screws,
+captive nuts and steel bearing pads outside the forming faces. The delivered mold
+has its registration skirt and manual extraction geometry; the jack mechanism
+is a proposed addition, with hardware links and a defined travel requirement.
+
+Inspect the cast for voids, tacky areas, torn spout walls and dimensional fit.
+Wash and post-cure the silicone according to the exact product's food-contact
+instructions and the project's [wetted-surface qualification](../../cold-core/reservoir/wetted-surface-test.md).
+Any specified hot post-cure applies to the demolded silicone; the PETG tooling
+stays out of the oven. A coating/release coupon alone does not qualify the final
+funnel for food contact.
 
 ## Regenerate
 
-`tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel-mold/funnel_mold.py`
-→ `funnel-mold-cavity.step`, `funnel-mold-core.step`, and an
-exploded `funnel-mold-assembly.step`.
+```sh
+tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel-mold/funnel_mold.py
+```
+
+Outputs the cavity, core and finish-witness STEP/STL files and the exploded mold
+assembly. The two mold halves share the assembly frame; invert the core for print.
+The print project also retains the printer's Z-trim profile; re-slice after changing
+geometry, finishing allowance, material, nozzle or machine settings.
+
+## Sources
+
+[value](NAME) texts are updated by:
+- `/hardware/printed-parts/zone-c/funnel-mold/funnel_mold.py`
 
 ## Sources
 [value](NAME) texts are updated by:
