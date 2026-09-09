@@ -15,10 +15,11 @@ sys.path.insert(0, str(_hw / "scripts"))
 from docgen import substitute_md  # noqa: E402
 
 
-# AC inlet recess: an IEC 60320 C14 receptacle nests into the wall's face,
-# the mating C13 cord housing ending flush with that face. The
-# depth range lets the C13 housing nest without bottoming on the bezel.
-# Typed, because the recess has no CAD — there is nothing yet to read it off.
+# AC inlet recess: the bore the mating C13 cord housing enters, wall and inlet
+# tunnel in one (`enclosure._c14_tunnel`), with the IEC 60320 C14 receptacle's
+# flange seated at its floor and its shroud standing back up it. The depth range
+# is how far the housing comes down that bore. Typed off the cordset, which this
+# tree carries no body for — there is nothing to read it off.
 ac_inlet_recess_depth_min = 3.0
 ac_inlet_recess_depth_max = 5.0
 
@@ -174,6 +175,10 @@ def main():
         "C14_SEAT": (
             f"x {_ea.C14_STATION[0]:g}, z {_ea.C14_STATION[1]:.2f}, "
             f"seat y {_ea.c14_seat_y():.2f}"),
+        # What the shroud has left when it has crossed the wall: its rise off the
+        # seating face less the depth of bore in front of that face.
+        "C14_SHROUD_PROUD": (
+            f"{_ea.c14_seat_y() + _ea._c14.SHROUD_PROUD - (_ea._enc.rear_plane_y + _ea._enc.wall):.4g} mm"),
         "C14_SCREWS": f"x {_ea.c14_stations()[0][0]:g} and {_ea.c14_stations()[1][0]:g}",
         "C14_POCKET_SLIP": f"{_ea._enc.c14_pocket_slip:g} mm",
         "C14_POCKET_WALL": f"{_ea._enc.c14_pocket_wall:g} mm",
