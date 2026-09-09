@@ -1,7 +1,7 @@
 {
   "project": "funnel-mold-petg-hf08-variable-016-040.3mf",
-  "project_sha256": "3b4a12aa563f9eefe872d80f36e992056834b363565f8fa023c34cc85b3c4b55",
-  "source_project_sha256": "9ad3fd06fec742417cfca3cd3cbb73a2a89342f1ac04c6feaefe29a115b89790",
+  "project_sha256": "993aa7db81a4eb00691f8563e8d9395eb7783adbccfdb04c38e5e13f2415cbb0",
+  "source_project_sha256": "95dce26500fd09218b410f19bf5c067c490ead348da297ecd39d78d502770137",
   "slicer": "BambuStudio 02.08.02.61",
   "meshes": {
     "finish-witness": {
@@ -348,7 +348,7 @@
     "overhang_fan_speed": [
       "90"
     ],
-    "print_settings_id": "Funnel mold - 0.16 mm slopes / 0.40 mm structure",
+    "print_settings_id": "Funnel mold - 0.16 mm slopes - 0.40 mm structure",
     "printer_settings_id": "Bambu Lab H2C 0.8 High Flow +0.04 Z trim",
     "seam_gap": "0%",
     "seam_position": "aligned",
@@ -373,14 +373,18 @@
       "60",
       "60"
     ],
-    "wall_loops": "4"
+    "wall_loops": "4",
+    "enable_arc_fitting": "0",
+    "filament_prime_volume": [
+      "45"
+    ]
   },
   "plates": [
     {
       "plate": 1,
       "part": "finish, hardware and guide witnesses",
-      "gcode_sha256": "fe3779ac3280e08543e2c824031b6231ef602fc05596015652573802f22f7a64",
-      "gcode_md5": "bb6700808869c3314fd1b10c3064b21c",
+      "gcode_sha256": "77e45d30586ee3fb89727194492f1edc826353bdf8a5876b071328623b429cdf",
+      "gcode_md5": "28004980e8a099c9bfc3bb01c740f842",
       "embedded_gcode_matches_cli_output": true,
       "checksum_valid": true,
       "metadata": {
@@ -390,7 +394,7 @@
         "printer_model_id": "",
         "nozzle_diameters": "0.8,0.8",
         "timelapse_type": "0",
-        "prediction": "4500",
+        "prediction": "4513",
         "weight": "60.56",
         "pause_count": "0",
         "first_layer_time": "0.000000",
@@ -593,7 +597,7 @@
         "26.8": 0.4,
         "27.2": 0.400002
       },
-      "extruding_arcs": 4938,
+      "extruding_arcs": 0,
       "last_layer_z_mm": 27.2,
       "inspected_layers_mm": [
         0.4,
@@ -621,89 +625,89 @@
           "max_width_mm": 0.82
         },
         "Inner wall": {
-          "segments": 27198,
-          "length_mm": 128632.445163,
-          "volume_mm3": 20875.191223,
+          "segments": 38072,
+          "length_mm": 128633.661637,
+          "volume_mm3": 20875.660566,
           "max_speed_mm_s": 174.186383,
-          "max_flow_mm3_s": 19.483138,
-          "max_flow_on_segments_over_1mm_mm3_s": 17.476594,
+          "max_flow_mm3_s": 18.288198,
+          "max_flow_on_segments_over_1mm_mm3_s": 17.479004,
           "min_width_mm": 0.680196,
           "max_width_mm": 1.33204
         },
         "Outer wall": {
-          "segments": 6056,
-          "length_mm": 45977.752354,
-          "volume_mm3": 7368.751728,
+          "segments": 9355,
+          "length_mm": 45977.612671,
+          "volume_mm3": 7368.736358,
           "max_speed_mm_s": 60.0,
-          "max_flow_mm3_s": 17.236031,
-          "max_flow_on_segments_over_1mm_mm3_s": 17.098089,
+          "max_flow_mm3_s": 17.354657,
+          "max_flow_on_segments_over_1mm_mm3_s": 17.092606,
           "min_width_mm": 0.714336,
           "max_width_mm": 1.06025
         },
         "Bottom surface": {
-          "segments": 407,
-          "length_mm": 2596.922603,
-          "volume_mm3": 747.579382,
+          "segments": 464,
+          "length_mm": 2596.833361,
+          "volume_mm3": 747.551577,
           "max_speed_mm_s": 61.283683,
-          "max_flow_mm3_s": 17.784654,
-          "max_flow_on_segments_over_1mm_mm3_s": 17.471397,
+          "max_flow_mm3_s": 17.508856,
+          "max_flow_on_segments_over_1mm_mm3_s": 17.477527,
           "min_width_mm": 0.820131,
           "max_width_mm": 0.966821
         },
         "Internal solid infill": {
-          "segments": 12114,
-          "length_mm": 66572.543843,
-          "volume_mm3": 9575.199847,
+          "segments": 13137,
+          "length_mm": 66575.953439,
+          "volume_mm3": 9575.882947,
           "max_speed_mm_s": 165.441183,
-          "max_flow_mm3_s": 17.672492,
-          "max_flow_on_segments_over_1mm_mm3_s": 17.475918,
+          "max_flow_mm3_s": 17.926733,
+          "max_flow_on_segments_over_1mm_mm3_s": 17.476205,
           "min_width_mm": 0.714336,
-          "max_width_mm": 1.31928
+          "max_width_mm": 1.31932
         },
         "Top surface": {
-          "segments": 641,
-          "length_mm": 3248.77562,
-          "volume_mm3": 526.713171,
+          "segments": 717,
+          "length_mm": 3248.802621,
+          "volume_mm3": 526.699413,
           "max_speed_mm_s": 60.0,
           "max_flow_mm3_s": 17.465395,
           "max_flow_on_segments_over_1mm_mm3_s": 17.465395,
-          "min_width_mm": 0.824926,
+          "min_width_mm": 0.824776,
           "max_width_mm": 0.839861
         },
         "Sparse infill": {
-          "segments": 8777,
-          "length_mm": 38523.261822,
-          "volume_mm3": 7772.474418,
+          "segments": 9179,
+          "length_mm": 38522.815528,
+          "volume_mm3": 7772.416788,
           "max_speed_mm_s": 143.191033,
-          "max_flow_mm3_s": 17.515704,
-          "max_flow_on_segments_over_1mm_mm3_s": 17.474473,
+          "max_flow_mm3_s": 17.687556,
+          "max_flow_on_segments_over_1mm_mm3_s": 17.474596,
           "min_width_mm": 0.82,
           "max_width_mm": 0.82
         },
         "Floating vertical shell": {
-          "segments": 107,
-          "length_mm": 196.668496,
-          "volume_mm3": 23.657511,
+          "segments": 147,
+          "length_mm": 196.737056,
+          "volume_mm3": 23.676873,
           "max_speed_mm_s": 165.441183,
-          "max_flow_mm3_s": 17.551664,
-          "max_flow_on_segments_over_1mm_mm3_s": 17.465108,
+          "max_flow_mm3_s": 17.540864,
+          "max_flow_on_segments_over_1mm_mm3_s": 17.470323,
           "min_width_mm": 0.714336,
-          "max_width_mm": 0.908611
+          "max_width_mm": 0.908591
         },
         "Overhang wall": {
-          "segments": 82,
-          "length_mm": 221.393506,
-          "volume_mm3": 26.995633,
+          "segments": 100,
+          "length_mm": 221.376446,
+          "volume_mm3": 26.993156,
           "max_speed_mm_s": 30.0,
-          "max_flow_mm3_s": 3.658804,
+          "max_flow_mm3_s": 3.659298,
           "max_flow_on_segments_over_1mm_mm3_s": 3.658047,
           "min_width_mm": 0.819996,
           "max_width_mm": 0.819996
         },
         "Bridge": {
-          "segments": 140,
-          "length_mm": 811.548288,
-          "volume_mm3": 101.754391,
+          "segments": 160,
+          "length_mm": 811.632931,
+          "volume_mm3": 101.764518,
           "max_speed_mm_s": 30.0,
           "max_flow_mm3_s": 3.793195,
           "max_flow_on_segments_over_1mm_mm3_s": 3.791764,
@@ -715,8 +719,8 @@
     {
       "plate": 2,
       "part": "cavity",
-      "gcode_sha256": "5eaacf9f52d4382c3b7beb0d776726af54ddaa5d65cb2624c89cb68f36ee581b",
-      "gcode_md5": "b4f17ef87b64d4ac19fd98502ecf19f1",
+      "gcode_sha256": "307a4acc4fc5cd1da81ff0fe286f55ea8a3d91d45b4c3a4334a72456fa178bbf",
+      "gcode_md5": "45fc343685b15e7e6d9f5a27d546c3d5",
       "embedded_gcode_matches_cli_output": true,
       "checksum_valid": true,
       "metadata": {
@@ -726,7 +730,7 @@
         "printer_model_id": "",
         "nozzle_diameters": "0.8,0.8",
         "timelapse_type": "0",
-        "prediction": "82147",
+        "prediction": "82234",
         "weight": "1271.49",
         "pause_count": "0",
         "first_layer_time": "0.000000",
@@ -1073,7 +1077,7 @@
         "74.48": 0.160004,
         "74.64": 0.159996
       },
-      "extruding_arcs": 151598,
+      "extruding_arcs": 0,
       "last_layer_z_mm": 74.64,
       "inspected_layers_mm": [
         0.4,
@@ -1117,82 +1121,82 @@
           "max_width_mm": 0.82
         },
         "Inner wall": {
-          "segments": 765957,
-          "length_mm": 2539597.655684,
-          "volume_mm3": 462346.295427,
-          "max_speed_mm_s": 206.657117,
-          "max_flow_mm3_s": 28.012201,
-          "max_flow_on_segments_over_1mm_mm3_s": 17.478639,
-          "min_width_mm": 0.578716,
-          "max_width_mm": 1.40124
+          "segments": 1074668,
+          "length_mm": 2539341.285522,
+          "volume_mm3": 462343.577699,
+          "max_speed_mm_s": 202.3527,
+          "max_flow_mm3_s": 20.380258,
+          "max_flow_on_segments_over_1mm_mm3_s": 17.480732,
+          "min_width_mm": 0.590296,
+          "max_width_mm": 1.40106
         },
         "Outer wall": {
-          "segments": 306867,
-          "length_mm": 1662763.940058,
-          "volume_mm3": 289889.584929,
+          "segments": 441418,
+          "length_mm": 1662748.338971,
+          "volume_mm3": 289889.330089,
           "max_speed_mm_s": 165.441183,
-          "max_flow_mm3_s": 21.868422,
-          "max_flow_on_segments_over_1mm_mm3_s": 17.477372,
+          "max_flow_mm3_s": 23.272061,
+          "max_flow_on_segments_over_1mm_mm3_s": 17.479319,
           "min_width_mm": 0.688766,
           "max_width_mm": 1.34312
         },
         "Bottom surface": {
-          "segments": 590,
-          "length_mm": 3700.182824,
-          "volume_mm3": 1072.257631,
+          "segments": 730,
+          "length_mm": 3699.939935,
+          "volume_mm3": 1072.233121,
           "max_speed_mm_s": 60.831367,
-          "max_flow_mm3_s": 17.852524,
+          "max_flow_mm3_s": 17.59796,
           "max_flow_on_segments_over_1mm_mm3_s": 17.473847,
           "min_width_mm": 0.825591,
           "max_width_mm": 0.853101
         },
         "Internal solid infill": {
-          "segments": 97435,
-          "length_mm": 481032.049169,
-          "volume_mm3": 71832.651283,
-          "max_speed_mm_s": 230.375567,
-          "max_flow_mm3_s": 18.131755,
-          "max_flow_on_segments_over_1mm_mm3_s": 17.477452,
-          "min_width_mm": 0.522669,
-          "max_width_mm": 1.35303
+          "segments": 102400,
+          "length_mm": 480399.227444,
+          "volume_mm3": 71637.657391,
+          "max_speed_mm_s": 208.50365,
+          "max_flow_mm3_s": 18.237354,
+          "max_flow_on_segments_over_1mm_mm3_s": 17.478172,
+          "min_width_mm": 0.573895,
+          "max_width_mm": 1.35025
         },
         "Sparse infill": {
-          "segments": 158542,
-          "length_mm": 975134.887442,
-          "volume_mm3": 179348.792917,
+          "segments": 195080,
+          "length_mm": 975187.950812,
+          "volume_mm3": 179364.967067,
           "max_speed_mm_s": 143.191033,
-          "max_flow_mm3_s": 17.814554,
+          "max_flow_mm3_s": 17.945824,
           "max_flow_on_segments_over_1mm_mm3_s": 17.480467,
           "min_width_mm": 0.82,
           "max_width_mm": 0.82
         },
         "Floating vertical shell": {
-          "segments": 12112,
-          "length_mm": 27962.365067,
-          "volume_mm3": 7687.353778,
-          "max_speed_mm_s": 170.516567,
-          "max_flow_mm3_s": 18.319659,
-          "max_flow_on_segments_over_1mm_mm3_s": 17.4776,
-          "min_width_mm": 0.689798,
-          "max_width_mm": 1.2978
+          "segments": 14383,
+          "length_mm": 28631.144871,
+          "volume_mm3": 7872.299678,
+          "max_speed_mm_s": 171.01425,
+          "max_flow_mm3_s": 21.766008,
+          "max_flow_on_segments_over_1mm_mm3_s": 17.475059,
+          "min_width_mm": 0.689307,
+          "max_width_mm": 1.29736
         },
         "Top surface": {
-          "segments": 3014,
-          "length_mm": 11262.121313,
-          "volume_mm3": 2527.740067,
+          "segments": 3144,
+          "length_mm": 11260.579148,
+          "volume_mm3": 2527.611986,
           "max_speed_mm_s": 60.0,
-          "max_flow_mm3_s": 17.769534,
-          "max_flow_on_segments_over_1mm_mm3_s": 17.472669,
+          "max_flow_mm3_s": 17.486602,
+          "max_flow_on_segments_over_1mm_mm3_s": 17.473678,
           "min_width_mm": 0.820596,
           "max_width_mm": 0.966821
         },
         "Overhang wall": {
-          "segments": 363,
-          "length_mm": 200.421839,
-          "volume_mm3": 21.704302,
+          "segments": 398,
+          "length_mm": 195.824884,
+          "volume_mm3": 21.219661,
           "max_speed_mm_s": 30.0,
-          "max_flow_mm3_s": 3.660556,
-          "max_flow_on_segments_over_1mm_mm3_s": 3.167397,
+          "max_flow_mm3_s": 3.652194,
+          "max_flow_on_segments_over_1mm_mm3_s": 3.167605,
           "min_width_mm": 0.714336,
           "max_width_mm": 0.819996
         }
@@ -1201,8 +1205,8 @@
     {
       "plate": 3,
       "part": "core",
-      "gcode_sha256": "a4dd2d281b2845860fafd960f1992d54b4889ae4177c242f1958f267b3e4826d",
-      "gcode_md5": "15f00fa10d35fc0c42df60bd522ae07f",
+      "gcode_sha256": "4a56f9e8f309b6793390683aa9baa71a6874a818e44c04841243c377bba350eb",
+      "gcode_md5": "bbab60bd2c7a866c1e3a68a129d1cbdc",
       "embedded_gcode_matches_cli_output": true,
       "checksum_valid": true,
       "metadata": {
@@ -1212,8 +1216,8 @@
         "printer_model_id": "",
         "nozzle_diameters": "0.8,0.8",
         "timelapse_type": "0",
-        "prediction": "66129",
-        "weight": "1025.95",
+        "prediction": "66231",
+        "weight": "1025.98",
         "pause_count": "0",
         "first_layer_time": "0.000000",
         "outside": "false",
@@ -1553,7 +1557,7 @@
         "67.76": 0.400002,
         "68.16": 0.400002
       },
-      "extruding_arcs": 57632,
+      "extruding_arcs": 0,
       "last_layer_z_mm": 68.16,
       "inspected_layers_mm": [
         0.4,
@@ -1627,91 +1631,91 @@
           "max_width_mm": 0.82
         },
         "Inner wall": {
-          "segments": 271748,
-          "length_mm": 1496988.551459,
-          "volume_mm3": 246879.062848,
-          "max_speed_mm_s": 200.79605,
-          "max_flow_mm3_s": 20.664989,
-          "max_flow_on_segments_over_1mm_mm3_s": 17.477946,
-          "min_width_mm": 0.594606,
-          "max_width_mm": 1.3658
+          "segments": 318382,
+          "length_mm": 1496972.373612,
+          "volume_mm3": 246886.162182,
+          "max_speed_mm_s": 198.279817,
+          "max_flow_mm3_s": 20.700834,
+          "max_flow_on_segments_over_1mm_mm3_s": 17.478668,
+          "min_width_mm": 0.601716,
+          "max_width_mm": 1.3659
         },
         "Outer wall": {
-          "segments": 157111,
-          "length_mm": 922256.011915,
-          "volume_mm3": 155974.431998,
+          "segments": 171439,
+          "length_mm": 922250.698879,
+          "volume_mm3": 155974.673777,
           "max_speed_mm_s": 165.441183,
-          "max_flow_mm3_s": 21.856925,
-          "max_flow_on_segments_over_1mm_mm3_s": 17.474414,
+          "max_flow_mm3_s": 24.533875,
+          "max_flow_on_segments_over_1mm_mm3_s": 17.473248,
           "min_width_mm": 0.693956,
-          "max_width_mm": 1.39208
+          "max_width_mm": 1.3966
         },
         "Bottom surface": {
-          "segments": 2649,
-          "length_mm": 32347.122793,
-          "volume_mm3": 9248.655388,
+          "segments": 2855,
+          "length_mm": 32347.40614,
+          "volume_mm3": 9248.733343,
           "max_speed_mm_s": 61.2045,
-          "max_flow_mm3_s": 17.709301,
+          "max_flow_mm3_s": 17.519651,
           "max_flow_on_segments_over_1mm_mm3_s": 17.476231,
           "min_width_mm": 0.821081,
           "max_width_mm": 0.824721
         },
         "Internal solid infill": {
-          "segments": 158534,
-          "length_mm": 1372705.623364,
-          "volume_mm3": 173439.141915,
-          "max_speed_mm_s": 182.721717,
-          "max_flow_mm3_s": 22.08151,
-          "max_flow_on_segments_over_1mm_mm3_s": 17.478667,
-          "min_width_mm": 0.650027,
-          "max_width_mm": 1.33822
+          "segments": 168958,
+          "length_mm": 1372815.918832,
+          "volume_mm3": 173452.876243,
+          "max_speed_mm_s": 174.45755,
+          "max_flow_mm3_s": 22.733446,
+          "max_flow_on_segments_over_1mm_mm3_s": 17.477845,
+          "min_width_mm": 0.679192,
+          "max_width_mm": 1.35142
         },
         "Top surface": {
-          "segments": 4259,
-          "length_mm": 35915.475288,
-          "volume_mm3": 4548.343216,
+          "segments": 4585,
+          "length_mm": 35915.562447,
+          "volume_mm3": 4548.327028,
           "max_speed_mm_s": 60.0,
-          "max_flow_mm3_s": 17.484793,
-          "max_flow_on_segments_over_1mm_mm3_s": 17.468376,
+          "max_flow_mm3_s": 17.50155,
+          "max_flow_on_segments_over_1mm_mm3_s": 17.462242,
           "min_width_mm": 0.821916,
           "max_width_mm": 0.966821
         },
         "Sparse infill": {
-          "segments": 167403,
-          "length_mm": 1410556.204066,
-          "volume_mm3": 223717.569976,
+          "segments": 174392,
+          "length_mm": 1410573.073757,
+          "volume_mm3": 223720.460235,
           "max_speed_mm_s": 143.191033,
-          "max_flow_mm3_s": 17.725234,
-          "max_flow_on_segments_over_1mm_mm3_s": 17.477158,
+          "max_flow_mm3_s": 17.814558,
+          "max_flow_on_segments_over_1mm_mm3_s": 17.477079,
           "min_width_mm": 0.82,
           "max_width_mm": 0.82
         },
         "Floating vertical shell": {
-          "segments": 5739,
-          "length_mm": 15708.633832,
-          "volume_mm3": 4017.032132,
+          "segments": 6285,
+          "length_mm": 15680.084767,
+          "volume_mm3": 4012.631669,
           "max_speed_mm_s": 172.64225,
           "max_flow_mm3_s": 18.408582,
-          "max_flow_on_segments_over_1mm_mm3_s": 17.47721,
+          "max_flow_on_segments_over_1mm_mm3_s": 17.476386,
           "min_width_mm": 0.685973,
-          "max_width_mm": 1.33731
+          "max_width_mm": 1.33732
         },
         "Bridge": {
-          "segments": 901,
-          "length_mm": 3318.078203,
-          "volume_mm3": 410.508303,
+          "segments": 1084,
+          "length_mm": 3317.559559,
+          "volume_mm3": 411.508924,
           "max_speed_mm_s": 30.0,
-          "max_flow_mm3_s": 3.927705,
-          "max_flow_on_segments_over_1mm_mm3_s": 3.923981,
-          "min_width_mm": 0.820846,
-          "max_width_mm": 0.877036
+          "max_flow_mm3_s": 3.936023,
+          "max_flow_on_segments_over_1mm_mm3_s": 3.930037,
+          "min_width_mm": 0.820916,
+          "max_width_mm": 0.878256
         },
         "Overhang wall": {
-          "segments": 302,
-          "length_mm": 413.840219,
-          "volume_mm3": 50.460168,
+          "segments": 509,
+          "length_mm": 413.993954,
+          "volume_mm3": 50.478448,
           "max_speed_mm_s": 30.0,
-          "max_flow_mm3_s": 3.65838,
+          "max_flow_mm3_s": 3.657959,
           "max_flow_on_segments_over_1mm_mm3_s": 3.657959,
           "min_width_mm": 0.819996,
           "max_width_mm": 0.819996
@@ -1721,43 +1725,43 @@
   ],
   "slice_result": {
     "error_string": "Success.",
-    "export_time": 4912,
+    "export_time": 5534,
     "layer_height": 0.4000000059604645,
     "plate_index": 0,
-    "prepare_time": 332,
+    "prepare_time": 179,
     "return_code": 0,
     "sliced_plates": [
       {
         "feature_type_times": {
-          "Bottom surface": 68.42788696289062,
-          "Bridge": 27.504810333251953,
-          "Brim": 104.46279907226562,
+          "Bottom surface": 68.39508819580078,
+          "Bridge": 27.507457733154297,
+          "Brim": 104.46273040771484,
           "Custom": 306.9886779785156,
           "Flush": 15.0,
-          "Inner wall": 1409.5665283203125,
-          "Internal solid infill": 734.370849609375,
-          "Outer wall": 878.0185546875,
-          "Overhang wall": 11.38988208770752,
-          "Sparse infill": 535.3900146484375,
-          "Top surface": 67.62013244628906,
-          "Travel": 350.3747863769531,
-          "Undefined": 341.768798828125
+          "Inner wall": 1423.4190673828125,
+          "Internal solid infill": 734.5390014648438,
+          "Outer wall": 878.1210327148438,
+          "Overhang wall": 11.388184547424316,
+          "Sparse infill": 535.4558715820312,
+          "Top surface": 67.60636901855469,
+          "Travel": 349.72442626953125,
+          "Undefined": 341.1184387207031
         },
         "filament_change_times": 0,
         "filaments": [
           {
             "filament_id": "GFG01",
             "id": 1,
-            "main_used_g": 60.56242752075195,
-            "total_used_g": 60.56242752075195
+            "main_used_g": 60.563758850097656,
+            "total_used_g": 60.563758850097656
           }
         ],
-        "generate_support_material_time": 21,
+        "generate_support_material_time": 18,
         "id": 1,
-        "infill_time": 168,
+        "infill_time": 118,
         "layer_filament_change": 0,
-        "main_predication": 4172.06005859375,
-        "make_perimeters_time": 163,
+        "main_predication": 4185.453125,
+        "make_perimeters_time": 131,
         "obj_cached_cnt": 0,
         "objects": [
           {
@@ -1800,42 +1804,42 @@
             "triangle_count": 60
           }
         ],
-        "sliced_time": 1301,
-        "sliced_time_with_cache": 865,
-        "total_predication": 4500.44287109375,
+        "sliced_time": 783,
+        "sliced_time_with_cache": 455,
+        "total_predication": 4513.8359375,
         "triangle_count": 2596,
         "warning_message": ""
       },
       {
         "feature_type_times": {
-          "Bottom surface": 95.79627227783203,
+          "Bottom surface": 95.80500793457031,
           "Brim": 177.8116455078125,
           "Custom": 304.7674560546875,
           "Flush": 15.0,
-          "Inner wall": 30150.859375,
-          "Internal solid infill": 5838.80322265625,
-          "Outer wall": 24083.943359375,
-          "Overhang wall": 25.13041114807129,
-          "Sparse infill": 12081.6943359375,
-          "Top surface": 256.06719970703125,
-          "Travel": 9321.4189453125,
-          "Undefined": 9315.185546875
+          "Inner wall": 30329.193359375,
+          "Internal solid infill": 5840.66357421875,
+          "Outer wall": 24087.05078125,
+          "Overhang wall": 23.421003341674805,
+          "Sparse infill": 12088.0517578125,
+          "Top surface": 256.0883483886719,
+          "Travel": 9339.1162109375,
+          "Undefined": 9332.8828125
         },
         "filament_change_times": 0,
         "filaments": [
           {
             "filament_id": "GFG01",
             "id": 1,
-            "main_used_g": 1271.4873046875,
-            "total_used_g": 1271.4873046875
+            "main_used_g": 1271.490478515625,
+            "total_used_g": 1271.490478515625
           }
         ],
-        "generate_support_material_time": 2221,
+        "generate_support_material_time": 1565,
         "id": 2,
-        "infill_time": 6730,
+        "infill_time": 3776,
         "layer_filament_change": 0,
-        "main_predication": 81819.1875,
-        "make_perimeters_time": 11302,
+        "main_predication": 81905.8125,
+        "make_perimeters_time": 5741,
         "obj_cached_cnt": 0,
         "objects": [
           {
@@ -1852,43 +1856,43 @@
             "triangle_count": 94350
           }
         ],
-        "sliced_time": 36013,
-        "sliced_time_with_cache": 14241,
-        "total_predication": 82147.71875,
+        "sliced_time": 22741,
+        "sliced_time_with_cache": 11361,
+        "total_predication": 82234.34375,
         "triangle_count": 94350,
         "warning_message": ""
       },
       {
         "feature_type_times": {
-          "Bottom surface": 704.6992797851562,
-          "Bridge": 113.56409454345703,
-          "Brim": 178.16481018066406,
+          "Bottom surface": 704.3988647460938,
+          "Bridge": 113.54884338378906,
+          "Brim": 178.16505432128906,
           "Custom": 305.13836669921875,
           "Flush": 15.0,
-          "Inner wall": 15988.1240234375,
-          "Internal solid infill": 12386.8330078125,
-          "Outer wall": 15873.5439453125,
-          "Overhang wall": 34.06606674194336,
-          "Sparse infill": 14944.5068359375,
-          "Top surface": 688.3902587890625,
-          "Travel": 4993.6845703125,
-          "Undefined": 4987.12646484375
+          "Inner wall": 16094.818359375,
+          "Internal solid infill": 12390.26171875,
+          "Outer wall": 15872.6640625,
+          "Overhang wall": 34.123779296875,
+          "Sparse infill": 14944.9423828125,
+          "Top surface": 693.276123046875,
+          "Travel": 4987.5048828125,
+          "Undefined": 4980.94677734375
         },
         "filament_change_times": 0,
         "filaments": [
           {
             "filament_id": "GFG01",
             "id": 1,
-            "main_used_g": 1025.9500732421875,
-            "total_used_g": 1025.9500732421875
+            "main_used_g": 1025.975830078125,
+            "total_used_g": 1025.975830078125
           }
         ],
-        "generate_support_material_time": 698,
+        "generate_support_material_time": 519,
         "id": 3,
-        "infill_time": 3260,
+        "infill_time": 3304,
         "layer_filament_change": 0,
-        "main_predication": 65801.2578125,
-        "make_perimeters_time": 2507,
+        "main_predication": 65903.265625,
+        "make_perimeters_time": 2817,
         "obj_cached_cnt": 0,
         "objects": [
           {
@@ -1905,9 +1909,9 @@
             "triangle_count": 35926
           }
         ],
-        "sliced_time": 10817,
-        "sliced_time_with_cache": 4032,
-        "total_predication": 66129.8359375,
+        "sliced_time": 12057,
+        "sliced_time_with_cache": 5146,
+        "total_predication": 66231.84375,
         "triangle_count": 35926,
         "warning_message": ""
       }
@@ -2074,161 +2078,161 @@
       "passage": "silicone_vent_1",
       "plate": 3,
       "z_mm": 0.4,
-      "nominal_clear_diameter_mm": 2.7249,
+      "nominal_clear_diameter_mm": 2.733,
       "requested_z_mm": 0.3
     },
     {
       "passage": "silicone_vent_2",
       "plate": 3,
       "z_mm": 0.4,
-      "nominal_clear_diameter_mm": 2.7249,
+      "nominal_clear_diameter_mm": 2.733,
       "requested_z_mm": 0.3
     },
     {
       "passage": "silicone_vent_3",
       "plate": 3,
       "z_mm": 0.4,
-      "nominal_clear_diameter_mm": 2.7329,
+      "nominal_clear_diameter_mm": 2.733,
       "requested_z_mm": 0.3
     },
     {
       "passage": "silicone_vent_4",
       "plate": 3,
       "z_mm": 0.4,
-      "nominal_clear_diameter_mm": 2.7426,
+      "nominal_clear_diameter_mm": 2.7421,
       "requested_z_mm": 0.3
     },
     {
       "passage": "silicone_vent_5",
       "plate": 3,
       "z_mm": 0.4,
-      "nominal_clear_diameter_mm": 2.7438,
+      "nominal_clear_diameter_mm": 2.7405,
       "requested_z_mm": 0.3
     },
     {
       "passage": "silicone_vent_1",
       "plate": 3,
       "z_mm": 3.92,
-      "nominal_clear_diameter_mm": 2.4402,
+      "nominal_clear_diameter_mm": 2.4254,
       "requested_z_mm": 3.98
     },
     {
       "passage": "silicone_vent_2",
       "plate": 3,
       "z_mm": 3.92,
-      "nominal_clear_diameter_mm": 2.4402,
+      "nominal_clear_diameter_mm": 2.4254,
       "requested_z_mm": 3.98
     },
     {
       "passage": "silicone_vent_3",
       "plate": 3,
       "z_mm": 3.92,
-      "nominal_clear_diameter_mm": 2.4342,
+      "nominal_clear_diameter_mm": 2.4254,
       "requested_z_mm": 3.98
     },
     {
       "passage": "silicone_vent_4",
       "plate": 3,
       "z_mm": 3.92,
-      "nominal_clear_diameter_mm": 2.4462,
+      "nominal_clear_diameter_mm": 2.4348,
       "requested_z_mm": 3.98
     },
     {
       "passage": "silicone_vent_5",
       "plate": 3,
       "z_mm": 3.92,
-      "nominal_clear_diameter_mm": 2.446,
+      "nominal_clear_diameter_mm": 2.4326,
       "requested_z_mm": 3.98
     },
     {
       "passage": "silicone_vent_1",
       "plate": 3,
       "z_mm": 9.68,
-      "nominal_clear_diameter_mm": 2.4402,
+      "nominal_clear_diameter_mm": 2.4272,
       "requested_z_mm": 9.74
     },
     {
       "passage": "silicone_vent_2",
       "plate": 3,
       "z_mm": 9.68,
-      "nominal_clear_diameter_mm": 2.4402,
+      "nominal_clear_diameter_mm": 2.428,
       "requested_z_mm": 9.74
     },
     {
       "passage": "silicone_vent_3",
       "plate": 3,
       "z_mm": 9.68,
-      "nominal_clear_diameter_mm": 2.4402,
+      "nominal_clear_diameter_mm": 2.4257,
       "requested_z_mm": 9.74
     },
     {
       "passage": "silicone_vent_4",
       "plate": 3,
       "z_mm": 9.68,
-      "nominal_clear_diameter_mm": 2.448,
+      "nominal_clear_diameter_mm": 2.4229,
       "requested_z_mm": 9.74
     },
     {
       "passage": "silicone_vent_5",
       "plate": 3,
       "z_mm": 9.68,
-      "nominal_clear_diameter_mm": 2.4503,
+      "nominal_clear_diameter_mm": 2.4272,
       "requested_z_mm": 9.74
     },
     {
       "passage": "rod_socket",
       "plate": 3,
       "z_mm": 26.32,
-      "nominal_clear_diameter_mm": 6.3992,
+      "nominal_clear_diameter_mm": 6.3947,
       "requested_z_mm": 26.22
     },
     {
       "passage": "rod_socket",
       "plate": 3,
       "z_mm": 38.08,
-      "nominal_clear_diameter_mm": 6.3917,
+      "nominal_clear_diameter_mm": 6.3953,
       "requested_z_mm": 38.06
     },
     {
       "passage": "rod_socket",
       "plate": 3,
       "z_mm": 48.96,
-      "nominal_clear_diameter_mm": 6.391,
+      "nominal_clear_diameter_mm": 6.3942,
       "requested_z_mm": 48.94
     },
     {
       "passage": "rod_socket",
       "plate": 3,
       "z_mm": 54.4,
-      "nominal_clear_diameter_mm": 6.1027,
+      "nominal_clear_diameter_mm": 6.0675,
       "requested_z_mm": 54.38
     },
     {
       "passage": "pour_port",
       "plate": 3,
       "z_mm": 0.4,
-      "nominal_clear_diameter_mm": 19.8184,
+      "nominal_clear_diameter_mm": 19.8046,
       "requested_z_mm": 0.3
     },
     {
       "passage": "pour_port",
       "plate": 3,
       "z_mm": 2.0,
-      "nominal_clear_diameter_mm": 15.6413,
+      "nominal_clear_diameter_mm": 15.6277,
       "requested_z_mm": 2.06
     },
     {
       "passage": "pour_port",
       "plate": 3,
       "z_mm": 3.92,
-      "nominal_clear_diameter_mm": 11.322,
+      "nominal_clear_diameter_mm": 11.3102,
       "requested_z_mm": 3.98
     },
     {
       "passage": "pour_port",
       "plate": 3,
       "z_mm": 9.68,
-      "nominal_clear_diameter_mm": 10.9728,
+      "nominal_clear_diameter_mm": 10.9492,
       "requested_z_mm": 9.74
     },
     {
@@ -2316,7 +2320,7 @@
       "station_degrees": 0,
       "plate": 3,
       "z_mm": 3.92,
-      "nominal_clear_diameter_mm": 5.751,
+      "nominal_clear_diameter_mm": 5.7633,
       "requested_z_mm": 3.98
     },
     {
@@ -2324,7 +2328,7 @@
       "station_degrees": 0,
       "plate": 3,
       "z_mm": 13.04,
-      "nominal_clear_diameter_mm": 5.75,
+      "nominal_clear_diameter_mm": 5.7634,
       "requested_z_mm": 13.1
     },
     {
@@ -2340,7 +2344,7 @@
       "station_degrees": 0,
       "plate": 2,
       "z_mm": 72.24,
-      "nominal_clear_diameter_mm": 25.3749,
+      "nominal_clear_diameter_mm": 25.3714,
       "requested_z_mm": 72.3
     },
     {
@@ -2364,7 +2368,7 @@
       "station_degrees": 90,
       "plate": 3,
       "z_mm": 3.92,
-      "nominal_clear_diameter_mm": 5.7479,
+      "nominal_clear_diameter_mm": 5.7483,
       "requested_z_mm": 3.98
     },
     {
@@ -2372,7 +2376,7 @@
       "station_degrees": 90,
       "plate": 3,
       "z_mm": 13.04,
-      "nominal_clear_diameter_mm": 5.7484,
+      "nominal_clear_diameter_mm": 5.7396,
       "requested_z_mm": 13.1
     },
     {
@@ -2388,7 +2392,7 @@
       "station_degrees": 90,
       "plate": 2,
       "z_mm": 72.24,
-      "nominal_clear_diameter_mm": 25.3781,
+      "nominal_clear_diameter_mm": 25.37,
       "requested_z_mm": 72.3
     },
     {
@@ -2412,7 +2416,7 @@
       "station_degrees": 180,
       "plate": 3,
       "z_mm": 3.92,
-      "nominal_clear_diameter_mm": 5.751,
+      "nominal_clear_diameter_mm": 5.7634,
       "requested_z_mm": 3.98
     },
     {
@@ -2420,7 +2424,7 @@
       "station_degrees": 180,
       "plate": 3,
       "z_mm": 13.04,
-      "nominal_clear_diameter_mm": 5.7615,
+      "nominal_clear_diameter_mm": 5.7481,
       "requested_z_mm": 13.1
     },
     {
@@ -2436,7 +2440,7 @@
       "station_degrees": 180,
       "plate": 2,
       "z_mm": 72.24,
-      "nominal_clear_diameter_mm": 25.3903,
+      "nominal_clear_diameter_mm": 25.3717,
       "requested_z_mm": 72.3
     },
     {
@@ -2460,7 +2464,7 @@
       "station_degrees": 270,
       "plate": 3,
       "z_mm": 3.92,
-      "nominal_clear_diameter_mm": 5.7479,
+      "nominal_clear_diameter_mm": 5.7496,
       "requested_z_mm": 3.98
     },
     {
@@ -2468,7 +2472,7 @@
       "station_degrees": 270,
       "plate": 3,
       "z_mm": 13.04,
-      "nominal_clear_diameter_mm": 5.7484,
+      "nominal_clear_diameter_mm": 5.742,
       "requested_z_mm": 13.1
     },
     {
@@ -2484,7 +2488,7 @@
       "station_degrees": 270,
       "plate": 2,
       "z_mm": 72.24,
-      "nominal_clear_diameter_mm": 25.3732,
+      "nominal_clear_diameter_mm": 25.3717,
       "requested_z_mm": 72.3
     },
     {
@@ -2525,127 +2529,127 @@
     {
       "plate": 2,
       "z_mm": 7.04,
-      "forming_zone_outer_segments": 99,
+      "forming_zone_outer_segments": 43,
       "max_mm_s": 60.0
     },
     {
       "plate": 2,
       "z_mm": 7.44,
-      "forming_zone_outer_segments": 115,
+      "forming_zone_outer_segments": 50,
       "max_mm_s": 60.0
     },
     {
       "plate": 2,
       "z_mm": 10.0,
-      "forming_zone_outer_segments": 175,
+      "forming_zone_outer_segments": 104,
       "max_mm_s": 60.0
     },
     {
       "plate": 2,
       "z_mm": 10.16,
-      "forming_zone_outer_segments": 173,
+      "forming_zone_outer_segments": 99,
       "max_mm_s": 60.0
     },
     {
       "plate": 2,
       "z_mm": 12.96,
-      "forming_zone_outer_segments": 174,
+      "forming_zone_outer_segments": 121,
       "max_mm_s": 60.0
     },
     {
       "plate": 2,
       "z_mm": 34.08,
-      "forming_zone_outer_segments": 395,
+      "forming_zone_outer_segments": 312,
       "max_mm_s": 60.0
     },
     {
       "plate": 2,
       "z_mm": 44.96,
-      "forming_zone_outer_segments": 332,
+      "forming_zone_outer_segments": 240,
       "max_mm_s": 60.0
     },
     {
       "plate": 2,
       "z_mm": 50.72,
-      "forming_zone_outer_segments": 421,
+      "forming_zone_outer_segments": 380,
       "max_mm_s": 60.0
     },
     {
       "plate": 2,
       "z_mm": 53.28,
-      "forming_zone_outer_segments": 357,
+      "forming_zone_outer_segments": 276,
       "max_mm_s": 60.0
     },
     {
       "plate": 2,
       "z_mm": 54.48,
-      "forming_zone_outer_segments": 236,
+      "forming_zone_outer_segments": 219,
       "max_mm_s": 60.0
     },
     {
       "plate": 2,
       "z_mm": 54.88,
-      "forming_zone_outer_segments": 236,
+      "forming_zone_outer_segments": 219,
       "max_mm_s": 60.0
     },
     {
       "plate": 2,
       "z_mm": 55.68,
-      "forming_zone_outer_segments": 242,
+      "forming_zone_outer_segments": 218,
       "max_mm_s": 60.0
     },
     {
       "plate": 2,
       "z_mm": 56.08,
-      "forming_zone_outer_segments": 243,
+      "forming_zone_outer_segments": 218,
       "max_mm_s": 60.0
     },
     {
       "plate": 2,
       "z_mm": 60.08,
-      "forming_zone_outer_segments": 233,
+      "forming_zone_outer_segments": 218,
       "max_mm_s": 60.0
     },
     {
       "plate": 2,
       "z_mm": 64.48,
-      "forming_zone_outer_segments": 190,
+      "forming_zone_outer_segments": 178,
       "max_mm_s": 60.0
     },
     {
       "plate": 2,
       "z_mm": 64.88,
-      "forming_zone_outer_segments": 557,
+      "forming_zone_outer_segments": 552,
       "max_mm_s": 60.0
     },
     {
       "plate": 2,
       "z_mm": 68.48,
-      "forming_zone_outer_segments": 29,
+      "forming_zone_outer_segments": 24,
       "max_mm_s": 60.0
     },
     {
       "plate": 2,
       "z_mm": 71.44,
-      "forming_zone_outer_segments": 818,
+      "forming_zone_outer_segments": 619,
       "max_mm_s": 60.0
     },
     {
       "plate": 2,
       "z_mm": 71.6,
-      "forming_zone_outer_segments": 819,
+      "forming_zone_outer_segments": 617,
       "max_mm_s": 60.0
     },
     {
       "plate": 2,
       "z_mm": 72.24,
-      "forming_zone_outer_segments": 1545,
+      "forming_zone_outer_segments": 1027,
       "max_mm_s": 60.0
     },
     {
       "plate": 2,
       "z_mm": 72.72,
-      "forming_zone_outer_segments": 1546,
+      "forming_zone_outer_segments": 921,
       "max_mm_s": 60.0
     },
     {
@@ -2657,73 +2661,73 @@
     {
       "plate": 3,
       "z_mm": 0.4,
-      "forming_zone_outer_segments": 191,
+      "forming_zone_outer_segments": 193,
       "max_mm_s": 50.0
     },
     {
       "plate": 3,
       "z_mm": 1.52,
-      "forming_zone_outer_segments": 173,
+      "forming_zone_outer_segments": 170,
       "max_mm_s": 60.0
     },
     {
       "plate": 3,
       "z_mm": 2.0,
-      "forming_zone_outer_segments": 167,
+      "forming_zone_outer_segments": 165,
       "max_mm_s": 60.0
     },
     {
       "plate": 3,
       "z_mm": 2.8,
-      "forming_zone_outer_segments": 175,
+      "forming_zone_outer_segments": 168,
       "max_mm_s": 60.0
     },
     {
       "plate": 3,
       "z_mm": 2.96,
-      "forming_zone_outer_segments": 180,
+      "forming_zone_outer_segments": 168,
       "max_mm_s": 60.0
     },
     {
       "plate": 3,
       "z_mm": 3.92,
-      "forming_zone_outer_segments": 169,
+      "forming_zone_outer_segments": 168,
       "max_mm_s": 60.0
     },
     {
       "plate": 3,
       "z_mm": 4.24,
-      "forming_zone_outer_segments": 172,
+      "forming_zone_outer_segments": 166,
       "max_mm_s": 60.0
     },
     {
       "plate": 3,
       "z_mm": 4.4,
-      "forming_zone_outer_segments": 167,
+      "forming_zone_outer_segments": 166,
       "max_mm_s": 60.0
     },
     {
       "plate": 3,
       "z_mm": 4.56,
-      "forming_zone_outer_segments": 180,
+      "forming_zone_outer_segments": 168,
       "max_mm_s": 60.0
     },
     {
       "plate": 3,
       "z_mm": 5.44,
-      "forming_zone_outer_segments": 182,
+      "forming_zone_outer_segments": 168,
       "max_mm_s": 60.0
     },
     {
       "plate": 3,
       "z_mm": 6.24,
-      "forming_zone_outer_segments": 172,
+      "forming_zone_outer_segments": 167,
       "max_mm_s": 60.0
     },
     {
       "plate": 3,
       "z_mm": 7.04,
-      "forming_zone_outer_segments": 169,
+      "forming_zone_outer_segments": 168,
       "max_mm_s": 60.0
     },
     {
@@ -2783,145 +2787,145 @@
     {
       "plate": 3,
       "z_mm": 12.72,
-      "forming_zone_outer_segments": 923,
+      "forming_zone_outer_segments": 792,
       "max_mm_s": 60.0
     },
     {
       "plate": 3,
       "z_mm": 12.88,
-      "forming_zone_outer_segments": 1019,
+      "forming_zone_outer_segments": 912,
       "max_mm_s": 60.0
     },
     {
       "plate": 3,
       "z_mm": 13.04,
-      "forming_zone_outer_segments": 1016,
+      "forming_zone_outer_segments": 882,
       "max_mm_s": 60.0
     },
     {
       "plate": 3,
       "z_mm": 13.68,
-      "forming_zone_outer_segments": 993,
+      "forming_zone_outer_segments": 886,
       "max_mm_s": 60.0
     },
     {
       "plate": 3,
       "z_mm": 13.84,
-      "forming_zone_outer_segments": 995,
+      "forming_zone_outer_segments": 873,
       "max_mm_s": 60.0
     },
     {
       "plate": 3,
       "z_mm": 18.88,
-      "forming_zone_outer_segments": 78,
+      "forming_zone_outer_segments": 68,
       "max_mm_s": 60.0
     },
     {
       "plate": 3,
       "z_mm": 20.08,
-      "forming_zone_outer_segments": 78,
+      "forming_zone_outer_segments": 68,
       "max_mm_s": 60.0
     },
     {
       "plate": 3,
       "z_mm": 22.24,
-      "forming_zone_outer_segments": 98,
+      "forming_zone_outer_segments": 84,
       "max_mm_s": 60.0
     },
     {
       "plate": 3,
       "z_mm": 22.72,
-      "forming_zone_outer_segments": 98,
+      "forming_zone_outer_segments": 84,
       "max_mm_s": 60.0
     },
     {
       "plate": 3,
       "z_mm": 23.92,
-      "forming_zone_outer_segments": 214,
+      "forming_zone_outer_segments": 147,
       "max_mm_s": 60.0
     },
     {
       "plate": 3,
       "z_mm": 26.32,
-      "forming_zone_outer_segments": 274,
+      "forming_zone_outer_segments": 164,
       "max_mm_s": 60.0
     },
     {
       "plate": 3,
       "z_mm": 29.92,
-      "forming_zone_outer_segments": 265,
+      "forming_zone_outer_segments": 159,
       "max_mm_s": 60.0
     },
     {
       "plate": 3,
       "z_mm": 34.08,
-      "forming_zone_outer_segments": 619,
+      "forming_zone_outer_segments": 525,
       "max_mm_s": 60.0
     },
     {
       "plate": 3,
       "z_mm": 35.04,
-      "forming_zone_outer_segments": 748,
+      "forming_zone_outer_segments": 656,
       "max_mm_s": 60.0
     },
     {
       "plate": 3,
       "z_mm": 38.08,
-      "forming_zone_outer_segments": 668,
+      "forming_zone_outer_segments": 519,
       "max_mm_s": 60.0
     },
     {
       "plate": 3,
       "z_mm": 39.04,
-      "forming_zone_outer_segments": 687,
+      "forming_zone_outer_segments": 530,
       "max_mm_s": 60.0
     },
     {
       "plate": 3,
       "z_mm": 44.96,
-      "forming_zone_outer_segments": 628,
+      "forming_zone_outer_segments": 445,
       "max_mm_s": 60.0
     },
     {
       "plate": 3,
       "z_mm": 48.0,
-      "forming_zone_outer_segments": 549,
+      "forming_zone_outer_segments": 372,
       "max_mm_s": 60.0
     },
     {
       "plate": 3,
       "z_mm": 48.16,
-      "forming_zone_outer_segments": 567,
+      "forming_zone_outer_segments": 371,
       "max_mm_s": 60.0
     },
     {
       "plate": 3,
       "z_mm": 48.96,
-      "forming_zone_outer_segments": 529,
+      "forming_zone_outer_segments": 376,
       "max_mm_s": 60.0
     },
     {
       "plate": 3,
       "z_mm": 50.4,
-      "forming_zone_outer_segments": 435,
+      "forming_zone_outer_segments": 331,
       "max_mm_s": 60.0
     },
     {
       "plate": 3,
       "z_mm": 52.0,
-      "forming_zone_outer_segments": 175,
+      "forming_zone_outer_segments": 124,
       "max_mm_s": 60.0
     },
     {
       "plate": 3,
       "z_mm": 52.16,
-      "forming_zone_outer_segments": 161,
+      "forming_zone_outer_segments": 121,
       "max_mm_s": 60.0
     },
     {
       "plate": 3,
       "z_mm": 54.4,
-      "forming_zone_outer_segments": 126,
+      "forming_zone_outer_segments": 99,
       "max_mm_s": 60.0
     },
     {
@@ -3055,13 +3059,15 @@
       "max_difference_from_reviewed_geometry_mm": 0.0
     }
   ],
+  "configuration_audit": "profile-audit.json",
   "alternate_trim": {
     "project": "funnel-mold-petg-hf08-variable-016-040-z018.3mf",
-    "project_sha256": "0248cc8ac3967a8966f5d8b900c747eafb2809af124910f3e7fc72a1f4db7490",
+    "project_sha256": "ff09a75599827b95e24b48a79368dd2859cec510dc3bcc9774f903dcbb3bceb4",
     "settings_differences_from_default": [
       "machine_start_gcode",
       "printer_settings_id"
     ],
+    "same_recipe_process_and_filament_values": true,
     "same_layer_ranges": true,
     "component_checks": [
       {
@@ -3100,77 +3106,103 @@
         "triangle_connectivity_unchanged": true
       }
     ],
+    "plate_settings": [
+      {
+        "plater_id": "1",
+        "bed_type": "Textured PEI Plate",
+        "filament_map_mode": "Manual",
+        "filament_maps": "1",
+        "filament_volume_maps": "1"
+      },
+      {
+        "plater_id": "2",
+        "bed_type": "Textured PEI Plate",
+        "filament_map_mode": "Manual",
+        "filament_maps": "1",
+        "filament_volume_maps": "1"
+      },
+      {
+        "plater_id": "3",
+        "bed_type": "Textured PEI Plate",
+        "filament_map_mode": "Manual",
+        "filament_maps": "1",
+        "filament_volume_maps": "1"
+      }
+    ],
     "gcodes": [
       {
         "plate": 1,
-        "gcode_sha256": "1cc5c018f39b4f78e6d0919159171081d1023ccc8035c7dcd3db26cc7c3b28e5",
+        "gcode_sha256": "56410b7a23e1b9de1bc51e5a9ab4727ad6ed53df25661466ad34ce197d5debf8",
         "checksum_valid": true,
         "embedded_gcode_matches_cli_output": true,
         "z_trim_commands": [
           "G29.1 Z0",
           "G29.1 Z0.16"
-        ]
+        ],
+        "textured_pei_70C_confirmed": true
       },
       {
         "plate": 2,
-        "gcode_sha256": "0e4b9395c07c5d50141aaaa752b692a533b296c249703aec8b929ddec387cd30",
+        "gcode_sha256": "33e25437f0c388075d03505e63fb3d1857c46189fcac0d4f0996f06ff00665de",
         "checksum_valid": true,
         "embedded_gcode_matches_cli_output": true,
         "z_trim_commands": [
           "G29.1 Z0",
           "G29.1 Z0.16"
-        ]
+        ],
+        "textured_pei_70C_confirmed": true
       },
       {
         "plate": 3,
-        "gcode_sha256": "4a57c6feda5aebeb00723c497bdbd3d6648a4b53634d9e5aad9ce73494a7fe20",
+        "gcode_sha256": "8e749acbdb4b462e43595ad2b4d7e64708ce8dd767f41063cee164cc2ad25750",
         "checksum_valid": true,
         "embedded_gcode_matches_cli_output": true,
         "z_trim_commands": [
           "G29.1 Z0",
           "G29.1 Z0.16"
-        ]
+        ],
+        "textured_pei_70C_confirmed": true
       }
     ],
     "slice_result": {
       "error_string": "Success.",
-      "export_time": 7652,
+      "export_time": 5812,
       "layer_height": 0.4000000059604645,
       "plate_index": 0,
-      "prepare_time": 249,
+      "prepare_time": 179,
       "return_code": 0,
       "sliced_plates": [
         {
           "feature_type_times": {
-            "Bottom surface": 68.42788696289062,
-            "Bridge": 27.504810333251953,
-            "Brim": 104.46279907226562,
+            "Bottom surface": 68.39508819580078,
+            "Bridge": 27.507457733154297,
+            "Brim": 104.46273040771484,
             "Custom": 306.9886779785156,
             "Flush": 15.0,
-            "Inner wall": 1409.5665283203125,
-            "Internal solid infill": 734.370849609375,
-            "Outer wall": 878.0185546875,
-            "Overhang wall": 11.38988208770752,
-            "Sparse infill": 535.3900146484375,
-            "Top surface": 67.62013244628906,
-            "Travel": 350.3747863769531,
-            "Undefined": 341.768798828125
+            "Inner wall": 1423.4190673828125,
+            "Internal solid infill": 734.5390014648438,
+            "Outer wall": 878.1210327148438,
+            "Overhang wall": 11.388184547424316,
+            "Sparse infill": 535.4558715820312,
+            "Top surface": 67.60636901855469,
+            "Travel": 349.72442626953125,
+            "Undefined": 341.1184387207031
           },
           "filament_change_times": 0,
           "filaments": [
             {
               "filament_id": "GFG01",
               "id": 1,
-              "main_used_g": 60.56242752075195,
-              "total_used_g": 60.56242752075195
+              "main_used_g": 60.563758850097656,
+              "total_used_g": 60.563758850097656
             }
           ],
-          "generate_support_material_time": 52,
+          "generate_support_material_time": 19,
           "id": 1,
-          "infill_time": 215,
+          "infill_time": 109,
           "layer_filament_change": 0,
-          "main_predication": 4172.06005859375,
-          "make_perimeters_time": 182,
+          "main_predication": 4185.453125,
+          "make_perimeters_time": 139,
           "obj_cached_cnt": 0,
           "objects": [
             {
@@ -3213,42 +3245,42 @@
               "triangle_count": 60
             }
           ],
-          "sliced_time": 1286,
-          "sliced_time_with_cache": 706,
-          "total_predication": 4500.44287109375,
+          "sliced_time": 783,
+          "sliced_time_with_cache": 455,
+          "total_predication": 4513.8359375,
           "triangle_count": 2596,
           "warning_message": ""
         },
         {
           "feature_type_times": {
-            "Bottom surface": 95.79627227783203,
+            "Bottom surface": 95.80500793457031,
             "Brim": 177.8116455078125,
             "Custom": 304.7674560546875,
             "Flush": 15.0,
-            "Inner wall": 30149.87890625,
-            "Internal solid infill": 5838.7998046875,
-            "Outer wall": 24083.306640625,
-            "Overhang wall": 25.13041114807129,
-            "Sparse infill": 12081.7099609375,
-            "Top surface": 256.06719970703125,
-            "Travel": 9317.5869140625,
-            "Undefined": 9311.353515625
+            "Inner wall": 30329.298828125,
+            "Internal solid infill": 5840.66357421875,
+            "Outer wall": 24086.9375,
+            "Overhang wall": 23.421003341674805,
+            "Sparse infill": 12088.0517578125,
+            "Top surface": 256.0883483886719,
+            "Travel": 9338.8720703125,
+            "Undefined": 9332.638671875
           },
           "filament_change_times": 0,
           "filaments": [
             {
               "filament_id": "GFG01",
               "id": 1,
-              "main_used_g": 1271.4873046875,
-              "total_used_g": 1271.4873046875
+              "main_used_g": 1271.490478515625,
+              "total_used_g": 1271.490478515625
             }
           ],
-          "generate_support_material_time": 3852,
+          "generate_support_material_time": 1727,
           "id": 2,
-          "infill_time": 7704,
+          "infill_time": 3829,
           "layer_filament_change": 0,
-          "main_predication": 81814.0625,
-          "make_perimeters_time": 9036,
+          "main_predication": 81905.5703125,
+          "make_perimeters_time": 5659,
           "obj_cached_cnt": 0,
           "objects": [
             {
@@ -3265,43 +3297,43 @@
               "triangle_count": 94350
             }
           ],
-          "sliced_time": 33722,
-          "sliced_time_with_cache": 11961,
-          "total_predication": 82142.59375,
+          "sliced_time": 22821,
+          "sliced_time_with_cache": 11212,
+          "total_predication": 82234.1015625,
           "triangle_count": 94350,
           "warning_message": ""
         },
         {
           "feature_type_times": {
-            "Bottom surface": 704.6992797851562,
-            "Bridge": 113.56409454345703,
-            "Brim": 178.16481018066406,
+            "Bottom surface": 704.3988647460938,
+            "Bridge": 113.54884338378906,
+            "Brim": 178.16505432128906,
             "Custom": 305.13836669921875,
             "Flush": 15.0,
-            "Inner wall": 15988.1240234375,
-            "Internal solid infill": 12386.8330078125,
-            "Outer wall": 15873.5439453125,
-            "Overhang wall": 34.06606674194336,
-            "Sparse infill": 14944.5068359375,
-            "Top surface": 688.3902587890625,
-            "Travel": 4993.6845703125,
-            "Undefined": 4987.12646484375
+            "Inner wall": 16094.818359375,
+            "Internal solid infill": 12390.26171875,
+            "Outer wall": 15872.6640625,
+            "Overhang wall": 34.123779296875,
+            "Sparse infill": 14944.9423828125,
+            "Top surface": 693.276123046875,
+            "Travel": 4987.5048828125,
+            "Undefined": 4980.94677734375
           },
           "filament_change_times": 0,
           "filaments": [
             {
               "filament_id": "GFG01",
               "id": 1,
-              "main_used_g": 1025.9500732421875,
-              "total_used_g": 1025.9500732421875
+              "main_used_g": 1025.975830078125,
+              "total_used_g": 1025.975830078125
             }
           ],
-          "generate_support_material_time": 300,
+          "generate_support_material_time": 434,
           "id": 3,
-          "infill_time": 3273,
+          "infill_time": 3298,
           "layer_filament_change": 0,
-          "main_predication": 65801.2578125,
-          "make_perimeters_time": 2260,
+          "main_predication": 65903.265625,
+          "make_perimeters_time": 2788,
           "obj_cached_cnt": 0,
           "objects": [
             {
@@ -3318,9 +3350,9 @@
               "triangle_count": 35926
             }
           ],
-          "sliced_time": 12898,
-          "sliced_time_with_cache": 6850,
-          "total_predication": 66129.8359375,
+          "sliced_time": 11995,
+          "sliced_time_with_cache": 5196,
+          "total_predication": 66231.84375,
           "triangle_count": 35926,
           "warning_message": ""
         }
@@ -3336,8 +3368,8 @@
     },
     "print_inspection": {
       "project": "funnel-mold-petg-hf08-variable-016-040-z018.3mf",
-      "project_sha256": "b10ffdf50433e4cfb73422178158b9213f34e8928cf305a3b22d280bb9544aa2",
-      "source_project_sha256": "da8824e297f16adfd93598ad4fe02f99d99c84d186aaa40a0af4104f8de721a7",
+      "project_sha256": "ff09a75599827b95e24b48a79368dd2859cec510dc3bcc9774f903dcbb3bceb4",
+      "source_project_sha256": "2b1afb2ac3ac976d4f658a83fd76109b7528550bfdef6e654d5be839ee425605",
       "slicer": "BambuStudio 02.08.02.61",
       "meshes": {
         "finish-witness": {
@@ -3684,7 +3716,7 @@
         "overhang_fan_speed": [
           "90"
         ],
-        "print_settings_id": "Funnel mold - 0.16 mm slopes / 0.40 mm structure",
+        "print_settings_id": "Funnel mold - 0.16 mm slopes - 0.40 mm structure",
         "printer_settings_id": "Bambu Lab H2C 0.8 High Flow +0.18 Z trim",
         "seam_gap": "0%",
         "seam_position": "aligned",
@@ -3715,8 +3747,8 @@
         {
           "plate": 1,
           "part": "finish, hardware and guide witnesses",
-          "gcode_sha256": "1cc5c018f39b4f78e6d0919159171081d1023ccc8035c7dcd3db26cc7c3b28e5",
-          "gcode_md5": "969ee8a0b7f43735ef41118549af65cf",
+          "gcode_sha256": "56410b7a23e1b9de1bc51e5a9ab4727ad6ed53df25661466ad34ce197d5debf8",
+          "gcode_md5": "38be1627f2d6e28ede9fd1db04900965",
           "embedded_gcode_matches_cli_output": true,
           "checksum_valid": true,
           "metadata": {
@@ -3726,7 +3758,7 @@
             "printer_model_id": "",
             "nozzle_diameters": "0.8,0.8",
             "timelapse_type": "0",
-            "prediction": "4500",
+            "prediction": "4513",
             "weight": "60.56",
             "pause_count": "0",
             "first_layer_time": "0.000000",
@@ -3929,7 +3961,7 @@
             "26.8": 0.4,
             "27.2": 0.400002
           },
-          "extruding_arcs": 4938,
+          "extruding_arcs": 0,
           "last_layer_z_mm": 27.2,
           "inspected_layers_mm": [
             0.4,
@@ -3957,89 +3989,89 @@
               "max_width_mm": 0.82
             },
             "Inner wall": {
-              "segments": 27198,
-              "length_mm": 128632.445163,
-              "volume_mm3": 20875.191223,
+              "segments": 38072,
+              "length_mm": 128633.661637,
+              "volume_mm3": 20875.660566,
               "max_speed_mm_s": 174.186383,
-              "max_flow_mm3_s": 19.483138,
-              "max_flow_on_segments_over_1mm_mm3_s": 17.476594,
+              "max_flow_mm3_s": 18.288198,
+              "max_flow_on_segments_over_1mm_mm3_s": 17.479004,
               "min_width_mm": 0.680196,
               "max_width_mm": 1.33204
             },
             "Outer wall": {
-              "segments": 6056,
-              "length_mm": 45977.752354,
-              "volume_mm3": 7368.751728,
+              "segments": 9355,
+              "length_mm": 45977.612671,
+              "volume_mm3": 7368.736358,
               "max_speed_mm_s": 60.0,
-              "max_flow_mm3_s": 17.236031,
-              "max_flow_on_segments_over_1mm_mm3_s": 17.098089,
+              "max_flow_mm3_s": 17.354657,
+              "max_flow_on_segments_over_1mm_mm3_s": 17.092606,
               "min_width_mm": 0.714336,
               "max_width_mm": 1.06025
             },
             "Bottom surface": {
-              "segments": 407,
-              "length_mm": 2596.922603,
-              "volume_mm3": 747.579382,
+              "segments": 464,
+              "length_mm": 2596.833361,
+              "volume_mm3": 747.551577,
               "max_speed_mm_s": 61.283683,
-              "max_flow_mm3_s": 17.784654,
-              "max_flow_on_segments_over_1mm_mm3_s": 17.471397,
+              "max_flow_mm3_s": 17.508856,
+              "max_flow_on_segments_over_1mm_mm3_s": 17.477527,
               "min_width_mm": 0.820131,
               "max_width_mm": 0.966821
             },
             "Internal solid infill": {
-              "segments": 12114,
-              "length_mm": 66572.543843,
-              "volume_mm3": 9575.199847,
+              "segments": 13137,
+              "length_mm": 66575.953439,
+              "volume_mm3": 9575.882947,
               "max_speed_mm_s": 165.441183,
-              "max_flow_mm3_s": 17.672492,
-              "max_flow_on_segments_over_1mm_mm3_s": 17.475918,
+              "max_flow_mm3_s": 17.926733,
+              "max_flow_on_segments_over_1mm_mm3_s": 17.476205,
               "min_width_mm": 0.714336,
-              "max_width_mm": 1.31928
+              "max_width_mm": 1.31932
             },
             "Top surface": {
-              "segments": 641,
-              "length_mm": 3248.77562,
-              "volume_mm3": 526.713171,
+              "segments": 717,
+              "length_mm": 3248.802621,
+              "volume_mm3": 526.699413,
               "max_speed_mm_s": 60.0,
               "max_flow_mm3_s": 17.465395,
               "max_flow_on_segments_over_1mm_mm3_s": 17.465395,
-              "min_width_mm": 0.824926,
+              "min_width_mm": 0.824776,
               "max_width_mm": 0.839861
             },
             "Sparse infill": {
-              "segments": 8777,
-              "length_mm": 38523.261822,
-              "volume_mm3": 7772.474418,
+              "segments": 9179,
+              "length_mm": 38522.815528,
+              "volume_mm3": 7772.416788,
               "max_speed_mm_s": 143.191033,
-              "max_flow_mm3_s": 17.515704,
-              "max_flow_on_segments_over_1mm_mm3_s": 17.474473,
+              "max_flow_mm3_s": 17.687556,
+              "max_flow_on_segments_over_1mm_mm3_s": 17.474596,
               "min_width_mm": 0.82,
               "max_width_mm": 0.82
             },
             "Floating vertical shell": {
-              "segments": 107,
-              "length_mm": 196.668496,
-              "volume_mm3": 23.657511,
+              "segments": 147,
+              "length_mm": 196.737056,
+              "volume_mm3": 23.676873,
               "max_speed_mm_s": 165.441183,
-              "max_flow_mm3_s": 17.551664,
-              "max_flow_on_segments_over_1mm_mm3_s": 17.465108,
+              "max_flow_mm3_s": 17.540864,
+              "max_flow_on_segments_over_1mm_mm3_s": 17.470323,
               "min_width_mm": 0.714336,
-              "max_width_mm": 0.908611
+              "max_width_mm": 0.908591
             },
             "Overhang wall": {
-              "segments": 82,
-              "length_mm": 221.393506,
-              "volume_mm3": 26.995633,
+              "segments": 100,
+              "length_mm": 221.376446,
+              "volume_mm3": 26.993156,
               "max_speed_mm_s": 30.0,
-              "max_flow_mm3_s": 3.658804,
+              "max_flow_mm3_s": 3.659298,
               "max_flow_on_segments_over_1mm_mm3_s": 3.658047,
               "min_width_mm": 0.819996,
               "max_width_mm": 0.819996
             },
             "Bridge": {
-              "segments": 140,
-              "length_mm": 811.548288,
-              "volume_mm3": 101.754391,
+              "segments": 160,
+              "length_mm": 811.632931,
+              "volume_mm3": 101.764518,
               "max_speed_mm_s": 30.0,
               "max_flow_mm3_s": 3.793195,
               "max_flow_on_segments_over_1mm_mm3_s": 3.791764,
@@ -4051,8 +4083,8 @@
         {
           "plate": 2,
           "part": "cavity",
-          "gcode_sha256": "0e4b9395c07c5d50141aaaa752b692a533b296c249703aec8b929ddec387cd30",
-          "gcode_md5": "97c2ac84e2b0795e959b5062496194a3",
+          "gcode_sha256": "33e25437f0c388075d03505e63fb3d1857c46189fcac0d4f0996f06ff00665de",
+          "gcode_md5": "645eccfd6610fe869e79fce1fe6853bb",
           "embedded_gcode_matches_cli_output": true,
           "checksum_valid": true,
           "metadata": {
@@ -4062,7 +4094,7 @@
             "printer_model_id": "",
             "nozzle_diameters": "0.8,0.8",
             "timelapse_type": "0",
-            "prediction": "82142",
+            "prediction": "82234",
             "weight": "1271.49",
             "pause_count": "0",
             "first_layer_time": "0.000000",
@@ -4409,7 +4441,7 @@
             "74.48": 0.160004,
             "74.64": 0.159996
           },
-          "extruding_arcs": 151594,
+          "extruding_arcs": 0,
           "last_layer_z_mm": 74.64,
           "inspected_layers_mm": [
             0.4,
@@ -4453,82 +4485,82 @@
               "max_width_mm": 0.82
             },
             "Inner wall": {
-              "segments": 766018,
-              "length_mm": 2539597.654896,
-              "volume_mm3": 462346.29574,
-              "max_speed_mm_s": 206.657117,
-              "max_flow_mm3_s": 28.012201,
-              "max_flow_on_segments_over_1mm_mm3_s": 17.478639,
-              "min_width_mm": 0.578716,
-              "max_width_mm": 1.40124
+              "segments": 1074669,
+              "length_mm": 2539341.285522,
+              "volume_mm3": 462343.577723,
+              "max_speed_mm_s": 202.3527,
+              "max_flow_mm3_s": 20.380258,
+              "max_flow_on_segments_over_1mm_mm3_s": 17.480732,
+              "min_width_mm": 0.590296,
+              "max_width_mm": 1.40106
             },
             "Outer wall": {
-              "segments": 306887,
-              "length_mm": 1662763.940935,
-              "volume_mm3": 289889.584784,
+              "segments": 441419,
+              "length_mm": 1662748.338971,
+              "volume_mm3": 289889.330089,
               "max_speed_mm_s": 165.441183,
-              "max_flow_mm3_s": 21.868422,
-              "max_flow_on_segments_over_1mm_mm3_s": 17.477372,
+              "max_flow_mm3_s": 23.272061,
+              "max_flow_on_segments_over_1mm_mm3_s": 17.479319,
               "min_width_mm": 0.688766,
               "max_width_mm": 1.34312
             },
             "Bottom surface": {
-              "segments": 590,
-              "length_mm": 3700.182824,
-              "volume_mm3": 1072.257631,
+              "segments": 730,
+              "length_mm": 3699.939935,
+              "volume_mm3": 1072.233121,
               "max_speed_mm_s": 60.831367,
-              "max_flow_mm3_s": 17.852524,
+              "max_flow_mm3_s": 17.59796,
               "max_flow_on_segments_over_1mm_mm3_s": 17.473847,
               "min_width_mm": 0.825591,
               "max_width_mm": 0.853101
             },
             "Internal solid infill": {
-              "segments": 97435,
-              "length_mm": 481032.049292,
-              "volume_mm3": 71832.651283,
-              "max_speed_mm_s": 230.375567,
-              "max_flow_mm3_s": 18.131755,
-              "max_flow_on_segments_over_1mm_mm3_s": 17.477452,
-              "min_width_mm": 0.522669,
-              "max_width_mm": 1.35303
+              "segments": 102400,
+              "length_mm": 480399.227444,
+              "volume_mm3": 71637.657391,
+              "max_speed_mm_s": 208.50365,
+              "max_flow_mm3_s": 18.237354,
+              "max_flow_on_segments_over_1mm_mm3_s": 17.478172,
+              "min_width_mm": 0.573895,
+              "max_width_mm": 1.35025
             },
             "Sparse infill": {
-              "segments": 158542,
-              "length_mm": 975134.886675,
-              "volume_mm3": 179348.792917,
+              "segments": 195080,
+              "length_mm": 975187.950812,
+              "volume_mm3": 179364.967067,
               "max_speed_mm_s": 143.191033,
-              "max_flow_mm3_s": 17.814554,
+              "max_flow_mm3_s": 17.945824,
               "max_flow_on_segments_over_1mm_mm3_s": 17.480467,
               "min_width_mm": 0.82,
               "max_width_mm": 0.82
             },
             "Floating vertical shell": {
-              "segments": 12112,
-              "length_mm": 27962.365067,
-              "volume_mm3": 7687.353778,
-              "max_speed_mm_s": 170.516567,
-              "max_flow_mm3_s": 18.319659,
-              "max_flow_on_segments_over_1mm_mm3_s": 17.4776,
-              "min_width_mm": 0.689798,
-              "max_width_mm": 1.2978
+              "segments": 14383,
+              "length_mm": 28631.144871,
+              "volume_mm3": 7872.299678,
+              "max_speed_mm_s": 171.01425,
+              "max_flow_mm3_s": 21.766008,
+              "max_flow_on_segments_over_1mm_mm3_s": 17.475059,
+              "min_width_mm": 0.689307,
+              "max_width_mm": 1.29736
             },
             "Top surface": {
-              "segments": 3014,
-              "length_mm": 11262.121313,
-              "volume_mm3": 2527.740067,
+              "segments": 3144,
+              "length_mm": 11260.579148,
+              "volume_mm3": 2527.611986,
               "max_speed_mm_s": 60.0,
-              "max_flow_mm3_s": 17.769534,
-              "max_flow_on_segments_over_1mm_mm3_s": 17.472669,
+              "max_flow_mm3_s": 17.486602,
+              "max_flow_on_segments_over_1mm_mm3_s": 17.473678,
               "min_width_mm": 0.820596,
               "max_width_mm": 0.966821
             },
             "Overhang wall": {
-              "segments": 363,
-              "length_mm": 200.421839,
-              "volume_mm3": 21.704302,
+              "segments": 398,
+              "length_mm": 195.824884,
+              "volume_mm3": 21.219661,
               "max_speed_mm_s": 30.0,
-              "max_flow_mm3_s": 3.660556,
-              "max_flow_on_segments_over_1mm_mm3_s": 3.167397,
+              "max_flow_mm3_s": 3.652194,
+              "max_flow_on_segments_over_1mm_mm3_s": 3.167605,
               "min_width_mm": 0.714336,
               "max_width_mm": 0.819996
             }
@@ -4537,8 +4569,8 @@
         {
           "plate": 3,
           "part": "core",
-          "gcode_sha256": "4a57c6feda5aebeb00723c497bdbd3d6648a4b53634d9e5aad9ce73494a7fe20",
-          "gcode_md5": "105eb8016fa00c1c91e2b3510221315a",
+          "gcode_sha256": "8e749acbdb4b462e43595ad2b4d7e64708ce8dd767f41063cee164cc2ad25750",
+          "gcode_md5": "d34b255a0ed80704e28654838668d37f",
           "embedded_gcode_matches_cli_output": true,
           "checksum_valid": true,
           "metadata": {
@@ -4548,8 +4580,8 @@
             "printer_model_id": "",
             "nozzle_diameters": "0.8,0.8",
             "timelapse_type": "0",
-            "prediction": "66129",
-            "weight": "1025.95",
+            "prediction": "66231",
+            "weight": "1025.98",
             "pause_count": "0",
             "first_layer_time": "0.000000",
             "outside": "false",
@@ -4889,7 +4921,7 @@
             "67.76": 0.400002,
             "68.16": 0.400002
           },
-          "extruding_arcs": 57632,
+          "extruding_arcs": 0,
           "last_layer_z_mm": 68.16,
           "inspected_layers_mm": [
             0.4,
@@ -4963,91 +4995,91 @@
               "max_width_mm": 0.82
             },
             "Inner wall": {
-              "segments": 271748,
-              "length_mm": 1496988.551459,
-              "volume_mm3": 246879.062848,
-              "max_speed_mm_s": 200.79605,
-              "max_flow_mm3_s": 20.664989,
-              "max_flow_on_segments_over_1mm_mm3_s": 17.477946,
-              "min_width_mm": 0.594606,
-              "max_width_mm": 1.3658
+              "segments": 318382,
+              "length_mm": 1496972.373612,
+              "volume_mm3": 246886.162182,
+              "max_speed_mm_s": 198.279817,
+              "max_flow_mm3_s": 20.700834,
+              "max_flow_on_segments_over_1mm_mm3_s": 17.478668,
+              "min_width_mm": 0.601716,
+              "max_width_mm": 1.3659
             },
             "Outer wall": {
-              "segments": 157111,
-              "length_mm": 922256.011915,
-              "volume_mm3": 155974.431998,
+              "segments": 171439,
+              "length_mm": 922250.698879,
+              "volume_mm3": 155974.673777,
               "max_speed_mm_s": 165.441183,
-              "max_flow_mm3_s": 21.856925,
-              "max_flow_on_segments_over_1mm_mm3_s": 17.474414,
+              "max_flow_mm3_s": 24.533875,
+              "max_flow_on_segments_over_1mm_mm3_s": 17.473248,
               "min_width_mm": 0.693956,
-              "max_width_mm": 1.39208
+              "max_width_mm": 1.3966
             },
             "Bottom surface": {
-              "segments": 2649,
-              "length_mm": 32347.122793,
-              "volume_mm3": 9248.655388,
+              "segments": 2855,
+              "length_mm": 32347.40614,
+              "volume_mm3": 9248.733343,
               "max_speed_mm_s": 61.2045,
-              "max_flow_mm3_s": 17.709301,
+              "max_flow_mm3_s": 17.519651,
               "max_flow_on_segments_over_1mm_mm3_s": 17.476231,
               "min_width_mm": 0.821081,
               "max_width_mm": 0.824721
             },
             "Internal solid infill": {
-              "segments": 158534,
-              "length_mm": 1372705.623364,
-              "volume_mm3": 173439.141915,
-              "max_speed_mm_s": 182.721717,
-              "max_flow_mm3_s": 22.08151,
-              "max_flow_on_segments_over_1mm_mm3_s": 17.478667,
-              "min_width_mm": 0.650027,
-              "max_width_mm": 1.33822
+              "segments": 168958,
+              "length_mm": 1372815.918832,
+              "volume_mm3": 173452.876243,
+              "max_speed_mm_s": 174.45755,
+              "max_flow_mm3_s": 22.733446,
+              "max_flow_on_segments_over_1mm_mm3_s": 17.477845,
+              "min_width_mm": 0.679192,
+              "max_width_mm": 1.35142
             },
             "Top surface": {
-              "segments": 4259,
-              "length_mm": 35915.475288,
-              "volume_mm3": 4548.343216,
+              "segments": 4585,
+              "length_mm": 35915.562447,
+              "volume_mm3": 4548.327028,
               "max_speed_mm_s": 60.0,
-              "max_flow_mm3_s": 17.484793,
-              "max_flow_on_segments_over_1mm_mm3_s": 17.468376,
+              "max_flow_mm3_s": 17.50155,
+              "max_flow_on_segments_over_1mm_mm3_s": 17.462242,
               "min_width_mm": 0.821916,
               "max_width_mm": 0.966821
             },
             "Sparse infill": {
-              "segments": 167403,
-              "length_mm": 1410556.204066,
-              "volume_mm3": 223717.569976,
+              "segments": 174392,
+              "length_mm": 1410573.073757,
+              "volume_mm3": 223720.460235,
               "max_speed_mm_s": 143.191033,
-              "max_flow_mm3_s": 17.725234,
-              "max_flow_on_segments_over_1mm_mm3_s": 17.477158,
+              "max_flow_mm3_s": 17.814558,
+              "max_flow_on_segments_over_1mm_mm3_s": 17.477079,
               "min_width_mm": 0.82,
               "max_width_mm": 0.82
             },
             "Floating vertical shell": {
-              "segments": 5739,
-              "length_mm": 15708.633832,
-              "volume_mm3": 4017.032132,
+              "segments": 6285,
+              "length_mm": 15680.084767,
+              "volume_mm3": 4012.631669,
               "max_speed_mm_s": 172.64225,
               "max_flow_mm3_s": 18.408582,
-              "max_flow_on_segments_over_1mm_mm3_s": 17.47721,
+              "max_flow_on_segments_over_1mm_mm3_s": 17.476386,
               "min_width_mm": 0.685973,
-              "max_width_mm": 1.33731
+              "max_width_mm": 1.33732
             },
             "Bridge": {
-              "segments": 901,
-              "length_mm": 3318.078203,
-              "volume_mm3": 410.508303,
+              "segments": 1084,
+              "length_mm": 3317.559559,
+              "volume_mm3": 411.508924,
               "max_speed_mm_s": 30.0,
-              "max_flow_mm3_s": 3.927705,
-              "max_flow_on_segments_over_1mm_mm3_s": 3.923981,
-              "min_width_mm": 0.820846,
-              "max_width_mm": 0.877036
+              "max_flow_mm3_s": 3.936023,
+              "max_flow_on_segments_over_1mm_mm3_s": 3.930037,
+              "min_width_mm": 0.820916,
+              "max_width_mm": 0.878256
             },
             "Overhang wall": {
-              "segments": 302,
-              "length_mm": 413.840219,
-              "volume_mm3": 50.460168,
+              "segments": 509,
+              "length_mm": 413.993954,
+              "volume_mm3": 50.478448,
               "max_speed_mm_s": 30.0,
-              "max_flow_mm3_s": 3.65838,
+              "max_flow_mm3_s": 3.657959,
               "max_flow_on_segments_over_1mm_mm3_s": 3.657959,
               "min_width_mm": 0.819996,
               "max_width_mm": 0.819996
@@ -5057,43 +5089,43 @@
       ],
       "slice_result": {
         "error_string": "Success.",
-        "export_time": 7652,
+        "export_time": 5812,
         "layer_height": 0.4000000059604645,
         "plate_index": 0,
-        "prepare_time": 249,
+        "prepare_time": 179,
         "return_code": 0,
         "sliced_plates": [
           {
             "feature_type_times": {
-              "Bottom surface": 68.42788696289062,
-              "Bridge": 27.504810333251953,
-              "Brim": 104.46279907226562,
+              "Bottom surface": 68.39508819580078,
+              "Bridge": 27.507457733154297,
+              "Brim": 104.46273040771484,
               "Custom": 306.9886779785156,
               "Flush": 15.0,
-              "Inner wall": 1409.5665283203125,
-              "Internal solid infill": 734.370849609375,
-              "Outer wall": 878.0185546875,
-              "Overhang wall": 11.38988208770752,
-              "Sparse infill": 535.3900146484375,
-              "Top surface": 67.62013244628906,
-              "Travel": 350.3747863769531,
-              "Undefined": 341.768798828125
+              "Inner wall": 1423.4190673828125,
+              "Internal solid infill": 734.5390014648438,
+              "Outer wall": 878.1210327148438,
+              "Overhang wall": 11.388184547424316,
+              "Sparse infill": 535.4558715820312,
+              "Top surface": 67.60636901855469,
+              "Travel": 349.72442626953125,
+              "Undefined": 341.1184387207031
             },
             "filament_change_times": 0,
             "filaments": [
               {
                 "filament_id": "GFG01",
                 "id": 1,
-                "main_used_g": 60.56242752075195,
-                "total_used_g": 60.56242752075195
+                "main_used_g": 60.563758850097656,
+                "total_used_g": 60.563758850097656
               }
             ],
-            "generate_support_material_time": 52,
+            "generate_support_material_time": 19,
             "id": 1,
-            "infill_time": 215,
+            "infill_time": 109,
             "layer_filament_change": 0,
-            "main_predication": 4172.06005859375,
-            "make_perimeters_time": 182,
+            "main_predication": 4185.453125,
+            "make_perimeters_time": 139,
             "obj_cached_cnt": 0,
             "objects": [
               {
@@ -5136,42 +5168,42 @@
                 "triangle_count": 60
               }
             ],
-            "sliced_time": 1286,
-            "sliced_time_with_cache": 706,
-            "total_predication": 4500.44287109375,
+            "sliced_time": 783,
+            "sliced_time_with_cache": 455,
+            "total_predication": 4513.8359375,
             "triangle_count": 2596,
             "warning_message": ""
           },
           {
             "feature_type_times": {
-              "Bottom surface": 95.79627227783203,
+              "Bottom surface": 95.80500793457031,
               "Brim": 177.8116455078125,
               "Custom": 304.7674560546875,
               "Flush": 15.0,
-              "Inner wall": 30149.87890625,
-              "Internal solid infill": 5838.7998046875,
-              "Outer wall": 24083.306640625,
-              "Overhang wall": 25.13041114807129,
-              "Sparse infill": 12081.7099609375,
-              "Top surface": 256.06719970703125,
-              "Travel": 9317.5869140625,
-              "Undefined": 9311.353515625
+              "Inner wall": 30329.298828125,
+              "Internal solid infill": 5840.66357421875,
+              "Outer wall": 24086.9375,
+              "Overhang wall": 23.421003341674805,
+              "Sparse infill": 12088.0517578125,
+              "Top surface": 256.0883483886719,
+              "Travel": 9338.8720703125,
+              "Undefined": 9332.638671875
             },
             "filament_change_times": 0,
             "filaments": [
               {
                 "filament_id": "GFG01",
                 "id": 1,
-                "main_used_g": 1271.4873046875,
-                "total_used_g": 1271.4873046875
+                "main_used_g": 1271.490478515625,
+                "total_used_g": 1271.490478515625
               }
             ],
-            "generate_support_material_time": 3852,
+            "generate_support_material_time": 1727,
             "id": 2,
-            "infill_time": 7704,
+            "infill_time": 3829,
             "layer_filament_change": 0,
-            "main_predication": 81814.0625,
-            "make_perimeters_time": 9036,
+            "main_predication": 81905.5703125,
+            "make_perimeters_time": 5659,
             "obj_cached_cnt": 0,
             "objects": [
               {
@@ -5188,43 +5220,43 @@
                 "triangle_count": 94350
               }
             ],
-            "sliced_time": 33722,
-            "sliced_time_with_cache": 11961,
-            "total_predication": 82142.59375,
+            "sliced_time": 22821,
+            "sliced_time_with_cache": 11212,
+            "total_predication": 82234.1015625,
             "triangle_count": 94350,
             "warning_message": ""
           },
           {
             "feature_type_times": {
-              "Bottom surface": 704.6992797851562,
-              "Bridge": 113.56409454345703,
-              "Brim": 178.16481018066406,
+              "Bottom surface": 704.3988647460938,
+              "Bridge": 113.54884338378906,
+              "Brim": 178.16505432128906,
               "Custom": 305.13836669921875,
               "Flush": 15.0,
-              "Inner wall": 15988.1240234375,
-              "Internal solid infill": 12386.8330078125,
-              "Outer wall": 15873.5439453125,
-              "Overhang wall": 34.06606674194336,
-              "Sparse infill": 14944.5068359375,
-              "Top surface": 688.3902587890625,
-              "Travel": 4993.6845703125,
-              "Undefined": 4987.12646484375
+              "Inner wall": 16094.818359375,
+              "Internal solid infill": 12390.26171875,
+              "Outer wall": 15872.6640625,
+              "Overhang wall": 34.123779296875,
+              "Sparse infill": 14944.9423828125,
+              "Top surface": 693.276123046875,
+              "Travel": 4987.5048828125,
+              "Undefined": 4980.94677734375
             },
             "filament_change_times": 0,
             "filaments": [
               {
                 "filament_id": "GFG01",
                 "id": 1,
-                "main_used_g": 1025.9500732421875,
-                "total_used_g": 1025.9500732421875
+                "main_used_g": 1025.975830078125,
+                "total_used_g": 1025.975830078125
               }
             ],
-            "generate_support_material_time": 300,
+            "generate_support_material_time": 434,
             "id": 3,
-            "infill_time": 3273,
+            "infill_time": 3298,
             "layer_filament_change": 0,
-            "main_predication": 65801.2578125,
-            "make_perimeters_time": 2260,
+            "main_predication": 65903.265625,
+            "make_perimeters_time": 2788,
             "obj_cached_cnt": 0,
             "objects": [
               {
@@ -5241,9 +5273,9 @@
                 "triangle_count": 35926
               }
             ],
-            "sliced_time": 12898,
-            "sliced_time_with_cache": 6850,
-            "total_predication": 66129.8359375,
+            "sliced_time": 11995,
+            "sliced_time_with_cache": 5196,
+            "total_predication": 66231.84375,
             "triangle_count": 35926,
             "warning_message": ""
           }
@@ -5256,13 +5288,1161 @@
           "Bambu Lab A2L 0.8 nozzle"
         ],
         "wall_loops": 4
-      }
+      },
+      "guide_bearing_axis_readings": [
+        {
+          "station_degrees": 0,
+          "z_mm": 56.08,
+          "global_XY_clear_mm": [
+            12.60000899999996,
+            40.600008999999986
+          ],
+          "requested_z_mm": 55.98
+        },
+        {
+          "station_degrees": 0,
+          "z_mm": 60.08,
+          "global_XY_clear_mm": [
+            12.60000899999996,
+            40.600008999999986
+          ],
+          "requested_z_mm": 60.14
+        },
+        {
+          "station_degrees": 90,
+          "z_mm": 56.08,
+          "global_XY_clear_mm": [
+            40.600009000000014,
+            12.60000899999996
+          ],
+          "requested_z_mm": 55.98
+        },
+        {
+          "station_degrees": 90,
+          "z_mm": 60.08,
+          "global_XY_clear_mm": [
+            40.600009000000014,
+            12.60000899999996
+          ],
+          "requested_z_mm": 60.14
+        },
+        {
+          "station_degrees": 180,
+          "z_mm": 56.08,
+          "global_XY_clear_mm": [
+            12.600009000000002,
+            40.600009000000014
+          ],
+          "requested_z_mm": 55.98
+        },
+        {
+          "station_degrees": 180,
+          "z_mm": 60.08,
+          "global_XY_clear_mm": [
+            12.600009000000002,
+            40.600009000000014
+          ],
+          "requested_z_mm": 60.14
+        },
+        {
+          "station_degrees": 270,
+          "z_mm": 56.08,
+          "global_XY_clear_mm": [
+            40.60000899999996,
+            12.600009000000002
+          ],
+          "requested_z_mm": 55.98
+        },
+        {
+          "station_degrees": 270,
+          "z_mm": 60.08,
+          "global_XY_clear_mm": [
+            40.60000899999996,
+            12.600009000000002
+          ],
+          "requested_z_mm": 60.14
+        }
+      ],
+      "guide_blade_readings": [
+        {
+          "station_degrees": 0,
+          "z_mm": 29.92,
+          "global_XY_outer_mm": [
+            11.999990999999909,
+            39.99999100000002
+          ],
+          "requested_z_mm": 30.06
+        },
+        {
+          "station_degrees": 0,
+          "z_mm": 50.4,
+          "global_XY_outer_mm": [
+            11.999995999999896,
+            39.99999600000001
+          ],
+          "requested_z_mm": 50.38
+        },
+        {
+          "station_degrees": 90,
+          "z_mm": 29.92,
+          "global_XY_outer_mm": [
+            39.99999100000002,
+            11.999991000000009
+          ],
+          "requested_z_mm": 30.06
+        },
+        {
+          "station_degrees": 90,
+          "z_mm": 50.4,
+          "global_XY_outer_mm": [
+            39.99999600000001,
+            11.99999600000001
+          ],
+          "requested_z_mm": 50.38
+        },
+        {
+          "station_degrees": 180,
+          "z_mm": 29.92,
+          "global_XY_outer_mm": [
+            11.999991000000005,
+            39.999990999999994
+          ],
+          "requested_z_mm": 30.06
+        },
+        {
+          "station_degrees": 180,
+          "z_mm": 50.4,
+          "global_XY_outer_mm": [
+            11.999996000000007,
+            39.999995999999996
+          ],
+          "requested_z_mm": 50.38
+        },
+        {
+          "station_degrees": 270,
+          "z_mm": 29.92,
+          "global_XY_outer_mm": [
+            39.999990999999994,
+            11.999990999999909
+          ],
+          "requested_z_mm": 30.06
+        },
+        {
+          "station_degrees": 270,
+          "z_mm": 50.4,
+          "global_XY_outer_mm": [
+            39.999995999999996,
+            11.999995999999896
+          ],
+          "requested_z_mm": 50.38
+        }
+      ],
+      "passage_readings": [
+        {
+          "passage": "silicone_vent_1",
+          "plate": 3,
+          "z_mm": 0.4,
+          "nominal_clear_diameter_mm": 2.733,
+          "requested_z_mm": 0.3
+        },
+        {
+          "passage": "silicone_vent_2",
+          "plate": 3,
+          "z_mm": 0.4,
+          "nominal_clear_diameter_mm": 2.733,
+          "requested_z_mm": 0.3
+        },
+        {
+          "passage": "silicone_vent_3",
+          "plate": 3,
+          "z_mm": 0.4,
+          "nominal_clear_diameter_mm": 2.733,
+          "requested_z_mm": 0.3
+        },
+        {
+          "passage": "silicone_vent_4",
+          "plate": 3,
+          "z_mm": 0.4,
+          "nominal_clear_diameter_mm": 2.7421,
+          "requested_z_mm": 0.3
+        },
+        {
+          "passage": "silicone_vent_5",
+          "plate": 3,
+          "z_mm": 0.4,
+          "nominal_clear_diameter_mm": 2.7405,
+          "requested_z_mm": 0.3
+        },
+        {
+          "passage": "silicone_vent_1",
+          "plate": 3,
+          "z_mm": 3.92,
+          "nominal_clear_diameter_mm": 2.4254,
+          "requested_z_mm": 3.98
+        },
+        {
+          "passage": "silicone_vent_2",
+          "plate": 3,
+          "z_mm": 3.92,
+          "nominal_clear_diameter_mm": 2.4254,
+          "requested_z_mm": 3.98
+        },
+        {
+          "passage": "silicone_vent_3",
+          "plate": 3,
+          "z_mm": 3.92,
+          "nominal_clear_diameter_mm": 2.4254,
+          "requested_z_mm": 3.98
+        },
+        {
+          "passage": "silicone_vent_4",
+          "plate": 3,
+          "z_mm": 3.92,
+          "nominal_clear_diameter_mm": 2.4348,
+          "requested_z_mm": 3.98
+        },
+        {
+          "passage": "silicone_vent_5",
+          "plate": 3,
+          "z_mm": 3.92,
+          "nominal_clear_diameter_mm": 2.4326,
+          "requested_z_mm": 3.98
+        },
+        {
+          "passage": "silicone_vent_1",
+          "plate": 3,
+          "z_mm": 9.68,
+          "nominal_clear_diameter_mm": 2.4272,
+          "requested_z_mm": 9.74
+        },
+        {
+          "passage": "silicone_vent_2",
+          "plate": 3,
+          "z_mm": 9.68,
+          "nominal_clear_diameter_mm": 2.428,
+          "requested_z_mm": 9.74
+        },
+        {
+          "passage": "silicone_vent_3",
+          "plate": 3,
+          "z_mm": 9.68,
+          "nominal_clear_diameter_mm": 2.4257,
+          "requested_z_mm": 9.74
+        },
+        {
+          "passage": "silicone_vent_4",
+          "plate": 3,
+          "z_mm": 9.68,
+          "nominal_clear_diameter_mm": 2.4229,
+          "requested_z_mm": 9.74
+        },
+        {
+          "passage": "silicone_vent_5",
+          "plate": 3,
+          "z_mm": 9.68,
+          "nominal_clear_diameter_mm": 2.4272,
+          "requested_z_mm": 9.74
+        },
+        {
+          "passage": "rod_socket",
+          "plate": 3,
+          "z_mm": 26.32,
+          "nominal_clear_diameter_mm": 6.3947,
+          "requested_z_mm": 26.22
+        },
+        {
+          "passage": "rod_socket",
+          "plate": 3,
+          "z_mm": 38.08,
+          "nominal_clear_diameter_mm": 6.3953,
+          "requested_z_mm": 38.06
+        },
+        {
+          "passage": "rod_socket",
+          "plate": 3,
+          "z_mm": 48.96,
+          "nominal_clear_diameter_mm": 6.3942,
+          "requested_z_mm": 48.94
+        },
+        {
+          "passage": "rod_socket",
+          "plate": 3,
+          "z_mm": 54.4,
+          "nominal_clear_diameter_mm": 6.0675,
+          "requested_z_mm": 54.38
+        },
+        {
+          "passage": "pour_port",
+          "plate": 3,
+          "z_mm": 0.4,
+          "nominal_clear_diameter_mm": 19.8046,
+          "requested_z_mm": 0.3
+        },
+        {
+          "passage": "pour_port",
+          "plate": 3,
+          "z_mm": 2.0,
+          "nominal_clear_diameter_mm": 15.6277,
+          "requested_z_mm": 2.06
+        },
+        {
+          "passage": "pour_port",
+          "plate": 3,
+          "z_mm": 3.92,
+          "nominal_clear_diameter_mm": 11.3102,
+          "requested_z_mm": 3.98
+        },
+        {
+          "passage": "pour_port",
+          "plate": 3,
+          "z_mm": 9.68,
+          "nominal_clear_diameter_mm": 10.9492,
+          "requested_z_mm": 9.74
+        },
+        {
+          "passage": "backing_air_channel",
+          "plate": 2,
+          "z_mm": 2.96,
+          "plate_y_mm": 80,
+          "min_clear_width_across_ribs_mm": 2.99,
+          "requested_z_mm": 3.02
+        },
+        {
+          "passage": "backing_air_channel",
+          "plate": 2,
+          "z_mm": 2.96,
+          "plate_y_mm": 128,
+          "min_clear_width_across_ribs_mm": 2.99,
+          "requested_z_mm": 3.02
+        },
+        {
+          "passage": "backing_air_channel",
+          "plate": 2,
+          "z_mm": 2.96,
+          "plate_y_mm": 192,
+          "min_clear_width_across_ribs_mm": 2.99,
+          "requested_z_mm": 3.02
+        },
+        {
+          "passage": "backing_air_channel",
+          "plate": 2,
+          "z_mm": 2.96,
+          "plate_y_mm": 240,
+          "min_clear_width_across_ribs_mm": 2.99,
+          "requested_z_mm": 3.02
+        },
+        {
+          "passage": "backing_air_channel",
+          "plate": 3,
+          "z_mm": 2.96,
+          "plate_y_mm": 92,
+          "min_clear_width_across_ribs_mm": 2.99,
+          "requested_z_mm": 3.02
+        },
+        {
+          "passage": "backing_air_channel",
+          "plate": 3,
+          "z_mm": 2.96,
+          "plate_y_mm": 128,
+          "min_clear_width_across_ribs_mm": 2.99,
+          "requested_z_mm": 3.02
+        },
+        {
+          "passage": "backing_air_channel",
+          "plate": 3,
+          "z_mm": 2.96,
+          "plate_y_mm": 192,
+          "min_clear_width_across_ribs_mm": 2.99,
+          "requested_z_mm": 3.02
+        },
+        {
+          "passage": "backing_air_channel",
+          "plate": 3,
+          "z_mm": 2.96,
+          "plate_y_mm": 228,
+          "min_clear_width_across_ribs_mm": 2.99,
+          "requested_z_mm": 3.02
+        },
+        {
+          "passage": "guide_sleeve",
+          "station_degrees": 0,
+          "plate": 2,
+          "z_mm": 56.08,
+          "inscribed_clear_width_mm": 12.6,
+          "requested_z_mm": 55.98
+        },
+        {
+          "passage": "guide_sleeve",
+          "station_degrees": 0,
+          "plate": 2,
+          "z_mm": 60.08,
+          "inscribed_clear_width_mm": 12.6,
+          "requested_z_mm": 60.14
+        },
+        {
+          "passage": "jack_screw",
+          "station_degrees": 0,
+          "plate": 3,
+          "z_mm": 3.92,
+          "nominal_clear_diameter_mm": 5.7633,
+          "requested_z_mm": 3.98
+        },
+        {
+          "passage": "jack_screw",
+          "station_degrees": 0,
+          "plate": 3,
+          "z_mm": 13.04,
+          "nominal_clear_diameter_mm": 5.7634,
+          "requested_z_mm": 13.1
+        },
+        {
+          "passage": "square_nut_slot",
+          "station_degrees": 0,
+          "plate": 3,
+          "z_mm": 10.0,
+          "inscribed_clear_width_mm": 8.4,
+          "requested_z_mm": 10.06
+        },
+        {
+          "passage": "washer_pocket",
+          "station_degrees": 0,
+          "plate": 2,
+          "z_mm": 72.24,
+          "nominal_clear_diameter_mm": 25.3714,
+          "requested_z_mm": 72.3
+        },
+        {
+          "passage": "guide_sleeve",
+          "station_degrees": 90,
+          "plate": 2,
+          "z_mm": 56.08,
+          "inscribed_clear_width_mm": 12.6,
+          "requested_z_mm": 55.98
+        },
+        {
+          "passage": "guide_sleeve",
+          "station_degrees": 90,
+          "plate": 2,
+          "z_mm": 60.08,
+          "inscribed_clear_width_mm": 12.6,
+          "requested_z_mm": 60.14
+        },
+        {
+          "passage": "jack_screw",
+          "station_degrees": 90,
+          "plate": 3,
+          "z_mm": 3.92,
+          "nominal_clear_diameter_mm": 5.7483,
+          "requested_z_mm": 3.98
+        },
+        {
+          "passage": "jack_screw",
+          "station_degrees": 90,
+          "plate": 3,
+          "z_mm": 13.04,
+          "nominal_clear_diameter_mm": 5.7396,
+          "requested_z_mm": 13.1
+        },
+        {
+          "passage": "square_nut_slot",
+          "station_degrees": 90,
+          "plate": 3,
+          "z_mm": 10.0,
+          "inscribed_clear_width_mm": 8.4,
+          "requested_z_mm": 10.06
+        },
+        {
+          "passage": "washer_pocket",
+          "station_degrees": 90,
+          "plate": 2,
+          "z_mm": 72.24,
+          "nominal_clear_diameter_mm": 25.37,
+          "requested_z_mm": 72.3
+        },
+        {
+          "passage": "guide_sleeve",
+          "station_degrees": 180,
+          "plate": 2,
+          "z_mm": 56.08,
+          "inscribed_clear_width_mm": 12.6,
+          "requested_z_mm": 55.98
+        },
+        {
+          "passage": "guide_sleeve",
+          "station_degrees": 180,
+          "plate": 2,
+          "z_mm": 60.08,
+          "inscribed_clear_width_mm": 12.6,
+          "requested_z_mm": 60.14
+        },
+        {
+          "passage": "jack_screw",
+          "station_degrees": 180,
+          "plate": 3,
+          "z_mm": 3.92,
+          "nominal_clear_diameter_mm": 5.7634,
+          "requested_z_mm": 3.98
+        },
+        {
+          "passage": "jack_screw",
+          "station_degrees": 180,
+          "plate": 3,
+          "z_mm": 13.04,
+          "nominal_clear_diameter_mm": 5.7481,
+          "requested_z_mm": 13.1
+        },
+        {
+          "passage": "square_nut_slot",
+          "station_degrees": 180,
+          "plate": 3,
+          "z_mm": 10.0,
+          "inscribed_clear_width_mm": 8.4,
+          "requested_z_mm": 10.06
+        },
+        {
+          "passage": "washer_pocket",
+          "station_degrees": 180,
+          "plate": 2,
+          "z_mm": 72.24,
+          "nominal_clear_diameter_mm": 25.3717,
+          "requested_z_mm": 72.3
+        },
+        {
+          "passage": "guide_sleeve",
+          "station_degrees": 270,
+          "plate": 2,
+          "z_mm": 56.08,
+          "inscribed_clear_width_mm": 12.6,
+          "requested_z_mm": 55.98
+        },
+        {
+          "passage": "guide_sleeve",
+          "station_degrees": 270,
+          "plate": 2,
+          "z_mm": 60.08,
+          "inscribed_clear_width_mm": 12.6,
+          "requested_z_mm": 60.14
+        },
+        {
+          "passage": "jack_screw",
+          "station_degrees": 270,
+          "plate": 3,
+          "z_mm": 3.92,
+          "nominal_clear_diameter_mm": 5.7496,
+          "requested_z_mm": 3.98
+        },
+        {
+          "passage": "jack_screw",
+          "station_degrees": 270,
+          "plate": 3,
+          "z_mm": 13.04,
+          "nominal_clear_diameter_mm": 5.742,
+          "requested_z_mm": 13.1
+        },
+        {
+          "passage": "square_nut_slot",
+          "station_degrees": 270,
+          "plate": 3,
+          "z_mm": 10.0,
+          "inscribed_clear_width_mm": 8.4,
+          "requested_z_mm": 10.06
+        },
+        {
+          "passage": "washer_pocket",
+          "station_degrees": 270,
+          "plate": 2,
+          "z_mm": 72.24,
+          "nominal_clear_diameter_mm": 25.3717,
+          "requested_z_mm": 72.3
+        },
+        {
+          "passage": "guide_tower_air_exit",
+          "station_degrees": 0,
+          "plate": 2,
+          "z_mm": 2.96,
+          "nominal_clear_width_mm": 2.99,
+          "requested_z_mm": 3.02
+        },
+        {
+          "passage": "guide_tower_air_exit",
+          "station_degrees": 90,
+          "plate": 2,
+          "z_mm": 2.96,
+          "nominal_clear_width_mm": 2.99,
+          "requested_z_mm": 3.02
+        },
+        {
+          "passage": "guide_tower_air_exit",
+          "station_degrees": 180,
+          "plate": 2,
+          "z_mm": 2.96,
+          "nominal_clear_width_mm": 2.99,
+          "requested_z_mm": 3.02
+        },
+        {
+          "passage": "guide_tower_air_exit",
+          "station_degrees": 270,
+          "plate": 2,
+          "z_mm": 2.96,
+          "nominal_clear_width_mm": 2.99,
+          "requested_z_mm": 3.02
+        }
+      ],
+      "passage_reading_method": "Minimum point-to-extrusion-centerline distance minus half the annotated width, including all extrusion roles. These are nominal toolpath footprints, not measured deposited plastic.",
+      "forming_speed_samples": [
+        {
+          "plate": 2,
+          "z_mm": 7.04,
+          "forming_zone_outer_segments": 43,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 2,
+          "z_mm": 7.44,
+          "forming_zone_outer_segments": 50,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 2,
+          "z_mm": 10.0,
+          "forming_zone_outer_segments": 104,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 2,
+          "z_mm": 10.16,
+          "forming_zone_outer_segments": 99,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 2,
+          "z_mm": 12.96,
+          "forming_zone_outer_segments": 121,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 2,
+          "z_mm": 34.08,
+          "forming_zone_outer_segments": 312,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 2,
+          "z_mm": 44.96,
+          "forming_zone_outer_segments": 240,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 2,
+          "z_mm": 50.72,
+          "forming_zone_outer_segments": 380,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 2,
+          "z_mm": 53.28,
+          "forming_zone_outer_segments": 276,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 2,
+          "z_mm": 54.48,
+          "forming_zone_outer_segments": 219,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 2,
+          "z_mm": 54.88,
+          "forming_zone_outer_segments": 219,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 2,
+          "z_mm": 55.68,
+          "forming_zone_outer_segments": 218,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 2,
+          "z_mm": 56.08,
+          "forming_zone_outer_segments": 218,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 2,
+          "z_mm": 60.08,
+          "forming_zone_outer_segments": 218,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 2,
+          "z_mm": 64.48,
+          "forming_zone_outer_segments": 178,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 2,
+          "z_mm": 64.88,
+          "forming_zone_outer_segments": 552,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 2,
+          "z_mm": 68.48,
+          "forming_zone_outer_segments": 24,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 2,
+          "z_mm": 71.44,
+          "forming_zone_outer_segments": 619,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 2,
+          "z_mm": 71.6,
+          "forming_zone_outer_segments": 617,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 2,
+          "z_mm": 72.24,
+          "forming_zone_outer_segments": 1027,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 2,
+          "z_mm": 72.72,
+          "forming_zone_outer_segments": 921,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 2,
+          "z_mm": 74.48,
+          "forming_zone_outer_segments": 26,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 0.4,
+          "forming_zone_outer_segments": 193,
+          "max_mm_s": 50.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 1.52,
+          "forming_zone_outer_segments": 170,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 2.0,
+          "forming_zone_outer_segments": 165,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 2.8,
+          "forming_zone_outer_segments": 168,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 2.96,
+          "forming_zone_outer_segments": 168,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 3.92,
+          "forming_zone_outer_segments": 168,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 4.24,
+          "forming_zone_outer_segments": 166,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 4.4,
+          "forming_zone_outer_segments": 166,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 4.56,
+          "forming_zone_outer_segments": 168,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 5.44,
+          "forming_zone_outer_segments": 168,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 6.24,
+          "forming_zone_outer_segments": 167,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 7.04,
+          "forming_zone_outer_segments": 168,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 7.84,
+          "forming_zone_outer_segments": 166,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 8.4,
+          "forming_zone_outer_segments": 168,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 8.56,
+          "forming_zone_outer_segments": 76,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 8.72,
+          "forming_zone_outer_segments": 76,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 8.88,
+          "forming_zone_outer_segments": 76,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 9.04,
+          "forming_zone_outer_segments": 76,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 9.68,
+          "forming_zone_outer_segments": 76,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 9.84,
+          "forming_zone_outer_segments": 76,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 10.0,
+          "forming_zone_outer_segments": 76,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 12.72,
+          "forming_zone_outer_segments": 792,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 12.88,
+          "forming_zone_outer_segments": 912,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 13.04,
+          "forming_zone_outer_segments": 882,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 13.68,
+          "forming_zone_outer_segments": 886,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 13.84,
+          "forming_zone_outer_segments": 873,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 18.88,
+          "forming_zone_outer_segments": 68,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 20.08,
+          "forming_zone_outer_segments": 68,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 22.24,
+          "forming_zone_outer_segments": 84,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 22.72,
+          "forming_zone_outer_segments": 84,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 23.92,
+          "forming_zone_outer_segments": 147,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 26.32,
+          "forming_zone_outer_segments": 164,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 29.92,
+          "forming_zone_outer_segments": 159,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 34.08,
+          "forming_zone_outer_segments": 525,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 35.04,
+          "forming_zone_outer_segments": 656,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 38.08,
+          "forming_zone_outer_segments": 519,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 39.04,
+          "forming_zone_outer_segments": 530,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 44.96,
+          "forming_zone_outer_segments": 445,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 48.0,
+          "forming_zone_outer_segments": 372,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 48.16,
+          "forming_zone_outer_segments": 371,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 48.96,
+          "forming_zone_outer_segments": 376,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 50.4,
+          "forming_zone_outer_segments": 331,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 52.0,
+          "forming_zone_outer_segments": 124,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 52.16,
+          "forming_zone_outer_segments": 121,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 54.4,
+          "forming_zone_outer_segments": 99,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 55.84,
+          "forming_zone_outer_segments": 59,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 56.0,
+          "forming_zone_outer_segments": 59,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 56.16,
+          "forming_zone_outer_segments": 59,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 56.48,
+          "forming_zone_outer_segments": 59,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 59.36,
+          "forming_zone_outer_segments": 36,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 59.76,
+          "forming_zone_outer_segments": 36,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 60.16,
+          "forming_zone_outer_segments": 36,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 63.36,
+          "forming_zone_outer_segments": 36,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 63.76,
+          "forming_zone_outer_segments": 36,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 64.16,
+          "forming_zone_outer_segments": 36,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 67.36,
+          "forming_zone_outer_segments": 36,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 67.76,
+          "forming_zone_outer_segments": 36,
+          "max_mm_s": 60.0
+        },
+        {
+          "plate": 3,
+          "z_mm": 68.16,
+          "forming_zone_outer_segments": 16,
+          "max_mm_s": 60.0
+        }
+      ],
+      "forming_speed_sample_method": "Outer-wall segment midpoints in selected layers, inside the CAD surface modifier with a 0.15 mm boundary margin; section plane is halfway down each actual layer; arc paths are tessellated within 0.002 mm sagitta.",
+      "all_component_placement_checks": [
+        {
+          "mesh": "funnel-mold-finish-witness.stl",
+          "kind": "normal_part",
+          "max_world_vertex_difference_mm": 3.7000006614107406e-08,
+          "triangle_connectivity_unchanged": true,
+          "max_difference_from_reviewed_geometry_mm": 0.0
+        },
+        {
+          "mesh": "funnel-mold-cavity.stl",
+          "kind": "normal_part",
+          "max_world_vertex_difference_mm": 1.9650000027127135e-06,
+          "triangle_connectivity_unchanged": true,
+          "max_difference_from_reviewed_geometry_mm": 0.0
+        },
+        {
+          "mesh": "funnel-mold-cavity-surface-zone.stl",
+          "kind": "modifier_part",
+          "max_world_vertex_difference_mm": 1.9709999961037283e-06,
+          "triangle_connectivity_unchanged": true,
+          "max_difference_from_reviewed_geometry_mm": 0.0
+        },
+        {
+          "mesh": "funnel-mold-core.stl",
+          "kind": "normal_part",
+          "max_world_vertex_difference_mm": 1.0489999979768072e-06,
+          "triangle_connectivity_unchanged": true,
+          "max_difference_from_reviewed_geometry_mm": 0.0
+        },
+        {
+          "mesh": "funnel-mold-core-surface-zone.stl",
+          "kind": "modifier_part",
+          "max_world_vertex_difference_mm": 1.0489999979768072e-06,
+          "triangle_connectivity_unchanged": true,
+          "max_difference_from_reviewed_geometry_mm": 0.0
+        },
+        {
+          "mesh": "funnel-mold-hardware-witness.stl",
+          "kind": "normal_part",
+          "max_world_vertex_difference_mm": 1.000999986899842e-06,
+          "triangle_connectivity_unchanged": true,
+          "max_difference_from_reviewed_geometry_mm": 0.0
+        },
+        {
+          "mesh": "funnel-mold-guide-witness.stl",
+          "kind": "normal_part",
+          "max_world_vertex_difference_mm": 3.7000006614107406e-08,
+          "triangle_connectivity_unchanged": true,
+          "max_difference_from_reviewed_geometry_mm": 0.0
+        }
+      ]
     }
   },
-  "roundtrip": {
+  "gui_roundtrip": {
     "project": "roundtrip.3mf",
-    "project_sha256": "bd9ab26fd71569ec2196fb74a5151d2ce984a4067a3dd3420d7f7ce52c9712fe",
-    "settings_differences_from_default": [],
+    "project_sha256": "71b01ecf7c2b33f4bbc6dfd0211ab8df7c63f9b1a53a072226d8428927624a4a",
+    "settings_differences_from_default": [
+      "compatible_printers_condition",
+      "curr_bed_type",
+      "different_settings_to_system",
+      "extruder_ams_count",
+      "filament_colour_type",
+      "filament_map_mode",
+      "filament_multi_colour",
+      "host_type",
+      "printhost_authorization_type",
+      "printhost_ssl_ignore_revoke",
+      "wipe_tower_x",
+      "wipe_tower_y"
+    ],
+    "same_recipe_process_and_filament_values": true,
     "same_layer_ranges": true,
     "component_checks": [
       {
@@ -5282,12 +6462,12 @@
       },
       {
         "mesh": "funnel-mold-core.stl",
-        "max_world_vertex_difference_mm": 0.0,
+        "max_world_vertex_difference_mm": 9.999999974752427e-07,
         "triangle_connectivity_unchanged": true
       },
       {
         "mesh": "funnel-mold-core-surface-zone.stl",
-        "max_world_vertex_difference_mm": 0.0,
+        "max_world_vertex_difference_mm": 9.999999974752427e-07,
         "triangle_connectivity_unchanged": true
       },
       {
@@ -5301,77 +6481,103 @@
         "triangle_connectivity_unchanged": true
       }
     ],
+    "plate_settings": [
+      {
+        "plater_id": "1",
+        "bed_type": "Textured PEI Plate",
+        "filament_map_mode": "Manual",
+        "filament_maps": "1",
+        "filament_volume_maps": "1"
+      },
+      {
+        "plater_id": "2",
+        "bed_type": "Textured PEI Plate",
+        "filament_map_mode": "Manual",
+        "filament_maps": "1",
+        "filament_volume_maps": "1"
+      },
+      {
+        "plater_id": "3",
+        "bed_type": "Textured PEI Plate",
+        "filament_map_mode": "Manual",
+        "filament_maps": "1",
+        "filament_volume_maps": "1"
+      }
+    ],
     "gcodes": [
       {
         "plate": 1,
-        "gcode_sha256": "fe3779ac3280e08543e2c824031b6231ef602fc05596015652573802f22f7a64",
+        "gcode_sha256": "fab4f4ac872d49eca2f1f5e533da8b629dac78e5f07db40e132900b316e81f0a",
         "checksum_valid": true,
         "embedded_gcode_matches_cli_output": true,
         "z_trim_commands": [
           "G29.1 Z0",
           "G29.1 Z0.02"
-        ]
+        ],
+        "textured_pei_70C_confirmed": true
       },
       {
         "plate": 2,
-        "gcode_sha256": "b062ebb5bb86b9e105d768915615b9c2eef9fb36e0143652cb25a86579a671c0",
+        "gcode_sha256": "731922335f05e58b5a75c8df91ed06c08a5050c5440a76478a8d69615fe500df",
         "checksum_valid": true,
         "embedded_gcode_matches_cli_output": true,
         "z_trim_commands": [
           "G29.1 Z0",
           "G29.1 Z0.02"
-        ]
+        ],
+        "textured_pei_70C_confirmed": true
       },
       {
         "plate": 3,
-        "gcode_sha256": "d5ca10bdcd5919df2e92f0715711ba95df2e18e6431e1ee4ef9ca81a523244f8",
+        "gcode_sha256": "9afc33ecb1868f294459a65474800bdbde72db987560b5a9d181a77d537a4882",
         "checksum_valid": true,
         "embedded_gcode_matches_cli_output": true,
         "z_trim_commands": [
           "G29.1 Z0",
           "G29.1 Z0.02"
-        ]
+        ],
+        "textured_pei_70C_confirmed": true
       }
     ],
     "slice_result": {
       "error_string": "Success.",
-      "export_time": 2940,
+      "export_time": 3049,
       "layer_height": 0.4000000059604645,
       "plate_index": 0,
-      "prepare_time": 832,
+      "prepare_time": 170,
       "return_code": 0,
       "sliced_plates": [
         {
           "feature_type_times": {
-            "Bottom surface": 68.42788696289062,
-            "Bridge": 27.504810333251953,
-            "Brim": 104.46279907226562,
+            "Bottom surface": 68.39508819580078,
+            "Bridge": 27.507457733154297,
+            "Brim": 104.46273040771484,
             "Custom": 306.9886779785156,
             "Flush": 15.0,
-            "Inner wall": 1409.5665283203125,
-            "Internal solid infill": 734.370849609375,
-            "Outer wall": 878.0185546875,
-            "Overhang wall": 11.38988208770752,
-            "Sparse infill": 535.3900146484375,
-            "Top surface": 67.62013244628906,
-            "Travel": 350.3747863769531,
-            "Undefined": 341.768798828125
+            "Inner wall": 1423.4190673828125,
+            "Internal solid infill": 734.5390014648438,
+            "Outer wall": 878.1210327148438,
+            "Overhang wall": 11.388184547424316,
+            "Sparse infill": 535.4558715820312,
+            "Top surface": 67.60636901855469,
+            "Travel": 349.72442626953125,
+            "Undefined": 341.1184387207031
           },
           "filament_change_times": 0,
           "filaments": [
             {
               "filament_id": "GFG01",
               "id": 1,
-              "main_used_g": 60.56242752075195,
-              "total_used_g": 60.56242752075195
+              "main_used_g": 60.563758850097656,
+              "total_used_g": 60.563758850097656
             }
           ],
-          "generate_support_material_time": 13,
+          "generate_support_material_time": 11,
           "id": 1,
-          "infill_time": 82,
+          "infill_time": 66,
           "layer_filament_change": 0,
-          "main_predication": 4172.06005859375,
-          "make_perimeters_time": 100,
+          "main_predication": 4185.453125,
+          "make_perimeters_time": 77,
           "obj_cached_cnt": 0,
           "objects": [
             {
@@ -5414,42 +6620,42 @@
               "triangle_count": 60
             }
           ],
-          "sliced_time": 791,
-          "sliced_time_with_cache": 536,
-          "total_predication": 4500.44287109375,
+          "sliced_time": 552,
+          "sliced_time_with_cache": 361,
+          "total_predication": 4513.8359375,
           "triangle_count": 2596,
           "warning_message": ""
         },
         {
           "feature_type_times": {
-            "Bottom surface": 95.79627227783203,
+            "Bottom surface": 95.80500793457031,
             "Brim": 177.8116455078125,
             "Custom": 304.7674560546875,
             "Flush": 15.0,
-            "Inner wall": 30149.978515625,
-            "Internal solid infill": 5838.7998046875,
-            "Outer wall": 24083.376953125,
-            "Overhang wall": 25.13041114807129,
-            "Sparse infill": 12081.7099609375,
-            "Top surface": 256.06719970703125,
-            "Travel": 9317.1650390625,
-            "Undefined": 9310.931640625
+            "Inner wall": 30329.216796875,
+            "Internal solid infill": 5840.66259765625,
+            "Outer wall": 24087.0,
+            "Overhang wall": 23.421003341674805,
+            "Sparse infill": 12088.0634765625,
+            "Top surface": 256.0883483886719,
+            "Travel": 9339.052734375,
+            "Undefined": 9332.8193359375
           },
           "filament_change_times": 0,
           "filaments": [
             {
               "filament_id": "GFG01",
               "id": 1,
-              "main_used_g": 1271.4873046875,
-              "total_used_g": 1271.4873046875
+              "main_used_g": 1271.490478515625,
+              "total_used_g": 1271.490478515625
             }
           ],
-          "generate_support_material_time": 1491,
+          "generate_support_material_time": 1325,
           "id": 2,
-          "infill_time": 3143,
+          "infill_time": 1774,
           "layer_filament_change": 0,
-          "main_predication": 81813.5859375,
-          "make_perimeters_time": 6611,
+          "main_predication": 81905.7109375,
+          "make_perimeters_time": 2679,
           "obj_cached_cnt": 0,
           "objects": [
             {
@@ -5466,43 +6672,43 @@
               "triangle_count": 94350
             }
           ],
-          "sliced_time": 20797,
-          "sliced_time_with_cache": 8815,
-          "total_predication": 82142.1171875,
+          "sliced_time": 12847,
+          "sliced_time_with_cache": 6867,
+          "total_predication": 82234.2421875,
           "triangle_count": 94350,
           "warning_message": ""
         },
         {
           "feature_type_times": {
-            "Bottom surface": 704.6992797851562,
-            "Bridge": 113.56409454345703,
-            "Brim": 178.16481018066406,
+            "Bottom surface": 704.3988647460938,
+            "Bridge": 113.54884338378906,
+            "Brim": 178.16505432128906,
             "Custom": 305.13836669921875,
             "Flush": 15.0,
-            "Inner wall": 15988.0849609375,
-            "Internal solid infill": 12386.833984375,
-            "Outer wall": 15868.5419921875,
-            "Overhang wall": 34.06606674194336,
-            "Sparse infill": 14944.5078125,
-            "Top surface": 693.3902587890625,
-            "Travel": 4993.59814453125,
-            "Undefined": 4987.0400390625
+            "Inner wall": 16099.8857421875,
+            "Internal solid infill": 12390.2607421875,
+            "Outer wall": 15872.6435546875,
+            "Overhang wall": 34.123779296875,
+            "Sparse infill": 14944.9423828125,
+            "Top surface": 688.276123046875,
+            "Travel": 4987.86962890625,
+            "Undefined": 4981.3115234375
           },
           "filament_change_times": 0,
           "filaments": [
             {
               "filament_id": "GFG01",
               "id": 1,
-              "main_used_g": 1025.9500732421875,
-              "total_used_g": 1025.9500732421875
+              "main_used_g": 1025.975830078125,
+              "total_used_g": 1025.975830078125
             }
           ],
-          "generate_support_material_time": 328,
+          "generate_support_material_time": 212,
           "id": 3,
-          "infill_time": 2035,
+          "infill_time": 1344,
           "layer_filament_change": 0,
-          "main_predication": 65801.1484375,
-          "make_perimeters_time": 1474,
+          "main_predication": 65903.703125,
+          "make_perimeters_time": 895,
           "obj_cached_cnt": 0,
           "objects": [
             {
@@ -5512,16 +6718,16 @@
                 "width": 270.0,
                 "x": 14.5,
                 "y": -359.0,
-                "z": -9.999999974752427e-07
+                "z": 0.0
               },
               "id": 13,
               "name": "Funnel mold core",
               "triangle_count": 35926
             }
           ],
-          "sliced_time": 7502,
-          "sliced_time_with_cache": 3427,
-          "total_predication": 66129.7265625,
+          "sliced_time": 5335,
+          "sliced_time_with_cache": 2782,
+          "total_predication": 66232.28125,
           "triangle_count": 35926,
           "warning_message": ""
         }
@@ -5534,9 +6740,88 @@
         "Bambu Lab A2L 0.8 nozzle"
       ],
       "wall_loops": 4
-    }
+    },
+    "gui_saved_project_sha256": "77f99456fe5178c770a6354d3fb3e461381d8ab2cdd213fca4832ad36c8da9e7",
+    "configuration_differences": {
+      "compatible_printers_condition": {
+        "default": "",
+        "verified": null
+      },
+      "curr_bed_type": {
+        "default": "Textured PEI Plate",
+        "verified": "Engineering Plate"
+      },
+      "different_settings_to_system": {
+        "default": [
+          "enable_arc_fitting;wall_generator;wall_loops;sparse_infill_density;sparse_infill_pattern;top_shell_layers;bottom_shell_layers;top_shell_thickness;bottom_shell_thickness;top_one_wall_type;top_surface_speed;seam_gap;brim_type;brim_width;enable_prime_tower",
+          "filament_prime_volume;nozzle_temperature;nozzle_temperature_initial_layer;filament_max_volumetric_speed;filament_cost",
+          "machine_start_gcode;default_nozzle_volume_type;nozzle_volume_type"
+        ],
+        "verified": [
+          "bottom_shell_layers;bottom_shell_thickness;brim_type;brim_width;compatible_printers;enable_arc_fitting;enable_prime_tower;seam_gap;sparse_infill_density;sparse_infill_pattern;top_one_wall_type;top_shell_layers;top_shell_thickness;top_surface_speed;wall_generator;wall_loops",
+          "filament_cost;filament_max_volumetric_speed;filament_prime_volume;nozzle_temperature;nozzle_temperature_initial_layer",
+          "default_nozzle_volume_type;machine_start_gcode"
+        ]
+      },
+      "extruder_ams_count": {
+        "default": [],
+        "verified": [
+          "1#0|4#1",
+          "1#0|4#0"
+        ]
+      },
+      "filament_colour_type": {
+        "default": null,
+        "verified": [
+          "2"
+        ]
+      },
+      "filament_map_mode": {
+        "default": "Manual",
+        "verified": "Auto For Flush"
+      },
+      "filament_multi_colour": {
+        "default": null,
+        "verified": [
+          "#DDEBF0"
+        ]
+      },
+      "host_type": {
+        "default": null,
+        "verified": "octoprint"
+      },
+      "printhost_authorization_type": {
+        "default": null,
+        "verified": "key"
+      },
+      "printhost_ssl_ignore_revoke": {
+        "default": null,
+        "verified": "0"
+      },
+      "wipe_tower_x": {
+        "default": [
+          "15"
+        ],
+        "verified": [
+          "40",
+          "40",
+          "40"
+        ]
+      },
+      "wipe_tower_y": {
+        "default": [
+          "220"
+        ],
+        "verified": [
+          "220",
+          "220",
+          "220"
+        ]
+      }
+    },
+    "global_bed_selector_note": "The GUI retains its global Engineering Plate selection. Every actual plate explicitly retains Textured PEI Plate, as confirmed in re-sliced G-code.",
+    "all_object_and_modifier_overrides_match": true
   },
-  "configuration_audit": "profile-audit.json",
   "fine_ramp_layer_checks": [
     {
       "plate": 2,
@@ -5557,303 +6842,50 @@
       "max_actual_layer_height_mm": 0.160004
     }
   ],
-  "printer_preset_bundle": {
+  "preset_bundle": {
     "file": "funnel-mold-hf08-z-trim-presets.bbscfg",
-    "sha256": "28ce2e9dc43c305c866d4516e7608ef479c4b4792a63237b85c64c36beb43da1",
+    "sha256": "a8a739dd7a28d0d44b6edd642812ed878f204356a17af638314202421e660369",
     "presets": [
       "Bambu Lab H2C 0.8 High Flow +0.04 Z trim.json",
-      "Bambu Lab H2C 0.8 High Flow +0.18 Z trim.json"
+      "Bambu Lab H2C 0.8 High Flow +0.18 Z trim.json",
+      "Funnel mold - 0.16 mm slopes - 0.40 mm structure.json",
+      "Funnel mold PETG Translucent - HF 255C 18mm3s.json"
     ],
-    "start_templates_match_sliced_projects": true,
+    "all_recipe_values_match_projects": "See profile-audit.json",
     "default_trim_mm": 0.04
   },
-  "flow_comparison_16_mm3_s": {
-    "error_string": "Success.",
-    "export_time": 7770,
-    "layer_height": 0.4000000059604645,
-    "plate_index": 0,
-    "prepare_time": 638,
-    "return_code": 0,
-    "sliced_plates": [
+  "installed_presets": {
+    "presets": [
       {
-        "feature_type_times": {
-          "Bottom surface": 71.30003356933594,
-          "Bridge": 27.504810333251953,
-          "Brim": 104.46279907226562,
-          "Custom": 308.8260803222656,
-          "Flush": 15.0,
-          "Inner wall": 1539.251220703125,
-          "Internal solid infill": 789.228515625,
-          "Outer wall": 935.9273071289062,
-          "Overhang wall": 11.38988208770752,
-          "Sparse infill": 581.9730834960938,
-          "Top surface": 68.53904724121094,
-          "Travel": 350.3747863769531,
-          "Undefined": 341.768798828125
-        },
-        "filament_change_times": 0,
-        "filaments": [
-          {
-            "filament_id": "GFG01",
-            "id": 1,
-            "main_used_g": 60.56242752075195,
-            "total_used_g": 60.56242752075195
-          }
-        ],
-        "generate_support_material_time": 60,
-        "id": 1,
-        "infill_time": 357,
-        "layer_filament_change": 0,
-        "main_predication": 4465.1689453125,
-        "make_perimeters_time": 608,
-        "obj_cached_cnt": 0,
-        "objects": [
-          {
-            "bbox": {
-              "depth": 24.0,
-              "height": 15.358983993530273,
-              "width": 60.0,
-              "x": 75.0,
-              "y": 123.0,
-              "z": 2.348636840565632e-10
-            },
-            "id": 5,
-            "name": "Funnel mold finish-witness",
-            "triangle_count": 56
-          },
-          {
-            "bbox": {
-              "depth": 67.69976806640625,
-              "height": 14.0,
-              "width": 54.70000457763672,
-              "x": 172.64999389648438,
-              "y": 111.15011596679688,
-              "z": 0.0
-            },
-            "id": 17,
-            "name": "Funnel mold hardware-witness",
-            "triangle_count": 2480
-          },
-          {
-            "bbox": {
-              "depth": 46.0,
-              "height": 27.0,
-              "width": 18.0,
-              "x": 131.0,
-              "y": 167.0,
-              "z": 0.0
-            },
-            "id": 21,
-            "name": "Funnel mold guide-witness",
-            "triangle_count": 60
-          }
-        ],
-        "sliced_time": 2979,
-        "sliced_time_with_cache": 1761,
-        "total_predication": 4795.38916015625,
-        "triangle_count": 2596,
-        "warning_message": ""
+        "file": "machine/Bambu Lab H2C 0.8 High Flow +0.04 Z trim.json",
+        "sha256": "bb805cedc75d05ee46a3128cfa3e098baaf928834994aa958fe6fd91134ef9f3",
+        "scope": "Bambu Studio signed-in account User preset",
+        "registered_info_file_present": true
       },
       {
-        "feature_type_times": {
-          "Bottom surface": 100.14804077148438,
-          "Brim": 177.8116455078125,
-          "Custom": 306.6048583984375,
-          "Flush": 15.0,
-          "Inner wall": 33159.2421875,
-          "Internal solid infill": 6289.35107421875,
-          "Outer wall": 25874.00390625,
-          "Overhang wall": 25.13041114807129,
-          "Sparse infill": 13186.810546875,
-          "Top surface": 264.9997863769531,
-          "Travel": 9321.3232421875,
-          "Undefined": 9315.08984375
-        },
-        "filament_change_times": 0,
-        "filaments": [
-          {
-            "filament_id": "GFG01",
-            "id": 1,
-            "main_used_g": 1271.4873046875,
-            "total_used_g": 1271.4873046875
-          }
-        ],
-        "generate_support_material_time": 4648,
-        "id": 2,
-        "infill_time": 6815,
-        "layer_filament_change": 0,
-        "main_predication": 88188.015625,
-        "make_perimeters_time": 15782,
-        "obj_cached_cnt": 0,
-        "objects": [
-          {
-            "bbox": {
-              "depth": 270.0,
-              "height": 74.64923095703125,
-              "width": 270.0,
-              "x": 410.5,
-              "y": 25.0,
-              "z": 4.843769829676603e-10
-            },
-            "id": 9,
-            "name": "Funnel mold cavity",
-            "triangle_count": 94350
-          }
-        ],
-        "sliced_time": 58525,
-        "sliced_time_with_cache": 28999,
-        "total_predication": 88518.3828125,
-        "triangle_count": 94350,
-        "warning_message": ""
+        "file": "machine/Bambu Lab H2C 0.8 High Flow +0.18 Z trim.json",
+        "sha256": "8730cc26d7ac87663e36bcc986c9cf5fb6973b49f16899b8ee024994224c6b3e",
+        "scope": "Bambu Studio signed-in account User preset",
+        "registered_info_file_present": true
       },
       {
-        "feature_type_times": {
-          "Bottom surface": 751.6998901367188,
-          "Bridge": 113.56409454345703,
-          "Brim": 178.16481018066406,
-          "Custom": 306.97576904296875,
-          "Flush": 15.0,
-          "Inner wall": 17607.9609375,
-          "Internal solid infill": 13441.1669921875,
-          "Outer wall": 16787.529296875,
-          "Overhang wall": 34.06606674194336,
-          "Sparse infill": 16332.38671875,
-          "Top surface": 689.3189086914062,
-          "Travel": 4993.68017578125,
-          "Undefined": 4987.1220703125
-        },
-        "filament_change_times": 0,
-        "filaments": [
-          {
-            "filament_id": "GFG01",
-            "id": 1,
-            "main_used_g": 1025.9500732421875,
-            "total_used_g": 1025.9500732421875
-          }
-        ],
-        "generate_support_material_time": 439,
-        "id": 3,
-        "infill_time": 5252,
-        "layer_filament_change": 0,
-        "main_predication": 70801.578125,
-        "make_perimeters_time": 5244,
-        "obj_cached_cnt": 0,
-        "objects": [
-          {
-            "bbox": {
-              "depth": 270.0,
-              "height": 68.0,
-              "width": 270.0,
-              "x": 14.5,
-              "y": -359.0,
-              "z": -9.540000291963224e-07
-            },
-            "id": 13,
-            "name": "Funnel mold core",
-            "triangle_count": 35926
-          }
-        ],
-        "sliced_time": 16823,
-        "sliced_time_with_cache": 5532,
-        "total_predication": 71131.9921875,
-        "triangle_count": 35926,
-        "warning_message": ""
+        "file": "process/Funnel mold - 0.16 mm slopes - 0.40 mm structure.json",
+        "sha256": "7884a45290f163a451992c6073447f8188ac88e0cc59634eec2f1fa807706d0a",
+        "scope": "Bambu Studio signed-in account User preset",
+        "registered_info_file_present": true
+      },
+      {
+        "file": "filament/Funnel mold PETG Translucent - HF 255C 18mm3s.json",
+        "sha256": "d4d2f61699ecf72189776967e542f88bae670213da7fa9dfff3b3363faec8d20",
+        "scope": "Bambu Studio signed-in account User preset",
+        "registered_info_file_present": true
       }
     ],
-    "sparse_infill_density": 100.0,
-    "upward_compatible_machine": [
-      "Bambu Lab H2S 0.8 nozzle",
-      "Bambu Lab H2D 0.8 nozzle",
-      "Bambu Lab H2D Pro 0.8 nozzle",
-      "Bambu Lab A2L 0.8 nozzle"
-    ],
-    "wall_loops": 4
-  },
-  "plate_preset_verification": {
-    "date": "2026-09-09",
-    "projects": [
-      {
-        "project": "funnel-mold-petg-hf08-variable-016-040.3mf",
-        "project_sha256": "3b4a12aa563f9eefe872d80f36e992056834b363565f8fa023c34cc85b3c4b55",
-        "plate_bed_type": "Textured PEI Plate",
-        "all_three_plates_explicit": true,
-        "modified_archive_members": [
-          "Metadata/model_settings.config"
-        ],
-        "project_settings_unchanged": true,
-        "all_other_archive_members_unchanged": true,
-        "printer_preset": "Bambu Lab H2C 0.8 High Flow +0.04 Z trim",
-        "gcodes": [
-          {
-            "file": "Metadata/plate_1.gcode",
-            "sha256": "fe3779ac3280e08543e2c824031b6231ef602fc05596015652573802f22f7a64",
-            "unchanged": true
-          },
-          {
-            "file": "Metadata/plate_3.gcode",
-            "sha256": "a4dd2d281b2845860fafd960f1992d54b4889ae4177c242f1958f267b3e4826d",
-            "unchanged": true
-          },
-          {
-            "file": "Metadata/plate_2.gcode",
-            "sha256": "5eaacf9f52d4382c3b7beb0d776726af54ddaa5d65cb2624c89cb68f36ee581b",
-            "unchanged": true
-          }
-        ]
-      },
-      {
-        "project": "funnel-mold-petg-hf08-variable-016-040-z018.3mf",
-        "project_sha256": "0248cc8ac3967a8966f5d8b900c747eafb2809af124910f3e7fc72a1f4db7490",
-        "plate_bed_type": "Textured PEI Plate",
-        "all_three_plates_explicit": true,
-        "modified_archive_members": [
-          "Metadata/model_settings.config"
-        ],
-        "project_settings_unchanged": true,
-        "all_other_archive_members_unchanged": true,
-        "printer_preset": "Bambu Lab H2C 0.8 High Flow +0.18 Z trim",
-        "gcodes": [
-          {
-            "file": "Metadata/plate_1.gcode",
-            "sha256": "1cc5c018f39b4f78e6d0919159171081d1023ccc8035c7dcd3db26cc7c3b28e5",
-            "unchanged": true
-          },
-          {
-            "file": "Metadata/plate_3.gcode",
-            "sha256": "4a57c6feda5aebeb00723c497bdbd3d6648a4b53634d9e5aad9ce73494a7fe20",
-            "unchanged": true
-          },
-          {
-            "file": "Metadata/plate_2.gcode",
-            "sha256": "0e4b9395c07c5d50141aaaa752b692a533b296c249703aec8b929ddec387cd30",
-            "unchanged": true
-          }
-        ]
-      }
-    ],
-    "method": "Each existing slice records its effective Textured PEI Plate choice explicitly in all three plate metadata records. All G-code, geometry, variable layers, settings, thumbnails and other archive members match the verified slices byte for byte.",
-    "gui_checks": {
-      "default_project_opens_with_saved_preset": true,
-      "alternate_project_opens_with_saved_preset": true,
-      "modified_printer_marker_absent_for_both": true,
-      "default_project_explicit_textured_pei_plate_visible": true,
-      "alternate_project_explicit_textured_pei_plate_visible": true
-    },
-    "presets_installed": [
-      {
-        "name": "Bambu Lab H2C 0.8 High Flow +0.04 Z trim",
-        "from": "User",
-        "start_template_matches_project": true,
-        "default_nozzle_volume_type_matches_project": true,
-        "registered_by_bambu_studio": true
-      },
-      {
-        "name": "Bambu Lab H2C 0.8 High Flow +0.18 Z trim",
-        "from": "User",
-        "start_template_matches_project": true,
-        "default_nozzle_volume_type_matches_project": true,
-        "registered_by_bambu_studio": true
-      }
-    ]
+    "gui_all_three_selectors_open_clean": true,
+    "gui_saved_preset_ids_match": true,
+    "gui_saved_filament_material_id": "GFG01",
+    "live_nozzle_sync_test_completed": false,
+    "live_nozzle_sync_test_note": "The device reported left 0.8 mm High Flow. The Sync Nozzle status dialog could not be accepted because its confirmation control was clipped; it was canceled. The preset and GUI save/re-slice checks above completed.",
+    "gui_both_trim_projects_open_clean": true
   }
 }

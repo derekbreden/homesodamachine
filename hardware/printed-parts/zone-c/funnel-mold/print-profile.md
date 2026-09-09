@@ -7,19 +7,25 @@ structural sections. It contains five editable bodies, two surface-speed
 modifiers, native thumbnails and all three plates of sliced G-code.
 
 [**Alternate project — +0.18 mm trim**](funnel-mold-petg-hf08-variable-016-040-z018.3mf)
-is also fully sliced. The [printer preset bundle](funnel-mold-hf08-z-trim-presets.bbscfg)
-contains both trims for Bambu Studio's printer selector. Import the bundle with
+is also fully sliced. The [preset bundle](funnel-mold-hf08-z-trim-presets.bbscfg)
+contains both printer trims, the filament and the process. Import the bundle with
 **File → Import → Import Configs before opening either 3MF** on a new installation.
-Bambu Studio confirms that two configurations were imported. The printer selector's
-**User presets** section then contains:
+Bambu Studio imports four configurations, available as **User presets**:
 
-- `Bambu Lab H2C 0.8 High Flow +0.04 Z trim`
-- `Bambu Lab H2C 0.8 High Flow +0.18 Z trim`
+| Selector | Saved preset |
+|---|---|
+| Printer, default | `Bambu Lab H2C 0.8 High Flow +0.04 Z trim` |
+| Printer, alternate | `Bambu Lab H2C 0.8 High Flow +0.18 Z trim` |
+| Filament | `Funnel mold PETG Translucent - HF 255C 18mm3s` |
+| Process | `Funnel mold - 0.16 mm slopes - 0.40 mm structure` |
 
-Both are installed in the current Bambu Studio account. Each 3MF references its
-matching saved printer preset. Select the intended High Flow trim from that list
-after a printer sync changes the selection, then re-slice all plates. All three
-plates explicitly select **Textured PEI Plate** in their plate settings.
+All four are installed in the current Bambu Studio account. Each 3MF references
+its matching saved presets, which open without modified-setting markers.
+If printer or AMS sync changes a selection, choose the intended High Flow trim,
+the mold filament and the mold process from their saved lists, then re-slice all
+plates. The object-specific fine-layer bands and surface-speed modifiers live in
+the 3MF; a process preset alone does not create those geometry-specific settings.
+All three plates explicitly select **Textured PEI Plate** in their plate settings.
 The trim is the user's observed build-plate correction across nozzle, size and
 material changes. **+0.04 mm is the default for translucent PETG on the current plate.**
 
@@ -32,16 +38,16 @@ Bambu Studio 02.08.02.61 estimates for the default project:
 
 | Plate | Orientation | Time | PETG | Layers |
 |---|---|---:|---:|---:|
-| 1 — Finish, hardware and guide witnesses | Flat datums on bed | 1 h 15 min 0 s | 60.56 g | 171 |
-| 2 — Cavity | Opening up | 22 h 49 min 7 s | 1271.49 g | 315 |
-| 3 — Core | Open back on bed; forming plug and blades up | 18 h 22 min 9 s | 1025.95 g | 309 |
+| 1 — Finish, hardware and guide witnesses | Flat datums on bed | 1 h 15 min 14 s | 60.56 g | 171 |
+| 2 — Cavity | Opening up | 22 h 50 min 34 s | 1271.49 g | 315 |
+| 3 — Core | Open back on bed; forming plug and blades up | 18 h 23 min 52 s | 1025.98 g | 309 |
 
-Each plate is an independent job. Total material is **2,358.00 g**; prepare
+Each plate is an independent job. Total material is **2,358.03 g**; prepare
 approximately **3 kg of dry PETG** including reserve. Both large plates exceed
 a 1 kg spool. Arrange compatible automatic spool backup, or a supervised runout
 change, before starting. The project does not configure physical backup spools.
 These are estimates rather than measured print durations; the cavity has about
-71 minutes of estimated margin below one day.
+69 minutes of estimated margin below one day.
 
 Print all three witnesses first. Inspect the 17.6 mm backing bridge, test the
 square-nut and guide fits, and trial the complete coating/release/silicone
@@ -73,14 +79,12 @@ the objects' layer schedules; the reported plate layer count includes that sched
 
 The installed Bambu H2C 0.8 PETG Translucent preset supplies **16 mm³/s** for
 both Standard and High Flow. This mold's High Flow variant requests **18 mm³/s**;
-the Standard variant remains at the manufacturer's 16. With all other recipe
-settings held constant, slicing at 16 estimates **24 h 35 min** for the cavity
-and **19 h 46 min** for the core. The 18 target estimates the times above.
+the Standard variant remains at the manufacturer's 16.
 A volumetric cap is a setting for a particular material/hotend/temperature
 combination, not an intrinsic PETG limit. [Prusa's explanation](https://help.prusa3d.com/article/max-volumetric-speed_127176)
 describes its interaction with line width, layer height and requested speeds.
 
-![Layer bands and flow comparison](layer-plan.png)
+![Layer bands and plate estimates](layer-plan.png)
 
 ## Active settings
 
@@ -108,6 +112,8 @@ describes its interaction with line width, layer height and requested speeds.
 | Supports / raft / ironing / prime tower | Disabled |
 | XY contour / hole compensation | Zero / zero; stock 0.15 mm elephant-foot compensation |
 | Travel | Stock retract/lift and travel behavior; avoid-crossing-wall detours disabled |
+| Arc fitting | Disabled to match Bambu Studio's curve-planning setting for the connected printer |
+| Filament prime volume | Explicit 45 mm³; no prime tower or material changes |
 
 All remaining CAD stock prints solid. The CAD rib bays and air channels supply
 ventilation. Preserve them through finishing. Keep guides, nut seats, washer
@@ -136,27 +142,27 @@ the inverted core is 270 × 270 × 68 mm. Layer quantization puts their final
 commanded heights at 74.64 and 68.16 mm respectively; these are not metrology
 readings from a physical print.
 
-Across 80 sampled mold layers, **24,407** outer-wall segments inside the surface
+Across 80 sampled mold layers, **19,710** outer-wall segments inside the surface
 modifiers stay at or below 60 mm/s. The full shallow-ramp bands use 0.16 mm
 layers. The greatest calculated flow on extrusion moves longer than 1 mm is
 about **17.48 mm³/s**, including the 0.97 flow ratio and G-code rounding. The
-inspection also records the larger ratios on tiny rounded segments. Circular
-paths are included in these measurements.
+inspection also records the larger ratios on tiny rounded segments. Model
+extrusion paths use straight segments; fitted G-code arcs are disabled.
 
 | Passage / fit | Reading from the final paths |
 |---|---|
 | Four guide blades | 12.00 × 40.00 mm |
 | Four guide bearings | 12.60 × 40.60 mm clear |
 | Four square-nut slots | 8.40 mm clear width |
-| Four jack-screw bores | About 5.75–5.76 mm diameter |
-| Four washer pockets | About 25.37–25.39 mm diameter |
+| Four jack-screw bores | About 5.74–5.76 mm diameter |
+| Four washer pockets | About 25.37 mm diameter |
 | Backing-air channels and tower exits | About 2.99 mm clear at the sampled mid-height |
-| Silicone vents | About 2.43–2.45 mm above the first layer |
-| Pour throat | About 10.97 mm diameter |
-| Rod socket | About 6.40 mm through its body; about 6.10 mm at the thin entry lip |
+| Silicone vents | About 2.42–2.43 mm above the first layer |
+| Pour throat | About 10.95 mm diameter |
+| Rod socket | About 6.39–6.40 mm through its body; about 6.07 mm at the thin entry lip |
 
 Clearance readings subtract half the annotated road width from the distance to
-its centreline. Arc sampling adds at most 0.002 mm sagitta. They describe nominal
+its centreline. They describe nominal
 toolpaths, not measured plastic. **Deburr the rod socket's narrow entry lip and
 fit the actual 6.35 mm rod before coating.** It must slide freely to 28.8 mm depth.
 Use a depth stop and preserve the blind end. Check all small fits on the witnesses.

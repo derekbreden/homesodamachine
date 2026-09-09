@@ -4,7 +4,7 @@
     "process": "0.40mm Standard @BBL H2C 0.8 nozzle",
     "filament": "Bambu PETG Translucent @BBL H2C 0.8 nozzle"
   },
-  "process_name": "Funnel mold - 0.16 mm slopes / 0.40 mm structure",
+  "process_name": "Funnel mold - 0.16 mm slopes - 0.40 mm structure",
   "filament_name": "Funnel mold PETG Translucent - HF 255C 18mm3s",
   "z_trim": {
     "default_mm": 0.04,
@@ -12,6 +12,7 @@
     "reason": "User-observed build-plate calibration persists across nozzle, nozzle-size and material changes. Both offsets must be available; translucent PETG on the current plate uses +0.04 mm. Add the selected offset to the current stock machine's plate compensation."
   },
   "process_settings": {
+    "enable_arc_fitting": {"value": "0", "reason": "Bambu Studio disables arc fitting when syncing the connected machine's curve-planning enhancement. Save that firmware-compatible choice in the process and generate matching straight-segment toolpaths."},
     "wall_generator": {"value": "arachne", "reason": "Variable-width paths fill the 2.4 mm ribs and narrow transitions without relying on exact multiples of the nominal 0.82 mm bead."},
     "wall_loops": {"value": "4", "reason": "Four requested loops reinforce forming skins and hardware seats; all residual stock is also solid."},
     "sparse_infill_density": {"value": "100%", "reason": "The CAD already contains open rib bays and air channels. All material left in its skins, ribs, arms and columns is structural stock."},
@@ -28,6 +29,7 @@
     "enable_prime_tower": {"value": "0", "reason": "Each plate uses one filament and one nozzle, with no material changes."}
   },
   "filament_settings": {
+    "filament_prime_volume": {"value": ["45"], "reason": "Explicitly retain the 45 mm3 value in the verified slice so the installed filament preset and project agree. These plates have no prime tower or material changes."},
     "nozzle_temperature": {"value": ["255", "255"], "reason": "255 C is within the manufacturer's PETG Translucent range and provides melting margin for the proposed 18 mm3/s high-flow setting. Verify the actual dry spool and nozzle with the witnesses and flow calibration."},
     "nozzle_temperature_initial_layer": {"value": ["255", "255"], "reason": "Use the same melt temperature for the stock 0.40 mm first layer and the remaining print."},
     "filament_max_volumetric_speed": {"value": ["16", "18"], "reason": "Standard retains the vendor's 16 mm3/s. High Flow uses the user's proposed 18 mm3/s as a calibration target, not a measured capacity claim."},
