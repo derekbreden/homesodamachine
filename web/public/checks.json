@@ -12,8 +12,8 @@
     },
     {
       "check": "hardware/scripts/check_finishes.py",
-      "note": "finishes: 55 materials, and every colour this tree draws has one",
-      "status": "ok"
+      "note": "fix: tools/cad-venv/bin/python hardware/scripts/check_finishes.py --write",
+      "status": "red"
     },
     {
       "check": "hardware/scripts/check_ledger.py",
@@ -82,15 +82,19 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 1 of 4 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 336 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 1 of 3 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 337 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds 796d1040ecbf41268cf085db3a9c8454 for the 124 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at df3355324acabf0cc6c8299c8f619aba here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was taken from a different tree — it holds 796d1040ecbf41268cf085db3a9c8454 for the 124 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 62ad807e121c1cdeda5b45baaaaacaa3 here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
+    ],
+    "hardware/scripts/check_finishes.py": [
+      "web/public/finishes.json is not the table this tree states.",
+      "  fix: tools/cad-venv/bin/python hardware/scripts/check_finishes.py --write"
     ]
   },
   "green": false
