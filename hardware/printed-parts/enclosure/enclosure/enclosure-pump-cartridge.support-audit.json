@@ -24,9 +24,9 @@
   "first_layer_z_mm": 0.2,
   "inputs": {
     "gcode": "plate_1.gcode",
-    "gcode_sha256": "875b2a8c8f5fa5b10b30dd1c026d12aa4b0c708de39b6fccf0ff28b2b01f6688",
-    "model": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
-    "model_sha256": "6353cfc48341390830fe3efa086aad1c951fa843354d845196ec4620c32e21c6",
+    "gcode_sha256": "0aa0515069eda45f8b1e218c2ebb5c0fdb779c555ac69939efea6398d971a1ff",
+    "model": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
+    "model_sha256": "345eee377789f7e49cd594d4a0ddfaf8b73fc9f340a35211ef66f92e5e8860e4",
     "profile": "git:aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a:hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge-petgf.3mf",
     "profile_sha256": "10f9a5824beb674ca0868137659211da5703d6626b73a335388ec471efc91c40"
   },
@@ -129,15 +129,15 @@
         89.8,
         30.658,
         165.565,
-        119.8,
-        53.858,
+        119.4,
+        52.658,
         217.365
       ],
       "bbox_xy_mm": [
         254.8,
         149.2,
-        284.8,
-        172.4
+        284.4,
+        171.2
       ],
       "first_interface_z_mm": 51.2,
       "id": "tree-2",

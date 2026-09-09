@@ -16,9 +16,9 @@ click: x=98.500 y=172.560 z=180.025
 click: x=-98.500 y=172.560 z=180.450
 click: x=98.500 y=172.560 z=180.450
 
-[ceiling] The pump-bay lintel is the complete fixed roof at z=283.495. It carries the display/ridge storey and leaves 1 mm above the cartridge crown at z=282.495 for withdrawal. This flat roof is retained as a supported face; a corbel extending into the bay would occupy the cartridge's withdrawal envelope. Support topology and build-up require the production slice for this mesh.
+[ceiling] The pump-bay lintel is the complete fixed roof at z=283.495, joining the front opening to the planar bay bulkhead. It carries the display/ridge storey and leaves 1 mm above the cartridge crown at z=282.495 for withdrawal. Its flat underside preserves the cartridge's withdrawal envelope. The production slice reaches this roof from the bed; support leaves through the empty cartridge bay before assembly.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=0.000 y=39.931 z=283.495
+click: x=0.000 y=42.259 z=283.495
 
 [slope] This is the display PCB end-wall/ridge-support face across the bay, not a corbel hung along either adjacent X wall. `_ridge_wall` supplies its complete starting line from the tee wall's crown, and the 45-degree face lays every following line on that support.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
@@ -29,7 +29,7 @@ file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=0.000 y=91.694 z=308.895
 click: x=0.000 y=91.744 z=289.095
 
-[ceiling] The pump jack's receptacle roof and upper snap catch — square engagement faces for the module's tang and latch, inside the boss that stands on the plate cap's crown behind the ridge wall. The 14.9 mm roof bridges the boss's two side walls, the same span back-top's receptacle prints.
+[ceiling] The pump jack's receptacle roof and upper snap catch are square engagement faces for the module's tang and latch, inside the boss that stands on the bulkhead's crown behind the ridge wall. The 14.9 mm roof bridges the boss's two side walls, the same span back-top's receptacle prints.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=0.000 y=88.339 z=310.895
 click: x=0.000 y=91.694 z=308.895
