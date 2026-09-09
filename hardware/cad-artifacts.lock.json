@@ -2,8 +2,8 @@
   "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed \u2014 web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
   "release": {
     "tag": "cad-artifacts",
-    "asset": "cad-a0a19930283a6e20.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-a0a19930283a6e20.tar.gz",
+    "asset": "cad-c9a6dcb9ec0e0efb.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-c9a6dcb9ec0e0efb.tar.gz",
     "objects": "s-"
   },
   "source": {
@@ -47,7 +47,10 @@
       "hardware/install-guide/art/cabinet-plan.png",
       "hardware/install-guide/art/collet-press.png",
       "hardware/install-guide/art/filter-in-cabinet.png",
+      "hardware/install-guide/art/kitchen-hose.png",
+      "hardware/install-guide/art/kitchen-push.png",
       "hardware/install-guide/art/opening.png",
+      "hardware/install-guide/art/regulator.png",
       "hardware/install-guide/art/the-back-face.png",
       "hardware/install-guide/art/the-socket.png",
       "hardware/install-guide/install-guide.cover.png",
@@ -367,9 +370,9 @@
     ]
   },
   "bundle": {
-    "sha256": "a0a19930283a6e200c3726e189d7c15d81c742a30f44db2c7d068c13adfe7a27",
-    "bytes": 143953542,
-    "solids": 337
+    "sha256": "c9a6dcb9ec0e0efb7305c5b96a9ec1e5aa075b09be4132b26066c85994730363",
+    "bytes": 144522667,
+    "solids": 340
   },
   "solids": {
     "hardware/.cache/pump-roof/enclosure-pump-cartridge.step": "4f3c521165747f039ff44b338de914a5e9eece6e4fe0e39a3a65bedeed90c67d",
@@ -462,11 +465,14 @@
     "hardware/install-guide/art/cabinet-plan.png": "0ad6737855d422e1e4305882ff6380f2218c185e97c1217adb7782020168eabd",
     "hardware/install-guide/art/collet-press.png": "5945775594bfceebbc57be94be31ba0f59a3ee98577de89538c0c5998986b258",
     "hardware/install-guide/art/filter-in-cabinet.png": "03f0fa06ce2fedb4af556ed83f3a01c4bd6864a31e0f799d23f10b65a4257686",
+    "hardware/install-guide/art/kitchen-hose.png": "83cfe48530c509429e0d34afb78cd6ac3c4bda5ec0e9afa8e9dc47938064e671",
+    "hardware/install-guide/art/kitchen-push.png": "7e3bdbcec71c5c6348bc2a9959786c0f72b35738d40b13850093b844f3863c9f",
     "hardware/install-guide/art/opening.png": "799eeaff1ff10e7a80e21099d135de0237ee233554f18fd1086664c6122e5c1b",
+    "hardware/install-guide/art/regulator.png": "a6a1e2b5ad5f9ad088d50e99dee3a99601f8a7d5ff262608a050ed32e7a6f0f3",
     "hardware/install-guide/art/the-back-face.png": "2e85e21096892db0c61f5187eb3ebbddac724622312ed979fa4a46a123a80fad",
     "hardware/install-guide/art/the-socket.png": "6af01d94b559dd77ddb53a3807024e9e0f37fbc379f81053f3ec31e762e46680",
     "hardware/install-guide/install-guide.cover.png": "e059cdb7e70f15b5e11aedf69fe10ffc7c4c11fb228539fd204c60573e13635a",
-    "hardware/install-guide/install-guide.pdf": "17940dfc4d206a7a684db2d8f1c7dc3f7d6481eda3a4e2c37ec67d0067251c65",
+    "hardware/install-guide/install-guide.pdf": "5b610acc3ab3fe6c4487291be648636baaab726f61a0995adb7d163c90ced794",
     "hardware/manifold-layout/enclosure-assembly.step": "29dfdd90353a8ad69f8715c6d3e1c9b0033d470a35db5c819e8de31f1a99c84b",
     "hardware/manifold-layout/enclosure-assembly.step.mesh": "96e10511ab50545a41fc781d1d675fed038dbc37f8dc9babf7090c516f34fe65",
     "hardware/manifold-layout/manifold-layout.step": "77649fc47b26af27c477871a21f53c2ee9852272e19980f16fd41b589bf4b27f",
