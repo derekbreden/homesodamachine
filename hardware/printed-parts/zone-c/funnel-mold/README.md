@@ -17,7 +17,8 @@ coating, spray count, or printer.
   skin is [3.2 mm](FORMING_SKIN), carried by [2.4 mm](RIB_THK) ribs on
   [20 mm](RIB_PITCH) centres and three cross ribs. The registration band extends
   [8 mm](MOLD_WALL) outside the nominal brim. Its feet stand [10 mm](MOLD_BASE)
-  below the nominal blind tip floor. The spaces between ribs open underneath.
+  below the nominal blind tip floor. A pedestal carries that closed floor to the
+  bed. The spaces between ribs open underneath.
 - **Core:** [201.0 × 201.0 × 50.4 mm](CORE_DIMS), printed upside down, with the
   forming plug upward. Its back opens between the ribs. A [10 mm](PLATE_THK)
   perimeter plate forms the brim and carries the pour and silicone vents; its
@@ -45,7 +46,9 @@ this tooling has no pressure-vessel rating.
 contains separate plates for the finish witness, cavity and core. Use the H2C's
 left 0.8 mm Standard nozzle and PETG Translucent, at 0.16 mm layers.
 [Print settings and inspection](print-profile.md) accompany the sliced project.
-Print the witness first. Each large plate is an independent print job.
+Print the witness first. Each large plate is an independent print job. Modifier
+volumes keep the forming skins, rod boss and registration faces at 30 mm/s outer
+wall speed; exposed backing ribs may print at 80 mm/s.
 
 The forming skins bridge the spaces between the ribs. Those bridge undersides
 face the open backs; the silicone-facing surfaces grow above the full skin
@@ -62,7 +65,8 @@ checks against the nominal funnel.
 
 The **finish witness** has a flat measuring strip, two end rails and a ramp at
 the funnel's floor grade. Its underside includes the same 17.6 mm rib-to-rib
-bridge span as the mold; inspect that roof for sound attachment at both ends. Keep its underside and rails uncoated. The central flat
+bridge span as the mold; inspect that roof for sound attachment at both ends.
+Keep its underside and rails uncoated. The central flat
 is modeled one finishing allowance below the rails; a straightedge across them
 helps inspect the result. Layer quantization and first-layer error affect that
 printed step: measure the actual coupon before relying on the rails as a gauge.
@@ -83,8 +87,7 @@ printed step: measure the actual coupon before relying on the rails as a gauge.
    cure it, then sand/polish to the measured target. The manufacturer describes
    coverage at roughly 0.4 mm applied thickness; that is not this mold's required
    finished film. Apply its specified release before molding silicone against it.
-   The owned Krylon gloss acrylic is another coating to test; its dry film must
-   meet the same dimensional and sealing checks.
+
 4. Test the **actual PETG, finishing coat, release and BBDINO batch** together.
    The sample must cure through, release cleanly and survive repeated demolding.
    Smooth-On's [compatibility tests](https://www.smooth-on.com/support/faq/210/)
@@ -175,6 +178,3 @@ geometry, finishing allowance, material, nozzle or machine settings.
 [value](NAME) texts are updated by:
 - `/hardware/printed-parts/zone-c/funnel-mold/funnel_mold.py`
 
-## Sources
-[value](NAME) texts are updated by:
-- `/hardware/printed-parts/zone-c/funnel-mold/funnel_mold.py`
