@@ -60,7 +60,7 @@ layers; straight structural sections use 0.40 mm. The default plate trim is
 [bundle containing both printer trims, filament and process presets](funnel-mold-hf08-z-trim-presets.bbscfg)
 are available. The trims are the user's build-plate calibrations, applicable across
 nozzle and material changes.
-[Print settings and inspection](print-profile.md) accompany the sliced project.
+[Print settings and inspection](print-profile.md) accompany the project.
 Print all three small witnesses first: finish, hardware fits and guide pin. Each
 large plate is an independent print job. Modifier volumes keep the forming skins,
 rod boss, registration faces and hardware fits at 60 mm/s outer wall speed.

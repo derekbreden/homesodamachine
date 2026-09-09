@@ -6,10 +6,13 @@ The project is built from three explicit inputs: **the current STL geometry,
 It reads no other 3MF and no user-profile directory.
 
 [profile-audit.json](profile-audit.json) accounts for **all 579 effective saved
-settings**, the five objects, two modifiers, three plate assignments and every
+settings** in the sliced reference at Git revision `7aa5b50e4`, the five objects,
+two modifiers, three plate assignments and every
 layer-height range. It records the source-file hashes and actual serialized
 values. [audit_profile.py](audit_profile.py) checks the recipe against the sliced
 project, including local settings that are not visible in the global profile.
+[print-start-check.json](print-start-check.json) compares the current editable
+save and the submitted cavity job against that reference.
 
 ## Sources and precedence
 

@@ -3945,5 +3945,7 @@
     "filament_material_id_matches": true
   },
   "extra_filament_or_per_layer_gcode_files": [],
-  "physical_validation": "The 18 mm3/s flow target, 60 mm/s finishing speed, coating result and extraction load remain subject to the actual spool, witnesses and assembled tooling. Z trim is the user-observed plate calibration."
+  "physical_validation": "The 18 mm3/s flow target, 60 mm/s finishing speed, coating result and extraction load remain subject to the actual spool, witnesses and assembled tooling. Z trim is the user-observed plate calibration.",
+  "project_reference": "git:7aa5b50e4:hardware/printed-parts/zone-c/funnel-mold/funnel-mold-petg-hf08-variable-016-040.3mf",
+  "current_print_start_check": "print-start-check.json"
 }
