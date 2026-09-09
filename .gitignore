@@ -145,6 +145,13 @@ hardware/weld-rotator-guide/out/
 # sidecar. The `style.css` in the same directories and everything under `studies/` are written
 # by hand and are in git.
 hardware/quickstart/art/*.png
+
+# The install guide's own frames, drawn by hardware/install-guide/_install_art.py off the same
+# solids and through the same renderer as the quick start's. They travel the road every drawn
+# picture takes: `pack.py`'s BUNDLED_ART_DIRS already names `hardware/install-guide`,
+# hardware/cad-artifacts.lock.json names each by sha256, and fetch-cad-artifacts.mjs puts them
+# on the disk a deploy serves from.
+hardware/install-guide/art/*.png
 hardware/quickstart/art/colors.css
 hardware/quickstart/quick-start.cover.png
 hardware/quickstart/quick-start.pdf
