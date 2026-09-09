@@ -20,7 +20,8 @@ coating, spray count, or printer.
   below the nominal blind tip floor. A pedestal carries that closed floor to the
   bed. A 45° corbel carries the registration band outward from the collar. The
   spaces between ribs open underneath. External washer pads and guide sleeves
-  stand on 45° braces rooted in the structural ribs.
+  stand on 45° braces. Short feet beneath the Y-side brace roots connect them
+  to the existing X ribs; the backing-air channels pass through those feet.
 - **Core:** [266.0 × 266.0 × 60.0 mm](CORE_DIMS), printed upside down, with the
   forming plug upward. Its back opens between the ribs. A [10 mm](PLATE_THK)
   perimeter plate forms the brim and carries the pour and silicone vents; its

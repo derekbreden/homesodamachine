@@ -1,0 +1,136 @@
+{
+  "assembly_top_mm": 74.649232963716,
+  "working_stroke_mm": 32.0,
+  "rod_socket_mm": 28.8,
+  "guide_engagement_at_working_stroke_mm": 12.0,
+  "chamber_nominal_id_mm": 299.72,
+  "geometry": {
+    "cavity": {
+      "volume_mm3": 572829.5706041154,
+      "valid_solid": true,
+      "solids": 1,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_bodies": 1,
+      "max_radius_mm": 135.32067075961893,
+      "chamber_radial_clearance_mm": 14.539329240381079
+    },
+    "core": {
+      "volume_mm3": 526810.4375796044,
+      "valid_solid": true,
+      "solids": 1,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_bodies": 1,
+      "max_radius_mm": 142.12846301849606,
+      "chamber_radial_clearance_mm": 7.73153698150395
+    }
+  },
+  "forming_geometry": "Original cavity and core constructions retained; fixture geometry is fused afterward. Cavity additions are cut by the same offset forming void; core additions start outside the forming brim.",
+  "motion_intersection_mm3": {
+    "0": 0.0,
+    "0.2": 0.0,
+    "1": 0.0,
+    "5": 0.0,
+    "9.8": 0.0,
+    "10": 0.0,
+    "10.2": 0.0,
+    "16": 0.0,
+    "24": 0.0,
+    "28.8": 0.0,
+    "32": 0.0,
+    "38": 0.0,
+    "44": 0.0,
+    "50": 0.0
+  },
+  "guide_sweeps": [
+    {
+      "station_degrees": 0,
+      "interference_mm3": 0.0
+    },
+    {
+      "station_degrees": 90,
+      "interference_mm3": 0.0
+    },
+    {
+      "station_degrees": 180,
+      "interference_mm3": 0.0
+    },
+    {
+      "station_degrees": 270,
+      "interference_mm3": 0.0
+    }
+  ],
+  "hardware_intersections": [
+    {
+      "part": "washer-1",
+      "printed_material_intersection_mm3": 0.0
+    },
+    {
+      "part": "jack-screw-1",
+      "printed_material_intersection_mm3": 0.0
+    },
+    {
+      "part": "square-nut-1",
+      "printed_material_intersection_mm3": 0.0
+    },
+    {
+      "part": "washer-2",
+      "printed_material_intersection_mm3": 0.0
+    },
+    {
+      "part": "jack-screw-2",
+      "printed_material_intersection_mm3": 0.0
+    },
+    {
+      "part": "square-nut-2",
+      "printed_material_intersection_mm3": 0.0
+    },
+    {
+      "part": "washer-3",
+      "printed_material_intersection_mm3": 0.0
+    },
+    {
+      "part": "jack-screw-3",
+      "printed_material_intersection_mm3": 0.0
+    },
+    {
+      "part": "square-nut-3",
+      "printed_material_intersection_mm3": 0.0
+    },
+    {
+      "part": "washer-4",
+      "printed_material_intersection_mm3": 0.0
+    },
+    {
+      "part": "jack-screw-4",
+      "printed_material_intersection_mm3": 0.0
+    },
+    {
+      "part": "square-nut-4",
+      "printed_material_intersection_mm3": 0.0
+    }
+  ],
+  "screw_head_clearance_at_full_lift_mm": [
+    5.799999999999997,
+    7.0
+  ],
+  "nut_full_thread_engagement_mm": 4.0,
+  "washer_bearing": {
+    "axis_offset_mm": 8,
+    "screw_radius_mm": 2.5,
+    "modeled_hole_radius_mm": 2.7,
+    "pocket_radial_slip_mm": 0.2,
+    "minimum_hole_edge_margin_mm": 2.5999999999999996,
+    "minimum_outer_edge_margin_mm": 1.8
+  },
+  "geometry_source_sha256": "4d1276d01b3ff089ebadbd6bc3ab55f1537318894e62f270cc38bee7f7a3ed29",
+  "hardware_purchase": {
+    "asin": "B0GHNQFZYR",
+    "screw": "M5-0.8 x 50 mm fully threaded socket head",
+    "pack_count": 40,
+    "per_mold": 4,
+    "verified_date": "2026-09-08",
+    "expected_delivery": "2026-09-11"
+  }
+}

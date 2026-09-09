@@ -13,6 +13,8 @@ rise. The washer spreads the load into a solid pad, a 45° corbel and a radial w
 rooted in the cavity's structural rib. The nut lifts against a 4.4 mm printed
 roof; the threaded engagement is steel.
 
+![One extraction station, seated and raised](extraction.png)
+
 The four screws control displacement separately. Equal turns keep the core
 level; they do not equalize force automatically. Use the included hand hex key,
 where changes in resistance can be felt. A powered driver can overload a printed
