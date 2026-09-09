@@ -10,7 +10,7 @@ the material. This one guards the PATH — the other half of what a doc says, an
 a rename breaks silently. A figure that drifts is caught by the script that derives it. A link
 that rots is caught by nobody, because nothing derives a link.
 
-WHERE A PATH RESOLVES IS THREE PLACES, NOT ONE.
+WHERE A PATH RESOLVES IS FOUR PLACES, NOT ONE.
 
   1. The index. `git ls-files`, the same reading `check_tracked` takes: a file the index does
      not hold is a file a fresh clone does not have.
@@ -22,7 +22,15 @@ WHERE A PATH RESOLVES IS THREE PLACES, NOT ONE.
      in the lock — is the case that proves it. The lock is as much a record of what the tree
      holds as the index is.
 
-  3. A TAG, WHEN THE REFERENCE NAMES ONE. A path deleted here is not dropped: a tag is cut at
+  3. THE SITE'S ROUTE TABLE, WHEN THE REFERENCE IS A URL. `[the drawings shelf](/drawings)`
+     in an update is a link a reader clicks on the site, and the site answers it — express
+     is asked for that route in `web/lib/viewer-pages.js`. Nothing named `drawings` sits in
+     this tree and nothing is meant to. The routes are read from the registrations, because
+     they are written down nowhere else, and only the LITERAL ones are read: `/tour/:step`
+     and `/steps/*splat` stand for a shape, and a shape cannot say whether one path lands.
+     So `/drawings` is a reference that resolves and `/drawingz` is a dead link.
+
+  4. A TAG, WHEN THE REFERENCE NAMES ONE. A path deleted here is not dropped: a tag is cut at
      the commit that still holds it and the reference stays, naming the tag —
 
          the artifacts are preserved at the `archive-plan-b` git tag   (bom.md)
@@ -107,6 +115,12 @@ PLACEHOLDER_MARKS = ("...", "*", "{", "}", "$", "%s", "XX", "NN", "_N.")
 SYSTEM_ROOTS = {"tmp", "Users", "home", "opt", "usr", "var", "private", "etc", "dev",
                 "mnt", "proc", "root", "srv", "sys", "bin", "sbin", "lib", "Volumes"}
 
+# THE ROUTES THE SITE SERVES, asked of the registrations themselves. A GET is what a link
+# is, so `app.get` is what is read; `app.post` takes a form and `app.use` mounts a prefix,
+# and neither is a page a reference can name. A captured path carrying `:` or `*` is a
+# shape — `/tour/:step`, `/steps/*splat` — and stands for a family rather than a page.
+ROUTE_RE = re.compile(r"""\bapp\.get\(\s*["'](/[^"'\n]*)["']""")
+
 SKIP_TREES = ("node_modules/", "tools/cad-venv/", "tools/pcb-venv/", "tools/video-venv/",
               ".pio/", "bazel-")
 
@@ -168,6 +182,30 @@ def _lock_solids() -> set:
 
 def _tags() -> set:
     return {ln for ln in _git("tag", "-l").split("\n") if ln}
+
+
+def _routes_in(text: str) -> set:
+    """The literal GET paths one web module registers."""
+    return {m.group(1) for m in ROUTE_RE.finditer(text)
+            if not any(c in m.group(1) for c in ":*")}
+
+
+def _site_routes(files: set) -> set:
+    """Every page the site hands over on a GET.
+
+    The web app has no routes table to consult: `mountViewerPages` asks express for
+    `/drawings`, `mountUpdatesRoutes` asks for `/updates`, and the site is whatever the
+    modules ask for. Read from the INDEX, the same reading a path takes — a module a fresh
+    clone does not have serves nothing.
+    """
+    routes = set()
+    for rel in sorted(f for f in files
+                      if f.startswith("web/") and f.endswith((".js", ".mjs"))):
+        try:
+            routes |= _routes_in((ROOT / rel).read_text(encoding="utf-8"))
+        except (OSError, UnicodeDecodeError):
+            continue
+    return routes
 
 
 @lru_cache(maxsize=None)
@@ -381,7 +419,7 @@ def _clean(target: str) -> str:
     return re.sub(r":\d+(?:-\d+)?$", "", p).rstrip(".,;:)\"'`")
 
 
-def check(files: set, dirs: set, solids: set, tags: set) -> list[str]:
+def check(files: set, dirs: set, solids: set, tags: set, routes: set) -> list[str]:
     """Every reference this tree makes, and the ones that land nowhere."""
     bad = []
     topdirs = {d for d in (p.split("/")[0] for p in files) if "." not in d}
@@ -434,6 +472,11 @@ def check(files: set, dirs: set, solids: set, tags: set) -> list[str]:
             # means the one at the root, and one naming `images/anim_00.h` means the sibling;
             # both are asked, and the root reading is what gets reported.
             if path.startswith("/"):
+                # A PAGE IS WHERE THIS LINK LANDS, AND A PAGE IS NOT A FILE. `/drawings` is
+                # served, and the reader who clicks it in an update arrives; the tree holds
+                # nothing by that name and is not asked to.
+                if (path.rstrip("/") or "/") in routes:
+                    continue
                 cands = [str(Path(path.lstrip("/")))]
             elif is_md:
                 cands = [str(Path(rel).parent / path)]
@@ -544,6 +587,14 @@ def _selftest() -> int:
          "/hardware/pcb/pcba/pcba.tsx")
     hold("fragment stripped", _clean("/hardware/README.md#parts"), "/hardware/README.md")
 
+    # A leading slash can be a URL, and a route is read from the registration that makes it.
+    hold("a literal route is a page a link can name",
+         _routes_in('app.get("/drawings", renderPage("drawings"));'), {"/drawings"})
+    hold("a shape is not a page",
+         _routes_in('app.get("/tour/:step", h);\napp.get("/steps/*splat", h);'), set())
+    hold("a form is not a page",
+         _routes_in('app.post("/api/subscribe", h);\napp.use("/contracts", s);'), set())
+
     # A path in a string literal is not a reference to this tree.
     hold("python: comment and docstring read, string literal not",
          sorted(t for _, t in _source_targets(
@@ -603,15 +654,15 @@ def _selftest() -> int:
 
 def main() -> int:
     files, dirs = _tracked()
-    solids, tags = _lock_solids(), _tags()
-    bad = check(files, dirs, solids, tags)
+    solids, tags, routes = _lock_solids(), _tags(), _site_routes(files)
+    bad = check(files, dirs, solids, tags, routes)
     if bad:
         for b in bad:
             print(f"  {b}")
         print(f"\n{len(bad)} reference(s) name a path nothing holds.")
         return 1
     print(f"paths: every reference lands — {len(files)} tracked, "
-          f"{len(solids)} fetched solids, {len(tags)} tags")
+          f"{len(solids)} fetched solids, {len(tags)} tags, {len(routes)} site routes")
     return 0
 
 
