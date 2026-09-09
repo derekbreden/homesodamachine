@@ -101,10 +101,6 @@ and there is no sentence to give, listed so the booklet is not mistaken for comp
 - **The charge mass.** "Under 40 g" is what [`regulatory.md`](/business/regulatory.md) supports;
   the per-unit figure comes off the first run-up
   ([`refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md)). Leaf 18 prints the bound.
-- **The flame symbol and the flammable-refrigerant marking.** Both are SNAP conditions on the
-  *unit*, and the [nameplate](/hardware/printed-parts/enclosure/nameplate/README.md) letters
-  neither. Leaf 18 carries the refrigerant and charge-mass statement, which is the condition on
-  *instructions*; where the two on-unit markings go is owned by nothing.
 - **The first hour.** Leaf 16 describes the appliance as designed. What of it runs today is not
   settled in one place: [`firmware/src_appliance/README.md`](/firmware/src_appliance/README.md)
   carries the funnel fill, the clean cycle and the dry cycle as glass-facing operations, while

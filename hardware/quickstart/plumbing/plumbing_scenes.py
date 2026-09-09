@@ -2,9 +2,10 @@
 
 The four scenes use one literal coordinate frame and one camera.  They show the
 common older-home installation: a copper wall stub, quarter-turn angle stop,
-existing braided 3/8-inch faucet supply, an interposed 3/8 x 3/8 x 1/4 tee, and
-the appliance's white 1/4-inch branch tube.  Every instructional object is CAD
-geometry; there are no labels, arrows, or raster additions.
+existing braided 3/8-inch faucet supply, the John Guest Speedfit ASVPP1LF angle
+stop adapter valve interposed in that 3/8-inch run, and the appliance's white
+1/4-inch branch tube pushed into the adapter's collet.  Every instructional
+object is CAD geometry; there are no labels, arrows, or raster additions.
 
 Frame:
     +X = installer right
@@ -69,12 +70,27 @@ VALVE_OUTLET_Z = 145.0
 
 TEE_BOTTOM_Z = 132.0
 TEE_TOP_FACE_Z = 193.0
-TEE_BRANCH_FACE_X = 47.0
+TEE_BRANCH_FACE_X = 26.0
 TEE_BRANCH_Z = 163.0
+
+# The John Guest 1/4-inch push-fit port, at the figures
+# `modern/render_modern_tee.py` takes from John Guest's published PP0208E drawing: collar,
+# collet, socket and insertion depth are one family across every fitting on this water path,
+# so the branch the customer pushes here is the branch they push on the modern sheet.
+JG_TUBE_OD = 6.35
+JG_SOCKET_D = 6.55
+JG_INSERTION = 15.7
+JG_COLLAR_D = 16.3
+JG_COLLAR_LENGTH = 8.1
+JG_COLLET_D = 9.7
+JG_COLLET_BORE = 6.70
+JG_COLLET_PROUD = 3.2
 
 
 # Instruction-lighting materials.  The two hose systems remain literal: stainless braid for the
 # pre-existing 3/8-inch faucet line and white polyethylene for the appliance's 1/4-inch branch.
+# The adapter valve is John Guest's white polypropylene, at `_materials.M_JG_WHITE_PP`, on
+# lead-free brass run threads, and its branch lever is the blue that range is moulded in.
 C_WALL = cq.Color(0.94, 0.935, 0.915, 1.0)
 C_COPPER = cq.Color(0.72, 0.31, 0.13, 1.0)
 C_BRASS = cq.Color(0.71, 0.46, 0.13, 1.0)
@@ -84,9 +100,10 @@ C_CHROME_DARK = cq.Color(0.38, 0.41, 0.45, 1.0)
 C_BRAID = cq.Color(0.50, 0.53, 0.57, 1.0)
 C_BRAID_HIGHLIGHT = cq.Color(0.76, 0.79, 0.82, 1.0)
 C_BRANCH = cq.Color(0.94, 0.945, 0.94, 1.0)
-C_BRANCH_EDGE = cq.Color(0.64, 0.66, 0.68, 1.0)
 C_HANDLE_BLUE = cq.Color(0.035, 0.27, 0.73, 1.0)
 C_GASKET = cq.Color(0.035, 0.038, 0.043, 1.0)
+C_JG_WHITE_PP = cq.Color(0.90, 0.90, 0.87, 1.0)
+C_JG_BLUE = cq.Color(0.29, 0.50, 0.76, 1.0)
 
 
 def _vector(values) -> cq.Vector:
@@ -360,8 +377,15 @@ def _add_tee(
     origin=(0.0, VALVE_AXIS_Y, TEE_BOTTOM_Z),
     open_ports: bool,
 ) -> None:
-    """Product-neutral 3/8 compression run x 1/4 compression side tee."""
+    """John Guest Speedfit ASVPP1LF angle stop adapter valve.
+
+    A white polypropylene body on lead-free brass 3/8-inch run threads, carrying a 1/4-inch
+    push-fit branch under its own quarter-turn lever.  The run ends mate as the stop's own
+    outlet does: the swivel nut draws down onto the stop's male compression thread, and the
+    riser's nut draws down onto the male thread above.  The branch takes the tube by push.
+    """
     ox, oy, oz = origin
+    branch_z = oz + 31.0
     _add(
         scene,
         _hex_nut(19.0, 11.2, 18.0, origin, (0.0, 0.0, 1.0)),
@@ -369,9 +393,9 @@ def _add_tee(
         C_CHROME,
     )
     _add(scene, _cylinder(12.0, 9.0, (ox, oy, oz + 18.0), (0.0, 0.0, 1.0)),
-         "tee-bottom-neck", C_BRASS)
-    _add(scene, _hex_prism(18.0, 18.0, (ox, oy, oz + 22.0), (0.0, 0.0, 1.0)),
-         "tee-center-wrench-body", C_BRASS)
+         "tee-bottom-brass-thread-neck", C_BRASS)
+    _add(scene, _cylinder(17.0, 20.0, (ox, oy, oz + 20.0), (0.0, 0.0, 1.0)),
+         "tee-white-polypropylene-body", C_JG_WHITE_PP)
     _add_threaded_nipple(
         scene,
         name="tee-top-three-eighths-compression-thread",
@@ -383,49 +407,73 @@ def _add_tee(
         pitch=2.0,
         color=C_BRASS_LIGHT,
     )
-    _add(scene, _cylinder(11.0, 32.0, (ox, oy, oz + 31.0), (1.0, 0.0, 0.0)),
-         "tee-quarter-inch-branch-neck", C_BRASS)
-    _add(scene, _hex_prism(14.0, 8.0, (ox + 24.0, oy, oz + 31.0), (1.0, 0.0, 0.0)),
-         "tee-quarter-inch-branch-shoulder", C_BRASS)
-    _add_threaded_nipple(
-        scene,
-        name="tee-quarter-inch-compression-thread",
-        base=(ox + 31.0, oy, oz + 31.0),
-        axis=(1.0, 0.0, 0.0),
-        root_d=7.7,
-        crest_d=8.7,
-        length=16.0,
-        pitch=1.75,
-        color=C_BRASS_LIGHT,
+
+    # The push-fit branch: a stub arm, the full-diameter collar, and the release collet
+    # standing proud of it, socketed to the tube's own insertion depth.
+    face_x = ox + TEE_BRANCH_FACE_X
+    collar_x = face_x - JG_COLLET_PROUD - JG_COLLAR_LENGTH
+    branch_axis = (1.0, 0.0, 0.0)
+    branch_body = _cylinder(12.0, collar_x - ox, (ox, oy, branch_z), branch_axis).fuse(
+        _cylinder(JG_COLLAR_D, JG_COLLAR_LENGTH, (collar_x, oy, branch_z), branch_axis)
     )
+    socket = _cylinder(
+        JG_SOCKET_D,
+        JG_INSERTION + 0.2,
+        (face_x - JG_INSERTION, oy, branch_z),
+        branch_axis,
+    )
+    _add(scene, branch_body.cut(socket), "tee-quarter-inch-branch-body", C_JG_WHITE_PP)
+    _add(
+        scene,
+        _ring(
+            JG_COLLET_D,
+            JG_COLLET_BORE,
+            JG_COLLET_PROUD,
+            (face_x - JG_COLLET_PROUD, oy, branch_z),
+            branch_axis,
+        ),
+        "tee-quarter-inch-release-collet",
+        C_JG_WHITE_PP,
+    )
+
+    # The branch's quarter-turn, a quarter of the way around the body from the port it shuts:
+    # a moulded stem boss out of the body and the blue lever standing parallel to the run.
+    stem_axis = (0.0, 1.0, 0.0)
+    _add(scene, _cylinder(11.0, 8.0, (ox, oy + 4.0, branch_z), stem_axis),
+         "tee-branch-valve-stem-boss", C_JG_WHITE_PP)
+    _add(scene, _cylinder(12.0, 6.0, (ox, oy + 10.0, branch_z), stem_axis),
+         "tee-branch-quarter-turn-hub", C_JG_BLUE)
+    _add(
+        scene,
+        cq.Solid.makeBox(7.5, 4.0, 11.0, cq.Vector(ox - 3.75, oy + 11.0, branch_z + 1.5)),
+        "tee-branch-quarter-turn-lever",
+        C_JG_BLUE,
+    )
+    _add(scene, _cylinder(7.5, 4.0, (ox, oy + 11.0, branch_z + 12.5), stem_axis),
+         "tee-branch-lever-end", C_JG_BLUE)
+
     if open_ports:
         _add(scene, _ring(10.8, 5.4, 0.7, origin, (0.0, 0.0, 1.0)),
              "tee-free-bottom-gasket", C_GASKET)
         _add(scene, _cylinder(5.4, 0.6, (ox, oy, oz + 61.0), (0.0, 0.0, 1.0)),
              "tee-open-top-waterway", C_GASKET)
-        _add(scene, _cylinder(4.0, 0.6, (ox + 47.0, oy, oz + 31.0), (1.0, 0.0, 0.0)),
-             "tee-open-branch-waterway", C_GASKET)
+        _add(
+            scene,
+            _ring(JG_SOCKET_D - 0.2, 5.0, 1.4, (face_x - 4.0, oy, branch_z), branch_axis),
+            "tee-open-branch-grab-ring",
+            C_CHROME_DARK,
+        )
 
 
-def _add_appliance_branch(
-    scene: cq.Assembly,
-    *,
-    connector_base,
-    tube_points,
-    free: bool,
-) -> None:
-    """White 1/4-inch appliance tube with a conventional compression nut and ferrule."""
-    x, y, z = connector_base
-    _add(scene, _hex_nut(14.0, 9.1, 18.0, connector_base, (1.0, 0.0, 0.0)),
-         "appliance-branch-quarter-inch-nut", C_CHROME)
-    _add(scene, _cylinder(9.3, 11.0, (x + 18.0, y, z), (1.0, 0.0, 0.0)),
-         "appliance-branch-strain-relief", C_BRANCH_EDGE)
-    if free:
-        _add(scene, _ring(9.0, 3.8, 0.7, connector_base, (1.0, 0.0, 0.0)),
-             "appliance-branch-free-gasket", C_GASKET)
+def _add_appliance_branch(scene: cq.Assembly, *, tube_points) -> None:
+    """The appliance's white 1/4-inch tube, bare-ended: the branch joint is the tube itself.
+
+    Its first point is where the square-cut end stands — at the collet's internal tube stop
+    once it is pushed home, and clear of the port face while the fitting is still loose.
+    """
     _add(
         scene,
-        _round_sweep(tube_points, 3.175, (1.0, 0.0, 0.0), (0.0, 0.0, -1.0)),
+        _round_sweep(tube_points, JG_TUBE_OD / 2.0, (1.0, 0.0, 0.0), (0.0, 0.0, -1.0)),
         "white-quarter-inch-appliance-branch",
         C_BRANCH,
     )
@@ -477,8 +525,8 @@ def _pre_tee_scene() -> cq.Assembly:
     staged_branch_z = staged_tee[2] + 31.0
     _add_appliance_branch(
         scene,
-        connector_base=(130.0, staged_tee[1], staged_branch_z),
         tube_points=(
+            (staged_tee[0] + TEE_BRANCH_FACE_X + 20.0, staged_tee[1], staged_branch_z),
             (159.0, staged_tee[1], staged_branch_z),
             (181.0, staged_tee[1], staged_branch_z),
             (176.0, 78.0, 155.0),
@@ -486,7 +534,6 @@ def _pre_tee_scene() -> cq.Assembly:
             (158.0, 76.0, 69.0),
             (153.0, 75.0, -15.0),
         ),
-        free=True,
     )
     return scene
 
@@ -508,8 +555,8 @@ def _tee_installed_scene() -> cq.Assembly:
     )
     _add_appliance_branch(
         scene,
-        connector_base=(35.0, VALVE_AXIS_Y, TEE_BRANCH_Z),
         tube_points=(
+            (TEE_BRANCH_FACE_X - JG_INSERTION, VALVE_AXIS_Y, TEE_BRANCH_Z),
             (64.0, VALVE_AXIS_Y, TEE_BRANCH_Z),
             (82.0, 58.0, 158.0),
             (111.0, 69.0, 137.0),
@@ -517,7 +564,6 @@ def _tee_installed_scene() -> cq.Assembly:
             (148.0, 76.0, 45.0),
             (153.0, 75.0, -15.0),
         ),
-        free=False,
     )
     return scene
 
