@@ -236,6 +236,12 @@ ol > li::before {
   margin-right: auto;
 }
 
+/* A fork whose two answers are told apart by looking: the picture stands beside its own
+   question rather than above both, so it costs the width the text was not using. */
+.choice-art { display: flex; gap: 30px; align-items: flex-start; }
+.choice-art .plate { flex: 0 0 320px; margin-top: 6px; }
+.choice-art .choice-body { flex: 1 1 auto; min-width: 0; }
+
 .plate-caption {
   margin-top: 16px;
   color: var(--muted);
