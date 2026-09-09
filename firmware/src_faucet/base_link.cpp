@@ -532,11 +532,9 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
   }
 
   // An error frame carries a channel number and no token, so it cannot say
-  // which request it answers. A selection is absolute and retried on its own
-  // clock, and the main board's heartbeat settles it either way — so this is
-  // counted and nothing is dropped on its account. Retiring the head here
-  // cancelled a pending selection whenever the main board refused some other
-  // frame, which is what an older main board does to every id it does not know.
+  // which request it answers. A selection is absolute, retried on its own
+  // clock, and settled either way by the main board's heartbeat — so this is
+  // counted, and nothing in the queue turns on it.
   if (type >= MSG_ERR_SLOT_INVALID && type <= MSG_ERR_UNSUPPORTED) {
     ++staleResponses;
   }
