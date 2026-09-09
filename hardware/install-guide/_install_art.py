@@ -30,6 +30,8 @@ from pathlib import Path
 
 os.environ.setdefault("HSM_NO_BUILD_LOCK", "1")
 
+import math
+
 import cadquery as cq  # noqa: E402
 
 HERE = Path(__file__).resolve().parent
@@ -90,6 +92,9 @@ WHITE_TUBE = cq.Color(0.90, 0.90, 0.93, 1.0)
 RED_TUBE = cq.Color(0.78, 0.20, 0.20, 1.0)
 BLUE_TUBE = cq.Color(0.16, 0.40, 0.75, 1.0)
 BLACK_PART = cq.Color(0.10, 0.10, 0.12, 1.0)
+FILTER_BODY = cq.Color(0.905, 0.915, 0.94, 1.0)
+FILTER_CAP = cq.Color(0.42, 0.45, 0.49, 1.0)
+PRINTED = cq.Color(0.26, 0.27, 0.30, 1.0)
 
 
 def _box(x0, y0, z0, sx, sy, sz):
@@ -127,6 +132,57 @@ def _run(points, diameter=TUBE_D):
         ball = cq.Workplane("XY", origin=point).sphere(diameter / 2.0)
         solid = ball if solid is None else solid.union(ball)
     return solid
+
+
+def _bend(points, diameter=TUBE_D, radius=55.0, steps=20):
+    """A tube along axis-aligned segments whose corners are swept, not broken.
+
+    Every turn is a quarter arc of `radius` tangent to both legs, sampled into
+    stubs with a ball at each joint, so the run reads as the easy curve a
+    1/4-inch line actually takes. `_run` puts one ball at the corner itself,
+    which is the kink the filter page tells you not to make. The pieces overlap
+    in a compound rather than a boolean union: same colour, one read, no solid
+    modelling for a shape that is only ever looked at.
+    """
+    samples = [list(points[0])]
+    for i, corner in enumerate(points[1:-1], start=1):
+        u = _unit([corner[k] - points[i - 1][k] for k in range(3)])
+        v = _unit([points[i + 1][k] - corner[k] for k in range(3)])
+        if abs(sum(a * b for a, b in zip(u, v))) > 1e-6:
+            raise ValueError("a bend turns a square corner")
+        entry = [corner[k] - u[k] * radius for k in range(3)]
+        centre = [corner[k] - u[k] * radius + v[k] * radius for k in range(3)]
+        exit_ = [corner[k] + v[k] * radius for k in range(3)]
+        a1 = math.atan2(entry[1] - centre[1], entry[0] - centre[0])
+        a2 = math.atan2(exit_[1] - centre[1], exit_[0] - centre[0])
+        turn = (a2 - a1 + math.pi) % (2.0 * math.pi) - math.pi
+        samples.append(entry)
+        for step in range(1, steps + 1):
+            angle = a1 + turn * step / steps
+            samples.append([centre[0] + radius * math.cos(angle),
+                            centre[1] + radius * math.sin(angle),
+                            centre[2]])
+        samples[-1] = exit_
+    samples.append(list(points[-1]))
+
+    pieces = []
+    for a, b in zip(samples, samples[1:]):
+        span = cq.Vector(b[0] - a[0], b[1] - a[1], b[2] - a[2])
+        if span.Length < 1e-9:
+            continue
+        pieces.append(cq.Solid.makeCylinder(
+            diameter / 2.0, span.Length, cq.Vector(*a), span.normalized()))
+    for point in samples[1:-1]:
+        pieces.append(cq.Solid.makeSphere(
+            diameter / 2.0, cq.Vector(*point), angleDegrees1=-90.0))
+    return cq.Compound.makeCompound(pieces)
+
+
+def _unit(vec):
+    mag = math.sqrt(sum(c * c for c in vec))
+    return [c / mag for c in vec]
+
+
 
 
 def _add(assembly, shape, name, color):
@@ -199,19 +255,24 @@ def s_filter_in_cabinet():
     """The cartridge lying flat, the white run easing into both ends with no tight bend."""
     a = cq.Assembly(name="filter-scene")
     z = FILTER_D / 2.0
-    _add(a, _cyl(-FILTER_L / 2.0, 110.0, z, FILTER_D, FILTER_L, axis="X"),
-         "cartridge", CORAL)
-    _add(a, _run([(-FILTER_L / 2.0, 110.0, z), (-300.0, 110.0, z), (-300.0, -40.0, z)]),
-         "white-run-in", BLACK_PART)
-    _add(a, _run([(FILTER_L / 2.0, 110.0, z), (300.0, 110.0, z), (300.0, -40.0, z)]),
-         "white-run-out", BLACK_PART)
+    half, cap = FILTER_L / 2.0, 26.0
+    _add(a, _cyl(-half + cap, 110.0, z, FILTER_D, FILTER_L - 2 * cap, axis="X"),
+         "cartridge", FILTER_BODY)
+    for side in (-1.0, 1.0):
+        end = half - cap if side > 0 else -half
+        _add(a, _cyl(end, 110.0, z, FILTER_D * 0.62, cap, axis="X"),
+             f"quick-connect-{'out' if side > 0 else 'in'}", FILTER_CAP)
+    _add(a, _bend([(-half, 110.0, z), (-330.0, 110.0, z), (-330.0, -40.0, z)]),
+         "white-run-in", WHITE_TUBE)
+    _add(a, _bend([(half, 110.0, z), (330.0, 110.0, z), (330.0, -40.0, z)]),
+         "white-run-out", WHITE_TUBE)
     return a
 
 
 def s_collet_press():
     """The little printed tool: what takes any 1/4 inch push fitting in this system apart."""
     a = cq.Assembly(name="collet-press-scene")
-    a.add(import_step(str(COLLET_PRESS)), name="collet-press", color=CORAL)
+    a.add(import_step(str(COLLET_PRESS)), name="collet-press", color=PRINTED)
     return a
 
 
@@ -221,7 +282,7 @@ SCENES = {
                                 span=120.0, size="1900x1600")),
     "filter-in-cabinet": (s_filter_in_cabinet, dict(cam=(0.32, -1.0, 0.52),
                                                 size="2200x1200")),
-    "collet-press": (s_collet_press, dict(cam=(0.6, -1.0, 0.75), size="1700x1100")),
+    "collet-press": (s_collet_press, dict(cam=(-0.5, -0.9, 0.85), size="1700x1100")),
 }
 
 
