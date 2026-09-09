@@ -20,16 +20,18 @@ shears (horizontal bands shift sideways). So the panel is driven through
 `esp_lcd` directly (not Arduino_GFX, which only does a single framebuffer) with
 two defenses:
 
-- **Two framebuffers** (`num_fbs = 2`): LVGL renders the buffer that the bounce
-  path is not reading. `on_frame_buf_complete` releases LVGL only after the
+- **Two framebuffers** (`flags.double_fb`, which is what the driver reads —
+  `num_fbs = 2` is set beside it and validated against it): LVGL renders the
+  buffer that the bounce path is not reading. `on_frame_buf_complete` releases LVGL only after the
   driver has copied one complete source frame and selected the next one. LVGL
   runs in `direct_mode` with its two draw buffers pointed straight at the two
   panel framebuffers: flush is zero-copy, and repaint cost follows the invalidated
   area instead of filling all 800×480 pixels for every small change.
 - **Bounce buffer** (`bounce_buffer_size_px = width × 10`): the scan-out DMA
-  reads from a small internal-SRAM buffer refilled from PSRAM in the
-  background, so PSRAM write bursts can't starve the live scanline — this is
-  what removes the shearing.
+  reads from two small internal-SRAM buffers, ping-ponged and refilled from
+  PSRAM in the background, so PSRAM write bursts can't starve the live scanline
+  — this is what removes the shearing. 800 × 10 px at 16 bpp is 16,000 B each,
+  and 48 of them span one frame.
 
 The two 800×480 RGB565 framebuffers (~1.5 MB) live in PSRAM, so OPI PSRAM is
 mandatory — the `esp32-s3-devkitc1-n16r8` board def in `platformio.ini` enables
@@ -41,9 +43,13 @@ the board stays flashable without a manual BOOT-button recovery.
 
 ### Frame alignment at wake
 
-The enclosure display links its local ESP-IDF v5.5.4 RGB driver configuration. Its scan ISR
-is IRAM-safe and performs GDMA recovery only after an actual bounce-buffer EOF
-shortfall or an explicit `PANEL:REALIGN`, never as routine work at each VSYNC.
+[`esp_lcd_panel_rgb_local.c`](esp_lcd_panel_rgb_local.c) is a copy of the ESP-IDF v5.5.4 RGB
+driver, compiled into this environment in place of the archive member; it differs from
+upstream in six places, listed at the top of the file. Its scan ISR runs from IRAM, so
+ordinary flash and PSRAM traffic cannot delay it, and it performs GDMA recovery only after an
+actual bounce-buffer EOF shortfall or an explicit `PANEL:REALIGN`, never as routine work at
+each VSYNC. The panel comes down before any flash write either way
+([`main.cpp`](main.cpp)'s `otaStopPanel`), because the bounce fill reads PSRAM.
 The application callback wakes a high-priority task; that task writes the
 panel-control expander only when the shared I2C bus is free early enough in that
 blank, otherwise it retries on the next one. Bounce-buffer completion—not
@@ -59,8 +65,8 @@ changing the 16 MHz pixel clock or normal rendering path.
 
 `PANEL:KICK` runs that same non-blocking sequence without waiting for idle.
 `GET_PANEL` reports completed frames and submissions, wake start/completion/stage,
-VSYNC-phased action/retry counts, genuine RGB scan recoveries, frame wait
-timeouts, draw failures, and CH422G write failures. The live checker's
+VSYNC-phased action/retry counts, the bounce-buffer EOF shortfalls the driver caught,
+frame wait timeouts, draw failures, and CH422G write failures. The live checker's
 `--wake-cycles N` option repeats the actual dark-to-lit path and requires those
 error counters to remain unchanged.
 
@@ -225,8 +231,8 @@ Newline-terminated, 115200 baud over the native USB CDC:
   render high-water, flavor replication, touch, memory,
   backlight, animation frame and uptime
 - `GET_PANEL` → completed frame/submission counts, wake stage and completion,
-  VSYNC-phased panel-control actions, scan recovery, draw/frame timeouts, and CH422G
-  write errors
+  VSYNC-phased panel-control actions, caught EOF shortfalls, draw/frame timeouts, and
+  CH422G write errors
 - `BL:0` / `BL:1` → backlight off / on (drives CH422G EXIO2)
 - `IDLE:0`..`IDLE:3` → wake, or take a rung of the idle ladder without waiting it out
 - `PAGE:0`..`PAGE:3` → show one rail destination (CHOOSE, PRIME, FILL, CLEAN);
