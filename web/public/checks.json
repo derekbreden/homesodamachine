@@ -52,8 +52,8 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "1 reference(s) name a path nothing holds.",
-      "status": "red"
+      "note": "paths: every reference lands — 1640 tracked, 329 fetched solids, 55 tags, 38 site routes",
+      "status": "ok"
     },
     {
       "check": "tools/check_release_room.py",
@@ -82,7 +82,7 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 2 of 6 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 335 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 1 of 3 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 335 member(s) keep their provenance",
       "status": "ok"
     }
   ],
@@ -91,10 +91,6 @@
       "enclosure-assembly.facts.json was taken from a different tree — it holds 16bd61e06195e6f2a8435f2e79655762 for the 124 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 796d1040ecbf41268cf085db3a9c8454 here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
-    ],
-    "tools/check_paths.py": [
-      "updates/2026-09-09-a-mold-for-the-funnel.md:33 — drawings is held nowhere, and no tag is named for it",
-      "1 reference(s) name a path nothing holds."
     ]
   },
   "green": false
