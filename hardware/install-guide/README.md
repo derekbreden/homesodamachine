@@ -86,9 +86,10 @@ and there is no sentence to give, listed so the booklet is not mistaken for comp
 
 - **The older-kitchen tee's 1/4-inch joint.** No ferrule, nut or tube insert is called out for the
   HAOCHEN's compression outlet anywhere in [`bom.md`](/hardware/ledger/bom.md) — the one stiffener
-  the build buys is spoken for at the Westbrass. Leaf 11 describes the joint without naming its
-  parts, which is the most that is true today. Wrench sizes, tightening spec and whether PTFE tape
-  belongs on any customer joint are equally unstated.
+  the build buys is spoken for at the Westbrass. This is the one step in the booklet a buyer cannot
+  finish with what ships, so leaf 11 says so and sends them to the consultation before they start
+  it. Wrench sizes, tightening spec and whether PTFE tape belongs on any customer joint are equally
+  unstated.
 - **Which stops scenario B fits.** `bom.md` "External / user-supplied" says a 3/8" *or 1/2"* angle
   stop; the part and [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) say 3/8"
   only. Leaf 11 sends a buyer with anything else to the consultation.
@@ -110,11 +111,24 @@ and there is no sentence to give, listed so the booklet is not mistaken for comp
   *unit*, and the [nameplate](/hardware/printed-parts/enclosure/nameplate/README.md) letters
   neither. Leaf 18 carries the refrigerant and charge-mass statement, which is the condition on
   *instructions*; where the two on-unit markings go is owned by nothing.
-- **The first hour.** Leaf 16 describes the appliance as designed. `src_appliance/` runs one
-  flavor pump and nothing else today
-  ([`firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md)), so no
-  fill, chill or pour behind that leaf is exercised yet.
+- **The first hour.** Leaf 16 describes the appliance as designed. What of it runs today is not
+  settled in one place: [`firmware/src_appliance/README.md`](/firmware/src_appliance/README.md)
+  carries the funnel fill, the clean cycle and the dry cycle as glass-facing operations, while
+  [`firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md) open item 1
+  says `src_appliance/` runs one flavor pump and nothing else. One of the two is stale. Nothing
+  drives the compressor either way, so the chill behind that leaf is not exercised.
 - **Service.** Leaf 20 sends the buyer to the link the nameplate letters. No warranty term, RMA
   path, support address or `/u/NNNN` route exists.
+- **The CO2 setpoint band.** Leaf 13 repeats the tree's own customer guidance verbatim —
+  [`pressure-vessel.md`](/hardware/assembly/pressure-vessel.md) "CO2 supply": set the primary
+  anywhere in 70–100 PSI, because the in-appliance WR1110 holds the appliance side at 90 PSI
+  "regardless of where the primary is set". A fixed 90 PSI regulator can only reduce, so a primary
+  left at 70 gives the carbonator 70 and not 90. Either the band or the "regardless" wants
+  revisiting upstream; the leaf follows whichever the tree lands on.
+- **The CO2 station's bulkhead ring.** Leaf 13 tells the buyer to find a red-ringed port.
+  [`bulkhead-ring/README.md`](/hardware/printed-parts/enclosure/bulkhead-ring/README.md) gives that
+  ring its colour and the rear-panel render draws it, while
+  [`y-wall-of-back-top/README.md`](/hardware/printed-parts/enclosure/y-wall-of-back-top/README.md)
+  open items still say the ring waits on its own bulkhead. One of the two is stale.
 - **The cold kit's own guide.** Named on leaf 17, in [`bom.md`](/hardware/ledger/bom.md) §14 and in
   the pack-out, and not written.
