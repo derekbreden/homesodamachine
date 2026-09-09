@@ -197,6 +197,153 @@ cp hardware/printed-parts/cold-core/_port_cuts.py $$O2
 )
 
 genrule(
+    name = "electronics-bay-sync",
+    srcs = [
+        "pysrc/hardware/assembly/_electronics_bay_sync.py",
+        "hardware/assembly/electronics-bay.md",
+        "pysrc/hardware/cold-core-layout/_bom.py",
+        "pysrc/hardware/cold-core-layout/_carbonator.py",
+        "pysrc/hardware/cold-core-layout/_coil.py",
+        "pysrc/hardware/cold-core-layout/_cold_core_style.py",
+        "pysrc/hardware/cold-core-layout/_cold_scorecard.py",
+        "pysrc/hardware/cold-core-layout/_fittings.py",
+        "pysrc/hardware/cold-core-layout/_internals.py",
+        "pysrc/hardware/cold-core-layout/cold_core_assembly.py",
+        "pysrc/hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
+        "pysrc/hardware/manifold-layout/_lines.py",
+        "pysrc/hardware/manifold-layout/_scorecard.py",
+        ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.facts.json",
+        ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.scorecard.json",
+        "pysrc/hardware/manifold-layout/enclosure_assembly.py",
+        "pysrc/hardware/manifold-layout/manifold_layout.py",
+        "pysrc/hardware/printed-parts/cadlib/cable_clip.py",
+        "pysrc/hardware/printed-parts/cadlib/fits.py",
+        "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
+        "pysrc/hardware/printed-parts/cadlib/reeding.py",
+        "pysrc/hardware/printed-parts/cadlib/snap.py",
+        "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
+        "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "pysrc/hardware/printed-parts/cold-core/_foam_cap.py",
+        "pysrc/hardware/printed-parts/cold-core/_internal_routes.py",
+        "pysrc/hardware/printed-parts/cold-core/_outer_shell.py",
+        "pysrc/hardware/printed-parts/cold-core/_port_cuts.py",
+        "pysrc/hardware/printed-parts/cold-core/_reed_channels.py",
+        "pysrc/hardware/printed-parts/cold-core/_support_ring.py",
+        "pysrc/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
+        "pysrc/hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py",
+        "pysrc/hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
+        "pysrc/hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py",
+        "pysrc/hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py",
+        "pysrc/hardware/printed-parts/cold-core/reservoir/reservoir.py",
+        "pysrc/hardware/printed-parts/electronics/module_tray.py",
+        "pysrc/hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
+        "pysrc/hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py",
+        "pysrc/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py",
+        "pysrc/hardware/printed-parts/enclosure/display-cover/display_cover.py",
+        "pysrc/hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/enclosure.py",
+        "pysrc/hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py",
+        "pysrc/hardware/printed-parts/enclosure/nameplate/nameplate.py",
+        "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
+        "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
+        "pysrc/hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py",
+        "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
+        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/printed-parts/faucet/tube-collar/tube_collar.py",
+        "pysrc/hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py",
+        "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
+        "pysrc/hardware/printed-parts/zone-c/funnel/funnel.py",
+        "pysrc/hardware/reference/asse1022-assembly/asse1022_assembly.py",
+        "pysrc/hardware/reference/beduan-solenoid/beduan_solenoid.py",
+        "pysrc/hardware/reference/compressor/compressor.py",
+        "pysrc/hardware/reference/condenser-block/condenser_block.py",
+        "pysrc/hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py",
+        "pysrc/hardware/reference/elbow-connector/elbow_connector.py",
+        "pysrc/hardware/reference/flare38-14ptc/flare38_14ptc.py",
+        "pysrc/hardware/reference/funnel-drain-stub/funnel_drain_stub.py",
+        "pysrc/hardware/reference/gagira-reducing-coupling/gagira_reducing_coupling.py",
+        "pysrc/hardware/reference/gasher-check-valve/gasher_check_valve.py",
+        "pysrc/hardware/reference/ground-ring-stack/ground_ring_stack.py",
+        "pysrc/hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
+        "pysrc/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
+        "pysrc/hardware/reference/jg-pp010822e/jg_pp010822e.py",
+        "pysrc/hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
+        "pysrc/hardware/reference/lee-lcm060c12m/lee_lcm060c12m.py",
+        "pysrc/hardware/reference/meanwell-irm90/meanwell_irm90.py",
+        "pysrc/hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
+        "pysrc/hardware/reference/multiplex-asse1022/multiplex_asse1022.py",
+        "pysrc/hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
+        "pysrc/hardware/reference/neofit-flow-control/neofit_flow_control.py",
+        "pysrc/hardware/reference/riteav-keystone/riteav_keystone.py",
+        "pysrc/hardware/reference/seaflo-22-pump/seaflo_22_pump.py",
+        "pysrc/hardware/reference/seaflo-discharge-chain/seaflo_discharge_chain.py",
+        "pysrc/hardware/reference/seaflo-suction-chain/seaflo_suction_chain.py",
+        "pysrc/hardware/reference/sf76e-thermal-fuse/sf76e_thermal_fuse.py",
+        "pysrc/hardware/reference/shutao-moisture-plate/shutao_moisture_plate.py",
+        "hardware/reference/tee-connector/tee-connector.step",
+        "pysrc/hardware/reference/tee-connector/tee_connector.py",
+        "pysrc/hardware/reference/teyleten-relay/teyleten_relay.py",
+        "pysrc/hardware/reference/wago-221/wago_221.py",
+        "pysrc/hardware/reference/water-split/water_split.py",
+        "pysrc/hardware/reference/waveshare-43b-display/waveshare_43b_display.py",
+        "pysrc/hardware/reference/worm-clamp/worm_clamp.py",
+        "pysrc/hardware/reference/wr1110-regulator/wr1110_regulator.py",
+        "pysrc/hardware/reference/y-divider/y_divider.py",
+        "pysrc/hardware/scripts/_boxes.py",
+        "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_card.py",
+        "pysrc/hardware/scripts/_clearing.py",
+        "pysrc/hardware/scripts/_facts.py",
+        "pysrc/hardware/scripts/_material_base.py",
+        "pysrc/hardware/scripts/_materials.py",
+        "pysrc/hardware/scripts/_measuring.py",
+        "pysrc/hardware/scripts/_meshes.py",
+        "pysrc/hardware/scripts/_overlap.py",
+        "pysrc/hardware/scripts/_realized.py",
+        "pysrc/hardware/scripts/_routing.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_seating.py",
+        "pysrc/hardware/scripts/_stated_bounds.py",
+        "pysrc/hardware/scripts/pick_text.py",
+        "pysrc/hardware/wiring/_ac_wiring_schedule_sync.py",
+        "pysrc/tools/docgen/__init__.py",
+    ] + glob(
+        [
+            "hardware/assembly/electronics-bay.figures.json",
+        ],
+        allow_empty = True,
+    ),
+    outs = [
+        "out/electronics-bay-sync/hardware/assembly/electronics-bay.figures.json",
+        "out/electronics-bay-sync/hardware/assembly/electronics-bay.md",
+    ],
+    cmd = """
+set -e
+O0=$$PWD/$(location out/electronics-bay-sync/hardware/assembly/electronics-bay.figures.json)
+O1=$$PWD/$(location out/electronics-bay-sync/hardware/assembly/electronics-bay.md)
+for f in $(SRCS); do
+  case $$f in
+    */node_modules/*) continue;;
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    */pysrc/*) t=$${f##*/pysrc/};;
+    *) t=$$f;;
+  esac
+  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+done
+cd work
+ln -sfn $$HSM_WORKSPACE/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/assembly/_electronics_bay_sync.py > /dev/null
+cp hardware/assembly/electronics-bay.figures.json $$O0
+cp hardware/assembly/electronics-bay.md $$O1
+""",
+)
+
+genrule(
     name = "enclosure-mechanical-sync",
     srcs = [
         "pysrc/hardware/assembly/_enclosure_mechanical_sync.py",
@@ -741,154 +888,6 @@ cp hardware/assembly/internal-plumbing.md $$O1
 )
 
 genrule(
-    name = "power-column-sync",
-    srcs = [
-        "pysrc/hardware/assembly/_power_column_sync.py",
-        "hardware/assembly/power-column.md",
-        "pysrc/hardware/cold-core-layout/_bom.py",
-        "pysrc/hardware/cold-core-layout/_carbonator.py",
-        "pysrc/hardware/cold-core-layout/_coil.py",
-        "pysrc/hardware/cold-core-layout/_cold_core_style.py",
-        "pysrc/hardware/cold-core-layout/_cold_scorecard.py",
-        "pysrc/hardware/cold-core-layout/_fittings.py",
-        "pysrc/hardware/cold-core-layout/_internals.py",
-        "pysrc/hardware/cold-core-layout/cold_core_assembly.py",
-        "pysrc/hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
-        "pysrc/hardware/manifold-layout/_lines.py",
-        "pysrc/hardware/manifold-layout/_scorecard.py",
-        ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.facts.json",
-        ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.scorecard.json",
-        "pysrc/hardware/manifold-layout/enclosure_assembly.py",
-        "pysrc/hardware/manifold-layout/manifold_layout.py",
-        "pysrc/hardware/printed-parts/cadlib/cable_clip.py",
-        "pysrc/hardware/printed-parts/cadlib/fits.py",
-        "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
-        "pysrc/hardware/printed-parts/cadlib/plan.py",
-        "pysrc/hardware/printed-parts/cadlib/reeding.py",
-        "pysrc/hardware/printed-parts/cadlib/snap.py",
-        "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
-        "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
-        "pysrc/hardware/printed-parts/cold-core/_foam_cap.py",
-        "pysrc/hardware/printed-parts/cold-core/_internal_routes.py",
-        "pysrc/hardware/printed-parts/cold-core/_outer_shell.py",
-        "pysrc/hardware/printed-parts/cold-core/_port_cuts.py",
-        "pysrc/hardware/printed-parts/cold-core/_reed_channels.py",
-        "pysrc/hardware/printed-parts/cold-core/_support_ring.py",
-        "pysrc/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
-        "pysrc/hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py",
-        "pysrc/hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
-        "pysrc/hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py",
-        "pysrc/hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py",
-        "pysrc/hardware/printed-parts/cold-core/reservoir/reservoir.py",
-        "pysrc/hardware/printed-parts/electronics/module_tray.py",
-        "pysrc/hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
-        "pysrc/hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py",
-        "pysrc/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py",
-        "pysrc/hardware/printed-parts/enclosure/display-cover/display_cover.py",
-        "pysrc/hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/enclosure.py",
-        "pysrc/hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py",
-        "pysrc/hardware/printed-parts/enclosure/nameplate/nameplate.py",
-        "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
-        "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-        "pysrc/hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py",
-        "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
-        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-        "pysrc/hardware/printed-parts/faucet/tube-collar/tube_collar.py",
-        "pysrc/hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py",
-        "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
-        "pysrc/hardware/printed-parts/zone-c/funnel/funnel.py",
-        "pysrc/hardware/reference/asse1022-assembly/asse1022_assembly.py",
-        "pysrc/hardware/reference/beduan-solenoid/beduan_solenoid.py",
-        "pysrc/hardware/reference/compressor/compressor.py",
-        "pysrc/hardware/reference/condenser-block/condenser_block.py",
-        "pysrc/hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py",
-        "pysrc/hardware/reference/elbow-connector/elbow_connector.py",
-        "pysrc/hardware/reference/flare38-14ptc/flare38_14ptc.py",
-        "pysrc/hardware/reference/funnel-drain-stub/funnel_drain_stub.py",
-        "pysrc/hardware/reference/gagira-reducing-coupling/gagira_reducing_coupling.py",
-        "pysrc/hardware/reference/gasher-check-valve/gasher_check_valve.py",
-        "pysrc/hardware/reference/ground-ring-stack/ground_ring_stack.py",
-        "pysrc/hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
-        "pysrc/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
-        "pysrc/hardware/reference/jg-pp010822e/jg_pp010822e.py",
-        "pysrc/hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
-        "pysrc/hardware/reference/lee-lcm060c12m/lee_lcm060c12m.py",
-        "pysrc/hardware/reference/meanwell-irm90/meanwell_irm90.py",
-        "pysrc/hardware/reference/molex-micro-fit-4/molex_micro_fit_4.py",
-        "pysrc/hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
-        "pysrc/hardware/reference/multiplex-asse1022/multiplex_asse1022.py",
-        "pysrc/hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
-        "pysrc/hardware/reference/neofit-flow-control/neofit_flow_control.py",
-        "pysrc/hardware/reference/riteav-keystone/riteav_keystone.py",
-        "pysrc/hardware/reference/seaflo-22-pump/seaflo_22_pump.py",
-        "pysrc/hardware/reference/seaflo-discharge-chain/seaflo_discharge_chain.py",
-        "pysrc/hardware/reference/seaflo-suction-chain/seaflo_suction_chain.py",
-        "pysrc/hardware/reference/sf76e-thermal-fuse/sf76e_thermal_fuse.py",
-        "pysrc/hardware/reference/shutao-moisture-plate/shutao_moisture_plate.py",
-        "pysrc/hardware/reference/tee-connector/tee_connector.py",
-        "pysrc/hardware/reference/teyleten-relay/teyleten_relay.py",
-        "pysrc/hardware/reference/wago-221/wago_221.py",
-        "pysrc/hardware/reference/water-split/water_split.py",
-        "pysrc/hardware/reference/waveshare-43b-display/waveshare_43b_display.py",
-        "pysrc/hardware/reference/worm-clamp/worm_clamp.py",
-        "pysrc/hardware/reference/wr1110-regulator/wr1110_regulator.py",
-        "pysrc/hardware/reference/y-divider/y_divider.py",
-        "pysrc/hardware/scripts/_boxes.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_card.py",
-        "pysrc/hardware/scripts/_clearing.py",
-        "pysrc/hardware/scripts/_facts.py",
-        "pysrc/hardware/scripts/_material_base.py",
-        "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_measuring.py",
-        "pysrc/hardware/scripts/_meshes.py",
-        "pysrc/hardware/scripts/_overlap.py",
-        "pysrc/hardware/scripts/_realized.py",
-        "pysrc/hardware/scripts/_routing.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/hardware/scripts/_seating.py",
-        "pysrc/hardware/scripts/_stated_bounds.py",
-        "pysrc/hardware/scripts/pick_text.py",
-        "pysrc/hardware/wiring/_ac_wiring_schedule_sync.py",
-        "pysrc/tools/docgen/__init__.py",
-    ] + glob(
-        [
-            "hardware/assembly/power-column.figures.json",
-        ],
-        allow_empty = True,
-    ),
-    outs = [
-        "out/power-column-sync/hardware/assembly/power-column.figures.json",
-        "out/power-column-sync/hardware/assembly/power-column.md",
-    ],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/power-column-sync/hardware/assembly/power-column.figures.json)
-O1=$$PWD/$(location out/power-column-sync/hardware/assembly/power-column.md)
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    */pysrc/*) t=$${f##*/pysrc/};;
-    *) t=$$f;;
-  esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/assembly/_power_column_sync.py > /dev/null
-cp hardware/assembly/power-column.figures.json $$O0
-cp hardware/assembly/power-column.md $$O1
-""",
-)
-
-genrule(
     name = "pressure-vessel-sync",
     srcs = [
         "pysrc/hardware/assembly/_pressure_vessel_sync.py",
@@ -1136,6 +1135,13 @@ genrule(
         "hardware/assembly/cards/cc-13-stack-copper-plugs.html",
         "hardware/assembly/cards/cc-14-pour-body-foam.html",
         "hardware/assembly/cards/cc-15-columns-gaskets-caps.html",
+        "hardware/assembly/cards/eb-01-prepare-the-wall.html",
+        "hardware/assembly/cards/eb-02-stage-ac-distribution.html",
+        "hardware/assembly/cards/eb-03-stage-psu-relays-board.html",
+        "hardware/assembly/cards/eb-04-land-ac-pigtails.html",
+        "hardware/assembly/cards/eb-05-stage-dc-distribution.html",
+        "hardware/assembly/cards/eb-06-land-relays-j5-loom.html",
+        "hardware/assembly/cards/eb-07-pre-power-checks.html",
         "hardware/assembly/cards/en-01-stage-the-printed-pieces.html",
         "hardware/assembly/cards/en-02-y-wall-bodies.html",
         "hardware/assembly/cards/en-03-bolt-the-compressor-down.html",
@@ -1143,7 +1149,7 @@ genrule(
         "hardware/assembly/cards/en-05-seat-cold-core.html",
         "hardware/assembly/cards/en-06-power-column.html",
         "hardware/assembly/cards/en-07-close-the-box.html",
-        "hardware/assembly/cards/en-08-asse-drip-pan.html",
+        "hardware/assembly/cards/en-09-asse-drip-pan.html",
         "hardware/assembly/cards/en-09-display-and-funnel.html",
         "hardware/assembly/cards/fc-01-first-dc-power-on.html",
         "hardware/assembly/cards/fc-02-flash-three-esp32s.html",
@@ -1249,13 +1255,6 @@ genrule(
         "hardware/assembly/cards/ip-04-manifold-pumps-channels.html",
         "hardware/assembly/cards/ip-05-risers.html",
         "hardware/assembly/cards/ip-06-witness-tidy.html",
-        "hardware/assembly/cards/pc-01-prepare-the-wall.html",
-        "hardware/assembly/cards/pc-02-stage-ac-distribution.html",
-        "hardware/assembly/cards/pc-03-stage-psu-relays-board.html",
-        "hardware/assembly/cards/pc-04-land-ac-pigtails.html",
-        "hardware/assembly/cards/pc-05-stage-dc-distribution.html",
-        "hardware/assembly/cards/pc-06-land-relays-j5-loom.html",
-        "hardware/assembly/cards/pc-07-pre-power-checks.html",
         "hardware/assembly/cards/pv-01-chamfer-port-holes.html",
         "hardware/assembly/cards/pv-02-tap-npt-ports.html",
         "hardware/assembly/cards/pv-03-rod-register.html",
@@ -1727,6 +1726,8 @@ genrule(
         "out/cards-build/hardware/assembly/cards/cc-13-stack-copper-plugs.html",
         "out/cards-build/hardware/assembly/cards/cc-14-pour-body-foam.html",
         "out/cards-build/hardware/assembly/cards/cc-15-columns-gaskets-caps.html",
+        "out/cards-build/hardware/assembly/cards/eb-01-prepare-the-wall.html",
+        "out/cards-build/hardware/assembly/cards/eb-03-stage-psu-relays-board.html",
         "out/cards-build/hardware/assembly/cards/en-01-stage-the-printed-pieces.html",
         "out/cards-build/hardware/assembly/cards/en-02-y-wall-bodies.html",
         "out/cards-build/hardware/assembly/cards/en-03-bolt-the-compressor-down.html",
@@ -1751,8 +1752,6 @@ genrule(
         "out/cards-build/hardware/assembly/cards/ip-04-manifold-pumps-channels.html",
         "out/cards-build/hardware/assembly/cards/ip-05-risers.html",
         "out/cards-build/hardware/assembly/cards/ip-06-witness-tidy.html",
-        "out/cards-build/hardware/assembly/cards/pc-01-prepare-the-wall.html",
-        "out/cards-build/hardware/assembly/cards/pc-03-stage-psu-relays-board.html",
         "out/cards-build/hardware/assembly/cards/pv-01-chamfer-port-holes.html",
         "out/cards-build/hardware/assembly/cards/pv-02-tap-npt-ports.html",
         "out/cards-build/hardware/assembly/cards/pv-03-rod-register.html",
@@ -2006,32 +2005,32 @@ O221=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-12-route-penetr
 O222=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-13-stack-copper-plugs.html)
 O223=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-14-pour-body-foam.html)
 O224=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-15-columns-gaskets-caps.html)
-O225=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-01-stage-the-printed-pieces.html)
-O226=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-02-y-wall-bodies.html)
-O227=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-03-bolt-the-compressor-down.html)
-O228=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-04-stand-the-stratum.html)
-O229=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-05-seat-cold-core.html)
-O230=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-06-power-column.html)
-O231=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-07-close-the-box.html)
-O232=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-09-display-and-funnel.html)
-O233=$$PWD/$(location out/cards-build/hardware/assembly/cards/fc-01-first-dc-power-on.html)
-O234=$$PWD/$(location out/cards-build/hardware/assembly/cards/fc-03-sensor-health.html)
-O235=$$PWD/$(location out/cards-build/hardware/assembly/cards/fc-04-valve-pump-self-test.html)
-O236=$$PWD/$(location out/cards-build/hardware/assembly/cards/fc-05-compressor-smoke-test.html)
-O237=$$PWD/$(location out/cards-build/hardware/assembly/cards/fs-01-wipe-down-inspect.html)
-O238=$$PWD/$(location out/cards-build/hardware/assembly/cards/fs-02-drain-dry-nameplate.html)
-O239=$$PWD/$(location out/cards-build/hardware/assembly/cards/fs-03-cap-photograph.html)
-O240=$$PWD/$(location out/cards-build/hardware/assembly/cards/fs-04-pack-kit-carton.html)
-O241=$$PWD/$(location out/cards-build/hardware/assembly/cards/fs-05-weigh-label-handoff.html)
-O242=$$PWD/$(location out/cards-build/hardware/assembly/cards/gt-02-push-to-connect.html)
-O243=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-01-co2-path.html)
-O244=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-02-water-path.html)
-O245=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-03-manifold-valves-tees.html)
-O246=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-04-manifold-pumps-channels.html)
-O247=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-05-risers.html)
-O248=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-06-witness-tidy.html)
-O249=$$PWD/$(location out/cards-build/hardware/assembly/cards/pc-01-prepare-the-wall.html)
-O250=$$PWD/$(location out/cards-build/hardware/assembly/cards/pc-03-stage-psu-relays-board.html)
+O225=$$PWD/$(location out/cards-build/hardware/assembly/cards/eb-01-prepare-the-wall.html)
+O226=$$PWD/$(location out/cards-build/hardware/assembly/cards/eb-03-stage-psu-relays-board.html)
+O227=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-01-stage-the-printed-pieces.html)
+O228=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-02-y-wall-bodies.html)
+O229=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-03-bolt-the-compressor-down.html)
+O230=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-04-stand-the-stratum.html)
+O231=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-05-seat-cold-core.html)
+O232=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-06-power-column.html)
+O233=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-07-close-the-box.html)
+O234=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-09-display-and-funnel.html)
+O235=$$PWD/$(location out/cards-build/hardware/assembly/cards/fc-01-first-dc-power-on.html)
+O236=$$PWD/$(location out/cards-build/hardware/assembly/cards/fc-03-sensor-health.html)
+O237=$$PWD/$(location out/cards-build/hardware/assembly/cards/fc-04-valve-pump-self-test.html)
+O238=$$PWD/$(location out/cards-build/hardware/assembly/cards/fc-05-compressor-smoke-test.html)
+O239=$$PWD/$(location out/cards-build/hardware/assembly/cards/fs-01-wipe-down-inspect.html)
+O240=$$PWD/$(location out/cards-build/hardware/assembly/cards/fs-02-drain-dry-nameplate.html)
+O241=$$PWD/$(location out/cards-build/hardware/assembly/cards/fs-03-cap-photograph.html)
+O242=$$PWD/$(location out/cards-build/hardware/assembly/cards/fs-04-pack-kit-carton.html)
+O243=$$PWD/$(location out/cards-build/hardware/assembly/cards/fs-05-weigh-label-handoff.html)
+O244=$$PWD/$(location out/cards-build/hardware/assembly/cards/gt-02-push-to-connect.html)
+O245=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-01-co2-path.html)
+O246=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-02-water-path.html)
+O247=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-03-manifold-valves-tees.html)
+O248=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-04-manifold-pumps-channels.html)
+O249=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-05-risers.html)
+O250=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-06-witness-tidy.html)
 O251=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-01-chamfer-port-holes.html)
 O252=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-02-tap-npt-ports.html)
 O253=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-03-rod-register.html)
@@ -2298,32 +2297,32 @@ cp hardware/assembly/cards/cc-12-route-penetrations.html $$O221
 cp hardware/assembly/cards/cc-13-stack-copper-plugs.html $$O222
 cp hardware/assembly/cards/cc-14-pour-body-foam.html $$O223
 cp hardware/assembly/cards/cc-15-columns-gaskets-caps.html $$O224
-cp hardware/assembly/cards/en-01-stage-the-printed-pieces.html $$O225
-cp hardware/assembly/cards/en-02-y-wall-bodies.html $$O226
-cp hardware/assembly/cards/en-03-bolt-the-compressor-down.html $$O227
-cp hardware/assembly/cards/en-04-stand-the-stratum.html $$O228
-cp hardware/assembly/cards/en-05-seat-cold-core.html $$O229
-cp hardware/assembly/cards/en-06-power-column.html $$O230
-cp hardware/assembly/cards/en-07-close-the-box.html $$O231
-cp hardware/assembly/cards/en-09-display-and-funnel.html $$O232
-cp hardware/assembly/cards/fc-01-first-dc-power-on.html $$O233
-cp hardware/assembly/cards/fc-03-sensor-health.html $$O234
-cp hardware/assembly/cards/fc-04-valve-pump-self-test.html $$O235
-cp hardware/assembly/cards/fc-05-compressor-smoke-test.html $$O236
-cp hardware/assembly/cards/fs-01-wipe-down-inspect.html $$O237
-cp hardware/assembly/cards/fs-02-drain-dry-nameplate.html $$O238
-cp hardware/assembly/cards/fs-03-cap-photograph.html $$O239
-cp hardware/assembly/cards/fs-04-pack-kit-carton.html $$O240
-cp hardware/assembly/cards/fs-05-weigh-label-handoff.html $$O241
-cp hardware/assembly/cards/gt-02-push-to-connect.html $$O242
-cp hardware/assembly/cards/ip-01-co2-path.html $$O243
-cp hardware/assembly/cards/ip-02-water-path.html $$O244
-cp hardware/assembly/cards/ip-03-manifold-valves-tees.html $$O245
-cp hardware/assembly/cards/ip-04-manifold-pumps-channels.html $$O246
-cp hardware/assembly/cards/ip-05-risers.html $$O247
-cp hardware/assembly/cards/ip-06-witness-tidy.html $$O248
-cp hardware/assembly/cards/pc-01-prepare-the-wall.html $$O249
-cp hardware/assembly/cards/pc-03-stage-psu-relays-board.html $$O250
+cp hardware/assembly/cards/eb-01-prepare-the-wall.html $$O225
+cp hardware/assembly/cards/eb-03-stage-psu-relays-board.html $$O226
+cp hardware/assembly/cards/en-01-stage-the-printed-pieces.html $$O227
+cp hardware/assembly/cards/en-02-y-wall-bodies.html $$O228
+cp hardware/assembly/cards/en-03-bolt-the-compressor-down.html $$O229
+cp hardware/assembly/cards/en-04-stand-the-stratum.html $$O230
+cp hardware/assembly/cards/en-05-seat-cold-core.html $$O231
+cp hardware/assembly/cards/en-06-power-column.html $$O232
+cp hardware/assembly/cards/en-07-close-the-box.html $$O233
+cp hardware/assembly/cards/en-09-display-and-funnel.html $$O234
+cp hardware/assembly/cards/fc-01-first-dc-power-on.html $$O235
+cp hardware/assembly/cards/fc-03-sensor-health.html $$O236
+cp hardware/assembly/cards/fc-04-valve-pump-self-test.html $$O237
+cp hardware/assembly/cards/fc-05-compressor-smoke-test.html $$O238
+cp hardware/assembly/cards/fs-01-wipe-down-inspect.html $$O239
+cp hardware/assembly/cards/fs-02-drain-dry-nameplate.html $$O240
+cp hardware/assembly/cards/fs-03-cap-photograph.html $$O241
+cp hardware/assembly/cards/fs-04-pack-kit-carton.html $$O242
+cp hardware/assembly/cards/fs-05-weigh-label-handoff.html $$O243
+cp hardware/assembly/cards/gt-02-push-to-connect.html $$O244
+cp hardware/assembly/cards/ip-01-co2-path.html $$O245
+cp hardware/assembly/cards/ip-02-water-path.html $$O246
+cp hardware/assembly/cards/ip-03-manifold-valves-tees.html $$O247
+cp hardware/assembly/cards/ip-04-manifold-pumps-channels.html $$O248
+cp hardware/assembly/cards/ip-05-risers.html $$O249
+cp hardware/assembly/cards/ip-06-witness-tidy.html $$O250
 cp hardware/assembly/cards/pv-01-chamfer-port-holes.html $$O251
 cp hardware/assembly/cards/pv-02-tap-npt-ports.html $$O252
 cp hardware/assembly/cards/pv-03-rod-register.html $$O253
@@ -6821,6 +6820,10 @@ genrule(
         "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-core.stl",
         "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-finish-witness.step",
         "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-finish-witness.stl",
+        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-guide-witness.step",
+        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-guide-witness.stl",
+        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-hardware-witness.step",
+        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-hardware-witness.stl",
         "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/README.figures.json",
         "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/README.md",
     ],
@@ -6835,8 +6838,12 @@ O5=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/fu
 O6=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-core.stl)
 O7=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-finish-witness.step)
 O8=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-finish-witness.stl)
-O9=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/README.figures.json)
-O10=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/README.md)
+O9=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-guide-witness.step)
+O10=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-guide-witness.stl)
+O11=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-hardware-witness.step)
+O12=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-hardware-witness.stl)
+O13=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/README.figures.json)
+O14=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/README.md)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -6862,8 +6869,12 @@ cp hardware/printed-parts/zone-c/funnel-mold/funnel-mold-core.step $$O5
 cp hardware/printed-parts/zone-c/funnel-mold/funnel-mold-core.stl $$O6
 cp hardware/printed-parts/zone-c/funnel-mold/funnel-mold-finish-witness.step $$O7
 cp hardware/printed-parts/zone-c/funnel-mold/funnel-mold-finish-witness.stl $$O8
-cp hardware/printed-parts/zone-c/funnel-mold/README.figures.json $$O9
-cp hardware/printed-parts/zone-c/funnel-mold/README.md $$O10
+cp hardware/printed-parts/zone-c/funnel-mold/funnel-mold-guide-witness.step $$O9
+cp hardware/printed-parts/zone-c/funnel-mold/funnel-mold-guide-witness.stl $$O10
+cp hardware/printed-parts/zone-c/funnel-mold/funnel-mold-hardware-witness.step $$O11
+cp hardware/printed-parts/zone-c/funnel-mold/funnel-mold-hardware-witness.stl $$O12
+cp hardware/printed-parts/zone-c/funnel-mold/README.figures.json $$O13
+cp hardware/printed-parts/zone-c/funnel-mold/README.md $$O14
 """,
 )
 
@@ -9644,6 +9655,14 @@ genrule(
 )
 
 genrule(
+    name = "pysrc-007716948228",
+    srcs = ["hardware/assembly/_electronics_bay_sync.py"],
+    outs = ["pysrc/hardware/assembly/_electronics_bay_sync.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
     name = "pysrc-78814b4cd3b4",
     srcs = ["hardware/assembly/_enclosure_mechanical_sync.py"],
     outs = ["pysrc/hardware/assembly/_enclosure_mechanical_sync.py"],
@@ -9687,14 +9706,6 @@ genrule(
     name = "pysrc-34271617c28d",
     srcs = ["hardware/assembly/_internal_plumbing_sync.py"],
     outs = ["pysrc/hardware/assembly/_internal_plumbing_sync.py"],
-    tools = ["tools/bazel/pysrc.py"],
-    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
-)
-
-genrule(
-    name = "pysrc-9403ee2a5209",
-    srcs = ["hardware/assembly/_power_column_sync.py"],
-    outs = ["pysrc/hardware/assembly/_power_column_sync.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -21495,13 +21506,13 @@ filegroup(
         ":acceptance-and-burn-in-sync",
         ":cable-assemblies-sync",
         ":cold-core-sync",
+        ":electronics-bay-sync",
         ":enclosure-mechanical-sync",
         ":faucet-and-umbilical-sync",
         ":finish-pack-ship-sync",
         ":firmware-and-commissioning-sync",
         ":handwork-sync",
         ":internal-plumbing-sync",
-        ":power-column-sync",
         ":pressure-vessel-sync",
         ":refrigerant-loop-sync",
         ":weld-rotation-rig-sync",
