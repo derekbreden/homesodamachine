@@ -32,11 +32,12 @@ BUILD_INERT_SUFFIXES = (".3mf", ".bbscfg")
 #
 # NAMED ONE BY ONE, because `.json` beside a part is the tree's load-bearing kind: `.figures.json`
 # carries a doc's derived numbers, `.scene.json` a render, `.facts.json` a measured solid, and
-# `cad-artifacts.lock.json` the shipped bundle. A fifth slicer record joins by being named here.
+# `cad-artifacts.lock.json` the shipped bundle. Each slicer record joins by being named here.
 BUILD_INERT_BASENAMES = frozenset({
     "print-recipe.json",
     "print-profile.json",
     "print-start-check.json",
+    "print-start-no-brim-check.json",
     "profile-audit.json",
 })
 

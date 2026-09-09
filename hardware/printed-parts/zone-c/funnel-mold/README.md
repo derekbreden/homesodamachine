@@ -236,7 +236,8 @@ one leaves the artifact slice where it was rather than widening it to all 73 rul
 
 The slicer records they read and write — [print-recipe.json](print-recipe.json),
 [print-profile.json](print-profile.json), [profile-audit.json](profile-audit.json),
-[print-start-check.json](print-start-check.json) and the
+[print-start-check.json](print-start-check.json),
+[print-start-no-brim-check.json](print-start-no-brim-check.json) and the
 [`.bbscfg` bundle](funnel-mold-hf08-z-trim-presets.bbscfg) — are named in
 `tools/bazel/inventory.py`'s `build_inert`, which holds them outside every build action the way
 it holds the `.3mf` projects beside them.

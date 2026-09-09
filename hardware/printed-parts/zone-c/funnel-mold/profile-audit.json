@@ -1,4 +1,6 @@
 {
+  "verified_reference": "git:911c25b1c:hardware/printed-parts/zone-c/funnel-mold/funnel-mold-petg-hf08-variable-016-040.3mf",
+  "current_print_start_check": "print-start-no-brim-check.json",
   "project": "funnel-mold-petg-hf08-variable-016-040.3mf",
   "project_sha256": "f251a98fdbc122e0945d689a569a0db7459d2e80b04303abe74c3a53cbd90a7d",
   "slicer_version": "02.08.02.61",
