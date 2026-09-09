@@ -117,6 +117,29 @@ test("walkDocuments skips a sidecar with no document and one that will not parse
   assert.deepEqual(walkDocuments(root), []);
 });
 
+// The shelf is read in one order however the directories fall, so the grid does
+// not reorder itself when a document is added beside an older one.
+test("walkDocuments returns the shelf in title order", (t) => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), "walk-docs-order-"));
+  t.after(() => fs.rmSync(root, { recursive: true, force: true }));
+
+  const shelve = (dir, stem, title) => {
+    fs.mkdirSync(path.join(root, dir), { recursive: true });
+    fs.writeFileSync(path.join(root, dir, `${stem}.pdf`), "%PDF-1.4\n");
+    fs.writeFileSync(path.join(root, dir, `${stem}.pdf.json`), JSON.stringify({ title }));
+  };
+  // Directory order is the reverse of title order, so a walk that returned what
+  // it found would fail this.
+  shelve("quickstart", "quick-start", "Quick start");
+  shelve("guide", "casting", "Funnel casting guide");
+  shelve("assembly/cards", "deck", "Assembly card deck");
+
+  assert.deepEqual(
+    walkDocuments(root).map((d) => d.title),
+    ["Assembly card deck", "Funnel casting guide", "Quick start"],
+  );
+});
+
 test("walkFiles skips a retired directory and everything under it", (t) => {
   const { root, retired } = retiredTree(t, "walk-retired-");
 
