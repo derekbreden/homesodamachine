@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Measure the support-removal topology in a production-profile Bambu G-code export.
 
-This reader follows ``Support`` and ``Support interface`` extrusion paths through the layers
+This reader follows ``Support``, ``Support transition`` and ``Support interface`` paths through the layers
 and reports each connected support body, where it starts, how far it climbs before its first
 model interface, and its separate interface islands. These are measurements of one slice.
 Removal effort and contact finish are observations from the physical print.
@@ -370,6 +370,9 @@ def audit(gcode: Path, piece: str, model: Path | None = None,
     island_tree_nodes: dict[int, set[int]] = defaultdict(set)
     previous_tree: dict[tuple[int, int], int] = {}
     previous_island: dict[tuple[int, int], int] = {}
+    previous_tree_z = previous_island_z = None
+    extrusion_height = None
+    support_height = interface_height = None
 
     z = None
     layer_total: set[tuple[int, int]] = set()
@@ -385,12 +388,22 @@ def audit(gcode: Path, piece: str, model: Path | None = None,
 
     def finish_layer() -> None:
         nonlocal previous_tree, previous_island, first_layer_z
+        nonlocal previous_tree_z, previous_island_z
         if z is None:
             return
         # The bed datum is the print's first layer, including model-only layers.
         # A part with no bed-rooted support may begin its first support far above it.
         if first_layer_z is None:
             first_layer_z = z
+        # Independent support layers can span several intervening model layers.
+        if not layer_total:
+            return
+        if (support_height is not None and previous_tree_z is not None
+                and z - previous_tree_z > support_height + 0.002):
+            previous_tree = {}
+        if (interface_height is not None and previous_island_z is not None
+                and z - previous_island_z > interface_height + 0.002):
+            previous_island = {}
 
         tree_lookup: dict[tuple[int, int], int] = {}
         for cells in _components(layer_total, TREE_LINK_MM):
@@ -414,6 +427,8 @@ def audit(gcode: Path, piece: str, model: Path | None = None,
 
         previous_tree = tree_lookup
         previous_island = island_lookup
+        previous_tree_z = z
+        previous_island_z = z if layer_interface else None
 
     with gcode.open("r", encoding="utf-8", errors="replace") as stream:
         for raw in stream:
@@ -424,7 +439,10 @@ def audit(gcode: Path, piece: str, model: Path | None = None,
                 finish_layer()
                 z = float(line.split(":", 1)[1])
                 layer_total, layer_interface = set(), set()
-                previous_tree = previous_tree if layer_total is not None else {}
+                support_height = interface_height = None
+                continue
+            if line.startswith("; LAYER_HEIGHT:"):
+                extrusion_height = float(line.split(":", 1)[1])
                 continue
             if line.startswith("; FEATURE:"):
                 feature = line.split(":", 1)[1].strip()
@@ -469,9 +487,13 @@ def audit(gcode: Path, piece: str, model: Path | None = None,
             nx = (words.get("X", x) if absolute_xy else x + words.get("X", 0.0))
             ny = (words.get("Y", y) if absolute_xy else y + words.get("Y", 0.0))
             de = words.get("E", 0.0) if relative_e else words.get("E", e) - e
-            drawing = (z is not None and feature in {"Support", "Support interface"}
+            drawing = (z is not None and feature in {"Support", "Support transition", "Support interface"}
                        and de > 1e-9 and (abs(nx - x) > 1e-9 or abs(ny - y) > 1e-9))
             if drawing:
+                if extrusion_height is not None:
+                    support_height = max(support_height or 0, extrusion_height)
+                    if feature == "Support interface":
+                        interface_height = max(interface_height or 0, extrusion_height)
                 target = layer_interface if feature == "Support interface" else layer_total
                 points = ([((nx, ny))] if command in {"G0", "G1"}
                           else _arc_points((x, y), (nx, ny), words, command == "G2"))
@@ -712,6 +734,53 @@ G1 X23.5 Y0 E1
     assert shared["summary"]["interface_islands"] == 1, shared
     assert shared["interfaces"][0]["trees"] == ["tree-1", "tree-2"], shared
     assert all(tree["interfaces"] == ["interface-1"] for tree in shared["trees"]), shared
+
+    interleaved = """G90
+M83
+; Z_HEIGHT: 0.4
+; LAYER_HEIGHT: 0.4
+; FEATURE: Support
+G1 X0 Y0
+G1 X2 Y0 E1
+; Z_HEIGHT: 0.56
+; LAYER_HEIGHT: 0.16
+; FEATURE: Outer wall
+G1 X10 Y0
+G1 X12 Y0 E1
+; Z_HEIGHT: 0.9
+; LAYER_HEIGHT: 0.5
+; FEATURE: Support transition
+G1 X0 Y0
+G1 X2 Y0 E1
+; Z_HEIGHT: 1.06
+; LAYER_HEIGHT: 0.16
+; FEATURE: Support interface
+G1 X0 Y0
+G1 X2 Y0 E1
+; Z_HEIGHT: 2.0
+; LAYER_HEIGHT: 0.4
+; FEATURE: Outer wall
+G1 X0 Y0
+G1 X2 Y0 E1
+; Z_HEIGHT: 2.4
+; LAYER_HEIGHT: 0.4
+; FEATURE: Support
+G1 X0 Y0
+G1 X2 Y0 E1
+; Z_HEIGHT: 2.56
+; LAYER_HEIGHT: 0.16
+; FEATURE: Support interface
+G1 X0 Y0
+G1 X2 Y0 E1
+"""
+    with tempfile.TemporaryDirectory() as directory:
+        path = Path(directory) / "independent-support-layers.gcode"
+        path.write_text(interleaved)
+        independent = audit(path, "independent-support-layers")
+    assert independent["summary"]["support_bodies"] == 2, independent
+    assert independent["summary"]["bed_rooted_bodies"] == 1, independent
+    assert independent["summary"]["model_rooted_bodies"] == 1, independent
+    assert sorted(t["shortest_build_up_mm"] for t in independent["trees"]) == [0.16, 0.66], independent
 
     forward = [0.0, 1.0, 0.0, -1.0, 0.0, 0.0, 0.0, 0.0, 1.0,
                10.0, 20.0, 30.0]
