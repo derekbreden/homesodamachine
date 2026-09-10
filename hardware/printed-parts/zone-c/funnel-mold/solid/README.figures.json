@@ -1,0 +1,18 @@
+{
+  "/tools/funnel-mold-design/verify_print.py": {
+    "CAST_VOLUME": "135 mL",
+    "CAVITY_DIMS": "189 \u00d7 189 \u00d7 72.6 mm",
+    "CAVITY_MASS": "1316 g",
+    "CAVITY_TIME": "18 h 59 min",
+    "CHAMBER_GAP": "14.4 mm",
+    "CORE_DIMS": "201 \u00d7 201 \u00d7 50.4 mm",
+    "CORE_MASS": "1261 g",
+    "CORE_TIME": "17 h 31 min",
+    "ENVELOPE": "271.0 mm",
+    "FINISH": "0.20 mm",
+    "REGISTER": "6 mm",
+    "ROD_D": "6.35 mm",
+    "ROD_LEN": "50.8 mm",
+    "SOCKET": "28.8 mm"
+  }
+}
