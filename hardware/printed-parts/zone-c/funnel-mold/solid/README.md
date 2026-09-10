@@ -4,6 +4,9 @@ Two solid PETG bodies form the [funnel](../../funnel/README.md). The cavity is t
 and the inverted core is gold in the drawings. The forming geometry comes directly
 from `funnel.build_solids()`.
 
+The optional [version with two V channels per body](channels/README.md) removes
+bulk from the print backs while retaining these forming and mating surfaces.
+
 ![Cavity and core in their print orientations](overview.png)
 
 The cavity's continuous backing runs from a rounded foot to its rim. The core is
