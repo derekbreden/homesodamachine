@@ -74,6 +74,16 @@ LOCK = _ROOT / "hardware" / "cad-artifacts.lock.json"
 #: smooth writer and the fluting pass; declaring it for both groups those generators into one
 #: action, so the fluting pass never seeds itself from the fetched prior bundle.
 IMPLICIT_SOLIDS = {
+    # The mold's solid bodies and optional channels share an exporter. Its
+    # current payloads need no rewrite, so name every view that a clean run owes.
+    "hardware/printed-parts/zone-c/funnel-mold/solid/solid_mold.py": tuple(
+        f"hardware/printed-parts/zone-c/funnel-mold/solid/{name}.step.mesh"
+        for name in ("assembly", "cavity", "core", "funnel", "overview", "rod", "section")
+    ),
+    "hardware/printed-parts/zone-c/funnel-mold/solid/channels/cut_channels.py": tuple(
+        f"hardware/printed-parts/zone-c/funnel-mold/solid/channels/{name}.step.mesh"
+        for name in ("assembly", "backs", "cavity", "channel-section", "core", "funnel", "overview", "rod", "section")
+    ),
     "hardware/cold-core-layout/cold_core_assembly.py": (
         "hardware/cold-core-layout/cold-core-assembly.step.mesh",
     ),

@@ -1,0 +1,19 @@
+{
+  "project": "channel-mold.3mf",
+  "project_sha256": "95289066bafcf14003c4537b81e25a7e64180051b093c37838f54b33bfbc1016",
+  "minimum_section_area_mm2": 0.01,
+  "parts": {
+    "cavity": {
+      "stl_sha256": "b01764913c41bd5190528363b8188ab7d1249cd0b7d705bf2243ed3a4416e6f4",
+      "layers_checked": 304,
+      "bed_contact_regions": 3,
+      "floating_section_components": []
+    },
+    "core": {
+      "stl_sha256": "cd3e829639816490e2fe7482f7e27dfe29c57da0b584aa56f40f83e13d32a703",
+      "layers_checked": 240,
+      "bed_contact_regions": 3,
+      "floating_section_components": []
+    }
+  }
+}
