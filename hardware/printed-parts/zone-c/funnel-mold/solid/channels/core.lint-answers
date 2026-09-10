@@ -1,0 +1,10 @@
+[step] The locating key ends 0.30 mm above the skirt's end. This is its closing clearance above the bottom of the cavity's key slot, so the parting lands determine the seated height.
+file: hardware/printed-parts/zone-c/funnel-mold/solid/channels/core.step
+click: x=93.800 y=38.000 z=66.949
+
+[sliver] These four vertical faces are the 0.20 mm edge of the finishing pocket over the silicone brim. The solid core plate backs the pocket; its depth reserves coating growth while the surrounding parting lands remain bare.
+file: hardware/printed-parts/zone-c/funnel-mold/solid/channels/core.step
+click: x=86.700 y=0.000 z=72.749
+click: x=0.000 y=86.700 z=72.749
+click: x=0.000 y=-86.700 z=72.749
+click: x=-86.700 y=0.000 z=72.749

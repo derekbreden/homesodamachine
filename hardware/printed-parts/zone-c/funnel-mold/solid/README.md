@@ -75,6 +75,8 @@ the forming faces still require a continuous sealing finish.
 
 ## Regenerate
 
+The forming and backing geometry is in [solid_mold.py](solid_mold.py).
+
 The hand-run tools are [solid_mold.py](/tools/funnel-mold-design/solid_mold.py),
 [prepare_print.py](/tools/funnel-mold-design/prepare_print.py) and
 [verify_print.py](/tools/funnel-mold-design/verify_print.py). They use the project's
