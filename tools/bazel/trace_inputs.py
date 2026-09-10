@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Run each generator once and write down every file it read and every file it wrote.
 
-    tools/cad-venv/bin/python tools/bazel/trace_inputs.py            # every generator
-    tools/cad-venv/bin/python tools/bazel/trace_inputs.py <gen.py>   # one
+    tools/cad-venv/bin/python tools/bazel/trace_inputs.py <gen.py>   # the ones a change reached
+    tools/cad-venv/bin/python tools/bazel/trace_inputs.py --all      # every one, over an hour
 
 An audit hook watches the run, which happens the way the generator's own `__main__` runs. Every
 path under this repo it opens is kept, on the side its mode names — reads on one, writes on the
@@ -448,7 +448,9 @@ def main() -> int:
     if sys.argv[1:] == ["selftest"]:
         return selftest()
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("gen", nargs="*", help="generator paths; default every one")
+    ap.add_argument("gen", nargs="*", help="generator paths; the ones the change reached")
+    ap.add_argument("--all", action="store_true",
+                    help="re-trace every generator; 80 minutes, and it loses writes")
     ap.add_argument("--selftests", action="store_true",
                     help="watch each module's `selftest` instead, into selftests.json")
     args = ap.parse_args()
@@ -480,6 +482,34 @@ def main() -> int:
                   f"    tools/cad-venv/bin/python tools/bazel/trace_inputs.py "
                   f"{written_from[gen]}", file=sys.stderr)
             return 1
+
+    # A BARE SWEEP RE-TRACES EVERY GENERATOR SERIALLY, AND THAT IS OVER AN HOUR. It is not the
+    # remedy for a target that declared too few inputs — the remedy is the generators the change
+    # reached, and `check_declared_imports.py` and `gen_build.py --check` each name those where
+    # they fail. Held behind a word, because the cost lands on whoever is at the keyboard and
+    # a stale derived doc does not.
+    #
+    # AND A SWEEP LOSES WRITES. A generator whose outputs are already current writes fewer than
+    # it declares, and the loop below reads any write as a whole run — so the entry is replaced
+    # by the part it reached, and every output it stopped naming loses the rule that cuts it. A
+    # generator the change actually reached rewrites its outputs, which is why tracing THOSE is
+    # the accurate answer as well as the fast one.
+    if not args.gen and not args.all:
+        every = _generators(files)
+        print(
+            f"  A bare sweep re-traces all {len(every)} generators, serially, and that is over\n"
+            f"  an hour. Trace the ones the change reached:\n\n"
+            f"    tools/cad-venv/bin/python tools/bazel/trace_inputs.py <gen.py> [<gen.py> ...]"
+            f"\n\n  Where that list comes from:\n"
+            f"    check_declared_imports.py   names them when a target declares too few inputs\n"
+            f"    gen_build.py --check        names them when BUILD.bazel has drifted\n"
+            f"    git diff --name-only        the generators actually edited\n\n"
+            f"  `--all` is for a change that moves every reading at once. It also drops the\n"
+            f"  writes of every generator whose outputs are already current, so run it where\n"
+            f"  nobody is waiting on it:\n\n"
+            f"    gh workflow run derive.yml --ref main -f trace=all\n",
+            file=sys.stderr)
+        return 2
 
     gens = args.gen or _generators(files)
 
