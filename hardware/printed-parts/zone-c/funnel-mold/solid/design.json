@@ -22,7 +22,7 @@
     ]
   },
   "volume_ml": {
-    "cavity": 1067.1396559752109,
+    "cavity": 1384.0961609485685,
     "core": 1019.0399748978188,
     "funnel": 135.17566904044506,
     "rod": 1.6087962461345555
@@ -32,7 +32,14 @@
   "rod_socket_vent_diameter_mm": 2.5,
   "register_depth_mm": 6.0,
   "finish_allowance_mm": 0.2,
-  "cavity_stock_minimum_backing_before_rim_notches_mm": 6.824859443446755,
+  "cavity_stock_minimum_backing_before_rim_notches_mm": 6.9715728752538,
+  "cavity_outer_taper": {
+    "foot_width_mm": 146.0,
+    "foot_height_mm": 3.2,
+    "taper_top_z_mm": 57.298907340266915,
+    "minimum_angle_from_bed_degrees": 60.0,
+    "maximum_outward_growth_per_0_40_mm_layer": 0.23094010767585038
+  },
   "ramp_print_z_mm": {
     "cavity": [
       32.00000000000001,

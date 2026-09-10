@@ -1,5 +1,33 @@
 # Funnel mold print log
 
+## Solid cavity — 2026-09-10
+
+Mark2 reported `Funnel_mold_-_solid_cavity_and_core`, 304 layers, 18 h 59 min 7 s
+and 1,315.70 g. The reference project is `solid/solid-mold.3mf` at Git revision
+`46295bf93`, SHA-256
+`8019a34f5062a185253bfe8ae5b906343ed8e454f589b75de5106e647a5e1a50`.
+The device's title, layer count, time and mass match that archive; the printer's
+job bytes were not downloaded for comparison.
+
+At layer 178 the device showed 255 °C nozzle, 70 °C bed and 100% speed. The camera
+showed uneven bands and loose strands on the visible outer wall. Derek supplied
+`IMG_7779.jpeg`, `IMG_7778.jpeg` and `IMG_7777.jpeg` from the opposite side. Those
+photos show a substantial clump of tangled extrusion at an outer corner, long
+loose strands below it and strings across the forming cavity. The adjacent broad
+wall is comparatively regular. Adhesion and the condition of the hidden wall
+were not established by the camera view.
+
+At Z 44.8 mm the archived G-code begins its exterior perimeter at printer XY
+(68.731, 77.753), on a rounded corner. That perimeter commands 55–60 mm/s and 90%
+part cooling. The photos are not registered to printer XY, so their relationship
+to this seam is an inference. Neither the photos nor the path reading establishes
+a single cause for the failure.
+
+At layer 185 Mark2 still reported 100% speed. Selecting Bambu Studio's speed
+control did not open a selector or change that reading. No runtime speed change,
+pause, stop or replacement print was sent. A completed specimen assessment is
+not recorded.
+
 ## Cavity — 2026-09-09, settings per [`funnel-mold-cavity-2026-09-09.gcode.3mf`](funnel-mold-cavity-2026-09-09.gcode.3mf)
 
 Derek reported starting the print and saving the editable project afterward.

@@ -29,14 +29,18 @@ regions retain the solid mold's existing thicknesses.
 
 | Body | PETG | Estimated print |
 | --- | --- | --- |
-| [Cavity](cavity.step) | [1176 g](CAVITY_MASS) | [17 h 28 min](CAVITY_TIME) |
-| [Core](core.step) | [1117 g](CORE_MASS) | [16 h 13 min](CORE_TIME) |
+| [Cavity](cavity.step) | [1534 g](CAVITY_MASS) | [23 h 18 min](CAVITY_TIME) |
+| [Core](core.step) | [1117 g](CORE_MASS) | [16 h 53 min](CORE_TIME) |
 
-Together the slices use about 2.29 kg and take 33 h 41 min. Compared with the
-solid body's two slices, that saves about 284 g (11%) and 2 h 49 min (7.7%).
-The CAD removes 113.9 mL from each body. The cavity has 48.9 cm² of bed contact,
-distributed over three long strips; the core has 316.4 cm². Each model remains
-one connected solid. Bed adhesion of the narrower cavity strips is untested.
+Together the slices use [2.65 kg](TOTAL_MASS) and take [40 h 11 min](TOTAL_TIME).
+Compared with the solid body's two slices, that saves [319 g](MASS_SAVING)
+([10.7%](MASS_SAVING_PERCENT)) and [2 h 48 min](TIME_SAVING)
+([6.5%](TIME_SAVING_PERCENT)). The CAD removes
+[142.2 mL](CAVITY_REMOVED_VOLUME) from the cavity and
+[113.9 mL](CORE_REMOVED_VOLUME) from the core. The cavity has
+[113.8 cm²](CAVITY_BED_CONTACT) of bed contact, distributed over three long strips;
+the core has [316.4 cm²](CORE_BED_CONTACT). Each model remains one connected solid.
+Bed adhesion of the cavity strips is untested.
 
 [Default +0.04 trim](channel-mold.3mf) · [Alternate +0.18 trim](channel-mold-z018.3mf) ·
 [Saved presets](solid-mold-presets.bbscfg)
@@ -50,6 +54,14 @@ the slice settings and G-code audit are in [print-profile.json](print-profile.js
 The [layer review](layer-review.json) checks sections at the delivered G-code's
 layer heights: 304 cavity layers and 240 core layers, with no floating model
 sections above 0.01 mm². Each body's first layer has three contact regions.
+
+The cavity has the solid design's [146 mm](FOOT_WIDTH) foot and
+[60°](TAPER_ANGLE) minimum outer taper, including its corners. Its greatest
+outward growth is [0.23 mm](TAPER_GROWTH) per 0.40 mm layer. Outer perimeters use
+the same 40 mm/s cap, slower overhang settings, back seam and travel avoidance
+as the solid version. [toolpath-review.json](toolpath-review.json) records the
+commanded paths. The solid version's [corner trial](../corner-trial.3mf)
+exercises their shared outer taper; it does not test the V channels.
 
 ## Vacuum and release
 

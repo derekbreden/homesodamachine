@@ -1,18 +1,31 @@
 {
   "/tools/funnel-mold-design/verify_print.py": {
     "CAST_VOLUME": "135 mL",
+    "CAVITY_BED_CONTACT": "113.8 cm\u00b2",
     "CAVITY_DIMS": "189 \u00d7 189 \u00d7 72.6 mm",
-    "CAVITY_MASS": "1176 g",
-    "CAVITY_TIME": "17 h 28 min",
+    "CAVITY_MASS": "1534 g",
+    "CAVITY_REMOVED_VOLUME": "142.2 mL",
+    "CAVITY_TIME": "23 h 18 min",
     "CHAMBER_GAP": "14.4 mm",
+    "CORE_BED_CONTACT": "316.4 cm\u00b2",
     "CORE_DIMS": "201 \u00d7 201 \u00d7 50.4 mm",
     "CORE_MASS": "1117 g",
-    "CORE_TIME": "16 h 13 min",
+    "CORE_REMOVED_VOLUME": "113.9 mL",
+    "CORE_TIME": "16 h 53 min",
     "ENVELOPE": "271.0 mm",
     "FINISH": "0.20 mm",
+    "FOOT_WIDTH": "146 mm",
+    "MASS_SAVING": "319 g",
+    "MASS_SAVING_PERCENT": "10.7%",
     "REGISTER": "6 mm",
     "ROD_D": "6.35 mm",
     "ROD_LEN": "50.8 mm",
-    "SOCKET": "28.8 mm"
+    "SOCKET": "28.8 mm",
+    "TAPER_ANGLE": "60\u00b0",
+    "TAPER_GROWTH": "0.23 mm",
+    "TIME_SAVING": "2 h 48 min",
+    "TIME_SAVING_PERCENT": "6.5%",
+    "TOTAL_MASS": "2.65 kg",
+    "TOTAL_TIME": "40 h 11 min"
   }
 }

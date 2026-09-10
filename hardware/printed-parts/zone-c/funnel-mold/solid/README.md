@@ -9,7 +9,10 @@ bulk from the print backs while retaining these forming and mating surfaces.
 
 ![Cavity and core in their print orientations](overview.png)
 
-The cavity's continuous backing runs from a rounded foot to its rim. The core is
+The cavity's continuous backing runs from a rounded [146 mm](FOOT_WIDTH) foot to
+its rim. The outer taper is at least [60°](TAPER_ANGLE) above the print bed,
+including the rounded corners. Its greatest outward step is
+[0.23 mm](TAPER_GROWTH) per 0.40 mm layer. The core is
 a solid plug on a flat plate. A [6 mm](REGISTER) locating skirt and one broad key
 set the closing position and orientation. Four opening notches expose solid bearing
 lands at the parting line. The fill hole and five casting vents pass straight
@@ -27,8 +30,8 @@ casting, including the tip trimmed off after release, is [135 mL](CAST_VOLUME).
 
 | Body | Envelope | Estimated print | PETG |
 | --- | --- | --- | --- |
-| [Cavity](cavity.step) | [189 × 189 × 72.6 mm](CAVITY_DIMS) | [18 h 59 min](CAVITY_TIME) | [1316 g](CAVITY_MASS) |
-| [Core](core.step) | [201 × 201 × 50.4 mm](CORE_DIMS) | [17 h 31 min](CORE_TIME) | [1261 g](CORE_MASS) |
+| [Cavity](cavity.step) | [189 × 189 × 72.6 mm](CAVITY_DIMS) | [25 h 03 min](CAVITY_TIME) | [1710 g](CAVITY_MASS) |
+| [Core](core.step) | [201 × 201 × 50.4 mm](CORE_DIMS) | [17 h 56 min](CORE_TIME) | [1261 g](CORE_MASS) |
 
 The [assembled mold](assembly.step) fits inside a [271.0 mm](ENVELOPE) circle.
 The chamber's recorded inside diameter gives [14.4 mm](CHAMBER_GAP) of radial
@@ -45,6 +48,20 @@ an 18 mm³/s flow cap, 0.16 mm layers at the forming slopes and fit details, and
 0.40 mm layers through the backing. All modeled stock prints at 100% fill. Each
 large plate needs filament refill beyond a 1 kg spool. Bed contact is permanent
 model material; the slices contain no brim, skirt or support paths.
+
+Outer perimeters are capped at 40 mm/s. The overhang speed settings are
+30 / 30 / 25 / 10 mm/s. The filament preset supplies 90% part cooling on all
+outer perimeters after the first three layers, using a 0% overhang threshold.
+Conventional seams use the back position with overhang avoidance. Travel planning
+detours around perimeter walls where possible. The commanded speeds and seam locations
+are recorded in [toolpath-review.json](toolpath-review.json).
+
+The [full-height corner trial](corner-trial.3mf) contains a 54.5 × 54.5 × 72.6 mm
+section of this cavity, with the same layer bands and saved presets. It exercises
+the full taper height on a smaller print. Its smaller mass and shorter layer times
+do not reproduce the whole mold's thermal conditions. Its settings and G-code
+checks are in [corner-trial-profile.json](corner-trial-profile.json).
+The [print log](../print-log.md) records observed specimens.
 
 The recipe, all effective settings, layer bands, mesh digests, G-code checksums
 and estimates are in [print-profile.json](print-profile.json). The CAD dimensions
@@ -96,6 +113,11 @@ After publication, run [review_geometry.py](/tools/funnel-mold-design/review_geo
 with `--models hardware/printed-parts/zone-c/funnel-mold/solid`. It reads the printed
 meshes with the cavity upright and the core inverted. The adjacent `.lint-answers`
 files explain the finishing-pocket edges, opening notches and key clearance.
+
+[prepare_trial.py](/tools/funnel-mold-design/prepare_trial.py) cuts the corner
+from this directory's `cavity.step` into a separate output directory. Prepare
+that directory with `prepare_print.py --only cavity`. Audit its default-trim
+slice with `verify_print.py --single --project-stem corner-trial`.
 
 ## Sources
 [value](NAME) texts are updated by:

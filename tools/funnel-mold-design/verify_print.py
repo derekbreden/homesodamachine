@@ -16,6 +16,7 @@ from audit_profile import equivalent
 def audit(project, provenance_path, models):
     origin = json.loads(provenance_path.read_text())
     recipe = origin['recipe']
+    names = origin.get('parts', ['cavity', 'core'])
     with zipfile.ZipFile(project) as archive:
         assert archive.testzip() is None
         settings = json.loads(archive.read('Metadata/project_settings.config'))
@@ -37,14 +38,14 @@ def audit(project, provenance_path, models):
         assert settings['curr_bed_type'] == 'Textured PEI Plate'
         assert settings['post_process'] == []
         assert settings['before_layer_change_gcode'] == ''
-        assert len(local.findall('object')) == len(local.findall('plate')) == 2
+        assert len(local.findall('object')) == len(local.findall('plate')) == len(names)
         for obj in local.findall('object'):
             keys = {m.get('key') for m in obj.findall('metadata') if m.get('key')}
             assert keys == {'name', 'extruder'}, keys
             assert len(obj.findall('part')) == 1
             assert obj.find('part').get('subtype') == 'normal_part'
         gcode_records = []
-        for index, name in enumerate(('cavity', 'core'), 1):
+        for index, name in enumerate(names, 1):
             digest = hashlib.sha256((models/f'{name}.stl').read_bytes()).hexdigest()
             assert digest == origin['mesh_sha256'][name], 'STL changed after preparation'
             actual = ranges.find(f"object[@id='{index}']")
@@ -80,17 +81,22 @@ def main():
     parser.add_argument('--models', type=Path, required=True)
     parser.add_argument('--slices', type=Path, required=True)
     parser.add_argument('--project-stem', default='solid-mold')
+    parser.add_argument('--single', action='store_true', help='Audit only the default Z trim.')
     args = parser.parse_args()
+    info = json.loads((args.models/'design.json').read_text())
     records = []
-    for variant, input_name, project_name in [
+    variants = [
         ('default', 'default-input', args.project_stem+'.3mf'),
-        ('z018', 'z018-input', args.project_stem+'-z018.3mf')]:
+        ('z018', 'z018-input', args.project_stem+'-z018.3mf')]
+    for variant, input_name, project_name in variants[:1] if args.single else variants:
         project = args.slices/variant/project_name
         record = audit(project, args.slices/f'{input_name}.provenance.json', args.models)
         result = json.loads((args.slices/variant/'result.json').read_text())
         assert result['return_code'] == 0
         assert all(not p['warning_message'] for p in result['sliced_plates'])
         record['slice_result'] = result
+        if 'corner_trial' in info:
+            record['specimen'] = info['corner_trial']
         records.append(record)
         (args.models/project_name).write_bytes(project.read_bytes())
     bundle = args.slices/'solid-mold-presets.bbscfg'
@@ -106,10 +112,13 @@ def main():
             machine = json.loads(archive.read(settings['printer_settings_id']+'.json'))
             assert machine['machine_start_gcode'] == settings['machine_start_gcode']
     (args.models/bundle.name).write_bytes(bundle.read_bytes())
-    (args.models/'print-profile.json').write_text(json.dumps(records, indent=2)+'\n')
+    profile = 'print-profile.json' if len(records[0]['gcode']) == 2 else args.project_stem+'-profile.json'
+    (args.models/profile).write_text(json.dumps(records, indent=2)+'\n')
+    if len(records[0]['gcode']) == 1:
+        print(records[0]['project'], records[0]['effective_setting_count'], 'settings checked')
+        return
     sys.path.insert(0, str(HERE.parent))
     from docgen import substitute_md
-    info = json.loads((args.models/'design.json').read_text())
     def dims(name):
         return ' × '.join(f'{v:.1f}'.removesuffix('.0') for v in info['dimensions_mm'][name])+' mm'
     def duration(plate):
@@ -128,7 +137,26 @@ def main():
         'CAVITY_MASS': f"{cavity['filaments'][0]['total_used_g']:.0f} g",
         'CORE_MASS': f"{core['filaments'][0]['total_used_g']:.0f} g",
         'ENVELOPE': f"{info['enclosing_diameter_mm']:.1f} mm",
-        'CHAMBER_GAP': f"{info['chamber_radial_clearance_mm']:.1f} mm"}
+        'CHAMBER_GAP': f"{info['chamber_radial_clearance_mm']:.1f} mm",
+        'FOOT_WIDTH': f"{info['cavity_outer_taper']['foot_width_mm']:g} mm",
+        'TAPER_ANGLE': f"{info['cavity_outer_taper']['minimum_angle_from_bed_degrees']:g}°",
+        'TAPER_GROWTH': f"{info['cavity_outer_taper']['maximum_outward_growth_per_0_40_mm_layer']:.2f} mm"}
+    mass = lambda plates: sum(p['filaments'][0]['total_used_g'] for p in plates)
+    seconds = lambda plates: sum(p['total_predication'] for p in plates)
+    plates = records[0]['slice_result']['sliced_plates']
+    figures.update({'TOTAL_MASS': f'{mass(plates)/1000:.2f} kg',
+                    'TOTAL_TIME': duration({'total_predication': seconds(plates)})})
+    if 'channels' in info:
+        baseline = json.loads((args.models.parent/'print-profile.json').read_text())[0]['slice_result']['sliced_plates']
+        channel = info['channels']['parts']
+        figures.update({
+            'MASS_SAVING': f'{mass(baseline)-mass(plates):.0f} g',
+            'MASS_SAVING_PERCENT': f'{100*(mass(baseline)-mass(plates))/mass(baseline):.1f}%',
+            'TIME_SAVING': duration({'total_predication': seconds(baseline)-seconds(plates)}),
+            'TIME_SAVING_PERCENT': f'{100*(seconds(baseline)-seconds(plates))/seconds(baseline):.1f}%'})
+        for name, prefix in [('cavity', 'CAVITY'), ('core', 'CORE')]:
+            figures[prefix+'_REMOVED_VOLUME'] = f"{channel[name]['removed_ml']:.1f} mL"
+            figures[prefix+'_BED_CONTACT'] = f"{channel[name]['bed_contact_mm2']/100:.1f} cm²"
     substitute_md(args.models/'README.md', variables=figures)
     # docgen records sidecars automatically only for callers under hardware.
     (args.models/'README.figures.json').write_text(json.dumps({
