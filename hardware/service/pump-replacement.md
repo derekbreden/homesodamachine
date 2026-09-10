@@ -61,7 +61,7 @@ is drawn on — the container under the faucet is the only one the procedure ask
 ## How the plate lets go
 
 The collet plate is printed into front-top, with a nominal release section
-[200](PLATE_SPAN) mm across and [3.175](PLATE_T) mm thick. Its release face stands
+[209](PLATE_SPAN) mm across and [3.175](PLATE_T) mm thick. Its release face stands
 [0.5](REST_GAP) mm fore of the fully extended branch-collet noses at the aft stop. Four Ø8.5 mm
 teardrop passages pass the Ø[6.35 mm](TUBE_OD) cartridge tubes while leaving a land under each
 release sleeve. The upper cap, outer cheeks, floor joins and front-bottom feet are features of

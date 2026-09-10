@@ -12,11 +12,11 @@ two coppers leave by opposite lanes, each one out on the side the leg that reach
 from, and each lane is one slot with its own stack. `columns` is that table.
 
   PORT LANE, one station, one lane pitch up off the lane's own floor:
-    • [27.75 mm](EVAP_INLET_Z) evaporator inlet — the cold-side copper, reached from the
+    • [28.05 mm](EVAP_INLET_Z) evaporator inlet — the cold-side copper, reached from the
       condenser's outlet through the drier and the cap tube
 
   WEST LANE, one station:
-    • [27.75 mm](EVAP_OUTLET_Z) evaporator outlet — the warm-side copper, reached from the
+    • [28.05 mm](EVAP_OUTLET_Z) evaporator outlet — the warm-side copper, reached from the
       compressor's suction. It crosses at the height its opposite number does: the two
       lanes are the same strip mirrored, and one coil's two tails reach either the same way.
 
@@ -101,8 +101,10 @@ from _cold_core_interface import (
     state,
 )
 
-# Slot width in X equals the port's ⌀[6.5 mm](SLOT_W) punch in
-# cut_lane_slots.
+# The slot `cut_lane_slots` punches, and the plug that fills it: ⌀[6.5 mm](SLOT_W), one figure
+# read from here by both. IT IS NOT `port_hole_radius` AND DOES NOT FOLLOW IT. What crosses here
+# is 1/4" ACR copper, and a formed tail is lowered down the wall into an open slot rather than
+# pushed through a bore — so it takes none of the slip a line threaded through a hole needs.
 slot_width_x = 6.5
 slot_half_width_x = slot_width_x / 2
 slot_x_range = (-slot_half_width_x, slot_half_width_x)
@@ -154,14 +156,14 @@ bottom_flange_y_range = (plug_y_inner, outer_wall_inner_y)
 # fitting it serves — every line turns onto its lane and climbs or drops it to get
 # here — so the slot's stations sit at the field's own `front_port_pitch` rather
 # than each crossing at its fitting's own height. That is what keeps every
-# penetration in one low band: no station stands above [27.75 mm](EVAP_INLET_Z) on a
+# penetration in one low band: no station stands above [28.05 mm](EVAP_INLET_Z) on a
 # wall [213.4 mm](SHELL_TOP_Z) tall, so whatever is packed against this face outside
 # meets all of them in one reach instead of up the shell's full height. What a
 # stack owes the field under it is the field's top, one wall of PETG, and the reach of the
 # slot's own rounded bottom below the lowest plug.
 slot_bottom_below_lowest_plug = 5.0     # open slot under the lowest plug's bottom arch
 # The cold-side evaporator inlet on the PORT lane, and
-# [27.75 mm](EVAP_OUTLET_Z) the warm-side outlet on the WEST one. Both coppers cross at this
+# [28.05 mm](EVAP_OUTLET_Z) the warm-side outlet on the WEST one. Both coppers cross at this
 # height: the two lanes are one strip mirrored, and each tail leaves its wrap
 # (`_cold_core_interface.evap_tail_low_z` / `evap_tail_high_z`) and turns onto its own lane
 # to reach it — which is why the coil's geometry and these stations are separate numbers.

@@ -26,6 +26,7 @@ from _show_skin import write_bed_file
 import _materials as _mat
 from _materials import one_body
 import valve_seat as seat
+import _foam_cap as _foam_cap_module
 from _foam_cap import (
     build_foam_cap,
     build_foam_cap_lid,
@@ -607,11 +608,20 @@ def main():
     variables = {
         "LID_Z_H": f"{lid_total_height:.4g} mm",
         "FLUTE_D": f"{flute_depth:.4g} mm",
+        "FCAP_BORE_D": f"{2.0 * cap_conduit_bore_radius:.4g} mm",
     }
     substitute_py_comments(
         Path(__file__),
         variables=variables,
     )
+    # `_foam_cap` is where the two cups and the two lids are actually built, and it states the
+    # conduit bore in its own docstrings. It exports no `__main__`, so this is the run that
+    # hands it its figures.
+    substitute_py_comments(
+        Path(_foam_cap_module.__file__),
+        variables=variables,
+    )
+    print("-> _foam_cap.py")
     print(f"-> {Path(__file__).name} (self)")
 
 

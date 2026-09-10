@@ -6,6 +6,7 @@
   },
   "/hardware/printed-parts/cold-core/reservoir/reservoir.py": {
     "CAVITY_FAR_WALL_X": "126",
+    "CONDUIT_BORE_D": "6.65 mm",
     "FLAVOR_HOLE_X": "\u00b197",
     "MAGNET_WALL_BIAS": "2.5 mm",
     "REEDS_PER_RES": "4",
