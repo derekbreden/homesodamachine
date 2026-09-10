@@ -79,11 +79,12 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--models', type=Path, required=True)
     parser.add_argument('--slices', type=Path, required=True)
+    parser.add_argument('--project-stem', default='solid-mold')
     args = parser.parse_args()
     records = []
     for variant, input_name, project_name in [
-        ('default', 'default-input', 'solid-mold.3mf'),
-        ('z018', 'z018-input', 'solid-mold-z018.3mf')]:
+        ('default', 'default-input', args.project_stem+'.3mf'),
+        ('z018', 'z018-input', args.project_stem+'-z018.3mf')]:
         project = args.slices/variant/project_name
         record = audit(project, args.slices/f'{input_name}.provenance.json', args.models)
         result = json.loads((args.slices/variant/'result.json').read_text())
@@ -112,7 +113,7 @@ def main():
     def dims(name):
         return ' × '.join(f'{v:.1f}'.removesuffix('.0') for v in info['dimensions_mm'][name])+' mm'
     def duration(plate):
-        minutes = int(plate['total_predication']//60)
+        minutes = round(plate['total_predication']/60)
         return f'{minutes//60} h {minutes%60:02d} min'
     cavity, core = records[0]['slice_result']['sliced_plates']
     figures = {

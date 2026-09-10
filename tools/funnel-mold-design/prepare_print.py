@@ -69,6 +69,7 @@ def main():
     parser.add_argument('--models', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--z-trim', type=float, choices=(0.04, 0.18), default=0.04)
+    parser.add_argument('--label')
     args = parser.parse_args()
     info = json.loads((args.models/'design.json').read_text())
     settings_recipe = recipe(info)
@@ -80,7 +81,7 @@ def main():
         **{'xmlns:BambuStudio': 'http://schemas.bambulab.com/package/2021'})
     ET.SubElement(model, qn('metadata'), name='Application').text = f'BambuStudio-{version}'
     ET.SubElement(model, qn('metadata'), name='BambuStudio:3mfVersion').text = '1'
-    ET.SubElement(model, qn('metadata'), name='Title').text = 'Funnel mold - solid cavity and core'
+    ET.SubElement(model, qn('metadata'), name='Title').text = args.label or 'Funnel mold - solid cavity and core'
     resources = ET.SubElement(model, qn('resources'))
     build = ET.SubElement(model, qn('build'), **{f'{{{PROD}}}UUID': str(uuid.uuid4())})
     config = ET.Element('config')
@@ -112,7 +113,7 @@ def main():
         ET.SubElement(rels, f'{{{REL}}}Relationship', Target=path, Id=f'rel-{index}',
             Type='http://schemas.microsoft.com/3dmanufacturing/2013/01/3dmodel')
         obj = ET.SubElement(config, 'object', id=object_id)
-        metadata(obj, 'name', f'Solid funnel mold {name}')
+        metadata(obj, 'name', f"{args.label or 'Solid funnel mold'} {name}")
         metadata(obj, 'extruder', '1')
         ET.SubElement(obj, 'metadata', face_count=str(len(mesh.faces)))
         part = ET.SubElement(obj, 'part', id=part_id, subtype='normal_part', uuid=str(uuid.uuid4()))
@@ -124,7 +125,7 @@ def main():
         ET.SubElement(part, 'mesh_stat', face_count=str(len(mesh.faces)), edges_fixed='0',
             degenerate_facets='0', facets_removed='0', facets_reversed='0', backwards_edges='0')
         plate = ET.SubElement(config, 'plate')
-        for key, value in {'plater_id': index, 'plater_name': f'Solid {name}', 'locked': 'false',
+        for key, value in {'plater_id': index, 'plater_name': f"{args.label or 'Solid'} {name}", 'locked': 'false',
                 'filament_map_mode': 'Manual', 'filament_maps': '1', 'filament_volume_maps': '1',
                 'bed_type': 'Textured PEI Plate'}.items():
             metadata(plate, key, value)
