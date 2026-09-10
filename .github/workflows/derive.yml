@@ -36,6 +36,13 @@ name: derive
 # you actually need. Restoring the old behaviour is the four lines below this comment.
 on:
   workflow_dispatch:
+    inputs:
+      trace:
+        description: Re-trace the build graph first (all = every generator, over an hour)
+        required: false
+        default: none
+        type: choice
+        options: [none, all]
 
 concurrency:
   # ONE RUNNING, ONE WAITING, AND EVERYTHING ELSE DISCARDED. `cancel-in-progress: false` buys
@@ -236,6 +243,48 @@ jobs:
       # Node builtins only, so it needs no install of its own.
       - name: The solids the lock already names
         run: node web/scripts/fetch-cad-artifacts.mjs
+
+      # THE FULL SWEEP LIVES HERE AND NOWHERE ELSE. Watching every generator run is over an hour
+      # serially, and taken on the laptop it lands on whoever is at the keyboard — which is what
+      # `trace_inputs.py` refuses without `--all`. Nobody waits on this machine, and the
+      # `git add -A` at the end of this job commits the graph it writes.
+      #
+      # THE SWEEP IS UNIONED WITH THE GRAPH THE TREE CAME IN WITH. A generator that skips the
+      # outputs already current writes fewer than it declares, and the tracer reads any write as
+      # a whole run — so the entry comes back holding only the part it reached, and every output
+      # it stopped naming loses the rule that cuts it. The union keeps both sides, and can only
+      # err the other way: by keeping an output a generator genuinely stopped making. The build
+      # below is what says so, in this same job and before anything is committed back, because
+      # bazel fails an action that does not create what it declared.
+      - name: Re-trace every generator
+        if: inputs.trace == 'all'
+        timeout-minutes: 180
+        run: |
+          cp tools/bazel/graph.json "$RUNNER_TEMP/graph-before.json"
+          tools/cad-venv/bin/python tools/bazel/trace_inputs.py --all
+          tools/cad-venv/bin/python - "$RUNNER_TEMP/graph-before.json" <<'PY'
+          import json, sys
+          from pathlib import Path
+
+          out = Path("tools/bazel/graph.json")
+          before = json.loads(Path(sys.argv[1]).read_text())
+          after = json.loads(out.read_text())
+          kept = 0
+          for gen, was in before.items():
+              now = after.get(gen)
+              if now is None:
+                  after[gen] = dict(was)
+                  kept += sum(len(was.get(s, ())) for s in ("reads", "writes", "rewritten"))
+                  continue
+              for side in ("reads", "writes", "rewritten"):
+                  have = set(now.get(side, ()))
+                  both = have | set(was.get(side, ()))
+                  kept += len(both) - len(have)
+                  now[side] = sorted(both)
+          out.write_text(json.dumps(after, indent=2, sort_keys=True) + "\n")
+          print(f"::notice title=build-graph::sweep unioned with the incoming graph; "
+                f"{kept} declaration(s) the sweep dropped were kept")
+          PY
 
       - name: This checkout's own paths
         # NOTHING HERE HOLDS THE DERIVE. `gen_build.py` has already written the current graph

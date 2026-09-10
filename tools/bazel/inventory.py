@@ -253,6 +253,14 @@ def inventory(files=None) -> dict:
     except (OSError, ValueError):
         return {}
 
+    # A MISSING `rewritten` IS ONLY VISIBLE HERE. The normalisation below asks each entry for
+    # all three sides and takes `()` for the one it has not got, so every entry downstream holds
+    # the key whether or not the run that wrote it knew about rewrites. The reading is taken on
+    # the way past, off the raw graph, and answered where the rest of the graph's complaints
+    # are. It names the generator as `graph.json` spells it, which is the name to re-trace:
+    # `_split_generators` has not run yet, so a source has not yet become its wrappers.
+    stale = sorted(g for g, seen in graph.items() if "rewritten" not in seen)
+
     # Old traces can predate the boundary above. Ignore those observations while rendering the
     # build as well as while taking new traces, so a stale graph cannot make a slicer save recut
     # anything.
@@ -300,13 +308,17 @@ def inventory(files=None) -> dict:
 
     # A READING TAKEN BEFORE THE WRITERS SAID WHICH KIND OF WRITE IT WAS cannot be sorted, and
     # sorting it wrong makes every doc an output its own action is not given. Named here rather
-    # than built into a graph that fails one action at a time.
-    stale = sorted(g for g, seen in graph.items() if "rewritten" not in seen)
+    # than built into a graph that fails one action at a time; taken further up, where a missing
+    # side is still missing.
     if stale:
+        # THE ONES TO RE-TRACE ARE THE ONES NAMED HERE, and they are in hand. A remedy line that
+        # ends at the bare command sends a sweep of every generator after however few of them
+        # this is, which costs an hour and drops the writes of each one already current.
         raise SystemExit(
             f"  {len(stale)} generator(s) were traced before a run said which of its writes it\n"
-            f"  read back — {Path(stale[0]).name} among them. Re-trace them:\n"
-            f"    tools/cad-venv/bin/python tools/bazel/trace_inputs.py")
+            f"  read back — {Path(stale[0]).name} among them. Re-trace those:\n"
+            f"    tools/cad-venv/bin/python tools/bazel/trace_inputs.py \\\n"
+            + " \\\n".join(f"      {g}" for g in stale))
 
     writes = {gen: (set(seen["writes"]) | set(IMPLICIT_SOLIDS.get(gen, ())))
               for gen, seen in graph.items() if gen in files}
