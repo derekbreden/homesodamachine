@@ -249,13 +249,29 @@ jobs:
       # `trace_inputs.py` refuses without `--all`. Nobody waits on this machine, and the
       # `git add -A` at the end of this job commits the graph it writes.
       #
-      # THE SWEEP IS UNIONED WITH THE GRAPH THE TREE CAME IN WITH. A generator that skips the
-      # outputs already current writes fewer than it declares, and the tracer reads any write as
-      # a whole run — so the entry comes back holding only the part it reached, and every output
-      # it stopped naming loses the rule that cuts it. The union keeps both sides, and can only
-      # err the other way: by keeping an output a generator genuinely stopped making. The build
-      # below is what says so, in this same job and before anything is committed back, because
-      # bazel fails an action that does not create what it declared.
+      # THE SWEEP IS UNIONED WITH THE GRAPH THE TREE CAME IN WITH, AND THE DISK DECIDES WHICH
+      # HALF OF THE DIFFERENCE IS REAL. Two things make an entry come back smaller and they need
+      # opposite answers:
+      #
+      #   A generator that skips the outputs already current writes fewer than it declares, and
+      #   the tracer reads any write as a whole run — so the entry keeps only the part it
+      #   reached. What it stopped naming IS ON THE DISK, which is why the generator skipped it.
+      #
+      #   A generator that stopped making something at all — a renamed deck, a deleted card —
+      #   leaves the old name in the graph until a sweep drops it. Dropping it is the sweep
+      #   doing its job, and restoring it declares a genrule output nothing writes, which dies
+      #   on `cp: No such file or directory` and takes the whole derive with it.
+      #
+      # So a declaration the sweep dropped comes back only if the file it names exists. That is
+      # the same question the two cases answer differently, and nothing else here has to guess.
+      # Nothing the sweep FOUND is touched — this only ever adds — so a live output the fresh
+      # trace still names survives whether or not it is on the disk right now.
+      #
+      # THE ONE THING THIS CANNOT SEE is an output that is real but absent because its generator
+      # is broken: it aborted partway, wrote the rest, and so did not raise. That declaration
+      # looks exactly like a dead name here and is let go. The answer is the broken generator,
+      # not a looser rule — a graph that keeps outputs nothing writes is the failure this step
+      # exists to avoid.
       - name: Re-trace every generator
         if: inputs.trace == 'all'
         timeout-minutes: 180
@@ -269,21 +285,27 @@ jobs:
           out = Path("tools/bazel/graph.json")
           before = json.loads(Path(sys.argv[1]).read_text())
           after = json.loads(out.read_text())
-          kept = 0
+          kept = gone = 0
           for gen, was in before.items():
-              now = after.get(gen)
-              if now is None:
-                  after[gen] = dict(was)
-                  kept += sum(len(was.get(s, ())) for s in ("reads", "writes", "rewritten"))
+              if gen not in after or not Path(gen).exists():
+                  # A generator the sweep has no entry for either raised or is gone. `inventory`
+                  # raises on one absent from the tree; one that raised keeps what it had.
                   continue
+              now = after[gen]
               for side in ("reads", "writes", "rewritten"):
                   have = set(now.get(side, ()))
-                  both = have | set(was.get(side, ()))
-                  kept += len(both) - len(have)
-                  now[side] = sorted(both)
+                  for path in was.get(side, ()):
+                      if path in have:
+                          continue
+                      if Path(path).exists():
+                          have.add(path)
+                          kept += 1
+                      else:
+                          gone += 1
+                  now[side] = sorted(have)
           out.write_text(json.dumps(after, indent=2, sort_keys=True) + "\n")
-          print(f"::notice title=build-graph::sweep unioned with the incoming graph; "
-                f"{kept} declaration(s) the sweep dropped were kept")
+          print(f"::notice title=build-graph::{kept} declaration(s) the sweep dropped name a "
+                f"file that is on the disk and were kept; {gone} name nothing and were let go")
           PY
 
       - name: This checkout's own paths
