@@ -2,8 +2,8 @@
 
 The weld path, printed pulley, purchased pulley and controller all reduce to
 one circular interface. This script reads the same CadQuery-free interface as
-the printable fixture and derives every speed, pulse count and lap time in the
-assembly procedure from it.
+the printable fixture and derives every speed and pulse count in the assembly
+procedure from it.
 
 Run: tools/cad-venv/bin/python hardware/assembly/_weld_rotation_rig_sync.py
 """
@@ -71,11 +71,6 @@ def main():
     overlap_length = (
         interface.bead_circumference() * interface.OVERLAP_DEGREES / 360.0
     )
-    nominal_lap_s = (
-        interface.bead_circumference()
-        * (360.0 + interface.OVERLAP_DEGREES) / 360.0
-        / interface.TRAVEL_NOMINAL
-    )
 
     variables = {
         "BEAD_D": f"{interface.TUBE_ID:.2f} mm",
@@ -102,9 +97,6 @@ def main():
             f"{interface.small_pulley_wrap_degrees() / 360.0 * interface.MOTOR_PULLEY_TEETH:.1f}"
         ),
         "TABLE_PULSES": f"{interface.table_pulses_per_rev():,}",
-        "LAP_PULSES": (
-            f"{interface.pulses_for_degrees(360.0 + interface.OVERLAP_DEGREES):,}"
-        ),
         "INDEX_PULSES": f"{interface.pulses_for_degrees(45.0):,}",
         "TABLE_STEP_DEG": f"{360.0 / interface.table_pulses_per_rev():.3f}°",
         "TABLE_STEP_MM": (
@@ -112,7 +104,6 @@ def main():
         ),
         "OVERLAP_DEG": f"{interface.OVERLAP_DEGREES:.0f}°",
         "OVERLAP_MM": f"{overlap_length:.1f} mm",
-        "LAP_NOM": f"{nominal_lap_s:.1f} s",
         "WIRE_FEED": f"{WIRE_FEED:.0f} mm/s",
         "WIRE_AREA": f"{wire_area:.3f} mm²",
         "FILLET_NOM": f"{fillet_leg(interface.TRAVEL_NOMINAL):.2f} mm",
@@ -120,9 +111,6 @@ def main():
     for speed in SPEEDS:
         variables[f"RPM_{speed}"] = f"{interface.table_rpm(speed):.3f}"
         variables[f"REV_{speed}"] = f"{interface.bead_circumference() / speed:.1f}"
-        variables[f"LAP_{speed}"] = (
-            f"{interface.bead_circumference() * (360.0 + interface.OVERLAP_DEGREES) / 360.0 / speed:.1f}"
-        )
         variables[f"PULSE_{speed}"] = f"{interface.pulse_hz(speed):.1f}"
         variables[f"LEG_{speed}"] = f"{fillet_leg(speed):.2f}"
 
@@ -131,8 +119,7 @@ def main():
         f"bead {interface.bead_circumference():.2f} mm; "
         f"nominal {interface.table_rpm(interface.TRAVEL_NOMINAL):.3f} rpm, "
         f"{interface.pulse_hz(interface.TRAVEL_NOMINAL):.1f} Hz, "
-        f"{nominal_lap_s:.1f} s / "
-        f"{interface.pulses_for_degrees(380):,} pulses"
+        f"{interface.bead_circumference() / interface.TRAVEL_NOMINAL:.1f} s/rev"
     )
 
 

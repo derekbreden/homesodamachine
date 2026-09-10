@@ -58,22 +58,26 @@ motor heating while the welder is being set.
 
 ## Operation
 
-The controller powers up motionless and will not arm until it sees the pedal
-released. In the default `lap` mode, press and hold the pedal for one complete
-revolution plus 20°. Releasing early aborts immediately; completion stops at
-15,200 pulses and requires a release before another lap. `jog` follows the
-pedal continuously for indicating and setup.
+**The pedal is the whole of the control.** Held, the table turns at the stored
+speed; released, it stops. Nothing counts a revolution and nothing stops the
+table out from under the operator — the length of a lap is judged at the index
+mark while watching the puddle, not enforced by the controller.
 
-The default 8 mm/s bead travel is 1.235 rpm at the tube and a 51.3 s, 380°
-lap. The accepted range is 5–15 mm/s. Settings are changed over the ESP32 USB
-serial console at 115200 baud and persist in NVS:
+The one thing the controller refuses is a start it was not asked for: it powers
+up motionless and will not arm until it has seen the pedal released once, so a
+pedal held down through a reset cannot move the table. After that, every press
+turns and every release stops, with no rearming in between.
+
+The console reports how far the table has come in degrees, and says so again on
+release. That number is a readout for the operator and is never a limit.
+
+The default 8 mm/s bead travel is 1.235 rpm at the tube, or 48.6 s per
+revolution. The accepted range is 5–15 mm/s. Settings are changed over the
+ESP32 USB serial console at 115200 baud and persist in NVS:
 
 ```text
 status
 speed 8.0
-overlap 20
-mode lap
-mode jog
 direction cw
 direction ccw
 dirinvert on
@@ -81,13 +85,13 @@ defaults
 ```
 
 The console is serviced only while the table is stopped, so serial formatting
-and flash writes cannot stretch a weld step interval. The pedal is the live
-stop control.
+and flash writes cannot stretch a step interval. The pedal is the live stop
+control.
 
 `direction` is the tube direction viewed from above. During dry commissioning,
-mark the table, command `mode jog` and `direction cw`, and tap the pedal. If the
-mark moves counterclockwise, issue `dirinvert on` once. Do not move the wire
-guide until that convention is verified.
+mark the table, command `direction cw`, and tap the pedal. If the mark moves
+counterclockwise, issue `dirinvert on` once. Do not move the wire guide until
+that convention is verified.
 
 ## Build
 
