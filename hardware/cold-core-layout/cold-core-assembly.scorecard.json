@@ -82,9 +82,9 @@
    "detail": [
     "port-lane: carb-water-out at z 13.8..233.4, x -55.4..-20.6",
     "port-lane: co2-in at z 13.8..233.4, x -4.7..50.0",
-    "port-lane: evap-tail-inlet at z 24.6..50.2, x -143.5..-34.3",
+    "port-lane: evap-tail-inlet at z 24.9..50.2, x -143.5..-34.3",
     "port-lane: reservoir-a at z 2.8..233.4, x -138.1..104.1",
-    "west-lane: evap-tail-outlet at z 24.6..169.6, x -143.5..-34.3",
+    "west-lane: evap-tail-outlet at z 24.9..169.6, x -143.5..-34.3",
     "west-lane: prv-vent at z 168.7..187.9, x -3.2..3.2",
     "west-lane: reservoir-b at z 2.8..233.4, x -138.1..-101.8",
     "west-lane: water-in at z 179.9..233.4, x -138.1..-6.2"
@@ -117,8 +117,8 @@
    "value": "2/2 stations",
    "target": "a run per station",
    "detail": [
-    "port-lane evap-inlet at z 27.75: evap-tail-inlet",
-    "west-lane evap-outlet at z 27.75: evap-tail-outlet"
+    "port-lane evap-inlet at z 28.05: evap-tail-inlet",
+    "west-lane evap-outlet at z 28.05: evap-tail-outlet"
    ],
    "active": true
   },
