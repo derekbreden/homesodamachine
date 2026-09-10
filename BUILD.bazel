@@ -31,6 +31,7 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "pysrc/hardware/reference/beduan-solenoid/beduan_solenoid.py",
         "pysrc/hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
+        "hardware/reference/tee-connector/tee-connector.step",
         "pysrc/hardware/reference/tee-connector/tee_connector.py",
         "pysrc/hardware/reference/y-divider/y_divider.py",
         "pysrc/hardware/scripts/_boxes.py",
@@ -136,7 +137,7 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_foam_cap.py",
-        "pysrc/hardware/printed-parts/cold-core/_internal_routes.py",
+        "hardware/printed-parts/cold-core/_internal_routes.py",
         "pysrc/hardware/printed-parts/cold-core/_outer_shell.py",
         "hardware/printed-parts/cold-core/_port_cuts.py",
         "pysrc/hardware/printed-parts/cold-core/_reed_channels.py",
@@ -167,13 +168,15 @@ genrule(
     outs = [
         "out/cold-core-sync/hardware/assembly/cold-core.figures.json",
         "out/cold-core-sync/hardware/assembly/cold-core.md",
+        "out/cold-core-sync/hardware/printed-parts/cold-core/_internal_routes.py",
         "out/cold-core-sync/hardware/printed-parts/cold-core/_port_cuts.py",
     ],
     cmd = """
 set -e
 O0=$$PWD/$(location out/cold-core-sync/hardware/assembly/cold-core.figures.json)
 O1=$$PWD/$(location out/cold-core-sync/hardware/assembly/cold-core.md)
-O2=$$PWD/$(location out/cold-core-sync/hardware/printed-parts/cold-core/_port_cuts.py)
+O2=$$PWD/$(location out/cold-core-sync/hardware/printed-parts/cold-core/_internal_routes.py)
+O3=$$PWD/$(location out/cold-core-sync/hardware/printed-parts/cold-core/_port_cuts.py)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -192,7 +195,8 @@ D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/assembly/_cold_core_sync.py > /dev/null
 cp hardware/assembly/cold-core.figures.json $$O0
 cp hardware/assembly/cold-core.md $$O1
-cp hardware/printed-parts/cold-core/_port_cuts.py $$O2
+cp hardware/printed-parts/cold-core/_internal_routes.py $$O2
+cp hardware/printed-parts/cold-core/_port_cuts.py $$O3
 """,
 )
 
@@ -502,6 +506,8 @@ genrule(
         ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.facts.json",
         ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.scorecard.json",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
+        "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
+        "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
@@ -516,10 +522,12 @@ genrule(
         "pysrc/hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_facts.py",
+        "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_measuring.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/hardware/scripts/pick_text.py",
         "pysrc/marketing/_install_envelope_sync.py",
         "pysrc/tools/docgen/__init__.py",
@@ -620,6 +628,7 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "pysrc/hardware/reference/beduan-solenoid/beduan_solenoid.py",
         "pysrc/hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
+        "hardware/reference/tee-connector/tee-connector.step",
         "pysrc/hardware/reference/tee-connector/tee_connector.py",
         "pysrc/hardware/reference/y-divider/y_divider.py",
         "pysrc/hardware/scripts/_boxes.py",
@@ -827,6 +836,7 @@ genrule(
         "pysrc/hardware/reference/seaflo-suction-chain/seaflo_suction_chain.py",
         "pysrc/hardware/reference/sf76e-thermal-fuse/sf76e_thermal_fuse.py",
         "pysrc/hardware/reference/shutao-moisture-plate/shutao_moisture_plate.py",
+        "hardware/reference/tee-connector/tee-connector.step",
         "pysrc/hardware/reference/tee-connector/tee_connector.py",
         "pysrc/hardware/reference/teyleten-relay/teyleten_relay.py",
         "pysrc/hardware/reference/wago-221/wago_221.py",
@@ -944,11 +954,15 @@ genrule(
     srcs = [
         "pysrc/hardware/assembly/_refrigerant_loop_sync.py",
         "hardware/assembly/refrigerant-loop.md",
+        "pysrc/hardware/printed-parts/cadlib/fits.py",
+        "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
         "pysrc/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
@@ -1049,14 +1063,18 @@ genrule(
         "hardware/assembly/wiring.md",
         "pysrc/hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
+        "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
+        "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "pysrc/hardware/printed-parts/faucet/_faucet_interface.py",
         "pysrc/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
         "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/hardware/wiring/_ac_wiring_schedule_sync.py",
         "pysrc/tools/docgen/__init__.py",
     ] + glob(
@@ -1146,16 +1164,11 @@ genrule(
         "hardware/assembly/cards/en-02-y-wall-bodies.html",
         "hardware/assembly/cards/en-03-bolt-the-compressor-down.html",
         "hardware/assembly/cards/en-04-stand-the-compressor-bay.html",
-        "hardware/assembly/cards/en-04-stand-the-stratum.html",
         "hardware/assembly/cards/en-05-close-front-column.html",
-        "hardware/assembly/cards/en-05-seat-cold-core.html",
-        "hardware/assembly/cards/en-06-power-column.html",
         "hardware/assembly/cards/en-06-seat-cold-core.html",
-        "hardware/assembly/cards/en-07-close-the-box.html",
         "hardware/assembly/cards/en-07-electronics-bay.html",
         "hardware/assembly/cards/en-08-close-the-box.html",
         "hardware/assembly/cards/en-09-asse-drip-pan.html",
-        "hardware/assembly/cards/en-09-display-and-funnel.html",
         "hardware/assembly/cards/en-10-display-and-funnel.html",
         "hardware/assembly/cards/fc-01-first-dc-power-on.html",
         "hardware/assembly/cards/fc-02-flash-three-esp32s.html",
@@ -1191,34 +1204,22 @@ genrule(
         ":out/render-scene-cards/hardware/assembly/cards/img/asse1022-chain.png.scene.json",
         ":out/render-scene-cards/hardware/assembly/cards/img/coil-mandrel.png",
         ":out/render-scene-cards/hardware/assembly/cards/img/coil-mandrel.png.scene.json",
-        ":out/render-scene-cards/hardware/assembly/cards/img/copper-plug.png",
-        ":out/render-scene-cards/hardware/assembly/cards/img/copper-plug.png.scene.json",
         ":out/render-scene-cards/hardware/assembly/cards/img/en01-shell.png",
         ":out/render-scene-cards/hardware/assembly/cards/img/en01-shell.png.scene.json",
         ":out/render-scene-cards/hardware/assembly/cards/img/en02-y-wall.png",
         ":out/render-scene-cards/hardware/assembly/cards/img/en02-y-wall.png.scene.json",
         ":out/render-scene-cards/hardware/assembly/cards/img/en03-compressor.png",
         ":out/render-scene-cards/hardware/assembly/cards/img/en03-compressor.png.scene.json",
-        "hardware/assembly/cards/img/en04-compressor-bay.png",
-        "hardware/assembly/cards/img/en04-compressor-bay.png.scene.json",
-        ":out/render-scene-cards/hardware/assembly/cards/img/en04-stratum.png",
-        ":out/render-scene-cards/hardware/assembly/cards/img/en04-stratum.png.scene.json",
-        ":out/render-scene-cards/hardware/assembly/cards/img/en05-coldcore.png",
-        ":out/render-scene-cards/hardware/assembly/cards/img/en05-coldcore.png.scene.json",
-        "hardware/assembly/cards/img/en06-coldcore.png",
-        "hardware/assembly/cards/img/en06-coldcore.png.scene.json",
-        ":out/render-scene-cards/hardware/assembly/cards/img/en06-column.png",
-        ":out/render-scene-cards/hardware/assembly/cards/img/en06-column.png.scene.json",
-        "hardware/assembly/cards/img/en07-electronics-bay.png",
-        "hardware/assembly/cards/img/en07-electronics-bay.png.scene.json",
-        ":out/render-scene-cards/hardware/assembly/cards/img/en08-asse-drip-pan.png",
-        ":out/render-scene-cards/hardware/assembly/cards/img/en08-asse-drip-pan.png.scene.json",
-        "hardware/assembly/cards/img/en09-asse-drip-pan.png",
-        "hardware/assembly/cards/img/en09-asse-drip-pan.png.scene.json",
-        ":out/render-scene-cards/hardware/assembly/cards/img/en09-funnel.png",
-        ":out/render-scene-cards/hardware/assembly/cards/img/en09-funnel.png.scene.json",
-        "hardware/assembly/cards/img/en10-funnel.png",
-        "hardware/assembly/cards/img/en10-funnel.png.scene.json",
+        ":out/render-scene-cards/hardware/assembly/cards/img/en04-compressor-bay.png",
+        ":out/render-scene-cards/hardware/assembly/cards/img/en04-compressor-bay.png.scene.json",
+        ":out/render-scene-cards/hardware/assembly/cards/img/en06-coldcore.png",
+        ":out/render-scene-cards/hardware/assembly/cards/img/en06-coldcore.png.scene.json",
+        ":out/render-scene-cards/hardware/assembly/cards/img/en07-electronics-bay.png",
+        ":out/render-scene-cards/hardware/assembly/cards/img/en07-electronics-bay.png.scene.json",
+        ":out/render-scene-cards/hardware/assembly/cards/img/en09-asse-drip-pan.png",
+        ":out/render-scene-cards/hardware/assembly/cards/img/en09-asse-drip-pan.png.scene.json",
+        ":out/render-scene-cards/hardware/assembly/cards/img/en10-funnel.png",
+        ":out/render-scene-cards/hardware/assembly/cards/img/en10-funnel.png.scene.json",
         ":out/render-scene-cards/hardware/assembly/cards/img/enclosure-assembly.png",
         ":out/render-scene-cards/hardware/assembly/cards/img/enclosure-assembly.png.scene.json",
         ":out/render-scene-cards/hardware/assembly/cards/img/foam-assembly-stack.png",
@@ -1269,11 +1270,8 @@ genrule(
         "hardware/assembly/cards/ip-02-water-path.html",
         "hardware/assembly/cards/ip-03-manifold-valves-tees.html",
         "hardware/assembly/cards/ip-04-carrier-halves.html",
-        "hardware/assembly/cards/ip-04-manifold-pumps-channels.html",
         "hardware/assembly/cards/ip-05-manifold-pumps-channels.html",
-        "hardware/assembly/cards/ip-05-risers.html",
         "hardware/assembly/cards/ip-06-seat-pump-cartridge.html",
-        "hardware/assembly/cards/ip-06-witness-tidy.html",
         "hardware/assembly/cards/ip-07-risers.html",
         "hardware/assembly/cards/ip-08-witness-tidy.html",
         "hardware/assembly/cards/pv-01-chamfer-port-holes.html",
@@ -1381,7 +1379,6 @@ genrule(
         ":out/tools-build/hardware/assembly/cards/tools/out/bs-band-saw.png",
         ":out/tools-build/hardware/assembly/cards/tools/out/bz-braze-bench.png",
         ":out/tools-build/hardware/assembly/cards/tools/out/cr-crimp-bench.png",
-        ":out/tools-build/hardware/assembly/cards/tools/out/deck-tools.pdf",
         ":out/tools-build/hardware/assembly/cards/tools/out/dp-drill-press.png",
         ":out/tools-build/hardware/assembly/cards/tools/out/el-electrical-test.png",
         ":out/tools-build/hardware/assembly/cards/tools/out/hy-hydro-test.png",
@@ -1582,18 +1579,6 @@ genrule(
         "out/cards-build/hardware/assembly/cards/out/en-02-y-wall-bodies.png",
         "out/cards-build/hardware/assembly/cards/out/en-03-bolt-the-compressor-down.pdf",
         "out/cards-build/hardware/assembly/cards/out/en-03-bolt-the-compressor-down.png",
-        "out/cards-build/hardware/assembly/cards/out/en-04-stand-the-stratum.pdf",
-        "out/cards-build/hardware/assembly/cards/out/en-04-stand-the-stratum.png",
-        "out/cards-build/hardware/assembly/cards/out/en-05-seat-cold-core.pdf",
-        "out/cards-build/hardware/assembly/cards/out/en-05-seat-cold-core.png",
-        "out/cards-build/hardware/assembly/cards/out/en-06-power-column.pdf",
-        "out/cards-build/hardware/assembly/cards/out/en-06-power-column.png",
-        "out/cards-build/hardware/assembly/cards/out/en-07-close-the-box.pdf",
-        "out/cards-build/hardware/assembly/cards/out/en-07-close-the-box.png",
-        "out/cards-build/hardware/assembly/cards/out/en-08-asse-drip-pan.pdf",
-        "out/cards-build/hardware/assembly/cards/out/en-08-asse-drip-pan.png",
-        "out/cards-build/hardware/assembly/cards/out/en-09-display-and-funnel.pdf",
-        "out/cards-build/hardware/assembly/cards/out/en-09-display-and-funnel.png",
         "out/cards-build/hardware/assembly/cards/out/fc-01-first-dc-power-on.pdf",
         "out/cards-build/hardware/assembly/cards/out/fc-01-first-dc-power-on.png",
         "out/cards-build/hardware/assembly/cards/out/fc-02-flash-three-esp32s.pdf",
@@ -1638,26 +1623,6 @@ genrule(
         "out/cards-build/hardware/assembly/cards/out/ip-02-water-path.png",
         "out/cards-build/hardware/assembly/cards/out/ip-03-manifold-valves-tees.pdf",
         "out/cards-build/hardware/assembly/cards/out/ip-03-manifold-valves-tees.png",
-        "out/cards-build/hardware/assembly/cards/out/ip-04-manifold-pumps-channels.pdf",
-        "out/cards-build/hardware/assembly/cards/out/ip-04-manifold-pumps-channels.png",
-        "out/cards-build/hardware/assembly/cards/out/ip-05-risers.pdf",
-        "out/cards-build/hardware/assembly/cards/out/ip-05-risers.png",
-        "out/cards-build/hardware/assembly/cards/out/ip-06-witness-tidy.pdf",
-        "out/cards-build/hardware/assembly/cards/out/ip-06-witness-tidy.png",
-        "out/cards-build/hardware/assembly/cards/out/pc-01-prepare-the-wall.pdf",
-        "out/cards-build/hardware/assembly/cards/out/pc-01-prepare-the-wall.png",
-        "out/cards-build/hardware/assembly/cards/out/pc-02-stage-ac-distribution.pdf",
-        "out/cards-build/hardware/assembly/cards/out/pc-02-stage-ac-distribution.png",
-        "out/cards-build/hardware/assembly/cards/out/pc-03-stage-psu-relays-board.pdf",
-        "out/cards-build/hardware/assembly/cards/out/pc-03-stage-psu-relays-board.png",
-        "out/cards-build/hardware/assembly/cards/out/pc-04-land-ac-pigtails.pdf",
-        "out/cards-build/hardware/assembly/cards/out/pc-04-land-ac-pigtails.png",
-        "out/cards-build/hardware/assembly/cards/out/pc-05-stage-dc-distribution.pdf",
-        "out/cards-build/hardware/assembly/cards/out/pc-05-stage-dc-distribution.png",
-        "out/cards-build/hardware/assembly/cards/out/pc-06-land-relays-j5-loom.pdf",
-        "out/cards-build/hardware/assembly/cards/out/pc-06-land-relays-j5-loom.png",
-        "out/cards-build/hardware/assembly/cards/out/pc-07-pre-power-checks.pdf",
-        "out/cards-build/hardware/assembly/cards/out/pc-07-pre-power-checks.png",
         "out/cards-build/hardware/assembly/cards/out/pv-01-chamfer-port-holes.pdf",
         "out/cards-build/hardware/assembly/cards/out/pv-01-chamfer-port-holes.png",
         "out/cards-build/hardware/assembly/cards/out/pv-02-tap-npt-ports.pdf",
@@ -1755,15 +1720,10 @@ genrule(
         "out/cards-build/hardware/assembly/cards/en-02-y-wall-bodies.html",
         "out/cards-build/hardware/assembly/cards/en-03-bolt-the-compressor-down.html",
         "out/cards-build/hardware/assembly/cards/en-04-stand-the-compressor-bay.html",
-        "out/cards-build/hardware/assembly/cards/en-04-stand-the-stratum.html",
         "out/cards-build/hardware/assembly/cards/en-05-close-front-column.html",
-        "out/cards-build/hardware/assembly/cards/en-05-seat-cold-core.html",
-        "out/cards-build/hardware/assembly/cards/en-06-power-column.html",
         "out/cards-build/hardware/assembly/cards/en-06-seat-cold-core.html",
-        "out/cards-build/hardware/assembly/cards/en-07-close-the-box.html",
         "out/cards-build/hardware/assembly/cards/en-07-electronics-bay.html",
         "out/cards-build/hardware/assembly/cards/en-08-close-the-box.html",
-        "out/cards-build/hardware/assembly/cards/en-09-display-and-funnel.html",
         "out/cards-build/hardware/assembly/cards/en-10-display-and-funnel.html",
         "out/cards-build/hardware/assembly/cards/fc-01-first-dc-power-on.html",
         "out/cards-build/hardware/assembly/cards/fc-03-sensor-health.html",
@@ -1779,11 +1739,8 @@ genrule(
         "out/cards-build/hardware/assembly/cards/ip-02-water-path.html",
         "out/cards-build/hardware/assembly/cards/ip-03-manifold-valves-tees.html",
         "out/cards-build/hardware/assembly/cards/ip-04-carrier-halves.html",
-        "out/cards-build/hardware/assembly/cards/ip-04-manifold-pumps-channels.html",
         "out/cards-build/hardware/assembly/cards/ip-05-manifold-pumps-channels.html",
-        "out/cards-build/hardware/assembly/cards/ip-05-risers.html",
         "out/cards-build/hardware/assembly/cards/ip-06-seat-pump-cartridge.html",
-        "out/cards-build/hardware/assembly/cards/ip-06-witness-tidy.html",
         "out/cards-build/hardware/assembly/cards/ip-07-risers.html",
         "out/cards-build/hardware/assembly/cards/ip-08-witness-tidy.html",
         "out/cards-build/hardware/assembly/cards/pv-01-chamfer-port-holes.html",
@@ -1873,234 +1830,194 @@ O55=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/en-02-y-wall-bo
 O56=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/en-02-y-wall-bodies.png)
 O57=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/en-03-bolt-the-compressor-down.pdf)
 O58=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/en-03-bolt-the-compressor-down.png)
-O59=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/en-04-stand-the-stratum.pdf)
-O60=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/en-04-stand-the-stratum.png)
-O61=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/en-05-seat-cold-core.pdf)
-O62=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/en-05-seat-cold-core.png)
-O63=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/en-06-power-column.pdf)
-O64=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/en-06-power-column.png)
-O65=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/en-07-close-the-box.pdf)
-O66=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/en-07-close-the-box.png)
-O67=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/en-08-asse-drip-pan.pdf)
-O68=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/en-08-asse-drip-pan.png)
-O69=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/en-09-display-and-funnel.pdf)
-O70=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/en-09-display-and-funnel.png)
-O71=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fc-01-first-dc-power-on.pdf)
-O72=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fc-01-first-dc-power-on.png)
-O73=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fc-02-flash-three-esp32s.pdf)
-O74=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fc-02-flash-three-esp32s.png)
-O75=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fc-03-sensor-health.pdf)
-O76=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fc-03-sensor-health.png)
-O77=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fc-04-valve-pump-self-test.pdf)
-O78=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fc-04-valve-pump-self-test.png)
-O79=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fc-05-compressor-smoke-test.pdf)
-O80=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fc-05-compressor-smoke-test.png)
-O81=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fs-01-wipe-down-inspect.pdf)
-O82=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fs-01-wipe-down-inspect.png)
-O83=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fs-02-drain-dry-nameplate.pdf)
-O84=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fs-02-drain-dry-nameplate.png)
-O85=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fs-03-cap-photograph.pdf)
-O86=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fs-03-cap-photograph.png)
-O87=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fs-04-pack-kit-carton.pdf)
-O88=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fs-04-pack-kit-carton.png)
-O89=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fs-05-weigh-label-handoff.pdf)
-O90=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fs-05-weigh-label-handoff.png)
-O91=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fu-01-cut-lldpe-tubes.pdf)
-O92=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fu-01-cut-lldpe-tubes.png)
-O93=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fu-02-route-tubes-through-shell.pdf)
-O94=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fu-02-route-tubes-through-shell.png)
-O95=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fu-03-insulate-and-sleeve.pdf)
-O96=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fu-03-insulate-and-sleeve.png)
-O97=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fu-04-bag-with-installer-kit.pdf)
-O98=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fu-04-bag-with-installer-kit.png)
-O99=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/gt-01-npt-joints.pdf)
-O100=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/gt-01-npt-joints.png)
-O101=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/gt-02-push-to-connect.pdf)
-O102=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/gt-02-push-to-connect.png)
-O103=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/gt-03-crimp-lugs.pdf)
-O104=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/gt-03-crimp-lugs.png)
-O105=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/gt-04-jst-xh-crimping.pdf)
-O106=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/gt-04-jst-xh-crimping.png)
-O107=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/gt-05-heat-shrink-sleeve.pdf)
-O108=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/gt-05-heat-shrink-sleeve.png)
-O109=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/ip-01-co2-path.pdf)
-O110=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/ip-01-co2-path.png)
-O111=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/ip-02-water-path.pdf)
-O112=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/ip-02-water-path.png)
-O113=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/ip-03-manifold-valves-tees.pdf)
-O114=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/ip-03-manifold-valves-tees.png)
-O115=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/ip-04-manifold-pumps-channels.pdf)
-O116=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/ip-04-manifold-pumps-channels.png)
-O117=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/ip-05-risers.pdf)
-O118=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/ip-05-risers.png)
-O119=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/ip-06-witness-tidy.pdf)
-O120=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/ip-06-witness-tidy.png)
-O121=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pc-01-prepare-the-wall.pdf)
-O122=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pc-01-prepare-the-wall.png)
-O123=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pc-02-stage-ac-distribution.pdf)
-O124=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pc-02-stage-ac-distribution.png)
-O125=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pc-03-stage-psu-relays-board.pdf)
-O126=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pc-03-stage-psu-relays-board.png)
-O127=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pc-04-land-ac-pigtails.pdf)
-O128=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pc-04-land-ac-pigtails.png)
-O129=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pc-05-stage-dc-distribution.pdf)
-O130=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pc-05-stage-dc-distribution.png)
-O131=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pc-06-land-relays-j5-loom.pdf)
-O132=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pc-06-land-relays-j5-loom.png)
-O133=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pc-07-pre-power-checks.pdf)
-O134=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pc-07-pre-power-checks.png)
-O135=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-01-chamfer-port-holes.pdf)
-O136=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-01-chamfer-port-holes.png)
-O137=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-02-tap-npt-ports.pdf)
-O138=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-02-tap-npt-ports.png)
-O139=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-03-rod-register.pdf)
-O140=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-03-rod-register.png)
-O141=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-04-break-plate-edges.pdf)
-O142=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-04-break-plate-edges.png)
-O143=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-05-cut-level-rods.pdf)
-O144=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-05-cut-level-rods.png)
-O145=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-06-tack-float-rod.pdf)
-O146=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-06-tack-float-rod.png)
-O147=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-07-deburr-and-prep.pdf)
-O148=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-07-deburr-and-prep.png)
-O149=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-08-weld-bottom-plate.pdf)
-O150=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-08-weld-bottom-plate.png)
-O151=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-09-close-the-carbonator.pdf)
-O152=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-09-close-the-carbonator.png)
-O153=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-10-dye-penetrant.pdf)
-O154=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-10-dye-penetrant.png)
-O155=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-11-hydro-test.pdf)
-O156=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-11-hydro-test.png)
-O157=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-12-citric-passivation.pdf)
-O158=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-12-citric-passivation.png)
-O159=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-13-prv-shroud-subassembly.pdf)
-O160=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-13-prv-shroud-subassembly.png)
-O161=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-14-port-fittings.pdf)
-O162=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-14-port-fittings.png)
-O163=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/rl-01-verify-donor.pdf)
-O164=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/rl-01-verify-donor.png)
-O165=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/rl-02-vent-charge.pdf)
-O166=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/rl-02-vent-charge.png)
-O167=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/rl-03-argon-and-cut.pdf)
-O168=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/rl-03-argon-and-cut.png)
-O169=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/rl-04-suction-tie-in.pdf)
-O170=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/rl-04-suction-tie-in.png)
-O171=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/rl-05-pinch-swage.pdf)
-O172=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/rl-05-pinch-swage.png)
-O173=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/rl-06-pull-vacuum.pdf)
-O174=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/rl-06-pull-vacuum.png)
-O175=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/rl-07-recharge.pdf)
-O176=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/rl-07-recharge.png)
-O177=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/rl-08-run-up-leak-check.pdf)
-O178=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/rl-08-run-up-leak-check.png)
-O179=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/sa-01-back-top.pdf)
-O180=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/sa-01-back-top.png)
-O181=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/sa-02-front-top.pdf)
-O182=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/sa-02-front-top.png)
-O183=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/sa-03-cap-lid-fill.pdf)
-O184=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/sa-03-cap-lid-fill.png)
-O185=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/sa-04-cap-lid.pdf)
-O186=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/sa-04-cap-lid.png)
-O187=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/sa-05-back-half.pdf)
-O188=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/sa-05-back-half.png)
-O189=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/sa-06-funnel-drain.pdf)
-O190=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/sa-06-funnel-drain.png)
-O191=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/sa-07-cold-core.pdf)
-O192=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/sa-07-cold-core.png)
-O193=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/sa-08-cold-core-open.pdf)
-O194=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/sa-08-cold-core-open.png)
-O195=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/sa-09-pump-cartridge.pdf)
-O196=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/sa-09-pump-cartridge.png)
-O197=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/wr-01-chassis-ground-bonds.pdf)
-O198=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/wr-01-chassis-ground-bonds.png)
-O199=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/wr-02-ac-mains.pdf)
-O200=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/wr-02-ac-mains.png)
-O201=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/wr-03-ac-dielectric-check.pdf)
-O202=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/wr-03-ac-dielectric-check.png)
-O203=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/wr-04-cabinet-12v-runs.pdf)
-O204=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/wr-04-cabinet-12v-runs.png)
-O205=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/wr-05-signal-looms.pdf)
-O206=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/wr-05-signal-looms.png)
-O207=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/wr-06-bundle-route-strain-relieve.pdf)
-O208=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/wr-06-bundle-route-strain-relieve.png)
-O209=$$PWD/$(location out/cards-build/hardware/assembly/cards/00-cover.html)
-O210=$$PWD/$(location out/cards-build/hardware/assembly/cards/README.md)
-O211=$$PWD/$(location out/cards-build/hardware/assembly/cards/ab-01-inspect-connect-power.html)
-O212=$$PWD/$(location out/cards-build/hardware/assembly/cards/ab-02-water-fill-co2.html)
-O213=$$PWD/$(location out/cards-build/hardware/assembly/cards/ab-05-level-transitions.html)
-O214=$$PWD/$(location out/cards-build/hardware/assembly/cards/ab-06-burn-in-log.html)
-O215=$$PWD/$(location out/cards-build/hardware/assembly/cards/ca-02-harness-schedule.html)
-O216=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-03-transfer-the-coil.html)
-O217=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-05-press-shell-inserts.html)
-O218=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-06-pour-cap-foam.html)
-O219=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-08-seat-reservoir-rods.html)
-O220=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-10-lower-the-carbonator.html)
-O221=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-11-seat-reservoirs.html)
-O222=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-12-route-penetrations.html)
-O223=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-13-stack-copper-plugs.html)
-O224=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-14-pour-body-foam.html)
-O225=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-15-columns-gaskets-caps.html)
-O226=$$PWD/$(location out/cards-build/hardware/assembly/cards/eb-01-prepare-the-wall.html)
-O227=$$PWD/$(location out/cards-build/hardware/assembly/cards/eb-03-stage-psu-relays-board.html)
-O228=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-01-stage-the-printed-pieces.html)
-O229=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-02-y-wall-bodies.html)
-O230=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-03-bolt-the-compressor-down.html)
-O231=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-04-stand-the-compressor-bay.html)
-O232=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-04-stand-the-stratum.html)
-O233=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-05-close-front-column.html)
-O234=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-05-seat-cold-core.html)
-O235=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-06-power-column.html)
-O236=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-06-seat-cold-core.html)
-O237=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-07-close-the-box.html)
-O238=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-07-electronics-bay.html)
-O239=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-08-close-the-box.html)
-O240=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-09-display-and-funnel.html)
-O241=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-10-display-and-funnel.html)
-O242=$$PWD/$(location out/cards-build/hardware/assembly/cards/fc-01-first-dc-power-on.html)
-O243=$$PWD/$(location out/cards-build/hardware/assembly/cards/fc-03-sensor-health.html)
-O244=$$PWD/$(location out/cards-build/hardware/assembly/cards/fc-04-valve-pump-self-test.html)
-O245=$$PWD/$(location out/cards-build/hardware/assembly/cards/fc-05-compressor-smoke-test.html)
-O246=$$PWD/$(location out/cards-build/hardware/assembly/cards/fs-01-wipe-down-inspect.html)
-O247=$$PWD/$(location out/cards-build/hardware/assembly/cards/fs-02-drain-dry-nameplate.html)
-O248=$$PWD/$(location out/cards-build/hardware/assembly/cards/fs-03-cap-photograph.html)
-O249=$$PWD/$(location out/cards-build/hardware/assembly/cards/fs-04-pack-kit-carton.html)
-O250=$$PWD/$(location out/cards-build/hardware/assembly/cards/fs-05-weigh-label-handoff.html)
-O251=$$PWD/$(location out/cards-build/hardware/assembly/cards/gt-02-push-to-connect.html)
-O252=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-01-co2-path.html)
-O253=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-02-water-path.html)
-O254=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-03-manifold-valves-tees.html)
-O255=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-04-carrier-halves.html)
-O256=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-04-manifold-pumps-channels.html)
-O257=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-05-manifold-pumps-channels.html)
-O258=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-05-risers.html)
-O259=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-06-seat-pump-cartridge.html)
-O260=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-06-witness-tidy.html)
-O261=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-07-risers.html)
-O262=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-08-witness-tidy.html)
-O263=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-01-chamfer-port-holes.html)
-O264=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-02-tap-npt-ports.html)
-O265=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-03-rod-register.html)
-O266=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-04-break-plate-edges.html)
-O267=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-05-cut-level-rods.html)
-O268=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-06-tack-float-rod.html)
-O269=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-07-deburr-and-prep.html)
-O270=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-09-close-the-carbonator.html)
-O271=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-11-hydro-test.html)
-O272=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-13-prv-shroud-subassembly.html)
-O273=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-14-port-fittings.html)
-O274=$$PWD/$(location out/cards-build/hardware/assembly/cards/rl-04-suction-tie-in.html)
-O275=$$PWD/$(location out/cards-build/hardware/assembly/cards/rl-05-pinch-swage.html)
-O276=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-01-back-top.html)
-O277=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-02-front-top.html)
-O278=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-03-cap-lid-fill.html)
-O279=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-04-cap-lid.html)
-O280=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-05-back-half.html)
-O281=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-06-funnel-drain.html)
-O282=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-07-cold-core.html)
-O283=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-08-cold-core-open.html)
-O284=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-09-pump-cartridge.html)
-O285=$$PWD/$(location out/cards-build/hardware/assembly/cards/wr-04-cabinet-12v-runs.html)
-O286=$$PWD/$(location out/cards-build/hardware/assembly/cards/wr-05-signal-looms.html)
+O59=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fc-01-first-dc-power-on.pdf)
+O60=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fc-01-first-dc-power-on.png)
+O61=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fc-02-flash-three-esp32s.pdf)
+O62=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fc-02-flash-three-esp32s.png)
+O63=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fc-03-sensor-health.pdf)
+O64=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fc-03-sensor-health.png)
+O65=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fc-04-valve-pump-self-test.pdf)
+O66=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fc-04-valve-pump-self-test.png)
+O67=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fc-05-compressor-smoke-test.pdf)
+O68=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fc-05-compressor-smoke-test.png)
+O69=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fs-01-wipe-down-inspect.pdf)
+O70=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fs-01-wipe-down-inspect.png)
+O71=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fs-02-drain-dry-nameplate.pdf)
+O72=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fs-02-drain-dry-nameplate.png)
+O73=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fs-03-cap-photograph.pdf)
+O74=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fs-03-cap-photograph.png)
+O75=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fs-04-pack-kit-carton.pdf)
+O76=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fs-04-pack-kit-carton.png)
+O77=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fs-05-weigh-label-handoff.pdf)
+O78=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fs-05-weigh-label-handoff.png)
+O79=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fu-01-cut-lldpe-tubes.pdf)
+O80=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fu-01-cut-lldpe-tubes.png)
+O81=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fu-02-route-tubes-through-shell.pdf)
+O82=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fu-02-route-tubes-through-shell.png)
+O83=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fu-03-insulate-and-sleeve.pdf)
+O84=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fu-03-insulate-and-sleeve.png)
+O85=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fu-04-bag-with-installer-kit.pdf)
+O86=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fu-04-bag-with-installer-kit.png)
+O87=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/gt-01-npt-joints.pdf)
+O88=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/gt-01-npt-joints.png)
+O89=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/gt-02-push-to-connect.pdf)
+O90=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/gt-02-push-to-connect.png)
+O91=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/gt-03-crimp-lugs.pdf)
+O92=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/gt-03-crimp-lugs.png)
+O93=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/gt-04-jst-xh-crimping.pdf)
+O94=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/gt-04-jst-xh-crimping.png)
+O95=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/gt-05-heat-shrink-sleeve.pdf)
+O96=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/gt-05-heat-shrink-sleeve.png)
+O97=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/ip-01-co2-path.pdf)
+O98=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/ip-01-co2-path.png)
+O99=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/ip-02-water-path.pdf)
+O100=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/ip-02-water-path.png)
+O101=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/ip-03-manifold-valves-tees.pdf)
+O102=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/ip-03-manifold-valves-tees.png)
+O103=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-01-chamfer-port-holes.pdf)
+O104=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-01-chamfer-port-holes.png)
+O105=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-02-tap-npt-ports.pdf)
+O106=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-02-tap-npt-ports.png)
+O107=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-03-rod-register.pdf)
+O108=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-03-rod-register.png)
+O109=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-04-break-plate-edges.pdf)
+O110=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-04-break-plate-edges.png)
+O111=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-05-cut-level-rods.pdf)
+O112=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-05-cut-level-rods.png)
+O113=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-06-tack-float-rod.pdf)
+O114=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-06-tack-float-rod.png)
+O115=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-07-deburr-and-prep.pdf)
+O116=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-07-deburr-and-prep.png)
+O117=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-08-weld-bottom-plate.pdf)
+O118=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-08-weld-bottom-plate.png)
+O119=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-09-close-the-carbonator.pdf)
+O120=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-09-close-the-carbonator.png)
+O121=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-10-dye-penetrant.pdf)
+O122=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-10-dye-penetrant.png)
+O123=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-11-hydro-test.pdf)
+O124=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-11-hydro-test.png)
+O125=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-12-citric-passivation.pdf)
+O126=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-12-citric-passivation.png)
+O127=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-13-prv-shroud-subassembly.pdf)
+O128=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-13-prv-shroud-subassembly.png)
+O129=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-14-port-fittings.pdf)
+O130=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-14-port-fittings.png)
+O131=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/rl-01-verify-donor.pdf)
+O132=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/rl-01-verify-donor.png)
+O133=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/rl-02-vent-charge.pdf)
+O134=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/rl-02-vent-charge.png)
+O135=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/rl-03-argon-and-cut.pdf)
+O136=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/rl-03-argon-and-cut.png)
+O137=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/rl-04-suction-tie-in.pdf)
+O138=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/rl-04-suction-tie-in.png)
+O139=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/rl-05-pinch-swage.pdf)
+O140=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/rl-05-pinch-swage.png)
+O141=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/rl-06-pull-vacuum.pdf)
+O142=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/rl-06-pull-vacuum.png)
+O143=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/rl-07-recharge.pdf)
+O144=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/rl-07-recharge.png)
+O145=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/rl-08-run-up-leak-check.pdf)
+O146=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/rl-08-run-up-leak-check.png)
+O147=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/sa-01-back-top.pdf)
+O148=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/sa-01-back-top.png)
+O149=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/sa-02-front-top.pdf)
+O150=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/sa-02-front-top.png)
+O151=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/sa-03-cap-lid-fill.pdf)
+O152=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/sa-03-cap-lid-fill.png)
+O153=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/sa-04-cap-lid.pdf)
+O154=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/sa-04-cap-lid.png)
+O155=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/sa-05-back-half.pdf)
+O156=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/sa-05-back-half.png)
+O157=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/sa-06-funnel-drain.pdf)
+O158=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/sa-06-funnel-drain.png)
+O159=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/sa-07-cold-core.pdf)
+O160=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/sa-07-cold-core.png)
+O161=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/sa-08-cold-core-open.pdf)
+O162=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/sa-08-cold-core-open.png)
+O163=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/sa-09-pump-cartridge.pdf)
+O164=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/sa-09-pump-cartridge.png)
+O165=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/wr-01-chassis-ground-bonds.pdf)
+O166=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/wr-01-chassis-ground-bonds.png)
+O167=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/wr-02-ac-mains.pdf)
+O168=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/wr-02-ac-mains.png)
+O169=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/wr-03-ac-dielectric-check.pdf)
+O170=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/wr-03-ac-dielectric-check.png)
+O171=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/wr-04-cabinet-12v-runs.pdf)
+O172=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/wr-04-cabinet-12v-runs.png)
+O173=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/wr-05-signal-looms.pdf)
+O174=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/wr-05-signal-looms.png)
+O175=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/wr-06-bundle-route-strain-relieve.pdf)
+O176=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/wr-06-bundle-route-strain-relieve.png)
+O177=$$PWD/$(location out/cards-build/hardware/assembly/cards/00-cover.html)
+O178=$$PWD/$(location out/cards-build/hardware/assembly/cards/README.md)
+O179=$$PWD/$(location out/cards-build/hardware/assembly/cards/ab-01-inspect-connect-power.html)
+O180=$$PWD/$(location out/cards-build/hardware/assembly/cards/ab-02-water-fill-co2.html)
+O181=$$PWD/$(location out/cards-build/hardware/assembly/cards/ab-05-level-transitions.html)
+O182=$$PWD/$(location out/cards-build/hardware/assembly/cards/ab-06-burn-in-log.html)
+O183=$$PWD/$(location out/cards-build/hardware/assembly/cards/ca-02-harness-schedule.html)
+O184=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-03-transfer-the-coil.html)
+O185=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-05-press-shell-inserts.html)
+O186=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-06-pour-cap-foam.html)
+O187=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-08-seat-reservoir-rods.html)
+O188=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-10-lower-the-carbonator.html)
+O189=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-11-seat-reservoirs.html)
+O190=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-12-route-penetrations.html)
+O191=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-13-stack-copper-plugs.html)
+O192=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-14-pour-body-foam.html)
+O193=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-15-columns-gaskets-caps.html)
+O194=$$PWD/$(location out/cards-build/hardware/assembly/cards/eb-01-prepare-the-wall.html)
+O195=$$PWD/$(location out/cards-build/hardware/assembly/cards/eb-03-stage-psu-relays-board.html)
+O196=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-01-stage-the-printed-pieces.html)
+O197=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-02-y-wall-bodies.html)
+O198=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-03-bolt-the-compressor-down.html)
+O199=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-04-stand-the-compressor-bay.html)
+O200=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-05-close-front-column.html)
+O201=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-06-seat-cold-core.html)
+O202=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-07-electronics-bay.html)
+O203=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-08-close-the-box.html)
+O204=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-10-display-and-funnel.html)
+O205=$$PWD/$(location out/cards-build/hardware/assembly/cards/fc-01-first-dc-power-on.html)
+O206=$$PWD/$(location out/cards-build/hardware/assembly/cards/fc-03-sensor-health.html)
+O207=$$PWD/$(location out/cards-build/hardware/assembly/cards/fc-04-valve-pump-self-test.html)
+O208=$$PWD/$(location out/cards-build/hardware/assembly/cards/fc-05-compressor-smoke-test.html)
+O209=$$PWD/$(location out/cards-build/hardware/assembly/cards/fs-01-wipe-down-inspect.html)
+O210=$$PWD/$(location out/cards-build/hardware/assembly/cards/fs-02-drain-dry-nameplate.html)
+O211=$$PWD/$(location out/cards-build/hardware/assembly/cards/fs-03-cap-photograph.html)
+O212=$$PWD/$(location out/cards-build/hardware/assembly/cards/fs-04-pack-kit-carton.html)
+O213=$$PWD/$(location out/cards-build/hardware/assembly/cards/fs-05-weigh-label-handoff.html)
+O214=$$PWD/$(location out/cards-build/hardware/assembly/cards/gt-02-push-to-connect.html)
+O215=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-01-co2-path.html)
+O216=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-02-water-path.html)
+O217=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-03-manifold-valves-tees.html)
+O218=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-04-carrier-halves.html)
+O219=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-05-manifold-pumps-channels.html)
+O220=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-06-seat-pump-cartridge.html)
+O221=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-07-risers.html)
+O222=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-08-witness-tidy.html)
+O223=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-01-chamfer-port-holes.html)
+O224=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-02-tap-npt-ports.html)
+O225=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-03-rod-register.html)
+O226=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-04-break-plate-edges.html)
+O227=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-05-cut-level-rods.html)
+O228=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-06-tack-float-rod.html)
+O229=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-07-deburr-and-prep.html)
+O230=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-09-close-the-carbonator.html)
+O231=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-11-hydro-test.html)
+O232=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-13-prv-shroud-subassembly.html)
+O233=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-14-port-fittings.html)
+O234=$$PWD/$(location out/cards-build/hardware/assembly/cards/rl-04-suction-tie-in.html)
+O235=$$PWD/$(location out/cards-build/hardware/assembly/cards/rl-05-pinch-swage.html)
+O236=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-01-back-top.html)
+O237=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-02-front-top.html)
+O238=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-03-cap-lid-fill.html)
+O239=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-04-cap-lid.html)
+O240=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-05-back-half.html)
+O241=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-06-funnel-drain.html)
+O242=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-07-cold-core.html)
+O243=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-08-cold-core-open.html)
+O244=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-09-pump-cartridge.html)
+O245=$$PWD/$(location out/cards-build/hardware/assembly/cards/wr-04-cabinet-12v-runs.html)
+O246=$$PWD/$(location out/cards-build/hardware/assembly/cards/wr-05-signal-looms.html)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -2177,234 +2094,194 @@ cp hardware/assembly/cards/out/en-02-y-wall-bodies.pdf $$O55
 cp hardware/assembly/cards/out/en-02-y-wall-bodies.png $$O56
 cp hardware/assembly/cards/out/en-03-bolt-the-compressor-down.pdf $$O57
 cp hardware/assembly/cards/out/en-03-bolt-the-compressor-down.png $$O58
-cp hardware/assembly/cards/out/en-04-stand-the-stratum.pdf $$O59
-cp hardware/assembly/cards/out/en-04-stand-the-stratum.png $$O60
-cp hardware/assembly/cards/out/en-05-seat-cold-core.pdf $$O61
-cp hardware/assembly/cards/out/en-05-seat-cold-core.png $$O62
-cp hardware/assembly/cards/out/en-06-power-column.pdf $$O63
-cp hardware/assembly/cards/out/en-06-power-column.png $$O64
-cp hardware/assembly/cards/out/en-07-close-the-box.pdf $$O65
-cp hardware/assembly/cards/out/en-07-close-the-box.png $$O66
-cp hardware/assembly/cards/out/en-08-asse-drip-pan.pdf $$O67
-cp hardware/assembly/cards/out/en-08-asse-drip-pan.png $$O68
-cp hardware/assembly/cards/out/en-09-display-and-funnel.pdf $$O69
-cp hardware/assembly/cards/out/en-09-display-and-funnel.png $$O70
-cp hardware/assembly/cards/out/fc-01-first-dc-power-on.pdf $$O71
-cp hardware/assembly/cards/out/fc-01-first-dc-power-on.png $$O72
-cp hardware/assembly/cards/out/fc-02-flash-three-esp32s.pdf $$O73
-cp hardware/assembly/cards/out/fc-02-flash-three-esp32s.png $$O74
-cp hardware/assembly/cards/out/fc-03-sensor-health.pdf $$O75
-cp hardware/assembly/cards/out/fc-03-sensor-health.png $$O76
-cp hardware/assembly/cards/out/fc-04-valve-pump-self-test.pdf $$O77
-cp hardware/assembly/cards/out/fc-04-valve-pump-self-test.png $$O78
-cp hardware/assembly/cards/out/fc-05-compressor-smoke-test.pdf $$O79
-cp hardware/assembly/cards/out/fc-05-compressor-smoke-test.png $$O80
-cp hardware/assembly/cards/out/fs-01-wipe-down-inspect.pdf $$O81
-cp hardware/assembly/cards/out/fs-01-wipe-down-inspect.png $$O82
-cp hardware/assembly/cards/out/fs-02-drain-dry-nameplate.pdf $$O83
-cp hardware/assembly/cards/out/fs-02-drain-dry-nameplate.png $$O84
-cp hardware/assembly/cards/out/fs-03-cap-photograph.pdf $$O85
-cp hardware/assembly/cards/out/fs-03-cap-photograph.png $$O86
-cp hardware/assembly/cards/out/fs-04-pack-kit-carton.pdf $$O87
-cp hardware/assembly/cards/out/fs-04-pack-kit-carton.png $$O88
-cp hardware/assembly/cards/out/fs-05-weigh-label-handoff.pdf $$O89
-cp hardware/assembly/cards/out/fs-05-weigh-label-handoff.png $$O90
-cp hardware/assembly/cards/out/fu-01-cut-lldpe-tubes.pdf $$O91
-cp hardware/assembly/cards/out/fu-01-cut-lldpe-tubes.png $$O92
-cp hardware/assembly/cards/out/fu-02-route-tubes-through-shell.pdf $$O93
-cp hardware/assembly/cards/out/fu-02-route-tubes-through-shell.png $$O94
-cp hardware/assembly/cards/out/fu-03-insulate-and-sleeve.pdf $$O95
-cp hardware/assembly/cards/out/fu-03-insulate-and-sleeve.png $$O96
-cp hardware/assembly/cards/out/fu-04-bag-with-installer-kit.pdf $$O97
-cp hardware/assembly/cards/out/fu-04-bag-with-installer-kit.png $$O98
-cp hardware/assembly/cards/out/gt-01-npt-joints.pdf $$O99
-cp hardware/assembly/cards/out/gt-01-npt-joints.png $$O100
-cp hardware/assembly/cards/out/gt-02-push-to-connect.pdf $$O101
-cp hardware/assembly/cards/out/gt-02-push-to-connect.png $$O102
-cp hardware/assembly/cards/out/gt-03-crimp-lugs.pdf $$O103
-cp hardware/assembly/cards/out/gt-03-crimp-lugs.png $$O104
-cp hardware/assembly/cards/out/gt-04-jst-xh-crimping.pdf $$O105
-cp hardware/assembly/cards/out/gt-04-jst-xh-crimping.png $$O106
-cp hardware/assembly/cards/out/gt-05-heat-shrink-sleeve.pdf $$O107
-cp hardware/assembly/cards/out/gt-05-heat-shrink-sleeve.png $$O108
-cp hardware/assembly/cards/out/ip-01-co2-path.pdf $$O109
-cp hardware/assembly/cards/out/ip-01-co2-path.png $$O110
-cp hardware/assembly/cards/out/ip-02-water-path.pdf $$O111
-cp hardware/assembly/cards/out/ip-02-water-path.png $$O112
-cp hardware/assembly/cards/out/ip-03-manifold-valves-tees.pdf $$O113
-cp hardware/assembly/cards/out/ip-03-manifold-valves-tees.png $$O114
-cp hardware/assembly/cards/out/ip-04-manifold-pumps-channels.pdf $$O115
-cp hardware/assembly/cards/out/ip-04-manifold-pumps-channels.png $$O116
-cp hardware/assembly/cards/out/ip-05-risers.pdf $$O117
-cp hardware/assembly/cards/out/ip-05-risers.png $$O118
-cp hardware/assembly/cards/out/ip-06-witness-tidy.pdf $$O119
-cp hardware/assembly/cards/out/ip-06-witness-tidy.png $$O120
-cp hardware/assembly/cards/out/pc-01-prepare-the-wall.pdf $$O121
-cp hardware/assembly/cards/out/pc-01-prepare-the-wall.png $$O122
-cp hardware/assembly/cards/out/pc-02-stage-ac-distribution.pdf $$O123
-cp hardware/assembly/cards/out/pc-02-stage-ac-distribution.png $$O124
-cp hardware/assembly/cards/out/pc-03-stage-psu-relays-board.pdf $$O125
-cp hardware/assembly/cards/out/pc-03-stage-psu-relays-board.png $$O126
-cp hardware/assembly/cards/out/pc-04-land-ac-pigtails.pdf $$O127
-cp hardware/assembly/cards/out/pc-04-land-ac-pigtails.png $$O128
-cp hardware/assembly/cards/out/pc-05-stage-dc-distribution.pdf $$O129
-cp hardware/assembly/cards/out/pc-05-stage-dc-distribution.png $$O130
-cp hardware/assembly/cards/out/pc-06-land-relays-j5-loom.pdf $$O131
-cp hardware/assembly/cards/out/pc-06-land-relays-j5-loom.png $$O132
-cp hardware/assembly/cards/out/pc-07-pre-power-checks.pdf $$O133
-cp hardware/assembly/cards/out/pc-07-pre-power-checks.png $$O134
-cp hardware/assembly/cards/out/pv-01-chamfer-port-holes.pdf $$O135
-cp hardware/assembly/cards/out/pv-01-chamfer-port-holes.png $$O136
-cp hardware/assembly/cards/out/pv-02-tap-npt-ports.pdf $$O137
-cp hardware/assembly/cards/out/pv-02-tap-npt-ports.png $$O138
-cp hardware/assembly/cards/out/pv-03-rod-register.pdf $$O139
-cp hardware/assembly/cards/out/pv-03-rod-register.png $$O140
-cp hardware/assembly/cards/out/pv-04-break-plate-edges.pdf $$O141
-cp hardware/assembly/cards/out/pv-04-break-plate-edges.png $$O142
-cp hardware/assembly/cards/out/pv-05-cut-level-rods.pdf $$O143
-cp hardware/assembly/cards/out/pv-05-cut-level-rods.png $$O144
-cp hardware/assembly/cards/out/pv-06-tack-float-rod.pdf $$O145
-cp hardware/assembly/cards/out/pv-06-tack-float-rod.png $$O146
-cp hardware/assembly/cards/out/pv-07-deburr-and-prep.pdf $$O147
-cp hardware/assembly/cards/out/pv-07-deburr-and-prep.png $$O148
-cp hardware/assembly/cards/out/pv-08-weld-bottom-plate.pdf $$O149
-cp hardware/assembly/cards/out/pv-08-weld-bottom-plate.png $$O150
-cp hardware/assembly/cards/out/pv-09-close-the-carbonator.pdf $$O151
-cp hardware/assembly/cards/out/pv-09-close-the-carbonator.png $$O152
-cp hardware/assembly/cards/out/pv-10-dye-penetrant.pdf $$O153
-cp hardware/assembly/cards/out/pv-10-dye-penetrant.png $$O154
-cp hardware/assembly/cards/out/pv-11-hydro-test.pdf $$O155
-cp hardware/assembly/cards/out/pv-11-hydro-test.png $$O156
-cp hardware/assembly/cards/out/pv-12-citric-passivation.pdf $$O157
-cp hardware/assembly/cards/out/pv-12-citric-passivation.png $$O158
-cp hardware/assembly/cards/out/pv-13-prv-shroud-subassembly.pdf $$O159
-cp hardware/assembly/cards/out/pv-13-prv-shroud-subassembly.png $$O160
-cp hardware/assembly/cards/out/pv-14-port-fittings.pdf $$O161
-cp hardware/assembly/cards/out/pv-14-port-fittings.png $$O162
-cp hardware/assembly/cards/out/rl-01-verify-donor.pdf $$O163
-cp hardware/assembly/cards/out/rl-01-verify-donor.png $$O164
-cp hardware/assembly/cards/out/rl-02-vent-charge.pdf $$O165
-cp hardware/assembly/cards/out/rl-02-vent-charge.png $$O166
-cp hardware/assembly/cards/out/rl-03-argon-and-cut.pdf $$O167
-cp hardware/assembly/cards/out/rl-03-argon-and-cut.png $$O168
-cp hardware/assembly/cards/out/rl-04-suction-tie-in.pdf $$O169
-cp hardware/assembly/cards/out/rl-04-suction-tie-in.png $$O170
-cp hardware/assembly/cards/out/rl-05-pinch-swage.pdf $$O171
-cp hardware/assembly/cards/out/rl-05-pinch-swage.png $$O172
-cp hardware/assembly/cards/out/rl-06-pull-vacuum.pdf $$O173
-cp hardware/assembly/cards/out/rl-06-pull-vacuum.png $$O174
-cp hardware/assembly/cards/out/rl-07-recharge.pdf $$O175
-cp hardware/assembly/cards/out/rl-07-recharge.png $$O176
-cp hardware/assembly/cards/out/rl-08-run-up-leak-check.pdf $$O177
-cp hardware/assembly/cards/out/rl-08-run-up-leak-check.png $$O178
-cp hardware/assembly/cards/out/sa-01-back-top.pdf $$O179
-cp hardware/assembly/cards/out/sa-01-back-top.png $$O180
-cp hardware/assembly/cards/out/sa-02-front-top.pdf $$O181
-cp hardware/assembly/cards/out/sa-02-front-top.png $$O182
-cp hardware/assembly/cards/out/sa-03-cap-lid-fill.pdf $$O183
-cp hardware/assembly/cards/out/sa-03-cap-lid-fill.png $$O184
-cp hardware/assembly/cards/out/sa-04-cap-lid.pdf $$O185
-cp hardware/assembly/cards/out/sa-04-cap-lid.png $$O186
-cp hardware/assembly/cards/out/sa-05-back-half.pdf $$O187
-cp hardware/assembly/cards/out/sa-05-back-half.png $$O188
-cp hardware/assembly/cards/out/sa-06-funnel-drain.pdf $$O189
-cp hardware/assembly/cards/out/sa-06-funnel-drain.png $$O190
-cp hardware/assembly/cards/out/sa-07-cold-core.pdf $$O191
-cp hardware/assembly/cards/out/sa-07-cold-core.png $$O192
-cp hardware/assembly/cards/out/sa-08-cold-core-open.pdf $$O193
-cp hardware/assembly/cards/out/sa-08-cold-core-open.png $$O194
-cp hardware/assembly/cards/out/sa-09-pump-cartridge.pdf $$O195
-cp hardware/assembly/cards/out/sa-09-pump-cartridge.png $$O196
-cp hardware/assembly/cards/out/wr-01-chassis-ground-bonds.pdf $$O197
-cp hardware/assembly/cards/out/wr-01-chassis-ground-bonds.png $$O198
-cp hardware/assembly/cards/out/wr-02-ac-mains.pdf $$O199
-cp hardware/assembly/cards/out/wr-02-ac-mains.png $$O200
-cp hardware/assembly/cards/out/wr-03-ac-dielectric-check.pdf $$O201
-cp hardware/assembly/cards/out/wr-03-ac-dielectric-check.png $$O202
-cp hardware/assembly/cards/out/wr-04-cabinet-12v-runs.pdf $$O203
-cp hardware/assembly/cards/out/wr-04-cabinet-12v-runs.png $$O204
-cp hardware/assembly/cards/out/wr-05-signal-looms.pdf $$O205
-cp hardware/assembly/cards/out/wr-05-signal-looms.png $$O206
-cp hardware/assembly/cards/out/wr-06-bundle-route-strain-relieve.pdf $$O207
-cp hardware/assembly/cards/out/wr-06-bundle-route-strain-relieve.png $$O208
-cp hardware/assembly/cards/00-cover.html $$O209
-cp hardware/assembly/cards/README.md $$O210
-cp hardware/assembly/cards/ab-01-inspect-connect-power.html $$O211
-cp hardware/assembly/cards/ab-02-water-fill-co2.html $$O212
-cp hardware/assembly/cards/ab-05-level-transitions.html $$O213
-cp hardware/assembly/cards/ab-06-burn-in-log.html $$O214
-cp hardware/assembly/cards/ca-02-harness-schedule.html $$O215
-cp hardware/assembly/cards/cc-03-transfer-the-coil.html $$O216
-cp hardware/assembly/cards/cc-05-press-shell-inserts.html $$O217
-cp hardware/assembly/cards/cc-06-pour-cap-foam.html $$O218
-cp hardware/assembly/cards/cc-08-seat-reservoir-rods.html $$O219
-cp hardware/assembly/cards/cc-10-lower-the-carbonator.html $$O220
-cp hardware/assembly/cards/cc-11-seat-reservoirs.html $$O221
-cp hardware/assembly/cards/cc-12-route-penetrations.html $$O222
-cp hardware/assembly/cards/cc-13-stack-copper-plugs.html $$O223
-cp hardware/assembly/cards/cc-14-pour-body-foam.html $$O224
-cp hardware/assembly/cards/cc-15-columns-gaskets-caps.html $$O225
-cp hardware/assembly/cards/eb-01-prepare-the-wall.html $$O226
-cp hardware/assembly/cards/eb-03-stage-psu-relays-board.html $$O227
-cp hardware/assembly/cards/en-01-stage-the-printed-pieces.html $$O228
-cp hardware/assembly/cards/en-02-y-wall-bodies.html $$O229
-cp hardware/assembly/cards/en-03-bolt-the-compressor-down.html $$O230
-cp hardware/assembly/cards/en-04-stand-the-compressor-bay.html $$O231
-cp hardware/assembly/cards/en-04-stand-the-stratum.html $$O232
-cp hardware/assembly/cards/en-05-close-front-column.html $$O233
-cp hardware/assembly/cards/en-05-seat-cold-core.html $$O234
-cp hardware/assembly/cards/en-06-power-column.html $$O235
-cp hardware/assembly/cards/en-06-seat-cold-core.html $$O236
-cp hardware/assembly/cards/en-07-close-the-box.html $$O237
-cp hardware/assembly/cards/en-07-electronics-bay.html $$O238
-cp hardware/assembly/cards/en-08-close-the-box.html $$O239
-cp hardware/assembly/cards/en-09-display-and-funnel.html $$O240
-cp hardware/assembly/cards/en-10-display-and-funnel.html $$O241
-cp hardware/assembly/cards/fc-01-first-dc-power-on.html $$O242
-cp hardware/assembly/cards/fc-03-sensor-health.html $$O243
-cp hardware/assembly/cards/fc-04-valve-pump-self-test.html $$O244
-cp hardware/assembly/cards/fc-05-compressor-smoke-test.html $$O245
-cp hardware/assembly/cards/fs-01-wipe-down-inspect.html $$O246
-cp hardware/assembly/cards/fs-02-drain-dry-nameplate.html $$O247
-cp hardware/assembly/cards/fs-03-cap-photograph.html $$O248
-cp hardware/assembly/cards/fs-04-pack-kit-carton.html $$O249
-cp hardware/assembly/cards/fs-05-weigh-label-handoff.html $$O250
-cp hardware/assembly/cards/gt-02-push-to-connect.html $$O251
-cp hardware/assembly/cards/ip-01-co2-path.html $$O252
-cp hardware/assembly/cards/ip-02-water-path.html $$O253
-cp hardware/assembly/cards/ip-03-manifold-valves-tees.html $$O254
-cp hardware/assembly/cards/ip-04-carrier-halves.html $$O255
-cp hardware/assembly/cards/ip-04-manifold-pumps-channels.html $$O256
-cp hardware/assembly/cards/ip-05-manifold-pumps-channels.html $$O257
-cp hardware/assembly/cards/ip-05-risers.html $$O258
-cp hardware/assembly/cards/ip-06-seat-pump-cartridge.html $$O259
-cp hardware/assembly/cards/ip-06-witness-tidy.html $$O260
-cp hardware/assembly/cards/ip-07-risers.html $$O261
-cp hardware/assembly/cards/ip-08-witness-tidy.html $$O262
-cp hardware/assembly/cards/pv-01-chamfer-port-holes.html $$O263
-cp hardware/assembly/cards/pv-02-tap-npt-ports.html $$O264
-cp hardware/assembly/cards/pv-03-rod-register.html $$O265
-cp hardware/assembly/cards/pv-04-break-plate-edges.html $$O266
-cp hardware/assembly/cards/pv-05-cut-level-rods.html $$O267
-cp hardware/assembly/cards/pv-06-tack-float-rod.html $$O268
-cp hardware/assembly/cards/pv-07-deburr-and-prep.html $$O269
-cp hardware/assembly/cards/pv-09-close-the-carbonator.html $$O270
-cp hardware/assembly/cards/pv-11-hydro-test.html $$O271
-cp hardware/assembly/cards/pv-13-prv-shroud-subassembly.html $$O272
-cp hardware/assembly/cards/pv-14-port-fittings.html $$O273
-cp hardware/assembly/cards/rl-04-suction-tie-in.html $$O274
-cp hardware/assembly/cards/rl-05-pinch-swage.html $$O275
-cp hardware/assembly/cards/sa-01-back-top.html $$O276
-cp hardware/assembly/cards/sa-02-front-top.html $$O277
-cp hardware/assembly/cards/sa-03-cap-lid-fill.html $$O278
-cp hardware/assembly/cards/sa-04-cap-lid.html $$O279
-cp hardware/assembly/cards/sa-05-back-half.html $$O280
-cp hardware/assembly/cards/sa-06-funnel-drain.html $$O281
-cp hardware/assembly/cards/sa-07-cold-core.html $$O282
-cp hardware/assembly/cards/sa-08-cold-core-open.html $$O283
-cp hardware/assembly/cards/sa-09-pump-cartridge.html $$O284
-cp hardware/assembly/cards/wr-04-cabinet-12v-runs.html $$O285
-cp hardware/assembly/cards/wr-05-signal-looms.html $$O286
+cp hardware/assembly/cards/out/fc-01-first-dc-power-on.pdf $$O59
+cp hardware/assembly/cards/out/fc-01-first-dc-power-on.png $$O60
+cp hardware/assembly/cards/out/fc-02-flash-three-esp32s.pdf $$O61
+cp hardware/assembly/cards/out/fc-02-flash-three-esp32s.png $$O62
+cp hardware/assembly/cards/out/fc-03-sensor-health.pdf $$O63
+cp hardware/assembly/cards/out/fc-03-sensor-health.png $$O64
+cp hardware/assembly/cards/out/fc-04-valve-pump-self-test.pdf $$O65
+cp hardware/assembly/cards/out/fc-04-valve-pump-self-test.png $$O66
+cp hardware/assembly/cards/out/fc-05-compressor-smoke-test.pdf $$O67
+cp hardware/assembly/cards/out/fc-05-compressor-smoke-test.png $$O68
+cp hardware/assembly/cards/out/fs-01-wipe-down-inspect.pdf $$O69
+cp hardware/assembly/cards/out/fs-01-wipe-down-inspect.png $$O70
+cp hardware/assembly/cards/out/fs-02-drain-dry-nameplate.pdf $$O71
+cp hardware/assembly/cards/out/fs-02-drain-dry-nameplate.png $$O72
+cp hardware/assembly/cards/out/fs-03-cap-photograph.pdf $$O73
+cp hardware/assembly/cards/out/fs-03-cap-photograph.png $$O74
+cp hardware/assembly/cards/out/fs-04-pack-kit-carton.pdf $$O75
+cp hardware/assembly/cards/out/fs-04-pack-kit-carton.png $$O76
+cp hardware/assembly/cards/out/fs-05-weigh-label-handoff.pdf $$O77
+cp hardware/assembly/cards/out/fs-05-weigh-label-handoff.png $$O78
+cp hardware/assembly/cards/out/fu-01-cut-lldpe-tubes.pdf $$O79
+cp hardware/assembly/cards/out/fu-01-cut-lldpe-tubes.png $$O80
+cp hardware/assembly/cards/out/fu-02-route-tubes-through-shell.pdf $$O81
+cp hardware/assembly/cards/out/fu-02-route-tubes-through-shell.png $$O82
+cp hardware/assembly/cards/out/fu-03-insulate-and-sleeve.pdf $$O83
+cp hardware/assembly/cards/out/fu-03-insulate-and-sleeve.png $$O84
+cp hardware/assembly/cards/out/fu-04-bag-with-installer-kit.pdf $$O85
+cp hardware/assembly/cards/out/fu-04-bag-with-installer-kit.png $$O86
+cp hardware/assembly/cards/out/gt-01-npt-joints.pdf $$O87
+cp hardware/assembly/cards/out/gt-01-npt-joints.png $$O88
+cp hardware/assembly/cards/out/gt-02-push-to-connect.pdf $$O89
+cp hardware/assembly/cards/out/gt-02-push-to-connect.png $$O90
+cp hardware/assembly/cards/out/gt-03-crimp-lugs.pdf $$O91
+cp hardware/assembly/cards/out/gt-03-crimp-lugs.png $$O92
+cp hardware/assembly/cards/out/gt-04-jst-xh-crimping.pdf $$O93
+cp hardware/assembly/cards/out/gt-04-jst-xh-crimping.png $$O94
+cp hardware/assembly/cards/out/gt-05-heat-shrink-sleeve.pdf $$O95
+cp hardware/assembly/cards/out/gt-05-heat-shrink-sleeve.png $$O96
+cp hardware/assembly/cards/out/ip-01-co2-path.pdf $$O97
+cp hardware/assembly/cards/out/ip-01-co2-path.png $$O98
+cp hardware/assembly/cards/out/ip-02-water-path.pdf $$O99
+cp hardware/assembly/cards/out/ip-02-water-path.png $$O100
+cp hardware/assembly/cards/out/ip-03-manifold-valves-tees.pdf $$O101
+cp hardware/assembly/cards/out/ip-03-manifold-valves-tees.png $$O102
+cp hardware/assembly/cards/out/pv-01-chamfer-port-holes.pdf $$O103
+cp hardware/assembly/cards/out/pv-01-chamfer-port-holes.png $$O104
+cp hardware/assembly/cards/out/pv-02-tap-npt-ports.pdf $$O105
+cp hardware/assembly/cards/out/pv-02-tap-npt-ports.png $$O106
+cp hardware/assembly/cards/out/pv-03-rod-register.pdf $$O107
+cp hardware/assembly/cards/out/pv-03-rod-register.png $$O108
+cp hardware/assembly/cards/out/pv-04-break-plate-edges.pdf $$O109
+cp hardware/assembly/cards/out/pv-04-break-plate-edges.png $$O110
+cp hardware/assembly/cards/out/pv-05-cut-level-rods.pdf $$O111
+cp hardware/assembly/cards/out/pv-05-cut-level-rods.png $$O112
+cp hardware/assembly/cards/out/pv-06-tack-float-rod.pdf $$O113
+cp hardware/assembly/cards/out/pv-06-tack-float-rod.png $$O114
+cp hardware/assembly/cards/out/pv-07-deburr-and-prep.pdf $$O115
+cp hardware/assembly/cards/out/pv-07-deburr-and-prep.png $$O116
+cp hardware/assembly/cards/out/pv-08-weld-bottom-plate.pdf $$O117
+cp hardware/assembly/cards/out/pv-08-weld-bottom-plate.png $$O118
+cp hardware/assembly/cards/out/pv-09-close-the-carbonator.pdf $$O119
+cp hardware/assembly/cards/out/pv-09-close-the-carbonator.png $$O120
+cp hardware/assembly/cards/out/pv-10-dye-penetrant.pdf $$O121
+cp hardware/assembly/cards/out/pv-10-dye-penetrant.png $$O122
+cp hardware/assembly/cards/out/pv-11-hydro-test.pdf $$O123
+cp hardware/assembly/cards/out/pv-11-hydro-test.png $$O124
+cp hardware/assembly/cards/out/pv-12-citric-passivation.pdf $$O125
+cp hardware/assembly/cards/out/pv-12-citric-passivation.png $$O126
+cp hardware/assembly/cards/out/pv-13-prv-shroud-subassembly.pdf $$O127
+cp hardware/assembly/cards/out/pv-13-prv-shroud-subassembly.png $$O128
+cp hardware/assembly/cards/out/pv-14-port-fittings.pdf $$O129
+cp hardware/assembly/cards/out/pv-14-port-fittings.png $$O130
+cp hardware/assembly/cards/out/rl-01-verify-donor.pdf $$O131
+cp hardware/assembly/cards/out/rl-01-verify-donor.png $$O132
+cp hardware/assembly/cards/out/rl-02-vent-charge.pdf $$O133
+cp hardware/assembly/cards/out/rl-02-vent-charge.png $$O134
+cp hardware/assembly/cards/out/rl-03-argon-and-cut.pdf $$O135
+cp hardware/assembly/cards/out/rl-03-argon-and-cut.png $$O136
+cp hardware/assembly/cards/out/rl-04-suction-tie-in.pdf $$O137
+cp hardware/assembly/cards/out/rl-04-suction-tie-in.png $$O138
+cp hardware/assembly/cards/out/rl-05-pinch-swage.pdf $$O139
+cp hardware/assembly/cards/out/rl-05-pinch-swage.png $$O140
+cp hardware/assembly/cards/out/rl-06-pull-vacuum.pdf $$O141
+cp hardware/assembly/cards/out/rl-06-pull-vacuum.png $$O142
+cp hardware/assembly/cards/out/rl-07-recharge.pdf $$O143
+cp hardware/assembly/cards/out/rl-07-recharge.png $$O144
+cp hardware/assembly/cards/out/rl-08-run-up-leak-check.pdf $$O145
+cp hardware/assembly/cards/out/rl-08-run-up-leak-check.png $$O146
+cp hardware/assembly/cards/out/sa-01-back-top.pdf $$O147
+cp hardware/assembly/cards/out/sa-01-back-top.png $$O148
+cp hardware/assembly/cards/out/sa-02-front-top.pdf $$O149
+cp hardware/assembly/cards/out/sa-02-front-top.png $$O150
+cp hardware/assembly/cards/out/sa-03-cap-lid-fill.pdf $$O151
+cp hardware/assembly/cards/out/sa-03-cap-lid-fill.png $$O152
+cp hardware/assembly/cards/out/sa-04-cap-lid.pdf $$O153
+cp hardware/assembly/cards/out/sa-04-cap-lid.png $$O154
+cp hardware/assembly/cards/out/sa-05-back-half.pdf $$O155
+cp hardware/assembly/cards/out/sa-05-back-half.png $$O156
+cp hardware/assembly/cards/out/sa-06-funnel-drain.pdf $$O157
+cp hardware/assembly/cards/out/sa-06-funnel-drain.png $$O158
+cp hardware/assembly/cards/out/sa-07-cold-core.pdf $$O159
+cp hardware/assembly/cards/out/sa-07-cold-core.png $$O160
+cp hardware/assembly/cards/out/sa-08-cold-core-open.pdf $$O161
+cp hardware/assembly/cards/out/sa-08-cold-core-open.png $$O162
+cp hardware/assembly/cards/out/sa-09-pump-cartridge.pdf $$O163
+cp hardware/assembly/cards/out/sa-09-pump-cartridge.png $$O164
+cp hardware/assembly/cards/out/wr-01-chassis-ground-bonds.pdf $$O165
+cp hardware/assembly/cards/out/wr-01-chassis-ground-bonds.png $$O166
+cp hardware/assembly/cards/out/wr-02-ac-mains.pdf $$O167
+cp hardware/assembly/cards/out/wr-02-ac-mains.png $$O168
+cp hardware/assembly/cards/out/wr-03-ac-dielectric-check.pdf $$O169
+cp hardware/assembly/cards/out/wr-03-ac-dielectric-check.png $$O170
+cp hardware/assembly/cards/out/wr-04-cabinet-12v-runs.pdf $$O171
+cp hardware/assembly/cards/out/wr-04-cabinet-12v-runs.png $$O172
+cp hardware/assembly/cards/out/wr-05-signal-looms.pdf $$O173
+cp hardware/assembly/cards/out/wr-05-signal-looms.png $$O174
+cp hardware/assembly/cards/out/wr-06-bundle-route-strain-relieve.pdf $$O175
+cp hardware/assembly/cards/out/wr-06-bundle-route-strain-relieve.png $$O176
+cp hardware/assembly/cards/00-cover.html $$O177
+cp hardware/assembly/cards/README.md $$O178
+cp hardware/assembly/cards/ab-01-inspect-connect-power.html $$O179
+cp hardware/assembly/cards/ab-02-water-fill-co2.html $$O180
+cp hardware/assembly/cards/ab-05-level-transitions.html $$O181
+cp hardware/assembly/cards/ab-06-burn-in-log.html $$O182
+cp hardware/assembly/cards/ca-02-harness-schedule.html $$O183
+cp hardware/assembly/cards/cc-03-transfer-the-coil.html $$O184
+cp hardware/assembly/cards/cc-05-press-shell-inserts.html $$O185
+cp hardware/assembly/cards/cc-06-pour-cap-foam.html $$O186
+cp hardware/assembly/cards/cc-08-seat-reservoir-rods.html $$O187
+cp hardware/assembly/cards/cc-10-lower-the-carbonator.html $$O188
+cp hardware/assembly/cards/cc-11-seat-reservoirs.html $$O189
+cp hardware/assembly/cards/cc-12-route-penetrations.html $$O190
+cp hardware/assembly/cards/cc-13-stack-copper-plugs.html $$O191
+cp hardware/assembly/cards/cc-14-pour-body-foam.html $$O192
+cp hardware/assembly/cards/cc-15-columns-gaskets-caps.html $$O193
+cp hardware/assembly/cards/eb-01-prepare-the-wall.html $$O194
+cp hardware/assembly/cards/eb-03-stage-psu-relays-board.html $$O195
+cp hardware/assembly/cards/en-01-stage-the-printed-pieces.html $$O196
+cp hardware/assembly/cards/en-02-y-wall-bodies.html $$O197
+cp hardware/assembly/cards/en-03-bolt-the-compressor-down.html $$O198
+cp hardware/assembly/cards/en-04-stand-the-compressor-bay.html $$O199
+cp hardware/assembly/cards/en-05-close-front-column.html $$O200
+cp hardware/assembly/cards/en-06-seat-cold-core.html $$O201
+cp hardware/assembly/cards/en-07-electronics-bay.html $$O202
+cp hardware/assembly/cards/en-08-close-the-box.html $$O203
+cp hardware/assembly/cards/en-10-display-and-funnel.html $$O204
+cp hardware/assembly/cards/fc-01-first-dc-power-on.html $$O205
+cp hardware/assembly/cards/fc-03-sensor-health.html $$O206
+cp hardware/assembly/cards/fc-04-valve-pump-self-test.html $$O207
+cp hardware/assembly/cards/fc-05-compressor-smoke-test.html $$O208
+cp hardware/assembly/cards/fs-01-wipe-down-inspect.html $$O209
+cp hardware/assembly/cards/fs-02-drain-dry-nameplate.html $$O210
+cp hardware/assembly/cards/fs-03-cap-photograph.html $$O211
+cp hardware/assembly/cards/fs-04-pack-kit-carton.html $$O212
+cp hardware/assembly/cards/fs-05-weigh-label-handoff.html $$O213
+cp hardware/assembly/cards/gt-02-push-to-connect.html $$O214
+cp hardware/assembly/cards/ip-01-co2-path.html $$O215
+cp hardware/assembly/cards/ip-02-water-path.html $$O216
+cp hardware/assembly/cards/ip-03-manifold-valves-tees.html $$O217
+cp hardware/assembly/cards/ip-04-carrier-halves.html $$O218
+cp hardware/assembly/cards/ip-05-manifold-pumps-channels.html $$O219
+cp hardware/assembly/cards/ip-06-seat-pump-cartridge.html $$O220
+cp hardware/assembly/cards/ip-07-risers.html $$O221
+cp hardware/assembly/cards/ip-08-witness-tidy.html $$O222
+cp hardware/assembly/cards/pv-01-chamfer-port-holes.html $$O223
+cp hardware/assembly/cards/pv-02-tap-npt-ports.html $$O224
+cp hardware/assembly/cards/pv-03-rod-register.html $$O225
+cp hardware/assembly/cards/pv-04-break-plate-edges.html $$O226
+cp hardware/assembly/cards/pv-05-cut-level-rods.html $$O227
+cp hardware/assembly/cards/pv-06-tack-float-rod.html $$O228
+cp hardware/assembly/cards/pv-07-deburr-and-prep.html $$O229
+cp hardware/assembly/cards/pv-09-close-the-carbonator.html $$O230
+cp hardware/assembly/cards/pv-11-hydro-test.html $$O231
+cp hardware/assembly/cards/pv-13-prv-shroud-subassembly.html $$O232
+cp hardware/assembly/cards/pv-14-port-fittings.html $$O233
+cp hardware/assembly/cards/rl-04-suction-tie-in.html $$O234
+cp hardware/assembly/cards/rl-05-pinch-swage.html $$O235
+cp hardware/assembly/cards/sa-01-back-top.html $$O236
+cp hardware/assembly/cards/sa-02-front-top.html $$O237
+cp hardware/assembly/cards/sa-03-cap-lid-fill.html $$O238
+cp hardware/assembly/cards/sa-04-cap-lid.html $$O239
+cp hardware/assembly/cards/sa-05-back-half.html $$O240
+cp hardware/assembly/cards/sa-06-funnel-drain.html $$O241
+cp hardware/assembly/cards/sa-07-cold-core.html $$O242
+cp hardware/assembly/cards/sa-08-cold-core-open.html $$O243
+cp hardware/assembly/cards/sa-09-pump-cartridge.html $$O244
+cp hardware/assembly/cards/wr-04-cabinet-12v-runs.html $$O245
+cp hardware/assembly/cards/wr-05-signal-looms.html $$O246
 """,
 )
 
@@ -2661,31 +2538,32 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.lint-answers",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
-        ":out/tee-carrier/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.support-audit.json",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.lint-answers",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
-        ":out/tee-carrier/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.support-audit.json",
         "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.lint-answers",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step",
-        ":out/tee-carrier/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
         "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.support-audit.json",
         "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.lint-answers",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
-        ":out/tee-carrier/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
         "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.support-audit.json",
         "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.lint-answers",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step",
-        ":out/tee-carrier/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
         "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.lint-answers",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step",
-        ":out/tee-carrier/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
         "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.support-audit.json",
         "pysrc/hardware/printed-parts/enclosure/enclosure/enclosure.py",
@@ -2698,6 +2576,18 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/nameplate/nameplate.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
+        ":out/enclosure/hardware/printed-parts/enclosure/tee-carrier/README.figures.json",
+        "hardware/printed-parts/enclosure/tee-carrier/README.md",
+        "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.lint-answers",
+        ":out/enclosure/hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.step",
+        ":out/enclosure/hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.step.mesh",
+        ":out/enclosure/hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.stl",
+        "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.support-audit.json",
+        "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.lint-answers",
+        ":out/enclosure/hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step",
+        ":out/enclosure/hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step.mesh",
+        ":out/enclosure/hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.stl",
+        "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.support-audit.json",
         "pysrc/hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py",
         "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
@@ -2811,24 +2701,22 @@ genrule(
             "hardware/assembly/cards/img/asse1022-chain.png.scene.json",
             "hardware/assembly/cards/img/coil-mandrel.png",
             "hardware/assembly/cards/img/coil-mandrel.png.scene.json",
-            "hardware/assembly/cards/img/copper-plug.png",
-            "hardware/assembly/cards/img/copper-plug.png.scene.json",
             "hardware/assembly/cards/img/en01-shell.png",
             "hardware/assembly/cards/img/en01-shell.png.scene.json",
             "hardware/assembly/cards/img/en02-y-wall.png",
             "hardware/assembly/cards/img/en02-y-wall.png.scene.json",
             "hardware/assembly/cards/img/en03-compressor.png",
             "hardware/assembly/cards/img/en03-compressor.png.scene.json",
-            "hardware/assembly/cards/img/en04-stratum.png",
-            "hardware/assembly/cards/img/en04-stratum.png.scene.json",
-            "hardware/assembly/cards/img/en05-coldcore.png",
-            "hardware/assembly/cards/img/en05-coldcore.png.scene.json",
-            "hardware/assembly/cards/img/en06-column.png",
-            "hardware/assembly/cards/img/en06-column.png.scene.json",
-            "hardware/assembly/cards/img/en08-asse-drip-pan.png",
-            "hardware/assembly/cards/img/en08-asse-drip-pan.png.scene.json",
-            "hardware/assembly/cards/img/en09-funnel.png",
-            "hardware/assembly/cards/img/en09-funnel.png.scene.json",
+            "hardware/assembly/cards/img/en04-compressor-bay.png",
+            "hardware/assembly/cards/img/en04-compressor-bay.png.scene.json",
+            "hardware/assembly/cards/img/en06-coldcore.png",
+            "hardware/assembly/cards/img/en06-coldcore.png.scene.json",
+            "hardware/assembly/cards/img/en07-electronics-bay.png",
+            "hardware/assembly/cards/img/en07-electronics-bay.png.scene.json",
+            "hardware/assembly/cards/img/en09-asse-drip-pan.png",
+            "hardware/assembly/cards/img/en09-asse-drip-pan.png.scene.json",
+            "hardware/assembly/cards/img/en10-funnel.png",
+            "hardware/assembly/cards/img/en10-funnel.png.scene.json",
             "hardware/assembly/cards/img/enclosure-assembly.png",
             "hardware/assembly/cards/img/enclosure-assembly.png.scene.json",
             "hardware/assembly/cards/img/foam-assembly-stack.png",
@@ -2883,24 +2771,22 @@ genrule(
         "out/render-scene-cards/hardware/assembly/cards/img/asse1022-chain.png.scene.json",
         "out/render-scene-cards/hardware/assembly/cards/img/coil-mandrel.png",
         "out/render-scene-cards/hardware/assembly/cards/img/coil-mandrel.png.scene.json",
-        "out/render-scene-cards/hardware/assembly/cards/img/copper-plug.png",
-        "out/render-scene-cards/hardware/assembly/cards/img/copper-plug.png.scene.json",
         "out/render-scene-cards/hardware/assembly/cards/img/en01-shell.png",
         "out/render-scene-cards/hardware/assembly/cards/img/en01-shell.png.scene.json",
         "out/render-scene-cards/hardware/assembly/cards/img/en02-y-wall.png",
         "out/render-scene-cards/hardware/assembly/cards/img/en02-y-wall.png.scene.json",
         "out/render-scene-cards/hardware/assembly/cards/img/en03-compressor.png",
         "out/render-scene-cards/hardware/assembly/cards/img/en03-compressor.png.scene.json",
-        "out/render-scene-cards/hardware/assembly/cards/img/en04-stratum.png",
-        "out/render-scene-cards/hardware/assembly/cards/img/en04-stratum.png.scene.json",
-        "out/render-scene-cards/hardware/assembly/cards/img/en05-coldcore.png",
-        "out/render-scene-cards/hardware/assembly/cards/img/en05-coldcore.png.scene.json",
-        "out/render-scene-cards/hardware/assembly/cards/img/en06-column.png",
-        "out/render-scene-cards/hardware/assembly/cards/img/en06-column.png.scene.json",
-        "out/render-scene-cards/hardware/assembly/cards/img/en08-asse-drip-pan.png",
-        "out/render-scene-cards/hardware/assembly/cards/img/en08-asse-drip-pan.png.scene.json",
-        "out/render-scene-cards/hardware/assembly/cards/img/en09-funnel.png",
-        "out/render-scene-cards/hardware/assembly/cards/img/en09-funnel.png.scene.json",
+        "out/render-scene-cards/hardware/assembly/cards/img/en04-compressor-bay.png",
+        "out/render-scene-cards/hardware/assembly/cards/img/en04-compressor-bay.png.scene.json",
+        "out/render-scene-cards/hardware/assembly/cards/img/en06-coldcore.png",
+        "out/render-scene-cards/hardware/assembly/cards/img/en06-coldcore.png.scene.json",
+        "out/render-scene-cards/hardware/assembly/cards/img/en07-electronics-bay.png",
+        "out/render-scene-cards/hardware/assembly/cards/img/en07-electronics-bay.png.scene.json",
+        "out/render-scene-cards/hardware/assembly/cards/img/en09-asse-drip-pan.png",
+        "out/render-scene-cards/hardware/assembly/cards/img/en09-asse-drip-pan.png.scene.json",
+        "out/render-scene-cards/hardware/assembly/cards/img/en10-funnel.png",
+        "out/render-scene-cards/hardware/assembly/cards/img/en10-funnel.png.scene.json",
         "out/render-scene-cards/hardware/assembly/cards/img/enclosure-assembly.png",
         "out/render-scene-cards/hardware/assembly/cards/img/enclosure-assembly.png.scene.json",
         "out/render-scene-cards/hardware/assembly/cards/img/foam-assembly-stack.png",
@@ -2955,70 +2841,68 @@ O0=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/asse1022-
 O1=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/asse1022-chain.png.scene.json)
 O2=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/coil-mandrel.png)
 O3=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/coil-mandrel.png.scene.json)
-O4=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/copper-plug.png)
-O5=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/copper-plug.png.scene.json)
-O6=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/en01-shell.png)
-O7=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/en01-shell.png.scene.json)
-O8=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/en02-y-wall.png)
-O9=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/en02-y-wall.png.scene.json)
-O10=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/en03-compressor.png)
-O11=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/en03-compressor.png.scene.json)
-O12=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/en04-stratum.png)
-O13=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/en04-stratum.png.scene.json)
-O14=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/en05-coldcore.png)
-O15=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/en05-coldcore.png.scene.json)
-O16=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/en06-column.png)
-O17=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/en06-column.png.scene.json)
-O18=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/en08-asse-drip-pan.png)
-O19=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/en08-asse-drip-pan.png.scene.json)
-O20=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/en09-funnel.png)
-O21=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/en09-funnel.png.scene.json)
-O22=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/enclosure-assembly.png)
-O23=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/enclosure-assembly.png.scene.json)
-O24=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/foam-assembly-stack.png)
-O25=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/foam-assembly-stack.png.scene.json)
-O26=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/foam-cap-top.png)
-O27=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/foam-cap-top.png.scene.json)
-O28=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/foam-shell-cavity.png)
-O29=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/foam-shell-cavity.png.scene.json)
-O30=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/fu02-faucet.png)
-O31=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/fu02-faucet.png.scene.json)
-O32=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/fu05-shell.png)
-O33=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/fu05-shell.png.scene.json)
-O34=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/ip03-manifold-pack.png)
-O35=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/ip03-manifold-pack.png.scene.json)
-O36=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/pc01-wall-bosses.png)
-O37=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/pc01-wall-bosses.png.scene.json)
-O38=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/pcba-assembly.png)
-O39=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/pcba-assembly.png.scene.json)
-O40=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/prv-shroud.png)
-O41=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/prv-shroud.png.scene.json)
-O42=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/reservoir-body.png)
-O43=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/reservoir-body.png.scene.json)
-O44=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/reservoir-cap.png)
-O45=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/reservoir-cap.png.scene.json)
-O46=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/scene-back-half.png)
-O47=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/scene-back-half.png.scene.json)
-O48=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/scene-back-top.png)
-O49=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/scene-back-top.png.scene.json)
-O50=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/scene-cap-lid-fill.png)
-O51=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/scene-cap-lid-fill.png.scene.json)
-O52=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/scene-cap-lid.png)
-O53=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/scene-cap-lid.png.scene.json)
-O54=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/scene-cold-core-open.png)
-O55=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/scene-cold-core-open.png.scene.json)
-O56=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/scene-cold-core.png)
-O57=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/scene-cold-core.png.scene.json)
-O58=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/scene-front-top.png)
-O59=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/scene-front-top.png.scene.json)
-O60=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/scene-funnel-drain.png)
-O61=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/scene-funnel-drain.png.scene.json)
-O62=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/scene-pump-cartridge.png)
-O63=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/scene-pump-cartridge.png.scene.json)
-O64=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/wago-column.png)
-O65=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/wago-column.png.scene.json)
-O66=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/water-split.png)
-O67=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/water-split.png.scene.json)
+O4=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/en01-shell.png)
+O5=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/en01-shell.png.scene.json)
+O6=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/en02-y-wall.png)
+O7=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/en02-y-wall.png.scene.json)
+O8=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/en03-compressor.png)
+O9=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/en03-compressor.png.scene.json)
+O10=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/en04-compressor-bay.png)
+O11=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/en04-compressor-bay.png.scene.json)
+O12=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/en06-coldcore.png)
+O13=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/en06-coldcore.png.scene.json)
+O14=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/en07-electronics-bay.png)
+O15=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/en07-electronics-bay.png.scene.json)
+O16=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/en09-asse-drip-pan.png)
+O17=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/en09-asse-drip-pan.png.scene.json)
+O18=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/en10-funnel.png)
+O19=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/en10-funnel.png.scene.json)
+O20=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/enclosure-assembly.png)
+O21=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/enclosure-assembly.png.scene.json)
+O22=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/foam-assembly-stack.png)
+O23=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/foam-assembly-stack.png.scene.json)
+O24=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/foam-cap-top.png)
+O25=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/foam-cap-top.png.scene.json)
+O26=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/foam-shell-cavity.png)
+O27=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/foam-shell-cavity.png.scene.json)
+O28=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/fu02-faucet.png)
+O29=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/fu02-faucet.png.scene.json)
+O30=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/fu05-shell.png)
+O31=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/fu05-shell.png.scene.json)
+O32=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/ip03-manifold-pack.png)
+O33=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/ip03-manifold-pack.png.scene.json)
+O34=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/pc01-wall-bosses.png)
+O35=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/pc01-wall-bosses.png.scene.json)
+O36=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/pcba-assembly.png)
+O37=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/pcba-assembly.png.scene.json)
+O38=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/prv-shroud.png)
+O39=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/prv-shroud.png.scene.json)
+O40=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/reservoir-body.png)
+O41=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/reservoir-body.png.scene.json)
+O42=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/reservoir-cap.png)
+O43=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/reservoir-cap.png.scene.json)
+O44=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/scene-back-half.png)
+O45=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/scene-back-half.png.scene.json)
+O46=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/scene-back-top.png)
+O47=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/scene-back-top.png.scene.json)
+O48=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/scene-cap-lid-fill.png)
+O49=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/scene-cap-lid-fill.png.scene.json)
+O50=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/scene-cap-lid.png)
+O51=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/scene-cap-lid.png.scene.json)
+O52=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/scene-cold-core-open.png)
+O53=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/scene-cold-core-open.png.scene.json)
+O54=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/scene-cold-core.png)
+O55=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/scene-cold-core.png.scene.json)
+O56=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/scene-front-top.png)
+O57=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/scene-front-top.png.scene.json)
+O58=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/scene-funnel-drain.png)
+O59=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/scene-funnel-drain.png.scene.json)
+O60=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/scene-pump-cartridge.png)
+O61=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/scene-pump-cartridge.png.scene.json)
+O62=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/wago-column.png)
+O63=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/wago-column.png.scene.json)
+O64=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/water-split.png)
+O65=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/water-split.png.scene.json)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -3039,70 +2923,68 @@ cp hardware/assembly/cards/img/asse1022-chain.png $$O0
 cp hardware/assembly/cards/img/asse1022-chain.png.scene.json $$O1
 cp hardware/assembly/cards/img/coil-mandrel.png $$O2
 cp hardware/assembly/cards/img/coil-mandrel.png.scene.json $$O3
-cp hardware/assembly/cards/img/copper-plug.png $$O4
-cp hardware/assembly/cards/img/copper-plug.png.scene.json $$O5
-cp hardware/assembly/cards/img/en01-shell.png $$O6
-cp hardware/assembly/cards/img/en01-shell.png.scene.json $$O7
-cp hardware/assembly/cards/img/en02-y-wall.png $$O8
-cp hardware/assembly/cards/img/en02-y-wall.png.scene.json $$O9
-cp hardware/assembly/cards/img/en03-compressor.png $$O10
-cp hardware/assembly/cards/img/en03-compressor.png.scene.json $$O11
-cp hardware/assembly/cards/img/en04-stratum.png $$O12
-cp hardware/assembly/cards/img/en04-stratum.png.scene.json $$O13
-cp hardware/assembly/cards/img/en05-coldcore.png $$O14
-cp hardware/assembly/cards/img/en05-coldcore.png.scene.json $$O15
-cp hardware/assembly/cards/img/en06-column.png $$O16
-cp hardware/assembly/cards/img/en06-column.png.scene.json $$O17
-cp hardware/assembly/cards/img/en08-asse-drip-pan.png $$O18
-cp hardware/assembly/cards/img/en08-asse-drip-pan.png.scene.json $$O19
-cp hardware/assembly/cards/img/en09-funnel.png $$O20
-cp hardware/assembly/cards/img/en09-funnel.png.scene.json $$O21
-cp hardware/assembly/cards/img/enclosure-assembly.png $$O22
-cp hardware/assembly/cards/img/enclosure-assembly.png.scene.json $$O23
-cp hardware/assembly/cards/img/foam-assembly-stack.png $$O24
-cp hardware/assembly/cards/img/foam-assembly-stack.png.scene.json $$O25
-cp hardware/assembly/cards/img/foam-cap-top.png $$O26
-cp hardware/assembly/cards/img/foam-cap-top.png.scene.json $$O27
-cp hardware/assembly/cards/img/foam-shell-cavity.png $$O28
-cp hardware/assembly/cards/img/foam-shell-cavity.png.scene.json $$O29
-cp hardware/assembly/cards/img/fu02-faucet.png $$O30
-cp hardware/assembly/cards/img/fu02-faucet.png.scene.json $$O31
-cp hardware/assembly/cards/img/fu05-shell.png $$O32
-cp hardware/assembly/cards/img/fu05-shell.png.scene.json $$O33
-cp hardware/assembly/cards/img/ip03-manifold-pack.png $$O34
-cp hardware/assembly/cards/img/ip03-manifold-pack.png.scene.json $$O35
-cp hardware/assembly/cards/img/pc01-wall-bosses.png $$O36
-cp hardware/assembly/cards/img/pc01-wall-bosses.png.scene.json $$O37
-cp hardware/assembly/cards/img/pcba-assembly.png $$O38
-cp hardware/assembly/cards/img/pcba-assembly.png.scene.json $$O39
-cp hardware/assembly/cards/img/prv-shroud.png $$O40
-cp hardware/assembly/cards/img/prv-shroud.png.scene.json $$O41
-cp hardware/assembly/cards/img/reservoir-body.png $$O42
-cp hardware/assembly/cards/img/reservoir-body.png.scene.json $$O43
-cp hardware/assembly/cards/img/reservoir-cap.png $$O44
-cp hardware/assembly/cards/img/reservoir-cap.png.scene.json $$O45
-cp hardware/assembly/cards/img/scene-back-half.png $$O46
-cp hardware/assembly/cards/img/scene-back-half.png.scene.json $$O47
-cp hardware/assembly/cards/img/scene-back-top.png $$O48
-cp hardware/assembly/cards/img/scene-back-top.png.scene.json $$O49
-cp hardware/assembly/cards/img/scene-cap-lid-fill.png $$O50
-cp hardware/assembly/cards/img/scene-cap-lid-fill.png.scene.json $$O51
-cp hardware/assembly/cards/img/scene-cap-lid.png $$O52
-cp hardware/assembly/cards/img/scene-cap-lid.png.scene.json $$O53
-cp hardware/assembly/cards/img/scene-cold-core-open.png $$O54
-cp hardware/assembly/cards/img/scene-cold-core-open.png.scene.json $$O55
-cp hardware/assembly/cards/img/scene-cold-core.png $$O56
-cp hardware/assembly/cards/img/scene-cold-core.png.scene.json $$O57
-cp hardware/assembly/cards/img/scene-front-top.png $$O58
-cp hardware/assembly/cards/img/scene-front-top.png.scene.json $$O59
-cp hardware/assembly/cards/img/scene-funnel-drain.png $$O60
-cp hardware/assembly/cards/img/scene-funnel-drain.png.scene.json $$O61
-cp hardware/assembly/cards/img/scene-pump-cartridge.png $$O62
-cp hardware/assembly/cards/img/scene-pump-cartridge.png.scene.json $$O63
-cp hardware/assembly/cards/img/wago-column.png $$O64
-cp hardware/assembly/cards/img/wago-column.png.scene.json $$O65
-cp hardware/assembly/cards/img/water-split.png $$O66
-cp hardware/assembly/cards/img/water-split.png.scene.json $$O67
+cp hardware/assembly/cards/img/en01-shell.png $$O4
+cp hardware/assembly/cards/img/en01-shell.png.scene.json $$O5
+cp hardware/assembly/cards/img/en02-y-wall.png $$O6
+cp hardware/assembly/cards/img/en02-y-wall.png.scene.json $$O7
+cp hardware/assembly/cards/img/en03-compressor.png $$O8
+cp hardware/assembly/cards/img/en03-compressor.png.scene.json $$O9
+cp hardware/assembly/cards/img/en04-compressor-bay.png $$O10
+cp hardware/assembly/cards/img/en04-compressor-bay.png.scene.json $$O11
+cp hardware/assembly/cards/img/en06-coldcore.png $$O12
+cp hardware/assembly/cards/img/en06-coldcore.png.scene.json $$O13
+cp hardware/assembly/cards/img/en07-electronics-bay.png $$O14
+cp hardware/assembly/cards/img/en07-electronics-bay.png.scene.json $$O15
+cp hardware/assembly/cards/img/en09-asse-drip-pan.png $$O16
+cp hardware/assembly/cards/img/en09-asse-drip-pan.png.scene.json $$O17
+cp hardware/assembly/cards/img/en10-funnel.png $$O18
+cp hardware/assembly/cards/img/en10-funnel.png.scene.json $$O19
+cp hardware/assembly/cards/img/enclosure-assembly.png $$O20
+cp hardware/assembly/cards/img/enclosure-assembly.png.scene.json $$O21
+cp hardware/assembly/cards/img/foam-assembly-stack.png $$O22
+cp hardware/assembly/cards/img/foam-assembly-stack.png.scene.json $$O23
+cp hardware/assembly/cards/img/foam-cap-top.png $$O24
+cp hardware/assembly/cards/img/foam-cap-top.png.scene.json $$O25
+cp hardware/assembly/cards/img/foam-shell-cavity.png $$O26
+cp hardware/assembly/cards/img/foam-shell-cavity.png.scene.json $$O27
+cp hardware/assembly/cards/img/fu02-faucet.png $$O28
+cp hardware/assembly/cards/img/fu02-faucet.png.scene.json $$O29
+cp hardware/assembly/cards/img/fu05-shell.png $$O30
+cp hardware/assembly/cards/img/fu05-shell.png.scene.json $$O31
+cp hardware/assembly/cards/img/ip03-manifold-pack.png $$O32
+cp hardware/assembly/cards/img/ip03-manifold-pack.png.scene.json $$O33
+cp hardware/assembly/cards/img/pc01-wall-bosses.png $$O34
+cp hardware/assembly/cards/img/pc01-wall-bosses.png.scene.json $$O35
+cp hardware/assembly/cards/img/pcba-assembly.png $$O36
+cp hardware/assembly/cards/img/pcba-assembly.png.scene.json $$O37
+cp hardware/assembly/cards/img/prv-shroud.png $$O38
+cp hardware/assembly/cards/img/prv-shroud.png.scene.json $$O39
+cp hardware/assembly/cards/img/reservoir-body.png $$O40
+cp hardware/assembly/cards/img/reservoir-body.png.scene.json $$O41
+cp hardware/assembly/cards/img/reservoir-cap.png $$O42
+cp hardware/assembly/cards/img/reservoir-cap.png.scene.json $$O43
+cp hardware/assembly/cards/img/scene-back-half.png $$O44
+cp hardware/assembly/cards/img/scene-back-half.png.scene.json $$O45
+cp hardware/assembly/cards/img/scene-back-top.png $$O46
+cp hardware/assembly/cards/img/scene-back-top.png.scene.json $$O47
+cp hardware/assembly/cards/img/scene-cap-lid-fill.png $$O48
+cp hardware/assembly/cards/img/scene-cap-lid-fill.png.scene.json $$O49
+cp hardware/assembly/cards/img/scene-cap-lid.png $$O50
+cp hardware/assembly/cards/img/scene-cap-lid.png.scene.json $$O51
+cp hardware/assembly/cards/img/scene-cold-core-open.png $$O52
+cp hardware/assembly/cards/img/scene-cold-core-open.png.scene.json $$O53
+cp hardware/assembly/cards/img/scene-cold-core.png $$O54
+cp hardware/assembly/cards/img/scene-cold-core.png.scene.json $$O55
+cp hardware/assembly/cards/img/scene-front-top.png $$O56
+cp hardware/assembly/cards/img/scene-front-top.png.scene.json $$O57
+cp hardware/assembly/cards/img/scene-funnel-drain.png $$O58
+cp hardware/assembly/cards/img/scene-funnel-drain.png.scene.json $$O59
+cp hardware/assembly/cards/img/scene-pump-cartridge.png $$O60
+cp hardware/assembly/cards/img/scene-pump-cartridge.png.scene.json $$O61
+cp hardware/assembly/cards/img/wago-column.png $$O62
+cp hardware/assembly/cards/img/wago-column.png.scene.json $$O63
+cp hardware/assembly/cards/img/water-split.png $$O64
+cp hardware/assembly/cards/img/water-split.png.scene.json $$O65
 """,
 )
 
@@ -3504,7 +3386,22 @@ genrule(
         "pysrc/hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
         "pysrc/hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
         "pysrc/hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
+        "hardware/printed-parts/faucet/faucet-shell/.gitignore",
+        ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json",
+        "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md",
+        ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/MATERIAL.figures.json",
+        "hardware/printed-parts/faucet/faucet-shell/MATERIAL.md",
+        ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step",
+        ":out/flute-payload-faucet/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh",
+        ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
+        ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
+        ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh",
+        ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell.step",
+        "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.json",
+        ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh",
+        "hardware/printed-parts/faucet/faucet-shell/faucet_shell.md",
         "pysrc/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+        "hardware/printed-parts/faucet/faucet-shell/print-log.md",
         "pysrc/hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-a.step",
@@ -3585,7 +3482,8 @@ genrule(
         ":out/install-art/hardware/install-guide/art/collet-press.png",
         ":out/install-art/hardware/install-guide/art/filter-in-cabinet.png",
         ":out/install-art/hardware/install-guide/art/opening.png",
-        ":out/install-art/hardware/install-guide/art/power-socket.png",
+        ":out/install-art/hardware/install-guide/art/the-back-face.png",
+        ":out/install-art/hardware/install-guide/art/the-socket.png",
         "hardware/install-guide/style.css",
         ":out/cad-art/hardware/quickstart/art/faucet-front.png",
         ":out/cad-art/hardware/quickstart/art/faucet-side-pressed.png",
@@ -3648,6 +3546,7 @@ genrule(
         ":out/under-counter-plate/hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf",
         "pysrc/hardware/faucet-layout/faucet_assembly.py",
         "pysrc/hardware/install-guide/_install_art.py",
+        ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.facts.json",
         ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step",
         ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step.mesh",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
@@ -3668,15 +3567,23 @@ genrule(
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step",
         "pysrc/hardware/printed-parts/faucet/tube-collar/tube_collar.py",
         "pysrc/hardware/quickstart/_cad_art.py",
+        "pysrc/hardware/quickstart/plumbing/modern/render_modern_tee.py",
+        "pysrc/hardware/quickstart/plumbing/plumbing_scenes.py",
+        "pysrc/hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
         "pysrc/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
+        "pysrc/hardware/reference/jg-pp0208e-tee/jg_pp0208e_tee.py",
+        "pysrc/hardware/reference/jg-pp0408w/jg_pp0408w.py",
         "pysrc/hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
         ":out/westbrass-reference/hardware/reference/touch-flo-faucet/westbrass-reference/westbrass-reference.step",
+        "pysrc/hardware/reference/wellbom-regulator/wellbom_regulator.py",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_measuring.py",
+        "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
+        "pysrc/hardware/scripts/flute_payload.py",
         "pysrc/tools/docgen/__init__.py",
         "tools/render/browser.js",
         "tools/render/render-step-posed.js",
@@ -3684,20 +3591,44 @@ genrule(
         ":node-packages",
     ],
     outs = [
+        "out/install-art/hardware/install-guide/art/bottle-in-funnel.png",
         "out/install-art/hardware/install-guide/art/cabinet-plan.png",
         "out/install-art/hardware/install-guide/art/collet-press.png",
         "out/install-art/hardware/install-guide/art/filter-in-cabinet.png",
+        "out/install-art/hardware/install-guide/art/kitchen-hose.png",
+        "out/install-art/hardware/install-guide/art/kitchen-push.png",
+        "out/install-art/hardware/install-guide/art/nameplate.png",
         "out/install-art/hardware/install-guide/art/opening.png",
-        "out/install-art/hardware/install-guide/art/power-socket.png",
+        "out/install-art/hardware/install-guide/art/plate-sideways.png",
+        "out/install-art/hardware/install-guide/art/regulator.png",
+        "out/install-art/hardware/install-guide/art/stop-closed.png",
+        "out/install-art/hardware/install-guide/art/stop-open.png",
+        "out/install-art/hardware/install-guide/art/tee-after.png",
+        "out/install-art/hardware/install-guide/art/tee-before.png",
+        "out/install-art/hardware/install-guide/art/the-back-face.png",
+        "out/install-art/hardware/install-guide/art/the-socket.png",
+        "out/install-art/hardware/install-guide/art/two-tees.png",
     ],
     tags = ["requires-network"],
     cmd = """
 set -e
-O0=$$PWD/$(location out/install-art/hardware/install-guide/art/cabinet-plan.png)
-O1=$$PWD/$(location out/install-art/hardware/install-guide/art/collet-press.png)
-O2=$$PWD/$(location out/install-art/hardware/install-guide/art/filter-in-cabinet.png)
-O3=$$PWD/$(location out/install-art/hardware/install-guide/art/opening.png)
-O4=$$PWD/$(location out/install-art/hardware/install-guide/art/power-socket.png)
+O0=$$PWD/$(location out/install-art/hardware/install-guide/art/bottle-in-funnel.png)
+O1=$$PWD/$(location out/install-art/hardware/install-guide/art/cabinet-plan.png)
+O2=$$PWD/$(location out/install-art/hardware/install-guide/art/collet-press.png)
+O3=$$PWD/$(location out/install-art/hardware/install-guide/art/filter-in-cabinet.png)
+O4=$$PWD/$(location out/install-art/hardware/install-guide/art/kitchen-hose.png)
+O5=$$PWD/$(location out/install-art/hardware/install-guide/art/kitchen-push.png)
+O6=$$PWD/$(location out/install-art/hardware/install-guide/art/nameplate.png)
+O7=$$PWD/$(location out/install-art/hardware/install-guide/art/opening.png)
+O8=$$PWD/$(location out/install-art/hardware/install-guide/art/plate-sideways.png)
+O9=$$PWD/$(location out/install-art/hardware/install-guide/art/regulator.png)
+O10=$$PWD/$(location out/install-art/hardware/install-guide/art/stop-closed.png)
+O11=$$PWD/$(location out/install-art/hardware/install-guide/art/stop-open.png)
+O12=$$PWD/$(location out/install-art/hardware/install-guide/art/tee-after.png)
+O13=$$PWD/$(location out/install-art/hardware/install-guide/art/tee-before.png)
+O14=$$PWD/$(location out/install-art/hardware/install-guide/art/the-back-face.png)
+O15=$$PWD/$(location out/install-art/hardware/install-guide/art/the-socket.png)
+O16=$$PWD/$(location out/install-art/hardware/install-guide/art/two-tees.png)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -3714,11 +3645,23 @@ cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/install-guide/_install_art.py > /dev/null
-cp hardware/install-guide/art/cabinet-plan.png $$O0
-cp hardware/install-guide/art/collet-press.png $$O1
-cp hardware/install-guide/art/filter-in-cabinet.png $$O2
-cp hardware/install-guide/art/opening.png $$O3
-cp hardware/install-guide/art/power-socket.png $$O4
+cp hardware/install-guide/art/bottle-in-funnel.png $$O0
+cp hardware/install-guide/art/cabinet-plan.png $$O1
+cp hardware/install-guide/art/collet-press.png $$O2
+cp hardware/install-guide/art/filter-in-cabinet.png $$O3
+cp hardware/install-guide/art/kitchen-hose.png $$O4
+cp hardware/install-guide/art/kitchen-push.png $$O5
+cp hardware/install-guide/art/nameplate.png $$O6
+cp hardware/install-guide/art/opening.png $$O7
+cp hardware/install-guide/art/plate-sideways.png $$O8
+cp hardware/install-guide/art/regulator.png $$O9
+cp hardware/install-guide/art/stop-closed.png $$O10
+cp hardware/install-guide/art/stop-open.png $$O11
+cp hardware/install-guide/art/tee-after.png $$O12
+cp hardware/install-guide/art/tee-before.png $$O13
+cp hardware/install-guide/art/the-back-face.png $$O14
+cp hardware/install-guide/art/the-socket.png $$O15
+cp hardware/install-guide/art/two-tees.png $$O16
 """,
 )
 
@@ -3815,31 +3758,32 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.lint-answers",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
-        ":out/tee-carrier/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.support-audit.json",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.lint-answers",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
-        ":out/tee-carrier/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.support-audit.json",
         "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.lint-answers",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step",
-        ":out/tee-carrier/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
         "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.support-audit.json",
         "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.lint-answers",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
-        ":out/tee-carrier/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
         "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.support-audit.json",
         "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.lint-answers",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step",
-        ":out/tee-carrier/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
         "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.lint-answers",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step",
-        ":out/tee-carrier/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
         "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.support-audit.json",
         "pysrc/hardware/printed-parts/enclosure/enclosure/enclosure.py",
@@ -3852,6 +3796,18 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/nameplate/nameplate.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
+        ":out/enclosure/hardware/printed-parts/enclosure/tee-carrier/README.figures.json",
+        "hardware/printed-parts/enclosure/tee-carrier/README.md",
+        "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.lint-answers",
+        ":out/enclosure/hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.step",
+        ":out/enclosure/hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.step.mesh",
+        ":out/enclosure/hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.stl",
+        "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.support-audit.json",
+        "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.lint-answers",
+        ":out/enclosure/hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step",
+        ":out/enclosure/hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step.mesh",
+        ":out/enclosure/hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.stl",
+        "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.support-audit.json",
         "pysrc/hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py",
         "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
@@ -3966,8 +3922,8 @@ genrule(
         "out/enclosure-assembly/hardware/assembly/scenes/glb/cap-lid.glb",
         "out/enclosure-assembly/hardware/assembly/scenes/glb/cold-core-open.glb",
         "out/enclosure-assembly/hardware/assembly/scenes/glb/cold-core.glb",
-        "out/enclosure-assembly/hardware/assembly/scenes/glb/en04-stratum.glb",
-        "out/enclosure-assembly/hardware/assembly/scenes/glb/en06-column.glb",
+        "out/enclosure-assembly/hardware/assembly/scenes/glb/en04-compressor-bay.glb",
+        "out/enclosure-assembly/hardware/assembly/scenes/glb/en07-electronics-bay.glb",
         "out/enclosure-assembly/hardware/assembly/scenes/glb/front-top.glb",
         "out/enclosure-assembly/hardware/assembly/scenes/glb/funnel-drain.glb",
         "out/enclosure-assembly/hardware/assembly/scenes/glb/pump-cartridge.glb",
@@ -3984,8 +3940,8 @@ O2=$$PWD/$(location out/enclosure-assembly/hardware/assembly/scenes/glb/cap-lid-
 O3=$$PWD/$(location out/enclosure-assembly/hardware/assembly/scenes/glb/cap-lid.glb)
 O4=$$PWD/$(location out/enclosure-assembly/hardware/assembly/scenes/glb/cold-core-open.glb)
 O5=$$PWD/$(location out/enclosure-assembly/hardware/assembly/scenes/glb/cold-core.glb)
-O6=$$PWD/$(location out/enclosure-assembly/hardware/assembly/scenes/glb/en04-stratum.glb)
-O7=$$PWD/$(location out/enclosure-assembly/hardware/assembly/scenes/glb/en06-column.glb)
+O6=$$PWD/$(location out/enclosure-assembly/hardware/assembly/scenes/glb/en04-compressor-bay.glb)
+O7=$$PWD/$(location out/enclosure-assembly/hardware/assembly/scenes/glb/en07-electronics-bay.glb)
 O8=$$PWD/$(location out/enclosure-assembly/hardware/assembly/scenes/glb/front-top.glb)
 O9=$$PWD/$(location out/enclosure-assembly/hardware/assembly/scenes/glb/funnel-drain.glb)
 O10=$$PWD/$(location out/enclosure-assembly/hardware/assembly/scenes/glb/pump-cartridge.glb)
@@ -4015,8 +3971,8 @@ cp hardware/assembly/scenes/glb/cap-lid-fill.glb $$O2
 cp hardware/assembly/scenes/glb/cap-lid.glb $$O3
 cp hardware/assembly/scenes/glb/cold-core-open.glb $$O4
 cp hardware/assembly/scenes/glb/cold-core.glb $$O5
-cp hardware/assembly/scenes/glb/en04-stratum.glb $$O6
-cp hardware/assembly/scenes/glb/en06-column.glb $$O7
+cp hardware/assembly/scenes/glb/en04-compressor-bay.glb $$O6
+cp hardware/assembly/scenes/glb/en07-electronics-bay.glb $$O7
 cp hardware/assembly/scenes/glb/front-top.glb $$O8
 cp hardware/assembly/scenes/glb/funnel-drain.glb $$O9
 cp hardware/assembly/scenes/glb/pump-cartridge.glb $$O10
@@ -4504,7 +4460,7 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
-        "pysrc/hardware/printed-parts/cold-core/_foam_cap.py",
+        "hardware/printed-parts/cold-core/_foam_cap.py",
         "pysrc/hardware/printed-parts/cold-core/_outer_shell.py",
         "pysrc/hardware/printed-parts/cold-core/_show_skin.py",
         "hardware/printed-parts/cold-core/foam-cap/foam_cap.py",
@@ -4531,6 +4487,7 @@ genrule(
         "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
         "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
         "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl",
+        "out/foam-cap/hardware/printed-parts/cold-core/_foam_cap.py",
         "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam_cap.py",
     ],
     cmd = """
@@ -4545,7 +4502,8 @@ O6=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-
 O7=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh)
 O8=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step)
 O9=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl)
-O10=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam_cap.py)
+O10=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/_foam_cap.py)
+O11=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam_cap.py)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -4572,7 +4530,8 @@ cp hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step $$O6
 cp hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh $$O7
 cp hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step $$O8
 cp hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl $$O9
-cp hardware/printed-parts/cold-core/foam-cap/foam_cap.py $$O10
+cp hardware/printed-parts/cold-core/_foam_cap.py $$O10
+cp hardware/printed-parts/cold-core/foam-cap/foam_cap.py $$O11
 """,
 )
 
@@ -4734,8 +4693,13 @@ cp hardware/printed-parts/cold-core/reservoir/vent.md $$O24
 genrule(
     name = "prv-shroud",
     srcs = [
+        "pysrc/hardware/printed-parts/cadlib/fits.py",
+        "pysrc/hardware/printed-parts/cadlib/reeding.py",
+        "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
+        "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
         "hardware/printed-parts/cold-core/prv-shroud/README.md",
         "hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_material_base.py",
@@ -4743,6 +4707,7 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/tools/docgen/__init__.py",
     ] + glob(
         [
@@ -5010,6 +4975,7 @@ genrule(
         "pysrc/hardware/reference/seaflo-suction-chain/seaflo_suction_chain.py",
         "pysrc/hardware/reference/sf76e-thermal-fuse/sf76e_thermal_fuse.py",
         "pysrc/hardware/reference/shutao-moisture-plate/shutao_moisture_plate.py",
+        "hardware/reference/tee-connector/tee-connector.step",
         "pysrc/hardware/reference/tee-connector/tee_connector.py",
         "pysrc/hardware/reference/teyleten-relay/teyleten_relay.py",
         "pysrc/hardware/reference/wago-221/wago_221.py",
@@ -5509,11 +5475,32 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
+        "hardware/printed-parts/enclosure/enclosure/.gitignore",
         "hardware/printed-parts/enclosure/enclosure/README.md",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.lint-answers",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.lint-answers",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.lint-answers",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.lint-answers",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.lint-answers",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.lint-answers",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.support-audit.json",
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
+        "hardware/printed-parts/enclosure/enclosure/print-log.md",
+        "hardware/printed-parts/enclosure/enclosure/support-audit.json",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
+        "hardware/printed-parts/enclosure/tee-carrier/README.md",
+        "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.lint-answers",
+        "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.support-audit.json",
+        "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.lint-answers",
+        "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.support-audit.json",
+        "pysrc/hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py",
         "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
@@ -5523,6 +5510,7 @@ genrule(
         "pysrc/hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
         "pysrc/hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
         "pysrc/hardware/reference/riteav-keystone/riteav_keystone.py",
+        "pysrc/hardware/reference/tee-connector/tee_connector.py",
         "pysrc/hardware/reference/wago-221/wago_221.py",
         "pysrc/hardware/reference/worm-clamp/worm_clamp.py",
         "pysrc/hardware/scripts/_box_spec.py",
@@ -5531,55 +5519,88 @@ genrule(
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
+        "pysrc/hardware/scripts/_measuring.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
+        "pysrc/hardware/scripts/flute_payload.py",
+        "pysrc/hardware/scripts/flute_payload_enclosure.py",
+        "pysrc/hardware/scripts/materialize_pump_cartridge.py",
         "pysrc/tools/docgen/__init__.py",
     ] + glob(
         [
             "hardware/printed-parts/enclosure/enclosure/README.figures.json",
+            "hardware/printed-parts/enclosure/tee-carrier/README.figures.json",
         ],
         allow_empty = True,
     ),
     outs = [
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
+        "out/enclosure/hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.step",
+        "out/enclosure/hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.step.mesh",
+        "out/enclosure/hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.stl",
+        "out/enclosure/hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step",
+        "out/enclosure/hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step.mesh",
+        "out/enclosure/hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.stl",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/README.figures.json",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/README.md",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.py",
+        "out/enclosure/hardware/printed-parts/enclosure/tee-carrier/README.figures.json",
+        "out/enclosure/hardware/printed-parts/enclosure/tee-carrier/README.md",
     ],
     cmd = """
 set -e
 O0=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step)
-O1=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl)
-O2=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step)
-O3=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl)
-O4=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step)
-O5=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl)
-O6=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step)
-O7=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl)
-O8=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step)
-O9=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl)
-O10=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step)
-O11=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl)
-O12=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step)
-O13=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh)
-O14=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/README.figures.json)
-O15=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/README.md)
-O16=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.py)
+O1=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh)
+O2=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl)
+O3=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step)
+O4=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh)
+O5=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl)
+O6=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step)
+O7=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh)
+O8=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl)
+O9=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step)
+O10=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh)
+O11=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl)
+O12=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step)
+O13=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh)
+O14=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl)
+O15=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step)
+O16=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh)
+O17=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl)
+O18=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step)
+O19=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh)
+O20=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.step)
+O21=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.step.mesh)
+O22=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.stl)
+O23=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step)
+O24=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step.mesh)
+O25=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.stl)
+O26=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/README.figures.json)
+O27=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/README.md)
+O28=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.py)
+O29=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/tee-carrier/README.figures.json)
+O30=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/tee-carrier/README.md)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -5596,23 +5617,40 @@ cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/enclosure.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/scripts/flute_payload_enclosure.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/scripts/materialize_pump_cartridge.py > /dev/null
 cp hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step $$O0
-cp hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl $$O1
-cp hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step $$O2
-cp hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl $$O3
-cp hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step $$O4
-cp hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl $$O5
-cp hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step $$O6
-cp hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl $$O7
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step $$O8
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl $$O9
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step $$O10
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl $$O11
-cp hardware/printed-parts/enclosure/enclosure/enclosure.step $$O12
-cp hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh $$O13
-cp hardware/printed-parts/enclosure/enclosure/README.figures.json $$O14
-cp hardware/printed-parts/enclosure/enclosure/README.md $$O15
-cp hardware/printed-parts/enclosure/enclosure/enclosure.py $$O16
+cp hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh $$O1
+cp hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl $$O2
+cp hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step $$O3
+cp hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh $$O4
+cp hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl $$O5
+cp hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step $$O6
+cp hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh $$O7
+cp hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl $$O8
+cp hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step $$O9
+cp hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh $$O10
+cp hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl $$O11
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step $$O12
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh $$O13
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl $$O14
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step $$O15
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh $$O16
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl $$O17
+cp hardware/printed-parts/enclosure/enclosure/enclosure.step $$O18
+cp hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh $$O19
+cp hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.step $$O20
+cp hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.step.mesh $$O21
+cp hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.stl $$O22
+cp hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step $$O23
+cp hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step.mesh $$O24
+cp hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.stl $$O25
+cp hardware/printed-parts/enclosure/enclosure/README.figures.json $$O26
+cp hardware/printed-parts/enclosure/enclosure/README.md $$O27
+cp hardware/printed-parts/enclosure/enclosure/enclosure.py $$O28
+cp hardware/printed-parts/enclosure/tee-carrier/README.figures.json $$O29
+cp hardware/printed-parts/enclosure/tee-carrier/README.md $$O30
 """,
 )
 
@@ -5796,6 +5834,7 @@ genrule(
         "pysrc/hardware/reference/seaflo-suction-chain/seaflo_suction_chain.py",
         "pysrc/hardware/reference/sf76e-thermal-fuse/sf76e_thermal_fuse.py",
         "pysrc/hardware/reference/shutao-moisture-plate/shutao_moisture_plate.py",
+        "hardware/reference/tee-connector/tee-connector.step",
         "pysrc/hardware/reference/tee-connector/tee_connector.py",
         "pysrc/hardware/reference/teyleten-relay/teyleten_relay.py",
         "pysrc/hardware/reference/wago-221/wago_221.py",
@@ -5853,154 +5892,6 @@ D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/pump-tray/pump_tray.py > /dev/null
 cp hardware/printed-parts/enclosure/pump-tray/README.figures.json $$O0
 cp hardware/printed-parts/enclosure/pump-tray/README.md $$O1
-""",
-)
-
-genrule(
-    name = "tee-carrier",
-    srcs = [
-        ":out/enclosure-box/hardware/manifold-layout/enclosure-box.json",
-        "pysrc/hardware/printed-parts/cadlib/cable_clip.py",
-        "pysrc/hardware/printed-parts/cadlib/fits.py",
-        "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
-        "pysrc/hardware/printed-parts/cadlib/reeding.py",
-        "pysrc/hardware/printed-parts/cadlib/snap.py",
-        "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
-        "hardware/printed-parts/enclosure/enclosure/.gitignore",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/README.figures.json",
-        "hardware/printed-parts/enclosure/enclosure/README.md",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.lint-answers",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.support-audit.json",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.lint-answers",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.support-audit.json",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.lint-answers",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.support-audit.json",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.lint-answers",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.support-audit.json",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.lint-answers",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.support-audit.json",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.lint-answers",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.support-audit.json",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/enclosure.py",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
-        "hardware/printed-parts/enclosure/enclosure/print-log.md",
-        "hardware/printed-parts/enclosure/enclosure/support-audit.json",
-        "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
-        "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-        "hardware/printed-parts/enclosure/tee-carrier/README.md",
-        "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.lint-answers",
-        "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.support-audit.json",
-        "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.lint-answers",
-        "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.support-audit.json",
-        "pysrc/hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py",
-        "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
-        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-        "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
-        "pysrc/hardware/printed-parts/zone-c/funnel/funnel.py",
-        "pysrc/hardware/reference/beduan-solenoid/beduan_solenoid.py",
-        "pysrc/hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
-        "pysrc/hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
-        "pysrc/hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
-        "pysrc/hardware/reference/riteav-keystone/riteav_keystone.py",
-        "pysrc/hardware/reference/tee-connector/tee_connector.py",
-        "pysrc/hardware/reference/wago-221/wago_221.py",
-        "pysrc/hardware/reference/worm-clamp/worm_clamp.py",
-        "pysrc/hardware/scripts/_box_spec.py",
-        "pysrc/hardware/scripts/_boxes.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_material_base.py",
-        "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_measuring.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_realized.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/hardware/scripts/_stated_bounds.py",
-        "pysrc/hardware/scripts/flute_payload.py",
-        "pysrc/hardware/scripts/flute_payload_enclosure.py",
-        "pysrc/tools/docgen/__init__.py",
-    ] + glob(
-        [
-            "hardware/printed-parts/enclosure/tee-carrier/README.figures.json",
-        ],
-        allow_empty = True,
-    ),
-    outs = [
-        "out/tee-carrier/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
-        "out/tee-carrier/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh",
-        "out/tee-carrier/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh",
-        "out/tee-carrier/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
-        "out/tee-carrier/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh",
-        "out/tee-carrier/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh",
-        "out/tee-carrier/hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.step",
-        "out/tee-carrier/hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.step.mesh",
-        "out/tee-carrier/hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.stl",
-        "out/tee-carrier/hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step",
-        "out/tee-carrier/hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step.mesh",
-        "out/tee-carrier/hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.stl",
-        "out/tee-carrier/hardware/printed-parts/enclosure/tee-carrier/README.figures.json",
-        "out/tee-carrier/hardware/printed-parts/enclosure/tee-carrier/README.md",
-    ],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/tee-carrier/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh)
-O1=$$PWD/$(location out/tee-carrier/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh)
-O2=$$PWD/$(location out/tee-carrier/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh)
-O3=$$PWD/$(location out/tee-carrier/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh)
-O4=$$PWD/$(location out/tee-carrier/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh)
-O5=$$PWD/$(location out/tee-carrier/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh)
-O6=$$PWD/$(location out/tee-carrier/hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.step)
-O7=$$PWD/$(location out/tee-carrier/hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.step.mesh)
-O8=$$PWD/$(location out/tee-carrier/hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.stl)
-O9=$$PWD/$(location out/tee-carrier/hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step)
-O10=$$PWD/$(location out/tee-carrier/hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step.mesh)
-O11=$$PWD/$(location out/tee-carrier/hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.stl)
-O12=$$PWD/$(location out/tee-carrier/hardware/printed-parts/enclosure/tee-carrier/README.figures.json)
-O13=$$PWD/$(location out/tee-carrier/hardware/printed-parts/enclosure/tee-carrier/README.md)
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    */pysrc/*) t=$${f##*/pysrc/};;
-    *) t=$$f;;
-  esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py > /dev/null
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/scripts/flute_payload_enclosure.py > /dev/null
-cp hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh $$O0
-cp hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh $$O1
-cp hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh $$O2
-cp hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh $$O3
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh $$O4
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh $$O5
-cp hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.step $$O6
-cp hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.step.mesh $$O7
-cp hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.stl $$O8
-cp hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step $$O9
-cp hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step.mesh $$O10
-cp hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.stl $$O11
-cp hardware/printed-parts/enclosure/tee-carrier/README.figures.json $$O12
-cp hardware/printed-parts/enclosure/tee-carrier/README.md $$O13
 """,
 )
 
@@ -6090,6 +5981,7 @@ genrule(
         "pysrc/hardware/reference/seaflo-suction-chain/seaflo_suction_chain.py",
         "pysrc/hardware/reference/sf76e-thermal-fuse/sf76e_thermal_fuse.py",
         "pysrc/hardware/reference/shutao-moisture-plate/shutao_moisture_plate.py",
+        "hardware/reference/tee-connector/tee-connector.step",
         "pysrc/hardware/reference/tee-connector/tee_connector.py",
         "pysrc/hardware/reference/teyleten-relay/teyleten_relay.py",
         "pysrc/hardware/reference/wago-221/wago_221.py",
@@ -6236,6 +6128,7 @@ genrule(
         "pysrc/hardware/reference/seaflo-suction-chain/seaflo_suction_chain.py",
         "pysrc/hardware/reference/sf76e-thermal-fuse/sf76e_thermal_fuse.py",
         "pysrc/hardware/reference/shutao-moisture-plate/shutao_moisture_plate.py",
+        "hardware/reference/tee-connector/tee-connector.step",
         "pysrc/hardware/reference/tee-connector/tee_connector.py",
         "pysrc/hardware/reference/teyleten-relay/teyleten_relay.py",
         "pysrc/hardware/reference/wago-221/wago_221.py",
@@ -6798,7 +6691,10 @@ genrule(
     srcs = [
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "hardware/printed-parts/shop-storage/README.md",
+        "pysrc/hardware/printed-parts/shop-storage/_bound.py",
+        "pysrc/hardware/printed-parts/shop-storage/_holder.py",
         "pysrc/hardware/printed-parts/shop-storage/_kit.py",
+        "pysrc/hardware/printed-parts/shop-storage/catalog.py",
         "pysrc/hardware/printed-parts/shop-storage/holders.py",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_material_base.py",
@@ -6807,7 +6703,12 @@ genrule(
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
-    ],
+    ] + glob(
+        [
+            "hardware/printed-parts/shop-storage/README.figures.json",
+        ],
+        allow_empty = True,
+    ),
     outs = [
         "out/holders/hardware/printed-parts/shop-storage/holders/adapter-tub.step",
         "out/holders/hardware/printed-parts/shop-storage/holders/brush-quiver.step",
@@ -6852,6 +6753,7 @@ genrule(
         "out/holders/hardware/printed-parts/shop-storage/holders/tip-index.step",
         "out/holders/hardware/printed-parts/shop-storage/holders/tube-comb.step",
         "out/holders/hardware/printed-parts/shop-storage/holders/xh-tub.step",
+        "out/holders/hardware/printed-parts/shop-storage/README.figures.json",
         "out/holders/hardware/printed-parts/shop-storage/README.md",
     ],
     cmd = """
@@ -6899,7 +6801,8 @@ O39=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/tie
 O40=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/tip-index.step)
 O41=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/tube-comb.step)
 O42=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/xh-tub.step)
-O43=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/README.md)
+O43=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/README.figures.json)
+O44=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/README.md)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -6959,7 +6862,8 @@ cp hardware/printed-parts/shop-storage/holders/tie-tub.step $$O39
 cp hardware/printed-parts/shop-storage/holders/tip-index.step $$O40
 cp hardware/printed-parts/shop-storage/holders/tube-comb.step $$O41
 cp hardware/printed-parts/shop-storage/holders/xh-tub.step $$O42
-cp hardware/printed-parts/shop-storage/README.md $$O43
+cp hardware/printed-parts/shop-storage/README.figures.json $$O43
+cp hardware/printed-parts/shop-storage/README.md $$O44
 """,
 )
 
@@ -7497,6 +7401,50 @@ cp hardware/quickstart/plumbing/out/plumbing-pre-tee.step $$O4
 cp hardware/quickstart/plumbing/out/plumbing-tee-installed.step $$O5
 cp hardware/quickstart/plumbing/out/plumbing-valve-off.step $$O6
 cp hardware/quickstart/plumbing/out/plumbing-valve-on.step $$O7
+""",
+)
+
+genrule(
+    name = "visual-variations-build",
+    srcs = [
+        "hardware/quickstart/quick-start.html",
+        "pysrc/hardware/quickstart/studies/visual-variations/_build.py",
+        "hardware/quickstart/studies/visual-variations/lockups.css",
+        "hardware/quickstart/studies/visual-variations/numbers.css",
+        "tools/render/browser.js",
+        "tools/render/render-card.js",
+        ":node-packages",
+    ],
+    outs = [
+        "out/visual-variations-build/hardware/quickstart/studies/visual-variations/number-preview.png",
+        "out/visual-variations-build/hardware/quickstart/studies/visual-variations/preview.png",
+        "out/visual-variations-build/output/pdf/quick-start-visual-variations.pdf",
+    ],
+    tags = ["requires-network"],
+    cmd = """
+set -e
+O0=$$PWD/$(location out/visual-variations-build/hardware/quickstart/studies/visual-variations/number-preview.png)
+O1=$$PWD/$(location out/visual-variations-build/hardware/quickstart/studies/visual-variations/preview.png)
+O2=$$PWD/$(location out/visual-variations-build/output/pdf/quick-start-visual-variations.pdf)
+for f in $(SRCS); do
+  case $$f in
+    */node_modules/*) continue;;
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    */pysrc/*) t=$${f##*/pysrc/};;
+    *) t=$$f;;
+  esac
+  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+done
+cd work
+ln -sfn $$HSM_WORKSPACE/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/quickstart/studies/visual-variations/_build.py > /dev/null
+cp hardware/quickstart/studies/visual-variations/number-preview.png $$O0
+cp hardware/quickstart/studies/visual-variations/preview.png $$O1
+cp output/pdf/quick-start-visual-variations.pdf $$O2
 """,
 )
 
@@ -8060,6 +8008,44 @@ ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/jg-pp010822e/jg_pp010822e.py > /dev/null
 cp hardware/reference/jg-pp010822e/jg-pp010822e.step $$O0
+""",
+)
+
+genrule(
+    name = "jg-pp0208e-tee",
+    srcs = [
+        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/reference/jg-pp0208e-tee/jg_pp0208e_tee.py",
+        "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_material_base.py",
+        "pysrc/hardware/scripts/_materials.py",
+        "pysrc/hardware/scripts/_mesh_payload.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/tools/docgen/__init__.py",
+    ],
+    outs = [
+        "out/jg-pp0208e-tee/hardware/reference/jg-pp0208e-tee/jg-pp0208e-tee.step",
+    ],
+    cmd = """
+set -e
+O0=$$PWD/$(location out/jg-pp0208e-tee/hardware/reference/jg-pp0208e-tee/jg-pp0208e-tee.step)
+for f in $(SRCS); do
+  case $$f in
+    */node_modules/*) continue;;
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    */pysrc/*) t=$${f##*/pysrc/};;
+    *) t=$$f;;
+  esac
+  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+done
+cd work
+ln -sfn $$HSM_WORKSPACE/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/jg-pp0208e-tee/jg_pp0208e_tee.py > /dev/null
+cp hardware/reference/jg-pp0208e-tee/jg-pp0208e-tee.step $$O0
 """,
 )
 
@@ -8934,6 +8920,44 @@ cp hardware/reference/waveshare-43b-display/waveshare_43b_display.py $$O3
 )
 
 genrule(
+    name = "wellbom-regulator",
+    srcs = [
+        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/reference/wellbom-regulator/wellbom_regulator.py",
+        "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_material_base.py",
+        "pysrc/hardware/scripts/_materials.py",
+        "pysrc/hardware/scripts/_mesh_payload.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/tools/docgen/__init__.py",
+    ],
+    outs = [
+        "out/wellbom-regulator/hardware/reference/wellbom-regulator/wellbom-regulator.step",
+    ],
+    cmd = """
+set -e
+O0=$$PWD/$(location out/wellbom-regulator/hardware/reference/wellbom-regulator/wellbom-regulator.step)
+for f in $(SRCS); do
+  case $$f in
+    */node_modules/*) continue;;
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    */pysrc/*) t=$${f##*/pysrc/};;
+    *) t=$$f;;
+  esac
+  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+done
+cd work
+ln -sfn $$HSM_WORKSPACE/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/wellbom-regulator/wellbom_regulator.py > /dev/null
+cp hardware/reference/wellbom-regulator/wellbom-regulator.step $$O0
+""",
+)
+
+genrule(
     name = "worm-clamp",
     srcs = [
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
@@ -9088,8 +9112,8 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/nameplate/nameplate.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-        ":out/tee-carrier/hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.step",
-        ":out/tee-carrier/hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step",
+        ":out/enclosure/hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.step",
+        ":out/enclosure/hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step",
         "pysrc/hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py",
         "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
@@ -9136,6 +9160,7 @@ genrule(
         "pysrc/hardware/reference/seaflo-suction-chain/seaflo_suction_chain.py",
         "pysrc/hardware/reference/sf76e-thermal-fuse/sf76e_thermal_fuse.py",
         "pysrc/hardware/reference/shutao-moisture-plate/shutao_moisture_plate.py",
+        "hardware/reference/tee-connector/tee-connector.step",
         "pysrc/hardware/reference/tee-connector/tee_connector.py",
         "pysrc/hardware/reference/teyleten-relay/teyleten_relay.py",
         "pysrc/hardware/reference/wago-221/wago_221.py",
@@ -9666,6 +9691,7 @@ genrule(
         "pysrc/hardware/reference/seaflo-suction-chain/seaflo_suction_chain.py",
         "pysrc/hardware/reference/sf76e-thermal-fuse/sf76e_thermal_fuse.py",
         "pysrc/hardware/reference/shutao-moisture-plate/shutao_moisture_plate.py",
+        "hardware/reference/tee-connector/tee-connector.step",
         "pysrc/hardware/reference/tee-connector/tee_connector.py",
         "pysrc/hardware/reference/teyleten-relay/teyleten_relay.py",
         "pysrc/hardware/reference/wago-221/wago_221.py",
@@ -10672,9 +10698,33 @@ genrule(
 )
 
 genrule(
+    name = "pysrc-a45eafa7d7d7",
+    srcs = ["hardware/printed-parts/shop-storage/_bound.py"],
+    outs = ["pysrc/hardware/printed-parts/shop-storage/_bound.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-6ccdbae7bbd7",
+    srcs = ["hardware/printed-parts/shop-storage/_holder.py"],
+    outs = ["pysrc/hardware/printed-parts/shop-storage/_holder.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
     name = "pysrc-9d0078d39dd7",
     srcs = ["hardware/printed-parts/shop-storage/_kit.py"],
     outs = ["pysrc/hardware/printed-parts/shop-storage/_kit.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-7e9ae53a57e8",
+    srcs = ["hardware/printed-parts/shop-storage/catalog.py"],
+    outs = ["pysrc/hardware/printed-parts/shop-storage/catalog.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -10747,6 +10797,14 @@ genrule(
     name = "pysrc-4e2703f3aa71",
     srcs = ["hardware/quickstart/quickstart_art.py"],
     outs = ["pysrc/hardware/quickstart/quickstart_art.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-a618a941c843",
+    srcs = ["hardware/quickstart/studies/visual-variations/_build.py"],
+    outs = ["pysrc/hardware/quickstart/studies/visual-variations/_build.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -10875,6 +10933,14 @@ genrule(
     name = "pysrc-023c3a8f00c1",
     srcs = ["hardware/reference/jg-pp010822e/jg_pp010822e.py"],
     outs = ["pysrc/hardware/reference/jg-pp010822e/jg_pp010822e.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-fe015e1e557a",
+    srcs = ["hardware/reference/jg-pp0208e-tee/jg_pp0208e_tee.py"],
+    outs = ["pysrc/hardware/reference/jg-pp0208e-tee/jg_pp0208e_tee.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -11059,6 +11125,14 @@ genrule(
     name = "pysrc-26d871b0be38",
     srcs = ["hardware/reference/waveshare-43b-display/waveshare_43b_display.py"],
     outs = ["pysrc/hardware/reference/waveshare-43b-display/waveshare_43b_display.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-b4301e48564d",
+    srcs = ["hardware/reference/wellbom-regulator/wellbom_regulator.py"],
+    outs = ["pysrc/hardware/reference/wellbom-regulator/wellbom_regulator.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -11323,6 +11397,14 @@ genrule(
     name = "pysrc-5701c949a45d",
     srcs = ["hardware/scripts/flute_payload_faucet.py"],
     outs = ["pysrc/hardware/scripts/flute_payload_faucet.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-9a20655b9c4c",
+    srcs = ["hardware/scripts/materialize_pump_cartridge.py"],
+    outs = ["pysrc/hardware/scripts/materialize_pump_cartridge.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -11736,6 +11818,7 @@ sh_test(
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
         "hardware/scripts/flute_payload.py",
+        "hardware/scripts/materialize_pump_cartridge.py",
         "hardware/scripts/pick_text.py",
         "hardware/topology/fluid-topology.md",
         "tools/bazel/graph.json",
@@ -12087,6 +12170,7 @@ sh_test(
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
         "hardware/scripts/flute_payload.py",
+        "hardware/scripts/materialize_pump_cartridge.py",
         "hardware/scripts/pick_text.py",
         "hardware/topology/fluid-topology.md",
         "tools/bazel/graph.json",
@@ -12438,6 +12522,7 @@ sh_test(
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
         "hardware/scripts/flute_payload.py",
+        "hardware/scripts/materialize_pump_cartridge.py",
         "hardware/scripts/pick_text.py",
         "hardware/topology/fluid-topology.md",
         "tools/bazel/graph.json",
@@ -12789,6 +12874,7 @@ sh_test(
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
         "hardware/scripts/flute_payload.py",
+        "hardware/scripts/materialize_pump_cartridge.py",
         "hardware/scripts/pick_text.py",
         "hardware/topology/fluid-topology.md",
         "tools/bazel/graph.json",
@@ -13151,6 +13237,7 @@ sh_test(
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
         "hardware/scripts/flute_payload.py",
+        "hardware/scripts/materialize_pump_cartridge.py",
         "hardware/scripts/pick_text.py",
         "hardware/topology/fluid-topology.md",
         "tools/bazel/graph.json",
@@ -13502,6 +13589,7 @@ sh_test(
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
         "hardware/scripts/flute_payload.py",
+        "hardware/scripts/materialize_pump_cartridge.py",
         "hardware/scripts/pick_text.py",
         "hardware/topology/fluid-topology.md",
         "tools/bazel/graph.json",
@@ -13853,6 +13941,7 @@ sh_test(
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
         "hardware/scripts/flute_payload.py",
+        "hardware/scripts/materialize_pump_cartridge.py",
         "hardware/scripts/pick_text.py",
         "hardware/topology/fluid-topology.md",
         "tools/bazel/graph.json",
@@ -14204,6 +14293,7 @@ sh_test(
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
         "hardware/scripts/flute_payload.py",
+        "hardware/scripts/materialize_pump_cartridge.py",
         "hardware/scripts/pick_text.py",
         "hardware/topology/fluid-topology.md",
         "tools/bazel/graph.json",
@@ -14555,6 +14645,7 @@ sh_test(
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
         "hardware/scripts/flute_payload.py",
+        "hardware/scripts/materialize_pump_cartridge.py",
         "hardware/scripts/pick_text.py",
         "hardware/topology/fluid-topology.md",
         "tools/bazel/graph.json",
@@ -14906,6 +14997,7 @@ sh_test(
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
         "hardware/scripts/flute_payload.py",
+        "hardware/scripts/materialize_pump_cartridge.py",
         "hardware/scripts/pick_text.py",
         "hardware/topology/fluid-topology.md",
         "tools/bazel/graph.json",
@@ -15261,6 +15353,7 @@ sh_test(
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
         "hardware/scripts/flute_payload.py",
+        "hardware/scripts/materialize_pump_cartridge.py",
         "hardware/scripts/pick_text.py",
         "hardware/topology/fluid-topology.md",
         "tools/bazel/graph.json",
@@ -15612,6 +15705,7 @@ sh_test(
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
         "hardware/scripts/flute_payload.py",
+        "hardware/scripts/materialize_pump_cartridge.py",
         "hardware/scripts/pick_text.py",
         "hardware/topology/fluid-topology.md",
         "tools/bazel/graph.json",
@@ -15965,6 +16059,7 @@ sh_test(
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
         "hardware/scripts/flute_payload.py",
+        "hardware/scripts/materialize_pump_cartridge.py",
         "hardware/scripts/pick_text.py",
         "hardware/topology/fluid-topology.md",
         "tools/bazel/graph.json",
@@ -16351,6 +16446,7 @@ sh_test(
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
         "hardware/scripts/flute_payload.py",
+        "hardware/scripts/materialize_pump_cartridge.py",
         "hardware/scripts/pick_text.py",
         "hardware/topology/fluid-topology.md",
         "tools/bazel/graph.json",
@@ -16714,6 +16810,7 @@ sh_test(
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
         "hardware/scripts/flute_payload.py",
+        "hardware/scripts/materialize_pump_cartridge.py",
         "hardware/scripts/pick_text.py",
         "hardware/topology/fluid-topology.md",
         "tools/bazel/graph.json",
@@ -17065,6 +17162,7 @@ sh_test(
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
         "hardware/scripts/flute_payload.py",
+        "hardware/scripts/materialize_pump_cartridge.py",
         "hardware/scripts/pick_text.py",
         "hardware/topology/fluid-topology.md",
         "tools/bazel/graph.json",
@@ -17442,6 +17540,7 @@ sh_test(
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
         "hardware/scripts/flute_payload.py",
+        "hardware/scripts/materialize_pump_cartridge.py",
         "hardware/scripts/pick_text.py",
         "hardware/topology/fluid-topology.md",
         "tools/bazel/graph.json",
@@ -17793,6 +17892,7 @@ sh_test(
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
         "hardware/scripts/flute_payload.py",
+        "hardware/scripts/materialize_pump_cartridge.py",
         "hardware/scripts/pick_text.py",
         "hardware/topology/fluid-topology.md",
         "tools/bazel/graph.json",
@@ -18158,6 +18258,7 @@ sh_test(
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
         "hardware/scripts/flute_payload.py",
+        "hardware/scripts/materialize_pump_cartridge.py",
         "hardware/scripts/pick_text.py",
         "hardware/topology/fluid-topology.md",
         "tools/bazel/graph.json",
@@ -18509,6 +18610,7 @@ sh_test(
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
         "hardware/scripts/flute_payload.py",
+        "hardware/scripts/materialize_pump_cartridge.py",
         "hardware/scripts/pick_text.py",
         "hardware/topology/fluid-topology.md",
         "tools/bazel/graph.json",
@@ -18860,6 +18962,7 @@ sh_test(
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
         "hardware/scripts/flute_payload.py",
+        "hardware/scripts/materialize_pump_cartridge.py",
         "hardware/scripts/pick_text.py",
         "hardware/topology/fluid-topology.md",
         "tools/bazel/graph.json",
@@ -19267,6 +19370,7 @@ sh_test(
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
         "hardware/scripts/flute_payload.py",
+        "hardware/scripts/materialize_pump_cartridge.py",
         "hardware/scripts/pick_text.py",
         "hardware/topology/fluid-topology.md",
         "tools/bazel/graph.json",
@@ -19659,6 +19763,7 @@ sh_test(
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
         "hardware/scripts/flute_payload.py",
+        "hardware/scripts/materialize_pump_cartridge.py",
         "hardware/scripts/pick_text.py",
         "hardware/topology/fluid-topology.md",
         "tools/bazel/graph.json",
@@ -20038,6 +20143,7 @@ sh_test(
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
         "hardware/scripts/flute_payload.py",
+        "hardware/scripts/materialize_pump_cartridge.py",
         "hardware/scripts/pick_text.py",
         "hardware/topology/fluid-topology.md",
         "tools/bazel/graph.json",
@@ -20439,6 +20545,7 @@ sh_test(
         "hardware/scripts/_stated_bounds.py",
         "hardware/scripts/check_show_faces.py",
         "hardware/scripts/flute_payload.py",
+        "hardware/scripts/materialize_pump_cartridge.py",
         "hardware/scripts/pick_text.py",
         "hardware/topology/fluid-topology.md",
         "tools/bazel/graph.json",
@@ -20816,6 +20923,7 @@ sh_test(
         "hardware/scripts/_stated_bounds.py",
         "hardware/scripts/fit.py",
         "hardware/scripts/flute_payload.py",
+        "hardware/scripts/materialize_pump_cartridge.py",
         "hardware/scripts/pick_text.py",
         "hardware/scripts/probe.py",
         "hardware/topology/fluid-topology.md",
@@ -21183,6 +21291,7 @@ sh_test(
         "hardware/scripts/_stated_bounds.py",
         "hardware/scripts/flute_payload.py",
         "hardware/scripts/lanes.py",
+        "hardware/scripts/materialize_pump_cartridge.py",
         "hardware/scripts/pick_text.py",
         "hardware/topology/fluid-topology.md",
         "tools/bazel/graph.json",
@@ -21547,6 +21656,7 @@ sh_test(
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
         "hardware/scripts/flute_payload.py",
+        "hardware/scripts/materialize_pump_cartridge.py",
         "hardware/scripts/pick_text.py",
         "hardware/scripts/probe.py",
         "hardware/topology/fluid-topology.md",
@@ -21793,7 +21903,6 @@ filegroup(
         ":nameplate-dimensions",
         ":pump-case",
         ":pump-tray",
-        ":tee-carrier",
         ":valve-tray",
         ":y-wall-dimensions",
         ":above-counter-gasket",
@@ -21812,6 +21921,7 @@ filegroup(
         ":cad-art",
         ":render-modern-tee",
         ":plumbing-scenes",
+        ":visual-variations-build",
         ":asse1022-assembly",
         ":basics-mtb-0606wp",
         ":beduan-solenoid",
@@ -21825,6 +21935,7 @@ filegroup(
         ":iec-c14-inlet",
         ":jg-bulkhead-union",
         ":jg-pp010822e",
+        ":jg-pp0208e-tee",
         ":jg-pp0408w",
         ":jg-pp061208w",
         ":jg-pp451223w",
@@ -21847,6 +21958,7 @@ filegroup(
         ":westbrass-reference",
         ":wago-221",
         ":waveshare-43b-display",
+        ":wellbom-regulator",
         ":worm-clamp",
         ":wr1110-regulator",
         ":bom-masses",

@@ -71,7 +71,10 @@ BORE_SHRINK = 0.10
 # by hand over a bare tail. What holds it where it is put is the bend the tube came off the spool
 # with: 1/4" LLDPE is never straight through `LENGTH` of bore and stands against the wall at both
 # ends of one.
-SLIP = 0.15
+#   THE COLLAR IS THE FINEST-PRINTED THING THAT TAKES THIS TUBE — PETG on the 0.2 mm nozzle,
+# where the hole holds its figure far better than the PET-GF bores do — so its slip is the
+# tightest on the machine and does not follow `port_hole_radius`.
+SLIP = 0.10
 # THE BORE, AS THE SLICER IS HANDED IT: the top of the tube's band, the sag, and the slip.
 BORE = TUBE_OD + LLDPE_TOL + BORE_SHRINK + SLIP
 # The collar's width, and the diameter of the half circle below the axis. It leaves a `wall()` of

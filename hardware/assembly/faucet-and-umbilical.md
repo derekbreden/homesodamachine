@@ -125,7 +125,7 @@ What the blue (foamed) tube carries is identification, not orientation — it go
 
 ### 4. Thread a collar onto each tail
 
-Slide one printed collar down each tube from its bare +Y wall end: `carb` on the blue, `flavor-a` and `flavor-b` on the two black. A collar comes off the plate bored Ø[6.63](COLLAR_BORE_PRINTED) on Ø[6.35](COLLAR_TUBE_OD) LLDPE, so each goes on by hand down the whole [30 mm](COLLAR_LENGTH) of it. Nothing goes on with force here: a collar that needs it is bored under its figure, and forcing it scores the same stretch of tube that has to seal in the union.
+Slide one printed collar down each tube from its bare +Y wall end: `carb` on the blue, `flavor-a` and `flavor-b` on the two black. A collar comes off the plate bored Ø[6.58](COLLAR_BORE_PRINTED) on Ø[6.35](COLLAR_TUBE_OD) LLDPE, so each goes on by hand down the whole [30 mm](COLLAR_LENGTH) of it. Nothing goes on with force here: a collar that needs it is bored under its figure, and forcing it scores the same stretch of tube that has to seal in the union.
 
 Run each collar up the tube until it butts the braid's own end — [75 mm](COLLAR_SLEEVE_TAIL) short of the tail — and turn its flag outward, away from the bundle's axis, so no two face each other. The three come out level. Each stays where it is put on the bend the tube came off the spool with: the tube is never straight through [30 mm](COLLAR_LENGTH) of bore, so it stands against the wall at both ends of one. A cold-kit trim falls below all of them, so a trimmed tube keeps its collar.
 

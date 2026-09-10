@@ -111,9 +111,13 @@ foam_shell_outer_height = (
 carbonator_support_ring_height = 30.0
 support_ring_radial_width = 9.0
 
-# ⌀[6.5](PORT_HOLE_DIAMETER) — the project-wide standard for small through-shell features
+# ⌀[6.65](PORT_HOLE_DIAMETER) — the project-wide standard for small through-shell features
 # (water outlet, reservoir bulkheads, reed cable holes, CO2 tube clearance).
-port_hole_radius = 3.25
+#   IT IS SIZED OFF THE TUBE ON THE BENCH AND NOT THE NOMINAL. 1/4" LLDPE calipers ⌀6.5 at the
+# top of its spool band (`tube-collar/tube_collar.py`), so a bore cut to the ⌀6.35 nominal is
+# an interference fit on the line it is for, and the printer takes more off it again. This is
+# that measured tube plus the slip a hand needs to push it through.
+port_hole_radius = 3.325
 
 # Reed-channel cavity depth (radial, out from the bag-pocket far wall). The reed
 # column drops into this cavity; the outer_shell X width is sized so the cavity +
@@ -134,7 +138,7 @@ reed_y_half_w = 4.0
 # walls anywhere along that half.
 #   What pins it HERE is the FORWARD BAND overhead: the reed channel's envelope and
 # reservoir B's draw conduit both stand in that band's 8 mm, on the same face of the shell,
-# and a ⌀6.5 bore and a reed cavity cannot share one lane. The conduit takes the lane its
+# and a ⌀[6.5](PORT_HOLE_DIAMETER) bore and a reed cavity cannot share one lane. The conduit takes the lane its
 # own deck wants and the reed column steps off it.
 level_rod_y = 32.5
 
@@ -899,7 +903,7 @@ state("forward-band-takes-a-tube", "A tube on the forward band's centre clears b
       forward_band_width >= lldpe_tube_od,
       f"a ⌀{lldpe_tube_od:g} tube centred in a {forward_band_width:g} mm band stands "
       f"{(forward_band_width - lldpe_tube_od) / 2.0:g} mm off each face")
-cap_conduit_bore_radius = port_hole_radius   # the ⌀[6.5](PORT_HOLE_DIAMETER) every shell penetration takes
+cap_conduit_bore_radius = port_hole_radius   # the ⌀[6.65](PORT_HOLE_DIAMETER) every shell penetration takes
 cap_conduit_wall = 2.0
 cap_conduit_boss_radius = cap_conduit_bore_radius + cap_conduit_wall
 cap_conduit_lid_slip = deck_mount_lid_slip   # per side, a standing column to the lid's clearance hole
@@ -911,7 +915,7 @@ cap_conduit_lid_slip = deck_mount_lid_slip   # per side, a standing column to th
 # `_lines.CAP_BORE_SKEW` is bound to this name.
 cap_conduit_entry_skew = 38.0
 # The countersink's mouth on the lid's outer face — the bore opened at that angle through the
-# one wall of plate the cone is sunk into: ⌀[9.625](ENTRY_RELIEF_D).
+# one wall of plate the cone is sunk into: ⌀[9.775](ENTRY_RELIEF_D).
 cap_conduit_entry_relief_radius = (
     cap_conduit_bore_radius
     + wall_and_floor_thickness * math.tan(math.radians(cap_conduit_entry_skew)))
@@ -968,14 +972,14 @@ state(
 # collet is one straight and one slant, the slant entering the bore inside its own
 # `cap_conduit_entry_skew`, and the lid's countersink is what lays the lip along it.
 #   reservoir-b and reservoir-a are the two DRAWS, and both stand over that same FORWARD BAND —
-# the strip between a pocket's own wall and the shell's, [8 mm](FORWARD_BAND) of it
+# the strip between a pocket's own wall and the shell's, [6.8 mm](FORWARD_BAND) of it
 # (`forward_band_width`). Each line starts on its reservoir's floor bulkhead, at the bottom of
 # the wet V and the lowest drainable point in the cavity; the elbow under the raised floor turns
 # it laterally, it crosses its pocket's own ±Y wall at `bulkhead_elbow_exit_z` into the band
 # behind it, comes about, and climbs the forward strip potted to this bore. B takes the +Y band
 # and A the −Y one, because that is the wall each one's elbow points at, and A's climb is the
 # longer for it — its pocket is the far one from this strip.
-#   A ⌀[6.5](PORT_HOLE_DIAMETER) bore leaves the tube a `LINE_HUG` of foam either side; what
+#   A ⌀[6.65](PORT_HOLE_DIAMETER) bore leaves the tube a `LINE_HUG` of foam either side; what
 # pins the two stations in Y is that and the reed channels, whose envelopes stand in this same
 # strip and which both bores clear (`_reed_channels` measures it).
 #   THE FORWARD STRIP'S COLUMNS ARE MERGED and not standing. The strip is forward of everything

@@ -23,7 +23,7 @@ operation, only briefly elevated during a relief event.
 ## Geometry
 
 [19 mm](PRV_INNER_D) ID × [23 mm](PRV_OUTER_D) OD × [46 mm](TOTAL_L) overall length, [2 mm](PRV_WALL_T) wall and [2 mm](PRV_CAP_T) cap,
-single ⌀[6.35 mm](PRV_VENT_D) vent bored radially through the barrel's −Y wall
+single ⌀[6.65 mm](PRV_VENT_D) vent bored radially through the barrel's −Y wall
 [37.88 mm](VENT_STATION) from the open end.
 
 Reference dimensions measured at the install (SV-125 hand-tight in
@@ -54,7 +54,7 @@ elbow + SV-125 + printed shroud) plus a tube of 100% RTV silicone
 caulk. Built on the bench; shelves indefinitely after the caulk cures.
 
 The LLDPE vent tube and the foam-shell pass-through are not part of
-this subassembly — the LLDPE is press-fit into the shroud's barrel hole
+this subassembly — the LLDPE is pushed into the shroud's barrel hole
 during cold-core build, after the subassembly is threaded into Port 4
 and the carbonator is lowered into the foam shell.
 
@@ -89,7 +89,7 @@ After cure, the subassembly is ready. It threads into Port 4 of a
 finished carbonator at [`/hardware/assembly/pressure-vessel.md`](/hardware/assembly/pressure-vessel.md)
 step 9, replacing the elbow + PRV install on that port.
 
-The LLDPE press-fit and routing through the foam-shell slot happen
+The LLDPE push-in and routing through the foam-shell slot happen
 later, at [`/hardware/assembly/cold-core.md`](/hardware/assembly/cold-core.md)
 step 5.
 
@@ -123,7 +123,7 @@ geometry shift and should land with a measured rationale.
 | bbox X | [-11.500 to 11.500 mm](PRV_BBOX_X) |
 | bbox Z | [-0.000 to 46.000 mm](PRV_BBOX_Z) |
 | bbox Y | [-11.500 to 11.500 mm](PRV_BBOX_Y) |
-| volume | [6546.505 mm³](PRV_VOLUME) |
+| volume | [6540.881 mm³](PRV_VOLUME) |
 
 ## Sources
 [value](NAME) texts are updated by:

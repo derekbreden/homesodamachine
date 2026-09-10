@@ -143,7 +143,7 @@ conduit_mouth_z = cap_face_z                                  # and where it com
 # The last leg of every riser is on its conduit's own axis, because the bore through the cap
 # is, and one stock arc of it is what the corner at the bottom of that leg takes. So a line
 # still stepping sideways at the top has that arc to finish in and no more — the arc is fenced
-# by the SHELL's top and not by the conduit's mouth, because what is over the shell is a ⌀6.5
+# by the SHELL's top and not by the conduit's mouth, because what is over the shell is a ⌀[6.65](PORT_HOLE_DIAMETER)
 # bore and a tube inside it is straight or it is not in it.
 lane_step_top_z = shell_top_z - route_bend_radius
 
@@ -500,7 +500,7 @@ def build_route(points, bend_radius=route_bend_radius, radius=line_radius):
 
 
 def route_corridor(name, radius=port_hole_radius):
-    """One line's OPENING — the same run swept at the ⌀[6.5](PORT_HOLE_DIAMETER) shell
+    """One line's OPENING — the same run swept at the ⌀[6.65](PORT_HOLE_DIAMETER) shell
     standard instead of at the tube's OD, which is what a wall the line crosses has to
     leave for it. Given a bigger `radius` it is the opening grown, which is how the land
     between this opening and its neighbour in the same wall gets priced.
@@ -508,7 +508,8 @@ def route_corridor(name, radius=port_hole_radius):
     A wall here is two millimetres of PET-GF, and a hole in a sheet that thin is whatever
     shape goes through it. Cut as the corridor rather than as a circle, a line may turn AT
     the wall instead of a bore's length beyond it, and the tube still crosses on the same
-    ⌀6.5-around-⌀6.35 tight fit that keeps the body pour out of a pocket — the clearance is
+    ⌀[6.65](PORT_HOLE_DIAMETER)-around-⌀[6.35](LLDPE_TUBE_OD) tight fit that keeps the body pour out of a
+    pocket — the clearance is
     radial to the tube's own path either way.
 
     Cut at the STOCK arc, not at the fitted one: the opening is made for the corner the

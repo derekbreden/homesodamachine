@@ -2,7 +2,7 @@
 CO2 inlet bore, and the front wall's two lane slots.
 
 EVERY FLUID LINE LEAVES BY THE TOP, and every opening one of them takes on the way is
-that line's own CORRIDOR: the run swept at the project's ⌀[6.5](PORT_HOLE_DIAMETER)
+that line's own CORRIDOR: the run swept at the project's ⌀[6.65](PORT_HOLE_DIAMETER)
 standard where it crosses shell material, rather than a circle the line has to hold a
 straight through (`cut_line_corridors`). The tight 1/4" fit is the same either way —
 it is radial to the tube's own path — and what a corner costs stops being the hole's
@@ -53,7 +53,7 @@ from _support_ring import slot_angular_width, slot_count
 # shell's height carries both, one either side of the plate's own axis in Y, and both
 # have to cross the carbonator support ring to get out of it. THEY CROSS IT IN DIFFERENT
 # PLACES: the CO2 takes a bore on the shell's centreline (below), the water outlet
-# takes a slot. Two lines on one crossing would be two tubes in one ⌀6.5 hole.
+# takes a slot. Two lines on one crossing would be two tubes in one ⌀[6.65](PORT_HOLE_DIAMETER) hole.
 front_face_port_z = hole_shift_from_edge + wall_and_floor_thickness
 
 # WHERE THE CARBONATED-WATER OUTLET LEAVES THE RING, and the one thing this module says
@@ -62,7 +62,7 @@ front_face_port_z = hole_shift_from_edge + wall_and_floor_thickness
 # the lane is the lane's business and not this module's. The
 # ring is already slotted at four azimuths (`_support_ring`) to let the pour reach the
 # under-carbonator floor, and one of them lies where a line heading for that column wants to
-# go — so this crossing costs no bore, notches no bearing segment, and the ⌀6.5
+# go — so this crossing costs no bore, notches no bearing segment, and the ⌀[6.65](PORT_HOLE_DIAMETER)
 # standard does not apply to it. The assertion is what keeps it inside the slot when
 # either the column or the ring moves.
 water_outlet_ring_crossing_x = water_outlet_climb_x
@@ -142,7 +142,7 @@ state(
      f"which no slot of {ring_slot_spans()} holds — the line would have to be bored through a "
      f"bearing segment"))
 
-# CO2 inlet — the ⌀[6.5](PORT_HOLE_DIAMETER) reach in to the bottom plate's own lane-side
+# CO2 inlet — the ⌀[6.65](PORT_HOLE_DIAMETER) reach in to the bottom plate's own lane-side
 # port at y = [-19.05](CO2_INLET_Y), from the PORT LANE, landing UNDER THE `co2-in` CONDUIT
 # rather than on the shell's centreline. That is the whole of why it leans.
 #   The line falls the shell's height down the lane and has to turn onto this axis at the
@@ -227,7 +227,7 @@ def cut_line_corridors(foam_shell, gives_way):
     pockets. What they turn in is `outer_shell_foam_gap` with the attachment bosses standing
     in its outboard half, so a bore's shape rather than the band would be what set the
     corner. Cut as the corridor, what a corner costs is what the band leaves — and the tube
-    crosses on the same tight fit either way, the shell's ⌀[6.5](PORT_HOLE_DIAMETER) round a
+    crosses on the same tight fit either way, the shell's ⌀[6.65](PORT_HOLE_DIAMETER) round a
     `lldpe_tube_od` line, which is what keeps the body pour out of a pocket.
 
     `gives_way` IS THE WHOLE FENCE ON THIS, and it is a list of bodies rather than a region:
@@ -271,7 +271,7 @@ def cut_prv_vent_port(foam_shell):
     service bay stands on. A relief vent is made up on nothing — it ends open — and what it
     owes instead is the shortest path to air outside the cabinet, because tube length on a
     relief path is discharge taken off the valve's rating. The opening is the line's own
-    ⌀[6.5](PORT_HOLE_DIAMETER) corridor, the same tight fit round the tube that keeps the pour
+    ⌀[6.65](PORT_HOLE_DIAMETER) corridor, the same tight fit round the tube that keeps the pour
     out of a pocket, and the tube runs on through it into the socket the appliance's own west
     wall holds across the band."""
     from _internal_routes import route_corridor

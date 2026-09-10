@@ -1,6 +1,6 @@
 {
   "/hardware/assembly/_internal_plumbing_sync.py": {
-    "CAP_CONDUIT_D": "6.5 mm",
+    "CAP_CONDUIT_D": "6.65 mm",
     "CAP_FLUID_LINES": "7",
     "CAP_SCREWS": "2",
     "CAP_SCREW_LEN": "10",

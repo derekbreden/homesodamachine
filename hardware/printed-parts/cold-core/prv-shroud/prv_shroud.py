@@ -14,7 +14,7 @@ SS 90° street elbow (B0CZ38MYL1) that threads into Port 4. The
 open shroud end-to-elbow joint is sealed with a bead of 100% RTV
 silicone caulk, tooled to a fillet — foam-tight, not airtight.
 
-A ⌀[6.35 mm](PRV_VENT_D) hole through the BARREL accepts a length of 1/4" OD
+A ⌀[6.65 mm](PRV_VENT_D) hole through the BARREL accepts a length of 1/4" OD
 LLDPE tubing — the unpressurized vent line. The LLDPE runs down the
 foam shell's WEST LANE and out its slot in the −X wall, one station
 below the evaporator outlet copper that shares it, into the appliance
@@ -45,7 +45,7 @@ Geometry
                │                      │
     Z = 0      └ open ────────────────┘  ← seats on elbow ⌀18.8 mm cyl
 
-               ⌀[6.35 mm](PRV_VENT_D) vent bored radially through the −Y wall at
+               ⌀[6.65 mm](PRV_VENT_D) vent bored radially through the −Y wall at
                Z = [37.88 mm](VENT_STATION); the cup is rolled about its own axis at
                install so that wall faces the shell's −Z, and the tube leaves
                DOWNWARD onto the west lane (`cold_core_assembly._prv_roll`).
@@ -73,8 +73,10 @@ sys.path.insert(
     0,
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
+sys.path.insert(0, str(_here.parents[1]))
 
 from _cadq_export import export_assembly
+from _cold_core_interface import port_hole_radius
 from _materials import C_SHROUD, one_body
 from docgen import substitute_md, substitute_py_comments
 
@@ -89,8 +91,12 @@ wall_thickness = 2.0
 cap_thickness = 2.0
 # [44 mm](CAVITY_L) — elbow seat bottom to PRV pull-ring tip.
 cavity_length = 44.0
-# [6.35 mm](PRV_VENT_D) — 1/4" LLDPE tubing OD.
-vent_hole_diameter = 6.35
+# [6.65 mm](PRV_VENT_D) — the vent line's own hole, on the `port_hole_radius` every bore this
+# machine threads a line through is cut to. IT IS THE TUBE ON THE BENCH PLUS A SLIP AND NOT THE
+# 6.35 NOMINAL: 1/4" LLDPE calipers ⌀6.5 at the top of its band, so a hole cut to the nominal is
+# an interference fit on the line it is for, and this one is bored in a barrel a hand pushes a
+# tube into.
+vent_hole_diameter = 2.0 * port_hole_radius
 # [37.88 mm](VENT_STATION) along the barrel from the open end — where the radial vent
 # stands. The shroud seats on the PRV elbow's own lateral mouth and reaches along the
 # carbonator's port axis from there, so this distance is the mouth-to-lane gap: the mouth stands
@@ -111,7 +117,7 @@ def build_prv_shroud():
     """One-piece cup on axis +Z: a full ⌀[23 mm](PRV_OUTER_D) cylinder spanning Z=0 to
     the cap top at Z=[46 mm](TOTAL_L), an open-end bore (⌀[19 mm](PRV_INNER_D), Z=0 inward) that the
     elbow seat enters and that stops at the cap inner face Z=[44 mm](CAVITY_L), and a
-    ⌀[6.35 mm](PRV_VENT_D) vent hole bored RADIALLY through the −Y wall at
+    ⌀[6.65 mm](PRV_VENT_D) vent hole bored RADIALLY through the −Y wall at
     Z=[37.88 mm](VENT_STATION)."""
     outer = (
         cq.Workplane("XY")

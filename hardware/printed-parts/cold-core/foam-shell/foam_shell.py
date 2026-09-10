@@ -85,7 +85,8 @@ from _cold_core_interface import (
 from docgen import substitute_md
 
 sys.path.insert(0, str(_here.parent / "copper-plugs"))
-from copper_plugs import columns, plug_specs, slot_stations  # noqa: E402
+from copper_plugs import (columns, plug_specs, slot_stations,  # noqa: E402
+                          tube_clearance_radius)
 
 
 def _report_front_ports(shell):
@@ -236,6 +237,10 @@ def main():
             "SUPPORT_RING_W": f"{support_ring_radial_width:.4g} mm",
             "SUPPORT_RING_INNER_R": f"{carbonator_coil_envelope_radius - support_ring_radial_width:.4g} mm",
             "TUBE_HOLE_D": f"{port_hole_radius * 2:.4g} mm",
+            # The copper plug's arch is the SLOT's figure and not the bore's
+            # (`copper_plugs.slot_width_x`). The two read alike and do not move together:
+            # a formed copper tail is laid into an open slot, a line is pushed through a hole.
+            "PLUG_ARCH_D": f"{2.0 * tube_clearance_radius:.4g} mm",
             "CORNER_ROUND_R": f"{corner_round_radius:.4g} mm",
             "FSHELL_FLUTE_PITCH": f"{flute_pitch():.4g} mm",
             "FSHELL_FLUTE_COUNT": f"{flute_count:g}",

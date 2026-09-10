@@ -200,7 +200,7 @@ vent_brim_bottom_z = vent_cylinder_walls_bottom_z - vent_brim_thickness
 # here, above the liquid, so the two never share a mouth and everything entering
 # has to cross the cavity to leave by the trough.
 #
-# The bore is the ⌀[6.5 mm](FILL_BORE_D) every penetration in the cold core takes, carried on a
+# The bore is the ⌀[6.65 mm](FILL_BORE_D) every penetration in the cold core takes, carried on a
 # boss hanging below the base plate so the joint has bore length to seat in.
 #
 # EACH SIDE HAS ITS OWN STATION and they are not a mirrored pair — A at
@@ -1333,6 +1333,9 @@ def main():
         "VENT_SLOT_H": f"{vent_slot_height:.4g} mm",
         # The cap's fill bore — the reservoir's second mouth, above the liquid.
         "FILL_BORE_D": f"{fill_bore_diameter:.4g} mm",
+        # And the cap conduit standing over a reed channel's mouth, which `level-sensing.md`
+        # reads. Same standard, a different feature — neither is the other's figure.
+        "CONDUIT_BORE_D": f"{port_hole_radius * 2:.4g} mm",
         "FILL_BOSS_OD": f"{fill_boss_outer_diameter:.4g} mm",
         "FILL_POSITION_A": "({:.4g}, {:.4g})".format(*fill_position[+1]),
         "FILL_POSITION_B": "({:.4g}, {:.4g})".format(*fill_position[-1]),

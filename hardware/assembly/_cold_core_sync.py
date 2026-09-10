@@ -39,6 +39,7 @@ from _cold_core_interface import (  # noqa: E402
     insert_pocket_depth,
     insert_pocket_radius,
     lldpe_bend_radius,
+    lldpe_tube_od,
     cap_conduit_shell_xy,
     outer_shell_x_length,
     outer_shell_y_length,
@@ -89,6 +90,7 @@ _reed_bridge_gen = load_module(
     _hw / "printed-parts" / "cold-core" / "reed-bridge" / "reed_bridge.py",
 )
 
+import _internal_routes  # noqa: E402
 import _port_cuts  # noqa: E402
 
 
@@ -209,6 +211,18 @@ def main():
         },
     )
     print("-> _port_cuts.py")
+
+    # `_internal_routes` draws every line in the core and states the standard it crosses a wall
+    # on, in its own comments. It cuts no solid of its own, so nothing else was going to hand it
+    # those figures and they stood at whatever was last typed.
+    substitute_py_comments(
+        Path(_internal_routes.__file__),
+        variables={
+            "PORT_HOLE_DIAMETER": f"{port_hole_radius * 2:.4g}",
+            "LLDPE_TUBE_OD": f"{lldpe_tube_od:.4g}",
+        },
+    )
+    print("-> _internal_routes.py")
 
 
 if __name__ == "__main__":
