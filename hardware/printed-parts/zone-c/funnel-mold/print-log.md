@@ -66,6 +66,13 @@ is retained at Git revision `911c25b1c`. The alternate +0.18 project remains
 fully sliced.
 
 The live camera showed an unobstructed textured plate during auto bed leveling.
-At 11:05 CDT, Mark2 is printing layer 1 of 315 at 255 °C nozzle and 70 °C bed.
-Early paths are visible; the first layer is incomplete and its adhesion is not
-yet established from this camera view. Completed-print outcome is not yet recorded.
+At 11:05 CDT, Mark2 was printing layer 1 of 315 at 255 °C nozzle and 70 °C bed.
+Early paths were visible; first-layer adhesion was not established from that view.
+
+**Outcome: stopped by Derek because the print was failing.** His photos
+`IMG_7776.jpeg`, `IMG_7774.jpeg` and `IMG_7773.jpeg` show rough, curled and
+separated extrusion across shallow sloping regions, with comparatively regular
+deposition on many vertical ribs. The stop time and final layer were not recorded.
+Failure while the shallow shell expands outward between ribs is a working
+explanation; the photographs alone do not establish the complete cause. This run
+does not validate the unsupported shell or the earlier print-readiness assessment.
