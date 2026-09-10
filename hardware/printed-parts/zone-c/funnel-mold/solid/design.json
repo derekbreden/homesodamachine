@@ -1,0 +1,50 @@
+{
+  "dimensions_mm": {
+    "cavity": [
+      189.0000002,
+      189.0000002,
+      72.64923296371629
+    ],
+    "core": [
+      201.0,
+      201.0,
+      50.43620151507566
+    ],
+    "funnel": [
+      173.0,
+      173.0,
+      64.64923296371629
+    ],
+    "rod": [
+      6.35,
+      6.35,
+      50.8
+    ]
+  },
+  "volume_ml": {
+    "cavity": 1067.1396559752109,
+    "core": 1019.0399748978188,
+    "funnel": 135.17566904044506,
+    "rod": 1.6087962461345555
+  },
+  "parting_z_mm": 72.64923296371629,
+  "rod_socket_depth_mm": 28.799999999999997,
+  "rod_socket_vent_diameter_mm": 2.5,
+  "register_depth_mm": 6.0,
+  "finish_allowance_mm": 0.2,
+  "cavity_stock_minimum_backing_before_rim_notches_mm": 6.824859443446755,
+  "ramp_print_z_mm": {
+    "cavity": [
+      32.00000000000001,
+      51.339232963716285
+    ],
+    "core": [
+      31.31,
+      50.64923296371628
+    ]
+  },
+  "nominal_chamber_diameter_mm": 299.72,
+  "status": "CAD design; physical printing and release untested",
+  "enclosing_diameter_mm": 271.0020834012015,
+  "chamber_radial_clearance_mm": 14.358958299399262
+}
