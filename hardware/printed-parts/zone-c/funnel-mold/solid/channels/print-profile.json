@@ -1,7 +1,7 @@
 [
   {
     "project": "channel-mold.3mf",
-    "sha256": "95289066bafcf14003c4537b81e25a7e64180051b093c37838f54b33bfbc1016",
+    "sha256": "890926b1967c9ad9098ea13bea9ee84a720643a047421161fbc56c01ee9b2259",
     "effective_setting_count": 579,
     "normalized_settings": [
       "best_object_pos",
@@ -895,7 +895,7 @@
       "enable_support": {
         "value": "0",
         "recipe": "process_settings",
-        "reason": "The solid backing carries the forming faces; the external taper is at least 45 degrees."
+        "reason": "Continuous backing carries the forming faces; the outer taper is at least 60 degrees."
       },
       "enable_circle_compensation": {
         "value": "0",
@@ -1076,13 +1076,13 @@
       },
       "outer_wall_speed": {
         "value": [
-          "60",
-          "60",
-          "60",
-          "60"
+          "40",
+          "40",
+          "40",
+          "40"
         ],
         "recipe": "process_settings",
-        "reason": "Finishing and registration surfaces print at 60 mm/s or below the flow cap."
+        "reason": "Outer perimeters are capped at 40 mm/s."
       },
       "overhang_totally_speed": {
         "value": [
@@ -1145,8 +1145,9 @@
         "preset": "process/fdm_process_common.json"
       },
       "reduce_crossing_wall": {
-        "value": "0",
-        "preset": "process/fdm_process_common.json"
+        "value": "1",
+        "recipe": "process_settings",
+        "reason": "Travel paths detour around perimeter walls and the open forming cavity."
       },
       "reduce_infill_retraction_mode": {
         "value": "Auto",
@@ -1161,12 +1162,14 @@
         "preset": "process/fdm_process_common.json"
       },
       "seam_position": {
-        "value": "aligned",
-        "preset": "process/fdm_process_common.json"
+        "value": "back",
+        "recipe": "process_settings",
+        "reason": "Conventional seams lie toward the back of each perimeter."
       },
       "seam_placement_away_from_overhangs": {
-        "value": "0",
-        "preset": "process/fdm_process_common.json"
+        "value": "1",
+        "recipe": "process_settings",
+        "reason": "Seam placement accounts for adjacent overhangs."
       },
       "skirt_distance": {
         "value": "2",
@@ -1617,30 +1620,33 @@
       },
       "overhang_1_4_speed": {
         "value": [
-          "0",
-          "0",
-          "0",
-          "0"
+          "30",
+          "30",
+          "30",
+          "30"
         ],
-        "preset": "process/fdm_process_dual_common.json"
+        "recipe": "process_settings",
+        "reason": "Low-overhang perimeter paths use 30 mm/s."
       },
       "overhang_2_4_speed": {
-        "value": [
-          "50",
-          "50",
-          "50",
-          "50"
-        ],
-        "preset": "process/fdm_process_dual_common.json"
-      },
-      "overhang_3_4_speed": {
         "value": [
           "30",
           "30",
           "30",
           "30"
         ],
-        "preset": "process/0.40mm Standard @BBL H2C 0.8 nozzle.json"
+        "recipe": "process_settings",
+        "reason": "Quarter-width overhang paths use 30 mm/s."
+      },
+      "overhang_3_4_speed": {
+        "value": [
+          "25",
+          "25",
+          "25",
+          "25"
+        ],
+        "recipe": "process_settings",
+        "reason": "Half-width overhang paths use 25 mm/s."
       },
       "overhang_4_4_speed": {
         "value": [
@@ -1649,7 +1655,8 @@
           "10",
           "10"
         ],
-        "preset": "process/0.40mm Standard @BBL H2C 0.8 nozzle.json"
+        "recipe": "process_settings",
+        "reason": "Nearly unsupported perimeter paths use 10 mm/s."
       },
       "print_extruder_id": {
         "value": [
@@ -2499,13 +2506,15 @@
         "value": [
           "90"
         ],
-        "preset": "filament/Bambu PETG Translucent @base.json"
+        "recipe": "filament_settings",
+        "reason": "Outer perimeters use 90% part cooling."
       },
       "overhang_fan_threshold": {
         "value": [
-          "10%"
+          "0%"
         ],
-        "preset": "filament/Bambu PETG Translucent @base.json"
+        "recipe": "filament_settings",
+        "reason": "All outer perimeters receive the wall fan setting after the first-layer cooling holdoff."
       },
       "override_process_overhang_speed": {
         "value": [
@@ -2646,6 +2655,13 @@
         "recipe": "process_settings",
         "reason": "The user specifies permanent bed-contact geometry."
       },
+      "enable_overhang_bridge_fan": {
+        "value": [
+          "1"
+        ],
+        "recipe": "filament_settings",
+        "reason": "Perimeter cooling uses the explicit wall fan setting."
+      },
       "inherits_group": {
         "value": [
           "0.40mm Standard @BBL H2C 0.8 nozzle",
@@ -2657,8 +2673,8 @@
       },
       "different_settings_to_system": {
         "value": [
-          "enable_arc_fitting;wall_generator;wall_loops;sparse_infill_density;sparse_infill_pattern;top_shell_layers;bottom_shell_layers;top_shell_thickness;bottom_shell_thickness;top_one_wall_type;outer_wall_speed;outer_wall_acceleration;top_surface_speed;seam_gap;brim_type;brim_width;skirt_loops;enable_support;enable_prime_tower",
-          "filament_prime_volume;nozzle_temperature;nozzle_temperature_initial_layer;filament_max_volumetric_speed;filament_cost",
+          "enable_arc_fitting;wall_generator;wall_loops;sparse_infill_density;sparse_infill_pattern;top_shell_layers;bottom_shell_layers;top_shell_thickness;bottom_shell_thickness;top_one_wall_type;outer_wall_speed;overhang_1_4_speed;overhang_2_4_speed;overhang_3_4_speed;overhang_4_4_speed;seam_position;seam_placement_away_from_overhangs;reduce_crossing_wall;outer_wall_acceleration;top_surface_speed;seam_gap;brim_type;brim_width;skirt_loops;enable_support;enable_prime_tower",
+          "enable_overhang_bridge_fan;overhang_fan_threshold;overhang_fan_speed;filament_prime_volume;nozzle_temperature;nozzle_temperature_initial_layer;filament_max_volumetric_speed;filament_cost",
           "machine_start_gcode;default_nozzle_volume_type;nozzle_volume_type"
         ],
         "generator": "fresh_settings",
@@ -2785,9 +2801,6 @@
       "enable_filament_dynamic_map": "0",
       "enable_mixed_color_sublayer": "0",
       "enable_order_independent_overlap_carving": "0",
-      "enable_overhang_bridge_fan": [
-        "1"
-      ],
       "enable_pressure_advance": [
         "0"
       ],
@@ -3086,8 +3099,8 @@
         "50"
       ],
       "different_settings_to_system": [
-        "enable_arc_fitting;wall_generator;wall_loops;sparse_infill_density;sparse_infill_pattern;top_shell_layers;bottom_shell_layers;top_shell_thickness;bottom_shell_thickness;top_one_wall_type;outer_wall_speed;outer_wall_acceleration;top_surface_speed;seam_gap;brim_type;brim_width;skirt_loops;enable_support;enable_prime_tower",
-        "filament_prime_volume;nozzle_temperature;nozzle_temperature_initial_layer;filament_max_volumetric_speed;filament_cost",
+        "enable_arc_fitting;wall_generator;wall_loops;sparse_infill_density;sparse_infill_pattern;top_shell_layers;bottom_shell_layers;top_shell_thickness;bottom_shell_thickness;top_one_wall_type;outer_wall_speed;overhang_1_4_speed;overhang_2_4_speed;overhang_3_4_speed;overhang_4_4_speed;seam_position;seam_placement_away_from_overhangs;reduce_crossing_wall;outer_wall_acceleration;top_surface_speed;seam_gap;brim_type;brim_width;skirt_loops;enable_support;enable_prime_tower",
+        "enable_overhang_bridge_fan;overhang_fan_threshold;overhang_fan_speed;filament_prime_volume;nozzle_temperature;nozzle_temperature_initial_layer;filament_max_volumetric_speed;filament_cost",
         "machine_start_gcode;default_nozzle_volume_type;nozzle_volume_type"
       ],
       "draft_shield": "disabled",
@@ -3943,28 +3956,28 @@
       "outer_wall_jerk": "9",
       "outer_wall_line_width": "0.82",
       "outer_wall_speed": [
-        "60",
-        "60",
-        "60",
-        "60"
+        "40",
+        "40",
+        "40",
+        "40"
       ],
       "overhang_1_4_speed": [
-        "0",
-        "0",
-        "0",
-        "0"
-      ],
-      "overhang_2_4_speed": [
-        "50",
-        "50",
-        "50",
-        "50"
-      ],
-      "overhang_3_4_speed": [
         "30",
         "30",
         "30",
         "30"
+      ],
+      "overhang_2_4_speed": [
+        "30",
+        "30",
+        "30",
+        "30"
+      ],
+      "overhang_3_4_speed": [
+        "25",
+        "25",
+        "25",
+        "25"
       ],
       "overhang_4_4_speed": [
         "10",
@@ -3976,7 +3989,7 @@
         "90"
       ],
       "overhang_fan_threshold": [
-        "10%"
+        "0%"
       ],
       "overhang_threshold_participating_cooling": [
         "95%"
@@ -4072,7 +4085,7 @@
       "raft_first_layer_density": "90%",
       "raft_first_layer_expansion": "-1",
       "raft_layers": "0",
-      "reduce_crossing_wall": "0",
+      "reduce_crossing_wall": "1",
       "reduce_fan_stop_start_freq": [
         "1"
       ],
@@ -4155,8 +4168,8 @@
       "scan_first_layer": "0",
       "scarf_angle_threshold": "155",
       "seam_gap": "0%",
-      "seam_placement_away_from_overhangs": "0",
-      "seam_position": "aligned",
+      "seam_placement_away_from_overhangs": "1",
+      "seam_position": "back",
       "seam_slope_conditional": "1",
       "seam_slope_entire_loop": "0",
       "seam_slope_gap": "0",
@@ -4526,12 +4539,60 @@
         },
         "outer_wall_speed": {
           "value": [
-            "60",
-            "60",
-            "60",
-            "60"
+            "40",
+            "40",
+            "40",
+            "40"
           ],
-          "reason": "Finishing and registration surfaces print at 60 mm/s or below the flow cap."
+          "reason": "Outer perimeters are capped at 40 mm/s."
+        },
+        "overhang_1_4_speed": {
+          "value": [
+            "30",
+            "30",
+            "30",
+            "30"
+          ],
+          "reason": "Low-overhang perimeter paths use 30 mm/s."
+        },
+        "overhang_2_4_speed": {
+          "value": [
+            "30",
+            "30",
+            "30",
+            "30"
+          ],
+          "reason": "Quarter-width overhang paths use 30 mm/s."
+        },
+        "overhang_3_4_speed": {
+          "value": [
+            "25",
+            "25",
+            "25",
+            "25"
+          ],
+          "reason": "Half-width overhang paths use 25 mm/s."
+        },
+        "overhang_4_4_speed": {
+          "value": [
+            "10",
+            "10",
+            "10",
+            "10"
+          ],
+          "reason": "Nearly unsupported perimeter paths use 10 mm/s."
+        },
+        "seam_position": {
+          "value": "back",
+          "reason": "Conventional seams lie toward the back of each perimeter."
+        },
+        "seam_placement_away_from_overhangs": {
+          "value": "1",
+          "reason": "Seam placement accounts for adjacent overhangs."
+        },
+        "reduce_crossing_wall": {
+          "value": "1",
+          "reason": "Travel paths detour around perimeter walls and the open forming cavity."
         },
         "outer_wall_acceleration": {
           "value": [
@@ -4569,7 +4630,7 @@
         },
         "enable_support": {
           "value": "0",
-          "reason": "The solid backing carries the forming faces; the external taper is at least 45 degrees."
+          "reason": "Continuous backing carries the forming faces; the outer taper is at least 60 degrees."
         },
         "enable_prime_tower": {
           "value": "0",
@@ -4577,6 +4638,24 @@
         }
       },
       "filament_settings": {
+        "enable_overhang_bridge_fan": {
+          "value": [
+            "1"
+          ],
+          "reason": "Perimeter cooling uses the explicit wall fan setting."
+        },
+        "overhang_fan_threshold": {
+          "value": [
+            "0%"
+          ],
+          "reason": "All outer perimeters receive the wall fan setting after the first-layer cooling holdoff."
+        },
+        "overhang_fan_speed": {
+          "value": [
+            "90"
+          ],
+          "reason": "Outer perimeters use 90% part cooling."
+        },
         "filament_prime_volume": {
           "value": [
             "45"
@@ -4649,15 +4728,15 @@
     "gcode": [
       {
         "part": "cavity",
-        "stl_sha256": "b01764913c41bd5190528363b8188ab7d1249cd0b7d705bf2243ed3a4416e6f4",
-        "gcode_sha256": "ed970786f21b35566953c12316c3e0659109e72d495d649df46588dd70274965",
+        "stl_sha256": "32e4f80fd2e754e058885c7189c8a8585134feb99218ea6888974d515154372a",
+        "gcode_sha256": "69264db49615568db5633a5f090ca7b37a623deefb2492697219a94c78a5c63e",
         "header": [
           "; BambuStudio 02.08.02.61",
-          "; model printing time: 17h 23m 8s; total estimated time: 17h 28m 22s",
+          "; model printing time: 23h 12m 55s; total estimated time: 23h 18m 9s",
           "; total layer number: 304",
-          "; total filament length [mm] : 391008.40",
-          "; total filament volume [cm^3] : 940485.41",
-          "; total filament weight [g] : 1175.61",
+          "; total filament length [mm] : 510296.94",
+          "; total filament volume [cm^3] : 1227407.98",
+          "; total filament weight [g] : 1534.26",
           "; filament_density: 1.25",
           "; filament_diameter: 1.75",
           "; max_z_height: 72.64",
@@ -4668,10 +4747,10 @@
       {
         "part": "core",
         "stl_sha256": "cd3e829639816490e2fe7482f7e27dfe29c57da0b584aa56f40f83e13d32a703",
-        "gcode_sha256": "6a8d3e08abb0296db761cfdaa4640615bc4c934ccef6e66da1ffe2228d56c048",
+        "gcode_sha256": "f87d3228d98aabad4596805f291429e6f503d11d1ad735665fa245b8b5891452",
         "header": [
           "; BambuStudio 02.08.02.61",
-          "; model printing time: 16h 7m 38s; total estimated time: 16h 12m 51s",
+          "; model printing time: 16h 47m 56s; total estimated time: 16h 53m 9s",
           "; total layer number: 240",
           "; total filament length [mm] : 371527.76",
           "; total filament volume [cm^3] : 893628.98",
@@ -4686,41 +4765,41 @@
     ],
     "slice_result": {
       "error_string": "Success.",
-      "export_time": 2357,
+      "export_time": 2014,
       "layer_height": 0.4000000059604645,
       "plate_index": 0,
-      "prepare_time": 84,
+      "prepare_time": 71,
       "return_code": 0,
       "sliced_plates": [
         {
           "feature_type_times": {
-            "Bottom surface": 104.87089538574219,
-            "Bridge": 120.9684829711914,
-            "Custom": 304.7780456542969,
+            "Bottom surface": 249.16500854492188,
+            "Bridge": 137.25506591796875,
+            "Custom": 304.6874694824219,
             "Flush": 15.0,
-            "Inner wall": 9871.2265625,
-            "Internal solid infill": 12919.0341796875,
-            "Outer wall": 5860.80712890625,
-            "Sparse infill": 32486.283203125,
-            "Top surface": 187.15284729003906,
-            "Travel": 1214.3392333984375,
-            "Undefined": 1208.0052490234375
+            "Inner wall": 10786.88671875,
+            "Internal solid infill": 12733.3828125,
+            "Outer wall": 10015.826171875,
+            "Sparse infill": 48075.98828125,
+            "Top surface": 192.1531982421875,
+            "Travel": 1263.932373046875,
+            "Undefined": 1257.598388671875
           },
           "filament_change_times": 0,
           "filaments": [
             {
               "filament_id": "GFG01",
               "id": 1,
-              "main_used_g": 1175.6068115234375,
-              "total_used_g": 1175.6068115234375
+              "main_used_g": 1534.260009765625,
+              "total_used_g": 1534.260009765625
             }
           ],
-          "generate_support_material_time": 93,
+          "generate_support_material_time": 68,
           "id": 1,
-          "infill_time": 1312,
+          "infill_time": 714,
           "layer_filament_change": 0,
-          "main_predication": 62573.55859375,
-          "make_perimeters_time": 853,
+          "main_predication": 83560.7421875,
+          "make_perimeters_time": 384,
           "obj_cached_cnt": 0,
           "objects": [
             {
@@ -4734,29 +4813,29 @@
               },
               "id": 5,
               "name": "Funnel mold with V channels cavity",
-              "triangle_count": 52414
+              "triangle_count": 52350
             }
           ],
-          "sliced_time": 7376,
-          "sliced_time_with_cache": 4812,
-          "total_predication": 62902.00390625,
-          "triangle_count": 52414,
+          "sliced_time": 3457,
+          "sliced_time_with_cache": 2128,
+          "total_predication": 83889.09375,
+          "triangle_count": 52350,
           "warning_message": ""
         },
         {
           "feature_type_times": {
-            "Bottom surface": 698.6771850585938,
-            "Bridge": 118.73429870605469,
-            "Custom": 305.8144836425781,
+            "Bottom surface": 698.5104370117188,
+            "Bridge": 118.58306121826172,
+            "Custom": 305.8016357421875,
             "Flush": 15.0,
-            "Inner wall": 6736.13623046875,
-            "Internal solid infill": 13867.5859375,
-            "Outer wall": 4028.2021484375,
+            "Inner wall": 6731.6884765625,
+            "Internal solid infill": 13858.955078125,
+            "Outer wall": 6222.9384765625,
             "Overhang wall": 0.15475450456142426,
-            "Sparse infill": 31185.513671875,
-            "Top surface": 460.9785461425781,
-            "Travel": 989.44921875,
-            "Undefined": 982.0032348632812
+            "Sparse infill": 31181.23828125,
+            "Top surface": 460.8511047363281,
+            "Travel": 1216.8173828125,
+            "Undefined": 1209.3714599609375
           },
           "filament_change_times": 0,
           "filaments": [
@@ -4767,12 +4846,12 @@
               "total_used_g": 1117.0362548828125
             }
           ],
-          "generate_support_material_time": 78,
+          "generate_support_material_time": 81,
           "id": 2,
-          "infill_time": 1005,
+          "infill_time": 738,
           "layer_filament_change": 0,
-          "main_predication": 58043.15625,
-          "make_perimeters_time": 666,
+          "main_predication": 60461.54296875,
+          "make_perimeters_time": 477,
           "obj_cached_cnt": 0,
           "objects": [
             {
@@ -4789,9 +4868,9 @@
               "triangle_count": 7414
             }
           ],
-          "sliced_time": 3296,
-          "sliced_time_with_cache": 1467,
-          "total_predication": 58371.5234375,
+          "sliced_time": 2968,
+          "sliced_time_with_cache": 1610,
+          "total_predication": 60789.8984375,
           "triangle_count": 7414,
           "warning_message": ""
         }
@@ -4808,7 +4887,7 @@
   },
   {
     "project": "channel-mold-z018.3mf",
-    "sha256": "90f98f6e7c1789bd4d273fe15db3e2b391d9c8c16a526c6c73009a03b5dd362d",
+    "sha256": "684c631f330446ee19016fd446cc13ac3fcefbd2e0c8fceb455e6963fb2d496c",
     "effective_setting_count": 579,
     "normalized_settings": [
       "best_object_pos",
@@ -5702,7 +5781,7 @@
       "enable_support": {
         "value": "0",
         "recipe": "process_settings",
-        "reason": "The solid backing carries the forming faces; the external taper is at least 45 degrees."
+        "reason": "Continuous backing carries the forming faces; the outer taper is at least 60 degrees."
       },
       "enable_circle_compensation": {
         "value": "0",
@@ -5883,13 +5962,13 @@
       },
       "outer_wall_speed": {
         "value": [
-          "60",
-          "60",
-          "60",
-          "60"
+          "40",
+          "40",
+          "40",
+          "40"
         ],
         "recipe": "process_settings",
-        "reason": "Finishing and registration surfaces print at 60 mm/s or below the flow cap."
+        "reason": "Outer perimeters are capped at 40 mm/s."
       },
       "overhang_totally_speed": {
         "value": [
@@ -5952,8 +6031,9 @@
         "preset": "process/fdm_process_common.json"
       },
       "reduce_crossing_wall": {
-        "value": "0",
-        "preset": "process/fdm_process_common.json"
+        "value": "1",
+        "recipe": "process_settings",
+        "reason": "Travel paths detour around perimeter walls and the open forming cavity."
       },
       "reduce_infill_retraction_mode": {
         "value": "Auto",
@@ -5968,12 +6048,14 @@
         "preset": "process/fdm_process_common.json"
       },
       "seam_position": {
-        "value": "aligned",
-        "preset": "process/fdm_process_common.json"
+        "value": "back",
+        "recipe": "process_settings",
+        "reason": "Conventional seams lie toward the back of each perimeter."
       },
       "seam_placement_away_from_overhangs": {
-        "value": "0",
-        "preset": "process/fdm_process_common.json"
+        "value": "1",
+        "recipe": "process_settings",
+        "reason": "Seam placement accounts for adjacent overhangs."
       },
       "skirt_distance": {
         "value": "2",
@@ -6424,30 +6506,33 @@
       },
       "overhang_1_4_speed": {
         "value": [
-          "0",
-          "0",
-          "0",
-          "0"
+          "30",
+          "30",
+          "30",
+          "30"
         ],
-        "preset": "process/fdm_process_dual_common.json"
+        "recipe": "process_settings",
+        "reason": "Low-overhang perimeter paths use 30 mm/s."
       },
       "overhang_2_4_speed": {
-        "value": [
-          "50",
-          "50",
-          "50",
-          "50"
-        ],
-        "preset": "process/fdm_process_dual_common.json"
-      },
-      "overhang_3_4_speed": {
         "value": [
           "30",
           "30",
           "30",
           "30"
         ],
-        "preset": "process/0.40mm Standard @BBL H2C 0.8 nozzle.json"
+        "recipe": "process_settings",
+        "reason": "Quarter-width overhang paths use 30 mm/s."
+      },
+      "overhang_3_4_speed": {
+        "value": [
+          "25",
+          "25",
+          "25",
+          "25"
+        ],
+        "recipe": "process_settings",
+        "reason": "Half-width overhang paths use 25 mm/s."
       },
       "overhang_4_4_speed": {
         "value": [
@@ -6456,7 +6541,8 @@
           "10",
           "10"
         ],
-        "preset": "process/0.40mm Standard @BBL H2C 0.8 nozzle.json"
+        "recipe": "process_settings",
+        "reason": "Nearly unsupported perimeter paths use 10 mm/s."
       },
       "print_extruder_id": {
         "value": [
@@ -7306,13 +7392,15 @@
         "value": [
           "90"
         ],
-        "preset": "filament/Bambu PETG Translucent @base.json"
+        "recipe": "filament_settings",
+        "reason": "Outer perimeters use 90% part cooling."
       },
       "overhang_fan_threshold": {
         "value": [
-          "10%"
+          "0%"
         ],
-        "preset": "filament/Bambu PETG Translucent @base.json"
+        "recipe": "filament_settings",
+        "reason": "All outer perimeters receive the wall fan setting after the first-layer cooling holdoff."
       },
       "override_process_overhang_speed": {
         "value": [
@@ -7453,6 +7541,13 @@
         "recipe": "process_settings",
         "reason": "The user specifies permanent bed-contact geometry."
       },
+      "enable_overhang_bridge_fan": {
+        "value": [
+          "1"
+        ],
+        "recipe": "filament_settings",
+        "reason": "Perimeter cooling uses the explicit wall fan setting."
+      },
       "inherits_group": {
         "value": [
           "0.40mm Standard @BBL H2C 0.8 nozzle",
@@ -7464,8 +7559,8 @@
       },
       "different_settings_to_system": {
         "value": [
-          "enable_arc_fitting;wall_generator;wall_loops;sparse_infill_density;sparse_infill_pattern;top_shell_layers;bottom_shell_layers;top_shell_thickness;bottom_shell_thickness;top_one_wall_type;outer_wall_speed;outer_wall_acceleration;top_surface_speed;seam_gap;brim_type;brim_width;skirt_loops;enable_support;enable_prime_tower",
-          "filament_prime_volume;nozzle_temperature;nozzle_temperature_initial_layer;filament_max_volumetric_speed;filament_cost",
+          "enable_arc_fitting;wall_generator;wall_loops;sparse_infill_density;sparse_infill_pattern;top_shell_layers;bottom_shell_layers;top_shell_thickness;bottom_shell_thickness;top_one_wall_type;outer_wall_speed;overhang_1_4_speed;overhang_2_4_speed;overhang_3_4_speed;overhang_4_4_speed;seam_position;seam_placement_away_from_overhangs;reduce_crossing_wall;outer_wall_acceleration;top_surface_speed;seam_gap;brim_type;brim_width;skirt_loops;enable_support;enable_prime_tower",
+          "enable_overhang_bridge_fan;overhang_fan_threshold;overhang_fan_speed;filament_prime_volume;nozzle_temperature;nozzle_temperature_initial_layer;filament_max_volumetric_speed;filament_cost",
           "machine_start_gcode;default_nozzle_volume_type;nozzle_volume_type"
         ],
         "generator": "fresh_settings",
@@ -7592,9 +7687,6 @@
       "enable_filament_dynamic_map": "0",
       "enable_mixed_color_sublayer": "0",
       "enable_order_independent_overlap_carving": "0",
-      "enable_overhang_bridge_fan": [
-        "1"
-      ],
       "enable_pressure_advance": [
         "0"
       ],
@@ -7893,8 +7985,8 @@
         "50"
       ],
       "different_settings_to_system": [
-        "enable_arc_fitting;wall_generator;wall_loops;sparse_infill_density;sparse_infill_pattern;top_shell_layers;bottom_shell_layers;top_shell_thickness;bottom_shell_thickness;top_one_wall_type;outer_wall_speed;outer_wall_acceleration;top_surface_speed;seam_gap;brim_type;brim_width;skirt_loops;enable_support;enable_prime_tower",
-        "filament_prime_volume;nozzle_temperature;nozzle_temperature_initial_layer;filament_max_volumetric_speed;filament_cost",
+        "enable_arc_fitting;wall_generator;wall_loops;sparse_infill_density;sparse_infill_pattern;top_shell_layers;bottom_shell_layers;top_shell_thickness;bottom_shell_thickness;top_one_wall_type;outer_wall_speed;overhang_1_4_speed;overhang_2_4_speed;overhang_3_4_speed;overhang_4_4_speed;seam_position;seam_placement_away_from_overhangs;reduce_crossing_wall;outer_wall_acceleration;top_surface_speed;seam_gap;brim_type;brim_width;skirt_loops;enable_support;enable_prime_tower",
+        "enable_overhang_bridge_fan;overhang_fan_threshold;overhang_fan_speed;filament_prime_volume;nozzle_temperature;nozzle_temperature_initial_layer;filament_max_volumetric_speed;filament_cost",
         "machine_start_gcode;default_nozzle_volume_type;nozzle_volume_type"
       ],
       "draft_shield": "disabled",
@@ -8750,28 +8842,28 @@
       "outer_wall_jerk": "9",
       "outer_wall_line_width": "0.82",
       "outer_wall_speed": [
-        "60",
-        "60",
-        "60",
-        "60"
+        "40",
+        "40",
+        "40",
+        "40"
       ],
       "overhang_1_4_speed": [
-        "0",
-        "0",
-        "0",
-        "0"
-      ],
-      "overhang_2_4_speed": [
-        "50",
-        "50",
-        "50",
-        "50"
-      ],
-      "overhang_3_4_speed": [
         "30",
         "30",
         "30",
         "30"
+      ],
+      "overhang_2_4_speed": [
+        "30",
+        "30",
+        "30",
+        "30"
+      ],
+      "overhang_3_4_speed": [
+        "25",
+        "25",
+        "25",
+        "25"
       ],
       "overhang_4_4_speed": [
         "10",
@@ -8783,7 +8875,7 @@
         "90"
       ],
       "overhang_fan_threshold": [
-        "10%"
+        "0%"
       ],
       "overhang_threshold_participating_cooling": [
         "95%"
@@ -8879,7 +8971,7 @@
       "raft_first_layer_density": "90%",
       "raft_first_layer_expansion": "-1",
       "raft_layers": "0",
-      "reduce_crossing_wall": "0",
+      "reduce_crossing_wall": "1",
       "reduce_fan_stop_start_freq": [
         "1"
       ],
@@ -8962,8 +9054,8 @@
       "scan_first_layer": "0",
       "scarf_angle_threshold": "155",
       "seam_gap": "0%",
-      "seam_placement_away_from_overhangs": "0",
-      "seam_position": "aligned",
+      "seam_placement_away_from_overhangs": "1",
+      "seam_position": "back",
       "seam_slope_conditional": "1",
       "seam_slope_entire_loop": "0",
       "seam_slope_gap": "0",
@@ -9333,12 +9425,60 @@
         },
         "outer_wall_speed": {
           "value": [
-            "60",
-            "60",
-            "60",
-            "60"
+            "40",
+            "40",
+            "40",
+            "40"
           ],
-          "reason": "Finishing and registration surfaces print at 60 mm/s or below the flow cap."
+          "reason": "Outer perimeters are capped at 40 mm/s."
+        },
+        "overhang_1_4_speed": {
+          "value": [
+            "30",
+            "30",
+            "30",
+            "30"
+          ],
+          "reason": "Low-overhang perimeter paths use 30 mm/s."
+        },
+        "overhang_2_4_speed": {
+          "value": [
+            "30",
+            "30",
+            "30",
+            "30"
+          ],
+          "reason": "Quarter-width overhang paths use 30 mm/s."
+        },
+        "overhang_3_4_speed": {
+          "value": [
+            "25",
+            "25",
+            "25",
+            "25"
+          ],
+          "reason": "Half-width overhang paths use 25 mm/s."
+        },
+        "overhang_4_4_speed": {
+          "value": [
+            "10",
+            "10",
+            "10",
+            "10"
+          ],
+          "reason": "Nearly unsupported perimeter paths use 10 mm/s."
+        },
+        "seam_position": {
+          "value": "back",
+          "reason": "Conventional seams lie toward the back of each perimeter."
+        },
+        "seam_placement_away_from_overhangs": {
+          "value": "1",
+          "reason": "Seam placement accounts for adjacent overhangs."
+        },
+        "reduce_crossing_wall": {
+          "value": "1",
+          "reason": "Travel paths detour around perimeter walls and the open forming cavity."
         },
         "outer_wall_acceleration": {
           "value": [
@@ -9376,7 +9516,7 @@
         },
         "enable_support": {
           "value": "0",
-          "reason": "The solid backing carries the forming faces; the external taper is at least 45 degrees."
+          "reason": "Continuous backing carries the forming faces; the outer taper is at least 60 degrees."
         },
         "enable_prime_tower": {
           "value": "0",
@@ -9384,6 +9524,24 @@
         }
       },
       "filament_settings": {
+        "enable_overhang_bridge_fan": {
+          "value": [
+            "1"
+          ],
+          "reason": "Perimeter cooling uses the explicit wall fan setting."
+        },
+        "overhang_fan_threshold": {
+          "value": [
+            "0%"
+          ],
+          "reason": "All outer perimeters receive the wall fan setting after the first-layer cooling holdoff."
+        },
+        "overhang_fan_speed": {
+          "value": [
+            "90"
+          ],
+          "reason": "Outer perimeters use 90% part cooling."
+        },
         "filament_prime_volume": {
           "value": [
             "45"
@@ -9456,15 +9614,15 @@
     "gcode": [
       {
         "part": "cavity",
-        "stl_sha256": "b01764913c41bd5190528363b8188ab7d1249cd0b7d705bf2243ed3a4416e6f4",
-        "gcode_sha256": "e525cd3d6203fabd946521b30c649ac65c90f864441332bc5e25e8db3fad3de2",
+        "stl_sha256": "32e4f80fd2e754e058885c7189c8a8585134feb99218ea6888974d515154372a",
+        "gcode_sha256": "46003d37d1318c763d9131fdb39dfd7d8c86077942baff6403cc8be2ce9cd75a",
         "header": [
           "; BambuStudio 02.08.02.61",
-          "; model printing time: 17h 23m 8s; total estimated time: 17h 28m 22s",
+          "; model printing time: 23h 12m 55s; total estimated time: 23h 18m 9s",
           "; total layer number: 304",
-          "; total filament length [mm] : 391008.40",
-          "; total filament volume [cm^3] : 940485.41",
-          "; total filament weight [g] : 1175.61",
+          "; total filament length [mm] : 510296.94",
+          "; total filament volume [cm^3] : 1227407.98",
+          "; total filament weight [g] : 1534.26",
           "; filament_density: 1.25",
           "; filament_diameter: 1.75",
           "; max_z_height: 72.64",
@@ -9475,10 +9633,10 @@
       {
         "part": "core",
         "stl_sha256": "cd3e829639816490e2fe7482f7e27dfe29c57da0b584aa56f40f83e13d32a703",
-        "gcode_sha256": "22eb876c4513afabc9a5e58e2df3e563b467d0b7823f507662cc190898a682ea",
+        "gcode_sha256": "6a8333006e28e20ae1c24fe4a1f5941b74501fe1f5c84e6bb480b60d7b99b464",
         "header": [
           "; BambuStudio 02.08.02.61",
-          "; model printing time: 16h 7m 38s; total estimated time: 16h 12m 51s",
+          "; model printing time: 16h 47m 56s; total estimated time: 16h 53m 9s",
           "; total layer number: 240",
           "; total filament length [mm] : 371527.76",
           "; total filament volume [cm^3] : 893628.98",
@@ -9493,41 +9651,41 @@
     ],
     "slice_result": {
       "error_string": "Success.",
-      "export_time": 2147,
+      "export_time": 1971,
       "layer_height": 0.4000000059604645,
       "plate_index": 0,
-      "prepare_time": 84,
+      "prepare_time": 72,
       "return_code": 0,
       "sliced_plates": [
         {
           "feature_type_times": {
-            "Bottom surface": 104.87089538574219,
-            "Bridge": 120.9684829711914,
-            "Custom": 304.7780456542969,
+            "Bottom surface": 249.16500854492188,
+            "Bridge": 137.25506591796875,
+            "Custom": 304.6874694824219,
             "Flush": 15.0,
-            "Inner wall": 9871.2265625,
-            "Internal solid infill": 12919.0341796875,
-            "Outer wall": 5860.80712890625,
-            "Sparse infill": 32486.283203125,
-            "Top surface": 187.15284729003906,
-            "Travel": 1214.3392333984375,
-            "Undefined": 1208.0052490234375
+            "Inner wall": 10786.88671875,
+            "Internal solid infill": 12733.3828125,
+            "Outer wall": 10015.826171875,
+            "Sparse infill": 48075.98828125,
+            "Top surface": 192.1531982421875,
+            "Travel": 1263.932373046875,
+            "Undefined": 1257.598388671875
           },
           "filament_change_times": 0,
           "filaments": [
             {
               "filament_id": "GFG01",
               "id": 1,
-              "main_used_g": 1175.6068115234375,
-              "total_used_g": 1175.6068115234375
+              "main_used_g": 1534.260009765625,
+              "total_used_g": 1534.260009765625
             }
           ],
-          "generate_support_material_time": 83,
+          "generate_support_material_time": 63,
           "id": 1,
-          "infill_time": 1320,
+          "infill_time": 720,
           "layer_filament_change": 0,
-          "main_predication": 62573.55859375,
-          "make_perimeters_time": 836,
+          "main_predication": 83560.7421875,
+          "make_perimeters_time": 447,
           "obj_cached_cnt": 0,
           "objects": [
             {
@@ -9541,29 +9699,29 @@
               },
               "id": 5,
               "name": "Funnel mold with V channels cavity",
-              "triangle_count": 52414
+              "triangle_count": 52350
             }
           ],
-          "sliced_time": 7338,
-          "sliced_time_with_cache": 4775,
-          "total_predication": 62902.00390625,
-          "triangle_count": 52414,
+          "sliced_time": 3496,
+          "sliced_time_with_cache": 2104,
+          "total_predication": 83889.09375,
+          "triangle_count": 52350,
           "warning_message": ""
         },
         {
           "feature_type_times": {
-            "Bottom surface": 698.6771850585938,
-            "Bridge": 118.73429870605469,
-            "Custom": 305.8144836425781,
+            "Bottom surface": 698.5104370117188,
+            "Bridge": 118.58306121826172,
+            "Custom": 305.8016357421875,
             "Flush": 15.0,
-            "Inner wall": 6736.13623046875,
-            "Internal solid infill": 13867.5859375,
-            "Outer wall": 4028.2021484375,
+            "Inner wall": 6731.6884765625,
+            "Internal solid infill": 13858.955078125,
+            "Outer wall": 6222.9384765625,
             "Overhang wall": 0.15475450456142426,
-            "Sparse infill": 31185.513671875,
-            "Top surface": 460.9785461425781,
-            "Travel": 989.44921875,
-            "Undefined": 982.0032348632812
+            "Sparse infill": 31181.23828125,
+            "Top surface": 460.8511047363281,
+            "Travel": 1216.8173828125,
+            "Undefined": 1209.3714599609375
           },
           "filament_change_times": 0,
           "filaments": [
@@ -9574,12 +9732,12 @@
               "total_used_g": 1117.0362548828125
             }
           ],
-          "generate_support_material_time": 102,
+          "generate_support_material_time": 88,
           "id": 2,
-          "infill_time": 1032,
+          "infill_time": 750,
           "layer_filament_change": 0,
-          "main_predication": 58043.15625,
-          "make_perimeters_time": 726,
+          "main_predication": 60461.54296875,
+          "make_perimeters_time": 471,
           "obj_cached_cnt": 0,
           "objects": [
             {
@@ -9596,9 +9754,9 @@
               "triangle_count": 7414
             }
           ],
-          "sliced_time": 3517,
-          "sliced_time_with_cache": 1559,
-          "total_predication": 58371.5234375,
+          "sliced_time": 2984,
+          "sliced_time_with_cache": 1612,
+          "total_predication": 60789.8984375,
           "triangle_count": 7414,
           "warning_message": ""
         }

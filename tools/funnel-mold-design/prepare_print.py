@@ -43,16 +43,26 @@ def recipe(info):
             'top_shell_thickness': choice('3.2', 'Solid surface classification through fine layer bands.'),
             'bottom_shell_thickness': choice('3.2', 'Solid surface classification through fine layer bands.'),
             'top_one_wall_type': choice('not apply', 'Full perimeter count at forming edges.'),
-            'outer_wall_speed': choice(['60']*4, 'Finishing and registration surfaces print at 60 mm/s or below the flow cap.'),
+            'outer_wall_speed': choice(['40']*4, 'Outer perimeters are capped at 40 mm/s.'),
+            'overhang_1_4_speed': choice(['30']*4, 'Low-overhang perimeter paths use 30 mm/s.'),
+            'overhang_2_4_speed': choice(['30']*4, 'Quarter-width overhang paths use 30 mm/s.'),
+            'overhang_3_4_speed': choice(['25']*4, 'Half-width overhang paths use 25 mm/s.'),
+            'overhang_4_4_speed': choice(['10']*4, 'Nearly unsupported perimeter paths use 10 mm/s.'),
+            'seam_position': choice('back', 'Conventional seams lie toward the back of each perimeter.'),
+            'seam_placement_away_from_overhangs': choice('1', 'Seam placement accounts for adjacent overhangs.'),
+            'reduce_crossing_wall': choice('1', 'Travel paths detour around perimeter walls and the open forming cavity.'),
             'outer_wall_acceleration': choice(['2000']*4, 'Acceleration of the forming and locating perimeters.'),
             'top_surface_speed': choice(['60']*4, 'Flat forming surfaces print at 60 mm/s or below the flow cap.'),
             'seam_gap': choice('0%', 'Closed seam paths on the forming faces.'),
             'brim_type': choice('no_brim', 'The user specifies permanent bed-contact geometry.'),
             'brim_width': choice('0', 'No slicer brim.'),
             'skirt_loops': choice('0', 'The stock machine sequence primes the nozzle.'),
-            'enable_support': choice('0', 'The solid backing carries the forming faces; the external taper is at least 45 degrees.'),
+            'enable_support': choice('0', 'Continuous backing carries the forming faces; the outer taper is at least 60 degrees.'),
             'enable_prime_tower': choice('0', 'One filament and nozzle per plate.')},
         'filament_settings': {
+            'enable_overhang_bridge_fan': choice(['1'], 'Perimeter cooling uses the explicit wall fan setting.'),
+            'overhang_fan_threshold': choice(['0%'], 'All outer perimeters receive the wall fan setting after the first-layer cooling holdoff.'),
+            'overhang_fan_speed': choice(['90'], 'Outer perimeters use 90% part cooling.'),
             'filament_prime_volume': choice(['45'], 'Saved filament preset prime volume.'),
             'nozzle_temperature': choice(['255', '255'], 'Current translucent PETG high-flow temperature.'),
             'nozzle_temperature_initial_layer': choice(['255', '255'], 'Current translucent PETG high-flow temperature.'),
@@ -70,6 +80,7 @@ def main():
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--z-trim', type=float, choices=(0.04, 0.18), default=0.04)
     parser.add_argument('--label')
+    parser.add_argument('--only', choices=('cavity', 'core'))
     args = parser.parse_args()
     info = json.loads((args.models/'design.json').read_text())
     settings_recipe = recipe(info)
@@ -89,7 +100,9 @@ def main():
     rels = ET.Element(f'{{{REL}}}Relationships')
     assembled = ET.Element('assemble')
     provenance['mesh_sha256'] = {}
-    for index, name in enumerate(('cavity', 'core'), 1):
+    names = (args.only,) if args.only else ('cavity', 'core')
+    provenance['parts'] = list(names)
+    for index, name in enumerate(names, 1):
         mesh_path = args.models/f'{name}.stl'
         mesh = trimesh.load(mesh_path, force='mesh', process=True)
         assert mesh.is_watertight and mesh.is_winding_consistent and mesh.body_count == 1
