@@ -87,6 +87,11 @@ Prepare the alternate input with `--z-trim 0.18`. Slice both inputs in Bambu
 Studio before use. `verify_print.py` reads the saved sliced archives, checks
 their settings and embedded paths, and writes the delivered projects and reading.
 
+After publication, run [review_geometry.py](/tools/funnel-mold-design/review_geometry.py)
+with `--models hardware/printed-parts/zone-c/funnel-mold/solid`. It reads the printed
+meshes with the cavity upright and the core inverted. The adjacent `.lint-answers`
+files explain the finishing-pocket edges, opening notches and key clearance.
+
 ## Sources
 [value](NAME) texts are updated by:
 - `/tools/funnel-mold-design/verify_print.py`
