@@ -22,8 +22,8 @@
     },
     {
       "check": "hardware/scripts/check_payloads.py",
-      "note": "hardware/printed-parts/zone-c/funnel-mold/solid/section.step.mesh — declared by nobody",
-      "status": "red"
+      "note": "payloads: 37 solid(s) cut from the bytes beside them, 11 scene(s) at the finishes this tree states",
+      "status": "ok"
     },
     {
       "check": "hardware/scripts/check_pinmap.py",
@@ -52,7 +52,7 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 1683 tracked, 396 fetched solids, 55 tags, 38 site routes",
+      "note": "paths: every reference lands — 1689 tracked, 396 fetched solids, 55 tags, 38 site routes",
       "status": "ok"
     },
     {
@@ -62,8 +62,8 @@
     },
     {
       "check": "tools/check_web_tests.py",
-      "note": "cd web && npm test",
-      "status": "red"
+      "note": "check_web_tests: web's suite passes",
+      "status": "ok"
     },
     {
       "check": "tools/bazel/check_build_file.py",
@@ -77,41 +77,15 @@
     },
     {
       "check": "tools/bazel/check_declared_imports.py",
-      "note": "check_declared_imports: every step holds what it imports, over 203 source(s) the graph names",
+      "note": "check_declared_imports: every step holds what it imports, over 205 source(s) the graph names",
       "status": "ok"
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 1 of 2 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 396 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 1 of 1 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 396 member(s) keep their provenance",
       "status": "ok"
     }
   ],
-  "detail": {
-    "hardware/scripts/check_payloads.py": [
-      "16 solid(s) the bundle serves a payload for that no rule produces:",
-      "    hardware/printed-parts/zone-c/funnel-mold/solid/assembly.step.mesh — declared by nobody",
-      "    hardware/printed-parts/zone-c/funnel-mold/solid/cavity.step.mesh — declared by nobody",
-      "    hardware/printed-parts/zone-c/funnel-mold/solid/channels/assembly.step.mesh — declared by nobody",
-      "    hardware/printed-parts/zone-c/funnel-mold/solid/channels/backs.step.mesh — declared by nobody",
-      "    hardware/printed-parts/zone-c/funnel-mold/solid/channels/cavity.step.mesh — declared by nobody",
-      "    hardware/printed-parts/zone-c/funnel-mold/solid/channels/channel-section.step.mesh — declared by nobody",
-      "    hardware/printed-parts/zone-c/funnel-mold/solid/channels/core.step.mesh — declared by nobody",
-      "    hardware/printed-parts/zone-c/funnel-mold/solid/channels/funnel.step.mesh — declared by nobody",
-      "    hardware/printed-parts/zone-c/funnel-mold/solid/channels/overview.step.mesh — declared by nobody",
-      "    hardware/printed-parts/zone-c/funnel-mold/solid/channels/rod.step.mesh — declared by nobody",
-      "    hardware/printed-parts/zone-c/funnel-mold/solid/channels/section.step.mesh — declared by nobody",
-      "    hardware/printed-parts/zone-c/funnel-mold/solid/core.step.mesh — declared by nobody",
-      "    hardware/printed-parts/zone-c/funnel-mold/solid/funnel.step.mesh — declared by nobody",
-      "    hardware/printed-parts/zone-c/funnel-mold/solid/overview.step.mesh — declared by nobody",
-      "    hardware/printed-parts/zone-c/funnel-mold/solid/rod.step.mesh — declared by nobody",
-      "    hardware/printed-parts/zone-c/funnel-mold/solid/section.step.mesh — declared by nobody"
-    ],
-    "tools/check_web_tests.py": [
-      "2 test(s) in web/ fail:",
-      "    the funnel offers every model in its mold directory",
-      "    every model in the mold directory offers the funnel back",
-      "  cd web && npm test"
-    ]
-  },
-  "green": false
+  "detail": {},
+  "green": true
 }
