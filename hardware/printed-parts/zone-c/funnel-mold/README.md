@@ -1,5 +1,9 @@
 # Funnel silicone mold
 
+The [solid funnel mold](solid/README.md) has two fully filled bodies, a keyed
+locating rim and straight fill and air passages. Its CAD, section drawing and
+sliced print projects are in [`solid/`](solid/README.md).
+
 Two printed PETG halves cast the Zone C [funnel](../funnel/README.md) around a
 [6.35 mm](ROD_D) × [50.8 mm](ROD_LEN) ground steel dowel. The finished funnel is
 nominally a [6 mm](SIL_WALL) shell; the pour, including the sacrificial tip, is
