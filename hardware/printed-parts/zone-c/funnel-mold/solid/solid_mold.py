@@ -1,6 +1,7 @@
 """Solid PETG funnel tooling, in the funnel's brim-centred assembly frame.
 
-The cavity stands on a rounded foot with a continuous 45-degree outer taper.
+The cavity stands on a rounded foot with a continuous outer taper, at least
+60 degrees above the print bed including the rounded corners.
 The core prints inverted on its flat back. All modeled stock prints at 100%
 fill. Both forming faces reserve 0.20 mm of net finishing growth.
 
@@ -30,9 +31,10 @@ finish_allowance = 0.20
 forming_backing = 6.0
 rim_margin = 8.0
 base_thickness = 8.0
-foot_width = 112.0
+foot_width = 146.0
 foot_radius = 12.0
 foot_height = 3.2
+outer_taper_angle = 60.0
 rim_radius = 10.0
 plate_thickness = 10.0
 register_wall = 6.0
@@ -109,8 +111,9 @@ def build():
     forming_void = expanded(nominal_exterior, finish_allowance)
 
     taper_bottom = floor+foot_height
-    taper_rise = ((body_width-foot_width)/math.sqrt(2)
-                  +(foot_radius-rim_radius)*(math.sqrt(2)-1))
+    taper_run = ((body_width-foot_width)/math.sqrt(2)
+                 +(foot_radius-rim_radius)*(math.sqrt(2)-1))
+    taper_rise = taper_run*math.tan(math.radians(outer_taper_angle))
     taper_top = taper_bottom+taper_rise
     foot = rounded(foot_width, foot_radius, floor, taper_bottom)
     lower_wire = cq.Workplane(obj=foot).faces('>Z').val().outerWire()
@@ -195,6 +198,12 @@ def build():
             'rod_socket_vent_diameter_mm': socket_vent_diameter,
             'register_depth_mm': register_depth, 'finish_allowance_mm': finish_allowance,
             'cavity_stock_minimum_backing_before_rim_notches_mm': minimum_backing,
+            'cavity_outer_taper': {
+                'foot_width_mm': foot_width, 'foot_height_mm': foot_height,
+                'taper_top_z_mm': taper_top-floor,
+                'minimum_angle_from_bed_degrees': outer_taper_angle,
+                'maximum_outward_growth_per_0_40_mm_layer':
+                    0.4/math.tan(math.radians(outer_taper_angle))},
             'ramp_print_z_mm': {'cavity': [neck-floor, m['ramp_top_z']-floor],
                 'core': [top+plate_thickness-m['ramp_top_z'], top+plate_thickness-neck]},
             'nominal_chamber_diameter_mm': chamber_diameter,
