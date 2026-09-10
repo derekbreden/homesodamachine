@@ -23,19 +23,12 @@ constexpr uint16_t kTablePulsesPerRev =
 constexpr float kMinTravelMmPerS = 5.0f;
 constexpr float kDefaultTravelMmPerS = 8.0f;
 constexpr float kMaxTravelMmPerS = 15.0f;
-constexpr float kDefaultOverlapDegrees = 20.0f;
-constexpr float kMinOverlapDegrees = 0.0f;
-constexpr float kMaxOverlapDegrees = 60.0f;
 
 constexpr uint16_t kPedalDebounceMs = 20;
 constexpr uint16_t kMinimumPulseWidthUs = 3;
 
 inline bool validTravelSpeed(float mm_per_s) {
     return mm_per_s >= kMinTravelMmPerS && mm_per_s <= kMaxTravelMmPerS;
-}
-
-inline bool validOverlap(float degrees) {
-    return degrees >= kMinOverlapDegrees && degrees <= kMaxOverlapDegrees;
 }
 
 inline float tableRpm(float travel_mm_per_s) {
@@ -56,37 +49,29 @@ inline uint32_t halfPeriodUs(float travel_mm_per_s) {
     return static_cast<uint32_t>(500000.0f / pulseHz(travel_mm_per_s) + 0.5f);
 }
 
-inline uint32_t lapPulses(float overlap_degrees) {
-    return static_cast<uint32_t>(
-        static_cast<float>(kTablePulsesPerRev) *
-        (360.0f + overlap_degrees) / 360.0f + 0.5f);
+// How far the table has come, for the operator watching the index mark.  The
+// count is a readout and never a limit.
+inline float degreesTurned(uint32_t pulses) {
+    return static_cast<float>(pulses) * 360.0f /
+           static_cast<float>(kTablePulsesPerRev);
 }
-
-enum class Mode : uint8_t {
-    Lap = 0,
-    Jog,
-};
 
 enum class Event : uint8_t {
     None = 0,
     Armed,
     Started,
     Released,
-    LapComplete,
     Stopped,
 };
 
-// Pedal and lap policy is Arduino-free so exact pulse limits and every
-// deadman transition are testable on the build host.  It powers up disarmed:
-// a pedal held during reset cannot move the table until it has been released.
+// Pedal policy is Arduino-free so every deadman transition is testable on the
+// build host.  The pedal is the only thing that starts or stops the table:
+// held is turning, released is stopped, and nothing counts against a limit.
+// It powers up disarmed, so a pedal held down through a reset cannot move the
+// table until it has been released once.
 class MotionPolicy {
 public:
-    MotionPolicy()
-        : mode_(Mode::Lap),
-          armed_(false),
-          running_(false),
-          emitted_pulses_(0),
-          target_pulses_(lapPulses(kDefaultOverlapDegrees)) {}
+    MotionPolicy() : armed_(false), running_(false), emitted_pulses_(0) {}
 
     Event updatePedal(bool pressed) {
         if (!armed_) {
@@ -111,16 +96,8 @@ public:
         return Event::None;
     }
 
-    Event pulseEmitted() {
-        if (!running_) return Event::None;
-
-        ++emitted_pulses_;
-        if (mode_ == Mode::Lap && emitted_pulses_ >= target_pulses_) {
-            running_ = false;
-            armed_ = false;
-            return Event::LapComplete;
-        }
-        return Event::None;
+    void recordPulse() {
+        if (running_) ++emitted_pulses_;
     }
 
     Event stop() {
@@ -129,30 +106,14 @@ public:
         return Event::Stopped;
     }
 
-    bool setMode(Mode mode) {
-        if (running_) return false;
-        mode_ = mode;
-        return true;
-    }
-
-    bool setLapTarget(uint32_t pulses) {
-        if (running_ || pulses == 0) return false;
-        target_pulses_ = pulses;
-        return true;
-    }
-
     bool armed() const { return armed_; }
     bool running() const { return running_; }
-    Mode mode() const { return mode_; }
     uint32_t emittedPulses() const { return emitted_pulses_; }
-    uint32_t targetPulses() const { return target_pulses_; }
 
 private:
-    Mode mode_;
     bool armed_;
     bool running_;
     uint32_t emitted_pulses_;
-    uint32_t target_pulses_;
 };
 
 }  // namespace weld_rotator_policy

@@ -50,14 +50,14 @@ Travel speed is the recipe setting; table rpm follows from `v = ωr` at the
 tube ID. The current 12 mm/s wire-feed setting is shown only to make deposited
 area visible during process iteration:
 
-| Travel | Table rpm | 360° | 380° | Step pulses/s | Calculated triangular fillet leg at [12 mm/s](WIRE_FEED) wire |
-|---:|---:|---:|---:|---:|---:|
-| 5 mm/s | [0.772](RPM_5) | [77.7](REV_5) s | [82.0](LAP_5) s | [185.3](PULSE_5) | [1.48](LEG_5) mm |
-| 6 mm/s | [0.926](RPM_6) | [64.8](REV_6) s | [68.4](LAP_6) s | [222.3](PULSE_6) | [1.35](LEG_6) mm |
-| **8 mm/s** | **[1.235](RPM_8)** | **[48.6](REV_8) s** | **[51.3](LAP_8) s** | **[296.4](PULSE_8)** | **[1.17](LEG_8) mm** |
-| 10 mm/s | [1.544](RPM_10) | [38.9](REV_10) s | [41.0](LAP_10) s | [370.6](PULSE_10) | [1.05](LEG_10) mm |
-| 12 mm/s | [1.853](RPM_12) | [32.4](REV_12) s | [34.2](LAP_12) s | [444.7](PULSE_12) | [0.96](LEG_12) mm |
-| 15 mm/s | [2.316](RPM_15) | [25.9](REV_15) s | [27.3](LAP_15) s | [555.8](PULSE_15) | [0.85](LEG_15) mm |
+| Travel | Table rpm | 360° | Step pulses/s | Calculated triangular fillet leg at [12 mm/s](WIRE_FEED) wire |
+|---:|---:|---:|---:|---:|
+| 5 mm/s | [0.772](RPM_5) | [77.7](REV_5) s | [185.3](PULSE_5) | [1.48](LEG_5) mm |
+| 6 mm/s | [0.926](RPM_6) | [64.8](REV_6) s | [222.3](PULSE_6) | [1.35](LEG_6) mm |
+| **8 mm/s** | **[1.235](RPM_8)** | **[48.6](REV_8) s** | **[296.4](PULSE_8)** | **[1.17](LEG_8) mm** |
+| 10 mm/s | [1.544](RPM_10) | [38.9](REV_10) s | [370.6](PULSE_10) | [1.05](LEG_10) mm |
+| 12 mm/s | [1.853](RPM_12) | [32.4](REV_12) s | [444.7](PULSE_12) | [0.96](LEG_12) mm |
+| 15 mm/s | [2.316](RPM_15) | [25.9](REV_15) s | [555.8](PULSE_15) | [0.85](LEG_15) mm |
 
 The 5–15 mm/s bounds keep the calculated wire-only triangular leg between
 0.85 and 1.48 mm and keep a full revolution between 25.9 and 77.7 seconds.
@@ -66,8 +66,7 @@ process-development window; changing speed outside it requires an explicit
 firmware and procedure review.
 
 Start at **[8 mm/s](SPEED_NOM)**. It is centered inside the useful window, runs
-the table at [1.235 rpm](RPM_NOM), and completes a 360° + [20°](OVERLAP_DEG)
-lap in [51.3 s](LAP_NOM). Keep laser power, wobble, wire feed, standoff and
+the table at [1.235 rpm](RPM_NOM), and turns 360° in [48.6](REV_8) s. Keep laser power, wobble, wire feed, standoff and
 shielding fixed while changing one variable. Use 1 mm/s speed increments after
 the first 316L coupon; record PT, section and hydro results beside the exact
 stored setpoint. This is the commissioning window for iteration, not a
@@ -75,9 +74,9 @@ qualified weld schedule; coupon evidence sets the production value.
 
 At 3,200 pulses per motor revolution and a [4.5:1](RATIO) reduction, the table
 has [14,400](TABLE_PULSES) pulses/revolution. One pulse is
-[0.025°](TABLE_STEP_DEG), or [0.027 mm](TABLE_STEP_MM) at the bead. The default
-380° lap is exactly [15,200](LAP_PULSES) pulses, independent of elapsed-time
-error. The motor turns only [5.558 rpm](MOTOR_RPM_NOM) at the nominal recipe.
+[0.025°](TABLE_STEP_DEG), or [0.027 mm](TABLE_STEP_MM) at the bead — the
+resolution the console's turned-so-far readout is quantised to. The motor turns
+only [5.558 rpm](MOTOR_RPM_NOM) at the nominal recipe.
 
 ## Mechanical fixture
 
@@ -220,26 +219,29 @@ until it has observed the pedal released.
 
 ## Stored controls
 
+**The pedal is the whole of the control.** Held, the table turns at the stored
+speed; released, it stops. Nothing counts a revolution and nothing takes the
+table away from the operator mid-bead — the lap length is a judgement made at
+the index mark, watching the puddle, not a number the controller enforces.
+
+The console reports how far the table has come in degrees, and says so again
+when the pedal is released. That readout is the operator's, and is never a
+limit.
+
 Connect the ESP32 USB serial console at 115200 baud. Commands are accepted only
 while stopped and persist in NVS:
 
 ```text
 status
 speed 8.0
-overlap 20
-mode lap
-mode jog
 direction cw
 direction ccw
 dirinvert on
 defaults
 ```
 
-`lap` is the weld mode: press and hold for the counted 380° move. Release early
-and motion aborts. When the count completes, motion stops even if the pedal is
-still down and cannot restart until the pedal is released. `jog` follows the
-pedal for indicating, belt run-in and positioning. `speed 5` through `speed 15`
-changes the process window without a pulley, gearbox or printed-part change.
+`speed 5` through `speed 15` changes the process window without a pulley,
+gearbox or printed-part change.
 
 During dry commissioning, mark the table and verify `direction cw` from above.
 If it moves counterclockwise, issue `dirinvert on` once. Wire lead/trail
@@ -254,28 +256,27 @@ orientation is set only after this direction convention is true.
    motor pads, pulley and belt per the fixture README. Prove a 25.4 mm service
    envelope at both end-cap port positions through the raised base before
    loading a tube.
-3. With no tube, run ten jog revolutions in each direction. The belt must stay
+3. With no tube, run ten revolutions in each direction. The belt must stay
    between both flanges, the race must not bind, and the spool flange must
    remain unloaded.
 4. Install the tube and indicate it to the radial/face limits above.
-5. Install the copper contact. Meter two complete jog revolutions without one
+5. Install the copper contact. Meter two complete revolutions without one
    continuity dropout.
 6. Time one dry revolution at 5, 8 and 15 mm/s: targets are 77.7, 48.6 and
    25.9 s. Each must be within ±1%; a stall, skipped tooth or audible step loss
    fails the drive.
-7. Hold the pedal at boot; the table must remain still. Release, press to jog,
-   then unplug one pedal lead; the table must stop.
-8. In lap mode with a paper index mark, hold the pedal through completion. The
-   final mark must be 20° past its start and motion must not repeat until a
-   release.
+7. Hold the pedal at boot; the table must remain still. Release, press to
+   turn, then unplug one pedal lead; the table must stop.
+8. With a paper index mark, hold the pedal through more than one full
+   revolution. The table must not stop, pause or change speed as the mark comes
+   round, and the console's degrees must agree with the mark within one pass.
 9. Run a complete disabled-laser rehearsal with head, wire guide, purge hose,
    work lead and operator position present. Nothing may enter the belt or wrap
    around the tube.
 
 ## Per-weld sequence
 
-1. Clamp the base to the bench. Confirm laser disabled, pedal released and
-   controller in `mode jog`.
+1. Clamp the base to the bench. Confirm laser disabled and pedal released.
 2. Seat the tube's opposite end in the nest. Bring all three tube adjusters to
    light contact and indicate the working end to ≤0.25 mm radial TIR.
 3. Seat and tack the end plate per `pressure-vessel.md`; verify ≤0.30 mm face
@@ -284,17 +285,19 @@ orientation is set only after this direction convention is true.
    raised Ø90 mm passage and leave the other lower port open as the outlet.
 4. Clean and engage the copper shoe. Prove uninterrupted continuity for one dry
    revolution.
-5. Set `mode lap`, selected speed and overlap while stopped. Return the index
-   to the first tack. Establish shielding and place the wire on the arriving
-   side of the puddle for the verified direction.
+5. Set the selected speed while stopped. Return the index to the first tack.
+   Establish shielding and place the wire on the arriving side of the puddle
+   for the verified direction.
 6. Hold the head at the qualified angle and standoff, then press and hold the
-   pedal. Once rotation is steady, hold the laser trigger for the bead. The
-   fixture stops after [15,200](LAP_PULSES) pulses.
-7. At the stop, keep the trigger held and lift the head straight away so the
-   X1 Pro retract/patch cycle breaks the wire in air. Then release trigger and
+   pedal. Once rotation is steady, hold the laser trigger for the bead. Carry
+   the bead past the first tack by about [20°](OVERLAP_DEG) — judged at the
+   index mark, with the console's degrees as a check — and stop there.
+7. Keep the trigger held and lift the head straight away so the X1 Pro
+   retract/patch cycle breaks the wire in air. Then release trigger and
    pedal.
 8. Continue with PT and hydrostatic inspection in `pressure-vessel.md`. Record
-   speed, direction, overlap and runout with the result.
+   speed, direction, the degrees the console reported at release, and runout
+   with the result.
 
 This sequence does not relax laser guarding, eye protection, extraction,
 argon-asphyxiation controls or pressure-vessel inspection. Rotation is an

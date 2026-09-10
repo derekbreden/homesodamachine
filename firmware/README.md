@@ -17,7 +17,7 @@ Two of them run on the main board, and only one of the two ships inside a machin
 Shared libraries sit under `lib/`, compiled into whichever trees include them:
 [`lib/proto_link`](lib/proto_link/proto_msg.h) is the inter-board wire contract;
 [`lib/machine_policy`](lib/machine_policy/machine_policy.h) is the Arduino-free actuator-plan,
-safety-transition and pump-timing policy; [`lib/flavor_selection`](lib/flavor_selection/flavor_selection.h) is main board authority and persistence policy; [`lib/weld_rotator_policy`](lib/weld_rotator_policy/weld_rotator_policy.h) holds the rotator's physical ratio, exact lap count, and deadman transitions; and [`lib/sound`](lib/sound/sound.h) is U8 — the drive on IO13, the machine's sound vocabulary,
+safety-transition and pump-timing policy; [`lib/flavor_selection`](lib/flavor_selection/flavor_selection.h) is main board authority and persistence policy; [`lib/weld_rotator_policy`](lib/weld_rotator_policy/weld_rotator_policy.h) holds the rotator's physical ratio and every deadman transition; and [`lib/sound`](lib/sound/sound.h) is U8 — the drive on IO13, the machine's sound vocabulary,
 and the volume/quiet-hours settings behind it. The appliance and the bench share that one
 table on purpose: a board on the line makes exactly the sounds a customer's machine makes.
 Neither display carries a sounder, so every sound the machine makes is made on the main board.
