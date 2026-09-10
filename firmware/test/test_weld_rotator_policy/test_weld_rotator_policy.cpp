@@ -6,10 +6,11 @@ using namespace weld_rotator_policy;
 
 namespace {
 
-void test_physical_ratio_and_default_lap_are_exact() {
+void test_physical_ratio_is_exact() {
     TEST_ASSERT_EQUAL_UINT16(3200, kMotorPulsesPerRev);
     TEST_ASSERT_EQUAL_UINT16(14400, kTablePulsesPerRev);
-    TEST_ASSERT_EQUAL_UINT32(15200, lapPulses(kDefaultOverlapDegrees));
+    TEST_ASSERT_FLOAT_WITHIN(0.001f, 360.0f, degreesTurned(kTablePulsesPerRev));
+    TEST_ASSERT_FLOAT_WITHIN(0.001f, 0.025f, degreesTurned(1));
 }
 
 void test_speed_window_maps_to_expected_rotary_motion() {
@@ -21,16 +22,11 @@ void test_speed_window_maps_to_expected_rotary_motion() {
     TEST_ASSERT_FLOAT_WITHIN(0.1f, 555.8f, pulseHz(15.0f));
 }
 
-void test_speed_and_overlap_bounds_are_closed_intervals() {
+void test_speed_bounds_are_a_closed_interval() {
     TEST_ASSERT_TRUE(validTravelSpeed(5.0f));
     TEST_ASSERT_TRUE(validTravelSpeed(15.0f));
     TEST_ASSERT_FALSE(validTravelSpeed(4.999f));
     TEST_ASSERT_FALSE(validTravelSpeed(15.001f));
-
-    TEST_ASSERT_TRUE(validOverlap(0.0f));
-    TEST_ASSERT_TRUE(validOverlap(60.0f));
-    TEST_ASSERT_FALSE(validOverlap(-0.001f));
-    TEST_ASSERT_FALSE(validOverlap(60.001f));
 }
 
 void test_boot_with_pedal_down_cannot_start_motion() {
@@ -44,74 +40,66 @@ void test_boot_with_pedal_down_cannot_start_motion() {
     TEST_ASSERT_TRUE(policy.running());
 }
 
-void test_pedal_release_aborts_a_partial_lap() {
+// The property Derek asked for: no count, no limit, no stop the operator did
+// not command.  Ten revolutions is well past any lap the fixture ever ran.
+void test_the_table_never_stops_itself() {
     MotionPolicy policy;
     policy.updatePedal(false);
     policy.updatePedal(true);
-    for (uint32_t i = 0; i < 100; ++i) {
-        TEST_ASSERT_EQUAL(Event::None, policy.pulseEmitted());
+    for (uint32_t i = 0; i < kTablePulsesPerRev * 10u; ++i) {
+        policy.recordPulse();
+        TEST_ASSERT_TRUE(policy.running());
     }
+    TEST_ASSERT_TRUE(policy.running());
+    TEST_ASSERT_TRUE(policy.armed());
+    TEST_ASSERT_EQUAL_UINT32(kTablePulsesPerRev * 10u, policy.emittedPulses());
+    TEST_ASSERT_FLOAT_WITHIN(0.01f, 3600.0f,
+                             degreesTurned(policy.emittedPulses()));
+}
+
+void test_release_stops_and_the_next_press_starts_again_immediately() {
+    MotionPolicy policy;
+    policy.updatePedal(false);
+    policy.updatePedal(true);
+    for (uint32_t i = 0; i < 100; ++i) policy.recordPulse();
+
     TEST_ASSERT_EQUAL(Event::Released, policy.updatePedal(false));
     TEST_ASSERT_FALSE(policy.running());
     TEST_ASSERT_EQUAL_UINT32(100, policy.emittedPulses());
-}
 
-void test_lap_stops_on_exact_target_and_requires_release_to_rearm() {
-    MotionPolicy policy;
-    policy.updatePedal(false);
-    policy.updatePedal(true);
-    const uint32_t target = policy.targetPulses();
-
-    for (uint32_t i = 1; i < target; ++i) {
-        TEST_ASSERT_EQUAL(Event::None, policy.pulseEmitted());
-        TEST_ASSERT_TRUE(policy.running());
-    }
-    TEST_ASSERT_EQUAL(Event::LapComplete, policy.pulseEmitted());
-    TEST_ASSERT_FALSE(policy.running());
-    TEST_ASSERT_FALSE(policy.armed());
-    TEST_ASSERT_EQUAL_UINT32(target, policy.emittedPulses());
-
-    TEST_ASSERT_EQUAL(Event::None, policy.updatePedal(true));
-    TEST_ASSERT_FALSE(policy.running());
-    TEST_ASSERT_EQUAL(Event::Armed, policy.updatePedal(false));
+    // Releasing never disarms, so the pedal is live again with no ceremony.
+    TEST_ASSERT_TRUE(policy.armed());
     TEST_ASSERT_EQUAL(Event::Started, policy.updatePedal(true));
-}
-
-void test_jog_runs_until_the_pedal_is_released() {
-    MotionPolicy policy;
-    TEST_ASSERT_TRUE(policy.setMode(Mode::Jog));
-    policy.updatePedal(false);
-    policy.updatePedal(true);
-    for (uint32_t i = 0; i < kTablePulsesPerRev * 2u; ++i) {
-        TEST_ASSERT_EQUAL(Event::None, policy.pulseEmitted());
-    }
     TEST_ASSERT_TRUE(policy.running());
-    TEST_ASSERT_EQUAL(Event::Released, policy.updatePedal(false));
-    TEST_ASSERT_FALSE(policy.running());
+    TEST_ASSERT_EQUAL_UINT32(0, policy.emittedPulses());
 }
 
-void test_running_configuration_cannot_change_under_the_part() {
+void test_pulses_are_only_counted_while_running() {
     MotionPolicy policy;
+    policy.recordPulse();
+    TEST_ASSERT_EQUAL_UINT32(0, policy.emittedPulses());
+
     policy.updatePedal(false);
     policy.updatePedal(true);
-    TEST_ASSERT_FALSE(policy.setMode(Mode::Jog));
-    TEST_ASSERT_FALSE(policy.setLapTarget(16000));
+    policy.recordPulse();
+    TEST_ASSERT_EQUAL_UINT32(1, policy.emittedPulses());
+
     TEST_ASSERT_EQUAL(Event::Stopped, policy.stop());
-    TEST_ASSERT_TRUE(policy.setMode(Mode::Jog));
-    TEST_ASSERT_TRUE(policy.setLapTarget(16000));
+    policy.recordPulse();
+    TEST_ASSERT_EQUAL_UINT32(1, policy.emittedPulses());
+    TEST_ASSERT_EQUAL(Event::None, policy.stop());
 }
 
 }  // namespace
 
 int main(int, char **) {
     UNITY_BEGIN();
-    RUN_TEST(test_physical_ratio_and_default_lap_are_exact);
+    RUN_TEST(test_physical_ratio_is_exact);
     RUN_TEST(test_speed_window_maps_to_expected_rotary_motion);
-    RUN_TEST(test_speed_and_overlap_bounds_are_closed_intervals);
+    RUN_TEST(test_speed_bounds_are_a_closed_interval);
     RUN_TEST(test_boot_with_pedal_down_cannot_start_motion);
-    RUN_TEST(test_pedal_release_aborts_a_partial_lap);
-    RUN_TEST(test_lap_stops_on_exact_target_and_requires_release_to_rearm);
-    RUN_TEST(test_jog_runs_until_the_pedal_is_released);
-    RUN_TEST(test_running_configuration_cannot_change_under_the_part);
+    RUN_TEST(test_the_table_never_stops_itself);
+    RUN_TEST(test_release_stops_and_the_next_press_starts_again_immediately);
+    RUN_TEST(test_pulses_are_only_counted_while_running);
     return UNITY_END();
 }

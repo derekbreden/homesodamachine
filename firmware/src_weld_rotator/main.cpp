@@ -1,8 +1,9 @@
 // Bench controller for the cap-weld tube rotator.
 //
-// The foot pedal is a low-voltage dry contact and is always a deadman: opening
-// it stops issuing step pulses.  Lap mode also stops after the configured
-// overlap, then requires a pedal release before another run can begin.
+// The foot pedal is a low-voltage dry contact and is always a deadman, and it
+// is the whole of the control: held is turning, released is stopped.  Nothing
+// counts a revolution and nothing stops the table out from under the operator,
+// who is watching the bead and judges the overlap on the index mark.
 
 #include <Arduino.h>
 #include <Preferences.h>
@@ -10,7 +11,6 @@
 #include "weld_rotator_policy.h"
 
 using weld_rotator_policy::Event;
-using weld_rotator_policy::Mode;
 using weld_rotator_policy::MotionPolicy;
 
 namespace {
@@ -27,7 +27,6 @@ MotionPolicy motion;
 Preferences preferences;
 
 float travel_mm_per_s = weld_rotator_policy::kDefaultTravelMmPerS;
-float overlap_degrees = weld_rotator_policy::kDefaultOverlapDegrees;
 bool clockwise = true;
 bool direction_inverted = false;
 
@@ -45,10 +44,6 @@ bool pedalPressed() {
     return digitalRead(kPinPedal) == LOW;
 }
 
-const char *modeName() {
-    return motion.mode() == Mode::Lap ? "lap" : "jog";
-}
-
 const char *directionName() {
     return clockwise ? "cw" : "ccw";
 }
@@ -61,63 +56,47 @@ void setDirectionOutput() {
 
 void saveSettings() {
     preferences.putFloat("speed", travel_mm_per_s);
-    preferences.putFloat("overlap", overlap_degrees);
     preferences.putBool("clockwise", clockwise);
     preferences.putBool("dirinvert", direction_inverted);
-    preferences.putUChar("mode", motion.mode() == Mode::Lap ? 0 : 1);
 }
 
 void loadSettings() {
     const float saved_speed = preferences.getFloat(
         "speed", weld_rotator_policy::kDefaultTravelMmPerS);
-    const float saved_overlap = preferences.getFloat(
-        "overlap", weld_rotator_policy::kDefaultOverlapDegrees);
     travel_mm_per_s = weld_rotator_policy::validTravelSpeed(saved_speed)
                           ? saved_speed
                           : weld_rotator_policy::kDefaultTravelMmPerS;
-    overlap_degrees = weld_rotator_policy::validOverlap(saved_overlap)
-                          ? saved_overlap
-                          : weld_rotator_policy::kDefaultOverlapDegrees;
     clockwise = preferences.getBool("clockwise", true);
     direction_inverted = preferences.getBool("dirinvert", false);
-    motion.setMode(preferences.getUChar("mode", 0) == 1 ? Mode::Jog : Mode::Lap);
-    motion.setLapTarget(weld_rotator_policy::lapPulses(overlap_degrees));
 }
 
 void printStatus() {
     const float rpm = weld_rotator_policy::tableRpm(travel_mm_per_s);
     const float hz = weld_rotator_policy::pulseHz(travel_mm_per_s);
-    const float lap_seconds =
-        weld_rotator_policy::kBeadCircumferenceMm *
-        (360.0f + overlap_degrees) / 360.0f / travel_mm_per_s;
+    const float revolution_seconds =
+        weld_rotator_policy::kBeadCircumferenceMm / travel_mm_per_s;
 
     Serial.println("\n-- weld rotator --");
     Serial.printf("  state      %s%s\n",
                   motion.running() ? "RUNNING" : (motion.armed() ? "ready" : "release pedal"),
                   step_line_active ? " (pulse active)" : "");
     Serial.printf("  pedal      %s\n", stable_pedal_pressed ? "pressed" : "released");
-    Serial.printf("  mode       %s\n", modeName());
     Serial.printf("  direction  %s%s\n", directionName(),
                   direction_inverted ? " (calibration inverted)" : "");
     Serial.printf("  speed      %.2f mm/s  %.3f table rpm  %.1f pulses/s\n",
                   travel_mm_per_s, rpm, hz);
-    Serial.printf("  lap        360 + %.1f deg  %lu pulses  %.1f s\n",
-                  overlap_degrees,
-                  static_cast<unsigned long>(motion.targetPulses()),
-                  lap_seconds);
-    Serial.printf("  progress   %lu pulses\n",
-                  static_cast<unsigned long>(motion.emittedPulses()));
+    Serial.printf("  revolution %.1f s for 360 deg\n", revolution_seconds);
+    Serial.printf("  turned     %.1f deg\n",
+                  weld_rotator_policy::degreesTurned(motion.emittedPulses()));
 }
 
 void printHelp() {
     Serial.println("commands:");
     Serial.println("  status                 current settings and motion state");
     Serial.println("  speed <5.0..15.0>      bead travel in mm/s; saved in flash");
-    Serial.println("  overlap <0..60>        degrees after one revolution; saved");
-    Serial.println("  mode lap | jog         counted lap or pedal-held positioning");
     Serial.println("  direction cw | ccw     table direction viewed from above");
     Serial.println("  dirinvert on | off     one-time dry-run direction calibration");
-    Serial.println("  defaults               restore 8 mm/s, 20 deg, lap, cw");
+    Serial.println("  defaults               restore 8 mm/s, cw");
     Serial.println("  help");
 }
 
@@ -131,20 +110,18 @@ void reportMotionEvent(Event event) {
             setDirectionOutput();
             // One half period of DIR setup before the first rising edge.
             next_edge_us = micros() + half_period_us;
-            Serial.printf("RUN %s %.2f mm/s %s\n",
-                          modeName(), travel_mm_per_s, directionName());
+            Serial.printf("RUN %.2f mm/s %s\n",
+                          travel_mm_per_s, directionName());
             break;
         case Event::Released:
-            Serial.printf("STOP pedal released at %lu pulses\n",
-                          static_cast<unsigned long>(motion.emittedPulses()));
-            break;
-        case Event::LapComplete:
-            Serial.printf("COMPLETE %lu pulses — release pedal to rearm\n",
-                          static_cast<unsigned long>(motion.emittedPulses()));
+            Serial.printf("STOP pedal released at %.1f deg\n",
+                          weld_rotator_policy::degreesTurned(
+                              motion.emittedPulses()));
             break;
         case Event::Stopped:
-            Serial.printf("STOP command at %lu pulses\n",
-                          static_cast<unsigned long>(motion.emittedPulses()));
+            Serial.printf("STOP command at %.1f deg\n",
+                          weld_rotator_policy::degreesTurned(
+                              motion.emittedPulses()));
             break;
         case Event::None:
             break;
@@ -194,7 +171,7 @@ void serviceStepper() {
     digitalWrite(kPinStep, HIGH);
     step_line_active = true;
     next_edge_us = nextEdgeAfter(now_us);
-    reportMotionEvent(motion.pulseEmitted());
+    motion.recordPulse();
 }
 
 bool parseFloatAfter(const String &line, size_t offset, float &value) {
@@ -225,11 +202,8 @@ void processCommand(String line) {
             return;
         }
         travel_mm_per_s = weld_rotator_policy::kDefaultTravelMmPerS;
-        overlap_degrees = weld_rotator_policy::kDefaultOverlapDegrees;
         clockwise = true;
         direction_inverted = false;
-        motion.setMode(Mode::Lap);
-        motion.setLapTarget(weld_rotator_policy::lapPulses(overlap_degrees));
         setDirectionOutput();
         saveSettings();
         printStatus();
@@ -245,32 +219,6 @@ void processCommand(String line) {
             Serial.println("speed must be 5.0 through 15.0 mm/s");
         } else {
             travel_mm_per_s = candidate;
-            saveSettings();
-            printStatus();
-        }
-        return;
-    }
-
-    if (line.startsWith("overlap ")) {
-        float candidate = 0.0f;
-        if (motion.running()) {
-            Serial.println("refused while running");
-        } else if (!parseFloatAfter(line, 8, candidate) ||
-                   !weld_rotator_policy::validOverlap(candidate)) {
-            Serial.println("overlap must be 0 through 60 degrees");
-        } else {
-            overlap_degrees = candidate;
-            motion.setLapTarget(weld_rotator_policy::lapPulses(overlap_degrees));
-            saveSettings();
-            printStatus();
-        }
-        return;
-    }
-
-    if (line == "mode lap" || line == "mode jog") {
-        if (!motion.setMode(line == "mode lap" ? Mode::Lap : Mode::Jog)) {
-            Serial.println("refused while running");
-        } else {
             saveSettings();
             printStatus();
         }
