@@ -321,11 +321,16 @@ void serviceSerial() {
 }  // namespace
 
 void setup() {
-    // Write safe levels before turning either ULN2803A input into an output.
-    digitalWrite(kPinStep, LOW);
-    digitalWrite(kPinDirection, LOW);
+    // Both ULN2803A inputs idle low, which leaves their open-collector outputs
+    // off and the DM542T optocouplers dark.  The pad output register holds 0
+    // out of reset, so each pin is already at that level the instant pinMode
+    // makes it an output; the write that follows states the level rather than
+    // establishing it.  A digitalWrite ahead of pinMode is refused by the core
+    // and would leave the level unstated.
     pinMode(kPinStep, OUTPUT);
+    digitalWrite(kPinStep, LOW);
     pinMode(kPinDirection, OUTPUT);
+    digitalWrite(kPinDirection, LOW);
     pinMode(kPinPedal, INPUT_PULLUP);
 
     Serial.begin(115200);
