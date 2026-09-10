@@ -29,11 +29,21 @@ name: derive
 # lands on whoever is still around, not on the agent that caused it, and that is what makes a
 # found problem cost twice: once to find, once to hand back.
 #
-# WHAT IT IS STILL FOR. The derive is the only thing that computes the ledger, the docs, the
+# WHAT IT IS FOR. The derive is the only thing that computes the ledger, the docs, the
 # deck and the solids bundle off the machine that cut the geometry, and this box is 8 GB — a
-# full build sits in 3.4-4.2 GB of swap. That is worth having when you WANT it, which is what
-# `workflow_dispatch` is: run it before a deploy, or when the derived artifacts are the thing
-# you actually need. Restoring the old behaviour is the four lines below this comment.
+# full build sits in 3.4-4.2 GB of swap. `workflow_dispatch` is that on demand: run it before
+# a deploy, or when the derived artifacts are the thing you actually need. Restoring the
+# on-push behaviour is four lines here, and the paragraph above is why it is not.
+#
+# AND ON A CLOCK, BECAUSE ON DEMAND IS STILL SOMEBODY'S JOB TO REMEMBER. A reconciliation
+# that waits for a person to ask for it is owed for exactly as long as nobody thinks of it,
+# and the tree carries the drift in the meantime. The schedule is neither of the two things
+# that failed: not the inner loop, and not anyone's memory. Nobody is in the tree at 03:00,
+# so a run that takes an hour costs no one anything.
+#   THE SWEEP IS THE SUNDAY ONE. Re-tracing every generator is the expensive half and the
+# graph only moves when a generator's imports do, so the nightly reconciles the artifacts and
+# the week's run also re-traces. A `schedule` event carries no `inputs`, so the trace step
+# reads the cron that woke it (`Re-trace every generator`).
 on:
   workflow_dispatch:
     inputs:
@@ -43,6 +53,11 @@ on:
         default: none
         type: choice
         options: [none, all]
+  schedule:
+    # 03:00 America/Chicago — the artifacts, nightly.
+    - cron: "0 8 * * *"
+    # 04:00 Sunday — and the build graph with them.
+    - cron: "0 9 * * 0"
 
 concurrency:
   # ONE RUNNING, ONE WAITING, AND EVERYTHING ELSE DISCARDED. `cancel-in-progress: false` buys
@@ -273,7 +288,7 @@ jobs:
       # not a looser rule — a graph that keeps outputs nothing writes is the failure this step
       # exists to avoid.
       - name: Re-trace every generator
-        if: inputs.trace == 'all'
+        if: inputs.trace == 'all' || github.event.schedule == '0 9 * * 0'
         timeout-minutes: 180
         run: |
           cp tools/bazel/graph.json "$RUNNER_TEMP/graph-before.json"
