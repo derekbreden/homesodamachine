@@ -52,12 +52,12 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 1658 tracked, 348 fetched solids, 55 tags, 38 site routes",
+      "note": "paths: every reference lands — 1658 tracked, 359 fetched solids, 55 tags, 38 site routes",
       "status": "ok"
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 490 of 1000 free, the next cut wants 3, and the whole lock reads by name in 143.5 MB against 145.6 MB of bundle",
+      "note": "check_release_room: 368 of 1000 free, the next cut wants 3, and the whole lock reads by name in 158.0 MB against 160.0 MB of bundle",
       "status": "ok"
     },
     {
@@ -67,8 +67,8 @@
     },
     {
       "check": "tools/bazel/check_build_file.py",
-      "note": "tools/cad-venv/bin/python tools/bazel/gen_build.py",
-      "status": "red"
+      "note": "check_build_file: BUILD.bazel is what the graph writes; 3MFs are build-inert",
+      "status": "ok"
     },
     {
       "check": "tools/bazel/check_ci_targets.py",
@@ -82,40 +82,15 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 1 of 55 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 359 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 1 of 53 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 359 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds 9c055aa3aa70bf08b959c3984b16241f for the 127 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at d7d92cf883d81f89388aead05e5359a7 here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was taken from a different tree — it holds 15d62174a7a7c4e8b4cac20ca7d2d31c for the 127 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at d7d92cf883d81f89388aead05e5359a7 here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
-    ],
-    "tools/bazel/check_build_file.py": [
-      "BUILD.bazel is not what the graph would write now:",
-      "  --- BUILD.bazel",
-      "  +++ what gen_build.py writes now",
-      "  @@ -2375,6 +2375,7 @@",
-      "           \"out/tools-build/hardware/assembly/cards/tools/out/bs-band-saw.png\",",
-      "           \"out/tools-build/hardware/assembly/cards/tools/out/bz-braze-bench.png\",",
-      "           \"out/tools-build/hardware/assembly/cards/tools/out/cr-crimp-bench.png\",",
-      "  +        \"out/tools-build/hardware/assembly/cards/tools/out/deck-tools.pdf\",",
-      "           \"out/tools-build/hardware/assembly/cards/tools/out/dp-drill-press.png\",",
-      "           \"out/tools-build/hardware/assembly/cards/tools/out/el-electrical-test.png\",",
-      "           \"out/tools-build/hardware/assembly/cards/tools/out/hy-hydro-test.png\",",
-      "  @@ -2392,16 +2393,17 @@",
-      "   O0=$$PWD/$(location out/tools-build/hardware/assembly/cards/tools/out/bs-band-saw.png)",
-      "   O1=$$PWD/$(location out/tools-build/hardware/assembly/cards/tools/out/bz-braze-bench.png)",
-      "   O2=$$PWD/$(location out/tools-build/hardware/assembly/cards/tools/out/cr-crimp-bench.png)",
-      "  -O3=$$PWD/$(location out/tools-build/hardware/assembly/cards/tools/out/dp-drill-press.png)",
-      "  -O4=$$PWD/$(location out/tools-build/hardware/assembly/cards/tools/out/el-electrical-test.png)",
-      "  -O5=$$PWD/$(location out/tools-build/hardware/assembly/cards/tools/out/hy-hydro-test.png)",
-      "  -O6=$$PWD/$(location out/tools-build/hardware/assembly/cards/tools/out/lw-laser-welder.png)",
-      "  -O7=$$PWD/$(location out/tools-build/hardware/assembly/cards/tools/out/pc-pour-cure.png)",
-      "  -O8=$$PWD/$(location out/tools-build/hardware/assembly/cards/tools/out/pl-tube-fittings.png)",
-      "  … 50 more line(s)",
-      "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
     ],
     "tools/check_web_tests.py": [
       "1 test(s) in web/ fail:",
