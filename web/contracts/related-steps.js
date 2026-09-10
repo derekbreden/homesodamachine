@@ -43,6 +43,14 @@ const dirOf = (file) => file.slice(0, file.lastIndexOf("/"));
 const leafOf = (dir) => dir.slice(dir.lastIndexOf("/") + 1);
 const parentOf = (dir) => (dir.includes("/") ? dir.slice(0, dir.lastIndexOf("/")) : "");
 
+// Variants and section drawings below a mold belong to the same tooling family.
+const relationDir = (dir) => {
+  for (let ancestor = dir; ancestor; ancestor = parentOf(ancestor)) {
+    if (/[-_]mold(?:$|[-_])/.test(leafOf(ancestor))) return ancestor;
+  }
+  return dir;
+};
+
 // One leaf extending the other at a separator, which is what keeps `foam-cap`
 // and `foam-assembly` apart while joining `funnel` to `funnel-mold`.
 const extendsAt = (longer, shorter) =>
@@ -117,8 +125,9 @@ export function relatedStepsForComponent(name, allFiles) {
 export function relatedSteps(file, allFiles, exclude = []) {
   if (!file || !Array.isArray(allFiles) || isGenerated(file)) return [];
   const here = dirOf(file);
-  const leaf = leafOf(here);
-  const parent = parentOf(here);
+  const family = relationDir(here);
+  const leaf = leafOf(family);
+  const parent = parentOf(family);
   const skip = new Set([file, ...exclude]);
 
   const out = [];
@@ -126,8 +135,9 @@ export function relatedSteps(file, allFiles, exclude = []) {
     if (skip.has(other) || isGenerated(other) || !/\.step$/i.test(other)) continue;
     const dir = dirOf(other);
     if (dir === here) { out.push({ file: other, kind: "beside" }); continue; }
-    if (parentOf(dir) !== parent) continue;
-    const otherLeaf = leafOf(dir);
+    const otherFamily = relationDir(dir);
+    if (parentOf(otherFamily) !== parent) continue;
+    const otherLeaf = leafOf(otherFamily);
     if (extendsAt(otherLeaf, leaf)) out.push({ file: other, kind: "from" });
     else if (extendsAt(leaf, otherLeaf)) out.push({ file: other, kind: "of" });
   }

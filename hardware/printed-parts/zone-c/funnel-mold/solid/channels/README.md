@@ -47,6 +47,9 @@ left 0.8 mm High Flow nozzle, translucent PETG at 255 °C, 18 mm³/s flow cap,
 The slices contain no support, brim or skirt paths. Each body still needs more
 than one 1 kg spool. Detailed geometry measurements are in [design.json](design.json);
 the slice settings and G-code audit are in [print-profile.json](print-profile.json).
+The [layer review](layer-review.json) checks sections at the delivered G-code's
+layer heights: 304 cavity layers and 240 core layers, with no floating model
+sections above 0.01 mm². Each body's first layer has three contact regions.
 
 ## Vacuum and release
 
@@ -61,6 +64,9 @@ The forming faces still require the solid mold's sealing finish. Follow its
 
 ## Regenerate
 
+The channel construction is in [cut_channels.py](cut_channels.py), over the
+solid mold's [generator](../solid_mold.py).
+
 Run [cut_channels.py](/tools/funnel-mold-design/cut_channels.py) with the project's
 CadQuery Python and `--output hardware/printed-parts/zone-c/funnel-mold/solid/channels`.
 It builds the solid mold and subtracts the channels, then exports the CAD and
@@ -72,6 +78,8 @@ the slice directory and `--project-stem channel-mold`.
 
 After publishing, [review_geometry.py](/tools/funnel-mold-design/review_geometry.py)
 reads this models directory in each body's print orientation.
+[review_layers.py](/tools/funnel-mold-design/review_layers.py) takes the same models
+directory and `--project channel-mold.3mf` to check model-section connectivity.
 
 ## References
 
