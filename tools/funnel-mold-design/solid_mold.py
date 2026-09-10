@@ -201,12 +201,9 @@ def build():
     return parts, info
 
 
-def main():
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--output', type=Path, required=True)
-    args = parser.parse_args()
-    args.output.mkdir(parents=True, exist_ok=True)
-    parts, info = build()
+def write_parts(parts, info, output):
+    """Export one tooling design and views of those same bodies."""
+    output.mkdir(parents=True, exist_ok=True)
     colors = {'cavity': cq.Color('#3D9998'), 'core': cq.Color('#D8A751'),
               'funnel': cq.Color('#555C68'), 'rod': cq.Color('#AAB9C8')}
     assembly = cq.Assembly()
@@ -214,35 +211,43 @@ def main():
     for name, shape in parts.items():
         assembly.add(shape, name=name, color=colors[name])
         single = one_body(cq.Workplane(obj=shape), name, colors[name])
-        export_assembly(single, str(args.output/f'{name}.step'))
+        export_assembly(single, str(output/f'{name}.step'))
         if name in ('cavity', 'core'):
-            path = args.output/f'{name}.stl'
+            path = output/f'{name}.stl'
             cq.exporters.export(shape, str(path), tolerance=0.02, angularTolerance=0.08)
             mesh = trimesh.load(path, force='mesh', process=True)
             mesh.update_faces(mesh.nondegenerate_faces())
             mesh.remove_unreferenced_vertices()
             assert mesh.is_watertight and mesh.is_winding_consistent and mesh.body_count == 1
             mesh.export(path)
-            write_print_payload(args.output/f'{name}.step', path)
+            write_print_payload(output/f'{name}.step', path)
             radii.append(float(np.linalg.norm(mesh.vertices[:, :2], axis=1).max()))
-    export_assembly(assembly, str(args.output/'assembly.step'))
+    export_assembly(assembly, str(output/'assembly.step'))
     overview = cq.Assembly()
     spacing = (parts['cavity'].BoundingBox().xlen+parts['core'].BoundingBox().xlen)/4+22
     overview.add(parts['cavity'].translate((-spacing, 0, 0)), name='cavity', color=colors['cavity'])
     core = parts['core'].rotate((0, 0, 0), (1, 0, 0), 180)
     core = core.translate((spacing, 0, -core.BoundingBox().zmin))
     overview.add(core, name='core', color=colors['core'])
-    export_assembly(overview, str(args.output/'overview.step'))
+    export_assembly(overview, str(output/'overview.step'))
     section = cq.Assembly()
     section_slab = box(240, 2, -1, 120)
     for name, shape in parts.items():
         section.add(shape.intersect(section_slab), name=name, color=colors[name])
-    export_assembly(section, str(args.output/'section.step'))
+    export_assembly(section, str(output/'section.step'))
     info['enclosing_diameter_mm'] = 2*max(radii)
     info['chamber_radial_clearance_mm'] = chamber_diameter/2-max(radii)
     assert info['chamber_radial_clearance_mm'] > 10
-    (args.output/'design.json').write_text(json.dumps(info, indent=2)+'\n')
+    (output/'design.json').write_text(json.dumps(info, indent=2)+'\n')
     print(json.dumps(info, indent=2), flush=True)
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--output', type=Path, required=True)
+    args = parser.parse_args()
+    parts, info = build()
+    write_parts(parts, info, args.output)
 
 
 if __name__ == '__main__':
