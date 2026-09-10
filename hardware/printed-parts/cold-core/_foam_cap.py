@@ -152,7 +152,7 @@ def build_foam_cap(open_down=False):
     on all of them at once.
 
     A CONDUIT column runs the full height to the mouth rim, where the lid's plate lands on
-    it, and carries a ⌀[6.5 mm](FCAP_BORE_D) bore through itself and the floor under it. Only
+    it, and carries a ⌀[6.65 mm](FCAP_BORE_D) bore through itself and the floor under it. Only
     the mouth-up top cap has them: `cap_conduits` is everything that leaves by the top —
     `cap_fluid_conduits` and a reed cable apiece in the other two — and the service bay is on
     the top cap's outer face."""
