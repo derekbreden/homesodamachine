@@ -15,16 +15,12 @@
     "ENVELOPE": "271.0 mm",
     "FINISH": "0.20 mm",
     "FOOT_WIDTH": "146 mm",
-    "MASS_SAVING": "319 g",
-    "MASS_SAVING_PERCENT": "10.7%",
     "REGISTER": "6 mm",
     "ROD_D": "6.35 mm",
     "ROD_LEN": "50.8 mm",
     "SOCKET": "28.8 mm",
     "TAPER_ANGLE": "60\u00b0",
     "TAPER_GROWTH": "0.23 mm",
-    "TIME_SAVING": "2 h 48 min",
-    "TIME_SAVING_PERCENT": "6.5%",
     "TOTAL_MASS": "2.65 kg",
     "TOTAL_TIME": "40 h 11 min"
   }

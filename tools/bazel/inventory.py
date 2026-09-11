@@ -34,11 +34,10 @@ BUILD_INERT_SUFFIXES = (".3mf", ".bbscfg")
 # carries a doc's derived numbers, `.scene.json` a render, `.facts.json` a measured solid, and
 # `cad-artifacts.lock.json` the shipped bundle. Each slicer record joins by being named here.
 BUILD_INERT_BASENAMES = frozenset({
-    "print-recipe.json",
     "print-profile.json",
-    "print-start-check.json",
-    "print-start-no-brim-check.json",
-    "profile-audit.json",
+    "corner-trial-profile.json",
+    "layer-review.json",
+    "toolpath-review.json",
 })
 
 
@@ -74,14 +73,9 @@ LOCK = _ROOT / "hardware" / "cad-artifacts.lock.json"
 #: smooth writer and the fluting pass; declaring it for both groups those generators into one
 #: action, so the fluting pass never seeds itself from the fetched prior bundle.
 IMPLICIT_SOLIDS = {
-    # The mold's solid bodies and optional channels share an exporter. Its
-    # current payloads need no rewrite, so name every view that a clean run owes.
-    "hardware/printed-parts/zone-c/funnel-mold/solid/solid_mold.py": tuple(
-        f"hardware/printed-parts/zone-c/funnel-mold/solid/{name}.step.mesh"
-        for name in ("assembly", "cavity", "core", "funnel", "overview", "rod", "section")
-    ),
-    "hardware/printed-parts/zone-c/funnel-mold/solid/channels/cut_channels.py": tuple(
-        f"hardware/printed-parts/zone-c/funnel-mold/solid/channels/{name}.step.mesh"
+    # Current payloads need no rewrite; a clean run still owes every view.
+    "hardware/printed-parts/zone-c/funnel-mold/funnel_mold.py": tuple(
+        f"hardware/printed-parts/zone-c/funnel-mold/{name}.step.mesh"
         for name in ("assembly", "backs", "cavity", "channel-section", "core", "funnel", "overview", "rod", "section")
     ),
     "hardware/cold-core-layout/cold_core_assembly.py": (
