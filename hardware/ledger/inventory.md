@@ -94,7 +94,7 @@ One-time fabrication-support stock used to build jigs, templates, and bench fixt
 
 | Item | Source | Use |
 |---|---|---|
-| **SVLING M5 × 0.8 × 50 mm socket-head screws, 40-pack** | [B0GHNQFZYR](https://www.amazon.com/dp/B0GHNQFZYR), [purchases.md §21](/hardware/ledger/purchases.md) | On order, expected 2026-09-11. Four allocated to the [funnel-mold screw jacks](/hardware/printed-parts/zone-c/funnel-mold/extraction.md); the balance is fixture stock. The mold also uses four acquired M5 square nuts and four acquired M5 × 25 mm OD fender washers. |
+| **SVLING M5 × 0.8 × 50 mm socket-head screws, 40-pack** | [B0GHNQFZYR](https://www.amazon.com/dp/B0GHNQFZYR), [purchases.md §21](/hardware/ledger/purchases.md) | On order, expected 2026-09-11. Fixture stock. |
 | **Baltic birch plywood, 12 mm 8" × 8" (2 pc)** | [B0DP8597Q2](https://www.amazon.com/dp/B0DP8597Q2), [purchases.md §1](/hardware/ledger/purchases.md) | Stiff fixture stock for the end-cap drilling/tapping jig. |
 | **ACXFOND 1/4" MDF boards, 8" × 10" (20 pk)** | [B0F1FJYDQ3](https://www.amazon.com/dp/B0F1FJYDQ3), [purchases.md §1](/hardware/ledger/purchases.md) | Sacrificial drill-press backers + template stock. |
 | **Titebond III wood glue, 4 oz** | [B0002YQ378](https://www.amazon.com/dp/B0002YQ378), [purchases.md §1](/hardware/ledger/purchases.md) | Glue-up for laminated wood fixture stock. |

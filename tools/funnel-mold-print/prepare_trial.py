@@ -34,16 +34,18 @@ def main():
     assert mesh.is_watertight and mesh.is_winding_consistent and mesh.body_count == 1
     mesh.export(stl)
     info = json.loads((args.models/'design.json').read_text())
-    box = corner.BoundingBox()
-    info['dimensions_mm']['cavity'] = [box.xlen, box.ylen, box.zlen]
+    # Imported trimmed surfaces can have loose B-rep bounds. The printed mesh
+    # supplies the specimen's measured envelope.
+    dimensions = mesh.extents.tolist()
+    info['dimensions_mm']['cavity'] = dimensions
     info['volume_ml']['cavity'] = corner.Volume()/1000
     info['corner_trial'] = {
         'source_step_sha256': hashlib.sha256(source.read_bytes()).hexdigest(),
         'section': 'X <= -40 mm and Y <= -40 mm in the cavity assembly frame',
-        'full_height_mm': box.zlen,
+        'full_height_mm': dimensions[2],
         'scope': 'Full-height corner geometry and extrusion trial; whole-mold thermal loading is not reproduced.'}
     (args.output/'design.json').write_text(json.dumps(info, indent=2)+'\n')
-    print(f'{box.xlen:.1f} x {box.ylen:.1f} x {box.zlen:.1f} mm; {corner.Volume()/1000:.1f} mL')
+    print(' x '.join(f'{d:.1f}' for d in dimensions)+f' mm; {corner.Volume()/1000:.1f} mL')
 
 
 if __name__ == '__main__':

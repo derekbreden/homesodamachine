@@ -181,4 +181,3 @@ def equivalent(key, supplied, effective):
         return math.isclose(float(supplied), float(effective), rel_tol=1e-9, abs_tol=1e-9)
     except (TypeError, ValueError):
         return False
-

@@ -26,12 +26,8 @@ const ALL = walkFiles(HW, ".step").sort();
 const FUNNEL = "printed-parts/zone-c/funnel/funnel.step";
 const MOLD_DIR = "printed-parts/zone-c/funnel-mold";
 
-// THE MOLD DIRECTORY IS THE FUNNEL'S WHOLE TOOLING PACKAGE, not just the bodies
-// that close on the silicone: the cavity and core, the assembly of the two, and
-// the small witnesses printed alongside them to gauge the finish, the hardware
-// fits and the guide pins. A hand making a funnel prints all of them, so the rail
-// offers all of them, and this counts what the tree holds rather than a number
-// typed here — a witness added is a chip added, with nothing to update.
+// The mold directory holds the cavity, core, casting and rod, plus assembled
+// and section views. The rail offers every model the directory actually holds.
 test("the funnel offers every model in its mold directory", () => {
   const inMold = ALL.filter((f) => f.startsWith(MOLD_DIR + "/"));
   const offered = relatedSteps(FUNNEL, ALL).filter((r) => r.file.startsWith(MOLD_DIR + "/"));
@@ -44,7 +40,7 @@ test("the funnel offers every model in its mold directory", () => {
 test("the mold's own cavity, core and assembly are among them", () => {
   const offered = new Set(relatedSteps(FUNNEL, ALL).map((r) => r.file));
   for (const body of ["assembly", "cavity", "core"]) {
-    assert.ok(offered.has(`${MOLD_DIR}/funnel-mold-${body}.step`), body);
+    assert.ok(offered.has(`${MOLD_DIR}/${body}.step`), body);
   }
 });
 
@@ -86,8 +82,8 @@ test("generated trees offer nothing and are offered nothing", () => {
 });
 
 test("the walk above a model is not offered a second time", () => {
-  const withTrail = relatedSteps(FUNNEL, ALL, [`${MOLD_DIR}/funnel-mold-core.step`]);
-  assert.ok(!withTrail.some((r) => r.file.endsWith("funnel-mold-core.step")));
+  const withTrail = relatedSteps(FUNNEL, ALL, [`${MOLD_DIR}/core.step`]);
+  assert.ok(!withTrail.some((r) => r.file === `${MOLD_DIR}/core.step`));
 });
 
 test("every kind the rule returns has a caption", () => {
