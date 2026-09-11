@@ -6918,9 +6918,7 @@ cp hardware/printed-parts/valve-seat/README.md $$O1
 genrule(
     name = "funnel-mold",
     srcs = [
-        "pysrc/hardware/printed-parts/cadlib/fits.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-        "hardware/printed-parts/zone-c/funnel-mold/README.md",
         "pysrc/hardware/printed-parts/zone-c/funnel-mold/funnel_mold.py",
         "pysrc/hardware/printed-parts/zone-c/funnel/funnel.py",
         "pysrc/hardware/reference/worm-clamp/worm_clamp.py",
@@ -6928,51 +6926,57 @@ genrule(
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/hardware/scripts/flute_payload.py",
         "pysrc/tools/docgen/__init__.py",
-    ] + glob(
-        [
-            "hardware/printed-parts/zone-c/funnel-mold/README.figures.json",
-        ],
-        allow_empty = True,
-    ),
+    ],
     outs = [
-        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-assembly.step",
-        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-cavity-surface-zone.stl",
-        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-cavity.step",
-        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-cavity.stl",
-        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-core-surface-zone.stl",
-        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-core.step",
-        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-core.stl",
-        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-finish-witness.step",
-        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-finish-witness.stl",
-        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-guide-witness.step",
-        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-guide-witness.stl",
-        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-hardware-witness.step",
-        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-hardware-witness.stl",
-        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/README.figures.json",
-        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/README.md",
+        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/assembly.step",
+        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/assembly.step.mesh",
+        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/backs.step",
+        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/backs.step.mesh",
+        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/cavity.step",
+        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/cavity.step.mesh",
+        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/cavity.stl",
+        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/channel-section.step",
+        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/channel-section.step.mesh",
+        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/core.step",
+        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/core.step.mesh",
+        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/core.stl",
+        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/design.json",
+        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel.step",
+        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel.step.mesh",
+        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/overview.step",
+        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/overview.step.mesh",
+        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/rod.step",
+        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/rod.step.mesh",
+        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/section.step",
+        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/section.step.mesh",
     ],
     cmd = """
 set -e
-O0=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-assembly.step)
-O1=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-cavity-surface-zone.stl)
-O2=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-cavity.step)
-O3=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-cavity.stl)
-O4=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-core-surface-zone.stl)
-O5=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-core.step)
-O6=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-core.stl)
-O7=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-finish-witness.step)
-O8=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-finish-witness.stl)
-O9=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-guide-witness.step)
-O10=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-guide-witness.stl)
-O11=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-hardware-witness.step)
-O12=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold-hardware-witness.stl)
-O13=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/README.figures.json)
-O14=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/README.md)
+O0=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/assembly.step)
+O1=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/assembly.step.mesh)
+O2=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/backs.step)
+O3=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/backs.step.mesh)
+O4=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/cavity.step)
+O5=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/cavity.step.mesh)
+O6=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/cavity.stl)
+O7=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/channel-section.step)
+O8=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/channel-section.step.mesh)
+O9=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/core.step)
+O10=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/core.step.mesh)
+O11=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/core.stl)
+O12=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/design.json)
+O13=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel.step)
+O14=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel.step.mesh)
+O15=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/overview.step)
+O16=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/overview.step.mesh)
+O17=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/rod.step)
+O18=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/rod.step.mesh)
+O19=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/section.step)
+O20=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/section.step.mesh)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -6988,215 +6992,28 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel-mold/funnel_mold.py > /dev/null
-cp hardware/printed-parts/zone-c/funnel-mold/funnel-mold-assembly.step $$O0
-cp hardware/printed-parts/zone-c/funnel-mold/funnel-mold-cavity-surface-zone.stl $$O1
-cp hardware/printed-parts/zone-c/funnel-mold/funnel-mold-cavity.step $$O2
-cp hardware/printed-parts/zone-c/funnel-mold/funnel-mold-cavity.stl $$O3
-cp hardware/printed-parts/zone-c/funnel-mold/funnel-mold-core-surface-zone.stl $$O4
-cp hardware/printed-parts/zone-c/funnel-mold/funnel-mold-core.step $$O5
-cp hardware/printed-parts/zone-c/funnel-mold/funnel-mold-core.stl $$O6
-cp hardware/printed-parts/zone-c/funnel-mold/funnel-mold-finish-witness.step $$O7
-cp hardware/printed-parts/zone-c/funnel-mold/funnel-mold-finish-witness.stl $$O8
-cp hardware/printed-parts/zone-c/funnel-mold/funnel-mold-guide-witness.step $$O9
-cp hardware/printed-parts/zone-c/funnel-mold/funnel-mold-guide-witness.stl $$O10
-cp hardware/printed-parts/zone-c/funnel-mold/funnel-mold-hardware-witness.step $$O11
-cp hardware/printed-parts/zone-c/funnel-mold/funnel-mold-hardware-witness.stl $$O12
-cp hardware/printed-parts/zone-c/funnel-mold/README.figures.json $$O13
-cp hardware/printed-parts/zone-c/funnel-mold/README.md $$O14
-""",
-)
-
-genrule(
-    name = "cut-channels",
-    srcs = [
-        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-        "pysrc/hardware/printed-parts/zone-c/funnel-mold/solid/channels/cut_channels.py",
-        "pysrc/hardware/printed-parts/zone-c/funnel-mold/solid/solid_mold.py",
-        "pysrc/hardware/printed-parts/zone-c/funnel/funnel.py",
-        "pysrc/hardware/reference/worm-clamp/worm_clamp.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_material_base.py",
-        "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/hardware/scripts/_stated_bounds.py",
-        "pysrc/hardware/scripts/flute_payload.py",
-        "pysrc/tools/docgen/__init__.py",
-    ],
-    outs = [
-        "out/cut-channels/hardware/printed-parts/zone-c/funnel-mold/solid/channels/assembly.step",
-        "out/cut-channels/hardware/printed-parts/zone-c/funnel-mold/solid/channels/assembly.step.mesh",
-        "out/cut-channels/hardware/printed-parts/zone-c/funnel-mold/solid/channels/backs.step",
-        "out/cut-channels/hardware/printed-parts/zone-c/funnel-mold/solid/channels/backs.step.mesh",
-        "out/cut-channels/hardware/printed-parts/zone-c/funnel-mold/solid/channels/cavity.step",
-        "out/cut-channels/hardware/printed-parts/zone-c/funnel-mold/solid/channels/cavity.step.mesh",
-        "out/cut-channels/hardware/printed-parts/zone-c/funnel-mold/solid/channels/cavity.stl",
-        "out/cut-channels/hardware/printed-parts/zone-c/funnel-mold/solid/channels/channel-section.step",
-        "out/cut-channels/hardware/printed-parts/zone-c/funnel-mold/solid/channels/channel-section.step.mesh",
-        "out/cut-channels/hardware/printed-parts/zone-c/funnel-mold/solid/channels/core.step",
-        "out/cut-channels/hardware/printed-parts/zone-c/funnel-mold/solid/channels/core.step.mesh",
-        "out/cut-channels/hardware/printed-parts/zone-c/funnel-mold/solid/channels/core.stl",
-        "out/cut-channels/hardware/printed-parts/zone-c/funnel-mold/solid/channels/design.json",
-        "out/cut-channels/hardware/printed-parts/zone-c/funnel-mold/solid/channels/funnel.step",
-        "out/cut-channels/hardware/printed-parts/zone-c/funnel-mold/solid/channels/funnel.step.mesh",
-        "out/cut-channels/hardware/printed-parts/zone-c/funnel-mold/solid/channels/overview.step",
-        "out/cut-channels/hardware/printed-parts/zone-c/funnel-mold/solid/channels/overview.step.mesh",
-        "out/cut-channels/hardware/printed-parts/zone-c/funnel-mold/solid/channels/rod.step",
-        "out/cut-channels/hardware/printed-parts/zone-c/funnel-mold/solid/channels/rod.step.mesh",
-        "out/cut-channels/hardware/printed-parts/zone-c/funnel-mold/solid/channels/section.step",
-        "out/cut-channels/hardware/printed-parts/zone-c/funnel-mold/solid/channels/section.step.mesh",
-    ],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/cut-channels/hardware/printed-parts/zone-c/funnel-mold/solid/channels/assembly.step)
-O1=$$PWD/$(location out/cut-channels/hardware/printed-parts/zone-c/funnel-mold/solid/channels/assembly.step.mesh)
-O2=$$PWD/$(location out/cut-channels/hardware/printed-parts/zone-c/funnel-mold/solid/channels/backs.step)
-O3=$$PWD/$(location out/cut-channels/hardware/printed-parts/zone-c/funnel-mold/solid/channels/backs.step.mesh)
-O4=$$PWD/$(location out/cut-channels/hardware/printed-parts/zone-c/funnel-mold/solid/channels/cavity.step)
-O5=$$PWD/$(location out/cut-channels/hardware/printed-parts/zone-c/funnel-mold/solid/channels/cavity.step.mesh)
-O6=$$PWD/$(location out/cut-channels/hardware/printed-parts/zone-c/funnel-mold/solid/channels/cavity.stl)
-O7=$$PWD/$(location out/cut-channels/hardware/printed-parts/zone-c/funnel-mold/solid/channels/channel-section.step)
-O8=$$PWD/$(location out/cut-channels/hardware/printed-parts/zone-c/funnel-mold/solid/channels/channel-section.step.mesh)
-O9=$$PWD/$(location out/cut-channels/hardware/printed-parts/zone-c/funnel-mold/solid/channels/core.step)
-O10=$$PWD/$(location out/cut-channels/hardware/printed-parts/zone-c/funnel-mold/solid/channels/core.step.mesh)
-O11=$$PWD/$(location out/cut-channels/hardware/printed-parts/zone-c/funnel-mold/solid/channels/core.stl)
-O12=$$PWD/$(location out/cut-channels/hardware/printed-parts/zone-c/funnel-mold/solid/channels/design.json)
-O13=$$PWD/$(location out/cut-channels/hardware/printed-parts/zone-c/funnel-mold/solid/channels/funnel.step)
-O14=$$PWD/$(location out/cut-channels/hardware/printed-parts/zone-c/funnel-mold/solid/channels/funnel.step.mesh)
-O15=$$PWD/$(location out/cut-channels/hardware/printed-parts/zone-c/funnel-mold/solid/channels/overview.step)
-O16=$$PWD/$(location out/cut-channels/hardware/printed-parts/zone-c/funnel-mold/solid/channels/overview.step.mesh)
-O17=$$PWD/$(location out/cut-channels/hardware/printed-parts/zone-c/funnel-mold/solid/channels/rod.step)
-O18=$$PWD/$(location out/cut-channels/hardware/printed-parts/zone-c/funnel-mold/solid/channels/rod.step.mesh)
-O19=$$PWD/$(location out/cut-channels/hardware/printed-parts/zone-c/funnel-mold/solid/channels/section.step)
-O20=$$PWD/$(location out/cut-channels/hardware/printed-parts/zone-c/funnel-mold/solid/channels/section.step.mesh)
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    */pysrc/*) t=$${f##*/pysrc/};;
-    *) t=$$f;;
-  esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel-mold/solid/channels/cut_channels.py > /dev/null
-cp hardware/printed-parts/zone-c/funnel-mold/solid/channels/assembly.step $$O0
-cp hardware/printed-parts/zone-c/funnel-mold/solid/channels/assembly.step.mesh $$O1
-cp hardware/printed-parts/zone-c/funnel-mold/solid/channels/backs.step $$O2
-cp hardware/printed-parts/zone-c/funnel-mold/solid/channels/backs.step.mesh $$O3
-cp hardware/printed-parts/zone-c/funnel-mold/solid/channels/cavity.step $$O4
-cp hardware/printed-parts/zone-c/funnel-mold/solid/channels/cavity.step.mesh $$O5
-cp hardware/printed-parts/zone-c/funnel-mold/solid/channels/cavity.stl $$O6
-cp hardware/printed-parts/zone-c/funnel-mold/solid/channels/channel-section.step $$O7
-cp hardware/printed-parts/zone-c/funnel-mold/solid/channels/channel-section.step.mesh $$O8
-cp hardware/printed-parts/zone-c/funnel-mold/solid/channels/core.step $$O9
-cp hardware/printed-parts/zone-c/funnel-mold/solid/channels/core.step.mesh $$O10
-cp hardware/printed-parts/zone-c/funnel-mold/solid/channels/core.stl $$O11
-cp hardware/printed-parts/zone-c/funnel-mold/solid/channels/design.json $$O12
-cp hardware/printed-parts/zone-c/funnel-mold/solid/channels/funnel.step $$O13
-cp hardware/printed-parts/zone-c/funnel-mold/solid/channels/funnel.step.mesh $$O14
-cp hardware/printed-parts/zone-c/funnel-mold/solid/channels/overview.step $$O15
-cp hardware/printed-parts/zone-c/funnel-mold/solid/channels/overview.step.mesh $$O16
-cp hardware/printed-parts/zone-c/funnel-mold/solid/channels/rod.step $$O17
-cp hardware/printed-parts/zone-c/funnel-mold/solid/channels/rod.step.mesh $$O18
-cp hardware/printed-parts/zone-c/funnel-mold/solid/channels/section.step $$O19
-cp hardware/printed-parts/zone-c/funnel-mold/solid/channels/section.step.mesh $$O20
-""",
-)
-
-genrule(
-    name = "solid-mold",
-    srcs = [
-        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-        "pysrc/hardware/printed-parts/zone-c/funnel-mold/solid/solid_mold.py",
-        "pysrc/hardware/printed-parts/zone-c/funnel/funnel.py",
-        "pysrc/hardware/reference/worm-clamp/worm_clamp.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_material_base.py",
-        "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/hardware/scripts/_stated_bounds.py",
-        "pysrc/hardware/scripts/flute_payload.py",
-        "pysrc/tools/docgen/__init__.py",
-    ],
-    outs = [
-        "out/solid-mold/hardware/printed-parts/zone-c/funnel-mold/solid/assembly.step",
-        "out/solid-mold/hardware/printed-parts/zone-c/funnel-mold/solid/assembly.step.mesh",
-        "out/solid-mold/hardware/printed-parts/zone-c/funnel-mold/solid/cavity.step",
-        "out/solid-mold/hardware/printed-parts/zone-c/funnel-mold/solid/cavity.step.mesh",
-        "out/solid-mold/hardware/printed-parts/zone-c/funnel-mold/solid/cavity.stl",
-        "out/solid-mold/hardware/printed-parts/zone-c/funnel-mold/solid/core.step",
-        "out/solid-mold/hardware/printed-parts/zone-c/funnel-mold/solid/core.step.mesh",
-        "out/solid-mold/hardware/printed-parts/zone-c/funnel-mold/solid/core.stl",
-        "out/solid-mold/hardware/printed-parts/zone-c/funnel-mold/solid/design.json",
-        "out/solid-mold/hardware/printed-parts/zone-c/funnel-mold/solid/funnel.step",
-        "out/solid-mold/hardware/printed-parts/zone-c/funnel-mold/solid/funnel.step.mesh",
-        "out/solid-mold/hardware/printed-parts/zone-c/funnel-mold/solid/overview.step",
-        "out/solid-mold/hardware/printed-parts/zone-c/funnel-mold/solid/overview.step.mesh",
-        "out/solid-mold/hardware/printed-parts/zone-c/funnel-mold/solid/rod.step",
-        "out/solid-mold/hardware/printed-parts/zone-c/funnel-mold/solid/rod.step.mesh",
-        "out/solid-mold/hardware/printed-parts/zone-c/funnel-mold/solid/section.step",
-        "out/solid-mold/hardware/printed-parts/zone-c/funnel-mold/solid/section.step.mesh",
-    ],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/solid-mold/hardware/printed-parts/zone-c/funnel-mold/solid/assembly.step)
-O1=$$PWD/$(location out/solid-mold/hardware/printed-parts/zone-c/funnel-mold/solid/assembly.step.mesh)
-O2=$$PWD/$(location out/solid-mold/hardware/printed-parts/zone-c/funnel-mold/solid/cavity.step)
-O3=$$PWD/$(location out/solid-mold/hardware/printed-parts/zone-c/funnel-mold/solid/cavity.step.mesh)
-O4=$$PWD/$(location out/solid-mold/hardware/printed-parts/zone-c/funnel-mold/solid/cavity.stl)
-O5=$$PWD/$(location out/solid-mold/hardware/printed-parts/zone-c/funnel-mold/solid/core.step)
-O6=$$PWD/$(location out/solid-mold/hardware/printed-parts/zone-c/funnel-mold/solid/core.step.mesh)
-O7=$$PWD/$(location out/solid-mold/hardware/printed-parts/zone-c/funnel-mold/solid/core.stl)
-O8=$$PWD/$(location out/solid-mold/hardware/printed-parts/zone-c/funnel-mold/solid/design.json)
-O9=$$PWD/$(location out/solid-mold/hardware/printed-parts/zone-c/funnel-mold/solid/funnel.step)
-O10=$$PWD/$(location out/solid-mold/hardware/printed-parts/zone-c/funnel-mold/solid/funnel.step.mesh)
-O11=$$PWD/$(location out/solid-mold/hardware/printed-parts/zone-c/funnel-mold/solid/overview.step)
-O12=$$PWD/$(location out/solid-mold/hardware/printed-parts/zone-c/funnel-mold/solid/overview.step.mesh)
-O13=$$PWD/$(location out/solid-mold/hardware/printed-parts/zone-c/funnel-mold/solid/rod.step)
-O14=$$PWD/$(location out/solid-mold/hardware/printed-parts/zone-c/funnel-mold/solid/rod.step.mesh)
-O15=$$PWD/$(location out/solid-mold/hardware/printed-parts/zone-c/funnel-mold/solid/section.step)
-O16=$$PWD/$(location out/solid-mold/hardware/printed-parts/zone-c/funnel-mold/solid/section.step.mesh)
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    */pysrc/*) t=$${f##*/pysrc/};;
-    *) t=$$f;;
-  esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel-mold/solid/solid_mold.py > /dev/null
-cp hardware/printed-parts/zone-c/funnel-mold/solid/assembly.step $$O0
-cp hardware/printed-parts/zone-c/funnel-mold/solid/assembly.step.mesh $$O1
-cp hardware/printed-parts/zone-c/funnel-mold/solid/cavity.step $$O2
-cp hardware/printed-parts/zone-c/funnel-mold/solid/cavity.step.mesh $$O3
-cp hardware/printed-parts/zone-c/funnel-mold/solid/cavity.stl $$O4
-cp hardware/printed-parts/zone-c/funnel-mold/solid/core.step $$O5
-cp hardware/printed-parts/zone-c/funnel-mold/solid/core.step.mesh $$O6
-cp hardware/printed-parts/zone-c/funnel-mold/solid/core.stl $$O7
-cp hardware/printed-parts/zone-c/funnel-mold/solid/design.json $$O8
-cp hardware/printed-parts/zone-c/funnel-mold/solid/funnel.step $$O9
-cp hardware/printed-parts/zone-c/funnel-mold/solid/funnel.step.mesh $$O10
-cp hardware/printed-parts/zone-c/funnel-mold/solid/overview.step $$O11
-cp hardware/printed-parts/zone-c/funnel-mold/solid/overview.step.mesh $$O12
-cp hardware/printed-parts/zone-c/funnel-mold/solid/rod.step $$O13
-cp hardware/printed-parts/zone-c/funnel-mold/solid/rod.step.mesh $$O14
-cp hardware/printed-parts/zone-c/funnel-mold/solid/section.step $$O15
-cp hardware/printed-parts/zone-c/funnel-mold/solid/section.step.mesh $$O16
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel-mold/funnel_mold.py > /dev/null
+cp hardware/printed-parts/zone-c/funnel-mold/assembly.step $$O0
+cp hardware/printed-parts/zone-c/funnel-mold/assembly.step.mesh $$O1
+cp hardware/printed-parts/zone-c/funnel-mold/backs.step $$O2
+cp hardware/printed-parts/zone-c/funnel-mold/backs.step.mesh $$O3
+cp hardware/printed-parts/zone-c/funnel-mold/cavity.step $$O4
+cp hardware/printed-parts/zone-c/funnel-mold/cavity.step.mesh $$O5
+cp hardware/printed-parts/zone-c/funnel-mold/cavity.stl $$O6
+cp hardware/printed-parts/zone-c/funnel-mold/channel-section.step $$O7
+cp hardware/printed-parts/zone-c/funnel-mold/channel-section.step.mesh $$O8
+cp hardware/printed-parts/zone-c/funnel-mold/core.step $$O9
+cp hardware/printed-parts/zone-c/funnel-mold/core.step.mesh $$O10
+cp hardware/printed-parts/zone-c/funnel-mold/core.stl $$O11
+cp hardware/printed-parts/zone-c/funnel-mold/design.json $$O12
+cp hardware/printed-parts/zone-c/funnel-mold/funnel.step $$O13
+cp hardware/printed-parts/zone-c/funnel-mold/funnel.step.mesh $$O14
+cp hardware/printed-parts/zone-c/funnel-mold/overview.step $$O15
+cp hardware/printed-parts/zone-c/funnel-mold/overview.step.mesh $$O16
+cp hardware/printed-parts/zone-c/funnel-mold/rod.step $$O17
+cp hardware/printed-parts/zone-c/funnel-mold/rod.step.mesh $$O18
+cp hardware/printed-parts/zone-c/funnel-mold/section.step $$O19
+cp hardware/printed-parts/zone-c/funnel-mold/section.step.mesh $$O20
 """,
 )
 
@@ -10942,22 +10759,6 @@ genrule(
     name = "pysrc-c17b3772bc4e",
     srcs = ["hardware/printed-parts/zone-c/funnel-mold/funnel_mold.py"],
     outs = ["pysrc/hardware/printed-parts/zone-c/funnel-mold/funnel_mold.py"],
-    tools = ["tools/bazel/pysrc.py"],
-    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
-)
-
-genrule(
-    name = "pysrc-767020e8692b",
-    srcs = ["hardware/printed-parts/zone-c/funnel-mold/solid/channels/cut_channels.py"],
-    outs = ["pysrc/hardware/printed-parts/zone-c/funnel-mold/solid/channels/cut_channels.py"],
-    tools = ["tools/bazel/pysrc.py"],
-    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
-)
-
-genrule(
-    name = "pysrc-3acd10172d9e",
-    srcs = ["hardware/printed-parts/zone-c/funnel-mold/solid/solid_mold.py"],
-    outs = ["pysrc/hardware/printed-parts/zone-c/funnel-mold/solid/solid_mold.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -22125,8 +21926,6 @@ filegroup(
         ":holders",
         ":valve-seat",
         ":funnel-mold",
-        ":cut-channels",
-        ":solid-mold",
         ":funnel",
         ":quickstart-build",
         ":cad-art",

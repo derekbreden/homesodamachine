@@ -33,10 +33,6 @@ What stands as it stands:
 
 The guide goes stale when the fixture moves, until a person runs the two commands below.
 
-[`funnel-mold-guide/`](/hardware/funnel-mold-guide/README.md) is the same kind of document and
-keeps its `_art.py` and `_build.py` beside its pages. `web/dev-server/deps.js` skips an
-underscore-prefixed generator; `trace_inputs.py`'s `_generators` reads every tracked `.py`
-outside `ELSEWHERE` for the literal `__name__ == "__main__"`, and both of those carry one.
 
 ## What is here
 

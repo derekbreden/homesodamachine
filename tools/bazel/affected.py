@@ -702,12 +702,12 @@ genrule(
          and not artifact_unknown("hardware/printed-parts/petgf.3mf")
          and not artifact_unknown("hardware/printed-parts/petgf.3mf", True)
          and artifact_presentation_only("hardware/printed-parts/petgf.3mf"))
-    _slicer = ["hardware/printed-parts/zone-c/funnel-mold/print-recipe.json",
-               "hardware/printed-parts/zone-c/funnel-mold/print-profile.json",
-               "hardware/printed-parts/zone-c/funnel-mold/print-start-check.json",
-               "hardware/printed-parts/zone-c/funnel-mold/profile-audit.json",
+    _slicer = ["hardware/printed-parts/zone-c/funnel-mold/print-profile.json",
+               "hardware/printed-parts/zone-c/funnel-mold/corner-trial-profile.json",
+               "hardware/printed-parts/zone-c/funnel-mold/layer-review.json",
+               "hardware/printed-parts/zone-c/funnel-mold/toolpath-review.json",
                "hardware/printed-parts/zone-c/funnel-mold/"
-               "funnel-mold-hf08-z-trim-presets.bbscfg"]
+               "funnel-mold-presets.bbscfg"]
     hold("a preset bundle and the four print records are inert with the project",
          all(build_inert(p) and not read_kind(p) and not artifact_unknown(p)
              and not artifact_unknown(p, True) for p in _slicer)
