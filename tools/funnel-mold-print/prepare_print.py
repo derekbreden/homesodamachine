@@ -1,312 +1,168 @@
-"""Prepare the three-plate Bambu project from the funnel mold's generated STL files.
+"""Prepare funnel-mold plates from current meshes and installed Bambu presets."""
 
-Run with the project's CadQuery Python. The only inputs are the generated STL
-files, print-recipe.json and Bambu Studio's installed system presets. --output
-is an unsliced 3MF. Slice it in the matching Bambu Studio version before use.
-Every supplied setting has a source in the accompanying provenance JSON.
-
-    tools/cad-venv/bin/python tools/funnel-mold-print/prepare_print.py \
-        --output /tmp/funnel-mold-input.3mf
-
-RUN BY HAND, AND NOT A STEP OF THE BUILD. It sits under `tools/`, which
-`tools/bazel/trace_inputs.py` names in `ELSEWHERE` and `affected.py`'s
-`artifact_unknown` answers no for; the part it prepares is at
-`hardware/printed-parts/zone-c/funnel-mold/`, whose README carries the rest.
-"""
-from pathlib import Path
 import argparse
-import copy
-import json
 import hashlib
+import json
 import plistlib
+import sys
 import uuid
 import zipfile
+from pathlib import Path
 import xml.etree.ElementTree as ET
+
 import trimesh
 
 HERE = Path(__file__).resolve().parent
-MOLD = HERE.parents[1] / 'hardware' / 'printed-parts' / 'zone-c' / 'funnel-mold'
-PROJECT = 'funnel-mold-petg-hf08-variable-016-040.3mf'
-CORE = 'http://schemas.microsoft.com/3dmanufacturing/core/2015/02'
-PROD = 'http://schemas.microsoft.com/3dmanufacturing/production/2015/06'
-REL = 'http://schemas.openxmlformats.org/package/2006/relationships'
-ET.register_namespace('', CORE)
-ET.register_namespace('p', PROD)
-ET.register_namespace('BambuStudio', 'http://schemas.bambulab.com/package/2021')
-qn = lambda tag: f'{{{CORE}}}{tag}'
-uid = lambda: str(uuid.uuid4())
-PRESET_METADATA = {'type', 'name', 'inherits', 'include', 'from', 'setting_id',
-                   'instantiation', 'description', 'alias', 'filament_id',
-                   'version', 'rename', 'compatible_printers'}
+from profiles import (CORE, PROD, REL, fresh_settings, mesh_object, metadata,
+                           preset_bundle, qn)
 
 
-def system_preset(root, kind, name, files):
-    """Resolve parent, included template, then leaf; record the last writer.
-
-    These selected includes supply dual-extruder arrays. They have no parents;
-    their explicit values are the template overrides, followed by leaf values.
-    No user profile or previous 3MF is consulted.
-    """
-    path = root / kind / (name + '.json')
-    raw = path.read_bytes(); data = json.loads(raw)
-    source = f'{kind}/{path.name}'
-    files[source] = hashlib.sha256(raw).hexdigest()
-    values, sources, ids = {}, {}, {}
-    if data.get('inherits'):
-        values, sources, ids = system_preset(root, kind, data['inherits'], files)
-    for include in data.get('include', []):
-        extra, origins, _ = system_preset(root, kind, include, files)
-        values.update(extra); sources.update(origins)
-    for key, value in data.items():
-        if key not in PRESET_METADATA:
-            values[key] = value; sources[key] = {'preset': source}
-    for key in ('filament_id', 'setting_id'):
-        if key in data: ids[key] = data[key]
-    return values, sources, ids
+def choice(value, reason):
+    return {'value': value, 'reason': reason}
 
 
-def trimmed_start_gcode(stock, trim):
-    """Add the user's measured plate adjustment to the stock plate correction."""
-    start = stock.index(';===== for Textured PEI Plate')
-    end = stock.index('\nG150.1', start)
-    block = f'''\
-;===== plate compensation plus user-calibrated +{trim:.2f} mm Z trim =====
-{{if curr_bed_type=="Textured PEI Plate"}}
-    {{if nozzle_diameter_at_nozzle_id[initial_nozzle_id] == 0.2}}
-        G29.1 Z{{{trim:.2f} - 0.01}}
-    {{else}}
-        G29.1 Z{{{trim:.2f} - 0.02}}
-    {{endif}}
-{{else}}
-    {{if nozzle_diameter_at_nozzle_id[initial_nozzle_id] == 0.2}}
-        G29.1 Z{{{trim:.2f} + 0.01}}
-    {{else}}
-        G29.1 Z{{{trim:.2f}}}
-    {{endif}}
-{{endif}}'''
-    return stock[:start] + block + stock[end:]
-
-
-def printer_names(recipe):
-    return [recipe['system_presets']['machine']] + [
-        f'Bambu Lab H2C 0.8 High Flow +{v:.2f} Z trim'
-        for v in recipe['z_trim']['available_mm']]
-
-
-def preset_bundle(root, recipe, version, destination):
-    """Save all three selectors' presets with their stock parents and recipe edits."""
-    stock, _, _ = system_preset(root, 'machine', recipe['system_presets']['machine'], {})
-    profiles = []
-    for offset in recipe['z_trim']['available_mm']:
-        name = f'Bambu Lab H2C 0.8 High Flow +{offset:.2f} Z trim'
-        profiles.append({'from': 'User', 'inherits': recipe['system_presets']['machine'],
-            'name': name, 'printer_settings_id': name, 'version': version,
-            'machine_start_gcode': trimmed_start_gcode(stock['machine_start_gcode'], offset),
-            'default_nozzle_volume_type': ['High Flow', 'Standard']})
-    for kind, identity in (('process', 'print_settings_id'), ('filament', 'filament_settings_id')):
-        name = recipe[f'{kind}_name']
-        assert not any(c in name for c in '/\\'), 'Preset names must also be valid filenames.'
-        profile = {'from': 'User', 'inherits': recipe['system_presets'][kind],
-                   'name': name, 'version': version,
-                   identity: [name] if kind == 'filament' else name,
-                   **{key: choice['value'] for key, choice in recipe[f'{kind}_settings'].items()}}
-        if kind == 'process':
-            profile['compatible_printers'] = printer_names(recipe)
-        else:
-            _, _, ids = system_preset(root, kind, recipe['system_presets'][kind], {})
-            profile['filament_id'] = ids['filament_id']
-        profiles.append(profile)
-    with zipfile.ZipFile(destination, 'w', zipfile.ZIP_DEFLATED) as archive:
-        for profile in profiles:
-            archive.writestr(profile['name']+'.json', json.dumps(profile, indent=2)+'\n')
-
-
-def fresh_settings(root, recipe, trim):
-    values, sources, files = {}, {}, {}
-    filament_id = None
-    for kind, name in recipe['system_presets'].items():
-        resolved, origins, ids = system_preset(root, kind, name, files)
-        values.update(resolved); sources.update(origins)
-        if kind == 'filament': filament_id = ids['filament_id']
-    for group in ('process_settings', 'filament_settings'):
-        for key, choice in recipe[group].items():
-            assert choice['reason'], key
-            values[key] = choice['value']
-            sources[key] = {'recipe': group, 'reason': choice['reason']}
-    assignment = {
-        'printer_settings_id': f'Bambu Lab H2C 0.8 High Flow +{trim:.2f} Z trim',
-        'print_settings_id': recipe['process_name'],
-        'filament_settings_id': [recipe['filament_name']],
-        'inherits_group': [recipe['system_presets']['process'],
-                           recipe['system_presets']['filament'],
-                           recipe['system_presets']['machine']],
-        'different_settings_to_system': [
-            ';'.join(recipe['process_settings']),
-            ';'.join(recipe['filament_settings']), 'machine_start_gcode;default_nozzle_volume_type;nozzle_volume_type'],
-        'filament_ids': [filament_id], 'filament_colour': ['#DDEBF0'],
-        'filament_map_mode': 'Manual', 'filament_map': ['1'],
-        'filament_map_2': ['1'], 'filament_nozzle_map': ['0'],
-        'filament_self_index': ['1', '1'],
-        'filament_volume_map': ['1'],
-        'nozzle_volume_type': ['High Flow', 'Standard'],
-        'default_nozzle_volume_type': ['High Flow', 'Standard'],
-        'extruder_nozzle_stats': ['High Flow#1', 'Standard#1'],
-        'extruder_nozzle_stats_new': ['High Flow#1', 'Standard#1'],
-        'curr_bed_type': 'Textured PEI Plate',
-        'print_compatible_printers': printer_names(recipe),
-    }
-    for key, value in assignment.items():
-        values[key] = value
-        sources[key] = {'generator': 'fresh_settings',
-            'reason': 'One PETG filament on the left 0.8 mm High Flow nozzle, textured PEI; named source presets.'}
-    values['machine_start_gcode'] = trimmed_start_gcode(values['machine_start_gcode'], trim)
-    sources['machine_start_gcode'] = {
-        'preset': sources['machine_start_gcode']['preset'],
-        'generator': 'trimmed_start_gcode', 'z_trim_mm': trim,
-        'reason': recipe['z_trim']['reason']}
-    return values, {'system_preset_sha256': files, 'supplied_settings': {
-        key: {'value': value, **sources[key]} for key, value in values.items()}}
-
-
-def metadata(node, key, value):
-    existing = node.find(f"metadata[@key='{key}']")
-    if existing is None:
-        existing = ET.SubElement(node, 'metadata', key=key)
-    existing.set('value', str(value))
-
-
-def mesh_object(resources, part_id, mesh, center):
-    obj = ET.SubElement(resources, qn('object'), id=str(part_id), type='model')
-    geometry = ET.SubElement(obj, qn('mesh'))
-    verts = ET.SubElement(geometry, qn('vertices'))
-    faces = ET.SubElement(geometry, qn('triangles'))
-    for xyz in mesh.vertices-center:
-        ET.SubElement(verts, qn('vertex'), **dict(zip(('x','y','z'), (f'{v:.9f}' for v in xyz))))
-    for tri in mesh.faces:
-        ET.SubElement(faces, qn('triangle'), **dict(zip(('v1','v2','v3'), map(str, tri))))
+def recipe(info):
+    return {
+        'system_presets': {
+            'machine': 'Bambu Lab H2C 0.8 nozzle',
+            'process': '0.40mm Standard @BBL H2C 0.8 nozzle',
+            'filament': 'Bambu PETG Translucent @BBL H2C 0.8 nozzle'},
+        'process_name': 'Funnel mold solid - 0.16 mm faces - 0.40 mm backing',
+        'filament_name': 'Funnel mold PETG Translucent - HF 255C 18mm3s',
+        'z_trim': {'default_mm': 0.04, 'available_mm': [0.04, 0.18],
+            'reason': 'The user has established both build-plate corrections across materials and nozzles; translucent uses +0.04 mm.'},
+        'process_settings': {
+            'enable_arc_fitting': choice('0', 'Connected H2C firmware uses curve planning.'),
+            'wall_generator': choice('arachne', 'Variable-width perimeter paths at the rod socket and coating step.'),
+            'wall_loops': choice('4', 'Four perimeter paths around continuous solid backing.'),
+            'sparse_infill_density': choice('100%', 'All modeled stock is solid; no designed enclosed infill volume.'),
+            'sparse_infill_pattern': choice('zig-zag', 'Alternating solid infill paths.'),
+            'top_shell_layers': choice('8', 'Solid surface layer classification.'),
+            'bottom_shell_layers': choice('8', 'Solid surface layer classification.'),
+            'top_shell_thickness': choice('3.2', 'Solid surface classification through fine layer bands.'),
+            'bottom_shell_thickness': choice('3.2', 'Solid surface classification through fine layer bands.'),
+            'top_one_wall_type': choice('not apply', 'Full perimeter count at forming edges.'),
+            'outer_wall_speed': choice(['40']*4, 'Outer perimeters are capped at 40 mm/s.'),
+            'overhang_1_4_speed': choice(['30']*4, 'Low-overhang perimeter paths use 30 mm/s.'),
+            'overhang_2_4_speed': choice(['30']*4, 'Quarter-width overhang paths use 30 mm/s.'),
+            'overhang_3_4_speed': choice(['25']*4, 'Half-width overhang paths use 25 mm/s.'),
+            'overhang_4_4_speed': choice(['10']*4, 'Nearly unsupported perimeter paths use 10 mm/s.'),
+            'seam_position': choice('back', 'Conventional seams lie toward the back of each perimeter.'),
+            'seam_placement_away_from_overhangs': choice('1', 'Seam placement accounts for adjacent overhangs.'),
+            'reduce_crossing_wall': choice('1', 'Travel paths detour around perimeter walls and the open forming cavity.'),
+            'outer_wall_acceleration': choice(['2000']*4, 'Acceleration of the forming and locating perimeters.'),
+            'top_surface_speed': choice(['60']*4, 'Flat forming surfaces print at 60 mm/s or below the flow cap.'),
+            'seam_gap': choice('0%', 'Closed seam paths on the forming faces.'),
+            'brim_type': choice('no_brim', 'The user specifies permanent bed-contact geometry.'),
+            'brim_width': choice('0', 'No slicer brim.'),
+            'skirt_loops': choice('0', 'The stock machine sequence primes the nozzle.'),
+            'enable_support': choice('0', 'Continuous backing carries the forming faces; the outer taper is at least 60 degrees.'),
+            'enable_prime_tower': choice('0', 'One filament and nozzle per plate.')},
+        'filament_settings': {
+            'enable_overhang_bridge_fan': choice(['1'], 'Perimeter cooling uses the explicit wall fan setting.'),
+            'overhang_fan_threshold': choice(['0%'], 'All outer perimeters receive the wall fan setting after the first-layer cooling holdoff.'),
+            'overhang_fan_speed': choice(['90'], 'Outer perimeters use 90% part cooling.'),
+            'filament_prime_volume': choice(['45'], 'Saved filament preset prime volume.'),
+            'nozzle_temperature': choice(['255', '255'], 'Current translucent PETG high-flow temperature.'),
+            'nozzle_temperature_initial_layer': choice(['255', '255'], 'Current translucent PETG high-flow temperature.'),
+            'filament_max_volumetric_speed': choice(['16', '18'], 'Standard preset 16 mm3/s; user high-flow target 18 mm3/s.'),
+            'filament_cost': choice(['11.20'], 'Ledger cost per kilogram.')},
+        'layer_ranges_mm': {
+            'cavity': [(7, 9), (19, 21), (31, 53),
+                       (info['parting_z_mm']-7, info['parting_z_mm']+0.1)],
+            'core': [(8, 16.2), (21, 23), (30, info['dimensions_mm']['core'][2]+0.1)]}}
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--presets', type=Path, default=Path(
-        '/Applications/BambuStudio.app/Contents/Resources/profiles/BBL'))
-    parser.add_argument('--recipe', type=Path, default=MOLD/'print-recipe.json')
-    parser.add_argument('--z-trim', type=float, choices=(0.04, 0.18))
+    parser.add_argument('--models', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--z-trim', type=float, choices=(0.04, 0.18), default=0.04)
+    parser.add_argument('--label')
+    parser.add_argument('--only', choices=('cavity', 'core'))
     args = parser.parse_args()
-    recipe = json.loads(args.recipe.read_text())
-    trim = args.z_trim if args.z_trim is not None else recipe['z_trim']['default_mm']
-    settings, provenance = fresh_settings(args.presets, recipe, trim)
-    version = plistlib.loads((args.presets.parents[2]/'Info.plist').read_bytes())['CFBundleShortVersionString']
-    provenance['slicer_version'] = version
-    precision = {k: ','.join(v['value']) if isinstance(v['value'], list) else v['value']
-                 for k, v in recipe['precision_settings'].items()}
+    info = json.loads((args.models/'design.json').read_text())
+    settings_recipe = recipe(info)
+    presets = Path('/Applications/BambuStudio.app/Contents/Resources/profiles/BBL')
+    settings, provenance = fresh_settings(presets, settings_recipe, args.z_trim)
+    version = plistlib.loads((presets.parents[2]/'Info.plist').read_bytes())['CFBundleShortVersionString']
     data = {'Metadata/project_settings.config': json.dumps(settings, indent=2).encode()}
     model = ET.Element(qn('model'), unit='millimeter', requiredextensions='p',
-                       **{'xmlns:BambuStudio': 'http://schemas.bambulab.com/package/2021'})
+        **{'xmlns:BambuStudio': 'http://schemas.bambulab.com/package/2021'})
     ET.SubElement(model, qn('metadata'), name='Application').text = f'BambuStudio-{version}'
     ET.SubElement(model, qn('metadata'), name='BambuStudio:3mfVersion').text = '1'
-    ET.SubElement(model, qn('metadata'), name='Title').text = 'Funnel mold - guided screw extraction / vented ribs / 0.20 mm finish'
+    ET.SubElement(model, qn('metadata'), name='Title').text = args.label or 'Funnel mold'
     resources = ET.SubElement(model, qn('resources'))
-    build = ET.SubElement(model, qn('build'), **{f'{{{PROD}}}UUID': uid()})
-    config = ET.Element('config'); rels = ET.Element(f'{{{REL}}}Relationships')
-    assembly = ET.Element('assemble')
-    instances = {1: [], 2: [], 3: []}
-    layer_ranges = ET.Element('objects')
-    provenance['recipe'] = recipe
-    provenance['mesh_files'] = {}
-    # Bambu plate pitch: 396 mm across columns, 384 mm down rows.
-    layout = [('finish-witness', 1, (105, 135), False),
-              ('cavity', 2, (545.5, 160), False),
-              ('core', 3, (149.5, -224), True),
-              ('hardware-witness', 1, (200, 145), False),
-              ('guide-witness', 1, (140, 190), False)]
-    object_paths = []
-    for i, (name, plate, xy, flip) in enumerate(layout, 1):
-        mesh = trimesh.load(MOLD/f'funnel-mold-{name}.stl', force='mesh', process=True)
-        provenance['mesh_files'][f'funnel-mold-{name}.stl'] = hashlib.sha256(
-            (MOLD/f'funnel-mold-{name}.stl').read_bytes()).hexdigest()
-        assert mesh.is_watertight and mesh.is_winding_consistent and mesh.body_count == 1, name
-        center = mesh.bounds.mean(axis=0); height = mesh.extents[2]
-        oid, pid = str(2*i), str(2*i-1)
-        path = f'/3D/Objects/object_{i}.model'; object_paths.append(path.lstrip('/'))
-        sub = ET.Element(qn('model'), unit='millimeter'); subr = ET.SubElement(sub, qn('resources'))
-        mesh_object(subr, pid, mesh, center)
-        obj = ET.SubElement(resources, qn('object'), id=oid, type='model', **{f'{{{PROD}}}UUID': uid()})
+    build = ET.SubElement(model, qn('build'), **{f'{{{PROD}}}UUID': str(uuid.uuid4())})
+    config = ET.Element('config')
+    ranges = ET.Element('objects')
+    rels = ET.Element(f'{{{REL}}}Relationships')
+    assembled = ET.Element('assemble')
+    provenance['mesh_sha256'] = {}
+    names = (args.only,) if args.only else ('cavity', 'core')
+    provenance['parts'] = list(names)
+    for index, name in enumerate(names, 1):
+        mesh_path = args.models/f'{name}.stl'
+        mesh = trimesh.load(mesh_path, force='mesh', process=True)
+        assert mesh.is_watertight and mesh.is_winding_consistent and mesh.body_count == 1
+        center, height = mesh.bounds.mean(axis=0), mesh.extents[2]
+        part_id, object_id = str(index*2-1), str(index*2)
+        path = f'/3D/Objects/object_{index}.model'
+        sub = ET.Element(qn('model'), unit='millimeter')
+        subresources = ET.SubElement(sub, qn('resources'))
+        mesh_object(subresources, part_id, mesh, center)
+        data[path.lstrip('/')] = ET.tostring(sub, xml_declaration=True, encoding='UTF-8')
+        obj = ET.SubElement(resources, qn('object'), id=object_id, type='model',
+                            **{f'{{{PROD}}}UUID': str(uuid.uuid4())})
         components = ET.SubElement(obj, qn('components'))
-        def component(part_id):
-            ET.SubElement(components, qn('component'), objectid=str(part_id),
-                transform='1 0 0 0 1 0 0 0 1 0 0 0',
-                **{f'{{{PROD}}}path': path, f'{{{PROD}}}UUID': uid()})
-        component(pid)
-        orient = '1 0 0 0 -1 0 0 0 -1' if flip else '1 0 0 0 1 0 0 0 1'
-        transform = f'{orient} {xy[0]} {xy[1]} {height/2:.9f}'
-        ET.SubElement(build, qn('item'), objectid=oid, transform=transform,
-                      printable='1', **{f'{{{PROD}}}UUID': uid()})
-        ET.SubElement(rels, f'{{{REL}}}Relationship', Target=path, Id=f'rel-{i}',
-                      Type='http://schemas.microsoft.com/3dmanufacturing/2013/01/3dmodel')
-        obj = ET.SubElement(config, 'object', id=oid)
-        metadata(obj, 'name', f'Funnel mold {name}'); metadata(obj, 'extruder', 1)
-        face_count = ET.SubElement(obj, 'metadata', face_count=str(len(mesh.faces)))
-        if 'witness' in name:
-            for key, value in precision.items(): metadata(obj, key, value)
-        part = ET.SubElement(obj, 'part', id=pid, subtype='normal_part', uuid=uid())
-        for key, value in {'name': f'funnel-mold-{name}',
-                'matrix': '1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1',
-                'source_file': f'funnel-mold-{name}.stl', 'source_object_id': 0,
-                'source_volume_id': 0, 'source_offset_x': center[0],
-                'source_offset_y': center[1], 'source_offset_z': center[2]}.items():
+        ET.SubElement(components, qn('component'), objectid=part_id,
+            transform='1 0 0 0 1 0 0 0 1 0 0 0',
+            **{f'{{{PROD}}}path': path, f'{{{PROD}}}UUID': str(uuid.uuid4())})
+        rotation = '1 0 0 0 -1 0 0 0 -1' if name == 'core' else '1 0 0 0 1 0 0 0 1'
+        transform = f'{rotation} {149.5+(index-1)*396} 160 {height/2:.9f}'
+        ET.SubElement(build, qn('item'), objectid=object_id, transform=transform,
+            printable='1', **{f'{{{PROD}}}UUID': str(uuid.uuid4())})
+        ET.SubElement(rels, f'{{{REL}}}Relationship', Target=path, Id=f'rel-{index}',
+            Type='http://schemas.microsoft.com/3dmanufacturing/2013/01/3dmodel')
+        obj = ET.SubElement(config, 'object', id=object_id)
+        metadata(obj, 'name', f"{args.label or 'Funnel mold'} {name}")
+        metadata(obj, 'extruder', '1')
+        ET.SubElement(obj, 'metadata', face_count=str(len(mesh.faces)))
+        part = ET.SubElement(obj, 'part', id=part_id, subtype='normal_part', uuid=str(uuid.uuid4()))
+        for key, value in {'name': name, 'matrix': '1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1',
+                'source_file': mesh_path.name, 'source_object_id': 0, 'source_volume_id': 0,
+                'source_offset_x': center[0], 'source_offset_y': center[1],
+                'source_offset_z': center[2]}.items():
             metadata(part, key, value)
         ET.SubElement(part, 'mesh_stat', face_count=str(len(mesh.faces)), edges_fixed='0',
             degenerate_facets='0', facets_removed='0', facets_reversed='0', backwards_edges='0')
-        if name in ('cavity', 'core'):
-            zone = trimesh.load(MOLD/f'funnel-mold-{name}-surface-zone.stl', force='mesh', process=True)
-            provenance['mesh_files'][f'funnel-mold-{name}-surface-zone.stl'] = hashlib.sha256(
-                (MOLD/f'funnel-mold-{name}-surface-zone.stl').read_bytes()).hexdigest()
-            zone.update_faces(zone.nondegenerate_faces()); zone.remove_unreferenced_vertices()
-            assert zone.is_watertight and zone.is_winding_consistent, name
-            zid = str(100+i); mesh_object(subr, zid, zone, center); component(zid)
-            zp = copy.deepcopy(part); zp.set('id', zid); zp.set('subtype', 'modifier_part'); zp.set('uuid', uid())
-            metadata(zp, 'name', 'Forming faces, registration and hardware fits - 60 mm/s')
-            metadata(zp, 'source_file', f'funnel-mold-{name}-surface-zone.stl')
-            for key, value in precision.items(): metadata(zp, key, value)
-            zp.find('mesh_stat').set('face_count', str(len(zone.faces))); obj.append(zp)
-            face_count.set('face_count', str(len(mesh.faces)+len(zone.faces)))
-        data[path.lstrip('/')] = ET.tostring(sub, xml_declaration=True, encoding='UTF-8')
-        # Bambu's layer-range object IDs are 1-based object order, not 3MF IDs.
-        bands = recipe['layer_ranges_mm'][name]
-        if bands:
-            ro = ET.SubElement(layer_ranges, 'object', id=str(i))
-            for band in bands:
-                rr = ET.SubElement(ro, 'range', min_z=str(band['min_z']), max_z=str(band['max_z']))
-                ET.SubElement(rr, 'option', opt_key='layer_height').text = str(band['layer_height'])
-        instances[plate].append((oid, 1700+i))
-        ET.SubElement(assembly, 'assemble_item', object_id=oid, instance_id='0',
-                      transform=f'{orient} 0 0 {height/2}', offset='0 0 0')
-        ET.SubElement(assembly, 'assemble_item', object_id=oid, volume_id='0',
-                      transform='1 0 0 0 1 0 0 0 1 0 0 0')
-        print(name, 'plate', plate, 'mm', mesh.extents.round(3).tolist(),
-              'mL', round(mesh.volume/1000, 2), 'faces', len(mesh.faces), flush=True)
-    for i, name in enumerate(('Finish and hardware witnesses - print first',
-                             'Cavity - vented ribs and bearing pads',
-                             'Core - guided screw extraction'), 1):
-        plate = ET.Element('plate')
-        metadata(plate, 'plater_id', i); metadata(plate, 'plater_name', name)
-        metadata(plate, 'locked', 'false')
-        metadata(plate, 'filament_map_mode', 'Manual')
-        metadata(plate, 'filament_maps', '1')
-        metadata(plate, 'filament_volume_maps', '1')
-        metadata(plate, 'bed_type', settings['curr_bed_type'])
-        for oid, identify in instances[i]:
-            instance = ET.SubElement(plate, 'model_instance')
-            metadata(instance, 'object_id', oid); metadata(instance, 'instance_id', 0)
-            metadata(instance, 'identify_id', identify)
-        config.append(plate)
-    config.append(assembly)
-    data['3D/3dmodel.model'] = ET.tostring(model, xml_declaration=True, encoding='UTF-8')
-    data['3D/_rels/3dmodel.model.rels'] = ET.tostring(rels, xml_declaration=True, encoding='UTF-8').replace(b'ns0:', b'').replace(b'xmlns:ns0=', b'xmlns=')
-    data['Metadata/model_settings.config'] = ET.tostring(config, xml_declaration=True, encoding='UTF-8')
-    data['Metadata/layer_config_ranges.xml'] = ET.tostring(layer_ranges, xml_declaration=True, encoding='UTF-8')
+        plate = ET.SubElement(config, 'plate')
+        for key, value in {'plater_id': index, 'plater_name': f"{args.label or 'Funnel mold'} {name}", 'locked': 'false',
+                'filament_map_mode': 'Manual', 'filament_maps': '1', 'filament_volume_maps': '1',
+                'bed_type': 'Textured PEI Plate'}.items():
+            metadata(plate, key, value)
+        instance = ET.SubElement(plate, 'model_instance')
+        for key, value in {'object_id': object_id, 'instance_id': 0, 'identify_id': 1800+index}.items():
+            metadata(instance, key, value)
+        layer_object = ET.SubElement(ranges, 'object', id=str(index))
+        for bottom, top in settings_recipe['layer_ranges_mm'][name]:
+            band = ET.SubElement(layer_object, 'range', min_z=str(bottom), max_z=str(top))
+            ET.SubElement(band, 'option', opt_key='layer_height').text = '0.16'
+        ET.SubElement(assembled, 'assemble_item', object_id=object_id, instance_id='0',
+            transform=f'{rotation} 0 0 {height/2}', offset='0 0 0')
+        ET.SubElement(assembled, 'assemble_item', object_id=object_id, volume_id='0',
+            transform='1 0 0 0 1 0 0 0 1 0 0 0')
+        provenance['mesh_sha256'][name] = hashlib.sha256(mesh_path.read_bytes()).hexdigest()
+    config.append(assembled)
+    for path, element in [('3D/3dmodel.model', model),
+            ('Metadata/model_settings.config', config), ('Metadata/layer_config_ranges.xml', ranges)]:
+        data[path] = ET.tostring(element, xml_declaration=True, encoding='UTF-8')
+    package_rels = ET.Element(f'{{{REL}}}Relationships')
+    ET.SubElement(package_rels, f'{{{REL}}}Relationship', Target='/3D/3dmodel.model', Id='rel-1',
+        Type='http://schemas.microsoft.com/3dmanufacturing/2013/01/3dmodel')
+    for path, element in [('3D/_rels/3dmodel.model.rels', rels), ('_rels/.rels', package_rels)]:
+        data[path] = ET.tostring(element, xml_declaration=True, encoding='UTF-8').replace(
+            b'ns0:', b'').replace(b'xmlns:ns0=', b'xmlns=')
     data['[Content_Types].xml'] = b'''<?xml version="1.0" encoding="UTF-8"?>
 <Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">
 <Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>
@@ -314,21 +170,15 @@ def main():
 <Default Extension="png" ContentType="image/png"/>
 <Default Extension="gcode" ContentType="text/x.gcode"/>
 </Types>'''
-    package_rels = ET.Element(f'{{{REL}}}Relationships')
-    ET.SubElement(package_rels, f'{{{REL}}}Relationship', Target='/3D/3dmodel.model',
-                  Id='rel-1', Type='http://schemas.microsoft.com/3dmanufacturing/2013/01/3dmodel')
-    data['_rels/.rels'] = ET.tostring(package_rels, xml_declaration=True, encoding='UTF-8').replace(b'ns0:', b'').replace(b'xmlns:ns0=', b'xmlns=')
-    keep = ['Metadata/project_settings.config', 'Metadata/model_settings.config',
-            'Metadata/layer_config_ranges.xml',
-            '3D/3dmodel.model', '3D/_rels/3dmodel.model.rels', '[Content_Types].xml', '_rels/.rels', *object_paths]
     args.output.parent.mkdir(parents=True, exist_ok=True)
     with zipfile.ZipFile(args.output, 'w', zipfile.ZIP_DEFLATED, compresslevel=6) as archive:
-        for name in keep: archive.writestr(name, data[name])
-    provenance['input_3mf_sha256'] = hashlib.sha256(args.output.read_bytes()).hexdigest()
+        for name, payload in data.items():
+            archive.writestr(name, payload)
+    provenance['recipe'] = settings_recipe
+    provenance['slicer_version'] = version
     args.output.with_suffix('.provenance.json').write_text(json.dumps(provenance, indent=2)+'\n')
-    # Install both printer trims, the process and the filament as saved presets.
-    bundle = args.output.parent/'funnel-mold-hf08-z-trim-presets.bbscfg'
-    preset_bundle(args.presets, recipe, version, bundle)
+    preset_bundle(presets, settings_recipe, version, args.output.parent/'funnel-mold-presets.bbscfg')
+    print(args.output)
 
 
 if __name__ == '__main__':

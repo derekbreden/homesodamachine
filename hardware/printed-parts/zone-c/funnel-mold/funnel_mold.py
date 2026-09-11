@@ -1,521 +1,366 @@
-"""Vented PETG tooling for the Zone C silicone funnel.
+"""PETG funnel tooling with two open V channels in each print back, in the funnel's brim-centred assembly frame.
 
-Frame: XY at the funnel brim centre, +Z up when assembled. Both exported halves
-share a transform that places the cavity's feet at Z=0. Print the cavity opening
-up and the core inverted, its open back against the bed.
+The cavity stands on a rounded foot with a continuous outer taper, at least
+60 degrees above the print bed including the rounded corners.
+The core prints inverted on its flat back. All modeled stock prints at 100%
+fill. Both forming faces reserve 0.20 mm of net finishing growth.
 
-The nominal funnel defines the finished forming faces. The printed cavity is
-expanded and the plug contracted by finish_allowance; finishing adds that net
-thickness back. The registration lands and the steel rod socket stay nominal.
-Skins carry the forming faces, ribs carry the skins, and transverse air channels
-connect the open backs to the chamber even against a flat shelf or clamp board.
+Run by hand with tools/cad-venv/bin/python. Outputs are in --output.
 """
 
+import argparse
+import json
 import math
-import os
 import sys
 from pathlib import Path
 
 import cadquery as cq
+import numpy as np
 import trimesh
 
-_here = Path(__file__).resolve()
-_repo = next(p for p in _here.parents if (p / "hardware/scripts/_cadq_export.py").is_file())
-_tools = next(p for p in _here.parents if (p / "tools/docgen").is_dir()) / "tools"
-sys.path[:0] = [str(_repo / "hardware/scripts"),
-                str(_repo / "hardware/printed-parts/cadlib"), str(_tools),
-                str(_repo / "hardware/printed-parts/zone-c/funnel")]
-import fits
+ROOT = next(p for p in Path(__file__).resolve().parents
+            if (p/'hardware/scripts/_cadq_export.py').is_file())
+sys.path[:0] = [str(ROOT / 'hardware/printed-parts/zone-c/funnel'),
+                str(ROOT / 'hardware/scripts')]
+import funnel
 from _cadq_export import export_assembly
-from _materials import M_PETG_BLACK, M_SILICONE_BLACK, M_STAINLESS, one_body
+from _materials import one_body
 from flute_payload import cut as write_print_payload
-from docgen import substitute_md
-import funnel as HF
 
-mold_wall = 8.0
-mold_base = 10.0
-skirt_wall = 6.0
-plate_thk = 14.0
-lip_h = 10.0
-lip_gap = fits.slip
-forming_skin = 3.2
-rib_thk = 2.4
-rib_pitch = 20.0
-cross_rib_pitch = 64.0
-foot_frame = 8.0
-frame_height = 3.2
-frame_corner_radius = 10.0
-rib_foot_width = 6.4
-rib_foot_land = 1.2
-rib_foot_rise = (rib_foot_width-rib_thk)/2
-fixture_foot_margin = 2.0
-fixture_foot_radius = 6.4
-back_vent_d = 3.0
-back_vent_depth = 3.0
-register_corbel_run = 14.0
-cavity_air_rows = (-80.0, -32.0, 32.0, 80.0)
-core_air_rows = (-68.0, -32.0, 32.0, 68.0)
-# Net surface growth: dry coating remaining minus substrate removed by sanding.
 finish_allowance = 0.20
-boolean_tol = 0.0001
-
-tip_buffer = 12.0
-# The annular shoulder at the nominal exit plane locates the trim blade.
+forming_backing = 6.0
+rim_margin = 8.0
+base_thickness = 8.0
+foot_width = 146.0
+foot_radius = 12.0
+foot_height = 3.2
+outer_taper_angle = 60.0
+rim_radius = 10.0
+plate_thickness = 10.0
+register_wall = 6.0
+register_depth = 6.0
+register_clearance = 0.30
+key_depth = 2.0
+key_width = 14.0
+key_y = 38.0
+tip_length = 12.0
 tip_step = 1.0
 tip_cap = 2.0
 tip_draft = 0.5
-rod_d = 6.35
-rod_len = 50.8
-rod_fit = 0.10
-fill_port_land = 1.0
-fill_dish_d = 20.0
-fill_dish_h = 4.0
-vent_id = 2.5
-
-witness_w = 60.0
-witness_d = 24.0
-witness_floor = 10.0
-witness_ramp_run = 20.0
-witness_rail_w = 4.0
-witness_rail_gap = 3.0
-
-# One station repeats at 90 degrees around the four sides, inside the square
-# mold's existing circumscribed circle (the chamber is round).
-jack_x, jack_y = 119.0, 6.0
-washer_y = 14.0
-washer_od, washer_pocket_d = 25.0, 25.4
-washer_thickness_range = (0.8, 2.0)
-jack_length, jack_pitch, jack_hole = 50.0, 0.8, 5.8
-nut_width, nut_thickness = 8.0, 4.0
-nut_slot_width, nut_slot_height = 8.4, 4.4
-guide_x = 119.0
-guide_width, guide_depth = 12.0, 40.0
-guide_bore, guide_bore_depth = guide_width+0.6, guide_depth+0.6
-guide_drop, guide_top, guide_bottom = 54.0, 10.0, 24.0
-guide_root_run = 6.0
-extraction_stroke = 32.0
-chamber_nominal_id = 11.8 * 25.4
-column_radius = 16.0
-station_root = 79.0
-station_wall = 6.4
-station_top_gap = 0.6
-station_arm_root, station_arm_end = 87.0, 135.0
-station_arm_width = 66.0
-guide_relief = guide_bore + 4.0
-guide_relief_depth = guide_bore_depth + 4.0
-guide_outside = guide_bore + 2*station_wall
-guide_outside_depth = guide_bore_depth + 2*station_wall
-guide_y = -(guide_outside_depth+rib_thk)/2
+rod_diameter = 6.35
+rod_length = 50.8
+rod_clearance = 0.10
+socket_vent_diameter = 2.5
+socket_vent_overlap = 1.0
+vent_diameter = 3.0
+pour_diameter = 11.0
+pry_width = 24.0
+pry_depth = 5.0
+pry_height = 1.5
+tolerance = 0.0001
+chamber_diameter = 299.72
 
 
-def _box(w, d, z0, z1, cx=0.0, cy=0.0):
-    return (cq.Workplane("XY").box(w, d, z1-z0, centered=(True, True, False))
-            .translate((cx, cy, z0)).val())
+def box(width, depth, bottom, top, x=0, y=0):
+    return (cq.Workplane('XY').box(width, depth, top-bottom,
+            centered=(True, True, False)).translate((x, y, bottom)).val())
 
 
-def _cyl(r, z_top, z_bot, cx=0.0, cy=0.0):
-    return cq.Solid.makeCylinder(r, z_top-z_bot, cq.Vector(cx, cy, z_bot), cq.Vector(0, 0, 1))
+def cylinder(radius, bottom, top, x=0, y=0):
+    return cq.Solid.makeCylinder(radius, top-bottom, cq.Vector(x, y, bottom))
 
 
-def _rounded_box(w, d, z0, z1, radius, cx=0.0, cy=0.0):
-    return cq.Workplane(obj=_box(w, d, z0, z1, cx, cy)).edges('|Z').fillet(radius).val()
+def rounded(width, radius, bottom, top):
+    return cq.Workplane(obj=box(width, width, bottom, top)).edges('|Z').fillet(radius).val()
 
 
-def _foot_ring(w, d, z0, z1, radius, cx=0.0, cy=0.0):
-    outer = _rounded_box(w, d, z0, z1, radius, cx, cy)
-    inner = _rounded_box(w-2*foot_frame, d-2*foot_frame, z0-1, z1+1,
-                         max(radius-foot_frame, rib_thk), cx, cy)
-    return outer.cut(inner)
-
-
-def _rib_feet(w, d, bed_z, cx=0.0, cy=0.0, print_up=1):
-    """Broad flat rib lands taper inward at 45 degrees above the first 1.2 mm."""
-    def beam(length):
-        land = _box(rib_foot_width, length, 0, rib_foot_land)
-        taper = (cq.Workplane('XY').workplane(offset=rib_foot_land)
-            .rect(rib_foot_width, length).workplane(offset=rib_foot_rise)
-            .rect(rib_thk, length).loft().val())
-        return land.fuse(taper)
-    count = math.floor((w/2-foot_frame)/rib_pitch)
-    along_y, along_x = beam(d), beam(w).rotate((0, 0, 0), (0, 0, 1), 90)
-    feet = [along_y.translate((i*rib_pitch, 0, 0)) for i in range(-count, count+1)]
-    feet.extend(along_x.translate((0, y, 0)) for y in (-cross_rib_pitch, 0, cross_rib_pitch))
-    shape = feet[0].fuse(*feet[1:], tol=boolean_tol)
-    if print_up < 0:
-        shape = shape.rotate((0, 0, 0), (1, 0, 0), 180)
-    return shape.translate((cx, cy, bed_z))
-
-
-def _one(shape, name):
+def one(shape, name):
     shape = shape.clean()
-    assert shape.isValid() and len(shape.Solids()) == 1, f"{name}: invalid or disconnected solid"
+    assert shape.isValid() and len(shape.Solids()) == 1, name
     return shape.Solids()[0]
 
 
-def _quarter(shape, angle):
-    return shape.rotate((0, 0, 0), (0, 0, 1), angle)
-
-
-def _guide_post(z0, z1, x, y):
-    post = cq.Workplane(obj=_box(guide_width, guide_depth, z0, z1, x, y))
-    return post.edges('|Z').chamfer(0.6).faces('<Z').edges().chamfer(0.8).val()
-
-
-def _guide_socket(z0, z1, x, y):
-    bore = _box(guide_bore, guide_bore_depth, z0-1, z1+1, x, y)
-    entry = (cq.Workplane('XY').workplane(offset=z1-0.6).center(x, y)
-        .rect(guide_bore, guide_bore_depth).workplane(offset=0.61)
-        .rect(guide_bore+1.22, guide_bore_depth+1.22).loft().val())
-    return bore.fuse(entry)
-
-
-def _nut_cut(top_z, x, y, exit_x):
-    start = x-nut_slot_width/2
-    return _box(exit_x-start, nut_slot_width, top_z+1.2,
-        top_z+1.2+nut_slot_height, (start+exit_x)/2, y)
-
-
-def build_extraction(top_z):
-    """Bed-rooted bearing columns, braced guide towers and broad lifting arms."""
-    pad_floor = top_z-3.0
-    tie_top = top_z-lip_h-station_top_gap
-    pad = _cyl(column_radius, pad_floor+1.2, 0, jack_x, washer_y)
-    pad = pad.cut(_cyl(washer_pocket_d/2, top_z+1, pad_floor, jack_x, washer_y))
-    sleeve = _box(guide_outside, guide_outside_depth, 0, top_z-guide_top, guide_x, guide_y)
-    socket = _guide_socket(top_z-guide_bottom, top_z-guide_top, guide_x, guide_y)
-    relief_top = top_z-guide_bottom-(guide_relief-guide_bore)/2
-    relief = _box(guide_relief, guide_relief_depth, -1, relief_top, guide_x, guide_y)
-    relief = relief.fuse(cq.Workplane('XY').workplane(offset=relief_top)
-        .center(guide_x, guide_y).rect(guide_relief, guide_relief_depth)
-        .workplane(offset=(guide_relief-guide_bore)/2)
-        .rect(guide_bore, guide_bore_depth).loft().val())
-    sleeve = sleeve.cut(socket, relief)
-    pad_foot = _cyl(column_radius+fixture_foot_margin, frame_height, 0, jack_x, washer_y)
-    guide_foot = _rounded_box(guide_outside+2*fixture_foot_margin,
-        guide_outside_depth+2*fixture_foot_margin, 0, frame_height,
-        fixture_foot_radius, guide_x, guide_y)
-    walls = []
-    pad_wall_spread = 2*(washer_y-rib_thk/2-station_wall/2)
-    for x, y, spread in [(jack_x, washer_y, pad_wall_spread),
-                          (guide_x, guide_y, guide_outside_depth-station_wall)]:
-        walls.extend(_box(x-station_root, station_wall, 0, tie_top,
-                     (station_root+x)/2, y+s*spread/2) for s in (-1, 1))
-    lower = pad.fuse(sleeve, pad_foot, guide_foot, *walls)
-    guide_air = cq.Solid.makeCylinder(back_vent_d/2, guide_outside,
-        cq.Vector(guide_x, guide_y, back_vent_depth), cq.Vector(1, 0, 0))
-    lower = lower.cut(guide_air, socket, relief)
-    guide_arm_end = guide_x+guide_width/2+guide_root_run
-    guide_arm_low = guide_y-guide_depth/2-guide_root_run
-    arm_low, arm_high = -station_arm_width/2, station_arm_width/2
-    corner_run = station_arm_end-guide_arm_end
-    arm_plan = [(station_arm_root, guide_arm_low), (guide_arm_end, guide_arm_low),
-                (guide_arm_end, arm_low-corner_run), (station_arm_end, arm_low),
-                (station_arm_end, arm_high), (station_arm_root, arm_high),
-                (station_arm_root, guide_arm_low)]
-    arm = (cq.Workplane('XY').workplane(offset=top_z)
-           .polyline(arm_plan).wire().extrude(plate_thk).val())
-    arm_outline = cq.Workplane('XY').polyline(arm_plan).wire().val()
-    arm_foot_wire = arm_outline.offset2D(fixture_foot_margin, kind='arc')[0]
-    arm_foot = cq.Solid.extrudeLinear(arm_foot_wire, [], cq.Vector(0, 0, frame_height))
-    arm_foot = arm_foot.translate((0, 0, top_z+plate_thk-frame_height))
-    post = _guide_post(top_z-guide_drop, top_z+plate_thk, guide_x, guide_y)
-    shoulder = (cq.Workplane('XY').workplane(offset=top_z-guide_root_run)
-        .center(guide_x, guide_y).rect(guide_width, guide_depth)
-        .workplane(offset=guide_root_run)
-        .rect(guide_width+2*guide_root_run, guide_depth+2*guide_root_run).loft().val())
-    # The mark meets the sleeve mouth after 32 mm of lift; it is a witness mark,
-    # not a catch that would prevent removing the core after the rod is clear.
-    mark_z = top_z-guide_top-extraction_stroke
-    post = post.cut(_box(0.4, 5.0, mark_z-0.4, mark_z+0.4,
-                        guide_x+guide_width/2-0.15, guide_y))
-    upper = arm.fuse(post, shoulder, arm_foot)
-    upper = upper.cut(_cyl(jack_hole/2, top_z+plate_thk+1, top_z-1, jack_x, jack_y),
-                      _nut_cut(top_z, jack_x, jack_y, station_arm_end+1))
-    upper = _one(upper, 'extraction upper station')
-    # Pads/sleeves, threads and sliding faces use the precision surface speed.
-    slow_lower = _cyl(column_radius+0.5, top_z, pad_floor-forming_skin, jack_x, washer_y).fuse(
-        _box(guide_outside+1, guide_outside_depth+1, top_z-guide_bottom,
-             top_z-guide_top, guide_x, guide_y))
-    slow_upper = arm.fuse(post, shoulder)
-    lower_stations = [_quarter(lower, a) for a in range(0, 360, 90)]
-    lower_all = cq.Compound.makeCompound(lower_stations)
-    upper_all = cq.Compound.makeCompound([_quarter(upper, a) for a in range(0, 360, 90)])
-    lower_slow = cq.Compound.makeCompound([_quarter(slow_lower, a) for a in range(0, 360, 90)])
-    upper_slow = cq.Compound.makeCompound([_quarter(slow_upper, a) for a in range(0, 360, 90)])
-    hardware = []
-    for a in range(0, 360, 90):
-        washer = _cyl(washer_od/2, pad_floor+1.0, pad_floor, jack_x, washer_y).cut(
-            _cyl(2.7, pad_floor+2.0, pad_floor-1, jack_x, washer_y))
-        # Smooth shaft/head representations; the purchased steel supplies threads.
-        tip_z = pad_floor+1.0
-        screw = _cyl(2.5, tip_z+jack_length, tip_z, jack_x, jack_y).fuse(
-            _cyl(4.25, tip_z+jack_length+5, tip_z+jack_length, jack_x, jack_y))
-        nut = _box(nut_width, nut_width, top_z+1.6, top_z+5.6, jack_x, jack_y).cut(
-            _cyl(2.5, top_z+6, top_z+1, jack_x, jack_y))
-        hardware.extend([(f'washer-{a//90+1}', _quarter(washer, a)),
-                         (f'jack-screw-{a//90+1}', _quarter(screw, a)),
-                         (f'square-nut-{a//90+1}', _quarter(nut, a))])
-    return lower_all, upper_all, lower_slow, upper_slow, hardware
-
-
-def build_hardware_witness():
-    """Nut seat in the inverted core's print orientation, sleeve and washer seat."""
-    nut_block = _box(34, 20, 0, plate_thk, -1, 0)
-    nut_cut = _nut_cut(0, 0, 0, 17).rotate((0, 0, 0), (1, 0, 0), 180).translate((0, 0, plate_thk))
-    nut_block = nut_block.cut(nut_cut, _cyl(jack_hole/2, plate_thk+1, -1))
-    sleeve = _box(guide_outside, guide_outside_depth, 0, 14, -26, 0).cut(
-        _guide_socket(0, 14, -26, 0))
-    pad = _cyl(column_radius, 4.4, 0, 0, 25).cut(_cyl(washer_pocket_d/2, 5, 3.2, 0, 25))
-    coupon = _one(nut_block.fuse(sleeve, pad), 'hardware witness')
-    pin = _guide_post(-24, 0, 0, 0).fuse(_box(guide_width+6, guide_depth+6, 0, 3))
-    pin = pin.rotate((0, 0, 0), (1, 0, 0), 180).translate((0, 0, 3))
-    return coupon, _one(pin, 'guide witness')
-
-
-def _expanded(shape, distance):
-    """Normal face offsets, with round joins at edges and vertices.
-
-    Each face keeps its analytic/offset surface. Edge tubes and vertex spheres
-    close the corner wedges between outward-offset faces.
-    """
-    parts = [f.thicken(distance) for f in shape.Faces()]
+def expanded(shape, distance):
+    offsets = [face.thicken(distance) for face in shape.Faces()]
     for edge in shape.Edges():
-        if edge.Length() > boolean_tol:
-            circle = cq.Wire.makeCircle(distance, edge.positionAt(0), edge.tangentAt(0))
-            parts.append(cq.Solid.sweep(circle, [], edge))
-    parts.extend(cq.Solid.makeSphere(distance, v.Center(), angleDegrees1=-90,
-                                     angleDegrees2=90) for v in shape.Vertices())
-    return _one(shape.fuse(*parts, tol=boolean_tol), "expanded forming envelope")
+        if edge.Length() > tolerance:
+            profile = cq.Wire.makeCircle(distance, edge.positionAt(0), edge.tangentAt(0))
+            offsets.append(cq.Solid.sweep(profile, [], edge))
+    offsets.extend(cq.Solid.makeSphere(distance, vertex.Center(),
+        angleDegrees1=-90, angleDegrees2=90) for vertex in shape.Vertices())
+    return one(shape.fuse(*offsets, tol=tolerance), 'exterior offset')
 
 
-def _contracted_plug(plug, distance, top_z):
-    # The top face remains open into the back of the core plate.
-    strips = [f.thicken(-distance) for f in plug.Faces() if f.Center().z < top_z]
-    return _one(plug.cut(*strips, tol=boolean_tol), "contracted plug")
+def contracted(shape, distance, top):
+    sides = [face.thicken(-distance) for face in shape.Faces() if face.Center().z < top]
+    return one(shape.cut(*sides, tol=tolerance), 'core offset')
 
 
-def _ribs(w, d, z0, z1, cx, cy):
-    count = math.floor((w / 2 - foot_frame) / rib_pitch)
-    ribs = [_box(rib_thk, d, z0, z1, cx+i*rib_pitch, cy) for i in range(-count, count+1)]
-    ribs.extend(_box(w, rib_thk, z0, z1, cx, cy+y)
-                for y in (-cross_rib_pitch, 0, cross_rib_pitch))
-    return ribs[0].fuse(*ribs[1:], tol=boolean_tol)
+def build_stock():
+    exterior, bore, m = funnel.build_solids()
+    top, neck, end = m['top_z'], m['neck_z'], m['end_z']
+    x, y = m['ncx'], m['ncy']
+    tip_bottom = end-tip_length
+    floor = tip_bottom-base_thickness
+    body_width = m['out_w']+2*rim_margin
+    plate_width = body_width+2*register_wall
+    tip_radius = m['spout_or']-tip_step
+    tip = cq.Solid.makeCone(tip_radius-tip_draft, tip_radius, tip_length,
+        cq.Vector(x, y, tip_bottom))
+    nominal_exterior = one(exterior.fuse(tip), 'nominal casting envelope')
+    forming_void = expanded(nominal_exterior, finish_allowance)
+
+    taper_bottom = floor+foot_height
+    taper_run = ((body_width-foot_width)/math.sqrt(2)
+                 +(foot_radius-rim_radius)*(math.sqrt(2)-1))
+    taper_rise = taper_run*math.tan(math.radians(outer_taper_angle))
+    taper_top = taper_bottom+taper_rise
+    foot = rounded(foot_width, foot_radius, floor, taper_bottom)
+    lower_wire = cq.Workplane(obj=foot).faces('>Z').val().outerWire()
+    collar = rounded(body_width, rim_radius, taper_top, top)
+    upper_wire = cq.Workplane(obj=collar).faces('<Z').val().outerWire()
+    taper = cq.Solid.makeLoft([lower_wire, upper_wire], ruled=True)
+    stock = one(foot.fuse(taper, collar), 'cavity stock')
+    outer_faces = [face for face in stock.Faces()
+                   if not (face.geomType() == 'PLANE' and face.normalAt().z > 0.9)]
+    minimum_backing = min(forming_void.distance(face) for face in outer_faces)
+    assert minimum_backing >= forming_backing-tolerance, 'forming face backing'
+    cavity = one(stock.cut(forming_void), 'cavity')
+    for angle in (0, 90, 180, 270):
+        notch = box(pry_depth+1, pry_width, top-pry_height, top+1,
+                    body_width/2-pry_depth/2+0.5)
+        cavity = cavity.cut(notch.rotate((0, 0, 0), (0, 0, 1), angle))
+    key_slot = box(key_depth+1, key_width, top-register_depth, top+1,
+                   body_width/2-key_depth/2+0.5, key_y)
+    cavity = cavity.cut(key_slot)
+    cavity = one(cavity, 'cavity with pry lands')
+
+    nominal_plug = one(bore.intersect(box(plate_width, plate_width,
+                                         neck, top+1)), 'nominal core')
+    plug = contracted(nominal_plug, finish_allowance, top)
+    plate = rounded(plate_width, rim_radius+register_wall, top, top+plate_thickness)
+    plate = plate.cut(box(m['out_w']+2*finish_allowance,
+                         m['out_d']+2*finish_allowance, top-1, top+finish_allowance))
+    register = rounded(plate_width, rim_radius+register_wall, top-register_depth, top)
+    register = register.cut(rounded(body_width+2*register_clearance,
+        rim_radius+register_clearance, top-register_depth-1, top+1))
+    for angle in (0, 90, 180, 270):
+        opening = box(register_wall+2, pry_width, top-register_depth-1, top+1,
+                      body_width/2+register_wall/2)
+        register = register.cut(opening.rotate((0, 0, 0), (0, 0, 1), angle))
+    key_inner = body_width/2-key_depth+register_clearance
+    key_outer = body_width/2+register_clearance+1
+    key = box(key_outer-key_inner, key_width-2*register_clearance,
+              top-register_depth+register_clearance, top,
+              (key_inner+key_outer)/2, key_y)
+    register = register.fuse(key)
+
+    rod_below = funnel.spout_tube+tip_length-tip_cap
+    rod_socket = rod_length-rod_below
+    rod_bottom, rod_top = tip_bottom+tip_cap, neck+rod_socket
+    rod = cylinder(rod_diameter/2, rod_bottom, rod_top, x, y)
+    socket = cylinder((rod_diameter+rod_clearance)/2, neck-1, rod_top, x, y)
+    socket_vent = cylinder(socket_vent_diameter/2, rod_top-socket_vent_overlap,
+        top+plate_thickness+1, x+rod_diameter/2, y)
+    core = plug.fuse(plate, register).cut(socket, socket_vent)
+    port_radius = m['out_w']/2-m['rim_ring']/2
+    pour = (-port_radius, -port_radius)
+    vents = [(port_radius, -port_radius), (port_radius, port_radius),
+             (-port_radius, port_radius), (-port_radius, 0), (port_radius, 0)]
+    ports = [cylinder(pour_diameter/2, top-1, top+plate_thickness+1, *pour)]
+    ports.extend(cylinder(vent_diameter/2, top-1, top+plate_thickness+1, *xy)
+                 for xy in vents)
+    core = one(core.cut(*ports), 'core')
+    cast = one(exterior.cut(bore).fuse(tip.cut(rod)), 'silicone casting')
+    assert cavity.intersect(core).Volume() < tolerance
+    assert cavity.intersect(cast).Volume() < tolerance
+    assert core.intersect(cast).Volume() < tolerance
+    assert top+plate_thickness-rod_top > forming_backing
+    assert socket.cut(rod).intersect(socket_vent).Volume() > 0.01, 'socket air cannot reach vent'
+    for lift in (0.5, 1.5, 3, 6, 12, rod_socket, 52):
+        assert cavity.intersect(core.translate((0, 0, lift))).Volume() < tolerance
+    for angle in (90, 180, 270):
+        turned = core.rotate((0, 0, 0), (0, 0, 1), angle)
+        assert cavity.intersect(turned).Volume() > 1, 'key permits incorrect closure'
+    for angle in (0, 90, 180, 270):
+        blade = box(14, pry_width-2, top-pry_height+0.2, top-0.2,
+                    body_width/2+3)
+        blade = blade.rotate((0, 0, 0), (0, 0, 1), angle)
+        assert sum(blade.intersect(s).Volume() for s in (core, cavity)) < tolerance
+    shift = (0, 0, -floor)
+    parts = {name: shape.translate(shift) for name, shape in
+             [('cavity', cavity), ('core', core), ('funnel', cast), ('rod', rod)]}
+    dimensions = {name: [s.BoundingBox().xlen, s.BoundingBox().ylen,
+                         s.BoundingBox().zlen] for name, s in parts.items()}
+    info = {'dimensions_mm': dimensions,
+            'volume_ml': {name: s.Volume()/1000 for name, s in parts.items()},
+            'parting_z_mm': top-floor, 'rod_socket_depth_mm': rod_socket,
+            'rod_socket_vent_diameter_mm': socket_vent_diameter,
+            'register_depth_mm': register_depth, 'finish_allowance_mm': finish_allowance,
+            'cavity_stock_minimum_backing_before_rim_notches_mm': minimum_backing,
+            'cavity_outer_taper': {
+                'foot_width_mm': foot_width, 'foot_height_mm': foot_height,
+                'taper_top_z_mm': taper_top-floor,
+                'minimum_angle_from_bed_degrees': outer_taper_angle,
+                'maximum_outward_growth_per_0_40_mm_layer':
+                    0.4/math.tan(math.radians(outer_taper_angle))},
+            'ramp_print_z_mm': {'cavity': [neck-floor, m['ramp_top_z']-floor],
+                'core': [top+plate_thickness-m['ramp_top_z'], top+plate_thickness-neck]},
+            'nominal_chamber_diameter_mm': chamber_diameter,
+            'status': 'CAD design; physical printing and release untested'}
+    return parts, info
 
 
-def _air_channels(width, rows, z, cx, cy):
-    return [cq.Solid.makeCylinder(back_vent_d/2, width+2,
-            cq.Vector(cx-width/2-1, cy+y, z), cq.Vector(1, 0, 0)) for y in rows]
+def write_parts(parts, info, output):
+    """Export one tooling design and views of those same bodies."""
+    output.mkdir(parents=True, exist_ok=True)
+    colors = {'cavity': cq.Color('#3D9998'), 'core': cq.Color('#D8A751'),
+              'funnel': cq.Color('#555C68'), 'rod': cq.Color('#AAB9C8')}
+    assembly = cq.Assembly()
+    radii = []
+    for name, shape in parts.items():
+        assembly.add(shape, name=name, color=colors[name])
+        single = one_body(cq.Workplane(obj=shape), name, colors[name])
+        export_assembly(single, str(output/f'{name}.step'))
+        if name in ('cavity', 'core'):
+            path = output/f'{name}.stl'
+            cq.exporters.export(shape, str(path), tolerance=0.02, angularTolerance=0.08)
+            mesh = trimesh.load(path, force='mesh', process=True)
+            mesh.update_faces(mesh.nondegenerate_faces())
+            mesh.remove_unreferenced_vertices()
+            assert mesh.is_watertight and mesh.is_winding_consistent and mesh.body_count == 1
+            mesh.export(path)
+            write_print_payload(output/f'{name}.step', path)
+            radii.append(float(np.linalg.norm(mesh.vertices[:, :2], axis=1).max()))
+    export_assembly(assembly, str(output/'assembly.step'))
+    overview = cq.Assembly()
+    spacing = (parts['cavity'].BoundingBox().xlen+parts['core'].BoundingBox().xlen)/4+22
+    overview.add(parts['cavity'].translate((-spacing, 0, 0)), name='cavity', color=colors['cavity'])
+    core = parts['core'].rotate((0, 0, 0), (1, 0, 0), 180)
+    core = core.translate((spacing, 0, -core.BoundingBox().zmin))
+    overview.add(core, name='core', color=colors['core'])
+    export_assembly(overview, str(output/'overview.step'))
+    section = cq.Assembly()
+    section_slab = box(240, 2, -1, 120)
+    for name, shape in parts.items():
+        section.add(shape.intersect(section_slab), name=name, color=colors[name])
+    export_assembly(section, str(output/'section.step'))
+    info['enclosing_diameter_mm'] = 2*max(radii)
+    info['chamber_radial_clearance_mm'] = chamber_diameter/2-max(radii)
+    assert info['chamber_radial_clearance_mm'] > 10
+    (output/'design.json').write_text(json.dumps(info, indent=2)+'\n')
+    print(json.dumps(info, indent=2), flush=True)
 
 
-def build_witness():
-    """One flat, one 15-degree ramp, and a vertical face for finishing trials.
 
-    The two separate end rails remain uncoated. The central flat starts one
-    allowance below their top; a straightedge across the rails reads the net
-    growth. The ramp tests terrace removal and silicone release at the floor grade.
-    """
-    floor = _box(witness_w, witness_d, 0, witness_floor)
-    rail_top = witness_floor + finish_allowance
-    for x in (-witness_w/2+witness_rail_w/2, witness_w/2-witness_rail_w/2):
-        floor = floor.fuse(_box(witness_rail_w, witness_d, witness_floor, rail_top, x))
-    x0 = witness_w/2-witness_rail_w-witness_rail_gap-witness_ramp_run
-    x1 = x0+witness_ramp_run
-    rise = witness_ramp_run*math.tan(math.radians(HF.ramp_angle))
-    ramp_wire = cq.Wire.makePolygon([cq.Vector(x0, -witness_d/2, witness_floor),
-        cq.Vector(x1, -witness_d/2, witness_floor),
-        cq.Vector(x1, -witness_d/2, witness_floor+rise),
-        cq.Vector(x0, -witness_d/2, witness_floor)])
-    ramp = cq.Solid.extrudeLinear(ramp_wire, [], cq.Vector(0, witness_d, 0))
-    # Ramp occupies the rear half so the front half remains a flat measuring strip.
-    ramp = ramp.intersect(_box(witness_w, witness_d/2, 0, witness_floor+rise+1, 0, witness_d/4))
-    window = _box(rib_pitch-rib_thk, witness_d+2, -1, witness_floor-forming_skin, -14.0)
-    return _one(floor.fuse(ramp).cut(window), "finish witness")
+centres = (-28.0, 28.0)
+roof_rise_per_run = 5.0/3.0
+cavity_depth = 28.0
+core_depth = 32.0
+core_mouth_depth = 3.0
+core_deep_half_length = 35.0
+core_taper_end = 65.0
+minimum_backing = 6.0
+
+
+def channel(stations, y):
+    """A ruled V roof, with height varying along X and a constant side slope."""
+    profiles = []
+    for x, height in stations:
+        half_width = (height+1)/roof_rise_per_run
+        profiles.append(cq.Wire.makePolygon([
+            cq.Vector(x, y-half_width, -1), cq.Vector(x, y+half_width, -1),
+            cq.Vector(x, y, height)], close=True))
+    return cq.Solid.makeLoft(profiles, ruled=True)
 
 
 def build():
-    exterior, bore, m = HF.build_solids()
-    ncx, ncy, ocx, ocy = m['ncx'], m['ncy'], m['out_cx'], m['out_cy']
-    top_z, end_z, neck_z = m['top_z'], m['end_z'], m['neck_z']
-    out_w, out_d = m['out_w'], m['out_d']
-    block_w, block_d = out_w+2*mold_wall, out_d+2*mold_wall
-    plate_w, plate_d = block_w+2*skirt_wall, block_d+2*skirt_wall
-    buf_z = end_z-tip_buffer
-    floor_z = buf_z-mold_base
-    buf_r = m['spout_or']-tip_step
-    tip = cq.Solid.makeCone(buf_r-tip_draft, buf_r, tip_buffer,
-                           cq.Vector(ncx, ncy, buf_z), cq.Vector(0, 0, 1))
-    nominal_envelope = _one(exterior.fuse(tip), 'nominal exterior')
-    forming_void = _expanded(nominal_envelope, finish_allowance)
-    backing = _expanded(nominal_envelope, finish_allowance+forming_skin)
-    cavity_blank = _box(block_w, block_d, floor_z, top_z, ocx, ocy)
-    top_register = _box(block_w, block_d, top_z-lip_h, top_z, ocx, ocy)
-    # The broad registration band grows out from the collar on a 45-degree
-    # corbel; its underside must not start with an unsupported outward step.
-    register_corbel = (cq.Workplane('XY').workplane(offset=top_z-lip_h-register_corbel_run)
-        .center(ocx, ocy).rect(block_w-2*register_corbel_run, block_d-2*register_corbel_run)
-        .workplane(offset=register_corbel_run).rect(block_w, block_d).loft().val())
-    foot = _foot_ring(block_w, block_d, floor_z, floor_z+frame_height,
-                      frame_corner_radius, ocx, ocy)
-    ribs = _ribs(block_w, block_d, floor_z, top_z, ocx, ocy)
-    rib_feet = _rib_feet(block_w, block_d, floor_z, ocx, ocy)
-    # Carry the blind spout floor directly to the bed; its rounded backing must
-    # not begin as a cantilever between the ribs.
-    tip_pedestal = _cyl(m['spout_or']+finish_allowance+forming_skin,
-                        neck_z, floor_z, ncx, ncy)
-    cavity = backing.fuse(top_register, register_corbel, foot, ribs, rib_feet, tip_pedestal,
-                          tol=boolean_tol).intersect(cavity_blank)
-    cavity = cavity.cut(forming_void)
-    cavity_air = _air_channels(block_w, cavity_air_rows, floor_z+back_vent_depth, ocx, ocy)
-    cavity = _one(cavity.cut(*cavity_air), 'cavity')
+    parts, info = build_stock()
+    reference = dict(parts)
+    back_z = parts['core'].BoundingBox().zmax
+    profiles = {
+        'cavity': [(-120, cavity_depth), (120, cavity_depth)],
+        'core': [(-110, core_mouth_depth), (-core_taper_end, core_mouth_depth),
+                 (-core_deep_half_length, core_depth), (core_deep_half_length, core_depth),
+                 (core_taper_end, core_mouth_depth), (110, core_mouth_depth)]}
+    reports = {}
+    for name in ('cavity', 'core'):
+        tools = []
+        for y in centres:
+            tool = channel(profiles[name], y)
+            if name == 'core':
+                tool = tool.rotate((0, 0, 0), (1, 0, 0), 180).translate((0, 0, back_z))
+            tools.append(tool)
+        removed = [one(reference[name].intersect(tool), f'{name} channel')
+                   for tool in tools]
+        clearance = min(p.distance(parts['funnel']) for p in removed)-finish_allowance
+        assert clearance >= minimum_backing, (name, 'forming backing', clearance)
+        assert all(p.distance(parts['rod']) >= minimum_backing for p in removed)
+        parts[name] = one(reference[name].cut(*tools), name)
+        assert reference[name].intersect(parts[name]).Volume() > parts[name].Volume()-0.001
+        assert parts[name].intersect(parts['funnel']).Volume() < 0.001
+        # The cutter must open through both sides above a flat shelf. At these
+        # stations its section is entirely outside the original body's bounds.
+        assert all(t.BoundingBox().xmin < reference[name].BoundingBox().xmin and
+                   t.BoundingBox().xmax > reference[name].BoundingBox().xmax for t in tools)
+        for y in centres:
+            passage = cq.Solid.makeCylinder(0.5, 240, cq.Vector(-120, y, 1.1), cq.Vector(1, 0, 0))
+            if name == 'core':
+                passage = passage.rotate((0, 0, 0), (1, 0, 0), 180).translate((0, 0, back_z))
+            assert parts[name].intersect(passage).Volume() < 0.001, 'side passage obstructed'
+        bed_z = reference[name].BoundingBox().zmin if name == 'cavity' else back_z
+        bed_area = lambda s: sum(f.Area() for f in s.Faces()
+            if f.geomType() == 'PLANE' and abs(f.Center().z-bed_z) < 1e-6
+            and abs(f.normalAt().z) > .999)
+        reports[name] = {
+            'stock_volume_ml': reference[name].Volume()/1000,
+            'volume_ml': parts[name].Volume()/1000,
+            'removed_ml': sum(p.Volume() for p in removed)/1000,
+            'minimum_added_channel_to_forming_face_mm': clearance,
+            'bed_contact_mm2': bed_area(parts[name]),
+            'stock_bed_contact_mm2': bed_area(reference[name])}
+        info['volume_ml'][name] = parts[name].Volume()/1000
+    assert parts['cavity'].intersect(parts['core']).Volume() < 0.001
+    info['channels'] = {
+        'count_per_body': 2, 'centres_y_mm': centres,
+        'roof_angle_from_bed_degrees': math.degrees(math.atan(roof_rise_per_run)),
+        'max_horizontal_growth_per_0_40_mm_layer': 0.4/roof_rise_per_run,
+        'cavity_depth_mm': cavity_depth, 'core_depth_mm': core_depth,
+        'core_side_mouth_height_mm': core_mouth_depth,
+        'core_side_mouth_width_mm': 2*core_mouth_depth/roof_rise_per_run,
+        'clear_through_passage_diameter_mm': 1.0,
+        'parts': reports}
+    return parts, info
 
-    rod_below = HF.spout_tube+tip_buffer-tip_cap
-    rod_socket = rod_len-rod_below
-    rod_bot, rod_top = buf_z+tip_cap, neck_z+rod_socket
-    assert 0 < rod_socket and rod_top < top_z-forming_skin
-    rod = _cyl(rod_d/2, rod_top, rod_bot, ncx, ncy)
-    nominal_plug = _one(bore.intersect(_box(plate_w, plate_d, neck_z,
-                                          top_z+1, ocx, ocy)), 'nominal plug')
-    plug = _contracted_plug(nominal_plug, finish_allowance, top_z)
-    interior = _contracted_plug(nominal_plug, finish_allowance+forming_skin, top_z)
-    core_skin = plug.cut(interior)
-    chimney = _box(m['bore_w']-2*(finish_allowance+forming_skin),
-                   m['bore_d']-2*(finish_allowance+forming_skin),
-                   top_z, top_z+plate_thk+1, ocx, ocy)
-    interior = interior.fuse(chimney)
-    socket_r = (rod_d+rod_fit)/2
-    socket_back = _cyl(socket_r+forming_skin, rod_top+forming_skin, neck_z, ncx, ncy)
-    interior = interior.cut(socket_back)
-    core_ribs = _ribs(plate_w, plate_d, neck_z, top_z+plate_thk, ocx, ocy)
-    interior = interior.cut(core_ribs)
-    plate = _box(plate_w, plate_d, top_z, top_z+plate_thk, ocx, ocy)
-    # A pocket in the brim-forming underside reserves the same finishing growth.
-    plate = plate.cut(_box(out_w+2*finish_allowance, out_d+2*finish_allowance,
-                           top_z-1, top_z+finish_allowance, ocx, ocy))
-    skirt = _box(plate_w, plate_d, top_z-lip_h, top_z, ocx, ocy).cut(
-        _box(block_w+2*lip_gap, block_d+2*lip_gap, top_z-lip_h-1, top_z, ocx, ocy))
-    core = plug.fuse(plate, skirt).cut(interior)
-    core_back = top_z+plate_thk
-    core_foot = _foot_ring(plate_w+2*fixture_foot_margin, plate_d+2*fixture_foot_margin,
-        core_back-frame_height, core_back, fixture_foot_radius, ocx, ocy)
-    core = core.fuse(core_foot, _rib_feet(plate_w, plate_d, core_back, ocx, ocy, print_up=-1))
-    core = core.cut(_cyl(socket_r, rod_top, neck_z-1, ncx, ncy))
-    fill_d = m['rim_ring']-2*fill_port_land
-    rx, ry = out_w/2-m['rim_ring']/2, out_d/2-m['rim_ring']/2
-    fill_xy = (ocx-rx, ocy-ry)
-    vents = [(ocx+rx, ocy-ry), (ocx-rx, ocy+ry), (ocx+rx, ocy+ry),
-             (ocx-rx, ocy), (ocx+rx, ocy)]
-    ports = [_cyl(fill_d/2, top_z+plate_thk+1, top_z-1, *fill_xy),
-             cq.Solid.makeCone(fill_d/2, fill_dish_d/2, fill_dish_h,
-                cq.Vector(*fill_xy, top_z+plate_thk-fill_dish_h), cq.Vector(0, 0, 1))]
-    ports.extend(_cyl(vent_id/2, top_z+plate_thk+1, top_z-1, *xy) for xy in vents)
-    core_air = _air_channels(plate_w+2*fixture_foot_margin, core_air_rows,
-                            top_z+plate_thk-back_vent_depth, ocx, ocy)
-    core = _one(core.cut(*ports, *core_air), 'core')
 
-    assert cavity.intersect(core).Volume() < 0.001, 'registration interference'
-    for channel in cavity_air:
-        assert channel.intersect(forming_void).Volume() < 0.001, 'air channel reaches cavity'
-    for channel in core_air:
-        assert sum(channel.intersect(port).Volume() for port in ports) < 0.001, 'air channel reaches pour/vent port'
-    assert interior.intersect(rod).Volume() < 0.001, 'open back reaches rod socket'
-    funnel = HF.build()[0].val()
-    cast = funnel.fuse(tip.cut(rod))
-    shift = (-ocx, -ocy, -floor_z)
-    # Modifier volumes overlap only modeled material. They retain the careful
-    # surface speed while the exposed reinforcing ribs use the bulk-wall speed.
-    cavity_slow = backing.fuse(top_register).intersect(cavity_blank)
-    core_slow = core_skin.fuse(skirt, socket_back,
-        _box(plate_w, plate_d, top_z, top_z+finish_allowance+forming_skin, ocx, ocy))
-    cavity, core = cavity.translate(shift), core.translate(shift)
-    assembly_top = top_z-floor_z
-    lower, upper, lower_slow, upper_slow, hardware = build_extraction(assembly_top)
-    lower = lower.cut(forming_void.translate(shift), *(c.translate(shift) for c in cavity_air))
-    cavity = _one(cavity.fuse(*lower.Solids()), 'cavity with jacks')
-    core = _one(core.fuse(*upper.Solids()), 'core with jacks')
-    cavity_slow = cavity_slow.translate(shift).fuse(*lower_slow.Solids())
-    core_slow = core_slow.translate(shift).fuse(*upper_slow.Solids())
-    assert cavity.intersect(core).Volume() < 0.001, 'extraction fixtures interfere at closure'
-    # A rectangular swept envelope contains each chamfered post at every point
-    # from seated through complete withdrawal. Its clearance is continuous.
-    for a in range(0, 360, 90):
-        swept_post = _quarter(_box(guide_width, guide_depth, assembly_top-guide_drop,
-            assembly_top+guide_drop+plate_thk, guide_x, guide_y), a)
-        assert cavity.intersect(swept_post).Volume() < 0.001, 'guide sweep blocked'
-    assert guide_drop-extraction_stroke-guide_top >= 12.0, 'insufficient guide engagement'
-    assert extraction_stroke > rod_socket, 'rod still engaged at working stroke'
-    for washer_t in washer_thickness_range:
-        tip_z = assembly_top-3.0+washer_t
-        assert tip_z < assembly_top+1.2, 'screw misses full nut thickness'
-        assert tip_z+jack_length-(assembly_top+plate_thk+extraction_stroke) >= 1.5, 'head bottoms before release'
-    info = {
-        'cast': cast.translate(shift), 'rod': rod.translate(shift),
-        'rod_len': rod_len, 'rod_below': rod_below, 'rod_socket': rod_socket,
-        'sil_vol': cast.Volume(), 'part_vol': funnel.Volume(), 'tip_vol': tip.cut(rod).Volume(),
-        'fill_d': fill_d, 'fill_xy': fill_xy, 'sil_wall': m['collar_wall'],
-        'spout_id': m['spout_id'], 'cavity_bb': cavity.BoundingBox(),
-        'core_bb': core.BoundingBox(), 'n_vents': len(vents),
-        'cavity_volume': cavity.Volume(), 'core_volume': core.Volume(),
-        'cavity_air_z': back_vent_depth, 'core_air_z': top_z+plate_thk-back_vent_depth-floor_z,
-        'forming_void': forming_void.translate(shift),
-        'cavity_slow': cavity_slow, 'core_slow': core_slow,
-        'assembly_top': assembly_top, 'hardware': hardware,
-    }
-    return cavity, core, info
+
+def write_channel_views(parts, output):
+    # A transverse section cuts across both V channels and shows their roof angle.
+    section = cq.Assembly()
+    slab = box(2, 240, -1, 120)
+    colors = {'cavity': cq.Color('#3D9998'), 'core': cq.Color('#D8A751'),
+              'funnel': cq.Color('#555C68'), 'rod': cq.Color('#AAB9C8')}
+    for name, part in parts.items():
+        section.add(part.intersect(slab), name=name, color=colors[name])
+    export_assembly(section, str(output/'channel-section.step'))
+    backs = cq.Assembly()
+    for name, dx in (('cavity', -120), ('core', 120)):
+        part = parts[name]
+        if name == 'cavity':
+            part = part.rotate((0, 0, 0), (1, 0, 0), 180)
+        part = part.translate((dx, 0, -part.BoundingBox().zmin))
+        backs.add(part, name=name, color=colors[name])
+    export_assembly(backs, str(output/'backs.step'))
 
 
 def main():
-    cavity, core, info = build()
-    here = _here.parent
-    hardware_witness, guide_witness = build_hardware_witness()
-    for name, shape in [('cavity', cavity), ('core', core), ('finish-witness', build_witness()),
-                        ('hardware-witness', hardware_witness), ('guide-witness', guide_witness)]:
-        stem = f'funnel-mold-{name}'
-        export_assembly(one_body(cq.Workplane(obj=shape), stem, M_PETG_BLACK),
-                        str(here / f'{stem}.step'))
-        cq.exporters.export(shape, str(here / f'{stem}.stl'), tolerance=0.02, angularTolerance=0.08)
-        mesh = trimesh.load(here / f'{stem}.stl', force='mesh', process=True)
-        mesh.update_faces(mesh.nondegenerate_faces())
-        mesh.remove_unreferenced_vertices()
-        assert mesh.is_watertight and mesh.is_winding_consistent and mesh.body_count == 1
-        mesh.export(here / f'{stem}.stl')
-        if not os.environ.get('HSM_SKIP_MESH_PAYLOAD'):
-            write_print_payload(here / f'{stem}.step', here / f'{stem}.stl')
-        print(f'-> {stem}.step / .stl ({shape.Volume()/1000:.2f} mL PETG)', flush=True)
-    for name in ('cavity', 'core'):
-        cq.exporters.export(info[f'{name}_slow'],
-            str(here / f'funnel-mold-{name}-surface-zone.stl'),
-            tolerance=0.02, angularTolerance=0.08)
-    assy = cq.Assembly()
-    assy.add(cavity, name='cavity', color=M_PETG_BLACK)
-    assy.add(info['cast'], name='funnel', color=M_SILICONE_BLACK)
-    assy.add(core, name='core', color=M_PETG_BLACK)
-    assy.add(info['rod'], name='rod', color=M_STAINLESS)
-    for name, shape in info['hardware']:
-        assy.add(shape, name=name, color=M_STAINLESS)
-    export_assembly(assy, str(here / 'funnel-mold-assembly.step'))
-    cbb, kbb = info['cavity_bb'], info['core_bb']
-    print(f"cavity {info['cavity_volume']/1000:.2f} mL; core {info['core_volume']/1000:.2f} mL PETG", flush=True)
-    print(f"nominal cast {info['sil_vol']/1000:.2f} mL; net finishing growth {finish_allowance:.2f} mm", flush=True)
-    substitute_md(here / 'README.md', variables={
-        'MOLD_WALL': f'{mold_wall:g} mm', 'MOLD_BASE': f'{mold_base:g} mm',
-        'PLATE_THK': f'{plate_thk:g} mm', 'SIL_WALL': f"{info['sil_wall']:g} mm",
-        'SPOUT_BORE': f"{info['spout_id']:g} mm", 'SIL_VOLUME': f"{info['sil_vol']/1000:.0f} mL",
-        'TIP_BUFFER': f'{tip_buffer:g} mm', 'ROD_D': f'{rod_d:g} mm', 'ROD_LEN': f'{rod_len:g} mm',
-        'ROD_SOCKET': f"{info['rod_socket']:.1f} mm", 'ROD_BELOW': f"{info['rod_below']:.1f} mm",
-        'ROD_FIT': f'{rod_fit:g} mm', 'ROD_SOCKET_D': f'{rod_d+rod_fit:g} mm',
-        'TIP_CAP': f'{tip_cap:g} mm', 'LIP_H': f'{lip_h:g} mm',
-        'BRIM_SQ': f"{info['cast'].BoundingBox().xlen:.0f} mm", 'TIP_STEP': f'{tip_step:g} mm',
-        'CAVITY_DIMS': f'{cbb.xlen:.1f} × {cbb.ylen:.1f} × {cbb.zlen:.1f} mm',
-        'CORE_DIMS': f'{kbb.xlen:.1f} × {kbb.ylen:.1f} × {kbb.zlen:.1f} mm',
-        'FILL_D': f"{info['fill_d']:g} mm", 'FILL_DISH': f'{fill_dish_d:g} mm',
-        'FILL_LAND': f'{fill_port_land:g} mm', 'MOLD_VENT_D': f'{vent_id:g} mm',
-        'N_VENTS': str(info['n_vents']), 'FORMING_SKIN': f'{forming_skin:g} mm',
-        'RIB_THK': f'{rib_thk:g} mm', 'RIB_PITCH': f'{rib_pitch:g} mm',
-        'BACK_VENT_D': f'{back_vent_d:g} mm', 'FINISH_ALLOWANCE': f'{finish_allowance:.2f} mm',
-        'FOOT_FRAME': f'{foot_frame:g} mm', 'FOOT_HEIGHT': f'{frame_height:g} mm',
-        'FOOT_CORNER': f'{frame_corner_radius:g} mm', 'RIB_FOOT': f'{rib_foot_width:g} mm',
-        'FIXTURE_FOOT_MARGIN': f'{fixture_foot_margin:g} mm',
-    })
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--output', type=Path,
+        default=ROOT/'hardware/printed-parts/zone-c/funnel-mold')
+    args = parser.parse_args()
+    parts, info = build()
+    write_parts(parts, info, args.output)
+    write_channel_views(parts, args.output)
 
 
 if __name__ == '__main__':
