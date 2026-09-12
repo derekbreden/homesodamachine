@@ -700,7 +700,7 @@ build item carries a half turn about X, the crown on the bed.
 
 | piece | bodies | interface islands | root | shortest build-up |
 |---|---|---|---|---|
-| `enclosure-pump-cartridge` | 2 | 2 | bed | 51.00 mm |
+| `enclosure-pump-cartridge` | 2 | 2 | bed | 55.60 mm |
 | `enclosure-pump-cap` | 2 | 2 | bed | 8.80 mm |
 | `enclosure-front-top` | 2 | 15 | bed | 32.60 mm |
 | `enclosure-tee-carrier-left` | 3 | 3 | bed | 3.00 mm |
@@ -710,7 +710,7 @@ build item carries a half turn about X, the crown on the bed.
 | `enclosure-back-top` | 12 | 35 | 5 bed, **7 model** | **1.20 mm** |
 
 `enclosure-pump-cartridge` has two bed-rooted bodies, one under each flat pull roof. Each
-reaches one interface after **51.00 mm** and leaves directly through its open side pocket.
+reaches one interface after **55.60 mm** and leaves directly through its open side pocket.
 `enclosure-pump-cap` prints on its crown and has two bed-rooted bodies, one standing in each
 clamp-screw counterbore under its head seat after **8.80 mm**; each leaves through the
 counterbore's mouth on the bed face. On front-top every body roots on the print bed and stands

@@ -12,21 +12,21 @@
       1.0,
       -113.75,
       -44.531993866,
-      171.244987495
+      171.245002705
     ],
     "plate_to_cad_translation_mm": [
       -113.75,
       -44.531994,
-      171.244987
+      171.245003
     ],
-    "replacement_mesh_bed_reseat_mm": -74.924988
+    "replacement_mesh_bed_reseat_mm": -72.690002
   },
   "first_layer_z_mm": 0.2,
   "inputs": {
     "gcode": "plate_1.gcode",
-    "gcode_sha256": "8fd44748c9fa10af2969c202c64b84ad6b0c35bf806019bb3e142a6839b2f337",
+    "gcode_sha256": "fc8a8a9820e11512bc0323d1209ce7d661af99951b54219059d71c53fda854c0",
     "model": "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.stl",
-    "model_sha256": "b9d802bcec57199b5a3250dd04194e7e138bc4bdd43ba12d07571c55e344f974",
+    "model_sha256": "4f76907f513ee5dd355aac947404245ef5927dbbb22fbad5e0fd8b9667820a27",
     "profile": "git:aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a:hardware/printed-parts/enclosure/enclosure/enclosure-front-top-petgf.3mf",
     "profile_sha256": "99abeeb25ce51dfa0b2a40dec920d4cc14b5c8501eb02096cd531394b479a41e"
   },
@@ -75,23 +75,23 @@
     },
     {
       "bbox_cad_xyz_mm": [
-        93.45,
+        93.05,
         107.868,
-        216.645,
-        106.65,
+        221.045,
+        106.25,
         123.468,
-        217.045
+        221.445
       ],
       "bbox_xy_mm": [
-        207.2,
+        206.8,
         152.4,
-        220.4,
+        220.0,
         168.0
       ],
-      "build_up_mm": 45.2,
-      "first_z_mm": 45.4,
+      "build_up_mm": 49.6,
+      "first_z_mm": 49.8,
       "id": "interface-3",
-      "last_z_mm": 45.8,
+      "last_z_mm": 50.2,
       "tree": "tree-3"
     }
   ],
@@ -175,24 +175,24 @@
         93.05,
         107.868,
         171.445,
-        119.45,
+        119.85,
         123.868,
-        217.445
+        221.845
       ],
       "bbox_xy_mm": [
         206.8,
         152.4,
-        233.2,
+        233.6,
         168.4
       ],
-      "first_interface_z_mm": 45.4,
+      "first_interface_z_mm": 49.8,
       "id": "tree-3",
       "interfaces": [
         "interface-3"
       ],
       "root": "bed",
-      "shortest_build_up_mm": 45.2,
-      "top_z_mm": 46.2
+      "shortest_build_up_mm": 49.6,
+      "top_z_mm": 50.6
     }
   ]
 }
