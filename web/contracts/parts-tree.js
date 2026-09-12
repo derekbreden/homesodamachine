@@ -1,12 +1,14 @@
-// The parts tree — what /3d is a browse of.
+// The CAD parts tree displayed on /3d.
 //
-// THE PAGE IS THE MACHINE'S TWO UNITS, one thumbnail each:
+// THE PARTS SECTION IS THE MACHINE'S TWO UNITS, one thumbnail each:
 //
 //   Enclosure assembly       manifold-layout/enclosure-assembly.step
 //   Faucet and umbilical     faucet-layout/faucet-assembly.step
 //
 // Those two are what ship as separate bodies. Everything else the machine is
 // made of stands inside one of them, and is reached by opening it.
+// The quick start PDFs appear above the parts section; viewer/grid.js draws
+// their comparison shelf from the documents list.
 //
 // AN ASSEMBLY MAY HOLD AN ASSEMBLY, and the cold core is it. The enclosure STEP
 // carries the core as a real sub-assembly — a node named `cold-core` with the shell
