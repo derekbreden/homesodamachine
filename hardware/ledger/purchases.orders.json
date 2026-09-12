@@ -29,29 +29,29 @@
     },
     "112-6085763-5397009": {
       "ordered": "2026-09-08",
+      "delivered": "2026-09-11",
       "subtotal": 7.99,
       "shipping": 0.0,
       "tax": 0.58,
       "total": 8.57,
-      "in_transit": true,
       "project": true
     },
     "112-6847774-7837033": {
       "ordered": "2026-09-03",
+      "delivered": "2026-09-08",
       "total": 42.89,
-      "in_transit": true,
       "project": true
     },
     "112-7484636-2926665": {
       "ordered": "2026-09-03",
+      "delivered": "2026-09-05",
       "total": 8.57,
-      "in_transit": true,
       "project": true
     },
     "112-8159134-3631449": {
       "ordered": "2026-09-03",
+      "delivered": "2026-09-05",
       "total": 6.1,
-      "in_transit": true,
       "project": true
     },
     "112-9248875-1573807": {
@@ -2169,8 +2169,8 @@
     },
     "112-1549259-6014618": {
       "ordered": "2026-09-05",
+      "delivered": "2026-09-07",
       "total": 24.65,
-      "in_transit": true,
       "project": true
     }
   }

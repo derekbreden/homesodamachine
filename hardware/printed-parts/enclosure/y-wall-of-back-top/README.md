@@ -90,7 +90,7 @@ This wall is `enclosure-back-top`'s own, so it is that piece's material: **PETG*
 
 ## Open items
 
-- **The CO2 station's ring** waits on its own bulkhead. `co2-inlet`'s ABU44 is on WEBFWS100697928; until it is placed, the field spans the four unions and stops west of that column.
+- **The CO2 station's ring** waits on its own bulkhead. `co2-inlet`'s ABU44 arrived on WEBFWS100697928; until it is placed, the field spans the four unions and stops west of that column.
 
 The wall is not a moisture or vapor barrier — the appliance is not hermetic. Each bulkhead seals the pressurized fluid path *around the tube* via its internal O-ring; the wall interface is purely mechanical capture, flange + ring + nut sandwiching the wall through its Ø[18](PANEL_HOLE_D_SHORT) hole, so no wall-side bulkhead gasket is required.
 
