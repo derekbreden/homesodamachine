@@ -7,8 +7,8 @@
     },
     {
       "check": "hardware/scripts/check_facts_current.py",
-      "note": "and the 126 sources behind them stand where they stood when it was written",
-      "status": "ok"
+      "note": "tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py",
+      "status": "red"
     },
     {
       "check": "hardware/scripts/check_finishes.py",
@@ -52,7 +52,7 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 1570 tracked, 374 fetched solids, 55 tags, 38 site routes",
+      "note": "paths: every reference lands — 1571 tracked, 374 fetched solids, 55 tags, 38 site routes",
       "status": "ok"
     },
     {
@@ -86,6 +86,12 @@
       "status": "ok"
     }
   ],
-  "detail": {},
-  "green": true
+  "detail": {
+    "hardware/scripts/check_facts_current.py": [
+      "enclosure-assembly.facts.json was taken from a different tree — it holds c3f2301c4eb1c279b263133ab43fb1ea for the 126 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 80ea115912ee5ffd027fed7617a125e3 here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "  the three come off one run:",
+      "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
+    ]
+  },
+  "green": false
 }
