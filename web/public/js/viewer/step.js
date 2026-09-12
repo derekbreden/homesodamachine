@@ -15,6 +15,7 @@ import { clearHighlight } from "./part-highlight.js";
 import { clearComponentPicker, loadHiddenForFile, applyHiddenComponents } from "./component-picker.js";
 import { onStepReloaded } from "./component-edit.js";
 import { surfaceText } from "./pick-format.js";
+import { onTubeModelLoaded } from "./tube-overlay-host.js";
 
 // --- occt-import-js loader (no importmap support, loaded manually) ---
 let occtReady;
@@ -283,9 +284,19 @@ async function fetchMeshes(file, headers) {
     const resp = await fetch(`/meshes/${file}.mesh`, { headers });
     if (resp.status === 304) return { unchanged: true };
     if (!resp.ok) return null;
-    const result = decodeMeshPayload(new Uint8Array(await resp.arrayBuffer()));
+    const bytes = new Uint8Array(await resp.arrayBuffer());
+    let payloadSha256 = null;
+    // The tube audit must match the surface actually displayed. A grafted
+    // payload can retain its STEP source digest while its own bytes change.
+    if (file === "manifold-layout/enclosure-assembly.step" && globalThis.crypto?.subtle) {
+      try {
+        const digest = new Uint8Array(await crypto.subtle.digest("SHA-256", bytes));
+        payloadSha256 = [...digest].map((n) => n.toString(16).padStart(2, "0")).join("");
+      } catch { /* The CAD view still opens; the audit requires this digest. */ }
+    }
+    const result = decodeMeshPayload(bytes);
     if (!result) return null; // a payload this code doesn't read is no payload
-    return { etag: resp.headers.get("etag"), result };
+    return { etag: resp.headers.get("etag"), result, payloadSha256 };
   } catch {
     return null;
   }
@@ -329,7 +340,8 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
     // carries that revalidation as faithfully as the STEP does.
     const headers = {};
     const prevEtag = state.stepEtags.get(file);
-    if (state.mountedDetail?.type === "step" && state.mountedDetail.file === file && prevEtag) {
+    const needsAuditDigest = file === "manifold-layout/enclosure-assembly.step" && !state.mountedDetail?.payloadSha256;
+    if (state.mountedDetail?.type === "step" && state.mountedDetail.file === file && prevEtag && !needsAuditDigest) {
       headers["If-None-Match"] = prevEtag;
     }
 
@@ -339,14 +351,14 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
     // told only the STEP's name is told the wrong file. The edge picker states this.
     let surface = "step";
     const meshed = await fetchMeshes(file, headers);
-    if (meshed?.unchanged) { landed = true; return; }
+    if (meshed?.unchanged) { landed = true; onTubeModelLoaded(file); return; }
     if (meshed) {
       if (meshed.etag) state.stepEtags.set(file, meshed.etag);
       result = meshed.result;
       surface = "mesh";
     } else {
       const resp = await fetch(`/steps/${file}`, { headers });
-      if (resp.status === 304) { landed = true; return; }
+      if (resp.status === 304) { landed = true; onTubeModelLoaded(file); return; }
       if (!resp.ok) { failed(`Couldn't load ${file} — ${resp.status}`); return; }
       const etag = resp.headers.get("etag");
       if (etag) state.stepEtags.set(file, etag);
@@ -369,11 +381,13 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
       type: "step", file, surface,
       src: (result && result.src) || null,
       cut: (result && result.cut) || null,
+      payloadSha256: meshed?.payloadSha256 || null,
     };
     nameSurface(file, surface);
     loadHiddenForFile(file);     // restore this file's locally-hidden components…
     applyHiddenComponents();     // …and take them out of the freshly-built view
     onStepReloaded();            // re-seat the component editor's selection on the fresh meshes
+    onTubeModelLoaded(file);
     if (!preserveCamera) resetCamera(state.currentGroup);
     landed = true;
   } catch (err) {

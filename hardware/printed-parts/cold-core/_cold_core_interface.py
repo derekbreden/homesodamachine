@@ -1129,9 +1129,9 @@ for _s in reservoir_fill_sides:
 # axis up to the cap's floor, against the rise a corner of 1/4" LLDPE takes.
 carbonator_top_plate_z = wall_and_floor_thickness + carbonator_support_ring_height + carbonator_height
 top_band_to_cap = foam_shell_outer_height - (carbonator_top_plate_z + hole_shift_from_edge)
-# [25.4 mm](LLDPE_BEND_R) — 4 × OD, the corner 1/4" LLDPE holds unsupported. The machine
-# draws its own runs at half of it (`_routing.BEND_RATIO`), and so does `_internal_routes`,
-# because a potted line is held at its corner by the foam round it.
+# [25.4 mm](LLDPE_BEND_R) — the cold core's 4 × OD routing allowance. Actual drawn corner
+# radii follow `_routing.stock_min`; the cured foam retains the internal routes.
+# A bend radius alone does not specify the unloaded shape of an exposed tube.
 lldpe_bend_radius = 4.0 * lldpe_tube_od
 
 

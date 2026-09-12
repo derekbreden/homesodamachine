@@ -1679,8 +1679,8 @@ LOOSE = {
         "the fall and the union column's own straight — a column whose overhead is the ASSE "
         "drip pan's sleeve, the flow meter and the meter's down-line, and whose flanks are the "
         "pump's casting and the moisture plate's lane: nothing printed stands within a rib's "
-        "reach of it. The slack sags toward the cap's open air below, away from every line "
-        "beside it.",
+        "reach of it. Its unretained shape and clearance to the neighbouring lines require "
+        "a tube-shape review; the authored centreline does not establish them.",
 }
 
 

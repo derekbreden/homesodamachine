@@ -299,6 +299,7 @@
   color: var(--text);
 }
 .tool-chip[aria-pressed="false"] { opacity: 0.62; }
+.tool-chip[hidden] { display: none; }
 /* A chip that leaves the model rather than switching something on it. The rest
    of the rail holds its state on the pill; this one lights only under the
    pointer, the way the breadcrumb's steps do. */
@@ -1576,6 +1577,114 @@
   background: rgba(10, 10, 24, 0.55);
   -webkit-backdrop-filter: blur(2px);
   backdrop-filter: blur(2px);
+}
+
+/* Tube assumptions sit beside the model. The generated centerlines and hold
+   markers remain visible while this readout is collapsed. */
+.cad-wrapper > .tube-panel {
+  position: absolute;
+  top: calc(env(safe-area-inset-top, 0px) + var(--cube-size, 180px) + 28px);
+  right: calc(env(safe-area-inset-right, 0px) + 16px);
+  width: min(330px, calc(100% - 32px));
+  max-height: calc(100% - var(--cube-size, 180px) - 100px);
+  z-index: 12;
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: rgba(20, 20, 40, 0.95);
+  color: var(--text);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
+  font: 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, sans-serif;
+  overflow-y: auto;
+  touch-action: pan-y;
+  overscroll-behavior: contain;
+}
+.tube-panel[hidden] { display: none; }
+.tube-panel .edge-panel-title { flex: 1; }
+.tube-panel.collapsed > .tube-panel-body { display: none; }
+.tube-panel.collapsed .edge-panel-head { margin-bottom: 0; }
+.cad-wrapper:has(> .pick-find-panel.show) > .tube-panel.collapsed {
+  top: calc(env(safe-area-inset-top, 0px) + 54px);
+  right: calc(env(safe-area-inset-right, 0px) + var(--cube-size, 180px) + 44px);
+  width: max-content;
+  max-width: calc(100% - var(--cube-size, 180px) - 76px);
+}
+.tube-panel p { margin: 6px 0 10px; line-height: 1.45; }
+.tube-note, .tube-route-description, .tube-assumptions, .tube-what-if { color: var(--text-2); }
+.tube-route-description:empty { display: none; }
+.tube-run-span { display: block; margin-top: 5px; }
+.tube-field {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 10px 0;
+}
+.tube-field[hidden] { display: none; }
+.tube-field:has(select) { flex-direction: column; align-items: stretch; gap: 5px; }
+.tube-field > span { font-weight: 600; }
+.tube-panel select, .tube-panel input[type="number"] {
+  min-width: 0;
+  padding: 7px 8px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--text);
+  font: inherit;
+}
+.tube-panel input[type="number"] { width: 80px; }
+.tube-panel input[type="checkbox"] { width: 17px; height: 17px; accent-color: var(--accent); }
+.tube-actions { display: flex; flex-wrap: wrap; gap: 6px; }
+.tube-panel button:not(.edge-panel-close):not(.edge-panel-collapse) {
+  color: var(--text);
+  background: rgba(58, 58, 90, 0.55);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 7px 9px;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.tube-panel button:hover { filter: brightness(1.2); }
+.tube-panel :is(button, select, input, summary):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.tube-panel :disabled { opacity: 0.6; }
+.tube-legend { display: flex; flex-wrap: wrap; gap: 7px 12px; margin: 14px 0 10px; }
+.tube-key { display: flex; gap: 5px; align-items: center; font-size: 11px; }
+.tube-key::before { content: ""; width: 14px; height: 3px; background: var(--tube-key-color, #ffb44c); }
+.tube-key.straight::before { background: var(--tube-estimate-color, #ffb44c); }
+.tube-key.nominal::before { background: repeating-linear-gradient(90deg, #55d8eb 0 5px, transparent 5px 8px); }
+.tube-key.hold::before { width: 7px; height: 7px; border-radius: 50%; background: #69e5aa; }
+.tube-status { color: var(--text-2); }
+.tube-status.tube-warning, .tube-contact-warning { color: #ffc176; }
+.tube-run-hidden .tube-status::before { content: "This tube is hidden in the component view. "; }
+.tube-diagnostics { padding: 4px 0; }
+.tube-metric { display: flex; justify-content: space-between; gap: 12px; margin: 6px 0; }
+.tube-metric > strong { white-space: nowrap; font-weight: 600; }
+.tube-contact-status { color: var(--text-2); }
+.tube-panel details { border-top: 1px solid var(--border); padding-top: 9px; margin-top: 9px; }
+.tube-panel summary { cursor: pointer; padding: 2px 0 6px; font-weight: 600; }
+.tube-hold-list, .tube-span-list { display: flex; flex-direction: column; gap: 6px; }
+.tube-panel button small { display: block; margin-top: 3px; color: var(--text-2); line-height: 1.35; }
+.tube-panel button.omitted { border-color: #ff707b !important; }
+.tube-contact-details > button { display: block; width: 100%; margin: 6px 0; overflow-wrap: anywhere; }
+@media (max-width: 600px) {
+  .cad-wrapper > .tube-panel {
+    top: calc(env(safe-area-inset-top, 0px) + var(--cube-size, 140px) + 28px);
+    max-height: calc(100% - var(--cube-size, 140px) - 195px - var(--sc-badge-lift, 0px));
+    width: calc(100% - 32px);
+  }
+  .tube-panel select, .tube-panel button:not(.edge-panel-collapse):not(.edge-panel-close) { min-height: 38px; }
+  .cad-wrapper > .tube-panel.collapsed {
+    top: calc(env(safe-area-inset-top, 0px) + 54px);
+    left: calc(env(safe-area-inset-left, 0px) + 16px);
+    right: auto;
+    width: max-content;
+    max-width: calc(100% - var(--cube-size, 140px) - 60px);
+  }
+  .tube-panel.collapsed .edge-panel-title { font-size: 11px; }
 }
 .sc-card {
   width: min(640px, 94%);

@@ -40,6 +40,7 @@ import { setTrail, stepHash, walkDepth } from "./step-nav.js";
 import { mountScorecard } from "./scorecard-3d.js";
 import { mountRelated } from "./related-nav.js";
 import { clearHighlight } from "./part-highlight.js";
+import { mountTubeTool, closeTubeTool, clearTubeTool, cancelTubeFocus } from "./tube-overlay-host.js";
 
 // Reset-view button: re-frames the current part with the format's default
 // isometric framing and clears the per-file saved camera, so a wonky
@@ -63,6 +64,7 @@ function makeResetViewButton() {
     title: "Reset to default isometric framing",
     onClick: () => {
     if (!state.mountedDetail || !state.currentGroup) return;
+    cancelTubeFocus();
     clearHighlight(); // a scorecard part-highlight is a temporary focus; reset restores all
     const { type, file } = state.mountedDetail;
     try { localStorage.removeItem(`step-camera:${file}`); } catch {}
@@ -164,6 +166,7 @@ export function openCadDetail(type, file, pushHistory = true, path = null) {
     rail.appendChild(makePickFindToggle());
     rail.appendChild(makeToolGroup("Select", makePickModeControl(file)));
     chips.appendChild(makeXrayToggle());
+    mountTubeTool(wrapper, chips);
   }
   chips.appendChild(makeRulerToggle());
   rail.appendChild(makeToolGroup("Show", chips));
@@ -192,6 +195,7 @@ export function openCadDetail(type, file, pushHistory = true, path = null) {
     const checks = wrapper.querySelector(".sc-modal");
     if (checks) { checks.remove(); e.preventDefault(); e.stopPropagation(); return; }
     if (closeTopPickFind()) { e.preventDefault(); e.stopPropagation(); }
+    else if (closeTubeTool()) { e.preventDefault(); e.stopPropagation(); }
   };
   document.addEventListener("keydown", onEscape, true);
 
@@ -252,6 +256,7 @@ export function openCadDetail(type, file, pushHistory = true, path = null) {
       clearComponentEdit();   // and the editor's gizmo + selection + preview
       closePickFind();   // drop find highlights, and shut the box with the modal
       clearHighlight();  // and any scorecard part-highlight overlay
+      clearTubeTool();
       state.currentCadWrapper = null;
       state.currentDetail = null;
       state.mountedDetail = null;
