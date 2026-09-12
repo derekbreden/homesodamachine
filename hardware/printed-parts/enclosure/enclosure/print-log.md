@@ -227,3 +227,49 @@ unchanged: `enable_pressure_advance` 0 over a dormant `pressure_advance` of 0.02
 `filament_type` `PET-CF` with `filament_ids` `GFT01`, and `filament_density` 1.29 at
 `filament_cost` 44.99 — so the grams and the dollars Bambu Studio prints for this plate are
 PET-CF's and not this spool's.
+
+## The lower pump cradle and its top clamp (2026-09-11)
+
+`enclosure-pump-cartridge` and `enclosure-pump-cap` in PET-GF15 on the left hotend, a
+standard-flow 0.4 mm tungsten carbide ([tools.md](/hardware/ledger/tools.md)). The two pieces'
+committed projects — [`enclosure-pump-cap-petgf.3mf`](enclosure-pump-cap-petgf.3mf) beside this
+log and history-only
+`git:62311012c79857590fe41895f29c67158eea74b3:hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge-petgf.3mf`
+— both carry the PET-GF15 exterior settings above: `Bambu Lab H2C 0.4 nozzle`, `0.20mm Standard
+@BBL H2C`, `Polymaker PET-GF @BBL H2C` at 290 °C over a 100 °C plate and a 50 °C chamber, fan
+off, 18 mm³/s, tree supports at 30°, the clamp turned onto its crown (`1 0 0 0 -1 0 0 0 -1`).
+The plate that was printed is not in the tree; what it was sliced from, and at what first layer,
+was decided at the printer ([z-trim.md](/hardware/printed-parts/z-trim.md)).
+
+Derek said:
+- "During the recent print of the pump cradle/cap, the H2C errored/paused with 'extruder motor
+  overheating'. After waiting, and cleaning/clearing the exterior of the hotend, and trying to
+  resume, it went back to 'extruder motor overheating' pretty quickly."
+- "I swapped the hotend for the other (non-highflow) 0.4 mm Tungsten we have, and resumed, and
+  it finished the print fine and is working on another fine."
+- "I haven't cold pulled the potentially clogged hotend yet, but I plan to."
+
+The resume after the swap ran the same job to the end. The hotend that paused is off the
+printer, suspected clogged and not yet cold-pulled; the second standard-flow 0.4 TC is on the
+left extruder and printing ([tools.md](/hardware/ledger/tools.md) "Hotend stock", which also
+names where a replacement is bought).
+
+Bambu's guide for the H2 series' extruder-motor error
+([Extruder Motor Overload Error Troubleshooting Guide](https://wiki.bambulab.com/en/h2/troubleshooting/extruder-motor-overload),
+`HMS_0300_0900_0002_0001`): *"During printing, the extruder motor inside the toolhead
+continuously monitors extrusion force in real time. When abnormal resistance is detected, the
+printer triggers an error and pauses the print job."* Its step 6 is the swap Derek made —
+*"using a spare new hotend ... to determine if the issue is caused by a clogged hotend"* — and
+its step 3 names the one slicer-side cause, a volumetric cap meant for a high-flow hotend run on
+a standard one; the PET-GF slot's cap is 18 mm³/s, under the 24 mm³/s Bambu rates the standard
+0.4 TC at on PETG. The H2C cold-pull page lists *"Frequent Extruder Motor Overload Errors"* as
+the sign of *"excessive nozzle resistance"*.
+
+The cold pull is the printer's own routine, Settings › Toolbox › Nozzle Cold Pull Maintenance
+([H2C Nozzle Cold Pull Maintenance and Cleaning](https://wiki.bambulab.com/en/h2c/maintenance/nozzle-cold-pull-maintenance-and-cleaning)),
+run on the hotend installed on the left extruder: PLA or PETG as the pull filament, in a colour
+lighter than the black PET-GF15 so residue shows, flushing at 290 °C for PET-class residue,
+repeated until the tip comes out clean. A hotend that will not pass PLA or PETG at 250 °C is
+fully clogged and goes through the
+[unclogging procedure](https://wiki.bambulab.com/en/h2/troubleshooting/unclogging) first — its
+hot-hex-wrench method works on a hotend off the printer.
