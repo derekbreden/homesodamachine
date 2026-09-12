@@ -231,7 +231,7 @@ def main():
         # reachable at all. Counted off the module that cuts both the clearance bores and the
         # heat-set seats, so a screw added there is a screw this procedure names.
         "CAP_SCREWS": f"{len(_enc.cap_screw_ys(f.box.inner, f.box.collet_plate))}",
-        "CAP_SCREW_LEN": f"{_enc.screw_len:.4g}",
+        "CAP_SCREW_LEN": f"{_enc.cap_screw_len:.4g}",
     }
 
     substitute_md(_here / "pump-replacement.md", variables=variables)

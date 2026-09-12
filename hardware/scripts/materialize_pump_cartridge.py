@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
-"""Materialize only the pump cartridge's STEP, printed STL and viewer payload.
+"""Materialize only the pump cartridge's two pieces: STEP, printed STL and viewer payload each.
 
 The ordinary enclosure producer deliberately draws all six pieces and its aggregate before the
 assembly runs.  That is the right reconciliation path and the wrong visual-iteration path for a
 change confined to the removable pump cartridge.  This entry reads the already-declared Box,
-calls the cartridge builder directly, and uses the same tessellation, flute rails and payload
-cutter as the ordinary producer without drawing another enclosure piece or an assembly.
+calls the lower cradle's and the top clamp's builders directly, and uses the same tessellation,
+flute rails and payload cutter as the ordinary producer without drawing another enclosure piece
+or an assembly.
 
     tools/cad-venv/bin/python hardware/scripts/materialize_pump_cartridge.py
+    tools/cad-venv/bin/python hardware/scripts/materialize_pump_cartridge.py --pieces pump-cap
 
 All three siblings are completed in a temporary directory and seated only after the printed STL
 has passed the ordinary producer's own slicer-facing reading.  They seat STEP, STL, then payload:
@@ -72,44 +74,44 @@ def _declared_box(box_spec, enc):
                      + "\n  ".join(refused))
 
 
-def materialize(output: Path = _OUTPUT) -> dict:
-    started = time.perf_counter()
-    scripts = _ROOT / "hardware" / "scripts"
-    for directory in (scripts, _ENCLOSURE):
-        if str(directory) not in sys.path:
-            sys.path.insert(0, str(directory))
+# The two pieces this path can stand, each with the flute rails the ordinary producer gives it:
+# the cradle owns the show face and both flanks, the clamp carries no show field and takes none.
+PIECES = ("pump-cartridge", "pump-cap")
 
-    import _box_spec
-    import enclosure as enc
-    import flute_payload
 
-    imported = time.perf_counter()
-    box, bounds, box_path = _declared_box(_box_spec, enc)
-    enc.BOUNDS[:] = bounds
+def _builder(enc, name):
+    if name == "pump-cartridge":
+        return enc.build_pump_cartridge, lambda box: [
+            enc._pump_cartridge_side_flute_rail(box.outer),
+            enc._pump_cartridge_front_flute_rail(box.outer)]
+    if name == "pump-cap":
+        return enc.build_pump_cap, lambda box: []
+    raise ValueError(f"{name!r} is not a pump-cartridge piece; this path stands {PIECES}")
+
+
+def _materialize_piece(enc, flute_payload, box, name, output: Path, started: float) -> dict:
+    build, rails_of = _builder(enc, name)
     described = time.perf_counter()
-
-    # This is intentionally the direct builder and not build_pieces(): no other piece, shared
-    # front half, slide report, aggregate or scorecard is realized along this path.
-    piece = enc.build_pump_cartridge(box)
+    # The piece's own builder: no other piece, shared front half, slide report, aggregate or
+    # scorecard is realized along this path.
+    piece = build(box)
     built = time.perf_counter()
 
-    output = Path(output)
-    output.mkdir(parents=True, exist_ok=True)
-    stem = "enclosure-pump-cartridge"
+    stem = f"enclosure-{name}"
     with tempfile.TemporaryDirectory(prefix=f".{stem}-", dir=output) as directory:
         work = Path(directory)
         step = work / f"{stem}.step"
         stl = work / f"{stem}.stl"
         payload = work / f"{stem}.step.mesh"
 
-        # export_assembly ordinarily writes a smooth viewer payload beside the STEP.  The final
-        # payload here is the printed/fluted surface, so skip that redundant tessellation only;
-        # the STEP still goes through the canonical atomic/canonicalized assembly exporter.
+        # export_assembly ordinarily writes a smooth viewer payload beside the STEP.  The
+        # payload here is the printed/fluted surface, cut below; the STEP still goes through the
+        # canonical atomic/canonicalized assembly exporter.
         held_skip = os.environ.get("HSM_SKIP_MESH_PAYLOAD")
         os.environ["HSM_SKIP_MESH_PAYLOAD"] = "1"
         try:
             enc.export_assembly(
-                enc.one_body(piece, stem, enc.PIECE_COLORS["pump-cartridge"]), str(step))
+                enc.one_body(piece, stem, enc.PIECE_COLORS[name]), str(step))
         finally:
             if held_skip is None:
                 os.environ.pop("HSM_SKIP_MESH_PAYLOAD", None)
@@ -117,17 +119,15 @@ def materialize(output: Path = _OUTPUT) -> dict:
                 os.environ["HSM_SKIP_MESH_PAYLOAD"] = held_skip
         stepped = time.perf_counter()
 
-        # These are the exact body tessellation, two cartridge-only rails and flute operation
-        # used by enclosure._export_pieces for this name.
+        # These are the exact body tessellation, rails and flute operation used by
+        # enclosure._export_pieces for this name.
         body = enc._piece_mesh(piece.val())
-        rails = [enc._pump_cartridge_side_flute_rail(box.outer),
-                 enc._pump_cartridge_front_flute_rail(box.outer)]
         printed = enc._flute_skin.flute(
-            body, rails, enc.flute_pitch(box.outer), enc.flute_depth, enc.flute_rise)
+            body, rails_of(box), enc.flute_pitch(box.outer), enc.flute_depth, enc.flute_rise)
         printed.export(str(stl))
 
         # The ordinary producer reads the written file back exactly this way before accepting a
-        # bed mesh.  Keep that existing safety reading; this path adds no persistent gate.
+        # bed mesh.
         written = enc.trimesh.load_mesh(str(stl))
         loose = enc._flute_skin.non_manifold_edges(written)
         if loose or not written.is_watertight:
@@ -152,8 +152,6 @@ def materialize(output: Path = _OUTPUT) -> dict:
         seated = time.perf_counter()
 
     timings = {
-        "imports": imported - started,
-        "box": described - imported,
         "solid": built - described,
         "step": stepped - built,
         "stl": printed_at - stepped,
@@ -161,8 +159,7 @@ def materialize(output: Path = _OUTPUT) -> dict:
         "seat": seated - payload_at,
         "total": seated - started,
     }
-    print("pump cartridge only:")
-    print(f"  box {_sha256(box_path)}  {box_path.relative_to(_ROOT)}")
+    print(f"{stem}:")
     print("  " + "  ".join(f"{name} {seconds:.2f}s" for name, seconds in timings.items()))
     for name in (f"{stem}.step", f"{stem}.stl", f"{stem}.step.mesh"):
         print(f"  {'updated' if moved[name] else 'held':7s} "
@@ -172,13 +169,37 @@ def materialize(output: Path = _OUTPUT) -> dict:
             "payload_src": step_sha}
 
 
+def materialize(output: Path = _OUTPUT, pieces: tuple[str, ...] = PIECES) -> dict:
+    started = time.perf_counter()
+    scripts = _ROOT / "hardware" / "scripts"
+    for directory in (scripts, _ENCLOSURE):
+        if str(directory) not in sys.path:
+            sys.path.insert(0, str(directory))
+
+    import _box_spec
+    import enclosure as enc
+    import flute_payload
+
+    box, bounds, box_path = _declared_box(_box_spec, enc)
+    enc.BOUNDS[:] = bounds
+    output = Path(output)
+    output.mkdir(parents=True, exist_ok=True)
+    print("pump cartridge only:")
+    print(f"  box {_sha256(box_path)}  {box_path.relative_to(_ROOT)}")
+    return {name: _materialize_piece(enc, flute_payload, box, name, output, time.perf_counter())
+            for name in pieces}
+
+
 def main(argv: list[str]) -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument(
         "--output-dir", type=Path, default=_OUTPUT,
         help="destination for the three siblings (default: the enclosure artifact directory)")
+    parser.add_argument(
+        "--pieces", nargs="+", choices=PIECES, default=list(PIECES),
+        help="which of the cartridge's pieces to stand (default: both)")
     args = parser.parse_args(argv)
-    materialize(args.output_dir)
+    materialize(args.output_dir, tuple(args.pieces))
     return 0
 
 
