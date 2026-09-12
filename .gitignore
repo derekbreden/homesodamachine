@@ -137,6 +137,12 @@ hardware/quickstart/out/
 # NOT_BUNDLED_DIRS names this directory too.
 hardware/weld-rotator-guide/out/
 
+# Two hand-drawn quick start sheets with words, frozen the same way as the weld-rotator guide:
+# page renders here, and the HTML, `art/*.png`, bound PDF, cover and `.pdf.json` in the index
+# (hardware/quickstart-claude/README.md, hardware/quickstart-codex/).
+hardware/quickstart-claude/out/
+hardware/quickstart-codex/out/
+
 # The bound Quick Start and the pictures in it, drawn by hardware/quickstart/quickstart_art.py
 # and _build.py off the same solids as everything else. They arrive the road every solid takes:
 # `pack.py`'s BUNDLED_ART_DIRS and BUNDLED_ART_FILES put them in the release asset,
