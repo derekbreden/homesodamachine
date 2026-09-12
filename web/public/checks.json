@@ -17,8 +17,8 @@
     },
     {
       "check": "hardware/scripts/check_ledger.py",
-      "note": "✓ every part the instructions name is carried by bom.md or tools.md, and every procedure has a driver.",
-      "status": "ok"
+      "note": "✗ instruction names a purchased brand the ledger no longer carries: Chanzon (hardware/assembly/weld-rotation-rig.md:220)",
+      "status": "red"
     },
     {
       "check": "hardware/scripts/check_payloads.py",
@@ -91,6 +91,11 @@
       "enclosure-assembly.facts.json was taken from a different tree — it holds c3f2301c4eb1c279b263133ab43fb1ea for the 126 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 80ea115912ee5ffd027fed7617a125e3 here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
+    ],
+    "hardware/scripts/check_ledger.py": [
+      "instructions: 120 files (14 procedures + 105 cards + cover) | ledger brands: 538 | waived: 1 ASIN + 4 brand",
+      "DRIFT: 1 instruction(s) out of step with the ledger:",
+      "  ✗ instruction names a purchased brand the ledger no longer carries: Chanzon (hardware/assembly/weld-rotation-rig.md:220)"
     ]
   },
   "green": false
