@@ -61,6 +61,10 @@ services:
         # rather than in that lock, so a clone is what carries them and a deploy is what makes a
         # clone. It changes when a person redraws it, which is rarely.
         - hardware/weld-rotator-guide/**
+        # Two hand-drawn quick start sheets with words, frozen the same way: PDF, cover and
+        # sidecar in git, so a clone carries them and a deploy is what makes a clone.
+        - hardware/quickstart-claude/**
+        - hardware/quickstart-codex/**
       ignoredPaths:
         # THE VERDICT IS DATA UNDER A CODE PATH. `checks_now.py` pins a reading after every
         # commit, and under `web/**` each one was an `npm ci`, a fetch and a restart — 24 of the

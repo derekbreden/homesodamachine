@@ -70,6 +70,8 @@ export const EXCLUDED_DIRS = [
   "assembly/scenes/out",
   "install-guide/out",
   "pcb/pcba/out",
+  "quickstart-claude/out",
+  "quickstart-codex/out",
   "quickstart/out",
   "quickstart/plumbing/out",
   "quickstart/studies/first-power-link/out",
