@@ -319,7 +319,7 @@ Clamp the X1 Pro work lead to the exposed upper
 the PP bearing. The stationary shoe wipes the tube OD 15–65 mm above the nest
 and leaves the work cable still through every lap. Scuff only that contact
 stripe and the copper face immediately before welding. With the welder
-disabled, meter shoe-to-tube continuity while `mode jog` turns two complete
+disabled, meter shoe-to-tube continuity while the pedal turns two complete
 revolutions. Any blink is a stop condition: clean the faces before enabling
 the laser.
 
@@ -343,17 +343,19 @@ closure weld and printed structure.
 ## Control
 
 `firmware/src_weld_rotator/` runs on an acquired ESP32-DevKitC-32E. The foot
-pedal is a 3.3 V deadman input. The ESP32 drives DM542T PUL and DIR through an
-acquired ULN2803A module with the driver's logic selector set to 5 V. The
+pedal is a 3.3 V deadman input. The ESP32 drives DM542T PUL, DIR and ENA through
+an acquired ULN2803A module with the driver's logic selector set to 5 V. The
 acquired 5 V adapter and its Micro-USB tip power the ESP32/logic side on the
 bench; the 24 V brick powers only the DM542T and motor. Flashing and the
 stopped-only setup console use the DevKitC's own Micro-USB from the host.
 
-Default mode is a 380-degree lap at 8 mm/s bead travel. The pedal must remain
-held; release is an immediate abort, and a completed lap will not restart until
-the pedal has been released. `speed 5` through `speed 15` changes the stored
-travel-speed setpoint without changing any mechanical part. `mode jog` makes
-the pedal a direct hold-to-turn setup control.
+The pedal is the whole of the control: held, the table turns at the stored
+speed, 8 mm/s bead travel by default; released, it stops. Nothing counts a lap
+and nothing stops the table on its own; the console reports degrees turned as
+a readout. `speed 5` through `speed 15` changes the stored travel-speed
+setpoint without changing any mechanical part, and `direction cw` or
+`direction ccw` the stored direction viewed from above. The driver holds the
+motor only while the table turns and for ten seconds after a release.
 
 ## Regenerate and verify
 
