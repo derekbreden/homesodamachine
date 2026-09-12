@@ -1466,7 +1466,8 @@ for _name in cap_anchors:
 # The tie goes through the window, out the front, round the tube and back over the post's crown,
 # and buckles in the channel down its back — so the loop closes on the tube, and every millimetre
 # the window stands off the pipe is a millimetre added to that loop and taken out of the post.
-SideAnchor = namedtuple("SideAnchor", "centre over_face seat_r axis_off")
+# Each station's `depth` runs aft from its front face along the cap's −X.
+SideAnchor = namedtuple("SideAnchor", "centre over_face seat_r axis_off depth")
 
 cap_side_wall = cap_anchor_wall           # every solid section in the post
 cap_side_len = cap_anchor_len             # along the run, one tie's tunnel and its two flanks
@@ -1491,16 +1492,6 @@ cap_side_cav_backing_min = cap_anchor_cav_buffer
 # The tie's own channel down the post's back face, so the buckle seats and the zip tie cannot walk
 # along the run.
 cap_side_back_relief = 1.2
-# How deep the post runs back from its front face, which is `centre`'s own plane.
-#   THE SECTION IS SQUARE, because a post is only as stout as its NARROW side. The length is what
-# one tie's tunnel and its two flanks make; a depth under it leaves the depth narrow, and on a
-# post that stands the whole of a crown storey off the lid that narrow side is a blade. A depth
-# over it leaves the LENGTH narrow instead, and the tower is no steadier for the material.
-#   What the depth spends is aft. The front face stands inside the core's plan outline — nothing
-# of the post is proud, and the grips the box closes on that outline do not move — so every
-# millimetre goes into the band to the source pair's own bodies, and two more onto the loop the
-# tie has to close (`cap_side_anchor_tie_loop`).
-cap_side_depth = cap_side_len
 # The least material the post may carry behind the pipe's deepest point. The tie pulls the tube
 # into the pipe and the whole section reacts it, so this is a printing floor and not a strength
 # one: under it the back face is a skin with no fill behind the bore.
@@ -1519,13 +1510,16 @@ cap_side_anchors = {
     #   THE POST AND `_lines.CROSS_Y` ARE ONE FIGURE IN TWO FILES — the run crosses where this
     # grips it. `enclosure_assembly.cap_tube_anchors` is what refuses a post no leg passes
     # through, so the pair cannot drift apart quietly.
-    "water-3": SideAnchor((138.000, -13.000), 7.600, 3.375, 1.500),
+    # The post is one length deep, with the V-B plinth aft of it.
+    "water-3": SideAnchor((138.000, -13.000), 7.600, 3.375, 1.500, cap_side_len),
     # `fluid-18`'s gate-side hold: its crossing runs the crown storey fore of the pump, and
     # this post stands the whole of that storey off the lid to grip it — the blade's front
     # face one air fore of the pump's own, the pipe proud of it by less than its wrap. The
     # union side is the box's own wall rib on the aft straight
     # (`enclosure_assembly.TUBE_ANCHOR_SITES`).
-    "fluid-18": SideAnchor((51.675, 34.000), 45.800, 3.375, 1.000),
+    # The block runs aft alongside the pump, leaving room before its head block to thread
+    # the 6-inch tie this post's loop takes.
+    "fluid-18": SideAnchor((51.675, 34.000), 45.800, 3.375, 1.000, 30.000),
 }
 
 
@@ -1592,10 +1586,10 @@ def cap_side_anchor_holds(name) -> None:
     # The bore eats forward from the front face and the tie's channel eats back from the rear one,
     # and they meet over the pipe: what is left between them is the whole of the web, so the
     # relief comes off the reading the same way the seat does.
-    web = cap_side_depth + a.axis_off - a.seat_r - cap_side_back_relief
+    web = a.depth + a.axis_off - a.seat_r - cap_side_back_relief
     if web < cap_side_web - 1e-9:
         raise ValueError(
-            f"cap_side_anchor_holds: the post runs {cap_side_depth:.3f} mm back from its face; "
+            f"cap_side_anchor_holds: the post runs {a.depth:.3f} mm back from its face; "
             f"the pipe takes {a.seat_r - a.axis_off:.3f} of that and the tie's channel "
             f"{cap_side_back_relief:g} more, leaving a web of {web:.3f} where this face wants "
             f"{cap_side_web:g}. What caps the depth is the body behind the post, so what gives "
@@ -1624,7 +1618,7 @@ def cap_side_anchor_tie_loop(name) -> float:
     d_hi = math.hypot(a.axis_off, crown - axis)
     sweep = (math.atan2(crown - axis, -a.axis_off)
              - math.atan2(-axis, -a.axis_off)) % (2.0 * math.pi)
-    return (2.0 * cap_side_depth + crown
+    return (2.0 * a.depth + crown
             + math.sqrt(d_lo * d_lo - a.seat_r * a.seat_r)
             + math.sqrt(d_hi * d_hi - a.seat_r * a.seat_r)
             + a.seat_r * (sweep - math.acos(a.seat_r / d_lo) - math.acos(a.seat_r / d_hi)))
@@ -1644,10 +1638,11 @@ def cap_side_anchor_room(name):
 
     Read on the post's own rectangle, which is the whole of its footing. `centre` is NOT the
     middle of it in both axes: in the cap's X it is the post's FRONT FACE, the plane
-    `axis_off` stands the pipe forward of, and the block runs `cap_side_depth` aft of that.
+    `axis_off` stands the pipe forward of, and the block runs the station's `depth` aft of that.
     In the cap's Y it is the middle, and the block is `cap_side_len` long about it."""
-    (cx, cy) = cap_side_anchors[name].centre
-    x0, x1 = cx - cap_side_depth, cx
+    a = cap_side_anchors[name]
+    (cx, cy) = a.centre
+    x0, x1 = cx - a.depth, cx
     y0, y1 = cy - cap_side_len / 2.0, cy + cap_side_len / 2.0
 
     def off(px, py, r):

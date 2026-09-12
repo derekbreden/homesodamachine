@@ -81,7 +81,6 @@ from _cold_core_interface import (
     cap_side_back_relief,
     cap_side_cav_w,
     cap_side_flank,
-    cap_side_depth,
     cap_side_len,
     cap_side_wall,
     cap_anchor_cav_w,
@@ -298,6 +297,7 @@ def add_side_anchors(lid, face_z):
         cap_side_anchor_holds(name)
         (cx, cy) = station.centre
         seat_r = station.seat_r
+        depth = station.depth
         axis_z = face_z + station.over_face
         roof_z = face_z + cap_side_tunnel_roof(name)  # the window's roof, one wall under the pipe
         sill_z = roof_z - cap_side_tunnel_h(name)     # and its floor, hung off that roof
@@ -309,8 +309,8 @@ def add_side_anchors(lid, face_z):
             return (
                 WorldWorkplane(xy_plane_z_up)
                 .workplane(offset=za)
-                .polyline(_ring([(cx, ya), (cx - cap_side_depth, ya),
-                                 (cx - cap_side_depth, ya + length), (cx, ya + length)]))
+                .polyline(_ring([(cx, ya), (cx - depth, ya),
+                                 (cx - depth, ya + length), (cx, ya + length)]))
                 .wire()
                 .extrude(zb - za)
             )
@@ -323,8 +323,8 @@ def add_side_anchors(lid, face_z):
             WorldWorkplane(xy_plane_z_up)
             .workplane(offset=sill_z)
             .polyline(_ring([(cx, cy - cap_side_cav_w / 2.0),
-                             (cx - cap_side_depth, cy - cap_side_cav_w / 2.0),
-                             (cx - cap_side_depth, cy + cap_side_cav_w / 2.0),
+                             (cx - depth, cy - cap_side_cav_w / 2.0),
+                             (cx - depth, cy + cap_side_cav_w / 2.0),
                              (cx, cy + cap_side_cav_w / 2.0)]))
             .wire()
             .extrude(roof_z - sill_z)
@@ -348,10 +348,10 @@ def add_side_anchors(lid, face_z):
             WorldWorkplane(xy_plane_z_up)
             .workplane(offset=sill_z)
             .polyline(_ring([
-                (cx - cap_side_depth + cap_side_back_relief, cy - cap_side_cav_w / 2.0),
-                (cx - cap_side_depth, cy - cap_side_cav_w / 2.0),
-                (cx - cap_side_depth, cy + cap_side_cav_w / 2.0),
-                (cx - cap_side_depth + cap_side_back_relief, cy + cap_side_cav_w / 2.0)]))
+                (cx - depth + cap_side_back_relief, cy - cap_side_cav_w / 2.0),
+                (cx - depth, cy - cap_side_cav_w / 2.0),
+                (cx - depth, cy + cap_side_cav_w / 2.0),
+                (cx - depth + cap_side_back_relief, cy + cap_side_cav_w / 2.0)]))
             .wire()
             .extrude(top_z - sill_z)
         )
@@ -466,9 +466,9 @@ def main():
     # the channel. A post that swallowed a boss beside it, or a bore that broke out of its back,
     # comes up over.
     side_anchor_volume = sum(
-        cap_side_depth * cap_side_len * cap_side_anchor_height(n)
+        s.depth * cap_side_len * cap_side_anchor_height(n)
         - _circle_beyond(s.axis_off, s.seat_r) * cap_side_len
-        - cap_side_depth * cap_side_cav_w * cap_side_tunnel_h(n)
+        - s.depth * cap_side_cav_w * cap_side_tunnel_h(n)
         - cap_side_back_relief * cap_side_cav_w
         * (cap_side_anchor_height(n) - cap_side_tunnel_roof(n))
         for n, s in cap_side_anchors.items()
