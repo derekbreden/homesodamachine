@@ -48,8 +48,8 @@ html, body {
 body {
   color: var(--ink);
   font-family: var(--sans);
-  font-size: 46px;
-  line-height: 1.4;
+  font-size: 42px;
+  line-height: 1.38;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -65,28 +65,28 @@ body {
   background: var(--paper);
   /* The outer half inch holds nothing essential: the printer's borderless expansion cannot
      cut an action. */
-  padding: 170px 190px 150px;
+  padding: 150px 190px 140px;
 }
 
 .card > header { flex: none; }
-.card > main { flex: 1 1 auto; min-height: 0; padding-top: 56px; }
-.card > footer { flex: none; margin-top: 56px; padding-top: 40px; border-top: 4px solid var(--line); }
+.card > main { flex: 1 1 auto; min-height: 0; padding-top: 48px; }
+.card > footer { flex: none; }
 
 /* ---- masthead ---------------------------------------------------------------- */
 
 .masthead {
   display: flex;
   align-items: flex-end;
-  gap: 120px;
+  gap: 110px;
 }
 
-.lockup { flex: 0 0 1560px; }
+.lockup { flex: 0 0 1380px; }
 
 .brand {
   display: flex;
   align-items: center;
-  gap: 34px;
-  font-size: 44px;
+  gap: 30px;
+  font-size: 40px;
   font-weight: 700;
   letter-spacing: 0.22em;
   line-height: 1;
@@ -95,14 +95,14 @@ body {
 
 .brand img {
   display: block;
-  width: 96px;
-  height: 96px;
-  border-radius: 21px;
+  width: 84px;
+  height: 84px;
+  border-radius: 18px;
 }
 
 h1 {
-  margin-top: 34px;
-  font-size: 196px;
+  margin-top: 26px;
+  font-size: 176px;
   font-weight: 700;
   letter-spacing: -0.03em;
   line-height: 0.98;
@@ -110,9 +110,9 @@ h1 {
 
 i.rule {
   display: block;
-  width: 220px;
+  width: 200px;
   height: 14px;
-  margin-top: 34px;
+  margin-top: 26px;
   border-radius: 7px;
   background: var(--action);
 }
@@ -120,9 +120,9 @@ i.rule {
 .lede {
   flex: 1 1 auto;
   min-width: 0;
-  padding-bottom: 8px;
-  font-size: 58px;
-  line-height: 1.38;
+  padding-bottom: 6px;
+  font-size: 52px;
+  line-height: 1.36;
 }
 
 .lede b { font-weight: 700; }
@@ -131,16 +131,16 @@ i.rule {
 
 .before {
   display: flex;
-  gap: 48px;
-  margin-top: 52px;
-  padding-top: 40px;
+  gap: 44px;
+  margin-top: 40px;
+  padding-top: 30px;
   border-top: 4px solid var(--line);
 }
 
 .before-label {
-  flex: 0 0 360px;
+  flex: 0 0 330px;
   color: var(--action);
-  font-size: 36px;
+  font-size: 32px;
   font-weight: 700;
   letter-spacing: 0.16em;
   line-height: 1.3;
@@ -150,30 +150,54 @@ i.rule {
 .check {
   flex: 1 1 0;
   min-width: 0;
-  padding-left: 36px;
+  padding-left: 30px;
   border-left: 10px solid var(--field);
-  font-size: 41px;
-  line-height: 1.36;
+  font-size: 37px;
+  line-height: 1.34;
 }
 
 .check b { font-weight: 700; }
 
-/* ---- the six steps ------------------------------------------------------------- */
+/* ---- the rows of steps ---------------------------------------------------------- */
 
-.steps {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 56px;
+.rows {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
   height: 100%;
 }
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 56px;
+  flex: 1 1 0;
+  min-height: 0;
+}
+
+.row.four { grid-template-columns: repeat(4, 1fr); }
+
+/* The band the first glass stands under: one line, the sheet's own coral. */
+.band {
+  display: flex;
+  align-items: baseline;
+  gap: 30px;
+  margin-top: 6px;
+  color: var(--action);
+  font-size: 34px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+.band span { color: var(--muted); font-weight: 400; letter-spacing: 0; text-transform: none; font-size: 36px; }
 
 .step {
   position: relative;
   display: flex;
-  gap: 44px;
+  gap: 40px;
   min-height: 0;
-  padding: 54px 52px 50px;
+  padding: 44px 48px 40px;
   background: var(--field);
   border-radius: 28px;
   overflow: hidden;
@@ -186,44 +210,51 @@ i.rule {
   min-width: 0;
 }
 
+.four .words { flex-basis: 470px; }
+
 .numeral {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 164px;
-  height: 164px;
+  width: 140px;
+  height: 140px;
   flex: none;
   border-radius: 50%;
   background: var(--paper);
-  font-size: 104px;
+  font-size: 92px;
   font-weight: 700;
   line-height: 1;
   font-variant-numeric: tabular-nums;
 }
 
 h2 {
-  margin-top: 34px;
-  font-size: 82px;
+  margin-top: 28px;
+  font-size: 78px;
   font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1.06;
 }
 
+.four h2 { font-size: 68px; }
+
 .words p {
-  margin-top: 28px;
-  font-size: 44px;
+  margin-top: 24px;
+  font-size: 42px;
   line-height: 1.38;
 }
 
+.four .words p { font-size: 40px; margin-top: 22px; }
+
 .words p b { font-weight: 700; }
-.words p.aside { margin-top: 22px; color: var(--muted); font-size: 38px; }
+.words p.aside { margin-top: 18px; color: var(--muted); font-size: 36px; }
+.four .words p.aside { font-size: 34px; }
 
 .pictures {
   flex: 1 1 auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 26px;
+  gap: 18px;
   min-width: 0;
 }
 
@@ -236,9 +267,14 @@ h2 {
 .pair {
   display: flex;
   align-items: flex-end;
-  gap: 26px;
+  gap: 22px;
 }
 .pair .scene { flex: 1 1 0; min-width: 0; }
+
+/* A single upright picture that is taller than its column is wide: capped at the column's
+   height and centred, so it never pushes the panel. */
+.tall { display: flex; justify-content: center; align-items: center; height: 100%; }
+.tall img { width: auto; max-width: 100%; max-height: 870px; }
 
 /* ---- motion cues ----------------------------------------------------------------- */
 
@@ -261,10 +297,10 @@ h2 {
   transform-origin: center;
 }
 
-.cue-straight { width: 250px; height: 139px; }
-.pair .cue-straight { width: 160px; height: 89px; }
-.cue-turn { width: 200px; height: 133px; }
-.cue-turn-wide { width: 440px; height: 159px; }
+.cue-straight { width: 230px; height: 128px; }
+.pair .cue-straight { width: 150px; height: 83px; }
+.cue-turn { width: 190px; height: 127px; }
+.cue-turn-wide { width: 400px; height: 145px; }
 
 /* ---- the ports, step 6 -------------------------------------------------------------- */
 
@@ -272,11 +308,11 @@ h2 {
    the picture gives up the width. */
 .step.ports-step .words { flex-basis: 740px; }
 
-.ports { margin-top: 30px; border-collapse: collapse; width: 100%; }
+.ports { margin-top: 18px; border-collapse: collapse; width: 100%; }
 .ports td {
-  padding: 12px 0;
+  padding: 4px 0;
   border-top: 3px solid rgba(255, 255, 255, 0.55);
-  font-size: 36px;
+  font-size: 34px;
   line-height: 1.3;
   vertical-align: middle;
   white-space: nowrap;
@@ -286,9 +322,9 @@ h2 {
 .chip {
   display: inline-block;
   min-width: 146px;
-  padding: 6px 14px 8px;
+  padding: 5px 14px 7px;
   border-radius: 6px;
-  font-size: 29px;
+  font-size: 28px;
   font-weight: 700;
   letter-spacing: 0.1em;
   line-height: 1.1;
@@ -300,31 +336,3 @@ h2 {
 .chip-tap { background: var(--tap); color: var(--ink); box-shadow: inset 0 0 0 3px var(--line); }
 .chip-flavor { background: var(--flavor); color: #fff; }
 .chip-plug { background: #8f8a80; color: #fff; }
-
-/* ---- footer ---------------------------------------------------------------------- */
-
-.after {
-  display: flex;
-  gap: 90px;
-}
-
-.after > div { flex: 1 1 0; min-width: 0; }
-.after > div.then { flex: 1.55 1 0; }
-
-.after h3 {
-  color: var(--action);
-  font-size: 34px;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  line-height: 1;
-  text-transform: uppercase;
-}
-
-.after p {
-  margin-top: 22px;
-  font-size: 40px;
-  line-height: 1.38;
-}
-
-.after p b { font-weight: 700; }
-.after .site { margin-top: 18px; color: var(--muted); font-size: 36px; font-weight: 700; letter-spacing: 0.04em; }
