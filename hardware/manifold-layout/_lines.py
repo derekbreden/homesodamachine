@@ -356,7 +356,7 @@ CROSS_Y = 176.5
 # front face, so over that stretch the lane has no lid beneath it and nothing there can hold it.
 # Where the run has to be gripped, it steps aft onto the lid and comes back — two shallow plan
 # corners each way — and the post that grips it stands on what it stepped onto
-# (`_cold_core_interface.cap_side_anchors["water-3"]`). The step is `cap_side_depth`'s own
+# (`_cold_core_interface.cap_side_anchors["water-3"]`). The step is the post's own
 # front face plus the `axis_off` the pipe stands proud of it, which is what puts the axis here.
 #   THE SPAN IS THE POST'S, and it goes where the post goes: the aft flat has to run the post's
 # whole length under it or the pipe ramps inside the seat that grips it. `cap_tube_anchors`

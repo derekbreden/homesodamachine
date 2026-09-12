@@ -100,8 +100,9 @@ carrier_ties_per_build = len(_ea._carrier.tie_sites(_ea._carrier.DEFAULT_SPEC))
 carrier_springs_per_build = len(_ea._carrier.DEFAULT_SPEC.spring_xs)
 carrier_prints_per_build = len(_ea._carrier.interface()["printed_parts"])
 carrier_joint_screws_per_build = len(_ea._carrier.joint_sites())
-general_four_inch_ties_per_build = 25
+general_four_inch_ties_per_build = 24
 four_inch_ties_per_build = general_four_inch_ties_per_build + carrier_ties_per_build
+six_inch_ties_per_build = 4
 
 # PP1208E bulkheads in the +Y wall of back-top. Umbilical port: 3 on that wall
 # (1 carbonated water + 2 flavor). Water inlet: 1 more, same SKU and
@@ -466,6 +467,7 @@ def main():
         "CARRIER_PRINTS": f"{carrier_prints_per_build:.4g}",
         "CARRIER_JOINT_SCREWS": f"{carrier_joint_screws_per_build:.4g}",
         "FOUR_INCH_TIES": f"{four_inch_ties_per_build:.4g}",
+        "SIX_INCH_TIES": f"{six_inch_ties_per_build:.4g}",
         "PP1208E_PANEL": f"{panel_umbilical_bulkheads:.4g}",
         "PP1208E_INLET": f"{panel_water_inlet_bulkheads:.4g}",
         "PP1208E_TOTAL": f"{pp1208e_per_build:.4g}",
