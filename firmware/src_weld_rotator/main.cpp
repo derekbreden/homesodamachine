@@ -20,6 +20,10 @@ namespace {
 // DM542T PUL- and DIR- inputs; PUL+ and DIR+ are tied to USB 5 V.
 constexpr uint8_t kPinStep = 25;
 constexpr uint8_t kPinDirection = 26;
+// ESP32 -> ULN2803A 3B; 3C sinks the DM542T ENA- input.  An energised ENA
+// input DISABLES the DM542T, so this pin high releases the motor and low
+// holds it.  Unwired, the driver holds as it always did.
+constexpr uint8_t kPinDriverHold = 32;
 // The fixture harness also fits an acquired 4.7 kOhm resistor from this input
 // to 3V3.  INPUT_PULLUP remains enabled as a second released-state bias.
 constexpr uint8_t kPinPedal = 27;
@@ -38,6 +42,9 @@ uint32_t raw_pedal_changed_ms = 0;
 bool step_line_active = false;
 uint32_t next_edge_us = 0;
 uint32_t half_period_us = 0;
+
+bool driver_holding = false;
+uint32_t hold_until_ms = 0;
 
 String command_line;
 
@@ -65,6 +72,11 @@ const char *resetReasonName() {
         case ESP_RST_SDIO: return "sdio";
         default: return "unknown";
     }
+}
+
+void holdDriver(bool hold) {
+    driver_holding = hold;
+    digitalWrite(kPinDriverHold, hold ? LOW : HIGH);
 }
 
 void setDirectionOutput() {
@@ -105,6 +117,7 @@ void printStatus() {
     Serial.printf("  pedal      %s for %.1f s\n",
                   stable_pedal_pressed ? "pressed" : "released",
                   (now_ms - raw_pedal_changed_ms) / 1000.0f);
+    Serial.printf("  driver     %s\n", driver_holding ? "holding" : "released");
     Serial.printf("  direction  %s%s\n", directionName(),
                   direction_inverted ? " (calibration inverted)" : "");
     Serial.printf("  speed      %.2f mm/s  %.3f table rpm  %.1f pulses/s\n",
@@ -129,20 +142,28 @@ void reportMotionEvent(Event event) {
         case Event::Armed:
             Serial.println("ready — press and hold pedal");
             break;
-        case Event::Started:
+        case Event::Started: {
             half_period_us = weld_rotator_policy::halfPeriodUs(travel_mm_per_s);
             setDirectionOutput();
-            // One half period of DIR setup before the first rising edge.
-            next_edge_us = micros() + half_period_us;
+            // One half period of DIR setup before the first rising edge, or
+            // the coil settle when the driver was released.
+            const bool was_holding = driver_holding;
+            holdDriver(true);
+            next_edge_us = micros() + (was_holding
+                                           ? half_period_us
+                                           : weld_rotator_policy::kHoldSettleMs * 1000UL);
             Serial.printf("RUN %.2f mm/s %s\n",
                           travel_mm_per_s, directionName());
             break;
+        }
         case Event::Released:
+            hold_until_ms = weld_rotator_policy::holdDeadline(millis());
             Serial.printf("STOP pedal released at %.1f deg\n",
                           weld_rotator_policy::degreesTurned(
                               motion.emittedPulses()));
             break;
         case Event::Stopped:
+            hold_until_ms = weld_rotator_policy::holdDeadline(millis());
             Serial.printf("STOP command at %.1f deg\n",
                           weld_rotator_policy::degreesTurned(
                               motion.emittedPulses()));
@@ -196,6 +217,12 @@ void serviceStepper() {
     step_line_active = true;
     next_edge_us = nextEdgeAfter(now_us);
     motion.recordPulse();
+}
+
+void serviceDriverHold() {
+    const bool hold = weld_rotator_policy::driverHolds(
+        motion.running(), hold_until_ms, millis());
+    if (hold != driver_holding) holdDriver(hold);
 }
 
 bool parseFloatAfter(const String &line, size_t offset, float &value) {
@@ -303,6 +330,8 @@ void setup() {
     digitalWrite(kPinStep, LOW);
     pinMode(kPinDirection, OUTPUT);
     digitalWrite(kPinDirection, LOW);
+    pinMode(kPinDriverHold, OUTPUT);
+    holdDriver(false);
     pinMode(kPinPedal, INPUT_PULLUP);
 
     Serial.begin(115200);
@@ -323,6 +352,7 @@ void setup() {
 void loop() {
     servicePedal();
     serviceStepper();
+    serviceDriverHold();
     // Serial parsing, formatting and flash writes stay completely outside a
     // moving pulse train. The pedal is the live stop control.
     if (!motion.running() && !step_line_active) serviceSerial();
