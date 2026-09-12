@@ -702,7 +702,7 @@ build item carries a half turn about X, the crown on the bed.
 |---|---|---|---|---|
 | `enclosure-pump-cartridge` | 2 | 2 | bed | 55.60 mm |
 | `enclosure-pump-cap` | 2 | 2 | bed | 8.80 mm |
-| `enclosure-front-top` | 2 | 15 | bed | 32.60 mm |
+| `enclosure-front-top` | 3 | 15 | bed | 32.60 mm |
 | `enclosure-tee-carrier-left` | 3 | 3 | bed | 3.00 mm |
 | `enclosure-tee-carrier-right` | 3 | 3 | bed | 3.00 mm |
 | `enclosure-back-bottom` | 4 | 5 | 3 bed, **1 model** | **8.00 mm** |
@@ -714,9 +714,9 @@ reaches one interface after **55.60 mm** and leaves directly through its open si
 `enclosure-pump-cap` prints on its crown and has two bed-rooted bodies, one standing in each
 clamp-screw counterbore under its head seat after **8.80 mm**; each leaves through the
 counterbore's mouth on the bed face. On front-top every body roots on the print bed and stands
-32 mm or more before it touches the model. Front-top has one tree under the pump-bay lintel and one joining
-both spring bores, the upper web bearings, both grip guides and retaining-rim recesses,
-all four well crowns and the pump-jack roof.
+32 mm or more before it touches the model. Front-top has one tree under the pump-bay lintel, one joining
+both spring bores, the upper web bearings, all four well crowns and the pump-jack roof, and one
+under both grip guides' and retaining-rim recesses' ceilings.
 Remove those branches through the empty cartridge bay, tee wells and aft carrier recess
 before installing the hardware. Each carrier half has separate bed-rooted support under its
 rim and seam-rail relief, central lap, and finger-pocket roof. Remove those through the open
@@ -1236,14 +1236,14 @@ The cradle's flat aft edge is at y [79.419 mm](PUMP_CARTRIDGE_AFT_Y),
 
 **Both pulls belong to the cradle and stand on its own Y midline.** Each side pocket has a
 nominal envelope [18 mm](PULL_DEPTH) deep, [28 mm](PULL_RUN) fore/aft and
-[41 mm](PULL_RISE) high, centred at y [42.21 mm](PULL_CENTER_Y). Its four floor/roof-to-end-wall
+[45.47 mm](PULL_RISE) high, centred at y [42.21 mm](PULL_CENTER_Y). Its four floor/roof-to-end-wall
 corners have [5 mm](PULL_CORNER_R) rounds, and its complete hand-contact rim has a
 [3 mm](PULL_EDGE_R) round, matching the enclosure handholds. The rim opens outward around the
 nominal envelope. Its level floor at z [176.25 mm](PULL_FLOOR_Z) leaves
 [10.88 mm](PULL_FLOOR_LIGAMENT) of bed-rooted cradle below it,
 [7.88 mm](PULL_RIM_FLOOR_LIGAMENT) at the rounded exterior edge, and places the pull datum,
 z [188.25 mm](PULL_CENTER_Z), 12 mm inside the mouth. Its roof is one flat plane through the
-complete fingertip depth at z [217.245 mm](PULL_TOP_Z), the same plane as the neighboring
+complete fingertip depth at z [221.715 mm](PULL_TOP_Z), the same plane as the neighboring
 tee-carrier grip's roof. A Y-normal wall closes each end of the pocket:
 the fore wall at y [28.21 mm](PULL_LEDGE) is the ledge the fingers pull on, the aft wall at
 y [56.21 mm](PULL_AFT_LEDGE) the one they push on, with [23.21 mm](PULL_FORE_STOCK) of cradle
