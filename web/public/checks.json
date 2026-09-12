@@ -52,7 +52,7 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 1624 tracked, 374 fetched solids, 55 tags, 38 site routes",
+      "note": "paths: every reference lands — 1630 tracked, 374 fetched solids, 55 tags, 38 site routes",
       "status": "ok"
     },
     {
@@ -82,7 +82,7 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 1 of 15 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 374 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 1 of 30 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 374 member(s) keep their provenance",
       "status": "ok"
     }
   ],
