@@ -226,6 +226,9 @@ TOOLS = [
         # steel on one Amazon line, and the Bambu 0.4 TC (L) that carries PET-GF15.
         L(order="112-7312343-0359412"),
         L(order="us766639627317551105"),
+        # three DUROZZLE 0.4 Diamond PCD tips, two orders on one day — one line each
+        L(order="112-7339165-9617019"),
+        L(order="112-4775870-3223436"),
     ])),
     ("PTFE Adapter II", "T_PTFE_ADAPTER", SUM([
         L(order="us717877837343809537", contains="PTFE Adapter"),
