@@ -157,7 +157,7 @@ yield instead of using the fixture as a rigid puller.
   power, and the Micro-USB data cable already used to flash the project's
   other DevKitC boards for upload and the stopped serial console.
 - Acquired 22 AWG wire, ferrules, 1/4-inch braided sleeve, and heat-shrink for
-  the pedal and low-voltage control harness, plus one acquired 4.7 kΩ resistor
+  the pedal and low-voltage control harness, plus one acquired 3.3 kΩ resistor
   for the pedal input's external pull-up.
 - 6 × ruthex M5 × 9.5 inserts and 6 × M5 × 10 SHCS: four
   motor-tower-to-base and two ground-tower-to-base.
