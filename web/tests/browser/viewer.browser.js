@@ -225,22 +225,36 @@ test("/3d zoom reaches the picked rear surface and leaves it as the orbit focus"
       file,
     );
 
-    // In the default front-right-above view, this ray lands on the inside of
-    // the Y+ rear wall, well beyond the model-centre target. That is the exact
-    // case a centre-only TrackballControls dolly can never reach.
+    // Look through the open front below the ceiling, keeping the model centre
+    // as the orbit target. Pick a visible rear-wall patch beyond that target.
     const before = await page.evaluate(() => {
       const h = window.__hsm;
-      const ndc = new h.THREE.Vector2(0.15, 1 / 3);
+      const box = new h.THREE.Box3().setFromObject(h.currentGroup);
+      const center = box.getCenter(new h.THREE.Vector3());
+      h.controls.target.copy(center);
+      h.camera.up.set(0, 0, 1);
+      h.camera.position.set(center.x, box.min.y - (box.max.y - box.min.y), center.z);
+      h.camera.lookAt(center);
+      h.controls.update();
+      h.camera.updateMatrixWorld();
+      const ndc = new h.THREE.Vector2();
       const ray = new h.THREE.Raycaster();
-      ray.setFromCamera(ndc, h.camera);
-      const hit = ray.intersectObject(h.currentGroup, true)
-        .find((x) => x.face && x.object.isMesh && x.object.visible);
+      let hit;
+      for (const point of [[0.12, 0.08], [-0.12, 0.08], [0.12, -0.08], [-0.12, -0.08], [0, 0]]) {
+        ndc.set(...point);
+        ray.setFromCamera(ndc, h.camera);
+        const candidate = ray.intersectObject(h.currentGroup, true)
+          .find((x) => x.face && x.object.isMesh && x.object.visible);
+        if (candidate?.point.y > center.y + 100 && Math.abs(candidate.face.normal.y) > 0.99) {
+          hit = candidate;
+          break;
+        }
+      }
       if (!hit) return null;
       const rect = h.renderer.domElement.getBoundingClientRect();
-      const box = new h.THREE.Box3().setFromObject(h.currentGroup);
       return {
         point: hit.point.toArray(),
-        center: box.getCenter(new h.THREE.Vector3()).toArray(),
+        center: center.toArray(),
         target: h.controls.target.toArray(),
         pointTargetDistance: hit.point.distanceTo(h.controls.target),
         client: [
@@ -301,6 +315,10 @@ test("/3d zoom reaches the picked rear surface and leaves it as the orbit focus"
     assert.ok(Math.abs(afterOrbit.ndc[0]) < 1 && Math.abs(afterOrbit.ndc[1]) < 1,
       "the focused rear-wall feature should remain in view after orbiting");
   } finally {
+    await page.evaluate(async (file) => {
+      await new Promise((resolve) => setTimeout(resolve, 350));
+      localStorage.removeItem(`step-camera:${file}`);
+    }, file).catch(() => {});
     await page.close().catch(() => {});
   }
 });

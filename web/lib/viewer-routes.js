@@ -8,6 +8,7 @@ import { DOC_SIDECAR_SUFFIX } from "../contracts/documents.js";
 import { VIEW_REQUEST_RE, PICKS_REQUEST_RE } from "../contracts/pcb-out.js";
 import { sidecarFields } from "../contracts/sidecar.js";
 import { SCORECARD_SUFFIX } from "../contracts/scorecard-sidecar.js";
+import { mountTubeRoutes } from "./tube-routes.js";
 
 const relOf = (req) => req.params.splat.join("/");
 
@@ -43,6 +44,7 @@ function readSidecar(rootDir, rel) {
 //
 // Endpoints + response shapes: web/contracts/api-shapes.js.
 export function mountViewerRoutes(app, { hardwareDir }) {
+  mountTubeRoutes(app, { hardwareDir });
 
   app.get("/api/steps", (req, res) => {
     res.json(walkFiles(hardwareDir, ".step"));

@@ -124,9 +124,8 @@ line_hug = 2.0
 # THE ARC EVERY CORNER IN HERE IS DRAWN TO — the stock's own floor, read off the machine's
 # STOCKS table rather than restated, so a line does not change what it can do at the shell
 # wall and the bench test behind that figure answers for the core too. `lldpe_bend_radius`
-# is the cold core's separate statement about a corner a POTTED line holds once the foam is
-# round it; a corner under the stock floor is named in `report_routes` and paid for in the
-# band that made it.
+# is the cold core's separate routing allowance. The cured foam retains these paths;
+# a corner under the stock floor is named in `report_routes`.
 route_bend_radius = stock_min("fluid", lldpe_tube_od)
 route_stock = stock_of("fluid", lldpe_tube_od)
 
