@@ -1,5 +1,5 @@
 [ceiling] Horizontal roof of the closed finger recess inside the rectangular sliding body. Removable support is accessible through the outward-facing mouth.
-click: x=98.647 y=115.468 z=217.245
+click: x=98.647 y=115.468 z=221.715
 
 [ceiling] The internal rim and inboard grip underside share one flat face 0.15 mm above the closed enclosure's seam rail. The pocket retains its 2.295 mm floor over the rail. This bed-rooted support is accessible from both ends and the underside of the loose half before inside-out assembly; the current production slice names it in the support ledger.
 click: x=97.322 y=115.468 z=174.950
