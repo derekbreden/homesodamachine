@@ -1,16 +1,16 @@
 {
   "/hardware/scripts/_ledger_totals.py": {
-    "LEDGER_ACQUIRED_COMBINED": "$38,913.09",
-    "LEDGER_ACQUIRED_HW": "$33,475.55",
+    "LEDGER_ACQUIRED_COMBINED": "$39,199.82",
+    "LEDGER_ACQUIRED_HW": "$33,762.28",
     "LEDGER_GRAND_TOTAL": "$39,878.57",
     "LEDGER_LABOR": "$5,437.54",
     "LEDGER_MISSING": "$53.07",
-    "LEDGER_ON_ORDER": "$912.41",
-    "LEDGER_SEC1": "$4,552.61",
+    "LEDGER_ON_ORDER": "$625.68",
+    "LEDGER_SEC1": "$4,567.28",
     "LEDGER_SEC10": "$156.61",
     "LEDGER_SEC11": "$199.15",
-    "LEDGER_SEC12": "$1,363.74",
-    "LEDGER_SEC13": "$1,958.93",
+    "LEDGER_SEC12": "$1,372.31",
+    "LEDGER_SEC13": "$2,001.82",
     "LEDGER_SEC14": "$803.87",
     "LEDGER_SEC15": "$8,991.30",
     "LEDGER_SEC16": "$3,899.00",
@@ -19,12 +19,12 @@
     "LEDGER_SEC2": "$1,834.42",
     "LEDGER_SEC20": "$111.36",
     "LEDGER_SEC21": "$382.33",
-    "LEDGER_SEC3": "$889.15",
+    "LEDGER_SEC3": "$1,085.10",
     "LEDGER_SEC4": "$225.27",
     "LEDGER_SEC5": "$1,560.23",
     "LEDGER_SEC6": "$1,984.90",
     "LEDGER_SEC7": "$237.65",
     "LEDGER_SEC8": "$1,924.39",
-    "LEDGER_SEC9": "$1,528.77"
+    "LEDGER_SEC9": "$1,553.42"
   }
 }

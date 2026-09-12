@@ -90,9 +90,9 @@ Stainless carbonator fabrication: 316 SS round-tube body + 1/4" laser-cut 316 SS
 | Neoteck 0.03" / 0.0005" dial test indicator + 90 lb / 40 kg magnetic base set; tube radial and end-cap face runout inspection | [B09W2R3SCD](https://www.amazon.com/dp/B09W2R3SCD) | 1 set | $43.96 | 112-8958234-5634623 | 2026-08-29 | 2026-08-30 | ACQUIRED |
 | uxcell HTD-5M timing pulley, 20 teeth × 15 mm belt, 6.35 mm bore — exact replacement for the missing pulley above; Amazon estimates 2026-09-05 | [B0747KM7MN](https://www.amazon.com/dp/B0747KM7MN) | 1 | $9.64 | 112-6708194-8872235 | 2026-09-02 | — | ON-ORDER |
 | ~~M5 × 12 mm 90° countersunk socket screws, 100 pc, 10.9 carbon steel~~ — 9.8 mm head; too short for the motor carriage: past the 8 mm arm, 12 mm ends 1 mm below the top of the 23HS30-2804S's 5 mm flange ear, so no nut reaches it. Spare stock | [B0DX1Y2Z6J](https://www.amazon.com/dp/B0DX1Y2Z6J) | 1 pk (100) | $8.03 | 112-1967009-0797830 | 2026-09-02 | 2026-09-03 | ACQUIRED (spare stock) |
-| M5 × 20 mm 90° countersunk socket screws, 50 pc, 10.9 carbon steel, black, 9.8 mm head — two rise through the printed motor-carriage arms and the 23HS30-2804S's Ø5.2 flange holes into nuts in the motor's open corner channels: 8 mm arm, 5 mm flange ear, 4 mm nut, 3 mm proud. DIN 7991, 3 mm hex; Amazon estimates 2026-09-05 | [B0DX1G3Y6W](https://www.amazon.com/dp/B0DX1G3Y6W) | 1 pk (50) | $8.57 | 112-7484636-2926665 | 2026-09-03 | — | ON-ORDER |
+| M5 × 20 mm 90° countersunk socket screws, 50 pc, 10.9 carbon steel, black, 9.8 mm head — two rise through the printed motor-carriage arms and the 23HS30-2804S's Ø5.2 flange holes into nuts in the motor's open corner channels: 8 mm arm, 5 mm flange ear, 4 mm nut, 3 mm proud. DIN 7991, 3 mm hex; Amazon estimates 2026-09-05 | [B0DX1G3Y6W](https://www.amazon.com/dp/B0DX1G3Y6W) | 1 pk (50) | $8.57 | 112-7484636-2926665 | 2026-09-03 | 2026-09-05 | ACQUIRED |
 | M5 × 0.8 square nuts, 100 pc, 304 stainless, 8 mm across × 4 mm thick — the motor-carriage nut if it drops into the 23HS30-2804S's 9 mm corner channel, where its flats on the channel's two walls hold it against the screw | [B0F6B5X6CX](https://www.amazon.com/dp/B0F6B5X6CX) | 1 pk (100) | $7.50 | 112-9248875-1573807 | 2026-09-03 | 2026-09-05 | ACQUIRED |
-| Juvielich M5 × 0.8 hex nuts, 100 pc, 304 stainless, DIN 934, 8 mm across flats × 4 mm high — the motor-carriage nut if the corner channel takes its 9.2 mm corners; Amazon estimates 2026-09-05 | [B0D1X2YBLJ](https://www.amazon.com/dp/B0D1X2YBLJ) | 1 pk (100) | $6.10 | 112-8159134-3631449 | 2026-09-03 | — | ON-ORDER |
+| Juvielich M5 × 0.8 hex nuts, 100 pc, 304 stainless, DIN 934, 8 mm across flats × 4 mm high — the motor-carriage nut if the corner channel takes its 9.2 mm corners; Amazon estimates 2026-09-05 | [B0D1X2YBLJ](https://www.amazon.com/dp/B0D1X2YBLJ) | 1 pk (100) | $6.10 | 112-8159134-3631449 | 2026-09-03 | 2026-09-05 | ACQUIRED |
 
 ## 2. CO2 subsystem
 
@@ -140,8 +140,8 @@ Feed-water inlet, filter, ASSE 1022 backflow preventer and its vent-line hardwar
 | Fresh Water Systems order WEBFWS100677333 — Colder 70500 NSF QD insert (×2) + 74600 NSF QD body (×2) + blue 1/4" LLDPE 100 ft + JG PP0208E union tee (×10) | [freshwatersystems.com](https://www.freshwatersystems.com/) | 1 order (4 items) | $130.45 | — | — | — | ACQUIRED |
 | Fresh Water Systems order WEBFWS100677768 — **MTB-0606WP** 3/8"barb × 3/8"MNPT tee (×10, swapped from discontinued MTB-0604WP) + JG PP450822E 1/4" NPTF female adapter (×10) | [freshwatersystems.com](https://www.freshwatersystems.com/) | 1 order (2 items) | $62.08 | — | — | 2026-06-15 | ACQUIRED (UPS 1ZW0062A0297032825; itemized 10× MTB-0606WP + 10× PP450822E. FWS swapped the discontinued MTB-0604WP to MTB-0606WP and credited the $0.60 upcharge, total held at $62.08. 0606's 3/8" MNPT branch ≠ PP450822E 1/4" NPTF — adapters reassigned to general stock, and the 10× PP450822E now carry the water path's two male-facing joints — the SeaFlo suction's MAACFLOW and the GASHER check's male outlet stub, 2/build; branch adapter ordered separately on WEBFWS100682118) |
 | Fresh Water Systems order WEBFWS100682118 — JG PP451223W 3/8"NPTF × 3/8"PTC female adapter (bag of 10) + JG PP061208W 3/8"stem × 1/4"PTC reducer stem (bag of 10) | [freshwatersystems.com](https://www.freshwatersystems.com/) | 1 order (2 items) | $81.33 | — | — | 2026-06-15 | ACQUIRED (confirmed WEBFWS100682118. Bought as the tap-point branch adapter. The 10× PP061208W now serve as the reducer half of the ASSE 1022 outlet stack, pushed into the PI4512F6S's 3/8" collet, 1/build; the 10× PP451223W have no role in the current path) |
-| Fresh Water Systems order WEBFWS100693702 — JG **PI4512F6S** 3/8"FFL × 3/8"PTC flare adapter (bag of 10) + **neoPure PVCR-0610** reinforced clear PVC 3/8"ID × .594"OD (10 ft) + **WC-316SS-06** 316 SS hose clamp SAE #6 (pack of 10) | [freshwatersystems.com](https://www.freshwatersystems.com/) | 1 order (3 items) | $73.27 | — | 2026-07-24 | — | ON-ORDER (placed Jul 24, 2026; subtotal $54.90 + $13.42 ship + $4.95 tax; ground, 4–5 business days. Itemized $27.44 / $6.12 / $21.34. Closes the water path's last three gaps: the ASSE 1022 outlet has no potable single-piece flare-to-1/4" adapter in any brand, and the SeaFlo's barbs are molded into its head, so each port needs a reinforced stub and two clamps a size up from the LOKMANs) |
-| Fresh Water Systems order WEBFWS100697928 — neoFit **ABU44-E** acetal black bulkhead connector 1/4" (bag of 10) + JG **PI010822S** 1/4" × 1/4" NPTF male connector (bag of 10) + **red 1/4" OD LLDPE** (100 ft) + JG **MI4508F4SLF** lead-free brass 1/4" × 1/4" FFL flare female connector (bag of 10) | [freshwatersystems.com](https://www.freshwatersystems.com/) | 1 order (4 items) | $122.68 | — | 2026-08-11 | — | ON-ORDER (placed Aug 11, 2026; subtotal $100.65 + $13.75 ship + $8.28 tax; ground, 4–5 business days. Itemized $24.78 / $11.64 / $12.00 / $52.23. The whole rear-wall CO2 chain in one order and one tube size: the bulkhead is acetal, which its own listing states is rated for CO2 and inert gases where John Guest's black polypropylene range is not, and it is black so it reads as one row with the four PP1208E unions beside it. The brass FFL lands on the Wellbom's own 7/16"-20 male flare, so the tether is 1/4" OD push-fit at both ends and carries no clamp) |
+| Fresh Water Systems order WEBFWS100693702 — JG **PI4512F6S** 3/8"FFL × 3/8"PTC flare adapter (bag of 10) + **neoPure PVCR-0610** reinforced clear PVC 3/8"ID × .594"OD (10 ft) + **WC-316SS-06** 316 SS hose clamp SAE #6 (pack of 10) | [freshwatersystems.com](https://www.freshwatersystems.com/) | 1 order (3 items) | $73.27 | — | 2026-07-24 | — | ACQUIRED (placed Jul 24, 2026; subtotal $54.90 + $13.42 ship + $4.95 tax; ground, 4–5 business days. Itemized $27.44 / $6.12 / $21.34. Closes the water path's last three gaps: the ASSE 1022 outlet has no potable single-piece flare-to-1/4" adapter in any brand, and the SeaFlo's barbs are molded into its head, so each port needs a reinforced stub and two clamps a size up from the LOKMANs) |
+| Fresh Water Systems order WEBFWS100697928 — neoFit **ABU44-E** acetal black bulkhead connector 1/4" (bag of 10) + JG **PI010822S** 1/4" × 1/4" NPTF male connector (bag of 10) + **red 1/4" OD LLDPE** (100 ft) + JG **MI4508F4SLF** lead-free brass 1/4" × 1/4" FFL flare female connector (bag of 10) | [freshwatersystems.com](https://www.freshwatersystems.com/) | 1 order (4 items) | $122.68 | — | 2026-08-11 | — | ACQUIRED (placed Aug 11, 2026; subtotal $100.65 + $13.75 ship + $8.28 tax; ground, 4–5 business days. Itemized $24.78 / $11.64 / $12.00 / $52.23. The whole rear-wall CO2 chain in one order and one tube size: the bulkhead is acetal, which its own listing states is rated for CO2 and inert gases where John Guest's black polypropylene range is not, and it is black so it reads as one row with the four PP1208E unions beside it. The brass FFL lands on the Wellbom's own 7/16"-20 male flare, so the tether is 1/4" OD push-fit at both ends and carries no clamp) |
 
 ## 4. Carbonator plumbing (pressurized side)
 
@@ -394,7 +394,7 @@ Ice-maker donor units and copper coil for the chill loop.
 | LuoQiuFa 3-pin 5.08 mm pluggable PCB screw terminal (2EDG-5.08, 10 sets) — carrier RS485 line side U7L: header solders to U7L, screw plug wires to the ALMOCN module's stock 5.08 mm terminal; 1/board (1 pack = 10 boards) | [B093DL8DKC](https://www.amazon.com/dp/B093DL8DKC) | 1 pk (10) | $7.50 | 112-7067792-6289059 | 2026-06-27 | 2026-06-30 | ACQUIRED |
 | ~~KWANGIL 22AWG 12-Conductor Cable, UL2464, High-Flexible Tinned Copper Unshielded, Matte Black, 25 ft~~ — superseded; the manifold trunks are cut from the 22 AWG black spool and sleeved ([inventory.md](/hardware/ledger/inventory.md) "Abandoned") | [B0CSD5QZ21](https://www.amazon.com/dp/B0CSD5QZ21) | 1 | $25.73 | 114-2322598-9184256 | 2026-05-14 | 2026-05-15 | ACQUIRED |
 | BNTECHGO 28 AWG silicone ribbon cable, 4-conductor flat, black, 50 ft — faucet display harness (5 V / GND / TX / RX) through the faucet shell to the under-counter base | [B07PNPHWMG](https://www.amazon.com/dp/B07PNPHWMG) | 1 (50 ft) | $21.43 | 112-9860351-3650618 | 2026-06-10 | 2026-06-11 | ACQUIRED |
-| BNTECHGO 22 AWG silicone ribbon cable, 4-conductor flat (4P), black, 50 ft — the fixed half of the pump harness (DC-5), J13 to the pump jack's 110 punchdown, and the box's other four-conductor looms; 4 × 60/0.08 mm tinned strands, 1.7 mm per conductor, 200 °C, 600 V. $22.98 + $1.67 tax; Amazon estimates Tuesday 2026-09-08 | [B09X48444N](https://www.amazon.com/dp/B09X48444N) | 1 (50 ft) | $24.65 | 112-1549259-6014618 | 2026-09-05 | — | ON-ORDER |
+| BNTECHGO 22 AWG silicone ribbon cable, 4-conductor flat (4P), black, 50 ft — the fixed half of the pump harness (DC-5), J13 to the pump jack's 110 punchdown, and the box's other four-conductor looms; 4 × 60/0.08 mm tinned strands, 1.7 mm per conductor, 200 °C, 600 V. $22.98 + $1.67 tax; Amazon estimates Tuesday 2026-09-08 | [B09X48444N](https://www.amazon.com/dp/B09X48444N) | 1 (50 ft) | $24.65 | 112-1549259-6014618 | 2026-09-05 | 2026-09-07 | ACQUIRED |
 | BNTECHGO 16 AWG silicone wire kit, stranded tinned copper, 5 colors (red/black/white/blue/green) × 25 ft each | [B06Y557TCL](https://www.amazon.com/dp/B06Y557TCL) | 1 kit (5× 25 ft) | $38.29 | 112-8448573-3185817 | 2026-06-22 | 2026-06-24 | ACQUIRED |
 | BNTECHGO 18 AWG silicone wire, stranded tinned copper, red 25 ft + black 25 ft | [B07HGTKQ89](https://www.amazon.com/dp/B07HGTKQ89) | 1 (2× 25 ft) | $14.99 | 112-8492724-3195462 | 2026-06-22 | 2026-06-24 | ACQUIRED |
 | HS 6" zip ties, black, 18 lb tensile, nylon PA66 UV-resistant, 100-pack — harness/cable management | [B0DR8KSVQD](https://www.amazon.com/dp/B0DR8KSVQD) | 1 pk (100) | $6.42 | 112-7522816-0777851 | 2026-06-22 | 2026-06-24 | ACQUIRED |
@@ -481,7 +481,7 @@ General shop equipment supporting fabrication, assembly, and teardown. Not proje
 | HOTO PixelDrive electric screwdriver — the driver for the M2/M3/M5 insert work. 1/4" hex chuck, 6 torque settings over 0.5–6 N·m with the setting on its display. The 0.5 N·m floor is the point: a ruthex insert's grip on PETG gives out well below what a 12.9 M3 or a drill's lowest clutch click will deliver, so the torque this tool will not exceed is the spec that matters. Sole item on its invoice, $69.99 + $5.07 NE tax | [B0FKBJL68H](https://www.amazon.com/dp/B0FKBJL68H) | 1 | $75.06 | 112-3695429-8445811 | 2026-09-02 | 2026-09-03 | ACQUIRED |
 | Railer 2.5 mm hex bit, 2", S2 steel, 5-pack — the M3 driver size; every M3 SHCS in this build is DIN 912 and takes 2.5 mm. Bought five because the 2.5 is the wear item at this screw count. Sole item on its invoice, $9.99 + $0.72 NE tax | [B0BXMLLXSN](https://www.amazon.com/dp/B0BXMLLXSN) | 1 pk (5) | $10.71 | 112-1104114-3043411 | 2026-09-02 | — | ON-ORDER |
 | Railer 4 mm hex bit, 2", S2 steel, 5-pack — the M5 SHCS driver size (MewuDecor M5 × 10, §11). Does not drive the M5 × 20 countersunk motor-carriage screws in §1, which are DIN 7991 and take 3 mm. Sole item on its invoice, $9.99 + $0.72 NE tax | [B0BXMJ48LC](https://www.amazon.com/dp/B0BXMJ48LC) | 1 pk (5) | $10.71 | 112-6302698-6065059 | 2026-09-02 | 2026-09-03 | ACQUIRED |
-| SVLING M5 × 0.8 × 50 mm fully threaded socket-head cap screws, 40 pc, 12.9 alloy steel, black, 4 mm hex key included — general fixture stock; $7.99 + $0.58 tax, shipping $0.00. Amazon order details verified 2026-09-08; arriving 2026-09-11 | [B0GHNQFZYR](https://www.amazon.com/dp/B0GHNQFZYR) | 1 pk (40) | $8.57 | 112-6085763-5397009 | 2026-09-08 | — | ON-ORDER |
+| SVLING M5 × 0.8 × 50 mm fully threaded socket-head cap screws, 40 pc, 12.9 alloy steel, black, 4 mm hex key included — general fixture stock; $7.99 + $0.58 tax, shipping $0.00. Amazon order details verified 2026-09-08; arriving 2026-09-11 | [B0GHNQFZYR](https://www.amazon.com/dp/B0GHNQFZYR) | 1 pk (40) | $8.57 | 112-6085763-5397009 | 2026-09-08 | 2026-09-11 | ACQUIRED |
 
 ## 13. Printing consumables
 
@@ -515,7 +515,7 @@ General shop equipment supporting fabrication, assembly, and teardown. Not proje
 | Elmer's disappearing purple school glue sticks, washable, 6 g × 12 — print-bed adhesion/release layer | [B003ULCZ7M](https://www.amazon.com/dp/B003ULCZ7M) | 1 pk (12) | $7.38 | 114-9764609-4555460 | 2026-03-22 | 2026-03-24 | ACQUIRED |
 | Koala resin-coated 4×6 glossy photo paper, 72lb, 100 sheets — print stock for the 4×6 sequence deck ([assembly/cards/](/hardware/assembly/cards/README.md)), borderless on the ET-8550 (`4x6.Fullbleed`) | [B073WWB1HS](https://www.amazon.com/dp/B073WWB1HS) | 1 pk (100) | $13.92 | 112-4209023-0725839 | 2026-07-24 | 2026-07-25 | ACQUIRED |
 | Koala resin-coated 8.5×11 glossy photo paper, 72lb, 50 sheets — print stock for the letter-size tool-station deck ([assembly/cards/tools/](/hardware/assembly/cards/tools/README.md)), borderless on the ET-8550 (`Letter.Fullbleed`). Same RC base as the 4×6 stock: waterproof, and stiff enough at 260 gsm that a letter sheet stands at a bench instead of flopping | [B073WWL82Z](https://www.amazon.com/dp/B073WWL82Z) | 2 pk (50 ea) | $18.22 ea | 112-7818515-5395414 | 2026-07-25 | 2026-07-27 | ACQUIRED |
-| A-SUB satin resin-coated 13×19 photo paper, 72lb (260 gsm), warm white, 50 sheets — print stock for the customer's one-sheet quick start ([quickstart/](/hardware/quickstart/README.md)), borderless on the ET-8550 from the rear feed. Same 260 gsm RC base as the Koala stock, satin rather than gloss; $39.99 + $2.90 tax; Amazon estimates 2026-09-08 | [B0DSJ9X4CR](https://www.amazon.com/dp/B0DSJ9X4CR) | 1 pk (50) | $42.89 | 112-6847774-7837033 | 2026-09-03 | — | ON-ORDER |
+| A-SUB satin resin-coated 13×19 photo paper, 72lb (260 gsm), warm white, 50 sheets — print stock for the customer's one-sheet quick start ([quickstart/](/hardware/quickstart/README.md)), borderless on the ET-8550 from the rear feed. Same 260 gsm RC base as the Koala stock, satin rather than gloss; $39.99 + $2.90 tax; Amazon estimates 2026-09-08 | [B0DSJ9X4CR](https://www.amazon.com/dp/B0DSJ9X4CR) | 1 pk (50) | $42.89 | 112-6847774-7837033 | 2026-09-03 | 2026-09-08 | ACQUIRED |
 
 ## 14. Soldering + small-signal electrical tools
 
@@ -682,10 +682,10 @@ Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C funne
 
 | Status | $ |
 |---|---|
-| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$33,475.55](LEDGER_ACQUIRED_HW) |
+| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$33,762.28](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$5,437.54](LEDGER_LABOR) |
-| ACQUIRED (combined) | [$38,913.09](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$912.41](LEDGER_ON_ORDER) |
+| ACQUIRED (combined) | [$39,199.82](LEDGER_ACQUIRED_COMBINED) |
+| ON-ORDER | [$625.68](LEDGER_ON_ORDER) |
 | MISSING — paid, not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
 | **Grand total — cash outlay** | [$39,878.57](LEDGER_GRAND_TOTAL) |
@@ -694,19 +694,19 @@ ACQUIRED hardware by section:
 
 | § | Section | $ |
 |---|---|---|
-| 1 | Carbonator fabrication | [$4,552.61](LEDGER_SEC1) |
+| 1 | Carbonator fabrication | [$4,567.28](LEDGER_SEC1) |
 | 2 | CO2 subsystem (incl. Lillium prototype carbonator $1,129) | [$1,834.42](LEDGER_SEC2) |
-| 3 | Water supply + backflow prevention | [$889.15](LEDGER_SEC3) |
+| 3 | Water supply + backflow prevention | [$1,085.10](LEDGER_SEC3) |
 | 4 | Carbonator plumbing | [$225.27](LEDGER_SEC4) |
 | 5 | Flavor subsystem | [$1,560.23](LEDGER_SEC5) |
 | 6 | Refrigeration | [$1,984.90](LEDGER_SEC6) |
 | 7 | Dispensing end | [$237.65](LEDGER_SEC7) |
 | 8 | Electronics — controllers | [$1,924.39](LEDGER_SEC8) |
-| 9 | Electronics — I/O, drivers, sensors, power | [$1,528.77](LEDGER_SEC9) |
+| 9 | Electronics — I/O, drivers, sensors, power | [$1,553.42](LEDGER_SEC9) |
 | 10 | User interface | [$156.61](LEDGER_SEC10) |
 | 11 | Enclosure hardware | [$199.15](LEDGER_SEC11) |
-| 12 | Shop / bench infrastructure | [$1,363.74](LEDGER_SEC12) |
-| 13 | Printing consumables | [$1,958.93](LEDGER_SEC13) |
+| 12 | Shop / bench infrastructure | [$1,372.31](LEDGER_SEC12) |
+| 13 | Printing consumables | [$2,001.82](LEDGER_SEC13) |
 | 14 | Soldering + small-signal tools | [$803.87](LEDGER_SEC14) |
 | 15 | 3D printing equipment + filaments (Bambu direct) | [$8,991.30](LEDGER_SEC15) |
 | 16 | Laser welding / cleaning / cutting | [$3,899.00](LEDGER_SEC16) |
