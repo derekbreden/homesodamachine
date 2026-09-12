@@ -1,5 +1,4 @@
-// The /3d parts section: the machine's two units, one thumbnail each.
-// grid.js places the quick start PDF comparison shelf above this section.
+// The /3d page: the machine's two units, one thumbnail each.
 //
 // A card draws the model it opens (grid.js's paintStepThumb), so what is on the
 // card and what is behind it are one read of one file.
