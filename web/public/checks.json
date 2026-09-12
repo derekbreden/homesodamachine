@@ -17,7 +17,7 @@
     },
     {
       "check": "hardware/scripts/check_ledger.py",
-      "note": "✗ instruction names a purchased brand the ledger no longer carries: Chanzon (hardware/assembly/weld-rotation-rig.md:220)",
+      "note": "✗ instruction names a purchased brand the ledger no longer carries: Chanzon (hardware/assembly/weld-rotation-rig.md:221)",
       "status": "red"
     },
     {
@@ -95,7 +95,7 @@
     "hardware/scripts/check_ledger.py": [
       "instructions: 120 files (14 procedures + 105 cards + cover) | ledger brands: 538 | waived: 1 ASIN + 4 brand",
       "DRIFT: 1 instruction(s) out of step with the ledger:",
-      "  ✗ instruction names a purchased brand the ledger no longer carries: Chanzon (hardware/assembly/weld-rotation-rig.md:220)"
+      "  ✗ instruction names a purchased brand the ledger no longer carries: Chanzon (hardware/assembly/weld-rotation-rig.md:221)"
     ]
   },
   "green": false
