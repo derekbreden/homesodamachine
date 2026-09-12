@@ -98,113 +98,108 @@ def chip(s,x,y,w,bg,fg='#ffffff'):
     rect(x,y,w,18,bg,stroke=STONE if bg=='#ffffff' else None,r=2)
     text(s,x+6,y+4,10,'Bold',fg)
 
-# Header and the things to have ready.
+# Prepare the kitchen.
 rect(0,0,W,H,'#ffffff')
-label('HOME SODA MACHINE',36,36,color=INK,size=11)
-text('Quick start',34,58,48,'Bold')
-rect(36,117,43,3,CORAL)
-text('From the box to your first glass.',93,111,18)
-label('BEFORE YOU START',746,39,color=CORAL)
-para('<b>A prepared 1-3/8 in counter hole.</b> A cold-water supply. A grounded 120 V outlet.',746,58,582,13,17)
-para('<b>A filled 5 lb CO2 cylinder</b> with the supplied regulator fitted and leak-checked. Two 14.8 fl oz bottles of SodaStream-compatible concentrate.',746,97,582,13,17)
-line(36,149,1332,149,INK,1)
-label('MOUNT THE FAUCET',36,162)
-label('CONNECT THE COLD WATER',916,162)
+label('HOME SODA MACHINE',36,30,color=INK,size=10)
+text('Quick start',34,49,43,'Bold')
+rect(302,59,3,24,CORAL)
+text('From the box to your first glass.',322,62,19)
+label('HAVE READY',800,29,color=CORAL,size=9)
+para('A <b>1-3/8 in counter hole</b>, cold water and a grounded <b>120 V</b> outlet. A filled <b>5 lb CO2 cylinder</b> with the supplied regulator fitted and leak-checked. Two <b>14.8 fl oz</b> bottles of SodaStream-compatible concentrate.',800,47,532,12.5,16,limit=64)
+line(36,111,1332,111,INK,1)
+label('INSTALL',36,122,color=CORAL,size=9)
+text('Keep the cylinder closed and the power unplugged while making the connections.',773,121,11,'Semibold',MUTED)
 
-# Row 1.
-x,y=36,184
-step(1,'Lower and seat the faucet',x,y)
-artfield(x,y+39)
-p=pic('mount-drop.png',x+8,y+42,189,122,crop=(9,33,763,1331))
-pic('mount-lowered-clean.png',x+217,y+42,189,122,crop=(9,-47,763,1251))
+# The faucet and its retained hardware.
+x,y=36,145
+step(1,'Mount the faucet',x,y)
+artfield(x,y+37,h=120)
+p=pic('mount-drop.png',x+4,y+40,133,114,crop=(9,33,763,1331))
 arrow(*p(190,660),*p(190,963),head=7)
-label('LOWER',x+20,y+86,size=8)
-label('SEATED',x+339,y+77,size=8)
-para('Feed the attached tubes and cable through the hole. Lower the faucet, then <b>push it back</b> until the two black tubes rest against the back of the hole.',x,y+181,416,13.5,17.5,limit=70)
-
-x=476
-step(2,'Slide the plate. Hand-tighten.',x,y)
-artfield(x,y+39)
-p=pic('mount-under-slide-clean.png',x+6,y+50,196,107)
+label('LOWER',x+5,y+50,size=7)
+p=pic('mount-under-slide-clean.png',x+144,y+49,127,83)
 arrow(*p(318,470),*p(600,435),head=7)
-q=pic('mount-under-tighten-clean.png',x+221,y+50,189,107)
-turn([q(640,386),q(570,218),q(970,204),q(959,361)])
-label('SLIDE',x+18,y+143,size=8)
-label('TURN',x+355,y+143,size=8)
-para('From below, slide the steel plate <b>above the washer and nut.</b> Wide slot around the shank; narrow slot around the black tubes. Run the nut up by hand.',x,y+181,416,13.5,17.5,limit=70)
+q=pic('mount-under-tighten-clean.png',x+281,y+49,127,83)
+turn([q(640,386),q(570,218),q(970,204),q(959,361)],head=6)
+label('SLIDE PLATE',x+149,y+138,size=7)
+label('HAND-TIGHTEN',x+290,y+138,size=7)
+para('Feed the attached tubes and cable through the hole. Lower the faucet, then <b>push it back</b> until the black tubes rest against the back of the hole.',x,y+170,416,12.8,16.5,limit=66)
+para('From below, slide the steel plate <b>above the retained washer and nut.</b> Wide slot around the shank; narrow slot around the black tubes. Tighten the nut by hand.',x,y+226,416,12.8,16.5,limit=66)
 
-x=916
-step(3,'Shut off the cold water',x,y)
-artfield(x,y+39)
-p=pic('modern-water-on.png',x+8,y+61,190,91,crop=(170,190,1100,635))
-pic('modern-water-off.png',x+220,y+61,190,91,crop=(170,190,1100,635))
-label('OPEN',x+14,y+48,size=8)
-label('CLOSED',x+233,y+48,size=8)
-turn([p(475,300),p(450,160),p(860,175),p(837,336)])
-para('Follow the line to its shut-off valve and close it. Run the cold tap until flow stops to release pressure. <b>Put a towel and cup under the joint.</b>',x,y+181,416,13.5,17.5,limit=70)
-
-line(36,440,1332,440)
-label('THIS WATER PATH: A 1/4 IN PLASTIC LINE IN A PUSH FITTING',36,451,color=CORAL,size=9)
-text('Braided hose instead? Use the white tee: install guide, pages 9-11.',707,449,12,'Semibold')
-c.linkURL('https://homesodamachine.com/docs/install-guide/install-guide.pdf#page=9',(707,H-467,1332,H-448),relative=0)
-
-# Row 2.
-x,y=36,478
-step(4,'Hold the ring in. Pull the tube.',x,y)
-artfield(x,y+39,h=118)
-p=pic('modern-release-ready.png',x+8,y+67,188,72)
-pic('modern-release-withdrawn.png',x+219,y+67,188,72)
-pic('collet-press.png',x+10,y+44,48,19)
-text('Collet press',x+65,y+49,9,'Semibold',MUTED)
-arrow(*p(1400,378),*p(1070,336),head=7)
-arrow(*p(1275,730),*p(1700,785),head=7)
-label('HOLD IN',x+119,y+56,size=8)
-label('PULL',x+152,y+140,size=8)
-para('Hold the fitting\'s release ring in with the <b>collet press</b> from your kit. Keep it pressed while you pull the existing tube straight out.',x,y+168,416,13.5,17.5,limit=70)
-
+# Each water action keeps its own close-up and words.
 x=476
-step(5,'Push the supplied tee into place',x,y)
-artfield(x,y+39,h=118)
-label('SHORT TUBE IN',x+10,y+49,size=7)
-label('ORIGINAL LINE IN',x+143,y+49,size=7)
-label('BOTH SEATED',x+287,y+49,size=7)
-p=pic('modern-tee-assembly-ready.png',x+8,y+65,126,84,crop=(0,161,2000,1032))
-q=pic('modern-tee-line-ready.png',x+146,y+65,126,84,crop=(0,161,2000,1032))
-pic('modern-tee-complete.png',x+282,y+65,126,84,crop=(0,161,2000,1032))
-arrow(*p(1210,484),*p(811,474),head=6)
-arrow(*q(1910,490),*q(1570,479),head=6)
-para('Push the tee\'s short tube into the fitting you opened. Push the original tube into the tee\'s open end. <b>The long white run and its filter arrive attached.</b>',x,y+168,416,13.5,17.5,limit=70)
+step(2,'Add the cold-water tee',x,y)
+artfield(x,y+38,w=138,h=69)
+p=pic('modern-water-on.png',x+3,y+43,132,58,crop=(170,190,1100,635))
+turn([p(475,300),p(450,160),p(860,175),p(837,336)],head=6)
+para('<b>Close the cold supply.</b> Run the cold tap until flow stops to release pressure. Put a cup and towel under the fitting.',x+153,y+39,263,12.2,15.5,limit=78)
+artfield(x,y+117,w=138,h=69)
+p=pic('modern-release-ready.png',x+3,y+126,132,52)
+arrow(*p(1400,378),*p(1070,336),head=6)
+arrow(*p(1275,730),*p(1700,785),head=6)
+para('<b>Release the existing tube.</b> Hold the fitting\'s release ring in with the collet press. Keep it pressed while pulling the tube out.',x+153,y+118,263,12.2,15.5,limit=78)
+artfield(x,y+197,w=138,h=87)
+p=pic('modern-tee-line-ready.png',x+3,y+202,132,76,crop=(0,161,2000,1032))
+arrow(*p(1910,490),*p(1570,479),head=6)
+para('<b>Insert the supplied tee.</b> Push its short tube into the fitting you opened. Reconnect the original tube to the tee\'s open end. The white filtered run arrives attached.',x+153,y+198,263,12.2,15.5,limit=93)
 
+# The rear face and the names the owner matches.
 x=916
-step(6,'Match each tube to its word',x,y)
-artfield(x,y+39,w=183,h=151)
-pic('the-back-face.png',x+4,y+44,175,141)
-rows=[('TAP','White, from the filter.','#ffffff',INK),('CO2','Red, from the cylinder.','#d7333c','#ffffff'),('SODA','Blue, from the faucet.','#1670db','#ffffff'),('FLAVOR','Both black faucet tubes.',INK,'#ffffff')]
+step(3,'Match the connections',x,y)
+artfield(x,y+38,w=180,h=157)
+pic('connect-rear-open.png',x+3,y+42,174,148)
+rows=[('TAP','White, from the filter.','#ffffff',INK),('CO2','Red, from the cylinder.','#d7333c','#ffffff'),('SODA','Blue, from the faucet.','#1670db','#ffffff'),('FLAVOR','Two black faucet tubes.',INK,'#ffffff')]
 for i,(s,t,bg,fg) in enumerate(rows):
- yy=y+40+i*30
- chip(s,x+198,yy,56,bg,fg);text(t,x+263,yy+3,10.5)
-para('Either black tube fits either FLAVOR port. Click the faucet cable into the small square jack.',x+198,y+163,216,11.5,14.5,limit=44)
-para('<b>Remove the shipping caps.</b> Push every tube fully home, then give it a gentle tug.',x,y+214,416,12.5,16,limit=32)
+    yy=y+41+i*29
+    chip(s,x+193,yy,56,bg,fg);text(t,x+259,yy+3,11)
+para('<b>Faucet cable:</b> click its plug into the small square jack.',x+193,y+166,223,11.5,14.5,limit=43.5)
+para('<b>Remove the shipping caps.</b> Push every tube fully home, then tug gently. Either black tube fits either FLAVOR port.',x,y+209,416,12.8,16.5,limit=66)
+para('Lay the filter flat. Leave the tubes long, with easy curves and the slack coiled.',x,y+265,416,12.5,16,limit=32)
 
-# First glass, below the installation sequence.
-text('Keep the tubes long and coil the slack without kinks. Leave 1-5/8 in at both sides and 2-3/8 in behind the appliance.',36,730,12,'Semibold')
-rect(0,752,W,148,INK)
-label('THEN MAKE YOUR FIRST GLASS',36,767,color='#ffffff',size=10)
-starts=[36,370,704,1038]
-titles=['1  Connect the cylinder','2  Open, check, power','3  Fill each flavor','4  Let it chill. Then pour.']
-bodies=[
-    'Keep the cylinder upright and closed. Hand-tighten the red tube\'s brass nut onto the regulator outlet. See install guide, p. 13.',
-    'Open water slowly; watch joints for a full minute. Open CO2 and check the gas connections. Then connect the cord and plug into grounded 120 V.',
-    'On the enclosure display, choose <b>FILL</b>, pick a flavor and press <b>Start</b>. Invert one whole 14.8 fl oz bottle over the funnel. Let it drain. Repeat for the second flavor.',
-    'Allow about an hour for the first chill. Choose a flavor on the faucet display, put a glass underneath and press the faucet lever.'
-]
-for xx,title,body in zip(starts,titles,bodies):
-    text(title,xx,792,15,'Bold','#ffffff')
-    para(body,xx,817,293,12.5,16,color='#ffffff',limit=80)
+# The kitchen fork stays next to the water connection.
+line(36,449,1332,449)
+text('Braided cold-water hose instead? Use the white tee: install guide, pages 9-11.',36,459,11.5,'Semibold')
+text('Leave 1-5/8 in at both sides and 2-3/8 in behind the appliance.',968,459,10.5,'Semibold',MUTED)
+c.linkURL('https://homesodamachine.com/docs/install-guide/install-guide.pdf#page=9',(36,H-475,700,H-457),relative=0)
 
-text('Home Soda Machine  /  Quick start',36,913,10,color=MUTED)
-text('19 × 13 in  ·  Print at 100%  ·  homesodamachine.com',1000,913,10,color=MUTED)
+# The first-glass sequence has four full illustrated steps.
+rect(0,488,W,418,INK)
+label('THEN MAKE YOUR FIRST GLASS',36,504,color='#ffffff',size=11)
+text('Water, gas and power first. Then fill, chill and pour.',914,504,12,'Semibold','#ffffff')
+starts=[36,366,696,1026]
+for n,title,xx in zip([4,5,6,7],['Connect the cylinder','Water, gas, then power','Fill both flavors','Chill. Choose. Pour.'],starts):
+    c.setFillColor(HexColor(CORAL));c.circle(xx+12,H-542,12,stroke=0,fill=1)
+    text(str(n),xx+7.7,534,17,'Bold','#ffffff')
+    text(title,xx+35,533,19.5,'Bold','#ffffff')
+    artfield(xx,567,w=306,h=161)
 
+# Art arrives as committed snapshots. The existing views make the first layout visible
+# while the new CAD scenes are being drawn in the same manual authoring session.
+def available(preferred,fallback):
+    return preferred if (ART/preferred).exists() else fallback
+
+x=36
+pic(available('co2-ready.png','regulator.png'),x+6,571,294,151)
+text('Keep the cylinder upright, with its valve closed.',x,742,12.6,'Bold','#ffffff')
+para('Hand-tighten the red tube\'s brass nut onto the regulator\'s bottom outlet. Keep the fitted regulator on the cylinder. If it has not been fitted and leak-checked, the refill shop can do that.',x,767,306,12.8,16.5,color='#ffffff',limit=115.5)
+
+x=366
+pic(available('power-ready.png','the-socket.png'),x+6,571,294,151)
+para('<b>Water:</b> open the shut-off slowly. Watch every water joint for a full minute.<br/><b>Gas:</b> open the cylinder and regulator outlet. Check the red line\'s connections; set the upper gauge in its green band.<br/><b>Power:</b> seat the cord in the top-left rear socket, then plug into grounded 120 V.',x,742,306,12.5,16.4,color='#ffffff',limit=147.6)
+
+x=696
+pic(available('fill-seated.png','bottle-in-funnel.png'),x+6,571,294,151)
+para('On the enclosure display, choose <b>FILL</b>, pick a flavor and press <b>Start.</b>',x,742,306,13,17,color='#ffffff',limit=51)
+para('Invert one whole <b>14.8 fl oz bottle</b> over the funnel. Let it drain; the appliance stops the fill itself. Repeat for the second flavor.',x,800,306,13,17,color='#ffffff',limit=85)
+
+x=1026
+pic(available('pour-running.png','faucet-side-pressed.png'),x+6,571,294,151)
+text('Allow about an hour for the first chill.',x,742,13.2,'Bold','#ffffff')
+para('<b>Choose:</b> tap the faucet display to select a flavor. A dim screen takes one tap to wake.',x,771,306,13,17,color='#ffffff',limit=68)
+para('<b>Pour:</b> place a glass underneath and press the faucet lever. Release it to stop.',x,830,306,13,17,color='#ffffff',limit=51)
+
+text('Home Soda Machine  /  Quick start',36,916,9.5,color=MUTED)
+text('19 × 13 in  ·  Print at 100%  ·  homesodamachine.com',1000,916,9.5,color=MUTED)
 c.showPage();c.save()
 output=ROOT/'output/pdf/quick-start-codex.pdf'
 output.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(PDF,output)
@@ -212,5 +207,5 @@ preview=Path('/tmp/guide-codex-references/quick-start-codex')
 preview.parent.mkdir(parents=True,exist_ok=True)
 subprocess.run(['pdftoppm','-scale-to','1900','-singlefile','-png',str(PDF),str(preview)],check=True)
 im=Image.open(preview.with_suffix('.png'));im.thumbnail((1200,1200));im.save(DIR/'quick-start-codex.cover.png')
-(DIR/'quick-start-codex.pdf.json').write_text(json.dumps({'title':'Quick start · Codex','subtitle':'Illustrated installation with words - one 19 x 13 in sheet','pages':1,'cover':'quick-start-codex.cover.png','cover_size':list(im.size)},indent=2)+'\n')
+(DIR/'quick-start-codex.pdf.json').write_text(json.dumps({'title':'Quick start · Codex','subtitle':'Installation, cylinder, power, fill and first pour - one 19 x 13 in sheet','pages':1,'cover':'quick-start-codex.cover.png','cover_size':list(im.size)},indent=2)+'\n')
 print(PDF)
