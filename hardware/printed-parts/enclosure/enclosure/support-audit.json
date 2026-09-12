@@ -775,16 +775,16 @@
           "name": "X- pump-cartridge pull roof",
           "first_contacts_cad_xyz_mm": [
             [
-              -106.2,
-              31.409,
-              216.565,
+              -106.6,
+              31.809,
+              221.165,
               -90.2,
-              53.409,
-              216.965
+              53.009,
+              221.565
             ]
           ],
           "root": "bed",
-          "build_up_mm": 51.0,
+          "build_up_mm": 55.6,
           "interface_islands": 1,
           "rationale": "The pull keeps a flat roof at the neighboring tee-carrier grip's roof plane because both faces carry the same squeeze motion. One tree reaches that roof from the print bed through the open side pocket after 51.00 mm of build-up; the complete body is directly accessible for removal."
         },
@@ -794,15 +794,15 @@
           "first_contacts_cad_xyz_mm": [
             [
               89.8,
-              31.409,
-              216.565,
-              106.2,
-              53.409,
-              216.965
+              31.809,
+              221.165,
+              106.6,
+              52.609,
+              221.565
             ]
           ],
           "root": "bed",
-          "build_up_mm": 51.0,
+          "build_up_mm": 55.6,
           "interface_islands": 1,
           "rationale": "The pull keeps a flat roof at the neighboring tee-carrier grip's roof plane because both faces carry the same squeeze motion. One tree reaches that roof from the print bed through the open side pocket after 51.00 mm of build-up; the complete body is directly accessible for removal."
         }
@@ -820,14 +820,14 @@
             [
               -106.25,
               107.868,
-              216.645,
-              -93.45,
+              221.045,
+              -93.05,
               123.068,
-              217.045
+              221.445
             ]
           ],
           "root": "bed",
-          "build_up_mm": 45.2,
+          "build_up_mm": 49.6,
           "interface_islands": 1,
           "rationale": "The pocket roof is the flat hand-contact plane shared with the cartridge pull. The rounded mouth gives direct access to remove its support on the loose half."
         },
@@ -839,7 +839,7 @@
               -105.05,
               92.268,
               174.445,
-              -90.25,
+              -89.85,
               138.668,
               174.845
             ]
@@ -858,7 +858,7 @@
               98.268,
               209.845,
               12.95,
-              107.468,
+              107.068,
               210.245
             ]
           ],
@@ -915,16 +915,16 @@
           "name": "closed finger-pocket roof",
           "first_contacts_cad_xyz_mm": [
             [
-              93.45,
+              93.05,
               107.868,
-              216.645,
-              106.65,
+              221.045,
+              106.25,
               123.468,
-              217.045
+              221.445
             ]
           ],
           "root": "bed",
-          "build_up_mm": 45.2,
+          "build_up_mm": 49.6,
           "interface_islands": 1,
           "rationale": "The pocket roof is the flat hand-contact plane shared with the cartridge pull. The rounded mouth gives direct access to remove its support on the loose half."
         }
