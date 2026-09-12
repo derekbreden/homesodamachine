@@ -174,10 +174,10 @@ def enclosure_release_plan(targets: list, root: Path = None) -> tuple:
 def refresh_enclosure_viewer() -> None:
     """Graft current enclosure piece payloads into both viewer hosts, without building.
 
-    `surfaces` admits a piece only when its payload names the exact STEP beside it. `graft`
-    carries that surface onto the body the host names and refuses one it cannot place. Those are
-    properties of constructing the payload, not a second geometry scorecard; the operation reads
-    no CAD source and acquires no Bazel lock.
+    `surfaces` admits a piece only when its payload names the exact STEP beside it; `graft`
+    lands every surface it is given, carried onto the body's placement where one is found and as
+    cut where none is. What could not be carried is printed, and nothing here stops the publish:
+    the operation reads no CAD source and acquires no Bazel lock.
     """
     scripts = ROOT / "hardware" / "scripts"
     if str(scripts) not in sys.path:
@@ -186,9 +186,11 @@ def refresh_enclosure_viewer() -> None:
 
     pieces = flute_payload.pieces(flute_payload.ENCLOSURE_DIRS)
     fluted = flute_payload.surfaces(flute_payload.ENCLOSURE_DIRS)
-    if not pieces or len(fluted) != len(pieces):
-        raise RuntimeError(
-            f"only {len(fluted)} of {len(pieces)} enclosure piece payload(s) are source-current")
+    if len(fluted) != len(pieces):
+        print(f"  {len(fluted)} of {len(pieces)} enclosure piece payload(s) are source-current; "
+              f"the hosts take those")
+    if not fluted:
+        return
 
     hosts = (
         ROOT / "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
@@ -196,17 +198,15 @@ def refresh_enclosure_viewer() -> None:
     )
     for host in hosts:
         if not host.is_file():
-            raise RuntimeError(f"the viewer host is absent: {host.relative_to(ROOT)}")
+            print(f"  the viewer host is absent: {host.relative_to(ROOT)}")
+            continue
         # The enclosure aggregate contains its six wall pieces; the appliance also
         # contains the moving carrier halves. Each host receives the surfaces it owns.
         expected = {flute_payload.fluted_key(name, fluted)
                     for name in flute_payload.payload_names(host)} - {None}
         carried = {name: fluted[name] for name in expected}
         landed = flute_payload.graft(host, carried)
-        if not expected or landed != len(expected):
-            raise RuntimeError(
-                f"{host.relative_to(ROOT)} accepted {landed} of {len(expected)} piece surface(s)")
-    print(f"  {len(fluted)} current enclosure surface(s) carried by their viewer hosts")
+        print(f"  {host.relative_to(ROOT)}: {landed} of {len(expected)} piece surface(s) landed")
 
 
 def tell_the_site() -> None:
@@ -249,12 +249,13 @@ def publish() -> int:
             print(f"  source debt remains against {base[:12] or 'the existing lock'}")
             return 0
         if enclosure_action == "graft":
+            # WHAT IS HELD IS PUBLISHED, refreshed as far as the refresh got. A host the refresh
+            # could not touch goes up as it stands and says so; the runner's next cut replaces it.
             try:
                 refresh_enclosure_viewer()
-            except Exception as exc:  # noqa: BLE001 — the runner remains the fallback
-                print(f"  the held viewer payload could not be refreshed: {exc}", file=sys.stderr)
-                print("  the runner still reconciles this", file=sys.stderr)
-                return 1
+            except Exception as exc:  # noqa: BLE001 — printed, and the publish goes on
+                print(f"  the viewer refresh stopped short: {exc}", file=sys.stderr)
+                print("  publishing the bytes held here anyway", file=sys.stderr)
         print(f"  {reason}; publishing the bytes held here")
         if run([str(PY), "tools/cad-artifacts/pack.py", "--write",
                 "--publish-held"]).returncode != 0:

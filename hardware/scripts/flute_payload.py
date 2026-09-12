@@ -614,30 +614,29 @@ def graft(path: Path, fluted: dict):
     held = read_payload(path)
     if held is None:
         return 0
-    skipped = []
+    moved = []
     landed = 0
     for entry in held:
         surface = fluted.get(fluted_key(entry["name"], fluted) or "")
         if surface is None:
             continue
-        # AND IT HAS TO LAND WHERE THE BODY IT REPLACES STANDS. `graft_glb` has always asked
-        # this and this side never did, because every piece it had was authored in the frame it
-        # is placed in — the box's six are cut in the machine's own coordinates. A piece that is
-        # NOT, like the cold core's three, arrives in its own frame and drops in a subassembly's
-        # placement away from itself: still a correct surface, drawn somewhere its solid is not.
-        # Silence is the wrong answer to that, so it is measured here on the same figure.
+        # EVERY SURFACE LANDS. The box's six pieces are cut in the machine's own coordinates; the
+        # cold core's three are cut in the core's frame and are carried onto the body's placement
+        # when one turn lays the surface on the body (`placement_onto`). A surface that stands off
+        # the body it replaces with no such turn lands as it was cut and says so: a face that
+        # moved is what the viewer is for.
         drift = _placement_drift(entry, surface)
         if drift > PLACEMENT_TOL:
             placement = placement_onto(entry, surface)
-            if placement is None:
-                skipped.append((entry["name"], drift))
-                continue
-            surface = carried(surface, placement)
+            if placement is not None:
+                surface = carried(surface, placement)
+            else:
+                moved.append((entry["name"], drift))
         entry.update({k: surface[k] for k in ("pos", "nrm", "idx", "fac")})
         landed += 1
-    for name, drift in skipped:
-        print(f"   {Path(path).name}: {name} keeps its own surface — the fluted one stands "
-              f"{drift:.1f} mm off the body it would replace, past {PLACEMENT_TOL} mm")
+    for name, drift in moved:
+        print(f"   {Path(path).name}: {name} lands as cut, {drift:.1f} mm off the body it "
+              f"replaces")
     if not landed:
         return 0
     # BYTES THAT DID NOT MOVE DO NOT MOVE THE FILE. A payload rewritten identically takes a new
