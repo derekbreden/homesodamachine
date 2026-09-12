@@ -252,7 +252,9 @@ Derek said:
 The resume after the swap ran the same job to the end. The hotend that paused is off the
 printer, suspected clogged and not yet cold-pulled; the second standard-flow 0.4 TC is on the
 left extruder and printing ([tools.md](/hardware/ledger/tools.md) "Hotend stock", which also
-names where a replacement is bought).
+names where a replacement is bought). The same day Derek ordered three DUROZZLE 0.4 mm Diamond PCD
+hotends for that extruder, one arriving 2026-09-12 ([purchases.md §13](/hardware/ledger/purchases.md)):
+*"So far, the diamond PCD has been the toughest and most reliable, in other sizes."*
 
 Bambu's guide for the H2 series' extruder-motor error
 ([Extruder Motor Overload Error Troubleshooting Guide](https://wiki.bambulab.com/en/h2/troubleshooting/extruder-motor-overload),
