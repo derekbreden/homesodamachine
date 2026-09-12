@@ -135,7 +135,7 @@ def main():
         # The cap and what closes it, off the module that cuts both the clearance bores and
         # the heat-set seats — so a screw added there is a screw the bench is told to drive.
         "CAP_SCREWS": f"{len(_enc.cap_screw_ys(_f.box.inner, _f.box.collet_plate))}",
-        "CAP_SCREW_LEN": f"{_enc.screw_len:.4g}",
+        "CAP_SCREW_LEN": f"{_enc.cap_screw_len:.4g}",
         "PUMP_SOCKET": f"{2 * _tray.boss_half:.4g} mm",
         "PUMP_SOCKET_D": f"{_tray.boss_depth:.4g} mm",
         "PUMP_CAN_BORE": f"{2 * _tray.can_half:.4g} mm",

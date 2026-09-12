@@ -1,4 +1,0 @@
-[ceiling] These are the two complete octagonal boss-crown seats in the top clamp, centred at y=43.505 and z=234.745. Each flat underside mates to the pump's boss crown and opens to the bed 19 mm above the print plane. The production slice supplies one bed-rooted support beneath each bearing face, removable from the loose clamp's underside before assembly.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step
-click: x=-49.945 y=43.505 z=234.745
-click: x=49.945 y=43.505 z=234.745

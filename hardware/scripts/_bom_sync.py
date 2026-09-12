@@ -264,12 +264,13 @@ display_cover_inserts_per_build = len(display_cover_stations)
 # nameplate's two are, reaching the land, the insert and the relief bored under it.
 display_cover_screws_per_build = display_cover_inserts_per_build
 
-# The pump clamp's two, read off its centre bridges. ONE TOP CLAMP CLOSES ON BOTH STAMPED
+# The pump clamp's two, read off its centre lane. ONE TOP CLAMP CLOSES ON BOTH STAMPED
 # BRACKETS (`enclosure.build_pump_cap`) and `cap_screw_ys` strikes a pair either side of the
 # lane's mid-depth, so it is two screws and two inserts however many pumps the cradle carries.
-# They are the box's M3 x 10 — `enclosure.screw_len` is the under-head length and each head
-# sinks into a top-access counterbore. The lower cradle carries pump weight; these screws keep
-# the clamp pressed onto the brackets.
+# They are the box's only M3 x 60 — `enclosure.cap_screw_len` is the under-head length, the
+# clamp's whole filled field from a counterbore in its crown to a long insert in the cradle
+# spine. The lower cradle carries pump weight; these screws keep the clamp pressed onto the
+# brackets.
 pump_cap_inserts_per_build = len(_enc.cap_screw_ys(_f.box["inner"], _f.box["collet_plate"]))
 pump_cap_screws_per_build = pump_cap_inserts_per_build
 
@@ -315,10 +316,12 @@ m3x8_per_build = (shelf_short_screws_per_build + cond_screws_per_build
                   + faucet_display_cover_screws_per_build + c14_screws_per_build
                   + carrier_joint_screws_per_build)
 
-# And every M3 x 10: the ground-stack clamp's one, the pump clamp's two, and the enclosure's six
-# seam screws.
-m3x10_per_build = (shelf_long_screws_per_build + pump_cap_screws_per_build
-                   + enclosure_seam_screws_per_build)
+# And every M3 x 10: the ground-stack clamp's one and the enclosure's six seam screws.
+m3x10_per_build = shelf_long_screws_per_build + enclosure_seam_screws_per_build
+
+# And every M3 x 60: the pump clamp's two, the one station whose screw is as long as the field
+# it crosses.
+m3x60_per_build = pump_cap_screws_per_build
 
 # And every M3 x 12 of the black-oxide 12.9 kind: the touch-flo plate's. (The 304
 # stainless M3 x 12 is a different row — the reservoir caps' wetted-zone hardware — and
@@ -334,7 +337,6 @@ m3x12_per_build = touchflo_screws_per_build
 # Short insert families and the stock available behind their seats:
 #   touch-flo base pods  — the pod is 8 boss hole + pocket + 3 cap = the visible base cylinder
 #   +X wall bosses       — the bore ends at `flute_backing`; deeper walks the electronics bay in
-#   pump-clamp bosses    — the screw is thread-limited at 4 mm anyway, over 2.2 mm of cradle
 #   faucet display cover — the shell's own land, one screw
 #   tee-carrier lap      — a 6 mm receiver, with a 4 mm insert and 2 mm backing
 #   Y-seam sockets       — pilot is `screw_len - seam_pin_shank_len`; longer wants an M3x12
@@ -344,12 +346,12 @@ m3_long_inserts_per_build = (
     + cond_inserts_per_build
     + nameplate_inserts_per_build
     + display_cover_inserts_per_build
+    + pump_cap_inserts_per_build
 )
 m3_short_inserts_per_build = (
     touchflo_inserts_per_build
     + shelf_inserts_per_build
     + faucet_display_cover_inserts_per_build
-    + pump_cap_inserts_per_build
     + enclosure_seam_inserts_per_build
     + c14_inserts_per_build
     + carrier_joint_screws_per_build
@@ -503,6 +505,7 @@ def main():
         "DISPLAY_COVER_SCREWS": f"{display_cover_screws_per_build:.4g}",
         "SHELF_SCREWS_M3X10": f"{shelf_long_screws_per_build:.4g}",
         "M3X10_TOTAL": f"{m3x10_per_build:.4g}",
+        "M3X60_TOTAL": f"{m3x60_per_build:.4g}",
         "M3X12_TOTAL": f"{m3x12_per_build:.4g}",
         "SEAM_SCREWS": f"{enclosure_seam_screws_per_build:.4g}",
         "SEAM_INSERTS": f"{enclosure_seam_inserts_per_build:.4g}",
