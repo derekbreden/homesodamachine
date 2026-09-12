@@ -439,20 +439,37 @@ def s_nameplate():
     return a
 
 
+#: The plate's stand-off along the slide, from its seat. Both of its channels open on +X (the cut
+#: part turns its DXF a quarter about Z on the way into this frame), so it comes in from -X; at
+#: this stand-off its mouths sit a finger's width short of the shank and the flavor pair.
+PLATE_STANDOFF_X = -44.0
+#: The washer and nut the faucet ships with, as the quick start draws them: on the last thread at
+#: the bottom of the shank, under the gap the plate slides through.
+WASHER_T, NUT_H = 1.5, 5.0
+NUT_STEEL = cq.Color(0.43, 0.45, 0.48, 1.0)
+#: The plate as the quick start draws it, a step lighter than the washer it will meet.
+PLATE_STEEL = cq.Color(0.91, 0.92, 0.94, 1.0)
+#: One of the flavor pair a shade lighter, so the two stay countable where their silhouettes meet.
+BLACK_PART_LIT = cq.Color(0.20, 0.205, 0.215, 1.0)
+
+
 def s_plate_sideways():
     """The under-counter plate coming in from the side, which is the only way it goes on.
 
-    Seen from under the counter, so its open edge is toward the reader and the shank it
-    has to pass is in the same frame. The plate is drawn part-way in: its seat is where
-    the sheet already draws it, and what this leaf has to show is the travel.
+    Seen from under the counter on the plate's own side, so both mouths and all three lines
+    are in the open. The plate stands off at -X with both mouths toward the shank and the
+    flavor pair, the washer and nut hang at the bottom of the shank below the gap it slides
+    through, and the seat itself is the quick start's frame.
     """
     fa = _cad_art._load_faucet_module()
     parts = _cad_art._children_by_name(fa.build_assembly())
     a = cq.Assembly(name="plate-scene")
+    # A slab long on the slide axis and narrow across it, with stone beyond the plate's far rim.
     slab = (
         cq.Workplane("XY")
         .workplane(offset=fa.countertop_bottom_z)
-        .box(178.0, 178.0, fa.countertop_thickness, centered=(True, True, False))
+        .center(-8.0, 0.0)
+        .box(142.0, 68.0, fa.countertop_thickness, centered=(True, True, False))
         .cut(
             cq.Workplane("XY")
             .workplane(offset=fa.countertop_bottom_z - 1.0)
@@ -464,14 +481,19 @@ def s_plate_sideways():
     _add(a, slab, "countertop", STONE)
     for name, colour in (("westbrass", STEEL),
                          ("flavor_tube_pos_x", BLACK_PART),
-                         ("flavor_tube_neg_x", BLACK_PART),
+                         ("flavor_tube_neg_x", BLACK_PART_LIT),
                          ("soda_umbilical_tube", BLUE_TUBE)):
         child = parts.get(name)
         if child is not None:
-            _add(a, _cad_art._clip_z(child.obj, -120.0, -30.0), name, colour)
+            _add(a, _cad_art._clip_z(child.obj, -88.0, -30.0), name, colour)
+    washer_top = -fa.shank_length + NUT_H + WASHER_T
+    _add(a, (cq.Workplane("XY").workplane(offset=washer_top - WASHER_T)
+             .circle(12.0).circle(6.1).extrude(WASHER_T)), "retained-washer", STEEL)
+    _add(a, (cq.Workplane("XY").workplane(offset=washer_top - WASHER_T - NUT_H)
+             .polygon(6, 22.0).circle(6.1).extrude(NUT_H)), "retained-nut", NUT_STEEL)
     plate = parts.get("under_counter_plate")
     if plate is not None:
-        _add(a, plate.obj.translate((0.0, -48.0, 0.0)), "under-counter-plate", STEEL)
+        _add(a, plate.obj.translate((PLATE_STANDOFF_X, 0.0, 0.0)), "under-counter-plate", PLATE_STEEL)
     return a
 
 
@@ -599,8 +621,8 @@ SCENES = {
     "two-tees": (s_two_tees, dict(cam=(0.25, 1.0, 0.32), size="1600x900")),
     "nameplate": (s_nameplate, dict(cam=(-0.14, 1.0, 0.10),
                    target=(38.16, 467.0, 262.9), span=132.0, size="1600x1100")),
-    "plate-sideways": (s_plate_sideways, dict(cam=(0.42, -0.9, -0.62),
-                        target=(0.0, -22.0, -44.0), span=150.0, size="1500x1150")),
+    "plate-sideways": (s_plate_sideways, dict(cam=(-0.85, -1.0, -0.85),
+                        target=(-16.0, 0.0, -43.0), span=88.0, size="1700x950")),
     # One camera per pair, and no trim, so before and after are the same frame.
     "stop-open": (s_stop_open, dict(cam=(1.05, 1.70, 0.62), target=(-6.0, 44.0, 96.0), span=86.0, size="1250x1150", trim=False)),
     "stop-closed": (s_stop_closed, dict(cam=(1.05, 1.70, 0.62), target=(-6.0, 44.0, 96.0), span=86.0, size="1250x1150", trim=False)),
