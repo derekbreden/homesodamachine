@@ -271,11 +271,6 @@ h2 {
 }
 .pair .scene { flex: 1 1 0; min-width: 0; }
 
-/* A single upright picture that is taller than its column is wide: capped at the column's
-   height and centred, so it never pushes the panel. */
-.tall { display: flex; justify-content: center; align-items: center; height: 100%; }
-.tall img { width: auto; max-width: 100%; max-height: 870px; }
-
 /* ---- motion cues ----------------------------------------------------------------- */
 
 .motion-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
@@ -301,6 +296,10 @@ h2 {
 .pair .cue-straight { width: 150px; height: 83px; }
 .cue-turn { width: 190px; height: 127px; }
 .cue-turn-wide { width: 400px; height: 145px; }
+/* The first-glass scenes stand in a narrower column, so their cues scale with the box. */
+.four .cue-straight { width: 150px; height: 83px; }
+.four .cue-turn { width: 150px; height: 100px; }
+.four .cue-small { width: 118px; height: 66px; }
 
 /* ---- the ports, step 6 -------------------------------------------------------------- */
 
