@@ -7,14 +7,15 @@ motor power.
 ## Connections
 
 Set the DM542T signal selector to **5 V**. Use two channels of the acquired
-ULN2803A module as open-collector sinks:
+ULN2803A module as open-collector sinks. The module's silk carries the chip's
+pin names: `nB` is input n and `nC` is output n.
 
 | From | To |
 |---|---|
-| ESP32 GPIO25 | ULN IN1 |
-| ULN OUT1 | DM542T `PUL-` |
-| ESP32 GPIO26 | ULN IN2 |
-| ULN OUT2 | DM542T `DIR-` |
+| ESP32 GPIO25 | ULN IN1 (`1B`) |
+| ULN OUT1 (`1C`) | DM542T `PUL-` |
+| ESP32 GPIO26 | ULN IN2 (`2B`) |
+| ULN OUT2 (`2C`) | DM542T `DIR-` |
 | ESP32 `VIN/5V` | DM542T `PUL+` and `DIR+` |
 | ESP32 GND | ULN GND |
 | Pedal `COM` | ESP32 GND |
