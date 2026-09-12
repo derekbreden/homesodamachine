@@ -759,13 +759,29 @@ export function fitCameraDepth(cam, center, radius) {
 
 let _depthGroup = null;
 const _depthSphere = new THREE.Sphere();
+const _modelDepthBox = new THREE.Box3();
+const _extraDepthBounds = new Map();
+let _depthBoundsRevision = 0, _seenDepthBoundsRevision = -1;
+
+// Optional scene siblings can extend the camera and fog range while retaining
+// the model's own ground shadow and default framing.
+export function setExtraDepthBounds(key, bounds) {
+  if (!bounds || bounds.isEmpty()) {
+    if (_extraDepthBounds.delete(key)) _depthBoundsRevision++;
+    return;
+  }
+  if (_extraDepthBounds.get(key)?.equals(bounds)) return;
+  _extraDepthBounds.set(key, bounds.clone());
+  _depthBoundsRevision++;
+}
 
 export function updateDepthRange() {
   const group = state.currentGroup;
   if (!group) return;
   if (group !== _depthGroup) {
     const box = new THREE.Box3().setFromObject(group);
-    box.getBoundingSphere(_depthSphere);
+    _modelDepthBox.copy(box);
+    _depthBoundsRevision++;
     // THE GROUP IS MARKED SEEN BEFORE THE SHADOW IS BUILT. The planes below are what makes the
     // model visible at all, and this branch is the only place they are fitted; a shadow that
     // threw with the mark still unset would re-enter here on every frame and take them with it
@@ -775,6 +791,12 @@ export function updateDepthRange() {
     // on a frame that only moved the camera. A DXF plate lies flat and has no floor to stand
     // on, so only a solid gets one.
     fitGroundShadow(state.mountedDetail?.type === "dxf" ? null : box);
+  }
+  if (_seenDepthBoundsRevision !== _depthBoundsRevision) {
+    const box = _modelDepthBox.clone();
+    for (const extra of _extraDepthBounds.values()) box.union(extra);
+    box.getBoundingSphere(_depthSphere);
+    _seenDepthBoundsRevision = _depthBoundsRevision;
   }
   fitFog(scene, camera.position.distanceTo(_depthSphere.center), _depthSphere.radius);
   fitCameraDepth(camera, _depthSphere.center, _depthSphere.radius);

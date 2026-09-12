@@ -27,6 +27,7 @@ import { sourceFileFor } from "/contracts/component-sources.js";
 import { relatedStepsForComponent } from "/contracts/related-steps.js";
 import { drillTo, drillToComponent } from "./step-nav.js";
 import { makePanelCollapse } from "./tool-rail.js";
+import { syncTubeVisibility } from "./tube-overlay-host.js";
 
 const LS_KEY = "step-component-pick";
 const SEL = 0xffa733;   // selection highlight — warm amber (distinct from edge yellow, part-highlight cyan, find magenta)
@@ -87,6 +88,7 @@ export function applyHiddenComponents() {
     }
   }
   invalidateAllEdgesLayer(); // the edge picker's faint all-edges layer must drop hidden solids
+  syncTubeVisibility();
   refreshPanel();
 }
 

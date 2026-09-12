@@ -216,15 +216,18 @@ def target_name(gen: str, taken=None) -> str:
     return stem
 
 
-def comments_come_out(src: str, rewritten: set) -> bool:
+def comments_come_out(src: str, rewritten: set, consumer: str = None) -> bool:
     """Whether a step reads `src` with its comments taken out.
 
     A generator whose own docstring holds figures is handed its file raw: the run rewrites what
     it was given, and `sync_tree` carries that back into the tree. So is anything under a node
     root — its runtime group carries those bytes raw, and a file arriving twice lands the
-    second copy on the first, which Bazel leaves read-only."""
+    second copy on the first, which Bazel leaves read-only.
+
+    The tube-route export fingerprints source bytes for a web server that holds the git
+    checkout. That consumer receives those same bytes, including Python comments."""
     return (src.endswith(".py") and src not in rewritten
-            and not src.startswith(_NODE))
+            and not src.startswith(_NODE) and consumer != "tube-routes")
 
 
 def read_from(src: str, rewritten: set, producers: dict = None,
@@ -240,7 +243,7 @@ def read_from(src: str, rewritten: set, producers: dict = None,
     producer = (producers or {}).get(src)
     if producer and producer != consumer:
         return f":out/{producer}/{src}"
-    return f"{PYSRC}/{src}" if comments_come_out(src, rewritten) else src
+    return f"{PYSRC}/{src}" if comments_come_out(src, rewritten, consumer) else src
 
 
 def render(gens: tuple, arts: list, srcs: list, optional: list, docs: list, rewritten: set,
@@ -399,7 +402,7 @@ def render_build(only: str = None) -> tuple:
         srcs = sorted(s for s in srcs if s in held)
         optional = sorted(d for d in made["docs"] if d.endswith((".png", ".json")))
         rewritten = {d for d in made["docs"] if d.endswith(".py")}
-        comments_out |= {s for s in srcs if comments_come_out(s, rewritten)}
+        comments_out |= {s for s in srcs if comments_come_out(s, rewritten, names[gens])}
         wants[names[gens]] = {producers[s] for s in srcs
                               if producers.get(s) and producers[s] != names[gens]}
         blocks.append(render(gens, made["solids"], srcs, optional, made["docs"], rewritten,
