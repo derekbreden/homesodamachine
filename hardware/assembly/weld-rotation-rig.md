@@ -177,7 +177,7 @@ not a protective-earth connection.
 
 ## Driver, pedal and wiring
 
-Set the DM542T logic selector to **5 V** and use two acquired ULN2803A channels
+Set the DM542T logic selector to **5 V** and use three acquired ULN2803A channels
 as open-collector sinks. The module's silk carries the chip's pin names: `nB`
 is input n and `nC` is output n.
 
@@ -185,7 +185,8 @@ is input n and `nC` is output n.
 |---|---|
 | ESP32 GPIO25 → ULN IN1 (`1B`); ULN OUT1 (`1C`) | DM542T `PUL-` |
 | ESP32 GPIO26 → ULN IN2 (`2B`); ULN OUT2 (`2C`) | DM542T `DIR-` |
-| ESP32 `VIN/5V` | DM542T `PUL+` and `DIR+` |
+| ESP32 GPIO32 → ULN IN3 (`3B`); ULN OUT3 (`3C`) | DM542T `ENA-` |
+| ESP32 `VIN/5V` | DM542T `PUL+`, `DIR+` and `ENA+` |
 | ESP32 GND | ULN GND and pedal `COM` |
 | ESP32 GPIO27 with internal pull-up | pedal `NO` |
 | ESP32 3V3 through acquired 3.3 kΩ resistor | ESP32 GPIO27 |
@@ -194,7 +195,7 @@ is input n and `nC` is output n.
 | motor red / blue | DM542T `B+` / `B-` |
 | included female barrel connector + / − | DM542T `VDC` / `GND` |
 
-Leave ULN `COM` and DM542T `ENA+`/`ENA-` unconnected. The acquired 5 V adapter
+Leave ULN `COM` unconnected. The acquired 5 V adapter
 powers the ESP32 and 5 V signal loops. The 24 V adapter powers only the
 optically isolated driver power stage; never connect 24 V to the ESP32.
 
@@ -229,6 +230,11 @@ console prints `RUN`.
 speed; released, it stops. Nothing counts a revolution and nothing takes the
 table away from the operator mid-bead — the lap length is a judgement made at
 the index mark, watching the puddle, not a number the controller enforces.
+
+The driver holds the motor while the table turns and for ten seconds after a
+release. Then it lets go: the motor is cold and the table turns by hand until
+the next press, which energises the coils before the first pulse. An `ENA`
+left unwired holds the motor whenever the driver has power.
 
 The console reports how far the table has come in degrees, and says so again
 when the pedal is released. That readout is the operator's, and is never a

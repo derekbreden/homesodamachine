@@ -27,6 +27,14 @@ constexpr float kMaxTravelMmPerS = 15.0f;
 constexpr uint16_t kPedalDebounceMs = 20;
 constexpr uint16_t kMinimumPulseWidthUs = 3;
 
+// The driver holds the motor only while it has work: during motion, and for a
+// grace period after a release so a short pause resumes without the small
+// settle an unpowered rotor makes when its coils re-energise.  Left alone,
+// the driver is released, the motor is cold and the table turns by hand.
+constexpr uint32_t kHoldAfterReleaseMs = 10000;
+// Coils need current before the first pulse means anything.
+constexpr uint32_t kHoldSettleMs = 200;
+
 inline bool validTravelSpeed(float mm_per_s) {
     return mm_per_s >= kMinTravelMmPerS && mm_per_s <= kMaxTravelMmPerS;
 }
@@ -47,6 +55,15 @@ inline float pulseHz(float travel_mm_per_s) {
 
 inline uint32_t halfPeriodUs(float travel_mm_per_s) {
     return static_cast<uint32_t>(500000.0f / pulseHz(travel_mm_per_s) + 0.5f);
+}
+
+inline uint32_t holdDeadline(uint32_t stop_ms) {
+    return stop_ms + kHoldAfterReleaseMs;
+}
+
+// millis() wraps; the signed difference keeps the deadline honest across it.
+inline bool driverHolds(bool running, uint32_t hold_until_ms, uint32_t now_ms) {
+    return running || static_cast<int32_t>(hold_until_ms - now_ms) > 0;
 }
 
 // How far the table has come, for the operator watching the index mark.  The

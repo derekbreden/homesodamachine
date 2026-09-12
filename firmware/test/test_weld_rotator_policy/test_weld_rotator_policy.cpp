@@ -90,6 +90,24 @@ void test_pulses_are_only_counted_while_running() {
     TEST_ASSERT_EQUAL(Event::None, policy.stop());
 }
 
+// The motor is held only while it has work.  At boot nothing has stopped, so
+// nothing is held; a release starts the grace period; the wrap of millis()
+// does not extend or cut it.
+void test_driver_holds_only_while_it_has_work() {
+    TEST_ASSERT_FALSE(driverHolds(false, 0, 5));
+    TEST_ASSERT_TRUE(driverHolds(true, 0, 5));
+
+    const uint32_t deadline = holdDeadline(1000);
+    TEST_ASSERT_TRUE(driverHolds(false, deadline, 1000));
+    TEST_ASSERT_TRUE(driverHolds(false, deadline, 1000 + kHoldAfterReleaseMs - 1));
+    TEST_ASSERT_FALSE(driverHolds(false, deadline, 1000 + kHoldAfterReleaseMs));
+
+    const uint32_t late = 0xFFFFFF00u;
+    TEST_ASSERT_TRUE(driverHolds(false, holdDeadline(late), late + 5000u));
+    TEST_ASSERT_FALSE(driverHolds(false, holdDeadline(late),
+                                  late + kHoldAfterReleaseMs + 1u));
+}
+
 }  // namespace
 
 int main(int, char **) {
@@ -101,5 +119,6 @@ int main(int, char **) {
     RUN_TEST(test_the_table_never_stops_itself);
     RUN_TEST(test_release_stops_and_the_next_press_starts_again_immediately);
     RUN_TEST(test_pulses_are_only_counted_while_running);
+    RUN_TEST(test_driver_holds_only_while_it_has_work);
     return UNITY_END();
 }

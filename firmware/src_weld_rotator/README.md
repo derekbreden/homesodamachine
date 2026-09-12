@@ -6,7 +6,7 @@ motor power.
 
 ## Connections
 
-Set the DM542T signal selector to **5 V**. Use two channels of the acquired
+Set the DM542T signal selector to **5 V**. Use three channels of the acquired
 ULN2803A module as open-collector sinks. The module's silk carries the chip's
 pin names: `nB` is input n and `nC` is output n.
 
@@ -16,7 +16,9 @@ pin names: `nB` is input n and `nC` is output n.
 | ULN OUT1 (`1C`) | DM542T `PUL-` |
 | ESP32 GPIO26 | ULN IN2 (`2B`) |
 | ULN OUT2 (`2C`) | DM542T `DIR-` |
-| ESP32 `VIN/5V` | DM542T `PUL+` and `DIR+` |
+| ESP32 GPIO32 | ULN IN3 (`3B`) |
+| ULN OUT3 (`3C`) | DM542T `ENA-` |
+| ESP32 `VIN/5V` | DM542T `PUL+`, `DIR+` and `ENA+` |
 | ESP32 GND | ULN GND |
 | Pedal `COM` | ESP32 GND |
 | Pedal `NO` | ESP32 GPIO27 |
@@ -26,9 +28,8 @@ pin names: `nB` is input n and `nC` is output n.
 | Acquired 5 V adapter with Micro-USB tip | ESP32 Micro-USB power input |
 | 24 V adapter + / − | DM542T `VDC` / `GND` |
 
-Leave the ULN `COM` flyback terminal and both DM542T `ENA` terminals
-unconnected. The motor supply and 5 V logic supply remain optically isolated
-through the DM542T inputs. Do not connect 24 V to the ESP32.
+Leave the ULN `COM` flyback terminal unconnected. The motor supply and 5 V
+logic supply remain optically isolated through the DM542T inputs. Do not connect 24 V to the ESP32.
 
 The pedal has SPDT terminals; use `COM` and `NO`. Twist those two conductors
 together and fit the acquired 3.3 kΩ pull-up at the controller end. A broken
@@ -63,6 +64,11 @@ motor heating while the welder is being set.
 speed; released, it stops. Nothing counts a revolution and nothing stops the
 table out from under the operator — the length of a lap is judged at the index
 mark while watching the puddle, not enforced by the controller.
+
+The driver holds the motor while the table turns and for ten seconds after a
+release. Then it lets go: the motor is cold and the table turns by hand until
+the next press, which energises the coils before the first pulse. An `ENA`
+left unwired holds the motor whenever the driver has power.
 
 The one thing the controller refuses is a start it was not asked for: it powers
 up motionless and will not arm until it has seen the pedal released once, so a
