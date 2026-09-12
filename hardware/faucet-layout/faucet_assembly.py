@@ -906,7 +906,7 @@ def build_under_counter_plate():
     That DXF's own X is world depth and its Y is world lateral (see the part's
     docstring), so the outline turns a quarter about Z on its way into this
     frame: DXF (x, y) lands at world (-y, x), which puts the pill pocket at
-    world +Y over the flavor pair and opens both channels toward -X."""
+    world +Y over the flavor pair and opens both channels toward +X."""
     outline = cq.importers.importDXF(str(under_counter_dxf))
     plate = outline.wires().toPending().extrude(under_counter_plate_thickness)
     return (
