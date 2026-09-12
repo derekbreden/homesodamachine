@@ -1499,7 +1499,41 @@ def tee_carrier_interface(spec: _carrier.CarrierSpec, plate, squeeze_stood) -> d
         "tab_count": 2,
         "joint_screw_count": len(_carrier.joint_sites(spec)),
     })
+    gap, where = recess_socket_wall(data, trays)
+    if gap < _vseat.wall - 1e-6:
+        raise ValueError(
+            f"the carrier recess ceiling at Z{data['service_recess_z'][1]:.3f} leaves "
+            f"{gap:.3f} mm under the valve socket at {where}, less than valve_seat's "
+            f"{_vseat.wall:g} mm wall")
+    data["recess_socket_wall"] = gap
     return data
+
+
+def recess_socket_wall(carrier: dict, trays) -> tuple:
+    """The least front-top stock between the carrier's guide openings and any valve socket
+    standing over them, read off the real cutters: `(mm, "X… Z… on the Y… tray")`.
+
+    The internal recess ceiling runs under the fore tray's lower outboard sockets on both
+    flanks. `valve_seat.wall` is the least material a socket keeps outside itself, and the
+    grip's upper reach is what spends it. A socket the recess opens onto — the aft tray's,
+    whose posts enter from the recess side — stands below the ceiling and is not read."""
+    cuts = _enc._tee_carrier_service_slots(carrier)
+    least, where = float("inf"), None
+    for plane, sign, seats in trays:
+        for sx, sz in seats:
+            for socket in _enc._valve_socket_cutters(plane, sign, sx, sz):
+                sb = socket.BoundingBox()
+                for cut in cuts:
+                    cb = cut.BoundingBox()
+                    if (sb.zmin < cb.zmax - 1e-6
+                            or sb.xmax < cb.xmin or sb.xmin > cb.xmax
+                            or sb.ymax < cb.ymin or sb.ymin > cb.ymax):
+                        continue
+                    reading = _BRepDist(socket.wrapped, cut.wrapped)
+                    reading.Perform()
+                    if reading.Value() < least:
+                        least, where = reading.Value(), f"X{sx:g} Z{sz:g} on the Y{plane:g} tray"
+    return least, where
 
 
 def build_carrier_spring(x: float, z: float, fixed_y: float, length: float):
