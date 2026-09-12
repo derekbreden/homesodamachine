@@ -188,7 +188,7 @@ is input n and `nC` is output n.
 | ESP32 `VIN/5V` | DM542T `PUL+` and `DIR+` |
 | ESP32 GND | ULN GND and pedal `COM` |
 | ESP32 GPIO27 with internal pull-up | pedal `NO` |
-| ESP32 3V3 through acquired 4.7 kΩ resistor | ESP32 GPIO27 |
+| ESP32 3V3 through acquired 3.3 kΩ resistor | ESP32 GPIO27 |
 | acquired 5 V adapter, Micro-USB tip | ESP32 Micro-USB power input |
 | motor black / green | DM542T `A+` / `A-` |
 | motor red / blue | DM542T `B+` / `B-` |
@@ -213,13 +213,15 @@ pulses/revolution:
 | Position | ON | OFF | OFF | OFF | ON | ON | OFF | ON |
 
 The pedal is a dry contact on 3.3 V, not a motor-power switch. Twist its `COM`
-and `NO` conductors together; the external 4.7 kΩ pull-up gives the long bench
+and `NO` conductors together; the external 3.3 kΩ pull-up gives the long bench
 lead a firm released state in the welder's electrical environment. Opening the
 contact always stops new pulses. The controller also refuses motion at boot
-until it has observed the pedal released. The pedal's WAGO holds GPIO27, one
-resistor lead and `NO`, and nothing else; the other lead meets 3V3 in its own
-WAGO. With the board on the host's USB and the pedal held, the DevKitC's power
-LED stays lit and the console prints `RUN`.
+until it has observed the pedal released. The pull-up is one resistor from the
+acquired Chanzon 3.3 kΩ pack: a small blue cylinder banded orange, orange,
+black, brown, brown. The pedal's WAGO holds GPIO27, one resistor lead and `NO`,
+and nothing else; the other lead meets 3V3 in its own WAGO. With the board on
+the host's USB and the pedal held, the DevKitC's power LED stays lit and the
+console prints `RUN`.
 
 ## Stored controls
 

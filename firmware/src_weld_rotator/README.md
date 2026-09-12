@@ -20,7 +20,7 @@ pin names: `nB` is input n and `nC` is output n.
 | ESP32 GND | ULN GND |
 | Pedal `COM` | ESP32 GND |
 | Pedal `NO` | ESP32 GPIO27 |
-| ESP32 3V3 through acquired 4.7 kΩ resistor | ESP32 GPIO27 |
+| ESP32 3V3 through acquired 3.3 kΩ resistor | ESP32 GPIO27 |
 | Motor black / green | DM542T `A+` / `A-` |
 | Motor red / blue | DM542T `B+` / `B-` |
 | Acquired 5 V adapter with Micro-USB tip | ESP32 Micro-USB power input |
@@ -31,7 +31,7 @@ unconnected. The motor supply and 5 V logic supply remain optically isolated
 through the DM542T inputs. Do not connect 24 V to the ESP32.
 
 The pedal has SPDT terminals; use `COM` and `NO`. Twist those two conductors
-together and fit the acquired 4.7 kΩ pull-up at the controller end. A broken
+together and fit the acquired 3.3 kΩ pull-up at the controller end. A broken
 or unplugged pedal wire then reads released and stops motion, and the lower
 input impedance rejects noise beside the welder. The acquired universal 5 V /
 3 A adapter's Micro-USB tip powers the ESP32. Its listing and the ledger
