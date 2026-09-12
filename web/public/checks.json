@@ -7,8 +7,8 @@
     },
     {
       "check": "hardware/scripts/check_facts_current.py",
-      "note": "and the 127 sources behind them stand where they stood when it was written",
-      "status": "ok"
+      "note": "tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py",
+      "status": "red"
     },
     {
       "check": "hardware/scripts/check_finishes.py",
@@ -22,7 +22,7 @@
     },
     {
       "check": "hardware/scripts/check_payloads.py",
-      "note": "payloads: 37 solid(s) cut from the bytes beside them, 11 scene(s) at the finishes this tree states",
+      "note": "payloads: 30 solid(s) cut from the bytes beside them, 11 scene(s) at the finishes this tree states",
       "status": "ok"
     },
     {
@@ -42,22 +42,22 @@
     },
     {
       "check": "hardware/scripts/check_step_colours.py",
-      "note": "step colours: 191/191 carry the colour of what they are made of",
+      "note": "step colours: 178/178 carry the colour of what they are made of",
       "status": "ok"
     },
     {
       "check": "hardware/scripts/check_tracked.py",
-      "note": "62/62 artifacts have their record in the index",
+      "note": "60/60 artifacts have their record in the index",
       "status": "ok"
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 1697 tracked, 396 fetched solids, 55 tags, 38 site routes",
+      "note": "paths: every reference lands — 1571 tracked, 374 fetched solids, 55 tags, 38 site routes",
       "status": "ok"
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 416 of 1000 free, the next cut wants 3, and the whole lock reads by name in 176.6 MB against 178.8 MB of bundle",
+      "note": "check_release_room: 415 of 1000 free, the next cut wants 3, and the whole lock reads by name in 169.8 MB against 171.7 MB of bundle",
       "status": "ok"
     },
     {
@@ -67,8 +67,8 @@
     },
     {
       "check": "tools/bazel/check_build_file.py",
-      "note": "check_build_file: BUILD.bazel is what the graph writes; 3MFs are build-inert",
-      "status": "ok"
+      "note": "tools/cad-venv/bin/python tools/bazel/gen_build.py",
+      "status": "red"
     },
     {
       "check": "tools/bazel/check_ci_targets.py",
@@ -77,15 +77,28 @@
     },
     {
       "check": "tools/bazel/check_declared_imports.py",
-      "note": "check_declared_imports: every step holds what it imports, over 205 source(s) the graph names",
+      "note": "check_declared_imports: every step holds what it imports, over 203 source(s) the graph names",
       "status": "ok"
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 1 of 2 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 396 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 1 of 3 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 374 member(s) keep their provenance",
       "status": "ok"
     }
   ],
-  "detail": {},
-  "green": true
+  "detail": {
+    "hardware/scripts/check_facts_current.py": [
+      "enclosure-assembly.facts.json was taken from a different tree — it holds d7d92cf883d81f89388aead05e5359a7 for the 127 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 21e4bd4702d2437d9fdee84aeb963024 here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "  the three come off one run:",
+      "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
+    ],
+    "tools/bazel/check_build_file.py": [
+      "BUILD.bazel is not what the graph would write now:",
+      "  3 declared read(s) across 3 generator(s) name a file",
+      "    the tree does not hold and no rule writes — hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.lint-answers, read by render_scene_cards.py,",
+      "    among them. Drop the read if what wrote it is gone, or declare the writer.",
+      "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
+    ]
+  },
+  "green": false
 }
