@@ -724,44 +724,44 @@
     },
     "enclosure-pump-cap": {
       "status": "audited",
-      "profile": "git:aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a:hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap-petgf.3mf",
+      "profile": "git:b4e181bee752bebaddc24d5e620fd7f8144129bd:hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap-petgf.3mf",
       "result": "enclosure-pump-cap.support-audit.json",
       "support_bodies": [
         {
           "tree": "tree-1",
-          "name": "X- pump boss-bearing shoulder",
+          "name": "aft clamp-screw head seat",
           "first_contacts_cad_xyz_mm": [
             [
-              -75.8,
-              17.662,
-              234.345,
-              -24.2,
-              69.262,
-              234.545
+              -2.2,
+              61.262,
+              268.295,
+              2.2,
+              66.062,
+              268.495
             ]
           ],
           "root": "bed",
-          "build_up_mm": 18.4,
+          "build_up_mm": 8.8,
           "interface_islands": 1,
-          "rationale": "The flat annular shoulder bears axially on the fitted pump boss while the complete octagonal wall locates X, Y and yaw. Chamfering the shoulder would trade away bearing area rather than remove an accidental overhang; its centre bore remains open for direct support removal."
+          "rationale": "The flat annular seat is the M3\u00d760 head's bearing face, a bridge one counterbore wide over the clearance bore; the clamp prints on its crown, so the seat looks print-down. The tree stands inside the counterbore, which opens on the bed face, and leaves through that mouth."
         },
         {
           "tree": "tree-2",
-          "name": "X+ pump boss-bearing shoulder",
+          "name": "fore clamp-screw head seat",
           "first_contacts_cad_xyz_mm": [
             [
-              24.2,
-              17.662,
-              234.345,
-              75.8,
-              69.262,
-              234.545
+              -2.2,
+              25.262,
+              268.295,
+              2.2,
+              30.062,
+              268.495
             ]
           ],
           "root": "bed",
-          "build_up_mm": 18.4,
+          "build_up_mm": 8.8,
           "interface_islands": 1,
-          "rationale": "The flat annular shoulder bears axially on the fitted pump boss while the complete octagonal wall locates X, Y and yaw. Chamfering the shoulder would trade away bearing area rather than remove an accidental overhang; its centre bore remains open for direct support removal."
+          "rationale": "The flat annular seat is the M3\u00d760 head's bearing face, a bridge one counterbore wide over the clearance bore; the clamp prints on its crown, so the seat looks print-down. The tree stands inside the counterbore, which opens on the bed face, and leaves through that mouth."
         }
       ]
     },

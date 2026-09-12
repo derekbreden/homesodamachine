@@ -5,72 +5,67 @@
       0.0,
       0.0,
       0.0,
-      1.0,
+      -1.0,
       0.0,
       0.0,
       0.0,
-      1.0,
+      -1.0,
       -165.0,
-      -115.538000584,
-      215.744995117
+      204.461999416,
+      277.494995117
     ],
-    "plate_to_cad_translation_mm": [
-      -165.0,
-      -115.538001,
-      215.744995
-    ],
-    "replacement_mesh_bed_reseat_mm": 10.875
+    "replacement_mesh_bed_reseat_mm": -30.875
   },
   "first_layer_z_mm": 0.2,
   "inputs": {
     "gcode": "plate_1.gcode",
-    "gcode_sha256": "30753b2c05c05fa9a034b7dbdde3d532e99f26842ec8820f38dcdc571efa9232",
-    "model": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
-    "model_sha256": "600e4894a0456a915a926636e1211c57fcfb8cf29aead2a55189ed5ce3a1d914",
-    "profile": "git:aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a:hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap-petgf.3mf",
-    "profile_sha256": "d50dd6389b9202491a5e71567ffc2f962acb484c4924a46088783e0ccf3208fa"
+    "gcode_sha256": "0b757d2d4f7dba6d4a63d44d984784b00e4c3f2bbc966d475341e8fa8d183f0c",
+    "model": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
+    "model_sha256": "647a80a0c5a291624c83380c7863bbf4adc012ad134ddd72b107ed21925dbfe7",
+    "profile": "git:b4e181bee752bebaddc24d5e620fd7f8144129bd:hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap-petgf.3mf",
+    "profile_sha256": "02d2d6d2a0e6f2a75971cd3b2c3669f5910a4f34052d8416bd366b949c601dd9"
   },
   "interfaces": [
     {
       "bbox_cad_xyz_mm": [
-        -75.8,
-        17.662,
-        234.345,
-        -24.2,
-        69.262,
-        234.545
+        -2.2,
+        61.262,
+        268.295,
+        2.2,
+        66.062,
+        268.495
       ],
       "bbox_xy_mm": [
-        89.2,
-        133.2,
-        140.8,
-        184.8
+        162.8,
+        138.4,
+        167.2,
+        143.2
       ],
-      "build_up_mm": 18.4,
-      "first_z_mm": 18.6,
+      "build_up_mm": 8.8,
+      "first_z_mm": 9.0,
       "id": "interface-1",
-      "last_z_mm": 18.8,
+      "last_z_mm": 9.2,
       "tree": "tree-1"
     },
     {
       "bbox_cad_xyz_mm": [
-        24.2,
-        17.662,
-        234.345,
-        75.8,
-        69.262,
-        234.545
+        -2.2,
+        25.262,
+        268.295,
+        2.2,
+        30.062,
+        268.495
       ],
       "bbox_xy_mm": [
-        189.2,
-        133.2,
-        240.8,
-        184.8
+        162.8,
+        174.4,
+        167.2,
+        179.2
       ],
-      "build_up_mm": 18.4,
-      "first_z_mm": 18.6,
+      "build_up_mm": 8.8,
+      "first_z_mm": 9.0,
       "id": "interface-2",
-      "last_z_mm": 18.8,
+      "last_z_mm": 9.2,
       "tree": "tree-2"
     }
   ],
@@ -94,59 +89,59 @@
     "bed_rooted_bodies": 2,
     "interface_islands": 2,
     "model_rooted_bodies": 0,
-    "shortest_build_up_mm": 18.4,
+    "shortest_build_up_mm": 8.8,
     "support_bodies": 2
   },
   "trees": [
     {
       "base_z_mm": 0.2,
       "bbox_cad_xyz_mm": [
-        -75.8,
-        17.262,
-        215.945,
-        -24.2,
-        69.262,
-        234.545
+        -2.6,
+        61.262,
+        268.295,
+        2.6,
+        66.462,
+        277.295
       ],
       "bbox_xy_mm": [
-        89.2,
-        132.8,
-        140.8,
-        184.8
+        162.4,
+        138.0,
+        167.6,
+        143.2
       ],
-      "first_interface_z_mm": 18.6,
+      "first_interface_z_mm": 9.0,
       "id": "tree-1",
       "interfaces": [
         "interface-1"
       ],
       "root": "bed",
-      "shortest_build_up_mm": 18.4,
-      "top_z_mm": 18.8
+      "shortest_build_up_mm": 8.8,
+      "top_z_mm": 9.2
     },
     {
       "base_z_mm": 0.2,
       "bbox_cad_xyz_mm": [
-        23.8,
-        17.262,
-        215.945,
-        75.8,
-        69.662,
-        234.545
+        -2.6,
+        25.262,
+        268.295,
+        2.6,
+        30.462,
+        277.295
       ],
       "bbox_xy_mm": [
-        188.8,
-        132.8,
-        240.8,
-        185.2
+        162.4,
+        174.0,
+        167.6,
+        179.2
       ],
-      "first_interface_z_mm": 18.6,
+      "first_interface_z_mm": 9.0,
       "id": "tree-2",
       "interfaces": [
         "interface-2"
       ],
       "root": "bed",
-      "shortest_build_up_mm": 18.4,
-      "top_z_mm": 18.8
+      "shortest_build_up_mm": 8.8,
+      "top_z_mm": 9.2
     }
   ]
 }
