@@ -11,12 +11,12 @@
       0.0,
       1.0,
       -165.0,
-      -118.542499542,
+      -117.790500641,
       165.365013105
     ],
     "plate_to_cad_translation_mm": [
       -165.0,
-      -118.5425,
+      -117.790501,
       165.365013
     ],
     "replacement_mesh_bed_reseat_mm": 1.75
@@ -24,9 +24,9 @@
   "first_layer_z_mm": 0.2,
   "inputs": {
     "gcode": "plate_1.gcode",
-    "gcode_sha256": "0aa0515069eda45f8b1e218c2ebb5c0fdb779c555ac69939efea6398d971a1ff",
-    "model": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
-    "model_sha256": "345eee377789f7e49cd594d4a0ddfaf8b73fc9f340a35211ef66f92e5e8860e4",
+    "gcode_sha256": "bac91e3aee27e49d7e704278faa61506c4873ee1c5583596b72d8374b47f192c",
+    "model": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
+    "model_sha256": "05808be1520d456efdf20230d484327882a3eeaf332c4721d8a2e22c5d4fa870",
     "profile": "git:aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a:hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge-petgf.3mf",
     "profile_sha256": "10f9a5824beb674ca0868137659211da5703d6626b73a335388ec471efc91c40"
   },
@@ -34,10 +34,10 @@
     {
       "bbox_cad_xyz_mm": [
         -106.2,
-        30.658,
+        31.409,
         216.565,
         -90.2,
-        52.658,
+        53.409,
         216.965
       ],
       "bbox_xy_mm": [
@@ -55,10 +55,10 @@
     {
       "bbox_cad_xyz_mm": [
         89.8,
-        30.658,
+        31.409,
         216.565,
         106.2,
-        52.658,
+        53.409,
         216.965
       ],
       "bbox_xy_mm": [
@@ -102,10 +102,10 @@
       "base_z_mm": 0.2,
       "bbox_cad_xyz_mm": [
         -119.4,
-        30.658,
+        31.409,
         165.565,
         -89.8,
-        52.658,
+        53.409,
         217.365
       ],
       "bbox_xy_mm": [
@@ -127,10 +127,10 @@
       "base_z_mm": 0.2,
       "bbox_cad_xyz_mm": [
         89.8,
-        30.658,
+        31.409,
         165.565,
         119.4,
-        52.658,
+        53.409,
         217.365
       ],
       "bbox_xy_mm": [

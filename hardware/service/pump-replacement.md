@@ -152,7 +152,7 @@ its bottom floor. Do not lever the jack or pull either ribbon. The four pump Fas
 off until the cartridge is on the bench.
 
 **3. Unscrew the top clamp, then swap the pumps.** Back out the [2](CAP_SCREWS)
-M3×[10](CAP_SCREW_LEN) between the pumps and lift the complete clamp straight up. Remove the two
+M3×[60](CAP_SCREW_LEN) between the pumps and lift the complete clamp straight up. Remove the two
 Faston pairs from the old motor tabs, then lift each pump out of its cradle well. Lower each replacement until three sides of its stamped
 bracket lie flat on the cradle lands, lower the clamp until its two octagonal collars surround
 the bosses and its pressing plates meet the bracket tops, then draw both screws down evenly.
