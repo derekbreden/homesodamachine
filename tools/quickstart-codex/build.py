@@ -69,6 +69,16 @@ def pic(name,x,y,w,h,crop=None):
     c.drawImage(ImageReader(im),ox,H-oy-ih,width=iw,height=ih,mask='auto')
     return lambda px,py: (ox+(px-bounds[0])*scale,oy+(py-bounds[1])*scale)
 
+def projected(mapper,point,cam,target,span,size=(1600,1500)):
+    """Put an action arrow on the same world point the CAD camera drew."""
+    def unit(v):
+        length=math.sqrt(sum(t*t for t in v));return tuple(t/length for t in v)
+    def cross(a,b):return (a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0])
+    direction=unit(cam);right=unit(cross((0,0,1),direction));up=cross(direction,right)
+    delta=tuple(p-t for p,t in zip(point,target));scale=size[1]/(2*span)
+    return mapper(size[0]/2+sum(a*b for a,b in zip(delta,right))*scale,
+                  size[1]/2-sum(a*b for a,b in zip(delta,up))*scale)
+
 def arrow(x1,y1,x2,y2,color=CORAL,width=2.4,head=8):
     line(x1,y1,x2,y2,PALE,width+3)
     line(x1,y1,x2,y2,color,width)
@@ -153,7 +163,7 @@ for i,(s,t,bg,fg) in enumerate(rows):
     yy=y+41+i*29
     chip(s,x+193,yy,56,bg,fg);text(t,x+259,yy+3,11)
 para('<b>Faucet cable:</b> click its plug into the small square jack.',x+193,y+166,223,11.5,14.5,limit=43.5)
-para('<b>Remove the shipping caps.</b> Push every tube fully home, then tug gently. Either black tube fits either FLAVOR port.',x,y+209,416,12.8,16.5,limit=66)
+para('<b>Pull out the two shipping caps.</b> Push every tube fully home (a little over 1/2 in), then tug gently. Either black tube fits either FLAVOR port.',x,y+209,416,12.8,16.5,limit=49.5)
 para('Lay the filter flat. Leave the tubes long, with easy curves and the slack coiled.',x,y+265,416,12.5,16,limit=32)
 
 # The kitchen fork stays next to the water connection.
@@ -173,27 +183,44 @@ for n,title,xx in zip([4,5,6,7],['Connect the cylinder','Water, gas, then power'
     text(title,xx+35,533,19.5,'Bold','#ffffff')
     artfield(xx,567,w=306,h=161)
 
-# Art arrives as committed snapshots. The existing views make the first layout visible
-# while the new CAD scenes are being drawn in the same manual authoring session.
-def available(preferred,fallback):
-    return preferred if (ART/preferred).exists() else fallback
-
 x=36
-pic(available('co2-ready.png','regulator.png'),x+6,571,294,151)
+label('VALVE CLOSED',x+8,577,size=7)
+pic('co2-ready.png',x+3,592,130,130,crop=(80,0,1600,1500))
+line(x+143,577,x+143,718)
+label('HAND-TIGHTEN',x+158,577,size=7)
+p=pic('co2-ready.png',x+152,593,145,128,crop=(380,675,840,1260))
+arrow(*p(460,1100),*p(460,869),head=6)
+turn([p(587,1115),p(420,980),p(853,970),p(700,1106)],head=6)
 text('Keep the cylinder upright, with its valve closed.',x,742,12.6,'Bold','#ffffff')
 para('Hand-tighten the red tube\'s brass nut onto the regulator\'s bottom outlet. Keep the fitted regulator on the cylinder. If it has not been fitted and leak-checked, the refill shop can do that.',x,767,306,12.8,16.5,color='#ffffff',limit=115.5)
 
 x=366
-pic(available('power-ready.png','the-socket.png'),x+6,571,294,151)
-para('<b>Water:</b> open the shut-off slowly. Watch every water joint for a full minute.<br/><b>Gas:</b> open the cylinder and regulator outlet. Check the red line\'s connections; set the upper gauge in its green band.<br/><b>Power:</b> seat the cord in the top-left rear socket, then plug into grounded 120 V.',x,742,306,12.5,16.4,color='#ffffff',limit=147.6)
+label('POWER LAST',x+9,577,size=7)
+p=pic('power-ready.png',x+6,594,294,128,crop=(0,160,1800,1140))
+power_pose=((-0.85,1,.25),(58.9,501,320.2105808375568),64,(1800,1300))
+arrow(*projected(p,(66.9,525,336.21),*power_pose),*projected(p,(66.9,478,336.21),*power_pose),head=7)
+para('<b>Water:</b> open slowly. Watch every water joint for a full minute.<br/><b>Gas:</b> open the cylinder and the small regulator knob. Turn the big knob until the upper gauge reads in the green. Check the gas joints.<br/><b>Power:</b> seat the cord in the top-left rear socket, then plug into grounded 120 V. It chimes.',x,742,306,12.5,16.4,color='#ffffff',limit=147.6)
 
 x=696
-pic(available('fill-seated.png','bottle-in-funnel.png'),x+6,571,294,151)
+label('INVERT',x+9,577,size=7)
+label('LET DRAIN',x+164,577,size=7)
+p=pic('fill-ready.png',x+2,591,146,131,crop=(0,0,1600,1500))
+pic('fill-seated.png',x+158,591,146,131,crop=(0,0,1600,1500))
+fill_pose=((.65,-1,.5),(0,140,465),265)
+arrow(*projected(p,(60,156.5,469),*fill_pose),*projected(p,(60,156.5,364),*fill_pose),head=6)
 para('On the enclosure display, choose <b>FILL</b>, pick a flavor and press <b>Start.</b>',x,742,306,13,17,color='#ffffff',limit=51)
 para('Invert one whole <b>14.8 fl oz bottle</b> over the funnel. Let it drain; the appliance stops the fill itself. Repeat for the second flavor.',x,800,306,13,17,color='#ffffff',limit=85)
 
 x=1026
-pic(available('pour-running.png','faucet-side-pressed.png'),x+6,571,294,151)
+label('CHOOSE',x+9,577,size=7)
+label('PRESS',x+164,577,size=7)
+p=pic('pour-ready.png',x+2,591,146,131,crop=(0,0,1600,1500))
+q=pic('pour-running.png',x+158,591,146,131,crop=(0,0,1600,1500))
+pour_pose=((1,-1.8,.67),(0,-78,119),140)
+tap=projected(p,(0,-131.55,217.61),*pour_pose)
+arrow(tap[0]-25,tap[1]+7,tap[0]-1,tap[1]+1,head=6)
+press=projected(q,(0,-38,39),*pour_pose)
+arrow(press[0]+16,press[1]-24,press[0]+1,press[1]-1,head=6)
 text('Allow about an hour for the first chill.',x,742,13.2,'Bold','#ffffff')
 para('<b>Choose:</b> tap the faucet display to select a flavor. A dim screen takes one tap to wake.',x,771,306,13,17,color='#ffffff',limit=68)
 para('<b>Pour:</b> place a glass underneath and press the faucet lever. Release it to stop.',x,830,306,13,17,color='#ffffff',limit=51)
