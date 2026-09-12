@@ -1,7 +1,6 @@
 // Card grid for the four viewer pages. Path drives which section renders.
 // Model and chart cards lazy-load their thumbnails and open their detail modal.
-// Document cards link to PDFs and show committed covers. /drawings holds the
-// full document shelf; /3d shows the two quick start attempts above its parts.
+// Document cards link to PDFs and show committed covers on /drawings.
 //
 // /3d's parts stand in the machine's two units — contracts/parts-tree.js states
 // the tree, parts.js renders it, and everything below the two is reached by
@@ -127,10 +126,11 @@ function readableBytes(n) {
   return n >= 1024 * 1024 ? `${(n / (1024 * 1024)).toFixed(1)} MB` : `${Math.round(n / 1024)} KB`;
 }
 
-function buildDocumentsSection({ documents = state.documents, title = "Documents", className = "" } = {}) {
+function buildDocumentsSection() {
+  const documents = state.documents;
   const header = document.createElement("div");
   header.className = "section-header";
-  header.textContent = title;
+  header.textContent = "Documents";
   state.gridEl.appendChild(header);
 
   if (!documents || documents.length === 0) {
@@ -142,7 +142,7 @@ function buildDocumentsSection({ documents = state.documents, title = "Documents
   }
 
   const shelf = document.createElement("div");
-  shelf.className = `doc-shelf ${className}`.trim();
+  shelf.className = "doc-shelf";
   state.gridEl.appendChild(shelf);
 
   for (const doc of documents) {
@@ -182,12 +182,6 @@ export function buildGrid() {
   const section = currentSection();
 
   if (section === "parts") {
-    const attempts = state.documents.filter((doc) =>
-      doc.path === "quickstart-claude/quick-start-claude.pdf" ||
-      doc.path === "quickstart-codex/quick-start-codex.pdf");
-    if (attempts.length) {
-      buildDocumentsSection({ documents: attempts, title: "Quick start attempts", className: "quickstart-attempts" });
-    }
     // parts.js builds the parts section: it seats every CAD file the walkers offer, draws
     // the two roots it seated them into, and leaves the `.card[data-type="step"]
     // [data-file]` shells the window below and live.js select on. The seating that
