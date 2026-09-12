@@ -48,10 +48,10 @@ fails rather than letting it drift.
 
 | Joint | Cartridge end | Staying end | Exposed tube at fore stop | Air-filled by |
 |---|---|---|---|---|
-| `fluid-11` | pump A's suction barb | Y-C's branch collet | [9.0](LEN_11) mm | states 1 and 2 |
-| `fluid-12` | pump A's discharge barb | Y-D's branch collet | [9.0](LEN_12) mm | states 1 and 2 |
-| `fluid-21` | pump B's suction barb | Y-F's branch collet | [9.0](LEN_21) mm | states 3 and 4 |
-| `fluid-22` | pump B's discharge barb | Y-G's branch collet | [9.0](LEN_22) mm | states 3 and 4 |
+| `fluid-11` | pump A's suction barb | Y-C's branch collet | [7.5](LEN_11) mm | states 1 and 2 |
+| `fluid-12` | pump A's discharge barb | Y-D's branch collet | [7.5](LEN_12) mm | states 1 and 2 |
+| `fluid-21` | pump B's suction barb | Y-F's branch collet | [7.5](LEN_21) mm | states 3 and 4 |
+| `fluid-22` | pump B's discharge barb | Y-G's branch collet | [7.5](LEN_22) mm | states 3 and 4 |
 
 **Every joint that parts is one the dry cycle sweeps.** Each of the four stands between a pump
 and a tee on that pump's own channel, so either state that runs a pump carries air across both
@@ -163,7 +163,7 @@ each pump once the clamp is closed.
 **4. Land 1/4" OD LLDPE in the new heads** — the tube runs around the rotor, and the LLDPE goes
 **into the tube's own bore** at each of its two ends, not onto the moulded barb. Zip-tie the tube
 down onto the LLDPE at all [4](JOINT_COUNT_4) joints and leave each length standing aft off the
-face. After securing each pump-end joint, set its free tip [19.03 mm](TUBE_PROJECTION) beyond
+face. After securing each pump-end joint, set its free tip [17.53 mm](TUBE_PROJECTION) beyond
 the pump outlet tip; this includes the tee insertion and the final cartridge seating stroke.
 That LLDPE is what the plate's hole passes and the branch collet grips. **The zip tie is
 load-bearing here** — this joint takes the release tension when the cartridge is next drawn, so

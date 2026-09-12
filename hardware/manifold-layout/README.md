@@ -51,7 +51,7 @@ the pump's axis and draws the leaning tube each barb then needs to reach its tee
                           back   (every mouth)
 ```
 
-The lower deck's port axes sit at z [88.38](DECK_Z2), [15.75](DECK_GAP) mm over the pump heads'
+The lower deck's port axes sit at z [88.38](DECK_Z2), [14.25](DECK_GAP) mm over the pump heads'
 crowns; the folded deck's at z [147.78](UPPER_Z2). The two inner limbs leave
 [5.89](INNER_GAP) mm between their valve bodies across the mirror plane.
 
@@ -161,19 +161,19 @@ V-I-O and V-H-I for B — on the lower.
 
 ## Envelope
 
-[194](ENV_X) × [169](ENV_Y) × [244](ENV_Z) mm — [7.97](ENV_L) L of bounding box over the
+[194](ENV_X) × [169](ENV_Y) × [242](ENV_Z) mm — [7.93](ENV_L) L of bounding box over the
 bodies and the tube between them, with [0](CLASHES) pairs of placed solids sharing volume.
 Add one [14](STUB_LEN) mm mouth stub on each of the [8](MOUTH_COUNT2) and it is
-[194](REACH_X) × [169](REACH_Y) × [258](REACH_Z).
+[194](REACH_X) × [169](REACH_Y) × [256](REACH_Z).
 
 Two figures in [`manifold_layout.py`](manifold_layout.py) are the study's own rather than any
 part's. `BUTT` is the tube left outside a pair of butted quick-connects, and it is 0.
 
-`BARB_STANDOFF` is the [6.98](BARB_STANDOFF) mm pump-to-deck placement span, referenced
+`BARB_STANDOFF` is the [5.476](BARB_STANDOFF) mm pump-to-deck placement span, referenced
 to the extended branch nose at the nominal fore-deck plane. The pump station uses a
 [3](PUMP_DROP) mm downward world-Z datum, while the stationary manifold stands 2 mm above
 its nominal datum. The fitted pump outlets meet the tee plane. At the fore stop the sleeve
-is depressed and the exposed tube is [9.03](BARB_TUBE_LEN) mm from pump outlet to sleeve nose,
+is depressed and the exposed tube is [7.53](BARB_TUBE_LEN) mm from pump outlet to sleeve nose,
 with the cartridge 2.15 mm short of seating. The full tube projection includes its insertion
 to the internal body stop.
 Both pumps ride out of the box on their own pump cartridge and these four runs are what

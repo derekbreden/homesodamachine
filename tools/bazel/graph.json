@@ -259,7 +259,6 @@
       "hardware/printed-parts/cadlib/cable_clip.py",
       "hardware/printed-parts/cadlib/fits.py",
       "hardware/printed-parts/cadlib/flute_skin.py",
-      "hardware/printed-parts/cadlib/plan.py",
       "hardware/printed-parts/cadlib/reeding.py",
       "hardware/printed-parts/cadlib/snap.py",
       "hardware/printed-parts/cadlib/world_workplane.py",
@@ -313,7 +312,6 @@
       "hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
       "hardware/reference/lee-lcm060c12m/lee_lcm060c12m.py",
       "hardware/reference/meanwell-irm90/meanwell_irm90.py",
-      "hardware/reference/molex-micro-fit-4/molex_micro_fit_4.py",
       "hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
       "hardware/reference/multiplex-asse1022/multiplex_asse1022.py",
       "hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
@@ -536,7 +534,6 @@
       "hardware/printed-parts/cadlib/cable_clip.py",
       "hardware/printed-parts/cadlib/fits.py",
       "hardware/printed-parts/cadlib/flute_skin.py",
-      "hardware/printed-parts/cadlib/plan.py",
       "hardware/printed-parts/cadlib/reeding.py",
       "hardware/printed-parts/cadlib/snap.py",
       "hardware/printed-parts/cadlib/world_workplane.py",
@@ -589,7 +586,6 @@
       "hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
       "hardware/reference/lee-lcm060c12m/lee_lcm060c12m.py",
       "hardware/reference/meanwell-irm90/meanwell_irm90.py",
-      "hardware/reference/molex-micro-fit-4/molex_micro_fit_4.py",
       "hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
       "hardware/reference/multiplex-asse1022/multiplex_asse1022.py",
       "hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
@@ -2095,6 +2091,7 @@
       "hardware/assembly/cards/tools/out/bs-band-saw.png",
       "hardware/assembly/cards/tools/out/bz-braze-bench.png",
       "hardware/assembly/cards/tools/out/cr-crimp-bench.png",
+      "hardware/assembly/cards/tools/out/deck-tools.pdf",
       "hardware/assembly/cards/tools/out/dp-drill-press.png",
       "hardware/assembly/cards/tools/out/el-electrical-test.png",
       "hardware/assembly/cards/tools/out/hy-hydro-test.png",
@@ -4289,7 +4286,8 @@
     "writes": [
       "hardware/manifold-layout/README.figures.json",
       "hardware/manifold-layout/README.md",
-      "hardware/manifold-layout/manifold-layout.step"
+      "hardware/manifold-layout/manifold-layout.step",
+      "hardware/manifold-layout/manifold-layout.step.mesh"
     ]
   },
   "hardware/printed-parts/cold-core/_cold_core_interface.py": {

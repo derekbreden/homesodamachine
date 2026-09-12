@@ -4965,12 +4965,9 @@ def place_base(seated, names=()):
 # back. `manifold_layout.hairpin_flat` is why a route can do that at all, and
 # `manifold_layout.HAIRPIN_TILT` is the lane it spends doing it in.
 #
-# THE FIGURE: the pump heads ride ONE MILLIMETRE of air off `enclosure.pump_relief_floor`,
-# the pocket floor the pump cartridge's face carries them behind — the pass-by `pumps-in-bay`
-# reads off the placed heads. The decks stand aft of the heads by
-# `manifold_layout.BARB_STANDOFF` on top of what the fold asks, which is the collet
-# plate's whole berth; this figure carries the pumps, and the standoff sets everything
-# aft of their barbs.
+# This is the complete pack's depth datum. The pumps' fore/aft station within the pack is
+# `pump_station_lead`; the fitted cradle wells and clamp follow those head and boss stations.
+# The fixed tee deck remains on its release plane as that pump station changes.
 PACK_Y = 14.48
 
 

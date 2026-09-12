@@ -69,8 +69,8 @@ tube in both collets, there is none between them. The four anchor tees are the e
 stands 10 mm below its fore valve and the 12 mm of exposed LLDPE between them is laid in a bow.
 That flex joint lets the tee travel with the pump cartridge while the valve stays in its tray.
 `BARB_STANDOFF` locates the nominal fore deck relative to the pump outlet:
-`pump_station_lead` holds the moving pump end clear of the fixed
-plate-guide wall and `BARB_PLATE_BERTH` carries the collet plate that releases it. The fitted pump
+`pump_station_lead` sets the pump position relative to the fixed
+deck and `BARB_PLATE_BERTH` carries the release section's placement span. The fitted pump
 barb and carried tee share their tube-centre plane; `BARB_TUBE_LEN` is the exposed straight
 at the fore stop, ending on the fully depressed sleeve nose. A barb is not a quick-connect; the four runs off the barbs are what the pump
 cartridge releases against. The deck's height rides on the complete fore/aft projection one for
