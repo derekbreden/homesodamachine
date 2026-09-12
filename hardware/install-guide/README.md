@@ -65,6 +65,12 @@ geometry; where the tree's name is not a word the buyer can see, this guide uses
 "The back of the appliance" is the +Y wall of back-top, and a buyer holding the booklet against
 the machine can find it.
 
+**Figures are the buyer's.** The kitchen is a US kitchen, so a size is inches, feet, pounds,
+fluid ounces and PSI — `1-3/8 in`, `5 lb`, `90 PSI`, `8½ inches wide`. A metric figure appears
+only as a muted aside beside the inch figure it restates, where a bit, a label or the drawing
+carries it — `1-5/8 in <span class="muted">(40 mm)</span>` — and nothing on a leaf is stated
+in millimetres alone.
+
 ## Build
 
 From the repository root:
