@@ -7,6 +7,7 @@
 
 #include <Arduino.h>
 #include <Preferences.h>
+#include <esp_system.h>
 
 #include "weld_rotator_policy.h"
 
@@ -48,6 +49,24 @@ const char *directionName() {
     return clockwise ? "cw" : "ccw";
 }
 
+// Why this boot happened, as the chip recorded it.  An EN pulse and a true
+// power cycle both read as power-on; a supply dip reads as brownout.
+const char *resetReasonName() {
+    switch (esp_reset_reason()) {
+        case ESP_RST_POWERON: return "power-on or EN";
+        case ESP_RST_EXT: return "external";
+        case ESP_RST_SW: return "software";
+        case ESP_RST_PANIC: return "panic";
+        case ESP_RST_INT_WDT: return "interrupt watchdog";
+        case ESP_RST_TASK_WDT: return "task watchdog";
+        case ESP_RST_WDT: return "watchdog";
+        case ESP_RST_DEEPSLEEP: return "deep sleep";
+        case ESP_RST_BROWNOUT: return "brownout";
+        case ESP_RST_SDIO: return "sdio";
+        default: return "unknown";
+    }
+}
+
 void setDirectionOutput() {
     // `direction_inverted` is a commissioning correction for a winding or
     // viewpoint opposite the documented top-of-table direction.
@@ -76,11 +95,16 @@ void printStatus() {
     const float revolution_seconds =
         weld_rotator_policy::kBeadCircumferenceMm / travel_mm_per_s;
 
+    const uint32_t now_ms = millis();
     Serial.println("\n-- weld rotator --");
+    Serial.printf("  up         %.1f s since %s reset\n",
+                  now_ms / 1000.0f, resetReasonName());
     Serial.printf("  state      %s%s\n",
                   motion.running() ? "RUNNING" : (motion.armed() ? "ready" : "release pedal"),
                   step_line_active ? " (pulse active)" : "");
-    Serial.printf("  pedal      %s\n", stable_pedal_pressed ? "pressed" : "released");
+    Serial.printf("  pedal      %s for %.1f s\n",
+                  stable_pedal_pressed ? "pressed" : "released",
+                  (now_ms - raw_pedal_changed_ms) / 1000.0f);
     Serial.printf("  direction  %s%s\n", directionName(),
                   direction_inverted ? " (calibration inverted)" : "");
     Serial.printf("  speed      %.2f mm/s  %.3f table rpm  %.1f pulses/s\n",
