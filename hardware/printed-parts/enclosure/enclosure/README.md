@@ -1136,15 +1136,15 @@ there is no slanted substitute for it. It is continuous across the X−, Y− an
 [5 mm](PUMP_SKIRT_Y_MINUS_LAND) under Y−. The
 measured [54 mm](PUMP_SKIRT_BODY_Y) body has [0.15 mm](PUMP_SKIRT_XY_AIR) per-face clearance
 in a [54.3 mm](PUMP_SKIRT_OPEN_Y) Y opening, from y
-[17.133 mm](PUMP_SKIRT_BODY_Y_MINUS_EDGE) to y
-[71.433 mm](PUMP_SKIRT_BODY_Y_PLUS_EDGE). On Y+ the same land continues only between the two
+[18.637 mm](PUMP_SKIRT_BODY_Y_MINUS_EDGE) to y
+[72.937 mm](PUMP_SKIRT_BODY_Y_PLUS_EDGE). On Y+ the same land continues only between the two
 tube-casing passages. The skirt itself spans [62.5 mm](PUMP_SKIRT_Y), from y
-[12.115 mm](PUMP_SKIRT_Y_MINUS_EDGE) to y [74.615 mm](PUMP_SKIRT_Y_PLUS_EDGE); its opening ends
-at y [74.915 mm](PUMP_SKIRT_Y_PLUS_OPEN_EDGE), leaving
+[13.619 mm](PUMP_SKIRT_Y_MINUS_EDGE) to y [76.119 mm](PUMP_SKIRT_Y_PLUS_EDGE); its opening ends
+at y [76.419 mm](PUMP_SKIRT_Y_PLUS_OPEN_EDGE), leaving
 [0.3 mm](PUMP_SKIRT_Y_PLUS_AIR) around the skirt and
 [3.482 mm](PUMP_SKIRT_Y_PLUS_LAND) of supporting land back to the body opening. Behind
-that opening the cradle keeps [4.504 mm](PUMP_SKIRT_AFT_STOCK) of stock, at least the
-[3 mm](PUMP_SKIRT_UPPER_BAND) upper band that ends at y [77.915 mm](PUMP_SKIRT_UPPER_BAND_AFT),
+that opening the cradle keeps [3 mm](PUMP_SKIRT_AFT_STOCK) of stock, at least the
+[3 mm](PUMP_SKIRT_UPPER_BAND) upper band that ends at y [79.419 mm](PUMP_SKIRT_UPPER_BAND_AFT),
 and ends on the cartridge's flat back at y [79.419 mm](PUMP_CARTRIDGE_AFT_Y): the bay bulkhead
 less its [0.1 mm](CARTRIDGE_BULKHEAD_KISS) kiss, the plane the clamp ends on too.
 
@@ -1184,7 +1184,7 @@ printed wall remains between and outside the passages. The full-width upper well
 at the bulkhead face, y [79.519 mm](PUMP_UPPER_WELL_AFT). The cradle and clamp have flat
 aft faces beside these openings.
 
-The four short barb runs retain [1.28 mm](PUMP_STATION_LEAD) of moving-end lead before the
+The pump outlet planes stand [2.205 mm](PUMP_OUTLET_BULKHEAD_AIR) fore of the
 bulkhead. The show face shares the fixed front plane at [0 mm](PUMP_FACE_OFFSET) offset and
 stands one flute depth ahead of the pump-pocket datum. The pump wells and their Y+ edge occupy
 the complete flavour pack's common station.
@@ -1336,9 +1336,8 @@ side face, from the floor's own top at z [165.365 mm](PUMP_BAY_FLOOR_Z) to the f
 [7.2 mm](PUMP_MOTOR_LINTEL_AIR) over the installed motor crowns. The flat sill runs wall to
 wall; the lintel carries the facet and the display on a stated ligament.
 The removable shell follows the enclosure's rounded plan with its front plane flush at
-[0 mm](PUMP_FACE_OFFSET) offset. The moving pump ends keep their
-[1.28 mm](PUMP_STATION_LEAD) lead over the fixed tee deck, and the filled block behind the
-face reaches both cavity planes.
+[0 mm](PUMP_FACE_OFFSET) offset. The filled block behind the face reaches both cavity planes;
+its fitted head wells and upper clamp wells follow the installed pump stations.
 Front-bottom's front lip drops across the whole flat span
 (`_front_flat_lip_drop`) — the floor stands in that band and the heads run down through
 it — and the front wall below keeps its single `front_wall` section from slab to seam.
@@ -1346,18 +1345,15 @@ The face keeps [0.5 mm](PUMP_CARTRIDGE_Z_CLEARANCE) of Z clearance over the rece
 sill and 1 mm below the lintel. Its complete front, rounded corners and exterior flanks stand plumb
 between those two flat gaps with no taper.
 
-**The fixed front wall is [9 mm](FRONT_WALL) thick and grows inward.** The complete flavour
-pack stands far enough aft for the removable pump face to share that plane while keeping
-[5.1 mm](PUMP_FACE_SKIN) of smooth stock over each lower head relief. Over the upper insertion
-wells the cut reaches forward to leave [4.2 mm](PUMP_UPPER_SMOOTH_SKIN) of smooth section; the
-same uninterrupted full-depth flute field as the enclosure leaves exactly
-[3 mm](PUMP_UPPER_FLUTED_SKIN) of finished printable backing, the
-[3 mm](PUMP_FACE_BACKING) front-face minimum. What
-noses into the section gets a 45°-chamfered relief (`_front_relief_cuts`): two stated
-compressor pockets following the mounting plate's front strip and the power box, both floored
-on the can's own kiss, and one pocket per pump in the
-lower cradle's face, floored where the pump head and bracket insertion well puts its root
-(`pump_relief_floor`). The compressor is the only body in the compressor bay
+**The fixed front wall is [9 mm](FRONT_WALL) thick and grows inward.** The removable pump
+face shares its exterior plane. The fitted lower head wells leave at least
+[8.609 mm](PUMP_FACE_SKIN) of smooth stock ahead of them. The upper insertion wells end
+on one flat plane, 0.2 mm ahead of the clamp, leaving
+[5.809 mm](PUMP_UPPER_SMOOTH_SKIN) of smooth section and
+[4.609 mm](PUMP_UPPER_FLUTED_SKIN) behind the deepest flutes.
+Both lower wells follow the pump stations, including their skirt lands and fitting passages.
+The fixed wall's two 45°-chamfered compressor reliefs (`_front_relief_cuts`) follow the
+mounting plate's front strip and power box. The compressor is the only body in the compressor bay
 standing fore of the wall's interior plane — the condenser bears on that plane through
 its rails and the fuse clamp stands clear behind it — so the wall keeps its full section
 across the rest of the front. `box-front` reads every placed body against the relieved
@@ -1379,8 +1375,8 @@ Z− plane, with no shallow pocket ceiling or narrow perimeter foot. Above that 
 case-derived octagon engages the white boss over its complete run and the shoulder surrounds
 the can. Thus the cradle takes weight, the clamp prevents lift, and the octagon fixes X, Y and
 yaw. With the cartridge withdrawn, the clamp's vertical path keeps
-[4.305 mm](CLAMP_FRONT_SKIN) of smooth cradle skin ahead of its fore face. A
-[9.414 mm](CLAMP_AFT_WALL) wall remains aft of each octagon to locate the boss
+[5.809 mm](CLAMP_FRONT_SKIN) of smooth cradle skin ahead of its fore face. A
+[7.91 mm](CLAMP_AFT_WALL) wall remains aft of each octagon to locate the boss
 against +Y.
 
 **Two M3 close one clamp onto one cradle.** Both screw heads sit in counterbores in the crown,

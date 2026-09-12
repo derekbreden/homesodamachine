@@ -617,7 +617,7 @@ def sub_assemblies(m: Machine):
         "PUMP_BRACKET": f"{2 * _tray.bracket_half:.4g} mm",
         "PUMP_HEAD_W": f"{2 * _tray.head_half:.4g} mm",
         "SA09_CAP_SCREWS": f"{len(_enc.cap_screw_ys(m.box.inner, m.box.collet_plate))}",
-        "SA09_CAP_SCREW": f"M3 {X} {_enc.screw_len:.4g}",
+        "SA09_CAP_SCREW": f"M3 {X} {_enc.cap_screw_len:.4g}",
         # And what it leaves the bench holding out in the air, and how far that stands.
         "SA09_STUBS": f"{len(cart_stubs)}",
         "SA09_STUB_STAND": f"{stands.pop():.4g} mm",

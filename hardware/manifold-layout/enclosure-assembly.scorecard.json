@@ -820,12 +820,10 @@
    "id": "wedge-fills",
    "label": "Every print-down slope on a ceiling-down piece has its stated carry",
    "kind": "goal",
-   "status": "fail",
-   "value": "40 print-down slope(s): 28 under a body, 2 within 1 mm of one, 9 in a kept room, 1 could be columns",
+   "status": "pass",
+   "value": "39 print-down slope(s): 27 under a body, 3 within 1 mm of one, 9 in a kept room, 0 could be columns",
    "target": "no unaccounted slope a column could replace, and every named room standing",
-   "detail": [
-    "enclosure-back-top: a 45\u00b0 face at x -98.50..-95.50 y 443.00..456.06 z 302.61..305.61: a column of 1264 mm\u00b3 rising 37.4 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.707 y=0.000 z=0.707 \u00b7 thru x=-96.948 y=448.871 z=304.059\nclick: x=-96.948 y=448.871 z=304.059"
-   ],
+   "detail": [],
    "active": false
   },
   {
@@ -1075,26 +1073,6 @@
    "status": "pass",
    "value": "brim front at y 70.00, facet arris at 66.87",
    "target": "a 3 mm landing, so at or aft of 69.87",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "ceiling-show-cap",
-   "label": "The ceiling slab keeps a complete exterior wall over its whole field",
-   "kind": "gate",
-   "status": "pass",
-   "value": "3 mm cap; missing 0.0000 mm\u00b3",
-   "target": "a complete wall over the field, the funnel's own plan excepted",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "pieces-in-silhouette",
-   "label": "Every quadrant lies inside the appliance's own exterior",
-   "kind": "gate",
-   "status": "pass",
-   "value": "all four inside `outer`",
-   "target": "no face past the box's exterior on any axis",
    "detail": [],
    "active": true
   },
