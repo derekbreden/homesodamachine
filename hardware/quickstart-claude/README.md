@@ -35,7 +35,7 @@ What stands as it stands:
 |---|---|
 | `quick-start-claude.html` | The sheet. |
 | `style.css` | The page system. 5700 x 3900 px = 19 x 13 in at 300 dpi. |
-| `art/*.png` | The scenes, copied from the wordless sheet's renders on the day this was drawn. |
+| `art/*.png` | The scenes, copied from the wordless sheet's renders on the day this was drawn; the valve pair is cropped to the valve. |
 | `quick-start-claude.pdf` | The bound sheet. |
 | `quick-start-claude.cover.png` | The cover the drawings shelf shows. |
 | `quick-start-claude.pdf.json` | The sidecar `web/lib/walk.js` finds the PDF through. |
