@@ -684,7 +684,8 @@ all interface islands and both plate and CAD coordinates. The ledger supplies th
 for each connected body that remains.
 
 **The six enclosure pieces and both carrier halves are audited.** The six enclosure 3MF
-snapshots are retained only in Git history — five at `aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a` and
+snapshots are retained only in Git history — four at `aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a`,
+the pump cap's crown-down project at `b4e181bee752bebaddc24d5e620fd7f8144129bd` and
 back-top's ceiling-down project at `366d54ba040ecc7f1465c200e63e52410ffc0d4c`; they
 are evidence inputs rather than current files in this directory. Each carrier half is sliced
 through the front-top project's production settings with its own current mesh. No piece is re-oriented to be
@@ -692,14 +693,15 @@ read: each enclosure piece beds on the face its own relief scheme is struck on �
 the ceiling's show face on back-top (`enclosure.print_up`), whose project carries that half
 turn in its build item. `enclosure-front-bottom-petgf.3mf` and `enclosure-back-bottom-petgf.3mf` carry the PET-GF15
 exterior settings of `enclosure-front-top-petgf.3mf` around their own mesh — the same clones
-`enclosure-pump-cap-petgf.3mf` and `enclosure-pump-cartridge-petgf.3mf` are.
-`enclosure-back-top-petgf.3mf` is the one piece on its own 0.24 mm process, and the one whose build item carries a half turn about X. What BambuStudio
+`enclosure-pump-cap-petgf.3mf` and `enclosure-pump-cartridge-petgf.3mf` are; the pump cap's
+build item carries a half turn about X, the crown on the bed.
+`enclosure-back-top-petgf.3mf` is the one piece on its own 0.24 mm process, and the other whose build item carries a half turn about X. What BambuStudio
 02.08.02.61 emits after substituting the current meshes into those history snapshots:
 
 | piece | bodies | interface islands | root | shortest build-up |
 |---|---|---|---|---|
 | `enclosure-pump-cartridge` | 2 | 2 | bed | 51.00 mm |
-| `enclosure-pump-cap` | 2 | 2 | bed | 18.40 mm |
+| `enclosure-pump-cap` | 2 | 2 | bed | 8.80 mm |
 | `enclosure-front-top` | 2 | 15 | bed | 32.60 mm |
 | `enclosure-tee-carrier-left` | 3 | 3 | bed | 3.00 mm |
 | `enclosure-tee-carrier-right` | 3 | 3 | bed | 3.00 mm |
@@ -708,9 +710,11 @@ exterior settings of `enclosure-front-top-petgf.3mf` around their own mesh — t
 | `enclosure-back-top` | 12 | 35 | 5 bed, **7 model** | **1.20 mm** |
 
 `enclosure-pump-cartridge` has two bed-rooted bodies, one under each flat pull roof. Each
-reaches one interface after **51.00 mm** and leaves directly through its open side pocket. On
-the pump cap and front-top, every body roots on the print bed and stands 18 mm or more before
-it touches the model. Front-top has one tree under the pump-bay lintel and one joining
+reaches one interface after **51.00 mm** and leaves directly through its open side pocket.
+`enclosure-pump-cap` prints on its crown and has two bed-rooted bodies, one standing in each
+clamp-screw counterbore under its head seat after **8.80 mm**; each leaves through the
+counterbore's mouth on the bed face. On front-top every body roots on the print bed and stands
+32 mm or more before it touches the model. Front-top has one tree under the pump-bay lintel and one joining
 both spring bores, the upper web bearings, both grip guides and retaining-rim recesses,
 all four well crowns and the pump-jack roof.
 Remove those branches through the empty cartridge bay, tee wells and aft carrier recess
@@ -1400,8 +1404,9 @@ The pump wells remain open above. **The top clamp prints on its crown** (`print_
 `pump-cap`): its two boss-to-can shoulders look print-up and carry themselves, the boss
 octagons open upward through the pressing face and the can bores run straight to the bed, so
 no support reaches the field. What looks down is each head seat, a bridge one counterbore wide
-over its own clearance bore; the counterbores open on the bed, and the pressing face is the
-print's top surface.
+over its own clearance bore; the production slice stands one 8.8 mm tree in each counterbore
+under it, which leaves through the counterbore's mouth on the bed face. The pressing face is
+the print's top surface.
 
 ## Display housing
 
