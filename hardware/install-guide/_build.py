@@ -105,12 +105,23 @@ PAGE_ASSETS = (
     PLUMBING_ART / "plumbing-valve-off.png",
     PLUMBING_ART / "plumbing-pre-tee.png",
     PLUMBING_ART / "plumbing-tee-installed.png",
+    OWN_ART / "bottle-in-funnel.png",
     OWN_ART / "cabinet-plan.png",
     OWN_ART / "collet-press.png",
     OWN_ART / "filter-in-cabinet.png",
+    OWN_ART / "kitchen-hose.png",
+    OWN_ART / "kitchen-push.png",
+    OWN_ART / "nameplate.png",
     OWN_ART / "opening.png",
+    OWN_ART / "plate-sideways.png",
+    OWN_ART / "regulator.png",
+    OWN_ART / "stop-closed.png",
+    OWN_ART / "stop-open.png",
+    OWN_ART / "tee-after.png",
+    OWN_ART / "tee-before.png",
     OWN_ART / "the-back-face.png",
     OWN_ART / "the-socket.png",
+    OWN_ART / "two-tees.png",
 )
 
 
