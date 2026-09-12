@@ -586,9 +586,9 @@
           "first_contacts_cad_xyz_mm": [
             [
               -107.8,
-              4.625,
+              5.025,
               282.8,
-              107.4,
+              107.8,
               79.025,
               283.2
             ]
@@ -600,7 +600,7 @@
         },
         {
           "tree": "tree-2",
-          "name": "spring bores, carrier bearings and recesses, hardware well crowns and pump-jack roof",
+          "name": "spring bores, carrier bearings, hardware well crowns and pump-jack roof",
           "first_contacts_cad_xyz_mm": [
             [
               -51.4,
@@ -622,7 +622,7 @@
               -65.4,
               99.025,
               219.8,
-              -29.0,
+              -29.4,
               117.025,
               220.2
             ],
@@ -636,47 +636,31 @@
             ],
             [
               29.4,
-              99.025,
+              98.625,
               219.8,
-              65.4,
+              65.8,
               117.025,
               220.2
             ],
             [
               -107.4,
               95.425,
-              222.8,
+              227.2,
               -103.8,
               137.825,
-              223.2
-            ],
-            [
-              103.8,
-              95.425,
-              222.8,
-              107.8,
-              137.825,
-              223.2
+              227.6
             ],
             [
               -103.8,
               89.825,
-              226.0,
+              230.4,
               -87.8,
               167.025,
-              226.4
-            ],
-            [
-              87.8,
-              89.825,
-              226.0,
-              103.8,
-              167.025,
-              226.4
+              230.8
             ],
             [
               -88.6,
-              93.425,
+              93.025,
               232.0,
               -66.2,
               97.825,
@@ -692,17 +676,9 @@
             ],
             [
               11.4,
-              93.025,
+              93.425,
               232.0,
               29.0,
-              97.425,
-              232.4
-            ],
-            [
-              66.2,
-              93.025,
-              232.0,
-              88.6,
               97.425,
               232.4
             ],
@@ -717,8 +693,42 @@
           ],
           "root": "bed",
           "build_up_mm": 32.6,
-          "interface_islands": 14,
+          "interface_islands": 11,
           "rationale": "The round bores guide both return springs. The flat upper web bearings and both flank recess ceilings guide and capture the carrier. The four hardware well crowns join the valve tray, and the keyed jack roof seats its plug. This connected support is accessible through the empty cartridge bay, flank openings, aft recess and tee wells before hardware is installed."
+        },
+        {
+          "tree": "tree-3",
+          "name": "carrier guide-opening and retaining-rim recess ceilings",
+          "first_contacts_cad_xyz_mm": [
+            [
+              103.8,
+              95.425,
+              227.2,
+              107.8,
+              137.825,
+              227.6
+            ],
+            [
+              87.8,
+              89.825,
+              230.4,
+              103.8,
+              167.025,
+              230.8
+            ],
+            [
+              66.2,
+              93.425,
+              232.0,
+              88.6,
+              97.825,
+              232.4
+            ]
+          ],
+          "root": "bed",
+          "build_up_mm": 67.0,
+          "interface_islands": 3,
+          "rationale": "The flat ceilings carry the moving grip's retaining rim and close its guide opening; both are bearing faces of the carrier's Y travel. The tree roots on the bed inside the open recess and leaves through the empty cartridge bay before the carrier halves enter."
         }
       ]
     },

@@ -36,13 +36,13 @@ click: x=0.000 y=91.694 z=308.895
 
 [ceiling] Upper sliding face of the rectangular carrier guide. It spans the opening and locates the handhold throughout its Y stroke, with 0.15 mm running clearance above the body. Removable support is accessible through the flank opening.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-106.000 y=116.543 z=223.395
-click: x=106.000 y=116.543 z=223.395
+click: x=-106.000 y=116.543 z=227.865
+click: x=106.000 y=116.543 z=227.865
 
 [ceiling] Flat ceiling of the internal grip recess. It carries the hidden retaining rim with 0.15 mm running clearance and continues to the aft valve tray's fore plane for inside-out loading. The enclosing stock keeps a broad, continuous section above the rim; support is removed through the open internal recess before hardware installation. The current production slice records both contact regions in the support ledger.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-95.748 y=128.364 z=226.545
-click: x=95.748 y=128.364 z=226.545
+click: x=-95.748 y=128.364 z=231.015
+click: x=95.748 y=128.364 z=231.015
 
 [ceiling] The upper web-bearing lands share one plane 0.15 mm above the carrier. They retain the moving web through the complete stroke and join the filled body and flank guides. Their undersides keep the flat running face; removable support is accessible through the open aft bay before assembly.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
