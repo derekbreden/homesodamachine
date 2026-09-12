@@ -102,4 +102,5 @@ pio run -e weld_rotator
 ```
 
 Building opens no serial port. Upload only after the wiring is metered with the
-24 V adapter unplugged; the host's USB powers the board during upload.
+24 V adapter unplugged; the host's USB powers the board during upload. With the
+pedal held, the DevKitC's power LED stays lit and the console prints `RUN`.
