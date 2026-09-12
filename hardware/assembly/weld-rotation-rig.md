@@ -216,7 +216,10 @@ The pedal is a dry contact on 3.3 V, not a motor-power switch. Twist its `COM`
 and `NO` conductors together; the external 4.7 kΩ pull-up gives the long bench
 lead a firm released state in the welder's electrical environment. Opening the
 contact always stops new pulses. The controller also refuses motion at boot
-until it has observed the pedal released.
+until it has observed the pedal released. The pedal's WAGO holds GPIO27, one
+resistor lead and `NO`, and nothing else; the other lead meets 3V3 in its own
+WAGO. With the board on the host's USB and the pedal held, the DevKitC's power
+LED stays lit and the console prints `RUN`.
 
 ## Stored controls
 
