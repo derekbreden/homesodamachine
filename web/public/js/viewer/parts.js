@@ -1,11 +1,12 @@
-// The /3d grid: the machine's two units, one thumbnail each.
+// The /3d parts section: the machine's two units, one thumbnail each.
+// grid.js places the quick start PDF comparison shelf above this section.
 //
 // A card draws the model it opens (grid.js's paintStepThumb), so what is on the
 // card and what is behind it are one read of one file.
 //
 // contracts/parts-tree.js states the tree — imported here over the URL the server
 // serves it at and by path on the Node side, one file either way. Each root is one
-// card, and the card opens that assembly in the detail modal. EVERYTHING ELSE IS
+// card, and the card opens that assembly in the detail modal. EVERY OTHER PART IS
 // REACHED BY OPENING IT: arm Select → Component, click a solid, take the file the
 // panel offers. That includes the cold core, which is one component of the
 // enclosure and an assembly in its own right — so the page has no third card for

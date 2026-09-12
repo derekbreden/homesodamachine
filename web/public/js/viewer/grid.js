@@ -1,8 +1,7 @@
-// Card grid for the four viewer pages. Path drives which section renders. Each
-// card lazy-loads its thumbnail via IntersectionObserver and opens its detail
-// surface (CAD modal or Mermaid modal) on click. /drawings is the exception —
-// its cards are documents, which are files rather than things this page draws,
-// so they are anchors with a committed cover and nothing to mount.
+// Card grid for the four viewer pages. Path drives which section renders.
+// Model and chart cards lazy-load their thumbnails and open their detail modal.
+// Document cards link to PDFs and show committed covers. /drawings holds the
+// full document shelf; /3d shows the two quick start attempts above its parts.
 //
 // /3d's parts stand in the machine's two units — contracts/parts-tree.js states
 // the tree, parts.js renders it, and everything below the two is reached by
@@ -189,7 +188,7 @@ export function buildGrid() {
     if (attempts.length) {
       buildDocumentsSection({ documents: attempts, title: "Quick start attempts", className: "quickstart-attempts" });
     }
-    // parts.js does the whole build: it seats every file the walkers offer, draws
+    // parts.js builds the parts section: it seats every CAD file the walkers offer, draws
     // the two roots it seated them into, and leaves the `.card[data-type="step"]
     // [data-file]` shells the window below and live.js select on. The seating that
     // is not those two roots is read by the gate — a directory nothing claims is
