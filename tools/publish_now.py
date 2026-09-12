@@ -237,17 +237,23 @@ def publish() -> int:
     reason, targets = owed()
     if reason:
         enclosure_action, _piece_payloads = enclosure_release_plan(targets)
-        if enclosure_action == "defer":
+        if enclosure_action == "defer" and not bytes_drifted():
+            # SOURCE IS NOT A CUT, and a tree whose solids are the ones the lock names has no
+            # bytes to publish for it; the runner reconciles the source. A solid that did move —
+            # a booklet rebound, a part recut beside an unmoved enclosure — goes up as it stands.
             try:
                 base = json.loads(
                     (ROOT / "hardware/cad-artifacts.lock.json").read_text()
                 ).get("source", {}).get("commit", "")
             except (OSError, ValueError):
                 base = ""
-            print("  enclosure source is owed, but no changed piece payload is held; "
-                  "publishing nothing")
+            print("  enclosure source is owed, but no changed piece payload is held and no "
+                  "solid moved; publishing nothing")
             print(f"  source debt remains against {base[:12] or 'the existing lock'}")
             return 0
+        if enclosure_action == "defer":
+            print("  enclosure source is owed and no piece payload moved; the enclosure goes up "
+                  "as it stands, with the solids that did move")
         if enclosure_action == "graft":
             # WHAT IS HELD IS PUBLISHED, refreshed as far as the refresh got. A host the refresh
             # could not touch goes up as it stands and says so; the runner's next cut replaces it.
