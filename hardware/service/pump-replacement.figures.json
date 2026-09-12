@@ -15,10 +15,10 @@
     "JOINT_COUNT_2": "4",
     "JOINT_COUNT_3": "4",
     "JOINT_COUNT_4": "4",
-    "LEN_11": "9.0",
-    "LEN_12": "9.0",
-    "LEN_21": "9.0",
-    "LEN_22": "9.0",
+    "LEN_11": "7.5",
+    "LEN_12": "7.5",
+    "LEN_21": "7.5",
+    "LEN_22": "7.5",
     "MOVING_HAIRPINS": "4",
     "PARK_OFFSET": "+2.15",
     "PLATE_SPAN": "209",
@@ -34,6 +34,6 @@
     "TIES_PER_TEE": "2",
     "TRAY_VALVES": "8",
     "TUBE_OD": "6.35 mm",
-    "TUBE_PROJECTION": "19.03 mm"
+    "TUBE_PROJECTION": "17.53 mm"
   }
 }

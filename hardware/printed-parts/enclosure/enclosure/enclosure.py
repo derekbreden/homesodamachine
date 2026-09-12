@@ -1599,7 +1599,6 @@ clamp_lane_overlap = 2.0     # the cradle's centre clearance into each upper wel
                              # and the two wells read as one opening for the clamp's spine
 clamp_drop_air = 0.2         # clamp footprint and bracket air through the cradle well
 clamp_pump_y_shift = _tray.rear_axis_y_shift  # rear-stack openings off the head/cradle datum
-pump_face_backing = wall     # least printed stock behind the deepest front-face flute
 
 # --- THE HAND PULLS ONLY THE LOWER CRADLE -----------------------------------
 #
@@ -4822,20 +4821,14 @@ def _pump_upper_x_span(cx):
 
 
 def _pump_front_smooth_skin(pump_trays):
-    """Smooth stock between the flush face and the upper insertion wells.
-
-    The cut reaches forward far enough to leave exactly ``pump_face_backing`` behind the
-    deepest flute. The pump-derived well may already reach farther forward, in which case it
-    remains the controlling face."""
+    """Smooth stock between the flush face and the clamp's upper insertion wells."""
     return _pump_upper_well_fore_y(pump_trays) - pump_cartridge_front_y
 
 
 def _pump_upper_well_fore_y(pump_trays):
-    """The Y− plane of the upper insertion well, including the front-face minimum stock."""
-    pump_fore = (min(cy - _tray.half_width() for _cx, cy, _cz in pump_trays)
-                 - clamp_drop_air)
-    backing_fore = pump_cartridge_front_y + flute_depth + pump_face_backing
-    return min(pump_fore, backing_fore)
+    """The upper well's flat fore face, one running clearance ahead of the clamp."""
+    return (min(cy - _tray.half_width() for _cx, cy, _cz in pump_trays)
+            - clamp_drop_air)
 
 
 def _pump_upper_well_aft_y(plate):
@@ -5382,6 +5375,12 @@ def _outlet_under_tangent_wedges(cx, cy, cz):
     return out
 
 
+def _pump_lower_well(pump_trays):
+    """One fitted lower head well, in the pump frame, with its skirt support clearance."""
+    support_top = pump_skirt_support_z(pump_trays) - min(cz for _cx, _cy, cz in pump_trays)
+    return _tray.drop_well(cap_pump_air, support_top=support_top).val()
+
+
 def _pump_drop_voids(box):
     """The two straight Z insertion wells through the lower cradle.
 
@@ -5407,8 +5406,7 @@ def _pump_drop_voids(box):
     trays, plate = box.pack.pump_trays, box.pack.collet_plate
     drop_start = cap_drop_start_z(trays)
     top = box.pump_bay[2] + 1.0
-    support_top = pump_skirt_support_z(trays) - min(cz for _cx, _cy, cz in trays)
-    lower_source = _tray.drop_well(cap_pump_air, support_top=support_top).val()
+    lower_source = _pump_lower_well(trays)
     out = []
     for cx, cy, cz in trays:
         lower = lower_source.moved(cq.Location(cq.Vector(cx, cy, cz)))
@@ -5635,8 +5633,9 @@ def pump_cartridge_figures(box):
         "PUMP_FACE_OFFSET": f"{(box.outer[2] - pump_cartridge_front_y):.4g} mm",
         "PUMP_STATION_LEAD": f"{pump_station_lead:.4g} mm",
         "PUMP_SHOW_GROWTH": f"{pump_show_growth:.4g} mm",
-        "PUMP_FACE_SKIN": f"{(pump_relief_floor - pump_cartridge_front_y):.4g} mm",
-        "PUMP_FACE_BACKING": f"{pump_face_backing:.4g} mm",
+        "PUMP_FACE_SKIN": f"{(min(cy for _cx, cy, _cz in trays) + _pump_lower_well(trays).BoundingBox().ymin - pump_cartridge_front_y):.4g} mm",
+        "PUMP_OUTLET_BULKHEAD_AIR": f"{(bay_back_y(plate) - max(cy + _tray.head_half for _cx, cy, _cz in trays)):.4g} mm",
+        "PUMP_FACE_BACKING": f"{(_pump_front_smooth_skin(trays) - flute_depth):.4g} mm",
         "PUMP_UPPER_SMOOTH_SKIN": f"{_pump_front_smooth_skin(trays):.4g} mm",
         "PUMP_UPPER_FLUTED_SKIN": f"{(_pump_front_smooth_skin(trays) - flute_depth):.4g} mm",
         "PUMP_UPPER_WELL_AFT": f"{_pump_upper_well_aft_y(plate):.6g} mm",

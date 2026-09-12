@@ -16,13 +16,10 @@ import fits  # noqa: E402
 wall = 3.0
 rear_seam_clear = 3.0
 
-# THE MOVING PUMP ENDS' FORE/AFT LEAD OVER THE FIXED TEE DECK. The four short barb tubes spend
-# this first, then `manifold_layout.BARB_PLATE_BERTH` on the collet plate and its working airs.
-# With the measured 54 mm pump body and its three-millimetre Y+ skirt band, this lead leaves the
-# physical skirt 0.30 mm fore of the fixed plate-guide wall and the cradle 0.20 mm fore of the
-# plate. The enclosure's front wall wraps out to the cartridge's show face; this is an internal
-# pump-to-deck figure, not an exterior protrusion.
-pump_station_lead = 1.28
+# Signed pump-to-deck offset. The manifold subtracts it from the pump-outlet station and adds
+# it to the placement span, leaving the fixed tee deck on its own plane. The pump skirt's
+# slipped opening leaves 3 mm of cradle behind it at the common cartridge back.
+pump_station_lead = -0.224
 
 # THE PUMPS' VERTICAL SERVICE DATUM. In `manifold_layout`'s authored frame the pump depth axis
 # is Y; `enclosure_assembly` stands that axis on world Z. This shift therefore moves only the
