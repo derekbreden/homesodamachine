@@ -67,8 +67,8 @@
     },
     {
       "check": "tools/bazel/check_build_file.py",
-      "note": "tools/cad-venv/bin/python tools/bazel/gen_build.py",
-      "status": "red"
+      "note": "check_build_file: BUILD.bazel is what the graph writes; 3MFs are build-inert",
+      "status": "ok"
     },
     {
       "check": "tools/bazel/check_ci_targets.py",
@@ -82,22 +82,15 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 1 of 3 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 374 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 1 of 2 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 374 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds d7d92cf883d81f89388aead05e5359a7 for the 127 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 445d14513216a1355a3ee8a51b195e5b here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was taken from a different tree — it holds d7d92cf883d81f89388aead05e5359a7 for the 126 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 445d14513216a1355a3ee8a51b195e5b here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
-    ],
-    "tools/bazel/check_build_file.py": [
-      "BUILD.bazel is not what the graph would write now:",
-      "  3 declared read(s) across 3 generator(s) name a file",
-      "    the tree does not hold and no rule writes — hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.lint-answers, read by render_scene_cards.py,",
-      "    among them. Drop the read if what wrote it is gone, or declare the writer.",
-      "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
     ]
   },
   "green": false
