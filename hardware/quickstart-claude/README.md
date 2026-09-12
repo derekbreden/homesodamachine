@@ -1,10 +1,11 @@
 # Quick start with words · Claude
 
-One single-sided, borderless 19 x 13 in sheet, the six install actions with a sentence or two
-beside each, published as `quick-start-claude.pdf` on
-[homesodamachine.com/drawings](https://homesodamachine.com/drawings). It stands beside the
-wordless [quick start](/hardware/quickstart/README.md) as a second attempt at the same sheet,
-and beside `hardware/quickstart-codex/`, a third drawn the same day by another agent.
+One single-sided, borderless 19 x 13 in sheet: the six install actions and the four that stand
+between the last push and the first glass, a sentence or two beside each, published as
+`quick-start-claude.pdf` on [homesodamachine.com/drawings](https://homesodamachine.com/drawings).
+It stands beside the wordless [quick start](/hardware/quickstart/README.md) as a second attempt
+at the same sheet, and beside `hardware/quickstart-codex/`, a third drawn the same day by
+another agent.
 
 The palette, type, numerals and motion cues are the wordless sheet's, unchanged; the words are
 the [install guide](/hardware/install-guide/README.md)'s, cut to what a person propping the sheet
@@ -19,10 +20,11 @@ publish for a sheet that is not the shipped one.
 
 What stands as it stands:
 
-- The binder lives under `tools/` —
+- Both scripts live under `tools/` —
+  [`art.py`](/tools/quickstart-claude/art.py) draws the first-glass scenes,
   [`build.py`](/tools/quickstart-claude/build.py) renders the page and binds the PDF.
   `tools/bazel/trace_inputs.py` names `tools/` in `ELSEWHERE`.
-- It keeps no `note_read` / `note_write` bookkeeping.
+- Neither keeps `note_read` / `note_write` bookkeeping.
 - `art/*.png`, `quick-start-claude.pdf`, its cover and its `.pdf.json` are in the git index.
   This directory is absent from `pack.py`'s `BUNDLED_ART_DIRS`; `out/` is in its
   `NOT_BUNDLED_DIRS`, in `.gitignore`, and in `web/contracts/parts-tree.js`'s `EXCLUDED_DIRS`.
@@ -35,7 +37,7 @@ What stands as it stands:
 |---|---|
 | `quick-start-claude.html` | The sheet. |
 | `style.css` | The page system. 5700 x 3900 px = 19 x 13 in at 300 dpi. |
-| `art/*.png` | The scenes, copied from the wordless sheet's renders on the day this was drawn; the valve pair is cropped to the valve. |
+| `art/*.png` | Steps 1–6: the wordless sheet's renders, copied the day this was drawn and cropped to their subjects. Steps 7–10: registered pairs `art.py` composes off the same solids. |
 | `quick-start-claude.pdf` | The bound sheet. |
 | `quick-start-claude.cover.png` | The cover the drawings shelf shows. |
 | `quick-start-claude.pdf.json` | The sidecar `web/lib/walk.js` finds the PDF through. |
@@ -44,10 +46,12 @@ What stands as it stands:
 ## Rebuilding it
 
 ```bash
-tools/cad-venv/bin/python tools/quickstart-claude/build.py
+tools/cad-venv/bin/python tools/quickstart-claude/art.py     # the first-glass pictures
+tools/cad-venv/bin/python tools/quickstart-claude/build.py   # then the sheet
 ```
 
-`build.py` renders the page through `tools/render/render-card.js`, which reports content that
+`art.py` takes scene names to redraw one picture; `--list` names them all. Each pair is one
+camera and one span with no trim, so its two states register. `build.py` renders the page through `tools/render/render-card.js`, which reports content that
 overflows the canvas or spills out of its `header` / `main` / `footer` band, and then binds the
 PDF, writes the cover and the sidecar.
 
