@@ -128,13 +128,13 @@ function readableBytes(n) {
   return n >= 1024 * 1024 ? `${(n / (1024 * 1024)).toFixed(1)} MB` : `${Math.round(n / 1024)} KB`;
 }
 
-function buildDocumentsSection() {
+function buildDocumentsSection({ documents = state.documents, title = "Documents", className = "" } = {}) {
   const header = document.createElement("div");
   header.className = "section-header";
-  header.textContent = "Documents";
+  header.textContent = title;
   state.gridEl.appendChild(header);
 
-  if (!state.documents || state.documents.length === 0) {
+  if (!documents || documents.length === 0) {
     const empty = document.createElement("div");
     empty.className = "empty-state";
     empty.textContent = "No documents yet.";
@@ -143,10 +143,10 @@ function buildDocumentsSection() {
   }
 
   const shelf = document.createElement("div");
-  shelf.className = "doc-shelf";
+  shelf.className = `doc-shelf ${className}`.trim();
   state.gridEl.appendChild(shelf);
 
-  for (const doc of state.documents) {
+  for (const doc of documents) {
     // An anchor, not a click handler: a document is a file at a URL, so
     // middle-click, cmd-click and "copy link" all mean what they look like.
     const el = document.createElement("a");
@@ -160,7 +160,7 @@ function buildDocumentsSection() {
     const cover = doc.cover
       ? `<img class="doc-cover" src="/thumbs/${doc.cover}" alt="${doc.title} cover"${size}>`
       : `<div class="doc-cover placeholder">no cover</div>`;
-    const scale = doc.pages ? `${doc.pages} pages · ${readableBytes(doc.bytes)}` : readableBytes(doc.bytes);
+    const scale = doc.pages ? `${doc.pages} ${doc.pages === 1 ? "page" : "pages"} · ${readableBytes(doc.bytes)}` : readableBytes(doc.bytes);
     el.innerHTML = cover +
       `<div class="label"><span class="name-row"><span class="name">${doc.title}</span></span>` +
       `<span class="dir">${doc.subtitle || ""}</span><span class="doc-scale">${scale}</span></div>`;
@@ -183,6 +183,12 @@ export function buildGrid() {
   const section = currentSection();
 
   if (section === "parts") {
+    const attempts = state.documents.filter((doc) =>
+      doc.path === "quickstart-claude/quick-start-claude.pdf" ||
+      doc.path === "quickstart-codex/quick-start-codex.pdf");
+    if (attempts.length) {
+      buildDocumentsSection({ documents: attempts, title: "Quick start attempts", className: "quickstart-attempts" });
+    }
     // parts.js does the whole build: it seats every file the walkers offer, draws
     // the two roots it seated them into, and leaves the `.card[data-type="step"]
     // [data-file]` shells the window below and live.js select on. The seating that

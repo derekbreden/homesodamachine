@@ -1135,6 +1135,10 @@
   transition: transform 0.15s;
 }
 .card.card-doc:hover .doc-cover { transform: translateY(-2px); }
+.doc-shelf.quickstart-attempts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 700px) {
+  .doc-shelf.quickstart-attempts { grid-template-columns: 1fr; }
+}
 .card.card-doc .label { padding: 14px 0 10px; white-space: normal; }
 .card.card-doc .label .name { font-size: 15px; font-weight: 600; }
 /* Pages and bytes, monospaced so the two line up down a shelf. */
