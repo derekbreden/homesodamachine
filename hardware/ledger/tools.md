@@ -107,7 +107,7 @@ For per-unit BOM parts, see [bom.md](/hardware/ledger/bom.md). For non-BOM/non-t
 | **SUNLU S4 filament dryer** | [B0CQJMV71Z](https://www.amazon.com/dp/B0CQJMV71Z), [purchases.md §13](/hardware/ledger/purchases.md) | 4-spool capacity, 70 °C ceiling, 350 W PTC, 3 circulation fans. In service as sealed 4-spool storage, not as a dryer. | [$125.47](T_DRYER_S4) |
 | **Polymaker PolyDryer Box ×4** | [B0FHPS82YG](https://www.amazon.com/dp/B0FHPS82YG), [purchases.md §13](/hardware/ledger/purchases.md) | Sealed spool boxes with a PTFE feed-through, spool on a center axle, **1 kg** capacity. Unheated. TPU turns freely on the axle and prints straight out of one. | [$117.96](T_POLYDRYER) |
 | **Polymaker PolyDryer Box XL ×2** | [B0FPQV18L5](https://www.amazon.com/dp/B0FPQV18L5), [purchases.md §13](/hardware/ledger/purchases.md) | The same sealed box built around a **3 kg** spool — center axle, feed-through, hygrometer in the lid, unheated. The axle turns a 3 kg spool freely, which is what the E2's chamber does not, so the 3 kg Fiberon stock prints out of one of these. | [$120.09](T_POLYDRYER_XL) |
-| **Hotend stock** | various Bambu + DUROZZLE + ENOMAKER orders, [purchases.md §13 / §15](/hardware/ledger/purchases.md) | Right-side (Induction) HS: 0.2 SS ×3, 0.4 ×4 HS, 0.6 HS, 0.8 HS, 0.8 HF HS. Left-side (Standard): **0.4 TC SF ×2 (Bambu)** — the exterior's nozzle; one of the two is off the printer since 2026-09-11, suspected clogged and not yet cold-pulled, after the lower pump cradle and top clamp print paused on it twice with the extruder motor reported overheating ([enclosure/print-log.md](/hardware/printed-parts/enclosure/enclosure/print-log.md)) — 0.4 HS ×2, 0.4 + 0.8 HF HS (ENOMAKER), 0.6 TC SF (Bambu), 0.6 TC + 0.6 Diamond PCD + 0.8 Diamond PCD ×2 (DUROZZLE), 0.8 TC HF. The two sides take different hotend types and buy from different listings — see [Which hotends fit an H2C](#which-hotends-fit-an-h2c). PCD outranks tungsten carbide and ruby on hardness. | [$904.43](T_HOTENDS) |
+| **Hotend stock** | various Bambu + DUROZZLE + ENOMAKER orders, [purchases.md §13 / §15](/hardware/ledger/purchases.md) | Right-side (Induction) HS: 0.2 SS ×3, 0.4 ×4 HS, 0.6 HS, 0.8 HS, 0.8 HF HS. Left-side (Standard): **0.4 TC SF ×2 (Bambu)** — the exterior's nozzle; one of the two is off the printer since 2026-09-11, suspected clogged and not yet cold-pulled, after the lower pump cradle and top clamp print paused on it twice with the extruder motor reported overheating ([enclosure/print-log.md](/hardware/printed-parts/enclosure/enclosure/print-log.md)) — 0.4 HS ×2, 0.4 + 0.8 HF HS (ENOMAKER), 0.6 TC SF (Bambu), 0.6 TC + 0.6 Diamond PCD + 0.8 Diamond PCD ×2 (DUROZZLE), 0.8 TC HF; **0.4 Diamond PCD ×3 (DUROZZLE)** ordered 2026-09-11, one landing 2026-09-12 and two 2026-09-16. The two sides take different hotend types and buy from different listings — see [Which hotends fit an H2C](#which-hotends-fit-an-h2c). PCD outranks tungsten carbide and ruby on hardness. Derek, 2026-09-11: *"So far, the diamond PCD has been the toughest and most reliable, in other sizes."* | [$1,097.15](T_HOTENDS) |
 | **4-in-1 PTFE Adapter II (×2)** | Bambu orders us717877837343809537 + us718417332286169089, [purchases.md §15](/hardware/ledger/purchases.md) | Multi-spool feed adapter. | [$15.98](T_PTFE_ADAPTER) |
 
 ### What dries where
@@ -153,20 +153,23 @@ PET-GF15 — prints on the left nozzle. That is also the nozzle whose
 325 × 320 × 320 mm envelope the enclosure split is sized to, so the abrasive
 path and the big-part path are the same path.
 
-**The exterior's nozzle is the Bambu 0.4 mm tungsten carbide on the left
-hotend.** Every surface a customer sees prints on it in PET-GF15 — the four
+**The exterior's nozzle is a standard-flow 0.4 mm on the left hotend** — the Bambu tungsten
+carbide, with three DUROZZLE 0.4 mm Diamond PCD on order; Derek, 2026-09-11: *"one to arrive
+tomorrow to start using, and a couple more to have on hand."* Every surface a customer sees
+prints on it in PET-GF15 — the four
 quadrants, the lower pump cradle and its top clamp, the display cover
 plate, the faucet shell and the above-counter plate ([bom.md
 §7](/hardware/ledger/bom.md)). Polymaker's own `Fiberon PET-GF15 @BBL H2C`
 preset carries `required_nozzle_HRC` 40 and names one compatible printer:
 `Bambu Lab H2C 0.4 nozzle`.
 
-**Where a standard-flow 0.4 mm tungsten carbide is bought.** Bambu direct:
+**Where a standard-flow 0.4 mm abrasive hotend is bought.** Bambu direct:
 [Tungsten Carbide Hotend - H2/P2S/X2D](https://us.store.bambulab.com/products/tungsten-carbide-nozzle-h2-p2s),
 Standard Flow $59.99 (High Flow $89.99), whose own notice reads *"On H2C, this hotend is
 supported only on the Left (Lifting) Hotend."* Amazon Prime: DUROZZLE
-[0.4mm Tungsten Carbide Nozzle Hotend](https://www.amazon.com/dp/B0H2DDPBK8), $34.90 with two
-silicone socks — the maker of the 0.6 TC and the three PCDs in the stock row, listed for the
+[0.4mm Tungsten Carbide Nozzle Hotend](https://www.amazon.com/dp/B0H2DDPBK8), $34.90, and the same
+listing's Diamond PCD variant, [B0H3KBD2DG](https://www.amazon.com/dp/B0H3KBD2DG), $59.90 — each
+with two silicone socks, from the maker of every PCD in the stock row, listed for the
 H2D/H2S/X2D/P2S/A1 line *"and H2C Left Extruder"* and programmed with Bambu's tungsten carbide
 material code, so the printer identifies it as one. Its listing names no flow type; the 0.6 TC
 from the same maker runs on the `0.6 nozzle` Standard profiles
@@ -217,7 +220,7 @@ it is now on the abrasive path, so **the left hotend is the bottleneck hotend**
 
 ## Tools total
 
-Total acquired tooling: **[$15,616.32](TOOLS_TOTAL)**
+Total acquired tooling: **[$15,809.04](TOOLS_TOTAL)**
 
 ## Open items
 

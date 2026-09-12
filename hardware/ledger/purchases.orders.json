@@ -1,14 +1,32 @@
 {
   "_meta": {
-    "source": "amazon.com order history, year-2026 filter: full scrape 2026-08-15 plus individually verified orders through 2026-09-08",
-    "orders": 347,
-    "ordered/total": "ordered present for all 347; total present for 347 — the three cancelled orders were never charged",
+    "source": "amazon.com order history, year-2026 filter: full scrape 2026-08-15 plus individually verified orders through 2026-09-11",
+    "orders": 349,
+    "ordered/total": "ordered present for all 349; total present for 349 — the three cancelled orders were never charged",
     "delivered": "present only where Amazon still shows a shipment banner — orders from roughly mid-April 2026 on; Amazon stops exposing it for older orders, and their detail pages do not carry it either",
-    "subtotal/shipping/tax": "present only for the 17 invoices opened during the 2026-08-15 reconciliation, the four orders verified individually on 2026-08-29 and 2026-08-31, and the four invoices opened during the 2026-09-02 update, and the M5 × 50 invoice verified 2026-09-08; not scraped for the rest",
+    "subtotal/shipping/tax": "present only for the 17 invoices opened during the 2026-08-15 reconciliation, the four orders verified individually on 2026-08-29 and 2026-08-31, and the four invoices opened during the 2026-09-02 update, the M5 × 50 invoice verified 2026-09-08, and the two DUROZZLE 0.4 PCD invoices opened 2026-09-11; not scraped for the rest",
     "project": "true = a purchases.md row names this order. false = household/pet/yard/garage/cancelled, with `why`. null = flagged for a human call.",
     "nonproject_amount": "on a mixed order, the dollars on the invoice that belong to no ledger row. Expected ledger sum = total - nonproject_amount."
   },
   "orders": {
+    "112-7339165-9617019": {
+      "ordered": "2026-09-11",
+      "subtotal": 59.9,
+      "shipping": 0.0,
+      "tax": 4.34,
+      "total": 64.24,
+      "in_transit": true,
+      "project": true
+    },
+    "112-4775870-3223436": {
+      "ordered": "2026-09-11",
+      "subtotal": 119.8,
+      "shipping": 0.0,
+      "tax": 8.68,
+      "total": 128.48,
+      "in_transit": true,
+      "project": true
+    },
     "112-6085763-5397009": {
       "ordered": "2026-09-08",
       "subtotal": 7.99,

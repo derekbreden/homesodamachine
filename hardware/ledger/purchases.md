@@ -500,6 +500,8 @@ General shop equipment supporting fabrication, assembly, and teardown. Not proje
 | ENOMAKER high-flow hotends for Bambu Lab H2D / X2D / P2S, hardened-steel nozzle — 0.8 mm + 0.4 mm (one each; $111.98 item subtotal, −$5.60 promotion, $7.72 NE tax) | [0.8 mm B0FQPGLRQJ](https://www.amazon.com/dp/B0FQPGLRQJ) + [0.4 mm B0FQPGDD49](https://www.amazon.com/dp/B0FQPGDD49) | 1 bundle (2) | $114.10 | 112-7312343-0359412 | 2026-08-19 | 2026-08-20 | ACQUIRED |
 | DUROZZLE 0.8mm Diamond PCD Nozzle Hotend, L-side (H2D/H2S/A1/A1 mini series). Ships with 2 silicone socks | [B0GWDL57FK](https://www.amazon.com/dp/B0GWDL57FK) | 1 | $42.79 | 112-1974343-4486643 | 2026-08-09 | 2026-08-11 | ACQUIRED |
 | DUROZZLE 0.8mm Diamond PCD Nozzle Hotend, L-side (H2D/H2S/A1/A1 mini series). Ships with 2 silicone socks. The first of the two 0.8 PCD tips | [B0GWDL57FK](https://www.amazon.com/dp/B0GWDL57FK) | 1 | $48.16 | 114-8935189-9054653 | 2026-07-03 | 2026-07-06 | ACQUIRED |
+| DUROZZLE 0.4mm Diamond PCD Nozzle Hotend, L-side (H2D/H2S/X2D/P2S/A1 series; H2C Left). Ships with 2 silicone socks. The first of three 0.4 PCD tips, bought for the left extruder — Derek: *"one to arrive tomorrow to start using"*; $59.90 + $4.34 NE tax; Amazon estimates 2026-09-12 | [B0H3KBD2DG](https://www.amazon.com/dp/B0H3KBD2DG) | 1 | $64.24 | 112-7339165-9617019 | 2026-09-11 | — | ON-ORDER |
+| DUROZZLE 0.4mm Diamond PCD Nozzle Hotend, L-side (H2D/H2S/X2D/P2S/A1 series; H2C Left). Ships with 2 silicone socks each. The other two 0.4 PCD tips, spare stock — *"a couple more to have on hand"*; $59.90 × 2 + $8.68 NE tax; Amazon estimates 2026-09-16 | [B0H3KBD2DG](https://www.amazon.com/dp/B0H3KBD2DG) | 2 | $128.48 | 112-4775870-3223436 | 2026-09-11 | — | ON-ORDER |
 | Comfy Materials FDA-compliant food-grade PETG-Carbon, 1.75 mm × 1 kg, Gray | [B0BTLNK74C](https://www.amazon.com/dp/B0BTLNK74C) | 2 | $75.06 | 112-3739807-8848229 | 2026-05-09 | 2026-05-09 | ACQUIRED |
 | Bambu Lab Induction Heating Assembly - Right (H2C and H2C Laser, Bambu SKU 3DPP431) | [innoaddi.com](https://www.innoaddi.com/products/induction-heating-assembly-right) | 1 | $68.98 | — | — | 2026-05-26 | ACQUIRED |
 | Shineboc 20-pc Wet/Dry Sanding Sponge Set, foam-backed silicon-carbide, 3" × 4", 9 grits (180/320/400/600/800/1200/2000/2500/3000) | [B0D8ZC6HKY](https://www.amazon.com/dp/B0D8ZC6HKY) | 1 pk (20) | $10.71 | 112-0610257-0936212 | 2026-05-11 | 2026-05-12 | ACQUIRED |
@@ -683,10 +685,10 @@ Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C funne
 | ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$33,475.55](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$5,437.54](LEDGER_LABOR) |
 | ACQUIRED (combined) | [$38,913.09](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$719.69](LEDGER_ON_ORDER) |
+| ON-ORDER | [$912.41](LEDGER_ON_ORDER) |
 | MISSING — paid, not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$39,685.85](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$39,878.57](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
