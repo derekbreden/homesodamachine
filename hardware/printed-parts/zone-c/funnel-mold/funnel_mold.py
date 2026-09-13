@@ -39,16 +39,21 @@ locator_clearance = 0.60
 locator_slot_travel = 1.5
 locator_y = (22.0, -12.0)
 tip_length = 12.0
-tip_step = 1.0
-tip_cap = 2.0
-tip_draft = 0.5
+tip_cap = 6.0
 rod_diameter = 6.35
 rod_length = 50.8
-rod_clearance = 0.30
-socket_wall = 4.0
-socket_cap = 3.0
-socket_vent_diameter = 2.5
-socket_vent_overlap = 1.0
+rod_clearance = 2.0
+rod_guide_length = 10.0
+rod_cradle_wall = 4.0
+rod_stop_thickness = 3.0
+rod_tie_stations = (17.0, 27.0)
+rod_tie_width = 4.4
+rod_tie_groove_depth = 0.7
+rod_seal_depth = 2.0
+rod_offset_allowance = 1.5
+rod_axial_allowance = 3.0
+rod_tilt_allowance = 2.0
+minimum_spout_wall = 2.0
 vent_diameter = 4.0
 pour_diameter = 11.0
 foot_diameter = 10.0
@@ -110,9 +115,7 @@ def build():
                 for side in (-1, 1) for station in (-1, 1)]
     locator_xy = [(bolt_radius, locator_y[0]), (-bolt_radius, locator_y[1])]
 
-    tip_radius = m['spout_or']-tip_step
-    tip = cq.Solid.makeCone(tip_radius-tip_draft, tip_radius, tip_length,
-                            cq.Vector(x, y, tip_bottom))
+    tip = cylinder(m['spout_or'], tip_bottom, end, x, y)
     nominal_exterior = one(exterior.fuse(tip), 'casting envelope')
     print('Offsetting cavity forming face and dry back', flush=True)
     forming_void = expanded(nominal_exterior, finish_allowance)
@@ -135,16 +138,33 @@ def build():
                .intersect(box(flange_width+2, flange_width+2, neck, back)), 'core shell')
 
     rod_below = funnel.spout_tube+tip_length-tip_cap
-    rod_socket = rod_length-rod_below
-    rod_bottom, rod_top = tip_bottom+tip_cap, neck+rod_socket
+    rod_engagement = rod_length-rod_below
+    rod_bottom, rod_top = tip_bottom+tip_cap, neck+rod_engagement
     rod = cylinder(rod_diameter/2, rod_bottom, rod_top, x, y)
-    socket_radius = (rod_diameter+rod_clearance)/2
-    socket = cylinder(socket_radius, neck-1, rod_top, x, y)
-    boss = cylinder(socket_radius+socket_wall, neck+finish_allowance,
-                    rod_top+socket_cap, x, y)
-    socket_vent = cylinder(socket_vent_diameter/2, rod_top-socket_vent_overlap,
-                          rod_top+socket_cap+1, x+rod_diameter/2, y)
-    core = one(core.fuse(boss.intersect(plug)).cut(socket, socket_vent), 'core and vented rod socket')
+    guide_radius = (rod_diameter+rod_clearance)/2
+    cradle_radius = guide_radius+rod_cradle_wall
+    cradle_start = neck+rod_guide_length
+    guide = cylinder(guide_radius, neck-1, cradle_start, x, y)
+    boss = cylinder(cradle_radius, neck+finish_allowance,
+                    rod_top+rod_stop_thickness, x, y)
+    v_vertex = x-rod_diameter/math.sqrt(2)
+    v_reach = 3*cradle_radius
+    v_profile = [(v_vertex, y), (v_vertex+v_reach, y+v_reach),
+                 (v_vertex+v_reach, y-v_reach), (v_vertex, y)]
+    v_slot = (cq.Workplane('XY', origin=(0, 0, cradle_start)).polyline(v_profile)
+              .wire().extrude(rod_top-cradle_start).val())
+    open_front = box(2*cradle_radius, 2*cradle_radius, cradle_start,
+                     rod_top, x+cradle_radius, y)
+    core = one(core.fuse(boss.intersect(plug).cut(v_slot, open_front)).cut(guide),
+               'core with loose rod passage and open V cradle')
+    for station in rod_tie_stations:
+        lower = neck+station-rod_tie_width/2
+        upper = lower+rod_tie_width
+        groove = cylinder(cradle_radius+1, lower, upper, x, y).cut(
+            cylinder(cradle_radius-rod_tie_groove_depth, lower-1, upper+1, x, y))
+        core = one(core.cut(groove), 'core cradle tie groove')
+    seal = one(plug.intersect(cylinder(guide_radius, neck-1,
+                                      neck+rod_seal_depth, x, y)).cut(rod), 'rod entry seal')
 
     locators, locator_holes = [], []
     for index, (px, py) in enumerate(locator_xy):
@@ -188,11 +208,34 @@ def build():
     assert cavity.intersect(core).Volume() < tolerance
     assert all(s.intersect(cast).Volume() < tolerance for s in (cavity, core))
     assert all(s.intersect(rod).Volume() < tolerance for s in (cavity, core))
-    for lift in (0.5, 1.5, 3, 6, 12, rod_socket, 52):
+    for lift in (0.5, 1.5, 3, 6, 12, rod_engagement, 52):
         assert cavity.intersect(core.translate((0, 0, lift))).Volume() < tolerance
     for angle in (90, 180, 270):
         assert cavity.intersect(core.rotate((0, 0, 0), (0, 0, 1), angle)).Volume() > 1
-    assert socket.cut(rod).intersect(socket_vent).Volume() > 0.01
+    assert guide_radius-rod_diameter/2 >= 1.0
+    assert rod_engagement > rod_tie_stations[-1]+rod_tie_width/2
+    assert core.intersect(seal).Volume() < tolerance
+    assert rod.intersect(seal).Volume() < tolerance
+    assert cavity.intersect(seal).Volume() < tolerance
+    assert seal.Volume() > 1
+    for withdrawal in (0, 5, 10, 20, rod_engagement, rod_length):
+        assert core.intersect(rod.translate((0.5, 0, -withdrawal))).Volume() < tolerance
+    for station in rod_tie_stations:
+        assert station-rod_tie_width/2 > rod_guide_length
+    clearances = []
+    for azimuth in range(0, 360, 45):
+        angle = math.radians(azimuth)
+        dx, dy = math.cos(angle), math.sin(angle)
+        for tilt in (-rod_tilt_allowance, 0, rod_tilt_allowance):
+            for axial in (-rod_axial_allowance, 0, rod_axial_allowance):
+                misplaced = rod.rotate((x, y, neck), (x-dy, y+dx, neck), tilt)
+                misplaced = misplaced.translate((rod_offset_allowance*dx,
+                                                   rod_offset_allowance*dy, axial))
+                assert cavity.intersect(misplaced).Volume() < tolerance
+                clearances.append(cavity.distance(misplaced)-finish_allowance)
+    assert min(clearances) > minimum_spout_wall
+    assert tip_cap-rod_axial_allowance > minimum_spout_wall
+    assert rod_below-rod_axial_allowance > funnel.spout_tube
     assert dry_void.distance(cast) >= shell_thickness+finish_allowance-tolerance
     assert (forming_void.cut(nominal_exterior).Volume() > 0)
     for xy in bolt_xy:
@@ -207,15 +250,28 @@ def build():
     assert core.intersect(dry_mouth).Volume() < tolerance
     shift = (0, 0, -floor)
     parts = {name: shape.translate(shift) for name, shape in
-             [('cavity', cavity), ('core', core), ('funnel', cast), ('rod', rod)]}
+             [('cavity', cavity), ('core', core), ('funnel', cast), ('rod', rod), ('seal', seal)]}
     info = {
         'dimensions_mm': {n: [s.BoundingBox().xlen, s.BoundingBox().ylen,
                               s.BoundingBox().zlen] for n, s in parts.items()},
         'volume_ml': {n: s.Volume()/1000 for n, s in parts.items()},
         'shell_thickness_mm': shell_thickness, 'flange_thickness_mm': flange_thickness,
         'parting_z_mm': top-floor, 'finish_allowance_mm': finish_allowance,
-        'rod_socket_depth_mm': rod_socket, 'rod_socket_diametral_clearance_mm': rod_clearance,
-        'rod_socket_vent_diameter_mm': socket_vent_diameter,
+        'rod_support': {'engagement_mm': rod_engagement, 'guide_diameter_mm': 2*guide_radius,
+            'guide_diametral_clearance_mm': rod_clearance, 'guide_length_mm': rod_guide_length,
+            'cradle': 'open 90-degree V, two zip ties, visible axial stop on dry back',
+            'tie_width_mm': rod_tie_width, 'tie_stations_from_neck_mm': list(rod_tie_stations),
+            'seal': 'removable mold-sealing clay, shaped flush with the forming face',
+            'seal_depth_mm': rod_seal_depth},
+        'spout': {'bore_mm': rod_diameter, 'outside_diameter_mm': 2*m['spout_or'],
+            'nominal_wall_mm': funnel.spout_wall, 'finished_length_mm': funnel.spout_tube,
+            'sacrificial_length_mm': tip_length, 'rod_end_clearance_mm': tip_cap},
+        'rod_tolerance_screen': {'offset_mm': rod_offset_allowance,
+            'axial_error_mm': rod_axial_allowance, 'tilt_deg': rod_tilt_allowance,
+            'azimuths_deg': list(range(0, 360, 45)),
+            'minimum_silicone_clearance_mm': min(clearances),
+            'minimum_required_wall_mm': minimum_spout_wall,
+            'scope': 'Simultaneous rod offset, tilt and axial error against the cavity; cradle retention and sealing need a physical trial.'},
         'locators': {'diameter_mm': locator_diameter, 'height_mm': locator_height,
                      'radial_clearance_mm': locator_clearance, 'slot_travel_each_way_mm': locator_slot_travel,
                      'centres_xy_mm': locator_xy},
@@ -258,13 +314,15 @@ def write_parts(parts, info, output):
     """Export one tooling design and views of those same bodies."""
     output.mkdir(parents=True, exist_ok=True)
     colors = {'cavity': cq.Color('#3D9998'), 'core': cq.Color('#D8A751'),
-              'funnel': cq.Color('#555C68'), 'rod': cq.Color('#AAB9C8')}
+              'funnel': cq.Color('#555C68'), 'rod': cq.Color('#AAB9C8'),
+              'seal': cq.Color('#4D86B7')}
     assembly = cq.Assembly()
     radii = []
     for name, shape in parts.items():
         assembly.add(shape, name=name, color=colors[name])
-        single = one_body(cq.Workplane(obj=shape), name, colors[name])
-        export_assembly(single, str(output/f'{name}.step'))
+        if name != 'seal':
+            single = one_body(cq.Workplane(obj=shape), name, colors[name])
+            export_assembly(single, str(output/f'{name}.step'))
         if name in ('cavity', 'core'):
             path = output/f'{name}.stl'
             cq.exporters.export(shape, str(path), tolerance=0.02, angularTolerance=0.08)

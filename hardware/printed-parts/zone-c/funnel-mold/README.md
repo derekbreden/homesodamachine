@@ -16,35 +16,58 @@ clearance; one mating hole is slotted in X to accommodate spacing error.
 Their asymmetric positions set the drain's orientation. Four edge notches
 admit a blunt opening tool.
 
-![Open dry backs; the cavity's feet and the core's rod socket](backs.png)
+![Open dry backs; the cavity's feet and the core's rod cradle](backs.png)
 
 ## Forming surfaces and fit
 
 Both forming faces reserve [0.30 mm](FINISH) of net finishing growth, including
 primer, sealer and release. Sand and coat a sample with the actual finishing
 stack, then measure its net growth. Mask the parting lands, locating pegs and
-holes, clamp holes, and steel-rod socket. The finishing allowance belongs to
+holes, clamp holes, rod passage, V cradle and rod stop. The finishing allowance belongs to
 the silicone-forming surfaces; the bare lands establish closure height.
 
-The [6.35 mm](ROD_D) × [50.8 mm](ROD_LEN) steel dowel forms the spout bore and
-seats [28.8 mm](SOCKET) into a local boss. Its socket has
-[0.30 mm](ROD_CLEARANCE) diametral clearance and a separate
-[2.5 mm](SOCKET_VENT) air vent into the open back. Verify that the actual pin
-slides to its seat and withdraws freely. A thin silicone film can enter the
-socket clearance and must be peeled out between casts.
+The [6.35 mm](ROD_D) × [50.8 mm](ROD_LEN) steel dowel passes freely through an
+[8.35 mm](ROD_GUIDE_D) opening, with [2 mm](ROD_CLEARANCE) diametral clearance.
+An open V cradle on the dry back centres it. Its upper end meets a visible
+stop; two zip ties in [4.4 mm](ROD_TIE_WIDTH) grooves hold it in the cradle.
+Engagement is [32.8 mm](ROD_ENGAGEMENT), leaving [18 mm](ROD_EXPOSED) below the
+core's neck. The rod stays clear of the cavity during closure.
+
+Pack a small removable seal around the rod at the forming-face entry, flush
+with the adjacent surface. The illustrated [2 mm](ROD_SEAL_DEPTH) deep seal
+is mold-sealing clay whose compatibility has been proved with the actual
+[platinum-cure silicone](silicone.md). The cradle holds the rod; the seal
+closes the annular passage into the dry back. Smooth-On's
+[sealer reference](https://www.smooth-on.com/page/sealers-releases/) distinguishes
+sulfur-free modeling clay from sulfur-bearing clay for platinum silicone.
+
+The finished outlet has a [4.5 mm](SPOUT_WALL) nominal wall and
+[15.35 mm](SPOUT_OD) outside diameter around the [6.35 mm](ROD_D) bore. Its
+[12 mm](SPOUT_LAND) clamp land takes the 1/4-inch LLDPE stub and the recorded
+10–16 mm worm clamp. A full-diameter [12 mm](TIP_LENGTH) sacrificial extension
+leaves [6 mm](TIP_CAP) beneath the rod end. Mark the trim plane
+[12 mm](TIP_LENGTH) from the casting's closed end and cut square after demolding.
+
+[design.json](design.json) checks simultaneous [1.5 mm](ROD_OFFSET) lateral
+offset, [2°](ROD_TILT) tilt and [3 mm](ROD_AXIAL) axial error in eight directions.
+The minimum silicone clearance in that envelope is [2.37 mm](ROD_MIN_WALL),
+including the sacrificial end. These checks describe geometry; the first
+physical trial establishes retention, sealing and casting quality.
+
+![Rod held from the open core cradle, with a full-thickness outlet and closed sacrificial end](rod-detail.png)
 
 ![Section through the assembled forming shells, silicone and steel dowel](section.png)
 
-Teal is the cavity, gold the core, grey the nominal silicone and light grey the
-steel dowel. The nominal casting, including its sacrificial spout tip, is
-[135 mL](CAST_VOLUME). The two halves fit inside a [276.7 mm](ENVELOPE) circle,
+Teal is the cavity, gold the core, grey the nominal silicone, light grey the
+steel dowel and blue the removable entry seal. The nominal casting, including its sacrificial spout tip, is
+[143 mL](CAST_VOLUME). The two halves fit inside a [276.7 mm](ENVELOPE) circle,
 leaving [11.5 mm](CHAMBER_GAP) radial clearance in the recorded chamber. Check
 the actual opening, clamp/bolt envelope and catch tray before pouring.
 
 ## Load and vacuum
 
 The complete mold sits inside the vacuum chamber. Its fill hole, five casting
-vents, rod-socket vent and both dry backs communicate with that chamber.
+vents and both dry backs communicate with that chamber.
 Pressure equalizes through these openings; the silicone's weight remains a
 load on the forming skins. Keep the passages open, evacuate and vent slowly,
 and perform any filled-mold cycle while the silicone is fluid. Cure at ambient
@@ -67,6 +90,10 @@ print still needs its own dry-fit and vacuum trial.
 
 ## Print
 
+The print projects below are being regenerated for the current rod cradle and
+thicker outlet. Use the updated projects once their recorded STL hashes match
+this geometry.
+
 [Recommended project, +0.04 trim](funnel-mold.3mf) ·
 [Alternate +0.18 trim](funnel-mold-z018.3mf) ·
 [Printer, filament and process presets](funnel-mold-presets.bbscfg)
@@ -74,7 +101,7 @@ print still needs its own dry-fit and vacuum trial.
 | Body | Envelope | Estimated print | PETG, including supports |
 | --- | --- | --- | --- |
 | [Cavity](cavity.step) | [205 × 205 × 73.6 mm](CAVITY_DIMS) | [17 h 19 min](CAVITY_TIME) | [615 g](CAVITY_MASS) |
-| [Core](core.step) | [205 × 205 × 45.3 mm](CORE_DIMS) | [10 h 55 min](CORE_TIME) | [441 g](CORE_MASS) |
+| [Core](core.step) | [205 × 205 × 45.2 mm](CORE_DIMS) | [10 h 55 min](CORE_TIME) | [441 g](CORE_MASS) |
 
 Together: [28 h 14 min](TOTAL_TIME), [1.06 kg](TOTAL_MASS). These are slicer
 estimates. The files use the left [0.8 mm](NOZZLE) [High Flow](NOZZLE_TYPE) nozzle, [0.24 mm](LAYER) layers,
@@ -90,7 +117,7 @@ It uses the same geometry, +0.04 mm plate trim and automatic tree supports.
 [print-profile.json](print-profile.json) records the actual saved settings,
 STL and G-code checksums, support usage and estimates.
 [layer-review.json](layer-review.json) records model connectivity at the sliced
-layer heights. The cavity spout tip and core socket boss begin above the plate;
+layer heights. The cavity spout tip and core rod cradle begin above the plate;
 the G-code has support-interface paths directly beneath both features.
 [print log](print-log.md) records physical observations with their known provenance.
 Coated closure, vacuum cycling, support removal and casting are untested for
@@ -98,11 +125,14 @@ these shells.
 
 ## Cast and open
 
-1. Remove supports and brim. Seat the steel pin and dry-fit the two halves.
+1. Remove supports and brim, including branches inside the open rod cradle.
+   Slide the rod through the loose passage, bring its end to the visible stop
+   and secure it in the V with two zip ties. Dry-fit the two halves.
    Check the lands with a light behind the seam; use the flange bolts or clamps
    to close slight bow. Confirm that the coated halves still meet on those lands.
-2. Prove the PETG, finishing stack, release and [silicone](silicone.md) on a
-   sample. Degas the mixed silicone in a separate container with expansion room.
+2. Prove the PETG, finishing stack, release, entry-seal clay and
+   [silicone](silicone.md) on a sample. Pack the rod-entry seal flush with the
+   forming face. Degas the mixed silicone in a separate container with expansion room.
    [Smooth-On's degassing example](https://www.smooth-on.com/tutorials/making-piece-cut-block-mold/vacuum-de-gassing/)
    shows the required headroom above the liquid.
 3. Fill the open cavity, including the blind spout pocket. Lower the core slowly
@@ -111,10 +141,11 @@ these shells.
 4. For a filled-mold vacuum cycle, use a catch tray and keep overflow clear of the
    dry-back openings. Vent slowly, recheck the fill level and top up while fluid.
    Hold the flanges through the silicone's room-temperature cure.
-5. Trim overflow at the port mouths. Open in small alternating movements at
+5. Trim overflow at the port mouths and cut the rod's zip ties. Open in small alternating movements at
    opposite notches. Peel the accessible silicone brim to admit air, lift the
-   core straight, peel the casting from the cavity, withdraw the dowel and trim
-   the sacrificial spout tip at its shoulder.
+   core straight off the rod, peel the casting from the cavity, withdraw the
+   dowel and cut off the marked sacrificial extension. Remove the entry seal
+   and clean its recess before the next cast.
 
 ## Regenerate
 

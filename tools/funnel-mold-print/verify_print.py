@@ -85,15 +85,75 @@ def audit(project, provenance_path, models):
         'settings': settings, 'recipe': recipe, 'gcode': gcode_records}
 
 
+def geometry_figures(info):
+    def dims(name):
+        return ' × '.join(f'{v:.1f}'.removesuffix('.0') for v in info['dimensions_mm'][name])+' mm'
+    return {
+        'SKIN': f"{info['shell_thickness_mm']:g} mm",
+        'FLANGE': f"{info['flange_thickness_mm']:g} mm",
+        'DRY_MOUTH': f"{info['dry_opening_mm']:.1f} mm",
+        'BOLT_D': f"{info['clamping']['hole_diameter_mm']:g} mm",
+        'LOCATOR_HEIGHT': f"{info['locators']['height_mm']:g} mm",
+        'LOCATOR_CLEARANCE': f"{info['locators']['radial_clearance_mm']:.2f} mm",
+        'ROD_D': f"{info['dimensions_mm']['rod'][0]:g} mm",
+        'ROD_LEN': f"{info['dimensions_mm']['rod'][2]:g} mm",
+        'ROD_ENGAGEMENT': f"{info['rod_support']['engagement_mm']:.1f} mm",
+        'ROD_EXPOSED': f"{info['dimensions_mm']['rod'][2]-info['rod_support']['engagement_mm']:g} mm",
+        'ROD_CLEARANCE': f"{info['rod_support']['guide_diametral_clearance_mm']:g} mm",
+        'ROD_GUIDE_D': f"{info['rod_support']['guide_diameter_mm']:g} mm",
+        'ROD_TIE_WIDTH': f"{info['rod_support']['tie_width_mm']:g} mm",
+        'ROD_SEAL_DEPTH': f"{info['rod_support']['seal_depth_mm']:g} mm",
+        'SPOUT_WALL': f"{info['spout']['nominal_wall_mm']:g} mm",
+        'SPOUT_OD': f"{info['spout']['outside_diameter_mm']:g} mm",
+        'SPOUT_LAND': f"{info['spout']['finished_length_mm']:g} mm",
+        'TIP_LENGTH': f"{info['spout']['sacrificial_length_mm']:g} mm",
+        'TIP_CAP': f"{info['spout']['rod_end_clearance_mm']:g} mm",
+        'ROD_OFFSET': f"{info['rod_tolerance_screen']['offset_mm']:g} mm",
+        'ROD_TILT': f"{info['rod_tolerance_screen']['tilt_deg']:g}°",
+        'ROD_AXIAL': f"{info['rod_tolerance_screen']['axial_error_mm']:g} mm",
+        'ROD_MIN_WALL': f"{info['rod_tolerance_screen']['minimum_silicone_clearance_mm']:.2f} mm",
+        'FINISH': f"{info['finish_allowance_mm']:.2f} mm",
+        'FILL_D': f"{info['ports']['fill_diameter_mm']:g} mm",
+        'VENT_D': f"{info['ports']['vent_diameter_mm']:g} mm",
+        'CAST_VOLUME': f"{info['volume_ml']['funnel']:.0f} mL",
+        'CAVITY_DIMS': dims('cavity'), 'CORE_DIMS': dims('core'),
+        'ENVELOPE': f"{info['enclosing_diameter_mm']:.1f} mm",
+        'CHAMBER_GAP': f"{info['chamber_radial_clearance_mm']:.1f} mm",
+        'LOAD_SPAN': f"{info['load_screen']['span_mm']:g} mm",
+        'LOAD_PRESSURE': f"{info['load_screen']['pressure_kpa']:.2f} kPa",
+        'LOAD_MODULUS': f"{info['load_screen']['assumed_modulus_mpa']:g} MPa",
+        'LOAD_DEFLECTION': f"{info['load_screen']['screen_deflection_mm']:.3f} mm",
+        'HEAD_PRESSURE': f"{info['load_screen']['head_pressure_kpa']:.3f} kPa"}
+
+
+def write_figures(models, figures, merge=False):
+    sys.path.insert(0, str(HERE.parent))
+    from docgen import substitute_md
+    sidecar = models/'README.figures.json'
+    key = '/tools/funnel-mold-print/verify_print.py'
+    held = json.loads(sidecar.read_text()).get(key, {}) if merge and sidecar.exists() else {}
+    held.update(figures)
+    for retired in ('SOCKET', 'SOCKET_VENT'):
+        held.pop(retired, None)
+    substitute_md(models/'README.md', variables=figures)
+    sidecar.write_text(json.dumps({key: held}, indent=2, sort_keys=True)+'\n')
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--models', type=Path, required=True)
-    parser.add_argument('--slices', type=Path, required=True)
+    parser.add_argument('--slices', type=Path)
+    parser.add_argument('--geometry-only', action='store_true', help='Refresh CAD dimensions before slicing.')
     parser.add_argument('--project-stem', default='funnel-mold')
     parser.add_argument('--single', action='store_true', help='Audit only the default Z trim.')
     parser.add_argument('--comparison-slices', type=Path, help='Also audit a 0.4 mm default slice for comparison.')
     args = parser.parse_args()
     info = json.loads((args.models/'design.json').read_text())
+    if args.geometry_only:
+        write_figures(args.models, geometry_figures(info), merge=True)
+        return
+    if args.slices is None:
+        parser.error('--slices is required unless --geometry-only is used')
     records = []
     variants = [
         ('default', 'default-input', args.project_stem+'.3mf'),
@@ -138,41 +198,14 @@ def main():
     if len(records[0]['gcode']) == 1:
         print(records[0]['project'], records[0]['effective_setting_count'], 'settings checked')
         return
-    sys.path.insert(0, str(HERE.parent))
-    from docgen import substitute_md
-    def dims(name):
-        return ' × '.join(f'{v:.1f}'.removesuffix('.0') for v in info['dimensions_mm'][name])+' mm'
     def duration(plate):
         minutes = round(plate['total_predication']/60)
         return f'{minutes//60} h {minutes%60:02d} min'
     cavity, core = records[0]['slice_result']['sliced_plates']
-    figures = {
-        'SKIN': f"{info['shell_thickness_mm']:g} mm",
-        'FLANGE': f"{info['flange_thickness_mm']:g} mm",
-        'DRY_MOUTH': f"{info['dry_opening_mm']:.1f} mm",
-        'BOLT_D': f"{info['clamping']['hole_diameter_mm']:g} mm",
-        'LOCATOR_HEIGHT': f"{info['locators']['height_mm']:g} mm",
-        'LOCATOR_CLEARANCE': f"{info['locators']['radial_clearance_mm']:.2f} mm",
-        'ROD_D': f"{info['dimensions_mm']['rod'][0]:g} mm",
-        'ROD_LEN': f"{info['dimensions_mm']['rod'][2]:g} mm",
-        'SOCKET': f"{info['rod_socket_depth_mm']:.1f} mm",
-        'ROD_CLEARANCE': f"{info['rod_socket_diametral_clearance_mm']:.2f} mm",
-        'SOCKET_VENT': f"{info['rod_socket_vent_diameter_mm']:g} mm",
-        'FINISH': f"{info['finish_allowance_mm']:.2f} mm",
-        'FILL_D': f"{info['ports']['fill_diameter_mm']:g} mm",
-        'VENT_D': f"{info['ports']['vent_diameter_mm']:g} mm",
-        'CAST_VOLUME': f"{info['volume_ml']['funnel']:.0f} mL",
-        'CAVITY_DIMS': dims('cavity'), 'CORE_DIMS': dims('core'),
-        'CAVITY_TIME': duration(cavity), 'CORE_TIME': duration(core),
-        'CAVITY_MASS': f"{cavity['filaments'][0]['total_used_g']:.0f} g",
-        'CORE_MASS': f"{core['filaments'][0]['total_used_g']:.0f} g",
-        'ENVELOPE': f"{info['enclosing_diameter_mm']:.1f} mm",
-        'CHAMBER_GAP': f"{info['chamber_radial_clearance_mm']:.1f} mm",
-        'LOAD_SPAN': f"{info['load_screen']['span_mm']:g} mm",
-        'LOAD_PRESSURE': f"{info['load_screen']['pressure_kpa']:.2f} kPa",
-        'LOAD_MODULUS': f"{info['load_screen']['assumed_modulus_mpa']:g} MPa",
-        'LOAD_DEFLECTION': f"{info['load_screen']['screen_deflection_mm']:.3f} mm",
-        'HEAD_PRESSURE': f"{info['load_screen']['head_pressure_kpa']:.3f} kPa"}
+    figures = geometry_figures(info)
+    figures.update({'CAVITY_TIME': duration(cavity), 'CORE_TIME': duration(core),
+                    'CAVITY_MASS': f"{cavity['filaments'][0]['total_used_g']:.0f} g",
+                    'CORE_MASS': f"{core['filaments'][0]['total_used_g']:.0f} g"})
     recipe = records[0]['recipe']
     figures.update({'NOZZLE': f"{recipe['nozzle_mm']:g} mm", 'NOZZLE_TYPE': recipe['nozzle_type'],
                     'LAYER': recipe['process_settings']['layer_height']['value']+' mm',
@@ -186,10 +219,7 @@ def main():
         alt = comparison['slice_result']['sliced_plates']
         figures.update({'FINE_TIME': duration({'total_predication': seconds(alt)}),
                         'FINE_MASS': f'{mass(alt)/1000:.2f} kg'})
-    substitute_md(args.models/'README.md', variables=figures)
-    # docgen records sidecars automatically only for callers under hardware.
-    (args.models/'README.figures.json').write_text(json.dumps({
-        '/tools/funnel-mold-print/verify_print.py': figures}, indent=2, sort_keys=True)+'\n')
+    write_figures(args.models, figures)
     for record in records:
         print(record['project'], record['effective_setting_count'], 'settings checked')
         for plate in record['slice_result']['sliced_plates']:
