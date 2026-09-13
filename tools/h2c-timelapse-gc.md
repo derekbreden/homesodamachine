@@ -3,6 +3,9 @@
 `h2c_timelapse_gc.py` keeps the SanDisk Ultra Fit in the H2C's front USB port
 from filling up, so the printer never stops recording timelapses.
 
+[Bambu printers](bambu-printers.md) covers live status, chamber lights and print submission
+for H2C and Mark2.
+
 ## Why it's needed
 
 The H2C records per-print timelapses to the USB drive (`/timelapse/*.mp4`,
