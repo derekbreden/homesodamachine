@@ -228,7 +228,7 @@ def page():
 
 def build():
     html_path = DIR / 'edge-study.html'
-    html_path.write_text(page())
+    html_path.write_text('\n'.join(line.rstrip() for line in page().splitlines())+'\n')
     subprocess.run(['node', 'tools/render/render-card.js', str(html_path), str(OUT / 'edge-study.png'),
                     '--size', '5700x3900', '--dpr', '1', '--pdf', '19x13in'], cwd=ROOT, check=True)
     pdf = DIR / 'edge-study.pdf'
