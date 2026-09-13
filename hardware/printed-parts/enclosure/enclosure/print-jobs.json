@@ -1,0 +1,48 @@
+{
+  "date": "2026-09-13",
+  "jobs": [
+    {
+      "printer": "H2C",
+      "parts": [
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl"
+      ],
+      "z_offset_mm": 0.18,
+      "effective_textured_plate_trim_mm": 0.16,
+      "profile": "hardware/printed-parts/petgf.3mf",
+      "profile_sha256": "612d1f5c9414acdfc4eec8bb40936817f2a4acb29f2223d96eaa47df3ae3ef44",
+      "project": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top-current.3mf",
+      "sliced_file": ".cache/prints/2026-09-13-enclosure/h2c/enclosure-front-top-h2c-send.gcode.3mf",
+      "sliced_file_sha256": "52a89f5ad9f70217e52c70ced79aa6791e5d1cea7da23443557d4a35369800cc",
+      "gcode_sha256": "b182f8af0ead28694a1b6b8e5718b6b7566d035052de8ddbab203ed81f4e888f",
+      "nozzle": "left 0.4 mm Standard",
+      "filament": "Polymaker PET-GF; PET-CF mapping on left external spool",
+      "estimated_seconds": 71647,
+      "filament_grams": 686.57,
+      "status": "prepared"
+    },
+    {
+      "printer": "Mark2",
+      "parts": [
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl"
+      ],
+      "z_offset_mm": 0.04,
+      "effective_textured_plate_trim_mm": 0.02,
+      "profile": "hardware/printed-parts/petgf.3mf",
+      "profile_sha256": "612d1f5c9414acdfc4eec8bb40936817f2a4acb29f2223d96eaa47df3ae3ef44",
+      "project": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge-current.3mf",
+      "sliced_file": ".cache/prints/2026-09-13-enclosure/mark2/enclosure-pump-cartridge-mark2-send.gcode.3mf",
+      "sliced_file_sha256": "8d13b205656af58ff9f5088f721b0a79ad17859f0229b9a4581baa457087df16",
+      "gcode_sha256": "cca5051dfd62f0e609d8b2d3dcf570fdb784b357aa6a6cf119bf8ed89edaecc2",
+      "nozzle": "left 0.4 mm Standard",
+      "filament": "Polymaker PET-GF; PET-CF mapping on left external spool",
+      "estimated_seconds": 35235,
+      "filament_grams": 408.06,
+      "status": "started",
+      "job_name": "enclosure-pump-cartridge-mark2",
+      "observed_state": "Homing toolhead, heatbed surface foreign object detection, hotend detection and filament loading",
+      "observed_at_utc": "2026-09-13T18:22:52.328803+00:00",
+      "printer_eta_local": "23:09"
+    }
+  ]
+}
