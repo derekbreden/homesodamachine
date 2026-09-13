@@ -1241,7 +1241,7 @@ def collet_plate_spec(mcarry, tray_stations) -> dict:
         raise ValueError("the four branch collets need one tube-centre elevation")
     aft = faces[0]
     z0 = _enc.z_seam
-    nominal_hole_z = hole_z - _enc._interface.manifold_rise
+    nominal_hole_z = hole_z + ml.CARRIER_DROP - _enc._interface.manifold_rise
     x1 = _enc.interior_x()[1]
     tee = ml.tee
     stroke = PLATE_REST_GAP + tee.COLLET_TRAVEL
@@ -5118,14 +5118,11 @@ def build_pack() -> cq.Assembly:
     clamp, clamp_carry = build_fuse_clamp(comp_carry, fuse)
     a.add(clamp, name="fuse-clamp", color=C_CLAMP)
 
-    # RELEASE REPRODUCES THE ESTABLISHED FOLD ENVELOPE: both R14 quarters and the centre member
-    # are in their unbowed geometry there.  It preserves the established valve/pump elevation
-    # while the four carried tees and their flexible ends move inside that world.  Deriving the
-    # lift from a bowed state would let a changing sweep trihedron lift every fixed valve, which
-    # is not a carrier motion. Squeeze remains the carrier's zero-offset datum below.
+    # The release hairpins define the fold's vertical datum. Their tee-side drop is
+    # below that datum; the fixed valves and pump bodies retain their own elevations.
     datum_posed = posed_manifold(ml.CARRIER_RELEASE)
     squeeze_posed = posed_manifold(ml.CARRIER_SQUEEZE)
-    lift = (PACK_CROWN + _enc._interface.manifold_rise
+    lift = (PACK_CROWN + _enc._interface.manifold_rise - ml.CARRIER_DROP
             - min(box(s).zmin for _n, s, _c in datum_posed))
     state_offset = ml.CARRIER_STATES[CARRIER_ASSEMBLY_STATE]
     posed = posed_manifold(state_offset)
@@ -5149,13 +5146,11 @@ def build_pack() -> cq.Assembly:
             continue
         a.add(solid, name=name, color=color)
         in_pack.append(name)
-    # ONE POSE DATUM FOR THE WHOLE PACK. The release-state spine hairpins are its lowest
-    # geometry, so their envelope strikes `z0` on the base crown; this locates the folded study
-    # without making those tubes a load path. In the machine, the eight fixed valves are pressed
-    # into front-top's two trays and the four moving tees are tied to their guided carrier.
+    # The released hairpins extend CARRIER_DROP below the fixed fold datum. The eight
+    # valves bear in front-top's trays and the moving tees are tied to their guided carrier.
     record_seat("manifold-layout",
                 turns=((X_AXIS[1].toTuple(), 90.0), (Z_AXIS[1].toTuple(), 180.0)),
-                planes={"z0": PACK_CROWN + _enc._interface.manifold_rise},
+                planes={"z0": PACK_CROWN + _enc._interface.manifold_rise - ml.CARRIER_DROP},
                 got=_whole([s for _n, s, _c in datum_stood]),
                 members=tuple(in_pack))
     # THE TWO VALVE TRAYS' STATIONS, on the planes the fold left the manifold's eight non-cap

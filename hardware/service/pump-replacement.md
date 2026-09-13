@@ -215,8 +215,8 @@ carrier flex links for seepage, rubbing or a link pulled taut.
 3. **A customer-facing transit mode is not written.** This procedure leaves the carbonator charged.
    The carbonator's only liquid outlet climbs to the faucet, and the factory's transit sequence is
    [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) step 13.
-4. **Bowed-stub stock lengths.** The four tee-to-valve links have 12 mm exposed paths across
-   sleeve faces 10 mm apart in height and 1.75 mm apart fore/aft at squeeze. Their stock blanks also include both fittings' insertion depths;
+4. **Bowed-stub stock lengths.** The four tee-to-valve links have 16 mm exposed paths across
+   sleeve faces 14 mm apart in height and 1.75 mm apart fore/aft at squeeze. Their stock blanks also include both fittings' insertion depths;
    the valve-side depth is not recorded. Factory assembly fits and records these lengths in
    [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) step 5.
 
