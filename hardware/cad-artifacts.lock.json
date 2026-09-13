@@ -2,8 +2,8 @@
   "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed \u2014 web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
   "release": {
     "tag": "cad-artifacts",
-    "asset": "cad-7221e3b7e69f80d6.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-7221e3b7e69f80d6.tar.gz",
+    "asset": "cad-80f89ee22ff7acdd.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-80f89ee22ff7acdd.tar.gz",
     "objects": "s-"
   },
   "source": {
@@ -12,6 +12,11 @@
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, its rule would not cut, or an interactive publication explicitly deferred that rule.",
     "paths": [
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.lint-answers",
+      "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.lint-answers",
+      "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.lint-answers",
+      "output/pdf/quick-start-codex.pdf",
+      "tools/quickstart-claude/art.py",
       "tools/quickstart-codex/build.py"
     ],
     "members": [
@@ -396,8 +401,8 @@
     ]
   },
   "bundle": {
-    "sha256": "7221e3b7e69f80d6d8235119d1f27eea35caa446c0410d56a5cbf470db59f299",
-    "bytes": 173182489,
+    "sha256": "80f89ee22ff7acddf07601def8d644b06610801078c759be03c13314afe52920",
+    "bytes": 173182428,
     "solids": 372
   },
   "solids": {
@@ -518,7 +523,7 @@
     "hardware/install-guide/art/the-socket.png": "6af01d94b559dd77ddb53a3807024e9e0f37fbc379f81053f3ec31e762e46680",
     "hardware/install-guide/art/two-tees.png": "2a0b69bf7b013c7fdaec51d5d4df1167263af0c0a6412c9f3e0aaa547261b2c4",
     "hardware/install-guide/install-guide.cover.png": "e059cdb7e70f15b5e11aedf69fe10ffc7c4c11fb228539fd204c60573e13635a",
-    "hardware/install-guide/install-guide.pdf": "c63d627fa02699c3f7518387344bd9e62202d2a5bcd7c59fb461faf6fb5042c0",
+    "hardware/install-guide/install-guide.pdf": "556c36f5dff12cbcbaf8d49dfb574bf7e16e6ef014609c4304d3345aeffb63ad",
     "hardware/manifold-layout/enclosure-assembly.step": "abdb48b17e1db2ea55a94caa93fc894c700fe733123b01f47ded0a57b8507157",
     "hardware/manifold-layout/enclosure-assembly.step.mesh": "1183d42aa1466fd62ccc41e07bc456fcd0a0a08d21d66fc0fa920294ea818c3d",
     "hardware/manifold-layout/manifold-layout.step": "c96bf0a92ac9cbbd65236295c4576818a2da54b686a29bda4a049c65b45304a7",
