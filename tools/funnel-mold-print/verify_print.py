@@ -169,6 +169,9 @@ def main():
         record['slice_result'] = result
         if 'corner_trial' in info:
             record['specimen'] = info['corner_trial']
+        if variant == 'default' and args.project_stem == 'funnel-mold' and len(record['gcode']) == 2:
+            project_name = 'funnel-mold-sliced.3mf'
+        record['project'] = project_name
         records.append(record)
         (args.models/project_name).write_bytes(project.read_bytes())
     bundle = args.slices/'funnel-mold-presets.bbscfg'

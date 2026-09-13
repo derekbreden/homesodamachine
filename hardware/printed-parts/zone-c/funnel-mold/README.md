@@ -94,9 +94,24 @@ print still needs its own dry-fit and vacuum trial.
 
 ## Print
 
-[Recommended project, +0.04 trim](funnel-mold.3mf) ·
-[Alternate +0.18 trim](funnel-mold-z018.3mf) ·
-[Printer, filament and process presets](funnel-mold-presets.bbscfg)
+[Editable project, Engineering Plate and +0.18 trim](funnel-mold.3mf) ·
+[Saved printer, filament and process presets](funnel-mold-presets.bbscfg)
+
+The editable project selects these saved Bambu Studio User Presets:
+
+- Process: **Funnel mold shell - 0.8 nozzle - tree supports**
+- Filament: **Funnel mold PETG Translucent - 0.8 nozzle - 255C**
+- Printer: **Bambu Lab H2C 0.8 High Flow +0.18 Z trim**
+
+The preset bundle also includes the +0.04 printer variant. Import the bundle
+on another Bambu Studio installation to add these presets to its selectors.
+The selected names appear without an asterisk when their settings match the
+saved presets. Check the plate and nozzle assignments, then slice the editable
+project; it contains no saved G-code.
+
+The checked slices use Textured PEI:
+[+0.04 trim](funnel-mold-sliced.3mf) · [+0.18 trim](funnel-mold-z018.3mf).
+Their estimates are:
 
 | Body | Envelope | Estimated print | PETG, including supports |
 | --- | --- | --- | --- |
@@ -114,7 +129,7 @@ The [0.4 mm project](funnel-mold-04.3mf), at 0.16 mm layers on the left Standard
 nozzle, is estimated at [56 h 14 min](FINE_TIME) and [0.95 kg](FINE_MASS) for both halves.
 It uses the same geometry, +0.04 mm plate trim and automatic tree supports.
 
-[print-profile.json](print-profile.json) records the actual saved settings,
+[print-profile.json](print-profile.json) records the checked slices' settings,
 STL and G-code checksums, support usage and estimates.
 [layer-review.json](layer-review.json) records model connectivity at the sliced
 layer heights. The cavity spout tip and core rod cradle begin above the plate;
@@ -158,7 +173,8 @@ Prepare the alternate input with `--z-trim 0.18`. Slice both inputs in Bambu
 Studio, then run [verify_print.py](/tools/funnel-mold-print/verify_print.py) with
 this models directory and the slice directory. `--nozzle 0.4` prepares the
 comparison project; pass its slice directory as `--comparison-slices` when
-verifying to refresh both estimates.
+verifying to refresh both estimates. Verification writes the default checked
+slice to `funnel-mold-sliced.3mf`; the editable `funnel-mold.3mf` is separate.
 
 After publication, run [review_geometry.py](/tools/funnel-mold-print/review_geometry.py)
 with this models directory. Geometry lint reports overhangs in the print
