@@ -6943,8 +6943,6 @@ genrule(
         "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/cavity.step",
         "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/cavity.step.mesh",
         "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/cavity.stl",
-        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/channel-section.step",
-        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/channel-section.step.mesh",
         "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/core.step",
         "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/core.step.mesh",
         "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/core.stl",
@@ -6967,20 +6965,18 @@ O3=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/ba
 O4=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/cavity.step)
 O5=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/cavity.step.mesh)
 O6=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/cavity.stl)
-O7=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/channel-section.step)
-O8=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/channel-section.step.mesh)
-O9=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/core.step)
-O10=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/core.step.mesh)
-O11=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/core.stl)
-O12=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/design.json)
-O13=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel.step)
-O14=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel.step.mesh)
-O15=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/overview.step)
-O16=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/overview.step.mesh)
-O17=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/rod.step)
-O18=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/rod.step.mesh)
-O19=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/section.step)
-O20=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/section.step.mesh)
+O7=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/core.step)
+O8=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/core.step.mesh)
+O9=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/core.stl)
+O10=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/design.json)
+O11=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel.step)
+O12=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel.step.mesh)
+O13=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/overview.step)
+O14=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/overview.step.mesh)
+O15=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/rod.step)
+O16=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/rod.step.mesh)
+O17=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/section.step)
+O18=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/section.step.mesh)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -7004,20 +7000,18 @@ cp hardware/printed-parts/zone-c/funnel-mold/backs.step.mesh $$O3
 cp hardware/printed-parts/zone-c/funnel-mold/cavity.step $$O4
 cp hardware/printed-parts/zone-c/funnel-mold/cavity.step.mesh $$O5
 cp hardware/printed-parts/zone-c/funnel-mold/cavity.stl $$O6
-cp hardware/printed-parts/zone-c/funnel-mold/channel-section.step $$O7
-cp hardware/printed-parts/zone-c/funnel-mold/channel-section.step.mesh $$O8
-cp hardware/printed-parts/zone-c/funnel-mold/core.step $$O9
-cp hardware/printed-parts/zone-c/funnel-mold/core.step.mesh $$O10
-cp hardware/printed-parts/zone-c/funnel-mold/core.stl $$O11
-cp hardware/printed-parts/zone-c/funnel-mold/design.json $$O12
-cp hardware/printed-parts/zone-c/funnel-mold/funnel.step $$O13
-cp hardware/printed-parts/zone-c/funnel-mold/funnel.step.mesh $$O14
-cp hardware/printed-parts/zone-c/funnel-mold/overview.step $$O15
-cp hardware/printed-parts/zone-c/funnel-mold/overview.step.mesh $$O16
-cp hardware/printed-parts/zone-c/funnel-mold/rod.step $$O17
-cp hardware/printed-parts/zone-c/funnel-mold/rod.step.mesh $$O18
-cp hardware/printed-parts/zone-c/funnel-mold/section.step $$O19
-cp hardware/printed-parts/zone-c/funnel-mold/section.step.mesh $$O20
+cp hardware/printed-parts/zone-c/funnel-mold/core.step $$O7
+cp hardware/printed-parts/zone-c/funnel-mold/core.step.mesh $$O8
+cp hardware/printed-parts/zone-c/funnel-mold/core.stl $$O9
+cp hardware/printed-parts/zone-c/funnel-mold/design.json $$O10
+cp hardware/printed-parts/zone-c/funnel-mold/funnel.step $$O11
+cp hardware/printed-parts/zone-c/funnel-mold/funnel.step.mesh $$O12
+cp hardware/printed-parts/zone-c/funnel-mold/overview.step $$O13
+cp hardware/printed-parts/zone-c/funnel-mold/overview.step.mesh $$O14
+cp hardware/printed-parts/zone-c/funnel-mold/rod.step $$O15
+cp hardware/printed-parts/zone-c/funnel-mold/rod.step.mesh $$O16
+cp hardware/printed-parts/zone-c/funnel-mold/section.step $$O17
+cp hardware/printed-parts/zone-c/funnel-mold/section.step.mesh $$O18
 """,
 )
 

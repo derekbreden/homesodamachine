@@ -67,7 +67,7 @@ def trimmed_start_gcode(stock, trim):
 
 def printer_names(recipe):
     return [recipe['system_presets']['machine']] + [
-        f'Bambu Lab H2C 0.8 High Flow +{v:.2f} Z trim'
+        f"Bambu Lab H2C {recipe['nozzle_mm']:g} {recipe['nozzle_type']} +{v:.2f} Z trim"
         for v in recipe['z_trim']['available_mm']]
 
 
@@ -76,11 +76,11 @@ def preset_bundle(root, recipe, version, destination):
     stock, _, _ = system_preset(root, 'machine', recipe['system_presets']['machine'], {})
     profiles = []
     for offset in recipe['z_trim']['available_mm']:
-        name = f'Bambu Lab H2C 0.8 High Flow +{offset:.2f} Z trim'
+        name = f"Bambu Lab H2C {recipe['nozzle_mm']:g} {recipe['nozzle_type']} +{offset:.2f} Z trim"
         profiles.append({'from': 'User', 'inherits': recipe['system_presets']['machine'],
             'name': name, 'printer_settings_id': name, 'version': version,
             'machine_start_gcode': trimmed_start_gcode(stock['machine_start_gcode'], offset),
-            'default_nozzle_volume_type': ['High Flow', 'Standard']})
+            'default_nozzle_volume_type': [recipe['nozzle_type'], 'Standard']})
     for kind, identity in (('process', 'print_settings_id'), ('filament', 'filament_settings_id')):
         name = recipe[f'{kind}_name']
         assert not any(c in name for c in '/\\'), 'Preset names must also be valid filenames.'
@@ -112,7 +112,7 @@ def fresh_settings(root, recipe, trim):
             values[key] = choice['value']
             sources[key] = {'recipe': group, 'reason': choice['reason']}
     assignment = {
-        'printer_settings_id': f'Bambu Lab H2C 0.8 High Flow +{trim:.2f} Z trim',
+        'printer_settings_id': f"Bambu Lab H2C {recipe['nozzle_mm']:g} {recipe['nozzle_type']} +{trim:.2f} Z trim",
         'print_settings_id': recipe['process_name'],
         'filament_settings_id': [recipe['filament_name']],
         'inherits_group': [recipe['system_presets']['process'],
@@ -125,18 +125,18 @@ def fresh_settings(root, recipe, trim):
         'filament_map_mode': 'Manual', 'filament_map': ['1'],
         'filament_map_2': ['1'], 'filament_nozzle_map': ['0'],
         'filament_self_index': ['1', '1'],
-        'filament_volume_map': ['1'],
-        'nozzle_volume_type': ['High Flow', 'Standard'],
-        'default_nozzle_volume_type': ['High Flow', 'Standard'],
-        'extruder_nozzle_stats': ['High Flow#1', 'Standard#1'],
-        'extruder_nozzle_stats_new': ['High Flow#1', 'Standard#1'],
+        'filament_volume_map': ['1' if recipe['nozzle_type'] == 'High Flow' else '0'],
+        'nozzle_volume_type': [recipe['nozzle_type'], 'Standard'],
+        'default_nozzle_volume_type': [recipe['nozzle_type'], 'Standard'],
+        'extruder_nozzle_stats': [recipe['nozzle_type']+'#1', 'Standard#1'],
+        'extruder_nozzle_stats_new': [recipe['nozzle_type']+'#1', 'Standard#1'],
         'curr_bed_type': 'Textured PEI Plate',
         'print_compatible_printers': printer_names(recipe),
     }
     for key, value in assignment.items():
         values[key] = value
         sources[key] = {'generator': 'fresh_settings',
-            'reason': 'One PETG filament on the left 0.8 mm High Flow nozzle, textured PEI; named source presets.'}
+            'reason': 'One PETG filament on the left selected nozzle, textured PEI; named source presets.'}
     values['machine_start_gcode'] = trimmed_start_gcode(values['machine_start_gcode'], trim)
     sources['machine_start_gcode'] = {
         'preset': sources['machine_start_gcode']['preset'],

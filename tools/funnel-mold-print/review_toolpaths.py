@@ -74,6 +74,9 @@ def main():
     with zipfile.ZipFile(args.project) as archive:
         settings = json.loads(archive.read('Metadata/project_settings.config'))
         cap = max(map(float, settings['outer_wall_speed']))
+        overhang_cap = max(float(v) for k in (
+            'overhang_1_4_speed', 'overhang_2_4_speed',
+            'overhang_3_4_speed', 'overhang_4_4_speed') for v in settings[k])
         for name in sorted(archive.namelist()):
             if not re.fullmatch(r'Metadata/plate_\d+\.gcode', name):
                 continue
@@ -81,7 +84,8 @@ def main():
             blocks = outer_blocks(data.decode())
             regular = [b for b in blocks if b['layer'] > 3]
             speed = max(s[4] for b in regular for s in b['segments'])
-            assert speed <= cap+0.02, (name, speed, cap)
+            # Bambu keeps some speed-interpolated overhang segments in Outer wall blocks.
+            assert speed <= max(cap, overhang_cap)+0.02, (name, speed, cap, overhang_cap)
             fan_min = min(s[5] for b in regular for s in b['segments'])
             if settings['overhang_fan_threshold'] == ['0%']:
                 target = float(settings['overhang_fan_speed'][0])
@@ -95,7 +99,8 @@ def main():
                     exterior[block['layer']] = summary
             report['plates'].append({'gcode': name,
                 'gcode_sha256': hashlib.sha256(data).hexdigest(),
-                'outer_wall_speed_limit_mm_s': cap,
+                'outer_wall_speed_setting_mm_s': cap,
+                'maximum_overhang_speed_setting_mm_s': overhang_cap,
                 'maximum_commanded_outer_wall_speed_after_layer_3_mm_s': speed,
                 'minimum_commanded_outer_wall_fan_after_layer_3_percent': fan_min,
                 'exterior_perimeters': list(exterior.values())})
