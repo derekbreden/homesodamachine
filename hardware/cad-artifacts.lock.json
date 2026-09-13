@@ -2,8 +2,8 @@
   "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed \u2014 web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
   "release": {
     "tag": "cad-artifacts",
-    "asset": "cad-b658fdb45345dabd.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-b658fdb45345dabd.tar.gz",
+    "asset": "cad-1d43c3d0afe531a9.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-1d43c3d0afe531a9.tar.gz",
     "objects": "s-"
   },
   "source": {
@@ -12,8 +12,6 @@
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, its rule would not cut, or an interactive publication explicitly deferred that rule.",
     "paths": [
-      "hardware/printed-parts/zone-c/funnel-mold/cavity.lint-answers",
-      "hardware/printed-parts/zone-c/funnel-mold/core.lint-answers",
       "output/pdf/quick-start-codex.pdf",
       "tools/quickstart-codex/build.py",
       "tools/quickstart-codex/collet_scene.py",
@@ -402,8 +400,8 @@
     ]
   },
   "bundle": {
-    "sha256": "b658fdb45345dabdda85b6dc3afbe5cb93c1f71ff793926894f19413ecc2cc80",
-    "bytes": 173762641,
+    "sha256": "1d43c3d0afe531a95774ac913e0ffde7c6c25c667c594797eb5b58057369e72a",
+    "bytes": 173763761,
     "solids": 372
   },
   "solids": {
@@ -526,7 +524,7 @@
     "hardware/install-guide/install-guide.cover.png": "e059cdb7e70f15b5e11aedf69fe10ffc7c4c11fb228539fd204c60573e13635a",
     "hardware/install-guide/install-guide.pdf": "f04220e644ed94bcfadb01fe097410504661281a999d0c2e0d64cba3b962c47c",
     "hardware/manifold-layout/enclosure-assembly.step": "abdb48b17e1db2ea55a94caa93fc894c700fe733123b01f47ded0a57b8507157",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "245a96173af231036d49211c5b3dd225c91d2e0a8408916500e23a6654f17af0",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "b261f1eca36d8626eb31d68d96a32af5ad12287cd77c68906a96fdd589f32276",
     "hardware/manifold-layout/manifold-layout.step": "c96bf0a92ac9cbbd65236295c4576818a2da54b686a29bda4a049c65b45304a7",
     "hardware/manifold-layout/manifold-layout.step.mesh": "cd7960401b2f6ecc672ab4cac5e26262bccd2ad00bbc133fe8906feedc0a3c63",
     "hardware/pcb/pcba/out/pcba.glb": "819d2d6a51579a8c3ee66bcb9432075bc50ca77cf129bd828ea538b8fc72b767",
