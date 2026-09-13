@@ -35,7 +35,7 @@ a valve and a pump barb.
 
 The fold
 --------
-`|` above is the hinge — the plane the four barb tees' front collets stand on. Everything
+`|` above is the fold's hinge plane. The four barb tees sit `CARRIER_DROP` below it. Everything
 ahead of it is turned 180° onto everything behind it, so the four lines that cross it —
 fluid-9, 17, 19 and 27 — each become one 180° turn between two collets that now face the same
 way, `DECK_SEP` apart.
@@ -66,7 +66,7 @@ collet butted to collet.
 
 `BUTT` is the tube left OUTSIDE a pair of butted quick-connects, and it is 0 — there is still
 tube in both collets, there is none between them. The four anchor tees are the exception: each
-stands 10 mm below its fore valve and the 12 mm of exposed LLDPE between them is laid in a bow.
+stands 14 mm below its fore valve and the 16 mm of exposed LLDPE between them is laid in a bow.
 That flex joint lets the tee travel with the pump cartridge while the valve stays in its tray.
 `BARB_STANDOFF` locates the nominal fore deck relative to the pump outlet:
 `pump_station_lead` sets the pump position relative to the fixed
@@ -166,12 +166,14 @@ MOTOR_L = kp.motor_end_z - kp.octagon_top_z  # the can, boss's rear face to the 
 
 # --- The study's own figures, all four free --------------------------------
 BUTT = 0.0            # tube left outside a pair of butted quick-connects
-# The four valves immediately above the pump-barb tees stand this much further along the limb.
-# In the enclosure pose the limb's +Y is the machine's +Z, so this is the valve lift itself.
-FORE_STUB_GAP = 10.0
+# In the enclosure pose the limb's +Y is world +Z. The carrier tees sit below the
+# fold datum; the four fore valves retain their own elevation above that datum.
+CARRIER_DROP = 4.0
+FORE_VALVE_RISE = 10.0
+FORE_STUB_GAP = FORE_VALVE_RISE + CARRIER_DROP
 # EXPOSED tube between the two sleeve faces, not the cut length swallowed by their collets.
 # The valve's own insertion depth is not measured, so the cut length remains a bench figure.
-FORE_STUB_EXPOSED = 12.0
+FORE_STUB_EXPOSED = FORE_STUB_GAP + 2.0
 FORE_VALVES = frozenset(("V-E", "V-F", "V-H", "V-I"))
 # The two outer aft valves stand inboard of their pump-connected tees. Their hairpins
 # lean between those axes; the room outside the coils belongs to the closed finger cups.
@@ -463,7 +465,7 @@ SPINE_DRAWN_R = min(SPINE_R, SPINE_MIN_SEP / 2.0)
 # These figures describe the inner hairpins at release. The outer pair lean toward
 # their inset valves and derive their own cut lengths in `spine_tube_length`.
 SPINE_MIDDLE_LEN = SPINE_RELEASE_SEP - 2.0 * SPINE_DRAWN_R
-SPINE_LEN = math.pi * SPINE_DRAWN_R + SPINE_MIDDLE_LEN
+SPINE_LEN = math.pi * SPINE_DRAWN_R + SPINE_MIDDLE_LEN + CARRIER_DROP
 SPINE_STRAIGHT = DECK_SEP - CARRIER_DATUM_SHIFT - 2.0 * SPINE_DRAWN_R
 
 
@@ -633,7 +635,8 @@ def source_step(name: str) -> tuple:
 # In the pack's own frame the source valves run along +Z once they are round, and the crown
 # they are stepping toward is −Y.
 SHIFT = {n: source_cross(n) + (SOURCE_TRAVEL,) for n in SOURCE_SPREAD}
-SHIFT.update({n: (0.0, FORE_STUB_GAP, 0.0) for n in FORE_VALVES})
+SHIFT.update({n: (0.0, FORE_VALVE_RISE, 0.0) for n in FORE_VALVES})
+SHIFT.update({n: (0.0, -CARRIER_DROP, 0.0) for n in CARRIER_TEES})
 SHIFT.update({n: (-math.copysign(OUTER_AFT_INSET, P[n]["x"]), 0.0, 0.0)
               for n in ("V-G", "V-J")})
 
@@ -847,11 +850,12 @@ def spine_radius(carrier_offset: float = CARRIER_SQUEEZE, x: float = 0.0) -> flo
     """Quarter radius preserving the full tube length as its collets approach.
 
     A pair of quarter circles and their tangent middle has length
-    separation + (pi - 2) * radius. Release sets the cut at the stock's minimum
+    separation + (pi - 2) * radius; the fixed valve's axial leg adds CARRIER_DROP.
+    Release sets the cut at the stock's minimum
     radius; the bends open as the carrier moves aft. Both port tangents remain axial.
     """
     separation = math.hypot(DECK_SEP - CARRIER_DATUM_SHIFT - carrier_offset, spine_offset_x(x))
-    return (spine_tube_length(x) - separation) / (math.pi - 2.0)
+    return (spine_tube_length(x) - CARRIER_DROP - separation) / (math.pi - 2.0)
 
 
 def spine_offset_x(x: float) -> float:
@@ -866,17 +870,18 @@ def spine_middle_length(x: float) -> float:
 
 def spine_tube_length(x: float) -> float:
     """Full developed length, shared by every state of one hairpin."""
-    return math.pi * SPINE_DRAWN_R + spine_middle_length(x)
+    return math.pi * SPINE_DRAWN_R + spine_middle_length(x) + CARRIER_DROP
 
 
 def spine_stations(x: float, carrier_offset: float = CARRIER_SQUEEZE):
     """Collet and quarter-tangent points on the plane joining the two actual axes."""
     r = spine_radius(carrier_offset, x)
-    a = cq.Vector(x, HINGE_Y, DECK_Z + CARRIER_DATUM_SHIFT + carrier_offset)
+    a = cq.Vector(x, HINGE_Y - CARRIER_DROP, DECK_Z + CARRIER_DATUM_SHIFT + carrier_offset)
     d = cq.Vector(x + spine_offset_x(x), HINGE_Y, UPPER_Z)
-    along = (d - a).normalized()
+    turn_end = d - cq.Vector(0.0, CARRIER_DROP, 0.0)
+    along = (turn_end - a).normalized()
     back = cq.Vector(0.0, -r, 0.0)
-    return a, a + back + along * r, d + back - along * r, d, along
+    return a, a + back + along * r, turn_end + back - along * r, d, along
 
 
 def spine_middle(x: float, a: cq.Vector, b: cq.Vector):
@@ -887,7 +892,8 @@ def spine_middle(x: float, a: cq.Vector, b: cq.Vector):
 def uturn(x: float, carrier_offset: float = CARRIER_SQUEEZE):
     """A constant-length hairpin joining the carried tee and fixed valve on their axes.
 
-    The two quarter circles share the plane of the collets and their separation vector.
+    The two quarter circles lie at the lowered tee's elevation. A straight axial leg
+    reaches the higher fixed valve from the second quarter circle.
     Their radius grows as that separation closes, taking length from the tangent middle.
     The outer pair lean across X to meet their inset valves. The complete operating
     envelope, including the increasing reach past the hinge, sizes the enclosure wells.
@@ -910,8 +916,11 @@ def uturn(x: float, carrier_offset: float = CARRIER_SQUEEZE):
         a, a + arc_back + along * k, b)]
     if middle_chord > 1e-9:
         edges.append(spine_middle(x, b, c))
+    turn_end = d - cq.Vector(0.0, CARRIER_DROP, 0.0)
     edges.append(cq.Edge.makeThreePointArc(
-        c, d + arc_back - along * k, d))
+        c, turn_end + arc_back - along * k, turn_end))
+    if CARRIER_DROP > 1e-9:
+        edges.append(cq.Edge.makeLine(turn_end, d))
     prof = cq.Wire.makeCircle(TUBE_D / 2.0, a, cq.Vector(0.0, -1.0, 0.0))
     return cq.Solid.sweep(prof, [], cq.Wire.assembleEdges(edges),
                           makeSolid=True, isFrenet=True)
@@ -1491,6 +1500,9 @@ def selftest() -> int:
             depth = tee.INSERTION_EXTENDED - tee.carrier_collet_depression(offset)
             if abs(exposed + depth - PUMP_TUBE_PROJECTION) > 1e-8:
                 failures.append(f'{state} {name} tube length does not bottom at its body stop')
+            entry_angle = skew_deg(*runs(offset)[name], branch_port(name, offset)[1])
+            if abs(entry_angle - 180.0) > 1e-6:
+                failures.append(f'{state} {name} pump tube is not on its tee collet axis')
         # Every carrier tee translates by exactly the state offset on the pack's +Z axis.
         for name in sorted(CARRIER_TEES):
             point = branch_port(name, offset)[0]
@@ -1498,7 +1510,7 @@ def selftest() -> int:
             if max(abs(delta[0]), abs(delta[1]), abs(delta[2] - offset)) > 1e-8:
                 failures.append(f"{state} {name} branch moved {delta}, wants (0, 0, {offset:g})")
 
-        # Each exposed bow keeps 12 mm of centreline while its sleeve-face chord changes.
+        # Each exposed bow keeps its developed length while the sleeve-face chord changes.
         for name, (a, b) in sorted(fore_stubs(offset).items()):
             chord = dist(a, b)
             if chord > FORE_STUB_EXPOSED + 1e-8:
@@ -1521,7 +1533,7 @@ def selftest() -> int:
                     or dist(d.toTuple(), port(gate, 'back', offset)) > 1e-8):
                 failures.append(f"{state} fluid-{cid} spine misses its placed collet")
             middle = spine_middle(x, b, c)
-            developed = middle.Length() + math.pi * spine_radius(offset, x)
+            developed = middle.Length() + math.pi * spine_radius(offset, x) + CARRIER_DROP
             if abs(developed - spine_tube_length(x)) > 1e-6:
                 failures.append(
                     f"{state} fluid-{cid} is {developed:.6f} mm, "
@@ -1531,6 +1543,9 @@ def selftest() -> int:
             shape = uturn(x, offset)
             if not shape.isValid() or len(shape.Solids()) != 1:
                 failures.append(f"{state} fluid-{cid} spine is not one valid solid")
+            swept_length = shape.Volume() / (math.pi * (TUBE_D / 2.0) ** 2)
+            if abs(swept_length - spine_tube_length(x)) > 0.01:
+                failures.append(f"{state} fluid-{cid} swept tube length is {swept_length:.6f} mm")
 
         assy = build_assembly(offset)
         # A purchased reference may deliberately be one named compound (the Beduan coil is
@@ -1580,7 +1595,7 @@ def main():
             "SPINE_MIDDLE_LEN": f"{SPINE_MIDDLE_LEN:.2f}",
             "OUTER_AFT_INSET": f"{OUTER_AFT_INSET:g}",
             "OUTER_SPINE_MIDDLE_LEN": f"{spine_middle_length(OUTER_X):.2f}",
-            "OUTER_SPINE_LEN": f"{math.pi * SPINE_DRAWN_R + spine_middle_length(OUTER_X):.2f}",
+            "OUTER_SPINE_LEN": f"{spine_tube_length(OUTER_X):.2f}",
             "DECK_SEP": f"{DECK_SEP:g}",
             "SPINE_COUNT": str(len(SPINE)), "MIN_BEND2": f"{MIN_BEND:g}",
             "QUARTER_R": f"{BEND_R:g}", "QUARTER_LEN": f"{QUARTER_LEN:.2f}",

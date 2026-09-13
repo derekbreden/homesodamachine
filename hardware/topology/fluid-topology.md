@@ -41,7 +41,7 @@ Y-A and Y-B inherit location from their fixed face-to-face valve joints. Y-C, Y-
 
 **Y-A and Y-B are the SELECTS-SOURCE junction.** Each stands on its own inner limb's axis, one valve forward of the select it feeds, so its RUN is the limb — the source valve one side, the select the other. The two branches face each other across the mirror plane and meet on segment 6, which is what puts all four ports on one hydraulic node. Every mode opens exactly one of {V-A, V-B} and exactly one of {V-C, V-D}, so the traffic the pair carries is always one source to one select — straight down a limb, or down half a limb, across the bar and down the other half.
 
-**Y-C, Y-D, Y-F and Y-G are the PUMP-BARB junctions.** Each takes its barb by its BRANCH across the collet plate's berth — a short tube over the barb, through the printed collet plate, into the collet, the joint that releases when the pump cartridge is pulled — so its RUN lies across the pump head's face and IS the outboard half of a limb. One run port carries a constant-length hairpin whose lower end moves with the tee; the other reaches its fixed fore valve through a 12 mm exposed bowed stub across a 10 mm sleeve-face gap. Y-C and Y-F take suction, Y-D and Y-G discharge.
+**Y-C, Y-D, Y-F and Y-G are the PUMP-BARB junctions.** Each takes its barb by its BRANCH across the collet plate's berth — a short tube over the barb, through the printed collet plate, into the collet, the joint that releases when the pump cartridge is pulled — so its RUN lies across the pump head's face and IS the outboard half of a limb. One run port carries a constant-length hairpin whose lower end moves with the tee; the other reaches its fixed fore valve through a 16 mm exposed bowed stub across a 14 mm sleeve-face gap. Y-C and Y-F take suction, Y-D and Y-G discharge.
 
 Y-A's and Y-B's run ports are numbered from the source end down the limb. On a barb tee the branch takes the number nearest the barb it drops onto — Y-C-3 and Y-F-3 at the two suctions, Y-D-1 and Y-G-1 at the two discharges.
 
@@ -78,10 +78,10 @@ Four of the seven conduits in the cold core's top cap are this circuit's: a fill
 | # | From | To | Notes |
 |---|---|---|---|
 | 9 | V-C-O | Y-C-1 | Across the hinge — one 180° hairpin on the A1 limb's column |
-| 10 | V-E-O | Y-C-2 | 12 mm exposed bowed flex stub from the fixed valve to the moving carrier tee; total cut blank TBD at the bench |
+| 10 | V-E-O | Y-C-2 | 16 mm exposed bowed flex stub from the fixed valve to the moving carrier tee; total cut blank TBD at the bench |
 | 11 | Y-C-3 | P-A-I | The barb tube: over the suction barb, through the collet plate, into the tee's branch — the cartridge's release joint |
 | 12 | P-A-O | Y-D-1 | The barb tube: over the discharge barb, through the collet plate, into the tee's branch |
-| 13 | Y-D-2 | V-F-I | 12 mm exposed bowed flex stub from the moving carrier tee to the fixed valve; total cut blank TBD at the bench |
+| 13 | Y-D-2 | V-F-I | 16 mm exposed bowed flex stub from the moving carrier tee to the fixed valve; total cut blank TBD at the bench |
 | 14 | V-F-O | Reservoir A fill bore | Aft and down the `reservoir-a-fill` cap conduit, onto the bore in the reservoir's own cap, above the liquid |
 | 16 | Reservoir A draw | V-E-I | Up the `reservoir-a` cap conduit, off the bulkhead at the bottom of the wet V |
 | 17 | Y-D-3 | V-G-I | Across the hinge — one 180° hairpin on the A2 limb's column |
@@ -92,10 +92,10 @@ Four of the seven conduits in the cold core's top cap are this circuit's: a fill
 | # | From | To | Notes |
 |---|---|---|---|
 | 19 | V-D-O | Y-F-1 | Across the hinge — one 180° hairpin on the B1 limb's column |
-| 20 | V-H-O | Y-F-2 | 12 mm exposed bowed flex stub from the fixed valve to the moving carrier tee; total cut blank TBD at the bench |
+| 20 | V-H-O | Y-F-2 | 16 mm exposed bowed flex stub from the fixed valve to the moving carrier tee; total cut blank TBD at the bench |
 | 21 | Y-F-3 | P-B-I | The barb tube: over the suction barb, through the collet plate, into the tee's branch — the cartridge's release joint |
 | 22 | P-B-O | Y-G-1 | The barb tube: over the discharge barb, through the collet plate, into the tee's branch |
-| 23 | Y-G-3 | V-I-I | 12 mm exposed bowed flex stub from the moving carrier tee to the fixed valve; total cut blank TBD at the bench |
+| 23 | Y-G-3 | V-I-I | 16 mm exposed bowed flex stub from the moving carrier tee to the fixed valve; total cut blank TBD at the bench |
 | 24 | V-I-O | Reservoir B fill bore | Aft and down the `reservoir-b-fill` cap conduit, onto the bore in the reservoir's own cap, above the liquid |
 | 26 | Reservoir B draw | V-H-I | Up the `reservoir-b` cap conduit, off the bulkhead at the bottom of the wet V |
 | 27 | Y-G-2 | V-J-I | Across the hinge — one 180° hairpin on the B2 limb's column |

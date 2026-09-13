@@ -54,7 +54,7 @@ rear_axis_y_shift = -1.0
 rear_axis_y = cy + rear_axis_y_shift
 base_plane_z = 0.0                               # base-plate bore-opening plane
 octagon_top_z = pc.bore_bottom_z                 # octagon seat depth / tower-bore start
-outlet_above_skirt_bottom = 5.0
+outlet_above_skirt_bottom = 1.0
 arch_plane_z = pc.skirt_bottom_z + outlet_above_skirt_bottom
 tower_top_z = (pc.bore_bottom_z + pc.tower_height
                - pc.tower_cap_thickness)         # tower bore far face — the motor's headroom

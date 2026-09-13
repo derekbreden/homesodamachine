@@ -206,9 +206,9 @@ class CarrierSpec:
 
 
 DEFAULT_SPEC = CarrierSpec(
-    tee_xs=(-79.82, -20.07, 20.07, 79.82), tee_axis_z=190.245,
-    web_x=(-94.0, 94.0), web_fore_y=107.968, web_z=(171.245, 220.065),
-    spring_xs=(-49.945, 49.945), spring_axis_z=190.245,
+    tee_xs=(-79.82, -20.07, 20.07, 79.82), tee_axis_z=186.245,
+    web_x=(-94.0, 94.0), web_fore_y=107.968, web_z=(167.245, 220.065),
+    spring_xs=(-49.945, 49.945), spring_axis_z=186.245,
     tab_outer_x=107.5, tab_z=(175.050, 226.190),
 )
 
@@ -742,6 +742,7 @@ def sync_readme(spec=DEFAULT_SPEC):
         'OPENING_RUN': spec.grip_bar_t + spec.finger_run + spec.park_offset_y - spec.release_offset_y,
         'GUIDE_AIR': spec.slide_air,
         'SPRING_SEAT_D': spec.spring_seat_d,
+        'SPRING_AXIS_Z': spec.spring_axis_z,
         'CAPTURE_PROBE_SHIFT': spec.slide_air + 0.001,
         'GUIDE_TRAVEL': spec.park_offset_y - spec.release_offset_y,
         'AFT_COLLET_GAP': tee.CARRIER_AFT_COLLET_GAP,

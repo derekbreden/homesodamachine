@@ -138,14 +138,14 @@ def _interior(cid: int, how: str) -> tuple:
     makes each interior connection, the card reads that column to score `routed`, and this
     reads it to label an edge — so classifying it twice is how the chart and the card come to
     disagree about the same segment. What is this driver's own is the mm and the corners, off
-    `manifold_layout`'s figures: `SPINE_LEN` the hairpin, `QUARTER_LEN` the quarter out of the
+    `manifold_layout`'s figures: `spine_tube_length` the hairpin, `QUARTER_LEN` the quarter out of the
     deck plane, `source_step` the step that carries on from it, `RUNS` the lanes' straights.
 
     The step is the one figure that is the SEGMENT'S and not the kind's: each source valve is
     spread its own distance outboard, so each of the two turns is its own length of tube."""
     kind = _scorecard.made_of(how)
     if kind == "fold":
-        return (kind, ml.SPINE_LEN, 2, None)                 # quarter · middle · quarter
+        return (kind, ml.spine_tube_length(ml.SPINE[cid]), 2, None)
     if kind == "turn":                                       # the quarter, then the step's pair
         return (kind, ml.QUARTER_LEN + ml.source_step(ml.SBENDS[cid])[2], 3, None)
     if kind == "butt":
