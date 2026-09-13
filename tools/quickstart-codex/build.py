@@ -189,8 +189,9 @@ text('2 Back',x+75,252,9.5,'Semibold')
 p=pic('mount-under-slide-clean.png',x+118,188,194,88,crop=(205,275,960,575))
 arrow(*p(295,405),*p(720,345),head=7)
 plate_gap=p(869,344)
-text('Plate above',x+310,286,10,'Semibold')
-text('washer + nut',x+310,298,10,'Semibold')
+for row,caption in enumerate(['Plate above','washer + nut']):
+    caption_width=pdfmetrics.stringWidth(caption,'Semibold',10)
+    text(caption,x+281-caption_width,286+row*12,10,'Semibold')
 for color,width in [('#ffffff',2.2),(INK,.7)]:
     line(x+304,295,x+291,295,color,width)
     line(x+291,295,*plate_gap,color,width)
