@@ -188,7 +188,7 @@ DEFAULT_SPEC = CarrierSpec(
     tee_xs=(-79.82, -20.07, 20.07, 79.82), tee_axis_z=190.245,
     web_x=(-94.0, 94.0), web_fore_y=107.968, web_z=(171.245, 220.165),
     spring_xs=(-49.945, 49.945), spring_axis_z=190.245,
-    tab_outer_x=107.5, tab_z=(177.245, 221.715),
+    tab_outer_x=107.5, tab_z=(177.245, 220.390),
 )
 
 
