@@ -1257,10 +1257,11 @@ that row's valves from underneath and carry the moving hairpins. Branch journals
 continue forward to the fixed collet plate. One common full-width face clears the tie heads,
 ends the spring bores and clears the upper lap's lateral entry.
 
-Each flank opening is 34.15 mm long in Y, with 16 mm minimum finger clearance behind a
-16 mm solid bar. A 3 mm inboard backing wall closes the finger space through the full stroke.
-The bar's root overlaps the moving web's full thickness. Its lower outer
-foot runs above the opening's lower edge; its inboard underside clears the seam rail.
+Each flank opening is 34.15 mm long in Y and 51.74 mm tall, with 16 mm minimum finger
+clearance behind a 16 mm solid bar. The 3 mm inboard backing and aft walls close the finger
+space through the full stroke. The aft wall sits 3.15 mm behind the enclosure's outer face.
+The bar's root overlaps the moving web's full thickness. Its flat underside runs 0.15 mm
+above the opening's lower edge and clears the seam rail across its full depth.
 A fore shoulder retains the bar behind the wall, and an upper tongue meets the park stop
 above the finger space. The internal recess continues from the outer tee well to the aft
 tray's fore plane. Its upper entry passage passes inboard of that stop. The carrier's complete
