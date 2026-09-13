@@ -108,10 +108,12 @@ and there is no sentence to give, listed so the booklet is not mistaken for comp
   sends anyone else to the consultation, and no second adapter is specified.
 - **Mounting the regulator on the cylinder.** No CGA-320 make-up is written. Leaf 13 hands the job
   to the shop that fills the cylinder, which is true advice and not a procedure.
-- **The tether's flare joint.** The buyer seats the MI4508F4SLF swivel nut on the Wellbom's
-  7/16"-20 male flare, metal cone on metal cone. `bom.md` §4 states that joint as hand-tight and
-  no tool, and no torque figure, turn-past-contact figure or flare-washer policy exists anywhere
-  in the tree. Leaf 13 carries the tree's word and nothing beyond it.
+- **The tether's flare joint.** The PM4508F4S threads onto the Wellbom's 7/16"-20 male flare
+  and carries an integral EPDM seal; its 5/16" socket holds the PI061008S reducer and the
+  reducer holds the red 1/4" tube. The two fittings ship assembled on the tether. No verified
+  tightening figure exists for this exact regulator/connector pair. Confirm make-up and
+  leak-tightness at the bench before releasing a customer tightening instruction. Leaf 13
+  offers the filling shop's fit-and-leak-check service without inventing a torque or turn count.
 - **What the mains cord needs behind the appliance.** The shipped cord is a straight C13, and its
   housing seats against the wall rather than entering it — the C14's shroud stands
   [0.75 mm](C14_SHROUD_PROUD) proud inside an aperture smaller than the housing. No figure exists

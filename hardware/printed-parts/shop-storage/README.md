@@ -135,7 +135,7 @@ Everything after that is whichever bench is annoying you.
 | [`junction-tub`](holders/junction-tub.step) | [3 x 3 x 7](JUNCTION_TUB_SIZE) | John Guest PP0208E — union tee; John Guest PP0308E — union elbow |
 | [`bulkhead-tub`](holders/bulkhead-tub.step) | [3 x 3 x 11](BULKHEAD_TUB_SIZE) | John Guest PP1208E — bulkhead union; neoFit ABU44-E acetal bulkheads; PureSec 90-degree elbow bulkheads; NeoFit push-fit ball valves |
 | [`adapter-tub`](holders/adapter-tub.step) | [3 x 3 x 17](ADAPTER_TUB_SIZE) | John Guest PI010822S / PP010822E / PP010821WP — male connectors; John Guest PP450822E — female adapter; John Guest PI4512F6S / PP061208W — flare adapter and reducer stem; MALIDA, TAILONZ and DERPIPE push-fit |
-| [`npt-tub`](holders/npt-tub.step) | [3 x 3 x 14](NPT_TUB_SIZE) | GASHER and ChillWaves 1/4 NPT check valves; GAGIRA, LTWFITTING and TAISHER couplings and elbows; LTWFITTING and MAACFLOW barb adapters; John Guest MI4508F4SLF — brass flare connector |
+| [`npt-tub`](holders/npt-tub.step) | [3 x 3 x 14](NPT_TUB_SIZE) | GASHER and ChillWaves 1/4 NPT check valves; GAGIRA, LTWFITTING and TAISHER couplings and elbows; LTWFITTING and MAACFLOW barb adapters; John Guest MI4508F4SLF — brass flare connector, water-service stock |
 | [`pressure-tub`](holders/pressure-tub.step) | [2 x 2 x 15](PRESSURE_TUB_SIZE) | Interstate Pneumatics WR1110 regulator; Control Devices SV-125 relief valve |
 | [`stock-tub`](holders/stock-tub.step) | [3 x 3 x 15](STOCK_TUB_SIZE) | John Guest PP2308E — two-way divider; YDS and WC-316SS-06 hose clamps; Siptenk 1/4 in tube stiffeners |
 | [`copper-tub`](holders/copper-tub.step) | [3 x 1 x 4](COPPER_TUB_SIZE) | Joywayus brass 1/4" SAE 45-degree flare nuts; 1/4" OD ACR copper slip couplings |

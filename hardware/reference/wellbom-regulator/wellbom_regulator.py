@@ -2,8 +2,9 @@
 
 It stands on the customer's own CO2 cylinder and is the only thing on this machine the customer
 threads onto anything. Its CGA-320 nut pulls down on the cylinder valve; its 7/16"-20 male flare
-outlet takes the MI4508F4SLF's brass swivel nut, and the red 1/4" tether runs from there to the
-CO2 bulkhead on the +Y wall of back-top (`ledger/bom.md` §4).
+outlet takes the PM4508F4S acetal female flare connector. The PI061008S stem reducer in its
+5/16" collet takes the red 1/4" tether to the CO2 bulkhead on the +Y wall of back-top
+(`ledger/bom.md` §4).
 
 Two dials, one adjustment, one shutoff, one relief valve. THE TWO DIALS DO NOT READ THE SAME
 THING and the picture has to say which is which: the +X dial reads what is left in the cylinder,
@@ -60,8 +61,7 @@ CGA320_THREAD_D = 25.4 * 0.825
 CGA320_NUT_LENGTH = 25.4
 CGA320_NIPPLE_D = 15.9          # the nose that seats on the cylinder valve, inside the nut
 
-# The outlet: a 1/4" SAE 45° male flare. The MI4508F4SLF's swivel nut runs onto the thread and
-# pulls its own flared tube over this cone — metal on metal, hand tight, no tape and no tool.
+# The outlet: a 1/4" SAE 45° male flare. The PM4508F4S female flare connector threads onto it.
 FLARE_THREAD_D = 25.4 * 0.4375  # 7/16"-20 UNF major diameter
 FLARE_ROOT_D = 25.4 * 0.3834    # and its minor, the stem the crests stand on
 FLARE_PITCH = 25.4 / 20.0
@@ -213,8 +213,8 @@ def inlet() -> tuple:
 
 
 def outlet() -> tuple:
-    """The male flare's tip: `(position, outward axis)`. The MI4508F4SLF's swivel nut comes up
-    this axis and pulls its flared tube over the cone behind the tip."""
+    """The male flare's tip: `(position, outward axis)`. The PM4508F4S female connector
+    approaches along this axis."""
     return (0.0, 0.0, OUTLET_TIP_Z), (0.0, 0.0, -1.0)
 
 

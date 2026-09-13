@@ -108,6 +108,7 @@ FILTER_BODY = cq.Color(0.905, 0.915, 0.94, 1.0)
 FILTER_CAP = cq.Color(0.42, 0.45, 0.49, 1.0)
 PRINTED = cq.Color(0.26, 0.27, 0.30, 1.0)
 CYLINDER = cq.Color(0.40, 0.42, 0.47, 1.0)
+ACETAL_GRAY = cq.Color(0.43, 0.44, 0.43, 1.0)
 
 
 def _box(x0, y0, z0, sx, sy, sz):
@@ -539,9 +540,54 @@ def s_tee_after():
     return _plumbing("plumbing-tee-installed")
 
 
+# John Guest's PM4508F4S and PI061008S drawings, page 2 of each (mm):
+# https://www.johnguest.com/sites/jg/files/2023-04/JG%20Drinks%20Female%20Adaptor%20(FFL%20Thread)%20Data%20Sheet.pdf
+# https://www.johnguest.com/sites/jg/files/2022-03/JG%20Air%20Reducer%20(Imperial)%20Data%20Sheet.pdf
+# Lengths and insertion depths are with the collets in release position.
+CO2_FLARE_LENGTH = 33.8
+CO2_FLARE_BODY_D = 19.8
+CO2_FLARE_HEX_FLATS, CO2_FLARE_HEX_D, CO2_FLARE_HEX_LENGTH = 15.9, 17.5, 10.0
+CO2_FLARE_INSERTION = 16.5
+CO2_REDUCER_LENGTH, CO2_REDUCER_BODY_D = 37.4, 15.0
+CO2_REDUCER_STEM_LENGTH, CO2_REDUCER_STEM_D = 19.1, 7.94
+
+
+def _co2_tether_adapter(assembly, tip, gap=0.0):
+    """The acetal female flare connector and inserted stem reducer; return the tube exit.
+
+    Published outer bounds; the moulded transitions and collet lips are schematic. The flare
+    tip lies at the back of the connector's hex in the seated picture: an illustrative pose,
+    since the regulator-side seating depth is unmeasured. `gap` is retreat from that pose.
+    """
+    x, y, z = tip
+    front = z + CO2_FLARE_HEX_LENGTH - gap
+    back = front - CO2_FLARE_LENGTH
+    hex_back = front - CO2_FLARE_HEX_LENGTH
+    lip_length = 1.5
+    hexagon = _hex(x, y, hex_back, CO2_FLARE_HEX_FLATS, CO2_FLARE_HEX_LENGTH).intersect(
+        _cyl(x, y, hex_back, CO2_FLARE_HEX_D, CO2_FLARE_HEX_LENGTH))
+    connector = _cyl(x, y, back + lip_length, CO2_FLARE_BODY_D,
+                     hex_back - back - lip_length).union(hexagon)
+    connector = connector.cut(_cyl(x, y, hex_back, 25.4 * 7.0 / 16.0, CO2_FLARE_HEX_LENGTH))
+    _add(assembly, connector, "tether-flare-connector", ACETAL_GRAY)
+
+    # Collet lips occupy the ends of the published envelopes.
+    _add(assembly, _cyl(x, y, back, CO2_FLARE_BODY_D * 0.8, lip_length),
+         "tether-flare-collet", BLACK_PART)
+    stem_end = back - (CO2_REDUCER_STEM_LENGTH - CO2_FLARE_INSERTION)
+    _add(assembly, _cyl(x, y, stem_end, CO2_REDUCER_STEM_D, back - stem_end),
+         "tether-reducer-stem", ACETAL_GRAY)
+    exit_z = back - (CO2_REDUCER_LENGTH - CO2_FLARE_INSERTION)
+    _add(assembly, _cyl(x, y, exit_z + lip_length, CO2_REDUCER_BODY_D,
+                        stem_end - exit_z - lip_length),
+         "tether-stem-reducer", ACETAL_GRAY)
+    _add(assembly, _cyl(x, y, exit_z, CO2_REDUCER_BODY_D * 0.8, lip_length),
+         "tether-reducer-collet", BLACK_PART)
+    return x, y, exit_z
+
+
 def s_regulator():
-    """The regulator the guide names three things on: which dial is which, the knob that
-    sets the pressure, and the brass nut on the flare below it."""
+    """The two dials, pressure knob and acetal connector pair on the outlet flare."""
     import importlib.util
     spec = importlib.util.spec_from_file_location(
         "wellbom_regulator", REGULATOR_DIR / "wellbom_regulator.py")
@@ -551,11 +597,7 @@ def s_regulator():
 
     a = reg.build_assembly()
     tip, _ = reg.outlet()
-    # The MI4508F4SLF's swivel nut, and the red tether leaving it for the appliance.
-    nut_len = 14.0
-    _add(a, _hex(tip[0], tip[1], tip[2] - nut_len, reg.OUTLET_HEX_FLATS, nut_len),
-         "tether-swivel-nut", BRASS)
-    top = tip[2] - nut_len
+    _, _, top = _co2_tether_adapter(a, tip)
     # The tether leaves sideways rather than hanging: the page's picture has to be wider
     # than it is tall or the two dials print too small to read.
     _add(a, _bend([(tip[0], tip[1], top), (tip[0], tip[1], top - 46.0),
