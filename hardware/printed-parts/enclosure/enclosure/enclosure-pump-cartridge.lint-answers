@@ -1,4 +1,4 @@
-[ceiling] These are the flat finger-bearing roofs of the two rounded cartridge grips. Each roof spans the 18 by 15 mm pocket and joins the surrounding cartridge body. The production slice supplies one bed-rooted support beneath each roof. Both supports leave through the open side pockets before the pumps are installed.
+[ceiling] These flat roofs connect the fore and aft ends of the two rounded cartridge grips. The hands push and pull on the Y-facing walls. Each roof's flat underside spans 18 by 15 mm and joins the surrounding cartridge body. Removable support leaves through the open side pockets before the pumps are installed.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step
-click: x=-97.000 y=42.209 z=221.715
-click: x=97.000 y=42.209 z=221.715
+click: x=-97.000 y=42.209 z=220.390
+click: x=97.000 y=42.209 z=220.390
