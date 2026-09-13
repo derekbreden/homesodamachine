@@ -2,8 +2,8 @@
   "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed \u2014 web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
   "release": {
     "tag": "cad-artifacts",
-    "asset": "cad-5a245c64e30922a2.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-5a245c64e30922a2.tar.gz",
+    "asset": "cad-7221e3b7e69f80d6.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-7221e3b7e69f80d6.tar.gz",
     "objects": "s-"
   },
   "source": {
@@ -12,13 +12,6 @@
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, its rule would not cut, or an interactive publication explicitly deferred that rule.",
     "paths": [
-      "hardware/printed-parts/enclosure/enclosure/README.md",
-      "hardware/printed-parts/enclosure/tee-carrier/README.figures.json",
-      "hardware/printed-parts/enclosure/tee-carrier/README.md",
-      "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.stl",
-      "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.stl",
-      "hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py",
-      "output/pdf/quick-start-codex.pdf",
       "tools/quickstart-codex/build.py"
     ],
     "members": [
@@ -403,8 +396,8 @@
     ]
   },
   "bundle": {
-    "sha256": "5a245c64e30922a2653aa348f0cbab50d00f1f6e788fe3529fd61a74a2911fbf",
-    "bytes": 173182436,
+    "sha256": "7221e3b7e69f80d6d8235119d1f27eea35caa446c0410d56a5cbf470db59f299",
+    "bytes": 173182489,
     "solids": 372
   },
   "solids": {
@@ -527,7 +520,7 @@
     "hardware/install-guide/install-guide.cover.png": "e059cdb7e70f15b5e11aedf69fe10ffc7c4c11fb228539fd204c60573e13635a",
     "hardware/install-guide/install-guide.pdf": "c63d627fa02699c3f7518387344bd9e62202d2a5bcd7c59fb461faf6fb5042c0",
     "hardware/manifold-layout/enclosure-assembly.step": "abdb48b17e1db2ea55a94caa93fc894c700fe733123b01f47ded0a57b8507157",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "1e46f378857e468a2f0a52a7d05bc6088aa2b3b02d6d207751140dd386ad5ff3",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "1183d42aa1466fd62ccc41e07bc456fcd0a0a08d21d66fc0fa920294ea818c3d",
     "hardware/manifold-layout/manifold-layout.step": "c96bf0a92ac9cbbd65236295c4576818a2da54b686a29bda4a049c65b45304a7",
     "hardware/manifold-layout/manifold-layout.step.mesh": "cd7960401b2f6ecc672ab4cac5e26262bccd2ad00bbc133fe8906feedc0a3c63",
     "hardware/pcb/pcba/out/pcba.glb": "819d2d6a51579a8c3ee66bcb9432075bc50ca77cf129bd828ea538b8fc72b767",
