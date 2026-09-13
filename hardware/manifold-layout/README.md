@@ -58,8 +58,8 @@ crowns; the folded deck's at z [147.78](UPPER_Z2). The two inner limbs leave
 ## The fold
 
 The four connections crossing the hinge — fluid-9, 17, 19 and 27 — each become one 180° hairpin
-with two quarter circles and a tangent straight between them. Both ends meet their collet on
-its own axis. Release sets the cut length at R[14](SPINE_R):
+with two quarter circles, a tangent straight between them, and a 4 mm axial leg to the
+higher fixed valve. Both ends meet their collet on its own axis. Release sets the cut length at R[14](SPINE_R):
 [77.13](SPINE_LEN) mm for each inner hairpin and [77.43](OUTER_SPINE_LEN) mm for each outer one.
 As the carrier moves aft, the bend radii increase and the straight shortens, preserving the
 complete tube length.
@@ -199,8 +199,8 @@ enclosure's printed geometry. The pump cartridge's aft notches clear the cheeks.
 
 [`enclosure_assembly.py`](enclosure_assembly.py) → `enclosure-assembly.step` mates its bodies with nothing between
 them: the compressor's own +X tangent to the condenser's intake face, while the pack's pose is
-read from the lowest release-state hairpin envelope over the pair's crown. That envelope is a
-placement datum, not a load path: the eight fixed valves bear in front-top's two trays and the
+read from the release-state fold datum over the pair's crown. The tee ends and hairpins extend
+4 mm below that datum. The eight fixed valves bear in front-top's two trays and the
 four moving tees are retained by the guided carrier. The cold core is not one of the pair — it
 is packed off the +Y wall of back-top instead, so a LANE stands between it and the compressor bay, and
 the two legs of the loop that cross it are drawn in copper.

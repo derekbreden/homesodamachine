@@ -93,7 +93,7 @@ The opening's fore face and the upper tongue's aft channel end are travel stops.
 normal Y gap closes at the corresponding end of travel. The [0.25 mm](GUIDE_AIR) clearance
 is across the sliding bearings in X and Z and through the carrier's insertion route.
 
-The two spring axes lie between coils at X ±49.945, Z 190.245 mm. Each spring bears in a
+The two spring axes lie between coils at X ±49.945, Z [186.245 mm](SPRING_AXIS_Z). Each spring bears in a
 [6.57 mm](SPRING_SEAT_D) teardrop seat, 2 mm deep. Its fore end sits in a round bore within the fixed body's
 full section. Compressed springs enter through the inner tee wells and cross below the
 uninterrupted upper land. The return pair is Lee LCM060C12M.
@@ -137,7 +137,7 @@ before fitting the ties; their insertion path passes behind the bare web.
 
 Print both halves upright, +Z up, with the web and backing wall on the bed. The bar and aft wall's
 flat undersides take removable support exposed below the loose half. The internal
-shoulder begins [9.805 mm](RIM_BED_GAP) above the bed; its extension and the central lap
+shoulder begins [13.805 mm](RIM_BED_GAP) above the bed; its extension and the central lap
 take removable support accessible from the loose half's underside. The fixed body's guide
 ceilings take support, removed through the open aft cavities before assembly. Its spring
 bores open into the carrier recess. All guide and hand-contact faces retain their bearing sections.

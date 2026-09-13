@@ -18,7 +18,8 @@
     "GUIDE_TRAVEL": "2.15 mm",
     "OPENING_HEIGHT": "51.64 mm",
     "OPENING_RUN": "34.15 mm",
-    "RIM_BED_GAP": "9.805 mm",
+    "RIM_BED_GAP": "13.805 mm",
+    "SPRING_AXIS_Z": "186.245 mm",
     "SPRING_SEAT_D": "6.57 mm",
     "WEB_T": "2.5 mm"
   }

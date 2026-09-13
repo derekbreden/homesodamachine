@@ -83,11 +83,11 @@ destroyed is a part that comes out by being destroyed.
   with the cartridge fully seated; at the fore stop it bottoms with the cartridge 2.15 mm shy
   of seating. Relax the grips and push through that final stroke. The displayed appliance is fully aft.
 - **Exposed path length is not stock cut length.** Each of the four bowed flex stubs presents a
-  12 mm developed path between sleeve faces separated by 10 mm in height and 1.75 mm fore/aft
+  16 mm developed path between sleeve faces separated by 14 mm in height and 1.75 mm fore/aft
   at squeeze. Its blank also includes the
   insertion at both fittings, and the valve-side depth has not been measured. The tee–valve bow
   trial therefore owns the blank before production; no cut instruction may call that blank
-  12 mm.
+  16 mm.
 - **The front-top assembly order follows the moving mechanism.** Insert the bare tees from
   aft into the fixed body's cavities and move them to the fore stop. With both valve rows
   absent, feed the left carrier half through the open rear, lower it through the outer tee
