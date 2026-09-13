@@ -153,7 +153,6 @@
     "water-3 \u2014 enclosure-front-top: 1.126 mm",
     "water-3 \u2014 enclosure-back-top: 1.126 mm",
     "fluid-4 \u2014 coil-v-b: 1.226 mm",
-    "funnel-drain-clamp \u2014 funnel-drain-union: 1.338 mm",
     "fluid-4 \u2014 coil-v-a: 1.341 mm",
     "bulkhead-carb \u2014 bulkhead-ring-carb-word: 1.342 mm",
     "fluid-2 \u2014 seaflo-pump: 1.346 mm",
@@ -167,14 +166,14 @@
     "nameplate \u2014 foam-assembly: 1.500 mm",
     "wago-reeds-a \u2014 foam-assembly: 1.600 mm",
     "wago-sensors \u2014 foam-assembly: 1.600 mm",
+    "water-3 \u2014 fluid-28: 1.616 mm",
     "fluid-1 \u2014 enclosure-front-top: 1.655 mm",
     "wago-reeds-b \u2014 foam-assembly: 1.700 mm",
     "fluid-14 \u2014 valve-v-a: 1.711 mm",
     "fluid-18 \u2014 coil-v-a: 1.711 mm",
     "water-3 \u2014 fluid-26: 1.751 mm",
     "co2-2 \u2014 pcba: 1.876 mm",
-    "water-7 \u2014 co2-2: 1.933 mm",
-    "funnel-drain-stub \u2014 funnel-drain-clamp: 1.999 mm"
+    "water-7 \u2014 co2-2: 1.933 mm"
    ],
    "active": true
   },
@@ -801,7 +800,7 @@
    "label": "Tee carrier clears front-top through installation and all four working states, and both end stops and all five transverse constraints engage",
    "kind": "gate",
    "status": "pass",
-   "value": "340 solid/envelope checks; maximum unintended overlap 0.000000 mm\u00b3; release/park overshoots 0.338820/0.338820 mm\u00b3; 40 independent flank-capture readings, minimum contact 0.323400 mm\u00b3; minimum upper/lower web bearing 142.104 mm\u00b2; minimum depressed-collet bearing 27.613 mm\u00b2; fore tube bottom 92.694 mm Y, 10 mm beyond the depressed sleeve; seated cartridge tube bottom 94.844 mm Y, 2.15 mm final cartridge seating travel",
+   "value": "367 solid/envelope checks including 0.25 mm X/Z air through every carrier insertion and working sweep; maximum unintended overlap 0.000000 mm\u00b3; release/park overshoots 0.106592/0.018000 mm\u00b3; 40 independent flank-capture readings at 2.75\u00b0 rotation, minimum contact 0.115066 mm\u00b3; minimum upper/lower web bearing 137.444 mm\u00b2; minimum depressed-collet bearing 27.613 mm\u00b2; fore tube bottom 92.694 mm Y, 10 mm beyond the depressed sleeve; seated cartridge tube bottom 94.844 mm Y, 2.15 mm final cartridge seating travel",
    "target": "0 mm\u00b3 unintended overlap; positive end-stop, X/Z and pitch/yaw/roll contact",
    "detail": [],
    "active": true
@@ -1242,8 +1241,8 @@
    "detail": [
     "carb-1: 145.6 mm, held at its anchor",
     "co2-2: 114.3 mm, held at its anchor",
-    "fluid-28: 163.5 mm, held at its anchor",
-    "fluid-18: 245.4 mm unheld \u2014 left loose; Flavor A's line to its rear union. The cold core's side post grips its crossing fore of the pump (`_cold_core_interface.cap_side_anchors`), and what runs loose past it is the fall and the union column's own straight \u2014 a column whose overhead is the ASSE drip pan's sleeve, the flow meter and the meter's down-line, and whose flanks are the pump's casting and the moisture plate's lane: nothing printed stands within a rib's reach of it. The slack sags toward the cap's open air below, away from every line beside it.",
+    "fluid-28: 159.5 mm, held at its anchor",
+    "fluid-18: 245.4 mm unheld \u2014 left loose; Flavor A's line to its rear union. The cold core's side post grips its crossing fore of the pump (`_cold_core_interface.cap_side_anchors`), and what runs loose past it is the fall and the union column's own straight \u2014 a column whose overhead is the ASSE drip pan's sleeve, the flow meter and the meter's down-line, and whose flanks are the pump's casting and the moisture plate's lane: nothing printed stands within a rib's reach of it. Its unretained shape and clearance to the neighbouring lines require a tube-shape review; the authored centreline does not establish them.",
     "fluid-4: 201.2 mm unheld \u2014 left loose; The funnel's own drain, and the one line in the machine a customer handles. It parts at the union under the spout every time the funnel goes to the dishwasher and is pushed back at the same collet, so the length between that joint and V-B has to give: a rib zip-tied across it would be a fixed point the customer works against, and the run would take the load at the collet instead of along its own length."
    ],
    "active": false

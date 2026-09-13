@@ -1,5 +1,6 @@
 {
   "coordinate_frame": {
+    "plate_partition": "Cartridge at Y169..243; cap at Y77..145. Every support body belongs wholly to the cartridge region.",
     "plate_to_cad_transform": [
       1.0,
       0.0,
@@ -10,67 +11,69 @@
       0.0,
       0.0,
       1.0,
-      -165.0,
-      -117.790500641,
-      165.365013105
-    ],
-    "plate_to_cad_translation_mm": [
-      -165.0,
-      -117.790501,
-      165.365013
-    ],
-    "replacement_mesh_bed_reseat_mm": 1.75
+      -156.5,
+      -163.99550064086915,
+      165.36500549317577
+    ]
   },
   "first_layer_z_mm": 0.2,
   "inputs": {
-    "gcode": "plate_1.gcode",
-    "gcode_sha256": "4b60d67354225c94a6024acb5d4ea64df110e00f1e9bc9320aa25cb3380260b6",
+    "gcode": "send-plate_1.gcode",
+    "gcode_sha256": "cca5051dfd62f0e609d8b2d3dcf570fdb784b357aa6a6cf119bf8ed89edaecc2",
     "model": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
-    "model_sha256": "6b963f27087baca99da773c66244270bab295ccbdfc17132241549ef04ad4502",
-    "profile": "git:aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a:hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge-petgf.3mf",
-    "profile_sha256": "10f9a5824beb674ca0868137659211da5703d6626b73a335388ec471efc91c40"
+    "model_sha256": "014fc8ccc3fbaf02d42016f2beb9ab59d713c4046ca1cc97943741718a56ffe3",
+    "plate_parts": [
+      "enclosure-pump-cartridge",
+      "enclosure-pump-cap"
+    ],
+    "profile": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge-current.3mf",
+    "profile_sha256": "9f84eb4edb3faba30243680036600c45f6a700ee7e884a7f0237940f153df372",
+    "settings_source": "hardware/printed-parts/petgf.3mf",
+    "settings_source_sha256": "612d1f5c9414acdfc4eec8bb40936817f2a4acb29f2223d96eaa47df3ae3ef44",
+    "sliced_project": ".cache/prints/2026-09-13-enclosure/mark2/enclosure-pump-cartridge-mark2-send.gcode.3mf",
+    "sliced_project_sha256": "8d13b205656af58ff9f5088f721b0a79ad17859f0229b9a4581baa457087df16"
   },
   "interfaces": [
     {
       "bbox_cad_xyz_mm": [
-        -106.2,
-        31.409,
-        270.965,
-        -89.8,
-        53.009,
-        271.365
+        -106.9,
+        31.204,
+        270.925,
+        -90.1,
+        53.204,
+        271.405
       ],
       "bbox_xy_mm": [
-        58.8,
-        149.2,
-        75.2,
-        170.8
+        49.6,
+        195.2,
+        66.4,
+        217.2
       ],
-      "build_up_mm": 105.4,
-      "first_z_mm": 105.6,
+      "build_up_mm": 105.36,
+      "first_z_mm": 105.56,
       "id": "interface-1",
-      "last_z_mm": 106.0,
+      "last_z_mm": 106.04,
       "tree": "tree-1"
     },
     {
       "bbox_cad_xyz_mm": [
-        89.8,
-        31.809,
-        270.965,
-        106.2,
-        53.409,
-        271.365
+        89.9,
+        31.204,
+        270.925,
+        107.1,
+        53.204,
+        271.405
       ],
       "bbox_xy_mm": [
-        254.8,
-        149.6,
-        271.2,
-        171.2
+        246.4,
+        195.2,
+        263.6,
+        217.2
       ],
-      "build_up_mm": 105.4,
-      "first_z_mm": 105.6,
+      "build_up_mm": 105.36,
+      "first_z_mm": 105.56,
       "id": "interface-2",
-      "last_z_mm": 106.0,
+      "last_z_mm": 106.04,
       "tree": "tree-2"
     }
   ],
@@ -78,75 +81,75 @@
   "schema": 1,
   "slicer": "BambuStudio 02.08.02.61",
   "slicer_settings": {
-    "layer_height": "0.2",
-    "support_bottom_z_distance": "0.2",
+    "layer_height": "0.24",
+    "support_bottom_z_distance": "0.3",
     "support_interface_bottom_layers": "2",
     "support_interface_spacing": "0.5",
     "support_interface_top_layers": "2",
-    "support_object_xy_distance": "0.35",
+    "support_object_xy_distance": "0.4",
     "support_on_build_plate_only": "0",
     "support_style": "default",
-    "support_threshold_angle": "30",
-    "support_top_z_distance": "0.2",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.3",
     "support_type": "tree(auto)"
   },
   "summary": {
     "bed_rooted_bodies": 2,
     "interface_islands": 2,
     "model_rooted_bodies": 0,
-    "shortest_build_up_mm": 105.4,
+    "shortest_build_up_mm": 105.36,
     "support_bodies": 2
   },
   "trees": [
     {
       "base_z_mm": 0.2,
       "bbox_cad_xyz_mm": [
-        -133.0,
-        31.409,
+        -132.9,
+        30.004,
         165.565,
-        -89.8,
-        55.009,
-        271.765
+        -90.1,
+        54.004,
+        271.885
       ],
       "bbox_xy_mm": [
-        32.0,
-        149.2,
-        75.2,
-        172.8
+        23.6,
+        194.0,
+        66.4,
+        218.0
       ],
-      "first_interface_z_mm": 105.6,
+      "first_interface_z_mm": 105.56,
       "id": "tree-1",
       "interfaces": [
         "interface-1"
       ],
       "root": "bed",
-      "shortest_build_up_mm": 105.4,
-      "top_z_mm": 106.4
+      "shortest_build_up_mm": 105.36,
+      "top_z_mm": 106.52
     },
     {
       "base_z_mm": 0.2,
       "bbox_cad_xyz_mm": [
-        89.8,
-        31.409,
+        89.9,
+        30.004,
         165.565,
-        133.0,
-        55.409,
-        271.765
+        132.7,
+        54.004,
+        271.885
       ],
       "bbox_xy_mm": [
-        254.8,
-        149.2,
-        298.0,
-        173.2
+        246.4,
+        194.0,
+        289.2,
+        218.0
       ],
-      "first_interface_z_mm": 105.6,
+      "first_interface_z_mm": 105.56,
       "id": "tree-2",
       "interfaces": [
         "interface-2"
       ],
       "root": "bed",
-      "shortest_build_up_mm": 105.4,
-      "top_z_mm": 106.4
+      "shortest_build_up_mm": 105.36,
+      "top_z_mm": 106.52
     }
   ]
 }
