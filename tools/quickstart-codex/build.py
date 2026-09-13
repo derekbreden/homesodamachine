@@ -222,11 +222,11 @@ para('<b>Push the tee\'s short tube into that fitting.</b> Reconnect the origina
 x=916
 step(3,'Match the rear connections',x,y)
 para('<b>Pull off the CO2 and TAP shipping caps.</b>',x,177,416,12.1,16,limit=16)
-text('Fittings stay in place. Open ports shown below.',x,195,10,'Regular',MUTED)
+text('Caps fit over the outside of the fittings. Leave the fittings in place.',x,195,10,'Regular',MUTED)
 p=pic('the-back-face.png',x+4,209,216,159,crop=(565,40,1565,855))
 rows=[('CO2','Red / cylinder','#d7333c','#ffffff'),('SODA','Blue / faucet','#1670db','#ffffff'),('TAP','White / filter','#ffffff',INK),('FLAVOR','Black / either port',INK,'#ffffff')]
 for i,(s,t,bg,fg) in enumerate(rows):
-    yy=204+i*29
+    yy=210+i*29
     chip(s,x+236,yy,59,bg,fg);text(t,x+302,yy+4,10.5)
 text('Faucet cable',x+236,326,11.5,'Bold')
 para('Click into the square jack.',x+236,344,180,11.5,14,limit=28)
