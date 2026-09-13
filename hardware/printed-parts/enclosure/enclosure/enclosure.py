@@ -1603,13 +1603,13 @@ clamp_pump_y_shift = _tray.rear_axis_y_shift  # rear-stack openings off the head
 # --- THE HAND PULLS ONLY THE LOWER CRADLE -----------------------------------
 #
 # Each pull is a rounded pocket in an exposed ±X flank, with equal stock above and below.
-# Its aft face opposes the service tab across the hand span; its fore face carries extraction.
+# Both pockets are centred on the cradle's Y run. Their aft faces carry insertion and their
+# fore faces carry extraction.
 pull_depth = 18.0            # fingertip reach inboard from each exposed flank
-pull_run = 20.0              # fore/aft clearance between pulling and pushing faces
-pull_hand_span = 50.0        # opposing cartridge and service-tab faces at squeeze and connected
+pull_run = 28.0              # fore/aft clear opening between the pulling and pushing ledges
 pull_floor_below_tubes = 12.0
 pull_corner_r = handhold_corner_r
-pull_edge_r = 2.0
+pull_edge_r = handhold_edge_r
 
 
 # The whole description of one box — what `build_pieces` cuts the four pieces from: the pack it
@@ -5459,11 +5459,11 @@ def pull_z_span(box):
     return floor, crown - (floor - bottom)
 
 
-def pull_y_span(box):
-    """The cartridge's two grip faces, located from the connected service tab."""
-    carrier = box.pack.tee_carrier
-    aft = carrier["finger_y"][0] + carrier["connected_offset_y"] - pull_hand_span
-    return aft - pull_run, aft
+def pull_y_span(pump_trays, plate):
+    """Both pockets' fore and aft walls: `pull_run` centred on the cradle's own Y run, from
+    its show face to its aft edge."""
+    mid = (pump_cartridge_front_y + pump_cartridge_aft_y(pump_trays, plate)) / 2.0
+    return mid - pull_run / 2.0, mid + pull_run / 2.0
 
 
 def _cradle_pulls(box):
@@ -5475,11 +5475,12 @@ def _cradle_pulls(box):
         raise ValueError(
             f"a cradle pull from Z{z0:g} to Z{z1:g} "
             f"cannot carry its {pull_corner_r:g} mm corner rounds")
-    y0, y1 = pull_y_span(box)
+    y0, y1 = pull_y_span(box.pack.pump_trays, box.pack.collet_plate)
     out = []
     for sx in (+1.0, -1.0):
-        xa, xb = sorted((sx * deep, sx * (edge + 1.0)))
-        cutter = _ybox(xa, xb, y0, y1, z0, z1)
+        section = ((sx * (edge + 1.0), z0), (sx * deep, z0),
+                   (sx * deep, z1), (sx * (edge + 1.0), z1))
+        cutter = _xz_prism(y0, y1, section)
         corners = [edge for edge in cutter.Edges()
                    if edge.BoundingBox().ylen < 1e-6 and edge.BoundingBox().xlen > 1.0]
         out.append(cutter.fillet(pull_corner_r, corners))
@@ -5490,7 +5491,7 @@ def _round_cradle_pull_rims(solid, box):
     """Round the complete exposed perimeter of each hand pocket."""
     solid = solid.clean()
     edge = _cap_x_span(box.pump_bay)[1]
-    y0, y1 = pull_y_span(box)
+    y0, y1 = pull_y_span(box.pack.pump_trays, box.pack.collet_plate)
     z0, z1 = pull_z_span(box)
     for x in (-edge, edge):
         rim = []
@@ -5512,7 +5513,7 @@ def pump_cartridge_figures(box):
         return {}
     bay, trays, plate = box.pump_bay, box.pack.pump_trays, box.pack.collet_plate
     edge = _cap_x_span(bay)[1]
-    y0, y1 = pull_y_span(box)
+    y0, y1 = pull_y_span(trays, plate)
     aft = pump_cartridge_aft_y(trays, plate)
     pull_floor, pull_top = pull_z_span(box)
     clamp_edge = max(abs(cx) + _tray.half_width() for cx, _cy, _cz in trays)
@@ -5543,7 +5544,6 @@ def pump_cartridge_figures(box):
         "PULL_RUN": f"{pull_run:.4g} mm",
         "PULL_DEPTH": f"{pull_depth:.4g} mm",
         "PULL_CORNER_R": f"{pull_corner_r:.4g} mm",
-        "PULL_HAND_SPAN": f"{pull_hand_span:.4g} mm",
         "PULL_EDGE_R": f"{pull_edge_r:.4g} mm",
         "PULL_FLOOR_Z": f"{pull_floor:.5g} mm",
         "PULL_TOP_Z": f"{pull_top:.6g} mm",
