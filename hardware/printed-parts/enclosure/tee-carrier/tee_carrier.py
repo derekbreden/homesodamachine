@@ -741,6 +741,7 @@ def sync_readme(spec=DEFAULT_SPEC):
         'GUIDE_LENGTH': spec.grip_y[1] - spec.grip_y[0],
         'OPENING_RUN': spec.grip_bar_t + spec.finger_run + spec.park_offset_y - spec.release_offset_y,
         'GUIDE_AIR': spec.slide_air,
+        'SPRING_SEAT_D': spec.spring_seat_d,
         'CAPTURE_PROBE_SHIFT': spec.slide_air + 0.001,
         'GUIDE_TRAVEL': spec.park_offset_y - spec.release_offset_y,
         'AFT_COLLET_GAP': tee.CARRIER_AFT_COLLET_GAP,
