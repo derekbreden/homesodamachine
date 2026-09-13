@@ -6,6 +6,7 @@ Slicer tree supports carry the dry faces. Both modeled skins print solid.
 """
 
 import argparse
+import functools
 import json
 import math
 import sys
@@ -80,10 +81,44 @@ def rounded(width, radius, bottom, top):
     return cq.Workplane(obj=box(width, width, bottom, top)).edges('|Z').fillet(radius).val()
 
 
-def one(shape, name):
+def single(shape, name):
+    """The one valid solid in `shape`, or None with the reading on stderr."""
     shape = shape.clean()
-    assert shape.isValid() and len(shape.Solids()) == 1, name
-    return shape.Solids()[0]
+    solids = shape.Solids()
+    if shape.isValid() and len(solids) == 1:
+        return solids[0]
+    print(f'{name}: valid={shape.isValid()} solids={len(solids)} '
+          f'volumes={[round(s.Volume(), 3) for s in solids]}', file=sys.stderr, flush=True)
+    return None
+
+
+def one(shape, name):
+    solid = single(shape, name)
+    assert solid is not None, name
+    return solid
+
+
+def slab(face, distance):
+    """The material within `distance` inside `face`. A plane's slab reaches past the
+    face's own edges so its sides are nowhere coplanar with a neighbour's."""
+    if face.geomType() == 'PLANE':
+        plane = cq.Plane(origin=face.Center(), normal=-face.normalAt())
+        return cq.Workplane(plane).rect(1000, 1000).extrude(distance).val()
+    return face.thicken(-distance)
+
+
+def contraction_attempts(shape, faces, distance):
+    """Ways of taking `distance` off `faces`, first the direct one, then the orderings
+    the OCP wheel on the runner has been seen to want."""
+    def sequential(tool):
+        return functools.reduce(lambda s, f: s.cut(tool(f, distance), tol=tolerance),
+                                faces, shape)
+    yield 'faces at once', lambda: shape.cut(
+        *[f.thicken(-distance) for f in faces], tol=tolerance)
+    yield 'planes as slabs', lambda: shape.cut(
+        *[slab(f, distance) for f in faces], tol=tolerance)
+    yield 'faces one at a time', lambda: sequential(lambda f, d: f.thicken(-d))
+    yield 'slabs one at a time', lambda: sequential(slab)
 
 
 def expanded(shape, distance):
@@ -98,8 +133,16 @@ def expanded(shape, distance):
 
 
 def contracted(shape, distance, top):
-    sides = [face.thicken(-distance) for face in shape.Faces() if face.Center().z < top]
-    return one(shape.cut(*sides, tol=tolerance), 'core offset')
+    faces = [face for face in shape.Faces() if face.Center().z < top]
+    for label, attempt in contraction_attempts(shape, faces, distance):
+        try:
+            solid = single(attempt(), f'core offset, {label}')
+        except Exception as error:
+            print(f'core offset, {label}: {error!r}', file=sys.stderr, flush=True)
+            continue
+        if solid is not None:
+            return solid
+    raise AssertionError('core offset')
 
 
 def build():
