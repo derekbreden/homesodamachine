@@ -1499,6 +1499,13 @@ def tee_carrier_interface(spec: _carrier.CarrierSpec, plate, squeeze_stood) -> d
         "tab_count": 2,
         "joint_screw_count": len(_carrier.joint_sites(spec)),
     })
+    roof_wall = data["body_top_z"] - data["service_recess_z"][1]
+    if roof_wall < _enc.wall - 1e-6:
+        raise ValueError(
+            f"the carrier recess ceiling at Z{data['service_recess_z'][1]:.3f} leaves "
+            f"{roof_wall:.3f} mm below the fixed body's top, less than "
+            f"the {_enc.wall:g} mm roof section")
+    data["recess_roof_wall"] = roof_wall
     gap, where = recess_socket_wall(data, trays)
     if gap < _vseat.wall - 1e-6:
         raise ValueError(
