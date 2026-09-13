@@ -3,16 +3,16 @@
 The primary regulator that ships with the appliance (`hardware/ledger/bom.md` §4, Amazon
 [B0G13P5PMY](https://www.amazon.com/dp/B0G13P5PMY)). It stands on the customer's own CO2
 cylinder and is the only thing on this machine the customer threads onto anything: the CGA-320
-nut pulls down on the cylinder valve, and the MI4508F4SLF's brass swivel nut pulls down on the
-7/16"-20 male flare at the bottom, with the red 1/4" tether running from there to the CO2
-bulkhead on the +Y wall of back-top.
+nut pulls down on the cylinder valve, and a John Guest PM4508F4S female flare connector threads
+onto the 7/16"-20 male flare at the bottom. A PI061008S stem reducer connects its 5/16" socket
+to the red 1/4" tether running to the CO2 bulkhead on the +Y wall of back-top.
 
 Six things the customer is told to find, and each is a station this module states:
 
 | | |
 |---|---|
 | `inlet()` | the CGA-320 nut, on the customer's right, that goes onto the cylinder |
-| `outlet()` | the male flare at the bottom, that the brass nut goes onto |
+| `outlet()` | the male flare at the bottom, that the gray female connector goes onto |
 | `adjustment()` | the fluted black knob on the front, that sets the pressure |
 | `shutoff()` | the small knob below it, that opens and closes the gas |
 | `relief()` | the pull ring on the lower-left arm |
@@ -46,7 +46,7 @@ There is no dimensioned drawing for this part, and the listing publishes none. S
 | CGA-320 nut hex | 1-1/8" across flats (28.575 mm) | the wrench size every CO2 nut, wrench and parts list in the trade names |
 | CGA-320 nut length | 1" | |
 | outlet thread | 7/16"-20 UNF, Ø11.11 major, Ø9.74 minor | 1/4" SAE 45° male flare |
-| outlet cone | 45° to the axis, to a Ø6.4 nose over a Ø4.8 bore | what the MI4508F4SLF's flared tube seats on |
+| outlet cone | 45° to the axis, to a Ø6.4 nose over a Ø4.8 bore | mating face for the PM4508F4S's integral seal |
 | outlet hex | 9/16" across flats | the hex every 1/4" flare fitting carries |
 | dial | 2" | the dial size this whole class of regulator's gauges is sold in |
 
@@ -94,8 +94,28 @@ flare below.
   The rating and the dial's full scale are different numbers.
 - The listing price stands at $45.99 against the BOM's $44.99.
 - In the box beside the regulator: two nylon cylinder washers, a 1/4" and a 5/16" hose barb with
-  their flare nuts, and two hose clamps. This build uses none of them — the MI4508F4SLF takes
+  their flare nuts, and two hose clamps. This build uses none of them — the PM4508F4S takes
   the flare — except that a cylinder washer must be in the nut before it goes on the tank.
+
+## CO2 tether connection
+
+The factory assembles the two gray acetal fittings and the red tube as one tether:
+
+**Wellbom 1/4" MFL → PM4508F4S 1/4" FFL × 5/16" socket → PI061008S 5/16" stem ×
+1/4" socket → red 1/4" OD LLDPE.**
+
+John Guest explicitly supports CO2 beverage gas for both the
+[female flare connector](https://www.johnguest.com/ca/en/od-tube-fittings/acetal-gray/threaded-connectors/female-flare-connector-ffl-thread-45-flare)
+and [stem reducer](https://www.johnguest.com/us/en/od-tube-fittings/acetal-gray/connectors-reducers/stem-reducer).
+The ratings for these sizes are 230 psi at 68 °F and 150 psi at 150 °F. Both tube seals are
+nitrile; the PM4508F4S also carries an EPDM thread seal in its
+[manufacturer data sheet](https://www.johnguest.com/sites/jg/files/2023-04/JG%20Drinks%20Female%20Adaptor%20(FFL%20Thread)%20Data%20Sheet.pdf).
+That integral seal makes the regulator joint; it is not a bare metal-to-metal cone seat.
+
+The illustration helper in [`_install_art.py`](/hardware/install-guide/_install_art.py) uses the
+manufacturer's exterior dimensions for both fittings. Its seating depth on the regulator and
+collet details are schematic. Bench confirmation of the complete connection, tightening
+instruction and leak test is required before the customer make-up instruction is released.
 
 ## Regenerate
 
