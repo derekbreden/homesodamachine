@@ -34,9 +34,10 @@ Engagement is [32.8 mm](ROD_ENGAGEMENT), leaving [18 mm](ROD_EXPOSED) below the
 core's neck. The rod stays clear of the cavity during closure.
 
 Pack a small removable seal around the rod at the forming-face entry, flush
-with the adjacent surface. The illustrated [2 mm](ROD_SEAL_DEPTH) deep seal
-is mold-sealing clay whose compatibility has been proved with the actual
-[platinum-cure silicone](silicone.md). The cradle holds the rod; the seal
+with the adjacent surface. The illustrated seal is [2 mm](ROD_SEAL_DEPTH) deep.
+Prove the mold-sealing clay's compatibility with the actual
+[platinum-cure silicone](silicone.md) on a sample before using it in the mold.
+The cradle holds the rod; the seal
 closes the annular passage into the dry back. Smooth-On's
 [sealer reference](https://www.smooth-on.com/page/sealers-releases/) distinguishes
 sulfur-free modeling clay from sulfur-bearing clay for platinum silicone.
