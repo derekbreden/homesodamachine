@@ -9,7 +9,8 @@ from its open rear, lowers through an outer tee well and seats outward into its 
 The handholds finish flush with the enclosure. Their retaining rims bear behind the wall;
 the fixed body's flat lands and the handholds' top and bottom faces guide Y travel.
 The central lap stands above the tee run ends. Each solid pull bar overlaps the web's full
-thickness; its finger space is open above, below and aft of the bar.
+thickness. A solid back separates the finger space from the enclosure interior;
+the space remains open above, below and aft of the bar.
 """
 
 from __future__ import annotations
@@ -63,10 +64,11 @@ class CarrierSpec:
     exterior_x: float = 107.5
     guide_inner_x: float = 98.5
     slide_air: float = 0.15
-    finger_run: float = 20.0
+    finger_run: float = 16.0
     finger_air: float = 0.2
-    grip_bar_t: float = 8.0
+    grip_bar_t: float = 16.0
     grip_back_x: float = 90.295
+    grip_back_t: float = 3.0
     grip_rail_outer_x: float = 103.65
     grip_rail_top_z: float = 174.95
     grip_shoulder_rise: float = 6.0
@@ -108,6 +110,16 @@ class CarrierSpec:
     @property
     def grip_z(self):
         return self.web_z[0], self.tab_z[1]
+
+    @property
+    def backing_y(self):
+        return (self.tab_y[1] - self.grip_root_overlap,
+                self.finger_y[1] + self.park_offset_y - self.release_offset_y
+                + self.slide_air)
+
+    @property
+    def backing_z(self):
+        return self.grip_z[0], self.rim_z[1]
 
     @property
     def rim_y(self):
@@ -322,7 +334,7 @@ def tie_back_envelopes(spec=DEFAULT_SPEC):
 
 
 def _service_tabs(spec):
-    """Solid pull bars, with fore retaining shoulders and upper stop tongues."""
+    """Solid pull bars and backed finger spaces with fore shoulders and upper stop tongues."""
     body = _box(spec.grip_back_x, spec.tab_outer_x, *spec.grip_y, *spec.grip_z)
     body = body.cut(_box(spec.grip_back_x - 1.0, spec.grip_rail_outer_x,
                          spec.grip_y[0] - 1.0, spec.grip_y[1] + 1.0,
@@ -335,6 +347,8 @@ def _service_tabs(spec):
     root = _box(*spec.grip_root_x, *spec.tab_y,
                 spec.grip_rail_top_z, spec.web_z[1])
     body = body.union(root)
+    body = body.union(_box(spec.grip_back_x, spec.grip_back_x + spec.grip_back_t,
+                           *spec.backing_y, *spec.backing_z))
     return body.mirror('YZ'), body
 
 
@@ -405,7 +419,7 @@ def build(spec=DEFAULT_SPEC):
 
 def finger_probes(spec=DEFAULT_SPEC, offset_y=0.0):
     probes = []
-    inner = spec.grip_back_x + spec.finger_air
+    inner = spec.grip_back_x + spec.grip_back_t + spec.finger_air
     outer = spec.tab_outer_x + 1.0
     for side in (-1, 1):
         xa, xb = (inner, outer) if side > 0 else (-outer, -inner)
@@ -417,7 +431,7 @@ def finger_probes(spec=DEFAULT_SPEC, offset_y=0.0):
 
 
 def insertion_envelopes(spec=DEFAULT_SPEC, side=1, *, xz_air=0.0):
-    """Rectangular bounds enclosing each half's web, joint, spring seat, root, bar and rim.
+    """Rectangular bounds enclosing each half's web, joint, spring seat, root, bar, back and rim.
 
     The assembly reads every segment of the inside-out route against the fixed body and
     seated tees. The bar's lower outer foot clears the seam rail on its inboard side.
@@ -451,6 +465,8 @@ def insertion_envelopes(spec=DEFAULT_SPEC, side=1, *, xz_air=0.0):
          spec.grip_y, (spec.grip_rail_top_z, spec.grip_z[1])),
         ('bar foot', handed((spec.grip_rail_outer_x, spec.tab_outer_x)),
          spec.grip_y, (spec.grip_z[0], spec.grip_rail_top_z)),
+        ('grip back', handed((spec.grip_back_x, spec.grip_back_x + spec.grip_back_t)),
+         spec.backing_y, spec.backing_z),
         ('rim', handed(spec.rim_x),
          spec.rim_y, spec.rim_z)))
     return tuple((name, _box(xs[0] - xz_air, xs[1] + xz_air, *ys,
@@ -511,8 +527,11 @@ def interface(spec=DEFAULT_SPEC):
         'guide_bearing_length': spec.grip_y[1] - spec.grip_y[0],
         'guide_slide_air': spec.slide_air,
         'grip_bar_t': spec.grip_bar_t,
-        'grip_pocket_depth': spec.tab_outer_x - spec.grip_back_x,
+        'grip_pocket_depth': spec.tab_outer_x - spec.grip_back_x - spec.grip_back_t,
         'grip_back_x': spec.grip_back_x,
+        'grip_back_t': spec.grip_back_t,
+        'grip_back_y': spec.backing_y,
+        'grip_back_z': spec.backing_z,
         'grip_rail_outer_x': spec.grip_rail_outer_x,
         'grip_rail_top_z': spec.grip_rail_top_z,
         'grip_rim_y': spec.rim_y,
@@ -527,8 +546,8 @@ def interface(spec=DEFAULT_SPEC):
         'tab_slot_y_sweep': (spec.tab_y[0] + spec.release_offset_y,
                               spec.tab_y[1] + spec.park_offset_y),
         'tab_slot_z': spec.tab_z,
-        'tab_pad_x': ((-spec.tab_outer_x, -spec.grip_back_x),
-                     (spec.grip_back_x, spec.tab_outer_x)),
+        'tab_pad_x': ((-spec.tab_outer_x, -spec.grip_back_x - spec.grip_back_t),
+                     (spec.grip_back_x + spec.grip_back_t, spec.tab_outer_x)),
         'service_slot_x': (spec.exterior_x - spec.grip_wall_t, spec.exterior_x + 1.0),
         'service_slot_y': slot_y,
         'service_slot_z': slot_z,
@@ -623,16 +642,24 @@ def selftest(spec=DEFAULT_SPEC):
         if fore_overlap < spec.grip_overlap - 1e-6 or top_overlap < spec.grip_top_overlap - 1e-6:
             errors.append(f'grip retention overlap is only {fore_overlap:g}/{top_overlap:g} mm')
     for side, shape in halves.items():
-        xa, xb = sorted((side * (spec.grip_back_x + spec.finger_air),
+        xa, xb = sorted((side * (spec.grip_back_x + spec.grip_back_t + spec.finger_air),
                          side * (spec.exterior_x + 1.0)))
         passage = _box(xa, xb, spec.finger_y[0] + spec.finger_air, spec.finger_y[1],
                        spec.grip_z[0] - 1.0, spec.rim_z[1] + 1.0).val()
         if passage.intersect(shape).Volume() > 1e-5:
             errors.append(f'half {side:+d} obstructs its open vertical finger passage')
+        xa, xb = sorted((side * spec.grip_back_x,
+                         side * (spec.grip_back_x + spec.grip_back_t)))
+        backing = _box(xa, xb, *spec.backing_y, *spec.backing_z).val()
+        if backing.cut(shape).Volume() > 1e-5:
+            errors.append(f'half {side:+d} lacks its full finger-pocket backing')
+        for dy in spec.state_offsets_y:
+            if spec.backing_y[1] + dy < data['service_slot_y'][1] + spec.slide_air - 1e-6:
+                errors.append(f'half {side:+d} exposes the enclosure behind its finger space')
     for error in errors:
         print('FAIL', error)
     if not errors:
-        print(f'ok enclosure-tee-carrier: two valid halves, open grips with solid web roots, '
+        print(f'ok enclosure-tee-carrier: two valid halves, backed grips with solid web roots, '
               f'flush faces and inside-out entry, two M3 x '
               f'{spec.joint_screw_length:g} lap screws, eight unobstructed tie paths')
     return int(bool(errors))
@@ -674,7 +701,8 @@ def sync_readme(spec=DEFAULT_SPEC):
         'WEB_T': spec.web_t,
         'GRIP_BAR_T': spec.grip_bar_t, 'FINGER_RUN': spec.finger_run,
         'FINGER_HEIGHT': spec.tab_z[1] - spec.tab_z[0],
-        'FINGER_DEPTH': spec.tab_outer_x - spec.grip_back_x,
+        'FINGER_DEPTH': spec.tab_outer_x - spec.grip_back_x - spec.grip_back_t,
+        'GRIP_BACK_T': spec.grip_back_t,
         'GRIP_EDGE_R': spec.grip_edge_r,
         'GRIP_PROJECTION': spec.tab_outer_x - spec.exterior_x,
         'GRIP_WIDTH': 2 * spec.tab_outer_x, 'GRIP_OVERLAP': spec.grip_overlap,
