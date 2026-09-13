@@ -1,38 +1,38 @@
-[step] The offset brim envelope has a dry-back ledge at Z=64.649 mm beside the clamping flange's underside at Z=65.649 mm. Both join the forming shell and receive automatic tree supports from the open underside.
+[step] The offset brim envelope has a dry-back ledge at Z=70.649 mm beside the clamping flange's underside at Z=71.649 mm. Both join the forming shell and receive automatic tree supports from the open underside.
 file: hardware/printed-parts/zone-c/funnel-mold/cavity.step
-click: x=-89.150 y=2.650 z=64.649
+click: x=-89.150 y=2.650 z=70.649
 
 [step] The opening notch is recessed 1 mm into the parting land and opens through the flange edge. Its 4 mm floor carries a blunt opening tool.
 file: hardware/printed-parts/zone-c/funnel-mold/cavity.step
-click: x=-100.000 y=0.000 z=69.649
+click: x=-100.000 y=0.000 z=75.649
 
 [sliver] These are the vertical backs and sides of the four 1 mm high, 16 mm wide opening notches. Each notch retains a 4 mm flange floor and opens through the outer edge.
 file: hardware/printed-parts/zone-c/funnel-mold/cavity.step
-click: x=-97.500 y=0.000 z=70.149
-click: x=0.000 y=-97.500 z=70.149
-click: x=0.000 y=97.500 z=70.149
-click: x=97.500 y=0.000 z=70.149
-click: x=8.000 y=100.000 z=70.149
-click: x=8.000 y=-100.000 z=70.149
-click: x=-100.000 y=8.000 z=70.149
-click: x=100.000 y=8.000 z=70.149
-click: x=-100.000 y=-8.000 z=70.149
-click: x=100.000 y=-8.000 z=70.149
-click: x=-8.000 y=100.000 z=70.149
-click: x=-8.000 y=-100.000 z=70.149
+click: x=-97.500 y=0.000 z=76.149
+click: x=0.000 y=-97.500 z=76.149
+click: x=0.000 y=97.500 z=76.149
+click: x=97.500 y=0.000 z=76.149
+click: x=8.000 y=100.000 z=76.149
+click: x=8.000 y=-100.000 z=76.149
+click: x=-100.000 y=8.000 z=76.149
+click: x=100.000 y=8.000 z=76.149
+click: x=-100.000 y=-8.000 z=76.149
+click: x=100.000 y=-8.000 z=76.149
+click: x=-8.000 y=100.000 z=76.149
+click: x=-8.000 y=-100.000 z=76.149
 
 [sliver] The 0.30 mm forming-envelope offset leaves this narrow ledge along the chute-to-ramp junction. An inward normal ray at the anchor crosses 5.45 mm of continuous PETG before reaching the dry back. The sealing finish blends the forming-face transition.
 file: hardware/printed-parts/zone-c/funnel-mold/cavity.step
-click: x=0.000 y=-79.650 z=49.339
+click: x=0.000 y=-79.650 z=55.339
 
-[ceiling] These dry-back ledges join the chute walls to the sloping shell. The delivered 0.8 mm slice has tree-support interface at Z=49.04 mm beneath both ledges. Their undersides open to the surrounding dry back for support removal.
+[ceiling] These dry-back ledges join the chute walls to the sloping shell. The delivered 0.8 mm slice has tree-support interface at Z=55.04 mm beneath both ledges. Their undersides open to the surrounding dry back for support removal.
 file: hardware/printed-parts/zone-c/funnel-mold/cavity.step
-click: x=-82.300 y=0.000 z=49.339
-click: x=82.300 y=39.750 z=49.339
+click: x=-82.300 y=0.000 z=55.339
+click: x=82.300 y=39.750 z=55.339
 
 [ceiling] The flange underside and offset brim ledges face the open dry back. Automatic tree supports in the delivered slice carry these surfaces and are removed from below before finishing.
 file: hardware/printed-parts/zone-c/funnel-mold/cavity.step
-click: x=0.000 y=0.000 z=65.649
-click: x=0.000 y=0.000 z=59.349
-click: x=-89.150 y=2.650 z=64.649
-click: x=89.150 y=2.650 z=64.649
+click: x=0.000 y=0.000 z=71.649
+click: x=0.000 y=0.000 z=65.349
+click: x=-89.150 y=2.650 z=70.649
+click: x=89.150 y=2.650 z=70.649
