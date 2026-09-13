@@ -1,131 +1,134 @@
 # Funnel mold
 
-Two PETG bodies form the [funnel](../funnel/README.md): a cavity on a rounded
-foot and a core that prints inverted on its flat back. Each body has two open
-V channels through its print back. All remaining stock prints at 100% fill.
-The forming geometry comes directly from `funnel.build_solids()`.
+Two PETG shells follow the [funnel](../funnel/README.md), with
+[5 mm](SKIN) forming walls and [5 mm](FLANGE) clamping flanges. The cavity
+stands on three small feet. The core has a [136.4 mm](DRY_MOUTH) square opening
+in its dry back. Both halves print with automatic breakaway tree supports;
+the modeled shells print at 100% fill.
 
 ![Cavity and core in their print orientations](overview.png)
 
-The cavity has a [146 mm](FOOT_WIDTH) foot. Its outer taper is at least
-[60°](TAPER_ANGLE) above the print bed, including the rounded corners, advancing
-outward by at most [0.23 mm](TAPER_GROWTH) per 0.40 mm layer. A
-[6 mm](REGISTER) locating skirt and one broad key set the closing position.
-Four opening notches expose solid bearing lands. The fill hole and five casting
-vents pass straight through the core plate.
+Eight [5 mm](BOLT_D) through-holes take M4 × 20 bolts, 9 mm OD washers and nuts.
+Small clamps can also reach the flat flange backs. Tighten opposite stations
+incrementally until the bare parting lands meet. The two short locating pegs
+are [3 mm](LOCATOR_HEIGHT) tall, with [0.60 mm](LOCATOR_CLEARANCE) radial
+clearance; one mating hole is slotted in X to accommodate spacing error.
+Their asymmetric positions set the drain's orientation. Four edge notches
+admit a blunt opening tool.
+
+![Open dry backs; the cavity's feet and the core's rod socket](backs.png)
+
+## Forming surfaces and fit
+
+Both forming faces reserve [0.30 mm](FINISH) of net finishing growth, including
+primer, sealer and release. Sand and coat a sample with the actual finishing
+stack, then measure its net growth. Mask the parting lands, locating pegs and
+holes, clamp holes, and steel-rod socket. The finishing allowance belongs to
+the silicone-forming surfaces; the bare lands establish closure height.
 
 The [6.35 mm](ROD_D) × [50.8 mm](ROD_LEN) steel dowel forms the spout bore and
-seats [28.8 mm](SOCKET) into the core. An offset vent connects the socket's
-clearance to the dry back. Both forming faces reserve [0.20 mm](FINISH) of net
-finishing growth. The casting, including the sacrificial spout tip, is
-[135 mL](CAST_VOLUME).
+seats [28.8 mm](SOCKET) into a local boss. Its socket has
+[0.30 mm](ROD_CLEARANCE) diametral clearance and a separate
+[2.5 mm](SOCKET_VENT) air vent into the open back. Verify that the actual pin
+slides to its seat and withdraws freely. A thin silicone film can enter the
+socket clearance and must be peeled out between casts.
 
-![Section through the assembled mold and drain](section.png)
+![Section through the assembled forming shells, silicone and steel dowel](section.png)
 
-Teal is the cavity, gold is the core, grey is silicone and light grey is steel.
-The assembled mold fits inside a [271.0 mm](ENVELOPE) circle, with
-[14.4 mm](CHAMBER_GAP) radial clearance to the recorded chamber diameter.
-Fit through the actual opening and onto the catch tray is a bench check.
+Teal is the cavity, gold the core, grey the nominal silicone and light grey the
+steel dowel. The nominal casting, including its sacrificial spout tip, is
+[135 mL](CAST_VOLUME). The two halves fit inside a [276.7 mm](ENVELOPE) circle,
+leaving [11.5 mm](CHAMBER_GAP) radial clearance in the recorded chamber. Check
+the actual opening, clamp/bolt envelope and catch tray before pouring.
 
-## Back channels
+## Load and vacuum
 
-![The backs of the cavity and core](backs.png)
+The complete mold sits inside the vacuum chamber. Its fill hole, five casting
+vents, rod-socket vent and both dry backs communicate with that chamber.
+Pressure equalizes through these openings; the silicone's weight remains a
+load on the forming skins. Keep the passages open, evacuate and vent slowly,
+and perform any filled-mold cycle while the silicone is fluid. Cure at ambient
+pressure with the flanges held together. The tooling is not rated for a sealed
+one-atmosphere differential or pressure injection.
 
-Each V channel opens through both sides above a flat shelf. The CAD checks a
-clear 1 mm diameter passage along its length. The roofs are at least 59° to the
-print bed, closing inward by at most 0.24 mm per side per 0.40 mm layer. The
-pointed roof has no horizontal ceiling. Cavity channels are 28 mm deep; core
-channels reach 32 mm and taper to 3 mm at their side mouths.
+[design.json](design.json) records a sizing calculation: a simply supported
+[159 mm](LOAD_SPAN) flat square, [5 mm](SKIN) thick, under a uniform
+[1.00 kPa](LOAD_PRESSURE), using an assumed PETG modulus of
+[1000 MPa](LOAD_MODULUS) and Poisson ratio 0.4. Its calculated deflection is
+[0.209 mm](LOAD_DEFLECTION); the maximum static silicone head is
+[0.772 kPa](HEAD_PRESSURE). This flat-plate model is a screening approximation;
+it does not establish the printed shell's stiffness, creep, release force or
+transient pressure during degassing.
 
-![Section across both pairs of channels](channel-section.png)
-
-The closest channel-to-forming-face backing is 9.4 mm in the cavity and 6.8 mm
-in the core. Each body is one connected solid. The cavity has
-[113.8 cm²](CAVITY_BED_CONTACT) of bed contact and the core
-[316.4 cm²](CORE_BED_CONTACT), each distributed over three strips.
-
-The channels communicate with chamber air during evacuation. Keep their mouths
-clear of coating, tape, silicone overflow and fixtures. The forming faces require
-a continuous sealing finish. Physical printing, vacuum cycling and release with
-the finishing stack remain to be verified for this geometry. The
-[print log](print-log.md) records observed specimens and their source revisions.
+Bambu reports PETG Translucent bending moduli of 1610 MPa in XY and 1520 MPa in
+Z on conditioned test specimens. The sizing assumption is lower; the actual
+print still needs its own dry-fit and vacuum trial.
+[Material data sheet](https://store.bblcdn.eu/s8/default/71ca815e70e74afc96ff5883f003235f/Bambu_PETG_Translucent_Technical_Data_Sheet.pdf).
 
 ## Print
 
-[Default +0.04 trim](funnel-mold.3mf) · [Alternate +0.18 trim](funnel-mold-z018.3mf) ·
-[Saved printer, filament and process presets](funnel-mold-presets.bbscfg)
+[Recommended project, +0.04 trim](funnel-mold.3mf) ·
+[Alternate +0.18 trim](funnel-mold-z018.3mf) ·
+[Printer, filament and process presets](funnel-mold-presets.bbscfg)
 
-| Body | Envelope | Estimated print | PETG |
+| Body | Envelope | Estimated print | PETG, including supports |
 | --- | --- | --- | --- |
-| [Cavity](cavity.step) | [189 × 189 × 72.6 mm](CAVITY_DIMS) | [23 h 18 min](CAVITY_TIME) | [1534 g](CAVITY_MASS) |
-| [Core](core.step) | [201 × 201 × 50.4 mm](CORE_DIMS) | [16 h 53 min](CORE_TIME) | [1117 g](CORE_MASS) |
+| [Cavity](cavity.step) | [205 × 205 × 73.6 mm](CAVITY_DIMS) | [17 h 19 min](CAVITY_TIME) | [615 g](CAVITY_MASS) |
+| [Core](core.step) | [205 × 205 × 45.3 mm](CORE_DIMS) | [10 h 55 min](CORE_TIME) | [441 g](CORE_MASS) |
 
-Together the two plates use [2.65 kg](TOTAL_MASS) and take
-[40 h 11 min](TOTAL_TIME). Each needs filament refill beyond a 1 kg spool.
+Together: [28 h 14 min](TOTAL_TIME), [1.06 kg](TOTAL_MASS). These are slicer
+estimates. The files use the left [0.8 mm](NOZZLE) [High Flow](NOZZLE_TYPE) nozzle, [0.24 mm](LAYER) layers,
+translucent PETG at 255 °C, an [18 mm³/s](FLOW_CAP) volumetric cap, a removable 6 mm brim,
+and same-material tree supports with 0.3 mm vertical separation. The cavity
+prints upright and the core inverted. Supports are accessible from the dry
+backs. Inspect and remove every branch before finishing.
 
-The projects use the left 0.8 mm High Flow nozzle, translucent PETG at 255 °C,
-an 18 mm³/s flow cap, 0.16 mm layers at forming slopes and fit details, and
-0.40 mm through bulk stock. Outer perimeters are capped at 40 mm/s. Overhang
-speeds are 30 / 30 / 25 / 10 mm/s, with 90% part cooling on all outer perimeters
-after the first three layers. Conventional seams use the back position with
-overhang avoidance; travel planning detours around perimeter walls where possible.
-The slices contain no support, brim or skirt paths.
+The [0.4 mm project](funnel-mold-04.3mf), at 0.16 mm layers on the left Standard
+nozzle, is estimated at [55 h 10 min](FINE_TIME) and [0.93 kg](FINE_MASS) for both halves.
+It uses the same geometry, +0.04 mm plate trim and automatic tree supports.
 
-The [corner trial](corner-trial.3mf) is a full-height section of the current
-cavity with the same presets and layer bands. It exercises the outer taper;
-its smaller mass and shorter layer times do not reproduce the whole mold's
-thermal conditions. Its [profile](corner-trial-profile.json) records the source
-geometry, settings, G-code and estimate.
+[print-profile.json](print-profile.json) records the actual saved settings,
+STL and G-code checksums, support usage and estimates.
+[print log](print-log.md) records physical observations with their known provenance.
+Coated closure, vacuum cycling, support removal and casting are untested for
+these shells.
 
-[design.json](design.json) records CAD measurements.
-[print-profile.json](print-profile.json) records settings, estimates and checksums.
-[layer-review.json](layer-review.json) checks model-section connectivity at the
-actual layer heights. [toolpath-review.json](toolpath-review.json) records the
-commanded outer-wall speeds, cooling and seam positions.
+## Cast and open
 
-## Finish, cast and open
-
-Prove the PETG, coating, release and [silicone](silicone.md) together on a finishing
-sample. Measure the net finish; keep the parting lands, locating skirt, key and
-bores bare.
-
-1. Check the bare mold in the chamber. Dry-fit the key and skirt, and clear the
-   dowel socket until the actual pin slides freely to its seat. Keep its vent open.
-2. Degas mixed silicone in a separate container. Fill the open cavity, including
-   the blind spout pocket. Align the key and lower the core slowly with the dowel
-   installed. Seat the parting lands evenly and top up through the fill hole.
-3. Keep fill and air passages open during a filled-mold vacuum cycle, with room
-   for expansion and a catch tray. Return to ambient pressure slowly, check the
-   fill level and top up while the silicone remains workable. Keep the core seated
-   through cure.
-4. Trim cured overflow flush with the port mouths. Begin opening in small,
-   alternating movements at opposite notches with a blunt flat tool. Peel the
-   accessible silicone brim to admit air, lift straight and follow the dowel's
-   movement. Peel the casting from the tooling, withdraw the dowel axially and
-   cut the sacrificial tip at its trim shoulder.
+1. Remove supports and brim. Seat the steel pin and dry-fit the two halves.
+   Check the lands with a light behind the seam; use the flange bolts or clamps
+   to close slight bow. Confirm that the coated halves still meet on those lands.
+2. Prove the PETG, finishing stack, release and [silicone](silicone.md) on a
+   sample. Degas the mixed silicone in a separate container with expansion room.
+   [Smooth-On's degassing example](https://www.smooth-on.com/tutorials/making-piece-cut-block-mold/vacuum-de-gassing/)
+   shows the required headroom above the liquid.
+3. Fill the open cavity, including the blind spout pocket. Lower the core slowly
+   with its dowel installed. Seat and hold the flanges evenly. Top up through the
+   [11 mm](FILL_D) fill hole; the five [4 mm](VENT_D) vents remain open.
+4. For a filled-mold vacuum cycle, use a catch tray and keep overflow clear of the
+   dry-back openings. Vent slowly, recheck the fill level and top up while fluid.
+   Hold the flanges through the silicone's room-temperature cure.
+5. Trim overflow at the port mouths. Open in small alternating movements at
+   opposite notches. Peel the accessible silicone brim to admit air, lift the
+   core straight, peel the casting from the cavity, withdraw the dowel and trim
+   the sacrificial spout tip at its shoulder.
 
 ## Regenerate
 
-Run [funnel_mold.py](funnel_mold.py) with the project's CadQuery Python:
-
 ```sh
 tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel-mold/funnel_mold.py
-tools/cad-venv/bin/python tools/funnel-mold-print/prepare_print.py --models hardware/printed-parts/zone-c/funnel-mold --output /tmp/funnel-mold-build/default-input.3mf
+tools/cad-venv/bin/python tools/funnel-mold-print/prepare_print.py --models hardware/printed-parts/zone-c/funnel-mold --output /tmp/funnel-shell-print-08/default-input.3mf --nozzle 0.8
 ```
 
 Prepare the alternate input with `--z-trim 0.18`. Slice both inputs in Bambu
 Studio, then run [verify_print.py](/tools/funnel-mold-print/verify_print.py) with
-this models directory and the slice directory. The hand-run tools are in
-[tools/funnel-mold-print](/tools/funnel-mold-print/).
+this models directory and the slice directory. `--nozzle 0.4` prepares the
+comparison project; pass its slice directory as `--comparison-slices` when
+verifying to refresh both estimates.
 
 After publication, run [review_geometry.py](/tools/funnel-mold-print/review_geometry.py)
-and [review_layers.py](/tools/funnel-mold-print/review_layers.py) with this models
-directory. The layer review also takes `--project funnel-mold.3mf`.
-
-[prepare_trial.py](/tools/funnel-mold-print/prepare_trial.py) extracts the corner
-into a separate output directory. Prepare that directory with
-`prepare_print.py --only cavity`, slice it, then audit with
-`verify_print.py --single --project-stem corner-trial`.
+with this models directory. Geometry lint reports overhangs in the print
+orientations; the saved slice's tree supports carry the dry faces.
 
 ## Sources
 [value](NAME) texts are updated by:

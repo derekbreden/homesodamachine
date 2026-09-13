@@ -1,8 +1,8 @@
 """Check that every model section grows from material in the previous layer.
 
 Run after publication. Sections use the layer heights in the delivered G-code.
-This checks for floating model islands; it does not predict bed adhesion or
-surface finish. It supplements the explicit V-roof angle in funnel_mold.py.
+This reports model islands separately from slicer supports. Support presence
+does not establish contact quality or removal effort; inspect the slice and print.
 """
 import argparse
 import hashlib
@@ -45,6 +45,7 @@ def main():
     with zipfile.ZipFile(project) as archive:
         for index, name in enumerate(('cavity', 'core'), 1):
             data = archive.read(f'Metadata/plate_{index}.gcode').decode()
+            support_present = '; FEATURE: Support' in data
             layers = [(float(z), float(h)) for z, h in re.findall(
                 r'; Z_HEIGHT: ([0-9.]+)\r?\n; LAYER_HEIGHT: ([0-9.]+)', data)]
             assert layers and all(h > 0 for z, h in layers)
@@ -69,9 +70,11 @@ def main():
                 previous = unary_union(polygons)
             report['parts'][name] = {'stl_sha256': hashlib.sha256(path.read_bytes()).hexdigest(),
                 'layers_checked': len(layers), 'bed_contact_regions': roots,
-                'floating_section_components': orphan}
+                'floating_section_components': orphan,
+                'slicer_support_present': support_present,
+                'scope': 'Model connectivity only; support contact is not assessed.'}
             print(name, len(layers), 'layers;', roots, 'bed regions;', len(orphan), 'floating components', flush=True)
-            assert not orphan, (name, orphan)
+            assert not orphan or support_present, (name, 'model islands without slicer supports', orphan)
     (args.models/'layer-review.json').write_text(json.dumps(report, indent=2)+'\n')
 
 

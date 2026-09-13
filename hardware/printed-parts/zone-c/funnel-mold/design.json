@@ -1,14 +1,14 @@
 {
   "dimensions_mm": {
     "cavity": [
-      189.0000002,
-      189.0000002,
-      72.64923296371629
+      205.0,
+      205.0,
+      73.64923306371627
     ],
     "core": [
-      201.0,
-      201.0,
-      50.43620151507566
+      205.0,
+      205.0,
+      45.31546970507766
     ],
     "funnel": [
       173.0,
@@ -22,68 +22,147 @@
     ]
   },
   "volume_ml": {
-    "cavity": 1241.8898821340274,
-    "core": 905.1611707566254,
-    "funnel": 135.17566904044506,
+    "cavity": 282.31985709885583,
+    "core": 272.31000999084347,
+    "funnel": 135.175669040445,
     "rod": 1.6087962461345555
   },
-  "parting_z_mm": 72.64923296371629,
+  "shell_thickness_mm": 5.0,
+  "flange_thickness_mm": 5.0,
+  "parting_z_mm": 70.64923296371627,
+  "finish_allowance_mm": 0.3,
   "rod_socket_depth_mm": 28.799999999999997,
+  "rod_socket_diametral_clearance_mm": 0.3,
   "rod_socket_vent_diameter_mm": 2.5,
-  "register_depth_mm": 6.0,
-  "finish_allowance_mm": 0.2,
-  "cavity_stock_minimum_backing_before_rim_notches_mm": 6.9715728752538,
-  "cavity_outer_taper": {
-    "foot_width_mm": 146.0,
-    "foot_height_mm": 3.2,
-    "taper_top_z_mm": 57.298907340266915,
-    "minimum_angle_from_bed_degrees": 60.0,
-    "maximum_outward_growth_per_0_40_mm_layer": 0.23094010767585038
+  "locators": {
+    "diameter_mm": 8.0,
+    "height_mm": 3.0,
+    "radial_clearance_mm": 0.6,
+    "slot_travel_each_way_mm": 1.5,
+    "centres_xy_mm": [
+      [
+        96.5,
+        22.0
+      ],
+      [
+        -96.5,
+        -12.0
+      ]
+    ]
   },
+  "clamping": {
+    "hole_diameter_mm": 5.0,
+    "centres_xy_mm": [
+      [
+        -96.5,
+        -50.0
+      ],
+      [
+        -96.5,
+        50.0
+      ],
+      [
+        96.5,
+        -50.0
+      ],
+      [
+        96.5,
+        50.0
+      ],
+      [
+        -50.0,
+        -96.5
+      ],
+      [
+        50.0,
+        -96.5
+      ],
+      [
+        -50.0,
+        96.5
+      ],
+      [
+        50.0,
+        96.5
+      ]
+    ],
+    "fastener": "M4 x 20 with 9 mm OD washers and nuts; or small clamps on flange"
+  },
+  "ports": {
+    "fill_diameter_mm": 11.0,
+    "vent_diameter_mm": 4.0,
+    "fill_xy_mm": [
+      -80.0,
+      -80.0
+    ],
+    "vent_xy_mm": [
+      [
+        80.0,
+        -80.0
+      ],
+      [
+        80.0,
+        80.0
+      ],
+      [
+        -80.0,
+        80.0
+      ],
+      [
+        -80.0,
+        0
+      ],
+      [
+        80.0,
+        0
+      ]
+    ]
+  },
+  "feet": {
+    "diameter_mm": 10.0,
+    "centres_xy_mm": [
+      [
+        -55.0,
+        -50.0
+      ],
+      [
+        55.0,
+        -50.0
+      ],
+      [
+        0.0,
+        65.0
+      ]
+    ],
+    "spout_back_clearance_mm": 0.7
+  },
+  "dry_opening_mm": 136.4,
   "ramp_print_z_mm": {
     "cavity": [
-      32.00000000000001,
-      51.339232963716285
+      29.999999999999993,
+      49.33923296371627
     ],
     "core": [
-      31.31,
-      50.64923296371628
+      26.31,
+      45.64923296371628
     ]
   },
   "nominal_chamber_diameter_mm": 299.72,
-  "status": "CAD design; physical printing and release untested",
-  "channels": {
-    "count_per_body": 2,
-    "centres_y_mm": [
-      -28.0,
-      28.0
-    ],
-    "roof_angle_from_bed_degrees": 59.03624346792648,
-    "max_horizontal_growth_per_0_40_mm_layer": 0.24,
-    "cavity_depth_mm": 28.0,
-    "core_depth_mm": 32.0,
-    "core_side_mouth_height_mm": 3.0,
-    "core_side_mouth_width_mm": 3.5999999999999996,
-    "clear_through_passage_diameter_mm": 1.0,
-    "parts": {
-      "cavity": {
-        "stock_volume_ml": 1384.0961609485685,
-        "volume_ml": 1241.8898821340274,
-        "removed_ml": 142.20627812106932,
-        "minimum_added_channel_to_forming_face_mm": 9.418747051912984,
-        "bed_contact_mm2": 11381.189342116932,
-        "stock_bed_contact_mm2": 21192.38934211693
-      },
-      "core": {
-        "stock_volume_ml": 1019.0399748978188,
-        "volume_ml": 905.1611707566254,
-        "removed_ml": 113.87881271786142,
-        "minimum_added_channel_to_forming_face_mm": 6.8,
-        "bed_contact_mm2": 31638.765836599705,
-        "stock_bed_contact_mm2": 40045.96288567377
-      }
-    }
+  "load_screen": {
+    "model": "simply supported flat square under uniform load; screening, not FEA or a pressure rating",
+    "span_mm": 159.0,
+    "pressure_kpa": 1.0,
+    "assumed_modulus_mpa": 1000.0,
+    "assumed_poisson_ratio": 0.4,
+    "silicone_density_assumption_kg_m3": 1130,
+    "maximum_silicone_head_mm": 69.64923296371629,
+    "head_pressure_kpa": 0.7720826421726843,
+    "screen_deflection_mm": 0.2092497992250624,
+    "pressure_force_n": 25.281,
+    "condition": "fill, vents and both dry backs open to the same chamber; no sealed pressure differential",
+    "material_reference": "https://store.bblcdn.eu/s8/default/71ca815e70e74afc96ff5883f003235f/Bambu_PETG_Translucent_Technical_Data_Sheet.pdf"
   },
-  "enclosing_diameter_mm": 271.0020834012015,
-  "chamber_radial_clearance_mm": 14.358958299399262
+  "status": "CAD and slice verification; coated closure, vacuum cycle and casting untested",
+  "enclosing_diameter_mm": 276.6589376506939,
+  "chamber_radial_clearance_mm": 11.530531174653078
 }

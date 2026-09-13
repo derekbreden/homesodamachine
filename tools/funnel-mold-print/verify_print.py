@@ -20,19 +20,27 @@ def audit(project, provenance_path, models):
         assert archive.testzip() is None
         settings = json.loads(archive.read('Metadata/project_settings.config'))
         local = ET.fromstring(archive.read('Metadata/model_settings.config'))
-        ranges = ET.fromstring(archive.read('Metadata/layer_config_ranges.xml'))
+        ranges = (ET.fromstring(archive.read('Metadata/layer_config_ranges.xml'))
+                  if 'Metadata/layer_config_ranges.xml' in archive.namelist() else ET.Element('objects'))
         slices = ET.fromstring(archive.read('Metadata/slice_info.config'))
         normalized = []
+        value_normalizations = []
         for key, value in settings.items():
             if key in origin['supplied_settings']:
                 supplied = origin['supplied_settings'][key]['value']
+                if key == 'filament_prime_volume' and supplied == ['30'] and value == ['45']:
+                    value_normalizations.append({'setting': key, 'supplied': supplied,
+                        'saved': value, 'scope': 'Bambu Studio 02.08.02.61 saved purge volume'})
+                    continue
                 assert equivalent(key, supplied, value), (key, supplied, value)
                 if supplied != value:
                     normalized.append(key)
         assert settings['sparse_infill_density'] == '100%'
-        assert settings['enable_support'] == settings['enable_prime_tower'] == '0'
-        assert settings['brim_type'] == 'no_brim'
-        assert settings['filament_max_volumetric_speed'] == ['16', '18']
+        assert settings['enable_support'] == '1'
+        assert settings['support_type'] == 'tree(auto)'
+        assert settings['enable_prime_tower'] == '0'
+        assert settings['brim_type'] == 'outer_only'
+        assert settings['filament_max_volumetric_speed'] == ['12', '18']
         assert settings['nozzle_temperature'] == ['255', '255']
         assert settings['curr_bed_type'] == 'Textured PEI Plate'
         assert settings['post_process'] == []
@@ -49,27 +57,29 @@ def audit(project, provenance_path, models):
             assert digest == origin['mesh_sha256'][name], 'STL changed after preparation'
             actual = ranges.find(f"object[@id='{index}']")
             bands = [(float(b.get('min_z')), float(b.get('max_z')),
-                      float(b.find('option').text)) for b in actual.findall('range')]
+                      float(b.find('option').text)) for b in ([] if actual is None else actual.findall('range'))]
             assert bands == [(a, b, .16) for a, b in recipe['layer_ranges_mm'][name]]
             plate = local.findall('plate')[index-1]
             md = {m.get('key'): m.get('value') for m in plate.findall('metadata')}
             assert md['bed_type'] == 'Textured PEI Plate'
-            assert md['filament_maps'] == md['filament_volume_maps'] == '1'
+            assert md['filament_maps'] == '1'
+            assert md['filament_volume_maps'] == ('1' if recipe['nozzle_type'] == 'High Flow' else '0')
             assert md['filament_map_mode'] == 'Manual'
             gcode_name = f'Metadata/plate_{index}.gcode'
             data = archive.read(gcode_name)
             recorded_md5 = archive.read(gcode_name+'.md5').decode().strip()
             assert hashlib.md5(data).hexdigest().lower() == recorded_md5.lower()
-            for feature in (b'; FEATURE: Support', b'; FEATURE: Brim', b'; FEATURE: Skirt'):
-                assert feature not in data
+            assert b'; FEATURE: Support' in data, 'tree supports absent from G-code'
+            assert b'; FEATURE: Skirt' not in data
             gcode_records.append({'part': name, 'stl_sha256': digest,
                 'gcode_sha256': hashlib.sha256(data).hexdigest(),
                 'header': data.decode().split('; HEADER_BLOCK_END')[0].splitlines()[1:]})
         for plate in slices.findall('plate'):
             assert [n.attrib for n in plate.findall('nozzle')] == [
-                {'id': '0', 'extruder_id': '1', 'nozzle_diameter': '0.8', 'volume_type': 'High Flow'}]
+                {'id': '0', 'extruder_id': '1', 'nozzle_diameter': f"{recipe['nozzle_mm']:g}", 'volume_type': recipe['nozzle_type']}]
     return {'project': project.name, 'sha256': hashlib.sha256(project.read_bytes()).hexdigest(),
         'effective_setting_count': len(settings), 'normalized_settings': normalized,
+        'value_normalizations': value_normalizations,
         'supplied_setting_origins': origin['supplied_settings'],
         'slicer_defaults': {k: v for k, v in settings.items() if k not in origin['supplied_settings']},
         'settings': settings, 'recipe': recipe, 'gcode': gcode_records}
@@ -81,6 +91,7 @@ def main():
     parser.add_argument('--slices', type=Path, required=True)
     parser.add_argument('--project-stem', default='funnel-mold')
     parser.add_argument('--single', action='store_true', help='Audit only the default Z trim.')
+    parser.add_argument('--comparison-slices', type=Path, help='Also audit a 0.4 mm default slice for comparison.')
     args = parser.parse_args()
     info = json.loads((args.models/'design.json').read_text())
     records = []
@@ -111,6 +122,17 @@ def main():
             machine = json.loads(archive.read(settings['printer_settings_id']+'.json'))
             assert machine['machine_start_gcode'] == settings['machine_start_gcode']
     (args.models/bundle.name).write_bytes(bundle.read_bytes())
+    comparison = None
+    if args.comparison_slices:
+        source = args.comparison_slices/'default/funnel-mold.3mf'
+        comparison = audit(source, args.comparison_slices/'default-input.provenance.json', args.models)
+        comparison['project'] = 'funnel-mold-04.3mf'
+        comparison['slice_result'] = json.loads((args.comparison_slices/'default/result.json').read_text())
+        assert comparison['recipe']['nozzle_mm'] == 0.4
+        assert comparison['slice_result']['return_code'] == 0
+        assert all(not p['warning_message'] for p in comparison['slice_result']['sliced_plates'])
+        (args.models/comparison['project']).write_bytes(source.read_bytes())
+        records.append(comparison)
     profile = 'print-profile.json' if len(records[0]['gcode']) == 2 else args.project_stem+'-profile.json'
     (args.models/profile).write_text(json.dumps(records, indent=2)+'\n')
     if len(records[0]['gcode']) == 1:
@@ -125,11 +147,20 @@ def main():
         return f'{minutes//60} h {minutes%60:02d} min'
     cavity, core = records[0]['slice_result']['sliced_plates']
     figures = {
-        'REGISTER': f"{info['register_depth_mm']:g} mm",
+        'SKIN': f"{info['shell_thickness_mm']:g} mm",
+        'FLANGE': f"{info['flange_thickness_mm']:g} mm",
+        'DRY_MOUTH': f"{info['dry_opening_mm']:.1f} mm",
+        'BOLT_D': f"{info['clamping']['hole_diameter_mm']:g} mm",
+        'LOCATOR_HEIGHT': f"{info['locators']['height_mm']:g} mm",
+        'LOCATOR_CLEARANCE': f"{info['locators']['radial_clearance_mm']:.2f} mm",
         'ROD_D': f"{info['dimensions_mm']['rod'][0]:g} mm",
         'ROD_LEN': f"{info['dimensions_mm']['rod'][2]:g} mm",
         'SOCKET': f"{info['rod_socket_depth_mm']:.1f} mm",
+        'ROD_CLEARANCE': f"{info['rod_socket_diametral_clearance_mm']:.2f} mm",
+        'SOCKET_VENT': f"{info['rod_socket_vent_diameter_mm']:g} mm",
         'FINISH': f"{info['finish_allowance_mm']:.2f} mm",
+        'FILL_D': f"{info['ports']['fill_diameter_mm']:g} mm",
+        'VENT_D': f"{info['ports']['vent_diameter_mm']:g} mm",
         'CAST_VOLUME': f"{info['volume_ml']['funnel']:.0f} mL",
         'CAVITY_DIMS': dims('cavity'), 'CORE_DIMS': dims('core'),
         'CAVITY_TIME': duration(cavity), 'CORE_TIME': duration(core),
@@ -137,19 +168,24 @@ def main():
         'CORE_MASS': f"{core['filaments'][0]['total_used_g']:.0f} g",
         'ENVELOPE': f"{info['enclosing_diameter_mm']:.1f} mm",
         'CHAMBER_GAP': f"{info['chamber_radial_clearance_mm']:.1f} mm",
-        'FOOT_WIDTH': f"{info['cavity_outer_taper']['foot_width_mm']:g} mm",
-        'TAPER_ANGLE': f"{info['cavity_outer_taper']['minimum_angle_from_bed_degrees']:g}°",
-        'TAPER_GROWTH': f"{info['cavity_outer_taper']['maximum_outward_growth_per_0_40_mm_layer']:.2f} mm"}
+        'LOAD_SPAN': f"{info['load_screen']['span_mm']:g} mm",
+        'LOAD_PRESSURE': f"{info['load_screen']['pressure_kpa']:.2f} kPa",
+        'LOAD_MODULUS': f"{info['load_screen']['assumed_modulus_mpa']:g} MPa",
+        'LOAD_DEFLECTION': f"{info['load_screen']['screen_deflection_mm']:.3f} mm",
+        'HEAD_PRESSURE': f"{info['load_screen']['head_pressure_kpa']:.3f} kPa"}
+    recipe = records[0]['recipe']
+    figures.update({'NOZZLE': f"{recipe['nozzle_mm']:g} mm", 'NOZZLE_TYPE': recipe['nozzle_type'],
+                    'LAYER': recipe['process_settings']['layer_height']['value']+' mm',
+                    'FLOW_CAP': ('18' if recipe['nozzle_type'] == 'High Flow' else '12')+' mm³/s'})
     mass = lambda plates: sum(p['filaments'][0]['total_used_g'] for p in plates)
     seconds = lambda plates: sum(p['total_predication'] for p in plates)
     plates = records[0]['slice_result']['sliced_plates']
     figures.update({'TOTAL_MASS': f'{mass(plates)/1000:.2f} kg',
                     'TOTAL_TIME': duration({'total_predication': seconds(plates)})})
-    if 'channels' in info:
-        channel = info['channels']['parts']
-        for name, prefix in [('cavity', 'CAVITY'), ('core', 'CORE')]:
-            figures[prefix+'_REMOVED_VOLUME'] = f"{channel[name]['removed_ml']:.1f} mL"
-            figures[prefix+'_BED_CONTACT'] = f"{channel[name]['bed_contact_mm2']/100:.1f} cm²"
+    if comparison:
+        alt = comparison['slice_result']['sliced_plates']
+        figures.update({'FINE_TIME': duration({'total_predication': seconds(alt)}),
+                        'FINE_MASS': f'{mass(alt)/1000:.2f} kg'})
     substitute_md(args.models/'README.md', variables=figures)
     # docgen records sidecars automatically only for callers under hardware.
     (args.models/'README.figures.json').write_text(json.dumps({
