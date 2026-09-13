@@ -114,8 +114,10 @@ That integral seal makes the regulator joint; it is not a bare metal-to-metal co
 
 The illustration helper in [`_install_art.py`](/hardware/install-guide/_install_art.py) uses the
 manufacturer's exterior dimensions for both fittings. Its seating depth on the regulator and
-collet details are schematic. Bench confirmation of the complete connection, tightening
-instruction and leak test is required before the customer make-up instruction is released.
+collet details are schematic. The customer make-up is install guide leaf 13: a washer in the
+CGA-320 nut, started by hand and nipped up with an adjustable wrench; the gray connector
+hand-tight on the flare. A bench make-up of this exact pair is still owed, and a figure it
+produces goes onto that leaf.
 
 ## Regenerate
 
