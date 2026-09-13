@@ -76,7 +76,7 @@ IMPLICIT_SOLIDS = {
     # Current payloads need no rewrite; a clean run still owes every view.
     "hardware/printed-parts/zone-c/funnel-mold/funnel_mold.py": tuple(
         f"hardware/printed-parts/zone-c/funnel-mold/{name}.step.mesh"
-        for name in ("assembly", "backs", "cavity", "channel-section", "core", "funnel", "overview", "rod", "section")
+        for name in ("assembly", "backs", "cavity", "core", "funnel", "overview", "rod", "section")
     ),
     "hardware/cold-core-layout/cold_core_assembly.py": (
         "hardware/cold-core-layout/cold-core-assembly.step.mesh",

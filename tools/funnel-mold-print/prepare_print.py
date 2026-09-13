@@ -21,56 +21,66 @@ def choice(value, reason):
     return {'value': value, 'reason': reason}
 
 
-def recipe(info):
+def recipe(info, nozzle=0.4):
+    fine = nozzle == 0.4
+    size = f'{nozzle:g}'
+    layer = '0.16' if fine else '0.24'
+    process = '0.16mm Standard @BBL H2C' if fine else '0.40mm Standard @BBL H2C 0.8 nozzle'
+    filament = 'Bambu PETG Translucent @BBL H2C'+('' if fine else ' 0.8 nozzle')
     return {
+        'nozzle_mm': nozzle, 'nozzle_type': 'Standard' if fine else 'High Flow',
         'system_presets': {
-            'machine': 'Bambu Lab H2C 0.8 nozzle',
-            'process': '0.40mm Standard @BBL H2C 0.8 nozzle',
-            'filament': 'Bambu PETG Translucent @BBL H2C 0.8 nozzle'},
-        'process_name': 'Funnel mold solid - 0.16 mm faces - 0.40 mm backing',
-        'filament_name': 'Funnel mold PETG Translucent - HF 255C 18mm3s',
+            'machine': f'Bambu Lab H2C {size} nozzle',
+            'process': process, 'filament': filament},
+        'process_name': f'Funnel mold shell - {size} nozzle - tree supports',
+        'filament_name': f'Funnel mold PETG Translucent - {size} nozzle - 255C',
         'z_trim': {'default_mm': 0.04, 'available_mm': [0.04, 0.18],
-            'reason': 'The user has established both build-plate corrections across materials and nozzles; translucent uses +0.04 mm.'},
+            'reason': 'User-established plate corrections; translucent uses +0.04 mm.'},
         'process_settings': {
             'enable_arc_fitting': choice('0', 'Connected H2C firmware uses curve planning.'),
-            'wall_generator': choice('arachne', 'Variable-width perimeter paths at the rod socket and coating step.'),
-            'wall_loops': choice('4', 'Four perimeter paths around continuous solid backing.'),
-            'sparse_infill_density': choice('100%', 'All modeled stock is solid; no designed enclosed infill volume.'),
-            'sparse_infill_pattern': choice('zig-zag', 'Alternating solid infill paths.'),
-            'top_shell_layers': choice('8', 'Solid surface layer classification.'),
-            'bottom_shell_layers': choice('8', 'Solid surface layer classification.'),
-            'top_shell_thickness': choice('3.2', 'Solid surface classification through fine layer bands.'),
-            'bottom_shell_thickness': choice('3.2', 'Solid surface classification through fine layer bands.'),
+            'layer_height': choice(layer, 'Fine layers on the forming slopes.'),
+            'initial_layer_print_height': choice('0.2' if fine else '0.32', 'Stock nozzle first-layer height.'),
+            'wall_generator': choice('arachne', 'Variable-width paths around sockets and shell transitions.'),
+            'wall_loops': choice('4' if fine else '3', 'Continuous forming and dry-back perimeters.'),
+            'sparse_infill_density': choice('100%', 'Solid modeled shells and flanges.'),
+            'sparse_infill_pattern': choice('zig-zag', 'Alternating solid fill.'),
+            'top_shell_layers': choice('5', 'Closed skin faces.'),
+            'bottom_shell_layers': choice('5', 'Closed skin faces.'),
+            'top_shell_thickness': choice('0.8', 'Solid top face.'),
+            'bottom_shell_thickness': choice('0.8', 'Solid bottom face.'),
             'top_one_wall_type': choice('not apply', 'Full perimeter count at forming edges.'),
-            'outer_wall_speed': choice(['40']*4, 'Outer perimeters are capped at 40 mm/s.'),
-            'overhang_1_4_speed': choice(['30']*4, 'Low-overhang perimeter paths use 30 mm/s.'),
-            'overhang_2_4_speed': choice(['30']*4, 'Quarter-width overhang paths use 30 mm/s.'),
-            'overhang_3_4_speed': choice(['25']*4, 'Half-width overhang paths use 25 mm/s.'),
-            'overhang_4_4_speed': choice(['10']*4, 'Nearly unsupported perimeter paths use 10 mm/s.'),
-            'seam_position': choice('back', 'Conventional seams lie toward the back of each perimeter.'),
-            'seam_placement_away_from_overhangs': choice('1', 'Seam placement accounts for adjacent overhangs.'),
-            'reduce_crossing_wall': choice('1', 'Travel paths detour around perimeter walls and the open forming cavity.'),
-            'outer_wall_acceleration': choice(['2000']*4, 'Acceleration of the forming and locating perimeters.'),
-            'top_surface_speed': choice(['60']*4, 'Flat forming surfaces print at 60 mm/s or below the flow cap.'),
-            'seam_gap': choice('0%', 'Closed seam paths on the forming faces.'),
-            'brim_type': choice('no_brim', 'The user specifies permanent bed-contact geometry.'),
-            'brim_width': choice('0', 'No slicer brim.'),
-            'skirt_loops': choice('0', 'The stock machine sequence primes the nozzle.'),
-            'enable_support': choice('0', 'Continuous backing carries the forming faces; the outer taper is at least 60 degrees.'),
-            'enable_prime_tower': choice('0', 'One filament and nozzle per plate.')},
+            'outer_wall_speed': choice(['40']*4, 'Nominal outer-wall speed; stock overhang overrides also apply.'),
+            'outer_wall_acceleration': choice(['2000']*4, 'Controlled forming-wall acceleration.'),
+            'top_surface_speed': choice(['60']*4, 'Flat forming faces capped at 60 mm/s.'),
+            'seam_position': choice('back', 'Aligned seams for local finishing.'),
+            'seam_placement_away_from_overhangs': choice('1', 'Account for adjacent overhangs.'),
+            'reduce_crossing_wall': choice('1', 'Detour around forming faces when possible.'),
+            'seam_gap': choice('0%', 'Closed seam paths.'),
+            'brim_type': choice('outer_only', 'Removable adhesion brim around feet, flange and support roots.'),
+            'brim_width': choice('6', 'Broad temporary bed grip.'),
+            'brim_object_gap': choice('0.15', 'Breakaway brim gap.'),
+            'skirt_loops': choice('0', 'Stock machine sequence primes the nozzle.'),
+            'enable_support': choice('1', 'Automatic breakaway tree supports on the open dry backs.'),
+            'support_type': choice('tree(auto)', 'The project uses automatic tree supports.'),
+            'support_style': choice('default', 'Stock tree branching.'),
+            'support_threshold_angle': choice('35', 'Project tree-support threshold.'),
+            'support_on_build_plate_only': choice('0', 'Supports may root on accessible dry faces.'),
+            'support_top_z_distance': choice('0.3', 'Project breakaway interface gap.'),
+            'support_bottom_z_distance': choice('0.3', 'Project breakaway interface gap.'),
+            'support_object_xy_distance': choice('0.4', 'Project lateral removal clearance.'),
+            'support_interface_top_layers': choice('2', 'Two removable interface layers.'),
+            'support_interface_bottom_layers': choice('2', 'Two removable interface layers.'),
+            'support_interface_spacing': choice('0.5', 'Project sparse interface spacing.'),
+            'support_filament': choice('0', 'Same PETG as model.'),
+            'support_interface_filament': choice('0', 'Same PETG as model.'),
+            'enable_prime_tower': choice('0', 'One filament per plate.')},
         'filament_settings': {
-            'enable_overhang_bridge_fan': choice(['1'], 'Perimeter cooling uses the explicit wall fan setting.'),
-            'overhang_fan_threshold': choice(['0%'], 'All outer perimeters receive the wall fan setting after the first-layer cooling holdoff.'),
-            'overhang_fan_speed': choice(['90'], 'Outer perimeters use 90% part cooling.'),
-            'filament_prime_volume': choice(['45'], 'Saved filament preset prime volume.'),
-            'nozzle_temperature': choice(['255', '255'], 'Current translucent PETG high-flow temperature.'),
-            'nozzle_temperature_initial_layer': choice(['255', '255'], 'Current translucent PETG high-flow temperature.'),
-            'filament_max_volumetric_speed': choice(['16', '18'], 'Standard preset 16 mm3/s; user high-flow target 18 mm3/s.'),
+            'filament_prime_volume': choice(['45'], 'Bambu Studio saved purge volume.'),
+            'nozzle_temperature': choice(['255', '255'], 'PETG Translucent specimen and existing process temperature.'),
+            'nozzle_temperature_initial_layer': choice(['255', '255'], 'Same melt temperature on the first layer.'),
+            'filament_max_volumetric_speed': choice(['12', '18'], '12 mm3/s standard nozzle, 18 mm3/s high flow.'),
             'filament_cost': choice(['11.20'], 'Ledger cost per kilogram.')},
-        'layer_ranges_mm': {
-            'cavity': [(7, 9), (19, 21), (31, 53),
-                       (info['parting_z_mm']-7, info['parting_z_mm']+0.1)],
-            'core': [(8, 16.2), (21, 23), (30, info['dimensions_mm']['core'][2]+0.1)]}}
+        'layer_ranges_mm': {'cavity': [], 'core': []}}
 
 
 def main():
@@ -79,10 +89,11 @@ def main():
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--z-trim', type=float, choices=(0.04, 0.18), default=0.04)
     parser.add_argument('--label')
+    parser.add_argument('--nozzle', type=float, choices=(0.4, 0.8), default=0.4)
     parser.add_argument('--only', choices=('cavity', 'core'))
     args = parser.parse_args()
     info = json.loads((args.models/'design.json').read_text())
-    settings_recipe = recipe(info)
+    settings_recipe = recipe(info, args.nozzle)
     presets = Path('/Applications/BambuStudio.app/Contents/Resources/profiles/BBL')
     settings, provenance = fresh_settings(presets, settings_recipe, args.z_trim)
     version = plistlib.loads((presets.parents[2]/'Info.plist').read_bytes())['CFBundleShortVersionString']
@@ -138,7 +149,8 @@ def main():
             degenerate_facets='0', facets_removed='0', facets_reversed='0', backwards_edges='0')
         plate = ET.SubElement(config, 'plate')
         for key, value in {'plater_id': index, 'plater_name': f"{args.label or 'Funnel mold'} {name}", 'locked': 'false',
-                'filament_map_mode': 'Manual', 'filament_maps': '1', 'filament_volume_maps': '1',
+                'filament_map_mode': 'Manual', 'filament_maps': '1',
+                'filament_volume_maps': '1' if settings_recipe['nozzle_type'] == 'High Flow' else '0',
                 'bed_type': 'Textured PEI Plate'}.items():
             metadata(plate, key, value)
         instance = ET.SubElement(plate, 'model_instance')

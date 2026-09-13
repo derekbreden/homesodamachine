@@ -1,5 +1,13 @@
 # Funnel mold print log
 
+## Dry fit — 2026-09-12
+
+Derek reports that the recently printed cavity and core fit tightly before
+finishing. He is skeptical that sanding will provide a clean fit with room
+for primer. He also reports a small departure from flatness, with the bodies
+too stiff for his available clamps to pull together. The exact source revision
+of this pair was not identified. No coated fit or casting result was reported.
+
 ## Solid cavity — 2026-09-10
 
 Mark2 reported `Funnel_mold_-_solid_cavity_and_core`, 304 layers, 18 h 59 min 7 s
