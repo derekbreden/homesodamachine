@@ -48,6 +48,7 @@ sys.path.insert(0, str(next(p for p in _here.parents
                             if (p / "tools" / "docgen").is_dir()) / "tools"))
 import kamoer_kphm400 as _kp                              # noqa: E402
 import pump_case as _pc                                   # noqa: E402
+import fits                                             # noqa: E402
 from docgen import substitute_md                          # noqa: E402
 
 
@@ -81,17 +82,17 @@ outlet_relief_run = _kp.outlet_relief_run
 # The complete pump's widest X span, across the two tube fittings on its outlet face. This is
 # not the head body's width; it is what the cradle opening passes at that one face.
 outlet_half = _kp.outlet_span_x / 2.0
-outlet_open_half = _kp.outlet_open_span_x / 2.0
 # The two individual fittings within that complete span. The enclosure opens one straight
 # passage for each fitting and carries printed wall between them.
 outlet_pitch = _kp.barb_pitch
 fitting_w = _kp.tube_casing_w
-shaft_w = _kp.shaft_w
+shaft_w = fitting_w + 2.0 * fits.running
+outlet_open_half = (outlet_pitch + shaft_w) / 2.0
 skirt_depth = _kp.skirt_depth
-skirt_support_air = _kp.skirt_support_air
+skirt_support_air = fits.running
 skirt_support_band = _pc.skirt_support_band
 skirt_body_y = _kp.skirt_body_y
-skirt_support_xy_air = _kp.skirt_support_xy_air
+skirt_support_xy_air = fits.running
 skirt_body_open_y = skirt_body_y + 2.0 * skirt_support_xy_air
 skirt_body_open_y_bounds = (
     _kp.skirt_body_y_min - skirt_support_xy_air,
@@ -101,8 +102,9 @@ skirt_y = _kp.skirt_y
 skirt_y_plus_air = _kp.skirt_y_plus_air
 skirt_open_y_max = _kp.skirt_y_max + skirt_y_plus_air
 skirt_upper_band = _kp.skirt_upper_band
-skirt_support_y_minus = _kp.skirt_support_y_minus
-skirt_support_y_plus = _kp.skirt_support_y_plus
+skirt_support_y_minus = (_kp.skirt_support_y_minus
+                         - skirt_support_xy_air + _kp.skirt_support_xy_air)
+skirt_support_y_plus = skirt_open_y_max - skirt_body_open_y_bounds[1]
 # The holder passage's circular bottom stays on the case's skirt-bottom datum. Its open shaft
 # admits the fitted outlet above it; the straight shaft uses `shaft_w`.
 outlet_axis_z = _pc.skirt_bottom_z
@@ -153,7 +155,7 @@ def head_room(air: float):
     `skirt_wide_half_extent` on +Y, which is the OUTLET side: 56 mm across at the narrow end,
     64 at the centre, 70 at the outlet face. The complete pump stands widest at that same
     face. The built-in tube casings stand outside that body room on their own 72.50 mm physical
-    span; the holder's 13 mm openings span 72.75 mm.
+    span; the holder's 13.25 mm openings span 73 mm.
 
     THE FITTED FACES COME WITH IT. The narrow-side skirt transition is one horizontal step
     8 mm below the bracket plane; `kamoer_kphm400.build_head` clips the pump to this same
@@ -166,7 +168,7 @@ def outlet_fore_miter(air: float):
     """The passages' fore-seam figures, one set for every construction that closes them.
 
     ``(body_half, y0, outlet_open_half, y_open)``: the case-derived tube-side room edge, the
-    seam where each passage begins, the 72.75 mm envelope's half-span, and the y where the
+    seam where each passage begins, the 73 mm envelope's half-span, and the y where the
     flare's own 45 degree seam plane, carried past the room edge, reaches that envelope."""
     offset = _pc.skirt_wall - air
     body_half = _pc.skirt_wide_half_extent - offset
@@ -203,7 +205,7 @@ def outlet_under_tangent(air: float):
 
 
 def _outlet_span_extensions(air: float):
-    """The two X strips which carry the tube-side room to its 72.75 mm opening envelope.
+    """The two X strips which carry the tube-side room to its 73 mm opening envelope.
 
     The matching circle-and-shaft cutters begin at ``outlet_passage_start_y`` and overlap these
     strips over their whole run: one tangent opening. Keeping the middle closed preserves the
@@ -239,7 +241,7 @@ def drop_well(air: float, support_top: float = None):
     below it. A continuous ``skirt_support_band`` land holds its X-, X+ and Y- flanks. The
     measured 54 mm body passes through a 54.3 mm Y opening, leaving 5 mm of land on Y- and
     3.482 mm on Y+; there the two tube passages leave support only between their inside edges.
-    Those passages continue to the same 72.75 mm boundary as the upper well, with no flare or
+    Those passages continue to the same 73 mm boundary as the upper well, with no flare or
     fractional X step.
     """
     if support_top is None:
