@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Draw the one-sheet 19 x 13 inch Codex quick start."""
+"""Draw the one-sheet 19 x 13 inch Home Soda Machine quick start."""
 from pathlib import Path
 import json
 import math
@@ -28,7 +28,7 @@ for name in ['Regular', 'Semibold', 'Bold']:
     pdfmetrics.registerFont(TTFont(name, str(DIR / 'fonts' / f'Plex-{name}.ttf')))
 pdfmetrics.registerFontFamily('Regular', normal='Regular', bold='Bold', italic='Regular', boldItalic='Bold')
 c = canvas.Canvas(str(PDF), pagesize=(W,H), pageCompression=1)
-c.setTitle('Home Soda Machine - Quick start - Codex')
+c.setTitle('Home Soda Machine - Quick start')
 c.setAuthor('Derek Bredensteiner')
 c.setSubject('One 19 x 13 inch installation quick start with words')
 
@@ -79,22 +79,53 @@ def projected(mapper,point,cam,target,span,size=(1600,1500)):
     return mapper(size[0]/2+sum(a*b for a,b in zip(delta,right))*scale,
                   size[1]/2-sum(a*b for a,b in zip(delta,up))*scale)
 
+def arrowhead(tip,tangent,head):
+    length=math.hypot(*tangent)
+    ux,uy=(v/length for v in tangent)
+    back=head*math.cos(.5);half=head*math.sin(.5)
+    neck=(tip[0]-back*ux,tip[1]-back*uy)
+    p=c.beginPath();p.moveTo(tip[0],H-tip[1])
+    p.lineTo(neck[0]-half*uy,H-neck[1]-half*ux)
+    p.lineTo(neck[0]+half*uy,H-neck[1]+half*ux)
+    p.close()
+    return neck,p
+
+def draw_arrow(shaft,head,color=CORAL,width=2.4,outline=1.1):
+    """Outline the complete silhouette in page points, after scene projection."""
+    c.saveState();c.setLineCap(1);c.setLineJoin(1)
+    # Both white shapes precede both coral shapes, so their shared seam stays filled.
+    c.setStrokeColor(white);c.setFillColor(white)
+    c.setLineWidth(width+2*outline);c.drawPath(shaft,fill=0,stroke=1)
+    c.setLineWidth(2*outline);c.drawPath(head,fill=1,stroke=1)
+    c.setStrokeColor(HexColor(color));c.setFillColor(HexColor(color))
+    c.setLineWidth(width);c.drawPath(shaft,fill=0,stroke=1)
+    c.drawPath(head,fill=1,stroke=0)
+    c.restoreState()
+
 def arrow(x1,y1,x2,y2,color=CORAL,width=2.4,head=8):
-    line(x1,y1,x2,y2,PALE,width+3)
-    line(x1,y1,x2,y2,color,width)
-    a=math.atan2(y2-y1,x2-x1)
-    pts=[(x2,y2),(x2-head*math.cos(a-.5),y2-head*math.sin(a-.5)),(x2-head*math.cos(a+.5),y2-head*math.sin(a+.5))]
-    p=c.beginPath();p.moveTo(pts[0][0],H-pts[0][1])
-    for x,y in pts[1:]:p.lineTo(x,H-y)
-    p.close();c.setFillColor(HexColor(color));c.drawPath(p,fill=1,stroke=0)
+    neck,tip=arrowhead((x2,y2),(x2-x1,y2-y1),head)
+    shaft=c.beginPath();shaft.moveTo(x1,H-y1);shaft.lineTo(neck[0],H-neck[1])
+    draw_arrow(shaft,tip,color,width)
 
 def turn(points,head=7):
     a,b,d,e=points
-    p=c.beginPath();p.moveTo(a[0],H-a[1]);p.curveTo(b[0],H-b[1],d[0],H-d[1],e[0],H-e[1])
-    c.setStrokeColor(HexColor(PALE));c.setLineWidth(5.4);c.drawPath(p)
-    c.setStrokeColor(HexColor(CORAL));c.setLineWidth(2.4);c.drawPath(p)
-    vx,vy=e[0]-d[0],e[1]-d[1];length=math.hypot(vx,vy)
-    arrow(e[0]-2*vx/length,e[1]-2*vy/length,*e,head=head)
+    neck,tip=arrowhead(e,(e[0]-d[0],e[1]-d[1]),head)
+    def lerp(p,q,t):return tuple(x+(y-x)*t for x,y in zip(p,q))
+    def split(t):
+        ab=lerp(a,b,t);bd=lerp(b,d,t);de=lerp(d,e,t)
+        left=lerp(ab,bd,t);right=lerp(bd,de,t)
+        return ab,left,lerp(left,right,t)
+    # End the curved shaft at the head's base, leaving the point to the triangle.
+    back=head*math.cos(.5);lo,hi=0.0,1.0
+    for _ in range(32):
+        mid=(lo+hi)/2;end=split(mid)[2]
+        if math.dist(end,e)>back:lo=mid
+        else:hi=mid
+    ab,left,end=split((lo+hi)/2)
+    shaft=c.beginPath();shaft.moveTo(a[0],H-a[1])
+    shaft.curveTo(ab[0],H-ab[1],left[0],H-left[1],end[0],H-end[1])
+    shaft.lineTo(neck[0],H-neck[1])
+    draw_arrow(shaft,tip)
 
 def step(n,title,x,y):
     c.setFillColor(HexColor(INK));c.circle(x+14,H-y-14,14,stroke=0,fill=1)
@@ -226,7 +257,6 @@ para('<b>Choose:</b> tap the faucet display to select a flavor. A dim screen tak
 para('<b>Pour:</b> place a glass underneath and press the faucet lever. Release it to stop.',x,830,306,13,17,color='#ffffff',limit=51)
 
 text('Home Soda Machine  /  Quick start',36,916,9.5,color=MUTED)
-text('19 × 13 in  ·  Print at 100%  ·  homesodamachine.com',1000,916,9.5,color=MUTED)
 c.showPage();c.save()
 output=ROOT/'output/pdf/quick-start-codex.pdf'
 output.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(PDF,output)
@@ -234,5 +264,5 @@ preview=Path('/tmp/guide-codex-references/quick-start-codex')
 preview.parent.mkdir(parents=True,exist_ok=True)
 subprocess.run(['pdftoppm','-scale-to','1900','-singlefile','-png',str(PDF),str(preview)],check=True)
 im=Image.open(preview.with_suffix('.png'));im.thumbnail((1200,1200));im.save(DIR/'quick-start-codex.cover.png')
-(DIR/'quick-start-codex.pdf.json').write_text(json.dumps({'title':'Quick start · Codex','subtitle':'Installation, cylinder, power, fill and first pour - one 19 x 13 in sheet','pages':1,'cover':'quick-start-codex.cover.png','cover_size':list(im.size)},indent=2)+'\n')
+(DIR/'quick-start-codex.pdf.json').write_text(json.dumps({'title':'Home Soda Machine quick start','subtitle':'Owner quick start - installation through your first glass - one 19 x 13 in sheet','pages':1,'cover':'quick-start-codex.cover.png','cover_size':list(im.size)},indent=2)+'\n')
 print(PDF)
