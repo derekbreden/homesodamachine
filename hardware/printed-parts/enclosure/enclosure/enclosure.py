@@ -1602,21 +1602,14 @@ clamp_pump_y_shift = _tray.rear_axis_y_shift  # rear-stack openings off the head
 
 # --- THE HAND PULLS ONLY THE LOWER CRADLE -----------------------------------
 #
-# ONE PAIR OF SIDE PULLS IS CUT INTO THAT ONE PIECE. Their centre plane is not chosen from
-# the block: it is the four tube centres in the collet plate, because those four collets are
-# the resistance the hand is overcoming. Pulling on that plane produces translation instead
-# of pitching the cartridge against its rails.
-#
-# Each pull is a rounded pocket in an exposed ±X flank. Fingers enter from the side and
-# hook the pocket's fore wall. Its flat roof is the neighboring carrier grip's roof: both
-# surfaces belong to the same two-handed squeeze. The four pocket corners and the hand-contact
-# rim share the enclosure handholds' radii. The pocket is entirely in the cradle and the top
-# clamp has no hand feature at all.
+# Each pull is a rounded pocket in an exposed ±X flank, with equal stock above and below.
+# Its aft face opposes the service tab across the hand span; its fore face carries extraction.
 pull_depth = 18.0            # fingertip reach inboard from each exposed flank
-pull_run = 28.0              # fore/aft clear opening between the pulling and pushing ledges
-pull_floor_below_tubes = 12.0  # bed-rooted stock first; then the tube plane inside the mouth
+pull_run = 20.0              # fore/aft clearance between pulling and pushing faces
+pull_hand_span = 50.0        # opposing cartridge and service-tab faces at squeeze and connected
+pull_floor_below_tubes = 12.0
 pull_corner_r = handhold_corner_r
-pull_edge_r = handhold_edge_r
+pull_edge_r = 2.0
 
 
 # The whole description of one box — what `build_pieces` cuts the four pieces from: the pack it
@@ -5454,51 +5447,39 @@ def _cap_x_span(bay):
 
 
 def _pull_center_z(plate):
-    """The fixed release-band midpoint that locates both cartridge pulls."""
+    """The fixed release-band midpoint that locates the pull floors."""
     return (plate["z0"] + plate["z1"]) / 2.0
 
 
-def _pull_roof_z(box):
-    """The common roof plane of a cartridge pull and its neighboring carrier grip."""
+def pull_z_span(box):
+    """The pull floor and roof, with equal stock to the cartridge's bottom and crown."""
+    bottom = bay_floor_z(box.pack.pump_trays)[1]
+    crown = box.pump_bay[2] - pump_cartridge_top_clearance
+    floor = _pull_center_z(box.pack.collet_plate) - pull_floor_below_tubes
+    return floor, crown - (floor - bottom)
+
+
+def pull_y_span(box):
+    """The cartridge's two grip faces, located from the connected service tab."""
     carrier = box.pack.tee_carrier
-    if not carrier or "tab_slot_z" not in carrier:
-        raise ValueError(
-            "a pump-cartridge pull wants the carrier grip's roof datum, and this box "
-            "carries no tee-carrier grip")
-    return carrier["tab_slot_z"][1]
-
-
-def pull_y_span(pump_trays, plate):
-    """Both pockets' fore and aft walls: `pull_run` centred on the cradle's own Y run, from
-    its show face to its aft edge."""
-    mid = (pump_cartridge_front_y + pump_cartridge_aft_y(pump_trays, plate)) / 2.0
-    return mid - pull_run / 2.0, mid + pull_run / 2.0
+    aft = carrier["finger_y"][0] + carrier["connected_offset_y"] - pull_hand_span
+    return aft - pull_run, aft
 
 
 def _cradle_pulls(box):
-    """The two hand pockets, both cut wholly from the lower cradle, centred on its Y run.
-
-    Each opens on its own exposed flank between two Y-normal walls: the fore wall is the ledge
-    the fingers pull on, the aft wall the one they push on, and the cradle keeps its stock
-    beyond both. The floor stays `pull_floor_below_tubes` under the tube-axis plane, leaving a
-    bed-rooted lower ligament. Its roof is one flat plane at the neighboring carrier grip's
-    roof datum. The floor and roof meet the fore and aft walls through round corners. Nothing
-    is split across the clamp joint."""
+    """Two side pockets with flat floors and roofs and rounded YZ corners."""
     edge = _cap_x_span(box.pump_bay)[1]
     deep = edge - pull_depth
-    z_mid = _pull_center_z(box.pack.collet_plate)
-    z0 = z_mid - pull_floor_below_tubes
-    z1 = _pull_roof_z(box)
+    z0, z1 = pull_z_span(box)
     if z1 - z0 <= 2.0 * pull_corner_r:
         raise ValueError(
-            f"a cradle pull from Z{z0:g} to its carrier-matched roof at Z{z1:g} "
+            f"a cradle pull from Z{z0:g} to Z{z1:g} "
             f"cannot carry its {pull_corner_r:g} mm corner rounds")
-    y0, y1 = pull_y_span(box.pack.pump_trays, box.pack.collet_plate)
+    y0, y1 = pull_y_span(box)
     out = []
     for sx in (+1.0, -1.0):
-        section = ((sx * (edge + 1.0), z0), (sx * deep, z0),
-                   (sx * deep, z1), (sx * (edge + 1.0), z1))
-        cutter = _xz_prism(y0, y1, section)
+        xa, xb = sorted((sx * deep, sx * (edge + 1.0)))
+        cutter = _ybox(xa, xb, y0, y1, z0, z1)
         corners = [edge for edge in cutter.Edges()
                    if edge.BoundingBox().ylen < 1e-6 and edge.BoundingBox().xlen > 1.0]
         out.append(cutter.fillet(pull_corner_r, corners))
@@ -5509,9 +5490,8 @@ def _round_cradle_pull_rims(solid, box):
     """Round the complete exposed perimeter of each hand pocket."""
     solid = solid.clean()
     edge = _cap_x_span(box.pump_bay)[1]
-    y0, y1 = pull_y_span(box.pack.pump_trays, box.pack.collet_plate)
-    z0 = _pull_center_z(box.pack.collet_plate) - pull_floor_below_tubes
-    z1 = _pull_roof_z(box)
+    y0, y1 = pull_y_span(box)
+    z0, z1 = pull_z_span(box)
     for x in (-edge, edge):
         rim = []
         for candidate in solid.Edges():
@@ -5532,11 +5512,9 @@ def pump_cartridge_figures(box):
         return {}
     bay, trays, plate = box.pump_bay, box.pack.pump_trays, box.pack.collet_plate
     edge = _cap_x_span(bay)[1]
-    y0, y1 = pull_y_span(trays, plate)
+    y0, y1 = pull_y_span(box)
     aft = pump_cartridge_aft_y(trays, plate)
-    z_mid = _pull_center_z(plate)
-    pull_floor = z_mid - pull_floor_below_tubes
-    pull_top = _pull_roof_z(box)
+    pull_floor, pull_top = pull_z_span(box)
     clamp_edge = max(abs(cx) + _tray.half_width() for cx, _cy, _cz in trays)
     clamp_fore = min(cy - _tray.half_width() for _cx, cy, _cz in trays)
     clamp_aft = aft
@@ -5565,13 +5543,15 @@ def pump_cartridge_figures(box):
         "PULL_RUN": f"{pull_run:.4g} mm",
         "PULL_DEPTH": f"{pull_depth:.4g} mm",
         "PULL_CORNER_R": f"{pull_corner_r:.4g} mm",
+        "PULL_HAND_SPAN": f"{pull_hand_span:.4g} mm",
         "PULL_EDGE_R": f"{pull_edge_r:.4g} mm",
         "PULL_FLOOR_Z": f"{pull_floor:.5g} mm",
         "PULL_TOP_Z": f"{pull_top:.6g} mm",
-        "PULL_FLOOR_LIGAMENT": f"{(pull_floor - bay_floor_z(trays)[1]):.4g} mm",
-        "PULL_RIM_FLOOR_LIGAMENT":
-            f"{(pull_floor - pull_edge_r - bay_floor_z(trays)[1]):.4g} mm",
-        "PULL_CENTER_Z": f"{z_mid:.5g} mm",
+        "PULL_FLOOR_LIGAMENT": f"{(pull_floor - floor_top):.4g} mm",
+        "PULL_ROOF_LIGAMENT": f"{(cartridge_top - pull_top):.4g} mm",
+        "PULL_RIM_FLOOR_LIGAMENT": f"{(pull_floor - pull_edge_r - floor_top):.4g} mm",
+        "PULL_RIM_ROOF_LIGAMENT": f"{(cartridge_top - pull_top - pull_edge_r):.4g} mm",
+        "PULL_CENTER_Z": f"{((pull_floor + pull_top) / 2.0):.5g} mm",
         "PULL_LEDGE": f"{y0:.4g} mm",
         "PULL_AFT_LEDGE": f"{y1:.4g} mm",
         "PULL_CENTER_Y": f"{(y0 + y1) / 2.0:.4g} mm",
@@ -5759,10 +5739,12 @@ def _tee_carrier_clearances(inner, plate, carrier):
     fixed_y = carrier["fixed_spring_bearing_y"]
     aft = carrier["body_aft_y"]
     web_z0, web_z1 = carrier["web_z"]
-    cuts = [_ybox(
+    backing_room = _ybox(
         inner[0] - 1.0, inner[1] + 1.0,
         carrier["body_face_y"], aft + 1.0,
-        web_z0 - air, web_z1 + air)]
+        web_z0 - air, web_z1 + air)
+    fore_guide = _tee_carrier_fore_guide(carrier)
+    cuts = [backing_room.cut(fore_guide, fore_guide.mirror("YZ"))]
     for x, z in plate["holes"]:
         cuts.append(_teardrop_y(plate["bore_r"], x, z, fixed_y - 1.0, aft + 1.0))
     for x, z in carrier["spring_guide_xz"]:
@@ -5772,6 +5754,16 @@ def _tee_carrier_clearances(inner, plate, carrier):
                        *carrier["floor_cavities"]):
         cuts.append(_ybox(*xs, *ys, *zs))
     return tuple(cuts)
+
+
+def _tee_carrier_fore_guide(carrier):
+    """The floor-rooted land beneath the service tab's fore retaining shoulder."""
+    air = carrier["guide_slide_air"]
+    return _ybox(carrier["grip_rim_x"][0] - air, carrier["service_recess_x"][1],
+                 carrier["grip_rim_y"][0] + carrier["release_offset_y"] - air,
+                 carrier["release_fore_stop_y"] - air,
+                 carrier["web_z"][0] - air - wall,
+                 carrier["grip_rim_z"][0] - air)
 
 
 def _tee_carrier_fixed_features(inner, plate, carrier):
@@ -5790,11 +5782,10 @@ def _tee_carrier_fixed_features(inner, plate, carrier):
 
 
 def _tee_carrier_service_slots(carrier):
-    """Flush grip openings and one broad internal recess on each side.
+    """Open finger slots, bar guides and internal recesses for inside-out assembly.
 
-    The wall's outer section retains the moving rim. Behind it, the recess opens onto the
-    outer tee well and continues to the aft tray's fore plane for inside-out assembly.
-    Its flat ceiling carries the retaining rim; the opening carries the cup and its end stops.
+    Above each bar, the outer strip of its retaining tongue runs in a short channel whose
+    aft end is the park stop. The full-height entry passage sits inboard of that strip.
     """
     if not carrier:
         return ()
@@ -5803,8 +5794,15 @@ def _tee_carrier_service_slots(carrier):
         x0, x1 = carrier[name + "_x"]
         y0, y1 = carrier[name + "_y"]
         z0, z1 = carrier[name + "_z"]
-        cuts.extend(_ybox(xa, xb, y0, y1, z0, z1)
-                    for xa, xb in ((x0, x1), (-x1, -x0)))
+        opening = _ybox(x0, x1, y0, y1, z0, z1)
+        if name == "service_recess":
+            opening = opening.cut(_ybox(
+                carrier["stop_channel_inner_x"], x1 + 1.0,
+                carrier["stop_channel_aft_y"], y1 + 1.0,
+                carrier["service_slot_z"][1], z1 + 1.0))
+            opening = opening.cut(_tee_carrier_fore_guide(carrier))
+        cuts.extend(opening if side > 0 else opening.mirror("YZ")
+                    for side in (-1, 1))
     return tuple(cuts)
 
 
@@ -6067,8 +6065,8 @@ def build_pump_cartridge(box, halves_cache=None):
     clearance, leaving the stamped brackets on three cradle lands; four fitting-sized passages
     stay open through the whole drop path while the aft pull wall remains between them.
 
-    Both side pulls are cut from this piece at the tube-centre elevation. The clamp has no
-    pull feature. Two heat-set bores open upward from the centre spine for the clamp screws."""
+    Both tall side pulls have equal stock above and below. The clamp has no pull feature.
+    Two heat-set bores open upward from the centre spine for the clamp screws."""
     solid = _pump_cartridge_gross(box, halves_cache)
     for void in _pump_drop_voids(box):
         solid = solid.cut(void)

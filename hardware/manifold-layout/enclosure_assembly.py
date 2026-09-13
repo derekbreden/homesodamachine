@@ -1336,7 +1336,9 @@ def tee_carrier_spec(mcarry, squeeze_stood, plate) -> _carrier.CarrierSpec:
     )
     aft_tray_fore_y = min(plane - sign * _vtray.SEAT
                          for plane, sign, _seats in valve_tray_stations(solids) if sign < 0)
-    return replace(spec, entry_staging_y=aft_tray_fore_y - spec.rim_y[1] - spec.slide_air)
+    entry_aft_y = max(shape.BoundingBox().ymax
+                      for _name, shape in _carrier.insertion_envelopes(spec))
+    return replace(spec, entry_staging_y=aft_tray_fore_y - entry_aft_y - spec.slide_air)
 
 
 def tee_carrier_interface(spec: _carrier.CarrierSpec, plate, squeeze_stood) -> dict:
@@ -1479,6 +1481,8 @@ def tee_carrier_interface(spec: _carrier.CarrierSpec, plate, squeeze_stood) -> d
                              body_floor_aft_y),
         "service_recess_z": (spec.grip_z[0] - spec.slide_air,
                              spec.rim_z[1] + spec.slide_air),
+        "stop_channel_inner_x": spec.rim_x[1] - spec.entry_shoulder_inset_x + spec.slide_air,
+        "stop_channel_aft_y": spec.rim_y[1] + spec.park_offset_y,
         "tee_xs": spec.tee_xs,
         "tee_run_y": tee_run_y,
         "tee_z": (min(b.zmin for b in tee_boxes), max(b.zmax for b in tee_boxes)),
@@ -1660,6 +1664,15 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
     carrier_installation = (("enclosure-front-top", wall), *seated_tees)
     installation = (*carrier_installation,
                     *((name, solid) for name, solid in fixed if name in installed_names))
+    guide_top = spec.rim_z[0] - spec.slide_air
+    for side in (-1, 1):
+        xa, xb = sorted((side * spec.rim_x[0], side * spec.rim_x[1]))
+        stock = _carrier._box(
+            xa, xb, spec.rim_y[0] + spec.park_offset_y,
+            spec.tab_y[0] + spec.release_offset_y - spec.slide_air,
+            guide_top - _enc.wall, guide_top).val()
+        if stock.cut(wall).Volume() > CARRIER_MOTION_OVERLAP_TOL:
+            failures.append(f"half {side:+d}: fore guide lacks {_enc.wall:g} mm of bearing stock")
     # The complete installed mechanism and its finger space clear the real enclosure.
     for state, row in interface["states"].items():
         dy = row["offset_y"]
@@ -1767,8 +1780,16 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
         if outside > CARRIER_MOTION_OVERLAP_TOL:
             failures.append(f"half {side:+d} has {outside:.6f} mm³ outside its insertion envelopes")
         rear_y = wall_box.ymax - spec.rim_y[0] + spec.slide_air
-        for stage, name, sweep in _carrier.insertion_sweeps(spec, side, entry_y, rear_y):
-            read(f"half {side:+d} complete {stage} {name} sweep", sweep, blockers)
+        for stage, name, sweep in _carrier.insertion_sweeps(
+                spec, side, entry_y, rear_y, xz_air=spec.slide_air):
+            read(f"half {side:+d} complete {stage} {name} sweep with {spec.slide_air:g} mm X/Z air",
+                 sweep, blockers)
+        for name, envelope in _carrier.insertion_envelopes(spec, side, xz_air=spec.slide_air):
+            bb = envelope.BoundingBox()
+            sweep = _carrier._box(bb.xmin, bb.xmax, bb.ymin + release, bb.ymax + park,
+                                  bb.zmin, bb.zmax).val()
+            read(f"half {side:+d} full working {name} sweep with {spec.slide_air:g} mm X/Z air",
+                 sweep, wall_and_fixed)
     count = sample_count(park - release)
     for i in range(count):
         dy = park + (release - park) * i / (count - 1)
@@ -1866,7 +1887,8 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
         "Tee carrier clears front-top through installation and all four working states, and "
         "both end stops and all five transverse constraints engage",
         not failures,
-        f"{readings} solid/envelope checks; maximum unintended overlap {max_overlap:.6f} mm³; "
+        f"{readings} solid/envelope checks including {spec.slide_air:g} mm X/Z air through "
+        f"every carrier insertion and working sweep; maximum unintended overlap {max_overlap:.6f} mm³; "
         f"release/park overshoots {release_hit:.6f}/{park_hit:.6f} mm³; "
         f"40 independent flank-capture readings, minimum contact {contact_min:.6f} mm³; "
         f"minimum upper/lower web bearing {min(web_bearings):.3f} mm²; "
