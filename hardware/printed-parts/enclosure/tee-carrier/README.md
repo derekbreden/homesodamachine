@@ -23,11 +23,13 @@ plane, and the root overlaps the web's full thickness. The bar presents
 depth, with [2 mm](GRIP_EDGE_R) rounds on its exposed vertical edges. The fingers bear on
 that aft face, opposing the thumb on the cartridge pocket's aft wall.
 
-The finger space is open through the moving tab's top and bottom and has no aft bar.
-A [3 mm](GRIP_BACK_T) inboard wall closes its back and extends behind the opening's aft
-edge throughout the stroke. The fixed opening is [34.15 mm](OPENING_RUN) long in Y and leaves at least
-[16 mm](FINGER_RUN) behind the bar throughout its travel. The opening's upper and lower
-edges lie outside the bar's [55.145 mm](GRIP_HEIGHT) overall height.
+The finger space is open through the moving tab's top and bottom.
+A [3 mm](GRIP_BACK_T) inboard wall joins a [3 mm](GRIP_AFT_T) aft wall,
+recessed [3.15 mm](GRIP_AFT_INSET) behind the enclosure's outer face. The backing extends
+behind the opening's aft edge throughout the stroke. The fixed opening is
+[34.15 mm](OPENING_RUN) long in Y and [51.74 mm](OPENING_HEIGHT) tall, leaving at least
+[16 mm](FINGER_RUN) behind the bar throughout its travel. Its upper and lower edges
+stand one running clearance outside the bar's [51.44 mm](GRIP_HEIGHT) height.
 
 Both outer faces finish flush with the enclosure; total width across the grips is
 [215 mm](GRIP_WIDTH). Each bar carries a retaining shoulder behind the opening's fore
@@ -52,9 +54,9 @@ valves from underneath and carry the moving hairpins. Both guide sections join t
 The bar and its fore shoulder run between flat guide surfaces with
 [0.15 mm](GUIDE_AIR) clearance on each side in X and Z. The bar's fore face meets the
 opening at release. The upper tongue's aft face meets its channel's end at park.
-The finger space continues aft of that stop below the tongue. The bar's lower outer foot
-runs above the opening's continuous lower edge, while its inboard underside clears the
-seam-rail head. The upper lap passes above the tees.
+The finger space continues aft of that stop below the tongue. The bar's flat underside
+runs above the opening's continuous lower edge and clears the seam-rail head across its
+full depth. The upper lap passes above the tees.
 
 One broad recess in each flank runs from the outer tee well to the aft valve tray's fore
 plane. Its flat ceiling guides the tongue and its outer wall retains the fore shoulder.
@@ -133,7 +135,8 @@ before fitting the ties; their insertion path passes behind the bare web.
 
 ## Print and verification
 
-Print both halves upright, +Z up, with the web, backing wall and bar's outer foot on the bed. The internal
+Print both halves upright, +Z up, with the web and backing wall on the bed. The bar and aft wall's
+flat undersides take removable support exposed below the loose half. The internal
 shoulder begins [9.705 mm](RIM_BED_GAP) above the bed; its extension and the central lap
 take removable support accessible from the loose half's underside. The fixed body's guide
 ceilings take support, removed through the open aft cavities before assembly. Its spring
@@ -151,7 +154,7 @@ order and printed inventory. The generator exports `enclosure-tee-carrier-left` 
 `enclosure-tee-carrier-right`, each as STEP, STL and viewer payload.
 
 The part selftest checks solids, bed fit, lap contact, fastener stack, tie paths, full web
-roots, continuous backing, open vertical finger passages, shoulder overlap and assembly clearance between halves.
+roots, continuous back and aft walls, open vertical finger passages, shoulder overlap and assembly clearance between halves.
 The appliance's `tee-carrier-motion` reading includes 0.15 mm X/Z clearance around every complete
 carrier entry and working sweep. It checks tee loading, rear entry, lowering, outward seating, aft-valve
 entry beside the joined carrier, lap closure, fore screw/driver
