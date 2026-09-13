@@ -1,33 +1,41 @@
 #!/usr/bin/env python3
 """Draw the one-sheet 19 x 13 inch Home Soda Machine quick start."""
 from pathlib import Path
+import argparse
+import io
 import json
 import math
 import shutil
 import subprocess
+import sys
 from PIL import Image
 from reportlab.pdfgen import canvas
 from reportlab.lib.colors import HexColor, white
-from reportlab.lib.utils import ImageReader
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.platypus import Paragraph
+from contours import Contours, PAD
 
 ROOT = Path(__file__).resolve().parents[2]
 DIR = ROOT / 'hardware/quickstart-codex'
 ART = DIR / 'art'
-PDF = DIR / 'quick-start-codex.pdf'
+parser = argparse.ArgumentParser()
+parser.add_argument('--contour', default='#46515b')
+parser.add_argument('--output', type=Path, default=DIR / 'quick-start-codex.pdf')
+args = parser.parse_args()
+PDF = args.output.resolve()
+contours = Contours(args.contour)
 W, H = 19 * 72, 13 * 72
 INK = '#1a1a2e'
 CORAL = '#d64050'
 STONE = '#ded7cd'
 MUTED = '#656473'
-PALE = '#e5e1da'
 for name in ['Regular', 'Semibold', 'Bold']:
     pdfmetrics.registerFont(TTFont(name, str(DIR / 'fonts' / f'Plex-{name}.ttf')))
 pdfmetrics.registerFontFamily('Regular', normal='Regular', bold='Bold', italic='Regular', boldItalic='Bold')
-c = canvas.Canvas(str(PDF), pagesize=(W,H), pageCompression=1)
+pdf_buffer = io.BytesIO()
+c = canvas.Canvas(pdf_buffer, pagesize=(W,H), pageCompression=1)
 c.setTitle('Home Soda Machine - Quick start')
 c.setAuthor('Derek Bredensteiner')
 c.setSubject('One 19 x 13 inch installation quick start with words')
@@ -60,13 +68,16 @@ def label(s,x,y,color=MUTED,size=9):
     c.restoreState()
 
 def pic(name,x,y,w,h,crop=None):
-    im=Image.open(ART/name)
+    source = ART/name
+    im=Image.open(source)
     bounds=crop or (im.getchannel('A').getbbox() if im.mode=='RGBA' else None) or (0,0,im.width,im.height)
-    im=im.crop(bounds)
-    scale=min(w/im.width,h/im.height)
-    iw,ih=im.width*scale,im.height*scale
+    bw,bh=bounds[2]-bounds[0],bounds[3]-bounds[1]
+    scale=min(w/bw,h/bh)
+    iw,ih=bw*scale,bh*scale
     ox,oy=x+(w-iw)/2,y+(h-ih)/2
-    c.drawImage(ImageReader(im),ox,H-oy-ih,width=iw,height=ih,mask='auto')
+    contoured, (pw,ph) = contours.picture(source,bounds,iw,ih)
+    if contoured.exists():
+        c.drawImage(str(contoured),ox-PAD,H-oy-ih-PAD,width=pw,height=ph,mask='auto')
     return lambda px,py: (ox+(px-bounds[0])*scale,oy+(py-bounds[1])*scale)
 
 def projected(mapper,point,cam,target,span,size=(1600,1500)):
@@ -132,9 +143,6 @@ def step(n,title,x,y):
     text(str(n),x+7.7,y+5,17,'Bold','#ffffff')
     text(title,x+35,y+1,20,'Bold')
 
-def artfield(x,y,w=416,h=130):
-    rect(x,y,w,h,PALE,r=3)
-
 def chip(s,x,y,w,bg,fg='#ffffff'):
     rect(x,y,w,18,bg,stroke=STONE if bg=='#ffffff' else None,r=2)
     text(s,x+6,y+4,10,'Bold',fg)
@@ -164,7 +172,6 @@ text('Cylinder closed. Power unplugged.',1066,110,11.5,'Semibold',MUTED)
 # Faucet: one above-counter view, then a larger view of the retained stack.
 x,y=36,143
 step(1,'Mount the faucet',x,y)
-artfield(x,177,w=416,h=131)
 p=pic('mount-drop.png',x+1,183,100,118,crop=(9,33,763,1331))
 arrow(*p(190,660),*p(190,963),head=6)
 text('Lower',x+6,218,9.5,'Semibold')
@@ -179,15 +186,12 @@ x=476
 step(2,'Add the cold-water tee',x,y)
 para('<b>1/4 in plastic tube?</b> Use the black tee below.<br/><b>Braided hose?</b> Follow install guide pp. 9-11, then return at <b>Step 3.</b>',x,177,416,11.8,14.5,limit=43.5)
 c.linkURL('https://homesodamachine.com/docs/install-guide/install-guide.pdf#page=9',(x,H-220,x+416,H-177),relative=0)
-artfield(x,229,w=122,h=58)
 p=pic('modern-water-off.png',x+3,232,116,51,crop=(170,190,1100,635))
 para('<b>Close the cold supply.</b> Run the cold tap until it stops. Put a cup and towel under the fitting.',x+136,230,280,12.1,15,limit=60)
-artfield(x,300,w=122,h=61)
 p=pic('release-with-press.png',x+3,304,116,53,crop=(0,0,1840,1040))
 arrow(*p(1316.97,779.94),*p(1042.29,700.52),head=5)
 arrow(*p(1305.98,317.07),*p(1723.50,437.79),head=5)
 para('<b>Hold the release ring in</b> with the collet press. Keep it pressed while pulling the existing tube out.',x+136,300,280,12.1,15,limit=60)
-artfield(x,374,w=122,h=62)
 p=pic('modern-tee-assembly-ready.png',x+3,377,116,54,crop=(200,130,1860,670))
 arrow(*p(1110,170),*p(810,170),head=5)
 para('<b>Push the tee\'s short tube into that fitting.</b> Reconnect the original tube to the tee\'s open end. The white filtered run is already attached.',x+136,373,280,12.1,15,limit=75)
@@ -196,7 +200,6 @@ para('<b>Push the tee\'s short tube into that fitting.</b> Reconnect the origina
 x=916
 step(3,'Match the rear connections',x,y)
 para('<b>Remove the CO2 and TAP caps.</b> Open ports shown below.',x,177,416,12.1,16,limit=32)
-artfield(x,202,w=224,h=166)
 p=pic('the-back-face.png',x+4,205,216,159,crop=(565,40,1565,855))
 rows=[('CO2','Red / cylinder','#d7333c','#ffffff'),('SODA','Blue / faucet','#1670db','#ffffff'),('TAP','White / filter','#ffffff',INK),('FLAVOR','Black / either port',INK,'#ffffff')]
 for i,(s,t,bg,fg) in enumerate(rows):
@@ -218,7 +221,6 @@ c.saveState();c.translate(0,10)
 phase('TURN IT ON',463)
 x,y=36,484
 step(4,'Connect the cylinder',x,y)
-artfield(x,519,w=416,h=113)
 pic('co2-ready.png',x+2,522,167,108,crop=(80,0,1600,1500))
 p=pic('co2-ready.png',x+177,522,117,108,crop=(380,675,840,1260))
 arrow(*p(460,1100),*p(460,869),head=6)
@@ -231,7 +233,6 @@ step(5,'Water, then gas, then power',x,y)
 starts=[476,770,1064]
 for xx,title in zip(starts,['1  WATER','2  GAS','3  POWER']):
     label(title,xx,522,color=INK,size=10)
-    artfield(xx,542,w=268,h=90)
 x=starts[0]
 pic('modern-water-on.png',x+5,549,258,73,crop=(170,190,1100,635))
 para('Open the cold supply <b>slowly.</b> Watch every water joint for a <b>full minute.</b>',x,644,268,12.4,16,limit=64)
@@ -260,7 +261,6 @@ step(6,'Fill both flavors',x,y)
 para('On the enclosure display, choose <b>FILL</b> and select a flavor.',x,813,292,12.6,16,limit=48)
 para('Invert one whole <b>14.8 fl oz bottle</b> into the funnel. Then press <b>START FILL.</b>',x,855,292,12.6,16,limit=64)
 para('<b>Wait for Filled.</b> Repeat for the second flavor.',x,918,292,12.6,16,limit=32)
-artfield(348,804,w=290,h=160)
 p=pic('fill-seated.png',355,810,277,148,crop=(290,290,1550,1500))
 fill_pose=((.65,-1,.5),(0,140,465),265)
 arrow(*projected(p,(60,156.5,469),*fill_pose),*projected(p,(60,156.5,364),*fill_pose),head=6)
@@ -271,8 +271,7 @@ rect(x,810,296,24,INK,r=3)
 text('FIRST CHILL: ABOUT 1 HOUR',x+9,817,12,'Bold','#ffffff')
 para('<b>Choose:</b> tap the faucet display to select a flavor. A dim screen takes one tap to wake.',x,848,296,12.6,16,limit=64)
 para('<b>Pour:</b> place a glass under the faucet and press the lever. Release it to stop.',x,901,296,12.6,16,limit=48)
-artfield(1005,804,w=327,h=160)
-q=pic('pour-running.png',1010,808,317,152,crop=(150,95,1475,1495))
+q=pic('edge-study/pour-base.png',1010,808,317,152,crop=(150,95,1475,1495))
 pour_pose=((1,-1.8,.67),(0,-78,119),140)
 tap=projected(q,(0,-131.55,217.61),*pour_pose)
 arrow(tap[0]-28,tap[1]+6,tap[0]-1,tap[1]+1,head=6)
@@ -281,11 +280,19 @@ arrow(press[0]+21,press[1]-25,press[0]+1,press[1]-1,head=6)
 c.restoreState()
 
 c.showPage();c.save()
-output=ROOT/'output/pdf/quick-start-codex.pdf'
-output.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(PDF,output)
-preview=Path('/tmp/guide-codex-references/quick-start-codex')
+if contours.pending:
+    contours.render()
+    subprocess.run([sys.executable,*sys.argv],cwd=ROOT,check=True)
+    sys.exit(0)
+PDF.parent.mkdir(parents=True,exist_ok=True)
+PDF.write_bytes(pdf_buffer.getvalue())
+if PDF == DIR/'quick-start-codex.pdf':
+    output=ROOT/'output/pdf/quick-start-codex.pdf'
+    output.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(PDF,output)
+preview=DIR/'out/contours'/f'guide-{args.contour[1:]}'
 preview.parent.mkdir(parents=True,exist_ok=True)
 subprocess.run(['pdftoppm','-scale-to','1900','-singlefile','-png',str(PDF),str(preview)],check=True)
-im=Image.open(preview.with_suffix('.png'));im.thumbnail((1200,1200));im.save(DIR/'quick-start-codex.cover.png')
-(DIR/'quick-start-codex.pdf.json').write_text(json.dumps({'title':'Home Soda Machine quick start','subtitle':'Owner quick start - installation through your first glass - one 19 x 13 in sheet','pages':1,'cover':'quick-start-codex.cover.png','cover_size':list(im.size)},indent=2)+'\n')
+im=Image.open(preview.with_suffix('.png'));im.thumbnail((1200,1200));im.save(PDF.with_suffix('.cover.png'))
+if PDF == DIR/'quick-start-codex.pdf':
+    (DIR/'quick-start-codex.pdf.json').write_text(json.dumps({'title':'Home Soda Machine quick start','subtitle':'Owner quick start - installation through your first glass - one 19 x 13 in sheet','pages':1,'cover':'quick-start-codex.cover.png','cover_size':list(im.size)},indent=2)+'\n')
 print(PDF)
