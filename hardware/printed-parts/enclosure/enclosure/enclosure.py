@@ -5731,7 +5731,8 @@ def _tee_carrier_clearances(inner, plate, carrier):
     """Four continuous hardware wells and common faces behind the moving carrier.
 
     One face ends the spring bores and clears the ties and complete lap's lateral entry.
-    The lower and upper web bearings remain broad flat lands between wells.
+    The lower and upper web bearings remain broad flat lands between wells. The common
+    clearance ends on the flank interior, preserving the service opening's full wall section.
     """
     if not carrier:
         return ()
@@ -5740,7 +5741,7 @@ def _tee_carrier_clearances(inner, plate, carrier):
     aft = carrier["body_aft_y"]
     web_z0, web_z1 = carrier["web_z"]
     backing_room = _ybox(
-        inner[0] - 1.0, inner[1] + 1.0,
+        inner[0], inner[1],
         carrier["body_face_y"], aft + 1.0,
         web_z0 - air, web_z1 + air)
     fore_guide = _tee_carrier_fore_guide(carrier)

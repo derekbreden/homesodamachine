@@ -1,8 +1,5 @@
-[ceiling] Horizontal roof of the closed finger recess inside the rectangular sliding body. Removable support is accessible through the outward-facing mouth.
-click: x=98.647 y=115.468 z=220.390
-
-[ceiling] The internal rim and inboard grip underside share one flat face 0.15 mm above the closed enclosure's seam rail. The pocket retains its 2.295 mm floor over the rail. This bed-rooted support is accessible from both ends and the underside of the loose half before inside-out assembly; the current production slice names it in the support ledger.
-click: x=97.322 y=115.468 z=174.950
+[ceiling] The solid bar's inboard underside clears the closed enclosure's seam rail by 0.15 mm. The full 8 mm Y section rises from this face to the bar's top; the outer foot reaches the print bed. Removable support is exposed from the underside and both Y faces of the loose half before inside-out assembly.
+click: x=96.972 y=106.468 z=174.950
 
 [ceiling] Flat underside of the aft lap receiver, above the tee run ends. The receiver keeps its full 6 mm section and takes removable support exposed from the fore side before assembly.
 click: x=4.000 y=106.218 z=210.465
