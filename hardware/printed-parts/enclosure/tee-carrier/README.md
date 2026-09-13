@@ -19,17 +19,17 @@ weight. The carrier follows the tubes forward until the fixed plate releases the
 
 Each service tab is one [16 mm](GRIP_BAR_T) bar in Y. Its aft face lies on the web's aft
 plane, and the root overlaps the web's full thickness. The bar presents
-[51.44 mm](FINGER_HEIGHT) of vertical contact over its full [14.205 mm](FINGER_DEPTH)
+[51.14 mm](FINGER_HEIGHT) of vertical contact over its full [14.105 mm](FINGER_DEPTH)
 depth, with [2 mm](GRIP_EDGE_R) rounds on its exposed vertical edges. The fingers bear on
 that aft face, opposing the thumb on the cartridge pocket's aft wall.
 
 The finger space is open through the moving tab's top and bottom.
 A [3 mm](GRIP_BACK_T) inboard wall joins a [3 mm](GRIP_AFT_T) aft wall,
-recessed [3.15 mm](GRIP_AFT_INSET) behind the enclosure's outer face. The backing extends
+recessed [3.25 mm](GRIP_AFT_INSET) behind the enclosure's outer face. The backing extends
 behind the opening's aft edge throughout the stroke. The fixed opening is
-[34.15 mm](OPENING_RUN) long in Y and [51.74 mm](OPENING_HEIGHT) tall, leaving at least
+[34.15 mm](OPENING_RUN) long in Y and [51.64 mm](OPENING_HEIGHT) tall, leaving at least
 [16 mm](FINGER_RUN) behind the bar throughout its travel. Its upper and lower edges
-stand one running clearance outside the bar's [51.44 mm](GRIP_HEIGHT) height.
+stand one running clearance outside the bar's [51.14 mm](GRIP_HEIGHT) height.
 
 Both outer faces finish flush with the enclosure; total width across the grips is
 [215 mm](GRIP_WIDTH). Each bar carries a retaining shoulder behind the opening's fore
@@ -52,7 +52,7 @@ tray. The lower lands share a flat floor with the aft valve tray; four openings 
 valves from underneath and carry the moving hairpins. Both guide sections join the flanks.
 
 The bar and its fore shoulder run between flat guide surfaces with
-[0.15 mm](GUIDE_AIR) clearance on each side in X and Z. The bar's fore face meets the
+[0.25 mm](GUIDE_AIR) clearance on each side in X and Z. The bar's fore face meets the
 opening at release. The upper tongue's aft face meets its channel's end at park.
 The finger space continues aft of that stop below the tongue. The bar's flat underside
 runs above the opening's continuous lower edge and clears the seam-rail head across its
@@ -60,7 +60,7 @@ full depth. The upper lap passes above the tees.
 
 One broad recess in each flank runs from the outer tee well to the aft valve tray's fore
 plane. Its flat ceiling guides the tongue and its outer wall retains the fore shoulder.
-Above the bar, the entry passage runs inboard of the park stop with 0.15 mm clearance.
+Above the bar, the entry passage runs inboard of the park stop with [0.25 mm](GUIDE_AIR) clearance.
 Each tab lowers inside the enclosure, moves fore behind the wall, then seats outward.
 
 The two internal shoulders face opposite wall lands. Once the center lap is screwed
@@ -90,7 +90,7 @@ bottomed at the aft stop. The spring loads are catalog estimates; the assembled 
 with the four actual tubes and flexible links installed.
 
 The opening's fore face and the upper tongue's aft channel end are travel stops. Their
-normal Y gap closes at the corresponding end of travel. The [0.15 mm](GUIDE_AIR) clearance
+normal Y gap closes at the corresponding end of travel. The [0.25 mm](GUIDE_AIR) clearance
 is across the sliding bearings in X and Z and through the carrier's insertion route.
 
 The two spring axes lie between coils at X ±49.945, Z 190.245 mm. Each spring bears in a
@@ -137,7 +137,7 @@ before fitting the ties; their insertion path passes behind the bare web.
 
 Print both halves upright, +Z up, with the web and backing wall on the bed. The bar and aft wall's
 flat undersides take removable support exposed below the loose half. The internal
-shoulder begins [9.705 mm](RIM_BED_GAP) above the bed; its extension and the central lap
+shoulder begins [9.805 mm](RIM_BED_GAP) above the bed; its extension and the central lap
 take removable support accessible from the loose half's underside. The fixed body's guide
 ceilings take support, removed through the open aft cavities before assembly. Its spring
 bores open into the carrier recess. All guide and hand-contact faces retain their bearing sections.
@@ -155,13 +155,13 @@ order and printed inventory. The generator exports `enclosure-tee-carrier-left` 
 
 The part selftest checks solids, bed fit, lap contact, fastener stack, tie paths, full web
 roots, continuous back and aft walls, open vertical finger passages, shoulder overlap and assembly clearance between halves.
-The appliance's `tee-carrier-motion` reading includes 0.15 mm X/Z clearance around every complete
+The appliance's `tee-carrier-motion` reading includes [0.25 mm](GUIDE_AIR) X/Z clearance around every complete
 carrier entry and working sweep. It checks tee loading, rear entry, lowering, outward seating, aft-valve
 entry beside the joined carrier, lap closure, fore screw/driver
 access, spring loading, finger space and working
 travel against actual front-top, the closed lower enclosure, cartridge and fixed valve
 bodies. Both end stops must engage on a
-0.001 mm overshoot. At every state, a 0.151 mm transverse displacement and a one-degree
+0.001 mm overshoot. At every state, a [0.251 mm](CAPTURE_PROBE_SHIFT) transverse displacement and a [2.75°](CAPTURE_PROBE_ANGLE)
 rotation in either sense about every axis must encounter the flank guides alone. These are
 rigid-body contact readings. Spring clearance uses the maximum catalog outside diameter
 through loading, seating and all four working states. The reading also checks the complete
