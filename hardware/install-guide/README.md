@@ -106,14 +106,16 @@ and there is no sentence to give, listed so the booklet is not mistaken for comp
   wants and is the most that is true today.
 - **A kitchen whose stop is not 3/8 inch.** The kit holds one older-path tee and it is 3/8". Leaf 11
   sends anyone else to the consultation, and no second adapter is specified.
-- **Mounting the regulator on the cylinder.** No CGA-320 make-up is written. Leaf 13 hands the job
-  to the shop that fills the cylinder, which is true advice and not a procedure.
+- **The regulator's nut.** Leaf 13 says washer in, start by hand, nip up with an adjustable
+  wrench, in the register leaf 11 uses for the tee. No wrench size or tightening figure for the
+  CGA-320 make-up exists in the tree; leaf 16's leak check is what proves the joint the buyer made.
 - **The tether's flare joint.** The PM4508F4S threads onto the Wellbom's 7/16"-20 male flare
   and carries an integral EPDM seal; its 5/16" socket holds the PI061008S reducer and the
-  reducer holds the red 1/4" tube. The two fittings ship assembled on the tether. No verified
-  tightening figure exists for this exact regulator/connector pair. Confirm make-up and
-  leak-tightness at the bench before releasing a customer tightening instruction. Leaf 13
-  offers the filling shop's fit-and-leak-check service without inventing a torque or turn count.
+  reducer holds the red 1/4" tube. The two fittings ship assembled on the tether. Leaf 13 says
+  hand-tight, which is what an elastomer-sealed acetal flare wants; no bench make-up of this
+  exact pair has been run, and a figure it produces goes onto that leaf. A gap in the tree is
+  stated here, and the buyer is still told the make-up: no leaf hands a joint on the buyer's
+  path to a third party.
 - **What the mains cord needs behind the appliance.** The shipped cord is a straight C13, and its
   housing seats against the wall rather than entering it — the C14's shroud stands
   [0.75 mm](C14_SHROUD_PROUD) proud inside an aperture smaller than the housing. No figure exists
