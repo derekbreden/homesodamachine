@@ -3,6 +3,7 @@
 from pathlib import Path
 import importlib.util
 import json
+import math
 import os
 import subprocess
 import sys
@@ -88,9 +89,32 @@ def pour(pressed):
     a.add(glass.translate((gx,gy,0)),name='glass',color=GLASS)
     rim=cq.Workplane('XY').workplane(offset=103.4).circle(37).circle(34.1).extrude(.7)
     a.add(rim.translate((gx,gy,0)),name='glass-rim',color=cq.Color(.80,.87,.90))
+    rim_edge=cq.Workplane('XY').workplane(offset=103.35).circle(37.5).circle(36.65).extrude(.8)
+    a.add(rim_edge.translate((gx,gy,0)),name='glass-rim-edge',color=cq.Color(.46,.57,.62))
+    base=cq.Workplane('XY').workplane(offset=.8).circle(31.15).circle(28.2).extrude(2.0)
+    a.add(base.translate((gx,gy,0)),name='glass-base',color=cq.Color(.74,.83,.86))
+    base_edge=cq.Workplane('XY').workplane(offset=.6).circle(31.3).circle(30.55).extrude(.8)
+    a.add(base_edge.translate((gx,gy,0)),name='glass-base-edge',color=cq.Color(.46,.57,.62))
+    face_angle=math.atan2(-1.8,1)
+    def glass_stroke(name,angle,z0,z1,radius):
+        points=[]
+        for z in (z0,z1):
+            r=31+6*z/104
+            points.append(cq.Vector(gx+r*math.cos(angle),gy+r*math.sin(angle),z))
+        span=points[1]-points[0]
+        body=cq.Solid.makeCylinder(radius,span.Length,points[0],span.normalized())
+        caps=[cq.Solid.makeSphere(radius,p,angleDegrees1=-90) for p in points]
+        a.add(cq.Compound.makeCompound([body,*caps]),name=name,color=cq.Color(.7,.8,.85))
+    side_angle=math.acos((.67*6/104)/math.hypot(1,1.8))
+    for sign,side in [(-1,'left'),(1,'right')]:
+        glass_stroke(f'glass-edge-{side}',face_angle+sign*side_angle,2.5,102.8,.7)
+    glass_stroke('glass-highlight-wide',face_angle-side_angle+.16,12,96,1.15)
+    glass_stroke('glass-highlight-short',face_angle+side_angle-.13,51,95,.65)
     if pressed:
         drink=cq.Workplane('XY').workplane(offset=5).circle(27.7).workplane(offset=75).circle(32.1).loft()
         a.add(drink.translate((gx,gy,0)),name='drink',color=DRINK)
+        top=cq.Workplane('XY').workplane(offset=80).circle(32.1).extrude(.15)
+        a.add(top.translate((gx,gy,0)),name='drink-top',color=cq.Color(.53,.31,.18))
     (OUT/'pour-points.json').write_text(json.dumps({'tip':list(tip),'lever':[0,fa.lever_pivot_y,fa.lever_pivot_z]}))
     return a
 
@@ -105,15 +129,24 @@ def render():
     currentGroup.traverse((part) => {
       if (part.name === "glass") {
         part.material = new THREE.MeshPhysicalMaterial({
-          color: "#c9e0e5", opacity: 0.10, transparent: true,
+          color: "#d6e8ec", opacity: 0.06, transparent: true,
           roughness: 0.15, metalness: 0.05, depthWrite: false,
           side: THREE.DoubleSide,
         });
         part.renderOrder = 10;
-      } else if (part.name === "drink") {
-        part.material = new THREE.MeshPhongMaterial({
-          color: "#351507", specular: "#251408", shininess: 35,
+      } else if (part.name === "glass-rim" || part.name === "glass-base") {
+        part.material = new THREE.MeshBasicMaterial({color: "#d3e1e5"});
+      } else if (part.name.startsWith("glass-edge-") || part.name === "glass-rim-edge" || part.name === "glass-base-edge") {
+        part.material = new THREE.MeshBasicMaterial({color: "#8099a4"});
+      } else if (part.name.startsWith("glass-highlight-")) {
+        part.material = new THREE.MeshBasicMaterial({
+          color: "#ffffff", opacity: 0.74, transparent: true, depthWrite: false,
         });
+        part.renderOrder = 11;
+      } else if (part.name === "drink") {
+        part.material = new THREE.MeshBasicMaterial({color: "#351a0f"});
+      } else if (part.name === "drink-top") {
+        part.material = new THREE.MeshBasicMaterial({color: "#6f422b"});
       }
     });
     renderer.render(scene, cam);''')
