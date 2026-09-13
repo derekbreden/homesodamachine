@@ -34,21 +34,21 @@ file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=0.000 y=88.339 z=310.895
 click: x=0.000 y=91.694 z=308.895
 
-[ceiling] The upper bar guide and the underside of the tongue's aft stop share this plane. The guide retains 0.15 mm Z clearance above the moving bar; the tongue engages the stop above that plane. Removable support is accessible through the flank opening and internal recess.
+[ceiling] The upper bar guide and the underside of the tongue's aft stop share this plane. The guide retains 0.25 mm Z clearance above the moving bar; the tongue engages the stop above that plane. Removable support is accessible through the flank opening and internal recess.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-104.425 y=131.014 z=226.540
-click: x=104.425 y=131.014 z=226.540
+click: x=-104.375 y=131.014 z=226.440
+click: x=104.375 y=131.014 z=226.440
 
-[ceiling] Flat ceiling of the internal grip recess. It carries the hidden retaining rim with 0.15 mm running clearance and continues to the aft valve tray's fore plane for inside-out loading. The fixed body keeps 3 mm above the recess at its fore-valve clearance plane. Support is removed through the open internal recess before hardware installation.
+[ceiling] Flat ceiling of the internal grip recess. It carries the hidden retaining rim with 0.25 mm running clearance and continues to the aft valve tray's fore plane for inside-out loading. The fixed body keeps 3 mm above the recess at its fore-valve clearance plane. Support is removed through the open internal recess before hardware installation.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-95.748 y=127.864 z=229.690
-click: x=95.748 y=127.864 z=229.690
+click: x=-95.697 y=127.814 z=229.690
+click: x=95.697 y=127.814 z=229.690
 
-[ceiling] The upper web-bearing lands share one plane 0.15 mm above the carrier. They retain the moving web through the complete stroke and join the filled body and flank guides. Their undersides keep the flat running face; removable support is accessible through the open aft bay before assembly.
+[ceiling] The upper web-bearing lands share one plane 0.25 mm above the carrier. They retain the moving web through the complete stroke and join the filled body and flank guides. Their undersides keep the flat running face; removable support is accessible through the open aft bay before assembly.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-47.495 y=107.564 z=220.315
-click: x=0.000 y=107.564 z=220.315
-click: x=47.495 y=107.564 z=220.315
+click: x=-47.495 y=107.464 z=220.315
+click: x=0.000 y=107.464 z=220.315
+click: x=47.495 y=107.464 z=220.315
 
 [ceiling] Each constant-section tee well ends at the fore-valve body's clearance plane. These flat crowns are the exposed undersides of the filled bridge where it joins the valve tray around its round port openings. Remove support through the open well before the hardware is installed.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
@@ -59,10 +59,10 @@ click: x=77.370 y=95.085 z=232.690
 
 [step] The faces at x=±103.650 are the standing walls of the front Z-seam's rail channels, set by the rail head and its running clearance in `_rail_channel_span`. The common floor joins this channel section below the flank's x=±104.500 interior face. The offset preserves the seam's sliding passage, with continuous enclosure stock behind the channel wall.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-103.650 y=118.226 z=169.498
-click: x=103.650 y=118.226 z=169.498
+click: x=-103.650 y=118.193 z=169.465
+click: x=103.650 y=118.193 z=169.465
 
 [sliver] The upward-facing 0.85 mm step joins the rail channel's |X|103.650 wall to the flank's |X|104.500 interior face at the common floor. The solid continues outward into the enclosure wall: a continuous 3 mm X by 3 mm Z section backs the step along its full Y length. The narrow face bounds that solid wall section.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-104.075 y=130.939 z=171.095
-click: x=104.075 y=130.939 z=171.095
+click: x=-104.075 y=130.889 z=170.995
+click: x=104.075 y=130.889 z=170.995
