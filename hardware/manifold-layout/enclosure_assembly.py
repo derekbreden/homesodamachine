@@ -1673,6 +1673,15 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
             guide_top - _enc.wall, guide_top).val()
         if stock.cut(wall).Volume() > CARRIER_MOTION_OVERLAP_TOL:
             failures.append(f"half {side:+d}: fore guide lacks {_enc.wall:g} mm of bearing stock")
+        xa, xb = sorted((side * (spec.exterior_x - spec.grip_wall_t),
+                         side * spec.exterior_x))
+        lip = _carrier._box(
+            xa, xb, spec.rim_y[0] + spec.park_offset_y,
+            spec.tab_y[0] + spec.release_offset_y - spec.slide_air,
+            spec.grip_rail_top_z, spec.grip_z[1]).val()
+        if lip.cut(wall).Volume() > CARRIER_MOTION_OVERLAP_TOL:
+            failures.append(f"half {side:+d}: fore retaining lip lacks "
+                            f"{spec.grip_wall_t:g} mm of wall stock")
     # The complete installed mechanism and its finger space clear the real enclosure.
     for state, row in interface["states"].items():
         dy = row["offset_y"]
