@@ -1,7 +1,7 @@
 [
   {
     "project": "funnel-mold.3mf",
-    "sha256": "46aaa8574da40591d18c6e99351c82622690cfe4a85bff123e44b5485f9d12f7",
+    "sha256": "bce47e48d0048b1a05df3771d2a8adaa5c6d28e3d067de0fc092299234ab9d59",
     "effective_setting_count": 579,
     "normalized_settings": [
       "best_object_pos",
@@ -4712,33 +4712,33 @@
     "gcode": [
       {
         "part": "cavity",
-        "stl_sha256": "a86d25848822db454e3c7eedb9dafe920646d607717aee3123844229d29a6437",
-        "gcode_sha256": "f07acf8228daff819e8283384496bbb3e15f46744fc3322978c2987875c17d80",
+        "stl_sha256": "af7d3a5e3561c5a72beb8ba50f32cbda3874925ce90e4c15514d856e004e18a2",
+        "gcode_sha256": "d5af3ae2687724f874e70acde6c81cc24289d217e884b2d41c3a8c4c6190f8ef",
         "header": [
           "; BambuStudio 02.08.02.61",
-          "; model printing time: 17h 17m 17s; total estimated time: 17h 22m 31s",
-          "; total layer number: 307",
-          "; total filament length [mm] : 205102.38",
-          "; total filament volume [cm^3] : 493329.04",
-          "; total filament weight [g] : 616.66",
+          "; model printing time: 17h 51m 4s; total estimated time: 17h 56m 17s",
+          "; total layer number: 332",
+          "; total filament length [mm] : 214273.32",
+          "; total filament volume [cm^3] : 515387.74",
+          "; total filament weight [g] : 644.23",
           "; filament_density: 1.25",
           "; filament_diameter: 1.75",
-          "; max_z_height: 73.76",
+          "; max_z_height: 79.76",
           "; filament: 1",
           "; support_material_on_wipe_tower: 0"
         ]
       },
       {
         "part": "core",
-        "stl_sha256": "4a803e0987407456c5c36d558969aed39952ebf6f364e171f69e91899590d0ef",
-        "gcode_sha256": "c4950e34a41106a60a83451c8bd09178cdb54b8b08053ba5ec5b308eedd64a9f",
+        "stl_sha256": "5fffe0d5db0c9aff2810cae531a9747f217332e8c1c88a7f59adfe50aecb8d87",
+        "gcode_sha256": "9bf06a0d66ac4dbf8b0aa1ddc3514b29143aed03e6a41075c61d5f439c620f9f",
         "header": [
           "; BambuStudio 02.08.02.61",
-          "; model printing time: 10h 49m 23s; total estimated time: 10h 54m 36s",
+          "; model printing time: 10h 48m 18s; total estimated time: 10h 53m 32s",
           "; total layer number: 188",
-          "; total filament length [mm] : 146729.37",
-          "; total filament volume [cm^3] : 352925.49",
-          "; total filament weight [g] : 441.16",
+          "; total filament length [mm] : 146605.79",
+          "; total filament volume [cm^3] : 352628.24",
+          "; total filament weight [g] : 440.79",
           "; filament_density: 1.25",
           "; filament_diameter: 1.75",
           "; max_z_height: 45.20",
@@ -4749,51 +4749,51 @@
     ],
     "slice_result": {
       "error_string": "Success.",
-      "export_time": 17342,
+      "export_time": 12554,
       "layer_height": 0.23999999463558197,
       "plate_index": 0,
-      "prepare_time": 102,
+      "prepare_time": 155,
       "return_code": 0,
       "sliced_plates": [
         {
           "feature_type_times": {
-            "Bottom surface": 3.9710233211517334,
-            "Bridge": 410.7200927734375,
-            "Brim": 17.950515747070312,
-            "Custom": 304.7292785644531,
+            "Bottom surface": 3.980393648147583,
+            "Bridge": 410.72003173828125,
+            "Brim": 17.458662033081055,
+            "Custom": 304.42333984375,
             "Flush": 15.0,
-            "Inner wall": 4917.8681640625,
-            "Internal solid infill": 4159.82763671875,
-            "Outer wall": 5186.0986328125,
-            "Overhang wall": 3322.358642578125,
-            "Sparse infill": 5450.8876953125,
-            "Support": 23839.978515625,
-            "Support interface": 386.1727294921875,
-            "Top surface": 317.3603210449219,
-            "Travel": 14287.6279296875,
-            "Undefined": 14281.349609375
+            "Inner wall": 5035.93212890625,
+            "Internal solid infill": 4177.37353515625,
+            "Outer wall": 5335.48876953125,
+            "Overhang wall": 3322.984130859375,
+            "Sparse infill": 5491.31396484375,
+            "Support": 25166.712890625,
+            "Support interface": 384.8441467285156,
+            "Top surface": 322.463134765625,
+            "Travel": 14671.9970703125,
+            "Undefined": 14666.01953125
           },
           "filament_change_times": 0,
           "filaments": [
             {
               "filament_id": "GFG01",
               "id": 1,
-              "main_used_g": 616.6613159179688,
-              "total_used_g": 616.6613159179688
+              "main_used_g": 644.2346801757812,
+              "total_used_g": 644.2346801757812
             }
           ],
-          "generate_support_material_time": 101849,
+          "generate_support_material_time": 349085,
           "id": 1,
-          "infill_time": 491,
+          "infill_time": 6582,
           "layer_filament_change": 0,
-          "main_predication": 62222.82421875,
-          "make_perimeters_time": 550,
+          "main_predication": 64249.54296875,
+          "make_perimeters_time": 1582,
           "obj_cached_cnt": 0,
           "objects": [
             {
               "bbox": {
                 "depth": 205.0,
-                "height": 73.64923095703125,
+                "height": 79.64923095703125,
                 "width": 205.0,
                 "x": 47.0,
                 "y": 57.5,
@@ -4804,45 +4804,45 @@
               "triangle_count": 73608
             }
           ],
-          "sliced_time": 134732,
-          "sliced_time_with_cache": 30086,
-          "total_predication": 62551.27734375,
+          "sliced_time": 466335,
+          "sliced_time_with_cache": 106365,
+          "total_predication": 64577.98828125,
           "triangle_count": 73608,
           "warning_message": ""
         },
         {
           "feature_type_times": {
             "Bottom surface": 459.36956787109375,
-            "Bridge": 23.113697052001953,
-            "Brim": 100.89988708496094,
-            "Custom": 306.1495666503906,
+            "Bridge": 23.113582611083984,
+            "Brim": 100.9107666015625,
+            "Custom": 306.15496826171875,
             "Flush": 15.0,
-            "Inner wall": 3995.126953125,
-            "Internal solid infill": 4425.23486328125,
-            "Outer wall": 4011.34765625,
-            "Overhang wall": 2105.34716796875,
-            "Sparse infill": 5338.3818359375,
-            "Support": 10940.091796875,
-            "Support interface": 9.793757438659668,
-            "Top surface": 495.45147705078125,
-            "Travel": 7117.9052734375,
-            "Undefined": 7110.19873046875
+            "Inner wall": 3995.114501953125,
+            "Internal solid infill": 4425.23095703125,
+            "Outer wall": 4011.321533203125,
+            "Overhang wall": 2105.345703125,
+            "Sparse infill": 5338.37255859375,
+            "Support": 10902.4853515625,
+            "Support interface": 9.716914176940918,
+            "Top surface": 495.4518127441406,
+            "Travel": 7087.99853515625,
+            "Undefined": 7080.2919921875
           },
           "filament_change_times": 0,
           "filaments": [
             {
               "filament_id": "GFG01",
               "id": 1,
-              "main_used_g": 441.1568298339844,
-              "total_used_g": 441.1568603515625
+              "main_used_g": 440.7852783203125,
+              "total_used_g": 440.7853088378906
             }
           ],
-          "generate_support_material_time": 137372,
+          "generate_support_material_time": 174518,
           "id": 2,
-          "infill_time": 1336,
+          "infill_time": 2128,
           "layer_filament_change": 0,
-          "main_predication": 38948.0234375,
-          "make_perimeters_time": 1223,
+          "main_predication": 38883.92578125,
+          "make_perimeters_time": 2154,
           "obj_cached_cnt": 0,
           "objects": [
             {
@@ -4856,13 +4856,13 @@
               },
               "id": 9,
               "name": "Funnel mold core",
-              "triangle_count": 16564
+              "triangle_count": 16562
             }
           ],
-          "sliced_time": 157064,
-          "sliced_time_with_cache": 15790,
-          "total_predication": 39276.46875,
-          "triangle_count": 16564,
+          "sliced_time": 197960,
+          "sliced_time_with_cache": 17712,
+          "total_predication": 39212.375,
+          "triangle_count": 16562,
           "warning_message": ""
         }
       ],
@@ -4878,7 +4878,7 @@
   },
   {
     "project": "funnel-mold-z018.3mf",
-    "sha256": "88ab1a8596f30727a319f46097709531a7772bfa6f4cf23a076a413eef7a27fa",
+    "sha256": "db3286e3fdb5a69864ffa9c286072480ef63cc57a1cb016cc03651494cec524b",
     "effective_setting_count": 579,
     "normalized_settings": [
       "best_object_pos",
@@ -9589,33 +9589,33 @@
     "gcode": [
       {
         "part": "cavity",
-        "stl_sha256": "a86d25848822db454e3c7eedb9dafe920646d607717aee3123844229d29a6437",
-        "gcode_sha256": "043986da0511bd2a268436f7f84037ed5e57e9930eb11fb364865b4e491995bf",
+        "stl_sha256": "af7d3a5e3561c5a72beb8ba50f32cbda3874925ce90e4c15514d856e004e18a2",
+        "gcode_sha256": "65a63f872b2ed1b3c95d674c1688b773e68988d632f1fcf2663905a4068606f9",
         "header": [
           "; BambuStudio 02.08.02.61",
-          "; model printing time: 17h 17m 12s; total estimated time: 17h 22m 25s",
-          "; total layer number: 307",
-          "; total filament length [mm] : 205102.38",
-          "; total filament volume [cm^3] : 493329.04",
-          "; total filament weight [g] : 616.66",
+          "; model printing time: 17h 51m 9s; total estimated time: 17h 56m 23s",
+          "; total layer number: 332",
+          "; total filament length [mm] : 214273.33",
+          "; total filament volume [cm^3] : 515387.76",
+          "; total filament weight [g] : 644.23",
           "; filament_density: 1.25",
           "; filament_diameter: 1.75",
-          "; max_z_height: 73.76",
+          "; max_z_height: 79.76",
           "; filament: 1",
           "; support_material_on_wipe_tower: 0"
         ]
       },
       {
         "part": "core",
-        "stl_sha256": "4a803e0987407456c5c36d558969aed39952ebf6f364e171f69e91899590d0ef",
-        "gcode_sha256": "f0478fb943b82c0ed9c679366499b924dffefb38e95de4fd8743536c603eddea",
+        "stl_sha256": "5fffe0d5db0c9aff2810cae531a9747f217332e8c1c88a7f59adfe50aecb8d87",
+        "gcode_sha256": "bf6d3045960bb5009d20b86037d3678193ff7310852dea19bfbfd30e6dcde8ec",
         "header": [
           "; BambuStudio 02.08.02.61",
-          "; model printing time: 10h 49m 23s; total estimated time: 10h 54m 36s",
+          "; model printing time: 10h 48m 18s; total estimated time: 10h 53m 32s",
           "; total layer number: 188",
-          "; total filament length [mm] : 146729.37",
-          "; total filament volume [cm^3] : 352925.49",
-          "; total filament weight [g] : 441.16",
+          "; total filament length [mm] : 146605.79",
+          "; total filament volume [cm^3] : 352628.24",
+          "; total filament weight [g] : 440.79",
           "; filament_density: 1.25",
           "; filament_diameter: 1.75",
           "; max_z_height: 45.20",
@@ -9626,51 +9626,51 @@
     ],
     "slice_result": {
       "error_string": "Success.",
-      "export_time": 12077,
+      "export_time": 14179,
       "layer_height": 0.23999999463558197,
       "plate_index": 0,
-      "prepare_time": 129,
+      "prepare_time": 512,
       "return_code": 0,
       "sliced_plates": [
         {
           "feature_type_times": {
-            "Bottom surface": 3.9710233211517334,
-            "Bridge": 410.7200927734375,
-            "Brim": 17.950515747070312,
-            "Custom": 304.7292785644531,
+            "Bottom surface": 3.980393648147583,
+            "Bridge": 410.72003173828125,
+            "Brim": 17.458662033081055,
+            "Custom": 304.42333984375,
             "Flush": 15.0,
-            "Inner wall": 4917.8681640625,
-            "Internal solid infill": 4154.12841796875,
-            "Outer wall": 5186.0986328125,
-            "Overhang wall": 3322.358642578125,
-            "Sparse infill": 5450.8876953125,
-            "Support": 23839.978515625,
-            "Support interface": 386.1727294921875,
-            "Top surface": 317.3603210449219,
-            "Travel": 14287.5205078125,
-            "Undefined": 14281.2421875
+            "Inner wall": 5035.93212890625,
+            "Internal solid infill": 4182.52490234375,
+            "Outer wall": 5340.48876953125,
+            "Overhang wall": 3322.984130859375,
+            "Sparse infill": 5491.31396484375,
+            "Support": 25166.712890625,
+            "Support interface": 384.8441467285156,
+            "Top surface": 317.463134765625,
+            "Travel": 14672.1435546875,
+            "Undefined": 14666.166015625
           },
           "filament_change_times": 0,
           "filaments": [
             {
               "filament_id": "GFG01",
               "id": 1,
-              "main_used_g": 616.6613159179688,
-              "total_used_g": 616.6613159179688
+              "main_used_g": 644.2346801757812,
+              "total_used_g": 644.2346801757812
             }
           ],
-          "generate_support_material_time": 158041,
+          "generate_support_material_time": 356587,
           "id": 1,
-          "infill_time": 2026,
+          "infill_time": 6046,
           "layer_filament_change": 0,
-          "main_predication": 62217.0703125,
-          "make_perimeters_time": 1955,
+          "main_predication": 64254.86328125,
+          "make_perimeters_time": 7190,
           "obj_cached_cnt": 0,
           "objects": [
             {
               "bbox": {
                 "depth": 205.0,
-                "height": 73.64923095703125,
+                "height": 79.64923095703125,
                 "width": 205.0,
                 "x": 47.0,
                 "y": 57.5,
@@ -9681,45 +9681,45 @@
               "triangle_count": 73608
             }
           ],
-          "sliced_time": 212128,
-          "sliced_time_with_cache": 47046,
-          "total_predication": 62545.5234375,
+          "sliced_time": 468970,
+          "sliced_time_with_cache": 95517,
+          "total_predication": 64583.30859375,
           "triangle_count": 73608,
           "warning_message": ""
         },
         {
           "feature_type_times": {
             "Bottom surface": 459.36956787109375,
-            "Bridge": 23.113697052001953,
-            "Brim": 100.89988708496094,
-            "Custom": 306.1495666503906,
+            "Bridge": 23.113582611083984,
+            "Brim": 100.9107666015625,
+            "Custom": 306.15496826171875,
             "Flush": 15.0,
-            "Inner wall": 3995.126953125,
-            "Internal solid infill": 4425.23486328125,
-            "Outer wall": 4011.34765625,
-            "Overhang wall": 2105.34716796875,
-            "Sparse infill": 5338.3818359375,
-            "Support": 10940.091796875,
-            "Support interface": 9.793757438659668,
-            "Top surface": 495.45147705078125,
-            "Travel": 7117.9052734375,
-            "Undefined": 7110.19873046875
+            "Inner wall": 3995.114501953125,
+            "Internal solid infill": 4425.23095703125,
+            "Outer wall": 4011.321533203125,
+            "Overhang wall": 2105.345703125,
+            "Sparse infill": 5338.37255859375,
+            "Support": 10902.4853515625,
+            "Support interface": 9.716914176940918,
+            "Top surface": 495.4518127441406,
+            "Travel": 7087.99853515625,
+            "Undefined": 7080.2919921875
           },
           "filament_change_times": 0,
           "filaments": [
             {
               "filament_id": "GFG01",
               "id": 1,
-              "main_used_g": 441.1568298339844,
-              "total_used_g": 441.1568603515625
+              "main_used_g": 440.7852783203125,
+              "total_used_g": 440.7853088378906
             }
           ],
-          "generate_support_material_time": 108406,
+          "generate_support_material_time": 174288,
           "id": 2,
-          "infill_time": 1500,
+          "infill_time": 1910,
           "layer_filament_change": 0,
-          "main_predication": 38948.0234375,
-          "make_perimeters_time": 1239,
+          "main_predication": 38883.92578125,
+          "make_perimeters_time": 2079,
           "obj_cached_cnt": 0,
           "objects": [
             {
@@ -9733,13 +9733,13 @@
               },
               "id": 9,
               "name": "Funnel mold core",
-              "triangle_count": 16564
+              "triangle_count": 16562
             }
           ],
-          "sliced_time": 122289,
-          "sliced_time_with_cache": 10382,
-          "total_predication": 39276.46875,
-          "triangle_count": 16564,
+          "sliced_time": 196348,
+          "sliced_time_with_cache": 17070,
+          "total_predication": 39212.375,
+          "triangle_count": 16562,
           "warning_message": ""
         }
       ],
@@ -9755,7 +9755,7 @@
   },
   {
     "project": "funnel-mold-04.3mf",
-    "sha256": "74f3e57e9412cb6be36d501a294bb3eefe2abc384ea2caba7184e032f9a7a86c",
+    "sha256": "becc66dfc4cf5aec61c5fa2adf70a7a98dfcf8dfa242a6c27375eb931e4fdd45",
     "effective_setting_count": 579,
     "normalized_settings": [
       "best_object_pos",
@@ -14731,33 +14731,33 @@
     "gcode": [
       {
         "part": "cavity",
-        "stl_sha256": "a86d25848822db454e3c7eedb9dafe920646d607717aee3123844229d29a6437",
-        "gcode_sha256": "d5b460f4e1347f54cbd0f7d3dfb1e5da2827aaa7f9bdf722707489c47121f5ab",
+        "stl_sha256": "af7d3a5e3561c5a72beb8ba50f32cbda3874925ce90e4c15514d856e004e18a2",
+        "gcode_sha256": "1133ea1a4e79ec95c919af21064c9e43f3571fe8e730e0178c8499bce6a9f6b1",
         "header": [
           "; BambuStudio 02.08.02.61",
-          "; model printing time: 1d 10h 45m 56s; total estimated time: 1d 10h 51m 13s",
-          "; total layer number: 460",
-          "; total filament length [mm] : 177318.88",
-          "; total filament volume [cm^3] : 426501.89",
-          "; total filament weight [g] : 533.13",
+          "; model printing time: 1d 11h 27m 15s; total estimated time: 1d 11h 32m 32s",
+          "; total layer number: 498",
+          "; total filament length [mm] : 181431.32",
+          "; total filament volume [cm^3] : 436393.47",
+          "; total filament weight [g] : 545.49",
           "; filament_density: 1.25",
           "; filament_diameter: 1.75",
-          "; max_z_height: 73.64",
+          "; max_z_height: 79.72",
           "; filament: 1",
           "; support_material_on_wipe_tower: 0"
         ]
       },
       {
         "part": "core",
-        "stl_sha256": "4a803e0987407456c5c36d558969aed39952ebf6f364e171f69e91899590d0ef",
-        "gcode_sha256": "487b2457abf3e9301326e38a49bb5606069317390f52bd75456d2f1de082bb5b",
+        "stl_sha256": "5fffe0d5db0c9aff2810cae531a9747f217332e8c1c88a7f59adfe50aecb8d87",
+        "gcode_sha256": "239c2b867c01f7a8dae2cd32b113bde2ae7613f349b14c559b8c0aeaa824f3a0",
         "header": [
           "; BambuStudio 02.08.02.61",
-          "; model printing time: 20h 37m 0s; total estimated time: 20h 42m 17s",
+          "; model printing time: 20h 36m 28s; total estimated time: 20h 41m 45s",
           "; total layer number: 282",
-          "; total filament length [mm] : 133930.47",
-          "; total filament volume [cm^3] : 322140.52",
-          "; total filament weight [g] : 402.68",
+          "; total filament length [mm] : 133917.48",
+          "; total filament volume [cm^3] : 322109.30",
+          "; total filament weight [g] : 402.64",
           "; filament_density: 1.25",
           "; filament_diameter: 1.75",
           "; max_z_height: 45.16",
@@ -14768,52 +14768,52 @@
     ],
     "slice_result": {
       "error_string": "Success.",
-      "export_time": 13203,
+      "export_time": 16882,
       "layer_height": 0.1599999964237213,
       "plate_index": 0,
-      "prepare_time": 131,
+      "prepare_time": 112,
       "return_code": 0,
       "sliced_plates": [
         {
           "feature_type_times": {
-            "Bottom surface": 7.666629791259766,
-            "Bridge": 552.1055297851562,
-            "Brim": 35.287384033203125,
-            "Custom": 308.0937805175781,
+            "Bottom surface": 7.680866241455078,
+            "Bridge": 550.2089233398438,
+            "Brim": 33.61993408203125,
+            "Custom": 307.77508544921875,
             "Flush": 15.0,
-            "Gap infill": 3.5299887657165527,
-            "Inner wall": 9521.1181640625,
-            "Internal solid infill": 5151.70703125,
-            "Outer wall": 7945.466796875,
-            "Overhang wall": 5080.58544921875,
-            "Sparse infill": 19723.677734375,
-            "Support": 48758.67578125,
-            "Support interface": 1713.04833984375,
-            "Top surface": 555.6282348632812,
-            "Travel": 24883.017578125,
-            "Undefined": 24876.734375
+            "Gap infill": 3.5917389392852783,
+            "Inner wall": 9789.2607421875,
+            "Internal solid infill": 5132.51513671875,
+            "Outer wall": 8163.4189453125,
+            "Overhang wall": 5128.69775390625,
+            "Sparse infill": 20027.587890625,
+            "Support": 50038.46484375,
+            "Support interface": 1693.5357666015625,
+            "Top surface": 555.6502685546875,
+            "Travel": 25300.32421875,
+            "Undefined": 25294.34375
           },
           "filament_change_times": 0,
           "filaments": [
             {
               "filament_id": "GFG01",
               "id": 1,
-              "main_used_g": 533.1273803710938,
-              "total_used_g": 533.1273803710938
+              "main_used_g": 545.4918212890625,
+              "total_used_g": 545.4918212890625
             }
           ],
-          "generate_support_material_time": 462760,
+          "generate_support_material_time": 731375,
           "id": 1,
-          "infill_time": 3544,
+          "infill_time": 11876,
           "layer_filament_change": 0,
-          "main_predication": 125141.859375,
-          "make_perimeters_time": 3341,
+          "main_predication": 127620.9375,
+          "make_perimeters_time": 1300,
           "obj_cached_cnt": 0,
           "objects": [
             {
               "bbox": {
                 "depth": 205.0,
-                "height": 73.64923095703125,
+                "height": 79.64923095703125,
                 "width": 205.0,
                 "x": 47.0,
                 "y": 57.5,
@@ -14824,45 +14824,45 @@
               "triangle_count": 73608
             }
           ],
-          "sliced_time": 606493,
-          "sliced_time_with_cache": 133634,
-          "total_predication": 125473.671875,
+          "sliced_time": 871271,
+          "sliced_time_with_cache": 124124,
+          "total_predication": 127952.734375,
           "triangle_count": 73608,
           "warning_message": ""
         },
         {
           "feature_type_times": {
-            "Bottom surface": 666.0613403320312,
-            "Bridge": 24.604713439941406,
-            "Brim": 201.0355682373047,
-            "Custom": 309.504638671875,
+            "Bottom surface": 666.0614013671875,
+            "Bridge": 24.604679107666016,
+            "Brim": 201.0357666015625,
+            "Custom": 309.4936828613281,
             "Flush": 15.0,
-            "Gap infill": 3.7631003856658936,
-            "Inner wall": 7219.46240234375,
-            "Internal solid infill": 5110.34375,
-            "Outer wall": 6002.13818359375,
-            "Overhang wall": 3151.681396484375,
-            "Sparse infill": 18541.34765625,
-            "Support": 21072.087890625,
-            "Support interface": 15.064912796020508,
+            "Gap infill": 3.7630975246429443,
+            "Inner wall": 7219.4638671875,
+            "Internal solid infill": 5110.27978515625,
+            "Outer wall": 6002.150390625,
+            "Overhang wall": 3151.6826171875,
+            "Sparse infill": 18541.32421875,
+            "Support": 21054.1640625,
+            "Support interface": 15.017498016357422,
             "Top surface": 862.6610717773438,
-            "Travel": 10678.73046875,
-            "Undefined": 10671.0224609375
+            "Travel": 10663.5439453125,
+            "Undefined": 10655.8359375
           },
           "filament_change_times": 0,
           "filaments": [
             {
               "filament_id": "GFG01",
               "id": 1,
-              "main_used_g": 402.6756591796875,
-              "total_used_g": 402.6756591796875
+              "main_used_g": 402.6365966796875,
+              "total_used_g": 402.6365966796875
             }
           ],
-          "generate_support_material_time": 98717,
+          "generate_support_material_time": 125761,
           "id": 2,
-          "infill_time": 654,
+          "infill_time": 764,
           "layer_filament_change": 0,
-          "main_predication": 74205.9375,
+          "main_predication": 74173.6328125,
           "make_perimeters_time": 518,
           "obj_cached_cnt": 0,
           "objects": [
@@ -14877,13 +14877,13 @@
               },
               "id": 9,
               "name": "Funnel mold core",
-              "triangle_count": 16564
+              "triangle_count": 16562
             }
           ],
-          "sliced_time": 111858,
-          "sliced_time_with_cache": 11220,
-          "total_predication": 74537.734375,
-          "triangle_count": 16564,
+          "sliced_time": 155174,
+          "sliced_time_with_cache": 26203,
+          "total_predication": 74505.421875,
+          "triangle_count": 16562,
           "warning_message": ""
         }
       ],
