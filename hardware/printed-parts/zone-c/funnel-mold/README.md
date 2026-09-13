@@ -89,6 +89,9 @@ It uses the same geometry, +0.04 mm plate trim and automatic tree supports.
 
 [print-profile.json](print-profile.json) records the actual saved settings,
 STL and G-code checksums, support usage and estimates.
+[layer-review.json](layer-review.json) records model connectivity at the sliced
+layer heights. The cavity spout tip and core socket boss begin above the plate;
+the G-code has support-interface paths directly beneath both features.
 [print log](print-log.md) records physical observations with their known provenance.
 Coated closure, vacuum cycling, support removal and casting are untested for
 these shells.

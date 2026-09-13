@@ -1,19 +1,33 @@
 {
   "project": "funnel-mold.3mf",
-  "project_sha256": "890926b1967c9ad9098ea13bea9ee84a720643a047421161fbc56c01ee9b2259",
+  "project_sha256": "183655e85bd49fac9d8bcd63dcb50db07584dc3f63767ecc1863d021a04b7538",
   "minimum_section_area_mm2": 0.01,
   "parts": {
     "cavity": {
-      "stl_sha256": "32e4f80fd2e754e058885c7189c8a8585134feb99218ea6888974d515154372a",
-      "layers_checked": 304,
+      "stl_sha256": "6b037ebc4bc751c8ba880aa2378552be1cadf63ebbdba8dd91ec4ebf9de7819a",
+      "layers_checked": 307,
       "bed_contact_regions": 3,
-      "floating_section_components": []
+      "floating_section_components": [
+        {
+          "z_mm": 1.04,
+          "area_mm2": 84.34555571505719
+        }
+      ],
+      "slicer_support_present": true,
+      "scope": "Model connectivity only; support contact is not assessed."
     },
     "core": {
-      "stl_sha256": "cd3e829639816490e2fe7482f7e27dfe29c57da0b584aa56f40f83e13d32a703",
-      "layers_checked": 240,
-      "bed_contact_regions": 3,
-      "floating_section_components": []
+      "stl_sha256": "c982b78323333391a0d26b0ec05c7915a3f5bd18d935eaa7a89b023f9b6b7389",
+      "layers_checked": 188,
+      "bed_contact_regions": 1,
+      "floating_section_components": [
+        {
+          "z_mm": 14.0,
+          "area_mm2": 163.61229495395887
+        }
+      ],
+      "slicer_support_present": true,
+      "scope": "Model connectivity only; support contact is not assessed."
     }
   }
 }
