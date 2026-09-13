@@ -25,11 +25,17 @@ import cadquery as cq
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path[:0] = [str(_hw / "scripts"), str(_hw / "reference" / "tee-connector"),
+               str(_hw / "reference" / "lee-lcm060c12m"),
                str(_here.parent.parent / "enclosure")]
 from _cadq_export import export_assembly
 from _material_base import M_PETGF_BLACK, one_body
 import _enclosure_interface as enclosure_interface
+import fits
 import tee_connector as tee
+import lee_lcm060c12m as spring
+
+_SPRING_GUIDE_D = max(spring.HOLE_DIAMETER, spring.OUTSIDE_DIAMETER
+                      + max(spring.OUTSIDE_DIAMETER_TOLERANCE) + 2.0 * fits.running)
 
 
 @dataclass(frozen=True)
@@ -51,9 +57,9 @@ class CarrierSpec:
     tie_stock_w: float = 2.5
     tie_stock_t: float = 1.0
     tie_head: tuple[float, float, float] = (5.0, 3.6, 2.8)
-    spring_pad_d: float = 12.4
+    spring_pad_d: float = _SPRING_GUIDE_D + 6.0
     spring_pad_t: float = 5.0
-    spring_seat_d: float = 6.4
+    spring_seat_d: float = _SPRING_GUIDE_D
     spring_seat_depth: float = 2.0
     spring_roof_angle_deg: float = 45.0
     release_offset_y: float = tee.CARRIER_RELEASE_OFFSET
@@ -63,14 +69,14 @@ class CarrierSpec:
     aft_coil_fore_y: float = 116.960
     exterior_x: float = 107.5
     guide_inner_x: float = 98.5
-    slide_air: float = 0.15
+    slide_air: float = fits.running
     finger_run: float = 16.0
     finger_air: float = 0.2
     grip_bar_t: float = 16.0
-    grip_back_x: float = 90.295
+    grip_back_x: float = 90.395
     grip_back_t: float = 3.0
     grip_aft_t: float = 3.0
-    grip_rail_top_z: float = 174.95
+    grip_rail_top_z: float = 175.05
     grip_shoulder_rise: float = 6.0
     grip_rim_t: float = 3.0
     grip_wall_t: float = 3.0
@@ -189,12 +195,21 @@ class CarrierSpec:
     def entry_shoulder_inset_x(self):
         return self.grip_wall_t + self.slide_air
 
+    @property
+    def capture_probe_angle(self):
+        """Rotation just beyond the bar's clearance between its opposed flat guides."""
+        run = self.grip_bar_t / 2.0 - self.grip_edge_r
+        height = (self.grip_z[1] - self.grip_z[0]) / 2.0
+        reach = math.hypot(run, height)
+        return math.degrees(math.atan2(run, height)
+                            - math.acos((height + self.slide_air) / reach)) + 0.1
+
 
 DEFAULT_SPEC = CarrierSpec(
     tee_xs=(-79.82, -20.07, 20.07, 79.82), tee_axis_z=190.245,
-    web_x=(-94.0, 94.0), web_fore_y=107.968, web_z=(171.245, 220.165),
+    web_x=(-94.0, 94.0), web_fore_y=107.968, web_z=(171.245, 220.065),
     spring_xs=(-49.945, 49.945), spring_axis_z=190.245,
-    tab_outer_x=107.5, tab_z=(174.950, 226.390),
+    tab_outer_x=107.5, tab_z=(175.050, 226.190),
 )
 
 
@@ -726,11 +741,14 @@ def sync_readme(spec=DEFAULT_SPEC):
         'GUIDE_LENGTH': spec.grip_y[1] - spec.grip_y[0],
         'OPENING_RUN': spec.grip_bar_t + spec.finger_run + spec.park_offset_y - spec.release_offset_y,
         'GUIDE_AIR': spec.slide_air,
+        'CAPTURE_PROBE_SHIFT': spec.slide_air + 0.001,
         'GUIDE_TRAVEL': spec.park_offset_y - spec.release_offset_y,
         'AFT_COLLET_GAP': tee.CARRIER_AFT_COLLET_GAP,
         'RIM_BED_GAP': spec.rim_z[0] - spec.web_z[0],
     }
-    substitute_md(_here.parent / 'README.md', {key: f'{value:.6g} mm' for key, value in values.items()})
+    figures = {key: f'{value:.6g} mm' for key, value in values.items()}
+    figures['CAPTURE_PROBE_ANGLE'] = f'{spec.capture_probe_angle:.3g}°'
+    substitute_md(_here.parent / 'README.md', figures)
 
 
 def main():

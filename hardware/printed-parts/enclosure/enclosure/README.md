@@ -1125,19 +1125,19 @@ the stamped bracket on −Y and both X sides; +Y remains open for the fittings. 
 from that bracket directly into the lower cradle and then into the bay floor.
 
 The head's [8 mm](PUMP_SKIRT_DEPTH) skirt stands over one flat horizontal land at z
-[205.594 mm](PUMP_SKIRT_SUPPORT_Z). The [0.15 mm](PUMP_SKIRT_SUPPORT_AIR) difference between
+[205.494 mm](PUMP_SKIRT_SUPPORT_Z). The [0.25 mm](PUMP_SKIRT_SUPPORT_AIR) difference between
 the skirt bottom and that land is Z clearance. The land keeps the skirt's existing X/Y plan;
 there is no slanted substitute for it. It is continuous across the X−, Y− and X+ flanks, with
-[5 mm](PUMP_SKIRT_Y_MINUS_LAND) under Y−. The
-measured [54 mm](PUMP_SKIRT_BODY_Y) body has [0.15 mm](PUMP_SKIRT_XY_AIR) per-face clearance
-in a [54.3 mm](PUMP_SKIRT_OPEN_Y) Y opening, from y
-[18.637 mm](PUMP_SKIRT_BODY_Y_MINUS_EDGE) to y
-[72.937 mm](PUMP_SKIRT_BODY_Y_PLUS_EDGE). On Y+ the same land continues only between the two
+[4.9 mm](PUMP_SKIRT_Y_MINUS_LAND) under Y−. The
+measured [54 mm](PUMP_SKIRT_BODY_Y) body has [0.25 mm](PUMP_SKIRT_XY_AIR) per-face clearance
+in a [54.5 mm](PUMP_SKIRT_OPEN_Y) Y opening, from y
+[18.537 mm](PUMP_SKIRT_BODY_Y_MINUS_EDGE) to y
+[73.037 mm](PUMP_SKIRT_BODY_Y_PLUS_EDGE). On Y+ the same land continues only between the two
 tube-casing passages. The skirt itself spans [62.5 mm](PUMP_SKIRT_Y), from y
 [13.619 mm](PUMP_SKIRT_Y_MINUS_EDGE) to y [76.119 mm](PUMP_SKIRT_Y_PLUS_EDGE); its opening ends
 at y [76.419 mm](PUMP_SKIRT_Y_PLUS_OPEN_EDGE), leaving
 [0.3 mm](PUMP_SKIRT_Y_PLUS_AIR) around the skirt and
-[3.482 mm](PUMP_SKIRT_Y_PLUS_LAND) of supporting land back to the body opening. Behind
+[3.382 mm](PUMP_SKIRT_Y_PLUS_LAND) of supporting land back to the body opening. Behind
 that opening the cradle keeps [3 mm](PUMP_SKIRT_AFT_STOCK) of stock, at least the
 [3 mm](PUMP_SKIRT_UPPER_BAND) upper band that ends at y [79.419 mm](PUMP_SKIRT_UPPER_BAND_AFT),
 and ends on the cartridge's flat back at y [79.419 mm](PUMP_CARTRIDGE_AFT_Y): the bay bulkhead
@@ -1150,30 +1150,31 @@ stands at z [215.75 mm](CLAMP_BASE_Z) on the upper face of each measured
 fore envelope to the cartridge's flat back and reaches one common crown at z
 [277.5 mm](CLAMP_CROWN_Z), with [6 mm](CLAMP_LINTEL_AIR) of Z air below the fixed bay lintel.
 Two fitted openings wrap
-both bosses with the pump case's exact octagonal bore and leave one shoulder around each motor
+both bosses with [0.25 mm](CLAMP_BOSS_AIR) clearance from each octagonal face and leave one shoulder around each motor
 can. Both fitted openings follow the pump reference's rear-stack axis,
 [1 mm](CLAMP_PUMP_Y_SHIFT) toward Y− from the head and lower-cradle datum. Nothing else is cut
-from the field: the [46.89 mm](CLAMP_SCREW_LANE) lane between the two octagons stays full from
+from the field: the [46.39 mm](CLAMP_SCREW_LANE) lane between the two octagons stays full from
 base to crown, and the two screw stations cross it in their own bores,
 [36 mm](CLAMP_SCREW_PITCH) apart on the centreline. Each [60 mm](CLAMP_SCREW_LEN) M3 drops
 through a counterbore in the crown whose seat is struck from the screw,
 [9.45 mm](CLAMP_HEAD_SEAT_DEPTH) under the crown at z [268.045 mm](CLAMP_HEAD_SEAT_Z), runs the
 whole field and the bracket-height gap under it, and takes the complete
 [5.7 mm](CLAMP_INSERT_LEN) long insert opened from the cradle's bracket plane. The clamp
-carries no show face, plate stop or hand pull.
+carries no show face, plate stop or hand pull. Its insertion wells leave
+[0.25 mm](CLAMP_DROP_AIR) per-face clearance around the clamp.
 
 The service sequence follows those two load paths. Withdraw the assembled cartridge by its
 cradle pulls before any Z service; back out the two clamp screws on the withdrawn cartridge;
 lift off the clamp; then lift either complete pump straight up. Assembly is the reverse on the
 bench, followed by straight Y insertion.
 
-**Each of the four tube-casing openings is [13 mm](CAP_TUBE_OPEN) wide** around a
-[12.75 mm](CAP_TUBE_PART) casing, leaving 0.125 mm per side. The two casing axes on each pump
+**Each of the four tube-casing openings is [13.25 mm](CAP_TUBE_OPEN) wide** around a
+[12.75 mm](CAP_TUBE_PART) casing, leaving [0.25 mm](CAP_TUBE_RADIAL_AIR) per side. The two casing axes on each pump
 stand [59.75 mm](CAP_TUBE_PITCH) apart. The physical pair spans
 [72.5 mm](CAP_TUBE_PART_SPAN), while its holder openings span
-[72.75 mm](CAP_TUBE_OPEN_SPAN). Each passage begins
-[0.15 mm](CAP_TUBE_AXIAL_AIR) before the casing face along Y. Its circular lower half is
-centered on the casing axis and a straight 13 mm shaft continues through the complete vertical
+[73 mm](CAP_TUBE_OPEN_SPAN). Each passage begins at the case-room seam,
+y [50.086 mm](CAP_TUBE_START_Y). Its circular lower half is
+centered on the casing axis and a straight [13.25 mm](CAP_TUBE_OPEN) shaft continues through the complete vertical
 insertion path. The shafts, tube-side case room and upper well share the same outer X planes;
 printed wall remains between and outside the passages. The full-width upper wells end together
 at the bulkhead face, y [79.519 mm](PUMP_UPPER_WELL_AFT). The cradle and clamp have flat
@@ -1257,15 +1258,15 @@ that row's valves from underneath and carry the moving hairpins. Branch journals
 continue forward to the fixed collet plate. One common full-width face clears the tie heads,
 ends the spring bores and clears the upper lap's lateral entry.
 
-Each flank opening is 34.15 mm long in Y and 51.74 mm tall, with 16 mm minimum finger
+Each flank opening is 34.15 mm long in Y and 51.64 mm tall, with 16 mm minimum finger
 clearance behind a 16 mm solid bar. The 3 mm inboard backing and aft walls close the finger
-space through the full stroke. The aft wall sits 3.15 mm behind the enclosure's outer face.
-The bar's root overlaps the moving web's full thickness. Its flat underside runs 0.15 mm
+space through the full stroke. The aft wall sits 3.25 mm behind the enclosure's outer face.
+The bar's root overlaps the moving web's full thickness. Its flat underside runs 0.25 mm
 above the opening's lower edge and clears the seam rail across its full depth.
 A fore shoulder retains the bar behind the wall, and an upper tongue meets the park stop
 above the finger space. The internal recess continues from the outer tee well to the aft
 tray's fore plane. Its upper entry passage passes inboard of that stop. The carrier's complete
-insertion and working sweeps include 0.15 mm clearance on each side in X and Z.
+insertion and working sweeps include 0.25 mm clearance on each side in X and Z.
 
 Two round spring bores terminate on the fixed wall and end on the body's common aft face.
 Each compressed spring enters through an inner tee well above the seated tee, moves outward
@@ -1343,8 +1344,8 @@ between those two flat gaps with no taper.
 face shares its exterior plane. The fitted lower head wells leave at least
 [8.609 mm](PUMP_FACE_SKIN) of smooth stock ahead of them. The upper insertion wells end
 on one flat plane, 0.2 mm ahead of the clamp, leaving
-[5.809 mm](PUMP_UPPER_SMOOTH_SKIN) of smooth section and
-[4.609 mm](PUMP_UPPER_FLUTED_SKIN) behind the deepest flutes.
+[5.759 mm](PUMP_UPPER_SMOOTH_SKIN) of smooth section and
+[4.559 mm](PUMP_UPPER_FLUTED_SKIN) behind the deepest flutes.
 Both lower wells follow the pump stations, including their skirt lands and fitting passages.
 The fixed wall's two 45°-chamfered compressor reliefs (`_front_relief_cuts`) follow the
 mounting plate's front strip and power box. The compressor is the only body in the compressor bay
@@ -1369,7 +1370,7 @@ Z− plane, with no shallow pocket ceiling or narrow perimeter foot. Above that 
 case-derived octagon engages the white boss over its complete run and the shoulder surrounds
 the can. Thus the cradle takes weight, the clamp prevents lift, and the octagon fixes X, Y and
 yaw. With the cartridge withdrawn, the clamp's vertical path keeps
-[5.809 mm](CLAMP_FRONT_SKIN) of smooth cradle skin ahead of its fore face. A
+[5.759 mm](CLAMP_FRONT_SKIN) of smooth cradle skin ahead of its fore face. A
 [7.91 mm](CLAMP_AFT_WALL) wall remains aft of each octagon to locate the boss
 against +Y.
 

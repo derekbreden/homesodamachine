@@ -1587,8 +1587,7 @@ plate_foot_corbel_angle = 45.0
 # is therefore the well above the bracket plane; below that plane the smaller head room leaves
 # the bracket's three closed sides standing on material.
 cap_pump_air = 0.4           # running air round the head in the cradle's lower well
-cap_tube_axial_air = 0.15    # insertion air along the casing axes; the 13 mm shaft already
-                             # includes its radial fit allowance
+cap_boss_air = fits.running  # per-face insertion air around each octagonal pump boss
 cap_slot_half = _tray.outlet_open_half
 cap_fitting_half = _tray.shaft_w / 2.0
 cap_screw_len = 60.0         # M3 SHCS under-head length (M3x60), crown seat → cradle insert
@@ -1597,7 +1596,7 @@ cap_head_h = 3.0             # DIN 912 M3 head, nominal: the least crown a seat 
 cap_screw_off = 18.0         # the two screws fore/aft of the centre lane's mid-depth
 clamp_lane_overlap = 2.0     # the cradle's centre clearance into each upper well, so the lane
                              # and the two wells read as one opening for the clamp's spine
-clamp_drop_air = 0.2         # clamp footprint and bracket air through the cradle well
+clamp_drop_air = fits.running  # clamp footprint and bracket air through the cradle well
 clamp_pump_y_shift = _tray.rear_axis_y_shift  # rear-stack openings off the head/cradle datum
 
 # --- THE HAND PULLS ONLY THE LOWER CRADLE -----------------------------------
@@ -5286,7 +5285,7 @@ def cap_head_seat_z(box):
 
 
 def pump_skirt_support_z(pump_trays):
-    """The flat cradle land under each 8 mm pump skirt, with 0.15 mm Z clearance."""
+    """The flat cradle land one running clearance below each 8 mm pump skirt."""
     return cap_drop_start_z(pump_trays) - _tray.skirt_depth - _tray.skirt_support_air
 
 
@@ -5329,7 +5328,7 @@ def cap_screw_ys(inner, plate):
 
 def _outlet_fore_miter_wedges(cx, cy, cz):
     """Both passages' fore closures for one pump: the wide flare's own 45 degree seam plane,
-    carried from the body room's edge to the 72.75 mm opening envelope on each side.
+    carried from the body room's edge to the 73 mm opening envelope on each side.
 
     Cut from the pump's fused lower void; the opening's fore boundary is the room's own
     flare plane, one plane from the narrow half out to the envelope."""
@@ -5385,14 +5384,14 @@ def _pump_drop_voids(box):
     skirt. The step supports X-, Y- and X+ continuously; on Y+ it supports only the centre
     between the two tube passages. From that outlet face, two individual
     fitting passages run aft to the block's own face. Each keeps a circular lower half around
-    its tube axis and a straight 13 mm shaft above it. The two shafts' outside edges, the
-    tube-side case room and the upper well share one 72.75 mm opening boundary. Each passage's
+    its tube axis and a straight 13.25 mm shaft above it. The two shafts' outside edges, the
+    tube-side case room and the upper well share one 73 mm opening boundary. Each passage's
     fore end closes on the flare's own 45 degree seam plane, run from the body room's edge out
     to that boundary; under each circle, the room's seam edge joins it on one steep tangent
     plane standing on the case ramp's own seam. The wall between and outside them remains
     printed stock.
 
-    ABOVE THE BRACKET each 72.75 mm well passes the stamped bracket, pump and complete
+    ABOVE THE BRACKET each 73 mm well passes the stamped bracket, pump and complete
     clamp, opening through the cartridge's flat aft face. The centre clearance joins
     the two wells over the clamp spine. At the seat the upper wells stop on the bracket
     plane, leaving the fitted head room and its bearing lands below."""
@@ -5409,8 +5408,8 @@ def _pump_drop_voids(box):
         for sx in (-1.0, 1.0):
             hx = cx + sx * _tray.outlet_pitch / 2.0
             # Carry the complete circle-and-shaft passage through the tube-side body room.
-            # Its overlap with that room is free volume; the circle joins the 13 mm shaft
-            # tangent to the 72.75 mm upper boundary.
+            # Its overlap with that room is free volume; the circle joins the 13.25 mm shaft
+            # tangent to the 73 mm upper boundary.
             y0 = cy + _tray.outlet_passage_start_y(cap_pump_air)
             y1 = pump_cartridge_aft_y(trays, plate) + 1.0
             circle = _ycyl(cap_fitting_half, hx, outlet_axis, y0, y1)
@@ -5569,7 +5568,9 @@ def pump_cartridge_figures(box):
         "CLAMP_HEAD_SEAT_Z": f"{cap_head_seat_z(box):.6g} mm",
         "CLAMP_INSERT_LEN": f"{cap_heatset_len:.4g} mm",
         "CLAMP_SCREW_LANE": f"{2.0 * (min(abs(cx) for cx, _cy, _cz in trays)
-                                     - _tray.boss_half):.4g} mm",
+                                     - _tray.boss_half - cap_boss_air):.4g} mm",
+        "CLAMP_BOSS_AIR": f"{cap_boss_air:.4g} mm",
+        "CLAMP_DROP_AIR": f"{clamp_drop_air:.4g} mm",
         "CLAMP_FRONT_SKIN": f"{(clamp_fore - clamp_drop_air - pump_cartridge_front_y):.4g} mm",
         "CLAMP_AFT_WALL": f"{(clamp_aft - max(cy + clamp_pump_y_shift + _tray.boss_half
                                                 for _cx, cy, _cz in trays)):.4g} mm",
@@ -5579,7 +5580,8 @@ def pump_cartridge_figures(box):
         "CAP_TUBE_OPEN": f"{2.0 * cap_fitting_half:.5g} mm",
         "CAP_TUBE_PART": f"{_tray.fitting_w:.4g} mm",
         "CAP_TUBE_PITCH": f"{_tray.outlet_pitch:.4g} mm",
-        "CAP_TUBE_AXIAL_AIR": f"{cap_tube_axial_air:.4g} mm",
+        "CAP_TUBE_RADIAL_AIR": f"{cap_fitting_half - _tray.fitting_w / 2.0:.4g} mm",
+        "CAP_TUBE_START_Y": f"{min(cy for _cx, cy, _cz in trays) + _tray.outlet_passage_start_y(cap_pump_air):.6g} mm",
         "PUMP_SKIRT_DEPTH": f"{_tray.skirt_depth:.4g} mm",
         "PUMP_SKIRT_SUPPORT_AIR": f"{_tray.skirt_support_air:.4g} mm",
         "PUMP_SKIRT_SUPPORT_Z": f"{pump_skirt_support_z(trays):.6g} mm",
@@ -6148,7 +6150,7 @@ def _pump_clamp_gross(box, halves_cache=None):
     solid = _ybox(x0, x1, fore, aft, base, crown)
     for cx, cy, cz in trays:
         opening_y = cy + clamp_pump_y_shift
-        solid = solid.cut(_tray.boss_room(0.0).moved(
+        solid = solid.cut(_tray.boss_room(cap_boss_air).moved(
             cq.Location(cq.Vector(cx, opening_y, split))))
         solid = solid.cut(_zcyl(
             _tray.can_half, cx, opening_y,
@@ -6175,7 +6177,7 @@ def _cap_screws(box):
             f"an M3x{cap_screw_len:g} seats {crown - seat:.2f} mm under the clamp's crown at "
             f"Z{crown:g}, less than its {cap_head_h:g} mm head: the screw is too long for "
             f"the field it crosses")
-    lane = min(abs(cx) for cx, _cy, _cz in trays) - _tray.boss_half
+    lane = min(abs(cx) for cx, _cy, _cz in trays) - _tray.boss_half - cap_boss_air
     if lane < head_cbore_dia / 2.0 + wall:
         raise ValueError(
             f"the two boss octagons leave {lane:.2f} mm of filled lane either side of the "

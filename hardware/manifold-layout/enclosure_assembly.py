@@ -266,8 +266,7 @@ WAGO_POLES = ("wago-h", "wago-n", "wago-g", "wago-v12", "wago-gnd")
 #     w.travel("wago-reeds-b", (0, 0, -1))
 CLUSTER_WAGOS = {
     # The east well's tower stands outside the operating envelope but crosses the carrier's
-    # open-top service descent if brought any farther forward. Y=121 leaves 0.88 mm beyond the
-    # release-state carrier with the normal 0.15 mm running allowance.
+    # open-top service descent if brought any farther forward.
     "wago-mana": (+1, 121.0, 300.0, "420"),
     "wago-manb": (-1, 119.0, 291.0, "415"),
     "wago-reeds-b": (-1, 335.0 - 2.0 * _enc.wago_pitch, 270.0, "420"),
@@ -1310,8 +1309,12 @@ def tee_carrier_spec(mcarry, squeeze_stood, plate) -> _carrier.CarrierSpec:
                           for name in aft_coils)
     fore_valve_bottom = min(box(solids[f"valve-v-{name}"]).zmin for name in "efhi")
     states = plate["carrier_states"]
-    tab_z = (tee_axis_z + base.tab_z[0] - base.tee_axis_z,
-             tee_axis_z + base.tab_z[1] - base.tee_axis_z)
+    trays = valve_tray_stations(solids)
+    grip_roof = (min(z for _plane, sign, seats in trays if sign > 0 for _x, z in seats)
+                 - _vtray._valve.body_radius - _vtray.PORT_SLIP - _enc.wall)
+    tab_z = (_enc.z_seam + _enc.z_rise + base.slide_air,
+             min(tee_axis_z + base.tab_z[1] - base.tee_axis_z,
+                 grip_roof - base.grip_top_overlap - 2.0 * base.slide_air))
     spec = _carrier.CarrierSpec(
         tee_xs=tee_xs,
         tee_axis_z=tee_axis_z,
@@ -1459,7 +1462,7 @@ def tee_carrier_interface(spec: _carrier.CarrierSpec, plate, squeeze_stood) -> d
                                 + max(_carrier_spring.OUTSIDE_DIAMETER_TOLERANCE)),
         "spring_seat_d": spec.spring_seat_d,
         "spring_seat_depth": spec.spring_seat_depth,
-        "spring_guide_d": _carrier_spring.HOLE_DIAMETER,
+        "spring_guide_d": spec.spring_seat_d,
         "spring_guide_length": body_face_y - fixed_y,
         "spring_guide_xz": tuple((x, spec.spring_axis_z) for x in spec.spring_xs),
         "spring_load_length": load_length,
@@ -1699,8 +1702,8 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
         for side, x in zip(("west", "east"), spec.spring_xs):
             fixed_y = interface["fixed_spring_bearing_y"]
             read(
-                f"{state} spring-{side} maximum-OD envelope",
-                _enc._ycyl(interface["spring_clearance_d"] / 2.0, x, spec.spring_axis_z,
+                f"{state} spring-{side} maximum OD plus running air",
+                _enc._ycyl(interface["spring_clearance_d"] / 2.0 + spec.slide_air, x, spec.spring_axis_z,
                             fixed_y, fixed_y + spring_length),
                 (("enclosure-front-top", wall),),
             )
@@ -1824,7 +1827,7 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
     # crosses below the upper bearing, then lowers into its seat. The fore valves are absent.
     parked_carrier = carrier.translate((0, park, 0))
     for x, entry_x in zip(spec.spring_xs, interface["spring_entry_xs"]):
-        radius = interface["spring_clearance_d"] / 2.0
+        radius = interface["spring_clearance_d"] / 2.0 + spec.slide_air
         load_y = interface["spring_load_fore_y"] + interface["spring_load_end_air"]
         end_y = load_y + interface["spring_load_length"]
         transfer_z = interface["spring_transfer_z"]
@@ -1885,7 +1888,7 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
             tip = list(center)
             tip[axis] += 1.0
             for sign in (-1, 1):
-                hit = posed.rotate(center, tuple(tip), sign * 1.0).intersect(guides).Volume()
+                hit = posed.rotate(center, tuple(tip), sign * spec.capture_probe_angle).intersect(guides).Volume()
                 contact_min = min(contact_min, hit)
                 if hit <= CARRIER_MOTION_OVERLAP_TOL:
                     failures.append(f"{state}: flank guides do not stop rotation about {'XYZ'[axis]}{sign:+d}")
@@ -1898,7 +1901,8 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
         f"{readings} solid/envelope checks including {spec.slide_air:g} mm X/Z air through "
         f"every carrier insertion and working sweep; maximum unintended overlap {max_overlap:.6f} mm³; "
         f"release/park overshoots {release_hit:.6f}/{park_hit:.6f} mm³; "
-        f"40 independent flank-capture readings, minimum contact {contact_min:.6f} mm³; "
+        f"40 independent flank-capture readings at {spec.capture_probe_angle:.3g}° rotation, "
+        f"minimum contact {contact_min:.6f} mm³; "
         f"minimum upper/lower web bearing {min(web_bearings):.3f} mm²; "
         f"minimum depressed-collet bearing {min(nose_contacts):.3f} mm²; "
         f"fore tube bottom {plate['tube_bottom_y']:.3f} mm Y, "
