@@ -1236,14 +1236,14 @@ The cradle's flat aft edge is at y [79.419 mm](PUMP_CARTRIDGE_AFT_Y),
 
 **Both pulls belong to the cradle and stand on its own Y midline.** Each side pocket has a
 nominal envelope [18 mm](PULL_DEPTH) deep, [28 mm](PULL_RUN) fore/aft and
-[45.47 mm](PULL_RISE) high, centred at y [42.21 mm](PULL_CENTER_Y). Its four floor/roof-to-end-wall
+[44.15 mm](PULL_RISE) high, centred at y [42.21 mm](PULL_CENTER_Y). Its four floor/roof-to-end-wall
 corners have [5 mm](PULL_CORNER_R) rounds, and its complete hand-contact rim has a
 [3 mm](PULL_EDGE_R) round, matching the enclosure handholds. The rim opens outward around the
 nominal envelope. Its level floor at z [176.25 mm](PULL_FLOOR_Z) leaves
 [10.88 mm](PULL_FLOOR_LIGAMENT) of bed-rooted cradle below it,
 [7.88 mm](PULL_RIM_FLOOR_LIGAMENT) at the rounded exterior edge, and places the pull datum,
 z [188.25 mm](PULL_CENTER_Z), 12 mm inside the mouth. Its roof is one flat plane through the
-complete fingertip depth at z [221.715 mm](PULL_TOP_Z), the same plane as the neighboring
+complete fingertip depth at z [220.39 mm](PULL_TOP_Z), the same plane as the neighboring
 tee-carrier grip's roof. A Y-normal wall closes each end of the pocket:
 the fore wall at y [28.21 mm](PULL_LEDGE) is the ledge the fingers pull on, the aft wall at
 y [56.21 mm](PULL_AFT_LEDGE) the one they push on, with [23.21 mm](PULL_FORE_STOCK) of cradle

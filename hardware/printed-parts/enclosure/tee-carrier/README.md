@@ -19,7 +19,7 @@ weight. The carrier follows the tubes forward until the fixed plate releases the
 
 Each closed cup joins the web through its back, roof and floor. Its fore and aft bars are each
 [10 mm](GRIP_BAR_T) thick. The finger recess is centered in Y and Z within the visible
-[42 mm](GUIDE_LENGTH) by [56.47 mm](GRIP_HEIGHT) flush face. The recess is [22 mm](FINGER_RUN) fore/aft, [44.47 mm](FINGER_HEIGHT) high and
+[42 mm](GUIDE_LENGTH) by [55.145 mm](GRIP_HEIGHT) flush face. The recess is [22 mm](FINGER_RUN) fore/aft, [43.145 mm](FINGER_HEIGHT) high and
 [14.705 mm](FINGER_DEPTH) deep, with [5 mm](GRIP_CORNER_R) corners and a
 [3 mm](GRIP_EDGE_R) round at the mouth. The fingers
 bear on the front bar's aft face, opposing the thumb on the cartridge pocket's aft wall.
