@@ -17,16 +17,16 @@ For removal, pull the cartridge against the enclosure. The fixed collet plate ca
 reaction into the whole box, which can be braced by a hand, foot, cupboard edge or its own
 weight. The carrier follows the tubes forward until the fixed plate releases their collets.
 
-Each service tab is one [8 mm](GRIP_BAR_T) bar in Y. Its aft face lies on the web's aft
+Each service tab is one [16 mm](GRIP_BAR_T) bar in Y. Its aft face lies on the web's aft
 plane, and the root overlaps the web's full thickness. The bar presents
-[51.44 mm](FINGER_HEIGHT) of vertical contact over its full [17.205 mm](FINGER_DEPTH)
+[51.44 mm](FINGER_HEIGHT) of vertical contact over its full [14.205 mm](FINGER_DEPTH)
 depth, with [2 mm](GRIP_EDGE_R) rounds on its exposed vertical edges. The fingers bear on
-that aft face, opposing the thumb on the cartridge pocket's aft wall. The two faces stand
-50 mm apart at squeeze and connected.
+that aft face, opposing the thumb on the cartridge pocket's aft wall.
 
-The finger space is open through the moving tab's top and bottom and has no aft bar or
-backing wall. The fixed opening is [30.15 mm](OPENING_RUN) long in Y and leaves at least
-[20 mm](FINGER_RUN) behind the bar throughout its travel. The opening's upper and lower
+The finger space is open through the moving tab's top and bottom and has no aft bar.
+A [3 mm](GRIP_BACK_T) inboard wall closes its back and extends behind the opening's aft
+edge throughout the stroke. The fixed opening is [34.15 mm](OPENING_RUN) long in Y and leaves at least
+[16 mm](FINGER_RUN) behind the bar throughout its travel. The opening's upper and lower
 edges lie outside the bar's [55.145 mm](GRIP_HEIGHT) overall height.
 
 Both outer faces finish flush with the enclosure; total width across the grips is
@@ -133,7 +133,7 @@ before fitting the ties; their insertion path passes behind the bare web.
 
 ## Print and verification
 
-Print both halves upright, +Z up, with the web and bar's outer foot on the bed. The internal
+Print both halves upright, +Z up, with the web, backing wall and bar's outer foot on the bed. The internal
 shoulder begins [9.705 mm](RIM_BED_GAP) above the bed; its extension and the central lap
 take removable support accessible from the loose half's underside. The fixed body's guide
 ceilings take support, removed through the open aft cavities before assembly. Its spring
@@ -151,7 +151,7 @@ order and printed inventory. The generator exports `enclosure-tee-carrier-left` 
 `enclosure-tee-carrier-right`, each as STEP, STL and viewer payload.
 
 The part selftest checks solids, bed fit, lap contact, fastener stack, tie paths, full web
-roots, open vertical finger passages, shoulder overlap and assembly clearance between halves.
+roots, continuous backing, open vertical finger passages, shoulder overlap and assembly clearance between halves.
 The appliance's `tee-carrier-motion` reading includes 0.15 mm X/Z clearance around every complete
 carrier entry and working sweep. It checks tee loading, rear entry, lowering, outward seating, aft-valve
 entry beside the joined carrier, lap closure, fore screw/driver
