@@ -59,5 +59,10 @@ click: x=77.370 y=95.085 z=232.690
 
 [step] The faces at x=±103.650 are the standing walls of the front Z-seam's rail channels, set by the rail head and its running clearance in `_rail_channel_span`. The common floor joins this channel section below the flank's x=±104.500 interior face. The offset preserves the seam's sliding passage, with continuous enclosure stock behind the channel wall.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-103.650 y=143.146 z=170.297
-click: x=103.650 y=143.146 z=170.297
+click: x=-103.650 y=118.226 z=169.498
+click: x=103.650 y=118.226 z=169.498
+
+[sliver] The upward-facing 0.85 mm step joins the rail channel's |X|103.650 wall to the flank's |X|104.500 interior face at the common floor. The solid continues outward into the enclosure wall: a continuous 3 mm X by 3 mm Z section backs the step along its full Y length. The narrow face bounds that solid wall section.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=-104.075 y=130.939 z=171.095
+click: x=104.075 y=130.939 z=171.095
