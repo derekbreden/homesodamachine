@@ -6,7 +6,6 @@ import json
 import os
 import subprocess
 import sys
-import math
 
 ROOT=Path(__file__).resolve().parents[2]
 HARDWARE=ROOT/'hardware'
@@ -27,8 +26,7 @@ reg=load(HARDWARE/'reference/wellbom-regulator/wellbom_regulator.py','quickstart
 SILVER=cq.Color(.63,.66,.70)
 BLACK=cq.Color(.07,.075,.085)
 GLASS=cq.Color(.58,.70,.74,.30)
-DRINK=cq.Color(.80,.66,.33,.82)
-WATER=cq.Color(.39,.66,.82,.80)
+DRINK=cq.Color(.20,.07,.025,1.0)
 jobs=[]
 
 def stage(name,assembly,cam,target,span,size='1600x1500',flutes=False):
@@ -91,13 +89,8 @@ def pour(pressed):
     rim=cq.Workplane('XY').workplane(offset=103.4).circle(37).circle(34.1).extrude(.7)
     a.add(rim.translate((gx,gy,0)),name='glass-rim',color=cq.Color(.80,.87,.90))
     if pressed:
-        drink=cq.Workplane('XY').workplane(offset=5).circle(28).workplane(offset=58).circle(31.5).loft()
+        drink=cq.Workplane('XY').workplane(offset=5).circle(27.7).workplane(offset=75).circle(32.1).loft()
         a.add(drink.translate((gx,gy,0)),name='drink',color=DRINK)
-        a.add(install._cyl(gx,gy,63,4.4,tip[2]-63),name='water-stream',color=WATER)
-        angle=fa.gn_bend1_sweep_rad+fa.gn_bend2_sweep_rad-math.pi/2
-        offset=fa._gn_flavor_depth_offset
-        fy=gy-offset*math.sin(angle);fz=tip[2]+offset*math.cos(angle)
-        a.add(install._cyl(fa.flavor_tube_x_offset,fy,63,1.4,fz-63),name='flavor-stream',color=DRINK)
     (OUT/'pour-points.json').write_text(json.dumps({'tip':list(tip),'lever':[0,fa.lever_pivot_y,fa.lever_pivot_z]}))
     return a
 
@@ -112,11 +105,15 @@ def render():
     currentGroup.traverse((part) => {
       if (part.name === "glass") {
         part.material = new THREE.MeshPhysicalMaterial({
-          color: "#c9e0e5", opacity: 0.22, transparent: true,
+          color: "#c9e0e5", opacity: 0.10, transparent: true,
           roughness: 0.15, metalness: 0.05, depthWrite: false,
           side: THREE.DoubleSide,
         });
         part.renderOrder = 10;
+      } else if (part.name === "drink") {
+        part.material = new THREE.MeshPhongMaterial({
+          color: "#351507", specular: "#251408", shininess: 35,
+        });
       }
     });
     renderer.render(scene, cam);''')

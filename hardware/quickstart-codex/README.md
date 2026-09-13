@@ -1,4 +1,4 @@
-# Quick start · Codex
+# Home Soda Machine quick start
 
 One 19 × 13 inch landscape sheet with seven illustrated steps, from mounting the faucet
 to filling both flavors and pouring the first glass. Print at 100% on 13 × 19 inch paper.
