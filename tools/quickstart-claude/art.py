@@ -80,13 +80,21 @@ def _regulator_module():
     return ia._load(ia.REGULATOR_DIR, "wellbom_regulator")
 
 
-def _cylinder_and_regulator(gap: float) -> cq.Assembly:
-    """The regulator on its cylinder, the tether's connector pair `gap` mm from its seated pose."""
+def _cylinder_and_regulator(gap: float, stand_off: float = 0.0) -> cq.Assembly:
+    """The regulator and its cylinder: the two joints the buyer makes.
+
+    `stand_off` holds the regulator out along the inlet axis, its big nut short of the valve's
+    stub; `gap` holds the tether's connector pair below the outlet. Both zero is seated.
+    """
     reg = _regulator_module()
-    a = reg.build_assembly()
+    regulator = reg.build_assembly()
     tip, _ = reg.outlet()
     x, y, z = tip
+    x += stand_off
+    tip = (x, y, z)
     inlet_face_x = reg.inlet()[0][0]
+    a = cq.Assembly(name="cylinder-and-regulator")
+    a.add(regulator, name="regulator", loc=cq.Location(cq.Vector(stand_off, 0.0, 0.0)))
 
     # The valve: outlet stub on the inlet axis, body on the neck, handwheel on top.
     ia._add(a, ia._cyl(inlet_face_x, 0.0, 0.0, 14.0, VALVE_AXIS_X - inlet_face_x, axis="X")
@@ -119,7 +127,7 @@ def _cylinder_and_regulator(gap: float) -> cq.Assembly:
 
 
 def s_cylinder_nut_ready():
-    return _cylinder_and_regulator(gap=26.0)
+    return _cylinder_and_regulator(gap=26.0, stand_off=30.0)
 
 
 def s_cylinder_nut_seated():
@@ -250,7 +258,7 @@ _POUR_CAM = dict(cam=(1.0, -1.15, 0.55), target=(0.0, -70.0, 116.0), span=150.0)
 SCENES = {
     "cylinder-nut-ready": (s_cylinder_nut_ready, _RIG_CAM),
     "cylinder-nut-seated": (s_cylinder_nut_seated, _RIG_CAM),
-    "gas-on": (s_gas_on, dict(cam=(0.42, 1.0, 0.30), target=(-58.0, 10.0, 16.0), span=70.0)),
+    "gas-on": (s_gas_on, dict(cam=(0.42, 1.0, 0.30), target=(-56.0, 10.0, -2.0), span=80.0)),
     "power-cord-ready": (s_power_cord_ready, _CORD_CAM),
     "power-cord-home": (s_power_cord_home, _CORD_CAM),
     "fill-ready": (s_fill_ready, _FILL_CAM),
