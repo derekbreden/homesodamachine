@@ -1229,18 +1229,17 @@ branch sleeves move inside their bodies; the spring loads remain catalog estimat
 The cradle's flat aft edge is at y [79.419 mm](PUMP_CARTRIDGE_AFT_Y),
 [0.1 mm](CARTRIDGE_BULKHEAD_KISS) fore of the bay bulkhead.
 
-**Both pulls are tall rounded pockets in the cradle's flanks.** Each is [18 mm](PULL_DEPTH)
-deep and [20 mm](PULL_RUN) long in Y, from z [176.25 mm](PULL_FLOOR_Z)
+**Both pulls are tall rounded pockets centred on the cradle's Y run.** Each is [18 mm](PULL_DEPTH)
+deep and [28 mm](PULL_RUN) long in Y, from z [176.25 mm](PULL_FLOOR_Z)
 to z [271.615 mm](PULL_TOP_Z), a [95.37 mm](PULL_RISE) height. The cartridge keeps
 [10.88 mm](PULL_FLOOR_LIGAMENT) below each pocket and [10.88 mm](PULL_ROOF_LIGAMENT)
 above it. The four corners have [5 mm](PULL_CORNER_R) radii, and the complete exposed
-perimeter has [2 mm](PULL_EDGE_R) rounds, leaving [8.88 mm](PULL_RIM_FLOOR_LIGAMENT)
-at the lower rim and [8.88 mm](PULL_RIM_ROOF_LIGAMENT) at the upper rim.
-The fore face at y [42.62 mm](PULL_LEDGE)
-carries cartridge extraction; the aft face at y [62.62 mm](PULL_AFT_LEDGE) takes the thumb's
-push during insertion. That aft face stands [50 mm](PULL_HAND_SPAN) from the opposing service
-tab at squeeze and connected. The cradle keeps [37.62 mm](PULL_FORE_STOCK) of stock fore
-of the pocket and [16.8 mm](PULL_AFT_STOCK) aft of it. The inboard walls join both grip
+perimeter has [3 mm](PULL_EDGE_R) rounds, leaving [7.88 mm](PULL_RIM_FLOOR_LIGAMENT)
+at the lower rim and [7.88 mm](PULL_RIM_ROOF_LIGAMENT) at the upper rim.
+The fore face at y [28.21 mm](PULL_LEDGE)
+carries cartridge extraction; the aft face at y [56.21 mm](PULL_AFT_LEDGE) takes the thumb's
+push during insertion. The cradle keeps [23.21 mm](PULL_FORE_STOCK) of stock fore
+of the pocket and [23.21 mm](PULL_AFT_STOCK) aft of it. The inboard walls join both grip
 faces to the cartridge body. The top clamp has no separate grip.
 
 ## The tee carrier body
