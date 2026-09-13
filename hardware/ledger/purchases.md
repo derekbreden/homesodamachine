@@ -149,7 +149,7 @@ Check valves, sparge stone + barb adapter for internal-sparge CO2 carbonation, c
 
 | Part | ASIN link | Qty | $ | Order # | Ordered | Delivered | Status |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| Fresh Water Systems — John Guest **PM4508F4S** female flare connector (5/16" socket × 1/4" FFL) + **PI061008S** stem reducer (5/16" stem × 1/4" socket) | [PM4508F4S](https://www.freshwatersystems.com/products/john-guest-female-adapter-flare-5-16-x-1-4-flare), [PI061008S](https://www.freshwatersystems.com/products/john-guest-reducer-stem-1-4-x-5-16-stem) | Pending receipt | — | — | — | — | ON-ORDER (purchase confirmed by Derek Sep 13, 2026; Gmail confirmation not found, including spam/trash, as of Sep 13; the FWS account under the same email also shows Aug 11 as its latest order. Order number, date, quantities, paid total and delivery estimate await receipt. This unpriced purchase is excluded from cash-outlay totals. One of each fitting per appliance, assembled on the red CO2 tether; bom.md §4) |
+| Fresh Water Systems order WEBFWS100706106 — John Guest **PM4508F4S** female flare connector (5/16" socket × 1/4" FFL, bag of 10) + **PI061008S** stem reducer (5/16" stem × 1/4" socket, bag of 10) | [PM4508F4S](https://www.freshwatersystems.com/products/john-guest-female-adapter-flare-5-16-x-1-4-flare), [PI061008S](https://www.freshwatersystems.com/products/john-guest-reducer-stem-1-4-x-5-16-stem) | 1 order (2 bags of 10) | $57.49 | WEBFWS100706106 | 2026-09-13 | — | ON-ORDER (verified against FWS confirmation email Sep 13, 2026, 1:04 AM; preparing to ship. PM4508F4S $25.28 + PI061008S $15.36 = $40.64 subtotal + $12.97 shipping + $3.88 tax = $57.49 paid. Economy shipping: 7–10 business days in transit; no dispatch or arrival date stated. Ten complete CO2-tether adapter pairs, one of each fitting per appliance; bom.md §4) |
 | ChillWaves 304 SS in-line split check valve 1/4" NPT M×F (silicone seat | [B0DPLBYZB4](https://www.amazon.com/dp/B0DPLBYZB4) | 1 | $18.22 | 112-6570032-9753837 | 2026-04-12 | — | ACQUIRED |
 | ChillWaves 304 SS in-line **Siamese** check valve 1/4" NPT M×F (1-pack) | [B0DPL88RHC](https://www.amazon.com/dp/B0DPL88RHC) | 1 | $16.08 | 112-0876134-8491423 | 2026-04-24 | 2026-04-26 | ACQUIRED |
 | GASHER 1/4" NPT SS one-way check valve (2 pk) | [B0FV2D2FFX](https://www.amazon.com/dp/B0FV2D2FFX) | 1 pk | $15.00 | 112-9584993-4999458 | 2026-04-24 | 2026-04-25 | ACQUIRED |
@@ -681,17 +681,15 @@ Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C funne
 
 ## Totals
 
-The confirmed but unpriced FWS adapter purchase in §4 is excluded pending its receipt.
-
 | Status | $ |
 |---|---|
 | ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$33,762.28](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$5,437.54](LEDGER_LABOR) |
 | ACQUIRED (combined) | [$39,199.82](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$625.68](LEDGER_ON_ORDER) |
+| ON-ORDER | [$683.17](LEDGER_ON_ORDER) |
 | MISSING — paid, not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$39,878.57](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$39,936.06](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
