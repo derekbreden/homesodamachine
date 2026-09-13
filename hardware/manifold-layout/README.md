@@ -18,7 +18,7 @@ about the hinge the four barb tees' front collets stand on.
 | | |
 |---|---|
 | 10 × valve | Beduan 12 V NC solenoid ([`reference/beduan-solenoid`](/hardware/reference/beduan-solenoid/README.md)) — [59](VALVE_LEN) mm collet face to collet face, straight through, port axis [11.3](VALVE_PORT_Z) mm over its own mounting plane. Two of them pack no closer than [34.25](VALVE_PITCH) mm. |
-| 2 × pump | Kamoer KPHM600-SW3B17, modelled on the measured KPHM400 head ([`reference/kamoer-kphm400`](/hardware/reference/kamoer-kphm400/)) — two barbs [59.75](BARB_PITCH) mm apart on one face, both facing the same way, [24.38](BARB_INSET) mm back from the head's front face. |
+| 2 × pump | Kamoer KPHM600-SW3B17, modelled on the measured KPHM400 head ([`reference/kamoer-kphm400`](/hardware/reference/kamoer-kphm400/)) — two barbs [59.75](BARB_PITCH) mm apart on one face, both facing the same way, [20.38](BARB_INSET) mm back from the head's front face. |
 | [6](TEE_COUNT2) × tee | John Guest PP0208E ([`reference/tee-connector`](/hardware/reference/tee-connector/README.md)) — run collets [20.07](TEE_RUN) mm either side of the body centre, [40.14](TEE_SPAN) mm end to end, branch reaching the same distance. |
 | 0 × Y-divider | Its two outlets stand [14.7](DIVIDER_PITCH) mm apart ([`reference/y-divider`](/hardware/reference/y-divider/README.md)). |
 | [8](TUBE_COUNT2) × tube | 1/4" OD LLDPE — four straight runs across the collet plate's berth from the pump barbs to the anchor tees, and [4](FORE_STUB_COUNT) bowed flex stubs above those tees. |
@@ -60,7 +60,7 @@ crowns; the folded deck's at z [147.78](UPPER_Z2). The two inner limbs leave
 The four connections crossing the hinge — fluid-9, 17, 19 and 27 — each become one 180° hairpin
 with two quarter circles, a tangent straight between them, and a 4 mm axial leg to the
 higher fixed valve. Both ends meet their collet on its own axis. Release sets the cut length at R[14](SPINE_R):
-[77.13](SPINE_LEN) mm for each inner hairpin and [77.43](OUTER_SPINE_LEN) mm for each outer one.
+[81.13](SPINE_LEN) mm for each inner hairpin and [81.43](OUTER_SPINE_LEN) mm for each outer one.
 As the carrier moves aft, the bend radii increase and the straight shortens, preserving the
 complete tube length.
 
@@ -148,8 +148,8 @@ Mirror-checked: [9](TWIN_COUNT) twinned pairs, worst off by [0.0000](MIRROR_OFF)
 [3](BUTT_COUNT) of the [17](SEGMENT_COUNT) segments the topology names between these bodies
 are collet butted to collet: tube in both quick-connects, none between them, no solid drawn.
 [4](STRAIGHT_COUNT) are straight pump-barb runs. The [4](FORE_STUB_COUNT) connections from the
-anchor tees to V-E/F/H/I are [12](FORE_STUB_EXPOSED) mm of exposed LLDPE bowed across
-[10](FORE_STUB_GAP) mm sleeve-face gaps, so the four fixed valves stand that far above the
+anchor tees to V-E/F/H/I are [16](FORE_STUB_EXPOSED) mm of exposed LLDPE bowed across
+[14](FORE_STUB_GAP) mm sleeve-face gaps, so the four fixed valves stand that far above the
 tees while the tees can move fore and aft. [4](SPINE_COUNT) are the fold's 180° turns and
 [2](QUARTER_COUNT2) are the quarter turns above. Every formed corner in the manifold —
 [14](CORNER_COUNT) of them — sits on the stock's own floor of [14](MIN_BEND) mm.
@@ -161,10 +161,10 @@ V-I-O and V-H-I for B — on the lower.
 
 ## Envelope
 
-[194](ENV_X) × [169](ENV_Y) × [242](ENV_Z) mm — [7.93](ENV_L) L of bounding box over the
+[194](ENV_X) × [173](ENV_Y) × [242](ENV_Z) mm — [8.11](ENV_L) L of bounding box over the
 bodies and the tube between them, with [0](CLASHES) pairs of placed solids sharing volume.
 Add one [14](STUB_LEN) mm mouth stub on each of the [8](MOUTH_COUNT2) and it is
-[194](REACH_X) × [169](REACH_Y) × [256](REACH_Z).
+[194](REACH_X) × [173](REACH_Y) × [256](REACH_Z).
 
 Two figures in [`manifold_layout.py`](manifold_layout.py) are the study's own rather than any
 part's. `BUTT` is the tube left outside a pair of butted quick-connects, and it is 0.

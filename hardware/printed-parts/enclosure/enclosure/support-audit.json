@@ -577,7 +577,7 @@
     },
     "enclosure-front-top": {
       "status": "audited",
-      "profile": "git:aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a:hardware/printed-parts/enclosure/enclosure/enclosure-front-top-petgf.3mf",
+      "profile": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top-current.3mf",
       "result": "enclosure-front-top.support-audit.json",
       "support_bodies": [
         {
@@ -585,236 +585,199 @@
           "name": "pump-bay lintel",
           "first_contacts_cad_xyz_mm": [
             [
-              -107.8,
+              -107.4,
               5.025,
-              282.8,
-              107.8,
+              282.84,
+              107.4,
               79.025,
-              283.2
+              283.32
             ]
           ],
           "root": "bed",
-          "build_up_mm": 122.6,
+          "build_up_mm": 122.64,
           "interface_islands": 1,
           "rationale": "The fixed roof carries the display and ridge wall above the cartridge withdrawal envelope. Its flat underside runs to the bay bulkhead and is accessible through the empty cartridge bay for support removal."
         },
         {
           "tree": "tree-2",
+          "name": "west carrier bearing ceilings and outer hardware well crown",
+          "first_contacts_cad_xyz_mm": [
+            [
+              -107.4,
+              95.025,
+              225.72,
+              -100.2,
+              167.025,
+              226.2
+            ],
+            [
+              -103.8,
+              88.625,
+              229.08,
+              -87.4,
+              167.025,
+              229.56
+            ],
+            [
+              -88.6,
+              93.425,
+              231.96,
+              -66.2,
+              97.425,
+              232.44
+            ]
+          ],
+          "root": "bed",
+          "build_up_mm": 65.52,
+          "interface_islands": 3,
+          "rationale": "The square ceilings carry the moving carrier retaining rim and close its guide opening. The hardware well crown retains its locating face. The bed-rooted tree leaves through the open bay and side opening before the carrier is installed."
+        },
+        {
+          "tree": "tree-3",
           "name": "spring bores, carrier bearings, hardware well crowns and pump-jack roof",
           "first_contacts_cad_xyz_mm": [
             [
               -51.4,
-              93.425,
-              192.8,
+              93.025,
+              188.76,
               -49.4,
               98.225,
-              193.2
+              189.24
             ],
             [
-              48.6,
-              93.025,
-              192.8,
+              48.2,
+              93.425,
+              188.76,
               50.6,
               98.625,
-              193.2
+              189.24
             ],
             [
               -65.4,
-              99.025,
-              219.8,
+              98.625,
+              219.48,
               -29.4,
-              117.025,
-              220.2
+              116.625,
+              219.96
             ],
             [
-              -11.4,
+              -11.8,
               99.025,
-              219.8,
+              219.48,
               10.6,
-              117.025,
-              220.2
+              116.625,
+              219.96
             ],
             [
               29.4,
-              98.625,
-              219.8,
-              65.8,
-              117.025,
-              220.2
+              99.025,
+              219.48,
+              65.4,
+              116.625,
+              219.96
             ],
             [
-              -107.4,
-              95.425,
-              227.2,
-              -103.8,
-              137.825,
-              227.6
-            ],
-            [
-              -103.8,
-              89.825,
-              230.4,
-              -87.8,
+              100.2,
+              95.025,
+              225.72,
+              107.4,
               167.025,
-              230.8
+              226.2
             ],
             [
-              -88.6,
-              93.025,
-              232.0,
-              -66.2,
-              97.825,
-              232.4
+              87.8,
+              88.625,
+              229.08,
+              103.8,
+              167.025,
+              229.56
             ],
             [
               -29.0,
               93.425,
-              232.0,
+              231.96,
               -11.4,
-              98.225,
-              232.4
+              98.625,
+              232.44
             ],
             [
               11.4,
               93.425,
-              232.0,
+              231.96,
               29.0,
               97.425,
-              232.4
-            ],
-            [
-              -7.0,
-              86.625,
-              310.4,
-              7.0,
-              90.225,
-              310.6
-            ]
-          ],
-          "root": "bed",
-          "build_up_mm": 32.6,
-          "interface_islands": 11,
-          "rationale": "The round bores guide both return springs. The flat upper web bearings and both flank recess ceilings guide and capture the carrier. The four hardware well crowns join the valve tray, and the keyed jack roof seats its plug. This connected support is accessible through the empty cartridge bay, flank openings, aft recess and tee wells before hardware is installed."
-        },
-        {
-          "tree": "tree-3",
-          "name": "carrier guide-opening and retaining-rim recess ceilings",
-          "first_contacts_cad_xyz_mm": [
-            [
-              103.8,
-              95.425,
-              227.2,
-              107.8,
-              137.825,
-              227.6
-            ],
-            [
-              87.8,
-              89.825,
-              230.4,
-              103.8,
-              167.025,
-              230.8
+              232.44
             ],
             [
               66.2,
               93.425,
-              232.0,
+              231.96,
               88.6,
-              97.825,
-              232.4
+              97.425,
+              232.44
+            ],
+            [
+              -7.0,
+              86.225,
+              310.44,
+              7.0,
+              90.225,
+              310.68
             ]
           ],
           "root": "bed",
-          "build_up_mm": 67.0,
-          "interface_islands": 3,
-          "rationale": "The flat ceilings carry the moving grip's retaining rim and close its guide opening; both are bearing faces of the carrier's Y travel. The tree roots on the bed inside the open recess and leaves through the empty cartridge bay before the carrier halves enter."
+          "build_up_mm": 28.56,
+          "interface_islands": 11,
+          "rationale": "The spring guides locate the carrier on its lowered tee axis. The upper bearing planes retain the carrier through its full Y travel, and the fixed well crowns and jack roof retain their hardware. Their flat locating and retaining faces share one support body, accessible from the empty bay and open interior before assembly."
         }
       ]
     },
     "enclosure-pump-cap": {
       "status": "audited",
-      "profile": "git:b4e181bee752bebaddc24d5e620fd7f8144129bd:hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap-petgf.3mf",
+      "profile": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge-current.3mf",
       "result": "enclosure-pump-cap.support-audit.json",
-      "support_bodies": [
-        {
-          "tree": "tree-1",
-          "name": "aft clamp-screw head seat",
-          "first_contacts_cad_xyz_mm": [
-            [
-              -2.2,
-              61.214,
-              268.295,
-              2.6,
-              66.014,
-              268.495
-            ]
-          ],
-          "root": "bed",
-          "build_up_mm": 8.8,
-          "interface_islands": 1,
-          "rationale": "The flat annular seat is the M3\u00d760 head's bearing face, a bridge one counterbore wide over the clearance bore; the clamp prints on its crown, so the seat looks print-down. The tree stands inside the counterbore, which opens on the bed face, and leaves through that mouth."
-        },
-        {
-          "tree": "tree-2",
-          "name": "fore clamp-screw head seat",
-          "first_contacts_cad_xyz_mm": [
-            [
-              -2.2,
-              25.214,
-              268.295,
-              2.6,
-              30.014,
-              268.495
-            ]
-          ],
-          "root": "bed",
-          "build_up_mm": 8.8,
-          "interface_islands": 1,
-          "rationale": "The flat annular seat is the M3\u00d760 head's bearing face, a bridge one counterbore wide over the clearance bore; the clamp prints on its crown, so the seat looks print-down. The tree stands inside the counterbore, which opens on the bed face, and leaves through that mouth."
-        }
-      ]
+      "support_bodies": []
     },
     "enclosure-pump-cartridge": {
       "status": "audited",
-      "profile": "git:aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a:hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge-petgf.3mf",
+      "profile": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge-current.3mf",
       "result": "enclosure-pump-cartridge.support-audit.json",
       "support_bodies": [
         {
           "tree": "tree-1",
-          "name": "X- pump-cartridge pull roof",
+          "name": "west pump-cartridge pull roof",
           "first_contacts_cad_xyz_mm": [
             [
-              -106.2,
-              31.409,
-              270.965,
-              -89.8,
-              53.009,
-              271.365
+              -106.9,
+              31.204,
+              270.925,
+              -90.1,
+              53.204,
+              271.405
             ]
           ],
           "root": "bed",
-          "build_up_mm": 105.4,
+          "build_up_mm": 105.36,
           "interface_islands": 1,
-          "rationale": "The flat roof joins the fore and aft ends of the rounded pull pocket. One bed-rooted support reaches its underside after 105.40 mm of build-up. The complete support body is accessible through the open side before pump installation."
+          "rationale": "The roof joins the fore and aft ends of the rounded hand pocket and retains the equal upper edge margin. Its bed-rooted support is accessible through the open side before pump installation."
         },
         {
           "tree": "tree-2",
-          "name": "X+ pump-cartridge pull roof",
+          "name": "east pump-cartridge pull roof",
           "first_contacts_cad_xyz_mm": [
             [
-              89.8,
-              31.809,
-              270.965,
-              106.2,
-              53.409,
-              271.365
+              89.9,
+              31.204,
+              270.925,
+              107.1,
+              53.204,
+              271.405
             ]
           ],
           "root": "bed",
-          "build_up_mm": 105.4,
+          "build_up_mm": 105.36,
           "interface_islands": 1,
-          "rationale": "The flat roof joins the fore and aft ends of the rounded pull pocket. One bed-rooted support reaches its underside after 105.40 mm of build-up. The complete support body is accessible through the open side before pump installation."
+          "rationale": "The roof joins the fore and aft ends of the rounded hand pocket and retains the equal upper edge margin. Its bed-rooted support is accessible through the open side before pump installation."
         }
       ]
     },

@@ -1,11 +1,11 @@
-[ceiling] The solid bar's flat underside clears the opening's lower edge and the closed enclosure's seam rail by 0.25 mm. The full 16 mm Y section rises from this face to the bar's top. Removable support reaches the bed 3.805 mm below and is exposed beneath the loose half before inside-out assembly.
+[ceiling] The solid bar's flat underside clears the opening's lower edge and the closed enclosure's seam rail by 0.25 mm. The full 16 mm Y section rises from this face to the bar's top. Removable support reaches the bed 7.805 mm below and is exposed beneath the loose half before inside-out assembly.
 click: x=-98.947 y=102.468 z=175.050
 
-[ceiling] Flat underside of the 3 mm aft wall, recessed 3.25 mm behind the exterior face and joined to the backing along its full height. Removable support reaches the bed 3.805 mm below and is exposed beneath the loose half before assembly.
+[ceiling] Flat underside of the 3 mm aft wall, recessed 3.25 mm behind the exterior face and joined to the backing along its full height. Removable support reaches the bed 7.805 mm below and is exposed beneath the loose half before assembly.
 click: x=-98.822 y=127.968 z=175.050
 
 [ceiling] Flat underside of the fore lap, above the tee run ends. The lap keeps its full 6 mm section and takes removable support exposed from the fore side before assembly.
-click: x=0.000 y=103.218 z=210.565
+click: x=0.000 y=103.218 z=206.565
 
 [step] The web ends at |X|94.000 and the 3 mm finger-pocket back presents its outer face at |X|93.395. Both walls start on the bed and meet at the bar root. The offset is the upright outline of their junction below the bar's flat underside; the backing retains its full 3 mm X section.
-click: x=-94.000 y=110.368 z=173.147
+click: x=-93.960 y=110.368 z=171.148

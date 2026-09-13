@@ -61,6 +61,12 @@ click: x=77.370 y=95.085 z=232.690
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=-103.650 y=118.193 z=169.465
 click: x=103.650 y=118.193 z=169.465
+click: x=-103.650 y=93.509 z=171.825
+click: x=103.650 y=93.509 z=171.825
+
+[sliver] The 1.418 mm Y-wide faces are the exposed ends of the rail-channel walls immediately fore of the grip opening. Each face has a continuous 3 mm X section behind it, from |X|103.650 to 106.650 across Y92.800..94.218 and Z168.700..174.950. They bound the solid enclosure wall and preserve the seam rail's sliding passage.
+click: x=-103.650 y=93.509 z=171.825
+click: x=103.650 y=93.509 z=171.825
 
 [sliver] The upward-facing 0.85 mm step joins the rail channel's |X|103.650 wall to the flank's |X|104.500 interior face at the common floor. The solid continues outward into the enclosure wall: a continuous 3 mm X by 3 mm Z section backs the step along its full Y length. The narrow face bounds that solid wall section.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
