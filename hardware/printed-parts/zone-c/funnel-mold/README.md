@@ -90,20 +90,16 @@ print still needs its own dry-fit and vacuum trial.
 
 ## Print
 
-The print projects below are being regenerated for the current rod cradle and
-thicker outlet. Use the updated projects once their recorded STL hashes match
-this geometry.
-
 [Recommended project, +0.04 trim](funnel-mold.3mf) ·
 [Alternate +0.18 trim](funnel-mold-z018.3mf) ·
 [Printer, filament and process presets](funnel-mold-presets.bbscfg)
 
 | Body | Envelope | Estimated print | PETG, including supports |
 | --- | --- | --- | --- |
-| [Cavity](cavity.step) | [205 × 205 × 73.6 mm](CAVITY_DIMS) | [17 h 19 min](CAVITY_TIME) | [615 g](CAVITY_MASS) |
+| [Cavity](cavity.step) | [205 × 205 × 73.6 mm](CAVITY_DIMS) | [17 h 23 min](CAVITY_TIME) | [617 g](CAVITY_MASS) |
 | [Core](core.step) | [205 × 205 × 45.2 mm](CORE_DIMS) | [10 h 55 min](CORE_TIME) | [441 g](CORE_MASS) |
 
-Together: [28 h 14 min](TOTAL_TIME), [1.06 kg](TOTAL_MASS). These are slicer
+Together: [28 h 17 min](TOTAL_TIME), [1.06 kg](TOTAL_MASS). These are slicer
 estimates. The files use the left [0.8 mm](NOZZLE) [High Flow](NOZZLE_TYPE) nozzle, [0.24 mm](LAYER) layers,
 translucent PETG at 255 °C, an [18 mm³/s](FLOW_CAP) volumetric cap, a removable 6 mm brim,
 and same-material tree supports with 0.3 mm vertical separation. The cavity
@@ -111,7 +107,7 @@ prints upright and the core inverted. Supports are accessible from the dry
 backs. Inspect and remove every branch before finishing.
 
 The [0.4 mm project](funnel-mold-04.3mf), at 0.16 mm layers on the left Standard
-nozzle, is estimated at [55 h 10 min](FINE_TIME) and [0.93 kg](FINE_MASS) for both halves.
+nozzle, is estimated at [55 h 34 min](FINE_TIME) and [0.94 kg](FINE_MASS) for both halves.
 It uses the same geometry, +0.04 mm plate trim and automatic tree supports.
 
 [print-profile.json](print-profile.json) records the actual saved settings,
@@ -145,7 +141,7 @@ these shells.
    opposite notches. Peel the accessible silicone brim to admit air, lift the
    core straight off the rod, peel the casting from the cavity, withdraw the
    dowel and cut off the marked sacrificial extension. Remove the entry seal
-   and clean its recess before the next cast.
+   and clean the passage before the next cast.
 
 ## Regenerate
 

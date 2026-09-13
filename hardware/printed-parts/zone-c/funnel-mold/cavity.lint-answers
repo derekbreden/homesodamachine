@@ -21,12 +21,14 @@ click: x=100.000 y=-8.000 z=70.149
 click: x=-8.000 y=100.000 z=70.149
 click: x=-8.000 y=-100.000 z=70.149
 
-[sliver] The 0.30 mm forming-envelope offset leaves these short boundary faces at the chute corner. An inward normal ray at each anchor crosses 4.58 mm or more of continuous PETG before reaching the dry back. The sealing finish blends these small corner transitions.
+[sliver] The 0.30 mm forming-envelope offset leaves this narrow ledge along the chute-to-ramp junction. An inward normal ray at the anchor crosses 5.45 mm of continuous PETG before reaching the dry back. The sealing finish blends the forming-face transition.
 file: hardware/printed-parts/zone-c/funnel-mold/cavity.step
-click: x=79.500 y=79.650 z=51.989
-click: x=79.650 y=79.500 z=51.989
-click: x=79.500 y=79.650 z=61.849
-click: x=79.650 y=79.500 z=61.849
+click: x=0.000 y=-79.650 z=49.339
+
+[ceiling] These dry-back ledges join the chute walls to the sloping shell. The delivered 0.8 mm slice has tree-support interface at Z=49.04 mm beneath both ledges. Their undersides open to the surrounding dry back for support removal.
+file: hardware/printed-parts/zone-c/funnel-mold/cavity.step
+click: x=-82.300 y=0.000 z=49.339
+click: x=82.300 y=39.750 z=49.339
 
 [ceiling] The flange underside and offset brim ledges face the open dry back. Automatic tree supports in the delivered slice carry these surfaces and are removed from below before finishing.
 file: hardware/printed-parts/zone-c/funnel-mold/cavity.step

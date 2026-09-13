@@ -9,6 +9,10 @@ click: x=0.000 y=86.800 z=70.799
 click: x=0.000 y=-86.800 z=70.799
 click: x=-86.800 y=0.000 z=70.799
 
-[ceiling] This is the dry end of the local steel-pin socket boss. The core prints inverted, so this face begins above the plate. The delivered slice places tree-support interface beneath it; the open back gives access for removal.
+[ceiling] This shelf is the dry end of the loose rod guide, below the open V cradle. It faces downward with the core inverted. The delivered 0.8 mm slice has tree-support interface at print Z=35.36 mm beneath the shelf. The cradle's open front provides access for removing the branches before inserting the rod.
 file: hardware/printed-parts/zone-c/funnel-mold/core.step
-click: x=1.850 y=0.000 z=61.800
+click: x=5.773 y=0.000 z=40.000
+
+[ceiling] This is the dry end of the rod cradle's axial stop. It begins above the plate with the core inverted. The delivered 0.8 mm slice has tree-support interface at print Z=9.68 mm directly beneath the first model section at Z=10.16 mm. Its outer face is exposed for support removal.
+file: hardware/printed-parts/zone-c/funnel-mold/core.step
+click: x=1.850 y=0.000 z=65.800
