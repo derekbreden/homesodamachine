@@ -45,12 +45,15 @@ sulfur-free modeling clay from sulfur-bearing clay for platinum silicone.
 The finished outlet has a [4.5 mm](SPOUT_WALL) nominal wall and
 [15.35 mm](SPOUT_OD) outside diameter around the [6.35 mm](ROD_D) bore. Its
 [12 mm](SPOUT_LAND) clamp land takes the 1/4-inch LLDPE stub and the recorded
-10–16 mm worm clamp. A full-diameter [12 mm](TIP_LENGTH) sacrificial extension
-leaves [6 mm](TIP_CAP) beneath the rod end. Mark the trim plane
-[12 mm](TIP_LENGTH) from the casting's closed end and cut square after demolding.
+10–16 mm worm clamp. A full-diameter [18 mm](TIP_LENGTH) sacrificial extension
+leaves [12 mm](TIP_CAP) beneath the rod end. Mark the trim plane
+[18 mm](TIP_LENGTH) from the casting's closed end and cut square after demolding.
 
 [design.json](design.json) checks simultaneous [1.5 mm](ROD_OFFSET) lateral
-offset, [2°](ROD_TILT) tilt and [3 mm](ROD_AXIAL) axial error in eight directions.
+offset, [2°](ROD_TILT) tilt and axial error in eight directions. The rod may
+project [6 mm](ROD_EXTRA) farther when not fully seated, or [3 mm](ROD_AXIAL)
+less than nominal. The minimum depth beneath its tip in these cases is
+[5.90 mm](ROD_MIN_END).
 The minimum silicone clearance in that envelope is [2.37 mm](ROD_MIN_WALL),
 including the sacrificial end. These checks describe geometry; the first
 physical trial establishes retention, sealing and casting quality.
@@ -61,7 +64,7 @@ physical trial establishes retention, sealing and casting quality.
 
 Teal is the cavity, gold the core, grey the nominal silicone, light grey the
 steel dowel and blue the removable entry seal. The nominal casting, including its sacrificial spout tip, is
-[143 mL](CAST_VOLUME). The two halves fit inside a [276.7 mm](ENVELOPE) circle,
+[145 mL](CAST_VOLUME). The two halves fit inside a [276.7 mm](ENVELOPE) circle,
 leaving [11.5 mm](CHAMBER_GAP) radial clearance in the recorded chamber. Check
 the actual opening, clamp/bolt envelope and catch tray before pouring.
 
@@ -80,7 +83,7 @@ one-atmosphere differential or pressure injection.
 [1.00 kPa](LOAD_PRESSURE), using an assumed PETG modulus of
 [1000 MPa](LOAD_MODULUS) and Poisson ratio 0.4. Its calculated deflection is
 [0.209 mm](LOAD_DEFLECTION); the maximum static silicone head is
-[0.772 kPa](HEAD_PRESSURE). This flat-plate model is a screening approximation;
+[0.839 kPa](HEAD_PRESSURE). This flat-plate model is a screening approximation;
 it does not establish the printed shell's stiffness, creep, release force or
 transient pressure during degassing.
 
@@ -91,13 +94,15 @@ print still needs its own dry-fit and vacuum trial.
 
 ## Print
 
+The print projects are being regenerated for the deeper pocket.
+
 [Recommended project, +0.04 trim](funnel-mold.3mf) ·
 [Alternate +0.18 trim](funnel-mold-z018.3mf) ·
 [Printer, filament and process presets](funnel-mold-presets.bbscfg)
 
 | Body | Envelope | Estimated print | PETG, including supports |
 | --- | --- | --- | --- |
-| [Cavity](cavity.step) | [205 × 205 × 73.6 mm](CAVITY_DIMS) | [17 h 23 min](CAVITY_TIME) | [617 g](CAVITY_MASS) |
+| [Cavity](cavity.step) | [205 × 205 × 79.6 mm](CAVITY_DIMS) | [17 h 23 min](CAVITY_TIME) | [617 g](CAVITY_MASS) |
 | [Core](core.step) | [205 × 205 × 45.2 mm](CORE_DIMS) | [10 h 55 min](CORE_TIME) | [441 g](CORE_MASS) |
 
 Together: [28 h 17 min](TOTAL_TIME), [1.06 kg](TOTAL_MASS). These are slicer

@@ -3,7 +3,7 @@
     "cavity": [
       205.0,
       205.0,
-      73.64923306371627
+      79.64923306371628
     ],
     "core": [
       205.0,
@@ -13,29 +13,29 @@
     "funnel": [
       173.0,
       173.0,
-      64.64923296371629
+      70.64923296371629
     ],
     "rod": [
       6.35,
       6.35,
-      50.8
+      50.80000000000001
     ],
     "seal": [
       8.350000200023775,
       8.3500002,
-      1.6946630011561403
+      1.6946630011561439
     ]
   },
   "volume_ml": {
-    "cavity": 280.6836389617975,
-    "core": 271.6671564592494,
-    "funnel": 143.41717941119603,
-    "rod": 1.6087962461345555,
-    "seal": 0.036122368221459415
+    "cavity": 284.0718501076678,
+    "core": 271.66715645924955,
+    "funnel": 144.52752428372335,
+    "rod": 1.6087962461345557,
+    "seal": 0.036122368221459436
   },
   "shell_thickness_mm": 5.0,
   "flange_thickness_mm": 5.0,
-  "parting_z_mm": 70.64923296371627,
+  "parting_z_mm": 76.64923296371629,
   "finish_allowance_mm": 0.3,
   "rod_support": {
     "engagement_mm": 32.8,
@@ -56,12 +56,13 @@
     "outside_diameter_mm": 15.35,
     "nominal_wall_mm": 4.5,
     "finished_length_mm": 12.0,
-    "sacrificial_length_mm": 12.0,
-    "rod_end_clearance_mm": 6.0
+    "sacrificial_length_mm": 18.0,
+    "rod_end_clearance_mm": 12.0
   },
   "rod_tolerance_screen": {
     "offset_mm": 1.5,
-    "axial_error_mm": 3.0,
+    "short_projection_mm": 3.0,
+    "extra_projection_mm": 6.0,
     "tilt_deg": 2.0,
     "azimuths_deg": [
       0,
@@ -73,7 +74,8 @@
       270,
       315
     ],
-    "minimum_silicone_clearance_mm": 2.3737431835693528,
+    "minimum_silicone_clearance_mm": 2.373743183569352,
+    "minimum_end_clearance_mm": 5.900159211625834,
     "minimum_required_wall_mm": 2.0,
     "scope": "Simultaneous rod offset, tilt and axial error against the cavity; cradle retention and sealing need a physical trial."
   },
@@ -182,8 +184,8 @@
   "dry_opening_mm": 136.4,
   "ramp_print_z_mm": {
     "cavity": [
-      29.999999999999993,
-      49.33923296371627
+      36.00000000000001,
+      55.339232963716285
     ],
     "core": [
       26.31,
@@ -198,8 +200,8 @@
     "assumed_modulus_mpa": 1000.0,
     "assumed_poisson_ratio": 0.4,
     "silicone_density_assumption_kg_m3": 1130,
-    "maximum_silicone_head_mm": 69.64923296371629,
-    "head_pressure_kpa": 0.7720826421726843,
+    "maximum_silicone_head_mm": 75.64923296371629,
+    "head_pressure_kpa": 0.8385944421726842,
     "screen_deflection_mm": 0.2092497992250624,
     "pressure_force_n": 25.281,
     "condition": "fill, vents and both dry backs open to the same chamber; no sealed pressure differential",

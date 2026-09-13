@@ -38,8 +38,8 @@ locator_leadin = 1.0
 locator_clearance = 0.60
 locator_slot_travel = 1.5
 locator_y = (22.0, -12.0)
-tip_length = 12.0
-tip_cap = 6.0
+tip_length = 18.0
+tip_cap = 12.0
 rod_diameter = 6.35
 rod_length = 50.8
 rod_clearance = 2.0
@@ -52,6 +52,7 @@ rod_tie_groove_depth = 0.7
 rod_seal_depth = 2.0
 rod_offset_allowance = 1.5
 rod_axial_allowance = 3.0
+rod_extra_projection_allowance = 6.0
 rod_tilt_allowance = 2.0
 minimum_spout_wall = 2.0
 vent_diameter = 4.0
@@ -222,19 +223,20 @@ def build():
         assert core.intersect(rod.translate((0.5, 0, -withdrawal))).Volume() < tolerance
     for station in rod_tie_stations:
         assert station-rod_tie_width/2 > rod_guide_length
-    clearances = []
+    clearances, end_clearances = [], []
     for azimuth in range(0, 360, 45):
         angle = math.radians(azimuth)
         dx, dy = math.cos(angle), math.sin(angle)
         for tilt in (-rod_tilt_allowance, 0, rod_tilt_allowance):
-            for axial in (-rod_axial_allowance, 0, rod_axial_allowance):
+            for axial in (-rod_extra_projection_allowance, 0, rod_axial_allowance):
                 misplaced = rod.rotate((x, y, neck), (x-dy, y+dx, neck), tilt)
                 misplaced = misplaced.translate((rod_offset_allowance*dx,
                                                    rod_offset_allowance*dy, axial))
                 assert cavity.intersect(misplaced).Volume() < tolerance
                 clearances.append(cavity.distance(misplaced)-finish_allowance)
+                end_clearances.append(misplaced.BoundingBox().zmin-tip_bottom)
     assert min(clearances) > minimum_spout_wall
-    assert tip_cap-rod_axial_allowance > minimum_spout_wall
+    assert min(end_clearances) > funnel.spout_wall
     assert rod_below-rod_axial_allowance > funnel.spout_tube
     assert dry_void.distance(cast) >= shell_thickness+finish_allowance-tolerance
     assert (forming_void.cut(nominal_exterior).Volume() > 0)
@@ -267,9 +269,11 @@ def build():
             'nominal_wall_mm': funnel.spout_wall, 'finished_length_mm': funnel.spout_tube,
             'sacrificial_length_mm': tip_length, 'rod_end_clearance_mm': tip_cap},
         'rod_tolerance_screen': {'offset_mm': rod_offset_allowance,
-            'axial_error_mm': rod_axial_allowance, 'tilt_deg': rod_tilt_allowance,
+            'short_projection_mm': rod_axial_allowance,
+            'extra_projection_mm': rod_extra_projection_allowance, 'tilt_deg': rod_tilt_allowance,
             'azimuths_deg': list(range(0, 360, 45)),
             'minimum_silicone_clearance_mm': min(clearances),
+            'minimum_end_clearance_mm': min(end_clearances),
             'minimum_required_wall_mm': minimum_spout_wall,
             'scope': 'Simultaneous rod offset, tilt and axial error against the cavity; cradle retention and sealing need a physical trial.'},
         'locators': {'diameter_mm': locator_diameter, 'height_mm': locator_height,
