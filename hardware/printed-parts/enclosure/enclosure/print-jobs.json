@@ -18,7 +18,13 @@
       "filament": "Polymaker PET-GF; PET-CF mapping on left external spool",
       "estimated_seconds": 71647,
       "filament_grams": 686.57,
-      "status": "prepared"
+      "status": "started",
+      "started_by": "user",
+      "job_name": "enclosure-front-top-h2c",
+      "observed_state": "PREPARE",
+      "observed_at_utc": "2026-09-13T20:47:56.186590+00:00",
+      "observed_print_error": 0,
+      "verified_copy_on_printer": "/enclosure-front-top-h2c-z018-20260913.gcode.3mf"
     },
     {
       "printer": "Mark2",
