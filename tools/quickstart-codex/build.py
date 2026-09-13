@@ -249,7 +249,7 @@ pic('cylinder-actions/co2-connected.png',x+2,522,167,108,crop=(80,0,1600,1500))
 p=pic('cylinder-actions/co2-connected.png',x+177,522,117,108,crop=(420,775,830,1335))
 para('<b>Valve closed.<br/>Cylinder upright.</b>',x+302,533,108,11.4,15,limit=60)
 leader('Gray connector',x+302,585,p(637,943),side='left')
-para('<b>Washer in the big nut. Start it on the valve by hand, then nip it up with the wrench.</b> Screw the gray connector onto the bottom outlet hand-tight. Keep the two gray fittings assembled.',x,644,416,12.6,16,limit=48)
+para('<b>Washer in the big nut; start by hand, nip up with the wrench.</b> Gray connector onto the bottom outlet hand-tight, both fittings left assembled.',x,644,416,12.6,16,limit=32)
 
 x=476
 step(5,'Water, then gas, then power',x,y)
