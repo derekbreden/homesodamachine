@@ -94,7 +94,7 @@ normal Y gap closes at the corresponding end of travel. The [0.25 mm](GUIDE_AIR)
 is across the sliding bearings in X and Z and through the carrier's insertion route.
 
 The two spring axes lie between coils at X ±49.945, Z 190.245 mm. Each spring bears in a
-6.4 mm teardrop seat, 2 mm deep. Its fore end sits in a round bore within the fixed body's
+[6.57 mm](SPRING_SEAT_D) teardrop seat, 2 mm deep. Its fore end sits in a round bore within the fixed body's
 full section. Compressed springs enter through the inner tee wells and cross below the
 uninterrupted upper land. The return pair is Lee LCM060C12M.
 
