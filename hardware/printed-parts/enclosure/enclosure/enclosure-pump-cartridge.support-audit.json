@@ -24,27 +24,27 @@
   "first_layer_z_mm": 0.2,
   "inputs": {
     "gcode": "plate_1.gcode",
-    "gcode_sha256": "b20bdc15cd6f94596e463e0ac26dd6fa1793bf548431784bd5a5fecc83e18443",
+    "gcode_sha256": "4b60d67354225c94a6024acb5d4ea64df110e00f1e9bc9320aa25cb3380260b6",
     "model": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
-    "model_sha256": "b501fa2607885a60e0630568d199a52372a6f89bdd28dd37f38debf46aa4827a",
+    "model_sha256": "6b963f27087baca99da773c66244270bab295ccbdfc17132241549ef04ad4502",
     "profile": "git:aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a:hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge-petgf.3mf",
     "profile_sha256": "10f9a5824beb674ca0868137659211da5703d6626b73a335388ec471efc91c40"
   },
   "interfaces": [
     {
       "bbox_cad_xyz_mm": [
-        -107.4,
-        46.209,
+        -106.2,
+        31.409,
         270.965,
         -89.8,
-        59.409,
+        53.009,
         271.365
       ],
       "bbox_xy_mm": [
-        57.6,
-        164.0,
+        58.8,
+        149.2,
         75.2,
-        177.2
+        170.8
       ],
       "build_up_mm": 105.4,
       "first_z_mm": 105.6,
@@ -55,17 +55,17 @@
     {
       "bbox_cad_xyz_mm": [
         89.8,
-        46.209,
+        31.809,
         270.965,
-        107.0,
-        59.409,
+        106.2,
+        53.409,
         271.365
       ],
       "bbox_xy_mm": [
         254.8,
-        164.0,
-        272.0,
-        177.2
+        149.6,
+        271.2,
+        171.2
       ],
       "build_up_mm": 105.4,
       "first_z_mm": 105.6,
@@ -102,17 +102,17 @@
       "base_z_mm": 0.2,
       "bbox_cad_xyz_mm": [
         -133.0,
-        42.209,
+        31.409,
         165.565,
         -89.8,
-        66.209,
-        271.565
+        55.009,
+        271.765
       ],
       "bbox_xy_mm": [
         32.0,
-        160.0,
+        149.2,
         75.2,
-        184.0
+        172.8
       ],
       "first_interface_z_mm": 105.6,
       "id": "tree-1",
@@ -121,23 +121,23 @@
       ],
       "root": "bed",
       "shortest_build_up_mm": 105.4,
-      "top_z_mm": 106.2
+      "top_z_mm": 106.4
     },
     {
       "base_z_mm": 0.2,
       "bbox_cad_xyz_mm": [
         89.8,
-        41.809,
+        31.409,
         165.565,
         133.0,
-        65.409,
-        271.565
+        55.409,
+        271.765
       ],
       "bbox_xy_mm": [
         254.8,
-        159.6,
+        149.2,
         298.0,
-        183.2
+        173.2
       ],
       "first_interface_z_mm": 105.6,
       "id": "tree-2",
@@ -146,7 +146,7 @@
       ],
       "root": "bed",
       "shortest_build_up_mm": 105.4,
-      "top_z_mm": 106.2
+      "top_z_mm": 106.4
     }
   ]
 }
