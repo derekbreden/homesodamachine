@@ -695,22 +695,18 @@ turn in its build item. `enclosure-front-bottom-petgf.3mf` and `enclosure-back-b
 exterior settings of `enclosure-front-top-petgf.3mf` around their own mesh — the same clones
 `enclosure-pump-cap-petgf.3mf` and `enclosure-pump-cartridge-petgf.3mf` are; the pump cap's
 build item carries a half turn about X, the crown on the bed.
-`enclosure-back-top-petgf.3mf` is the one piece on its own 0.24 mm process, and the other whose build item carries a half turn about X. What BambuStudio
-02.08.02.61 emits after substituting the current meshes into those history snapshots:
+`enclosure-back-top-petgf.3mf` is the one piece on its own 0.24 mm process, and the other whose build item carries a half turn about X. Each retained slice records its model and profile digests. The recorded support counts are:
 
 | piece | bodies | interface islands | root | shortest build-up |
 |---|---|---|---|---|
-| `enclosure-pump-cartridge` | 2 | 2 | bed | 55.60 mm |
+| `enclosure-pump-cartridge` | 2 | 2 | bed | 105.40 mm |
 | `enclosure-pump-cap` | 2 | 2 | bed | 8.80 mm |
-| `enclosure-front-top` | 3 | 15 | bed | 32.60 mm |
-| `enclosure-tee-carrier-left` | 3 | 3 | bed | 3.00 mm |
-| `enclosure-tee-carrier-right` | 3 | 3 | bed | 3.00 mm |
 | `enclosure-back-bottom` | 4 | 5 | 3 bed, **1 model** | **8.00 mm** |
 | `enclosure-front-bottom` | 4 | 4 | 2 bed, **2 model** | **8.00 mm** |
 | `enclosure-back-top` | 12 | 35 | 5 bed, **7 model** | **1.20 mm** |
 
 `enclosure-pump-cartridge` has two bed-rooted bodies, one under each flat pull roof. Each
-reaches one interface after **55.60 mm** and leaves directly through its open side pocket.
+reaches one interface after **105.40 mm** and leaves directly through its open side pocket.
 `enclosure-pump-cap` prints on its crown and has two bed-rooted bodies, one standing in each
 clamp-screw counterbore under its head seat after **8.80 mm**; each leaves through the
 counterbore's mouth on the bed face. On front-top every body roots on the print bed and stands
@@ -718,9 +714,8 @@ counterbore's mouth on the bed face. On front-top every body roots on the print 
 both spring bores, the upper web bearings, all four well crowns and the pump-jack roof, and one
 under both grip guides' and retaining-rim recesses' ceilings.
 Remove those branches through the empty cartridge bay, tee wells and aft carrier recess
-before installing the hardware. Each carrier half has separate bed-rooted support under its
-rim and seam-rail relief, central lap, and finger-pocket roof. Remove those through the open
-side pocket and from the loose half's underside before assembly.
+before installing the hardware. Each carrier half exposes the flat undersides of its fore shoulder, seam-rail relief and
+central lap. Their removable support is accessible from the loose half's underside before assembly.
 Four bed-rooted bodies carry the handhold ceilings, one per flank on each bottom piece.
 Each has **34.20 mm** of build-up and comes out through the open bottom. The other bottom-quadrant supports carry one feature
 standing on all four flanks: the **Z seam's slide-head catch**, the joint's one down-looking flat and the
@@ -1234,28 +1229,25 @@ branch sleeves move inside their bodies; the spring loads remain catalog estimat
 The cradle's flat aft edge is at y [79.419 mm](PUMP_CARTRIDGE_AFT_Y),
 [0.1 mm](CARTRIDGE_BULKHEAD_KISS) fore of the bay bulkhead.
 
-**Both pulls belong to the cradle and stand on its own Y midline.** Each side pocket has a
-nominal envelope [18 mm](PULL_DEPTH) deep, [28 mm](PULL_RUN) fore/aft and
-[44.15 mm](PULL_RISE) high, centred at y [42.21 mm](PULL_CENTER_Y). Its four floor/roof-to-end-wall
-corners have [5 mm](PULL_CORNER_R) rounds, and its complete hand-contact rim has a
-[3 mm](PULL_EDGE_R) round, matching the enclosure handholds. The rim opens outward around the
-nominal envelope. Its level floor at z [176.25 mm](PULL_FLOOR_Z) leaves
-[10.88 mm](PULL_FLOOR_LIGAMENT) of bed-rooted cradle below it,
-[7.88 mm](PULL_RIM_FLOOR_LIGAMENT) at the rounded exterior edge, and places the pull datum,
-z [188.25 mm](PULL_CENTER_Z), 12 mm inside the mouth. Its roof is one flat plane through the
-complete fingertip depth at z [220.39 mm](PULL_TOP_Z), the same plane as the neighboring
-tee-carrier grip's roof. A Y-normal wall closes each end of the pocket:
-the fore wall at y [28.21 mm](PULL_LEDGE) is the ledge the fingers pull on, the aft wall at
-y [56.21 mm](PULL_AFT_LEDGE) the one they push on, with [23.21 mm](PULL_FORE_STOCK) of cradle
-fore of the pocket and [23.21 mm](PULL_AFT_STOCK) aft of it.
-Pulling force enters the one load-bearing cradle; the clamp has no separate grip to split the
-load or invite a second tug.
+**Both pulls are tall rounded pockets in the cradle's flanks.** Each is [18 mm](PULL_DEPTH)
+deep and [20 mm](PULL_RUN) long in Y, from z [176.25 mm](PULL_FLOOR_Z)
+to z [271.615 mm](PULL_TOP_Z), a [95.37 mm](PULL_RISE) height. The cartridge keeps
+[10.88 mm](PULL_FLOOR_LIGAMENT) below each pocket and [10.88 mm](PULL_ROOF_LIGAMENT)
+above it. The four corners have [5 mm](PULL_CORNER_R) radii, and the complete exposed
+perimeter has [2 mm](PULL_EDGE_R) rounds, leaving [8.88 mm](PULL_RIM_FLOOR_LIGAMENT)
+at the lower rim and [8.88 mm](PULL_RIM_ROOF_LIGAMENT) at the upper rim.
+The fore face at y [42.62 mm](PULL_LEDGE)
+carries cartridge extraction; the aft face at y [62.62 mm](PULL_AFT_LEDGE) takes the thumb's
+push during insertion. That aft face stands [50 mm](PULL_HAND_SPAN) from the opposing service
+tab at squeeze and connected. The cradle keeps [37.62 mm](PULL_FORE_STOCK) of stock fore
+of the pocket and [16.8 mm](PULL_AFT_STOCK) aft of it. The inboard walls join both grip
+faces to the cartridge body. The top clamp has no separate grip.
 
 ## The tee carrier body
 
 A filled body extends aft from the fixed tee wall to the moving carrier and joins both
 flanks. Its flat lower and upper lands carry the carrier web; the outboard guide openings
-carry the closed handholds and stop their release/park travel. Four continuous aft-opening
+carry the solid service tabs and their release/park stops. Four continuous aft-opening
 wells each carry a tee, both ties, the lower hairpin and the upper bowed tube and valve port.
 Their constant sections continue through the finished valve-tray junction. The upper land
 forms a continuous bridge into the fore valve tray, up to its valve-body clearance plane.
@@ -1266,12 +1258,13 @@ that row's valves from underneath and carry the moving hairpins. Branch journals
 continue forward to the fixed collet plate. One common full-width face clears the tie heads,
 ends the spring bores and clears the upper lap's lateral entry.
 
-Each flank opening has one continuous lower edge at the web's insertion height. The closed
-handhold's outer floor follows it along the entire grip. One broad inboard underside
-clearance accommodates the enclosure seam rail. Behind each flush grip opening, a single
-rectangular recess continues from the outer tee well to the aft tray's fore plane. The rim
-bears on its ceiling and against the remaining outer wall shoulder. That same recess admits
-the complete cup and retaining rim from inside the enclosure.
+Each flank opening is 30.15 mm long in Y, with 20 mm minimum finger clearance behind an
+8 mm solid bar. The bar's root overlaps the moving web's full thickness. Its lower outer
+foot runs above the opening's lower edge; its inboard underside clears the seam rail.
+A fore shoulder retains the bar behind the wall, and an upper tongue meets the park stop
+above the finger space. The internal recess continues from the outer tee well to the aft
+tray's fore plane. Its upper entry passage passes inboard of that stop. The carrier's complete
+insertion and working sweeps include 0.15 mm clearance on each side in X and Z.
 
 Two round spring bores terminate on the fixed wall and end on the body's common aft face.
 Each compressed spring enters through an inner tee well above the seated tee, moves outward
@@ -1393,10 +1386,9 @@ uses those case profiles to shape the broad pressing base and cut the boss and c
 one service clamp.
 
 **The lower cradle prints on its Z− floor.** Its filled bearing block, flush front, rounded
-corners and both flank skins begin together on that bed and rise plumb. The two
-pull roofs are flat at the neighboring carrier grips' roof plane. The production profile gives
-each one a bed-rooted tree with one interface, directly removable through its open side pocket.
-The pump wells remain open above. **The top clamp prints on its crown** (`print_up` is −1 for
+corners and both flank skins begin together on that bed and rise plumb. Each hand pocket's
+flat roof takes support removable through the open side. The pump wells remain open above.
+**The top clamp prints on its crown** (`print_up` is −1 for
 `pump-cap`): its two boss-to-can shoulders look print-up and carry themselves, the boss
 octagons open upward through the pressing face and the can bores run straight to the bed, so
 no support reaches the field. What looks down is each head seat, a bridge one counterbore wide

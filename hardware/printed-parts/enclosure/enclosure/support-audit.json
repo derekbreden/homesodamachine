@@ -785,18 +785,18 @@
           "name": "X- pump-cartridge pull roof",
           "first_contacts_cad_xyz_mm": [
             [
-              -106.6,
-              31.809,
-              221.165,
-              -90.2,
-              53.009,
-              221.565
+              -107.4,
+              46.209,
+              270.965,
+              -89.8,
+              59.409,
+              271.365
             ]
           ],
           "root": "bed",
-          "build_up_mm": 55.6,
+          "build_up_mm": 105.4,
           "interface_islands": 1,
-          "rationale": "The pull keeps a flat roof at the neighboring tee-carrier grip's roof plane because both faces carry the same squeeze motion. One tree reaches that roof from the print bed through the open side pocket after 51.00 mm of build-up; the complete body is directly accessible for removal."
+          "rationale": "The flat roof joins the fore and aft ends of the rounded pull pocket. One bed-rooted support reaches its underside after 105.40 mm of build-up. The complete support body is accessible through the open side before pump installation."
         },
         {
           "tree": "tree-2",
@@ -804,17 +804,17 @@
           "first_contacts_cad_xyz_mm": [
             [
               89.8,
-              31.809,
-              221.165,
-              106.6,
-              52.609,
-              221.565
+              46.209,
+              270.965,
+              107.0,
+              59.409,
+              271.365
             ]
           ],
           "root": "bed",
-          "build_up_mm": 55.6,
+          "build_up_mm": 105.4,
           "interface_islands": 1,
-          "rationale": "The pull keeps a flat roof at the neighboring tee-carrier grip's roof plane because both faces carry the same squeeze motion. One tree reaches that roof from the print bed through the open side pocket after 51.00 mm of build-up; the complete body is directly accessible for removal."
+          "rationale": "The flat roof joins the fore and aft ends of the rounded pull pocket. One bed-rooted support reaches its underside after 105.40 mm of build-up. The complete support body is accessible through the open side before pump installation."
         }
       ]
     },
