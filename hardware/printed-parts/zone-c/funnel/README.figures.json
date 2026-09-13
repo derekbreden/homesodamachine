@@ -6,6 +6,8 @@
     "FUNNEL_HOLD": "7 mm",
     "FUNNEL_LAND": "12 mm",
     "FUNNEL_MARGIN": "10 mm",
-    "FUNNEL_SPOUT_ID": "6.35 mm"
+    "FUNNEL_SPOUT_ID": "6.35 mm",
+    "FUNNEL_SPOUT_OD": "15.35 mm",
+    "FUNNEL_SPOUT_WALL": "4.5 mm"
   }
 }

@@ -1,5 +1,13 @@
 # Funnel mold print log
 
+## Rod fit — 2026-09-13
+
+Derek reports that the steel rod was nearly impossible to press into the
+recently printed core. He could not establish whether it reached its seat;
+the rod interfered with closing the core and cavity. The exact printed source
+revision and the measured socket, rod and insertion dimensions were not
+identified. No measurement establishes which surfaces made contact.
+
 ## Dry fit — 2026-09-12
 
 Derek reports that the recently printed cavity and core fit tightly before

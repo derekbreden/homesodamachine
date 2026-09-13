@@ -43,7 +43,8 @@ bottom:
 - **The clamp land.** That spout tube is [12 mm](FUNNEL_LAND) of straight round,
   which is a worm clamp's band and a shoulder of silicone either side of it. A
   1/4" LLDPE stub runs up the whole of it and the band closes the silicone onto
-  the stub — the joint is made at the factory and washes with the funnel
+  the stub. Its nominal wall is [4.5 mm](FUNNEL_SPOUT_WALL), with an outside
+  diameter of [15.35 mm](FUNNEL_SPOUT_OD). The joint is made at the factory and washes with the funnel
   ([`reference/funnel-drain-stub`](/hardware/reference/funnel-drain-stub/), card
   SA-06). The stub is what the machine's push-fit collet grips, since a collet
   grips tube and this spout is silicone. Every millimetre of this land lowers the

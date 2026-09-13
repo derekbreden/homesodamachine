@@ -142,7 +142,7 @@ ramp_angle = 15.0       # deg — the floor's shallowest line (the long X half-r
                         # every degree, and the manifold's east elbow row and the lane
                         # its pump-discharge crossings use are directly under the spout.
 spout_id = 6.35         # 1/4" outlet bore
-spout_wall = 2.0        # spout wall at the tip
+spout_wall = 4.5        # radial silicone around the drain stub, including casting-centre allowance
 clamp_shoulder = 2.0    # silicone left standing either side of the clamp's band
 # The straight spout tube below the ramp tip — the CLAMP LAND. The drain stub runs up the
 # whole of it (`reference/funnel-drain-stub`) and the worm clamp's band closes on the middle,
@@ -296,6 +296,8 @@ def main():
         _here.parent / "README.md",
         variables={
             "FUNNEL_SPOUT_ID": f"{spout_id:g} mm",
+            "FUNNEL_SPOUT_OD": f"{spout_id + 2*spout_wall:g} mm",
+            "FUNNEL_SPOUT_WALL": f"{spout_wall:g} mm",
             "FUNNEL_CHUTE": f"{chute_h:g} mm",
             "FUNNEL_LAND": f"{spout_tube:g} mm",
             "FUNNEL_DROP": f"{total:.0f} mm",

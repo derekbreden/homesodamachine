@@ -8,7 +8,7 @@
     "core": [
       205.0,
       205.0,
-      45.31546970507766
+      45.154273277631034
     ],
     "funnel": [
       173.0,
@@ -19,21 +19,64 @@
       6.35,
       6.35,
       50.8
+    ],
+    "seal": [
+      8.350000200023775,
+      8.3500002,
+      1.6946630011561403
     ]
   },
   "volume_ml": {
-    "cavity": 282.31985709885583,
-    "core": 272.31000999084347,
-    "funnel": 135.175669040445,
-    "rod": 1.6087962461345555
+    "cavity": 280.6836389617975,
+    "core": 271.6671564592494,
+    "funnel": 143.41717941119603,
+    "rod": 1.6087962461345555,
+    "seal": 0.036122368221459415
   },
   "shell_thickness_mm": 5.0,
   "flange_thickness_mm": 5.0,
   "parting_z_mm": 70.64923296371627,
   "finish_allowance_mm": 0.3,
-  "rod_socket_depth_mm": 28.799999999999997,
-  "rod_socket_diametral_clearance_mm": 0.3,
-  "rod_socket_vent_diameter_mm": 2.5,
+  "rod_support": {
+    "engagement_mm": 32.8,
+    "guide_diameter_mm": 8.35,
+    "guide_diametral_clearance_mm": 2.0,
+    "guide_length_mm": 10.0,
+    "cradle": "open 90-degree V, two zip ties, visible axial stop on dry back",
+    "tie_width_mm": 4.4,
+    "tie_stations_from_neck_mm": [
+      17.0,
+      27.0
+    ],
+    "seal": "removable mold-sealing clay, shaped flush with the forming face",
+    "seal_depth_mm": 2.0
+  },
+  "spout": {
+    "bore_mm": 6.35,
+    "outside_diameter_mm": 15.35,
+    "nominal_wall_mm": 4.5,
+    "finished_length_mm": 12.0,
+    "sacrificial_length_mm": 12.0,
+    "rod_end_clearance_mm": 6.0
+  },
+  "rod_tolerance_screen": {
+    "offset_mm": 1.5,
+    "axial_error_mm": 3.0,
+    "tilt_deg": 2.0,
+    "azimuths_deg": [
+      0,
+      45,
+      90,
+      135,
+      180,
+      225,
+      270,
+      315
+    ],
+    "minimum_silicone_clearance_mm": 2.3737431835693528,
+    "minimum_required_wall_mm": 2.0,
+    "scope": "Simultaneous rod offset, tilt and axial error against the cavity; cradle retention and sealing need a physical trial."
+  },
   "locators": {
     "diameter_mm": 8.0,
     "height_mm": 3.0,
