@@ -74,7 +74,6 @@ HANDWHEEL_HUB_D, HANDWHEEL_HUB_Z1 = 18.0, 62.0
 NECK_D, NECK_Z0 = 32.0, -60.0
 SHOULDER_Z0 = -100.0
 CYLINDER_Z0 = -330.0
-NUT_LEN = 14.0
 
 
 def _regulator_module():
@@ -82,7 +81,7 @@ def _regulator_module():
 
 
 def _cylinder_and_regulator(gap: float) -> cq.Assembly:
-    """The regulator on its cylinder, the tether's nut `gap` mm short of the outlet's flare."""
+    """The regulator on its cylinder, the tether's connector pair `gap` mm from its seated pose."""
     reg = _regulator_module()
     a = reg.build_assembly()
     tip, _ = reg.outlet()
@@ -112,11 +111,7 @@ def _cylinder_and_regulator(gap: float) -> cq.Assembly:
     ia._add(a, ia._cyl(VALVE_AXIS_X, 0.0, CYLINDER_Z0, ia.CYLINDER_D, SHOULDER_Z0 - CYLINDER_Z0),
             "cylinder", ia.CYLINDER)
 
-    # The MI4508F4SLF's swivel nut and the red tether leaving it, `gap` short of home.
-    nut_top = z - gap
-    ia._add(a, ia._hex(x, y, nut_top - NUT_LEN, reg.OUTLET_HEX_FLATS, NUT_LEN),
-            "tether-swivel-nut", ia.BRASS)
-    top = nut_top - NUT_LEN
+    _, _, top = ia._co2_tether_adapter(a, tip, gap=gap)
     ia._add(a, ia._bend([(x, y, top), (x, y, top - 46.0), (x + 130.0, y, top - 46.0)],
                         radius=22.0),
             "red-tether", ia.RED_TUBE)
