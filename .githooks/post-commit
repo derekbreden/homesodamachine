@@ -38,7 +38,9 @@ fi
 #
 # `push.py` lands it: a commit whose patch is already on the remote under another hash is
 # dropped, anything else is replayed in a detached worktree that shares no index with the
-# sessions building here, and a conflict is left alone and named.
+# sessions building here, and then this tree is brought up to what landed, file by file — a
+# collision with main is written into the file on this disk as conflict markers, named with
+# the commit it met, for whoever owns the file to resolve.
 #
 # IT REPORTS AND DOES NOT HOLD. The commit is already made and this hook's exit status cannot
 # unmake it, so a push that does not land says so and leaves the work committed.

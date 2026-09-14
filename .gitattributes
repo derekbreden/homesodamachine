@@ -25,6 +25,13 @@
 # release asset they arrive in, and web/scripts/fetch-cad-artifacts.mjs puts them on the disk.
 *.step  -diff linguist-generated=true
 
+# TWO PUBLISHES ALWAYS MEET ON THE LOCK: source.commit and the bundle move on every one, so a
+# rebase of one publish onto another stops there every time, textually, with one right answer
+# — main's manifest plus the members the incoming publish moved. tools/cad-artifacts/merge_lock.py
+# is that answer, and tools/push.py writes its command into a clone's config the first time it
+# runs there, since an attribute can name a driver but cannot carry one.
+hardware/cad-artifacts.lock.json  merge=cadlock
+
 # GIT DOES NOT DETECT THESE AS BINARY. A card deck's PDF carries no NUL byte inside the
 # first 8000, which is the whole of what the heuristic looks at, so deck.pdf (42 MB) and
 # deck-tools.pdf (17 MB) go out as patch text — 73 MB of the 128 MB above. `binary` is
