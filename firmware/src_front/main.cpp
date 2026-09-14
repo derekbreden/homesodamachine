@@ -630,7 +630,7 @@ static lv_obj_t *settingsBtn;      // top-right of the screen, outside the pane
 // says it is closed, then a filled disc. Index 0..3 is reservoir A's empty..full
 // reed, 4..7 reservoir B's, 8 the carbonator's low reed and 9 its high one.
 static lv_obj_t *statusReed[STATUS_REEDS];
-static lv_obj_t *statusNote = NULL;    // under the diagram: that nothing is being read, else empty
+static lv_obj_t *statusNote = NULL;    // under the card: that nothing is being read, else empty
 static uint16_t  statusShown = 0;      // the closed set the diagram is drawn with
 static bool      statusFreshShown = false;
 #define STATUS_ANSWER_MS 1500          // a status poll unanswered this long is a main board not reading
@@ -4522,7 +4522,8 @@ static lv_obj_t *mkOutline(lv_obj_t *parent, lv_coord_t x, lv_coord_t y, lv_coor
 #define STATUS_MM_REED_DOT 14
 #define STATUS_MARGIN      2
 
-static void buildStatusDiagram(lv_obj_t *card, lv_coord_t w, lv_coord_t top) {
+// Draws the profile `w` wide at `top` in the card and returns the height it took.
+static lv_coord_t buildStatusDiagram(lv_obj_t *card, lv_coord_t w, lv_coord_t top) {
   const float s = (float)(w - 2 * STATUS_MARGIN) / STATUS_MM_D;
   const lv_coord_t h = STATUS_MARGIN * 2 + (lv_coord_t)(STATUS_MM_H * s + 0.5f);
   #define PX(d) (lv_coord_t)(STATUS_MARGIN + (d) * s + 0.5f)
@@ -4585,6 +4586,7 @@ static void buildStatusDiagram(lv_obj_t *card, lv_coord_t w, lv_coord_t top) {
   }
   #undef PX
   #undef PZ
+  return h;
 }
 
 // Settings lands on the system status — the machine's profile with every reed on
@@ -4598,16 +4600,21 @@ static void buildSettings(lv_obj_t *page) {
   lv_obj_align(mkText(status, "SETTINGS", &lv_font_montserrat_28, COL_DIM),
                LV_ALIGN_TOP_LEFT, 0, (PANE_HEAD_H - TEXT_H_28) / 2);
 
+  // The card wraps the drawing: its caption, the profile at the width the column
+  // leaves it, and the same padding all round. What is left of the pane under it
+  // is air, and the one line that can appear there says the main board is not
+  // reading — so the drawing itself carries no words.
   const lv_coord_t cardW = PANE_W - 2 * PANE_PAD - STATUS_MENU_W - STATUS_MENU_GAP;
-  const lv_coord_t cardH = PANE_H - PANE_BODY_Y;
-  lv_obj_t *card = mkCard(status, cardW, cardH);
+  lv_obj_t *card = mkCard(status, cardW, 0);
   lv_obj_align(card, LV_ALIGN_TOP_LEFT, 0, PANE_BODY_Y);
   lv_obj_set_style_pad_all(card, STATUS_CARD_PAD, 0);
   lv_obj_align(mkText(card, "SYSTEM STATUS", &lv_font_montserrat_20, COL_DIM),
                LV_ALIGN_TOP_LEFT, 0, 0);
-  buildStatusDiagram(card, cardW - 2 * STATUS_CARD_PAD, TEXT_H_20 + 8);
-  statusNote = mkText(card, "not reading the reeds", &lv_font_montserrat_20, COL_WARN);
-  lv_obj_align(statusNote, LV_ALIGN_BOTTOM_LEFT, 0, 0);
+  const lv_coord_t diagH = buildStatusDiagram(card, cardW - 2 * STATUS_CARD_PAD, TEXT_H_20 + 8);
+  const lv_coord_t cardH = 2 * STATUS_CARD_PAD + TEXT_H_20 + 8 + diagH;
+  lv_obj_set_height(card, cardH);
+  statusNote = mkText(status, "not reading the reeds", &lv_font_montserrat_20, COL_WARN);
+  lv_obj_align(statusNote, LV_ALIGN_TOP_LEFT, 0, PANE_BODY_Y + cardH + 12);
 
   static const char *kArea[SET_COUNT] = {NULL, "PUMP SERVICE"};
   lv_coord_t y = PANE_BODY_Y;

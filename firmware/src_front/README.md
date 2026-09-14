@@ -516,8 +516,10 @@ each — one so far, **PUMP SERVICE**, whose page carries a Back to this landing
 
 The reeds ride the same status poll as the gauges, once a second while lit, and the diagram
 repaints only the dots that changed. A poll the main board has not answered for 1.5 s, or a
-reading it flags as stale, empties every dot and puts **not reading the reeds** under the
-diagram, which otherwise carries nothing. The middle rung of the dark returns Settings to this landing;
+reading it flags as stale, empties every dot and puts **not reading the reeds** in the pane
+under the card, which is otherwise air; the drawing itself carries no words. The card wraps the
+drawing — its caption, the profile at the width the column leaves it, the same padding all
+round. The middle rung of the dark returns Settings to this landing;
 `GET_DIAG` reports which of its views is up as `set=`.
 
 ## Integration seams (not implemented)
