@@ -40,10 +40,13 @@ name: derive
 # and the tree carries the drift in the meantime. The schedule is neither of the two things
 # that failed: not the inner loop, and not anyone's memory. Nobody is in the tree at 03:00,
 # so a run that takes an hour costs no one anything.
-#   THE SWEEP IS THE SUNDAY ONE. Re-tracing every generator is the expensive half and the
-# graph only moves when a generator's imports do, so the nightly reconciles the artifacts and
-# the week's run also re-traces. A `schedule` event carries no `inputs`, so the trace step
-# reads the cron that woke it (`Re-trace every generator`).
+#   A FULL RE-TRACE IS A DISPATCH, NOT A SCHEDULE. Re-tracing every generator is three hours
+# on this machine, and on a fresh checkout it hands back a graph that cannot build: the outputs
+# a generator would have skipped writing are not on the disk to be kept, so their claims are
+# let go and `gen_build.py` refuses the reads that name them. The graph is kept by the
+# targeted trace on the machine that edits a generator and by `check_declared_imports.py` on
+# every commit; `trace=all` here is for a change that moves every reading at once, asked for
+# by name.
 on:
   workflow_dispatch:
     inputs:
@@ -56,8 +59,6 @@ on:
   schedule:
     # 03:00 America/Chicago — the artifacts, nightly.
     - cron: "0 8 * * *"
-    # 04:00 Sunday — and the build graph with them.
-    - cron: "0 9 * * 0"
 
 concurrency:
   # ONE RUNNING, ONE WAITING, AND EVERYTHING ELSE DISCARDED. `cancel-in-progress: false` buys
@@ -135,13 +136,12 @@ jobs:
     # derives at all. One did exactly that for an hour and a half: `//:render-scene-cards` boots
     # a server and drives a browser, and neither has a timeout of its own.
     #
-    # THE WEEK'S RUN TRACES FIRST, AND A TRACE STANDS THE APPLIANCE TWICE ON THIS MACHINE at
-    # 36-45 minutes a standing (`//:appliance-model` in the nightly log), once for
-    # `enclosure_assembly.py` and once for `render_scenes.py`, each under `trace_inputs.py`'s
-    # hour-long `DEADLINE`. The trace step's 260, the build step's seventy and the fetch,
-    # checks and commit around them are what the larger figure holds, which is GitHub's own
-    # ceiling; the nightly holds the build step and the same steps around it.
-    timeout-minutes: ${{ (github.event.schedule == '0 9 * * 0' || inputs.trace == 'all') && 360 || 105 }}
+    # A `trace=all` DISPATCH TRACES FIRST, AND A TRACE STANDS THE APPLIANCE EIGHT TIMES ON
+    # THIS MACHINE at 15-27 minutes a standing (the sweep of 2026-09-14, 189 minutes for 176
+    # generators). The trace step's 260, the build step's seventy and the fetch, checks and
+    # commit around them are what the larger figure holds, which is GitHub's own ceiling; the
+    # nightly holds the build step and the same steps around it.
+    timeout-minutes: ${{ inputs.trace == 'all' && 360 || 105 }}
     # A CONTAINER JOB'S DEFAULT SHELL IS `sh -e`, NOT BASH. GitHub picks bash on a hosted
     # runner and drops to sh inside a container, because it cannot assume the image has one —
     # and noble's sh is dash, which has no `pipefail`. Every `run:` here was written against
@@ -295,10 +295,9 @@ jobs:
       # not a looser rule — a graph that keeps outputs nothing writes is the failure this step
       # exists to avoid.
       - name: Re-trace every generator
-        if: inputs.trace == 'all' || github.event.schedule == '0 9 * * 0'
-        # The sweep of 2026-09-14 read 164 of 176 generators in 200 minutes on this machine,
-        # the scene renderer's appliance standing among them; this holds the rest and the
-        # build step's seventy still fit the job's weekly budget behind it.
+        if: inputs.trace == 'all'
+        # The sweep of 2026-09-14 read all 176 generators in 189 minutes on this machine; this
+        # holds that with the build step's seventy still inside the job's budget behind it.
         timeout-minutes: 260
         run: |
           cp tools/bazel/graph.json "$RUNNER_TEMP/graph-before.json"
