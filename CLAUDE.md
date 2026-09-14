@@ -38,7 +38,7 @@ You have access to my Chrome which is signed in to my amazon through your MCP. I
 
 ## Running in the cloud
 
-A session on Anthropic's machines cannot `SendMessage` a session on Derek's Mac. `.claude/skills/relay-poke/SKILL.md` is the way back: a `<relay to="name">` mark in your reply, delivered by a watcher there.
+A session on Anthropic's machines cannot `SendMessage` a session on Derek's Mac. `.claude/skills/relay-poke/SKILL.md` is the way back: a `<relay to="name">` mark in the message that ends your turn, delivered by a watcher there; `/relay <title>` pulls a local session's transcript in the same way.
 
 ## What else an agent should have read
 
