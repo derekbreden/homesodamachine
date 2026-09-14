@@ -23,6 +23,21 @@ this session, and the answer reaches you as a cross-session message — a new tu
 idle, your next tool round if you are working. Continue with anything that does not depend on
 the answer; do not poll for it.
 
+## Without ending the turn
+
+Text between tool calls is not always recorded, but a tool call is, the moment it runs. So
+mid-task, run the mark instead of writing it:
+
+```
+tools/relay-mark to "Time" "What is the state of the funnel-mold trial?"
+tools/relay-mark read "Time" 40
+```
+
+The script only checks the arguments; the watcher reads the mark out of your tool call and
+acts on it within seconds. Keep working; the answer arrives at a later tool round as a
+cross-session message. A mark found more than ten minutes after it was written (the watcher was
+not running) is bounced rather than delivered, so write it again if it still matters.
+
 ## Addressing
 
 `to` is a session's name exactly as it appears in the `from-name` of a message you received, or

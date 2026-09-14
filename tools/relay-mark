@@ -1,0 +1,23 @@
+#!/bin/sh
+# relay-mark: reach a session on Derek's Mac from a Claude session running in the cloud,
+# without ending the turn.
+#
+#   tools/relay-mark to "Time" "What is the state of the funnel-mold trial?"
+#   tools/relay-mark read "Time" 40
+#
+# A cloud session cannot message another session, and the text it writes between tool
+# calls is not always recorded. A tool call is: this command's own invocation lands in
+# the session's event stream the moment it runs, and the cloud-inbox watcher on the Mac
+# reads the mark out of it and delivers it, or renders and posts the transcript asked
+# for. The answer arrives as a cross-session message at the next tool round. Nothing
+# happens here; this script only checks the arguments and says what will follow.
+set -eu
+usage() { echo "usage: relay-mark to <session name> <message> | relay-mark read <title> [tail]" >&2; exit 2; }
+[ $# -ge 2 ] || usage
+case "$1" in
+  to)   [ $# -eq 3 ] && [ -n "$2" ] && [ -n "$3" ] || usage
+        printf 'mark recorded: <relay to="%s"> (%d chars). The watcher on Derek'"'"'s Mac delivers it within seconds; the answer arrives here as a cross-session message.\n' "$2" "${#3}" ;;
+  read) [ $# -le 3 ] && [ -n "$2" ] || usage
+        printf 'mark recorded: <relay read="%s" tail="%s"/>. The transcript arrives here as a message from relay, in parts when long.\n' "$2" "${3:-40}" ;;
+  *)    usage ;;
+esac

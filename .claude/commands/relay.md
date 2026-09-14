@@ -44,4 +44,5 @@ middle-cutting of long agent runs. Each transcript arrives as a cross-session me
 `relay` (in parts when long), starting a new turn; a name that matches nothing is answered with
 the names that exist. When they are in, give the orientation and do the job $ARGUMENTS gave.
 
-To talk to one of those sessions afterwards, the `relay-poke` skill has the mark for that.
+Mid-task, without ending the turn: `tools/relay-mark read "Time" 40` as a tool call does the
+same. To talk to one of those sessions afterwards, the `relay-poke` skill has the mark for that.
