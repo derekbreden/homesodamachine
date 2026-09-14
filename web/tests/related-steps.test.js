@@ -70,10 +70,14 @@ test("a name that merely shares a prefix is not related", () => {
   assert.ok(!rel.some((f) => f.includes("/foam-assembly/")), rel.join("\n"));
 });
 
-test("generated trees offer nothing and are offered nothing", () => {
-  const scene = ALL.find((f) => f.split("/").includes("out"));
-  assert.ok(scene, "no generated model in the tree to check");
-  assert.deepEqual(relatedSteps(scene, ALL), []);
+// A GENERATED MODEL STANDS ONLY ON A MACHINE THAT RAN ITS GENERATOR. The quickstart studies
+// write theirs to an ignored `out/` the lock does not carry, so a fresh checkout holds none
+// and this reads the rule off whichever one is here.
+const GENERATED = ALL.find((f) => f.split("/").includes("out"));
+
+test("generated trees offer nothing and are offered nothing",
+     { skip: !GENERATED && "no generated model on this disk" }, () => {
+  assert.deepEqual(relatedSteps(GENERATED, ALL), []);
   for (const f of ALL) {
     for (const r of relatedSteps(f, ALL)) {
       assert.ok(!r.file.split("/").includes("out"), `${f} -> ${r.file}`);
