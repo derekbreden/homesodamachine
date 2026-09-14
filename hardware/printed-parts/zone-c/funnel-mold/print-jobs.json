@@ -142,6 +142,11 @@
       "ams_a3_remaining_percent": 100,
       "filament": "Bambu PETG Translucent",
       "selected": "AMS A3"
+    },
+    "outcome": {
+      "result": "failed",
+      "reported_date": "2026-09-14",
+      "observation": "Derek reports the supports bond and are stable early; later, fast movement on and between tall supports knocks some over. Bed remains uncleared; exact failure layer unknown."
     }
   }
 ]

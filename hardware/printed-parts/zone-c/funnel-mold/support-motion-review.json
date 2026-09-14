@@ -1,0 +1,214 @@
+{
+  "previous": {
+    "project": "funnel-mold-h2c-support-feet.gcode.3mf",
+    "project_sha256": "af875c583d942114f563036b9129d1aa6c40a7ec166eff7cd50424fef4cc49b1",
+    "plates": [
+      {
+        "gcode": "Metadata/plate_1.gcode",
+        "gcode_sha256": "3c61f19d65cd55dc1737dc8225b418663d6a7f0f908cefc55d3124b5da63a8d7",
+        "estimated_seconds": 66646,
+        "estimated_filament_g": 653.1,
+        "after_first_layer": {
+          "Travel": {
+            "moves": 205786,
+            "max_speed_mm_s": 1000.0,
+            "max_acceleration_mm_s2": 10000.0
+          },
+          "Support": {
+            "moves": 3141828,
+            "max_speed_mm_s": 86.74958333333333,
+            "max_acceleration_mm_s2": 8000.0
+          },
+          "Support interface": {
+            "moves": 10885,
+            "max_speed_mm_s": 80.0,
+            "max_acceleration_mm_s2": 8000.0
+          }
+        },
+        "total_layers": 331,
+        "extruding_centerline_bounds_mm": [
+          47.038,
+          57.538,
+          251.962,
+          264.552
+        ]
+      }
+    ]
+  },
+  "retry": {
+    "project": "funnel-mold-h2c-gentle-supports.gcode.3mf",
+    "project_sha256": "3fde3dd7022c462151c28f18b93d923a157a03b0f678786cd8c5af138f9f148b",
+    "plates": [
+      {
+        "gcode": "Metadata/plate_1.gcode",
+        "gcode_sha256": "8b33316ecd1eddbdd6ac09a8baf2573d7d3e591e7a5ea981b30d2dea39319c58",
+        "estimated_seconds": 113360,
+        "estimated_filament_g": 786.73,
+        "after_first_layer": {
+          "Travel": {
+            "moves": 353292,
+            "max_speed_mm_s": 150.0,
+            "max_acceleration_mm_s2": 1500.0
+          },
+          "Support": {
+            "moves": 3877636,
+            "max_speed_mm_s": 40.0,
+            "max_acceleration_mm_s2": 1500.0
+          },
+          "Support interface": {
+            "moves": 11461,
+            "max_speed_mm_s": 30.0,
+            "max_acceleration_mm_s2": 1500.0
+          }
+        },
+        "total_layers": 331,
+        "extruding_centerline_bounds_mm": [
+          44.133,
+          57.283,
+          252.032,
+          262.83
+        ]
+      }
+    ]
+  },
+  "settings_changes": {
+    "avoid_crossing_wall_includes_support": {
+      "previous": "0",
+      "retry": "1"
+    },
+    "default_acceleration": {
+      "previous": [
+        "8000",
+        "8000",
+        "8000",
+        "8000"
+      ],
+      "retry": [
+        "1500",
+        "1500",
+        "1500",
+        "1500"
+      ]
+    },
+    "different_settings_to_system": {
+      "previous": [
+        "bottom_shell_layers;bottom_shell_thickness;brim_object_gap;brim_type;brim_width;enable_arc_fitting;enable_prime_tower;enable_support;layer_height;outer_wall_acceleration;outer_wall_speed;raft_first_layer_expansion;reduce_crossing_wall;seam_gap;seam_placement_away_from_overhangs;seam_position;sparse_infill_density;sparse_infill_pattern;support_bottom_z_distance;support_object_xy_distance;support_threshold_angle;support_top_z_distance;top_one_wall_type;top_shell_layers;top_surface_speed;wall_generator;wall_loops",
+        "filament_cost",
+        "default_nozzle_volume_type;machine_start_gcode"
+      ],
+      "retry": [
+        "avoid_crossing_wall_includes_support;bottom_shell_layers;bottom_shell_thickness;brim_object_gap;brim_type;brim_width;compatible_printers;default_acceleration;enable_arc_fitting;enable_prime_tower;enable_support;layer_height;outer_wall_acceleration;outer_wall_speed;raft_first_layer_expansion;reduce_crossing_wall;seam_gap;seam_placement_away_from_overhangs;seam_position;sparse_infill_density;sparse_infill_pattern;support_bottom_z_distance;support_interface_speed;support_object_xy_distance;support_speed;support_threshold_angle;support_top_z_distance;top_one_wall_type;top_shell_layers;top_surface_speed;travel_acceleration;travel_speed;tree_support_branch_diameter;tree_support_wall_count;wall_generator;wall_loops",
+        "filament_cost",
+        "default_nozzle_volume_type;machine_start_gcode"
+      ]
+    },
+    "print_compatible_printers": {
+      "previous": [
+        "Bambu Lab H2C 0.8 nozzle"
+      ],
+      "retry": [
+        "Bambu Lab H2C 0.8 nozzle",
+        "Bambu Lab H2C 0.8 High Flow +0.04 Z trim",
+        "Bambu Lab H2C 0.8 High Flow +0.18 Z trim"
+      ]
+    },
+    "print_settings_id": {
+      "previous": "Funnel mold shell - 0.8 nozzle - 8mm support feet",
+      "retry": "Funnel mold shell - 0.8 nozzle - gentle supports"
+    },
+    "support_interface_speed": {
+      "previous": [
+        "80",
+        "80",
+        "80",
+        "80"
+      ],
+      "retry": [
+        "30",
+        "30",
+        "30",
+        "30"
+      ]
+    },
+    "support_speed": {
+      "previous": [
+        "150",
+        "150",
+        "150",
+        "150"
+      ],
+      "retry": [
+        "40",
+        "40",
+        "40",
+        "40"
+      ]
+    },
+    "travel_acceleration": {
+      "previous": [
+        "10000",
+        "10000",
+        "10000",
+        "10000"
+      ],
+      "retry": [
+        "1500",
+        "1500",
+        "1500",
+        "1500"
+      ]
+    },
+    "travel_speed": {
+      "previous": [
+        "1000",
+        "1000",
+        "1000",
+        "1000"
+      ],
+      "retry": [
+        "150",
+        "150",
+        "150",
+        "150"
+      ]
+    },
+    "tree_support_branch_diameter": {
+      "previous": "2",
+      "retry": "4"
+    },
+    "tree_support_wall_count": {
+      "previous": "-1",
+      "retry": "2"
+    }
+  },
+  "machine_start_gcode_matches": true,
+  "effective_g29_1_mm": 0.16,
+  "scope": "Commanded motion after the first layer, including spiral travel lifts; excludes wiping, startup and shutdown. This is not a physical stability test.",
+  "first_layer": {
+    "project": "funnel-mold-h2c-gentle-supports.gcode.3mf",
+    "project_sha256": "3fde3dd7022c462151c28f18b93d923a157a03b0f678786cd8c5af138f9f148b",
+    "gcode_sha256": "8b33316ecd1eddbdd6ac09a8baf2573d7d3e591e7a5ea981b30d2dea39319c58",
+    "initial_layer_expansion_mm": 8.0,
+    "support_extrusion_area_mm2": 31804.6,
+    "support_bounds_mm": [
+      43.72,
+      63.25,
+      251.74,
+      260.34
+    ],
+    "within_printable_area": true,
+    "first_layer_mm": 0.4
+  },
+  "editable_project": {
+    "file": "funnel-mold.3mf",
+    "sha256": "c62750d80fff938d81e2313d59a58245ec7506ba536bd8fa653a65fe61994fee",
+    "geometry_entries_unchanged_from_git_head": [
+      "3D/3dmodel.model",
+      "3D/Objects/object_2.model",
+      "3D/Objects/object_1.model"
+    ],
+    "plate_metadata_unchanged": true,
+    "saved_gcode": false
+  },
+  "preset_bundle_sha256": "e07fe72e73ed1c54520044d3c042695f08299e0e06667f0e01a7c635c1903c16"
+}

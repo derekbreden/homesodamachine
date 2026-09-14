@@ -1,6 +1,25 @@
 # Funnel mold print log
 
+## Gentle support motion file — 2026-09-14
+
+The saved User Process is **Funnel mold shell - 0.8 nozzle - gentle supports**.
+The checked cavity file is `funnel-mold-h2c-gentle-supports.gcode.3mf`, with
+331 layers, a 31 h 29 min estimate and 786.73 g including supports. It has
+not been submitted. Derek has not cleared the bed and requested a 3MF only.
+
+Supports are capped at 40 mm/s, interfaces at 30 mm/s and travel at 150 mm/s.
+Normal printing and travel acceleration are 1,500 mm/s². Trees have two wall
+loops and 4 mm initial branch diameter; support walls participate in travel
+detours. Initial layer expansion is 8 mm. The +0.18 trim, Textured PEI,
+left 0.8 mm High Flow nozzle and Bambu filament operating settings are retained.
+[support-motion-review.json](support-motion-review.json) records the emitted
+commands and settings comparison. Physical stability is untested.
+
 ## Cavity support feet — 2026-09-14
+
+Derek reports this job failed. The supports bond early and remain stable;
+later, fast movement on and between the tall supports knocks some over.
+The failed print remains on the bed. The exact failure layer is unknown.
 
 H2C accepted `funnel-mold-h2c-support-feet.gcode.3mf` through Bambu Connect.
 At 15:34 UTC it reports RUNNING, 331 layers and no print error or HMS entry;
@@ -22,7 +41,8 @@ the printable area. The estimate is 18 h 31 min and 653 g, adding about
 records the path comparison and startup-command check;
 [print-jobs.json](print-jobs.json) records submission hashes and printer state.
 The editable project's meshes and placements are byte-identical to its
-preceding saved version. Adhesion and completed-part quality remain unobserved.
+preceding saved version. The initial support bonding is reported above;
+completed-part quality is unobserved.
 
 ## Cavity trial — 2026-09-14
 
