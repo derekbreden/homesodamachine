@@ -15,7 +15,7 @@
 import { test, mock } from "node:test";
 import assert from "node:assert/strict";
 
-import { refreshArtifacts } from "../lib/artifacts-live.js";
+import { lockMoved, refreshArtifacts } from "../lib/artifacts-live.js";
 
 // Never reached — `adopt()` throws at `lockOnMain()`, before any of these are read.
 const ctx = { broadcast() {}, setRecent() {}, commit: "0000000", hardwareDir: ".", detect: [] };
@@ -54,4 +54,19 @@ test("a look refused by the floor is held for the rest of it, not dropped", asyn
     mock.timers.reset();
     globalThis.fetch = realFetch;
   }
+});
+
+// A HELD PUBLISH MOVES MEMBERS UNDER A BUNDLE THAT STAYS. `pack.py --write --publish-held`
+// sends the objects that moved and names the bundle it already had, so a detector reading the
+// bundle's digest alone sees nothing and the geometry waits for the reconciler's whole cut.
+test("a lock whose members moved under the same bundle is a look worth taking", () => {
+  const have = { bundle: { sha256: "b" }, solids: { "a.step": "1", "b.step": "2" } };
+  assert.equal(lockMoved(have, structuredClone(have)), false, "the same lock moves nothing");
+  assert.equal(lockMoved(have, { ...have, solids: { ...have.solids, "b.step": "3" } }), true,
+    "a member re-pinned under the bundle left behind");
+  assert.equal(lockMoved(have, { ...have, solids: { ...have.solids, "c.step": "4" } }), true,
+    "a member the disk has never held");
+  assert.equal(lockMoved(have, { ...have, bundle: { sha256: "c" } }), true,
+    "a whole cut still moves on its digest");
+  assert.equal(lockMoved(null, have), true, "no lock on disk is behind by definition");
 });
