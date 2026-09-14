@@ -52,8 +52,8 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 1717 tracked, 401 fetched solids, 55 tags, 38 site routes",
-      "status": "ok"
+      "note": "2 reference(s) name a path nothing holds.",
+      "status": "red"
     },
     {
       "check": "tools/check_release_room.py",
@@ -67,8 +67,8 @@
     },
     {
       "check": "tools/bazel/check_build_file.py",
-      "note": "check_build_file: BUILD.bazel is what the graph writes; 3MFs are build-inert",
-      "status": "ok"
+      "note": "tools/cad-venv/bin/python tools/bazel/gen_build.py",
+      "status": "red"
     },
     {
       "check": "tools/bazel/check_ci_targets.py",
@@ -82,7 +82,7 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 1 of 6 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 401 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 1 of 4 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 401 member(s) keep their provenance",
       "status": "ok"
     }
   ],
@@ -96,6 +96,17 @@
       "instructions: 120 files (14 procedures + 105 cards + cover) | ledger brands: 546 | waived: 1 ASIN + 4 brand",
       "DRIFT: 1 instruction(s) out of step with the ledger:",
       "  ✗ instruction names a purchased brand the ledger no longer carries: Chanzon (hardware/assembly/weld-rotation-rig.md:221)"
+    ],
+    "tools/bazel/check_build_file.py": [
+      "BUILD.bazel is not what the graph would write now:",
+      "  tools/cad-artifacts/merge_lock.py answers to selftest and selftests.json does not name it",
+      "      tools/cad-venv/bin/python tools/bazel/trace_inputs.py --selftests tools/cad-artifacts/merge_lock.py",
+      "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
+    ],
+    "tools/check_paths.py": [
+      "tools/cloud_session.sh:28 — `archive-` is named as a tag; no such tag",
+      "  tools/cloud_session.sh:137 — `archive-` is named as a tag; no such tag",
+      "2 reference(s) name a path nothing holds."
     ],
     "tools/check_web_tests.py": [
       "1 test(s) in web/ fail:",
