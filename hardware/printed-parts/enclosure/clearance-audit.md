@@ -7,7 +7,8 @@ have **0.44 mm clearance** to the valve tray, with zero overlap on both sides
 ([verification](../cold-core/copper-plugs/clearance-check.json)). Derek confirms that the
 **enclosure display fits well in the current prints**; F1's exact-size reference envelope
 does not establish a physical fit problem. The pump casing passages provide **0.25 mm per
-side** in the current pump tray. The detailed reading below identifies its own geometry inputs.
+side** in the current pump tray. Derek also confirms that the **RJ11 jack fits in a printed
+enclosure back-top** (2026-09-14). The detailed reading below identifies its own geometry inputs.
 
 Reading: **2026-09-13**, geometry at `7ed198a4ca7b3a067128dfaad158629be31ae3fe`. All dimensions below are millimetres. The [evidence](clearance-audit.json) retains input hashes, exact distances, intersection volumes, witness coordinates, section measurements and motion results.
 
@@ -21,7 +22,7 @@ The target is **0.15 mm per face, measured normal to the mating surfaces**. [fit
 | F2 | Funnel fore ramp / front-top | **0.036369 mm** normal gap | Sloped fit is short by 0.113631 mm |
 | F3 | Pump cartridge and cap / fixed bulkhead | **0.100 mm** | Both printed aft faces are short by 0.050 mm |
 | F4 | Nameplate bevel / pocket bevel | **0.106066 mm** | Printed bevel fit is short by 0.043934 mm |
-| F5 | Pump jack and rear keystone / body pockets | **0.125 mm per side** | Modeled purchased-part fit, short by 0.025 mm |
+| F5 | Pump jack and rear keystone / body pockets | **0.125 mm per side** | Rear RJ11 fit confirmed in print; pump pocket not physically confirmed |
 | F6 | Four pump tube casings / cartridge passages | **0.125 mm per side** | Stated purchased-part fit, short by 0.025 mm |
 
 ## Collisions
@@ -57,7 +58,7 @@ Source: [enclosure.py](/hardware/printed-parts/enclosure/enclosure/enclosure.py)
 
 Source: [enclosure.py](/hardware/printed-parts/enclosure/enclosure/enclosure.py), `_nameplate` at lines 3382–3414; [nameplate.py](/hardware/printed-parts/enclosure/nameplate/nameplate.py), `SLIP`, `BEVEL` and the chamfer at line 474.
 
-**F5 — Both keystone pockets.** `FIT_SLIP = 0.25` is subtracted once from each full modeled body dimension. That leaves **0.125 mm on each side**, confirmed in the rear pocket and the pump-jack pocket. Their shoulders and catches are separate locating contacts. The reference is representative geometry; actual purchased body dimensions remain unverified.
+**F5 — Both keystone pockets.** `FIT_SLIP = 0.25` is subtracted once from each full modeled body dimension. That leaves **0.125 mm on each side**, measured in the rear pocket and the pump-jack pocket. Their shoulders and catches are separate locating contacts. **Derek confirms that the RJ11 jack fits in a printed enclosure back-top (2026-09-14).** The rear pocket's physical fit is confirmed. The pump-jack pocket uses the same receptacle geometry; its fit in a front-top print is not physically confirmed in this audit.
 
 Source: [riteav_keystone.py](/hardware/reference/riteav-keystone/riteav_keystone.py), lines 95 and 175; pump receptacle placement in [enclosure.py](/hardware/printed-parts/enclosure/enclosure/enclosure.py), line 5810.
 
