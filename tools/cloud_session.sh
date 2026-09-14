@@ -6,7 +6,7 @@
 #
 # A cloud session (Claude Code on the web, CLAUDE_CODE_REMOTE=true) starts from a fresh,
 # shallow clone on a Linux x86_64 box with python and node and nothing this tree builds with:
-# no CadQuery, no bazel, no solids, no tags, and none of the commits the print logs cite. The
+# no CadQuery, no bazel, no gh, no solids, and fifty commits of history. The
 # Mac has all of it by hand and `tools/ci-image/Dockerfile` bakes it for the runner; this is
 # the third machine, assembled on session start. Every step is idempotent and skips what is
 # already there, so a second run costs a few seconds.
@@ -24,8 +24,9 @@
 #   gh                          `pack.py` uploads with it; `check_release_room` reads through it
 #   bazel                       `bazel build <target>`, `sync_tree.py`, `affected.py`
 #   .cache                      `.bazelrc.paths` mounts it and bazel refuses an absent mount
-#   tags and cited commits      `check_paths` resolves `archive-*` tags, `check_print_profile`
-#                               reads `git:<sha>:<path>` — a shallow clone has neither
+#   the whole history           `check_release_room` refuses a shallow clone, `check_paths`
+#                               resolves `archive-*` tags, `check_print_profile` reads
+#                               `git:<sha>:<path>`, and `git log` reaches past fifty commits
 #   .bazelrc.paths              `gen_build.py` writes this checkout's own paths
 #
 # NOT HERE: tools/render's puppeteer and its Chromium (the card deck and the posed renders),
@@ -131,20 +132,28 @@ if [ "$CHECK" = 0 ]; then
 fi
 
 # --- the history the checks read -----------------------------------------------------------------
-# Tags, shallowly: `check_paths` holds every `archive-*` tag a doc names. And every commit a
-# print log or a script cites as `git:<sha>:<path>`: `check_print_profile` reads the 3MF there.
+# The whole of it: 8078 commits and 2.3 GB of .git, fetched in 1m48s here. `check_release_room`
+# reads reachability off history and refuses a shallow clone; `check_paths` holds every
+# `archive-*` tag a doc names; `check_print_profile` reads a 3MF at the commit a print log
+# cites; and `git log` answers past the clone's fifty commits, which is where this tree keeps
+# its history. When the full fetch does not answer, the tags and the cited commits are fetched
+# on their own, which is what those three checks need and `git log` does without.
 if [ "$(git rev-parse --is-shallow-repository)" = "true" ]; then
   if [ "$CHECK" = 1 ]; then
-    [ "$(git tag | wc -l)" -gt 0 ] && say "tags: $(git tag | wc -l)" || need "tags"
+    need "full history (shallow clone, $(git rev-list --count HEAD) commits)"
+  elif git fetch --quiet --unshallow --tags origin; then
+    say "history: whole, $(git rev-list --count HEAD) commits and $(git tag | wc -l | tr -d ' ') tags"
   else
+    say "history: the full fetch did not answer — taking the tags and the cited commits"
     git fetch --quiet origin --tags --depth=1 || say "tags: the fetch did not answer"
     grep -rhoE "git:[0-9a-f]{40}" hardware tools web --include=*.md --include=*.py --include=*.js \
       2>/dev/null | sort -u | sed 's/^git://' | while read -r sha; do
         git cat-file -e "$sha^{commit}" 2>/dev/null || git fetch --quiet origin "$sha" \
           || say "commit $sha: the fetch did not answer"
       done
-    say "history: $(git tag | wc -l) tags, the cited commits reachable"
   fi
+elif [ "$CHECK" = 1 ]; then
+  say "history: whole, $(git rev-list --count HEAD) commits"
 fi
 
 # --- this checkout's own paths --------------------------------------------------------------------
