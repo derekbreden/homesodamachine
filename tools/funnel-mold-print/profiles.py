@@ -168,6 +168,11 @@ def mesh_object(resources, part_id, mesh, center):
 def equivalent(key, supplied, effective):
     if supplied == effective:
         return True
+    if key in ('extruder_nozzle_stats', 'extruder_nozzle_stats_new'):
+        def installed(lanes):
+            return [sorted(entry for entry in lane.split('|')
+                           if int(entry.rsplit('#', 1)[1])) for lane in lanes]
+        return installed(supplied) == installed(effective)
     if key == 'best_object_pos':
         return supplied.replace('x', ',') == effective
     if key == 'enable_long_retraction_when_cut':

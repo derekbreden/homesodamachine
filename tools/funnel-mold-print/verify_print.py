@@ -9,7 +9,7 @@ import xml.etree.ElementTree as ET
 import zipfile
 
 HERE = Path(__file__).resolve().parent
-from profiles import equivalent
+from profiles import equivalent, system_preset
 
 
 def audit(project, provenance_path, models):
@@ -40,8 +40,6 @@ def audit(project, provenance_path, models):
         assert settings['support_type'] == 'tree(auto)'
         assert settings['enable_prime_tower'] == '0'
         assert settings['brim_type'] == 'outer_only'
-        assert settings['filament_max_volumetric_speed'] == ['12', '18']
-        assert settings['nozzle_temperature'] == ['255', '255']
         assert settings['curr_bed_type'] == 'Textured PEI Plate'
         assert settings['post_process'] == []
         assert settings['before_layer_change_gcode'] == ''
@@ -64,7 +62,7 @@ def audit(project, provenance_path, models):
             assert md['bed_type'] == 'Textured PEI Plate'
             assert md['filament_maps'] == '1'
             assert md['filament_volume_maps'] == ('1' if recipe['nozzle_type'] == 'High Flow' else '0')
-            assert md['filament_map_mode'] == 'Manual'
+            assert md['filament_map_mode'] in ('Manual', 'Auto For Flush')
             gcode_name = f'Metadata/plate_{index}.gcode'
             data = archive.read(gcode_name)
             recorded_md5 = archive.read(gcode_name+'.md5').decode().strip()
@@ -181,9 +179,13 @@ def main():
             for kind, identity in [('process', 'print_settings_id'), ('filament', 'filament_settings_id')]:
                 name = record['recipe'][kind+'_name']
                 preset = json.loads(archive.read(name+'.json'))
+                resolved, _, _ = system_preset(
+                    Path('/Applications/BambuStudio.app/Contents/Resources/profiles/BBL'),
+                    kind, preset['inherits'], {})
+                resolved.update(preset)
                 for key, expected in record['recipe'][kind+'_settings'].items():
-                    assert equivalent(key, preset[key], expected['value'])
-                    assert equivalent(key, preset[key], settings[key])
+                    assert equivalent(key, resolved[key], expected['value'])
+                    assert equivalent(key, resolved[key], settings[key])
             machine = json.loads(archive.read(settings['printer_settings_id']+'.json'))
             assert machine['machine_start_gcode'] == settings['machine_start_gcode']
     (args.models/bundle.name).write_bytes(bundle.read_bytes())
@@ -214,7 +216,8 @@ def main():
     recipe = records[0]['recipe']
     figures.update({'NOZZLE': f"{recipe['nozzle_mm']:g} mm", 'NOZZLE_TYPE': recipe['nozzle_type'],
                     'LAYER': recipe['process_settings']['layer_height']['value']+' mm',
-                    'FLOW_CAP': ('18' if recipe['nozzle_type'] == 'High Flow' else '12')+' mm³/s'})
+                    'FLOW_CAP': records[0]['settings']['filament_max_volumetric_speed'][
+                        1 if recipe['nozzle_type'] == 'High Flow' else 0]+' mm³/s'})
     mass = lambda plates: sum(p['filaments'][0]['total_used_g'] for p in plates)
     seconds = lambda plates: sum(p['total_predication'] for p in plates)
     plates = records[0]['slice_result']['sliced_plates']

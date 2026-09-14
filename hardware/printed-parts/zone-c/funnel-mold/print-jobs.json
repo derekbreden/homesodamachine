@@ -1,0 +1,68 @@
+[
+  {
+    "printer": "H2C",
+    "part": "cavity",
+    "plate": 1,
+    "submission": "Bambu Connect",
+    "project": "funnel-mold-h2c.gcode.3mf",
+    "project_sha256": "7bf1d7e66f11d92058bb5d26f0cc2a910e6514e9b228fad20d4422c5f93e9a53",
+    "gcode_sha256": "084fd10f528217a2caa4b75f30d47007b296e9451ded616b68fc8eb17ee70664",
+    "stl_sha256": "af7d3a5e3561c5a72beb8ba50f32cbda3874925ce90e4c15514d856e004e18a2",
+    "settings": {
+      "printer_preset": "Bambu Lab H2C 0.8 High Flow +0.18 Z trim",
+      "process_preset": "Funnel mold shell - 0.8 nozzle - Bambu first layer",
+      "filament_preset": "Funnel mold PETG Translucent - 0.8 nozzle - Bambu defaults",
+      "plate": "Textured PEI Plate",
+      "z_trim_mm": 0.18,
+      "effective_g29_1_mm": 0.16,
+      "nozzle_side": "left",
+      "nozzle_mm": 0.8,
+      "nozzle_flow": "High Flow",
+      "filament_slot": "AMS A2",
+      "nozzle_first_layer_c": 250,
+      "nozzle_other_layers_c": 245,
+      "bed_c": 70,
+      "volumetric_limit_mm3_s": 16,
+      "first_layer_mm": 0.4,
+      "other_layers_mm": 0.24
+    },
+    "send_options": {
+      "timelapse": "off",
+      "bed_leveling": "on",
+      "flow_dynamic_calibration": "auto",
+      "nozzle_offset_calibration": "auto"
+    },
+    "estimated_seconds": 66096.4453125,
+    "estimated_filament_g": 643.33642578125,
+    "printer_observation": {
+      "printer": "H2C",
+      "observed_at": "2026-09-14T06:26:46.927071+00:00",
+      "gcode_state": "RUNNING",
+      "subtask_name": "funnel-mold-h2c.gcode.3mf",
+      "mc_percent": 0,
+      "layer_num": 1,
+      "total_layer_num": 331,
+      "mc_remaining_time": 1096,
+      "print_error": 0,
+      "hms": [],
+      "nozzle_temper": 250.0,
+      "nozzle_target_temper": 250.0,
+      "bed_temper": 70.0,
+      "bed_target_temper": 70.0,
+      "lights_report": [
+        {
+          "mode": "on",
+          "node": "chamber_light"
+        },
+        {
+          "mode": "flashing",
+          "node": "work_light"
+        },
+        {
+          "mode": "on",
+          "node": "chamber_light2"
+        }
+      ]
+    }
+  }
+]
