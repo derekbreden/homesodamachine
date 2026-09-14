@@ -11,6 +11,13 @@ import xml.etree.ElementTree as ET
 import zipfile
 
 
+def startup_commands(gcode):
+    startup = gcode.split('; CONFIG_BLOCK_END')[1].split('; CHANGE_LAYER')[0]
+    commands = [line.partition(';')[0].strip() for line in startup.splitlines()]
+    return '\n'.join(line for line in commands if line and not (
+        line.startswith('M73 ') or re.match(r'G29 A[12] O ', line)))
+
+
 def motion(gcode):
     body = gcode[gcode.index('; CHANGE_LAYER'):].split('; MACHINE_END_GCODE_START')[0]
     assert 'M82' not in body, 'Reader expects relative extrusion'
@@ -76,6 +83,8 @@ def inspect(project):
                 {'id': '0', 'extruder_id': '1', 'nozzle_diameter': '0.8', 'volume_type': 'High Flow'}]
             assert meta['outside'] == 'false'
             plates.append({'gcode': name, 'gcode_sha256': hashlib.sha256(raw).hexdigest(),
+                           'startup_commands_sha256': hashlib.sha256(
+                               startup_commands(gcode).encode()).hexdigest(),
                            'estimated_seconds': int(meta['prediction']),
                            'estimated_filament_g': float(meta['weight']), **motion(gcode)})
     return settings, {'project': project.name,
@@ -88,17 +97,38 @@ def main():
     parser.add_argument('--previous', type=Path, required=True)
     parser.add_argument('--retry', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--layer-height', type=float,
+                        help='Allow and verify this intentional retry layer height.')
     args = parser.parse_args()
     old, previous = inspect(args.previous)
     new, retry = inspect(args.retry)
     changed = {k: {'previous': old.get(k), 'retry': new.get(k)}
                for k in sorted(old.keys() | new.keys()) if old.get(k) != new.get(k)}
+    normalizations = {}
+    for key in ('extruder_nozzle_stats', 'extruder_nozzle_stats_new'):
+        if key in changed:
+            installed = lambda lanes: [[entry for entry in lane.split('|')
+                if int(entry.rsplit('#', 1)[1])] for lane in lanes]
+            if installed(old[key]) == installed(new[key]):
+                normalizations[key] = changed.pop(key)
+    if (old.get('filament_map_2') is None and
+            new.get('filament_map_2') == old.get('filament_map') == ['1']):
+        normalizations['filament_map_2'] = changed.pop('filament_map_2')
+    if old.get('filament_prime_volume') == ['30'] and new.get('filament_prime_volume') == ['45']:
+        # The installed 02.08.02.61 CLI saves this value; check emitted startup too.
+        normalizations['filament_prime_volume'] = changed.pop('filament_prime_volume')
     expected = {'support_speed', 'support_interface_speed', 'travel_speed',
                 'default_acceleration', 'travel_acceleration', 'tree_support_wall_count',
                 'tree_support_branch_diameter', 'avoid_crossing_wall_includes_support',
                 'print_settings_id', 'print_compatible_printers', 'different_settings_to_system'}
+    if args.layer_height is not None:
+        expected.add('layer_height')
+        assert math.isclose(float(new['layer_height']), args.layer_height)
     assert set(changed) <= expected, changed
     assert new['printer_settings_id'] in new['print_compatible_printers']
+    # Progress estimates and the bed-leveling rectangle are excluded from this hash.
+    assert all(a['startup_commands_sha256'] == b['startup_commands_sha256']
+               for a, b in zip(previous['plates'], retry['plates']))
     for plate in retry['plates']:
         readings = plate['after_first_layer']
         for kind, cap in [('Support', 40), ('Support interface', 30), ('Travel', 150)]:
@@ -106,6 +136,8 @@ def main():
             assert readings[kind]['max_speed_mm_s'] <= cap + 0.02, (kind, readings[kind])
             assert readings[kind]['max_acceleration_mm_s2'] <= 1500, (kind, readings[kind])
     report = {'previous': previous, 'retry': retry, 'settings_changes': changed,
+              'slicer_normalizations': normalizations,
+              'startup_commands_match_for_compared_plates': True,
               'machine_start_gcode_matches': old['machine_start_gcode'] == new['machine_start_gcode'],
               'effective_g29_1_mm': 0.16,
               'scope': 'Commanded motion after the first layer, including spiral travel lifts; excludes wiping, startup and shutdown. This is not a physical stability test.'}
