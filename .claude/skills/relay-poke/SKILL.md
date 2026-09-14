@@ -31,6 +31,19 @@ derived name (`homesodamachine-f8`); a Codex task by its title. A name that matc
 answered in place: a notice names the sessions that are live right now, so write the mark again
 with one of those.
 
+## Reading a local session's transcript
+
+`/relay <title>` works here too: it writes the read mark. Or write it yourself, in the message
+that ends your turn:
+
+```
+<relay read="Time" tail="40"/>
+```
+
+The watcher renders that session's clean transcript on the Mac (what was typed and what was
+answered; tool calls and thinking stripped) and posts it here as a message from `relay`, in
+parts when long. `tail` is exchanges from the end; `compact="0"` keeps long agent runs whole.
+
 ## What not to do
 
 - Do not ask the local session to reply through `SendMessage`; tell it nothing about transport.
