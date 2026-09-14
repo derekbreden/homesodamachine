@@ -15,7 +15,7 @@
 # manylinux_2_31_x86_64 wheel, the same one `derive` runs in, so what this machine cuts is
 # byte-identical to what the runner cuts and NOT to what the Mac writes into the pointer file
 # (`publish.yml` says why: 95 of 124 members differ across the two wheels). A session here can
-# build, check, derive and compare; it does not move the pointer file.
+# build, check, derive, compare and publish: like any machine, it moves the lines for what it cut.
 #
 # WHAT EACH STEP BUYS:
 #   web/node_modules            `npm test`, and `check_web_tests.py` reads red without it

@@ -18,6 +18,9 @@ brought in is the newer act — and is recorded under `unproven`, so the reconci
 more from the merged source and the pointer file stops guessing. A member one side retired and the
 other left alone is gone.
 
+Each line's time (`moved`) travels with the hash the merged line carries, so a publish on any
+machine can still tell its own newer cut from main's older bytes.
+
 `source.commit` becomes the merge-base of the two sources: the debt it implies then covers what
 either side built against, and over-reporting a cut is a rebuild nobody waits on where
 under-reporting is a stale solid nobody is told about. `unproven` is the union of both records.
@@ -45,7 +48,7 @@ UNPROVEN_NOTE = ("source.commit does not describe these members: an uncommitted 
                  " explicitly deferred that rule.")
 
 #: The order pack.py seats the keys in; `unproven` sits after the commit it qualifies.
-KEY_ORDER = ("_", "release", "source", "unproven", "bundle", "solids", "sidecars")
+KEY_ORDER = ("_", "release", "source", "unproven", "bundle", "solids", "sidecars", "moved")
 
 
 def merge_members(base: dict, ours: dict, theirs: dict) -> tuple[dict, list, list]:
@@ -163,6 +166,14 @@ def merge(base: dict, ours: dict, theirs: dict, merge_base=git_merge_base) -> tu
     if behind and bundle:
         bundle["behind"] = True
 
+    # A LINE'S TIME TRAVELS WITH ITS HASH: the side whose hash the merged line carries is the
+    # side whose time it carries, and where both sides carry the same hash the later time stands.
+    moved = {}
+    for rel, digest in solids.items():
+        candidates = [side.get("moved", {}).get(rel) for side in (ours, theirs)
+                      if (side.get("solids") or {}).get(rel) == digest and rel in (side.get("moved") or {})]
+        if candidates:
+            moved[rel] = max(candidates)
     out = {
         "_": ours.get("_") or theirs.get("_") or base.get("_"),
         "release": release,
@@ -171,6 +182,7 @@ def merge(base: dict, ours: dict, theirs: dict, merge_base=git_merge_base) -> tu
         "bundle": bundle,
         "solids": solids,
         "sidecars": sidecars,
+        "moved": moved or None,
     }
     source = resolve_source(ours, theirs, merge_base)
     out["source"] = {"commit": source} if source else None
@@ -319,6 +331,14 @@ def selftest() -> int:
     got, _ = merge({}, pointers({"m": "h0"}, source="cA"), pointers({"n": "h1"}, source="cB"), mb)
     hold("both sides created the pointer file from nothing: union", got["solids"], {"m": "h0", "n": "h1"})
     hold("…with the merge-base source", got["source"], {"commit": "mb(cA,cB)"})
+
+    # A line's time travels with its hash; the later time stands where the hashes agree.
+    o = pointers({"m": "hA", "n": "h0"}); o["moved"] = {"m": 20, "n": 5}
+    th = pointers({"m": "h0", "n": "h0", "b": "hb"}); th["moved"] = {"m": 1, "n": 7, "b": 9}
+    got, _ = merge(base, o, th, mb)
+    hold("line times follow the hash taken", got["moved"], {"b": 9, "m": 20, "n": 7})
+    got, _ = merge(base, pointers({"m": "h0"}), pointers({"m": "h0"}), mb)
+    hold("no times on either side, none written", "moved" in got, False)
 
     # Sidecars merge like solids.
     got, _ = merge(pointers({}, sidecars={"s": "x0"}), pointers({}, sidecars={"s": "x0", "t": "y"}),
