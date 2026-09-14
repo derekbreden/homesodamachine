@@ -4696,6 +4696,137 @@ cp hardware/printed-parts/cold-core/reservoir/vent.md $$O24
 )
 
 genrule(
+    name = "magnetic-float",
+    srcs = [
+        "hardware/printed-parts/cold-core/magnetic-float/README.md",
+        "pysrc/hardware/printed-parts/cold-core/magnetic-float/magnetic_float.py",
+        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_material_base.py",
+        "pysrc/hardware/scripts/_materials.py",
+        "pysrc/hardware/scripts/_mesh_payload.py",
+        "pysrc/hardware/scripts/_realized.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/flute_payload.py",
+        "pysrc/tools/docgen/__init__.py",
+    ],
+    outs = [
+        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/body-aero.step",
+        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/body-aero.step.mesh",
+        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/body-aero.stl",
+        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/body-petg.step",
+        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/body-petg.step.mesh",
+        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/body-petg.stl",
+        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/design.json",
+        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/exploded.step",
+        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/exploded.step.mesh",
+        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-aero.step",
+        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-aero.step.mesh",
+        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-aero.stl",
+        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-loose-aero.step",
+        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-loose-aero.step.mesh",
+        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-loose-aero.stl",
+        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-loose-petg.step",
+        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-loose-petg.step.mesh",
+        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-loose-petg.stl",
+        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-petg.step",
+        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-petg.step.mesh",
+        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-petg.stl",
+        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/magnet.step",
+        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/magnet.step.mesh",
+        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/magnetic-float.step",
+        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/magnetic-float.step.mesh",
+        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/section.step",
+        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/section.step.mesh",
+        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/turning-key.step",
+        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/turning-key.step.mesh",
+        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/turning-key.stl",
+        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/README.md",
+    ],
+    cmd = """
+set -e
+O0=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/body-aero.step)
+O1=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/body-aero.step.mesh)
+O2=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/body-aero.stl)
+O3=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/body-petg.step)
+O4=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/body-petg.step.mesh)
+O5=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/body-petg.stl)
+O6=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/design.json)
+O7=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/exploded.step)
+O8=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/exploded.step.mesh)
+O9=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-aero.step)
+O10=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-aero.step.mesh)
+O11=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-aero.stl)
+O12=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-loose-aero.step)
+O13=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-loose-aero.step.mesh)
+O14=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-loose-aero.stl)
+O15=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-loose-petg.step)
+O16=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-loose-petg.step.mesh)
+O17=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-loose-petg.stl)
+O18=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-petg.step)
+O19=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-petg.step.mesh)
+O20=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-petg.stl)
+O21=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/magnet.step)
+O22=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/magnet.step.mesh)
+O23=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/magnetic-float.step)
+O24=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/magnetic-float.step.mesh)
+O25=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/section.step)
+O26=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/section.step.mesh)
+O27=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/turning-key.step)
+O28=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/turning-key.step.mesh)
+O29=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/turning-key.stl)
+O30=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/README.md)
+for f in $(SRCS); do
+  case $$f in
+    */node_modules/*) continue;;
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    */pysrc/*) t=$${f##*/pysrc/};;
+    *) t=$$f;;
+  esac
+  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+done
+cd work
+ln -sfn $$HSM_WORKSPACE/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/cold-core/magnetic-float/magnetic_float.py > /dev/null
+cp hardware/printed-parts/cold-core/magnetic-float/body-aero.step $$O0
+cp hardware/printed-parts/cold-core/magnetic-float/body-aero.step.mesh $$O1
+cp hardware/printed-parts/cold-core/magnetic-float/body-aero.stl $$O2
+cp hardware/printed-parts/cold-core/magnetic-float/body-petg.step $$O3
+cp hardware/printed-parts/cold-core/magnetic-float/body-petg.step.mesh $$O4
+cp hardware/printed-parts/cold-core/magnetic-float/body-petg.stl $$O5
+cp hardware/printed-parts/cold-core/magnetic-float/design.json $$O6
+cp hardware/printed-parts/cold-core/magnetic-float/exploded.step $$O7
+cp hardware/printed-parts/cold-core/magnetic-float/exploded.step.mesh $$O8
+cp hardware/printed-parts/cold-core/magnetic-float/insert-aero.step $$O9
+cp hardware/printed-parts/cold-core/magnetic-float/insert-aero.step.mesh $$O10
+cp hardware/printed-parts/cold-core/magnetic-float/insert-aero.stl $$O11
+cp hardware/printed-parts/cold-core/magnetic-float/insert-loose-aero.step $$O12
+cp hardware/printed-parts/cold-core/magnetic-float/insert-loose-aero.step.mesh $$O13
+cp hardware/printed-parts/cold-core/magnetic-float/insert-loose-aero.stl $$O14
+cp hardware/printed-parts/cold-core/magnetic-float/insert-loose-petg.step $$O15
+cp hardware/printed-parts/cold-core/magnetic-float/insert-loose-petg.step.mesh $$O16
+cp hardware/printed-parts/cold-core/magnetic-float/insert-loose-petg.stl $$O17
+cp hardware/printed-parts/cold-core/magnetic-float/insert-petg.step $$O18
+cp hardware/printed-parts/cold-core/magnetic-float/insert-petg.step.mesh $$O19
+cp hardware/printed-parts/cold-core/magnetic-float/insert-petg.stl $$O20
+cp hardware/printed-parts/cold-core/magnetic-float/magnet.step $$O21
+cp hardware/printed-parts/cold-core/magnetic-float/magnet.step.mesh $$O22
+cp hardware/printed-parts/cold-core/magnetic-float/magnetic-float.step $$O23
+cp hardware/printed-parts/cold-core/magnetic-float/magnetic-float.step.mesh $$O24
+cp hardware/printed-parts/cold-core/magnetic-float/section.step $$O25
+cp hardware/printed-parts/cold-core/magnetic-float/section.step.mesh $$O26
+cp hardware/printed-parts/cold-core/magnetic-float/turning-key.step $$O27
+cp hardware/printed-parts/cold-core/magnetic-float/turning-key.step.mesh $$O28
+cp hardware/printed-parts/cold-core/magnetic-float/turning-key.stl $$O29
+cp hardware/printed-parts/cold-core/magnetic-float/README.md $$O30
+""",
+)
+
+genrule(
     name = "prv-shroud",
     srcs = [
         "pysrc/hardware/printed-parts/cadlib/fits.py",
@@ -10661,6 +10792,14 @@ genrule(
     name = "pysrc-2bc0460825be",
     srcs = ["hardware/printed-parts/cold-core/foam-shell/foam_shell.py"],
     outs = ["pysrc/hardware/printed-parts/cold-core/foam-shell/foam_shell.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-400f17b97862",
+    srcs = ["hardware/printed-parts/cold-core/magnetic-float/magnetic_float.py"],
+    outs = ["pysrc/hardware/printed-parts/cold-core/magnetic-float/magnetic_float.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -22101,6 +22240,7 @@ filegroup(
         ":foam-assembly",
         ":foam-cap",
         ":foam-shell",
+        ":magnetic-float",
         ":prv-shroud",
         ":collet-press",
         ":pcba-assembly",

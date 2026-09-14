@@ -45,7 +45,7 @@ def recipe(destination):
     process_changes = {
         'layer_height': LAYER, 'initial_layer_print_height': LAYER,
         'wall_generator': 'arachne', 'wall_loops': 3,
-        'sparse_infill_density': '100%', 'sparse_infill_pattern': 'rectilinear',
+        'sparse_infill_density': '100%', 'sparse_infill_pattern': 'zig-zag',
         'top_shell_layers': 5, 'bottom_shell_layers': 5,
         'top_shell_thickness': 1, 'bottom_shell_thickness': 1,
         'outer_wall_speed': 40, 'inner_wall_speed': 60,
@@ -75,6 +75,8 @@ def recipe(destination):
                    'filament_max_volumetric_speed': 6, 'additional_cooling_fan_speed': 0}
         if index == 1:
             changes['filament_flow_ratio'] = 0.38
+        else:
+            changes.update({'overhang_fan_speed': 40, 'overhang_fan_threshold': '25%'})
         for key, value in changes.items():
             set_value(values, key, value)
         values.update({'name': NAMES[index], 'filament_settings_id': [NAMES[index]],
@@ -148,13 +150,15 @@ def project(destination):
             metadata(plate, key, value)
         plates.append(plate)
     objects = [
-        ('Insert', ['insert-petg', 'insert-aero'], 0, 115, 145, 10),
-        ('Spare insert - looser fit', ['insert-loose-petg', 'insert-loose-aero'], 0, 155, 145, 10),
-        ('Turning key', ['turning-key'], 0, 135, 180, 4.2),
-        ('Float body', ['body-petg', 'body-aero'], 1, 150, 145, 50),
+        ('Insert', ['insert-petg', 'insert-aero'], 0, 115, 145),
+        ('Spare insert - looser fit', ['insert-loose-petg', 'insert-loose-aero'], 0, 155, 145),
+        ('Turning key', ['turning-key'], 0, 135, 180),
+        ('Float body', ['body-petg', 'body-aero'], 1, 150, 145),
     ]
     provenance['meshes_sha256'] = {}
-    for index, (label, names, plate_index, x, y, h) in enumerate(objects, 1):
+    for index, (label, names, plate_index, x, y) in enumerate(objects, 1):
+        meshes = {name: trimesh.load(HERE / f'{name}.stl', force='mesh', process=True) for name in names}
+        h = max(mesh.bounds[1, 2] for mesh in meshes.values())
         parent_id = index * 10
         path = f'/3D/Objects/object_{index}.model'
         sub = ET.Element(qn('model'), unit='millimeter')
@@ -169,7 +173,7 @@ def project(destination):
         for ordinal, name in enumerate(names, 1):
             part_id = parent_id + ordinal
             mesh_path = HERE / f'{name}.stl'
-            mesh = trimesh.load(mesh_path, force='mesh', process=True)
+            mesh = meshes[name]
             mesh_object(subresources, part_id, mesh, center)
             ET.SubElement(components, qn('component'), objectid=str(part_id),
                 transform='1 0 0 0 1 0 0 0 1 0 0 0',

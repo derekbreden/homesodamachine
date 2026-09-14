@@ -1,0 +1,31 @@
+{
+  "/hardware/printed-parts/cold-core/magnetic-float/magnetic_float.py": {
+    "ASSEMBLY_CLEARANCE": "0.622 cm\u00b3",
+    "DISPLACEMENT": "29.37 g",
+    "FLOAT_BORE": "6 mm",
+    "FLOAT_DIAMETER": "28 mm",
+    "FLOAT_HEIGHT": "50 mm",
+    "FLOAT_SKIN": "1 mm",
+    "INSERT_HEIGHT": "10 mm",
+    "INSERT_RADIAL_CLEARANCE": "0.2 mm",
+    "INSERT_ROOF_CLEARANCE": "0.2 mm",
+    "INSERT_STATIONS": "38.8 / 48.8 mm",
+    "LIFT_045": "5.28 g",
+    "LIFT_055": "3.27 g",
+    "LIFT_060": "2.26 g",
+    "LIFT_065": "1.26 g",
+    "LOCK_ANGLE": "90\u00b0",
+    "LOOSE_RADIAL_CLEARANCE": "0.35 mm",
+    "MAGNET_POCKET": "19.55 \u00d7 9.025 \u00d7 3.6 mm",
+    "MAGNET_ROOF_GAP": "10 mm",
+    "MAGNET_SEAT": "35.2 mm",
+    "MAGNET_SIZE": "19.05 \u00d7 9.525 \u00d7 3.175 mm",
+    "MASS_045": "24.09 g",
+    "MASS_055": "26.10 g",
+    "MASS_060": "27.11 g",
+    "MASS_065": "28.11 g",
+    "PAUSE_LAYER": "49.2 mm",
+    "ROOF_BOTTOM": "49 mm",
+    "ROOF_LAYERS": "5 layers"
+  }
+}

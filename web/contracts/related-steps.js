@@ -76,6 +76,7 @@ export const FIXTURES = {
 
 export const COLLET_PRESS = "printed-parts/collet-press/collet-press.step";
 
+// Bench prototypes paired with the assemblies and vessels they are tested for.
 export const PROTOTYPES = {
   "printed-parts/cold-core/magnetic-float/magnetic-float.step": [
     "manifold-layout/enclosure-assembly.step",
@@ -122,7 +123,7 @@ export function relatedStepsForComponent(name, allFiles) {
  * @param {string} file      root-relative `.step` path, as `/api/steps` returns
  * @param {string[]} allFiles  every such path the site knows
  * @param {string[]} [exclude]  models already standing in the walk
- * @returns {{file: string, kind: "beside"|"from"|"of"|"makes"|"made-on"}[]}
+ * @returns {{file: string, kind: "beside"|"from"|"of"|"makes"|"made-on"|"prototype"|"prototype-for"}[]}
  *   `beside`  — another model in this part's own directory
  *   `from`    — a directory named for this one: the mold of this part
  *   `of`      — the directory this one is named for: the part this tooling is made
@@ -131,6 +132,8 @@ export function relatedStepsForComponent(name, allFiles) {
  *                casts, so the kind says tooling rather than casting.
  *   `makes`   — a part this fixture is built to make (declared, see FIXTURES)
  *   `made-on` — the fixture this part is made on (declared, see FIXTURES)
+ *   `prototype` — a bench prototype associated with this assembly or vessel
+ *   `prototype-for` — the assemblies and vessels associated with a prototype
  */
 export function relatedSteps(file, allFiles, exclude = []) {
   if (!file || !Array.isArray(allFiles) || isGenerated(file)) return [];

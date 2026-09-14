@@ -16,9 +16,11 @@ import trimesh
 ROOT = next(p for p in Path(__file__).resolve().parents
             if (p / 'hardware/scripts/_cadq_export.py').is_file())
 sys.path.insert(0, str(ROOT / 'hardware/scripts'))
+sys.path.insert(0, str(ROOT / 'tools'))
 from _cadq_export import export_assembly
 from _materials import one_body
 from flute_payload import cut as write_print_payload
+from docgen import substitute_md
 
 diameter = 28.0
 height = 50.0
@@ -232,6 +234,31 @@ def write(parts, output):
         export_assembly(view, str(output / f'{name}.step'))
     info = measurements(parts)
     (output / 'design.json').write_text(json.dumps(info, indent=2) + '\n')
+    readme = output / 'README.md'
+    if readme.exists():
+        figures = {
+            'FLOAT_DIAMETER': f'{diameter:g} mm', 'FLOAT_HEIGHT': f'{height:g} mm',
+            'FLOAT_BORE': f'{bore_diameter:g} mm', 'FLOAT_SKIN': f'{skin:g} mm',
+            'INSERT_HEIGHT': f'{insert_height:g} mm',
+            'MAGNET_SIZE': f'{magnet_od:g} × {magnet_id:g} × {magnet_height:g} mm',
+            'MAGNET_POCKET': f'{2 * magnet_pocket_outer_radius:g} × {2 * magnet_pocket_inner_radius:g} × {magnet_pocket_height:g} mm',
+            'MAGNET_SEAT': f'{magnet_seat:g} mm',
+            'INSERT_STATIONS': f'{insert_bottom:g} / {insert_top:g} mm',
+            'ROOF_BOTTOM': f'{roof_bottom:g} mm',
+            'DISPLACEMENT': f'{info["water_displacement_g"]:.2f} g',
+            'INSERT_RADIAL_CLEARANCE': f'{insert_radial_clearance:g} mm',
+            'LOOSE_RADIAL_CLEARANCE': f'{insert_radial_clearance + loose_extra_clearance:g} mm',
+            'INSERT_ROOF_CLEARANCE': f'{insert_roof_clearance:g} mm',
+            'ASSEMBLY_CLEARANCE': f'{info["assembly_clearance_volume_cc"]:.3f} cm³',
+            'PAUSE_LAYER': f'{roof_bottom + 0.2:g} mm',
+            'LOCK_ANGLE': f'{lock_angle:g}°', 'ROOF_LAYERS': f'{round(skin / 0.2)} layers',
+            'MAGNET_ROOF_GAP': f'{info["minimum_magnet_top_to_roof_bottom_mm"]:g} mm',
+        }
+        for row in info['buoyancy']:
+            code = f'{round(row["aero_density_g_cc"] * 100):03d}'
+            figures[f'MASS_{code}'] = f'{row["assembled_mass_g"]:.2f} g'
+            figures[f'LIFT_{code}'] = f'{row["reserve_lift_g"]:.2f} g'
+        substitute_md(readme, figures)
     print(json.dumps(info, indent=2), flush=True)
 
 
