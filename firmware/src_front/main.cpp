@@ -630,7 +630,7 @@ static lv_obj_t *settingsBtn;      // top-right of the screen, outside the pane
 // says it is closed, then a filled disc. Index 0..3 is reservoir A's empty..full
 // reed, 4..7 reservoir B's, 8 the carbonator's low reed and 9 its high one.
 static lv_obj_t *statusReed[STATUS_REEDS];
-static lv_obj_t *statusNote = NULL;    // under the diagram: the legend, or that nothing is being read
+static lv_obj_t *statusNote = NULL;    // under the diagram: that nothing is being read, else empty
 static uint16_t  statusShown = 0;      // the closed set the diagram is drawn with
 static bool      statusFreshShown = false;
 #define STATUS_ANSWER_MS 1500          // a status poll unanswered this long is a main board not reading
@@ -3336,10 +3336,7 @@ static void refreshStatusReeds() {
     lv_obj_set_style_bg_color(statusReed[i], lv_color_hex(on ? COL_GOOD : COL_CARD), 0);
     lv_obj_set_style_border_color(statusReed[i], lv_color_hex(on ? COL_GOOD : COL_DIM), 0);
   }
-  if (fresh != statusFreshShown) {
-    lv_label_set_text(statusNote, fresh ? "lit = closed" : "not reading the reeds");
-    lv_obj_set_style_text_color(statusNote, lv_color_hex(fresh ? COL_DIM : COL_WARN), 0);
-  }
+  if (fresh != statusFreshShown) lv_label_set_text(statusNote, fresh ? "" : "not reading the reeds");
   statusShown = closed;
   statusFreshShown = fresh;
 }
@@ -4561,17 +4558,12 @@ static void buildStatusDiagram(lv_obj_t *card, lv_coord_t w, lv_coord_t top) {
             PX(STATUS_MM_MID + 63.5f) - PX(STATUS_MM_MID - 63.5f),
             PZ(STATUS_MM_CORE_Z0 + 32.0f) - PZ(STATUS_MM_CORE_Z0 + 32.0f + 152.4f), 10);
   static const float kPocket[2] = {+1.0f, -1.0f};   // A aft, B forward
-  static const char *kPocketName[2] = {"A", "B"};
   for (uint8_t i = 0; i < 2; i++) {
     const float y0 = STATUS_MM_MID + kPocket[i] * 78.5f, y1 = STATUS_MM_MID + kPocket[i] * 131.5f;
     const lv_coord_t x0 = PX(y0 < y1 ? y0 : y1), x1 = PX(y0 < y1 ? y1 : y0);
-    lv_obj_t *pocket = mkOutline(diag, x0, PZ(STATUS_MM_CORE_Z0 + 213.4f), x1 - x0,
-                                 PZ(STATUS_MM_CORE_Z0 + 2.0f) - PZ(STATUS_MM_CORE_Z0 + 213.4f), 6);
-    lv_obj_center(mkText(pocket, kPocketName[i], &lv_font_montserrat_28, COL_DIM));
+    mkOutline(diag, x0, PZ(STATUS_MM_CORE_Z0 + 213.4f), x1 - x0,
+              PZ(STATUS_MM_CORE_Z0 + 2.0f) - PZ(STATUS_MM_CORE_Z0 + 213.4f), 6);
   }
-  // Named over the core's roof, centred on the tube's axis, where nothing else stands.
-  lv_obj_align(mkText(diag, "CARBONATOR", &lv_font_montserrat_20, COL_DIM),
-               LV_ALIGN_TOP_MID, PX(STATUS_MM_MID) - w / 2, PZ(STATUS_MM_CORE_Z1) - 8 - TEXT_H_20);
 
   // The reeds: a column on each pocket's outer wall, a pair on the tube's aft wall.
   static const float kReedZ[4] = {57.5f, 102.5f, 147.5f, 192.5f};
