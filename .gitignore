@@ -17,6 +17,7 @@ __pycache__/
 logs/*.log
 .claude/*
 !.claude/commands/
+!.claude/skills/
 node_modules
 
 # CAD script output (generated STEP/STL files)
