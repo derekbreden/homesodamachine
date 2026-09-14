@@ -45,18 +45,19 @@ permissions:
   packages: read
 
 jobs:
-  # THE MACHINE THAT MOVES THE POINTER FILE MUST BE THE MACHINE THAT CUTS, and for this repo there is
-  # only one of those. A bundle is content-addressed over its members, so the pointer file converges
-  # only while one OpenCASCADE writes it — `cad-requirements.txt` says the canonicalization
-  # holds "across runs of ONE OCC build", and `cadquery-ocp 7.8.1.1.post1` ships a
-  # macosx_11_0_arm64 wheel and a manylinux_2_31_x86_64 one at that same pin. Two publishers on
-  # two wheels do not converge, they alternate: measured over four consecutive publishes on
-  # 2026-08-23, the same 95 of 124 members flipped on every handoff, both directions.
+  # ANY MACHINE THAT CUTS MAY MOVE THE POINTER FILE, FOR WHAT IT CUT. A publish moves the lines
+  # for the members its own disk cut since main last pointed at them, and takes main's bytes for
+  # every other member; the line's time is what tells the two apart (`pack.py` `held_publish_plan`).
+  # So two machines on two OpenCASCADE wheels do not fight over a line: `cadquery-ocp
+  # 7.8.1.1.post1` ships a macosx_11_0_arm64 wheel and a manylinux_2_31_x86_64 one at the same
+  # pin, and they write different bytes for one source (95 of 124 members differed between them
+  # on 2026-08-23), but a line moves only when its part is cut, whichever wheel cuts it, and the
+  # bytes either wheel writes are the same geometry.
   #
-  # SO THIS LANE IS arm64 macOS, which is what the Mac that cuts these is. Measured head to
-  # head on run 32726925012, same commit and same pointer file: macos-arm64 differs from the pointer file on 12
-  # of 124 members, ubuntu-x64 on 95. `macos-latest` is macos-26-arm64, Apple M1, so it resolves
-  # the same wheel rather than merely a similar one.
+  # THIS LANE IS arm64 macOS, which is what the Mac that cuts most of these is, so a part this
+  # lane recuts lands on the bytes that Mac would have written and its line does not move for a
+  # wheel's sake. `macos-latest` is macos-26-arm64, Apple M1, so it resolves the same wheel
+  # rather than merely a similar one.
   #
   # AND IT NEEDS NO CONTAINER, WHICH IS WHY THIS IS AFFORDABLE. `container:` is Linux-only, and
   # the ci-image exists for tools this job never reaches: blender and rsvg-convert are for
