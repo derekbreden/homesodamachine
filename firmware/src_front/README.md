@@ -236,7 +236,8 @@ Newline-terminated, 115200 baud over the native USB CDC:
 - `BL:0` / `BL:1` → backlight off / on (drives CH422G EXIO2)
 - `IDLE:0`..`IDLE:3` → wake, or take a rung of the idle ladder without waiting it out
 - `PAGE:0`..`PAGE:3` → show one rail destination (CHOOSE, PRIME, FILL, CLEAN);
-  `PAGE:4` → Settings, which is the corner rather than a rail slot
+  `PAGE:4` → Settings, which is the corner rather than a rail slot; `PAGE:5` → its
+  pump service area
 - `FLAVOR:0` / `FLAVOR:1` → select through the same main-board-owned path as a card tap
 - `EDIT:<1|2>[,<image 0..3>]` → open a flavor's own page, and take one of its logos:
   the handlers the Choose gear and a thumbnail tap reach, without a finger on the glass
@@ -250,7 +251,7 @@ Newline-terminated, 115200 baud over the native USB CDC:
 - `FILL:START:<1|2>` / `FILL:STOP` → the confirm page's START and the lock's STOP,
   without a finger on the glass: same frame, same answer, same lock
 - `CLEAN:START:<1|2>` / `CLEAN:STOP` → the same for the clean cycle
-- `AIR:DRY` / `AIR:STOP` → Settings' DRY THE LINES and the lock's STOP
+- `AIR:DRY` / `AIR:STOP` → Settings' PUMP SERVICE → DRY THE LINES and the lock's STOP
 - `STATUS` → ask the base for one `StatusPayload`
 - `PUMP` → one `MSG_PUMP_RUN { B, 1000 }`
 - `LINK` → RX/TX GPIO and the frame counters
@@ -328,7 +329,7 @@ remaining 610 px is the pane, and it takes a different shape at each destination
 | Prime | flavor choice → shared hold pad | **the base** |
 | Fill | flavor choice → confirmation → the operation lock while it draws | **the base** |
 | Clean | flavor choice → confirmation → the operation lock for the cycle | **the base** |
-| Settings | pump service: dry the lines, then the operation lock for the cycle; reached from the corner | **the base** |
+| Settings | system status — the machine's side profile with every reed on it — and a column of areas beside it; one so far, pump service: dry the lines, then the operation lock for the cycle; reached from the corner | **the base** |
 
 **Every face on this panel is the faucet's glass.** A logo is 43:80 at three scales —
 172×320, 129×240, 86×160 — and nothing else, because choosing a face here is choosing what
@@ -466,7 +467,7 @@ line. An older main board that answers `MSG_ERR_UNSUPPORTED` lands there too.
 
 ### Dry, before a pump replacement
 
-**Settings → DRY THE LINES** sends `MSG_AIR_START { DRY }`. The card says to set a container
+**Settings → PUMP SERVICE → DRY THE LINES** sends `MSG_AIR_START { DRY }`. The card says to set a container
 under the faucet first. The main board runs air in then through to the faucet on channel A,
 then on channel B — the four purge states that sweep every joint the collet plate opens
 ([`/hardware/service/pump-replacement.md`](/hardware/service/pump-replacement.md)) — and
@@ -499,6 +500,25 @@ segment count of one lights amber.
 the pair as `MSG_RATIO_SET`, the press's one frame; the answer is what the main board now holds
 and persists, and the status poll carries the pair thereafter, so a ratio set from the console
 reaches the card within a second. While a step's answer is owed, the poll's copy is not applied.
+
+### System status
+
+**Settings lands on the machine's own side profile with every reed on it.** The enclosure is
+drawn as seen along X — 462 mm deep, 361 mm tall, the display's 45° facet off the top-front
+arris, the front on the left — with the cold core at the back of the floor, the carbonator's
+tube in the middle of it and a reservoir pocket at either end, **B** forward and **A** aft.
+Each of the ten reeds is a 14 px dot at its own station: a column of four on each pocket's
+outer wall at 57.5, 102.5, 147.5 and 192.5 mm up the shell, empty at the bottom and full at
+the top, and the carbonator's low and high on its tube's aft wall at 99.1 and 127.3 mm. A reed
+the main board reads closed is a filled `COL_GOOD` disc; every other one is a ring. The areas a
+person can go into stand in a column east of the card, one target each — one so far, **PUMP
+SERVICE**, whose page carries a Back to this landing.
+
+The reeds ride the same status poll as the gauges, once a second while lit, and the diagram
+repaints only the dots that changed. A poll the main board has not answered for 1.5 s, or a
+reading it flags as stale, empties every dot and puts **not reading the reeds** under the
+diagram in place of the legend. The middle rung of the dark returns Settings to this landing;
+`GET_DIAG` reports which of its views is up as `set=`.
 
 ## Integration seams (not implemented)
 
