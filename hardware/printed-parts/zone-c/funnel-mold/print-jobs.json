@@ -63,6 +63,85 @@
           "node": "chamber_light2"
         }
       ]
+    },
+    "outcome": {
+      "result": "failed",
+      "reported_date": "2026-09-14",
+      "observation": "User photograph shows detached tree supports and loose extrusion around the flange; exact detachment layer unknown."
+    }
+  },
+  {
+    "printer": "H2C",
+    "part": "cavity",
+    "plate": 1,
+    "submission": "Bambu Connect",
+    "project": "funnel-mold-h2c-support-feet.gcode.3mf",
+    "project_sha256": "af875c583d942114f563036b9129d1aa6c40a7ec166eff7cd50424fef4cc49b1",
+    "gcode_sha256": "3c61f19d65cd55dc1737dc8225b418663d6a7f0f908cefc55d3124b5da63a8d7",
+    "stl_sha256": "af7d3a5e3561c5a72beb8ba50f32cbda3874925ce90e4c15514d856e004e18a2",
+    "settings": {
+      "printer_preset": "Bambu Lab H2C 0.8 High Flow +0.18 Z trim",
+      "process_preset": "Funnel mold shell - 0.8 nozzle - 8mm support feet",
+      "filament_preset": "Funnel mold PETG Translucent - 0.8 nozzle - Bambu defaults",
+      "plate": "Textured PEI Plate",
+      "z_trim_mm": 0.18,
+      "effective_g29_1_mm": 0.16,
+      "nozzle_side": "left",
+      "nozzle_mm": 0.8,
+      "nozzle_flow": "High Flow",
+      "filament_slot": "AMS A3",
+      "nozzle_first_layer_c": 250,
+      "nozzle_other_layers_c": 245,
+      "bed_c": 70,
+      "volumetric_limit_mm3_s": 16,
+      "first_layer_mm": 0.4,
+      "other_layers_mm": 0.24,
+      "support_initial_layer_expansion_mm": 8,
+      "support_initial_layer_density_percent": 90
+    },
+    "send_options": {
+      "timelapse": "off",
+      "bed_leveling": "on",
+      "flow_dynamic_calibration": "auto",
+      "nozzle_offset_calibration": "auto"
+    },
+    "estimated_seconds": 66646,
+    "estimated_filament_g": 653.1,
+    "printer_observation": {
+      "printer": "H2C",
+      "observed_at": "2026-09-14T15:34:12.765074+00:00",
+      "gcode_state": "RUNNING",
+      "subtask_name": "funnel-mold-h2c-support-feet.gcode.3mf",
+      "mc_percent": 0,
+      "layer_num": 0,
+      "total_layer_num": 331,
+      "mc_remaining_time": 1110,
+      "print_error": 0,
+      "hms": [],
+      "nozzle_temper": 166.0,
+      "nozzle_target_temper": 165.0,
+      "bed_temper": 44.0,
+      "bed_target_temper": 44.0,
+      "lights_report": [
+        {
+          "mode": "on",
+          "node": "chamber_light"
+        },
+        {
+          "mode": "flashing",
+          "node": "work_light"
+        },
+        {
+          "mode": "on",
+          "node": "chamber_light2"
+        }
+      ]
+    },
+    "filament_source_observation": {
+      "ams_a2_remaining_percent": 59,
+      "ams_a3_remaining_percent": 100,
+      "filament": "Bambu PETG Translucent",
+      "selected": "AMS A3"
     }
   }
 ]
