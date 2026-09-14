@@ -77,6 +77,14 @@ DRIVER = "cadlock"
 ENV = {k: v for k, v in os.environ.items()
        if k not in ("GIT_DIR", "GIT_INDEX_FILE", "GIT_WORK_TREE",
                     "GIT_OBJECT_DIRECTORY", "GIT_COMMON_DIR", "GIT_PREFIX")}
+#: A REPLAY RUNS THE COMMIT HOOKS TOO. `git cherry-pick` fires pre-commit and post-commit for
+#: each commit it makes in the replay tree, and post-commit is what runs this script — so
+#: without a mark, a push re-enters itself from inside its own replay, with the replay tree as
+#: its root. Every git call below carries the mark; `main()` and `.githooks/post-commit` read
+#: it and step aside. The pre-commit is skipped outright: it already spoke when the commit was
+#: made, and the author is not at the replay.
+ENV["HSM_PUSHING"] = "1"
+ENV["HSM_SKIP_PRECOMMIT"] = "1"
 
 
 def git(*args: str, check: bool = True, cwd: Path | None = None) -> str:
@@ -196,8 +204,10 @@ def is_binary(a: str, b: str, path: str) -> bool:
 
 def beat_by(base: str, landed: str, path: str) -> list:
     """The commits on main since `base` that moved `path`, newest first: hash, subject, when,
-    and the session the commit names in a `Session:` trailer, if it names one."""
-    fmt = "%h%x1f%s%x1f%ar%x1f%(trailers:key=Session,valueonly,separator=%x2C)"
+    and the session the commit names — a `Session:` trailer from a session here, or the
+    `Claude-Session:` link a cloud session signs with."""
+    fmt = ("%h%x1f%s%x1f%ar%x1f"
+           "%(trailers:key=Session,key=Claude-Session,valueonly,separator=%x2C)")
     out = []
     for line in git("log", f"--format={fmt}", f"{base}..{landed}", "--", path,
                     check=False).splitlines():
@@ -318,7 +328,11 @@ def settle(pre: str, landed: str, base: str, dissolved: list, dry: bool) -> None
             for h, s, when, who in beat_by(base, landed, p)[:3]:
                 print(f"      met {h} {s} ({when})" + (f" — session {who}" if who else ""),
                       file=sys.stderr)
-                if who:
+                if who.startswith("http"):
+                    print(f"        to ask them: SendMessage to {who.rsplit('/', 1)[-1]} from a "
+                          "session on the Mac; it answers with a mark in its transcript",
+                          file=sys.stderr)
+                elif who:
                     print(f"        to ask them: SendMessage to \"{who}\" from a session here, "
                           f"<relay to=\"{who}\"> from the cloud", file=sys.stderr)
         print("    resolve them, then commit those files by name; this runs again with the "
@@ -443,11 +457,22 @@ def main(argv) -> int:
     ap.add_argument("--check", action="store_true",
                     help="say what would happen and change nothing")
     args = ap.parse_args(argv)
+    # INSIDE A REPLAY THERE IS NOTHING TO DO: the push that started it lands the result. The
+    # mark is set above for every git call a push makes; a linked worktree (`.git/push-wt-*`,
+    # or any other) is the same case reached by hand.
+    if os.environ.get("HSM_PUSHING"):
+        print("  inside a replay — the push that started it lands this")
+        return 0
+    if git("rev-parse", "--git-dir", check=False) != git("rev-parse", "--git-common-dir",
+                                                         check=False):
+        print("  a linked worktree is not a checkout to push from; run this in the main one")
+        return 0
     # A COMMIT MADE BY A REBASE IS NOT A COMMIT TO PUSH. `git rebase` runs the commit hooks for
     # each replayed commit, and pushing from inside one lands a branch mid-rewrite.
-    for busy in ("rebase-merge", "rebase-apply", "MERGE_HEAD", "CHERRY_PICK_HEAD"):
-        if (ROOT / ".git" / busy).exists():
-            print(f"  a {busy} is in progress — not pushing into the middle of it")
+    for busy in ("REBASE_HEAD", "MERGE_HEAD", "CHERRY_PICK_HEAD", "REVERT_HEAD"):
+        if ok("rev-parse", "--verify", "-q", busy):
+            print(f"  a {busy.replace('_HEAD', '').lower()} is in progress — not pushing into "
+                  "the middle of it")
             return 0
     return land(args.check)
 
