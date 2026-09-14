@@ -529,27 +529,28 @@ out the same solid**, because the two lanes carry one copper each and both cross
 the same height; they stay two parts because a plug is what fills one column, and a
 station added to either lane divides that lane's plug alone.
 
-Each plug has a **binder-clip cross-section** that grips the wall
-edge instead of floating loosely in the slot. Viewed end-on, it's a
-true I-beam: a 6.5 mm × 2 mm web fills the slot's X range at the
-wall's Y range exactly, sandwiched between two 8.5 mm × 1 mm flanges
-that run the full plug width and sit immediately outboard (−Y, past
-the wall outer face) and inboard (+Y, toward the cavity, past the
-wall inner face) of it. The 2 mm air gap between the two flanges, in
-the wall's Y range and outside the web's X range, is where the wall
-material slides in — that's how the plug grips the wall like a
-binder clip. See the docstring at the top of
-`copper-plugs/copper_plugs.py` for the full cross-section diagram.
+Each plug has a **continuous interior flange** that overlaps both slot edges
+by 1 mm and seats in the shell's recessed inner face. This 8.5 mm wide,
+1 mm thick lip keeps foam inside along the slot; outward foam pressure bears
+it against the seat. The 6.5 mm wide web fills the 3.2 mm wall thickness,
+leaving the plug's long middle span flush with the exterior wall face.
+
+The **exterior flange is limited to two 8 mm long retaining tabs**, one at
+each end of the web. Each tab is 8.5 mm wide and 1 mm thick. The wall slides
+into the 3.2 mm space between a tab and the interior flange, keeping the plug
+aligned before the foam pour. The web and lower tab start 2.35 mm above the
+copper's centre to leave printable stock beside the arch. Print with the
+continuous interior flange flat on the bed. See `copper-plugs/copper_plugs.py`
+for the middle and end-tab cross-sections.
 
 Each plug end that abuts a tube has a **⌀[6.5 mm](PLUG_ARCH_D) half-circle
 arch cutout** centered at x = 0, so the plug seats around the tube
-without crushing it. A plug arches at the bottom Z end always, over the line its own
-station carries, and at the top only where another station stands above it in the same
-column — so `lower` arches at both ends and `middle` and `top`, each the last plug of its
-column, arch at the bottom only and stay flat on top.
+without crushing it. Both plugs arch at the bottom only and end flat at the shell
+rim beneath the cap and gasket. Small gaps around the copper and the rounded slot
+bottom fill during the foam pour.
 
 A column's last plug reaches the wall top with that flat face, so nothing is left
-open above either stack. Once the three plugs are installed, what is left unfilled
+open above either stack. Once the two plugs are installed, what is left unfilled
 in either slot along Z — the strip below that lane's lowest line, plus the narrow
 clearance band around each tube — gets filled by the body foam pour.
 
@@ -587,9 +588,10 @@ Every internal component is installed first:
   the top cap's `water-in` conduit. Every corner on it is potted where it turns, and
   the two either end of the step into the strip are the pack's only ones under the
   stock arc — that band is 14 mm and the step across it is wider.
-- Three copper plugs slid down into their own lane's slot from above (through
-  the 10 mm open extension past the wall top) to seal between the
-  pass-throughs — `lower` and `middle` on the west lane, `top` on the port.
+- Two copper plugs slid down from above, one per lane, with the continuous
+  interior flange facing the cavity and the shell wall held between it and
+  the exterior end tabs. Each bottom arch seats over its copper and the top
+  finishes flush with the shell rim.
 - PRV shroud subassembly (`../prv-shroud/`) — already built and
   cured ahead of time, threaded into Port 4 at carbonator install — is
   here as part of the carbonator by the time the body pour happens.

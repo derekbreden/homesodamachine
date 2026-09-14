@@ -16,20 +16,19 @@
 <main>
   <div class="col" style="flex:1">
     <p class="lede"><span class="dim" data-gen="PLUG_COUNT">2</span> printed
-    plugs close the wall's <strong>two lane slots</strong>, each gripping like
-    a <strong>binder clip</strong>; <strong>the tube is the gap</strong>.</p>
+    plugs close the <strong>two lane slots</strong>. The continuous
+    <strong>interior lip</strong> holds the foam; short exterior tabs
+    retain the ends.</p>
 
     <ol class="steps">
-      <li><b>One plug per lane, and they are the same part.</b> Each lane
-        carries one crossing at one height — <b>west</b> and <b>port</b> name
-        the slot, not two geometries.</li>
-      <li><b>Slide each down its own slot from above</b> — web in the
-        slot, wall in the gap between the flanges: the binder-clip
-        grip.</li>
-      <li><b>Arches seat the tubes — never crushing.</b> A plug's bottom
-        arch takes the upper half of the line under it.</li>
-      <li><b>Both close flat at the wall top</b> — each arches at its
-        foot only, over the copper it seals.</li>
+      <li><b>One plug per lane.</b> West and port use the same part.</li>
+      <li><b>Slide down from above, continuous lip facing the cavity.</b>
+        Keep the shell wall between the interior lip and the
+        <b>8 mm exterior tabs</b>. The middle stays flush outside.</li>
+      <li><b>Seat the bottom arch over the copper.</b> It takes the
+        upper half of the tube without crushing it.</li>
+      <li><b>Finish flush with the wall top.</b> The flat end fits
+        beneath the cap and gasket.</li>
       <li><b>Leave the slivers to the pour</b> — the rounded slot bottom
         and the bands round each tube fill at CC-14.</li>
     </ol>
@@ -46,6 +45,7 @@
         <style>
           .petg  { fill: #eef0f3; stroke: #1d1d26; stroke-width: 3; }
           .plug  { fill: #d8dde6; stroke: #1d1d26; stroke-width: 2.5; }
+          .tab   { fill: #bfdee5; stroke: #0f8bab; stroke-width: 2.5; }
           .cu    { fill: #fff; stroke: #b8722c; stroke-width: 4; }
           .ghost { fill: #fff; stroke: #70707c; stroke-width: 2; }
           .dimln { stroke: #0f8bab; stroke-width: 2.5; fill: none; }
@@ -53,28 +53,32 @@
           .lbl   { font: 600 24px 'IBM Plex Sans','Helvetica Neue',sans-serif; fill: #1d1d26; }
           .sub   { font: 400 21px 'IBM Plex Sans','Helvetica Neue',sans-serif; fill: #70707c; }
         </style>
-        <text class="lbl" x="24" y="26">BINDER CLIP &#183; end-on</text>
-        <text class="lbl" x="430" y="26">THE TWO STACKS</text>
-        <!-- cross-section, 18 px/mm -->
-        <g transform="translate(110,116)">
-          <!-- flanges: 8.5 wide × 1 -->
-          <rect class="plug" x="0" y="0" width="153" height="18"/>
-          <rect class="plug" x="0" y="90" width="153" height="18"/>
-          <!-- web: 6.5 wide × 2 (wall thickness) -->
-          <rect class="plug" x="18" y="18" width="117" height="72"/>
+        <text class="lbl" x="24" y="26">THROUGH THE MIDDLE</text>
+        <text class="lbl" x="430" y="26">BOTH COVERS</text>
+        <text class="sub" x="186" y="65" text-anchor="middle">outside: flush with the wall</text>
+        <!-- Middle section, 18 px/mm: 6.5 × 3.2 web and 8.5 × 1 inner lip. -->
+        <g transform="translate(110,82)">
+          <rect class="plug" x="18" y="0" width="117" height="57.6"/>
+          <rect class="plug" x="0" y="57.6" width="153" height="18"/>
           <!-- wall each side of the slot -->
-          <rect class="petg" x="-72" y="18" width="90" height="72"/>
-          <rect class="petg" x="135" y="18" width="90" height="72"/>
-          <text class="sub" x="-64" y="60">wall</text>
-          <text class="sub" x="143" y="60">wall</text>
-          <line class="dimln" x1="76" y1="-30" x2="76" y2="-6"/>
-          <text class="dimtx" x="76" y="-44" text-anchor="middle">web fills the slot</text>
-          <text class="sub" x="76" y="156" text-anchor="middle">the wall slides between the</text>
-          <text class="sub" x="76" y="182" text-anchor="middle">flange prongs &#8212; 2 mm gap</text>
-          <text class="sub" x="76" y="222" text-anchor="middle">each arch seats half a</text>
-          <text class="sub" x="76" y="248" text-anchor="middle">&#8960;6.35 line, gently</text>
-          <text class="sub" x="76" y="288" text-anchor="middle">one part fits either lane:</text>
-          <text class="sub" x="76" y="314" text-anchor="middle">both slots are one wall</text>
+          <rect class="petg" x="-72" y="0" width="90" height="57.6"/>
+          <rect class="petg" x="135" y="0" width="90" height="57.6"/>
+          <text class="sub" x="-58" y="37">wall</text>
+          <text class="sub" x="153" y="37">wall</text>
+          <text class="sub" x="76" y="111" text-anchor="middle">continuous lip inside the cavity</text>
+        </g>
+        <text class="lbl" x="24" y="246">THROUGH AN END TAB</text>
+        <!-- End section: 1 mm exterior tab, 3.2 mm wall, 1 mm inner lip. -->
+        <g transform="translate(110,271)">
+          <rect class="tab" x="0" y="0" width="153" height="18"/>
+          <rect class="plug" x="18" y="18" width="117" height="57.6"/>
+          <rect class="plug" x="0" y="75.6" width="153" height="18"/>
+          <rect class="petg" x="-72" y="18" width="90" height="57.6"/>
+          <rect class="petg" x="135" y="18" width="90" height="57.6"/>
+          <text class="sub" x="-58" y="55">wall</text>
+          <text class="sub" x="153" y="55">wall</text>
+          <text class="dimtx" x="76" y="130" text-anchor="middle">3.2 mm wall</text>
+          <text class="sub" x="76" y="163" text-anchor="middle">blue: 8 mm tabs at both ends</text>
         </g>
         <!-- two stacks, 1.55 px/mm, z=0 at y=390 -->
         <text class="sub" x="520" y="54" text-anchor="middle">PORT</text>
@@ -82,14 +86,18 @@
         <!-- port lane band: top, the whole column (27.75-wall top) -->
         <rect class="petg" x="498" y="59.2" width="44" height="330.8"/>
         <rect x="514.9" y="59.2" width="10.1" height="300.6" fill="#fff" stroke="#1d1d26" stroke-width="2"/>
-        <rect class="plug" x="513.4" y="59.2" width="13.2" height="287.8"/>
+        <rect class="plug" x="514.9" y="59.2" width="10.1" height="283.7"/>
+        <rect class="tab" x="513.4" y="59.2" width="13.2" height="12.4"/>
+        <rect class="tab" x="513.4" y="330.5" width="13.2" height="12.4"/>
         <circle class="cu" cx="520" cy="347.0" r="5"/>
         <circle class="ghost" cx="520" cy="367.1" r="5"/>
         <circle class="ghost" cx="520" cy="379.5" r="5"/>
         <!-- west lane band: one plug, the whole column (27.75-wall top) -->
         <rect class="petg" x="638" y="59.2" width="44" height="330.8"/>
         <rect x="654.9" y="59.2" width="10.1" height="300.6" fill="#fff" stroke="#1d1d26" stroke-width="2"/>
-        <rect class="plug" x="653.4" y="59.2" width="13.2" height="287.8"/>
+        <rect class="plug" x="654.9" y="59.2" width="10.1" height="283.7"/>
+        <rect class="tab" x="653.4" y="59.2" width="13.2" height="12.4"/>
+        <rect class="tab" x="653.4" y="330.5" width="13.2" height="12.4"/>
         <circle class="cu" cx="660" cy="347.0" r="5"/>
         <!-- z callouts, fanned clear of one another -->
         <line class="dimln" x1="480" y1="392" x2="510" y2="349"/>
@@ -98,20 +106,19 @@
         <text class="dimtx" x="706" y="296" data-gen="EVAP_OUT_Z">28.05</text>
         <!-- which plug is which -->
         <text class="sub" x="520" y="418" text-anchor="middle">port</text>
-        <text class="sub" x="520" y="444" text-anchor="middle">the whole column</text>
         <text class="sub" x="660" y="418" text-anchor="middle">west</text>
-        <text class="sub" x="660" y="444" text-anchor="middle">the same part again</text>
+        <text class="sub" x="590" y="444" text-anchor="middle">identical covers</text>
       </svg>
       <div class="cap"><b>One plug per lane, and the two are one part</b> —
-      each runs from its own copper's center to the wall top, and the arch at
-      its foot is the gap. Grey: the field's two reed cables, which take no
-      plug.</div>
+      blue tabs retain the ends; the long middle stays flush outside.
+      The interior lip runs the full height. Grey circles: the field's
+      two reed cables, which take no plug.</div>
     </div>
 
     <table class="spec" style="margin-top:16px">
       <tr><td>west</td><td class="v" data-gen="PLUG_WEST">28.05 &#8594; 213.4</td>
           <td>port</td><td class="v" data-gen="PLUG_PORT">28.05 &#8594; 213.4</td></tr>
-      <tr><td>Slot &#183; wall top</td><td class="v" data-gen="SLOT_W">&#8960;6.5</td>
+      <tr><td>Slot</td><td class="v" data-gen="SLOT_W">&#8960;6.5</td>
           <td>Station pitch</td><td class="v" data-gen="FIELD_PITCH">8.15</td></tr>
       <tr><td>Wall stands</td><td class="v" data-gen="SHELL_H">213.4</td>
           <td>Plugs</td><td class="v" data-gen="PLUG_COUNT">2</td></tr>
@@ -120,7 +127,7 @@
 </main>
 
 <footer>
-  <div class="done"><span class="lbl">Done when</span><span data-gen="PLUG_COUNT">2</span> plugs gripping the wall edge, each arch closed on its copper, both flush with the wall top.</div>
+  <div class="done"><span class="lbl">Done when</span><span data-gen="PLUG_COUNT">2</span> plugs retained by their end tabs, interior lips facing the cavity, both flush with the wall top.</div>
   <div class="src">cold-core.md &#167;5 &#183; copper_plugs.py<br>_cards_sync.py &#183; rev 2026-08-07</div>
 </footer>
 
