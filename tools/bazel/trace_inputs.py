@@ -221,7 +221,7 @@ def _filtered(seen: dict, files: set) -> dict:
 #: Mac takes a few, and a generator that stands it in-process — `enclosure_assembly.py`,
 #: `render_scenes.py` — needs the hour there. A run that outlives this comes back the way a
 #: killed one does, with no reading, and the sweep keeps the entry it had; it never stops
-#: the sweep. `derive.yml`'s weekly job budgets for two of these on top of the build.
+#: the sweep. `derive.yml`'s `trace=all` dispatch budgets for these on top of the build.
 DEADLINE = 3600
 
 
