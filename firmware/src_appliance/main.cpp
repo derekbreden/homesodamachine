@@ -238,9 +238,9 @@ static void help() {
     Serial.println("  wake              light both glasses, as a finger on either would");
     Serial.println("  idle              awake or asleep, and how far into the quiet stretch");
     Serial.println("  test [s|off]      the camera's test screen on the enclosure, s seconds (default 120)");
-    Serial.println("  ui <page> [a|b] [go]   a customer page on the enclosure: choose, prime, fill, clean or");
-    Serial.println("                    settings; with a flavor, that flavor's own page; go presses its START");
-    Serial.println("                    (settings go presses DRY THE LINES)");
+    Serial.println("  ui <page> [a|b] [go]   a customer page on the enclosure: choose, prime, fill, clean,");
+    Serial.println("                    settings or pump-service; with a flavor, that flavor's own page;");
+    Serial.println("                    go presses its START (settings and pump-service go press DRY THE LINES)");
     Serial.println("  sound <name>      play one of the machine's sounds; 'sound list' names them");
     Serial.println("  volume [0-100]    how loud everything but the alarm is (persisted)");
     Serial.println("  quiet [on|off] [start] [end] [pct]   quiet hours, off the DS3231 (persisted)");
@@ -1005,7 +1005,7 @@ static void console(const String &line) {
         return;
     }
     if (line == "ui" || line.startsWith("ui ")) {
-        // ui <choose|prime|fill|clean|settings> [a|b] [go]
+        // ui <choose|prime|fill|clean|settings|pump-service> [a|b] [go]
         String rest = line.substring(2); rest.trim();
         String page = rest, tail;
         int sp = rest.indexOf(' ');
@@ -1016,8 +1016,9 @@ static void console(const String &line) {
         else if (page == "fill")     rail = UI_RAIL_FILL;
         else if (page == "clean")    rail = UI_RAIL_CLEAN;
         else if (page == "settings") rail = UI_RAIL_SETTINGS;
+        else if (page == "pump-service") rail = UI_RAIL_PUMP_SERVICE;
         if (rail == 0xFF) {
-            Serial.println("\nusage: ui <choose|prime|fill|clean|settings> [a|b] [go]");
+            Serial.println("\nusage: ui <choose|prime|fill|clean|settings|pump-service> [a|b] [go]");
             return;
         }
         uint8_t channel = UI_CHANNEL_NONE;

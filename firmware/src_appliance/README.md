@@ -27,8 +27,8 @@ foundation the next connected bench uses.
   another operation runs, while the expanders are unverified, or under the gas alarm — the
   water still pours. `flow <n> [s]` stands in for the meter on a bench with no water in it.
 - **The air cycles.** The funnel dry and open to air, a pump carrying air along the flavor
-  path one topology state at a time. `MSG_AIR_START { DRY }` from the enclosure's Settings
-  page, or `dry [s]` from the console, runs Air Purge In then Air Purge Through on channel A
+  path one topology state at a time. `MSG_AIR_START { DRY }` from the enclosure's Settings →
+  PUMP SERVICE, or `dry [s]` from the console, runs Air Purge In then Air Purge Through on channel A
   and then on channel B — every joint the collet plate opens is swept, what the air displaces
   leaves at the faucet, and neither reservoir is drawn on
   ([`/hardware/service/pump-replacement.md`](/hardware/service/pump-replacement.md)). `purge
@@ -123,7 +123,7 @@ pio device monitor -e appliance
 | `pump <a\|b> [ms]` | run one flavor pump, bounded — default 2000, ceiling 60000 |
 | `fill <a\|b> [s]` | the funnel fill: the channel's funnel path open and its pump drawing, for `s` s (default 80) or until the reservoir's full reed closes |
 | `clean <a\|b> [rounds] [s]` | the clean cycle: tap water in through the idle pump, then pumped out the faucet, `rounds` times (default 3); `s` caps every step (default 90 in, 150 out) |
-| `ui <page> [a\|b] [go]` | put a customer page on the enclosure — choose, prime, fill, clean, settings — optionally for a flavor, `go` pressing its START |
+| `ui <page> [a\|b] [go]` | put a customer page on the enclosure — choose, prime, fill, clean, settings, pump-service — optionally for a flavor, `go` pressing its START |
 | `flavor [a\|b]` | read or set the main-board-owned flavor selection, and the logo pair beside it |
 | `ratio [a\|b] [6-24]` | read or set what a channel pours at, persisted in NVS and carried to the enclosure on its next poll |
 | `art [<a> <b>]` | read or set which logo each channel wears, persisted in NVS and published to both glasses |

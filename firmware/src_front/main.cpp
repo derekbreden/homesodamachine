@@ -221,6 +221,16 @@ static uint32_t frameDoneTimeouts = 0;
 #define SETTINGS_BTN  64
 #define SETTINGS_GAP  14
 
+// ── Settings: system status, and the areas beside it ──
+// The landing is the machine's side profile with every reed on it; the areas a
+// person can go into stand in a column east of it, one target each.
+#define STATUS_MENU_W      190
+#define STATUS_MENU_GAP     16
+#define STATUS_MENU_BTN_H   64
+#define STATUS_MENU_BTN_GAP 12
+#define STATUS_CARD_PAD     14
+#define STATUS_REEDS        10   // four per reservoir, two on the carbonator
+
 // The settings square floats over every pane from the screen root, so it is not
 // in any pane's layout and every pane has to keep its own top band clear of it.
 // A pane titles itself in that band and starts its body below it.
@@ -318,6 +328,8 @@ enum Page { PAGE_HOME, PAGE_FLAVOR, PAGE_SERVICE, PAGE_SETUP, PAGE_COUNT };
 enum FlavorView  { FLV_DETAIL, FLV_COUNT };
 enum ServiceView { SVC_PRIME_PICK, SVC_PRIME_HOLD, SVC_CLEAN_PICK,
                    SVC_CLEAN_CONFIRM, SVC_FILL_PICK, SVC_FILL_CONFIRM, SVC_COUNT };
+// Settings lands on the system status; each area beside it is a view of its own.
+enum SettingsView { SET_STATUS, SET_PUMP, SET_COUNT };
 
 // The rail carries the customer-facing destinations, least destructive first.
 // Prime, Fill and Clean each ask for the flavor they act on. Settings is not
@@ -334,9 +346,11 @@ static lv_obj_t *pageObj[PAGE_COUNT];
 static lv_obj_t *railBtn[RAIL_PAGE_COUNT];
 static lv_obj_t *flvView[FLV_COUNT];
 static lv_obj_t *svcView[SVC_COUNT];
+static lv_obj_t *setView[SET_COUNT];
 static Page activePage = PAGE_HOME;
 static ServiceView activeSvc = SVC_PRIME_PICK;
 static FlavorView  activeFlv = FLV_DETAIL;
+static SettingsView activeSet = SET_STATUS;
 static RailPage activeRail = RAIL_CHOOSE;
 static bool uiReady = false;
 
@@ -350,6 +364,7 @@ static void tileStripAffordance();
 static void tilePickService();
 static void tileDisarm();
 static void showService(ServiceView v);
+static void showSettings(SettingsView v);
 static void animRun(bool on);
 static void idleReset(uint8_t stage);
 static void refreshHomeSelection();
@@ -606,8 +621,19 @@ static unsigned long airStartSentMs = 0;
 static unsigned long airQueryMs = 0;
 static unsigned long airUiMs = 0;
 static unsigned long airCardUntilMs = 0;
-static lv_obj_t *settingsMsg = NULL;   // the Settings page's own message line
+static lv_obj_t *settingsMsg = NULL;   // the pump service card's own message line
 static lv_obj_t *settingsBtn;      // top-right of the screen, outside the pane
+
+// ── System status, as this glass shows it ──
+// Ten reeds on the machine's own side profile: reservoir A's four, reservoir
+// B's four, the carbonator's low and high. Each is a ring until the main board
+// says it is closed, then a filled disc. Index 0..3 is reservoir A's empty..full
+// reed, 4..7 reservoir B's, 8 the carbonator's low reed and 9 its high one.
+static lv_obj_t *statusReed[STATUS_REEDS];
+static lv_obj_t *statusNote = NULL;    // under the diagram: the legend, or that nothing is being read
+static uint16_t  statusShown = 0;      // the closed set the diagram is drawn with
+static bool      statusFreshShown = false;
+#define STATUS_ANSWER_MS 1500          // a status poll unanswered this long is a main board not reading
 
 // Flavor 1 and 2 as this panel holds them. The base carries no config store, so a ratio
 // changed here is this display's own until one sends it somewhere.
@@ -1755,6 +1781,7 @@ static void applyCleanState(const CleanStatePayload &state);
 static void applyAirState(const AirStatePayload &state);
 static void setSettingsMsg(const char *s);
 static void refreshHomeLevel();
+static void refreshStatusReeds();
 static void refreshFlavorText();
 static bool uiShow(const UiShowPayload &req);
 
@@ -2002,6 +2029,7 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
       levelSegments[1] = ctrlStatus.level[1];
       refreshHomeLevel();
     }
+    refreshStatusReeds();
     if (!ratioSentMs) {
       bool moved = false;
       for (uint8_t i = 0; i < 2; i++) {
@@ -3282,6 +3310,40 @@ static void refreshHomeLevel() {
   }
 }
 
+// The reeds on the Settings landing. A reed the main board reads closed is a
+// filled disc; every other one is a ring. A poll the main board has not answered
+// for STATUS_ANSWER_MS, or a reading it says is stale, empties the diagram and
+// says so under it, so a ring never stands for a reed nobody has looked at.
+static void refreshStatusReeds() {
+  if (!statusNote) return;
+  const bool answered = ctrlStatusMs != 0 &&
+                        ((long)(ctrlStatusMs - statusAskedMs) >= 0 ||
+                         millis() - statusAskedMs < STATUS_ANSWER_MS);
+  const bool fresh = answered && (ctrlStatus.levelFlags & LEVEL_F_VALID) != 0;
+  uint16_t closed = 0;
+  if (fresh) {
+    closed = (uint16_t)(ctrlStatus.reeds[0] & 0x0F)
+           | (uint16_t)((ctrlStatus.reeds[1] & 0x0F) << 4)
+           | ((ctrlStatus.levelFlags & LEVEL_F_CARB_LOW)  ? (uint16_t)(1u << 8) : 0)
+           | ((ctrlStatus.levelFlags & LEVEL_F_CARB_HIGH) ? (uint16_t)(1u << 9) : 0);
+  }
+  if (closed == statusShown && fresh == statusFreshShown) return;
+  for (uint8_t i = 0; i < STATUS_REEDS; i++) {
+    if (!statusReed[i]) continue;
+    const bool lit = ((closed ^ statusShown) >> i) & 1;
+    if (!lit) continue;
+    const bool on = (closed >> i) & 1;
+    lv_obj_set_style_bg_color(statusReed[i], lv_color_hex(on ? COL_GOOD : COL_CARD), 0);
+    lv_obj_set_style_border_color(statusReed[i], lv_color_hex(on ? COL_GOOD : COL_DIM), 0);
+  }
+  if (fresh != statusFreshShown) {
+    lv_label_set_text(statusNote, fresh ? "lit = closed" : "not reading the reeds");
+    lv_obj_set_style_text_color(statusNote, lv_color_hex(fresh ? COL_DIM : COL_WARN), 0);
+  }
+  statusShown = closed;
+  statusFreshShown = fresh;
+}
+
 // ── Page builders ──
 
 // A full-screen appliance lock. The animation belongs here: it communicates
@@ -4422,15 +4484,154 @@ static void buildService(lv_obj_t *page) {
 
 static void setSettingsMsg(const char *s) { if (settingsMsg) lv_label_set_text(settingsMsg, s); }
 
-// Settings carries the one thing a person does to this machine that is not a
-// drink: drying the lines before the pump cartridge is pulled
+static void settingsAreaCb(lv_event_t *e) {
+  showSettings((SettingsView)(intptr_t)lv_event_get_user_data(e));
+}
+static void settingsBackCb(lv_event_t *e) { (void)e; showSettings(SET_STATUS); }
+
+// A plain outline: a border and nothing inside it.
+static lv_obj_t *mkOutline(lv_obj_t *parent, lv_coord_t x, lv_coord_t y, lv_coord_t w,
+                           lv_coord_t h, lv_coord_t radius) {
+  lv_obj_t *o = lv_obj_create(parent);
+  lv_obj_set_size(o, w, h);
+  lv_obj_set_pos(o, x, y);
+  lv_obj_set_style_bg_opa(o, LV_OPA_TRANSP, 0);
+  lv_obj_set_style_border_width(o, 2, 0);
+  lv_obj_set_style_border_color(o, lv_color_hex(COL_OFF), 0);
+  lv_obj_set_style_radius(o, radius, 0);
+  lv_obj_set_style_pad_all(o, 0, 0);
+  lv_obj_clear_flag(o, LV_OBJ_FLAG_SCROLLABLE | LV_OBJ_FLAG_CLICKABLE);
+  return o;
+}
+
+// ── The machine's side profile, with every reed on it ──
+// The enclosure seen along X: 462 mm deep, 361 mm tall, the display's 45°
+// facet taking 61.9 mm off the top-front arris — the front on the left. The
+// cold core stands at the back of the floor, 283 mm long from 173 mm behind the
+// front face to its cap at 253.4 mm; the carbonator's tube stands in the middle
+// of it and a reservoir pocket at either end, B's forward and A's aft. Each
+// reed is drawn at its own station: the four of a column at 57.5, 102.5, 147.5
+// and 192.5 mm up the shell on the pocket's outer wall, the carbonator's low and
+// high at 99.1 and 127.3 mm on the tube's aft wall. Every figure is in
+// millimetres of the machine, scaled once to the card.
+#define STATUS_MM_D      462.0f
+#define STATUS_MM_H      361.0f
+#define STATUS_MM_FACET   61.87f   // 87.5 mm of facet at 45°, on each edge
+#define STATUS_MM_CORE_Y0 173.0f
+#define STATUS_MM_CORE_Y1 456.0f
+#define STATUS_MM_CORE_Z0   6.0f
+#define STATUS_MM_CORE_Z1 259.4f
+#define STATUS_MM_MID    (STATUS_MM_CORE_Y0 + 141.5f)   // the core's centre, the tube's axis
+#define STATUS_MM_REED_DOT 14
+#define STATUS_MARGIN      2
+
+static void buildStatusDiagram(lv_obj_t *card, lv_coord_t w, lv_coord_t top) {
+  const float s = (float)(w - 2 * STATUS_MARGIN) / STATUS_MM_D;
+  const lv_coord_t h = STATUS_MARGIN * 2 + (lv_coord_t)(STATUS_MM_H * s + 0.5f);
+  #define PX(d) (lv_coord_t)(STATUS_MARGIN + (d) * s + 0.5f)
+  #define PZ(z) (lv_coord_t)(STATUS_MARGIN + (STATUS_MM_H - (z)) * s + 0.5f)
+
+  lv_obj_t *diag = mkView(card);
+  lv_obj_set_size(diag, w, h);
+  lv_obj_set_pos(diag, 0, top);
+
+  // The profile, front on the left, the facet at its top-front corner.
+  static lv_point_t outline[6];
+  outline[0] = {PX(0), PZ(0)};
+  outline[1] = {PX(0), PZ(STATUS_MM_H - STATUS_MM_FACET)};
+  outline[2] = {PX(STATUS_MM_FACET), PZ(STATUS_MM_H)};
+  outline[3] = {PX(STATUS_MM_D), PZ(STATUS_MM_H)};
+  outline[4] = {PX(STATUS_MM_D), PZ(0)};
+  outline[5] = outline[0];
+  lv_obj_t *line = lv_line_create(diag);
+  lv_line_set_points(line, outline, 6);
+  lv_obj_set_size(line, w, h);
+  lv_obj_set_pos(line, 0, 0);
+  lv_obj_set_style_pad_all(line, 0, 0);
+  lv_obj_set_style_line_width(line, 3, 0);
+  lv_obj_set_style_line_color(line, lv_color_hex(COL_DIM), 0);
+  lv_obj_set_style_line_rounded(line, true, 0);
+  lv_obj_clear_flag(line, LV_OBJ_FLAG_SCROLLABLE | LV_OBJ_FLAG_CLICKABLE);
+
+  // The cold core, the carbonator's tube in the middle of it, a pocket at each end.
+  mkOutline(diag, PX(STATUS_MM_CORE_Y0), PZ(STATUS_MM_CORE_Z1),
+            PX(STATUS_MM_CORE_Y1) - PX(STATUS_MM_CORE_Y0),
+            PZ(STATUS_MM_CORE_Z0) - PZ(STATUS_MM_CORE_Z1), 4);
+  mkOutline(diag, PX(STATUS_MM_MID - 63.5f), PZ(STATUS_MM_CORE_Z0 + 32.0f + 152.4f),
+            PX(STATUS_MM_MID + 63.5f) - PX(STATUS_MM_MID - 63.5f),
+            PZ(STATUS_MM_CORE_Z0 + 32.0f) - PZ(STATUS_MM_CORE_Z0 + 32.0f + 152.4f), 10);
+  static const float kPocket[2] = {+1.0f, -1.0f};   // A aft, B forward
+  static const char *kPocketName[2] = {"A", "B"};
+  for (uint8_t i = 0; i < 2; i++) {
+    const float y0 = STATUS_MM_MID + kPocket[i] * 78.5f, y1 = STATUS_MM_MID + kPocket[i] * 131.5f;
+    const lv_coord_t x0 = PX(y0 < y1 ? y0 : y1), x1 = PX(y0 < y1 ? y1 : y0);
+    lv_obj_t *pocket = mkOutline(diag, x0, PZ(STATUS_MM_CORE_Z0 + 213.4f), x1 - x0,
+                                 PZ(STATUS_MM_CORE_Z0 + 2.0f) - PZ(STATUS_MM_CORE_Z0 + 213.4f), 6);
+    lv_obj_center(mkText(pocket, kPocketName[i], &lv_font_montserrat_28, COL_DIM));
+  }
+  // Named over the core's roof, centred on the tube's axis, where nothing else stands.
+  lv_obj_align(mkText(diag, "CARBONATOR", &lv_font_montserrat_20, COL_DIM),
+               LV_ALIGN_TOP_MID, PX(STATUS_MM_MID) - w / 2, PZ(STATUS_MM_CORE_Z1) - 8 - TEXT_H_20);
+
+  // The reeds: a column on each pocket's outer wall, a pair on the tube's aft wall.
+  static const float kReedZ[4] = {57.5f, 102.5f, 147.5f, 192.5f};
+  static const float kCarbZ[2] = {99.1f, 127.3f};
+  for (uint8_t i = 0; i < STATUS_REEDS; i++) {
+    float d, z;
+    if (i < 8) { d = STATUS_MM_MID + (i < 4 ? +134.5f : -134.5f); z = STATUS_MM_CORE_Z0 + kReedZ[i & 3]; }
+    else       { d = STATUS_MM_MID + 64.75f;                        z = STATUS_MM_CORE_Z0 + kCarbZ[i - 8]; }
+    lv_obj_t *dot = lv_obj_create(diag);
+    lv_obj_set_size(dot, STATUS_MM_REED_DOT, STATUS_MM_REED_DOT);
+    lv_obj_set_pos(dot, PX(d) - STATUS_MM_REED_DOT / 2, PZ(z) - STATUS_MM_REED_DOT / 2);
+    lv_obj_set_style_radius(dot, LV_RADIUS_CIRCLE, 0);
+    lv_obj_set_style_bg_color(dot, lv_color_hex(COL_CARD), 0);
+    lv_obj_set_style_border_width(dot, 2, 0);
+    lv_obj_set_style_border_color(dot, lv_color_hex(COL_DIM), 0);
+    lv_obj_set_style_pad_all(dot, 0, 0);
+    lv_obj_clear_flag(dot, LV_OBJ_FLAG_SCROLLABLE | LV_OBJ_FLAG_CLICKABLE);
+    statusReed[i] = dot;
+  }
+  #undef PX
+  #undef PZ
+}
+
+// Settings lands on the system status — the machine's profile with every reed on
+// it — and the areas a person can go into stand in a column beside it. One so
+// far: pump service, which carries the one thing a person does to this machine
+// that is not a drink, drying the lines before the pump cartridge is pulled
 // (hardware/service/pump-replacement.md). A container goes under the faucet
 // first; the button is the commitment, and the lock shows the cycle.
 static void buildSettings(lv_obj_t *page) {
-  lv_obj_align(mkText(page, "SETTINGS", &lv_font_montserrat_28, COL_DIM),
+  lv_obj_t *status = mkView(page);
+  lv_obj_align(mkText(status, "SETTINGS", &lv_font_montserrat_28, COL_DIM),
                LV_ALIGN_TOP_LEFT, 0, (PANE_HEAD_H - TEXT_H_28) / 2);
 
-  lv_obj_t *card = mkCard(page, PANE_W - 2 * PANE_PAD, 232);
+  const lv_coord_t cardW = PANE_W - 2 * PANE_PAD - STATUS_MENU_W - STATUS_MENU_GAP;
+  const lv_coord_t cardH = PANE_H - PANE_BODY_Y;
+  lv_obj_t *card = mkCard(status, cardW, cardH);
+  lv_obj_align(card, LV_ALIGN_TOP_LEFT, 0, PANE_BODY_Y);
+  lv_obj_set_style_pad_all(card, STATUS_CARD_PAD, 0);
+  lv_obj_align(mkText(card, "SYSTEM STATUS", &lv_font_montserrat_20, COL_DIM),
+               LV_ALIGN_TOP_LEFT, 0, 0);
+  buildStatusDiagram(card, cardW - 2 * STATUS_CARD_PAD, TEXT_H_20 + 8);
+  statusNote = mkText(card, "not reading the reeds", &lv_font_montserrat_20, COL_WARN);
+  lv_obj_align(statusNote, LV_ALIGN_BOTTOM_LEFT, 0, 0);
+
+  static const char *kArea[SET_COUNT] = {NULL, "PUMP SERVICE"};
+  lv_coord_t y = PANE_BODY_Y;
+  for (int v = SET_STATUS + 1; v < SET_COUNT; v++) {
+    lv_obj_t *b = mkBtn(status, STATUS_MENU_W, STATUS_MENU_BTN_H, COL_CARD);
+    lv_obj_align(b, LV_ALIGN_TOP_RIGHT, 0, y);
+    lv_obj_add_event_cb(b, settingsAreaCb, ACT_EVENT, (void *)(intptr_t)v);
+    lv_obj_center(mkText(b, kArea[v], &lv_font_montserrat_20, COL_TEXT));
+    y += STATUS_MENU_BTN_H + STATUS_MENU_BTN_GAP;
+  }
+  setView[SET_STATUS] = status;
+
+  lv_obj_t *pump = mkView(page);
+  mkBack(pump, settingsBackCb, NULL);
+  mkDetailTitle(pump, "PUMP SERVICE");
+  card = mkCard(pump, PANE_W - 2 * PANE_PAD, 232);
   lv_obj_align(card, LV_ALIGN_TOP_MID, 0, PANE_BODY_Y);
   lv_obj_align(mkText(card, "PUMP SERVICE", &lv_font_montserrat_20, COL_DIM),
                LV_ALIGN_TOP_LEFT, 0, 0);
@@ -4448,6 +4649,7 @@ static void buildSettings(lv_obj_t *page) {
 
   settingsMsg = mkText(card, "", &lv_font_montserrat_20, COL_WARN);
   lv_obj_align(settingsMsg, LV_ALIGN_BOTTOM_LEFT, 0, -20);
+  setView[SET_PUMP] = pump;
 }
 
 // GPIO43 reads RS485_RXD on Waveshare's table and is the S3's U0TXD. The pair is a
@@ -4484,6 +4686,13 @@ static void showFlavor(FlavorView v) {
   tileStripAffordance();
   // Whatever a finger was on belonged to the page being left.
   tileDisarm();
+}
+
+static void showSettings(SettingsView v) {
+  activeSet = v;
+  showOnly(setView, SET_COUNT, v);
+  if (v == SET_STATUS) refreshStatusReeds();
+  if (v == SET_PUMP)   setSettingsMsg("");
 }
 
 static void showService(ServiceView v) {
@@ -4549,6 +4758,7 @@ static void idleReset(uint8_t stage) {
       }
     }
     else if (activePage == PAGE_FLAVOR) showPage(PAGE_HOME);
+    else if (activePage == PAGE_SETUP)  showSettings(SET_STATUS);
   } else if (stage == 3) {
     showPage(PAGE_HOME);
   }
@@ -4578,6 +4788,7 @@ static void showPage(Page p) {
   if (p == PAGE_HOME)    refreshHomeSelection();
   if (p == PAGE_FLAVOR)  showFlavor(FLV_DETAIL);
   if (p == PAGE_SERVICE) showService(SVC_PRIME_PICK);
+  if (p == PAGE_SETUP)   showSettings(SET_STATUS);
 }
 
 static void showRail(RailPage p) {
@@ -4637,6 +4848,11 @@ static bool uiShow(const UiShowPayload &req) {
       return true;
     case UI_RAIL_SETTINGS:
       showPage(PAGE_SETUP);
+      if (req.act) { showSettings(SET_PUMP); dryStartCb(nullptr); }
+      return true;
+    case UI_RAIL_PUMP_SERVICE:
+      showPage(PAGE_SETUP);
+      showSettings(SET_PUMP);
       if (req.act) dryStartCb(nullptr);
       return true;
     default:
@@ -4723,9 +4939,9 @@ static void processTextLine(const char *line) {
                   (unsigned long)ctrlStatus.j9ReplyOverruns,
                   (unsigned long)flushCount, (unsigned long)maxLoopMs,
                   (unsigned long)ESP.getFreeHeap(), (unsigned long)ESP.getMinFreeHeap());
-    Serial.printf("DIAG_UI:selected=%u,flavorSync=%d,flavorSaved=%d,flavorPending=%d,flavorRetries=%lu,"
+    Serial.printf("DIAG_UI:set=%d,selected=%u,flavorSync=%d,flavorSaved=%d,flavorPending=%d,flavorRetries=%lu,"
                   "flavorStale=%lu,bridged=%lu,stale=%lu,touch=%lu,lastXY=%u/%u\n",
-                  (unsigned)activeFlavor, flavorSynchronized ? 1 : 0,
+                  (int)activeSet, (unsigned)activeFlavor, flavorSynchronized ? 1 : 0,
                   flavorMainBoardPersisted ? 1 : 0, flavorRequestPending ? 1 : 0,
                   (unsigned long)flavorRetries, (unsigned long)flavorStaleResponses,
                   (unsigned long)touchBridged, (unsigned long)gt911Stale,
@@ -4840,10 +5056,14 @@ static void processTextLine(const char *line) {
     Serial.println("OK:PUMP");
   } else if (strncmp(line, "PAGE:", 5) == 0) {
     // 0..3 are the rail, in rail order. Settings left the rail for the corner
-    // and keeps a number here anyway, so a bring-up script can still reach it.
+    // and keeps a number here anyway, so a bring-up script can still reach it;
+    // 5 is its pump service area.
     int p = atoi(line + 5);
     if (p == RAIL_PAGE_COUNT) { showPage(PAGE_SETUP); Serial.printf("OK:PAGE=%d\n", p); }
-    else if (p < 0 || p > RAIL_PAGE_COUNT) Serial.println("ERR:PAGE expects 0..4");
+    else if (p == RAIL_PAGE_COUNT + 1) {
+      showPage(PAGE_SETUP); showSettings(SET_PUMP); Serial.printf("OK:PAGE=%d\n", p);
+    }
+    else if (p < 0 || p > RAIL_PAGE_COUNT + 1) Serial.println("ERR:PAGE expects 0..5");
     else { showRail((RailPage)p); Serial.printf("OK:PAGE=%d\n", p); }
   } else if (strncmp(line, "CLICK:", 6) == 0) {
     if (line[6] != '0' && line[6] != '1') Serial.println("ERR:CLICK expects 0 or 1");
@@ -4886,8 +5106,9 @@ static void processTextLine(const char *line) {
     cleanStopCb(nullptr);
     Serial.println("OK:CLEAN:STOP");
   } else if (strcmp(line, "AIR:DRY") == 0) {
-    // Settings' DRY THE LINES, without a finger on the glass.
+    // Settings' PUMP SERVICE → DRY THE LINES, without a finger on the glass.
     showPage(PAGE_SETUP);
+    showSettings(SET_PUMP);
     dryStartCb(nullptr);
     Serial.println("OK:AIR:DRY");
   } else if (strcmp(line, "AIR:STOP") == 0) {
@@ -5299,6 +5520,7 @@ void loop() {
       lastSlow = millis();
       padWatch();
       if (activePage == PAGE_HOME)   refreshHomeSelection();
+      if (activePage == PAGE_SETUP)  refreshStatusReeds();
     }
   }
 
