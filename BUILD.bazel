@@ -4709,7 +4709,12 @@ genrule(
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/flute_payload.py",
         "pysrc/tools/docgen/__init__.py",
-    ],
+    ] + glob(
+        [
+            "hardware/printed-parts/cold-core/magnetic-float/README.figures.json",
+        ],
+        allow_empty = True,
+    ),
     outs = [
         "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/body-aero.step",
         "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/body-aero.step.mesh",
@@ -4741,6 +4746,7 @@ genrule(
         "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/turning-key.step",
         "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/turning-key.step.mesh",
         "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/turning-key.stl",
+        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/README.figures.json",
         "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/README.md",
     ],
     cmd = """
@@ -4775,7 +4781,8 @@ O26=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magneti
 O27=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/turning-key.step)
 O28=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/turning-key.step.mesh)
 O29=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/turning-key.stl)
-O30=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/README.md)
+O30=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/README.figures.json)
+O31=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/README.md)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -4822,7 +4829,8 @@ cp hardware/printed-parts/cold-core/magnetic-float/section.step.mesh $$O26
 cp hardware/printed-parts/cold-core/magnetic-float/turning-key.step $$O27
 cp hardware/printed-parts/cold-core/magnetic-float/turning-key.step.mesh $$O28
 cp hardware/printed-parts/cold-core/magnetic-float/turning-key.stl $$O29
-cp hardware/printed-parts/cold-core/magnetic-float/README.md $$O30
+cp hardware/printed-parts/cold-core/magnetic-float/README.figures.json $$O30
+cp hardware/printed-parts/cold-core/magnetic-float/README.md $$O31
 """,
 )
 
