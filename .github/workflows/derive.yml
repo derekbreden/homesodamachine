@@ -134,7 +134,13 @@ jobs:
     # merely lose itself — every push behind it is cancelled out of the slot and nothing
     # derives at all. One did exactly that for an hour and a half: `//:render-scene-cards` boots
     # a server and drives a browser, and neither has a timeout of its own.
-    timeout-minutes: 75
+    #
+    # THE WEEK'S RUN TRACES FIRST, AND A TRACE STANDS THE APPLIANCE TWICE ON THIS MACHINE at
+    # 36-45 minutes a standing (`//:appliance-model` in the nightly log), once for
+    # `enclosure_assembly.py` and once for `render_scenes.py`, each under `trace_inputs.py`'s
+    # hour-long `DEADLINE`. Two hours of that, the light generators' twenty minutes and the
+    # build's forty-seven are what the larger figure holds; the nightly keeps the smaller.
+    timeout-minutes: ${{ (github.event.schedule == '0 9 * * 0' || inputs.trace == 'all') && 300 || 75 }}
     # A CONTAINER JOB'S DEFAULT SHELL IS `sh -e`, NOT BASH. GitHub picks bash on a hosted
     # runner and drops to sh inside a container, because it cannot assume the image has one —
     # and noble's sh is dash, which has no `pipefail`. Every `run:` here was written against
@@ -289,7 +295,9 @@ jobs:
       # exists to avoid.
       - name: Re-trace every generator
         if: inputs.trace == 'all' || github.event.schedule == '0 9 * * 0'
-        timeout-minutes: 180
+        # Two appliance standings at the deadline plus the light generators, inside the job's
+        # weekly budget with the build's own forty-seven minutes still to come.
+        timeout-minutes: 200
         run: |
           cp tools/bazel/graph.json "$RUNNER_TEMP/graph-before.json"
           tools/cad-venv/bin/python tools/bazel/trace_inputs.py --all
