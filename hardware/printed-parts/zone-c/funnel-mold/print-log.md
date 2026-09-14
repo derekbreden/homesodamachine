@@ -1,5 +1,33 @@
 # Funnel mold print log
 
+## Cavity trial — 2026-09-14
+
+H2C accepted plate 1 of `funnel-mold-h2c.gcode.3mf` through Bambu Connect.
+The job uses AMS A2 PETG Translucent, the left 0.8 mm High Flow nozzle,
+Textured PEI, +0.18 trim, stock filament operating settings and a 0.40 mm
+first layer. Bed leveling is enabled. The cavity has 331 layers; its slicer
+estimate is 18 h 22 min and 643 g. At 06:26 UTC the printer reports RUNNING
+at layer 1, with no print error or HMS entry. Its nozzle is 250 °C and its
+bed is 70 °C. [print-jobs.json](print-jobs.json) holds the submitted file
+and G-code hashes, settings and printer observation.
+
+## Tree-support detachment — 2026-09-14
+
+Derek reports two stopped attempts on the printer named H2C, using Textured
+PEI and +0.18 mm trim. Several supports lifted in the first attempt before
+reaching the model; one support fell in the second. The failed job bytes,
+detachment heights and first-layer photographs were not captured here.
+The +0.04 and +0.18 trims come from dozens of PET-GF calibration prints;
+their transfer to PETG has not been established.
+
+The saved project selected Engineering Plate. Its PETG Translucent profile
+used 255 °C for both first and subsequent layers, and 18 mm³/s for High Flow.
+The installed Bambu H2C 0.8 PETG Translucent defaults are 250 °C first layer,
+245 °C afterward and 16 mm³/s for both nozzle types. The mold's 0.32 mm first
+layer also differs from the stock process's 0.40 mm. The saved bed temperature,
+cooling, support speed and tree branch settings match the stock presets.
+These differences do not establish which condition detached the supports.
+
 ## Rod fit — 2026-09-13
 
 Derek reports that the steel rod was nearly impossible to press into the

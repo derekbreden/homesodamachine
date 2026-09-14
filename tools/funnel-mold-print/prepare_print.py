@@ -27,7 +27,7 @@ def recipe(info, nozzle=0.4):
     layer = '0.16' if fine else '0.24'
     process = '0.16mm Standard @BBL H2C' if fine else '0.40mm Standard @BBL H2C 0.8 nozzle'
     filament = 'Bambu PETG Translucent @BBL H2C'+('' if fine else ' 0.8 nozzle')
-    return {
+    settings = {
         'nozzle_mm': nozzle, 'nozzle_type': 'Standard' if fine else 'High Flow',
         'system_presets': {
             'machine': f'Bambu Lab H2C {size} nozzle',
@@ -35,11 +35,11 @@ def recipe(info, nozzle=0.4):
         'process_name': f'Funnel mold shell - {size} nozzle - tree supports',
         'filament_name': f'Funnel mold PETG Translucent - {size} nozzle - 255C',
         'z_trim': {'default_mm': 0.04, 'available_mm': [0.04, 0.18],
-            'reason': 'User-established plate corrections; translucent uses +0.04 mm.'},
+            'reason': 'User-established PET-GF plate corrections; transfer to PETG is not established.'},
         'process_settings': {
             'enable_arc_fitting': choice('0', 'Connected H2C firmware uses curve planning.'),
             'layer_height': choice(layer, 'Fine layers on the forming slopes.'),
-            'initial_layer_print_height': choice('0.2' if fine else '0.32', 'Stock nozzle first-layer height.'),
+            'initial_layer_print_height': choice('0.2' if fine else '0.4', 'Stock nozzle first-layer height.'),
             'wall_generator': choice('arachne', 'Variable-width paths around sockets and shell transitions.'),
             'wall_loops': choice('4' if fine else '3', 'Continuous forming and dry-back perimeters.'),
             'sparse_infill_density': choice('100%', 'Solid modeled shells and flanges.'),
@@ -56,7 +56,7 @@ def recipe(info, nozzle=0.4):
             'seam_placement_away_from_overhangs': choice('1', 'Account for adjacent overhangs.'),
             'reduce_crossing_wall': choice('1', 'Detour around forming faces when possible.'),
             'seam_gap': choice('0%', 'Closed seam paths.'),
-            'brim_type': choice('outer_only', 'Removable adhesion brim around feet, flange and support roots.'),
+            'brim_type': choice('outer_only', 'Removable adhesion brim around the model feet and flange.'),
             'brim_width': choice('6', 'Broad temporary bed grip.'),
             'brim_object_gap': choice('0.15', 'Breakaway brim gap.'),
             'skirt_loops': choice('0', 'Stock machine sequence primes the nozzle.'),
@@ -81,6 +81,12 @@ def recipe(info, nozzle=0.4):
             'filament_max_volumetric_speed': choice(['12', '18'], '12 mm3/s standard nozzle, 18 mm3/s high flow.'),
             'filament_cost': choice(['11.20'], 'Ledger cost per kilogram.')},
         'layer_ranges_mm': {'cavity': [], 'core': []}}
+    if not fine:
+        settings['process_name'] = 'Funnel mold shell - 0.8 nozzle - Bambu first layer'
+        settings['filament_name'] = 'Funnel mold PETG Translucent - 0.8 nozzle - Bambu defaults'
+        settings['filament_settings'] = {
+            'filament_cost': choice(['11.20'], 'Ledger cost per kilogram.')}
+    return settings
 
 
 def main():
