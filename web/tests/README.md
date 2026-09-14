@@ -1,6 +1,6 @@
 # tests/
 
-Seventeen files over `node --test`, run as `tests/**/*.test.js`. The bar is that
+The `*.test.js` files here run under `node --test`, as `tests/**/*.test.js`. The bar is that
 the server boots, the public route surface answers, and the contracts under
 `web/contracts/` agree with the tree they describe.
 
