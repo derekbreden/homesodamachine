@@ -21,6 +21,7 @@
 #   web/node_modules            `npm test`, and `check_web_tests.py` reads red without it
 #   tools/cad-venv              every generator and every check that imports one
 #   the locked solids           `check_paths`, `check_step_colours`, the parts-tree tests
+#   gh                          `pack.py` uploads with it; `check_release_room` reads through it
 #   bazel                       `bazel build <target>`, `sync_tree.py`, `affected.py`
 #   .cache                      `.bazelrc.paths` mounts it and bazel refuses an absent mount
 #   tags and cited commits      `check_paths` resolves `archive-*` tags, `check_print_profile`
@@ -88,6 +89,24 @@ if [ "$CHECK" = 1 ]; then
     && say "locked solids: in place" || need "locked solids"
 else
   NODE_USE_ENV_PROXY=1 node web/scripts/fetch-cad-artifacts.mjs
+fi
+
+# --- gh, which pack.py uploads with and check_release_room reads through -----------------------
+# The token the session runs under is on the proxy, so a bare `gh` reaches the release.
+if command -v gh >/dev/null; then
+  say "gh: $(gh --version | head -1)"
+elif [ "$CHECK" = 1 ]; then
+  need "gh"
+elif [ "$(id -u)" = 0 ] && command -v apt-get >/dev/null; then
+  say "gh: installing"
+  curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
+    -o /usr/share/keyrings/githubcli-archive-keyring.gpg
+  chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg
+  echo "deb [arch=amd64 signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" \
+    > /etc/apt/sources.list.d/github-cli.list
+  apt-get update -qq >/dev/null && DEBIAN_FRONTEND=noninteractive apt-get install -y -qq gh >/dev/null
+else
+  say "gh: not installed (no root apt here); check_release_room takes no reading without it"
 fi
 
 # --- bazel at .bazelversion --------------------------------------------------------------------
