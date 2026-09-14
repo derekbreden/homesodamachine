@@ -148,5 +148,88 @@
       "reported_date": "2026-09-14",
       "observation": "Derek reports the supports bond and are stable early; later, fast movement on and between tall supports knocks some over. Bed remains uncleared; exact failure layer unknown."
     }
+  },
+  {
+    "printer": "H2C",
+    "printer_serial": "31B8AP612000452",
+    "part": "cavity",
+    "plate": 1,
+    "submission": "Bambu Connect",
+    "project": "funnel-mold-h2c-040.gcode.3mf",
+    "project_sha256": "231b02a3c79759db37040bc3c42ae50705d8faed60a1b41527c55bbe9c106753",
+    "gcode_sha256": "c11152814cc726b3f9b427e851a73c19a44f2df9454eca1506c1e7127d169dae",
+    "stl_sha256": "af7d3a5e3561c5a72beb8ba50f32cbda3874925ce90e4c15514d856e004e18a2",
+    "settings": {
+      "printer_preset": "Bambu Lab H2C 0.8 High Flow +0.18 Z trim",
+      "process_preset": "Funnel mold shell - 0.8 nozzle - 0.40 mm gentle supports",
+      "filament_preset": "Funnel mold PETG Translucent - 0.8 nozzle - Bambu defaults",
+      "plate": "Textured PEI Plate",
+      "z_trim_mm": 0.18,
+      "effective_g29_1_mm": 0.16,
+      "nozzle_side": "left",
+      "nozzle_mm": 0.8,
+      "nozzle_flow": "High Flow",
+      "filament_slot": "AMS A3",
+      "nozzle_first_layer_c": 250,
+      "nozzle_other_layers_c": 245,
+      "bed_c": 70,
+      "volumetric_limit_mm3_s": 16,
+      "first_layer_mm": 0.4,
+      "other_layers_mm": 0.4,
+      "support_initial_layer_expansion_mm": 8,
+      "support_initial_layer_density_percent": 90,
+      "support_speed_mm_s": 40,
+      "support_interface_speed_mm_s": 30,
+      "travel_speed_mm_s": 150,
+      "normal_acceleration_mm_s2": 1500,
+      "travel_acceleration_mm_s2": 1500,
+      "tree_wall_loops": 2,
+      "tree_initial_branch_diameter_mm": 4,
+      "avoid_crossing_support_walls": true
+    },
+    "send_options": {
+      "timelapse": "off",
+      "bed_leveling": "on",
+      "flow_dynamic_calibration": "auto",
+      "nozzle_offset_calibration": "auto"
+    },
+    "estimated_seconds": 74560,
+    "estimated_filament_g": 745.57,
+    "printer_observation": {
+      "printer": "H2C",
+      "observed_at": "2026-09-14T21:14:54.461023+00:00",
+      "gcode_state": "RUNNING",
+      "subtask_name": "funnel-mold-h2c-040.gcode.3mf",
+      "mc_percent": 0,
+      "layer_num": 0,
+      "total_layer_num": 199,
+      "mc_remaining_time": 1242,
+      "print_error": 0,
+      "hms": [],
+      "nozzle_temper": 165.0,
+      "nozzle_target_temper": 165.0,
+      "bed_temper": 35.0,
+      "bed_target_temper": 35.0,
+      "lights_report": [
+        {
+          "mode": "on",
+          "node": "chamber_light"
+        },
+        {
+          "mode": "flashing",
+          "node": "work_light"
+        },
+        {
+          "mode": "on",
+          "node": "chamber_light2"
+        }
+      ]
+    },
+    "filament_source_observation": {
+      "ams_a3_remaining_percent": 96,
+      "filament": "Bambu PETG Translucent",
+      "selected": "AMS A3"
+    },
+    "authorization": "User confirmed the bed is free and requested the print be started."
   }
 ]

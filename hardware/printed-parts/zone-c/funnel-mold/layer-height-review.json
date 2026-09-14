@@ -1,0 +1,190 @@
+{
+  "previous": {
+    "project": "funnel-mold-h2c-gentle-supports.gcode.3mf",
+    "project_sha256": "3fde3dd7022c462151c28f18b93d923a157a03b0f678786cd8c5af138f9f148b",
+    "plates": [
+      {
+        "gcode": "Metadata/plate_1.gcode",
+        "gcode_sha256": "8b33316ecd1eddbdd6ac09a8baf2573d7d3e591e7a5ea981b30d2dea39319c58",
+        "startup_commands_sha256": "ef79fd824e0198ae76cafef252ee8e6ee94a3a22e6bb5ff989944fc866ec4c1f",
+        "estimated_seconds": 113360,
+        "estimated_filament_g": 786.73,
+        "after_first_layer": {
+          "Travel": {
+            "moves": 353292,
+            "max_speed_mm_s": 150.0,
+            "max_acceleration_mm_s2": 1500.0
+          },
+          "Support": {
+            "moves": 3877636,
+            "max_speed_mm_s": 40.0,
+            "max_acceleration_mm_s2": 1500.0
+          },
+          "Support interface": {
+            "moves": 11461,
+            "max_speed_mm_s": 30.0,
+            "max_acceleration_mm_s2": 1500.0
+          }
+        },
+        "total_layers": 331,
+        "extruding_centerline_bounds_mm": [
+          44.133,
+          57.283,
+          252.032,
+          262.83
+        ]
+      }
+    ]
+  },
+  "retry": {
+    "project": "funnel-mold-h2c-040.gcode.3mf",
+    "project_sha256": "231b02a3c79759db37040bc3c42ae50705d8faed60a1b41527c55bbe9c106753",
+    "plates": [
+      {
+        "gcode": "Metadata/plate_1.gcode",
+        "gcode_sha256": "c11152814cc726b3f9b427e851a73c19a44f2df9454eca1506c1e7127d169dae",
+        "startup_commands_sha256": "ef79fd824e0198ae76cafef252ee8e6ee94a3a22e6bb5ff989944fc866ec4c1f",
+        "estimated_seconds": 74560,
+        "estimated_filament_g": 745.57,
+        "after_first_layer": {
+          "Travel": {
+            "moves": 216125,
+            "max_speed_mm_s": 150.0,
+            "max_acceleration_mm_s2": 1500.0
+          },
+          "Support": {
+            "moves": 2021468,
+            "max_speed_mm_s": 40.0,
+            "max_acceleration_mm_s2": 1500.0
+          },
+          "Support interface": {
+            "moves": 78260,
+            "max_speed_mm_s": 30.0,
+            "max_acceleration_mm_s2": 1500.0
+          }
+        },
+        "total_layers": 199,
+        "extruding_centerline_bounds_mm": [
+          46.083,
+          57.407,
+          252.156,
+          262.682
+        ]
+      },
+      {
+        "gcode": "Metadata/plate_2.gcode",
+        "gcode_sha256": "cdbddaee00559a6647ebe8cf8f3030a868334749995639727e045493dd466d50",
+        "startup_commands_sha256": "ef79fd824e0198ae76cafef252ee8e6ee94a3a22e6bb5ff989944fc866ec4c1f",
+        "estimated_seconds": 42476,
+        "estimated_filament_g": 484.64,
+        "after_first_layer": {
+          "Travel": {
+            "moves": 90662,
+            "max_speed_mm_s": 150.0,
+            "max_acceleration_mm_s2": 1500.0
+          },
+          "Support": {
+            "moves": 798375,
+            "max_speed_mm_s": 40.0,
+            "max_acceleration_mm_s2": 1500.0
+          },
+          "Support interface": {
+            "moves": 48083,
+            "max_speed_mm_s": 30.0,
+            "max_acceleration_mm_s2": 1500.0
+          }
+        },
+        "total_layers": 113,
+        "extruding_centerline_bounds_mm": [
+          41.344,
+          51.844,
+          257.656,
+          268.156
+        ]
+      }
+    ]
+  },
+  "settings_changes": {
+    "layer_height": {
+      "previous": "0.24",
+      "retry": "0.4"
+    },
+    "print_settings_id": {
+      "previous": "Funnel mold shell - 0.8 nozzle - gentle supports",
+      "retry": "Funnel mold shell - 0.8 nozzle - 0.40 mm gentle supports"
+    }
+  },
+  "slicer_normalizations": {
+    "extruder_nozzle_stats": {
+      "previous": [
+        "High Flow#1",
+        "Standard#0|High Flow#0"
+      ],
+      "retry": [
+        "High Flow#1",
+        "Standard#0"
+      ]
+    },
+    "extruder_nozzle_stats_new": {
+      "previous": [
+        "High Flow#1",
+        "Standard#0|High Flow#0"
+      ],
+      "retry": [
+        "High Flow#1",
+        "Standard#0"
+      ]
+    },
+    "filament_map_2": {
+      "previous": null,
+      "retry": [
+        "1"
+      ]
+    },
+    "filament_prime_volume": {
+      "previous": [
+        "30"
+      ],
+      "retry": [
+        "45"
+      ]
+    }
+  },
+  "startup_commands_match_for_compared_plates": true,
+  "machine_start_gcode_matches": true,
+  "effective_g29_1_mm": 0.16,
+  "scope": "Commanded motion after the first layer, including spiral travel lifts; excludes wiping, startup and shutdown. This is not a physical stability test.",
+  "first_layer": {
+    "project": "funnel-mold-h2c-040.gcode.3mf",
+    "project_sha256": "231b02a3c79759db37040bc3c42ae50705d8faed60a1b41527c55bbe9c106753",
+    "gcode_sha256": "c11152814cc726b3f9b427e851a73c19a44f2df9454eca1506c1e7127d169dae",
+    "initial_layer_expansion_mm": 8.0,
+    "support_extrusion_area_mm2": 30922.2,
+    "support_bounds_mm": [
+      45.67,
+      58.25,
+      250.61,
+      257.02
+    ],
+    "within_printable_area": true,
+    "first_layer_mm": 0.4
+  },
+  "startup_commands_match_except_progress_and_leveling_rectangle": true,
+  "editable_project": {
+    "project": "funnel-mold.3mf",
+    "sha256": "3e7e9250bf5c59b374f1cd1d9343f4f60ee3a16eccf46e50ca9e7d50fb95b855",
+    "original_meshes_identical": true,
+    "assembly_transforms_identical": true,
+    "object_overrides_identical": true
+  },
+  "comparison": {
+    "cavity_time_saved_seconds": 38800,
+    "cavity_time_saved_percent": 34.23,
+    "cavity_layers_removed": 132
+  },
+  "saved_user_process": {
+    "name": "Funnel mold shell - 0.8 nozzle - 0.40 mm gentle supports",
+    "resolved_settings_match": true,
+    "native_profile_info_present": true
+  }
+}
