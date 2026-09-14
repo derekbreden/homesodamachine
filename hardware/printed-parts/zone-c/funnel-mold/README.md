@@ -94,13 +94,13 @@ print still needs its own dry-fit and vacuum trial.
 
 ## Print
 
-[Checked cavity print file, Textured PEI and +0.18 trim](funnel-mold-h2c-support-feet.gcode.3mf) ·
+[Checked cavity print file, Textured PEI and +0.18 trim](funnel-mold-h2c-gentle-supports.gcode.3mf) ·
 [Editable project](funnel-mold.3mf) ·
 [Saved printer, filament and process presets](funnel-mold-presets.bbscfg)
 
 The editable project selects these saved Bambu Studio User Presets:
 
-- Process: **Funnel mold shell - 0.8 nozzle - 8mm support feet**
+- Process: **Funnel mold shell - 0.8 nozzle - gentle supports**
 - Filament: **Funnel mold PETG Translucent - 0.8 nozzle - Bambu defaults**
 - Printer: **Bambu Lab H2C 0.8 High Flow +0.18 Z trim**
 
@@ -114,8 +114,8 @@ The target printer is named **H2C**. Its physical plate is Textured PEI.
 The +0.18 trim adds to Bambu's −0.02 mm Textured PEI correction, giving
 `G29.1 Z0.16` in the checked G-code. The trim is calibrated for PET-GF;
 its use with PETG is a physical trial recorded in the [print log](print-log.md).
-The checked retry file contains the cavity, with a slicer estimate of **18 h 31 min**
-and **653 g** including supports. The core is plate 2 of the editable project;
+The checked retry file contains the cavity, with a slicer estimate of **31 h 29 min**
+and **787 g** including supports. The core is plate 2 of the editable project;
 slice it with the selected profile before printing. Its envelope is
 [205 × 205 × 45.2 mm](CORE_DIMS); the cavity is [205 × 205 × 79.6 mm](CAVITY_DIMS).
 
@@ -131,15 +131,19 @@ backs. Inspect and remove every branch before finishing.
 The named filament preset inherits Bambu's H2C 0.8 PETG Translucent operating
 settings; its only numerical override is the ledger cost. The process uses
 three walls, solid modeled shells, 40 mm/s outer walls, 60 mm/s top surfaces,
-and automatic trees at a 35° threshold. Bed temperature is 70 °C. Cooling,
-support speed and tree branch geometry use the stock presets.
+and automatic trees at a 35° threshold. Bed temperature is 70 °C and cooling
+uses the stock filament settings. Supports run at 40 mm/s and interfaces at
+30 mm/s. Travel is capped at 150 mm/s. Normal printing and travel acceleration
+are 1,500 mm/s²; the first-layer acceleration settings remain at their stock
+values. Trees have two wall loops and 4 mm initial branch diameter. Avoid
+crossing wall includes support walls.
 
-[support-foot-review.json](support-foot-review.json) checks the retry's emitted
-first-layer support paths, bed bounds, settings and G-code checksums against the
-reference slice in [print-profile.json](print-profile.json). The support footprint
-is about 2.8 times the reference area. Startup commands retain the same Z trim,
-temperatures and nozzle behavior; progress estimates and the bed-leveling
-rectangle reflect this slice.
+[support-motion-review.json](support-motion-review.json) measures the cavity's
+emitted support and travel speeds and accelerations after the first layer,
+checks its G-code checksum and nozzle assignment, and records its first-layer
+support footprint. The machine start template retains the calibrated Z trim
+and stock filament operating settings. Both editable meshes, plate placements
+and object overrides match the reference project. This file has not been printed.
 [layer-review.json](layer-review.json) records model connectivity at the sliced
 layer heights. The cavity spout tip and core rod cradle begin above the plate;
 the G-code has support-interface paths directly beneath both features.
