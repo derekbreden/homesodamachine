@@ -1385,6 +1385,26 @@ def main(argv) -> int:
     if same_solids:
         release = held.get("release", {})
         bundle = held.get("bundle", {})
+        if bundle.get("behind") and not args.publish_held:
+            # THE BUNDLE A HELD PUBLISH LEFT BEHIND IS CUT WHOLE HERE. The members it lacks are
+            # on the release by their own hashes, which is what a reader fetches by; this is the
+            # one asset that answers a lock without `objects`, made current on the runner where
+            # a minute of tar and upload costs nobody at a keyboard.
+            with tempfile.TemporaryDirectory() as d:
+                path = Path(d) / "bundle.tar.gz"
+                digest = build(_ROOT, rels, path)
+                size = path.stat().st_size
+                data = lock_for(_ROOT, rels, digest, size, now, sidecar_now, unproven_now)
+                if release.get("objects"):
+                    data["release"]["objects"] = release["objects"]
+                data["source"] = {"commit": _head(_ROOT)}
+                if make_room(_ROOT, 1):
+                    pass
+                upload(_ROOT, path, data["release"]["asset"], digest, size)
+            _write_lock(data)
+            print(f"bundle {data['release']['asset']} — {size / 1e6:.1f} MB, cut whole behind "
+                  f"the held publish that left {release.get('asset')} behind")
+            return 0
         if not _release_asset_matches(_ROOT, release.get("asset", ""),
                                       bundle.get("sha256", ""), bundle.get("bytes", -1)):
             with tempfile.TemporaryDirectory() as d:
@@ -1404,6 +1424,39 @@ def main(argv) -> int:
         return 0
 
     known = objects_on_release(_ROOT)
+
+    # A HELD PUBLISH PUTS UP WHAT MOVED AND NOTHING ELSE. Every member of a lock is on the
+    # release under its own hash, and that is what `fetch-cad-artifacts.mjs` reads by
+    # (`release.objects`); the bundle is one asset holding all of them for a lock without that
+    # lane. Tarring and uploading it costs the whole tree — 173 MB and most of the minute a
+    # publish took — to move one member the site never reads from it. So the post-commit path
+    # sends the objects that moved, keeps the bundle the lock already names and says so with
+    # `bundle.behind`; the reconciler's plain `--write` cuts a whole one on the runner. A held
+    # publish with no bundle to keep, or one whose objects did not all land, takes the road
+    # below and cuts the bundle here, so a lock always names an asset that answers for it.
+    prior_bundle = held.get("bundle", {})
+    if args.publish_held and prior_bundle.get("sha256"):
+        if make_room(_ROOT, sum(1 for r in rels if now[r] not in known)):
+            known = objects_on_release(_ROOT)
+        if upload_objects(_ROOT, rels, now, known):
+            data = lock_for(_ROOT, rels, prior_bundle["sha256"], prior_bundle.get("bytes", 0),
+                            now, sidecar_now, unproven_now)
+            data["bundle"] = {**prior_bundle, "behind": True}
+            data["release"]["objects"] = OBJECT_PREFIX
+            source = publication_source(held, _head(_ROOT), args.publish_held)
+            if source:
+                data["source"] = source
+            else:
+                data.pop("source", None)
+            _write_lock(data)
+            print(f"{len(moved) + len(fresh)} member(s) up on their own hash; "
+                  f"{data['release']['asset']} stays behind for the reconciler")
+            print(f"pinned in {LOCK.relative_to(_ROOT)}"
+                  + (f" — {len(unproven_now['members'])} member(s) recorded unproven"
+                     if unproven_now else ""))
+            return 0
+        print("  not every object landed; cutting the bundle so this lock reads whole")
+        known = objects_on_release(_ROOT)
 
     with tempfile.TemporaryDirectory() as d:
         bundle = Path(d) / "bundle.tar.gz"
