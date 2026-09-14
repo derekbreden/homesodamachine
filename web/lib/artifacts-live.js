@@ -1,11 +1,11 @@
 // New geometry onto an open page, without a deploy.
 //
-// The site deploys on a push, and the lock used to be one of the paths that triggered it — so a
+// The site deploys on a push, and the pointer file used to be one of the paths that triggered it — so a
 // cut reached the browser by rebuilding the container around it. That is 40 of the 55 deploying
 // commits on a working day, each a `npm ci`, a 65 MB fetch and a restart, and they do not run in
 // parallel. Four landing inside two minutes puts the fourth eight minutes out.
 //
-// The lock is not code. This adopts it in place: read the lock GitHub holds, and if it names a
+// The pointer file is not code. This adopts it in place: read the pointer file GitHub holds, and if it names a
 // bundle this disk does not have, run `fetch-cad-artifacts.mjs --adopt` to bring the members
 // down, then say what moved on the same `files-changed` frame a deploy sends. The viewer's
 // listener (public/js/viewer/live.js) reloads an open model in place, keeping the camera.
@@ -16,14 +16,14 @@
 // answers with the commit that is actually on main, inlines this 19 KB file as base64, and costs
 // one call. Unauthenticated is 60/hour against a poll every 2 minutes.
 //
-// TOLD, AND ALSO ASKED. `publish_now.py` posts to `/api/artifacts/refresh` the moment it pins, so
+// TOLD, AND ALSO ASKED. `publish_now.py` posts to `/api/artifacts/refresh` the moment it moves the pointer file, so
 // the usual case is seconds. The poll is what makes the removal from `buildFilter` safe: if the
 // post never arrives — a laptop offline, an endpoint renamed — geometry is late by a poll rather
-// than absent until someone pushes code. The post carries no lock and no trust; it says "look
+// than absent until someone pushes code. The post carries no pointer file and no trust; it says "look
 // now", and what is read is still GitHub's.
 //
 // A COLD BOOT IS STILL THE BUILD'S JOB. `fetch-cad-artifacts.mjs` runs in `buildCommand` and
-// `prestart` as before, so a container starts holding what its own clone's lock named. This only
+// `prestart` as before, so a container starts holding what its own clone's pointer file named. This only
 // carries it forward from there.
 //
 // IT REPORTS AND HOLDS NOTHING. Every failure here leaves the container serving the solids it
@@ -45,16 +45,16 @@ const run = promisify(execFile);
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const WEB = path.resolve(HERE, "..");
 const ROOT = path.resolve(WEB, "..");
-const LOCK = path.join(ROOT, "hardware", "cad-artifacts.lock.json");
+const POINTERS = path.join(ROOT, "hardware", "cad-artifacts.json");
 
 const LOCK_URL =
-  "https://api.github.com/repos/derekbreden/homesodamachine/contents/hardware/cad-artifacts.lock.json?ref=main";
+  "https://api.github.com/repos/derekbreden/homesodamachine/contents/hardware/cad-artifacts.json?ref=main";
 
 // THE VERDICT IS NOT CODE EITHER. `checks.json` sits under `web/public/`, which `render.yaml`
 // deploys on, so every reading `checks_now.py` pinned rebuilt the container around it — 24 of
 // the 24 deploying commits in the six hours this was measured, each a `npm ci` and a restart,
 // none of them in parallel. A verdict twenty minutes behind describes a tree that has moved.
-// `render.yaml` holds it out of the filter and this carries it, on the same look as the lock.
+// `render.yaml` holds it out of the filter and this carries it, on the same look as the pointer file.
 const CHECKS = path.join(WEB, "public", "checks.json");
 const CHECKS_URL =
   "https://api.github.com/repos/derekbreden/homesodamachine/contents/web/public/checks.json?ref=main";
@@ -80,21 +80,21 @@ let pending = null;
 
 async function lockOnDisk() {
   try {
-    return JSON.parse(await readFile(LOCK, "utf-8"));
+    return JSON.parse(await readFile(POINTERS, "utf-8"));
   } catch {
     return null;
   }
 }
 
 // WHAT SAYS THE GEOMETRY MOVED. A publish from the machine that changed it puts the members
-// that moved on the release under their own hashes and leaves the bundle the lock already
+// that moved on the release under their own hashes and leaves the bundle the pointer file already
 // names where it is (`pack.py --write --publish-held`): the bundle's digest does not move with
-// them, the member hashes do. Either moving is a look worth taking; a disk with no lock at all
+// them, the member hashes do. Either moving is a look worth taking; a disk with no pointer file at all
 // is behind by definition.
-export function lockMoved(have, lock) {
+export function pointersMoved(have, pointers) {
   if (!have) return true;
-  if (have.bundle?.sha256 !== lock.bundle?.sha256) return true;
-  return JSON.stringify(have.solids ?? {}) !== JSON.stringify(lock.solids ?? {});
+  if (have.bundle?.sha256 !== pointers.bundle?.sha256) return true;
+  return JSON.stringify(have.solids ?? {}) !== JSON.stringify(pointers.solids ?? {});
 }
 
 async function lockOnMain() {
@@ -131,29 +131,29 @@ async function carryChecks() {
   return { moved: true, green: verdict.green === true, checks: verdict.checks.length };
 }
 
-// The lock's own shape, before it is written anywhere. A truncated or half-published lock that
-// reached main is a lock this refuses rather than one it serves.
-function usable(lock) {
+// The pointer file's own shape, before it is written anywhere. A truncated or half-published pointer file that
+// reached main is a pointer file this refuses rather than one it serves.
+function usable(pointers) {
   return Boolean(
-    lock &&
-    typeof lock.bundle?.sha256 === "string" &&
-    lock.release?.url?.startsWith("https://github.com/derekbreden/homesodamachine/releases/") &&
-    lock.solids &&
-    Object.keys(lock.solids).length,
+    pointers &&
+    typeof pointers.bundle?.sha256 === "string" &&
+    pointers.release?.url?.startsWith("https://github.com/derekbreden/homesodamachine/releases/") &&
+    pointers.solids &&
+    Object.keys(pointers.solids).length,
   );
 }
 
 // THE SCORECARD IS COMMITTED DATA UNDER A PATH NOTHING DEPLOYS ON, WHICH IS WHY IT IS CARRIED
 // HERE. `pack.py` keeps the scorecards outside the geometry tar and off the release entirely:
-// the lock names each one's sha256 and the committed tree holds the bytes. So
+// the pointer file names each one's sha256 and the committed tree holds the bytes. So
 // `fetch-cad-artifacts.mjs` cannot bring one down — there is no object to ask for — and
 // `hardware/**` is not in `render.yaml`'s buildFilter, so the commit that moves a scorecard
 // deploys nothing. Both halves are deliberate, and without this a verdict reaches the site only
 // when some unrelated `web/**` push happens to rebuild the container around it, which is a bar
 // describing whatever cut that push landed beside.
 //
-// THE LOCK IS THE CHANGE DETECTOR, SO A QUIET LOOK COSTS NOTHING. `lock.sidecars` carries each
-// scorecard's sha256 and `adopt` has already fetched the lock, so what to ask GitHub for is
+// THE POINTER FILE IS THE CHANGE DETECTOR, SO A QUIET LOOK COSTS NOTHING. `pointers.sidecars` carries each
+// scorecard's sha256 and `adopt` has already fetched the pointer file, so what to ask GitHub for is
 // decided against bytes already in hand. That is what makes this affordable: the poll is two
 // calls every two minutes against an unauthenticated ceiling of 60/hour, and a scorecard read
 // unconditionally would put the look over it.
@@ -174,9 +174,9 @@ async function shaOnDisk(abs) {
   }
 }
 
-// A LOCK NAMES ITS SCORECARDS BY PATH AND THIS WRITES FILES OFF THAT NAME, so the name is
+// A POINTER FILE NAMES ITS SCORECARDS BY PATH AND THIS WRITES FILES OFF THAT NAME, so the name is
 // checked rather than trusted: a `.scorecard.json` resolving inside the tree, and nothing else.
-// The lock is the project's own and arrives over HTTPS; this is what keeps a truncated or
+// The pointer file is the project's own and arrives over HTTPS; this is what keeps a truncated or
 // tampered one from choosing where a write lands.
 function sidecarPath(rel) {
   if (typeof rel !== "string" || !rel.endsWith(SIDECAR_SUFFIX)) return null;
@@ -184,21 +184,21 @@ function sidecarPath(rel) {
   return abs.startsWith(ROOT + path.sep) ? abs : null;
 }
 
-// ONE FETCH PER PIN, BECAUSE THE LOCK CAN NAME BYTES MAIN DOES NOT HOLD. `pack.py` cuts against
-// the working tree and says so in `unproven`, so a scorecard's locked hash can describe a file
+// ONE FETCH PER POINTER MOVE, BECAUSE THE POINTER FILE CAN NAME BYTES MAIN DOES NOT HOLD. `pack.py` cuts against
+// the working tree and says so in `unproven`, so a scorecard's pointed-at hash can describe a file
 // that was never committed. Carrying what main holds is still right — it is the newest bytes
-// anyone can read — but its hash will not settle to the lock's, and a disk check alone would
-// then ask GitHub for it on every poll forever. This remembers the pin it acted on, so an
+// anyone can read — but its hash will not settle to the pointer file's, and a disk check alone would
+// then ask GitHub for it on every poll forever. This remembers the pointer it acted on, so an
 // unproven scorecard costs one call and not one per poll.
 const carriedFor = new Map();
 
-async function carryScorecards(lock) {
+async function carryScorecards(pointers) {
   const carried = [];
   const failed = [];
-  for (const [rel, want] of Object.entries(lock.sidecars ?? {})) {
+  for (const [rel, want] of Object.entries(pointers.sidecars ?? {})) {
     const abs = sidecarPath(rel);
     if (!abs) { failed.push(`${rel} — not a path this writes`); continue; }
-    if (typeof want !== "string") { failed.push(`${rel} — the lock names no hash for it`); continue; }
+    if (typeof want !== "string") { failed.push(`${rel} — the pointer file names no hash for it`); continue; }
     if (carriedFor.get(rel) === want) continue;
     if ((await shaOnDisk(abs)) === want) { carriedFor.set(rel, want); continue; }
     try {
@@ -229,14 +229,14 @@ async function carryScorecards(lock) {
 
 async function adopt({ broadcast, setRecent, commit, hardwareDir, detect }) {
   const have = await lockOnDisk();
-  const lock = await lockOnMain();
-  if (!usable(lock)) throw new Error("the lock on main is not one this can read");
+  const pointers = await lockOnMain();
+  if (!usable(pointers)) throw new Error("the pointer file on main is not one this can read");
 
   // AHEAD OF THE BUNDLE GATE, BECAUSE A VERDICT MOVES WITHOUT THE GEOMETRY MOVING. The
   // scorecards sit outside the tar, so `bundle.sha256` is not a function of them: a checker
   // that answers on a tree whose solids did not change leaves the bundle where it was. Read
   // after the gate, that scorecard would wait for the next cut of something else.
-  const sidecars = await carryScorecards(lock);
+  const sidecars = await carryScorecards(pointers);
   if (sidecars.carried.length) {
     console.log(`[artifacts-live] carried ${sidecars.carried.length} scorecard(s) — `
       + sidecars.carried.join(", "));
@@ -245,10 +245,10 @@ async function adopt({ broadcast, setRecent, commit, hardwareDir, detect }) {
     console.error(`[artifacts-live] ${line} — the bar is the one already here`);
   }
 
-  if (!lockMoved(have, lock)) return { moved: false, scorecards: sidecars.carried.length };
+  if (!pointersMoved(have, pointers)) return { moved: false, scorecards: sidecars.carried.length };
 
-  await writeFile(LOCK, JSON.stringify(lock, null, 2) + "\n");
-  // The fetcher is the authority on bytes — it holds the bundle to the lock's sha256 and every
+  await writeFile(POINTERS, JSON.stringify(pointers, null, 2) + "\n");
+  // The fetcher is the authority on bytes — it holds the bundle to the pointer file's sha256 and every
   // member to its own — so this runs it rather than reimplementing that. `cwd` is `web/`, the
   // directory both of its other callers run it from.
   const { stdout } = await run(process.execPath,
@@ -257,13 +257,13 @@ async function adopt({ broadcast, setRecent, commit, hardwareDir, detect }) {
   for (const line of stdout.trim().split("\n")) if (line.trim()) console.log(line);
 
   // The same reading a deploy takes, off the same tables: what is on this disk now against what
-  // this site last said. A member the lock re-pinned to bytes it already had moves nothing.
+  // this site last said. A member the pointer file re-pointed to bytes it already had moves nothing.
   const files = (await Promise.all(detect.map((d) => d(hardwareDir)))).flat();
   if (files.length) {
     broadcast({ type: "files-changed", commit, files });
     setRecent({ commit, ts: Date.now(), files });
   }
-  return { moved: true, bundle: lock.bundle.sha256, files: files.length };
+  return { moved: true, bundle: pointers.bundle.sha256, files: files.length };
 }
 
 /** Look once, coalescing with any look already in flight or already deferred. Never throws. */

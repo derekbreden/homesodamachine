@@ -2,16 +2,16 @@
 """The images a phone pushes, as one release asset a deploy fetches.
 
     ~/.platformio/penv/bin/python tools/publish_firmware.py           # what the manifest would hold
-    ~/.platformio/penv/bin/python tools/publish_firmware.py --write   # build it, upload it, pin it
-    ~/.platformio/penv/bin/python tools/publish_firmware.py --check   # 0 = the lock names these builds
+    ~/.platformio/penv/bin/python tools/publish_firmware.py --write   # build it, upload it, point main at it
+    ~/.platformio/penv/bin/python tools/publish_firmware.py --check   # 0 = the pointer file names these builds
 
-`firmware/firmware.lock.json` names the source commit, the asset by its own sha256, and every
+`firmware/firmware-images.json` names the source commit, the asset by its own sha256, and every
 image inside it by target, version, size, crc32 and sha256; it is committed. The asset is
 content-addressed (`fw-<sha16>.tar.gz`) and never rewritten, so a checkout resolves to the bundle
-its own commit was packed against. `web/scripts/fetch-firmware.mjs` reads the lock at deploy and
+its own commit was packed against. `web/scripts/fetch-firmware.mjs` reads the pointer file at deploy and
 holds the download to both hashes before anything is served.
 
-THE CRC32 IN THE LOCK IS THE ONE THE WIRE CARRIES. `MSG_OTA_BEGIN` promises it and the receiver
+THE CRC32 IN THE POINTER FILE IS THE ONE THE WIRE CARRIES. `MSG_OTA_BEGIN` promises it and the receiver
 holds the whole image to it before the boot partition moves; the phone reads it from here and
 hands it through. The sha256 is what `fetch-firmware.mjs` holds the download to.
 
@@ -41,7 +41,7 @@ from pathlib import Path
 _HERE = Path(__file__).resolve()
 _ROOT = _HERE.parent.parent
 
-LOCK = _ROOT / "firmware" / "firmware.lock.json"
+POINTERS = _ROOT / "firmware" / "firmware-images.json"
 TAG = "firmware"
 PIO = Path.home() / ".platformio" / "penv" / "bin" / "pio"
 
@@ -103,8 +103,8 @@ def _origin_slug() -> str:
 def _dirty() -> list:
     """Tracked paths under `firmware/` or `tools/` standing outside HEAD.
 
-    Only these two trees can move an image. A lock packed beside an edit to either carries them
-    under `unproven`, the way `hardware/cad-artifacts.lock.json` carries the paths its solids
+    Only these two trees can move an image. A pointer file packed beside an edit to either carries them
+    under `unproven`, the way `hardware/cad-artifacts.json` carries the paths its solids
     were cut beside.
     """
     status = subprocess.run(["git", "-C", str(_ROOT), "status", "--porcelain", "--", "firmware", "tools"],
@@ -128,7 +128,7 @@ def image_path(target: str) -> Path:
 def fw_version(target: str) -> str | None:
     """The `FW_VERSION` the build stamped into its tree, which is what the board reports.
 
-    The art blob carries none. Its own header holds a crc32, and so does this lock.
+    The art blob carries none. Its own header holds a crc32, and so does this pointer file.
     """
     spec = TARGETS[target]
     if spec.get("kind") == "art":
@@ -160,7 +160,7 @@ def build(target: str) -> None:
 
 
 def survey(targets: list) -> dict:
-    """Each target that has an image on this disk, with everything the lock records about it."""
+    """Each target that has an image on this disk, with everything the pointer file records about it."""
     out = {}
     for target in targets:
         path = image_path(target)
@@ -218,10 +218,10 @@ def pack(images: dict, dest: Path) -> str:
     return _sha256(dest)
 
 
-def lock_for(images: dict, digest: str, size: int) -> dict:
+def pointers_for(images: dict, digest: str, size: int) -> dict:
     asset = f"fw-{digest[:16]}.tar.gz"
     slug = _origin_slug()
-    lock = {
+    pointers = {
         "_": "Written by tools/publish_firmware.py. The images are fetched, not committed —"
              " web/scripts/fetch-firmware.mjs reads this at deploy and /api/firmware serves it.",
         "release": {
@@ -235,17 +235,17 @@ def lock_for(images: dict, digest: str, size: int) -> dict:
     }
     dirty = _dirty()
     if dirty:
-        lock["unproven"] = {
+        pointers["unproven"] = {
             "_": "source.commit does not describe these images: an uncommitted path below"
                  " reaches what built them.",
             "paths": dirty,
         }
-    return lock
+    return pointers
 
 
-def read_lock() -> dict:
+def read_pointers() -> dict:
     try:
-        return json.loads(LOCK.read_text())
+        return json.loads(POINTERS.read_text())
     except (OSError, ValueError):
         return {}
 
@@ -266,8 +266,8 @@ def upload(bundle: Path, asset: str, digest: str, size: int) -> None:
                    "--title", "Firmware images",
                    "--notes", "The images a phone pushes over BLE, fetched at deploy by "
                               "web/scripts/fetch-firmware.mjs and served from /api/firmware. "
-                              "Each asset is named by its own sha256 and pinned in "
-                              "firmware/firmware.lock.json.")
+                              "Each asset is named by its own sha256 and pointed at from "
+                              "firmware/firmware-images.json.")
         if made.returncode != 0:
             raise SystemExit(f"gh release create failed:\n{made.stderr}")
     else:
@@ -301,9 +301,9 @@ def show(images: dict) -> None:
 
 def main(argv) -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    ap.add_argument("--write", action="store_true", help="build, upload and pin")
+    ap.add_argument("--write", action="store_true", help="build, upload and move the pointer file")
     ap.add_argument("--check", action="store_true",
-                    help="0 = the lock names the images on this disk")
+                    help="0 = the pointer file names the images on this disk")
     ap.add_argument("--no-build", action="store_true",
                     help="use whatever .pio/build already holds")
     ap.add_argument("targets", nargs="*", choices=sorted(TARGETS) + [[]],
@@ -313,25 +313,25 @@ def main(argv) -> int:
     targets = args.targets or sorted(TARGETS)
 
     if args.check:
-        lock = read_lock()
-        locked = lock.get("images", {})
+        pointers = read_pointers()
+        pointed = pointers.get("images", {})
         here = survey(targets)
         gaps = []
-        for target in sorted(set(locked) | set(here)):
-            a, b = locked.get(target), here.get(target)
+        for target in sorted(set(pointed) | set(here)):
+            a, b = pointed.get(target), here.get(target)
             if not b:
-                continue  # not built on this disk; the lock is not wrong for that
+                continue  # not built on this disk; the pointer file is not wrong for that
             if not a:
-                gaps.append(f"{target} — built here, absent from the lock")
+                gaps.append(f"{target} — built here, absent from the pointer file")
             elif a.get("sha256") != b["sha256"]:
-                gaps.append(f"{target} — {b['version'] or 'art'} is not what the lock names")
+                gaps.append(f"{target} — {b['version'] or 'art'} is not what the pointer file names")
         if gaps:
-            print(f"firmware.lock.json does not name {len(gaps)} image(s) on this disk:")
+            print(f"firmware-images.json does not name {len(gaps)} image(s) on this disk:")
             for line in gaps:
                 print(f"    {line}")
             print("    ~/.platformio/penv/bin/python tools/publish_firmware.py --write")
             return 1
-        print(f"{len(here)} image(s) at the locked hash")
+        print(f"{len(here)} image(s) at the pointed-at hash")
         return 0
 
     if not args.no_build:
@@ -350,11 +350,11 @@ def main(argv) -> int:
         bundle = Path(d) / "fw.tar.gz"
         digest = pack(images, bundle)
         size = bundle.stat().st_size
-        lock = lock_for(images, digest, size)
-        upload(bundle, lock["release"]["asset"], digest, size)
+        pointers = pointers_for(images, digest, size)
+        upload(bundle, pointers["release"]["asset"], digest, size)
 
-    LOCK.write_text(json.dumps(lock, indent=2, sort_keys=False) + "\n")
-    print(f"pinned {LOCK.relative_to(_ROOT)} — {lock['release']['asset']} ({size / 1e6:.1f} MB)")
+    POINTERS.write_text(json.dumps(pointers, indent=2, sort_keys=False) + "\n")
+    print(f"pointed at {POINTERS.relative_to(_ROOT)} — {pointers['release']['asset']} ({size / 1e6:.1f} MB)")
     return 0
 
 

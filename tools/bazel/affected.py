@@ -424,10 +424,10 @@ def read_kind(path: str) -> bool:
 def artifact_sidecar_output(path: str) -> bool:
     """Whether `path` is generated viewer evidence, not an authored action input.
 
-    Sidecars are committed atomically with the lock, so every later source range crosses the
+    Sidecars are committed atomically with the pointer file, so every later source range crosses the
     preceding publication commit. Treating that generated output as fresh input debt rebuilds
     its producer after every unrelated source push. The source that makes it remains a normal
-    graph input and selects the producer; a sidecar-only race is handled at the lock boundary.
+    graph input and selects the producer; a sidecar-only race is handled at the pointer file boundary.
     """
     return path.endswith(".scorecard.json") and path in declared_outputs()
 
@@ -498,7 +498,7 @@ def artifact_presentation_only(path: str) -> bool:
     action can preserve authored text while updating figures. Their bytes do not define its
     geometry. A path stops being presentation-only if another artifact generator reads it as a
     normal input; that keeps real data-bearing documents such as the BOM and fluid topology in
-    the CAD slice while letting ordinary README/card edits advance the deployment lock without
+    the CAD slice while letting ordinary README/card edits advance the deployment pointer file without
     recutting solids. Slicer workspaces are stronger: they are build-inert even if a diagnostic
     check reads one.
 
@@ -529,7 +529,7 @@ def artifact_unknown(path: str, artifacts_only: bool = False) -> bool:
     """Whether an unlabelled path could define or feed a new CAD action."""
     if build_inert(path):
         return False
-    if path == "hardware/cad-artifacts.lock.json":
+    if path == "hardware/cad-artifacts.json":
         return False
     # A lint answer is reviewer evidence beside a mesh, not a source of that mesh. Known
     # answers still take the ordinary `known`/rdeps path above this test; an answer no target
@@ -678,7 +678,7 @@ genrule(
     hold("firmware outside the graph does not widen the CAD slice",
          not artifact_unknown("firmware/src/main.cpp")
          and artifact_unknown("hardware/new_part.py")
-         and not artifact_unknown("hardware/cad-artifacts.lock.json")
+         and not artifact_unknown("hardware/cad-artifacts.json")
          and not artifact_unknown("hardware/quickstart/studies/new/decode_art.py", True)
          and not artifact_unknown("hardware/quickstart/studies/new/.gitignore", True)
          and artifact_unknown(".dockerignore")
@@ -851,7 +851,7 @@ def main(argv) -> int:
     # action, which is the same reason `artifact_global` returns False for both. Building their
     # two scorecard producers to "exercise" a change re-cuts the ~95 solids those assemblies
     # reach — and a cut is only reproducible across runs of ONE OCC build, so on a machine whose
-    # wheel differs from the one that pinned the lock every one of those members moves. That is
+    # wheel differs from the one that pointed at the pointer file every one of those members moves. That is
     # the whole bundle re-addressed to the packer's own edit. `sentinel_targets` still states the
     # reach for provenance, where naming what an uncommitted packer touches is exactly right.
     if args.why:

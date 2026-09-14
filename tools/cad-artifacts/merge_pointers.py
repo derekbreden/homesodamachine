@@ -1,21 +1,21 @@
 #!/usr/bin/env python3
-"""Two publishes of the lock, merged the way a rebase needs them: main's manifest, plus yours.
+"""Two publishes of the pointer file, merged the way a rebase needs them: main's pointers, plus yours.
 
-    python3 tools/cad-artifacts/merge_lock.py %O %A %B     # git merge driver: the result lands in %A
-    python3 tools/cad-artifacts/merge_lock.py selftest
+    python3 tools/cad-artifacts/merge_pointers.py %O %A %B     # git merge driver: the result lands in %A
+    python3 tools/cad-artifacts/merge_pointers.py selftest
 
-`.gitattributes` names this driver for `hardware/cad-artifacts.lock.json`, and `tools/push.py`
-puts its command in a clone's config the first time it runs there (`merge.cadlock.driver`), which
+`.gitattributes` names this driver for `hardware/cad-artifacts.json`, and `tools/push.py`
+puts its command in a clone's config the first time it runs there (`merge.cadpointers.driver`), which
 is how a fresh clone, cloud or laptop, comes to have it. git calls it whenever both sides of a
-merge, rebase or cherry-pick moved the lock — which two publishes always do, because
+merge, rebase or cherry-pick moved the pointer file — which two publishes always do, because
 `source.commit` and the bundle move on every one. Without it every concurrent publish stops on
-the lock; with it the merge has one right answer, and this is it.
+the pointer file; with it the merge has one right answer, and this is it.
 
-THE MEMBERS ARE THE MANIFEST. `solids` and `sidecars` merge by key. A member one side left alone
+THE MEMBERS ARE THE POINTERS. `solids` and `sidecars` merge by key. A member one side left alone
 takes the other side's hash, so a publish adds its members to main's without dropping main's. A
 member both sides moved to different hashes takes the incoming side's — the publish being
 brought in is the newer act — and is recorded under `unproven`, so the reconciler cuts it once
-more from the merged source and the lock stops guessing. A member one side retired and the
+more from the merged source and the pointer file stops guessing. A member one side retired and the
 other left alone is gone.
 
 `source.commit` becomes the merge-base of the two sources: the debt it implies then covers what
@@ -26,7 +26,7 @@ release by its own hash. The bundle is the one from the side that cut a new one,
 both did, and it is marked behind whenever the merged members are not the ones it holds.
 
 The result is the bytes `pack.py` writes: its key order, its indentation, its escaping. Merging a
-lock with itself gives the file back unchanged.
+pointer file with itself gives the file back unchanged.
 """
 
 from __future__ import annotations
@@ -36,7 +36,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-LOCK_REL = "hardware/cad-artifacts.lock.json"
+POINTERS_REL = "hardware/cad-artifacts.json"
 
 #: pack.py's own note, repeated so the merged record reads like one it wrote. The selftest holds
 #: the two strings together.
@@ -123,10 +123,10 @@ def resolve_source(ours: dict, theirs: dict, merge_base=git_merge_base) -> str |
 
 
 def merge(base: dict, ours: dict, theirs: dict, merge_base=git_merge_base) -> tuple[dict, list]:
-    """`(merged lock, notes)`. `ours` is the side being merged onto (main, in a rebase or a
+    """`(merged pointer file, notes)`. `ours` is the side being merged onto (main, in a rebase or a
     cherry-pick); `theirs` is the side being brought in."""
     base, ours, theirs = base or {}, ours or {}, theirs or {}
-    # A side with no manifest at all — an emptied file, a side where the lock did not exist —
+    # A side with no manifest at all — an emptied file, a side where the pointer file did not exist —
     # contributes nothing, rather than reading as a side that retired every member.
     if not ours:
         return {k: theirs[k] for k in KEY_ORDER if k in theirs}, []
@@ -177,14 +177,14 @@ def merge(base: dict, ours: dict, theirs: dict, merge_base=git_merge_base) -> tu
     return {k: out[k] for k in KEY_ORDER if out.get(k) is not None}, notes
 
 
-def render(lock: dict) -> str:
+def render(pointers: dict) -> str:
     """The bytes pack.py writes for this dict."""
-    return json.dumps(lock, indent=2, sort_keys=False) + "\n"
+    return json.dumps(pointers, indent=2, sort_keys=False) + "\n"
 
 
 def merge_texts(base: str, ours: str, theirs: str,
                 merge_base=git_merge_base) -> tuple[str, list]:
-    """The three files as text; an empty side is a lock that did not exist there yet."""
+    """The three files as text; an empty side is a pointer file that did not exist there yet."""
     def load(text):
         return json.loads(text) if text.strip() else {}
     merged, notes = merge(load(base), load(ours), load(theirs), merge_base)
@@ -196,19 +196,19 @@ def main(argv: list) -> int:
         return selftest()
     if len(argv) < 3:
         print(__doc__.split("\n\n")[0], file=sys.stderr)
-        print("usage: merge_lock.py %O %A %B   (a git merge driver)", file=sys.stderr)
+        print("usage: merge_pointers.py %O %A %B   (a git merge driver)", file=sys.stderr)
         return 2
     base, ours, theirs = (Path(p) for p in argv[:3])
     try:
         text, notes = merge_texts(base.read_text(), ours.read_text(), theirs.read_text())
     except (OSError, ValueError) as exc:
-        # A side that is not a lock — conflict markers already in it, or a half-written file —
+        # A side that is not a pointer file — conflict markers already in it, or a half-written file —
         # is left to git to mark as a conflict rather than guessed at.
-        print(f"merge_lock: cannot merge {LOCK_REL}: {exc}", file=sys.stderr)
+        print(f"merge_pointers: cannot merge {POINTERS_REL}: {exc}", file=sys.stderr)
         return 1
     ours.write_text(text)
     for note in notes:
-        print(f"merge_lock: {note}", file=sys.stderr)
+        print(f"merge_pointers: {note}", file=sys.stderr)
     return 0
 
 
@@ -223,7 +223,7 @@ def selftest() -> int:
         holds += 1
         print(f"  \N{CHECK MARK} {name}")
 
-    def lock(solids, source="c0", digest="d0", behind=False, objects=True, unproven=None,
+    def pointers(solids, source="c0", digest="d0", behind=False, objects=True, unproven=None,
              sidecars=None):
         out = {
             "_": "Written by tools/cad-artifacts/pack.py.",
@@ -243,12 +243,12 @@ def selftest() -> int:
         return {k: out[k] for k in KEY_ORDER if k in out}
 
     mb = lambda a, b: f"mb({a},{b})"  # noqa: E731 — the driver's git call, stubbed
-    base = lock({"m": "h0", "n": "h0"})
+    base = pointers({"m": "h0", "n": "h0"})
 
     # Disjoint publishes: each side adds a member and moves its source; both members stand,
     # the source is their merge-base, the held bundle is behind the union.
-    ours = lock({"m": "h0", "n": "h0", "a": "ha"}, source="cA", behind=True)
-    theirs = lock({"m": "h0", "n": "h0", "b": "hb"}, source="cB", behind=True)
+    ours = pointers({"m": "h0", "n": "h0", "a": "ha"}, source="cA", behind=True)
+    theirs = pointers({"m": "h0", "n": "h0", "b": "hb"}, source="cB", behind=True)
     got, notes = merge(base, ours, theirs, mb)
     hold("disjoint members union", got["solids"], {"a": "ha", "b": "hb", "m": "h0", "n": "h0"})
     hold("source is the merge-base of the two sources", got["source"], {"commit": "mb(cA,cB)"})
@@ -261,8 +261,8 @@ def selftest() -> int:
                                                 "sidecars"])
 
     # The same member moved on both sides: the incoming hash stands, recorded unproven.
-    ours = lock({"m": "hA", "n": "h0"}, source="cA")
-    theirs = lock({"m": "hB", "n": "h0"}, source="cB")
+    ours = pointers({"m": "hA", "n": "h0"}, source="cA")
+    theirs = pointers({"m": "hB", "n": "h0"}, source="cB")
     got, notes = merge(base, ours, theirs, mb)
     hold("both moved: incoming hash stands", got["solids"]["m"], "hB")
     hold("both moved: recorded unproven", got["unproven"],
@@ -271,66 +271,66 @@ def selftest() -> int:
     hold("unproven sits after source", list(got)[:4], ["_", "release", "source", "unproven"])
 
     # One side moved a member and the other left it: the moved hash stands either way.
-    got, _ = merge(base, lock({"m": "hA", "n": "h0"}), lock({"m": "h0", "n": "h0"}), mb)
+    got, _ = merge(base, pointers({"m": "hA", "n": "h0"}), pointers({"m": "h0", "n": "h0"}), mb)
     hold("main moved, incoming untouched: main's hash", got["solids"]["m"], "hA")
-    got, _ = merge(base, lock({"m": "h0", "n": "h0"}), lock({"m": "hB", "n": "h0"}), mb)
+    got, _ = merge(base, pointers({"m": "h0", "n": "h0"}), pointers({"m": "hB", "n": "h0"}), mb)
     hold("incoming moved, main untouched: incoming hash", got["solids"]["m"], "hB")
 
     # A retired member goes when the other side left it alone; stays when the other moved it.
-    got, _ = merge(base, lock({"n": "h0"}), lock({"m": "h0", "n": "h0"}), mb)
+    got, _ = merge(base, pointers({"n": "h0"}), pointers({"m": "h0", "n": "h0"}), mb)
     hold("pruned on main, untouched incoming: gone", "m" in got["solids"], False)
-    got, _ = merge(base, lock({"m": "h0", "n": "h0"}), lock({"n": "h0"}), mb)
+    got, _ = merge(base, pointers({"m": "h0", "n": "h0"}), pointers({"n": "h0"}), mb)
     hold("pruned incoming, untouched on main: gone", "m" in got["solids"], False)
-    got, notes = merge(base, lock({"n": "h0"}), lock({"m": "hB", "n": "h0"}), mb)
+    got, notes = merge(base, pointers({"n": "h0"}), pointers({"m": "hB", "n": "h0"}), mb)
     hold("pruned on main, moved incoming: incoming stands", got["solids"].get("m"), "hB")
     hold("…and is recorded unproven", got["unproven"]["members"], ["m"])
 
     # objects is a promise about every member; one side without it takes it off.
-    got, _ = merge(base, lock({"m": "h0", "n": "h0"}, objects=False),
-                   lock({"m": "h0", "n": "h0", "b": "hb"}), mb)
+    got, _ = merge(base, pointers({"m": "h0", "n": "h0"}, objects=False),
+                   pointers({"m": "h0", "n": "h0", "b": "hb"}), mb)
     hold("objects absent when one side lacks it", "objects" in got["release"], False)
 
     # The bundle comes from the side that cut one, and is behind unless it holds the union.
-    got, _ = merge(base, lock({"m": "h0", "n": "h0"}, digest="d0", behind=True),
-                   lock({"m": "h0", "n": "h0", "b": "hb"}, digest="dB"), mb)
+    got, _ = merge(base, pointers({"m": "h0", "n": "h0"}, digest="d0", behind=True),
+                   pointers({"m": "h0", "n": "h0", "b": "hb"}, digest="dB"), mb)
     hold("incoming cut a bundle, main held: incoming asset", got["release"]["asset"],
          "cad-dB.tar.gz")
     hold("…and it holds the union, so not behind", got["bundle"].get("behind"), None)
-    got, _ = merge(base, lock({"m": "h0", "n": "h0", "a": "ha"}, digest="dA"),
-                   lock({"m": "h0", "n": "h0", "b": "hb"}, digest="dB"), mb)
+    got, _ = merge(base, pointers({"m": "h0", "n": "h0", "a": "ha"}, digest="dA"),
+                   pointers({"m": "h0", "n": "h0", "b": "hb"}, digest="dB"), mb)
     hold("both cut: main's asset", got["release"]["asset"], "cad-dA.tar.gz")
     hold("…behind the union", got["bundle"].get("behind"), True)
 
     # unproven is the union of both records; a side without one contributes nothing.
     ua = {"_": UNPROVEN_NOTE, "paths": ["p1"], "members": ["m"], "targets": ["//:t1"]}
     ub = {"_": UNPROVEN_NOTE, "paths": ["p2"], "members": ["n"]}
-    got, _ = merge(base, lock({"m": "h0", "n": "h0"}, unproven=ua),
-                   lock({"m": "h0", "n": "h0"}, unproven=ub), mb)
+    got, _ = merge(base, pointers({"m": "h0", "n": "h0"}, unproven=ua),
+                   pointers({"m": "h0", "n": "h0"}, unproven=ub), mb)
     hold("unproven records union", got["unproven"],
          {"_": UNPROVEN_NOTE, "paths": ["p1", "p2"], "members": ["m", "n"], "targets": ["//:t1"]})
 
     # Sources: equal stands, one missing takes the other, both missing is absent.
-    hold("equal sources stand", resolve_source(lock({}, source="c"), lock({}, source="c"), mb), "c")
+    hold("equal sources stand", resolve_source(pointers({}, source="c"), pointers({}, source="c"), mb), "c")
     hold("one source missing takes the other",
-         resolve_source({"source": {}}, lock({}, source="c"), mb), "c")
+         resolve_source({"source": {}}, pointers({}, source="c"), mb), "c")
     hold("no source on either side", resolve_source({}, {}, mb), None)
-    got, _ = merge(base, {}, lock({"m": "h0", "n": "h0"}), mb)
-    hold("an empty side gives the other side back", got, lock({"m": "h0", "n": "h0"}))
-    got, _ = merge({}, lock({"m": "h0"}, source="cA"), lock({"n": "h1"}, source="cB"), mb)
-    hold("both sides created the lock from nothing: union", got["solids"], {"m": "h0", "n": "h1"})
+    got, _ = merge(base, {}, pointers({"m": "h0", "n": "h0"}), mb)
+    hold("an empty side gives the other side back", got, pointers({"m": "h0", "n": "h0"}))
+    got, _ = merge({}, pointers({"m": "h0"}, source="cA"), pointers({"n": "h1"}, source="cB"), mb)
+    hold("both sides created the pointer file from nothing: union", got["solids"], {"m": "h0", "n": "h1"})
     hold("…with the merge-base source", got["source"], {"commit": "mb(cA,cB)"})
 
     # Sidecars merge like solids.
-    got, _ = merge(lock({}, sidecars={"s": "x0"}), lock({}, sidecars={"s": "x0", "t": "y"}),
-                   lock({}, sidecars={"s": "x1"}), mb)
+    got, _ = merge(pointers({}, sidecars={"s": "x0"}), pointers({}, sidecars={"s": "x0", "t": "y"}),
+                   pointers({}, sidecars={"s": "x1"}), mb)
     hold("sidecars merge by key", got["sidecars"], {"s": "x1", "t": "y"})
 
-    # A lock merged with itself is the file, byte for byte — the real one, when it is there.
-    real = Path(__file__).resolve().parents[2] / LOCK_REL
+    # A pointer file merged with itself is the file, byte for byte — the real one, when it is there.
+    real = Path(__file__).resolve().parents[2] / POINTERS_REL
     if real.is_file():
         text = real.read_text()
         merged, notes = merge_texts(text, text, text, mb)
-        hold("the real lock merged with itself is itself", merged == text and notes == [], True)
+        hold("the real pointer file merged with itself is itself", merged == text and notes == [], True)
         try:
             sys.path.insert(0, str(Path(__file__).resolve().parent))
             import pack  # noqa: E402
@@ -344,8 +344,8 @@ def selftest() -> int:
     with tempfile.TemporaryDirectory() as tmp:
         o, a, b = (Path(tmp) / n for n in ("O", "A", "B"))
         o.write_text(render(base))
-        a.write_text(render(lock({"m": "hA", "n": "h0", "a": "ha"}, source="cA")))
-        b.write_text(render(lock({"m": "hB", "n": "h0"}, source="cB")))
+        a.write_text(render(pointers({"m": "hA", "n": "h0", "a": "ha"}, source="cA")))
+        b.write_text(render(pointers({"m": "hB", "n": "h0"}, source="cB")))
         run = subprocess.run([sys.executable, __file__, str(o), str(a), str(b)],
                              capture_output=True, text=True)
         hold("driver exits 0", run.returncode, 0)
@@ -356,9 +356,9 @@ def selftest() -> int:
         a.write_text("<<<<<<< not json")
         run = subprocess.run([sys.executable, __file__, str(o), str(a), str(b)],
                              capture_output=True, text=True)
-        hold("a side that is not a lock is left to git", run.returncode, 1)
+        hold("a side that is not a pointer file is left to git", run.returncode, 1)
 
-    print(f"merge_lock selftest {holds}/{holds}")
+    print(f"merge_pointers selftest {holds}/{holds}")
     return 0
 
 

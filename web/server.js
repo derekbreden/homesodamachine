@@ -109,7 +109,7 @@ function firebaseWebConfig() {
 
 function mountFirebaseConfig(app) {
   // Public Firebase web-app config — embedded in every PWA/SW bundle anyway.
-  // Served from env vars so the codebase doesn't pin a project ID and so
+  // Served from env vars so the codebase doesn't point at a project ID and so
   // dev/prod can differ. Cached short to make a redeploy roll out fast.
   app.get("/api/firebase-config", (_req, res) => {
     res.set("Cache-Control", "public, max-age=60");
@@ -334,13 +334,13 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
     })();
 
     // AND THEN IT KEEPS LOOKING. The diff above is the boot reading. `artifacts-live.js` takes
-    // the next ones: it adopts a lock that moved, brings its members down, and sends the same
+    // the next ones: it adopts a pointer file that moved, brings its members down, and sends the same
     // frame this block sends, so new geometry reaches an open page without a deploy — which is
-    // why the lock is not among `render.yaml`'s buildFilter paths.
+    // why the pointer file is not among `render.yaml`'s buildFilter paths.
     //
     // ON THE DEPLOYED CONTAINER AND NOWHERE ELSE, WHICH `!dev` DOES NOT SAY. `npm start` on a
     // laptop is this same branch — the dev wrapper is a separate entry point — and a laptop is
-    // exactly the machine holding cuts the lock has not named yet. Adopting there would pull
+    // exactly the machine holding cuts the pointer file has not named yet. Adopting there would pull
     // published bytes over a generator's fresh work, the one thing
     // `fetch-cad-artifacts.mjs` refuses to do by default. `RENDER_GIT_COMMIT` is set by Render
     // and by nothing else; `commit` above already falls back to `local-…` without it.

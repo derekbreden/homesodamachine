@@ -89,15 +89,15 @@ The sequence the whole appliance is built in is the dependency chain of the proc
 
 ## Where the solids are
 
-    node web/scripts/fetch-cad-artifacts.mjs              # the solids the lock names, onto this disk
+    node web/scripts/fetch-cad-artifacts.mjs              # the solids the pointer file names, onto this disk
 
-A generated `.step` is on this disk and in no index. [`cad-artifacts.lock.json`](/hardware/cad-artifacts.lock.json) names each one by sha256, the release asset carrying them, and the commit each came from — `source.commit` for the bundle, and an `unproven` entry naming the uncommitted paths a pack was cut beside and the members they reach, since a solid mid-edit still ships. [`tools/cad-artifacts/pack.py`](/tools/cad-artifacts/pack.py) builds and pins one, and the deploy runs the fetch above (`render.yaml`). A build cuts them too, so a checkout that runs one needs no fetch. The three harvested solids under [`reference/`](/hardware/reference/) have no builder here and are in the index.
+A generated `.step` is on this disk and in no index. [`cad-artifacts.json`](/hardware/cad-artifacts.json) names each one by sha256, the release asset carrying them, and the commit each came from — `source.commit` for the bundle, and an `unproven` entry naming the uncommitted paths a pack was cut beside and the members they reach, since a solid mid-edit still ships. [`tools/cad-artifacts/pack.py`](/tools/cad-artifacts/pack.py) builds and points at one, and the deploy runs the fetch above (`render.yaml`). A build cuts them too, so a checkout that runs one needs no fetch. The three harvested solids under [`reference/`](/hardware/reference/) have no builder here and are in the index.
 
 ## The design loop
 
-    source → changed solid → local view → pinned artifact → /3d
+    source → changed solid → local view → pointer moved → /3d
 
-The local render and the deployed viewer are two stops on one geometry path. [`tools/look.sh`](/tools/look.sh) opens a generated STEP from this disk through the same `/3d` viewer the headless renderers drive. [`pack.py --write`](/tools/cad-artifacts/pack.py) packages the generated solids on this disk; after its lock is committed and pushed, Render fetches that bundle and `/3d` serves it. A push to `main` runs `publish.yml`, builds only the affected artifact rules and their dependencies, carries their ignored outputs, and publishes the lock separately from cards and PDFs. The solid an agent judges locally is the solid that goes in front of Derek.
+The local render and the deployed viewer are two stops on one geometry path. [`tools/look.sh`](/tools/look.sh) opens a generated STEP from this disk through the same `/3d` viewer the headless renderers drive. [`pack.py --write`](/tools/cad-artifacts/pack.py) packages the generated solids on this disk; after its pointer file is committed and pushed, Render fetches that bundle and `/3d` serves it. A push to `main` runs `publish.yml`, builds only the affected artifact rules and their dependencies, carries their ignored outputs, and publishes the pointer file separately from cards and PDFs. The solid an agent judges locally is the solid that goes in front of Derek.
 
 A repository-wide build is not a viewing boundary. A generator, focused Bazel target, [`probe.py`](/hardware/scripts/probe.py), or [`fit.py`](/hardware/scripts/fit.py) answers the current design question; the next local picture follows it immediately. Broader builds and checks answer broader questions when those questions arise. The iteration speed that matters is the time from an edit to the next informed look — first by the agent, then by Derek.
 
@@ -175,7 +175,7 @@ action declares 28 solids it reaches through what it imports.
 A SOLID ONE GENERATOR CUTS AND THE NEXT LOADS IS AN EDGE LIKE ANY OTHER HERE. `foam_assembly`
 reads `foam-cap-top.step` from `//:foam-cap` and `enclosure_assembly` reads
 `foam-assembly.step` from `//:foam-assembly`; neither can fall back to the older copy fetched
-from the artifact lock. OCCT opens these below Python, so `_cadq_export.import_step` records the
+from the artifact pointer file. OCCT opens these below Python, so `_cadq_export.import_step` records the
 paths and `gen_build.py` resolves each one to its producer output.
 
 A picture is the same picture every run. Every renderer in `tools/render/` reads the frame

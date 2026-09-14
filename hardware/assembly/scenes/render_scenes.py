@@ -184,7 +184,7 @@ def carried_payload(step) -> Path | None:
     THE ENCLOSURE'S PIECES CARRY THEIR SHOW SURFACES IN THE MESH, not in the B-rep
     (`printed-parts/cadlib/flute_skin.py`), so a picture drawn off those bytes is a
     picture of a smooth prism. `hardware/scripts/flute_payload.py` cuts the payload that holds
-    the fluted surface, `pack.py`'s `BUNDLED_PAYLOAD_DIRS` bundles it and the lock names it — so
+    the fluted surface, `pack.py`'s `BUNDLED_PAYLOAD_DIRS` bundles it and the pointer file names it — so
     it is as answerable as the STEP is, and a fresh checkout has both.
 
     WHICH SOLIDS THOSE ARE IS READ OFF THE PAYLOAD, not listed: any that names one of the pieces

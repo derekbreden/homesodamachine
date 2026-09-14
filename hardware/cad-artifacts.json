@@ -1,5 +1,5 @@
 {
-  "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed \u2014 web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
+  "_": "The pointer file: main points at these bytes on the release, by hash. Written by tools/cad-artifacts/pack.py; web/scripts/fetch-cad-artifacts.mjs reads it at deploy.",
   "release": {
     "tag": "cad-artifacts",
     "asset": "cad-e45bae681124c5f3.tar.gz",

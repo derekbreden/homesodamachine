@@ -177,7 +177,7 @@ serial port. See [`test/README.md`](test/README.md).
 
 ## Appliance displays
 
-- **ESP32-S3 enclosure display** (Waveshare ESP32-S3-Touch-LCD-4.3B) — The appliance's config + interaction surface on the enclosure's front face: a 4.3" 800×480 RGB capacitive touchscreen (GT911, CH422G I/O expander) angled up toward a standing user, linked to the base ESP32 over RS485. HOME presents both flavor cards and mirrors the main-board-owned selection shared with the faucet. A reusable operation lock puts the animated logo on the left and a clear status modal on the right; boot exercises it for at least two cycles. `src_front/` drives the panel through esp_lcd with a double framebuffer + bounce buffer for tear-free output and carries the RS485 link on GPIO43/44 as typed TinyProto frames ([`proto_msg.h`](lib/proto_link/proto_msg.h)). Service → Prime → a flavor → hold the pad sends `MSG_PRIME_START` and a tick every 500 ms under the finger; the base answers `MSG_RESP_PRIME` on every state change. Fill → a flavor → START sends `MSG_FILL_START`; the base opens the funnel path, draws with the pump, and answers `MSG_RESP_FILL` on every change, which the enclosure shows on the operation lock with a progress bar and STOP. Clean → a flavor → START CLEAN CYCLE sends `MSG_CLEAN_START`; the base runs three rounds of a tap-water fill and a pumped flush and answers `MSG_RESP_CLEAN` on every step, shown on the same lock with the round, the direction of the water and the minutes left. See [`src_front/README.md`](src_front/README.md).
+- **ESP32-S3 enclosure display** (Waveshare ESP32-S3-Touch-LCD-4.3B) — The appliance's config + interaction surface on the enclosure's front face: a 4.3" 800×480 RGB capacitive touchscreen (GT911, CH422G I/O expander) angled up toward a standing user, linked to the base ESP32 over RS485. HOME presents both flavor cards and mirrors the main-board-owned selection shared with the faucet. A reusable operation pointer file puts the animated logo on the left and a clear status modal on the right; boot exercises it for at least two cycles. `src_front/` drives the panel through esp_lcd with a double framebuffer + bounce buffer for tear-free output and carries the RS485 link on GPIO43/44 as typed TinyProto frames ([`proto_msg.h`](lib/proto_link/proto_msg.h)). Service → Prime → a flavor → hold the pad sends `MSG_PRIME_START` and a tick every 500 ms under the finger; the base answers `MSG_RESP_PRIME` on every state change. Fill → a flavor → START sends `MSG_FILL_START`; the base opens the funnel path, draws with the pump, and answers `MSG_RESP_FILL` on every change, which the enclosure shows on the operation pointer file with a progress bar and STOP. Clean → a flavor → START CLEAN CYCLE sends `MSG_CLEAN_START`; the base runs three rounds of a tap-water fill and a pumped flush and answers `MSG_RESP_CLEAN` on every step, shown on the same pointer file with the round, the direction of the water and the minutes left. See [`src_front/README.md`](src_front/README.md).
 - **ESP32-S3 faucet display** (Waveshare ESP32-S3-Touch-LCD-1.47) — Flavor selector at the end of the appliance's gooseneck. The selected flavor's logo fills a 172x320 capacitive-touch LCD; a tap anywhere changes it locally before a nonblocking J3 message reaches the main board. The main board owns and persists the selection; faucet NVS is the immediate boot-logo cache. The main board keeps the quiet stretch across both glasses, and when it says so this backlight fades to an ember level; the first touch wakes it without toggling. See [`src_faucet/README.md`](src_faucet/README.md).
 
 ## The pour
@@ -281,11 +281,11 @@ SPI, has no such conflict, and shows a live percentage.
 ### Where the images come from
 
 [`tools/publish_firmware.py`](/tools/publish_firmware.py) builds every image, packs one
-content-addressed release asset and pins it in
-[`firmware/firmware.lock.json`](firmware.lock.json) — each image by target, `FW_VERSION`, size,
+content-addressed release asset and points main at it in
+[`firmware/firmware-images.json`](firmware-images.json) — each image by target, `FW_VERSION`, size,
 the crc32 `MSG_OTA_BEGIN` promises, and a sha256. `web/scripts/fetch-firmware.mjs` puts the bytes
-on the deploy's disk and `/api/firmware` serves the manifest; `render.yaml` names the lock in its
-build filter, so publishing firmware deploys the site the way pinning geometry does.
+on the deploy's disk and `/api/firmware` serves the manifest; `render.yaml` names the pointer file in its
+build filter, so publishing firmware deploys the site the way a geometry publish does.
 
 The version string is the board's own: `pre_build.py` writes `FW_VERSION` into each tree from
 HEAD's date and short SHA, the board reports that string, and the manifest carries the same one.
@@ -362,7 +362,7 @@ for this environment. `esp_partition_mmap` hands LVGL a pointer into it, so it
 renders straight out of flash at no RAM cost, exactly as compiled-in `.rodata`
 did — it just stops riding along in every update of code that never touches it.
 
-A board whose `art` partition is empty runs and shows its lock screen without a
+A board whose `art` partition is empty runs and shows its pointer file screen without a
 logo; `ART` on its console says what is there and `ART:VERIFY` walks the CRC.
 
 ```bash

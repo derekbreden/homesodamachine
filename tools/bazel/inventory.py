@@ -32,7 +32,7 @@ BUILD_INERT_SUFFIXES = (".3mf", ".bbscfg")
 #
 # NAMED ONE BY ONE, because `.json` beside a part is the tree's load-bearing kind: `.figures.json`
 # carries a doc's derived numbers, `.scene.json` a render, `.facts.json` a measured solid, and
-# `cad-artifacts.lock.json` the shipped bundle. Each slicer record joins by being named here.
+# `cad-artifacts.json` the shipped bundle. Each slicer record joins by being named here.
 BUILD_INERT_BASENAMES = frozenset({
     "print-profile.json",
     "corner-trial-profile.json",
@@ -61,11 +61,11 @@ def build_inert(path: str) -> bool:
 #:
 #: TWO READINGS SAY WHICH SOLIDS THOSE ARE AND `tracked` TAKES BOTH, because each holds one the
 #: other does not. `pack.py`'s walk reads this disk, so a solid cut since the last release is in
-#: it — and a solid a trace is filtered against the lock alone cannot enter the graph until a
-#: bundle is pinned, which is a part the sandbox is never filled with and an action that dies
-#: on a file sitting in the tree. `hardware/cad-artifacts.lock.json` names the solids the pinned
+#: it — and a solid a trace is filtered against the pointer file alone cannot enter the graph until a
+#: bundle is pointed at, which is a part the sandbox is never filled with and an action that dies
+#: on a file sitting in the tree. `hardware/cad-artifacts.json` names the solids the pointed at
 #: bundle carries, which is the reading a checkout that has cut nothing of its own still has.
-LOCK = _ROOT / "hardware" / "cad-artifacts.lock.json"
+POINTERS = _ROOT / "hardware" / "cad-artifacts.json"
 
 #: Outputs whose writer deliberately avoids touching them when the bytes beside its STEP are
 #: already current. A syscall trace therefore sees the read that proves they are current, not a
@@ -123,7 +123,7 @@ IMPLICIT_SOLIDS = {
 # Outputs whose bytes cross from one Bazel action to another and stop there. The cold-core mesh
 # saves the enclosure-assembly action from standing and tessellating the core a second time; the
 # public artifact remains the cold-core STEP, so neither sync_tree nor the release pack may carry
-# this ignored handoff into the source tree or the artifact lock.
+# this ignored handoff into the source tree or the artifact pointer file.
 ACTION_INTERMEDIATE = frozenset({
     "hardware/cold-core-layout/cold-core-assembly.step.mesh",
 })
@@ -208,7 +208,7 @@ sys.path.append(str(_ROOT / "tools" / "cad-artifacts"))
 
 def tracked() -> list:
     """Every file this tree stands behind: git's, and the generated solids — the ones this disk
-    holds and the ones the lock names."""
+    holds and the ones the pointer file names."""
     files = subprocess.run(["git", "-C", str(_ROOT), "ls-files"],
                            capture_output=True, text=True, check=True).stdout.split()
     # Imported here and not above: `trace_inputs`'s own selftest runs in an action holding the
@@ -216,11 +216,11 @@ def tracked() -> list:
     import pack
     files += pack.solids(_ROOT)
     try:
-        files += json.loads(LOCK.read_text()).get("solids", {})
+        files += json.loads(POINTERS.read_text()).get("solids", {})
     except (OSError, ValueError):
         pass
     # The first trace happens before an ignored handoff can appear in graph.json or a release
-    # lock. Its producer write and consumer read still need to survive the trace filter so that
+    # pointer file. Its producer write and consumer read still need to survive the trace filter so that
     # this inventory can create the edge on that very first pass.
     files += [path for paths in IMPLICIT_SOLIDS.values() for path in paths]
     return sorted(f for f in set(files) if not build_inert(f))

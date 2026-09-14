@@ -5,7 +5,7 @@
     tools/cad-venv/bin/python tools/check_release_room.py selftest
 
 THE PATH FROM A CHANGE TO THE SITE ENDS HERE. A cut is built, packed, and put on the
-`cad-artifacts` release; the running container adopts the lock without a deploy. Two things
+`cad-artifacts` release; the running container adopts the pointer file without a deploy. Two things
 about that store decide how long the last leg takes, and neither was visible until it broke.
 
 ROOM. GitHub takes 1000 assets on a release and refuses the 1001st, and the store is
@@ -15,7 +15,7 @@ going quiet, and the bundle, which has no fallback, is what fails next. `pack.py
 the headroom and `--retire` wins it back; this is that reading on the board, so the ceiling is
 seen while there is still room to do something about it.
 
-THE OBJECT PATH. `release.objects` is the claim that every member of this lock is on the
+THE OBJECT PATH. `release.objects` is the claim that every member of this pointer file is on the
 release under its own hash, so a deploy fetches the few hundred KB that moved rather than the
 whole tarball. Absent, every deploy reads 144 MB for members it already has. That is not a
 fault in the geometry and no other check asks about it — the artifacts are correct either way,
@@ -40,21 +40,21 @@ import pack  # noqa: E402
 
 
 def reading(root: Path) -> tuple:
-    """`(held, free, want, objects_on, retirable, by_name, by_bundle)` for release and lock."""
+    """`(held, free, want, objects_on, retirable, by_name, by_bundle)` for release and pointer file."""
     assets = pack.release_assets(root)
     if not assets:
         return None
     size = {a["name"]: a["size"] for a in assets}
     on_release = set(size)
-    lock = pack.read_lock(root)
-    members = set((lock.get("solids") or {}).values()) | set((lock.get("sidecars") or {}).values())
+    pointers = pack.read_pointers(root)
+    members = set((pointers.get("solids") or {}).values()) | set((pointers.get("sidecars") or {}).values())
     short = [sha for sha in members if pack.object_asset(sha) not in on_release]
     unreachable, superseded = pack.retirable(root)
     by_name = sum(size.get(pack.object_asset(sha), 0) for sha in members)
     return (len(on_release), pack.RELEASE_ASSET_CAP - len(on_release),
-            1 + len(short), bool((lock.get("release") or {}).get("objects")),
+            1 + len(short), bool((pointers.get("release") or {}).get("objects")),
             len(unreachable) + len(superseded),
-            by_name, (lock.get("bundle") or {}).get("bytes", 0))
+            by_name, (pointers.get("bundle") or {}).get("bytes", 0))
 
 
 def main() -> int:
@@ -68,14 +68,14 @@ def main() -> int:
         red.append(f"the release holds {held} of {pack.RELEASE_ASSET_CAP} and the next cut wants "
                    f"{want}; {may_go} asset(s) may be retired for it")
     if not objects_on:
-        red.append("the lock does not carry `release.objects`, so every deploy reads the whole "
+        red.append("the pointer file does not carry `release.objects`, so every deploy reads the whole "
                    "bundle for members it already has")
     # AND THE PREMISE `fetch-cad-artifacts.mjs` DROPPED ITS THRESHOLD ON. It asks for every
-    # member by name because the whole lock by name reads less than the bundle does — each
+    # member by name because the whole pointer file by name reads less than the bundle does — each
     # member gzipped on its own, without the tar's framing. If that ever inverts, the worst
     # case stops being the cheaper read and the fetch wants its threshold back.
     if objects_on and by_bundle and by_name > by_bundle:
-        red.append(f"the whole lock by name is {by_name / 1e6:.1f} MB against a bundle of "
+        red.append(f"the whole pointer file by name is {by_name / 1e6:.1f} MB against a bundle of "
                    f"{by_bundle / 1e6:.1f} MB, so a full move now reads more by object")
     for line in red:
         print(f"  {line}")
@@ -84,7 +84,7 @@ def main() -> int:
               "\n    tools/cad-venv/bin/python tools/cad-artifacts/pack.py --room")
         return 1
     print(f"check_release_room: {free} of {pack.RELEASE_ASSET_CAP} free, the next cut wants "
-          f"{want}, and the whole lock reads by name in {by_name / 1e6:.1f} MB against "
+          f"{want}, and the whole pointer file reads by name in {by_name / 1e6:.1f} MB against "
           f"{by_bundle / 1e6:.1f} MB of bundle")
     return 0
 
@@ -111,7 +111,7 @@ def selftest() -> int:
          verdict(795, 205, 43, True) == [])
     hold("a release that cannot take the next cut is red",
          verdict(990, 10, 43, True) == ["room"])
-    hold("a lock without `release.objects` is red on its own",
+    hold("a pointer file without `release.objects` is red on its own",
          verdict(795, 205, 43, False) == ["objects"])
     hold("both at once name both", verdict(1000, 0, 86, False) == ["room", "objects"])
     hold("a cut wanting exactly the room left is not red",
@@ -120,7 +120,7 @@ def selftest() -> int:
          verdict(795, 205, 43, True, by_name=200.0) == ["cheaper"])
     hold("objects exactly the bundle's size is not red",
          verdict(795, 205, 43, True, by_name=144.2) == [])
-    # A LOCK THAT DOES NOT READ BY NAME CANNOT BE ASKED THE CHEAPER QUESTION, so the size
+    # A POINTER FILE THAT DOES NOT READ BY NAME CANNOT BE ASKED THE CHEAPER QUESTION, so the size
     # comparison stays quiet there and the missing `objects` is the whole of the finding.
     hold("no object path means no size finding to make",
          verdict(795, 205, 43, False, by_name=200.0) == ["objects"])
