@@ -18,6 +18,15 @@
 # printed first. The blob is still in the object store until it is collected, and
 # `git cat-file -p <hash>` reads it back.
 root=$(git rev-parse --show-toplevel) || exit 0
+
+# A COMMIT MADE INSIDE A REPLAY IS THE PUSH'S OWN. `tools/push.py` replays this tree's commits
+# in a linked worktree with `git cherry-pick`, which runs this hook for each one; the push that
+# started the replay lands the result, publishes from the main tree, and reads the tree's
+# checks there. Nothing below is for a replay tree — least of all a publish, which would pack
+# a checkout that holds no solids.
+[ -n "$HSM_PUSHING" ] && exit 0
+[ "$(git rev-parse --git-dir)" != "$(git rev-parse --git-common-dir)" ] && exit 0
+
 _ghosts=$(git -C "$root" diff --cached --name-only HEAD | while IFS= read -r f; do
   [ -n "$f" ] || continue
   git -C "$root" diff --quiet HEAD -- "$f" 2>/dev/null && printf '%s\n' "$f"
