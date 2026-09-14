@@ -1158,6 +1158,31 @@ def upload(root: Path, bundle: Path, asset: str, digest: str, size: int) -> None
     print(f"  uploaded {asset}")
 
 
+def cut_whole_bundle(held: dict, rels: list, now: dict, sidecar_now: dict,
+                     unproven_now: dict) -> int:
+    """The bundle a held publish left behind, cut whole and pinned.
+
+    The members it lacked are on the release by their own hashes, which is what a reader
+    fetches by; this is the one asset that answers a lock without `objects`, made current on
+    the runner where a minute of tar and upload costs nobody at a keyboard. The members and
+    their hashes are the lock's own; only the bundle and the source move."""
+    release = held.get("release", {})
+    with tempfile.TemporaryDirectory() as d:
+        path = Path(d) / "bundle.tar.gz"
+        digest = build(_ROOT, rels, path)
+        size = path.stat().st_size
+        data = lock_for(_ROOT, rels, digest, size, now, sidecar_now, unproven_now)
+        if release.get("objects"):
+            data["release"]["objects"] = release["objects"]
+        data["source"] = {"commit": _head(_ROOT)}
+        make_room(_ROOT, 1)
+        upload(_ROOT, path, data["release"]["asset"], digest, size)
+    _write_lock(data)
+    print(f"bundle {data['release']['asset']} — {size / 1e6:.1f} MB, cut whole behind the "
+          f"held publish that left {release.get('asset')} behind")
+    return 0
+
+
 def main(argv) -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("mode", nargs="?", choices=["selftest"])
@@ -1313,6 +1338,8 @@ def main(argv) -> int:
         if args.write:
             release = held.get("release", {})
             bundle = held.get("bundle", {})
+            if bundle.get("behind"):
+                return cut_whole_bundle(held, rels, now, sidecar_now, unproven_now)
             if not _release_asset_matches(_ROOT, release.get("asset", ""),
                                           bundle.get("sha256", ""), bundle.get("bytes", -1)):
                 with tempfile.TemporaryDirectory() as d:
@@ -1386,25 +1413,7 @@ def main(argv) -> int:
         release = held.get("release", {})
         bundle = held.get("bundle", {})
         if bundle.get("behind") and not args.publish_held:
-            # THE BUNDLE A HELD PUBLISH LEFT BEHIND IS CUT WHOLE HERE. The members it lacks are
-            # on the release by their own hashes, which is what a reader fetches by; this is the
-            # one asset that answers a lock without `objects`, made current on the runner where
-            # a minute of tar and upload costs nobody at a keyboard.
-            with tempfile.TemporaryDirectory() as d:
-                path = Path(d) / "bundle.tar.gz"
-                digest = build(_ROOT, rels, path)
-                size = path.stat().st_size
-                data = lock_for(_ROOT, rels, digest, size, now, sidecar_now, unproven_now)
-                if release.get("objects"):
-                    data["release"]["objects"] = release["objects"]
-                data["source"] = {"commit": _head(_ROOT)}
-                if make_room(_ROOT, 1):
-                    pass
-                upload(_ROOT, path, data["release"]["asset"], digest, size)
-            _write_lock(data)
-            print(f"bundle {data['release']['asset']} — {size / 1e6:.1f} MB, cut whole behind "
-                  f"the held publish that left {release.get('asset')} behind")
-            return 0
+            return cut_whole_bundle(held, rels, now, sidecar_now, unproven_now)
         if not _release_asset_matches(_ROOT, release.get("asset", ""),
                                       bundle.get("sha256", ""), bundle.get("bytes", -1)):
             with tempfile.TemporaryDirectory() as d:
