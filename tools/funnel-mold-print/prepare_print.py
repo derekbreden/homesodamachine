@@ -24,7 +24,7 @@ def choice(value, reason):
 def recipe(info, nozzle=0.4):
     fine = nozzle == 0.4
     size = f'{nozzle:g}'
-    layer = '0.16' if fine else '0.24'
+    layer = '0.16' if fine else '0.4'
     process = '0.16mm Standard @BBL H2C' if fine else '0.40mm Standard @BBL H2C 0.8 nozzle'
     filament = 'Bambu PETG Translucent @BBL H2C'+('' if fine else ' 0.8 nozzle')
     settings = {
@@ -38,7 +38,8 @@ def recipe(info, nozzle=0.4):
             'reason': 'User-established PET-GF plate corrections; transfer to PETG is not established.'},
         'process_settings': {
             'enable_arc_fitting': choice('0', 'Connected H2C firmware uses curve planning.'),
-            'layer_height': choice(layer, 'Fine layers on the forming slopes.'),
+            'layer_height': choice(layer, 'Fine forming layers.' if fine else
+                'Stock 0.8 mm nozzle layer height; finish the forming slopes before casting.'),
             'initial_layer_print_height': choice('0.2' if fine else '0.4', 'Stock nozzle first-layer height.'),
             'wall_generator': choice('arachne', 'Variable-width paths around sockets and shell transitions.'),
             'wall_loops': choice('4' if fine else '3', 'Continuous forming and dry-back perimeters.'),
@@ -82,7 +83,7 @@ def recipe(info, nozzle=0.4):
             'filament_cost': choice(['11.20'], 'Ledger cost per kilogram.')},
         'layer_ranges_mm': {'cavity': [], 'core': []}}
     if not fine:
-        settings['process_name'] = 'Funnel mold shell - 0.8 nozzle - gentle supports'
+        settings['process_name'] = 'Funnel mold shell - 0.8 nozzle - 0.40 mm gentle supports'
         settings['process_settings'].update({
             'raft_first_layer_expansion': choice('8', 'Broad connected support feet on the build plate.'),
             'support_speed': choice(['40']*4, 'Tall tree extrusion capped at 40 mm/s.'),

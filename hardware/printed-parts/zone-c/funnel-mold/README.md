@@ -94,13 +94,13 @@ print still needs its own dry-fit and vacuum trial.
 
 ## Print
 
-[Checked cavity print file, Textured PEI and +0.18 trim](funnel-mold-h2c-gentle-supports.gcode.3mf) ·
+[Checked sliced plates, Textured PEI and +0.18 trim](funnel-mold-h2c-040.gcode.3mf) ·
 [Editable project](funnel-mold.3mf) ·
 [Saved printer, filament and process presets](funnel-mold-presets.bbscfg)
 
 The editable project selects these saved Bambu Studio User Presets:
 
-- Process: **Funnel mold shell - 0.8 nozzle - gentle supports**
+- Process: **Funnel mold shell - 0.8 nozzle - 0.40 mm gentle supports**
 - Filament: **Funnel mold PETG Translucent - 0.8 nozzle - Bambu defaults**
 - Printer: **Bambu Lab H2C 0.8 High Flow +0.18 Z trim**
 
@@ -114,12 +114,14 @@ The target printer is named **H2C**. Its physical plate is Textured PEI.
 The +0.18 trim adds to Bambu's −0.02 mm Textured PEI correction, giving
 `G29.1 Z0.16` in the checked G-code. The trim is calibrated for PET-GF;
 its use with PETG is a physical trial recorded in the [print log](print-log.md).
-The checked retry file contains the cavity, with a slicer estimate of **31 h 29 min**
-and **787 g** including supports. The core is plate 2 of the editable project;
-slice it with the selected profile before printing. Its envelope is
-[205 × 205 × 45.2 mm](CORE_DIMS); the cavity is [205 × 205 × 79.6 mm](CAVITY_DIMS).
+The checked file contains two separately printable plates. Plate 1 is the cavity,
+estimated at [20 h 43 min](CAVITY_TIME) and [746 g](CAVITY_MASS) including supports.
+Plate 2 is the core, estimated at [11 h 48 min](CORE_TIME) and [485 g](CORE_MASS).
+The combined estimate is [32 h 31 min](TOTAL_TIME) and [1.23 kg](TOTAL_MASS).
+The core's envelope is [205 × 205 × 45.2 mm](CORE_DIMS); the cavity is
+[205 × 205 × 79.6 mm](CAVITY_DIMS).
 
-The files use the left [0.8 mm](NOZZLE) [High Flow](NOZZLE_TYPE) nozzle, [0.24 mm](LAYER) layers,
+The files use the left [0.8 mm](NOZZLE) [High Flow](NOZZLE_TYPE) nozzle, [0.40 mm](LAYER) layers,
 translucent PETG at 250 °C on the first layer and 245 °C afterward, a
 [16 mm³/s](FLOW_CAP) volumetric cap, a 0.40 mm first layer, a removable 6 mm
 model brim, and same-material tree supports with 0.3 mm vertical separation.
@@ -127,6 +129,8 @@ model brim, and same-material tree supports with 0.3 mm vertical separation.
 and zero raft layers. The cavity
 prints upright and the core inverted. Supports are accessible from the dry
 backs. Inspect and remove every branch before finishing.
+The 0.40 mm layers match Bambu's standard layer height for this nozzle.
+Sand and finish the layer steps on the forming slopes before casting.
 
 The named filament preset inherits Bambu's H2C 0.8 PETG Translucent operating
 settings; its only numerical override is the ledger cost. The process uses
@@ -138,12 +142,12 @@ are 1,500 mm/s²; the first-layer acceleration settings remain at their stock
 values. Trees have two wall loops and 4 mm initial branch diameter. Avoid
 crossing wall includes support walls.
 
-[support-motion-review.json](support-motion-review.json) measures the cavity's
+[layer-height-review.json](layer-height-review.json) measures both plates'
 emitted support and travel speeds and accelerations after the first layer,
-checks its G-code checksum and nozzle assignment, and records its first-layer
-support footprint. The machine start template retains the calibrated Z trim
+checks their G-code checksums and nozzle assignments, and records the cavity's
+first-layer support footprint. The machine start template retains the calibrated Z trim
 and stock filament operating settings. Both editable meshes, plate placements
-and object overrides match the reference project. This file has not been printed.
+and object overrides match the reference project.
 [layer-review.json](layer-review.json) records model connectivity at the sliced
 layer heights. The cavity spout tip and core rod cradle begin above the plate;
 the G-code has support-interface paths directly beneath both features.
@@ -181,11 +185,12 @@ these shells.
 ```sh
 tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel-mold/funnel_mold.py
 tools/cad-venv/bin/python tools/funnel-mold-print/prepare_print.py --models hardware/printed-parts/zone-c/funnel-mold --output /tmp/funnel-shell-print-08/default-input.3mf --nozzle 0.8 --z-trim 0.18
+/Applications/BambuStudio.app/Contents/MacOS/BambuStudio --slice 0 --arrange 0 --outputdir /tmp/funnel-shell-print-08/default --export-3mf funnel-mold-h2c-040.gcode.3mf /tmp/funnel-shell-print-08/default-input.3mf
 ```
 
-Slice both plates into `default/funnel-mold-h2c.gcode.3mf` below the slice
-directory. Run [verify_print.py](/tools/funnel-mold-print/verify_print.py) with
-this models directory, the slice directory, `--project-stem funnel-mold-h2c.gcode`
+The CLI slices both plates; its output directory is absolute.
+Run [verify_print.py](/tools/funnel-mold-print/verify_print.py) with
+this models directory, the slice directory, `--project-stem funnel-mold-h2c-040.gcode`
 and `--single`. The editable `funnel-mold.3mf` is separate from the checked slice.
 
 After publication, run [review_geometry.py](/tools/funnel-mold-print/review_geometry.py)

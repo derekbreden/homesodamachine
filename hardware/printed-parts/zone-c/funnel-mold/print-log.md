@@ -1,5 +1,27 @@
 # Funnel mold print log
 
+## 0.40 mm support trial — 2026-09-14 (settings per [`funnel-mold-h2c-040.gcode.3mf`](funnel-mold-h2c-040.gcode.3mf))
+
+- `layer_height` **0.40 mm** (initial 0.40)
+- `nozzle_temperature` **245 °C** (initial 250)
+
+The User Process is **Funnel mold shell - 0.8 nozzle - 0.40 mm gentle supports**.
+The cavity is 199 layers, estimated at 20 h 43 min and 745.57 g. The separate
+core plate is 113 layers, estimated at 11 h 48 min and 484.64 g. The cavity's
+estimate is 10 h 47 min shorter than the 0.24 mm gentle-support slice.
+[layer-height-review.json](layer-height-review.json) records the comparison,
+checksums, actual support and travel motion, and cavity support footprint.
+The modeled geometry, support speed limits, reinforced trees and Z trim match
+the gentle-support trial. Forming slopes require sanding and finishing.
+
+Derek confirmed the bed clear and authorized starting the print. Bambu Connect
+submitted plate 1 to **H2C**, serial **31B8AP612000452**, with AMS A3 PETG
+Translucent (96% remaining before submission), the left 0.8 mm High Flow nozzle
+and Textured PEI. Timelapse is off, bed leveling on, and flow/nozzle-offset
+calibration Auto. At 21:14:54 UTC the printer reports RUNNING, 199 layers and
+no print error or HMS entry, with its nozzle warming at 165 °C. The core was
+not submitted. Completed-part quality is unobserved.
+
 ## Gentle support motion file — 2026-09-14
 
 The saved User Process is **Funnel mold shell - 0.8 nozzle - gentle supports**.
