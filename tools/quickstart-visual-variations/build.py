@@ -1,5 +1,12 @@
 """Render comparative color, lockup, and step-number studies for the Quick Start.
 
+RUN BY HAND. NOT A STEP OF THE BUILD — `hardware/quickstart/studies/visual-variations/README.md`
+names what holds that. This module lives under `tools/`, which `tools/bazel/trace_inputs.py`
+names in `ELSEWHERE`, and it keeps no `note_read` / `note_write` bookkeeping. Its outputs are
+committed to git rather than packed into the release asset.
+
+    tools/cad-venv/bin/python tools/quickstart-visual-variations/build.py
+
 The scene geometry comes directly from ``hardware/quickstart/quick-start.html``. This builder
 changes only the field color, the paper color, the center lockup, and the step-number treatment.
 
@@ -20,16 +27,17 @@ import sys
 
 
 HERE = Path(__file__).resolve().parent
-QUICKSTART = HERE.parents[1]
-REPO = HERE.parents[3]
+REPO = HERE.parents[1]
+STUDY = REPO / "hardware" / "quickstart" / "studies" / "visual-variations"
+QUICKSTART = REPO / "hardware" / "quickstart"
 TMP = REPO / "tmp" / "pdfs" / "quickstart-visual-variations"
 VARIANT_PAGES = TMP / "variant-pages"
 VARIANT_RENDERS = TMP / "variant-renders"
 DECK_PAGES = TMP / "deck-pages"
 DECK_RENDERS = TMP / "deck-renders"
 FINAL_PDF = REPO / "output" / "pdf" / "quick-start-visual-variations.pdf"
-PREVIEW = HERE / "preview.png"
-NUMBER_PREVIEW = HERE / "number-preview.png"
+PREVIEW = STUDY / "preview.png"
+NUMBER_PREVIEW = STUDY / "number-preview.png"
 RENDERER = REPO / "tools" / "render" / "render-card.js"
 NODE = shutil.which("node") or "node"
 APP_ICON = "../../ios/AppIcon.svg"
@@ -412,8 +420,8 @@ def render_batch(source_dir: Path, output_dir: Path, *, dpr: float, pdf: bool) -
 
 def write_variants() -> dict[str, Path]:
     source = (QUICKSTART / "quick-start.html").read_text()
-    lockup_css = (HERE / "lockups.css").read_text()
-    number_css = (HERE / "numbers.css").read_text()
+    lockup_css = (STUDY / "lockups.css").read_text()
+    number_css = (STUDY / "numbers.css").read_text()
     pages: dict[str, Path] = {}
     for variant in (*FIELDS, *PAPERS, *LOCKUPS, *COMPOSED, *NUMBERS):
         path = VARIANT_PAGES / f"{variant.key.lower()}-{slug(variant.name)}.html"

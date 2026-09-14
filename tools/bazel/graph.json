@@ -6869,22 +6869,6 @@
       "hardware/quickstart/art/mount-under-tighten-clean.png"
     ]
   },
-  "hardware/quickstart/studies/visual-variations/_build.py": {
-    "reads": [
-      "hardware/quickstart/quick-start.html",
-      "hardware/quickstart/studies/visual-variations/_build.py",
-      "hardware/quickstart/studies/visual-variations/lockups.css",
-      "hardware/quickstart/studies/visual-variations/numbers.css",
-      "output/pdf/quick-start-visual-variations.pdf",
-      "tools/render/render-card.js"
-    ],
-    "rewritten": [],
-    "writes": [
-      "hardware/quickstart/studies/visual-variations/number-preview.png",
-      "hardware/quickstart/studies/visual-variations/preview.png",
-      "output/pdf/quick-start-visual-variations.pdf"
-    ]
-  },
   "hardware/reference/asse1022-assembly/asse1022_assembly.py": {
     "reads": [
       "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
