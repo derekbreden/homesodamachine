@@ -417,13 +417,15 @@ constexpr uint8_t UI_RAIL_CHOOSE   = 0;
 constexpr uint8_t UI_RAIL_PRIME    = 1;
 constexpr uint8_t UI_RAIL_FILL     = 2;
 constexpr uint8_t UI_RAIL_CLEAN    = 3;
-constexpr uint8_t UI_RAIL_SETTINGS = 4;
+constexpr uint8_t UI_RAIL_SETTINGS = 4;       // the corner: system status, and the areas beside it
+constexpr uint8_t UI_RAIL_PUMP_SERVICE = 5;   // Settings' pump service area
 constexpr uint8_t UI_CHANNEL_NONE  = 0xFF;   // the rail's own page rather than a channel's
 
 struct __attribute__((packed)) UiShowPayload {
   uint8_t rail;      // UI_RAIL_*
   uint8_t channel;   // PUMP_CHANNEL_*, or UI_CHANNEL_NONE
   uint8_t act;       // 1: also press the page's commitment — START FILL, START CLEAN CYCLE, DRY THE LINES
+                     //    (SETTINGS opens its pump service area first)
 };
 
 constexpr uint8_t PUMP_CHANNEL_A = 0;  // U11 -> J13.AM2/AM1, the two WEST pins
