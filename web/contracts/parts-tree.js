@@ -160,6 +160,7 @@ export const INSTALL_KIT = [
 // pictures of groups of bodies rather than bodies. Claimed ahead of the sweep, so
 // a tooling directory standing inside a part directory comes out of it.
 export const TOOLING = [
+  "printed-parts/cold-core/magnetic-float",
   "assembly/scenes/glb",
   "printed-parts/fixtures",
   "printed-parts/shop-storage",

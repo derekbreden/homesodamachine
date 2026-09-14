@@ -78,12 +78,23 @@ let lastLook = 0;
 // the remainder of that gap.
 let pending = null;
 
-async function bundleOnDisk() {
+async function lockOnDisk() {
   try {
-    return JSON.parse(await readFile(LOCK, "utf-8")).bundle?.sha256 ?? null;
+    return JSON.parse(await readFile(LOCK, "utf-8"));
   } catch {
     return null;
   }
+}
+
+// WHAT SAYS THE GEOMETRY MOVED. A publish from the machine that changed it puts the members
+// that moved on the release under their own hashes and leaves the bundle the lock already
+// names where it is (`pack.py --write --publish-held`): the bundle's digest does not move with
+// them, the member hashes do. Either moving is a look worth taking; a disk with no lock at all
+// is behind by definition.
+export function lockMoved(have, lock) {
+  if (!have) return true;
+  if (have.bundle?.sha256 !== lock.bundle?.sha256) return true;
+  return JSON.stringify(have.solids ?? {}) !== JSON.stringify(lock.solids ?? {});
 }
 
 async function lockOnMain() {
@@ -217,7 +228,7 @@ async function carryScorecards(lock) {
 }
 
 async function adopt({ broadcast, setRecent, commit, hardwareDir, detect }) {
-  const have = await bundleOnDisk();
+  const have = await lockOnDisk();
   const lock = await lockOnMain();
   if (!usable(lock)) throw new Error("the lock on main is not one this can read");
 
@@ -234,7 +245,7 @@ async function adopt({ broadcast, setRecent, commit, hardwareDir, detect }) {
     console.error(`[artifacts-live] ${line} — the bar is the one already here`);
   }
 
-  if (lock.bundle.sha256 === have) return { moved: false, scorecards: sidecars.carried.length };
+  if (!lockMoved(have, lock)) return { moved: false, scorecards: sidecars.carried.length };
 
   await writeFile(LOCK, JSON.stringify(lock, null, 2) + "\n");
   // The fetcher is the authority on bytes — it holds the bundle to the lock's sha256 and every

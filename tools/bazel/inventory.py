@@ -73,6 +73,12 @@ LOCK = _ROOT / "hardware" / "cad-artifacts.lock.json"
 #: smooth writer and the fluting pass; declaring it for both groups those generators into one
 #: action, so the fluting pass never seeds itself from the fetched prior bundle.
 IMPLICIT_SOLIDS = {
+    "hardware/printed-parts/cold-core/magnetic-float/magnetic_float.py": tuple(
+        f"hardware/printed-parts/cold-core/magnetic-float/{name}.step.mesh"
+        for name in ("body-petg", "body-aero", "insert-petg", "insert-aero",
+                     "insert-loose-petg", "insert-loose-aero", "turning-key",
+                     "magnet", "magnetic-float", "section", "exploded")
+    ),
     # Current payloads need no rewrite; a clean run still owes every view.
     "hardware/printed-parts/zone-c/funnel-mold/funnel_mold.py": tuple(
         f"hardware/printed-parts/zone-c/funnel-mold/{name}.step.mesh"

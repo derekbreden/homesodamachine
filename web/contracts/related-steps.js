@@ -76,6 +76,16 @@ export const FIXTURES = {
 
 export const COLLET_PRESS = "printed-parts/collet-press/collet-press.step";
 
+export const PROTOTYPES = {
+  "printed-parts/cold-core/magnetic-float/magnetic-float.step": [
+    "manifold-layout/enclosure-assembly.step",
+    "cold-core-layout/cold-core-assembly.step",
+    "cut-parts/carbonation/carbonator-tube/carbonator-tube.step",
+    "printed-parts/cold-core/reservoir/reservoir-left.step",
+    "printed-parts/cold-core/reservoir/reservoir-right.step",
+  ],
+};
+
 // The assembly-only tube names that are 1/4-inch OD and meet push-connect
 // collets. Refrigerant copper, the 3/8-inch tube inside the faucet, foam and the
 // atmospheric PRV vent are deliberately absent: this jaw does not fit them.
@@ -153,7 +163,19 @@ export function relatedSteps(file, allFiles, exclude = []) {
     if (!skip.has(fixture) && held.has(fixture)) out.push({ file: fixture, kind: "made-on" });
   }
 
-  const order = { beside: 0, from: 1, of: 2, "made-on": 3, makes: 4 };
+  for (const [prototype, hosts] of Object.entries(PROTOTYPES)) {
+    if (hosts.includes(file) && held.has(prototype) && !skip.has(prototype)) {
+      out.push({ file: prototype, kind: "prototype" });
+    }
+    if (file === prototype) {
+      for (const host of hosts) {
+        if (held.has(host) && !skip.has(host)) out.push({ file: host, kind: "prototype-for" });
+      }
+    }
+  }
+
+  const order = { prototype: 0, beside: 1, from: 2, of: 3, "made-on": 4,
+                  makes: 5, "prototype-for": 6 };
   out.sort((a, b) => order[a.kind] - order[b.kind] || a.file.localeCompare(b.file));
   return out;
 }
@@ -162,10 +184,12 @@ export function relatedSteps(file, allFiles, exclude = []) {
 // related-nav.js walks these keys, so a kind added here draws itself and a kind
 // added without a caption draws nothing.
 export const KIND_CAPTIONS = {
+  prototype: "Prototypes",
   "used-with": "Used with",
   beside: "Beside it",
   from: "Made for it",
   of: "Tooling for",
   "made-on": "Made on",
   makes: "Makes",
+  "prototype-for": "Prototype for",
 };
