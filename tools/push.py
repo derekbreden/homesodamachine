@@ -21,7 +21,7 @@ rather than replayed.
 NOTHING HERE REBASES THE SHARED WORKTREE, BECAUSE GIT WILL NOT. A rebase refuses against a dirty
 tree — for any file, not just the ones it touches — and with several agents building, dirty is
 the resting state. So a replay happens in a detached worktree that shares no index and no
-checkout, with the lock's own merge driver (`tools/cad-artifacts/merge_lock.py`, written into
+checkout, with the pointer file's own merge driver (`tools/cad-artifacts/merge_pointers.py`, written into
 this clone's config here) folding two publishes into one where git would stop.
 
 AND THEN THIS TREE IS BROUGHT UP TO WHAT LANDED, FILE BY FILE, because the tree is what every
@@ -66,8 +66,8 @@ REMOTE, BRANCH = "origin", "main"
 WORKTREE = f".git/push-wt-{os.getpid()}"
 
 #: The one file two publishes always meet on, and the driver `.gitattributes` names for it.
-LOCK_REL = "hardware/cad-artifacts.lock.json"
-DRIVER = "cadlock"
+POINTERS_REL = "hardware/cad-artifacts.json"
+DRIVER = "cadpointers"
 
 #: A HOOK HANDS DOWN THE CHECKOUT IT RAN IN, and these are how. Git exports them naming paths
 #: against that checkout — `GIT_INDEX_FILE` is `.git/next-index-*.lock` under a pathspec commit
@@ -107,26 +107,26 @@ ROOT = Path(subprocess.run(["git", "rev-parse", "--show-toplevel"],
 
 
 def ensure_merge_driver() -> None:
-    """The lock's merge driver, in this clone's config.
+    """The pointer file's merge driver, in this clone's config.
 
     `.gitattributes` can name a driver for a path but cannot carry its command; that lives in
     config, which no clone inherits. So every clone gets it the first time this runs there —
     a cloud checkout that commits and runs `tools/push.py` included — and a rebase by hand in
-    that clone merges the lock the same way a replay here does."""
-    script = ROOT / "tools" / "cad-artifacts" / "merge_lock.py"
+    that clone merges the pointer file the same way a replay here does."""
+    script = ROOT / "tools" / "cad-artifacts" / "merge_pointers.py"
     if not script.is_file():
         return
     want = f"python3 {shlex.quote(str(script))} %O %A %B"
     if git("config", "--get", f"merge.{DRIVER}.driver", check=False) != want:
         git("config", f"merge.{DRIVER}.driver", want)
-        git("config", f"merge.{DRIVER}.name", "the CAD lock, merged by member")
+        git("config", f"merge.{DRIVER}.name", "the CAD pointer file, merged by member")
 
 
 def patch_ids(rev_range: str) -> dict:
     """patch-id -> commit, for every commit in the range.
 
     `--stable` so the reading does not move with git's own hashing, and a commit whose patch is
-    empty (a merge, or one that only moved the lock to bytes already there) answers with no id
+    empty (a merge, or one that only moved the pointer file to bytes already there) answers with no id
     and is simply not a twin of anything."""
     out = {}
     for sha in git("rev-list", rev_range).split():
@@ -221,20 +221,20 @@ def merge_in_place(path: str, base_blob: str, landed_blob: str, base: str, lande
     markers written into the file), or a reason it was left alone."""
     met = beat_by(base, landed, path)
     label = f"main {met[0][0]} {met[0][1]}" if met else "main"
-    if path == LOCK_REL:
+    if path == POINTERS_REL:
         try:
             sys.dont_write_bytecode = True     # no __pycache__ left in a clone by a push
             sys.path.insert(0, str(ROOT / "tools" / "cad-artifacts"))
-            import merge_lock
-            text, notes = merge_lock.merge_texts(
+            import merge_pointers
+            text, notes = merge_pointers.merge_texts(
                 blob_bytes(base_blob).decode(), blob_bytes(landed_blob).decode(),
                 (ROOT / path).read_text())
             (ROOT / path).write_text(text)
             for note in notes:
-                print(f"  {LOCK_REL}: {note}")
+                print(f"  {POINTERS_REL}: {note}")
             return "merged"
         except Exception as exc:  # noqa: BLE001 — the text merge below then names it
-            print(f"  {LOCK_REL}: the lock driver could not merge it ({exc})", file=sys.stderr)
+            print(f"  {POINTERS_REL}: the pointer file driver could not merge it ({exc})", file=sys.stderr)
     with tempfile.TemporaryDirectory() as d:
         base_file, main_file = Path(d) / "base", Path(d) / "main"
         base_file.write_bytes(blob_bytes(base_blob))

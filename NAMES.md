@@ -92,6 +92,7 @@ they became.
 | **collet press** | the printed 1/4-inch U-jaw and raised handle that depresses a push-connect collet around its tube | release tool, disconnect tool |
 | **counterbore** | the flat-bottomed pocket a cylindrical DIN 912 socket-head cap screw drops into, its head flush or under the face | countersink, countersunk, recess |
 | **countersink** | the 90° cone a DIN 7991 flat head wedges into, and the conical lead-in a fluid line leans through at a cap conduit | counterbore |
+| **pointer file** | the committed file that names, by hash, the bytes on a GitHub release that main's generated outputs are: `hardware/cad-artifacts.json` for the solids, payloads and pictures, `firmware/firmware-images.json` for the firmware images. What main points at is what the site serves; a publish uploads the bytes it cut and moves the pointers for them. `lock` here means a mutex or another tool's own lock file, never this | lock, lockfile, artifact lock, pin, pinned, repin |
 
 ## Agent approved
 

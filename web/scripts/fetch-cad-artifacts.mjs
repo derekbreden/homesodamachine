@@ -1,22 +1,22 @@
-// The solids named in hardware/cad-artifacts.lock.json, put on this disk.
+// The solids named in hardware/cad-artifacts.json, put on this disk.
 //
 //     node scripts/fetch-cad-artifacts.mjs            # fetch what this disk is missing
-//     node scripts/fetch-cad-artifacts.mjs --check    // 0 = every solid here matches the lock
+//     node scripts/fetch-cad-artifacts.mjs --check    // 0 = every solid here matches the pointer file
 //     node scripts/fetch-cad-artifacts.mjs --adopt    # also replace what holds other bytes
 //
 // Render runs this after `npm ci` (render.yaml), from web/. The viewer serves `.step` off the
 // tree at request time — web/lib/viewer-routes.js — and the tree a deploy clones carries the
-// lock rather than the solids, so this is the step that fills them in.
+// pointer file rather than the solids, so this is the step that fills them in.
 //
 // It is also `prestart` in package.json, which is the same run under a service whose build
 // command is the dashboard's rather than render.yaml's. Whichever fires first leaves the tree
-// holding every locked solid, and the other reads 117 MB and finds nothing to do.
+// holding every pointed-at solid, and the other reads 117 MB and finds nothing to do.
 //
-// THE LOCK IS THE AUTHORITY ON EVERY BYTE. The bundle is held to its sha256 before it is opened,
+// THE POINTER FILE IS THE AUTHORITY ON EVERY BYTE. The bundle is held to its sha256 before it is opened,
 // and each extracted solid to its own after. A hash that does not match ends the build, which
 // leaves the previous deploy serving.
 //
-// A tree that already holds every solid at its locked hash downloads nothing, so a dev machine
+// A tree that already holds every solid at its pointed-at hash downloads nothing, so a dev machine
 // that cut the solids itself runs this to completion without reaching the network.
 //
 // ONLY A SOLID THAT IS ABSENT IS WRITTEN, AND `--adopt` IS WHAT SAYS OTHERWISE. A solid present
@@ -25,9 +25,9 @@
 // left standing, and `pack.py --write` is what settles it. A deploy clone has no solids at all,
 // which is the case this fills.
 //
-// A SERVER CUTS NOTHING, so drift there is a lock that moved on rather than work in progress, and
-// `--adopt` takes the lock's bytes over the ones on disk. `web/lib/artifacts-live.js` runs this
-// that way to bring new geometry into a container the lock moved under, with no deploy.
+// A SERVER CUTS NOTHING, so drift there is a pointer file that moved on rather than work in progress, and
+// `--adopt` takes the pointer file's bytes over the ones on disk. `web/lib/artifacts-live.js` runs this
+// that way to bring new geometry into a container the pointer file moved under, with no deploy.
 
 import { createHash } from "node:crypto";
 import { createReadStream, createWriteStream } from "node:fs";
@@ -41,7 +41,7 @@ import { createGunzip } from "node:zlib";
 import { fileURLToPath } from "node:url";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
-const LOCK = path.join(ROOT, "hardware", "cad-artifacts.lock.json");
+const POINTERS = path.join(ROOT, "hardware", "cad-artifacts.json");
 const CHECK = process.argv.includes("--check");
 const ADOPT = process.argv.includes("--adopt");
 
@@ -80,33 +80,33 @@ async function download(url, dest) {
   await pipeline(Readable.fromWeb(res.body), createWriteStream(dest));
 }
 
-const lock = await readFile(LOCK, "utf-8").then(JSON.parse).catch(() => null);
-if (!lock) {
-  console.log("[cad-artifacts] no lock file — nothing to fetch");
+const pointers = await readFile(POINTERS, "utf-8").then(JSON.parse).catch(() => null);
+if (!pointers) {
+  console.log("[cad-artifacts] no pointer file — nothing to fetch");
   process.exit(0);
 }
 
-const solids = lock.solids ?? {};
+const solids = pointers.solids ?? {};
 const { missing: absent, drifted } = await wanted(solids);
 
 // `--adopt`: A SERVER HOLDS NO CUT OF ITS OWN, SO DRIFT THERE IS AGE, NOT WORK. Without it a
 // solid present under other bytes is left alone, because on a machine that cuts geometry those
 // bytes are a generator's fresh work and `pack.py --write` is what settles them. A container
-// cuts nothing: everything it holds came from a bundle, so a hash the lock does not name means
-// the lock moved on, and the newer bytes are the ones to serve. `web/lib/artifacts-live.js`
-// passes this when it adopts a lock without a deploy.
+// cuts nothing: everything it holds came from a bundle, so a hash the pointer file does not name means
+// the pointer file moved on, and the newer bytes are the ones to serve. `web/lib/artifacts-live.js`
+// passes this when it adopts a pointer file without a deploy.
 const missing = ADOPT ? [...absent, ...drifted] : absent;
 if (drifted.length && !ADOPT) {
-  console.log(`[cad-artifacts] ${drifted.length} solid(s) hold bytes the lock does not name, left as they are:`);
+  console.log(`[cad-artifacts] ${drifted.length} solid(s) hold bytes the pointer file does not name, left as they are:`);
   for (const rel of drifted.slice(0, 8)) console.log(`    ${rel}`);
   console.log("    tools/cad-venv/bin/python tools/cad-artifacts/pack.py --write");
 }
 if (drifted.length && ADOPT) {
-  console.log(`[cad-artifacts] ${drifted.length} solid(s) hold older bytes — taking the lock's`);
+  console.log(`[cad-artifacts] ${drifted.length} solid(s) hold older bytes — taking the pointer file's`);
 }
 
 if (missing.length === 0) {
-  console.log(`[cad-artifacts] ${Object.keys(solids).length - drifted.length} solid(s) at the locked hash`);
+  console.log(`[cad-artifacts] ${Object.keys(solids).length - drifted.length} solid(s) at the pointed-at hash`);
   process.exit(drifted.length && CHECK ? 1 : 0);
 }
 if (CHECK) {
@@ -115,20 +115,20 @@ if (CHECK) {
   process.exit(1);
 }
 
-// EVERY MEMBER IS WORTH ASKING FOR BY NAME, AND THE WHOLE LOCK IS TOO. `pack.py` puts every
-// member of a lock on the release under its own hash as well as inside the bundle, and says so
+// EVERY MEMBER IS WORTH ASKING FOR BY NAME, AND THE WHOLE POINTER FILE IS TOO. `pack.py` puts every
+// member of a pointer file on the release under its own hash as well as inside the bundle, and says so
 // with `release.objects`. Asking by name costs what actually moved; the bundle costs the tree
 // however little did. There is no member count at which the bundle is the cheaper read:
-// measured on 2026-08-27, the 263 objects of this lock come to 143.0 MB against a bundle of
+// measured on 2026-08-27, the 263 objects of this pointer file come to 143.0 MB against a bundle of
 // 144.2 MB, because each member is gzipped on its own and the tar's framing is not carried.
 // Even the worst case — every member moving at once, which is what a colour or a deflection
 // change does — reads less by name than by bundle, and `check_release_room.py` holds that
 // premise so the day it stops being true is a red row rather than a slow deploy.
 //
 // SO WHAT IS LEFT IS ROUND TRIPS, AND THE LANES BELOW ARE WHAT ANSWER THAT. The bundle stays
-// the whole of the answer for a lock written before `objects`, and the fallthrough below keeps
+// the whole of the answer for a pointer file written before `objects`, and the fallthrough below keeps
 // it as the answer for any member that does not arrive by name.
-const { url, asset } = lock.release;
+const { url, asset } = pointers.release;
 
 // EIGHT AT A TIME, BECAUSE THE WAIT IS THE ROUND TRIP AND NOT THE BYTES. A member averages a
 // few hundred KB and the objects are on a CDN, so one at a time spends the whole fetch waiting
@@ -141,9 +141,9 @@ async function fetchObject(rel, base) {
   const gz = dest + ".gz.part";
   await mkdir(path.dirname(dest), { recursive: true });
   try {
-    await download(`${base}${lock.release.objects}${solids[rel]}.gz`, gz);
+    await download(`${base}${pointers.release.objects}${solids[rel]}.gz`, gz);
     await pipeline(createReadStream(gz), createGunzip(), createWriteStream(dest));
-    if ((await sha256(dest)) !== solids[rel]) throw new Error("not the locked bytes");
+    if ((await sha256(dest)) !== solids[rel]) throw new Error("not the pointed-at bytes");
   } finally {
     await rm(gz, { force: true });
   }
@@ -166,7 +166,7 @@ async function fetchObjects(rels) {
   return failed;
 }
 
-if (lock.release.objects) {
+if (pointers.release.objects) {
   console.log(`[cad-artifacts] ${missing.length} solid(s) to fetch, by name`);
   const failed = await fetchObjects(missing);
   if (!failed.length) {
@@ -174,13 +174,13 @@ if (lock.release.objects) {
     process.exit(0);
   }
   // WHAT ONE ROUTE COULD NOT SETTLE, THE OTHER STILL CARRIES. The bundle holds every member of
-  // this lock too, so a missing object or a bad gunzip falls through to it rather than costing
+  // this pointer file too, so a missing object or a bad gunzip falls through to it rather than costing
   // the site a solid.
   console.warn(`[cad-artifacts] ${failed.length} solid(s) did not come by name — reading the bundle`);
   for (const line of failed.slice(0, 8)) console.warn(`    ${line}`);
 }
 
-console.log(`[cad-artifacts] ${missing.length} solid(s) to fetch — ${asset} (${(lock.bundle.bytes / 1e6).toFixed(1)} MB)`);
+console.log(`[cad-artifacts] ${missing.length} solid(s) to fetch — ${asset} (${(pointers.bundle.bytes / 1e6).toFixed(1)} MB)`);
 
 const work = await mkdtemp(path.join(tmpdir(), "cad-artifacts."));
 try {
@@ -188,15 +188,15 @@ try {
   await download(url, bundle);
 
   // THE MEMBERS ARE THE ANSWER, NOT THE TARBALL. Every extracted solid is held to
-  // `lock.solids[rel]` below, which is strictly stronger than this for the only question that
-  // decides anything — are the bytes about to be served the locked bytes. So a tarball that
+  // `pointers.solids[rel]` below, which is strictly stronger than this for the only question that
+  // decides anything — are the bytes about to be served the pointed-at bytes. So a tarball that
   // hashes differently while every member verifies is not a reason to serve nothing.
   const got = await sha256(bundle);
-  if (got !== lock.bundle.sha256) {
-    console.warn(`[cad-artifacts] ${asset} is not the locked bundle`);
-    console.warn(`    locked ${lock.bundle.sha256}`);
+  if (got !== pointers.bundle.sha256) {
+    console.warn(`[cad-artifacts] ${asset} is not the pointed-at bundle`);
+    console.warn(`    pointed at ${pointers.bundle.sha256}`);
     console.warn(`    got    ${got}`);
-    console.warn("    members are held to the lock individually below");
+    console.warn("    members are held to the pointer file individually below");
   }
 
   // The missing ones by name, so a drifted solid beside them keeps its bytes. Members are
@@ -209,7 +209,7 @@ try {
   const bad = [];
   for (const rel of missing) {
     if (!(await present(rel))) bad.push(`${rel} — not in the bundle`);
-    else if ((await sha256(path.join(ROOT, rel))) !== solids[rel]) bad.push(`${rel} — not the locked bytes`);
+    else if ((await sha256(path.join(ROOT, rel))) !== solids[rel]) bad.push(`${rel} — not the pointed-at bytes`);
   }
   // A SOLID THAT DID NOT ARRIVE IS ONE SOLID. Failing here failed the Render build, and a
   // failed build leaves the PREVIOUS deploy serving — so a bundle this could not settle held
@@ -217,7 +217,7 @@ try {
   // it. What is here is served; what is not is named. A `.step` that is absent costs its own
   // page, and a `.step.mesh` costs a wasm parse (`viewer-routes` 404s it by design).
   if (bad.length) {
-    console.warn(`[cad-artifacts] ${bad.length} solid(s) the lock does not vouch for:`);
+    console.warn(`[cad-artifacts] ${bad.length} solid(s) the pointer file does not vouch for:`);
     for (const line of bad.slice(0, 12)) console.warn(`    ${line}`);
   }
 

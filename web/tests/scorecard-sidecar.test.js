@@ -26,26 +26,26 @@ const SIDECAR = sidecarIn("hardware");
 const COLD_SIDECAR = path.join(REPO_ROOT, "hardware", "cold-core-layout",
   "cold-core-assembly.scorecard.json");
 
-test("the artifact lock pins every committed viewer scorecard", (t) => {
-  const lock = JSON.parse(fs.readFileSync(
-    path.join(REPO_ROOT, "hardware", "cad-artifacts.lock.json"), "utf8"));
-  if (!lock.sidecars) return t.skip("this source commit predates scorecard pinning");
-  const entries = Object.entries(lock.sidecars);
-  assert.ok(entries.length, "the lock names at least one viewer scorecard");
+test("the artifact pointer file points at every committed viewer scorecard", (t) => {
+  const pointers = JSON.parse(fs.readFileSync(
+    path.join(REPO_ROOT, "hardware", "cad-artifacts.json"), "utf8"));
+  if (!pointers.sidecars) return t.skip("this source commit predates scorecards in the pointer file");
+  const entries = Object.entries(pointers.sidecars);
+  assert.ok(entries.length, "the pointer file names at least one viewer scorecard");
   for (const [rel, expected] of entries) {
     assert.ok(rel.startsWith("hardware/") && rel.endsWith(".scorecard.json"),
       `${rel} is a confined scorecard path`);
     const full = path.resolve(REPO_ROOT, rel);
     assert.ok(full.startsWith(path.join(REPO_ROOT, "hardware") + path.sep),
       `${rel} stays under hardware/`);
-    assert.ok(fs.existsSync(full), `${rel} is committed beside its lock`);
+    assert.ok(fs.existsSync(full), `${rel} is committed beside its pointer file`);
     const actual = createHash("sha256").update(fs.readFileSync(full)).digest("hex");
     // A MISS HERE IS NOT WORK FOR THE READER. `.githooks/post-commit` runs publish_now.py
-    // detached after every commit, and that re-pins this hash — so a miss means the commit
+    // detached after every commit, and that re-points this hash — so a miss means the commit
     // that moved the scorecard has not been made yet, or its publish is still in flight.
     // Commit, or read .cache/publish-now.log. Running pack.py --write by hand races it.
     assert.equal(actual, expected,
-      `${rel} does not match the lock — commit (the post-commit hook re-pins it) or check `
+      `${rel} does not match the pointer file — commit (the post-commit hook re-points it) or check `
       + `.cache/publish-now.log; do not run pack.py --write against a publish already running`);
   }
 });

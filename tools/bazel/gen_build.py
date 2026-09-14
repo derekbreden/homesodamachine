@@ -235,7 +235,7 @@ def read_from(src: str, rewritten: set, producers: dict = None,
     """The label a step reads for `src`.
 
     A generated artifact comes from its producer's output, not from the copy restored into the
-    source tree by the artifact lock. That edge makes a clean build topological: an assembly
+    source tree by the artifact pointer file. That edge makes a clean build topological: an assembly
     cannot read yesterday's STEP while the target that cuts today's STEP runs beside it.
     Rewritten docs stay source inputs; their generated figures are carried back separately and
     some of those documents intentionally read one another.

@@ -11,7 +11,7 @@
 # so it is useful for warming caches but is never committed as a current derivation.
 #
 # THE PUSH-BACK EXPLICITLY DISPATCHES PUBLICATION. GitHub does not start another workflow from
-# its own token's push, so the successful commit step queues the lock boundary itself.
+# its own token's push, so the successful commit step queues the pointer file boundary itself.
 
 name: derive
 
@@ -69,7 +69,7 @@ concurrency:
   #
   # THAT IS THE RIGHT OUTCOME AND THE WRONG WORD FOR IT. Only the newest tree is worth
   # deriving, so discarding the ones overtaken costs nothing — while killing a RUNNING derive
-  # every time a push arrives would leave the lock stale for as long as the agents worked,
+  # every time a push arrives would leave the pointer file stale for as long as the agents worked,
   # which is what this setting exists to prevent. It is not a queue and it never was.
   #
   # AND A `workflow_dispatch` CANNOT JUMP IT. The group is a bare string with no event key,
@@ -257,13 +257,13 @@ jobs:
       # what writes it, and it rewrites BUILD.bazel from the traced graph at the same time:
       # a no-op when the tree already names what it makes, and a real diff worth committing
       # when it does not.
-      # THE TREE DOES NOT CARRY EVERY SOLID IT BUILDS FROM. 35 of the lock's 100 are under
+      # THE TREE DOES NOT CARRY EVERY SOLID IT BUILDS FROM. 35 of the pointer file's 100 are under
       # `hardware/reference/` — a supplier's model, gitignored like every other `.step` — and
       # a genrule that reads one wants it present as an INPUT, not as something to cut. The
-      # deploy already solves this: `fetch-cad-artifacts.mjs` puts every locked solid on the
-      # disk and holds each to its own sha256. Same script, same lock, one step earlier.
+      # deploy already solves this: `fetch-cad-artifacts.mjs` puts every pointed-at solid on the
+      # disk and holds each to its own sha256. Same script, same pointer file, one step earlier.
       # Node builtins only, so it needs no install of its own.
-      - name: The solids the lock already names
+      - name: The solids the pointer file already names
         run: node web/scripts/fetch-cad-artifacts.mjs
 
       # THE FULL SWEEP LIVES HERE AND NOWHERE ELSE. Watching every generator run is over an hour
@@ -371,7 +371,7 @@ jobs:
         # because the run simply stopped.
         #
         # `failed_targets.py` reads the build event log and names what did not complete.
-        # `sync_tree` and `cut_vs_lock` each take `--failed` and leave exactly those alone.
+        # `sync_tree` and `cut_vs_pointers` each take `--failed` and leave exactly those alone.
         id: cut
         run: |
           set +e
@@ -406,10 +406,10 @@ jobs:
 
       # Read bazel-bin before sync_tree changes tracked inputs. Exit 0 is byte agreement and
       # exit 1 is a measured geometry difference; incomplete coverage (2+) stops the derive.
-      - name: The complete cut against the lock
+      - name: The complete cut against the pointer file
         run: |
           set +e
-          tools/cad-venv/bin/python tools/cad-artifacts/cut_vs_lock.py \
+          tools/cad-venv/bin/python tools/cad-artifacts/cut_vs_pointers.py \
             --annotate --assume-fresh --failed "${{ steps.cut.outputs.failed }}"
           rc=$?
           set -e
@@ -456,7 +456,7 @@ jobs:
         run: tools/cad-venv/bin/python tools/checks.py
 
       # Bundle publication is isolated in `publish.yml`. This full derive verifies that
-      # its carried tree is complete and reports a behind lock without competing to repin it.
+      # its carried tree is complete and reports a behind pointer file without competing to re-point it.
       - name: Artifact publication status
         run: |
           set +e

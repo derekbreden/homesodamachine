@@ -1,10 +1,10 @@
 name: publish
 
 on:
-  # NOT ON PUSH. `publish_now.py` cuts and pins from the machine that changed the tree,
-  # detached from `.githooks/post-commit`, and the running container adopts the lock it
-  # writes without a deploy — a lock commit reached homesodamachine.com in 17s, measured
-  # 2026-08-26. A run here lands the same lock minutes later under a commit this checkout
+  # NOT ON PUSH. `publish_now.py` cuts and moves the pointer file from the machine that changed the tree,
+  # detached from `.githooks/post-commit`, and the running container adopts the pointer file it
+  # writes without a deploy — a pointer file commit reached homesodamachine.com in 17s, measured
+  # 2026-08-26. A run here lands the same pointer file minutes later under a commit this checkout
   # never made, and a local commit made in that window is replayed onto it: reconciliation
   # that costs the thing it reconciles.
   #
@@ -27,7 +27,7 @@ on:
         default: false
         type: boolean
 
-# ONE PUBLISH AT A TIME, AND EVERY ONE OF THEM FINISHES. A run ends by writing the lock — the
+# ONE PUBLISH AT A TIME, AND EVERY ONE OF THEM FINISHES. A run ends by writing the pointer file — the
 # receipt naming the source commit and the bundle built from it — and that receipt is how new
 # GEOMETRY reaches the site, so a run that does not finish is a solid that never arrives. The
 # site's own code does not come this way (`render.yaml`'s buildFilter names `web/**` too), so a
@@ -45,8 +45,8 @@ permissions:
   packages: read
 
 jobs:
-  # THE MACHINE THAT PINS THE LOCK MUST BE THE MACHINE THAT CUTS, and for this repo there is
-  # only one of those. A bundle is content-addressed over its members, so the lock converges
+  # THE MACHINE THAT MOVES THE POINTER FILE MUST BE THE MACHINE THAT CUTS, and for this repo there is
+  # only one of those. A bundle is content-addressed over its members, so the pointer file converges
   # only while one OpenCASCADE writes it — `cad-requirements.txt` says the canonicalization
   # holds "across runs of ONE OCC build", and `cadquery-ocp 7.8.1.1.post1` ships a
   # macosx_11_0_arm64 wheel and a manylinux_2_31_x86_64 one at that same pin. Two publishers on
@@ -54,7 +54,7 @@ jobs:
   # 2026-08-23, the same 95 of 124 members flipped on every handoff, both directions.
   #
   # SO THIS LANE IS arm64 macOS, which is what the Mac that cuts these is. Measured head to
-  # head on run 32726925012, same commit and same lock: macos-arm64 differs from the lock on 12
+  # head on run 32726925012, same commit and same pointer file: macos-arm64 differs from the pointer file on 12
   # of 124 members, ubuntu-x64 on 95. `macos-latest` is macos-26-arm64, Apple M1, so it resolves
   # the same wheel rather than merely a similar one.
   #
@@ -63,8 +63,8 @@ jobs:
   # `//:appliance-model` and the freestyle sieve, and `//:appliance-model` is an rdep of nothing
   # but `//:everything`. What publish actually builds is the artifact slice and `//:cad-art`,
   # and what those want is CadQuery, node, gh, ImageMagick and rsvg-convert. `derive` still runs
-  # in the image on Linux because it builds the whole graph, blender included — and it pins no
-  # solids, so it cannot move the lock.
+  # in the image on Linux because it builds the whole graph, blender included — and it writes no
+  # solids, so it cannot move the pointer file.
   publish:
     runs-on: macos-latest
     timeout-minutes: 60
@@ -87,7 +87,7 @@ jobs:
       # macOS SHIPS BASH 3.2 AND THIS WORKFLOW IS WRITTEN IN BASH 4. `/bin/bash` here is
       # 3.2.57 from 2007, held at the last GPLv2 release, and `mapfile` arrived in 4.0 — five
       # steps use it and the first one is 300 lines down, so on 3.2 this lane walks all the way
-      # to "Commit the artifact lock" and dies there with `mapfile: command not found` and exit
+      # to "Commit the artifact pointer file" and dies there with `mapfile: command not found` and exit
       # 127, having already uploaded a bundle. Measured, on run 32729516384.
       #
       # ITS OWN SHELL IS PINNED TO /bin/bash BECAUSE IT IS THE STEP THAT INSTALLS THE OTHER ONE,
@@ -178,13 +178,13 @@ jobs:
           printf 'build --disk_cache=%s/.cache/bazel-disk\n' "$HOME" > .bazelrc.ci
           cat .bazelrc.ci
 
-      - name: The locked inputs
+      - name: The pointed-at inputs
         run: node web/scripts/fetch-cad-artifacts.mjs
 
       - name: The checked build graph
         # NOTHING HERE HOLDS THE PUBLISH. `gen_build.py` has already written the current graph
         # to this checkout's BUILD.bazel, so the drift is named and the run builds the
-        # regenerated file. Refusing here stopped the bundle, the lock and the deploy over a
+        # regenerated file. Refusing here stopped the bundle, the pointer file and the deploy over a
         # file this very step had already brought current on the disk.
         run: |
           tools/cad-venv/bin/python tools/bazel/gen_build.py
@@ -193,7 +193,7 @@ jobs:
             git --no-pager diff --stat -- BUILD.bazel
           fi
 
-      # The CAD lock source and the Quick Start sidecar provenance are independent accumulation
+      # The CAD pointer file source and the Quick Start sidecar provenance are independent accumulation
       # points. A canceled producer loses no debt, and an unrelated source can advance without
       # falsely claiming that an unrendered guide was published.
       - name: The affected artifact rules
@@ -236,7 +236,7 @@ jobs:
           fi
 
           base=$(tools/cad-venv/bin/python -c \
-            'import json; print(json.load(open("hardware/cad-artifacts.lock.json")).get("source", {}).get("commit", ""))')
+            'import json; print(json.load(open("hardware/cad-artifacts.json")).get("source", {}).get("commit", ""))')
           if [ -n "$base" ]; then
             git cat-file -e "$base^{commit}" 2>/dev/null || \
               git fetch --no-tags --depth=1 origin "$base"
@@ -406,7 +406,7 @@ jobs:
             --targets //:cad-art
           # NAMED, NOT REFUSED. The commit step below stages the artwork by its declared
           # `writes`, so a file outside them is reported here and reaches no commit either
-          # way — and holding the whole publish over it kept the bundle, the lock and every
+          # way — and holding the whole publish over it kept the bundle, the pointer file and every
           # solid in this cut off the site.
           unexpected=$(git diff --name-only -- hardware/quickstart | \
             grep -Ev '^hardware/quickstart/art/' || true)
@@ -422,7 +422,7 @@ jobs:
           TARGETS: ${{ steps.scope.outputs.targets }}
         run: |
           set +e
-          tools/cad-venv/bin/python tools/cad-artifacts/cut_vs_lock.py \
+          tools/cad-venv/bin/python tools/cad-artifacts/cut_vs_pointers.py \
             --annotate --assume-fresh --targets "$TARGETS"
           rc=$?
           set -e
@@ -517,7 +517,7 @@ jobs:
           fi
           # NAMED, NOT REFUSED, for the same reason as the artwork carry above: the commit
           # step stages this bind's three outputs by name, so an extra file is reported and
-          # committed by nothing, and the lock still reaches the site.
+          # committed by nothing, and the pointer file still reaches the site.
           unexpected=$(git diff --name-only -- hardware/quickstart | grep -Ev "$allowed" || true)
           if [ -n "$unexpected" ]; then
             echo "the Quick Start bind moved files outside its declared outputs:" >&2
@@ -526,7 +526,7 @@ jobs:
           fi
 
       # This also advances source.commit on a zero-artifact hardware change, so Render can
-      # deploy served hardware only after the artifact lock covers its source.
+      # deploy served hardware only after the artifact pointer file covers its source.
       - name: Publish the bundle
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -534,8 +534,8 @@ jobs:
         # DOES NOT WAIT ON THE FIRST. Neither is `--retire`, which takes assets off the GitHub
         # release: the word is the same and the two operations share nothing.
         # A prune that declines to retire an output without a changed producing source (exit 2)
-        # has said so, and leaving the retirement standing costs a stale pin. Failing the step
-        # cost the whole cut: no bundle, no lock, no deploy.
+        # has said so, and leaving the retirement standing costs a stale pointer. Failing the step
+        # cost the whole cut: no bundle, no pointer file, no deploy.
         run: |
           set +e
           tools/cad-venv/bin/python tools/cad-artifacts/pack.py --prune
@@ -546,14 +546,14 @@ jobs:
           fi
           tools/cad-venv/bin/python tools/cad-artifacts/pack.py --write
 
-      - name: Commit the artifact lock
+      - name: Commit the artifact pointer file
         id: commit
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           mapfile -t sidecar_outputs < <(
             tools/cad-venv/bin/python -c \
-              'import json; [print(path) for path in json.load(open("hardware/cad-artifacts.lock.json")).get("sidecars", {})]'
+              'import json; [print(path) for path in json.load(open("hardware/cad-artifacts.json")).get("sidecars", {})]'
           )
           sidecar_targets=(//:cold-core-assembly //:enclosure-assembly)
 
@@ -583,14 +583,14 @@ jobs:
 
           lock_sidecars_are_pinned() {
             ref=$1
-            git show "$ref:hardware/cad-artifacts.lock.json" > /tmp/candidate-lock.json || \
+            git show "$ref:hardware/cad-artifacts.json" > /tmp/candidate-pointers.json || \
               return 1
             candidate_count=$(tools/cad-venv/bin/python -c \
-              'import json; print(len(json.load(open("/tmp/candidate-lock.json")).get("sidecars", {})))')
+              'import json; print(len(json.load(open("/tmp/candidate-pointers.json")).get("sidecars", {})))')
             [ "$candidate_count" = "${#sidecar_outputs[@]}" ] || return 1
             for path in "${sidecar_outputs[@]}"; do
               expected=$(PATH_IN_LOCK="$path" tools/cad-venv/bin/python -c \
-                'import json,os; print(json.load(open("/tmp/candidate-lock.json")).get("sidecars", {}).get(os.environ["PATH_IN_LOCK"], ""))')
+                'import json,os; print(json.load(open("/tmp/candidate-pointers.json")).get("sidecars", {}).get(os.environ["PATH_IN_LOCK"], ""))')
               [ -n "$expected" ] || return 1
               git show "$ref:$path" > /tmp/candidate-sidecar.json 2>/dev/null || return 1
               actual=$(sha256sum /tmp/candidate-sidecar.json | awk '{print $1}')
@@ -600,8 +600,8 @@ jobs:
 
           git config user.name  "Derek Bredensteiner"
           git config user.email "derekbreden@gmail.com"
-          git add hardware/cad-artifacts.lock.json
-          # The lock says exactly which public scorecards belong to this cut. Stage no general
+          git add hardware/cad-artifacts.json
+          # The pointer file says exactly which public scorecards belong to this cut. Stage no general
           # JSON/docs output here; a scoped CAD publication stays a viewer-runtime lane.
           if [ "${#sidecar_outputs[@]}" -gt 0 ]; then
             git add -- "${sidecar_outputs[@]}"
@@ -617,7 +617,7 @@ jobs:
           # just uploaded, and `.gitignore` holds them out of the index. Staging them here is
           # `git add` against an ignored path.
           if git diff --cached --quiet; then
-            echo "the lock and canonical Quick Start already cover this source"
+            echo "the pointer file and canonical Quick Start already cover this source"
             exit 0
           fi
           git commit -m "Publish ${GITHUB_SHA:0:8}"
@@ -627,15 +627,15 @@ jobs:
             git fetch --deepen=100 origin main
             tip=$(git rev-parse origin/main)
             if [ "$tip" != "$base" ]; then
-              if ! git diff --quiet "$base" "$tip" -- hardware/cad-artifacts.lock.json; then
-                source=$(git show "$tip:hardware/cad-artifacts.lock.json" | \
+              if ! git diff --quiet "$base" "$tip" -- hardware/cad-artifacts.json; then
+                source=$(git show "$tip:hardware/cad-artifacts.json" | \
                   tools/cad-venv/bin/python -c \
                     'import json,sys; print(json.load(sys.stdin).get("source", {}).get("commit", ""))')
                 if [ -n "$source" ] && git merge-base --is-ancestor "$GITHUB_SHA" "$source" && \
                    lock_sidecars_are_pinned "$tip"; then
-                  echo "a newer artifact lock already covers this source"
+                  echo "a newer artifact pointer file already covers this source"
                   lock_commit=$(git log -1 --format=%H "$base..$tip" -- \
-                    hardware/cad-artifacts.lock.json)
+                    hardware/cad-artifacts.json)
                   echo "published=$lock_commit" >> "$GITHUB_OUTPUT"
                   exit 0
                 fi
@@ -645,7 +645,7 @@ jobs:
 
               if [ "${#sidecar_outputs[@]}" -gt 0 ] && \
                  ! git diff --quiet "$base" "$tip" -- "${sidecar_outputs[@]}"; then
-                echo "a generated scorecard moved outside this lock cut"
+                echo "a generated scorecard moved outside this pointer file cut"
                 queue_latest "${sidecar_targets[@]}"
                 exit 0
               fi
@@ -684,8 +684,8 @@ jobs:
               fi
 
               SOURCE_COMMIT="$tip" tools/cad-venv/bin/python -c \
-                'import json,os; from pathlib import Path; p=Path("hardware/cad-artifacts.lock.json"); d=json.loads(p.read_text()); d["source"]={"commit":os.environ["SOURCE_COMMIT"]}; p.write_text(json.dumps(d, indent=2)+"\n")'
-              git add hardware/cad-artifacts.lock.json
+                'import json,os; from pathlib import Path; p=Path("hardware/cad-artifacts.json"); d=json.loads(p.read_text()); d["source"]={"commit":os.environ["SOURCE_COMMIT"]}; p.write_text(json.dumps(d, indent=2)+"\n")'
+              git add hardware/cad-artifacts.json
               git commit --amend --no-edit
               git rebase origin/main
               base="$tip"
@@ -694,12 +694,12 @@ jobs:
               echo "published=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
               exit 0
             fi
-            echo "main moved under the lock push — retrying ($attempt/3)"
+            echo "main moved under the pointer file push — retrying ($attempt/3)"
           done
-          echo "could not publish the artifact lock after three tries" >&2
+          echo "could not publish the artifact pointer file after three tries" >&2
           exit 1
 
-      # Persistence starts after the lock push, outside the public stale-window critical path.
+      # Persistence starts after the pointer file push, outside the public stale-window critical path.
       - name: Save the drawn solids
         if: always() && (steps.scope.outputs.count != '0' || steps.scope.outputs.quickstart == 'true')
         continue-on-error: true
@@ -726,15 +726,15 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VERIFY_QUICKSTART: ${{ steps.scope.outputs.quickstart }}
         run: |
-          published_mesh=$(git show "$EXPECTED:hardware/cad-artifacts.lock.json" | \
+          published_mesh=$(git show "$EXPECTED:hardware/cad-artifacts.json" | \
             tools/cad-venv/bin/python -c \
               'import json,sys; print(json.load(sys.stdin)["solids"]["hardware/manifold-layout/enclosure-assembly.step.mesh"])')
-          published_scorecard=$(git show "$EXPECTED:hardware/cad-artifacts.lock.json" | \
+          published_scorecard=$(git show "$EXPECTED:hardware/cad-artifacts.json" | \
             tools/cad-venv/bin/python -c \
               'import json,sys; print(json.load(sys.stdin)["sidecars"]["hardware/manifold-layout/enclosure-assembly.scorecard.json"])')
           published_quickstart=""
           if [ "$VERIFY_QUICKSTART" = true ]; then
-            published_quickstart=$(git show "$EXPECTED:hardware/cad-artifacts.lock.json" | \
+            published_quickstart=$(git show "$EXPECTED:hardware/cad-artifacts.json" | \
               tools/cad-venv/bin/python -c \
                 'import json,sys; print(json.load(sys.stdin)["solids"]["hardware/quickstart/quick-start.pdf"])')
           fi
@@ -756,22 +756,22 @@ jobs:
               expected_scorecard="$published_scorecard"
               expected_quickstart="$published_quickstart"
               if [ "$live" != "$EXPECTED" ]; then
-                rm -f /tmp/live-lock.json
+                rm -f /tmp/live-pointers.json
                 gh api -H 'Accept: application/vnd.github.raw+json' \
-                  "repos/$GITHUB_REPOSITORY/contents/hardware/cad-artifacts.lock.json?ref=$live" \
-                  > /tmp/live-lock.json 2>/dev/null || true
+                  "repos/$GITHUB_REPOSITORY/contents/hardware/cad-artifacts.json?ref=$live" \
+                  > /tmp/live-pointers.json 2>/dev/null || true
                 expected_mesh=$( \
                   tools/cad-venv/bin/python -c \
-                    'import json; print(json.load(open("/tmp/live-lock.json"))["solids"]["hardware/manifold-layout/enclosure-assembly.step.mesh"])' \
+                    'import json; print(json.load(open("/tmp/live-pointers.json"))["solids"]["hardware/manifold-layout/enclosure-assembly.step.mesh"])' \
                   2>/dev/null || true)
                 expected_scorecard=$( \
                   tools/cad-venv/bin/python -c \
-                    'import json; print(json.load(open("/tmp/live-lock.json"))["sidecars"]["hardware/manifold-layout/enclosure-assembly.scorecard.json"])' \
+                    'import json; print(json.load(open("/tmp/live-pointers.json"))["sidecars"]["hardware/manifold-layout/enclosure-assembly.scorecard.json"])' \
                   2>/dev/null || true)
                 if [ "$VERIFY_QUICKSTART" = true ]; then
                   expected_quickstart=$( \
                     tools/cad-venv/bin/python -c \
-                      'import json; print(json.load(open("/tmp/live-lock.json"))["solids"]["hardware/quickstart/quick-start.pdf"])' \
+                      'import json; print(json.load(open("/tmp/live-pointers.json"))["solids"]["hardware/quickstart/quick-start.pdf"])' \
                     2>/dev/null || true)
                 fi
               fi
@@ -804,7 +804,7 @@ jobs:
               if [ -n "$expected_mesh" ] && [ "$mesh" = "$expected_mesh" ] && \
                  [ -n "$expected_scorecard" ] && [ "$scorecard" = "$expected_scorecard" ] && \
                  [ "$quickstart_ok" = true ]; then
-                echo "production serves $live with locked assembly mesh $mesh and scorecard $scorecard"
+                echo "production serves $live with pointed-at assembly mesh $mesh and scorecard $scorecard"
                 if [ "$VERIFY_QUICKSTART" = true ]; then
                   echo "production serves canonical Quick Start PDF $quickstart"
                 fi
@@ -820,5 +820,5 @@ jobs:
             fi
             sleep 10
           done
-          echo "Render did not serve the published lock and verified public assets within 15 minutes" >&2
+          echo "Render did not serve the published pointer file and verified public assets within 15 minutes" >&2
           exit 1

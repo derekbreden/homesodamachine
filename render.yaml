@@ -17,30 +17,30 @@ services:
     # package.json. That lockfile is what this build ships; web/README.md carries it.
     #
     # The fetch then puts the generated solids on this disk. The clone carries
-    # hardware/cad-artifacts.lock.json rather than the `.step` files themselves, and the
+    # hardware/cad-artifacts.json rather than the `.step` files themselves, and the
     # viewer serves those off the tree at request time (web/lib/viewer-routes.js), so the
-    # build is where they arrive. A hash that disagrees with the lock ends the build and
+    # build is where they arrive. A hash that disagrees with the pointer file ends the build and
     # leaves the previous deploy serving.
     buildCommand: cd web && npm ci --omit=dev && node scripts/fetch-cad-artifacts.mjs && node scripts/fetch-firmware.mjs
     startCommand: cd web && npm start
     healthCheckPath: /
     autoDeploy: true
     # A DEPLOY IS FOR CODE. A push that changes the site itself — its code, its posts, this file
-    # — deploys on that push, serving whatever bundle the lock currently names. Nothing about it
+    # — deploys on that push, serving whatever bundle the pointer file currently names. Nothing about it
     # waits for CAD: the solids it stands on are the ones already published.
     #
-    # THE CAD LOCK IS NOT A PATH HERE, AND THAT IS THE POINT. Geometry is data, and it reaches a
-    # running container without one: `web/lib/artifacts-live.js` adopts a lock that moved, brings
+    # THE CAD POINTER FILE IS NOT A PATH HERE, AND THAT IS THE POINT. Geometry is data, and it reaches a
+    # running container without one: `web/lib/artifacts-live.js` adopts a pointer file that moved, brings
     # its members down and pushes them to open pages on the `files-changed` frame, which the
-    # viewer answers by reloading the open model in place. On a working day the lock moves 40
+    # viewer answers by reloading the open model in place. On a working day the pointer file moves 40
     # times against 15 pushes of everything else, and every one of those 40 used to be an `npm
     # ci`, a 65 MB fetch and a restart, none of which ran in parallel with the next.
     #
     # A CONTAINER STILL STARTS WITH WHAT ITS OWN CLONE NAMES — `buildCommand` and `prestart` both
-    # run `fetch-cad-artifacts.mjs` — so a deploy for any reason lands holding the locked solids,
+    # run `fetch-cad-artifacts.mjs` — so a deploy for any reason lands holding the pointed-at solids,
     # and the adoption carries it forward from there.
     #
-    # THE FIRMWARE LOCK STAYS, because nothing carries it forward: `/api/firmware` serves images
+    # THE FIRMWARE POINTER FILE STAYS, because nothing carries it forward: `/api/firmware` serves images
     # off this disk that only `buildCommand` puts there.
     #
     # SO A WEB PUSH CAN LAND AHEAD OF THE ARTWORK IT CHANGES. `render-step-posed-runtime` and
@@ -50,15 +50,15 @@ services:
     # the price of the fast lane and it closes itself.
     buildFilter:
       paths:
-        - firmware/firmware.lock.json
+        - firmware/firmware-images.json
         - web/**
         - updates/**
         - render.yaml
         # THE HARDWARE PATHS THAT DEPLOY, AND WHY THEY ARE THE ONLY ONES. Everything else under
-        # `hardware/` reaches a running container as data — the artifact lock moves and
+        # `hardware/` reaches a running container as data — the artifact pointer file moves and
         # `web/lib/artifacts-live.js` brings its members down without a restart. This
         # directory holds a hand-drawn build guide whose PDF, cover and sidecar are in git
-        # rather than in that lock, so a clone is what carries them and a deploy is what makes a
+        # rather than in that pointer file, so a clone is what carries them and a deploy is what makes a
         # clone. It changes when a person redraws it, which is rarely.
         - hardware/weld-rotator-guide/**
         # Two hand-drawn quick start sheets with words, frozen the same way: PDF, cover and
@@ -70,7 +70,7 @@ services:
         # commit, and under `web/**` each one was an `npm ci`, a fetch and a restart — 24 of the
         # 24 deploying commits in six hours, serialized, which is how a reading lands twenty
         # minutes after the tree it describes. `web/lib/artifacts-live.js` carries it onto the
-        # running container on the same look that adopts the artifact lock.
+        # running container on the same look that adopts the artifact pointer file.
         - web/public/checks.json
         # AND THE SUITE IS NOT SHIPPED. `buildCommand` runs `npm ci --omit=dev`, so the
         # dependencies these need are not installed and no step of a deploy runs them — a

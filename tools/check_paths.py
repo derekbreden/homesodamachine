@@ -15,11 +15,11 @@ WHERE A PATH RESOLVES IS FOUR PLACES, NOT ONE.
   1. The index. `git ls-files`, the same reading `check_tracked` takes: a file the index does
      not hold is a file a fresh clone does not have.
 
-  2. The solids manifest. `hardware/cad-artifacts.lock.json` names 103 solids that are FETCHED
+  2. The solids manifest. `hardware/cad-artifacts.json` names 103 solids that are FETCHED
      AND NOT COMMITTED (`tools/cad-artifacts/pack.py`, `web/scripts/fetch-cad-artifacts.mjs`).
      178 `.step` files sit on this disk and 3 are in the index; resolving against the index
      alone calls the other 175 broken, and `foam-shell.step` — absent from the index, present
-     in the lock — is the case that proves it. The lock is as much a record of what the tree
+     in the pointer file — is the case that proves it. The pointer file is as much a record of what the tree
      holds as the index is.
 
   3. THE SITE'S ROUTE TABLE, WHEN THE REFERENCE IS A URL. `[the drawings shelf](/drawings)`
@@ -169,13 +169,13 @@ def _tracked() -> tuple[set, set]:
     return files, dirs
 
 
-def _lock_solids() -> set:
-    """The solids the lock names — fetched at deploy, never committed, and just as held."""
-    lock = ROOT / "hardware" / "cad-artifacts.lock.json"
-    if not lock.is_file():
+def _pointed_solids() -> set:
+    """The solids the pointer file names — fetched at deploy, never committed, and just as held."""
+    pointers = ROOT / "hardware" / "cad-artifacts.json"
+    if not pointers.is_file():
         return set()
     try:
-        return set(json.loads(lock.read_text()).get("solids", {}))
+        return set(json.loads(pointers.read_text()).get("solids", {}))
     except (OSError, ValueError):
         return set()
 
@@ -630,14 +630,14 @@ def _selftest() -> int:
         hold("and is gone from HEAD",
              _resolves_at("HEAD", "hardware/reference/water-test-cup/water-test-cup.3mf"), False)
 
-    # A solid is held by the lock, not by the index.
-    solids = _lock_solids()
+    # A solid is held by the pointer file, not by the index.
+    solids = _pointed_solids()
     if solids:
         one = "hardware/printed-parts/cold-core/foam-shell/foam-shell.step"
         if one in solids:
             files, _ = _tracked()
             hold("a fetched solid is not in the index", one in files, False)
-            hold("and the lock holds it", one in solids, True)
+            hold("and the pointer file holds it", one in solids, True)
 
     # git ls-files is read on NEWLINES: a name with spaces is a name.
     files, _ = _tracked()
@@ -654,7 +654,7 @@ def _selftest() -> int:
 
 def main() -> int:
     files, dirs = _tracked()
-    solids, tags, routes = _lock_solids(), _tags(), _site_routes(files)
+    solids, tags, routes = _pointed_solids(), _tags(), _site_routes(files)
     bad = check(files, dirs, solids, tags, routes)
     if bad:
         for b in bad:

@@ -61,9 +61,9 @@ def deploy_filter() -> tuple:
     text = (ROOT / "render.yaml").read_text()
     body = text.split("buildFilter:", 1)
     if len(body) < 2:
-        return ["web/**", "hardware/cad-artifacts.lock.json", "updates/**", "render.yaml"], []
+        return ["web/**", "hardware/cad-artifacts.json", "updates/**", "render.yaml"], []
     return (_yaml_list(body[1], "paths")
-            or ["web/**", "hardware/cad-artifacts.lock.json", "updates/**", "render.yaml"],
+            or ["web/**", "hardware/cad-artifacts.json", "updates/**", "render.yaml"],
             _yaml_list(body[1], "ignoredPaths"))
 
 

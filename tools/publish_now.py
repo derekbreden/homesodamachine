@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""publish_now.py — cut and pin from this machine, so the site does not wait on a runner.
+"""publish_now.py — cut and move the pointer file from this machine, so the site does not wait on a runner.
 
     tools/cad-venv/bin/python tools/publish_now.py           publish if this tree owes a cut
     tools/cad-venv/bin/python tools/publish_now.py --check    say what it would do, touch nothing
@@ -9,14 +9,14 @@ THE LAPTOP IS THE VISUAL PATH AND THE RUNNER IS THE RECONCILER. This process gra
 piece payload into the enclosure and appliance payloads, then `pack.py --write --publish-held`
 uploads the bytes already standing on this machine. It never asks Bazel to stand the appliance
 or run its motion scorecard. Plain `pack.py --write` remains the reconciler: it cuts the deferred
-producer rules, carries their evidence through the normal derive, and advances the source pin.
+producer rules, carries their evidence through the normal derive, and advances the source commit.
 
-PINNING THE LOCK DEPLOYS NOTHING. It is not among `render.yaml`'s buildFilter paths: the
-running container adopts a lock that moved and pushes the changed members to open pages.
+MOVING THE POINTER FILE DEPLOYS NOTHING. It is not among `render.yaml`'s buildFilter paths: the
+running container adopts a pointer file that moved and pushes the changed members to open pages.
 `tell_the_site()` below is what makes that immediate rather than a poll away.
 
 OWED IS READ BEFORE ANYTHING IS PUBLISHED, AND IT IS TWO QUESTIONS. `affected.py --artifacts` from
-the commit the lock names to HEAD reads SOURCE, and is the only one that sees a change whose
+the commit the pointer file names to HEAD reads SOURCE, and is the only one that sees a change whose
 target has not been built yet. `pack.py --check` reads BYTES, and is the only one that sees a
 solid whose bytes moved with no commit behind them. Neither owing anything means `--write` would
 re-hash 314 MB to arrive at the bundle already published.
@@ -27,7 +27,7 @@ marks the running one to look again when it finishes. Whatever is owed at that p
 gets cut, which is the newest state rather than the one that asked.
 
 IT REPORTS AND HOLDS NOTHING. The geometry's own commits are already on main by the time this
-runs; the one commit this makes is the lock, and the site is told to look only once main holds
+runs; the one commit this makes is the pointer file, and the site is told to look only once main holds
 it. A publish that fails leaves the runner to do what it was always going to do.
 """
 
@@ -59,11 +59,11 @@ def run(args: list, quiet: bool = False) -> subprocess.CompletedProcess:
 
 
 def source_owes() -> list:
-    """Artifact rules whose sources moved since the commit the lock names."""
-    lock = ROOT / "hardware" / "cad-artifacts.lock.json"
-    if not lock.exists():
+    """Artifact rules whose sources moved since the commit the pointer file names."""
+    pointers = ROOT / "hardware" / "cad-artifacts.json"
+    if not pointers.exists():
         return ["//:everything"]
-    base = json.loads(lock.read_text()).get("source", {}).get("commit", "")
+    base = json.loads(pointers.read_text()).get("source", {}).get("commit", "")
     if not base or run(["git", "cat-file", "-t", base], quiet=True).returncode != 0:
         return ["//:everything"]
     got = run([str(PY), "tools/bazel/affected.py", "--artifacts",
@@ -72,7 +72,7 @@ def source_owes() -> list:
 
 
 def bytes_drifted() -> bool:
-    """Whether the solids on this disk are the ones the lock names. `--check` exits 1 when not."""
+    """Whether the solids on this disk are the ones the pointer file names. `--check` exits 1 when not."""
     return run([str(PY), "tools/cad-artifacts/pack.py", "--check"],
                quiet=True).returncode == 1
 
@@ -82,26 +82,26 @@ def owed() -> tuple:
 
     TWO QUESTIONS, AND NEITHER ANSWERS THE OTHER. `affected` reads SOURCE: it names what a
     commit changed, and it is the only one that sees a change whose target has not been built
-    yet. `pack.py --check` reads BYTES: it hashes the tree against the lock, and it is the only
+    yet. `pack.py --check` reads BYTES: it hashes the tree against the pointer file, and it is the only
     one that sees a solid whose bytes moved with no commit behind them — a rebuild, a carry, or
     a payload recut. Asking only the first is how a tree that had lost the enclosure's flutes
     read as owing nothing while the site drew a smooth box."""
     targets = source_owes()
     if targets:
-        return (f"{len(targets)} artifact target(s) owed since the lock's source", targets)
+        return (f"{len(targets)} artifact target(s) owed since the pointer file's source", targets)
     if bytes_drifted():
-        return ("the solids on this disk are not the ones the lock names", [])
+        return ("the solids on this disk are not the ones the pointer file names", [])
     return ("", [])
 
 
 def sidecar_paths() -> list:
-    """The scorecards the lock names, as paths this tree holds.
+    """The scorecards the pointer file names, as paths this tree holds.
 
-    A lock predating the map names none, and a path it names that is not a file here is one
+    A pointer file predating the map names none, and a path it names that is not a file here is one
     this commit has nothing to say about — the pack is what settles which scorecards exist."""
-    lock = ROOT / "hardware" / "cad-artifacts.lock.json"
+    pointers = ROOT / "hardware" / "cad-artifacts.json"
     try:
-        named = json.loads(lock.read_text()).get("sidecars", {})
+        named = json.loads(pointers.read_text()).get("sidecars", {})
     except (OSError, ValueError):
         return []
     return [rel for rel in sorted(named) if (ROOT / rel).is_file()]
@@ -116,18 +116,18 @@ def _sha256(path: Path) -> str:
 
 
 def enclosure_drift(root: Path = None) -> tuple:
-    """`(changed piece-triplet members, changed piece payloads)` against the current lock.
+    """`(changed piece-triplet members, changed piece payloads)` against the current pointer file.
 
     SOURCE IS NOT A CUT. A source-only checkpoint leaves mutually stamped old STEP/STL/payload
     bytes on disk, and `surfaces()` correctly says those old siblings agree with each other. The
-    visual path needs a stronger entrance: at least one piece payload must differ from the lock
+    visual path needs a stronger entrance: at least one piece payload must differ from the pointer file
     before that surface can stand in for the source change. Aggregate viewer hosts are outputs of
     the graft and deliberately absent here: counting one would make a completed graft block its
     own publication.
     """
     root = root or ROOT
     try:
-        held = json.loads((root / "hardware/cad-artifacts.lock.json").read_text()).get(
+        held = json.loads((root / "hardware/cad-artifacts.json").read_text()).get(
             "solids", {})
     except (OSError, ValueError):
         held = {}
@@ -141,14 +141,14 @@ def enclosure_drift(root: Path = None) -> tuple:
             and path.name.startswith("enclosure-")
             and path.name.endswith((".step", ".stl", ".step.mesh")))
     }
-    locked = {
+    pointed = {
         rel for rel in held
         if any(rel.startswith(directory + "/") for directory in directories)
         and Path(rel).name.startswith("enclosure-")
         and rel.endswith((".step", ".stl", ".step.mesh"))
     }
     changed = sorted(
-        rel for rel in set(current) | locked
+        rel for rel in set(current) | pointed
         if rel not in current or held.get(rel) != _sha256(current[rel])
     )
     payloads = [
@@ -210,14 +210,14 @@ def refresh_enclosure_viewer() -> None:
 
 
 def tell_the_site() -> None:
-    """Ask the running site to look at the lock now, rather than at its next poll.
+    """Ask the running site to look at the pointer file now, rather than at its next poll.
 
-    THE LOCK IS NOT IN `render.yaml`'s buildFilter, so pinning it deploys nothing — the container
+    THE POINTER FILE IS NOT IN `render.yaml`'s buildFilter, so pointing at it deploys nothing — the container
     adopts it in place and pushes the changed members to open pages. It finds out on a two-minute
     poll on its own; this is what makes the usual case seconds instead.
 
-    IT CARRIES NOTHING AND IS TRUSTED WITH NOTHING. The site reads the lock from GitHub either
-    way, so this says only "look now" — and it is why the lock is on main before this is called,
+    IT CARRIES NOTHING AND IS TRUSTED WITH NOTHING. The site reads the pointer file from GitHub either
+    way, so this says only "look now" — and it is why the pointer file is on main before this is called,
     since a container sent to look at a commit that is not there reads the previous cut and then
     waits out a poll. A post that does not arrive costs a poll, which is why nothing here is
     retried and nothing here fails a publish.
@@ -238,18 +238,18 @@ def publish() -> int:
     if reason:
         enclosure_action, _piece_payloads = enclosure_release_plan(targets)
         if enclosure_action == "defer" and not bytes_drifted():
-            # SOURCE IS NOT A CUT, and a tree whose solids are the ones the lock names has no
+            # SOURCE IS NOT A CUT, and a tree whose solids are the ones the pointer file names has no
             # bytes to publish for it; the runner reconciles the source. A solid that did move —
             # a booklet rebound, a part recut beside an unmoved enclosure — goes up as it stands.
             try:
                 base = json.loads(
-                    (ROOT / "hardware/cad-artifacts.lock.json").read_text()
+                    (ROOT / "hardware/cad-artifacts.json").read_text()
                 ).get("source", {}).get("commit", "")
             except (OSError, ValueError):
                 base = ""
             print("  enclosure source is owed, but no changed piece payload is held and no "
                   "solid moved; publishing nothing")
-            print(f"  source debt remains against {base[:12] or 'the existing lock'}")
+            print(f"  source debt remains against {base[:12] or 'the existing pointer file'}")
             return 0
         if enclosure_action == "defer":
             print("  enclosure source is owed and no piece payload moved; the enclosure goes up "
@@ -269,18 +269,18 @@ def publish() -> int:
                   file=sys.stderr)
             return 1
     else:
-        # A CUT IS NOT THE ONLY THING A TREE CAN OWE. `--write` pins the scorecards off the
-        # working tree, so a verdict recomputed after the last publish leaves the lock naming
-        # bytes no commit carries — solids that match the lock exactly, and a scorecard the site
+        # A CUT IS NOT THE ONLY THING A TREE CAN OWE. `--write` points at the scorecards off the
+        # working tree, so a verdict recomputed after the last publish leaves the pointer file naming
+        # bytes no commit carries — solids that match the pointer file exactly, and a scorecard the site
         # cannot read. Nothing is cut for that, and the commit below still is.
-        print("  nothing owed — this tree's solids are the ones the lock names")
-    # THE SCORECARDS COMMIT WITH THE LOCK, BECAUSE THE LOCK IS NOT WHERE THEIR BYTES LIVE.
-    # `pack.py` keeps them outside the geometry tar and off the release: the lock names each
-    # one's sha256 and the committed tree is what anyone reads them from. Pinning a hash whose
-    # bytes never landed leaves the lock naming a file main does not hold, and the site — which
+        print("  nothing owed — this tree's solids are the ones the pointer file names")
+    # THE SCORECARDS COMMIT WITH THE POINTER FILE, BECAUSE THE POINTER FILE IS NOT WHERE THEIR BYTES LIVE.
+    # `pack.py` keeps them outside the geometry tar and off the release: the pointer file names each
+    # one's sha256 and the committed tree is what anyone reads them from. Pointing at a hash whose
+    # bytes never landed leaves the pointer file naming a file main does not hold, and the site — which
     # carries them from main in `web/lib/artifacts-live.js` — draws the older verdict against
     # the newer geometry. They are one cut, so they are one commit.
-    paths = ["hardware/cad-artifacts.lock.json", *sidecar_paths()]
+    paths = ["hardware/cad-artifacts.json", *sidecar_paths()]
     if run(["git", "diff", "--quiet", "--", *paths], quiet=True).returncode == 0:
         if reason:
             print(f"  the cut is the one already published ({time.time() - started:.0f}s)")
@@ -288,24 +288,24 @@ def publish() -> int:
     run(["git", "add", "--", *paths], quiet=True)
     # `--no-verify`: the pre-commit hook re-derives and stages, and this commit is these files by
     # name. `--only` keeps it that way whatever else the tree is holding.
-    msg = "cad-artifacts: cut and pinned from the machine that changed it"
+    msg = "cad-artifacts: cut here, and the pointer file moved"
     if run(["git", "commit", "--no-verify", "--only", *paths, "-m", msg],
            quiet=True).returncode != 0:
-        print("  the lock did not commit", file=sys.stderr)
+        print("  the pointer file did not commit", file=sys.stderr)
         return 1
-    # THE SITE READS THE LOCK FROM MAIN, so a cut that did not land there is one nobody can see
+    # THE SITE READS THE POINTER FILE FROM MAIN, so a cut that did not land there is one nobody can see
     # and a `tell_the_site()` that sends the container to fetch the bytes it already has. The
     # `.githooks/post-commit` hook runs `push.py` inside the commit above and, by its own
     # contract, reports a push that did not land and leaves the work committed — so the commit
     # returning says the commit was made and not that main has it. This reads the tracking ref
     # `push.py` moves, which costs no network and no second reconcile: the post goes out on the
-    # strength of the lock being on main.
+    # strength of the pointer file being on main.
     if run(["git", "merge-base", "--is-ancestor", "HEAD", "origin/main"],
            quiet=True).returncode != 0:
-        print(f"  the lock is committed and not on main; the runner reconciles this "
+        print(f"  the pointer file is committed and not on main; the runner reconciles this "
               f"({time.time() - started:.0f}s)", file=sys.stderr)
         return 1
-    print(f"  lock pinned and pushed ({time.time() - started:.0f}s)")
+    print(f"  pointer file moved and pushed ({time.time() - started:.0f}s)")
     tell_the_site()
     return 0
 
@@ -337,8 +337,8 @@ def selftest() -> int:
             path.relative_to(root).as_posix(): _sha256(path)
             for path in paths.values()
         }
-        lock = root / "hardware/cad-artifacts.lock.json"
-        lock.write_text(json.dumps({"solids": solids}))
+        pointers = root / "hardware/cad-artifacts.json"
+        pointers.write_text(json.dumps({"solids": solids}))
 
         hold("a source-only enclosure checkpoint waits for fresh piece bytes",
              enclosure_release_plan(["//:enclosure"], root), ("defer", []))

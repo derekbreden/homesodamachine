@@ -6,7 +6,7 @@
 
 `--keep_going` builds every target whose inputs are ready and leaves the rest, so a run with
 one red target has every other target's fresh output sitting in `bazel-bin`. `sync_tree.py` and
-`cut_vs_lock.py` both take `--failed` and carry the rest; this is what names them.
+`cut_vs_pointers.py` both take `--failed` and carry the rest; this is what names them.
 
 WHY THE EVENT LOG AND NOT THE CONSOLE. The failure text bazel prints is for a person — it wraps,
 it interleaves with the output of whatever was running beside it, and the label sits inside a
