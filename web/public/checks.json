@@ -47,12 +47,12 @@
     },
     {
       "check": "hardware/scripts/check_tracked.py",
-      "note": "60/61 artifacts have their record in the index",
-      "status": "red"
+      "note": "61/61 artifacts have their record in the index",
+      "status": "ok"
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 1705 tracked, 401 fetched solids, 55 tags, 38 site routes",
+      "note": "paths: every reference lands — 1709 tracked, 401 fetched solids, 55 tags, 38 site routes",
       "status": "ok"
     },
     {
@@ -77,12 +77,12 @@
     },
     {
       "check": "tools/bazel/check_declared_imports.py",
-      "note": "check_declared_imports: every step holds what it imports, over 3 staged source(s)",
+      "note": "check_declared_imports: every step holds what it imports, over 206 source(s) the graph names",
       "status": "ok"
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 3 of 13 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 401 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 1 of 5 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 401 member(s) keep their provenance",
       "status": "ok"
     }
   ],
@@ -96,11 +96,6 @@
       "instructions: 120 files (14 procedures + 105 cards + cover) | ledger brands: 546 | waived: 1 ASIN + 4 brand",
       "DRIFT: 1 instruction(s) out of step with the ledger:",
       "  ✗ instruction names a purchased brand the ledger no longer carries: Chanzon (hardware/assembly/weld-rotation-rig.md:221)"
-    ],
-    "hardware/scripts/check_tracked.py": [
-      "hardware/printed-parts/cold-core/magnetic-float/README.figures.json — the figures of hardware/printed-parts/cold-core/magnetic-float/README.md (it is on this disk, untracked)",
-      "  git add hardware/printed-parts/cold-core/magnetic-float/README.figures.json",
-      "60/61 artifacts have their record in the index"
     ],
     "tools/check_web_tests.py": [
       "1 test(s) in web/ fail:",
