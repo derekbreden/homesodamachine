@@ -94,13 +94,13 @@ print still needs its own dry-fit and vacuum trial.
 
 ## Print
 
-[Checked H2C print file, Textured PEI and +0.18 trim](funnel-mold-h2c.gcode.3mf) ·
+[Checked cavity print file, Textured PEI and +0.18 trim](funnel-mold-h2c-support-feet.gcode.3mf) ·
 [Editable project](funnel-mold.3mf) ·
 [Saved printer, filament and process presets](funnel-mold-presets.bbscfg)
 
 The editable project selects these saved Bambu Studio User Presets:
 
-- Process: **Funnel mold shell - 0.8 nozzle - Bambu first layer**
+- Process: **Funnel mold shell - 0.8 nozzle - 8mm support feet**
 - Filament: **Funnel mold PETG Translucent - 0.8 nozzle - Bambu defaults**
 - Printer: **Bambu Lab H2C 0.8 High Flow +0.18 Z trim**
 
@@ -114,18 +114,17 @@ The target printer is named **H2C**. Its physical plate is Textured PEI.
 The +0.18 trim adds to Bambu's −0.02 mm Textured PEI correction, giving
 `G29.1 Z0.16` in the checked G-code. The trim is calibrated for PET-GF;
 its use with PETG is a physical trial recorded in the [print log](print-log.md).
-The checked file contains cavity plate 1 and core plate 2:
+The checked retry file contains the cavity, with a slicer estimate of **18 h 31 min**
+and **653 g** including supports. The core is plate 2 of the editable project;
+slice it with the selected profile before printing. Its envelope is
+[205 × 205 × 45.2 mm](CORE_DIMS); the cavity is [205 × 205 × 79.6 mm](CAVITY_DIMS).
 
-| Body | Envelope | Estimated print | PETG, including supports |
-| --- | --- | --- | --- |
-| [Cavity](cavity.step) | [205 × 205 × 79.6 mm](CAVITY_DIMS) | [18 h 22 min](CAVITY_TIME) | [643 g](CAVITY_MASS) |
-| [Core](core.step) | [205 × 205 × 45.2 mm](CORE_DIMS) | [11 h 17 min](CORE_TIME) | [441 g](CORE_MASS) |
-
-Together: [29 h 38 min](TOTAL_TIME), [1.08 kg](TOTAL_MASS). These are slicer
-estimates. The files use the left [0.8 mm](NOZZLE) [High Flow](NOZZLE_TYPE) nozzle, [0.24 mm](LAYER) layers,
+The files use the left [0.8 mm](NOZZLE) [High Flow](NOZZLE_TYPE) nozzle, [0.24 mm](LAYER) layers,
 translucent PETG at 250 °C on the first layer and 245 °C afterward, a
 [16 mm³/s](FLOW_CAP) volumetric cap, a 0.40 mm first layer, a removable 6 mm
-model brim, and same-material tree supports with 0.3 mm vertical separation. The cavity
+model brim, and same-material tree supports with 0.3 mm vertical separation.
+**Support → Initial layer expansion is 8 mm**, with 90% initial layer density
+and zero raft layers. The cavity
 prints upright and the core inverted. Supports are accessible from the dry
 backs. Inspect and remove every branch before finishing.
 
@@ -135,8 +134,12 @@ three walls, solid modeled shells, 40 mm/s outer walls, 60 mm/s top surfaces,
 and automatic trees at a 35° threshold. Bed temperature is 70 °C. Cooling,
 support speed and tree branch geometry use the stock presets.
 
-[print-profile.json](print-profile.json) records the checked slices' settings,
-STL and G-code checksums, support usage and estimates.
+[support-foot-review.json](support-foot-review.json) checks the retry's emitted
+first-layer support paths, bed bounds, settings and G-code checksums against the
+reference slice in [print-profile.json](print-profile.json). The support footprint
+is about 2.8 times the reference area. Startup commands retain the same Z trim,
+temperatures and nozzle behavior; progress estimates and the bed-leveling
+rectangle reflect this slice.
 [layer-review.json](layer-review.json) records model connectivity at the sliced
 layer heights. The cavity spout tip and core rod cradle begin above the plate;
 the G-code has support-interface paths directly beneath both features.

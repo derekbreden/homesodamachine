@@ -1,6 +1,37 @@
 # Funnel mold print log
 
+## Cavity support feet — 2026-09-14
+
+H2C accepted `funnel-mold-h2c-support-feet.gcode.3mf` through Bambu Connect.
+At 15:34 UTC it reports RUNNING, 331 layers and no print error or HMS entry;
+Connect shows toolhead homing and left-nozzle heating. The job uses AMS A3
+Bambu PETG Translucent, reported full before submission. A2 reported 59%
+remaining against the 653 g estimate. Bed leveling is on; timelapse is off;
+flow and nozzle-offset calibration use Auto.
+
+The saved User Process is **Funnel mold shell - 0.8 nozzle - 8mm support feet**.
+Support → Initial layer expansion is 8 mm, initial layer density is 90%,
+and raft layers are zero. The +0.18 mm trim emits `G29.1 Z0.16` on Textured
+PEI. The left 0.8 mm High Flow nozzle, stock PETG temperatures and flow limit,
+0.40 mm first layer and 0.24 mm later layers are retained.
+
+The emitted first-layer support contact area is approximately 30,305 mm²,
+compared with 10,677 mm² in the failed job. The sliced paths remain inside
+the printable area. The estimate is 18 h 31 min and 653 g, adding about
+9 minutes and 10 g. [support-foot-review.json](support-foot-review.json)
+records the path comparison and startup-command check;
+[print-jobs.json](print-jobs.json) records submission hashes and printer state.
+The editable project's meshes and placements are byte-identical to its
+preceding saved version. Adhesion and completed-part quality remain unobserved.
+
 ## Cavity trial — 2026-09-14
+
+Derek reports this job failed. His photograph shows tall tree supports detached
+from the Textured PEI plate and lying beside the cavity, with loose extrusion
+around the flange. The exact detachment layer is unknown. H2C reported FAILED
+at 15:16 UTC, with no active print error or HMS entry. Derek cleared the plate
+and confirmed it ready for a retry. The retry process uses 8 mm Support →
+Initial layer expansion and retains the +0.18 mm trim.
 
 H2C accepted plate 1 of `funnel-mold-h2c.gcode.3mf` through Bambu Connect.
 The job uses AMS A2 PETG Translucent, the left 0.8 mm High Flow nozzle,
