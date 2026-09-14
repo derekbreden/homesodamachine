@@ -36,6 +36,10 @@ The pcba board (`hardware/pcb/pcba`) consumes forked `@tscircuit/*` packages (an
 
 You have access to my Chrome which is signed in to my amazon through your MCP. I only care about Amazon Prime listings. Non-Prime listings are non-existent as far as I am concerned. Do not read them. Do not mention them. They do not exist.
 
+## Running in the cloud
+
+A session on Anthropic's machines cannot `SendMessage` a session on Derek's Mac. `.claude/skills/relay-poke/SKILL.md` is the way back: a `<relay to="name">` mark in your reply, delivered by a watcher there.
+
 ## What else an agent should have read
 
 - `NAMES.md` — one thing, one name. The words this tree uses, and what each points at.
