@@ -18,6 +18,8 @@ logs/*.log
 .claude/*
 !.claude/commands/
 !.claude/skills/
+!.claude/hooks/
+!.claude/settings.json
 node_modules
 
 # CAD script output (generated STEP/STL files)
