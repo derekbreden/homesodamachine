@@ -1,5 +1,4 @@
 {
-  "date": "2026-09-13",
   "jobs": [
     {
       "printer": "H2C",
@@ -24,7 +23,8 @@
       "observed_state": "PREPARE",
       "observed_at_utc": "2026-09-13T20:47:56.186590+00:00",
       "observed_print_error": 0,
-      "verified_copy_on_printer": "/enclosure-front-top-h2c-z018-20260913.gcode.3mf"
+      "verified_copy_on_printer": "/enclosure-front-top-h2c-z018-20260913.gcode.3mf",
+      "date": "2026-09-13"
     },
     {
       "printer": "Mark2",
@@ -48,7 +48,72 @@
       "job_name": "enclosure-pump-cartridge-mark2",
       "observed_state": "Homing toolhead, heatbed surface foreign object detection, hotend detection and filament loading",
       "observed_at_utc": "2026-09-13T18:22:52.328803+00:00",
-      "printer_eta_local": "23:09"
+      "printer_eta_local": "23:09",
+      "date": "2026-09-13"
+    },
+    {
+      "date": "2026-09-14",
+      "printer": "Mark2",
+      "parts": [
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl"
+      ],
+      "part_sha256": {
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "dc1f98b307a7ebe2742cab23615bacd2b5d1c964483fb53e3559d5e4130b6451"
+      },
+      "z_offset_mm": 0.04,
+      "effective_textured_plate_trim_mm": 0.02,
+      "profile": "hardware/printed-parts/petgf.3mf",
+      "profile_sha256": "612d1f5c9414acdfc4eec8bb40936817f2a4acb29f2223d96eaa47df3ae3ef44",
+      "project": ".cache/prints/2026-09-14-front-top-mark2/enclosure-front-top-mark2-input.3mf",
+      "project_sha256": "1e60840fbc5856b1ddf127927a54307696eedc10a51387bc6b33b673e5873cc2",
+      "sliced_file": ".cache/prints/2026-09-14-front-top-mark2/enclosure-front-top-mark2.gcode.3mf",
+      "sliced_file_sha256": "56059ee6eca6ef73c0f441ae43e81de1fd0e8e0bc2843b7376216864537d3715",
+      "gcode_sha256": "00effc809ae886d0a9109d0c9b0f088a3df0de44618de2ba3d1718189a168268",
+      "nozzle": "left 0.4 mm Standard",
+      "filament": "Polymaker PET-GF; PET-CF mapping on left external spool",
+      "estimated_seconds": 71647,
+      "filament_grams": 686.57,
+      "layers": 813,
+      "sent_via": "Bambu Connect",
+      "started_by": "agent",
+      "print_options": {
+        "timelapse": "Off",
+        "auto_bed_leveling": "Auto",
+        "flow_dynamic_calibration": "Auto",
+        "nozzle_offset_calibration": "Auto"
+      },
+      "status": "started",
+      "job_name": "enclosure-front-top-mark2.gcode.3mf",
+      "settings_overrides": {
+        "extruder_ams_count": [
+          "1#0|4#0",
+          "1#0|4#0"
+        ]
+      },
+      "slicer_setting_normalizations": {
+        "filament_map_2": {
+          "input": null,
+          "saved": [
+            "1"
+          ]
+        },
+        "filament_prime_volume": {
+          "input": [
+            "30"
+          ],
+          "saved": [
+            "45"
+          ]
+        }
+      },
+      "slicer_warnings": [],
+      "observed_state": "RUNNING",
+      "observed_at_utc": "2026-09-14T05:31:10.734551+00:00",
+      "observed_print_error": 0,
+      "observed_layer": 0,
+      "observed_nozzle_temperature_c": 62.0,
+      "observed_nozzle_target_c": 200.0,
+      "printer_eta_local": "2026-09-14 20:25 America/Chicago"
     }
   ]
 }
