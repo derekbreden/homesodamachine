@@ -41,7 +41,7 @@ You have access to my Chrome which is signed in to my amazon through your MCP. I
 A session on Anthropic's machines starts from a shallow clone with none of the toolchain;
 `tools/cloud_session.sh` installs it and fetches what the pointer file and the checks read, and
 `--check` says what is missing. What it cuts matches the runner's kernel, not the Mac's, so it
-builds, checks and derives, and does not move the pointer file.
+builds, checks, derives and publishes what it cut, like any machine.
 
 A session on Anthropic's machines cannot `SendMessage` a session on Derek's Mac. `.claude/skills/relay-poke/SKILL.md` is the way back: a `<relay to="name">` mark in the message that ends your turn, delivered by a watcher there; `/relay <title>` pulls a local session's transcript in the same way.
 

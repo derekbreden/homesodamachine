@@ -55,6 +55,7 @@ import tarfile
 import tempfile
 import time
 from pathlib import Path
+from urllib.request import Request, urlopen
 
 _HERE = Path(__file__).resolve()
 _ROOT = next(p for p in _HERE.parents if (p / "tools" / "docgen").is_dir())
@@ -342,6 +343,84 @@ def hashes(root: Path, rels: list) -> dict:
     return {rel: _sha256(root / rel) for rel in rels}
 
 
+def line_times(held: dict, solid_hashes: dict, stamp: int) -> dict:
+    """When each line of the pointer file last moved, by member.
+
+    A line whose hash is the one main's line already names keeps the time it has; a line this
+    publish moves is stamped now. It is what a later publish on any machine reads to tell a
+    copy it built from a copy it is merely holding: a file newer than its line was cut here
+    since main last pointed at that member, a file older than its line is main's earlier
+    bytes, and main's are the ones to take."""
+    was, times = held.get("solids", {}), held.get("moved", {})
+    return {rel: (times[rel] if was.get(rel) == digest and rel in times else stamp)
+            for rel, digest in sorted(solid_hashes.items())}
+
+
+def held_publish_plan(held: dict, rels: list, now: dict, mtimes: dict) -> tuple:
+    """What a held publish does with each member on this disk, against main's pointers:
+    `(built, fresh, stale, absent)`.
+
+    A PUBLISH MOVES THE LINES FOR WHAT THIS MACHINE CUT AND TAKES MAIN'S FOR THE REST. Twenty
+    machines publish into one file, and each holds a copy of every member; a copy that differs
+    from main's line is this machine's newer cut when the file is newer than the line, and
+    main's older bytes when it is older. The first is `built` and goes up; the second is
+    `stale` and is taken from the release instead. A member main names that this disk does
+    not hold is `absent`, and its line stands: retiring is `--prune`, never absence."""
+    was, times = held.get("solids", {}), held.get("moved", {})
+    built, fresh, stale = [], [], []
+    for rel in rels:
+        if rel not in was:
+            fresh.append(rel)
+        elif was[rel] != now[rel]:
+            (built if mtimes.get(rel, 0) > times.get(rel, 0) else stale).append(rel)
+    absent = sorted(set(was) - set(now))
+    return built, fresh, stale, absent
+
+
+def object_url(held: dict, digest: str):
+    """Where the release holds one member's bytes by hash, or None without the object lane."""
+    release = held.get("release", {})
+    url = release.get("url", "")
+    if not release.get("objects") or "/" not in url:
+        return None
+    return f"{url[: url.rfind('/') + 1]}{release['objects']}{digest}.gz"
+
+
+def download_object(url: str) -> bytes:
+    with urlopen(Request(url, headers={"User-Agent": "pack.py"}), timeout=120) as resp:
+        return gzip.decompress(resp.read())
+
+
+def adopt(root: Path, held: dict, rels: list) -> list:
+    """Main's bytes for the members this disk holds older copies of, put in their place.
+
+    The same move `fetch-cad-artifacts.mjs --adopt` makes on a server, made here for exactly
+    the members `held_publish_plan` read as stale, so a generator that reads another part as
+    its input reads the part main points at. Returns the members taken; one that could not be
+    fetched or does not hash to its line is left as it was and said so."""
+    taken = []
+    for rel in rels:
+        digest = held["solids"][rel]
+        url = object_url(held, digest)
+        if not url:
+            print(f"  {rel}: main's bytes are not on the release by hash; left as it is")
+            continue
+        try:
+            data = download_object(url)
+        except Exception as exc:  # noqa: BLE001 — named, and the member stays as it was
+            print(f"  {rel}: main's bytes did not come ({exc}); left as it is")
+            continue
+        if hashlib.sha256(data).hexdigest() != digest:
+            print(f"  {rel}: the release's object does not hash to main's line; left as it is")
+            continue
+        target = root / rel
+        tmp = target.with_name(target.name + ".adopt")
+        tmp.write_bytes(data)
+        os.replace(tmp, target)
+        taken.append(rel)
+    return taken
+
+
 def _head(root: Path) -> str:
     return subprocess.run(["git", "-C", str(root), "rev-parse", "HEAD"],
                           capture_output=True, text=True, check=True).stdout.strip()
@@ -565,9 +644,11 @@ def _targets_for_members(root: Path, members: set) -> tuple:
 
 
 def pointers_for(root: Path, rels: list, digest: str, size: int, solid_hashes: dict = None,
-             sidecar_hashes: dict = None, record: dict = None) -> dict:
+             sidecar_hashes: dict = None, record: dict = None, held: dict = None,
+             stamp: int = None) -> dict:
     asset = f"cad-{digest[:16]}.tar.gz"
     slug = _origin_slug(root)
+    solid_hashes = solid_hashes if solid_hashes is not None else hashes(root, rels)
     return _with_record({
         "_": "The pointer file: main points at these bytes on the release, by hash. Written by"
              " tools/cad-artifacts/pack.py; web/scripts/fetch-cad-artifacts.mjs reads it at deploy.",
@@ -578,9 +659,10 @@ def pointers_for(root: Path, rels: list, digest: str, size: int, solid_hashes: d
         },
         "source": {"commit": _head(root)},
         "bundle": {"sha256": digest, "bytes": size, "solids": len(rels)},
-        "solids": solid_hashes if solid_hashes is not None else hashes(root, rels),
+        "solids": solid_hashes,
         "sidecars": sidecar_hashes if sidecar_hashes is not None
                     else hashes(root, sidecars(root)),
+        "moved": line_times(held or {}, solid_hashes, stamp if stamp is not None else int(time.time())),
     }, record or {})
 
 
@@ -1171,7 +1253,7 @@ def cut_whole_bundle(held: dict, rels: list, now: dict, sidecar_now: dict,
         path = Path(d) / "bundle.tar.gz"
         digest = build(_ROOT, rels, path)
         size = path.stat().st_size
-        data = pointers_for(_ROOT, rels, digest, size, now, sidecar_now, unproven_now)
+        data = pointers_for(_ROOT, rels, digest, size, now, sidecar_now, unproven_now, held=held)
         if release.get("objects"):
             data["release"]["objects"] = release["objects"]
         data["source"] = {"commit": _head(_ROOT)}
@@ -1311,6 +1393,24 @@ def main(argv) -> int:
         now = hashes(_ROOT, rels)
         sidecar_now = hashes(_ROOT, sidecar_rels)
 
+    # WHAT A HELD PUBLISH MOVES IS WHAT THIS MACHINE CUT, and the rest of the file is main's.
+    # A copy older than its line is taken from the release before anything else is decided, so
+    # `now` describes a disk that holds main's bytes for every member this machine did not cut.
+    pinned_rels, absent = [], []
+    if args.write and args.publish_held and held.get("solids"):
+        mtimes = {rel: int((_ROOT / rel).stat().st_mtime) for rel in rels}
+        built, fresh, stale, absent = held_publish_plan(held, rels, now, mtimes)
+        if stale:
+            print(f"{len(stale)} member(s) on this disk are older than main's pointers; taking main's bytes")
+            for rel in adopt(_ROOT, held, stale):
+                now[rel] = held["solids"][rel]
+        if absent:
+            print(f"{len(absent)} member(s) main points at are not on this disk; their lines stand")
+        pinned_rels = built + fresh
+        if pinned_rels:
+            print(f"{len(built)} member(s) cut here since main's pointers moved and {len(fresh)} new; "
+                  "those lines move")
+
     # Three ways a member ends up outside `source.commit`, and one record for all of them: its
     # rule is reached by an uncommitted path, its rule would not cut, or no rule claims it at
     # all. A solid on this disk that nothing produces is still a solid on this disk.
@@ -1326,7 +1426,8 @@ def main(argv) -> int:
               f"{_head(_ROOT)[:12]}, and the pointer file records them")
         for path in dirty[:8]:
             print(f"  uncommitted: {path}")
-    same_solids = held.get("solids") == now
+    same_solids = (not pinned_rels) if (args.write and args.publish_held and held.get("solids")) \
+        else held.get("solids") == now
     same_sidecars = held.get("sidecars") == sidecar_now
     if same_solids and same_sidecars:
         # A SOURCE CHANGE WITH NO MATERIALIZED BYTES IS THE RECONCILER'S WORK. Advancing the
@@ -1445,11 +1546,12 @@ def main(argv) -> int:
     # below and cuts the bundle here, so a pointer file always names an asset that answers for it.
     prior_bundle = held.get("bundle", {})
     if args.publish_held and prior_bundle.get("sha256"):
-        if make_room(_ROOT, sum(1 for r in rels if now[r] not in known)):
+        lines = {**held.get("solids", {}), **{rel: now[rel] for rel in pinned_rels}}
+        if make_room(_ROOT, sum(1 for r in pinned_rels if now[r] not in known)):
             known = objects_on_release(_ROOT)
-        if upload_objects(_ROOT, rels, now, known):
-            data = pointers_for(_ROOT, rels, prior_bundle["sha256"], prior_bundle.get("bytes", 0),
-                            now, sidecar_now, unproven_now)
+        if upload_objects(_ROOT, pinned_rels, now, known):
+            data = pointers_for(_ROOT, sorted(lines), prior_bundle["sha256"], prior_bundle.get("bytes", 0),
+                            lines, sidecar_now, unproven_now, held=held)
             data["bundle"] = {**prior_bundle, "behind": True}
             data["release"]["objects"] = OBJECT_PREFIX
             source = publication_source(held, _head(_ROOT), args.publish_held)
@@ -1458,7 +1560,7 @@ def main(argv) -> int:
             else:
                 data.pop("source", None)
             _write_pointers(data)
-            print(f"{len(moved) + len(fresh)} member(s) up on their own hash; "
+            print(f"{len(pinned_rels)} member(s) up on their own hash; "
                   f"{data['release']['asset']} stays behind for the reconciler")
             print(f"pointed at from {POINTERS.relative_to(_ROOT)}"
                   + (f" — {len(unproven_now['members'])} member(s) recorded unproven"
@@ -1471,7 +1573,7 @@ def main(argv) -> int:
         bundle = Path(d) / "bundle.tar.gz"
         digest = build(_ROOT, rels, bundle)
         size = bundle.stat().st_size
-        data = pointers_for(_ROOT, rels, digest, size, now, sidecar_now, unproven_now)
+        data = pointers_for(_ROOT, rels, digest, size, now, sidecar_now, unproven_now, held=held)
         # Keep the last reconciled source as the affected-target base. The held member hashes
         # describe what is visible now; `unproven.targets` names what must still be cut, and a
         # plain publication advances this field once those bytes have been built and carried.
@@ -1702,8 +1804,46 @@ def selftest() -> int:
     hold("nothing to send when the release holds every hash",
          objects_to_send(list(twins), twins, {"h1", "h2"}), [])
 
-    print(f"pack selftest {holds}/30")
-    return 0 if holds == 30 else 1
+    # A HELD PUBLISH MOVES THE LINES FOR WHAT THIS MACHINE CUT AND TAKES MAIN'S FOR THE REST.
+    held = {"release": {"tag": TAG, "asset": "cad-x.tar.gz", "objects": OBJECT_PREFIX,
+                        "url": "https://example/releases/download/cad-artifacts/cad-x.tar.gz"},
+            "solids": {"a": "ha", "b": "hb", "c": "hc", "d": "hd"},
+            "moved": {"a": 100, "b": 100, "c": 100, "d": 100}}
+    now = {"a": "ha", "b": "hb2", "c": "hc2", "e": "he"}          # d is not on this disk
+    mtimes = {"a": 50, "b": 150, "c": 50, "e": 10}
+    built, fresh, stale, absent = held_publish_plan(held, sorted(now), now, mtimes)
+    hold("a copy newer than its line was cut here", built, ["b"])
+    hold("a member main does not name is new here", fresh, ["e"])
+    hold("a copy older than its line is main's earlier bytes", stale, ["c"])
+    hold("a member absent from this disk keeps its line", absent, ["d"])
+    hold("a line without a time reads as older than any file",
+         held_publish_plan({"solids": {"c": "hc"}}, ["c"], {"c": "x"}, {"c": 1})[0], ["c"])
+    times = line_times(held, {"a": "ha", "b": "hb2", "e": "he"}, 200)
+    hold("an unmoved line keeps its time, a moved or new one is stamped", times, {"a": 100, "b": 200, "e": 200})
+    hold("the object url is the release directory, the prefix and the hash",
+         object_url(held, "hc"), "https://example/releases/download/cad-artifacts/s-hc.gz")
+    hold("no object lane, no url", object_url({"release": {"url": "https://x/y/z"}}, "h"), None)
+    with tempfile.TemporaryDirectory() as d:
+        root = Path(d)
+        (root / "hardware").mkdir()
+        (root / "hardware" / "c.step").write_text("older bytes")
+        good = b"main's bytes"
+        want = hashlib.sha256(good).hexdigest()
+        held2 = {"release": held["release"], "solids": {"hardware/c.step": want, "hardware/x.step": "nope"}}
+        was = download_object
+        globals()["download_object"] = lambda url: good if url.endswith(f"{want}.gz") else b"wrong"
+        try:
+            (root / "hardware" / "x.step").write_text("older")
+            taken = adopt(root, held2, ["hardware/c.step", "hardware/x.step"])
+        finally:
+            globals()["download_object"] = was
+        hold("main's bytes are taken where they hash to the line", taken, ["hardware/c.step"])
+        hold("and stand in the member's place", (root / "hardware" / "c.step").read_bytes(), good)
+        hold("an object that does not hash to its line is left as it was",
+             (root / "hardware" / "x.step").read_text(), "older")
+
+    print(f"pack selftest {holds}/41")
+    return 0 if holds == 41 else 1
 
 
 if __name__ == "__main__":
