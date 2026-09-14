@@ -1184,6 +1184,11 @@
     "tools/bazel/inventory.py",
     "tools/bazel/trace_inputs.py"
   ],
+  "tools/cad-artifacts/merge_lock.py": [
+    "hardware/cad-artifacts.lock.json",
+    "tools/cad-artifacts/merge_lock.py",
+    "tools/cad-artifacts/pack.py"
+  ],
   "tools/cad-artifacts/pack.py": [
     "tools/cad-artifacts/pack.py"
   ],
