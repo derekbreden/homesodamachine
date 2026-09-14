@@ -217,9 +217,21 @@ def _filtered(seen: dict, files: set) -> dict:
             for side in ("reads", "writes", "rewritten")}
 
 
+#: HOW LONG ONE READING MAY TAKE. The runner stands the appliance in 36-45 minutes where this
+#: Mac takes a few, and a generator that stands it in-process — `enclosure_assembly.py`,
+#: `render_scenes.py` — needs the hour there. A run that outlives this comes back the way a
+#: killed one does, with no reading, and the sweep keeps the entry it had; it never stops
+#: the sweep. `derive.yml`'s weekly job budgets for two of these on top of the build.
+DEADLINE = 3600
+
+
 def trace(gen: str, files: set, argv=()) -> dict:
     """Every tracked file `gen` read and every one it wrote, plus the solids OCCT loaded."""
     out = Path(os.environ.get("TMPDIR", "/tmp")) / f"hsm-trace-{Path(gen).stem}.json"
+    # A READING LEFT BY AN EARLIER RUN IS NOT THIS ONE'S. The runner writes `out` in its own
+    # `finally`, so a run killed at the deadline leaves nothing — unless the file a previous
+    # trace of the same generator wrote is still there to be read as if it were.
+    out.unlink(missing_ok=True)
     # ONE GENERATOR AT A TIME IS WHAT THIS ALREADY DOES, so each run takes the global lock
     # the way a hand run does. Two traces on one machine are two pileups otherwise, and the
     # lock is what everything outside `bazel` shares.
@@ -234,9 +246,15 @@ def trace(gen: str, files: set, argv=()) -> dict:
     # here would be a reading of a shorter run than the one an action performs, and the graph
     # would name less than the sandbox has to hold.
     env = dict(os.environ, HSM_BUILD_SOURCE="trace", HSM_NO_BUILD_ATTACH="1")
-    subprocess.run([sys.executable, "-c",
-                    RUNNER % (str(_ROOT), gen, str(out), tuple(argv))],
-                   cwd=str(_ROOT), env=env, capture_output=True, text=True, timeout=1800)
+    try:
+        subprocess.run([sys.executable, "-c",
+                        RUNNER % (str(_ROOT), gen, str(out), tuple(argv))],
+                       cwd=str(_ROOT), env=env, capture_output=True, text=True,
+                       timeout=DEADLINE)
+    except subprocess.TimeoutExpired:
+        # Killed at the deadline, and `finally` never ran: the reading is that it did not
+        # finish, which the loop below files beside a generator that raised.
+        return {"reads": [], "writes": [], "raised": f"TimeoutExpired after {DEADLINE} s"}
     try:
         seen = json.loads(out.read_text())
     except (OSError, ValueError):
@@ -511,7 +529,11 @@ def main() -> int:
             file=sys.stderr)
         return 2
 
-    gens = args.gen or _generators(files)
+    # A SWEEP READS THE SOURCES AND LEAVES THE WRAPPERS, for the reason the refusal above gives:
+    # `inventory` writes a wrapper's entry out of its source's reading and drops the wrapper's
+    # own. `render_scene_cards.py` stands the whole appliance to be read, and the runner spent
+    # its deadline on that reading before discarding it.
+    gens = args.gen or [gen for gen in _generators(files) if gen not in written_from]
 
     graph = json.loads(GRAPH.read_text()) if GRAPH.is_file() else {}
     shrank = []
