@@ -7414,50 +7414,6 @@ cp hardware/quickstart/plumbing/out/plumbing-valve-on.step $$O7
 )
 
 genrule(
-    name = "visual-variations-build",
-    srcs = [
-        "hardware/quickstart/quick-start.html",
-        "pysrc/hardware/quickstart/studies/visual-variations/_build.py",
-        "hardware/quickstart/studies/visual-variations/lockups.css",
-        "hardware/quickstart/studies/visual-variations/numbers.css",
-        "tools/render/browser.js",
-        "tools/render/render-card.js",
-        ":node-packages",
-    ],
-    outs = [
-        "out/visual-variations-build/hardware/quickstart/studies/visual-variations/number-preview.png",
-        "out/visual-variations-build/hardware/quickstart/studies/visual-variations/preview.png",
-        "out/visual-variations-build/output/pdf/quick-start-visual-variations.pdf",
-    ],
-    tags = ["requires-network"],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/visual-variations-build/hardware/quickstart/studies/visual-variations/number-preview.png)
-O1=$$PWD/$(location out/visual-variations-build/hardware/quickstart/studies/visual-variations/preview.png)
-O2=$$PWD/$(location out/visual-variations-build/output/pdf/quick-start-visual-variations.pdf)
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    */pysrc/*) t=$${f##*/pysrc/};;
-    *) t=$$f;;
-  esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/quickstart/studies/visual-variations/_build.py > /dev/null
-cp hardware/quickstart/studies/visual-variations/number-preview.png $$O0
-cp hardware/quickstart/studies/visual-variations/preview.png $$O1
-cp output/pdf/quick-start-visual-variations.pdf $$O2
-""",
-)
-
-genrule(
     name = "asse1022-assembly",
     srcs = [
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
@@ -11089,14 +11045,6 @@ genrule(
     name = "pysrc-4e2703f3aa71",
     srcs = ["hardware/quickstart/quickstart_art.py"],
     outs = ["pysrc/hardware/quickstart/quickstart_art.py"],
-    tools = ["tools/bazel/pysrc.py"],
-    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
-)
-
-genrule(
-    name = "pysrc-a618a941c843",
-    srcs = ["hardware/quickstart/studies/visual-variations/_build.py"],
-    outs = ["pysrc/hardware/quickstart/studies/visual-variations/_build.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -22185,7 +22133,6 @@ filegroup(
         ":cad-art",
         ":render-modern-tee",
         ":plumbing-scenes",
-        ":visual-variations-build",
         ":asse1022-assembly",
         ":basics-mtb-0606wp",
         ":beduan-solenoid",
