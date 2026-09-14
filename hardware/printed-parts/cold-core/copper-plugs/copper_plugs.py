@@ -1,68 +1,34 @@
-"""Copper-line plugs — small PETG pieces that slide down into a lane's ⌀[6.5 mm](SLOT_W)
-slot in the outer_shell wall and seal the gaps between (and above) the lines crossing there.
+"""Two PETG copper-slot covers, one per lane, slid down from the foam shell's open top.
 
-THE SLOT IS THE COPPER'S DOING. An evaporator tail is formed off a coil that is lowered into
-the cavity, so its outward leg travels DOWN the wall to its station rather than being
-threaded through it, and that takes an opening running out through the shell's top face.
-Everything else on the same lane then crosses inside that one opening.
+Each cover fills the [6.5 mm](SLOT_W) slot above its copper tube. A continuous
+[1 mm](FLANGE_T) interior flange overlaps both slot edges by [1 mm](FLANGE_OVERHANG),
+seating on the shell's recessed inner face. Foam pressure bears this flange against
+its seat. The web fills the wall thickness and is flush with the exterior wall face.
 
-THE SHELL'S FRONT WALL HAS TWO LANES AND THE REFRIGERATION BASE IS TWO BODIES — the
-condenser on the PORT lane's flank, the compressor on the WEST lane's. So the evaporator's
-two coppers leave by opposite lanes, each one out on the side the leg that reaches it comes
-from, and each lane is one slot with its own stack. `columns` is that table.
+The exterior flange is confined to [8 mm](OUTER_TAB_HEIGHT) tabs near the two ends.
+The wall slides between each tab and the continuous interior flange. The long middle
+span presents only the flush web to the enclosure's valve tray.
 
-  PORT LANE, one station, one lane pitch up off the lane's own floor:
-    • [28.05 mm](EVAP_INLET_Z) evaporator inlet — the cold-side copper, reached from the
-      condenser's outlet through the drier and the cap tube
+Cross-section through the middle, looking down the slot:
 
-  WEST LANE, one station:
-    • [28.05 mm](EVAP_OUTLET_Z) evaporator outlet — the warm-side copper, reached from the
-      compressor's suction. It crosses at the height its opposite number does: the two
-      lanes are the same strip mirrored, and one coil's two tails reach either the same way.
+    exterior
+             █████████████       web fills the slot, flush with the wall
+         █████████████████████   continuous interior flange
+    foam cavity
 
-ONE STATION PER LANE, because the coppers are the only things that need this opening. A tail
-formed off a coil lowered into the cavity travels DOWN the wall to its station rather than being
-threaded through it, and THAT is what the slot is for; a line that can be laid in and bored
-through takes a bore instead. The SV-125's relief line used to ride the west lane's slot for
-want of anywhere else, and it does not any more — it leaves by the shell's +Y flank on the
-shortest path it can take (`_internal_routes.prv_vent_cross_z`), because on a relief path tube
-length is discharge taken off the valve's rating.
+At each retaining tab, a second flange overlaps the exterior wall face:
 
-Neither copper crosses at the height its own fitting sits at. Each tail leaves its wrap, turns
-onto its lane and drops it, so both stand in one band low on the wall rather than spreading up
-it — which is what lets whatever is packed against this face outside meet them in one reach.
+         █████████████████████   exterior tab
+             █████████████       web in the slot
+         █████████████████████   continuous interior flange
 
-Two plugs, one printed part each, one lane each. A plug fills from its station up to the
-wall's top face, so nothing is left open above it:
-  • copper-plug-west: WEST lane, the evaporator outlet up to (just below) the +Z top face
-                      of the outer_shell.
-  • copper-plug-port: PORT lane, the evaporator inlet up to that same face.
+The bottom arch seats around the copper; its clearance radius is [3.25 mm](TUBE_CLEAR_R).
+The web and exterior tab start [2.35 mm](WEB_BUFFER) above the arch centre, leaving
+printable stock beside the arch. Each cover ends flat at the shell rim beneath the
+cap and gasket. The west and port covers have the same geometry.
 
-Cross-section (looking along −Z; X horizontal, Y vertical) — a
-true I-beam: a thin web fills the slot's X range at the wall's Y
-range, sandwiched between two full-plug-X-width flanges that sit
-immediately above and below the wall:
-
-    ████████████████████      ← top flange (above wall_outer)
-         ██████████            ← web (in the wall's Y range, slot's X range)
-    ████████████████████      ← bottom flange (below wall_inner)
-    ←──── plug X ────→
-         ←─ slot ─→
-
-The wall sits in the air gap between the two flanges (at
-x = ±slot_half_width_x .. ±plug_half_x_outer, the flange overhang
-past the web on each side) when the plug is dropped into the slot.
-
-Plug ends that abut a tube have a half-circle cutout (radius =
-tube_clearance_radius) centered on x=0 in the end face and arched
-into the plug body, so the plug seats gently around the tube
-running through the slot below/above it. The arch is Y-tall enough
-to span the full plug Y envelope (y = bottom_flange_inner ..
-top_flange_outer), so the flanges don't block tubes from seating.
-
-Every plug arches on the BOTTOM, over the line its own station carries. It arches on TOP only
-where another station stands above it in the same column; the plug that closes a column stays
-FLAT on top, at the wall's own top face.
+Print with the continuous interior flange flat on the bed. The exterior tabs have
+[1 mm](FLANGE_OVERHANG) lateral overhangs; their flat undersides locate on the wall.
 """
 
 import math
@@ -87,7 +53,6 @@ from _materials import C_PLUG, one_body
 from docgen import substitute_py_comments
 from _cold_core_interface import (
     make_box,
-    wall_and_floor_thickness,
     outer_shell_wall,
     foam_shell_outer_height,
     outer_shell_x_length,
@@ -122,16 +87,16 @@ tube_clearance_radius = slot_half_width_x  # [3.25 mm](TUBE_CLEAR_R)
 # STEP stays in this frame: a printed part's frame is the one that describes it, and
 # what describes a plug is the wall it plugs — one wall for both lanes, so a plug drawn
 # here fits either.
-# Web fills the wall's Y range exactly ([2 mm](CPLUG_WALL_T) thick at
-# [2 mm](CPLUG_WALL_T) wall); the two flanges sit [1 mm](FLANGE_T) outboard and [1 mm](FLANGE_T) inboard of it.
+# The web fills the [3.2 mm](CPLUG_WALL_T) wall thickness. The interior flange
+# and exterior end tabs stand [1 mm](FLANGE_T) off their respective wall faces.
 # [-141.5 mm](WALL_OUTER_Y) — outer face of the wall (the shell's −X face, toward the user).
 outer_wall_outer_y = -outer_shell_x_length / 2
 # [-138.3 mm](WALL_INNER_Y) — inner (cavity-side) face of the −Y outer_shell wall.
 outer_wall_inner_y = outer_wall_outer_y + outer_shell_wall
 wall_y_range = (outer_wall_inner_y, outer_wall_outer_y)
 
-# The [2 mm](CPLUG_WALL_T) gap between the two flanges, at the wall's Y range
-# and outside the web's X range, is where the −Y wall seats.
+# The [3.2 mm](CPLUG_WALL_T) gap between each exterior tab and the interior flange
+# receives the wall on either side of the web.
 flange_x_overhang_per_side = 1.0
 flange_y_thickness = 1.0
 
@@ -145,8 +110,11 @@ plug_y_inner = outer_wall_inner_y + flange_y_thickness
 plug_y_outer = outer_wall_outer_y - flange_y_thickness
 plug_y_range = (plug_y_outer, plug_y_inner)
 
-top_flange_y_range = (outer_wall_outer_y, plug_y_outer)
-bottom_flange_y_range = (plug_y_inner, outer_wall_inner_y)
+outer_flange_y_range = (outer_wall_outer_y, plug_y_outer)
+inner_flange_y_range = (plug_y_inner, outer_wall_inner_y)
+
+# Each exterior retaining tab runs this far along the web from its end.
+outer_tab_height = 8.0  # [8 mm](OUTER_TAB_HEIGHT)
 
 # Pass-through Z positions (centers).
 # A LANE IS ONE COLUMN AT ONE PITCH. The slot takes the whole of it, standing off the
@@ -282,22 +250,30 @@ for _plug, _spec in plug_specs.items():
         f"standing between its arches, under the {min_printable_thickness:g} mm a wall takes")
 
 
+def outer_tab_z_ranges(web_z_range):
+    """Exterior tabs at both web ends, merged when their spans meet."""
+    z0, z1 = web_z_range
+    if z1 - z0 <= 2.0 * outer_tab_height:
+        return ((z0, z1),)
+    return ((z0, z0 + outer_tab_height), (z1 - outer_tab_height, z1))
+
+
 def build_plug(spec):
-    """Single I-beam plug over spec.z_range, with full-Y-envelope arch
-    cutouts at the ends marked arch_bottom / arch_top."""
+    """Continuous interior flange, flush web and two exterior retaining tabs."""
     z_bottom, z_top = spec.z_range
 
-    # Web and top flange are inset by web_arch_buffer at each arched end;
-    # the bottom flange spans the full z_range.
+    # Web and exterior tabs are inset at the copper arches; the interior flange
+    # reaches both end planes.
     web_z_range = (
         z_bottom + (web_arch_buffer if spec.arch_bottom else 0),
         z_top - (web_arch_buffer if spec.arch_top else 0),
     )
 
     web = make_box(slot_x_range, wall_y_range, web_z_range)
-    top_flange = make_box(plug_x_range, top_flange_y_range, web_z_range)
-    bottom_flange = make_box(plug_x_range, bottom_flange_y_range, spec.z_range)
-    plug = web.union(top_flange).union(bottom_flange)
+    inner_flange = make_box(plug_x_range, inner_flange_y_range, spec.z_range)
+    plug = web.union(inner_flange)
+    for tab_z_range in outer_tab_z_ranges(web_z_range):
+        plug = plug.union(make_box(plug_x_range, outer_flange_y_range, tab_z_range))
 
     # Full-plug-Y cylinder (radius tube_clearance_radius) centered on the
     # plug's end Z face at x=0.
@@ -321,7 +297,7 @@ def build_plug(spec):
 
 
 def _analytical_volume(spec):
-    """Closed-form volume of the plug: three boxes minus the arch cutouts."""
+    """Closed-form volume of the web, interior flange and tabs, less the arches."""
     z_bottom, z_top = spec.z_range
     z_height = z_top - z_bottom
     plug_full_x = plug_x_range[1] - plug_x_range[0]
@@ -332,8 +308,9 @@ def _analytical_volume(spec):
 
     web_z_height = z_height - n_arches * web_arch_buffer
     vol_web = slot_full_x * web_y_thickness * web_z_height
-    vol_top_flange = plug_full_x * flange_y_thickness * web_z_height
-    vol_bot_flange = plug_full_x * flange_y_thickness * z_height
+    tab_height = min(web_z_height, 2.0 * outer_tab_height)
+    vol_outer_tabs = plug_full_x * flange_y_thickness * tab_height
+    vol_inner_flange = plug_full_x * flange_y_thickness * z_height
 
     r = tube_clearance_radius
     b = web_arch_buffer
@@ -347,7 +324,7 @@ def _analytical_volume(spec):
     )
     vol_arch_total = n_arches * vol_arch_per_end
 
-    return vol_web + vol_top_flange + vol_bot_flange - vol_arch_total
+    return vol_web + vol_outer_tabs + vol_inner_flange - vol_arch_total
 
 
 def main():
@@ -390,6 +367,8 @@ def main():
 
     variables = {
         "SLOT_W": f"{slot_width_x:.4g} mm",
+        "OUTER_TAB_HEIGHT": f"{outer_tab_height:.4g} mm",
+        "FLANGE_OVERHANG": f"{flange_x_overhang_per_side:.4g} mm",
         "FLANGE_T": f"{flange_y_thickness:.4g} mm",
         "VOL_TOL": f"{volume_check_tolerance:.4g} mm³",
         "TUBE_CLEAR_R": f"{tube_clearance_radius:.4g} mm",
@@ -401,7 +380,7 @@ def main():
         "EVAP_OUTLET_Z": f"{evap_cross_z:.4g} mm",
         "WEB_BUFFER": f"{web_arch_buffer:.2f} mm",
         # External references (read-only constants from _cold_core_interface).
-        "CPLUG_WALL_T": f"{wall_and_floor_thickness:.4g} mm",
+        "CPLUG_WALL_T": f"{outer_shell_wall:.4g} mm",
         "SHELL_TOP_Z": f"{foam_shell_outer_height:.4g} mm",
     }
     substitute_py_comments(

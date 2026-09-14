@@ -2,6 +2,13 @@
 
 The assembly has **two unintended collision families** and **six additional fit families below 0.15 mm**. The quadrant seams and tee-carrier guides meet the running-clearance target.
 
+Current fit confirmations: the [copper-slot covers](../cold-core/copper-plugs/README.md)
+have **0.44 mm clearance** to the valve tray, with zero overlap on both sides
+([verification](../cold-core/copper-plugs/clearance-check.json)). Derek confirms that the
+**enclosure display fits well in the current prints**; F1's exact-size reference envelope
+does not establish a physical fit problem. The pump casing passages provide **0.25 mm per
+side** in the current pump tray. The detailed reading below identifies its own geometry inputs.
+
 Reading: **2026-09-13**, geometry at `7ed198a4ca7b3a067128dfaad158629be31ae3fe`. All dimensions below are millimetres. The [evidence](clearance-audit.json) retains input hashes, exact distances, intersection volumes, witness coordinates, section measurements and motion results.
 
 The target is **0.15 mm per face, measured normal to the mating surfaces**. [fits.py](/hardware/printed-parts/cadlib/fits.py) applies that figure to printed running fits and exempts the datums that screws, bearings and stops close against. Purchased-part fits below the same threshold are identified separately. A larger gap passes this minimum; its actual value is recorded below.

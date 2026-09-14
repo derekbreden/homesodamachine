@@ -1,0 +1,40 @@
+{
+  "west": {
+    "valid": true,
+    "solids": 1,
+    "added_material_mm3": 0.0,
+    "removed_material_mm3": 1419.5407330207483,
+    "valve_support_gap_mm": 0.4399999999999977,
+    "valve_support_overlap_mm3": 0.0,
+    "inner_flange_change_mm3": 0.0,
+    "end_changes_mm3": [
+      0.0,
+      0.0
+    ],
+    "core_overlaps": [],
+    "step_sha256": "27b0f5d033b463081c44ab90ab8ebf31eff1da080366370e04d196bef2e16b97"
+  },
+  "port": {
+    "valid": true,
+    "solids": 1,
+    "added_material_mm3": 0.0,
+    "removed_material_mm3": 1419.5407330207483,
+    "valve_support_gap_mm": 0.4399999999999977,
+    "valve_support_overlap_mm3": 0.0,
+    "inner_flange_change_mm3": 0.0,
+    "end_changes_mm3": [
+      0.0,
+      0.0
+    ],
+    "core_overlaps": [],
+    "step_sha256": "69235ef44aaba7e3bcd1ec2c4a347d7b0023a5a011f4e22a456ac6b93525ef3a"
+  },
+  "geometry_files_changed": [
+    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-port.step",
+    "hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py",
+    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-west.step"
+  ],
+  "reading_date": "2026-09-13",
+  "scope": "Both copper-slot covers against the current front-top and all cold-core bodies; retained sealing flange and end geometry checked against the original covers.",
+  "front_top_sha256": "00fbfeb09d484eaa1a2cb8e0eed3af3038fb579962c026dac8d500679eec03c2"
+}
