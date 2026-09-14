@@ -2,8 +2,8 @@
   "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed \u2014 web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
   "release": {
     "tag": "cad-artifacts",
-    "asset": "cad-7aefa52fba451688.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-7aefa52fba451688.tar.gz",
+    "asset": "cad-e45bae681124c5f3.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-e45bae681124c5f3.tar.gz",
     "objects": "s-"
   },
   "source": {
@@ -11,7 +11,9 @@
   },
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, its rule would not cut, or an interactive publication explicitly deferred that rule.",
-    "paths": [],
+    "paths": [
+      "hardware/printed-parts/cold-core/foam-shell/README.md"
+    ],
     "members": [
       "hardware/.cache/pump-roof/enclosure-pump-cartridge.step",
       "hardware/assembly/cards/deck.cover.png",
@@ -394,8 +396,8 @@
     ]
   },
   "bundle": {
-    "sha256": "7aefa52fba451688dcd6b91de502cfa6ae6f4424e82dbcec89729fe99dada9cd",
-    "bytes": 175745581,
+    "sha256": "e45bae681124c5f3bee7eb5e0d70eb843f6a2a2cc4385e85b566d69025472b13",
+    "bytes": 175790806,
     "solids": 372
   },
   "solids": {
@@ -493,7 +495,7 @@
     "hardware/assembly/scenes/glb/front-top.glb": "c155fa2367594749edf6e6ce6f8c514b5d68eb06fab10d9a83d9af09524fe11c",
     "hardware/assembly/scenes/glb/funnel-drain.glb": "120682675217620676dd3ecbcbd1ef540aa0a42a05fc6f3e01491c2af1e86587",
     "hardware/assembly/scenes/glb/pump-cartridge.glb": "d9ca3b581880c6e1ce38fd3522f1449eb0ef15c3b24f8e5637f4e5c208ca10de",
-    "hardware/cold-core-layout/cold-core-assembly.step": "da1563ac95fc06a12e999cbcf4b086408895a6e1e245b3d6339a4a473231517c",
+    "hardware/cold-core-layout/cold-core-assembly.step": "82fab7208036cb80d71788bcc03a14ea43e27aa85887541a523a1f4238abd304",
     "hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step": "d8a347e86b45cd989de7ba8aa2a67216176175485a9589684cfc680cca74a23d",
     "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step": "bb6d47d7641a9759e444da2f68ea12d48ddcc19f36bcfcd4227414a5d75d538a",
     "hardware/faucet-layout/faucet-assembly.step": "1822a620402298d872ac7a5e84a0106f31dbe4ae4b531f4a6fccfd72c22cce21",
@@ -517,14 +519,14 @@
     "hardware/install-guide/art/two-tees.png": "2a0b69bf7b013c7fdaec51d5d4df1167263af0c0a6412c9f3e0aaa547261b2c4",
     "hardware/install-guide/install-guide.cover.png": "e059cdb7e70f15b5e11aedf69fe10ffc7c4c11fb228539fd204c60573e13635a",
     "hardware/install-guide/install-guide.pdf": "556c36f5dff12cbcbaf8d49dfb574bf7e16e6ef014609c4304d3345aeffb63ad",
-    "hardware/manifold-layout/enclosure-assembly.step": "f8a81e0b86a9cd660311fe5fc7459c2bd617b0dd10f06c5299c58b92d0766b40",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "d41011efe4748515f88e8415be2823a4e66f3f2bbd7ec787c7bbc38d624f1dba",
+    "hardware/manifold-layout/enclosure-assembly.step": "3c4a1e1fbfe8f4b6e941db0ee94fea9f5f031b61e6708ebd36aa0f2973ccb66f",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "fbd74892f9d42edd790e618a23d9f9a8acabf1f7ede09664efe8b872b790898c",
     "hardware/manifold-layout/manifold-layout.step": "91ab4f9c0786b5d49844568e67b9cac047f9f18994df2c0ba4ef7b44833770ad",
     "hardware/manifold-layout/manifold-layout.step.mesh": "9bd3b44588ca91234666ba3a75c2912fdf495c4fd67ae6ed7dd1cbda9fba7354",
     "hardware/pcb/pcba/out/pcba.glb": "819d2d6a51579a8c3ee66bcb9432075bc50ca77cf129bd828ea538b8fc72b767",
     "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step": "1184197a7aa70ac632f0de1073fb51d4dfc020e417abfce95e27cc70c0db47a3",
-    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-port.step": "93d192d0b9a862210af1986855cdbddf4c07e020525e0d25209d72a827e15d05",
-    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-west.step": "ed390e57bea6b1e3c5ce25816b8e4a66b45ca5451c42bc6c2e4c3accde47d21c",
+    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-port.step": "69235ef44aaba7e3bcd1ec2c4a347d7b0023a5a011f4e22a456ac6b93525ef3a",
+    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-west.step": "27b0f5d033b463081c44ab90ab8ebf31eff1da080366370e04d196bef2e16b97",
     "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "ac071eda5a958401bbc409a2a5e5729397d23d50c07125d612a5dd537cd2699f",
     "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step": "0385990febc59ac2cd3b9305797f53e0dabc62f6710bcfcccbf7d898046d350a",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step": "721e18e9a6fd0e71b1b07496aa7ad70230b28a69f9b4d5f3860a2f75bb8ae5c9",
