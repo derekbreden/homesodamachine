@@ -71,6 +71,8 @@ Bought specifically for a test or investigation, not for production use.
 
 | Item | Source | Test purpose |
 |---|---|---|
+| **K&J Magnetics RC62 N42 ring magnet, 3/4" OD × 3/8" ID × 1/8" thick** | K&J 1599057, [purchases.md §9](/hardware/ledger/purchases.md) | 30 on order, UPS Ground; delivery date unconfirmed. Float/reed actuation-range evaluation through the reservoir and carbonator walls. |
+| **Littelfuse MDSR-7-10-15 reed switch, 10–15 AT** | Mouser 40443716, [purchases.md §9](/hardware/ledger/purchases.md) | 40 on order, UPS Ground; delivery date unconfirmed. Float/reed actuation-range evaluation against the Gebildet reeds. |
 | **uxcell C14 panel-mount inlet** | [B07PXSLBF4](https://www.amazon.com/dp/B07PXSLBF4), [purchases.md §9](/hardware/ledger/purchases.md) | C13/C14 mating-fit investigation — different-brand reference against MXR inlet to isolate inlet- vs. cord-side contribution to the IEC 60320 gap. |
 | **Tripp Lite P006-006 NEMA 5-15P → C13 cord** | [B0000511C0](https://www.amazon.com/dp/B0000511C0), [purchases.md §9](/hardware/ledger/purchases.md) | Same investigation — reference-class cord against Monoprice to isolate cord-side contribution. |
 | **VUYOMUA 0.8 gal SS portable air tank** | [B0BV6FMMJP](https://www.amazon.com/dp/B0BV6FMMJP), [purchases.md §2](/hardware/ledger/purchases.md) | Bench test fixture for pressure-testing fittings outside of a real carbonator. |
