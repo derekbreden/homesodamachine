@@ -535,6 +535,11 @@ def main() -> int:
     # its deadline on that reading before discarding it.
     gens = args.gen or [gen for gen in _generators(files) if gen not in written_from]
 
+    # A LINE PER GENERATOR, AS IT LANDS. On the runner stdout is a pipe and Python holds the
+    # lines until a buffer fills, so a run killed at its step's deadline shows every reading it
+    # made stamped with the minute the buffer emptied, and none with the minute it was read.
+    sys.stdout.reconfigure(line_buffering=True)
+
     graph = json.loads(GRAPH.read_text()) if GRAPH.is_file() else {}
     shrank = []
     wrote = set()
