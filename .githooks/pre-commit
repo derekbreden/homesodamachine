@@ -49,4 +49,15 @@ case "$staged" in
     "$py" "$root/tools/bazel/check_ci_targets.py" || true ;;
 esac
 
+# CONFLICT MARKERS ARE A RESOLUTION NOT YET MADE. `tools/push.py` writes them into a file that
+# main and this tree both moved, so every session here sees the collision on the disk; a commit
+# carrying them ships the collision to main. Text files only, by the numstat that names binaries.
+_marked=$(git diff --cached --numstat --diff-filter=ACM | awk -F'\t' '$1 != "-" {print $3}' | while IFS= read -r f; do
+  git show ":$f" 2>/dev/null | grep -q -E '^(<{7}|>{7}) ' && printf '  %s\n' "$f"
+done)
+if [ -n "$_marked" ]; then
+  echo "pre-commit: conflict markers in what this commit carries:" >&2
+  printf '%s\n' "$_marked" >&2
+fi
+
 exit 0
