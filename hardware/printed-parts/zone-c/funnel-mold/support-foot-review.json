@@ -1,0 +1,380 @@
+{
+  "previous": {
+    "project": "funnel-mold-h2c.gcode.3mf",
+    "project_sha256": "7bf1d7e66f11d92058bb5d26f0cc2a910e6514e9b228fad20d4422c5f93e9a53",
+    "gcode_sha256": "084fd10f528217a2caa4b75f30d47007b296e9451ded616b68fc8eb17ee70664",
+    "initial_layer_expansion_mm": -1.0,
+    "support_extrusion_area_mm2": 10676.8,
+    "support_bounds_mm": [
+      53.46,
+      65.98,
+      257.14,
+      258.95
+    ],
+    "within_printable_area": true,
+    "first_layer_mm": 0.4
+  },
+  "retry": {
+    "project": "funnel-mold-h2c-support-feet.gcode.3mf",
+    "project_sha256": "af875c583d942114f563036b9129d1aa6c40a7ec166eff7cd50424fef4cc49b1",
+    "gcode_sha256": "3c61f19d65cd55dc1737dc8225b418663d6a7f0f908cefc55d3124b5da63a8d7",
+    "initial_layer_expansion_mm": 8.0,
+    "support_extrusion_area_mm2": 30305.2,
+    "support_bounds_mm": [
+      47.46,
+      58.48,
+      248.91,
+      264.96
+    ],
+    "within_printable_area": true,
+    "first_layer_mm": 0.4
+  },
+  "gcode_setting_changes": {
+    "raft_first_layer_expansion": {
+      "previous": "-1",
+      "retry": "8"
+    },
+    "print_settings_id": {
+      "previous": "Funnel mold shell - 0.8 nozzle - Bambu first layer",
+      "retry": "Funnel mold shell - 0.8 nozzle - 8mm support feet"
+    }
+  },
+  "studio_header_normalizations": {
+    "gap_infill_speed": {
+      "previous": "50,50",
+      "retry": "50,50,50"
+    },
+    "enable_height_slowdown": {
+      "previous": "0,0",
+      "retry": "0,0,0"
+    },
+    "machine_max_acceleration_extruding": {
+      "previous": "20000,20000,20000,20000",
+      "retry": "20000,20000,20000,20000,20000,20000"
+    },
+    "slowdown_end_speed": {
+      "previous": "1000,1000",
+      "retry": "1000,1000,1000"
+    },
+    "initial_layer_speed": {
+      "previous": "50,50",
+      "retry": "50,50,50"
+    },
+    "default_acceleration": {
+      "previous": "8000,8000",
+      "retry": "8000,8000,8000"
+    },
+    "retraction_minimum_travel": {
+      "previous": "1,1",
+      "retry": "1,1,1"
+    },
+    "outer_wall_acceleration": {
+      "previous": "2000,2000",
+      "retry": "2000,2000,2000"
+    },
+    "vertical_shell_speed": {
+      "previous": "80%,80%",
+      "retry": "80%,80%,80%"
+    },
+    "machine_max_jerk_y": {
+      "previous": "9,9,9,9",
+      "retry": "9,9,9,9,9,9"
+    },
+    "filament_prime_volume": {
+      "previous": "45",
+      "retry": "30"
+    },
+    "retract_lift_below": {
+      "previous": "319,319",
+      "retry": "319,319,319"
+    },
+    "machine_max_acceleration_x": {
+      "previous": "20000,20000,20000,20000",
+      "retry": "20000,20000,20000,20000,20000,20000"
+    },
+    "initial_layer_travel_acceleration": {
+      "previous": "6000,6000",
+      "retry": "6000,6000,6000"
+    },
+    "print_extruder_variant": {
+      "previous": "\"Direct Drive High Flow\";\"Direct Drive Standard\"",
+      "retry": "\"Direct Drive High Flow\";\"Direct Drive Standard\";\"Direct Drive High Flow\""
+    },
+    "machine_max_speed_x": {
+      "previous": "1000,1000,1000,1000",
+      "retry": "1000,1000,1000,1000,1000,1000"
+    },
+    "retract_before_wipe": {
+      "previous": "0%,0%",
+      "retry": "0%,0%,0%"
+    },
+    "retraction_distances_when_cut": {
+      "previous": "14,14",
+      "retry": "14,14,14"
+    },
+    "overhang_4_4_speed": {
+      "previous": "10,10",
+      "retry": "10,10,10"
+    },
+    "slowdown_end_acc": {
+      "previous": "100000,100000",
+      "retry": "100000,100000,100000"
+    },
+    "retract_lift_above": {
+      "previous": "0,0",
+      "retry": "0,0,0"
+    },
+    "machine_max_jerk_z": {
+      "previous": "3,3,3,3",
+      "retry": "3,3,3,3,3,3"
+    },
+    "small_perimeter_speed": {
+      "previous": "50%,50%",
+      "retry": "50%,50%,50%"
+    },
+    "machine_max_acceleration_retracting": {
+      "previous": "5000,5000,5000,5000",
+      "retry": "5000,5000,5000,5000,5000,5000"
+    },
+    "extruder_nozzle_stats": {
+      "previous": "\"High Flow#1\";Standard#0",
+      "retry": "\"High Flow#1\";\"Standard#0|High Flow#0\""
+    },
+    "travel_speed": {
+      "previous": "1000,1000",
+      "retry": "1000,1000,1000"
+    },
+    "support_speed": {
+      "previous": "150,150",
+      "retry": "150,150,150"
+    },
+    "support_interface_speed": {
+      "previous": "80,80",
+      "retry": "80,80,80"
+    },
+    "retract_restart_extra": {
+      "previous": "0,0",
+      "retry": "0,0,0"
+    },
+    "top_solid_infill_flow_ratio": {
+      "previous": "1,1",
+      "retry": "1,1,1"
+    },
+    "z_hop_types": {
+      "previous": "Auto Lift,Auto Lift",
+      "retry": "Auto Lift,Auto Lift,Auto Lift"
+    },
+    "slowdown_start_height": {
+      "previous": "0,0",
+      "retry": "0,0,0"
+    },
+    "enable_overhang_speed": {
+      "previous": "1,1",
+      "retry": "1,1,1"
+    },
+    "initial_layer_infill_speed": {
+      "previous": "105,105",
+      "retry": "105,105,105"
+    },
+    "hotend_cooling_rate": {
+      "previous": "1.6,3.4",
+      "retry": "1.6,3.4,3.4"
+    },
+    "sparse_infill_speed": {
+      "previous": "600,350",
+      "retry": "600,350,600"
+    },
+    "internal_solid_infill_speed": {
+      "previous": "600,250",
+      "retry": "600,250,600"
+    },
+    "different_settings_to_system": {
+      "previous": "bottom_shell_layers;bottom_shell_thickness;brim_object_gap;brim_type;brim_width;enable_arc_fitting;enable_prime_tower;enable_support;layer_height;outer_wall_acceleration;outer_wall_speed;reduce_crossing_wall;seam_gap;seam_placement_away_from_overhangs;seam_position;sparse_infill_density;sparse_infill_pattern;support_bottom_z_distance;support_object_xy_distance;support_threshold_angle;support_top_z_distance;top_one_wall_type;top_shell_layers;top_surface_speed;wall_generator;wall_loops;filament_cost;default_nozzle_volume_type;machine_start_gcode",
+      "retry": "bottom_shell_layers;bottom_shell_thickness;brim_object_gap;brim_type;brim_width;enable_arc_fitting;enable_prime_tower;enable_support;layer_height;outer_wall_acceleration;outer_wall_speed;raft_first_layer_expansion;reduce_crossing_wall;seam_gap;seam_placement_away_from_overhangs;seam_position;sparse_infill_density;sparse_infill_pattern;support_bottom_z_distance;support_object_xy_distance;support_threshold_angle;support_top_z_distance;top_one_wall_type;top_shell_layers;top_surface_speed;wall_generator;wall_loops;filament_cost;default_nozzle_volume_type;machine_start_gcode"
+    },
+    "machine_max_speed_y": {
+      "previous": "1000,1000,1000,1000",
+      "retry": "1000,1000,1000,1000,1000,1000"
+    },
+    "small_perimeter_threshold": {
+      "previous": "0,0",
+      "retry": "0,0,0"
+    },
+    "retract_when_changing_layer": {
+      "previous": "1,1",
+      "retry": "1,1,1"
+    },
+    "travel_acceleration": {
+      "previous": "10000,10000",
+      "retry": "10000,10000,10000"
+    },
+    "retraction_length": {
+      "previous": "3,3",
+      "retry": "3,3,3"
+    },
+    "sparse_infill_acceleration": {
+      "previous": "100%,100%",
+      "retry": "100%,100%,100%"
+    },
+    "print_extruder_id": {
+      "previous": "1,2",
+      "retry": "1,2,2"
+    },
+    "machine_max_speed_e": {
+      "previous": "50,50,50,50",
+      "retry": "50,50,50,50,50,50"
+    },
+    "travel_short_distance_acceleration": {
+      "previous": "250,250",
+      "retry": "250,250,250"
+    },
+    "retract_length_toolchange": {
+      "previous": "2,2",
+      "retry": "2,2,2"
+    },
+    "nozzle_flush_dataset": {
+      "previous": "2,1",
+      "retry": "2,1,2"
+    },
+    "machine_max_jerk_x": {
+      "previous": "9,9,9,9",
+      "retry": "9,9,9,9,9,9"
+    },
+    "machine_max_acceleration_z": {
+      "previous": "500,500,500,500",
+      "retry": "500,500,500,500,500,500"
+    },
+    "overhang_1_4_speed": {
+      "previous": "0,0",
+      "retry": "0,0,0"
+    },
+    "retract_restart_extra_toolchange": {
+      "previous": "0,0",
+      "retry": "0,0,0"
+    },
+    "retraction_speed": {
+      "previous": "30,30",
+      "retry": "30,30,30"
+    },
+    "bridge_speed": {
+      "previous": "30,30",
+      "retry": "30,30,30"
+    },
+    "slowdown_start_acc": {
+      "previous": "100000,100000",
+      "retry": "100000,100000,100000"
+    },
+    "wipe": {
+      "previous": "1,1",
+      "retry": "1,1,1"
+    },
+    "top_surface_speed": {
+      "previous": "60,60",
+      "retry": "60,60,60"
+    },
+    "travel_speed_z": {
+      "previous": "0,0",
+      "retry": "0,0,0"
+    },
+    "deretraction_speed": {
+      "previous": "30,30",
+      "retry": "30,30,30"
+    },
+    "overhang_2_4_speed": {
+      "previous": "50,50",
+      "retry": "50,50,50"
+    },
+    "overhang_totally_speed": {
+      "previous": "10,10",
+      "retry": "10,10,10"
+    },
+    "wipe_distance": {
+      "previous": "2,2",
+      "retry": "2,2,2"
+    },
+    "slowdown_end_height": {
+      "previous": "400,400",
+      "retry": "400,400,400"
+    },
+    "machine_max_speed_z": {
+      "previous": "30,30,30,30",
+      "retry": "30,30,30,30,30,30"
+    },
+    "printer_extruder_variant": {
+      "previous": "\"Direct Drive High Flow\";\"Direct Drive Standard\"",
+      "retry": "\"Direct Drive High Flow\";\"Direct Drive Standard\";\"Direct Drive High Flow\""
+    },
+    "machine_max_acceleration_y": {
+      "previous": "20000,20000,20000,20000",
+      "retry": "20000,20000,20000,20000,20000,20000"
+    },
+    "initial_layer_acceleration": {
+      "previous": "500,500",
+      "retry": "500,500,500"
+    },
+    "machine_max_jerk_e": {
+      "previous": "2.5,2.5,2.5,2.5",
+      "retry": "2.5,2.5,2.5,2.5,2.5,2.5"
+    },
+    "machine_max_acceleration_travel": {
+      "previous": "9000,9000,9000,9000",
+      "retry": "9000,9000,9000,9000,9000,9000"
+    },
+    "nozzle_type": {
+      "previous": "hardened_steel,hardened_steel",
+      "retry": "hardened_steel,hardened_steel,hardened_steel"
+    },
+    "slowdown_start_speed": {
+      "previous": "1000,1000",
+      "retry": "1000,1000,1000"
+    },
+    "z_hop": {
+      "previous": "0.4,0.4",
+      "retry": "0.4,0.4,0.4"
+    },
+    "inner_wall_speed": {
+      "previous": "600,300",
+      "retry": "600,300,600"
+    },
+    "outer_wall_speed": {
+      "previous": "40,40",
+      "retry": "40,40,40"
+    },
+    "top_surface_acceleration": {
+      "previous": "2000,2000",
+      "retry": "2000,2000,2000"
+    },
+    "overhang_3_4_speed": {
+      "previous": "30,30",
+      "retry": "30,30,30"
+    },
+    "nozzle_volume": {
+      "previous": "133,145",
+      "retry": "133,145,148"
+    },
+    "hotend_heating_rate": {
+      "previous": "3.5,13.3",
+      "retry": "3.5,13.3,13.3"
+    },
+    "inner_wall_acceleration": {
+      "previous": "0,0",
+      "retry": "0,0,0"
+    },
+    "machine_max_acceleration_e": {
+      "previous": "5000,5000,5000,5000",
+      "retry": "5000,5000,5000,5000,5000,5000"
+    },
+    "printer_extruder_id": {
+      "previous": "1,2",
+      "retry": "1,2,2"
+    },
+    "long_retractions_when_cut": {
+      "previous": "1,1",
+      "retry": "1,1,1"
+    }
+  },
+  "startup_commands_match_except_progress_and_leveling_rectangle": true,
+  "effective_g29_1_mm": 0.16,
+  "support_extrusion_area_ratio": 2.838,
+  "method": "Union of first-layer support G1 extrusion segments buffered by half their emitted line width; excludes model brim and startup purge."
+}

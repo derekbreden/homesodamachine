@@ -82,7 +82,9 @@ def recipe(info, nozzle=0.4):
             'filament_cost': choice(['11.20'], 'Ledger cost per kilogram.')},
         'layer_ranges_mm': {'cavity': [], 'core': []}}
     if not fine:
-        settings['process_name'] = 'Funnel mold shell - 0.8 nozzle - Bambu first layer'
+        settings['process_name'] = 'Funnel mold shell - 0.8 nozzle - 8mm support feet'
+        settings['process_settings']['raft_first_layer_expansion'] = choice(
+            '8', 'Expand support feet by 8 mm on the build plate for tall tree adhesion.')
         settings['filament_name'] = 'Funnel mold PETG Translucent - 0.8 nozzle - Bambu defaults'
         settings['filament_settings'] = {
             'filament_cost': choice(['11.20'], 'Ledger cost per kilogram.')}
