@@ -139,8 +139,9 @@ jobs:
     # 36-45 minutes a standing (`//:appliance-model` in the nightly log), once for
     # `enclosure_assembly.py` and once for `render_scenes.py`, each under `trace_inputs.py`'s
     # hour-long `DEADLINE`. Two hours of that, the light generators' twenty minutes and the
-    # build's forty-seven are what the larger figure holds; the nightly keeps the smaller.
-    timeout-minutes: ${{ (github.event.schedule == '0 9 * * 0' || inputs.trace == 'all') && 300 || 75 }}
+    # build step's seventy are what the larger figure holds; the nightly holds the build
+    # step, the fetch before it and the checks and commit after it.
+    timeout-minutes: ${{ (github.event.schedule == '0 9 * * 0' || inputs.trace == 'all') && 330 || 105 }}
     # A CONTAINER JOB'S DEFAULT SHELL IS `sh -e`, NOT BASH. GitHub picks bash on a hosted
     # runner and drops to sh inside a container, because it cannot assume the image has one —
     # and noble's sh is dash, which has no `pipefail`. Every `run:` here was written against
@@ -346,7 +347,10 @@ jobs:
           fi
 
       - name: Build everything this tree makes
-        timeout-minutes: 45
+        # `//:appliance-model` alone runs 36-45 minutes on this machine (2161-2684 s across
+        # the runs of 2026-09-10..14), and a cap of 45 killed a build at 2515 s with the
+        # action still going. Seventy holds the longest standing seen with room over it.
+        timeout-minutes: 70
         # `--keep_going` fills both caches with every independent success before returning a
         # failure. The job stops on that nonzero result; nothing from a partial cut is carried.
         #
