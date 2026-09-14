@@ -42,7 +42,7 @@
     },
     {
       "check": "hardware/scripts/check_step_colours.py",
-      "note": "step colours: 177/177 carry the colour of what they are made of",
+      "note": "step colours: 188/188 carry the colour of what they are made of",
       "status": "ok"
     },
     {
@@ -52,12 +52,12 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 1703 tracked, 372 fetched solids, 55 tags, 38 site routes",
+      "note": "paths: every reference lands — 1703 tracked, 401 fetched solids, 55 tags, 38 site routes",
       "status": "ok"
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 479 of 1000 free, the next cut wants 3, and the whole lock reads by name in 173.8 MB against 175.8 MB of bundle",
+      "note": "check_release_room: 459 of 1000 free, the next cut wants 3, and the whole lock reads by name in 174.7 MB against 175.8 MB of bundle",
       "status": "ok"
     },
     {
@@ -82,7 +82,7 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 1 of 8 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 401 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 1 of 7 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 401 member(s) keep their provenance",
       "status": "ok"
     }
   ],
