@@ -4,7 +4,7 @@
     for rel in solids():
         ...
 
-Two halves, because two things carry them. `hardware/cad-artifacts.lock.json` names the generated
+Two halves, because two things carry them. `hardware/cad-artifacts.json` names the generated
 solids and the release asset they arrive in; `git ls-files` names the harvested few, which have no
 builder here and are in the index. A fresh clone has the second half on disk and fetches the first
 (`web/scripts/fetch-cad-artifacts.mjs`), so both are solids a check can expect to find.
@@ -15,13 +15,13 @@ import subprocess
 from pathlib import Path
 
 _ROOT = Path(__file__).resolve().parents[2]
-LOCK = _ROOT / "hardware" / "cad-artifacts.lock.json"
+POINTERS = _ROOT / "hardware" / "cad-artifacts.json"
 
 
-def locked() -> set:
-    """The generated solids the lock names."""
+def pointed() -> set:
+    """The generated solids the pointer file names."""
     try:
-        return set(json.loads(LOCK.read_text()).get("solids", {}))
+        return set(json.loads(POINTERS.read_text()).get("solids", {}))
     except (OSError, ValueError):
         return set()
 
@@ -34,4 +34,4 @@ def tracked() -> set:
 
 
 def solids() -> list:
-    return sorted(locked() | tracked())
+    return sorted(pointed() | tracked())

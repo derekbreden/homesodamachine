@@ -1851,7 +1851,7 @@ def _ring(section):
     the station the section states. A tangential boolean downstream — the teardrop roofs on
     their sleeve bore are one — resolves a coordinate that near zero either by inheriting the
     constructed vertex or by recomputing the intersection, and which it does moves between
-    processes: the same source writes one of two files, and the artifact lock ping-pongs
+    processes: the same source writes one of two files, and the artifact pointer file ping-pongs
     between two hashes with nothing in the tree changed. Naming the closing point leaves the
     vertex exactly where the section put it, and the tie is not there to take."""
     pts = list(section)

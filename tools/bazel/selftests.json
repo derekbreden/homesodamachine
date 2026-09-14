@@ -1163,7 +1163,7 @@
     "tools/bazel/check_declared_imports.py"
   ],
   "tools/bazel/check_unbounded_reach.py": [
-    "hardware/cad-artifacts.lock.json",
+    "hardware/cad-artifacts.json",
     "tools/bazel/affected.py",
     "tools/bazel/check_unbounded_reach.py",
     "tools/bazel/gen_build.py",
@@ -1184,16 +1184,16 @@
     "tools/bazel/inventory.py",
     "tools/bazel/trace_inputs.py"
   ],
-  "tools/cad-artifacts/merge_lock.py": [
-    "hardware/cad-artifacts.lock.json",
-    "tools/cad-artifacts/merge_lock.py",
+  "tools/cad-artifacts/merge_pointers.py": [
+    "hardware/cad-artifacts.json",
+    "tools/cad-artifacts/merge_pointers.py",
     "tools/cad-artifacts/pack.py"
   ],
   "tools/cad-artifacts/pack.py": [
     "tools/cad-artifacts/pack.py"
   ],
   "tools/check_paths.py": [
-    "hardware/cad-artifacts.lock.json",
+    "hardware/cad-artifacts.json",
     "tools/check_paths.py",
     "tools/docgen/__init__.py"
   ],

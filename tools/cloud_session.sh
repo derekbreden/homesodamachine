@@ -1,7 +1,7 @@
 #!/bin/bash
 # cloud_session.sh — the machine a cloud session starts on, stood up to run this tree.
 #
-#     tools/cloud_session.sh            # install what is missing, fetch what the lock names
+#     tools/cloud_session.sh            # install what is missing, fetch what the pointer file names
 #     tools/cloud_session.sh --check    # say what is missing and install nothing
 #
 # A cloud session (Claude Code on the web, CLAUDE_CODE_REMOTE=true) starts from a fresh,
@@ -13,14 +13,14 @@
 #
 # THE KERNEL HERE IS THE RUNNER'S, NOT THE MAC'S. `cadquery-ocp` at the pin resolves to the
 # manylinux_2_31_x86_64 wheel, the same one `derive` runs in, so what this machine cuts is
-# byte-identical to what the runner cuts and NOT to what the Mac pins into the lock
+# byte-identical to what the runner cuts and NOT to what the Mac writes into the pointer file
 # (`publish.yml` says why: 95 of 124 members differ across the two wheels). A session here can
-# build, check, derive and compare; it does not pin the lock.
+# build, check, derive and compare; it does not move the pointer file.
 #
 # WHAT EACH STEP BUYS:
 #   web/node_modules            `npm test`, and `check_web_tests.py` reads red without it
 #   tools/cad-venv              every generator and every check that imports one
-#   the locked solids           `check_paths`, `check_step_colours`, the parts-tree tests
+#   the pointed-at solids           `check_paths`, `check_step_colours`, the parts-tree tests
 #   gh                          `pack.py` uploads with it; `check_release_room` reads through it
 #   bazel                       `bazel build <target>`, `sync_tree.py`, `affected.py`
 #   .cache                      `.bazelrc.paths` mounts it and bazel refuses an absent mount
@@ -83,11 +83,11 @@ if [ "$CHECK" = 0 ]; then
   "$PY" tools/cad-venv-site/install.py --check
 fi
 
-# --- the solids the lock names ---------------------------------------------------------------
+# --- the solids the pointer file names ---------------------------------------------------------------
 # Node's own fetch does not read HTTPS_PROXY unless told to; the variable is harmless elsewhere.
 if [ "$CHECK" = 1 ]; then
   NODE_USE_ENV_PROXY=1 node web/scripts/fetch-cad-artifacts.mjs --check >/dev/null 2>&1 \
-    && say "locked solids: in place" || need "locked solids"
+    && say "pointed-at solids: in place" || need "pointed-at solids"
 else
   NODE_USE_ENV_PROXY=1 node web/scripts/fetch-cad-artifacts.mjs
 fi

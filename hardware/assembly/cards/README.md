@@ -48,7 +48,7 @@ the reason a step is shaped the way it is. See [The gate](#the-gate).
   `out/`, `deck.pdf` and `deck.cover.png` are all `.gitignore`d, and a checkout has none of
   them until a build writes them or a release lands them. They travel the road every solid
   in this tree travels: `pack.py`'s `BUNDLED_ART_DIRS` puts them in the release asset,
-  [`cad-artifacts.lock.json`](/hardware/cad-artifacts.lock.json) names each by sha256, and
+  [`cad-artifacts.json`](/hardware/cad-artifacts.json) names each by sha256, and
   `web/scripts/fetch-cad-artifacts.mjs` puts them on the disk a deploy serves from.
   `deck.pdf.json` is the exception and is carried: it is the sidecar the site lists the deck
   by (`web/contracts/cards.js`), and it is text a writer composes rather than pixels a

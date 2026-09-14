@@ -2,28 +2,28 @@
 """The generated solids, as one release asset a deploy fetches.
 
     tools/cad-venv/bin/python tools/cad-artifacts/pack.py            # what the bundle holds
-    tools/cad-venv/bin/python tools/cad-artifacts/pack.py --write    # build it, upload it, pin it
+    tools/cad-venv/bin/python tools/cad-artifacts/pack.py --write    # build it, upload it, point main at it
     tools/cad-venv/bin/python tools/cad-artifacts/pack.py --write --publish-held
                                                                     # upload the bytes on disk
-    tools/cad-venv/bin/python tools/cad-artifacts/pack.py --check    # 0 = the lock names this tree
-    tools/cad-venv/bin/python tools/cad-artifacts/pack.py --prune    # remove retired locked outputs
+    tools/cad-venv/bin/python tools/cad-artifacts/pack.py --check    # 0 = the pointer file names this tree
+    tools/cad-venv/bin/python tools/cad-artifacts/pack.py --prune    # remove retired pointed-at outputs
     tools/cad-venv/bin/python tools/cad-artifacts/pack.py --room     # what room the release has left
     tools/cad-venv/bin/python tools/cad-artifacts/pack.py --retire   # take dead assets off it
     tools/cad-venv/bin/python tools/cad-artifacts/pack.py selftest   # the bundle, on fixtures
 
-`hardware/cad-artifacts.lock.json` names the source commit, the asset by its own sha256, every
+`hardware/cad-artifacts.json` names the source commit, the asset by its own sha256, every
 solid inside it, and each tracked scorecard the viewer reads by sha256; it is committed. The
-scorecards stay outside the geometry tar and move atomically with its lock. The asset is content-addressed
+scorecards stay outside the geometry tar and move atomically with its pointer file. The asset is content-addressed
 (`cad-<sha16>.tar.gz`) and never
 rewritten, so a checkout resolves to the bundle its own commit was packed against.
-`web/scripts/fetch-cad-artifacts.mjs` reads the lock at deploy and holds the download to both
+`web/scripts/fetch-cad-artifacts.mjs` reads the pointer file at deploy and holds the download to both
 hashes before anything is extracted.
 
 THE BUNDLE CARRIES WHAT THIS DISK HOLDS, and `source.commit` is where that came from. Where the
 disk stood outside HEAD, `unproven` says so: the uncommitted paths the pack was cut beside and
 the members those paths reach. Nothing is withheld for it — a solid mid-edit is a solid to look
 at — and a reader asking where one came from gets the answer instead of the assumption.
-`unproven` is absent from a lock packed off a tree standing at HEAD.
+`unproven` is absent from a pointer file packed off a tree standing at HEAD.
 
 THE BUNDLE CARRIES NO FACT ABOUT THE MACHINE THAT PACKED IT. Members go in sorted, and the mtime,
 uid, gid, uname, gname and mode a tar can hold are dropped; the gzip header carries no mtime. A
@@ -59,7 +59,7 @@ from pathlib import Path
 _HERE = Path(__file__).resolve()
 _ROOT = next(p for p in _HERE.parents if (p / "tools" / "docgen").is_dir())
 
-LOCK = _ROOT / "hardware" / "cad-artifacts.lock.json"
+POINTERS = _ROOT / "hardware" / "cad-artifacts.json"
 TAG = "cad-artifacts"
 
 #: Trees of local intermediates, each already ignored by the rule named beside it.
@@ -243,7 +243,7 @@ def solids(root: Path) -> list:
     `hardware/`, repo-relative and sorted.
 
     Off the disk, tracked or not: an artifact the index does not hold is one a fresh clone still
-    has to be sent, and it is the lock that carries it into the index."""
+    has to be sent, and it is the pointer file that carries it into the index."""
     hw = root / "hardware"
     if not hw.is_dir():
         return []
@@ -336,8 +336,8 @@ def _origin_slug(root: Path) -> str:
 def hashes(root: Path, rels: list) -> dict:
     """Each solid's sha256, by repo-relative path.
 
-    The bundle is a function of these and their order, so a set of them equal to the lock's is a
-    bundle equal to the lock's — which is the whole of what `--check` asks, and it asks it without
+    The bundle is a function of these and their order, so a set of them equal to the pointer file's is a
+    bundle equal to the pointer file's — which is the whole of what `--check` asks, and it asks it without
     compressing 117 MB to find out."""
     return {rel: _sha256(root / rel) for rel in rels}
 
@@ -374,9 +374,9 @@ def _dirty_artifact_reach(root: Path) -> tuple:
     import affected
 
     moved = set(affected.changed(root))
-    moved.discard("hardware/cad-artifacts.lock.json")
+    moved.discard("hardware/cad-artifacts.json")
     # These are generated outputs this very publication carries.
-    moved -= set(sidecars(root)) | set(read_lock(root).get("sidecars", {}))
+    moved -= set(sidecars(root)) | set(read_pointers(root).get("sidecars", {}))
     moved = {path for path in moved if not affected.artifact_presentation_only(path)}
     if not moved:
         return [], [], []
@@ -389,16 +389,16 @@ def _dirty_artifact_reach(root: Path) -> tuple:
 
 
 def unproven(dirty: list, members, targets=()) -> dict:
-    """What a publication could not put under `source.commit`, as the lock carries it.
+    """What a publication could not put under `source.commit`, as the pointer file carries it.
 
     THE BUNDLE SHIPS WHAT THIS DISK HOLDS. A member whose rule an uncommitted path reaches, or
     whose rule would not cut, still travels — seeing the geometry that is actually here is what
-    the site is for — and this is the lock saying which members those were, so a reader asking
+    the site is for — and this is the pointer file saying which members those were, so a reader asking
     where a solid came from gets an answer rather than an assumption.
 
     `paths` is empty where nothing was uncommitted and a rule simply would not cut. `targets`
     persists rules deliberately deferred by an interactive publication, so the ordinary
-    reconciliation path still owes them after the held bytes have acquired their own lock.
+    reconciliation path still owes them after the held bytes have acquired their own pointer file.
     Empty is the ordinary answer, and then `source.commit` describes every member on its own.
     """
     if not members and not targets:
@@ -442,16 +442,16 @@ def _members_of_targets(root: Path, labels: set) -> set:
 def _standing_debt(labels: set, build_text: str) -> set:
     """The deferred labels whose rules `BUILD.bazel` still declares.
 
-    A RULE THE GRAPH HAS RETIRED OWES NOTHING. A deferred label persists in the lock so a later
+    A RULE THE GRAPH HAS RETIRED OWES NOTHING. A deferred label persists in the pointer file so a later
     plain `--write` cuts it; one whose rule has since left the graph has no cut that could ever
-    pay it, and carrying it on is the lock naming a target that is not there."""
+    pay it, and carrying it on is the pointer file naming a target that is not there."""
     declared = {f"//:{name}" for name in re.findall(r'^\s*name = "([^"]+)"', build_text, re.M)}
     return {label for label in labels if label in declared}
 
 
 def _owed_artifact_targets(root: Path) -> list:
     """Artifact rules changed since the source commit, plus explicitly deferred rules."""
-    held = read_lock(root)
+    held = read_pointers(root)
     source = held.get("source", {}).get("commit", "")
     deferred = set(held.get("unproven", {}).get("targets", ()))
     build = root / "BUILD.bazel"
@@ -535,7 +535,7 @@ def carry_the_cut(root: Path, targets: list) -> list:
 def _targets_for_members(root: Path, members: set) -> tuple:
     """The artifact rules that own bundle members or scorecards, and any no rule owns.
 
-    The lock source tells which rules the commit range owes. The bytes on disk can also have
+    The pointer file source tells which rules the commit range owes. The bytes on disk can also have
     moved independently because generated solids are ignored; mapping every changed member
     back to its producer makes `--write` prove those bytes came from a current Bazel output too.
     """
@@ -564,13 +564,13 @@ def _targets_for_members(root: Path, members: set) -> tuple:
     return sorted(targets), sorted(remaining)
 
 
-def lock_for(root: Path, rels: list, digest: str, size: int, solid_hashes: dict = None,
+def pointers_for(root: Path, rels: list, digest: str, size: int, solid_hashes: dict = None,
              sidecar_hashes: dict = None, record: dict = None) -> dict:
     asset = f"cad-{digest[:16]}.tar.gz"
     slug = _origin_slug(root)
     return _with_record({
-        "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed —"
-             " web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
+        "_": "The pointer file: main points at these bytes on the release, by hash. Written by"
+             " tools/cad-artifacts/pack.py; web/scripts/fetch-cad-artifacts.mjs reads it at deploy.",
         "release": {
             "tag": TAG,
             "asset": asset,
@@ -584,13 +584,13 @@ def lock_for(root: Path, rels: list, digest: str, size: int, solid_hashes: dict 
     }, record or {})
 
 
-def _with_record(lock: dict, record: dict) -> dict:
-    """`lock` with `unproven` set to `record`, seated after the commit it qualifies.
+def _with_record(pointers: dict, record: dict) -> dict:
+    """`pointer file` with `unproven` set to `record`, seated after the commit it qualifies.
 
     `source.commit` describes every member on its own when the record is empty, so an empty one
     is the field's absence rather than an empty object."""
     out = {}
-    for key, value in lock.items():
+    for key, value in pointers.items():
         if key == "unproven":
             continue
         out[key] = value
@@ -601,16 +601,16 @@ def _with_record(lock: dict, record: dict) -> dict:
     return out
 
 
-def read_lock(root: Path = _ROOT) -> dict:
+def read_pointers(root: Path = _ROOT) -> dict:
     try:
-        return json.loads((root / "hardware" / "cad-artifacts.lock.json").read_text())
+        return json.loads((root / "hardware" / "cad-artifacts.json").read_text())
     except (OSError, ValueError):
         return {}
 
 
-def _write_lock(data: dict) -> None:
-    LOCK.parent.mkdir(parents=True, exist_ok=True)
-    LOCK.write_text(json.dumps(data, indent=2, sort_keys=False) + "\n")
+def _write_pointers(data: dict) -> None:
+    POINTERS.parent.mkdir(parents=True, exist_ok=True)
+    POINTERS.write_text(json.dumps(data, indent=2, sort_keys=False) + "\n")
 
 
 def _declared(root: Path) -> set:
@@ -655,8 +655,8 @@ def sidecars(root: Path) -> list:
 
 
 def sidecar_debt_targets(root: Path) -> list:
-    """Producer labels whose committed viewer scorecards do not match this lock."""
-    held = read_lock(root).get("sidecars", {})
+    """Producer labels whose committed viewer scorecards do not match this pointer file."""
+    held = read_pointers(root).get("sidecars", {})
     owed = {
         rel for rel in sidecars(root)
         if not (root / rel).is_file() or held.get(rel) != _sha256(root / rel)
@@ -695,7 +695,7 @@ def _retirement_evidence(root: Path, retired: list) -> list:
     depend on a range at all."""
     if not retired:
         return []
-    source = read_lock(root).get("source", {}).get("commit", "")
+    source = read_pointers(root).get("source", {}).get("commit", "")
     if not source:
         return list(retired)
     old = subprocess.run(
@@ -725,19 +725,19 @@ def _retirement_evidence(root: Path, retired: list) -> list:
 
 
 def retired_outputs(root: Path) -> list:
-    """Locked solids or scorecards no current producer declares."""
-    lock = read_lock(root)
+    """Pointed-at solids or scorecards no current producer declares."""
+    pointers = read_pointers(root)
     return sorted(
-        (set(lock.get("solids", {})) - _declared(root))
-        | (set(lock.get("sidecars", {})) - set(sidecars(root)))
+        (set(pointers.get("solids", {})) - _declared(root))
+        | (set(pointers.get("sidecars", {})) - set(sidecars(root)))
     )
 
 
 def prune(root: Path, allow_retired: bool = False) -> int:
-    """Remove locked bundle members and scorecards the current graph has retired.
+    """Remove pointed-at bundle members and scorecards the current graph has retired.
 
     Explicit because solid deletion is otherwise invisible to git, while a retired tracked
-    scorecard must leave the public endpoint in the same commit that removes its lock pin. Every
+    scorecard must leave the public endpoint in the same commit that removes its pointer. Every
     target remains recoverable from the preceding published commit.
     """
     retired = retired_outputs(root)
@@ -755,12 +755,12 @@ def prune(root: Path, allow_retired: bool = False) -> int:
         try:
             path.resolve().relative_to(hardware)
         except ValueError:
-            raise SystemExit(f"refusing to prune a lock path outside hardware/: {rel}")
+            raise SystemExit(f"refusing to prune a pointer file path outside hardware/: {rel}")
         if path.is_file() or path.is_symlink():
             path.unlink()
             removed += 1
             print(f"  {rel}")
-    print(f"{removed} retired locked output(s) removed; recoverable from the prior commit")
+    print(f"{removed} retired pointed-at output(s) removed; recoverable from the prior commit")
     return 0
 
 
@@ -794,25 +794,25 @@ OBJECT_PREFIX = "s-"
 #: WHAT ONE RELEASE HOLDS. GitHub takes 1000 assets on a release and refuses the 1001st, and
 #: this store is append-only: every cut adds a bundle and every member that moved adds an
 #: object. The ceiling does not announce itself. It arrives as one member's upload failing,
-#: which `upload_objects` reads as "this lock is read from the bundle" and survives — so the
+#: which `upload_objects` reads as "this pointer file is read from the bundle" and survives — so the
 #: first thing a full release does is quietly turn the fast path off and send every deploy
-#: back to the whole tarball. The bundle is what fails next, and it has no fallback: a lock
+#: back to the whole tarball. The bundle is what fails next, and it has no fallback: a pointer file
 #: naming an asset the release does not hold is a deploy that cannot fetch the geometry.
 RELEASE_ASSET_CAP = 1000
 
 #: HOW MANY CUTS THE RELEASE HOLDS WHOLE. A cut is a bundle and one object per member that
-#: moved, and this is the window both are kept for: the last `CUTS_KEPT` locks, entire. A
+#: moved, and this is the window both are kept for: the last `CUTS_KEPT` pointer files, entire. A
 #: publish that repaints or re-tessellates the tree moves every member at once — the material
 #: change on 2026-08-26 rewrote all five cold-core STEPs — so the room a cut wants is bounded
 #: by the member count and not by any average, and the store refills in a few of them.
 CUTS_KEPT = 12
 
 #: HOW LONG AN ASSET IS OFF LIMITS AFTER IT LANDS. `--write` puts the bundle and one object per
-#: moved member on the release BEFORE it writes the lock that names them, so for the length of
-#: an upload those bytes are on the release and no lock anywhere names them. A sweep reading
-#: only committed locks calls exactly that unreachable, and deleting it leaves a lock about to
+#: moved member on the release BEFORE it writes the pointer file that names them, so for the length of
+#: an upload those bytes are on the release and no pointer file anywhere names them. A sweep reading
+#: only committed pointer files calls exactly that unreachable, and deleting it leaves a pointer file about to
 #: be written naming an asset the release does not hold — which is a deploy that cannot fetch
-#: the geometry, and nothing puts it back. Across the twelve cuts of 2026-08-27 the lock commit
+#: the geometry, and nothing puts it back. Across the twelve cuts of 2026-08-27 the pointer file commit
 #: followed the newest asset it names by 1-2 s; this covers the upload in front of that gap,
 #: with room for the 143 MB bundle, and costs the sweep nothing — an asset this new is inside
 #: the `CUTS_KEPT` window in any case.
@@ -832,8 +832,8 @@ def release_assets(root: Path) -> list:
     return json.loads(listing.stdout).get("assets", [])
 
 
-def lock_assets(held: dict) -> set:
-    """The release assets one lock names — its bundle, and one per member and scorecard sha.
+def pointer_assets(held: dict) -> set:
+    """The release assets one pointer file names — its bundle, and one per member and scorecard sha.
 
     A SCORECARD IS SERVED FROM THE COMMITTED TREE and `upload_objects` sends solids, so a
     scorecard's name here is one the release never holds. This is reach, and a superset of the
@@ -850,7 +850,7 @@ def _shallow(root: Path) -> bool:
 
     `git rev-list` ANSWERS A TRUNCATED CLONE WITHOUT SAYING SO. It reports the revisions the
     clone can reach and nothing about the ones it does not hold, so `locks_in_history` on a
-    shallow tree returns FEWER locks and every asset only the missing ones name reads as
+    shallow tree returns FEWER pointer files and every asset only the missing ones name reads as
     unreachable — which is the one verdict that takes bytes off the release. Nothing downstream
     can catch it: the answer is confident, well-formed and short.
 
@@ -862,15 +862,15 @@ def _shallow(root: Path) -> bool:
     return got.stdout.strip() == "true"
 
 
-def locks_in_history(root: Path) -> list:
-    """Every committed lock, newest first, as the asset names each one names.
+def pointer_files_in_history(root: Path) -> list:
+    """Every committed pointer file, newest first, as the asset names each one names.
 
-    THE LOCK IS COMMITTED, so what a checkout can ask the release for is what its own lock
+    THE POINTER FILE IS COMMITTED, so what a checkout can ask the release for is what its own pointer file
     names — and the union over all of history is the set of names anyone can ask for at all.
     A name outside it is not old, it is unreachable: the cut that made it was superseded before
-    its lock landed, or the commit that named it is no longer in the graph.
+    its pointer file landed, or the commit that named it is no longer in the graph.
     """
-    rel = str(LOCK.relative_to(root))
+    rel = str(POINTERS.relative_to(_ROOT))            # the same path inside any root
     revs = subprocess.run(["git", "rev-list", "HEAD", "--", rel],
                           cwd=str(root), capture_output=True, text=True).stdout.split()
     out = []
@@ -883,7 +883,7 @@ def locks_in_history(root: Path) -> list:
             held = json.loads(blob.stdout)
         except json.JSONDecodeError:
             continue
-        out.append(lock_assets(held))
+        out.append(pointer_assets(held))
     return out
 
 
@@ -910,9 +910,9 @@ def too_new(assets: list, now: float = None) -> set:
 def retirable(root: Path, keep_cuts: int = CUTS_KEPT, now: float = None) -> tuple:
     """The assets that may leave the release, as `(unreachable, superseded)`.
 
-    UNREACHABLE IS NOT A JUDGEMENT — no commit's lock names it, so no checkout can fetch it.
+    UNREACHABLE IS NOT A JUDGEMENT — no commit's pointer file names it, so no checkout can fetch it.
 
-    SUPERSEDED IS EVERYTHING OUTSIDE THE LAST `keep_cuts` LOCKS, bundle and object alike, and
+    SUPERSEDED IS EVERYTHING OUTSIDE THE LAST `keep_cuts` POINTER FILES, bundle and object alike, and
     what retiring one costs is a re-pack rather than the bytes. This file's own contract is
     that the pack carries no fact about the machine that made it: members go in sorted, the
     tar's mtime/uid/gid/mode and the gzip header's mtime are dropped, so a tree whose geometry
@@ -920,19 +920,19 @@ def retirable(root: Path, keep_cuts: int = CUTS_KEPT, now: float = None) -> tupl
     running `--write` puts the identical assets back under the identical names.
 
     THE WINDOW IS A UNION AND NOT A SLICE. A member that has not moved in fifty cuts is named
-    by the newest lock as well as the oldest, so it stands inside the window on the strength of
+    by the newest pointer file as well as the oldest, so it stands inside the window on the strength of
     the newest — which is what makes this a retention rule about cuts rather than about bytes.
 
     AND TWO SETS STAND OUTSIDE ALL OF IT, both of them a cut that has not finished landing. The
-    lock on disk names a cut whose bytes are up and whose commit is not made; this tree is the
+    pointer file on disk names a cut whose bytes are up and whose commit is not made; this tree is the
     one shared record of it, so it is read here beside the committed ones — and it is the
     NEWEST cut there is, so it stands inside the window as well as inside reach.
     `RETIRE_FLOOR_S` covers the upload in front of that, where the bytes are on the release and
-    no lock names them at all.
+    no pointer file names them at all.
 
-    WHAT THE COMMITTED LOCKS ALONE LEAVE OPEN IS THE WHOLE CUT. Asked of this tree on
-    2026-08-28 with the newest lock commit held back — the history a sweep reads while that
-    cut is still landing — reach off the committed locks alone missed 7 of that cut's 271
+    WHAT THE COMMITTED POINTER FILES ALONE LEAVE OPEN IS THE WHOLE CUT. Asked of this tree on
+    2026-08-28 with the newest pointer file commit held back — the history a sweep reads while that
+    cut is still landing — reach off the committed pointer files alone missed 7 of that cut's 271
     assets, one of them the bundle tarball. `make_room` is the only caller and it runs inside
     a publish, so the sweep and the upload it would delete are the same minute.
     """
@@ -945,10 +945,10 @@ def retirable(root: Path, keep_cuts: int = CUTS_KEPT, now: float = None) -> tupl
     assets = release_assets(root)
     on_release = {a["name"] for a in assets}
     fresh = too_new(assets, now)
-    locks = locks_in_history(root)
-    disk = lock_assets(read_lock(root))
-    reachable = (set().union(*locks) if locks else set()) | disk
-    kept = (set().union(*locks[:keep_cuts]) if locks[:keep_cuts] else set()) | disk
+    pointer_files = pointer_files_in_history(root)
+    disk = pointer_assets(read_pointers(root))
+    reachable = (set().union(*pointer_files) if pointer_files else set()) | disk
+    kept = (set().union(*pointer_files[:keep_cuts]) if pointer_files[:keep_cuts] else set()) | disk
     unreachable = sorted(n for n in on_release if n not in reachable and n not in fresh)
     superseded = sorted(n for n in on_release
                         if n in reachable and n not in kept and n not in fresh)
@@ -959,7 +959,7 @@ def held_and_free(root: Path) -> tuple:
     """How full the release is — a question about the release, not about this clone's history.
 
     SEPARATE FROM `room` BECAUSE THE GUARD IS. Whether there is space costs one `gh` call and
-    is true anywhere; WHICH assets may leave is read off every committed lock, and a clone that
+    is true anywhere; WHICH assets may leave is read off every committed pointer file, and a clone that
     does not hold them must not be asked. `make_room` wants the first on every publish and the
     second only at the cliff, so asking them together is what put a shallow tree in front of a
     sweep."""
@@ -1015,7 +1015,7 @@ def make_room(root: Path, need: int) -> bool:
     that is `upload_objects`, which turns off `objects` and carries on.
 
     THE ANSWER MATTERS TO THE CALLER because a reading of the release taken before this one is
-    stale after it: a sweep takes assets an older lock's window held, and a caller still
+    stale after it: a sweep takes assets an older pointer file's window held, and a caller still
     holding the earlier `objects_on_release` would skip sending an object the release no longer
     has — and then claim `objects` over a set it is short of.
     """
@@ -1024,7 +1024,7 @@ def make_room(root: Path, need: int) -> bool:
         return False
     print(f"  release holds {held} of {RELEASE_ASSET_CAP} and this cut wants {need}")
     # A SHALLOW CLONE DOES NOT SWEEP, IT SAYS SO. `publish.yml` checks out at `fetch-depth: 1`,
-    # where reach is read off a single lock and all but the newest cut looks unreachable — so
+    # where reach is read off a single pointer file and all but the newest cut looks unreachable — so
     # the cliff is exactly where this would have deleted the bytes older commits resolve to.
     # Declining costs a publish its `objects` lane, which `upload_objects` already degrades
     # gracefully; sweeping wrongly costs the release. `.github/workflows/retire.yml` holds the
@@ -1040,10 +1040,10 @@ def make_room(root: Path, need: int) -> bool:
 def objects_on_release(root: Path) -> set:
     """Every member sha the release already holds as its own asset.
 
-    ASKED, NOT INFERRED. The previous lock's shas say where those bytes were, not that an asset
-    holds them — a lock written before these existed names members that only ever went up inside
+    ASKED, NOT INFERRED. The previous pointer file's shas say where those bytes were, not that an asset
+    holds them — a pointer file written before these existed names members that only ever went up inside
     the bundle. Reading the release answers for a hand backfill, an upload that failed last time
-    and a member reverting to bytes some older lock named, all the same way and without any of
+    and a member reverting to bytes some older pointer file named, all the same way and without any of
     them being special cases.
     """
     listing = _gh(root, "release", "view", TAG, "--json", "assets")
@@ -1064,7 +1064,7 @@ def objects_to_send(rels: list, solid_hashes: dict, known: set) -> list:
     ONE ASSET PER HASH, NOT PER MEMBER. The name is the hash, so two members carrying the same
     bytes are one asset — and sending both puts two concurrent `--clobber` uploads on one name,
     where one wins and the other reports a failure for a member that is demonstrably up. That
-    failure costs the lock its `objects`, and every deploy then reads the whole bundle for
+    failure costs the pointer file its `objects`, and every deploy then reads the whole bundle for
     members it already holds. The second member of a pair is not a second send; it is already
     there when the first lands."""
     seen, todo = set(), []
@@ -1082,7 +1082,7 @@ def upload_objects(root: Path, rels: list, solid_hashes: dict, known: set) -> bo
 
     THE BUNDLE COSTS THE WHOLE TREE TO MOVE THREE MEMBERS. `build` tars and gzips 304 MB in 9.9
     seconds however few solids moved, the upload carries all 65 MB of it, and the site downloads
-    the same 65 MB to extract what changed. One lock move measured on 2026-08-26 moved 3 of 124
+    the same 65 MB to extract what changed. One pointer file move measured on 2026-08-26 moved 3 of 124
     members. These assets are the same bytes addressed one at a time, so a publish and an
     adoption both cost what actually moved.
 
@@ -1091,7 +1091,7 @@ def upload_objects(root: Path, rels: list, solid_hashes: dict, known: set) -> bo
     An asset the name already matches holds these bytes, the name being the hash.
 
     THE BUNDLE IS STILL WRITTEN AND STILL UPLOADED. A container with no solids at all reads one
-    asset rather than 124, and a lock this does not finish is a lock the tarball still answers.
+    asset rather than 124, and a pointer file this does not finish is a pointer file the tarball still answers.
     """
     todo = objects_to_send(rels, solid_hashes, known)
     if not todo:
@@ -1121,7 +1121,7 @@ def upload_objects(root: Path, rels: list, solid_hashes: dict, known: set) -> bo
     for rel in failures:
         print(f"  {rel} did not upload as {object_asset(solid_hashes[rel])}")
     print(f"  {len(todo) - len(failures)} of {len(todo)} changed object(s) uploaded on their own hash"
-          + (f"; {len(failures)} did not, so this lock is read from the bundle" if failures else ""))
+          + (f"; {len(failures)} did not, so this pointer file is read from the bundle" if failures else ""))
     return not failures
 
 
@@ -1137,7 +1137,7 @@ def upload(root: Path, bundle: Path, asset: str, digest: str, size: int) -> None
                    "--title", "CAD artifacts",
                    "--notes", "Generated solids for the /3d viewer, fetched at deploy by "
                               "web/scripts/fetch-cad-artifacts.mjs. Each asset is named by its "
-                              "own sha256 and pinned in hardware/cad-artifacts.lock.json.")
+                              "own sha256 and pointed at from hardware/cad-artifacts.json.")
         if made.returncode != 0:
             raise SystemExit(f"gh release create failed:\n{made.stderr}")
     else:
@@ -1160,24 +1160,24 @@ def upload(root: Path, bundle: Path, asset: str, digest: str, size: int) -> None
 
 def cut_whole_bundle(held: dict, rels: list, now: dict, sidecar_now: dict,
                      unproven_now: dict) -> int:
-    """The bundle a held publish left behind, cut whole and pinned.
+    """The bundle a held publish left behind, cut whole and pointed at.
 
     The members it lacked are on the release by their own hashes, which is what a reader
-    fetches by; this is the one asset that answers a lock without `objects`, made current on
+    fetches by; this is the one asset that answers a pointer file without `objects`, made current on
     the runner where a minute of tar and upload costs nobody at a keyboard. The members and
-    their hashes are the lock's own; only the bundle and the source move."""
+    their hashes are the pointer file's own; only the bundle and the source move."""
     release = held.get("release", {})
     with tempfile.TemporaryDirectory() as d:
         path = Path(d) / "bundle.tar.gz"
         digest = build(_ROOT, rels, path)
         size = path.stat().st_size
-        data = lock_for(_ROOT, rels, digest, size, now, sidecar_now, unproven_now)
+        data = pointers_for(_ROOT, rels, digest, size, now, sidecar_now, unproven_now)
         if release.get("objects"):
             data["release"]["objects"] = release["objects"]
         data["source"] = {"commit": _head(_ROOT)}
         make_room(_ROOT, 1)
         upload(_ROOT, path, data["release"]["asset"], digest, size)
-    _write_lock(data)
+    _write_pointers(data)
     print(f"bundle {data['release']['asset']} — {size / 1e6:.1f} MB, cut whole behind the "
           f"held publish that left {release.get('asset')} behind")
     return 0
@@ -1186,13 +1186,13 @@ def cut_whole_bundle(held: dict, rels: list, now: dict, sidecar_now: dict,
 def main(argv) -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("mode", nargs="?", choices=["selftest"])
-    ap.add_argument("--write", action="store_true", help="build, upload and pin")
+    ap.add_argument("--write", action="store_true", help="build, upload and move the pointer file")
     ap.add_argument("--publish-held", action="store_true",
                     help="with --write, publish bytes already on disk without cutting their "
                          "producer rules")
-    ap.add_argument("--check", action="store_true", help="1 if the lock does not name this tree")
+    ap.add_argument("--check", action="store_true", help="1 if the pointer file does not name this tree")
     ap.add_argument("--prune", action="store_true",
-                    help="remove locked members no longer declared by the build graph")
+                    help="remove pointed-at members no longer declared by the build graph")
     ap.add_argument("--retire", action="store_true",
                     help="take unreachable and superseded assets off the release")
     ap.add_argument("--room", action="store_true",
@@ -1200,7 +1200,7 @@ def main(argv) -> int:
     ap.add_argument("--keep-cuts", type=int, default=CUTS_KEPT, metavar="N",
                     help=f"with --retire/--room, cuts to keep whole (default {CUTS_KEPT})")
     ap.add_argument("--sidecar-debt", action="store_true",
-                    help="print producers whose viewer scorecards do not match the lock")
+                    help="print producers whose viewer scorecards do not match the pointer file")
     ap.add_argument("--allow-retired", action="store_true",
                     help="with --prune, confirm graph retirements lacking source evidence")
     args = ap.parse_args(argv)
@@ -1214,7 +1214,7 @@ def main(argv) -> int:
             ap.error("--room is a separate read-only query")
         state = room(_ROOT, args.keep_cuts)
         print(f"release holds {state['held']} of {RELEASE_ASSET_CAP}; {state['free']} free")
-        print(f"  {len(state['unreachable'])} asset(s) no commit's lock names")
+        print(f"  {len(state['unreachable'])} asset(s) no commit's pointer file names")
         print(f"  {len(state['superseded'])} asset(s) outside the last {args.keep_cuts} cut(s)")
         return 0
     if args.retire:
@@ -1248,7 +1248,7 @@ def main(argv) -> int:
     print(f"{len(rels)} generated solid(s), {total / 1e6:.1f} MB in the tree")
 
     # A SCORECARD THE GRAPH DECLARES AND THE TREE DOES NOT HOLD IS NOT PINNABLE, and that is the
-    # whole of what follows from it. It leaves this pass and the rest are pinned around it.
+    # whole of what follows from it. It leaves this pass and the rest are pointed at around it.
     sidecar_rels = [rel for rel in sidecars(_ROOT) if (_ROOT / rel).is_file()]
     absent_sidecars = sorted(set(sidecars(_ROOT)) - set(sidecar_rels))
     for rel in absent_sidecars:
@@ -1264,7 +1264,7 @@ def main(argv) -> int:
         for rel in missing[:8]:
             print(f"    {rel}")
 
-    held = read_lock()
+    held = read_pointers()
     now = hashes(_ROOT, rels)
     sidecar_now = hashes(_ROOT, sidecar_rels)
 
@@ -1275,12 +1275,12 @@ def main(argv) -> int:
         print(f"  {line}")
 
     # Retirement takes a public thing away, which `--prune` does deliberately and this does not.
-    # A scorecard whose producer is gone keeps the pin it has until that runs.
+    # A scorecard whose producer is gone keeps the pointer it has until that runs.
     retired_sidecars = sorted(set(held.get("sidecars", {})) - set(sidecar_rels))
-    keep_pinned = {rel: held["sidecars"][rel] for rel in retired_sidecars}
-    if keep_pinned:
-        print(f"  {len(keep_pinned)} scorecard(s) hold their pin; --prune retires one")
-    sidecar_now = {**keep_pinned, **sidecar_now}
+    keep_pointed = {rel: held["sidecars"][rel] for rel in retired_sidecars}
+    if keep_pointed:
+        print(f"  {len(keep_pointed)} scorecard(s) hold their point at; --prune retires one")
+    sidecar_now = {**keep_pointed, **sidecar_now}
     changed_members = {rel for rel, digest in now.items()
                        if held.get("solids", {}).get(rel) != digest}
     changed_sidecars = {rel for rel, digest in sidecar_now.items()
@@ -1306,7 +1306,7 @@ def main(argv) -> int:
             would_not_cut, unheld = carry_the_cut(
                 _ROOT, sorted(target_debt - quarantined))
             quarantined |= set(would_not_cut)
-        # The carry writes bazel-bin into the tree, so the bytes this pins are read after it.
+        # The carry writes bazel-bin into the tree, so the bytes this points at are read after it.
         rels = solids(_ROOT)
         now = hashes(_ROOT, rels)
         sidecar_now = hashes(_ROOT, sidecar_rels)
@@ -1323,14 +1323,14 @@ def main(argv) -> int:
                     if args.write else {})
     if unproven_now:
         print(f"{len(unproven_members)} of {len(now)} member(s) are outside "
-              f"{_head(_ROOT)[:12]}, and the lock records them")
+              f"{_head(_ROOT)[:12]}, and the pointer file records them")
         for path in dirty[:8]:
             print(f"  uncommitted: {path}")
     same_solids = held.get("solids") == now
     same_sidecars = held.get("sidecars") == sidecar_now
     if same_solids and same_sidecars:
         # A SOURCE CHANGE WITH NO MATERIALIZED BYTES IS THE RECONCILER'S WORK. Advancing the
-        # source or adding a debt-only lock here makes the interactive path hide that source
+        # source or adding a debt-only pointer file here makes the interactive path hide that source
         # range from the runner without putting anything new in front of the user.
         if args.publish_held:
             print("no unpublished bytes are held; leaving producer debt to reconciliation")
@@ -1349,12 +1349,12 @@ def main(argv) -> int:
                         raise SystemExit("equal member hashes built a different bundle digest")
                     upload(_ROOT, path, release["asset"], digest, path.stat().st_size)
             # AND THE OBJECT PATH, WHICH NOTHING ELSE PUTS BACK. `objects` is written only where
-            # a cut moves geometry, so a lock that lost it cannot regain it while the tree
+            # a cut moves geometry, so a pointer file that lost it cannot regain it while the tree
             # stands still — and losing it takes one refused upload, which a full release gives
             # every one of them. The fast path then stays off and every deploy reads the whole
             # tarball for members it already has. The members are named by their own bytes and
             # this tree holds those bytes, so what the release is missing goes up without
-            # cutting anything and without the lock naming a different asset.
+            # cutting anything and without the pointer file naming a different asset.
             known = objects_on_release(_ROOT)
             if make_room(_ROOT, sum(1 for r in rels if now[r] not in known)):
                 known = objects_on_release(_ROOT)
@@ -1368,11 +1368,11 @@ def main(argv) -> int:
                     or held.get("unproven", {}) != unproven_now
                     or release.get("objects") != objects_was):
                 held["source"] = {"commit": _head(_ROOT)}
-                _write_lock(_with_record(held, unproven_now))
-                print(f"lock names this tree — {held['release']['asset']}; source advanced"
+                _write_pointers(_with_record(held, unproven_now))
+                print(f"pointer file names this tree — {held['release']['asset']}; source advanced"
                       + (f", {len(unproven_now['members'])} unproven" if unproven_now else ""))
                 return 0
-        print(f"lock names this tree — {held['release']['asset']}")
+        print(f"pointer file names this tree — {held['release']['asset']}")
         return 0
 
     was = held.get("solids", {})
@@ -1385,9 +1385,9 @@ def main(argv) -> int:
     side_fresh = sorted(set(sidecar_now) - set(side_was))
     side_gone = sorted(set(side_was) - set(sidecar_now))
     if not held:
-        print("no lock yet — `--write` makes one")
+        print("no pointer file yet — `--write` makes one")
     else:
-        print(f"lock is behind: {len(moved)} moved, {len(fresh)} new, {len(gone)} gone")
+        print(f"pointer file is behind: {len(moved)} moved, {len(fresh)} new, {len(gone)} gone")
         for rel in (moved + fresh + gone)[:8]:
             print(f"    {rel}")
         if side_moved or side_fresh or side_gone:
@@ -1397,13 +1397,13 @@ def main(argv) -> int:
                 print(f"    {rel}")
     if not args.write:
         # NOBODY HAS TO DO THIS. `.githooks/post-commit` runs `tools/publish_now.py` detached
-        # after every commit, and that cuts and pins exactly what is named above — so a lock
-        # standing behind the tree is a lock whose commit has not been made yet, or one whose
+        # after every commit, and that cuts and points at exactly what is named above — so a pointer file
+        # standing behind the tree is a pointer file whose commit has not been made yet, or one whose
         # publish is still running. Saying "run --write" here without saying that is what sends
         # a reader off to run it by hand, against a publish already in flight; the two race, and
         # the second one lands on a tree the first has already moved.
-        print("  the lock is pinned by the post-commit hook, from the commit that moves it:")
-        print("    git commit      # tools/publish_now.py cuts and pins this, detached")
+        print("  the pointer file is written by the post-commit hook, from the commit that moves it:")
+        print("    git commit      # tools/publish_now.py cuts and points at this, detached")
         print("    tail .cache/publish-now.log      # what it did, or why it could not")
         print("  --write forces it from here, which is only wanted when there is no commit to")
         print("  make and no publish already running.")
@@ -1428,27 +1428,27 @@ def main(argv) -> int:
         else:
             held.pop("source", None)
         held["sidecars"] = sidecar_now
-        _write_lock(_with_record(held, unproven_now))
-        print(f"pinned current scorecards without rebuilding {release['asset']}")
+        _write_pointers(_with_record(held, unproven_now))
+        print(f"pointed at current scorecards without rebuilding {release['asset']}")
         return 0
 
     known = objects_on_release(_ROOT)
 
-    # A HELD PUBLISH PUTS UP WHAT MOVED AND NOTHING ELSE. Every member of a lock is on the
+    # A HELD PUBLISH PUTS UP WHAT MOVED AND NOTHING ELSE. Every member of a pointer file is on the
     # release under its own hash, and that is what `fetch-cad-artifacts.mjs` reads by
-    # (`release.objects`); the bundle is one asset holding all of them for a lock without that
+    # (`release.objects`); the bundle is one asset holding all of them for a pointer file without that
     # lane. Tarring and uploading it costs the whole tree — 173 MB and most of the minute a
     # publish took — to move one member the site never reads from it. So the post-commit path
-    # sends the objects that moved, keeps the bundle the lock already names and says so with
+    # sends the objects that moved, keeps the bundle the pointer file already names and says so with
     # `bundle.behind`; the reconciler's plain `--write` cuts a whole one on the runner. A held
     # publish with no bundle to keep, or one whose objects did not all land, takes the road
-    # below and cuts the bundle here, so a lock always names an asset that answers for it.
+    # below and cuts the bundle here, so a pointer file always names an asset that answers for it.
     prior_bundle = held.get("bundle", {})
     if args.publish_held and prior_bundle.get("sha256"):
         if make_room(_ROOT, sum(1 for r in rels if now[r] not in known)):
             known = objects_on_release(_ROOT)
         if upload_objects(_ROOT, rels, now, known):
-            data = lock_for(_ROOT, rels, prior_bundle["sha256"], prior_bundle.get("bytes", 0),
+            data = pointers_for(_ROOT, rels, prior_bundle["sha256"], prior_bundle.get("bytes", 0),
                             now, sidecar_now, unproven_now)
             data["bundle"] = {**prior_bundle, "behind": True}
             data["release"]["objects"] = OBJECT_PREFIX
@@ -1457,21 +1457,21 @@ def main(argv) -> int:
                 data["source"] = source
             else:
                 data.pop("source", None)
-            _write_lock(data)
+            _write_pointers(data)
             print(f"{len(moved) + len(fresh)} member(s) up on their own hash; "
                   f"{data['release']['asset']} stays behind for the reconciler")
-            print(f"pinned in {LOCK.relative_to(_ROOT)}"
+            print(f"pointed at from {POINTERS.relative_to(_ROOT)}"
                   + (f" — {len(unproven_now['members'])} member(s) recorded unproven"
                      if unproven_now else ""))
             return 0
-        print("  not every object landed; cutting the bundle so this lock reads whole")
+        print("  not every object landed; cutting the bundle so this pointer file reads whole")
         known = objects_on_release(_ROOT)
 
     with tempfile.TemporaryDirectory() as d:
         bundle = Path(d) / "bundle.tar.gz"
         digest = build(_ROOT, rels, bundle)
         size = bundle.stat().st_size
-        data = lock_for(_ROOT, rels, digest, size, now, sidecar_now, unproven_now)
+        data = pointers_for(_ROOT, rels, digest, size, now, sidecar_now, unproven_now)
         # Keep the last reconciled source as the affected-target base. The held member hashes
         # describe what is visible now; `unproven.targets` names what must still be cut, and a
         # plain publication advances this field once those bytes have been built and carried.
@@ -1484,7 +1484,7 @@ def main(argv) -> int:
               f"({100 * size / total:.0f}% of the tree's bytes)")
         # THIS CUT'S OWN BUNDLE PLUS EVERY MEMBER THAT MOVED, asked for before a byte goes up.
         # AND ASKED AGAIN AFTERWARDS, because retiring is what winning the room means. A member
-        # this lock does not name can stand on the release under an older lock's window and go
+        # this pointer file does not name can stand on the release under an older pointer file's window and go
         # in the same sweep — `known` was read before that and would have this run skip an
         # object it no longer holds, leaving `objects` claiming a set the release is short of.
         if make_room(_ROOT, 1 + sum(1 for r in rels if now[r] not in known)):
@@ -1492,15 +1492,15 @@ def main(argv) -> int:
         upload(_ROOT, bundle, data["release"]["asset"], digest, size)
         complete = upload_objects(_ROOT, rels, now, known)
 
-    # `objects` says EVERY member of this lock is on the release under its own hash, so a reader
+    # `objects` says EVERY member of this pointer file is on the release under its own hash, so a reader
     # may fetch what it is missing rather than the whole bundle. One upload that did not land
-    # leaves it off, and the lock is read from the bundle the way a lock without it is — the
+    # leaves it off, and the pointer file is read from the bundle the way a pointer file without it is — the
     # claim is about the whole set, so a partial one is not a smaller claim but a false one.
     if complete:
         data["release"]["objects"] = OBJECT_PREFIX
 
-    _write_lock(data)
-    print(f"pinned in {LOCK.relative_to(_ROOT)}"
+    _write_pointers(data)
+    print(f"pointed at from {POINTERS.relative_to(_ROOT)}"
           + (f" — {len(unproven_now['members'])} member(s) recorded unproven"
              if unproven_now else ""))
     return 0
@@ -1557,7 +1557,7 @@ def selftest() -> int:
         scorecard = hw / "printed-parts" / "cap" / "cap.scorecard.json"
         scorecard.write_text('{"gatesPass": true}\n')
         (graph_dir / "graph.json").write_text(json.dumps(graph))
-        hold("a declared scorecard is pinned outside the bundle",
+        hold("a declared scorecard is pointed at outside the bundle",
              sidecars(root), ["hardware/printed-parts/cap/cap.scorecard.json"])
         hold("a payload needs its own declared output",
              _undeclared(root, solids(root)),
@@ -1567,7 +1567,7 @@ def selftest() -> int:
         (graph_dir / "graph.json").write_text(json.dumps(graph))
         hold("an exactly declared publish inventory passes",
              _graph_gaps(root, solids(root)), ([], []))
-        (hw / "cad-artifacts.lock.json").write_text(json.dumps({
+        (hw / "cad-artifacts.json").write_text(json.dumps({
             "solids": {
                 "hardware/printed-parts/cap/cap.step": "kept",
                 "hardware/retired/old.step": "gone",
@@ -1577,19 +1577,19 @@ def selftest() -> int:
                 "hardware/retired/old.scorecard.json": "gone",
             },
         }))
-        hold("retired solids and scorecards leave the lock together",
+        hold("retired solids and scorecards leave the pointer file together",
              retired_outputs(root), ["hardware/retired/old.scorecard.json",
                                      "hardware/retired/old.step"])
 
-        hold("a lock names its bundle and one asset per member and scorecard sha",
-             sorted(lock_assets({"solids": {"a.step": "aa"},
+        hold("a pointer file names its bundle and one asset per member and scorecard sha",
+             sorted(pointer_assets({"solids": {"a.step": "aa"},
                                  "sidecars": {"a.scorecard.json": "bb"},
                                  "release": {"asset": "cad-cc.tar.gz"}})),
              ["cad-cc.tar.gz", object_asset("aa"), object_asset("bb")])
 
         # WHAT A SWEEP MAY NOT TAKE IS A CUT STILL LANDING. `--write` uploads before it writes
-        # its lock and commits after, so an asset can be on the release while no committed lock
-        # names it — and deleting one leaves a lock naming bytes the release does not hold.
+        # its pointer file and commits after, so an asset can be on the release while no committed pointer file
+        # names it — and deleting one leaves a pointer file naming bytes the release does not hold.
         clock = 1_700_000_000.0
 
         def born(ago):
@@ -1602,20 +1602,20 @@ def selftest() -> int:
                              {"name": "undated.gz"}], clock)),
              ["landing.gz", "undated.gz"])
 
-        (hw / "cad-artifacts.lock.json").write_text(json.dumps({
+        (hw / "cad-artifacts.json").write_text(json.dumps({
             "release": {"asset": "cad-inflight.tar.gz"},
             "solids": {"hardware/printed-parts/cap/cap.step": "inflight"},
         }))
         listing = [{"name": name, "createdAt": born(RETIRE_FLOOR_S + 60)}
                    for name in ("cad-inflight.tar.gz", object_asset("inflight"), "obj-dead.gz")]
-        was = (release_assets, locks_in_history)
+        was = (release_assets, pointer_files_in_history)
         globals()["release_assets"] = lambda _root: listing
-        globals()["locks_in_history"] = lambda _root: []
+        globals()["pointer_files_in_history"] = lambda _root: []
         try:
             swept = retirable(root, now=clock)
         finally:
-            globals()["release_assets"], globals()["locks_in_history"] = was
-        hold("a cut whose lock is on disk and in no commit is neither unreachable nor stale",
+            globals()["release_assets"], globals()["pointer_files_in_history"] = was
+        hold("a cut whose pointer file is on disk and in no commit is neither unreachable nor stale",
              swept, (["obj-dead.gz"], []))
 
         # A publication under way beside somebody's open file. Both members still ship;
@@ -1677,7 +1677,7 @@ def selftest() -> int:
         scorecard.write_text('{"gatesPass": false}\n')
         score_after = hashes(root, sidecars(root))
         score_bundle = build(root, rels, root / "scorecard-only.tar.gz")
-        hold("a scorecard moves its lock hash without moving the geometry bundle",
+        hold("a scorecard moves its pointer file hash without moving the geometry bundle",
              (score_before != score_after, score_bundle), (True, da))
 
         (hw / "printed-parts" / "cap" / "cap.step").write_text("ISO-10303-21;\nmoved\n")
@@ -1693,7 +1693,7 @@ def selftest() -> int:
 
     # AN ASSET IS NAMED BY ITS BYTES, so what `upload_objects` sends is one send per hash. Two
     # members carrying the same bytes sent as two uploads race one asset name, and the loser
-    # reports a failure that costs the lock its `objects` for a member that is demonstrably up.
+    # reports a failure that costs the pointer file its `objects` for a member that is demonstrably up.
     twins = {"a.png": "h1", "b.png": "h1", "c.step": "h2"}
     hold("two members of one hash are one send",
          objects_to_send(list(twins), twins, set()), ["a.png", "c.step"])

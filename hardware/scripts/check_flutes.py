@@ -8,7 +8,7 @@ THE FLUTES ARE IN THE MESH AND NOT IN THE STEP. `flute_payload` cuts each enclos
 `.step.mesh` from the printed `.stl`, and `/3d` draws that payload rather than parsing the
 B-rep — so the picture is fluted only while the payload is the one that cut carried. Every
 other reading in this tree passes on a payload that has lost them: the file decodes, its
-version is current, its digest answers to the STEP beside it, the lock names its bytes and the
+version is current, its digest answers to the STEP beside it, the pointer file names its bytes and the
 bundle carries them. What none of those ask is whether the surface is the printed one.
 
 WHAT MAKES A SMOOTH PAYLOAD STICK. `_cadq_export._write_payload_beside` writes a plain

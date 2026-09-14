@@ -13,7 +13,7 @@
 // strips it.
 //
 // SKIPPED WHERE THE SOLIDS ARE NOT ON DISK. They are fetched, not committed
-// (hardware/cad-artifacts.lock.json), so a clone that has not run
+// (hardware/cad-artifacts.json), so a clone that has not run
 // scripts/fetch-cad-artifacts.mjs has nothing to hold the names against.
 
 import { test } from "node:test";

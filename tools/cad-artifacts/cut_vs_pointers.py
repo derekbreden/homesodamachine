@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""The solids this machine just cut, against the ones the lock names.
+"""The solids this machine just cut, against the ones the pointer file names.
 
-    tools/cad-venv/bin/python tools/cad-artifacts/cut_vs_lock.py
-    tools/cad-venv/bin/python tools/cad-artifacts/cut_vs_lock.py --annotate   # in a workflow
+    tools/cad-venv/bin/python tools/cad-artifacts/cut_vs_pointers.py
+    tools/cad-venv/bin/python tools/cad-artifacts/cut_vs_pointers.py --annotate   # in a workflow
 
 WHAT IT IS FOR. `pack.py --check` walks the TREE, and on a runner the tree's solids came from
-`web/scripts/fetch-cad-artifacts.mjs`, which downloaded the bundle the lock names — so it hashes
-the lock's own bundle against the lock and reports agreement. That is a tautology, and it is why
+`web/scripts/fetch-cad-artifacts.mjs`, which downloaded the bundle the pointer file names — so it hashes
+the pointer file's own bundle against the pointer file and reports agreement. That is a tautology, and it is why
 every green on a runner has meant nothing. This walks `bazel-bin` instead: the bytes THIS
 machine's OpenCASCADE cut, which nothing else in the pipeline ever hashes.
 
@@ -25,7 +25,7 @@ incomplete build fail before any tree file moves.
 A DIFFERENCE HAS THREE CAUSES AND ONLY ONE OF THEM IS THE ANSWER. The bytes cannot say which:
 
   1. the kernels disagree — the question, and the only reading worth the words
-  2. the lock is behind the tree's current source, so it names an older shape
+  2. the pointer file is behind the tree's current source, so it names an older shape
   3. `bazel-bin` holds a STALE cut — bazel keeps whatever a target wrote the last time it ran,
      and a target not requested since is still sitting there under its old bytes
 
@@ -50,10 +50,10 @@ import sys
 from pathlib import Path
 
 _ROOT = Path(__file__).resolve().parents[2]
-_LOCK = _ROOT / "hardware" / "cad-artifacts.lock.json"
+_POINTERS = _ROOT / "hardware" / "cad-artifacts.json"
 
 #: An output is `…/bin/out/<target>/<the path the tree keeps it under>`, the same shape
-#: `sync_tree` reads. The suffix is the lock's key.
+#: `sync_tree` reads. The suffix is the pointer file's key.
 _DECLARED = re.compile(r"/bin/out/([^/]+)/(.+)$")
 
 
@@ -130,12 +130,12 @@ def main() -> int:
         if args.annotate:
             print(f"::{kind} title={title}::{text}")
 
-    if not _LOCK.exists():
-        print(f"  no lock at {_LOCK.relative_to(_ROOT)}, so there is nothing to compare against")
+    if not _POINTERS.exists():
+        print(f"  no pointer file at {_POINTERS.relative_to(_ROOT)}, so there is nothing to compare against")
         return 2
-    lock = json.loads(_LOCK.read_text()).get("solids", {})
-    if not lock:
-        print("  the lock names no solids, so there is nothing to compare against")
+    pointers = json.loads(_POINTERS.read_text()).get("solids", {})
+    if not pointers:
+        print("  the pointer file names no solids, so there is nothing to compare against")
         return 2
 
     labels = _labels(args.targets)
@@ -144,13 +144,13 @@ def main() -> int:
     expected = _expected(labels, failed)
     if not expected:
         print("  NOTHING DECLARED: the requested target slice has no publishable outputs")
-        note("warning", "cut-vs-lock", "nothing compared: target slice has no CAD outputs")
+        note("warning", "cut-vs-pointers", "nothing compared: target slice has no CAD outputs")
         return 3
 
     out = _bazel_bin() / "out"
     if not out.is_dir():
         print(f"  NOTHING CUT: {out} does not exist, so this build cut no solids to compare.")
-        note("warning", "cut-vs-lock", "nothing compared: bazel-bin holds no outputs")
+        note("warning", "cut-vs-pointers", "nothing compared: bazel-bin holds no outputs")
         return 3
 
     # IS WHAT IS SITTING THERE THIS TREE'S? Cause 3 above, and the only one askable of bazel.
@@ -171,7 +171,7 @@ def main() -> int:
             for line in (chk.stderr or "").splitlines():
                 if "not up to date" in line.lower():
                     print(f"      {line.strip()}")
-            note("warning", "cut-vs-lock",
+            note("warning", "cut-vs-pointers",
                  "bazel-bin is not up to date — nothing compared")
             return 3
 
@@ -193,10 +193,10 @@ def main() -> int:
         print(f"  INCOMPLETE CUT: {len(absent)} of {len(expected)} expected solid(s) are absent")
         for path in absent[:20]:
             print(f"      {path}")
-        note("error", "cut-vs-lock", "the build did not materialize every expected solid")
+        note("error", "cut-vs-pointers", "the build did not materialize every expected solid")
         return 3
 
-    # AND WHAT THE TREE HOLDS, which is a different question from the lock's and free to ask
+    # AND WHAT THE TREE HOLDS, which is a different question from the pointer file's and free to ask
     # here. Before the carry, the tree holds the fetched bundle or a hand cut while bazel-bin
     # holds this action's output. `stale` measures that gap directly.
     same, differ, fresh, twice, stale = [], [], [], [], []
@@ -209,10 +209,10 @@ def main() -> int:
         in_tree = _ROOT / tree_path
         if in_tree.exists() and _sha256(in_tree) != here:
             stale.append(tree_path)
-        if tree_path not in lock:
+        if tree_path not in pointers:
             fresh.append(tree_path)
         else:
-            (same if here == lock[tree_path] else differ).append(tree_path)
+            (same if here == pointers[tree_path] else differ).append(tree_path)
 
     compared = len(same) + len(differ)
     materialized = compared + len(fresh)
@@ -226,7 +226,7 @@ def main() -> int:
         if skipped_failed:
             print(f"  ({skipped_failed} held back as outputs of failed targets: "
                   f"{', '.join(sorted(failed))})")
-        note("warning", "cut-vs-lock", "nothing compared: no solid of the lock's was cut")
+        note("warning", "cut-vs-pointers", "nothing compared: no solid of the pointer file's was cut")
         return 3
 
     print(f"  {materialized} of {len(expected)} expected solids were cut here and hashed "
@@ -238,29 +238,29 @@ def main() -> int:
         print(f"  {len(twice)} cut by two targets that disagree with each other:")
         for k in twice[:10]:
             print(f"      {k}")
-        note("error", "cut-vs-lock", "two actions produced disagreeing bytes for one output")
+        note("error", "cut-vs-pointers", "two actions produced disagreeing bytes for one output")
         return 3
 
     if materialized != len(expected):
         print(f"  INCOMPLETE COMPARISON: {len(expected) - materialized} expected solid(s) were not hashed")
-        note("error", "cut-vs-lock", "not every expected solid was compared")
+        note("error", "cut-vs-pointers", "not every expected solid was compared")
         return 3
 
     if fresh:
-        print(f"  {len(fresh)} are new outputs with no historical lock member:")
+        print(f"  {len(fresh)} are new outputs with no historical pointer file member:")
         for k in fresh[:20]:
             print(f"      {k}")
 
     if differ:
-        print(f"  {len(differ)} DIFFER from the lock:")
+        print(f"  {len(differ)} DIFFER from the pointer file:")
         for k in differ[:20]:
             print(f"      {k}")
-            print(f"        lock {lock[k][:16]}   cut here {_sha256(cut[k][0])[:16]}")
+            print(f"        pointer file {pointers[k][:16]}   cut here {_sha256(cut[k][0])[:16]}")
         if len(differ) > 20:
             print(f"      …and {len(differ) - 20} more")
         print()
         print("  THE BYTES DO NOT SAY WHY THEY DIFFER. Either this machine's OpenCASCADE")
-        print("  writes different bytes than the one that packed the lock, or the lock is")
+        print("  writes different bytes than the one that packed the pointer file, or the pointer file is")
         print("  simply behind the tree's current source for these parts.")
         if args.assume_fresh:
             # THE THIRD CAUSE IS NOT EXCLUDED HERE AND MUST NOT BE CLAIMED AS SUCH. The check
@@ -271,7 +271,7 @@ def main() -> int:
             print("  bazel kept from an older run has not been ruled out. On this evidence")
             print("  that is the likeliest of the three, not the least.")
         else:
-            print("  bazel-bin is up to date, so a stale cut is excluded — but a lock older")
+            print("  bazel-bin is up to date, so a stale cut is excluded — but a pointer file older")
             print("  than the geometry is not.")
         # A BYTE DIFFERENCE IS EVIDENCE ABOUT THE WRITERS AND NOT ABOUT THE SOLIDS, so the
         # reading that separates the causes is a geometric one and never a second hash.
@@ -285,11 +285,11 @@ def main() -> int:
         print("  repo's two machines are known to write different bytes for solids whose")
         print("  geometry is identical, so `cut here` disagreeing across machines does NOT")
         print("  establish that the kernels disagree.")
-        print("  Geometry agrees: the lock is simply behind, and a repin here settles it.")
-        print("  Geometry disagrees: the lock belongs to whichever machine packs it — a repin")
-        print("  here pins these bytes and the next repin there pins them back, every lap.")
-        note("warning", "cut-vs-lock",
-             f"{len(differ)} of {compared} solids differ from the lock "
+        print("  Geometry agrees: the pointer file is simply behind, and a re-point here settles it.")
+        print("  Geometry disagrees: the pointer file belongs to whichever machine packs it — a re-point")
+        print("  here points at these bytes and the next re-point there points at them back, every lap.")
+        note("warning", "cut-vs-pointers",
+             f"{len(differ)} of {compared} solids differ from the pointer file "
              f"— compare against the other machine's cut hashes to read it")
         _tree_verdict(stale, compared, note)
         return 1
@@ -297,24 +297,24 @@ def main() -> int:
     if fresh:
         print()
         if same:
-            print(f"  THE {len(same)} EXISTING SOLIDS MATCH THE LOCK; the {len(fresh)} new "
-                  "output(s) are ready to be pinned.")
+            print(f"  THE {len(same)} EXISTING SOLIDS MATCH THE POINTER FILE; the {len(fresh)} new "
+                  "output(s) are ready to be pointed at.")
         else:
-            print("  EVERY OUTPUT IS NEW; there are no historical lock bytes to compare.")
+            print("  EVERY OUTPUT IS NEW; there are no historical pointer file bytes to compare.")
         _tree_verdict(stale, materialized, note)
         return 1
 
     print()
-    print("  EVERY SOLID CUT HERE MATCHES THE LOCK, byte for byte. This machine's OpenCASCADE")
-    print("  and the one that packed the lock agree, so a lock is a fact about the geometry")
+    print("  EVERY SOLID CUT HERE MATCHES THE POINTER FILE, byte for byte. This machine's OpenCASCADE")
+    print("  and the one that packed the pointer file agree, so a pointer file is a fact about the geometry")
     print("  rather than about the machine that packed it.")
-    note("notice", "cut-vs-lock",
-         f"{compared} solids cut here match the lock byte for byte ({steps} .step)")
+    note("notice", "cut-vs-pointers",
+         f"{compared} solids cut here match the pointer file byte for byte ({steps} .step)")
     return _tree_verdict(stale, materialized, note)
 
 
 def _tree_verdict(stale, compared, note) -> int:
-    """What the tree holds against what this machine cuts, said after the lock's verdict.
+    """What the tree holds against what this machine cuts, said after the pointer file's verdict.
 
     A SOLID IN THE TREE IS NOT EVIDENCE OF THE SOURCE THAT NAMES IT. Every scorecard, mass and
     picture is read off the tree's copy, so one cut for an older source is a whole card's worth
@@ -339,7 +339,7 @@ def _tree_verdict(stale, compared, note) -> int:
     print("  The latter is only as good as the source that action read:")
     print("  a generator or a module dirty in the worktree cuts bytes no commit reproduces.")
     print("  `git status` over what the cutting run imports is what separates them.")
-    note("warning", "cut-vs-lock",
+    note("warning", "cut-vs-pointers",
          f"{len(stale)} solids in the tree differ from what this build cut")
     return 1
 

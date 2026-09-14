@@ -128,7 +128,7 @@ tools/cad-venv/bin/python \
 ```
 
 This isolated trial is a standalone build target, not an input to the appliance assembly or
-its artifact lock. Do not publish it as enclosure geometry or bill it as a per-unit shipped
+its artifact pointer file. Do not publish it as enclosure geometry or bill it as a per-unit shipped
 part. If it becomes durable shop tooling after the bench result, add that tooling status to the
 ledger in that later change.
 

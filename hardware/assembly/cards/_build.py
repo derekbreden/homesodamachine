@@ -12,7 +12,7 @@ fifteenth the bytes the same pages cost as pixels.
 NOTHING THIS FILE WRITES IS CARRIED IN GIT. deck.pdf, deck.cover.png and out/ are
 all ignored, and so are the pictures under img/ that the pages are drawn around.
 They reach a deploy the road every solid in this tree takes: pack.py's
-BUNDLED_ART_DIRS puts them in the release asset, cad-artifacts.lock.json names
+BUNDLED_ART_DIRS puts them in the release asset, cad-artifacts.json names
 each by sha256, and web/scripts/fetch-cad-artifacts.mjs lands them on the disk the
 site serves from (web/contracts/cards.js). The one thing beside the cards that git
 does carry is deck.pdf.json, the sidecar the site lists the deck by — text a writer

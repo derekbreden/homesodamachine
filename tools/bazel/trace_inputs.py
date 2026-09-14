@@ -193,7 +193,7 @@ def _graph_writes(path=GRAPH) -> set:
 
 
 def _tracked(path=GRAPH, base=None) -> set:
-    """Every file this tree stands behind: tracked inputs, locked solids and declared outputs.
+    """Every file this tree stands behind: tracked inputs, pointed-at solids and declared outputs.
 
     A GENERATED SOLID IS IN NO INDEX AND A GENERATOR STILL OPENS IT. `_pump_replacement_sync`
     loads `kamoer-kphm400.step` through `manifold_layout.build_pump`. A trace filtered by
@@ -431,8 +431,8 @@ def selftest() -> int:
     return 0 if holds == 10 else 1
 
 
-def _lock_debt(wrote: set) -> list:
-    """The bundle members this run rewrote that `cad-artifacts.lock.json` no longer names.
+def _pointer_debt(wrote: set) -> list:
+    """The bundle members this run rewrote that `cad-artifacts.json` no longer names.
 
     A TRACE IS A CUT. Watching a generator means running it, and a generator writes its
     outputs — which are ignored, so `git status` reads clean over a tree whose bundle has
@@ -442,12 +442,12 @@ def _lock_debt(wrote: set) -> list:
     Only what this run wrote is hashed, so the answer costs the members it touched and not
     the 460 MB `--check` reads to answer the same question about all of them.
     """
-    lock = _ROOT / "hardware" / "cad-artifacts.lock.json"
-    if not lock.is_file():
+    pointers = _ROOT / "hardware" / "cad-artifacts.json"
+    if not pointers.is_file():
         return []
-    pinned = json.loads(lock.read_text()).get("solids", {})
+    named = json.loads(pointers.read_text()).get("solids", {})
     behind = []
-    for rel in sorted(set(wrote) & set(pinned)):
+    for rel in sorted(set(wrote) & set(named)):
         path = _ROOT / rel
         if not path.is_file():
             continue
@@ -455,7 +455,7 @@ def _lock_debt(wrote: set) -> list:
         with path.open("rb") as fh:
             for chunk in iter(lambda: fh.read(1 << 20), b""):
                 digest.update(chunk)
-        if digest.hexdigest() != pinned[rel]:
+        if digest.hexdigest() != named[rel]:
             behind.append(rel)
     return behind
 
@@ -597,9 +597,9 @@ def main() -> int:
             print(f"    {gen}\n      {r0:3d} -> {r1:3d} read   {w0:3d} -> {w1:3d} written")
         print("  A run that stopped part way writes down the part it reached. Re-trace the one")
         print("  generator and read it again; the second reading is the one to keep.")
-    behind = _lock_debt(wrote)
+    behind = _pointer_debt(wrote)
     if behind:
-        print(f"\n{len(behind)} member(s) this run wrote are no longer the lock's:")
+        print(f"\n{len(behind)} member(s) this run wrote are no longer the pointer file's:")
         for rel in behind[:8]:
             print(f"    {rel}")
         if len(behind) > 8:

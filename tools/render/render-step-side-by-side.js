@@ -12,7 +12,7 @@
 // A PINNED SIDE READS A COMMITTED SOLID. The pin checks out the tag's tree and reads the
 // file from it — nothing is generated in there — so the solid has to be one that tag had
 // in the index. Generated solids are not: they are fetched against
-// hardware/cad-artifacts.lock.json, so at a tag they are simply absent. The harvested
+// hardware/cad-artifacts.json, so at a tag they are simply absent. The harvested
 // reference solids ARE committed, and those are what a pinned side can name.
 //
 // Example (the same part at HEAD and as enclosure-v1 had it):
