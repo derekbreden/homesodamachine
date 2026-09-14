@@ -1,0 +1,8 @@
+[step] The Aero shoulders mate with the PETG collar's 0.8 mm inward lips. These two shoulders capture the foamed core vertically inside the insert.
+file: hardware/printed-parts/cold-core/magnetic-float/insert-loose-aero.step
+click: x=-8.085 y=-5.996 z=0.800
+click: x=-8.085 y=-5.996 z=9.200
+
+[ceiling] The lower Aero shoulder prints onto the PETG collar's lower lip. Both materials belong to the same insert object and print together on plate 1.
+file: hardware/printed-parts/cold-core/magnetic-float/insert-loose-aero.step
+click: x=0.000 y=0.000 z=0.800

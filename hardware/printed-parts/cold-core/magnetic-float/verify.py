@@ -89,8 +89,11 @@ def read_paths(gcode, plate):
         command = raw.split(';', 1)[0].strip()
         if command == 'M400 U1':
             pauses.append({'before_layer_z_mm': layer_z, 'commanded_z_before_pause_mm': z})
-        if command in ('T0', 'T1'):
-            tool = int(command[1:])
+        # H2C material selections carry a hotend argument, e.g. T1 H0.
+        # Its T1000/T1001 hardware commands are not filament selections.
+        selection = re.match(r'^T([01])(?:\s|$)', command)
+        if selection:
+            tool = int(selection[1])
         if not re.match(r'^G(?:0|1|2|3) ', command):
             continue
         values = {key: float(value) for key, value in re.findall(r'\b([XYZE])(-?[\d.]+)', command)}
@@ -115,13 +118,18 @@ def read_paths(gcode, plate):
                 assert tool == 0, 'Aero in the sealing roof'
                 assert len(pauses) == 1, 'Roof extrusion precedes insertion pause'
     if plate == 2:
+        assert all(mass > 0 for mass in masses['body']), 'Body must contain both materials'
         assert len(pauses) == 1 and math.isclose(pauses[0]['before_layer_z_mm'], m.roof_bottom + 0.2)
         assert sorted(roof_layers) == [round(m.roof_bottom + 0.2 * i, 3) for i in range(1, round(m.skin / 0.2) + 1)]
         assert len(body_layer_tools) == round(m.height / 0.2)
         assert all(0 in tools for tools in body_layer_tools.values()), 'PETG wall omitted on a layer'
+        assert all(1 in tools for h, tools in body_layer_tools.items()
+                   if m.skin < h <= m.insert_bottom + 0.001), 'Aero omitted inside the core'
         assert all(1 not in tools for h, tools in body_layer_tools.items() if h > m.insert_bottom + 0.001)
     else:
         assert not pauses
+        assert all(mass > 0 for name in ('insert', 'insert-loose') for mass in masses[name])
+        assert masses['key'][0] > 0 and masses['key'][1] == 0
     return {'object_material_mass_g': masses, 'insertion_pauses': pauses,
             'roof_layers_mm': sorted(roof_layers), 'body_petg_layers': len(body_layer_tools)}
 

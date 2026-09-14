@@ -61,12 +61,12 @@
       {
         "object_material_mass_g": {
           "insert-loose": [
-            3.1210896424798356,
-            0.0
+            1.8190899380312746,
+            1.2603357139062772
           ],
           "insert": [
-            3.2864458862946173,
-            0.0
+            1.968322374794274,
+            1.2759435591324013
           ],
           "key": [
             0.5092093575838927,
@@ -80,8 +80,8 @@
       {
         "object_material_mass_g": {
           "body": [
-            15.571251899051704,
-            0.0
+            7.408311230792112,
+            7.901726566876206
           ]
         },
         "insertion_pauses": [
@@ -100,8 +100,8 @@
         "body_petg_layers": 250
       }
     ],
-    "assembled_mass_from_model_extrusion_g": 23.94769778534632,
-    "reserve_from_model_extrusion_g": 5.426193525718247,
+    "assembled_mass_from_model_extrusion_g": 23.64430373159499,
+    "reserve_from_model_extrusion_g": 5.729587579469577,
     "mass_scope": "Positive extrusion on object toolpaths; excludes purge, brim, spare insert and key. Nominal filament diameter/density."
   },
   "physical_prints": "No physical float print recorded."
