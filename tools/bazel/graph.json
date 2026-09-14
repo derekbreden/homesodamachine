@@ -4537,6 +4537,7 @@
   },
   "hardware/printed-parts/cold-core/magnetic-float/magnetic_float.py": {
     "reads": [
+      "hardware/printed-parts/cold-core/magnetic-float/README.figures.json",
       "hardware/printed-parts/cold-core/magnetic-float/README.md",
       "hardware/printed-parts/cold-core/magnetic-float/body-aero.step",
       "hardware/printed-parts/cold-core/magnetic-float/body-aero.stl",
@@ -4572,9 +4573,11 @@
       "tools/docgen/__init__.py"
     ],
     "rewritten": [
+      "hardware/printed-parts/cold-core/magnetic-float/README.figures.json",
       "hardware/printed-parts/cold-core/magnetic-float/README.md"
     ],
     "writes": [
+      "hardware/printed-parts/cold-core/magnetic-float/README.figures.json",
       "hardware/printed-parts/cold-core/magnetic-float/README.md",
       "hardware/printed-parts/cold-core/magnetic-float/body-aero.step",
       "hardware/printed-parts/cold-core/magnetic-float/body-aero.step.mesh",
