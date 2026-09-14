@@ -33,10 +33,12 @@ tools/relay-mark to "Time" "What is the state of the funnel-mold trial?"
 tools/relay-mark read "Time" 40
 ```
 
-The script only checks the arguments; the watcher reads the mark out of your tool call and
-acts on it within seconds. Keep working; the answer arrives at a later tool round as a
-cross-session message. A mark found more than ten minutes after it was written (the watcher was
-not running) is bounced rather than delivered, so write it again if it still matters.
+The script prints the mark, and the watcher reads it out of the call's output within seconds,
+so the message is whatever the shell handed in: a quoted string, a file through `$(cat
+notes.md)`, a heredoc through `"$(cat <<'EOF' … EOF)"`. Keep working; the answer arrives at a
+later tool round as a cross-session message. A mark found more than ten minutes after it was
+written (the watcher was not running) is bounced rather than delivered, so write it again if
+it still matters.
 
 ## Addressing
 
