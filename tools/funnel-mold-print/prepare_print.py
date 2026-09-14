@@ -82,9 +82,17 @@ def recipe(info, nozzle=0.4):
             'filament_cost': choice(['11.20'], 'Ledger cost per kilogram.')},
         'layer_ranges_mm': {'cavity': [], 'core': []}}
     if not fine:
-        settings['process_name'] = 'Funnel mold shell - 0.8 nozzle - 8mm support feet'
-        settings['process_settings']['raft_first_layer_expansion'] = choice(
-            '8', 'Expand support feet by 8 mm on the build plate for tall tree adhesion.')
+        settings['process_name'] = 'Funnel mold shell - 0.8 nozzle - gentle supports'
+        settings['process_settings'].update({
+            'raft_first_layer_expansion': choice('8', 'Broad connected support feet on the build plate.'),
+            'support_speed': choice(['40']*4, 'Tall tree extrusion capped at 40 mm/s.'),
+            'support_interface_speed': choice(['30']*4, 'Support interfaces capped at 30 mm/s.'),
+            'travel_speed': choice(['150']*4, 'Travel moves capped at 150 mm/s.'),
+            'default_acceleration': choice(['1500']*4, 'Normal printing, including tree walls, at 1500 mm/s2.'),
+            'travel_acceleration': choice(['1500']*4, 'Travel acceleration at 1500 mm/s2.'),
+            'avoid_crossing_wall_includes_support': choice('1', 'Support walls participate in travel detours.'),
+            'tree_support_wall_count': choice('2', 'Two perimeter loops around tree branches.'),
+            'tree_support_branch_diameter': choice('4', 'Tree nodes start at 4 mm diameter.')})
         settings['filament_name'] = 'Funnel mold PETG Translucent - 0.8 nozzle - Bambu defaults'
         settings['filament_settings'] = {
             'filament_cost': choice(['11.20'], 'Ledger cost per kilogram.')}
