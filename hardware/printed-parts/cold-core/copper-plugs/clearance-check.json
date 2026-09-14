@@ -36,5 +36,25 @@
   ],
   "reading_date": "2026-09-13",
   "scope": "Both copper-slot covers against the current front-top and all cold-core bodies; retained sealing flange and end geometry checked against the original covers.",
-  "front_top_sha256": "00fbfeb09d484eaa1a2cb8e0eed3af3038fb579962c026dac8d500679eec03c2"
+  "front_top_sha256": "00fbfeb09d484eaa1a2cb8e0eed3af3038fb579962c026dac8d500679eec03c2",
+  "print_mesh_review": {
+    "west": {
+      "watertight": true,
+      "connected_bodies": 1,
+      "facets": 584,
+      "print_lint_findings": 12,
+      "answered_lip_edges": 2,
+      "answered_retaining_tab_faces": 10,
+      "print_pose": "continuous interior flange on the bed"
+    },
+    "port": {
+      "watertight": true,
+      "connected_bodies": 1,
+      "facets": 584,
+      "print_lint_findings": 12,
+      "answered_lip_edges": 2,
+      "answered_retaining_tab_faces": 10,
+      "print_pose": "continuous interior flange on the bed"
+    }
+  }
 }
