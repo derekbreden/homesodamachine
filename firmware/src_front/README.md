@@ -506,18 +506,18 @@ reaches the card within a second. While a step's answer is owed, the poll's copy
 **Settings lands on the machine's own side profile with every reed on it.** The enclosure is
 drawn as seen along X — 462 mm deep, 361 mm tall, the display's 45° facet off the top-front
 arris, the front on the left — with the cold core at the back of the floor, the carbonator's
-tube in the middle of it and a reservoir pocket at either end, **B** forward and **A** aft.
-Each of the ten reeds is a 14 px dot at its own station: a column of four on each pocket's
-outer wall at 57.5, 102.5, 147.5 and 192.5 mm up the shell, empty at the bottom and full at
-the top, and the carbonator's low and high on its tube's aft wall at 99.1 and 127.3 mm. A reed
-the main board reads closed is a filled `COL_GOOD` disc; every other one is a ring. The areas a
-person can go into stand in a column east of the card, one target each — one so far, **PUMP
-SERVICE**, whose page carries a Back to this landing.
+tube in the middle of it and a reservoir pocket at either end, B's forward and A's aft, none
+of them named on the glass. Each of the ten reeds is a 14 px dot at its own station: a column
+of four on each pocket's outer wall at 57.5, 102.5, 147.5 and 192.5 mm up the shell, empty at
+the bottom and full at the top, and the carbonator's low and high on its tube's aft wall at
+99.1 and 127.3 mm. A reed the main board reads closed is a filled `COL_GOOD` disc; every other
+one is a ring. The areas a person can go into stand in a column east of the card, one target
+each — one so far, **PUMP SERVICE**, whose page carries a Back to this landing.
 
 The reeds ride the same status poll as the gauges, once a second while lit, and the diagram
 repaints only the dots that changed. A poll the main board has not answered for 1.5 s, or a
 reading it flags as stale, empties every dot and puts **not reading the reeds** under the
-diagram in place of the legend. The middle rung of the dark returns Settings to this landing;
+diagram, which otherwise carries nothing. The middle rung of the dark returns Settings to this landing;
 `GET_DIAG` reports which of its views is up as `set=`.
 
 ## Integration seams (not implemented)
