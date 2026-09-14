@@ -3,21 +3,25 @@
 # without ending the turn.
 #
 #   tools/relay-mark to "Time" "What is the state of the funnel-mold trial?"
+#   tools/relay-mark to "Time" "$(cat notes/for-time.md)"
 #   tools/relay-mark read "Time" 40
 #
 # A cloud session cannot message another session, and the text it writes between tool
-# calls is not always recorded. A tool call is: this command's own invocation lands in
-# the session's event stream the moment it runs, and the cloud-inbox watcher on the Mac
-# reads the mark out of it and delivers it, or renders and posts the transcript asked
-# for. The answer arrives as a cross-session message at the next tool round. Nothing
-# happens here; this script only checks the arguments and says what will follow.
+# calls is not always recorded. A tool call is, and so is what it prints: this script
+# prints the mark, and the cloud-inbox watcher on the Mac reads it out of this call's
+# output and delivers it, or renders and posts the transcript asked for. The text is
+# whatever the shell handed in -- a quoted string, a file through `$(cat ...)`, a heredoc
+# through `"$(cat <<'EOF' ... EOF)"` -- already expanded by the time it is printed. The
+# answer arrives as a cross-session message at a later tool round.
 set -eu
 usage() { echo "usage: relay-mark to <session name> <message> | relay-mark read <title> [tail]" >&2; exit 2; }
 [ $# -ge 2 ] || usage
 case "$1" in
   to)   [ $# -eq 3 ] && [ -n "$2" ] && [ -n "$3" ] || usage
-        printf 'mark recorded: <relay to="%s"> (%d chars). The watcher on Derek'"'"'s Mac delivers it within seconds; the answer arrives here as a cross-session message.\n' "$2" "${#3}" ;;
+        printf 'relay-mark: <relay to="%s">\n%s\n</relay>\n' "$2" "$3"
+        printf 'The watcher on Derek'"'"'s Mac reads the mark above out of this output and delivers it within seconds; the answer arrives here as a cross-session message.\n' ;;
   read) [ $# -le 3 ] && [ -n "$2" ] || usage
-        printf 'mark recorded: <relay read="%s" tail="%s"/>. The transcript arrives here as a message from relay, in parts when long.\n' "$2" "${3:-40}" ;;
+        printf 'relay-mark: <relay read="%s" tail="%s"/>\n' "$2" "${3:-40}"
+        printf 'The transcript arrives here as a message from relay, in parts when long.\n' ;;
   *)    usage ;;
 esac
