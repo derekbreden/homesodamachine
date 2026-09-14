@@ -22,7 +22,7 @@
     },
     {
       "check": "hardware/scripts/check_payloads.py",
-      "note": "payloads: 29 solid(s) cut from the bytes beside them, 11 scene(s) at the finishes this tree states",
+      "note": "payloads: 40 solid(s) cut from the bytes beside them, 11 scene(s) at the finishes this tree states",
       "status": "ok"
     },
     {
@@ -52,12 +52,12 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 1693 tracked, 372 fetched solids, 55 tags, 38 site routes",
+      "note": "paths: every reference lands — 1703 tracked, 372 fetched solids, 55 tags, 38 site routes",
       "status": "ok"
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 488 of 1000 free, the next cut wants 3, and the whole lock reads by name in 173.8 MB against 175.8 MB of bundle",
+      "note": "check_release_room: 479 of 1000 free, the next cut wants 3, and the whole lock reads by name in 173.8 MB against 175.8 MB of bundle",
       "status": "ok"
     },
     {
@@ -67,8 +67,8 @@
     },
     {
       "check": "tools/bazel/check_build_file.py",
-      "note": "check_build_file: BUILD.bazel is what the graph writes; 3MFs are build-inert",
-      "status": "ok"
+      "note": "tools/cad-venv/bin/python tools/bazel/gen_build.py",
+      "status": "red"
     },
     {
       "check": "tools/bazel/check_ci_targets.py",
@@ -77,12 +77,12 @@
     },
     {
       "check": "tools/bazel/check_declared_imports.py",
-      "note": "check_declared_imports: every step holds what it imports, over 205 source(s) the graph names",
+      "note": "check_declared_imports: every step holds what it imports, over 206 source(s) the graph names",
       "status": "ok"
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 1 of 3 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 372 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 1 of 8 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 401 member(s) keep their provenance",
       "status": "ok"
     }
   ],
@@ -96,6 +96,31 @@
       "instructions: 120 files (14 procedures + 105 cards + cover) | ledger brands: 546 | waived: 1 ASIN + 4 brand",
       "DRIFT: 1 instruction(s) out of step with the ledger:",
       "  ✗ instruction names a purchased brand the ledger no longer carries: Chanzon (hardware/assembly/weld-rotation-rig.md:221)"
+    ],
+    "tools/bazel/check_build_file.py": [
+      "BUILD.bazel is not what the graph would write now:",
+      "  --- BUILD.bazel",
+      "  +++ what gen_build.py writes now",
+      "  @@ -4732,6 +4732,7 @@",
+      "           \"out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-petg.stl\",",
+      "           \"out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/magnet.step\",",
+      "           \"out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/magnet.step.mesh\",",
+      "  +        \"out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/magnetic-float.step\",",
+      "           \"out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/magnetic-float.step.mesh\",",
+      "           \"out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/section.step\",",
+      "           \"out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/section.step.mesh\",",
+      "  @@ -4764,12 +4765,13 @@",
+      "   O20=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-petg.stl)",
+      "   O21=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/magnet.step)",
+      "   O22=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/magnet.step.mesh)",
+      "  -O23=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/magnetic-float.step.mesh)",
+      "  -O24=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/section.step)",
+      "  -O25=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/section.step.mesh)",
+      "  -O26=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/turning-key.step)",
+      "  -O27=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/turning-key.step.mesh)",
+      "  -O28=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/turning-key.stl)",
+      "  … 34 more line(s)",
+      "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
     ],
     "tools/check_web_tests.py": [
       "1 test(s) in web/ fail:",
