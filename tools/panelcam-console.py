@@ -49,9 +49,14 @@ def ask(port, line):
         s.reset_input_buffer()
         s.write(("\n" + line + "\n").encode())
         s.flush()
-        # `test` waits up to 600 ms for the enclosure's answer before it says anything.
-        time.sleep(1.2)
-        reply = s.read(8192).decode(errors="replace")
+        # Enclosure commands can wait three seconds for a J9 reply. Read through
+        # the command's prompt so a delayed refusal is reported to the caller.
+        reply = ""
+        deadline = time.monotonic() + 6
+        while time.monotonic() < deadline:
+            reply += s.read(8192).decode(errors="replace")
+            if reply.rstrip().endswith(">"):
+                break
     return [l.strip() for l in reply.splitlines() if l.strip() not in ("", ">", line)]
 
 

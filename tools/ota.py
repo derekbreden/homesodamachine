@@ -18,6 +18,7 @@ from __future__ import annotations
 
 import argparse
 import os
+import re
 import sys
 import time
 import zlib
@@ -129,6 +130,31 @@ def expected_version(target: str) -> str | None:
     return None
 
 
+def version_report(line: str, target: str) -> str | None:
+    """Read one complete versions-table row or asynchronous version report."""
+    label = {"self": "main board", "faucet": "faucet", "enclosure": "enclosure"}.get(target)
+    if not label:
+        return None
+    label = re.escape(label)
+    for pattern in (rf"VERSION\s+{label}\s*=\s*(.+)", rf"{label}\s+(.+)"):
+        match = re.fullmatch(pattern, line.strip())
+        if match:
+            candidate = re.sub(r"\s+art\s+crc\s+[0-9a-fA-F]+$", "", match[1]).strip()
+            return candidate if candidate and candidate != "(unanswered)" else None
+    return None
+
+
+def consume_version_reports(buf: bytes, target: str) -> tuple[list[str], bytes]:
+    """Consume completed lines, retaining the incomplete tail for the next read."""
+    lines = buf.split(b"\n")
+    reports = []
+    for line in lines[:-1]:
+        candidate = version_report(line.decode(errors="replace"), target)
+        if candidate is not None:
+            reports.append(candidate)
+    return reports, lines[-1]
+
+
 def confirm_version(port: str, target: str) -> int:
     """Ask the machine what it is running and hold the flash to it.
 
@@ -148,47 +174,35 @@ def confirm_version(port: str, target: str) -> int:
     # A display answers through the main board, so its link has to come back
     # before it can be asked at all — and the answer arrives whenever it
     # arrives. So this asks repeatedly rather than once and waits.
-    deadline = time.time() + 75
-    asked = 0.0
+    deadline = time.monotonic() + 75
+    asked = None
     seen, buf = None, b""
-    label = {"faucet": "faucet", "enclosure": "enclosure"}.get(target)
-    while time.time() < deadline and seen is None:
-        if time.time() - asked > 5:
-            asked = time.time()
-            ser.reset_input_buffer()
-            buf = b""
-            ser.write(b"versions\n")
-            ser.flush()
-        buf += ser.read(max(1, ser.in_waiting))
-        text = buf.decode(errors="replace")
-        # Only ever a completed line. A console answer arrives in pieces, and
-        # half of one parses perfectly well into the wrong answer — which is a
-        # worse failure here than none, because this is the check that is
-        # supposed to be trusted.
-        if target == "self":
-            for line in text.split("\n")[:-1]:
-                if line.startswith("main board") and len(line.split()) >= 3:
-                    seen = line.split(None, 2)[2].strip()
-        elif label:
-            marker = f"VERSION {label} = "
-            if marker in text:
-                rest = text.split(marker, 1)[1]
-                if "\n" in rest:
-                    candidate = rest.split("\n", 1)[0].strip()
-                    if candidate and "unanswered" not in candidate:
-                        seen = candidate
-        time.sleep(0.1)
+    try:
+        while time.monotonic() < deadline:
+            now = time.monotonic()
+            if asked is None or now - asked >= 5:
+                asked = now
+                ser.write(b"versions\n")
+                ser.flush()
+            buf += ser.read(max(1, ser.in_waiting))
+            reports, buf = consume_version_reports(buf, target)
+            for candidate in reports:
+                # The main board's cached table can precede the rebooted display's
+                # first report. A stale value is evidence only at the deadline.
+                seen = candidate
+                if seen == want:
+                    print(f"confirmed: {target} is running {seen}")
+                    return 0
+            time.sleep(0.1)
+    finally:
+        ser.close()
 
-    ser.close()
     if seen is None:
         print(f"could not confirm what {target} is running — it did not answer")
         return 1
-    if seen != want:
-        print(f"WRONG IMAGE: {target} reports {seen!r}, sent {want!r}")
-        print("the build did not run and a stale firmware.bin was flashed")
-        return 1
-    print(f"confirmed: {target} is running {seen}")
-    return 0
+    print(f"WRONG IMAGE: {target} reports {seen!r}, sent {want!r}")
+    print("the expected version was not reported before the verification deadline")
+    return 1
 
 
 def run(target: str, image: str, verbose: bool) -> int:
