@@ -6,22 +6,39 @@ eight combinations has two copies, distributed across front and rear bed regions
 The reference specimens are **04 and 11**. The estimate is **12 h 52 min**, at most
 337 g of PET-GF, using the left 0.4 mm nozzle and +0.04 mm Z offset.
 
-The working hypothesis is localized adhesion at the boundary of the support
-interface. The current interface uses connected zigzags with runs along its
-edges. Pulling those edges inward tests boundary contact separately from vertical
-separation. A wall-only change distinguishes wall junctions from the free edge.
-These interventions also remove some zigzag turnarounds; they do not isolate
-sidewall fusion from turnaround-bead behavior by themselves.
+The interface uses connected zigzags with runs along its edges. The wall-edge and
+free-edge treatments inset those paths independently of the vertical separation.
+The treatments also remove some zigzag turnarounds, so the edge factors combine
+boundary location with the presence of those end connections.
 
 ## Physical results
 
 The print completed all 120 layers. Removal was attempted on all 16 specimens.
-The user reports retained material at the edges of every specimen and no complete
-clean removal. Some supports released while leaving the apparent interface intact;
-others removed some central strands. The two groups have not been mapped to specimen
-IDs. Layer identity and remaining roof thickness are unmeasured. See [results.json](results.json).
+Derek identifies **01, 02, 07, 08, 09, 10, 12 and 16** as the cleanest releases
+that preserve the model's roof strands. His close ranking is **10, then 16, then
+08**, followed by **01, 02, 07, 09 and 12** without an order within that group.
+The retained bridge strands look and feel loose compared with the model layer
+above them. See [results.json](results.json).
 
-The next short comparison is [interface patterns](../petgf-interface-patterns/README.md).
+| Actual planned Z gap | Specimens tested | In the cleanest release group with roof strands preserved |
+|---|---:|---:|
+| 0.24 mm | 8 | 0 |
+| 0.48 mm | 8 | 8 |
+
+Both copies of every edge treatment at the larger gap belong to the selected
+group. **10** and its repeat **07** have no additional edge setback. The top
+three span three different edge treatments; this close ranking establishes no
+advantage for an extra setback.
+
+The best specimen's native settings are a requested **0.45 mm top Z distance**,
+**two interface layers**, **0.50 mm interface spacing**, and **no additional
+edge setback**. The actual planned gap in this slice is **0.48 mm**. The
+[interface-pattern comparison](../petgf-interface-patterns/README.md) identifies
+the horizontal strands as the model's first bridge layer.
+
+Derek's proposed fit allowance is **an additional 0.25 mm at mating gaps affected
+by supported surfaces**. This is a design allowance; no numerical sag depth or
+before/after roof-thickness measurements accompany the removal ranking.
 
 ## Examine the print
 
@@ -36,8 +53,8 @@ The next short comparison is [interface patterns](../petgf-interface-patterns/RE
 4. Compare both copies of a setting. Prefer clean release with preserved geometry;
    an easily removed interface that leaves a sagging ceiling is not a fit solution.
 
-[observations.csv](observations.csv) provides a blank result sheet. Numbered
-underside photographs are sufficient for review.
+[observations.csv](observations.csv) records the supplied ranking and surface
+observations; numerical measurements remain blank.
 
 ## Specimens
 

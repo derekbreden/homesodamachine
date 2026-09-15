@@ -58,8 +58,9 @@ and the vertical position of the peeled material are not yet measured.
 
 [observations.csv](observations.csv) has one row per specimen. Numbered/lettered
 underside photographs and the removed supports also preserve the comparison.
-The [preceding results](../petgf-interface-edges/results.json) report retained
-edges on every specimen; their layer identity has not been established.
+The [preceding results](../petgf-interface-edges/results.json) identify all eight
+larger-gap specimens as the cleanest support releases with model roof strands
+preserved. Their retained bridge surface looks and feels loose.
 
 ## Files
 
