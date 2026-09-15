@@ -1,6 +1,13 @@
 /* two-channel — the panel as a two-channel instrument.
-   Channel colour is identity and nothing else. Brightness is arm state.
-   A white rim is a press. Orange is the abort. Green is a quantity. */
+
+   Channel colour is identity and never anything else: amber is one channel,
+   cyan is the other, on every screen. Brightness is arm state. A white rim is
+   a press. Orange is the abort. Green is a quantity.
+
+   The graticule field is 610 x 448 at (0,16): ten 61 px divisions across,
+   eight 56 px divisions down. Grid lines fall at field-relative x = 0,61,…,610
+   and y = 0,56,…,448. Every block lands on a division line, the head band is
+   the first division row, and every page floors its content at y = 424. */
 
 @import url('https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@600;700&family=JetBrains+Mono:wght@400;700&display=swap');
 
@@ -9,14 +16,14 @@
   --surface:#111614;
   --well:#1a211e;
   --rail:#0d1110;
-  --grid:#232e2a;
+  --grid:#242f2b;
   --axis:#35453e;
   --text:#d8e4de;
   --dim:#6e837a;
-  --a:#ffb000;          /* CHANNEL A */
-  --b:#29d4e8;          /* CHANNEL B */
-  --good:#5ce07a;
-  --warn:#ff6a3d;
+  --a:#ffb000;          /* one channel */
+  --b:#29d4e8;          /* the other */
+  --good:#5ce07a;       /* a quantity */
+  --warn:#ff6a3d;       /* low, and the way out */
 
   --divx:61px;
   --divy:56px;
@@ -42,34 +49,41 @@ body{
   border-bottom:1px solid var(--grid);
 }
 .abs{position:absolute}
+.hr{position:absolute;height:1px;background:var(--axis)}
 
-/* ---------- top band ---------- */
+/* ---------- the head band: the field's first division row ---------- */
 .corner{
-  position:absolute;left:0;top:0;width:56px;height:56px;
+  position:absolute;left:0;top:0;width:61px;height:72px;padding-top:16px;
   border:1px solid var(--axis);background:var(--bg);color:var(--text);
   display:flex;align-items:center;justify-content:center;
 }
 .pagename{
-  position:absolute;left:76px;top:0;height:56px;display:flex;align-items:center;
+  position:absolute;left:85px;top:0;height:56px;display:flex;align-items:center;
   font-weight:600;font-size:20px;letter-spacing:.16em;color:var(--text);
   text-transform:uppercase;
 }
+.pagename.amber{color:var(--a)}
 .badge{
-  position:absolute;top:0;height:56px;display:flex;align-items:center;gap:10px;
-  font-family:'JetBrains Mono',monospace;font-weight:700;font-size:24px;
+  position:absolute;top:0;height:56px;display:flex;align-items:center;gap:12px;
+  color:var(--text);
 }
 .badge .chip{width:14px;height:14px;display:block}
+.badge .cap{font-weight:600;font-size:15px;letter-spacing:.18em;color:var(--dim);
+  text-transform:uppercase}
+.badge .mono{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:24px;
+  font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.badge .t{font-weight:600;font-size:20px;letter-spacing:.16em;text-transform:uppercase}
 .badge.chA{color:var(--a)} .badge.chA .chip{background:var(--a)}
-.badge.ok{color:var(--good);font-family:'Archivo Narrow',sans-serif;font-weight:600;
-  font-size:20px;letter-spacing:.16em;text-transform:uppercase}
-.badge.ok .chip{background:var(--good)}
+.badge.ok{color:var(--good)} .badge.ok .chip{background:var(--good)}
 
 /* ---------- drawn marks ---------- */
 .st{stroke:currentColor;fill:none}
 .sf{fill:currentColor;stroke:none}
+.amber{color:var(--a)}
+.warn{color:var(--warn)}
 
 /* ---------- type roles ---------- */
-.key{font-weight:600;letter-spacing:.14em;text-transform:uppercase}
+.key{font-weight:600;font-size:20px;letter-spacing:.16em;text-transform:uppercase}
 .lbl{font-weight:600;font-size:15px;letter-spacing:.18em;color:var(--dim);text-transform:uppercase}
 .mono{font-family:'JetBrains Mono',monospace}
 .num{font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--text);
@@ -77,24 +91,28 @@ body{
 
 /* ---------- a channel block ---------- */
 .block{position:absolute;top:56px;width:305px;height:392px}
-.rule{position:absolute;left:0;top:0;width:3px;height:392px;background:var(--well);z-index:5}
+.rule{position:absolute;left:0;top:0;width:4px;height:392px;background:var(--well);z-index:5}
 .block.chA.on .rule{background:var(--a)}
 .block.chB.on .rule{background:var(--b)}
-.block .inner{position:absolute;inset:0}
+.lamp{position:absolute;width:44px;height:44px}
+.chA .lamp{background:var(--a)} .chB .lamp{background:var(--b)}
+
+/* an unarmed channel is the same block at a lower intensity, and its lamp is
+   out: the bright channel is the one holding the colour. */
 .block.off .framed{opacity:.4}
-.block.off .sq{opacity:.4}
-.block.off .lbl,.block.off .num,.block.off .key{opacity:.5}
-.block.off .seg{opacity:.55}
-.block.off .well{opacity:.8}
-.sq{position:absolute;width:44px;height:44px}
-.chA .sq{background:var(--a)} .chB .sq{background:var(--b)}
+.block.off .lamp{background:var(--well)}
+.block.off .lbl,.block.off .num{opacity:.45}
+.block.off .seg{opacity:.5}
+.block.off .well{opacity:.6}
+.block.off .seg.low,.block.off .key.warn{opacity:1}
 
 /* ---------- faces ---------- */
-.face{position:absolute;display:block;object-fit:cover;background:var(--bg)}
+.face{position:absolute;left:0;top:0;width:100%;height:100%;display:block;
+  object-fit:cover;background:var(--bg)}
 .framed{position:absolute;border:2px solid var(--axis);background:var(--bg)}
 .chA .framed,.framed.chA{border-color:var(--a)}
 .chB .framed,.framed.chB{border-color:var(--b)}
-.framed .face{left:0;top:0;width:100%;height:100%;position:absolute}
+.framed.dimtile{opacity:.62}
 .flag{position:absolute;left:0;top:0;width:12px;height:12px;z-index:2}
 .chA .flag,.framed.chA .flag{background:var(--a)}
 .chB .flag,.framed.chB .flag{background:var(--b)}
@@ -104,57 +122,64 @@ body{
 .seg.lit{background:var(--good)}
 .seg.low{background:var(--warn)}
 
-/* ---------- a well (secondary target) ---------- */
+/* ---------- a well: a secondary target ---------- */
 .well{
   position:absolute;background:var(--surface);border:1px solid var(--axis);
-  display:flex;align-items:center;
+  display:flex;align-items:center;color:var(--text);
 }
-.well{color:var(--text)}
 .well .t{font-weight:600;font-size:20px;letter-spacing:.16em;color:var(--text);
-  text-transform:uppercase;margin-left:20px}
+  text-transform:uppercase;margin-left:22px}
 .well > svg{position:absolute;right:18px;top:50%;transform:translateY(-50%)}
+.well .ico{position:absolute;left:20px;top:50%;transform:translateY(-50%);display:block}
+.well.ctr{justify-content:center}
 .well.ctr > svg{position:static;transform:none}
-.amber{color:var(--a)}
-/* press = a white rim, a dimension nothing else uses */
+.well.col{flex-direction:column;justify-content:center;gap:12px}
+.well.col .t2{font-weight:600;font-size:13px;letter-spacing:.18em;color:var(--dim);
+  text-transform:uppercase}
+/* a press is a white rim — a dimension nothing else on the panel uses */
 .pressed{border-color:var(--text);box-shadow:inset 0 0 0 3px var(--text);background:var(--well)}
 
 /* ---------- the soft-key column ---------- */
 .rail{position:absolute;left:610px;top:0;width:190px;height:480px;background:var(--rail);
   border-left:1px solid var(--grid)}
 .sk{position:absolute;left:0;width:100%;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;gap:10px}
-.sk{color:var(--dim)}
+  align-items:center;justify-content:center;gap:10px;color:var(--dim)}
 .sk .t{font-weight:600;font-size:18px;letter-spacing:.18em;color:inherit;text-transform:uppercase}
 .sk svg{display:block}
 .sk.hot{background:var(--well);color:var(--text)}
-.sk.hot::before{content:'';position:absolute;left:0;top:0;width:4px;height:100%;background:var(--text)}
+.sk.hot::before{content:'';position:absolute;left:0;top:0;width:6px;height:100%;background:var(--text)}
 .sk.dead{background:#0f1412;color:#44544d}
-.sk.stop{background:var(--warn)}
-.sk.stop{color:var(--bg)}
+.sk.stop{background:var(--warn);color:var(--bg)}
 .sk.stop .t{font-size:30px;font-weight:700;letter-spacing:.2em}
 .sk.stop.pressed{box-shadow:inset 0 0 0 4px var(--text);border:0}
 .skdiv{position:absolute;left:0;width:100%;height:1px;background:var(--grid)}
 
-/* ---------- lock ---------- */
-.trace{position:absolute;background:var(--well)}
+/* ---------- the lock's timebase ---------- */
+.trace{position:absolute;background:var(--well);border:1px solid var(--axis)}
 .trace .done{position:absolute;left:0;top:0;height:100%;background:var(--a)}
-.zdiv{position:absolute;width:2px;height:100%;background:var(--bg)}
-.zlab{position:absolute;font-weight:600;font-size:18px;letter-spacing:.16em;text-transform:uppercase}
-.cursor{position:absolute;width:2px;background:var(--text)}
-.flagbox{position:absolute;border-left:4px solid var(--a);padding-left:16px}
-.flagbox .n{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:48px;
+.zdiv{position:absolute;top:0;width:2px;height:100%;background:var(--bg)}
+.zlab{position:absolute;top:50%;transform:translateY(-50%);
+  font-family:'JetBrains Mono',monospace;font-weight:700;font-size:24px;color:var(--dim)}
+.zlab.on{color:var(--bg)}
+.cursor{position:absolute;width:2px;background:var(--text);z-index:4}
+.flagbox{position:absolute;border-left:4px solid var(--a);padding-left:18px;
+  display:flex;align-items:center;z-index:5}
+.flagbox .n{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:44px;
   color:var(--a);line-height:1;font-variant-numeric:tabular-nums}
-.ticklab{position:absolute;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--dim);
-  transform:translateX(-50%);font-variant-numeric:tabular-nums}
+.axis{position:absolute;height:2px;background:var(--axis)}
+.tick{position:absolute;width:1px;background:var(--axis)}
+.ticklab{position:absolute;font-family:'JetBrains Mono',monospace;font-size:13px;
+  color:var(--dim);transform:translateX(-50%);font-variant-numeric:tabular-nums}
+.ticklab.end{transform:none;letter-spacing:.06em;text-transform:uppercase}
 
-/* ---------- picker strip ---------- */
+/* ---------- the face record on a flavour's page ---------- */
 .strip{position:absolute;overflow:hidden}
 .track{position:absolute;height:4px;background:var(--well)}
-.track .seen{position:absolute;left:0;top:0;height:100%;background:var(--a)}
+.track .seen{position:absolute;top:0;height:4px;background:var(--a)}
 
-/* ---------- the funnel plate on the pick cards ---------- */
+/* ---------- the funnel plate on the fill cards ---------- */
 .plate{position:absolute;background:var(--bg);border:2px solid var(--axis);
   display:flex;align-items:center;justify-content:center;z-index:3}
 .plate.chA{border-color:var(--a);color:var(--a)}
 .plate.chB{border-color:var(--b);color:var(--b)}
-.block.pressblock{background:#151c19;outline:3px solid var(--text);outline-offset:-3px}
+.block.pressblock{background:#141a17;outline:3px solid var(--text);outline-offset:-3px}
