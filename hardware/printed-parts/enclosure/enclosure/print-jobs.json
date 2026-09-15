@@ -114,6 +114,70 @@
       "observed_nozzle_temperature_c": 62.0,
       "observed_nozzle_target_c": 200.0,
       "printer_eta_local": "2026-09-14 20:25 America/Chicago"
+    },
+    {
+      "printer": "Mark2",
+      "profile": "hardware/printed-parts/petgf.3mf",
+      "profile_sha256": "612d1f5c9414acdfc4eec8bb40936817f2a4acb29f2223d96eaa47df3ae3ef44",
+      "project": ".cache/prints/2026-09-14-tee-carriers-mark2/enclosure-tee-carriers-mark2-input.3mf",
+      "project_sha256": "64a3fbdda90446bc44ccfc263e0799215b8f88a08c8ccf5613fb0ec94db599e7",
+      "z_offset_mm": 0.04,
+      "effective_textured_plate_trim_mm": 0.02,
+      "settings_overrides": {
+        "extruder_ams_count": [
+          "1#0|4#0",
+          "1#0|4#0"
+        ]
+      },
+      "date": "2026-09-14",
+      "parts": [
+        "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.stl",
+        "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.stl"
+      ],
+      "part_sha256": {
+        "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.stl": "d52f663253f48330a0b5a7afa51a347223a706b98484baef6e55aa3740370f59",
+        "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.stl": "474518ae6f07f347ad1aa0320220bf5ac21dcdf792bbb4b2a0b3a382e1d21165"
+      },
+      "nozzle": "left 0.4 mm Standard",
+      "filament": "Polymaker PET-GF; PET-CF mapping on left external spool",
+      "layers": 259,
+      "sent_via": "Bambu Connect",
+      "started_by": "agent",
+      "status": "started",
+      "job_name": "enclosure-tee-carriers-mark2.gcode.3mf",
+      "observed_state": "RUNNING",
+      "observed_at_utc": "2026-09-15T02:17:03.950023+00:00",
+      "observed_print_error": 0,
+      "observed_layer": 0,
+      "printer_eta_local": "2026-09-14 22:55 America/Chicago",
+      "print_options": {
+        "timelapse": "Off",
+        "auto_bed_leveling": "Auto",
+        "flow_dynamic_calibration": "Auto",
+        "nozzle_offset_calibration": "Auto"
+      },
+      "slicer_warnings": [],
+      "sliced_file": ".cache/prints/2026-09-14-tee-carriers-mark2/enclosure-tee-carriers-mark2.gcode.3mf",
+      "sliced_file_sha256": "ae7301d8bf9b921c59ac7ae8a56ddb79291c656c394eb7de272d9e072d1eb07f",
+      "gcode_sha256": "ccc2e5d644097b60703d62ff631e214bfae1e844fe2dbd35cd86298f4a75a229",
+      "estimated_seconds": 5967.49560546875,
+      "filament_grams": 52.54206085205078,
+      "settings_normalizations": {
+        "filament_prime_volume": [
+          [
+            "30"
+          ],
+          [
+            "45"
+          ]
+        ],
+        "filament_map_2": [
+          null,
+          [
+            "1"
+          ]
+        ]
+      }
     }
   ]
 }
