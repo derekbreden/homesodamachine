@@ -1,0 +1,178 @@
+[
+  {
+    "id": "01",
+    "x_min": 40.0,
+    "x_max": 74.0,
+    "y_min": 35.0,
+    "y_max": 69.0,
+    "ceiling_z": 24.2,
+    "model_layer_height": 0.24,
+    "expected_top_gap": 0.3,
+    "expected_interface_layers": 2
+  },
+  {
+    "id": "02",
+    "x_min": 112.0,
+    "x_max": 146.0,
+    "y_min": 35.0,
+    "y_max": 69.0,
+    "ceiling_z": 24.2,
+    "model_layer_height": 0.24,
+    "expected_top_gap": 0.6,
+    "expected_interface_layers": 2
+  },
+  {
+    "id": "03",
+    "x_min": 184.0,
+    "x_max": 218.0,
+    "y_min": 35.0,
+    "y_max": 69.0,
+    "ceiling_z": 24.2,
+    "model_layer_height": 0.24,
+    "expected_top_gap": 0.6,
+    "expected_interface_layers": 4
+  },
+  {
+    "id": "04",
+    "x_min": 256.0,
+    "x_max": 290.0,
+    "y_min": 35.0,
+    "y_max": 69.0,
+    "ceiling_z": 24.2,
+    "model_layer_height": 0.24,
+    "expected_top_gap": 0.3,
+    "expected_interface_layers": 2
+  },
+  {
+    "id": "05",
+    "x_min": 40.0,
+    "x_max": 74.0,
+    "y_min": 107.0,
+    "y_max": 141.0,
+    "ceiling_z": 24.2,
+    "model_layer_height": 0.24,
+    "expected_top_gap": 0.3,
+    "expected_interface_layers": 4
+  },
+  {
+    "id": "06",
+    "x_min": 112.0,
+    "x_max": 146.0,
+    "y_min": 107.0,
+    "y_max": 141.0,
+    "ceiling_z": 24.2,
+    "model_layer_height": 0.24,
+    "expected_top_gap": 0.3,
+    "expected_interface_layers": 4
+  },
+  {
+    "id": "07",
+    "x_min": 184.0,
+    "x_max": 218.0,
+    "y_min": 107.0,
+    "y_max": 141.0,
+    "ceiling_z": 24.2,
+    "model_layer_height": 0.24,
+    "expected_top_gap": 0.6,
+    "expected_interface_layers": 4
+  },
+  {
+    "id": "08",
+    "x_min": 256.0,
+    "x_max": 290.0,
+    "y_min": 107.0,
+    "y_max": 141.0,
+    "ceiling_z": 24.2,
+    "model_layer_height": 0.24,
+    "expected_top_gap": 0.3,
+    "expected_interface_layers": 2
+  },
+  {
+    "id": "09",
+    "x_min": 40.0,
+    "x_max": 74.0,
+    "y_min": 179.0,
+    "y_max": 213.0,
+    "ceiling_z": 24.2,
+    "model_layer_height": 0.24,
+    "expected_top_gap": 0.45,
+    "expected_interface_layers": 4
+  },
+  {
+    "id": "10",
+    "x_min": 112.0,
+    "x_max": 146.0,
+    "y_min": 179.0,
+    "y_max": 213.0,
+    "ceiling_z": 24.2,
+    "model_layer_height": 0.24,
+    "expected_top_gap": 0.3,
+    "expected_interface_layers": 2
+  },
+  {
+    "id": "11",
+    "x_min": 184.0,
+    "x_max": 218.0,
+    "y_min": 179.0,
+    "y_max": 213.0,
+    "ceiling_z": 24.2,
+    "model_layer_height": 0.24,
+    "expected_top_gap": 0.6,
+    "expected_interface_layers": 2
+  },
+  {
+    "id": "12",
+    "x_min": 256.0,
+    "x_max": 290.0,
+    "y_min": 179.0,
+    "y_max": 213.0,
+    "ceiling_z": 24.2,
+    "model_layer_height": 0.24,
+    "expected_top_gap": 0.45,
+    "expected_interface_layers": 4
+  },
+  {
+    "id": "13",
+    "x_min": 40.0,
+    "x_max": 74.0,
+    "y_min": 251.0,
+    "y_max": 285.0,
+    "ceiling_z": 24.2,
+    "model_layer_height": 0.24,
+    "expected_top_gap": 0.3,
+    "expected_interface_layers": 2
+  },
+  {
+    "id": "14",
+    "x_min": 112.0,
+    "x_max": 146.0,
+    "y_min": 251.0,
+    "y_max": 285.0,
+    "ceiling_z": 24.2,
+    "model_layer_height": 0.24,
+    "expected_top_gap": 0.45,
+    "expected_interface_layers": 2
+  },
+  {
+    "id": "15",
+    "x_min": 184.0,
+    "x_max": 218.0,
+    "y_min": 251.0,
+    "y_max": 285.0,
+    "ceiling_z": 24.2,
+    "model_layer_height": 0.24,
+    "expected_top_gap": 0.45,
+    "expected_interface_layers": 2
+  },
+  {
+    "id": "16",
+    "x_min": 256.0,
+    "x_max": 290.0,
+    "y_min": 251.0,
+    "y_max": 285.0,
+    "ceiling_z": 24.2,
+    "model_layer_height": 0.24,
+    "expected_top_gap": 0.3,
+    "expected_interface_layers": 2
+  }
+]
