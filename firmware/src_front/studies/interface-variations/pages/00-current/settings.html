@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Flavor — 00-current</title>
+<title>Settings — 00-current</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div class="screen">
 
-  <!-- ── Rail: a flavor's own page still belongs to CHOOSE ── -->
-  <div class="rail-item r0 on">
+  <!-- ── Rail: Settings is not a rail destination, so no target is lit ── -->
+  <div class="rail-item r0">
     <div class="ico">
       <svg width="48" height="48" viewBox="0 0 448 512" fill="currentColor" aria-hidden="true"><path d="M448 240v96c0 3.084-.356 6.159-1.063 9.162l-32 136C410.686 499.23 394.562 512 376 512H168a40.004 40.004 0 0 1-32.35-16.473l-127.997-176c-12.993-17.866-9.043-42.883 8.822-55.876 17.867-12.994 42.884-9.043 55.877 8.823L104 315.992V40c0-22.091 17.908-40 40-40s40 17.909 40 40v200h8v-40c0-22.091 17.908-40 40-40s40 17.909 40 40v40h8v-24c0-22.091 17.908-40 40-40s40 17.909 40 40v24h8c0-22.091 17.908-40 40-40s40 17.909 40 40zm-256 80h-8v96h8v-96zm88 0h-8v96h8v-96zm88 0h-8v96h8v-96z"/></svg>
     </div>
@@ -34,57 +34,59 @@
     <div class="word t20">CLEAN</div>
   </div>
 
-  <div class="gearbtn">
+  <!-- The corner takes the selection instead -->
+  <div class="gearbtn on">
     <svg width="28" height="28" viewBox="0 0 512 512" fill="currentColor" aria-hidden="true"><path d="M487.4 315.7l-42.6-24.6c4.3-23.2 4.3-47 0-70.2l42.6-24.6c4.9-2.8 7.1-8.6 5.5-14-11.1-35.6-30-67.8-54.7-94.6-3.8-4.1-10-5.1-14.8-2.3L380.8 110c-17.9-15.4-38.5-27.3-60.8-35.1V25.8c0-5.6-3.9-10.5-9.4-11.7-36.7-8.2-74.3-7.8-109.2 0-5.5 1.2-9.4 6.1-9.4 11.7V75c-22.2 7.9-42.8 19.8-60.8 35.1L88.7 85.5c-4.9-2.8-11-1.9-14.8 2.3-24.7 26.7-43.6 58.9-54.7 94.6-1.7 5.4.6 11.2 5.5 14L67.3 221c-4.3 23.2-4.3 47 0 70.2l-42.6 24.6c-4.9 2.8-7.1 8.6-5.5 14 11.1 35.6 30 67.8 54.7 94.6 3.8 4.1 10 5.1 14.8 2.3l42.6-24.6c17.9 15.4 38.5 27.3 60.8 35.1v49.2c0 5.6 3.9 10.5 9.4 11.7 36.7 8.2 74.3 7.8 109.2 0 5.5-1.2 9.4-6.1 9.4-11.7v-49.2c22.2-7.9 42.8-19.8 60.8-35.1l42.6 24.6c4.9 2.8 11 1.9 14.8-2.3 24.7-26.7 43.6-58.9 54.7-94.6 1.5-5.5-.7-11.3-5.6-14.1zM256 336c-44.1 0-80-35.9-80-80s35.9-80 80-80 80 35.9 80 80-35.9 80-80 80z"/></svg>
   </div>
 
   <!-- ── Pane ── -->
   <div class="pane">
+    <div class="title t28">SETTINGS</div>
 
-    <!-- The west column: how to leave, and which flavor this page is about -->
-    <div class="back mid t20">
-      <svg width="12.5" height="20" viewBox="0 0 320 512" fill="currentColor" aria-hidden="true"><path d="M34.52 239.03L228.87 44.69c9.37-9.37 24.57-9.37 33.94 0l22.67 22.67c9.36 9.36 9.37 24.52.04 33.9L131.49 256l154.02 154.75c9.34 9.38 9.32 24.54-.04 33.9l-22.67 22.67c-9.37 9.37-24.57 9.37-33.94 0L34.52 272.97c-9.37-9.37-9.37-24.57 0-33.94z"/></svg>
-      <span>BACK</span>
-    </div>
-    <img class="anchor" src="../../assets/flavor_1.png" alt="">
-
-    <!-- The east column: what it pours at -->
-    <div class="ratio-card">
+    <div class="scard">
       <div class="cc">
-        <div class="abs t20 dim" style="left:0;top:0">RATIO</div>
-        <div class="step minus mid">
-          <svg width="24.5" height="28" viewBox="0 0 448 512" fill="currentColor" aria-hidden="true"><path d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"/></svg>
-        </div>
-        <div class="ratio-num t48">1:20</div>
-        <div class="step plus mid">
-          <svg width="24.5" height="28" viewBox="0 0 448 512" fill="currentColor" aria-hidden="true"><path d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"/></svg>
-        </div>
+        <div class="abs t20 dim" style="left:0;top:0">SYSTEM STATUS</div>
+
+        <!-- The enclosure seen along X. 462 mm deep by 361 mm tall over a
+             344-wide field with a 2 px margin: scale (344 - 4) / 462
+             = 0.735930736 px/mm. Every figure below is that arithmetic. -->
+        <svg class="diagram" width="344" height="270" viewBox="0 0 344 270" aria-hidden="true">
+          <!-- Profile: (0,0) → (0, 361 − 61.87) → (61.87, 361) → (462, 361) → (462, 0) -->
+          <polyline points="2,268 2,48 48,2 342,2 342,268 2,268"
+                    fill="none" stroke="#8888aa" stroke-width="3"
+                    stroke-linejoin="round" stroke-linecap="round"/>
+
+          <!-- The cold core: depth 173…456, height 6…259.4. mkOutline draws
+               every internal outline in COL_OFF; only the profile is COL_DIM. -->
+          <rect x="130" y="78" width="207" height="184" rx="3" fill="none" stroke="#3a3a55" stroke-width="2"/>
+
+          <!-- The carbonator's tube: 127 mm on depth 314.5, height 38…190.4 -->
+          <rect x="188" y="129" width="91" height="110" rx="9" fill="none" stroke="#3a3a55" stroke-width="2"/>
+
+          <!-- Reservoir pockets: depth 183…236 and 393…446, height 8…219.4 -->
+          <rect x="138" y="107" width="37" height="154" rx="5" fill="none" stroke="#3a3a55" stroke-width="2"/>
+          <rect x="292" y="107" width="37" height="154" rx="5" fill="none" stroke="#3a3a55" stroke-width="2"/>
+
+          <!-- Reeds, 14 px. Closed reads filled; open reads as a ring. -->
+          <!-- Aft pocket, depth 449 — heights 63.5, 108.5 closed; 153.5, 198.5 open -->
+          <circle cx="332" cy="221" r="7" fill="#37c98b"/>
+          <circle cx="332" cy="188" r="7" fill="#37c98b"/>
+          <circle cx="332" cy="155" r="6" fill="#242440" stroke="#8888aa" stroke-width="2"/>
+          <circle cx="332" cy="122" r="6" fill="#242440" stroke="#8888aa" stroke-width="2"/>
+          <!-- Forward pocket, depth 180 -->
+          <circle cx="134" cy="221" r="7" fill="#37c98b"/>
+          <circle cx="134" cy="188" r="7" fill="#37c98b"/>
+          <circle cx="134" cy="155" r="6" fill="#242440" stroke="#8888aa" stroke-width="2"/>
+          <circle cx="134" cy="122" r="6" fill="#242440" stroke="#8888aa" stroke-width="2"/>
+          <!-- The tube's aft wall, depth 379.25 — low 105.1 closed, high 133.3 open -->
+          <circle cx="281" cy="190" r="7" fill="#37c98b"/>
+          <circle cx="281" cy="170" r="6" fill="#242440" stroke="#8888aa" stroke-width="2"/>
+        </svg>
       </div>
     </div>
 
-    <!-- and which logo it wears -->
-    <div class="abs t20 dim" style="left:188px;top:218px">IMAGE</div>
-
-    <div class="arrow west mid">
-      <svg width="25" height="40" viewBox="0 0 320 512" fill="currentColor" aria-hidden="true"><path d="M34.52 239.03L228.87 44.69c9.37-9.37 24.57-9.37 33.94 0l22.67 22.67c9.36 9.36 9.37 24.52.04 33.9L131.49 256l154.02 154.75c9.34 9.38 9.32 24.54-.04 33.9l-22.67 22.67c-9.37 9.37-24.57 9.37-33.94 0L34.52 272.97c-9.37-9.37-9.37-24.57 0-33.94z"/></svg>
-    </div>
-
-    <div class="strip">
-      <div class="tile"    style="left:0">  <img src="../../assets/flavor_1.png" alt=""></div>
-      <div class="tile"    style="left:108px"><img src="../../assets/flavor_2.png" alt=""></div>
-      <div class="tile on" style="left:216px"><img src="../../assets/flavor_3.png" alt=""></div>
-      <div class="tile"    style="left:324px"><img src="../../assets/flavor_4.png" alt=""></div>
-      <div class="tile"    style="left:432px"><img src="../../assets/flavor_1.png" alt=""></div>
-      <div class="tile"    style="left:540px"><img src="../../assets/flavor_2.png" alt=""></div>
-      <div class="tile"    style="left:648px"><img src="../../assets/flavor_3.png" alt=""></div>
-      <div class="tile"    style="left:756px"><img src="../../assets/flavor_4.png" alt=""></div>
-    </div>
-
-    <div class="arrow east mid">
-      <svg width="25" height="40" viewBox="0 0 320 512" fill="currentColor" aria-hidden="true"><path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg>
-    </div>
-
-    <div class="track"><div class="thumb" style="left:0;width:101px"></div></div>
+    <!-- The areas a person can go into, one target each -->
+    <div class="area mid t20" style="top:76px">PUMP SERVICE</div>
 
   </div>
 
