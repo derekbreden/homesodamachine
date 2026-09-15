@@ -706,9 +706,12 @@ genrule(
                "hardware/printed-parts/zone-c/funnel-mold/corner-trial-profile.json",
                "hardware/printed-parts/zone-c/funnel-mold/layer-review.json",
                "hardware/printed-parts/zone-c/funnel-mold/toolpath-review.json",
+               "hardware/printed-parts/zone-c/funnel-mold/slice-review.json",
+               "hardware/printed-parts/zone-c/funnel-mold/repaired-wall-review.json",
+               "hardware/printed-parts/zone-c/funnel-mold/containment-review.json",
                "hardware/printed-parts/zone-c/funnel-mold/"
                "funnel-mold-presets.bbscfg"]
-    hold("a preset bundle and the four print records are inert with the project",
+    hold("a preset bundle and the verification records are inert with the project",
          all(build_inert(p) and not read_kind(p) and not artifact_unknown(p)
              and not artifact_unknown(p, True) for p in _slicer)
          and unscoped_changes(_slicer, [], True) == []
