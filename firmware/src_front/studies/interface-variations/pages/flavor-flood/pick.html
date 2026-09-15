@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Fill a flavor — Flavor Flood</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="screen">
+
+  <div class="stage">
+
+    <!-- The one loud object on this screen -->
+    <div class="loud loud-72" style="position:absolute;left:24px;top:14px">Fill a flavor</div>
+
+    <!-- ══ Two channels, neither armed: two posters at equal weight ══ -->
+    <div class="field a" style="left:0;top:96px;width:388px;height:288px">
+      <div class="face" style="left:130px;top:24px;width:129px;height:240px">
+        <img src="../../assets/flavor_1.png" alt="">
+      </div>
+      <!-- the mark for what is about to happen, stamped over the face -->
+      <div style="position:absolute;left:140px;top:90px;width:108px;height:108px;background:var(--paper);color:var(--ink);display:flex;align-items:center;justify-content:center">
+        <svg class="mark" width="64" height="64" viewBox="0 0 48 48" stroke-width="4">
+          <path d="M5 7 H43 L28 27 V43 H20 V27 Z"/>
+        </svg>
+      </div>
+      <!-- PRESSED on this screen: a field cannot be inked, so it takes a
+           10px paper inset frame -->
+      <div class="pressed-frame"></div>
+    </div>
+
+    <div class="field b" style="left:412px;top:96px;width:388px;height:288px">
+      <div class="face" style="left:130px;top:24px;width:129px;height:240px">
+        <img src="../../assets/flavor_2.png" alt="">
+      </div>
+      <div style="position:absolute;left:140px;top:90px;width:108px;height:108px;background:var(--paper);color:var(--ink);display:flex;align-items:center;justify-content:center">
+        <svg class="mark" width="64" height="64" viewBox="0 0 48 48" stroke-width="4">
+          <path d="M5 7 H43 L28 27 V43 H20 V27 Z"/>
+        </svg>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="bar">
+    <div class="dest">
+      <svg class="mark" width="40" height="40" viewBox="0 0 48 48" stroke-width="5">
+        <path d="M31 6 L13 24 L31 42"/>
+      </svg>
+      <span class="label">Choose</span>
+    </div>
+    <div class="dest">
+      <svg class="mark" width="40" height="40" viewBox="0 0 48 48">
+        <path class="solid" d="M24 4 L35 21 A13 13 0 1 1 13 21 Z"/>
+        <path d="M6 45 H42"/>
+      </svg>
+      <span class="label">Prime</span>
+    </div>
+    <div class="dest on">
+      <svg class="mark" width="40" height="40" viewBox="0 0 48 48">
+        <path d="M5 7 H43 L28 27 V43 H20 V27 Z"/>
+      </svg>
+      <span class="label">Fill</span>
+    </div>
+    <div class="dest">
+      <svg class="mark" width="40" height="40" viewBox="0 0 48 48">
+        <path d="M24 3 V13"/>
+        <path d="M9 17 H39 V44 H9 Z"/>
+        <path d="M12 32 q7 -8 14 0 t13 -1"/>
+      </svg>
+      <span class="label">Clean</span>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

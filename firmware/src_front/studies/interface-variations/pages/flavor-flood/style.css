@@ -1,0 +1,200 @@
+/* ─────────────────────────────────────────────────────────────────────────
+   FLAVOR FLOOD — one shared sheet for all five screens.
+
+   The drink's own colour owns the glass, edge to edge. Everything else is
+   ink on paper. Two colours per screen and no third level of emphasis:
+   a flat field, a paper ground, ink type, and one loud object.
+
+   Flat fills only — no gradient, no shadow, no radius anywhere. RGB565
+   bands a wide gradient; a printed rectangle does not.
+
+   --chan-* is the channel's declared colour, one hex stored beside each
+   logo in firmware. LUMINANCE FLOOR: a declared colour must sit below
+   0.30 relative luminance so reversed paper type stays legible on it, and
+   above 0.03 so a 480px field does not read as a black slab next to paper.
+   #c2213f is 0.095, #3faa2b is 0.245.
+   ───────────────────────────────────────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=Inter+Tight:wght@500;700&display=swap');
+
+:root {
+  --paper:   #faf7f1;
+  --surface: #ffffff;
+  --alt:     #eae4d9;
+  --wash:    #c9c0b2;   /* a deeper stock tone — water in the diagram      */
+  --ink:     #14110d;
+  --dim:     #7a7268;
+  --good:    #1f8a54;
+  --warn:    #d1741a;
+  --chan-a:  #c2213f;
+  --chan-b:  #3faa2b;
+
+  --rule: 3px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  width: 800px;
+  height: 480px;
+  overflow: hidden;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Inter Tight', 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+}
+
+.screen { position: relative; width: 800px; height: 480px; }
+
+/* The content area: 800 × 384 above the destination bar. */
+.stage { position: absolute; left: 0; top: 0; width: 800px; height: 384px; }
+
+/* ── Type ───────────────────────────────────────────────────────────────
+   Two sizes of Inter Tight and nothing between them and Bricolage.        */
+
+.label {                       /* 20 / 700 / uppercase — every caption     */
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.body  { font-size: 24px; font-weight: 500; }
+.fact  { font-size: 24px; font-weight: 700; }
+
+.loud {                        /* the one loud object on a screen          */
+  font-family: 'Bricolage Grotesque', 'Inter Tight', Arial, sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.loud-72 { font-size: 72px; }
+.loud-96 { font-size: 96px; }
+
+.dim  { color: var(--dim); }
+.onfield      { color: var(--paper); }
+.onfield-dim  { color: rgba(250, 247, 241, 0.72); }
+
+/* ── Faces — 43:80, never square, never rounded ─────────────────────────  */
+
+.face { position: absolute; overflow: hidden; background: var(--ink); }
+.face img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.face.keyed { border: var(--rule) solid var(--ink); }
+
+/* ── Fields, cards, marks ───────────────────────────────────────────────  */
+
+.field   { position: absolute; }
+.field.a { background: var(--chan-a); }
+.field.b { background: var(--chan-b); }
+
+.card {
+  position: absolute;
+  background: var(--surface);
+  border: var(--rule) solid var(--ink);
+}
+
+svg { display: block; }
+.mark { stroke: currentColor; stroke-width: 4; fill: none;
+        stroke-linecap: butt; stroke-linejoin: miter; }
+.mark .solid { fill: currentColor; stroke: none; }
+
+/* ── Targets ────────────────────────────────────────────────────────────
+   A target on paper is an ink keyline; a target on a field is a paper
+   slab with ink type. Pressed is not another shade: the object is INKED —
+   its ground goes to ink and its type reverses to paper. An object that is
+   already a field or already ink takes a 10px paper inset frame instead.   */
+
+.btn {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  border: var(--rule) solid var(--ink);
+  background: var(--paper);
+  color: var(--ink);
+}
+.btn.on-field { border: none; background: var(--paper); }
+.btn.inked    { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.btn.filled   { background: var(--ink); color: var(--paper); }
+
+.pressed-frame {                /* the press device on a field or an ink slab */
+  position: absolute;
+  left: 0; top: 0; right: 0; bottom: 0;
+  border: 10px solid var(--paper);
+  pointer-events: none;
+}
+
+/* ── Level — four printed segments, filled from the bottom ──────────────  */
+
+.level { position: absolute; display: flex; flex-direction: column; }
+.seg   { width: 100%; }
+.level.on-field .seg      { background: transparent; box-shadow: inset 0 0 0 3px var(--paper); }
+.level.on-field .seg.full { background: var(--paper); box-shadow: none; }
+.level.on-paper .seg      { background: transparent; box-shadow: inset 0 0 0 3px var(--ink); }
+.level.on-paper .seg.full { background: var(--ink); box-shadow: none; }
+
+.chip {                         /* LOW — a semantic field, never a flavor hue */
+  position: absolute;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--warn);
+  color: var(--paper);
+}
+
+/* ── The destination bar: 800 × 96 along the bottom edge ────────────────
+   The rail leaves the west edge. A colour field has to reach three edges
+   to be a field; and on a panel read from above, the thumb arrives from
+   below, so the destinations sit where the hand is.                        */
+
+.bar {
+  position: absolute;
+  left: 0; top: 384px;
+  width: 800px; height: 96px;
+  border-top: var(--rule) solid var(--ink);
+  background: var(--paper);
+  display: flex;
+}
+.dest {
+  position: relative;
+  width: 200px; height: 93px;
+  display: flex; align-items: center; gap: 14px;
+  padding-left: 24px;
+  color: var(--ink);
+}
+.dest + .dest::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+  width: 2px; background: var(--ink);
+}
+.dest.on { background: var(--ink); color: var(--paper); }
+
+/* Settings is denied a bar slot: it is a 64px tab printed into the corner. */
+.corner {
+  position: absolute;
+  right: 0; top: 0;
+  width: 64px; height: 64px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--paper);
+  color: var(--ink);
+  border-left: var(--rule) solid var(--ink);
+  border-bottom: var(--rule) solid var(--ink);
+}
+.corner.inked { background: var(--ink); color: var(--paper); }
+
+/* ── The lock: the flood is the progress bar, 800px long ────────────────  */
+
+.lock-field { position: absolute; left: 0; top: 0; width: 320px; height: 480px;
+              background: var(--chan-a); }
+
+.split-head { position: absolute; left: 0; top: 360px; width: 800px; height: 96px; }
+.split-head span {
+  position: absolute; left: 48px; top: 0;
+  white-space: nowrap;
+}
+.split-head .on-colour { color: var(--paper);   clip-path: inset(0 calc(100% - 320px) 0 0); }
+.split-head .on-paper  { color: var(--chan-a);  clip-path: inset(0 0 0 320px); }
