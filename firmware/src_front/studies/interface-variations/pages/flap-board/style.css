@@ -16,13 +16,12 @@ html, body { margin: 0; width: 800px; height: 480px; overflow: hidden; }
 
 :root {
   --board:  #100f0d;   /* the matte behind the flaps */
-  --rail:   #08080699; /* the rail's own ground: the board, deeper still */
   --cell:   #1c1b17;   /* a flap's resting face */
   --lock:   #0e0d0b;   /* the board with its flaps let go dark */
-  --slot:   #0a0908;   /* an empty socket, a channel with nothing in it */
+  --slot:   #0f0e0c;   /* an empty socket, a flap with nothing on it yet */
   --key:    #332f28;   /* a cell you can press */
   --recess: #0d0c0b;   /* a plate let into the board */
-  --gone:   #17150f;   /* a flap caught mid-turn */
+  --gone:   #262219;   /* a flap caught mid-turn: still a flap */
   --edge:   #8e8879;   /* the lit edge of a turning flap */
   --rule:   #56503f;   /* a milled line in the board itself */
   --ink:    #efe7d6;
@@ -45,6 +44,7 @@ body {
 
 /* ── cell grounds ── */
 .ground     { background: var(--cell); }
+.cellface   { background: var(--cell); }
 .railfield  { background: #060605; }
 .lockfield  { background: var(--lock); }
 .slot       { background: var(--slot); }
