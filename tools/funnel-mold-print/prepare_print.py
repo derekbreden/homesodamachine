@@ -13,7 +13,7 @@ import xml.etree.ElementTree as ET
 import trimesh
 
 HERE = Path(__file__).resolve().parent
-from profiles import (CORE, PROD, REL, fresh_settings, mesh_object, metadata,
+from profiles import (CORE, PROD, REL, equivalent, fresh_settings, mesh_object, metadata,
                            preset_bundle, qn)
 
 
@@ -34,7 +34,7 @@ def recipe(info, nozzle=0.4):
             'process': process, 'filament': filament},
         'process_name': f'Funnel mold shell - {size} nozzle - tree supports',
         'filament_name': f'Funnel mold PETG Translucent - {size} nozzle - 255C',
-        'z_trim': {'default_mm': 0.04, 'available_mm': [0.04, 0.18],
+        'z_trim': {'default_mm': 0.18, 'available_mm': [0.04, 0.18],
             'reason': 'User-established PET-GF plate corrections; transfer to PETG is not established.'},
         'process_settings': {
             'enable_arc_fitting': choice('0', 'Connected H2C firmware uses curve planning.'),
@@ -104,17 +104,39 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--models', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
-    parser.add_argument('--z-trim', type=float, choices=(0.04, 0.18), default=0.04)
+    parser.add_argument('--z-trim', type=float, choices=(0.04, 0.18), default=0.18)
     parser.add_argument('--label')
-    parser.add_argument('--nozzle', type=float, choices=(0.4, 0.8), default=0.4)
+    parser.add_argument('--nozzle', type=float, choices=(0.4, 0.8), default=0.8)
     parser.add_argument('--only', choices=('cavity', 'core'))
+    parser.add_argument('--settings-from', type=Path,
+                        help='Preserve the complete settings payload from this saved 3MF.')
     args = parser.parse_args()
     info = json.loads((args.models/'design.json').read_text())
     settings_recipe = recipe(info, args.nozzle)
     presets = Path('/Applications/BambuStudio.app/Contents/Resources/profiles/BBL')
     settings, provenance = fresh_settings(presets, settings_recipe, args.z_trim)
+    settings_payload = json.dumps(settings, indent=2).encode()
+    if args.settings_from:
+        source_sha256 = hashlib.sha256(args.settings_from.read_bytes()).hexdigest()
+        with zipfile.ZipFile(args.settings_from) as archive:
+            assert archive.testzip() is None
+            settings_payload = archive.read('Metadata/project_settings.config')
+        preserved = json.loads(settings_payload)
+        for group in ('process_settings', 'filament_settings'):
+            for key, expected in settings_recipe[group].items():
+                assert equivalent(key, expected['value'], preserved[key]), (key, preserved[key])
+        for key in ('printer_settings_id', 'print_settings_id', 'filament_settings_id',
+                    'machine_start_gcode', 'curr_bed_type', 'nozzle_diameter',
+                    'nozzle_volume_type', 'filament_volume_map'):
+            assert equivalent(key, settings[key], preserved[key]), (key, preserved[key])
+        settings = preserved
+        source = {'project': args.settings_from.name, 'project_sha256': source_sha256}
+        provenance['settings_source'] = {
+            **source, 'settings_sha256': hashlib.sha256(settings_payload).hexdigest()}
+        provenance['supplied_settings'] = {
+            key: {'value': value, **source} for key, value in settings.items()}
     version = plistlib.loads((presets.parents[2]/'Info.plist').read_bytes())['CFBundleShortVersionString']
-    data = {'Metadata/project_settings.config': json.dumps(settings, indent=2).encode()}
+    data = {'Metadata/project_settings.config': settings_payload}
     model = ET.Element(qn('model'), unit='millimeter', requiredextensions='p',
         **{'xmlns:BambuStudio': 'http://schemas.bambulab.com/package/2021'})
     ET.SubElement(model, qn('metadata'), name='Application').text = f'BambuStudio-{version}'

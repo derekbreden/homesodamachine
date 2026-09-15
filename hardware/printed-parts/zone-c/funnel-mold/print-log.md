@@ -20,7 +20,9 @@ Translucent (96% remaining before submission), the left 0.8 mm High Flow nozzle
 and Textured PEI. Timelapse is off, bed leveling on, and flow/nozzle-offset
 calibration Auto. At 21:14:54 UTC the printer reports RUNNING, 199 layers and
 no print error or HMS entry, with its nozzle warming at 165 °C. The core was
-not submitted. Completed-part quality is unobserved.
+not submitted. Derek reports: “It printed, but there's gaps.” His picked
+location is X=86.800, Y=−69.368, Z=71.112 mm. The submitted cavity's STEP
+and STL both have through-wall openings beneath the brim and at the ramp joins.
 
 ## Gentle support motion file — 2026-09-14
 
