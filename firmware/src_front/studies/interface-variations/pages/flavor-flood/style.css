@@ -126,10 +126,11 @@ svg { display: block; }
 }
 .btn.on-field { border: none; background: var(--paper); }
 .btn.key      { background: var(--alt); }   /* a control that nudges is a
-                                               printed key on stock; a control
-                                               that commits is an ink slab   */
+                                               printed key on stock; an area
+                                               or a commit is an ink slab —
+                                               .act at rest, .inked pressed  */
+.btn.act      { background: var(--ink); color: var(--paper); border-color: var(--ink); }
 .btn.inked    { background: var(--ink); color: var(--paper); border-color: var(--ink); }
-.btn.filled   { background: var(--ink); color: var(--paper); }
 
 .pressed-frame {                /* the press device on a field or an ink slab */
   position: absolute;

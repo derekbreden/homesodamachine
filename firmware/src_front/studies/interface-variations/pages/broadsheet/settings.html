@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Settings — broadsheet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="pg">
+
+  <!-- ════ MASTHEAD — no slot carries the ink bar: this page is not one of the
+            four destinations. CHOOSE carries the ‹ and is the way back. ════ -->
+  <div class="mast">
+    <div class="slot" style="left:0">
+      <div class="mark"><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true">
+        <rect x="2.5" y="4" width="12" height="24" fill="#1b1a17"/>
+        <rect x="18.5" y="4.75" width="10.5" height="22.5" fill="none" stroke="#1b1a17" stroke-width="1.5"/>
+      </svg></div>
+      <div class="word">
+        <svg width="14" height="16" viewBox="0 0 14 16" aria-hidden="true"><path d="M9.5 2.5 L3.5 8 L9.5 13.5" fill="none" stroke="#1b1a17" stroke-width="2.4"/></svg>
+        <span class="caps-22">Choose</span>
+      </div>
+    </div>
+    <div class="slot" style="left:200px">
+      <div class="mark"><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true">
+        <path d="M7 15 V27 H25 V15" fill="none" stroke="#1b1a17" stroke-width="2.2" stroke-linejoin="miter"/>
+        <path d="M16 2 L21.5 10.5 A6.6 6.6 0 1 1 10.5 10.5 Z" fill="#1b1a17"/>
+      </svg></div>
+      <div class="word"><span class="caps-22">Prime</span></div>
+    </div>
+    <div class="slot" style="left:400px">
+      <div class="mark"><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true">
+        <path d="M3.5 6 H28.5 L19 17.5 V28 H13 V17.5 Z" fill="none" stroke="#1b1a17" stroke-width="2.2" stroke-linejoin="miter"/>
+      </svg></div>
+      <div class="word"><span class="caps-22">Fill</span></div>
+    </div>
+    <div class="slot" style="left:600px">
+      <div class="mark"><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true">
+        <path d="M7 15 V27 H25 V15" fill="none" stroke="#1b1a17" stroke-width="2.2" stroke-linejoin="miter"/>
+        <path d="M10.5 2 V10.5 M16 2 V10.5 M21.5 2 V10.5" stroke="#1b1a17" stroke-width="2.2"/>
+      </svg></div>
+      <div class="word"><span class="caps-22">Clean</span></div>
+    </div>
+    <div class="vdiv" style="left:200px"></div>
+    <div class="vdiv" style="left:400px"></div>
+    <div class="vdiv" style="left:600px"></div>
+  </div>
+  <div class="mastrule"></div>
+
+  <!-- the page names itself where the other pages hang their section word -->
+  <div class="folio-l caps">Settings</div>
+
+  <!-- ════ LEAD — the machine itself, C1+C2 (x32…492), under a 10px rule ════ -->
+  <div class="caps" style="position:absolute; left:32px; top:128px">System Status</div>
+  <div class="rule-10" style="left:32px; top:152px; width:460px"></div>
+
+  <!-- The enclosure seen along X, front on the left: 462 mm deep, 361 mm tall,
+       the display's 45° facet taking 61.87 mm off the top-front arris.
+       Scale s = 272 px / 361 mm = 0.753463 px/mm, so the profile is
+       462 × 0.753463 = 348.1 px wide and stands on the page's floor:
+       stroke centres run x 32…380.1, y 176…448. Inside this <svg> every
+       figure is that millimetre times s, plus the 2 px the shell's own stroke
+       needs — X(d) = 2 + d·s, Z(z) = 2 + (361 − z)·s, heights measured from
+       the bottom. Reeds are given in millimetres up the shell, and the shell
+       floor stands 6 mm above the bottom, so Z(6 + z).
+       The hatch is what each vessel holds: it stands at the highest reed that
+       is closed, which is why those reeds are under it. -->
+  <svg style="position:absolute; left:30px; top:174px" width="352" height="276" viewBox="0 0 352 276" aria-hidden="true">
+    <defs>
+      <pattern id="wet" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+        <line x1="0.5" y1="0" x2="0.5" y2="6" stroke="#1b1a17" stroke-width="1"/>
+      </pattern>
+    </defs>
+
+    <!-- what the vessels hold -->
+    <rect x="299.0" y="192.2" width="39.0" height="74.8" fill="url(#wet)"/>   <!-- reservoir A, aft: stands to 102.5 mm -->
+    <rect x="140.0" y="192.2" width="39.0" height="74.8" fill="url(#wet)"/>   <!-- reservoir B, forward: stands to 102.5 mm -->
+    <rect x="192.0" y="194.8" width="94.0" height="50.2" fill="url(#wet)"/>   <!-- the carbonator's water: stands to 99.1 mm -->
+
+    <!-- the cold core at the back of the floor, the carbonator's tube in the
+         middle of it and a reservoir pocket at either end -->
+    <rect x="132.5" y="78.5"  width="213.0" height="191.0" fill="none" stroke="#1b1a17" stroke-width="1"/>   <!-- cold core: depth 173–456, height 6–259.4 -->
+    <rect x="191.5" y="130.5" width="95.0"  height="115.0" fill="none" stroke="#1b1a17" stroke-width="1"/>   <!-- carbonator tube: depth 251–378, height 38–190.4 -->
+    <rect x="298.5" y="108.5" width="40.0"  height="159.0" fill="none" stroke="#1b1a17" stroke-width="1"/>   <!-- pocket, aft: depth 393–446, height 8–219.4 -->
+    <rect x="139.5" y="108.5" width="40.0"  height="159.0" fill="none" stroke="#1b1a17" stroke-width="1"/>   <!-- pocket, forward: depth 183–236, height 8–219.4 -->
+
+    <!-- the shell, and on its facet the panel this page is printed on -->
+    <path d="M2.5 274.5 V48.6 L48.6 2.5 H350.5 V274.5 Z" fill="none" stroke="#1b1a17" stroke-width="2" stroke-linejoin="miter"/>
+    <path d="M6.2 44.4 L44.4 6.2" stroke="#1b1a17" stroke-width="5"/>
+
+    <!-- the ten reeds, each at its own station. Solid is closed. -->
+    <!-- the aft pocket's outer wall, depth 449 mm -->
+    <rect x="334" y="219" width="12" height="14" fill="#1b1a17"/>                                                 <!--  57.5 mm  closed -->
+    <rect x="334" y="185" width="12" height="14" fill="#1b1a17"/>                                                 <!-- 102.5 mm  closed -->
+    <rect x="334.75" y="151.75" width="10.5" height="12.5" fill="#f6f3ec" stroke="#1b1a17" stroke-width="1.5"/>   <!-- 147.5 mm  open -->
+    <rect x="334.75" y="117.75" width="10.5" height="12.5" fill="#f6f3ec" stroke="#1b1a17" stroke-width="1.5"/>   <!-- 192.5 mm  open -->
+    <!-- the forward pocket's outer wall, depth 180 mm -->
+    <rect x="132" y="219" width="12" height="14" fill="#1b1a17"/>                                                 <!--  57.5 mm  closed -->
+    <rect x="132" y="185" width="12" height="14" fill="#1b1a17"/>                                                 <!-- 102.5 mm  closed -->
+    <rect x="132.75" y="151.75" width="10.5" height="12.5" fill="#f6f3ec" stroke="#1b1a17" stroke-width="1.5"/>   <!-- 147.5 mm  open -->
+    <rect x="132.75" y="117.75" width="10.5" height="12.5" fill="#f6f3ec" stroke="#1b1a17" stroke-width="1.5"/>   <!-- 192.5 mm  open -->
+    <!-- the carbonator tube's aft wall, depth 379.25 mm -->
+    <rect x="282" y="188" width="12" height="14" fill="#1b1a17"/>                                                 <!--  99.1 mm  closed -->
+    <rect x="282.75" y="167.75" width="10.5" height="12.5" fill="#f6f3ec" stroke="#1b1a17" stroke-width="1.5"/>   <!-- 127.3 mm  open -->
+  </svg>
+
+  <!-- ════ THE KEY — each block set on the line of a reed that is in that
+            state, so the eye runs straight from the word to the figure ════ -->
+  <div class="state" style="left:392px; top:291px"></div>
+  <div class="caps" style="position:absolute; left:392px; top:312px">Open</div>
+
+  <div class="state shut" style="left:392px; top:393px"></div>
+  <div class="caps" style="position:absolute; left:392px; top:414px">Closed</div>
+
+  <!-- ════ AREAS — C3. One entry, under a hairline: this list is not the
+            lead, and the paper under it is where the next one goes. ════ -->
+  <div class="caps" style="position:absolute; left:516px; top:128px">Areas</div>
+
+  <!-- pressed element on this screen: the PUMP SERVICE line -->
+  <div class="door pressed" style="left:516px; top:152px; width:252px">
+    <div class="w caps">Pump Service</div>
+    <div class="a"><svg width="14" height="18" viewBox="0 0 14 18" aria-hidden="true">
+      <path d="M4 2 L11 9 L4 16" fill="none" stroke="#1b1a17" stroke-width="2.6"/>
+    </svg></div>
+  </div>
+  <div class="rule-1" style="left:516px; top:216px; width:252px"></div>
+
+  <div class="dim" style="position:absolute; left:516px; top:240px; width:252px; font:500 22px/28px 'Inter Tight', Arial, sans-serif">
+    Dries the lines before a pump cartridge is pulled.
+  </div>
+
+</div>
+</body>
+</html>

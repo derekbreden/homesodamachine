@@ -107,13 +107,14 @@ body {
 .rule-1  { position: absolute; height: 1px;  background: var(--ink); }
 
 /* ── the doorway: a ruled line you press ───────────────────────────────── */
+/* The word sits on the rule's own baseline and the chevron closes the line —
+   the same mark the masthead wears for back, turned round. Pressing thickens
+   the rule and lays the tint under it; nothing moves, so the word never jumps. */
 
 .door { position: absolute; height: 64px; border-top: 1px solid var(--ink); }
 .door .w { position: absolute; left: 0;  bottom: 18px; }
-.door .a { position: absolute; right: 0; bottom: 20px; line-height: 0; }
-.door.pressed { background: var(--tint); border: 2px solid var(--ink); }
-.door.pressed .w { left: 10px; }
-.door.pressed .a { right: 10px; }
+.door .a { position: absolute; right: 0; bottom: 17px; line-height: 0; }
+.door.pressed { background: var(--tint); border-top-width: 3px; }
 
 /* ── level: four printed blocks, filled to the reading ─────────────────── */
 
@@ -149,6 +150,12 @@ body {
   position: absolute; background: var(--paper); color: var(--ink);
   display: flex; align-items: center; justify-content: center;
 }
+
+/* ── state block: the printed block the level segments are made of, used
+      again in the settings key for a reed that is closed or open ────────── */
+
+.state { position: absolute; width: 12px; height: 14px; border: 1.5px solid var(--ink); }
+.state.shut { background: var(--ink); }
 
 /* ── generic target block (whole-column press) ─────────────────────────── */
 
