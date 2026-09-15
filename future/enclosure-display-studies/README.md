@@ -4,6 +4,9 @@ Four interactive visual directions for the 800 × 480 enclosure display. Each us
 uploaded picture on the enclosure and faucet. The studies cover Choose, Adjust, Fill, Prime,
 Clean and Images, plus a three-screen companion app image setup preview.
 
+[Persistent flavor selection](persistent-selection.md) contains four additional variations of
+Control room with both flavor selectors and the large action target visible in every screen.
+
 [`logo-first.html`](logo-first.html) is a self-contained conversation visualization fragment.
 The controls above the device select the direction and screen. Selecting a drink on either
 display changes the shared selection. Ratio adjustments belong to their own flavor; choosing
