@@ -1,89 +1,85 @@
 # Funnel
 
-The removable dishwasher-safe silicone funnel that seats in the top-wall
-opening, centred on the machine directly behind the display facet. Pour a full 440 mL
-SodaStream flavor bottle into it in one go; lift it out by hand for the
-dishwasher and to reach the valve trays beneath.
+The removable dishwasher-safe silicone funnel seats in the top-wall opening,
+directly behind the display facet. It holds [606 mL](FUNNEL_CAP), including a
+full 440 mL SodaStream flavor bottle. Its brim, collar and ramp are 6 mm thick;
+the outlet has a [4.5 mm](FUNNEL_SPOUT_WALL) radial wall.
 Zone framing: [`../README.md`](/hardware/printed-parts/zone-c/README.md).
 
 ## Shape
 
-A static part in its own frame — origin at the collar-rectangle center, z = 0
-the brim underside — placed by the machine
-([`enclosure_assembly.funnel_centre`](/hardware/manifold-layout/enclosure_assembly.py), brim on
-the box top). The drain is defined in this frame and rides the part. Top to
-bottom:
+A static part in its own frame: origin at the collar-rectangle center, z = 0
+at the brim underside. The machine places it at
+[`enclosure_assembly.funnel_centre`](/hardware/manifold-layout/enclosure_assembly.py),
+with its brim resting on the enclosure top. Top to bottom:
 
-- **Brim.** A flat flange overhanging the collar [7 mm](FUNNEL_HOLD) all around,
-  resting on the enclosure top surface — this reach is the whole of what holds
-  the funnel out of the box, so it is sized to be caught and lifted by hand at
-  the rim, not merely to cover the cut edge. The collar sits
-  [10 mm](FUNNEL_MARGIN) inside the top-wall frame on every side, so the flange
-  lands mid-margin with a full overhang's width of wall still outboard of it,
-  and the part reads square in its opening from above.
-- **Chute.** A tall straight rectangular section — vertical walls, no slope —
-  [21.31 mm](FUNNEL_CHUTE) from the brim top down to where the ramp starts. Its top
-  press-fits the 3 mm top wall; the rest hangs down into the box as a straight
-  rectangular drop.
-- **Ramp + spout.** Below the chute a shallow ramp narrows to a round
-  [6.35 mm](FUNNEL_SPOUT_ID) spout (1/4", matching the manifold tubing), the
-  spout offset off the collar center in X (`neck_dx` — the spout stands over the
-  slot it drains into) and on the collar's own centre in Y, so the funnel is
-  symmetric about its drain front to back; the placement's
-  `enclosure_assembly.FUNNEL_ROT` picks which side of the box it descends (the
-  rectangular collar seats either way). The whole floor is the ramp — every
-  surface of it falls toward the spout, no flat anywhere, so the funnel drains
-  dry. One rise serves every run, so the grade is struck on the long X half-run
-  and every other line on the floor lands steeper. A straight spout tube carries the exit down to the drain, and the
-  elbow under it turns the fall aft one leg lower — which still stands
-  **above** V-B's inlet collet, since `fluid-4` is the gravity drain and the
-  air-purge path and the run from that mouth to V-B must only fall. The pack is
-  measured on the real solids by the enclosure-assembly scorecard. Total drop
-  [53 mm](FUNNEL_DROP) below the brim.
-- **The clamp land.** That spout tube is [12 mm](FUNNEL_LAND) of straight round,
-  which is a worm clamp's band and a shoulder of silicone either side of it. A
-  1/4" LLDPE stub runs up the whole of it and the band closes the silicone onto
-  the stub. Its nominal wall is [4.5 mm](FUNNEL_SPOUT_WALL), with an outside
-  diameter of [15.35 mm](FUNNEL_SPOUT_OD). The joint is made at the factory and washes with the funnel
+- **Brim.** A 6 mm thick flange overhangs the collar
+  [7 mm](FUNNEL_HOLD) all around. The collar sits [10 mm](FUNNEL_MARGIN) inside
+  the top-wall frame. The flange rests on that frame and provides the lifting rim.
+- **Chute.** A 159 × 159 mm rectangular collar surrounds a 147 × 147 mm bore:
+  6 mm vertical walls. The straight section extends [21.31 mm](FUNNEL_CHUTE)
+  from the brim top to the inner ramp's start. Its upper portion seats in the
+  enclosure's 3 mm top wall.
+- **Ramp.** The sloping floor narrows to a round [6.35 mm](FUNNEL_SPOUT_ID)
+  bore, offset 1.85 mm in X and centred in Y. Its vertical fall is set by a
+  15° slope along the long X half-run. The silicone is 6 mm thick measured
+  perpendicular to the inner ramp surface. Round joins connect the ramp faces,
+  collar and throat; the throat is locally thicker.
+- **Throat.** The inner ramp ends at the outlet bore. A 5.3 mm vertical
+  transition below this point accommodates the rounded exterior before the
+  straight clamp land begins.
+- **Clamp land.** The outlet has [12 mm](FUNNEL_LAND) of straight round tube,
+  with a [4.5 mm](FUNNEL_SPOUT_WALL) radial wall and an outside diameter of
+  [15.35 mm](FUNNEL_SPOUT_OD). A worm clamp's band sits between two 2 mm
+  shoulders. A 1/4" LLDPE stub runs through the land and the clamp closes the
+  silicone onto it. The factory joint washes with the funnel
   ([`reference/funnel-drain-stub`](/hardware/reference/funnel-drain-stub/), card
-  SA-06). The stub is what the machine's push-fit collet grips, since a collet
-  grips tube and this spout is silicone. Every millimetre of this land lowers the
-  drain exactly as a millimetre of chute does, so the two come out of one budget.
-
-Capacity to the brim is [606 mL](FUNNEL_CAP) — a full 440 mL bottle dumped,
-not metered.
+  SA-06). The machine's push-fit collet grips the stub. The distance from brim
+  top to outlet is [58 mm](FUNNEL_DROP).
 
 The enclosure cuts its top-wall opening from this collar at the funnel's
-placement (`enclosure.py` `_funnel_hole`), asserting the top-wall frame
-accommodates it — funnel and hole cannot drift apart.
+placement (`enclosure.py` `_funnel_hole`), asserting the top-wall frame accommodates it.
+The enclosure-assembly scorecard measures the surrounding solids and drain route.
+
+## Wall reading
+
+[`wall-review.json`](wall-review.json) records the exact minimum distance from
+all five complete inner ramp faces to the filled exterior boundary. This check
+includes every point on the faces, their boundaries and the rounded throat
+transitions, establishing a 6 mm minimum ramp wall throughout. The source
+silicone solid and exported STEP have zero geometric volume difference.
+
+The report also checks 501 locations in both source and STEP: 453 surface-normal
+measurements across the ramp, 12 collar measurements, 12 brim measurements and
+24 clamp-land measurements. The collar and brim are 6 mm thick; the cylindrical
+clamp land has a [4.5 mm](FUNNEL_SPOUT_WALL) radial wall.
+
+```sh
+tools/cad-venv/bin/python tools/funnel-mold-print/review_funnel_wall.py --grid 9 --output hardware/printed-parts/zone-c/funnel/wall-review.json
+```
 
 ## Lifting it out
 
-The funnel is captive until its collet lets go. `fluid-4` starts at a JG PP0308E
-union ELBOW under the spout
-([`reference/elbow-connector`](/hardware/reference/elbow-connector/README.md)):
-its +Z leg stands coaxial with the spout and holds the drain stub, its +Y leg
-hands the run aft. Turning the fall inside the fitting is what keeps the joint
-out of the folded deck's own storey, where the anchor tees' barrels crown one
-storey under the top wall. Releasing it is a push on the sleeve's own annular
-face, and the push has to land **square**: a collet
-grips by wedging its teeth against the tube, so a sleeve pressed on one side
-bites harder rather than letting go. That face stands below the top wall at the
-foot of the [53 mm](FUNNEL_DROP) drop, and it carries concentrate.
+The funnel's drain stub seats in the JG PP0308E union elbow below it
+([`reference/elbow-connector`](/hardware/reference/elbow-connector/README.md)).
+The elbow turns `fluid-4` aft toward V-B. The funnel stays captive until this
+elbow's collet releases the stub.
 
-**The user releases it with the 1/4" jaw of the printed
-[`collet press`](../../collet-press/).**
-The jaw drops over the stub and bears on both sides of the sleeve and around
-its rounded root at once, so the push stays centred — which a thumb on a
-millimetre and a half of land, reached blind and sticky, does not. The funnel
-then lifts away with its stub and clamp still on it,
-and `fluid-4` stays on the machine.
+The 1/4" jaw of the printed [`collet press`](../../collet-press/) drops over
+the stub and presses the collet sleeve evenly. The funnel lifts away with its
+stub and clamp attached; `fluid-4` stays on the machine.
 
 ## Regenerate
 
 `tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel/funnel.py`
 → `funnel.step`. Seated in the machine by
 [`../../../manifold-layout/enclosure_assembly.py`](/hardware/manifold-layout/enclosure_assembly.py).
+
+## Sources
+
+[value](NAME) texts are updated by:
+
+- `/hardware/printed-parts/zone-c/funnel/funnel.py`
 
 ## Sources
 [value](NAME) texts are updated by:

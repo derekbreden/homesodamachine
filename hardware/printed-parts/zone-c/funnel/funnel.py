@@ -1,31 +1,14 @@
 """Zone C funnel — the removable dishwasher-safe silicone insert.
 
-A static part in its own frame: origin at the collar-rectangle center, z = 0
-the brim underside — the plane that rests on the enclosure's top surface.
-The machine places it (`enclosure_assembly.build_funnel`, on `enclosure_assembly.funnel_centre`
-and the box's outer top), and the enclosure cuts its top-wall opening from this collar plus
-running air (`enclosure.py _funnel_cut_plan`), asserting the placement clears the display
-gusset, the ±X boss chains, and the Y-seam lip. The drain is defined here, in
-the funnel's frame, and rides the part wherever it is placed.
+The collar-rectangle center is the origin; z = 0 is the brim underside that
+rests on the enclosure top. The machine places the part through
+`enclosure_assembly.build_funnel` and cuts its opening from the collar.
 
-Top to bottom:
-
-  * a flat brim that overhangs the collar all around and rests on the
-    enclosure top surface;
-  * a tall straight rectangular chute — vertical walls, no slope — pressing
-    the 3 mm top wall at its top and hanging on down into the box;
-  * a shallow ramp from the bottom of that chute down to a 1/4" round spout
-    offset off the collar centre in X — the whole floor is the ramp, every
-    surface of it falling toward the spout, so the funnel drains dry. One rise
-    serves every run, so `ramp_angle` is struck on the LONGEST half-run to
-    the neck — the X one, which the offset lengthens — and every other line
-    on the floor lands steeper. The neck stands on the collar's Y CENTRE, so
-    the front and back runs are equal and the fall segment 4 needs (the
-    gravity drain and the air-purge path; it may not rise) is banked in the
-    placement below the drain rather than spent inside the part.
-
-Capacity to the brim is printed at export and runs past a full 440 mL
-SodaStream bottle.
+The brim and vertical collar wall are 6 mm thick. The sloping floor has a
+6 mm skin measured normal to its inner faces, with rounded joins and a
+thicker throat. The inner floor ends at the 1/4-inch outlet bore. A 5.3 mm
+transition separates that point from the 12 mm straight clamp land, whose
+radial wall is 4.5 mm. Capacity to the brim is printed at export.
 """
 
 import math
@@ -33,6 +16,10 @@ import sys
 from pathlib import Path
 
 import cadquery as cq
+from cadquery.occ_impl.shapes import cut as cut_shapes, fuse as fuse_shapes
+from OCP.BRepOffsetAPI import BRepOffsetAPI_MakeOffsetShape
+from OCP.BRepOffset import BRepOffset_Mode
+from OCP.GeomAbs import GeomAbs_Arc
 
 _here = Path(__file__).resolve()
 _repo = next(p for p in _here.parents if (p / "hardware" / "scripts" / "_cadq_export.py").is_file())
@@ -51,123 +38,32 @@ import _stated_bounds as _bounds
 import worm_clamp as _clamp
 
 # --- funnel parameters ------------------------------------------------------
-# The collar sits at least one `brim_margin` inside the zone-C top-wall frame on
-# every side. The margin is twice the overhang, so the brim edge lands on the
-# MIDDLE of that ring where the collar fills the frame, and a full overhang's
-# width of top wall remains beyond it in every case. enclosure.py `_funnel_hole`
-# owns the frame and asserts it; the funnel takes the front of the Y span, and a
-# deeper box adds its top wall behind rather than growing the part.
-collar_w = 159.0        # collar footprint (X) — the frame's width less 2 × brim_margin. The
-                        # funnel takes the top wall's FULL width: it stands behind the display
-                        # facet, which spans the machine, so there is nothing beside it to leave
-                        # room for
-collar_d = collar_w     # collar footprint (Y) — as deep as it is wide. One rise serves every
-                        # run (see ramp_angle), struck on the LONGEST of them, and square is
-                        # the most plan area a given rise serves: plan area is what buys
-                        # capacity cheaply
-brim_margin = 10.0      # top-wall left between the collar edge and the frame, all around —
-                        # one overhang catches the flange, the rest is what stands beyond it
-brim_overhang = 7.0     # brim flange reach past the collar — what actually catches the
-                        # top wall and holds the funnel out of the box, all around
-brim_thickness = 6.0    # flange thickness, resting on the enclosure top — the same figure as
-                        # `collar_wall`, because the flange is the shell where the HAND takes it: a
-                        # full funnel is lifted by pinching this ring, and a flange thinner than the
-                        # walls it hangs is the one place a stiffened shell still folds. It costs no
-                        # capacity — `chute_h` is measured from the brim TOP, so the bore keeps its
-                        # whole height whatever the flange is — and it buys drain height, since
-                        # `drop` is struck below that top and a thicker flange lifts the spout by
-                        # exactly its own growth.
-collar_wall = 6.0       # THE SHELL'S WALL — collar, chute and floor alike, and so the gap the
-                        # silicone casts in. The part has no rib, no frame and no core: it is one
-                        # soft skin spanning `collar_w`, so what it costs to deflect goes as the
-                        # CUBE of this figure and there is nowhere else to buy it. What caps it is
-                        # capacity — every millimetre here takes two off the bore in each axis, and
-                        # the chute cannot buy the volume back because the chute's own ceiling is
-                        # the fall under the spout. The floor is `capacity_bottles` below, and the
-                        # wall runs out against it at 8 mm.
-# The funnel is sized in bottles: a full one goes in dumped, not metered, and the
-# margin is what keeps a miss off the counter. The ramp's depth is set by its grade
-# and the spout by its tube, so the straight section is the only height the funnel's
-# volume is in — and it stands between two bounds. The FLOOR is that requirement,
-# asserted in `build`. The CEILING is the pack: the chute hangs the ramp, the spout
-# and the drain lower with every millimetre of itself, so what the chute may spend is
-# the fall `fluid-4` is left off the spout before its first corner
-# (`enclosure_assembly.build_funnel`, recorded against this body and held by the machine
-# scorecard's `room-holds` gate). It takes that band whole rather than stopping at the
-# floor: the collar already fills its frame in both axes, so depth is the only thing
-# left that buys capacity.
-#   The band the chute stands in is the fall, and the SPOUT takes its cut of that band first:
-# the clamp land below is straight tube, and every millimetre of it lowers the drain exactly as a
-# millimetre of chute does. So the two are one budget, and the chute is the half of it that buys
-# capacity while the spout is the half that buys a joint.
-bottle_ml = 440.0       # one SodaStream concentrate bottle
-capacity_bottles = 1.3  # funnel capacity to the brim, in bottles — the floor it must clear
-chute_h = 21.31        # straight rectangular chute height — brim top down to the ramp start,
-                        # and what holds `drop` where the drain's elbow still stands over the
-                        # folded deck: the ramp's rise rides its longest half-run, and every
-                        # millimetre it grows comes back out of this figure so the drain's
-                        # height stands still
-neck_dx = 1.85          # neck (ramp foot + spout) off the collar centre. THE SPOUT STANDS OVER
-                        # THE SLOT IT DRAINS INTO, and that slot is not on the collar's own
-                        # centre: the two source valves leave it between their coils, the
-                        # east one stepped outboard (`manifold_layout.SOURCE_SPREAD`), and
-                        # V-D's aft corner reaches the fall's own band from the west now that
-                        # the folded deck rides `manifold_layout.BARB_STANDOFF` — so the
-                        # column stands east of the slot's middle, its tube one air off that
-                        # corner and still inside the east coil's fence. A collar centred in
-                        # the top wall's frame and a neck centred in the collar would hang the
-                        # spout against the west coil — `fluid-4` falls one straight column
-                        # off this tip and has no corner to spend stepping across. The offset
-                        # costs depth, since it lengthens the floor's long half-run and one
-                        # rise serves every run, and what pays for it is the fall under the
-                        # spout (`enclosure_assembly.build_funnel`, held by `room-holds`).
-neck_dy = 0.0           # neck off the collar centre IN Y, and it is 0: THE FUNNEL KEEPS ITS
-                        # OWN MIRROR PLANE ACROSS Y. Every feature of the part — brim, chute,
-                        # ramp and spout — stands on one plane through the collar's X axis, so
-                        # the depth axis of the mould, of the floor's grade and of the finished
-                        # funnel is unhanded, and the Y offset costs no depth the X one does not
-                        # already ask for. WHAT THE FITTING NEEDS IS A COLUMN, NOT A BERTH:
-                        # the elbow under the spout turns the fall aft inside its own envelope
-                        # (`reference/elbow-connector`) and stands one leg under the exit face,
-                        # so nothing below the funnel asks the funnel to lean.
-ramp_angle = 15.0       # deg — the floor's shallowest line (the long X half-run); the
-                        # front/back runs land steeper on their own. Concentrate is
-                        # sticky and the funnel has to come out of the machine clean, so
-                        # this is graded to SHED, not merely to slope — a shallow floor
-                        # holds a residue film that a rinse has to chase. Depth is what
-                        # buys it: one rise serves every run, so the grade costs
-                        # `_ramp_run × tan(angle)` of it, and the chute gives that back
-                        # by shortening (the funnel's volume is the target, not its
-                        # depth). What caps it is the pack: the drain hangs lower with
-                        # every degree, and the manifold's east elbow row and the lane
-                        # its pump-discharge crossings use are directly under the spout.
-spout_id = 6.35         # 1/4" outlet bore
-spout_wall = 4.5        # radial silicone around the drain stub, including casting-centre allowance
-clamp_shoulder = 2.0    # silicone left standing either side of the clamp's band
-# The straight spout tube below the ramp tip — the CLAMP LAND. The drain stub runs up the
-# whole of it (`reference/funnel-drain-stub`) and the worm clamp's band closes on the middle,
-# between two shoulders. Above the tip the outer face is the ramp cone, and it is the ramp's
-# own grade over the collar's own half-run: a band that reaches it closes on nothing.
-spout_tube = _clamp.BAND_W + 2.0 * clamp_shoulder
-# The drop stacks the chute below the brim, the ramp rise the shallowest line
-# needs at its grade, and the spout tube.
-#
-# ONE RISE SERVES EVERY RUN, so a longer run is a shallower one — and the rise is struck on
-# the LONGEST half-run to the neck, whichever axis that is, so `ramp_angle` describes the
-# shallowest line by construction. Both offsets lengthen their own half; the drop grows with
-# the longest of them, and `chute_h` is where that growth is paid back so the drain stands
-# still.
+collar_w = 159.0  # collar footprint in X, inside the top-wall frame
+collar_d = collar_w  # collar footprint in Y
+brim_margin = 10.0  # top-wall frame between the collar and its outer boundary
+brim_overhang = 7.0  # flange reach beyond the collar on each side
+brim_thickness = 6.0  # vertical flange thickness
+collar_wall = 6.0  # vertical collar wall and normal ramp-wall thickness
+bottle_ml = 440.0  # one SodaStream concentrate bottle
+capacity_bottles = 1.3  # minimum capacity to the brim, checked in build()
+chute_h = 21.31  # brim top to inner ramp start
+neck_dx = 1.85  # outlet offset in X from the collar center
+neck_dy = 0.0  # outlet centered in Y
+ramp_angle = 15.0  # degrees along the inner ramp's long X half-run
+spout_id = 6.35  # 1/4-inch outlet bore
+spout_wall = 4.5  # radial wall on the straight clamp land
+neck_blend_drop = 5.3  # inner ramp tip to the top of the straight clamp land
+clamp_shoulder = 2.0  # silicone beyond each edge of the clamp band
+spout_tube = _clamp.BAND_W + 2.0 * clamp_shoulder  # straight clamp land, below the rounded throat
+
+# The inner ramp uses one vertical rise between its rectangular mouth and round
+# outlet. The drain drop includes the chute, ramp, throat transition and clamp land.
 _ramp_run = (collar_w - 2.0 * collar_wall) / 2.0 - spout_id / 2.0 + abs(neck_dx)
 _y_run = (collar_d - 2.0 * collar_wall) / 2.0 - spout_id / 2.0 + abs(neck_dy)
 _ramp_rise = max(_ramp_run, _y_run) * math.tan(math.radians(ramp_angle))
-drop = (chute_h - brim_thickness) + _ramp_rise + spout_tube
+drop = (chute_h - brim_thickness) + _ramp_rise + neck_blend_drop + spout_tube
 
-# ONE RISE SERVES EVERY RUN AND IT IS STRUCK ON THE LONGEST, which is what lets `ramp_angle`
-# describe the floor's shallowest line by construction. WHICH AXIS THAT LONGEST RUN IS ON is the
-# neck's to say: an offset lengthens its own half and shortens the other, so the run the grade
-# rides is the run on the axis the neck is offset along — and the neck is offset in X alone. The
-# reading is what holds the part to that description, so a neck moved in Y is a floor whose
-# depth is being bought on an axis the part is not offset on.
+# The inner ramp rise is set by its long X half-run.
 _bounds.state(
     "funnel-floor-grade", "The funnel's floor takes its rise off the half-run the neck lengthens",
     f"the Y half-run at or under the X ({_ramp_run:.2f} mm)",
@@ -207,13 +103,64 @@ def _cyl(r, z_top, z_bot, cx, cy):
     return cq.Solid.makeCylinder(r, z_top - z_bot, cq.Vector(cx, cy, z_bot), cq.Vector(0, 0, 1))
 
 
+def normal_envelope(shape, distance, faces=None, *, rounds_first=False):
+    """Filled envelope with a normal skin and round edge and vertex joins."""
+    whole_body = faces is None
+    if whole_body:
+        offset = BRepOffsetAPI_MakeOffsetShape()
+        offset.PerformByJoin(shape.wrapped, distance, 1e-5,
+                             BRepOffset_Mode.BRepOffset_Skin,
+                             False, False, GeomAbs_Arc, False)
+        if offset.IsDone() and not offset.Shape().IsNull():
+            envelope = cq.Shape.cast(offset.Shape())
+            if not envelope.Solids() and len(envelope.Shells()) == 1:
+                envelope = cq.Solid.makeSolid(envelope.Shells()[0])
+            envelope = envelope.clean()
+            if envelope.isValid() and len(envelope.Solids()) == 1:
+                assert abs(cut_shapes(shape, envelope).Volume()) < 0.0001
+                inside = cq.Compound.makeCompound(shape.Faces())
+                outside = cq.Compound.makeCompound(envelope.Faces())
+                assert inside.distance(outside) >= distance - 0.0001
+                return envelope.Solids()[0]
+    faces = shape.Faces() if faces is None else list(faces)
+    edges = {edge.hashCode(): edge for face in faces for edge in face.Edges()}
+    vertices = {vertex.hashCode(): vertex for face in faces for vertex in face.Vertices()}
+    skins = [face.thicken(distance) for face in faces]
+    joins = []
+    for edge in edges.values():
+        if edge.Length() > 0.0001:
+            circle = cq.Wire.makeCircle(distance, edge.positionAt(0), edge.tangentAt(0))
+            joins.append(cq.Solid.sweep(circle, [], edge))
+    corners = [cq.Solid.makeSphere(distance, vertex.Center(),
+               angleDegrees1=-90, angleDegrees2=90) for vertex in vertices.values()]
+    pieces = corners+joins+skins if rounds_first else skins+joins+corners
+    envelope = shape
+    for index, piece in enumerate(pieces):
+        # Forming faces and verification contributors keep their own geometry.
+        envelope = fuse_shapes(envelope, piece, tol=0.0001).clean()
+        assert envelope.isValid(), index
+    solids = envelope.Solids()
+    if len(solids) != 1:
+        body = max(solids, key=lambda solid: solid.Volume())
+        for solid in solids:
+            missing = cut_shapes(solid, body, tol=0.0001).Volume()
+            assert abs(missing) < 0.0001, ("disconnected normal skin", missing,
+                                           [s.Volume() for s in solids])
+        envelope = body
+    for index, piece in enumerate([shape, *pieces]):
+        missing = cut_shapes(piece, envelope, tol=0.0001).Volume()
+        assert abs(missing) < 0.0001, (index, missing)
+    return envelope.Solids()[0]
+
+
 # --- the funnel -------------------------------------------------------------
 
-def build_solids(drop=drop):
+def build_solids(drop=drop, ramp_wall=collar_wall):
     """The funnel's outer envelope and inner bore as separate solids, plus a
     metrics dict. This is the source the silicone-mold generator consumes: the
     mold cavity is the negative of `solid` and the mold core is `cavity`. Keeping
     it here, beside the funnel, keeps the mold in lockstep with the part.
+    Tooling uses ramp_wall=0 for the base before adding its own normal backing.
     See ../funnel-mold/."""
     w, d = collar_w, collar_d
     cx = cy = 0.0
@@ -224,22 +171,34 @@ def build_solids(drop=drop):
     ncy = cy + neck_dy                                  # and aft over `fluid-4`'s slot
     ramp_top_z = top_z - chute_h                        # straight chute bottom = ramp start
     end_z = -drop                                       # spout exit (the drain)
-    neck_z = end_z + spout_tube                         # ramp tip = tube top
+    spout_land_z = end_z + spout_tube
+    neck_z = ramp_top_z - _ramp_rise                    # inner ramp tip
 
-    # Outer: brim flange, a tall straight rectangular chute, a shallow ramp down to
-    # the offset spout, straight spout tube.
+    # The flange, collar and outlet form the base of the outer envelope.
     solid = (
         _box(w + 2.0 * brim_overhang, d + 2.0 * brim_overhang, 0.0, top_z, cx, cy)
         .fuse(_box(w, d, ramp_top_z, 0.0, cx, cy))
         .fuse(_loft_rc(w, d, cx, cy, ramp_top_z, spout_or, ncx, ncy, neck_z))
         .fuse(_cyl(spout_or, neck_z, end_z, ncx, ncy))
     )
-    # Bore: the same chain, one wall in, open at the top and out through the tube.
+    # The inner forming surface runs from the mouth through the ramp and outlet.
     cavity = (
         _box(bore_w, bore_d, ramp_top_z, top_z + 1.0, cx, cy)
         .fuse(_loft_rc(bore_w, bore_d, cx, cy, ramp_top_z, spout_id / 2.0, ncx, ncy, neck_z))
         .fuse(_cyl(spout_id / 2.0, neck_z, end_z - 1.0, ncx, ncy))
     )
+    ramp_faces = [face for face in cavity.Faces() if face.geomType() == "BSPLINE"]
+    assert ramp_faces, "inner ramp faces must carry the normal wall"
+    # Each inner ramp face carries a 6 mm normal skin with round edge joins.
+    if ramp_wall:
+        solid = normal_envelope(solid, ramp_wall, ramp_faces)
+        ramp_boundary = cq.Compound.makeCompound(ramp_faces)
+        outer_boundary = cq.Compound.makeCompound(solid.Faces())
+        minimum_wall = ramp_boundary.distance(outer_boundary)
+        assert minimum_wall >= ramp_wall-0.0001, minimum_wall
+    land_window = _box(w, d, end_z, spout_land_z, cx, cy)
+    land = _cyl(spout_or, spout_land_z, end_z, ncx, ncy)
+    assert solid.intersect(land_window).cut(land).Volume() < 0.0001, "ramp enters clamp land"
     meta = {
         "w": w, "d": d, "cx": cx, "cy": cy, "ncx": ncx, "ncy": ncy,
         "bore_w": bore_w, "bore_d": bore_d,
@@ -252,7 +211,8 @@ def build_solids(drop=drop):
         "rim_ring": collar_wall + brim_overhang,
         "spout_id": spout_id, "spout_or": spout_or,
         "top_z": top_z, "ramp_top_z": ramp_top_z,
-        "neck_z": neck_z, "end_z": end_z,
+        "neck_z": neck_z, "spout_land_z": spout_land_z, "end_z": end_z,
+        "neck_blend_drop": neck_blend_drop,
     }
     return solid, cavity, meta
 
@@ -263,9 +223,7 @@ def build(drop=drop):
     fill = cavity.intersect(
         _box(600.0, 600.0, m["end_z"], m["top_z"], m["cx"], m["cy"])
     ).Volume()
-    # The chute is what carries the funnel past its floor. Capacity is LINEAR in
-    # chute_h (the cone spans the ramp rise, which the X half-run fixes, and the
-    # spout tube is fixed), so a miss names the height that closes it.
+    # Additional chute height adds the bore area times that height to capacity.
     want = capacity_bottles * bottle_ml * 1000.0
     if fill < want - 1.0:
         bore_area = m["bore_w"] * m["bore_d"]

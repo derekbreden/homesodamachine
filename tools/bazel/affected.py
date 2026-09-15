@@ -709,6 +709,7 @@ genrule(
                "hardware/printed-parts/zone-c/funnel-mold/slice-review.json",
                "hardware/printed-parts/zone-c/funnel-mold/repaired-wall-review.json",
                "hardware/printed-parts/zone-c/funnel-mold/containment-review.json",
+               "hardware/printed-parts/zone-c/funnel/wall-review.json",
                "hardware/printed-parts/zone-c/funnel-mold/"
                "funnel-mold-presets.bbscfg"]
     hold("a preset bundle and the verification records are inert with the project",

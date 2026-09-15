@@ -20,6 +20,11 @@ admit a blunt opening tool.
 
 ## Forming surfaces and fit
 
+The nominal silicone ramp, brim and collar are 6 mm thick. Ramp thickness is
+measured perpendicular to its surface, with a locally thicker rounded throat.
+The outlet wall is 4.5 mm radially.
+[Wall measurements](../funnel/wall-review.json) record the geometry.
+
 Both forming faces reserve [0.30 mm](FINISH) of net finishing growth, including
 primer, sealer and release. Sand and coat a sample with the actual finishing
 stack, then measure its net growth. Mask the parting lands, locating pegs and
@@ -30,7 +35,7 @@ The [6.35 mm](ROD_D) × [50.8 mm](ROD_LEN) steel dowel passes freely through an
 [8.35 mm](ROD_GUIDE_D) opening, with [2 mm](ROD_CLEARANCE) diametral clearance.
 An open V cradle on the dry back centres it. Its upper end meets a visible
 stop; two zip ties in [4.4 mm](ROD_TIE_WIDTH) grooves hold it in the cradle.
-Engagement is [32.8 mm](ROD_ENGAGEMENT), leaving [18 mm](ROD_EXPOSED) below the
+Engagement is [27.5 mm](ROD_ENGAGEMENT), leaving [23.3 mm](ROD_EXPOSED) below the
 core's neck. The rod stays clear of the cavity during closure.
 
 Pack a small removable seal around the rod at the forming-face entry, flush
@@ -54,7 +59,7 @@ offset, [2°](ROD_TILT) tilt and axial error in eight directions. The rod may
 project [6 mm](ROD_EXTRA) farther when not fully seated, or [3 mm](ROD_AXIAL)
 less than nominal. The minimum depth beneath its tip in these cases is
 [5.90 mm](ROD_MIN_END).
-The minimum silicone clearance in that envelope is [2.37 mm](ROD_MIN_WALL),
+The minimum silicone clearance in that envelope is [2.19 mm](ROD_MIN_WALL),
 including the sacrificial end. These checks describe geometry; the first
 physical trial establishes retention, sealing and casting quality.
 
@@ -64,7 +69,7 @@ physical trial establishes retention, sealing and casting quality.
 
 Teal is the cavity, gold the core, grey the nominal silicone, light grey the
 steel dowel and blue the removable entry seal. The nominal casting, including its sacrificial spout tip, is
-[145 mL](CAST_VOLUME). The two halves fit inside a [276.7 mm](ENVELOPE) circle,
+[262 mL](CAST_VOLUME). The two halves fit inside a [276.7 mm](ENVELOPE) circle,
 leaving [11.5 mm](CHAMBER_GAP) radial clearance in the recorded chamber. Check
 the actual opening, clamp/bolt envelope and catch tray before pouring.
 
@@ -83,7 +88,7 @@ one-atmosphere differential or pressure injection.
 [1.00 kPa](LOAD_PRESSURE), using an assumed PETG modulus of
 [1000 MPa](LOAD_MODULUS) and Poisson ratio 0.4. Its calculated deflection is
 [0.209 mm](LOAD_DEFLECTION); the maximum static silicone head is
-[0.839 kPa](HEAD_PRESSURE). This flat-plate model is a screening approximation;
+[0.897 kPa](HEAD_PRESSURE). This flat-plate model is a screening approximation;
 it does not establish the printed shell's stiffness, creep, release force or
 transient pressure during degassing.
 
@@ -96,6 +101,9 @@ print still needs its own dry-fit and vacuum trial.
 
 The cavity is a continuous cup from the brim to the blind spout. Each offset
 face, rounded edge and corner is contained in the finished shell envelope.
+Before the flange and mouth trim, the minimum distance between the complete
+forming and backing boundaries is checked against the 5 mm shell thickness;
+[design.json](design.json) records that measurement.
 The generator checks that the capped cavity and the assembled mold each retain
 the complete casting in one enclosed liquid region, separate from outside air.
 The assembled check uses the modeled rod-entry seal and caps the fill and vent
@@ -132,11 +140,11 @@ The +0.18 trim adds to Bambu's −0.02 mm Textured PEI correction, giving
 `G29.1 Z0.16` in the checked G-code. The trim is calibrated for PET-GF;
 its use with PETG is a physical trial recorded in the [print log](print-log.md).
 The checked file contains two separately printable plates. Plate 1 is the cavity,
-estimated at [20 h 44 min](CAVITY_TIME) and [752 g](CAVITY_MASS) including supports.
-Plate 2 is the core, estimated at [11 h 48 min](CORE_TIME) and [485 g](CORE_MASS).
-The combined estimate is [32 h 32 min](TOTAL_TIME) and [1.24 kg](TOTAL_MASS).
+estimated at [20 h 28 min](CAVITY_TIME) and [755 g](CAVITY_MASS) including supports.
+Plate 2 is the core, estimated at [11 h 37 min](CORE_TIME) and [478 g](CORE_MASS).
+The combined estimate is [32 h 04 min](TOTAL_TIME) and [1.23 kg](TOTAL_MASS).
 The core's envelope is [205 × 205 × 45.2 mm](CORE_DIMS); the cavity is
-[205 × 205 × 79.6 mm](CAVITY_DIMS).
+[205 × 205 × 84.9 mm](CAVITY_DIMS).
 
 The files use the left [0.8 mm](NOZZLE) [High Flow](NOZZLE_TYPE) nozzle, [0.4 mm](LAYER) layers,
 translucent PETG at 250 °C on the first layer and 245 °C afterward, a
@@ -166,7 +174,7 @@ and startup commands with the saved process. [print-profile.json](print-profile.
 records every saved setting and verifies the embedded mesh triangles against the
 current STLs. The editable project contains those meshes and the same settings.
 [repaired-wall-review.json](repaired-wall-review.json) measures model extrusion
-across the chute walls at print Z55.6 and the rim walls at Z70.4 and Z70.8.
+across the chute and rim walls at layers selected from the current geometry.
 [layer-review.json](layer-review.json) records model connectivity at the sliced
 layer heights; both plates contain slicer supports.
 [print log](print-log.md) records physical observations with their known provenance.

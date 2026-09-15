@@ -47,7 +47,7 @@ rod_clearance = 2.0
 rod_guide_length = 10.0
 rod_cradle_wall = 4.0
 rod_stop_thickness = 3.0
-rod_tie_stations = (17.0, 27.0)
+rod_tie_stations = (15.0, 23.0)
 rod_tie_width = 4.4
 rod_tie_groove_depth = 0.7
 rod_seal_depth = 2.0
@@ -122,21 +122,7 @@ def contraction_attempts(shape, faces, distance):
 
 
 def expanded(shape, distance):
-    offsets = [face.thicken(distance) for face in shape.Faces()]
-    for edge in shape.Edges():
-        if edge.Length() > tolerance:
-            profile = cq.Wire.makeCircle(distance, edge.positionAt(0), edge.tangentAt(0))
-            offsets.append(cq.Solid.sweep(profile, [], edge))
-    offsets.extend(cq.Solid.makeSphere(distance, vertex.Center(),
-        angleDegrees1=-90, angleDegrees2=90) for vertex in shape.Vertices())
-    envelope = shape
-    for index, offset in enumerate(offsets):
-        envelope = one(envelope.fuse(offset, tol=tolerance),
-                       f'exterior offset contribution {index}')
-    for index, source in enumerate([shape, *offsets]):
-        missing = source.cut(envelope, tol=tolerance).Volume()
-        assert missing < tolerance, f'exterior offset contribution {index}: {missing} mm³ missing'
-    return envelope
+    return funnel.normal_envelope(shape, distance)
 
 
 def contracted(shape, distance, top):
@@ -197,8 +183,20 @@ def build():
     nominal_exterior = one(exterior.fuse(tip), 'casting envelope')
     print('Offsetting cavity forming face and dry back', flush=True)
     forming_void = expanded(nominal_exterior, finish_allowance)
-    cavity_outer = expanded(nominal_exterior, finish_allowance+shell_thickness)
+    backing_allowance = finish_allowance+shell_thickness
+    # Dilation distributes over this union: the base grows by the backing
+    # allowance and the inner ramp's normal skin grows by wall + allowance.
+    base, _, _ = funnel.build_solids(ramp_wall=0)
+    base = one(base.fuse(tip), 'cavity backing base')
+    ramp_faces = [face for face in bore.Faces() if face.geomType() == 'BSPLINE']
+    cavity_outer = funnel.normal_envelope(expanded(base, backing_allowance),
+                                         funnel.collar_wall+backing_allowance, ramp_faces,
+                                         rounds_first=True)
     assert forming_void.cut(cavity_outer, tol=tolerance).Volume() < tolerance
+    forming_boundary = cq.Compound.makeCompound(forming_void.Faces())
+    backing_boundary = cq.Compound.makeCompound(cavity_outer.Faces())
+    minimum_backing = forming_boundary.distance(backing_boundary)
+    assert minimum_backing >= shell_thickness-tolerance, minimum_backing
     cavity_flange = rounded(flange_width, flange_radius, top-flange_thickness, top)
     feet = [cylinder(foot_diameter/2, floor, m['ramp_top_z'], *xy) for xy in feet_xy]
     cavity = one(cavity_outer.fuse(cavity_flange, *feet).cut(forming_void)
@@ -216,9 +214,10 @@ def build():
     core = one(plug.fuse(plate).cut(dry_void)
                .intersect(box(flange_width+2, flange_width+2, neck, back)), 'core shell')
 
-    rod_below = funnel.spout_tube+tip_length-tip_cap
-    rod_engagement = rod_length-rod_below
-    rod_bottom, rod_top = tip_bottom+tip_cap, neck+rod_engagement
+    rod_bottom = tip_bottom+tip_cap
+    rod_top = rod_bottom+rod_length
+    rod_below = neck-rod_bottom
+    rod_engagement = rod_top-neck
     rod = cylinder(rod_diameter/2, rod_bottom, rod_top, x, y)
     guide_radius = (rod_diameter+rod_clearance)/2
     cradle_radius = guide_radius+rod_cradle_wall
@@ -317,7 +316,8 @@ def build():
                 end_clearances.append(misplaced.BoundingBox().zmin-tip_bottom)
     assert min(clearances) > minimum_spout_wall
     assert min(end_clearances) > funnel.spout_wall
-    assert rod_below-rod_axial_allowance > funnel.spout_tube
+    assert abs(rod.BoundingBox().zlen-rod_length) < tolerance
+    assert rod_below-rod_axial_allowance > neck-end
     assert dry_void.distance(cast) >= shell_thickness+finish_allowance-tolerance
     assert (forming_void.cut(nominal_exterior).Volume() > 0)
     for xy in bolt_xy:
@@ -338,6 +338,7 @@ def build():
                               s.BoundingBox().zlen] for n, s in parts.items()},
         'volume_ml': {n: s.Volume()/1000 for n, s in parts.items()},
         'shell_thickness_mm': shell_thickness, 'flange_thickness_mm': flange_thickness,
+        'minimum_cavity_backing_mm': minimum_backing,
         'liquid_containment': containment,
         'parting_z_mm': top-floor, 'finish_allowance_mm': finish_allowance,
         'rod_support': {'engagement_mm': rod_engagement, 'guide_diameter_mm': 2*guide_radius,

@@ -1,29 +1,29 @@
 {
   "project": "funnel-mold-h2c-040.gcode.3mf",
-  "project_sha256": "771a3de1396c71ff4a78ca89ad6365a1d8d116b758f107243b3d6fb1cc20eaf8",
+  "project_sha256": "ae3b86b52322b6dc8436795c7bcf15795af1b797505b9d17f188799bb2de1e76",
   "minimum_section_area_mm2": 0.01,
   "parts": {
     "cavity": {
-      "stl_sha256": "2bca28bc9534287b3afc2d174cb7c1639e7624b2f5c0b46e455f087098095b2e",
-      "layers_checked": 199,
+      "stl_sha256": "cd26140ed438af7ce001c7a9683e2f80fbd142a5f461a364f9956734ef7f27e9",
+      "layers_checked": 212,
       "bed_contact_regions": 3,
       "floating_section_components": [
         {
           "z_mm": 1.2,
-          "area_mm2": 279.2844498752642
+          "area_mm2": 279.28444958987905
         }
       ],
       "slicer_support_present": true,
       "scope": "Model connectivity only; support contact is not assessed."
     },
     "core": {
-      "stl_sha256": "5fffe0d5db0c9aff2810cae531a9747f217332e8c1c88a7f59adfe50aecb8d87",
+      "stl_sha256": "3fb808823b3e8d7fc96aef3c3e4db6afa19efb0bac6482ae8df2209d1e03623d",
       "layers_checked": 113,
       "bed_contact_regions": 1,
       "floating_section_components": [
         {
-          "z_mm": 10.4,
-          "area_mm2": 209.9038981568309
+          "z_mm": 15.6,
+          "area_mm2": 209.90301290130165
         }
       ],
       "slicer_support_present": true,
