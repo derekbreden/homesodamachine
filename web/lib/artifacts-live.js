@@ -32,7 +32,7 @@
 import { execFile } from "node:child_process";
 import { createHash } from "node:crypto";
 import { createReadStream } from "node:fs";
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { pipeline } from "node:stream/promises";
 import { fileURLToPath } from "node:url";
@@ -95,6 +95,22 @@ export function pointersMoved(have, pointers) {
   if (!have) return true;
   if (have.bundle?.sha256 !== pointers.bundle?.sha256) return true;
   return JSON.stringify(have.solids ?? {}) !== JSON.stringify(pointers.solids ?? {});
+}
+
+// Removed model parts must leave the directory the viewer walks. Only paths named by the
+// previous pointer file are retired; local files that neither publication names are untouched.
+export async function retireSolids(root, have, pointers) {
+  const hardware = path.resolve(root, "hardware");
+  const retired = Object.keys(have?.solids ?? {}).filter(rel => !(rel in (pointers.solids ?? {})));
+  for (const rel of retired) {
+    const target = path.resolve(root, rel);
+    const inside = path.relative(hardware, target);
+    if (!inside || inside === ".." || inside.startsWith("../") || path.isAbsolute(inside)) {
+      throw new Error(`cannot retire a path outside hardware/: ${rel}`);
+    }
+    await rm(target, { force: true });
+  }
+  return retired;
 }
 
 async function lockOnMain() {
@@ -255,6 +271,7 @@ async function adopt({ broadcast, setRecent, commit, hardwareDir, detect }) {
     [path.join(WEB, "scripts", "fetch-cad-artifacts.mjs"), "--adopt"],
     { cwd: WEB, maxBuffer: 8 << 20 });
   for (const line of stdout.trim().split("\n")) if (line.trim()) console.log(line);
+  await retireSolids(ROOT, have, pointers);
 
   // The same reading a deploy takes, off the same tables: what is on this disk now against what
   // this site last said. A member the pointer file re-pointed to bytes it already had moves nothing.

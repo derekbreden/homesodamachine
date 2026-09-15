@@ -78,17 +78,13 @@
     "right": "PLA Aero"
   },
   "meshes_sha256": {
-    "insert-petg": "b7d2278ee6f8711de0c9be43cbf2affd88274d0a4c1aeed580e3171d28bbbfdb",
-    "insert-aero": "6274e1dc484dacb2717601598e509163a1461f68f7d79f7170de24865dc5d8a3",
-    "insert-loose-petg": "e342e271a7d310a61b17a09936cdd7fc38938f036a5f9120c0d7431bf9cad692",
-    "insert-loose-aero": "2c1ff728f13e8e9ed0d61c7ae41f5b22202adafe2a37f86d0ac67c80e67c3d18",
-    "turning-key": "8f4803406a7f6cabd7cd8aff2a5ec8e64c13db49531017b8061af440ebadbcf7",
-    "body-petg": "9ea0adef0fa18362b30b8818adf998f0418cb229d28fc34ea41181d9fc92d1a4",
-    "body-aero": "ac23e6c08d944559078b024ffee08b931900ac2025c7264bcee27fad70d566ca"
+    "insert-aero": "34c7548a6369db156bfa7bf209e9fc775d8ba185199bf2a38addaa8296b5d146",
+    "body-petg": "69a327cdacb8777f8c9b8a2bf1cf50fb5c8af5a803acef123ad3356a6c2e594f",
+    "body-aero": "2418f6ba69bd13c22f1542b834bc2e0a62108109ac182d98630e43c3b05e9443"
   },
   "slicer_version": "02.08.02.61",
   "pause_before_z_mm": 49.2,
-  "geometry_sha256": "dfb62174c8fca0a745a08141779a54d30f437ac3ccc790adbefb366cc2b3f5ec",
+  "geometry_sha256": "1edf0dffa85f0d9e1c269bf8c8941450de42a58aafb37960876f425b1d8f61db",
   "effective_settings": {
     "nozzle_temperature": [
       "250",
@@ -132,64 +128,45 @@
     "enable_support": "0",
     "enable_prime_tower": "1"
   },
-  "project_sha256": "3dbf7215897ad20aff185c37476cafd329b1e26b50940ef1bba53f92d967a1a0",
+  "project_sha256": "f398b35cad43836205cb335bcdf8b3de7152c1aecd457e2c3779db9b0c3f21e6",
   "plates": [
     {
       "id": 1,
       "objects": [
         {
           "bbox": {
-            "depth": 25.59967041015625,
+            "depth": 25.99709701538086,
             "height": 10.0,
-            "width": 25.14596939086914,
-            "x": 102.42701721191406,
-            "y": 132.20016479492188,
+            "width": 26.0,
+            "x": 102.0,
+            "y": 132.00144958496094,
             "z": 0.0
           },
           "id": 5,
           "name": "Insert",
-          "triangle_count": 9336
+          "triangle_count": 1680
         },
         {
           "bbox": {
-            "depth": 25.29999351501465,
+            "depth": 25.99709701538086,
             "height": 10.0,
-            "width": 24.7806396484375,
-            "x": 142.60968017578125,
-            "y": 132.35000610351562,
+            "width": 26.0,
+            "x": 142.0,
+            "y": 132.00144958496094,
             "z": 0.0
           },
           "id": 9,
-          "name": "Spare insert - looser fit",
-          "triangle_count": 9336
-        },
-        {
-          "bbox": {
-            "depth": 5.0,
-            "height": 4.199999809265137,
-            "width": 29.0,
-            "x": 120.5,
-            "y": 177.5,
-            "z": 9.536743306171047e-08
-          },
-          "id": 13,
-          "name": "Turning key",
-          "triangle_count": 1692
+          "name": "Spare insert - snugger fit",
+          "triangle_count": 1680
         }
       ],
-      "total_predication": 4429.37646484375,
+      "total_predication": 2552.6865234375,
       "filaments": [
-        {
-          "filament_id": "GFG01",
-          "id": 1,
-          "main_used_g": 4.384410858154297,
-          "total_used_g": 6.517388343811035
-        },
         {
           "filament_id": "GFA11",
           "id": 2,
-          "main_used_g": 2.659482002258301,
-          "total_used_g": 5.468987941741943
+          "main_used_g": 4.602263927459717,
+          "total_used_g": 4.602263927459717
         }
       ],
       "warning_message": ""
@@ -206,24 +183,24 @@
             "y": 131.00157165527344,
             "z": 0.0
           },
-          "id": 17,
+          "id": 13,
           "name": "Float body",
-          "triangle_count": 6924
+          "triangle_count": 6720
         }
       ],
-      "total_predication": 11607.9091796875,
+      "total_predication": 11670.44140625,
       "filaments": [
         {
           "filament_id": "GFG01",
           "id": 1,
-          "main_used_g": 7.5273871421813965,
-          "total_used_g": 19.145397186279297
+          "main_used_g": 7.5183234214782715,
+          "total_used_g": 19.136333465576172
         },
         {
           "filament_id": "GFA11",
           "id": 2,
-          "main_used_g": 8.008620262145996,
-          "total_used_g": 15.867420196533203
+          "main_used_g": 8.130651473999023,
+          "total_used_g": 15.98945140838623
         }
       ],
       "warning_message": ""

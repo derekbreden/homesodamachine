@@ -67,6 +67,7 @@ def read_paths(gcode, plate):
     tool = 0
     feature = ''
     masses = {}
+    radii = {}
     pauses = []
     roof_layers = set()
     body_layer_tools = {}
@@ -100,6 +101,10 @@ def read_paths(gcode, plate):
         if name is None:
             continue
         masses.setdefault(name, [0.0, 0.0])[tool] += extrusion * math.pi * (1.75 / 2) ** 2 / 1000 * (1.25, 1.21)[tool]
+        if plate == 1 and feature == 'Outer wall' and layer_z >= 0.4:
+            radius = math.hypot(x - (115 if name == 'insert' else 155), y - 145)
+            bounds = radii.setdefault(name, [float('inf'), 0.0])
+            bounds[0], bounds[1] = min(bounds[0], radius), max(bounds[1], radius)
         if name == 'body':
             body_layer_tools.setdefault(round(layer_z, 3), set()).add(tool)
             if layer_z > m.roof_bottom:
@@ -119,6 +124,7 @@ def read_paths(gcode, plate):
         assert not pauses
         assert all(masses[name][0] == 0 and masses[name][1] > 0 for name in ('insert', 'insert-snug'))
     return {'object_material_mass_g': masses, 'insertion_pauses': pauses,
+            'insert_perimeter_radii_mm': radii,
             'roof_layers_mm': sorted(roof_layers), 'body_petg_layers': len(body_layer_tools)}
 
 
@@ -149,8 +155,14 @@ def print_project(path):
                 material_parts.append(meta['name'])
         assert len(material_parts) == 4
         assert set(material_parts) == {'body-petg', 'body-aero', 'insert-aero'}
+        fit_allowances.sort()
         assert fit_allowances == list(m.insert_fit_allowances)
         plates = [read_paths(archive.read(f'Metadata/plate_{i}.gcode').decode(), i) for i in (1, 2)]
+        normal = plates[0]['insert_perimeter_radii_mm']['insert']
+        snug = plates[0]['insert_perimeter_radii_mm']['insert-snug']
+        allowance_delta = m.insert_fit_allowances[1] - m.insert_fit_allowances[0]
+        assert math.isclose(snug[1] - normal[1], allowance_delta, abs_tol=0.015), (normal, snug)
+        assert math.isclose(normal[0] - snug[0], allowance_delta, abs_tol=0.015), (normal, snug)
         mass = sum(plates[0]['object_material_mass_g']['insert']) + sum(plates[1]['object_material_mass_g']['body']) + m.magnet_mass
         info = json.loads((HERE / 'design.json').read_text())
         reserve = info['water_displacement_g'] - mass
@@ -160,7 +172,7 @@ def print_project(path):
                 'insert_fit_allowances_radial_mm': fit_allowances,
                 'plates': plates, 'assembled_mass_from_model_extrusion_g': mass,
                 'reserve_from_model_extrusion_g': reserve,
-                'mass_scope': 'Positive extrusion on object toolpaths; excludes purge, brim, spare insert and key. Nominal filament diameter/density.'}
+                'mass_scope': 'Positive extrusion on object toolpaths; excludes purge, brim and spare insert. Nominal filament diameter/density.'}
 
 
 if __name__ == '__main__':

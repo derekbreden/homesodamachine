@@ -1,28 +1,17 @@
 {
   "geometry": {
-    "valid_solids": 8,
-    "closed_print_meshes": 7,
+    "valid_solids": 4,
+    "closed_print_meshes": 3,
     "continuous_petg_skin_mm": 1.0,
-    "maximum_tolerance_magnet_insertion_clear": true,
-    "motions": {
-      "insert": {
-        "insertion_and_rotation_clear": true,
-        "lift_stopped_before_roof": true,
-        "blocking_overlap_cc": 0.0012052482799891487,
-        "aero_mechanically_captive": true,
-        "turning_key_fits": true
-      },
-      "insert-loose": {
-        "insertion_and_rotation_clear": true,
-        "lift_stopped_before_roof": true,
-        "blocking_overlap_cc": 0.0009642489880894373,
-        "aero_mechanically_captive": true,
-        "turning_key_fits": true
-      }
-    }
+    "nominal_unfilled_volume_cc": 0.0,
+    "nominal_material_overlap_cc": 0.0,
+    "nominal_insertion_clear": true,
+    "maximum_tolerance_magnet_clear_of_petg": true,
+    "insert_top_meets_roof_underside": true,
+    "retention": "Aero press fit; holding force and surface contact require the first assembly result."
   },
   "print": {
-    "project_sha256": "3dbf7215897ad20aff185c37476cafd329b1e26b50940ef1bba53f92d967a1a0",
+    "project_sha256": "f398b35cad43836205cb335bcdf8b3de7152c1aecd457e2c3779db9b0c3f21e6",
     "verified_settings": {
       "filament_flow_ratio": [
         "0.97",
@@ -49,39 +38,46 @@
       ]
     },
     "material_parts": [
-      "insert-petg",
       "insert-aero",
-      "insert-loose-petg",
-      "insert-loose-aero",
-      "turning-key",
+      "insert-aero",
       "body-petg",
       "body-aero"
+    ],
+    "insert_fit_allowances_radial_mm": [
+      0.05,
+      0.1
     ],
     "plates": [
       {
         "object_material_mass_g": {
-          "insert-loose": [
-            1.8190899380312746,
-            1.2603357139062772
+          "insert-snug": [
+            0.0,
+            2.2634655297568487
           ],
           "insert": [
-            1.968322374794274,
-            1.2759435591324013
-          ],
-          "key": [
-            0.5092093575838927,
-            0.0
+            0.0,
+            2.2461001866757613
           ]
         },
         "insertion_pauses": [],
+        "insert_perimeter_radii_mm": {
+          "insert-snug": [
+            4.07615824030422,
+            12.890590832075942
+          ],
+          "insert": [
+            4.128290808555023,
+            12.840548664290015
+          ]
+        },
         "roof_layers_mm": [],
         "body_petg_layers": 0
       },
       {
         "object_material_mass_g": {
           "body": [
-            7.408311230792112,
-            7.901726566876206
+            7.399247557431322,
+            8.028270079527637
           ]
         },
         "insertion_pauses": [
@@ -90,6 +86,7 @@
             "commanded_z_before_pause_mm": 49.0
           }
         ],
+        "insert_perimeter_radii_mm": {},
         "roof_layers_mm": [
           49.2,
           49.4,
@@ -100,9 +97,9 @@
         "body_petg_layers": 250
       }
     ],
-    "assembled_mass_from_model_extrusion_g": 23.64430373159499,
-    "reserve_from_model_extrusion_g": 5.729587579469577,
-    "mass_scope": "Positive extrusion on object toolpaths; excludes purge, brim, spare insert and key. Nominal filament diameter/density."
+    "assembled_mass_from_model_extrusion_g": 22.76361782363472,
+    "reserve_from_model_extrusion_g": 6.610273487429847,
+    "mass_scope": "Positive extrusion on object toolpaths; excludes purge, brim and spare insert. Nominal filament diameter/density."
   },
   "physical_prints": "No physical float print recorded."
 }
