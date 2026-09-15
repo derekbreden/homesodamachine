@@ -52,18 +52,18 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 1859 tracked, 389 fetched solids, 55 tags, 38 site routes",
+      "note": "paths: every reference lands — 1807 tracked, 409 fetched solids, 55 tags, 38 site routes",
       "status": "ok"
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 448 of 1000 free, the next cut wants 33, and the whole pointer file reads by name in 140.7 MB against 175.8 MB of bundle",
+      "note": "check_release_room: 447 of 1000 free, the next cut wants 53, and the whole pointer file reads by name in 140.7 MB against 175.8 MB of bundle",
       "status": "ok"
     },
     {
       "check": "tools/check_web_tests.py",
-      "note": "check_web_tests: web's suite passes",
-      "status": "ok"
+      "note": "cd web && npm test",
+      "status": "red"
     },
     {
       "check": "tools/bazel/check_build_file.py",
@@ -82,10 +82,19 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 1 of 3 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 389 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 6 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 389 member(s) keep their provenance",
       "status": "ok"
     }
   ],
-  "detail": {},
-  "green": true
+  "detail": {
+    "tools/check_web_tests.py": [
+      "4 test(s) in web/ fail:",
+      "    r2: a verified upload is put to the bucket, HEAD answers from it, and GET redirects to the custom domain",
+      "    r2: with no address at all the bytes stream through the site",
+      "    r2: prune lists the bucket once and deletes the old unnamed in one batch",
+      "    the environment names the store: R2 with a key pair, the disk with a directory, else none",
+      "  cd web && npm test"
+    ]
+  },
+  "green": false
 }
