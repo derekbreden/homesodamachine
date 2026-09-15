@@ -560,18 +560,20 @@ Bench soldering capability for through-hole, wire-to-pad (pogo pin leads), and g
 
 All purchased direct from us.store.bambulab.com (not via Amazon). Covers the printer itself (H2C AMS Combo), AMS expansion units (AMS HT × 2, AMS 2 Pro), hotends / nozzles / build plate, vision encoder, PTFE adapters, and every filament refill since the printer arrived. §13 holds the non-Bambu filaments (SpoolHaus PEBA, Siraya Tech Flex TPU, the Polymaker Fiberon grades) — kept separate because the vendor and receipt trail are distinct.
 
-Receipts grouped by order; each line in the table is one shipment. See Bambu Lab order history for the per-SKU breakdown.
+Receipts grouped by order; itemized orders separate equipment, filament and tax. Hotend sizes, sides and flow variants are from the Gmail order confirmations, reconciled 2026-09-15.
 
 | Order date | Bambu order # | Contents | $ | Status |
 |---|---|---|---|---|
 | 2026-03-22 | us712460111015776257 | Bambu Lab H2C — H2C AMS Combo (printer + integrated AMS) | $2,399.00 | ACQUIRED |
 | 2026-03-22 | us712460111015776257 | Vision Encoder (H2 Series) | $78.75 | ACQUIRED |
 | 2026-03-22 | us712460111015776257 | Bambu Engineering Plate (H2C) | $49.49 | ACQUIRED |
-| 2026-03-22 | us712460111015776257 | Hotends + nozzles — 0.4 TC nozzle ×2, 0.4 hotend (L) ×2, 0.2 induction hotend (R) ×2 | $203.64 | ACQUIRED |
+| 2026-03-22 | us712460111015776257 | Hotends + nozzles — all standard flow: H2C Left 0.4 mm TC nozzle ×2 ($95.98), H2C Left 0.4 mm HS hotend ×2 ($35.68), H2C Right 0.2 mm SS induction hotend ×2 ($71.98) | $203.64 | ACQUIRED |
 | 2026-03-22 | us712460111015776257 | Filament — TPU 95A HF ×2, ABS ×2, PA6-CF ×2, PLA Matte ×2, PETG Basic ×2 (1 kg ea) | $349.70 | ACQUIRED |
 | 2026-03-22 | us712460111015776257 | NE sales tax (5.5% state + 1.75% city) | $223.33 | ACQUIRED |
 | 2026-03-23 | us712597240994926592 | Liquid glue + shipping + tax | $25.71 | ACQUIRED |
-| 2026-04-01 | us715792490246602753 | H2C Induction Hotend (R) 0.8mm HS ×1, H2C Induction Hotend (R) 0.4mm HS ×1, ASA Blue ×1, PLA Matte Marine Blue refill ×2, PLA Matte Charcoal ×4 (bulk) | $217.00 | ACQUIRED |
+| 2026-04-01 | us715792490246602753 | Hotends — H2C Right induction, standard flow: 0.8 mm HS ×1 + 0.4 mm HS ×1 ($39.99 each) | $79.98 | ACQUIRED |
+| 2026-04-01 | us715792490246602753 | Filament — ASA Blue 45600 on spool ×1 ($29.99), PLA Matte Marine Blue 11600 refill ×2 ($27.99), PLA Matte Charcoal 11101 on spool ×4 ($64.37), 1 kg each | $122.35 | ACQUIRED |
+| 2026-04-01 | us715792490246602753 | NE sales tax; shipping waived | $14.67 | ACQUIRED |
 | 2026-04-03 | us716485517830578177 | PETG Basic Black refill ×4 (bulk), ABS Black refill ×4 (bulk) | $120.06 | ACQUIRED |
 | 2026-04-06 | us717877837343809537 | Bambu Lab AMS HT ×2 | $278.00 | ACQUIRED |
 | 2026-04-06 | us717877837343809537 | Bambu 4-in-1 PTFE Adapter ×1 | $7.99 | ACQUIRED |
@@ -586,16 +588,16 @@ Receipts grouped by order; each line in the table is one shipment. See Bambu Lab
 | 2026-04-21 | us722988823976337409 | PETG Translucent Clear ×4 (bulk) + shipping + tax | $81.46 | ACQUIRED |
 | 2026-04-27 | us725322381210451969 | PETG Basic Black 30105 refill 1 kg ×10 (bulk) | $139.36 | ACQUIRED |
 | 2026-04-28 | us725539918437957633 | PET-CF Black 71100 filament 1 kg ×2 | $182.30 | ACQUIRED |
-| 2026-04-30 | us726560430730719233 | PET-CF nozzle kit: R 0.8mm HF HS hotend + L 0.8mm HF TC nozzle + L 0.6mm SF TC nozzle | $211.78 | ACQUIRED (delivered May 18) |
+| 2026-04-30 | us726560430730719233 | H2C Right 0.8 mm high-flow HS induction hotend ×1 ($69.99), H2C Left 0.8 mm high-flow TC nozzle ×1 ($76.49), H2C Left 0.6 mm standard-flow TC nozzle ×1 ($50.99), NE tax $14.31; shipping waived | $211.78 | ACQUIRED (delivered May 18) |
 | 2026-05-04 | us728013517860630529 | Dual Extruder Unit (H2C) ×1 — replacement extruder | $193.05 | ACQUIRED |
 | 2026-05-04 | us728027710789775361 | Bambu Lab H2C (AMS Combo) — second printer | $2,572.93 | ACQUIRED |
 | 2026-05-25 | us735568811268960257 | PETG Basic Black 30105 ×10 + PETG Translucent Clear 32101 ×10 (1 kg refills, bulk) | $278.72 | ACQUIRED (delivered May 29) |
 | 2026-06-10 | us741350370718978049 | Induction Heating Assembly - Right ×1 (H2C / H2C Laser) + shipping + tax | $71.83 | ACQUIRED (delivered Jun 15) |
 | 2026-06-17 | us743915395468910593 | PETG Basic Black 30105 ×10 + PETG Translucent Clear 32101 ×10 (1 kg refills, bulk) | $224.04 | ACQUIRED (delivered Jun 20) |
 | 2026-08-11 | us763714278409691137 | PETG Basic Black 30105 refill ×7 (bulk, $81.85) + PETG Basic on spool ×3 — White 30106, Navy Blue 30604, Red 30201 ($13.64 ea) (1 kg each) + NE tax $8.90 | $131.67 | ACQUIRED (delivered Aug 14) |
-| 2026-08-19 | us766639627317551105 | H2C Induction Hotend (Right), 0.2 mm stainless ×2 + Tungsten Carbide Hotend (H2/P2S/X2D; H2C Left), 0.4 mm ×1 + NE tax | $182.29 | ACQUIRED (the 0.4 TC is the exterior's nozzle — [tools.md](/hardware/ledger/tools.md)) |
-| 2026-08-30 | us770658156626939905 | Bambu Textured PEI Plate (H2C) ×2 ($109.98) + Mag-Alloy Scraper ×1 ($16.99, add-ons deal −$3.00) + Bambu Scraper 3 pcs ×1 ($2.99, add-ons deal −$1.00) + NE tax $9.41, shipping waived | $139.37 | ON-ORDER |
-| **§15 subtotal — 20 orders (19 ACQUIRED, 1 ON-ORDER)** | | | **ACQUIRED $8,991.30 + ON-ORDER $139.37** | |
+| 2026-08-19 | us766639627317551105 | H2C Right 0.2 mm standard-flow SS induction hotend ×2 ($79.98) + Tungsten Carbide Hotend (H2/P2S/X2D; H2C Left), 0.4 mm **high flow** ×1 ($89.99) + NE tax $12.32; shipping waived | $182.29 | ACQUIRED |
+| 2026-08-30 | us770658156626939905 | Bambu Textured PEI Plate (H2C) ×2 ($109.98) + Mag-Alloy Scraper ×1 ($16.99, add-ons deal −$3.00) + Bambu Scraper 3 pcs ×1 ($2.99, add-ons deal −$1.00) + NE tax $9.41, shipping waived | $139.37 | ACQUIRED (delivered Sep 2; Bambu delivery confirmation in Gmail) |
+| **§15 subtotal — 20 orders (20 ACQUIRED)** | | | **ACQUIRED $9,130.67** | |
 
 ## 16. Laser welding / cleaning / cutting
 
@@ -685,10 +687,10 @@ Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C funne
 
 | Status | $ |
 |---|---|
-| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$33,762.28](LEDGER_ACQUIRED_HW) |
+| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$33,901.65](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$5,437.54](LEDGER_LABOR) |
-| ACQUIRED (combined) | [$39,199.82](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$829.63](LEDGER_ON_ORDER) |
+| ACQUIRED (combined) | [$39,339.19](LEDGER_ACQUIRED_COMBINED) |
+| ON-ORDER | [$690.26](LEDGER_ON_ORDER) |
 | MISSING — paid, not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
 | **Grand total — cash outlay** | [$40,082.52](LEDGER_GRAND_TOTAL) |
@@ -711,7 +713,7 @@ ACQUIRED hardware by section:
 | 12 | Shop / bench infrastructure | [$1,372.31](LEDGER_SEC12) |
 | 13 | Printing consumables | [$2,001.82](LEDGER_SEC13) |
 | 14 | Soldering + small-signal tools | [$803.87](LEDGER_SEC14) |
-| 15 | 3D printing equipment + filaments (Bambu direct) | [$8,991.30](LEDGER_SEC15) |
+| 15 | 3D printing equipment + filaments (Bambu direct) | [$9,130.67](LEDGER_SEC15) |
 | 16 | Laser welding / cleaning / cutting | [$3,899.00](LEDGER_SEC16) |
 | 17 | Domain / infrastructure | [$732.18](LEDGER_SEC17) |
 | 19 | Video / marketing capture | [$139.69](LEDGER_SEC19) |
