@@ -16,6 +16,9 @@ resting layout, a larger Settings control and an eight-image picker.
 [Console corner controls](console-corners.md) places Settings below the flavor choices and Done
 at the top-right of every task.
 
+[Console system status](console-system.md) gives machine settings the full pane beside the rail,
+with the enclosure's side profile and unlabeled sensor indicators.
+
 [`logo-first.html`](logo-first.html) is a self-contained conversation visualization fragment.
 The controls above the device select the direction and screen. Selecting a drink on either
 display changes the shared selection. Ratio adjustments belong to their own flavor; choosing
