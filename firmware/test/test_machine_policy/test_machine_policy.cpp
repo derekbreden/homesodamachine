@@ -2,6 +2,7 @@
 
 #include "machine_policy.h"
 #include "proto_msg.h"
+#include "j9_query_policy.h"
 
 using namespace machine_policy;
 
@@ -381,6 +382,162 @@ void test_only_matching_query_renews_current_session_lease() {
     TEST_ASSERT_TRUE(session.query(0xA0u, 400));
     TEST_ASSERT_FALSE(session.leaseExpired(400 + kPrimeSessionLeaseGraceMs));
     TEST_ASSERT_TRUE(session.leaseExpired(401 + kPrimeSessionLeaseGraceMs));
+}
+
+struct PrimeQueryEndpoint {
+    PrimeSession session;
+    uint32_t now = 100;
+    uint32_t sentRevision = 0;
+    uint32_t frames = 0;
+    uint32_t renewCalls = 0;
+    bool stateSent = false;
+    uint8_t lastReply = 0;
+    PrimeSessionPhase lastPhase = PrimeSessionPhase::Off;
+    uint8_t news[4] = {MSG_RESP_IDLE, MSG_RESP_FLAVOR_ART,
+                       MSG_OTA_BEGIN, MSG_UI_SHOW};
+    uint8_t nextNews = 0;
+    uint8_t newsCount = 4;
+
+    PrimeQueryEndpoint() { session.activate(0, 0xA0u, now); }
+    bool renewSession(uint32_t token) {
+        ++renewCalls;
+        return session.query(token, now);
+    }
+    bool sendChangedState() {
+        if (stateSent && sentRevision == session.snapshot().revision) return false;
+        sendState();
+        return true;
+    }
+    bool sendAnnouncement() {
+        if (nextNews == newsCount) return false;
+        lastReply = news[nextNews++];
+        ++frames;
+        return true;
+    }
+    void sendState() {
+        lastReply = MSG_RESP_PRIME_SESSION;
+        sentRevision = session.snapshot().revision;
+        lastPhase = session.snapshot().phase;
+        stateSent = true;
+        ++frames;
+    }
+};
+
+bool primeQueryTurn(j9_query_policy::PrimeQueryReplies &replies,
+                    PrimeQueryEndpoint &endpoint, uint32_t token = 0xA0u,
+                    uint8_t type = MSG_PRIME_SESSION_QUERY,
+                    uint16_t size = sizeof(PrimeSessionQueryPayload)) {
+    const PrimeSessionQueryPayload query{token};
+    return replies.handle(type, reinterpret_cast<const uint8_t *>(&query),
+                          size, endpoint);
+}
+
+void test_prime_ready_drains_full_j9_queue_without_staling_or_expiring() {
+    j9_query_policy::PrimeQueryReplies replies;
+    PrimeQueryEndpoint endpoint;
+    uint32_t lastSnapshot = 0;
+    uint32_t uiDeliveredAt = 0;
+    uint32_t otaDeliveredAt = 0;
+    // Start with an unsent transition and four non-acking announcements. The
+    // final one is the console command: no extra ACK turn helps this schedule.
+    for (uint32_t poll = 1; poll <= 16; ++poll) {
+        endpoint.now = 100 + poll * 500;
+        const uint32_t before = endpoint.frames;
+        TEST_ASSERT_TRUE(primeQueryTurn(replies, endpoint));
+        TEST_ASSERT_EQUAL_UINT32(before + 1, endpoint.frames);
+        TEST_ASSERT_FALSE(endpoint.session.leaseExpired(
+            endpoint.now + kPrimeSessionLeaseGraceMs));
+        if (endpoint.lastReply == MSG_RESP_PRIME_SESSION) {
+            if (lastSnapshot) TEST_ASSERT_LESS_OR_EQUAL_UINT32(
+                1000, endpoint.now - lastSnapshot);
+            lastSnapshot = endpoint.now;
+            TEST_ASSERT_EQUAL(PrimeSessionPhase::Ready, endpoint.lastPhase);
+        } else if (endpoint.lastReply == MSG_UI_SHOW) {
+            uiDeliveredAt = endpoint.now;
+        } else if (endpoint.lastReply == MSG_OTA_BEGIN) {
+            otaDeliveredAt = endpoint.now;
+        }
+        TEST_ASSERT_LESS_THAN_UINT32(1800, endpoint.now - lastSnapshot);
+    }
+    TEST_ASSERT_EQUAL_UINT8(4, endpoint.nextNews);
+    TEST_ASSERT_EQUAL_UINT32(4100, uiDeliveredAt);
+    TEST_ASSERT_EQUAL_UINT32(3100, otaDeliveredAt);
+    TEST_ASSERT_LESS_THAN_UINT32(j9_query_policy::kEnclosureReplyWaitMs,
+                                 uiDeliveredAt - 100);
+    TEST_ASSERT_EQUAL_UINT32(16, endpoint.renewCalls);
+}
+
+void test_prime_ready_continuous_news_preserves_snapshot_heartbeat() {
+    j9_query_policy::PrimeQueryReplies replies;
+    PrimeQueryEndpoint endpoint;
+    uint32_t lastSnapshot = 0;
+    for (uint32_t poll = 1; poll <= 30; ++poll) {
+        endpoint.now = 100 + poll * 500;
+        endpoint.nextNews = 0;  // news remains pending for the entire run
+        const uint32_t before = endpoint.frames;
+        TEST_ASSERT_TRUE(primeQueryTurn(replies, endpoint));
+        TEST_ASSERT_EQUAL_UINT32(before + 1, endpoint.frames);
+        if (endpoint.lastReply == MSG_RESP_PRIME_SESSION) {
+            if (lastSnapshot) TEST_ASSERT_LESS_OR_EQUAL_UINT32(
+                1000, endpoint.now - lastSnapshot);
+            lastSnapshot = endpoint.now;
+        }
+        // A diverted query still renews the real main-board lease.
+        TEST_ASSERT_FALSE(endpoint.session.leaseExpired(
+            endpoint.now + kPrimeSessionLeaseGraceMs));
+    }
+}
+
+void test_prime_discovery_queries_get_state_without_renewing_another_lease() {
+    j9_query_policy::PrimeQueryReplies replies;
+    PrimeQueryEndpoint endpoint;
+    const uint32_t tokens[] = {0u, 0xB0u};
+    for (uint32_t token : tokens) {
+        endpoint.now += 500;
+        const uint32_t before = endpoint.frames;
+        TEST_ASSERT_TRUE(primeQueryTurn(replies, endpoint, token));
+        TEST_ASSERT_EQUAL_UINT32(before + 1, endpoint.frames);
+        TEST_ASSERT_EQUAL_UINT8(MSG_RESP_PRIME_SESSION, endpoint.lastReply);
+        TEST_ASSERT_EQUAL_UINT8(0, endpoint.nextNews);
+    }
+    TEST_ASSERT_TRUE(endpoint.session.leaseExpired(
+        101 + kPrimeSessionLeaseGraceMs));
+}
+
+void test_prime_revision_changes_precede_queued_news() {
+    j9_query_policy::PrimeQueryReplies replies;
+    PrimeQueryEndpoint endpoint;
+    TEST_ASSERT_TRUE(primeQueryTurn(replies, endpoint));
+    TEST_ASSERT_TRUE(primeQueryTurn(replies, endpoint));
+    TEST_ASSERT_EQUAL_UINT8(MSG_RESP_IDLE, endpoint.lastReply);
+    endpoint.session.holdStart(PrimeSessionOwner::Faucet, 0, 0xA0u, 0xB0u, 200);
+    endpoint.session.pumpStarted(PrimeSessionOwner::Faucet, 0xB0u);
+    TEST_ASSERT_TRUE(primeQueryTurn(replies, endpoint));
+    TEST_ASSERT_EQUAL_UINT8(MSG_RESP_PRIME_SESSION, endpoint.lastReply);
+    TEST_ASSERT_EQUAL(PrimeSessionPhase::Running, endpoint.lastPhase);
+    TEST_ASSERT_EQUAL_UINT8(1, endpoint.nextNews);
+    endpoint.session.cancel(0xA0u, PrimeSessionOutcome::Canceled, 0);
+    TEST_ASSERT_TRUE(primeQueryTurn(replies, endpoint));
+    TEST_ASSERT_EQUAL_UINT8(MSG_RESP_PRIME_SESSION, endpoint.lastReply);
+    TEST_ASSERT_EQUAL(PrimeSessionPhase::Off, endpoint.lastPhase);
+    TEST_ASSERT_EQUAL_UINT8(1, endpoint.nextNews);
+    TEST_ASSERT_EQUAL_UINT32(4, endpoint.frames);
+}
+
+void test_prime_query_arbitration_leaves_malformed_and_direct_actions_to_dispatch() {
+    j9_query_policy::PrimeQueryReplies replies;
+    PrimeQueryEndpoint endpoint;
+    TEST_ASSERT_FALSE(primeQueryTurn(replies, endpoint, 0xA0u,
+        MSG_PRIME_SESSION_QUERY, sizeof(PrimeSessionQueryPayload) - 1));
+    const uint8_t direct[] = {MSG_PRIME_SESSION_SET, MSG_PRIME_SESSION_HOLD_START,
+        MSG_PRIME_SESSION_HOLD_TICK, MSG_PRIME_SESSION_HOLD_STOP, MSG_OTA_REQ};
+    for (const uint8_t type : direct)
+        TEST_ASSERT_FALSE(primeQueryTurn(replies, endpoint, 0xA0u, type));
+    TEST_ASSERT_EQUAL_UINT32(0, endpoint.frames);
+    TEST_ASSERT_EQUAL_UINT32(0, endpoint.renewCalls);
+    TEST_ASSERT_EQUAL_UINT8(0, endpoint.nextNews);
+    TEST_ASSERT_TRUE(endpoint.session.leaseExpired(
+        101 + kPrimeSessionLeaseGraceMs));
 }
 
 void test_hold_is_bound_to_session_channel_source_and_press_token() {
@@ -1055,6 +1212,11 @@ int main(int, char **) {
     RUN_TEST(test_cancel_tombstones_an_activation_that_has_not_arrived);
     RUN_TEST(test_session_replay_window_covers_every_delayed_j9_activation);
     RUN_TEST(test_only_matching_query_renews_current_session_lease);
+    RUN_TEST(test_prime_ready_drains_full_j9_queue_without_staling_or_expiring);
+    RUN_TEST(test_prime_ready_continuous_news_preserves_snapshot_heartbeat);
+    RUN_TEST(test_prime_discovery_queries_get_state_without_renewing_another_lease);
+    RUN_TEST(test_prime_revision_changes_precede_queued_news);
+    RUN_TEST(test_prime_query_arbitration_leaves_malformed_and_direct_actions_to_dispatch);
     RUN_TEST(test_hold_is_bound_to_session_channel_source_and_press_token);
     RUN_TEST(test_terminal_hold_returns_to_ready_and_rejects_stale_stop);
     RUN_TEST(test_refused_hold_token_cannot_replay_start_or_refusal);
