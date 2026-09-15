@@ -2,13 +2,13 @@
 // by whichever machine cut them and fetched from here by every reader.
 //
 //     PUT  /objects/s-<sha256>.gz     the gzipped member; kept when its bytes hash to the name
-//     GET  /objects/s-<sha256>.gz     the bytes back: a redirect to the store's public URL, or
-//                                     the stream itself when the store has none
+//     GET  /objects/s-<sha256>.gz     the bytes back: a redirect to where the store serves them
+//                                     from, or the stream itself when it serves none
 //     HEAD /objects/s-<sha256>.gz     whether the store holds it
 //
-// THE STORE BEHIND THIS IS THE ENVIRONMENT'S CHOICE (store.js): Cloudflare R2, whose public
-// URL carries every read, or a disk on this service. Either way the pointer file's `store.url`
-// is this site, so a publisher and a fetcher talk to one address.
+// THE STORE BEHIND THIS IS THE ENVIRONMENT'S CHOICE (store.js): Cloudflare R2, which carries
+// every read itself, or a disk on this service. Either way the pointer file's `store.url` is
+// this site, so a publisher and a fetcher talk to one address.
 //
 // NO TOKEN, BECAUSE THE POINTER FILE IS THE AUTHORITY. Anyone can put an object here, and only
 // an object main's pointer file names stays: `pruneObjects` runs on the hour and removes what
@@ -86,7 +86,7 @@ export function mountObjectRoutes(app, { store }) {
     const name = req.params.name;
     if (!OBJECT_NAME.test(name)) return res.status(404).json({ error: "not an object name" });
     if (!(await store.has(name))) return res.status(404).json({ error: "no such object here" });
-    const url = store.redirectUrl(name);
+    const url = await store.redirectUrl(name);
     if (url) return res.redirect(302, url);
     res.set({ "Content-Type": "application/gzip", "Cache-Control": "public, max-age=31536000, immutable" });
     const stream = await store.readStream(name);
