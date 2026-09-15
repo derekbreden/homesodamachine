@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""The generated solids, as one release asset a deploy fetches.
+"""The generated solids, each on the site's store by hash, and the pointer file that names them.
 
     tools/cad-venv/bin/python tools/cad-artifacts/pack.py            # what the bundle holds
     tools/cad-venv/bin/python tools/cad-artifacts/pack.py --write    # build it, upload it, point main at it
@@ -378,7 +378,10 @@ def held_publish_plan(held: dict, rels: list, now: dict, mtimes: dict) -> tuple:
 
 
 def object_url(held: dict, digest: str):
-    """Where the release holds one member's bytes by hash, or None without the object lane."""
+    """Where one member's bytes are by hash: the store, else the release; None without either."""
+    store = held.get("store", {})
+    if store.get("url") and store.get("objects"):
+        return f"{store['url']}{store['objects']}{digest}.gz"
     release = held.get("release", {})
     url = release.get("url", "")
     if not release.get("objects") or "/" not in url:
@@ -657,6 +660,7 @@ def pointers_for(root: Path, rels: list, digest: str, size: int, solid_hashes: d
             "asset": asset,
             "url": f"https://github.com/{slug}/releases/download/{TAG}/{asset}",
         },
+        "store": {"url": STORE_URL, "objects": OBJECT_PREFIX},
         "source": {"commit": _head(root)},
         "bundle": {"sha256": digest, "bytes": size, "solids": len(rels)},
         "solids": solid_hashes,
@@ -872,6 +876,11 @@ def _release_asset_matches(root: Path, asset: str, digest: str, size: int) -> bo
 
 
 OBJECT_PREFIX = "s-"
+#: THE STORE IS THE SITE. Each member goes up by hash to homesodamachine.com, which holds it on
+#: its own disk and serves it (web/lib/objects.js); the GitHub release stays an archive the
+#: fetcher falls back to. Any machine that cut a member can put it here, a cloud session
+#: included, which the release refuses.
+STORE_URL = "https://homesodamachine.com/objects/"
 
 #: WHAT ONE RELEASE HOLDS. GitHub takes 1000 assets on a release and refuses the 1001st, and
 #: this store is append-only: every cut adds a bundle and every member that moved adds an
@@ -1159,6 +1168,33 @@ def objects_to_send(rels: list, solid_hashes: dict, known: set) -> list:
     return todo
 
 
+def put_object(url: str, staged: Path) -> bool:
+    """One gzipped member up to the store by hash; True when the store holds it afterwards."""
+    try:
+        req = Request(url, data=staged.read_bytes(), method="PUT",
+                      headers={"Content-Type": "application/gzip", "User-Agent": "pack.py"})
+        with urlopen(req, timeout=300) as resp:
+            return resp.status in (200, 201)
+    except Exception as exc:  # noqa: BLE001 — the caller falls back and names the failure
+        print(f"  {url.rsplit('/', 1)[-1]}: the store did not take it ({exc})")
+        return False
+
+
+def objects_in_store(hashes) -> set:
+    """Which of these hashes the store already holds, asked one by one; a store that does not
+    answer holds nothing, and every member is sent."""
+    out = set()
+    for digest in set(hashes):
+        try:
+            with urlopen(Request(STORE_URL + object_asset(digest), method="HEAD",
+                                 headers={"User-Agent": "pack.py"}), timeout=30) as resp:
+                if resp.status == 200:
+                    out.add(digest)
+        except Exception:  # noqa: BLE001 — absent or unreachable reads the same: send it
+            pass
+    return out
+
+
 def upload_objects(root: Path, rels: list, solid_hashes: dict, known: set) -> bool:
     """Put each member the release does not already hold on it, one asset per member.
 
@@ -1188,6 +1224,10 @@ def upload_objects(root: Path, rels: list, solid_hashes: dict, known: set) -> bo
                 gzip.GzipFile(filename="", mode="wb", fileobj=raw, mtime=0) as out:
             shutil.copyfileobj(src, out)
         try:
+            if put_object(STORE_URL + object_asset(sha), staged):
+                return None
+            # THE RELEASE IS THE FALLBACK, from a machine it lets in. A cloud session it refuses
+            # reports the member as not up, and the pointer file is read from the bundle.
             return None if _gh(root, "release", "upload", TAG, str(staged),
                                "--clobber").returncode == 0 else rel
         finally:
@@ -1547,8 +1587,9 @@ def main(argv) -> int:
     prior_bundle = held.get("bundle", {})
     if args.publish_held and prior_bundle.get("sha256"):
         lines = {**held.get("solids", {}), **{rel: now[rel] for rel in pinned_rels}}
+        known |= objects_in_store(now[r] for r in pinned_rels)
         if make_room(_ROOT, sum(1 for r in pinned_rels if now[r] not in known)):
-            known = objects_on_release(_ROOT)
+            known = objects_on_release(_ROOT) | objects_in_store(now[r] for r in pinned_rels)
         if upload_objects(_ROOT, pinned_rels, now, known):
             data = pointers_for(_ROOT, sorted(lines), prior_bundle["sha256"], prior_bundle.get("bytes", 0),
                             lines, sidecar_now, unproven_now, held=held)
@@ -1822,7 +1863,25 @@ def selftest() -> int:
     hold("an unmoved line keeps its time, a moved or new one is stamped", times, {"a": 100, "b": 200, "e": 200})
     hold("the object url is the release directory, the prefix and the hash",
          object_url(held, "hc"), "https://example/releases/download/cad-artifacts/s-hc.gz")
+    hold("the store comes first when the pointer file names one",
+         object_url({**held, "store": {"url": "https://site/objects/", "objects": "s-"}}, "hc"),
+         "https://site/objects/s-hc.gz")
     hold("no object lane, no url", object_url({"release": {"url": "https://x/y/z"}}, "h"), None)
+    hold("a pointer file names the store",
+         pointers_for(_ROOT, [], "d", 1, {}, {}, None)["store"],
+         {"url": STORE_URL, "objects": OBJECT_PREFIX})
+    with tempfile.TemporaryDirectory() as d:
+        root = Path(d)
+        (root / "m.step").write_text("member")
+        sent = []
+        was_put = put_object
+        globals()["put_object"] = lambda url, staged: sent.append((url, gzip.decompress(staged.read_bytes()))) or True
+        try:
+            hold("a member goes to the store by hash, gzipped",
+                 upload_objects(root, ["m.step"], {"m.step": "hm"}, set()), True)
+        finally:
+            globals()["put_object"] = was_put
+        hold("…at the store's address", sent, [(STORE_URL + "s-hm.gz", b"member")])
     with tempfile.TemporaryDirectory() as d:
         root = Path(d)
         (root / "hardware").mkdir()
@@ -1842,8 +1901,8 @@ def selftest() -> int:
         hold("an object that does not hash to its line is left as it was",
              (root / "hardware" / "x.step").read_text(), "older")
 
-    print(f"pack selftest {holds}/41")
-    return 0 if holds == 41 else 1
+    print(f"pack selftest {holds}/45")
+    return 0 if holds == 45 else 1
 
 
 if __name__ == "__main__":

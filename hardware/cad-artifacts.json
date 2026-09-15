@@ -6,6 +6,10 @@
     "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-e45bae681124c5f3.tar.gz",
     "objects": "s-"
   },
+  "store": {
+    "url": "https://homesodamachine.com/objects/",
+    "objects": "s-"
+  },
   "source": {
     "commit": "2eaea329d128836d567f242e6e87a7e187a4fb53"
   },

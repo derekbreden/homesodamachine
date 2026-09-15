@@ -48,7 +48,7 @@ UNPROVEN_NOTE = ("source.commit does not describe these members: an uncommitted 
                  " explicitly deferred that rule.")
 
 #: The order pack.py seats the keys in; `unproven` sits after the commit it qualifies.
-KEY_ORDER = ("_", "release", "source", "unproven", "bundle", "solids", "sidecars", "moved")
+KEY_ORDER = ("_", "release", "store", "source", "unproven", "bundle", "solids", "sidecars", "moved")
 
 
 def merge_members(base: dict, ours: dict, theirs: dict) -> tuple[dict, list, list]:
@@ -177,6 +177,7 @@ def merge(base: dict, ours: dict, theirs: dict, merge_base=git_merge_base) -> tu
     out = {
         "_": ours.get("_") or theirs.get("_") or base.get("_"),
         "release": release,
+        "store": ours.get("store") or theirs.get("store"),
         "source": None,
         "unproven": merge_unproven(base, ours, theirs, both_s + both_c),
         "bundle": bundle,

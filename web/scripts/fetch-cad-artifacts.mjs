@@ -31,19 +31,32 @@
 
 import { createHash } from "node:crypto";
 import { createReadStream, createWriteStream } from "node:fs";
-import { mkdir, mkdtemp, readFile, rm, stat } from "node:fs/promises";
+import { copyFile, mkdir, mkdtemp, readFile, rename, rm, stat } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { execFileSync } from "node:child_process";
 import { Readable } from "node:stream";
 import { pipeline } from "node:stream/promises";
-import { createGunzip } from "node:zlib";
+import { createGunzip, createGzip } from "node:zlib";
 import { fileURLToPath } from "node:url";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
 const POINTERS = path.join(ROOT, "hardware", "cad-artifacts.json");
 const CHECK = process.argv.includes("--check");
 const ADOPT = process.argv.includes("--adopt");
+// THE STORE IS THE SERVICE'S OWN DISK (web/lib/objects.js), when this runs on it. It is read
+// before the network and filled from what the tree already holds, so a boot after the first
+// reaches nothing outside the box. At build time the disk is not mounted and this is unset or
+// absent, and the network answers as it always did.
+const STORE_DIR = process.env.OBJECTS_DIR || null;
+
+async function isDir(abs) {
+  try {
+    return (await stat(abs)).isDirectory();
+  } catch {
+    return false;
+  }
+}
 
 async function sha256(file) {
   const h = createHash("sha256");
@@ -52,8 +65,12 @@ async function sha256(file) {
 }
 
 async function present(rel) {
+  return present_abs(path.join(ROOT, rel));
+}
+
+async function present_abs(abs) {
   try {
-    return (await stat(path.join(ROOT, rel))).isFile();
+    return (await stat(abs)).isFile();
   } catch {
     return false;
   }
@@ -88,6 +105,26 @@ if (!pointers) {
 
 const solids = pointers.solids ?? {};
 const { missing: absent, drifted } = await wanted(solids);
+const OBJECTS = pointers.store?.objects ?? pointers.release?.objects ?? null;
+
+// THE DISK FILLS FROM THE TREE. Every member here at its pointed-at hash is gzipped onto the
+// store under its hash if the store lacks it; the first boot on a fresh disk does all of them
+// and every boot after does the ones a publish moved since. Objects arriving over the network
+// below are kept the same way as they come.
+if (OBJECTS && STORE_DIR && await isDir(STORE_DIR)) {
+  const drift = new Set(drifted);
+  let kept = 0;
+  for (const rel of Object.keys(solids)) {
+    if (drift.has(rel) || !(await present(rel))) continue;
+    const dest = path.join(STORE_DIR, `${OBJECTS}${solids[rel]}.gz`);
+    if (await present_abs(dest)) continue;
+    const part = `${dest}.${process.pid}.part`;
+    await pipeline(createReadStream(path.join(ROOT, rel)), createGzip(), createWriteStream(part));
+    await rename(part, dest);
+    kept += 1;
+  }
+  if (kept) console.log(`[cad-artifacts] ${kept} object(s) put on the store from this tree`);
+}
 
 // `--adopt`: A SERVER HOLDS NO CUT OF ITS OWN, SO DRIFT THERE IS AGE, NOT WORK. Without it a
 // solid present under other bytes is left alone, because on a machine that cuts geometry those
@@ -128,7 +165,11 @@ if (CHECK) {
 // SO WHAT IS LEFT IS ROUND TRIPS, AND THE LANES BELOW ARE WHAT ANSWER THAT. The bundle stays
 // the whole of the answer for a pointer file written before `objects`, and the fallthrough below keeps
 // it as the answer for any member that does not arrive by name.
-const { url, asset } = pointers.release;
+const { url, asset } = pointers.release ?? {};
+// WHERE AN OBJECT COMES FROM, IN ORDER: this service's own disk; the site's store, which any
+// machine that cut the member put it on; the release, the archive the store falls back to.
+const STORE_URL = pointers.store?.url ?? null;
+const RELEASE_BASE = url ? url.slice(0, url.lastIndexOf("/") + 1) : null;
 
 // EIGHT AT A TIME, BECAUSE THE WAIT IS THE ROUND TRIP AND NOT THE BYTES. A member averages a
 // few hundred KB and the objects are on a CDN, so one at a time spends the whole fetch waiting
@@ -136,27 +177,48 @@ const { url, asset } = pointers.release;
 // container with 256 MB is never holding more than a handful of members in flight.
 const OBJECT_LANES = 8;
 
-async function fetchObject(rel, base) {
+async function fetchObject(rel) {
   const dest = path.join(ROOT, rel);
   const gz = dest + ".gz.part";
+  const name = `${OBJECTS}${solids[rel]}.gz`;
+  const onDisk = STORE_DIR ? path.join(STORE_DIR, name) : null;
   await mkdir(path.dirname(dest), { recursive: true });
   try {
-    await download(`${base}${pointers.release.objects}${solids[rel]}.gz`, gz);
+    if (onDisk && await present_abs(onDisk)) {
+      await copyFile(onDisk, gz);
+    } else {
+      let last = new Error("nowhere to fetch from");
+      let got = false;
+      for (const base of [STORE_URL, RELEASE_BASE].filter(Boolean)) {
+        try {
+          await download(`${base}${name}`, gz);
+          got = true;
+          break;
+        } catch (err) {
+          last = err;
+        }
+      }
+      if (!got) throw last;
+    }
     await pipeline(createReadStream(gz), createGunzip(), createWriteStream(dest));
     if ((await sha256(dest)) !== solids[rel]) throw new Error("not the pointed-at bytes");
+    if (onDisk && !(await present_abs(onDisk)) && await isDir(STORE_DIR)) {
+      const part = `${onDisk}.${process.pid}.part`;
+      await copyFile(gz, part);
+      await rename(part, onDisk);
+    }
   } finally {
     await rm(gz, { force: true });
   }
 }
 
 async function fetchObjects(rels) {
-  const base = url.slice(0, url.lastIndexOf("/") + 1);
   const queue = [...rels];
   const failed = [];
   const lane = async () => {
     for (let rel = queue.shift(); rel !== undefined; rel = queue.shift()) {
       try {
-        await fetchObject(rel, base);
+        await fetchObject(rel);
       } catch (err) {
         failed.push(`${rel} — ${err.message}`);
       }
@@ -166,7 +228,7 @@ async function fetchObjects(rels) {
   return failed;
 }
 
-if (pointers.release.objects) {
+if (OBJECTS && (STORE_DIR || STORE_URL || RELEASE_BASE)) {
   console.log(`[cad-artifacts] ${missing.length} solid(s) to fetch, by name`);
   const failed = await fetchObjects(missing);
   if (!failed.length) {
@@ -178,6 +240,10 @@ if (pointers.release.objects) {
   // the site a solid.
   console.warn(`[cad-artifacts] ${failed.length} solid(s) did not come by name — reading the bundle`);
   for (const line of failed.slice(0, 8)) console.warn(`    ${line}`);
+}
+if (!url) {
+  console.error("[cad-artifacts] no bundle to fall back to");
+  process.exit(1);
 }
 
 console.log(`[cad-artifacts] ${missing.length} solid(s) to fetch — ${asset} (${(pointers.bundle.bytes / 1e6).toFixed(1)} MB)`);
