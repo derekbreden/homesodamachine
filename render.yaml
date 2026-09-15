@@ -103,6 +103,19 @@ services:
         value: production
       - key: OBJECTS_DIR
         value: /var/data/objects
+      # THE STORE IS CLOUDFLARE R2 (web/lib/store.js). The account, bucket and public read URL
+      # are plain values; the key pair is created in the Cloudflare dashboard (R2 → Manage API
+      # tokens, Object Read & Write, this bucket) and pasted here, never committed.
+      - key: R2_ACCOUNT_ID
+        value: e74c6ab34db572feede34d4b76bc3256
+      - key: R2_BUCKET
+        value: homesodamachine-objects
+      - key: R2_PUBLIC_URL
+        value: https://pub-87573dfce01b4c8c83890ad743ed03c8.r2.dev
+      - key: R2_ACCESS_KEY_ID
+        sync: false
+      - key: R2_SECRET_ACCESS_KEY
+        sync: false
       # Firebase Cloud Messaging — set values in the Render dashboard.
       # Web config (public — embedded in client bundle):
       - key: FIREBASE_API_KEY
