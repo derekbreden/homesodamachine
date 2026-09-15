@@ -1,0 +1,179 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;800&display=swap');
+
+/* ──────────────────────────────────────────────────────────────────────────
+   ENAMEL PLATE — the panel as a piece of enamelware.
+   A cream field bounded by hard cobalt ink. Everything is either printed on
+   the enamel or is a chip of colour laid into it. Flat fills only, hard
+   edges (radius 6), single-weight 4px marks.
+   ────────────────────────────────────────────────────────────────────────── */
+
+:root {
+  --cream:       #f2ece0;  /* the enamel ground */
+  --chip:        #fbf7ef;  /* the whiter chip a card is struck from */
+  --recess:      #e2d9c6;  /* a recessed or unavailable field */
+  --red:         #c8102e;  /* enamel red — commit and the armed stripe ONLY */
+  --cobalt:      #18458f;  /* rail slab, keylines, masthead, armed ground */
+  --ink:         #16233b;
+  --dim:         #6d7a90;
+  --dim-on-blue: #aebbd0;  /* the dim tier, knocked back on cobalt */
+  --good:        #2f7d55;
+  --warn:        #d8862a;
+}
+
+html, body { margin: 0; width: 800px; height: 480px; overflow: hidden; }
+
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 500;
+  -webkit-font-smoothing: antialiased;
+}
+
+.screen { position: relative; width: 800px; height: 480px; overflow: hidden; }
+
+/* ── The two type tiers. Weight, not colour, carries the hierarchy. ─────── */
+.legend {                      /* captions, labels, legends */
+  font-weight: 600; font-size: 20px; line-height: 20px;
+  letter-spacing: 0.08em; text-transform: uppercase;
+}
+.name {                        /* the page's own name */
+  font-weight: 800; font-size: 28px; line-height: 28px;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--cobalt);
+}
+.num28 { font-weight: 800; font-size: 28px; line-height: 28px; letter-spacing: 0.01em; }
+.num44 { font-weight: 800; font-size: 44px; line-height: 44px; letter-spacing: 0.01em; }
+.num64 { font-weight: 800; font-size: 64px; line-height: 64px; letter-spacing: 0.01em; }
+
+.t-dim  { color: var(--dim); }
+.t-blue { color: var(--cobalt); }
+.t-warn { color: var(--warn); }
+.t-good { color: var(--good); }
+.t-red  { color: var(--red); }
+.t-cream{ color: var(--cream); }
+.t-dimb { color: var(--dim-on-blue); }
+
+/* ── The rail: one full-bleed cobalt slab, four compartments, cream rules ── */
+.rail { position: absolute; left: 0; top: 0; width: 190px; height: 480px; background: var(--cobalt); }
+.rail-nav { position: absolute; left: 0; top: 76px; width: 190px; height: 404px; }
+.rail-item {
+  position: relative; width: 190px; height: 101px; box-sizing: border-box;
+  border-top: 2px solid var(--cream);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 7px; color: var(--cream);
+}
+.rail-item.on { background: var(--cream); color: var(--cobalt); }
+.rail-item .legend { font-size: 20px; }
+
+/* The Settings chip — a cream chip laid into the slab's top-right corner.
+   Its bottom edge, the rail's first rule and the pane's rule all land on 76. */
+.gear {
+  position: absolute; left: 114px; top: 12px; width: 64px; height: 64px;
+  border-radius: 6px; background: var(--chip); color: var(--cobalt);
+  display: grid; place-items: center;
+}
+.gear.on { background: var(--cobalt); color: var(--cream); box-shadow: inset 0 0 0 3px var(--cream); }
+
+/* ── The pane ───────────────────────────────────────────────────────────── */
+.pagename { position: absolute; left: 206px; top: 40px; }
+.datum    { position: absolute; left: 206px; top: 76px; width: 578px; height: 3px; background: var(--cobalt); }
+
+.back {
+  position: absolute; left: 640px; top: 12px; width: 144px; height: 64px;
+  box-sizing: border-box; border-radius: 6px; background: var(--chip);
+  box-shadow: inset 0 0 0 2px var(--cobalt); color: var(--cobalt);
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+}
+
+/* ── Chips and plates ───────────────────────────────────────────────────── */
+.chip {
+  box-sizing: border-box; border-radius: 6px; background: var(--chip);
+  box-shadow: inset 0 0 0 2px var(--cobalt); color: var(--cobalt);
+}
+.plate { box-sizing: border-box; border-radius: 6px; background: var(--chip); box-shadow: inset 0 0 0 2px var(--cobalt); }
+
+/* The press device: the chip's ground and its ink trade places. Nothing
+   moves, nothing scales — the material changes, the way enamel does. */
+.pressed { background: var(--cobalt); color: var(--cream); box-shadow: inset 0 0 0 2px var(--cobalt); }
+
+/* ── Faces. 43:80, never cropped square, never tinted, always in a keyline
+      that reads as the chip's rim. Outline, so the box stays exact. ─────── */
+.face { display: block; object-fit: cover; background: var(--recess); }
+.k-cobalt { outline: 4px solid var(--cobalt); }
+.k-cream  { outline: 4px solid var(--cream); }
+.k-thin   { outline: 2px solid var(--cobalt); }
+
+/* ══ CHOOSE ═════════════════════════════════════════════════════════════ */
+.fcard { position: absolute; top: 92px; width: 281px; height: 292px; box-sizing: border-box; border-radius: 6px; }
+.fcard.a { left: 206px; }
+.fcard.b { left: 503px; }
+.fcard.armed   { background: var(--cobalt); box-shadow: inset 0 0 0 3px var(--cream); color: var(--cream); }
+.fcard.idle    { background: var(--chip);   box-shadow: inset 0 0 0 2px var(--cobalt); color: var(--ink); }
+/* the 12px enamel-red bar inlaid down the armed card's full west edge */
+.stripe { position: absolute; left: 3px; top: 3px; width: 12px; height: 286px; background: var(--red); border-radius: 3px 0 0 3px; }
+
+.fcard .fface { position: absolute; left: 31px; top: 26px; }
+.fcard .col   { position: absolute; left: 176px; top: 56px; width: 86px; }
+
+.gauge { display: flex; flex-direction: column-reverse; gap: 6px; }
+.gauge i { display: block; width: 86px; height: 14px; border-radius: 3px; box-sizing: border-box; }
+.g-full-cream { background: var(--cream); }
+.g-void-cream { box-shadow: inset 0 0 0 2px var(--dim-on-blue); }
+.g-full-warn  { background: var(--warn); }
+.g-void-ink   { background: var(--recess); }
+
+.door { position: absolute; top: 396px; width: 281px; height: 60px; display: flex; align-items: center; justify-content: center; gap: 12px; }
+.door.a { left: 206px; }
+.door.b { left: 503px; }
+
+/* ══ A FLAVOR'S OWN PAGE ════════════════════════════════════════════════ */
+.anchor  { position: absolute; left: 206px; top: 136px; }
+.ratio   { position: absolute; left: 396px; top: 120px; width: 388px; height: 108px; }
+.step    { position: absolute; top: 136px; width: 76px; height: 76px; border-radius: 6px; background: var(--cobalt); color: var(--cream); display: grid; place-items: center; }
+.step.minus { left: 412px; }
+.step.plus  { left: 692px; }
+.step.pressed { background: var(--chip); color: var(--cobalt); box-shadow: inset 0 0 0 3px var(--cobalt); }
+.ratioval { position: absolute; left: 396px; top: 152px; width: 388px; text-align: center; color: var(--cobalt); }
+
+.arrow { position: absolute; top: 280px; width: 48px; height: 168px; display: grid; place-items: center; }
+.arrow.l { left: 396px; }
+.arrow.r { left: 736px; }
+.stripwin { position: absolute; left: 452px; top: 280px; width: 276px; height: 168px; overflow: hidden; }
+.strip { position: absolute; left: -125px; top: 0; display: flex; gap: 4px; }
+.cell  { flex: 0 0 auto; width: 102px; height: 168px; display: grid; place-items: center; border-radius: 6px; }
+.cell.on { background: var(--cobalt); }
+.track { position: absolute; left: 396px; top: 448px; width: 388px; height: 8px; background: var(--recess); border-radius: 4px; }
+.track b { position: absolute; left: 44px; top: 0; width: 170px; height: 8px; background: var(--cobalt); border-radius: 4px; }
+
+/* ══ PICK ═══════════════════════════════════════════════════════════════ */
+/* The card is the face's own shape: a cobalt header band carrying the mark
+   for what is about to happen, and the face edge to edge under it. */
+.pick { position: absolute; top: 92px; width: 167px; height: 364px; box-sizing: border-box;
+        border: 3px solid var(--cobalt); border-radius: 6px; background: var(--chip); overflow: hidden; }
+.pick.one { left: 288px; }
+.pick.two { left: 535px; }
+.pick .hdr { height: 72px; background: var(--cobalt); color: var(--cream); display: grid; place-items: center; }
+.pick .body { height: 286px; display: grid; place-items: center; }
+.pick.pressed { background: var(--cobalt); }
+.pick.pressed .hdr { background: var(--chip); color: var(--cobalt); }
+
+/* ══ LOCK ═══════════════════════════════════════════════════════════════ */
+.lock { position: absolute; inset: 0; background: var(--cobalt); }
+.hazard { position: absolute; left: 0; width: 800px; height: 14px;
+  background: repeating-linear-gradient(45deg, var(--cream) 0 9px, var(--cobalt) 9px 18px); }
+.bar   { position: absolute; left: 252px; top: 272px; width: 508px; height: 18px; background: var(--cream); border-radius: 3px; overflow: hidden; }
+.bar u { position: absolute; left: 0; top: 0; width: 203px; height: 18px; background: var(--red); display: block; }
+.bar s { position: absolute; top: 0; width: 3px; height: 18px; background: var(--cobalt); display: block; }
+.stop  { position: absolute; left: 500px; top: 336px; width: 260px; height: 104px; border-radius: 6px;
+         background: var(--cream); color: var(--cobalt); display: grid; place-items: center; }
+.stop.pressed { background: var(--red); color: var(--cream); box-shadow: none; }
+.stop span { font-weight: 800; font-size: 40px; letter-spacing: 0.10em; }
+
+/* ══ SETTINGS ═══════════════════════════════════════════════════════════ */
+.status { position: absolute; left: 206px; top: 92px; width: 390px; height: 364px; }
+.areas  { position: absolute; left: 612px; top: 92px; width: 172px; }
+.area   { position: absolute; left: 612px; top: 120px; width: 172px; height: 96px;
+          display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; }
+.legrow { position: absolute; left: 222px; top: 420px; width: 358px; height: 20px; display: flex; gap: 22px; align-items: center; }
+.legrow span { display: flex; gap: 8px; align-items: center; }

@@ -1,0 +1,90 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Black Glass — Choose</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+
+<div class="panel">
+
+  <nav class="rail">
+    <div class="rcell on" style="top:16px">
+      <div class="rbar"></div>
+      <svg viewBox="0 0 44 44" width="44" height="44">
+        <rect x="6" y="6" width="13" height="30" rx="2"/>
+        <rect x="25" y="6" width="13" height="30" rx="2"/>
+        <rect class="solid" x="6" y="39" width="13" height="3" rx="1.5"/>
+      </svg>
+      <div class="rw">CHOOSE</div>
+    </div>
+    <div class="rcell" style="top:124px">
+      <svg viewBox="0 0 44 44" width="44" height="44">
+        <path d="M22 6c6 8 11 13 11 19a11 11 0 0 1-22 0c0-6 5-11 11-19z"/>
+        <path d="M12 40h20"/>
+      </svg>
+      <div class="rw">PRIME</div>
+    </div>
+    <div class="rcell" style="top:232px">
+      <svg viewBox="0 0 44 44" width="44" height="44">
+        <path d="M7 9h30L25 24v13h-6V24z"/>
+      </svg>
+      <div class="rw">FILL</div>
+    </div>
+    <div class="rcell" style="top:340px">
+      <svg viewBox="0 0 44 44" width="44" height="44">
+        <path d="M28.5 10.7A13 13 0 1 1 15.5 10.7"/>
+        <path d="M11.5 14.8 15.5 10.7 19.5 14.8"/>
+      </svg>
+      <div class="rw">CLEAN</div>
+    </div>
+  </nav>
+  <div class="seam"></div>
+
+  <div class="page-name" style="position:absolute;left:208px;top:16px;height:48px;line-height:48px">CHOOSE A FLAVOR</div>
+
+  <div class="gear">
+    <svg viewBox="0 0 48 48" width="48" height="48">
+      <circle cx="24" cy="24" r="10.5"/>
+      <path d="M38 24h5M33.9 33.9l3.5 3.5M24 38v5M14.1 33.9l-3.5 3.5M10 24H5M14.1 14.1l-3.5-3.5M24 10V5M33.9 14.1l3.5-3.5"/>
+    </svg>
+  </div>
+
+  <!-- selected -->
+  <section class="fcard sel" style="left:208px">
+    <div class="face fface"><img src="../../assets/flavor_1.png" alt=""></div>
+    <div class="col">
+      <div class="caption-s" style="position:absolute;left:0;top:0">RATIO</div>
+      <div class="ratio-sm num" style="position:absolute;left:0;top:22px">1:20</div>
+      <div class="caption-s" style="position:absolute;left:0;top:179px">LEVEL</div>
+      <div class="lvl"      style="top:203px"></div>
+      <div class="lvl good" style="top:223px"></div>
+      <div class="lvl good" style="top:243px"></div>
+      <div class="lvl good" style="top:263px"></div>
+    </div>
+    <div class="key door press">
+      <span class="kw">ADJUST</span>
+      <svg viewBox="0 0 24 24" width="20" height="20"><path d="M9 4l8 8-8 8"/></svg>
+    </div>
+    <div class="rule"></div>
+  </section>
+
+  <!-- not selected -->
+  <section class="fcard dim" style="left:504px">
+    <div class="face fface veil"><img src="../../assets/flavor_2.png" alt=""></div>
+    <div class="col">
+      <div class="caption-s" style="position:absolute;left:0;top:0">RATIO</div>
+      <div class="ratio-sm num" style="position:absolute;left:0;top:22px">1:14</div>
+      <div class="caption-s" style="position:absolute;left:0;top:179px;color:var(--warn)">LOW</div>
+      <div class="lvl"      style="top:203px"></div>
+      <div class="lvl"      style="top:223px"></div>
+      <div class="lvl"      style="top:243px"></div>
+      <div class="lvl warn" style="top:263px"></div>
+    </div>
+    <div class="key door off">
+      <span class="kw">ADJUST</span>
+      <svg viewBox="0 0 24 24" width="20" height="20"><path d="M9 4l8 8-8 8"/></svg>
+    </div>
+  </section>
+
+</div>

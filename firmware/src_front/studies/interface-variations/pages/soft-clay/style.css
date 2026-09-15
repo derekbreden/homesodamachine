@@ -1,0 +1,182 @@
+@import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700&family=Zen+Kaku+Gothic+New:wght@500&display=swap');
+
+/* ══════════════════════════════════════════════════════════════════════════
+   soft-clay — the panel is a ceramic tile set into the cabinet face, and the
+   two flavors are objects on it: one picked up, one set down.
+
+   Selection is HEIGHT, not shade. A raised object is surface #f7f2e9 with a
+   flat 4 px #d6ccba shadow band offset south-east and a terracotta bar inlaid
+   along its top edge. A pressed object is surface-alt #ddd4c4 with a 2 px
+   inset line along north and west and its contents shifted 2 px south-east.
+   Identical rects at identical coordinates — nothing moves, only the object's
+   relationship to the surface. The same pair is the press state everywhere.
+
+   RGB565 rules kept: flat fills only, no blur, no gradient. Every rounded
+   shape carries a 2 px rim one step darker than its fill so the staircase on
+   a 28 px radius has something to land in. The shadow is a hard band, never
+   a blur.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  --bg:      #ebe4d8;  /* oat — deliberately not white                       */
+  --surf:    #f7f2e9;  /* a raised body                                      */
+  --alt:     #ddd4c4;  /* a well, a recess, a pressed-in object              */
+  --acc:     #c2603f;  /* terracotta — the pour, the commit, the lock ground */
+  --acc-dn:  #a84f33;  /* terracotta pressed                                 */
+  --sage:    #6f8a7a;  /* quiet structure, rims, the running state           */
+  --text:    #33302b;
+  --dim:     #8a8176;
+  --good:    #4b7f5c;
+  --warn:    #cf9339;
+  --shadow:  #d6ccba;  /* only ever a flat 4 px offset band                  */
+  --rim:     #cfc5b3;  /* the inset line, and the rim on surface-alt shapes  */
+  --rim-up:  #e5ddce;  /* the rim on a raised surface shape                  */
+  --rim-dn:  #c3b8a4;  /* the rim on something being pressed                 */
+  --sunk:    #d2c8b5;  /* the fill of something being pressed                */
+  --empty:   #cfc5b3;  /* an unfilled cell in a vessel                       */
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  width: 800px;
+  height: 480px;
+  overflow: hidden;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Zen Maru Gothic", "Hiragino Maru Gothic ProN", system-ui, sans-serif;
+  font-weight: 500;
+  -webkit-font-smoothing: antialiased;
+}
+
+.screen { position: relative; width: 800px; height: 480px; overflow: hidden; }
+
+/* ── Type ──────────────────────────────────────────────────────────────── */
+.legend {                     /* 20 caps, 0.06em, 500 — nothing is smaller */
+  font-size: 20px; font-weight: 500; letter-spacing: .06em;
+  text-transform: uppercase; color: var(--dim); line-height: 26px;
+  white-space: nowrap;
+}
+.legend.ink  { color: var(--text); }
+.legend.warn { color: var(--warn); font-weight: 700; }
+.note {                       /* flatter terminals where roundness softens */
+  font-family: "Zen Kaku Gothic New", "Zen Maru Gothic", system-ui, sans-serif;
+  font-weight: 500; font-size: 22px; line-height: 28px; color: var(--dim);
+}
+.h26  { font-size: 26px; font-weight: 700; line-height: 32px; }
+.n40  { font-size: 40px; font-weight: 700; line-height: 48px; letter-spacing: -.01em; }
+.n64  { font-size: 64px; font-weight: 700; line-height: 76px; letter-spacing: -.01em; }
+
+/* ── Bodies: the two states every object on this panel has ─────────────── */
+.up {
+  background: var(--surf);
+  border: 2px solid var(--rim-up);
+  box-shadow: 4px 4px 0 var(--shadow);      /* flat band, never a blur */
+}
+.down {
+  background: var(--alt);
+  border: 2px solid var(--rim-dn);
+  box-shadow: inset 2px 2px 0 var(--rim);   /* a drawn inset, north + west */
+}
+.sunk {                                     /* the press */
+  background: var(--sunk) !important;
+  border-color: var(--rim-dn) !important;
+  box-shadow: inset 2px 2px 0 var(--rim-dn) !important;
+}
+.recess {                                   /* a well cut into a raised body */
+  background: var(--alt);
+  border: 2px solid var(--rim);
+  box-shadow: inset 2px 2px 0 var(--rim);
+}
+.shift > * { transform: translate(2px, 2px); }  /* contents sink with the body */
+
+/* ── The rail is a drawer, not four more cards ─────────────────────────── */
+.well {
+  position: absolute; left: 8px; top: 8px; width: 174px; height: 464px;
+  background: var(--alt); border-radius: 26px;
+  box-shadow: inset 2px 2px 0 var(--rim);
+}
+.peb {
+  position: absolute; left: 15px; width: 160px; height: 82px; border-radius: 28px;
+  display: flex; align-items: center; gap: 10px; padding: 0 15px;
+  color: var(--sage);
+}
+.peb .w { font-size: 20px; font-weight: 500; letter-spacing: .05em; color: var(--text); }
+.peb.flush { background: var(--alt); border: 2px solid var(--rim); }
+.peb.here  { background: var(--surf); border: 2px solid var(--rim-up);
+             box-shadow: 4px 4px 0 var(--shadow); color: var(--acc); }
+.peb.here .w { font-weight: 700; }
+.peb svg { display: block; flex: none; }
+
+.gearpeb {
+  position: absolute; left: 111px; width: 64px; height: 64px; border-radius: 26px;
+  display: flex; align-items: center; justify-content: center; color: var(--sage);
+}
+.gearpeb.flush { background: var(--alt); border: 2px solid var(--rim); }
+.gearpeb.here  { background: var(--surf); border: 2px solid var(--rim-up);
+                 box-shadow: 4px 4px 0 var(--shadow); color: var(--acc); }
+
+/* ── The pane ──────────────────────────────────────────────────────────── */
+.pane { position: absolute; left: 190px; top: 0; width: 610px; height: 480px; }
+.at   { position: absolute; }
+
+/* ── A card: a body with a terracotta bar inlaid along its top edge ────── */
+.card { position: absolute; border-radius: 28px; overflow: hidden; }
+.bar  { position: absolute; left: 0; top: 0; width: 100%; height: 16px;
+        background: var(--acc); }
+
+/* ── The face is an inlay: a 43:80 well cut into the clay ──────────────── */
+.inlay {
+  position: absolute; border-radius: 16px; overflow: hidden;
+  background: var(--alt); border: 3px solid var(--alt);
+}
+.inlay.seated { border-color: var(--rim); }
+.inlay img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.scrim { position: absolute; inset: 0; background: rgba(235,228,216,.42); }
+
+/* ── A vessel: level read as liquid standing in a channel ──────────────── */
+.vessel {
+  position: absolute; border-radius: 24px; padding: 6px;
+  background: var(--alt); border: 2px solid var(--rim);
+  box-shadow: inset 2px 2px 0 var(--rim);
+  display: flex; flex-direction: column-reverse; gap: 6px;
+}
+.vessel i { display: block; flex: 1; border-radius: 18px; background: var(--empty); }
+.vessel i.f { background: var(--good); }
+.vessel i.l { background: var(--warn); }
+
+/* ── A trough: a groove with a level standing in it ────────────────────── */
+.trough {
+  position: absolute; border-radius: 14px; overflow: hidden;
+  background: var(--alt); border: 2px solid var(--rim);
+  box-shadow: inset 2px 2px 0 var(--rim);
+}
+.trough b { display: block; height: 100%; background: var(--sage); }
+
+/* ── Pebble-shaped targets that are not in the rail ────────────────────── */
+.btn {
+  position: absolute; display: flex; align-items: center; justify-content: center;
+  gap: 12px; color: var(--text);
+}
+.btn .w { font-size: 20px; font-weight: 500; letter-spacing: .06em; }
+.btn svg { display: block; flex: none; }
+.btn.acc { background: var(--acc); border: 2px solid #b2573a; color: var(--surf);
+           box-shadow: 4px 4px 0 #a04c31; }
+.btn.acc.sunk { background: var(--acc-dn) !important; border-color: #98462e !important;
+                box-shadow: inset 2px 2px 0 #98462e !important; }
+
+/* ── Marks ─────────────────────────────────────────────────────────────── */
+svg.mk { fill: none; stroke: currentColor; stroke-width: 2.1;
+         stroke-linecap: round; stroke-linejoin: round; }
+svg.mk.t { stroke-width: 1.7; }
+
+/* ── The lock: the tile closes ─────────────────────────────────────────── */
+.flood { position: absolute; inset: 0; background: var(--acc); }
+.lockcard {
+  position: absolute; left: 80px; top: 60px; width: 640px; height: 360px;
+  background: var(--surf); border: 2px solid var(--rim-up); border-radius: 40px;
+}
