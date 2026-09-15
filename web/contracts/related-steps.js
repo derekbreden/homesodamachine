@@ -75,17 +75,11 @@ export const FIXTURES = {
 };
 
 export const COLLET_PRESS = "printed-parts/collet-press/collet-press.step";
+export const MAGNETIC_FLOAT = "printed-parts/cold-core/magnetic-float/magnetic-float.step";
+export const MANIFOLD = "manifold-layout/manifold-layout.step";
 
-// Bench prototypes paired with the assemblies and vessels they are tested for.
-export const PROTOTYPES = {
-  "printed-parts/cold-core/magnetic-float/magnetic-float.step": [
-    "manifold-layout/enclosure-assembly.step",
-    "cold-core-layout/cold-core-assembly.step",
-    "cut-parts/carbonation/carbonator-tube/carbonator-tube.step",
-    "printed-parts/cold-core/reservoir/reservoir-left.step",
-    "printed-parts/cold-core/reservoir/reservoir-right.step",
-  ],
-};
+// The isolated manifold is reached from its pumps, valves and tees.
+const COMPONENT_VIEWS = new Set([MANIFOLD]);
 
 // The assembly-only tube names that are 1/4-inch OD and meet push-connect
 // collets. Refrigerant copper, the 3/8-inch tube inside the faucet, foam and the
@@ -102,7 +96,7 @@ export const label = (file) =>
   file.slice(file.lastIndexOf("/") + 1).replace(/\.step$/i, "");
 
 /**
- * Models useful with a named assembly component that has no STEP of its own.
+ * Models related to a named assembly component.
  *
  * @param {string} name       assembly component name, optionally below a node
  * @param {string[]} allFiles every STEP path the site knows
@@ -111,10 +105,11 @@ export const label = (file) =>
 export function relatedStepsForComponent(name, allFiles) {
   if (!name || !Array.isArray(allFiles)) return [];
   const leaf = String(name).slice(String(name).lastIndexOf("/") + 1);
-  if (!COLLET_PRESS_TUBES.some((pattern) => pattern.test(leaf))) return [];
-  return allFiles.includes(COLLET_PRESS)
-    ? [{ file: COLLET_PRESS, kind: "used-with" }]
-    : [];
+  let file = null;
+  if (/^float-(?:carb|a|b)$/.test(leaf)) file = MAGNETIC_FLOAT;
+  else if (/^(?:(?:valve|coil)-v-[a-j]|tee-y-[a-g]|pump-[ab]-(?:boss|head|motor))$/.test(leaf)) file = MANIFOLD;
+  else if (COLLET_PRESS_TUBES.some((pattern) => pattern.test(leaf))) file = COLLET_PRESS;
+  return file && allFiles.includes(file) ? [{ file, kind: "used-with" }] : [];
 }
 
 /**
@@ -123,7 +118,7 @@ export function relatedStepsForComponent(name, allFiles) {
  * @param {string} file      root-relative `.step` path, as `/api/steps` returns
  * @param {string[]} allFiles  every such path the site knows
  * @param {string[]} [exclude]  models already standing in the walk
- * @returns {{file: string, kind: "beside"|"from"|"of"|"makes"|"made-on"|"prototype"|"prototype-for"}[]}
+ * @returns {{file: string, kind: "beside"|"from"|"of"|"makes"|"made-on"}[]}
  *   `beside`  — another model in this part's own directory
  *   `from`    — a directory named for this one: the mold of this part
  *   `of`      — the directory this one is named for: the part this tooling is made
@@ -132,8 +127,6 @@ export function relatedStepsForComponent(name, allFiles) {
  *                casts, so the kind says tooling rather than casting.
  *   `makes`   — a part this fixture is built to make (declared, see FIXTURES)
  *   `made-on` — the fixture this part is made on (declared, see FIXTURES)
- *   `prototype` — a bench prototype associated with this assembly or vessel
- *   `prototype-for` — the assemblies and vessels associated with a prototype
  */
 export function relatedSteps(file, allFiles, exclude = []) {
   if (!file || !Array.isArray(allFiles) || isGenerated(file)) return [];
@@ -147,7 +140,12 @@ export function relatedSteps(file, allFiles, exclude = []) {
   for (const other of allFiles) {
     if (skip.has(other) || isGenerated(other) || !/\.step$/i.test(other)) continue;
     const dir = dirOf(other);
-    if (dir === here) { out.push({ file: other, kind: "beside" }); continue; }
+    if (dir === here) {
+      if (!COMPONENT_VIEWS.has(file) && !COMPONENT_VIEWS.has(other)) {
+        out.push({ file: other, kind: "beside" });
+      }
+      continue;
+    }
     const otherFamily = relationDir(dir);
     if (parentOf(otherFamily) !== parent) continue;
     const otherLeaf = leafOf(otherFamily);
@@ -166,19 +164,7 @@ export function relatedSteps(file, allFiles, exclude = []) {
     if (!skip.has(fixture) && held.has(fixture)) out.push({ file: fixture, kind: "made-on" });
   }
 
-  for (const [prototype, hosts] of Object.entries(PROTOTYPES)) {
-    if (hosts.includes(file) && held.has(prototype) && !skip.has(prototype)) {
-      out.push({ file: prototype, kind: "prototype" });
-    }
-    if (file === prototype) {
-      for (const host of hosts) {
-        if (held.has(host) && !skip.has(host)) out.push({ file: host, kind: "prototype-for" });
-      }
-    }
-  }
-
-  const order = { prototype: 0, beside: 1, from: 2, of: 3, "made-on": 4,
-                  makes: 5, "prototype-for": 6 };
+  const order = { beside: 0, from: 1, of: 2, "made-on": 3, makes: 4 };
   out.sort((a, b) => order[a.kind] - order[b.kind] || a.file.localeCompare(b.file));
   return out;
 }
@@ -187,12 +173,10 @@ export function relatedSteps(file, allFiles, exclude = []) {
 // related-nav.js walks these keys, so a kind added here draws itself and a kind
 // added without a caption draws nothing.
 export const KIND_CAPTIONS = {
-  prototype: "Prototypes",
   "used-with": "Used with",
   beside: "Beside it",
   from: "Made for it",
   of: "Tooling for",
   "made-on": "Made on",
   makes: "Makes",
-  "prototype-for": "Prototype for",
 };
