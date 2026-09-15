@@ -17,14 +17,14 @@
 # (`publish.yml` says why: 95 of 124 members differ across the two wheels). A session here can
 # build, check, derive and compare, and a commit it makes lands on main by itself.
 #
-# IT CANNOT PUBLISH. The release refuses a cloud session's writes: Anthropic's egress proxy
-# answers a release-asset upload with 415 (a body that is not JSON) and a release API write with
+# IT PUBLISHES TO THE SITE'S STORE. The GitHub release refuses a cloud session's writes:
+# Anthropic's egress proxy answers a release-asset upload with 415 and a release API write with
 # 403, "Creating, editing, or deleting releases is not permitted for this session type",
-# measured 2026-09-15 with `gh release upload` and `gh api`. `git push` is allowed, and that is
-# the whole of what a session here puts on GitHub. So the bytes it cuts reach the site through a
-# machine that can upload: the Mac, cutting what main owes where the cache is, or the runner's
-# nightly reconcile. `publish_now.py` runs from the post-commit hook here as anywhere, says so,
-# and leaves the debt to them.
+# measured 2026-09-15; `git push` is allowed. The site is not the release: `pack.py` PUTs each
+# member a machine cut to homesodamachine.com/objects/ by hash, where the service holds it on
+# its own disk and serves it (web/lib/objects.js), and moves the pointer lines for exactly
+# those members. So a commit here lands on main by itself and its geometry reaches the site the
+# way the Mac's does, from `publish_now.py` off the post-commit hook.
 #
 # WHAT EACH STEP BUYS:
 #   node 22                     `npm test` hands node a glob node 20 does not expand, so

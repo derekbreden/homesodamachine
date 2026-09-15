@@ -27,6 +27,7 @@ import {
 } from "./lib/push.js";
 import { mountNotificationsRoutes } from "./lib/notifications.js";
 import { mountArtifactsLive } from "./lib/artifacts-live.js";
+import { mountObjectRoutes, mountObjectPrune } from "./lib/objects.js";
 import { WS } from "./contracts/ws-frames.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -276,6 +277,13 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
   mountUpdatesRoutes(app, { updatesDir: UPDATES_DIR, publicDir: LANDING_PUBLIC });
   mountSettingsRoutes(app);
   mountFirmwareRoutes(app, { commit });
+  // THE OBJECT STORE, ON THE DISK render.yaml ATTACHES. Every member the pointer file names is
+  // held here by hash and served from here; a machine that cut one puts it here (web/lib/objects.js).
+  if (process.env.OBJECTS_DIR) {
+    mountObjectRoutes(app, { dir: process.env.OBJECTS_DIR });
+    mountObjectPrune({ dir: process.env.OBJECTS_DIR,
+                       pointersPath: path.join(REPO_ROOT, "hardware", "cad-artifacts.json") });
+  }
   attachSubscribe(app, pool);
 
   // Live build commit, for boot.js's activation check: boot.js records it

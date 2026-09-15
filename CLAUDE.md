@@ -41,9 +41,9 @@ You have access to my Chrome which is signed in to my amazon through your MCP. I
 A session on Anthropic's machines starts from a shallow clone with none of the toolchain;
 `tools/cloud_session.sh` installs it and fetches what the pointer file and the checks read, and
 `--check` says what is missing. What it cuts matches the runner's kernel, not the Mac's. It
-builds, checks and derives, and a commit it makes lands on main by itself. It cannot publish:
-the release refuses a cloud session's writes (`tools/cloud_session.sh` has the measurement), so
-the bytes it cuts reach the site through the Mac or the runner.
+builds, checks, derives and publishes what it cut like any machine: a commit lands on main by
+itself, and the members it cut go to the site's own store by hash, since the GitHub release
+refuses a cloud session's writes (`tools/cloud_session.sh` has the measurement).
 
 A session on Anthropic's machines cannot `SendMessage` a session on Derek's Mac. `.claude/skills/relay-poke/SKILL.md` is the way back: a `<relay to="name">` mark in the message that ends your turn, delivered by a watcher there; `/relay <title>` pulls a local session's transcript in the same way.
 
