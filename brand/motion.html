@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10319c">
+  <title>On tap, in motion · Home Soda Machine</title>
+  <style>
+    * { box-sizing: border-box; }
+    :root { color-scheme: light; font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #10319c; background: #f3f6ff; }
+    body { margin: 0; }
+    main { max-width: 1224px; padding: 52px 36px 48px; margin: auto; }
+    .eyebrow { margin: 0 0 12px; font-size: 12px; letter-spacing: .14em; font-weight: 750; text-transform: uppercase; }
+    h1 { margin: 0; font-size: clamp(34px, 5vw, 58px); line-height: 1.06; letter-spacing: -.055em; font-weight: 750; }
+    .intro { max-width: 660px; margin: 18px 0 34px; color: #425885; font-size: 17px; line-height: 1.55; }
+    .options { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
+    article { min-width: 0; padding: 10px; background: white; border: 1px solid #d4ddf4; border-radius: 22px; }
+    article.recommended { box-shadow: 0 0 0 2px #1749d1; }
+    .stage { aspect-ratio: 1; background: #1049d6; border-radius: 14px; overflow: hidden; }
+    canvas { display: block; width: 100%; height: 100%; }
+    .details { padding: 18px 12px 15px; }
+    .number { font-size: 12px; font-weight: 750; color: #5b6d93; }
+    h2 { margin: 8px 0 10px; font-size: 25px; line-height: 1.1; letter-spacing: -.035em; }
+    .details p { margin: 0; color: #425885; font-size: 14px; line-height: 1.5; min-height: 63px; }
+    .badge { display: inline-block; margin-left: 7px; padding: 4px 7px; border-radius: 5px; color: #10319c; background: #ff9152; font-size: 10px; letter-spacing: .025em; text-transform: uppercase; vertical-align: 2px; }
+    .controls { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-top: 28px; }
+    button { border: 1px solid #cad5ef; border-radius: 9px; background: white; color: #10319c; padding: 11px 16px; font: inherit; font-size: 14px; font-weight: 650; cursor: pointer; }
+    #play { min-width: 138px; background: #10319c; border-color: #10319c; color: #dce6ff; }
+    button:hover { box-shadow: 0 0 0 2px #cad5ef; }
+    button:focus-visible, input:focus-visible { outline: 3px solid #ff9152; outline-offset: 3px; }
+    .scrub { display: flex; align-items: center; gap: 10px; }
+    input { width: 165px; accent-color: #1749d1; }
+    output { font: 12px ui-monospace, monospace; min-width: 88px; color: #425885; }
+    .note { margin: 18px 0 0; max-width: 850px; font-size: 13px; line-height: 1.55; color: #5b6d93; }
+    .error { padding: 12px; margin: 20px 0 0; background: #fff0e8; color: #792e00; border-radius: 8px; }
+    @media (max-width: 780px) { main { padding: 30px 22px; } .options { gap: 14px; } .details { padding: 15px 6px 10px; } h2 { font-size: 20px; } .badge { margin: 8px 0 0; } .details p { min-height: 105px; } }
+    @media (max-width: 560px) { .options { grid-template-columns: 1fr; gap: 22px; } article { max-width: 400px; width: 100%; margin: auto; } .details p { min-height: 0; } .badge { margin: 0 0 0 7px; } .controls { gap: 12px; } .intro { font-size: 16px; } }
+  </style>
+</head>
+<body>
+<main>
+  <p class="eyebrow">Home Soda Machine · On tap</p>
+  <h1>Same faucet. Three rhythms.</h1>
+  <p class="intro">The faucet stays still. A little movement in the orange drop gives the enclosure’s startup screen some life.</p>
+  <section class="options" aria-label="Faucet animation options">
+    <article>
+      <div class="stage"><canvas width="360" height="360" data-variant="pulse" aria-label="Pulse animation: the orange drop gently grows and settles"></canvas></div>
+      <div class="details"><span class="number">01 / PULSE</span><h2>A small breath</h2><p>The drop gently grows and settles. The quietest option, keeping close to the still icon.</p></div>
+    </article>
+    <article class="recommended">
+      <div class="stage"><canvas width="360" height="360" data-variant="fall" aria-label="Recommended falling drop animation: the orange circle falls and the next drop softly appears"></canvas></div>
+      <div class="details"><span class="number">02 / FALLING DROP <span class="badge">Recommended</span></span><h2>From the faucet</h2><p>A gentle fall, then the next drop softly appears. The faucet holds its shape throughout.</p></div>
+    </article>
+    <article>
+      <div class="stage"><canvas width="360" height="360" data-variant="float" aria-label="Float animation: the circular drop eases down and back"></canvas></div>
+      <div class="details"><span class="number">03 / FLOAT</span><h2>A quiet rhythm</h2><p>The circle eases down and back. The same simple shape, with a little more movement.</p></div>
+    </article>
+  </section>
+  <div class="controls" aria-label="Animation review controls">
+    <button id="play" type="button" aria-pressed="true">Pause animations</button>
+    <button id="restart" type="button">Start together</button>
+    <label class="scrub">Frame <input id="frame" type="range" min="0" max="15" value="0" step="1" aria-label="Animation frame"><output id="counter" for="frame">01 / 16</output></label>
+  </div>
+  <p class="note">Each option plays the enclosure’s actual 16 frames at 10 frames per second: one 1.6-second loop. These previews use the same RGB565 color values as the display. The falling drop is the version prepared for the enclosure; the app icon stays still.</p>
+  <p id="error" class="error" hidden>Animation images could not be loaded. Open this page beside its motion image folder.</p>
+</main>
+<script>
+(() => {
+  const count = 16, size = 360, frameMs = 100;
+  const canvases = [...document.querySelectorAll('canvas')];
+  const play = document.querySelector('#play');
+  const scrub = document.querySelector('#frame');
+  const counter = document.querySelector('#counter');
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let running = !reduced, current = 0, start = performance.now(), ready = false;
+  const sprites = new Map();
+  function controls() { play.textContent = running ? 'Pause animations' : 'Play animations'; play.setAttribute('aria-pressed', String(running)); }
+  function draw(frame) {
+    current = frame;
+    for (const canvas of canvases) canvas.getContext('2d').drawImage(sprites.get(canvas.dataset.variant), frame * size, 0, size, size, 0, 0, size, size);
+    scrub.value = String(frame);
+    counter.value = `${String(frame + 1).padStart(2, '0')} / 16`;
+  }
+  function tick(now) {
+    if (ready && running) { const frame = Math.floor((now - start) / frameMs) % count; if (frame !== current) draw(frame); }
+    requestAnimationFrame(tick);
+  }
+  play.addEventListener('click', () => { running = !running; if (running) start = performance.now() - current * frameMs; controls(); });
+  document.querySelector('#restart').addEventListener('click', () => { if (!ready) return; running = true; start = performance.now(); draw(0); controls(); });
+  scrub.addEventListener('input', () => { if (!ready) return; running = false; draw(Number(scrub.value)); controls(); });
+  Promise.all(canvases.map(canvas => new Promise((resolve, reject) => {
+    const sprite = new Image();
+    sprite.onload = () => { sprites.set(canvas.dataset.variant, sprite); resolve(); };
+    sprite.onerror = reject;
+    sprite.src = `motion/${canvas.dataset.variant}.png`;
+  }))).then(() => { ready = true; start = performance.now(); draw(0); controls(); requestAnimationFrame(tick); }).catch(() => { document.querySelector('#error').hidden = false; });
+  controls();
+})();
+</script>
+</body>
+</html>

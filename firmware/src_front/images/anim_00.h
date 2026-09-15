@@ -1,4 +1,4 @@
-// Faucet pulse frame 0 — 360x360 RGB565 bitmap
+// Falling-drop frame 0 — 360x360 RGB565 bitmap
 // Generated from brand/mark.svg by tools/gen_animation_frames.py.
 #pragma once
 

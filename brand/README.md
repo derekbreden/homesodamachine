@@ -57,8 +57,11 @@ place the complete mark inside their circular safe areas. The PWA maskable icon
 preserves the mark inside the central 80-percent-diameter safe circle.
 
 The enclosure display's 16-frame, 360 × 360 RGB565 animation uses this geometry
-on cobalt. Its orange drop gently grows and settles over 1.6 seconds. The first
-frame is the static mark. [`make_art.py`](../tools/make_art.py) packages those
+on cobalt. Its orange circle gently falls over 1.6 seconds; the next bead grows
+under the outlet as the falling one diminishes. The first frame is the static
+mark. [Motion options](../web/public/brand/motion.html) compares the prepared
+falling drop with Pulse and Float, using the display's exact frames and timing.
+[`make_art.py`](../tools/make_art.py) packages those
 frames into the enclosure art partition during firmware publishing.
 
 [`logo.ts`](../hardware/pcb/pcba/logo.ts) renders the source silhouette in one-color

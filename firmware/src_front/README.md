@@ -79,7 +79,10 @@ The 16-frame On tap faucet animation is generated from the canonical
 tools/cad-venv/bin/python tools/gen_animation_frames.py
 ```
 
-The orange dot pulses under the faucet. The generator writes
+The orange circle gently falls; the next bead grows beneath the outlet as the
+falling one diminishes. The faucet stays still through the 1.6-second
+loop. [Motion options](../../web/public/brand/motion.html) compares the exact
+display frames with Pulse and Float. The generator writes
 `images/anim_00.h`..`anim_15.h`; `tools/make_art.py enclosure` packages them in the
 mapped `art` partition during the build. Boot and the explicit `LOCK:SHOW` diagnostic
 use this full-screen animation. Normal pages and operational progress remain static
