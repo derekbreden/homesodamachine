@@ -1,0 +1,372 @@
+{
+  "profile": "hardware/printed-parts/petgf.3mf",
+  "profile_sha256": "612d1f5c9414acdfc4eec8bb40936817f2a4acb29f2223d96eaa47df3ae3ef44",
+  "project": ".cache/prints/2026-09-15-support-interface-mark2/petgf-support-interface-mark2-input.3mf",
+  "project_sha256": "09d85a1556fa5e5876a93d43813d36b9fcdba193ee07f9d384dfb5bec94800df",
+  "printer": "Mark2",
+  "z_offset_mm": 0.04,
+  "effective_textured_plate_trim_mm": 0.02,
+  "geometry": {
+    "width": 46.0,
+    "depth": 46.0,
+    "wall": 3.0,
+    "ceiling_z": 24.2,
+    "roof_thickness": 3.84,
+    "label_height": 0.64
+  },
+  "specimens": [
+    {
+      "id": "01",
+      "row": 1,
+      "column": 1,
+      "corner_control": true,
+      "gap_mm": 0.3,
+      "spacing_mm": 0.5,
+      "interface_layers": 2,
+      "plate_center_xy": [
+        57.0,
+        52.0
+      ],
+      "object_id": 2,
+      "overrides": {
+        "support_top_z_distance": "0.3",
+        "support_interface_spacing": "0.5",
+        "support_interface_top_layers": "2"
+      },
+      "mesh": ".cache/prints/2026-09-15-support-interface-mark2/specimen-01.stl",
+      "mesh_sha256": "5bdd2e04289b431bbe1d3d6c5e48561f861ee21ea9de0169f0dbfa7390216d38",
+      "triangles": 1114
+    },
+    {
+      "id": "02",
+      "row": 1,
+      "column": 2,
+      "corner_control": false,
+      "gap_mm": 0.6,
+      "spacing_mm": 0.9,
+      "interface_layers": 2,
+      "plate_center_xy": [
+        129.0,
+        52.0
+      ],
+      "object_id": 4,
+      "overrides": {
+        "support_top_z_distance": "0.6",
+        "support_interface_spacing": "0.9",
+        "support_interface_top_layers": "2"
+      },
+      "mesh": ".cache/prints/2026-09-15-support-interface-mark2/specimen-02.stl",
+      "mesh_sha256": "c404864b690974fdbc96de73860cc7f50953c026d79f51a3c2ccded724dd5637",
+      "triangles": 1652
+    },
+    {
+      "id": "03",
+      "row": 1,
+      "column": 3,
+      "corner_control": false,
+      "gap_mm": 0.6,
+      "spacing_mm": 0.5,
+      "interface_layers": 4,
+      "plate_center_xy": [
+        201.0,
+        52.0
+      ],
+      "object_id": 6,
+      "overrides": {
+        "support_top_z_distance": "0.6",
+        "support_interface_spacing": "0.5",
+        "support_interface_top_layers": "4"
+      },
+      "mesh": ".cache/prints/2026-09-15-support-interface-mark2/specimen-03.stl",
+      "mesh_sha256": "44f8a61d45166414403c4f145cafb9318d752049613024e7bcff58e60d12c9af",
+      "triangles": 2308
+    },
+    {
+      "id": "04",
+      "row": 1,
+      "column": 4,
+      "corner_control": true,
+      "gap_mm": 0.3,
+      "spacing_mm": 0.5,
+      "interface_layers": 2,
+      "plate_center_xy": [
+        273.0,
+        52.0
+      ],
+      "object_id": 8,
+      "overrides": {
+        "support_top_z_distance": "0.3",
+        "support_interface_spacing": "0.5",
+        "support_interface_top_layers": "2"
+      },
+      "mesh": ".cache/prints/2026-09-15-support-interface-mark2/specimen-04.stl",
+      "mesh_sha256": "ca4e6f79a8218cbedd274b06db520b14b538a089292599c65a107eb88f15a37a",
+      "triangles": 1060
+    },
+    {
+      "id": "05",
+      "row": 2,
+      "column": 1,
+      "corner_control": false,
+      "gap_mm": 0.3,
+      "spacing_mm": 0.5,
+      "interface_layers": 4,
+      "plate_center_xy": [
+        57.0,
+        124.0
+      ],
+      "object_id": 10,
+      "overrides": {
+        "support_top_z_distance": "0.3",
+        "support_interface_spacing": "0.5",
+        "support_interface_top_layers": "4"
+      },
+      "mesh": ".cache/prints/2026-09-15-support-interface-mark2/specimen-05.stl",
+      "mesh_sha256": "3e7dbf61c93b0bd73d5898dffda5ebc41e2def75ab010e8e7870ffdcf1e6f459",
+      "triangles": 1756
+    },
+    {
+      "id": "06",
+      "row": 2,
+      "column": 2,
+      "corner_control": false,
+      "gap_mm": 0.3,
+      "spacing_mm": 0.9,
+      "interface_layers": 4,
+      "plate_center_xy": [
+        129.0,
+        124.0
+      ],
+      "object_id": 12,
+      "overrides": {
+        "support_top_z_distance": "0.3",
+        "support_interface_spacing": "0.9",
+        "support_interface_top_layers": "4"
+      },
+      "mesh": ".cache/prints/2026-09-15-support-interface-mark2/specimen-06.stl",
+      "mesh_sha256": "97289a84286fe4bd286f2b9bfb83e0d2d8123585b89c8f459bc5bfe7e4f43005",
+      "triangles": 2320
+    },
+    {
+      "id": "07",
+      "row": 2,
+      "column": 3,
+      "corner_control": false,
+      "gap_mm": 0.6,
+      "spacing_mm": 0.9,
+      "interface_layers": 4,
+      "plate_center_xy": [
+        201.0,
+        124.0
+      ],
+      "object_id": 14,
+      "overrides": {
+        "support_top_z_distance": "0.6",
+        "support_interface_spacing": "0.9",
+        "support_interface_top_layers": "4"
+      },
+      "mesh": ".cache/prints/2026-09-15-support-interface-mark2/specimen-07.stl",
+      "mesh_sha256": "0142066a0bd3965cdc54d9f67eec9cb2555bc1eb80d7d3d5d0ef1bf2f796a913",
+      "triangles": 1134
+    },
+    {
+      "id": "08",
+      "row": 2,
+      "column": 4,
+      "corner_control": false,
+      "gap_mm": 0.3,
+      "spacing_mm": 0.9,
+      "interface_layers": 2,
+      "plate_center_xy": [
+        273.0,
+        124.0
+      ],
+      "object_id": 16,
+      "overrides": {
+        "support_top_z_distance": "0.3",
+        "support_interface_spacing": "0.9",
+        "support_interface_top_layers": "2"
+      },
+      "mesh": ".cache/prints/2026-09-15-support-interface-mark2/specimen-08.stl",
+      "mesh_sha256": "726e9ee50cb8bd730dd4c567b505153436d0133c128f77e0280e93efa798c5f2",
+      "triangles": 2720
+    },
+    {
+      "id": "09",
+      "row": 3,
+      "column": 1,
+      "corner_control": false,
+      "gap_mm": 0.45,
+      "spacing_mm": 0.5,
+      "interface_layers": 4,
+      "plate_center_xy": [
+        57.0,
+        196.0
+      ],
+      "object_id": 18,
+      "overrides": {
+        "support_top_z_distance": "0.45",
+        "support_interface_spacing": "0.5",
+        "support_interface_top_layers": "4"
+      },
+      "mesh": ".cache/prints/2026-09-15-support-interface-mark2/specimen-09.stl",
+      "mesh_sha256": "9baf6ba7153835094928d6268a7b56ebac0f6ca64b9923aa8bbfebe1d226ad90",
+      "triangles": 2326
+    },
+    {
+      "id": "10",
+      "row": 3,
+      "column": 2,
+      "corner_control": false,
+      "gap_mm": 0.3,
+      "spacing_mm": 0.5,
+      "interface_layers": 2,
+      "plate_center_xy": [
+        129.0,
+        196.0
+      ],
+      "object_id": 20,
+      "overrides": {
+        "support_top_z_distance": "0.3",
+        "support_interface_spacing": "0.5",
+        "support_interface_top_layers": "2"
+      },
+      "mesh": ".cache/prints/2026-09-15-support-interface-mark2/specimen-10.stl",
+      "mesh_sha256": "734c00ff80160055b4968b41abbc2490da621403b2b240b218cfc73cdb918799",
+      "triangles": 1114
+    },
+    {
+      "id": "11",
+      "row": 3,
+      "column": 3,
+      "corner_control": false,
+      "gap_mm": 0.6,
+      "spacing_mm": 0.5,
+      "interface_layers": 2,
+      "plate_center_xy": [
+        201.0,
+        196.0
+      ],
+      "object_id": 22,
+      "overrides": {
+        "support_top_z_distance": "0.6",
+        "support_interface_spacing": "0.5",
+        "support_interface_top_layers": "2"
+      },
+      "mesh": ".cache/prints/2026-09-15-support-interface-mark2/specimen-11.stl",
+      "mesh_sha256": "8903d3af2bc75b9e42b91d507297110d2013bbc29af7628e26c010ced71fd779",
+      "triangles": 272
+    },
+    {
+      "id": "12",
+      "row": 3,
+      "column": 4,
+      "corner_control": false,
+      "gap_mm": 0.45,
+      "spacing_mm": 0.9,
+      "interface_layers": 4,
+      "plate_center_xy": [
+        273.0,
+        196.0
+      ],
+      "object_id": 24,
+      "overrides": {
+        "support_top_z_distance": "0.45",
+        "support_interface_spacing": "0.9",
+        "support_interface_top_layers": "4"
+      },
+      "mesh": ".cache/prints/2026-09-15-support-interface-mark2/specimen-12.stl",
+      "mesh_sha256": "6918b506f4560564d90773166592b6c8f36e20dac3062486cf439d741c019b17",
+      "triangles": 810
+    },
+    {
+      "id": "13",
+      "row": 4,
+      "column": 1,
+      "corner_control": true,
+      "gap_mm": 0.3,
+      "spacing_mm": 0.5,
+      "interface_layers": 2,
+      "plate_center_xy": [
+        57.0,
+        268.0
+      ],
+      "object_id": 26,
+      "overrides": {
+        "support_top_z_distance": "0.3",
+        "support_interface_spacing": "0.5",
+        "support_interface_top_layers": "2"
+      },
+      "mesh": ".cache/prints/2026-09-15-support-interface-mark2/specimen-13.stl",
+      "mesh_sha256": "2c178c76a16a739cfa0540af3efbcc8528fc0b36ee894e4468c610dde826cd00",
+      "triangles": 1466
+    },
+    {
+      "id": "14",
+      "row": 4,
+      "column": 2,
+      "corner_control": false,
+      "gap_mm": 0.45,
+      "spacing_mm": 0.5,
+      "interface_layers": 2,
+      "plate_center_xy": [
+        129.0,
+        268.0
+      ],
+      "object_id": 28,
+      "overrides": {
+        "support_top_z_distance": "0.45",
+        "support_interface_spacing": "0.5",
+        "support_interface_top_layers": "2"
+      },
+      "mesh": ".cache/prints/2026-09-15-support-interface-mark2/specimen-14.stl",
+      "mesh_sha256": "d231f29ee8376b0a7c0942af99c53d0993e42f0857cb7837b553eb95070f9931",
+      "triangles": 218
+    },
+    {
+      "id": "15",
+      "row": 4,
+      "column": 3,
+      "corner_control": false,
+      "gap_mm": 0.45,
+      "spacing_mm": 0.9,
+      "interface_layers": 2,
+      "plate_center_xy": [
+        201.0,
+        268.0
+      ],
+      "object_id": 30,
+      "overrides": {
+        "support_top_z_distance": "0.45",
+        "support_interface_spacing": "0.9",
+        "support_interface_top_layers": "2"
+      },
+      "mesh": ".cache/prints/2026-09-15-support-interface-mark2/specimen-15.stl",
+      "mesh_sha256": "2679340faa7d01c4bddbac166b88c6cbd0d3a82e252f5ad4128bdace0ebab0fc",
+      "triangles": 914
+    },
+    {
+      "id": "16",
+      "row": 4,
+      "column": 4,
+      "corner_control": true,
+      "gap_mm": 0.3,
+      "spacing_mm": 0.5,
+      "interface_layers": 2,
+      "plate_center_xy": [
+        273.0,
+        268.0
+      ],
+      "object_id": 32,
+      "overrides": {
+        "support_top_z_distance": "0.3",
+        "support_interface_spacing": "0.5",
+        "support_interface_top_layers": "2"
+      },
+      "mesh": ".cache/prints/2026-09-15-support-interface-mark2/specimen-16.stl",
+      "mesh_sha256": "67b4436afdffa4c59f10457a765dfa4f10813c012581c9146d088f105e995785",
+      "triangles": 1478
+    }
+  ],
+  "editable_project": "hardware/print-tests/petgf-support-interface/support-interface.3mf"
+}
