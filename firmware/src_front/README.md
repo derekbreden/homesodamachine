@@ -330,7 +330,7 @@ while an operation is pending or running.
 |---|---|
 | On tap | selected reservoir's four-segment reading, Change image and Ratio |
 | Ratio | concentrate : water, with a bounded minus/plus stepper |
-| Change image | four customer-upload slots, then four factory defaults; Previous/Next and position |
+| Change image | available customer uploads, then four factory defaults; four per page, Previous/Next and actual position |
 | Fill | instructions, Start filling, authoritative progress and Stop |
 | Prime | shared main-board session and Hold to prime |
 | Clean | three rinse cycles, authoritative progress and Stop |
