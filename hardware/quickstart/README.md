@@ -1,6 +1,7 @@
-# Home Soda Machine installation quick start
+# Quick-start illustration sources
 
-One single-sided, borderless 19 x 13 inch sheet publishes as `quick-start.pdf` on `/drawings`.
+The published owner quick start is the [seven-step sheet](/hardware/quickstart-codex/README.md).
+This directory holds shared scene builders and a wordless 19 x 13 inch layout study.
 Thirteen registered scenes form six numbered action clusters around the product lockup. The only
 added words are the product name and `QUICK START`; the actions carry no captions or separate
 legend:

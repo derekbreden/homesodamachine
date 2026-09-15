@@ -12,8 +12,20 @@
 //
 // The sidecar is what makes a PDF a document. A `.pdf` under `hardware/` with
 // none — a datasheet a board vendored, a generator's own output — is not in the
-// listing and is not reachable through `/docs`.
+// listing and is not reachable through `/docs`. Superseded quick starts are
+// excluded even when a scene build restores their PDF and sidecar.
 export const DOC_SIDECAR_SUFFIX = ".pdf.json";
+
+const SUPERSEDED_QUICK_STARTS = new Set([
+  "quickstart/quick-start.pdf",
+  "quickstart-claude/quick-start-claude.pdf",
+  "quickstart-codex/edge-study.pdf",
+  "quickstart-codex/contour-alternates.pdf",
+]);
+
+export function isPublishedDocument(pdfRel) {
+  return !SUPERSEDED_QUICK_STARTS.has(pdfRel);
+}
 
 // The cover beside a document, as a path relative to the same root. Covers are
 // served by the existing `/thumbs/<path>.png` route, which is the one place
