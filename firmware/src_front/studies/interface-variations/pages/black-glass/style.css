@@ -1,0 +1,134 @@
+/* Black Glass — the panel is a sheet of black glass in the cabinet face.
+   Nothing is drawn on it; things are lit behind it. */
+
+:root{
+  --bg:#060708;        /* the glass itself */
+  --surface:#0e1113;   /* a lit field */
+  --alt:#171b1e;       /* a field that is armed */
+  --accent:#7ed0e0;    /* cold indicator light */
+  --accent-hi:#b9e7f1; /* the travelling segment only */
+  --sec:#2c3438;       /* unlit strokes */
+  --text:#f2f5f6;
+  --dim:#7c878c;
+  --good:#3fbf8f;
+  --warn:#e8a23a;
+  --seam:#1b2023;
+  --hair:#2a3135;
+}
+
+*{box-sizing:border-box}
+
+html,body{margin:0;width:800px;height:480px;overflow:hidden}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Inter Tight','Inter',system-ui,sans-serif;
+  font-weight:400;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:geometricPrecision;
+}
+
+.panel{position:relative;width:800px;height:480px;overflow:hidden;background:var(--bg)}
+
+/* ---------- type ---------- */
+.page-name{font-size:22px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--text);white-space:nowrap}
+.caption{font-size:16px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);white-space:nowrap}
+.caption-s{font-size:13px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);white-space:nowrap}
+.body{font-size:20px;font-weight:400;color:var(--dim);white-space:nowrap}
+.num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
+.ratio-lg{font-size:64px;font-weight:300;line-height:1;color:var(--text)}
+.ratio-sm{font-size:28px;font-weight:300;line-height:1;color:var(--text)}
+
+/* ---------- rail ---------- */
+.rail{position:absolute;left:0;top:0;width:190px;height:480px}
+.seam{position:absolute;left:190px;top:0;width:2px;height:480px;background:var(--seam)}
+.rcell{position:absolute;left:0;width:190px;height:108px;padding-left:12px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--dim)}
+.rcell svg{fill:none;stroke:var(--sec);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;display:block}
+.rcell svg .solid{fill:var(--sec);stroke:none}
+.rcell .rw{margin-top:9px;font-size:20px;font-weight:600;letter-spacing:.12em}
+.rcell.on{color:var(--text)}
+.rcell.on svg{stroke:var(--text)}
+.rcell.on svg .solid{fill:var(--accent);stroke:none}
+.rbar{position:absolute;left:0;top:22px;width:4px;height:64px;background:var(--accent)}
+
+/* ---------- faces ---------- */
+.face{position:relative;border-radius:4px;overflow:hidden;background:#0a0c0d;flex:none}
+.face img{display:block;width:100%;height:100%;object-fit:cover}
+.face::after{content:'';position:absolute;inset:0;border:1px solid var(--hair);border-radius:4px}
+.face.veil::before{content:'';position:absolute;inset:0;background:#000;opacity:.45;z-index:2}
+
+/* ---------- fields and keys ---------- */
+.field{position:absolute;background:var(--surface)}
+.key{position:absolute;background:var(--surface);color:var(--text);
+  display:flex;align-items:center;justify-content:center;gap:12px}
+.key svg{fill:none;stroke:var(--text);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;display:block}
+.key .kw{font-size:18px;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
+.key.off{color:var(--dim)}
+.key.off svg{stroke:var(--sec)}
+/* a press lights the field all the way up — the only white on the panel */
+.key.press{background:var(--text);color:var(--bg)}
+.key.press svg{stroke:var(--bg)}
+
+/* ---------- choose ---------- */
+.fcard{position:absolute;top:88px;width:280px;height:368px;background:var(--bg)}
+.fcard.sel{background:var(--alt)}
+.fcard .rule{position:absolute;left:0;bottom:0;width:280px;height:3px;background:var(--accent)}
+.fcard .fface{position:absolute;left:16px;top:16px;width:148px;height:275px}
+.fcard .col{position:absolute;left:182px;top:16px;width:82px;height:275px}
+.fcard .door{left:16px;top:308px;width:248px;height:44px}
+.lvl{position:absolute;left:0;width:72px;height:12px;background:var(--sec)}
+.lvl.good{background:var(--good)}
+.lvl.warn{background:var(--warn)}
+.fcard.dim .ratio-sm{color:var(--dim)}
+.fcard.dim .caption-s{color:#565f63}
+
+.gear{position:absolute;left:728px;top:16px;width:48px;height:48px}
+.gear svg{fill:none;stroke:var(--sec);stroke-width:2;stroke-linecap:round;display:block}
+
+/* ---------- flavor ---------- */
+.anchor-back{left:208px;top:16px;width:172px;height:96px}
+.anchor-face{position:absolute;left:208px;top:128px;width:172px;height:320px}
+.rkey{width:88px;height:88px;top:84px}
+.rkey svg{stroke-width:2.5}
+.strip-view{position:absolute;overflow:hidden}
+.strip{position:absolute;top:0;left:0;display:flex;gap:12px}
+.tile{position:relative;width:64px;height:119px;border-radius:4px;overflow:hidden;background:#0a0c0d;flex:none}
+.tile img{display:block;width:100%;height:100%;object-fit:cover}
+.tile::after{content:'';position:absolute;inset:0;border:1px solid var(--hair);border-radius:4px}
+.tile.on::after{border:3px solid var(--accent);border-bottom-width:6px}
+.tile:not(.on) img{opacity:.55}
+.track{position:absolute;height:4px;background:var(--alt)}
+.thumb{position:absolute;height:4px;background:var(--accent)}
+
+/* ---------- pick ---------- */
+.pcard{position:absolute;top:96px;width:204px;height:352px;background:var(--surface)}
+.pcard .pface{position:absolute;left:16px;top:16px;width:172px;height:320px}
+.disc{position:absolute;left:46px;top:120px;width:112px;height:112px;border-radius:56px;
+  background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:3}
+.disc svg{fill:none;stroke:var(--text);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;display:block}
+.disc.press{background:var(--text)}
+.disc.press svg{stroke:var(--bg)}
+
+/* ---------- lock ---------- */
+.lock-title{position:absolute;font-size:44px;font-weight:400;line-height:1;color:var(--text)}
+.mins{color:var(--accent);white-space:nowrap}
+.mins b{font-size:40px;font-weight:600;font-variant-numeric:tabular-nums}
+.mins span{font-size:20px;font-weight:600;letter-spacing:.18em;margin-left:8px}
+.pbar{position:absolute;height:6px;background:var(--alt)}
+.pfill{position:absolute;left:0;top:0;height:6px;background:var(--accent)}
+.pseg{position:absolute;top:0;height:6px;width:60px;background:var(--accent-hi)}
+.stop{position:absolute;display:flex;align-items:center;justify-content:center;
+  border:2px solid var(--sec);color:var(--text);font-size:20px;font-weight:600;letter-spacing:.18em}
+.cyc{position:absolute}
+.cyc svg{fill:none;stroke:var(--accent);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;display:block}
+
+/* ---------- settings ---------- */
+.legend{position:absolute;display:flex;align-items:center;gap:14px}
+.legend .lbl{font-size:15px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+.dot{width:14px;height:14px;border-radius:7px;flex:none}
+.dot.closed{background:var(--good)}
+.dot.open{background:transparent;box-shadow:inset 0 0 0 2px var(--sec)}
+.pump{flex-direction:column;gap:10px}
+.pump .kw{line-height:1.15;text-align:center}
