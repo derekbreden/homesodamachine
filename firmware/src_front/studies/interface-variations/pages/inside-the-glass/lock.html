@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Inside The Glass — Lock</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@72,700,50&family=Figtree:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+
+  /* The operation lock. The glass is filling and the fill IS the progress bar:
+     the whole 800px surface is 40% up the cycle. The channel stands half submerged.
+     Pressed element: STOP (gold). */
+  .lt   { position: absolute; font-size: 40px; line-height: 1; color: var(--ink); }
+  .lmin { position: absolute; font-size: 40px; line-height: 1; color: var(--warn); }
+  .lsub { position: absolute; font-weight: 500; font-size: 20px; color: var(--dim);
+          line-height: 1; }
+  .mark { position: absolute; width: 0; height: 0;
+          border-top: 9px solid transparent; border-bottom: 9px solid transparent; }
+
+</style>
+</head>
+<body>
+
+<div class="liquid" style="left:0;top:291px;width:800px;height:189px"></div>
+<svg class="bubbles" style="left:0px;top:291px" width="800" height="189" viewBox="0 0 800 189"><circle cx="462.4" cy="32.5" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="306.8" cy="64.1" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="625.0" cy="61.8" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="351.5" cy="38.4" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="578.5" cy="119.6" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="496.6" cy="54.3" r="8" fill="none" stroke="#f2b705" stroke-width="1"/><circle cx="26.4" cy="42.9" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="730.6" cy="125.3" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="677.2" cy="34.5" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="534.1" cy="120.4" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="394.6" cy="53.5" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="704.3" cy="65.5" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="690.0" cy="150.9" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="711.3" cy="124.4" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="769.3" cy="37.6" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="586.7" cy="76.6" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="360.0" cy="79.8" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="718.0" cy="97.5" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="303.9" cy="31.6" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="585.6" cy="45.7" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="24.8" cy="116.7" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="753.4" cy="60.5" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="519.8" cy="68.3" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="476.2" cy="68.6" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="737.5" cy="51.8" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="663.6" cy="58.3" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="469.9" cy="97.2" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="553.2" cy="41.8" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="379.4" cy="113.2" r="8" fill="none" stroke="#f2b705" stroke-width="1"/><circle cx="660.6" cy="145.1" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="642.4" cy="110.8" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="698.3" cy="106.2" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="613.1" cy="158.6" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="551.6" cy="60.8" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="576.6" cy="62.6" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="602.0" cy="52.9" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="691.1" cy="87.3" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="731.5" cy="33.8" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="679.9" cy="97.8" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="424.1" cy="72.7" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="418.0" cy="45.5" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="435.6" cy="80.5" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="518.4" cy="166.5" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="331.7" cy="31.3" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="237.0" cy="109.5" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="336.9" cy="115.0" r="8" fill="none" stroke="#f2b705" stroke-width="1"/><circle cx="770.3" cy="62.8" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="785.4" cy="57.4" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="365.9" cy="56.2" r="8" fill="none" stroke="#f2b705" stroke-width="1"/><circle cx="717.0" cy="34.1" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="650.1" cy="51.2" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="764.4" cy="84.7" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="231.4" cy="51.3" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="663.3" cy="117.5" r="8" fill="none" stroke="#f2b705" stroke-width="1"/></svg>
+
+<!-- the channel being cleaned, standing in the glass: wet below the line, dry above -->
+<div class="face" style="left:48px;top:128px;width:172px;height:320px"><img src="../../assets/flavor_1.png" alt=""></div>
+<div class="wash" style="left:48px;top:128px;width:172px;height:160px"></div>
+
+<!-- the line. full width, hard, perfectly horizontal: it is the progress -->
+<div class="meniscus" style="left:0;top:288px;width:800px"></div>
+<div class="mark" style="left:0;top:280px;border-left:11px solid var(--cream)"></div>
+<div class="mark" style="left:789px;top:280px;border-right:11px solid var(--cream)"></div>
+
+<div class="label" style="left:390px;top:36px;width:380px;height:236px">
+  <div class="lt fr" style="left:24px;top:30px">Cleaning</div>
+  <div class="lmin fr" style="left:24px;top:84px">11 MIN LEFT</div>
+  <div class="lsub" style="left:24px;top:146px">1 of 3 &middot; water in</div>
+  <div class="plate pressed" style="left:176px;top:168px;width:180px;height:68px">
+    <div class="w" style="font-size:26px;letter-spacing:.14em">STOP</div>
+  </div>
+</div>
+
+</body>
+</html>
