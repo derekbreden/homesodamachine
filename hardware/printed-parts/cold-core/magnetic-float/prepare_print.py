@@ -19,11 +19,6 @@ sys.path.insert(0, str(ROOT / 'tools/funnel-mold-print'))
 from profiles import CORE, PROD, REL, qn, metadata, mesh_object, system_preset
 
 PRESETS = Path('/Applications/BambuStudio.app/Contents/Resources/profiles/BBL')
-LAYER = 0.2
-MACHINE = 'Bambu Lab H2C 0.4 nozzle'
-PROCESS = '0.20mm Standard @BBL H2C'
-FILAMENTS = ('Bambu PETG Translucent @BBL H2C 0.4 nozzle',
-             'Bambu PLA Aero @BBL H2C 0.4 nozzle')
 NAMES = ('Float PETG Translucent 250C', 'Float PLA Aero 250C 0.38 flow')
 PAUSE_MESSAGE = 'Seat one RC62 magnet. Press the Aero insert flush with the rim. Use the snugger spare if loose. Resume with the insert staying seated.'
 
@@ -37,16 +32,26 @@ def set_value(settings, key, value):
     settings[key] = [str(value)] * len(previous) if isinstance(previous, list) else str(value)
 
 
-def recipe(destination):
+def recipe(destination, nozzle):
+    layer = nozzle / 2
+    machine_name = f'Bambu Lab H2C {nozzle:g} nozzle'
+    process_name = ('0.20mm Standard @BBL H2C' if nozzle == 0.4
+                    else '0.10mm Standard @BBL H2C 0.2 nozzle')
+    # Aero has no installed 0.2 mm preset. Its 0.4 mm recipe is the explicit experimental
+    # starting point; the foam expansion at this smaller nozzle has no measured result.
+    filament_names = (f'Bambu PETG Translucent @BBL H2C {nozzle:g} nozzle',
+                      'Bambu PLA Aero @BBL H2C 0.4 nozzle')
+    suffix = ' - experimental 0.2 nozzle' if nozzle == 0.2 else ''
+    material_names = tuple(name + suffix for name in NAMES)
     files = {}
     version = plistlib.loads((PRESETS.parents[2] / 'Info.plist').read_bytes())['CFBundleShortVersionString']
-    machine, _, _ = system_preset(PRESETS, 'machine', MACHINE, files)
-    process, _, _ = system_preset(PRESETS, 'process', PROCESS, files)
+    machine, _, _ = system_preset(PRESETS, 'machine', machine_name, files)
+    process, _, _ = system_preset(PRESETS, 'process', process_name, files)
     process_changes = {
-        'layer_height': LAYER, 'initial_layer_print_height': LAYER,
-        'wall_generator': 'arachne', 'wall_loops': 3,
+        'layer_height': layer, 'initial_layer_print_height': layer,
+        'wall_generator': 'arachne', 'wall_loops': 3 if nozzle == 0.4 else 5,
         'sparse_infill_density': '100%', 'sparse_infill_pattern': 'zig-zag',
-        'top_shell_layers': 5, 'bottom_shell_layers': 5,
+        'top_shell_layers': round(1 / layer), 'bottom_shell_layers': round(1 / layer),
         'top_shell_thickness': 1, 'bottom_shell_thickness': 1,
         'outer_wall_speed': 40, 'inner_wall_speed': 60,
         'internal_solid_infill_speed': 80, 'top_surface_speed': 30,
@@ -61,26 +66,27 @@ def recipe(destination):
     }
     for key, value in process_changes.items():
         set_value(process, key, value)
-    machine.update({'printer_settings_id': MACHINE, 'name': MACHINE,
+    machine.update({'printer_settings_id': machine_name, 'name': machine_name,
                     'nozzle_volume_type': ['Standard', 'Standard'],
                     'default_nozzle_volume_type': ['Standard', 'Standard']})
-    process.update({'print_settings_id': 'Magnetic float 1mm PETG 50mm',
-                    'name': 'Magnetic float 1mm PETG 50mm',
-                    'compatible_printers': [MACHINE]})
+    process.update({'print_settings_id': 'Magnetic float 1mm PETG 50mm' + suffix,
+                    'name': 'Magnetic float 1mm PETG 50mm' + suffix,
+                    'compatible_printers': [machine_name]})
     filaments = []
-    for index, name in enumerate(FILAMENTS):
+    for index, name in enumerate(filament_names):
         values, _, ids = system_preset(PRESETS, 'filament', name, files)
         changes = {'nozzle_temperature': 250, 'nozzle_temperature_initial_layer': 250,
                    'textured_plate_temp': 65, 'textured_plate_temp_initial_layer': 65,
-                   'filament_max_volumetric_speed': 6, 'additional_cooling_fan_speed': 0}
+                   'filament_max_volumetric_speed': 6 if nozzle == 0.4 else 1,
+                   'additional_cooling_fan_speed': 0}
         if index == 1:
             changes['filament_flow_ratio'] = 0.38
         else:
             changes.update({'overhang_fan_speed': 40, 'overhang_fan_threshold': '25%'})
         for key, value in changes.items():
             set_value(values, key, value)
-        values.update({'name': NAMES[index], 'filament_settings_id': [NAMES[index]],
-                       'filament_id': ids['filament_id'], 'compatible_printers': [MACHINE],
+        values.update({'name': material_names[index], 'filament_settings_id': [material_names[index]],
+                       'filament_id': ids['filament_id'], 'compatible_printers': [machine_name],
                        'filament_colour': ['#45A9CA' if index == 0 else '#EBC777']})
         filaments.append(values)
     settings = {**machine, **process}
@@ -93,8 +99,8 @@ def recipe(destination):
         elif values[0] is not None:
             settings[key] = values[0]
     settings.update({
-        'filament_settings_id': list(NAMES), 'filament_ids': ['GFG01', 'GFA11'],
-        'inherits_group': [PROCESS, *FILAMENTS, MACHINE],
+        'filament_settings_id': list(material_names), 'filament_ids': ['GFG01', 'GFA11'],
+        'inherits_group': [process_name, *filament_names, machine_name],
         'different_settings_to_system': [';'.join(process_changes), '', '', ''],
         'filament_map_mode': 'Manual', 'filament_map': ['1', '2'],
         'filament_map_2': ['1', '2'], 'filament_nozzle_map': ['0', '1'],
@@ -104,7 +110,7 @@ def recipe(destination):
         'extruder_nozzle_stats_new': ['Standard#1', 'Standard#1'],
         'curr_bed_type': 'Textured PEI Plate',
         'wipe_tower_x': ['220', '220'], 'wipe_tower_y': ['200', '200'],
-        'print_compatible_printers': [MACHINE],
+        'print_compatible_printers': [machine_name],
     })
     for name, values in [('machine', machine), ('process', process),
                          ('petg', filaments[0]), ('aero', filaments[1])]:
@@ -117,13 +123,17 @@ def recipe(destination):
         'aero_reference': {'temperature_c': 250, 'flow_ratio': 0.38,
             'manufacturer_specimen_minimum_density_g_cc': 0.45,
             'specimen_nozzle_mm': 0.4, 'specimen_speed_mm_s': 80},
-        'prepared_materials': NAMES, 'bed_c': 65, 'nozzle_mm': 0.4,
+        'prepared_materials': material_names, 'bed_c': 65, 'nozzle_mm': nozzle,
+        'layer_height_mm': layer,
+        'nozzle_status': ('Recommended Aero nozzle size' if nozzle == 0.4 else
+            'Experimental: Aero product page advises against 0.2 mm; H2C manual includes Aero '
+            'under all nozzle sizes. Aero foam expansion and PETG sealing are unmeasured at 0.2 mm.'),
         'mapping': {'left': 'PETG Translucent Clear', 'right': 'PLA Aero'}}
 
 
-def project(destination):
+def project(destination, nozzle=0.4):
     destination.mkdir(parents=True, exist_ok=True)
-    settings, filaments, provenance = recipe(destination)
+    settings, filaments, provenance = recipe(destination, nozzle)
     info = json.loads((HERE / 'design.json').read_text())
     version = plistlib.loads((PRESETS.parents[2] / 'Info.plist').read_bytes())['CFBundleShortVersionString']
     model = ET.Element(qn('model'), unit='millimeter', requiredextensions='p',
@@ -131,6 +141,9 @@ def project(destination):
     ET.SubElement(model, qn('metadata'), name='Application').text = f'BambuStudio-{version}'
     ET.SubElement(model, qn('metadata'), name='BambuStudio:3mfVersion').text = '1'
     ET.SubElement(model, qn('metadata'), name='Title').text = 'RC62 magnetic float 28 x 50 - 1mm PETG'
+    if nozzle == 0.2:
+        model.find(qn('metadata') + "[@name='Title']").text += ' - EXPERIMENTAL 0.2 nozzle'
+        ET.SubElement(model, qn('metadata'), name='Description').text = provenance['nozzle_status']
     resources = ET.SubElement(model, qn('resources'))
     build = ET.SubElement(model, qn('build'), **{f'{{{PROD}}}UUID': uid('build')})
     config = ET.Element('config')
@@ -201,7 +214,7 @@ def project(destination):
     pauses = ET.Element('custom_gcodes_per_layer')
     plate = ET.SubElement(pauses, 'plate')
     ET.SubElement(plate, 'plate_info', id='2')
-    pause_z = info['dimensions_mm']['roof_bottom'] + LAYER
+    pause_z = info['dimensions_mm']['roof_bottom'] + nozzle / 2
     ET.SubElement(plate, 'layer', top_z=str(pause_z), type='1', extruder='1',
                   color='', extra=PAUSE_MESSAGE, gcode='M400 U1')
     ET.SubElement(plate, 'mode', value='MultiExtruder')
@@ -232,5 +245,8 @@ def project(destination):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--output', type=Path, default=ROOT / '.cache/magnetic-float-print')
-    project(parser.parse_args().output)
+    parser.add_argument('--nozzle', type=float, choices=(0.4, 0.2), default=0.4)
+    parser.add_argument('--output', type=Path)
+    args = parser.parse_args()
+    destination = args.output or ROOT / ('.cache/magnetic-float-print' + ('-0.2' if args.nozzle == 0.2 else ''))
+    project(destination, args.nozzle)
