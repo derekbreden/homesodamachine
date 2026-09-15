@@ -1,0 +1,194 @@
+/* ──────────────────────────────────────────────────────────────────────────
+   COLD SLAB — the enclosure display as a white slab of cold stone with the
+   drink set into it. No hue anywhere except one burnt amber, reserved for LOW.
+   Every state is built from value, weight, size and elevation.
+
+   Ground        #e7ebee   pale glacial — the field everything stands on
+   Slab          #f7f9fa   the white slab — elevation, and "this is a target"
+   Recess        #d5dbdf   the recessed field — a well something stands in
+   Ink           #101619   type, marks, fills; the accent role, carried by ink
+   Rule          #cfd6da   2 px rules and empty gauge segments
+   Pine          #1d4b3a   reads as ink at two metres, as a colour up close
+   Warn          #b4571c   the only hue on 384,000 pixels. LOW and nothing else
+
+   ARMED = CAPPED.  The channel the machine is on stands on a white slab under
+   a solid ink cap across its full top edge.  At two metres one arc-minute is
+   about five pixels on this panel, so the cap is 26 px: a bar thinner than
+   that is a bar nobody standing at the counter can see.
+
+   PRESS = INVERT.  A pressed target swaps ground and ink, whole.  A press
+   fills an element edge to edge; the armed cap is a band across one.  At most
+   one element per screen is drawn pressed, and the page says which.
+   ────────────────────────────────────────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;800&display=swap');
+
+:root{
+  --bg:#e7ebee;
+  --slab:#f7f9fa;
+  --recess:#d5dbdf;
+  --ink:#101619;
+  --sec:#58636a;
+  --dim:#7c878e;
+  --rule:#cfd6da;
+  --frame:#c7ced3;
+  --ring:#9aa5ac;
+  --good:#1d4b3a;
+  --warn:#b4571c;
+}
+
+html,body{margin:0;width:800px;height:480px;overflow:hidden}
+
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:'Archivo','Helvetica Neue',Arial,sans-serif;
+  font-variant-numeric:tabular-nums;
+  font-feature-settings:"tnum" 1;
+  -webkit-font-smoothing:antialiased;
+}
+
+.screen{position:relative;width:800px;height:480px;overflow:hidden}
+
+/* ── Type. Six sizes, and the whole hierarchy is size and weight. ───────── */
+
+.pgname{font-size:22px;font-weight:600;line-height:1;letter-spacing:.20em;
+        text-transform:uppercase}
+.cap   {font-size:20px;font-weight:600;line-height:1;letter-spacing:.14em;
+        text-transform:uppercase;color:var(--dim)}
+.body  {font-size:20px;font-weight:400;line-height:1.3;color:var(--sec)}
+.low   {font-size:20px;font-weight:800;line-height:1;letter-spacing:.12em;
+        text-transform:uppercase;color:var(--warn)}
+.ratio-sm{font-size:28px;font-weight:800;line-height:1;letter-spacing:.01em}
+.ratio-xl{font-size:72px;font-weight:800;line-height:1;letter-spacing:-.015em}
+.keylabel{font-size:18px;font-weight:600;line-height:1.25;letter-spacing:.10em;
+          text-transform:uppercase}
+
+/* ── The gutter. 96 px of pictograms, no words: the pane's own title
+      already names the destination, so the word was printed twice. ─────── */
+
+.gutter{position:absolute;left:0;top:0;width:96px;height:480px}
+
+.cell{position:absolute;left:0;width:96px;height:110px;
+      display:flex;align-items:center;justify-content:center;color:var(--dim)}
+.cell.c0{top:20px} .cell.c1{top:130px} .cell.c2{top:240px} .cell.c3{top:350px}
+
+/* the active destination is a white slab that runs 8 px past the rule into
+   the pane, as a physical tab; its mark goes ink and gains weight */
+.cell.on{width:104px;background:var(--slab);color:var(--ink);justify-content:flex-start;
+         padding-left:26px;box-sizing:border-box}
+
+.rule-v{position:absolute;left:96px;width:2px;background:var(--rule)}
+
+/* ── The pane ──────────────────────────────────────────────────────────── */
+
+.pane{position:absolute;left:96px;top:0;width:704px;height:480px}
+
+.title{position:absolute;left:116px}
+.gear {position:absolute;left:736px;top:14px;width:44px;height:44px;color:var(--ink)}
+
+/* ── Keys. A key is a white slab with a 2 px frame. Pressed, it inverts. ── */
+
+.key{position:absolute;background:var(--slab);border:2px solid var(--rule);
+     box-sizing:border-box;color:var(--ink);
+     display:flex;align-items:center;justify-content:center}
+.key.press{background:var(--ink);border-color:var(--ink);color:var(--slab)}
+.key.dead{color:var(--rule)}
+
+.backkey{width:172px;height:64px;justify-content:flex-start;padding-left:18px;gap:12px}
+.backkey .t{font-size:18px;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
+
+/* ── The face. 43:80, zero radius, inside a 2 px frame — a face's own light
+      edge would otherwise dissolve into the near-white slab. ───────────── */
+
+.face{display:block;object-fit:cover;outline:2px solid var(--frame);outline-offset:0}
+
+/* ── Choose ────────────────────────────────────────────────────────────── */
+
+.card{position:absolute;border:2px solid transparent;box-sizing:border-box}
+.card.sel{left:116px;top:60px;width:312px;height:400px;background:var(--slab)}
+.card.un {left:480px;top:72px;width:300px;height:388px;border-color:var(--rule)}
+
+/* the cap: the one thing on this panel that says which channel is armed */
+.capbar{position:absolute;left:-2px;right:-2px;top:-2px;background:var(--ink)}
+
+.gauge{position:absolute;width:18px;height:292px;
+       display:flex;flex-direction:column;gap:4px}
+.seg{flex:1;background:var(--rule)}
+.seg.on{background:var(--ink)}
+.seg.warn{background:var(--warn)}
+.drop{position:absolute;width:20px;height:20px;color:var(--ink)}
+
+.foot{position:absolute;left:0;right:0;bottom:0;height:36px;box-sizing:border-box;
+      border-top:2px solid var(--rule);
+      display:flex;align-items:center;padding:0 16px}
+.foot .sp{flex:1}
+
+/* the unselected channel recedes: every piece of its type at 400 in dim */
+.card.un .ratio-sm{font-weight:400;color:var(--dim)}
+.card.un .drop{color:var(--dim)}
+.card.un .chev{color:var(--dim)}
+
+/* ── Flavor ────────────────────────────────────────────────────────────── */
+
+.stepkey{width:88px;height:88px}
+.travelkey{position:absolute;width:56px;height:88px;color:var(--ink);
+           display:flex;align-items:center;justify-content:center}
+.travelkey.dead{color:var(--rule)}
+
+.strip{position:absolute;left:380px;top:280px;width:332px;height:132px;overflow:hidden}
+.row{position:absolute;left:-96px;top:0;height:132px}
+.tile{position:absolute;top:14px;width:60px;height:112px}
+.tileslab{position:absolute;top:0;width:76px;height:132px;background:var(--slab)}
+
+.track{position:absolute;left:380px;top:426px;width:332px;height:4px;background:var(--rule)}
+.thumb{position:absolute;top:0;height:4px;background:var(--ink)}
+
+/* ── Pick ──────────────────────────────────────────────────────────────── */
+
+.pickcard{position:absolute;top:94px;width:216px;height:366px;background:var(--slab);
+          border:2px solid var(--rule);box-sizing:border-box}
+.badge{position:absolute;width:80px;height:80px;background:var(--slab);
+       border:3px solid var(--ink);box-sizing:border-box;color:var(--ink);
+       display:flex;align-items:center;justify-content:center}
+
+/* ── Lock. The slab is eaten by the job. ───────────────────────────────── */
+
+.lockslab{position:absolute;left:16px;top:16px;width:768px;height:448px;
+          background:var(--slab);overflow:hidden}
+.lc{position:absolute;left:0;top:0;width:768px;height:448px}
+.lc-a{--fg:#101619;--bg:#f7f9fa;color:#101619}
+.lc-b{--fg:#f7f9fa;--bg:#101619;color:#f7f9fa;background:#101619;
+      clip-path:inset(0 461px 0 0)}
+.lc .face{outline-color:var(--fg)}
+.locktitle{position:absolute;font-size:48px;font-weight:700;line-height:1;
+           letter-spacing:.01em}
+.lockstep{position:absolute;font-size:20px;font-weight:600;line-height:1;
+          letter-spacing:.06em}
+.mins{position:absolute;font-size:28px;font-weight:800;line-height:1;
+      letter-spacing:.08em;text-align:right;margin-right:-.08em}
+
+/* the one way out is solid at rest — the abort is the most findable object
+   on the screen it belongs to, and it inverts with everything else so it is
+   legible on either side of the boundary */
+.stopkey{position:absolute;left:496px;width:240px;height:88px;
+         border:3px solid var(--fg);box-sizing:border-box;
+         display:flex;align-items:center;justify-content:center;
+         font-size:28px;font-weight:800;letter-spacing:.22em;text-indent:.22em;
+         background:var(--fg);color:var(--bg)}
+
+/* ── Settings ──────────────────────────────────────────────────────────── */
+
+.slab{position:absolute;background:var(--slab)}
+.recess{position:absolute;background:var(--recess)}
+.legend{position:absolute;display:flex;align-items:center;gap:10px}
+.legend .lbl{font-size:18px;font-weight:600;letter-spacing:.12em;
+             text-transform:uppercase;color:var(--dim)}
+.dotf{width:16px;height:16px;border-radius:50%;background:var(--good)}
+.doto{width:16px;height:16px;border-radius:50%;
+      border:3px solid var(--ring);box-sizing:border-box}
+
+.areakey{position:absolute;height:112px;box-sizing:border-box;
+         justify-content:flex-start;padding:0 14px;gap:14px}
+
+.hr{position:absolute;height:2px;background:var(--rule)}

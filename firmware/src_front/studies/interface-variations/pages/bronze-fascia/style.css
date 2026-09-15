@@ -1,0 +1,279 @@
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&family=Marcellus&display=swap');
+
+/* ══════════════════════════════════════════════════════════════════════════
+   bronze-fascia — the controls belong on the appliance's own fascia along the
+   bottom edge, and the panel above them is a lit stage where the drinks stand.
+
+   Two families, two jobs: Marcellus for the page's name, Jost for everything
+   a person reads to act. Flat fills only; the one brass hue is rationed to
+   four jobs that never co-occur — the active key, the selection rule, the
+   time left, and the outline of the one way out.
+
+   One head across all five screens: a 64 px row at y=10, carrying the back
+   key at the west, the page's name on that row's centre line, and the corner
+   mark at the east. One floor: content lands on y=356 on Choose and y=359 on
+   the four pages that carry a west anchor.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  --bg:      #14120f;  /* warm near-black — the stage                    */
+  --band:    #0e0c0a;  /* the fascia, one step below the stage           */
+  --surface: #201c17;  /* a lit card                                     */
+  --alt:     #2b251d;  /* pressed field, and the band's seams            */
+  --brass:   #c39b4a;  /* the active key, the selection rule, time left  */
+  --brass-x: #3a3228;  /* brass that cannot travel                       */
+  --sec:     #6a5f4e;  /* hairlines                                      */
+  --text:    #f0e9dd;  /* bone                                           */
+  --dim:     #9c9082;
+  --good:    #7fa86a;  /* sage — a reed the syrup has closed             */
+  --warn:    #d08a3c;  /* never in the same card as brass                */
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  width: 800px;
+  height: 480px;
+  overflow: hidden;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: Jost, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+}
+
+.screen { position: relative; width: 800px; height: 480px; overflow: hidden; }
+
+/* ── Type: two families, seven sizes, each with one job ────────────────── */
+
+.pname {                       /* the page's own name                      */
+  font-family: Marcellus, Georgia, serif;
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 34px;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+.ltitle {                      /* the lock's one word                      */
+  font-family: Marcellus, Georgia, serif;
+  font-weight: 400;
+  font-size: 48px;
+  line-height: 56px;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+.cap {                         /* a caption naming the field below it      */
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+.body { font-weight: 400; font-size: 20px; line-height: 24px; color: var(--text); }
+.body.dim { color: var(--dim); }
+
+.num {                         /* the ratio, and the minutes              */
+  font-weight: 300;
+  font-size: 72px;
+  line-height: 76px;
+  letter-spacing: 0.005em;
+  font-variant-numeric: tabular-nums;
+}
+.num.sm { font-size: 44px; line-height: 50px; }
+
+.brass { color: var(--brass); }
+.dimc  { color: var(--dim);   }
+.warnc { color: var(--warn);  }
+
+.abs { position: absolute; }
+
+/* ── The fascia: 800×104 at y=376, the four customer destinations ──────── */
+
+.fascia {
+  position: absolute; left: 0; top: 376px;
+  width: 800px; height: 104px;
+  background: var(--band);
+  display: flex;
+}
+.fascia::before {              /* the seam that lifts the stage off it     */
+  content: ''; position: absolute; left: 0; top: 0;
+  width: 800px; height: 2px; background: var(--sec);
+}
+
+.fkey {
+  position: relative;
+  width: 200px; height: 104px;
+  border-right: 1px solid var(--alt);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 12px;
+  color: var(--dim);
+}
+.fkey:last-child { border-right: 0; }
+.fkey svg { display: block; }
+.fkey .fw {
+  font-weight: 500; font-size: 20px; line-height: 20px;
+  letter-spacing: 0.10em; text-transform: uppercase;
+}
+
+.fkey.on { background: var(--surface); color: var(--brass); }
+.fkey.on::before {             /* the brass bar, across this key only      */
+  content: ''; position: absolute; left: 0; top: 0;
+  width: 100%; height: 3px; background: var(--brass);
+}
+
+/* The lock takes the fascia away: no seams, no brass rule, no destinations. */
+.fascia.dark { display: block; }
+.fascia.dark::before { display: none; }
+
+.stopkey {                     /* the one way out, alone in the band       */
+  position: absolute; left: 280px; top: 16px;
+  width: 240px; height: 72px;
+  border: 2px solid var(--brass);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--brass);
+  font-weight: 500; font-size: 26px; line-height: 26px;
+  letter-spacing: 0.22em; text-indent: 0.22em;
+}
+
+/* ── The stage: y=0…376, with one head row at y=10…74 ──────────────────── */
+
+.stage { position: absolute; left: 0; top: 0; width: 800px; height: 376px; }
+
+.head { position: absolute; left: 20px; top: 0; width: 760px; height: 74px; }
+.head .pname { position: absolute; top: 25px; }
+
+.backkey {
+  position: absolute; left: 0; top: 10px;
+  width: 148px; height: 64px;
+  border: 1px solid var(--sec);
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  color: var(--text);
+  font-weight: 500; font-size: 20px; line-height: 20px;
+  letter-spacing: 0.10em; text-transform: uppercase;
+}
+
+.corner {                      /* settings, and the lock's own mark        */
+  position: absolute; left: 706px; top: 10px;
+  width: 64px; height: 64px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--dim);
+}
+.corner svg { display: block; }
+
+/* ── A face. 43:80, never square, inside a warm hairline ───────────────── */
+
+.face {
+  position: absolute;
+  object-fit: cover;
+  display: block;
+  border: 1px solid var(--sec);
+  border-radius: 2px;
+  background: var(--band);
+}
+
+/* ── Choose: two cards on one floor, the armed one standing taller ─────── */
+
+.card {                        /* the drink that is not armed              */
+  position: absolute;
+  background: var(--bg);
+  border: 1px solid var(--sec);
+}
+.card.on {                     /* the drink the machine is on              */
+  background: var(--surface);
+}
+.card.on::after {              /* a brass foot across its whole bottom     */
+  content: ''; position: absolute; left: -1px; bottom: -1px;
+  width: calc(100% + 2px); height: 3px; background: var(--brass);
+}
+
+.seg { position: absolute; width: 32px; height: 18px; }
+.seg.off  { border: 1px solid var(--sec); }
+.seg.good { background: var(--good); }
+.seg.warn { background: var(--warn); }
+
+.key {                         /* a target inside a card                   */
+  position: absolute;
+  border: 1px solid var(--sec);
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+  color: var(--text);
+  font-weight: 500; font-size: 20px; line-height: 20px;
+  letter-spacing: 0.10em; text-transform: uppercase;
+}
+.key.mute { color: var(--dim); }
+.key.press { background: var(--alt); border-width: 2px; border-color: var(--brass); color: var(--brass); }
+
+/* ── Flavor page ───────────────────────────────────────────────────────── */
+
+.step {                        /* − and +                                  */
+  position: absolute; width: 80px; height: 80px;
+  border: 1px solid var(--sec);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text);
+}
+.step.press { background: var(--alt); border: 2px solid var(--brass); color: var(--brass); }
+
+.strip {
+  position: absolute;
+  background: var(--band);
+  overflow: hidden;
+}
+.tile {
+  position: absolute;
+  object-fit: cover;
+  display: block;
+  border: 1px solid var(--sec);
+  border-radius: 2px;
+}
+.tile.pick { border: 2px solid var(--brass); }
+
+.travel {                      /* as tall as the row it travels            */
+  position: absolute; width: 64px; height: 139px;
+  border: 1px solid var(--brass);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--brass);
+}
+.travel.off { border-color: var(--brass-x); color: var(--brass-x); }
+
+.track { position: absolute; height: 4px; background: var(--alt); }
+.thumb { position: absolute; height: 4px; background: var(--brass); }
+
+/* ── Pick: a wide card the face bleeds into at the west ────────────────── */
+
+.panelcard {
+  position: absolute;
+  background: var(--surface);
+  border: 2px solid var(--sec);
+}
+.panelcard.press { background: var(--alt); border-color: var(--brass); }
+
+.face.flush { border: 0; border-radius: 0; }
+.seam-v { position: absolute; width: 1px; background: var(--sec); }
+
+/* ── Lock ──────────────────────────────────────────────────────────────── */
+
+.prog-track { position: absolute; height: 2px; background: var(--sec); }
+.prog-done  { position: absolute; height: 8px; background: var(--brass); }
+.prog-edge  { position: absolute; width: 3px; background: var(--brass); }
+
+.timerow { display: flex; align-items: baseline; gap: 18px; }
+.minleft {
+  font-weight: 400; font-size: 32px; line-height: 34px;
+  letter-spacing: 0.06em;
+}
+
+/* ── Settings ──────────────────────────────────────────────────────────── */
+
+.legend { position: absolute; display: flex; align-items: center; gap: 16px; }
+.legend svg { display: block; }

@@ -1,0 +1,322 @@
+/* ─────────────────────────────────────────────────────────────────────────
+   LEGEND PLATE — the panel is the appliance's own silkscreened faceplate.
+   Printed legend on warm plastic, dark recessed windows where the
+   information lives, and exactly one lamp lit.
+   ───────────────────────────────────────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@600;700&family=IBM+Plex+Sans+Condensed:wght@600&family=IBM+Plex+Sans:wght@600&display=swap');
+
+:root {
+  --plate:      #d9d5cc;  /* warm plastic plate                             */
+  --moulded:    #c9c4b8;  /* a compartment pressed into the plate           */
+  --pressed:    #bdb7a9;  /* a compartment pressed by a thumb               */
+  --well:       #23262a;  /* a recessed window — always bounded             */
+  --well-off:   #2c3036;  /* an unlit window                                */
+  --amber:      #ff7a18;  /* the lamp. the only saturated hue on the plate  */
+  --halo:       #ffd6b0;  /* the lamp's flat ring — never a blur            */
+  --ink:        #4a5560;  /* printed legend ink                             */
+  --text:       #21252a;
+  --dim:        #6d7580;
+  --good:       #17a35c;
+  --warn:       #e0a020;
+  --hl:         #f0ece2;  /* the engraved line's highlight                  */
+  --groove:     #a9a396;  /* the engraved line's groove                     */
+  --rim:        #b3ad9f;  /* a window's engraved rim                        */
+  --wink:       #e8e4da;  /* plate-white, inside a window                   */
+  --wdim:       #8a929c;  /* legend ink, inside a window                    */
+  --socket:     #3a3f45;  /* an unlit lamp, inside a window                 */
+  --socketrim:  #565d66;
+  --psocket:    #c0bbae;  /* an unlit lamp, on the plate                    */
+  --wgroove:    #3a3f45;  /* the engraved line, inside a window             */
+  --whl:        #4c525a;
+}
+html, body { margin: 0; width: 800px; height: 480px; overflow: hidden; }
+body {
+  background: var(--plate);
+  font-family: 'IBM Plex Sans', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.screen { position: relative; width: 800px; height: 480px; }
+
+/* ── printed type ─────────────────────────────────────────────────────── */
+
+.legend { font-family:'IBM Plex Sans', sans-serif; font-weight:600;
+          text-transform:uppercase; letter-spacing:.14em; color:var(--text); }
+.cond   { font-family:'IBM Plex Sans Condensed','IBM Plex Sans',sans-serif;
+          font-weight:600; text-transform:uppercase; letter-spacing:.12em;
+          color:var(--text); }
+.mono   { font-family:'IBM Plex Mono', monospace; font-weight:700;
+          letter-spacing:.01em; color:var(--text); }
+.mono6  { font-family:'IBM Plex Mono', monospace; font-weight:600; }
+.dimink { color: var(--dim); }
+.inkink { color: var(--ink); }
+
+/* ── the engraved line: one 2 px groove with a highlight beneath it ───── */
+
+.rule { position:absolute; height:0;
+        border-top:1px solid var(--groove); border-bottom:1px solid var(--hl); }
+.rule.inwell { border-top-color:var(--wgroove); border-bottom-color:var(--whl); }
+
+/* ── a moulded compartment: no fill, the plate shows through ──────────── */
+
+.comp {
+  position:absolute; box-sizing:border-box;
+  border:2px solid var(--groove); border-radius:9px;
+  box-shadow: 0 2px 0 0 var(--hl);
+  background: transparent;
+}
+.comp.pressed {
+  background: var(--pressed);
+  border-color:#8e8879;
+  box-shadow: inset 0 3px 0 0 #a49e90;
+}
+.comp.pressed .cond, .comp.pressed .legend { color: var(--text); }
+.comp.pressed .mk { color: var(--text); }
+
+/* ── a recessed window: the only dark field, and always bounded ───────── */
+
+.win {
+  position:absolute; box-sizing:border-box; overflow:hidden;
+  background: var(--well);
+  border:2px solid var(--rim); border-radius:6px;
+  box-shadow: 0 2px 0 0 var(--hl);
+}
+.win.off { background: var(--well-off); }
+
+.face { display:block; width:100%; height:100%; object-fit:cover; }
+.facebox { position:relative; }
+.scrim { position:absolute; inset:0; background:rgba(217,213,204,.55); }
+
+/* the window's readout strip */
+.strip {
+  position:absolute; left:0; right:0; bottom:0;
+  border-top:1px solid var(--wgroove);
+  display:flex; align-items:center; justify-content:center; gap:10px;
+  color:var(--wink);
+}
+.win.off .strip { color: var(--wdim); }
+.strip .lvl     { display:flex; align-items:baseline; gap:9px; }
+.strip .lvl .n  { font-family:'IBM Plex Mono',monospace; font-weight:700; }
+.strip .lvl .of { font-family:'IBM Plex Sans',sans-serif; font-weight:600;
+                  text-transform:uppercase; letter-spacing:.14em; font-size:16px;
+                  color:var(--wdim); }
+
+/* ── lamps ────────────────────────────────────────────────────────────── */
+
+.lamp { position:absolute; border-radius:50%; box-sizing:border-box; }
+.lamp.on     { background:var(--amber); box-shadow:0 0 0 7px var(--halo); }
+.lamp.on.sm  { box-shadow:0 0 0 5px var(--halo); }
+.lamp.green  { background:var(--good); box-shadow:0 0 0 4px #145f3c; }
+.lamp.off    { background:var(--psocket); border:2px solid var(--groove); }
+.lamp.offw   { background:var(--socket);  border:2px solid var(--socketrim); }
+
+/* ── segment cells — a bar, not a gauge ───────────────────────────────── */
+
+.cell { position:absolute; box-sizing:border-box; border-radius:2px; }
+.cell.lit   { background:var(--amber); }
+.cell.low   { background:var(--warn); }
+.cell.unlit { background:var(--psocket); border:1px solid var(--groove); }
+.cell.wlit  { background:var(--amber); }
+.cell.wunlit{ background:var(--socket); }
+
+.chip {
+  position:absolute; box-sizing:border-box; border-radius:4px;
+  background:var(--warn); color:var(--text);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'IBM Plex Mono',monospace; font-weight:700; letter-spacing:.06em;
+}
+
+/* ── marks — every one drawn for this machine ─────────────────────────── */
+
+.mk { position:absolute; color:var(--ink); }
+.mk svg { display:block; }
+
+/* ── the plate's header band ──────────────────────────────────────────── */
+
+.hdrrule  { left:8px; width:784px; top:84px; }
+.pagename { position:absolute; left:206px; top:18px; font-size:24px;
+            line-height:32px; letter-spacing:.16em; }
+
+.back { left:6px; top:8px; width:178px; height:52px; }
+.back .mk   { left:16px; top:12px; }
+.back .cond { position:absolute; left:56px; top:14px; font-size:20px;
+              line-height:24px; }
+
+.sysbtn { left:712px; top:8px; width:64px; height:52px; }
+.sysbtn .mk { left:26px; top:9px; }
+.sysbtn .lamp { left:8px; top:17px; width:14px; height:14px; }
+.syslabel { position:absolute; left:696px; top:63px; width:96px;
+            text-align:center; font-size:14px; line-height:16px;
+            letter-spacing:.14em; color:var(--dim); }
+.syslabel.here { color: var(--text); }
+
+/* ── the rail: four moulded compartments, one lamp lit ────────────────── */
+
+.rail-item { left:6px; width:178px; height:85px; }
+.rail-item .lamp    { left:12px; top:33px; width:14px; height:14px; }
+.rail-item .mk      { left:42px; top:27px; }
+.rail-item .cond    { position:absolute; left:80px; top:31px; font-size:22px;
+                      line-height:26px; letter-spacing:.09em; color:var(--dim); }
+.rail-item.on .cond { color:var(--text); }
+.rail-item.on .mk   { color:var(--text); }
+.r0 { top:96px }  .r1 { top:193px }  .r2 { top:290px }  .r3 { top:387px }
+
+/* ═══ CHOOSE ═══════════════════════════════════════════════════════════════
+   Two channels. Each is a dark window (the face, bled to its rim, over a
+   mono readout strip) with a printed column beside it: the lamp, the state
+   legend, a vertical four-cell level and the count. One lamp is lit.        */
+
+.ch-win  { top:96px; width:144px; height:304px; }
+.ch-win .facebox { position:absolute; left:0; top:0; width:140px; height:260px; }
+.ch-win .strip   { height:40px; font-family:'IBM Plex Mono',monospace;
+                   font-weight:700; font-size:24px; }
+.chA { left:206px } .chB { left:508px }
+
+.ch-col { position:absolute; top:96px; width:116px; height:304px; }
+.colA { left:366px } .colB { left:668px }
+.ch-col .lamp.on  { left:7px;  top:7px;  width:26px; height:26px; }
+.ch-col .lamp.off { left:7px;  top:7px;  width:26px; height:26px; }
+.ch-state { position:absolute; left:0; top:54px; font-size:20px; line-height:24px; }
+.ch-state.armed  { color:var(--text); }
+.ch-state.stdby  { color:var(--dim); }
+.ch-col .rule    { left:0; top:88px; width:116px; }
+.ch-lvl   { position:absolute; left:0; top:98px; font-size:14px;
+            line-height:18px; letter-spacing:.14em; color:var(--dim); }
+.ch-col .chip { left:0; top:120px; width:62px; height:26px; font-size:16px; }
+.ch-col .cell { left:0; width:116px; height:16px; }
+.ch-col .c0 { top:154px } .ch-col .c1 { top:182px }
+.ch-col .c2 { top:210px } .ch-col .c3 { top:238px }
+.count { position:absolute; left:0; display:flex; align-items:baseline; gap:9px; }
+.count .n  { font-family:'IBM Plex Mono',monospace; font-weight:700;
+             font-size:28px; line-height:34px; color:var(--text); }
+.count .of { font-family:'IBM Plex Sans',sans-serif; font-weight:600;
+             text-transform:uppercase; letter-spacing:.14em; font-size:16px;
+             color:var(--dim); }
+.ch-count { top:266px; }
+
+.ch-door { top:412px; width:276px; height:60px; }
+.ch-door .mk   { left:12px; top:14px; }
+.ch-door .cond { position:absolute; left:48px; top:17px; font-size:20px;
+                 line-height:24px; letter-spacing:.10em; white-space:nowrap;
+                 color:var(--text); }
+.doorA { left:206px } .doorB { left:508px }
+
+/* ═══ STRENGTH · FACE ══════════════════════════════════════════════════════
+   The anchor window on the west, the strength control and the face row on
+   the east. Both columns land on 472.                                       */
+
+.fl-anchor { left:206px; top:96px; width:180px; height:376px; }
+.fl-anchor .facebox { position:absolute; left:0; top:0; width:176px; height:328px; }
+.fl-anchor .strip { height:44px; font-family:'IBM Plex Mono',monospace;
+                    font-weight:700; font-size:24px; }
+
+.fl-lab  { position:absolute; left:402px; font-size:14px; line-height:18px;
+           letter-spacing:.14em; color:var(--dim); }
+.fl-lab1 { top:96px } .fl-lab2 { top:262px }
+
+.fl-minus { left:402px; top:124px; width:88px; height:88px; }
+.fl-plus  { left:696px; top:124px; width:88px; height:88px; }
+.fl-minus .mk, .fl-plus .mk { left:22px; top:22px; color:var(--text); }
+.fl-read  { left:506px; top:124px; width:174px; height:88px;
+            display:flex; align-items:center; justify-content:center; }
+.fl-read span { font-family:'IBM Plex Mono',monospace; font-weight:700;
+                font-size:46px; color:var(--wink); letter-spacing:.01em; }
+.fl-range { position:absolute; left:402px; top:220px; width:382px;
+            text-align:center; font-family:'IBM Plex Mono',monospace;
+            font-weight:600; font-size:14px; letter-spacing:.08em;
+            color:var(--dim); }
+.fl-rule  { left:402px; top:246px; width:382px; }
+
+.fl-left  { left:402px; top:294px; width:44px; height:164px; }
+.fl-right { left:740px; top:294px; width:44px; height:164px; }
+.fl-left .mk, .fl-right .mk { left:6px; top:66px; color:var(--text); }
+.fl-tile  { top:294px; width:90px; height:164px; }
+.fl-tile .facebox { position:absolute; inset:0; }
+.t0 { left:452px } .t1 { left:548px } .t2 { left:644px }
+.fl-tile.chosen { box-shadow:0 0 0 3px var(--amber), 0 2px 0 0 var(--hl); }
+.fl-track .cell { top:464px; width:30px; height:8px; }
+.k0{left:452px} .k1{left:488px} .k2{left:524px} .k3{left:560px}
+.k4{left:596px} .k5{left:632px} .k6{left:668px} .k7{left:704px}
+
+/* ═══ FILL A FLAVOR ════════════════════════════════════════════════════════ */
+
+.pk-win { top:96px; width:164px; height:346px; }
+.pk-win .facebox { position:absolute; left:0; top:0; width:160px; height:298px; }
+.pk-win .strip  { height:44px; font-family:'IBM Plex Mono',monospace;
+                  font-weight:700; font-size:24px; }
+.pkA { left:206px } .pkB { left:504px }
+.pk-badge { position:absolute; left:36px; top:105px; width:88px; height:88px;
+            border-radius:50%; background:#23262a; border:2px solid var(--wink);
+            box-sizing:border-box; }
+.pk-badge svg { position:absolute; left:18px; top:18px; color:var(--wink); }
+
+.pk-col { position:absolute; top:96px; width:100px; height:346px; }
+.pcolA { left:386px } .pcolB { left:684px }
+.pk-col .rule  { left:0; width:100px; }
+.pk-r1 { top:0 } .pk-r2 { top:272px }
+.pk-col .lab   { position:absolute; left:0; top:14px; font-size:14px;
+                 line-height:18px; letter-spacing:.14em; color:var(--dim); }
+.pk-col .chip  { left:0; top:40px; width:62px; height:26px; font-size:16px; }
+.pk-col .cell  { left:0; width:100px; height:22px; }
+.pk-col .c0 { top:76px } .pk-col .c1 { top:122px }
+.pk-col .c2 { top:168px } .pk-col .c3 { top:214px }
+.pk-count { top:308px; }
+
+/* ═══ CLEANING ═════════════════════════════════════════════════════════════ */
+
+.lk-lamp  { left:32px; top:30px; width:22px; height:22px; }
+.lk-title { position:absolute; left:80px; top:24px; font-size:28px;
+            line-height:34px; letter-spacing:.16em; }
+.lk-well  { left:32px; top:76px; width:736px; height:280px; }
+.lk-face  { position:absolute; left:0; top:0; width:148px; height:276px; }
+.lk-time  { position:absolute; left:172px; top:16px;
+            display:flex; align-items:baseline; gap:20px; }
+.lk-time .n { font-family:'IBM Plex Mono',monospace; font-weight:700;
+              font-size:104px; line-height:110px; color:var(--wink); }
+.lk-time .u { font-family:'IBM Plex Sans',sans-serif; font-weight:600;
+              text-transform:uppercase; letter-spacing:.14em; font-size:28px;
+              color:var(--wink); }
+.lk-stage { position:absolute; left:172px; top:144px; font-size:22px;
+            line-height:26px; letter-spacing:.14em; color:var(--wdim); }
+.lk-cells .cell { top:214px; width:28px; height:28px; }
+
+.lk-mark  { position:absolute; left:568px; top:26px; color:#5c646e; }
+.lk-mark svg { display:block; }
+.lk-slab  { position:absolute; left:32px; top:372px; font-size:14px;
+            line-height:18px; letter-spacing:.14em; color:var(--dim); }
+.lk-ann .lamp { top:408px; width:20px; height:20px; }
+.lk-ann .n    { position:absolute; top:400px; font-family:'IBM Plex Mono',monospace;
+                font-weight:700; font-size:28px; line-height:34px; }
+
+.lk-stop { position:absolute; box-sizing:border-box;
+           left:508px; top:368px; width:260px; height:96px;
+           border:4px solid var(--amber); border-radius:9px;
+           background:transparent; color:var(--amber);
+           display:flex; align-items:center; justify-content:center;
+           font-family:'IBM Plex Sans',sans-serif; font-weight:600;
+           text-transform:uppercase; letter-spacing:.20em; font-size:32px; }
+.lk-stop.pressed { background:var(--amber); color:#21252a; }
+
+/* ═══ SYSTEM ═══════════════════════════════════════════════════════════════ */
+
+.st-well  { left:206px; top:96px; width:578px; height:292px; }
+.st-diag  { position:absolute; left:16px; top:18px; }
+.st-lab   { position:absolute; left:366px; font-size:14px; line-height:18px;
+            letter-spacing:.14em; color:var(--wdim); }
+.st-lab1  { top:16px } .st-lab2 { top:136px }
+.st-well .lamp.green  { left:368px; top:50px; width:32px; height:32px; }
+.st-verd  { position:absolute; left:418px; top:46px; font-size:28px;
+            line-height:36px; letter-spacing:.14em; color:var(--wink); }
+.st-well .rule { left:366px; width:194px; }
+.st-r1 { top:110px }
+.st-key   { position:absolute; left:406px; font-size:20px; line-height:24px;
+            letter-spacing:.14em; color:var(--wdim); }
+.st-k1 { top:180px } .st-k2 { top:244px }
+.st-well .lamp.kg { left:368px; top:181px; width:22px; height:22px; }
+.st-well .lamp.ko { left:368px; top:245px; width:22px; height:22px; }
+
+.st-area  { top:400px; height:72px; left:206px; width:578px; }
+.st-area .mk   { left:22px; top:20px; }
+.st-area .cond { position:absolute; left:74px; top:24px; font-size:20px;
+                 line-height:24px; color:var(--text); }
+.st-area .go   { position:absolute; left:auto; right:22px; top:22px; }

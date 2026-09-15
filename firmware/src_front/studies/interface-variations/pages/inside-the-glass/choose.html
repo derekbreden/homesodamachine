@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Inside The Glass — Choose</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@72,700,50&family=Figtree:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+
+  /* Choose — the selection IS the liquid line. Both channels get the same card in the same
+     place; what differs is which side of the line it is on. The armed one is submerged:
+     full colour, bubbles clinging to its label, ink numerals. The other stands in the
+     headspace above the line, dry: washed face, dim numerals.
+     Pressed element: the CLEAN rail destination (gold). */
+  .card  { width: 470px; height: 180px; }
+  .state { position: absolute; font-size: 26px; line-height: 1; color: var(--ink); }
+  .state.dry { color: var(--dim); }
+  .ratio { position: absolute; font-size: 40px; line-height: 1; color: var(--ink); }
+  .ratio.dry { color: var(--dim); }
+  .bar   { position: absolute; height: 20px; }
+  .go    { position: absolute; width: 30px; height: 30px; }
+  .go svg { stroke: currentColor; }
+  .setmark { position: absolute; width: 64px; height: 64px; border-radius: 8px;
+             box-shadow: inset 0 0 0 2px var(--cream); color: var(--cream);
+             display: flex; align-items: center; justify-content: center; }
+  .setmark svg { stroke: var(--cream); }
+
+</style>
+</head>
+<body>
+<!-- the wall of the glass: the rail is the same liquid, top to bottom, no card behind anything -->
+<div class="liquid" style="left:0;top:0;width:189px;height:480px"></div>
+<svg class="bubbles" style="left:0px;top:360px" width="189" height="120" viewBox="0 0 189 120"><circle cx="105.1" cy="73.7" r="8" fill="none" stroke="#f2b705" stroke-width="1"/><circle cx="95.9" cy="74.9" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="96.6" cy="45.0" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="22.7" cy="100.3" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="149.3" cy="30.4" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="179.8" cy="19.9" r="8" fill="none" stroke="#f2b705" stroke-width="1"/><circle cx="115.0" cy="90.2" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="99.5" cy="11.3" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="48.8" cy="45.8" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="84.0" cy="74.7" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="119.3" cy="79.5" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="86.9" cy="90.9" r="3" fill="none" stroke="#33452f" stroke-width="1"/></svg>
+<div class="rail-i on" style="top:20px"><div class="ic"><svg class="mk " width="44" height="44" viewBox="0 0 44 44"><path d="M13.5 12 V7"/><path d="M30.5 12 V7"/><rect x="7" y="12" width="13" height="25" rx="4" fill="currentColor" stroke="none"/><rect x="7" y="12" width="13" height="25" rx="4"/><rect x="24" y="12" width="13" height="25" rx="4"/></svg></div><div class="w">CHOOSE</div></div>
+<div class="rail-i" style="top:132px"><div class="ic"><svg class="mk " width="44" height="44" viewBox="0 0 44 44"><path d="M22 6 C22 6 33 20 33 27 A11 11 0 0 1 11 27 C11 20 22 6 22 6 Z"/></svg></div><div class="w">PRIME</div></div>
+<div class="rail-i" style="top:244px"><div class="ic"><svg class="mk " width="44" height="44" viewBox="0 0 44 44"><path d="M7 9 H37 L25.5 24 V34 L18.5 38.5 V24 Z"/></svg></div><div class="w">FILL</div></div>
+<div class="rail-i on pressed" style="top:356px"><div class="ic"><svg class="mk " width="44" height="44" viewBox="0 0 44 44"><path d="M13 17 L16.5 38 H27.5 L31 17 Z"/><path d="M11 17 H33"/><path d="M16 11 L18.5 4"/><path d="M22 12.5 L24.5 3"/><path d="M28 11 L30.5 5"/></svg></div><div class="w">CLEAN</div></div>
+
+<!-- the pane: headspace above the line, the armed channel's own body below it -->
+<div class="liquid" style="left:191px;top:277px;width:609px;height:203px"></div>
+<div class="meniscus" style="left:191px;top:274px;width:609px"></div>
+<svg class="bubbles" style="left:191px;top:277px" width="609" height="203" viewBox="0 0 609 203"><circle cx="448.8" cy="161.0" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="447.7" cy="192.0" r="8" fill="none" stroke="#f2b705" stroke-width="1"/><circle cx="284.0" cy="62.4" r="8" fill="none" stroke="#f2b705" stroke-width="1"/><circle cx="543.8" cy="163.8" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="153.2" cy="143.5" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="13.8" cy="155.7" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="553.1" cy="117.9" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="481.9" cy="97.2" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="81.6" cy="160.4" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="131.0" cy="185.6" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="526.8" cy="195.5" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="327.9" cy="193.6" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="567.8" cy="105.6" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="539.6" cy="194.1" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="105.1" cy="129.7" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="185.9" cy="75.0" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="410.7" cy="46.9" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="494.7" cy="122.4" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="293.3" cy="123.3" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="588.1" cy="72.5" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="510.4" cy="174.0" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="224.6" cy="177.7" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="33.9" cy="51.8" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="123.3" cy="193.1" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="568.4" cy="190.8" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="319.2" cy="128.8" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="452.8" cy="86.2" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="27.9" cy="184.5" r="8" fill="none" stroke="#f2b705" stroke-width="1"/><circle cx="209.4" cy="82.1" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="209.0" cy="189.8" r="8" fill="none" stroke="#f2b705" stroke-width="1"/><circle cx="192.5" cy="152.5" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="52.7" cy="100.7" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="601.0" cy="167.9" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="595.1" cy="69.7" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="147.7" cy="135.6" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="278.0" cy="181.4" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="552.9" cy="72.1" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="506.5" cy="146.5" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="573.0" cy="172.2" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="69.7" cy="177.7" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="510.3" cy="95.1" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="602.6" cy="141.6" r="8" fill="none" stroke="#f2b705" stroke-width="1"/><circle cx="276.8" cy="194.9" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="292.0" cy="172.0" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="93.5" cy="135.3" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="579.0" cy="196.0" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="208.1" cy="147.2" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="472.9" cy="116.8" r="8" fill="none" stroke="#f2b705" stroke-width="1"/><circle cx="475.3" cy="129.7" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="402.4" cy="168.5" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="426.6" cy="130.0" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="465.5" cy="145.5" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/></svg>
+<div class="wall"></div>
+
+<div class="tab" style="left:207px;top:8px;width:240px;height:64px"><div class="t fr">Choose</div></div>
+<div class="setmark" style="left:720px;top:8px"><svg class="mk thin" width="44" height="44" viewBox="0 0 44 44"><path d="M7 37 V17 L16 8 H37 V37 Z"/><rect x="11.5" y="23" width="7" height="12" rx="2.5"/><rect x="25.5" y="23" width="7" height="12" rx="2.5"/><circle cx="22" cy="29" r="3.2"/></svg></div>
+
+<!-- above the line: dry, not on tap -->
+<div class="label card" style="left:207px;top:84px">
+  <div class="face" style="left:12px;top:10px;width:86px;height:160px"><img src="../../assets/flavor_2.png" alt=""></div><div class="wash" style="left:12px;top:10px;width:86px;height:160px;opacity:.48"></div>
+  <div class="state fr dry" style="left:114px;top:16px">Not on tap</div>
+  <div class="cap" style="left:114px;top:72px">RATIO</div>
+  <div class="ratio fr dry" style="left:114px;top:92px">1:14</div>
+  <div class="cap" style="left:272px;top:72px">LEVEL <span style="color:var(--warn)">&middot; LOW</span></div>
+  <div class="bar" style="left:272px;top:96px"><div class="seg warn" style="left:0px;top:0"></div><div class="seg" style="left:42px;top:0"></div><div class="seg" style="left:84px;top:0"></div><div class="seg" style="left:126px;top:0"></div></div>
+  <div class="go" style="left:422px;top:18px;color:var(--dim)"><svg class="mk " width="30" height="30" viewBox="0 0 44 44"><path d="M17 9 L30 22 L17 35"/></svg></div>
+</div>
+
+<!-- below the line: submerged, on tap -->
+<div class="label card" style="left:207px;top:288px">
+  <div class="face" style="left:12px;top:10px;width:86px;height:160px"><img src="../../assets/flavor_1.png" alt=""></div>
+  <div class="state fr " style="left:114px;top:16px">On tap</div>
+  <div class="cap" style="left:114px;top:72px">RATIO</div>
+  <div class="ratio fr " style="left:114px;top:92px">1:20</div>
+  <div class="cap" style="left:272px;top:72px">LEVEL</div>
+  <div class="bar" style="left:272px;top:96px"><div class="seg good" style="left:0px;top:0"></div><div class="seg good" style="left:42px;top:0"></div><div class="seg good" style="left:84px;top:0"></div><div class="seg" style="left:126px;top:0"></div></div>
+  <div class="go" style="left:422px;top:18px;color:var(--ink)"><svg class="mk " width="30" height="30" viewBox="0 0 44 44"><path d="M17 9 L30 22 L17 35"/></svg></div>
+</div>
+<!-- the bubbles that climb the submerged label, and the six that cling to its keyline -->
+<svg class="bubbles" style="left:191px;top:288px" width="16" height="180" viewBox="0 0 16 180"><circle cx="8.2" cy="6.1" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="8.6" cy="25.4" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="9.7" cy="37.0" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="10.5" cy="55.1" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="7.9" cy="76.3" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="8.7" cy="87.2" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="9.2" cy="106.5" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="9.3" cy="119.2" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="5.7" cy="137.5" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="9.1" cy="155.2" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="10.1" cy="173.5" r="3" fill="none" stroke="#33452f" stroke-width="1"/></svg>
+<svg class="bubbles" style="left:211px;top:290px" width="102" height="176" viewBox="-8 -8 102 176"><circle cx="0.4" cy="29.4" r="5" fill="none" stroke="#f2b705" stroke-width="1"/><circle cx="1.4" cy="66.3" r="3" fill="none" stroke="#f2b705" stroke-width="1"/><circle cx="-1.3" cy="101.8" r="3" fill="none" stroke="#f2b705" stroke-width="1"/><circle cx="18.4" cy="159.6" r="3" fill="none" stroke="#f2b705" stroke-width="1"/><circle cx="48.2" cy="159.1" r="5" fill="none" stroke="#f2b705" stroke-width="1"/><circle cx="70.0" cy="160.0" r="3" fill="none" stroke="#f2b705" stroke-width="1"/></svg>
+</body>
+</html>
