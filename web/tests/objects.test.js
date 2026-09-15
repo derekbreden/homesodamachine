@@ -113,9 +113,9 @@ function fakeR2(initial = {}) {
   };
 }
 
-test("r2: a verified upload is put to the bucket, HEAD answers from it, and GET redirects to the public URL", async () => {
+test("r2: a verified upload is put to the bucket, HEAD answers from it, and GET redirects to the custom domain", async () => {
   const client = fakeR2();
-  const store = new R2Store({ client, bucket: "bucket", publicUrl: "https://pub-x.r2.dev/" });
+  const store = new R2Store({ client, bucket: "bucket", publicUrl: "https://objects.example.com/" });
   const { base, close } = await serve(store);
   try {
     const member = Buffer.from("ISO-10303-21;\nr2\n");
@@ -127,7 +127,7 @@ test("r2: a verified upload is put to the bucket, HEAD answers from it, and GET 
     assert.equal((await fetch(`${base}/objects/${name}`, { method: "HEAD" })).status, 200);
     const got = await fetch(`${base}/objects/${name}`, { redirect: "manual" });
     assert.equal(got.status, 302);
-    assert.equal(got.headers.get("location"), `https://pub-x.r2.dev/${name}`);
+    assert.equal(got.headers.get("location"), `https://objects.example.com/${name}`);
     assert.equal((await fetch(`${base}/objects/s-${"0".repeat(64)}.gz`, { redirect: "manual" })).status, 404);
     assert.deepEqual(client.log.map(([k]) => k).slice(0, 2), ["HeadObjectCommand", "PutObjectCommand"]);
   } finally {
@@ -135,11 +135,28 @@ test("r2: a verified upload is put to the bucket, HEAD answers from it, and GET 
   }
 });
 
-test("r2: without a public URL the bytes stream through the site", async () => {
+test("r2: an r2.dev address is not a custom domain, so the redirect is signed instead", async () => {
+  const store = new R2Store({ client: fakeR2(), bucket: "bucket", publicUrl: "https://pub-abc.r2.dev" });
+  assert.equal(store.publicUrl, null);
+  store.redirectUrl = async (name) => `signed:${name}`;            // the signer needs credentials
+  const { base, close } = await serve(store);
+  try {
+    store.has = async () => true;
+    const got = await fetch(`${base}/objects/s-${"1".repeat(64)}.gz`, { redirect: "manual" });
+    assert.equal(got.status, 302);
+    assert.equal(got.headers.get("location"), `signed:s-${"1".repeat(64)}.gz`);
+  } finally {
+    close();
+  }
+});
+
+test("r2: with no address at all the bytes stream through the site", async () => {
   const gz = gzipSync(Buffer.from("member"));
   const name = `s-${sha(Buffer.from("member"))}.gz`;
   const client = fakeR2({ [name]: { body: gz, modified: Date.now() } });
-  const { base, close } = await serve(new R2Store({ client, bucket: "bucket", publicUrl: null }));
+  const r2 = new R2Store({ client, bucket: "bucket", publicUrl: null });
+  r2.redirectUrl = async () => null;
+  const { base, close } = await serve(r2);
   try {
     const got = await fetch(`${base}/objects/${name}`);
     assert.equal(got.status, 200);
@@ -172,7 +189,13 @@ test("the environment names the store: R2 with a key pair, the disk with a direc
   const r2 = await storeFromEnv({ R2_ACCOUNT_ID: "acct", R2_ACCESS_KEY_ID: "k", R2_SECRET_ACCESS_KEY: "s",
                                   R2_BUCKET: "b", R2_PUBLIC_URL: "https://pub.r2.dev/", OBJECTS_DIR: "/tmp/x" });
   assert.equal(r2.kind, "r2");
-  assert.equal(r2.redirectUrl("s-1.gz"), "https://pub.r2.dev/s-1.gz");
+  assert.equal(r2.publicUrl, null, "an r2.dev address is refused as a custom domain");
+  const signed = await r2.redirectUrl("s-1.gz");
+  assert.match(signed, /^https:\/\/acct\.r2\.cloudflarestorage\.com\/b\/s-1\.gz\?/);
+  assert.match(signed, /X-Amz-Signature=/);
+  const domain = await storeFromEnv({ R2_ACCOUNT_ID: "a", R2_ACCESS_KEY_ID: "k", R2_SECRET_ACCESS_KEY: "s",
+                                      R2_BUCKET: "b", R2_PUBLIC_URL: "https://objects.example.com" });
+  assert.equal(await domain.redirectUrl("s-1.gz"), "https://objects.example.com/s-1.gz");
 });
 
 test("the fill puts what the store lacks, skips what it has and what this tree cut differently", async () => {
