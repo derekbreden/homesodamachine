@@ -14,8 +14,11 @@
 
 import { test, mock } from "node:test";
 import assert from "node:assert/strict";
+import { mkdtemp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import path from "node:path";
 
-import { pointersMoved, refreshArtifacts } from "../lib/artifacts-live.js";
+import { pointersMoved, refreshArtifacts, retireSolids } from "../lib/artifacts-live.js";
 
 // Never reached — `adopt()` throws at `lockOnMain()`, before any of these are read.
 const ctx = { broadcast() {}, setRecent() {}, commit: "0000000", hardwareDir: ".", detect: [] };
@@ -69,4 +72,30 @@ test("a pointer file whose members moved under the same bundle is a look worth t
   assert.equal(pointersMoved(have, { ...have, bundle: { sha256: "c" } }), true,
     "a whole cut still moves on its digest");
   assert.equal(pointersMoved(null, have), true, "no pointer file on disk is behind by definition");
+});
+
+test("retired parts leave the viewer's directory while current and local files remain", async () => {
+  const root = await mkdtemp(path.join(tmpdir(), "hsm-retired-solids-"));
+  try {
+    const names = ["old-insert.step", "old-insert.step.mesh", "body.step", "local.step"];
+    await mkdir(path.join(root, "hardware"));
+    for (const name of names) await writeFile(path.join(root, "hardware", name), name);
+    const have = { solids: Object.fromEntries(names.slice(0, 3).map(name => [`hardware/${name}`, "hash"])) };
+    const next = { solids: { "hardware/body.step": "new-hash" } };
+    assert.equal(pointersMoved(have, next), true);
+    assert.deepEqual(await retireSolids(root, have, next), [
+      "hardware/old-insert.step", "hardware/old-insert.step.mesh",
+    ]);
+    for (const name of names.slice(0, 2)) {
+      await assert.rejects(readFile(path.join(root, "hardware", name)), { code: "ENOENT" });
+    }
+    for (const name of names.slice(2)) {
+      assert.equal(await readFile(path.join(root, "hardware", name), "utf8"), name);
+    }
+    await retireSolids(root, have, next); // A retry also works after the old paths are absent.
+    await assert.rejects(retireSolids(root, { solids: { "web/server.js": "hash" } }, next),
+      /outside hardware/);
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
 });
