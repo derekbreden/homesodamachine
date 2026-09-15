@@ -1,80 +1,65 @@
-# Enclosure display studies
+# Big Blue
 
-Four interactive visual directions for the 800 × 480 enclosure display. Each uses the same
-uploaded picture on the enclosure and faucet. The studies cover Choose, Adjust, Fill, Prime,
-Clean and Images, plus a three-screen companion app image setup preview.
+Big Blue is the enclosure display design exploration for the Home Soda Machine.
+[`big-blue.html`](big-blue.html) contains the self-contained interactive preview of the
+800 × 480 display, with a companion faucet preview. It opens on Fill.
 
-[Persistent flavor selection](persistent-selection.md) contains four additional variations of
-Control room with both flavor selectors and the large action target visible in every screen.
+## Flavor controls
 
-[Console Home](console-home.md) contains four Home and middle-column iterations with secondary
-ratio controls, image selection and machine Settings access.
+Two flavor images stay in the left rail. Flavor pages show a large copy of the selected image
+with “✓ Selected” below it. The same complete portrait appears on the faucet. Fill, Prime and
+Clean occupy the top navigation; Settings sits at the bottom left, and Done sits at the top right.
 
-[Console completion](console-completion.md) compares three ways to finish a task, with Quiet's
-resting layout, a larger Settings control and an eight-image picker.
+The resting “On tap.” screen shows the reservoir reading and links to Change image and Ratio.
+The ratio is shown only when opened. Each flavor has its own ratio and image assignment.
+The image picker shows four customer uploads followed by four factory defaults, four at a time,
+with Previous, Next and position feedback.
 
-[Console corner controls](console-corners.md) places Settings below the flavor choices and Done
-at the top-right of every task.
+Done, either flavor choice, the rail's empty space, and the whole large-image area dismiss the
+focused task and return to On tap. Tapping the already-selected flavor also dismisses the task.
+Image and ratio changes persist. Changing the faucet selection returns flavor tasks to On tap
+and leaves machine pages open.
 
-[Console system status](console-system.md) gives machine settings the full pane beside the rail,
-with the enclosure's side profile and unlabeled sensor indicators.
+While Fill or Clean runs, only Stop filling or Stop cleaning is available. Done is hidden;
+flavor choices, background dismissal, Settings and task navigation are disabled. Stop keeps
+the current task open and restores normal navigation. Prime runs while held. Other dismissals
+cancel a running operation before applying a new flavor selection.
 
-[`logo-first.html`](logo-first.html) is a self-contained conversation visualization fragment.
-The controls above the device select the direction and screen. Selecting a drink on either
-display changes the shared selection. Ratio adjustments belong to their own flavor; choosing
-an image assigns it to the current flavor. The operation controls demonstrate local mock states.
+## Machine settings
 
-## Directions
+Machine pages occupy the full 696-pixel area beside the left rail. Their header contains the
+page title and Done, with no large flavor image or flavor action tabs.
 
-| Direction | Composition | What the view emphasizes |
-| --- | --- | --- |
-| Twin labels | Two equally sized portrait images, individual level and ratio readings, shared task buttons | Recognizing both drinks and choosing between them |
-| Control room | A narrow image selector, large selected picture, and a group of direct controls | Keeping the drink visible while working with its settings and reservoir |
-| Poster | A picture nearly as tall as the screen, a smaller alternate picture, and quiet controls | The strongest presence for the selected drink, including demonstrations and video |
-| Index | Two horizontal image rows, with actions beside the selected row | Large action targets and a simple overview of both reservoirs |
+System status shows the enclosure viewed along X, front on the left, using the silhouette,
+cold core, reservoir pockets, carbonator and ten sensor positions from the enclosure firmware's
+[`buildStatusDiagram`](../../firmware/src_front/main.cpp). The profile is 462 × 361 mm with a
+61.87 mm facet. The drawing contains no words or per-sensor labels. Closed switches are filled
+discs; open switches are rings. The review controls offer two sensor snapshots and an
+unavailable-reading state, which clears the discs and displays a message below the drawing.
 
-Twin labels gives the two drinks equal visual weight. Poster puts most of that weight on the
-selected drink. Control room preserves both selection and settings within one view. Index
-spends more of the display on controls and less on the pictures. Those differences are the main
-comparison; colors, type, and button treatment are independent design choices.
+Pump service opens a page for drying the lines. Settings returns to the diagram; Done returns
+to On tap. Selecting either flavor in the left rail also returns to that flavor's resting screen.
 
-## The image as identity
+## Artwork and scope
 
-The sample artwork combines actual Diet Mountain Dew and Pepsi marks with portrait backgrounds.
-Each complete composition is a stand-in for a customer's uploaded picture. The same rectangle
-appears on the faucet, in selection, beside adjustments and operations, and in the image picker.
-The app preview shows choosing an image, composing its portrait, and seeing it on the faucet.
+The four sample uploads combine actual Diet Mountain Dew and Pepsi marks with portrait
+backgrounds. The factory portraits are decoded from the compiled RGB565 arrays in
+[`flavor0_card.h`](../../firmware/src_front/images/flavor0_card.h),
+[`flavor1_card.h`](../../firmware/src_front/images/flavor1_card.h),
+[`flavor2_card.h`](../../firmware/src_front/images/flavor2_card.h) and
+[`flavor3_card.h`](../../firmware/src_front/images/flavor3_card.h).
 
-The supplied picture retains its proportions and full bounds in every view. Selection is shown
-outside the picture, through a border, a marker, or nearby words. The artwork carries the drink's
-name. Text identifies actions and machine state.
+Artwork sources: [PepsiCo Diet Dew package artwork](https://digitalassets.pepsico.com/m/642423311fca260c/original/00012000107351_L1.pdf)
+and [PepsiCo Partners Pepsi brand](https://www.pepsicopartners.com/PEPSICO-BRANDS/PEPSI%C2%AE/c/brand_pepsi).
 
-## Basis and scope
-
-- The enclosure is a 4.3-inch, 800 × 480 capacitive touchscreen. The faucet is 172 × 320.
-- Artwork is a 43:80 rectangle. The existing phone workflow supports choosing, framing and
-  uploading pictures; both displays share the resulting image. Four factory and four customer
-  image slots exist. The picker in this study shows the two demonstration uploads.
-- Ratios range from 1:6 to 1:24. Each flavor starts at 1:20 in the study.
-- Reservoir levels use four discrete segments. The example levels show three and two segments.
-- Fill draws concentrate from the top funnel. Prime runs while held. Clean performs three
-  water-in/water-out rounds with a visible Stop action during operation.
-- The pictured operation progress is a selected mock state. These views contain no device
-  connection. They cover the normal tasks and running operations; system status, pump service,
-  fault recovery, boot and sleep are outside this visual set.
-- Some concepts display artwork larger than the current stored renditions. A firmware
-  implementation would need appropriate artwork renditions or scaling for those sizes.
+Ratios range from 1:6 to 1:24 and start at 1:20. Reservoir readings use four discrete segments.
+All operations and sensor readings are local mock states; the preview has no device connection.
+The review controls also provide a faucet preview toggle and a Done/Close label choice.
 
 Functional references: [enclosure display](../../firmware/src_front/README.md),
 [shared artwork](../../firmware/README.md#a-users-own-pictures),
 [faucet display](../../firmware/src_faucet/README.md), and
 [protocol and ratio bounds](../../firmware/lib/proto_link/proto_msg.h).
 
-Artwork sources: [PepsiCo Diet Dew package artwork](https://digitalassets.pepsico.com/m/642423311fca260c/original/00012000107351_L1.pdf)
-and [PepsiCo Partners Pepsi brand](https://www.pepsicopartners.com/PEPSICO-BRANDS/PEPSI%C2%AE/c/brand_pepsi).
-
-## Review checks
-
-All 24 primary views have rendered screenshots. Browser checks cover screen bounds, image
-loading, independent flavor ratios, shared selection, image assignment, and operation controls.
-The views have been visually inspected for artwork clipping, text collisions and control size.
+Browser review covers the eight screens, stable image positions, image paging and assignment,
+independent ratios, background dismissal, machine status geometry, and operation controls.
