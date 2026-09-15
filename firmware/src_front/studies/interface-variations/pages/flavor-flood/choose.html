@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Choose — Flavor Flood</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="screen">
+
+  <!-- ══ THE FLOOD — the armed channel owns 480×384 of its own colour ══ -->
+  <div class="field a" style="left:0;top:0;width:480px;height:384px">
+
+    <div class="label onfield-dim" style="position:absolute;left:24px;top:26px">Choose a flavor</div>
+
+    <!-- 172×320, hard against the field, no frame, standing on its floor -->
+    <div class="face" style="left:0;top:64px;width:172px;height:320px">
+      <img src="../../assets/flavor_1.png" alt="">
+    </div>
+
+    <div class="label onfield-dim" style="position:absolute;left:196px;top:84px">Ratio</div>
+    <div class="fact onfield"        style="position:absolute;left:196px;top:106px">1:20</div>
+
+    <div class="label onfield-dim" style="position:absolute;left:196px;top:158px">Level</div>
+    <div class="level on-field" style="left:196px;top:182px;width:200px;height:96px;gap:8px">
+      <div class="seg"      style="height:18px"></div>
+      <div class="seg full" style="height:18px"></div>
+      <div class="seg full" style="height:18px"></div>
+      <div class="seg full" style="height:18px"></div>
+    </div>
+
+    <!-- The way into this drink's own page: strength, and the face it wears.
+         A target standing on a field is a paper slab with ink type. -->
+    <div class="btn on-field" style="left:196px;top:296px;width:260px;height:64px">
+      <svg class="mark" width="26" height="26" viewBox="0 0 48 48">
+        <path class="solid" d="M13 6 L22 20 A11 11 0 1 1 4 20 Z"/>
+        <rect x="30" y="7" width="15" height="34"/>
+      </svg>
+      <span class="label" style="letter-spacing:0.03em;white-space:nowrap">Strength &amp; face</span>
+    </div>
+  </div>
+
+  <!-- ══ THE LISTING — the other channel, a white card with an ink keyline ══ -->
+  <div class="card" style="left:504px;top:61px;width:272px;height:323px">
+
+    <div class="face keyed" style="left:13px;top:13px;width:116px;height:216px">
+      <img src="../../assets/flavor_2.png" alt="">
+    </div>
+
+    <div class="label dim" style="position:absolute;left:145px;top:13px">Ratio</div>
+    <div class="fact"      style="position:absolute;left:145px;top:35px">1:14</div>
+
+    <div class="label dim" style="position:absolute;left:145px;top:91px">Level</div>
+    <div class="level on-paper" style="left:145px;top:115px;width:108px;height:66px;gap:6px">
+      <div class="seg"      style="height:12px"></div>
+      <div class="seg"      style="height:12px"></div>
+      <div class="seg"      style="height:12px"></div>
+      <div class="seg full" style="height:12px"></div>
+    </div>
+    <div class="chip label" style="left:145px;top:197px;width:80px;height:32px">Low</div>
+
+    <div class="btn" style="left:0;top:253px;width:266px;height:64px;border:none;border-top:3px solid var(--ink);background:transparent">
+      <svg class="mark" width="26" height="26" viewBox="0 0 48 48">
+        <path class="solid" d="M13 6 L22 20 A11 11 0 1 1 4 20 Z"/>
+        <rect x="30" y="7" width="15" height="34"/>
+      </svg>
+      <span class="label" style="letter-spacing:0.03em;white-space:nowrap">Strength &amp; face</span>
+    </div>
+  </div>
+
+  <!-- Settings — a 64px tab printed into the corner, never a bar slot -->
+  <div class="corner">
+    <svg class="mark" width="32" height="32" viewBox="0 0 48 48">
+      <path d="M4 16 H44"/><path d="M4 32 H44"/>
+      <rect class="solid" x="13" y="10" width="12" height="12"/>
+      <rect class="solid" x="27" y="26" width="12" height="12"/>
+    </svg>
+  </div>
+
+  <!-- ══ THE BAR — four destinations where the thumb arrives ══ -->
+  <div class="bar">
+    <div class="dest on">
+      <svg class="mark" width="40" height="40" viewBox="0 0 48 48">
+        <rect class="solid" x="5" y="7" width="15" height="34"/>
+        <rect x="27" y="7" width="16" height="34"/>
+      </svg>
+      <span class="label">Choose</span>
+    </div>
+    <div class="dest">
+      <svg class="mark" width="40" height="40" viewBox="0 0 48 48">
+        <path class="solid" d="M24 4 L35 21 A13 13 0 1 1 13 21 Z"/>
+        <path d="M6 45 H42"/>
+      </svg>
+      <span class="label">Prime</span>
+    </div>
+    <div class="dest">
+      <svg class="mark" width="40" height="40" viewBox="0 0 48 48">
+        <path d="M5 7 H43 L28 27 V43 H20 V27 Z"/>
+      </svg>
+      <span class="label">Fill</span>
+    </div>
+    <div class="dest">
+      <svg class="mark" width="40" height="40" viewBox="0 0 48 48">
+        <path d="M24 3 V13"/>
+        <path d="M9 17 H39 V44 H9 Z"/>
+        <path d="M12 32 q7 -8 14 0 t13 -1"/>
+      </svg>
+      <span class="label">Clean</span>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

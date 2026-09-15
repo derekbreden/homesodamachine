@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Choose — Enamel Plate</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="screen">
+
+  <!-- ── The rail: one cobalt slab, four compartments, cream rules ──────── -->
+  <div class="rail">
+    <div class="gear">
+      <svg width="34" height="34" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="butt" stroke-linejoin="miter">
+        <path d="M6 13 H42"/><path d="M6 24 H42"/><path d="M6 35 H42"/><rect x="12" y="8" width="10" height="10" fill="currentColor" stroke="none"/><rect x="28" y="19" width="10" height="10" fill="currentColor" stroke="none"/><rect x="18" y="30" width="10" height="10" fill="currentColor" stroke="none"/>
+      </svg>
+    </div>
+    <div class="rail-nav">
+      <div class="rail-item on">
+        <svg width="36" height="36" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="miter">
+          <rect x="7" y="7" width="15" height="34" fill="currentColor"/><rect x="28" y="7" width="13" height="34"/>
+        </svg>
+        <div class="legend">CHOOSE</div>
+      </div>
+      <div class="rail-item svc">
+        <svg width="36" height="36" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="miter">
+          <path d="M24 6 C24 6 11 21 11 30 A13 13 0 0 0 37 30 C37 21 24 6 24 6 Z"/>
+        </svg>
+        <div class="legend">PRIME</div>
+      </div>
+      <div class="rail-item svc">
+        <svg width="36" height="36" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="miter">
+          <path d="M7 9 H41 L28 25 V39 L20 34 V25 Z"/>
+        </svg>
+        <div class="legend">FILL</div>
+      </div>
+      <div class="rail-item svc">
+        <svg width="36" height="36" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="miter">
+          <path d="M30.34 10.41 A15 15 0 1 1 17.66 10.41"/><path d="M23.10 7.87 L17.97 15.79 L13.73 6.73 Z" fill="currentColor" stroke="none"/>
+        </svg>
+        <div class="legend">CLEAN</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── The pane. No pressed state is drawn on this screen: the one thing
+       Choose has to say is which flavor is armed, and a second cobalt field
+       anywhere on it would argue with that. ─────────────────────────────── -->
+  <div class="pagename name">Choose a flavor</div>
+  <div class="datum"></div>
+
+  <!-- Armed: cobalt ground, cream keyline, red bar inlaid down the west edge -->
+  <div class="fcard a armed">
+    <div class="stripe"></div>
+    <div class="fr crm"><img src="../../assets/flavor_1.png" width="129" height="240" alt=""></div>
+    <div class="col">
+      <div class="legend t-dimb r-lab">Ratio</div>
+      <div class="num28 r-val">1:20</div>
+      <div class="legend t-dimb l-lab">Level</div>
+      <div class="gauge">
+        <i class="g-on-blue"></i><i class="g-on-blue"></i><i class="g-on-blue"></i><i class="g-off-blue"></i>
+      </div>
+      <div class="read"></div>
+    </div>
+  </div>
+
+  <!-- Not armed: cream ground, cobalt keyline, the stripe slot left empty -->
+  <div class="fcard b idle">
+    <div class="fr cob"><img src="../../assets/flavor_2.png" width="129" height="240" alt=""></div>
+    <div class="col">
+      <div class="legend t-dim r-lab">Ratio</div>
+      <div class="num28 t-blue r-val">1:14</div>
+      <div class="legend t-dim l-lab">Level</div>
+      <div class="gauge">
+        <i class="g-on-cream"></i><i class="g-off-cream"></i><i class="g-off-cream"></i><i class="g-off-cream"></i>
+      </div>
+      <div class="read low"><span class="legend t-cream">Low</span></div>
+    </div>
+  </div>
+
+  <div class="door a chip">
+    <span class="legend">Strength &amp; face</span>
+    <svg width="18" height="18" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="miter"><path d="M18 9 L33 24 L18 39"/></svg>
+  </div>
+
+  <div class="door b chip">
+    <span class="legend">Strength &amp; face</span>
+    <svg width="18" height="18" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="miter"><path d="M18 9 L33 24 L18 39"/></svg>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,198 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600&family=Roboto+Mono:wght@500&display=swap');
+
+/* ══════════════════════════════════════════════════════════════════════════
+   process-line — there is a real fluid path behind this glass.
+   Cold line, carbonator, two channel pumps, valves, faucet. Every page
+   carries the plant mimic; a selection is a valve that is actually shut.
+
+   One grid, every page:  top band 4..64 (mimic)  ·  name band 64..136
+                          body 148..462          ·  rail floor 462
+   Type ladder: caps 16 / 20 / 26 / 40 · mono 20 / 28 / 44 / 56
+   ══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  --bg:  #0e1417;   /* graphite ground                                    */
+  --sf:  #182126;   /* page body panel                                    */
+  --alt: #222d33;   /* well, closed valve, unlit leg plate                */
+  --ac:  #2fb7c8;   /* THE OPEN PATH, and only the open path              */
+  --sec: #7d8c94;   /* pipe and vessel line work                          */
+  --tx:  #e7eff2;
+  --dm:  #93a4ac;
+  --gd:  #4cbf72;   /* a reed closed, a level proved                      */
+  --gdk: #1f3b30;   /* the same green as a body of liquid, not a state    */
+  --gdl: #2f6b52;   /* its surface                                        */
+  --wn:  #f0a02a;   /* level low, refusal                                 */
+}
+
+* { box-sizing: border-box; }
+
+html, body { margin: 0; width: 800px; height: 480px; overflow: hidden; }
+
+body {
+  background: var(--bg);
+  color: var(--tx);
+  font-family: "Barlow Semi Condensed", "Roboto Condensed", "Helvetica Neue", Arial, sans-serif;
+  font-weight: 500;
+  -webkit-font-smoothing: antialiased;
+}
+
+.screen { position: relative; width: 800px; height: 480px; overflow: hidden; }
+.abs { position: absolute; }
+
+/* ── Type ──────────────────────────────────────────────────────────────── */
+.cap   { font-weight: 600; letter-spacing: .06em; text-transform: uppercase; line-height: 1;
+         white-space: nowrap; }
+.num   { font-family: "Roboto Mono", "DejaVu Sans Mono", monospace; font-weight: 500;
+         line-height: 1; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.dm    { color: var(--dm); }
+.sec   { color: var(--sec); }
+.ac    { color: var(--ac); }
+.wn    { color: var(--wn); }
+.gd    { color: var(--gd); }
+.tx    { color: var(--tx); }
+
+/* ── Line work. One vocabulary for every drawing on the panel. ─────────── */
+.pipe   { fill: none; stroke: var(--sec); stroke-width: 2;   stroke-linecap: round; stroke-linejoin: round; }
+.pipe3  { fill: none; stroke: var(--sec); stroke-width: 3;   stroke-linecap: round; stroke-linejoin: round; }
+.flow   { fill: none; stroke: var(--ac);  stroke-width: 5;   stroke-linecap: round; stroke-linejoin: round; }
+.chev   { fill: none; stroke: var(--bg);  stroke-width: 3;   stroke-linecap: round; stroke-linejoin: round; }
+.vessel { fill: none; stroke: var(--sec); stroke-width: 3;   stroke-linejoin: round; }
+.node   { fill: var(--sec); stroke: none; }
+.nodeon { fill: var(--ac);  stroke: none; }
+.shut   { fill: var(--sec); stroke: none; }
+.mk     { fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.mkf    { fill: currentColor; stroke: none; }
+
+/* ── The rail, re-read as the trunk ────────────────────────────────────── */
+.rail-svg { position: absolute; left: 0; top: 0; }
+.plate {
+  position: absolute; left: 8px; width: 142px;
+  background: transparent; color: var(--sec);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.plate .w { font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
+            font-size: 20px; line-height: 1; margin-top: 14px; white-space: nowrap; }
+.plate.on { background: var(--alt); color: var(--tx); }
+.railgroup { position: absolute; left: 8px; font-weight: 600; font-size: 16px;
+             letter-spacing: .18em; text-transform: uppercase; color: var(--sec);
+             line-height: 1; }
+
+/* ── The mimic strip: 610×64, identical furniture, never the same state ── */
+.strip { position: absolute; left: 190px; top: 0; width: 610px; height: 64px; }
+.chip {
+  position: absolute; border: 2px solid var(--sec); border-radius: 3px;
+  padding: 2px; background: var(--bg);
+}
+.chip.lit { border-color: var(--ac); }
+.chip img { display: block; height: 20px; aspect-ratio: 43/80; object-fit: cover; }
+
+.gearsq {
+  position: absolute; left: 538px; top: 4px; width: 56px; height: 56px;
+  border: 2px solid var(--sec); border-radius: 3px; color: var(--sec);
+  display: flex; align-items: center; justify-content: center;
+}
+.gearsq.on { border-color: var(--ac); color: var(--ac); background: var(--alt); }
+
+/* ── Name band ─────────────────────────────────────────────────────────── */
+.pagename { position: absolute; top: 91px; font-weight: 600; font-size: 26px;
+            letter-spacing: .07em; text-transform: uppercase; color: var(--dm);
+            line-height: 1; white-space: nowrap; }
+.back {
+  position: absolute; left: 206px; top: 72px; width: 120px; height: 64px;
+  border: 2px solid var(--alt); border-radius: 3px; color: var(--dm);
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+}
+.back .w { font-weight: 600; font-size: 20px; letter-spacing: .06em; text-transform: uppercase; }
+
+/* ── A vessel with a face in it. The picture is the liquid in the tank. ── */
+.tank {
+  position: absolute; border: 3px solid var(--sec); border-radius: 4px;
+  padding: 4px; background: var(--bg); line-height: 0;
+}
+.tank img { display: block; height: 100%; aspect-ratio: 43/80; object-fit: cover; }
+.tank.dimmed img { filter: saturate(.28) brightness(.5); }
+.level { position: absolute; height: 3px; }
+.level.gd { background: var(--gd); }
+.level.wn { background: var(--wn); }
+
+/* ── The station gauge: the same four reeds Settings draws ─────────────── */
+.gauge { position: absolute; width: 12px; display: flex; flex-direction: column; gap: 4px; }
+.gauge i { flex: 1; background: var(--alt); box-shadow: inset 0 0 0 1px var(--sec); }
+.gauge i.on  { background: var(--gd); box-shadow: none; }
+.gauge i.low { background: var(--wn); box-shadow: none; }
+
+/* ── Choose cards ──────────────────────────────────────────────────────── */
+.card {
+  position: absolute; width: 281px; background: transparent;
+  outline: 2px solid var(--alt); outline-offset: -2px;
+}
+.card.sel { background: var(--sf); outline: none; }
+.card.sel::before {
+  content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 6px;
+  background: var(--ac);
+}
+
+/* ── A target. Nothing a thumb must hit is under 64 px. ────────────────── */
+.target {
+  position: absolute; border: 2px solid #39474e; border-radius: 3px;
+  color: var(--dm); display: flex; align-items: center; justify-content: center; gap: 10px;
+}
+.target .w { font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
+             font-size: 20px; line-height: 1; white-space: nowrap; }
+
+/* ── Press: a white rim. Cyan means open path, amber means refusal, and a
+      white rim means your finger is on it. Three jobs, three devices. ──── */
+.press { background: var(--alt); box-shadow: inset 0 0 0 3px var(--tx); color: var(--tx); }
+.press.card { outline: none; }
+
+/* ── Steppers ──────────────────────────────────────────────────────────── */
+.step {
+  position: absolute; width: 88px; height: 76px; border: 2px solid var(--sec);
+  border-radius: 3px; color: var(--tx);
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* ── The face row: eight faces hung off a pipe ─────────────────────────── */
+.rowport { position: absolute; overflow: hidden; }
+.rowinner { position: absolute; top: 0; left: 0; display: flex; gap: 10px; }
+.rowitem { position: relative; width: 86px; height: 170px; }
+.rowitem .stub { position: absolute; left: 42px; top: 0; width: 2px; height: 10px; background: var(--sec); }
+.rowitem.pick .stub { left: 40.5px; width: 5px; background: var(--ac); }
+.rowitem img { position: absolute; top: 10px; left: 0; width: 86px; height: 160px; object-fit: cover; display: block; }
+.rowitem.pick img { outline: 4px solid var(--ac); outline-offset: -2px; }
+.rowbar { position: absolute; height: 8px; background: var(--alt); }
+.rowbar i { position: absolute; top: 0; height: 8px; background: var(--ac); }
+.rowarrow {
+  position: absolute; width: 48px; border: 2px solid var(--sec); border-radius: 3px;
+  color: var(--sec); display: flex; align-items: center; justify-content: center;
+}
+
+/* ── Lock ──────────────────────────────────────────────────────────────── */
+.hatch {
+  position: absolute; left: 0; width: 800px; height: 12px;
+  background: repeating-linear-gradient(-45deg, var(--sec) 0 6px, var(--bg) 6px 15px);
+}
+.ladder { position: absolute; display: flex; }
+.lbox {
+  width: 40px; height: 36px; border: 2px solid var(--sec); border-radius: 3px;
+  color: var(--sec); display: flex; align-items: center; justify-content: center;
+  font-weight: 600; font-size: 15px; letter-spacing: .06em;
+}
+.lbox.now { background: var(--ac); border-color: var(--ac); color: var(--bg); }
+.prog { position: absolute; height: 8px; background: var(--alt); }
+.prog i { position: absolute; left: 0; top: 0; height: 8px; background: var(--ac); }
+.stop {
+  position: absolute; border: 4px solid var(--wn); border-radius: 3px;
+  background: var(--sf); color: var(--wn);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 600; font-size: 44px; letter-spacing: .14em;
+}
+
+/* ── Settings ──────────────────────────────────────────────────────────── */
+.legend { position: absolute; display: flex; align-items: center; gap: 12px; }
+.legend b { display: block; width: 28px; height: 14px; border-radius: 2px; }
+.legend b.cl { background: var(--gd); }
+.legend b.op { background: var(--bg); box-shadow: inset 0 0 0 3px var(--sec); }
+.legend span { font-weight: 600; font-size: 20px; letter-spacing: .06em;
+               text-transform: uppercase; color: var(--dm); white-space: nowrap; }
+.hr { position: absolute; height: 2px; background: var(--alt); }

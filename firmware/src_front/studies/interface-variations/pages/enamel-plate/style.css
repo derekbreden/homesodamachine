@@ -1,0 +1,215 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;800&display=swap');
+
+/* ──────────────────────────────────────────────────────────────────────────
+   ENAMEL PLATE — the panel as a piece of enamelware.
+   A cream field bounded by hard cobalt ink. Everything is either printed on
+   the enamel or is a chip of colour laid into it. Flat fills only, hard
+   edges (radius 6), single-weight 4px marks.
+
+   Two materials carry press-ability, and only these:
+     · a CHIP  — cream ground, 2px cobalt keyline — is a thing you press.
+     · a FIELD — recess #e2d9c6, no keyline — is a thing you read.
+   Pressing trades a chip's ground for its ink. Nothing moves, nothing scales.
+
+   One floor: every pane lands its last object on y 456.
+   One datum: the rail's first rule, the pane's rule and the Settings chip's
+   bottom edge all land on y 76.
+   ────────────────────────────────────────────────────────────────────────── */
+
+:root {
+  --cream:       #f2ece0;  /* the enamel ground */
+  --chip:        #fbf7ef;  /* the whiter chip a card is struck from */
+  --recess:      #e2d9c6;  /* a field you read, never press */
+  --red:         #c8102e;  /* enamel red — the armed stripe and the cycle ONLY */
+  --cobalt:      #18458f;  /* rail slab, keylines, masthead, armed ground */
+  --ink:         #16233b;
+  --dim:         #6d7a90;
+  --dim-on-blue: #aebbd0;  /* the dim tier, knocked back on cobalt */
+  --good:        #2f7d55;
+  --warn:        #d8862a;  /* one job: a reading that is low */
+}
+
+html, body { margin: 0; width: 800px; height: 480px; overflow: hidden; }
+
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 500;
+  -webkit-font-smoothing: antialiased;
+}
+
+.screen { position: relative; width: 800px; height: 480px; overflow: hidden; }
+
+/* ── Four sizes, and the hierarchy is carried by weight, not by colour. ─── */
+.legend {                      /* captions, labels, legends */
+  font-weight: 600; font-size: 20px; line-height: 20px;
+  letter-spacing: 0.08em; text-transform: uppercase;
+}
+.name {                        /* the page's own name */
+  font-weight: 800; font-size: 28px; line-height: 28px;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--cobalt);
+}
+.num28 { font-weight: 800; font-size: 28px; line-height: 28px; letter-spacing: 0.01em; }
+.num44 { text-transform: uppercase; font-weight: 800; font-size: 44px; line-height: 44px; letter-spacing: 0.01em; }
+.num64 { text-transform: uppercase; font-weight: 800; font-size: 64px; line-height: 64px; letter-spacing: 0.01em; }
+/* tracked caps hang 1.6px left of a right edge; pull them back on */
+.ra { text-align: right; margin-right: -1.6px; }
+
+.t-dim  { color: var(--dim); }
+.t-blue { color: var(--cobalt); }
+.t-warn { color: var(--warn); }
+.t-cream{ color: var(--cream); }
+.t-dimb { color: var(--dim-on-blue); }
+
+/* ── The rail: one full-bleed cobalt slab, four compartments, cream rules ── */
+.rail { position: absolute; left: 0; top: 0; width: 190px; height: 480px; background: var(--cobalt); }
+.rail-nav { position: absolute; left: 0; top: 76px; width: 190px; height: 404px; }
+.rail-item {
+  position: relative; width: 190px; height: 101px; box-sizing: border-box;
+  border-top: 2px solid var(--cream);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 7px; color: var(--cream);
+}
+.rail-item.on { background: var(--cream); color: var(--cobalt); }
+.rail-item .legend { font-size: 20px; }
+.rail-item.svc    { color: var(--dim-on-blue); }   /* maintenance is not a peer of CHOOSE */
+.rail-item.svc.on { color: var(--cobalt); }
+
+/* The Settings chip — struck into the slab's top-right corner, and kept a
+   grade quieter than a rail compartment: it is ink on cobalt, not a cream
+   chip, so "cream ground" goes on meaning one thing only — you are here. */
+.gear {
+  position: absolute; left: 114px; top: 12px; width: 64px; height: 64px;
+  box-sizing: border-box; border-radius: 6px;
+  background: var(--cobalt); color: var(--cream);
+  box-shadow: inset 0 0 0 3px var(--cream);
+  display: grid; place-items: center;
+}
+.gear.on { background: var(--cream); color: var(--cobalt); box-shadow: none; }
+
+/* ── The pane ───────────────────────────────────────────────────────────── */
+.pagename { position: absolute; left: 206px; top: 40px; }
+.datum    { position: absolute; left: 206px; top: 76px; width: 578px; height: 3px; background: var(--cobalt); }
+
+/* ── Chips (pressable) and fields (not) ─────────────────────────────────── */
+.chip {
+  box-sizing: border-box; border-radius: 6px; background: var(--chip);
+  box-shadow: inset 0 0 0 2px var(--cobalt); color: var(--cobalt);
+}
+.field { box-sizing: border-box; border-radius: 6px; background: var(--recess); color: var(--ink); }
+.plate { box-sizing: border-box; border-radius: 6px; background: var(--chip); box-shadow: inset 0 0 0 2px var(--cobalt); }
+
+/* The press device: a chip's ground and its ink trade places. */
+.pressed { background: var(--cobalt); color: var(--cream); box-shadow: inset 0 0 0 2px var(--cobalt); }
+
+.back {
+  position: absolute; left: 640px; top: 12px; width: 144px; height: 64px;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+}
+
+/* ── Faces. 43:80, never cropped square, never tinted. The keyline is a rim
+      the face sits inside, so the rim — not the picture — is what lands on
+      the page's datums. ─────────────────────────────────────────────────── */
+.fr { display: block; box-sizing: border-box; padding: 4px; }
+.fr img { display: block; object-fit: cover; background: var(--recess); }
+.fr.cob  { background: var(--cobalt); }
+.fr.crm  { background: var(--cream); }
+.fr.thin { padding: 2px; background: var(--dim); }
+
+/* ══ CHOOSE ═════════════════════════════════════════════════════════════ */
+/* Both cards are the same rect at the same coordinates. Only the ground
+   changes material: armed is cobalt, idle is cream. Thresholded from two
+   metres one is black and the other is white. */
+.fcard { position: absolute; top: 92px; width: 281px; height: 292px; box-sizing: border-box; border-radius: 6px; }
+.fcard.a { left: 206px; }
+.fcard.b { left: 503px; }
+.fcard.armed { background: var(--cobalt); box-shadow: inset 0 0 0 3px var(--cream); color: var(--cream); }
+.fcard.idle  { background: var(--chip);   box-shadow: inset 0 0 0 2px var(--cobalt); color: var(--ink); }
+/* the 12px enamel-red bar inlaid down the armed card's full west edge */
+.stripe { position: absolute; left: 3px; top: 3px; width: 12px; height: 286px; background: var(--red); border-radius: 3px 0 0 3px; }
+
+.fcard .fr  { position: absolute; left: 31px; top: 22px; width: 137px; height: 248px; }
+.fcard .col { position: absolute; left: 182px; top: 22px; width: 83px; height: 248px; }
+.col .r-lab { position: absolute; top: 0; }
+.col .r-val { position: absolute; top: 26px; }
+.col .l-lab { position: absolute; top: 102px; }
+.col .gauge { position: absolute; top: 130px; }
+.col .read  { position: absolute; top: 220px; width: 83px; height: 28px; border-radius: 3px; }
+
+.gauge { display: flex; flex-direction: column-reverse; gap: 6px; }
+.gauge i { display: block; width: 83px; height: 16px; border-radius: 3px; box-sizing: border-box; }
+.g-on-blue   { background: var(--cream); }
+.g-off-blue  { box-shadow: inset 0 0 0 3px var(--dim-on-blue); }
+.g-on-cream  { background: var(--cobalt); }
+.g-off-cream { box-shadow: inset 0 0 0 3px var(--dim); }
+.read.low { background: var(--warn); display: grid; place-items: center; }
+
+.door { position: absolute; top: 396px; width: 281px; height: 60px; display: flex; align-items: center; justify-content: center; gap: 12px; }
+.door.a { left: 206px; }
+.door.b { left: 503px; }
+
+/* ══ A FLAVOR'S OWN PAGE ════════════════════════════════════════════════ */
+/* West column 128 → 456. East column 128 → 456. One top, one floor. */
+.anchor { position: absolute; left: 206px; top: 128px; width: 180px; height: 328px; }
+
+.ratio    { position: absolute; left: 396px; top: 128px; width: 388px; height: 108px; }
+.ratioval { position: absolute; left: 396px; top: 128px; width: 388px; height: 108px;
+            display: grid; place-items: center; color: var(--cobalt); }
+.step     { position: absolute; top: 144px; width: 76px; height: 76px;
+            display: grid; place-items: center; }
+.step.minus { left: 412px; }
+.step.plus  { left: 692px; }
+
+.arrow    { position: absolute; top: 280px; width: 64px; height: 168px; display: grid; place-items: center; }
+.arrow.l  { left: 396px; }
+.arrow.r  { left: 720px; }
+.stripwin { position: absolute; left: 468px; top: 280px; width: 244px; height: 168px; overflow: hidden; }
+.strip    { position: absolute; left: -146px; top: 0; display: flex; gap: 4px; }
+.cell     { flex: 0 0 auto; width: 104px; height: 168px; display: grid; place-items: center; border-radius: 6px; }
+.cell.on  { background: var(--cobalt); }
+.track    { position: absolute; left: 396px; top: 448px; width: 388px; height: 8px; background: var(--recess); border-radius: 4px; }
+.track b  { position: absolute; left: 66px; top: 0; width: 110px; height: 8px; background: var(--cobalt); border-radius: 4px; }
+
+/* ══ PICK ═══════════════════════════════════════════════════════════════ */
+/* The card is the face's own shape: a cobalt band carrying the mark for what
+   is about to happen, and the face edge to edge under it inside the keyline.
+   Both channels are identical — neither is armed here, and the page must not
+   suggest one of them is. */
+.pick { position: absolute; top: 92px; width: 168px; height: 364px; box-sizing: border-box;
+        border: 3px solid var(--cobalt); border-radius: 6px; background: var(--chip); overflow: hidden; }
+.pick.one { left: 311px; }
+.pick.two { left: 511px; }
+.pick .hdr  { height: 56px; background: var(--cobalt); color: var(--cream); display: grid; place-items: center; }
+.pick .body { height: 302px; }
+.pick .body img { display: block; width: 162px; height: 302px; object-fit: cover; }
+
+/* ══ LOCK ═══════════════════════════════════════════════════════════════ */
+/* The one dark plate in the system. The whole panel inverting is what says
+   "withheld" before a word is read; a printed rim makes it a plate. */
+.lock { position: absolute; inset: 0; background: var(--cobalt); }
+.rim  { position: absolute; left: 16px; top: 16px; width: 768px; height: 448px;
+        box-sizing: border-box; border: 3px solid var(--cream); border-radius: 6px; }
+.timechip { position: absolute; left: 252px; top: 162px; height: 64px; padding: 0 22px;
+            background: var(--red); color: var(--cream); border-radius: 6px;
+            display: inline-flex; align-items: center; }
+.bar   { position: absolute; left: 252px; top: 288px; width: 508px; height: 18px; background: var(--cream); border-radius: 3px; overflow: hidden; }
+.bar u { position: absolute; left: 0; top: 0; width: 203px; height: 18px; background: var(--red); display: block; }
+.bar s { position: absolute; top: 0; width: 3px; height: 18px; background: var(--cobalt); display: block; }
+/* the only cream-filled object on the plate, so the way out is the most
+   findable thing on the screen */
+.stop  { position: absolute; left: 500px; top: 336px; width: 260px; height: 104px; border-radius: 6px;
+         background: var(--cream); color: var(--cobalt); display: grid; place-items: center; }
+.stop span { font-weight: 800; font-size: 40px; line-height: 40px; letter-spacing: 0.10em; }
+
+/* ══ SETTINGS ═══════════════════════════════════════════════════════════ */
+.status { position: absolute; left: 206px; top: 120px; width: 390px; height: 336px; }
+.area   { position: absolute; left: 612px; top: 120px; width: 172px; height: 160px;
+          display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+          text-align: center; }
+.area .legend { line-height: 24px; }
+.key    { position: absolute; left: 612px; top: 300px; width: 172px; height: 156px; }
+.key div { position: absolute; left: 20px; display: flex; gap: 12px; align-items: center; }
+.key .r1 { top: 42px; }
+.key .r2 { top: 94px; }
