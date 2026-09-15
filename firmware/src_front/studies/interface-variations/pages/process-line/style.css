@@ -127,7 +127,7 @@ body {
 
 /* ── A target ──────────────────────────────────────────────────────────── */
 .target {
-  position: absolute; border: 2px solid var(--alt); border-radius: 3px;
+  position: absolute; border: 2px solid #39474e; border-radius: 3px;
   color: var(--dm); display: flex; align-items: center; justify-content: center; gap: 10px;
 }
 .target .w { font-weight: 600; letter-spacing: .05em; text-transform: uppercase;

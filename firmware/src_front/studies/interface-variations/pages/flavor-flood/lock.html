@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Cleaning — Flavor Flood</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="screen">
+
+  <!-- ══ The flood IS the progress bar, 800px long. The edge is at 40%.
+       No track, no percentage, no bar furniture. The bottom bar is gone:
+       nothing else on the panel is reachable while this is up. ══ -->
+  <div class="lock-field"></div>
+
+  <div class="face" style="left:48px;top:24px;width:172px;height:320px">
+    <img src="../../assets/flavor_1.png" alt="">
+  </div>
+
+  <!-- busy, said without words -->
+  <div style="position:absolute;left:244px;top:36px;color:var(--paper)">
+    <svg class="mark" width="56" height="56" viewBox="0 0 48 48">
+      <path d="M24 3 V13"/>
+      <path d="M9 17 H39 V44 H9 Z"/>
+      <path d="M12 32 q7 -8 14 0 t13 -1"/>
+    </svg>
+  </div>
+
+  <div class="body" style="position:absolute;left:360px;top:34px">1 of 3 &nbsp;·&nbsp; water in</div>
+
+  <div class="loud loud-72" style="position:absolute;left:360px;top:70px">11 MIN</div>
+  <div class="loud loud-72" style="position:absolute;left:360px;top:146px">LEFT</div>
+
+  <!-- The one way out, and the most findable object on the paper side -->
+  <div class="btn filled" style="left:516px;top:252px;width:260px;height:88px;border:none">
+    <svg class="mark" width="26" height="26" viewBox="0 0 48 48">
+      <rect class="solid" x="8" y="8" width="32" height="32"/>
+    </svg>
+    <span class="label" style="font-size:24px">Stop</span>
+    <!-- PRESSED on this screen: an ink slab takes a 10px paper inset frame -->
+    <div class="pressed-frame"></div>
+  </div>
+
+  <!-- The headline crosses the split and changes colour at it -->
+  <div class="split-head loud loud-96" style="text-transform:uppercase">
+    <span class="on-colour">Cleaning</span>
+    <span class="on-paper">Cleaning</span>
+  </div>
+
+</div>
+</body>
+</html>

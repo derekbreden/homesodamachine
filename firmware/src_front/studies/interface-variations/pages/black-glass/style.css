@@ -64,6 +64,7 @@ body{
 .key{position:absolute;background:var(--surface);color:var(--text);
   display:flex;align-items:center;justify-content:center;gap:12px}
 .key svg{fill:none;stroke:var(--text);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;display:block}
+.key svg .solid{fill:currentColor;stroke:none}
 .key .kw{font-size:18px;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
 .key.off{color:var(--dim)}
 .key.off svg{stroke:var(--sec)}
@@ -88,7 +89,7 @@ body{
 .fcard.dim .lvl.warn{background:var(--warn)}
 
 .gear{position:absolute;left:720px;top:8px;width:64px;height:64px;display:flex;align-items:center;justify-content:center}
-.gear svg{fill:none;stroke:var(--sec);stroke-width:2;stroke-linejoin:round;display:block}
+.gear svg{fill:none;stroke:#414c50;stroke-width:2;stroke-linejoin:round;display:block}
 .gear.press{background:var(--dim)}
 .gear.press svg{stroke:var(--bg)}
 
