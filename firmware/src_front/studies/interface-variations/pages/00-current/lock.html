@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Operation lock — 00-current</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="screen">
+
+  <!-- ── The full-screen lock: nothing else on the panel is reachable.
+         One still frame of the 16-frame glass-and-bubbles loop. ── -->
+  <svg class="anim" viewBox="0 0 1024 1024" width="360" height="360" aria-hidden="true">
+    <defs>
+      <linearGradient id="liquid" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#e94560"/>
+        <stop offset="50%" stop-color="#c23373"/>
+        <stop offset="100%" stop-color="#7b2ff7"/>
+      </linearGradient>
+      <linearGradient id="glassHighlight" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="rgba(255,255,255,0.15)"/>
+        <stop offset="40%" stop-color="rgba(255,255,255,0)"/>
+      </linearGradient>
+      <radialGradient id="bubbleGlow">
+        <stop offset="0%" stop-color="rgba(255,255,255,0.5)"/>
+        <stop offset="100%" stop-color="rgba(255,255,255,0.1)"/>
+      </radialGradient>
+      <clipPath id="glassClip">
+        <path d="M310 247 L340 747 Q345 777 380 777 L644 777 Q679 777 684 747 L714 247 Z"/>
+      </clipPath>
+    </defs>
+
+    <rect width="1024" height="1024" fill="#1a1a2e"/>
+
+    <!-- Glass body — slightly tapered tumbler -->
+    <path d="M310 247 L340 747 Q345 777 380 777 L644 777 Q679 777 684 747 L714 247 Z"
+          fill="rgba(255,255,255,0.06)"
+          stroke="rgba(255,255,255,0.25)"
+          stroke-width="4"/>
+
+    <g clip-path="url(#glassClip)">
+      <path d="M300 347 Q400 327 512 352 Q624 377 724 342 L724 800 L300 800 Z" fill="url(#liquid)"/>
+      <path d="M300 347 Q400 327 512 352 Q624 377 724 342 L724 367 Q624 397 512 372 Q400 347 300 367 Z"
+            fill="rgba(255,255,255,0.12)"/>
+      <circle cx="440" cy="740" r="42" fill="url(#bubbleGlow)" stroke="rgba(255,255,255,0.2)" stroke-width="2.5"/>
+      <circle cx="572" cy="610" r="36" fill="url(#bubbleGlow)" stroke="rgba(255,255,255,0.2)" stroke-width="2.5"/>
+      <circle cx="500" cy="489" r="33" fill="url(#bubbleGlow)" stroke="rgba(255,255,255,0.18)" stroke-width="2"/>
+      <circle cx="628" cy="408" r="29" fill="url(#bubbleGlow)" stroke="rgba(255,255,255,0.18)" stroke-width="2"/>
+    </g>
+
+    <path d="M310 247 L714 247" stroke="rgba(255,255,255,0.35)" stroke-width="5" stroke-linecap="round"/>
+    <path d="M314 257 L342 737" stroke="rgba(255,255,255,0.1)" stroke-width="8" stroke-linecap="round"/>
+    <path d="M310 247 L340 747 Q345 777 380 777 L644 777 Q679 777 684 747 L714 247 Z"
+          fill="url(#glassHighlight)"/>
+  </svg>
+
+  <!-- ── The modal names the reason ── -->
+  <div class="modal">
+    <div class="cc">
+      <img class="lock-face" src="../../assets/flavor_1.png" alt="">
+      <div class="abs t20 accent" style="left:102px;top:0">11 MIN LEFT</div>
+      <div class="abs t40"        style="left:102px;top:30px">Cleaning</div>
+      <div class="lock-bar"><i style="width:97px"></i></div>
+      <div class="abs t20 dim"    style="left:102px;top:106px">1 of 3 &bull; water in</div>
+      <div class="stop mid t20">STOP</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
