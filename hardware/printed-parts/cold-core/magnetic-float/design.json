@@ -5,13 +5,15 @@
     "bore": 6.0,
     "petg_skin": 1.0,
     "insert_height": 10.0,
-    "insert_top": 48.8,
-    "insert_bottom": 38.8,
-    "magnet_seat": 35.199999999999996,
+    "insert_top": 49.0,
+    "insert_bottom": 39.0,
+    "magnet_seat": 35.825,
     "roof_bottom": 49.0,
-    "magnet_pocket_od": 19.55,
-    "magnet_pocket_id": 9.025,
-    "magnet_pocket_height": 3.6
+    "magnet_pocket_od": 19.05,
+    "magnet_pocket_id": 9.525,
+    "magnet_pocket_height": 3.175,
+    "insert_od": 26.0,
+    "insert_id": 8.0
   },
   "magnet": {
     "model": "K&J RC62",
@@ -23,13 +25,9 @@
     "source": "https://www.kjmagnetics.com/rc62-neodymium-ring-magnet"
   },
   "volume_cc": {
-    "body-petg": 6.309667585113713,
-    "body-aero": 17.318731059823186,
-    "insert-petg": 1.652290823183159,
-    "insert-aero": 2.792750205335183,
-    "insert-loose-petg": 1.529322292005144,
-    "insert-loose-aero": 2.752459279552893,
-    "turning-key": 0.43688495559215385,
+    "body-petg": 6.302034863101127,
+    "body-aero": 17.586508771633042,
+    "insert-aero": 4.806636759992383,
     "magnet": 0.6787109163380148
   },
   "water_displacement_g": 29.37389131106457,
@@ -37,44 +35,48 @@
   "buoyancy": [
     {
       "aero_density_g_cc": 0.42,
-      "assembled_mass_g": 23.489270141737602,
-      "reserve_lift_g": 5.884621169326966,
-      "upright_freeboard_mm": 10.016754516808511
+      "assembled_mass_g": 22.37266470215909,
+      "reserve_lift_g": 7.00122660890548,
+      "upright_freeboard_mm": 11.917431256832245
     },
     {
       "aero_density_g_cc": 0.45,
-      "assembled_mass_g": 24.092614579692356,
-      "reserve_lift_g": 5.281276731372213,
-      "upright_freeboard_mm": 8.989746498760379
+      "assembled_mass_g": 23.04445906810785,
+      "reserve_lift_g": 6.329432242956717,
+      "upright_freeboard_mm": 10.773908325473622
     },
     {
       "aero_density_g_cc": 0.55,
-      "assembled_mass_g": 26.10376270620819,
-      "reserve_lift_g": 3.270128604856378,
-      "upright_freeboard_mm": 5.566386438599957
+      "assembled_mass_g": 25.283773621270395,
+      "reserve_lift_g": 4.090117689794173,
+      "upright_freeboard_mm": 6.962165220944877
     },
     {
       "aero_density_g_cc": 0.6,
-      "assembled_mass_g": 27.109336769466108,
-      "reserve_lift_g": 2.2645545415984607,
-      "upright_freeboard_mm": 3.8547064085197444
+      "assembled_mass_g": 26.403430897851663,
+      "reserve_lift_g": 2.970460413212905,
+      "upright_freeboard_mm": 5.056293668680511
     },
     {
       "aero_density_g_cc": 0.65,
-      "assembled_mass_g": 28.11491083272403,
-      "reserve_lift_g": 1.2589804783405398,
-      "upright_freeboard_mm": 2.143026378439527
+      "assembled_mass_g": 27.523088174432935,
+      "reserve_lift_g": 1.850803136631633,
+      "upright_freeboard_mm": 3.1504221164161383
     },
     {
       "aero_density_g_cc": 0.7,
-      "assembled_mass_g": 29.120484895981946,
-      "reserve_lift_g": 0.2534064150826225,
-      "upright_freeboard_mm": 0.4313463483593154
+      "assembled_mass_g": 28.642745451014203,
+      "reserve_lift_g": 0.7311458600503649,
+      "upright_freeboard_mm": 1.244550564151772
     }
   ],
-  "neutral_aero_density_g_cc": 0.7126000870717379,
-  "assembly_clearance_volume_cc": 0.621740721271313,
-  "lock_rotation_degrees": 90.0,
-  "minimum_magnet_top_to_roof_bottom_mm": 10.000000000000004,
+  "neutral_aero_density_g_cc": 0.7326504313124647,
+  "nominal_unfilled_volume_cc": 0.0,
+  "insert_print_fit_allowances_radial_mm": [
+    0.05,
+    0.1
+  ],
+  "minimum_seated_magnet_top_to_roof_bottom_mm": 9.9,
+  "fit": "Nominal mating faces touch. The slicer enlarges the Aero insert outer contour and reduces its bore by the radial fit allowance. Magnet tolerance is taken in the Aero pocket.",
   "pressure_rating": "Unqualified prototype; no hydrostatic test recorded."
 }

@@ -1,7 +1,8 @@
 # Magnetic float
 
-An RC62 ring magnet inside a continuous PETG Translucent Clear envelope, with a
-solid-print PLA Aero interior. This is a bench prototype for float and reed tests.
+An RC62 ring magnet inside a continuous PETG Translucent Clear envelope, backed
+by PLA Aero. A plain Aero ring is pressed into the body before the roof prints.
+This is a bench float and reed test article.
 
 [Bambu Studio project](magnetic-float.3mf) · [CadQuery source](magnetic_float.py) ·
 [Assembly](/3d?file=printed-parts/cold-core/magnetic-float/magnetic-float.step) ·
@@ -10,7 +11,7 @@ solid-print PLA Aero interior. This is a bench prototype for float and reed test
 
 In `/3d`, open **Enclosure assembly**, select an existing float (`float-carb`,
 `float-a` or `float-b`) with **Select → Component**, then choose **Open magnetic-float**.
-**Beside it** offers the section, exploded view, separate materials, inserts and turning key.
+**Beside it** offers the section, exploded view and individual materials.
 
 ## Geometry
 
@@ -20,113 +21,102 @@ In `/3d`, open **Enclosure assembly**, select an existing float (`float-carb`,
 | Finished height | [50 mm](FLOAT_HEIGHT) |
 | Open guide bore | [6 mm](FLOAT_BORE) |
 | PETG outer wall, bore lining, floor and roof | [1 mm](FLOAT_SKIN) each |
-| Aero insert height | [10 mm](INSERT_HEIGHT) |
-| RC62 magnet | [19.05 × 9.525 × 3.175 mm](MAGNET_SIZE), OD × ID × thickness |
-| Magnet pocket | [19.55 × 9.025 × 3.6 mm](MAGNET_POCKET), OD × ID × depth |
-| Magnet seat above finished bottom | [35.2 mm](MAGNET_SEAT) |
-| Insert bottom / top | [38.8 / 48.8 mm](INSERT_STATIONS) |
+| Seated Aero insert, OD × ID × height | [26 × 8 × 10 mm](INSERT_SIZE) |
+| RC62 magnet, OD × ID × thickness | [19.05 × 9.525 × 3.175 mm](MAGNET_SIZE) |
+| Magnet seat above finished bottom | [35.825 mm](MAGNET_SEAT) |
+| Insert bottom / top | [39 / 49 mm](INSERT_STATIONS) |
 | PETG roof underside | [49 mm](ROOF_BOTTOM) |
+| Nominal unfilled internal volume | [0.000 cm³](UNFILLED_VOLUME) |
 | Water displacement, fully submerged | [29.37 g](DISPLACEMENT) |
 
-The PETG insert collar has two entry slots, two bayonet grooves, and two sockets
-for the plastic turning key. The Aero is captured between the collar's upper and
-lower inward lips. The collar locks under two lugs inside the outer shell. All
-retaining features stand inside the full PETG sealing envelope.
+The assembled CAD fills the space between the PETG skin and magnet with Aero.
+The insert meets the body core, outer wall, bore lining and roof. The guide bore
+is open through the float and carries water. Foamed material contains pores;
+printed surfaces and manufacturing tolerances determine the actual contact.
 
-The nominal insert has [0.2 mm](INSERT_RADIAL_CLEARANCE) radial clearance. The spare
-has [0.35 mm](LOOSE_RADIAL_CLEARANCE). The insert's top stands
-[0.2 mm](INSERT_ROOF_CLEARANCE) below the roof underside; its upward travel stops
-at that underside. Assembly clearances occupy [0.622 cm³](ASSEMBLY_CLEARANCE).
-The Aero regions print at 100% infill, with foamed material occupying the core.
+The Aero insert uses a press fit. The two copies on plate 1 have slicer radial
+allowances of [0.05 / 0.1 mm](FIT_ALLOWANCES): contour expansion and bore reduction.
+The nominal CAD and STL show the seated dimensions. The print targets are
+26.10 / 7.90 mm OD / ID and 26.20 / 7.80 mm for the snugger spare.
+The magnet pocket follows the nominal magnet; its ±0.1 mm dimensional tolerance
+is taken in the Aero surrounding it, clear of the PETG skin.
 
 ## Print and assemble
 
-The project contains two plates, with PETG assigned to the **left 0.4 mm standard
-flow nozzle** and PLA Aero to the **right 0.4 mm standard flow nozzle**. Both
-materials print at 250 °C on textured PEI at 65 °C. PETG uses 0.97 flow; Aero uses
-0.38. The layer height is 0.2 mm. Supports are disabled; the separate insert
-supports the sealing roof. The project includes a prime tower and adhesion brims.
+The project assigns PETG to the **left 0.4 mm standard flow nozzle** and PLA Aero
+to the **right 0.4 mm standard flow nozzle**. Both print at 250 °C on textured PEI
+at 65 °C. PETG uses 0.97 flow; Aero uses 0.38. Layers are 0.2 mm. The Aero regions
+use 100% infill. The insert supports the sealing roof.
 
 1. Load dry PETG Translucent Clear and PLA Aero into their assigned feeds. Keep
    the chamber ventilated for the Aero. Open `magnetic-float.3mf` in Bambu Studio.
-2. Print **plate 1 — Inserts and turning key**. It holds the nominal insert, the
-   spare with looser clearance, and the plastic key. Keep the same materials and
-   nozzles loaded for plate 2.
-3. Print **plate 2 — Float**. The stored pause occurs before the layer at
-   [49.2 mm](PAUSE_LAYER). The body and open magnet pocket remain on the bed.
-4. Lower one RC62 over the central tube into its pocket. Align the insert's two
-   outside slots with the body's two lugs and lower the insert onto its seat.
-   Engage the plastic key in the two top sockets. Turn **counterclockwise by
-   [90°](LOCK_ANGLE), viewed from above**, to the groove stops. The spare fits the
-   same body if the nominal insert is tight.
-5. Remove the key. The insert sits below the body's top rim and is captured
-   against lifting. Resume. The remaining [5 layers](ROOF_LAYERS) close the
-   PETG roof onto the outside wall and bore lining.
+2. Print **plate 1 — Aero inserts**. It holds the insert and snugger spare. Keep
+   the materials and nozzles loaded for plate 2.
+3. Print **plate 2 — Float**. It pauses before the layer at [49.2 mm](PAUSE_LAYER).
+4. Seat one RC62 in the Aero pocket. Press the insert down evenly until its top
+   is flush with the printed PETG rim. The snugger spare is on the first plate
+   if the first insert is loose. Retention comes from the fit: the insert needs
+   to stay seated without a hand holding it when the printer resumes.
+5. Resume. The remaining [5 layers](ROOF_LAYERS) form the PETG roof, joining the
+   outer wall and bore lining across the insert.
 
-The magnet is absent during all printing below the insertion plane. Once
-captured, its upper face remains at least [10 mm](MAGNET_ROOF_GAP) below the roof
-underside. Hotend attraction with this magnet and printer has no measured result
-yet; the insert mechanically restrains the magnet before the hotend returns.
+With the magnet seated, its upper face is at least [9.9 mm](MAGNET_ROOF_GAP) below
+that roof underside, including its thickness tolerance. Hotend attraction and
+press-fit holding force have no measured results. The seated insert and magnet
+must remain below the rim; a proud insert interferes with the roof toolpaths.
 
 ## Buoyancy and print evidence
 
-`design.json` contains the exact material volumes and a density sweep. The PETG
-density is 1.25 g/cm³, from the installed Bambu PETG Translucent preset. One RC62
-contributes 5.09 g. These figures include the insert's PETG collar.
+`design.json` contains material volumes and a density sweep. PETG density is
+1.25 g/cm³ from the installed preset; one RC62 contributes 5.09 g.
 
 | Aero bulk density | Estimated assembled mass | Spare lift in water |
 | --- | --- | --- |
-| 0.45 g/cm³ | [24.09 g](MASS_045) | [5.28 g](LIFT_045) |
-| 0.55 g/cm³ | [26.10 g](MASS_055) | [3.27 g](LIFT_055) |
-| 0.60 g/cm³ | [27.11 g](MASS_060) | [2.26 g](LIFT_060) |
-| 0.65 g/cm³ | [28.11 g](MASS_065) | [1.26 g](LIFT_065) |
+| 0.45 g/cm³ | [23.04 g](MASS_045) | [6.33 g](LIFT_045) |
+| 0.55 g/cm³ | [25.28 g](MASS_055) | [4.09 g](LIFT_055) |
+| 0.60 g/cm³ | [26.40 g](MASS_060) | [2.97 g](LIFT_060) |
+| 0.65 g/cm³ | [27.52 g](MASS_065) | [1.85 g](LIFT_065) |
 
 Bambu's [PLA Aero foaming table](https://bambulab-eu.myshopify.com/nl-nl/products/pla-aero)
-lists 250 °C, 0.38 flow and a minimum specimen density of 0.45 g/cm³, measured with
-a 0.4 mm nozzle at 80 mm/s. The specimen is 80 × 10 × 4 mm; the float's actual
-expansion and surface finish are print results. The profile uses those published
-temperature and flow settings. A separate calibration print is not part of this
-job.
+lists 250 °C, 0.38 flow and a minimum specimen density of 0.45 g/cm³, with a
+0.4 mm nozzle at 80 mm/s. That specimen is 80 × 10 × 4 mm. The float's expansion,
+fit and density are results of the first float print; the project includes its
+assembly parts together with the spare.
 
-`verification.json` records the solid and mesh checks, magnet tolerance envelope,
-insert entry and rotation sweeps, mechanical capture, material assignments,
-insertion pause and roof layers. It also calculates assembled mass from the
-extrusion commanded on the actual object paths, excluding prime towers, brims,
-the spare insert and key. `print-profile.json` records the source presets and
-slicer estimates. No physical float print or pressure test is recorded.
+`verification.json` records the nominal solid fill, sealing skin, magnet tolerance
+location, insert compensation, material paths and insertion pause. Its mass
+estimate counts object extrusion and excludes prime towers, brims and the spare.
+`print-profile.json` records the presets and slicer estimates.
 
-## Application
+## Application and pressure
 
-The bore fits a 3.175 mm guide rod. The existing reservoir rod position spends the
-donor float's larger bore clearance to bias it against the wall; that position
-does not fit this concentric prototype's envelope. The bench float and reed test
-uses a separate guide rod position. The production assembly still carries its
-donor float geometry and level-sensor positions.
+The existing reservoir rod position spends the donor float's larger bore
+clearance to hold it against the wall. This concentric float uses a separate
+bench guide position. Its bore fits a 3.175 mm guide rod.
 
-The carbonator operates at 90 psi and has a 180 psi hydrostatic test requirement.
-This printed float has no established external-pressure rating. Its PETG
-enclosure's dimensional closure is digitally verified; water sealing, foam
-compression and pressure endurance have no physical results recorded.
+The carbonator operates at 90 psi with a 180 psi hydrostatic test requirement.
+This printed float has no established pressure rating. The CAD verifies material
+backing behind the skin at nominal dimensions. Foam crushing, creep, actual
+contact, water sealing and pressure endurance have no physical results recorded.
+
+Bambu's [PLA Aero TDS, v4](https://store.bblcdn.com/cbc8b808aaf84ead9bb3b0b9b43e66af.pdf)
+reports tensile and bending properties for specimens printed at 210 °C and
+annealed. It provides no compressive or hydrostatic endurance value for the
+250 °C foamed material in this project.
 
 ## Rebuild
 
-Run from the repository root:
+From the repository root:
 
 ```sh
 tools/cad-venv/bin/python hardware/printed-parts/cold-core/magnetic-float/magnetic_float.py
 tools/cad-venv/bin/python hardware/printed-parts/cold-core/magnetic-float/prepare_print.py
-```
-
-The preparation script writes the editable input project and resolved presets to
-`.cache/magnetic-float-print/`. Bambu Studio's installed CLI slices that project:
-
-```sh
 mkdir -p .cache/magnetic-float-print/sliced
 cd .cache/magnetic-float-print/sliced
 /Applications/BambuStudio.app/Contents/MacOS/BambuStudio --arrange 0 --orient 0 --slice 0 --export-3mf magnetic-float.3mf --outputdir "$PWD" ../magnetic-float-input.3mf
 ```
 
-From the repository root, verify the resulting file:
+From the repository root, verify the result:
 
 ```sh
 tools/cad-venv/bin/python hardware/printed-parts/cold-core/magnetic-float/verify.py --project .cache/magnetic-float-print/sliced/magnetic-float.3mf

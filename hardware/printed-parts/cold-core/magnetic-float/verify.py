@@ -31,41 +31,30 @@ def geometry():
     sealing_skin = envelope.cut(interior)
     assert sealing_skin.cut(parts['body-petg']).Volume() < 1e-6
     assert parts['body-petg'].cut(envelope).Volume() < 1e-6
-    assert parts['body-petg'].intersect(parts['body-aero']).Volume() < 1e-6
+    fill = parts['body-aero'].fuse(parts['insert-aero'], parts['magnet'])
+    assert interior.cut(fill).Volume() < 1e-6, 'Unfilled space behind the skin'
+    assert fill.cut(interior).Volume() < 1e-6
+    for a, first in enumerate(parts.values()):
+        for second in list(parts.values())[a + 1:]:
+            assert first.intersect(second).Volume() < 1e-6, 'Nominal material overlap'
     roof_cut = m.box(m.diameter + m.skin * 2, m.diameter + m.skin * 2,
                      m.roof_bottom, m.height + m.skin)
-    paused_body = parts['body-petg'].cut(roof_cut).fuse(parts['body-aero'])
+    paused_skin = parts['body-petg'].cut(roof_cut)
+    paused_body = paused_skin.fuse(parts['body-aero'])
     maximum_magnet = m.annulus((m.magnet_od + m.magnet_tolerance) / 2,
                               (m.magnet_id - m.magnet_tolerance) / 2,
-                              m.magnet_seat, m.magnet_seat + m.magnet_height + m.magnet_tolerance)
+                              m.magnet_seat, m.insert_bottom + m.magnet_tolerance)
     for lift in range(0, 21, 2):
-        assert maximum_magnet.translate((0, 0, lift)).intersect(paused_body).Volume() < 1e-6
-    motion = {}
-    for stem in ('insert', 'insert-loose'):
-        collar, aero = parts[stem + '-petg'], parts[stem + '-aero']
-        assert collar.intersect(aero).Volume() < 1e-6
-        cap = collar.fuse(aero)
-        for lift in range(0, 17):
-            assert cap.translate((0, 0, lift)).intersect(paused_body).Volume() < 1e-6, (stem, lift)
-        for angle in range(0, 91, 3):
-            rotated = cap.rotate((0, 0, 0), (0, 0, 1), angle)
-            assert rotated.intersect(paused_body).Volume() < 1e-6, (stem, angle)
-        locked = cap.rotate((0, 0, 0), (0, 0, 1), m.lock_angle)
-        assert locked.intersect(maximum_magnet).Volume() < 1e-6
-        assert locked.translate((0, 0, m.lug_axial_clearance)).intersect(paused_body).Volume() < 1e-6
-        blocking = locked.translate((0, 0, m.lug_axial_clearance + 0.2)).intersect(paused_body).Volume()
-        assert blocking > 0.5, stem
-        assert aero.translate((0, 0, 0.2)).intersect(collar).Volume() > 1
-        key = (parts['turning-key'].rotate((0, 0, 0), (1, 0, 0), 180)
-               .rotate((0, 0, 0), (0, 0, 1), 45)
-               .translate((0, 0, m.insert_top + m.key_bar_height)))
-        assert key.intersect(cap).Volume() < 1e-6, (stem, 'key socket')
-        motion[stem] = {'insertion_and_rotation_clear': True,
-                       'lift_stopped_before_roof': True, 'blocking_overlap_cc': blocking / 1000,
-                       'aero_mechanically_captive': True, 'turning_key_fits': True}
+        assert maximum_magnet.translate((0, 0, lift)).intersect(paused_skin).Volume() < 1e-6
+        assert parts['magnet'].translate((0, 0, lift)).intersect(paused_body).Volume() < 1e-6
+        assert parts['insert-aero'].translate((0, 0, lift)).intersect(paused_body).Volume() < 1e-6
+    assert m.insert_top == m.roof_bottom
     return {'valid_solids': len(parts), 'closed_print_meshes': len(parts) - 1,
-            'continuous_petg_skin_mm': m.skin, 'maximum_tolerance_magnet_insertion_clear': True,
-            'motions': motion}
+            'continuous_petg_skin_mm': m.skin, 'nominal_unfilled_volume_cc': 0.0,
+            'nominal_material_overlap_cc': 0.0, 'nominal_insertion_clear': True,
+            'maximum_tolerance_magnet_clear_of_petg': True,
+            'insert_top_meets_roof_underside': True,
+            'retention': 'Aero press fit; holding force and surface contact require the first assembly result.'}
 
 
 FEATURES = {'Outer wall', 'Inner wall', 'Overhang wall', 'Sparse infill',
@@ -106,7 +95,7 @@ def read_paths(gcode, plate):
             name = 'body' if math.hypot(x - 150, y - 145) < m.outer_radius + 0.01 else None
         else:
             name = next((name for name, cx, cy, radius in
-                [('insert', 115, 145, 13), ('insert-loose', 155, 145, 13), ('key', 135, 180, 16)]
+                [('insert', 115, 145, 14), ('insert-snug', 155, 145, 14)]
                 if math.hypot(x - cx, y - cy) < radius), None)
         if name is None:
             continue
@@ -128,8 +117,7 @@ def read_paths(gcode, plate):
         assert all(1 not in tools for h, tools in body_layer_tools.items() if h > m.insert_bottom + 0.001)
     else:
         assert not pauses
-        assert all(mass > 0 for name in ('insert', 'insert-loose') for mass in masses[name])
-        assert masses['key'][0] > 0 and masses['key'][1] == 0
+        assert all(masses[name][0] == 0 and masses[name][1] > 0 for name in ('insert', 'insert-snug'))
     return {'object_material_mass_g': masses, 'insertion_pauses': pauses,
             'roof_layers_mm': sorted(roof_layers), 'body_petg_layers': len(body_layer_tools)}
 
@@ -145,15 +133,23 @@ def print_project(path):
             assert settings[key] == value, (key, settings[key], value)
         config = ET.fromstring(archive.read('Metadata/model_settings.config'))
         material_parts = []
+        fit_allowances = []
         for obj in config.findall('object'):
             parent = {node.get('key'): node.get('value') for node in obj.findall('metadata')}
+            if 'insert' in parent['name'].lower():
+                contour = float(parent['xy_contour_compensation'])
+                hole = float(parent['xy_hole_compensation'])
+                assert math.isclose(contour, -hole)
+                fit_allowances.append(contour)
             for part in obj.findall('part'):
                 meta = {node.get('key'): node.get('value') for node in part.findall('metadata')}
                 expected_slot = '2' if meta['name'].endswith('aero') else '1'
                 assert meta.get('extruder', parent.get('extruder', '1')) == expected_slot
                 assert 'magnet' not in meta['name']
                 material_parts.append(meta['name'])
-        assert len(material_parts) == 7
+        assert len(material_parts) == 4
+        assert set(material_parts) == {'body-petg', 'body-aero', 'insert-aero'}
+        assert fit_allowances == list(m.insert_fit_allowances)
         plates = [read_paths(archive.read(f'Metadata/plate_{i}.gcode').decode(), i) for i in (1, 2)]
         mass = sum(plates[0]['object_material_mass_g']['insert']) + sum(plates[1]['object_material_mass_g']['body']) + m.magnet_mass
         info = json.loads((HERE / 'design.json').read_text())
@@ -161,6 +157,7 @@ def print_project(path):
         assert reserve > 4, ('insufficient sliced reserve', reserve)
         return {'project_sha256': hashlib.sha256(path.read_bytes()).hexdigest(),
                 'verified_settings': expected, 'material_parts': material_parts,
+                'insert_fit_allowances_radial_mm': fit_allowances,
                 'plates': plates, 'assembled_mass_from_model_extrusion_g': mass,
                 'reserve_from_model_extrusion_g': reserve,
                 'mass_scope': 'Positive extrusion on object toolpaths; excludes purge, brim, spare insert and key. Nominal filament diameter/density.'}
