@@ -12,7 +12,7 @@ html, body { margin: 0; width: 800px; height: 480px; overflow: hidden; }
 :root {
   --board:  #100f0d;   /* the matte behind the flaps */
   --cell:   #1c1b17;   /* a flap's resting face */
-  --slot:   #262320;   /* a cell with nothing posted in it */
+  --slot:   #0a0908;   /* an empty socket, a channel with nothing in it */
   --key:    #332f28;   /* a cell you can press */
   --recess: #0d0c0b;   /* a plate let into the board */
   --gone:   #080707;   /* a flap caught mid-turn */

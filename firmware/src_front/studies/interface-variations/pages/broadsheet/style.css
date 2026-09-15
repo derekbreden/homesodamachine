@@ -1,0 +1,156 @@
+/* ─────────────────────────────────────────────────────────────────────────
+   BROADSHEET — the panel is a printed page, not a screen.
+   Rank is set in type and rule weight; colour does no structural work.
+
+   paper #f6f3ec · tint #ebe6da (pressed only) · ink #1b1a17
+   dim   #6f6a5f · vermilion #b3301c (LOW, STOP, the progress fill)
+
+   Instrument Serif 400 — display only, never under 48px.
+   Inter Tight 500/700 — everything at or under 28, caps at 0.12em.
+
+   Page grid: masthead y0–92 · 2px rule y92 · folio y94–128
+              body y128 → FLOOR y448 · margins 32 · gutter 24
+              columns  C1 x32 w172 · C2 x228 w264 · C3 x516 w252
+   ───────────────────────────────────────────────────────────────────────── */
+
+:root {
+  --paper: #f6f3ec;
+  --tint:  #ebe6da;
+  --ink:   #1b1a17;
+  --dim:   #6f6a5f;
+  --verm:  #b3301c;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  width: 800px;
+  height: 480px;
+  overflow: hidden;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Inter Tight', 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 500;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+}
+
+.pg { position: relative; width: 800px; height: 480px; }
+
+/* ── type tiers ────────────────────────────────────────────────────────── */
+
+.caps      { font: 700 20px/20px 'Inter Tight', Arial, sans-serif; letter-spacing: .12em; }
+.caps-22   { font: 700 22px/22px 'Inter Tight', Arial, sans-serif; letter-spacing: .12em; }
+.caps-28   { font: 700 28px/28px 'Inter Tight', Arial, sans-serif; letter-spacing: .10em; }
+.caps-32   { font: 700 32px/32px 'Inter Tight', Arial, sans-serif; letter-spacing: .10em; }
+.caps, .caps-22, .caps-28, .caps-32 { text-transform: uppercase; }
+
+.dim  { color: var(--dim); }
+.verm { color: var(--verm); }
+
+.disp {
+  font-family: 'Instrument Serif', 'Times New Roman', serif;
+  font-weight: 400;
+  font-feature-settings: "lnum" 1, "tnum" 1;
+  white-space: nowrap;
+}
+.d48  { font-size: 48px;  line-height: 42px; }
+.d96  { font-size: 96px;  line-height: 80px; }
+.d220 { font-size: 220px; line-height: 152px; }
+
+/* ── masthead ──────────────────────────────────────────────────────────── */
+
+.mast { position: absolute; left: 0; top: 0; width: 800px; height: 92px; }
+
+.slot { position: absolute; top: 0; width: 200px; height: 92px; }
+.slot .mark { position: absolute; left: 50%; top: 14px; transform: translateX(-50%); }
+.slot .word {
+  position: absolute; left: 0; right: 0; top: 58px;
+  display: flex; align-items: center; justify-content: center; gap: 9px;
+}
+.slot .bar { position: absolute; left: 0; bottom: 0; width: 200px; height: 8px; background: var(--ink); }
+.slot.off .mark, .slot.off .word { opacity: .999; }
+
+.mast .vdiv { position: absolute; top: 16px; width: 1px; height: 60px; background: var(--ink); }
+.mastrule   { position: absolute; left: 0; top: 92px; width: 800px; height: 2px; background: var(--ink); }
+
+/* ── folio line (y94–128): running head left, SETTINGS right ───────────── */
+
+.folio-l { position: absolute; left: 32px;  top: 101px; }
+.folio-r { position: absolute; right: 32px; top: 101px; }
+/* the device gives every folio word a 64px-tall invisible hit region */
+.folio-l::after, .folio-r::after {
+  content: ""; position: absolute; left: -16px; right: -16px; top: -22px; height: 64px;
+}
+
+/* ── plates: a 43:80 figure with a 1px ink hairline ────────────────────── */
+
+.plate {
+  position: absolute; overflow: hidden;
+  border: 1px solid var(--ink); background: var(--paper);
+}
+.plate img { display: block; width: 100%; height: 100%; object-fit: cover; }
+/* 55% ink coverage over paper — a baked second asset on the device */
+.plate.wash img { opacity: .55; }
+/* pressed: a 2px ink border drawn inside the plate's own hairline */
+.plate.pressed { box-shadow: inset 0 0 0 2px var(--paper), inset 0 0 0 4px var(--ink); }
+/* the chosen plate in the picker row carries a 10px ink bar on its foot */
+.plate .foot { position: absolute; left: 0; right: 0; bottom: 0; height: 10px; background: var(--ink); }
+
+/* ── rules ─────────────────────────────────────────────────────────────── */
+
+.rule-10 { position: absolute; height: 10px; background: var(--ink); }
+.rule-1  { position: absolute; height: 1px;  background: var(--ink); }
+
+/* ── the doorway: a ruled line you press ───────────────────────────────── */
+
+.door { position: absolute; height: 64px; border-top: 1px solid var(--ink); }
+.door .w { position: absolute; left: 0;  bottom: 18px; }
+.door .a { position: absolute; right: 0; bottom: 20px; line-height: 0; }
+.door.pressed { background: var(--tint); border: 2px solid var(--ink); }
+.door.pressed .w { left: 10px; }
+.door.pressed .a { right: 10px; }
+
+/* ── level: four printed blocks, filled to the reading ─────────────────── */
+
+.lvl { position: absolute; display: flex; }
+.lvl i { border: 1px solid var(--ink); }
+.lvl i.on { background: var(--ink); }
+
+/* ── steppers: square hairline keys with an ink mark ───────────────────── */
+
+.key {
+  position: absolute; width: 96px; height: 96px;
+  border: 1px solid var(--ink); background: var(--paper);
+  display: flex; align-items: center; justify-content: center;
+}
+.key.pressed { background: var(--tint); border-width: 2px; }
+
+/* ── the picker row window ─────────────────────────────────────────────── */
+
+.strip { position: absolute; overflow: hidden; }
+.strip .run { position: absolute; top: 0; left: 0; height: 100%; }
+
+/* ── reversed page (lock) ──────────────────────────────────────────────── */
+
+.rev { background: var(--ink); color: var(--paper); }
+.rev .plate { border-color: var(--paper); background: var(--ink); }
+.rev .rule-1 { background: rgba(246, 243, 236, .45); }
+
+.bar-track { position: absolute; height: 24px; background: var(--paper); }
+.bar-fill  { position: absolute; left: 0; top: 0; height: 24px; background: var(--verm); }
+.bar-tick  { position: absolute; top: 0; width: 1px; height: 24px; background: var(--ink); }
+
+.stop {
+  position: absolute; background: var(--paper); color: var(--ink);
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* ── generic target block (whole-column press) ─────────────────────────── */
+
+.unit { position: absolute; }
+.unit.pressed { background: var(--tint); }

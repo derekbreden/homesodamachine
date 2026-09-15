@@ -121,6 +121,9 @@ svg { display: block; }
   color: var(--ink);
 }
 .btn.on-field { border: none; background: var(--paper); }
+.btn.key      { background: var(--alt); }   /* a control that nudges is a
+                                               printed key on stock; a control
+                                               that commits is an ink slab   */
 .btn.inked    { background: var(--ink); color: var(--paper); border-color: var(--ink); }
 .btn.filled   { background: var(--ink); color: var(--paper); }
 

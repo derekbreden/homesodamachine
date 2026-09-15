@@ -211,7 +211,6 @@ body {
   font-weight: 500; font-size: 20px; line-height: 20px;
   letter-spacing: 0.10em; text-transform: uppercase;
 }
-.key.lit  { border-color: var(--brass); color: var(--brass); }
 .key.mute { border-color: var(--alt);   color: var(--dim);   }
 .key.press { background: var(--alt); border-width: 2px; border-color: var(--brass); color: var(--brass); }
 
@@ -264,11 +263,8 @@ body {
   border: 1px solid var(--sec);
 }
 .seam { position: absolute; height: 1px; background: var(--alt); }
-.legend-dot { position: absolute; width: 14px; height: 14px; border-radius: 50%; }
-.legend-dot.closed { background: var(--good); }
-.legend-dot.open   { border: 2px solid var(--sec); }
 
-/* ── Added by round 2 ──────────────────────────────────────────────────── */
+/* ── The pick card's flush face, and the lock's time row ───────────────── */
 
 .face.flush { border: 0; border-radius: 0; }
 .seam-v { position: absolute; width: 1px; background: var(--sec); }
@@ -279,19 +275,3 @@ body {
   letter-spacing: 0.06em;
 }
 
-.legend {
-  position: absolute; height: 24px;
-  display: flex; align-items: center; justify-content: center; gap: 10px;
-}
-.legend .cap.lg { letter-spacing: 0.10em; margin-right: 24px; }
-.legend .cap.lg:last-child { margin-right: 0; }
-.legend .legend-dot { position: static; flex: none; }
-
-/* ── Added by round 3 ──────────────────────────────────────────────────── */
-
-.legendrow {
-  position: absolute; height: 24px;
-  display: flex; align-items: center; gap: 12px;
-}
-.legendrow .legend-dot { position: static; flex: none; }
-.legendrow .cap.lg { letter-spacing: 0.10em; }

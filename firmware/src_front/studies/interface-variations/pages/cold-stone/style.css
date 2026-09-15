@@ -127,7 +127,9 @@ body{
 /* ── Flavor ────────────────────────────────────────────────────────────── */
 
 .stepkey{width:88px;height:88px}
-.travelkey{width:56px;height:88px}
+.travelkey{position:absolute;width:56px;height:88px;color:var(--ink);
+           display:flex;align-items:center;justify-content:center}
+.travelkey.dead{color:var(--rule)}
 
 .strip{position:absolute;left:380px;top:280px;width:332px;height:132px;overflow:hidden}
 .row{position:absolute;left:-96px;top:0;height:132px}
@@ -144,7 +146,7 @@ body{
 .pickcard.press{background:var(--ink);border-color:var(--ink)}
 .pickcard.press .badge{background:var(--ink);border-color:var(--slab);color:var(--slab)}
 .pickcard.press .face{outline-color:var(--slab)}
-.badge{position:absolute;width:88px;height:88px;background:var(--slab);
+.badge{position:absolute;width:80px;height:80px;background:var(--slab);
        border:3px solid var(--ink);box-sizing:border-box;color:var(--ink);
        display:flex;align-items:center;justify-content:center}
 
@@ -180,8 +182,8 @@ body{
 .doto{width:16px;height:16px;border-radius:50%;
       border:3px solid var(--ring);box-sizing:border-box}
 
-.areakey{position:absolute;left:588px;top:130px;width:192px;height:112px;
-         justify-content:flex-start;padding-left:16px;gap:14px}
+.areakey{position:absolute;height:112px;box-sizing:border-box;
+         justify-content:flex-start;padding:0 14px;gap:14px}
 
 /* a pressed key inverts everything inside it, whatever tier the type was in */
 .foot.press .ratio-sm,.foot.press .chev,.foot.press .low{color:var(--slab)}

@@ -72,7 +72,7 @@ body {
 }
 .comp.pressed .cond, .comp.pressed .legend { color: var(--text); }
 .comp.pressed .mk { color: var(--text); }
-.comp.blank { border-style:solid; border-color:#bdb8ab; box-shadow:0 2px 0 0 var(--hl); }
+.comp.blank { border-color:#c3beb1; box-shadow:0 2px 0 0 #e7e3d9; }
 
 /* ── a recessed window: the only dark field, and always bounded ───────── */
 
@@ -83,11 +83,12 @@ body {
   box-shadow: 0 2px 0 0 var(--hl);
 }
 .win.off { background: var(--well-off); }
-.win.pressed { box-shadow: inset 0 0 0 4px var(--amber), 0 2px 0 0 var(--hl); }
+.ring { position:absolute; inset:0; box-sizing:border-box;
+        border:4px solid var(--amber); border-radius:4px; }
 
 .face { display:block; width:100%; height:100%; object-fit:cover; }
 .facebox { position:relative; }
-.scrim { position:absolute; inset:0; background:rgba(217,213,204,.42); }
+.scrim { position:absolute; inset:0; background:rgba(217,213,204,.55); }
 
 /* the window's readout strip */
 .strip {
@@ -103,7 +104,7 @@ body {
 .lamp { position:absolute; border-radius:50%; box-sizing:border-box; }
 .lamp.on     { background:var(--amber); box-shadow:0 0 0 7px var(--halo); }
 .lamp.on.sm  { box-shadow:0 0 0 5px var(--halo); }
-.lamp.green  { background:var(--good); box-shadow:0 0 0 5px #c2e4d1; }
+.lamp.green  { background:var(--good); box-shadow:0 0 0 4px #145f3c; }
 .lamp.off    { background:var(--psocket); border:2px solid var(--groove); }
 .lamp.offw   { background:var(--socket);  border:2px solid var(--socketrim); }
 
@@ -139,10 +140,10 @@ body {
 .back .cond { position:absolute; left:56px; top:14px; font-size:20px;
               line-height:24px; }
 
-.sysbtn { left:724px; top:8px; width:52px; height:52px; }
-.sysbtn .mk { left:11px; top:11px; }
-.sysbtn .lamp { left:4px; top:4px; width:10px; height:10px; }
-.syslabel { position:absolute; left:702px; top:63px; width:96px;
+.sysbtn { left:712px; top:8px; width:64px; height:52px; }
+.sysbtn .mk { left:26px; top:9px; }
+.sysbtn .lamp { left:8px; top:17px; width:14px; height:14px; }
+.syslabel { position:absolute; left:696px; top:63px; width:96px;
             text-align:center; font-size:14px; line-height:16px;
             letter-spacing:.14em; color:var(--dim); }
 .syslabel.here { color: var(--text); }
@@ -180,11 +181,16 @@ body {
 .ch-lvl   { position:absolute; left:0; top:108px; font-size:13px;
             line-height:16px; letter-spacing:.14em; color:var(--dim); }
 .ch-col .chip { left:66px; top:104px; width:44px; height:24px; font-size:15px; }
-.ch-col .cell { left:0; width:110px; height:24px; }
-.ch-col .c0 { top:138px } .ch-col .c1 { top:172px }
-.ch-col .c2 { top:206px } .ch-col .c3 { top:240px }
-.ch-count { position:absolute; left:0; top:270px; font-size:28px;
-            line-height:34px; color:var(--text); }
+.ch-col .cell { left:0; width:110px; height:20px; }
+.ch-col .c0 { top:148px } .ch-col .c1 { top:178px }
+.ch-col .c2 { top:208px } .ch-col .c3 { top:238px }
+.count { position:absolute; left:0; display:flex; align-items:baseline; gap:9px; }
+.count .n  { font-family:'IBM Plex Mono',monospace; font-weight:700;
+             font-size:28px; line-height:34px; color:var(--text); }
+.count .of { font-family:'IBM Plex Sans',sans-serif; font-weight:600;
+             text-transform:uppercase; letter-spacing:.14em; font-size:16px;
+             color:var(--dim); }
+.ch-count { top:266px; }
 
 .ch-door { top:412px; width:270px; height:60px; }
 .ch-door .mk   { left:18px; top:14px; }
@@ -199,7 +205,7 @@ body {
 .fl-anchor { left:206px; top:96px; width:180px; height:376px; }
 .fl-anchor .facebox { position:absolute; left:0; top:0; width:176px; height:328px; }
 .fl-anchor .strip { height:44px; font-family:'IBM Plex Mono',monospace;
-                    font-weight:700; font-size:28px; }
+                    font-weight:700; font-size:26px; color:var(--wdim); }
 
 .fl-lab  { position:absolute; left:402px; font-size:16px; line-height:20px;
            letter-spacing:.14em; color:var(--dim); }
@@ -207,7 +213,7 @@ body {
 
 .fl-minus { left:402px; top:124px; width:88px; height:88px; }
 .fl-plus  { left:696px; top:124px; width:88px; height:88px; }
-.fl-minus .mk, .fl-plus .mk { left:22px; top:22px; }
+.fl-minus .mk, .fl-plus .mk { left:22px; top:22px; color:var(--text); }
 .fl-read  { left:506px; top:124px; width:174px; height:88px;
             display:flex; align-items:center; justify-content:center; }
 .fl-read span { font-family:'IBM Plex Mono',monospace; font-weight:700;
@@ -220,7 +226,7 @@ body {
 
 .fl-left  { left:402px; top:294px; width:44px; height:164px; }
 .fl-right { left:740px; top:294px; width:44px; height:164px; }
-.fl-left .mk, .fl-right .mk { left:8px; top:68px; }
+.fl-left .mk, .fl-right .mk { left:6px; top:66px; color:var(--text); }
 .fl-tile  { top:294px; width:90px; height:164px; }
 .fl-tile .facebox { position:absolute; inset:0; }
 .t0 { left:452px } .t1 { left:548px } .t2 { left:644px }
@@ -231,15 +237,26 @@ body {
 
 /* ═══ FILL A FLAVOR ════════════════════════════════════════════════════════ */
 
-.pk-win { top:96px; width:180px; height:376px; }
-.pk-win .facebox { position:absolute; left:0; top:0; width:176px; height:328px; }
+.pk-win { top:96px; width:164px; height:346px; }
+.pk-win .facebox { position:absolute; left:0; top:0; width:160px; height:298px; }
 .pk-win .strip  { height:44px; font-family:'IBM Plex Mono',monospace;
-                  font-weight:700; font-size:24px; }
-.pkA { left:285px } .pkB { left:525px }
-.pk-badge { position:absolute; left:42px; top:118px; width:92px; height:92px;
+                  font-weight:700; font-size:22px; }
+.pkA { left:206px } .pkB { left:504px }
+.pk-badge { position:absolute; left:36px; top:105px; width:88px; height:88px;
             border-radius:50%; background:#23262a; border:2px solid var(--wink);
             box-sizing:border-box; }
-.pk-badge svg { position:absolute; left:20px; top:20px; color:var(--wink); }
+.pk-badge svg { position:absolute; left:18px; top:18px; color:var(--wink); }
+
+.pk-col { position:absolute; top:96px; width:100px; height:346px; }
+.pcolA { left:386px } .pcolB { left:684px }
+.pk-col .rule  { left:0; top:0; width:100px; }
+.pk-col .lab   { position:absolute; left:0; top:14px; font-size:13px;
+                 line-height:16px; letter-spacing:.14em; color:var(--dim); }
+.pk-col .cell  { left:0; width:100px; height:28px; }
+.pk-col .c0 { top:60px } .pk-col .c1 { top:100px }
+.pk-col .c2 { top:140px } .pk-col .c3 { top:180px }
+.pk-count { top:224px; }
+.pk-col .chip  { left:0; top:278px; width:58px; height:26px; font-size:16px; }
 
 /* ═══ CLEANING ═════════════════════════════════════════════════════════════ */
 
@@ -248,16 +265,16 @@ body {
             line-height:34px; letter-spacing:.16em; }
 .lk-well  { left:32px; top:76px; width:736px; height:280px; }
 .lk-face  { position:absolute; left:0; top:0; width:148px; height:276px; }
-.lk-time  { position:absolute; left:206px; top:96px;
+.lk-time  { position:absolute; left:172px; top:16px;
             display:flex; align-items:baseline; gap:20px; }
 .lk-time .n { font-family:'IBM Plex Mono',monospace; font-weight:700;
               font-size:104px; line-height:110px; color:var(--wink); }
 .lk-time .u { font-family:'IBM Plex Sans',sans-serif; font-weight:600;
               text-transform:uppercase; letter-spacing:.14em; font-size:26px;
               color:var(--wink); }
-.lk-stage { position:absolute; left:206px; top:220px; font-size:22px;
+.lk-stage { position:absolute; left:172px; top:144px; font-size:22px;
             line-height:26px; letter-spacing:.14em; color:var(--wdim); }
-.lk-cells .cell { top:298px; width:28px; height:28px; }
+.lk-cells .cell { top:214px; width:28px; height:28px; }
 
 .lk-slab  { position:absolute; left:32px; top:372px; font-size:15px;
             line-height:18px; letter-spacing:.14em; color:var(--dim); }
@@ -278,19 +295,19 @@ body {
 
 .st-well  { left:206px; top:96px; width:578px; height:292px; }
 .st-diag  { position:absolute; left:16px; top:18px; }
-.st-lab   { position:absolute; left:574px; font-size:14px; line-height:18px;
+.st-lab   { position:absolute; left:366px; font-size:14px; line-height:18px;
             letter-spacing:.14em; color:var(--wdim); }
-.st-lab1  { top:114px } .st-lab2 { top:218px }
-.st-well .lamp.green  { left:576px; top:150px; width:30px; height:30px; }
-.st-verd  { position:absolute; left:622px; top:148px; font-size:28px;
-            line-height:34px; letter-spacing:.14em; color:var(--wink); }
-.st-well .rule { left:574px; width:194px; }
-.st-r1 { top:200px } .st-r2 { top:340px }
-.st-key   { position:absolute; left:610px; font-size:16px; line-height:20px;
+.st-lab1  { top:16px } .st-lab2 { top:120px }
+.st-well .lamp.green  { left:368px; top:50px; width:32px; height:32px; }
+.st-verd  { position:absolute; left:418px; top:46px; font-size:28px;
+            line-height:36px; letter-spacing:.14em; color:var(--wink); }
+.st-well .rule { left:366px; width:194px; }
+.st-r1 { top:104px } .st-r2 { top:248px }
+.st-key   { position:absolute; left:404px; font-size:16px; line-height:22px;
             letter-spacing:.14em; color:var(--wdim); }
-.st-k1 { top:250px } .st-k2 { top:294px }
-.st-well .lamp.kg { left:578px; top:248px; width:20px; height:20px; }
-.st-well .lamp.ko { left:578px; top:292px; width:20px; height:20px; }
+.st-k1 { top:152px } .st-k2 { top:200px }
+.st-well .lamp.kg { left:368px; top:154px; width:22px; height:22px; }
+.st-well .lamp.ko { left:368px; top:202px; width:22px; height:22px; }
 
 .st-area  { top:400px; height:72px; }
 .st-pump  { left:206px; width:280px; }
