@@ -15,6 +15,8 @@ roof; the front strip stays flat for caliper measurements.
    the interface sheet comes away with them.
 2. If a sheet remains, try peeling it from the open front edge. Keep one removed
    sheet beside its specimen. Record removal effort and visible residue separately.
+   Score the three wall junctions and the free front edge separately; also note
+   whether the center releases while a rim stays bonded.
 3. Compare the exposed underside with the V-mark tips as a visual reference.
    Measure roof thickness at several places along the flat front edge, avoiding walls and the raised label.
    Extra thickness or local ridges can obstruct a fit. Missing thickness, torn skin
@@ -27,6 +29,15 @@ roof; the front strip stays flat for caliper measurements.
 The blank [observations.csv](observations.csv) records both removal stages,
 residue, thickness and damage. Photographs showing specimen numbers and undersides
 are also sufficient for the next review.
+
+The reported adhesion is concentrated at interface edges, particularly wall junctions;
+free edges also retain material. The center usually releases. Each specimen presents
+three wall junctions and one free edge for that comparison.
+
+The installed tree-interface generator adds one perimeter around its infill.
+Interface spacing changes the interior fill; this experiment holds the perimeter
+generation and lateral support clearance constant.
+[Bambu interface perimeter](https://github.com/bambulab/BambuStudio/blob/v02.08.02.61/src/libslic3r/Support/TreeSupport.cpp#L1802).
 
 ## Specimens
 
