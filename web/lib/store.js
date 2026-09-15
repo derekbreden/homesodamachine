@@ -6,11 +6,19 @@
 // fetch-cad-artifacts.mjs speak only this shape, so which store stands behind the site is
 // the environment's choice and nothing else changes.
 //
-// R2 IS THE STORE. Its public URL serves every object straight from Cloudflare: a deploy's
-// 586 MB fetch and every adopt read from there, not through this service; the site's GET
-// redirects a reader to that URL and its HEAD answers from the bucket. The disk store is what
-// a laptop or a test runs against, and needs no account. With neither configured there is no
-// store, and the site serves what its build fetched.
+// R2 IS THE STORE, AND A READER IS SENT STRAIGHT TO CLOUDFLARE FOR THE BYTES. The site's GET
+// answers with a redirect and its HEAD from the bucket, so a deploy's 586 MB fetch and every
+// adopt come from R2 rather than through this service.
+//
+// WHERE THAT REDIRECT POINTS IS THE BUCKET'S ADDRESS ON THE INTERNET. A bucket carries one
+// only through a custom domain; `r2.dev`, the address a bucket has without one, answers 403 to
+// a container fetching its 386 members and to a bare sequence of eight, and Cloudflare's own
+// note on it reads "rate-limited and not recommended for production". So the redirect is a
+// signed GET against the S3 endpoint, which carries the whole fetch, and `publicUrl` is for a
+// custom domain when the bucket has one.
+//
+// The disk store is what a laptop or a test runs against, and needs no account. With neither
+// configured there is no store, and the site serves what its build fetched.
 
 import { createReadStream, createWriteStream } from "node:fs";
 import { copyFile, mkdir, readdir, rm, stat } from "node:fs/promises";
@@ -20,6 +28,10 @@ import { pipeline } from "node:stream/promises";
 import { createGzip } from "node:zlib";
 
 export const OBJECT_NAME = /^s-([0-9a-f]{64})\.gz$/;
+
+//: How long a signed read stands. An object is named by its bytes and never rewritten, so the
+//: only thing the clock decides is how long one handed-out URL keeps working.
+export const SIGNED_TTL = 3600;
 
 export class DiskStore {
   constructor(dir) {
@@ -72,7 +84,7 @@ export class DiskStore {
   }
 
   /** A URL a reader is sent to, or null: a disk is read through this service. */
-  redirectUrl() {
+  async redirectUrl() {
     return null;
   }
 
@@ -83,13 +95,16 @@ export class DiskStore {
 
 export class R2Store {
   /**
-   * `client` is an S3 client for the bucket's endpoint; `publicUrl` the bucket's public
-   * development URL or custom domain, with no trailing slash needed.
+   * `client` is an S3 client for the bucket's endpoint; `publicUrl` a custom domain on the
+   * bucket, with no trailing slash needed. An `r2.dev` address is not one: it is rate-limited
+   * past what a deploy asks of it, and a signed URL stands in its place.
    */
-  constructor({ client, bucket, publicUrl }) {
+  constructor({ client, bucket, publicUrl, signedTtl = SIGNED_TTL }) {
     this.client = client;
     this.bucket = bucket;
-    this.publicUrl = publicUrl ? publicUrl.replace(/\/+$/, "") : null;
+    const url = publicUrl ? publicUrl.replace(/\/+$/, "") : null;
+    this.publicUrl = url && !/(^|\.)r2\.dev$/i.test(new URL(url).hostname) ? url : null;
+    this.signedTtl = signedTtl;
     this.kind = "r2";
   }
 
@@ -140,8 +155,15 @@ export class R2Store {
     }
   }
 
-  redirectUrl(name) {
-    return this.publicUrl ? `${this.publicUrl}/${name}` : null;
+  /** The custom domain when the bucket has one, else a signed GET against the S3 endpoint. */
+  async redirectUrl(name) {
+    if (this.publicUrl) return `${this.publicUrl}/${name}`;
+    const [{ GetObjectCommand }, { getSignedUrl }] = await Promise.all([
+      import("@aws-sdk/client-s3"),
+      import("@aws-sdk/s3-request-presigner"),
+    ]);
+    return getSignedUrl(this.client, new GetObjectCommand({ Bucket: this.bucket, Key: name }),
+                        { expiresIn: this.signedTtl });
   }
 
   async readStream(name) {
