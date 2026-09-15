@@ -19,3 +19,8 @@ navy `#10319C`, pale blue `#DCE6FF`, orange `#FF9152` and white.
 [big-blue-logos.html](big-blue-logos.html) is the self-contained comparison fragment. The boards
 contain transparency and are displayed on white in the comparison.
 [prompts.json](prompts.json) contains the complete prompt set for the built-in image generation tool.
+
+## Glass and faucet
+
+[Glass and faucet](glass-faucet/README.md) contains four further variations of each mark,
+with an interactive comparison and the two original references.
