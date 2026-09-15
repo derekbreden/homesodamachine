@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Tap House — Fill a Flavor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  /* Fill a flavor — which tap is about to be topped up. */
+  .pickcard { width: 200px; height: 344px; top: 108px; box-sizing: border-box;
+              padding: 12px; display: flex; flex-direction: column;
+              align-items: center; gap: 10px; }
+  .pickcard svg { stroke: var(--brass); }
+  .pickcard.pressed svg { stroke: var(--brass); }
+</style>
+</head>
+<body>
+<div class="screen">
+  <div class="rail">
+    <div class="plate rail-item primary" style="top:12px">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="10" height="14" rx="2.5"/><path d="M9 18v4"/><rect x="18" y="4" width="10" height="14" rx="2.5"/><path d="M23 18v4"/><path d="M2 26h28"/></svg>
+      <span class="rl">Choose</span>
+    </div>
+    <div class="rail-split" style="top:122px"></div>
+    <div class="plate rail-item" style="top:129px">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 2s-9.5 11.5-9.5 17.5a9.5 9.5 0 0 0 19 0C25.5 13.5 16 2 16 2Z"/></svg>
+      <span class="rl">Prime</span>
+    </div>
+    <div class="plate rail-item on" style="top:246px">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h26L19 18v11l-6 3V18Z"/></svg>
+      <span class="rl">Fill</span>
+    </div>
+    <div class="plate rail-item" style="top:363px">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13h12l-2 15h-8Z"/><path d="M13 3v6M16 1v8M19 3v6"/></svg>
+      <span class="rl">Clean</span>
+    </div>
+    <div class="rail-bar"></div>
+  </div>
+
+  <div class="pane">
+  <div class="plate btn back" style="left:16px; top:16px"><svg width="16" height="26" viewBox="0 0 16 26" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11 3L3 13l8 10"/></svg><span>Back</span></div>
+    <div class="title display" style="left:232px; top:34px">Fill a Flavor</div>
+    <div class="rule" style="left:16px; top:100px; width:578px"></div>
+
+    <div class="plate pickcard" style="left:65px">
+      <svg width="52" height="52" viewBox="0 0 32 32" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h26L19 18v11l-6 3V18Z"/></svg>
+      <div class="badge b-m " style=""><span class="riv t"></span><span class="riv b"></span><i><img src="../../assets/flavor_1.png" alt=""></i></div>
+    </div>
+    <div class="plate pickcard pressed" style="left:345px">
+      <svg width="52" height="52" viewBox="0 0 32 32" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h26L19 18v11l-6 3V18Z"/></svg>
+      <div class="badge b-m " style=""><span class="riv t"></span><span class="riv b"></span><i><img src="../../assets/flavor_2.png" alt=""></i></div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
