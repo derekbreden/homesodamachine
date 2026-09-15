@@ -18,7 +18,8 @@ on. Every number here is the firmware's own.
 | Warn | `#f0a83c` | `COL_WARN` |
 | A control at the end of its travel | `#3a3a55` | `COL_OFF` |
 
-Montserrat at 20, 28 and 40 px. 20 is the smallest font built into the image.
+Montserrat at 20, 28, 40 and 48 px. 20 is the smallest font built into the image, and 48 is
+built for one number: the ratio on a flavor's own page.
 Every card and every button has a 14 px corner radius and no shadow.
 
 ## Shell
@@ -27,7 +28,10 @@ Every card and every button has a 14 px corner radius and no shadow.
 - Rail targets: four, each 178 × 110 at x 6, starting y 8, 8 px apart — so y 8, 126, 244, 362.
   An icon over a word: the word (Montserrat 20, `COL_TEXT`) sits on the target's floor inside
   6 px padding, the 48 px icon centres in what is left. Background `COL_CARD`, and `COL_ACCENT`
-  for the one you are on.
+  for the one you are on. The four marks are Font Awesome 5.15.4 Solid, subset into
+  `front_icons_48.c`: `hand-pointer` for Choose, `tint` for Prime, `filter` for Fill and `sink`
+  for Clean. Every other mark on the panel — the gear, the check, the chevrons, `−` and `+` —
+  is LVGL's own built-in symbol font.
 - Pane padding 16, so the pane's content runs x 206…784, y 16…464 — 578 × 448.
 - Every pane keeps its top 64 px clear and starts its body at y 76 of the pane's content
   (screen y 92), because the Settings square floats over that band.
@@ -62,17 +66,22 @@ border is 1 px on both so the artwork never moves when the selection does.
 ## A flavor's own page
 
 - **Back** — 172 × 58, `COL_CARD`, at pane content (0, 3), reading `‹  BACK` in Montserrat 20.
-- **The anchor** — that flavor's face at 172 × 320, at pane content (0, 106): it hangs from the
-  line both columns end on, pane content y 426.
+- **The anchor** — that flavor's face at 172 × 320, at pane content (0, 94): it hangs from the
+  line both columns end on, pane content y 414.
 - The east column starts at x 188 and is 390 wide.
 - **The ratio card** — 390 × 130, `COL_CARD`, at (188, 76), 14 px padding. Inside it, `−` and
-  `+` as two 84 × 72 `COL_CARD_ON` buttons and the ratio between them. The range is 1:10…1:30,
-  and a stepper at the end of its travel goes `COL_OFF`.
-- A caption at (188, 218), then the strip of faces at (188, 248): 86 × 160 tiles in a 96 × 170
-  button, 12 px apart, the chosen one ringed. Flanking it, two 48 px arrows the height of the
-  tiles at x 188 and x 734; between them the strip is 294 wide. Under it at y 426 a 10 px track
+  `+` as two 84 × 72 `COL_CARD_ON` buttons and the ratio between them in Montserrat 48. The
+  range is 1:10…1:30, and a stepper at the end of its travel goes `COL_OFF`.
+- A caption at (188, 218), then the strip of faces: 86 × 160 tiles in a 96 × 170 button, 12 px
+  apart, the chosen one ringed, in a 278-wide window at (244, 248). Flanking it, two 48 px
+  arrows the height of the tiles at x 188 and x 530, so the three of them close the 390 column
+  exactly. Under the window at (244, 426), a 278 × 10 `COL_CARD` track with a `COL_ACCENT` thumb
   saying where in the row you are. All three appear only when the row runs off the column,
   which with eight faces it does.
+
+  The strip's bottom lands at 418 and the track's at 436, below the 414 both columns are meant
+  to end on. The static asserts only check that the floor is inside the pane, so this is the one
+  detail page where the shared-baseline rule is not held.
 
 ## Fill a flavor
 
@@ -112,11 +121,13 @@ Title **SETTINGS**, Montserrat 28 `COL_DIM`.
     deep by 361 mm tall, 2 px margin, scale `(344 − 4) / 462`, depth running left to right with
     the front on the left and height running bottom to top.
     - The profile, a 3 px `COL_DIM` polyline, rounded: (0, 0) → (0, 361 − 61.87) → (61.87, 361)
-      → (462, 361) → (462, 0) → close. The chamfer is the display's own 45° facet.
-    - The cold core, a 4 px-radius `COL_DIM` outline from depth 173 to 456, height 6 to 259.4.
-    - The carbonator's tube, a 10 px-radius outline, 127 mm wide centred on depth 314.5, from
-      height 38 to 190.4.
-    - Two reservoir pockets, 6 px-radius outlines, depth 393…446 and 183…236, height 8 to 219.4.
+      → (462, 361) → (462, 0) → close. The chamfer is the display's own 45° facet. This is the
+      only line in the drawing at that weight and that colour.
+    - Everything inside it is a 2 px `COL_OFF` outline, so the internals read quietly and the
+      reeds carry the drawing: the cold core at 4 px radius from depth 173 to 456, height 6 to
+      259.4; the carbonator's tube at 10 px radius, 127 mm wide centred on depth 314.5, from
+      height 38 to 190.4; and two reservoir pockets at 6 px radius, depth 393…446 and 183…236,
+      height 8 to 219.4.
   - Ten reeds, 14 px discs: four on each pocket's outer wall — depth 449 and 180, at heights
     63.5, 108.5, 153.5 and 198.5 — and two on the tube's aft wall at depth 379.25, heights
     105.1 and 133.3. A reed the main board reads closed is a filled `COL_GOOD` disc; every other
