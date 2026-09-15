@@ -55,7 +55,8 @@ body {
   background: var(--surf);
   box-shadow: var(--bevel);
 }
-.plate.pressed { background: var(--recess); box-shadow: var(--bevelin); }
+.plate.pressed { background: var(--recess);
+  box-shadow: var(--bevelin), inset 0 0 0 1px rgba(210,162,76,.45); }
 
 .rail-item {
   left: 6px; width: 170px; height: 104px;
