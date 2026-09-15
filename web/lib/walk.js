@@ -15,7 +15,7 @@ import path from "path";
 import fs from "fs";
 
 import { viewFile, picksFile, innerViewRe } from "../contracts/pcb-out.js";
-import { DOC_SIDECAR_SUFFIX, coverPathFor } from "../contracts/documents.js";
+import { DOC_SIDECAR_SUFFIX, coverPathFor, isPublishedDocument } from "../contracts/documents.js";
 import { holdsRetiredMarker } from "./retired.js";
 
 export function walkFiles(rootDir, exts) {
@@ -52,6 +52,7 @@ export function walkDocuments(rootDir) {
   const out = [];
   for (const rel of walkFiles(rootDir, DOC_SIDECAR_SUFFIX)) {
     const pdfRel = rel.slice(0, -DOC_SIDECAR_SUFFIX.length) + ".pdf";
+    if (!isPublishedDocument(pdfRel)) continue;
     const abs = path.join(rootDir, pdfRel);
     if (!fs.existsSync(abs)) continue;   // a sidecar whose document has not been built
     let meta;
