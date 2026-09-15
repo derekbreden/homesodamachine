@@ -111,6 +111,12 @@ const OBJECTS = pointers.store?.objects ?? pointers.release?.objects ?? null;
 // store under its hash if the store lacks it; the first boot on a fresh disk does all of them
 // and every boot after does the ones a publish moved since. Objects arriving over the network
 // below are kept the same way as they come.
+// The directory is made when its mount is there: the disk arrives at the mount path, empty,
+// and the first boot on it is the one that fills it. At build time the mount is absent and
+// nothing is made, so the build image carries no copy of the store.
+if (STORE_DIR && !(await isDir(STORE_DIR)) && await isDir(path.dirname(STORE_DIR))) {
+  await mkdir(STORE_DIR, { recursive: true });
+}
 if (OBJECTS && STORE_DIR && await isDir(STORE_DIR)) {
   const drift = new Set(drifted);
   let kept = 0;
