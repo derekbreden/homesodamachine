@@ -16,6 +16,18 @@
 // excluded even when a scene build restores their PDF and sidecar.
 export const DOC_SIDECAR_SUFFIX = ".pdf.json";
 
+// These install-guide files are carried by the checkout. CAD publications may still name
+// an earlier edition; adopting or retiring those objects must leave the booklet in place.
+const COMMITTED_DOCUMENT_FILES = new Set([
+  "hardware/install-guide/install-guide.pdf",
+  "hardware/install-guide/install-guide.cover.png",
+  "hardware/install-guide/install-guide.pdf.json",
+]);
+
+export function isCommittedDocumentFile(repoRel) {
+  return COMMITTED_DOCUMENT_FILES.has(repoRel);
+}
+
 const SUPERSEDED_QUICK_STARTS = new Set([
   "quickstart/quick-start.pdf",
   "quickstart-claude/quick-start-claude.pdf",

@@ -14,9 +14,11 @@
 
 import { test, mock } from "node:test";
 import assert from "node:assert/strict";
-import { mkdtemp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
+import { copyFile, mkdtemp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
+import { execFile } from "node:child_process";
 import { tmpdir } from "node:os";
 import path from "node:path";
+import { promisify } from "node:util";
 
 import { pointersMoved, refreshArtifacts, retireSolids } from "../lib/artifacts-live.js";
 
@@ -95,6 +97,32 @@ test("retired parts leave the viewer's directory while current and local files r
     await retireSolids(root, have, next); // A retry also works after the old paths are absent.
     await assert.rejects(retireSolids(root, { solids: { "web/server.js": "hash" } }, next),
       /outside hardware/);
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
+});
+
+test("CAD adoption and retirement keep the committed install guide", async () => {
+  const root = await mkdtemp(path.join(tmpdir(), "hsm-committed-guide-"));
+  try {
+    const names = ["install-guide.pdf", "install-guide.cover.png", "install-guide.pdf.json"];
+    await mkdir(path.join(root, "hardware/install-guide"), { recursive: true });
+    for (const name of names) await writeFile(path.join(root, "hardware/install-guide", name), "new edition");
+    const have = { solids: Object.fromEntries(names.map(name => [`hardware/install-guide/${name}`, "old-hash"])) };
+    await writeFile(path.join(root, "hardware/cad-artifacts.json"), JSON.stringify(have));
+    await writeFile(path.join(root, "package.json"), '{"type":"module"}');
+    for (const relative of ["scripts/fetch-cad-artifacts.mjs", "lib/store.js", "contracts/documents.js"]) {
+      const destination = path.join(root, "web", relative);
+      await mkdir(path.dirname(destination), { recursive: true });
+      await copyFile(new URL("../" + relative, import.meta.url), destination);
+    }
+    const { stdout } = await promisify(execFile)(process.execPath,
+      [path.join(root, "web/scripts/fetch-cad-artifacts.mjs"), "--adopt", "--check"]);
+    assert.match(stdout, /0 solid\(s\) at the pointed-at hash/);
+    assert.deepEqual(await retireSolids(root, have, { solids: {} }), []);
+    for (const name of names) {
+      assert.equal(await readFile(path.join(root, "hardware/install-guide", name), "utf8"), "new edition");
+    }
   } finally {
     await rm(root, { recursive: true, force: true });
   }
