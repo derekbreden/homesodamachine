@@ -240,14 +240,6 @@ def tell_the_site() -> None:
 def publish() -> int:
     started = time.time()
     reason, targets = owed()
-    if os.environ.get("CLAUDE_CODE_REMOTE") == "true":
-        # The upload would be refused, and a pointer line naming bytes the release does not hold
-        # is worse than a line that waits. What this tree owes is said, and left on main for a
-        # machine that can put the bytes up.
-        print("  a cloud session cannot write the release; "
-              + (f"{reason}; " if reason else "nothing owed; ")
-              + f"the Mac or the runner publishes what main owes ({time.time() - started:.0f}s)")
-        return 0
     if reason:
         enclosure_action, _piece_payloads = enclosure_release_plan(targets)
         if enclosure_action == "defer" and not bytes_drifted():
