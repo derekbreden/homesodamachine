@@ -1,0 +1,74 @@
+{
+  "models": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/zone-c/funnel-mold",
+  "method": "Exact B-rep and manifold mesh complements; capped intended openings; no layer-height sampling.",
+  "seal_mesh_contact_overlap_mm": 0.02,
+  "seal_mesh_contact_overlap_scope": "Actual entry seal only; translations along each axis.",
+  "witness_mm": [
+    1.8500000000000003,
+    0.0,
+    15.0
+  ],
+  "sha256": {
+    "cavity.step": "d49051d1ec04a62535dd5e7e3ad735efc08efc61d74427049e31660e5b53ba4f",
+    "cavity.stl": "2bca28bc9534287b3afc2d174cb7c1639e7624b2f5c0b46e455f087098095b2e",
+    "core.step": "f72f837038265eff5606fb24bcbea8b5d4a52f96ca8ba6a8a0628b8d14f74975",
+    "core.stl": "5fffe0d5db0c9aff2810cae531a9747f217332e8c1c88a7f59adfe50aecb8d87",
+    "rod.step": "a448213f0a086510bfea0b264e9253b8f4cd8eba2b1c7fcaa28d24904c2ee9e0",
+    "funnel.step": "684a6369e9d7b950fb2d6630df7c00f63fc5c0d9b215ed426a26ad15e0d2f066",
+    "assembly.step": "e4055c25ed4f5483b797757a561388e7a65813c77d0b1772982a3f61ea5b8110",
+    "design.json": "e3b62441f9ae401948d48d4bd9ba51e36951b2f0cb32c8737d447b89cbeb088f"
+  },
+  "readings": {
+    "cavity_step": {
+      "contained": true,
+      "regions": 2,
+      "region_volumes_ml": [
+        763.789858,
+        3529.794851
+      ],
+      "retained_volume_ml": 763.789858,
+      "casting_outside_retained_mm3": 0.0
+    },
+    "assembled_step": {
+      "contained": true,
+      "regions": 2,
+      "region_volumes_ml": [
+        172.174449,
+        4148.232813
+      ],
+      "retained_volume_ml": 172.174449,
+      "casting_outside_retained_mm3": 0.0
+    },
+    "cavity_stl": {
+      "contained": true,
+      "positive_regions": 2,
+      "boundary_volumes_ml": [
+        -1360.620425,
+        763.726189,
+        4890.494613
+      ],
+      "negligible_boundaries": {
+        "count": 0,
+        "max_abs_volume_mm3": 0.0
+      },
+      "retained_volume_ml": 763.726189,
+      "casting_outside_retained_mm3": 0.0
+    },
+    "assembled_stl": {
+      "contained": true,
+      "positive_regions": 2,
+      "boundary_volumes_ml": [
+        -742.228179,
+        172.121409,
+        4890.494613
+      ],
+      "negligible_boundaries": {
+        "count": 247,
+        "max_abs_volume_mm3": 1.026961671115814e-07
+      },
+      "retained_volume_ml": 172.121409,
+      "casting_outside_retained_mm3": 0.0
+    }
+  },
+  "contained": true
+}

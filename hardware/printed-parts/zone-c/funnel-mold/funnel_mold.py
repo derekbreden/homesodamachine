@@ -129,7 +129,14 @@ def expanded(shape, distance):
             offsets.append(cq.Solid.sweep(profile, [], edge))
     offsets.extend(cq.Solid.makeSphere(distance, vertex.Center(),
         angleDegrees1=-90, angleDegrees2=90) for vertex in shape.Vertices())
-    return one(shape.fuse(*offsets, tol=tolerance), 'exterior offset')
+    envelope = shape
+    for index, offset in enumerate(offsets):
+        envelope = one(envelope.fuse(offset, tol=tolerance),
+                       f'exterior offset contribution {index}')
+    for index, source in enumerate([shape, *offsets]):
+        missing = source.cut(envelope, tol=tolerance).Volume()
+        assert missing < tolerance, f'exterior offset contribution {index}: {missing} mm³ missing'
+    return envelope
 
 
 def contracted(shape, distance, top):
@@ -143,6 +150,33 @@ def contracted(shape, distance, top):
         if solid is not None:
             return solid
     raise AssertionError('core offset')
+
+
+def liquid_containment(cavity, core, rod, cast, seal, floor, top, back, width,
+                       neck, pour, vents, x, y):
+    """The intended liquid occupies an enclosed region separate from outside air."""
+    overlap = 0.02
+    surrounding = box(width+26, width+26, floor-2, back+8)
+    outside = cq.Vector(-(width+26)/2+1, 0, floor)
+    witness = cq.Vector(x, y, rod.BoundingBox().zmin-3)
+    mouth_cap = box(width+2, width+2, top-overlap, back+2)
+    ports = [(pour, pour_diameter), *[(xy, vent_diameter) for xy in vents]]
+    caps = [cylinder(diameter/2+overlap, back-overlap, back+1, *xy)
+            for xy, diameter in ports]
+    readings = {}
+    for label, tools in [('cavity', [cavity, mouth_cap]),
+                         ('assembled', [cavity, core, rod, seal, *caps])]:
+        remainder = surrounding.cut(*tools).clean()
+        assert remainder.isValid(), f'{label}: invalid liquid complement'
+        retained = [s for s in remainder.Solids()
+                    if s.isInside(witness, 1e-6) and not s.isInside(outside, 1e-6)]
+        assert len(retained) == 1, f'{label}: liquid space leaks to outside'
+        target = cast.cut(*tools)
+        missing = target.cut(retained[0]).Volume()
+        assert missing < tolerance, f'{label}: {missing:g} mm3 of casting outside retained liquid'
+        readings[label] = {'retained_volume_ml': retained[0].Volume()/1000,
+                           'casting_outside_retained_mm3': missing}
+    return readings
 
 
 def build():
@@ -164,6 +198,7 @@ def build():
     print('Offsetting cavity forming face and dry back', flush=True)
     forming_void = expanded(nominal_exterior, finish_allowance)
     cavity_outer = expanded(nominal_exterior, finish_allowance+shell_thickness)
+    assert forming_void.cut(cavity_outer, tol=tolerance).Volume() < tolerance
     cavity_flange = rounded(flange_width, flange_radius, top-flange_thickness, top)
     feet = [cylinder(foot_diameter/2, floor, m['ramp_top_z'], *xy) for xy in feet_xy]
     cavity = one(cavity_outer.fuse(cavity_flange, *feet).cut(forming_void)
@@ -249,6 +284,8 @@ def build():
     cast = one(exterior.cut(bore).fuse(tip.cut(rod)), 'silicone casting')
 
     print('Checking closure, release, passages and wall backing', flush=True)
+    containment = liquid_containment(cavity, core, rod, cast, seal, floor, top, back,
+                                     flange_width, neck, pour, vents, x, y)
     assert cavity.intersect(core).Volume() < tolerance
     assert all(s.intersect(cast).Volume() < tolerance for s in (cavity, core))
     assert all(s.intersect(rod).Volume() < tolerance for s in (cavity, core))
@@ -301,6 +338,7 @@ def build():
                               s.BoundingBox().zlen] for n, s in parts.items()},
         'volume_ml': {n: s.Volume()/1000 for n, s in parts.items()},
         'shell_thickness_mm': shell_thickness, 'flange_thickness_mm': flange_thickness,
+        'liquid_containment': containment,
         'parting_z_mm': top-floor, 'finish_allowance_mm': finish_allowance,
         'rod_support': {'engagement_mm': rod_engagement, 'guide_diameter_mm': 2*guide_radius,
             'guide_diametral_clearance_mm': rod_clearance, 'guide_length_mm': rod_guide_length,
