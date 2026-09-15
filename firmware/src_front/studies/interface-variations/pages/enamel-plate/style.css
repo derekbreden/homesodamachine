@@ -65,6 +65,8 @@ body {
 }
 .rail-item.on { background: var(--cream); color: var(--cobalt); }
 .rail-item .legend { font-size: 20px; }
+.rail-item.svc    { color: var(--dim-on-blue); }
+.rail-item.svc.on { color: var(--cobalt); }
 
 /* The Settings chip — a cream chip laid into the slab's top-right corner.
    Its bottom edge, the rail's first rule and the pane's rule all land on 76. */
@@ -119,9 +121,9 @@ body {
 .gauge { display: flex; flex-direction: column-reverse; gap: 6px; }
 .gauge i { display: block; width: 86px; height: 14px; border-radius: 3px; box-sizing: border-box; }
 .g-full-cream { background: var(--cream); }
-.g-void-cream { box-shadow: inset 0 0 0 2px var(--dim-on-blue); }
+.g-void-cream { box-shadow: inset 0 0 0 3px var(--dim-on-blue); }
 .g-full-warn  { background: var(--warn); }
-.g-void-ink   { box-shadow: inset 0 0 0 2px var(--dim); }
+.g-void-ink   { box-shadow: inset 0 0 0 3px var(--dim); }
 
 .door { position: absolute; top: 396px; width: 281px; height: 60px; display: flex; align-items: center; justify-content: center; gap: 12px; }
 .door.a { left: 206px; }
@@ -167,7 +169,10 @@ body {
 .hazard { position: absolute; left: 0; width: 800px; height: 14px;
   background: repeating-linear-gradient(45deg, var(--cream) 0 9px, var(--cobalt) 9px 18px); }
 .hazard.v { top: 0; width: 14px; height: 480px; }
-.bar   { position: absolute; left: 252px; top: 272px; width: 508px; height: 18px; background: var(--cream); border-radius: 3px; overflow: hidden; }
+.timechip { position: absolute; left: 252px; top: 162px; height: 64px; padding: 0 22px;
+            background: var(--red); color: var(--cream); border-radius: 6px;
+            display: inline-flex; align-items: center; }
+.bar   { position: absolute; left: 252px; top: 288px; width: 508px; height: 18px; background: var(--cream); border-radius: 3px; overflow: hidden; }
 .bar u { position: absolute; left: 0; top: 0; width: 203px; height: 18px; background: var(--red); display: block; }
 .bar s { position: absolute; top: 0; width: 3px; height: 18px; background: var(--cobalt); display: block; }
 .stop  { position: absolute; left: 500px; top: 336px; width: 260px; height: 104px; border-radius: 6px;
@@ -182,5 +187,5 @@ body {
           display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
           text-align: center; }
 .area .legend { line-height: 24px; }
-.legrow { position: absolute; left: 222px; top: 420px; width: 358px; height: 20px; display: flex; gap: 22px; align-items: center; }
+.legrow { position: absolute; left: 222px; top: 420px; width: 358px; height: 20px; display: flex; gap: 22px; align-items: center; white-space: nowrap; }
 .legrow span { display: flex; gap: 8px; align-items: center; }
