@@ -28,7 +28,7 @@ import {
 import { mountNotificationsRoutes } from "./lib/notifications.js";
 import { mountArtifactsLive } from "./lib/artifacts-live.js";
 import { mountObjectRoutes, mountObjectPrune } from "./lib/objects.js";
-import { storeFromEnv } from "./lib/store.js";
+import { fillStore, storeFromEnv } from "./lib/store.js";
 import { WS } from "./contracts/ws-frames.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -282,10 +282,11 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
   // key pair, the disk when it names a directory. Every member the pointer file names is held
   // there by hash; a machine that cut one puts it here (web/lib/objects.js).
   const store = await storeFromEnv();
+  const pointersPath = path.join(REPO_ROOT, "hardware", "cad-artifacts.json");
   if (store) {
     console.log(`[objects] store: ${store.kind}`);
     mountObjectRoutes(app, { store });
-    mountObjectPrune({ store, pointersPath: path.join(REPO_ROOT, "hardware", "cad-artifacts.json") });
+    mountObjectPrune({ store, pointersPath });
   }
   attachSubscribe(app, pool);
 
@@ -368,6 +369,22 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
   }
 
   const defaultPort = dev ? 3000 : 3001;
+  // AND THE STORE CATCHES UP BEHIND THE PORT. A container serves off its own disk from the
+  // moment it boots; what the store is missing goes up after that, so a fill of 401 members
+  // never stands between a deploy and the port it binds.
+  if (store && !dev) {
+    server.on("listening", () => {
+      (async () => {
+        try {
+          const pointers = JSON.parse(await fs.promises.readFile(pointersPath, "utf-8"));
+          await fillStore({ store, root: REPO_ROOT, pointers });
+        } catch (e) {
+          console.error(`[objects] fill skipped: ${e.message}`);
+        }
+      })();
+    });
+  }
+
   server.listen(port ?? process.env.PORT ?? defaultPort, () => {
     if (dev) {
       console.log(`Dev server: http://localhost:${server.address().port}`);

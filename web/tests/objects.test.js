@@ -14,7 +14,7 @@ import { Readable } from "node:stream";
 import express from "express";
 
 import { mountObjectRoutes, namedBy, pruneObjects, receiveObject } from "../lib/objects.js";
-import { DiskStore, R2Store, storeFromEnv } from "../lib/store.js";
+import { DiskStore, R2Store, fillStore, storeFromEnv } from "../lib/store.js";
 
 const sha = (bytes) => createHash("sha256").update(bytes).digest("hex");
 
@@ -173,4 +173,25 @@ test("the environment names the store: R2 with a key pair, the disk with a direc
                                   R2_BUCKET: "b", R2_PUBLIC_URL: "https://pub.r2.dev/", OBJECTS_DIR: "/tmp/x" });
   assert.equal(r2.kind, "r2");
   assert.equal(r2.redirectUrl("s-1.gz"), "https://pub.r2.dev/s-1.gz");
+});
+
+test("the fill puts what the store lacks, skips what it has and what this tree cut differently", async () => {
+  const root = await mkdtemp(path.join(tmpdir(), "tree-"));
+  const a = Buffer.from("member a"), b = Buffer.from("member b"), c = Buffer.from("member c");
+  await writeFile(path.join(root, "a.step"), a);
+  await writeFile(path.join(root, "b.step"), b);
+  await writeFile(path.join(root, "c.step"), Buffer.from("a fresh cut, not the pointed-at bytes"));
+  const pointers = {
+    store: { objects: "s-" },
+    solids: { "a.step": sha(a), "b.step": sha(b), "c.step": sha(c), "gone.step": sha(Buffer.from("x")) },
+  };
+  const store = new DiskStore(await mkdtemp(path.join(tmpdir(), "objects-")));
+  await writeFile(path.join(store.dir, `s-${sha(b)}.gz`), gzipSync(b));   // already held
+  const lines = [];
+  assert.equal(await fillStore({ store, root, pointers, log: (l) => lines.push(l) }), 1);
+  assert.deepEqual((await store.list()).map((o) => o.name).sort(), [`s-${sha(a)}.gz`, `s-${sha(b)}.gz`].sort());
+  assert.match(lines[0], /1 of 3 member\(s\) put on the disk store/);
+  assert.equal(await fillStore({ store, root, pointers, log: () => {} }), 0, "a second pass sends nothing new");
+  assert.equal(await fillStore({ store: null, root, pointers }), 0);
+  assert.equal(await fillStore({ store, root, pointers: { solids: {} } }), 0, "no prefix, no fill");
 });
