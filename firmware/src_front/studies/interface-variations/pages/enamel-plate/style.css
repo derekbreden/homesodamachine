@@ -147,7 +147,7 @@ body {
 .g-off-cream { box-shadow: inset 0 0 0 3px var(--dim); }
 .read.low { background: var(--warn); display: grid; place-items: center; }
 
-.door { position: absolute; top: 396px; width: 281px; height: 60px; display: flex; align-items: center; justify-content: center; gap: 12px; }
+.door { position: absolute; top: 392px; width: 281px; height: 64px; display: flex; align-items: center; justify-content: center; gap: 12px; }
 .door.a { left: 206px; }
 .door.b { left: 503px; }
 
