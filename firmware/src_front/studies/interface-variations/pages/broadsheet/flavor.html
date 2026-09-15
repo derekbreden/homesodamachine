@@ -65,11 +65,11 @@
 
   <div class="disp d96" style="position:absolute; left:228px; top:166px">1:20</div>
 
-  <div class="key" style="left:592px; top:166px; width:80px; height:96px">
+  <div class="key" style="left:592px; top:166px; width:80px; height:80px">
     <svg width="44" height="44" viewBox="0 0 44 44" aria-hidden="true"><rect x="4" y="20" width="36" height="4" fill="#1b1a17"/></svg>
   </div>
   <!-- pressed element on this screen: the + key -->
-  <div class="key pressed" style="left:688px; top:166px; width:80px; height:96px">
+  <div class="key pressed" style="left:688px; top:166px; width:80px; height:80px">
     <svg width="44" height="44" viewBox="0 0 44 44" aria-hidden="true">
       <rect x="4" y="20" width="36" height="4" fill="#1b1a17"/>
       <rect x="20" y="4" width="4" height="36" fill="#1b1a17"/>
@@ -78,28 +78,27 @@
 
   <!-- ════ FACE — the row is wider than the window; the position is the target.
             The word and the count sit clear of the keys' column. ════ -->
-  <div class="caps" style="position:absolute; left:228px; top:252px">Face</div>
+  <div class="caps" style="position:absolute; left:228px; top:262px">Face</div>
 
-  <div style="position:absolute; left:336px; top:230px; width:208px; height:64px; display:flex; align-items:center; gap:14px">
-    <svg width="16" height="20" viewBox="0 0 16 20" aria-hidden="true"><path d="M11 3 L4 10 L11 17" fill="none" stroke="#1b1a17" stroke-width="2.6"/></svg>
-    <span class="caps">Drag &nbsp;3 of 8</span>
-    <svg width="16" height="20" viewBox="0 0 16 20" aria-hidden="true"><path d="M5 3 L12 10 L5 17" fill="none" stroke="#1b1a17" stroke-width="2.6"/></svg>
+  <div style="position:absolute; left:552px; top:250px; width:216px; height:64px; display:flex; align-items:flex-start; justify-content:flex-end; gap:12px; white-space:nowrap">
+    <svg style="flex:none; margin-top:12px" width="16" height="20" viewBox="0 0 16 20" aria-hidden="true"><path d="M11 3 L4 10 L11 17" fill="none" stroke="#1b1a17" stroke-width="2.6"/></svg>
+    <span class="caps" style="margin-top:12px">Drag &nbsp;3 of 8</span>
+    <svg style="flex:none; margin-top:12px" width="16" height="20" viewBox="0 0 16 20" aria-hidden="true"><path d="M5 3 L12 10 L5 17" fill="none" stroke="#1b1a17" stroke-width="2.6"/></svg>
   </div>
 
   <!-- The row runs off both ends of its window, which is how it says there is
-       more of it. The chosen face is the one printed at full ink, capped by a
-       10px ink bar — the same bar the lead item wears on Choose. -->
-  <div class="strip" style="left:228px; top:278px; width:540px; height:170px">
+       more of it. The chosen face is the one printed at full ink inside a 3px
+       frame; the rest are washed, exactly as the second item is on Choose. -->
+  <div class="strip" style="left:228px; top:288px; width:540px; height:160px">
     <div class="run" style="left:-40px; width:832px">
-      <div class="plate wash" style="left:0;   top:10px; width:86px; height:160px"><img src="../../assets/flavor_2.png" alt=""></div>
-      <div class="plate wash" style="left:104px;top:10px; width:86px; height:160px"><img src="../../assets/flavor_3.png" alt=""></div>
-      <div class="rule-10"    style="left:208px;top:0;    width:86px"></div>
-      <div class="plate"      style="left:208px;top:10px; width:86px; height:160px"><img src="../../assets/flavor_1.png" alt=""></div>
-      <div class="plate wash" style="left:312px;top:10px; width:86px; height:160px"><img src="../../assets/flavor_4.png" alt=""></div>
-      <div class="plate wash" style="left:416px;top:10px; width:86px; height:160px"><img src="../../assets/flavor_2.png" alt=""></div>
-      <div class="plate wash" style="left:520px;top:10px; width:86px; height:160px"><img src="../../assets/flavor_3.png" alt=""></div>
-      <div class="plate wash" style="left:624px;top:10px; width:86px; height:160px"><img src="../../assets/flavor_1.png" alt=""></div>
-      <div class="plate wash" style="left:728px;top:10px; width:86px; height:160px"><img src="../../assets/flavor_4.png" alt=""></div>
+      <div class="plate wash" style="left:0;   top:0; width:86px; height:160px"><img src="../../assets/flavor_2.png" alt=""></div>
+      <div class="plate wash" style="left:104px;top:0; width:86px; height:160px"><img src="../../assets/flavor_3.png" alt=""></div>
+      <div class="plate chosen" style="left:208px;top:0; width:86px; height:160px"><img src="../../assets/flavor_1.png" alt=""></div>
+      <div class="plate wash" style="left:312px;top:0; width:86px; height:160px"><img src="../../assets/flavor_4.png" alt=""></div>
+      <div class="plate wash" style="left:416px;top:0; width:86px; height:160px"><img src="../../assets/flavor_2.png" alt=""></div>
+      <div class="plate wash" style="left:520px;top:0; width:86px; height:160px"><img src="../../assets/flavor_3.png" alt=""></div>
+      <div class="plate wash" style="left:624px;top:0; width:86px; height:160px"><img src="../../assets/flavor_1.png" alt=""></div>
+      <div class="plate wash" style="left:728px;top:0; width:86px; height:160px"><img src="../../assets/flavor_4.png" alt=""></div>
     </div>
   </div>
 
