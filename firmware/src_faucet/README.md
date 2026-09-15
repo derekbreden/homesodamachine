@@ -26,11 +26,15 @@ A different main board selection, including one made on the enclosure display, c
 logo and wakes the backlight. Re-publication of the flavor already shown is a no-op and does
 not disturb idle behavior.
 
-When the enclosure opens Service → Prime for one flavor, main board state replaces the logo
+When the enclosure opens Prime for one flavor, main board state replaces the logo
 with two exact half-screen targets: `EXIT PRIME` on top and `HOLD TO PRIME` below. The faucet
 does not create prime mode; it can end the existing mode or own a held run for its selected
 channel. A hold from either display is shown on both, and an entering, starting, or ending
 session wakes a dimmed faucet. The first touch while dimmed remains wake-only.
+
+Service and update screens use the Big Blue palette: cobalt background, navy exit target,
+and an orange hold target with navy text. Active priming remains green and pending or
+reconnecting states use ice blue. The resting screen shows the selected flavor's own artwork.
 
 **The main board keeps the quiet stretch, across both glasses.** A finger on either is
 activity for both, so this head does not dim while a hand is at the enclosure, and the pair

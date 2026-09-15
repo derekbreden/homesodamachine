@@ -69,7 +69,7 @@ const TIERS = {
 const scrim = new THREE.Mesh(
   new THREE.PlaneGeometry(1, 1),
   new THREE.MeshBasicMaterial({
-    color: 0x1a1a2e, transparent: true, opacity: 0,
+    color: 0x10319c, transparent: true, opacity: 0,
     depthTest: false, depthWrite: false,
   }),
 );

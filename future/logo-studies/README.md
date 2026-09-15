@@ -1,5 +1,8 @@
 # Big Blue logo studies
 
+The production identity is the **02 · On tap** faucet. Its scalable artwork,
+palette and platform assets are in [`brand/`](../../brand/README.md).
+
 Six logo concepts for Home Soda Machine, with app-icon and standalone logo treatments.
 Each board is a raster design study. The comparison includes 64, 48, 32 and 16 px
 views of the main app icon.

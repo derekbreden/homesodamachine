@@ -8,6 +8,7 @@
 #include "esp_lcd_panel_ops.h"
 #include "freertos/semphr.h"
 #include "fw_version.h"
+#include "front_ui_policy.h"
 #include "proto_link.h"
 #include <driver/gpio.h>
 #include <esp_sleep.h>
@@ -19,25 +20,16 @@
 // requires scan recovery; a PANEL:REALIGN resets the same way and is not
 // counted, and normal wake cycles must leave it unchanged.
 extern "C" uint32_t home_soda_rgb_restart_count(void);
-// Static Font Awesome icons keep the customer rail and full-card actions crisp
-// without asking LVGL to transform text at runtime.
-extern "C" const lv_font_t front_icons_48;
-
-// Animated loading logo — the 16-frame glass/bubbles loop (the same animation
-// the config display uses), rendered natively at 360x360 RGB565 by
-// tools/gen_animation_frames.py from the app-icon artwork. Each frame's
-// background is THEME_BG, so the centered image blends into the screen fill.
+// The selected On tap faucet mark, with a pulsing orange dot. Sixteen native
+// 360x360 RGB565 frames share the Big Blue background and live in mapped art.
+// tools/gen_animation_frames.py renders the canonical brand/mark.svg.
 #include "ota_receiver.h"
 #include "board_art.h"
 #include "wifi_bench.h"
 #include "image_store.h"
 
-// The flavor marks are deliberately static artwork. Choose's selection refresh
-// changes only on actual main board state transitions, so these do not
-// participate in the background link polling that formerly disturbed a card.
-// Every logo is carried at every size it is drawn at: the 240 a Choose card
-// shows, and the 86x160 the picker strip shows, baked rather than scaled under
-// LVGL at draw time.
+// Factory portraits use the same three-rendition wire bundle as customer uploads.
+// Big Blue caches its display-sized portraits from these sources at binding time.
 #include "images/flavor0_anchor.h"
 #include "images/flavor1_anchor.h"
 #include "images/flavor2_anchor.h"
@@ -82,22 +74,23 @@ extern "C" const lv_font_t front_icons_48;
 // (16 MB flash / 8 MB octal PSRAM). Mounts in the enclosure's front face,
 // angled up toward a standing user.
 //
-// The screen is a rail of five icons down the left edge and a pane to their right: Choose,
-// Ratio, Prime, Clean, and Settings. Flavor selection follows the main board; a Prime
-// flavor opens the shared hold pad, and the base board runs the selected pump only while
-// the finger stays down.
+// Big Blue keeps both flavors in a left rail, the selected portrait beside it,
+// and Fill, Prime, Clean above the task pane. Settings occupies the whole area
+// right of the rail. The main board owns selection, operations and prime sessions;
+// holding either glass's prime pad renews the same tokenized session.
 
-// ── Theme (matches faucet display / config display / iOS app) ──
-#define THEME_BG  lv_color_hex(0x1a1a2e)
-
-#define COL_CARD     0x242440   // panel behind a group of controls
-#define COL_CARD_ON  0x33335c   // the same panel, pressed or selected
-#define COL_ACCENT   0xe94560   // the app icon's liquid, and every primary action
-#define COL_TEXT     0xe8e8f2
-#define COL_DIM      0x8888aa
-#define COL_GOOD     0x37c98b
-#define COL_WARN     0xf0a83c
-#define COL_OFF      0x3a3a55   // a control at the end of its travel
+// ── Big Blue ──
+#define COL_BLUE     0x1749d1
+#define THEME_BG     lv_color_hex(COL_BLUE)
+#define COL_CARD     0x10319c
+#define COL_CARD_ON  0x315fdb
+#define COL_ACCENT   0xff9152
+#define COL_TEXT     0xffffff
+#define COL_DIM      0xdce6ff
+#define COL_INK      0x153383
+#define COL_GOOD     COL_ACCENT
+#define COL_WARN     0xffb183
+#define COL_OFF      0x6287e0
 
 // What a target answers to. START CLEAN CYCLE answers to LV_EVENT_CLICKED instead.
 #define ACT_EVENT LV_EVENT_PRESSED
@@ -201,149 +194,59 @@ static volatile uint32_t frameDoneCount = 0;
 static uint32_t panelDrawErrors = 0;
 static uint32_t frameDoneTimeouts = 0;
 
-// ── Shell geometry ──
-// The rail fills the screen height between its 8 px top and bottom rims; the
-// pane takes the remaining 76% of the width.
-#define PANE_PAD         16
-#define RAIL_W          190
-#define RAIL_INSET_Y      8
-#define RAIL_ITEM_GAP     8
-#define RAIL_ITEM_H     110
-#define RAIL_ITEM_PAD     6
-// The word sits on the floor of the target and the icon centres in what is
-// left. The height passed is the glyph box the font was built at.
-#define RAIL_ICON_TOP(h) ((RAIL_ITEM_H - 2 * RAIL_ITEM_PAD - TEXT_H_20 - (h)) / 2)
-#define PANE_W    (SCREEN_W - RAIL_W)
-#define PANE_H    (SCREEN_H - 2 * PANE_PAD)
-
-// Settings is not a customer destination and holds no rail slot. It is one
-// square in the screen's top-right corner, over every page.
-#define SETTINGS_BTN  64
-#define SETTINGS_GAP  14
-
-// ── Settings: system status, and the areas beside it ──
-// The landing is the machine's side profile with every reed on it; the areas a
-// person can go into stand in a column east of it, one target each.
-#define STATUS_MENU_W      190
-#define STATUS_MENU_GAP     16
-#define STATUS_MENU_BTN_H   64
-#define STATUS_MENU_BTN_GAP 12
-#define STATUS_CARD_PAD     14
-#define STATUS_REEDS        10   // four per reservoir, two on the carbonator
-
-// The settings square floats over every pane from the screen root, so it is not
-// in any pane's layout and every pane has to keep its own top band clear of it.
-// A pane titles itself in that band and starts its body below it.
-#define PANE_HEAD_H   SETTINGS_BTN
-#define PANE_BODY_Y   (PANE_HEAD_H + 12)
-
-// Heights LVGL actually renders these at, so a row can be centred against a
-// number rather than an estimate of one.
-#define TEXT_H_20   22
-#define TEXT_H_28   30
-#define TEXT_H_40   44
-
-// Choose gives each card a settings target under it, and a badge that reports
-// the selection the card itself changes. The card's face is tall now, so the
-// column it no longer fills holds the badge and what that flavor pours at —
-// the one fact about a flavor that was otherwise a page away.
-#define HOME_GEAR_H    56
-#define HOME_GEAR_GAP  16
-#define HOME_BADGE_H   44
-#define HOME_CARD_PAD  12
-#define HOME_CARD_H    (PANE_H - PANE_BODY_Y - HOME_GEAR_H - HOME_GEAR_GAP)
-#define HOME_FACE_GAP  16
-
-// ── The anchor: which flavor a detail page is about ──
-// ONCE A FLAVOR IS CHOSEN THE PAGE IS ABOUT IT, AND SAYS SO IN THE PICTURE
-// RATHER THAN IN A WORD FOR IT. Every page reached by picking a channel puts
-// that channel's face at the pane's west edge, directly under the back button
-// and at the size the faucet itself will wear it: the choice slid left, and its
-// details opened to the east of it. One column, one width, four pages — so
-// moving between them moves only what changed.
-#define ANCHOR_GAP     16
-#define BACK_BTN       58                      // the back control's height
-#define BACK_W         FLAVOR_ANCHOR_W         // and its width: the column's
-#define BACK_FOOT      ((PANE_HEAD_H - BACK_BTN) / 2 + BACK_BTN)
-#define DETAIL_X       (FLAVOR_ANCHOR_W + ANCHOR_GAP)
-#define DETAIL_W       (PANE_W - 2 * PANE_PAD - DETAIL_X)
-
-// UNDER THE BACK BUTTON IS NOT THE SAME AS AGAINST IT. Both columns of a detail
-// page end on one line, and that line is the pane's — as far above the floor as
-// a standing message needs, not wherever the anchor's height happens to reach.
-// The anchor hangs from it, which leaves the same air above the picture as
-// below it and stops the page from stacking itself against the back button with
-// its slack all in a heap at the bottom.
-#define DETAIL_MSG_GAP 12
-#define DETAIL_FLOOR   (PANE_H - TEXT_H_20 - DETAIL_MSG_GAP)
-#define ANCHOR_Y       (DETAIL_FLOOR - FLAVOR_ANCHOR_H)
-static_assert(ANCHOR_Y > BACK_FOOT, "the anchor must clear the back button");
-static_assert(DETAIL_FLOOR <= PANE_H, "both columns must end inside the pane");
-
-// The flavor's own page: ratio, then every logo it could wear.
-#define RATIO_CARD_H  130
-// The range the base's SET:Fn_RATIO accepts, and so the range the two steppers
-// can reach. Named because a control that stops has to stop at the same number
-// the clamp does, or it lies in one direction or the other.
-#define RATIO_MIN       FLAVOR_RATIO_MIN
-#define RATIO_MAX       FLAVOR_RATIO_MAX
-// A tile is the picture plus the ring that says it is the chosen one. The strip
-// runs off the right of the column and is dragged: eight faces at this size do
-// not fit beside the anchor, and shrinking them until they do is how the tall
-// shape stops being readable at the moment it is meant to be read.
-#define TILE_PAD        5
-#define TILE_BTN_W    (FLAVOR_TILE_W + 2 * TILE_PAD)
-#define TILE_BTN_H    (FLAVOR_TILE_H + 2 * TILE_PAD)
-#define TILE_GAP       12
-#define IMAGE_LABEL_Y (PANE_BODY_Y + RATIO_CARD_H + 12)
-#define TILE_STRIP_Y  (IMAGE_LABEL_Y + TEXT_H_20 + 8)
-// A ROW THAT RUNS OFF THE SCREEN HAS TO SAY SO IN SOMETHING THAT CAN BE PRESSED.
-// A strip that only answers to a drag is a strip whose far end does not exist
-// for anyone who has never been taught to try. So it is flanked by two targets
-// as tall as what they move, with a track under it saying where in the row you
-// are — and all three appear only when there is somewhere to go, because an
-// affordance for a row that fits is furniture.
-#define TILE_ARROW_W    48
-#define TILE_ARROW_GAP   8
-#define TILE_STRIP_W  (DETAIL_W - 2 * (TILE_ARROW_W + TILE_ARROW_GAP))
-#define TILE_STRIP_X  (DETAIL_X + TILE_ARROW_W + TILE_ARROW_GAP)
-#define TILE_TRACK_H    10
-#define TILE_TRACK_Y  (TILE_STRIP_Y + TILE_BTN_H + 8)
-// One press of either arrow. Two tiles, because the strip is two and a bit
-// wide: a step longer than the view skips a face past whoever is looking for it.
-#define TILE_PAGE_PX  (2 * (TILE_BTN_W + TILE_GAP))
-static_assert(TILE_PAGE_PX <= TILE_STRIP_W, "an arrow must not step past the view it moves");
-// The faces a machine ships with already overrun the view, and a custom one
-// only lengthens the row: the strip scrolls from its first tile onward, and
-// the arrows and track are never furniture.
-static_assert(FLAVOR_FACTORY_COUNT * TILE_BTN_W + (FLAVOR_FACTORY_COUNT - 1) * TILE_GAP >
-                  TILE_STRIP_W,
-              "the shipped row must overrun the strip the arrows scroll");
+// ── Big Blue geometry: persistent flavors, selected portrait, task ──
+#define RAIL_W          104
+#define HERO_W          234
+#define TASK_X          (RAIL_W + HERO_W)
+#define TASK_W          (SCREEN_W - TASK_X)
+#define HEADER_H         62
+#define PANE_PAD         25
+#define PANE_W          TASK_W
+#define PANE_H          (SCREEN_H - HEADER_H - 2 * PANE_PAD)
+#define DETAIL_W        (PANE_W - 2 * PANE_PAD)
+#define SETTINGS_BTN     64
+#define TEXT_H_20        22
+#define TEXT_H_28        30
+#define TEXT_H_40        44
+#define STATUS_REEDS     10
+#define RATIO_MIN        FLAVOR_RATIO_MIN
+#define RATIO_MAX        FLAVOR_RATIO_MAX
+#define TILE_BTN_W       95
+#define TILE_BTN_H      194
+#define TILE_GAP         10
+#define TILE_STRIP_W    DETAIL_W
+#define TILE_STRIP_Y     87
+static_assert(RAIL_W + HERO_W + TASK_W == SCREEN_W, "Big Blue fills the display");
+static_assert(4 * TILE_BTN_W + 3 * TILE_GAP <= DETAIL_W, "four whole portraits per page");
 
 // ── Pages ──
 // Every page is built once and lives for the life of the firmware; switching hides one and
 // shows another. Sub-views inside a page work the same way.
 enum Page { PAGE_HOME, PAGE_FLAVOR, PAGE_SERVICE, PAGE_SETUP, PAGE_COUNT };
 
-enum FlavorView  { FLV_DETAIL, FLV_COUNT };
+enum FlavorView  { FLV_DETAIL, FLV_IMAGES, FLV_COUNT };
 enum ServiceView { SVC_PRIME_PICK, SVC_PRIME_HOLD, SVC_CLEAN_PICK,
                    SVC_CLEAN_CONFIRM, SVC_FILL_PICK, SVC_FILL_CONFIRM, SVC_COUNT };
 // Settings lands on the system status; each area beside it is a view of its own.
 enum SettingsView { SET_STATUS, SET_PUMP, SET_COUNT };
 
-// The rail carries the customer-facing destinations, least destructive first.
-// Prime, Fill and Clean each ask for the flavor they act on. Settings is not
-// among them; a flavor's ratio and logo are not either, and are reached from
-// that flavor's card on Choose.
+// Stable diagnostic destination IDs. The live rail contains flavor images;
+// the three service destinations are the tabs above the task pane.
 enum RailPage { RAIL_CHOOSE, RAIL_PRIME, RAIL_FILL, RAIL_CLEAN,
                 RAIL_PAGE_COUNT };
 
-static_assert(2 * RAIL_INSET_Y + RAIL_PAGE_COUNT * RAIL_ITEM_H +
-                  (RAIL_PAGE_COUNT - 1) * RAIL_ITEM_GAP == SCREEN_H,
-              "customer rail must fill the screen height");
-
 static lv_obj_t *pageObj[PAGE_COUNT];
-static lv_obj_t *railBtn[RAIL_PAGE_COUNT];
+static lv_obj_t *railBtn[RAIL_PAGE_COUNT] = {};
+static lv_obj_t *railLabel[RAIL_PAGE_COUNT] = {};
+static lv_obj_t *flavorRail, *heroPanel, *heroImage, *heroCaption;
+static lv_obj_t *taskHeader, *systemTitle, *doneBtn;
+static lv_obj_t *homeTitle, *homeGauge, *homeLevelCaption;
+static lv_obj_t *homeLevelSegments[LEVEL_SEGMENTS];
+static lv_obj_t *flvTilePosition, *flvTileEmpty;
+static lv_obj_t *flvTileMark[FLAVOR_IMAGE_COUNT] = {};
+static uint8_t imagePage = 0;
+static bool operationLockMachine = false;
+static bool operationResultVisible = false;
 static lv_obj_t *flvView[FLV_COUNT];
 static lv_obj_t *svcView[SVC_COUNT];
 static lv_obj_t *setView[SET_COUNT];
@@ -368,6 +271,8 @@ static void showSettings(SettingsView v);
 static void animRun(bool on);
 static void idleReset(uint8_t stage);
 static void refreshHomeSelection();
+static void refreshHomeLevel();
+static void refreshShell();
 static bool primeLinkOwnsJ9();
 static void primeSessionService();
 static void lockScreenShow(const char *kicker, const char *title, const char *body);
@@ -419,6 +324,8 @@ static_assert(LOCK_MODAL_H - LOCK_PAD_T - LOCK_PAD_B >= FLAVOR_TILE_H, "a face m
 static_assert(LOCK_NOTE_Y + TEXT_H_20 <= LOCK_MODAL_H - LOCK_PAD_T - LOCK_PAD_B - LOCK_STOP_H,
               "the note must clear STOP");
 static void lockFillLayout(bool on);
+static void operationResultShow();
+static void pendingOperationShow(const char *kicker, bool machine);
 static void fillStopCb(lv_event_t *e);
 static void cleanStopCb(lv_event_t *e);
 static void airStopCb(lv_event_t *e);
@@ -438,6 +345,40 @@ static bool flavorArtAsked = false;
 static lv_img_dsc_t flavorAnchor[FLAVOR_IMAGE_COUNT];
 static lv_img_dsc_t flavorCard[FLAVOR_IMAGE_COUNT];
 static lv_img_dsc_t flavorTile[FLAVOR_IMAGE_COUNT];
+static lv_img_dsc_t flavorRailArt[FLAVOR_IMAGE_COUNT];
+static lv_img_dsc_t flavorHeroArt[FLAVOR_IMAGE_COUNT];
+static lv_img_dsc_t flavorPickerArt[FLAVOR_IMAGE_COUNT];
+static uint16_t *scaledPixels[3][FLAVOR_IMAGE_COUNT] = {};
+
+static void bindBigBlueArt() {
+  const uint16_t width[3] = {64, 183, 78};
+  const uint16_t height[3] = {119, 340, 145};
+  lv_img_dsc_t *sets[3] = {flavorRailArt, flavorHeroArt, flavorPickerArt};
+  for (uint8_t size = 0; size < 3; ++size) {
+    for (uint8_t art = 0; art < FLAVOR_IMAGE_COUNT; ++art) {
+      const lv_img_dsc_t &source = flavorAnchor[art];
+      const size_t bytes = (size_t)width[size] * height[size] * sizeof(uint16_t);
+      uint16_t *&pixels = scaledPixels[size][art];
+      if (!pixels) pixels = (uint16_t *)heap_caps_malloc(bytes, MALLOC_CAP_SPIRAM | MALLOC_CAP_8BIT);
+      // Retain a complete smaller portrait if PSRAM cannot fit a rendition.
+      if (!pixels) { sets[size][art] = flavorTile[art]; continue; }
+      const uint16_t *src = (const uint16_t *)source.data;
+      for (uint16_t y = 0; y < height[size]; ++y) {
+        const uint32_t sy = (uint32_t)y * source.header.h / height[size];
+        for (uint16_t x = 0; x < width[size]; ++x)
+          pixels[(size_t)y * width[size] + x] =
+              src[sy * source.header.w + (uint32_t)x * source.header.w / width[size]];
+      }
+      sets[size][art] = {};
+      sets[size][art].header.cf = LV_IMG_CF_TRUE_COLOR;
+      sets[size][art].header.w = width[size];
+      sets[size][art].header.h = height[size];
+      sets[size][art].data_size = bytes;
+      sets[size][art].data = (const uint8_t *)pixels;
+      lv_img_cache_invalidate_src(&sets[size][art]);
+    }
+  }
+}
 static const uint16_t *flavorAnchorPixels[FLAVOR_FACTORY_COUNT] = {
     flavor0_anchor, flavor1_anchor, flavor2_anchor, flavor3_anchor,
 };
@@ -448,10 +389,8 @@ static const uint16_t *flavorTilePixels[FLAVOR_FACTORY_COUNT] = {
     flavor0_tile, flavor1_tile, flavor2_tile, flavor3_tile,
 };
 
-// The three sizes this board draws a logo at, in the order the bundle carries
-// them — which is IMAGE_BUNDLE, whole: this board keeps every rendition the
-// faucet does. A custom picture arrives already resampled to every one of them,
-// so nothing here scales anything at draw time.
+// Every wire rendition is retained, in the shared IMAGE_BUNDLE order. The Big
+// Blue display cache is derived after binding and draws without runtime scaling.
 static const ImageSize kLogoSizes[] = {
     {FLAVOR_ANCHOR_W, FLAVOR_ANCHOR_H, 0},
     {FLAVOR_CARD_W,   FLAVOR_CARD_H,   0},
@@ -520,6 +459,7 @@ static void bindFlavorLogos() {
       b.dsc[i].data = (const uint8_t *)(px ? px : b.factory[0]);
     }
   }
+  bindBigBlueArt();
 }
 
 // A channel is named by the logo it wears. Some images always show one
@@ -542,8 +482,7 @@ static lv_obj_t *homeFlavorCard[2];
 static lv_obj_t *homeFlavorRatio[2];
 
 // ── Reservoir level, as the main board reads it ──
-// Four segments per channel on its Choose card, from the reed column and the
-// float's motion on the main board; every status poll carries the pair.
+// Status carries both reed-derived levels. On tap shows the selected reservoir.
 static lv_obj_t *homeFlavorLevelCap[2];
 static lv_obj_t *homeFlavorLevelSeg[2][LEVEL_SEGMENTS];
 // A pour at the faucet: the card of the channel injecting says so over its
@@ -561,10 +500,8 @@ static unsigned long ratioSentMs = 0;
 static lv_obj_t *homeFlavorBadge[2];
 static lv_obj_t *homeFlavorBadgeText[2];
 
-// Choose receives the main board's flavor state four times a second while lit.
-// Keep the rendered model separate from the replicated model so a routine,
-// unchanged answer does not invalidate a large card and flip the RGB panel's
-// framebuffer. Negative sentinels guarantee one complete initial render.
+// Render selection only when it changes. Routine main-board replies leave the
+// rail, portrait and gauge's cached visible state alone.
 static int8_t homeFlavorShown = -2;
 
 static lv_obj_t *flvDetailRatio;
@@ -622,7 +559,7 @@ static unsigned long airQueryMs = 0;
 static unsigned long airUiMs = 0;
 static unsigned long airCardUntilMs = 0;
 static lv_obj_t *settingsMsg = NULL;   // the pump service card's own message line
-static lv_obj_t *settingsBtn;      // top-right of the screen, outside the pane
+static lv_obj_t *settingsBtn;      // bottom of the persistent flavor rail
 
 // ── System status, as this glass shows it ──
 // Ten reeds on the machine's own side profile: reservoir A's four, reservoir
@@ -635,8 +572,7 @@ static uint16_t  statusShown = 0;      // the closed set the diagram is drawn wi
 static bool      statusFreshShown = false;
 #define STATUS_ANSWER_MS 1500          // a status poll unanswered this long is a main board not reading
 
-// Flavor 1 and 2 as this panel holds them. The base carries no config store, so a ratio
-// changed here is this display's own until one sends it somewhere.
+// Both ratios are mirrored from the main board's persistent configuration.
 static uint8_t flavorRatio[2] = {20, 20};
 static uint8_t flavorSel = PUMP_CHANNEL_B;   // which flavor the detail and hold pages act on
 
@@ -1662,11 +1598,12 @@ static void applyFlavorState(const FlavorStatePayload &state) {
   flavorSynchronized = true;
   refreshHomeSelection();
 
-  // A flavor chosen at the faucet is a real appliance interaction. If this
-  // panel was dark, wake it directly onto the mirrored home selection.
-  if (changed && screenIdle && !lockActive) {
-    showPage(PAGE_HOME);
-    wake();
+  // A changed faucet selection dismisses flavor tasks and leaves machine pages open.
+  if (changed && !lockActive) {
+    if (front_ui::dismissForFaucetChange(activePage == PAGE_SETUP, changed, lockActive)) {
+      showPage(PAGE_HOME);
+    }
+    if (screenIdle) wake();
   }
 }
 
@@ -2044,10 +1981,11 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
       for (uint8_t i = 0; i < 2; i++) {
         if (!homeFlavorRatioCap[i]) continue;
         const bool on = pouring == (int8_t)i;
-        lv_label_set_text(homeFlavorRatioCap[i], on ? "POURING" : "RATIO");
+        lv_label_set_text(homeFlavorRatioCap[i], on ? "Pouring." : "On tap.");
         lv_obj_set_style_text_color(homeFlavorRatioCap[i], lv_color_hex(on ? COL_ACCENT : COL_DIM), 0);
       }
     }
+    refreshHomeLevel();
     // A fill this glass did not start — the console's, or one whose answer
     // lost its turn — is still the machine being busy, and is shown as such.
     if ((ctrlStatus.flags & STATUS_F_FILLING) && !fillLockShown && !fillStartSentMs)
@@ -2060,14 +1998,19 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
   }
 
   if (type == MSG_ERR_UNSUPPORTED) {
-    // An older main board, answering a fill or a clean it does not carry. The
-    // refusal has to land on the pane the user is actually looking at.
-    if (activeSvc == SVC_FILL_PICK || activeSvc == SVC_FILL_CONFIRM) {
+    // The commissioning main board explicitly refuses the requested subsystem.
+    if (fillStartSentMs) {
       fillStartSentMs = 0;
+      lockScreenHide();
       setFillMsg("this main board has no fill");
-    } else {
+    } else if (cleanStartSentMs) {
       cleanStartSentMs = 0;
+      lockScreenHide();
       setCleanMsg("this main board has no clean cycle");
+    } else if (airStartSentMs) {
+      airStartSentMs = 0;
+      lockScreenHide();
+      setSettingsMsg("this main board has no air cycle");
     }
     Serial.println("[J9] MSG_ERR_UNSUPPORTED");
     return;
@@ -2228,48 +2171,16 @@ static lv_obj_t *mkBtn(lv_obj_t *parent, lv_coord_t w, lv_coord_t h, uint32_t bg
   lv_obj_t *b = lv_btn_create(parent);
   lv_obj_add_event_cb(b, clickCb, LV_EVENT_PRESSED, NULL);
   lv_obj_set_size(b, w, h);
-  lv_obj_set_style_radius(b, 14, 0);
+  lv_obj_set_style_radius(b, 0, 0);
+  lv_obj_set_style_pad_all(b, 0, 0);
+  lv_obj_set_style_border_width(b, 0, 0);
   lv_obj_set_style_shadow_width(b, 0, 0);
   lv_obj_set_style_bg_color(b, lv_color_hex(bg), 0);
-  lv_obj_set_style_bg_color(b, lv_color_hex(COL_CARD_ON), LV_PART_MAIN | LV_STATE_PRESSED);
+  lv_obj_set_style_bg_color(b, lv_color_hex(bg == COL_ACCENT ? COL_DIM : bg == COL_DIM ? COL_TEXT : COL_CARD_ON), LV_STATE_PRESSED);
+  lv_obj_set_style_color_filter_opa(b, LV_OPA_TRANSP, LV_STATE_PRESSED);
   lv_obj_add_flag(b, LV_OBJ_FLAG_PRESS_LOCK);
   return b;
 }
-
-// A card-sized target with an icon over a word.
-static void mkRailIcon(lv_obj_t *parent, RailPage page) {
-  switch (page) {
-    case RAIL_CHOOSE:
-      lv_obj_align(mkText(parent, "\xEF\x89\x9A", &front_icons_48, COL_TEXT),
-                   LV_ALIGN_TOP_MID, 0, RAIL_ICON_TOP(48));
-      break;
-    case RAIL_PRIME:
-      lv_obj_align(mkText(parent, "\xEF\x81\x83", &front_icons_48, COL_TEXT),
-                   LV_ALIGN_TOP_MID, 0, RAIL_ICON_TOP(48));
-      break;
-    case RAIL_FILL:
-      lv_obj_align(mkText(parent, "\xEF\x82\xB0", &front_icons_48, COL_TEXT),
-                   LV_ALIGN_TOP_MID, 0, RAIL_ICON_TOP(48));
-      break;
-    case RAIL_CLEAN:
-      lv_obj_align(mkText(parent, "\xEE\x81\xAD", &front_icons_48, COL_TEXT),
-                   LV_ALIGN_TOP_MID, 0, RAIL_ICON_TOP(48));
-      break;
-    default: break;
-  }
-}
-
-// A step back out of a chosen channel, into the page it was chosen from. It is
-// the anchor's width, and the anchor is directly under it: the two are the one
-// column that says which flavor this page is about and how to leave it.
-static lv_obj_t *mkBack(lv_obj_t *parent, lv_event_cb_t cb, void *user) {
-  lv_obj_t *b = mkBtn(parent, BACK_W, BACK_BTN, COL_CARD);
-  lv_obj_align(b, LV_ALIGN_TOP_LEFT, 0, (PANE_HEAD_H - BACK_BTN) / 2);
-  lv_obj_add_event_cb(b, cb, ACT_EVENT, user);
-  lv_obj_center(mkText(b, LV_SYMBOL_LEFT "  BACK", &lv_font_montserrat_20, COL_TEXT));
-  return b;
-}
-
 
 // A full-bleed layer inside a page. One of a page's views is visible at a time.
 static lv_obj_t *mkView(lv_obj_t *parent) {
@@ -2294,8 +2205,7 @@ static void setPrimeMsg(const char *s) { if (primeMsg) lv_label_set_text(primeMs
 static void setCleanMsg(const char *s) { if (cleanMsg) lv_label_set_text(cleanMsg, s); }
 static void setFillMsg(const char *s)  { if (fillMsg)  lv_label_set_text(fillMsg, s); }
 
-// Both surfaces a logo choice reaches: the Choose card that wears it, and the
-// grid marking which one this flavor is on.
+// An assignment updates the rail, selected portrait and picker selection.
 // The main board owns the pair and persists it; this states what the glass now
 // wants and takes back whatever the main board ends up holding.
 static void sendFlavorArt() {
@@ -2332,49 +2242,24 @@ static lv_obj_t *mkSelectedImg(lv_obj_t *parent, const lv_img_dsc_t *set) {
   return o;
 }
 
-// The face of the flavor a detail page is acting on, under that back button and
-// as wide as it. Nothing else on these pages reaches this far west.
-static lv_obj_t *mkAnchor(lv_obj_t *parent) {
-  lv_obj_t *o = mkSelectedImg(parent, flavorAnchor);
-  lv_obj_align(o, LV_ALIGN_TOP_LEFT, 0, ANCHOR_Y);
-  return o;
-}
-
-// A detail page's title, east of the column, on the same line as the back
-// button it is the destination of.
-static void mkDetailTitle(lv_obj_t *parent, const char *word) {
-  lv_obj_align(mkText(parent, word, &lv_font_montserrat_28, COL_DIM),
-               LV_ALIGN_TOP_LEFT, DETAIL_X, (PANE_HEAD_H - TEXT_H_28) / 2);
-}
-
 static void refreshFlavorImages() {
-  for (uint8_t i = 0; i < 2; i++) {
-    if (homeFlavorArtObj[i]) lv_img_set_src(homeFlavorArtObj[i], &flavorCard[flavorImage[i]]);
-  }
-  for (uint8_t i = 0; i < chanImgCount; i++) {
-    lv_img_set_src(chanImg[i], &chanImgSet[i][flavorImage[chanImgCh[i]]]);
-  }
-  for (uint8_t i = 0; i < selImgCount; i++) {
-    lv_img_set_src(selImg[i], &selImgSet[i][flavorImage[flavorSel]]);
-  }
-  // A slot with no picture in it is not a choice and not information — it is
-  // an empty frame asking to be understood. Only the faces that exist are laid
-  // out, and they close up rather than leaving gaps where the rest would be.
-  for (int i = 0; i < FLAVOR_IMAGE_COUNT; i++) {
+  for (uint8_t i = 0; i < 2; ++i)
+    if (homeFlavorArtObj[i]) lv_img_set_src(homeFlavorArtObj[i],
+        &flavorRailArt[resolveFlavorArt(flavorImage[i], i)]);
+  for (uint8_t i = 0; i < chanImgCount; ++i)
+    lv_img_set_src(chanImg[i], &chanImgSet[i][resolveFlavorArt(flavorImage[chanImgCh[i]], chanImgCh[i])]);
+  for (uint8_t i = 0; i < selImgCount; ++i)
+    lv_img_set_src(selImg[i], &selImgSet[i][resolveFlavorArt(flavorImage[flavorSel], flavorSel)]);
+  if (heroImage) lv_img_set_src(heroImage, &flavorHeroArt[resolveFlavorArt(flavorImage[flavorSel], flavorSel)]);
+  for (uint8_t i = 0; i < FLAVOR_IMAGE_COUNT; ++i) {
     if (!flvTileBtn[i]) continue;
-    const bool have = flavorArtAvailable((uint8_t)i);
-    if (have) lv_obj_clear_flag(flvTileBtn[i], LV_OBJ_FLAG_HIDDEN);
-    else      lv_obj_add_flag(flvTileBtn[i], LV_OBJ_FLAG_HIDDEN);
-    if (!have) continue;
-    lv_obj_set_style_bg_color(
-        flvTileBtn[i],
-        lv_color_hex(i == flavorImage[flavorSel] ? COL_ACCENT : COL_CARD), 0);
-  }
-  uint8_t at = 0;
-  for (int i = 0; i < FLAVOR_IMAGE_COUNT; i++) {
-    if (!flvTileBtn[i] || lv_obj_has_flag(flvTileBtn[i], LV_OBJ_FLAG_HIDDEN)) continue;
-    lv_obj_set_pos(flvTileBtn[i], at * (TILE_BTN_W + TILE_GAP), 0);
-    ++at;
+    const bool custom = i >= FLAVOR_FACTORY_COUNT;
+    const bool visible = custom == (imagePage == 0) && flavorArtAvailable(i);
+    if (visible) lv_obj_clear_flag(flvTileBtn[i], LV_OBJ_FLAG_HIDDEN);
+    else lv_obj_add_flag(flvTileBtn[i], LV_OBJ_FLAG_HIDDEN);
+    const bool selected = i == flavorImage[flavorSel];
+    lv_obj_set_style_border_color(flvTileBtn[i], lv_color_hex(selected ? COL_ACCENT : COL_CARD), 0);
+    if (flvTileMark[i]) lv_label_set_text(flvTileMark[i], selected ? LV_SYMBOL_OK : "");
   }
   tileStripAffordance();
 }
@@ -2382,7 +2267,7 @@ static void refreshFlavorImages() {
 static void refreshFlavorText() {
   char r[2][16];
   for (uint8_t i = 0; i < 2; i++) {
-    snprintf(r[i], sizeof(r[i]), "1:%u", flavorRatio[i]);
+    snprintf(r[i], sizeof(r[i]), "1 : %u", flavorRatio[i]);
     if (homeFlavorRatio[i]) lv_label_set_text(homeFlavorRatio[i], r[i]);
   }
   if (flvDetailRatio) lv_label_set_text(flvDetailRatio, r[flavorSel & 1]);
@@ -2400,46 +2285,36 @@ static void refreshFlavorText() {
     if (!t.b) continue;
     if (t.on) lv_obj_add_flag(t.b, LV_OBJ_FLAG_CLICKABLE);
     else      lv_obj_clear_flag(t.b, LV_OBJ_FLAG_CLICKABLE);
-    lv_obj_set_style_bg_color(t.b, lv_color_hex(t.on ? COL_CARD_ON : COL_CARD), LV_PART_MAIN);
+    lv_obj_set_style_bg_color(t.b, lv_color_hex(t.on ? COL_DIM : COL_CARD_ON), LV_PART_MAIN);
     if (t.mark)
-      lv_obj_set_style_text_color(t.mark, lv_color_hex(t.on ? COL_TEXT : COL_OFF), LV_PART_MAIN);
+      lv_obj_set_style_text_color(t.mark, lv_color_hex(t.on ? COL_INK : COL_OFF), LV_PART_MAIN);
   }
 }
 
 static void refreshHomeSelection() {
   if (!homeFlavorCard[0]) return;
-  const bool selectionKnown = flavorSynchronized || flavorRequestPending;
-  const int8_t selectedFlavor = selectionKnown ? static_cast<int8_t>(activeFlavor) : -1;
-  if (selectedFlavor != homeFlavorShown) {
-    homeFlavorShown = selectedFlavor;
+  const bool known = flavorSynchronized || flavorRequestPending;
+  const int8_t selected = known ? (int8_t)activeFlavor : -1;
+  if (selected != homeFlavorShown) {
+    homeFlavorShown = selected;
     for (uint8_t i = 0; i < 2; ++i) {
-      const bool selected = selectedFlavor == static_cast<int8_t>(i);
-      lv_obj_set_style_bg_color(homeFlavorCard[i],
-                                lv_color_hex(selected ? COL_CARD_ON : COL_CARD), 0);
-      // A border consumes a button's inner box. Keep its 1 px layout edge
-      // constant and put the retained-selection emphasis outside it, so the
-      // artwork and badge never jump when selection changes.
-      lv_obj_set_style_border_width(homeFlavorCard[i], 1, 0);
-      lv_obj_set_style_border_color(homeFlavorCard[i],
-                                    lv_color_hex(selected ? COL_ACCENT : COL_OFF), 0);
-      lv_obj_set_style_outline_width(homeFlavorCard[i], selected ? 3 : 0, 0);
-      lv_obj_set_style_outline_color(homeFlavorCard[i], lv_color_hex(COL_ACCENT), 0);
-      lv_obj_set_style_outline_opa(homeFlavorCard[i], LV_OPA_COVER, 0);
-      lv_obj_set_style_outline_pad(homeFlavorCard[i], 0, 0);
-
-      // The card marks and header already explain that both cards are choices.
-      // Keep only the retained selection badge; the inactive card stays calm.
-      if (selected) {
-        lv_obj_set_style_bg_color(homeFlavorBadge[i], lv_color_hex(COL_ACCENT), 0);
-        lv_label_set_text(homeFlavorBadgeText[i], LV_SYMBOL_OK);
-        lv_obj_set_style_text_color(homeFlavorBadgeText[i], lv_color_hex(COL_TEXT), 0);
-        lv_obj_clear_flag(homeFlavorBadge[i], LV_OBJ_FLAG_HIDDEN);
-      } else {
-        lv_obj_add_flag(homeFlavorBadge[i], LV_OBJ_FLAG_HIDDEN);
-      }
+      const bool on = selected == i;
+      lv_obj_set_style_bg_color(homeFlavorCard[i], lv_color_hex(on ? 0x214bb5 : 0x0a267f), 0);
+      lv_obj_set_style_border_color(homeFlavorCard[i], lv_color_hex(on ? COL_ACCENT : 0x0a267f), 0);
+      lv_label_set_text_fmt(homeFlavorBadgeText[i], on ? LV_SYMBOL_OK " %u" : "%u", (unsigned)(i + 1));
     }
   }
-
+  if (activePage == PAGE_HOME || activePage == PAGE_SETUP) flavorSel = activeFlavor;
+  static int8_t shownKnown = -1;
+  const uint8_t art = resolveFlavorArt(flavorImage[flavorSel], flavorSel);
+  if (heroCaption && shownKnown != (int8_t)known) {
+    shownKnown = known;
+    lv_label_set_text(heroCaption, known ? LV_SYMBOL_OK " Selected" : "Connecting");
+  }
+  if (heroImage && lv_img_get_src(heroImage) != &flavorHeroArt[art]) {
+    lv_img_set_src(heroImage, &flavorHeroArt[art]);
+  }
+  refreshHomeLevel();
 }
 
 // ── Prime-ready session — shared main board truth and one local hold ──
@@ -2553,6 +2428,7 @@ static void primeRender(bool force = false) {
                             shownLost != primeLinkLost ||
                             shownPending != primeTouchStartPending;
   if (!modelChanged) return;
+  refreshShell();
   shownPhase = phase;
   shownOwner = owner;
   shownOutcome = outcome;
@@ -2565,47 +2441,50 @@ static void primeRender(bool force = false) {
   shownPending = primeTouchStartPending;
 
   if (primeSessionCancelPending) {
-    lv_label_set_text(primePadLbl, "EXITING PRIME");
-    lv_obj_set_style_bg_color(primePad, lv_color_hex(COL_OFF), 0);
+    lv_label_set_text(primePadLbl, "Exiting prime");
+    lv_obj_set_style_bg_color(primePad, lv_color_hex(COL_DIM), 0);
     setPrimeMsg("waiting for the main board");
   } else if (primeLinkLost) {
-    lv_label_set_text(primePadLbl, "RECONNECTING");
-    lv_obj_set_style_bg_color(primePad, lv_color_hex(COL_OFF), 0);
+    lv_label_set_text(primePadLbl, "Reconnecting");
+    lv_obj_set_style_bg_color(primePad, lv_color_hex(COL_DIM), 0);
     setPrimeMsg("prime connection lost");
   } else if (primeStopPending) {
-    lv_label_set_text(primePadLbl, "STOPPING");
-    lv_obj_set_style_bg_color(primePad, lv_color_hex(COL_OFF), 0);
+    lv_label_set_text(primePadLbl, "Stopping");
+    lv_obj_set_style_bg_color(primePad, lv_color_hex(COL_DIM), 0);
     setPrimeMsg("waiting for the main board");
   } else if (!primeSessionDesired) {
-    lv_label_set_text(primePadLbl, "CONNECTING");
-    lv_obj_set_style_bg_color(primePad, lv_color_hex(COL_OFF), 0);
+    lv_label_set_text(primePadLbl, "Connecting");
+    lv_obj_set_style_bg_color(primePad, lv_color_hex(COL_DIM), 0);
     setPrimeMsg("");
   } else if (phase == PRIME_SESSION_RUNNING) {
-    lv_label_set_text(primePadLbl, "PRIMING");
+    lv_label_set_text(primePadLbl, "Release to stop");
     lv_obj_set_style_bg_color(primePad, lv_color_hex(COL_GOOD), 0);
     setPrimeMsg(owner == PRIME_OWNER_FAUCET ? "held at the faucet" : "pump turning");
   } else if (holding || primeTouchStartPending) {
-    lv_label_set_text(primePadLbl, "STARTING");
+    lv_label_set_text(primePadLbl, "Starting");
     lv_obj_set_style_bg_color(primePad, lv_color_hex(COL_ACCENT), 0);
     setPrimeMsg("waiting for the main board");
   } else {
-    lv_label_set_text(primePadLbl, "HOLD TO PRIME");
+    lv_label_set_text(primePadLbl, "Hold to prime");
     lv_obj_set_style_bg_color(primePad, lv_color_hex(COL_ACCENT), 0);
     setPrimeMsg(primeOutcomeText(outcome));
   }
-  // The pressed-state style has greater specificity than the default color.
-  // Keep an acknowledged held run visibly green under the user's finger; a
-  // blocked control remains dark instead of flashing the generic button color.
+  // The navy label stays legible in both held and waiting states.
   const bool blocked = primeSessionCancelPending || primeLinkLost ||
                        primeStopPending || !primeSessionDesired;
   lv_obj_set_style_bg_color(
       primePad,
-      lv_color_hex(blocked ? COL_OFF
-                   : phase == PRIME_SESSION_RUNNING ? COL_GOOD : COL_CARD_ON),
-      LV_PART_MAIN | LV_STATE_PRESSED);
+      lv_color_hex(blocked ? COL_DIM : COL_ACCENT),
+      LV_STATE_PRESSED);
 }
 
 static void primeSessionActivate() {
+  primeTouchStartPending = false;
+  if (primeSessionCancelPending) {
+    clickPending = false;
+    primeRender(true);
+    return;
+  }
   primeBootDiscovery = false;
   primeSessionDesired = true;
   primeSessionCancelPending = false;
@@ -2626,6 +2505,7 @@ static void primeSessionActivate() {
 }
 
 static void primeSessionCancel() {
+  primeTouchStartPending = false;
   if (primeSessionCancelPending) {
     clickPending = false;
     return;
@@ -2802,6 +2682,7 @@ static void applyPrimeSessionState(const PrimeSessionStatePayload &state) {
     primeSessionDesired = false;
     primeSessionCancelPending = true;
     primeUsbStartPending = false;
+    primeTouchStartPending = false;
     holding = false;
     primeClearStopPending();
     primeHoldToken = 0;
@@ -2812,6 +2693,7 @@ static void applyPrimeSessionState(const PrimeSessionStatePayload &state) {
     primeSessionDesired = false;
     primeSessionCancelPending = false;
     primeUsbStartPending = false;
+    primeTouchStartPending = false;
     holding = false;
     primeClearStopPending();
     primeSessionToken = 0;
@@ -2889,6 +2771,7 @@ static void applyPrimeSessionState(const PrimeSessionStatePayload &state) {
   }
 
   primeElapsedShown = state.elapsedMs;
+  if (uiReady) refreshFlavorImages();
   primeRender(true);
   Serial.printf("[J9] prime session phase=%u owner=%u outcome=%u ch=%u "
                 "elapsed=%lu rev=%lu session=%08lX hold=%08lX\n",
@@ -3054,26 +2937,35 @@ static void primePadCb(lv_event_t *e) {
 }
 
 // ── Navigation ──
-static void railCb(lv_event_t *e)     { showRail((RailPage)(intptr_t)lv_event_get_user_data(e)); }
+static void railCb(lv_event_t *e) {
+  const RailPage page = (RailPage)(intptr_t)lv_event_get_user_data(e);
+  if (page == RAIL_PRIME && activePage == PAGE_SERVICE && activeSvc == SVC_PRIME_HOLD) return;
+  if (!front_ui::allows(front_ui::Action::Task, lockActive, holding)) return;
+  if (!flavorSynchronized || flavorRequestPending) return;
+  flavorSel = activeFlavor;
+  showRail(page);
+}
 
-static void flavorBackCb(lv_event_t *e) { (void)e; showPage(PAGE_HOME); }
+static void flavorBackCb(lv_event_t *e) {
+  (void)e;
+  if (!front_ui::allows(front_ui::Action::Dismiss, lockActive, holding)) return;
+  showPage(PAGE_HOME);
+}
 
 static void svcBackCb(lv_event_t *e) {
   showService((ServiceView)(intptr_t)lv_event_get_user_data(e));
 }
 
 static void homeFlavorPickCb(lv_event_t *e) {
+  if (!front_ui::allows(front_ui::Action::SelectFlavor, lockActive, holding)) return;
   const uint8_t flavor = (uint8_t)(intptr_t)lv_event_get_user_data(e);
-  if (selectActiveFlavor(flavor)) {
-    // MSG_FLAVOR_SELECT carries the fresh-touch audible bit. Suppress mkBtn's
-    // generic click frame so this one press remains one frame on J9.
-    clickPending = false;
-  } else {
-    // Pressing the already-selected card is still tactile feedback, but it is
-    // not a state request and therefore owns one ordinary click frame.
-    clickPending = false;
-    sendSound(SND_WIRE_TICK);
-  }
+  // Queue a causal cancellation before any new dispensing selection.
+  showPage(PAGE_HOME);
+  if (selectActiveFlavor(flavor)) clickPending = false;
+  else { clickPending = false; sendSound(SND_WIRE_TICK); }
+  flavorSel = flavor;
+  refreshFlavorImages();
+  refreshHomeLevel();
 }
 
 static void primePickCb(lv_event_t *e) {
@@ -3081,65 +2973,35 @@ static void primePickCb(lv_event_t *e) {
   showService(SVC_PRIME_HOLD);
 }
 
-// Choose's per-card gear: the flavor it sits under becomes the one being
-// edited, and the page it opens is that flavor's own.
+// On tap opens either the selected flavor's ratio or its image picker.
 static void homeSettingsCb(lv_event_t *e) {
-  flavorSel = (uint8_t)(intptr_t)lv_event_get_user_data(e);
+  if (!front_ui::allows(front_ui::Action::Settings, lockActive, holding)) return;
+  flavorSel = activeFlavor;
   showPage(PAGE_FLAVOR);
-  showFlavor(FLV_DETAIL);
+  showFlavor((FlavorView)(intptr_t)lv_event_get_user_data(e));
 }
 
 // Where in the row you are, and which way there is still to go. Modelled on the
 // SETUP column this recovers: a thumb sized to the fraction on screen, and an end
 // that cannot act saying so by going dim and by not answering.
 static void tileStripAffordance() {
-  if (!flvTileStrip || !flvTileTrack) return;
-  // A drag can leave these momentarily negative while the strip springs back.
-  lv_coord_t before = lv_obj_get_scroll_left(flvTileStrip);
-  lv_coord_t after  = lv_obj_get_scroll_right(flvTileStrip);
-  if (before < 0) before = 0;
-  if (after < 0) after = 0;
-  const lv_coord_t view = lv_obj_get_width(flvTileStrip);
-  lv_coord_t total = before + after + view;
-  if (total < view) total = view;
-
-  // A row that fits is not a row you can be lost in. No arrows, no track.
-  const bool scrolls = (before + after) > 0;
-  struct { lv_obj_t *o; } furniture[] = {{flvTileLeft}, {flvTileRight}, {flvTileTrack}};
-  for (auto &f : furniture) {
-    if (!f.o) continue;
-    if (scrolls) lv_obj_clear_flag(f.o, LV_OBJ_FLAG_HIDDEN);
-    else         lv_obj_add_flag(f.o, LV_OBJ_FLAG_HIDDEN);
+  if (!flvTilePosition) return;
+  lv_label_set_text(flvTilePosition, imagePage == 0 ? "Your images\n1–4 of 8" : "Defaults\n5–8 of 8");
+  lv_obj_t *buttons[2] = {flvTileLeft, flvTileRight};
+  lv_obj_t *marks[2] = {flvTileLeftMark, flvTileRightMark};
+  for (uint8_t i = 0; i < 2; ++i) {
+    const bool enabled = imagePage != i;
+    if (enabled) lv_obj_add_flag(buttons[i], LV_OBJ_FLAG_CLICKABLE);
+    else lv_obj_clear_flag(buttons[i], LV_OBJ_FLAG_CLICKABLE);
+    lv_obj_set_style_text_color(marks[i], lv_color_hex(enabled ? COL_TEXT : COL_OFF), 0);
+    lv_obj_set_style_border_color(buttons[i], lv_color_hex(enabled ? 0x7d9eed : COL_OFF), 0);
   }
-  if (!scrolls) return;
-
-  const lv_coord_t trackW = lv_obj_get_width(flvTileTrack);
-  lv_coord_t thumbW = (lv_coord_t)((int32_t)trackW * view / total);
-  if (thumbW < 56) thumbW = 56;
-  if (thumbW > trackW) thumbW = trackW;
-  const lv_coord_t span = trackW - thumbW;
-  const lv_coord_t off = (before + after) > 0
-                             ? (lv_coord_t)((int32_t)span * before / (before + after))
-                             : 0;
-  lv_obj_set_width(flvTileThumb, thumbW);
-  lv_obj_align(flvTileThumb, LV_ALIGN_LEFT_MID, off, 0);
-
-  // AN ARROW AT THE END OF ITS TRAVEL SINKS INTO THE PAGE AND DOES NOT ANSWER.
-  // Not LV_STATE_DISABLED: the default theme styles that state with a colour
-  // filter, which outweighs a colour set here for the default state and is
-  // inherited by the glyph — so the spent arrow came out brighter than the live
-  // one, on a panel that is meant to be dark. Clearing CLICKABLE refuses the
-  // press instead and leaves every colour ours.
-  struct { lv_obj_t *b; lv_obj_t *mark; bool on; } ends[2] = {
-      {flvTileLeft, flvTileLeftMark, before > 0},
-      {flvTileRight, flvTileRightMark, after > 0}};
-  for (auto &e : ends) {
-    if (!e.b) continue;
-    if (e.on) lv_obj_add_flag(e.b, LV_OBJ_FLAG_CLICKABLE);
-    else      lv_obj_clear_flag(e.b, LV_OBJ_FLAG_CLICKABLE);
-    lv_obj_set_style_bg_color(e.b, e.on ? lv_color_hex(COL_CARD_ON) : THEME_BG, LV_PART_MAIN);
-    if (e.mark)
-      lv_obj_set_style_text_color(e.mark, lv_color_hex(e.on ? COL_TEXT : COL_OFF), LV_PART_MAIN);
+  bool haveCustom = false;
+  for (uint8_t i = FLAVOR_FACTORY_COUNT; i < FLAVOR_IMAGE_COUNT; ++i)
+    haveCustom |= flavorArtAvailable(i);
+  if (flvTileEmpty) {
+    if (imagePage == 0 && !haveCustom) lv_obj_clear_flag(flvTileEmpty, LV_OBJ_FLAG_HIDDEN);
+    else lv_obj_add_flag(flvTileEmpty, LV_OBJ_FLAG_HIDDEN);
   }
 }
 
@@ -3149,28 +3011,17 @@ static void tileStripScrolledCb(lv_event_t *e) {
 }
 
 static void tileStripPageCb(lv_event_t *e) {
-  const int dir = (int)(intptr_t)lv_event_get_user_data(e);
-  if (!flvTileStrip) return;
-  const lv_coord_t room = dir < 0 ? lv_obj_get_scroll_left(flvTileStrip)
-                                  : lv_obj_get_scroll_right(flvTileStrip);
-  if (room <= 0) {
-    // Dim and does not answer, which includes not making the sound of having
-    // answered. mkBtn has already armed the click; this is the press taking it
-    // back.
-    clickPending = false;
-    return;
-  }
-  // BOUNDED, because lv_obj_scroll_by is not. A step of a fixed size from a
-  // place a drag left the strip in walks straight off the end of the row: the
-  // remainder is whatever the drag happened to leave, never the step. No
-  // animation either way — every frame of one repaints the whole 800x480.
-  lv_obj_scroll_by_bounded(flvTileStrip, -dir * TILE_PAGE_PX, 0, LV_ANIM_OFF);
-  tileStripAffordance();
+  if (lockActive) return;
+  const int next = imagePage + (int)(intptr_t)lv_event_get_user_data(e);
+  if (next < 0 || next > 1) { clickPending = false; return; }
+  tileDisarm();
+  imagePage = (uint8_t)next;
+  refreshFlavorImages();
 }
 
 // True when this put a frame on J9, which is then the press's one sound.
 static bool imagePick(uint8_t img) {
-  if (img >= FLAVOR_IMAGE_COUNT || flavorImage[flavorSel] == img) return false;
+  if (lockActive || img >= FLAVOR_IMAGE_COUNT || flavorImage[flavorSel] == img) return false;
   // An empty custom slot is a place a picture can go, not a picture. Tapping
   // one does nothing rather than putting a fallback face on a channel.
   if (!flavorArtAvailable(img)) return false;
@@ -3249,11 +3100,13 @@ static void cleanPickCb(lv_event_t *e) {
 
 static void cleanStartCb(lv_event_t *e) {
   (void)e;
-  if (cleanLockShown) return;
+  if (lockActive || cleanStartSentMs || fillStartSentMs || airStartSentMs) return;
   ChannelPayload p{flavorSel};
   j9Post(MSG_CLEAN_START, &p, sizeof(p));
   cleanStartSentMs = millis() ? millis() : 1;
   setCleanMsg("starting");
+  cleanStopSent = false;
+  pendingOperationShow("CLEAN THIS FLAVOR", false);
 }
 
 static void fillPickCb(lv_event_t *e) {
@@ -3263,14 +3116,17 @@ static void fillPickCb(lv_event_t *e) {
 
 static void fillStartCb(lv_event_t *e) {
   (void)e;
-  if (fillLockShown) return;
+  if (lockActive || fillStartSentMs || cleanStartSentMs || airStartSentMs) return;
   ChannelPayload p{flavorSel};
   j9Post(MSG_FILL_START, &p, sizeof(p));
   fillStartSentMs = millis() ? millis() : 1;
   setFillMsg("starting");
+  fillStopSent = false;
+  pendingOperationShow("FILL THIS FLAVOR", false);
 }
 
 static void ratioStepCb(lv_event_t *e) {
+  if (lockActive) return;
   int r = flavorRatio[flavorSel] + (int)(intptr_t)lv_event_get_user_data(e);
   if (r < RATIO_MIN) r = RATIO_MIN;
   if (r > RATIO_MAX) r = RATIO_MAX;
@@ -3291,23 +3147,20 @@ static void ratioService() {
 // the rest sunk into the card; the caption says EMPTY at the empty reed and
 // stays a caption while nothing has been seen.
 static void refreshHomeLevel() {
-  for (uint8_t i = 0; i < 2; i++) {
-    if (!homeFlavorLevelCap[i]) continue;
-    const uint8_t n = levelSegments[i];
-    const bool known = n != LEVEL_UNKNOWN && levelValid;
-    for (uint8_t k = 0; k < LEVEL_SEGMENTS; k++) {
-      const bool lit = known && k < n;
-      lv_obj_set_style_bg_color(homeFlavorLevelSeg[i][k],
-                                lv_color_hex(lit ? (n == 1 ? COL_WARN : COL_GOOD) : COL_OFF), 0);
-    }
-    if (known && n == 0) {
-      lv_label_set_text(homeFlavorLevelCap[i], "EMPTY");
-      lv_obj_set_style_text_color(homeFlavorLevelCap[i], lv_color_hex(COL_WARN), 0);
-    } else {
-      lv_label_set_text(homeFlavorLevelCap[i], "LEVEL");
-      lv_obj_set_style_text_color(homeFlavorLevelCap[i], lv_color_hex(COL_DIM), 0);
-    }
-  }
+  if (!homeGauge) return;
+  const uint8_t channel = activeFlavor & 1;
+  const uint8_t n = levelSegments[channel];
+  const bool fresh = front_ui::readingFresh(ctrlStatusMs, millis(), STATUS_ANSWER_MS);
+  const bool known = n != LEVEL_UNKNOWN && levelValid && fresh;
+  const bool pouring = fresh && pouringShown == channel;
+  static int16_t shown = -1;
+  const int16_t reading = (channel << 8) | (known ? n : 15) | (pouring ? 0x20 : 0);
+  if (reading == shown) return;
+  shown = reading;
+  for (uint8_t k = 0; k < LEVEL_SEGMENTS; ++k)
+    lv_obj_set_style_bg_color(homeLevelSegments[k], lv_color_hex(known && k < n ? COL_ACCENT : COL_OFF), 0);
+  lv_label_set_text(homeLevelCaption, known ? (n == 0 ? "Reservoir empty" : "Reservoir") : "No level reading");
+  if (homeTitle) lv_label_set_text(homeTitle, pouring ? "Pouring." : "On tap.");
 }
 
 // The reeds on the Settings landing. A reed the main board reads closed is a
@@ -3319,7 +3172,8 @@ static void refreshStatusReeds() {
   const bool answered = ctrlStatusMs != 0 &&
                         ((long)(ctrlStatusMs - statusAskedMs) >= 0 ||
                          millis() - statusAskedMs < STATUS_ANSWER_MS);
-  const bool fresh = answered && (ctrlStatus.levelFlags & LEVEL_F_VALID) != 0;
+  const bool fresh = answered && front_ui::readingFresh(ctrlStatusMs, millis(), STATUS_ANSWER_MS) &&
+                     (ctrlStatus.levelFlags & LEVEL_F_VALID) != 0;
   uint16_t closed = 0;
   if (fresh) {
     closed = (uint16_t)(ctrlStatus.reeds[0] & 0x0F)
@@ -3333,10 +3187,10 @@ static void refreshStatusReeds() {
     const bool lit = ((closed ^ statusShown) >> i) & 1;
     if (!lit) continue;
     const bool on = (closed >> i) & 1;
-    lv_obj_set_style_bg_color(statusReed[i], lv_color_hex(on ? COL_GOOD : COL_CARD), 0);
+    lv_obj_set_style_bg_color(statusReed[i], lv_color_hex(on ? COL_ACCENT : COL_BLUE), 0);
     lv_obj_set_style_border_color(statusReed[i], lv_color_hex(on ? COL_GOOD : COL_DIM), 0);
   }
-  if (fresh != statusFreshShown) lv_label_set_text(statusNote, fresh ? "" : "not reading the reeds");
+  if (fresh != statusFreshShown) lv_label_set_text(statusNote, fresh ? "" : "Not reading the sensors");
   statusShown = closed;
   statusFreshShown = fresh;
 }
@@ -3415,7 +3269,7 @@ static void buildLockScreen(lv_obj_t *scr) {
   lv_obj_align(lockStop, LV_ALIGN_BOTTOM_RIGHT, 0, 0);
   lv_obj_clear_flag(lockStop, LV_OBJ_FLAG_PRESS_LOCK);   // slide off to change your mind
   lv_obj_add_event_cb(lockStop, lockStopCb, LV_EVENT_CLICKED, NULL);
-  lv_obj_center(mkText(lockStop, "STOP", &lv_font_montserrat_20, COL_TEXT));
+  lv_obj_center(mkText(lockStop, "Stop", &lv_font_montserrat_24, COL_INK));
 
   lockFillLayout(false);
   lv_obj_add_flag(lockScreen, LV_OBJ_FLAG_HIDDEN);
@@ -3423,6 +3277,9 @@ static void buildLockScreen(lv_obj_t *scr) {
 
 static void lockScreenShow(const char *kicker, const char *title, const char *body) {
   if (!lockScreen) return;
+  lv_obj_set_pos(lockScreen, 0, 0);
+  lv_obj_set_size(lockScreen, SCREEN_W, SCREEN_H);
+  operationResultVisible = false;
   lockFillLayout(false);
   lv_label_set_text(lockKicker, kicker);
   lv_label_set_text(lockTitle, title);
@@ -3430,6 +3287,7 @@ static void lockScreenShow(const char *kicker, const char *title, const char *bo
   lv_obj_clear_flag(lockScreen, LV_OBJ_FLAG_HIDDEN);
   lv_obj_move_foreground(lockScreen);
   lockActive = true;
+  refreshShell();
   if (screenIdle) wake();
   animRun(true);
 }
@@ -3438,6 +3296,7 @@ static void lockScreenHide() {
   if (!lockScreen) return;
   lv_obj_add_flag(lockScreen, LV_OBJ_FLAG_HIDDEN);
   lockActive = false;
+  refreshShell();
   animRun(false);
   lastInputTime = millis();
 }
@@ -3454,22 +3313,76 @@ static void lockScreenHide() {
 // has. The plain layout is the boot lock's own.
 static void lockFillLayout(bool on) {
   if (!lockModal) return;
-  const lv_coord_t dx = on ? LOCK_COL_X : 0;
-  lv_obj_set_width(lockModal, on ? LOCK_MODAL_FILL_W : LOCK_MODAL_W);
-  lv_obj_align(lockModal, LV_ALIGN_RIGHT_MID, -LOCK_MODAL_MARGIN, 0);
-  lv_obj_set_style_pad_left(lockModal, on ? LOCK_FILL_PAD_L : LOCK_PAD_L, 0);
-  lv_obj_align(lockKicker, LV_ALIGN_TOP_LEFT, dx, 0);
-  if (on) lv_obj_align(lockTitle, LV_ALIGN_TOP_LEFT, dx, LOCK_TITLE_Y);
-  else    lv_obj_align(lockTitle, LV_ALIGN_LEFT_MID, 0, -8);
-  lv_obj_set_width(lockBody, on ? LOCK_COL_W : LV_SIZE_CONTENT);
-  lv_obj_align(lockBody, LV_ALIGN_BOTTOM_LEFT, dx, 0);
-  if (on) lv_obj_add_flag(lockAccent, LV_OBJ_FLAG_HIDDEN);
-  else    lv_obj_clear_flag(lockAccent, LV_OBJ_FLAG_HIDDEN);
-  lv_obj_t *fillOnly[] = {lockFace, lockBar, lockNote, lockStop};
-  for (lv_obj_t *o : fillOnly) {
-    if (on) lv_obj_clear_flag(o, LV_OBJ_FLAG_HIDDEN);
-    else    lv_obj_add_flag(o, LV_OBJ_FLAG_HIDDEN);
+  lv_obj_set_style_bg_opa(lockScreen, on ? LV_OPA_TRANSP : LV_OPA_COVER, 0);
+  if (on) {
+    const lv_coord_t x = operationLockMachine ? RAIL_W : TASK_X;
+    const lv_coord_t w = SCREEN_W - x;
+    lv_obj_set_size(lockModal, w, SCREEN_H - HEADER_H);
+    lv_obj_set_pos(lockModal, x, HEADER_H);
+    lv_obj_set_style_pad_all(lockModal, PANE_PAD, 0);
+    lv_obj_set_style_radius(lockModal, 0, 0);
+    lv_obj_set_style_bg_color(lockModal, THEME_BG, 0);
+    lv_obj_align(lockKicker, LV_ALIGN_TOP_LEFT, 0, 0);
+    lv_obj_set_width(lockTitle, w - 2 * PANE_PAD);
+    lv_obj_align(lockTitle, LV_ALIGN_TOP_LEFT, 0, 38);
+    lv_obj_set_width(lockBody, w - 2 * PANE_PAD);
+    lv_obj_align(lockBody, LV_ALIGN_TOP_LEFT, 0, 138);
+    lv_obj_set_size(lockBar, w - 2 * PANE_PAD, 12);
+    lv_obj_align(lockBar, LV_ALIGN_TOP_LEFT, 0, 181);
+    lv_obj_set_width(lockNote, w - 2 * PANE_PAD);
+    lv_obj_align(lockNote, LV_ALIGN_TOP_LEFT, 0, 211);
+    lv_obj_set_size(lockStop, w - 2 * PANE_PAD, 66);
+    lv_obj_align(lockStop, LV_ALIGN_BOTTOM_LEFT, 0, -5);
+    lv_obj_set_style_bg_color(lockStop, lv_color_hex(COL_ACCENT), 0);
+    lv_obj_set_style_bg_color(lockStop, lv_color_hex(COL_DIM), LV_STATE_PRESSED);
+    lv_obj_add_flag(lockLogoImg, LV_OBJ_FLAG_HIDDEN);
+    lv_obj_add_flag(lockAccent, LV_OBJ_FLAG_HIDDEN);
+    lv_obj_add_flag(lockFace, LV_OBJ_FLAG_HIDDEN);
+    lv_obj_clear_flag(lockBar, LV_OBJ_FLAG_HIDDEN);
+    lv_obj_clear_flag(lockNote, LV_OBJ_FLAG_HIDDEN);
+    lv_obj_clear_flag(lockStop, LV_OBJ_FLAG_HIDDEN);
+    animRun(false);
+  } else {
+    lv_obj_set_size(lockModal, LOCK_MODAL_W, LOCK_MODAL_H);
+    lv_obj_align(lockModal, LV_ALIGN_RIGHT_MID, -LOCK_MODAL_MARGIN, 0);
+    lv_obj_set_style_pad_left(lockModal, LOCK_PAD_L, 0);
+    lv_obj_set_style_pad_right(lockModal, LOCK_PAD_R, 0);
+    lv_obj_set_style_pad_top(lockModal, LOCK_PAD_T, 0);
+    lv_obj_set_style_pad_bottom(lockModal, LOCK_PAD_B, 0);
+    lv_obj_set_style_radius(lockModal, 0, 0);
+    lv_obj_set_style_bg_color(lockModal, lv_color_hex(COL_CARD), 0);
+    lv_obj_align(lockKicker, LV_ALIGN_TOP_LEFT, 0, 0);
+    lv_obj_set_width(lockTitle, LV_SIZE_CONTENT);
+    lv_obj_align(lockTitle, LV_ALIGN_LEFT_MID, 0, -8);
+    lv_obj_set_width(lockBody, LV_SIZE_CONTENT);
+    lv_obj_align(lockBody, LV_ALIGN_BOTTOM_LEFT, 0, 0);
+    lv_obj_clear_flag(lockBody, LV_OBJ_FLAG_HIDDEN);
+    lv_obj_clear_flag(lockAccent, LV_OBJ_FLAG_HIDDEN);
+    if (animBase) lv_obj_clear_flag(lockLogoImg, LV_OBJ_FLAG_HIDDEN);
+    lv_obj_t *ops[] = {lockFace, lockBar, lockNote, lockStop};
+    for (lv_obj_t *o : ops) lv_obj_add_flag(o, LV_OBJ_FLAG_HIDDEN);
   }
+}
+
+static void pendingOperationShow(const char *kicker, bool machine) {
+  operationLockMachine = machine;
+  lockScreenShow(kicker, "Starting…", "");
+  lockFillLayout(true);
+  lv_obj_add_flag(lockBar, LV_OBJ_FLAG_HIDDEN);
+  lv_obj_add_flag(lockBody, LV_OBJ_FLAG_HIDDEN);
+  lv_label_set_text(lockNote, "Waiting for the main board");
+}
+
+// Completed operations keep their outcome in the task pane while Done, the
+// flavor rail and tabs become available immediately.
+static void operationResultShow() {
+  const lv_coord_t x = operationLockMachine ? RAIL_W : TASK_X;
+  lv_obj_set_pos(lockScreen, x, HEADER_H);
+  lv_obj_set_size(lockScreen, SCREEN_W - x, SCREEN_H - HEADER_H);
+  lv_obj_set_pos(lockModal, 0, 0);
+  operationResultVisible = true;
+  lockActive = false;
+  refreshShell();
 }
 
 // What the main board has drawn so far, smoothed between its answers.
@@ -3519,11 +3432,15 @@ static void fillLockProgress() {
 }
 
 static void fillLockShow() {
-  lockScreenShow("FROM THE FUNNEL", "Filling", "");
+  operationLockMachine = false;
+  flavorSel = fillState.channel & 1;
+  showPage(PAGE_SERVICE);
+  showService(SVC_FILL_CONFIRM);
+  lockScreenShow("FILL THIS FLAVOR", "Drawing in\nconcentrate.", "");
   lv_img_set_src(lockFace, &flavorTile[flavorImage[fillState.channel & 1]]);
   lockFillLayout(true);
   lv_obj_add_flag(lockBody, LV_OBJ_FLAG_HIDDEN);
-  lv_obj_set_style_bg_color(lockStop, lv_color_hex(COL_CARD_ON), 0);
+  lv_obj_set_style_bg_color(lockStop, lv_color_hex(COL_ACCENT), 0);
   fillLockShown = true;
   fillStopSent = false;
   fillCardUntilMs = 0;
@@ -3563,6 +3480,7 @@ static void fillLockCard(uint8_t outcome) {
   lv_obj_add_flag(lockStop, LV_OBJ_FLAG_HIDDEN);
   fillCardUntilMs = millis() + FILL_CARD_MS;
   if (!fillCardUntilMs) fillCardUntilMs = 1;
+  operationResultShow();
 }
 
 static void fillLockClose() {
@@ -3570,11 +3488,10 @@ static void fillLockClose() {
   fillCardUntilMs = 0;
   fillStopSent = false;
   lockScreenHide();
-  // The confirm page acted on a tap that has now been answered; the fill page
-  // it was reached from is where the pane rests.
+  // Return to this flavor's Fill instructions after its outcome was read.
   if (activePage == PAGE_SERVICE &&
       (activeSvc == SVC_FILL_CONFIRM || activeSvc == SVC_FILL_PICK)) {
-    showService(SVC_FILL_PICK);
+    showService(SVC_FILL_CONFIRM);
   }
 }
 
@@ -3597,11 +3514,17 @@ static void applyFillState(const FillStatePayload &st) {
   const bool running = st.phase == FILL_PHASE_RUNNING;
 
   if (fillStartSentMs) {
-    // The answer to this glass's START.
+    const bool stopping = fillStopSent;
     fillStartSentMs = 0;
-    if (running && st.channel == flavorSel) { setFillMsg(""); fillLockShow(); return; }
-    if (running) { setFillMsg("the machine is busy"); return; }   // another channel's fill
-    setFillMsg(fillRefusalText(st.outcome));
+    if (running) {
+      setFillMsg("");
+      fillLockShow();
+      if (stopping) fillStopCb(nullptr);
+    } else {
+      fillStopSent = false;
+      lockScreenHide();
+      setFillMsg(stopping ? "Stopped" : fillRefusalText(st.outcome));
+    }
     return;
   }
 
@@ -3615,20 +3538,27 @@ static void applyFillState(const FillStatePayload &st) {
 
 static void fillStopCb(lv_event_t *e) {
   (void)e;
-  if (!fillLockShown || fillCardUntilMs || fillStopSent) return;
+  if ((!fillLockShown && !fillStartSentMs) || fillCardUntilMs || fillStopSent) return;
   j9Post(MSG_FILL_STOP, nullptr, 0);
   fillStopSent = true;
   lv_obj_set_style_bg_color(lockStop, lv_color_hex(COL_OFF), 0);
-  fillLockProgress();
+  if (fillStartSentMs) lv_label_set_text(lockNote, "Stopping · waiting for the main board");
+  else fillLockProgress();
 }
 
 // From loop(): the answer START is owed, the state the lock is showing, and
 // the card's own clock.
 static void fillService() {
   const unsigned long now = millis();
-  if (fillStartSentMs && now - fillStartSentMs >= FILL_START_REPLY_MS) {
-    fillStartSentMs = 0;
-    setFillMsg("the main board did not answer");
+  if (fillStartSentMs) {
+    if (now - fillQueryMs >= FILL_QUERY_MS && outCount < OUT_Q_DEPTH / 2) {
+      fillQueryMs = now;
+      if (now - fillStartSentMs >= FILL_START_REPLY_MS &&
+          strcmp(lv_label_get_text(lockNote), fillStopSent ? "Stopping · reconnecting" : "Reconnecting to the main board") != 0)
+        lv_label_set_text(lockNote, fillStopSent ? "Stopping · reconnecting" : "Reconnecting to the main board");
+      j9Post(fillStopSent ? MSG_FILL_STOP : MSG_FILL_QUERY, nullptr, 0);
+    }
+    return;
   }
   if (!fillLockShown) return;
   if (fillCardUntilMs) {
@@ -3641,7 +3571,7 @@ static void fillService() {
   }
   if (now - fillQueryMs >= FILL_QUERY_MS && outCount < OUT_Q_DEPTH / 2) {
     fillQueryMs = now;
-    j9Post(MSG_FILL_QUERY, nullptr, 0);
+    j9Post(fillStopSent ? MSG_FILL_STOP : MSG_FILL_QUERY, nullptr, 0);
   }
 }
 
@@ -3706,11 +3636,15 @@ static void cleanLockProgress() {
 }
 
 static void cleanLockShow() {
-  lockScreenShow("CLEAN CYCLE", "Cleaning", "");
+  operationLockMachine = false;
+  flavorSel = cleanState.channel & 1;
+  showPage(PAGE_SERVICE);
+  showService(SVC_CLEAN_CONFIRM);
+  lockScreenShow("CLEAN THIS FLAVOR", "Flushing.", "");
   lv_img_set_src(lockFace, &flavorTile[flavorImage[cleanState.channel & 1]]);
   lockFillLayout(true);
   lv_obj_add_flag(lockBody, LV_OBJ_FLAG_HIDDEN);
-  lv_obj_set_style_bg_color(lockStop, lv_color_hex(COL_CARD_ON), 0);
+  lv_obj_set_style_bg_color(lockStop, lv_color_hex(COL_ACCENT), 0);
   cleanLockShown = true;
   cleanStopSent = false;
   cleanCardUntilMs = 0;
@@ -3749,6 +3683,7 @@ static void cleanLockCard(uint8_t outcome) {
   lv_obj_add_flag(lockStop, LV_OBJ_FLAG_HIDDEN);
   cleanCardUntilMs = millis() + CLEAN_CARD_MS;
   if (!cleanCardUntilMs) cleanCardUntilMs = 1;
+  operationResultShow();
 }
 
 static void cleanLockClose() {
@@ -3758,7 +3693,7 @@ static void cleanLockClose() {
   lockScreenHide();
   if (activePage == PAGE_SERVICE &&
       (activeSvc == SVC_CLEAN_CONFIRM || activeSvc == SVC_CLEAN_PICK)) {
-    showService(SVC_CLEAN_PICK);
+    showService(SVC_CLEAN_CONFIRM);
   }
 }
 
@@ -3780,10 +3715,17 @@ static void applyCleanState(const CleanStatePayload &st) {
   const bool running = st.phase == CLEAN_PHASE_RUNNING;
 
   if (cleanStartSentMs) {
+    const bool stopping = cleanStopSent;
     cleanStartSentMs = 0;
-    if (running && st.channel == flavorSel) { setCleanMsg(""); cleanLockShow(); return; }
-    if (running) { setCleanMsg("the machine is busy"); return; }   // another channel's cycle
-    setCleanMsg(cleanRefusalText(st.outcome));
+    if (running) {
+      setCleanMsg("");
+      cleanLockShow();
+      if (stopping) cleanStopCb(nullptr);
+    } else {
+      cleanStopSent = false;
+      lockScreenHide();
+      setCleanMsg(stopping ? "Stopped" : cleanRefusalText(st.outcome));
+    }
     return;
   }
 
@@ -3797,11 +3739,12 @@ static void applyCleanState(const CleanStatePayload &st) {
 
 static void cleanStopCb(lv_event_t *e) {
   (void)e;
-  if (!cleanLockShown || cleanCardUntilMs || cleanStopSent) return;
+  if ((!cleanLockShown && !cleanStartSentMs) || cleanCardUntilMs || cleanStopSent) return;
   j9Post(MSG_CLEAN_STOP, nullptr, 0);
   cleanStopSent = true;
   lv_obj_set_style_bg_color(lockStop, lv_color_hex(COL_OFF), 0);
-  cleanLockProgress();
+  if (cleanStartSentMs) lv_label_set_text(lockNote, "Stopping · waiting for the main board");
+  else cleanLockProgress();
 }
 
 // ── The air cycles, on the lock ───────────────────────────────────────────
@@ -3859,12 +3802,15 @@ static void airLockProgress() {
 }
 
 static void airLockShow() {
+  operationLockMachine = true;
+  showPage(PAGE_SETUP);
+  showSettings(SET_PUMP);
   lockScreenShow(airState.mode == AIR_MODE_PURGE ? "AIR PURGE" : "PUMP SERVICE",
                  airState.mode == AIR_MODE_PURGE ? "Purging" : "Drying", "");
   lv_img_set_src(lockFace, &flavorTile[flavorImage[airState.channel & 1]]);
   lockFillLayout(true);
   lv_obj_add_flag(lockBody, LV_OBJ_FLAG_HIDDEN);
-  lv_obj_set_style_bg_color(lockStop, lv_color_hex(COL_CARD_ON), 0);
+  lv_obj_set_style_bg_color(lockStop, lv_color_hex(COL_ACCENT), 0);
   airLockShown = true;
   airStopSent = false;
   airCardUntilMs = 0;
@@ -3902,6 +3848,7 @@ static void airLockCard(uint8_t outcome) {
   lv_obj_add_flag(lockStop, LV_OBJ_FLAG_HIDDEN);
   airCardUntilMs = millis() + CLEAN_CARD_MS;
   if (!airCardUntilMs) airCardUntilMs = 1;
+  operationResultShow();
 }
 
 static void airLockClose() {
@@ -3928,9 +3875,17 @@ static void applyAirState(const AirStatePayload &st) {
   const bool running = st.phase == AIR_PHASE_RUNNING;
 
   if (airStartSentMs) {
+    const bool stopping = airStopSent;
     airStartSentMs = 0;
-    if (running) { setSettingsMsg(""); airLockShow(); return; }
-    setSettingsMsg(airRefusalText(st.outcome));
+    if (running) {
+      setSettingsMsg("");
+      airLockShow();
+      if (stopping) airStopCb(nullptr);
+    } else {
+      airStopSent = false;
+      lockScreenHide();
+      setSettingsMsg(stopping ? "Stopped" : airRefusalText(st.outcome));
+    }
     return;
   }
 
@@ -3944,28 +3899,37 @@ static void applyAirState(const AirStatePayload &st) {
 
 static void airStopCb(lv_event_t *e) {
   (void)e;
-  if (!airLockShown || airCardUntilMs || airStopSent) return;
+  if ((!airLockShown && !airStartSentMs) || airCardUntilMs || airStopSent) return;
   j9Post(MSG_AIR_STOP, nullptr, 0);
   airStopSent = true;
   lv_obj_set_style_bg_color(lockStop, lv_color_hex(COL_OFF), 0);
-  airLockProgress();
+  if (airStartSentMs) lv_label_set_text(lockNote, "Stopping · waiting for the main board");
+  else airLockProgress();
 }
 
 // Settings' one commitment: dry the lines before the pump cartridge is pulled.
 static void dryStartCb(lv_event_t *e) {
   (void)e;
-  if (airLockShown) return;
+  if (lockActive || airStartSentMs || fillStartSentMs || cleanStartSentMs) return;
   AirRequestPayload p{AIR_MODE_DRY, 0};
   j9Post(MSG_AIR_START, &p, sizeof(p));
   airStartSentMs = millis() ? millis() : 1;
   setSettingsMsg("starting");
+  airStopSent = false;
+  pendingOperationShow("PUMP SERVICE", true);
 }
 
 static void airService() {
   const unsigned long now = millis();
-  if (airStartSentMs && now - airStartSentMs >= CLEAN_START_REPLY_MS) {
-    airStartSentMs = 0;
-    setSettingsMsg("the main board did not answer");
+  if (airStartSentMs) {
+    if (now - airQueryMs >= CLEAN_QUERY_MS && outCount < OUT_Q_DEPTH / 2) {
+      airQueryMs = now;
+      if (now - airStartSentMs >= FILL_START_REPLY_MS &&
+          strcmp(lv_label_get_text(lockNote), airStopSent ? "Stopping · reconnecting" : "Reconnecting to the main board") != 0)
+        lv_label_set_text(lockNote, airStopSent ? "Stopping · reconnecting" : "Reconnecting to the main board");
+      j9Post(airStopSent ? MSG_AIR_STOP : MSG_AIR_QUERY, nullptr, 0);
+    }
+    return;
   }
   if (!airLockShown) return;
   if (airCardUntilMs) {
@@ -3978,22 +3942,28 @@ static void airService() {
   }
   if (now - airQueryMs >= CLEAN_QUERY_MS && outCount < OUT_Q_DEPTH / 2) {
     airQueryMs = now;
-    j9Post(MSG_AIR_QUERY, nullptr, 0);
+    j9Post(airStopSent ? MSG_AIR_STOP : MSG_AIR_QUERY, nullptr, 0);
   }
 }
 
 // One STOP on the lock, for whichever operation is up on it.
 static void lockStopCb(lv_event_t *e) {
-  if (fillLockShown)       fillStopCb(e);
-  else if (cleanLockShown) cleanStopCb(e);
-  else if (airLockShown)   airStopCb(e);
+  if (fillLockShown || fillStartSentMs) fillStopCb(e);
+  else if (cleanLockShown || cleanStartSentMs) cleanStopCb(e);
+  else if (airLockShown || airStartSentMs) airStopCb(e);
 }
 
 static void cleanService() {
   const unsigned long now = millis();
-  if (cleanStartSentMs && now - cleanStartSentMs >= CLEAN_START_REPLY_MS) {
-    cleanStartSentMs = 0;
-    setCleanMsg("the main board did not answer");
+  if (cleanStartSentMs) {
+    if (now - cleanQueryMs >= CLEAN_QUERY_MS && outCount < OUT_Q_DEPTH / 2) {
+      cleanQueryMs = now;
+      if (now - cleanStartSentMs >= FILL_START_REPLY_MS &&
+          strcmp(lv_label_get_text(lockNote), cleanStopSent ? "Stopping · reconnecting" : "Reconnecting to the main board") != 0)
+        lv_label_set_text(lockNote, cleanStopSent ? "Stopping · reconnecting" : "Reconnecting to the main board");
+      j9Post(cleanStopSent ? MSG_CLEAN_STOP : MSG_CLEAN_QUERY, nullptr, 0);
+    }
+    return;
   }
   if (!cleanLockShown) return;
   if (cleanCardUntilMs) {
@@ -4006,7 +3976,7 @@ static void cleanService() {
   }
   if (now - cleanQueryMs >= CLEAN_QUERY_MS && outCount < OUT_Q_DEPTH / 2) {
     cleanQueryMs = now;
-    j9Post(MSG_CLEAN_QUERY, nullptr, 0);
+    j9Post(cleanStopSent ? MSG_CLEAN_STOP : MSG_CLEAN_QUERY, nullptr, 0);
   }
 }
 
@@ -4058,7 +4028,7 @@ static void buildTestScreen(lv_obj_t *scr) {
   }
   static const uint32_t swatch[6] = {0xff0000, 0x00ff00, 0x0000ff, 0x00ffff, 0xff00ff, 0xffff00};
   for (int k = 0; k < 6; k++) mkFlat(testScreen, 208 + 64 * k, 112, 64, 48, lv_color_hex(swatch[k]));
-  static const uint32_t palette[10] = {0x1a1a2e, COL_CARD, COL_CARD_ON, COL_ACCENT, COL_TEXT,
+  static const uint32_t palette[10] = {COL_BLUE, COL_CARD, COL_CARD_ON, COL_ACCENT, COL_TEXT,
                                        COL_DIM, COL_OFF, COL_GOOD, COL_WARN, 0x808080};
   for (int k = 0; k < 10; k++) mkFlat(testScreen, 80 + 64 * k, 168, 64, 48, lv_color_hex(palette[k]));
 
@@ -4107,376 +4077,237 @@ static void testScreenHide() {
 }
 
 static void buildRail(lv_obj_t *scr) {
-  static const char *kRail[RAIL_PAGE_COUNT] = {
-      "CHOOSE",
-      "PRIME",
-      "FILL",
-      "CLEAN",
-  };
-  for (int i = 0; i < RAIL_PAGE_COUNT; i++) {
-    lv_obj_t *b = mkBtn(scr, RAIL_W - 12, RAIL_ITEM_H, COL_CARD);
-    lv_obj_set_pos(b, 6, RAIL_INSET_Y + i * (RAIL_ITEM_H + RAIL_ITEM_GAP));
-    lv_obj_set_style_pad_all(b, RAIL_ITEM_PAD, 0);
-    // These carry a selected colour, so a press goes straight to it. A shade in between
-    // reads as a slow tween toward a colour the button is about to take anyway, rather
-    // than as confirmation — the buttons with nothing to become keep mkBtn's press shade.
-    lv_obj_set_style_bg_color(b, lv_color_hex(COL_ACCENT), LV_PART_MAIN | LV_STATE_PRESSED);
-    lv_obj_set_style_color_filter_opa(b, LV_OPA_TRANSP, LV_PART_MAIN | LV_STATE_PRESSED);
-    lv_obj_add_event_cb(b, railCb, ACT_EVENT, (void *)(intptr_t)i);
-    mkRailIcon(b, (RailPage)i);
-    lv_obj_align(mkText(b, kRail[i], &lv_font_montserrat_20, COL_TEXT), LV_ALIGN_BOTTOM_MID, 0, 0);
-    railBtn[i] = b;
+  flavorRail = mkFlat(scr, 0, 0, RAIL_W, SCREEN_H, lv_color_hex(COL_CARD));
+  lv_obj_add_flag(flavorRail, LV_OBJ_FLAG_CLICKABLE);
+  lv_obj_add_event_cb(flavorRail, flavorBackCb, ACT_EVENT, NULL);
+  for (uint8_t i = 0; i < 2; ++i) {
+    lv_obj_t *b = mkBtn(flavorRail, 84, 173, 0x0a267f);
+    lv_obj_set_pos(b, 10, 19 + i * 189);
+    lv_obj_set_style_border_width(b, 2, 0);
+    lv_obj_set_style_border_color(b, lv_color_hex(0x0a267f), 0);
+    lv_obj_add_event_cb(b, homeFlavorPickCb, ACT_EVENT, (void *)(intptr_t)i);
+    homeFlavorCard[i] = b;
+    lv_obj_t *art = lv_img_create(b);
+    lv_img_set_src(art, &flavorRailArt[resolveFlavorArt(flavorImage[i], i)]);
+    lv_obj_align(art, LV_ALIGN_TOP_MID, 0, 8);
+    lv_obj_clear_flag(art, LV_OBJ_FLAG_CLICKABLE);
+    homeFlavorArtObj[i] = art;
+    homeFlavorBadgeText[i] = mkText(b, "", &lv_font_montserrat_20, COL_TEXT);
+    lv_obj_align(homeFlavorBadgeText[i], LV_ALIGN_BOTTOM_MID, 0, -5);
   }
+  heroPanel = mkBtn(scr, HERO_W, SCREEN_H, COL_DIM);
+  lv_obj_set_pos(heroPanel, RAIL_W, 0);
+  lv_obj_set_style_bg_color(heroPanel, lv_color_hex(COL_DIM), LV_STATE_PRESSED);
+  lv_obj_add_event_cb(heroPanel, flavorBackCb, ACT_EVENT, NULL);
+  heroImage = lv_img_create(heroPanel);
+  lv_img_set_src(heroImage, &flavorHeroArt[resolveFlavorArt(flavorImage[flavorSel], flavorSel)]);
+  lv_obj_align(heroImage, LV_ALIGN_TOP_MID, 0, 64);
+  lv_obj_clear_flag(heroImage, LV_OBJ_FLAG_CLICKABLE);
+  heroCaption = mkText(heroPanel, LV_SYMBOL_OK " Selected", &lv_font_montserrat_20, COL_INK);
+  lv_obj_align(heroCaption, LV_ALIGN_TOP_MID, 0, 424);
 }
 
-// Settings is not a customer destination and does not earn a rail slot beside
-// the five that are. It sits in the screen's top-right corner instead, on the
-// root rather than in any pane, so one object serves every page. Every pane
-// puts its title top-left and its content lower, which is what leaves this
-// corner free; Home's synchronization label is the one thing that shares the
-// band, and it is aligned to clear this square.
-static void settingsCb(lv_event_t *e) { (void)e; showPage(PAGE_SETUP); }
+static void settingsCb(lv_event_t *e) {
+  (void)e;
+  if (!front_ui::allows(front_ui::Action::Settings, lockActive, holding)) return;
+  showPage(PAGE_SETUP);
+}
 
 static void buildSettingsButton(lv_obj_t *scr) {
-  lv_obj_t *b = mkBtn(scr, SETTINGS_BTN, SETTINGS_BTN, COL_CARD);
-  lv_obj_set_pos(b, SCREEN_W - PANE_PAD - SETTINGS_BTN, PANE_PAD);
-  lv_obj_set_style_pad_all(b, 0, 0);
-  lv_obj_set_style_bg_color(b, lv_color_hex(COL_ACCENT), LV_PART_MAIN | LV_STATE_PRESSED);
-  lv_obj_set_style_color_filter_opa(b, LV_OPA_TRANSP, LV_PART_MAIN | LV_STATE_PRESSED);
-  lv_obj_add_event_cb(b, settingsCb, ACT_EVENT, NULL);
-  lv_obj_center(mkText(b, LV_SYMBOL_SETTINGS, &lv_font_montserrat_28, COL_TEXT));
-  settingsBtn = b;
+  settingsBtn = mkBtn(scr, RAIL_W, SETTINGS_BTN, COL_CARD);
+  lv_obj_set_pos(settingsBtn, 0, SCREEN_H - SETTINGS_BTN);
+  lv_obj_set_style_border_width(settingsBtn, 1, 0);
+  lv_obj_set_style_border_side(settingsBtn, LV_BORDER_SIDE_TOP, 0);
+  lv_obj_set_style_border_color(settingsBtn, lv_color_hex(0x5675c9), 0);
+  lv_obj_add_event_cb(settingsBtn, settingsCb, ACT_EVENT, NULL);
+  lv_obj_center(mkText(settingsBtn, LV_SYMBOL_SETTINGS, &lv_font_montserrat_40, COL_TEXT));
+
+  taskHeader = mkFlat(scr, TASK_X, 0, TASK_W, HEADER_H, THEME_BG);
+  static const RailPage pages[3] = {RAIL_FILL, RAIL_PRIME, RAIL_CLEAN};
+  static const char *labels[3] = {"Fill", "Prime", "Clean"};
+  for (uint8_t i = 0; i < 3; ++i) {
+    const RailPage page = pages[i];
+    railBtn[page] = mkBtn(taskHeader, i == 2 ? 120 : 119, HEADER_H, COL_BLUE);
+    lv_obj_set_pos(railBtn[page], i * 119, 0);
+    lv_obj_set_style_border_width(railBtn[page], 1, 0);
+    lv_obj_set_style_border_side(railBtn[page], LV_BORDER_SIDE_RIGHT | LV_BORDER_SIDE_BOTTOM, 0);
+    lv_obj_set_style_border_color(railBtn[page], lv_color_hex(0x7096ef), 0);
+    lv_obj_add_event_cb(railBtn[page], railCb, ACT_EVENT, (void *)(intptr_t)page);
+    railLabel[page] = mkText(railBtn[page], labels[i], &lv_font_montserrat_24, COL_TEXT);
+    lv_obj_center(railLabel[page]);
+  }
+  systemTitle = mkText(taskHeader, "System status", &lv_font_montserrat_28, COL_TEXT);
+  lv_obj_align(systemTitle, LV_ALIGN_LEFT_MID, PANE_PAD, 0);
+  doneBtn = mkBtn(taskHeader, 104, HEADER_H, COL_DIM);
+  lv_obj_align(doneBtn, LV_ALIGN_TOP_RIGHT, 0, 0);
+  lv_obj_add_event_cb(doneBtn, flavorBackCb, ACT_EVENT, NULL);
+  lv_obj_center(mkText(doneBtn, "Done", &lv_font_montserrat_24, COL_INK));
 }
 
-// RAIL_PAGE_COUNT means no rail destination is current — which is how Settings
-// reads, since it lives in the corner rather than on the rail. The loop then
-// matches nothing and the corner takes the selection instead.
+static void refreshShell() {
+  if (!taskHeader) return;
+  const bool machine = activePage == PAGE_SETUP;
+  if (machine) lv_obj_add_flag(heroPanel, LV_OBJ_FLAG_HIDDEN);
+  else lv_obj_clear_flag(heroPanel, LV_OBJ_FLAG_HIDDEN);
+  lv_obj_set_pos(taskHeader, machine ? RAIL_W : TASK_X, 0);
+  lv_obj_set_width(taskHeader, machine ? SCREEN_W - RAIL_W : TASK_W);
+  for (int i = 1; i < RAIL_PAGE_COUNT; ++i) {
+    if (!railBtn[i]) continue;
+    if (machine) lv_obj_add_flag(railBtn[i], LV_OBJ_FLAG_HIDDEN);
+    else lv_obj_clear_flag(railBtn[i], LV_OBJ_FLAG_HIDDEN);
+    const bool selected = i == activeRail;
+    lv_obj_set_style_bg_color(railBtn[i], lv_color_hex(selected ? COL_ACCENT : COL_BLUE), 0);
+    lv_obj_set_style_text_color(railLabel[i], lv_color_hex(selected ? COL_INK : COL_TEXT), 0);
+    lv_obj_set_style_bg_color(railBtn[i], lv_color_hex(selected ? COL_DIM : COL_CARD_ON), LV_STATE_PRESSED);
+    lv_obj_set_style_opa(railBtn[i], lockActive || holding ? LV_OPA_50 : LV_OPA_COVER, 0);
+  }
+  if (machine) {
+    lv_obj_clear_flag(systemTitle, LV_OBJ_FLAG_HIDDEN);
+    lv_label_set_text(systemTitle, activeSet == SET_PUMP ? "Pump service" : "System status");
+  } else lv_obj_add_flag(systemTitle, LV_OBJ_FLAG_HIDDEN);
+  if (front_ui::showDone(activePage == PAGE_HOME, lockActive)) lv_obj_clear_flag(doneBtn, LV_OBJ_FLAG_HIDDEN);
+  else lv_obj_add_flag(doneBtn, LV_OBJ_FLAG_HIDDEN);
+  lv_obj_set_style_bg_color(settingsBtn, lv_color_hex(machine ? COL_ACCENT : COL_CARD), 0);
+  lv_obj_set_style_text_color(lv_obj_get_child(settingsBtn, 0), lv_color_hex(machine ? COL_INK : COL_TEXT), 0);
+  lv_obj_set_style_bg_color(settingsBtn, lv_color_hex(machine ? COL_DIM : COL_CARD_ON), LV_STATE_PRESSED);
+  lv_obj_set_style_opa(settingsBtn, lockActive || holding ? LV_OPA_50 : LV_OPA_COVER, 0);
+}
+
 static void setRailSelection(RailPage page) {
   activeRail = page;
-  for (int i = 0; i < RAIL_PAGE_COUNT; i++) {
-    lv_obj_set_style_bg_color(railBtn[i],
-                              lv_color_hex(i == page ? COL_ACCENT : COL_CARD), 0);
-  }
-  if (settingsBtn) {
-    lv_obj_set_style_bg_color(
-        settingsBtn, lv_color_hex(page == RAIL_PAGE_COUNT ? COL_ACCENT : COL_CARD), 0);
-  }
+  refreshShell();
 }
 
-// The screen behind it is already THEME_BG, and a second opaque fill of the pane is
-// 586 KB written to PSRAM against a bus the scan-out DMA is reading continuously.
-// Under direct_mode that cost is only paid where something changed, but a pane that
-// fills itself makes every change inside it dirty the whole pane.
 static lv_obj_t *buildPane(lv_obj_t *scr) {
-  lv_obj_t *o = lv_obj_create(scr);
-  lv_obj_set_size(o, PANE_W, SCREEN_H);
-  lv_obj_set_pos(o, RAIL_W, 0);
-  lv_obj_set_style_bg_opa(o, LV_OPA_TRANSP, 0);
-  lv_obj_set_style_border_width(o, 0, 0);
-  lv_obj_set_style_radius(o, 0, 0);
+  lv_obj_t *o = mkView(scr);
+  lv_obj_set_size(o, TASK_W, SCREEN_H - HEADER_H);
+  lv_obj_set_pos(o, TASK_X, HEADER_H);
   lv_obj_set_style_pad_all(o, PANE_PAD, 0);
-  lv_obj_clear_flag(o, LV_OBJ_FLAG_SCROLLABLE);
   return o;
 }
 
-// The appliance's default interaction: two clear, whole-card choices. The
-// flavor marks make the cards recognizable at a glance; their static image
-// objects do not redraw during routine main board heartbeats.
-//
-// THE FACE IS A GLASS, SO IT IS TALLER THAN IT IS WIDE, and the card no longer
-// closes around it. What that frees is a column beside it, and the column gets
-// the two things a card ought to answer without being opened: whether this is
-// the flavor the machine is on, and what it pours at.
 static void buildHome(lv_obj_t *page) {
-  const lv_coord_t cw = (PANE_W - 2 * PANE_PAD - 16) / 2;
-  const lv_coord_t inner = cw - 2 * HOME_CARD_PAD;
-  const lv_coord_t colX = FLAVOR_CARD_W + HOME_FACE_GAP;
-  lv_obj_align(mkText(page, "CHOOSE A FLAVOR", &lv_font_montserrat_28, COL_DIM),
-               LV_ALIGN_TOP_LEFT, 0, (PANE_HEAD_H - TEXT_H_28) / 2);
-
-  // The card is the whole selection target, so its settings live beside it
-  // rather than inside it — a sibling, where no press can reach the card under it.
-  for (uint8_t i = 0; i < 2; ++i) {
-    lv_obj_t *card = mkBtn(page, cw, HOME_CARD_H, COL_CARD);
-    lv_obj_align(card, LV_ALIGN_TOP_LEFT, i * (cw + 16), PANE_BODY_Y);
-    lv_obj_set_style_pad_all(card, HOME_CARD_PAD, 0);
-    lv_obj_add_event_cb(card, homeFlavorPickCb, ACT_EVENT, (void *)(intptr_t)i);
-
-    lv_obj_t *gear = mkBtn(page, cw, HOME_GEAR_H, COL_CARD);
-    lv_obj_align(gear, LV_ALIGN_BOTTOM_LEFT, i * (cw + 16), 0);
-    lv_obj_add_event_cb(gear, homeSettingsCb, ACT_EVENT, (void *)(intptr_t)i);
-    lv_obj_center(mkText(gear, LV_SYMBOL_SETTINGS "  SETTINGS",
-                         &lv_font_montserrat_20, COL_DIM));
-
-    lv_obj_t *art = lv_img_create(card);
-    lv_img_set_src(art, &flavorCard[flavorImage[i]]);
-    lv_obj_align(art, LV_ALIGN_LEFT_MID, 0, 0);
-    lv_obj_clear_flag(art, LV_OBJ_FLAG_SCROLLABLE | LV_OBJ_FLAG_CLICKABLE);
-    homeFlavorArtObj[i] = art;
-
-    // What this flavor pours at, in the column the tall face leaves. It is the
-    // number the gear under the card exists to change, so showing it here is
-    // what makes that target legible without opening it.
-    lv_obj_t *ratioCap = mkText(card, "RATIO", &lv_font_montserrat_20, COL_DIM);
-    lv_obj_align(ratioCap, LV_ALIGN_LEFT_MID, colX, -26);
-    homeFlavorRatioCap[i] = ratioCap;
-    homeFlavorRatio[i] = mkText(card, "1:20", &lv_font_montserrat_40, COL_TEXT);
-    lv_obj_align(homeFlavorRatio[i], LV_ALIGN_LEFT_MID, colX, 14);
-
-    // How much is in the reservoir, under what it pours at: four segments the
-    // main board lights from the reed column, and a caption that reads EMPTY
-    // when the float sits on the bottom reed.
-    homeFlavorLevelCap[i] = mkText(card, "LEVEL", &lv_font_montserrat_20, COL_DIM);
-    lv_obj_align(homeFlavorLevelCap[i], LV_ALIGN_LEFT_MID, colX, 54);
-    for (uint8_t k = 0; k < LEVEL_SEGMENTS; k++) {
-      lv_obj_t *seg = lv_obj_create(card);
-      lv_obj_set_size(seg, 24, 14);
-      lv_obj_align(seg, LV_ALIGN_LEFT_MID, colX + k * 28, 80);
-      lv_obj_set_style_bg_color(seg, lv_color_hex(COL_OFF), 0);
-      lv_obj_set_style_border_width(seg, 0, 0);
-      lv_obj_set_style_radius(seg, 4, 0);
-      lv_obj_set_style_pad_all(seg, 0, 0);
-      lv_obj_clear_flag(seg, LV_OBJ_FLAG_SCROLLABLE | LV_OBJ_FLAG_CLICKABLE);
-      homeFlavorLevelSeg[i][k] = seg;
-    }
-
-    lv_obj_t *badge = lv_obj_create(card);
-    // The card's own accent outline already carries the selection; this only
-    // has to name it. It sits at the head of the column beside the face, where
-    // it covers nothing and the settings target under the card keeps its height.
-    lv_obj_set_size(badge, HOME_BADGE_H, HOME_BADGE_H);
-    lv_obj_align(badge, LV_ALIGN_TOP_LEFT, colX + (inner - colX - HOME_BADGE_H) / 2, 0);
-    lv_obj_set_style_border_width(badge, 0, 0);
-    lv_obj_set_style_radius(badge, HOME_BADGE_H / 2, 0);
-    lv_obj_set_style_pad_all(badge, 0, 0);
-    lv_obj_clear_flag(badge, LV_OBJ_FLAG_SCROLLABLE);
-    lv_obj_clear_flag(badge, LV_OBJ_FLAG_CLICKABLE);
-    lv_obj_t *badgeText = mkText(badge, LV_SYMBOL_OK, &lv_font_montserrat_20, COL_TEXT);
-    lv_obj_center(badgeText);
-
-    homeFlavorCard[i] = card;
-    homeFlavorBadge[i] = badge;
-    homeFlavorBadgeText[i] = badgeText;
+  homeTitle = mkText(page, "On tap.", &lv_font_montserrat_40, COL_TEXT);
+  lv_obj_set_pos(homeTitle, 0, 0);
+  homeGauge = mkView(page);
+  lv_obj_set_size(homeGauge, DETAIL_W, 64);
+  lv_obj_align(homeGauge, LV_ALIGN_BOTTOM_LEFT, 0, -68);
+  homeLevelCaption = mkText(homeGauge, "No level reading", &lv_font_montserrat_24, COL_TEXT);
+  lv_obj_align(homeLevelCaption, LV_ALIGN_LEFT_MID, 0, -5);
+  for (uint8_t i = 0; i < LEVEL_SEGMENTS; ++i) {
+    homeLevelSegments[i] = mkFlat(homeGauge, DETAIL_W - 142 + i * 37, 18, 31, 17, lv_color_hex(COL_OFF));
   }
+  mkFlat(page, 0, PANE_H - 69, DETAIL_W, 1, lv_color_hex(0x7699ed));
+  lv_obj_t *image = mkBtn(page, 280, 58, COL_BLUE);
+  lv_obj_align(image, LV_ALIGN_BOTTOM_LEFT, 0, 0);
+  lv_obj_add_event_cb(image, homeSettingsCb, ACT_EVENT, (void *)(intptr_t)FLV_IMAGES);
+  lv_obj_align(mkText(image, "Change image " LV_SYMBOL_RIGHT, &lv_font_montserrat_24, COL_TEXT), LV_ALIGN_LEFT_MID, 0, 0);
+  lv_obj_t *ratio = mkBtn(page, 120, 58, COL_BLUE);
+  lv_obj_align(ratio, LV_ALIGN_BOTTOM_RIGHT, 0, 0);
+  lv_obj_add_event_cb(ratio, homeSettingsCb, ACT_EVENT, (void *)(intptr_t)FLV_DETAIL);
+  lv_obj_align(mkText(ratio, "Ratio " LV_SYMBOL_RIGHT, &lv_font_montserrat_24, COL_DIM), LV_ALIGN_RIGHT_MID, 0, 0);
 }
 
-// One flavor's own page: what it pours at, and which logo it wears. Reached from
-// that flavor's card on Choose, which is where Back returns to.
 static void buildFlavor(lv_obj_t *page) {
-  lv_obj_t *det = mkView(page);
-  mkBack(det, flavorBackCb, NULL);
-  mkAnchor(det);
-
-  lv_obj_t *row = mkCard(det, DETAIL_W, RATIO_CARD_H);
-  lv_obj_align(row, LV_ALIGN_TOP_LEFT, DETAIL_X, PANE_BODY_Y);
-  lv_obj_align(mkText(row, "RATIO", &lv_font_montserrat_20, COL_DIM), LV_ALIGN_TOP_LEFT, 0, 0);
-  flvRatioMinus = mkBtn(row, 84, 72, COL_CARD_ON);
-  lv_obj_align(flvRatioMinus, LV_ALIGN_BOTTOM_LEFT, 0, 0);
+  lv_obj_t *ratio = mkView(page);
+  lv_obj_set_pos(mkText(ratio, "MIXING RATIO", &lv_font_montserrat_20, COL_DIM), 0, 0);
+  lv_obj_t *title = mkText(ratio, "Concentrate : water", &lv_font_montserrat_32, COL_TEXT);
+  lv_obj_set_pos(title, 0, 36);
+  flvRatioMinus = mkBtn(ratio, 66, 66, COL_DIM);
+  lv_obj_set_pos(flvRatioMinus, 0, 130);
   lv_obj_add_event_cb(flvRatioMinus, ratioStepCb, ACT_EVENT, (void *)(intptr_t)-1);
-  flvRatioMinusMark = mkText(flvRatioMinus, LV_SYMBOL_MINUS, &lv_font_montserrat_28, COL_TEXT);
+  flvRatioMinusMark = mkText(flvRatioMinus, LV_SYMBOL_MINUS, &lv_font_montserrat_28, COL_INK);
   lv_obj_center(flvRatioMinusMark);
-  flvRatioPlus = mkBtn(row, 84, 72, COL_CARD_ON);
-  lv_obj_align(flvRatioPlus, LV_ALIGN_BOTTOM_RIGHT, 0, 0);
+  flvRatioPlus = mkBtn(ratio, 66, 66, COL_DIM);
+  lv_obj_set_pos(flvRatioPlus, DETAIL_W - 66, 130);
   lv_obj_add_event_cb(flvRatioPlus, ratioStepCb, ACT_EVENT, (void *)(intptr_t)1);
-  flvRatioPlusMark = mkText(flvRatioPlus, LV_SYMBOL_PLUS, &lv_font_montserrat_28, COL_TEXT);
+  flvRatioPlusMark = mkText(flvRatioPlus, LV_SYMBOL_PLUS, &lv_font_montserrat_28, COL_INK);
   lv_obj_center(flvRatioPlusMark);
-  flvDetailRatio = mkText(row, "1:12", &lv_font_montserrat_48, COL_TEXT);
-  lv_obj_align(flvDetailRatio, LV_ALIGN_BOTTOM_MID, 0, -12);
+  flvDetailRatio = mkText(ratio, "1 : 20", &lv_font_montserrat_48, COL_TEXT);
+  lv_obj_align(flvDetailRatio, LV_ALIGN_TOP_MID, 0, 136);
+  lv_obj_set_pos(mkText(ratio, "More flavor", &lv_font_montserrat_20, COL_DIM), 0, 208);
+  lv_obj_align(mkText(ratio, "Lighter", &lv_font_montserrat_20, COL_DIM), LV_ALIGN_TOP_RIGHT, 0, 208);
+  flvView[FLV_DETAIL] = ratio;
 
-  lv_obj_align(mkText(det, "IMAGE", &lv_font_montserrat_20, COL_DIM),
-               LV_ALIGN_TOP_LEFT, DETAIL_X, IMAGE_LABEL_Y);
-
-  // One row of faces, dragged sideways or paged with the arrows either side.
-  // Positions are set here rather than by a layout, the way every other surface
-  // on this panel is.
-  lv_obj_t *strip = lv_obj_create(det);
-  lv_obj_set_size(strip, TILE_STRIP_W, TILE_BTN_H);
-  lv_obj_align(strip, LV_ALIGN_TOP_LEFT, TILE_STRIP_X, TILE_STRIP_Y);
-  lv_obj_set_style_bg_opa(strip, LV_OPA_TRANSP, 0);
-  lv_obj_set_style_border_width(strip, 0, 0);
-  lv_obj_set_style_pad_all(strip, 0, 0);
-  lv_obj_set_scroll_dir(strip, LV_DIR_HOR);
-  // The track below says where in the row you are, and says it in something big
-  // enough to read across a kitchen. LVGL's own hairline says the same thing to
-  // whoever already knew to look.
-  lv_obj_set_scrollbar_mode(strip, LV_SCROLLBAR_MODE_OFF);
-  lv_obj_add_event_cb(strip, tileStripScrolledCb, LV_EVENT_SCROLL, NULL);
-  flvTileStrip = strip;
-
-  for (int i = 0; i < FLAVOR_IMAGE_COUNT; i++) {
-    lv_obj_t *t = mkBtn(strip, TILE_BTN_W, TILE_BTN_H, COL_CARD);
-    lv_obj_set_pos(t, i * (TILE_BTN_W + TILE_GAP), 0);
-    lv_obj_set_style_pad_all(t, TILE_PAD, 0);
-    lv_obj_add_event_cb(t, imagePickCb, ACT_EVENT, (void *)(intptr_t)i);
-    lv_obj_t *img = lv_img_create(t);
-    lv_img_set_src(img, &flavorTile[i]);
-    lv_obj_center(img);
-    lv_obj_clear_flag(img, LV_OBJ_FLAG_SCROLLABLE | LV_OBJ_FLAG_CLICKABLE);
-    flvTileBtn[i] = t;
+  lv_obj_t *images = mkView(page);
+  lv_obj_set_pos(mkText(images, "Choose an image.", &lv_font_montserrat_32, COL_TEXT), 0, 0);
+  lv_obj_set_pos(mkText(images, "For the selected flavor", &lv_font_montserrat_20, COL_DIM), 0, 47);
+  flvTileStrip = mkView(images);
+  lv_obj_set_size(flvTileStrip, DETAIL_W, TILE_BTN_H);
+  lv_obj_set_pos(flvTileStrip, 0, TILE_STRIP_Y);
+  for (uint8_t i = 0; i < FLAVOR_IMAGE_COUNT; ++i) {
+    lv_obj_t *tile = mkBtn(flvTileStrip, TILE_BTN_W, TILE_BTN_H, COL_CARD);
+    lv_obj_set_pos(tile, (i % 4) * (TILE_BTN_W + TILE_GAP), 0);
+    lv_obj_set_style_border_width(tile, 2, 0);
+    lv_obj_set_style_border_color(tile, lv_color_hex(COL_CARD), 0);
+    lv_obj_add_event_cb(tile, imagePickCb, ACT_EVENT, (void *)(intptr_t)i);
+    lv_obj_t *img = lv_img_create(tile);
+    lv_img_set_src(img, &flavorPickerArt[i]);
+    lv_obj_align(img, LV_ALIGN_TOP_MID, 0, 5);
+    lv_obj_clear_flag(img, LV_OBJ_FLAG_CLICKABLE);
+    flvTileMark[i] = mkText(tile, "", &lv_font_montserrat_20, COL_TEXT);
+    lv_obj_align(flvTileMark[i], LV_ALIGN_BOTTOM_MID, 0, -7);
+    flvTileBtn[i] = tile;
   }
-
-  // The two ends, as tall as what they move. An arrow the size of a scrollbar
-  // is a scrollbar with a shape.
-  flvTileLeft = mkBtn(det, TILE_ARROW_W, TILE_BTN_H, COL_CARD_ON);
-  lv_obj_align(flvTileLeft, LV_ALIGN_TOP_LEFT, DETAIL_X, TILE_STRIP_Y);
+  flvTileEmpty = mkText(flvTileStrip, "Add your images in the app.", &lv_font_montserrat_24, COL_DIM);
+  lv_obj_set_width(flvTileEmpty, DETAIL_W);
+  lv_obj_set_style_text_align(flvTileEmpty, LV_TEXT_ALIGN_CENTER, 0);
+  lv_obj_center(flvTileEmpty);
+  flvTileLeft = mkBtn(images, 60, 53, COL_BLUE);
+  flvTileRight = mkBtn(images, 60, 53, COL_BLUE);
+  lv_obj_align(flvTileLeft, LV_ALIGN_BOTTOM_LEFT, 0, 0);
+  lv_obj_align(flvTileRight, LV_ALIGN_BOTTOM_RIGHT, 0, 0);
+  lv_obj_set_style_border_width(flvTileLeft, 1, 0);
+  lv_obj_set_style_border_width(flvTileRight, 1, 0);
   lv_obj_add_event_cb(flvTileLeft, tileStripPageCb, ACT_EVENT, (void *)(intptr_t)-1);
-  flvTileLeftMark = mkText(flvTileLeft, LV_SYMBOL_LEFT, &lv_font_montserrat_40, COL_TEXT);
-  lv_obj_center(flvTileLeftMark);
-
-  flvTileRight = mkBtn(det, TILE_ARROW_W, TILE_BTN_H, COL_CARD_ON);
-  lv_obj_align(flvTileRight, LV_ALIGN_TOP_RIGHT, 0, TILE_STRIP_Y);
   lv_obj_add_event_cb(flvTileRight, tileStripPageCb, ACT_EVENT, (void *)(intptr_t)1);
-  flvTileRightMark = mkText(flvTileRight, LV_SYMBOL_RIGHT, &lv_font_montserrat_40, COL_TEXT);
-  lv_obj_center(flvTileRightMark);
-
-  flvTileTrack = lv_obj_create(det);
-  lv_obj_set_size(flvTileTrack, TILE_STRIP_W, TILE_TRACK_H);
-  lv_obj_align(flvTileTrack, LV_ALIGN_TOP_LEFT, TILE_STRIP_X, TILE_TRACK_Y);
-  lv_obj_set_style_bg_color(flvTileTrack, lv_color_hex(COL_CARD), 0);
-  lv_obj_set_style_border_width(flvTileTrack, 0, 0);
-  lv_obj_set_style_radius(flvTileTrack, TILE_TRACK_H / 2, 0);
-  lv_obj_set_style_pad_all(flvTileTrack, 0, 0);
-  lv_obj_clear_flag(flvTileTrack, LV_OBJ_FLAG_SCROLLABLE);
-
-  flvTileThumb = lv_obj_create(flvTileTrack);
-  lv_obj_set_height(flvTileThumb, TILE_TRACK_H);
-  lv_obj_set_style_bg_color(flvTileThumb, lv_color_hex(COL_ACCENT), 0);
-  lv_obj_set_style_border_width(flvTileThumb, 0, 0);
-  lv_obj_set_style_radius(flvTileThumb, TILE_TRACK_H / 2, 0);
-  lv_obj_clear_flag(flvTileThumb, LV_OBJ_FLAG_SCROLLABLE);
-
-  flvView[FLV_DETAIL] = det;
+  flvTileLeftMark = mkText(flvTileLeft, LV_SYMBOL_LEFT, &lv_font_montserrat_28, COL_TEXT);
+  flvTileRightMark = mkText(flvTileRight, LV_SYMBOL_RIGHT, &lv_font_montserrat_28, COL_TEXT);
+  lv_obj_center(flvTileLeftMark); lv_obj_center(flvTileRightMark);
+  flvTilePosition = mkText(images, "", &lv_font_montserrat_20, COL_TEXT);
+  lv_obj_set_style_text_align(flvTilePosition, LV_TEXT_ALIGN_CENTER, 0);
+  lv_obj_align(flvTilePosition, LV_ALIGN_BOTTOM_MID, 0, -2);
+  flvView[FLV_IMAGES] = images;
 }
 
-// Two flavor targets, side by side, under a title: the mark for what this
-// screen does, over the logo of the channel it would do it to.
-//
-// THE FACE IS THE TARGET AND THE MARK IS THE CAPTION, which is the other way
-// round from what the height used to allow. A card is a whole column tall, so
-// the face takes the room a square one left empty and the mark shrinks to the
-// size it is doing a mark's work at — the page's title already says which of
-// the three services this is, and the rail is lit under the same word.
-#define PICK_ICON_H  48
-#define PICK_ICON_GAP 16
-static void buildFlavorPicker(lv_obj_t *view, const char *title,
-                              const char *icon, const lv_font_t *iconFont,
-                              lv_event_cb_t cb) {
-  const lv_coord_t cw = (PANE_W - 2 * PANE_PAD - 16) / 2;
-  const lv_coord_t ch = PANE_H - PANE_BODY_Y;
-  const lv_coord_t top = (ch - (PICK_ICON_H + PICK_ICON_GAP + FLAVOR_CARD_H)) / 2;
-  static_assert(PICK_ICON_H + PICK_ICON_GAP + FLAVOR_CARD_H <= PANE_H - PANE_BODY_Y,
-                "a pick card must hold its mark over a whole face");
-  lv_obj_align(mkText(view, title, &lv_font_montserrat_28, COL_DIM),
-               LV_ALIGN_TOP_LEFT, 0, (PANE_HEAD_H - TEXT_H_28) / 2);
-  for (int i = 0; i < 2; i++) {
-    lv_obj_t *b = mkBtn(view, cw, ch, COL_CARD);
-    lv_obj_align(b, LV_ALIGN_TOP_LEFT, i * (cw + 16), PANE_BODY_Y);
-    lv_obj_set_style_pad_all(b, 0, 0);
-    lv_obj_add_event_cb(b, cb, ACT_EVENT, (void *)(intptr_t)i);
-    lv_obj_align(mkText(b, icon, iconFont, COL_ACCENT), LV_ALIGN_TOP_MID, 0, top);
-    lv_obj_align(mkChannelImg(b, (uint8_t)i, flavorCard),
-                 LV_ALIGN_TOP_MID, 0, top + PICK_ICON_H + PICK_ICON_GAP);
-  }
-}
-
-// ── A detail page's east column ──
-// The anchor holds the west. What is left is one column three lines of prose
-// and one target wide, and every service detail lays out the same way in it, so
-// moving between them moves only the words and the picture.
-#define DETAIL_BODY_LINES  3
-#define DETAIL_BODY_Y      PANE_BODY_Y
-#define DETAIL_ACT_Y       (DETAIL_BODY_Y + DETAIL_BODY_LINES * TEXT_H_20 + 28)
-#define DETAIL_ACT_ROOM    (DETAIL_FLOOR - DETAIL_ACT_Y)
-#define CONFIRM_ACT_H      120
-
-// A line of prose in that column, wrapped to it and centred over it.
-static lv_obj_t *mkDetailBody(lv_obj_t *parent, const char *body) {
-  lv_obj_t *b = mkText(parent, body, &lv_font_montserrat_20, COL_DIM);
-  lv_obj_set_width(b, DETAIL_W);
-  lv_obj_set_style_text_align(b, LV_TEXT_ALIGN_CENTER, 0);
-  lv_obj_align(b, LV_ALIGN_TOP_LEFT, DETAIL_X, DETAIL_BODY_Y);
-  return b;
-}
-
-// The channel, what is about to happen to it, and one wide target to say go.
-static lv_obj_t *buildConfirm(lv_obj_t *page, const char *word, const char *body,
-                              const char *action, lv_event_cb_t cb,
-                              ServiceView back, lv_obj_t **msgOut) {
-  lv_obj_t *v = mkView(page);
-  mkBack(v, svcBackCb, (void *)(intptr_t)back);
-  mkDetailTitle(v, word);
-  mkAnchor(v);
-  mkDetailBody(v, body);
-
-  // On the line the column ends on, which is the line the anchor ends on: the
-  // page's one commitment sits level with the face it is about. Air above it
-  // rather than around it, so it is still not under a wandering thumb.
-  lv_obj_t *go = mkBtn(v, DETAIL_W, CONFIRM_ACT_H, COL_ACCENT);
-  lv_obj_align(go, LV_ALIGN_TOP_LEFT, DETAIL_X,
-               DETAIL_ACT_Y + DETAIL_ACT_ROOM - CONFIRM_ACT_H);
-  lv_obj_clear_flag(go, LV_OBJ_FLAG_PRESS_LOCK);   // slide off to change your mind
-  lv_obj_add_event_cb(go, cb, LV_EVENT_CLICKED, NULL);
-  lv_obj_center(mkText(go, action, &lv_font_montserrat_28, COL_TEXT));
-
-  *msgOut = mkText(v, "", &lv_font_montserrat_20, COL_WARN);
-  lv_obj_set_width(*msgOut, DETAIL_W);
-  lv_obj_set_style_text_align(*msgOut, LV_TEXT_ALIGN_CENTER, 0);
-  lv_obj_align(*msgOut, LV_ALIGN_BOTTOM_LEFT, DETAIL_X, 0);
-  return v;
+static lv_obj_t *buildTask(lv_obj_t *page, const char *kicker, const char *title,
+                           const char *body, const char *action, lv_event_cb_t cb,
+                           lv_obj_t **msg, lv_obj_t **button = nullptr) {
+  lv_obj_t *view = mkView(page);
+  lv_obj_set_pos(mkText(view, kicker, &lv_font_montserrat_20, COL_DIM), 0, 0);
+  lv_obj_t *heading = mkText(view, title, &lv_font_montserrat_36, COL_TEXT);
+  lv_obj_set_width(heading, DETAIL_W);
+  lv_obj_set_pos(heading, 0, 36);
+  lv_obj_t *instructions = mkText(view, body, &lv_font_montserrat_24, COL_TEXT);
+  lv_obj_set_width(instructions, DETAIL_W);
+  lv_obj_set_style_text_line_space(instructions, 6, 0);
+  lv_obj_set_pos(instructions, 0, 108);
+  lv_obj_t *go = mkBtn(view, DETAIL_W, 66, COL_ACCENT);
+  lv_obj_align(go, LV_ALIGN_BOTTOM_LEFT, 0, -5);
+  lv_obj_clear_flag(go, LV_OBJ_FLAG_PRESS_LOCK);
+  lv_obj_add_event_cb(go, cb, cb == primePadCb ? LV_EVENT_ALL : LV_EVENT_CLICKED, NULL);
+  lv_obj_t *label = mkText(go, action, &lv_font_montserrat_24, COL_INK);
+  lv_obj_center(label);
+  if (button) { *button = go; primePadLbl = label; }
+  *msg = mkText(view, "", &lv_font_montserrat_20, COL_WARN);
+  lv_obj_set_width(*msg, DETAIL_W);
+  lv_obj_set_pos(*msg, 0, 247);
+  return view;
 }
 
 static void buildService(lv_obj_t *page) {
-  lv_obj_t *pick = mkView(page);
-  buildFlavorPicker(pick, "PRIME A FLAVOR", "\xEF\x81\x83", &front_icons_48,
-                    primePickCb);
-  svcView[SVC_PRIME_PICK] = pick;
-
-  // The hold pad. It fills the column to the line both columns end on, because
-  // it is meant to be found without looking.
-  lv_obj_t *hold = mkView(page);
-  mkBack(hold, svcBackCb, (void *)(intptr_t)SVC_PRIME_PICK);
-  mkDetailTitle(hold, "PRIME");
-  mkAnchor(hold);
-  mkDetailBody(hold, "Hold the pad while the pump\n"
-                     "pushes concentrate out to\n"
-                     "the gooseneck.");
-
-  primePad = mkBtn(hold, DETAIL_W, DETAIL_ACT_ROOM, COL_ACCENT);
-  lv_obj_align(primePad, LV_ALIGN_TOP_LEFT, DETAIL_X, DETAIL_ACT_Y);
-  // A slide out of the hold target is a lost press and must stop the pump just
-  // like a lift; ordinary navigation buttons keep PRESS_LOCK.
-  lv_obj_clear_flag(primePad, LV_OBJ_FLAG_PRESS_LOCK);
-  lv_obj_add_event_cb(primePad, primePadCb, LV_EVENT_ALL, NULL);
-  primePadLbl = mkText(primePad, "HOLD TO PRIME", &lv_font_montserrat_28, COL_TEXT);
-  lv_obj_center(primePadLbl);
-
-  primeMsg = mkText(hold, "", &lv_font_montserrat_20, COL_WARN);
-  lv_obj_set_width(primeMsg, DETAIL_W);
-  lv_obj_set_style_text_align(primeMsg, LV_TEXT_ALIGN_CENTER, 0);
-  lv_obj_align(primeMsg, LV_ALIGN_BOTTOM_LEFT, DETAIL_X, 0);
-  svcView[SVC_PRIME_HOLD] = hold;
-
-  lv_obj_t *cpick = mkView(page);
-  buildFlavorPicker(cpick, "CLEAN A FLAVOR", "\xEE\x81\xAD", &front_icons_48,
-                    cleanPickCb);
-  svcView[SVC_CLEAN_PICK] = cpick;
-
-  svcView[SVC_CLEAN_CONFIRM] = buildConfirm(
-      page, "CLEAN", "Set a pitcher under the faucet.\n"
-                     "Three rounds of tap water go\n"
-                     "in, then out through the faucet.",
-      "START CLEAN CYCLE", cleanStartCb, SVC_CLEAN_PICK, &cleanMsg);
-
-  lv_obj_t *fpick = mkView(page);
-  buildFlavorPicker(fpick, "FILL A FLAVOR", "\xEF\x82\xB0", &front_icons_48,
-                    fillPickCb);
-  svcView[SVC_FILL_PICK] = fpick;
-
-  svcView[SVC_FILL_CONFIRM] = buildConfirm(
-      page, "FILL", "Pour concentrate into the funnel\n"
-                    "on top, then this draws it down\n"
-                    "to the reservoir.",
-      "START FILL", fillStartCb, SVC_FILL_PICK, &fillMsg);
+  // Numeric service IDs remain stable for the serial/J9 diagnostic contract.
+  svcView[SVC_PRIME_PICK] = mkView(page);
+  svcView[SVC_CLEAN_PICK] = mkView(page);
+  svcView[SVC_FILL_PICK] = mkView(page);
+  svcView[SVC_PRIME_HOLD] = buildTask(page, "PRIME THIS FLAVOR", "Ready the line.",
+      "Place a glass under the faucet.", "Hold to prime", primePadCb, &primeMsg, &primePad);
+  svcView[SVC_FILL_CONFIRM] = buildTask(page, "FILL THIS FLAVOR", "Top it up.",
+      "Pour concentrate into the top funnel.", "Start filling " LV_SYMBOL_RIGHT,
+      fillStartCb, &fillMsg);
+  svcView[SVC_CLEAN_CONFIRM] = buildTask(page, "CLEAN THIS FLAVOR", "Time to rinse.",
+      "Place a pitcher under the faucet.\n\n3 rinse cycles", "Start cleaning " LV_SYMBOL_RIGHT,
+      cleanStartCb, &cleanMsg);
 }
 
 static void setSettingsMsg(const char *s) { if (settingsMsg) lv_label_set_text(settingsMsg, s); }
@@ -4494,7 +4325,7 @@ static lv_obj_t *mkOutline(lv_obj_t *parent, lv_coord_t x, lv_coord_t y, lv_coor
   lv_obj_set_pos(o, x, y);
   lv_obj_set_style_bg_opa(o, LV_OPA_TRANSP, 0);
   lv_obj_set_style_border_width(o, 2, 0);
-  lv_obj_set_style_border_color(o, lv_color_hex(COL_OFF), 0);
+  lv_obj_set_style_border_color(o, lv_color_hex(0x7296e8), 0);
   lv_obj_set_style_radius(o, radius, 0);
   lv_obj_set_style_pad_all(o, 0, 0);
   lv_obj_clear_flag(o, LV_OBJ_FLAG_SCROLLABLE | LV_OBJ_FLAG_CLICKABLE);
@@ -4577,7 +4408,7 @@ static lv_coord_t buildStatusDiagram(lv_obj_t *card, lv_coord_t w, lv_coord_t to
     lv_obj_set_size(dot, STATUS_MM_REED_DOT, STATUS_MM_REED_DOT);
     lv_obj_set_pos(dot, PX(d) - STATUS_MM_REED_DOT / 2, PZ(z) - STATUS_MM_REED_DOT / 2);
     lv_obj_set_style_radius(dot, LV_RADIUS_CIRCLE, 0);
-    lv_obj_set_style_bg_color(dot, lv_color_hex(COL_CARD), 0);
+    lv_obj_set_style_bg_color(dot, THEME_BG, 0);
     lv_obj_set_style_border_width(dot, 2, 0);
     lv_obj_set_style_border_color(dot, lv_color_hex(COL_DIM), 0);
     lv_obj_set_style_pad_all(dot, 0, 0);
@@ -4596,58 +4427,40 @@ static lv_coord_t buildStatusDiagram(lv_obj_t *card, lv_coord_t w, lv_coord_t to
 // (hardware/service/pump-replacement.md). A container goes under the faucet
 // first; the button is the commitment, and the lock shows the cycle.
 static void buildSettings(lv_obj_t *page) {
+  lv_obj_set_pos(page, RAIL_W, HEADER_H);
+  lv_obj_set_width(page, SCREEN_W - RAIL_W);
   lv_obj_t *status = mkView(page);
-  lv_obj_align(mkText(status, "SETTINGS", &lv_font_montserrat_28, COL_DIM),
-               LV_ALIGN_TOP_LEFT, 0, (PANE_HEAD_H - TEXT_H_28) / 2);
-
-  // The card wraps the drawing: its caption, the profile at the width the column
-  // leaves it, and the same padding all round. What is left of the pane under it
-  // is air, and the one line that can appear there says the main board is not
-  // reading — so the drawing itself carries no words.
-  const lv_coord_t cardW = PANE_W - 2 * PANE_PAD - STATUS_MENU_W - STATUS_MENU_GAP;
-  lv_obj_t *card = mkCard(status, cardW, 0);
-  lv_obj_align(card, LV_ALIGN_TOP_LEFT, 0, PANE_BODY_Y);
-  lv_obj_set_style_pad_all(card, STATUS_CARD_PAD, 0);
-  lv_obj_align(mkText(card, "SYSTEM STATUS", &lv_font_montserrat_20, COL_DIM),
-               LV_ALIGN_TOP_LEFT, 0, 0);
-  const lv_coord_t diagH = buildStatusDiagram(card, cardW - 2 * STATUS_CARD_PAD, TEXT_H_20 + 8);
-  const lv_coord_t cardH = 2 * STATUS_CARD_PAD + TEXT_H_20 + 8 + diagH;
-  lv_obj_set_height(card, cardH);
-  statusNote = mkText(status, "not reading the reeds", &lv_font_montserrat_20, COL_WARN);
-  lv_obj_align(statusNote, LV_ALIGN_TOP_LEFT, 0, PANE_BODY_Y + cardH + 12);
-
-  static const char *kArea[SET_COUNT] = {NULL, "PUMP SERVICE"};
-  lv_coord_t y = PANE_BODY_Y;
-  for (int v = SET_STATUS + 1; v < SET_COUNT; v++) {
-    lv_obj_t *b = mkBtn(status, STATUS_MENU_W, STATUS_MENU_BTN_H, COL_CARD);
-    lv_obj_align(b, LV_ALIGN_TOP_RIGHT, 0, y);
-    lv_obj_add_event_cb(b, settingsAreaCb, ACT_EVENT, (void *)(intptr_t)v);
-    lv_obj_center(mkText(b, kArea[v], &lv_font_montserrat_20, COL_TEXT));
-    y += STATUS_MENU_BTN_H + STATUS_MENU_BTN_GAP;
-  }
+  lv_obj_set_height(status, PANE_H + 8);
+  const lv_coord_t diagramHeight = buildStatusDiagram(status, 436, 5);
+  statusNote = mkText(status, "Not reading the sensors", &lv_font_montserrat_20, COL_WARN);
+  lv_obj_set_pos(statusNote, 0, diagramHeight + 10);
+  lv_obj_t *service = mkBtn(status, 186, 64, COL_CARD_ON);
+  lv_obj_set_pos(service, 460, 5);
+  lv_obj_set_style_border_width(service, 1, 0);
+  lv_obj_set_style_border_color(service, lv_color_hex(0x8eacef), 0);
+  lv_obj_add_event_cb(service, settingsAreaCb, ACT_EVENT, (void *)(intptr_t)SET_PUMP);
+  lv_obj_center(mkText(service, "Pump service " LV_SYMBOL_RIGHT, &lv_font_montserrat_20, COL_TEXT));
   setView[SET_STATUS] = status;
 
   lv_obj_t *pump = mkView(page);
-  mkBack(pump, settingsBackCb, NULL);
-  mkDetailTitle(pump, "PUMP SERVICE");
-  card = mkCard(pump, PANE_W - 2 * PANE_PAD, 232);
-  lv_obj_align(card, LV_ALIGN_TOP_MID, 0, PANE_BODY_Y);
-  lv_obj_align(mkText(card, "PUMP SERVICE", &lv_font_montserrat_20, COL_DIM),
-               LV_ALIGN_TOP_LEFT, 0, 0);
-  lv_obj_t *body = mkText(card, "Before pulling the pump cartridge,\n"
-                                "set a container under the faucet\n"
-                                "and dry the lines.",
-                          &lv_font_montserrat_28, COL_TEXT);
-  lv_obj_align(body, LV_ALIGN_TOP_LEFT, 0, TEXT_H_20 + 10);
-
-  lv_obj_t *go = mkBtn(card, 300, 64, COL_ACCENT);
-  lv_obj_align(go, LV_ALIGN_BOTTOM_RIGHT, 0, 0);
-  lv_obj_clear_flag(go, LV_OBJ_FLAG_PRESS_LOCK);   // slide off to change your mind
+  lv_obj_set_pos(mkText(pump, "Dry the lines.", &lv_font_montserrat_40, COL_TEXT), 0, 0);
+  lv_obj_t *body = mkText(pump, "Before pulling the pump cartridge, set a container under the faucet and dry the lines.",
+                           &lv_font_montserrat_24, COL_TEXT);
+  lv_obj_set_width(body, 580);
+  lv_obj_set_style_text_line_space(body, 8, 0);
+  lv_obj_set_pos(body, 0, 73);
+  lv_obj_t *back = mkBtn(pump, 200, 66, COL_BLUE);
+  lv_obj_align(back, LV_ALIGN_BOTTOM_LEFT, 0, -5);
+  lv_obj_add_event_cb(back, settingsBackCb, ACT_EVENT, NULL);
+  lv_obj_align(mkText(back, LV_SYMBOL_LEFT " Settings", &lv_font_montserrat_24, COL_TEXT), LV_ALIGN_LEFT_MID, 0, 0);
+  lv_obj_t *go = mkBtn(pump, 300, 66, COL_ACCENT);
+  lv_obj_align(go, LV_ALIGN_BOTTOM_RIGHT, 0, -5);
+  lv_obj_clear_flag(go, LV_OBJ_FLAG_PRESS_LOCK);
   lv_obj_add_event_cb(go, dryStartCb, LV_EVENT_CLICKED, NULL);
-  lv_obj_center(mkText(go, "DRY THE LINES", &lv_font_montserrat_28, COL_TEXT));
-
-  settingsMsg = mkText(card, "", &lv_font_montserrat_20, COL_WARN);
-  lv_obj_align(settingsMsg, LV_ALIGN_BOTTOM_LEFT, 0, -20);
+  lv_obj_center(mkText(go, "Dry the lines " LV_SYMBOL_RIGHT, &lv_font_montserrat_24, COL_INK));
+  settingsMsg = mkText(pump, "", &lv_font_montserrat_20, COL_WARN);
+  lv_obj_set_width(settingsMsg, 646);
+  lv_obj_set_pos(settingsMsg, 0, 245);
   setView[SET_PUMP] = pump;
 }
 
@@ -4666,24 +4479,17 @@ static void animRun(bool on) {
   if (!animTimer) return;
   const bool wakeQuiet = kickStage ||
                          (animResumeDue && (long)(millis() - animResumeDue) < 0);
-  if (on && !wakeQuiet) lv_timer_resume(animTimer);
+  if (on && !wakeQuiet && !lv_obj_has_flag(lockLogoImg, LV_OBJ_FLAG_HIDDEN)) lv_timer_resume(animTimer);
   else lv_timer_pause(animTimer);
 }
 
 static void showFlavor(FlavorView v) {
   activeFlv = v;
+  imagePage = 0;
   showOnly(flvView, FLV_COUNT, v);
   refreshFlavorText();
   refreshFlavorImages();
-  // Opening the strip on a face that has been scrolled off it is opening a
-  // picker that does not say what is currently chosen. Only on the way in —
-  // once someone is dragging, where they have got to is theirs.
-  const uint8_t sel = flavorImage[flavorSel];
-  if (flvTileStrip && sel < FLAVOR_IMAGE_COUNT && flvTileBtn[sel] &&
-      !lv_obj_has_flag(flvTileBtn[sel], LV_OBJ_FLAG_HIDDEN))
-    lv_obj_scroll_to_view(flvTileBtn[sel], LV_ANIM_OFF);
-  tileStripAffordance();
-  // Whatever a finger was on belonged to the page being left.
+  refreshShell();
   tileDisarm();
 }
 
@@ -4692,9 +4498,14 @@ static void showSettings(SettingsView v) {
   showOnly(setView, SET_COUNT, v);
   if (v == SET_STATUS) refreshStatusReeds();
   if (v == SET_PUMP)   setSettingsMsg("");
+  refreshShell();
 }
 
 static void showService(ServiceView v) {
+  if (v == SVC_PRIME_PICK || v == SVC_FILL_PICK || v == SVC_CLEAN_PICK) {
+    showPage(PAGE_HOME);
+    return;
+  }
   const ServiceView previous = activeSvc;
   if (previous == SVC_PRIME_HOLD && v != SVC_PRIME_HOLD &&
       !primeAuthoritativeNavigation) {
@@ -4744,6 +4555,7 @@ static void idleReset(uint8_t stage) {
         primeSessionDesired = false;
         primeSessionCancelPending = false;
         primeUsbStartPending = false;
+        primeTouchStartPending = false;
         holding = false;
         primeClearStopPending();
         j9DiscardQueuedPrimeFeeds(true);
@@ -4774,6 +4586,13 @@ static RailPage railForPage(Page p) {
 }
 
 static void showPage(Page p) {
+  tileDisarm();
+  if (operationResultVisible) {
+    operationResultVisible = false;
+    fillLockShown = cleanLockShown = airLockShown = false;
+    fillCardUntilMs = cleanCardUntilMs = airCardUntilMs = 0;
+    lockScreenHide();
+  }
   if (activePage == PAGE_SERVICE && activeSvc == SVC_PRIME_HOLD &&
       !primeAuthoritativeNavigation) {
     primeSessionCancel();
@@ -4786,8 +4605,10 @@ static void showPage(Page p) {
   animRun(lockActive && !screenIdle);
   if (p == PAGE_HOME)    refreshHomeSelection();
   if (p == PAGE_FLAVOR)  showFlavor(FLV_DETAIL);
-  if (p == PAGE_SERVICE) showService(SVC_PRIME_PICK);
+  if (p == PAGE_SERVICE) { activeSvc = SVC_PRIME_PICK; showOnly(svcView, SVC_COUNT, -1); }
   if (p == PAGE_SETUP)   showSettings(SET_STATUS);
+  refreshFlavorImages();
+  refreshShell();
 }
 
 static void showRail(RailPage p) {
@@ -4797,15 +4618,15 @@ static void showRail(RailPage p) {
       break;
     case RAIL_PRIME:
       showPage(PAGE_SERVICE);
-      showService(SVC_PRIME_PICK);
+      showService(SVC_PRIME_HOLD);
       break;
     case RAIL_FILL:
       showPage(PAGE_SERVICE);
-      showService(SVC_FILL_PICK);
+      showService(SVC_FILL_CONFIRM);
       break;
     case RAIL_CLEAN:
       showPage(PAGE_SERVICE);
-      showService(SVC_CLEAN_PICK);
+      showService(SVC_CLEAN_CONFIRM);
       break;
     default:
       showPage(PAGE_HOME);
@@ -4816,13 +4637,14 @@ static void showRail(RailPage p) {
 // A customer page, asked for by the main board's console: the same handlers a
 // finger reaches, so what the bench camera photographs is the real path.
 static bool uiShow(const UiShowPayload &req) {
-  if (!uiReady) return false;
+  if (!uiReady || lockActive || holding) return false;
   const bool hasChannel = req.channel != UI_CHANNEL_NONE;
   const uint8_t channel = req.channel & 1;
   if (screenIdle) wake();
+  flavorSel = hasChannel ? channel : activeFlavor;
   switch (req.rail) {
     case UI_RAIL_CHOOSE:
-      if (hasChannel) { flavorSel = channel; showPage(PAGE_FLAVOR); showFlavor(FLV_DETAIL); }
+      if (hasChannel) { flavorSel = channel; showPage(PAGE_FLAVOR); showFlavor(req.act ? FLV_IMAGES : FLV_DETAIL); }
       else showRail(RAIL_CHOOSE);
       return true;
     case UI_RAIL_PRIME:
@@ -4938,9 +4760,9 @@ static void processTextLine(const char *line) {
                   (unsigned long)ctrlStatus.j9ReplyOverruns,
                   (unsigned long)flushCount, (unsigned long)maxLoopMs,
                   (unsigned long)ESP.getFreeHeap(), (unsigned long)ESP.getMinFreeHeap());
-    Serial.printf("DIAG_UI:set=%d,selected=%u,flavorSync=%d,flavorSaved=%d,flavorPending=%d,flavorRetries=%lu,"
+    Serial.printf("DIAG_UI:set=%d,images=%u,selected=%u,flavorSync=%d,flavorSaved=%d,flavorPending=%d,flavorRetries=%lu,"
                   "flavorStale=%lu,bridged=%lu,stale=%lu,touch=%lu,lastXY=%u/%u\n",
-                  (int)activeSet, (unsigned)activeFlavor, flavorSynchronized ? 1 : 0,
+                  (int)activeSet, (unsigned)imagePage, (unsigned)activeFlavor, flavorSynchronized ? 1 : 0,
                   flavorMainBoardPersisted ? 1 : 0, flavorRequestPending ? 1 : 0,
                   (unsigned long)flavorRetries, (unsigned long)flavorStaleResponses,
                   (unsigned long)touchBridged, (unsigned long)gt911Stale,
@@ -5520,6 +5342,7 @@ void loop() {
       padWatch();
       if (activePage == PAGE_HOME)   refreshHomeSelection();
       if (activePage == PAGE_SETUP)  refreshStatusReeds();
+  refreshHomeLevel();
     }
   }
 

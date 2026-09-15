@@ -294,7 +294,7 @@ const COST_CSS = `
 .cost-bar { display: grid; grid-template-columns: minmax(130px, 1.6fr) minmax(70px, 3fr) 4.4rem 3rem; align-items: center; gap: 0.75rem; }
 .cost-bl { font-size: 0.82rem; color: var(--text); line-height: 1.25; }
 .cost-bt { height: 14px; background: var(--surface-2); border-radius: 4px; overflow: hidden; }
-.cost-bf { height: 100%; background: var(--accent); border-radius: 4px; min-width: 2px; }
+.cost-bf { height: 100%; background: var(--chart-one); border-radius: 4px; min-width: 2px; }
 .cost-bv { font-size: 0.8rem; text-align: right; font-variant-numeric: tabular-nums; color: var(--text); }
 .cost-bp { font-size: 0.72rem; text-align: right; color: var(--text-2); font-variant-numeric: tabular-nums; }
 .cost-cat { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 0.5rem; overflow: hidden; }
@@ -334,8 +334,8 @@ const COST_CSS = `
   position: relative; overflow: hidden;
   border: 1px solid var(--border); border-radius: 16px;
   background:
-    radial-gradient(120% 150% at 10% 0%, rgba(68, 136, 255, 0.22), transparent 62%),
-    radial-gradient(120% 150% at 95% 100%, rgba(153, 76, 230, 0.20), transparent 60%),
+    radial-gradient(120% 150% at 10% 0%, rgba(220, 230, 255, 0.12), transparent 62%),
+    radial-gradient(120% 150% at 95% 100%, rgba(255, 145, 82, 0.12), transparent 60%),
     var(--surface);
   padding: 1.9rem 1.75rem 1.5rem; margin: 0.25rem 0 2.75rem;
 }
@@ -347,32 +347,32 @@ const COST_CSS = `
 }
 @supports (-webkit-background-clip: text) or (background-clip: text) {
   .cost-top-big {
-    background: linear-gradient(96deg, var(--accent) 15%, var(--chart-purple));
+    background: linear-gradient(96deg, var(--chart-one) 15%, var(--chart-two));
     -webkit-background-clip: text; background-clip: text; color: transparent;
   }
 }
 .cost-split { display: flex; gap: 2px; height: 10px; border-radius: 5px; overflow: hidden; background: var(--surface-2); }
 .cost-split i { display: block; height: 100%; }
-.cost-split .p { background: var(--accent); }
-.cost-split .l { background: var(--chart-purple); }
+.cost-split .p { background: var(--chart-one); }
+.cost-split .l { background: var(--chart-two); }
 .cost-top-legs { display: flex; flex-wrap: wrap; gap: 0.4rem 2rem; margin-top: 0.95rem; }
 .cost-top-leg { display: flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; color: var(--text-2); text-decoration: none; }
 .cost-top-leg b { color: var(--text); font-size: 1.05rem; font-weight: 700; font-variant-numeric: tabular-nums; }
 .cost-top-leg:hover b { color: var(--accent); }
-.cost-key { width: 11px; height: 11px; border-radius: 3px; background: var(--accent); flex: none; }
-.cost-key.l { background: var(--chart-purple); }
+.cost-key { width: 11px; height: 11px; border-radius: 3px; background: var(--chart-one); flex: none; }
+.cost-key.l { background: var(--chart-two); }
 /* Labor — the same ranked chart, scaled by time, priced beside it. */
 .cost-rule { border: 0; border-top: 1px solid var(--border); margin: 3.25rem 0 0; }
 .cost-bar.lab { grid-template-columns: minmax(130px, 1.6fr) minmax(60px, 3fr) 4.9rem 4.4rem; }
-.cost-bar.lab .cost-bf { background: var(--chart-purple); }
-.cost-hero.lab .cost-big, .cost-total.lab .v { color: var(--chart-purple); }
+.cost-bar.lab .cost-bf { background: var(--chart-two); }
+.cost-hero.lab .cost-big, .cost-total.lab .v { color: var(--chart-two); }
 /* Machine time — a third colour because it is a third ledger, and because it
    must not read as money. Two derived figures lead; the processes sit under
    them, grouped the way the ledger groups them. */
-.cost-hero.mach .cost-big { color: var(--chart-pink); }
+.cost-hero.mach .cost-big { color: var(--chart-three); }
 .cost-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 0.75rem; margin: 1.25rem 0 0.5rem; }
 .cost-stat { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.15rem 1.25rem; }
-.cost-statv { font-size: 1.9rem; font-weight: 700; line-height: 1.05; color: var(--chart-pink); font-variant-numeric: tabular-nums; }
+.cost-statv { font-size: 1.9rem; font-weight: 700; line-height: 1.05; color: var(--chart-three); font-variant-numeric: tabular-nums; }
 .cost-cap { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-2); margin-top: 0.2rem; }
 .cost-statn { font-size: 0.78rem; color: var(--text-3); margin-top: 0.6rem; line-height: 1.45; }
 @media (max-width: 560px) {

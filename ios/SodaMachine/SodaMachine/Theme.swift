@@ -1,31 +1,32 @@
 import SwiftUI
 
+/// Big Blue palette. The faucet mark lives in Assets.xcassets/LaunchIcon.
 enum Theme {
-    // Background
-    static let background = Color(red: 0.102, green: 0.102, blue: 0.180)  // #1a1a2e
+    static let cobalt = Color(red: 23 / 255, green: 73 / 255, blue: 209 / 255) // #1749D1
+    static let navy = Color(red: 16 / 255, green: 49 / 255, blue: 156 / 255) // #10319C
+    static let ice = Color(red: 220 / 255, green: 230 / 255, blue: 255 / 255) // #DCE6FF
+    static let orange = Color(red: 255 / 255, green: 145 / 255, blue: 82 / 255) // #FF9152
 
-    // Text
+    static let background = cobalt
+    static let surface = navy
     static let textPrimary = Color.white
-    static let textSecondary = Color(white: 0.6)
+    static let textSecondary = ice
+    static let accent = orange
+    static let onAccent = navy
+    static let controlTint = ice
+    static let error = Color(red: 1, green: 181 / 255, blue: 181 / 255)
 
-    // UI elements
-    static let dotActive = Color.white
-    static let dotInactive = Color(white: 0.35)
-    static let placeholder = Color(white: 0.2)
+    static let dotActive = orange
+    static let dotInactive = ice.opacity(0.6)
+    static let placeholder = navy
+    static let activePhase = ice
 
-    // Accent (used by Hold-to-Prime button and Clean cycle phase)
-    static let primeBlue = Color(red: 0.27, green: 0.53, blue: 1.0)
+    // Per-flavor chart series, paired with labels and flavor pictures.
+    static let chartFlavor1 = orange
+    static let chartFlavor2 = ice
 
-    // The red the app icon and the glass animation open on, for the one
-    // action on a screen that has one.
-    static let accent = Color(red: 0.914, green: 0.271, blue: 0.376)
-
-    // Chart colors (per-flavor, also used as pie + bar foregrounds in StatsSheet)
-    static let chartPink = Color(red: 0.9, green: 0.3, blue: 0.5)
-    static let chartPurple = Color(red: 0.6, green: 0.3, blue: 0.9)
-
-    // Liquid gradient stops — used by GlassAnimationView. Order is top → bottom-right.
-    static let liquidStop0 = Color(red: 0.914, green: 0.271, blue: 0.376)
-    static let liquidStop1 = Color(red: 0.761, green: 0.200, blue: 0.451)
-    static let liquidStop2 = Color(red: 0.482, green: 0.184, blue: 0.969)
+    // Liquid gradient stops used by GlassAnimationView.
+    static let liquidStop0 = ice
+    static let liquidStop1 = cobalt
+    static let liquidStop2 = navy
 }

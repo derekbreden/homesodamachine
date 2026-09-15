@@ -275,7 +275,7 @@ private struct ImagePickerSheet: View {
         .padding(5)
         .overlay(
             Circle()
-                .stroke(slot == selectedSlot ? Theme.textPrimary : .clear, lineWidth: 1)
+                .stroke(slot == selectedSlot ? Theme.accent : .clear, lineWidth: 2)
         )
         .onTapGesture {
             selectedSlot = slot
@@ -559,7 +559,7 @@ private struct PrimeSheet: View {
 
                         Text(ble.primeActive ? "Priming..." : "Hold to Prime")
                             .font(.system(size: 16, weight: .medium))
-                            .foregroundStyle(ble.primeActive ? Theme.primeBlue : Theme.textSecondary)
+                            .foregroundStyle(ble.primeActive ? Theme.activePhase : Theme.textSecondary)
                             .frame(maxWidth: .infinity)
                             .padding(.vertical, 12)
                             .background(
@@ -666,7 +666,7 @@ private struct CleanSheet: View {
                     if ble.cleanCycleActive {
                         Text(ble.cleanCyclePhase ?? "Starting...")
                             .font(.system(size: 16, weight: .medium))
-                            .foregroundStyle(Theme.primeBlue)
+                            .foregroundStyle(Theme.activePhase)
 
                         Spacer().frame(height: 24)
 
@@ -861,16 +861,16 @@ private struct StatsSheet: View {
 
             if total > 0 {
                 HStack(spacing: 20) {
-                    flavorLegendImage(flavor: 1, slot: ble.flavor1Image, color: Theme.chartPink, pct: Int(f1 / total * 100))
+                    flavorLegendImage(flavor: 1, slot: ble.flavor1Image, color: Theme.chartFlavor1, pct: Int(f1 / total * 100))
                     Chart {
                         SectorMark(angle: .value("Flavor 1", f1), innerRadius: .ratio(0.5))
-                            .foregroundStyle(Theme.chartPink)
+                            .foregroundStyle(Theme.chartFlavor1)
                         SectorMark(angle: .value("Flavor 2", f2), innerRadius: .ratio(0.5))
-                            .foregroundStyle(Theme.chartPurple)
+                            .foregroundStyle(Theme.chartFlavor2)
                     }
                     .frame(width: 120, height: 120)
                     .accessibilityHidden(true)
-                    flavorLegendImage(flavor: 2, slot: ble.flavor2Image, color: Theme.chartPurple, pct: Int(f2 / total * 100))
+                    flavorLegendImage(flavor: 2, slot: ble.flavor2Image, color: Theme.chartFlavor2, pct: Int(f2 / total * 100))
                 }
             } else {
                 Text("No activity")
@@ -897,7 +897,7 @@ private struct StatsSheet: View {
             }
             Text("\(pct)%")
                 .font(.system(size: 14, weight: .semibold))
-                .foregroundStyle(color)
+                .foregroundStyle(Theme.textPrimary)
         }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel("Flavor \(flavor): \(pct) percent")
@@ -969,7 +969,7 @@ private struct GlassIcon: View {
             rim.addLine(to: CGPoint(x: 404 * sx, y: 0))
             ctx.stroke(rim, with: .color(color), lineWidth: max(2, height / 28))
 
-            // Liquid surface wave — matches AppIcon.svg / GlassAnimationView t=0
+            // Liquid surface wave
             // SVG: M300,347 Q400,327 512,352 Q624,377 724,342
             // Glass-relative (subtract 310,247): (-10,100) Q(90,80 202,105) Q(314,130 414,95)
             var liquid = Path()
@@ -982,7 +982,7 @@ private struct GlassIcon: View {
                 control: CGPoint(x: 314 * sx, y: 130 * sy))
             ctx.stroke(liquid, with: .color(color), lineWidth: max(1, height / 50))
 
-            // 4 bubbles matching AppIcon.svg t=0 positions (glass-relative: subtract 310,247)
+            // Four bubbles, glass-relative coordinates (subtract 310,247)
             let bubbles: [(x: CGFloat, y: CGFloat, r: CGFloat)] = [
                 (130, 493, 42),   // cx=440,cy=740
                 (262, 363, 36),   // cx=572,cy=610
@@ -1079,7 +1079,7 @@ private struct Chart24HView: View {
                 }
             }
 
-            .chartForegroundStyleScale(["Flavor 1": Theme.chartPink, "Flavor 2": Theme.chartPurple])
+            .chartForegroundStyleScale(["Flavor 1": Theme.chartFlavor1, "Flavor 2": Theme.chartFlavor2])
             .chartLegend(.hidden)
             .chartXScale(domain: -0.5...23.5)
             .chartXAxis {
@@ -1153,7 +1153,7 @@ private struct Chart30DView: View {
                 }
             }
 
-            .chartForegroundStyleScale(["Flavor 1": Theme.chartPink, "Flavor 2": Theme.chartPurple])
+            .chartForegroundStyleScale(["Flavor 1": Theme.chartFlavor1, "Flavor 2": Theme.chartFlavor2])
             .chartLegend(.hidden)
             .chartXScale(domain: -0.5...29.5)
             .chartXAxis {
@@ -1220,7 +1220,7 @@ private struct ChartHODView: View {
                 }
             }
 
-            .chartForegroundStyleScale(["Flavor 1": Theme.chartPink, "Flavor 2": Theme.chartPurple])
+            .chartForegroundStyleScale(["Flavor 1": Theme.chartFlavor1, "Flavor 2": Theme.chartFlavor2])
             .chartLegend(.hidden)
             .chartXScale(domain: -0.5...23.5)
             .chartXAxis {

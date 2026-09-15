@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Generated from brand/palette.json by tools/build_brand_assets.py. -->
 <resources>
-    <!-- Mirrors ios/SodaMachine/SodaMachine/Theme.swift `background` (#1A1A2E). -->
-    <color name="splash_bg">#FF1A1A2E</color>
+    <color name="splash_bg">#1749D1</color>
 </resources>

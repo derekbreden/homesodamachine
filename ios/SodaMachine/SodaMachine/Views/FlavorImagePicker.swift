@@ -285,7 +285,7 @@ struct FlavorImagePicker: View {
     private func note(_ why: String) -> some View {
         Text(why)
             .font(.system(size: 13))
-            .foregroundStyle(Color.red.opacity(0.85))
+            .foregroundStyle(Theme.error)
             .multilineTextAlignment(.center)
             .padding(.horizontal, 32)
             .padding(.bottom, 20)

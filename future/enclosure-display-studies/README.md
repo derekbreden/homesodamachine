@@ -4,6 +4,11 @@ Big Blue is the enclosure display design exploration for the Home Soda Machine.
 [`big-blue.html`](big-blue.html) contains the self-contained interactive preview of the
 800 × 480 display, with a companion faucet preview. It opens on Fill.
 
+The implemented interface is [`firmware/src_front`](../../firmware/src_front/README.md).
+It uses live main-board selection, reservoir and sensor readings, shared prime sessions,
+and acknowledged Fill/Clean/Dry operations. The preview remains the interactive design
+reference; its operation and sensor controls use local sample states.
+
 ## Flavor controls
 
 Two flavor images stay in the left rail. Flavor pages show a large copy of the selected image

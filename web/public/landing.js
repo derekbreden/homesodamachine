@@ -1,15 +1,6 @@
-// Landing-page boot script loaded via <script src="/landing.js" defer>
-// from lib/landing.js. Mounts the glass animation, then wires up the
-// /api/subscribe form (press state, inline spinner, success/error
-// transitions, idle-state restore so the user can submit again).
+// Landing-page signup: press, loading, success, and error states.
 
 (function () {
-  // Mount the glass animation. Pauses on tab hide / offscreen via the
-  // helper itself; nothing to clean up here.
-  if (typeof mountGlassAnimation === "function") {
-    mountGlassAnimation(document.getElementById("glass"));
-  }
-
   const form = document.getElementById("signup");
   const btn = document.getElementById("signup-btn");
   const status = document.getElementById("status");

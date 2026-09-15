@@ -8,18 +8,21 @@ import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.mi
 import { state } from "./state.js";
 import { makeResetButton, makeMinimap, makeChromeFit } from "./pan-zoom-extras.js";
 
+const palette = getComputedStyle(document.documentElement);
+const tone = (name) => palette.getPropertyValue(name).trim();
+
 mermaid.initialize({
   startOnLoad: false,
   theme: "dark",
   themeVariables: {
     darkMode: true,
-    background: "#1a1a2e",
-    primaryColor: "#2a2a4a",
+    background: tone("--brand-navy"),
+    primaryColor: tone("--brand-blue"),
     primaryTextColor: "#ffffff",
-    primaryBorderColor: "#3a3a5a",
-    lineColor: "#999999",
-    secondaryColor: "#232342",
-    tertiaryColor: "#1a1a2e",
+    primaryBorderColor: tone("--border"),
+    lineColor: tone("--brand-ice"),
+    secondaryColor: tone("--brand-navy"),
+    tertiaryColor: tone("--brand-navy"),
     fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, sans-serif",
     fontSize: "14px",
   },

@@ -130,7 +130,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   padding: 12px 22px;
-  background: rgba(35, 35, 66, 0.95);
+  background: rgba(16, 49, 156, 0.95);
   color: var(--text);
   border: 1px solid var(--border);
   border-radius: 10px;
@@ -151,7 +151,7 @@
    the pill here — the same one, to the pixel. */
 .pan-zoom-reset {
   padding: 6px 12px;
-  background: rgba(35, 35, 66, 0.85);
+  background: rgba(16, 49, 156, 0.85);
   color: var(--text-2);
   border: 1px solid var(--border);
   border-radius: 8px;
@@ -162,7 +162,7 @@
   transition: background 0.12s, color 0.12s;
 }
 .pan-zoom-reset:hover {
-  background: rgba(58, 58, 90, 0.9);
+  background: rgba(23, 73, 209, 0.9);
   color: var(--text);
 }
 
@@ -196,7 +196,7 @@
   align-items: center;
   gap: 6px;
   padding: 6px 12px;
-  background: rgba(35, 35, 66, 0.85);
+  background: rgba(16, 49, 156, 0.85);
   color: var(--text-2);
   border: 1px solid var(--border);
   border-radius: 8px;
@@ -206,11 +206,11 @@
   appearance: none;
   transition: background 0.12s, color 0.12s, border-color 0.12s;
 }
-.tool-btn:hover { background: rgba(58, 58, 90, 0.9); color: var(--text); }
+.tool-btn:hover { background: rgba(23, 73, 209, 0.9); color: var(--text); }
 /* Lit while the panel it opens is on screen. */
 .tool-btn[aria-expanded="true"] {
   border-color: color-mix(in srgb, var(--accent) 65%, transparent);
-  background: color-mix(in srgb, var(--accent) 24%, rgba(35, 35, 66, 0.85));
+  background: color-mix(in srgb, var(--accent) 24%, rgba(16, 49, 156, 0.85));
   color: var(--text);
 }
 
@@ -237,7 +237,7 @@
   flex-wrap: wrap;
   gap: 2px;
   padding: 3px;
-  background: rgba(35, 35, 66, 0.85);
+  background: rgba(16, 49, 156, 0.85);
   border: 1px solid var(--border);
   border-radius: 9px;
   -webkit-backdrop-filter: blur(4px);
@@ -263,12 +263,12 @@
 .pcb-view-btn:hover { color: var(--text); }
 .tool-seg-btn.active,
 .pcb-view-btn.active {
-  background: var(--accent);
-  color: #fff;
+  background: var(--action);
+  color: var(--on-action);
   font-weight: 600;
 }
 /* The editor writes to the source; armed, its segment is green. */
-.tool-seg-btn.edit.active { background: #2f9e5e; }
+.tool-seg-btn.edit.active { background: var(--ok); color: var(--brand-navy); }
 
 .tool-chips {
   display: flex;
@@ -280,7 +280,7 @@
   align-items: center;
   gap: 5px;
   padding: 5px 10px;
-  background: rgba(35, 35, 66, 0.85);
+  background: rgba(16, 49, 156, 0.85);
   color: var(--text-2);
   border: 1px solid var(--border);
   border-radius: 7px;
@@ -295,7 +295,7 @@
 .tool-chip:hover { color: var(--text); }
 .tool-chip[aria-pressed="true"] {
   border-color: color-mix(in srgb, var(--accent) 60%, transparent);
-  background: color-mix(in srgb, var(--accent) 22%, rgba(35, 35, 66, 0.85));
+  background: color-mix(in srgb, var(--accent) 22%, rgba(16, 49, 156, 0.85));
   color: var(--text);
 }
 .tool-chip[aria-pressed="false"] { opacity: 0.62; }
@@ -307,7 +307,7 @@
 .related-chip:hover {
   color: var(--text);
   border-color: color-mix(in srgb, var(--accent) 55%, transparent);
-  background: color-mix(in srgb, var(--accent) 18%, rgba(35, 35, 66, 0.85));
+  background: color-mix(in srgb, var(--accent) 18%, rgba(16, 49, 156, 0.85));
 }
 /* The glyph beside a label. Sized to the label's own cap height so the two
    read as one word, and painted in currentColor so it carries the control's
@@ -380,8 +380,8 @@
   gap: 1px;
   max-width: calc(100% - 80px);
   padding: 3px;
-  background: rgba(35, 35, 66, 0.85);
-  border: 1px solid rgba(58, 58, 90, 0.9);
+  background: rgba(16, 49, 156, 0.85);
+  border: 1px solid rgba(23, 73, 209, 0.9);
   border-radius: 7px;
   font: 13px "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   overflow-x: auto;
@@ -404,7 +404,7 @@
   -webkit-appearance: none;
   appearance: none;
 }
-.cad-crumb-step:hover { color: var(--text); background: rgba(58, 58, 90, 0.9); }
+.cad-crumb-step:hover { color: var(--text); background: rgba(23, 73, 209, 0.9); }
 .cad-crumb-sep {
   flex: 0 0 auto;
   color: var(--text-2);
@@ -613,7 +613,7 @@
   margin-top: 8px;
   width: 100%;
   padding: 6px 10px;
-  background: rgba(58, 58, 90, 0.6);
+  background: rgba(23, 73, 209, 0.6);
   color: var(--text);
   border: 1px solid var(--border);
   border-radius: 7px;
@@ -624,7 +624,7 @@
   transition: background 0.12s;
 }
 .edge-panel-all:hover {
-  background: rgba(74, 74, 112, 0.9);
+  background: rgba(23, 73, 209, 0.9);
 }
 .edge-copied {
   color: #7CFF8A !important;
@@ -643,10 +643,10 @@
 /* The way further in, against Hide's way out of the view. */
 .component-panel .component-open {
   border-color: color-mix(in srgb, var(--accent) 60%, transparent);
-  background: color-mix(in srgb, var(--accent) 22%, rgba(58, 58, 90, 0.6));
+  background: color-mix(in srgb, var(--accent) 22%, rgba(23, 73, 209, 0.6));
 }
 .component-panel .component-open:hover {
-  background: color-mix(in srgb, var(--accent) 34%, rgba(74, 74, 112, 0.9));
+  background: color-mix(in srgb, var(--accent) 34%, rgba(23, 73, 209, 0.9));
 }
 .component-panel .component-hide {
   margin-top: 8px;
@@ -665,7 +665,7 @@
 .component-held-step {
   flex: 0 0 auto;
   padding: 1px 5px;
-  background: rgba(58, 58, 90, 0.55);
+  background: rgba(23, 73, 209, 0.55);
   color: var(--text);
   border: 1px solid var(--border);
   border-radius: 5px;
@@ -725,7 +725,7 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   padding: 2px 7px;
-  background: rgba(58, 58, 90, 0.45);
+  background: rgba(23, 73, 209, 0.45);
   color: var(--text);
   border: 1px solid var(--border);
   border-radius: 6px;
@@ -771,7 +771,7 @@
 .component-show-all {
   flex: 0 0 auto;
   padding: 2px 8px;
-  background: rgba(58, 58, 90, 0.6);
+  background: rgba(23, 73, 209, 0.6);
   color: var(--text);
   border: 1px solid var(--border);
   border-radius: 6px;
@@ -782,7 +782,7 @@
 }
 .component-show:hover,
 .component-show-all:hover {
-  background: rgba(74, 74, 112, 0.9);
+  background: rgba(23, 73, 209, 0.9);
 }
 
 /* Component editor panel — reuses .edge-panel chrome (head/name/close), plus a
@@ -795,7 +795,7 @@
 .component-edit-tab {
   flex: 1 1 0;
   padding: 5px 8px;
-  background: rgba(58, 58, 90, 0.4);
+  background: rgba(23, 73, 209, 0.4);
   color: var(--text-2);
   border: 1px solid var(--border);
   border-radius: 6px;
@@ -855,7 +855,7 @@
 .component-edit-reset {
   flex: 0 0 auto;
   padding: 6px 12px;
-  background: rgba(58, 58, 90, 0.6);
+  background: rgba(23, 73, 209, 0.6);
   color: var(--text);
   border: 1px solid var(--border);
   border-radius: 7px;
@@ -865,7 +865,7 @@
   appearance: none;
 }
 .component-edit-reset:hover {
-  background: rgba(74, 74, 112, 0.9);
+  background: rgba(23, 73, 209, 0.9);
 }
 .component-edit-apply:disabled {
   opacity: 0.55;
@@ -972,7 +972,7 @@
   top: 8px;
   right: 52px; /* 8 (close X right) + 36 (close X width) + 8 (gap) */
   z-index: 10;
-  background: rgba(35, 35, 66, 0.55);
+  background: rgba(16, 49, 156, 0.55);
   border: 1px solid var(--border);
   border-radius: 6px;
   overflow: hidden;
@@ -982,7 +982,7 @@
 }
 .pan-zoom-minimap-rect {
   position: absolute;
-  background: rgba(68, 136, 255, 0.20);
+  background: rgba(220, 230, 255, 0.20);
   border: 1px solid var(--accent);
   border-radius: 2px;
   pointer-events: none;
@@ -1208,7 +1208,7 @@
   max-width: calc(100% - 24px);
   gap: 2px;
   padding: 3px;
-  background: rgba(35, 35, 66, 0.85);
+  background: rgba(16, 49, 156, 0.85);
   border: 1px solid var(--border);
   border-radius: 9px;
   -webkit-backdrop-filter: blur(4px);
@@ -1225,7 +1225,7 @@
   left: calc(env(safe-area-inset-left, 0px) + 16px);
   z-index: 12;
   padding: 6px 10px;
-  background: rgba(35, 35, 66, 0.85);
+  background: rgba(16, 49, 156, 0.85);
   color: var(--text);
   border: 1px solid var(--border);
   border-radius: 8px;
@@ -1235,7 +1235,7 @@
   appearance: none;
 }
 .pcb-wrapper > .pad-pick-toggle:hover {
-  background: rgba(58, 58, 90, 0.9);
+  background: rgba(23, 73, 209, 0.9);
 }
 /* Disarmed, the label goes quiet — the pill itself keeps its ground, or the
    copper underneath reads straight through the control. */
@@ -1265,7 +1265,7 @@
   width: max-content;
   max-width: calc(100% - 240px);
   padding: 5px 10px;
-  background: rgba(35, 35, 66, 0.85);
+  background: rgba(16, 49, 156, 0.85);
   color: var(--text);
   border: 1px solid var(--border);
   border-radius: 8px;
@@ -1434,7 +1434,7 @@
   padding: 6px 12px;
   border-radius: 8px;
   border: 1px solid color-mix(in srgb, var(--ok) 55%, transparent);
-  background: color-mix(in srgb, var(--ok) 18%, rgba(35, 35, 66, 0.85));
+  background: color-mix(in srgb, var(--ok) 18%, rgba(16, 49, 156, 0.85));
   color: var(--ok);
   font: 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, sans-serif;
   cursor: pointer;
@@ -1445,14 +1445,14 @@
 }
 .cad-wrapper > .sc-badge.has-issues {
   border-color: color-mix(in srgb, var(--err) 60%, transparent);
-  background: color-mix(in srgb, var(--err) 20%, rgba(35, 35, 66, 0.85));
+  background: color-mix(in srgb, var(--err) 20%, rgba(16, 49, 156, 0.85));
   color: var(--err);
 }
 /* A gate nobody has read yet: neither the green that says it passed nor the red that says it
    failed. `--text-2` is the bar's own quiet, which is what an outstanding verdict is. */
 .cad-wrapper > .sc-badge.unread {
   border-color: color-mix(in srgb, var(--text-2) 55%, transparent);
-  background: color-mix(in srgb, var(--text-2) 14%, rgba(35, 35, 66, 0.85));
+  background: color-mix(in srgb, var(--text-2) 14%, rgba(16, 49, 156, 0.85));
   color: var(--text-2);
 }
 .cad-wrapper > .sc-badge { transition: filter 0.12s; }
@@ -1633,7 +1633,7 @@
 .tube-actions { display: flex; flex-wrap: wrap; gap: 6px; }
 .tube-panel button:not(.edge-panel-close):not(.edge-panel-collapse) {
   color: var(--text);
-  background: rgba(58, 58, 90, 0.55);
+  background: rgba(23, 73, 209, 0.55);
   border: 1px solid var(--border);
   border-radius: 6px;
   padding: 7px 9px;
@@ -1812,7 +1812,7 @@
   left: calc(env(safe-area-inset-left, 0px) + 16px);
   z-index: 12;
   padding: 6px 10px;
-  background: rgba(35, 35, 66, 0.85);
+  background: rgba(16, 49, 156, 0.85);
   color: var(--text);
   border: 1px solid var(--border);
   border-radius: 8px;
@@ -1822,7 +1822,7 @@
   appearance: none;
 }
 .pcb-wrapper > .pcb-edit-toggle:hover {
-  background: rgba(58, 58, 90, 0.9);
+  background: rgba(23, 73, 209, 0.9);
 }
 .pcb-wrapper > .pcb-edit-toggle.off {
   color: var(--text-2);
@@ -1894,7 +1894,7 @@
   align-items: center;
   gap: 2px;
   padding: 3px;
-  background: rgba(35, 35, 66, 0.92);
+  background: rgba(16, 49, 156, 0.92);
   border: 1px solid var(--border);
   border-radius: 10px;
   -webkit-backdrop-filter: blur(4px);
@@ -1944,7 +1944,7 @@
   z-index: 12;
   max-width: calc(100% - 240px);
   padding: 5px 10px;
-  background: rgba(35, 35, 66, 0.9);
+  background: rgba(16, 49, 156, 0.9);
   color: var(--text);
   border: 1px solid var(--border);
   border-radius: 8px;

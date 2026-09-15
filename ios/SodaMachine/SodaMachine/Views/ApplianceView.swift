@@ -25,7 +25,9 @@ struct ApplianceView: View {
             VStack(spacing: 0) {
                 Spacer()
 
-                GlassAnimationView()
+                Image("LaunchIcon")
+                    .resizable()
+                    .scaledToFit()
                     .frame(width: 160, height: 160)
                     .accessibilityHidden(true)
 
@@ -91,7 +93,7 @@ struct ApplianceView: View {
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 14)
                 .foregroundStyle(Theme.textPrimary)
-                .background(Color.white.opacity(0.10))
+                .background(Theme.surface)
                 .cornerRadius(12)
         }
         .padding(.bottom, 10)

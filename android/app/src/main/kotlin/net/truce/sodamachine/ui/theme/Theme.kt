@@ -5,34 +5,32 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
-/**
- * Direct port of `ios/SodaMachine/SodaMachine/Theme.swift`. Two platforms,
- * one source of truth per platform, identical values.
- */
+/** Big Blue palette, shared with the companion app and enclosure display. */
 object Theme {
-    // Background
-    val background    = Color(0xFF1A1A2E)
+    val cobalt = Color(0xFF1749D1)
+    val navy = Color(0xFF10319C)
+    val ice = Color(0xFFDCE6FF)
+    val orange = Color(0xFFFF9152)
 
-    // Text
-    val textPrimary   = Color.White
-    val textSecondary = Color(red = 0.6f, green = 0.6f, blue = 0.6f)
+    val background = cobalt
+    val surface = navy
+    val textPrimary = Color.White
+    val textSecondary = ice
+    val accent = orange
+    val onAccent = navy
+    val controlTint = ice
 
-    // UI elements
-    val dotActive   = Color.White
-    val dotInactive = Color(red = 0.35f, green = 0.35f, blue = 0.35f)
-    val placeholder = Color(red = 0.20f, green = 0.20f, blue = 0.20f)
+    val dotActive = orange
+    val dotInactive = ice.copy(alpha = 0.6f)
+    val placeholder = navy
+    val activePhase = ice
+    val chartFlavor1 = orange
+    val chartFlavor2 = ice
 
-    // Accent (Hold-to-Prime button, Clean cycle phase)
-    val primeBlue = Color(red = 0.27f, green = 0.53f, blue = 1.0f)
-
-    // Chart colors (per-flavor — also pie + bar foregrounds in StatsSheet)
-    val chartPink   = Color(red = 0.9f, green = 0.3f, blue = 0.5f)
-    val chartPurple = Color(red = 0.6f, green = 0.3f, blue = 0.9f)
-
-    // Liquid gradient stops — used by GlassAnimation. Top → bottom-right.
-    val liquidStop0 = Color(red = 0.914f, green = 0.271f, blue = 0.376f)
-    val liquidStop1 = Color(red = 0.761f, green = 0.200f, blue = 0.451f)
-    val liquidStop2 = Color(red = 0.482f, green = 0.184f, blue = 0.969f)
+    // Liquid gradient stops used by GlassAnimation.
+    val liquidStop0 = ice
+    val liquidStop1 = cobalt
+    val liquidStop2 = navy
 }
 
 @Composable
@@ -40,8 +38,22 @@ fun SodaMachineTheme(content: @Composable () -> Unit) {
     MaterialTheme(
         colorScheme = darkColorScheme(
             background = Theme.background,
-            surface    = Theme.background,
-            primary    = Theme.textPrimary,
+            onBackground = Theme.textPrimary,
+            surface = Theme.surface,
+            onSurface = Theme.textPrimary,
+            surfaceVariant = Theme.cobalt,
+            onSurfaceVariant = Theme.ice,
+            primary = Theme.accent,
+            onPrimary = Theme.onAccent,
+            primaryContainer = Theme.navy,
+            onPrimaryContainer = Theme.ice,
+            secondary = Theme.ice,
+            onSecondary = Theme.navy,
+            secondaryContainer = Theme.navy,
+            onSecondaryContainer = Theme.ice,
+            tertiary = Theme.orange,
+            onTertiary = Theme.navy,
+            outline = Theme.ice.copy(alpha = 0.6f),
         ),
         content = content,
     )
