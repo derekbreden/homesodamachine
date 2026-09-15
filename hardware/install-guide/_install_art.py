@@ -1,18 +1,7 @@
-"""The install guide's own pictures: one frame composed for each page that asks for an action.
+"""Shared installation scene builders and presentation props.
 
-The Quick Start's frames are composed for its six actions. This module composes a frame per
-guide page instead, off the same solids and through the same posed renderer, so the two
-documents still cannot drift.
-
-Presentation cuts, the kind `_cad_art` makes and for the same reasons:
-
-- the cabinet, the countertop slab, the CO2 cylinder and its regulator, the filter cartridge and
-  the customer's power cord have no source CAD. Each is drawn to its catalogue size — the cord to
-  the inlet it mates with — and none is a dimensional authority;
-- a clearance is a coral pad lying on the cabinet floor where the air has to be, so it states a
-  footprint without standing in front of the appliance;
-- coral marks the one thing the reader's hands are on, which is what it already means in the
-  guide's type.
+The cabinet, countertop, CO2 cylinder, filter and power cord are illustration geometry.
+Rendered scenes are written to art/; owner documents keep their own print snapshots.
 
     tools/cad-venv/bin/python hardware/install-guide/_install_art.py
     tools/cad-venv/bin/python hardware/install-guide/_install_art.py --list

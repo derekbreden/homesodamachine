@@ -198,17 +198,13 @@ BUNDLED_PAYLOAD_DIRS = (
     "hardware/faucet-layout",
 )
 
-#: Drawn pages and the pictures in them: the Quick Start's sheet, the install guide bound beside
-#: it, the assembly cards and the tool deck. `quickstart-build`, `install-guide-build` and
-#: `cards-build` draw them off the same solids as everything else here, `walkDocuments` serves a
-#: PDF off this tree at request time and the cards' own pictures are what `/3d` shows beside a
-#: part. The studies, a card's or a leaf's local renders and the renderer's fonts are held out
-#: above. The install guide carries its bound PDF, its cover, and the per-page frames
-#: `install-guide/_install_art.py` composes; the quick-start views it also draws on are bundled
-#: by the directory above it.
+#: Generated sheets, assembly cards and the shared installation scene renders. The owner
+#: quick start and install guide are committed documents; their PDF, cover and sidecar
+#: reach the site in its checkout. `_install_art.py` still supplies scenes used by manual
+#: authoring tools, so its art directory travels with the generated pictures.
 BUNDLED_ART_DIRS = (
     "hardware/quickstart",
-    "hardware/install-guide",
+    "hardware/install-guide/art",
     "hardware/assembly/cards",
 )
 

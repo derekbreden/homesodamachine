@@ -1,63 +1,65 @@
 # Unboxing and the printed documents
 
-Two printed documents ship with the appliance, and install day is divided between them.
+Two printed documents ship with the appliance.
 
-The **quick start** lies face up on top of the packing — the first thing seen when the top comes
-off. It is wordless, it is one sheet, and it is what the buyer props against the cabinet door while
-both hands are busy. It carries the actions and nothing else.
+The **quick start** lies face up on top of the packing. Its seven illustrated steps run from
+mounting the faucet through the first glass, on one sheet the buyer can prop against the cabinet.
 
-The **install guide** is bound, and it is in the install kit under the documentation face. It
-carries everything the actions stand on: which kitchen the buyer has, the opening the faucet needs,
-the cylinder the appliance does not ship, the cord, the first pour, and the ratings this appliance
-is required to state. Where the two meet, the guide points at the sheet rather than redrawing it.
+The **install guide** is bound and sits in the install kit under the documentation face. It follows
+the same seven steps with larger illustrations and the detail each action needs. It also covers
+preparation, the braided-hose water connection, care and help after installation.
 
 Where each one lies in the carton is [`/hardware/assembly/finish-pack-ship.md`](/hardware/assembly/finish-pack-ship.md).
 
 ## The quick start
 
-One single-sided, borderless 19 x 13 inch sheet, built by
-[`/hardware/quickstart/`](/hardware/quickstart/README.md) and published on `/drawings`.
+One single-sided 19 × 13 inch landscape sheet, published on
+[Drawings](https://homesodamachine.com/drawings) from
+[`/hardware/quickstart-codex/`](/hardware/quickstart-codex/README.md).
 
-Thirteen registered scenes form six numbered action clusters, running clockwise around a white
-centre that holds the product lockup. Each cluster sits on its own warm-stone field; the fields
-separate the white household tubing from the page and leave the blue handle, the black fittings and
-the coral cues distinct. The only words the sheet adds are the product name and `QUICK START`. Every
-other word in it is on the modeled hardware — the collar flags, the port chips, the nameplate — and
-so is a thing the buyer can find in their hand or on the wall.
+The steps are:
 
-The six clusters are: seat the faucet; take up the plate and nut; close the cold-water valve;
-release the existing tube; insert the tee and reconnect the original line; connect the five tubes
-and the signal lead at the rear panel. Dry faucet work comes first, the valve closes immediately
-before the line is opened, and every action on the sheet is push-fit or hand-tight.
+1. Mount the faucet.
+2. Add the cold-water tee.
+3. Match the rear connections.
+4. Prepare the cylinder.
+5. Water, then gas, then power.
+6. Fill both flavors.
+7. Chill. Choose. Pour.
 
-It draws one water path: the modern-home scenario A, where a 1/4-inch plastic cold-water line on a
-push fitting is already under the sink ([`/hardware/ledger/bom.md`](/hardware/ledger/bom.md)
-"External / user-supplied"). Scenario B, the angle-stop add-a-tee, is the install guide's.
-
-The white branch the sheet pushes into `TAP` is the run the Waterdrop filter is inline in. The sheet
-draws the run; the guide is where the filter gets mounted and which way round it goes.
+The sheet illustrates the 1/4-inch plastic-tube water connection. A kitchen with a braided hose
+uses the install guide's pages 9–11, then returns to Step 3. The filtered run ships assembled;
+lay the filter flat and leave the long tubes in easy curves.
 
 ## The install guide
 
-Bound and read, built by [`/hardware/install-guide/`](/hardware/install-guide/README.md) and
-published on `/drawings` beside the sheet. It carries what a wordless sheet cannot: the countertop
-opening and who cuts it, the scenario-B water path end to end, the CO2 cylinder and its regulator,
-the filter's mounting, the line cord, commissioning and first pour, the refrigerant and charge-mass
-statement this appliance's SNAP approval conditions require
-([`/business/regulatory.md`](/business/regulatory.md)), and where service lives afterwards.
+The booklet is published beside the sheet on [Drawings](https://homesodamachine.com/drawings),
+with its direct download at
+[install-guide.pdf](https://homesodamachine.com/docs/install-guide/install-guide.pdf).
+Its source and print instructions are in
+[`/hardware/install-guide/`](/hardware/install-guide/README.md).
+
+The guide gives the countertop opening, cabinet placement, both kitchen water paths, the tube
+connections, cylinder and regulator, power, flavor filling and first pour their own space.
+Illustrations can repeat an action from the sheet or show an additional view where that helps
+someone complete it.
+
+Both documents use the [On tap identity](/brand/README.md): the cobalt faucet and orange drop,
+navy type, and white pages. The instructional artwork uses slate contours; tube and connector
+colors match the hardware. Each document keeps its own committed artwork and finished PDF.
 
 The cold kit keeps its own guide in its own bag
-([`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §14). Nothing in that bag is an install step.
+([`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §14). Its tube cutter and insulation are for
+optional cold-line work after installation.
 
 ## Print review
 
-Print `hardware/quickstart/quick-start.pdf` landscape on one sheet of A-SUB satin RC photo paper,
-ASIN `B0DSJ9X4CR`: Epson ET-8550 rear feed, **13x19 borderless**, premium semigloss, photo quality,
-and 100 %. Check the page at actual size, at quarter scale, and in grayscale. Object identity, valve
-state, open mating faces, collar words, both black flavor tubes, and the before/connected
-distinction must remain legible without the instructional copy.
+Print `hardware/quickstart-codex/quick-start-codex.pdf` landscape on one sheet of A-SUB satin RC
+photo paper, ASIN `B0DSJ9X4CR`: Epson ET-8550 rear feed, **13×19 borderless**, premium semigloss,
+photo quality, and 100%. Check the page at actual size, at quarter scale, and in grayscale.
+Valve states, open mating faces, both black flavor tubes and the action arrows must remain legible.
 
-Print `hardware/install-guide/install-guide.pdf` on US Letter at 100 %, two-sided, with the
-driver's booklet layout, and fold and staple as the guide's own README states. Check that the fold
-falls between spreads, that no step breaks across a leaf, and that the grayscale copy still
-separates the coral callouts from the artwork behind them.
+Print `hardware/install-guide/install-guide.pdf` on US Letter at 100%, two-sided, using the
+printer driver's booklet layout. Fold and staple as its README states. Check that each action
+stays together on its page, that the braided-hose connection reads in order, and that the grayscale
+copy keeps leaders and arrows distinct from the artwork behind them.

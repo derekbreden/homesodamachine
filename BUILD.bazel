@@ -3449,104 +3449,6 @@ cp hardware/faucet-layout/faucet_assembly.py $$O2
 )
 
 genrule(
-    name = "install-guide-build",
-    srcs = [
-        "hardware/assembly/cards/fonts/IBMPlexSans-400-700-italic-latin.woff2",
-        "hardware/assembly/cards/fonts/IBMPlexSans-400-700-normal-latin.woff2",
-        "hardware/install-guide/01-cover.html",
-        "hardware/install-guide/02-two-documents.html",
-        "hardware/install-guide/03-in-the-box.html",
-        "hardware/install-guide/04-what-you-bring.html",
-        "hardware/install-guide/05-the-whole-path.html",
-        "hardware/install-guide/06-the-opening.html",
-        "hardware/install-guide/07-the-cabinet.html",
-        "hardware/install-guide/08-the-faucet.html",
-        "hardware/install-guide/09-which-kitchen.html",
-        "hardware/install-guide/10-older-kitchen-1.html",
-        "hardware/install-guide/11-older-kitchen-2.html",
-        "hardware/install-guide/12-the-filter.html",
-        "hardware/install-guide/13-the-cylinder.html",
-        "hardware/install-guide/14-the-back.html",
-        "hardware/install-guide/15-power.html",
-        "hardware/install-guide/16-first-hour.html",
-        "hardware/install-guide/17-keeping-it.html",
-        "hardware/install-guide/18-ratings.html",
-        "hardware/install-guide/19-if-unsure.html",
-        "hardware/install-guide/20-back.html",
-        "pysrc/hardware/install-guide/_build.py",
-        ":out/install-art/hardware/install-guide/art/bottle-in-funnel.png",
-        ":out/install-art/hardware/install-guide/art/cabinet-plan.png",
-        ":out/install-art/hardware/install-guide/art/collet-press.png",
-        ":out/install-art/hardware/install-guide/art/filter-in-cabinet.png",
-        ":out/install-art/hardware/install-guide/art/kitchen-hose.png",
-        ":out/install-art/hardware/install-guide/art/kitchen-push.png",
-        ":out/install-art/hardware/install-guide/art/nameplate.png",
-        ":out/install-art/hardware/install-guide/art/opening.png",
-        ":out/install-art/hardware/install-guide/art/plate-sideways.png",
-        ":out/install-art/hardware/install-guide/art/regulator.png",
-        ":out/install-art/hardware/install-guide/art/stop-closed.png",
-        ":out/install-art/hardware/install-guide/art/stop-open.png",
-        ":out/install-art/hardware/install-guide/art/tee-after.png",
-        ":out/install-art/hardware/install-guide/art/tee-before.png",
-        ":out/install-art/hardware/install-guide/art/the-back-face.png",
-        ":out/install-art/hardware/install-guide/art/the-socket.png",
-        ":out/install-art/hardware/install-guide/art/two-tees.png",
-        "hardware/install-guide/style.css",
-        ":out/cad-art/hardware/quickstart/art/faucet-front.png",
-        ":out/cad-art/hardware/quickstart/art/faucet-side-pressed.png",
-        ":out/cad-art/hardware/quickstart/art/machine-back-iso.png",
-        ":out/cad-art/hardware/quickstart/art/machine-front.png",
-        ":out/cad-art/hardware/quickstart/art/machine-funnel-close.png",
-        ":out/cad-art/hardware/quickstart/art/machine-ports-action.png",
-        ":out/cad-art/hardware/quickstart/art/mount-tighten-close.png",
-        ":out/plumbing-scenes/hardware/quickstart/plumbing/art/plumbing-pre-tee.png",
-        ":out/plumbing-scenes/hardware/quickstart/plumbing/art/plumbing-tee-installed.png",
-        ":out/plumbing-scenes/hardware/quickstart/plumbing/art/plumbing-valve-off.png",
-        ":out/plumbing-scenes/hardware/quickstart/plumbing/art/plumbing-valve-on.png",
-        ":out/quickstart-build/hardware/quickstart/quick-start.cover.png",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "ios/AppIcon.svg",
-        "tools/render/browser.js",
-        "tools/render/package-lock.json",
-        "tools/render/package.json",
-        "tools/render/render-card.js",
-        ":render-card-runtime",
-    ],
-    outs = [
-        "out/install-guide-build/hardware/install-guide/install-guide.cover.png",
-        "out/install-guide-build/hardware/install-guide/install-guide.pdf",
-        "out/install-guide-build/hardware/install-guide/install-guide.pdf.json",
-    ],
-    tags = ["requires-network"],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/install-guide-build/hardware/install-guide/install-guide.cover.png)
-O1=$$PWD/$(location out/install-guide-build/hardware/install-guide/install-guide.pdf)
-O2=$$PWD/$(location out/install-guide-build/hardware/install-guide/install-guide.pdf.json)
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    */pysrc/*) t=$${f##*/pysrc/};;
-    *) t=$$f;;
-  esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/install-guide/_build.py > /dev/null
-cp hardware/install-guide/install-guide.cover.png $$O0
-cp hardware/install-guide/install-guide.pdf $$O1
-cp hardware/install-guide/install-guide.pdf.json $$O2
-""",
-)
-
-genrule(
     name = "install-art",
     srcs = [
         ":out/under-counter-plate/hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf",
@@ -10524,14 +10426,6 @@ genrule(
     name = "pysrc-330ddf1143f6",
     srcs = ["hardware/faucet-layout/faucet_assembly.py"],
     outs = ["pysrc/hardware/faucet-layout/faucet_assembly.py"],
-    tools = ["tools/bazel/pysrc.py"],
-    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
-)
-
-genrule(
-    name = "pysrc-3c86134d3caa",
-    srcs = ["hardware/install-guide/_build.py"],
-    outs = ["pysrc/hardware/install-guide/_build.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -22214,7 +22108,6 @@ filegroup(
         ":endcap-circular-step",
         ":under-counter-plate",
         ":faucet-assembly",
-        ":install-guide-build",
         ":install-art",
         ":enclosure-assembly",
         ":enclosure-box",

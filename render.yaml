@@ -64,6 +64,7 @@ services:
         # The owner quick start, frozen the same way: PDF, cover and
         # sidecar in git, so a clone carries them and a deploy is what makes a clone.
         - hardware/quickstart-codex/**
+        - hardware/install-guide/**
       ignoredPaths:
         # THE VERDICT IS DATA UNDER A CODE PATH. `checks_now.py` pins a reading after every
         # commit, and under `web/**` each one was an `npm ci`, a fetch and a restart — 24 of the
