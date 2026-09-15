@@ -1,17 +1,17 @@
-id,requested_gap_mm,actual_planned_gap_mm,wall_setback_mm,free_edge_setback_mm,repeat,tree_removal,interface_removal,wall_edge_residue,free_edge_residue,center_residue,front_roof_thickness_mm,underside_droop,model_damage,notes
-01,0.45,0.48,0.6,0.6,1,,,,,,,,,
-02,0.45,0.48,0.6,0.0,1,,,,,,,,,
-03,0.3,0.24,0.6,0.0,1,,,,,,,,,
-04,0.3,0.24,0.0,0.0,1,,,,,,,,,
-05,0.3,0.24,0.6,0.6,1,,,,,,,,,
-06,0.3,0.24,0.0,0.6,1,,,,,,,,,
-07,0.45,0.48,0.0,0.0,1,,,,,,,,,
-08,0.45,0.48,0.0,0.6,1,,,,,,,,,
-09,0.45,0.48,0.0,0.6,2,,,,,,,,,
-10,0.45,0.48,0.0,0.0,2,,,,,,,,,
-11,0.3,0.24,0.0,0.0,2,,,,,,,,,
-12,0.45,0.48,0.6,0.6,2,,,,,,,,,
-13,0.3,0.24,0.0,0.6,2,,,,,,,,,
-14,0.3,0.24,0.6,0.6,2,,,,,,,,,
-15,0.3,0.24,0.6,0.0,2,,,,,,,,,
-16,0.45,0.48,0.6,0.0,2,,,,,,,,,
+id,requested_gap_mm,actual_planned_gap_mm,wall_setback_mm,free_edge_setback_mm,repeat,tree_removal,interface_removal,wall_edge_residue,free_edge_residue,center_residue,front_roof_thickness_mm,underside_droop,model_damage,notes,cleanliness_rank_tier,roof_strands_preserved,bridge_texture
+01,0.45,0.48,0.6,0.6,1,,Among cleanest; roof strands retained,,,,,,,User ranking is a close call; no numerical sag or thickness reading supplied,4,yes,Looks and feels loose compared with next model layer
+02,0.45,0.48,0.6,0.0,1,,Among cleanest; roof strands retained,,,,,,,User ranking is a close call; no numerical sag or thickness reading supplied,4,yes,Looks and feels loose compared with next model layer
+03,0.3,0.24,0.6,0.0,1,,,,,,,,,,,,
+04,0.3,0.24,0.0,0.0,1,,,,,,,,,,,,
+05,0.3,0.24,0.6,0.6,1,,,,,,,,,,,,
+06,0.3,0.24,0.0,0.6,1,,,,,,,,,,,,
+07,0.45,0.48,0.0,0.0,1,,Among cleanest; roof strands retained,,,,,,,User ranking is a close call; no numerical sag or thickness reading supplied,4,yes,Looks and feels loose compared with next model layer
+08,0.45,0.48,0.0,0.6,1,,Among cleanest; roof strands retained,,,,,,,User ranking is a close call; no numerical sag or thickness reading supplied,3,yes,Looks and feels loose compared with next model layer
+09,0.45,0.48,0.0,0.6,2,,Among cleanest; roof strands retained,,,,,,,User ranking is a close call; no numerical sag or thickness reading supplied,4,yes,Looks and feels loose compared with next model layer
+10,0.45,0.48,0.0,0.0,2,,Among cleanest; roof strands retained,,,,,,,User ranking is a close call; no numerical sag or thickness reading supplied,1,yes,Looks and feels loose compared with next model layer
+11,0.3,0.24,0.0,0.0,2,,,,,,,,,,,,
+12,0.45,0.48,0.6,0.6,2,,Among cleanest; roof strands retained,,,,,,,User ranking is a close call; no numerical sag or thickness reading supplied,4,yes,Looks and feels loose compared with next model layer
+13,0.3,0.24,0.0,0.6,2,,,,,,,,,,,,
+14,0.3,0.24,0.6,0.6,2,,,,,,,,,,,,
+15,0.3,0.24,0.6,0.0,2,,,,,,,,,,,,
+16,0.45,0.48,0.6,0.0,2,,Among cleanest; roof strands retained,,,,,,,User ranking is a close call; no numerical sag or thickness reading supplied,2,yes,Looks and feels loose compared with next model layer
