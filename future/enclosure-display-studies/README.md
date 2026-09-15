@@ -13,6 +13,9 @@ ratio controls, image selection and machine Settings access.
 [Console completion](console-completion.md) compares three ways to finish a task, with Quiet's
 resting layout, a larger Settings control and an eight-image picker.
 
+[Console corner controls](console-corners.md) places Settings below the flavor choices and Done
+at the top-right of every task.
+
 [`logo-first.html`](logo-first.html) is a self-contained conversation visualization fragment.
 The controls above the device select the direction and screen. Selecting a drink on either
 display changes the shared selection. Ratio adjustments belong to their own flavor; choosing
