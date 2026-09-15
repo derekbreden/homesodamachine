@@ -2,15 +2,15 @@
   "_": "Written by tools/publish_firmware.py. The images are fetched, not committed \u2014 web/scripts/fetch-firmware.mjs reads this at deploy and /api/firmware serves it.",
   "release": {
     "tag": "firmware",
-    "asset": "fw-bfa650e241685cbc.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/firmware/fw-bfa650e241685cbc.tar.gz"
+    "asset": "fw-f267d5b3d332a156.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/firmware/fw-f267d5b3d332a156.tar.gz"
   },
   "source": {
-    "commit": "307f494b153c74c81e8c0a028546e9c764d3dbae"
+    "commit": "b67275e1fee57e785040a8127c8a0bda48ba2f21"
   },
   "bundle": {
-    "sha256": "bfa650e241685cbc41abf31879bdf382166b93981c7ae33ef4a33b944c14a848",
-    "bytes": 2374609,
+    "sha256": "f267d5b3d332a156d1949d9ba52332db27c133f76409e0d084a1711e7ce0d20f",
+    "bytes": 2357168,
     "images": 4
   },
   "images": {
@@ -19,10 +19,10 @@
       "machine": "appliance",
       "what": "the main board's own firmware",
       "kind": "app",
-      "version": "2026.09.08 fa396ea3a+",
-      "bytes": 476208,
-      "crc32": 1865936514,
-      "sha256": "ba2e20edd465f4660367336f62a74a7368774a9b42dfcd3b32a4e781b47e0d6b",
+      "version": "2026.09.15 b7f139a60+",
+      "bytes": 476592,
+      "crc32": 2435645267,
+      "sha256": "f17e9650e8aab8a58321944ff439daff07b1e574525bb353506cecc3bb91e63a",
       "file": "appliance.bin"
     },
     "art": {
@@ -32,20 +32,20 @@
       "kind": "art",
       "version": null,
       "bytes": 4147232,
-      "crc32": 1688936971,
-      "sha256": "81cc04aaf4f482f913296e3014766c75156d5d8ba1c54335d07b9d2792fb6087",
+      "crc32": 1122681775,
+      "sha256": "7e34bbb2596aea4f74e7df10f01c73c1637005cc26b73a70e48dd69ed5e7b4bd",
       "file": "art.bin",
-      "art_crc32": 446856858
+      "art_crc32": 1607714974
     },
     "enclosure": {
       "env": "esp32s3_front",
       "machine": "appliance",
       "what": "the 4.3\" enclosure display",
       "kind": "app",
-      "version": "2026.09.08 fa396ea3a+",
-      "bytes": 2228000,
-      "crc32": 3542187215,
-      "sha256": "e58a656b0bfe6687114c946528729086f380b7edec7cac7266979931ff450004",
+      "version": "2026.09.15 b67275e1f+",
+      "bytes": 2359120,
+      "crc32": 1460945804,
+      "sha256": "ab7bcc1494379c417a93a330ea73062d2339b0e87ffebc6caba36fde7d2483e9",
       "file": "enclosure.bin"
     },
     "faucet": {
@@ -53,17 +53,11 @@
       "machine": "appliance",
       "what": "the 1.47\" faucet display",
       "kind": "app",
-      "version": "2026.09.08 307f494b1",
-      "bytes": 1906800,
-      "crc32": 2505554507,
-      "sha256": "997a1ea11acdb15f6deab3d25a9478b0530e39cbd5a24b320b148e5157de7198",
+      "version": "2026.09.15 b7f139a60+",
+      "bytes": 1906768,
+      "crc32": 4088730628,
+      "sha256": "d90beb8b3cee217459694e5d60930bc1c488a5b0eaf98921543dff52f556c183",
       "file": "faucet.bin"
     }
-  },
-  "unproven": {
-    "_": "source.commit does not describe these images: an uncommitted path below reaches what built them.",
-    "paths": [
-      "tools/bazel/graph.json"
-    ]
   }
 }
