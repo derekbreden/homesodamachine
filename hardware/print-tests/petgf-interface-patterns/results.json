@@ -1,0 +1,27 @@
+{
+  "source": "Derek's report and IMG_7791.jpeg; specimens A, B, C, D from left to right",
+  "specimens_inspected": ["A", "B", "C", "D"],
+  "user_observations": {
+    "B_and_C": "No appreciable difference in removal; the removed end connections did not produce an obvious improvement.",
+    "D": "Some horizontal strips came away including their ends, but not many. This was the only specimen reported to behave appreciably differently.",
+    "all_specimens": "Horizontal strands remain on the roof underside.",
+    "dimensions": "User reports that peeling the unwanted material away reaches the designed dimensions. Numerical measurements, locations and specimen identities for those measurements were not supplied."
+  },
+  "verified_toolpath_identity": {
+    "source": "verification.json and the final machine G-code",
+    "A_interface": "Two crossed contact layers beneath the model roof.",
+    "B_interface": "Parallel front-to-back contact lines with end joins.",
+    "C_interface": "The same front-to-back contact lines with 26 end-joining extrusion moves removed; lower branch transitions remain.",
+    "D_interface": "No Support interface extrusion anywhere; the highest support paths are small tree-tip loops.",
+    "all_roofs": "Identical left-to-right model paths tagged Bridge at nozzle Z12.44, followed by central Internal solid infill at Z12.68.",
+    "planned_roof_underside_z_mm": 12.20,
+    "first_roof_layer_height_mm": 0.24,
+    "planned_roof_thickness_mm": 3.84
+  },
+  "interpretation": {
+    "horizontal_strand_identity": "The continuous left-to-right strands in the photograph match the first model bridge layer. D has no support sheet capable of producing these strands.",
+    "edge_attachment": "The model bridge paths extend into the sidewalls, providing intended anchorage at their ends. C's support edit does not remove these model anchors.",
+    "dimensional_hypothesis": "Sagging or partly detached model bridge strands can extend below the intended surface and impair fit. This is a possible explanation for improved dimensions after peeling, not a measured explanation of the amount reported.",
+    "measurement_limit": "Removing one correctly positioned 0.24 mm layer from an ideal 3.84 mm roof would leave 3.60 mm. Return to nominal dimensions therefore cannot be explained as removal of an undistorted model layer alone. Actual strand position and remaining roof thickness are unresolved."
+  }
+}
