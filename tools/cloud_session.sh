@@ -39,6 +39,8 @@
 #   the whole history           `check_release_room` refuses a shallow clone, `check_paths`
 #                               resolves the archive tags, `check_print_profile` reads
 #                               `git:<sha>:<path>`, and `git log` reaches past fifty commits
+#   the checkout on main        the harness starts a session on a branch it names; nobody
+#                               here works on one, and that branch is never pushed
 #   the hooks and the driver    a commit lands on main and reads the checks by itself, and a
 #                               rebase by hand merges the pointer file by member
 #   .bazelrc.paths              `gen_build.py` writes this checkout's own paths
@@ -197,6 +199,23 @@ if [ "$(git rev-parse --is-shallow-repository)" = "true" ]; then
   fi
 elif [ "$CHECK" = 1 ]; then
   say "history: whole, $(git rev-list --count HEAD) commits"
+fi
+
+# --- the checkout stands on main ------------------------------------------------------------------
+# The harness that starts a cloud session checks out a branch it names for the session
+# (claude/<words>-<id>) and asks for pushes there. Nobody here works on a branch: every commit
+# lands on main through push.py, so that branch could only ever be main's history under another
+# name. The checkout is put on main, keeping whatever HEAD holds, and the named branch is left
+# unpushed; the harness's own stop hook then reads main against origin/main and has nothing to say.
+branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo HEAD)
+if [ "$branch" = "main" ]; then
+  say "branch: main"
+elif [ "$CHECK" = 1 ]; then
+  need "the checkout on main (on $branch)"
+else
+  git checkout -q -B main
+  git branch -q --set-upstream-to=origin/main main 2>/dev/null || true
+  say "branch: main (was $branch)"
 fi
 
 # --- the hooks and the pointer file's merge driver ------------------------------------------------
