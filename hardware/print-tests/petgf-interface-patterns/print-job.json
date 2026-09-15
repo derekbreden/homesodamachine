@@ -2,7 +2,7 @@
   "date": "2026-09-15",
   "printer": "Mark2",
   "job_name": "petgf-interface-patterns-mark2.gcode.3mf",
-  "status": "started",
+  "status": "completed_user_report",
   "sent_via": "Bambu Connect",
   "started_by": "agent",
   "profile": "hardware/printed-parts/petgf.3mf",
@@ -38,5 +38,5 @@
   "observed_print_error": 0,
   "startup_ui_stage": "Homing toolhead",
   "printer_eta_local": "2026-09-15 17:21 America/Chicago",
-  "physical_results": "awaiting cooled-print inspection"
+  "physical_results": "User inspected A–D and supplied IMG_7791.jpeg; see results.json."
 }
