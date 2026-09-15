@@ -15,18 +15,32 @@
 # manylinux_2_31_x86_64 wheel, the same one `derive` runs in, so what this machine cuts is
 # byte-identical to what the runner cuts and NOT to what the Mac writes into the pointer file
 # (`publish.yml` says why: 95 of 124 members differ across the two wheels). A session here can
-# build, check, derive, compare and publish: like any machine, it moves the lines for what it cut.
+# build, check, derive and compare, and a commit it makes lands on main by itself.
+#
+# IT CANNOT PUBLISH. The release refuses a cloud session's writes: Anthropic's egress proxy
+# answers a release-asset upload with 415 (a body that is not JSON) and a release API write with
+# 403, "Creating, editing, or deleting releases is not permitted for this session type",
+# measured 2026-09-15 with `gh release upload` and `gh api`. `git push` is allowed, and that is
+# the whole of what a session here puts on GitHub. So the bytes it cuts reach the site through a
+# machine that can upload: the Mac, cutting what main owes where the cache is, or the runner's
+# nightly reconcile. `publish_now.py` runs from the post-commit hook here as anywhere, says so,
+# and leaves the debt to them.
 #
 # WHAT EACH STEP BUYS:
+#   node 22                     `npm test` hands node a glob node 20 does not expand, so
+#                               `check_web_tests.py` reads red on the box's own node
 #   web/node_modules            `npm test`, and `check_web_tests.py` reads red without it
 #   tools/cad-venv              every generator and every check that imports one
-#   the pointed-at solids           `check_paths`, `check_step_colours`, the parts-tree tests
-#   gh                          `pack.py` uploads with it; `check_release_room` reads through it
+#   the pointed-at solids       `check_paths`, `check_step_colours`, the parts-tree tests
+#   gh                          `check_release_room` reads through it; the release refuses this
+#                               session's uploads, so `pack.py --write` cannot finish here
 #   bazel                       `bazel build <target>`, `sync_tree.py`, `affected.py`
 #   .cache                      `.bazelrc.paths` mounts it and bazel refuses an absent mount
 #   the whole history           `check_release_room` refuses a shallow clone, `check_paths`
 #                               resolves the archive tags, `check_print_profile` reads
 #                               `git:<sha>:<path>`, and `git log` reaches past fifty commits
+#   the hooks and the driver    a commit lands on main and reads the checks by itself, and a
+#                               rebase by hand merges the pointer file by member
 #   .bazelrc.paths              `gen_build.py` writes this checkout's own paths
 #
 # NOT HERE: tools/render's puppeteer and its Chromium (the card deck and the posed renders),
@@ -46,6 +60,35 @@ BAZELISK=https://github.com/bazelbuild/bazelisk/releases/download/v1.25.0/bazeli
 say() { printf '  %s\n' "$*"; }
 missing=0
 need() { missing=1; say "missing: $*"; }
+
+# --- node 22, which web/package.json asks for and `npm test` needs ----------------------------
+# The box links /usr/local/bin/node to its node 20 and carries a node 22 beside it under /opt;
+# `web/package.json` says >=22 and `npm test` hands node a glob that 20 does not expand, which is
+# `check_web_tests.py` reading red for the machine rather than the tree. The links are moved to
+# the 22 the box holds, or 22 is installed the way `tools/ci-image/Dockerfile` does it.
+node_major() { node --version 2>/dev/null | sed 's/^v//; s/\..*//'; }
+if [ "$(node_major)" -ge 22 ] 2>/dev/null; then
+  say "node: $(node --version)"
+elif [ "$CHECK" = 1 ]; then
+  need "node 22 ($(node --version 2>/dev/null || echo none) on PATH)"
+elif [ -x /opt/node22/bin/node ] && [ -w /usr/local/bin ]; then
+  for tool in node npm npx; do
+    # only a link or an absence is moved; a real file or directory there is somebody's, and stays
+    if [ -x "/opt/node22/bin/$tool" ] && { [ -L "/usr/local/bin/$tool" ] || [ ! -e "/usr/local/bin/$tool" ]; }; then
+      ln -sfn "/opt/node22/bin/$tool" "/usr/local/bin/$tool"
+    fi
+  done
+  hash -r
+  say "node: $(node --version), linked from /opt/node22"
+elif [ "$(id -u)" = 0 ] && command -v apt-get >/dev/null; then
+  say "node: installing 22 ($(node --version 2>/dev/null || echo none) here)"
+  curl -fsSL https://deb.nodesource.com/setup_22.x | bash - >/dev/null 2>&1
+  DEBIAN_FRONTEND=noninteractive apt-get install -y -qq nodejs >/dev/null
+  hash -r
+  say "node: $(node --version)"
+else
+  say "node: $(node --version 2>/dev/null || echo none), and no way to put 22 on PATH here"
+fi
 
 # --- web's node modules -----------------------------------------------------------------
 if [ -d web/node_modules ]; then
@@ -154,6 +197,29 @@ if [ "$(git rev-parse --is-shallow-repository)" = "true" ]; then
   fi
 elif [ "$CHECK" = 1 ]; then
   say "history: whole, $(git rev-list --count HEAD) commits"
+fi
+
+# --- the hooks and the pointer file's merge driver ------------------------------------------------
+# `.githooks/post-commit` is what lands a commit on main (`push.py`) and reads the checks
+# (`checks_now.py`), and a clone runs it only once its config names the directory. The driver
+# `.gitattributes` names for hardware/cad-artifacts.json lives in config as well: `push.py`
+# writes it the first time it runs, and this writes it first, so a rebase by hand in a clone
+# that has never pushed merges the pointer file by member.
+if [ "$(git config --get core.hooksPath || true)" = ".githooks" ]; then
+  say "hooks: .githooks"
+elif [ "$CHECK" = 1 ]; then
+  need "hooks (core.hooksPath)"
+else
+  git config core.hooksPath .githooks
+  say "hooks: .githooks"
+fi
+if [ -n "$(git config --get merge.cadpointers.driver || true)" ]; then
+  say "merge driver: cadpointers"
+elif [ "$CHECK" = 1 ]; then
+  need "merge driver (merge.cadpointers.driver)"
+else
+  "$PY" -c 'import sys; sys.path.insert(0, "tools"); import push; push.ensure_merge_driver()'
+  say "merge driver: cadpointers"
 fi
 
 # --- this checkout's own paths --------------------------------------------------------------------
