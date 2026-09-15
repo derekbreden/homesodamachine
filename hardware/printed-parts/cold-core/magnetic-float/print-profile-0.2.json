@@ -1,0 +1,228 @@
+{
+  "system_presets_sha256": {
+    "machine/Bambu Lab H2C 0.2 nozzle.json": "0b27156d710b9208ac67b1132cadcd98e8cf4af7cdc886c0cf873319eb2d2f45",
+    "machine/Bambu Lab H2C 0.4 nozzle.json": "54236b5f3eedf6c8468a9c3b921ecaabc04e1e3404f3d0239829fb81c3488491",
+    "machine/fdm_bbl_3dp_002_common.json": "f7ce729c4f2d7ba7dd9b2328b8172ada496a8a4e7e41f5f0139e2692b0a106af",
+    "machine/fdm_machine_common.json": "26ef8ee697849323e67d8e1a9026c175cebe3397e38c5091dddb5cd3fc52e94c",
+    "machine/Bambu Lab H2C 0.4 nozzle template machine_start_gcode.json": "b473d17fe7af0f2e431f8003782d0ab1f74b7a1e2ce73e265b3d7716e9ec8ce5",
+    "machine/Bambu Lab H2C 0.4 nozzle template machine_end_gcode.json": "2adc660220d954417396f6252ae989b74be13b563b5894ba3eea16ad14914d45",
+    "machine/Bambu Lab H2C 0.4 nozzle template time_lapse_gcode.json": "6ec28b73bf076dc25146d327130dad4332319d69a1d752516f5f343a67b44c61",
+    "machine/Bambu Lab H2C 0.4 nozzle template wrapping_detection_gcode.json": "ba7dfb833eedba7e9b73086a52e24f3261c95c449d9cbe5ef266378584e1a5b3",
+    "machine/Bambu Lab H2C 0.4 nozzle template change_filament_gcode.json": "e4bd43dfb6717d9502c61981b95c89b24ae5aac6ade75799570f705f72f83625",
+    "machine/Bambu Lab H2C 0.4 nozzle template layer_change_gcode.json": "6a56c2b1bd15d945d68bd0b406ac44c36afd9008785c04f9b9ca73c9f2e95889",
+    "process/0.10mm Standard @BBL H2C 0.2 nozzle.json": "2f663c38f655f60f3e20433051018088e38a301620432ce5c093fdb322fc8013",
+    "process/fdm_process_dual_0.10_nozzle_0.2.json": "5aebf1214791a05b4c1f2435b39b9664862e3482d625b1c3c39ef0e5d66c02a2",
+    "process/fdm_process_dual_common.json": "743303a5c3c1962f8c8d178d21e23fc409027ea48574017db51230eac72bd063",
+    "process/fdm_process_common.json": "d7981c4b92854f251b8697e1bb621c63fe393f263fb8024ab63c401525d543d7",
+    "filament/Bambu PETG Translucent @BBL H2C 0.2 nozzle.json": "1072379b3ddc14d444276b2a5feacbeaed3c7e077590af1d4bac5aa1f8cb74cb",
+    "filament/Bambu PETG Translucent @base.json": "574cd9a7e48cc13219acd45e92cc58f4d1df4577d949fc130b5eafc88200a0cc",
+    "filament/fdm_filament_pet.json": "3ed1b36367fe6df800103a9deaaa036f9d79c7afda3f3a17514dff23aa96c7d8",
+    "filament/fdm_filament_common.json": "8c7105b7d59a28f600c43a946f067b8b4d707b9711c0bf6b88e9166e48878548",
+    "filament/fdm_filament_template_direct_dual.json": "e0f564b83f3ef70cce4de1401dd7cd855d6fbd834343cb8f4292f2a1ac3efc51",
+    "filament/Bambu PLA Aero @BBL H2C 0.4 nozzle.json": "e2f6f6225af17fec4386742ad92e5116239167f90bdcad2ff69ba44ef4debfba",
+    "filament/Bambu PLA Aero @base.json": "eb1b942b82f9aaa91690d77da74076d60fc0be5568e8ce9b7fd10dcc20912344",
+    "filament/fdm_filament_pla.json": "670d21ea6bdf1cd4b0a2bfddc743612ffd896cd6e5dbe767c25d2c4165c49a30",
+    "filament/fdm_filament_template_direct_dual_e3d.json": "308498826d6206f611be063e9ed7e6afe50b48e5410bb9e132f00eda483eab19"
+  },
+  "process_changes": {
+    "layer_height": 0.1,
+    "initial_layer_print_height": 0.1,
+    "wall_generator": "arachne",
+    "wall_loops": 5,
+    "sparse_infill_density": "100%",
+    "sparse_infill_pattern": "zig-zag",
+    "top_shell_layers": 10,
+    "bottom_shell_layers": 10,
+    "top_shell_thickness": 1,
+    "bottom_shell_thickness": 1,
+    "outer_wall_speed": 40,
+    "inner_wall_speed": 60,
+    "internal_solid_infill_speed": 80,
+    "top_surface_speed": 30,
+    "initial_layer_speed": 20,
+    "initial_layer_infill_speed": 30,
+    "bridge_speed": 20,
+    "bridge_flow": 1,
+    "internal_bridge_flow": 1,
+    "enable_support": 0,
+    "enable_prime_tower": 1,
+    "prime_tower_width": 35,
+    "seam_gap": "0%",
+    "seam_position": "back",
+    "brim_type": "outer_only",
+    "brim_width": 4,
+    "brim_object_gap": 0.15,
+    "skirt_loops": 0,
+    "enable_arc_fitting": 0,
+    "print_sequence": "by layer",
+    "flush_into_infill": 0,
+    "flush_into_objects": 0,
+    "flush_into_support": 0,
+    "detect_thin_wall": 0,
+    "reduce_crossing_wall": 1
+  },
+  "aero_source": "https://bambulab-eu.myshopify.com/nl-nl/products/pla-aero",
+  "aero_reference": {
+    "temperature_c": 250,
+    "flow_ratio": 0.38,
+    "manufacturer_specimen_minimum_density_g_cc": 0.45,
+    "specimen_nozzle_mm": 0.4,
+    "specimen_speed_mm_s": 80
+  },
+  "prepared_materials": [
+    "Float PETG Translucent 250C - experimental 0.2 nozzle",
+    "Float PLA Aero 250C 0.38 flow - experimental 0.2 nozzle"
+  ],
+  "bed_c": 65,
+  "nozzle_mm": 0.2,
+  "layer_height_mm": 0.1,
+  "nozzle_status": "Experimental: Aero product page advises against 0.2 mm; H2C manual includes Aero under all nozzle sizes. Aero foam expansion and PETG sealing are unmeasured at 0.2 mm.",
+  "mapping": {
+    "left": "PETG Translucent Clear",
+    "right": "PLA Aero"
+  },
+  "meshes_sha256": {
+    "insert-aero": "34c7548a6369db156bfa7bf209e9fc775d8ba185199bf2a38addaa8296b5d146",
+    "body-petg": "69a327cdacb8777f8c9b8a2bf1cf50fb5c8af5a803acef123ad3356a6c2e594f",
+    "body-aero": "2418f6ba69bd13c22f1542b834bc2e0a62108109ac182d98630e43c3b05e9443"
+  },
+  "slicer_version": "02.08.02.61",
+  "pause_before_z_mm": 49.1,
+  "geometry_sha256": "1edf0dffa85f0d9e1c269bf8c8941450de42a58aafb37960876f425b1d8f61db",
+  "nozzle_evidence": {
+    "aero_product_page": "https://bambulab-us.myshopify.com/products/pla-aero",
+    "aero_tds": "https://store.bblcdn.com/cbc8b808aaf84ead9bb3b0b9b43e66af.pdf",
+    "h2c_manual": "https://csm.bblcdn.com/hub/eff78da43720461787dc8bbe5fa0372d.pdf",
+    "petg_translucent_tds": "https://cdn.shopify.com/s/files/1/0574/3116/2995/files/Bambu_PETG_Translucent_Technical_Data_Sheet.pdf?v=1704680051",
+    "studio_incompatibility_list": "https://github.com/bambulab/BambuStudio/blob/master/resources/info/nozzle_incompatibles.json"
+  },
+  "effective_settings": {
+    "nozzle_temperature": [
+      "250",
+      "250"
+    ],
+    "nozzle_temperature_initial_layer": [
+      "250",
+      "250"
+    ],
+    "filament_flow_ratio": [
+      "0.95",
+      "0.38"
+    ],
+    "filament_density": [
+      "1.25",
+      "1.21"
+    ],
+    "textured_plate_temp": [
+      "65",
+      "65"
+    ],
+    "nozzle_diameter": [
+      "0.2",
+      "0.2"
+    ],
+    "filament_map": [
+      "1",
+      "2"
+    ],
+    "overhang_fan_speed": [
+      "40",
+      "100"
+    ],
+    "overhang_fan_threshold": [
+      "25%",
+      "50%"
+    ],
+    "layer_height": "0.1",
+    "sparse_infill_density": "100%",
+    "wall_loops": "5",
+    "enable_support": "0",
+    "enable_prime_tower": "1",
+    "filament_max_volumetric_speed": [
+      "1",
+      "1"
+    ],
+    "line_width": "0.22",
+    "outer_wall_line_width": "0.22",
+    "top_shell_layers": "10",
+    "bottom_shell_layers": "10"
+  },
+  "project_sha256": "42c34e8321632858bd23a3d102872cc96d155d9e43b2b3ab36156cbb9d6c9d4c",
+  "plates": [
+    {
+      "id": 1,
+      "objects": [
+        {
+          "bbox": {
+            "depth": 25.99709701538086,
+            "height": 10.0,
+            "width": 26.0,
+            "x": 102.0,
+            "y": 132.00144958496094,
+            "z": 0.0
+          },
+          "id": 5,
+          "name": "Insert",
+          "triangle_count": 1680
+        },
+        {
+          "bbox": {
+            "depth": 25.99709701538086,
+            "height": 10.0,
+            "width": 26.0,
+            "x": 142.0,
+            "y": 132.00144958496094,
+            "z": 0.0
+          },
+          "id": 9,
+          "name": "Spare insert - snugger fit",
+          "triangle_count": 1680
+        }
+      ],
+      "total_predication": 11110.5,
+      "filaments": [
+        {
+          "filament_id": "GFA11",
+          "id": 2,
+          "main_used_g": 4.563084602355957,
+          "total_used_g": 4.563084602355957
+        }
+      ],
+      "warning_message": ""
+    },
+    {
+      "id": 2,
+      "objects": [
+        {
+          "bbox": {
+            "depth": 27.99686050415039,
+            "height": 50.0,
+            "width": 28.0,
+            "x": 532.0,
+            "y": 131.00157165527344,
+            "z": 0.0
+          },
+          "id": 13,
+          "name": "Float body",
+          "triangle_count": 6720
+        }
+      ],
+      "total_predication": 69618.640625,
+      "filaments": [
+        {
+          "filament_id": "GFG01",
+          "id": 1,
+          "main_used_g": 7.453760147094727,
+          "total_used_g": 31.730283737182617
+        },
+        {
+          "filament_id": "GFA11",
+          "id": 2,
+          "main_used_g": 8.113750457763672,
+          "total_used_g": 28.763019561767578
+        }
+      ],
+      "warning_message": ""
+    }
+  ]
+}

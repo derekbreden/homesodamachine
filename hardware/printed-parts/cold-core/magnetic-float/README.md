@@ -88,6 +88,45 @@ location, insert compensation, material paths and insertion pause. Its mass
 estimate counts object extrusion and excludes prime towers, brims and the spare.
 `print-profile.json` records the presets and slicer estimates.
 
+## Experimental 0.2 mm nozzles
+
+[Experimental Bambu Studio project](magnetic-float-0.2-experimental.3mf) uses
+0.2 mm standard-flow nozzles on **both** sides: PETG on the left, Aero on the
+right. The hotend inventory lists right-side 0.2 mm induction hotends; a left-side
+0.2 mm standard hotend is not recorded. The left and right hotends are different
+parts. The 0.4 mm project remains the recommended first float print.
+
+The float geometry, PETG thickness and insert fits are identical. The experimental
+project uses 0.10 mm layers, nominal 0.22 mm lines, five wall loops, ten roof/floor
+layers and a 1 mm³/s volumetric-flow limit for both materials. The temperatures
+are 250 °C with a 65 °C bed. PETG uses the installed 0.2 mm preset's 0.95 flow;
+Aero uses 0.38. The body pauses before Z49.1, leaving ten PETG roof layers.
+
+Studio estimates 3 h 5 min for both inserts and 19 h 20 min for the body,
+excluding the operator's pause. The 0.4 mm project estimates 43 min and
+3 h 15 min respectively. `verification-0.2.json` checks both material assignments,
+all 500 body layers, the compensated inserts and the pause. `print-profile-0.2.json`
+records the source presets, effective settings, nozzle evidence and slicer results.
+
+The manufacturer's documents give different answers about nozzle compatibility:
+
+- [PLA Aero's product page](https://bambulab-us.myshopify.com/products/pla-aero)
+  recommends 0.4 mm and advises against 0.2 mm. Its
+  [TDS](https://store.bblcdn.com/cbc8b808aaf84ead9bb3b0b9b43e66af.pdf)
+  lists 0.4, 0.6 and 0.8 mm.
+- The [H2C manual](https://csm.bblcdn.com/hub/eff78da43720461787dc8bbe5fa0372d.pdf),
+  printed pages 120–122, includes PLA Aero under PLA compatible with all nozzle
+  sizes, explicitly including 0.2 mm.
+- [PETG Translucent's TDS](https://cdn.shopify.com/s/files/1/0574/3116/2995/files/Bambu_PETG_Translucent_Technical_Data_Sheet.pdf?v=1704680051)
+  lists 0.2 mm, and Studio includes a dedicated H2C 0.2 mm preset. Studio's
+  [incompatibility list](https://github.com/bambulab/BambuStudio/blob/master/resources/info/nozzle_incompatibles.json)
+  nevertheless flags PETG Translucent with 0.2 mm nozzles.
+
+There is no installed Aero 0.2 mm preset. This project uses an explicitly named
+experimental adaptation of the Aero 0.4 mm recipe. Slicing success establishes
+the emitted paths; it establishes no foam expansion, fit, sealing or pressure
+result. The 0.4 mm foaming data does not validate the 0.2 mm nozzle's density.
+
 ## Application and pressure
 
 The existing reservoir rod position spends the donor float's larger bore
@@ -120,6 +159,21 @@ From the repository root, verify the result:
 
 ```sh
 tools/cad-venv/bin/python hardware/printed-parts/cold-core/magnetic-float/verify.py --project .cache/magnetic-float-print/sliced/magnetic-float.3mf
+```
+
+For the experimental 0.2 mm project:
+
+```sh
+tools/cad-venv/bin/python hardware/printed-parts/cold-core/magnetic-float/prepare_print.py --nozzle 0.2
+mkdir -p .cache/magnetic-float-print-0.2/sliced
+cd .cache/magnetic-float-print-0.2/sliced
+/Applications/BambuStudio.app/Contents/MacOS/BambuStudio --arrange 0 --orient 0 --slice 0 --export-3mf magnetic-float-0.2-experimental.3mf --outputdir "$PWD" ../magnetic-float-input.3mf
+```
+
+From the repository root:
+
+```sh
+tools/cad-venv/bin/python hardware/printed-parts/cold-core/magnetic-float/verify.py --nozzle 0.2 --project .cache/magnetic-float-print-0.2/sliced/magnetic-float-0.2-experimental.3mf
 ```
 
 ## Sources
