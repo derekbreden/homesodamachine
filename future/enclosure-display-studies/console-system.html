@@ -71,6 +71,8 @@
 .cr-console .cs-service-actions{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-top:auto}
 .cr-console .cs-service-actions .cs-back{padding:0 10px 0 0;background:transparent;color:#edf3ff;font-size:22px;height:66px}
 .cr-console .cs-service-actions .crb-main-action{width:300px;font-size:24px}
+.cr-console.cn-corners button.crb-hero{width:234px;padding:21px 0 0;margin:0;text-align:center}
+.cr-console.cn-corners .crb-rail{cursor:pointer}
 
 </style>
 <script>
@@ -138,7 +140,7 @@ const pagePicker=root.querySelector('#corners-page');
 const v={id:'corners',name:'Console'};
 const base=globalThis.controlExtras.find(d=>d.id==='console');
 const quiet=globalThis.consoleHomeBase.find(d=>d.id==='quiet');
-const s={page:'settings',flavor:0,ratio:20,ratios:[20,20],assignments:[0,2],running:false,imagePage:0};
+const s={page:'fill',flavor:0,ratio:20,ratios:[20,20],assignments:[0,2],running:false,imagePage:0};
 const options={showFaucet:true,completionLabel:'Done',statusSample:'Snapshot A'};
 const button=(a,t,c='')=>`<button type="button" data-action="${a}" class="${c}">${t}</button>`;
 const icon=name=>`<i data-lucide="${name}" aria-hidden="true"></i>`;
@@ -147,6 +149,8 @@ function gallery(){
  return `<div class="ch-gallery"><h1>Choose an image.</h1><p>For the selected flavor</p><div class="ch-art-grid">${globalThis.cornersArtwork.slice(start,start+4).map((a,j)=>{const i=start+j;return `<button type="button" data-action="assign:${i}" aria-pressed="${s.assignments[s.flavor]===i}" aria-label="Select ${a.name}" class="${s.assignments[s.flavor]===i?'chosen':''}"><img src="${a.url}" alt="${a.name}"><span>${s.assignments[s.flavor]===i?'✓':' '}</span></button>`;}).join('')}</div><div class="cn-pager"><button type="button" data-action="images:-1" aria-label="Previous four images" ${s.imagePage===0?'disabled':''}>${icon('chevron-left')}</button><span class="cn-image-position" aria-live="polite"><small>${s.imagePage===0?'Your images':'Defaults'}</small><span>${start+1}–${start+4} of 8</span></span><button type="button" data-action="images:1" aria-label="Next four images" ${s.imagePage===1?'disabled':''}>${icon('chevron-right')}</button></div></div>`;
 }
 function fit(){canvas.style.transform=`scale(${canvas.parentElement.clientWidth/800})`;}
+function availableWhileRunning(action){return ['stop','hold','done','select'].includes(action.split(':')[0]);}
+function goHome(flavor=s.flavor){s.running=false;s.flavor=flavor;s.page='idle';}
 function render(){
  s.ratio=s.ratios[s.flavor];
  const A=s.assignments.map(i=>globalThis.cornersArtwork[i]);
@@ -172,8 +176,15 @@ function render(){
   nav.innerHTML=`<span class="cs-title">${s.page==='settings'?'System status':'Pump service'}</span>`+button('done',options.completionLabel,'cn-finish');
  }
 
+ const hero=holder.querySelector('.crb-hero');
+ if(hero){
+  const background=document.createElement('button');
+  background.type='button';background.className=hero.className;
+  background.dataset.action='done';background.setAttribute('aria-label','Return to On tap');
+  background.innerHTML=hero.innerHTML;hero.replaceWith(background);
+ }
  canvas.innerHTML=holder.innerHTML;
- if(s.running)canvas.querySelectorAll('[data-action]').forEach(el=>{if(!['stop','hold'].includes(el.dataset.action)){el.disabled=true;}});
+ if(s.running)canvas.querySelectorAll('[data-action]').forEach(el=>{if(!availableWhileRunning(el.dataset.action)){el.disabled=true;}});
  if(globalThis.lucide)globalThis.lucide.createIcons({attrs:{width:24,height:24}});
  pagePicker.value=s.page;
  const faucet=root.querySelector('#corners-faucet-image');faucet.src=A[s.flavor].url;faucet.alt=A[s.flavor].name+' on the faucet';
@@ -184,11 +195,11 @@ function render(){
  fit();
 }
 function act(action){
- const[k,v]=action.split(':');if(s.running&&!['stop','hold'].includes(k))return;
- if(k==='select'){s.flavor=Number(v);if(['settings','service'].includes(s.page))s.page='idle';}
- if(k==='faucet')s.flavor=1-s.flavor;
+ const[k,v]=action.split(':');if(s.running&&!availableWhileRunning(action))return;
+ if(k==='select')goHome(Number(v));
+ if(k==='faucet'){if(['settings','service'].includes(s.page))s.flavor=1-s.flavor;else goHome(1-s.flavor);}
  if(k==='page'){s.page=v;if(v==='artwork')s.imagePage=0;}
- if(k==='done')s.page='idle';
+ if(k==='done')goHome();
  if(k==='ratio')s.ratios[s.flavor]=Math.max(6,Math.min(24,s.ratio+Number(v)));
  if(k==='assign')s.assignments[s.flavor]=Number(v);
  if(k==='images')s.imagePage=Math.max(0,Math.min(1,s.imagePage+Number(v)));
@@ -197,14 +208,14 @@ function act(action){
  render();
 }
 function stopPrime(){if(s.page==='prime'&&s.running){s.running=false;render();}}
-root.addEventListener('click',e=>{const b=e.target.closest('[data-action]');if(b&&!b.disabled&&b.dataset.action!=='hold')act(b.dataset.action);});
+root.addEventListener('click',e=>{const b=e.target.closest('[data-action]');if(b){if(!b.disabled&&b.dataset.action!=='hold')act(b.dataset.action);return;}if(e.target.closest('.crb-rail'))act('done');});
 root.addEventListener('pointerdown',e=>{if(e.target.closest('[data-action="hold"]')){e.preventDefault();s.running=true;render();}});
 root.addEventListener('pointerleave',stopPrime);
 document.documentElement.addEventListener('mouseleave',stopPrime);
 document.addEventListener('mouseout',e=>{if(e.relatedTarget===null)stopPrime();});
 globalThis.addEventListener('pointerup',stopPrime);globalThis.addEventListener('pointercancel',stopPrime);globalThis.addEventListener('blur',stopPrime);
 root.addEventListener('pointermove',e=>{if(s.page==='prime'&&s.running){const pad=root.querySelector('[data-action="hold"]');if(pad){const b=pad.getBoundingClientRect();if(e.clientX<b.left||e.clientX>b.right||e.clientY<b.top||e.clientY>b.bottom)stopPrime();}}});
-root.addEventListener('keydown',e=>{if((e.key===' '||e.key==='Enter')&&e.target.matches('[data-action="hold"]')){e.preventDefault();s.running=true;e.target.textContent='Release to stop';canvas.querySelectorAll('[data-action]').forEach(el=>{if(el.dataset.action!=='hold')el.disabled=true;});}});
+root.addEventListener('keydown',e=>{if((e.key===' '||e.key==='Enter')&&e.target.matches('[data-action="hold"]')){e.preventDefault();s.running=true;e.target.textContent='Release to stop';canvas.querySelectorAll('[data-action]').forEach(el=>{if(!availableWhileRunning(el.dataset.action))el.disabled=true;});}});
 root.addEventListener('keyup',e=>{if(e.key===' '||e.key==='Enter')stopPrime();});
 pagePicker.addEventListener('change',()=>{s.page=pagePicker.value;s.running=false;s.imagePage=0;render();});
 root.querySelector('#corners-faucet-button').addEventListener('click',()=>act('faucet'));
