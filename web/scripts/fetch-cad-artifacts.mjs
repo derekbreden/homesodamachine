@@ -39,6 +39,7 @@ import { Readable } from "node:stream";
 import { pipeline } from "node:stream/promises";
 import { createGunzip, createGzip } from "node:zlib";
 import { fileURLToPath } from "node:url";
+import { storeFromEnv } from "../lib/store.js";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
 const POINTERS = path.join(ROOT, "hardware", "cad-artifacts.json");
@@ -107,29 +108,29 @@ const solids = pointers.solids ?? {};
 const { missing: absent, drifted } = await wanted(solids);
 const OBJECTS = pointers.store?.objects ?? pointers.release?.objects ?? null;
 
-// THE DISK FILLS FROM THE TREE. Every member here at its pointed-at hash is gzipped onto the
-// store under its hash if the store lacks it; the first boot on a fresh disk does all of them
-// and every boot after does the ones a publish moved since. Objects arriving over the network
-// below are kept the same way as they come.
-// The directory is made when its mount is there: the disk arrives at the mount path, empty,
-// and the first boot on it is the one that fills it. At build time the mount is absent and
-// nothing is made, so the build image carries no copy of the store.
-if (STORE_DIR && !(await isDir(STORE_DIR)) && await isDir(path.dirname(STORE_DIR))) {
-  await mkdir(STORE_DIR, { recursive: true });
-}
-if (OBJECTS && STORE_DIR && await isDir(STORE_DIR)) {
+// THE STORE FILLS FROM THE TREE. Every member here at its pointed-at hash goes to the store
+// under its hash if the store lacks it, read against one listing of the store; the first boot
+// against an empty store does all of them and every boot after does the ones a publish moved
+// since. Objects arriving over the network below are kept the same way as they come.
+const STORE = OBJECTS ? await storeFromEnv().catch(() => null) : null;
+if (STORE && !(STORE.kind === "disk" && !(await isDir(STORE.dir)))) {
+  const held = new Set((await STORE.list()).map((o) => o.name));
   const drift = new Set(drifted);
   let kept = 0;
   for (const rel of Object.keys(solids)) {
     if (drift.has(rel) || !(await present(rel))) continue;
-    const dest = path.join(STORE_DIR, `${OBJECTS}${solids[rel]}.gz`);
-    if (await present_abs(dest)) continue;
-    const part = `${dest}.${process.pid}.part`;
+    const name = `${OBJECTS}${solids[rel]}.gz`;
+    if (held.has(name)) continue;
+    const part = path.join(tmpdir(), `${name}.${process.pid}.part`);
     await pipeline(createReadStream(path.join(ROOT, rel)), createGzip(), createWriteStream(part));
-    await rename(part, dest);
-    kept += 1;
+    try {
+      await STORE.put(name, part);
+      kept += 1;
+    } finally {
+      await rm(part, { force: true });
+    }
   }
-  if (kept) console.log(`[cad-artifacts] ${kept} object(s) put on the store from this tree`);
+  if (kept) console.log(`[cad-artifacts] ${kept} object(s) put on the ${STORE.kind} store from this tree`);
 }
 
 // `--adopt`: A SERVER HOLDS NO CUT OF ITS OWN, SO DRIFT THERE IS AGE, NOT WORK. Without it a
@@ -208,10 +209,8 @@ async function fetchObject(rel) {
     }
     await pipeline(createReadStream(gz), createGunzip(), createWriteStream(dest));
     if ((await sha256(dest)) !== solids[rel]) throw new Error("not the pointed-at bytes");
-    if (onDisk && !(await present_abs(onDisk)) && await isDir(STORE_DIR)) {
-      const part = `${onDisk}.${process.pid}.part`;
-      await copyFile(gz, part);
-      await rename(part, onDisk);
+    if (STORE && STORE.kind === "disk" && onDisk && !(await present_abs(onDisk)) && await isDir(STORE_DIR)) {
+      await STORE.put(name, gz);
     }
   } finally {
     await rm(gz, { force: true });

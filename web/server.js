@@ -28,6 +28,7 @@ import {
 import { mountNotificationsRoutes } from "./lib/notifications.js";
 import { mountArtifactsLive } from "./lib/artifacts-live.js";
 import { mountObjectRoutes, mountObjectPrune } from "./lib/objects.js";
+import { storeFromEnv } from "./lib/store.js";
 import { WS } from "./contracts/ws-frames.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -277,12 +278,14 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
   mountUpdatesRoutes(app, { updatesDir: UPDATES_DIR, publicDir: LANDING_PUBLIC });
   mountSettingsRoutes(app);
   mountFirmwareRoutes(app, { commit });
-  // THE OBJECT STORE, ON THE DISK render.yaml ATTACHES. Every member the pointer file names is
-  // held here by hash and served from here; a machine that cut one puts it here (web/lib/objects.js).
-  if (process.env.OBJECTS_DIR) {
-    mountObjectRoutes(app, { dir: process.env.OBJECTS_DIR });
-    mountObjectPrune({ dir: process.env.OBJECTS_DIR,
-                       pointersPath: path.join(REPO_ROOT, "hardware", "cad-artifacts.json") });
+  // THE OBJECT STORE (web/lib/store.js): Cloudflare R2 when render.yaml names the account and
+  // key pair, the disk when it names a directory. Every member the pointer file names is held
+  // there by hash; a machine that cut one puts it here (web/lib/objects.js).
+  const store = await storeFromEnv();
+  if (store) {
+    console.log(`[objects] store: ${store.kind}`);
+    mountObjectRoutes(app, { store });
+    mountObjectPrune({ store, pointersPath: path.join(REPO_ROOT, "hardware", "cad-artifacts.json") });
   }
   attachSubscribe(app, pool);
 
