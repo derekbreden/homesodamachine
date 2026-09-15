@@ -93,9 +93,9 @@ estimate counts object extrusion and excludes prime towers, brims and the spare.
 [Experimental Bambu Studio project](magnetic-float-0.2-experimental.3mf) uses
 0.2 mm standard-flow nozzles on **both** sides: PETG on the left, Aero on the
 right. These are different parts: a standard hotend on the left and an induction
-hotend on the right. [Hotend availability](/hardware/ledger/tools.md#02-mm-hotend-availability)
-records the purchased right-side hotends and Derek's report of likely left-side
-stock. The 0.4 mm project remains the recommended first float print.
+hotend on the right. [Confirmed 0.2 mm stock](/hardware/ledger/tools.md#02-mm-hotend-availability)
+is right-side only; this project also needs a left-side 0.2 mm standard hotend.
+The 0.4 mm project remains the recommended first float print.
 
 The float geometry, PETG thickness and insert fits are identical. The experimental
 project uses 0.10 mm layers, nominal 0.22 mm lines, five wall loops, ten roof/floor

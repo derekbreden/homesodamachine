@@ -112,14 +112,11 @@ For per-unit BOM parts, see [bom.md](/hardware/ledger/bom.md). For non-BOM/non-t
 
 ### 0.2 mm hotend availability
 
-Derek reports likely left-side 0.2 mm stock: *"I'm pretty sure I have some left
-side 0.2 mm hotends."* Quantity and purchase source are unconfirmed. The four
-Bambu hotend order confirmations in Gmail list 0.2 mm only on the right;
-searching all mail folders for `"0.2" {hotend nozzle}` also finds only those
-right-side purchases and their shipping messages (reconciled 2026-09-15).
-The four separately purchased right-side hotends are receipt quantities;
-printer-bundle contents and current usable quantities are not counted by that
-reconciliation.
+Confirmed 0.2 mm hotends on hand are **right-side induction** (Derek,
+2026-09-15). A left-side 0.2 mm standard hotend is not in the confirmed stock.
+Bambu receipts cover four separately purchased right-side 0.2 mm hotends:
+two March 22 and two August 19. These are purchase quantities; printer-bundle
+contents and the current usable count are not established by the receipts.
 
 ### What dries where
 
