@@ -107,8 +107,19 @@ For per-unit BOM parts, see [bom.md](/hardware/ledger/bom.md). For non-BOM/non-t
 | **SUNLU S4 filament dryer** | [B0CQJMV71Z](https://www.amazon.com/dp/B0CQJMV71Z), [purchases.md §13](/hardware/ledger/purchases.md) | 4-spool capacity, 70 °C ceiling, 350 W PTC, 3 circulation fans. In service as sealed 4-spool storage, not as a dryer. | [$125.47](T_DRYER_S4) |
 | **Polymaker PolyDryer Box ×4** | [B0FHPS82YG](https://www.amazon.com/dp/B0FHPS82YG), [purchases.md §13](/hardware/ledger/purchases.md) | Sealed spool boxes with a PTFE feed-through, spool on a center axle, **1 kg** capacity. Unheated. TPU turns freely on the axle and prints straight out of one. | [$117.96](T_POLYDRYER) |
 | **Polymaker PolyDryer Box XL ×2** | [B0FPQV18L5](https://www.amazon.com/dp/B0FPQV18L5), [purchases.md §13](/hardware/ledger/purchases.md) | The same sealed box built around a **3 kg** spool — center axle, feed-through, hygrometer in the lid, unheated. The axle turns a 3 kg spool freely, which is what the E2's chamber does not, so the 3 kg Fiberon stock prints out of one of these. | [$120.09](T_POLYDRYER_XL) |
-| **Hotend stock** | various Bambu + DUROZZLE + ENOMAKER orders, [purchases.md §13 / §15](/hardware/ledger/purchases.md) | Right-side (Induction) HS: 0.2 SS ×3, 0.4 ×4 HS, 0.6 HS, 0.8 HS, 0.8 HF HS. Left-side (Standard): **0.4 TC SF ×2 (Bambu)** — the exterior's nozzle; one of the two is off the printer since 2026-09-11, suspected clogged and not yet cold-pulled, after the lower pump cradle and top clamp print paused on it twice with the extruder motor reported overheating ([enclosure/print-log.md](/hardware/printed-parts/enclosure/enclosure/print-log.md)) — 0.4 HS ×2, 0.4 + 0.8 HF HS (ENOMAKER), 0.6 TC SF (Bambu), 0.6 TC + 0.6 Diamond PCD + 0.8 Diamond PCD ×2 (DUROZZLE), 0.8 TC HF; **0.4 Diamond PCD ×3 (DUROZZLE)** ordered 2026-09-11, one landing 2026-09-12 and two 2026-09-16. The two sides take different hotend types and buy from different listings — see [Which hotends fit an H2C](#which-hotends-fit-an-h2c). PCD outranks tungsten carbide and ruby on hardness. Derek, 2026-09-11: *"So far, the diamond PCD has been the toughest and most reliable, in other sizes."* | [$1,097.15](T_HOTENDS) |
+| **Hotend stock** | various Bambu + DUROZZLE + ENOMAKER orders, [purchases.md §13 / §15](/hardware/ledger/purchases.md) | Right-side (Induction): **0.2 SS — four separately purchased** (two Mar 22 + two Aug 19; excludes printer-bundle contents), 0.4 ×4 HS, 0.6 HS, 0.8 HS, 0.8 HF HS. Left-side (Standard): **0.4 TC SF ×2 (Bambu)** — the exterior's nozzle; one of the two is off the printer since 2026-09-11, suspected clogged and not yet cold-pulled, after the lower pump cradle and top clamp print paused on it twice with the extruder motor reported overheating ([enclosure/print-log.md](/hardware/printed-parts/enclosure/enclosure/print-log.md)) — **0.4 TC HF ×1 (Bambu, Aug 19)**, 0.4 HS ×2, 0.4 + 0.8 HF HS (ENOMAKER), 0.6 TC SF (Bambu), 0.6 TC + 0.6 Diamond PCD + 0.8 Diamond PCD ×2 (DUROZZLE), 0.8 TC HF; **0.4 Diamond PCD ×3 (DUROZZLE)** ordered 2026-09-11, one landing 2026-09-12 and two 2026-09-16. Left-side 0.2 mm: see the availability note below. The two sides take different hotend types and buy from different listings — see [Which hotends fit an H2C](#which-hotends-fit-an-h2c). PCD outranks tungsten carbide and ruby on hardness. Derek, 2026-09-11: *"So far, the diamond PCD has been the toughest and most reliable, in other sizes."* | [$1,177.13](T_HOTENDS) |
 | **4-in-1 PTFE Adapter II (×2)** | Bambu orders us717877837343809537 + us718417332286169089, [purchases.md §15](/hardware/ledger/purchases.md) | Multi-spool feed adapter. | [$15.98](T_PTFE_ADAPTER) |
+
+### 0.2 mm hotend availability
+
+Derek reports likely left-side 0.2 mm stock: *"I'm pretty sure I have some left
+side 0.2 mm hotends."* Quantity and purchase source are unconfirmed. The four
+Bambu hotend order confirmations in Gmail list 0.2 mm only on the right;
+searching all mail folders for `"0.2" {hotend nozzle}` also finds only those
+right-side purchases and their shipping messages (reconciled 2026-09-15).
+The four separately purchased right-side hotends are receipt quantities;
+printer-bundle contents and current usable quantities are not counted by that
+reconciliation.
 
 ### What dries where
 
@@ -220,7 +231,7 @@ it is now on the abrasive path, so **the left hotend is the bottleneck hotend**
 
 ## Tools total
 
-Total acquired tooling: **[$15,809.04](TOOLS_TOTAL)**
+Total acquired tooling: **[$15,889.02](TOOLS_TOTAL)**
 
 ## Open items
 

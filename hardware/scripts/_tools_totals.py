@@ -217,13 +217,12 @@ TOOLS = [
     ("PolyDryer Box XL ×2", "T_POLYDRYER_XL", A("B0FPQV18L5")),
     ("Hotend stock", "T_HOTENDS", SUM([
         L(order="us712460111015776257", contains="Hotends + nozzles"),
+        L(order="us715792490246602753", contains="Hotends"),
         L(order="us726560430730719233"),
         A("B0GWDBQW4G"), A("B0GWDDKG47"),
         # two 0.8 PCD tips, bought a month apart — one line each
         L(contains="B0GWDL57FK", order="114-8935189-9054653"),
         L(contains="B0GWDL57FK", order="112-1974343-4486643"),
-        # The 0.4 pair the exterior prints on: the ENOMAKER 0.8 + 0.4 HF hardened
-        # steel on one Amazon line, and the Bambu 0.4 TC (L) that carries PET-GF15.
         L(order="112-7312343-0359412"),
         L(order="us766639627317551105"),
         # three DUROZZLE 0.4 Diamond PCD tips, two orders on one day — one line each
