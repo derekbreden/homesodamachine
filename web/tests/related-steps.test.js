@@ -14,6 +14,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import {
   relatedSteps, relatedStepsForComponent, KIND_CAPTIONS, FIXTURES, COLLET_PRESS,
+  MAGNETIC_FLOAT, MANIFOLD,
 } from "../contracts/related-steps.js";
 import { walkFiles } from "../lib/walk.js";
 
@@ -129,6 +130,26 @@ test("a missing collet-press model is not offered as a dead link", () => {
     relatedStepsForComponent("tube-water-2", ALL.filter((f) => f !== COLLET_PRESS)),
     [],
   );
+});
+
+test("the existing floats open the magnetic float from their component selection", () => {
+  for (const name of ["float-carb", "cold-core/float-a", "cold-core/float-b"]) {
+    assert.deepEqual(relatedStepsForComponent(name, ALL),
+      [{ file: MAGNETIC_FLOAT, kind: "used-with" }], name);
+  }
+  assert.deepEqual(relatedStepsForComponent("float-rod-carb", ALL), []);
+  assert.deepEqual(relatedStepsForComponent("float-a", ALL.filter(f => f !== MAGNETIC_FLOAT)), []);
+});
+
+test("the manifold opens from its components", () => {
+  for (const name of ["valve-v-a", "coil-v-j", "tee-y-c", "pump-a-head", "pump-b-motor"]) {
+    assert.deepEqual(relatedStepsForComponent(name, ALL),
+      [{ file: MANIFOLD, kind: "used-with" }], name);
+  }
+  const enclosure = "manifold-layout/enclosure-assembly.step";
+  assert.ok(!relatedSteps(enclosure, ALL).some(r => r.file === MANIFOLD || r.file === MAGNETIC_FLOAT));
+  assert.ok(!relatedSteps(MANIFOLD, ALL).some(r => r.file === enclosure));
+  assert.ok(!Object.values(KIND_CAPTIONS).includes("Prototypes"));
 });
 
 // The alarm. A mold reaches its part by being named for it; one parked

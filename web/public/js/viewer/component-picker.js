@@ -308,8 +308,7 @@ function buildPanel() {
 
   panel.appendChild(actions);
 
-  // An assembly-built tube has no source file to open, but the related-model
-  // contract can still offer the customer tool made for that tube.
+  // Related models offered by the selected float, manifold body or tube.
   const relatedBtn = document.createElement("button");
   relatedBtn.type = "button";
   relatedBtn.className = "edge-panel-all component-open component-related";
@@ -398,13 +397,11 @@ function showPanel() {
     ? `Open ${stemOf(goes)}` : "Open part";
   panel._openBtn.title = goes ? `Open ${goes}` : "";
 
-  // A relation is different from a source. On a 1/4-inch tube this names the
-  // supplied collet press even though the tube itself exists only in this
-  // assembly STEP.
+  // The destination is named beside the selected component.
   const related = selection ? relatedStepsForComponent(selection, state.allFiles)[0] : null;
   panel._relatedBtn.style.display = related ? "block" : "none";
   panel._relatedBtn.textContent = related ? `Open ${stemOf(related.file)}` : "";
-  panel._relatedBtn.title = related ? `Used with: ${related.file}` : "";
+  panel._relatedBtn.title = related ? `Open ${related.file}` : "";
 
   // WHAT STANDS INSIDE IT. Picking the core in the appliance is picking one thing; this is
   // how the 62 it holds are reached without hunting for them in the model. Nothing here is

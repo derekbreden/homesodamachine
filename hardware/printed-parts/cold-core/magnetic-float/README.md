@@ -8,9 +8,9 @@ solid-print PLA Aero interior. This is a bench prototype for float and reed test
 [Section](/3d?file=printed-parts/cold-core/magnetic-float/section.step) ·
 [Exploded view](/3d?file=printed-parts/cold-core/magnetic-float/exploded.step)
 
-In `/3d`, open **Enclosure assembly → Prototypes → magnetic-float**. The cold core,
-carbonator tube and reservoir models carry the same link. **Beside it** offers the
-section, exploded view, separate materials, inserts and turning key.
+In `/3d`, open **Enclosure assembly**, select an existing float (`float-carb`,
+`float-a` or `float-b`) with **Select → Component**, then choose **Open magnetic-float**.
+**Beside it** offers the section, exploded view, separate materials, inserts and turning key.
 
 ## Geometry
 
