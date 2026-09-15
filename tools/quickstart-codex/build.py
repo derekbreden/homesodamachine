@@ -31,6 +31,7 @@ INK = '#1a1a2e'
 CORAL = '#d64050'
 STONE = '#ded7cd'
 MUTED = '#656473'
+NAVY = '#10319C'
 for name in ['Regular', 'Semibold', 'Bold']:
     pdfmetrics.registerFont(TTFont(name, str(DIR / 'fonts' / f'Plex-{name}.ttf')))
 pdfmetrics.registerFontFamily('Regular', normal='Regular', bold='Bold', italic='Regular', boldItalic='Bold')
@@ -169,9 +170,10 @@ def tap_cue(s,x,y,point):
 
 # The kitchen is prepared before any connection is opened.
 rect(0,0,W,H,'#ffffff')
-label('HOME SODA MACHINE',36,20,color=INK,size=9)
-text('Quick start',34,38,34,'Bold')
-text('From the box to your first glass.',274,47,17)
+c.drawImage(str(ART/'brand/on-tap.png'),23.4,H-78,width=70,height=70,mask='auto')
+label('HOME SODA MACHINE',100,20,color=NAVY,size=9)
+text('Quick start',98,38,34,'Bold',NAVY)
+text('From the box to your first glass.',338,47,17)
 label('HAVE READY',800,16,color=CORAL,size=9)
 para('A <b>1-3/8 in counter hole</b>, cold water and grounded <b>120 V.</b> A filled <b>5 lb CO2 cylinder</b> and an adjustable wrench for the regulator\'s nut. Two <b>14.8 fl oz</b> bottles of SodaStream-compatible concentrate.',800,33,532,12,15,limit=60)
 text('Place the appliance: 1-5/8 in clear at each side, 2-3/8 in behind, and room above to invert a bottle into the funnel.',36,96,12,'Semibold')
