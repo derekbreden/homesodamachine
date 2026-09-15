@@ -6,40 +6,44 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<!-- pressed state on this screen: the selected channel's STRENGTH &amp; FACE target -->
 <div class="screen">
-  <svg class="rail-svg" width="190" height="480" viewBox="0 0 190 480" aria-hidden="true"><path class="pipe" style="stroke-width:4" d="M178 0 V480"/><path class="flow" style="stroke-width:4" d="M178 0 V73.0"/><path class="flow" style="stroke-width:4" d="M150 73.0 H178"/><path class="pipe" style="stroke-width:4" d="M150 215.0 H178"/><path class="pipe" style="stroke-width:4" d="M150 317.0 H178"/><path class="pipe" style="stroke-width:4" d="M150 419.0 H178"/><path class="pipe" style="stroke-width:2;opacity:.5" d="M104 145 H150"/></svg>
-  <div class="plate on" style="top:18px;height:110px"><svg width="36" height="36" viewBox="0 0 36 36" aria-hidden="true"><rect class="mk" x="4" y="3" width="11" height="22" rx="2"/><rect class="mk" x="21" y="3" width="11" height="22" rx="2"/><path class="mk" d="M9.5 25v6h17v-6"/><path class="mk" d="M18 31v3"/><circle class="mkf" cx="18" cy="31" r="2.6"/></svg><div class="w" style="font-size:24px">CHOOSE</div></div>
-  <div class="plate" style="top:168px;height:94px"><svg width="30" height="30" viewBox="0 0 36 36" aria-hidden="true"><path class="mk" d="M3 15h27"/><path class="mk" d="M11 10l5 5-5 5M19 10l5 5-5 5"/><path class="mk" d="M30 22c0 0 4 4.6 4 7a4 4 0 0 1-8 0c0-2.4 4-7 4-7z"/></svg><div class="w">PRIME</div></div>
-  <div class="plate" style="top:270px;height:94px"><svg width="30" height="30" viewBox="0 0 36 36" aria-hidden="true"><path class="mk" d="M3 5h30L21.5 19.5V31l-7 3.5V19.5z"/></svg><div class="w">FILL</div></div>
-  <div class="plate" style="top:372px;height:94px"><svg width="30" height="30" viewBox="0 0 36 36" aria-hidden="true"><rect class="mk" x="10" y="16" width="16" height="18" rx="2.5"/><path class="mk" d="M18 16V9"/><path class="mk" d="M6 13a12 12 0 0 1 12-9 12 12 0 0 1 11.2 8"/><path class="mk" d="M23.2 11.6l6.4-.7 1.2-6.9"/></svg><div class="w">CLEAN</div></div>
-  <div class="railgroup" style="top:138px">Service</div>
-  <div class="strip"><svg width="610" height="76" viewBox="0 0 610 76" aria-hidden="true"><rect class="vessel" x="16" y="24" width="38" height="46" rx="6"/><path class="pipe" d="M21 38 H49"/><circle class="node" cx="26" cy="50" r="2.2"/><circle class="node" cx="34" cy="57" r="2.2"/><circle class="node" cx="42" cy="47" r="2.2"/><path class="pipe" d="M54 58 H510.0"/><path class="flow" d="M54 58 H510.0"/><path class="flow" d="M156.5 30 V32"/><circle class="flow" style="fill:var(--bg)" cx="156.5" cy="38.5" r="7"/><path class="nodeon" d="M154.0 34.5l5.5 4-5.5 4z" style="stroke:none"/><path class="flow" d="M156.5 45.5 V58"/><path class="pipe" d="M453.5 30 V32"/><circle class="pipe3" style="fill:var(--bg)" cx="453.5" cy="38.5" r="7"/><path class="node" d="M451.0 34.5l5.5 4-5.5 4z" style="stroke:none"/><path class="pipe" d="M453.5 45.5 V58"/><path class="shut" d="M446.5 46.0 L460.5 46.0 L453.5 51.5 Z M446.5 57.0 L460.5 57.0 L453.5 51.5 Z"/><circle class="nodeon" cx="156.5" cy="58" r="4"/><circle class="node" cx="453.5" cy="58" r="4"/><path class="flow" d="M510.0 58 V66"/><rect class="nodeon" x="502.0" y="65" width="16" height="6" rx="3"/><path class="pipe" d="M486.0 58 V38 H534"/><rect x="0" y="74" width="610" height="2" fill="var(--alt)"/></svg>
-    <div class="chip lit" style="left:146.05px;top:0px"><img src="../../assets/flavor_1.png" alt=""></div>
-    <div class="chip" style="left:443.05px;top:0px"><img src="../../assets/flavor_2.png" alt=""></div>
+  <svg class="rail-svg" width="190" height="480" viewBox="0 0 190 480" aria-hidden="true"><path class="pipe" style="stroke-width:4" d="M178 0 V480"/><path class="flow" style="stroke-width:4" d="M178 0 V64"/><path class="flow" style="stroke-width:4" d="M150 64 H178"/><path class="pipe" style="stroke-width:4" d="M150 211 H178"/><path class="pipe" style="stroke-width:4" d="M150 313 H178"/><path class="pipe" style="stroke-width:4" d="M150 415 H178"/><path class="pipe" style="stroke-width:2;opacity:.55" d="M104 142 H150"/></svg>
+  <div class="plate on" style="top:4px;height:120px"><svg width="38" height="38" viewBox="0 0 36 36" aria-hidden="true"><rect class="mk" x="4" y="3" width="11" height="22" rx="2"/><rect class="mk" x="21" y="3" width="11" height="22" rx="2"/><path class="mk" d="M9.5 25v6h17v-6"/><path class="mk" d="M18 31v3"/><circle class="mkf" cx="18" cy="31" r="2.6"/></svg><div class="w" style="font-size:26px">CHOOSE</div></div>
+  <div class="plate" style="top:164px;height:94px"><svg width="32" height="32" viewBox="0 0 36 36" aria-hidden="true"><path class="mk" d="M3 15h27"/><path class="mk" d="M11 10l5 5-5 5M19 10l5 5-5 5"/><path class="mk" d="M30 22c0 0 4 4.6 4 7a4 4 0 0 1-8 0c0-2.4 4-7 4-7z"/></svg><div class="w" style="font-size:20px">PRIME</div></div>
+  <div class="plate" style="top:266px;height:94px"><svg width="32" height="32" viewBox="0 0 36 36" aria-hidden="true"><path class="mk" d="M3 5h30L21.5 19.5V31l-7 3.5V19.5z"/></svg><div class="w" style="font-size:20px">FILL</div></div>
+  <div class="plate" style="top:368px;height:94px"><svg width="32" height="32" viewBox="0 0 36 36" aria-hidden="true"><rect class="mk" x="10" y="16" width="16" height="18" rx="2.5"/><path class="mk" d="M18 16V9"/><path class="mk" d="M6 13a12 12 0 0 1 12-9 12 12 0 0 1 11.2 8"/><path class="mk" d="M23.2 11.6l6.4-.7 1.2-6.9"/></svg><div class="w" style="font-size:20px">CLEAN</div></div>
+  <div class="railgroup" style="top:134px">Service</div>
+  <div class="strip"><svg width="610" height="64" viewBox="0 0 610 64" aria-hidden="true"><rect class="vessel" x="14" y="4" width="40" height="54" rx="6"/><path class="pipe" d="M20 16 H48"/><circle class="node" cx="24" cy="44" r="2.4"/><circle class="node" cx="34" cy="52" r="2.4"/><circle class="node" cx="43" cy="40" r="2.4"/><path class="pipe" d="M54 50 H506"/><path class="flow" d="M54 50 H506"/><path class="flow" d="M156.5 32 V34"/><circle class="flow" style="fill:var(--bg)" cx="156.5" cy="41" r="7"/><path class="nodeon" d="M154 36.5l6 4.5-6 4.5z"/><path class="flow" d="M156.5 48 V50"/><circle class="nodeon" cx="156.5" cy="50" r="4.5"/><path class="pipe" d="M453.5 32 V36"/><path class="shut" d="M445.5 36 L461.5 36 L453.5 43 Z M445.5 50 L461.5 50 L453.5 43 Z"/><circle class="node" cx="453.5" cy="50" r="4.5"/><path class="pipe" d="M466 50 V32 H534"/><path class="flow" d="M506 50 V53"/><rect class="nodeon" x="496" y="52" width="20" height="8" rx="3"/><rect x="0" y="62" width="610" height="2" fill="var(--alt)"/></svg>
+    <div class="chip lit" style="left:147.12px;top:4px"><img src="../../assets/flavor_1.png" alt=""></div>
+    <div class="chip" style="left:444.12px;top:4px"><img src="../../assets/flavor_2.png" alt=""></div>
     <div class="gearsq"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path class="mk" d="M3 7h24M3 15h24M3 23h24"/><rect class="mkf" x="17" y="3.5" width="5" height="7" rx="1.5"/><rect class="mkf" x="7" y="11.5" width="5" height="7" rx="1.5"/><rect class="mkf" x="19" y="19.5" width="5" height="7" rx="1.5"/></svg></div>
   </div>
   <div class="pagename" style="left:206px">Choose a flavor</div>
-  <div class="card sel" style="left:206px;top:124px;height:336px">
-    <div class="tank" style="left:24px;top:16px;height:232px"><img src="../../assets/flavor_1.png" alt=""></div>
-    <div class="level gd" style="left:27px;top:75.0px;width:125.2px"></div>
-    <div class="gauge" style="left:163.2px;top:16px;height:232px"><i class=""></i><i class="on"></i><i class="on"></i><i class="on"></i></div>
-    <div class="abs cap dm" style="left:191.2px;top:16px;font-size:18px">Ratio</div>
-    <div class="abs num" style="left:191.2px;top:38px;font-size:26px;color:var(--tx)">1:20</div>
-    <svg class="abs" style="left:189.2px;top:104px" width="58" height="40" viewBox="0 0 58 40"><path class="mk" style="stroke:var(--ac);stroke-width:2.6;fill:none" d="M9.0 7.0 L9.0 33.0 L29.0 20.0 Z M49.0 7.0 L49.0 33.0 L29.0 20.0 Z"/><path class="mk" style="stroke:var(--ac);stroke-width:2.6" d="M2.0 20.0 H56.0"/></svg>
-    <div class="abs cap ac" style="left:191.2px;top:150px;font-size:18px">Open</div>
-    <div class="target" style="left:24px;top:264px;width:241px;height:56px;justify-content:space-between;padding:0 14px"><div class="w" style="font-size:18px">Strength &amp; face</div><svg width="14" height="22" viewBox="0 0 14 22" aria-hidden="true"><path class="mk" style="stroke-width:2.6" d="M3 3l8 8-8 8"/></svg></div>
+  <div class="card sel" style="left:206px;top:148px;height:314px">
+    <div class="tank" style="left:14px;top:10px;height:224px"><img src="../../assets/flavor_1.png" alt=""></div>
+    <div class="level gd" style="left:21px;top:70.5px;width:112.88px"></div>
+    <div class="gauge" style="left:146.88px;top:17px;height:210px"><i class=""></i><i class="on"></i><i class="on"></i><i class="on"></i></div>
+    <div class="abs cap dm" style="left:178.88px;top:10px;font-size:20px">Ratio</div>
+    <div class="abs num tx" style="left:178.88px;top:36px;font-size:28px">1:20</div>
+    <div class="abs cap dm" style="left:178.88px;top:84px;font-size:20px">Level</div>
+    <div class="abs num tx" style="left:178.88px;top:110px;font-size:20px">3 of 4</div>
+    <svg class="abs" style="left:178.88px;top:162px" width="76" height="48" viewBox="0 0 76 48" aria-hidden="true"><path d="M0 24 H12 M64 24 H76" stroke="var(--ac)" stroke-width="3" stroke-linecap="round" fill="none"/><path d="M12 6 L12 42 L38 24 Z M64 6 L64 42 L38 24 Z" fill="none" stroke="var(--ac)" stroke-width="3" stroke-linejoin="round"/></svg>
+    <div class="abs cap ac" style="left:178.88px;top:216px;font-size:20px">Open</div>
+    <div class="target press" style="left:14px;top:242px;width:253px;height:64px;justify-content:space-between;padding:0 18px"><div class="w">Strength &amp; face</div><svg width="16" height="26" viewBox="0 0 16 26" aria-hidden="true"><path class="mk" style="stroke-width:2.8" d="M3 3l9 10-9 10"/></svg></div>
   </div>
-  <div class="card" style="left:503px;top:124px;height:336px">
-    <div class="tank dimmed" style="left:24px;top:16px;height:232px"><img src="../../assets/flavor_2.png" alt=""></div>
-    <div class="level wn" style="left:27px;top:193.0px;width:125.2px"></div>
-    <div class="gauge" style="left:163.2px;top:16px;height:232px"><i class=""></i><i class=""></i><i class=""></i><i class="low"></i></div>
-    <div class="abs cap dm" style="left:191.2px;top:16px;font-size:18px">Ratio</div>
-    <div class="abs num" style="left:191.2px;top:38px;font-size:26px;color:var(--tx)">1:14</div>
-    <svg class="abs" style="left:189.2px;top:104px" width="58" height="40" viewBox="0 0 58 40"><path class="shut" d="M9.0 7.0 L9.0 33.0 L29.0 20.0 Z M49.0 7.0 L49.0 33.0 L29.0 20.0 Z"/><path class="pipe" style="stroke-width:2.6" d="M2.0 20.0 H56.0"/></svg>
-    <div class="abs cap sec" style="left:191.2px;top:150px;font-size:18px">Shut</div>
-    <div class="level wn" style="left:175.2px;top:193.0px;width:11px"></div>
-    <div class="abs cap wn" style="left:191.2px;top:183.0px;font-size:20px">Low</div>
-    <div class="target press" style="left:24px;top:264px;width:241px;height:56px;justify-content:space-between;padding:0 14px"><div class="w" style="font-size:18px">Strength &amp; face</div><svg width="14" height="22" viewBox="0 0 14 22" aria-hidden="true"><path class="mk" style="stroke-width:2.6" d="M3 3l8 8-8 8"/></svg></div>
+  <div class="card" style="left:503px;top:148px;height:314px">
+    <div class="tank dimmed" style="left:14px;top:10px;height:224px"><img src="../../assets/flavor_2.png" alt=""></div>
+    <div class="level wn" style="left:21px;top:177.5px;width:112.88px"></div>
+    <div class="gauge" style="left:146.88px;top:17px;height:210px"><i class=""></i><i class=""></i><i class=""></i><i class="low"></i></div>
+    <div class="abs cap dm" style="left:178.88px;top:10px;font-size:20px">Ratio</div>
+    <div class="abs num tx" style="left:178.88px;top:36px;font-size:28px">1:14</div>
+    <div class="abs cap dm" style="left:178.88px;top:84px;font-size:20px">Level</div>
+    <div class="abs num tx" style="left:178.88px;top:110px;font-size:20px">1 of 4</div>
+    <div class="abs cap wn" style="left:178.88px;top:136px;font-size:20px">Low</div>
+    <svg class="abs" style="left:178.88px;top:162px" width="76" height="48" viewBox="0 0 76 48" aria-hidden="true"><path d="M0 24 H12 M64 24 H76" stroke="var(--sec)" stroke-width="3" stroke-linecap="round" fill="none"/><path d="M12 6 L12 42 L38 24 Z M64 6 L64 42 L38 24 Z" fill="var(--sec)" stroke="var(--sec)" stroke-width="3" stroke-linejoin="round"/></svg>
+    <div class="abs cap sec" style="left:178.88px;top:216px;font-size:20px">Shut</div>
+    <div class="target" style="left:14px;top:242px;width:253px;height:64px;justify-content:space-between;padding:0 18px"><div class="w">Strength &amp; face</div><svg width="16" height="26" viewBox="0 0 16 26" aria-hidden="true"><path class="mk" style="stroke-width:2.8" d="M3 3l9 10-9 10"/></svg></div>
   </div>
 </div>
 </body>

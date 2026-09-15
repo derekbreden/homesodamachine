@@ -6,17 +6,19 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<!-- pressed state on this screen: none &mdash; STOP is drawn at rest -->
 <div class="screen">
-  <div class="hatch"></div>
-  <div class="abs cap" style="left:32px;top:22px;font-size:40px;color:var(--tx)">Cleaning</div>
-  <div class="abs num" style="left:400px;top:20px;width:368px;text-align:right;font-size:44px;color:var(--tx)">11 MIN LEFT</div>
-  <div class="abs" style="left:32px;top:76px;width:736px;height:2px;background:var(--alt)"></div>
-  <div class="tank" style="left:176px;top:83px;height:174px"><img src="../../assets/flavor_1.png" alt=""></div>
-  <svg class="abs" style="left:0;top:0" width="800" height="360" viewBox="0 0 800 360" aria-hidden="true"><rect class="node" x="42" y="88" width="40" height="9" rx="4.5"/><rect class="node" x="57" y="95" width="10" height="12"/><rect class="node" x="18" y="104" width="46" height="13" rx="5"/><rect class="node" x="48" y="102" width="26" height="48" rx="7"/><rect class="node" x="44" y="146" width="34" height="9" rx="4"/><path class="flow" d="M61 157 V170 H176"/><rect x="84.0" y="164.0" width="7" height="12" fill="var(--bg)"/><path style="fill:var(--ac)" d="M92.0 162.0 L103.0 170.0 L92.0 178.0 Z"/><rect x="112.0" y="164.0" width="7" height="12" fill="var(--bg)"/><path style="fill:var(--ac)" d="M120.0 162.0 L131.0 170.0 L120.0 178.0 Z"/><rect x="140.0" y="164.0" width="7" height="12" fill="var(--bg)"/><path style="fill:var(--ac)" d="M148.0 162.0 L159.0 170.0 L148.0 178.0 Z"/><rect x="160.0" y="164.0" width="7" height="12" fill="var(--bg)"/><path style="fill:var(--ac)" d="M168.0 162.0 L179.0 170.0 L168.0 178.0 Z"/><path class="pipe" d="M276 170 H336"/><circle class="pipe3" style="fill:var(--bg)" cx="356" cy="170" r="20"/><path class="node" d="M350 161 l13 9-13 9z"/><path class="pipe" d="M376 170 H606"/><path class="shut" d="M456.0 155.0 L456.0 185.0 L478.0 170.0 Z M500.0 155.0 L500.0 185.0 L478.0 170.0 Z"/><path class="pipe" style="stroke-width:2.6" d="M449.0 170.0 H507.0"/><path class="pipe3" d="M606 170 H640 V236"/><rect class="node" x="629" y="234" width="22" height="8" rx="3"/><path class="pipe3" d="M586 254 v62 a12 12 0 0 0 12 12 h72 a12 12 0 0 0 12-12 v-62 z"/><path class="pipe" d="M682 270 a18 18 0 0 1 0 36"/></svg>
-  <div class="prog" style="left:32px;top:350px;width:736px"><i style="width:294px"></i></div>
-  <div class="ladder" style="left:32px;top:376px"><div class="lbox now" style="margin-left:0px">IN</div><div class="lbox" style="margin-left:6px">OUT</div><div class="lbox" style="margin-left:24px">IN</div><div class="lbox" style="margin-left:6px">OUT</div><div class="lbox" style="margin-left:24px">IN</div><div class="lbox" style="margin-left:6px">OUT</div></div>
-  <div class="abs cap" style="left:32px;top:426px;font-size:24px;color:var(--tx)">1 of 3 · Water in</div>
-  <div class="stop press" style="left:548px;top:372px;width:220px;height:96px">STOP</div>
+  <div class="hatch" style="top:0"></div>
+  <div class="abs cap tx" style="left:32px;top:24px;font-size:40px">Cleaning</div>
+  <div class="abs num tx" style="left:400px;top:22px;width:368px;text-align:right;font-size:44px">11 MIN LEFT</div>
+  <div class="hr" style="left:32px;top:76px;width:736px"></div>
+  <div class="tank" style="left:176px;top:87px;height:174px"><img src="../../assets/flavor_1.png" alt=""></div>
+  <svg class="abs" style="left:0;top:0" width="800" height="330" viewBox="0 0 800 330" aria-hidden="true"><rect class="node" x="42" y="90" width="40" height="9" rx="4.5"/><rect class="node" x="57" y="97" width="10" height="12"/><rect class="node" x="18" y="106" width="46" height="13" rx="5"/><rect class="node" x="48" y="104" width="26" height="48" rx="7"/><rect class="node" x="44" y="148" width="34" height="9" rx="4"/><path class="flow" d="M61 157 V174 H176"/><path class="chev" style="stroke-width:3.4" d="M86 167 l8 7 -8 7"/><path class="chev" style="stroke-width:3.4" d="M110 167 l8 7 -8 7"/><path class="chev" style="stroke-width:3.4" d="M134 167 l8 7 -8 7"/><path class="chev" style="stroke-width:3.4" d="M158 167 l8 7 -8 7"/><path class="pipe" d="M276 174 H364"/><circle class="pipe3" style="fill:var(--bg)" cx="386" cy="174" r="22"/><path class="node" d="M378 162 l16 12 -16 12z"/><path class="pipe" d="M408 174 H474"/><path class="shut" d="M474 158 L474 190 L500 174 Z M526 158 L526 190 L500 174 Z"/><path class="pipe" d="M526 174 H630"/><path class="pipe3" d="M630 174 H648 V228"/><rect class="node" x="636" y="226" width="24" height="9" rx="3"/><path class="pipe3" d="M574 246 v58 a14 14 0 0 0 14 14 h84 a14 14 0 0 0 14 -14 v-58 z"/><path class="pipe" d="M686 262 a20 20 0 0 1 0 40"/></svg>
+  <div class="prog" style="left:32px;top:336px;width:736px"><i style="width:294.4px"></i></div>
+  <div class="ladder" style="left:32px;top:386px"><div class="lbox now" style="margin-left:0px">In</div><div class="lbox" style="margin-left:4px">Out</div><div class="lbox" style="margin-left:16px">In</div><div class="lbox" style="margin-left:4px">Out</div><div class="lbox" style="margin-left:16px">In</div><div class="lbox" style="margin-left:4px">Out</div></div>
+  <div class="abs cap tx" style="left:336px;top:392px;font-size:24px">1 of 3 &middot; Water in</div>
+  <div class="stop" style="left:548px;top:356px;width:220px;height:96px">STOP</div>
+  <div class="hatch" style="top:468px"></div>
 </div>
 </body>
 </html>
