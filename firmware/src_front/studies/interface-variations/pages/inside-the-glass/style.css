@@ -72,15 +72,16 @@ body {
 
 /* ---------- the rail: the left wall of the glass, no card behind anything ---------- */
 .rail-i { position: absolute; left: 8px; width: 174px; height: 104px;
-          border-radius: 6px; }
+          border-radius: 6px; color: var(--cream); }
 .rail-i .ic { position: absolute; left: 50%; top: 12px; width: 44px; height: 44px;
               margin-left: -22px; }
 .rail-i .w  { position: absolute; left: 0; right: 0; bottom: 13px; text-align: center;
               font-weight: 700; font-size: 18px; letter-spacing: .08em; color: var(--cream); }
 .rail-i svg { stroke: var(--cream); }
-.rail-i.on    { background: var(--cream); }
+.rail-i.on    { background: var(--cream); color: var(--liq); }
 .rail-i.on .w { color: var(--liq); }
 .rail-i.on svg { stroke: var(--liq); }
+.rail-i.pressed { color: var(--ink); }
 .rail-i.pressed .w { color: var(--ink); }
 
 /* ---------- marks ---------- */

@@ -9,22 +9,21 @@
 <link rel="stylesheet" href="style.css">
 <style>
 
-  /* Choose — selection is the liquid line. The armed channel is under it, wet and
-     full colour, with bubbles clinging to its label. The other is above it, dry.
-     Pressed element: the PRIME rail destination (gold). */
+  /* Choose — selection IS the liquid line. The armed channel is under it: wet, full
+     colour, bubbles clinging to its label. The other is above it, in the headspace, dry.
+     Pressed element: the CLEAN rail destination (gold). */
   .card    { width: 280px; height: 210px; }
-  .cface   { left: 10px; top: 10px; width: 102px; height: 190px; }
   .col     { position: absolute; left: 128px; width: 142px; }
-  .st-on   { font-size: 23px; color: var(--ink); line-height: 1; }
-  .st-off  { font-weight: 700; font-size: 14px; letter-spacing: .16em;
+  .st-on   { font-size: 26px; color: var(--ink); line-height: 1; }
+  .st-off  { font-weight: 700; font-size: 13px; letter-spacing: .15em;
              color: var(--dim); line-height: 1; }
-  .ratio   { font-size: 40px; line-height: 1; color: var(--ink); }
+  .ratio   { font-size: 36px; line-height: 1; color: var(--ink); }
   .ratio.dry { color: var(--dim); }
-  .ontap   { position: absolute; font-size: 30px; letter-spacing: .24em;
-             color: var(--cream); font-weight: 700; text-align: center; }
-  .pour    { position: absolute; width: 2px; background: var(--cream); }
+  .ontap   { position: absolute; font-size: 34px; letter-spacing: .26em;
+             color: var(--cream); font-weight: 700; text-align: center; line-height: 1; }
+  .pour    { position: absolute; width: 3px; background: var(--cream); }
   .setmark { position: absolute; width: 64px; height: 64px; border-radius: 8px;
-             box-shadow: inset 0 0 0 2px var(--cream);
+             box-shadow: inset 0 0 0 2px var(--cream); color: var(--cream);
              display: flex; align-items: center; justify-content: center; }
   .setmark svg { stroke: var(--cream); }
 
@@ -32,45 +31,45 @@
 </head>
 <body>
 
-<!-- the wall of the glass: the rail is the same liquid, top to bottom -->
+<!-- the wall of the glass: the rail is the same liquid, top to bottom, no card behind anything -->
 <div class="liquid" style="left:0;top:0;width:189px;height:480px"></div>
 <svg class="bubbles" style="left:0px;top:0px" width="189" height="480" viewBox="0 0 189 480"><circle cx="29.4" cy="466.4" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="173.2" cy="465.7" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="94.9" cy="470.7" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="135.5" cy="471.2" r="8" fill="none" stroke="#f2b705" stroke-width="1"/><circle cx="77.1" cy="471.7" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="15.4" cy="474.5" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="58.5" cy="473.1" r="3" fill="none" stroke="#33452f" stroke-width="1"/></svg>
 <div class="rail-i on" style="top:20px"><div class="ic"><svg class="mk " width="44" height="44" viewBox="0 0 44 44"><path d="M13.5 12 V7"/><path d="M30.5 12 V7"/><rect x="7" y="12" width="13" height="25" rx="4" fill="currentColor" stroke="none"/><rect x="7" y="12" width="13" height="25" rx="4"/><rect x="24" y="12" width="13" height="25" rx="4"/></svg></div><div class="w">CHOOSE</div></div>
-<div class="rail-i on pressed" style="top:132px"><div class="ic"><svg class="mk " width="44" height="44" viewBox="0 0 44 44"><path d="M22 6 C22 6 33 20 33 27 A11 11 0 0 1 11 27 C11 20 22 6 22 6 Z"/></svg></div><div class="w">PRIME</div></div>
+<div class="rail-i" style="top:132px"><div class="ic"><svg class="mk " width="44" height="44" viewBox="0 0 44 44"><path d="M22 6 C22 6 33 20 33 27 A11 11 0 0 1 11 27 C11 20 22 6 22 6 Z"/></svg></div><div class="w">PRIME</div></div>
 <div class="rail-i" style="top:244px"><div class="ic"><svg class="mk " width="44" height="44" viewBox="0 0 44 44"><path d="M7 9 H37 L25.5 24 V34 L18.5 38.5 V24 Z"/></svg></div><div class="w">FILL</div></div>
-<div class="rail-i" style="top:356px"><div class="ic"><svg class="mk " width="44" height="44" viewBox="0 0 44 44"><path d="M13 17 L16.5 38 H27.5 L31 17 Z"/><path d="M11 17 H33"/><path d="M16 11 L18.5 4"/><path d="M22 12.5 L24.5 3"/><path d="M28 11 L30.5 5"/></svg></div><div class="w">CLEAN</div></div>
+<div class="rail-i on pressed" style="top:356px"><div class="ic"><svg class="mk " width="44" height="44" viewBox="0 0 44 44"><path d="M13 17 L16.5 38 H27.5 L31 17 Z"/><path d="M11 17 H33"/><path d="M16 11 L18.5 4"/><path d="M22 12.5 L24.5 3"/><path d="M28 11 L30.5 5"/></svg></div><div class="w">CLEAN</div></div>
 
-<!-- the pane: headspace above the line, the armed channel's body below it -->
+<!-- the pane: headspace above the line, the armed channel's own body below it -->
 <div class="liquid" style="left:191px;top:235px;width:609px;height:245px"></div>
 <div class="meniscus" style="left:191px;top:232px;width:609px"></div>
-<svg class="bubbles" style="left:191px;top:235px" width="609" height="245" viewBox="0 0 609 245"><circle cx="340.9" cy="100.1" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="309.3" cy="98.2" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="311.8" cy="148.2" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="493.1" cy="174.7" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="598.2" cy="195.4" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="374.9" cy="74.0" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="321.8" cy="213.7" r="8" fill="none" stroke="#f2b705" stroke-width="1"/><circle cx="389.9" cy="90.9" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="515.6" cy="107.9" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="554.4" cy="142.5" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="474.1" cy="76.9" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="340.6" cy="149.9" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="445.7" cy="146.8" r="8" fill="none" stroke="#f2b705" stroke-width="1"/><circle cx="354.9" cy="174.9" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="498.0" cy="46.8" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="578.6" cy="145.4" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="519.1" cy="85.6" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="597.1" cy="48.5" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="10.9" cy="199.2" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="586.3" cy="68.6" r="8" fill="none" stroke="#f2b705" stroke-width="1"/><circle cx="448.8" cy="87.3" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="428.5" cy="64.6" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="530.5" cy="47.5" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="447.6" cy="109.7" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="374.2" cy="93.8" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="6.9" cy="132.9" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="401.9" cy="47.0" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="347.5" cy="67.7" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="491.7" cy="73.9" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="424.7" cy="116.6" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="551.9" cy="58.6" r="8" fill="none" stroke="#f2b705" stroke-width="1"/><circle cx="554.2" cy="121.0" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="492.8" cy="203.3" r="8" fill="none" stroke="#f2b705" stroke-width="1"/><circle cx="318.4" cy="75.8" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="582.7" cy="105.8" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="496.8" cy="102.9" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="418.4" cy="138.7" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="377.4" cy="115.1" r="8" fill="none" stroke="#f2b705" stroke-width="1"/><circle cx="372.5" cy="52.5" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="461.7" cy="92.7" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="426.9" cy="215.4" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="9.4" cy="91.8" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="598.5" cy="92.9" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="466.0" cy="61.3" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="374.8" cy="207.2" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="320.8" cy="104.8" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="546.6" cy="109.5" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="570.8" cy="90.3" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="477.6" cy="48.3" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="360.3" cy="84.9" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="398.1" cy="112.8" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="334.1" cy="120.1" r="3" fill="none" stroke="#33452f" stroke-width="1"/></svg>
+<svg class="bubbles" style="left:191px;top:235px" width="609" height="245" viewBox="0 0 609 245"><circle cx="340.9" cy="98.7" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="309.3" cy="96.8" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="311.8" cy="147.3" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="493.1" cy="174.0" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="598.2" cy="194.9" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="374.9" cy="72.4" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="321.8" cy="213.4" r="8" fill="none" stroke="#f2b705" stroke-width="1"/><circle cx="389.9" cy="89.4" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="515.6" cy="106.6" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="554.4" cy="141.5" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="474.1" cy="75.3" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="340.6" cy="149.0" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="445.7" cy="145.9" r="8" fill="none" stroke="#f2b705" stroke-width="1"/><circle cx="354.9" cy="174.2" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="498.0" cy="44.8" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="578.6" cy="144.5" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="519.1" cy="84.1" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="597.1" cy="46.6" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="10.9" cy="198.7" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="586.3" cy="66.9" r="8" fill="none" stroke="#f2b705" stroke-width="1"/><circle cx="448.8" cy="85.8" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="428.5" cy="62.8" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="530.5" cy="45.6" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="447.6" cy="108.4" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="374.2" cy="92.4" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="6.9" cy="131.8" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="401.9" cy="45.1" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="347.5" cy="66.0" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="491.7" cy="72.2" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="424.7" cy="115.4" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="551.9" cy="56.8" r="8" fill="none" stroke="#f2b705" stroke-width="1"/><circle cx="554.2" cy="119.8" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="492.8" cy="202.9" r="8" fill="none" stroke="#f2b705" stroke-width="1"/><circle cx="318.4" cy="74.2" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="582.7" cy="104.5" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="496.8" cy="101.5" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="563.5" cy="76.7" r="8" fill="none" stroke="#f2b705" stroke-width="1"/><circle cx="418.4" cy="137.7" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="377.4" cy="113.8" r="8" fill="none" stroke="#f2b705" stroke-width="1"/><circle cx="372.5" cy="50.6" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="461.7" cy="91.2" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="426.9" cy="215.1" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="9.4" cy="90.3" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="598.5" cy="91.4" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="466.0" cy="59.5" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="374.8" cy="206.9" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="320.8" cy="103.4" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="546.6" cy="108.2" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="477.6" cy="46.4" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="360.3" cy="83.4" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="398.1" cy="111.6" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="334.1" cy="118.9" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="431.9" cy="165.3" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="572.4" cy="43.8" r="3" fill="none" stroke="#33452f" stroke-width="1"/></svg>
 <div class="wall"></div>
 
-<div class="tab" style="left:207px;top:14px;width:190px;height:56px"><div class="t fr">Choose</div></div>
+<div class="tab" style="left:207px;top:14px;width:230px;height:62px"><div class="t fr" style="font-size:30px">Choose</div></div>
 
-<div class="ontap" style="left:207px;top:146px;width:280px">ON TAP</div>
-<div class="pour" style="left:346px;top:196px;height:36px"></div>
+<div class="ontap" style="left:207px;top:132px;width:280px">ON TAP</div>
+<div class="pour" style="left:346px;top:182px;height:50px"></div>
 
 <div class="label card" style="left:504px;top:14px">
-  <div class="face" style="left:10px;top:10px;width:102px;height:190px"><img src="../../assets/flavor_2.png" alt=""></div><div class="wash" style="left:10px;top:10px;width:102px;height:190px"></div>
-  <div class="col st-off" style="top:16px">NOT POURING</div>
-  <div class="col cap" style="top:60px">RATIO</div>
-  <div class="col ratio fr dry" style="top:78px">1:14</div>
-  <div class="col cap" style="top:132px">LEVEL <span style="color:var(--warn)">&middot; LOW</span></div>
-  <div class="col" style="top:152px;height:13px"><div class="seg warn" style="left:0px;top:0"></div><div class="seg" style="left:37px;top:0"></div><div class="seg" style="left:74px;top:0"></div><div class="seg" style="left:111px;top:0"></div></div>
+  <div class="face" style="left:10px;top:10px;width:102px;height:190px"><img src="../../assets/flavor_2.png" alt=""></div><div class="wash" style="left:10px;top:10px;width:102px;height:190px;opacity:.52"></div>
+  <div class="col st-off" style="top:18px">NOT POURING</div>
+  <div class="col cap" style="top:62px">RATIO</div>
+  <div class="col ratio fr dry" style="top:80px">1:14</div>
+  <div class="col cap" style="top:134px">LEVEL <span style="color:var(--warn)">&middot; LOW</span></div>
+  <div class="col" style="top:154px;height:13px"><div class="seg warn" style="left:0px;top:0"></div><div class="seg" style="left:37px;top:0"></div><div class="seg" style="left:74px;top:0"></div><div class="seg" style="left:111px;top:0"></div></div>
 </div>
 <div class="label card" style="left:207px;top:246px">
   <div class="face" style="left:10px;top:10px;width:102px;height:190px"><img src="../../assets/flavor_1.png" alt=""></div>
-  <div class="col fr st-on" style="top:12px">On tap</div>
-  <div class="col cap" style="top:60px">RATIO</div>
-  <div class="col ratio fr" style="top:78px">1:20</div>
-  <div class="col cap" style="top:132px">LEVEL</div>
-  <div class="col" style="top:152px;height:13px"><div class="seg good" style="left:0px;top:0"></div><div class="seg good" style="left:37px;top:0"></div><div class="seg good" style="left:74px;top:0"></div><div class="seg" style="left:111px;top:0"></div></div>
+  <div class="col fr st-on" style="top:14px">On tap</div>
+  <div class="col cap" style="top:62px">RATIO</div>
+  <div class="col ratio fr" style="top:80px">1:20</div>
+  <div class="col cap" style="top:134px">LEVEL</div>
+  <div class="col" style="top:154px;height:13px"><div class="seg good" style="left:0px;top:0"></div><div class="seg good" style="left:37px;top:0"></div><div class="seg good" style="left:74px;top:0"></div><div class="seg" style="left:111px;top:0"></div></div>
 </div>
 <!-- the bubbles that cling to the submerged label's left edge -->
 <svg class="bubbles" style="left:191px;top:246px" width="22" height="215" viewBox="0 0 22 215"><circle cx="8.9" cy="10.8" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="13.2" cy="31.1" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="10.3" cy="44.6" r="5" fill="none" stroke="#f2b705" stroke-width="1"/><circle cx="12.2" cy="59.0" r="3" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="11.6" cy="79.7" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="13.0" cy="93.0" r="3" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="8.8" cy="112.7" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="11.2" cy="127.9" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="10.1" cy="143.0" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="13.3" cy="156.7" r="3" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="10.9" cy="175.3" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="13.1" cy="195.0" r="5" fill="none" stroke="#f2b705" stroke-width="1"/></svg>
 
-<div class="setmark" style="left:712px;top:396px"><svg class="mk thin" width="44" height="44" viewBox="0 0 44 44"><path d="M7 37 V16 L15 8 H37 V37 Z"/><path d="M7 16 H15 V8"/><path d="M13 31 H31"/></svg></div>
+<div class="setmark" style="left:712px;top:396px"><svg class="mk thin" width="44" height="44" viewBox="0 0 44 44"><path d="M7 37 V17 L16 8 H37 V37 Z"/><rect x="11.5" y="23" width="7" height="12" rx="2.5"/><rect x="25.5" y="23" width="7" height="12" rx="2.5"/><circle cx="22" cy="29" r="3.2"/></svg></div>
 
 </body>
 </html>
