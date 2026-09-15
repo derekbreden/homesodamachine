@@ -43,8 +43,8 @@ body {
   color: var(--cobalt);
 }
 .num28 { font-weight: 800; font-size: 28px; line-height: 28px; letter-spacing: 0.01em; }
-.num44 { font-weight: 800; font-size: 44px; line-height: 44px; letter-spacing: 0.01em; }
-.num64 { font-weight: 800; font-size: 64px; line-height: 64px; letter-spacing: 0.01em; }
+.num44 { text-transform: uppercase; font-weight: 800; font-size: 44px; line-height: 44px; letter-spacing: 0.01em; }
+.num64 { text-transform: uppercase; font-weight: 800; font-size: 64px; line-height: 64px; letter-spacing: 0.01em; }
 
 .t-dim  { color: var(--dim); }
 .t-blue { color: var(--cobalt); }
@@ -102,7 +102,7 @@ body {
 .face { display: block; object-fit: cover; background: var(--recess); }
 .k-cobalt { outline: 4px solid var(--cobalt); }
 .k-cream  { outline: 4px solid var(--cream); }
-.k-thin   { outline: 2px solid var(--cobalt); }
+.k-thin   { outline: 2px solid var(--dim); }
 
 /* ══ CHOOSE ═════════════════════════════════════════════════════════════ */
 .fcard { position: absolute; top: 92px; width: 281px; height: 292px; box-sizing: border-box; border-radius: 6px; }
@@ -121,7 +121,7 @@ body {
 .g-full-cream { background: var(--cream); }
 .g-void-cream { box-shadow: inset 0 0 0 2px var(--dim-on-blue); }
 .g-full-warn  { background: var(--warn); }
-.g-void-ink   { background: var(--recess); }
+.g-void-ink   { box-shadow: inset 0 0 0 2px var(--dim); }
 
 .door { position: absolute; top: 396px; width: 281px; height: 60px; display: flex; align-items: center; justify-content: center; gap: 12px; }
 .door.a { left: 206px; }
@@ -129,19 +129,23 @@ body {
 
 /* ══ A FLAVOR'S OWN PAGE ════════════════════════════════════════════════ */
 .anchor  { position: absolute; left: 206px; top: 136px; }
-.ratio   { position: absolute; left: 396px; top: 120px; width: 388px; height: 108px; }
-.step    { position: absolute; top: 136px; width: 76px; height: 76px; border-radius: 6px; background: var(--cobalt); color: var(--cream); display: grid; place-items: center; }
+.ratio   { position: absolute; left: 396px; top: 118px; width: 388px; height: 108px;
+           background: var(--recess); box-shadow: inset 0 0 0 2px var(--cobalt); }
+.step    { position: absolute; top: 134px; width: 76px; height: 76px; border-radius: 6px;
+           box-sizing: border-box; background: var(--chip); box-shadow: inset 0 0 0 2px var(--cobalt);
+           color: var(--cobalt); display: grid; place-items: center; }
 .step.minus { left: 412px; }
 .step.plus  { left: 692px; }
-.step.pressed { background: var(--chip); color: var(--cobalt); box-shadow: inset 0 0 0 3px var(--cobalt); }
-.ratioval { position: absolute; left: 396px; top: 152px; width: 388px; text-align: center; color: var(--cobalt); }
+.step.pressed { background: var(--cobalt); color: var(--cream); }
+.ratioval { position: absolute; left: 396px; top: 150px; width: 388px; text-align: center; color: var(--cobalt); }
 
-.arrow { position: absolute; top: 280px; width: 48px; height: 168px; display: grid; place-items: center; }
+.arrow { position: absolute; top: 268px; width: 48px; height: 176px; border-radius: 6px;
+          background: var(--recess); color: var(--cobalt); display: grid; place-items: center; }
 .arrow.l { left: 396px; }
 .arrow.r { left: 736px; }
-.stripwin { position: absolute; left: 452px; top: 280px; width: 276px; height: 168px; overflow: hidden; }
-.strip { position: absolute; left: -125px; top: 0; display: flex; gap: 4px; }
-.cell  { flex: 0 0 auto; width: 102px; height: 168px; display: grid; place-items: center; border-radius: 6px; }
+.stripwin { position: absolute; left: 452px; top: 268px; width: 276px; height: 176px; overflow: hidden; }
+.strip { position: absolute; left: -140px; top: 0; display: flex; gap: 4px; }
+.cell  { flex: 0 0 auto; width: 108px; height: 176px; display: grid; place-items: center; border-radius: 6px; }
 .cell.on { background: var(--cobalt); }
 .track { position: absolute; left: 396px; top: 448px; width: 388px; height: 8px; background: var(--recess); border-radius: 4px; }
 .track b { position: absolute; left: 44px; top: 0; width: 170px; height: 8px; background: var(--cobalt); border-radius: 4px; }
@@ -149,12 +153,12 @@ body {
 /* ══ PICK ═══════════════════════════════════════════════════════════════ */
 /* The card is the face's own shape: a cobalt header band carrying the mark
    for what is about to happen, and the face edge to edge under it. */
-.pick { position: absolute; top: 92px; width: 167px; height: 364px; box-sizing: border-box;
+.pick { position: absolute; top: 92px; width: 176px; height: 364px; box-sizing: border-box;
         border: 3px solid var(--cobalt); border-radius: 6px; background: var(--chip); overflow: hidden; }
-.pick.one { left: 288px; }
+.pick.one { left: 279px; }
 .pick.two { left: 535px; }
-.pick .hdr { height: 72px; background: var(--cobalt); color: var(--cream); display: grid; place-items: center; }
-.pick .body { height: 286px; display: grid; place-items: center; }
+.pick .hdr { height: 56px; background: var(--cobalt); color: var(--cream); display: grid; place-items: center; }
+.pick .body { height: 302px; display: grid; place-items: center; }
 .pick.pressed { background: var(--cobalt); }
 .pick.pressed .hdr { background: var(--chip); color: var(--cobalt); }
 
@@ -162,18 +166,21 @@ body {
 .lock { position: absolute; inset: 0; background: var(--cobalt); }
 .hazard { position: absolute; left: 0; width: 800px; height: 14px;
   background: repeating-linear-gradient(45deg, var(--cream) 0 9px, var(--cobalt) 9px 18px); }
+.hazard.v { top: 0; width: 14px; height: 480px; }
 .bar   { position: absolute; left: 252px; top: 272px; width: 508px; height: 18px; background: var(--cream); border-radius: 3px; overflow: hidden; }
 .bar u { position: absolute; left: 0; top: 0; width: 203px; height: 18px; background: var(--red); display: block; }
 .bar s { position: absolute; top: 0; width: 3px; height: 18px; background: var(--cobalt); display: block; }
 .stop  { position: absolute; left: 500px; top: 336px; width: 260px; height: 104px; border-radius: 6px;
          background: var(--cream); color: var(--cobalt); display: grid; place-items: center; }
-.stop.pressed { background: var(--red); color: var(--cream); box-shadow: none; }
+.stop.pressed { background: var(--cream); color: var(--red); box-shadow: inset 0 0 0 10px var(--red); }
 .stop span { font-weight: 800; font-size: 40px; letter-spacing: 0.10em; }
 
 /* ══ SETTINGS ═══════════════════════════════════════════════════════════ */
 .status { position: absolute; left: 206px; top: 92px; width: 390px; height: 364px; }
 .areas  { position: absolute; left: 612px; top: 92px; width: 172px; }
-.area   { position: absolute; left: 612px; top: 120px; width: 172px; height: 96px;
-          display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; }
+.area   { position: absolute; left: 612px; top: 120px; width: 172px; height: 120px; border-radius: 6px;
+          display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+          text-align: center; }
+.area .legend { line-height: 24px; }
 .legrow { position: absolute; left: 222px; top: 420px; width: 358px; height: 20px; display: flex; gap: 22px; align-items: center; }
 .legrow span { display: flex; gap: 8px; align-items: center; }

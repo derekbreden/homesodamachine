@@ -17,8 +17,8 @@
   --warn:    #e0913a;
   --stop:    #8c3b2e;
 
-  --bevel:  inset 1px 1px 0 rgba(0,0,0,.35), inset -1px -1px 0 rgba(210,162,76,.22);
-  --bevelin: inset 1px 1px 0 rgba(210,162,76,.22), inset -1px -1px 0 rgba(0,0,0,.45);
+  --bevel:  inset 1px 1px 0 rgba(0,0,0,.55), inset -1px -1px 0 rgba(210,162,76,.30);
+  --bevelin: inset 1px 1px 0 rgba(210,162,76,.30), inset -1px -1px 0 rgba(0,0,0,.60);
 }
 
 html, body { margin: 0; width: 800px; height: 480px; overflow: hidden; }
@@ -83,7 +83,7 @@ body {
 .badge > i { display: block; border: 1px solid var(--cream); overflow: hidden; font-size: 0; }
 .badge img { display: block; object-fit: cover; }
 .badge.dull { background: var(--bronze); }
-.badge.dull > i { border-color: rgba(244,236,224,.45); }
+.badge.dull > i { border-color: rgba(244,236,224,.28); }
 .badge.dull img { filter: saturate(.5) brightness(.66); }
 
 .b-l img { width: 172px; height: 320px; }   /* frame 190 x 338 */
@@ -125,3 +125,7 @@ body {
 
 /* ---------- engraved strip ---------- */
 .engrave { position: absolute; background: var(--brass); color: var(--bg); display: flex; align-items: center; justify-content: center; box-shadow: inset 1px 1px 0 rgba(0,0,0,.30), inset -1px -1px 0 rgba(255,255,255,.28); }
+
+/* ---------- selection: the tap is pulled ---------- */
+.badge.pull { box-shadow: 0 0 0 3px var(--bg), 0 0 0 7px var(--brass); }
+.badge.park { box-shadow: 0 0 0 1px rgba(125,90,52,.85); }

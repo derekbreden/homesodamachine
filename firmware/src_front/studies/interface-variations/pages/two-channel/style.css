@@ -9,7 +9,7 @@
   --surface:#111614;
   --well:#1a211e;
   --rail:#0d1110;
-  --grid:#1e2825;
+  --grid:#232e2a;
   --axis:#35453e;
   --text:#d8e4de;
   --dim:#6e837a;
@@ -45,13 +45,14 @@ body{
 
 /* ---------- top band ---------- */
 .corner{
-  position:absolute;left:3px;top:0;width:56px;height:56px;
+  position:absolute;left:0;top:0;width:56px;height:56px;
   border:1px solid var(--axis);background:var(--bg);color:var(--text);
   display:flex;align-items:center;justify-content:center;
 }
 .pagename{
   position:absolute;left:76px;top:0;height:56px;display:flex;align-items:center;
-  font-weight:600;font-size:20px;letter-spacing:.14em;color:var(--text);
+  font-weight:600;font-size:20px;letter-spacing:.16em;color:var(--text);
+  text-transform:uppercase;
 }
 .badge{
   position:absolute;top:0;height:56px;display:flex;align-items:center;gap:10px;
@@ -60,7 +61,7 @@ body{
 .badge .chip{width:14px;height:14px;display:block}
 .badge.chA{color:var(--a)} .badge.chA .chip{background:var(--a)}
 .badge.ok{color:var(--good);font-family:'Archivo Narrow',sans-serif;font-weight:600;
-  font-size:20px;letter-spacing:.14em}
+  font-size:20px;letter-spacing:.16em;text-transform:uppercase}
 .badge.ok .chip{background:var(--good)}
 
 /* ---------- drawn marks ---------- */
@@ -76,11 +77,11 @@ body{
 
 /* ---------- a channel block ---------- */
 .block{position:absolute;top:56px;width:305px;height:392px}
-.rule{position:absolute;left:0;top:0;width:3px;height:392px;background:var(--well)}
+.rule{position:absolute;left:0;top:0;width:3px;height:392px;background:var(--well);z-index:5}
 .block.chA.on .rule{background:var(--a)}
 .block.chB.on .rule{background:var(--b)}
 .block .inner{position:absolute;inset:0}
-.block.off .inner{opacity:.35}
+.block.off .inner{opacity:.4}
 .sq{position:absolute;width:44px;height:44px}
 .chA .sq{background:var(--a)} .chB .sq{background:var(--b)}
 
@@ -122,7 +123,7 @@ body{
 .sk svg{display:block}
 .sk.hot{background:var(--well);color:var(--text)}
 .sk.hot::before{content:'';position:absolute;left:0;top:0;width:4px;height:100%;background:var(--text)}
-.sk.dead{background:var(--well)}
+.sk.dead{background:#0f1412;color:#44544d}
 .sk.stop{background:var(--warn)}
 .sk.stop{color:var(--bg)}
 .sk.stop .t{font-size:30px;font-weight:700;letter-spacing:.2em}
@@ -135,8 +136,8 @@ body{
 .zdiv{position:absolute;width:2px;height:100%;background:var(--bg)}
 .zlab{position:absolute;font-weight:600;font-size:18px;letter-spacing:.16em;text-transform:uppercase}
 .cursor{position:absolute;width:2px;background:var(--text)}
-.flagbox{position:absolute;border-left:3px solid var(--a);padding-left:14px}
-.flagbox .n{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:44px;
+.flagbox{position:absolute;border-left:4px solid var(--a);padding-left:16px}
+.flagbox .n{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:48px;
   color:var(--a);line-height:1;font-variant-numeric:tabular-nums}
 .ticklab{position:absolute;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--dim);
   transform:translateX(-50%);font-variant-numeric:tabular-nums}
@@ -151,4 +152,4 @@ body{
   display:flex;align-items:center;justify-content:center;z-index:3}
 .plate.chA{border-color:var(--a);color:var(--a)}
 .plate.chB{border-color:var(--b);color:var(--b)}
-.block.pressblock{background:var(--well);box-shadow:inset 0 0 0 3px var(--text)}
+.block.pressblock{background:#151c19;outline:2px solid var(--text);outline-offset:-10px}
