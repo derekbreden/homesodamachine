@@ -1,0 +1,102 @@
+/* Flap Board — the panel is the mechanical board this machine posts its own
+   state on. 25 columns x 8 rows of 32x60 cells; one glyph per cell; the flap
+   seam crosses every cell's midline and cuts the characters.
+
+   Five chip colours and no others:
+     orange  what is on          brass   the value under attention
+     green   what is present     yellow  what wants attention
+     ivory   the one way out                                                  */
+
+html, body { margin: 0; width: 800px; height: 480px; overflow: hidden; }
+
+:root {
+  --board:  #100f0d;   /* the matte behind the flaps */
+  --cell:   #1c1b17;   /* a flap's resting face */
+  --slot:   #0a0908;   /* an empty socket, a channel with nothing in it */
+  --key:    #332f28;   /* a cell you can press */
+  --recess: #0d0c0b;   /* a plate let into the board */
+  --gone:   #080707;   /* a flap caught mid-turn */
+  --edge:   #8e8879;   /* the lit edge of a turning flap */
+  --ink:    #efe7d6;
+  --dim:    #8a8376;
+  --orange: #e2521f;
+  --brass:  #c8a44c;
+  --green:  #4c9f5a;
+  --yellow: #e0a92b;
+}
+
+body {
+  background: var(--board);
+  font-family: 'DM Mono', ui-monospace, monospace;
+  font-weight: 500;
+  -webkit-font-smoothing: antialiased;
+}
+
+.board { position: relative; width: 800px; height: 480px; overflow: hidden; }
+.b, .face, .t, .mk, .plate, .flap, .flapedge { position: absolute; }
+
+/* ── cell grounds ── */
+.ground     { background: var(--cell); }
+.railground { background: #141310; }
+.slot       { background: var(--slot); }
+.key        { background: var(--key); }
+.recess     { background: var(--recess); }
+.pressed    { background: var(--gone); }
+.orange     { background: var(--orange); }
+.brass      { background: var(--brass); }
+.green      { background: var(--green); }
+.yellow     { background: var(--yellow); }
+.white      { background: var(--ink); }
+
+/* ── the face is behind the flaps, never square-cropped ── */
+.face { object-fit: cover; display: block; }
+.face.off { filter: brightness(0.46) saturate(0.4); }
+
+/* ── characters, one per cell ── */
+.t { display: flex; align-items: center; white-space: pre;
+     text-transform: uppercase; box-sizing: border-box; }
+.t40 { font-size: 40px; letter-spacing: 8px; }
+.t20 { font-size: 20px; letter-spacing: 20px; }
+.ink  { color: var(--ink); }
+.dim  { color: var(--dim); }
+.dark { color: var(--board); }
+
+/* ── drawn marks: orthogonal and 45 degrees, square terminals, one family ── */
+.mk { display: flex; align-items: center; justify-content: center; }
+.plate { display: block; }
+
+/* ── the press: the flap turns. Its face swings out of the light, the top of
+      the character goes into shadow, and the flap's lit edge shows at the
+      seam. Nothing else in the palette moves in this dimension, so a press is
+      never mistaken for a state. ── */
+.flap {
+  background-image:
+    repeating-linear-gradient(to bottom,
+      transparent 0, transparent 28px,
+      rgba(239,231,214,0.22) 28px, rgba(239,231,214,0.22) 29px,
+      transparent 29px, transparent 60px),
+    repeating-linear-gradient(to bottom,
+      rgba(4,4,3,0.78) 0, rgba(4,4,3,0.78) 28px,
+      transparent 28px, transparent 60px);
+}
+.flapedge { background: var(--edge); }
+
+/* ── the board itself: 1 px gutters, the flap seam on every midline, the upper
+      half one step lighter. Drawn over everything, faces included, so a
+      photograph never breaks the board. ── */
+.grid {
+  position: absolute; inset: 0; z-index: 5; pointer-events: none;
+  background-image:
+    repeating-linear-gradient(to right,
+      rgba(0,0,0,0.86) 0, rgba(0,0,0,0.86) 1px, transparent 1px, transparent 32px),
+    repeating-linear-gradient(to bottom,
+      rgba(0,0,0,0.86) 0, rgba(0,0,0,0.86) 1px, transparent 1px, transparent 60px),
+    repeating-linear-gradient(to bottom,
+      transparent 0, transparent 29px,
+      rgba(0,0,0,0.42) 29px, rgba(0,0,0,0.42) 30px,
+      rgba(239,231,214,0.20) 30px, rgba(239,231,214,0.20) 31px,
+      transparent 31px, transparent 60px),
+    repeating-linear-gradient(to bottom,
+      rgba(255,255,255,0.062) 0, rgba(255,255,255,0.062) 29px,
+      transparent 29px, transparent 60px);
+}

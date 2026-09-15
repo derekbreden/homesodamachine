@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Inside The Glass — Settings</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@72,700,50&family=Figtree:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+
+  /* Settings. The machine in section, its three vessels holding liquid at the level its
+     reeds read; a closed reed is a solid bar, an open one is hollow, and the key says so
+     under the verdict. Settings is not a customer destination: it is reached from the mark
+     in the corner of Choose, and it carries no rail.
+     Pressed element: PUMP SERVICE (gold). */
+  .backl { position: absolute; left: 8px; top: 14px; width: 174px; height: 64px;
+           background: var(--cream); border-radius: 6px;
+           display: flex; align-items: center; }
+  .backl svg { stroke: var(--liq); margin-left: 10px; }
+  .backl .w { font-weight: 700; font-size: 20px; letter-spacing: .1em;
+              color: var(--liq); margin-left: 4px; }
+  .area  { position: absolute; left: 8px; width: 174px; height: 118px;
+           background: var(--cream); border-radius: 6px; color: var(--liq); }
+  .area svg { stroke: var(--liq); position: absolute; left: 14px; top: 14px; }
+  .area .w { position: absolute; left: 14px; right: 12px; bottom: 13px;
+             font-weight: 700; font-size: 19px; line-height: 1.15; color: var(--liq); }
+  .area.pressed { color: var(--ink); }
+  .area.pressed svg { stroke: var(--ink); }
+  .area.pressed .w { color: var(--ink); }
+  .verd  { position: absolute; width: 52px; height: 52px; border-radius: 50%;
+           background: var(--good); display: flex; align-items: center;
+           justify-content: center; }
+  .verd svg { stroke: var(--cream); }
+  .vt    { position: absolute; font-size: 30px; line-height: 1; color: var(--ink); }
+  .key   { position: absolute; display: flex; align-items: center; }
+  .key .sw { width: 38px; height: 14px; border-radius: 7px; margin-right: 12px; }
+  .key .sw.shut { background: var(--ink); }
+  .key .sw.open { background: var(--cream); box-shadow: inset 0 0 0 3px var(--rule2); }
+  .key .k { font-weight: 700; font-size: 15px; letter-spacing: .13em; color: var(--dim); }
+
+</style>
+</head>
+<body>
+<div class="liquid" style="left:0;top:0;width:189px;height:480px"></div>
+<svg class="bubbles" style="left:0px;top:0px" width="189" height="480" viewBox="0 0 189 480"><circle cx="94.9" cy="218.0" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="47.0" cy="425.3" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="76.3" cy="454.5" r="8" fill="none" stroke="#f2b705" stroke-width="1"/><circle cx="103.0" cy="399.1" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="69.8" cy="353.3" r="8" fill="none" stroke="#f2b705" stroke-width="1"/><circle cx="180.1" cy="287.9" r="8" fill="none" stroke="#f2b705" stroke-width="1"/><circle cx="51.7" cy="66.8" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="37.4" cy="423.4" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="145.1" cy="273.2" r="8" fill="none" stroke="#f2b705" stroke-width="1"/><circle cx="40.2" cy="408.2" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="154.2" cy="301.1" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="180.6" cy="449.1" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="151.0" cy="426.7" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="180.6" cy="181.7" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="82.9" cy="49.1" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="176.0" cy="196.1" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="103.3" cy="448.4" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="85.7" cy="269.5" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="121.3" cy="408.5" r="8" fill="none" stroke="#f2b705" stroke-width="1"/><circle cx="145.1" cy="427.8" r="8" fill="none" stroke="#f2b705" stroke-width="1"/><circle cx="120.0" cy="456.0" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="150.1" cy="332.1" r="8" fill="none" stroke="#f2b705" stroke-width="1"/><circle cx="154.5" cy="428.0" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="21.4" cy="294.4" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="105.2" cy="351.3" r="8" fill="none" stroke="#f2b705" stroke-width="1"/><circle cx="135.0" cy="208.6" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="179.2" cy="202.5" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="100.8" cy="311.0" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="103.6" cy="469.3" r="8" fill="none" stroke="#f2b705" stroke-width="1"/><circle cx="91.2" cy="242.0" r="3" fill="none" stroke="#33452f" stroke-width="1"/></svg>
+<div class="liquid" style="left:191px;top:103px;width:609px;height:377px"></div>
+<div class="meniscus" style="left:191px;top:100px;width:609px"></div>
+<svg class="bubbles" style="left:191px;top:103px" width="609" height="377" viewBox="0 0 609 377"><circle cx="38.6" cy="367.0" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="568.2" cy="262.0" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="101.0" cy="356.0" r="8" fill="none" stroke="#f2b705" stroke-width="1"/><circle cx="115.3" cy="243.5" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="26.4" cy="296.9" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="47.4" cy="67.8" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="169.8" cy="187.7" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="517.9" cy="244.3" r="8" fill="none" stroke="#f2b705" stroke-width="1"/><circle cx="571.8" cy="351.4" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="532.3" cy="305.8" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="316.7" cy="153.3" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="61.3" cy="168.8" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="491.0" cy="311.5" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="23.0" cy="247.2" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="322.2" cy="302.2" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="79.6" cy="165.5" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="363.8" cy="147.1" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="262.3" cy="279.4" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="472.0" cy="321.4" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="515.3" cy="363.6" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="574.3" cy="254.1" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="416.1" cy="190.6" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="543.1" cy="323.2" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="51.4" cy="305.8" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="438.3" cy="155.0" r="8" fill="none" stroke="#f2b705" stroke-width="1"/><circle cx="47.8" cy="232.0" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="99.1" cy="270.2" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="304.6" cy="292.1" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="279.6" cy="156.9" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="479.7" cy="277.6" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="599.5" cy="309.6" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="156.7" cy="179.7" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="469.2" cy="122.8" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="535.6" cy="323.8" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/></svg>
+<div class="wall"></div>
+
+<div class="backl"><svg class="mk " width="34" height="34" viewBox="0 0 44 44"><path d="M27 9 L14 22 L27 35"/></svg><div class="w">BACK</div></div>
+<div class="area pressed" style="top:96px"><svg class="mk " width="44" height="44" viewBox="0 0 44 44"><path d="M3 22 H8.5"/><path d="M35.5 22 H41"/><circle cx="22" cy="22" r="13.5"/><circle cx="22" cy="16.5" r="3"/><circle cx="17" cy="25.5" r="3"/><circle cx="27" cy="25.5" r="3"/></svg><div class="w">PUMP<br>SERVICE</div></div>
+
+<div class="tab" style="left:207px;top:8px;width:220px;height:64px"><div class="t fr">Settings</div></div>
+
+<div class="label" style="left:207px;top:116px;width:577px;height:332px">
+  <div class="cap" style="left:24px;top:22px">SYSTEM STATUS</div>
+  <svg style="position:absolute;left:24px;top:58px" width="306" height="239" viewBox="0 0 462 361"><defs><clipPath id="pkA"><rect x="183" y="141.6" width="53" height="211.4" rx="7"/></clipPath><clipPath id="pkB"><rect x="393" y="141.6" width="53" height="211.4" rx="7"/></clipPath><clipPath id="tub"><rect x="251" y="170.6" width="127" height="152.4" rx="13"/></clipPath></defs><path d="M0 361.0 L0 61.9 L61.87 0.0 L462 0.0 L462 361.0 Z" fill="#e7dfcf"/><rect x="173" y="101.6" width="283" height="253.4" rx="6" fill="#d8cfbb"/><rect x="251" y="170.6" width="127" height="152.4" rx="13" fill="#f6f1e7"/><rect x="183" y="141.6" width="53" height="211.4" rx="7" fill="#f6f1e7"/><rect x="393" y="141.6" width="53" height="211.4" rx="7" fill="#f6f1e7"/><g clip-path="url(#pkA)"><rect x="183" y="258.5" width="53" height="94.5" fill="var(--liq-a)"/><rect x="183" y="256.9" width="53" height="3.2" fill="#f6f1e7"/></g><g clip-path="url(#pkB)"><rect x="393" y="258.5" width="53" height="94.5" fill="var(--liq-b)"/><rect x="393" y="256.9" width="53" height="3.2" fill="#f6f1e7"/></g><g clip-path="url(#tub)"><rect x="251" y="261.9" width="127" height="61.1" fill="#1b2a24"/><rect x="251" y="260.3" width="127" height="3.2" fill="#f6f1e7"/></g><rect x="251" y="170.6" width="127" height="152.4" rx="13" fill="none" stroke="#10120f" stroke-width="3"/><rect x="183" y="141.6" width="53" height="211.4" rx="7" fill="none" stroke="#10120f" stroke-width="3"/><rect x="393" y="141.6" width="53" height="211.4" rx="7" fill="none" stroke="#10120f" stroke-width="3"/><rect x="173" y="101.6" width="283" height="253.4" rx="6" fill="none" stroke="#9c9484" stroke-width="2.6"/><path d="M0 361.0 L0 61.9 L61.87 0.0 L462 0.0 L462 361.0 Z" fill="none" stroke="#10120f" stroke-width="5" stroke-linejoin="round"/><rect x="161.0" y="296.5" width="38.0" height="14.0" rx="7" fill="#10120f"/><rect x="161.0" y="251.5" width="38.0" height="14.0" rx="7" fill="#10120f"/><rect x="162.6" y="208.1" width="34.8" height="10.8" rx="5.4" fill="#f6f1e7" stroke="#9c9484" stroke-width="3.2"/><rect x="162.6" y="163.1" width="34.8" height="10.8" rx="5.4" fill="#f6f1e7" stroke="#9c9484" stroke-width="3.2"/><rect x="424.0" y="296.5" width="38.0" height="14.0" rx="7" fill="#10120f"/><rect x="424.0" y="251.5" width="38.0" height="14.0" rx="7" fill="#10120f"/><rect x="425.6" y="208.1" width="34.8" height="10.8" rx="5.4" fill="#f6f1e7" stroke="#9c9484" stroke-width="3.2"/><rect x="425.6" y="163.1" width="34.8" height="10.8" rx="5.4" fill="#f6f1e7" stroke="#9c9484" stroke-width="3.2"/><rect x="360.2" y="254.9" width="38.0" height="14.0" rx="7" fill="#10120f"/><rect x="361.9" y="228.3" width="34.8" height="10.8" rx="5.4" fill="#f6f1e7" stroke="#9c9484" stroke-width="3.2"/></svg>
+  <div class="verd" style="left:354px;top:58px"><svg class="mk " width="34" height="34" viewBox="0 0 44 44"><path d="M10 23 L18.5 32 L34 12"/></svg></div>
+  <div class="vt fr" style="left:354px;top:128px">All good</div>
+  <div class="body" style="left:354px;top:172px;width:199px">Every reed answers. These are the levels they read.</div>
+  <div class="key" style="left:354px;top:268px"><div class="sw shut"></div><div class="k">CLOSED</div></div>
+  <div class="key" style="left:354px;top:302px"><div class="sw open"></div><div class="k">OPEN</div></div>
+</div>
+</body>
+</html>

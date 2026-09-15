@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Strength &amp; Face — Flavor Flood</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="screen">
+
+  <!-- ══ The drink this page is about, said in the picture ══ -->
+  <div class="field a" style="left:0;top:0;width:280px;height:384px">
+    <div class="face" style="left:0;top:64px;width:172px;height:320px">
+      <img src="../../assets/flavor_1.png" alt="">
+    </div>
+  </div>
+
+  <div class="stage">
+
+    <div class="label dim" style="position:absolute;left:304px;top:26px">Strength &amp; face</div>
+
+    <!-- The one loud object on this screen -->
+    <div class="loud loud-72" style="position:absolute;left:304px;top:52px">1:20</div>
+    <div class="label dim" style="position:absolute;left:304px;top:140px">1:10 &nbsp;to&nbsp; 1:30</div>
+
+    <div class="btn key" style="left:588px;top:44px;width:88px;height:88px">
+      <svg class="mark" width="40" height="40" viewBox="0 0 48 48" stroke-width="5">
+        <path d="M9 24 H39"/>
+      </svg>
+    </div>
+    <!-- PRESSED on this screen: the + is inked, its glyph reversed -->
+    <div class="btn inked" style="left:688px;top:44px;width:88px;height:88px">
+      <svg class="mark" width="40" height="40" viewBox="0 0 48 48" stroke-width="5">
+        <path d="M9 24 H39"/><path d="M24 9 V39"/>
+      </svg>
+    </div>
+
+    <div style="position:absolute;left:304px;top:172px;width:472px;height:3px;background:var(--ink)"></div>
+
+    <div class="label dim" style="position:absolute;left:304px;top:188px">Face</div>
+
+    <!-- Where you are in the row: eight marks, the third one inked -->
+    <div style="position:absolute;left:629px;top:190px;display:flex;gap:5px">
+      <div style="width:14px;height:14px;box-shadow:inset 0 0 0 3px var(--ink)"></div>
+      <div style="width:14px;height:14px;box-shadow:inset 0 0 0 3px var(--ink)"></div>
+      <div style="width:14px;height:14px;background:var(--ink)"></div>
+      <div style="width:14px;height:14px;box-shadow:inset 0 0 0 3px var(--ink)"></div>
+      <div style="width:14px;height:14px;box-shadow:inset 0 0 0 3px var(--ink)"></div>
+      <div style="width:14px;height:14px;box-shadow:inset 0 0 0 3px var(--ink)"></div>
+      <div style="width:14px;height:14px;box-shadow:inset 0 0 0 3px var(--ink)"></div>
+      <div style="width:14px;height:14px;box-shadow:inset 0 0 0 3px var(--ink)"></div>
+    </div>
+
+    <!-- The row is wider than its window, and the two slabs that move it
+         are as tall as the thing they move. -->
+    <div class="btn key" style="left:304px;top:218px;width:64px;height:160px">
+      <svg class="mark" width="40" height="40" viewBox="0 0 48 48" stroke-width="6">
+        <path d="M31 6 L13 24 L31 42"/>
+      </svg>
+    </div>
+    <div class="btn key" style="left:712px;top:218px;width:64px;height:160px">
+      <svg class="mark" width="40" height="40" viewBox="0 0 48 48" stroke-width="6">
+        <path d="M17 6 L35 24 L17 42"/>
+      </svg>
+    </div>
+
+    <!-- The window on the row. Both ends are cut, because the row is longer
+         than the window and has been dragged. -->
+    <div style="position:absolute;left:380px;top:212px;width:320px;height:172px;overflow:hidden">
+      <!-- the chosen one stands on a band of its own colour, which is the
+           one thing in the strip that reaches the bottom edge -->
+      <div class="field a" style="left:172px;top:0;width:110px;height:172px"></div>
+
+      <div class="face keyed" style="left:-12px;top:6px;width:86px;height:160px">
+        <img src="../../assets/flavor_3.png" alt=""></div>
+      <div class="face keyed" style="left:86px;top:6px;width:86px;height:160px">
+        <img src="../../assets/flavor_4.png" alt=""></div>
+      <div class="face" style="left:184px;top:6px;width:86px;height:160px">
+        <img src="../../assets/flavor_1.png" alt=""></div>
+      <div class="face keyed" style="left:282px;top:6px;width:86px;height:160px">
+        <img src="../../assets/flavor_2.png" alt=""></div>
+    </div>
+
+  </div>
+
+  <div class="bar">
+    <div class="dest on">
+      <svg class="mark" width="40" height="40" viewBox="0 0 48 48" stroke-width="5">
+        <path d="M31 6 L13 24 L31 42"/>
+      </svg>
+      <span class="label">Choose</span>
+    </div>
+    <div class="dest">
+      <svg class="mark" width="40" height="40" viewBox="0 0 48 48">
+        <path class="solid" d="M24 4 L35 21 A13 13 0 1 1 13 21 Z"/>
+        <path d="M6 45 H42"/>
+      </svg>
+      <span class="label">Prime</span>
+    </div>
+    <div class="dest">
+      <svg class="mark" width="40" height="40" viewBox="0 0 48 48">
+        <path d="M5 7 H43 L28 27 V43 H20 V27 Z"/>
+      </svg>
+      <span class="label">Fill</span>
+    </div>
+    <div class="dest">
+      <svg class="mark" width="40" height="40" viewBox="0 0 48 48">
+        <path d="M24 3 V13"/>
+        <path d="M9 17 H39 V44 H9 Z"/>
+        <path d="M12 32 q7 -8 14 0 t13 -1"/>
+      </svg>
+      <span class="label">Clean</span>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

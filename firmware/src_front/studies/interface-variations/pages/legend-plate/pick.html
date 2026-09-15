@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Fill a flavor — Legend Plate</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="screen">
+
+  <!-- ── header band: printed name, west BACK, SYSTEM ── -->
+  <!-- BACK is the element drawn pressed on this screen -->
+  <div class="comp back pressed">
+    <span class="mk"><svg width="26" height="26" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 14H6"/><path d="M13 7l-7 7 7 7"/></svg></span>
+    <span class="cond">BACK</span>
+  </div>
+  <div class="legend pagename">FILL A FLAVOR</div>
+  <div class="comp sysbtn"><span class="lamp off"></span><span class="mk"><svg width="30" height="30" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 24V10.5L10.5 4H24v20z"/></svg></span></div>
+  <div class="cond syslabel">SYSTEM</div>
+  <div class="rule hdrrule"></div>
+
+  <!-- ── rail: four moulded compartments. one lamp lit, no fills ── -->
+  <div class="comp rail-item r0">
+    <span class="lamp off"></span>
+    <span class="mk"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="8" height="20" rx="2" fill="currentColor" stroke="none"/><rect x="17" y="5" width="7" height="18" rx="2"/></svg></span>
+    <span class="cond">CHOOSE</span>
+  </div>
+  <div class="comp rail-item r1">
+    <span class="lamp off"></span>
+    <span class="mk"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3.5c0 0-7.5 8.6-7.5 13.3a7.5 7.5 0 0 0 15 0C21.5 12.1 14 3.5 14 3.5z"/></svg></span>
+    <span class="cond">PRIME</span>
+  </div>
+  <div class="comp rail-item r2 on">
+    <span class="lamp on sm"></span>
+    <span class="mk"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 5.5h21l-8 9.5v9l-5-3v-6z"/></svg></span>
+    <span class="cond">FILL</span>
+  </div>
+  <div class="comp rail-item r3">
+    <span class="lamp off"></span>
+    <span class="mk"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24.2 15.6A10.5 10.5 0 1 1 20.4 6.2"/><path d="M14.6 4.6l6.4 1.3-1.3 6.4"/><path d="M14 11.5c0 0-4 4.6-4 7.1a4 4 0 0 0 8 0c0-2.5-4-7.1-4-7.1z"/></svg></span>
+    <span class="cond">CLEAN</span>
+  </div>
+
+  <!-- ── two channels, the funnel over each face. Neither is chosen yet ── -->
+  <div class="win pk-win pkA">
+    <div class="facebox"><img class="face" src="../../assets/flavor_1.png" alt=""></div>
+    <div class="pk-badge"><svg width="52" height="52" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 5.5h21l-8 9.5v9l-5-3v-6z"/></svg></div>
+    <div class="strip"><svg width="22" height="22" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 5.5h21l-8 9.5v9l-5-3v-6z"/></svg>1:20</div>
+  </div>
+  <div class="pk-col pcolA">
+    <div class="rule pk-r1"></div>
+    <div class="legend lab">LEVEL</div>
+    <div class="cell unlit c0"></div>
+    <div class="cell lit c1"></div>
+    <div class="cell lit c2"></div>
+    <div class="cell lit c3"></div>
+    <div class="rule pk-r2"></div>
+    <div class="count pk-count"><span class="n">3</span><span class="of">OF</span><span class="n">4</span></div>
+  </div>
+  <div class="win pk-win pkB">
+    <div class="facebox"><img class="face" src="../../assets/flavor_2.png" alt=""></div>
+    <div class="pk-badge"><svg width="52" height="52" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 5.5h21l-8 9.5v9l-5-3v-6z"/></svg></div>
+    <div class="strip"><svg width="22" height="22" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 5.5h21l-8 9.5v9l-5-3v-6z"/></svg>1:14</div>
+  </div>
+  <div class="pk-col pcolB">
+    <div class="rule pk-r1"></div>
+    <div class="legend lab">LEVEL</div>
+    <div class="chip">LOW</div>
+    <div class="cell unlit c0"></div>
+    <div class="cell unlit c1"></div>
+    <div class="cell unlit c2"></div>
+    <div class="cell low c3"></div>
+    <div class="rule pk-r2"></div>
+    <div class="count pk-count"><span class="n">1</span><span class="of">OF</span><span class="n">4</span></div>
+  </div>
+
+</div>
+</body>
+</html>
