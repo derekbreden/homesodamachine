@@ -59,8 +59,8 @@ body {
 .ltitle {                      /* the lock's one word                      */
   font-family: Marcellus, Georgia, serif;
   font-weight: 400;
-  font-size: 48px;
-  line-height: 56px;
+  font-size: 56px;
+  line-height: 64px;
   letter-spacing: 0.10em;
   text-transform: uppercase;
   color: var(--text);
@@ -152,7 +152,7 @@ body {
 .stage { position: absolute; left: 0; top: 0; width: 800px; height: 376px; }
 
 .head { position: absolute; left: 20px; top: 0; width: 760px; height: 72px; }
-.head .pname { position: absolute; top: 19px; }
+.head .pname { position: absolute; top: 17px; }
 
 .backkey {
   position: absolute; left: 20px; top: 4px;
@@ -165,7 +165,7 @@ body {
 }
 
 .corner {                      /* settings, and the lock's own mark        */
-  position: absolute; left: 736px; top: 14px;
+  position: absolute; left: 736px; top: 10px;
   width: 44px; height: 44px;
   color: var(--brass);
 }
@@ -267,3 +267,31 @@ body {
 .legend-dot { position: absolute; width: 14px; height: 14px; border-radius: 50%; }
 .legend-dot.closed { background: var(--good); }
 .legend-dot.open   { border: 2px solid var(--sec); }
+
+/* ── Added by round 2 ──────────────────────────────────────────────────── */
+
+.face.flush { border: 0; border-radius: 0; }
+.seam-v { position: absolute; width: 1px; background: var(--sec); }
+
+.timerow { display: flex; align-items: baseline; gap: 18px; }
+.minleft {
+  font-weight: 400; font-size: 32px; line-height: 34px;
+  letter-spacing: 0.06em;
+}
+
+.legend {
+  position: absolute; height: 24px;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+}
+.legend .cap.lg { letter-spacing: 0.10em; margin-right: 24px; }
+.legend .cap.lg:last-child { margin-right: 0; }
+.legend .legend-dot { position: static; flex: none; }
+
+/* ── Added by round 3 ──────────────────────────────────────────────────── */
+
+.legendrow {
+  position: absolute; height: 24px;
+  display: flex; align-items: center; gap: 12px;
+}
+.legendrow .legend-dot { position: static; flex: none; }
+.legendrow .cap.lg { letter-spacing: 0.10em; }

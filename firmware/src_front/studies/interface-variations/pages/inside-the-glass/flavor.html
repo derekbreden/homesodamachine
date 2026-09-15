@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Inside The Glass — Flavor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@72,700,50&family=Figtree:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+
+  /* A flavor's own page. The ratio card floats on the surface; the row of faces is a
+     cream band laid across the liquid below it.
+     Pressed element: the + stepper (gold). */
+  .num   { position: absolute; font-size: 64px; line-height: 1; color: var(--ink); }
+  .rng   { position: absolute; text-align: right; }
+  .backl { position: absolute; left: 8px; top: 14px; width: 174px; height: 64px;
+           background: var(--cream); border-radius: 6px;
+           display: flex; align-items: center; }
+  .backl svg { stroke: var(--liq); margin-left: 8px; }
+  .backl .w { font-weight: 700; font-size: 20px; letter-spacing: .1em;
+              color: var(--liq); margin-left: 2px; }
+  .band  { position: absolute; background: var(--cream); border-radius: 6px; }
+  .win   { position: absolute; overflow: hidden; }
+
+</style>
+</head>
+<body>
+
+<div class="liquid" style="left:0;top:187px;width:189px;height:293px"></div>
+<svg class="bubbles" style="left:0px;top:187px" width="189" height="293" viewBox="0 0 189 293"><circle cx="71.8" cy="258.4" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="135.8" cy="278.4" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="18.8" cy="280.7" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="128.3" cy="259.1" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="115.2" cy="269.5" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="175.8" cy="282.0" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="9.5" cy="262.7" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="144.7" cy="265.7" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="60.1" cy="273.3" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="177.5" cy="255.5" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/></svg>
+<div class="liquid" style="left:191px;top:187px;width:609px;height:293px"></div>
+<div class="meniscus" style="left:191px;top:184px;width:609px"></div>
+<svg class="bubbles" style="left:191px;top:187px" width="609" height="293" viewBox="0 0 609 293"><circle cx="312.1" cy="34.1" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="544.4" cy="12.0" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="353.7" cy="40.7" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="211.1" cy="17.5" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="473.2" cy="33.3" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="247.9" cy="13.4" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="359.6" cy="13.0" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="98.8" cy="24.5" r="8" fill="none" stroke="#f2b705" stroke-width="1"/><circle cx="31.8" cy="29.9" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="17.2" cy="45.8" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="187.6" cy="28.2" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="589.0" cy="44.9" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="440.8" cy="32.7" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="406.8" cy="41.3" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="235.0" cy="18.9" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="428.7" cy="13.7" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="4.6" cy="143.0" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="500.8" cy="36.4" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="563.4" cy="29.0" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="454.9" cy="21.2" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="205.8" cy="35.2" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="130.2" cy="31.3" r="8" fill="none" stroke="#f2b705" stroke-width="1"/><circle cx="549.8" cy="38.5" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="590.8" cy="20.0" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="570.5" cy="15.6" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="457.6" cy="39.5" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="294.0" cy="33.4" r="8" fill="none" stroke="#f2b705" stroke-width="1"/><circle cx="228.3" cy="42.4" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="387.2" cy="41.9" r="5" fill="none" stroke="#7f8f5a" stroke-width="1"/><circle cx="48.6" cy="17.7" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="515.4" cy="22.4" r="8" fill="none" stroke="#f2b705" stroke-width="1"/><circle cx="373.0" cy="36.1" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="531.1" cy="36.7" r="3" fill="none" stroke="#33452f" stroke-width="1"/><circle cx="169.7" cy="32.6" r="3" fill="none" stroke="#33452f" stroke-width="1"/></svg>
+<div class="wall"></div>
+
+<div class="backl"><svg class="mk " width="34" height="34" viewBox="0 0 44 44" viewBox="4 4 36 36"><path d="M27 9 L14 22 L27 35"/></svg><div class="w">BACK</div></div>
+
+<!-- the anchor: this flavor, as a label standing in the glass -->
+<div class="label" style="left:1px;top:100px;width:188px;height:332px">
+  <div class="face" style="left:10px;top:10px;width:168px;height:312px"><img src="../../assets/flavor_1.png" alt=""></div>
+</div>
+
+<!-- ratio, floating on the surface -->
+<div class="label" style="left:207px;top:40px;width:577px;height:132px">
+  <div class="cap" style="position:absolute;left:24px;top:22px">RATIO</div>
+  <div class="cap rng" style="left:300px;top:22px;width:236px">RANGE 1:10 &ndash; 1:30</div>
+  <div class="num fr" style="left:24px;top:44px">1:20</div>
+  <div class="plate" style="left:392px;top:24px;width:84px;height:84px"><svg class="mk " width="44" height="44" viewBox="0 0 44 44"><path d="M11 22 H33"/></svg></div>
+  <div class="plate pressed" style="left:486px;top:24px;width:84px;height:84px"><svg class="mk " width="44" height="44" viewBox="0 0 44 44"><path d="M22 11 V33"/><path d="M11 22 H33"/></svg></div>
+</div>
+
+<!-- the row of faces this flavor can wear: a cream band across the liquid -->
+<div class="band" style="left:207px;top:240px;width:577px;height:208px">
+  <div class="plate" style="left:14px;top:16px;width:56px;height:160px"><svg class="mk " width="44" height="44" viewBox="0 0 44 44"><path d="M27 9 L14 22 L27 35"/></svg></div>
+  <div class="plate" style="left:507px;top:16px;width:56px;height:160px"><svg class="mk " width="44" height="44" viewBox="0 0 44 44"><path d="M17 9 L30 22 L17 35"/></svg></div>
+  <div class="win" style="left:84px;top:0;width:409px;height:190px"><div class="tile" style="left:-38px;top:16px;width:86px;height:160px"><img src="../../assets/flavor_1.png" alt=""></div><div class="tile" style="left:62px;top:16px;width:86px;height:160px"><img src="../../assets/flavor_2.png" alt=""></div><div class="tile chosen" style="left:162px;top:8px;width:86px;height:160px"><img src="../../assets/flavor_3.png" alt=""></div><div class="tile" style="left:262px;top:16px;width:86px;height:160px"><img src="../../assets/flavor_4.png" alt=""></div><div class="tile" style="left:362px;top:16px;width:86px;height:160px"><img src="../../assets/flavor_1.png" alt=""></div><div class="tile" style="left:462px;top:16px;width:86px;height:160px"><img src="../../assets/flavor_2.png" alt=""></div><div class="tile" style="left:562px;top:16px;width:86px;height:160px"><img src="../../assets/flavor_3.png" alt=""></div><div class="tile" style="left:662px;top:16px;width:86px;height:160px"><img src="../../assets/flavor_4.png" alt=""></div></div>
+  <div class="track" style="left:84px;top:188px;width:409px"></div>
+  <div class="thumb" style="left:104px;top:188px;width:213px"></div>
+</div>
+
+</body>
+</html>
