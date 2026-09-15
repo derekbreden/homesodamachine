@@ -32,7 +32,7 @@ struct RenameSheet: View {
                         .font(.system(size: 18))
                         .foregroundStyle(Theme.textPrimary)
                         .padding(14)
-                        .background(Color.white.opacity(0.10))
+                        .background(Theme.surface)
                         .cornerRadius(12)
                         .focused($editing)
                         .submitLabel(.done)

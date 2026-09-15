@@ -41,8 +41,8 @@ THE COLOURS ARE READ THE SAME WAY. The screen's third row is the front firmware'
 nearest of those renderings and draws it in the colour the firmware asked for, when the rendering
 is within `--within` levels; a pixel farther from every entry than that — an antialiased edge, the
 flavour artwork — keeps the camera's colour. No model of the camera is fitted: the camera itself
-says what each colour looks like. The entries that sit closest as captured are THEME_BG and black,
-8 levels apart at the 4 ms shutter, and COL_CARD_ON and COL_OFF at 16.
+says what each colour looks like. The palette values come from the enclosure firmware's colour
+definitions; `aim front` records the matching camera readings after a palette change.
 
 WHAT `check` READS BACK. The stripes as alternate columns and rows: their modulation is how much of
 a one-pixel feature survives. The squares' edges: where each lands against where it should, in
@@ -54,6 +54,8 @@ transform samples with the same convention.
 """
 
 import sys
+import re
+from pathlib import Path
 import numpy as np
 from PIL import Image
 from scipy import ndimage
@@ -62,11 +64,28 @@ Image.MAX_IMAGE_PIXELS = None
 
 SQUARES = {"TL": (32, 32), "TR": (768, 32), "BR": (768, 448), "BL": (32, 448)}   # centres, panel px
 SQUARE = 32                                                                       # side, panel px
-PALETTE = [("THEME_BG", 0x1a1a2e), ("COL_CARD", 0x242440), ("COL_CARD_ON", 0x33335c),
-           ("COL_ACCENT", 0xe94560), ("COL_TEXT", 0xe8e8f2), ("COL_DIM", 0x8888aa),
-           ("COL_OFF", 0x3a3a55), ("COL_GOOD", 0x37c98b), ("COL_WARN", 0xf0a83c), ("gray", 0x808080)]
+PALETTE_NAMES = ("THEME_BG", "COL_CARD", "COL_CARD_ON", "COL_ACCENT", "COL_TEXT",
+                 "COL_DIM", "COL_OFF", "COL_GOOD", "COL_WARN")
 PALETTE_ROW, PALETTE_X0 = 168, 80     # 64x48 patches at x 80 + 64k
 WEDGE_ROW, WEDGE_X0 = 56, 144         # 64x48 patches at x 144 + 64k: black first, white last
+
+def firmware_palette():
+    """The test screen's ordered colours, including aliases such as COL_GOOD."""
+    source = Path(__file__).resolve().parents[1] / "firmware/src_front/main.cpp"
+    definitions = dict(re.findall(r"^#define\s+(\w+)\s+([^\n/]+)", source.read_text(), re.M))
+
+    def value(name, seen=()):
+        if name in seen or name not in definitions:
+            raise ValueError(f"Cannot resolve enclosure palette colour {name}")
+        expression = definitions[name].strip()
+        wrapped = re.fullmatch(r"lv_color_hex\((\w+)\)", expression)
+        if wrapped:
+            expression = wrapped[1]
+        if re.fullmatch(r"0[xX][0-9a-fA-F]{6}", expression):
+            return int(expression, 16)
+        return value(expression, (*seen, name))
+
+    return [(name, value(name)) for name in PALETTE_NAMES] + [("gray", 0x808080)]
 
 def luma(path):
     return np.asarray(Image.open(path).convert("L")).astype(np.float32)
@@ -194,7 +213,7 @@ def patch_mean(P, x, y):
 
 def palette(path, scale):
     P = blocks(rgb(path), scale)
-    entries = [(n, v, patch_mean(P, PALETTE_X0 + 64 * k, PALETTE_ROW)) for k, (n, v) in enumerate(PALETTE)]
+    entries = [(n, v, patch_mean(P, PALETTE_X0 + 64 * k, PALETTE_ROW)) for k, (n, v) in enumerate(firmware_palette())]
     entries.append(("black", 0x000000, patch_mean(P, WEDGE_X0, WEDGE_ROW)))
     entries.append(("white", 0xFFFFFF, patch_mean(P, WEDGE_X0 + 64 * 7, WEDGE_ROW)))
     print("palette " + " ".join(f"{n}:{v:06x}:{int(c[0] + 0.5):02x}{int(c[1] + 0.5):02x}{int(c[2] + 0.5):02x}" for n, v, c in entries))

@@ -15,6 +15,8 @@ struct SodaMachineApp: App {
     var body: some Scene {
         WindowGroup {
             RootView()
+                .tint(Theme.controlTint)
+                .preferredColorScheme(.dark)
                 .environment(bleManager)
                 .environment(directory)
                 .onChange(of: scenePhase) { _, phase in

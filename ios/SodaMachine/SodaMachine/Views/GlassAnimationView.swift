@@ -1,10 +1,9 @@
 import SwiftUI
 
 // ────────────────────────────────────────────────────────────
-// GlassAnimationView — Animated version of AppIcon.svg.
+// GlassAnimationView — a pouring glass.
 //
-// Same glass shape, liquid gradient, and highlights as the static
-// SVG. Bubbles use the S3 firmware's rise/pop/respawn physics
+// Bubbles use the S3 firmware's rise/pop/respawn physics
 // (from gen_animation_frames.py). No above-surface outline bubbles.
 //
 // All coordinates are in the SVG's 1024×1024 space, scaled at

@@ -2,7 +2,7 @@
 // viewer, charts viewer, settings). One source of truth for:
 //   - <head> meta tags, font loading, manifest, icons, theme color
 //   - The :root CSS variables (palette tokens shared with the iOS / Android
-//     apps and the S3 device — same hex values as Theme.swift / Theme.kt)
+//     apps and enclosure display — same brand hues as Theme.swift / Theme.kt)
 //   - body base styles (font, background)
 //   - The top nav, including the gear that links to /settings
 //   - Dev-mode flag: html.dev-mode reveals Parts / Charts / Drawings /
@@ -24,7 +24,7 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import { HOME_SVG, PARTS_SVG, CHARTS_SVG, DRAWINGS_SVG, PCB_SVG, DOLLAR_SVG, UPDATES_SVG, TOUR_SVG, GEAR_SVG, BELL_SVG } from "./icons.js";
+import { PARTS_SVG, CHARTS_SVG, DRAWINGS_SVG, PCB_SVG, DOLLAR_SVG, UPDATES_SVG, TOUR_SVG, GEAR_SVG, BELL_SVG } from "./icons.js";
 
 // The check verdict the site is showing — `public/checks.json`, written by
 // `tools/checks.py --json` and committed by `tools/checks_now.py` off the post-commit hook.
@@ -76,19 +76,27 @@ function escape(s) {
 const BASE_CSS = `
 :root {
   color-scheme: dark;
-  --bg: #1a1a2e;
-  --surface: #232342;
-  --surface-2: #2a2a4a;
-  --border: #3a3a5a;
+  --brand-blue: #1749d1;
+  --brand-navy: #10319c;
+  --brand-ice: #dce6ff;
+  --brand-orange: #ff9152;
+  --bg: var(--brand-navy);
+  --surface: #1238aa;
+  --surface-2: var(--brand-blue);
+  --border: #6b8fe9;
   --text: #ffffff;
-  --text-2: #999999;
-  --text-3: #595959;
-  --accent: #4488ff;
-  --ok: #5fb56f;
-  --err: #d97070;
-  --warn: #d9a24c;
-  --chart-pink: #e64c80;
-  --chart-purple: #994ce6;
+  --text-2: var(--brand-ice);
+  --text-3: #b7caf8;
+  --accent: var(--brand-ice);
+  --action: var(--brand-orange);
+  --on-action: var(--brand-navy);
+  --action-hover: #ffa46f;
+  --ok: #8ddca0;
+  --err: #ffa3a3;
+  --warn: #ffd28a;
+  --chart-one: var(--brand-orange);
+  --chart-two: var(--brand-ice);
+  --chart-three: #94b8ff;
 }
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
@@ -142,7 +150,7 @@ body {
 .site-nav a:hover { color: var(--text); }
 /* The page you are on, in the accent — the colour nothing else in the bar
    reaches, hover included. */
-.site-nav a.active { color: var(--accent); }
+.site-nav a.active { color: var(--action); }
 /* The link fills the bar's height and takes the gap's other half, so the tap
    lands on the icon rather than between two of them. */
 .site-nav a.nav-icon {
@@ -156,10 +164,22 @@ body {
   outline-offset: -4px;
   border-radius: 8px;
 }
-.site-nav a.nav-icon svg {
+.site-nav a.nav-icon svg,
+.site-nav a.nav-icon img {
   width: 1.125rem;
   height: 1.125rem;
   display: block;
+}
+.site-nav a[data-nav="home"] img { width: 1.7rem; height: 1.7rem; margin: -0.2875rem; }
+.site-nav a[data-nav="home"].active::before {
+  content: "";
+  position: absolute;
+  height: 3px;
+  left: 0.375rem;
+  right: 0.375rem;
+  bottom: 0;
+  border-radius: 3px;
+  background: var(--action);
 }
 /* Right cluster (bell + gear). One container with margin-left: auto
    pushes them both to the right edge as a unit; two icons each with
@@ -266,10 +286,10 @@ html.dev-mode .site-nav-public a[data-nav="updates"] {
   transition: transform 0.2s;
   box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
-.ios-toggle.on { background: var(--accent); }
-.ios-toggle.on::before { transform: translateX(20px); }
+.ios-toggle.on { background: var(--action); }
+.ios-toggle.on::before { transform: translateX(20px); background: var(--on-action); }
 .ios-toggle:hover:not(:disabled) { background: rgba(120,120,128,0.45); }
-.ios-toggle.on:hover:not(:disabled) { background: #5599ff; }
+.ios-toggle.on:hover:not(:disabled) { background: var(--action-hover); }
 .ios-toggle:disabled { cursor: default; }
 .ios-toggle .ios-toggle-spinner {
   position: absolute;
@@ -278,7 +298,7 @@ html.dev-mode .site-nav-public a[data-nav="updates"] {
   width: 15px;
   height: 15px;
   border: 2px solid rgba(80,80,90,0.35);
-  border-top-color: var(--accent);
+  border-top-color: var(--brand-blue);
   border-radius: 50%;
   display: none;
   animation: ios-toggle-spin 0.7s linear infinite;
@@ -394,7 +414,7 @@ const HEAD_TAGS = `<script>(function(){try{if(localStorage.getItem("devMode")===
 <link rel="apple-touch-icon" sizes="167x167" href="/pwa-icons/apple-touch-icon-167.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/pwa-icons/apple-touch-icon-180.png">
 <link rel="apple-touch-icon" href="/pwa-icons/apple-touch-icon-180.png">
-<meta name="theme-color" content="#1a1a2e">
+<meta name="theme-color" content="#10319c">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Soda Machine">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">`;
@@ -474,7 +494,7 @@ export function renderChecksRows() {
 
 export function renderNav({ surface = "public", active = null }) {
   const iconLinks = [
-    { href: "/", name: "home", label: "Home", svg: HOME_SVG },
+    { href: "/", name: "home", label: "Home", svg: '<img src="/brand/mark.svg" width="28" height="28" alt="" aria-hidden="true">' },
     { href: "/updates", name: "updates", label: "Updates", svg: UPDATES_SVG },
     { href: "/tour", name: "tour", label: "Walkthrough", svg: TOUR_SVG },
     { href: "/3d", name: "parts", label: "Parts", svg: PARTS_SVG },
@@ -486,7 +506,7 @@ export function renderNav({ surface = "public", active = null }) {
   const iconItems = iconLinks
     .map((l) => {
       const activeCls = l.name === active ? " active" : "";
-      return `  <a href="${l.href}" class="nav-icon${activeCls}" data-nav="${l.name}" aria-label="${escape(l.label)}">${l.svg}</a>`;
+      return `  <a href="${l.href}" class="nav-icon${activeCls}"${activeCls ? ' aria-current="page"' : ""} data-nav="${l.name}" aria-label="${escape(l.label)}">${l.svg}</a>`;
     })
     .join("\n");
   const surfaceCls = surface === "dev" ? "site-nav-dev" : "site-nav-public";

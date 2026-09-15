@@ -64,7 +64,7 @@
 .cv-dialog.cv-open .cv-backdrop { opacity: 1; }
 .cv-card {
   position: relative;
-  background: #1a1a2e;
+  background: var(--bg, #10319c);
   border-radius: 10px;
   padding: 0;
   /* Sized against the dialog's padded content box (= viewport minus

@@ -18,6 +18,7 @@ The product under development is an integrated under-counter appliance — custo
 | [`web/`](/web/) | homesodamachine.com — Node server, CAD viewer — see [`web/README.md`](/web/README.md) |
 | [`ios/`](/ios/) | iOS companion app (BLE bridge, settings, usage stats) |
 | [`android/`](/android/) | Android companion app |
+| [`brand/`](brand/README.md) | On tap faucet identity, Big Blue palette, app icons, wordmarks, and shared asset generation |
 | [`marketing/`](/marketing/) | Target market analysis, unboxing brief, video scripts |
 | [`business/`](/business/) | Incorporation, regulatory (UL 943, ASSE 1022) |
 | [`future/`](/future/) | Where the project is going — the vision and the plan in [`README.md`](/future/README.md), and the desires not yet committed to plans in [`pie-in-the-sky/`](/future/pie-in-the-sky/) |

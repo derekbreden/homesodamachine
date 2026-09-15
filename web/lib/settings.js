@@ -86,8 +86,8 @@ h1 {
   font-size: 14px;
 }
 .modal button:hover { background: var(--border); }
-.modal button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
-.modal button.primary:hover { background: #5599ff; border-color: #5599ff; }
+.modal button.primary { background: var(--action); border-color: var(--action); color: var(--on-action); }
+.modal button.primary:hover { background: var(--action-hover); border-color: var(--action-hover); }
 /* The checks the gear's dot is the summary of. A row per check, its own last
    line as the help text, and under a red one the lines it printed — which carry
    the command that repairs it, so it wraps rather than truncating. */

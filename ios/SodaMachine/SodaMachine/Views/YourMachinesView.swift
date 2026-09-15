@@ -99,7 +99,7 @@ struct YourMachinesView: View {
                     if machine.id == directory.current?.id {
                         Image(systemName: "checkmark")
                             .font(.system(size: 14, weight: .semibold))
-                            .foregroundStyle(Theme.textPrimary)
+                            .foregroundStyle(Theme.accent)
                     }
                 }
                 .padding(.leading, 16)
@@ -124,7 +124,7 @@ struct YourMachinesView: View {
             .padding(.trailing, 6)
         }
         .frame(maxWidth: .infinity)
-        .background(Color.white.opacity(0.08))
+        .background(Theme.surface)
         .cornerRadius(12)
     }
 
@@ -142,7 +142,7 @@ struct YourMachinesView: View {
             .padding(.horizontal, 16)
             .padding(.vertical, 14)
             .frame(maxWidth: .infinity)
-            .background(Color.white.opacity(0.08))
+            .background(Theme.surface)
             .cornerRadius(12)
         }
         .buttonStyle(.plain)
