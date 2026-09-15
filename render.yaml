@@ -25,16 +25,6 @@ services:
     startCommand: cd web && npm start
     healthCheckPath: /
     autoDeploy: true
-    # THE OBJECT STORE IS THIS SERVICE'S DISK. Every member the pointer file names sits on it by
-    # hash, put there by whichever machine cut it (PUT /objects/<name>, web/lib/objects.js) and
-    # served from there; a deploy fills it from the tree the build fetched, and every boot after
-    # reads it back instead of the network. It persists across deploys, and a service with a disk
-    # runs one instance, which this one does. $0.25 per GB a month; the members are 586 MB and
-    # the site prunes what no line names, so 10 GB holds weeks of cuts.
-    disk:
-      name: objects
-      mountPath: /var/data
-      sizeGB: 10
     # A DEPLOY IS FOR CODE. A push that changes the site itself — its code, its posts, this file
     # — deploys on that push, serving whatever bundle the pointer file currently names. Nothing about it
     # waits for CAD: the solids it stands on are the ones already published.
@@ -101,11 +91,14 @@ services:
           property: connectionString
       - key: NODE_ENV
         value: production
-      - key: OBJECTS_DIR
-        value: /var/data/objects
-      # THE STORE IS CLOUDFLARE R2 (web/lib/store.js). The account, bucket and public read URL
-      # are plain values; the key pair is created in the Cloudflare dashboard (R2 → Manage API
-      # tokens, Object Read & Write, this bucket) and pasted here, never committed.
+      # THE OBJECT STORE IS CLOUDFLARE R2 (web/lib/store.js), and this service carries no disk:
+      # every member the pointer file names is held in the bucket by hash, put there by whichever
+      # machine cut it, and read straight from the bucket's public URL. A service without a disk
+      # deploys without stopping, so a push that touches the site costs no window.
+      #
+      # The account, bucket and public read URL are plain values; the key pair is created in the
+      # Cloudflare dashboard (R2 → Manage API tokens, Object Read & Write, this bucket) and
+      # pasted into Render, never committed.
       - key: R2_ACCOUNT_ID
         value: e74c6ab34db572feede34d4b76bc3256
       - key: R2_BUCKET
