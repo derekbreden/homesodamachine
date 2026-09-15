@@ -246,7 +246,7 @@ body {
 }
 .travel.off { border-color: var(--brass-x); color: var(--brass-x); }
 
-.track { position: absolute; height: 4px; background: var(--alt); }
+.track { position: absolute; height: 4px; background: var(--sec); }
 .thumb { position: absolute; height: 4px; background: var(--brass); }
 
 /* ── Pick: a wide card the face bleeds into at the west ────────────────── */
