@@ -73,6 +73,8 @@
 .cr-console .cs-service-actions .crb-main-action{width:300px;font-size:24px}
 .cr-console.cn-corners button.crb-hero{width:234px;padding:21px 0 0;margin:0;text-align:center}
 .cr-console.cn-corners .crb-rail{cursor:pointer}
+.cr-console.cn-corners button.crb-hero:disabled{opacity:1;cursor:default}
+.cr-console.cn-locked .crb-rail{cursor:default}
 
 </style>
 <script>
@@ -149,14 +151,15 @@ function gallery(){
  return `<div class="ch-gallery"><h1>Choose an image.</h1><p>For the selected flavor</p><div class="ch-art-grid">${globalThis.cornersArtwork.slice(start,start+4).map((a,j)=>{const i=start+j;return `<button type="button" data-action="assign:${i}" aria-pressed="${s.assignments[s.flavor]===i}" aria-label="Select ${a.name}" class="${s.assignments[s.flavor]===i?'chosen':''}"><img src="${a.url}" alt="${a.name}"><span>${s.assignments[s.flavor]===i?'✓':' '}</span></button>`;}).join('')}</div><div class="cn-pager"><button type="button" data-action="images:-1" aria-label="Previous four images" ${s.imagePage===0?'disabled':''}>${icon('chevron-left')}</button><span class="cn-image-position" aria-live="polite"><small>${s.imagePage===0?'Your images':'Defaults'}</small><span>${start+1}–${start+4} of 8</span></span><button type="button" data-action="images:1" aria-label="Next four images" ${s.imagePage===1?'disabled':''}>${icon('chevron-right')}</button></div></div>`;
 }
 function fit(){canvas.style.transform=`scale(${canvas.parentElement.clientWidth/800})`;}
-function availableWhileRunning(action){return ['stop','hold','done','select'].includes(action.split(':')[0]);}
+function operationLocked(){return s.running&&['fill','clean'].includes(s.page);}
+function availableWhileRunning(action){const kind=action.split(':')[0];return operationLocked()?kind==='stop':['stop','hold','done','select'].includes(kind);}
 function goHome(flavor=s.flavor){s.running=false;s.flavor=flavor;s.page='idle';}
 function render(){
  s.ratio=s.ratios[s.flavor];
  const A=s.assignments.map(i=>globalThis.cornersArtwork[i]);
  const basePage=s.page==='idle'?'home':(['detail','fill','prime','clean'].includes(s.page)?s.page:'detail');
  const holder=document.createElement('div');holder.innerHTML=base.render({...s,page:basePage},A);
- const device=holder.querySelector('.cr-console');device.classList.add('cn-corners');if(s.page==='idle')device.classList.add('cn-idle');
+ const device=holder.querySelector('.cr-console');device.classList.add('cn-corners');if(s.page==='idle')device.classList.add('cn-idle');if(operationLocked())device.classList.add('cn-locked');
  const content=holder.querySelector('.crb-console-content');
  if(s.page==='idle')content.innerHTML=quiet.home(s,A);
  if(s.page==='artwork')content.innerHTML=gallery();
@@ -165,7 +168,7 @@ function render(){
  holder.querySelector('.crb-hero-label').textContent='';
  holder.querySelector('.crb-hero-caption').textContent='✓ Selected';
  const nav=holder.querySelector('.crb-tabs');
- nav.innerHTML=['fill','prime','clean'].map(p=>button('page:'+p,p[0].toUpperCase()+p.slice(1),s.page===p?'active':'')).join('')+(s.page==='idle'?'<span aria-hidden="true"></span>':button('done',options.completionLabel,'cn-finish'));
+ nav.innerHTML=['fill','prime','clean'].map(p=>button('page:'+p,p[0].toUpperCase()+p.slice(1),s.page===p?'active':'')).join('')+(s.page==='idle'||operationLocked()?'<span aria-hidden="true"></span>':button('done',options.completionLabel,'cn-finish'));
  holder.querySelector('.crb-rail-label').remove();
  holder.querySelector('.crb-rail').insertAdjacentHTML('beforeend',`<button type="button" class="cn-settings ${['settings','service'].includes(s.page)?'active':''}" data-action="page:settings" aria-label="Settings">${icon('settings')}</button>`);
  if(s.page==='detail')content.querySelector('[data-action="page:home"]').remove();
