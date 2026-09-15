@@ -4728,24 +4728,12 @@ genrule(
         "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-aero.step",
         "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-aero.step.mesh",
         "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-aero.stl",
-        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-loose-aero.step",
-        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-loose-aero.step.mesh",
-        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-loose-aero.stl",
-        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-loose-petg.step",
-        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-loose-petg.step.mesh",
-        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-loose-petg.stl",
-        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-petg.step",
-        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-petg.step.mesh",
-        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-petg.stl",
         "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/magnet.step",
         "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/magnet.step.mesh",
         "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/magnetic-float.step",
         "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/magnetic-float.step.mesh",
         "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/section.step",
         "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/section.step.mesh",
-        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/turning-key.step",
-        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/turning-key.step.mesh",
-        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/turning-key.stl",
         "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/README.figures.json",
         "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/README.md",
     ],
@@ -4763,26 +4751,14 @@ O8=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic
 O9=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-aero.step)
 O10=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-aero.step.mesh)
 O11=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-aero.stl)
-O12=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-loose-aero.step)
-O13=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-loose-aero.step.mesh)
-O14=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-loose-aero.stl)
-O15=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-loose-petg.step)
-O16=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-loose-petg.step.mesh)
-O17=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-loose-petg.stl)
-O18=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-petg.step)
-O19=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-petg.step.mesh)
-O20=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-petg.stl)
-O21=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/magnet.step)
-O22=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/magnet.step.mesh)
-O23=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/magnetic-float.step)
-O24=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/magnetic-float.step.mesh)
-O25=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/section.step)
-O26=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/section.step.mesh)
-O27=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/turning-key.step)
-O28=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/turning-key.step.mesh)
-O29=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/turning-key.stl)
-O30=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/README.figures.json)
-O31=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/README.md)
+O12=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/magnet.step)
+O13=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/magnet.step.mesh)
+O14=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/magnetic-float.step)
+O15=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/magnetic-float.step.mesh)
+O16=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/section.step)
+O17=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/section.step.mesh)
+O18=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/README.figures.json)
+O19=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/README.md)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -4811,26 +4787,14 @@ cp hardware/printed-parts/cold-core/magnetic-float/exploded.step.mesh $$O8
 cp hardware/printed-parts/cold-core/magnetic-float/insert-aero.step $$O9
 cp hardware/printed-parts/cold-core/magnetic-float/insert-aero.step.mesh $$O10
 cp hardware/printed-parts/cold-core/magnetic-float/insert-aero.stl $$O11
-cp hardware/printed-parts/cold-core/magnetic-float/insert-loose-aero.step $$O12
-cp hardware/printed-parts/cold-core/magnetic-float/insert-loose-aero.step.mesh $$O13
-cp hardware/printed-parts/cold-core/magnetic-float/insert-loose-aero.stl $$O14
-cp hardware/printed-parts/cold-core/magnetic-float/insert-loose-petg.step $$O15
-cp hardware/printed-parts/cold-core/magnetic-float/insert-loose-petg.step.mesh $$O16
-cp hardware/printed-parts/cold-core/magnetic-float/insert-loose-petg.stl $$O17
-cp hardware/printed-parts/cold-core/magnetic-float/insert-petg.step $$O18
-cp hardware/printed-parts/cold-core/magnetic-float/insert-petg.step.mesh $$O19
-cp hardware/printed-parts/cold-core/magnetic-float/insert-petg.stl $$O20
-cp hardware/printed-parts/cold-core/magnetic-float/magnet.step $$O21
-cp hardware/printed-parts/cold-core/magnetic-float/magnet.step.mesh $$O22
-cp hardware/printed-parts/cold-core/magnetic-float/magnetic-float.step $$O23
-cp hardware/printed-parts/cold-core/magnetic-float/magnetic-float.step.mesh $$O24
-cp hardware/printed-parts/cold-core/magnetic-float/section.step $$O25
-cp hardware/printed-parts/cold-core/magnetic-float/section.step.mesh $$O26
-cp hardware/printed-parts/cold-core/magnetic-float/turning-key.step $$O27
-cp hardware/printed-parts/cold-core/magnetic-float/turning-key.step.mesh $$O28
-cp hardware/printed-parts/cold-core/magnetic-float/turning-key.stl $$O29
-cp hardware/printed-parts/cold-core/magnetic-float/README.figures.json $$O30
-cp hardware/printed-parts/cold-core/magnetic-float/README.md $$O31
+cp hardware/printed-parts/cold-core/magnetic-float/magnet.step $$O12
+cp hardware/printed-parts/cold-core/magnetic-float/magnet.step.mesh $$O13
+cp hardware/printed-parts/cold-core/magnetic-float/magnetic-float.step $$O14
+cp hardware/printed-parts/cold-core/magnetic-float/magnetic-float.step.mesh $$O15
+cp hardware/printed-parts/cold-core/magnetic-float/section.step $$O16
+cp hardware/printed-parts/cold-core/magnetic-float/section.step.mesh $$O17
+cp hardware/printed-parts/cold-core/magnetic-float/README.figures.json $$O18
+cp hardware/printed-parts/cold-core/magnetic-float/README.md $$O19
 """,
 )
 

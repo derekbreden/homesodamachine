@@ -25,7 +25,7 @@ PROCESS = '0.20mm Standard @BBL H2C'
 FILAMENTS = ('Bambu PETG Translucent @BBL H2C 0.4 nozzle',
              'Bambu PLA Aero @BBL H2C 0.4 nozzle')
 NAMES = ('Float PETG Translucent 250C', 'Float PLA Aero 250C 0.38 flow')
-PAUSE_MESSAGE = 'Insert one RC62 magnet. Seat Aero insert, turn 90 degrees with plastic key, remove key, resume.'
+PAUSE_MESSAGE = 'Seat one RC62 magnet. Press the Aero insert flush with the rim. Use the snugger spare if loose. Resume with the insert staying seated.'
 
 
 def uid(name):
@@ -142,7 +142,7 @@ def project(destination):
     for i, filament in enumerate(filaments, 1):
         data[f'Metadata/filament_settings_{i}.config'] = json.dumps(filament, indent=2).encode()
     plates = []
-    for number, title in ((1, '1 - Inserts and turning key'), (2, '2 - Float - insert magnet at pause')):
+    for number, title in ((1, '1 - Aero inserts'), (2, '2 - Float - insert magnet at pause')):
         plate = ET.SubElement(config, 'plate')
         for key, value in {'plater_id': number, 'plater_name': title, 'locked': 'false',
                            'bed_type': 'Textured PEI Plate', 'filament_map_mode': 'Manual',
@@ -150,9 +150,8 @@ def project(destination):
             metadata(plate, key, value)
         plates.append(plate)
     objects = [
-        ('Insert', ['insert-petg', 'insert-aero'], 0, 115, 145),
-        ('Spare insert - looser fit', ['insert-loose-petg', 'insert-loose-aero'], 0, 155, 145),
-        ('Turning key', ['turning-key'], 0, 135, 180),
+        ('Insert', ['insert-aero'], 0, 115, 145),
+        ('Spare insert - snugger fit', ['insert-aero'], 0, 155, 145),
         ('Float body', ['body-petg', 'body-aero'], 1, 150, 145),
     ]
     provenance['meshes_sha256'] = {}
@@ -168,7 +167,11 @@ def project(destination):
         components = ET.SubElement(parent, qn('components'))
         record = ET.SubElement(config, 'object', id=str(parent_id))
         metadata(record, 'name', label)
-        metadata(record, 'extruder', 1)
+        metadata(record, 'extruder', 2 if plate_index == 0 else 1)
+        if plate_index == 0:
+            allowance = info['insert_print_fit_allowances_radial_mm'][index - 1]
+            metadata(record, 'xy_contour_compensation', allowance)
+            metadata(record, 'xy_hole_compensation', -allowance)
         center = np.array([0, 0, h / 2])
         for ordinal, name in enumerate(names, 1):
             part_id = parent_id + ordinal

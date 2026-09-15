@@ -75,8 +75,7 @@ POINTERS = _ROOT / "hardware" / "cad-artifacts.json"
 IMPLICIT_SOLIDS = {
     "hardware/printed-parts/cold-core/magnetic-float/magnetic_float.py": tuple(
         f"hardware/printed-parts/cold-core/magnetic-float/{name}.step.mesh"
-        for name in ("body-petg", "body-aero", "insert-petg", "insert-aero",
-                     "insert-loose-petg", "insert-loose-aero", "turning-key",
+        for name in ("body-petg", "body-aero", "insert-aero",
                      "magnet", "magnetic-float", "section", "exploded")
     ),
     # Current payloads need no rewrite; a clean run still owes every view.
