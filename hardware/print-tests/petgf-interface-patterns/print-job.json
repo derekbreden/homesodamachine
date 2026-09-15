@@ -1,0 +1,42 @@
+{
+  "date": "2026-09-15",
+  "printer": "Mark2",
+  "job_name": "petgf-interface-patterns-mark2.gcode.3mf",
+  "status": "started",
+  "sent_via": "Bambu Connect",
+  "started_by": "agent",
+  "profile": "hardware/printed-parts/petgf.3mf",
+  "profile_sha256": "612d1f5c9414acdfc4eec8bb40936817f2a4acb29f2223d96eaa47df3ae3ef44",
+  "project": "hardware/print-tests/petgf-interface-patterns/interface-patterns.3mf",
+  "project_sha256": "a60134a4a5e14536da3f3744b09f27e0cb563d6968ba1955e601a13f3e8c05eb",
+  "sliced_file": ".cache/prints/2026-09-15-interface-patterns-mark2/petgf-interface-patterns-mark2.gcode.3mf",
+  "sliced_file_sha256": "57ace53bb0d4d1c6df2e8dcc7bb75fe79f9929677b575b6be8dfcd7fd51eed09",
+  "gcode_sha256": "7c10bebe09f18fd21b287e65532e3de4fe0a600a4ec004b1a44003baf1a18c2f",
+  "z_offset_mm": 0.04,
+  "effective_textured_plate_trim_mm": 0.02,
+  "nozzle": "left 0.4 mm Standard",
+  "filament": "Polymaker PET-GF; PET-CF mapping on left external spool",
+  "specimen_count": 4,
+  "specimens": [
+    "A",
+    "B",
+    "C",
+    "D"
+  ],
+  "estimated_seconds": 5887.09033203125,
+  "filament_grams_estimate": 39.008506774902344,
+  "layers": 70,
+  "print_options": {
+    "timelapse": "Off",
+    "auto_bed_leveling": "On",
+    "flow_dynamic_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto"
+  },
+  "observed_at_utc": "2026-09-15T20:43:19.403922+00:00",
+  "observed_state": "RUNNING",
+  "observed_layer": 0,
+  "observed_print_error": 0,
+  "startup_ui_stage": "Homing toolhead",
+  "printer_eta_local": "2026-09-15 17:21 America/Chicago",
+  "physical_results": "awaiting cooled-print inspection"
+}

@@ -13,6 +13,16 @@ separation. A wall-only change distinguishes wall junctions from the free edge.
 These interventions also remove some zigzag turnarounds; they do not isolate
 sidewall fusion from turnaround-bead behavior by themselves.
 
+## Physical results
+
+The print completed all 120 layers. Removal was attempted on all 16 specimens.
+The user reports retained material at the edges of every specimen and no complete
+clean removal. Some supports released while leaving the apparent interface intact;
+others removed some central strands. The two groups have not been mapped to specimen
+IDs. Layer identity and remaining roof thickness are unmeasured. See [results.json](results.json).
+
+The next short comparison is [interface patterns](../petgf-interface-patterns/README.md).
+
 ## Examine the print
 
 1. Keep the numbered specimens intact and note how each tree separates.

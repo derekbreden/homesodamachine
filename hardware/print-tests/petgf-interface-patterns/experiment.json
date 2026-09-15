@@ -1,0 +1,121 @@
+{
+  "editable_project": "hardware/print-tests/petgf-interface-patterns/interface-patterns.3mf",
+  "profile": "hardware/printed-parts/petgf.3mf",
+  "profile_sha256": "612d1f5c9414acdfc4eec8bb40936817f2a4acb29f2223d96eaa47df3ae3ef44",
+  "project": ".cache/prints/2026-09-15-interface-patterns-mark2/petgf-interface-patterns-mark2-input.3mf",
+  "project_sha256": "a60134a4a5e14536da3f3744b09f27e0cb563d6968ba1955e601a13f3e8c05eb",
+  "printer": "Mark2",
+  "z_offset_mm": 0.04,
+  "effective_textured_plate_trim_mm": 0.02,
+  "pattern_method": "For C, remove commanded extrusion only from horizontal end connections in its single Y-oriented interface layer. D has zero interface layers.",
+  "geometry": {
+    "width": 36.0,
+    "depth": 36.0,
+    "wall": 3.0,
+    "ceiling_z": 12.2,
+    "roof_thickness": 3.84,
+    "label_height": 0.64
+  },
+  "specimens": [
+    {
+      "id": "A",
+      "identify_id": 2001,
+      "row": 1,
+      "column": 1,
+      "baseline_control": true,
+      "pattern": "auto",
+      "remove_interface_connectors": false,
+      "gap_mm": 0.3,
+      "spacing_mm": 0.5,
+      "interface_layers": 2,
+      "plate_center_xy": [
+        130.0,
+        120.0
+      ],
+      "object_id": 2,
+      "overrides": {
+        "support_top_z_distance": "0.3",
+        "support_interface_top_layers": "2",
+        "support_interface_pattern": "auto"
+      },
+      "mesh": ".cache/prints/2026-09-15-interface-patterns-mark2/specimen-01.stl",
+      "mesh_sha256": "65ed6685f5b8b5fe74fd50dbf9c3c1f7300d35c9684be492ec56abf2d6f1a831",
+      "triangles": 96
+    },
+    {
+      "id": "B",
+      "identify_id": 2002,
+      "row": 1,
+      "column": 2,
+      "baseline_control": false,
+      "pattern": "rectilinear",
+      "remove_interface_connectors": false,
+      "gap_mm": 0.3,
+      "spacing_mm": 0.5,
+      "interface_layers": 1,
+      "plate_center_xy": [
+        190.0,
+        120.0
+      ],
+      "object_id": 4,
+      "overrides": {
+        "support_top_z_distance": "0.3",
+        "support_interface_top_layers": "1",
+        "support_interface_pattern": "rectilinear"
+      },
+      "mesh": ".cache/prints/2026-09-15-interface-patterns-mark2/specimen-02.stl",
+      "mesh_sha256": "17448791ef9bbabc825d13cc12560f50eb186f2a4b5c34c6eacced7c2a0897be",
+      "triangles": 1002
+    },
+    {
+      "id": "C",
+      "identify_id": 2003,
+      "row": 2,
+      "column": 1,
+      "baseline_control": false,
+      "pattern": "rectilinear",
+      "remove_interface_connectors": true,
+      "gap_mm": 0.3,
+      "spacing_mm": 0.5,
+      "interface_layers": 1,
+      "plate_center_xy": [
+        130.0,
+        180.0
+      ],
+      "object_id": 6,
+      "overrides": {
+        "support_top_z_distance": "0.3",
+        "support_interface_top_layers": "1",
+        "support_interface_pattern": "rectilinear"
+      },
+      "mesh": ".cache/prints/2026-09-15-interface-patterns-mark2/specimen-03.stl",
+      "mesh_sha256": "380d141d0f6ed47c1c812e0826f7a2e34db2cb23ebbf3e5296a4d17f8015bc19",
+      "triangles": 836
+    },
+    {
+      "id": "D",
+      "identify_id": 2004,
+      "row": 2,
+      "column": 2,
+      "baseline_control": false,
+      "pattern": "auto",
+      "remove_interface_connectors": false,
+      "gap_mm": 0.3,
+      "spacing_mm": 0.5,
+      "interface_layers": 0,
+      "plate_center_xy": [
+        190.0,
+        180.0
+      ],
+      "object_id": 8,
+      "overrides": {
+        "support_top_z_distance": "0.3",
+        "support_interface_top_layers": "0",
+        "support_interface_pattern": "auto"
+      },
+      "mesh": ".cache/prints/2026-09-15-interface-patterns-mark2/specimen-04.stl",
+      "mesh_sha256": "5ab648fb74b880031e1756b437711506ca1aa96527dab4162ecce5cb41a6ac5b",
+      "triangles": 544
+    }
+  ]
+}
