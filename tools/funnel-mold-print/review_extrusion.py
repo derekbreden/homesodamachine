@@ -9,6 +9,7 @@ import re
 import xml.etree.ElementTree as ET
 import zipfile
 
+import numpy as np
 import trimesh
 from shapely.geometry import LineString, box
 from shapely.ops import unary_union
@@ -17,12 +18,29 @@ from profiles import qn
 from review_layers import material_polygons
 
 
+def material_section(mesh, z):
+    section = mesh.section_multiplane([0, 0, 0], [0, 0, 1], [z])[0]
+    assert section is not None, z
+    return unary_union(material_polygons(section))
+
+
+def wall_window(material, side, y, thickness):
+    line = material.intersection(LineString([(0, y), (side*1000, y)]))
+    segments = list(line.geoms) if hasattr(line, 'geoms') else [line]
+    segments = [segment for segment in segments if segment.geom_type == 'LineString']
+    assert segments, (side, y, 'no wall section')
+    segment = max(segments, key=lambda s: max(abs(s.bounds[0]), abs(s.bounds[2])))
+    assert segment.length > thickness*0.99, (side, y, segment.length)
+    return box(segment.bounds[0], y-1, segment.bounds[2], y+1)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--models', type=Path, required=True)
     parser.add_argument('--project', type=Path, required=True)
     args = parser.parse_args()
     path = args.models/'cavity.stl'
+    info = json.loads((args.models/'design.json').read_text())
     mesh = trimesh.load(path, force='mesh', process=True)
     with zipfile.ZipFile(args.project) as archive:
         raw = archive.read('Metadata/plate_1.gcode')
@@ -32,20 +50,31 @@ def main():
     assert transform[:9] == [1, 0, 0, 0, 1, 0, 0, 0, 1]
     offset = transform[9:12]-mesh.bounds.mean(axis=0)
     assert abs(offset[2]) < 1e-5
-    targets = (55.6, 70.4, 70.8)
+    data = raw.decode()
+    layers = [(float(z), float(h)) for z, h in re.findall(
+        r'; Z_HEIGHT: ([0-9.]+)\r?\n; LAYER_HEIGHT: ([0-9.]+)', data)]
+    heights = dict(layers)
+    chute_start = info['ramp_print_z_mm']['cavity'][1]
+    chute_z = min(z for z, height in layers if z-height/2 >= chute_start)
+    half_brim = info['dimensions_mm']['funnel'][0]/2
+    rim_outer_x = half_brim+info['finish_allowance_mm']+info['shell_thickness_mm']
+    rim_vertices = mesh.vertices[
+        (np.abs(np.abs(mesh.vertices[:, 0])-rim_outer_x) < 1e-4)
+        & (np.abs(mesh.vertices[:, 1]) <= half_brim+1e-4)]
+    assert len(rim_vertices), 'outer rim transition absent from mesh'
+    rim_start = float(rim_vertices[:, 2].min())
+    rim_layers = sorted(z for z, height in layers if z-height/2 < rim_start)[-2:]
+    assert len(rim_layers) == 2
+    targets = [chute_z, *rim_layers]
     x = y = z = 0.0
     width = 0.82
     feature = ''
     paths = defaultdict(list)
     counts = defaultdict(lambda: defaultdict(int))
-    heights = {}
-    data = raw.decode()
     body = data[data.index('; CHANGE_LAYER'):].split('; MACHINE_END_GCODE_START')[0]
     for line in body.splitlines():
         if line.startswith('; Z_HEIGHT:'):
             z = float(line.split(':')[1])
-        elif line.startswith('; LAYER_HEIGHT:'):
-            heights[z] = float(line.split(':')[1])
         elif line.startswith('; LINE_WIDTH:'):
             width = float(line.split(':')[1])
         elif line.startswith('; FEATURE:'):
@@ -68,32 +97,36 @@ def main():
         'project': args.project.name,
         'project_sha256': hashlib.sha256(args.project.read_bytes()).hexdigest(),
         'cavity_stl_sha256': hashlib.sha256(path.read_bytes()).hexdigest(),
+        'design_sha256': hashlib.sha256((args.models/'design.json').read_bytes()).hexdigest(),
         'gcode_sha256': hashlib.sha256(raw).hexdigest(),
         'method': 'Positive model G1 segments buffered by half emitted line width; '
                   'support and brim excluded. Sections use layer midplanes; XY is '
                   'the cavity assembly frame. Nominal path coverage, not physical sealing.',
         'minimum_coverage_fraction': 0.99,
+        'chute_transition_z_mm': chute_start,
+        'rim_transition_z_mm': rim_start,
         'layers': []}
     for z in targets:
         section_z = z-heights[z]/2
-        section = mesh.section_multiplane([0, 0, 0], [0, 0, 1], [section_z])[0]
-        material = unary_union(material_polygons(section))
+        material = material_section(mesh, section_z)
         footprint = unary_union(paths[z])
-        witnesses = ([(-84.8, -79.8, 0), (79.8, 84.8, 39.75)] if z == 55.6
-                     else [(-91.8, -86.8, 0), (86.8, 91.8, 0)])
+        thickness = info['shell_thickness_mm']
+        negative = wall_window(material, -1, 0, thickness)
+        chute_y = (-negative.bounds[2]-info['finish_allowance_mm'])/2
+        positive = wall_window(material, 1, chute_y if z == chute_z else 0, thickness)
         regions = []
-        for x0, x1, y in witnesses:
-            window = box(x0, y-1, x1, y+1)
+        for window in (negative, positive):
             expected = material.intersection(window)
             covered = expected.intersection(footprint)
-            assert expected.area > 9.9, (z, list(window.bounds), expected.area)
+            assert expected.area > 2*thickness*0.99, (z, list(window.bounds), expected.area)
             coverage = covered.area/expected.area
             assert coverage >= report['minimum_coverage_fraction'], (z, coverage)
             regions.append({'bounds_mm': list(window.bounds),
                             'model_section_area_mm2': expected.area,
                             'extrusion_footprint_area_mm2': covered.area,
                             'coverage_fraction': coverage})
-        report['layers'].append({'print_z_mm': z, 'section_z_mm': section_z,
+        report['layers'].append({'feature': 'chute' if z == chute_z else 'rim',
+                                'print_z_mm': z, 'section_z_mm': section_z,
                                 'model_extrusion_segments_by_feature': dict(counts[z]),
                                 'repaired_regions': regions})
         print(f'Z{z:g}: '+', '.join(format(r['coverage_fraction'], '.3%') for r in regions))

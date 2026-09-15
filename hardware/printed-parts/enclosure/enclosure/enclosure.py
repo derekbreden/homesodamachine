@@ -3526,30 +3526,19 @@ def _funnel_cut_plan(centre):
 
 @functools.cache
 def _funnel_keepout_source():
-    """The funnel's filled outer envelope with plan running air, in its own frame.
+    """The filled funnel below its brim, with normal running air on every face.
 
-    The shell's cavity is part of the required opening too: roof stock inside the liquid
-    volume would not intersect the silicone shell but would still block the funnel. The chute,
-    loft and spout are drawn directly from the funnel's own exported metrics, each enlarged in
-    plan by the running air. The brim is omitted because its underside is the bearing plane,
-    not a pocket.
+    The opening includes the liquid volume. Its top ends at the brim's underside,
+    leaving the enclosure's flange-bearing surface at z = 0.
     """
-    _envelope, _cavity, meta = _funnel.build_solids()
-    a = funnel_collar_air
-    chute = (cq.Workplane("XY")
-             .box(meta["w"] + 2.0 * a, meta["d"] + 2.0 * a,
-                  -meta["ramp_top_z"], centered=(True, True, False))
-             .translate((0.0, 0.0, meta["ramp_top_z"])).val())
-    ramp = (cq.Workplane("XY", origin=(0.0, 0.0, meta["ramp_top_z"]))
-            .rect(meta["w"] + 2.0 * a, meta["d"] + 2.0 * a)
-            .workplane(offset=meta["neck_z"] - meta["ramp_top_z"])
-            .center(meta["ncx"], meta["ncy"])
-            .circle(meta["spout_or"] + a)
-            .loft(combine=True).val())
-    spout = cq.Solid.makeCylinder(
-        meta["spout_or"] + a, meta["neck_z"] - meta["end_z"],
-        cq.Vector(meta["ncx"], meta["ncy"], meta["end_z"]), cq.Vector(0.0, 0.0, 1.0))
-    return chute.fuse(ramp).fuse(spout)
+    envelope, _cavity, meta = _funnel.build_solids()
+    below_brim = (cq.Workplane("XY")
+                  .box(meta["out_w"] + 2.0, meta["out_d"] + 2.0,
+                       1.0 - meta["end_z"], centered=(True, True, False))
+                  .translate((meta["out_cx"], meta["out_cy"], meta["end_z"] - 1.0))
+                  .val())
+    throat = envelope.intersect(below_brim).clean()
+    return _funnel.normal_envelope(throat, funnel_collar_air).intersect(below_brim).clean()
 
 
 def _funnel_keepout(outer, centre):

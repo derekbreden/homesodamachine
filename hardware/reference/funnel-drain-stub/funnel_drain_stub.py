@@ -47,8 +47,7 @@ import funnel as _funnel
 
 STUB_OD = 6.35          # 1/4" LLDPE, the same stock every water-side run is cut from
 STUB_ID = 4.32          # its bore
-# Up the spout's straight land as far as the ramp tip, which is where the bore stops being
-# round and starts opening into the funnel's floor.
+# The stub supports the full straight clamp land below the rounded ramp transition.
 FUNNEL_ENGAGEMENT = _funnel.spout_tube
 # What the stub owes the fitting it pushes into, read off that fitting: the elbow's socket
 # bottoms a 1/4" tube at its own stop, and a stub cut past that stop is a stub standing on metal

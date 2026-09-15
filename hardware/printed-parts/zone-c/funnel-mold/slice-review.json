@@ -69,58 +69,58 @@
   },
   "retry": {
     "project": "funnel-mold-h2c-040.gcode.3mf",
-    "project_sha256": "771a3de1396c71ff4a78ca89ad6365a1d8d116b758f107243b3d6fb1cc20eaf8",
+    "project_sha256": "ae3b86b52322b6dc8436795c7bcf15795af1b797505b9d17f188799bb2de1e76",
     "plates": [
       {
         "gcode": "Metadata/plate_1.gcode",
-        "gcode_sha256": "424c45075cb933d8bf97364dd7eb4a001746404a6f2ad76654b26b12444496b6",
+        "gcode_sha256": "a5a52196c38e6b922a2ca5bbf4fc1a43dea4178706d07c89e37c4056a6cc9ff8",
         "startup_commands_sha256": "ef79fd824e0198ae76cafef252ee8e6ee94a3a22e6bb5ff989944fc866ec4c1f",
-        "estimated_seconds": 74640,
-        "estimated_filament_g": 752.26,
+        "estimated_seconds": 73657,
+        "estimated_filament_g": 755.37,
         "after_first_layer": {
           "Travel": {
-            "moves": 208494,
+            "moves": 203065,
             "max_speed_mm_s": 150.0,
             "max_acceleration_mm_s2": 1500.0
           },
           "Support": {
-            "moves": 1984608,
+            "moves": 1928171,
             "max_speed_mm_s": 40.0,
             "max_acceleration_mm_s2": 1500.0
           },
           "Support interface": {
-            "moves": 79620,
+            "moves": 70726,
             "max_speed_mm_s": 30.0,
             "max_acceleration_mm_s2": 1500.0
           }
         },
-        "total_layers": 199,
+        "total_layers": 212,
         "extruding_centerline_bounds_mm": [
-          46.519,
-          57.159,
-          252.106,
-          262.945
+          46.857,
+          57.478,
+          252.578,
+          262.681
         ]
       },
       {
         "gcode": "Metadata/plate_2.gcode",
-        "gcode_sha256": "f605fc533b5d2ca16eab65e554d14fdde8996a74117d289da99f773220141615",
+        "gcode_sha256": "374b31b3ad9f22790ad2f2775543143fb1fca27d0914f2e599a1d54b6d94ecbb",
         "startup_commands_sha256": "ef79fd824e0198ae76cafef252ee8e6ee94a3a22e6bb5ff989944fc866ec4c1f",
-        "estimated_seconds": 42476,
-        "estimated_filament_g": 484.64,
+        "estimated_seconds": 41807,
+        "estimated_filament_g": 478.18,
         "after_first_layer": {
           "Travel": {
-            "moves": 90662,
+            "moves": 91161,
             "max_speed_mm_s": 150.0,
             "max_acceleration_mm_s2": 1500.0
           },
           "Support": {
-            "moves": 798375,
+            "moves": 762303,
             "max_speed_mm_s": 40.0,
             "max_acceleration_mm_s2": 1500.0
           },
           "Support interface": {
-            "moves": 48083,
+            "moves": 49393,
             "max_speed_mm_s": 30.0,
             "max_acceleration_mm_s2": 1500.0
           }
