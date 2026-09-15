@@ -1,6 +1,6 @@
 # Funnel mold print log
 
-## 0.40 mm support trial — 2026-09-14 (settings per [`funnel-mold-h2c-040.gcode.3mf`](funnel-mold-h2c-040.gcode.3mf))
+## 0.40 mm support trial — 2026-09-14 (settings per `funnel-mold-h2c-040.gcode.3mf`)
 
 - `layer_height` **0.40 mm** (initial 0.40)
 - `nozzle_temperature` **245 °C** (initial 250)
