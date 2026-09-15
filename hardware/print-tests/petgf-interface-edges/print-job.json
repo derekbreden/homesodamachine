@@ -2,7 +2,7 @@
   "date": "2026-09-15",
   "printer": "Mark2",
   "job_name": "petgf-interface-edges-mark2.gcode.3mf",
-  "status": "started",
+  "status": "completed",
   "sent_via": "Bambu Connect",
   "started_by": "agent",
   "profile": "hardware/printed-parts/petgf.3mf",
@@ -26,11 +26,11 @@
     "flow_dynamic_calibration": "Auto",
     "nozzle_offset_calibration": "Auto"
   },
-  "observed_at_utc": "2026-09-15T05:12:41.005955+00:00",
-  "observed_state": "RUNNING",
-  "observed_layer": 0,
+  "observed_at_utc": "2026-09-15T20:28:27.785203+00:00",
+  "observed_state": "FINISH",
+  "observed_layer": 120,
   "observed_print_error": 0,
-  "observed_ui_stage": "Homing toolhead",
   "printer_eta_local": "2026-09-15 13:03 America/Chicago",
-  "physical_results": "awaiting cooled-print inspection"
+  "physical_results": "User attempted removal on all 16 specimens; edges retained material on every specimen. Some centers released partially. No specimen had complete clean removal.",
+  "startup_ui_stage": "Homing toolhead"
 }
