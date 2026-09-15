@@ -108,30 +108,10 @@ const solids = pointers.solids ?? {};
 const { missing: absent, drifted } = await wanted(solids);
 const OBJECTS = pointers.store?.objects ?? pointers.release?.objects ?? null;
 
-// THE STORE FILLS FROM THE TREE. Every member here at its pointed-at hash goes to the store
-// under its hash if the store lacks it, read against one listing of the store; the first boot
-// against an empty store does all of them and every boot after does the ones a publish moved
-// since. Objects arriving over the network below are kept the same way as they come.
+// THE STORE THIS CONTAINER READS FROM FIRST, when it is a disk beside this process. The site
+// fills the store after it is listening (web/lib/store.js `fillStore`), so nothing here waits
+// on it.
 const STORE = OBJECTS ? await storeFromEnv().catch(() => null) : null;
-if (STORE && !(STORE.kind === "disk" && !(await isDir(STORE.dir)))) {
-  const held = new Set((await STORE.list()).map((o) => o.name));
-  const drift = new Set(drifted);
-  let kept = 0;
-  for (const rel of Object.keys(solids)) {
-    if (drift.has(rel) || !(await present(rel))) continue;
-    const name = `${OBJECTS}${solids[rel]}.gz`;
-    if (held.has(name)) continue;
-    const part = path.join(tmpdir(), `${name}.${process.pid}.part`);
-    await pipeline(createReadStream(path.join(ROOT, rel)), createGzip(), createWriteStream(part));
-    try {
-      await STORE.put(name, part);
-      kept += 1;
-    } finally {
-      await rm(part, { force: true });
-    }
-  }
-  if (kept) console.log(`[cad-artifacts] ${kept} object(s) put on the ${STORE.kind} store from this tree`);
-}
 
 // `--adopt`: A SERVER HOLDS NO CUT OF ITS OWN, SO DRIFT THERE IS AGE, NOT WORK. Without it a
 // solid present under other bytes is left alone, because on a machine that cuts geometry those

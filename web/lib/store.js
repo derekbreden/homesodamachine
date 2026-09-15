@@ -12,9 +12,12 @@
 // a laptop or a test runs against, and needs no account. With neither configured there is no
 // store, and the site serves what its build fetched.
 
-import { createReadStream } from "node:fs";
+import { createReadStream, createWriteStream } from "node:fs";
 import { copyFile, mkdir, readdir, rm, stat } from "node:fs/promises";
+import { tmpdir } from "node:os";
 import path from "node:path";
+import { pipeline } from "node:stream/promises";
+import { createGzip } from "node:zlib";
 
 export const OBJECT_NAME = /^s-([0-9a-f]{64})\.gz$/;
 
@@ -146,6 +149,54 @@ export class R2Store {
     const got = await this.client.send(new GetObjectCommand({ Bucket: this.bucket, Key: name }));
     return got.Body;
   }
+}
+
+const FILL_LANES = 4;
+
+/**
+ * Put every member this tree holds at its pointed-at hash on the store, skipping what the
+ * store already has. `pointers` is the pointer file, `root` the repo it is in.
+ *
+ * WHAT A READER FETCHES COMES FROM HERE, and what this tree holds is where it comes from. The
+ * site runs this after it is listening: a container serves off its own disk from the moment it
+ * boots, and the store catches up behind it. An empty store takes every member; a store that
+ * has them takes the ones a publish moved since.
+ */
+export async function fillStore({ store, root, pointers, log = console.log }) {
+  const prefix = pointers?.store?.objects ?? pointers?.release?.objects;
+  const solids = pointers?.solids ?? {};
+  if (!store || !prefix) return 0;
+  const held = new Set((await store.list()).map((o) => o.name));
+  const todo = [];
+  for (const [rel, digest] of Object.entries(solids)) {
+    const name = `${prefix}${digest}.gz`;
+    if (!held.has(name)) todo.push([rel, name, digest]);
+  }
+  if (!todo.length) return 0;
+  const { createHash } = await import("node:crypto");
+  const queue = [...todo];
+  let put = 0;
+  const lane = async () => {
+    for (let job = queue.shift(); job !== undefined; job = queue.shift()) {
+      const [rel, name, digest] = job;
+      const abs = path.join(root, rel);
+      const part = path.join(tmpdir(), `${name}.${process.pid}.${put}.part`);
+      try {
+        const hash = createHash("sha256");
+        await pipeline(createReadStream(abs), hash);
+        if (hash.digest("hex") !== digest) continue;      // this tree's own cut, not the store's
+        await pipeline(createReadStream(abs), createGzip(), createWriteStream(part));
+        await store.put(name, part);
+        put += 1;
+      } catch { /* a member this container cannot read or send waits for the next boot */ }
+      finally {
+        await rm(part, { force: true });
+      }
+    }
+  };
+  await Promise.all(Array.from({ length: Math.min(FILL_LANES, todo.length) }, lane));
+  if (put) log(`[objects] ${put} of ${todo.length} member(s) put on the ${store.kind} store from this tree`);
+  return put;
 }
 
 /** The store the environment names: R2 when its account and key pair are set, else the disk, else none. */
