@@ -8,31 +8,31 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <style>
-  /* Settings: the machine read off one engraved plate, and the areas beside it. */
+  /* Settings: the machine read off one engraved plate, and the areas beside it.
+     Pressed element: the PUMP SERVICE row. */
   .status { left: 16px; top: 108px; width: 578px; height: 288px; }
-  .status > .lab { position: absolute; left: 18px; top: 18px; }
-  .profile { position: absolute; left: 18px; top: 48px; }
-  .verdict { position: absolute; left: 330px; top: 52px; display: flex;
-             align-items: center; gap: 16px; }
+  .etch { position: absolute; left: 12px; top: 12px; width: 327px; height: 264px;
+          background: var(--recess); box-shadow: var(--bevelin);
+          display: flex; align-items: center; justify-content: center; }
+  .side { position: absolute; left: 363px; top: 0; width: 203px; }
+  .side .lab { display: block; margin-top: 14px; }
+  .verdict { display: flex; align-items: center; gap: 14px; margin-top: 22px; }
   .verdict .word { font-size: 40px; line-height: 1; color: var(--cream); }
-  .seal { width: 46px; height: 46px; }
-  .note { position: absolute; left: 330px; top: 116px; width: 228px;
-          font-size: 17px; font-weight: 400; line-height: 1.5; color: var(--dim); }
+  .seal { width: 46px; height: 46px; flex: 0 0 auto; }
+  .note { margin-top: 18px; font-size: 17px; font-weight: 400; line-height: 1.5; color: var(--dim); }
   .note b { color: var(--warn); font-weight: 600; }
-  .key { position: absolute; left: 330px; top: 206px; display: flex;
-         flex-direction: column; gap: 12px; }
+  .key { margin-top: 20px; display: flex; flex-direction: column; gap: 12px; }
   .key div { display: flex; align-items: center; gap: 12px;
              font-size: 15px; font-weight: 600; letter-spacing: .1em;
              text-transform: uppercase; color: var(--dim); }
   .key u { display: block; width: 20px; height: 20px; border-radius: 50%;
            background: var(--brass); box-shadow: 0 0 0 2px var(--bg); }
-  .key u.open { background: var(--recess); box-shadow: inset 0 0 0 3px var(--bronze); }
+  .key u.open { background: var(--recess); box-shadow: inset 0 0 0 3px var(--dim); }
 
   .area { left: 16px; top: 408px; width: 578px; height: 64px; box-sizing: border-box;
           padding: 0 20px; display: flex; align-items: center; gap: 18px;
           font-size: 21px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; }
   .area .grow { flex: 1; }
-  .area svg { stroke: var(--brass); }
   .area.pressed { color: var(--brass); }
 </style>
 </head>
@@ -40,7 +40,7 @@
 <div class="screen">
   <div class="rail">
     <div class="plate rail-item primary" style="top:12px">
-      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="10" height="14" rx="2.5"/><path d="M9 18v4"/><rect x="18" y="4" width="10" height="14" rx="2.5"/><path d="M23 18v4"/><path d="M2 26h28"/></svg>
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="10" height="17" rx="2.5" fill="currentColor"/><rect x="18" y="3" width="10" height="17" rx="2.5"/><path d="M9 20v4M23 20v4"/><path d="M2 27h28"/></svg>
       <span class="rl">Choose</span>
     </div>
     <div class="rail-split" style="top:122px"></div>
@@ -53,7 +53,7 @@
       <span class="rl">Fill</span>
     </div>
     <div class="plate rail-item" style="top:363px">
-      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13h12l-2 15h-8Z"/><path d="M13 3v6M16 1v8M19 3v6"/></svg>
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 12h16l-2.5 17h-11Z"/><path d="M12 2.5v6.5M16 1v8M20 2.5v6.5"/></svg>
       <span class="rl">Clean</span>
     </div>
     <div class="rail-bar"></div>
@@ -65,45 +65,54 @@
     <div class="rule" style="left:16px; top:100px; width:578px"></div>
 
     <div class="plate status">
-      <span class="lab">System Status</span>
-    <svg class="profile" width="284" height="222" viewBox="0 0 462 361" fill="none">
-      <path d="M70 0H462V361H0V70Z" fill="#241a12" stroke="#a9967c" stroke-width="3"/>
-      <path d="M0 70L70 0" stroke="#d2a24c" stroke-width="7" stroke-linecap="round"/>
-      <rect x="180" y="126" width="272" height="227" fill="#1a120c" stroke="#7d5a34" stroke-width="2"/>
-      <rect x="196" y="138" width="66" height="211" fill="#241a12" stroke="#a9967c" stroke-width="2.5"/>
-      <rect x="372" y="138" width="66" height="211" fill="#241a12" stroke="#a9967c" stroke-width="2.5"/>
-      <rect x="276" y="150" width="82" height="199" rx="16" fill="#241a12" stroke="#a9967c" stroke-width="2.5"/>
-      <rect x="197.5" y="253" width="63" height="94.5" fill="#7fb069"/>
-      <rect x="373.5" y="253" width="63" height="94.5" fill="#7fb069"/>
-      <rect x="277.5" y="251" width="79" height="96.5" fill="#7fb069"/>
-      <circle cx="196" cy="303.5" r="14" fill="#d2a24c" stroke="#241a12" stroke-width="3"/>
-      <circle cx="196" cy="258.5" r="14" fill="#d2a24c" stroke="#241a12" stroke-width="3"/>
-      <circle cx="196" cy="213.5" r="14" fill="#1a120c" stroke="#7d5a34" stroke-width="4"/>
-      <circle cx="196" cy="168.5" r="14" fill="#1a120c" stroke="#7d5a34" stroke-width="4"/>
-      <circle cx="438" cy="303.5" r="14" fill="#d2a24c" stroke="#241a12" stroke-width="3"/>
-      <circle cx="438" cy="258.5" r="14" fill="#d2a24c" stroke="#241a12" stroke-width="3"/>
-      <circle cx="438" cy="213.5" r="14" fill="#1a120c" stroke="#7d5a34" stroke-width="4"/>
-      <circle cx="438" cy="168.5" r="14" fill="#1a120c" stroke="#7d5a34" stroke-width="4"/>
-      <circle cx="358" cy="261.9" r="14" fill="#d2a24c" stroke="#241a12" stroke-width="3"/>
-      <circle cx="358" cy="233.7" r="14" fill="#1a120c" stroke="#7d5a34" stroke-width="4"/>
-    </svg>
-      <div class="verdict">
-        <svg class="seal" viewBox="0 0 46 46" fill="none">
-          <circle cx="23" cy="23" r="21" fill="#d2a24c"/>
-          <path d="M13 23.5l7 7 13-14" stroke="#241a12" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <span class="word display">Ready</span>
+      <div class="etch">
+      <svg class="profile" width="307" height="240" viewBox="0 0 462 361" fill="none">
+        <defs>
+          <clipPath id="tube"><rect x="276" y="150" width="82" height="199" rx="16"/></clipPath>
+        </defs>
+        <path d="M70 0H462V361H0V70Z" fill="#221812" stroke="#a9967c" stroke-width="3"/>
+        <path d="M2 68L68 2" stroke="#d2a24c" stroke-width="9" stroke-linecap="round"/>
+        <rect x="180" y="126" width="272" height="227" fill="#3a2b1d" stroke="#a9967c" stroke-width="2"/>
+        <rect x="196" y="138" width="66" height="211" fill="#140d08" stroke="#d2a24c" stroke-width="2.5"/>
+        <rect x="372" y="138" width="66" height="211" fill="#140d08" stroke="#d2a24c" stroke-width="2.5"/>
+        <rect x="276" y="150" width="82" height="199" rx="16" fill="#140d08" stroke="#d2a24c" stroke-width="2.5"/>
+        <rect x="197.5" y="253" width="63" height="94.5" fill="#3f5a33"/>
+        <rect x="373.5" y="253" width="63" height="94.5" fill="#3f5a33"/>
+        <g clip-path="url(#tube)"><rect x="276" y="251" width="82" height="98" fill="#3f5a33"/></g>
+        <path d="M197.5 253h63M373.5 253h63M277.5 251h79" stroke="#7fb069" stroke-width="5"/>
+      <circle cx="196" cy="303.5" r="15" fill="#d2a24c" stroke="#241a12" stroke-width="3.5"/>
+      <circle cx="196" cy="258.5" r="15" fill="#d2a24c" stroke="#241a12" stroke-width="3.5"/>
+      <circle cx="196" cy="213.5" r="15" fill="#1a120c" stroke="#a9967c" stroke-width="4.5"/>
+      <circle cx="196" cy="168.5" r="15" fill="#1a120c" stroke="#a9967c" stroke-width="4.5"/>
+      <circle cx="438" cy="303.5" r="15" fill="#d2a24c" stroke="#241a12" stroke-width="3.5"/>
+      <circle cx="438" cy="258.5" r="15" fill="#d2a24c" stroke="#241a12" stroke-width="3.5"/>
+      <circle cx="438" cy="213.5" r="15" fill="#1a120c" stroke="#a9967c" stroke-width="4.5"/>
+      <circle cx="438" cy="168.5" r="15" fill="#1a120c" stroke="#a9967c" stroke-width="4.5"/>
+      <circle cx="358" cy="261.9" r="15" fill="#d2a24c" stroke="#241a12" stroke-width="3.5"/>
+      <circle cx="358" cy="233.7" r="15" fill="#1a120c" stroke="#a9967c" stroke-width="4.5"/>
+      </svg>
       </div>
-      <div class="note">Both taps are armed and the carbonator is cold. <b>One reservoir is running low.</b></div>
-      <div class="key">
-        <div><u></u><span>Closed</span></div>
-        <div><u class="open"></u><span>Open</span></div>
+      <div class="side">
+        <span class="lab">System Status</span>
+        <div class="verdict">
+          <svg class="seal" viewBox="0 0 46 46" fill="none">
+            <circle cx="23" cy="23" r="21" fill="#d2a24c"/>
+            <path d="M13 23.5l7 7 13-14" stroke="#241a12" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="word display">Ready</span>
+        </div>
+        <div class="note">Both taps are armed. <b>One reservoir is running low.</b></div>
+        <div class="key">
+          <div><u></u><span>Closed</span></div>
+          <div><u class="open"></u><span>Open</span></div>
+        </div>
       </div>
     </div>
 
     <div class="plate btn area pressed">
-      <svg width="30" height="30" viewBox="0 0 32 32" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="16" cy="16" r="11"/><path d="M16 5v11l8 5"/><path d="M27 16h4"/>
+      <svg width="30" height="30" viewBox="0 0 32 32" fill="none" stroke-width="2.2">
+        <circle cx="16" cy="16" r="11.5"/><circle cx="16" cy="16" r="3.6"/>
+        <circle cx="16" cy="7.4" r="2.8"/><circle cx="23.4" cy="20.3" r="2.8"/><circle cx="8.6" cy="20.3" r="2.8"/>
       </svg>
       <span>Pump Service</span>
       <span class="grow"></span>

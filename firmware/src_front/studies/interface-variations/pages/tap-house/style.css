@@ -58,16 +58,15 @@ body {
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   gap: 8px;
 }
+.rail-item { color: var(--dim); }
 .rail-item .rl {
   font-size: 19px; font-weight: 600; letter-spacing: .14em;
-  text-transform: uppercase; color: var(--dim);
+  text-transform: uppercase; color: currentColor;
 }
-.rail-item.primary .rl { color: var(--cream); }
-.rail-item svg { stroke: var(--dim); }
-.rail-item.primary svg { stroke: var(--cream); }
-.rail-item.on { background: var(--brass); box-shadow: inset 1px 1px 0 rgba(255,255,255,.3), inset -1px -1px 0 rgba(0,0,0,.28); }
-.rail-item.on .rl { color: var(--bg); }
-.rail-item.on svg { stroke: var(--bg); }
+.rail-item svg { stroke: currentColor; }
+.rail-item.primary { color: var(--cream); }
+.rail-item.on { color: var(--bg); background: var(--brass);
+  box-shadow: inset 1px 1px 0 rgba(255,255,255,.3), inset -1px -1px 0 rgba(0,0,0,.28); }
 
 /* ---------- pane ---------- */
 .pane { position: absolute; left: 190px; top: 0; width: 610px; height: 480px; }

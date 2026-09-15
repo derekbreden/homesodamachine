@@ -57,7 +57,7 @@ body{
 .face{position:relative;border-radius:4px;overflow:hidden;background:#0a0c0d;flex:none}
 .face img{display:block;width:100%;height:100%;object-fit:cover}
 .face::after{content:'';position:absolute;inset:0;border:1px solid var(--hair);border-radius:4px}
-.face.veil::before{content:'';position:absolute;inset:0;background:#000;opacity:.45;z-index:2}
+.face.veil::before{content:'';position:absolute;inset:0;background:#000;opacity:.5;z-index:2}
 
 /* ---------- fields and keys ---------- */
 .field{position:absolute;background:var(--surface)}
@@ -67,8 +67,9 @@ body{
 .key .kw{font-size:18px;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
 .key.off{color:var(--dim)}
 .key.off svg{stroke:var(--sec)}
-/* a press lights the field all the way up — the only white on the panel */
-.key.press{background:var(--text);color:var(--bg)}
+/* a press lights the field: the ground rises to the dim tier and the content inverts.
+   Nothing at rest carries this value, so it is a state class, not one more step on the ladder. */
+.key.press{background:var(--dim);color:var(--bg)}
 .key.press svg{stroke:var(--bg)}
 
 /* ---------- choose ---------- */
@@ -83,9 +84,13 @@ body{
 .lvl.warn{background:var(--warn)}
 .fcard.dim .ratio-sm{color:var(--dim)}
 .fcard.dim .caption-s{color:#565f63}
+.fcard.dim .lvl{background:#1c2225}
+.fcard.dim .lvl.warn{background:var(--warn)}
 
-.gear{position:absolute;left:728px;top:16px;width:48px;height:48px}
-.gear svg{fill:none;stroke:var(--sec);stroke-width:2;stroke-linecap:round;display:block}
+.gear{position:absolute;left:720px;top:8px;width:64px;height:64px;display:flex;align-items:center;justify-content:center}
+.gear svg{fill:none;stroke:var(--sec);stroke-width:2;stroke-linejoin:round;display:block}
+.gear.press{background:var(--dim)}
+.gear.press svg{stroke:var(--bg)}
 
 /* ---------- flavor ---------- */
 .anchor-back{left:208px;top:16px;width:172px;height:96px}
@@ -105,30 +110,30 @@ body{
 /* ---------- pick ---------- */
 .pcard{position:absolute;top:96px;width:204px;height:352px;background:var(--surface)}
 .pcard .pface{position:absolute;left:16px;top:16px;width:172px;height:320px}
-.disc{position:absolute;left:46px;top:120px;width:112px;height:112px;border-radius:56px;
-  background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:3}
-.disc svg{fill:none;stroke:var(--text);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;display:block}
-.disc.press{background:var(--text)}
-.disc.press svg{stroke:var(--bg)}
+.pmark{position:absolute;left:0;bottom:0;width:100%;height:80px;z-index:2;background:var(--bg);
+  display:flex;align-items:center;justify-content:center}
+.pmark svg{display:block;fill:none;stroke:var(--text);stroke-width:2.2;
+  stroke-linejoin:round;stroke-linecap:round}
+.pcard.press{background:var(--dim)}
 
 /* ---------- lock ---------- */
 .lock-title{position:absolute;font-size:44px;font-weight:400;line-height:1;color:var(--text)}
 .mins{color:var(--accent);white-space:nowrap}
 .mins b{font-size:40px;font-weight:600;font-variant-numeric:tabular-nums}
 .mins span{font-size:20px;font-weight:600;letter-spacing:.18em;margin-left:8px}
-.pbar{position:absolute;height:6px;background:var(--alt)}
+.pbar{position:absolute;height:6px;background:var(--sec)}
 .pfill{position:absolute;left:0;top:0;height:6px;background:var(--accent)}
 .pseg{position:absolute;top:0;height:6px;width:60px;background:var(--accent-hi)}
 .stop{position:absolute;display:flex;align-items:center;justify-content:center;
-  border:2px solid var(--sec);color:var(--text);font-size:20px;font-weight:600;letter-spacing:.18em}
+  border:2px solid var(--dim);color:var(--text);font-size:24px;font-weight:600;letter-spacing:.22em}
 .cyc{position:absolute}
-.cyc svg{fill:none;stroke:var(--accent);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;display:block}
+.cyc svg{fill:none;stroke:var(--accent);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;display:block}
+.cyc svg .solid{fill:var(--accent);stroke:none}
 
 /* ---------- settings ---------- */
 .legend{position:absolute;display:flex;align-items:center;gap:14px}
 .legend .lbl{font-size:15px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
 .dot{width:14px;height:14px;border-radius:7px;flex:none}
 .dot.closed{background:var(--good)}
-.dot.open{background:transparent;box-shadow:inset 0 0 0 2px var(--sec)}
-.pump{flex-direction:column;gap:10px}
-.pump .kw{line-height:1.15;text-align:center}
+.dot.open{background:var(--bg);box-shadow:inset 0 0 0 2px var(--dim)}
+.legend .lbl{white-space:nowrap}

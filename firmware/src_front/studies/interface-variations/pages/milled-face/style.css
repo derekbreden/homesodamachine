@@ -67,6 +67,8 @@ body {
   white-space: nowrap;
 }
 .eng .sep { color: var(--cham-hi); margin: 0 .55em; }
+/* On a bright pocket floor the engraving is filled light instead. */
+.pocket > .eng, .card.sel .col .eng { color: #c8ccce; }
 .eng .rng { color: var(--dim); letter-spacing: .10em; }
 .warnt { color: var(--warn); }
 
@@ -112,6 +114,10 @@ body {
 }
 .dest.on { background-image: repeating-linear-gradient(to bottom,
              #5f6366 0 1px, #646769 1px 2px); }
+.dest.on::before {
+  content: ""; position: absolute; left: 2px; top: 2px; bottom: 2px; width: 5px;
+  background: var(--accent); border-right: 1px solid var(--core);
+}
 
 /* The indicator bead: dark ring when idle, lit teal with a light core when
    the destination is where you are. */
@@ -214,47 +220,48 @@ body {
 /* ══ CHOOSE ═══════════════════════════════════════════════════════════════
    Selection is an indicator lamp and a blanked plate, the way an oven marks
    a live zone: the armed flavor's pocket floor is milled bright, a lit bead
-   sits at its head and a 4 px anodised wall runs its full inner height. The
+   sits at its head and a 5 px anodised wall runs its full inner height. The
    other is a blanked plate — dark floor, dead bead, recessed type. ─────── */
 .card {
   position: absolute; border-radius: 4px;
-  background: var(--dead);
-  box-shadow: inset 2px 2px 0 #1c1f21, inset -2px -2px 0 #4a4e50;
-}
-.card.sel {
   background-image: repeating-linear-gradient(to bottom,
     var(--pocket) 0 1px, var(--pocket-hi) 1px 2px);
   box-shadow: inset 2px 2px 0 var(--trough), inset -2px -2px 0 var(--cham-hi);
 }
+.card.blank {
+  background-image: none; background: var(--dead);
+  box-shadow: inset 2px 2px 0 #1c1f21, inset -2px -2px 0 #4a4e50;
+}
 .card .wall {
-  position: absolute; left: 2px; top: 2px; bottom: 2px; width: 4px;
-  background: var(--accent);
+  position: absolute; left: 2px; top: 2px; bottom: 2px; width: 5px;
+  background: var(--accent); border-right: 1px solid var(--core);
 }
 .bead16 {
-  position: absolute; right: 14px; top: 14px; width: 16px; height: 16px;
+  position: absolute; right: 14px; top: 14px; width: 18px; height: 18px;
   border-radius: 50%; background: #1c1f21;
-  box-shadow: inset 0 0 0 2px #1c1f21;
+  box-shadow: inset 0 0 0 2px #17191b;
 }
 .bead16.lit { background: var(--accent); box-shadow: inset 0 0 0 2px var(--trough); }
 .bead16.lit::after {
-  content: ""; position: absolute; left: 5px; top: 5px; width: 6px; height: 6px;
+  content: ""; position: absolute; left: 5px; top: 5px; width: 7px; height: 7px;
   border-radius: 50%; background: var(--core);
 }
 
 .col { position: absolute; }
-.col .ratio { font-size: 36px; line-height: 40px; margin: 6px 0 20px; }
-.card:not(.sel) .col .eng   { color: #7d8285; text-shadow: 0 1px 0 #1c1f21; }
-.card:not(.sel) .col .ratio { color: var(--dim); }
+.col .ratio { font-size: 32px; line-height: 36px; margin: 6px 0 18px; }
+.card.blank .col .eng   { color: #808588; text-shadow: 0 1px 0 #1c1f21; }
+.card.blank .col .ratio { color: var(--dim); }
 
-.gauge { margin-top: 8px; }
-.cell {
-  height: 22px; border-radius: 2px; background: var(--trough);
-  box-shadow: inset 1px 1px 0 #1f2224, inset -1px -1px 0 #4a4e50;
-  margin-bottom: 4px;
+/* The level is one machined sight-slot with four cells in it, filling from
+   the floor — a vessel, not four separate bars. */
+.gauge {
+  margin-top: 8px; padding: 3px; border-radius: 3px; background: #1f2224;
+  box-shadow: inset 1px 1px 0 #17191b, inset -1px -1px 0 var(--cham-hi);
 }
+.cell { height: 22px; border-radius: 1px; background: var(--trough); margin-bottom: 4px; }
 .cell:last-child { margin-bottom: 0; }
-.cell.good { background: var(--good); box-shadow: inset 1px 1px 0 #3f9c6b, inset -1px -1px 0 #8fdcae; }
-.cell.warn { background: var(--warn); box-shadow: inset 1px 1px 0 #b87a22, inset -1px -1px 0 #f6c579; }
+.cell.good { background: var(--good); border-bottom: 1px solid #3f9c6b; }
+.cell.warn { background: var(--warn); border-bottom: 1px solid #b87a22; }
 .lowrow { height: 22px; padding-top: 2px; }
 
 /* ══ FLAVOR ═══════════════════════════════════════════════════════════════ */
@@ -275,12 +282,10 @@ body {
 .chip { position: relative; width: 60px; height: 112px; flex: 0 0 60px; background: var(--dead); }
 .chip + .chip { margin-left: 2px; }
 .chip img { display: block; width: 100%; height: 100%; object-fit: cover; }
-.chip.chosen::before,
 .chip.chosen::after {
-  content: ""; position: absolute; top: 0; bottom: 0; width: 3px; background: var(--accent);
+  content: ""; position: absolute; left: 0; top: 0; right: 0; bottom: 0;
+  border: 3px solid var(--accent);
 }
-.chip.chosen::before { left: -3px; }
-.chip.chosen::after  { right: -3px; }
 .chipbead {
   position: absolute; left: 148px; top: 4px; width: 12px; height: 12px;
   border-radius: 50%; background: var(--accent);
@@ -301,17 +306,15 @@ body {
 
 /* ══ PICK ═════════════════════════════════════════════════════════════════ */
 .card.pressed {
-  background: #1a1d1f;
-  box-shadow: inset 2px 2px 0 #14171a, inset -2px -2px 0 #4a4e50,
-              inset 0 0 0 0 transparent;
+  background-image: none; background: #323638;
+  box-shadow: inset 0 0 0 3px var(--accent),
+              inset 6px 6px 0 #1c1f21, inset -6px -6px 0 #7d8184;
 }
 .card.pressed .funnel { color: var(--core); }
 .funnel {
-  position: absolute; right: 12px; top: 50%; margin-top: -30px;
-  width: 60px; height: 60px; color: var(--accent);
+  position: absolute; right: 9px; top: 50%; margin-top: -34px;
+  width: 68px; height: 68px; color: var(--accent);
 }
-/* Both pick cards are live pockets, so they carry the bright floor. */
-#pick .card { }
 
 /* ══ LOCK ═════════════════════════════════════════════════════════════════
    The fascia is withheld: hatched guard bands cut across the top and bottom
@@ -343,16 +346,18 @@ body {
   position: absolute; border-radius: 3px;
   background-image: repeating-linear-gradient(to bottom, #6e7276 0 1px, #737779 1px 2px);
   box-shadow: inset 3px 3px 0 #8f9396, inset -3px -3px 0 var(--trough);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 24px; font-weight: 600; letter-spacing: .18em; color: #14171a;
-  text-shadow: 0 1px 0 #9b9fa1;
+  display: flex; align-items: center; justify-content: center; color: #16191b;
 }
+.stopmk { display: flex; margin-right: 18px; }
+.stoplab { font-size: 28px; font-weight: 600; letter-spacing: .20em;
+           text-shadow: 0 1px 0 #9b9fa1; }
 .chan {
   position: absolute; border-radius: 2px; background: var(--trough); overflow: hidden;
   box-shadow: inset 2px 2px 0 #1f2224, inset -2px -2px 0 var(--cham-hi);
 }
 .chan-fill { position: absolute; left: 2px; top: 2px; bottom: 2px; background: var(--accent); }
-.chan-edge { position: absolute; top: 2px; bottom: 2px; width: 3px; background: var(--core); }
+.chan-edge { position: absolute; top: 2px; bottom: 2px; width: 4px; margin-left: -4px;
+             background: #d8fbfc; }
 .chan-bead {
   position: absolute; top: 4px; width: 20px; height: 20px; border-radius: 50%;
   background: var(--accent); margin-left: -10px;
@@ -366,10 +371,14 @@ body {
    The machine's own side profile, scribed into the pocket floor: a 2 px cut
    with a 1 px highlight a pixel above it. A closed reed is a lit bead, an
    open one is an empty hole. ───────────────────────────────────────────── */
-.diagwrap { position: absolute; left: 20px; top: 54px; }
-.legend { position: absolute; left: 342px; top: 54px; width: 216px; }
-.legend .lab { margin-bottom: 18px; color: var(--cham-hi); }
-.lrow { display: flex; align-items: center; height: 34px; margin-bottom: 8px; }
+.diagwrap { position: absolute; left: 20px; top: 48px; }
+.legend {
+  position: absolute; left: 356px; top: 89px; width: 202px; height: 150px;
+  padding: 18px 20px; border-radius: 3px; background: var(--trough);
+  box-shadow: inset 2px 2px 0 #1f2224, inset -2px -2px 0 var(--cham-hi);
+}
+.legend .lab { margin-bottom: 14px; color: #8a8f92; text-shadow: 0 1px 0 #1c1f21; }
+.lrow { display: flex; align-items: center; height: 32px; margin-bottom: 4px; }
 .ldot {
   position: relative; width: 14px; height: 14px; border-radius: 50%;
   margin-right: 16px; flex: 0 0 14px;

@@ -9,29 +9,26 @@
 <link rel="stylesheet" href="style.css">
 <style>
   /* The operation lock. The panel is withheld: hazard banding top and bottom,
-     the cycle read off a brass gauge, and one way out. */
-  body { background: var(--bg); }
+     the cycle read off a brass gauge, and one way out.
+     Pressed element: STOP. */
   .hazard { position: absolute; left: 0; width: 800px; height: 10px;
-            background: repeating-linear-gradient(45deg,
-              #d2a24c 0 9px, #241a12 9px 18px); }
-  .gauge { position: absolute; left: 40px; top: 22px; }
-  .mount { position: absolute; left: 94px; top: 258px; width: 132px; height: 198px;
-           display: flex; align-items: center; justify-content: center; }
+            background: repeating-linear-gradient(45deg, #d2a24c 0 9px, #241a12 9px 18px); }
+  .gauge { position: absolute; left: 40px; top: 24px; }
   .op   { position: absolute; left: 320px; top: 34px; font-size: 44px; line-height: 1; }
   .step { position: absolute; left: 320px; top: 112px; font-size: 22px;
           font-weight: 500; color: var(--dim); letter-spacing: .02em; }
-  .bar  { position: absolute; left: 320px; top: 164px; width: 456px; height: 22px;
+  .bar  { position: absolute; left: 320px; top: 168px; width: 456px; height: 16px;
           background: var(--recess); box-shadow: inset 0 0 0 1px var(--bronze); }
-  .bar .fill { position: absolute; left: 0; top: 0; width: 182px; height: 22px; background: var(--brass); }
-  .bar .div  { position: absolute; top: 0; width: 2px; height: 22px; background: var(--bg); }
-  .mins { left: 320px; top: 212px; width: 456px; height: 64px;
-          font-size: 30px; font-weight: 700; letter-spacing: .10em; text-transform: uppercase; }
+  .bar .fill { position: absolute; left: 0; top: 0; width: 182px; height: 16px; background: var(--brass); }
+  .mins { left: 320px; top: 210px; width: 340px; height: 64px; justify-content: flex-start;
+          padding-left: 26px; box-sizing: border-box;
+          font-size: 34px; letter-spacing: .05em; text-transform: uppercase; }
   .stop { position: absolute; left: 320px; top: 332px; width: 456px; height: 92px;
           background: var(--stop); border: 2px solid var(--cream); box-sizing: border-box;
           display: flex; align-items: center; justify-content: center; gap: 20px;
-          color: var(--cream); font-size: 34px; font-weight: 700; letter-spacing: .18em; }
-  .stop.pressed { background: #5e2720;
-                  box-shadow: inset 2px 2px 0 rgba(0,0,0,.55), inset -2px -2px 0 rgba(244,236,224,.18); }
+          color: var(--cream); font-size: 38px; letter-spacing: .16em; text-transform: uppercase; }
+  .stop.pressed { background: #5b2620; padding-top: 4px;
+                  box-shadow: inset 5px 5px 0 rgba(0,0,0,.55), inset -5px -5px 0 rgba(244,236,224,.14); }
 </style>
 </head>
 <body>
@@ -67,23 +64,21 @@
     <line x1="214.2" y1="153.5" x2="204.8" y2="150.1" stroke="#7d5a34" stroke-width="2"/>
     <line x1="206.6" y1="170.0" x2="191.0" y2="161.0" stroke="#d2a24c" stroke-width="3.5"/>
     <path d="M 213.49 110.17 A 94 94 0 0 1 201.41 167.00" stroke="#8c3b2e" stroke-width="9"/>
-    <text x="64.6" y="157.0" fill="#f4ece0" font-family="Work Sans" font-size="15" font-weight="600" text-anchor="middle">0</text>
-    <text x="175.4" y="157.0" fill="#f4ece0" font-family="Work Sans" font-size="15" font-weight="600" text-anchor="middle">100</text>
-    <text x="120" y="176" fill="#a9967c" font-family="Work Sans" font-size="13" font-weight="600" letter-spacing="2.4" text-anchor="middle">CYCLE</text>
+    <text x="69.8" y="154.0" fill="#a9967c" font-family="Work Sans" font-size="15" font-weight="600" text-anchor="middle">0</text>
+    <text x="170.2" y="154.0" fill="#a9967c" font-family="Work Sans" font-size="15" font-weight="600" text-anchor="middle">100</text>
+    <text x="120" y="190" fill="#a9967c" font-family="Work Sans" font-size="13" font-weight="600" letter-spacing="2.6" text-anchor="middle">CYCLE</text>
     <line x1="128.95" y1="140.10" x2="89.09" y2="50.57" stroke="#d2a24c" stroke-width="6" stroke-linecap="round"/>
     <circle cx="120" cy="120" r="13" fill="#d2a24c"/>
     <circle cx="120" cy="120" r="5" fill="#1a120c"/>
   </svg>
-  <div class="plate mount">
-    <div class="badge b-s " style=""><span class="riv t"></span><span class="riv b"></span><i><img src="../../assets/flavor_1.png" alt=""></i></div>
-  </div>
+  <div class="badge b-s " style="position:absolute; left:108px; top:276px"><span class="riv t"></span><span class="riv b"></span><i><img src="../../assets/flavor_1.png" alt=""></i></div>
   <div class="op display">Cleaning</div>
   <div class="rule" style="left:320px; top:94px; width:456px"></div>
   <div class="step">1 of 3 &middot; water in</div>
-  <div class="bar"><div class="fill"></div><div class="div" style="left:152px"></div><div class="div" style="left:304px"></div></div>
-  <div class="engrave mins num">11 min left</div>
-  <div class="stop pressed">
-    <svg width="26" height="26" viewBox="0 0 26 26"><rect x="3" y="3" width="20" height="20" rx="2" fill="#f4ece0"/></svg>
+  <div class="bar"><div class="fill"></div></div>
+  <div class="engrave mins display num">11 min left</div>
+  <div class="stop display pressed">
+    <svg width="32" height="32" viewBox="0 0 32 32"><path d="M10.5 2h11L30 10.5v11L21.5 30h-11L2 21.5v-11Z" fill="#f4ece0"/></svg>
     <span>Stop</span>
   </div>
 </div>

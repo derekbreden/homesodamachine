@@ -34,7 +34,8 @@ body {
 .abs { position: absolute; }
 
 /* ── Type ──────────────────────────────────────────────────────────────── */
-.cap   { font-weight: 600; letter-spacing: .06em; text-transform: uppercase; line-height: 1; }
+.cap   { font-weight: 600; letter-spacing: .06em; text-transform: uppercase; line-height: 1;
+         white-space: nowrap; }
 .sent  { font-weight: 500; font-size: 24px; line-height: 1.2; }
 .num   { font-family: "Roboto Mono", "DejaVu Sans Mono", monospace; font-weight: 500;
          line-height: 1; font-variant-numeric: tabular-nums; }
@@ -63,8 +64,8 @@ body {
   background: transparent; color: var(--sec);
   display: flex; flex-direction: column; align-items: center; justify-content: center;
 }
-.plate .w { font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
-            font-size: 22px; line-height: 1; margin-top: 12px; }
+.plate .w { font-weight: 600; letter-spacing: .05em; text-transform: uppercase;
+            font-size: 22px; line-height: 1; margin-top: 12px; white-space: nowrap; }
 .plate.on { background: var(--alt); color: var(--tx); }
 .railgroup { position: absolute; left: 8px; font-weight: 600; font-size: 14px;
              letter-spacing: .18em; text-transform: uppercase; color: var(--sec); }
@@ -76,24 +77,25 @@ body {
   padding: 2px; background: var(--bg);
 }
 .chip.lit { border-color: var(--ac); }
-.chip img { display: block; height: 20px; aspect-ratio: 43/80; object-fit: cover; }
+.chip img { display: block; height: 24px; aspect-ratio: 43/80; object-fit: cover; }
 
 .gearsq {
-  position: absolute; left: 728px; top: 10px; width: 56px; height: 56px;
+  position: absolute; left: 538px; top: 10px; width: 56px; height: 56px;
   border: 2px solid var(--sec); border-radius: 3px; color: var(--sec);
   display: flex; align-items: center; justify-content: center;
 }
 .gearsq.on { border-color: var(--ac); color: var(--ac); background: var(--alt); }
 
 /* ── Title band ────────────────────────────────────────────────────────── */
-.pagename { position: absolute; top: 90px; font-weight: 600; font-size: 26px;
-            letter-spacing: .07em; text-transform: uppercase; color: var(--dm); line-height: 1; }
+.pagename { position: absolute; top: 91px; font-weight: 600; font-size: 26px;
+            letter-spacing: .07em; text-transform: uppercase; color: var(--dm);
+            line-height: 1; white-space: nowrap; }
 .back {
   position: absolute; left: 206px; top: 76px; width: 104px; height: 48px;
   border: 2px solid var(--alt); border-radius: 3px; color: var(--dm);
   display: flex; align-items: center; justify-content: center; gap: 8px;
 }
-.back .w { font-weight: 600; font-size: 20px; letter-spacing: .08em; text-transform: uppercase; }
+.back .w { font-weight: 600; font-size: 20px; letter-spacing: .06em; text-transform: uppercase; }
 
 /* ── A vessel with a face in it. The picture is the liquid in the tank. ── */
 .tank {
@@ -128,11 +130,12 @@ body {
   position: absolute; border: 2px solid var(--alt); border-radius: 3px;
   color: var(--dm); display: flex; align-items: center; justify-content: center; gap: 10px;
 }
-.target .w { font-weight: 600; letter-spacing: .07em; text-transform: uppercase;
-             font-size: 20px; line-height: 1; }
+.target .w { font-weight: 600; letter-spacing: .05em; text-transform: uppercase;
+             font-size: 20px; line-height: 1; white-space: nowrap; }
 
-/* ── Press: an inversion, not one more step on a ladder of greys ───────── */
-.press { background: var(--alt); box-shadow: inset 0 0 0 3px var(--ac); color: var(--tx); }
+/* ── Press: a bright rim. Cyan means open path, amber means refusal, and a
+      white rim means your finger is on it. Three jobs, three devices. ──── */
+.press { background: var(--alt); box-shadow: inset 0 0 0 3px var(--tx); color: var(--tx); }
 .press.card { outline: none; }
 .stop.press { background: var(--wn); color: var(--bg); box-shadow: none; border-color: var(--wn); }
 
@@ -150,7 +153,7 @@ body {
 .rowitem .stub { position: absolute; left: 42px; top: 0; width: 2px; height: 10px; background: var(--sec); }
 .rowitem.pick .stub { left: 40.5px; width: 5px; background: var(--ac); }
 .rowitem img { position: absolute; top: 10px; left: 0; width: 86px; height: 160px; object-fit: cover; display: block; }
-.rowitem.pick img { outline: 3px solid var(--ac); outline-offset: 0; }
+.rowitem.pick img { outline: 4px solid var(--ac); outline-offset: -2px; }
 .rowbar { position: absolute; height: 8px; background: var(--alt); }
 .rowbar i { position: absolute; top: 0; height: 8px; background: var(--ac); }
 .rowarrow {
@@ -184,5 +187,5 @@ body {
 .legend b { display: block; width: 26px; height: 11px; border-radius: 2px; }
 .legend b.cl { background: var(--gd); }
 .legend b.op { background: var(--bg); box-shadow: inset 0 0 0 2px var(--sec); }
-.legend span { font-weight: 600; font-size: 18px; letter-spacing: .07em;
-               text-transform: uppercase; color: var(--dm); }
+.legend span { font-weight: 600; font-size: 18px; letter-spacing: .05em;
+               text-transform: uppercase; color: var(--dm); white-space: nowrap; }
