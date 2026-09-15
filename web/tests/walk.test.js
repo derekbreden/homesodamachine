@@ -76,8 +76,8 @@ function retiredTree(t, prefix) {
 }
 
 // The sidecar is what makes a PDF a document (web/contracts/documents.js), and
-// it is the only thing that does — so a PDF a generator wrote for its own
-// reasons stays out of the listing and out of `/docs`.
+// a PDF a generator wrote for its own reasons stays out of the listing and
+// out of `/docs`.
 test("walkDocuments lists a PDF its sidecar names, and no other", (t) => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), "walk-docs-"));
   t.after(() => fs.rmSync(root, { recursive: true, force: true }));
@@ -130,7 +130,7 @@ test("walkDocuments returns the shelf in title order", (t) => {
   };
   // Directory order is the reverse of title order, so a walk that returned what
   // it found would fail this.
-  shelve("quickstart", "quick-start", "Quick start");
+  shelve("quickstart-codex", "quick-start-codex", "Quick start");
   shelve("guide", "casting", "Funnel casting guide");
   shelve("assembly/cards", "deck", "Assembly card deck");
 

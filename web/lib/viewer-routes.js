@@ -4,7 +4,7 @@ import fs from "fs";
 
 import { walkFiles, walkPcbBoards, walkDocuments } from "./walk.js";
 import { isCardAssetPath } from "../contracts/cards.js";
-import { DOC_SIDECAR_SUFFIX } from "../contracts/documents.js";
+import { DOC_SIDECAR_SUFFIX, isPublishedDocument } from "../contracts/documents.js";
 import { VIEW_REQUEST_RE, PICKS_REQUEST_RE } from "../contracts/pcb-out.js";
 import { sidecarFields } from "../contracts/sidecar.js";
 import { SCORECARD_SUFFIX } from "../contracts/scorecard-sidecar.js";
@@ -239,6 +239,7 @@ export function mountViewerRoutes(app, { hardwareDir }) {
     const rel = relOf(req);
     const abs = safeFile(hardwareDir, rel, ".pdf");
     if (!abs) return res.status(400).send("Invalid path");
+    if (!isPublishedDocument(rel)) return res.status(410).send("Document no longer published");
     if (!fs.existsSync(path.join(hardwareDir, rel.slice(0, -4) + DOC_SIDECAR_SUFFIX))) {
       return res.status(400).send("Not a document");
     }
