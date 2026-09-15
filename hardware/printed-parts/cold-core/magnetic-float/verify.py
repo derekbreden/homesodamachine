@@ -62,7 +62,7 @@ FEATURES = {'Outer wall', 'Inner wall', 'Overhang wall', 'Sparse infill',
             'Internal Bridge', 'Gap infill'}
 
 
-def read_paths(gcode, plate):
+def read_paths(gcode, plate, layer):
     x = y = z = layer_z = 0.0
     tool = 0
     feature = ''
@@ -113,9 +113,9 @@ def read_paths(gcode, plate):
                 assert len(pauses) == 1, 'Roof extrusion precedes insertion pause'
     if plate == 2:
         assert all(mass > 0 for mass in masses['body']), 'Body must contain both materials'
-        assert len(pauses) == 1 and math.isclose(pauses[0]['before_layer_z_mm'], m.roof_bottom + 0.2)
-        assert sorted(roof_layers) == [round(m.roof_bottom + 0.2 * i, 3) for i in range(1, round(m.skin / 0.2) + 1)]
-        assert len(body_layer_tools) == round(m.height / 0.2)
+        assert len(pauses) == 1 and math.isclose(pauses[0]['before_layer_z_mm'], m.roof_bottom + layer)
+        assert sorted(roof_layers) == [round(m.roof_bottom + layer * i, 3) for i in range(1, round(m.skin / layer) + 1)]
+        assert len(body_layer_tools) == round(m.height / layer)
         assert all(0 in tools for tools in body_layer_tools.values()), 'PETG wall omitted on a layer'
         assert all(1 in tools for h, tools in body_layer_tools.items()
                    if m.skin < h <= m.insert_bottom + 0.001), 'Aero omitted inside the core'
@@ -128,13 +128,17 @@ def read_paths(gcode, plate):
             'roof_layers_mm': sorted(roof_layers), 'body_petg_layers': len(body_layer_tools)}
 
 
-def print_project(path):
+def print_project(path, nozzle=0.4):
+    layer = nozzle / 2
     with zipfile.ZipFile(path) as archive:
         settings = json.loads(archive.read('Metadata/project_settings.config'))
-        expected = {'filament_flow_ratio': ['0.97', '0.38'], 'filament_map': ['1', '2'],
+        expected = {'filament_flow_ratio': ['0.97' if nozzle == 0.4 else '0.95', '0.38'],
+            'filament_map': ['1', '2'],
             'nozzle_temperature': ['250', '250'], 'textured_plate_temp': ['65', '65'],
-            'layer_height': '0.2', 'sparse_infill_density': '100%', 'enable_support': '0',
-            'nozzle_diameter': ['0.4', '0.4']}
+            'layer_height': f'{layer:g}', 'sparse_infill_density': '100%', 'enable_support': '0',
+            'nozzle_diameter': [f'{nozzle:g}', f'{nozzle:g}']}
+        if nozzle == 0.2:
+            expected['filament_max_volumetric_speed'] = ['1', '1']
         for key, value in expected.items():
             assert settings[key] == value, (key, settings[key], value)
         config = ET.fromstring(archive.read('Metadata/model_settings.config'))
@@ -157,7 +161,7 @@ def print_project(path):
         assert set(material_parts) == {'body-petg', 'body-aero', 'insert-aero'}
         fit_allowances.sort()
         assert fit_allowances == list(m.insert_fit_allowances)
-        plates = [read_paths(archive.read(f'Metadata/plate_{i}.gcode').decode(), i) for i in (1, 2)]
+        plates = [read_paths(archive.read(f'Metadata/plate_{i}.gcode').decode(), i, layer) for i in (1, 2)]
         normal = plates[0]['insert_perimeter_radii_mm']['insert']
         snug = plates[0]['insert_perimeter_radii_mm']['insert-snug']
         allowance_delta = m.insert_fit_allowances[1] - m.insert_fit_allowances[0]
@@ -178,9 +182,11 @@ def print_project(path):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--project', type=Path, required=True)
-    parser.add_argument('--output', type=Path, default=HERE / 'verification.json')
+    parser.add_argument('--nozzle', type=float, choices=(0.4, 0.2), default=0.4)
+    parser.add_argument('--output', type=Path)
     args = parser.parse_args()
-    report = {'geometry': geometry(), 'print': print_project(args.project),
+    report = {'geometry': geometry(), 'print': print_project(args.project, args.nozzle),
               'physical_prints': 'No physical float print recorded.'}
-    args.output.write_text(json.dumps(report, indent=2) + '\n')
+    output = args.output or HERE / ('verification-0.2.json' if args.nozzle == 0.2 else 'verification.json')
+    output.write_text(json.dumps(report, indent=2) + '\n')
     print(json.dumps(report, indent=2))

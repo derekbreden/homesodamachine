@@ -1,0 +1,114 @@
+{
+  "geometry": {
+    "valid_solids": 4,
+    "closed_print_meshes": 3,
+    "continuous_petg_skin_mm": 1.0,
+    "nominal_unfilled_volume_cc": 0.0,
+    "nominal_material_overlap_cc": 0.0,
+    "nominal_insertion_clear": true,
+    "maximum_tolerance_magnet_clear_of_petg": true,
+    "insert_top_meets_roof_underside": true,
+    "retention": "Aero press fit; holding force and surface contact require the first assembly result."
+  },
+  "print": {
+    "project_sha256": "42c34e8321632858bd23a3d102872cc96d155d9e43b2b3ab36156cbb9d6c9d4c",
+    "verified_settings": {
+      "filament_flow_ratio": [
+        "0.95",
+        "0.38"
+      ],
+      "filament_map": [
+        "1",
+        "2"
+      ],
+      "nozzle_temperature": [
+        "250",
+        "250"
+      ],
+      "textured_plate_temp": [
+        "65",
+        "65"
+      ],
+      "layer_height": "0.1",
+      "sparse_infill_density": "100%",
+      "enable_support": "0",
+      "nozzle_diameter": [
+        "0.2",
+        "0.2"
+      ],
+      "filament_max_volumetric_speed": [
+        "1",
+        "1"
+      ]
+    },
+    "material_parts": [
+      "insert-aero",
+      "insert-aero",
+      "body-petg",
+      "body-aero"
+    ],
+    "insert_fit_allowances_radial_mm": [
+      0.05,
+      0.1
+    ],
+    "plates": [
+      {
+        "object_material_mass_g": {
+          "insert-snug": [
+            0.0,
+            2.2659810680699066
+          ],
+          "insert": [
+            0.0,
+            2.2362024996232566
+          ]
+        },
+        "insertion_pauses": [],
+        "insert_perimeter_radii_mm": {
+          "insert-snug": [
+            3.978196199284293,
+            12.990619885132489
+          ],
+          "insert": [
+            4.028951476501046,
+            12.940636189925135
+          ]
+        },
+        "roof_layers_mm": [],
+        "body_petg_layers": 0
+      },
+      {
+        "object_material_mass_g": {
+          "body": [
+            7.380107286392412,
+            7.999922142912168
+          ]
+        },
+        "insertion_pauses": [
+          {
+            "before_layer_z_mm": 49.1,
+            "commanded_z_before_pause_mm": 49.0
+          }
+        ],
+        "insert_perimeter_radii_mm": {},
+        "roof_layers_mm": [
+          49.1,
+          49.2,
+          49.3,
+          49.4,
+          49.5,
+          49.6,
+          49.7,
+          49.8,
+          49.9,
+          50.0
+        ],
+        "body_petg_layers": 500
+      }
+    ],
+    "assembled_mass_from_model_extrusion_g": 22.706231928927835,
+    "reserve_from_model_extrusion_g": 6.667659382136733,
+    "mass_scope": "Positive extrusion on object toolpaths; excludes purge, brim and spare insert. Nominal filament diameter/density."
+  },
+  "physical_prints": "No physical float print recorded."
+}
