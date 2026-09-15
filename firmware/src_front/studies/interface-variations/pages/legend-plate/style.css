@@ -45,11 +45,6 @@ body {
 .cond   { font-family:'IBM Plex Sans Condensed','IBM Plex Sans',sans-serif;
           font-weight:600; text-transform:uppercase; letter-spacing:.12em;
           color:var(--text); }
-.mono   { font-family:'IBM Plex Mono', monospace; font-weight:700;
-          letter-spacing:.01em; color:var(--text); }
-.mono6  { font-family:'IBM Plex Mono', monospace; font-weight:600; }
-.dimink { color: var(--dim); }
-.inkink { color: var(--ink); }
 
 /* ── the engraved line: one 2 px groove with a highlight beneath it ───── */
 
@@ -134,19 +129,19 @@ body {
 /* ── the plate's header band ──────────────────────────────────────────── */
 
 .hdrrule  { left:8px; width:784px; top:84px; }
-.pagename { position:absolute; left:206px; top:18px; font-size:24px;
+.pagename { position:absolute; left:206px; top:24px; font-size:24px;
             line-height:32px; letter-spacing:.16em; }
 
-.back { left:6px; top:8px; width:178px; height:52px; }
-.back .mk   { left:16px; top:12px; }
-.back .cond { position:absolute; left:56px; top:14px; font-size:20px;
+.back { left:6px; top:8px; width:178px; height:64px; }
+.back .mk   { left:16px; top:19px; }
+.back .cond { position:absolute; left:56px; top:20px; font-size:20px;
               line-height:24px; }
 
-.sysbtn { left:712px; top:8px; width:64px; height:52px; }
-.sysbtn .mk { left:26px; top:9px; }
-.sysbtn .lamp { left:8px; top:17px; width:14px; height:14px; }
-.syslabel { position:absolute; left:696px; top:63px; width:96px;
-            text-align:center; font-size:14px; line-height:16px;
+.sysbtn { left:712px; top:8px; width:64px; height:64px; }
+.sysbtn .mk   { left:26px; top:17px; }
+.sysbtn .lamp { left:8px; top:25px; width:14px; height:14px; }
+.syslabel { position:absolute; left:576px; top:32px; width:130px;
+            text-align:right; font-size:14px; line-height:16px;
             letter-spacing:.14em; color:var(--dim); }
 .syslabel.here { color: var(--text); }
 
