@@ -109,11 +109,11 @@ body{
 .pcard{position:absolute;top:96px;width:204px;height:352px;background:var(--surface)}
 .pcard .pface{position:absolute;left:16px;top:16px;width:172px;height:320px}
 /* the mark for what is about to happen, over the face and not across it */
-.pmark{position:absolute;left:50%;top:81%;transform:translate(-50%,-50%);
+.pmark{position:absolute;left:50%;top:74%;transform:translate(-50%,-50%);
   width:76px;height:76px;z-index:3;display:flex;align-items:center;justify-content:center}
 .pmark svg{display:block;fill:none;stroke:var(--text);stroke-width:2.4;
   stroke-linejoin:round;stroke-linecap:round}
-.pmark svg .halo path{stroke:var(--bg);stroke-width:8}
+.pmark svg .halo path{stroke:var(--bg);stroke-width:5}
 .pcard.press{background:var(--press)}
 
 /* ---------- lock ---------- */

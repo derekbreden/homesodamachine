@@ -195,7 +195,7 @@ body {
 }
 .card.on::after {              /* a brass foot across its whole bottom     */
   content: ''; position: absolute; left: -1px; bottom: -1px;
-  width: calc(100% + 2px); height: 3px; background: var(--brass);
+  width: calc(100% + 2px); height: 6px; background: var(--brass);
 }
 
 .seg { position: absolute; width: 32px; height: 18px; }
