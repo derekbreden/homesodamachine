@@ -1,0 +1,127 @@
+/* Tap House — the back bar.
+   Walnut and brass. Two flavors are tap handles; choosing one is pulling it;
+   the machine's own state is read off a brass gauge.
+
+   Type rule is absolute: Playfair Display 700 never below 30px (its hairlines
+   vanish on RGB565); Work Sans never above 24px. */
+
+:root {
+  --bg:      #241a12; /* walnut */
+  --surf:    #33261a; /* lifted plate */
+  --recess:  #1a120c; /* engraved recess */
+  --brass:   #d2a24c;
+  --bronze:  #7d5a34; /* rules, bevels, inactive tracks — never carries text */
+  --cream:   #f4ece0;
+  --dim:     #a9967c;
+  --good:    #7fb069;
+  --warn:    #e0913a;
+  --stop:    #8c3b2e;
+
+  --bevel:  inset 1px 1px 0 rgba(0,0,0,.35), inset -1px -1px 0 rgba(210,162,76,.22);
+  --bevelin: inset 1px 1px 0 rgba(210,162,76,.22), inset -1px -1px 0 rgba(0,0,0,.45);
+}
+
+html, body { margin: 0; width: 800px; height: 480px; overflow: hidden; }
+
+body {
+  background: var(--bg);
+  color: var(--cream);
+  font-family: 'Work Sans', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 20px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.screen { position: relative; width: 800px; height: 480px; }
+
+/* ---------- type ---------- */
+.display { font-family: 'Playfair Display', Georgia, serif; font-weight: 700; }
+.lab {
+  font-size: 16px; font-weight: 600; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--dim);
+}
+.num { font-variant-numeric: lining-nums; }
+
+/* ---------- the brass rail ---------- */
+.rail { position: absolute; left: 0; top: 0; width: 190px; height: 480px; background: var(--recess); }
+.rail-bar { position: absolute; left: 184px; top: 0; width: 4px; height: 480px; background: var(--brass); }
+.rail-split { position: absolute; left: 20px; width: 142px; height: 1px; background: var(--bronze); opacity: .7; }
+
+.plate {
+  position: absolute;
+  background: var(--surf);
+  box-shadow: var(--bevel);
+}
+.plate.pressed { background: var(--recess); box-shadow: var(--bevelin); }
+
+.rail-item {
+  left: 6px; width: 170px; height: 104px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 8px;
+}
+.rail-item .rl {
+  font-size: 19px; font-weight: 600; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--dim);
+}
+.rail-item.primary .rl { color: var(--cream); }
+.rail-item svg { stroke: var(--dim); }
+.rail-item.primary svg { stroke: var(--cream); }
+.rail-item.on { background: var(--brass); box-shadow: inset 1px 1px 0 rgba(255,255,255,.3), inset -1px -1px 0 rgba(0,0,0,.28); }
+.rail-item.on .rl { color: var(--bg); }
+.rail-item.on svg { stroke: var(--bg); }
+
+/* ---------- pane ---------- */
+.pane { position: absolute; left: 190px; top: 0; width: 610px; height: 480px; }
+.title { position: absolute; font-size: 36px; line-height: 1; color: var(--cream); }
+.rule { position: absolute; height: 1px; background: var(--bronze); }
+
+/* the bar edge — the horizontal datum the handles stand on */
+.baredge { position: absolute; height: 4px; background: var(--brass); }
+.baredge::after { content: ''; position: absolute; left: 0; right: 0; top: 4px; height: 3px; background: var(--bronze); }
+
+/* ---------- badge: the 43:80 face in its brass frame ---------- */
+.badge { position: relative; background: var(--brass); border-radius: 10px; padding: 8px; box-sizing: content-box; }
+.badge > i { display: block; border: 1px solid var(--cream); overflow: hidden; font-size: 0; }
+.badge img { display: block; object-fit: cover; }
+.badge.dull { background: var(--bronze); }
+.badge.dull > i { border-color: rgba(244,236,224,.45); }
+.badge.dull img { filter: saturate(.5) brightness(.66); }
+
+.b-l img { width: 172px; height: 320px; }   /* frame 190 x 338 */
+.b-m img { width: 129px; height: 240px; }   /* frame 147 x 258 */
+.b-s img { width:  86px; height: 160px; }   /* frame 104 x 178 */
+
+.riv { position: absolute; width: 8px; height: 8px; border-radius: 50%; background: var(--brass); box-shadow: 0 0 0 1.5px #5e4620; left: 50%; margin-left: -4px; }
+.riv.t { top: 0; }
+.riv.b { bottom: 0; }
+.badge.dull .riv { background: #8f6b3e; box-shadow: 0 0 0 1.5px #3d2c17; }
+
+/* ---------- buttons ---------- */
+.btn {
+  position: absolute; background: var(--surf); box-shadow: var(--bevel);
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+  color: var(--cream); font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+}
+.btn svg { stroke: var(--brass); }
+.btn.pressed { background: var(--recess); box-shadow: var(--bevelin); color: var(--brass); }
+.btn.pressed svg { stroke: var(--brass); }
+
+.back { width: 184px; height: 72px; font-size: 19px; justify-content: flex-start; padding-left: 20px; box-sizing: border-box; }
+
+/* settings hallmark — deliberately not a rail peer */
+.hallmark {
+  position: absolute; width: 48px; height: 48px; border-radius: 50%;
+  background: var(--recess); box-shadow: inset 0 0 0 1px var(--bronze);
+  display: flex; align-items: center; justify-content: center;
+}
+.hallmark svg { stroke: var(--dim); }
+
+/* ---------- level ---------- */
+.lvl { display: flex; gap: 4px; }
+.lvl span { width: 32px; height: 14px; background: var(--recess); box-shadow: inset 0 0 0 1px var(--bronze); }
+.lvl span.f { background: var(--good); box-shadow: none; }
+.lvl span.w { background: var(--warn); box-shadow: none; }
+
+.low { font-size: 15px; font-weight: 700; letter-spacing: .12em; color: var(--warn); display: flex; align-items: center; gap: 6px; }
+
+/* ---------- engraved strip ---------- */
+.engrave { position: absolute; background: var(--brass); color: var(--bg); display: flex; align-items: center; justify-content: center; box-shadow: inset 1px 1px 0 rgba(0,0,0,.30), inset -1px -1px 0 rgba(255,255,255,.28); }
