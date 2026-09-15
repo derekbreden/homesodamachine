@@ -29,6 +29,11 @@ gets cut, which is the newest state rather than the one that asked.
 IT REPORTS AND HOLDS NOTHING. The geometry's own commits are already on main by the time this
 runs; the one commit this makes is the pointer file, and the site is told to look only once main holds
 it. A publish that fails leaves the runner to do what it was always going to do.
+
+A CLOUD SESSION CANNOT WRITE THE RELEASE, so it publishes nothing and says what it owes. Anthropic's
+egress proxy refuses a release-asset upload and a release API write from a session on its machines
+(`tools/cloud_session.sh` carries the measurement); the bytes such a session cut reach the site
+through the Mac or the runner, which read the same debt off main.
 """
 
 from __future__ import annotations
@@ -235,6 +240,14 @@ def tell_the_site() -> None:
 def publish() -> int:
     started = time.time()
     reason, targets = owed()
+    if os.environ.get("CLAUDE_CODE_REMOTE") == "true":
+        # The upload would be refused, and a pointer line naming bytes the release does not hold
+        # is worse than a line that waits. What this tree owes is said, and left on main for a
+        # machine that can put the bytes up.
+        print("  a cloud session cannot write the release; "
+              + (f"{reason}; " if reason else "nothing owed; ")
+              + f"the Mac or the runner publishes what main owes ({time.time() - started:.0f}s)")
+        return 0
     if reason:
         enclosure_action, _piece_payloads = enclosure_release_plan(targets)
         if enclosure_action == "defer" and not bytes_drifted():
