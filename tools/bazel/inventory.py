@@ -38,6 +38,9 @@ BUILD_INERT_BASENAMES = frozenset({
     "corner-trial-profile.json",
     "layer-review.json",
     "toolpath-review.json",
+    "slice-review.json",
+    "repaired-wall-review.json",
+    "containment-review.json",
 })
 
 

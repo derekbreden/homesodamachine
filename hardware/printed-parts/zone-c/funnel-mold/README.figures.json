@@ -3,8 +3,8 @@
     "BOLT_D": "5 mm",
     "CAST_VOLUME": "145 mL",
     "CAVITY_DIMS": "205 \u00d7 205 \u00d7 79.6 mm",
-    "CAVITY_MASS": "746 g",
-    "CAVITY_TIME": "20 h 43 min",
+    "CAVITY_MASS": "752 g",
+    "CAVITY_TIME": "20 h 44 min",
     "CHAMBER_GAP": "11.5 mm",
     "CORE_DIMS": "205 \u00d7 205 \u00d7 45.2 mm",
     "CORE_MASS": "485 g",
@@ -16,7 +16,7 @@
     "FLANGE": "5 mm",
     "FLOW_CAP": "16 mm\u00b3/s",
     "HEAD_PRESSURE": "0.839 kPa",
-    "LAYER": "0.40 mm",
+    "LAYER": "0.4 mm",
     "LOAD_DEFLECTION": "0.209 mm",
     "LOAD_MODULUS": "1000 MPa",
     "LOAD_PRESSURE": "1.00 kPa",
@@ -45,8 +45,8 @@
     "SPOUT_WALL": "4.5 mm",
     "TIP_CAP": "12 mm",
     "TIP_LENGTH": "18 mm",
-    "TOTAL_MASS": "1.23 kg",
-    "TOTAL_TIME": "32 h 31 min",
+    "TOTAL_MASS": "1.24 kg",
+    "TOTAL_TIME": "32 h 32 min",
     "VENT_D": "4 mm"
   }
 }

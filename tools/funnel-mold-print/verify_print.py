@@ -8,8 +8,36 @@ from pathlib import Path
 import xml.etree.ElementTree as ET
 import zipfile
 
+import numpy as np
+from scipy.spatial import cKDTree
+import trimesh
+
 HERE = Path(__file__).resolve().parent
-from profiles import equivalent, system_preset
+from profiles import PROD, equivalent, qn, system_preset
+
+
+def embedded_mesh(archive, object_id, path):
+    source = trimesh.load(path, force='mesh', process=True)
+    root = ET.fromstring(archive.read('3D/3dmodel.model'))
+    obj = root.find(f"{qn('resources')}/{qn('object')}[@id='{object_id}']")
+    component = obj.find(f"{qn('components')}/{qn('component')}")
+    part_root = ET.fromstring(archive.read(component.get(f'{{{PROD}}}path').lstrip('/')))
+    geometry = part_root.find(
+        f"{qn('resources')}/{qn('object')}[@id='{component.get('objectid')}']/{qn('mesh')}")
+    vertices = np.array([[float(v.get(axis)) for axis in ('x', 'y', 'z')]
+                         for v in geometry.find(qn('vertices'))])
+    faces = np.array([[int(t.get(v)) for v in ('v1', 'v2', 'v3')]
+                      for t in geometry.find(qn('triangles'))])
+    distances, indices = cKDTree(source.vertices-source.bounds.mean(axis=0)).query(vertices)
+    assert distances.max() < 1e-5, (path.name, distances.max())
+    def ordered(triangles):
+        rows = np.sort(triangles, axis=1)
+        return rows[np.lexsort(rows[:, ::-1].T)]
+    assert np.array_equal(ordered(indices[faces]), ordered(source.faces)), path.name
+    mesh = trimesh.Trimesh(vertices, faces, process=True)
+    assert mesh.is_watertight and mesh.is_winding_consistent and mesh.volume > 0
+    return {'matches_stl': True, 'triangles': len(faces),
+            'maximum_vertex_distance_mm': float(distances.max())}
 
 
 def audit(project, provenance_path, models):
@@ -25,6 +53,10 @@ def audit(project, provenance_path, models):
         slices = ET.fromstring(archive.read('Metadata/slice_info.config'))
         normalized = []
         value_normalizations = []
+        if origin.get('settings_source'):
+            assert settings.keys() == origin['supplied_settings'].keys(), {
+                'missing': sorted(origin['supplied_settings'].keys()-settings.keys()),
+                'added': sorted(settings.keys()-origin['supplied_settings'].keys())}
         for key, value in settings.items():
             if key in origin['supplied_settings']:
                 supplied = origin['supplied_settings'][key]['value']
@@ -70,12 +102,15 @@ def audit(project, provenance_path, models):
             assert b'; FEATURE: Support' in data, 'tree supports absent from G-code'
             assert b'; FEATURE: Skirt' not in data
             gcode_records.append({'part': name, 'stl_sha256': digest,
+                'embedded_mesh': embedded_mesh(archive, local.findall('object')[index-1].get('id'),
+                                                models/f'{name}.stl'),
                 'gcode_sha256': hashlib.sha256(data).hexdigest(),
                 'header': data.decode().split('; HEADER_BLOCK_END')[0].splitlines()[1:]})
         for plate in slices.findall('plate'):
             assert [n.attrib for n in plate.findall('nozzle')] == [
                 {'id': '0', 'extruder_id': '1', 'nozzle_diameter': f"{recipe['nozzle_mm']:g}", 'volume_type': recipe['nozzle_type']}]
     return {'project': project.name, 'sha256': hashlib.sha256(project.read_bytes()).hexdigest(),
+        'settings_source': origin.get('settings_source'),
         'effective_setting_count': len(settings), 'normalized_settings': normalized,
         'value_normalizations': value_normalizations,
         'supplied_setting_origins': origin['supplied_settings'],

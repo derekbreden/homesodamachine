@@ -92,6 +92,23 @@ Z on conditioned test specimens. The sizing assumption is lower; the actual
 print still needs its own dry-fit and vacuum trial.
 [Material data sheet](https://store.bblcdn.eu/s8/default/71ca815e70e74afc96ff5883f003235f/Bambu_PETG_Translucent_Technical_Data_Sheet.pdf).
 
+## Geometry verification
+
+The cavity is a continuous cup from the brim to the blind spout. Each offset
+face, rounded edge and corner is contained in the finished shell envelope.
+The generator checks that the capped cavity and the assembled mold each retain
+the complete casting in one enclosed liquid region, separate from outside air.
+The assembled check uses the modeled rod-entry seal and caps the fill and vent
+mouths.
+
+[containment-review.json](containment-review.json) records independent checks of
+the exported STEP and STL, including their file hashes. These checks use the
+complete surfaces and the whole casting, including openings smaller than a print
+layer. The assembled STEP uses the exact entry seal; the assembled STL gives
+that soft seal 0.02 mm contact overlap along each axis at the independently
+tessellated surfaces. Coating
+porosity, flange sealing and the first casting remain physical checks.
+
 ## Print
 
 [Checked sliced plates, Textured PEI and +0.18 trim](funnel-mold-h2c-040.gcode.3mf) ·
@@ -115,13 +132,13 @@ The +0.18 trim adds to Bambu's −0.02 mm Textured PEI correction, giving
 `G29.1 Z0.16` in the checked G-code. The trim is calibrated for PET-GF;
 its use with PETG is a physical trial recorded in the [print log](print-log.md).
 The checked file contains two separately printable plates. Plate 1 is the cavity,
-estimated at [20 h 43 min](CAVITY_TIME) and [746 g](CAVITY_MASS) including supports.
+estimated at [20 h 44 min](CAVITY_TIME) and [752 g](CAVITY_MASS) including supports.
 Plate 2 is the core, estimated at [11 h 48 min](CORE_TIME) and [485 g](CORE_MASS).
-The combined estimate is [32 h 31 min](TOTAL_TIME) and [1.23 kg](TOTAL_MASS).
+The combined estimate is [32 h 32 min](TOTAL_TIME) and [1.24 kg](TOTAL_MASS).
 The core's envelope is [205 × 205 × 45.2 mm](CORE_DIMS); the cavity is
 [205 × 205 × 79.6 mm](CAVITY_DIMS).
 
-The files use the left [0.8 mm](NOZZLE) [High Flow](NOZZLE_TYPE) nozzle, [0.40 mm](LAYER) layers,
+The files use the left [0.8 mm](NOZZLE) [High Flow](NOZZLE_TYPE) nozzle, [0.4 mm](LAYER) layers,
 translucent PETG at 250 °C on the first layer and 245 °C afterward, a
 [16 mm³/s](FLOW_CAP) volumetric cap, a 0.40 mm first layer, a removable 6 mm
 model brim, and same-material tree supports with 0.3 mm vertical separation.
@@ -142,15 +159,16 @@ are 1,500 mm/s²; the first-layer acceleration settings remain at their stock
 values. Trees have two wall loops and 4 mm initial branch diameter. Avoid
 crossing wall includes support walls.
 
-[layer-height-review.json](layer-height-review.json) measures both plates'
+[slice-review.json](slice-review.json) measures both plates'
 emitted support and travel speeds and accelerations after the first layer,
-checks their G-code checksums and nozzle assignments, and records the cavity's
-first-layer support footprint. The machine start template retains the calibrated Z trim
-and stock filament operating settings. Both editable meshes, plate placements
-and object overrides match the reference project.
+checks their G-code checksums and nozzle assignments, and compares their settings
+and startup commands with the saved process. [print-profile.json](print-profile.json)
+records every saved setting and verifies the embedded mesh triangles against the
+current STLs. The editable project contains those meshes and the same settings.
+[repaired-wall-review.json](repaired-wall-review.json) measures model extrusion
+across the chute walls at print Z55.6 and the rim walls at Z70.4 and Z70.8.
 [layer-review.json](layer-review.json) records model connectivity at the sliced
-layer heights. The cavity spout tip and core rod cradle begin above the plate;
-the G-code has support-interface paths directly beneath both features.
+layer heights; both plates contain slicer supports.
 [print log](print-log.md) records physical observations with their known provenance.
 [print-jobs.json](print-jobs.json) records submitted files, settings and printer responses.
 Coated closure, vacuum cycling, support removal and casting are untested for
@@ -184,14 +202,16 @@ these shells.
 
 ```sh
 tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel-mold/funnel_mold.py
-tools/cad-venv/bin/python tools/funnel-mold-print/prepare_print.py --models hardware/printed-parts/zone-c/funnel-mold --output /tmp/funnel-shell-print-08/default-input.3mf --nozzle 0.8 --z-trim 0.18
+tools/cad-venv/bin/python tools/funnel-mold-print/prepare_print.py --models hardware/printed-parts/zone-c/funnel-mold --output /tmp/funnel-shell-print-08/default-input.3mf --nozzle 0.8 --z-trim 0.18 --settings-from hardware/printed-parts/zone-c/funnel-mold/funnel-mold.3mf
 /Applications/BambuStudio.app/Contents/MacOS/BambuStudio --slice 0 --arrange 0 --outputdir /tmp/funnel-shell-print-08/default --export-3mf funnel-mold-h2c-040.gcode.3mf /tmp/funnel-shell-print-08/default-input.3mf
+tools/cad-venv/bin/python tools/funnel-mold-print/verify_print.py --models hardware/printed-parts/zone-c/funnel-mold --slices /tmp/funnel-shell-print-08 --project-stem funnel-mold-h2c-040.gcode --single
+cp /tmp/funnel-shell-print-08/default-input.3mf hardware/printed-parts/zone-c/funnel-mold/funnel-mold.3mf
 ```
 
-The CLI slices both plates; its output directory is absolute.
-Run [verify_print.py](/tools/funnel-mold-print/verify_print.py) with
-this models directory, the slice directory, `--project-stem funnel-mold-h2c-040.gcode`
-and `--single`. The editable `funnel-mold.3mf` is separate from the checked slice.
+The preparation preserves the editable project's complete settings payload and
+embeds the current STLs. The CLI slices both plates; its output directory is
+absolute. Verification checks those settings and embedded triangles. The editable
+`funnel-mold.3mf` contains no G-code.
 
 After publication, run [review_geometry.py](/tools/funnel-mold-print/review_geometry.py)
 with this models directory. Geometry lint reports overhangs in the print
