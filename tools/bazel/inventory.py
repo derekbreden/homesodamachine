@@ -25,10 +25,10 @@ GRAPH = _HERE.parent / "graph.json"
 # pointed at before it opens a project.
 BUILD_INERT_SUFFIXES = (".3mf", ".bbscfg")
 
-# THE SLICER'S SIDE OF A PART, WRITTEN OUT AS JSON. The recipe a print run is asked for, the
+# PRINT PREPARATION AND INDEPENDENT GEOMETRY READINGS, WRITTEN OUT AS JSON. The recipe a print run is asked for, the
 # settings the slicer resolved it to, the audit that holds those two against each other, and the
 # reading taken off the machine at the start of the print. Nozzles, chamber temperatures, layer
-# heights and plate trims, downstream of a solid that is already cut.
+# heights, plate trims and verification of a solid that is already cut.
 #
 # NAMED ONE BY ONE, because `.json` beside a part is the tree's load-bearing kind: `.figures.json`
 # carries a doc's derived numbers, `.scene.json` a render, `.facts.json` a measured solid, and
@@ -41,6 +41,7 @@ BUILD_INERT_BASENAMES = frozenset({
     "slice-review.json",
     "repaired-wall-review.json",
     "containment-review.json",
+    "wall-review.json",
 })
 
 

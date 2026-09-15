@@ -3,7 +3,7 @@
     "cavity": [
       205.0,
       205.0,
-      79.64923306371628
+      84.94923306371626
     ],
     "core": [
       205.0,
@@ -13,12 +13,12 @@
     "funnel": [
       173.0,
       173.0,
-      70.64923296371629
+      75.94923306371626
     ],
     "rod": [
       6.35,
       6.35,
-      50.80000000000001
+      50.8
     ],
     "seal": [
       8.350000200023775,
@@ -27,36 +27,37 @@
     ]
   },
   "volume_ml": {
-    "cavity": 296.61242149779525,
-    "core": 271.66715645924955,
-    "funnel": 144.52752428372335,
-    "rod": 1.6087962461345557,
-    "seal": 0.036122368221459436
+    "cavity": 307.2507906230849,
+    "core": 271.2176310937886,
+    "funnel": 262.35801059379077,
+    "rod": 1.6087962461345553,
+    "seal": 0.03612236822145955
   },
   "shell_thickness_mm": 5.0,
   "flange_thickness_mm": 5.0,
+  "minimum_cavity_backing_mm": 4.999998469696665,
   "liquid_containment": {
     "cavity": {
-      "retained_volume_ml": 763.7898578390989,
+      "retained_volume_ml": 882.4104223281869,
       "casting_outside_retained_mm3": 0.0
     },
     "assembled": {
-      "retained_volume_ml": 172.1744505784933,
+      "retained_volume_ml": 290.6271679979392,
       "casting_outside_retained_mm3": 0.0
     }
   },
-  "parting_z_mm": 76.64923296371629,
+  "parting_z_mm": 81.94923296371627,
   "finish_allowance_mm": 0.3,
   "rod_support": {
-    "engagement_mm": 32.8,
+    "engagement_mm": 27.500000000000007,
     "guide_diameter_mm": 8.35,
     "guide_diametral_clearance_mm": 2.0,
     "guide_length_mm": 10.0,
     "cradle": "open 90-degree V, two zip ties, visible axial stop on dry back",
     "tie_width_mm": 4.4,
     "tie_stations_from_neck_mm": [
-      17.0,
-      27.0
+      15.0,
+      23.0
     ],
     "seal": "removable mold-sealing clay, shaped flush with the forming face",
     "seal_depth_mm": 2.0
@@ -84,8 +85,8 @@
       270,
       315
     ],
-    "minimum_silicone_clearance_mm": 2.373743183569352,
-    "minimum_end_clearance_mm": 5.900159211625834,
+    "minimum_silicone_clearance_mm": 2.188775851046098,
+    "minimum_end_clearance_mm": 5.903387828424627,
     "minimum_required_wall_mm": 2.0,
     "scope": "Simultaneous rod offset, tilt and axial error against the cavity; cradle retention and sealing need a physical trial."
   },
@@ -194,8 +195,8 @@
   "dry_opening_mm": 136.4,
   "ramp_print_z_mm": {
     "cavity": [
-      36.00000000000001,
-      55.339232963716285
+      41.29999999999999,
+      60.63923296371627
     ],
     "core": [
       26.31,
@@ -210,8 +211,8 @@
     "assumed_modulus_mpa": 1000.0,
     "assumed_poisson_ratio": 0.4,
     "silicone_density_assumption_kg_m3": 1130,
-    "maximum_silicone_head_mm": 75.64923296371629,
-    "head_pressure_kpa": 0.8385944421726842,
+    "maximum_silicone_head_mm": 80.94923296371627,
+    "head_pressure_kpa": 0.8973465321726841,
     "screen_deflection_mm": 0.2092497992250624,
     "pressure_force_n": 25.281,
     "condition": "fill, vents and both dry backs open to the same chamber; no sealed pressure differential",

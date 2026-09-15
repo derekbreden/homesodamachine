@@ -1,14 +1,14 @@
 {
   "project": "funnel-mold-h2c-040.gcode.3mf",
-  "project_sha256": "771a3de1396c71ff4a78ca89ad6365a1d8d116b758f107243b3d6fb1cc20eaf8",
+  "project_sha256": "ae3b86b52322b6dc8436795c7bcf15795af1b797505b9d17f188799bb2de1e76",
   "scope": "Commanded paths; physical extrusion quality remains a print observation.",
   "plates": [
     {
       "gcode": "Metadata/plate_1.gcode",
-      "gcode_sha256": "424c45075cb933d8bf97364dd7eb4a001746404a6f2ad76654b26b12444496b6",
+      "gcode_sha256": "a5a52196c38e6b922a2ca5bbf4fc1a43dea4178706d07c89e37c4056a6cc9ff8",
       "outer_wall_speed_setting_mm_s": 40.0,
       "maximum_overhang_speed_setting_mm_s": 50.0,
-      "maximum_commanded_outer_wall_speed_after_layer_3_mm_s": 40.0,
+      "maximum_commanded_outer_wall_speed_after_layer_3_mm_s": 42.0,
       "minimum_commanded_outer_wall_fan_after_layer_3_percent": 20.0,
       "exterior_perimeters": [
         {
@@ -16,14 +16,14 @@
           "z_mm": 1.6,
           "height_mm": 0.4,
           "start_xy_mm": [
-            159.071,
-            153.811
+            159.069,
+            153.808
           ],
           "xy_bounds_mm": [
             141.462,
-            150.119,
+            150.11,
             161.238,
-            169.894
+            169.889
           ],
           "commanded_speed_mm_s": [
             10.0
@@ -31,40 +31,42 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 62.14809748136236,
-          "seam_distance_from_rearmost_y_mm": 16.083
+          "length_mm": 62.14628414881442,
+          "seam_distance_from_rearmost_y_mm": 16.081000000000017
         },
         {
           "layer": 5,
           "z_mm": 2.0,
           "height_mm": 0.4,
           "start_xy_mm": [
-            152.425,
-            170.434
+            151.811,
+            170.482
           ],
           "xy_bounds_mm": [
             140.862,
-            149.511,
+            149.518,
             161.838,
             170.494
           ],
           "commanded_speed_mm_s": [
             10.0,
-            15.0
+            15.0,
+            15.7,
+            17.909
           ],
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 65.91974289559191,
-          "seam_distance_from_rearmost_y_mm": 0.060000000000002274
+          "length_mm": 65.91909999090109,
+          "seam_distance_from_rearmost_y_mm": 0.012000000000000455
         },
         {
           "layer": 6,
           "z_mm": 2.4,
           "height_mm": 0.4,
           "start_xy_mm": [
-            152.382,
-            170.905
+            151.823,
+            170.942
           ],
           "xy_bounds_mm": [
             140.401,
@@ -73,21 +75,21 @@
             170.956
           ],
           "commanded_speed_mm_s": [
-            19.817
+            22.783
           ],
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 68.82102867354985,
-          "seam_distance_from_rearmost_y_mm": 0.05099999999998772
+          "length_mm": 68.82009689785177,
+          "seam_distance_from_rearmost_y_mm": 0.013999999999981583
         },
         {
           "layer": 7,
           "z_mm": 2.8,
           "height_mm": 0.4,
           "start_xy_mm": [
-            152.331,
-            171.284
+            151.836,
+            171.312
           ],
           "xy_bounds_mm": [
             140.03,
@@ -96,90 +98,90 @@
             171.327
           ],
           "commanded_speed_mm_s": [
-            22.017
+            24.933
           ],
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 71.15648843816112,
-          "seam_distance_from_rearmost_y_mm": 0.043000000000006366
+          "length_mm": 71.15903848076782,
+          "seam_distance_from_rearmost_y_mm": 0.014999999999986358
         },
         {
           "layer": 8,
           "z_mm": 3.2,
           "height_mm": 0.4,
           "start_xy_mm": [
-            152.248,
-            171.593
+            151.845,
+            171.617
           ],
           "xy_bounds_mm": [
             139.717,
-            148.376,
+            148.382,
             162.983,
             171.631
           ],
           "commanded_speed_mm_s": [
-            24.25
+            27.1
           ],
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 73.06584800052073,
-          "seam_distance_from_rearmost_y_mm": 0.038000000000010914
+          "length_mm": 73.06223983567406,
+          "seam_distance_from_rearmost_y_mm": 0.014000000000010004
         },
         {
           "layer": 9,
           "z_mm": 3.6,
           "height_mm": 0.4,
           "start_xy_mm": [
-            152.154,
-            171.846
+            151.846,
+            171.866
           ],
           "xy_bounds_mm": [
-            139.477,
-            148.138,
+            139.467,
+            148.121,
             163.223,
             171.881
           ],
           "commanded_speed_mm_s": [
-            26.383
+            29.117
           ],
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 74.6288080284228,
-          "seam_distance_from_rearmost_y_mm": 0.03499999999999659
+          "length_mm": 74.63136739601231,
+          "seam_distance_from_rearmost_y_mm": 0.014999999999986358
         },
         {
           "layer": 10,
           "z_mm": 4.0,
           "height_mm": 0.4,
           "start_xy_mm": [
-            152.043,
-            172.062
+            151.843,
+            172.07
           ],
           "xy_bounds_mm": [
             139.272,
-            147.918,
+            147.934,
             163.427,
             172.084
           ],
           "commanded_speed_mm_s": [
-            28.333
+            30.9
           ],
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 75.91020566843264,
-          "seam_distance_from_rearmost_y_mm": 0.02199999999999136
+          "length_mm": 75.91182297685278,
+          "seam_distance_from_rearmost_y_mm": 0.014000000000010004
         },
         {
           "layer": 11,
           "z_mm": 4.4,
           "height_mm": 0.4,
           "start_xy_mm": [
-            151.95,
-            172.226
+            151.854,
+            172.232
           ],
           "xy_bounds_mm": [
             139.106,
@@ -188,44 +190,44 @@
             172.247
           ],
           "commanded_speed_mm_s": [
-            30.067
+            32.467
           ],
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 76.93728923752647,
-          "seam_distance_from_rearmost_y_mm": 0.021000000000015007
+          "length_mm": 76.93719524239464,
+          "seam_distance_from_rearmost_y_mm": 0.01500000000001478
         },
         {
           "layer": 12,
           "z_mm": 4.8,
           "height_mm": 0.4,
           "start_xy_mm": [
-            151.829,
+            151.851,
             172.359
           ],
           "xy_bounds_mm": [
             138.98,
-            147.626,
+            147.627,
             163.716,
-            172.374
+            172.373
           ],
           "commanded_speed_mm_s": [
-            31.617
+            33.817
           ],
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 77.73213048162458,
-          "seam_distance_from_rearmost_y_mm": 0.014999999999986358
+          "length_mm": 77.7332434093712,
+          "seam_distance_from_rearmost_y_mm": 0.013999999999981583
         },
         {
           "layer": 13,
           "z_mm": 5.2,
           "height_mm": 0.4,
           "start_xy_mm": [
-            151.72,
-            172.457
+            151.847,
+            172.452
           ],
           "xy_bounds_mm": [
             138.891,
@@ -234,35 +236,35 @@
             172.467
           ],
           "commanded_speed_mm_s": [
-            32.967
+            34.95
           ],
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 78.31733330892014,
-          "seam_distance_from_rearmost_y_mm": 0.010000000000019327
+          "length_mm": 78.31938747457386,
+          "seam_distance_from_rearmost_y_mm": 0.01500000000001478
         },
         {
           "layer": 14,
           "z_mm": 5.6,
           "height_mm": 0.4,
           "start_xy_mm": [
-            151.618,
-            172.517
+            151.826,
+            172.511
           ],
           "xy_bounds_mm": [
-            138.826,
+            138.83,
             147.475,
-            163.875,
-            172.528
+            163.871,
+            172.522
           ],
           "commanded_speed_mm_s": [
-            34.133
+            35.917
           ],
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 78.70577167516953,
+          "length_mm": 78.70405345167062,
           "seam_distance_from_rearmost_y_mm": 0.01099999999999568
         },
         {
@@ -270,8 +272,8 @@
           "z_mm": 6.0,
           "height_mm": 0.4,
           "start_xy_mm": [
-            151.507,
-            172.556
+            151.834,
+            172.544
           ],
           "xy_bounds_mm": [
             138.799,
@@ -280,369 +282,300 @@
             172.558
           ],
           "commanded_speed_mm_s": [
-            35.133
+            36.717
           ],
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 78.90174330613931,
-          "seam_distance_from_rearmost_y_mm": 0.001999999999981128
+          "length_mm": 78.9010366584339,
+          "seam_distance_from_rearmost_y_mm": 0.013999999999981583
         },
         {
           "layer": 16,
           "z_mm": 6.4,
           "height_mm": 0.4,
           "start_xy_mm": [
-            151.422,
-            172.556
+            151.812,
+            172.548
           ],
           "xy_bounds_mm": [
-            138.795,
+            138.788,
             147.439,
-            163.914,
-            172.561
+            163.905,
+            172.562
           ],
           "commanded_speed_mm_s": [
-            36.0
+            37.367
           ],
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 78.92385008965037,
-          "seam_distance_from_rearmost_y_mm": 0.0049999999999954525
+          "length_mm": 78.92582593503784,
+          "seam_distance_from_rearmost_y_mm": 0.014000000000010004
         },
         {
           "layer": 17,
           "z_mm": 6.8,
           "height_mm": 0.4,
           "start_xy_mm": [
-            151.334,
-            172.561
+            151.805,
+            172.548
           ],
           "xy_bounds_mm": [
-            138.795,
+            138.788,
             147.439,
             163.905,
             172.562
           ],
           "commanded_speed_mm_s": [
-            36.733
+            37.917
           ],
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 78.9253734387678,
-          "seam_distance_from_rearmost_y_mm": 0.0010000000000047748
+          "length_mm": 78.92580782959077,
+          "seam_distance_from_rearmost_y_mm": 0.014000000000010004
         },
         {
           "layer": 18,
           "z_mm": 7.2,
           "height_mm": 0.4,
           "start_xy_mm": [
-            151.257,
-            172.561
+            151.798,
+            172.548
           ],
           "xy_bounds_mm": [
-            138.795,
+            138.785,
             147.439,
             163.905,
-            172.563
+            172.562
           ],
           "commanded_speed_mm_s": [
-            37.333
+            38.35
           ],
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 78.92572776528118,
-          "seam_distance_from_rearmost_y_mm": 0.001999999999981128
+          "length_mm": 78.92715412798452,
+          "seam_distance_from_rearmost_y_mm": 0.014000000000010004
         },
         {
           "layer": 19,
           "z_mm": 7.6,
           "height_mm": 0.4,
           "start_xy_mm": [
-            151.192,
-            172.562
+            151.795,
+            172.551
           ],
           "xy_bounds_mm": [
-            138.795,
-            147.439,
+            138.786,
+            147.438,
             163.905,
             172.563
           ],
           "commanded_speed_mm_s": [
-            37.85
+            38.7
           ],
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 78.92567891141027,
-          "seam_distance_from_rearmost_y_mm": 0.0009999999999763531
+          "length_mm": 78.92681096297098,
+          "seam_distance_from_rearmost_y_mm": 0.012000000000000455
         },
         {
           "layer": 20,
           "z_mm": 8.0,
           "height_mm": 0.4,
           "start_xy_mm": [
-            151.139,
-            172.562
+            151.787,
+            172.552
           ],
           "xy_bounds_mm": [
-            138.795,
-            147.439,
+            138.786,
+            147.438,
             163.905,
             172.563
           ],
           "commanded_speed_mm_s": [
-            38.267
+            38.983
           ],
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 78.92622928699316,
-          "seam_distance_from_rearmost_y_mm": 0.0009999999999763531
+          "length_mm": 78.92698978003135,
+          "seam_distance_from_rearmost_y_mm": 0.01099999999999568
         },
         {
           "layer": 21,
           "z_mm": 8.4,
           "height_mm": 0.4,
           "start_xy_mm": [
-            151.112,
-            172.562
+            151.779,
+            172.552
           ],
           "xy_bounds_mm": [
-            138.794,
-            147.44,
+            138.786,
+            147.438,
             163.905,
             172.563
           ],
           "commanded_speed_mm_s": [
-            38.6
+            39.217
           ],
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 78.92616125132044,
-          "seam_distance_from_rearmost_y_mm": 0.0009999999999763531
+          "length_mm": 78.92660997292346,
+          "seam_distance_from_rearmost_y_mm": 0.01099999999999568
         },
         {
           "layer": 22,
           "z_mm": 8.8,
           "height_mm": 0.400001,
           "start_xy_mm": [
-            151.088,
-            172.561
+            151.771,
+            172.553
           ],
           "xy_bounds_mm": [
-            138.794,
-            147.44,
-            163.905,
+            138.786,
+            147.438,
+            163.906,
             172.563
           ],
           "commanded_speed_mm_s": [
-            38.883
+            39.383
           ],
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 78.92653786833189,
-          "seam_distance_from_rearmost_y_mm": 0.001999999999981128
+          "length_mm": 78.92715049471317,
+          "seam_distance_from_rearmost_y_mm": 0.009999999999990905
         },
         {
           "layer": 23,
           "z_mm": 9.2,
           "height_mm": 0.4,
           "start_xy_mm": [
-            151.075,
-            172.56
+            151.764,
+            172.553
           ],
           "xy_bounds_mm": [
-            138.794,
-            147.44,
+            138.786,
+            147.438,
             163.906,
             172.563
           ],
           "commanded_speed_mm_s": [
-            39.117
+            39.533
           ],
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 78.92638884588338,
-          "seam_distance_from_rearmost_y_mm": 0.002999999999985903
+          "length_mm": 78.92677934026237,
+          "seam_distance_from_rearmost_y_mm": 0.009999999999990905
         },
         {
           "layer": 24,
           "z_mm": 9.6,
           "height_mm": 0.400001,
           "start_xy_mm": [
-            151.072,
-            172.56
+            151.758,
+            172.554
           ],
           "xy_bounds_mm": [
-            138.794,
-            147.44,
+            138.786,
+            147.439,
             163.906,
             172.563
           ],
           "commanded_speed_mm_s": [
-            39.3
+            39.633
           ],
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 78.92599445574355,
-          "seam_distance_from_rearmost_y_mm": 0.002999999999985903
+          "length_mm": 78.92656761902028,
+          "seam_distance_from_rearmost_y_mm": 0.00899999999998613
         },
         {
           "layer": 25,
           "z_mm": 10.0,
           "height_mm": 0.4,
           "start_xy_mm": [
-            151.077,
-            172.56
+            151.753,
+            172.554
           ],
           "xy_bounds_mm": [
-            138.794,
-            147.44,
+            138.786,
+            147.439,
             163.906,
             172.563
           ],
           "commanded_speed_mm_s": [
-            39.45
+            39.717
           ],
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 78.92603849043675,
-          "seam_distance_from_rearmost_y_mm": 0.002999999999985903
+          "length_mm": 78.92564171104617,
+          "seam_distance_from_rearmost_y_mm": 0.00899999999998613
         },
         {
           "layer": 26,
           "z_mm": 10.4,
           "height_mm": 0.4,
           "start_xy_mm": [
-            151.091,
-            172.561
+            151.748,
+            172.555
           ],
           "xy_bounds_mm": [
-            138.794,
-            147.44,
+            138.786,
+            147.439,
             163.906,
             172.563
           ],
           "commanded_speed_mm_s": [
-            39.567
+            39.783
           ],
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 78.92641551889778,
-          "seam_distance_from_rearmost_y_mm": 0.001999999999981128
+          "length_mm": 78.92287533833196,
+          "seam_distance_from_rearmost_y_mm": 0.007999999999981355
         },
         {
           "layer": 27,
           "z_mm": 10.8,
           "height_mm": 0.400001,
           "start_xy_mm": [
-            151.111,
-            172.562
+            151.745,
+            172.555
           ],
           "xy_bounds_mm": [
-            138.794,
-            147.44,
+            138.787,
+            147.439,
             163.906,
             172.563
           ],
           "commanded_speed_mm_s": [
-            39.667
+            39.833
           ],
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 78.92619486762668,
-          "seam_distance_from_rearmost_y_mm": 0.0009999999999763531
+          "length_mm": 78.9230684678123,
+          "seam_distance_from_rearmost_y_mm": 0.007999999999981355
         },
         {
           "layer": 28,
           "z_mm": 11.2,
           "height_mm": 0.4,
           "start_xy_mm": [
-            151.129,
-            172.563
+            151.742,
+            172.556
           ],
           "xy_bounds_mm": [
-            138.793,
-            147.44,
-            163.906,
-            172.563
-          ],
-          "commanded_speed_mm_s": [
-            39.733
-          ],
-          "commanded_fan_percent": [
-            20.0
-          ],
-          "length_mm": 78.92635942779799,
-          "seam_distance_from_rearmost_y_mm": 0.0
-        },
-        {
-          "layer": 29,
-          "z_mm": 11.6,
-          "height_mm": 0.400001,
-          "start_xy_mm": [
-            151.162,
-            172.563
-          ],
-          "xy_bounds_mm": [
-            138.793,
-            147.44,
-            163.906,
-            172.563
-          ],
-          "commanded_speed_mm_s": [
-            39.8
-          ],
-          "commanded_fan_percent": [
-            20.0
-          ],
-          "length_mm": 78.92610116413688,
-          "seam_distance_from_rearmost_y_mm": 0.0
-        },
-        {
-          "layer": 30,
-          "z_mm": 12.0,
-          "height_mm": 0.4,
-          "start_xy_mm": [
-            151.198,
-            172.562
-          ],
-          "xy_bounds_mm": [
-            138.793,
-            147.441,
-            163.906,
-            172.563
-          ],
-          "commanded_speed_mm_s": [
-            39.85
-          ],
-          "commanded_fan_percent": [
-            20.0
-          ],
-          "length_mm": 78.92699386925881,
-          "seam_distance_from_rearmost_y_mm": 0.0009999999999763531
-        },
-        {
-          "layer": 31,
-          "z_mm": 12.4,
-          "height_mm": 0.4,
-          "start_xy_mm": [
-            151.236,
-            172.562
-          ],
-          "xy_bounds_mm": [
-            138.793,
+            138.787,
             147.439,
             163.906,
             172.563
@@ -653,42 +586,42 @@
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 78.92728165724456,
-          "seam_distance_from_rearmost_y_mm": 0.0009999999999763531
+          "length_mm": 78.92366335960003,
+          "seam_distance_from_rearmost_y_mm": 0.0069999999999765805
         },
         {
-          "layer": 32,
-          "z_mm": 12.8,
+          "layer": 29,
+          "z_mm": 11.6,
           "height_mm": 0.400001,
           "start_xy_mm": [
-            151.276,
-            172.562
+            151.74,
+            172.556
           ],
           "xy_bounds_mm": [
-            138.793,
+            138.787,
             147.439,
             163.906,
             172.563
           ],
           "commanded_speed_mm_s": [
-            39.9
+            39.917
           ],
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 78.92600876207887,
-          "seam_distance_from_rearmost_y_mm": 0.0009999999999763531
+          "length_mm": 78.9239907978175,
+          "seam_distance_from_rearmost_y_mm": 0.0069999999999765805
         },
         {
-          "layer": 33,
-          "z_mm": 13.2,
+          "layer": 30,
+          "z_mm": 12.0,
           "height_mm": 0.4,
           "start_xy_mm": [
-            151.316,
-            172.562
+            151.738,
+            172.556
           ],
           "xy_bounds_mm": [
-            138.793,
+            138.787,
             147.439,
             163.906,
             172.563
@@ -699,66 +632,66 @@
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 78.92601839366036,
-          "seam_distance_from_rearmost_y_mm": 0.0009999999999763531
+          "length_mm": 78.92481004469384,
+          "seam_distance_from_rearmost_y_mm": 0.0069999999999765805
         },
         {
-          "layer": 34,
-          "z_mm": 13.6,
+          "layer": 31,
+          "z_mm": 12.4,
+          "height_mm": 0.4,
+          "start_xy_mm": [
+            151.737,
+            172.556
+          ],
+          "xy_bounds_mm": [
+            138.787,
+            147.439,
+            163.906,
+            172.563
+          ],
+          "commanded_speed_mm_s": [
+            39.95
+          ],
+          "commanded_fan_percent": [
+            20.0
+          ],
+          "length_mm": 78.92480969172077,
+          "seam_distance_from_rearmost_y_mm": 0.0069999999999765805
+        },
+        {
+          "layer": 32,
+          "z_mm": 12.8,
           "height_mm": 0.400001,
           "start_xy_mm": [
-            151.354,
-            172.561
+            151.737,
+            172.556
           ],
           "xy_bounds_mm": [
-            138.793,
+            138.787,
             147.439,
             163.906,
             172.563
           ],
           "commanded_speed_mm_s": [
-            39.95
+            39.967
           ],
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 78.92576735270592,
-          "seam_distance_from_rearmost_y_mm": 0.001999999999981128
+          "length_mm": 78.92644911657457,
+          "seam_distance_from_rearmost_y_mm": 0.0069999999999765805
         },
         {
-          "layer": 35,
-          "z_mm": 14.0,
+          "layer": 33,
+          "z_mm": 13.2,
           "height_mm": 0.4,
           "start_xy_mm": [
-            151.178,
-            172.563
+            151.738,
+            172.557
           ],
           "xy_bounds_mm": [
-            138.793,
+            138.787,
             147.439,
-            163.906,
-            172.563
-          ],
-          "commanded_speed_mm_s": [
-            39.95
-          ],
-          "commanded_fan_percent": [
-            20.0
-          ],
-          "length_mm": 78.9262568170704,
-          "seam_distance_from_rearmost_y_mm": 0.0
-        },
-        {
-          "layer": 36,
-          "z_mm": 14.4,
-          "height_mm": 0.4,
-          "start_xy_mm": [
-            151.422,
-            172.561
-          ],
-          "xy_bounds_mm": [
-            138.792,
-            147.44,
             163.907,
             172.563
           ],
@@ -768,22 +701,91 @@
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 78.92494474190035,
-          "seam_distance_from_rearmost_y_mm": 0.001999999999981128
+          "length_mm": 78.92618870612422,
+          "seam_distance_from_rearmost_y_mm": 0.006000000000000227
+        },
+        {
+          "layer": 34,
+          "z_mm": 13.6,
+          "height_mm": 0.400001,
+          "start_xy_mm": [
+            151.739,
+            172.557
+          ],
+          "xy_bounds_mm": [
+            138.787,
+            147.439,
+            163.907,
+            172.563
+          ],
+          "commanded_speed_mm_s": [
+            39.983
+          ],
+          "commanded_fan_percent": [
+            20.0
+          ],
+          "length_mm": 78.92551493807632,
+          "seam_distance_from_rearmost_y_mm": 0.006000000000000227
+        },
+        {
+          "layer": 35,
+          "z_mm": 14.0,
+          "height_mm": 0.4,
+          "start_xy_mm": [
+            151.741,
+            172.557
+          ],
+          "xy_bounds_mm": [
+            138.788,
+            147.439,
+            163.907,
+            172.563
+          ],
+          "commanded_speed_mm_s": [
+            39.983
+          ],
+          "commanded_fan_percent": [
+            20.0
+          ],
+          "length_mm": 78.92553191798511,
+          "seam_distance_from_rearmost_y_mm": 0.006000000000000227
+        },
+        {
+          "layer": 36,
+          "z_mm": 14.4,
+          "height_mm": 0.4,
+          "start_xy_mm": [
+            151.744,
+            172.557
+          ],
+          "xy_bounds_mm": [
+            138.788,
+            147.44,
+            163.907,
+            172.563
+          ],
+          "commanded_speed_mm_s": [
+            39.983
+          ],
+          "commanded_fan_percent": [
+            20.0
+          ],
+          "length_mm": 78.9254227886743,
+          "seam_distance_from_rearmost_y_mm": 0.006000000000000227
         },
         {
           "layer": 37,
           "z_mm": 14.8,
           "height_mm": 0.400001,
           "start_xy_mm": [
-            151.448,
-            172.559
+            151.746,
+            172.557
           ],
           "xy_bounds_mm": [
-            138.792,
+            138.788,
             147.44,
             163.907,
-            172.562
+            172.563
           ],
           "commanded_speed_mm_s": [
             39.983
@@ -791,90 +793,573 @@
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 78.92514800582602,
-          "seam_distance_from_rearmost_y_mm": 0.0030000000000143245
+          "length_mm": 78.92536908318773,
+          "seam_distance_from_rearmost_y_mm": 0.006000000000000227
         },
         {
           "layer": 38,
           "z_mm": 15.2,
           "height_mm": 0.4,
           "start_xy_mm": [
-            151.474,
-            172.559
+            151.751,
+            172.556
           ],
           "xy_bounds_mm": [
-            138.792,
+            138.788,
             147.44,
             163.907,
-            172.562
+            172.563
           ],
           "commanded_speed_mm_s": [
-            39.983
+            40.0
           ],
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 78.9243457524461,
-          "seam_distance_from_rearmost_y_mm": 0.0030000000000143245
+          "length_mm": 78.92565928111075,
+          "seam_distance_from_rearmost_y_mm": 0.0069999999999765805
         },
         {
           "layer": 39,
           "z_mm": 15.6,
           "height_mm": 0.400001,
           "start_xy_mm": [
-            151.497,
-            172.559
+            151.754,
+            172.556
           ],
           "xy_bounds_mm": [
-            138.792,
-            147.441,
+            138.788,
+            147.44,
             163.907,
-            172.562
+            172.563
           ],
           "commanded_speed_mm_s": [
-            39.983
+            40.0
           ],
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 78.92418983328918,
-          "seam_distance_from_rearmost_y_mm": 0.0030000000000143245
+          "length_mm": 78.92548714460895,
+          "seam_distance_from_rearmost_y_mm": 0.0069999999999765805
         },
         {
           "layer": 40,
           "z_mm": 16.0,
           "height_mm": 0.4,
           "start_xy_mm": [
-            151.518,
-            172.56
+            151.757,
+            172.556
           ],
           "xy_bounds_mm": [
-            138.792,
-            147.441,
+            138.788,
+            147.44,
             163.907,
-            172.562
+            172.563
           ],
           "commanded_speed_mm_s": [
-            39.983
+            40.0
           ],
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 78.92535472764504,
-          "seam_distance_from_rearmost_y_mm": 0.0020000000000095497
+          "length_mm": 78.92581120734816,
+          "seam_distance_from_rearmost_y_mm": 0.0069999999999765805
         },
         {
           "layer": 41,
           "z_mm": 16.4,
           "height_mm": 0.4,
           "start_xy_mm": [
-            151.537,
-            172.56
+            151.761,
+            172.556
           ],
           "xy_bounds_mm": [
-            138.792,
+            138.788,
+            147.44,
+            163.908,
+            172.563
+          ],
+          "commanded_speed_mm_s": [
+            40.0
+          ],
+          "commanded_fan_percent": [
+            20.0
+          ],
+          "length_mm": 78.92544391708894,
+          "seam_distance_from_rearmost_y_mm": 0.0069999999999765805
+        },
+        {
+          "layer": 42,
+          "z_mm": 16.8,
+          "height_mm": 0.4,
+          "start_xy_mm": [
+            151.766,
+            172.556
+          ],
+          "xy_bounds_mm": [
+            138.788,
+            147.44,
+            163.908,
+            172.563
+          ],
+          "commanded_speed_mm_s": [
+            40.0
+          ],
+          "commanded_fan_percent": [
+            20.0
+          ],
+          "length_mm": 78.9250204798492,
+          "seam_distance_from_rearmost_y_mm": 0.0069999999999765805
+        },
+        {
+          "layer": 43,
+          "z_mm": 17.2,
+          "height_mm": 0.400002,
+          "start_xy_mm": [
+            151.771,
+            172.555
+          ],
+          "xy_bounds_mm": [
+            138.788,
+            147.44,
+            163.908,
+            172.563
+          ],
+          "commanded_speed_mm_s": [
+            40.0
+          ],
+          "commanded_fan_percent": [
+            20.0
+          ],
+          "length_mm": 78.92478157391352,
+          "seam_distance_from_rearmost_y_mm": 0.007999999999981355
+        },
+        {
+          "layer": 44,
+          "z_mm": 17.6,
+          "height_mm": 0.4,
+          "start_xy_mm": [
+            151.777,
+            172.555
+          ],
+          "xy_bounds_mm": [
+            138.789,
+            147.44,
+            163.908,
+            172.563
+          ],
+          "commanded_speed_mm_s": [
+            40.0
+          ],
+          "commanded_fan_percent": [
+            20.0
+          ],
+          "length_mm": 78.92522264982506,
+          "seam_distance_from_rearmost_y_mm": 0.007999999999981355
+        },
+        {
+          "layer": 45,
+          "z_mm": 18.0,
+          "height_mm": 0.4,
+          "start_xy_mm": [
+            151.784,
+            172.555
+          ],
+          "xy_bounds_mm": [
+            138.789,
+            147.44,
+            163.908,
+            172.563
+          ],
+          "commanded_speed_mm_s": [
+            40.0
+          ],
+          "commanded_fan_percent": [
+            20.0
+          ],
+          "length_mm": 78.9257134448502,
+          "seam_distance_from_rearmost_y_mm": 0.007999999999981355
+        },
+        {
+          "layer": 46,
+          "z_mm": 18.4,
+          "height_mm": 0.4,
+          "start_xy_mm": [
+            151.79,
+            172.555
+          ],
+          "xy_bounds_mm": [
+            138.789,
+            147.44,
+            163.908,
+            172.563
+          ],
+          "commanded_speed_mm_s": [
+            40.0
+          ],
+          "commanded_fan_percent": [
+            20.0
+          ],
+          "length_mm": 78.92513924869452,
+          "seam_distance_from_rearmost_y_mm": 0.007999999999981355
+        },
+        {
+          "layer": 47,
+          "z_mm": 18.8,
+          "height_mm": 0.4,
+          "start_xy_mm": [
+            151.797,
+            172.554
+          ],
+          "xy_bounds_mm": [
+            138.789,
+            147.44,
+            163.908,
+            172.563
+          ],
+          "commanded_speed_mm_s": [
+            40.0
+          ],
+          "commanded_fan_percent": [
+            20.0
+          ],
+          "length_mm": 78.92550451821772,
+          "seam_distance_from_rearmost_y_mm": 0.00899999999998613
+        },
+        {
+          "layer": 48,
+          "z_mm": 19.2,
+          "height_mm": 0.400002,
+          "start_xy_mm": [
+            151.803,
+            172.554
+          ],
+          "xy_bounds_mm": [
+            138.789,
             147.441,
-            163.907,
+            163.908,
+            172.563
+          ],
+          "commanded_speed_mm_s": [
+            40.0
+          ],
+          "commanded_fan_percent": [
+            20.0
+          ],
+          "length_mm": 78.92532121524711,
+          "seam_distance_from_rearmost_y_mm": 0.00899999999998613
+        },
+        {
+          "layer": 49,
+          "z_mm": 19.6,
+          "height_mm": 0.4,
+          "start_xy_mm": [
+            151.81,
+            172.554
+          ],
+          "xy_bounds_mm": [
+            138.789,
+            147.441,
+            163.908,
+            172.563
+          ],
+          "commanded_speed_mm_s": [
+            40.0
+          ],
+          "commanded_fan_percent": [
+            20.0
+          ],
+          "length_mm": 78.9254864632236,
+          "seam_distance_from_rearmost_y_mm": 0.00899999999998613
+        },
+        {
+          "layer": 50,
+          "z_mm": 20.0,
+          "height_mm": 0.4,
+          "start_xy_mm": [
+            151.816,
+            172.554
+          ],
+          "xy_bounds_mm": [
+            138.789,
+            147.441,
+            163.909,
+            172.563
+          ],
+          "commanded_speed_mm_s": [
+            40.0
+          ],
+          "commanded_fan_percent": [
+            20.0
+          ],
+          "length_mm": 78.92583762205773,
+          "seam_distance_from_rearmost_y_mm": 0.00899999999998613
+        },
+        {
+          "layer": 51,
+          "z_mm": 20.4,
+          "height_mm": 0.4,
+          "start_xy_mm": [
+            151.821,
+            172.553
+          ],
+          "xy_bounds_mm": [
+            138.789,
+            147.441,
+            163.909,
+            172.563
+          ],
+          "commanded_speed_mm_s": [
+            40.0
+          ],
+          "commanded_fan_percent": [
+            20.0
+          ],
+          "length_mm": 78.92601788758667,
+          "seam_distance_from_rearmost_y_mm": 0.009999999999990905
+        },
+        {
+          "layer": 52,
+          "z_mm": 20.8,
+          "height_mm": 0.4,
+          "start_xy_mm": [
+            151.825,
+            172.553
+          ],
+          "xy_bounds_mm": [
+            138.79,
+            147.441,
+            163.909,
+            172.563
+          ],
+          "commanded_speed_mm_s": [
+            40.0
+          ],
+          "commanded_fan_percent": [
+            20.0
+          ],
+          "length_mm": 78.92678460039659,
+          "seam_distance_from_rearmost_y_mm": 0.009999999999990905
+        },
+        {
+          "layer": 53,
+          "z_mm": 21.2,
+          "height_mm": 0.400002,
+          "start_xy_mm": [
+            151.829,
+            172.553
+          ],
+          "xy_bounds_mm": [
+            138.79,
+            147.441,
+            163.909,
+            172.563
+          ],
+          "commanded_speed_mm_s": [
+            40.0
+          ],
+          "commanded_fan_percent": [
+            20.0
+          ],
+          "length_mm": 78.92704958650248,
+          "seam_distance_from_rearmost_y_mm": 0.009999999999990905
+        },
+        {
+          "layer": 54,
+          "z_mm": 21.6,
+          "height_mm": 0.4,
+          "start_xy_mm": [
+            151.831,
+            172.553
+          ],
+          "xy_bounds_mm": [
+            138.79,
+            147.441,
+            163.909,
+            172.563
+          ],
+          "commanded_speed_mm_s": [
+            40.0
+          ],
+          "commanded_fan_percent": [
+            20.0
+          ],
+          "length_mm": 78.9272049501793,
+          "seam_distance_from_rearmost_y_mm": 0.009999999999990905
+        },
+        {
+          "layer": 55,
+          "z_mm": 22.0,
+          "height_mm": 0.4,
+          "start_xy_mm": [
+            151.832,
+            172.553
+          ],
+          "xy_bounds_mm": [
+            138.79,
+            147.441,
+            163.909,
+            172.563
+          ],
+          "commanded_speed_mm_s": [
+            40.0
+          ],
+          "commanded_fan_percent": [
+            20.0
+          ],
+          "length_mm": 78.92753448432227,
+          "seam_distance_from_rearmost_y_mm": 0.009999999999990905
+        },
+        {
+          "layer": 56,
+          "z_mm": 22.4,
+          "height_mm": 0.4,
+          "start_xy_mm": [
+            151.832,
+            172.552
+          ],
+          "xy_bounds_mm": [
+            138.79,
+            147.441,
+            163.909,
+            172.563
+          ],
+          "commanded_speed_mm_s": [
+            40.0
+          ],
+          "commanded_fan_percent": [
+            20.0
+          ],
+          "length_mm": 78.92789087565566,
+          "seam_distance_from_rearmost_y_mm": 0.01099999999999568
+        },
+        {
+          "layer": 57,
+          "z_mm": 22.8,
+          "height_mm": 0.4,
+          "start_xy_mm": [
+            151.83,
+            172.552
+          ],
+          "xy_bounds_mm": [
+            138.79,
+            147.441,
+            163.909,
+            172.563
+          ],
+          "commanded_speed_mm_s": [
+            40.0
+          ],
+          "commanded_fan_percent": [
+            20.0
+          ],
+          "length_mm": 78.92805309589336,
+          "seam_distance_from_rearmost_y_mm": 0.01099999999999568
+        },
+        {
+          "layer": 58,
+          "z_mm": 23.2,
+          "height_mm": 0.400002,
+          "start_xy_mm": [
+            151.826,
+            172.552
+          ],
+          "xy_bounds_mm": [
+            138.79,
+            147.441,
+            163.909,
+            172.563
+          ],
+          "commanded_speed_mm_s": [
+            40.0
+          ],
+          "commanded_fan_percent": [
+            20.0
+          ],
+          "length_mm": 78.92800433697623,
+          "seam_distance_from_rearmost_y_mm": 0.01099999999999568
+        },
+        {
+          "layer": 59,
+          "z_mm": 23.6,
+          "height_mm": 0.4,
+          "start_xy_mm": [
+            151.82,
+            172.552
+          ],
+          "xy_bounds_mm": [
+            138.79,
+            147.442,
+            163.91,
+            172.563
+          ],
+          "commanded_speed_mm_s": [
+            40.0
+          ],
+          "commanded_fan_percent": [
+            20.0
+          ],
+          "length_mm": 78.92796769698303,
+          "seam_distance_from_rearmost_y_mm": 0.01099999999999568
+        },
+        {
+          "layer": 60,
+          "z_mm": 24.0,
+          "height_mm": 0.4,
+          "start_xy_mm": [
+            151.812,
+            172.552
+          ],
+          "xy_bounds_mm": [
+            138.791,
+            147.442,
+            163.91,
+            172.563
+          ],
+          "commanded_speed_mm_s": [
+            40.0
+          ],
+          "commanded_fan_percent": [
+            20.0
+          ],
+          "length_mm": 78.92777984141414,
+          "seam_distance_from_rearmost_y_mm": 0.01099999999999568
+        },
+        {
+          "layer": 61,
+          "z_mm": 24.4,
+          "height_mm": 0.4,
+          "start_xy_mm": [
+            151.802,
+            172.552
+          ],
+          "xy_bounds_mm": [
+            138.791,
+            147.442,
+            163.91,
+            172.563
+          ],
+          "commanded_speed_mm_s": [
+            40.0
+          ],
+          "commanded_fan_percent": [
+            20.0
+          ],
+          "length_mm": 78.92772844317196,
+          "seam_distance_from_rearmost_y_mm": 0.01099999999999568
+        },
+        {
+          "layer": 62,
+          "z_mm": 24.8,
+          "height_mm": 0.4,
+          "start_xy_mm": [
+            151.787,
+            172.552
+          ],
+          "xy_bounds_mm": [
+            138.791,
+            147.442,
+            163.914,
             172.562
           ],
           "commanded_speed_mm_s": [
@@ -883,505 +1368,22 @@
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 78.92544480083419,
-          "seam_distance_from_rearmost_y_mm": 0.0020000000000095497
-        },
-        {
-          "layer": 42,
-          "z_mm": 16.8,
-          "height_mm": 0.4,
-          "start_xy_mm": [
-            151.554,
-            172.56
-          ],
-          "xy_bounds_mm": [
-            138.792,
-            147.441,
-            163.907,
-            172.561
-          ],
-          "commanded_speed_mm_s": [
-            40.0
-          ],
-          "commanded_fan_percent": [
-            20.0
-          ],
-          "length_mm": 78.92368693009027,
-          "seam_distance_from_rearmost_y_mm": 0.0010000000000047748
-        },
-        {
-          "layer": 43,
-          "z_mm": 17.2,
-          "height_mm": 0.400002,
-          "start_xy_mm": [
-            151.569,
-            172.56
-          ],
-          "xy_bounds_mm": [
-            138.791,
-            147.441,
-            163.908,
-            172.561
-          ],
-          "commanded_speed_mm_s": [
-            40.0
-          ],
-          "commanded_fan_percent": [
-            20.0
-          ],
-          "length_mm": 78.92446615238076,
-          "seam_distance_from_rearmost_y_mm": 0.0010000000000047748
-        },
-        {
-          "layer": 44,
-          "z_mm": 17.6,
-          "height_mm": 0.4,
-          "start_xy_mm": [
-            151.583,
-            172.561
-          ],
-          "xy_bounds_mm": [
-            138.791,
-            147.441,
-            163.908,
-            172.561
-          ],
-          "commanded_speed_mm_s": [
-            40.0
-          ],
-          "commanded_fan_percent": [
-            20.0
-          ],
-          "length_mm": 78.92461289985411,
-          "seam_distance_from_rearmost_y_mm": 0.0
-        },
-        {
-          "layer": 45,
-          "z_mm": 18.0,
-          "height_mm": 0.4,
-          "start_xy_mm": [
-            151.596,
-            172.561
-          ],
-          "xy_bounds_mm": [
-            138.791,
-            147.441,
-            163.908,
-            172.561
-          ],
-          "commanded_speed_mm_s": [
-            40.0
-          ],
-          "commanded_fan_percent": [
-            20.0
-          ],
-          "length_mm": 78.9252822152708,
-          "seam_distance_from_rearmost_y_mm": 0.0
-        },
-        {
-          "layer": 46,
-          "z_mm": 18.4,
-          "height_mm": 0.4,
-          "start_xy_mm": [
-            151.609,
-            172.561
-          ],
-          "xy_bounds_mm": [
-            138.791,
-            147.441,
-            163.908,
-            172.561
-          ],
-          "commanded_speed_mm_s": [
-            40.0
-          ],
-          "commanded_fan_percent": [
-            20.0
-          ],
-          "length_mm": 78.92529397285362,
-          "seam_distance_from_rearmost_y_mm": 0.0
-        },
-        {
-          "layer": 47,
-          "z_mm": 18.8,
-          "height_mm": 0.4,
-          "start_xy_mm": [
-            151.621,
-            172.561
-          ],
-          "xy_bounds_mm": [
-            138.791,
-            147.441,
-            163.908,
-            172.561
-          ],
-          "commanded_speed_mm_s": [
-            40.0
-          ],
-          "commanded_fan_percent": [
-            20.0
-          ],
-          "length_mm": 78.9248503532555,
-          "seam_distance_from_rearmost_y_mm": 0.0
-        },
-        {
-          "layer": 48,
-          "z_mm": 19.2,
-          "height_mm": 0.400002,
-          "start_xy_mm": [
-            151.633,
-            172.561
-          ],
-          "xy_bounds_mm": [
-            138.791,
-            147.442,
-            163.908,
-            172.561
-          ],
-          "commanded_speed_mm_s": [
-            40.0
-          ],
-          "commanded_fan_percent": [
-            20.0
-          ],
-          "length_mm": 78.92522425491302,
-          "seam_distance_from_rearmost_y_mm": 0.0
-        },
-        {
-          "layer": 49,
-          "z_mm": 19.6,
-          "height_mm": 0.4,
-          "start_xy_mm": [
-            151.643,
-            172.561
-          ],
-          "xy_bounds_mm": [
-            138.791,
-            147.442,
-            163.908,
-            172.561
-          ],
-          "commanded_speed_mm_s": [
-            40.0
-          ],
-          "commanded_fan_percent": [
-            20.0
-          ],
-          "length_mm": 78.92462856894817,
-          "seam_distance_from_rearmost_y_mm": 0.0
-        },
-        {
-          "layer": 50,
-          "z_mm": 20.0,
-          "height_mm": 0.4,
-          "start_xy_mm": [
-            151.654,
-            172.561
-          ],
-          "xy_bounds_mm": [
-            138.79,
-            147.442,
-            163.908,
-            172.561
-          ],
-          "commanded_speed_mm_s": [
-            40.0
-          ],
-          "commanded_fan_percent": [
-            20.0
-          ],
-          "length_mm": 78.92553151586407,
-          "seam_distance_from_rearmost_y_mm": 0.0
-        },
-        {
-          "layer": 51,
-          "z_mm": 20.4,
-          "height_mm": 0.4,
-          "start_xy_mm": [
-            151.667,
-            172.56
-          ],
-          "xy_bounds_mm": [
-            138.79,
-            147.442,
-            163.908,
-            172.561
-          ],
-          "commanded_speed_mm_s": [
-            40.0
-          ],
-          "commanded_fan_percent": [
-            20.0
-          ],
-          "length_mm": 78.92576927133962,
-          "seam_distance_from_rearmost_y_mm": 0.0010000000000047748
-        },
-        {
-          "layer": 52,
-          "z_mm": 20.8,
-          "height_mm": 0.4,
-          "start_xy_mm": [
-            151.68,
-            172.559
-          ],
-          "xy_bounds_mm": [
-            138.79,
-            147.442,
-            163.908,
-            172.561
-          ],
-          "commanded_speed_mm_s": [
-            40.0
-          ],
-          "commanded_fan_percent": [
-            20.0
-          ],
-          "length_mm": 78.92527848410259,
-          "seam_distance_from_rearmost_y_mm": 0.0020000000000095497
-        },
-        {
-          "layer": 53,
-          "z_mm": 21.2,
-          "height_mm": 0.400002,
-          "start_xy_mm": [
-            151.694,
-            172.559
-          ],
-          "xy_bounds_mm": [
-            138.79,
-            147.442,
-            163.909,
-            172.561
-          ],
-          "commanded_speed_mm_s": [
-            40.0
-          ],
-          "commanded_fan_percent": [
-            20.0
-          ],
-          "length_mm": 78.92554967167094,
-          "seam_distance_from_rearmost_y_mm": 0.0020000000000095497
-        },
-        {
-          "layer": 54,
-          "z_mm": 21.6,
-          "height_mm": 0.4,
-          "start_xy_mm": [
-            151.708,
-            172.557
-          ],
-          "xy_bounds_mm": [
-            138.788,
-            147.442,
-            163.909,
-            172.561
-          ],
-          "commanded_speed_mm_s": [
-            40.0
-          ],
-          "commanded_fan_percent": [
-            20.0
-          ],
-          "length_mm": 78.92440774755809,
-          "seam_distance_from_rearmost_y_mm": 0.004000000000019099
-        },
-        {
-          "layer": 55,
-          "z_mm": 22.0,
-          "height_mm": 0.4,
-          "start_xy_mm": [
-            151.723,
-            172.557
-          ],
-          "xy_bounds_mm": [
-            138.788,
-            147.442,
-            163.909,
-            172.561
-          ],
-          "commanded_speed_mm_s": [
-            40.0
-          ],
-          "commanded_fan_percent": [
-            20.0
-          ],
-          "length_mm": 78.92470745885423,
-          "seam_distance_from_rearmost_y_mm": 0.004000000000019099
-        },
-        {
-          "layer": 56,
-          "z_mm": 22.4,
-          "height_mm": 0.4,
-          "start_xy_mm": [
-            151.737,
-            172.556
-          ],
-          "xy_bounds_mm": [
-            138.788,
-            147.442,
-            163.909,
-            172.561
-          ],
-          "commanded_speed_mm_s": [
-            40.0
-          ],
-          "commanded_fan_percent": [
-            20.0
-          ],
-          "length_mm": 78.92461112444433,
-          "seam_distance_from_rearmost_y_mm": 0.0049999999999954525
-        },
-        {
-          "layer": 57,
-          "z_mm": 22.8,
-          "height_mm": 0.4,
-          "start_xy_mm": [
-            151.75,
-            172.555
-          ],
-          "xy_bounds_mm": [
-            138.788,
-            147.443,
-            163.909,
-            172.561
-          ],
-          "commanded_speed_mm_s": [
-            40.0
-          ],
-          "commanded_fan_percent": [
-            20.0
-          ],
-          "length_mm": 78.92465264988968,
-          "seam_distance_from_rearmost_y_mm": 0.006000000000000227
-        },
-        {
-          "layer": 58,
-          "z_mm": 23.2,
-          "height_mm": 0.400002,
-          "start_xy_mm": [
-            151.763,
-            172.554
-          ],
-          "xy_bounds_mm": [
-            138.788,
-            147.443,
-            163.909,
-            172.561
-          ],
-          "commanded_speed_mm_s": [
-            40.0
-          ],
-          "commanded_fan_percent": [
-            20.0
-          ],
-          "length_mm": 78.92449114581405,
-          "seam_distance_from_rearmost_y_mm": 0.007000000000005002
-        },
-        {
-          "layer": 59,
-          "z_mm": 23.6,
-          "height_mm": 0.4,
-          "start_xy_mm": [
-            151.775,
-            172.554
-          ],
-          "xy_bounds_mm": [
-            138.788,
-            147.443,
-            163.909,
-            172.561
-          ],
-          "commanded_speed_mm_s": [
-            40.0
-          ],
-          "commanded_fan_percent": [
-            20.0
-          ],
-          "length_mm": 78.92458465586478,
-          "seam_distance_from_rearmost_y_mm": 0.007000000000005002
-        },
-        {
-          "layer": 60,
-          "z_mm": 24.0,
-          "height_mm": 0.4,
-          "start_xy_mm": [
-            151.786,
-            172.553
-          ],
-          "xy_bounds_mm": [
-            138.788,
-            147.443,
-            163.906,
-            172.561
-          ],
-          "commanded_speed_mm_s": [
-            40.0
-          ],
-          "commanded_fan_percent": [
-            20.0
-          ],
-          "length_mm": 78.92394353107838,
-          "seam_distance_from_rearmost_y_mm": 0.008000000000009777
-        },
-        {
-          "layer": 61,
-          "z_mm": 24.4,
-          "height_mm": 0.4,
-          "start_xy_mm": [
-            151.796,
-            172.552
-          ],
-          "xy_bounds_mm": [
-            138.788,
-            147.443,
-            163.906,
-            172.561
-          ],
-          "commanded_speed_mm_s": [
-            40.0
-          ],
-          "commanded_fan_percent": [
-            20.0
-          ],
-          "length_mm": 78.9234794199674,
-          "seam_distance_from_rearmost_y_mm": 0.009000000000014552
-        },
-        {
-          "layer": 62,
-          "z_mm": 24.8,
-          "height_mm": 0.4,
-          "start_xy_mm": [
-            151.803,
-            172.544
-          ],
-          "xy_bounds_mm": [
-            138.788,
-            147.443,
-            163.906,
-            172.554
-          ],
-          "commanded_speed_mm_s": [
-            40.0
-          ],
-          "commanded_fan_percent": [
-            20.0
-          ],
-          "length_mm": 78.92374856691717,
-          "seam_distance_from_rearmost_y_mm": 0.009999999999990905
+          "length_mm": 78.92866526147361,
+          "seam_distance_from_rearmost_y_mm": 0.010000000000019327
         },
         {
           "layer": 63,
           "z_mm": 25.2,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            151.809,
-            172.544
+            151.771,
+            172.553
           ],
           "xy_bounds_mm": [
-            138.788,
-            147.443,
-            163.906,
-            172.554
+            138.791,
+            147.442,
+            163.914,
+            172.562
           ],
           "commanded_speed_mm_s": [
             40.0
@@ -1389,22 +1391,22 @@
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 78.9228740658055,
-          "seam_distance_from_rearmost_y_mm": 0.009999999999990905
+          "length_mm": 78.92860248437981,
+          "seam_distance_from_rearmost_y_mm": 0.009000000000014552
         },
         {
           "layer": 64,
           "z_mm": 25.6,
           "height_mm": 0.4,
           "start_xy_mm": [
-            151.812,
-            172.544
+            151.753,
+            172.554
           ],
           "xy_bounds_mm": [
-            138.788,
-            147.443,
-            163.906,
-            172.554
+            138.791,
+            147.442,
+            163.914,
+            172.562
           ],
           "commanded_speed_mm_s": [
             40.0
@@ -1412,22 +1414,22 @@
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 78.92342073020755,
-          "seam_distance_from_rearmost_y_mm": 0.009999999999990905
+          "length_mm": 78.92894299657809,
+          "seam_distance_from_rearmost_y_mm": 0.008000000000009777
         },
         {
           "layer": 65,
           "z_mm": 26.0,
           "height_mm": 0.4,
           "start_xy_mm": [
-            151.815,
-            172.553
+            151.733,
+            172.555
           ],
           "xy_bounds_mm": [
-            138.788,
-            147.443,
-            163.906,
-            172.556
+            138.791,
+            147.442,
+            163.914,
+            172.562
           ],
           "commanded_speed_mm_s": [
             40.0
@@ -1435,22 +1437,22 @@
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 78.9230613425463,
-          "seam_distance_from_rearmost_y_mm": 0.0030000000000143245
+          "length_mm": 78.92607809657157,
+          "seam_distance_from_rearmost_y_mm": 0.007000000000005002
         },
         {
           "layer": 66,
           "z_mm": 26.4,
           "height_mm": 0.4,
           "start_xy_mm": [
-            151.813,
-            172.553
+            151.711,
+            172.557
           ],
           "xy_bounds_mm": [
-            138.788,
-            147.444,
-            163.906,
-            172.556
+            138.791,
+            147.442,
+            163.914,
+            172.562
           ],
           "commanded_speed_mm_s": [
             40.0
@@ -1458,22 +1460,22 @@
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 78.92281978060912,
-          "seam_distance_from_rearmost_y_mm": 0.0030000000000143245
+          "length_mm": 78.92559573991784,
+          "seam_distance_from_rearmost_y_mm": 0.005000000000023874
         },
         {
           "layer": 67,
           "z_mm": 26.8,
           "height_mm": 0.4,
           "start_xy_mm": [
-            151.809,
-            172.553
+            151.688,
+            172.558
           ],
           "xy_bounds_mm": [
-            138.786,
-            147.444,
-            163.906,
-            172.557
+            138.791,
+            147.442,
+            163.914,
+            172.562
           ],
           "commanded_speed_mm_s": [
             40.0
@@ -1481,22 +1483,22 @@
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 78.92301189864338,
-          "seam_distance_from_rearmost_y_mm": 0.003999999999990678
+          "length_mm": 78.92593057517819,
+          "seam_distance_from_rearmost_y_mm": 0.004000000000019099
         },
         {
           "layer": 68,
           "z_mm": 27.2,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            151.803,
-            172.553
+            151.663,
+            172.56
           ],
           "xy_bounds_mm": [
-            138.786,
-            147.444,
-            163.906,
-            172.557
+            138.792,
+            147.442,
+            163.914,
+            172.562
           ],
           "commanded_speed_mm_s": [
             40.0
@@ -1504,22 +1506,22 @@
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 78.92411424304468,
-          "seam_distance_from_rearmost_y_mm": 0.003999999999990678
+          "length_mm": 78.9279652914266,
+          "seam_distance_from_rearmost_y_mm": 0.0020000000000095497
         },
         {
           "layer": 69,
           "z_mm": 27.6,
           "height_mm": 0.4,
           "start_xy_mm": [
-            151.795,
-            172.554
+            151.637,
+            172.561
           ],
           "xy_bounds_mm": [
-            138.786,
-            147.444,
-            163.906,
-            172.557
+            138.792,
+            147.442,
+            163.914,
+            172.562
           ],
           "commanded_speed_mm_s": [
             40.0
@@ -1527,22 +1529,22 @@
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 78.92403696500043,
-          "seam_distance_from_rearmost_y_mm": 0.002999999999985903
+          "length_mm": 78.9273551045876,
+          "seam_distance_from_rearmost_y_mm": 0.0010000000000047748
         },
         {
           "layer": 70,
           "z_mm": 28.0,
           "height_mm": 0.4,
           "start_xy_mm": [
-            151.785,
-            172.554
+            151.612,
+            172.562
           ],
           "xy_bounds_mm": [
-            138.786,
-            147.444,
-            163.906,
-            172.557
+            138.792,
+            147.442,
+            163.914,
+            172.562
           ],
           "commanded_speed_mm_s": [
             40.0
@@ -1550,22 +1552,22 @@
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 78.92427256108361,
-          "seam_distance_from_rearmost_y_mm": 0.002999999999985903
+          "length_mm": 78.92567517978586,
+          "seam_distance_from_rearmost_y_mm": 0.0
         },
         {
           "layer": 71,
           "z_mm": 28.4,
           "height_mm": 0.4,
           "start_xy_mm": [
-            151.774,
-            172.555
+            151.584,
+            172.561
           ],
           "xy_bounds_mm": [
-            138.786,
-            147.444,
-            163.906,
-            172.558
+            138.792,
+            147.443,
+            163.914,
+            172.562
           ],
           "commanded_speed_mm_s": [
             40.0
@@ -1573,22 +1575,22 @@
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 78.92341977466815,
-          "seam_distance_from_rearmost_y_mm": 0.002999999999985903
+          "length_mm": 78.92615139716874,
+          "seam_distance_from_rearmost_y_mm": 0.0010000000000047748
         },
         {
           "layer": 72,
           "z_mm": 28.8,
           "height_mm": 0.4,
           "start_xy_mm": [
-            151.762,
-            172.556
+            151.556,
+            172.561
           ],
           "xy_bounds_mm": [
-            138.786,
+            138.792,
             147.444,
-            163.906,
-            172.558
+            163.914,
+            172.562
           ],
           "commanded_speed_mm_s": [
             40.0
@@ -1596,22 +1598,22 @@
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 78.92158807003123,
-          "seam_distance_from_rearmost_y_mm": 0.001999999999981128
+          "length_mm": 78.92369859264629,
+          "seam_distance_from_rearmost_y_mm": 0.0010000000000047748
         },
         {
           "layer": 73,
           "z_mm": 29.2,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            151.749,
-            172.556
+            151.527,
+            172.561
           ],
           "xy_bounds_mm": [
-            138.786,
+            138.792,
             147.444,
-            163.906,
-            172.558
+            163.914,
+            172.562
           ],
           "commanded_speed_mm_s": [
             40.0
@@ -1619,22 +1621,22 @@
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 78.92115740514248,
-          "seam_distance_from_rearmost_y_mm": 0.001999999999981128
+          "length_mm": 78.92411323490944,
+          "seam_distance_from_rearmost_y_mm": 0.0010000000000047748
         },
         {
           "layer": 74,
           "z_mm": 29.6,
           "height_mm": 0.4,
           "start_xy_mm": [
-            151.736,
-            172.557
+            151.499,
+            172.56
           ],
           "xy_bounds_mm": [
-            138.786,
-            147.445,
-            163.906,
-            172.559
+            138.792,
+            147.444,
+            163.914,
+            172.562
           ],
           "commanded_speed_mm_s": [
             40.0
@@ -1642,7 +1644,7 @@
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 78.9130852002092,
+          "length_mm": 78.92676070704366,
           "seam_distance_from_rearmost_y_mm": 0.0020000000000095497
         },
         {
@@ -1650,14 +1652,14 @@
           "z_mm": 30.0,
           "height_mm": 0.4,
           "start_xy_mm": [
-            151.722,
-            172.558
+            151.47,
+            172.56
           ],
           "xy_bounds_mm": [
-            138.786,
-            147.445,
-            163.906,
-            172.559
+            138.792,
+            147.443,
+            163.913,
+            172.562
           ],
           "commanded_speed_mm_s": [
             40.0
@@ -1665,22 +1667,22 @@
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 78.91227189282078,
-          "seam_distance_from_rearmost_y_mm": 0.0010000000000047748
+          "length_mm": 78.92211795092244,
+          "seam_distance_from_rearmost_y_mm": 0.0020000000000095497
         },
         {
           "layer": 76,
           "z_mm": 30.4,
           "height_mm": 0.4,
           "start_xy_mm": [
-            151.708,
-            172.559
+            151.443,
+            172.555
           ],
           "xy_bounds_mm": [
-            138.786,
-            147.445,
-            163.906,
-            172.559
+            138.792,
+            147.443,
+            163.913,
+            172.564
           ],
           "commanded_speed_mm_s": [
             40.0
@@ -1688,22 +1690,22 @@
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 78.9125780169345,
-          "seam_distance_from_rearmost_y_mm": 0.0
+          "length_mm": 78.92113288415574,
+          "seam_distance_from_rearmost_y_mm": 0.00899999999998613
         },
         {
           "layer": 77,
           "z_mm": 30.8,
           "height_mm": 0.4,
           "start_xy_mm": [
-            151.696,
-            172.559
+            151.417,
+            172.556
           ],
           "xy_bounds_mm": [
-            138.786,
-            147.445,
-            163.906,
-            172.559
+            138.792,
+            147.443,
+            163.913,
+            172.564
           ],
           "commanded_speed_mm_s": [
             40.0
@@ -1711,22 +1713,22 @@
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 78.91260991114476,
-          "seam_distance_from_rearmost_y_mm": 0.0
+          "length_mm": 78.92081953992266,
+          "seam_distance_from_rearmost_y_mm": 0.007999999999981355
         },
         {
           "layer": 78,
           "z_mm": 31.2,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            151.684,
-            172.56
+            151.22,
+            172.564
           ],
           "xy_bounds_mm": [
-            138.786,
-            147.445,
-            163.906,
-            172.56
+            138.792,
+            147.441,
+            163.913,
+            172.564
           ],
           "commanded_speed_mm_s": [
             40.0
@@ -1734,7 +1736,7 @@
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 78.91384793100072,
+          "length_mm": 78.92191482730863,
           "seam_distance_from_rearmost_y_mm": 0.0
         },
         {
@@ -1742,14 +1744,14 @@
           "z_mm": 31.6,
           "height_mm": 0.4,
           "start_xy_mm": [
-            151.672,
-            172.56
+            151.368,
+            172.558
           ],
           "xy_bounds_mm": [
-            138.786,
-            147.443,
-            163.907,
-            172.56
+            138.785,
+            147.441,
+            163.913,
+            172.564
           ],
           "commanded_speed_mm_s": [
             40.0
@@ -1757,22 +1759,113 @@
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 78.91941645460228,
-          "seam_distance_from_rearmost_y_mm": 0.0
+          "length_mm": 78.92216932649345,
+          "seam_distance_from_rearmost_y_mm": 0.006000000000000227
         },
         {
           "layer": 80,
           "z_mm": 32.0,
           "height_mm": 0.4,
           "start_xy_mm": [
-            151.0,
-            168.364
+            151.343,
+            172.558
           ],
           "xy_bounds_mm": [
-            142.97,
-            151.625,
-            159.729,
-            168.375
+            138.792,
+            147.442,
+            163.904,
+            172.562
+          ],
+          "commanded_speed_mm_s": [
+            10.0,
+            11.875,
+            11.882,
+            11.936,
+            11.968,
+            13.448,
+            13.642,
+            13.776,
+            13.909,
+            15.014,
+            15.369,
+            15.451,
+            16.666,
+            17.075,
+            17.199,
+            17.221,
+            18.405,
+            18.779,
+            19.088,
+            19.131,
+            20.0,
+            20.23,
+            20.565,
+            21.051,
+            21.167,
+            21.405,
+            22.432,
+            22.611,
+            22.732,
+            22.904,
+            23.849,
+            24.206,
+            24.379,
+            24.428,
+            25.0,
+            25.12,
+            25.727,
+            26.002,
+            26.233,
+            26.424,
+            27.294,
+            27.624,
+            27.762,
+            27.818,
+            28.907,
+            29.132,
+            29.296,
+            29.45,
+            30.0,
+            30.536,
+            30.566,
+            31.017,
+            31.128,
+            31.972,
+            32.272,
+            32.787,
+            32.853,
+            33.441,
+            34.024,
+            34.606,
+            34.624,
+            35.823,
+            36.441,
+            36.474,
+            37.668,
+            38.305,
+            38.391,
+            40.0
+          ],
+          "commanded_fan_percent": [
+            20.0,
+            90.0
+          ],
+          "length_mm": 80.33726414798659,
+          "seam_distance_from_rearmost_y_mm": 0.004000000000019099
+        },
+        {
+          "layer": 81,
+          "z_mm": 32.4,
+          "height_mm": 0.400002,
+          "start_xy_mm": [
+            155.872,
+            167.047
+          ],
+          "xy_bounds_mm": [
+            142.966,
+            151.618,
+            159.724,
+            168.382
           ],
           "commanded_speed_mm_s": [
             40.0
@@ -1780,45 +1873,22 @@
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 52.64626792309452,
-          "seam_distance_from_rearmost_y_mm": 0.01099999999999568
-        },
-        {
-          "layer": 81,
-          "z_mm": 32.4,
-          "height_mm": 0.400002,
-          "start_xy_mm": [
-            151.014,
-            173.532
-          ],
-          "xy_bounds_mm": [
-            137.689,
-            146.479,
-            164.76,
-            173.533
-          ],
-          "commanded_speed_mm_s": [
-            10.0
-          ],
-          "commanded_fan_percent": [
-            90.0
-          ],
-          "length_mm": 92.59325667622083,
-          "seam_distance_from_rearmost_y_mm": 0.0009999999999763531
+          "length_mm": 52.644542783142825,
+          "seam_distance_from_rearmost_y_mm": 1.335000000000008
         },
         {
           "layer": 82,
           "z_mm": 32.8,
           "height_mm": 0.399998,
           "start_xy_mm": [
-            151.013,
-            175.017
+            156.487,
+            173.546
           ],
           "xy_bounds_mm": [
-            136.165,
-            145.006,
-            166.209,
-            175.018
+            137.398,
+            146.259,
+            164.881,
+            173.736
           ],
           "commanded_speed_mm_s": [
             10.0
@@ -1826,22 +1896,22 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 104.589215919464,
-          "seam_distance_from_rearmost_y_mm": 0.0010000000000047748
+          "length_mm": 99.67111918003565,
+          "seam_distance_from_rearmost_y_mm": 0.18999999999999773
         },
         {
           "layer": 83,
           "z_mm": 33.2,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            150.998,
-            176.502
+            156.251,
+            175.058
           ],
           "xy_bounds_mm": [
-            134.641,
-            143.536,
-            167.656,
-            176.503
+            135.906,
+            144.805,
+            166.302,
+            175.184
           ],
           "commanded_speed_mm_s": [
             10.0
@@ -1849,22 +1919,22 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 116.65413598752848,
-          "seam_distance_from_rearmost_y_mm": 0.0009999999999763531
+          "length_mm": 111.38911127389757,
+          "seam_distance_from_rearmost_y_mm": 0.12600000000000477
         },
         {
           "layer": 84,
           "z_mm": 33.6,
           "height_mm": 0.399998,
           "start_xy_mm": [
-            150.968,
-            177.987
+            156.147,
+            176.548
           ],
           "xy_bounds_mm": [
-            133.117,
-            142.06,
-            169.103,
-            177.988
+            134.416,
+            143.351,
+            167.718,
+            176.629
           ],
           "commanded_speed_mm_s": [
             10.0
@@ -1872,22 +1942,22 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 128.68399452456717,
-          "seam_distance_from_rearmost_y_mm": 0.0010000000000047748
+          "length_mm": 123.12886612352256,
+          "seam_distance_from_rearmost_y_mm": 0.08099999999998886
         },
         {
           "layer": 85,
           "z_mm": 34.0,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            150.92,
-            179.472
+            155.923,
+            178.027
           ],
           "xy_bounds_mm": [
-            131.593,
-            140.587,
-            170.549,
-            179.473
+            132.928,
+            141.897,
+            169.135,
+            178.072
           ],
           "commanded_speed_mm_s": [
             10.0
@@ -1895,22 +1965,22 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 140.72847083557681,
-          "seam_distance_from_rearmost_y_mm": 0.0010000000000047748
+          "length_mm": 134.86498161187552,
+          "seam_distance_from_rearmost_y_mm": 0.045000000000015916
         },
         {
           "layer": 86,
           "z_mm": 34.4,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            150.853,
-            180.957
+            155.205,
+            179.518
           ],
           "xy_bounds_mm": [
-            130.069,
-            139.121,
-            171.996,
-            180.958
+            131.436,
+            140.442,
+            170.551,
+            179.519
           ],
           "commanded_speed_mm_s": [
             10.0
@@ -1918,7 +1988,7 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 152.74052730985875,
+          "length_mm": 146.59909369865213,
           "seam_distance_from_rearmost_y_mm": 0.0010000000000047748
         },
         {
@@ -1926,14 +1996,14 @@
           "z_mm": 34.8,
           "height_mm": 0.399998,
           "start_xy_mm": [
-            150.722,
-            182.437
+            155.138,
+            180.968
           ],
           "xy_bounds_mm": [
-            128.544,
-            137.641,
-            173.444,
-            182.443
+            129.957,
+            138.999,
+            171.967,
+            180.969
           ],
           "commanded_speed_mm_s": [
             10.0
@@ -1941,22 +2011,22 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 164.8293902569883,
-          "seam_distance_from_rearmost_y_mm": 0.006000000000000227
+          "length_mm": 158.40711187357368,
+          "seam_distance_from_rearmost_y_mm": 0.0010000000000047748
         },
         {
           "layer": 88,
           "z_mm": 35.2,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            150.611,
-            183.922
+            155.339,
+            182.405
           ],
           "xy_bounds_mm": [
-            127.021,
-            136.149,
-            174.891,
-            183.928
+            128.463,
+            137.544,
+            173.383,
+            182.408
           ],
           "commanded_speed_mm_s": [
             10.0
@@ -1964,22 +2034,22 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 176.92260670579168,
-          "seam_distance_from_rearmost_y_mm": 0.006000000000000227
+          "length_mm": 170.23825888819127,
+          "seam_distance_from_rearmost_y_mm": 0.002999999999985903
         },
         {
           "layer": 89,
           "z_mm": 35.6,
           "height_mm": 0.399998,
           "start_xy_mm": [
-            150.473,
-            185.407
+            155.886,
+            183.857
           ],
           "xy_bounds_mm": [
-            125.502,
-            134.653,
-            176.338,
-            185.414
+            126.969,
+            136.08,
+            174.8,
+            183.858
           ],
           "commanded_speed_mm_s": [
             10.0
@@ -1987,22 +2057,22 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 189.02728085273665,
-          "seam_distance_from_rearmost_y_mm": 0.0069999999999765805
+          "length_mm": 182.04172013012607,
+          "seam_distance_from_rearmost_y_mm": 0.0010000000000047748
         },
         {
           "layer": 90,
           "z_mm": 36.0,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            150.304,
-            186.892
+            156.874,
+            185.307
           ],
           "xy_bounds_mm": [
-            123.982,
-            133.158,
-            177.787,
-            186.899
+            125.47,
+            134.626,
+            176.216,
+            185.319
           ],
           "commanded_speed_mm_s": [
             10.0
@@ -2010,22 +2080,22 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 201.137228307245,
-          "seam_distance_from_rearmost_y_mm": 0.007000000000005002
+          "length_mm": 193.8427202550065,
+          "seam_distance_from_rearmost_y_mm": 0.012000000000000455
         },
         {
           "layer": 91,
           "z_mm": 36.4,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            150.097,
-            188.377
+            158.26,
+            186.756
           ],
           "xy_bounds_mm": [
-            122.463,
-            131.662,
-            179.234,
-            188.384
+            123.976,
+            133.176,
+            177.633,
+            186.78
           ],
           "commanded_speed_mm_s": [
             10.0
@@ -2033,22 +2103,22 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 213.2621460808587,
-          "seam_distance_from_rearmost_y_mm": 0.0069999999999765805
+          "length_mm": 205.64377807407243,
+          "seam_distance_from_rearmost_y_mm": 0.02400000000000091
         },
         {
           "layer": 92,
           "z_mm": 36.8,
           "height_mm": 0.399998,
           "start_xy_mm": [
-            149.851,
-            189.862
+            159.797,
+            188.203
           ],
           "xy_bounds_mm": [
-            120.943,
-            130.167,
-            180.682,
-            189.869
+            122.481,
+            131.721,
+            179.048,
+            188.244
           ],
           "commanded_speed_mm_s": [
             10.0
@@ -2056,22 +2126,22 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 225.4236754529555,
-          "seam_distance_from_rearmost_y_mm": 0.007000000000005002
+          "length_mm": 217.3805786857235,
+          "seam_distance_from_rearmost_y_mm": 0.04099999999999682
         },
         {
           "layer": 93,
           "z_mm": 37.2,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            149.556,
-            191.347
+            180.349,
+            170.782
           ],
           "xy_bounds_mm": [
-            119.424,
-            128.671,
-            182.129,
-            191.355
+            120.987,
+            130.266,
+            180.464,
+            189.705
           ],
           "commanded_speed_mm_s": [
             10.0
@@ -2079,22 +2149,22 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 237.59679315983763,
-          "seam_distance_from_rearmost_y_mm": 0.007999999999981355
+          "length_mm": 229.10125874243346,
+          "seam_distance_from_rearmost_y_mm": 18.923000000000002
         },
         {
           "layer": 94,
           "z_mm": 37.6,
           "height_mm": 0.399998,
           "start_xy_mm": [
-            149.215,
-            192.832
+            181.762,
+            172.135
           ],
           "xy_bounds_mm": [
-            117.904,
-            127.176,
-            183.576,
-            192.84
+            119.493,
+            128.81,
+            181.88,
+            191.167
           ],
           "commanded_speed_mm_s": [
             10.0
@@ -2102,22 +2172,22 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 249.807632037612,
-          "seam_distance_from_rearmost_y_mm": 0.008000000000009777
+          "length_mm": 240.74506824202314,
+          "seam_distance_from_rearmost_y_mm": 19.03200000000001
         },
         {
           "layer": 95,
           "z_mm": 38.0,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            148.862,
-            194.321
+            183.173,
+            173.563
           ],
           "xy_bounds_mm": [
-            116.385,
-            125.68,
-            185.024,
-            194.322
+            117.999,
+            127.355,
+            183.298,
+            192.627
           ],
           "commanded_speed_mm_s": [
             10.0
@@ -2125,22 +2195,22 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 262.0382074811879,
-          "seam_distance_from_rearmost_y_mm": 0.0010000000000047748
+          "length_mm": 252.53868697334815,
+          "seam_distance_from_rearmost_y_mm": 19.06400000000002
         },
         {
           "layer": 96,
           "z_mm": 38.4,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            148.399,
-            195.806
+            184.584,
+            174.824
           ],
           "xy_bounds_mm": [
-            114.865,
-            124.187,
-            186.471,
-            195.806
+            116.505,
+            125.899,
+            184.714,
+            194.088
           ],
           "commanded_speed_mm_s": [
             10.0
@@ -2148,22 +2218,22 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 274.26314264440725,
-          "seam_distance_from_rearmost_y_mm": 0.0
+          "length_mm": 264.39718692895303,
+          "seam_distance_from_rearmost_y_mm": 19.26399999999998
         },
         {
           "layer": 97,
           "z_mm": 38.8,
           "height_mm": 0.399998,
           "start_xy_mm": [
-            147.871,
-            197.289
+            185.984,
+            176.389
           ],
           "xy_bounds_mm": [
-            113.346,
-            122.698,
-            187.918,
-            197.289
+            115.01,
+            124.45,
+            186.13,
+            195.551
           ],
           "commanded_speed_mm_s": [
             10.0
@@ -2171,22 +2241,22 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 286.48729273254247,
-          "seam_distance_from_rearmost_y_mm": 0.0
+          "length_mm": 276.21815395937097,
+          "seam_distance_from_rearmost_y_mm": 19.161999999999978
         },
         {
           "layer": 98,
           "z_mm": 39.2,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            147.274,
-            198.772
+            187.381,
+            177.973
           ],
           "xy_bounds_mm": [
-            111.826,
-            121.218,
-            189.365,
-            198.772
+            113.516,
+            122.997,
+            187.545,
+            197.011
           ],
           "commanded_speed_mm_s": [
             10.0
@@ -2194,22 +2264,22 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 298.71352672232166,
-          "seam_distance_from_rearmost_y_mm": 0.0
+          "length_mm": 288.02037059740695,
+          "seam_distance_from_rearmost_y_mm": 19.037999999999982
         },
         {
           "layer": 99,
           "z_mm": 39.6,
           "height_mm": 0.399998,
           "start_xy_mm": [
-            146.602,
-            200.254
+            188.801,
+            179.666
           ],
           "xy_bounds_mm": [
-            110.306,
-            119.738,
-            190.812,
-            200.254
+            112.022,
+            121.544,
+            188.961,
+            198.468
           ],
           "commanded_speed_mm_s": [
             10.0
@@ -2217,22 +2287,22 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 310.94466297687234,
-          "seam_distance_from_rearmost_y_mm": 0.0
+          "length_mm": 299.8266864123279,
+          "seam_distance_from_rearmost_y_mm": 18.801999999999992
         },
         {
           "layer": 100,
           "z_mm": 40.0,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            145.852,
-            201.737
+            171.667,
+            199.748
           ],
           "xy_bounds_mm": [
-            108.787,
-            118.258,
-            192.259,
-            201.737
+            110.528,
+            120.091,
+            190.377,
+            199.923
           ],
           "commanded_speed_mm_s": [
             10.0
@@ -2240,22 +2310,22 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 323.1631471853449,
-          "seam_distance_from_rearmost_y_mm": 0.0
+          "length_mm": 311.6255385680619,
+          "seam_distance_from_rearmost_y_mm": 0.17500000000001137
         },
         {
           "layer": 101,
           "z_mm": 40.4,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            145.014,
-            203.22
+            173.058,
+            201.2
           ],
           "xy_bounds_mm": [
-            107.25,
-            116.778,
-            193.706,
-            203.224
+            109.034,
+            118.637,
+            191.794,
+            201.378
           ],
           "commanded_speed_mm_s": [
             10.0
@@ -2263,22 +2333,22 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 335.3902869294909,
-          "seam_distance_from_rearmost_y_mm": 0.003999999999990678
+          "length_mm": 323.4106962803532,
+          "seam_distance_from_rearmost_y_mm": 0.17799999999999727
         },
         {
           "layer": 102,
           "z_mm": 40.8,
           "height_mm": 0.399998,
           "start_xy_mm": [
-            144.093,
-            204.703
+            174.411,
+            202.666
           ],
           "xy_bounds_mm": [
-            105.72,
-            115.298,
-            195.154,
-            204.707
+            107.542,
+            117.184,
+            193.21,
+            202.833
           ],
           "commanded_speed_mm_s": [
             10.0
@@ -2286,22 +2356,22 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 347.6186985120185,
-          "seam_distance_from_rearmost_y_mm": 0.003999999999990678
+          "length_mm": 335.20147541295955,
+          "seam_distance_from_rearmost_y_mm": 0.1670000000000016
         },
         {
           "layer": 103,
           "z_mm": 41.2,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            143.078,
-            206.185
+            194.438,
+            185.573
           ],
           "xy_bounds_mm": [
-            104.191,
-            113.818,
-            196.601,
-            206.19
+            106.055,
+            115.731,
+            194.624,
+            204.286
           ],
           "commanded_speed_mm_s": [
             10.0
@@ -2309,22 +2379,22 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 359.8625934197603,
-          "seam_distance_from_rearmost_y_mm": 0.0049999999999954525
+          "length_mm": 346.99197114373635,
+          "seam_distance_from_rearmost_y_mm": 18.712999999999994
         },
         {
           "layer": 104,
           "z_mm": 41.6,
           "height_mm": 0.399998,
           "start_xy_mm": [
-            141.972,
-            207.668
+            195.858,
+            186.803
           ],
           "xy_bounds_mm": [
-            102.661,
-            112.338,
-            198.048,
-            207.673
+            104.568,
+            114.278,
+            196.044,
+            205.742
           ],
           "commanded_speed_mm_s": [
             10.0
@@ -2332,22 +2402,22 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 372.0922337380455,
-          "seam_distance_from_rearmost_y_mm": 0.0049999999999954525
+          "length_mm": 358.787999637812,
+          "seam_distance_from_rearmost_y_mm": 18.938999999999993
         },
         {
           "layer": 105,
           "z_mm": 42.0,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            140.633,
-            209.142
+            197.287,
+            188.241
           ],
           "xy_bounds_mm": [
-            101.132,
-            110.858,
-            199.495,
-            209.16
+            103.08,
+            112.825,
+            197.461,
+            207.197
           ],
           "commanded_speed_mm_s": [
             10.0
@@ -2355,22 +2425,22 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 384.3208774206801,
-          "seam_distance_from_rearmost_y_mm": 0.018000000000000682
+          "length_mm": 370.57129460568797,
+          "seam_distance_from_rearmost_y_mm": 18.95599999999999
         },
         {
           "layer": 106,
           "z_mm": 42.4,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            200.081,
-            113.102
+            198.717,
+            189.692
           ],
           "xy_bounds_mm": [
-            99.602,
-            109.375,
-            200.943,
-            210.65
+            101.593,
+            111.373,
+            198.877,
+            208.652
           ],
           "commanded_speed_mm_s": [
             10.0
@@ -2378,22 +2448,22 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 393.1894960500241,
-          "seam_distance_from_rearmost_y_mm": 97.548
+          "length_mm": 382.3655917579768,
+          "seam_distance_from_rearmost_y_mm": 18.95999999999998
         },
         {
           "layer": 107,
           "z_mm": 42.8,
           "height_mm": 0.399998,
           "start_xy_mm": [
-            201.665,
-            114.596
+            199.95,
+            112.908
           ],
           "xy_bounds_mm": [
-            98.073,
-            113.223,
-            202.39,
-            212.14
+            100.106,
+            109.915,
+            200.29,
+            210.107
           ],
           "commanded_speed_mm_s": [
             10.0
@@ -2401,22 +2471,22 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 296.5960655208441,
-          "seam_distance_from_rearmost_y_mm": 97.54399999999998
+          "length_mm": 391.8041826050377,
+          "seam_distance_from_rearmost_y_mm": 97.199
         },
         {
           "layer": 108,
           "z_mm": 43.2,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            203.208,
-            115.242
+            201.423,
+            114.437
           ],
           "xy_bounds_mm": [
-            96.548,
-            114.683,
-            203.837,
-            213.63
+            98.619,
+            113.159,
+            201.707,
+            211.562
           ],
           "commanded_speed_mm_s": [
             10.0
@@ -2424,22 +2494,22 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 300.6136042356506,
-          "seam_distance_from_rearmost_y_mm": 98.38799999999999
+          "length_mm": 295.3643219824856,
+          "seam_distance_from_rearmost_y_mm": 97.12500000000001
         },
         {
           "layer": 109,
           "z_mm": 43.6,
           "height_mm": 0.399998,
           "start_xy_mm": [
-            204.728,
-            115.395
+            202.879,
+            115.15
           ],
           "xy_bounds_mm": [
-            95.024,
-            115.29,
-            205.284,
-            215.119
+            97.131,
+            114.594,
+            203.125,
+            213.017
           ],
           "commanded_speed_mm_s": [
             10.0
@@ -2447,22 +2517,22 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 305.9819973578329,
-          "seam_distance_from_rearmost_y_mm": 99.724
+          "length_mm": 299.09256372319305,
+          "seam_distance_from_rearmost_y_mm": 97.86699999999999
         },
         {
           "layer": 110,
           "z_mm": 44.0,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            206.233,
-            115.113
+            204.326,
+            115.396
           ],
           "xy_bounds_mm": [
-            93.5,
-            115.113,
-            206.727,
-            216.607
+            95.644,
+            115.239,
+            204.541,
+            214.471
           ],
           "commanded_speed_mm_s": [
             10.0
@@ -2470,22 +2540,22 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 312.3038158468202,
-          "seam_distance_from_rearmost_y_mm": 101.494
+          "length_mm": 304.10151649166016,
+          "seam_distance_from_rearmost_y_mm": 99.075
         },
         {
           "layer": 111,
           "z_mm": 44.4,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            207.709,
-            114.342
+            205.763,
+            115.249
           ],
           "xy_bounds_mm": [
-            91.976,
-            114.342,
-            208.174,
-            218.098
+            94.157,
+            115.249,
+            205.958,
+            215.926
           ],
           "commanded_speed_mm_s": [
             10.0
@@ -2493,45 +2563,68 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 319.5957089906607,
-          "seam_distance_from_rearmost_y_mm": 103.75600000000001
+          "length_mm": 309.9824665370664,
+          "seam_distance_from_rearmost_y_mm": 100.67699999999999
         },
         {
           "layer": 112,
           "z_mm": 44.8,
           "height_mm": 0.399998,
           "start_xy_mm": [
-            132.495,
-            200.921
+            207.198,
+            114.677
           ],
           "xy_bounds_mm": [
-            109.348,
-            118.848,
-            191.678,
-            229.572
+            92.67,
+            114.677,
+            207.374,
+            217.308
           ],
           "commanded_speed_mm_s": [
-            40.0
+            10.0
           ],
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 334.1474602416952,
-          "seam_distance_from_rearmost_y_mm": 28.65100000000001
+          "length_mm": 316.72670198650565,
+          "seam_distance_from_rearmost_y_mm": 102.63099999999999
         },
         {
           "layer": 113,
           "z_mm": 45.2,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            131.572,
-            202.392
+            208.626,
+            113.482
           ],
           "xy_bounds_mm": [
-            107.825,
-            117.363,
-            193.126,
-            202.392
+            91.255,
+            113.482,
+            208.79,
+            218.768
+          ],
+          "commanded_speed_mm_s": [
+            10.0
+          ],
+          "commanded_fan_percent": [
+            90.0
+          ],
+          "length_mm": 324.60785931154976,
+          "seam_distance_from_rearmost_y_mm": 105.286
+        },
+        {
+          "layer": 114,
+          "z_mm": 45.6,
+          "height_mm": 0.399998,
+          "start_xy_mm": [
+            191.528,
+            201.375
+          ],
+          "xy_bounds_mm": [
+            108.145,
+            117.769,
+            192.629,
+            202.231
           ],
           "commanded_speed_mm_s": [
             40.0
@@ -2539,45 +2632,22 @@
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 331.39135207657466,
-          "seam_distance_from_rearmost_y_mm": 0.0
-        },
-        {
-          "layer": 114,
-          "z_mm": 45.6,
-          "height_mm": 0.399998,
-          "start_xy_mm": [
-            144.685,
-            222.556
-          ],
-          "xy_bounds_mm": [
-            87.404,
-            97.454,
-            212.515,
-            222.558
-          ],
-          "commanded_speed_mm_s": [
-            10.0
-          ],
-          "commanded_fan_percent": [
-            90.0
-          ],
-          "length_mm": 484.9511053503424,
-          "seam_distance_from_rearmost_y_mm": 0.001999999999981128
+          "length_mm": 331.22366174298685,
+          "seam_distance_from_rearmost_y_mm": 0.8559999999999945
         },
         {
           "layer": 115,
           "z_mm": 46.0,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            144.187,
-            224.041
+            145.193,
+            221.744
           ],
           "xy_bounds_mm": [
-            85.88,
-            95.964,
-            213.963,
-            224.044
+            88.246,
+            98.268,
+            211.624,
+            221.744
           ],
           "commanded_speed_mm_s": [
             10.0
@@ -2585,22 +2655,22 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 496.1952441579449,
-          "seam_distance_from_rearmost_y_mm": 0.0030000000000143245
+          "length_mm": 479.84149355421135,
+          "seam_distance_from_rearmost_y_mm": 0.0
         },
         {
           "layer": 116,
           "z_mm": 46.4,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            144.126,
-            225.526
+            144.41,
+            223.198
           ],
           "xy_bounds_mm": [
-            84.356,
-            94.474,
-            215.411,
-            225.529
+            86.741,
+            96.812,
+            212.995,
+            223.198
           ],
           "commanded_speed_mm_s": [
             10.0
@@ -2608,22 +2678,22 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 508.33100071060966,
-          "seam_distance_from_rearmost_y_mm": 0.002999999999985903
+          "length_mm": 490.08812698715684,
+          "seam_distance_from_rearmost_y_mm": 0.0
         },
         {
           "layer": 117,
           "z_mm": 46.8,
           "height_mm": 0.399998,
           "start_xy_mm": [
-            144.489,
-            227.012
+            144.112,
+            224.653
           ],
           "xy_bounds_mm": [
-            82.832,
-            92.984,
-            216.859,
-            227.016
+            85.237,
+            95.356,
+            214.416,
+            224.653
           ],
           "commanded_speed_mm_s": [
             10.0
@@ -2631,22 +2701,22 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 521.326468858714,
-          "seam_distance_from_rearmost_y_mm": 0.003999999999990678
+          "length_mm": 501.2571899079283,
+          "seam_distance_from_rearmost_y_mm": 0.0
         },
         {
           "layer": 118,
           "z_mm": 47.2,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            145.387,
-            228.499
+            144.215,
+            226.108
           ],
           "xy_bounds_mm": [
-            81.359,
-            91.497,
-            218.307,
-            228.502
+            83.732,
+            93.966,
+            215.838,
+            226.108
           ],
           "commanded_speed_mm_s": [
             10.0
@@ -2654,22 +2724,22 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 535.380368080067,
-          "seam_distance_from_rearmost_y_mm": 0.0030000000000143245
+          "length_mm": 513.2891050525227,
+          "seam_distance_from_rearmost_y_mm": 0.0
         },
         {
           "layer": 119,
           "z_mm": 47.6,
           "height_mm": 0.399998,
           "start_xy_mm": [
-            147.231,
-            229.9
+            144.747,
+            227.563
           ],
           "xy_bounds_mm": [
-            79.828,
-            90.011,
-            219.755,
-            229.962
+            82.228,
+            92.5,
+            217.259,
+            227.563
           ],
           "commanded_speed_mm_s": [
             10.0
@@ -2677,22 +2747,22 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 551.3209099359098,
-          "seam_distance_from_rearmost_y_mm": 0.0619999999999834
+          "length_mm": 526.1085766124571,
+          "seam_distance_from_rearmost_y_mm": 0.0
         },
         {
           "layer": 120,
           "z_mm": 48.0,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            130.006,
-            231.385
+            145.895,
+            229.017
           ],
           "xy_bounds_mm": [
-            78.297,
-            88.526,
-            221.203,
-            231.451
+            80.723,
+            91.035,
+            218.68,
+            229.017
           ],
           "commanded_speed_mm_s": [
             10.0
@@ -2700,22 +2770,22 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 568.0983137535126,
-          "seam_distance_from_rearmost_y_mm": 0.0660000000000025
+          "length_mm": 540.1899641849998,
+          "seam_distance_from_rearmost_y_mm": 0.0
         },
         {
           "layer": 121,
           "z_mm": 48.4,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            130.588,
-            232.886
+            220.099,
+            211.616
           ],
           "xy_bounds_mm": [
-            76.767,
-            87.04,
-            222.651,
-            232.941
+            79.219,
+            89.569,
+            220.102,
+            230.451
           ],
           "commanded_speed_mm_s": [
             10.0
@@ -2723,22 +2793,22 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 580.3323813641726,
-          "seam_distance_from_rearmost_y_mm": 0.05500000000000682
+          "length_mm": 559.1627575663299,
+          "seam_distance_from_rearmost_y_mm": 18.83499999999998
         },
         {
           "layer": 122,
           "z_mm": 48.8,
           "height_mm": 0.399998,
           "start_xy_mm": [
-            131.326,
-            234.388
+            221.52,
+            213.098
           ],
           "xy_bounds_mm": [
-            75.236,
-            85.555,
-            224.101,
-            234.43
+            77.714,
+            88.104,
+            221.523,
+            231.911
           ],
           "commanded_speed_mm_s": [
             10.0
@@ -2746,22 +2816,22 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 592.6003313975037,
-          "seam_distance_from_rearmost_y_mm": 0.04200000000000159
+          "length_mm": 570.96941260533,
+          "seam_distance_from_rearmost_y_mm": 18.812999999999988
         },
         {
           "layer": 123,
           "z_mm": 49.2,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            132.199,
-            235.888
+            222.943,
+            214.577
           ],
           "xy_bounds_mm": [
-            73.706,
-            84.069,
-            225.548,
-            235.919
+            76.199,
+            86.638,
+            222.944,
+            233.371
           ],
           "commanded_speed_mm_s": [
             10.0
@@ -2769,22 +2839,22 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 604.8588406728851,
-          "seam_distance_from_rearmost_y_mm": 0.03100000000000591
+          "length_mm": 582.7542172236426,
+          "seam_distance_from_rearmost_y_mm": 18.79400000000001
         },
         {
           "layer": 124,
           "z_mm": 49.6,
           "height_mm": 0.399998,
           "start_xy_mm": [
-            133.185,
-            237.388
+            224.359,
+            216.023
           ],
           "xy_bounds_mm": [
-            72.175,
-            82.583,
-            226.996,
-            237.409
+            74.705,
+            85.165,
+            224.36,
+            234.827
           ],
           "commanded_speed_mm_s": [
             10.0
@@ -2792,22 +2862,22 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 617.1023945964502,
-          "seam_distance_from_rearmost_y_mm": 0.020999999999986585
+          "length_mm": 594.5883705812793,
+          "seam_distance_from_rearmost_y_mm": 18.804000000000002
         },
         {
           "layer": 125,
           "z_mm": 50.0,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            134.263,
-            238.882
+            225.777,
+            217.468
           ],
           "xy_bounds_mm": [
-            70.645,
-            81.098,
-            228.443,
-            238.883
+            73.223,
+            83.724,
+            225.777,
+            236.276
           ],
           "commanded_speed_mm_s": [
             10.0
@@ -2815,22 +2885,22 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 629.341029182471,
-          "seam_distance_from_rearmost_y_mm": 0.0010000000000047748
+          "length_mm": 605.3817934084819,
+          "seam_distance_from_rearmost_y_mm": 18.80800000000002
         },
         {
           "layer": 126,
           "z_mm": 50.4,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            135.405,
-            240.388
+            226.914,
+            218.906
           ],
           "xy_bounds_mm": [
-            69.114,
-            79.612,
-            229.889,
-            240.388
+            72.09,
+            82.589,
+            226.914,
+            237.412
           ],
           "commanded_speed_mm_s": [
             10.0
@@ -2838,22 +2908,22 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 641.4693653038828,
-          "seam_distance_from_rearmost_y_mm": 0.0
+          "length_mm": 612.4936141608953,
+          "seam_distance_from_rearmost_y_mm": 18.506
         },
         {
           "layer": 127,
           "z_mm": 50.8,
           "height_mm": 0.399998,
           "start_xy_mm": [
-            136.594,
-            241.461
+            227.774,
+            220.321
           ],
           "xy_bounds_mm": [
-            68.039,
-            78.539,
-            230.962,
-            241.462
+            71.227,
+            81.728,
+            227.774,
+            238.273
           ],
           "commanded_speed_mm_s": [
             10.0
@@ -2861,22 +2931,22 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 648.2711345849348,
-          "seam_distance_from_rearmost_y_mm": 0.0009999999999763531
+          "length_mm": 617.932195558198,
+          "seam_distance_from_rearmost_y_mm": 17.951999999999998
         },
         {
           "layer": 128,
           "z_mm": 51.2,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            230.896,
-            241.32
+            74.765,
+            238.819
           ],
           "xy_bounds_mm": [
-            67.368,
-            77.867,
-            231.632,
-            242.133
+            70.517,
+            81.015,
+            228.486,
+            238.985
           ],
           "commanded_speed_mm_s": [
             10.0
@@ -2884,568 +2954,657 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 652.4885946407721,
-          "seam_distance_from_rearmost_y_mm": 0.8130000000000166
+          "length_mm": 622.3795436552161,
+          "seam_distance_from_rearmost_y_mm": 0.16600000000002524
         },
         {
           "layer": 129,
           "z_mm": 51.6,
           "height_mm": 0.399998,
           "start_xy_mm": [
-            231.214,
-            241.706
+            74.606,
+            239.415
           ],
           "xy_bounds_mm": [
-            66.866,
-            77.364,
-            232.135,
-            242.636
+            69.905,
+            80.407,
+            229.093,
+            239.593
           ],
           "commanded_speed_mm_s": [
-            14.967
+            10.0
           ],
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 655.6512833325694,
-          "seam_distance_from_rearmost_y_mm": 0.9300000000000068
+          "length_mm": 626.2145310340849,
+          "seam_distance_from_rearmost_y_mm": 0.17799999999999727
         },
         {
           "layer": 130,
           "z_mm": 52.0,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            231.418,
-            242.054
+            74.348,
+            239.904
           ],
           "xy_bounds_mm": [
-            66.466,
-            76.966,
-            232.534,
-            243.034
+            69.374,
+            79.873,
+            229.628,
+            240.127
           ],
           "commanded_speed_mm_s": [
-            17.267
+            14.9
           ],
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 658.1531694289029,
-          "seam_distance_from_rearmost_y_mm": 0.9799999999999898
+          "length_mm": 629.5766532727969,
+          "seam_distance_from_rearmost_y_mm": 0.2230000000000132
         },
         {
           "layer": 131,
           "z_mm": 52.4,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            231.59,
-            242.335
+            74.1,
+            240.329
           ],
           "xy_bounds_mm": [
-            66.141,
-            76.64,
-            232.86,
-            243.36
+            68.898,
+            79.398,
+            230.101,
+            240.602
           ],
           "commanded_speed_mm_s": [
-            19.667
+            17.2
           ],
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 660.1885506320276,
-          "seam_distance_from_rearmost_y_mm": 1.0250000000000057
+          "length_mm": 632.5653192458109,
+          "seam_distance_from_rearmost_y_mm": 0.27299999999999613
         },
         {
           "layer": 132,
           "z_mm": 52.8,
           "height_mm": 0.399998,
           "start_xy_mm": [
-            231.706,
-            242.603
+            73.871,
+            240.716
           ],
           "xy_bounds_mm": [
-            65.873,
-            76.374,
-            233.126,
-            243.626
+            68.47,
+            78.969,
+            230.53,
+            241.031
           ],
           "commanded_speed_mm_s": [
-            22.0
+            19.617
           ],
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 661.8649636826492,
-          "seam_distance_from_rearmost_y_mm": 1.0229999999999961
+          "length_mm": 635.2552030009127,
+          "seam_distance_from_rearmost_y_mm": 0.3149999999999977
         },
         {
           "layer": 133,
           "z_mm": 53.2,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            231.785,
-            242.81
+            73.648,
+            241.047
           ],
           "xy_bounds_mm": [
-            65.655,
-            76.155,
-            233.345,
-            243.845
+            68.086,
+            78.586,
+            230.915,
+            241.414
           ],
           "commanded_speed_mm_s": [
-            24.167
+            21.983
           ],
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 663.2313677364212,
-          "seam_distance_from_rearmost_y_mm": 1.0349999999999966
+          "length_mm": 637.676021260167,
+          "seam_distance_from_rearmost_y_mm": 0.3669999999999902
         },
         {
           "layer": 134,
           "z_mm": 53.6,
           "height_mm": 0.399998,
           "start_xy_mm": [
-            231.837,
-            243.003
+            73.416,
+            241.338
           ],
           "xy_bounds_mm": [
-            65.478,
-            75.979,
-            233.521,
-            244.021
+            67.736,
+            78.236,
+            231.264,
+            241.764
           ],
           "commanded_speed_mm_s": [
-            26.167
+            24.233
           ],
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 664.3428589157181,
-          "seam_distance_from_rearmost_y_mm": 1.0180000000000007
+          "length_mm": 639.8775665062666,
+          "seam_distance_from_rearmost_y_mm": 0.42600000000001614
         },
         {
           "layer": 135,
           "z_mm": 54.0,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            231.879,
-            243.134
+            73.206,
+            241.603
           ],
           "xy_bounds_mm": [
-            65.339,
-            75.839,
-            233.661,
-            244.161
+            67.418,
+            77.918,
+            231.582,
+            242.083
           ],
           "commanded_speed_mm_s": [
-            27.983
+            26.317
           ],
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 665.2182956637841,
-          "seam_distance_from_rearmost_y_mm": 1.0270000000000152
+          "length_mm": 641.8893892945433,
+          "seam_distance_from_rearmost_y_mm": 0.47999999999998977
         },
         {
           "layer": 136,
           "z_mm": 54.4,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            231.89,
-            243.273
+            72.99,
+            241.837
           ],
           "xy_bounds_mm": [
-            65.235,
-            75.736,
-            233.764,
-            244.265
+            67.126,
+            77.627,
+            231.873,
+            242.373
           ],
           "commanded_speed_mm_s": [
-            29.633
+            28.217
           ],
           "commanded_fan_percent": [
-            20.0
+            90.0
           ],
-          "length_mm": 665.8885837892977,
-          "seam_distance_from_rearmost_y_mm": 0.9919999999999902
+          "length_mm": 643.7324970204319,
+          "seam_distance_from_rearmost_y_mm": 0.5360000000000014
         },
         {
           "layer": 137,
           "z_mm": 54.8,
           "height_mm": 0.399998,
           "start_xy_mm": [
-            231.847,
-            243.402
+            72.772,
+            242.042
           ],
           "xy_bounds_mm": [
-            65.163,
-            75.663,
-            233.837,
-            244.337
+            66.861,
+            77.364,
+            232.136,
+            242.639
           ],
           "commanded_speed_mm_s": [
-            31.1
+            29.933
           ],
           "commanded_fan_percent": [
-            20.0
+            90.0
           ],
-          "length_mm": 666.3407646067753,
-          "seam_distance_from_rearmost_y_mm": 0.9350000000000023
+          "length_mm": 645.3829443486657,
+          "seam_distance_from_rearmost_y_mm": 0.5970000000000084
         },
         {
           "layer": 138,
           "z_mm": 55.2,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            231.75,
-            243.517
+            72.567,
+            242.222
           ],
           "xy_bounds_mm": [
-            65.122,
-            75.622,
-            233.878,
-            244.378
+            66.619,
+            77.12,
+            232.38,
+            242.881
           ],
           "commanded_speed_mm_s": [
-            32.4
+            31.5
           ],
           "commanded_fan_percent": [
-            20.0
+            90.0
           ],
-          "length_mm": 666.6073947357097,
-          "seam_distance_from_rearmost_y_mm": 0.86099999999999
+          "length_mm": 646.9028060998529,
+          "seam_distance_from_rearmost_y_mm": 0.6589999999999918
         },
         {
           "layer": 139,
           "z_mm": 55.6,
           "height_mm": 0.399998,
           "start_xy_mm": [
-            231.658,
-            243.595
+            72.382,
+            242.384
           ],
           "xy_bounds_mm": [
-            65.11,
-            75.61,
-            233.89,
-            244.39
+            66.399,
+            76.899,
+            232.6,
+            243.101
           ],
           "commanded_speed_mm_s": [
-            33.55
+            32.883
           ],
           "commanded_fan_percent": [
-            20.0
+            90.0
           ],
-          "length_mm": 666.6722865087933,
-          "seam_distance_from_rearmost_y_mm": 0.7949999999999875
+          "length_mm": 648.2883770042806,
+          "seam_distance_from_rearmost_y_mm": 0.717000000000013
         },
         {
           "layer": 140,
           "z_mm": 56.0,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            231.622,
-            243.61
+            72.207,
+            242.532
           ],
           "xy_bounds_mm": [
-            65.11,
-            75.61,
-            233.89,
-            244.39
+            66.2,
+            76.702,
+            232.797,
+            243.3
           ],
           "commanded_speed_mm_s": [
-            34.55
+            34.083
           ],
           "commanded_fan_percent": [
-            20.0
+            90.0
           ],
-          "length_mm": 666.6786076791018,
-          "seam_distance_from_rearmost_y_mm": 0.7799999999999727
+          "length_mm": 650.4906608701156,
+          "seam_distance_from_rearmost_y_mm": 0.7680000000000007
         },
         {
           "layer": 141,
           "z_mm": 56.4,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            231.525,
-            243.66
+            72.043,
+            242.651
           ],
           "xy_bounds_mm": [
-            65.11,
-            75.61,
-            233.89,
-            244.39
+            66.02,
+            76.52,
+            232.98,
+            243.48
           ],
           "commanded_speed_mm_s": [
-            35.417
+            10.0,
+            11.066,
+            11.077,
+            11.078,
+            11.16,
+            11.161,
+            12.186,
+            12.209,
+            12.21,
+            12.211,
+            12.383,
+            12.386,
+            13.36,
+            13.396,
+            13.397,
+            13.398,
+            13.4,
+            13.671,
+            13.675,
+            14.588,
+            14.638,
+            14.64,
+            14.641,
+            14.643,
+            15.021,
+            15.028,
+            15.869,
+            15.936,
+            15.938,
+            15.942,
+            16.436,
+            16.444,
+            17.205,
+            17.288,
+            17.29,
+            17.291,
+            17.296,
+            17.914,
+            17.924,
+            18.595,
+            18.695,
+            18.698,
+            18.7,
+            18.705,
+            19.456,
+            19.468,
+            20.215,
+            20.273,
+            20.324,
+            20.326,
+            20.347,
+            21.085,
+            21.115,
+            22.146,
+            23.055,
+            23.088,
+            23.245,
+            24.212,
+            24.226,
+            24.227,
+            31.599,
+            32.725,
+            32.742,
+            35.133
           ],
           "commanded_fan_percent": [
-            20.0
+            90.0
           ],
-          "length_mm": 666.6782230738393,
-          "seam_distance_from_rearmost_y_mm": 0.7299999999999898
+          "length_mm": 653.6947608210332,
+          "seam_distance_from_rearmost_y_mm": 0.8289999999999793
         },
         {
           "layer": 142,
           "z_mm": 56.8,
           "height_mm": 0.399998,
           "start_xy_mm": [
-            231.451,
-            243.707
+            71.879,
+            242.761
           ],
           "xy_bounds_mm": [
-            65.11,
-            75.61,
-            233.89,
-            244.39
+            65.858,
+            76.358,
+            233.142,
+            243.642
           ],
           "commanded_speed_mm_s": [
-            36.167
+            20.0,
+            25.0,
+            27.009,
+            28.187,
+            28.19,
+            29.095,
+            30.0,
+            31.259,
+            31.566,
+            31.571,
+            33.5,
+            34.121,
+            34.397,
+            34.777,
+            35.135,
+            35.136,
+            35.144,
+            35.63,
+            35.82,
+            36.033
           ],
           "commanded_fan_percent": [
-            20.0
+            90.0
           ],
-          "length_mm": 666.6798054670022,
-          "seam_distance_from_rearmost_y_mm": 0.6829999999999927
+          "length_mm": 656.2713334968247,
+          "seam_distance_from_rearmost_y_mm": 0.8810000000000002
         },
         {
           "layer": 143,
           "z_mm": 57.2,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            231.367,
-            243.761
+            71.668,
+            242.941
           ],
           "xy_bounds_mm": [
-            65.11,
-            75.61,
-            233.89,
-            244.39
+            65.714,
+            76.215,
+            233.284,
+            243.786
           ],
           "commanded_speed_mm_s": [
-            36.817
+            30.0,
+            35.0,
+            35.285,
+            36.8
           ],
           "commanded_fan_percent": [
-            20.0
+            90.0
           ],
-          "length_mm": 666.6768877106857,
-          "seam_distance_from_rearmost_y_mm": 0.6289999999999907
+          "length_mm": 658.4434904750995,
+          "seam_distance_from_rearmost_y_mm": 0.8449999999999989
         },
         {
           "layer": 144,
           "z_mm": 57.6,
           "height_mm": 0.399998,
           "start_xy_mm": [
-            231.284,
-            243.818
+            71.46,
+            243.283
           ],
           "xy_bounds_mm": [
-            65.11,
-            75.61,
-            233.89,
-            244.39
+            65.586,
+            76.086,
+            233.414,
+            243.914
           ],
           "commanded_speed_mm_s": [
-            37.35
+            37.433
           ],
           "commanded_fan_percent": [
-            20.0
+            90.0
           ],
-          "length_mm": 666.6806649321823,
-          "seam_distance_from_rearmost_y_mm": 0.5719999999999743
+          "length_mm": 660.28543079797,
+          "seam_distance_from_rearmost_y_mm": 0.6310000000000002
         },
         {
           "layer": 145,
           "z_mm": 58.0,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            231.143,
-            243.887
+            71.277,
+            243.564
           ],
           "xy_bounds_mm": [
-            65.11,
-            75.61,
-            233.89,
-            244.39
+            65.475,
+            75.975,
+            233.525,
+            244.025
           ],
           "commanded_speed_mm_s": [
-            37.817
+            37.95
           ],
           "commanded_fan_percent": [
-            20.0
+            20.0,
+            90.0
           ],
-          "length_mm": 666.6758137708729,
-          "seam_distance_from_rearmost_y_mm": 0.5029999999999859
+          "length_mm": 661.8317152981035,
+          "seam_distance_from_rearmost_y_mm": 0.46100000000001273
         },
         {
           "layer": 146,
           "z_mm": 58.4,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            231.056,
-            243.919
+            71.095,
+            243.794
           ],
           "xy_bounds_mm": [
-            65.11,
-            75.61,
-            233.89,
-            244.39
+            65.379,
+            75.88,
+            233.621,
+            244.118
           ],
           "commanded_speed_mm_s": [
-            38.217
+            38.383
           ],
           "commanded_fan_percent": [
-            20.0
+            20.0,
+            90.0
           ],
-          "length_mm": 666.6777289537363,
-          "seam_distance_from_rearmost_y_mm": 0.4709999999999752
+          "length_mm": 663.14245588754,
+          "seam_distance_from_rearmost_y_mm": 0.32399999999998386
         },
         {
           "layer": 147,
           "z_mm": 58.8,
           "height_mm": 0.399998,
           "start_xy_mm": [
-            231.014,
-            243.948
+            70.922,
+            243.981
           ],
           "xy_bounds_mm": [
-            65.11,
-            75.61,
-            233.89,
-            244.39
+            65.298,
+            75.798,
+            233.702,
+            244.202
           ],
           "commanded_speed_mm_s": [
-            38.533
+            38.733
           ],
           "commanded_fan_percent": [
-            20.0
+            20.0,
+            90.0
           ],
-          "length_mm": 666.6809772149028,
-          "seam_distance_from_rearmost_y_mm": 0.44199999999997885
+          "length_mm": 664.2174500858101,
+          "seam_distance_from_rearmost_y_mm": 0.22100000000000364
         },
         {
           "layer": 148,
           "z_mm": 59.2,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            230.87,
-            244.001
+            70.757,
+            244.13
           ],
           "xy_bounds_mm": [
-            65.11,
-            75.61,
-            233.89,
-            244.39
+            65.232,
+            75.731,
+            233.769,
+            244.269
           ],
           "commanded_speed_mm_s": [
-            38.8
+            39.017
           ],
           "commanded_fan_percent": [
-            20.0
+            20.0,
+            90.0
           ],
-          "length_mm": 666.6769518586492,
-          "seam_distance_from_rearmost_y_mm": 0.3889999999999816
+          "length_mm": 665.0777880775717,
+          "seam_distance_from_rearmost_y_mm": 0.13900000000001
         },
         {
           "layer": 149,
           "z_mm": 59.6,
           "height_mm": 0.399998,
           "start_xy_mm": [
-            230.765,
-            244.035
+            70.603,
+            244.243
           ],
           "xy_bounds_mm": [
-            65.11,
-            75.61,
-            233.89,
-            244.39
+            65.18,
+            75.682,
+            233.82,
+            244.32
           ],
           "commanded_speed_mm_s": [
-            39.033
+            39.233
           ],
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 666.6650570811862,
-          "seam_distance_from_rearmost_y_mm": 0.35499999999998977
+          "length_mm": 665.760988223751,
+          "seam_distance_from_rearmost_y_mm": 0.07699999999999818
         },
         {
           "layer": 150,
           "z_mm": 60.0,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            230.71,
-            244.067
+            70.46,
+            244.323
           ],
           "xy_bounds_mm": [
-            65.11,
-            75.61,
-            233.89,
-            244.39
+            65.142,
+            75.642,
+            233.858,
+            244.358
           ],
           "commanded_speed_mm_s": [
-            39.217
+            39.417
           ],
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 666.6706238756785,
-          "seam_distance_from_rearmost_y_mm": 0.3229999999999791
+          "length_mm": 666.2554283327773,
+          "seam_distance_from_rearmost_y_mm": 0.03499999999999659
         },
         {
           "layer": 151,
           "z_mm": 60.4,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            230.615,
-            244.104
+            70.329,
+            244.371
           ],
           "xy_bounds_mm": [
-            65.11,
-            75.61,
-            233.89,
-            244.39
+            65.129,
+            75.629,
+            233.871,
+            244.371
           ],
           "commanded_speed_mm_s": [
-            39.367
+            39.55
           ],
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 666.6768490185924,
-          "seam_distance_from_rearmost_y_mm": 0.28599999999997294
+          "length_mm": 666.5544145815978,
+          "seam_distance_from_rearmost_y_mm": 0.0
         },
         {
           "layer": 152,
           "z_mm": 60.8,
           "height_mm": 0.399998,
           "start_xy_mm": [
-            230.559,
-            244.13
+            70.21,
+            244.389
           ],
           "xy_bounds_mm": [
-            65.11,
-            75.61,
-            233.89,
-            244.39
+            65.111,
+            75.611,
+            233.889,
+            244.389
           ],
           "commanded_speed_mm_s": [
-            39.5
+            39.65
           ],
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 666.6776634319955,
-          "seam_distance_from_rearmost_y_mm": 0.2599999999999909
+          "length_mm": 666.6759398942216,
+          "seam_distance_from_rearmost_y_mm": 0.0
         },
         {
           "layer": 153,
           "z_mm": 61.2,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            230.468,
-            244.161
+            70.106,
+            244.39
           ],
           "xy_bounds_mm": [
             65.11,
@@ -3454,67 +3613,21 @@
             244.39
           ],
           "commanded_speed_mm_s": [
-            39.6
+            39.733
           ],
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 666.671968468609,
-          "seam_distance_from_rearmost_y_mm": 0.228999999999985
+          "length_mm": 666.6827493079863,
+          "seam_distance_from_rearmost_y_mm": 0.0
         },
         {
           "layer": 154,
           "z_mm": 61.6,
           "height_mm": 0.399998,
           "start_xy_mm": [
-            230.395,
-            244.18
-          ],
-          "xy_bounds_mm": [
-            65.11,
-            75.61,
-            233.89,
+            70.017,
             244.39
-          ],
-          "commanded_speed_mm_s": [
-            39.683
-          ],
-          "commanded_fan_percent": [
-            20.0
-          ],
-          "length_mm": 666.6800937934684,
-          "seam_distance_from_rearmost_y_mm": 0.20999999999997954
-        },
-        {
-          "layer": 155,
-          "z_mm": 62.0,
-          "height_mm": 0.400002,
-          "start_xy_mm": [
-            230.323,
-            244.199
-          ],
-          "xy_bounds_mm": [
-            65.11,
-            75.61,
-            233.89,
-            244.39
-          ],
-          "commanded_speed_mm_s": [
-            39.75
-          ],
-          "commanded_fan_percent": [
-            20.0
-          ],
-          "length_mm": 666.6790413106253,
-          "seam_distance_from_rearmost_y_mm": 0.19099999999997408
-        },
-        {
-          "layer": 156,
-          "z_mm": 62.4,
-          "height_mm": 0.400002,
-          "start_xy_mm": [
-            230.253,
-            244.217
           ],
           "xy_bounds_mm": [
             65.11,
@@ -3528,85 +3641,62 @@
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 666.6810216018698,
-          "seam_distance_from_rearmost_y_mm": 0.1729999999999734
+          "length_mm": 666.6752313345158,
+          "seam_distance_from_rearmost_y_mm": 0.0
+        },
+        {
+          "layer": 155,
+          "z_mm": 62.0,
+          "height_mm": 0.400002,
+          "start_xy_mm": [
+            69.971,
+            244.385
+          ],
+          "xy_bounds_mm": [
+            65.11,
+            75.61,
+            233.89,
+            244.39
+          ],
+          "commanded_speed_mm_s": [
+            39.85
+          ],
+          "commanded_fan_percent": [
+            20.0
+          ],
+          "length_mm": 666.6768549898713,
+          "seam_distance_from_rearmost_y_mm": 0.0049999999999954525
+        },
+        {
+          "layer": 156,
+          "z_mm": 62.4,
+          "height_mm": 0.400002,
+          "start_xy_mm": [
+            69.915,
+            244.38
+          ],
+          "xy_bounds_mm": [
+            65.11,
+            75.61,
+            233.89,
+            244.39
+          ],
+          "commanded_speed_mm_s": [
+            39.883
+          ],
+          "commanded_fan_percent": [
+            20.0
+          ],
+          "length_mm": 666.6742514468787,
+          "seam_distance_from_rearmost_y_mm": 0.009999999999990905
         },
         {
           "layer": 157,
           "z_mm": 62.8,
           "height_mm": 0.399998,
           "start_xy_mm": [
-            230.185,
-            244.235
-          ],
-          "xy_bounds_mm": [
-            65.11,
-            75.61,
-            233.89,
-            244.39
-          ],
-          "commanded_speed_mm_s": [
-            39.833
-          ],
-          "commanded_fan_percent": [
-            20.0
-          ],
-          "length_mm": 666.6802815276308,
-          "seam_distance_from_rearmost_y_mm": 0.15499999999997272
-        },
-        {
-          "layer": 158,
-          "z_mm": 63.2,
-          "height_mm": 0.400002,
-          "start_xy_mm": [
-            230.13,
-            244.249
-          ],
-          "xy_bounds_mm": [
-            65.11,
-            75.61,
-            233.89,
-            244.39
-          ],
-          "commanded_speed_mm_s": [
-            39.867
-          ],
-          "commanded_fan_percent": [
-            20.0
-          ],
-          "length_mm": 666.6749504774218,
-          "seam_distance_from_rearmost_y_mm": 0.14099999999999113
-        },
-        {
-          "layer": 159,
-          "z_mm": 63.6,
-          "height_mm": 0.399998,
-          "start_xy_mm": [
-            230.054,
-            244.269
-          ],
-          "xy_bounds_mm": [
-            65.11,
-            75.61,
-            233.89,
-            244.39
-          ],
-          "commanded_speed_mm_s": [
-            39.9
-          ],
-          "commanded_fan_percent": [
-            20.0
-          ],
-          "length_mm": 666.6833739467502,
-          "seam_distance_from_rearmost_y_mm": 0.1209999999999809
-        },
-        {
-          "layer": 160,
-          "z_mm": 64.0,
-          "height_mm": 0.400002,
-          "start_xy_mm": [
-            229.992,
-            244.285
+            69.869,
+            244.375
           ],
           "xy_bounds_mm": [
             65.11,
@@ -3620,16 +3710,16 @@
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 666.6861319813801,
-          "seam_distance_from_rearmost_y_mm": 0.10499999999998977
+          "length_mm": 666.6817120223279,
+          "seam_distance_from_rearmost_y_mm": 0.014999999999986358
         },
         {
-          "layer": 161,
-          "z_mm": 64.4,
+          "layer": 158,
+          "z_mm": 63.2,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            229.961,
-            244.294
+            69.817,
+            244.378
           ],
           "xy_bounds_mm": [
             65.11,
@@ -3643,16 +3733,85 @@
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 666.6802854418348,
-          "seam_distance_from_rearmost_y_mm": 0.09599999999997522
+          "length_mm": 666.6828268819391,
+          "seam_distance_from_rearmost_y_mm": 0.012000000000000455
+        },
+        {
+          "layer": 159,
+          "z_mm": 63.6,
+          "height_mm": 0.399998,
+          "start_xy_mm": [
+            69.79,
+            244.377
+          ],
+          "xy_bounds_mm": [
+            65.11,
+            75.61,
+            233.89,
+            244.39
+          ],
+          "commanded_speed_mm_s": [
+            39.95
+          ],
+          "commanded_fan_percent": [
+            20.0
+          ],
+          "length_mm": 666.6804703156075,
+          "seam_distance_from_rearmost_y_mm": 0.012999999999976808
+        },
+        {
+          "layer": 160,
+          "z_mm": 64.0,
+          "height_mm": 0.400002,
+          "start_xy_mm": [
+            69.773,
+            244.376
+          ],
+          "xy_bounds_mm": [
+            65.11,
+            75.61,
+            233.89,
+            244.39
+          ],
+          "commanded_speed_mm_s": [
+            39.967
+          ],
+          "commanded_fan_percent": [
+            20.0
+          ],
+          "length_mm": 666.6835324764775,
+          "seam_distance_from_rearmost_y_mm": 0.013999999999981583
+        },
+        {
+          "layer": 161,
+          "z_mm": 64.4,
+          "height_mm": 0.400002,
+          "start_xy_mm": [
+            69.765,
+            244.375
+          ],
+          "xy_bounds_mm": [
+            65.11,
+            75.61,
+            233.89,
+            244.39
+          ],
+          "commanded_speed_mm_s": [
+            39.983
+          ],
+          "commanded_fan_percent": [
+            20.0
+          ],
+          "length_mm": 666.6803296654073,
+          "seam_distance_from_rearmost_y_mm": 0.014999999999986358
         },
         {
           "layer": 162,
           "z_mm": 64.8,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            229.919,
-            244.298
+            69.765,
+            244.375
           ],
           "xy_bounds_mm": [
             65.11,
@@ -3661,21 +3820,21 @@
             244.39
           ],
           "commanded_speed_mm_s": [
-            39.95
+            39.983
           ],
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 666.6814863934401,
-          "seam_distance_from_rearmost_y_mm": 0.09199999999998454
+          "length_mm": 666.6815213341233,
+          "seam_distance_from_rearmost_y_mm": 0.014999999999986358
         },
         {
           "layer": 163,
           "z_mm": 65.2,
           "height_mm": 0.399994,
           "start_xy_mm": [
-            229.87,
-            244.303
+            69.772,
+            244.376
           ],
           "xy_bounds_mm": [
             65.11,
@@ -3684,73 +3843,349 @@
             244.39
           ],
           "commanded_speed_mm_s": [
-            39.95
+            39.983
           ],
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 666.6785136775723,
-          "seam_distance_from_rearmost_y_mm": 0.08699999999998909
+          "length_mm": 666.6763994406772,
+          "seam_distance_from_rearmost_y_mm": 0.013999999999981583
         },
         {
           "layer": 164,
           "z_mm": 65.6,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            149.12,
-            245.346
+            70.012,
+            244.39
           ],
           "xy_bounds_mm": [
-            62.686,
-            73.186,
-            236.314,
-            246.814
+            65.11,
+            75.61,
+            233.89,
+            244.39
           ],
           "commanded_speed_mm_s": [
-            10.0
+            39.983
           ],
           "commanded_fan_percent": [
-            90.0
+            20.0
           ],
-          "length_mm": 2065.2506313055273,
-          "seam_distance_from_rearmost_y_mm": 1.4679999999999893
+          "length_mm": 666.680836288106,
+          "seam_distance_from_rearmost_y_mm": 0.0
         },
         {
           "layer": 165,
           "z_mm": 66.0,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            149.138,
-            248.226
+            69.806,
+            244.378
           ],
           "xy_bounds_mm": [
-            61.274,
-            71.774,
-            237.726,
-            248.226
+            65.11,
+            75.61,
+            233.89,
+            244.39
           ],
           "commanded_speed_mm_s": [
-            10.0
+            40.0
           ],
           "commanded_fan_percent": [
-            90.0
+            20.0
           ],
-          "length_mm": 702.7627409574254,
-          "seam_distance_from_rearmost_y_mm": 0.0
+          "length_mm": 666.677587490554,
+          "seam_distance_from_rearmost_y_mm": 0.012000000000000455
         },
         {
           "layer": 166,
           "z_mm": 66.4,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            236.99,
-            248.751
+            69.831,
+            244.379
           ],
           "xy_bounds_mm": [
-            60.532,
-            71.032,
-            238.468,
-            248.968
+            65.11,
+            75.61,
+            233.89,
+            244.39
+          ],
+          "commanded_speed_mm_s": [
+            40.0
+          ],
+          "commanded_fan_percent": [
+            20.0
+          ],
+          "length_mm": 666.6763925457984,
+          "seam_distance_from_rearmost_y_mm": 0.01099999999999568
+        },
+        {
+          "layer": 167,
+          "z_mm": 66.8,
+          "height_mm": 0.400002,
+          "start_xy_mm": [
+            69.861,
+            244.381
+          ],
+          "xy_bounds_mm": [
+            65.11,
+            75.61,
+            233.89,
+            244.39
+          ],
+          "commanded_speed_mm_s": [
+            40.0
+          ],
+          "commanded_fan_percent": [
+            20.0
+          ],
+          "length_mm": 666.6809880247886,
+          "seam_distance_from_rearmost_y_mm": 0.00899999999998613
+        },
+        {
+          "layer": 168,
+          "z_mm": 67.2,
+          "height_mm": 0.399994,
+          "start_xy_mm": [
+            69.899,
+            244.378
+          ],
+          "xy_bounds_mm": [
+            65.11,
+            75.61,
+            233.89,
+            244.39
+          ],
+          "commanded_speed_mm_s": [
+            40.0
+          ],
+          "commanded_fan_percent": [
+            20.0
+          ],
+          "length_mm": 666.6774974441429,
+          "seam_distance_from_rearmost_y_mm": 0.012000000000000455
+        },
+        {
+          "layer": 169,
+          "z_mm": 67.6,
+          "height_mm": 0.400002,
+          "start_xy_mm": [
+            69.932,
+            244.385
+          ],
+          "xy_bounds_mm": [
+            65.11,
+            75.61,
+            233.89,
+            244.39
+          ],
+          "commanded_speed_mm_s": [
+            40.0
+          ],
+          "commanded_fan_percent": [
+            20.0
+          ],
+          "length_mm": 666.6809405558378,
+          "seam_distance_from_rearmost_y_mm": 0.0049999999999954525
+        },
+        {
+          "layer": 170,
+          "z_mm": 68.0,
+          "height_mm": 0.400002,
+          "start_xy_mm": [
+            69.971,
+            244.385
+          ],
+          "xy_bounds_mm": [
+            65.11,
+            75.61,
+            233.89,
+            244.39
+          ],
+          "commanded_speed_mm_s": [
+            40.0
+          ],
+          "commanded_fan_percent": [
+            20.0
+          ],
+          "length_mm": 666.6826494707816,
+          "seam_distance_from_rearmost_y_mm": 0.0049999999999954525
+        },
+        {
+          "layer": 171,
+          "z_mm": 68.4,
+          "height_mm": 0.400002,
+          "start_xy_mm": [
+            70.017,
+            244.39
+          ],
+          "xy_bounds_mm": [
+            65.11,
+            75.61,
+            233.89,
+            244.39
+          ],
+          "commanded_speed_mm_s": [
+            40.0
+          ],
+          "commanded_fan_percent": [
+            20.0
+          ],
+          "length_mm": 666.6810793137618,
+          "seam_distance_from_rearmost_y_mm": 0.0
+        },
+        {
+          "layer": 172,
+          "z_mm": 68.8,
+          "height_mm": 0.400002,
+          "start_xy_mm": [
+            70.064,
+            244.39
+          ],
+          "xy_bounds_mm": [
+            65.11,
+            75.61,
+            233.89,
+            244.39
+          ],
+          "commanded_speed_mm_s": [
+            40.0
+          ],
+          "commanded_fan_percent": [
+            20.0
+          ],
+          "length_mm": 666.6774321719003,
+          "seam_distance_from_rearmost_y_mm": 0.0
+        },
+        {
+          "layer": 173,
+          "z_mm": 69.2,
+          "height_mm": 0.399994,
+          "start_xy_mm": [
+            70.111,
+            244.39
+          ],
+          "xy_bounds_mm": [
+            65.11,
+            75.61,
+            233.89,
+            244.39
+          ],
+          "commanded_speed_mm_s": [
+            40.0
+          ],
+          "commanded_fan_percent": [
+            20.0
+          ],
+          "length_mm": 666.681297906295,
+          "seam_distance_from_rearmost_y_mm": 0.0
+        },
+        {
+          "layer": 174,
+          "z_mm": 69.6,
+          "height_mm": 0.400002,
+          "start_xy_mm": [
+            70.158,
+            244.39
+          ],
+          "xy_bounds_mm": [
+            65.11,
+            75.61,
+            233.89,
+            244.39
+          ],
+          "commanded_speed_mm_s": [
+            40.0
+          ],
+          "commanded_fan_percent": [
+            20.0
+          ],
+          "length_mm": 666.6831190266139,
+          "seam_distance_from_rearmost_y_mm": 0.0
+        },
+        {
+          "layer": 175,
+          "z_mm": 70.0,
+          "height_mm": 0.400002,
+          "start_xy_mm": [
+            70.204,
+            244.39
+          ],
+          "xy_bounds_mm": [
+            65.11,
+            75.61,
+            233.89,
+            244.39
+          ],
+          "commanded_speed_mm_s": [
+            40.0
+          ],
+          "commanded_fan_percent": [
+            20.0
+          ],
+          "length_mm": 666.6780247033673,
+          "seam_distance_from_rearmost_y_mm": 0.0
+        },
+        {
+          "layer": 176,
+          "z_mm": 70.4,
+          "height_mm": 0.400002,
+          "start_xy_mm": [
+            70.247,
+            244.39
+          ],
+          "xy_bounds_mm": [
+            65.11,
+            75.61,
+            233.89,
+            244.39
+          ],
+          "commanded_speed_mm_s": [
+            40.0
+          ],
+          "commanded_fan_percent": [
+            20.0
+          ],
+          "length_mm": 666.6853468403157,
+          "seam_distance_from_rearmost_y_mm": 0.0
+        },
+        {
+          "layer": 177,
+          "z_mm": 70.8,
+          "height_mm": 0.400002,
+          "start_xy_mm": [
+            70.289,
+            244.39
+          ],
+          "xy_bounds_mm": [
+            65.11,
+            75.61,
+            233.89,
+            244.39
+          ],
+          "commanded_speed_mm_s": [
+            40.0
+          ],
+          "commanded_fan_percent": [
+            20.0
+          ],
+          "length_mm": 666.6770627805329,
+          "seam_distance_from_rearmost_y_mm": 0.0
+        },
+        {
+          "layer": 178,
+          "z_mm": 71.2,
+          "height_mm": 0.399994,
+          "start_xy_mm": [
+            228.98,
+            246.516
+          ],
+          "xy_bounds_mm": [
+            61.515,
+            72.015,
+            237.485,
+            247.985
           ],
           "commanded_speed_mm_s": [
             10.0
@@ -3758,292 +4193,292 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 707.4608146366469,
-          "seam_distance_from_rearmost_y_mm": 0.21699999999998454
-        },
-        {
-          "layer": 167,
-          "z_mm": 66.8,
-          "height_mm": 0.400002,
-          "start_xy_mm": [
-            237.217,
-            249.245
-          ],
-          "xy_bounds_mm": [
-            59.991,
-            70.491,
-            239.009,
-            249.509
-          ],
-          "commanded_speed_mm_s": [
-            14.917
-          ],
-          "commanded_fan_percent": [
-            90.0
-          ],
-          "length_mm": 710.8639935202765,
-          "seam_distance_from_rearmost_y_mm": 0.2639999999999816
-        },
-        {
-          "layer": 168,
-          "z_mm": 67.2,
-          "height_mm": 0.399994,
-          "start_xy_mm": [
-            237.387,
-            249.634
-          ],
-          "xy_bounds_mm": [
-            59.568,
-            70.068,
-            239.432,
-            249.932
-          ],
-          "commanded_speed_mm_s": [
-            17.183
-          ],
-          "commanded_fan_percent": [
-            90.0
-          ],
-          "length_mm": 713.5261216098924,
-          "seam_distance_from_rearmost_y_mm": 0.2980000000000018
-        },
-        {
-          "layer": 169,
-          "z_mm": 67.6,
-          "height_mm": 0.400002,
-          "start_xy_mm": [
-            237.512,
-            249.952
-          ],
-          "xy_bounds_mm": [
-            59.224,
-            69.724,
-            239.776,
-            250.276
-          ],
-          "commanded_speed_mm_s": [
-            19.55
-          ],
-          "commanded_fan_percent": [
-            90.0
-          ],
-          "length_mm": 715.671653957134,
-          "seam_distance_from_rearmost_y_mm": 0.3240000000000123
-        },
-        {
-          "layer": 170,
-          "z_mm": 68.0,
-          "height_mm": 0.400002,
-          "start_xy_mm": [
-            237.596,
-            250.225
-          ],
-          "xy_bounds_mm": [
-            58.942,
-            69.442,
-            240.058,
-            250.558
-          ],
-          "commanded_speed_mm_s": [
-            21.817
-          ],
-          "commanded_fan_percent": [
-            90.0
-          ],
-          "length_mm": 717.4312498453963,
-          "seam_distance_from_rearmost_y_mm": 0.3329999999999984
-        },
-        {
-          "layer": 171,
-          "z_mm": 68.4,
-          "height_mm": 0.400002,
-          "start_xy_mm": [
-            237.619,
-            250.443
-          ],
-          "xy_bounds_mm": [
-            58.711,
-            69.211,
-            240.289,
-            250.789
-          ],
-          "commanded_speed_mm_s": [
-            23.933
-          ],
-          "commanded_fan_percent": [
-            90.0
-          ],
-          "length_mm": 718.876707261673,
-          "seam_distance_from_rearmost_y_mm": 0.3459999999999752
-        },
-        {
-          "layer": 172,
-          "z_mm": 68.8,
-          "height_mm": 0.400002,
-          "start_xy_mm": [
-            237.645,
-            250.656
-          ],
-          "xy_bounds_mm": [
-            58.523,
-            69.023,
-            240.477,
-            250.977
-          ],
-          "commanded_speed_mm_s": [
-            25.85
-          ],
-          "commanded_fan_percent": [
-            90.0
-          ],
-          "length_mm": 720.0626228576251,
-          "seam_distance_from_rearmost_y_mm": 0.32099999999999795
-        },
-        {
-          "layer": 173,
-          "z_mm": 69.2,
-          "height_mm": 0.399994,
-          "start_xy_mm": [
-            237.681,
-            250.798
-          ],
-          "xy_bounds_mm": [
-            58.373,
-            68.874,
-            240.626,
-            251.127
-          ],
-          "commanded_speed_mm_s": [
-            27.55
-          ],
-          "commanded_fan_percent": [
-            90.0
-          ],
-          "length_mm": 721.0088808312282,
-          "seam_distance_from_rearmost_y_mm": 0.32900000000000773
-        },
-        {
-          "layer": 174,
-          "z_mm": 69.6,
-          "height_mm": 0.400002,
-          "start_xy_mm": [
-            237.695,
-            250.911
-          ],
-          "xy_bounds_mm": [
-            58.26,
-            68.76,
-            240.74,
-            251.24
-          ],
-          "commanded_speed_mm_s": [
-            29.05
-          ],
-          "commanded_fan_percent": [
-            20.0
-          ],
-          "length_mm": 721.7236104166662,
-          "seam_distance_from_rearmost_y_mm": 0.32900000000000773
-        },
-        {
-          "layer": 175,
-          "z_mm": 70.0,
-          "height_mm": 0.400002,
-          "start_xy_mm": [
-            237.712,
-            251.003
-          ],
-          "xy_bounds_mm": [
-            58.179,
-            68.679,
-            240.821,
-            251.321
-          ],
-          "commanded_speed_mm_s": [
-            30.317
-          ],
-          "commanded_fan_percent": [
-            20.0
-          ],
-          "length_mm": 722.266752343904,
-          "seam_distance_from_rearmost_y_mm": 0.31800000000001205
-        },
-        {
-          "layer": 176,
-          "z_mm": 70.4,
-          "height_mm": 0.400002,
-          "start_xy_mm": [
-            237.707,
-            251.043
-          ],
-          "xy_bounds_mm": [
-            58.13,
-            68.63,
-            240.87,
-            251.37
-          ],
-          "commanded_speed_mm_s": [
-            31.383
-          ],
-          "commanded_fan_percent": [
-            20.0
-          ],
-          "length_mm": 722.5450368366012,
-          "seam_distance_from_rearmost_y_mm": 0.3269999999999982
-        },
-        {
-          "layer": 177,
-          "z_mm": 70.8,
-          "height_mm": 0.400002,
-          "start_xy_mm": [
-            237.686,
-            251.072
-          ],
-          "xy_bounds_mm": [
-            58.111,
-            68.611,
-            240.889,
-            251.389
-          ],
-          "commanded_speed_mm_s": [
-            32.2
-          ],
-          "commanded_fan_percent": [
-            20.0
-          ],
-          "length_mm": 722.670374882893,
-          "seam_distance_from_rearmost_y_mm": 0.3170000000000073
-        },
-        {
-          "layer": 178,
-          "z_mm": 71.2,
-          "height_mm": 0.399994,
-          "start_xy_mm": [
-            237.66,
-            251.088
-          ],
-          "xy_bounds_mm": [
-            58.11,
-            68.61,
-            240.89,
-            251.39
-          ],
-          "commanded_speed_mm_s": [
-            32.817
-          ],
-          "commanded_fan_percent": [
-            20.0
-          ],
-          "length_mm": 722.6726886091197,
-          "seam_distance_from_rearmost_y_mm": 0.3019999999999925
+          "length_mm": 2089.8632619719992,
+          "seam_distance_from_rearmost_y_mm": 1.4690000000000225
         },
         {
           "layer": 179,
           "z_mm": 71.6,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            237.637,
-            251.097
+            228.988,
+            240.21
+          ],
+          "xy_bounds_mm": [
+            69.29,
+            79.79,
+            229.71,
+            240.21
+          ],
+          "commanded_speed_mm_s": [
+            40.0
+          ],
+          "commanded_fan_percent": [
+            20.0
+          ],
+          "length_mm": 640.4210804037047,
+          "seam_distance_from_rearmost_y_mm": 0.0
+        },
+        {
+          "layer": 180,
+          "z_mm": 72.0,
+          "height_mm": 0.400002,
+          "start_xy_mm": [
+            60.424,
+            247.76
+          ],
+          "xy_bounds_mm": [
+            60.113,
+            70.613,
+            238.887,
+            249.387
+          ],
+          "commanded_speed_mm_s": [
+            15.0
+          ],
+          "commanded_fan_percent": [
+            90.0
+          ],
+          "length_mm": 710.0820791514175,
+          "seam_distance_from_rearmost_y_mm": 1.6270000000000095
+        },
+        {
+          "layer": 181,
+          "z_mm": 72.4,
+          "height_mm": 0.400002,
+          "start_xy_mm": [
+            60.264,
+            248.387
+          ],
+          "xy_bounds_mm": [
+            59.664,
+            70.164,
+            239.336,
+            249.836
+          ],
+          "commanded_speed_mm_s": [
+            19.483
+          ],
+          "commanded_fan_percent": [
+            90.0
+          ],
+          "length_mm": 712.8995373861169,
+          "seam_distance_from_rearmost_y_mm": 1.4490000000000123
+        },
+        {
+          "layer": 182,
+          "z_mm": 72.8,
+          "height_mm": 0.400002,
+          "start_xy_mm": [
+            60.203,
+            248.878
+          ],
+          "xy_bounds_mm": [
+            59.304,
+            69.804,
+            239.696,
+            250.196
+          ],
+          "commanded_speed_mm_s": [
+            22.667
+          ],
+          "commanded_fan_percent": [
+            90.0
+          ],
+          "length_mm": 715.1673420687032,
+          "seam_distance_from_rearmost_y_mm": 1.318000000000012
+        },
+        {
+          "layer": 183,
+          "z_mm": 73.2,
+          "height_mm": 0.399994,
+          "start_xy_mm": [
+            60.291,
+            249.404
+          ],
+          "xy_bounds_mm": [
+            59.006,
+            69.506,
+            239.994,
+            250.494
+          ],
+          "commanded_speed_mm_s": [
+            25.633
+          ],
+          "commanded_fan_percent": [
+            90.0
+          ],
+          "length_mm": 717.0330139254627,
+          "seam_distance_from_rearmost_y_mm": 1.0900000000000034
+        },
+        {
+          "layer": 184,
+          "z_mm": 73.6,
+          "height_mm": 0.400002,
+          "start_xy_mm": [
+            60.454,
+            249.864
+          ],
+          "xy_bounds_mm": [
+            58.764,
+            69.264,
+            240.236,
+            250.736
+          ],
+          "commanded_speed_mm_s": [
+            28.267
+          ],
+          "commanded_fan_percent": [
+            90.0
+          ],
+          "length_mm": 718.5523354796485,
+          "seam_distance_from_rearmost_y_mm": 0.8719999999999857
+        },
+        {
+          "layer": 185,
+          "z_mm": 74.0,
+          "height_mm": 0.400002,
+          "start_xy_mm": [
+            60.691,
+            250.266
+          ],
+          "xy_bounds_mm": [
+            58.566,
+            69.066,
+            240.434,
+            250.934
+          ],
+          "commanded_speed_mm_s": [
+            30.533
+          ],
+          "commanded_fan_percent": [
+            90.0
+          ],
+          "length_mm": 719.7838981886306,
+          "seam_distance_from_rearmost_y_mm": 0.6680000000000064
+        },
+        {
+          "layer": 186,
+          "z_mm": 74.4,
+          "height_mm": 0.400002,
+          "start_xy_mm": [
+            61.097,
+            250.659
+          ],
+          "xy_bounds_mm": [
+            58.408,
+            68.909,
+            240.591,
+            251.092
+          ],
+          "commanded_speed_mm_s": [
+            32.417
+          ],
+          "commanded_fan_percent": [
+            90.0
+          ],
+          "length_mm": 720.797252086679,
+          "seam_distance_from_rearmost_y_mm": 0.43300000000002115
+        },
+        {
+          "layer": 187,
+          "z_mm": 74.8,
+          "height_mm": 0.400002,
+          "start_xy_mm": [
+            61.37,
+            250.91
+          ],
+          "xy_bounds_mm": [
+            58.286,
+            68.786,
+            240.714,
+            251.214
+          ],
+          "commanded_speed_mm_s": [
+            33.967
+          ],
+          "commanded_fan_percent": [
+            90.0
+          ],
+          "length_mm": 721.5718068424089,
+          "seam_distance_from_rearmost_y_mm": 0.30400000000000205
+        },
+        {
+          "layer": 188,
+          "z_mm": 75.2,
+          "height_mm": 0.399994,
+          "start_xy_mm": [
+            61.683,
+            251.111
+          ],
+          "xy_bounds_mm": [
+            58.197,
+            68.697,
+            240.803,
+            251.303
+          ],
+          "commanded_speed_mm_s": [
+            35.217
+          ],
+          "commanded_fan_percent": [
+            20.0
+          ],
+          "length_mm": 722.1273567904593,
+          "seam_distance_from_rearmost_y_mm": 0.19200000000000728
+        },
+        {
+          "layer": 189,
+          "z_mm": 75.6,
+          "height_mm": 0.400002,
+          "start_xy_mm": [
+            61.949,
+            251.221
+          ],
+          "xy_bounds_mm": [
+            58.139,
+            68.64,
+            240.86,
+            251.361
+          ],
+          "commanded_speed_mm_s": [
+            36.2
+          ],
+          "commanded_fan_percent": [
+            20.0
+          ],
+          "length_mm": 722.4926209864906,
+          "seam_distance_from_rearmost_y_mm": 0.13999999999998636
+        },
+        {
+          "layer": 190,
+          "z_mm": 76.0,
+          "height_mm": 0.400002,
+          "start_xy_mm": [
+            62.182,
+            251.298
+          ],
+          "xy_bounds_mm": [
+            58.113,
+            68.613,
+            240.887,
+            251.387
+          ],
+          "commanded_speed_mm_s": [
+            36.967
+          ],
+          "commanded_fan_percent": [
+            20.0
+          ],
+          "length_mm": 722.6549372111193,
+          "seam_distance_from_rearmost_y_mm": 0.08899999999999864
+        },
+        {
+          "layer": 191,
+          "z_mm": 76.4,
+          "height_mm": 0.400002,
+          "start_xy_mm": [
+            62.348,
+            251.324
           ],
           "xy_bounds_mm": [
             58.11,
@@ -4052,18 +4487,41 @@
             251.39
           ],
           "commanded_speed_mm_s": [
-            33.217
+            37.517
           ],
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 722.680156590369,
-          "seam_distance_from_rearmost_y_mm": 0.29299999999997794
+          "length_mm": 722.6811185087311,
+          "seam_distance_from_rearmost_y_mm": 0.06599999999997408
         },
         {
-          "layer": 180,
-          "z_mm": 72.0,
+          "layer": 192,
+          "z_mm": 76.8,
           "height_mm": 0.400002,
+          "start_xy_mm": [
+            62.499,
+            251.36
+          ],
+          "xy_bounds_mm": [
+            58.11,
+            68.61,
+            240.89,
+            251.39
+          ],
+          "commanded_speed_mm_s": [
+            37.883
+          ],
+          "commanded_fan_percent": [
+            20.0
+          ],
+          "length_mm": 722.6803661750819,
+          "seam_distance_from_rearmost_y_mm": 0.029999999999972715
+        },
+        {
+          "layer": 193,
+          "z_mm": 77.2,
+          "height_mm": 0.399994,
           "start_xy_mm": [
             241.7,
             210.671
@@ -4081,15 +4539,15 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 1855.1640620786197,
+          "length_mm": 1896.3445633682304,
           "seam_distance_from_rearmost_y_mm": 51.41899999999998
         },
         {
-          "layer": 181,
-          "z_mm": 72.4,
+          "layer": 194,
+          "z_mm": 77.6,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            63.126,
+            63.004,
             262.09
           ],
           "xy_bounds_mm": [
@@ -4099,17 +4557,40 @@
             262.09
           ],
           "commanded_speed_mm_s": [
-            40.0
+            39.183
           ],
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 789.9406493342683,
+          "length_mm": 789.9390625781327,
           "seam_distance_from_rearmost_y_mm": 0.0
         },
         {
-          "layer": 182,
-          "z_mm": 72.8,
+          "layer": 195,
+          "z_mm": 78.0,
+          "height_mm": 0.400002,
+          "start_xy_mm": [
+            63.132,
+            262.09
+          ],
+          "xy_bounds_mm": [
+            47.41,
+            57.91,
+            251.59,
+            262.09
+          ],
+          "commanded_speed_mm_s": [
+            38.783
+          ],
+          "commanded_fan_percent": [
+            20.0
+          ],
+          "length_mm": 789.941376162772,
+          "seam_distance_from_rearmost_y_mm": 0.0
+        },
+        {
+          "layer": 196,
+          "z_mm": 78.4,
           "height_mm": 0.400002,
           "start_xy_mm": [
             63.093,
@@ -4122,159 +4603,44 @@
             262.09
           ],
           "commanded_speed_mm_s": [
-            39.983
+            38.333
           ],
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 789.940789518278,
+          "length_mm": 789.9410992934331,
           "seam_distance_from_rearmost_y_mm": 0.0
         },
         {
-          "layer": 183,
-          "z_mm": 73.2,
+          "layer": 197,
+          "z_mm": 78.8,
+          "height_mm": 0.400002,
+          "start_xy_mm": [
+            63.047,
+            262.09
+          ],
+          "xy_bounds_mm": [
+            47.41,
+            57.91,
+            251.59,
+            262.09
+          ],
+          "commanded_speed_mm_s": [
+            37.683
+          ],
+          "commanded_fan_percent": [
+            20.0
+          ],
+          "length_mm": 789.938659821651,
+          "seam_distance_from_rearmost_y_mm": 0.0
+        },
+        {
+          "layer": 198,
+          "z_mm": 79.2,
           "height_mm": 0.399994,
           "start_xy_mm": [
-            63.055,
+            62.998,
             262.09
-          ],
-          "xy_bounds_mm": [
-            47.41,
-            57.91,
-            251.59,
-            262.09
-          ],
-          "commanded_speed_mm_s": [
-            39.967
-          ],
-          "commanded_fan_percent": [
-            20.0
-          ],
-          "length_mm": 789.9416458676686,
-          "seam_distance_from_rearmost_y_mm": 0.0
-        },
-        {
-          "layer": 184,
-          "z_mm": 73.6,
-          "height_mm": 0.400002,
-          "start_xy_mm": [
-            63.013,
-            262.09
-          ],
-          "xy_bounds_mm": [
-            47.41,
-            57.91,
-            251.59,
-            262.09
-          ],
-          "commanded_speed_mm_s": [
-            39.917
-          ],
-          "commanded_fan_percent": [
-            20.0
-          ],
-          "length_mm": 789.937860548166,
-          "seam_distance_from_rearmost_y_mm": 0.0
-        },
-        {
-          "layer": 185,
-          "z_mm": 74.0,
-          "height_mm": 0.400002,
-          "start_xy_mm": [
-            62.969,
-            262.089
-          ],
-          "xy_bounds_mm": [
-            47.41,
-            57.91,
-            251.59,
-            262.09
-          ],
-          "commanded_speed_mm_s": [
-            39.767
-          ],
-          "commanded_fan_percent": [
-            20.0
-          ],
-          "length_mm": 789.9419961348149,
-          "seam_distance_from_rearmost_y_mm": 0.0009999999999763531
-        },
-        {
-          "layer": 186,
-          "z_mm": 74.4,
-          "height_mm": 0.400002,
-          "start_xy_mm": [
-            62.924,
-            262.088
-          ],
-          "xy_bounds_mm": [
-            47.41,
-            57.91,
-            251.59,
-            262.09
-          ],
-          "commanded_speed_mm_s": [
-            39.5
-          ],
-          "commanded_fan_percent": [
-            20.0
-          ],
-          "length_mm": 789.937843571372,
-          "seam_distance_from_rearmost_y_mm": 0.0019999999999527063
-        },
-        {
-          "layer": 187,
-          "z_mm": 74.8,
-          "height_mm": 0.400002,
-          "start_xy_mm": [
-            62.878,
-            262.088
-          ],
-          "xy_bounds_mm": [
-            47.41,
-            57.91,
-            251.59,
-            262.09
-          ],
-          "commanded_speed_mm_s": [
-            39.0
-          ],
-          "commanded_fan_percent": [
-            20.0
-          ],
-          "length_mm": 789.9396468454249,
-          "seam_distance_from_rearmost_y_mm": 0.0019999999999527063
-        },
-        {
-          "layer": 188,
-          "z_mm": 75.2,
-          "height_mm": 0.399994,
-          "start_xy_mm": [
-            62.832,
-            262.087
-          ],
-          "xy_bounds_mm": [
-            47.41,
-            57.91,
-            251.59,
-            262.09
-          ],
-          "commanded_speed_mm_s": [
-            38.133
-          ],
-          "commanded_fan_percent": [
-            20.0
-          ],
-          "length_mm": 789.9404227538402,
-          "seam_distance_from_rearmost_y_mm": 0.002999999999985903
-        },
-        {
-          "layer": 189,
-          "z_mm": 75.6,
-          "height_mm": 0.400002,
-          "start_xy_mm": [
-            62.788,
-            262.086
           ],
           "xy_bounds_mm": [
             47.41,
@@ -4288,16 +4654,16 @@
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 789.9393830879337,
-          "seam_distance_from_rearmost_y_mm": 0.003999999999962256
+          "length_mm": 789.9414301040296,
+          "seam_distance_from_rearmost_y_mm": 0.0
         },
         {
-          "layer": 190,
-          "z_mm": 76.0,
+          "layer": 199,
+          "z_mm": 79.6,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            62.746,
-            262.085
+            62.945,
+            262.089
           ],
           "xy_bounds_mm": [
             47.41,
@@ -4306,21 +4672,44 @@
             262.09
           ],
           "commanded_speed_mm_s": [
-            35.15
+            35.817
           ],
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 828.6247134685317,
-          "seam_distance_from_rearmost_y_mm": 0.0049999999999954525
+          "length_mm": 789.9409284141436,
+          "seam_distance_from_rearmost_y_mm": 0.0009999999999763531
         },
         {
-          "layer": 191,
-          "z_mm": 76.4,
+          "layer": 200,
+          "z_mm": 80.0,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            62.708,
-            262.078
+            62.891,
+            262.088
+          ],
+          "xy_bounds_mm": [
+            47.41,
+            57.91,
+            251.59,
+            262.09
+          ],
+          "commanded_speed_mm_s": [
+            34.567
+          ],
+          "commanded_fan_percent": [
+            20.0
+          ],
+          "length_mm": 789.9394698605157,
+          "seam_distance_from_rearmost_y_mm": 0.0019999999999527063
+        },
+        {
+          "layer": 201,
+          "z_mm": 80.4,
+          "height_mm": 0.400002,
+          "start_xy_mm": [
+            62.837,
+            262.087
           ],
           "xy_bounds_mm": [
             47.41,
@@ -4334,16 +4723,16 @@
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 828.6227908571677,
-          "seam_distance_from_rearmost_y_mm": 0.012000000000000455
+          "length_mm": 789.9404609361582,
+          "seam_distance_from_rearmost_y_mm": 0.002999999999985903
         },
         {
-          "layer": 192,
-          "z_mm": 76.8,
+          "layer": 202,
+          "z_mm": 80.8,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            62.675,
-            262.084
+            62.785,
+            262.086
           ],
           "xy_bounds_mm": [
             47.41,
@@ -4352,112 +4741,181 @@
             262.09
           ],
           "commanded_speed_mm_s": [
-            30.9
+            31.417
           ],
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 828.6263826850515,
-          "seam_distance_from_rearmost_y_mm": 0.005999999999971806
+          "length_mm": 789.9391492631,
+          "seam_distance_from_rearmost_y_mm": 0.003999999999962256
         },
         {
-          "layer": 193,
-          "z_mm": 77.2,
+          "layer": 203,
+          "z_mm": 81.2,
           "height_mm": 0.399994,
           "start_xy_mm": [
-            245.904,
-            185.584
+            62.735,
+            262.085
           ],
           "xy_bounds_mm": [
-            242.415,
-            178.413,
-            249.585,
-            185.587
+            47.41,
+            57.91,
+            251.59,
+            262.09
           ],
           "commanded_speed_mm_s": [
-            26.783
+            29.583
           ],
           "commanded_fan_percent": [
-            59.0
+            20.0
           ],
-          "length_mm": 22.508337605852162,
-          "seam_distance_from_rearmost_y_mm": 0.002999999999985903
+          "length_mm": 828.6238250698965,
+          "seam_distance_from_rearmost_y_mm": 0.0049999999999954525
         },
         {
-          "layer": 194,
-          "z_mm": 77.6,
+          "layer": 204,
+          "z_mm": 81.6,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            52.881,
-            151.582
+            62.69,
+            262.078
+          ],
+          "xy_bounds_mm": [
+            47.41,
+            57.91,
+            251.59,
+            262.09
+          ],
+          "commanded_speed_mm_s": [
+            27.7
+          ],
+          "commanded_fan_percent": [
+            20.0
+          ],
+          "length_mm": 828.6233010208399,
+          "seam_distance_from_rearmost_y_mm": 0.012000000000000455
+        },
+        {
+          "layer": 205,
+          "z_mm": 82.0,
+          "height_mm": 0.400002,
+          "start_xy_mm": [
+            62.65,
+            262.083
+          ],
+          "xy_bounds_mm": [
+            47.41,
+            57.91,
+            251.59,
+            262.09
+          ],
+          "commanded_speed_mm_s": [
+            25.917
+          ],
+          "commanded_fan_percent": [
+            20.0
+          ],
+          "length_mm": 828.6247269733949,
+          "seam_distance_from_rearmost_y_mm": 0.006999999999948159
+        },
+        {
+          "layer": 206,
+          "z_mm": 82.4,
+          "height_mm": 0.400002,
+          "start_xy_mm": [
+            52.901,
+            151.584
           ],
           "xy_bounds_mm": [
             49.415,
-            144.414,
+            144.413,
             56.585,
             151.587
           ],
           "commanded_speed_mm_s": [
-            26.817
+            21.217
           ],
           "commanded_fan_percent": [
             59.0
           ],
-          "length_mm": 22.5083930859504,
-          "seam_distance_from_rearmost_y_mm": 0.0049999999999954525
+          "length_mm": 22.508436142576834,
+          "seam_distance_from_rearmost_y_mm": 0.002999999999985903
         },
         {
-          "layer": 195,
-          "z_mm": 78.0,
+          "layer": 207,
+          "z_mm": 82.8,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            52.849,
+            245.911,
+            185.585
+          ],
+          "xy_bounds_mm": [
+            242.415,
+            178.414,
+            249.585,
+            185.587
+          ],
+          "commanded_speed_mm_s": [
+            24.433
+          ],
+          "commanded_fan_percent": [
+            59.0
+          ],
+          "length_mm": 22.50846162989436,
+          "seam_distance_from_rearmost_y_mm": 0.001999999999981128
+        },
+        {
+          "layer": 208,
+          "z_mm": 83.2,
+          "height_mm": 0.399994,
+          "start_xy_mm": [
+            52.848,
             151.579
           ],
           "xy_bounds_mm": [
             49.415,
-            144.416,
+            144.415,
             56.585,
             151.582
           ],
           "commanded_speed_mm_s": [
-            25.583
+            22.517
           ],
           "commanded_fan_percent": [
             59.0
           ],
-          "length_mm": 22.507949925003,
+          "length_mm": 22.508535319486857,
           "seam_distance_from_rearmost_y_mm": 0.002999999999985903
         },
         {
-          "layer": 196,
-          "z_mm": 78.4,
+          "layer": 209,
+          "z_mm": 83.6,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            245.836,
-            185.58
+            245.748,
+            185.576
           ],
           "xy_bounds_mm": [
             242.415,
-            178.417,
+            178.416,
             249.585,
             185.582
           ],
           "commanded_speed_mm_s": [
-            25.267
+            24.5
           ],
           "commanded_fan_percent": [
             59.0
           ],
-          "length_mm": 22.508649584848452,
-          "seam_distance_from_rearmost_y_mm": 0.001999999999981128
+          "length_mm": 22.508615110045604,
+          "seam_distance_from_rearmost_y_mm": 0.006000000000000227
         },
         {
-          "layer": 197,
-          "z_mm": 78.8,
+          "layer": 210,
+          "z_mm": 84.0,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            52.824,
+            52.82,
             151.58
           ],
           "xy_bounds_mm": [
@@ -4467,65 +4925,65 @@
             151.582
           ],
           "commanded_speed_mm_s": [
-            22.2
+            21.233
           ],
           "commanded_fan_percent": [
             59.0
           ],
-          "length_mm": 22.50856774877167,
+          "length_mm": 22.508864573016403,
           "seam_distance_from_rearmost_y_mm": 0.001999999999981128
         },
         {
-          "layer": 198,
-          "z_mm": 79.2,
-          "height_mm": 0.399994,
-          "start_xy_mm": [
-            52.793,
-            151.224
-          ],
-          "xy_bounds_mm": [
-            49.786,
-            144.769,
-            56.228,
-            151.231
-          ],
-          "commanded_speed_mm_s": [
-            20.55
-          ],
-          "commanded_fan_percent": [
-            59.0
-          ],
-          "length_mm": 20.30675969442791,
-          "seam_distance_from_rearmost_y_mm": 0.007000000000005002
-        },
-        {
-          "layer": 199,
-          "z_mm": 79.6,
+          "layer": 211,
+          "z_mm": 84.4,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            245.832,
-            184.821
+            245.619,
+            185.31
           ],
           "xy_bounds_mm": [
-            243.165,
-            179.167,
-            248.837,
-            184.836
+            242.665,
+            178.666,
+            249.337,
+            185.329
           ],
           "commanded_speed_mm_s": [
-            17.25
+            22.217
           ],
           "commanded_fan_percent": [
             59.0
           ],
-          "length_mm": 17.795408764719728,
-          "seam_distance_from_rearmost_y_mm": 0.01500000000001478
+          "length_mm": 20.92728574181773,
+          "seam_distance_from_rearmost_y_mm": 0.019000000000005457
+        },
+        {
+          "layer": 212,
+          "z_mm": 84.8,
+          "height_mm": 0.400002,
+          "start_xy_mm": [
+            245.579,
+            184.896
+          ],
+          "xy_bounds_mm": [
+            243.065,
+            179.068,
+            248.929,
+            184.932
+          ],
+          "commanded_speed_mm_s": [
+            19.5
+          ],
+          "commanded_fan_percent": [
+            59.0
+          ],
+          "length_mm": 18.40458556306938,
+          "seam_distance_from_rearmost_y_mm": 0.036000000000001364
         }
       ]
     },
     {
       "gcode": "Metadata/plate_2.gcode",
-      "gcode_sha256": "f605fc533b5d2ca16eab65e554d14fdde8996a74117d289da99f773220141615",
+      "gcode_sha256": "374b31b3ad9f22790ad2f2775543143fb1fca27d0914f2e599a1d54b6d94ecbb",
       "outer_wall_speed_setting_mm_s": 40.0,
       "maximum_overhang_speed_setting_mm_s": 50.0,
       "maximum_commanded_outer_wall_speed_after_layer_3_mm_s": 45.0,
@@ -4707,36 +5165,33 @@
             262.09
           ],
           "commanded_speed_mm_s": [
-            31.271,
-            31.726,
-            32.143,
-            32.511,
-            32.531,
-            32.979,
-            33.065,
-            33.336,
-            33.896,
-            34.334,
-            34.418,
-            34.683,
-            35.382,
-            35.805,
-            35.886,
-            36.142,
-            37.004,
-            37.408,
-            37.486,
-            37.73,
-            38.781,
-            39.162,
-            39.235,
-            39.464,
+            31.295,
+            32.216,
+            32.555,
+            33.192,
+            33.779,
+            33.92,
+            34.5,
+            34.542,
+            35.113,
+            35.405,
+            35.966,
+            36.007,
+            36.557,
+            37.025,
+            37.562,
+            37.601,
+            38.125,
+            38.802,
+            39.306,
+            39.342,
+            39.834,
             40.0
           ],
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 843.1222309982878,
+          "length_mm": 843.8487021131726,
           "seam_distance_from_rearmost_y_mm": 0.0
         },
         {
@@ -4759,7 +5214,7 @@
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 845.1004693112395,
+          "length_mm": 845.0988966840257,
           "seam_distance_from_rearmost_y_mm": 0.0
         },
         {
@@ -6036,7 +6491,7 @@
             229.404
           ],
           "xy_bounds_mm": [
-            80.15,
+            80.149,
             90.556,
             218.997,
             229.444
@@ -6047,7 +6502,7 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 555.2343114099831,
+          "length_mm": 555.2343167383092,
           "seam_distance_from_rearmost_y_mm": 0.03999999999999204
         },
         {
@@ -6139,7 +6594,7 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 508.0961129935774,
+          "length_mm": 508.097106248652,
           "seam_distance_from_rearmost_y_mm": 0.049000000000006594
         },
         {
@@ -6231,7 +6686,7 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 460.9913598286678,
+          "length_mm": 460.9913598387801,
           "seam_distance_from_rearmost_y_mm": 0.0730000000000075
         },
         {
@@ -6300,7 +6755,7 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 425.63473189571454,
+          "length_mm": 425.6347320792374,
           "seam_distance_from_rearmost_y_mm": 0.23199999999999932
         },
         {
@@ -6323,7 +6778,7 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 413.84469483785136,
+          "length_mm": 413.84764222034386,
           "seam_distance_from_rearmost_y_mm": 0.2540000000000191
         },
         {
@@ -6337,7 +6792,7 @@
           "xy_bounds_mm": [
             99.56,
             109.469,
-            200.624,
+            200.625,
             210.531
           ],
           "commanded_speed_mm_s": [
@@ -6346,7 +6801,7 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 402.0622063811093,
+          "length_mm": 402.06220137609637,
           "seam_distance_from_rearmost_y_mm": 0.2740000000000009
         },
         {
@@ -6392,7 +6847,7 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 378.48935499655533,
+          "length_mm": 378.4903352832235,
           "seam_distance_from_rearmost_y_mm": 0.3149999999999977
         },
         {
@@ -6438,7 +6893,7 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 354.92193689367946,
+          "length_mm": 354.92194168567653,
           "seam_distance_from_rearmost_y_mm": 0.35200000000000387
         },
         {
@@ -6461,7 +6916,7 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 343.13282485582477,
+          "length_mm": 343.1338098802881,
           "seam_distance_from_rearmost_y_mm": 0.3710000000000093
         },
         {
@@ -6553,7 +7008,7 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 296.0033610856687,
+          "length_mm": 296.00433963022704,
           "seam_distance_from_rearmost_y_mm": 0.4439999999999884
         },
         {
@@ -6576,7 +7031,7 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 284.2228152801039,
+          "length_mm": 284.2228194255252,
           "seam_distance_from_rearmost_y_mm": 0.46299999999999386
         },
         {
@@ -6599,7 +7054,7 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 272.4491937732346,
+          "length_mm": 272.4492030900115,
           "seam_distance_from_rearmost_y_mm": 0.48099999999999454
         },
         {
@@ -6622,7 +7077,7 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 260.67621199877135,
+          "length_mm": 260.67622681402474,
           "seam_distance_from_rearmost_y_mm": 0.5
         },
         {
@@ -6645,7 +7100,7 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 248.89960678687365,
+          "length_mm": 248.8996307129221,
           "seam_distance_from_rearmost_y_mm": 0.5180000000000007
         },
         {
@@ -6668,7 +7123,7 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 237.12653942932099,
+          "length_mm": 237.12653912513858,
           "seam_distance_from_rearmost_y_mm": 0.5360000000000014
         },
         {
@@ -6699,7 +7154,7 @@
           "z_mm": 38.8,
           "height_mm": 0.399998,
           "start_xy_mm": [
-            177.386,
+            177.387,
             186.683
           ],
           "xy_bounds_mm": [
@@ -6714,7 +7169,7 @@
           "commanded_fan_percent": [
             90.0
           ],
-          "length_mm": 213.57444876822896,
+          "length_mm": 213.57542816663852,
           "seam_distance_from_rearmost_y_mm": 0.5640000000000214
         },
         {
@@ -6737,7 +7192,7 @@
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 201.79700049560435,
+          "length_mm": 201.7978619543982,
           "seam_distance_from_rearmost_y_mm": 0.5769999999999982
         },
         {
@@ -6760,7 +7215,7 @@
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 190.02424153786055,
+          "length_mm": 190.02420549717533,
           "seam_distance_from_rearmost_y_mm": 0.5889999999999986
         },
         {
@@ -6783,7 +7238,7 @@
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 178.25001805320426,
+          "length_mm": 178.2500177681919,
           "seam_distance_from_rearmost_y_mm": 0.6009999999999991
         },
         {
@@ -6806,7 +7261,7 @@
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 166.4727466830788,
+          "length_mm": 166.472746964102,
           "seam_distance_from_rearmost_y_mm": 0.6189999999999998
         },
         {
@@ -6875,7 +7330,7 @@
           "commanded_fan_percent": [
             20.0
           ],
-          "length_mm": 131.19915615311066,
+          "length_mm": 131.19904136184022,
           "seam_distance_from_rearmost_y_mm": 0.6839999999999975
         },
         {
@@ -6898,7 +7353,7 @@
           "commanded_fan_percent": [
             27.0
           ],
-          "length_mm": 119.4551303523662,
+          "length_mm": 119.45521399804025,
           "seam_distance_from_rearmost_y_mm": 0.7060000000000173
         },
         {
@@ -6921,7 +7376,7 @@
           "commanded_fan_percent": [
             35.0
           ],
-          "length_mm": 107.70722781749834,
+          "length_mm": 107.70725309189018,
           "seam_distance_from_rearmost_y_mm": 0.7290000000000134
         },
         {
@@ -6944,7 +7399,7 @@
           "commanded_fan_percent": [
             42.0
           ],
-          "length_mm": 95.96252070058905,
+          "length_mm": 95.96252270736375,
           "seam_distance_from_rearmost_y_mm": 0.7509999999999764
         },
         {
@@ -6967,7 +7422,7 @@
           "commanded_fan_percent": [
             48.0
           ],
-          "length_mm": 84.25107667055383,
+          "length_mm": 84.25188741987253,
           "seam_distance_from_rearmost_y_mm": 0.7729999999999961
         },
         {
@@ -7013,7 +7468,7 @@
           "commanded_fan_percent": [
             58.0
           ],
-          "length_mm": 60.951561946504825,
+          "length_mm": 60.95125603595872,
           "seam_distance_from_rearmost_y_mm": 0.818000000000012
         },
         {
@@ -7031,12 +7486,12 @@
             166.896
           ],
           "commanded_speed_mm_s": [
-            27.55
+            27.533
           ],
           "commanded_fan_percent": [
             58.0
           ],
-          "length_mm": 49.41727276989757,
+          "length_mm": 49.41817410610018,
           "seam_distance_from_rearmost_y_mm": 0.8349999999999795
         },
         {
@@ -7059,7 +7514,7 @@
           "commanded_fan_percent": [
             59.0
           ],
-          "length_mm": 66.83605640435502,
+          "length_mm": 66.83610215998404,
           "seam_distance_from_rearmost_y_mm": 0.7959999999999923
         },
         {
@@ -7067,14 +7522,14 @@
           "z_mm": 45.2,
           "height_mm": 0.400002,
           "start_xy_mm": [
-            155.439,
-            158.609
+            155.452,
+            158.663
           ],
           "xy_bounds_mm": [
             147.067,
-            155.814,
-            155.453,
-            164.208
+            155.812,
+            155.463,
+            164.199
           ],
           "commanded_speed_mm_s": [
             10.0
@@ -7083,8 +7538,8 @@
             60.0,
             90.0
           ],
-          "length_mm": 18.62262311864898,
-          "seam_distance_from_rearmost_y_mm": 5.5989999999999895
+          "length_mm": 18.37790922179582,
+          "seam_distance_from_rearmost_y_mm": 5.536000000000001
         }
       ]
     }
