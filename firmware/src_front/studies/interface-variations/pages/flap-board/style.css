@@ -1,0 +1,87 @@
+/* Flap Board — the panel is a mechanical roll-call board.
+   25 columns x 8 rows of 32x60 cells. One glyph per cell; the flap seam runs
+   across every cell's midline and cuts the characters. Five chip colours and
+   no others: orange = what is on, brass = the value under attention,
+   green = what is present, yellow = what wants attention, ivory = the way out. */
+
+html, body { margin: 0; width: 800px; height: 480px; overflow: hidden; }
+
+:root {
+  --board:  #100f0d;   /* the matte behind the flaps */
+  --cell:   #1a1916;   /* a flap's resting face */
+  --slot:   #131210;   /* a cell with nothing posted in it */
+  --key:    #2e2b27;   /* a cell you can press */
+  --gone:   #0b0a09;   /* a flap caught mid-turn */
+  --edge:   #7c7568;   /* the lit edge of a turning flap */
+  --ink:    #efe7d6;
+  --dim:    #8a8376;
+  --orange: #e2521f;
+  --brass:  #c8a44c;
+  --green:  #4c9f5a;
+  --yellow: #e0a92b;
+}
+
+body {
+  background: var(--board);
+  font-family: 'DM Mono', ui-monospace, monospace;
+  font-weight: 500;
+  -webkit-font-smoothing: antialiased;
+}
+
+.board { position: relative; width: 800px; height: 480px; overflow: hidden; }
+
+.b, .face, .t, .mk, .plate, .flap, .flapedge { position: absolute; }
+
+/* ── cell grounds ── */
+.ground     { background: var(--cell); }
+.railground { background: #151412; }
+.slot       { background: var(--slot); }
+.key        { background: var(--key); }
+.pressed    { background: var(--gone); }
+.orange     { background: var(--orange); }
+.brass      { background: var(--brass); }
+.green      { background: var(--green); }
+.yellow     { background: var(--yellow); }
+.white      { background: var(--ink); }
+
+/* ── the face is behind the flaps, never square-cropped ── */
+.face { object-fit: cover; display: block; }
+.face.off { filter: brightness(0.5) saturate(0.45); }
+
+/* ── characters, one per cell ── */
+.t {
+  display: flex; align-items: center; white-space: pre;
+  text-transform: uppercase; box-sizing: border-box;
+}
+.t40 { font-size: 40px; letter-spacing: 8px; }
+.t20 { font-size: 20px; letter-spacing: 20px; }
+.ink      { color: var(--ink); }
+.dim      { color: var(--dim); }
+.dark     { color: var(--board); }
+.orangeink { color: var(--board); }
+
+/* ── drawn marks: orthogonal and 45, square terminals, one family ── */
+.mk { display: flex; align-items: center; justify-content: center; }
+.plate { display: block; }
+
+/* ── the press: the flap turns. The character's top half goes into shadow and
+      the flap's lit edge shows at the seam. Nothing else in the palette does
+      this, so a press is never mistaken for a state. ── */
+.flap {
+  background-image:
+    repeating-linear-gradient(to bottom, var(--edge) 27px, var(--edge) 29px, transparent 29px, transparent 60px),
+    repeating-linear-gradient(to bottom, rgba(6,5,4,0.62) 0, rgba(6,5,4,0.62) 27px, transparent 27px, transparent 60px);
+}
+.flapedge { background: var(--edge); }
+
+/* ── the board itself: 1 px gutters, the flap seam on every midline, and the
+      upper half one step lighter. Drawn over everything, faces included, so a
+      photograph never breaks the board. ── */
+.grid {
+  position: absolute; inset: 0; z-index: 5; pointer-events: none;
+  background-image:
+    repeating-linear-gradient(to right,  rgba(0,0,0,0.82) 0, rgba(0,0,0,0.82) 1px, transparent 1px, transparent 32px),
+    repeating-linear-gradient(to bottom, rgba(0,0,0,0.82) 0, rgba(0,0,0,0.82) 1px, transparent 1px, transparent 60px),
+    repeating-linear-gradient(to bottom, transparent 0, transparent 30px, rgba(239,231,214,0.11) 30px, rgba(239,231,214,0.11) 31px, transparent 31px, transparent 60px),
+    repeating-linear-gradient(to bottom, rgba(255,255,255,0.045) 0, rgba(255,255,255,0.045) 30px, transparent 30px, transparent 60px);
+}
