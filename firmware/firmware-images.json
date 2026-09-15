@@ -2,15 +2,15 @@
   "_": "Written by tools/publish_firmware.py. The images are fetched, not committed \u2014 web/scripts/fetch-firmware.mjs reads this at deploy and /api/firmware serves it.",
   "release": {
     "tag": "firmware",
-    "asset": "fw-f267d5b3d332a156.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/firmware/fw-f267d5b3d332a156.tar.gz"
+    "asset": "fw-0316f77d38725aa0.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/firmware/fw-0316f77d38725aa0.tar.gz"
   },
   "source": {
-    "commit": "b67275e1fee57e785040a8127c8a0bda48ba2f21"
+    "commit": "ec916c6ed1adc64005d82b78603d01aca4fff811"
   },
   "bundle": {
-    "sha256": "f267d5b3d332a156d1949d9ba52332db27c133f76409e0d084a1711e7ce0d20f",
-    "bytes": 2357168,
+    "sha256": "0316f77d38725aa0a3af471ec2872ca744ded5d8a7aec555a882b02108eb6bdb",
+    "bytes": 2357783,
     "images": 4
   },
   "images": {
@@ -19,10 +19,10 @@
       "machine": "appliance",
       "what": "the main board's own firmware",
       "kind": "app",
-      "version": "2026.09.15 b7f139a60+",
-      "bytes": 476592,
-      "crc32": 2435645267,
-      "sha256": "f17e9650e8aab8a58321944ff439daff07b1e574525bb353506cecc3bb91e63a",
+      "version": "2026.09.15 f090c7d12+",
+      "bytes": 476704,
+      "crc32": 3256776360,
+      "sha256": "1df861ac9cd21297d814ed1f47d3f6f4d41e91633751e398c6fdab7d23eebe87",
       "file": "appliance.bin"
     },
     "art": {
@@ -32,10 +32,10 @@
       "kind": "art",
       "version": null,
       "bytes": 4147232,
-      "crc32": 1122681775,
-      "sha256": "7e34bbb2596aea4f74e7df10f01c73c1637005cc26b73a70e48dd69ed5e7b4bd",
+      "crc32": 2210037632,
+      "sha256": "cbcb71b394644d4c1d2170bc84aa10fab665f9fa98d493470af498879db08311",
       "file": "art.bin",
-      "art_crc32": 1607714974
+      "art_crc32": 3273463198
     },
     "enclosure": {
       "env": "esp32s3_front",
