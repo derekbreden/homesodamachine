@@ -1,0 +1,278 @@
+{
+  "slicer": "BambuStudio 02.08.02.61",
+  "virtual_only": true,
+  "measurements": [
+    {
+      "id": 1,
+      "z": 23.96,
+      "bbox_local": [
+        -19.357,
+        -22.716,
+        19.357,
+        19.101
+      ],
+      "length": 1574.58,
+      "axial_length": 78.58,
+      "segments": 106,
+      "layers": 2,
+      "requested_gap": 0.3,
+      "requested_xy": 0.4,
+      "pattern": "auto"
+    },
+    {
+      "id": 2,
+      "z": 23.96,
+      "bbox_local": [
+        -19.101,
+        -22.716,
+        19.101,
+        19.101
+      ],
+      "length": 1586.73,
+      "axial_length": 1586.73,
+      "segments": 75,
+      "layers": 2,
+      "requested_gap": 0.3,
+      "requested_xy": 0.4,
+      "pattern": "rectilinear"
+    },
+    {
+      "id": 3,
+      "z": 23.96,
+      "bbox_local": [
+        -19.357,
+        -22.716,
+        19.357,
+        19.101
+      ],
+      "length": 1574.58,
+      "axial_length": 78.58,
+      "segments": 106,
+      "layers": 2,
+      "requested_gap": 0.3,
+      "requested_xy": 0.4,
+      "pattern": "rectilinear_interlaced"
+    },
+    {
+      "id": 4,
+      "z": 23.96,
+      "bbox_local": [
+        -19.101,
+        -22.716,
+        19.101,
+        19.101
+      ],
+      "length": 1547.22,
+      "axial_length": 51.25,
+      "segments": 108,
+      "layers": 2,
+      "requested_gap": 0.3,
+      "requested_xy": 0.4,
+      "pattern": "grid"
+    },
+    {
+      "id": 5,
+      "z": 23.96,
+      "bbox_local": [
+        -19.357,
+        -22.715999999999994,
+        19.357,
+        19.101
+      ],
+      "length": 1574.58,
+      "axial_length": 78.58,
+      "segments": 106,
+      "layers": 2,
+      "requested_gap": 0.3,
+      "requested_xy": 0.8,
+      "pattern": "auto"
+    },
+    {
+      "id": 6,
+      "z": 23.96,
+      "bbox_local": [
+        -19.101,
+        -22.715999999999994,
+        19.101,
+        19.101
+      ],
+      "length": 1586.73,
+      "axial_length": 1586.73,
+      "segments": 75,
+      "layers": 2,
+      "requested_gap": 0.3,
+      "requested_xy": 0.8,
+      "pattern": "rectilinear"
+    },
+    {
+      "id": 7,
+      "z": 23.96,
+      "bbox_local": [
+        -19.357,
+        -22.715999999999994,
+        19.357,
+        19.101
+      ],
+      "length": 1574.58,
+      "axial_length": 78.58,
+      "segments": 106,
+      "layers": 2,
+      "requested_gap": 0.3,
+      "requested_xy": 0.8,
+      "pattern": "rectilinear_interlaced"
+    },
+    {
+      "id": 8,
+      "z": 23.96,
+      "bbox_local": [
+        -19.101,
+        -22.715999999999994,
+        19.101,
+        19.101
+      ],
+      "length": 1547.22,
+      "axial_length": 51.25,
+      "segments": 108,
+      "layers": 2,
+      "requested_gap": 0.3,
+      "requested_xy": 0.8,
+      "pattern": "grid"
+    },
+    {
+      "id": 9,
+      "z": 23.72,
+      "bbox_local": [
+        -19.357,
+        -22.716000000000008,
+        19.357,
+        19.101
+      ],
+      "length": 1574.58,
+      "axial_length": 78.58,
+      "segments": 106,
+      "layers": 2,
+      "requested_gap": 0.45,
+      "requested_xy": 0.4,
+      "pattern": "auto"
+    },
+    {
+      "id": 10,
+      "z": 23.72,
+      "bbox_local": [
+        -19.101,
+        -22.716000000000008,
+        19.101,
+        19.101
+      ],
+      "length": 1586.74,
+      "axial_length": 1586.74,
+      "segments": 75,
+      "layers": 2,
+      "requested_gap": 0.45,
+      "requested_xy": 0.4,
+      "pattern": "rectilinear"
+    },
+    {
+      "id": 11,
+      "z": 23.72,
+      "bbox_local": [
+        -19.357,
+        -22.716000000000008,
+        19.357,
+        19.101
+      ],
+      "length": 1574.58,
+      "axial_length": 78.58,
+      "segments": 106,
+      "layers": 2,
+      "requested_gap": 0.45,
+      "requested_xy": 0.4,
+      "pattern": "rectilinear_interlaced"
+    },
+    {
+      "id": 12,
+      "z": 23.72,
+      "bbox_local": [
+        -19.101,
+        -22.716000000000008,
+        19.101,
+        19.101
+      ],
+      "length": 1547.22,
+      "axial_length": 51.25,
+      "segments": 108,
+      "layers": 2,
+      "requested_gap": 0.45,
+      "requested_xy": 0.4,
+      "pattern": "grid"
+    },
+    {
+      "id": 13,
+      "z": 23.72,
+      "bbox_local": [
+        -19.357,
+        -22.716000000000008,
+        19.357,
+        19.101
+      ],
+      "length": 1574.58,
+      "axial_length": 78.58,
+      "segments": 106,
+      "layers": 2,
+      "requested_gap": 0.45,
+      "requested_xy": 0.8,
+      "pattern": "auto"
+    },
+    {
+      "id": 14,
+      "z": 23.72,
+      "bbox_local": [
+        -19.101,
+        -22.716000000000008,
+        19.101,
+        19.101
+      ],
+      "length": 1586.74,
+      "axial_length": 1586.74,
+      "segments": 75,
+      "layers": 2,
+      "requested_gap": 0.45,
+      "requested_xy": 0.8,
+      "pattern": "rectilinear"
+    },
+    {
+      "id": 15,
+      "z": 23.72,
+      "bbox_local": [
+        -19.357,
+        -22.716000000000008,
+        19.357,
+        19.101
+      ],
+      "length": 1574.58,
+      "axial_length": 78.58,
+      "segments": 106,
+      "layers": 2,
+      "requested_gap": 0.45,
+      "requested_xy": 0.8,
+      "pattern": "rectilinear_interlaced"
+    },
+    {
+      "id": 16,
+      "z": 23.72,
+      "bbox_local": [
+        -19.101,
+        -22.716000000000008,
+        19.101,
+        19.101
+      ],
+      "length": 1547.22,
+      "axial_length": 51.25,
+      "segments": 108,
+      "layers": 2,
+      "requested_gap": 0.45,
+      "requested_xy": 0.8,
+      "pattern": "grid"
+    }
+  ]
+}

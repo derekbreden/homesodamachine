@@ -2,7 +2,7 @@
   "date": "2026-09-14",
   "printer": "Mark2",
   "job_name": "petgf-support-interface-mark2.gcode.3mf",
-  "status": "started",
+  "status": "cancelled_by_user_before_extrusion",
   "sent_via": "Bambu Connect",
   "started_by": "agent",
   "profile": "hardware/printed-parts/petgf.3mf",
@@ -31,5 +31,6 @@
   "observed_layer": 0,
   "observed_print_error": 0,
   "printer_eta_local": "2026-09-15 12:36 America/Chicago",
-  "physical_results": "awaiting inspection"
+  "physical_results": "none; bed remained clean",
+  "cancelled_reason": "Replaced by an experiment targeting the reported interface-edge adhesion."
 }

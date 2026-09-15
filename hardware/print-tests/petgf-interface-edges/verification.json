@@ -1,0 +1,4038 @@
+{
+  "slicer": "BambuStudio 02.08.02.61",
+  "sliced_file": ".cache/prints/2026-09-15-interface-edges-mark2/petgf-interface-edges-mark2.gcode.3mf",
+  "sliced_file_sha256": "9cd2485d712fcf242501491e10fad7b11fc1746d27786de44a3cf4e93ae0705c",
+  "gcode_sha256": "ab62954c37b99799497def1a3f6e0775a595b800b9d950c233cefc7837d0c326",
+  "source_profile_sha256": "612d1f5c9414acdfc4eec8bb40936817f2a4acb29f2223d96eaa47df3ae3ef44",
+  "input_project_sha256": "9ab96ae2461ac813f8da0a1801fbcd9189660f804d79fc4d7f2bd4b3f01153dd",
+  "settings_overrides": {
+    "extruder_ams_count": [
+      [
+        "1#0|4#1",
+        "1#0|4#0"
+      ],
+      [
+        "1#0|4#0",
+        "1#0|4#0"
+      ]
+    ]
+  },
+  "settings_normalizations": {
+    "filament_prime_volume": [
+      [
+        "30"
+      ],
+      [
+        "45"
+      ]
+    ],
+    "filament_map_2": [
+      null,
+      [
+        "1"
+      ]
+    ]
+  },
+  "nozzles": [
+    {
+      "id": "0",
+      "extruder_id": "1",
+      "nozzle_diameter": "0.4",
+      "volume_type": "Standard"
+    }
+  ],
+  "active_z_trim_commands": [
+    "G29.1 Z0 ; clear z-trim value first",
+    "G29.1 Z0.02 ; for Textured PEI Plate"
+  ],
+  "estimated_seconds_upper_bound": 46297.09765625,
+  "filament_grams_upper_bound": 336.94354248046875,
+  "layers": 120,
+  "specimen_count": 16,
+  "slicer_warnings": "",
+  "all_central_interface_model_and_tree_paths_match_native": true,
+  "support_path_audit": [
+    {
+      "id": "01",
+      "x_min": 40.0,
+      "x_max": 74.0,
+      "y_min": 35.0,
+      "y_max": 69.0,
+      "ceiling_z": 24.2,
+      "model_layer_height": 0.24,
+      "expected_top_gap": 0.45,
+      "expected_interface_layers": 2,
+      "final_interface_z": 23.72,
+      "first_ceiling_tool_z": 24.44,
+      "observed_interface_layers": 2,
+      "planned_deposition_gap_mm": 0.48,
+      "cad_ceiling_gap_mm": 0.48,
+      "ceiling_tool_z_minus_interface_z": 0.72,
+      "gap_matches_requested_within_0_015mm": false,
+      "gap_quantization_mm": 0.03,
+      "positive_planned_deposition_gap": true,
+      "interface_layer_count_matches": true,
+      "interface_paths_by_z": [
+        {
+          "z": 23.48,
+          "length_mm": 1082.426,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support interface"
+          ]
+        },
+        {
+          "z": 23.72,
+          "length_mm": 1082.427,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support interface"
+          ]
+        }
+      ],
+      "base_paths_by_z": [
+        {
+          "z": 20.84,
+          "length_mm": 475.052,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.08,
+          "length_mm": 491.209,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.32,
+          "length_mm": 508.167,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.56,
+          "length_mm": 527.892,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.8,
+          "length_mm": 542.937,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.04,
+          "length_mm": 554.23,
+          "layer_height_comments": [
+            0.240002
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.28,
+          "length_mm": 563.851,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.52,
+          "length_mm": 586.202,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.76,
+          "length_mm": 548.338,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 23.0,
+          "length_mm": 553.657,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 23.24,
+          "length_mm": 559.078,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        }
+      ],
+      "ceiling_paths_by_z": [
+        {
+          "z": 24.44,
+          "length_mm": 3128.0,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Bridge"
+          ]
+        },
+        {
+          "z": 24.68,
+          "length_mm": 3132.833,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Internal solid infill"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "02",
+      "x_min": 112.0,
+      "x_max": 146.0,
+      "y_min": 35.0,
+      "y_max": 69.0,
+      "ceiling_z": 24.2,
+      "model_layer_height": 0.24,
+      "expected_top_gap": 0.45,
+      "expected_interface_layers": 2,
+      "final_interface_z": 23.72,
+      "first_ceiling_tool_z": 24.44,
+      "observed_interface_layers": 2,
+      "planned_deposition_gap_mm": 0.48,
+      "cad_ceiling_gap_mm": 0.48,
+      "ceiling_tool_z_minus_interface_z": 0.72,
+      "gap_matches_requested_within_0_015mm": false,
+      "gap_quantization_mm": 0.03,
+      "positive_planned_deposition_gap": true,
+      "interface_layer_count_matches": true,
+      "interface_paths_by_z": [
+        {
+          "z": 23.48,
+          "length_mm": 1082.426,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support interface"
+          ]
+        },
+        {
+          "z": 23.72,
+          "length_mm": 1082.427,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support interface"
+          ]
+        }
+      ],
+      "base_paths_by_z": [
+        {
+          "z": 20.84,
+          "length_mm": 475.053,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.08,
+          "length_mm": 491.209,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.32,
+          "length_mm": 508.168,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.56,
+          "length_mm": 527.893,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.8,
+          "length_mm": 542.937,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.04,
+          "length_mm": 554.229,
+          "layer_height_comments": [
+            0.240002
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.28,
+          "length_mm": 563.851,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.52,
+          "length_mm": 586.203,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.76,
+          "length_mm": 548.337,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 23.0,
+          "length_mm": 553.655,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 23.24,
+          "length_mm": 559.078,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        }
+      ],
+      "ceiling_paths_by_z": [
+        {
+          "z": 24.44,
+          "length_mm": 3128.0,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Bridge"
+          ]
+        },
+        {
+          "z": 24.68,
+          "length_mm": 3132.833,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Internal solid infill"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "03",
+      "x_min": 184.0,
+      "x_max": 218.0,
+      "y_min": 35.0,
+      "y_max": 69.0,
+      "ceiling_z": 24.2,
+      "model_layer_height": 0.24,
+      "expected_top_gap": 0.3,
+      "expected_interface_layers": 2,
+      "final_interface_z": 23.96,
+      "first_ceiling_tool_z": 24.44,
+      "observed_interface_layers": 2,
+      "planned_deposition_gap_mm": 0.24,
+      "cad_ceiling_gap_mm": 0.24,
+      "ceiling_tool_z_minus_interface_z": 0.48,
+      "gap_matches_requested_within_0_015mm": false,
+      "gap_quantization_mm": -0.06,
+      "positive_planned_deposition_gap": true,
+      "interface_layer_count_matches": true,
+      "interface_paths_by_z": [
+        {
+          "z": 23.72,
+          "length_mm": 1082.427,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support interface"
+          ]
+        },
+        {
+          "z": 23.96,
+          "length_mm": 1082.427,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support interface"
+          ]
+        }
+      ],
+      "base_paths_by_z": [
+        {
+          "z": 20.84,
+          "length_mm": 459.213,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.08,
+          "length_mm": 475.053,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.32,
+          "length_mm": 491.21,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.56,
+          "length_mm": 508.166,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.8,
+          "length_mm": 527.896,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.04,
+          "length_mm": 542.935,
+          "layer_height_comments": [
+            0.240002
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.28,
+          "length_mm": 554.228,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.52,
+          "length_mm": 563.847,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.76,
+          "length_mm": 586.199,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 23.0,
+          "length_mm": 548.34,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 23.24,
+          "length_mm": 553.659,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 23.48,
+          "length_mm": 559.076,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        }
+      ],
+      "ceiling_paths_by_z": [
+        {
+          "z": 24.44,
+          "length_mm": 3128.0,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Bridge"
+          ]
+        },
+        {
+          "z": 24.68,
+          "length_mm": 3132.833,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Internal solid infill"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "04",
+      "x_min": 256.0,
+      "x_max": 290.0,
+      "y_min": 35.0,
+      "y_max": 69.0,
+      "ceiling_z": 24.2,
+      "model_layer_height": 0.24,
+      "expected_top_gap": 0.3,
+      "expected_interface_layers": 2,
+      "final_interface_z": 23.96,
+      "first_ceiling_tool_z": 24.44,
+      "observed_interface_layers": 2,
+      "planned_deposition_gap_mm": 0.24,
+      "cad_ceiling_gap_mm": 0.24,
+      "ceiling_tool_z_minus_interface_z": 0.48,
+      "gap_matches_requested_within_0_015mm": false,
+      "gap_quantization_mm": -0.06,
+      "positive_planned_deposition_gap": true,
+      "interface_layer_count_matches": true,
+      "interface_paths_by_z": [
+        {
+          "z": 23.72,
+          "length_mm": 1082.426,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support interface"
+          ]
+        },
+        {
+          "z": 23.96,
+          "length_mm": 1082.427,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support interface"
+          ]
+        }
+      ],
+      "base_paths_by_z": [
+        {
+          "z": 20.84,
+          "length_mm": 459.213,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.08,
+          "length_mm": 475.052,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.32,
+          "length_mm": 491.21,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.56,
+          "length_mm": 508.167,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.8,
+          "length_mm": 527.894,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.04,
+          "length_mm": 542.937,
+          "layer_height_comments": [
+            0.240002
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.28,
+          "length_mm": 554.229,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.52,
+          "length_mm": 563.85,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.76,
+          "length_mm": 586.202,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 23.0,
+          "length_mm": 548.338,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 23.24,
+          "length_mm": 553.659,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 23.48,
+          "length_mm": 559.078,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        }
+      ],
+      "ceiling_paths_by_z": [
+        {
+          "z": 24.44,
+          "length_mm": 3128.0,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Bridge"
+          ]
+        },
+        {
+          "z": 24.68,
+          "length_mm": 3132.833,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Internal solid infill"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "05",
+      "x_min": 40.0,
+      "x_max": 74.0,
+      "y_min": 107.0,
+      "y_max": 141.0,
+      "ceiling_z": 24.2,
+      "model_layer_height": 0.24,
+      "expected_top_gap": 0.3,
+      "expected_interface_layers": 2,
+      "final_interface_z": 23.96,
+      "first_ceiling_tool_z": 24.44,
+      "observed_interface_layers": 2,
+      "planned_deposition_gap_mm": 0.24,
+      "cad_ceiling_gap_mm": 0.24,
+      "ceiling_tool_z_minus_interface_z": 0.48,
+      "gap_matches_requested_within_0_015mm": false,
+      "gap_quantization_mm": -0.06,
+      "positive_planned_deposition_gap": true,
+      "interface_layer_count_matches": true,
+      "interface_paths_by_z": [
+        {
+          "z": 23.72,
+          "length_mm": 1082.426,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support interface"
+          ]
+        },
+        {
+          "z": 23.96,
+          "length_mm": 1082.427,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support interface"
+          ]
+        }
+      ],
+      "base_paths_by_z": [
+        {
+          "z": 20.84,
+          "length_mm": 459.214,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.08,
+          "length_mm": 475.052,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.32,
+          "length_mm": 491.211,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.56,
+          "length_mm": 508.167,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.8,
+          "length_mm": 527.895,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.04,
+          "length_mm": 542.933,
+          "layer_height_comments": [
+            0.240002
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.28,
+          "length_mm": 554.228,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.52,
+          "length_mm": 563.848,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.76,
+          "length_mm": 586.203,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 23.0,
+          "length_mm": 548.338,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 23.24,
+          "length_mm": 553.661,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 23.48,
+          "length_mm": 559.077,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        }
+      ],
+      "ceiling_paths_by_z": [
+        {
+          "z": 24.44,
+          "length_mm": 3128.0,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Bridge"
+          ]
+        },
+        {
+          "z": 24.68,
+          "length_mm": 3132.833,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Internal solid infill"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "06",
+      "x_min": 112.0,
+      "x_max": 146.0,
+      "y_min": 107.0,
+      "y_max": 141.0,
+      "ceiling_z": 24.2,
+      "model_layer_height": 0.24,
+      "expected_top_gap": 0.3,
+      "expected_interface_layers": 2,
+      "final_interface_z": 23.96,
+      "first_ceiling_tool_z": 24.44,
+      "observed_interface_layers": 2,
+      "planned_deposition_gap_mm": 0.24,
+      "cad_ceiling_gap_mm": 0.24,
+      "ceiling_tool_z_minus_interface_z": 0.48,
+      "gap_matches_requested_within_0_015mm": false,
+      "gap_quantization_mm": -0.06,
+      "positive_planned_deposition_gap": true,
+      "interface_layer_count_matches": true,
+      "interface_paths_by_z": [
+        {
+          "z": 23.72,
+          "length_mm": 1082.426,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support interface"
+          ]
+        },
+        {
+          "z": 23.96,
+          "length_mm": 1082.427,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support interface"
+          ]
+        }
+      ],
+      "base_paths_by_z": [
+        {
+          "z": 20.84,
+          "length_mm": 459.214,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.08,
+          "length_mm": 475.052,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.32,
+          "length_mm": 491.211,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.56,
+          "length_mm": 508.168,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.8,
+          "length_mm": 527.896,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.04,
+          "length_mm": 542.933,
+          "layer_height_comments": [
+            0.240002
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.28,
+          "length_mm": 554.227,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.52,
+          "length_mm": 563.848,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.76,
+          "length_mm": 586.204,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 23.0,
+          "length_mm": 548.338,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 23.24,
+          "length_mm": 553.659,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 23.48,
+          "length_mm": 559.077,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        }
+      ],
+      "ceiling_paths_by_z": [
+        {
+          "z": 24.44,
+          "length_mm": 3128.0,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Bridge"
+          ]
+        },
+        {
+          "z": 24.68,
+          "length_mm": 3132.832,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Internal solid infill"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "07",
+      "x_min": 184.0,
+      "x_max": 218.0,
+      "y_min": 107.0,
+      "y_max": 141.0,
+      "ceiling_z": 24.2,
+      "model_layer_height": 0.24,
+      "expected_top_gap": 0.45,
+      "expected_interface_layers": 2,
+      "final_interface_z": 23.72,
+      "first_ceiling_tool_z": 24.44,
+      "observed_interface_layers": 2,
+      "planned_deposition_gap_mm": 0.48,
+      "cad_ceiling_gap_mm": 0.48,
+      "ceiling_tool_z_minus_interface_z": 0.72,
+      "gap_matches_requested_within_0_015mm": false,
+      "gap_quantization_mm": 0.03,
+      "positive_planned_deposition_gap": true,
+      "interface_layer_count_matches": true,
+      "interface_paths_by_z": [
+        {
+          "z": 23.48,
+          "length_mm": 1082.426,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support interface"
+          ]
+        },
+        {
+          "z": 23.72,
+          "length_mm": 1082.427,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support interface"
+          ]
+        }
+      ],
+      "base_paths_by_z": [
+        {
+          "z": 20.84,
+          "length_mm": 475.053,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.08,
+          "length_mm": 491.21,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.32,
+          "length_mm": 508.166,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.56,
+          "length_mm": 527.896,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.8,
+          "length_mm": 542.93,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.04,
+          "length_mm": 554.227,
+          "layer_height_comments": [
+            0.240002
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.28,
+          "length_mm": 563.848,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.52,
+          "length_mm": 586.2,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.76,
+          "length_mm": 548.34,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 23.0,
+          "length_mm": 553.66,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 23.24,
+          "length_mm": 559.075,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        }
+      ],
+      "ceiling_paths_by_z": [
+        {
+          "z": 24.44,
+          "length_mm": 3128.0,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Bridge"
+          ]
+        },
+        {
+          "z": 24.68,
+          "length_mm": 3132.832,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Internal solid infill"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "08",
+      "x_min": 256.0,
+      "x_max": 290.0,
+      "y_min": 107.0,
+      "y_max": 141.0,
+      "ceiling_z": 24.2,
+      "model_layer_height": 0.24,
+      "expected_top_gap": 0.45,
+      "expected_interface_layers": 2,
+      "final_interface_z": 23.72,
+      "first_ceiling_tool_z": 24.44,
+      "observed_interface_layers": 2,
+      "planned_deposition_gap_mm": 0.48,
+      "cad_ceiling_gap_mm": 0.48,
+      "ceiling_tool_z_minus_interface_z": 0.72,
+      "gap_matches_requested_within_0_015mm": false,
+      "gap_quantization_mm": 0.03,
+      "positive_planned_deposition_gap": true,
+      "interface_layer_count_matches": true,
+      "interface_paths_by_z": [
+        {
+          "z": 23.48,
+          "length_mm": 1082.426,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support interface"
+          ]
+        },
+        {
+          "z": 23.72,
+          "length_mm": 1082.427,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support interface"
+          ]
+        }
+      ],
+      "base_paths_by_z": [
+        {
+          "z": 20.84,
+          "length_mm": 475.052,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.08,
+          "length_mm": 491.211,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.32,
+          "length_mm": 508.167,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.56,
+          "length_mm": 527.894,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.8,
+          "length_mm": 542.933,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.04,
+          "length_mm": 554.228,
+          "layer_height_comments": [
+            0.240002
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.28,
+          "length_mm": 563.85,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.52,
+          "length_mm": 586.203,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.76,
+          "length_mm": 548.338,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 23.0,
+          "length_mm": 553.658,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 23.24,
+          "length_mm": 559.077,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        }
+      ],
+      "ceiling_paths_by_z": [
+        {
+          "z": 24.44,
+          "length_mm": 3128.0,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Bridge"
+          ]
+        },
+        {
+          "z": 24.68,
+          "length_mm": 3132.833,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Internal solid infill"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "09",
+      "x_min": 40.0,
+      "x_max": 74.0,
+      "y_min": 179.0,
+      "y_max": 213.0,
+      "ceiling_z": 24.2,
+      "model_layer_height": 0.24,
+      "expected_top_gap": 0.45,
+      "expected_interface_layers": 2,
+      "final_interface_z": 23.72,
+      "first_ceiling_tool_z": 24.44,
+      "observed_interface_layers": 2,
+      "planned_deposition_gap_mm": 0.48,
+      "cad_ceiling_gap_mm": 0.48,
+      "ceiling_tool_z_minus_interface_z": 0.72,
+      "gap_matches_requested_within_0_015mm": false,
+      "gap_quantization_mm": 0.03,
+      "positive_planned_deposition_gap": true,
+      "interface_layer_count_matches": true,
+      "interface_paths_by_z": [
+        {
+          "z": 23.48,
+          "length_mm": 1082.426,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support interface"
+          ]
+        },
+        {
+          "z": 23.72,
+          "length_mm": 1082.427,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support interface"
+          ]
+        }
+      ],
+      "base_paths_by_z": [
+        {
+          "z": 20.84,
+          "length_mm": 475.052,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.08,
+          "length_mm": 491.209,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.32,
+          "length_mm": 508.167,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.56,
+          "length_mm": 527.892,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.8,
+          "length_mm": 542.937,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.04,
+          "length_mm": 554.23,
+          "layer_height_comments": [
+            0.240002
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.28,
+          "length_mm": 563.851,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.52,
+          "length_mm": 586.202,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.76,
+          "length_mm": 548.338,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 23.0,
+          "length_mm": 553.657,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 23.24,
+          "length_mm": 559.078,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        }
+      ],
+      "ceiling_paths_by_z": [
+        {
+          "z": 24.44,
+          "length_mm": 3128.0,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Bridge"
+          ]
+        },
+        {
+          "z": 24.68,
+          "length_mm": 3132.833,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Internal solid infill"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "10",
+      "x_min": 112.0,
+      "x_max": 146.0,
+      "y_min": 179.0,
+      "y_max": 213.0,
+      "ceiling_z": 24.2,
+      "model_layer_height": 0.24,
+      "expected_top_gap": 0.45,
+      "expected_interface_layers": 2,
+      "final_interface_z": 23.72,
+      "first_ceiling_tool_z": 24.44,
+      "observed_interface_layers": 2,
+      "planned_deposition_gap_mm": 0.48,
+      "cad_ceiling_gap_mm": 0.48,
+      "ceiling_tool_z_minus_interface_z": 0.72,
+      "gap_matches_requested_within_0_015mm": false,
+      "gap_quantization_mm": 0.03,
+      "positive_planned_deposition_gap": true,
+      "interface_layer_count_matches": true,
+      "interface_paths_by_z": [
+        {
+          "z": 23.48,
+          "length_mm": 1082.426,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support interface"
+          ]
+        },
+        {
+          "z": 23.72,
+          "length_mm": 1082.427,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support interface"
+          ]
+        }
+      ],
+      "base_paths_by_z": [
+        {
+          "z": 20.84,
+          "length_mm": 475.053,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.08,
+          "length_mm": 491.209,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.32,
+          "length_mm": 508.168,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.56,
+          "length_mm": 527.893,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.8,
+          "length_mm": 542.937,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.04,
+          "length_mm": 554.229,
+          "layer_height_comments": [
+            0.240002
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.28,
+          "length_mm": 563.851,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.52,
+          "length_mm": 586.203,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.76,
+          "length_mm": 548.337,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 23.0,
+          "length_mm": 553.655,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 23.24,
+          "length_mm": 559.078,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        }
+      ],
+      "ceiling_paths_by_z": [
+        {
+          "z": 24.44,
+          "length_mm": 3128.0,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Bridge"
+          ]
+        },
+        {
+          "z": 24.68,
+          "length_mm": 3132.833,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Internal solid infill"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "11",
+      "x_min": 184.0,
+      "x_max": 218.0,
+      "y_min": 179.0,
+      "y_max": 213.0,
+      "ceiling_z": 24.2,
+      "model_layer_height": 0.24,
+      "expected_top_gap": 0.3,
+      "expected_interface_layers": 2,
+      "final_interface_z": 23.96,
+      "first_ceiling_tool_z": 24.44,
+      "observed_interface_layers": 2,
+      "planned_deposition_gap_mm": 0.24,
+      "cad_ceiling_gap_mm": 0.24,
+      "ceiling_tool_z_minus_interface_z": 0.48,
+      "gap_matches_requested_within_0_015mm": false,
+      "gap_quantization_mm": -0.06,
+      "positive_planned_deposition_gap": true,
+      "interface_layer_count_matches": true,
+      "interface_paths_by_z": [
+        {
+          "z": 23.72,
+          "length_mm": 1082.427,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support interface"
+          ]
+        },
+        {
+          "z": 23.96,
+          "length_mm": 1082.427,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support interface"
+          ]
+        }
+      ],
+      "base_paths_by_z": [
+        {
+          "z": 20.84,
+          "length_mm": 459.213,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.08,
+          "length_mm": 475.053,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.32,
+          "length_mm": 491.21,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.56,
+          "length_mm": 508.166,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.8,
+          "length_mm": 527.896,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.04,
+          "length_mm": 542.935,
+          "layer_height_comments": [
+            0.240002
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.28,
+          "length_mm": 554.228,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.52,
+          "length_mm": 563.847,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.76,
+          "length_mm": 586.199,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 23.0,
+          "length_mm": 548.34,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 23.24,
+          "length_mm": 553.659,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 23.48,
+          "length_mm": 559.076,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        }
+      ],
+      "ceiling_paths_by_z": [
+        {
+          "z": 24.44,
+          "length_mm": 3128.0,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Bridge"
+          ]
+        },
+        {
+          "z": 24.68,
+          "length_mm": 3132.833,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Internal solid infill"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "12",
+      "x_min": 256.0,
+      "x_max": 290.0,
+      "y_min": 179.0,
+      "y_max": 213.0,
+      "ceiling_z": 24.2,
+      "model_layer_height": 0.24,
+      "expected_top_gap": 0.45,
+      "expected_interface_layers": 2,
+      "final_interface_z": 23.72,
+      "first_ceiling_tool_z": 24.44,
+      "observed_interface_layers": 2,
+      "planned_deposition_gap_mm": 0.48,
+      "cad_ceiling_gap_mm": 0.48,
+      "ceiling_tool_z_minus_interface_z": 0.72,
+      "gap_matches_requested_within_0_015mm": false,
+      "gap_quantization_mm": 0.03,
+      "positive_planned_deposition_gap": true,
+      "interface_layer_count_matches": true,
+      "interface_paths_by_z": [
+        {
+          "z": 23.48,
+          "length_mm": 1082.426,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support interface"
+          ]
+        },
+        {
+          "z": 23.72,
+          "length_mm": 1082.427,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support interface"
+          ]
+        }
+      ],
+      "base_paths_by_z": [
+        {
+          "z": 20.84,
+          "length_mm": 475.052,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.08,
+          "length_mm": 491.209,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.32,
+          "length_mm": 508.167,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.56,
+          "length_mm": 527.892,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.8,
+          "length_mm": 542.937,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.04,
+          "length_mm": 554.23,
+          "layer_height_comments": [
+            0.240002
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.28,
+          "length_mm": 563.851,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.52,
+          "length_mm": 586.202,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.76,
+          "length_mm": 548.338,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 23.0,
+          "length_mm": 553.657,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 23.24,
+          "length_mm": 559.078,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        }
+      ],
+      "ceiling_paths_by_z": [
+        {
+          "z": 24.44,
+          "length_mm": 3128.0,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Bridge"
+          ]
+        },
+        {
+          "z": 24.68,
+          "length_mm": 3132.833,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Internal solid infill"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "13",
+      "x_min": 40.0,
+      "x_max": 74.0,
+      "y_min": 251.0,
+      "y_max": 285.0,
+      "ceiling_z": 24.2,
+      "model_layer_height": 0.24,
+      "expected_top_gap": 0.3,
+      "expected_interface_layers": 2,
+      "final_interface_z": 23.96,
+      "first_ceiling_tool_z": 24.44,
+      "observed_interface_layers": 2,
+      "planned_deposition_gap_mm": 0.24,
+      "cad_ceiling_gap_mm": 0.24,
+      "ceiling_tool_z_minus_interface_z": 0.48,
+      "gap_matches_requested_within_0_015mm": false,
+      "gap_quantization_mm": -0.06,
+      "positive_planned_deposition_gap": true,
+      "interface_layer_count_matches": true,
+      "interface_paths_by_z": [
+        {
+          "z": 23.72,
+          "length_mm": 1082.426,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support interface"
+          ]
+        },
+        {
+          "z": 23.96,
+          "length_mm": 1082.427,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support interface"
+          ]
+        }
+      ],
+      "base_paths_by_z": [
+        {
+          "z": 20.84,
+          "length_mm": 459.214,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.08,
+          "length_mm": 475.052,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.32,
+          "length_mm": 491.211,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.56,
+          "length_mm": 508.167,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.8,
+          "length_mm": 527.895,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.04,
+          "length_mm": 542.933,
+          "layer_height_comments": [
+            0.240002
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.28,
+          "length_mm": 554.228,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.52,
+          "length_mm": 563.848,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.76,
+          "length_mm": 586.203,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 23.0,
+          "length_mm": 548.338,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 23.24,
+          "length_mm": 553.661,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 23.48,
+          "length_mm": 559.077,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        }
+      ],
+      "ceiling_paths_by_z": [
+        {
+          "z": 24.44,
+          "length_mm": 3128.0,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Bridge"
+          ]
+        },
+        {
+          "z": 24.68,
+          "length_mm": 3132.833,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Internal solid infill"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "14",
+      "x_min": 112.0,
+      "x_max": 146.0,
+      "y_min": 251.0,
+      "y_max": 285.0,
+      "ceiling_z": 24.2,
+      "model_layer_height": 0.24,
+      "expected_top_gap": 0.3,
+      "expected_interface_layers": 2,
+      "final_interface_z": 23.96,
+      "first_ceiling_tool_z": 24.44,
+      "observed_interface_layers": 2,
+      "planned_deposition_gap_mm": 0.24,
+      "cad_ceiling_gap_mm": 0.24,
+      "ceiling_tool_z_minus_interface_z": 0.48,
+      "gap_matches_requested_within_0_015mm": false,
+      "gap_quantization_mm": -0.06,
+      "positive_planned_deposition_gap": true,
+      "interface_layer_count_matches": true,
+      "interface_paths_by_z": [
+        {
+          "z": 23.72,
+          "length_mm": 1082.426,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support interface"
+          ]
+        },
+        {
+          "z": 23.96,
+          "length_mm": 1082.427,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support interface"
+          ]
+        }
+      ],
+      "base_paths_by_z": [
+        {
+          "z": 20.84,
+          "length_mm": 459.214,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.08,
+          "length_mm": 475.052,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.32,
+          "length_mm": 491.211,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.56,
+          "length_mm": 508.168,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.8,
+          "length_mm": 527.896,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.04,
+          "length_mm": 542.933,
+          "layer_height_comments": [
+            0.240002
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.28,
+          "length_mm": 554.227,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.52,
+          "length_mm": 563.848,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.76,
+          "length_mm": 586.204,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 23.0,
+          "length_mm": 548.338,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 23.24,
+          "length_mm": 553.659,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 23.48,
+          "length_mm": 559.077,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        }
+      ],
+      "ceiling_paths_by_z": [
+        {
+          "z": 24.44,
+          "length_mm": 3128.0,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Bridge"
+          ]
+        },
+        {
+          "z": 24.68,
+          "length_mm": 3132.832,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Internal solid infill"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "15",
+      "x_min": 184.0,
+      "x_max": 218.0,
+      "y_min": 251.0,
+      "y_max": 285.0,
+      "ceiling_z": 24.2,
+      "model_layer_height": 0.24,
+      "expected_top_gap": 0.3,
+      "expected_interface_layers": 2,
+      "final_interface_z": 23.96,
+      "first_ceiling_tool_z": 24.44,
+      "observed_interface_layers": 2,
+      "planned_deposition_gap_mm": 0.24,
+      "cad_ceiling_gap_mm": 0.24,
+      "ceiling_tool_z_minus_interface_z": 0.48,
+      "gap_matches_requested_within_0_015mm": false,
+      "gap_quantization_mm": -0.06,
+      "positive_planned_deposition_gap": true,
+      "interface_layer_count_matches": true,
+      "interface_paths_by_z": [
+        {
+          "z": 23.72,
+          "length_mm": 1082.426,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support interface"
+          ]
+        },
+        {
+          "z": 23.96,
+          "length_mm": 1082.427,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support interface"
+          ]
+        }
+      ],
+      "base_paths_by_z": [
+        {
+          "z": 20.84,
+          "length_mm": 459.214,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.08,
+          "length_mm": 475.053,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.32,
+          "length_mm": 491.211,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.56,
+          "length_mm": 508.166,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.8,
+          "length_mm": 527.897,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.04,
+          "length_mm": 542.931,
+          "layer_height_comments": [
+            0.240002
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.28,
+          "length_mm": 554.227,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.52,
+          "length_mm": 563.846,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.76,
+          "length_mm": 586.2,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 23.0,
+          "length_mm": 548.34,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 23.24,
+          "length_mm": 553.66,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 23.48,
+          "length_mm": 559.075,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        }
+      ],
+      "ceiling_paths_by_z": [
+        {
+          "z": 24.44,
+          "length_mm": 3128.0,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Bridge"
+          ]
+        },
+        {
+          "z": 24.68,
+          "length_mm": 3132.832,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Internal solid infill"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "16",
+      "x_min": 256.0,
+      "x_max": 290.0,
+      "y_min": 251.0,
+      "y_max": 285.0,
+      "ceiling_z": 24.2,
+      "model_layer_height": 0.24,
+      "expected_top_gap": 0.45,
+      "expected_interface_layers": 2,
+      "final_interface_z": 23.72,
+      "first_ceiling_tool_z": 24.44,
+      "observed_interface_layers": 2,
+      "planned_deposition_gap_mm": 0.48,
+      "cad_ceiling_gap_mm": 0.48,
+      "ceiling_tool_z_minus_interface_z": 0.72,
+      "gap_matches_requested_within_0_015mm": false,
+      "gap_quantization_mm": 0.03,
+      "positive_planned_deposition_gap": true,
+      "interface_layer_count_matches": true,
+      "interface_paths_by_z": [
+        {
+          "z": 23.48,
+          "length_mm": 1082.426,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support interface"
+          ]
+        },
+        {
+          "z": 23.72,
+          "length_mm": 1082.427,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support interface"
+          ]
+        }
+      ],
+      "base_paths_by_z": [
+        {
+          "z": 20.84,
+          "length_mm": 475.052,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.08,
+          "length_mm": 491.211,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.32,
+          "length_mm": 508.167,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.56,
+          "length_mm": 527.894,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 21.8,
+          "length_mm": 542.933,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.04,
+          "length_mm": 554.228,
+          "layer_height_comments": [
+            0.240002
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.28,
+          "length_mm": 563.85,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.52,
+          "length_mm": 586.203,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 22.76,
+          "length_mm": 548.338,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 23.0,
+          "length_mm": 553.658,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        },
+        {
+          "z": 23.24,
+          "length_mm": 559.077,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Support"
+          ]
+        }
+      ],
+      "ceiling_paths_by_z": [
+        {
+          "z": 24.44,
+          "length_mm": 3128.0,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Bridge"
+          ]
+        },
+        {
+          "z": 24.68,
+          "length_mm": 3132.833,
+          "layer_height_comments": [
+            0.24
+          ],
+          "features": [
+            "Internal solid infill"
+          ]
+        }
+      ]
+    }
+  ],
+  "edge_verification": {
+    "method": "Clip only positive support-interface extrusion to its native XY envelope, inset at the selected edges; retain every other command and tree path.",
+    "source_bundle_sha256": "6585808f0780680b066c699ac26ba2a2773e78fb8ad15bc5445fae385e4d9ff5",
+    "source_gcode_sha256": "a8bb53c399a80c99c608f30507257738740a0d4870a671f193336468a8a41af2",
+    "protected_source_commands_sha256": "d3dbd5baf3d9ed12551ac6215a7553931915ceb340b1de159de8481b69c00ff0",
+    "all_non_interface_source_commands_unchanged": true,
+    "all_original_xyz_routes_and_feed_rates_preserved": true,
+    "modified_source_lines": 1900,
+    "layers": [
+      {
+        "id": "09",
+        "z": 23.48,
+        "before": {
+          "length": 1574.579189550308,
+          "e": 85.34236000000003,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            37.899,
+            173.028,
+            76.101,
+            215.357
+          ]
+        },
+        "after": {
+          "length": 1543.9229213129486,
+          "e": 83.68075880000004,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            37.899,
+            173.628,
+            76.101,
+            215.357
+          ]
+        },
+        "wall_setback_mm": 0.0,
+        "free_edge_setback_mm": 0.6,
+        "retained_interface_path_fraction": 0.9805305008215467
+      },
+      {
+        "id": "09",
+        "z": 23.72,
+        "before": {
+          "length": 1574.5808966513212,
+          "e": 85.34235000000002,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            37.643,
+            173.284,
+            76.357,
+            215.101
+          ]
+        },
+        "after": {
+          "length": 1533.7128064486149,
+          "e": 83.12737190000001,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            37.643,
+            173.884,
+            76.357,
+            215.101
+          ]
+        },
+        "wall_setback_mm": 0.0,
+        "free_edge_setback_mm": 0.6,
+        "retained_interface_path_fraction": 0.9740450996899424
+      },
+      {
+        "id": "10",
+        "z": 23.48,
+        "before": {
+          "length": 1574.579189550308,
+          "e": 85.34236000000004,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            109.899,
+            173.028,
+            148.101,
+            215.357
+          ]
+        },
+        "after": {
+          "length": 1574.579189550308,
+          "e": 85.34236000000004,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            109.899,
+            173.028,
+            148.101,
+            215.357
+          ]
+        },
+        "wall_setback_mm": 0.0,
+        "free_edge_setback_mm": 0.0,
+        "retained_interface_path_fraction": 1.0
+      },
+      {
+        "id": "10",
+        "z": 23.72,
+        "before": {
+          "length": 1574.5808966513212,
+          "e": 85.34235000000002,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            109.643,
+            173.284,
+            148.357,
+            215.101
+          ]
+        },
+        "after": {
+          "length": 1574.5808966513212,
+          "e": 85.34235000000002,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            109.643,
+            173.284,
+            148.357,
+            215.101
+          ]
+        },
+        "wall_setback_mm": 0.0,
+        "free_edge_setback_mm": 0.0,
+        "retained_interface_path_fraction": 1.0
+      },
+      {
+        "id": "12",
+        "z": 23.48,
+        "before": {
+          "length": 1574.579189550308,
+          "e": 85.34236000000004,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            253.899,
+            173.028,
+            292.101,
+            215.357
+          ]
+        },
+        "after": {
+          "length": 1424.1710407834717,
+          "e": 77.19029139999999,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            254.499,
+            173.628,
+            291.501,
+            214.757
+          ]
+        },
+        "wall_setback_mm": 0.6,
+        "free_edge_setback_mm": 0.6,
+        "retained_interface_path_fraction": 0.904477240798672
+      },
+      {
+        "id": "12",
+        "z": 23.72,
+        "before": {
+          "length": 1574.5808966513212,
+          "e": 85.34235000000002,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            253.643,
+            173.284,
+            292.357,
+            215.101
+          ]
+        },
+        "after": {
+          "length": 1425.9819461942502,
+          "e": 77.28839600000002,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            254.243,
+            173.884,
+            291.757,
+            214.501
+          ]
+        },
+        "wall_setback_mm": 0.6,
+        "free_edge_setback_mm": 0.6,
+        "retained_interface_path_fraction": 0.9056263474470585
+      },
+      {
+        "id": "16",
+        "z": 23.48,
+        "before": {
+          "length": 1574.579482438367,
+          "e": 85.34236000000004,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            253.899,
+            245.028,
+            292.101,
+            287.357
+          ]
+        },
+        "after": {
+          "length": 1454.826614636908,
+          "e": 78.85189229999997,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            254.499,
+            245.028,
+            291.501,
+            286.757
+          ]
+        },
+        "wall_setback_mm": 0.6,
+        "free_edge_setback_mm": 0.0,
+        "retained_interface_path_fraction": 0.9239461271170563
+      },
+      {
+        "id": "16",
+        "z": 23.72,
+        "before": {
+          "length": 1574.580896651321,
+          "e": 85.34235000000005,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            253.643,
+            245.284,
+            292.357,
+            287.101
+          ]
+        },
+        "after": {
+          "length": 1465.9031369020192,
+          "e": 79.45205690000002,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            254.243,
+            245.284,
+            291.757,
+            286.501
+          ]
+        },
+        "wall_setback_mm": 0.6,
+        "free_edge_setback_mm": 0.0,
+        "retained_interface_path_fraction": 0.9309798817066637
+      },
+      {
+        "id": "08",
+        "z": 23.48,
+        "before": {
+          "length": 1574.5794824383668,
+          "e": 85.34236000000003,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            253.899,
+            101.028,
+            292.101,
+            143.357
+          ]
+        },
+        "after": {
+          "length": 1543.923207129991,
+          "e": 83.68075810000003,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            253.899,
+            101.628,
+            292.101,
+            143.357
+          ]
+        },
+        "wall_setback_mm": 0.0,
+        "free_edge_setback_mm": 0.6,
+        "retained_interface_path_fraction": 0.9805304999523415
+      },
+      {
+        "id": "08",
+        "z": 23.72,
+        "before": {
+          "length": 1574.5808966513207,
+          "e": 85.34235000000002,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            253.643,
+            101.284,
+            292.357,
+            143.101
+          ]
+        },
+        "after": {
+          "length": 1533.7128064486142,
+          "e": 83.12737190000001,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            253.643,
+            101.884,
+            292.357,
+            143.101
+          ]
+        },
+        "wall_setback_mm": 0.0,
+        "free_edge_setback_mm": 0.6,
+        "retained_interface_path_fraction": 0.9740450996899421
+      },
+      {
+        "id": "07",
+        "z": 23.48,
+        "before": {
+          "length": 1574.5811895503077,
+          "e": 85.34236000000003,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            181.899,
+            101.028,
+            220.101,
+            143.357
+          ]
+        },
+        "after": {
+          "length": 1574.5811895503077,
+          "e": 85.34236000000003,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            181.899,
+            101.028,
+            220.101,
+            143.357
+          ]
+        },
+        "wall_setback_mm": 0.0,
+        "free_edge_setback_mm": 0.0,
+        "retained_interface_path_fraction": 1.0
+      },
+      {
+        "id": "07",
+        "z": 23.72,
+        "before": {
+          "length": 1574.5808966513207,
+          "e": 85.34235000000005,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            181.643,
+            101.284,
+            220.357,
+            143.101
+          ]
+        },
+        "after": {
+          "length": 1574.5808966513207,
+          "e": 85.34235000000005,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            181.643,
+            101.284,
+            220.357,
+            143.101
+          ]
+        },
+        "wall_setback_mm": 0.0,
+        "free_edge_setback_mm": 0.0,
+        "retained_interface_path_fraction": 1.0
+      },
+      {
+        "id": "02",
+        "z": 23.48,
+        "before": {
+          "length": 1574.5791895503078,
+          "e": 85.34236000000003,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            109.899,
+            29.028,
+            148.101,
+            71.357
+          ]
+        },
+        "after": {
+          "length": 1454.8273090208313,
+          "e": 78.85189230000002,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            110.499,
+            29.028,
+            147.501,
+            70.757
+          ]
+        },
+        "wall_setback_mm": 0.6,
+        "free_edge_setback_mm": 0.0,
+        "retained_interface_path_fraction": 0.9239467399771255
+      },
+      {
+        "id": "02",
+        "z": 23.72,
+        "before": {
+          "length": 1574.5808966513207,
+          "e": 85.34235000000005,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            109.643,
+            29.284,
+            148.357,
+            71.101
+          ]
+        },
+        "after": {
+          "length": 1465.9031369020195,
+          "e": 79.45205690000002,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            110.243,
+            29.284,
+            147.757,
+            70.501
+          ]
+        },
+        "wall_setback_mm": 0.6,
+        "free_edge_setback_mm": 0.0,
+        "retained_interface_path_fraction": 0.930979881706664
+      },
+      {
+        "id": "01",
+        "z": 23.48,
+        "before": {
+          "length": 1574.5791895503078,
+          "e": 85.34236000000003,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            37.899,
+            29.028,
+            76.101,
+            71.357
+          ]
+        },
+        "after": {
+          "length": 1424.1710407834719,
+          "e": 77.1902914,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            38.499,
+            29.628,
+            75.501,
+            70.757
+          ]
+        },
+        "wall_setback_mm": 0.6,
+        "free_edge_setback_mm": 0.6,
+        "retained_interface_path_fraction": 0.9044772407986722
+      },
+      {
+        "id": "01",
+        "z": 23.72,
+        "before": {
+          "length": 1574.5808966513207,
+          "e": 85.34235000000002,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            37.643,
+            29.284,
+            76.357,
+            71.101
+          ]
+        },
+        "after": {
+          "length": 1425.9819461942498,
+          "e": 77.28839600000002,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            38.243,
+            29.884,
+            75.757,
+            70.501
+          ]
+        },
+        "wall_setback_mm": 0.6,
+        "free_edge_setback_mm": 0.6,
+        "retained_interface_path_fraction": 0.9056263474470584
+      },
+      {
+        "id": "13",
+        "z": 23.72,
+        "before": {
+          "length": 1574.579482438367,
+          "e": 85.34236000000004,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            37.899,
+            245.028,
+            76.101,
+            287.357
+          ]
+        },
+        "after": {
+          "length": 1543.923207129991,
+          "e": 83.68075810000005,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            37.899,
+            245.628,
+            76.101,
+            287.357
+          ]
+        },
+        "wall_setback_mm": 0.0,
+        "free_edge_setback_mm": 0.6,
+        "retained_interface_path_fraction": 0.9805304999523414
+      },
+      {
+        "id": "13",
+        "z": 23.96,
+        "before": {
+          "length": 1574.580896651321,
+          "e": 85.34235000000005,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            37.643,
+            245.284,
+            76.357,
+            287.101
+          ]
+        },
+        "after": {
+          "length": 1533.7128064486144,
+          "e": 83.12737190000004,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            37.643,
+            245.884,
+            76.357,
+            287.101
+          ]
+        },
+        "wall_setback_mm": 0.0,
+        "free_edge_setback_mm": 0.6,
+        "retained_interface_path_fraction": 0.9740450996899421
+      },
+      {
+        "id": "14",
+        "z": 23.72,
+        "before": {
+          "length": 1574.579482438367,
+          "e": 85.34236000000004,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            109.899,
+            245.028,
+            148.101,
+            287.357
+          ]
+        },
+        "after": {
+          "length": 1424.1703393285322,
+          "e": 77.19029059999998,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            110.499,
+            245.628,
+            147.501,
+            286.757
+          ]
+        },
+        "wall_setback_mm": 0.6,
+        "free_edge_setback_mm": 0.6,
+        "retained_interface_path_fraction": 0.9044766270693978
+      },
+      {
+        "id": "14",
+        "z": 23.96,
+        "before": {
+          "length": 1574.5808966513207,
+          "e": 85.34235000000005,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            109.643,
+            245.284,
+            148.357,
+            287.101
+          ]
+        },
+        "after": {
+          "length": 1425.9819461942495,
+          "e": 77.288396,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            110.243,
+            245.884,
+            147.757,
+            286.501
+          ]
+        },
+        "wall_setback_mm": 0.6,
+        "free_edge_setback_mm": 0.6,
+        "retained_interface_path_fraction": 0.9056263474470583
+      },
+      {
+        "id": "15",
+        "z": 23.72,
+        "before": {
+          "length": 1574.581189550308,
+          "e": 85.34236000000004,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            181.899,
+            245.028,
+            220.101,
+            287.357
+          ]
+        },
+        "after": {
+          "length": 1454.828334476676,
+          "e": 78.85189359999998,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            182.499,
+            245.028,
+            219.501,
+            286.757
+          ]
+        },
+        "wall_setback_mm": 0.6,
+        "free_edge_setback_mm": 0.0,
+        "retained_interface_path_fraction": 0.9239462176556086
+      },
+      {
+        "id": "15",
+        "z": 23.96,
+        "before": {
+          "length": 1574.5808966513207,
+          "e": 85.34235000000002,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            181.643,
+            245.284,
+            220.357,
+            287.101
+          ]
+        },
+        "after": {
+          "length": 1465.9031369020195,
+          "e": 79.45205690000006,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            182.243,
+            245.284,
+            219.757,
+            286.501
+          ]
+        },
+        "wall_setback_mm": 0.6,
+        "free_edge_setback_mm": 0.0,
+        "retained_interface_path_fraction": 0.930979881706664
+      },
+      {
+        "id": "11",
+        "z": 23.72,
+        "before": {
+          "length": 1574.5808966519296,
+          "e": 85.34236000000003,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            181.899,
+            173.028,
+            220.101,
+            215.357
+          ]
+        },
+        "after": {
+          "length": 1574.5808966519296,
+          "e": 85.34236000000003,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            181.899,
+            173.028,
+            220.101,
+            215.357
+          ]
+        },
+        "wall_setback_mm": 0.0,
+        "free_edge_setback_mm": 0.0,
+        "retained_interface_path_fraction": 1.0
+      },
+      {
+        "id": "11",
+        "z": 23.96,
+        "before": {
+          "length": 1574.5808966513212,
+          "e": 85.34235000000002,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            181.643,
+            173.284,
+            220.357,
+            215.101
+          ]
+        },
+        "after": {
+          "length": 1574.5808966513212,
+          "e": 85.34235000000002,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            181.643,
+            173.284,
+            220.357,
+            215.101
+          ]
+        },
+        "wall_setback_mm": 0.0,
+        "free_edge_setback_mm": 0.0,
+        "retained_interface_path_fraction": 1.0
+      },
+      {
+        "id": "03",
+        "z": 23.72,
+        "before": {
+          "length": 1574.5808966519296,
+          "e": 85.34236000000003,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            181.899,
+            29.028,
+            220.101,
+            71.357
+          ]
+        },
+        "after": {
+          "length": 1454.8290288504702,
+          "e": 78.85189360000003,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            182.499,
+            29.028,
+            219.501,
+            70.757
+          ]
+        },
+        "wall_setback_mm": 0.6,
+        "free_edge_setback_mm": 0.0,
+        "retained_interface_path_fraction": 0.9239468305146527
+      },
+      {
+        "id": "03",
+        "z": 23.96,
+        "before": {
+          "length": 1574.580896651321,
+          "e": 85.34235000000002,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            181.643,
+            29.284,
+            220.357,
+            71.101
+          ]
+        },
+        "after": {
+          "length": 1465.9031369020197,
+          "e": 79.45205690000006,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            182.243,
+            29.284,
+            219.757,
+            70.501
+          ]
+        },
+        "wall_setback_mm": 0.6,
+        "free_edge_setback_mm": 0.0,
+        "retained_interface_path_fraction": 0.930979881706664
+      },
+      {
+        "id": "04",
+        "z": 23.72,
+        "before": {
+          "length": 1574.5791895503078,
+          "e": 85.34236000000004,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            253.899,
+            29.028,
+            292.101,
+            71.357
+          ]
+        },
+        "after": {
+          "length": 1574.5791895503078,
+          "e": 85.34236000000004,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            253.899,
+            29.028,
+            292.101,
+            71.357
+          ]
+        },
+        "wall_setback_mm": 0.0,
+        "free_edge_setback_mm": 0.0,
+        "retained_interface_path_fraction": 1.0
+      },
+      {
+        "id": "04",
+        "z": 23.96,
+        "before": {
+          "length": 1574.5808966513207,
+          "e": 85.34235000000002,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            253.643,
+            29.284,
+            292.357,
+            71.101
+          ]
+        },
+        "after": {
+          "length": 1574.5808966513207,
+          "e": 85.34235000000002,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            253.643,
+            29.284,
+            292.357,
+            71.101
+          ]
+        },
+        "wall_setback_mm": 0.0,
+        "free_edge_setback_mm": 0.0,
+        "retained_interface_path_fraction": 1.0
+      },
+      {
+        "id": "06",
+        "z": 23.72,
+        "before": {
+          "length": 1574.5794824383665,
+          "e": 85.34236000000004,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            109.899,
+            101.028,
+            148.101,
+            143.357
+          ]
+        },
+        "after": {
+          "length": 1543.9232071299905,
+          "e": 83.68075810000005,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            109.899,
+            101.628,
+            148.101,
+            143.357
+          ]
+        },
+        "wall_setback_mm": 0.0,
+        "free_edge_setback_mm": 0.6,
+        "retained_interface_path_fraction": 0.9805304999523414
+      },
+      {
+        "id": "06",
+        "z": 23.96,
+        "before": {
+          "length": 1574.5808966513207,
+          "e": 85.34235000000005,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            109.643,
+            101.284,
+            148.357,
+            143.101
+          ]
+        },
+        "after": {
+          "length": 1533.7128064486142,
+          "e": 83.12737190000004,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            109.643,
+            101.884,
+            148.357,
+            143.101
+          ]
+        },
+        "wall_setback_mm": 0.0,
+        "free_edge_setback_mm": 0.6,
+        "retained_interface_path_fraction": 0.9740450996899421
+      },
+      {
+        "id": "05",
+        "z": 23.72,
+        "before": {
+          "length": 1574.5794824383668,
+          "e": 85.34236000000003,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            37.899,
+            101.028,
+            76.101,
+            143.357
+          ]
+        },
+        "after": {
+          "length": 1424.1703393285325,
+          "e": 77.19029060000001,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            38.499,
+            101.628,
+            75.501,
+            142.757
+          ]
+        },
+        "wall_setback_mm": 0.6,
+        "free_edge_setback_mm": 0.6,
+        "retained_interface_path_fraction": 0.904476627069398
+      },
+      {
+        "id": "05",
+        "z": 23.96,
+        "before": {
+          "length": 1574.5808966513205,
+          "e": 85.34235000000005,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            37.643,
+            101.284,
+            76.357,
+            143.101
+          ]
+        },
+        "after": {
+          "length": 1425.9819461942498,
+          "e": 77.288396,
+          "widths": [
+            0.62
+          ],
+          "bbox": [
+            38.243,
+            101.884,
+            75.757,
+            142.501
+          ]
+        },
+        "wall_setback_mm": 0.6,
+        "free_edge_setback_mm": 0.6,
+        "retained_interface_path_fraction": 0.9056263474470586
+      }
+    ],
+    "gcode_sha256": "ab62954c37b99799497def1a3f6e0775a595b800b9d950c233cefc7837d0c326",
+    "bundle_sha256": "9cd2485d712fcf242501491e10fad7b11fc1746d27786de44a3cf4e93ae0705c",
+    "removed_filament_mm": 129.85345189999998
+  }
+}
