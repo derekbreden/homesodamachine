@@ -117,6 +117,7 @@ body {
 .fr.cob  { background: var(--cobalt); }
 .fr.crm  { background: var(--cream); }
 .fr.thin { padding: 2px; background: var(--dim); }
+.fr.sel  { padding: 6px; background: var(--cobalt); }
 
 /* ══ CHOOSE ═════════════════════════════════════════════════════════════ */
 /* Both cards are the same rect at the same coordinates. Only the ground
@@ -162,13 +163,12 @@ body {
 .step.minus { left: 412px; }
 .step.plus  { left: 692px; }
 
-.arrow    { position: absolute; top: 280px; width: 64px; height: 168px; display: grid; place-items: center; }
+.arrow    { position: absolute; top: 276px; width: 64px; height: 172px; display: grid; place-items: center; }
 .arrow.l  { left: 396px; }
 .arrow.r  { left: 720px; }
-.stripwin { position: absolute; left: 468px; top: 280px; width: 244px; height: 168px; overflow: hidden; }
+.stripwin { position: absolute; left: 468px; top: 276px; width: 244px; height: 172px; overflow: hidden; }
 .strip    { position: absolute; left: -146px; top: 0; display: flex; gap: 4px; }
-.cell     { flex: 0 0 auto; width: 104px; height: 168px; display: grid; place-items: center; border-radius: 6px; }
-.cell.on  { background: var(--cobalt); }
+.cell     { flex: 0 0 auto; width: 104px; height: 172px; display: grid; place-items: center; }
 .track    { position: absolute; left: 396px; top: 448px; width: 388px; height: 8px; background: var(--recess); border-radius: 4px; }
 .track b  { position: absolute; left: 66px; top: 0; width: 110px; height: 8px; background: var(--cobalt); border-radius: 4px; }
 
@@ -196,12 +196,12 @@ body {
             display: inline-flex; align-items: center; }
 .bar   { position: absolute; left: 252px; top: 288px; width: 508px; height: 18px; background: var(--cream); border-radius: 3px; overflow: hidden; }
 .bar u { position: absolute; left: 0; top: 0; width: 203px; height: 18px; background: var(--red); display: block; }
-.bar s { position: absolute; top: 0; width: 3px; height: 18px; background: var(--cobalt); display: block; }
+.bar s { position: absolute; top: 0; width: 6px; height: 18px; background: var(--cobalt); display: block; }
 /* the only cream-filled object on the plate, so the way out is the most
    findable thing on the screen */
 .stop  { position: absolute; left: 500px; top: 336px; width: 260px; height: 104px; border-radius: 6px;
          background: var(--cream); color: var(--cobalt); display: grid; place-items: center; }
-.stop span { font-weight: 800; font-size: 40px; line-height: 40px; letter-spacing: 0.10em; }
+.stop span { font-weight: 800; font-size: 44px; line-height: 44px; letter-spacing: 0.10em; }
 
 /* ══ SETTINGS ═══════════════════════════════════════════════════════════ */
 .status { position: absolute; left: 206px; top: 120px; width: 390px; height: 336px; }

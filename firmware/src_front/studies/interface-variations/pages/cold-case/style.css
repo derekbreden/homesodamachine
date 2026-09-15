@@ -178,7 +178,7 @@ body {
 
 /* ── Pick: the funnel is stamped above the channel, and the face stands on
       the card's own floor rather than floating in a landscape box. ────── */
-.pcard { position: absolute; width: 280px; height: 378px; background: var(--surf);
+.pcard { position: absolute; width: 280px; height: 376px; background: var(--surf);
          border: 1px solid var(--line); }
 .pcard.pressed { background: var(--surf2) !important; border-color: var(--line) !important;
                  color: var(--text) !important; }

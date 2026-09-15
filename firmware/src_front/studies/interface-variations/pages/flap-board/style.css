@@ -2,6 +2,11 @@
    state on. 25 columns x 8 rows of 32x60 cells; one glyph per cell; the flap
    seam crosses every cell's midline and cuts the characters.
 
+   The board is two materials. Columns 0-6 are the rail: bare matte, recessed,
+   with the destinations struck straight onto it and a rule down its edge.
+   Columns 7-24 are the pane: lit flap faces. No cell belongs to both, and
+   nothing the pane draws ever crosses x=224.
+
    Five chip colours and no others:
      orange  what is on          brass   the value under attention
      green   what is present     yellow  what wants attention
@@ -11,12 +16,15 @@ html, body { margin: 0; width: 800px; height: 480px; overflow: hidden; }
 
 :root {
   --board:  #100f0d;   /* the matte behind the flaps */
+  --rail:   #08080699; /* the rail's own ground: the board, deeper still */
   --cell:   #1c1b17;   /* a flap's resting face */
+  --lock:   #0e0d0b;   /* the board with its flaps let go dark */
   --slot:   #0a0908;   /* an empty socket, a channel with nothing in it */
   --key:    #332f28;   /* a cell you can press */
   --recess: #0d0c0b;   /* a plate let into the board */
-  --gone:   #080707;   /* a flap caught mid-turn */
+  --gone:   #17150f;   /* a flap caught mid-turn */
   --edge:   #8e8879;   /* the lit edge of a turning flap */
+  --rule:   #56503f;   /* a milled line in the board itself */
   --ink:    #efe7d6;
   --dim:    #8a8376;
   --orange: #e2521f;
@@ -37,11 +45,13 @@ body {
 
 /* ── cell grounds ── */
 .ground     { background: var(--cell); }
-.railground { background: #141310; }
+.railfield  { background: #060605; }
+.lockfield  { background: var(--lock); }
 .slot       { background: var(--slot); }
 .key        { background: var(--key); }
 .recess     { background: var(--recess); }
 .pressed    { background: var(--gone); }
+.rule       { background: var(--rule); }
 .orange     { background: var(--orange); }
 .brass      { background: var(--brass); }
 .green      { background: var(--green); }
@@ -50,9 +60,10 @@ body {
 
 /* ── the face is behind the flaps, never square-cropped ── */
 .face { object-fit: cover; display: block; }
-.face.off { filter: brightness(0.46) saturate(0.4); }
+.face.off { filter: brightness(0.4) saturate(0.35); }
 
-/* ── characters, one per cell ── */
+/* ── characters, one per cell. A text box is always exactly one row tall, so
+      a glyph is cut by its own flap seam and never by a row gutter. ── */
 .t { display: flex; align-items: center; white-space: pre;
      text-transform: uppercase; box-sizing: border-box; }
 .t40 { font-size: 40px; letter-spacing: 8px; }
@@ -72,20 +83,18 @@ body {
 .flap {
   background-image:
     repeating-linear-gradient(to bottom,
-      transparent 0, transparent 28px,
-      rgba(239,231,214,0.22) 28px, rgba(239,231,214,0.22) 29px,
-      transparent 29px, transparent 60px),
-    repeating-linear-gradient(to bottom,
-      rgba(4,4,3,0.78) 0, rgba(4,4,3,0.78) 28px,
-      transparent 28px, transparent 60px);
+      transparent 0, transparent 29px,
+      rgba(4,4,3,0.62) 29px, rgba(4,4,3,0.62) 60px);
 }
 .flapedge { background: var(--edge); }
 
 /* ── the board itself: 1 px gutters, the flap seam on every midline, the upper
       half one step lighter. Drawn over everything, faces included, so a
-      photograph never breaks the board. ── */
+      photograph never breaks the board. The right and bottom edges close the
+      last column and row, so a glyph in cell 25 is held, not spilling. ── */
 .grid {
   position: absolute; inset: 0; z-index: 5; pointer-events: none;
+  box-shadow: inset -1px 0 0 rgba(0,0,0,0.86), inset 0 -1px 0 rgba(0,0,0,0.86);
   background-image:
     repeating-linear-gradient(to right,
       rgba(0,0,0,0.86) 0, rgba(0,0,0,0.86) 1px, transparent 1px, transparent 32px),
