@@ -31,7 +31,7 @@ export const canvasHost = document.getElementById("cad-canvas-host");
 // Exposure the filmic curve is driven at, shared with step.js's thumbnail renderer.
 export const TONE_EXPOSURE = 1.25;
 // What every 3D surface in the app clears to, and what distance fades toward.
-export const BG_COLOR = 0x1a1a2e;
+export const BG_COLOR = 0x10319c;
 
 // Headless instruction renders can request a canvas with a real alpha channel.
 // The ordinary viewer keeps the browser default (opaque) context, so its
@@ -501,8 +501,8 @@ function makeFaceTexture(label, isHovered) {
   const canvas = document.createElement("canvas");
   canvas.width = 256; canvas.height = 256;
   const ctx = canvas.getContext("2d");
-  const bg = isHovered ? "#3a3a5a" : "#232342";
-  const border = "#3a3a5a";
+  const bg = isHovered ? "#1749d1" : "#10319c";
+  const border = "#6b8fe9";
   const radius = 16;
 
   // Rounded rect fill
@@ -517,7 +517,7 @@ function makeFaceTexture(label, isHovered) {
   ctx.font = "52px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, sans-serif";
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
-  ctx.fillStyle = isHovered ? "#ffffff" : "#999999";
+  ctx.fillStyle = isHovered ? "#ffffff" : "#dce6ff";
   ctx.fillText(label, 128, 128);
   const tex = new THREE.CanvasTexture(canvas);
   tex.colorSpace = THREE.SRGBColorSpace;

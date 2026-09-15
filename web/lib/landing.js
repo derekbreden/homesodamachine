@@ -1,14 +1,9 @@
-// Public landing page. Server-rendered via lib/shell.js so the head + nav
-// + palette stay in sync with every other surface on the site.
-//
-// Above the fold: the GlassAnimation (the same one running on iOS, Android,
-// and the S3 device — same constants, same physics) plus an h1, tagline,
-// and a single email signup form. The submit button has a press state and
-// an inline spinner that fills the wait between tap and "thanks."
+// Public landing page, using the shared Big Blue palette and faucet mark.
 
 import { renderHead, renderNav, renderFooter } from "./shell.js";
 
 const PAGE_STYLES = `
+main { background: var(--brand-blue); }
 main {
   flex: 1;
   display: flex;
@@ -28,19 +23,19 @@ main {
     calc(env(safe-area-inset-left, 0px) + 1.5rem);
   text-align: center;
 }
-.glass-stage {
+.brand-stage {
   width: min(280px, 60vw);
   aspect-ratio: 1 / 1;
   margin: 0 0 1.25rem;
 }
-.glass-stage canvas {
+.brand-stage img {
   width: 100%;
   height: 100%;
   display: block;
 }
 h1 {
   font-size: clamp(1.75rem, 5vw, 2.5rem);
-  font-weight: 600;
+  font-weight: 700;
   margin: 0 0 0.5rem;
   letter-spacing: -0.02em;
 }
@@ -49,10 +44,7 @@ h1 {
   max-width: 30rem;
   margin: 0 0 2rem;
 }
-/* Mobile-first: stacked, both controls full-width — same shape as the
-   iOS onboarding "Scan for Hardware" / "Enter Demo Mode" pills in
-   ScanView.swift. Above ~520px there's room for them side-by-side, so
-   we promote the form to a row. */
+/* The signup form stacks on phones and shares a row on wider screens. */
 form {
   display: flex;
   flex-direction: column;
@@ -108,8 +100,8 @@ input[type="email"]:focus-visible {
   font: inherit;
   font-size: 1rem;
   font-weight: 500;
-  background: var(--accent);
-  color: #ffffff;
+  background: var(--action);
+  color: var(--on-action);
   /* 1px, transparent — the input spends the same on its border, and stacked
      the two pills stand at one height. */
   border: 1px solid transparent;
@@ -122,7 +114,7 @@ input[type="email"]:focus-visible {
   /* The label does not wrap, so the button must not be squeezed under it. */
   .signup-btn { width: auto; min-width: 7rem; flex-shrink: 0; }
 }
-.signup-btn:hover:not(:disabled) { background: #5599ff; }
+.signup-btn:hover:not(:disabled) { background: var(--action-hover); }
 .signup-btn:active { transform: scale(0.97); }
 .signup-btn:disabled { cursor: default; }
 .signup-btn .label {
@@ -130,7 +122,7 @@ input[type="email"]:focus-visible {
   transition: opacity 0.15s;
 }
 .signup-btn.loading .label { opacity: 0; }
-.signup-btn.done { background: var(--ok); }
+.signup-btn.done { background: var(--ok); color: var(--brand-navy); }
 .signup-btn .spinner {
   position: absolute;
   top: 50%;
@@ -138,8 +130,8 @@ input[type="email"]:focus-visible {
   width: 18px;
   height: 18px;
   margin: -9px 0 0 -9px;
-  border: 2px solid rgba(255, 255, 255, 0.35);
-  border-top-color: #ffffff;
+  border: 2px solid rgba(16, 49, 156, 0.25);
+  border-top-color: var(--on-action);
   border-radius: 50%;
   opacity: 0;
   transition: opacity 0.15s;
@@ -168,6 +160,7 @@ input[type="email"]:focus-visible {
   color: var(--text-2);
   transition: color 0.2s;
 }
+.status.ok, .status.err { padding: 0.35rem 0.75rem; border-radius: 6px; background: var(--bg); }
 .status.ok { color: var(--ok); }
 .status.err { color: var(--err); }
 @keyframes shake {
@@ -179,8 +172,8 @@ input[type="email"]:focus-visible {
 `;
 
 const BODY = `<main>
-  <div class="glass-stage" aria-hidden="true">
-    <canvas id="glass" width="1024" height="1024"></canvas>
+  <div class="brand-stage" aria-hidden="true">
+    <img src="/brand/mark.svg" width="1024" height="1024" alt="">
   </div>
   <h1>Home Soda Machine</h1>
   <p class="tagline">
@@ -206,7 +199,6 @@ const BODY = `<main>
   </form>
   <div id="status" class="status" aria-live="polite"></div>
 </main>
-<script src="/glass-animation.js"></script>
 <script src="/landing.js" defer></script>
 `;
 

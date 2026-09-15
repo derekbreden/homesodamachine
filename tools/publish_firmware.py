@@ -143,20 +143,25 @@ def fw_version(target: str) -> str | None:
 
 
 def build(target: str) -> None:
-    """Produce this target's image. A build that fails prints its tail and leaves no image, so
-    the target is absent from the survey below and the rest of the manifest goes out."""
+    """Produce this target's image. A failed build stops publication before any upload.
+
+    PlatformIO can leave an earlier firmware.bin beside a failed build. Its presence alone
+    cannot prove that the source being published compiled successfully.
+    """
     spec = TARGETS[target]
     if spec.get("kind") == "art":
         run = subprocess.run([sys.executable, str(_ROOT / "tools" / "make_art.py"),
                               spec["art_board"], "-q"], cwd=str(_ROOT))
         if run.returncode != 0:
-            print(f"  {target}: make_art.py failed")
-        return
-    run = subprocess.run([str(PIO), "run", "-e", spec["env"]], cwd=str(_ROOT),
-                         capture_output=True, text=True)
-    if run.returncode != 0:
-        tail = "\n".join(run.stdout.splitlines()[-12:])
-        print(f"  {target}: `pio run -e {spec['env']}` failed\n{tail}")
+            raise SystemExit(f"{target}: make_art.py failed; firmware release unchanged")
+    else:
+        run = subprocess.run([str(PIO), "run", "-e", spec["env"]], cwd=str(_ROOT),
+                             capture_output=True, text=True)
+        if run.returncode != 0:
+            tail = "\n".join((run.stdout + run.stderr).splitlines()[-20:])
+            raise SystemExit(f"{target}: `pio run -e {spec['env']}` failed; firmware release unchanged\n{tail}")
+    if not image_path(target).is_file():
+        raise SystemExit(f"{target}: build produced no image; firmware release unchanged")
 
 
 def survey(targets: list) -> dict:
@@ -345,6 +350,9 @@ def main(argv) -> int:
         return 0
     if not images:
         return 1
+    missing = set(targets) - images.keys()
+    if missing:
+        raise SystemExit(f"Missing requested images: {', '.join(sorted(missing))}; firmware release unchanged")
 
     with tempfile.TemporaryDirectory() as d:
         bundle = Path(d) / "fw.tar.gz"

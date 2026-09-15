@@ -31,7 +31,9 @@ struct AddMachineView: View {
             Theme.background.ignoresSafeArea()
 
             VStack(spacing: 0) {
-                GlassAnimationView()
+                Image("LaunchIcon")
+                    .resizable()
+                    .scaledToFit()
                     .frame(width: firstRun ? 200 : 120, height: firstRun ? 200 : 120)
                     .padding(.top, firstRun ? 80 : 28)
                     .accessibilityHidden(true)
@@ -57,10 +59,10 @@ struct AddMachineView: View {
                     } label: {
                         Text("Find your machine")
                             .font(.system(size: 16, weight: .medium))
-                            .foregroundStyle(.white)
+                            .foregroundStyle(Theme.onAccent)
                             .frame(maxWidth: .infinity)
                             .padding(.vertical, 12)
-                            .background(Color.white.opacity(0.15))
+                            .background(Theme.accent)
                             .cornerRadius(10)
                     }
                     .padding(.horizontal, 32)
@@ -164,7 +166,7 @@ struct AddMachineView: View {
         .padding(.horizontal, 16)
         .padding(.vertical, 14)
         .frame(maxWidth: .infinity)
-        .background(Color.white.opacity(0.08))
+        .background(Theme.surface)
         .cornerRadius(12)
         .accessibilityElement(children: .combine)
         .accessibilityHint("Adds this machine")

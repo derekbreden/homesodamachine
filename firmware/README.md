@@ -122,8 +122,8 @@ handed a pointer into mapped flash and renders straight out of it, the way
 **One shape, at three scales.** Every rendition is 43:80 — the faucet's glass —
 so a photograph gives the machine one rectangle and every surface that shows a
 logo shows the same picture. The faucet fills its glass with the largest; the
-enclosure anchors a detail page on that same one, wears the middle on a Choose
-card and previews the smallest in its picker. Both boards keep all three, so a
+enclosure keeps the same bundle and caches complete portraits at its Big Blue rail,
+selected-image and picker sizes. Both boards keep all three, so a
 slot's own crc32 is its identity on either of them and the reconcile below has
 one number to compare.
 
@@ -177,8 +177,7 @@ serial port. See [`test/README.md`](test/README.md).
 
 ## Appliance displays
 
-- **ESP32-S3 enclosure display** (Waveshare ESP32-S3-Touch-LCD-4.3B) — The appliance's config + interaction surface on the enclosure's front face: a 4.3" 800×480 RGB capacitive touchscreen (GT911, CH422G I/O expander) angled up toward a standing user, linked to the base ESP32 over RS485. HOME presents both flavor cards and mirrors the main-board-owned selection shared with the faucet. A reusable operation pointer file puts the animated logo on the left and a clear status modal on the right; boot exercises it for at least two cycles. `src_front/` drives the panel through esp_lcd with a double framebuffer + bounce buffer for tear-free output and carries the RS485 link on GPIO43/44 as typed TinyProto frames ([`proto_msg.h`](lib/proto_link/proto_msg.h)). Service → Prime → a flavor → hold the pad sends `MSG_PRIME_START` and a tick every 500 ms under the finger; the base answers `MSG_RESP_PRIME` on every state change. Fill → a flavor → START sends `MSG_FILL_START`; the base opens the funnel path, draws with the pump, and answers `MSG_RESP_FILL` on every change, which the enclosure shows on the operation pointer file with a progress bar and STOP. Clean → a flavor → START CLEAN CYCLE sends `MSG_CLEAN_START`; the base runs three rounds of a tap-water fill and a pumped flush and answers `MSG_RESP_CLEAN` on every step, shown on the same pointer file with the round, the direction of the water and the minutes left. See [`src_front/README.md`](src_front/README.md).
-- **ESP32-S3 faucet display** (Waveshare ESP32-S3-Touch-LCD-1.47) — Flavor selector at the end of the appliance's gooseneck. The selected flavor's logo fills a 172x320 capacitive-touch LCD; a tap anywhere changes it locally before a nonblocking J3 message reaches the main board. The main board owns and persists the selection; faucet NVS is the immediate boot-logo cache. The main board keeps the quiet stretch across both glasses, and when it says so this backlight fades to an ember level; the first touch wakes it without toggling. See [`src_faucet/README.md`](src_faucet/README.md).
+- **ESP32-S3 enclosure display** (Waveshare ESP32-S3-Touch-LCD-4.3B) — Big Blue on the appliance's 800×480 touchscreen: a persistent 104 px flavor rail, 234 px selected portrait and 462 px task pane. Fill, Prime and Clean sit above the task; Settings opens the full 696 px area beside the rail. On tap carries the selected reservoir reading, with image and ratio editors one press away. The On tap faucet mark pulses during boot. Queued/running Fill, Clean and Dry expose only Stop until the main board confirms the operation ended. Prime uses the shared tokenized `MSG_PRIME_SESSION_*` protocol, with causal cancellation and stop retries. `src_front/` drives the RGB panel through esp_lcd with double framebuffers and bounce buffers; J9 on GPIO43/44 carries selection, operations, sensor state, image updates and OTA. See [`src_front/README.md`](src_front/README.md).
 
 ## The pour
 

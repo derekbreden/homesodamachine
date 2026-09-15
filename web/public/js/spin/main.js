@@ -58,7 +58,7 @@ renderer.toneMappingExposure = 0.85;
 stage.appendChild(renderer.domElement);
 
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x1a1a2e);
+scene.background = new THREE.Color(0x10319c);
 
 const camera = new THREE.PerspectiveCamera(38, 1, 1, 4000);
 const controls = new OrbitControls(camera, renderer.domElement);

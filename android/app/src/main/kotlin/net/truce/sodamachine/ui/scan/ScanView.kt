@@ -1,6 +1,6 @@
 package net.truce.sodamachine.ui.scan
 
-import androidx.compose.foundation.background
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,7 +21,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.liveRegion
@@ -32,7 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import net.truce.sodamachine.ble.BleManager
 import net.truce.sodamachine.ble.ConnectionState
-import net.truce.sodamachine.ui.glass.GlassAnimation
+import net.truce.sodamachine.R
 import net.truce.sodamachine.ui.theme.Theme
 
 /**
@@ -60,17 +60,16 @@ fun ScanView(ble: BleManager) {
 }
 
 // ────────────────────────────────────────────────────────────
-// Onboarding (first-run): glass + title + subtitle + scan / demo buttons
+// Onboarding (first-run): faucet mark + title + subtitle + scan / demo buttons
 // ────────────────────────────────────────────────────────────
 
 @Composable
 private fun OnboardingContent(ble: BleManager) {
     Box(modifier = Modifier.fillMaxSize()) {
-        // Glass animation centered. clearAndSetSemantics() is the Compose
-        // equivalent of iOS .accessibilityHidden(true) — TalkBack skips it.
-        // 288dp matches the launch_icon size so the splash → animation
-        // handoff is size-stable.
-        GlassAnimation(
+        // The same mark and size as the system splash.
+        Image(
+            painter = painterResource(R.drawable.launch_icon),
+            contentDescription = null,
             modifier = Modifier
                 .align(Alignment.Center)
                 .size(288.dp)
@@ -112,8 +111,8 @@ private fun OnboardingContent(ble: BleManager) {
                 },
                 shape = RoundedCornerShape(10.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.White.copy(alpha = 0.15f),
-                    contentColor = Theme.textPrimary,
+                    containerColor = Theme.accent,
+                    contentColor = Theme.onAccent,
                 ),
                 contentPadding = PaddingValues(vertical = 12.dp),
                 modifier = Modifier
@@ -148,7 +147,7 @@ private fun OnboardingContent(ble: BleManager) {
 }
 
 // ────────────────────────────────────────────────────────────
-// Animated search (post-onboarding): glass + status text + cancel
+// Animated search (post-onboarding): faucet mark + status text + cancel
 // ────────────────────────────────────────────────────────────
 
 @Composable
@@ -165,7 +164,9 @@ private fun AnimatedSearchContent(ble: BleManager) {
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
-        GlassAnimation(
+        Image(
+            painter = painterResource(R.drawable.launch_icon),
+            contentDescription = null,
             modifier = Modifier
                 .align(Alignment.Center)
                 .size(288.dp)

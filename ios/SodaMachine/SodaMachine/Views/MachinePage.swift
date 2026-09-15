@@ -74,7 +74,7 @@ struct BluetoothBanner: View {
         }
         .frame(maxWidth: .infinity)
         .padding(.vertical, 10)
-        .background(Color.white.opacity(0.10))
+        .background(Theme.surface)
         .cornerRadius(12)
         .padding(.horizontal, 20)
         .padding(.top, 8)

@@ -83,9 +83,9 @@ Served flat via `express.static(public/)`.
 | File | Loaded on | Role |
 |---|---|---|
 | [`public/boot.js`](/web/public/boot.js) | every page (`<script defer>`) | SW navigate bridge, notifications state mirror + bell + toast + warm-tap auto-redirect, WebSocket owner, `/api/version` deploy/activation check (reloads the page on a new build unless the viewer claims it via `window.__hsmDeploySoft`). Module-local state — never touches `window.__hsm`. |
-| [`public/landing.js`](/web/public/landing.js) | `/` | Glass-animation mount, signup form submit. |
+| [`public/landing.js`](/web/public/landing.js) | `/` | Signup form submit and feedback. |
 | [`public/settings.js`](/web/public/settings.js) | `/settings` | Dev-mode + notification toggles. |
-| [`public/glass-animation.js`](/web/public/glass-animation.js) | `/` | Pours/fizzes the hero animation. |
+| [`public/brand/mark.svg`](/web/public/brand/mark.svg) | every page | The faucet mark in the Home link and landing hero. Generated from [`../brand/mark.svg`](../brand/mark.svg) by [`../tools/build_brand_assets.py`](../tools/build_brand_assets.py). |
 | [`public/pan-zoom.js`](/web/public/pan-zoom.js) | `/3d`, `/charts` | Generic pan + pinch-zoom + wheel-zoom. |
 | [`public/content-viewer.js`](/web/public/content-viewer.js) | `/3d`, `/charts` | Modal singleton: open / close / swipe-down / Esc / X / backdrop. |
 | `public/js/viewer/*.js` | `/3d`, `/charts` | The parts/charts viewer modules — see below. |

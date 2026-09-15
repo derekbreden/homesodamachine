@@ -1,7 +1,7 @@
 # Enclosure Display (Waveshare ESP32-S3-Touch-LCD-4.3B)
 
-The appliance's enclosure display: an RGB panel under LVGL, showing a rail of five
-pages down the left edge and a pane to their right.
+The appliance's enclosure display: Big Blue on an 800×480 RGB panel under LVGL.
+Both flavors stay in the left rail; the selected portrait and task occupy the rest.
 
 ## Board
 
@@ -72,21 +72,26 @@ error counters to remain unchanged.
 
 ## Operation lock and animation
 
-The 16-frame glass/bubbles loop is generated from the app-icon artwork at
-360×360 by:
+The 16-frame On tap faucet animation is generated from the canonical
+[`brand/mark.svg`](../../brand/mark.svg) at 360×360 by:
 
 ```
 tools/cad-venv/bin/python tools/gen_animation_frames.py
 ```
 
-which writes `images/anim_00.h`..`anim_15.h`. `tools/make_art.py enclosure` lays
-those out as the `art` partition and `pre_build.py` runs it for this
-environment, so LVGL is handed a pointer into mapped flash. It cycles them
-at ~10 fps only on a full-screen operation lock: animation on the left, and a
-modal naming the operation on the right. The reusable lock is the surface for
-the funnel fill and the clean cycle — where the modal widens to carry the
-channel's face, a progress bar, the time left and STOP — and for other periods
-in which the appliance intentionally withholds normal interaction.
+The orange dot pulses under the faucet. The generator writes
+`images/anim_00.h`..`anim_15.h`; `tools/make_art.py enclosure` packages them in the
+mapped `art` partition during the build. Boot and the explicit `LOCK:SHOW` diagnostic
+use this full-screen animation. Normal pages and operational progress remain static
+except where their displayed state changes.
+
+Fill, Clean and Dry raise a full-screen touch shield as soon as Start is queued.
+The rail and selected portrait remain visible beneath it; the task pane offers only
+Stop. A pending operation reports that it is waiting for the main board. Progress and
+time left begin with the authoritative answer. Unanswered starts keep the shield up
+while querying; Stop is retried until an answer proves the operation ended.
+Completed operations keep their result in the task pane for six seconds, with Done,
+flavor selection and task navigation available immediately.
 
 Boot opens with **Powering on · Getting everything ready.** for at least two
 complete animation cycles. It then opens onto the main board's flavor selection
@@ -183,9 +188,10 @@ ladder above). The difference from the faucet display is the backlight itself:
   state it last read, and a lift must be reported for 150 ms before it reaches a widget —
   a tap needs one PRESSED sample, a hold needs every poll it spans. `GET_DIAG` counts
   these as `stale=` and `bridged=`.
-- A genuinely different flavor arriving from the faucet takes the display to
-  **Choose** and wakes it. Repeated publication of the flavor already shown does not
-  reset the idle timer.
+- A changed flavor arriving from the faucet returns flavor tasks to **On tap** and
+  leaves machine settings open. It wakes the panel when needed. Repeated publication
+  of the flavor already shown does not reset the idle timer. Active operation locks
+  retain their target until the main board confirms the operation ended.
 
 ## Test screen
 
@@ -204,9 +210,9 @@ shows. On black, the panel's own:
 - an eight-step gray wedge, 64×48 each, x 144..655, y 56..103, asked for at 0, 36, 73, 109,
   146, 182, 219 and 255 and shown as RGB565 rounds them;
 - red, green, blue, cyan, magenta and yellow, 64×48 each, x 208..591, y 112..159;
-- every colour the interface draws, 64×48 each, x 80..719, y 168..215: `THEME_BG` 1a1a2e,
-  `COL_CARD` 242440, `COL_CARD_ON` 33335c, `COL_ACCENT` e94560, `COL_TEXT` e8e8f2, `COL_DIM`
-  8888aa, `COL_OFF` 3a3a55, `COL_GOOD` 37c98b, `COL_WARN` f0a83c, and a 50% gray 808080 — the
+- every colour the interface draws, 64×48 each, x 80..719, y 168..215: `COL_BLUE` 1749d1,
+  `COL_CARD` 10319c, `COL_CARD_ON` 315fdb, `COL_ACCENT` ff9152, `COL_TEXT` ffffff, `COL_DIM`
+  dce6ff, `COL_OFF` 6287e0, `COL_GOOD` ff9152, `COL_WARN` ffb183, and a 50% gray 808080 — the
   flat patches a camera-to-panel colour fit is made from;
 - 1 px vertical stripes, 1 px horizontal stripes and a 2 px checkerboard, 64×64 each, at
   x 240, 368 and 496, y 268..331;
@@ -235,12 +241,11 @@ Newline-terminated, 115200 baud over the native USB CDC:
   CH422G write errors
 - `BL:0` / `BL:1` → backlight off / on (drives CH422G EXIO2)
 - `IDLE:0`..`IDLE:3` → wake, or take a rung of the idle ladder without waiting it out
-- `PAGE:0`..`PAGE:3` → show one rail destination (CHOOSE, PRIME, FILL, CLEAN);
-  `PAGE:4` → Settings, which is the corner rather than a rail slot; `PAGE:5` → its
-  pump service area
+- `PAGE:0`..`PAGE:3` → On tap, Prime, Fill, Clean;
+  `PAGE:4` → system status; `PAGE:5` → pump service
 - `FLAVOR:0` / `FLAVOR:1` → select through the same main-board-owned path as a card tap
 - `EDIT:<1|2>[,<image 0..3>]` → open a flavor's own page, and take one of its logos:
-  the handlers the Choose gear and a thumbnail tap reach, without a finger on the glass
+  the same ratio and image-assignment handlers the screen uses
 - `LOCK:SHOW` / `LOCK:HIDE` → exercise the reusable operation lock
 - `TEST:<s>` → the camera's test screen for `s` seconds; `TEST:0` ends it
 - `PANEL:KICK` → the wake sequence — dark, reset at VSYNC, four clean
@@ -314,88 +319,81 @@ cannot undo the wake.
 
 ## The interface
 
-A 190 px rail down the left carries four 110 px targets — **CHOOSE · PRIME · FILL ·
-CLEAN** — each an icon over a word. Choose is the drink; Prime, Fill and Clean act on a
-channel and run down the rail from the least destructive to the most. Choose uses a hand
-pointing up and Fill the funnel itself. Settings is not a
-customer destination and holds no rail slot: it is a single square in the screen's top-right
-corner, over every page, which is free because each pane titles itself from the left. The
-remaining 610 px is the pane, and it takes a different shape at each destination:
+Big Blue follows the approved [`design exploration`](../../future/enclosure-display-studies/big-blue.html).
+The palette is cobalt `#1749D1`, navy `#10319C`, ice `#DCE6FF`, and orange `#FF9152`.
+The 104 px flavor rail carries both actual images and Settings at the bottom. Flavor
+pages keep a 234 px portrait column with “✓ Selected”; Fill, Prime and Clean sit above
+the 462 px task pane. Done occupies the top-right 104 px and is hidden at rest and
+while an operation is pending or running.
 
-| Page | Shape | Reads / writes |
-|---|---|---|
-| Choose | two large, quiet flavor cards with an unmistakable retained selection, each with its ratio and its reservoir's gauge | **the main board**, mirrored with the faucet |
-| A flavor's own page | `−`/`+` on the ratio, and a row of every logo it can wear — reached from that flavor's Choose card, and Back returns there | **the main board** |
-| Prime | flavor choice → shared hold pad | **the base** |
-| Fill | flavor choice → confirmation → the operation lock while it draws | **the base** |
-| Clean | flavor choice → confirmation → the operation lock for the cycle | **the base** |
-| Settings | system status — the machine's side profile with every reed on it — and a column of areas beside it; one so far, pump service: dry the lines, then the operation lock for the cycle; reached from the corner | **the base** |
+| Page | Contents |
+|---|---|
+| On tap | selected reservoir's four-segment reading, Change image and Ratio |
+| Ratio | concentrate : water, with a bounded minus/plus stepper |
+| Change image | four customer-upload slots, then four factory defaults; Previous/Next and position |
+| Fill | instructions, Start filling, authoritative progress and Stop |
+| Prime | shared main-board session and Hold to prime |
+| Clean | three rinse cycles, authoritative progress and Stop |
+| System status | complete machine profile and ten live reed indicators |
+| Pump service | instructions and Dry the lines |
 
-**Every face on this panel is the faucet's glass.** A logo is 43:80 at three scales —
-172×320, 129×240, 86×160 — and nothing else, because choosing a face here is choosing what
-that glass will wear, and a square thumbnail answers a question nobody asked. That shape is
-what lays the pages out:
+Ratios appear only on the Ratio page. Image assignments and ratios are saved by the
+main board and shared with the faucet. Missing uploaded images are unavailable choices;
+an empty customer page explains where to add images. Choosing an image keeps the picker
+open. Every page entry clears an armed image press so a remote flavor change cannot
+apply a pending choice to another channel.
 
-- **Choose** stands the 129×240 face down the left of each card. What a tall face leaves
-  beside it is the column that says whether this is the flavor the machine is on, and what
-  it pours at — the number the settings target under the card exists to change. That target
-  is a sibling of the card rather than a child of it, so no press reaches the card under it.
-- **The three pick-a-flavor screens** give each channel a whole column of its own face,
-  under the mark for what is about to happen to it.
-- **Every page behind a choice** — a flavor's own, and the prime, fill and clean screens —
-  anchors that channel's 172×320 face at the pane's west edge, directly under a back button
-  of the same width. The choice slid left and its details opened east of it: one column, one
-  width, four pages, so moving between them moves only what changed.
+The image wire bundle stays 172×320, 129×240 and 86×160. At boot and after an image
+update, the display caches 64×119 rail images, 183×340 portraits and 78×145 picker images
+in PSRAM. LVGL draws these complete portraits without transforming them during a frame.
+The derived cache uses about 1.3 MB with all eight images. No image or ratio edit writes
+NVS on the running RGB panel.
 
-A channel is named by the logo it wears, never by a number.
+Done, either flavor, the rail background and the whole portrait return to On tap.
+Selecting a different flavor queues a causal prime cancellation before the new selection.
+A held prime permits those exits and blocks task/settings navigation. Fill, Clean and
+Dry intercept every touch except Stop from the queued Start through the authoritative
+terminal answer. Their result cards restore navigation immediately.
 
-**The picker is one row, and a row that runs off has to say so in something that can be
-pressed.** East of the anchor, a flavor's own page carries its ratio card over a strip of
-faces that is dragged sideways or paged by an arrow at either end, with a track beneath
-saying where in the row you are. All three appear only when the row runs off, because an
-affordance for a row that fits is furniture, and an arrow with nowhere to go goes dim and
-does not answer — which includes not making the sound of having answered. A tile arms on
-the first touch like every other target here and is chosen 150 ms later or on the lift,
-whichever comes first; a finger that travels, or a strip that moves under it, is a drag and
-chooses nothing.
+Machine pages occupy all 696 px to the right of the rail. Their header contains the page
+title and Done; the large portrait and flavor tabs are absent. Changing flavor at the
+faucet leaves these machine pages open.
 
-Text is Montserrat 20 and up; 20 is the smallest font built, so nothing smaller can
-render. Every page is built at boot and switching hides one and shows another. On Choose,
-only the active card carries a selection badge.
+Text is Montserrat, 20 px and up. Pages are built once; navigation changes visibility.
+Routine unchanged main-board replies do not repaint the portrait, selection or gauge.
 
-**Nothing on a page is there for the person building it.** No readout reports transport,
-timing or link health, and none is laid out around one — anything a bring-up needs is a
-`GET_DIAG` line over USB, where it costs the interface nothing.
+### Main-board console preview
 
-**The dark gives your place up in stages.** The last two run from the moment the screen
-goes dark, so changing how long it stays lit does not move them.
+These commands cross J9 through the same UI handlers as touch:
 
-| After | | Total absence |
-|---|---|---|
-| 60 s quiet on both glasses | backlight off | 60 s |
-| 2 min dark | back to the root of the page you were on | 3 min |
-| 10 min dark | back to Choose | 11 min |
+```text
+ui choose           # On tap
+ui choose a         # flavor A ratio
+ui choose a go      # flavor A image picker; no actuator
+ui fill a           # Fill instructions; no actuator
+ui prime a          # shared prime-ready session; pump waits for a hold
+ui clean a          # Clean instructions; no actuator
+ui settings         # System status
+ui pump-service     # Pump service instructions; no actuator
+```
 
-The first rung is the main board's and is shared with the faucet; it widens to 3 min while
-a prime session is open, since the pad is offering something a hand may still be walking
-toward. The session is closed when that rung finally falls, so an offered action is
-withdrawn with the light rather than outliving it. The two rungs below are this panel's.
+`go` starts an operation on Fill, Clean or Pump service. On Choose, it opens the image
+picker. The existing diagnostic rail IDs remain stable.
 
-The middle rung discards the views that would act on a tap — a confirm or a hold pad —
-while keeping which area you were working in. Each rung runs while the screen is dark, so a
-wake shows the answer rather than jumping to it. `IDLE:0`..`IDLE:3` walk the ladder without
-waiting, and `GET_DIAG` reports `page=`, `svc=`, `flv=` and `stage=`.
+### Sleep and touch
 
-**A button holds a press that slides off it.** LVGL acts on the release and re-searches
-under the finger on every poll while pressed, so a press that wanders is lost — no click,
-and inside a scrollable parent the wander scrolls instead. `LV_OBJ_FLAG_PRESS_LOCK` stops
-the re-search per object: `mkBtn()` sets it, so put a finger on a target, slide anywhere,
-lift, and that target fires. `START CLEAN CYCLE` clears it, because beginning a clean cycle
-is an intentional commit.
+The main board owns the shared quiet interval and first darkening. After two minutes
+dark, flavor tasks return to On tap and machine settings return to System status. After
+ten minutes dark, every page returns to On tap. `IDLE:0`..`IDLE:3` exercise these stages.
+A wake touch is consumed; it wakes without triggering an action.
+
+Navigation responds to a press. Start/Stop require a release on their target; sliding
+off cancels the click. Prime stops on release or slide-off. An image press commits on
+a still hold of 150 ms or on lift and is canceled by movement or page dismissal.
 
 ### Prime
 
-**PRIME → a flavor opens one shared prime-ready session.** The main board owns
+**Prime opens one shared prime-ready session for the selected flavor.** The main board owns
 its selected channel and complete `OFF` / `READY` / `RUNNING` state. The faucet wakes into
 the same mode, and either display can own one held run at a time.
 
@@ -418,8 +416,8 @@ pieces of glass.
 
 While held, a heartbeat goes out every 500 ms and the main board stops an unanswered hold
 after 2 s. The enclosure renews the ready session on its 250 ms active / 500 ms dark poll;
-the main board closes it after 5 s without that exact token. Elapsed text and its bar update
-at 10 Hz in small invalidated regions rather than repainting the panel.
+the main board closes it after 5 s without that exact token. The hold pad reports its
+owner, acknowledgement, outcome and connection state.
 
 An unanswered START resets the J9 transport once and retries the same token. A lost STOP or
 CANCEL is retried until exact main board state, or a strictly newer state in that same
@@ -428,7 +426,7 @@ one-reply-per-turn audit.
 
 ### Fill
 
-**FILL → a flavor → START** sends `MSG_FILL_START { channel }`, and the main board
+**Fill → Start filling** sends `MSG_FILL_START { channel }`, and the main board
 opens that channel's funnel path — its three valves — and draws with its pump what
 was poured into the funnel on the enclosure's top face down into the chilled
 reservoir. The main board owns the run and answers START, `MSG_FILL_QUERY` and
@@ -436,19 +434,13 @@ reservoir. The main board owns the run and answers START, `MSG_FILL_QUERY` and
 its own — the draw finishing, the reservoir's full reed closing, a fault — for this
 display's next turn.
 
-The run is shown on the reusable operation lock: the animation on the left, and on the
-right the channel's own face beside **Filling**, a bar that fills as the draw runs, the
-seconds left, and **STOP**. `START` is answered with the state it produced, so the lock
-comes up the moment the base takes the run; while it is up the state is asked for again
-every 500 ms, so an ending cannot be missed and a fill the console started comes up the
-same way. When the run ends the same modal holds for six seconds saying how — **Filled**,
-**Full**, **Stopped**, or a fault — then the pane returns to the fill page. A refusal —
-busy, no verified expanders, the gas alarm, an already-full reservoir — lands on the
-confirm page's own message line instead of the lock.
+The Stop-only task shows Drawing in concentrate, a progress bar and seconds left.
+The main board is queried every 500 ms. Filled, Full, Stopped and fault outcomes remain
+readable for six seconds while navigation is restored. Refusals appear on the Fill page.
 
 ### Clean
 
-**CLEAN → a flavor → START CLEAN CYCLE** sends `MSG_CLEAN_START { channel }`, and the main
+**Clean → Start cleaning** sends `MSG_CLEAN_START { channel }`, and the main
 board puts tap water through that channel three rounds over: in through the idle pump to
 the reservoir until its full reed closes, then out through the faucet on the dispense path
 until its empty reed opens. The confirm page says to set a pitcher under the faucet first.
@@ -456,14 +448,10 @@ The main board owns the cycle and answers START, `MSG_CLEAN_QUERY` and `MSG_CLEA
 with a complete `CleanStatePayload`; it queues every step it moves to and every ending for
 this display's next turn.
 
-The cycle is shown on the same operation lock as the fill: the channel's face beside
-**Cleaning**, a bar that fills across the whole cycle, a note reading **1 of 3 • water in**
-or **water out**, STOP, and in the kicker how long is left — **11 MIN LEFT**, from the
-main board's own estimate, smoothed between its answers. While the lock is up the state is
-asked for again every 500 ms, so a cycle the console started comes up the same way. When the
-cycle ends the modal holds for six seconds saying how — **Clean**, **Stopped**, or a fault —
-then the pane returns to the clean page. A refusal lands on the confirm page's own message
-line. An older main board that answers `MSG_ERR_UNSUPPORTED` lands there too.
+The Stop-only task shows Flushing, progress across the complete cycle, the round and
+flow direction, and the main board's estimated time left. Queries repeat every 500 ms.
+Clean, Stopped and fault outcomes remain readable for six seconds while navigation is
+restored. Refusals appear on the Clean page.
 
 ### Dry, before a pump replacement
 
@@ -473,33 +461,26 @@ then on channel B — the four purge states that sweep every joint the collet pl
 ([`/hardware/service/pump-replacement.md`](/hardware/service/pump-replacement.md)) — and
 answers START, `MSG_AIR_QUERY` and `MSG_AIR_STOP` with a complete `AirStatePayload`.
 
-It is shown on the same lock: **Drying**, the face of the channel whose pump is turning, a
-bar across the four steps, **1 of 4 • air in** or **air out**, STOP, and the time left in the
-kicker; then **Dry — The lines are dry. Pull the pump cartridge.** for six seconds. A purge
-the console runs — one channel's reservoir aired and drawn out — comes up the same way as
-**Purging**. A refusal lands on the Settings card's own message line.
+The full-width machine task shows Drying, progress across four steps, flow direction,
+Stop and the main board's time estimate. Dry and fault results restore navigation and
+remain visible for six seconds. A console air purge uses the same operation surface.
 
-### Frame rate
+### Rendering
 
-The animation runs only on the full-screen operation lock. Measured on the panel:
-**~9.4 fps against the 10 fps timer**, one animation repaint ~117 ms. Choose,
-Ratio, Fill, Prime, Clean, and Settings otherwise repaint only when their state changes.
-`LOCK:SHOW` exposes the animation for a live check, and `GET_DIAG` reports the loop
-high-water mark and clears it.
+Boot and `LOCK:SHOW` use the 10 fps animation timer. Fill, Prime, Clean, Ratio, images,
+On tap and Settings repaint only when their displayed state changes. `GET_DIAG` exposes
+loop and rendering counters for live measurement.
 
 ### Level and ratio
 
-Both come from the main board on every status poll. **Each Choose card carries a four-segment
-gauge** under what the flavor pours at, lit from the reservoir's reed column and the float's
-motion (`machine_policy::ReservoirLevel`): none at the empty reed, one on leaving it upward, a
-reed's own count at each reed above, all four at the full reed. The caption reads **EMPTY** at
-the bottom reed; until any reed has been seen the segments stay dark under a plain caption. A
-segment count of one lights amber.
+The selected reservoir's four segments come from the main board's reed-derived level:
+none at empty, all four at full. Orange segments show the known amount; unavailable or
+unanswered readings clear the segments and say No level reading. During a reported pour,
+the resting title reads Pouring.
 
-**The ratio is the main board's.** A step on a flavor's own page repaints locally and sends
-the pair as `MSG_RATIO_SET`, the press's one frame; the answer is what the main board now holds
-and persists, and the status poll carries the pair thereafter, so a ratio set from the console
-reaches the card within a second. While a step's answer is owed, the poll's copy is not applied.
+The ratio stepper sends both ratios as `MSG_RATIO_SET`. The main board persists and
+returns them; the status poll carries subsequent changes. While a step's answer is owed,
+an older status value cannot overwrite the local step. Ratios range from 1:6 to 1:24.
 
 ### System status
 
@@ -512,15 +493,13 @@ of four on each pocket's outer wall at 57.5, 102.5, 147.5 and 192.5 mm up the sh
 the bottom and full at the top, and the carbonator's low and high on its tube's aft wall at
 99.1 and 127.3 mm. A reed the main board reads closed is a filled `COL_GOOD` disc; every other
 one is a ring. The areas a person can go into stand in a column east of the card, one target
-each — one so far, **PUMP SERVICE**, whose page carries a Back to this landing.
+each — one so far, **PUMP SERVICE**, whose page carries Settings to this landing.
 
 The reeds ride the same status poll as the gauges, once a second while lit, and the diagram
 repaints only the dots that changed. A poll the main board has not answered for 1.5 s, or a
-reading it flags as stale, empties every dot and puts **not reading the reeds** in the pane
-under the card, which is otherwise air; the drawing itself carries no words. The card wraps the
-drawing — its caption, the profile at the width the column leaves it, the same padding all
-round. The middle rung of the dark returns Settings to this landing;
-`GET_DIAG` reports which of its views is up as `set=`.
+reading it flags as stale, empties every dot and puts **Not reading the sensors** in the pane
+below the drawing. The 436 px profile occupies the full machine page beside Pump service.
+The drawing contains no text. `GET_DIAG` reports its settings view as `set=`.
 
 ## Integration seams (not implemented)
 

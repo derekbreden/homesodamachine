@@ -87,7 +87,7 @@ struct FirmwareUpdateView: View {
                 } label: {
                     Text("Update Now")
                         .font(.system(size: 18, weight: .semibold))
-                        .foregroundStyle(.white)
+                        .foregroundStyle(Theme.onAccent)
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 16)
                         .background(Theme.accent)

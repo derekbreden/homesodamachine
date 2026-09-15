@@ -1676,7 +1676,7 @@ export default () => (
     <fiducial name="FID2" padDiameter="1mm" pcbX={16} pcbY={27.5} />
     <fiducial name="FID3" padDiameter="1mm" pcbX={-59.5} pcbY={-34.8} />
 
-    {/* Board identity nameplate — the soda-glass brand mark (ios/AppIcon.svg,
+    {/* Board identity nameplate — the faucet brand mark (brand/mark.svg,
         monocolor silk via logo.ts) beside the two-line name, over MACHINE and the
         two-line version stamp, filling the bay north of U9 (C10/C11 column west,
         the R10-R12 bank east, the IO25/26/27 top runs north). Every element sits

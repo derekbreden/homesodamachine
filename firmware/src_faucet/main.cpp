@@ -33,15 +33,15 @@
 // When the enclosure opens prime mode, main board state replaces the logo with
 // equal EXIT PRIME and HOLD TO PRIME targets until either display exits.
 
-// ── Theme (matches config display / iOS app) ──
-#define THEME_BG  lv_color_hex(0x1a1a2e)
-#define COL_CARD   0x242440
-#define COL_ACCENT 0xe94560
-#define COL_TEXT   0xe8e8f2
-#define COL_DIM    0x8888aa
+// ── Big Blue service surfaces; flavor portraits fill the resting display ──
+#define THEME_BG  lv_color_hex(0x1749d1)
+#define COL_CARD   0x10319c
+#define COL_ACCENT 0xff9152
+#define COL_TEXT   0xffffff
+#define COL_DIM    0xdce6ff
 #define COL_GOOD   0x37c98b
 #define COL_WARN   0xf0a83c
-#define COL_OFF    0x3a3a55
+#define COL_OFF    0x6287e0
 
 // ── Flavors ──
 static const char *FLAVOR_NAMES[2] = {"Flavor 1", "Flavor 2"};
@@ -514,13 +514,13 @@ static void renderPrime(bool force = false) {
 
   if (primeCancelPending) {
     lv_label_set_text(primeHoldLbl, "EXITING PRIME");
-    lv_obj_set_style_bg_color(primeHoldBtn, lv_color_hex(COL_OFF), 0);
+    lv_obj_set_style_bg_color(primeHoldBtn, lv_color_hex(COL_DIM), 0);
   } else if (primeLinkLost) {
     lv_label_set_text(primeHoldLbl, "RECONNECTING");
-    lv_obj_set_style_bg_color(primeHoldBtn, lv_color_hex(COL_OFF), 0);
+    lv_obj_set_style_bg_color(primeHoldBtn, lv_color_hex(COL_DIM), 0);
   } else if (primeStopPending) {
     lv_label_set_text(primeHoldLbl, "STOPPING");
-    lv_obj_set_style_bg_color(primeHoldBtn, lv_color_hex(COL_OFF), 0);
+    lv_obj_set_style_bg_color(primeHoldBtn, lv_color_hex(COL_DIM), 0);
   } else if (primeSession.phase == PRIME_SESSION_RUNNING) {
     lv_label_set_text(primeHoldLbl, "PRIMING");
     lv_obj_set_style_bg_color(primeHoldBtn, lv_color_hex(COL_GOOD), 0);
@@ -536,8 +536,8 @@ static void renderPrime(bool force = false) {
   const bool blocked = primeCancelPending || primeLinkLost || primeStopPending;
   lv_obj_set_style_bg_color(
       primeHoldBtn,
-      lv_color_hex(blocked ? COL_OFF
-                   : primeSession.phase == PRIME_SESSION_RUNNING ? COL_GOOD : COL_CARD),
+      lv_color_hex(blocked ? COL_DIM
+                   : primeSession.phase == PRIME_SESSION_RUNNING ? COL_GOOD : COL_ACCENT),
       LV_STATE_PRESSED);
   refreshPrimeStatus(true);
 }
@@ -941,7 +941,7 @@ static void buildUi() {
   lv_obj_set_size(primeHoldBtn, SCREEN_W, SCREEN_H / 2);
   lv_obj_set_style_bg_color(primeHoldBtn, lv_color_hex(COL_ACCENT), 0);
   lv_obj_set_style_bg_opa(primeHoldBtn, LV_OPA_COVER, 0);
-  lv_obj_set_style_bg_color(primeHoldBtn, lv_color_hex(COL_CARD), LV_STATE_PRESSED);
+  lv_obj_set_style_bg_color(primeHoldBtn, lv_color_hex(COL_ACCENT), LV_STATE_PRESSED);
   lv_obj_add_flag(primeHoldBtn, LV_OBJ_FLAG_CLICKABLE);
   lv_obj_clear_flag(primeHoldBtn, LV_OBJ_FLAG_PRESS_LOCK);
   lv_obj_add_event_cb(primeHoldBtn, onPrimeHold, LV_EVENT_ALL, NULL);
@@ -949,7 +949,7 @@ static void buildUi() {
   primeHoldLbl = lv_label_create(primeHoldBtn);
   lv_label_set_text(primeHoldLbl, "HOLD TO PRIME");
   lv_obj_set_style_text_font(primeHoldLbl, &lv_font_montserrat_20, 0);
-  lv_obj_set_style_text_color(primeHoldLbl, lv_color_hex(COL_TEXT), 0);
+  lv_obj_set_style_text_color(primeHoldLbl, lv_color_hex(COL_CARD), 0);
   lv_obj_align(primeHoldLbl, LV_ALIGN_CENTER, 0, -18);
 
   primeStatusLbl = lv_label_create(primeHoldBtn);
@@ -957,7 +957,7 @@ static void buildUi() {
   lv_obj_set_width(primeStatusLbl, SCREEN_W - 12);
   lv_obj_set_style_text_align(primeStatusLbl, LV_TEXT_ALIGN_CENTER, 0);
   lv_obj_set_style_text_font(primeStatusLbl, &lv_font_montserrat_14, 0);
-  lv_obj_set_style_text_color(primeStatusLbl, lv_color_hex(COL_TEXT), 0);
+  lv_obj_set_style_text_color(primeStatusLbl, lv_color_hex(COL_CARD), 0);
   lv_obj_align(primeStatusLbl, LV_ALIGN_CENTER, 0, 24);
 
   lv_obj_add_flag(primeLayer, LV_OBJ_FLAG_HIDDEN);
