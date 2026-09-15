@@ -1,5 +1,8 @@
 # PET-GF support interface test
 
+This job was cancelled before extrusion. It has no physical results. The active
+experiment is [PET-GF interface edges](../petgf-interface-edges/README.md).
+
 Sixteen numbered, open-front ceiling specimens share one Mark2 plate. All use
 `hardware/printed-parts/petgf.3mf`, the left 0.4 mm nozzle, and +0.04 mm Z offset.
 The object settings below vary; temperature, cooling, support type, line width,
@@ -34,10 +37,8 @@ The reported adhesion is concentrated at interface edges, particularly wall junc
 free edges also retain material. The center usually releases. Each specimen presents
 three wall junctions and one free edge for that comparison.
 
-The installed tree-interface generator adds one perimeter around its infill.
-Interface spacing changes the interior fill; this experiment holds the perimeter
-generation and lateral support clearance constant.
-[Bambu interface perimeter](https://github.com/bambulab/BambuStudio/blob/v02.08.02.61/src/libslic3r/Support/TreeSupport.cpp#L1802).
+The sliced organic interface uses connected zigzags with runs along its boundary.
+This experiment holds the boundary generation and lateral clearance constant.
 
 ## Specimens
 
