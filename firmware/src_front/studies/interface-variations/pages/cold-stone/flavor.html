@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Flavor — cold-stone</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="screen">
+
+  <div class="gutter">
+    <div class="cell c0 on">
+      <svg width="44" height="44" viewBox="0 0 48 48" fill="none" stroke="currentColor"
+           stroke-width="5">
+        <rect x="9" y="9" width="13" height="4" fill="currentColor" stroke="none"/>
+        <rect x="9" y="16" width="13" height="24" vector-effect="non-scaling-stroke"/>
+        <rect x="27" y="16" width="13" height="24" vector-effect="non-scaling-stroke"/>
+      </svg>
+    </div>
+    <div class="cell c1">
+      <svg width="44" height="44" viewBox="0 0 48 48" fill="none" stroke="currentColor"
+           stroke-width="3" stroke-linejoin="round">
+        <path d="M24 7C24 7 38 22 38 31A14 14 0 0 1 10 31C10 22 24 7 24 7Z"
+              vector-effect="non-scaling-stroke"/>
+      </svg>
+    </div>
+    <div class="cell c2">
+      <svg width="44" height="44" viewBox="0 0 48 48" fill="none" stroke="currentColor"
+           stroke-width="3" stroke-linejoin="round">
+        <path d="M8 10H40L27 28V40L21 44V28Z" vector-effect="non-scaling-stroke"/>
+      </svg>
+    </div>
+    <div class="cell c3">
+      <svg width="44" height="44" viewBox="0 0 48 48" fill="none" stroke="currentColor"
+           stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+        <path d="M39 24A15 15 0 1 1 24 9" vector-effect="non-scaling-stroke"/>
+        <polyline points="18,3 24.5,9 18,15" vector-effect="non-scaling-stroke"/>
+      </svg>
+    </div>
+  </div>
+  <div class="rule-v" style="top:0;height:20px"></div>
+  <div class="rule-v" style="top:130px;height:350px"></div>
+
+  <div class="gear">
+    <svg width="44" height="44" viewBox="0 0 44 44" fill="none" stroke="currentColor"
+         stroke-width="3" stroke-linecap="round">
+      <circle cx="22" cy="22" r="11" vector-effect="non-scaling-stroke"/>
+      <circle cx="22" cy="22" r="4.5" vector-effect="non-scaling-stroke"/>
+      <line x1="33.5" y1="22" x2="39.5" y2="22" vector-effect="non-scaling-stroke"/>
+      <line x1="30.13" y1="30.13" x2="34.37" y2="34.37" vector-effect="non-scaling-stroke"/>
+      <line x1="22" y1="33.5" x2="22" y2="39.5" vector-effect="non-scaling-stroke"/>
+      <line x1="13.87" y1="30.13" x2="9.63" y2="34.37" vector-effect="non-scaling-stroke"/>
+      <line x1="10.5" y1="22" x2="4.5" y2="22" vector-effect="non-scaling-stroke"/>
+      <line x1="13.87" y1="13.87" x2="9.63" y2="9.63" vector-effect="non-scaling-stroke"/>
+      <line x1="22" y1="10.5" x2="22" y2="4.5" vector-effect="non-scaling-stroke"/>
+      <line x1="30.13" y1="13.87" x2="34.37" y2="9.63" vector-effect="non-scaling-stroke"/>
+    </svg>
+  </div>
+
+  <!-- ── West column: one 172 px measure — back key over the face, both
+          landing on the floor the east column lands on. ────────────────── -->
+  <div class="key backkey" style="left:116px;top:14px">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="15,5 8,12 15,19" vector-effect="non-scaling-stroke"/>
+    </svg>
+    <span class="t">Choose</span>
+  </div>
+  <img class="face" src="../../assets/flavor_1.png" width="172" height="320"
+       style="position:absolute;left:116px;top:110px" alt="">
+
+  <!-- ── East column ─────────────────────────────────────────────────────── -->
+  <div class="cap" style="position:absolute;left:312px;top:20px">Ratio</div>
+
+  <div style="position:absolute;left:312px;top:72px;height:88px;line-height:88px"
+       class="ratio-xl">1:20</div>
+
+  <div class="key stepkey" style="left:588px;top:72px">
+    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor"
+         stroke-width="4" stroke-linecap="round">
+      <line x1="6" y1="20" x2="34" y2="20" vector-effect="non-scaling-stroke"/>
+    </svg>
+  </div>
+  <!-- PRESSED: the one pressed element on this screen -->
+  <div class="key stepkey press" style="left:692px;top:72px">
+    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor"
+         stroke-width="4" stroke-linecap="round">
+      <line x1="6" y1="20" x2="34" y2="20" vector-effect="non-scaling-stroke"/>
+      <line x1="20" y1="6" x2="20" y2="34" vector-effect="non-scaling-stroke"/>
+    </svg>
+  </div>
+
+  <div class="body" style="position:absolute;left:312px;top:172px">Range 1:10 – 1:30</div>
+
+  <div class="hr" style="left:312px;top:214px;width:468px"></div>
+
+  <div class="cap" style="position:absolute;left:312px;top:240px">Face</div>
+
+  <!-- the row is wider than its space: it is dragged, and the two travel keys
+       and the track say so and say where in the row you are -->
+  <div class="key travelkey" style="left:312px;top:302px">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="15,5 8,12 15,19" vector-effect="non-scaling-stroke"/>
+    </svg>
+  </div>
+  <div class="key travelkey" style="left:724px;top:302px">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="9,5 16,12 9,19" vector-effect="non-scaling-stroke"/>
+    </svg>
+  </div>
+
+  <div class="strip">
+    <div class="row" style="width:608px">
+      <img class="face tile" src="../../assets/flavor_1.png" style="left:0px"   alt="">
+      <img class="face tile" src="../../assets/flavor_2.png" style="left:76px"  alt="">
+      <div class="tileslab" style="left:152px">
+        <div class="cap6" style="left:0;right:0;top:0"></div>
+      </div>
+      <img class="face tile" src="../../assets/flavor_3.png" style="left:160px" alt="">
+      <img class="face tile" src="../../assets/flavor_4.png" style="left:244px" alt="">
+      <img class="face tile" src="../../assets/flavor_1.png" style="left:320px" alt="">
+      <img class="face tile" src="../../assets/flavor_2.png" style="left:396px" alt="">
+      <img class="face tile" src="../../assets/flavor_3.png" style="left:472px" alt="">
+      <img class="face tile" src="../../assets/flavor_4.png" style="left:548px" alt="">
+    </div>
+  </div>
+
+  <div class="track">
+    <div class="thumb" style="left:52px;width:181px"></div>
+  </div>
+
+</div>
+</body>
+</html>
