@@ -5,6 +5,7 @@
 #                                          #   beside it the same at one px per panel px, and that with
 #                                          #   every pixel the camera reads as a palette colour so drawn
 #   tools/panelcam.sh shot front --full    # the frame as the camera delivered it
+#   tools/panelcam.sh shot front --no-wake # photograph a page already shown, without opening its console
 #   tools/panelcam.sh aim front            # put the test screen up, read the panel's corners, write them
 #   tools/panelcam.sh list                 # cameras, and the sizes the attached one streams
 #   tools/panelcam.sh controls             # what the camera lets a program change
@@ -118,12 +119,13 @@ best_score() { sed -n 's/.*best=\([0-9.]*\) of.*/\1/p' "$LOGFILE" 2>/dev/null | 
 
 cmd_shot() {
   local target="${1:-}"; shift || true
-  [ -n "$target" ] || die "usage: panelcam.sh shot <target> [--full] [--out FILE]"
+  [ -n "$target" ] || die "usage: panelcam.sh shot <target> [--full] [--no-wake] [--out FILE]"
 
-  local full=0 out=""
+  local full=0 wake=1 out=""
   while [ $# -gt 0 ]; do
     case "$1" in
       --full) full=1; shift ;;
+      --no-wake) wake=0; shift ;;
       --out)  out="${2:?--out needs a path}"; shift 2 ;;
       *) die "unknown option $1" ;;
     esac
@@ -137,6 +139,7 @@ cmd_shot() {
 
   # A dark panel photographs as an unlit rectangle; the machine is told a finger landed.
   local console; console="$(target_field_opt "$target" console)"
+  [ "$wake" -eq 1 ] || console=""
   [ -n "$console" ] && python3 "$HERE/panelcam-wake.py" "$console" >/dev/null 2>&1 || true
 
   mkdir -p "$OUT_DIR"

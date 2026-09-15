@@ -111,7 +111,9 @@ def project(coeffs, x, y):
 
 def find(path):
     L = luma(path)
-    lab, n = ndimage.label(L > 128)
+    # Retain dim corner fiducials at short exposures. Their size, shape and
+    # position within the enclosing frame identify them.
+    lab, n = ndimage.label(L > 64)
     if n == 0:
         sys.exit("nothing white in the frame: is the test screen up?")
     objs = ndimage.find_objects(lab)
@@ -134,6 +136,11 @@ def find(path):
         weight = np.clip(R - np.median(np.concatenate([R[0], R[-1], R[:, 0], R[:, -1]])), 0, None)
         yy, xx = np.mgrid[y0:y1, x0:x1]
         cx, cy = float((weight * (xx + 0.5)).sum() / weight.sum()), float((weight * (yy + 0.5)).sum() / weight.sum())
+        # Only corner fiducials count. Letter groups and test patterns can
+        # have the same area at a low exposure threshold, but lie inward.
+        if (min(cx - rx0, rx1 - cx) > 0.15 * (rx1 - rx0) or
+                min(cy - ry0, ry1 - cy) > 0.15 * (ry1 - ry0)):
+            continue
         name = ("T" if cy < (ry0 + ry1) / 2 else "B") + ("L" if cx < (rx0 + rx1) / 2 else "R")
         if name in found:
             sys.exit(f"two squares in the {name} quarter of the frame")

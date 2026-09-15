@@ -191,6 +191,14 @@ changes on J3. The enclosure asks with `MSG_FLAVOR_QUERY` every 250 ms while lit
 500 ms while dark, and the main board answers with the current flavor and persistence flags.
 That bounded poll is also how a faucet selection wakes and updates a sleeping enclosure.
 
+During a Prime session, its lease-renewing query supplies that polling turn. A matching
+query can carry one queued announcement, then the next query carries the authoritative
+Prime snapshot. Changed Prime state takes priority, and discovery queries and direct
+hold/stop/cancel commands receive immediate replies. This keeps the snapshot interval
+within one second at dark-display polling speed while allowing console navigation and
+OTA requests through. Console requests allow five seconds for the four-entry announcement
+queue and the enclosure's acknowledgement.
+
 An enclosure card press repaints locally and sends tokenized `MSG_FLAVOR_SELECT`. The first
 fresh request carries the audible flag; retries reuse the absolute value and token without
 repeating the tick. The resulting main board revision is published immediately over J3, so

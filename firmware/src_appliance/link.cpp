@@ -4,8 +4,10 @@
 #include "ota.h"
 #include "versions.h"
 #include "flavor.h"
+#include "faucet_link.h"
 #include "idle.h"
 #include "flavor_link_policy.h"
+#include "j9_query_policy.h"
 #include "machine.h"
 #include "pins.h"
 #include "rtc.h"
@@ -39,6 +41,7 @@ static uint32_t enclosureFlavorDuplicates = 0;
 static uint32_t enclosureFlavorInvalid = 0;
 static uint32_t enclosurePrimeSessionLastSentRevision = 0;
 static bool enclosurePrimeSessionStateSent = false;
+static j9_query_policy::PrimeQueryReplies primeQueryReplies;
 static uint8_t j9TurnReplyHighWater = 0;
 static uint32_t j9TurnReplyOverruns = 0;
 
@@ -305,6 +308,26 @@ static void onMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
     // its normal cadence. Otherwise a status/flavor reply on every poll would
     // starve an asynchronous pump completion or a prime transition forever.
     const uint8_t type = msgType(frame);
+    struct PrimeQueryEndpoint {
+        HdlcLink *link;
+        bool renewSession(uint32_t token) {
+            return machinePrimeSessionQuery(token);
+        }
+        bool sendChangedState() {
+            const uint32_t before = link->framesTx;
+            sendChangedPrimeSessionState(link);
+            return link->framesTx != before;
+        }
+        bool sendAnnouncement() {
+            if (!annCount) return false;
+            announceFlushOne();
+            return true;
+        }
+        void sendState() { sendPrimeSessionState(link); }
+    } primeEndpoint{link};
+    if (primeQueryReplies.handle(type, msgPayload(frame), msgPayloadLen(len),
+                                 primeEndpoint)) return;
+
     if (type == MSG_FLAVOR_QUERY || type == MSG_STATUS_REQ) {
         sendChangedPrimeSessionState(link);
         if (link->framesTx != framesBefore) return;
@@ -433,15 +456,6 @@ static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len) {
                           flavorPersisted() ? "" : " — persistence pending");
         }
         sendFlavorState(link, request.token);
-        return;
-    }
-
-    if (type == MSG_PRIME_SESSION_QUERY &&
-        plen >= sizeof(PrimeSessionQueryPayload)) {
-        PrimeSessionQueryPayload query;
-        memcpy(&query, payload, sizeof(query));
-        machinePrimeSessionQuery(query.sessionToken);
-        sendPrimeSessionState(link);
         return;
     }
 
@@ -762,16 +776,22 @@ void linkService() {
 // A question the console puts to the enclosure. The main board does not
 // interrupt the pair, so this waits in the announcement queue like everything
 // else the machine volunteers and leaves inside the turn the display's next
-// poll opens. That poll is 250 ms while lit and 500 ms while dark, so the wait
-// is one of those plus whatever is already queued ahead of it — and a queue
-// that never drains is a display that has stopped answering, which is the
-// thing the deadline is here to report.
+// poll opens. That poll is 250 ms while lit and 500 ms while dark, and the reply
+// alternates queued news with snapshots during a prime session. Four queued
+// announcements therefore need at most eight dark polls, plus reply time.
 static bool askEnclosure(uint8_t type, const void *data, uint8_t len,
-                         const bool &ack, uint32_t waitMs = 3000) {
+                         const bool &ack,
+                         uint32_t waitMs = j9_query_policy::kEnclosureReplyWaitMs) {
     announceQueue(type, data, len);
     const unsigned long until = millis() + waitMs;
     while ((long)(millis() - until) < 0 && !ack) {
+        // Console waits retain the main loop's deadline-before-input order.
+        // A buffered hold tick cannot revive an expired run, and neither
+        // display's Stop nor the sound sequencer waits for this timeout.
+        machineService();
         j9.service();
+        faucetLinkService();
+        soundService();
         delay(2);
     }
     return ack;
