@@ -242,7 +242,7 @@ static lv_obj_t *flavorRail, *heroPanel, *heroImage, *heroCaption;
 static lv_obj_t *taskHeader, *systemTitle, *doneBtn;
 static lv_obj_t *homeTitle, *homeGauge, *homeLevelCaption;
 static lv_obj_t *homeLevelSegments[LEVEL_SEGMENTS];
-static lv_obj_t *flvTilePosition, *flvTileEmpty;
+static lv_obj_t *flvTilePosition;
 static lv_obj_t *flvTileMark[FLAVOR_IMAGE_COUNT] = {};
 static uint8_t imagePage = 0;
 static bool operationLockMachine = false;
@@ -2242,7 +2242,17 @@ static lv_obj_t *mkSelectedImg(lv_obj_t *parent, const lv_img_dsc_t *set) {
   return o;
 }
 
+static uint8_t availableImageOrder(uint8_t (&order)[FLAVOR_IMAGE_COUNT]) {
+  static_assert(FLAVOR_IMAGE_COUNT == 8 && FLAVOR_FACTORY_COUNT == 4,
+                "image picker order follows the shared artwork slots");
+  uint8_t available = 0;
+  for (uint8_t i = FLAVOR_FACTORY_COUNT; i < FLAVOR_IMAGE_COUNT; ++i)
+    if (flavorArtAvailable(i)) available |= 1u << i;
+  return front_ui::imageOrder(available, order);
+}
+
 static void refreshFlavorImages() {
+  tileDisarm();
   for (uint8_t i = 0; i < 2; ++i)
     if (homeFlavorArtObj[i]) lv_img_set_src(homeFlavorArtObj[i],
         &flavorRailArt[resolveFlavorArt(flavorImage[i], i)]);
@@ -2251,15 +2261,22 @@ static void refreshFlavorImages() {
   for (uint8_t i = 0; i < selImgCount; ++i)
     lv_img_set_src(selImg[i], &selImgSet[i][resolveFlavorArt(flavorImage[flavorSel], flavorSel)]);
   if (heroImage) lv_img_set_src(heroImage, &flavorHeroArt[resolveFlavorArt(flavorImage[flavorSel], flavorSel)]);
+  uint8_t order[FLAVOR_IMAGE_COUNT];
+  const uint8_t count = availableImageOrder(order);
+  const uint8_t pages = front_ui::imagePages(count);
+  if (imagePage >= pages) { tileDisarm(); imagePage = pages - 1; }
   for (uint8_t i = 0; i < FLAVOR_IMAGE_COUNT; ++i) {
     if (!flvTileBtn[i]) continue;
-    const bool custom = i >= FLAVOR_FACTORY_COUNT;
-    const bool visible = custom == (imagePage == 0) && flavorArtAvailable(i);
-    if (visible) lv_obj_clear_flag(flvTileBtn[i], LV_OBJ_FLAG_HIDDEN);
-    else lv_obj_add_flag(flvTileBtn[i], LV_OBJ_FLAG_HIDDEN);
+    lv_obj_add_flag(flvTileBtn[i], LV_OBJ_FLAG_HIDDEN);
     const bool selected = i == flavorImage[flavorSel];
     lv_obj_set_style_border_color(flvTileBtn[i], lv_color_hex(selected ? COL_ACCENT : COL_CARD), 0);
     if (flvTileMark[i]) lv_label_set_text(flvTileMark[i], selected ? LV_SYMBOL_OK : "");
+  }
+  for (uint8_t pos = imagePage * 4; pos < count && pos < (imagePage + 1) * 4; ++pos) {
+    lv_obj_t *tile = flvTileBtn[order[pos]];
+    if (!tile) continue;
+    lv_obj_set_pos(tile, (pos % 4) * (TILE_BTN_W + TILE_GAP), 0);
+    lv_obj_clear_flag(tile, LV_OBJ_FLAG_HIDDEN);
   }
   tileStripAffordance();
 }
@@ -2896,7 +2913,7 @@ static void primeSessionService() {
       j9Reinit("prime session start unanswered");
       primePostHold(MSG_PRIME_SESSION_HOLD_START);
       holdTickMs = now;
-      setPrimeMsg("link reset — retrying");
+      setPrimeMsg("link reset - retrying");
     }
     if (!acknowledged && heldMs > PRIME_SESSION_STALE_MS) {
       setPrimeMsg("no answer from the main board");
@@ -2981,27 +2998,22 @@ static void homeSettingsCb(lv_event_t *e) {
   showFlavor((FlavorView)(intptr_t)lv_event_get_user_data(e));
 }
 
-// Where in the row you are, and which way there is still to go. Modelled on the
-// SETUP column this recovers: a thumb sized to the fraction on screen, and an end
-// that cannot act saying so by going dim and by not answering.
+// Available artwork fills each page; the range and arrows describe that list.
 static void tileStripAffordance() {
   if (!flvTilePosition) return;
-  lv_label_set_text(flvTilePosition, imagePage == 0 ? "Your images\n1–4 of 8" : "Defaults\n5–8 of 8");
+  uint8_t order[FLAVOR_IMAGE_COUNT];
+  const uint8_t count = availableImageOrder(order);
+  const uint8_t end = (imagePage + 1) * 4 < count ? (imagePage + 1) * 4 : count;
+  lv_label_set_text_fmt(flvTilePosition, "%u-%u of %u",
+                        (unsigned)(imagePage * 4 + 1), (unsigned)end, (unsigned)count);
   lv_obj_t *buttons[2] = {flvTileLeft, flvTileRight};
   lv_obj_t *marks[2] = {flvTileLeftMark, flvTileRightMark};
   for (uint8_t i = 0; i < 2; ++i) {
-    const bool enabled = imagePage != i;
+    const bool enabled = i == 0 ? imagePage > 0 : imagePage + 1 < front_ui::imagePages(count);
     if (enabled) lv_obj_add_flag(buttons[i], LV_OBJ_FLAG_CLICKABLE);
     else lv_obj_clear_flag(buttons[i], LV_OBJ_FLAG_CLICKABLE);
     lv_obj_set_style_text_color(marks[i], lv_color_hex(enabled ? COL_TEXT : COL_OFF), 0);
     lv_obj_set_style_border_color(buttons[i], lv_color_hex(enabled ? 0x7d9eed : COL_OFF), 0);
-  }
-  bool haveCustom = false;
-  for (uint8_t i = FLAVOR_FACTORY_COUNT; i < FLAVOR_IMAGE_COUNT; ++i)
-    haveCustom |= flavorArtAvailable(i);
-  if (flvTileEmpty) {
-    if (imagePage == 0 && !haveCustom) lv_obj_clear_flag(flvTileEmpty, LV_OBJ_FLAG_HIDDEN);
-    else lv_obj_add_flag(flvTileEmpty, LV_OBJ_FLAG_HIDDEN);
   }
 }
 
@@ -3012,8 +3024,10 @@ static void tileStripScrolledCb(lv_event_t *e) {
 
 static void tileStripPageCb(lv_event_t *e) {
   if (lockActive) return;
+  uint8_t order[FLAVOR_IMAGE_COUNT];
+  const uint8_t count = availableImageOrder(order);
   const int next = imagePage + (int)(intptr_t)lv_event_get_user_data(e);
-  if (next < 0 || next > 1) { clickPending = false; return; }
+  if (next < 0 || next >= front_ui::imagePages(count)) { clickPending = false; return; }
   tileDisarm();
   imagePage = (uint8_t)next;
   refreshFlavorImages();
@@ -3366,7 +3380,7 @@ static void lockFillLayout(bool on) {
 
 static void pendingOperationShow(const char *kicker, bool machine) {
   operationLockMachine = machine;
-  lockScreenShow(kicker, "Starting…", "");
+  lockScreenShow(kicker, "Starting...", "");
   lockFillLayout(true);
   lv_obj_add_flag(lockBar, LV_OBJ_FLAG_HIDDEN);
   lv_obj_add_flag(lockBody, LV_OBJ_FLAG_HIDDEN);
@@ -3500,7 +3514,7 @@ static const char *fillRefusalText(uint8_t outcome) {
     case FILL_OUTCOME_BUSY:  return "the machine is busy";
     case FILL_OUTCOME_NO_IO: return "the valves are not answering";
     case FILL_OUTCOME_FAULT: return "a valve did not answer";
-    case FILL_OUTCOME_GAS:   return "gas alarm — nothing runs";
+    case FILL_OUTCOME_GAS:   return "gas alarm - nothing runs";
     case FILL_OUTCOME_FULL:  return "the reservoir is already full";
     default:                 return "the main board declined";
   }
@@ -3542,7 +3556,7 @@ static void fillStopCb(lv_event_t *e) {
   j9Post(MSG_FILL_STOP, nullptr, 0);
   fillStopSent = true;
   lv_obj_set_style_bg_color(lockStop, lv_color_hex(COL_OFF), 0);
-  if (fillStartSentMs) lv_label_set_text(lockNote, "Stopping · waiting for the main board");
+  if (fillStartSentMs) lv_label_set_text(lockNote, "Stopping - waiting for the main board");
   else fillLockProgress();
 }
 
@@ -3554,8 +3568,8 @@ static void fillService() {
     if (now - fillQueryMs >= FILL_QUERY_MS && outCount < OUT_Q_DEPTH / 2) {
       fillQueryMs = now;
       if (now - fillStartSentMs >= FILL_START_REPLY_MS &&
-          strcmp(lv_label_get_text(lockNote), fillStopSent ? "Stopping · reconnecting" : "Reconnecting to the main board") != 0)
-        lv_label_set_text(lockNote, fillStopSent ? "Stopping · reconnecting" : "Reconnecting to the main board");
+          strcmp(lv_label_get_text(lockNote), fillStopSent ? "Stopping - reconnecting" : "Reconnecting to the main board") != 0)
+        lv_label_set_text(lockNote, fillStopSent ? "Stopping - reconnecting" : "Reconnecting to the main board");
       j9Post(fillStopSent ? MSG_FILL_STOP : MSG_FILL_QUERY, nullptr, 0);
     }
     return;
@@ -3743,7 +3757,7 @@ static void cleanStopCb(lv_event_t *e) {
   j9Post(MSG_CLEAN_STOP, nullptr, 0);
   cleanStopSent = true;
   lv_obj_set_style_bg_color(lockStop, lv_color_hex(COL_OFF), 0);
-  if (cleanStartSentMs) lv_label_set_text(lockNote, "Stopping · waiting for the main board");
+  if (cleanStartSentMs) lv_label_set_text(lockNote, "Stopping - waiting for the main board");
   else cleanLockProgress();
 }
 
@@ -3903,7 +3917,7 @@ static void airStopCb(lv_event_t *e) {
   j9Post(MSG_AIR_STOP, nullptr, 0);
   airStopSent = true;
   lv_obj_set_style_bg_color(lockStop, lv_color_hex(COL_OFF), 0);
-  if (airStartSentMs) lv_label_set_text(lockNote, "Stopping · waiting for the main board");
+  if (airStartSentMs) lv_label_set_text(lockNote, "Stopping - waiting for the main board");
   else airLockProgress();
 }
 
@@ -3925,8 +3939,8 @@ static void airService() {
     if (now - airQueryMs >= CLEAN_QUERY_MS && outCount < OUT_Q_DEPTH / 2) {
       airQueryMs = now;
       if (now - airStartSentMs >= FILL_START_REPLY_MS &&
-          strcmp(lv_label_get_text(lockNote), airStopSent ? "Stopping · reconnecting" : "Reconnecting to the main board") != 0)
-        lv_label_set_text(lockNote, airStopSent ? "Stopping · reconnecting" : "Reconnecting to the main board");
+          strcmp(lv_label_get_text(lockNote), airStopSent ? "Stopping - reconnecting" : "Reconnecting to the main board") != 0)
+        lv_label_set_text(lockNote, airStopSent ? "Stopping - reconnecting" : "Reconnecting to the main board");
       j9Post(airStopSent ? MSG_AIR_STOP : MSG_AIR_QUERY, nullptr, 0);
     }
     return;
@@ -3959,8 +3973,8 @@ static void cleanService() {
     if (now - cleanQueryMs >= CLEAN_QUERY_MS && outCount < OUT_Q_DEPTH / 2) {
       cleanQueryMs = now;
       if (now - cleanStartSentMs >= FILL_START_REPLY_MS &&
-          strcmp(lv_label_get_text(lockNote), cleanStopSent ? "Stopping · reconnecting" : "Reconnecting to the main board") != 0)
-        lv_label_set_text(lockNote, cleanStopSent ? "Stopping · reconnecting" : "Reconnecting to the main board");
+          strcmp(lv_label_get_text(lockNote), cleanStopSent ? "Stopping - reconnecting" : "Reconnecting to the main board") != 0)
+        lv_label_set_text(lockNote, cleanStopSent ? "Stopping - reconnecting" : "Reconnecting to the main board");
       j9Post(cleanStopSent ? MSG_CLEAN_STOP : MSG_CLEAN_QUERY, nullptr, 0);
     }
     return;
@@ -4249,10 +4263,6 @@ static void buildFlavor(lv_obj_t *page) {
     lv_obj_align(flvTileMark[i], LV_ALIGN_BOTTOM_MID, 0, -7);
     flvTileBtn[i] = tile;
   }
-  flvTileEmpty = mkText(flvTileStrip, "Add your images in the app.", &lv_font_montserrat_24, COL_DIM);
-  lv_obj_set_width(flvTileEmpty, DETAIL_W);
-  lv_obj_set_style_text_align(flvTileEmpty, LV_TEXT_ALIGN_CENTER, 0);
-  lv_obj_center(flvTileEmpty);
   flvTileLeft = mkBtn(images, 60, 53, COL_BLUE);
   flvTileRight = mkBtn(images, 60, 53, COL_BLUE);
   lv_obj_align(flvTileLeft, LV_ALIGN_BOTTOM_LEFT, 0, 0);
