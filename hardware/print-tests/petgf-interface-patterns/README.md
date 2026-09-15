@@ -21,6 +21,26 @@ branch-tip paths one layer below their dense contact sheet; those remain intact.
 
 ![Measured support and roof paths](toolpaths.png)
 
+## Physical results
+
+Derek reports little discernible difference between B and C. D releases some
+horizontal strips including their ends, but most remain. Horizontal strands
+remain on the roof underside in all four specimens. [results.json](results.json)
+separates these observations from toolpath identity and the dimensional hypothesis.
+
+The **support interface** is the contact mat on top of the trees: crossed in A,
+front–back lines in B and C, absent in D. The continuous left–right strands match
+the **model bridge layer**, the first layer of the roof itself. The final G-code
+labels those identical paths `Bridge` in every specimen. Their ends extend into
+the walls; C's removed connections belong to the support lines below them.
+
+The user's observation that peeling reaches the designed dimensions remains
+unquantified. Sagging or partly detached model strands can protrude below the
+intended surface. Removing one correctly positioned 0.24 mm model layer from
+the ideal 3.84 mm roof would leave 3.60 mm, so removal of an undistorted layer
+alone does not explain a return to nominal dimensions. Remaining roof thickness
+and the vertical position of the peeled material are not yet measured.
+
 ## Inspect
 
 1. Let the specimens cool. Keep each removed support beside its lettered roof.
