@@ -1,14 +1,104 @@
 {
   "reported_date": "2026-09-15",
-  "source": "User report and IMG_7790.jpeg / IMG_7789.jpeg",
+  "source": "Derek's specimen ranking, removal observations, and IMG_7790.jpeg / IMG_7789.jpeg",
   "specimens_attempted": 16,
-  "complete_clean_removal_count": 0,
-  "edge_attachment_reported_on_all": true,
-  "observed_groups": [
-    "Trees separated cleanly, leaving the apparent interface intact on the roof.",
-    "Some central material came away with the supports; edges remained attached."
+  "cleanest_release_without_roof_strand_removal": [
+    "01",
+    "02",
+    "07",
+    "08",
+    "09",
+    "10",
+    "12",
+    "16"
   ],
-  "group_membership_by_specimen": "Not supplied",
-  "measurement_limitation": "Layer identity and roof thickness have not been established from the photographs.",
-  "image_observation": "Removed supports show crosshatched mats; some also carry longer parallel peeled strands."
+  "cleanest_release_without_roof_strand_removal_count": 8,
+  "cleanliness_rank_tiers_best_first": [
+    [
+      "10"
+    ],
+    [
+      "16"
+    ],
+    [
+      "08"
+    ],
+    [
+      "01",
+      "02",
+      "07",
+      "09",
+      "12"
+    ]
+  ],
+  "ranking_confidence": "User describes a close call; no internal order supplied within the final tier.",
+  "retained_bridge_texture": "On all eight selected specimens, roof/bridge strands look and feel loose compared with the next model layer exposed by peeling.",
+  "other_specimens": {
+    "ids": [
+      "03",
+      "04",
+      "05",
+      "06",
+      "11",
+      "13",
+      "14",
+      "15"
+    ],
+    "observation": "Not included in the cleanest-release-with-preserved-roof group; no individual ranking supplied."
+  },
+  "settings_comparison": [
+    {
+      "requested_support_top_z_distance_mm": 0.3,
+      "actual_planned_gap_mm": 0.24,
+      "specimen_ids": [
+        "03",
+        "04",
+        "05",
+        "06",
+        "11",
+        "13",
+        "14",
+        "15"
+      ],
+      "selected_clean_release_count": 0,
+      "tested_count": 8
+    },
+    {
+      "requested_support_top_z_distance_mm": 0.45,
+      "actual_planned_gap_mm": 0.48,
+      "specimen_ids": [
+        "01",
+        "02",
+        "07",
+        "08",
+        "09",
+        "10",
+        "12",
+        "16"
+      ],
+      "selected_clean_release_count": 8,
+      "tested_count": 8
+    }
+  ],
+  "best_specimen_settings": {
+    "id": "10",
+    "repeat_partner_id": "07",
+    "support_top_z_distance_mm": 0.45,
+    "actual_planned_gap_mm": 0.48,
+    "interface_layers": 2,
+    "interface_spacing_mm": 0.5,
+    "additional_wall_edge_setback_mm": 0.0,
+    "additional_free_edge_setback_mm": 0.0
+  },
+  "interpretation": {
+    "gap": "The selected group exactly matches all eight specimens at the larger actual gap, including both repeats at every edge treatment.",
+    "edge_setback": "The best specimen has no extra edge setback; its repeat also belongs to the selected group. The close ranking does not establish an advantage for extra edge setback.",
+    "surface_quality": "Clean support release and a tight, dimensionally accurate bridge skin are separate outcomes. The selected specimens preserve the roof strands but retain a loose surface."
+  },
+  "user_proposed_design_allowance": {
+    "additional_clearance_mm": 0.25,
+    "scope": "Mating gaps affected by supported model surfaces, to accommodate retained bridge strands.",
+    "status": "Accepted by the user as a design approach; the actual sag magnitude and the adequacy of this allowance are not measured by this report."
+  },
+  "measurement_limitation": "No numerical sag depth or before/after roof-thickness measurements supplied."
 }
