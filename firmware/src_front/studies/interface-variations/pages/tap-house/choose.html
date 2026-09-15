@@ -9,11 +9,12 @@
 <link rel="stylesheet" href="style.css">
 <style>
   /* Choose — the back bar. Two tap handles in their sockets; one is pulled.
-     Pressed element: the right tap's base plate (engraved recess, brass numeral). */
+     Pressed element: the left tap's base plate (engraved recess, brass numeral) —
+     it cannot sit beside the low channel's warn mark or the two oranges fight. */
 
   /* the socket is the slot the handle parks in: 7px of recess all round it,
      so the pulled handle leaves an even shoulder of it showing right and low */
-  .socket { position: absolute; width: 159px; height: 270px; top: 78px;
+  .socket { position: absolute; width: 161px; height: 272px; top: 78px;
             background: var(--recess); box-shadow: var(--bevelin); }
 
   .collar { position: absolute; background: var(--brass);
@@ -67,9 +68,9 @@
 
     <!-- handle A — PULLED: 8px out of its socket and 6px left, brass collar, shank and spout down to the bar -->
     <div class="socket" style="left:85px"></div>
-    <div class="collar" style="left:141px; top:332px; width:36px; height:10px"></div>
-    <div class="shank"  style="left:149px; top:342px; width:20px; height:22px"></div>
-    <div class="spout"  style="left:142px; top:364px; width:34px; height:13px"></div>
+    <div class="collar" style="left:142px; top:335px; width:36px; height:10px"></div>
+    <div class="shank"  style="left:150px; top:345px; width:20px; height:20px"></div>
+    <div class="spout"  style="left:143px; top:365px; width:34px; height:13px"></div>
     <div class="badge b-m pull" style="position:absolute; left:86px; top:77px"><span class="riv t"></span><span class="riv b"></span><i><img src="../../assets/flavor_1.png" alt=""></i></div>
 
     <!-- handle B — PARKED: square in its socket, dull bronze, no shank -->
@@ -79,13 +80,13 @@
     <div class="baredge" style="left:16px; top:378px; width:578px"></div>
 
     <!-- engraved base plates: each tap's strength and level, and the way into its card -->
-    <div class="plate card" style="left:65px">
+    <div class="plate card pressed" style="left:65px">
       <div class="row1"><span class="ratio num">1:20</span></div>
       <div class="row2 lvl"><span class="f"></span><span class="f"></span><span class="f"></span><span></span></div>
       <svg class="go" width="16" height="28" viewBox="0 0 14 24" fill="none" stroke="#d2a24c" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l8 9-8 9"/></svg>
     </div>
 
-    <div class="plate card pressed" style="left:345px">
+    <div class="plate card" style="left:345px">
       <div class="row1">
         <span class="ratio num">1:14</span>
         <span class="low"><svg width="13" height="12" viewBox="0 0 12 11"><path d="M6 0l6 11H0Z" fill="#e0913a"/></svg>Low</span>
