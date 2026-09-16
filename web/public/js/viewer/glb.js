@@ -79,9 +79,8 @@ export async function loadGlbFile(file, { preserveCamera = false } = {}) {
   try {
     const headers = {};
     const prevEtag = state.glbEtags.get(file);
-    // Returning without mounting anything is only truthful about the file already on the
-    // canvas; for any other file it would leave the last model standing under this one's name.
-    // The ETag round trip and the store's URL comparison both hang off that.
+    // The file the canvas already holds, which is what a return with nothing mounted leaves on
+    // screen. The ETag round trip and the store's URL comparison both ask this first.
     const mounted = state.mountedDetail?.type === "glb" && state.mountedDetail.file === file;
     if (mounted && prevEtag) {
       headers["If-None-Match"] = prevEtag;

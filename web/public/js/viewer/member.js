@@ -29,13 +29,26 @@ export function rememberMember(file, url) {
   state.memberLoaded.set(file, url);
 }
 
+// Every caller reads the site when this throws, so a store that answers nothing looks the same
+// to a reader as one that answers everything. One line, once a page, says which it is.
+let said = false;
+
 /**
  * The member's bytes from `url`, decompressed when they arrive gzipped.
  * Throws when the store does not answer, which is the caller's cue to read the site.
  */
 export async function fetchMember(url) {
-  const resp = await fetch(url);
-  if (!resp.ok) throw new Error(`${url} — ${resp.status}`);
+  let resp;
+  try {
+    resp = await fetch(url);
+  } catch (err) {
+    if (!said) { said = true; console.warn("store unreachable, serving from the site:", err); }
+    throw err;
+  }
+  if (!resp.ok) {
+    if (!said) { said = true; console.warn(`store answered ${resp.status}, serving from the site:`, url); }
+    throw new Error(`${url} — ${resp.status}`);
+  }
   const bytes = new Uint8Array(await resp.arrayBuffer());
   if (bytes[0] !== 0x1f || bytes[1] !== 0x8b) return bytes;
   const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream("gzip"));

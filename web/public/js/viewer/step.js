@@ -280,9 +280,8 @@ function buildMesh(result) {
 // be parsed into these, and the parse is the whole cost of opening an assembly — several
 // seconds against a fraction of one, over twenty megabytes the page then throws away. A model
 // without one reads the STEP and shows the same thing.
-// `mounted` says this file is the one already in the scene, which is the only state in which
-// "nothing changed" may answer with nothing: it is what lets the caller send If-None-Match,
-// and it gates the store's own unchanged answer for the same reason.
+// `mounted` says this file is the one already in the scene. It carries the caller's
+// If-None-Match and gates the store's own unchanged answer.
 async function fetchMeshes(file, headers, { mounted = false } = {}) {
   try {
     // THE STORE ANSWERS FIRST WHERE IT HAS THESE BYTES. Its URL carries their hash, so a URL
@@ -361,10 +360,9 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
     const headers = {};
     const prevEtag = state.stepEtags.get(file);
     const needsAuditDigest = file === "manifold-layout/enclosure-assembly.step" && !state.mountedDetail?.payloadSha256;
-    // THE ONE STATE IN WHICH "NOTHING CHANGED" MAY SHOW NOTHING: this file is what the canvas
-    // already holds. Answering it for any other file leaves the previous model on screen under
-    // the new one's name, which is what going back to a file just visited would do. The ETag
-    // round trip and the store's URL comparison both hang off this.
+    // THE FILE THE CANVAS ALREADY HOLDS, which is what a return with nothing mounted leaves on
+    // screen. The ETag round trip below and the store's URL comparison further down both ask
+    // this first.
     const mounted = state.mountedDetail?.type === "step"
       && state.mountedDetail.file === file
       && !needsAuditDigest;
