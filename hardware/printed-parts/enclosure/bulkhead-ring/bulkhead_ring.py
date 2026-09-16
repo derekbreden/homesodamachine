@@ -55,6 +55,7 @@ _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 for _p in (_hw / "scripts",
            _hw / "printed-parts" / "cadlib",
+           _hw / "printed-parts" / "enclosure" / "enclosure",
            _hw / "printed-parts" / "enclosure" / "y-wall-of-back-top",
            _hw / "reference" / "jg-bulkhead-union",
            _hw / "reference" / "neofit-bulkhead"):
@@ -67,6 +68,8 @@ from _measuring import bores  # noqa: E402
 import _y_wall_dimensions as _rear  # noqa: E402
 import jg_bulkhead_union as _jg  # noqa: E402
 import neofit_bulkhead as _neo  # noqa: E402
+import fits  # noqa: E402
+import _enclosure_interface as _enc_interface  # noqa: E402
 from docgen import substitute_md  # noqa: E402
 
 # TWO FAMILIES OF FITTING CROSS THIS WALL, and a chip is struck on the flange it hides under and
@@ -87,13 +90,9 @@ THICK = 2.0
 # The slip a chip takes around the fitting's threading — the wall's own
 # `enclosure_assembly.PORT_HOLE_SLIP`. The two modules cannot import each other, so
 # `bulkhead-ring-bore` is what holds them equal.
-SLIP = 0.86
-# HOW FAR THE RECTANGLE STANDS ABOVE THE AXIS, on every chip. The figure is the top row's own
-# storey read to the box's top face, so those three run out FLUSH with it — fenced left, right and
-# below, open above. The bottom row rises the same, which is what makes a chip on one family one
-# height wherever it stands and puts every word in the same band over its own bore.
-# `bulkhead-ring-top-row` reads it back against the box, because the two modules cannot import each
-# other.
+SLIP = 2.0 * fits.slip
+# Rectangle height above the water and flavour axes. `rise` adds the CO2 axis's drop so all
+# three upper chips finish on the enclosure's top face, open above their pockets.
 RISE = 18.789
 
 # One chip per station: the family whose fitting it rings, the word it carries, and whether it
@@ -184,14 +183,19 @@ def bore_d(fam: str) -> float:
 
 
 def tall(which: str) -> float:
-    """One station's chip top to bottom: its own half circle below the axis, `RISE` above."""
-    return od(family(which)) / 2.0 + RISE
+    """One station's chip top to bottom: its own half circle below the axis and its rise above."""
+    return od(family(which)) / 2.0 + rise(which)
+
+
+def rise(which: str) -> float:
+    """The chip's top datum relative to its own fitting axis."""
+    return RISE + (_enc_interface.co2_axis_drop if which == "co2" else 0.0)
 
 
 def outline(which: str) -> tuple:
     """One station's chip as `(od, rise)` — the pair that strikes both the chip and the pocket it
     drops into. `enclosure_assembly.y_wall_field` cuts its pockets from this."""
-    return (od(family(which)), RISE)
+    return (od(family(which)), rise(which))
 
 
 def seat() -> tuple:
@@ -221,7 +225,7 @@ def word_band(which: str) -> tuple:
     and the top of the chip. Everything inside the flange is hidden once the fitting is on, so this
     is the whole of what a customer can be shown."""
     chip = STATIONS[which]
-    return (FAMILIES[chip.family].flange_footprint() / 2.0, RISE)
+    return (FAMILIES[chip.family].flange_footprint() / 2.0, rise(which))
 
 
 def build_word(which: str):
@@ -417,9 +421,9 @@ def selftest() -> int:
             fails.append(
                 f"'{chip.word}' runs {WORD_WIDTHS[chip.word]:.3f} mm across a {which} chip that "
                 f"leaves {room:.3f} mm between its own margins")
-        if RISE < od(chip.family) / 2.0 - 1e-9:
+        if rise(which) < od(chip.family) / 2.0 - 1e-9:
             fails.append(
-                f"the {which} chip rises {RISE:.3f} mm over an axis its own half circle reaches "
+                f"the {which} chip rises {rise(which):.3f} mm over an axis its own half circle reaches "
                 f"{od(chip.family) / 2.0:.3f} mm below — the rectangle does not close on the "
                 f"circle and the outline is not one shape")
     if THICK >= _jg.THREAD_LEN:
@@ -491,6 +495,8 @@ def main():
         "RING_VOL": f"{volumes['flavor-a']:.2f}",
         "RING_TALL": f"{tall('flavor-a'):.2f}",
         "RING_RISE": f"{RISE:g}",
+        "CO2_RING_RISE": f"{rise('co2'):g}",
+        "CO2_AXIS_DROP": f"{_enc_interface.co2_axis_drop:g}",
         "CO2_RING_OD": f"{od('neofit'):.2f}",
         "CO2_RING_BORE": f"{bore_d('neofit'):g}",
         "CO2_RING_TALL": f"{tall('co2'):.2f}",

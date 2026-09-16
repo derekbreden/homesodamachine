@@ -2,7 +2,7 @@
 
 The appliance enclosure — outer dimensions, internal zoning, and what lives where. This README is the architectural orientation for the printed enclosure as a whole; part-specific design lives in the sub-folders. The cabinet it installs into, and what is already in there, is [`/marketing/install-envelope.md`](/marketing/install-envelope.md).
 
-The [0.15 mm clearance audit](clearance-audit.md) records the enclosure, moving mechanism, mounted hardware and cold-core interfaces, with measured gaps, collisions and input hashes.
+The [fit-clearance coverage](clearance-audit.md) records the shared 0.15 mm static allowance, 0.25 mm sliding allowance and the additional 0.25 mm per supported face across the enclosure and its printed accessories.
 
 This is the **thin** machine: tall and narrow, [215 mm](APPLIANCE_WIDTH) wide × [462 mm](APPLIANCE_DEPTH) deep × [361 mm](APPLIANCE_HEIGHT) tall. All three are bounds rather than consequences. `enclosure._dims` measures the pack against each and enters the reading in `BOUNDS`; the box comes back at its stated size either way, so a pack that overruns one gets a wall drawn through it and a red row saying by how much.
 

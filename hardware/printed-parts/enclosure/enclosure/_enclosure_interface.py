@@ -15,11 +15,12 @@ import fits  # noqa: E402
 
 wall = 3.0
 rear_seam_clear = 3.0
+co2_axis_drop = fits.supported_surface
 
 # Signed pump-to-deck offset. The manifold subtracts it from the pump-outlet station and adds
 # it to the placement span, leaving the fixed tee deck on its own plane. The pump skirt's
 # slipped opening leaves 3 mm of cradle behind it at the common cartridge back.
-pump_station_lead = -0.224
+pump_station_lead = -0.124
 
 # THE PUMPS' VERTICAL SERVICE DATUM. In `manifold_layout`'s authored frame the pump depth axis
 # is Y; `enclosure_assembly` stands that axis on world Z. This shift therefore moves only the
@@ -50,8 +51,8 @@ def flute_reach(band_height):
     t = min(band_height / 2.0, flute_rise) / flute_rise
     return flute_depth * t * t * (3.0 - 2.0 * t)
 
-screw_clear_dia = 3.9
-head_cbore_dia = 6.15
+screw_clear_dia = 3.0 + 2.0 * fits.slip
+head_cbore_dia = 5.5 + 2.0 * fits.slip
 heatset_dia = 4.0
 # THE INSERT'S OWN BODY, both lengths ruthex sells in M3. They are the same insert otherwise —
 # same ⌀4.6 knurl over the same ⌀4.0 recommended hole — so a station picks between them on the
@@ -80,6 +81,7 @@ display_cover_thickness = 2.0
 display_cover_slip = fits.slip      # per side, plate edge into the inset it drops in
 display_cover_head_h = 3.0
 display_cover_seat_recess = 0.2
-display_cover_cbore_depth = display_cover_head_h + display_cover_seat_recess
+display_cover_cbore_depth = (display_cover_head_h + display_cover_seat_recess
+                             + fits.supported_surface)
 display_cover_seat = display_cover_cbore_depth + display_cover_thickness
 display_screw_x = (display_bezel_x + display_inset_x) / 4.0

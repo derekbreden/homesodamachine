@@ -167,12 +167,17 @@ def pocket_flat() -> float:
     return WIDTH - 2.0 * CORNER_R
 
 
+def pocket_bevel() -> float:
+    """The cavity's 45° bevel at one static clearance along the plate normal."""
+    return BEVEL - (math.sqrt(2.0) - 1.0) * SLIP
+
+
 def pocket_soffit(hang: float) -> float:
     """How much FLAT ceiling the pocket hangs off its head, for a pocket hanging `hang` deep.
 
     The wall this pocket is cut into prints vertical, so its head is a down-facing face starting
     in air. Cut square a pocket hangs its whole `THICK`; cut to the plate's chamfer it hangs
-    `THICK - BEVEL`, and the rest of the head is a 45° ramp the wall reaches under."""
+    `THICK - pocket_bevel()`, and the rest is a 45° ramp."""
     return pocket_flat() * hang
 
 
@@ -537,8 +542,8 @@ def selftest() -> int:
     # A SCREW SEAT IS DEEPER THAN AN INLAY, and the pocket's head hangs in air either way. The
     # chamfer is what keeps the deeper pocket from hanging more of it than the shallow one did —
     # if it ever stops doing that, the section is being paid for by the wall's own printability.
-    if pocket_soffit(THICK - BEVEL) > pocket_soffit(_ring.THICK) + 1e-9:
-        fails.append(f"the pocket hangs {pocket_soffit(THICK - BEVEL):.1f} mm2 of flat ceiling "
+    if pocket_soffit(THICK - pocket_bevel()) > pocket_soffit(_ring.THICK) + 1e-9:
+        fails.append(f"the pocket hangs {pocket_soffit(THICK - pocket_bevel()):.1f} mm2 of flat ceiling "
                      f"and an inlay-deep one at {_ring.THICK:g} hangs "
                      f"{pocket_soffit(_ring.THICK):.1f}")
     if CBORE_DEPTH >= THICK:
@@ -664,7 +669,7 @@ def main(unit: int):
           f"boss {boss_reach():.2f} off it, Ø{boss_stem_d():g} stem")
     print(f"  back edge chamfered {BEVEL:g} at 45°, "
           f"{bed_face(unit)[1]:.0f} mm2 of it on the bed")
-    print(f"  pocket hangs {pocket_soffit(THICK - BEVEL):.1f} mm2 of flat ceiling, "
+    print(f"  pocket hangs {pocket_soffit(THICK - pocket_bevel()):.1f} mm2 of flat ceiling, "
           f"where square it would hang {pocket_soffit(THICK):.1f}")
     print(f"-> {out.name}")
 
@@ -675,9 +680,10 @@ def main(unit: int):
         "WALL_T": f"{_enc.wall:g} mm",
         "PLATE_CORNER": f"{CORNER_R:g} mm",
         "PLATE_BEVEL": f"{BEVEL:g} mm",
+        "POCKET_BEVEL": f"{pocket_bevel():.4g} mm",
         "RING_T": f"{_ring.THICK:g} mm",
-        "POCKET_RIM": f"{THICK - BEVEL:g} mm",
-        "POCKET_SOFFIT": f"{pocket_soffit(THICK - BEVEL):.1f} mm\u00b2",
+        "POCKET_RIM": f"{THICK - pocket_bevel():.4g} mm",
+        "POCKET_SOFFIT": f"{pocket_soffit(THICK - pocket_bevel()):.1f} mm\u00b2",
         "POCKET_SOFFIT_SQUARE": f"{pocket_soffit(THICK):.1f} mm\u00b2",
         "PLATE_SLIP": f"{SLIP:g} mm",
         "SCREW_INSET": f"{SCREW_INSET:g} mm",

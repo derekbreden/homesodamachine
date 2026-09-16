@@ -82,9 +82,9 @@
    "detail": [
     "port-lane: carb-water-out at z 13.8..233.4, x -55.4..-20.6",
     "port-lane: co2-in at z 13.8..233.4, x -4.7..50.0",
-    "port-lane: evap-tail-inlet at z 24.9..50.2, x -143.5..-34.3",
+    "port-lane: evap-tail-inlet at z 25.2..50.2, x -143.5..-34.3",
     "port-lane: reservoir-a at z 2.8..233.4, x -138.1..104.1",
-    "west-lane: evap-tail-outlet at z 24.9..169.6, x -143.5..-34.3",
+    "west-lane: evap-tail-outlet at z 25.2..169.6, x -143.5..-34.3",
     "west-lane: prv-vent at z 168.7..187.9, x -3.2..3.2",
     "west-lane: reservoir-b at z 2.8..233.4, x -138.1..-101.8",
     "west-lane: water-in at z 179.9..233.4, x -138.1..-6.2"
@@ -99,7 +99,7 @@
    "value": "5/5 collets",
    "target": "the stock arc at every made-up end",
    "detail": [
-    "carb-water-out end: 28.1 mm into a bore, which takes a lean",
+    "carb-water-out end: 28.0 mm into a bore, which takes a lean",
     "co2-in start: 202.4 mm into a bore, which takes a lean",
     "prv-vent start: 2.0 mm into a bore, which takes a lean",
     "prv-vent end: 1.0 mm into a bore, which takes a lean",
@@ -117,8 +117,8 @@
    "value": "2/2 stations",
    "target": "a run per station",
    "detail": [
-    "port-lane evap-inlet at z 28.05: evap-tail-inlet",
-    "west-lane evap-outlet at z 28.05: evap-tail-outlet"
+    "port-lane evap-inlet at z 28.43: evap-tail-inlet",
+    "west-lane evap-outlet at z 28.43: evap-tail-outlet"
    ],
    "active": true
   },
@@ -140,9 +140,9 @@
    "value": "0.004 mm off",
    "target": "within 0.01 mm of the lane",
    "detail": [
-    "the shroud's vent bore opens at (+0.00, +77.50, 187.90), on the west lane (77.5) \u2014 the strip the barrel's own bore can reach with no corner",
-    "it stands 11.50 mm under the elbow's own axis, against the 11.5 mm barrel radius a bore facing DOWN reads",
-    "station 37.88 mm along a 46 mm barrel; the line falls from there to z 171.90 and out the +Y flank at y 92.50"
+    "the shroud's vent bore opens at (+0.00, +77.50, 187.85), on the west lane (77.5) \u2014 the strip the barrel's own bore can reach with no corner",
+    "it stands 11.55 mm under the elbow's own axis, against the 11.55 mm barrel radius a bore facing DOWN reads",
+    "station 37.88 mm along a 46 mm barrel; the line falls from there to z 171.85 and out the +Y flank at y 92.50"
    ],
    "active": true
   },
@@ -154,8 +154,8 @@
    "value": "3/3 floats",
    "target": "standoff under 2.0 mm",
    "detail": [
-    "float-a: rod parked 114.50 biases the capsule +2.50 mm into a wall at 126.00; magnet standoff 0..0.79 mm",
-    "float-b: rod parked 114.50 biases the capsule +2.50 mm into a wall at 126.00; magnet standoff 0..0.79 mm",
+    "float-a: rod parked 114.75 biases the capsule +2.50 mm into a wall at 126.25; magnet standoff 0..0.79 mm",
+    "float-b: rod parked 114.75 biases the capsule +2.50 mm into a wall at 126.25; magnet standoff 0..0.79 mm",
     "float-carb: rod parked 50.97 biases the capsule +3.13 mm into a wall at 61.85; magnet standoff 0..0.16 mm"
    ],
    "active": true
@@ -268,7 +268,7 @@
    "to": "carb-water-out.end",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 316.49,
+   "length": 316.23,
    "bend": 14.0,
    "radius": 14.0,
    "minBend": 14.0,
@@ -301,10 +301,22 @@
      "radius": 14.0,
      "ratio": 1.0,
      "grade": "B"
+    },
+    {
+     "at": 5,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
+    },
+    {
+     "at": 6,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
     }
    ],
    "need": {
-    "detour": 1.324
+    "detour": 1.323
    }
   },
   {
@@ -422,13 +434,13 @@
    "to": "reservoir-a-fill.end",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 20.5,
+   "length": 20.25,
    "bend": 14.0,
    "radius": 14.0,
    "minBend": 14.0,
    "ratio": 1.0,
    "grade": null,
-   "reach": 20.5,
+   "reach": 20.25,
    "reachGrade": "B",
    "binding": null,
    "corners": [],
@@ -483,13 +495,13 @@
    "to": "reservoir-b-fill.end",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 20.5,
+   "length": 20.25,
    "bend": 14.0,
    "radius": 14.0,
    "minBend": 14.0,
    "ratio": 1.0,
    "grade": null,
-   "reach": 20.5,
+   "reach": 20.25,
    "reachGrade": "B",
    "binding": null,
    "corners": [],

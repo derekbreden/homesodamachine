@@ -3630,6 +3630,7 @@
       "hardware/printed-parts/cadlib/reeding.py",
       "hardware/printed-parts/cadlib/world_workplane.py",
       "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py",
+      "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
       "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/printed-parts/faucet/_faucet_interface.py",
       "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
@@ -4859,6 +4860,7 @@
   },
   "hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py": {
     "reads": [
+      "hardware/printed-parts/cadlib/fits.py",
       "hardware/printed-parts/enclosure/asse-drip-pan/README.figures.json",
       "hardware/printed-parts/enclosure/asse-drip-pan/README.md",
       "hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.step",
@@ -4888,6 +4890,7 @@
   },
   "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py": {
     "reads": [
+      "hardware/printed-parts/cadlib/fits.py",
       "hardware/printed-parts/cadlib/world_workplane.py",
       "hardware/printed-parts/enclosure/bulkhead-ring/README.figures.json",
       "hardware/printed-parts/enclosure/bulkhead-ring/README.md",
@@ -4897,6 +4900,7 @@
       "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-b.step",
       "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-water.step",
       "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py",
+      "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
       "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
       "hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
@@ -6207,8 +6211,10 @@
   },
   "hardware/printed-parts/faucet/tube-collar/tube_collar.py": {
     "reads": [
+      "hardware/printed-parts/cadlib/fits.py",
       "hardware/printed-parts/cadlib/world_workplane.py",
       "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py",
+      "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
       "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/printed-parts/faucet/tube-collar/README.figures.json",
       "hardware/printed-parts/faucet/tube-collar/README.md",
@@ -6245,6 +6251,7 @@
   },
   "hardware/printed-parts/fixtures/tee-valve-bow-trial/tee_valve_bow_trial.py": {
     "reads": [
+      "hardware/printed-parts/cadlib/fits.py",
       "hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
       "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/printed-parts/fixtures/tee-valve-bow-trial/tee-valve-bow-trial-assembly.step",
@@ -6324,6 +6331,7 @@
   },
   "hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py": {
     "reads": [
+      "hardware/printed-parts/cadlib/fits.py",
       "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/printed-parts/refrigeration/fuse-clamp/README.figures.json",
       "hardware/printed-parts/refrigeration/fuse-clamp/README.md",
@@ -6469,6 +6477,7 @@
   },
   "hardware/printed-parts/valve-seat/valve_seat.py": {
     "reads": [
+      "hardware/printed-parts/cadlib/fits.py",
       "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/printed-parts/valve-seat/README.figures.json",
       "hardware/printed-parts/valve-seat/README.md",

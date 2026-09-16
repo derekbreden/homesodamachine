@@ -19,7 +19,7 @@ weight. The carrier follows the tubes forward until the fixed plate releases the
 
 Each service tab is one [16 mm](GRIP_BAR_T) bar in Y. Its aft face lies on the web's aft
 plane, and the root overlaps the web's full thickness. The bar presents
-[51.14 mm](FINGER_HEIGHT) of vertical contact over its full [14.105 mm](FINGER_DEPTH)
+[50.39 mm](FINGER_HEIGHT) of vertical contact over its full [14.105 mm](FINGER_DEPTH)
 depth, with [2 mm](GRIP_EDGE_R) rounds on its exposed vertical edges. The fingers bear on
 that aft face, opposing the thumb on the cartridge pocket's aft wall.
 
@@ -27,15 +27,17 @@ The finger space is open through the moving tab's top and bottom.
 A [3 mm](GRIP_BACK_T) inboard wall joins a [3 mm](GRIP_AFT_T) aft wall,
 recessed [3.25 mm](GRIP_AFT_INSET) behind the enclosure's outer face. The backing extends
 behind the opening's aft edge throughout the stroke. The fixed opening is
-[34.15 mm](OPENING_RUN) long in Y and [51.64 mm](OPENING_HEIGHT) tall, leaving at least
+[34.15 mm](OPENING_RUN) long in Y and [51.39 mm](OPENING_HEIGHT) tall, leaving at least
 [16 mm](FINGER_RUN) behind the bar throughout its travel. Its upper and lower edges
-stand one running clearance outside the bar's [51.14 mm](GRIP_HEIGHT) height.
+leave [0.5 mm](SUPPORTED_GUIDE_AIR) above and below the bar's [50.39 mm](GRIP_HEIGHT) height.
 
 Both outer faces finish flush with the enclosure; total width across the grips is
 [215 mm](GRIP_WIDTH). Each bar carries a retaining shoulder behind the opening's fore
 edge, with at least [4 mm](GRIP_OVERLAP) overlap throughout the stroke. A 3 mm thick
 upper tongue runs above the bar. Both features sit outside the finger space; their
 inboard undersides clear the enclosure seam rail.
+The printed tongue overlaps the top of the support-cleared opening by
+[3 mm](GRIP_TOP_OVERLAP).
 
 The outer grip faces carry the enclosure's inward-cut flute profile, aligned with its field
 at the connected resting position. The grooves travel with the carrier. Their fade follows
@@ -52,7 +54,8 @@ tray. The lower lands share a flat floor with the aft valve tray; four openings 
 valves from underneath and carry the moving hairpins. Both guide sections join the flanks.
 
 The bar and its fore shoulder run between flat guide surfaces with
-[0.25 mm](GUIDE_AIR) clearance on each side in X and Z. The bar's fore face meets the
+[0.25 mm](GUIDE_AIR) clearance on each side in X and
+[0.5 mm](SUPPORTED_GUIDE_AIR) in Z. The bar's fore face meets the
 opening at release. The upper tongue's aft face meets its channel's end at park.
 The finger space continues aft of that stop below the tongue. The bar's flat underside
 runs above the opening's continuous lower edge and clears the seam-rail head across its
@@ -91,7 +94,8 @@ with the four actual tubes and flexible links installed.
 
 The opening's fore face and the upper tongue's aft channel end are travel stops. Their
 normal Y gap closes at the corresponding end of travel. The [0.25 mm](GUIDE_AIR) clearance
-is across the sliding bearings in X and Z and through the carrier's insertion route.
+is across the sliding bearings in X and through the carrier's insertion route. Supported
+Z guide faces carry an additional [0.25 mm](SUPPORT_AIR) across each mating gap.
 
 The two spring axes lie between coils at X ±49.945, Z [186.245 mm](SPRING_AXIS_Z). Each spring bears in a
 [6.57 mm](SPRING_SEAT_D) teardrop seat, 2 mm deep. Its fore end sits in a round bore within the fixed body's
@@ -127,7 +131,7 @@ Work with `enclosure-front-top` loose and its pump bay empty.
    Complete the fore valve row, bowed stubs and hairpins as described in
    [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md).
 
-Each tie crosses the web through two 1.5 × 3.5 mm slots and bears across the complete
+Each tie crosses the web through two 1.5 × [3.75 mm](TIE_SLOT_HEIGHT) slots and bears across the complete
 [2.5 mm](WEB_T) web section between them. Its strap lies on the plain aft face and closes
 around the tee arm on the fore side. Clock every head away from the machine center and
 flush-cut its tail. The center lap leaves all sixteen slots open. Install the aft valves
@@ -137,7 +141,7 @@ before fitting the ties; their insertion path passes behind the bare web.
 
 Print both halves upright, +Z up, with the web and backing wall on the bed. The bar and aft wall's
 flat undersides take removable support exposed below the loose half. The internal
-shoulder begins [13.805 mm](RIM_BED_GAP) above the bed; its extension and the central lap
+shoulder begins [14.055 mm](RIM_BED_GAP) above the bed; its extension and the central lap
 take removable support accessible from the loose half's underside. The fixed body's guide
 ceilings take support, removed through the open aft cavities before assembly. Its spring
 bores open into the carrier recess. All guide and hand-contact faces retain their bearing sections.
@@ -147,6 +151,14 @@ The retained production-profile readings identify their source mesh digests in
 and [`enclosure-tee-carrier-right.support-audit.json`](enclosure-tee-carrier-right.support-audit.json).
 Their contact regions are named in the enclosure's
 [support ledger](../enclosure/support-audit.json).
+
+The supported bar, aft-wall, root, shoulder and lap undersides stand
+[0.25 mm](SUPPORT_AIR) above their nominal mating datums. The shell's lower guide
+datums retain their positions. The upper tongue and backing stop the same allowance
+below their nominal tops, under the shell recess's 3 mm roof. Horizontal tie slots and fastener passages keep their
+lower faces and extend their crowns upward by the same allowance. The spring seats
+have tangent 45° roofs and carry no support allowance. The 3 mm back, aft wall and
+shoulder sections retain their X/Y thicknesses.
 
 `build_half(side=-1|1)` makes one valid print; `build_carrier()` compounds both installed
 halves. `interface()` supplies the enclosure's openings, stops, spring stations, installation
@@ -161,7 +173,8 @@ entry beside the joined carrier, lap closure, fore screw/driver
 access, spring loading, finger space and working
 travel against actual front-top, the closed lower enclosure, cartridge and fixed valve
 bodies. Both end stops must engage on a
-0.001 mm overshoot. At every state, a [0.251 mm](CAPTURE_PROBE_SHIFT) transverse displacement and a [2.75°](CAPTURE_PROBE_ANGLE)
+0.001 mm overshoot. At every state, a [0.251 mm](CAPTURE_PROBE_SHIFT) displacement in X,
+a [0.501 mm](CAPTURE_PROBE_SHIFT_Z) displacement in Z and a [6.29°](CAPTURE_PROBE_ANGLE)
 rotation in either sense about every axis must encounter the flank guides alone. These are
 rigid-body contact readings. Spring clearance uses the maximum catalog outside diameter
 through loading, seating and all four working states. The reading also checks the complete

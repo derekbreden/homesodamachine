@@ -49,6 +49,7 @@ from _cold_core_interface import (
     wall_and_floor_thickness,
 )
 from _cold_core_interface import evap_tail_low_z, evap_tail_high_z
+import fits as _fits
 from coil_mandrel import pitch, tube_radius, wrap_length
 from endcap_circular_dxf import (
     tube_id,
@@ -159,7 +160,7 @@ donut_wall_bias = (register_radius + donut_od / 2 - tube_id / 2) * 25.4
 reed_glass_length = 14.0
 reed_glass_diameter = 2.5
 
-seat_clearance = 0.05
+seat_clearance = _fits.slip
 inner_radius = carbonator_outer_radius + seat_clearance
 skirt_thickness = 0.8
 copper_clearance_over_glass = 0.5
@@ -169,8 +170,8 @@ pocket_depth = reed_glass_diameter + copper_clearance_over_glass
 plateau_radius = carbonator_outer_radius + pocket_depth
 skirt_radius = inner_radius + skirt_thickness
 
-pocket_length = reed_glass_length + 2.0
-pocket_width = reed_glass_diameter + 0.5
+pocket_length = reed_glass_length + 2.0 * _fits.slip
+pocket_width = reed_glass_diameter + 2.0 * _fits.slip
 pocket_end_wall = 3.0
 plateau_z_bottom = reed_low_z - pocket_length / 2 - pocket_end_wall
 plateau_z_top = reed_high_z + pocket_length / 2 + pocket_end_wall

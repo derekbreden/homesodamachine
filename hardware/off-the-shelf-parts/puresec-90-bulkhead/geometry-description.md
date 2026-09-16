@@ -2,7 +2,7 @@
 
 PureSec 1/4" reverse-osmosis push-to-connect **90° elbow bulkhead**, white polypropylene, water/RO/beverage-rated, sold as a 5-pack ([B0968K4JRN](https://www.amazon.com/dp/B0968K4JRN)). It mounts the dry flavor line through the reservoir trough floor and turns the line laterally below the floor. Ships with no panel o-ring; a purchased silicone washer (wet/top face) and a printed TPU washer (dry/under face) are the only fluid seal at the barrel-to-floor joint.
 
-The part is an **L (90°) body**: one leg is a male-threaded bulkhead barrel carrying a hex locknut; the other leg is a plain push-to-connect port; an integral cast 90° elbow joins them. Both ends accept 1/4" tube. It mounts to a ⌀[16 mm](BULKHEAD_PANEL_HOLE_D) hole.
+The part is an **L (90°) body**: one leg is a male-threaded bulkhead barrel carrying a hex locknut; the other leg is a plain push-to-connect port; an integral cast 90° elbow joins them. Both ends accept 1/4" tube. It mounts to a ⌀[15.8 mm](BULKHEAD_PANEL_HOLE_D) hole.
 
 ## Overall Form & Topology
 
@@ -33,7 +33,7 @@ Separate loose piece: **hex locknut** — white PP, rounded hex corners, with in
 | Flange OD, wet/nut side | [21.9 mm](BULKHEAD_WET_NUT_OD) | wet-side gasket seat (nut clamping face) |
 | Flange disc thickness | 2.5 | |
 | Flange-top (elbow side) → elbow bottom | 19.6 | below-floor elbow clearance |
-| Panel mounting hole | [16 mm](BULKHEAD_PANEL_HOLE_D) (about 9/16 inch) | `bulkhead_panel_hole_diameter`; barrel + 0.5 slip |
+| Panel mounting hole | [15.8 mm](BULKHEAD_PANEL_HOLE_D) | `bulkhead_panel_hole_diameter`; 0.15 mm radial clearance around the measured barrel |
 | Elbow lateral offset: barrel axis → lateral-PTC centerline | 15 | |
 | Elbow body bounding box below the flange (X-lateral × Y × Z) | ≈28 × 16 × 16 | lateral-clearance keep-out below the floor |
 | Overall height, wet-port mouth → barrel-end PTC tip | ≈45 | |
@@ -70,15 +70,21 @@ The bulkhead ships with no o-ring; the face washers are the only fluid seal at t
 
 | washer / counterbore feature | value (mm) | reservoir.py constant |
 |---|---|---|
-| Washer ID | [16 mm](BULKHEAD_SEAL_ID) | `bulkhead_seal_id` |
+| Washer ID (wet, purchased) | [16 mm](BULKHEAD_SEAL_ID) | `bulkhead_seal_id` |
+| Washer ID (dry, printed) | [15.8 mm](BULKHEAD_DRY_SEAL_ID) | `bulkhead_seal_dry_id` |
 | Washer OD (wet) | [24 mm](BULKHEAD_SEAL_WET_OD) | `bulkhead_seal_wet_od` |
 | Washer OD (dry) | [18.5 mm](BULKHEAD_SEAL_DRY_OD) | `bulkhead_seal_dry_od` |
-| Washer thickness — dry/printed ([30%](BULKHEAD_SEAL_COMPRESSION) squeeze; the purchased wet washer is 3 mm) | [2 mm](BULKHEAD_SEAL_THICKNESS) | `bulkhead_seal_thickness` |
+| Washer thickness — dry/printed (nominal [30%](BULKHEAD_SEAL_COMPRESSION) squeeze before bridge allowance; the purchased wet washer is 3 mm) | [2 mm](BULKHEAD_SEAL_THICKNESS) | `bulkhead_seal_thickness` |
 | Counterbore ⌀ (wet) | [24.3 mm](BULKHEAD_SEAL_WET_CB_D) | `bulkhead_seal_wet_counterbore_diameter` |
 | Counterbore ⌀ (dry) | [18.5 mm](BULKHEAD_SEAL_DRY_CB_D) | `bulkhead_seal_dry_counterbore_diameter` |
-| Counterbore depth | [1.4 mm](BULKHEAD_SEAL_CB_DEPTH) | `bulkhead_seal_counterbore_depth` |
+| Counterbore depth (wet) | [1.4 mm](BULKHEAD_SEAL_CB_DEPTH) | `bulkhead_seal_counterbore_depth` |
+| Counterbore depth (dry, includes 0.25 mm bridge allowance) | [1.65 mm](BULKHEAD_DRY_SEAL_CB_DEPTH) | `bulkhead_seal_dry_depth` |
 
 The wet seal is the primary: a purchased silicone ⌀[24 mm](BULKHEAD_SEAL_WET_OD) × 3 mm washer under the ⌀[21.9 mm](BULKHEAD_WET_NUT_OD) nut face — its OD is wider than the nut, so the nut compresses it inside the counterbore. The dry seal is a printed TPU 85A washer, flange-limited: the ⌀[18.7 mm](BULKHEAD_DRY_FLANGE_OD) elbow flange caps it at a ⌀[18.5 mm](BULKHEAD_SEAL_DRY_OD) ring on a narrow PETG rim.
+
+The wet boss and its seat stand 0.25 mm above the trough to retain a 3 mm
+web opposite the deeper dry recess. Both washer thicknesses and the dry flange
+datum are preserved.
 
 ## Panel Clamp
 

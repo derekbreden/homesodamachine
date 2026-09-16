@@ -11,14 +11,14 @@ The sockets retain the valve without screws or inserts.
 in their continuous plate.
 
 `build_seat(seat)` supplies a raised plinth for the cold-core lid. Each plinth is
-[37.6](PLINTH_WIDTH) mm square with R[3](PLINTH_CORNER) mm outer corners. Its broad
+[37.5](PLINTH_WIDTH) mm square with R[3](PLINTH_CORNER) mm outer corners. Its broad
 bearing face carries the valve beside an open cylindrical channel for the port.
 The plinth's height places that face on the installed valve's bearing plane.
 
 | Feature | Dimension |
 |---|---|
 | valve corner post | ⌀[6.8](POST_DIA) mm, centres [12.2 mm](CORNER_INSET) from each centreline |
-| socket | ⌀[7.2](SOCKET_DIA) mm; [0.2 mm](SOCKET_CLEAR) radial clearance |
+| socket | ⌀[7.1](SOCKET_DIA) mm; [0.15 mm](SOCKET_CLEAR) radial clearance |
 | socket depth | [7](SOCKET_DEPTH) mm |
 | bearing face | valve-frame Z[6](SEAT_TOP_Z) mm |
 | socket floor | valve-frame Z[-1](SOCKET_FLOOR_Z) mm |
