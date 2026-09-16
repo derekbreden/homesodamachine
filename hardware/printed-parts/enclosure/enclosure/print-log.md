@@ -275,3 +275,24 @@ repeated until the tip comes out clean. A hotend that will not pass PLA or PETG 
 fully clogged and goes through the
 [unclogging procedure](https://wiki.bambulab.com/en/h2/troubleshooting/unclogging) first — its
 hot-hex-wrench method works on a hotend off the printer.
+
+## 2026-09-15 — front-bottom on Mark2
+
+The clearance-adjusted `enclosure-front-bottom` was submitted through Bambu Connect.
+Mark2 reported `RUNNING`, layer 0 of 754, with no print error at
+2026-09-16T01:11:48.730399+00:00.
+
+- Profile: `hardware/printed-parts/petgf.3mf`; support settings from specimen 10:
+  tree(auto), default style, 0.45 mm requested top gap, two interface layers,
+  0.5 mm interface spacing, automatic pattern, interface loops off, 0.4 mm XY gap,
+  zero support expansion.
+- Left 0.4 mm Standard nozzle; PET-GF on the external spool, mapped as PET-CF.
+- Textured PEI; 0.24 mm layers, 0.20 mm first layer; 265 °C first nozzle temperature,
+  280 °C thereafter; 80 °C bed.
+- Requested Z trim +0.04 mm. Stock textured-plate compensation −0.02 mm gives
+  the emitted `G29.1 Z0.02`.
+- Bed leveling on, timelapse off, flow and nozzle-offset calibration Auto.
+- Slicer estimate: 17 h 37 min, 561.04 g, 754 layers.
+
+The source mesh, profile, sliced archive and G-code hashes are recorded in
+[print-jobs.json](print-jobs.json).

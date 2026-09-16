@@ -92,6 +92,11 @@ below the flange, and the rim standing [4](PAN_FLANGE) mm out either side of it 
 the top. Between the floor and the flange the wall's outside is a single vertical
 face — the pan is a plain box and the berth is a plain slot.
 
+The flange underside and its opposing rebate floor are both supported faces in their
+print orientations. Their gap is 0.75 mm: 0.25 mm running clearance plus 0.25 mm
+for each supported face. Both finish allowances are allocated to the rebate floor;
+the flange thickness, upper retention face and pan-floor bearing remain fixed.
+
 **The floor carries it.** The pan lies on the block's floor across its whole
 footprint, so nothing bears on the rim and nothing hangs off the wall. What the
 lid does is close back over the flange, [3.75](PAN_LAP) mm of it a side

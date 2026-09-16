@@ -1,14 +1,11 @@
-[ceiling] The solid bar's flat underside clears the opening's lower edge and the closed enclosure's seam rail by 0.25 mm. The full 16 mm Y section rises from this face to the bar's top. Removable support reaches the bed 7.805 mm below and is exposed beneath the loose half before inside-out assembly.
-click: x=98.947 y=102.468 z=175.050
+[ceiling] The solid bar's flat underside clears the opening's lower edge and the closed enclosure's seam rail by 0.50 mm, including 0.25 mm for the supported surface. The full 16 mm Y section rises from this face to the bar's top. Removable support reaches the bed 8.055 mm below and is exposed beneath the loose half before inside-out assembly.
+click: x=98.947 y=102.468 z=175.300
 
-[ceiling] Flat underside of the 3 mm aft wall, recessed 3.25 mm behind the exterior face and joined to the backing along its full height. Removable support reaches the bed 7.805 mm below and is exposed beneath the loose half before assembly.
-click: x=98.822 y=127.968 z=175.050
+[ceiling] Flat underside of the 3 mm aft wall, recessed 3.25 mm behind the exterior face and joined to the backing along its full height. Removable support reaches the bed 8.055 mm below and is exposed beneath the loose half before assembly.
+click: x=98.822 y=127.968 z=175.300
 
 [ceiling] Flat underside of the aft lap receiver, above the tee run ends. The receiver keeps its full 6 mm section and takes removable support exposed from the fore side before assembly.
-click: x=4.000 y=106.218 z=206.565
+click: x=4.000 y=106.218 z=206.815
 
 [step] Floor of the 4 mm-deep heat-set pocket inside the 6 mm lap. Its Y108.468 floor retains 2 mm of solid aft backing; the adjacent Y107.968 plane is the common tee-bearing web. The pocket depth follows the insert and its floor is internal to the screw joint.
-click: x=9.173 y=108.468 z=215.162
-
-[step] The web ends at |X|94.000 and the 3 mm finger-pocket back presents its outer face at |X|93.395. Both walls start on the bed and meet at the bar root. The offset is the upright outline of their junction below the bar's flat underside; the backing retains its full 3 mm X section.
-click: x=94.000 y=110.368 z=171.147
+click: x=6.736 y=108.468 z=213.481

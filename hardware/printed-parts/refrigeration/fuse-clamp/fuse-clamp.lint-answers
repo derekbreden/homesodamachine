@@ -1,0 +1,5 @@
+[sliver] The 1 mm tip land follows the 1.5 mm entry chamfer on the 2.5 mm upper spring leaf. It starts the leaf into the compressor's gap; the full leaf section remains behind the lead-in. Printed on the X end, every layer carries this same supported profile.
+click: x=0.000 y=-24.500 z=-22.000
+
+[sliver] The 1 mm tip land follows the 1.5 mm entry chamfer on the 2.5 mm lower spring leaf. It starts the leaf into the compressor's gap; the full leaf section remains behind the lead-in. Printed on the X end, every layer carries this same supported profile.
+click: x=0.000 y=-35.500 z=-22.000
