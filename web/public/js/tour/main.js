@@ -228,9 +228,13 @@ document.addEventListener("keydown", (event) => {
   const action = { " ": actions.togglePlay, ArrowRight: actions.next, ArrowLeft: actions.prev }[event.key];
   if (action) { event.preventDefault(); action(); }
 });
-window.addEventListener("pagehide", () => {
+window.addEventListener("pagehide", (event) => {
+  if (event.persisted) return;
   reveal?.restore();
   setXrayEnabled(readerXray, { persist: false });
+});
+window.addEventListener("pageshow", (event) => {
+  if (event.persisted) { frameAt = 0; resize(); }
 });
 
 window.__tour = {
