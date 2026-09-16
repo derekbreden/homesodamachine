@@ -260,6 +260,19 @@ async function renderPage(page, htmlAbs, outAbs, opts, progress) {
   // that is said out loud.
   if (opts.pdf) {
     progress.phase("PDF print");
+    // Chromium's print flex layout can restore a replaced element's intrinsic height,
+    // pushing its caption into the footer even when the captured layout passed. Keep
+    // the image/SVG heights that the checks and PNG just used; object-fit still preserves
+    // their aspect. Read every height before changing any flex item.
+    await page.evaluate(() => {
+      const images = [...document.querySelectorAll(".panel img, .panel svg")]
+        .map((el) => [el, el.getBoundingClientRect().height]);
+      for (const [el, height] of images) {
+        if (height <= 0) continue;
+        el.style.height = `${height}px`;
+        el.style.flex = "none";
+      }
+    });
     await page.pdf({
       path: outAbs.replace(/\.png$/, ".pdf"),
       width: opts.pdf.width,
