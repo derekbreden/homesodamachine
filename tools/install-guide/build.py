@@ -221,16 +221,44 @@ note('BEFORE THE FIRST CONNECTION','Check the kit and the space on pages 3-4. Ke
 end()
 
 # 3
-header('Have everything ready',sub='Unpack the appliance, faucet bag and install kit before opening a water connection.')
+header('Have everything ready',sub='Tick off each item as you unpack. Have your own supplies ready before opening a water connection.')
+
+def check_item(s,x,y,detail=None):
+    rect(x,y+.4,10.5,10.5,'#FFFFFF',stroke=BLUE,r=1)
+    text(s,x+18,y,10.6,'Regular',INK)
+    if detail:para(detail,x+18,y+14,128,9,11.5,MUTED,limit=34.5)
+
 label('IN THE BOX',M,146)
-rows=[('Faucet assembly','Faucet, three attached tubes and display cable; steel under-counter plate.'),('Water connections','Black tee with short jumper, long white run and inline filter; a separate white tee for a braided hose.'),('Gas connections','Two-gauge regulator and red tether with two gray fittings already assembled.'),('Tools and cord','Collet press and grounded power cord. Keep the bagged cold kit for later.')]
-y=166
-for title,s in rows:
-    text(title,M,y,11,'Bold',NAVY);hh=para(s,M,y+16,CW,10.5,14,limit=42);y+=hh+29
-line(M,y-4,W-M,y-4)
-label('YOU SUPPLY',M,y+10)
-para('A filled <b>5 lb CO2 cylinder</b>, two <b>14.8 fl oz (440 mL)</b> bottles of SodaStream-compatible concentrate, an <b>adjustable wrench</b> for the regulator nut, and a cup and towel.',M,y+29,CW,11,15,limit=75)
-para('The braided-hose path also needs a second wrench to hold the shutoff steady. A prepared counter hole, cold water and grounded 120 V complete the setup.',M,y+104,CW,10.5,14,limit=56)
+packed=[
+    ('Appliance',None),
+    ('Faucet assembly',None),
+    ('Under-counter plate',None),
+    ('Water line (TAP)',None),
+    ('Braided-hose tee',None),
+    ('CO2 regulator',None),
+    ('CO2 tether',None),
+    ('Collet press',None),
+    ('Power cord',None),
+    ('Cold kit','Keep bagged for later.'),
+    ('Quick start',None),
+    ('Install guide','This booklet.'),
+]
+for index,(name,detail) in enumerate(packed):check_item(name,M,169+index*30,detail)
+
+right=218
+line(198,146,198,544)
+label('YOU SUPPLY',right,146)
+check_item('Filled CO2 cylinder',right,169,'CGA-320 connection')
+check_item('Flavor concentrate',right,204,'SodaStream-compatible.<br/>Enough for both flavors.')
+check_item('Adjustable wrench',right,250)
+check_item('Second wrench',right,278,'For a braided hose only.')
+check_item('Cup',right,315)
+check_item('Towel',right,343)
+
+label('AT THE INSTALL LOCATION',right,389,size=7)
+check_item('Counter opening',right,412,'See page 4 for the opening<br/>and cabinet space.')
+check_item('Cold-water supply',right,458)
+check_item('Grounded outlet',right,493,'120 V')
 end()
 
 # 4
