@@ -242,7 +242,7 @@ para('<b>Push the tee\'s short tube into that fitting.</b> Reconnect the origina
 # A front view gives the ports and the small jack their own readable shapes.
 x=916
 step(3,'Match the rear connections',x,y)
-para('<b>Pull off the CO2 and TAP shipping caps.</b>',x,215,416,12.1,16,limit=16)
+para('<b>Pull the CO2 and TAP shipping caps off the soda machine.</b>',x,215,416,12.1,16,limit=16)
 text('Caps fit over the outside of the fittings. Leave the fittings in place.',x,233,10,'Regular',MUTED)
 p=pic('the-back-face.png',x+4,249,216,145,crop=(565,40,1565,855))
 rows=[('CO2','Red / cylinder','#d7333c','#ffffff'),('SODA','Blue / faucet','#1670db','#ffffff'),('TAP','White / filter','#ffffff',INK),('FLAVOR','Black / either port','#1a1a2e','#ffffff')]
@@ -301,7 +301,7 @@ c.linkURL('https://homesodamachine.com/docs/install-guide/install-guide.pdf#page
 phase('YOUR FIRST GLASS',734)
 x,y=36,757
 step(6,'Fill both flavors',x,y)
-para('On the enclosure display, <b>tap a flavor on the left</b>, then open <b>Fill.</b>',x,793,270,12,15,limit=30)
+para('On the machine display, <b>tap a flavor on the left</b>, then open <b>Fill.</b>',x,793,270,12,15,limit=30)
 para('Invert one whole <b>14.8 fl oz bottle</b> into the funnel. Tap <b>Start filling.</b>',x,831,270,12,15,limit=30)
 para('<b>Wait for Filled.</b> Repeat for the other flavor.',x,870,270,12,15,limit=30)
 pic('fill-screen-framed.png',309,773,240,130,fade_crops=False)

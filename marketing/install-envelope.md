@@ -1,6 +1,6 @@
 # Install envelope
 
-The space the appliance installs into: a standard kitchen sink base cabinet, already
+The space the soda machine installs into: a standard kitchen sink base cabinet, already
 occupied. This is the physical bound on the enclosure's silhouette. The cabinet belongs to the
 customer and does not change with which machine goes into it, so it is stated once, here.
 
@@ -16,7 +16,7 @@ Thomasville, Diamond, the RTA houses — ships those three numbers.
 Interior clear height is **[755.7 mm](CABINET_CLEAR_H)**: the 34.5" carcass less the 4" toe
 kick less the 3/4" deck. That derivation is the one the umbilical's length stack-up already runs on
 ([`/hardware/assembly/faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md)
-§1), and it is the cabinet number the appliance's own geometry is sized against.
+§1), and it is the cabinet number the machine's own geometry is sized against.
 
 ## What is already in it
 
@@ -28,7 +28,7 @@ slice off one side:
 | Garbage disposal | Ø 210–254 mm, 311–413 mm tall | bolted under the sink flange, hanging into the middle of the cabinet |
 | P-trap + drain arm | — | behind and above the disposal's foot |
 | Angle stops + supply lines | — | back wall or floor, to one side |
-| CO2 cylinder, 5 lb | Ø 133 × 457 mm, plus regulator | on the cabinet floor beside the appliance |
+| CO2 cylinder, 5 lb | Ø 133 × 457 mm, plus regulator | on the cabinet floor beside the machine |
 
 The disposal is the largest of them and the one that shapes what is left. InSinkErator's
 Evolution line is [8.25" wide × 12.25" tall](https://www.insinkerator.com) at the .75 and
@@ -39,13 +39,13 @@ and does not move.
 the cabinet is. Height and depth are uncontested there. Width is the constraint.
 
 The CO2 cylinder stands in that same slot. It is customer-supplied (5 lb, per
-[`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) "External"), stands beside the appliance
+[`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) "External"), stands beside the machine
 on a short tether to the inlet in the +Y wall of back-top
 ([`y-wall-of-back-top/README.md`](/hardware/printed-parts/enclosure/y-wall-of-back-top/README.md)
-"Connections inventory"), and is Ø 133 × 457 mm before its CGA-320 regulator. Appliance width
+"Connections inventory"), and is Ø 133 × 457 mm before its CGA-320 regulator. Machine width
 plus 133 mm plus a working gap is what the pair asks of the slot.
 
-## What the appliance needs beyond its own box
+## What the machine needs beyond its own box
 
 - **[60 mm](TURN_IN) behind the rear face** — lead, 90° bend at R12, and collet. The collet
   stands [9.5 mm](COLLET_PROUD) proud of the wall's own outer face, and the bulkhead ring it
@@ -61,7 +61,7 @@ plus 133 mm plus a working gap is what the pair asks of the slot.
   faces the room rather than a wall
   ([`service/pump-replacement.md`](/hardware/service/pump-replacement.md)).
   **It is a draw, not a standing clearance.** The pull-forward above is what answers it: the
-  appliance comes out to the cabinet face on the day the cartridge is wanted, so the floor in
+  machine comes out to the cabinet face on the day the cartridge is wanted, so the floor in
   front of it is the cabinet's to use the rest of the time.
 - **40 mm at each side face** — the condenser draws through the grille on one side and
   exhausts through the other, and this is the gap that keeps the cabinet from being the
@@ -79,7 +79,7 @@ plus 133 mm plus a working gap is what the pair asks of the slot.
 
 ## The machine against it
 
-The appliance's own silhouette is stated where it is cut, on the box that sets it:
+The machine's own silhouette is stated where it is cut, on the box that sets it:
 [`enclosure/README.md`](/hardware/printed-parts/enclosure/enclosure/README.md), and the
 procedure that builds those walls,
 [`assembly/enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md) §1. Both are
@@ -105,11 +105,11 @@ whose insides have nothing in common — a cartridge rack, a hot tank, a
 compressor-and-carbonator. Depth and height range over more than a factor of two in the same
 set. Width is the dimension the category agrees on.
 
-Brio's Q60 carries the same subsystems this appliance does — compressor chiller, carbonator,
+Brio's Q60 carries the same subsystems this machine does — compressor chiller, carbonator,
 CO2 cylinder, filtration, dispense — in 220 × 467 × 430 mm on a 0.103 m² footprint. It is a
 countertop unit, so it never had to clear a trap, and it is narrow anyway.
 
-The same band shows up in this machine's own parts. The two largest solids in the appliance
+The same band shows up in this machine's own parts. The two largest solids in the machine
 — the [foam shell](/hardware/printed-parts/cold-core/foam-shell/README.md) across its short
 axis, and the mated [compressor](/hardware/reference/compressor/README.md) and
 [condenser](/hardware/reference/condenser-block/README.md) across theirs — are within a few

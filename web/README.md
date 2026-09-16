@@ -132,7 +132,7 @@ along with `timeline`, `renderer`, and `camera`. All timing uses the same captio
 
 ## Tube shape review
 
-Open the enclosure assembly at `/3d`, then turn on **Tubes** in the Show tools. Choose an
+Open **Soda machine** at `/3d`, then turn on **Tubes** in the Show tools. Choose an
 LLDPE run and use **Show run** to frame it. The cyan dashed line is the CAD route; the coloured
 line is an assumed relaxed shape. Fitting exits and actual ties are marked. **Temporarily omit
 a hold** recalculates the shape without that restraint; **Reset assumptions** restores every

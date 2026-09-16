@@ -232,7 +232,7 @@ def check_item(s,x,y,detail=None):
 
 label('IN THE BOX',M,146)
 packed=[
-    ('Appliance',None),
+    ('Soda machine',None),
     ('Faucet assembly',None),
     ('Under-counter plate',None),
     ('Water line (TAP)',None),
@@ -277,7 +277,7 @@ text('1-3/8 in hole',187,157,19,'Bold',NAVY)
 para('One opening through the counter.<br/>Counter thickness: <b>3/4 to 1-1/2 in.</b>',187,188,177,10.5,14,limit=56)
 caption('Have a countertop fabricator prepare a stone counter.',275)
 line(M,304,W-M,304)
-text('Space around the appliance',M,314,16,'Bold',NAVY)
+text('Space around the machine',M,314,16,'Bold',NAVY)
 text('8-1/2 in wide, 18-1/4 in deep, 14-1/4 in tall.',M,338,10,'Regular',INK)
 # A plan-view diagram uses page dimensions for the clearance labels.
 rect(57,359,125,159,ICE,r=4);rect(73,382,93,136,'#E8EBF0',stroke=INK,r=3)
@@ -287,7 +287,7 @@ text('Front',106,526,8.5,'Regular',MUTED)
 line(166,369,213,369,NAVY,.6);text('2-3/8 in behind',221,364,10,'Semibold',NAVY)
 line(178,431,213,431,NAVY,.6);text('1-5/8 in each side',221,426,10,'Semibold',NAVY)
 para('Above: room to invert a bottle into the funnel.',221,451,143,10,13,limit=52)
-para('Cylinder: its own space beside the appliance, about 5-1/4 in across and 18 in tall, plus the regulator.',221,497,143,9,11,limit=60)
+para('Cylinder: its own space beside the machine, about 5-1/4 in across and 18 in tall, plus the regulator.',221,497,143,9,11,limit=60)
 caption('Keep side air paths open.',548,w=165)
 end()
 
@@ -341,7 +341,7 @@ arrow(*p(1110,170),*p(810,170),head=6)
 para('<b>Push the short jumper</b> on the supplied black tee into the fitting you just opened.',184,316,180,10.5,14,limit=70)
 pic('steps/modern-tee-complete.png',M,411,134,60,crop=(200,130,1860,670))
 para('<b>Reconnect the original tube</b> to the tee\'s open end. Push both joints fully home; tug gently to check.',184,405,180,10.5,14,limit=70)
-note('NEXT: REAR CONNECTIONS / PAGE 12','Keep the water shutoff closed. The white run already includes its filter; its free end goes to the appliance.',489)
+note('NEXT: REAR CONNECTIONS / PAGE 12','Keep the water shutoff closed. The white run already includes its filter; its free end goes to the machine.',489)
 end()
 
 # 9
@@ -371,13 +371,13 @@ para('<b>5 / Hose onto tee</b><br/>Reconnect the braided hose to the top. Hold t
 line(M,331,W-M,331)
 text('6 / Move the white filtered run',M,347,12,'Bold',NAVY)
 para('Use the collet press to release the long white run from the black tee\'s branch. Keep the filter and collar on the run. The black tee and its short jumper are not used on this path.',M,371,CW,11,15,limit=75)
-para('Push the white run fully into the white tee\'s side port, then tug gently. Leave the tee\'s small lever open so water can reach the appliance later.',M,444,CW,11,15,limit=60)
+para('Push the white run fully into the white tee\'s side port, then tug gently. Leave the tee\'s small lever open so water can reach the machine later.',M,444,CW,11,15,limit=60)
 text('Keep the main shutoff closed. Go to page 12.',M,527,10.5,'Bold',BLUE)
 end()
 
 # 12
 header('Match the rear connections', 'INSTALL / MATCH THE REAR CONNECTIONS',3)
-para('<b>Pull off the CO2 and TAP shipping caps.</b> They fit over the outside of the fittings. Leave the fittings mounted in the appliance.',M,106,CW,11,15,limit=60)
+para('<b>Pull off the CO2 and TAP shipping caps.</b> They fit over the outside of the fittings. Leave the fittings mounted in the machine.',M,106,CW,11,15,limit=60)
 p=pic('steps/the-back-face.png',M+13,171,306,214,crop=(565,40,1565,855))
 jack=p(1075,465)
 leader('Faucet cable clicks here',95,398,jack)
@@ -398,7 +398,7 @@ caption('Keep the extra length coiled. A tight bend can pinch a tube closed.',53
 end()
 
 # 14
-header('Attach the regulator', 'TURN IT ON / PREPARE THE CYLINDER',4, 'Stand the filled 5 lb cylinder upright beside the appliance. Keep its valve closed.')
+header('Attach the regulator', 'TURN IT ON / PREPARE THE CYLINDER',4, 'Stand the filled 5 lb cylinder upright beside the machine. Keep its valve closed.')
 p=pic('steps/co2-ready.png',M,150,CW,230,crop=(80,0,1600,1500))
 caption('The regulator\'s large nut meets the cylinder outlet.',389)
 item('1','One washer, lying flat','Place one supplied nylon washer flat inside the large nut. Start the nut squarely on the cylinder outlet by hand. Keep the spare washer in your kit.',429)
@@ -412,7 +412,7 @@ leader('Gray connector',209,158,p(637,943),side='left')
 para('Screw the gray connector onto the regulator\'s bottom outlet <b>by hand until it stops.</b>',209,197,155,11,15,limit=75)
 para('Its rubber washer makes the seal. Keep both gray fittings assembled.',209,281,155,10.5,14,limit=56)
 line(M,369,W-M,369)
-item('2','Check the other end','The red tube belongs in the appliance\'s red CO2 port. Push it fully home and tug gently.',390)
+item('2','Check the other end','The red tube belongs in the machine\'s red CO2 port. Push it fully home and tug gently.',390)
 note('KEEP THE CYLINDER CLOSED','Finish all connections before opening water or gas. The next three pages take you through water, gas and power in that order.',481)
 end()
 
@@ -422,7 +422,7 @@ label('1 / WATER',M,107)
 pic('steps/modern-water-on.png',M,142,CW,125,crop=(170,190,1100,635))
 caption('Plastic-tube shutoff shown open, handle in line with the tube.',281)
 item('1','Open the shutoff slowly','On the braided-hose path, also check that the white tee\'s small side-port lever is open.',331)
-item('2','Watch for a full minute','Inspect the tee, both filter ends and the appliance TAP connection. Keep the power cord unplugged while you check.',415)
+item('2','Watch for a full minute','Inspect the tee, both filter ends and the machine\'s TAP connection. Keep the power cord unplugged while you check.',415)
 note('IF YOU SEE WATER','Close the water shutoff. Resolve the leak before opening the cylinder or connecting power. Page 23 has the first checks.',489,'orange')
 end()
 
@@ -445,13 +445,13 @@ header('Finally, connect power', 'TURN IT ON / WATER, GAS, POWER',5)
 label('3 / POWER',M,107)
 p=pic('steps/power-ready.png',M,143,CW,176,crop=(0,160,1800,1140))
 arrow(*p(490.44,603.57),*p(1061.06,477.95),head=10)
-item('1','Seat the appliance end','Push the cord straight into the top-left socket on the back of the appliance.',343)
-item('2','Plug into grounded 120 V','The appliance chimes and its enclosure display starts. Follow the display if it reports an issue.',423)
-note('POWER REQUIREMENTS','120 V, 60 Hz; 5 A, 600 W. Use the supplied grounded cord. The socket\'s 250 V marking describes the connector; the appliance uses 120 V.',475)
+item('1','Connect the cord to the machine','Push the cord straight into the top-left socket on the back of the machine.',343)
+item('2','Plug into grounded 120 V','The machine chimes and its display starts. Follow the display if it reports an issue.',423)
+note('POWER REQUIREMENTS','120 V, 60 Hz; 5 A, 600 W. Use the supplied grounded cord. The socket\'s 250 V marking describes the connector; the machine uses 120 V.',475)
 end()
 
 # 19
-header('Choose the flavor to fill', 'YOUR FIRST GLASS / FILL BOTH FLAVORS',6, 'Use the enclosure display under the counter. The left rail chooses which reservoir you are filling.')
+header('Choose the flavor to fill', 'YOUR FIRST GLASS / FILL BOTH FLAVORS',6, 'Use the machine display under the counter. The left rail chooses which reservoir you are filling.')
 # The frozen interface illustration is authored beside the scene snapshots.
 if (ART/'fill-screen-framed.png').exists():pic('fill-screen-framed.png',M,159,CW,199,fade_crops=False)
 else:
@@ -466,7 +466,7 @@ header('Bottle first. Then start.', 'YOUR FIRST GLASS / FILL BOTH FLAVORS',6)
 p=pic('steps/fill-ready.png',M,118,171,235,crop=(295,330,1555,1450))
 arrow(*p(947.15,473.85),*p(947.15,943.67),head=8)
 para('<b>3 / Add concentrate</b><br/>Invert one whole <b>14.8 fl oz (440 mL)</b> bottle into the top funnel.',223,142,141,11,15,limit=120)
-para('<b>4 / Start filling</b><br/>Tap <b>Start filling</b>. Let the appliance draw the concentrate into the selected reservoir.',223,266,141,11,15,limit=105)
+para('<b>4 / Start filling</b><br/>Tap <b>Start filling</b>. Let the machine draw the concentrate into the selected reservoir.',223,266,141,11,15,limit=105)
 line(M,387,W-M,387)
 item('5','Wait for Filled','When the display says Filled, that bottle is in the reservoir. Remove the empty bottle.',406)
 item('6','Repeat for the second flavor','Select the other image on the left, open Fill, put its bottle in the funnel, then tap Start filling.',485)
@@ -503,7 +503,7 @@ end()
 
 # 23
 header('Check the leaking connection', 'FIRST CHECKS')
-para('<b>Close the water shutoff and cylinder valve.</b> Unplug the appliance. Leave pressurized connections assembled.',M,105,CW,10.8,14.5,limit=43.5)
+para('<b>Close the water shutoff and cylinder valve.</b> Unplug the machine. Leave pressurized connections assembled.',M,105,CW,10.8,14.5,limit=43.5)
 line(M,158,W-M,158)
 text('Water at a push fitting',M,175,13,'Bold',NAVY)
 y=para('<b>Tee, filter or white TAP tube:</b> run the tap or dispenser fed by that same cold-water line until flow stops. Keep the white tee\'s side lever open, if used.<br/><b>Blue SODA tube:</b> put a jug under the soda faucet and press its lever until water and hissing stop.',M,199,CW,10.8,14.5,limit=101.5)

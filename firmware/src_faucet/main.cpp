@@ -472,7 +472,7 @@ static void refreshPrimeStatus(bool force = false) {
     snprintf(status, sizeof(status), "FLAVOR %u  |  STOPPING", primeSession.channel + 1);
   } else if (primeSession.phase == PRIME_SESSION_RUNNING) {
     snprintf(status, sizeof(status), "%s  |  %lu.%lu s",
-             primeSession.owner == PRIME_OWNER_FAUCET ? "HERE" : "ENCLOSURE",
+             primeSession.owner == PRIME_OWNER_FAUCET ? "HERE" : "MACHINE",
              (unsigned long)elapsed / 1000,
              ((unsigned long)elapsed % 1000) / 100);
   } else if (primeSession.outcome != PRIME_OUTCOME_NONE) {

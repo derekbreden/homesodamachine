@@ -39,7 +39,7 @@ struct AddMachineView: View {
                     .accessibilityHidden(true)
 
                 VStack(spacing: 8) {
-                    Text(firstRun ? "Home Soda Machine" : "Add a machine")
+                    Text(firstRun ? "Soda Machine" : "Add a machine")
                         .font(.system(size: 20, weight: .medium))
                         .foregroundStyle(Theme.textPrimary)
                     Text(looking ? "Stand near it. It will show up here."

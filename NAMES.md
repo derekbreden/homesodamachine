@@ -3,7 +3,7 @@
 One thing, one name.
 
 **Qualify on the axis that separates the set — enough words to be unique, no more.** Two displays
-in two places take the place: `faucet display`, `enclosure display`. There is one gooseneck, so
+in two places take the place: `faucet display`, `machine display`. There is one gooseneck, so
 `gooseneck` stands alone.
 
 **A word already in the machine is the BEST candidate for a new name, not a spent one.** `bay`
@@ -18,7 +18,7 @@ word's other duties are never a reason to refuse it.
 the entry says: `faucet shell` is the name, and `the shell` is correct inside
 `hardware/printed-parts/faucet/` and nowhere else.
 
-**Every screw seat in the appliance is a COUNTERBORE.** A counterbore is flat-bottomed and takes a
+**Every screw seat in the machine is a COUNTERBORE.** A counterbore is flat-bottomed and takes a
 cylindrical head; a countersink is a 90° cone and takes a wedging flat head. They are different
 features and the words do not trade — a flat-bottomed pocket is never "countersunk" because its
 head ends up below the face. The one countersunk fastener in this tree is the pair of M5 × 12 that
@@ -34,6 +34,7 @@ they became.
 
 | Name | Point at | Not |
 | --- | --- | --- |
+| **soda machine** | the complete under-counter unit, including its enclosure and everything inside; **the machine** in instructions | appliance, main unit |
 | **faucet** | the whole fixture that clamps through the counter hole | tap, faucet head, faucet stack |
 | **faucet shell** | the printed black cover wrapping the Westbrass and the flavor tubes | faucet body, printed shell |
 | **gooseneck** | the faucet shell's forward arc, out to where the tubes exit over the glass | dispense head, nozzle, spout |
@@ -42,9 +43,9 @@ they became.
 | **shank** | the Westbrass's threaded stem, running down through the counter hole | |
 | **faucet lever** | the handle pushed to dispense | |
 | **faucet display** | the 1.47" LCD at the end of the gooseneck | flavor display |
-| **enclosure** | the cabinet under the counter | |
+| **enclosure** | the housing around the soda machine's internal components | |
 | **enclosure quadrant** | one of the four printed pieces the enclosure comes apart into — front-top, front-bottom, back-top, back-bottom | |
-| **enclosure display** | the 4.3" LCD on the enclosure's front face | config display, front-face display, front display |
+| **machine display** | the 4.3" LCD on the soda machine's front face | enclosure display, config display, front-face display, front display |
 | **round rotary display** | the prototype's 1.28" Meshnology 240×240 touchscreen | config display |
 | **umbilical** | the sleeved run of three tubes and the signal cable, counter to rear wall | |
 | **flavor tube** | either of the two black 1/4" tubes, rear wall to the gooseneck exit | |
@@ -109,9 +110,9 @@ to **Derek approved** when he recognises them, or are replaced when he doesn't.
 | **index** | a holder bored at nominal diameters, for things whose size is a standard | bit holder, tip stand |
 | **bench dock** | the printed Gridfinity baseplate a holder stands on | dock plate, base |
 | **parcel figure** | a dimension that is a listing's shipping box: an upper bound on the thing inside it, and no lower bound at all | product dimensions, listing envelope |
-| **pump jack** | the RiteAV RJ11 keystone jack in the ridge wall behind the enclosure display, that the pump cartridge's cord plugs into | pump connector, cartridge jack, pump socket |
+| **pump jack** | the RiteAV RJ11 keystone jack in the ridge wall behind the machine display, that the pump cartridge's cord plugs into | pump connector, cartridge jack, pump socket |
 | **pump plug** | the RJ11 6P4C plug on the pump cartridge's cord, that clicks into the pump jack | cartridge plug |
-| **install kit** | the box beside the appliance in the carton holding what the install needs beyond the faucet bag: the customer's plumbing, the collet press, the line cord, the documentation packet | installer kit |
+| **install kit** | the box beside the soda machine in the carton holding what the install needs beyond the faucet bag: the customer's plumbing, the collet press, the line cord, the documentation packet | installer kit |
 | **cold kit** | the bagged bonus in the install kit — the tube cutter, the loose foam segments and its own guide — for trimming and insulating the run to the faucet | cold optimization kit, cold enhancing kit, cold-line kit |
 | **quick start** | the illustrated one-sheet guide from installation through the first glass, lying face up on top of the packing | quickstart sheet, install sheet |
 | **install guide** | the bound booklet in the install kit that carries what the quick start cannot say in pictures | manual, install booklet, owner's guide |

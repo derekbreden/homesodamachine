@@ -33,7 +33,7 @@ The tree a page is a browse of. It states the one thing the repository's own fil
 directory stands relative to the others — and reads everything else off disk, so a part added on the
 tree appears with no edit here and anything unseated is reported on the page.
 
-- **parts-tree.js** — the two units `/3d` browses (the enclosure assembly, which holds the cold core,
+- **parts-tree.js** — the two units `/3d` browses (the soda machine, which holds the cold core,
   and the faucet and umbilical), the directories each places from, the bought geometry no one of them
   owns, and the tooling a bench works from, including the fixture and shop-storage namespaces; plus
   `seatParts`, which walks that nesting and folds a part's `.step` / `.dxf` / `.glb` into one card.

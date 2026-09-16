@@ -18,7 +18,7 @@ the submerged cube faces. Step 7 calls for a glass filled with ice.
 `tools/quickstart-codex/ice_scene.py` models the cubes in the frozen faucet-and-glass scene;
 the PNG is shared as a snapshot with the install guide.
 
-Step 6 shows the Big Blue Fill screen inside the enclosure display's frame and on the appliance.
+Step 6 shows the Big Blue Fill screen inside the machine display's frame and on the machine.
 Select a flavor in the left rail, open **Fill**, put the bottle in the funnel, then tap
 **Start filling**. The concentrate bottle has a rounded PET body, tapered shoulders, an open
 ribbed neck, dark liquid and a wrapped COLA concentrate label. `tools/quickstart-codex/fill_scene.py` renders

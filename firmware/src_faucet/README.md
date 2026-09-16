@@ -7,7 +7,7 @@ board's J3 IO35 RX / IO33 TX pins at 921600 baud.
 This display carries artwork for every logo a channel can be given and renders whichever one the
 main board says that channel wears — `MSG_RESP_FLAVOR_ART`, published on every change and
 once per connection, so a display that just woke shows the right face before anyone touches it.
-The assignment is set from the enclosure's Choose card and persisted by the main board.
+The assignment is set from the machine display's Choose card and persisted by the main board.
 
 ## Interaction contract
 
@@ -22,11 +22,11 @@ carries the audible flag; retries reuse the same token, so a lost response canno
 second tick. An offline or sufficiently delayed selection reconciles silently rather than
 playing feedback detached from the touch that caused it.
 
-A different main board selection, including one made on the enclosure display, changes the
+A different main board selection, including one made on the machine display, changes the
 logo and wakes the backlight. Re-publication of the flavor already shown is a no-op and does
 not disturb idle behavior.
 
-When the enclosure opens Prime for one flavor, main board state replaces the logo
+When the machine display opens Prime for one flavor, main board state replaces the logo
 with two exact half-screen targets: `EXIT PRIME` on top and `HOLD TO PRIME` below. The faucet
 does not create prime mode; it can end the existing mode or own a held run for its selected
 channel. A hold from either display is shown on both, and an entering, starting, or ending
@@ -37,7 +37,7 @@ and an orange hold target with navy text. Active priming remains green and pendi
 reconnecting states use ice blue. The resting screen shows the selected flavor's own artwork.
 
 **The main board keeps the quiet stretch, across both glasses.** A finger on either is
-activity for both, so this head does not dim while a hand is at the enclosure, and the pair
+activity for both, so this head does not dim while a hand is at the machine display, and the pair
 sleeps and wakes together. It runs no timer of its own and dims when it is told to; a press
 that already sent a command is presence the main board can see, and one that stayed silent —
 a wake tap, a tap on the flavor already showing — sends `MSG_TOUCH` so it counts too. A live

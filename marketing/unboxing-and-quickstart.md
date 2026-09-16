@@ -1,6 +1,6 @@
 # Unboxing and the printed documents
 
-Two printed documents ship with the appliance.
+Two printed documents ship with the soda machine.
 
 The **quick start** lies face up on top of the packing. Its seven illustrated steps run from
 mounting the faucet through the first glass, on one sheet the buyer can prop against the cabinet.
@@ -59,7 +59,9 @@ photo paper, ASIN `B0DSJ9X4CR`: Epson ET-8550 rear feed, **13×19 borderless**, 
 photo quality, and 100%. Check the page at actual size, at quarter scale, and in grayscale.
 Valve states, open mating faces, both black flavor tubes and the action arrows must remain legible.
 
-Print `hardware/install-guide/install-guide.pdf` on US Letter at 100%, two-sided, using the
-printer driver's booklet layout. Fold and staple as its README states. Check that each action
-stays together on its page, that the braided-hose connection reads in order, and that the grayscale
-copy keeps leaders and arrows distinct from the artwork behind them.
+Order the install guide as a Lulu Comic Book using the separate
+`hardware/install-guide/press/interior.pdf` and `hardware/install-guide/press/cover.pdf` files.
+[ORDER.md](/hardware/install-guide/press/ORDER.md) supplies the format, color, paper and cover settings.
+Review a printed proof. Check that each action stays together on its page, that the braided-hose
+connection reads in order, and that a grayscale review keeps leaders and arrows distinct from
+the artwork behind them.

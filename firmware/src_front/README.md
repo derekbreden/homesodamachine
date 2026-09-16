@@ -1,6 +1,6 @@
-# Enclosure Display (Waveshare ESP32-S3-Touch-LCD-4.3B)
+# Machine Display (Waveshare ESP32-S3-Touch-LCD-4.3B)
 
-The appliance's enclosure display: Big Blue on an 800×480 RGB panel under LVGL.
+The soda machine's display: Big Blue on an 800×480 RGB panel under LVGL.
 Both flavors stay in the left rail; the selected portrait and task occupy the rest.
 
 ## Board
@@ -413,12 +413,12 @@ MSG_RESP_PRIME_SESSION       { phase, channel, owner, outcome, elapsed,
 The activation token names one visit to the hold screen; every physical press gets its own
 hold token. A duplicate frame is a no-op, a delayed START after its STOP cannot revive the
 pump, and source identity comes from J9 or J3 rather than from a payload. The base answers
-each enclosure turn with at most one complete state. `RUNNING`, `STOPPED`, `TIMEOUT`,
+each machine display turn with at most one complete state. `RUNNING`, `STOPPED`, `TIMEOUT`,
 `LIMIT`, `REFUSED`, `CANCELED`, and `SESSION LOST` therefore mean the same thing on both
 pieces of glass.
 
 While held, a heartbeat goes out every 500 ms and the main board stops an unanswered hold
-after 2 s. The enclosure renews the ready session on its 250 ms active / 500 ms dark poll;
+after 2 s. The machine display renews the ready session on its 250 ms active / 500 ms dark poll;
 the main board closes it after 5 s without that exact token. The hold pad reports its
 owner, acknowledgement, outcome and connection state.
 

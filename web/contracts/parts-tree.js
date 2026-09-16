@@ -81,9 +81,9 @@ export const EXCLUDED_DIRS = [
 export const ASSEMBLIES = [
   {
     id: "enclosure-assembly",
-    label: "Enclosure assembly",
+    label: "Soda machine",
     model: "manifold-layout/enclosure-assembly.step",
-    note: "The whole appliance — the compressor bay, the cold core standing on it, the " +
+    note: "The whole soda machine — the compressor bay, the cold core standing on it, the " +
           "flavor manifold over that, and the printed box around them all.",
     // The directories the enclosure alone places from.
     holds: [
@@ -107,7 +107,7 @@ export const ASSEMBLIES = [
         // `enclosure_assembly.CORE` without renaming it here and the gate says so, rather
         // than the two drifting apart in silence.
         node: "cold-core",
-        note: "The stack the appliance is built around: the carbonator that fills it, the " +
+        note: "The stack the machine is built around: the carbonator that fills it, the " +
               "coil wound on that, both reservoirs in their pockets, every fitting made up, " +
               "and the lines among them. The machine stands every one of these bodies; this " +
               "is the same stack on a bench, before the box goes round it.",
