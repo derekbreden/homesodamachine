@@ -56,7 +56,7 @@ export function buildPartsSection(gridEl, { steps, dxfs, glbs }) {
     const warn = document.createElement("div");
     warn.className = "grid-warn";
     warn.innerHTML = `<b>Unclassified CAD:</b><ul>` +
-      tree.unseated.map((d) => `<li><code>${esc(d)}</code> has no appliance, install-kit, ` +
+      tree.unseated.map((d) => `<li><code>${esc(d)}</code> has no soda machine, install-kit, ` +
         `purchased, or workshop classification — classify it in ` +
         `<code>contracts/parts-tree.js</code></li>`)
         .join("") + `</ul>`;

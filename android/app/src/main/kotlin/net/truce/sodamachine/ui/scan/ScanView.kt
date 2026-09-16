@@ -85,7 +85,7 @@ private fun OnboardingContent(ble: BleManager) {
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
-                text = "Home Soda Machine",
+                text = "Soda Machine",
                 color = Theme.textPrimary,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Medium,

@@ -4,7 +4,7 @@
 
 A home soda machine — a kitchen appliance that dispenses flavored carbonated water from a faucet. In the prototype, refrigerated carbonated water is provided by an external carbonator (Lillium, Brio). When flow is detected, peristaltic pumps inject flavoring through a parallel line. Two flavors, each primed and valve-locked for instant dispensing. The mixing happens in the user's glass, not before.
 
-The prototype under the counter dispenses from a Lillium-class external carbonator. The integrated appliance under development consolidates the carbonator into the same enclosure.
+The prototype under the counter dispenses from a Lillium-class external carbonator. The integrated soda machine under development consolidates the carbonator into the same enclosure.
 
 See `future/README.md` for where this is going and what done looks like, and `hardware/README.md` for the machine as it stands, subsystem by subsystem.
 
@@ -26,7 +26,7 @@ See `hardware/printed-parts/faucet/faucet-shell/faucet_shell.py` for patterns to
 
 ## Firmware
 
-The appliance's controller is `firmware/src_appliance/`, on the main board's own WROOM. The enclosure display is `firmware/src_front/`, and the two talk over J9. Eight trees, one per board: `firmware/README.md` says which runs where.
+The soda machine's controller is `firmware/src_appliance/`, on the main board's own WROOM. The machine display is `firmware/src_front/`, and the two talk over J9. Eight trees, one per board: `firmware/README.md` says which runs where.
 
 ## tscircuit forks
 
@@ -42,7 +42,7 @@ You have access to my Chrome which is signed in to my amazon through your MCP. I
 - `calibration/Principle.md` — how Derek and the agents here work, distilled from the first
   two rooms in `calibration/principle/`; the third, `Provenance.md`, is the geometry read as
   a record of who decided what, and Derek's word first. Any rule is better encoded as an example.
-- `hardware/design-pressures.md` — what the appliance is optimised for and what it is not.
+- `hardware/design-pressures.md` — what the machine is optimised for and what it is not.
   Placement decisions answer to it: volume and assemblability yes, field service no.
 - `hardware/printed-parts/AGENTS.md` and `hardware/printed-parts/enclosure/AGENTS.md` — the
   publish loop, and the support-removal policy to read before moving any down-facing geometry.

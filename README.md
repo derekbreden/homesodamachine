@@ -6,15 +6,15 @@ The public face of the project is **[homesodamachine.com](https://homesodamachin
 
 The prototype that proves the dispense path is in Derek's kitchen today — a Lilium under-counter carbonator with peristaltic pumps injecting flavor concentrate into the dispensed water. The project's biography lives in [`biography/`](/biography/) — [`2026-04-05.md`](/biography/2026-04-05.md) (origin story: failed SodaStream, the business-license wall, the AI design wall) and [`2026-05-23.md`](/biography/2026-05-23.md) (vision into work: welding, marketing, the engineering).
 
-The product under development is an integrated under-counter appliance — custom-fabricated 316L stainless carbonator, harvested ice-maker refrigeration loop, foam-insulated cold core, two flavor reservoirs, all behind a single 120 VAC cord and one CO2 line. The machine as it stands, subsystem by subsystem: [`hardware/README.md`](/hardware/README.md). Where it is going and what done looks like: [`future/README.md`](/future/README.md). Who it is for: [`marketing/target-market.md`](/marketing/target-market.md); the cabinet it has to fit: [`marketing/install-envelope.md`](/marketing/install-envelope.md).
+The product under development is an integrated under-counter soda machine — custom-fabricated 316L stainless carbonator, harvested ice-maker refrigeration loop, foam-insulated cold core, two flavor reservoirs, all behind a single 120 VAC cord and one CO2 line. The machine as it stands, subsystem by subsystem: [`hardware/README.md`](/hardware/README.md). Where it is going and what done looks like: [`future/README.md`](/future/README.md). Who it is for: [`marketing/target-market.md`](/marketing/target-market.md); the cabinet it has to fit: [`marketing/install-envelope.md`](/marketing/install-envelope.md).
 
 ## What's where
 
 | Path | Contents |
 |---|---|
 | [`biography/`](/biography/) | Project biography by chapter — `2026-04-05.md` (founding), `2026-05-23.md` (vision into work) |
-| [`hardware/`](/hardware/) | The integrated appliance under development — CAD scripts, [`bom.md`](/hardware/ledger/bom.md), [`purchases.md`](/hardware/ledger/purchases.md), [`assembly/`](/hardware/assembly/) procedures, printed parts, wiring schedules |
-| [`firmware/`](/firmware/) | ESP32 + ESP32-S3 firmware for the appliance under development. The current code base still includes a third MCU (RP2040) from the prototype era — see [`firmware/README.md`](/firmware/README.md) for the in-flight state. |
+| [`hardware/`](/hardware/) | The integrated soda machine under development — CAD scripts, [`bom.md`](/hardware/ledger/bom.md), [`purchases.md`](/hardware/ledger/purchases.md), [`assembly/`](/hardware/assembly/) procedures, printed parts, wiring schedules |
+| [`firmware/`](/firmware/) | ESP32 + ESP32-S3 firmware for the soda machine under development. The current code base still includes a third MCU (RP2040) from the prototype era — see [`firmware/README.md`](/firmware/README.md) for the in-flight state. |
 | [`web/`](/web/) | homesodamachine.com — Node server, CAD viewer — see [`web/README.md`](/web/README.md) |
 | [`ios/`](/ios/) | iOS companion app (BLE bridge, settings, usage stats) |
 | [`android/`](/android/) | Android companion app |

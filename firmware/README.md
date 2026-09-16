@@ -4,21 +4,21 @@ Five source trees, each its own PlatformIO environment in [`/platformio.ini`](/p
 
 | Tree | Env | Runs on | Machine |
 |---|---|---|---|
-| `src_appliance/` | `appliance` | the main board's WROOM (U1) | the appliance |
+| `src_appliance/` | `appliance` | the main board's WROOM (U1) | the soda machine |
 | `src_pcba_bench/` | `pcba_bench` | the main board's WROOM (U1) | none — a bare board on the bench |
-| `src_front/` | `esp32s3_front` | Waveshare ESP32-S3-Touch-LCD-4.3B | the appliance |
-| `src_faucet/` | `esp32s3_faucet` | Waveshare ESP32-S3-Touch-LCD-1.47 | the appliance |
+| `src_front/` | `esp32s3_front` | Waveshare ESP32-S3-Touch-LCD-4.3B | the soda machine |
+| `src_faucet/` | `esp32s3_faucet` | Waveshare ESP32-S3-Touch-LCD-1.47 | the soda machine |
 | `src_weld_rotator/` | `weld_rotator` | ESP32-DevKitC-32E + DM542T | the cap-weld bench fixture |
 
 Two of them run on the main board, and only one of the two ships inside a machine.
 
-**`src_appliance/` is the appliance's own firmware** — the state machine, the thermal loop, the dispense, persistence, the links to both displays ([`src_appliance/README.md`](src_appliance/README.md)). It boots to the state [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) opens against — build ID printed, every actuator parked dark — and brings up J9 and J3. What runs at the glass today is one flavor pump, the funnel fill and the clean cycle: a prime held from the 4.3B, `pump <a|b> [ms]` bounded from the console, a fill that opens a channel's funnel path and draws with its pump — held from the enclosure's FILL page or run by `fill <a|b> [s]` — a clean cycle that puts tap water through the channel in rounds, in through the idle pump and out through the faucet — started from the enclosure's CLEAN page or by `clean <a|b> [rounds] [s]` — and the dry cycle before a pump replacement, air swept through both channels to the faucet, from the enclosure's Settings → PUMP SERVICE or by `dry`. Flavor selection from either display reaches and is persisted by the main board for the future automatic-dispense path, then mirrors to the other display. `machine.cpp` owns every actuator request; `pcba_expanders.cpp` clears and verifies both MCP23017 output banks, enables the reed pull-ups and owns the physical V-A–V-K map; `link.cpp` turns a J9 frame into a machine intent. The USB `status` command reads both expanders and all ten reeds; the fill and the clean cycle are the runtime operations that open valves, one topology state at a time and at most three valves at once. The procedure it fills in is [`/hardware/assembly/firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md) §3, §6, §7 and §9; the pin map is [`pcba.tsx`](/hardware/pcb/pcba/pcba.tsx), drawn as [`/hardware/wiring/esp32-pinout.mmd`](/hardware/wiring/esp32-pinout.mmd).
+**`src_appliance/` is the soda machine's own firmware** — the state machine, the thermal loop, the dispense, persistence, the links to both displays ([`src_appliance/README.md`](src_appliance/README.md)). It boots to the state [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) opens against — build ID printed, every actuator parked dark — and brings up J9 and J3. What runs at the glass today is one flavor pump, the funnel fill and the clean cycle: a prime held from the 4.3B, `pump <a|b> [ms]` bounded from the console, a fill that opens a channel's funnel path and draws with its pump — held from the machine display's FILL page or run by `fill <a|b> [s]` — a clean cycle that puts tap water through the channel in rounds, in through the idle pump and out through the faucet — started from the machine display's CLEAN page or by `clean <a|b> [rounds] [s]` — and the dry cycle before a pump replacement, air swept through both channels to the faucet, from the machine display's Settings → PUMP SERVICE or by `dry`. Flavor selection from either display reaches and is persisted by the main board for the future automatic-dispense path, then mirrors to the other display. `machine.cpp` owns every actuator request; `pcba_expanders.cpp` clears and verifies both MCP23017 output banks, enables the reed pull-ups and owns the physical V-A–V-K map; `link.cpp` turns a J9 frame into a machine intent. The USB `status` command reads both expanders and all ten reeds; the fill and the clean cycle are the runtime operations that open valves, one topology state at a time and at most three valves at once. The procedure it fills in is [`/hardware/assembly/firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md) §3, §6, §7 and §9; the pin map is [`pcba.tsx`](/hardware/pcb/pcba/pcba.tsx), drawn as [`/hardware/wiring/esp32-pinout.mmd`](/hardware/wiring/esp32-pinout.mmd).
 
 Shared libraries sit under `lib/`, compiled into whichever trees include them:
 [`lib/proto_link`](lib/proto_link/proto_msg.h) is the inter-board wire contract;
 [`lib/machine_policy`](lib/machine_policy/machine_policy.h) is the Arduino-free actuator-plan,
 safety-transition and pump-timing policy; [`lib/flavor_selection`](lib/flavor_selection/flavor_selection.h) is main board authority and persistence policy; [`lib/weld_rotator_policy`](lib/weld_rotator_policy/weld_rotator_policy.h) holds the rotator's physical ratio and every deadman transition; and [`lib/sound`](lib/sound/sound.h) is U8 — the drive on IO13, the machine's sound vocabulary,
-and the volume/quiet-hours settings behind it. The appliance and the bench share that one
+and the volume/quiet-hours settings behind it. The machine and the bench share that one
 table on purpose: a board on the line makes exactly the sounds a customer's machine makes.
 Neither display carries a sounder, so every sound the machine makes is made on the main board.
 
@@ -43,8 +43,8 @@ So the rule, and it is a rule rather than an optimisation:
 - **The glass polls on an interval,** because that poll is the only window the main board has to speak in. It is the ceiling on how stale news from the base can be.
 
 HOME's flavor query is one of those turns: 250 ms while lit and 500 ms while dark.
-It carries main board flavor truth and durability to the enclosure, including selections
-that arrived from the faucet over J3. An enclosure selection is an absolute, tokenized J9
+It carries main board flavor truth and durability to the machine display, including selections
+that arrived from the faucet over J3. A selection on the machine display is an absolute, tokenized J9
 request; main board revision publication carries the result to the faucet over full-duplex J3.
 
 `link` on the main board console reports `desyncs`: collisions that reached the wire in spite of all that. On a healthy pair it stays at zero. Rising under load means the discipline is being violated somewhere, and the place to look is whatever recently learned to transmit.
@@ -76,7 +76,7 @@ one bench, one room, `RSSI -40 dBm`.
 | J3, OTA pull | 9.2 KB/s | the shipping path: 1 KB asked for, waited on, written to flash |
 | J9, OTA pull | 11.2 KB/s | the same, across the half-duplex pair |
 | J3, `bench j3` | 71–74 KB/s | the wire itself — TinyProto's window, nothing written |
-| WiFi, BLE advertising | 99–135 KB/s | faucet to enclosure, SoftAP and one TCP socket |
+| WiFi, BLE advertising | 99–135 KB/s | faucet display to machine display, SoftAP and one TCP socket |
 | WiFi, BLE off the air | 299–349 KB/s | the same run with `wifi <KB>q` |
 
 **The pull is most of what the wired numbers are.** J3 runs at 921600 and
@@ -90,7 +90,7 @@ phone with the same PHY it would forward over, and coexistence takes about two
 thirds of the throughput. A trailing `q` stops advertising for the length of a
 run, which is what the two WiFi rows are.
 
-**The enclosure's radio and its panel cannot both be up.** Its scan-out DMA
+**The machine display's radio and its panel cannot both be up.** Its scan-out DMA
 refills a bounce buffer out of PSRAM and bringing WiFi up writes flash, which
 suspends the cache PSRAM is reached through — the conflict that already blanks
 this glass for an arriving image. `wifi on` takes the panel down the same way
@@ -98,7 +98,7 @@ an OTA does, and the board reboots when the run ends. The faucet drives SPI and
 has no such conflict.
 
 ```
-wifi on | off        raise or drop the enclosure's bench AP
+wifi on | off        raise or drop the machine display's bench AP
 wifi <KB>[q]         the faucet joins it and sends; q takes BLE off the air
 bench j3 [<KB>]      push at J3 as fast as its window will take frames
 ```
@@ -122,20 +122,20 @@ handed a pointer into mapped flash and renders straight out of it, the way
 **One shape, at three scales.** Every rendition is 43:80 — the faucet's glass —
 so a photograph gives the machine one rectangle and every surface that shows a
 logo shows the same picture. The faucet fills its glass with the largest; the
-enclosure keeps the same bundle and caches complete portraits at its Big Blue rail,
+machine display keeps the same bundle and caches complete portraits at its Big Blue rail,
 selected-image and picker sizes. Both boards keep all three, so a
 slot's own crc32 is its identity on either of them and the reconcile below has
 one number to compare.
 
 **Both stores live in the partition nothing was using.** `spiffs` — 9.94 MB on
-the faucet, 6.94 MB on the enclosure — needed no table change, which matters
+the faucet, 6.94 MB on the machine display — needed no table change, which matters
 because a partition table is the one thing an update cannot install. A slot
 stands on its own erase boundary and carries its own header, written last, so a
 transfer cut short costs that one picture and leaves the slot reading empty
 rather than showing half a face.
 
 **The faucet is the master copy.** It has the radio and the space, so it keeps
-every rendition either glass draws — an enclosure display can be replaced and
+every rendition either glass draws — a machine display can be replaced and
 re-provisioned from it with no phone in the room.
 
 **Writing is the rare case and it is what costs.** Reading is a pointer, which
@@ -144,12 +144,12 @@ paid once for a cost paid always. A picture chosen months ago is on both
 glasses the instant they boot.
 
 ```
-phone  ──BLE──▶  faucet  ──WiFi──▶  enclosure
-                   │                    │
-                   └────── all three, byte for byte ──────┘
+phone  ──BLE──▶  faucet display  ──WiFi──▶  machine display
+                       │                             │
+                       └── all three, byte for byte ──┘
 ```
 
-The last hop is the radio rather than J9 because the enclosure's panel has to
+The last hop is the radio rather than J9 because the machine display's panel has to
 come down for a flash write either way — so the transport that costs nothing
 extra at that moment is the fast one. A bundle is 199,520 bytes; measured at
 **180 KB/s**, against the 15 s J9 would take. The access point stands only for
@@ -158,10 +158,10 @@ that burst and the board reboots into its new face when it drops.
 ```
 images                 what each display holds
 images test <slot>     have the faucet make itself a picture, with no phone
-images relay <slot>    carry one to the enclosure over the radio
+images relay <slot>    carry one to the machine display over the radio
 ```
 
-## What the appliance firmware must hold
+## What the machine firmware must hold
 
 Three constraints the main board and the supply impose, each carried by a part that pays for a violation. They are in [`firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md) §9 as well, where the factory confirms them per unit.
 
@@ -175,9 +175,9 @@ deadline boundaries, the pour's duty shape, the echo matcher's resync, and the g
 exemption from every volume and quiet-hours setting the two can be in — without opening a
 serial port. See [`test/README.md`](test/README.md).
 
-## Appliance displays
+## Displays
 
-- **ESP32-S3 enclosure display** (Waveshare ESP32-S3-Touch-LCD-4.3B) — Big Blue on the appliance's 800×480 touchscreen: a persistent 104 px flavor rail, 234 px selected portrait and 462 px task pane. Fill, Prime and Clean sit above the task; Settings opens the full 696 px area beside the rail. On tap carries the selected reservoir reading, with image and ratio editors one press away. The On tap faucet mark pulses during boot. Queued/running Fill, Clean and Dry expose only Stop until the main board confirms the operation ended. Prime uses the shared tokenized `MSG_PRIME_SESSION_*` protocol, with causal cancellation and stop retries. `src_front/` drives the RGB panel through esp_lcd with double framebuffers and bounce buffers; J9 on GPIO43/44 carries selection, operations, sensor state, image updates and OTA. See [`src_front/README.md`](src_front/README.md).
+- **ESP32-S3 machine display** (Waveshare ESP32-S3-Touch-LCD-4.3B) — Big Blue on the machine's 800×480 touchscreen: a persistent 104 px flavor rail, 234 px selected portrait and 462 px task pane. Fill, Prime and Clean sit above the task; Settings opens the full 696 px area beside the rail. On tap carries the selected reservoir reading, with image and ratio editors one press away. The On tap faucet mark pulses during boot. Queued/running Fill, Clean and Dry expose only Stop until the main board confirms the operation ended. Prime uses the shared tokenized `MSG_PRIME_SESSION_*` protocol, with causal cancellation and stop retries. `src_front/` drives the RGB panel through esp_lcd with double framebuffers and bounce buffers; J9 on GPIO43/44 carries selection, operations, sensor state, image updates and OTA. See [`src_front/README.md`](src_front/README.md).
 
 ## The pour
 
@@ -197,7 +197,7 @@ above; 1:6 is bag-in-box syrup, and at full flow the head stays on.
 
 ## Pin Assignments
 
-The appliance board's pin map is [`pcba.tsx`](/hardware/pcb/pcba/pcba.tsx), drawn as
+The main board's pin map is [`pcba.tsx`](/hardware/pcb/pcba/pcba.tsx), drawn as
 [`/hardware/wiring/esp32-pinout.mmd`](/hardware/wiring/esp32-pinout.mmd); the 4.3B's is
 [`src_front/README.md`](src_front/README.md). The faucet display's is below, fixed by the
 board design.
@@ -237,7 +237,7 @@ homesodamachine.com  ──HTTPS──▶  iOS app  ──BLE──▶  faucet d
                                                           │
                                                           J3
                                                           ▼
-                                     enclosure  ◀──J9──  main board
+                               machine display  ◀──J9──  main board
 ```
 
 **The faucet display carries the radio** ([`src_faucet/ble_link.cpp`](src_faucet/ble_link.cpp)):
@@ -260,7 +260,7 @@ frame once the main board has it. `ble` reports the radio the main board cannot 
 
 **What an update is, per board.** Firmware goes into the OTA slot that is not running and the
 boot partition moves only after the whole image is in and its CRC32 matches; a transfer that
-stalls leaves the board running what it booted. The enclosure display also carries `art` — a data
+stalls leaves the board running what it booted. The machine display also carries `art` — a data
 partition holding the loading animation, erased and rewritten in place, verified the same way.
 
 | Target | Image | Slot | Reached over |
@@ -270,7 +270,7 @@ partition holding the loading animation, erased and rewritten in place, verified
 | `enclosure` | `esp32s3_front` | 2.5 MB | J9 |
 | `art` | `tools/make_art.py enclosure` | 4 MB | J9 |
 
-**The enclosure display goes dark while it writes.** Its scan-out DMA refills a bounce buffer
+**The machine display goes dark while it writes.** Its scan-out DMA refills a bounce buffer
 from PSRAM, a flash write suspends the cache PSRAM is reached through, and the refill then
 faults — the same constraint that keeps its logo choice on the main board rather than in local
 NVS. So it says what is about to happen, stops the panel, takes the image dark and reboots either
@@ -322,7 +322,7 @@ ID, stamping `fw_version.h` from the git rev so a board says which commit it was
 ~/.platformio/penv/bin/python tools/boards.py
 ```
 
-**An externally-powered enclosure display can explicitly reattach to USB without cycling the appliance.** J9 is `[B, A, GND, V12]`, and `J9.V12` runs straight to the V12 island with no relay, so firmware cannot drop display power. Instead, the development command below asks a running display to put its USB Serial/JTAG PHY into deep sleep for 500 ms; timer wake then presents a real USB detach/attach.
+**An externally-powered machine display can explicitly reattach to USB without cycling the machine.** J9 is `[B, A, GND, V12]`, and `J9.V12` runs straight to the V12 island with no relay, so firmware cannot drop display power. Instead, the development command below asks a running display to put its USB Serial/JTAG PHY into deep sleep for 500 ms; timer wake then presents a real USB detach/attach.
 
 ```bash
 ~/.platformio/penv/bin/python tools/display_usb.py
@@ -334,7 +334,7 @@ The command is explicit development control and is never sent by a production bo
 PLATFORMIO_UPLOAD_PORT=/dev/cu.usbserial-10 pio run -e appliance -t upload
 ```
 
-### Flash the appliance controller
+### Flash the machine controller
 
 ```bash
 pio run -e appliance -t upload
@@ -352,7 +352,7 @@ For a bare main board on the bench, not an assembled machine. See [`src_pcba_ben
 
 Both go over a plain USB-C cable into J14; the on-board CH340B bridges and Q2/Q3 auto-reset, so no button presses.
 
-### Flash the enclosure display's art partition
+### Flash the machine display's art partition
 
 The loading animation is not in that board's firmware image — it is 3.96 MB in
 the `art` partition, built from the same `src_front/images/anim_NN.h` headers by
@@ -374,7 +374,7 @@ Over the link instead, with only the main board on USB:
 ~/.platformio/penv/bin/python tools/ota.py art
 ```
 
-### Flash the ESP32-S3 (4.3B enclosure display)
+### Flash the ESP32-S3 (4.3B machine display)
 
 ```bash
 pio run -e esp32s3_front -t upload
