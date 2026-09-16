@@ -384,9 +384,9 @@ end()
 # 19
 header('Choose the flavor to fill', 'YOUR FIRST GLASS / FILL BOTH FLAVORS',6, 'Use the enclosure display under the counter. The left rail chooses which reservoir you are filling.')
 # The frozen interface illustration is authored beside the scene snapshots.
-if (ART/'fill-screen.png').exists():pic('fill-screen.png',M,159,CW,199,outline=False)
+if (ART/'fill-screen-framed.png').exists():pic('fill-screen-framed.png',M,159,CW,199)
 else:
-    raise FileNotFoundError(ART/'fill-screen.png')
+    raise FileNotFoundError(ART/'fill-screen-framed.png')
 caption('Flavor 1 is selected. Fill and Start filling are separate controls.',373)
 item('1','Choose a flavor','Tap its image on the left. The large portrait shows your selected flavor.',414)
 item('2','Open Fill','Tap Fill across the top. Leave the Start filling button alone until the concentrate is in place on the next page.',488)
@@ -394,8 +394,8 @@ end()
 
 # 20
 header('Bottle first. Then start.', 'YOUR FIRST GLASS / FILL BOTH FLAVORS',6)
-p=pic('steps/fill-ready.png',M,118,171,235,crop=(290,190,1550,1500))
-arrow(*p(825.45,411.33),*p(825.45,753.26),head=8)
+p=pic('steps/fill-ready.png',M,118,171,235,crop=(295,330,1555,1450))
+arrow(*p(947.15,473.85),*p(947.15,943.67),head=8)
 para('<b>3 / Add concentrate</b><br/>Invert one whole <b>14.8 fl oz (440 mL)</b> bottle into the top funnel.',223,142,141,11,15,limit=120)
 para('<b>4 / Start filling</b><br/>Tap <b>Start filling</b>. Let the appliance draw the concentrate into the selected reservoir.',223,266,141,11,15,limit=105)
 line(M,387,W-M,387)

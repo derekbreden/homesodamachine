@@ -303,9 +303,9 @@ step(6,'Fill both flavors',x,y)
 para('On the enclosure display, <b>tap a flavor on the left</b>, then open <b>Fill.</b>',x,793,270,12,15,limit=30)
 para('Invert one whole <b>14.8 fl oz bottle</b> into the funnel. Tap <b>Start filling.</b>',x,831,270,12,15,limit=30)
 para('<b>Wait for Filled.</b> Repeat for the other flavor.',x,870,270,12,15,limit=30)
-pic('fill-screen.png',328,789,195,117,outline=False)
-p=pic('insertion-actions/fill-ready.png',545,787,131,117,crop=(290,190,1550,1500))
-arrow(*p(825.45,411.33),*p(825.45,753.26),head=6)
+pic('fill-screen-framed.png',309,773,240,130)
+p=pic('insertion-actions/fill-ready.png',555,787,131,117,crop=(295,330,1555,1450))
+arrow(*p(947.15,473.85),*p(947.15,943.67),head=6)
 
 x=716
 step(7,'Chill. Choose. Pour.',x,y)

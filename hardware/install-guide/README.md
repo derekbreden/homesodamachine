@@ -18,7 +18,8 @@ A 24-page, half-letter booklet following the owner quick start's seven steps. Pu
 
 The booklet is complete on its own. Its step numbers match the
 [quick start](../quickstart-codex/README.md), whose braided-hose link opens pages 9-11.
-The Fill spread shows the Big Blue enclosure display and its current **Start filling** control.
+The Fill spread shows the Big Blue screen inside the enclosure display's frame, with its
+**Start filling** control. The same screen appears on the appliance in the bottle illustration.
 
 ## Artwork
 
@@ -29,6 +30,10 @@ its black nameplate. The glass contains dark cola and rounded ice cubes packed f
 just above the liquid, with a visible rim and no falling streams. The first-pour instructions
 call for a glass filled with ice. The illustration is a snapshot of the quick start's
 `ice_scene.py` render.
+
+The concentrate bottle has a rounded PET body, tapered shoulders, an open ribbed neck, dark
+liquid and a wrapped COLA concentrate label. The bottle and framed display are snapshots from
+`tools/quickstart-codex/fill_scene.py`; `assets/fill-screen.svg` and its PNG supply the interface.
 
 The PDF, cover, fonts and illustration snapshots are committed here. `assets/` contains the
 booklet's artwork, including its Fill-screen illustration and hose-removal scene. Manual page
