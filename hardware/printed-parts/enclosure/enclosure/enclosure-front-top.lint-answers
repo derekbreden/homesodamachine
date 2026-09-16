@@ -60,7 +60,3 @@ click: x=103.722 y=93.509 z=171.875
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=-103.750 y=93.509 z=171.875
 click: x=103.722 y=93.509 z=171.875
-
-[sliver] The west flank's relief meets the Y-seam tongue at this 0.25 mm wide vertical return. The relief finishes at X-101.5; the tongue's inside face finishes at X-101.25 to preserve its 3 mm section behind the running fit. The return is the exposed end of that full-thickness tongue at the Y197 mouth, not a 0.25 mm wall through the overlap.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-101.375 y=197.032 z=255.625
