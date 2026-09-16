@@ -1,5 +1,38 @@
 # Funnel mold print log
 
+## Snug normal-support trial — 2026-09-15
+
+Derek reports: “Some supports fell over,” and is trying the saved
+[funnel-mold.3mf](funnel-mold.3mf) below. The failure layer and cause were not
+identified. No result for this trial has been reported.
+
+The saved process is based on **0.24mm Balanced Quality @BBL H2C 0.8 nozzle**
+with these support settings:
+
+| Setting | Saved value |
+| --- | --- |
+| Support type (`support_type`) | Normal (auto) |
+| Style (`support_style`) | Snug |
+| Top Z distance (`support_top_z_distance`) | 0.48 mm |
+| Bottom Z distance (`support_bottom_z_distance`) | 0.48 mm |
+| First-layer gap (`support_object_first_layer_gap`) | 0.48 mm |
+| Object XY distance (`support_object_xy_distance`) | 0.48 mm |
+
+Layers are 0.24 mm with a 0.40 mm first layer, two wall loops and 15% infill.
+The printer preset is **Bambu Lab H2C 0.8 High Flow +0.18 Z trim**, with Textured
+PEI and **Bambu PETG Translucent @BBL H2C 0.8 nozzle**. Temperatures are 250 °C
+initially and 245 °C afterward, with a 16 mm³/s volumetric limit. Supports use
+a 30° threshold and may start on the model; top and bottom interfaces have
+two layers each. Support speed is 150 mm/s and interface speed is 80 mm/s.
+
+The embedded cavity/core meshes and placements are unchanged from the saved
+0.24 mm project in commit `1004b713a`. The six support settings above are the
+only process changes. The archive contains no G-code; these are saved settings,
+not a record of emitted toolpaths or printer submission.
+
+Saved project SHA-256:
+`cabac3977f3f9ff2c9ca70173005f954925fd5fe69e8c09324f14ace92620aab`.
+
 ## 0.40 mm support trial — 2026-09-14 (settings per `funnel-mold-h2c-040.gcode.3mf`)
 
 - `layer_height` **0.40 mm** (initial 0.40)
