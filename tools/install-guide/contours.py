@@ -43,7 +43,7 @@ class Contours:
         self.pending = []
         OUT.mkdir(parents=True, exist_ok=True)
 
-    def picture(self, source, bounds, iw, ih):
+    def picture(self, source, bounds, iw, ih, fade_crops=True):
         a, b, c, d = bounds
         scale = iw / (c-a)
         source_size = Image.open(source).size
@@ -64,7 +64,7 @@ class Contours:
         actual = (max(0,a), max(0,b), min(im.width,c), min(im.height,d))
         aa, bb, cc, dd = actual
         edge_bands = [(aa,bb,aa+1,dd), (cc-1,bb,cc,dd), (aa,bb,cc,bb+1), (aa,dd-1,cc,dd)]
-        cut = [max(alpha.crop(band).getdata(),default=0)>100 for band in edge_bands]
+        cut = [fade_crops and max(alpha.crop(band).getdata(),default=0)>100 for band in edge_bands]
         fx, fy = min(3.2,iw*.035)/iw, min(3.2,ih*.05)/ih
         stops_x = [(0,'black' if cut[0] else 'white'),(fx,'white'),(1-fx,'white'),(1,'black' if cut[1] else 'white')]
         stops_y = [(0,'black' if cut[2] else 'white'),(fy,'white'),(1-fy,'white'),(1,'black' if cut[3] else 'white')]

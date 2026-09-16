@@ -88,14 +88,14 @@ def end():
     text(str(page_no),W-M-pdfmetrics.stringWidth(str(page_no),'Semibold',8),583,8,'Semibold',NAVY)
     c.showPage()
 
-def pic(name,x,y,w,h,crop=None,outline=True):
+def pic(name,x,y,w,h,crop=None,outline=True,fade_crops=True):
     source=ART/name
     im=Image.open(source)
     bounds=crop or (im.getchannel('A').getbbox() if im.mode=='RGBA' else None) or (0,0,im.width,im.height)
     a,b,cc,d=bounds;scale=min(w/(cc-a),h/(d-b));iw,ih=(cc-a)*scale,(d-b)*scale
     ox,oy=x+(w-iw)/2,y+(h-ih)/2
     if outline:
-        target,(pw,ph)=contours.picture(source,bounds,iw,ih)
+        target,(pw,ph)=contours.picture(source,bounds,iw,ih,fade_crops=fade_crops)
         if target.exists():c.drawImage(str(target),ox-PAD,H-oy-ih-PAD,width=pw,height=ph,mask='auto')
     else:
         image=im.crop(bounds)
@@ -384,7 +384,7 @@ end()
 # 19
 header('Choose the flavor to fill', 'YOUR FIRST GLASS / FILL BOTH FLAVORS',6, 'Use the enclosure display under the counter. The left rail chooses which reservoir you are filling.')
 # The frozen interface illustration is authored beside the scene snapshots.
-if (ART/'fill-screen-framed.png').exists():pic('fill-screen-framed.png',M,159,CW,199)
+if (ART/'fill-screen-framed.png').exists():pic('fill-screen-framed.png',M,159,CW,199,fade_crops=False)
 else:
     raise FileNotFoundError(ART/'fill-screen-framed.png')
 caption('Flavor 1 is selected. Fill and Start filling are separate controls.',373)
