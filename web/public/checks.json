@@ -21,11 +21,6 @@
       "status": "ok"
     },
     {
-      "check": "hardware/scripts/check_flutes.py",
-      "note": "✓ every payload stands within the budget its print was cut to",
-      "status": "ok"
-    },
-    {
       "check": "hardware/scripts/check_ledger.py",
       "note": "✓ every part the instructions name is carried by bom.md or tools.md, and every procedure has a driver.",
       "status": "ok"
@@ -62,7 +57,7 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 2105 tracked, 409 fetched solids, 55 tags, 41 site routes",
+      "note": "paths: every reference lands — 2113 tracked, 409 fetched solids, 55 tags, 41 site routes",
       "status": "ok"
     },
     {
@@ -92,7 +87,7 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 24 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 409 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 6 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 409 member(s) keep their provenance",
       "status": "ok"
     }
   ],
