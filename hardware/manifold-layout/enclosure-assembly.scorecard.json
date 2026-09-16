@@ -803,10 +803,10 @@
   },
   {
    "id": "tee-carrier-motion",
-   "label": "Tee carrier clears front-top through installation and all four working states, and both end stops and all five transverse constraints engage",
+   "label": "Tee carrier clears front-top through installation, nominal states and aft overtravel, and both end stops and all five transverse constraints engage",
    "kind": "gate",
    "status": "pass",
-   "value": "367 solid/envelope checks including 0.25 mm X/Z air through every carrier insertion and working sweep; maximum unintended overlap 0.000000 mm\u00b3; release/park overshoots 0.105029/0.018000 mm\u00b3; 40 independent flank-capture readings at 6.29\u00b0 rotation, minimum contact 0.115066 mm\u00b3; minimum upper/lower web bearing 136.944 mm\u00b2; minimum depressed-collet bearing 27.613 mm\u00b2; fore tube bottom 92.694 mm Y, 10 mm beyond the depressed sleeve; seated cartridge tube bottom 94.844 mm Y, 2.15 mm final cartridge seating travel",
+   "value": "414 solid/envelope checks including 0.25 mm X/Z air through every carrier insertion and working sweep; maximum unintended overlap 0.000000 mm\u00b3; release/aft overshoots 0.105029/0.018000 mm\u00b3; 50 independent flank-capture readings at 6.29\u00b0 rotation, minimum contact 0.100066 mm\u00b3; 4.65 mm total travel, nominal rest 2.15 mm, 2.5 mm additional aft room; minimum upper/lower web bearing 118.750 mm\u00b2; minimum depressed-collet bearing 27.613 mm\u00b2; fore tube bottom 92.694 mm Y, 10 mm beyond the depressed sleeve; seated cartridge tube bottom 94.844 mm Y, 2.15 mm final cartridge seating travel",
    "target": "0 mm\u00b3 unintended overlap; positive end-stop, X/Z and pitch/yaw/roll contact",
    "detail": [],
    "active": true
