@@ -16546,6 +16546,25 @@ sh_test(
 )
 
 sh_test(
+    name = "water-inlet-jet-fixture-selftest",
+    srcs = ["tools/bazel/selftest.sh"],
+    data = [
+        "hardware/cold-core-layout/_water_inlet_jet.py",
+        "hardware/printed-parts/fixtures/water-inlet-jet/README.figures.json",
+        "hardware/printed-parts/fixtures/water-inlet-jet/README.md",
+        "hardware/printed-parts/fixtures/water-inlet-jet/water_inlet_jet_fixture.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_material_base.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+        "tools/docgen/__init__.py",
+    ],
+    args = ["hardware/printed-parts/fixtures/water-inlet-jet/water_inlet_jet_fixture.py"],
+    size = "large",
+    tags = ["local"],
+)
+
+sh_test(
     name = "weld-rotator-selftest",
     srcs = ["tools/bazel/selftest.sh"],
     data = [
