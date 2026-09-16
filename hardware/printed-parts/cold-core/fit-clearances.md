@@ -16,7 +16,7 @@ contact planes.
 | Reservoir body, flat floor down (+Z) | Body guides use the shared running allowance. The dry bulkhead recess is 1.65 mm deep including the support allowance. Its local wet boss and wet pocket rise 0.25 mm, preserving the 3 mm web and 1.4 mm wet recess. The wet V, body bearing plane, dry flange and washer thicknesses retain their datums. |
 | Reservoir cap, exterior face down (−Z) | Screw-head and membrane-pocket supported floors gain 0.25 mm depth. The vent boss grows with its pocket to retain the wall below it. Rod register and fill bores open along the build axis. |
 | PRV shroud, closed cap down (−Z) | Static elbow seat has 0.15 mm radial clearance. The radial vent gains 0.25 mm only toward print-up; the axial cavity opens upward. |
-| Reed bridge, convex face down | Tube seat and glass pockets use 0.15 mm static clearance. The open pockets print without supports. |
+| Reed bridge, convex face down | Tube seat and glass pockets use 0.15 mm static clearance. The glass pockets pass through. The lead-groove floor bridges above the bed; the outer plateau rises 0.25 mm to preserve wire room beneath retained strands while keeping the groove floor, 0.8 mm backing, and tube seat fixed. |
 
 Heat-set insert bores retain the insert manufacturer's geometry. TPU interference
 fits, gasket squeeze and the purchased washer dimensions retain their separate

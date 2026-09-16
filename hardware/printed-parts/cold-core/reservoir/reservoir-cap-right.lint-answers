@@ -1,0 +1,8 @@
+[step] Bottom of the cap vent's closed splash brim. Its 0.75 mm offset from the gasket-rim plane follows the membrane pocket, 2.5 mm backing boss, 2 mm radial windows, and 1 mm brim stack. It is a free vent feature inside the reservoir, not a mating ledge or a residual wall fragment.
+click: x=96.000 y=-32.500 z=0.750
+
+[ceiling] Membrane-pocket floor, printed over the opening with the cap's exterior face on the bed. The 2.75 mm pocket depth includes 0.25 mm for retained bridge strands, while the boss below it preserves 2.5 mm of stock. The open pocket is accessible before fitting the membrane and TPU retaining ring.
+click: x=96.000 y=-32.500 z=6.250
+
+[ceiling] Inner face of the 1 mm closed splash brim below the vent. It bridges the 5 mm air bore and the four 3 mm radial windows between their angular ribs. The windows remain open for airflow; this is a short functional bridge and has no mating surface requiring dimensional clearance.
+click: x=96.001 y=-32.500 z=1.750

@@ -428,13 +428,8 @@ if _missing:
         f"at that radius. The row reads the seat a body offers, so a body whose section moved "
         f"without its rib is a figure with nothing behind it.")
 body_tie_loops = {n: _enc.tube_anchor_tie_loop(r) for n, r in _body_seats.items()}
-# THE FLAVOUR TAP'S PAIR IS QUOTED AS ONE. Their two barrels are within a hair of each other, so
-# the row says "either" — which holds only while both read the same at the precision it prints.
-_tap = {n: f"{v:.3g}" for n, v in body_tie_loops.items() if n != "wr1110"}
-if len(set(_tap.values())) != 1:
-    raise ValueError(
-        f"the flavour tap's two barrels close {_tap} and bom.md §11 quotes one figure for either "
-        f"of them. Either they go back on one section or the row reads them apiece.")
+# The flavour tap's two barrels are quoted separately: each loop follows its
+# body's own seat radius through SPLIT_LOOP and FLOWREG_LOOP below.
 # AND THE COLD CORE'S CAP CARRIES THE OTHER FAMILY, on its own wall and its own fastener.
 # `_cold_core_interface` owns both hulls; the two chain ribs are one section, and the two side
 # posts are not — a post's loop clears its own crown, which stands a wall proud of the pipe.

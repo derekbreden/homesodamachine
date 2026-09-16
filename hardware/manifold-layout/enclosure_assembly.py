@@ -4882,11 +4882,10 @@ DRIP_SLEEVE_T = _enc.wall
 
 
 def pan_berth(pan):
-    """The room the tray runs in, as the two rectangles its own section makes, each one
-    `asse_drip_pan.PAN_SLIP` proud of the tray: the WELL the pan's body runs in, and
-    the REBATE its rim runs in over the well's shoulders. The rebate floor also carries
-    the pan flange underside's supported-surface allowance. The enclosure applies its
-    own supported-face allowance separately in its print direction.
+    """The WELL gives the tray body its running room. The REBATE clears its flange
+    with the pan seated on the modeled sleeve floor, including the flange underside's
+    supported-surface allowance. The enclosure applies the receiving floor's own
+    supported-face allowance separately in its print direction.
 
     Each is `(y0, y1, z0, z1, x1)` — the opening across the withdrawal axis, and the east end
     the tray's own outline reaches. The well's `z1` is the flange's underside, which is where
@@ -4899,8 +4898,10 @@ def pan_berth(pan):
     flange, rim = _pan.FLANGE_W, _pan.FLANGE_T
     well = (pan.ymin + flange - s, pan.ymax - flange + s,
             pan.zmin - s, pan.zmax - rim, pan.xmax - flange + s)
+    bearing_floor_z = well[2] - fits.supported_surface
+    seated_flange_z = bearing_floor_z + (pan.zmax - rim - pan.zmin)
     rebate = (pan.ymin - s, pan.ymax + s,
-              pan.zmax - rim - s - fits.supported_surface, pan.zmax + s, pan.xmax + s)
+              seated_flange_z - s - fits.supported_surface, pan.zmax + s, pan.xmax + s)
     return well, rebate
 
 

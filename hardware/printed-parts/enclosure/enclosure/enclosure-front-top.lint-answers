@@ -1,74 +1,73 @@
-[sliver] The four faces are the two rims of the 0.15 mm running-fit relief where the Y-seam tongue's ceiling meets the upper socket collar on each side. `fits.slip` separates the collar's y=196.850 fore face from the y=197.000 fusion shoulder; the top-wall and tongue sections around that air slit each keep their full 3 mm thickness, so no 0.15 mm ligament is printed.
+[sliver] The four strips bound the 0.25 mm running-fit relief between the Y-seam tongue's ceiling and each upper socket collar. The collar's fore face is Y196.75 and the fusion shoulder is Y197.00. These are exposed edges of the top wall and its full-section tongue; the 0.25 mm measure is the clearance slot, not a printed ligament. The tongue's Z348.75 underside keeps its full 3 mm section to its Z351.75 sliding face.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-89.000 y=196.925 z=352.000
-click: x=89.000 y=196.925 z=352.000
-click: x=-89.000 y=196.925 z=349.000
-click: x=89.000 y=196.925 z=349.000
-click: x=-89.075 y=196.925 z=352.000
-click: x=89.075 y=196.925 z=352.000
-click: x=-89.075 y=196.925 z=349.000
-click: x=89.075 y=196.925 z=349.000
+click: x=-89.125 y=196.875 z=352.000
+click: x=89.125 y=196.875 z=352.000
+click: x=-89.125 y=196.875 z=348.750
+click: x=89.125 y=196.875 z=348.750
 
-[sliver] The mirrored end lands belong to the fore-facing flavour-valve tray. Its wall-to-wall plate is 10 mm deep at y=167.560..177.560 and is trimmed to front-top's established 45-degree flank bedding. These faces expose the solid plate-to-flank root and carry the full tray depth.
+[sliver] The fore-facing flavour-valve tray's end lands expose its solid plate-to-flank root. The plate is 10 mm deep at Y167.56..177.56 and finishes on the flank's 45-degree bedding plane. The reported 0.5 mm strip is the end of that intersection; the full plate depth and wall back it.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-98.500 y=172.560 z=180.025
-click: x=98.500 y=172.560 z=180.025
-click: x=-98.500 y=172.560 z=180.450
-click: x=98.500 y=172.560 z=180.450
+click: x=98.500 y=172.560 z=180.550
+click: x=-98.551 y=172.560 z=180.550
 
-[ceiling] The pump-bay lintel is the complete fixed roof at z=283.495, joining the front opening to the planar bay bulkhead. It carries the display/ridge storey and leaves 1 mm above the cartridge crown at z=282.495 for withdrawal. Its flat underside preserves the cartridge's withdrawal envelope. The production slice reaches this roof from the bed; support leaves through the empty cartridge bay before assembly.
+[ceiling] The pump-bay lintel is the complete fixed roof at Z283.745, joining the front opening to the planar bay bulkhead and carrying the display/ridge storey. Its flat underside includes the 0.25 mm supported-face allowance and preserves the cartridge withdrawal envelope. Support reaches the roof from the bed and leaves through the empty cartridge bay before assembly.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=0.000 y=42.259 z=283.495
+click: x=0.000 y=42.259 z=283.745
 
-[slope] This is the display PCB end-wall/ridge-support face across the bay, not a corbel hung along either adjacent X wall. `_ridge_wall` supplies its complete starting line from the tee wall's crown, and the 45-degree face lays every following line on that support.
+[slope] The display PCB end-wall/ridge-support face spans the bay from the tee wall's crown. `_ridge_wall` supplies its complete starting line, and the 45-degree face lays each following line on that support. The adjacent X wall selected by the lint is not its supporting wall.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=0.000 y=47.648 z=308.906
+click: x=0.000 y=47.825 z=309.085
 
-[sliver] The pump jack's receptacle carries the same two snap catches as the umbilical's on back-top — the upper tang keeper 1.4 mm proud and the lower latch keeper 1.3 mm proud, exactly `riteav_keystone.CATCH_UPPER` and `CATCH_LOWER`. Each face bounds a catch backed by the receptacle boss on the ridge wall's cavity face; neither is a free strip.
+[sliver] The pump jack's two snap catches are the module's 1.4 mm upper tang keeper and 1.3 mm lower latch keeper. Both retain their complete sections, backed by the receptacle boss on the ridge wall. The upper catch translates upward by the 0.25 mm supported-face allowance; it is not thinned.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=0.000 y=91.694 z=308.895
+click: x=0.000 y=91.694 z=309.145
 click: x=0.000 y=91.744 z=289.095
 
-[ceiling] The pump jack's receptacle roof and upper snap catch are square engagement faces for the module's tang and latch, inside the boss that stands on the bulkhead's crown behind the ridge wall. The 14.9 mm roof bridges the boss's two side walls, the same span back-top's receptacle prints.
+[ceiling] The pump jack's pocket roof and upper snap catch are flat module-engagement surfaces. The pocket bridges its two side walls with a 14.95 mm internal width; the catch spans 14.9 mm. `_ridge_keystone` grows the surrounding boss with the 0.25 mm supported relief, preserving its 3 mm surround. Support is accessible through the receptacle mouth.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=0.000 y=88.339 z=310.895
-click: x=0.000 y=91.694 z=308.895
+click: x=0.000 y=89.039 z=311.170
+click: x=0.000 y=91.694 z=309.145
 
-[ceiling] The upper bar guide and the underside of the tongue's aft stop share this plane. The guide retains 0.25 mm Z clearance above the moving bar; the tongue engages the stop above that plane. Removable support is accessible through the flank opening and internal recess.
+[ceiling] The internal aft-stop undersides stand at Z225.94 above the moving grip bar's Z225.69 crown. The outer finger-opening roofs stand at Z226.19, adding the 0.25 mm supported-face allowance to the 0.25 mm running fit. The hidden retaining rim reaches Z229.19, so its overlap above the actual opening remains 3 mm. Flat guide and stop geometry preserves the carrier's stroke and retention; support leaves through the flank opening and internal recess.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-104.375 y=131.014 z=226.440
-click: x=104.375 y=131.014 z=226.440
+click: x=-102.875 y=140.089 z=225.940
+click: x=102.875 y=140.089 z=225.940
+click: x=106.000 y=111.543 z=226.190
+click: x=-106.000 y=111.543 z=226.190
 
-[ceiling] Flat ceiling of the internal grip recess. It carries the hidden retaining rim with 0.25 mm running clearance and continues to the aft valve tray's fore plane for inside-out loading. The fixed body keeps 3 mm above the recess at its fore-valve clearance plane. Support is removed through the open internal recess before hardware installation.
+[sliver] The 0.25 mm tall vertical returns at the aft ends of the finger openings join the outer opening roof at Z226.19 to the internal stop roof at Z225.94. Their width measures the supported-face step in the opening, not stock thickness. Each is the edge of the continuous 3 mm exterior wall, with the full stop and retaining section inboard.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=104.500 y=120.618 z=226.065
+click: x=-104.535 y=120.618 z=226.065
+
+[ceiling] The internal grip-recess ceiling keeps 0.25 mm running clearance plus 0.25 mm supported-face allowance above the printed retaining rim. The moving rim's top retreats to preserve this fixed ceiling and the full 3 mm roof above it. Support leaves through the open recess before hardware installation.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=-95.697 y=127.814 z=229.690
 click: x=95.697 y=127.814 z=229.690
 
-[ceiling] The upper web-bearing lands share one plane 0.25 mm above the carrier. They retain the moving web through the complete stroke and join the filled body and flank guides. Their undersides keep the flat running face; removable support is accessible through the open aft bay before assembly.
+[ceiling] The upper web-bearing lands stand 0.50 mm above the carrier: 0.25 mm running fit plus 0.25 mm supported-face allowance. They retain the moving web through its stroke and join the filled body and flank guides. The flat undersides preserve the sliding bearing; support is accessible through the open aft bay before assembly.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-47.495 y=107.464 z=220.315
-click: x=0.000 y=107.464 z=220.315
-click: x=47.495 y=107.464 z=220.315
+click: x=-47.495 y=107.464 z=220.565
+click: x=0.000 y=107.464 z=220.565
+click: x=47.495 y=107.464 z=220.565
 
-[ceiling] Each constant-section tee well ends at the fore-valve body's clearance plane. These flat crowns are the exposed undersides of the filled bridge where it joins the valve tray around its round port openings. Remove support through the open well before the hardware is installed.
+[ceiling] The four constant-section tee wells end at their hardware-clearance plane plus the 0.25 mm supported-face allowance. These flat crowns are the undersides of the filled bridge joining the valve tray around its round ports. Support is removed through each open well before hardware installation.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-77.370 y=95.085 z=232.690
-click: x=-20.070 y=95.085 z=232.690
-click: x=20.070 y=95.085 z=232.690
-click: x=77.370 y=95.085 z=232.690
+click: x=-77.370 y=95.085 z=232.940
+click: x=-20.070 y=95.085 z=232.940
+click: x=20.070 y=95.085 z=232.940
+click: x=77.370 y=95.085 z=232.940
 
-[step] The faces at x=±103.650 are the standing walls of the front Z-seam's rail channels, set by the rail head and its running clearance in `_rail_channel_span`. The common floor joins this channel section below the flank's x=±104.500 interior face. The offset preserves the seam's sliding passage, with continuous enclosure stock behind the channel wall.
+[step] The standing Z-seam rail-channel walls at nominal |X|103.75 lie 0.75 mm inward from the |X|104.5 flank face. `_rail_channel_span` derives them from the rail head and 0.25 mm running clearance. The common floor and continuous exterior wall back the channel; this offset is the rail's sliding passage.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-103.650 y=118.193 z=169.465
-click: x=103.650 y=118.193 z=169.465
-click: x=-103.650 y=93.509 z=171.825
-click: x=103.650 y=93.509 z=171.825
+click: x=-103.750 y=93.509 z=171.875
+click: x=103.722 y=93.509 z=171.875
 
-[sliver] The 1.418 mm Y-wide faces are the exposed ends of the rail-channel walls immediately fore of the grip opening. Each face has a continuous 3 mm X section behind it, from |X|103.650 to 106.650 across Y92.800..94.218 and Z168.700..174.950. They bound the solid enclosure wall and preserve the seam rail's sliding passage.
-click: x=-103.650 y=93.509 z=171.825
-click: x=103.650 y=93.509 z=171.825
-
-[sliver] The upward-facing 0.85 mm step joins the rail channel's |X|103.650 wall to the flank's |X|104.500 interior face at the common floor. The solid continues outward into the enclosure wall: a continuous 3 mm X by 3 mm Z section backs the step along its full Y length. The narrow face bounds that solid wall section.
+[sliver] The 1.418 mm Y-wide faces are the fore ends of the rail-channel walls, at Y92.8..94.218 and Z168.7..175.05. They bound the sliding passage and are backed outward by the complete enclosure wall, which retains at least 3 mm X thickness. The narrow face is an end land, not a free strip.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-104.075 y=130.889 z=170.995
-click: x=104.075 y=130.889 z=170.995
+click: x=-103.750 y=93.509 z=171.875
+click: x=103.722 y=93.509 z=171.875
+
+[sliver] The west flank's relief meets the Y-seam tongue at this 0.25 mm wide vertical return. The relief finishes at X-101.5; the tongue's inside face finishes at X-101.25 to preserve its 3 mm section behind the running fit. The return is the exposed end of that full-thickness tongue at the Y197 mouth, not a 0.25 mm wall through the overlap.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=-101.375 y=197.032 z=255.625

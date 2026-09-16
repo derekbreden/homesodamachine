@@ -5813,19 +5813,20 @@ def _tee_carrier_service_slots(carrier):
     """
     if not carrier:
         return ()
+    slot_roof = carrier["service_slot_z"][1] + fits.supported_surface
     cuts = []
     for name in ("service_slot", "service_recess"):
         x0, x1 = carrier[name + "_x"]
         y0, y1 = carrier[name + "_y"]
         z0, z1 = carrier[name + "_z"]
         if name == "service_slot":
-            z1 += fits.supported_surface
+            z1 = slot_roof
         opening = _ybox(x0, x1, y0, y1, z0, z1)
         if name == "service_recess":
             opening = opening.cut(_ybox(
                 carrier["stop_channel_inner_x"], x1 + 1.0,
                 carrier["stop_channel_aft_y"], y1 + 1.0,
-                carrier["service_slot_z"][1], z1 + 1.0))
+                slot_roof, z1 + 1.0))
             opening = opening.cut(_tee_carrier_fore_guide(carrier))
         cuts.extend(opening if side > 0 else opening.mirror("YZ")
                     for side in (-1, 1))
