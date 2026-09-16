@@ -50,9 +50,9 @@ const SHELL_MAX_FRACTION = 0.24;
 const TIERS = {
   map:    { opacity: 0.20, width: 1.6, order: 991, shell: false },
   trail:  { opacity: 0.50, width: 2.2, order: 992, shell: false },
-  halo:   { opacity: 0.10, width: 6.5, order: 993, shell: false },
+  halo:   { opacity: 0.08, width: 3.0, order: 993, shell: false },
   out:    { opacity: 0.90, width: 3.0, order: 994, shell: false },
-  active: { opacity: 0.90, width: 3.0, order: 995, shell: true },
+  active: { opacity: 0.82, width: 1.35, order: 995, shell: true },
   // The wavefront: a couple of bodies at a time, travelling the run in the
   // order the fluid takes. Direction, without a centreline to draw it on.
   crest:  { opacity: 1.00, width: 4.5, order: 996, shell: false },
@@ -87,6 +87,8 @@ export function fitScrim(camera) {
   scrim.position.copy(camera.position)
     .add(new THREE.Vector3(0, 0, -d).applyQuaternion(camera.quaternion));
 }
+
+export function setBackground(color) { scrim.material.color.setHex(color); }
 
 // One shell material per hue — the faint fill over an active solid.
 const shellMats = new Map();
@@ -206,10 +208,15 @@ function fill(key, tier, hue, names) {
   layer.sig = sig;
   for (const c of [...layer.group.children]) layer.group.remove(c);
   for (const mesh of bodiesNamed(list)) {
-    layer.group.add(new LineSegments2(edgesFor(mesh.geometry), edgeMat(tier, hue)));
+    const edge = new LineSegments2(edgesFor(mesh.geometry), edgeMat(tier, hue));
+    edge.userData.tourSource = mesh;
+    edge.matrixAutoUpdate = false;
+    layer.group.add(edge);
     if (TIERS[tier].shell && fillable(mesh)) {
       const s = new THREE.Mesh(mesh.geometry, shellMat(hue));
       s.renderOrder = TIERS[tier].order - 1;
+      s.userData.tourSource = mesh;
+      s.matrixAutoUpdate = false;
       layer.group.add(s);
     }
   }
@@ -244,6 +251,15 @@ export function paint({ paths = [], hue = "water", trail, active, out, crest,
   fill("active", "active", H, lit);
   fill("crest", "crest", H, crest);
 
+  for (const layer of layers.values()) {
+    for (const child of layer.group.children) {
+      const source = child.userData.tourSource;
+      source.updateMatrix();
+      child.matrix.copy(source.matrix);
+      child.visible = source.visible;
+    }
+  }
+
   // Brightness is set on the MATERIALS, which are shared per tier per hue —
   // reading it back off a layer's children would miss an empty layer and leave
   // its material carrying the last beat's value.
@@ -262,7 +278,7 @@ export function paint({ paths = [], hue = "water", trail, active, out, crest,
   // the opposite of pointing at it.
   halo.linewidth = TIERS.halo.width * THREE.MathUtils.clamp(haloWidth, 0.25, 1);
 
-  shellMat(H).opacity = 0.15 * mix;
+  shellMat(H).opacity = 0.07 * mix;
 
   scrim.visible = quiet > 0.002;
   scrim.material.opacity = THREE.MathUtils.clamp(quiet, 0, 1);
