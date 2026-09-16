@@ -149,7 +149,11 @@ function seekTime(ms) {
 }
 function seek(index) {
   index = clamp(Math.round(Number(index) || 0), 0, steps.length - 1);
-  seekTime(timeline.beats[index].start);
+  const step = steps[index];
+  const settled = !playing && index > 0
+    ? Math.min(step.dwell - 1, Math.max(step.enter ?? 1400, step.motion || step.dwell * 0.7))
+    : 0;
+  seekTime(timeline.beats[index].start + settled);
 }
 const actions = {
   prev: () => seek(locateTime(timeline, time).index - 1),
