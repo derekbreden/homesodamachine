@@ -296,3 +296,24 @@ Mark2 reported `RUNNING`, layer 0 of 754, with no print error at
 
 The source mesh, profile, sliced archive and G-code hashes are recorded in
 [print-jobs.json](print-jobs.json).
+
+## 2026-09-16 — front-top on Mark2
+
+The aft-travel-adjusted `enclosure-front-top` was submitted through Bambu Connect.
+Mark2 reported `RUNNING`, layer 0 of 813, with no print error at
+2026-09-16T19:13:31.666348+00:00.
+
+- Profile: `hardware/printed-parts/petgf.3mf`; support settings from specimen 10:
+  tree(auto), default style, 0.45 mm requested top gap, two interface layers,
+  0.5 mm interface spacing, automatic pattern, interface loops off, 0.4 mm XY gap,
+  zero support expansion.
+- Left 0.4 mm Standard nozzle; PET-GF on the external spool, mapped as PET-CF.
+- Textured PEI; 0.24 mm layers, 0.20 mm first layer; 265 °C first nozzle temperature,
+  280 °C thereafter; 80 °C bed.
+- Requested Z trim +0.04 mm. Stock textured-plate compensation −0.02 mm gives
+  the emitted `G29.1 Z0.02`.
+- Bed leveling on, timelapse off, flow and nozzle-offset calibration Auto.
+- Slicer estimate: 19 h 50 min, 685.54 g, 813 layers.
+
+The source mesh, profile, sliced archive and G-code hashes are recorded in
+[print-jobs.json](print-jobs.json).
