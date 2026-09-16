@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "reading_utc": "2026-09-16T00:22:07.884102+00:00",
+  "reading_utc": "2026-09-16T01:27:15.130734+00:00",
   "scope": "Both finished copper-plug STEPs against the finished front-top and foam assembly, using production placement transforms. Other cold-core bodies, routed tubing, print meshes and physical prints are outside this reading.",
   "nominal_cad_only": true,
   "minimum_front_top_clearance_mm": 0.15,
@@ -17,7 +17,7 @@
   },
   "placement_source_sha256": {
     "hardware/scripts/check_copper_plug_clearance.py": "712a78539a0c433eb641ff9f863bb65c26d6f72e30dc4f3d9849662039291013",
-    "hardware/manifold-layout/enclosure_assembly.py": "e7f6460c6f3014adb177343cd0d643aaf9b674182ae947454489fab3ca9bec8f",
+    "hardware/manifold-layout/enclosure_assembly.py": "e15777467a265641b77b24dcb46feec7ffae68552c24128a0dad8f39e1e4616d",
     "hardware/cold-core-layout/cold_core_assembly.py": "48468d343b02ee6c04fc36fdb29ad45890b9f978e75ee6639240dab12d2eaea9",
     "hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py": "a89cffe69231aa3410cad08a25e036486ee49095016efba334168092870af194",
     "hardware/printed-parts/cold-core/_cold_core_interface.py": "01930c7cd0fe8a9bb2c9fb0978ef564c3d04564f52b7984b5bd1de8c39a1cc2f",

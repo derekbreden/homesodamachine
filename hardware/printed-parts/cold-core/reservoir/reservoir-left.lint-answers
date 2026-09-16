@@ -1,0 +1,5 @@
+[step] The seal boss stands 0.25 mm above the wet trough so the deeper supported dry washer recess retains the full 3 mm web between washer seats. Only this local boss and its wet recess rise; the reservoir bearing plane, wet V, and dry hardware seating datum stay fixed.
+click: x=-117.386 y=-0.820 z=30.650
+
+[ceiling] Roof of the dry bulkhead washer recess, open to the bed and accessible before the bulkhead fitting is assembled. Its 1.65 mm depth includes 0.25 mm for the supported surface; the raised wet seat preserves the 3 mm structural web above this face.
+click: x=-105.000 y=0.000 z=26.250

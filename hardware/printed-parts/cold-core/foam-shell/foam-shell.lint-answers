@@ -1,0 +1,5 @@
+[sliver] Vertical shoulder at the +Y copper-plug flange seat. Its 0.759 mm X footprint is the short return from the flat flange recess into the rounded shell corner, not the wall thickness. An exact normal ray through each pick measures 4.974 mm of corner stock. The shoulder is backed outward into the corner wall, grows continuously from the slot floor, and preserves the plug's running clearance.
+click: x=-137.921 y=82.075 z=118.412
+
+[sliver] Vertical shoulder at the -Y copper-plug flange seat. Its 0.759 mm X footprint is the short return from the flat flange recess into the rounded shell corner, not the wall thickness. An exact normal ray through each pick measures 4.974 mm of corner stock. The shoulder is backed outward into the corner wall, grows continuously from the slot floor, and preserves the plug's running clearance.
+click: x=-137.921 y=-82.075 z=118.412
