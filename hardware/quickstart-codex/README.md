@@ -11,11 +11,12 @@ ice-blue callouts and orange accents. The artwork in `art/brand/` contains the a
 Illustrations sit on white paper with uniform 0.6 pt slate contours (`#46515b`). Instruction
 arrows use coral with white outlines; tubes and connectors use their physical colors.
 
-The first-pour glass contains cola and three rounded, partly submerged ice cubes. Their pale
-faces, blue-gray shading and partial transparency remain visible at the sheet's illustration
-size. The cola's near surfaces use 70% opacity over a dark-brown interior, revealing the submerged
-cube faces. Step 7 calls for a glass filled with ice. `tools/quickstart-codex/ice_scene.py` models the
-cubes in the frozen faucet-and-glass scene; the PNG is shared as a snapshot with the install guide.
+The first-pour glass is filled with rounded ice cubes from the base to just above the cola.
+Their pale faces, blue-gray shading and partial transparency remain visible at the sheet's
+illustration size. The cola's near surfaces use 82% opacity over a dark-brown interior, revealing
+the submerged cube faces. Step 7 calls for a glass filled with ice.
+`tools/quickstart-codex/ice_scene.py` models the cubes in the frozen faucet-and-glass scene;
+the PNG is shared as a snapshot with the install guide.
 
 Step 6 shows the Big Blue enclosure display. Select a flavor in the left rail, open **Fill**,
 put the bottle in the funnel, then tap **Start filling**. `art/fill-screen.svg` and its PNG
