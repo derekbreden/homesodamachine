@@ -1478,10 +1478,19 @@
    ]
   ],
   "collet_plate": {
+   "aft_overtravel": 2.5,
    "aft_y": 82.694,
    "assembly_state": "connected",
    "bore_r": 7.108,
    "carrier_states": {
+    "aft_limit": {
+     "cartridge_offset_y": null,
+     "collet_depression": 0.0,
+     "offset_y": 4.65,
+     "plate_gap": 3.0,
+     "tube_bottom_y": 97.344,
+     "tube_depth": null
+    },
     "connected": {
      "cartridge_offset_y": 0.0,
      "collet_depression": 0.0,
@@ -1517,7 +1526,7 @@
    },
    "connected_release_travel": 2.15,
    "fore_y": 79.519,
-   "guide_travel": 2.15,
+   "guide_travel": 4.65,
    "hole_d": 8.5,
    "holes": [
     [
@@ -1542,7 +1551,7 @@
    "seated_tube_bottom_y": 94.844,
    "stop_offsets": [
     0.0,
-    2.15
+    4.65
    ],
    "stroke": 2.15,
    "tube_bottom_y": 92.694,
@@ -2151,6 +2160,8 @@
    160.0
   ],
   "tee_carrier": {
+   "aft_limit_offset_y": 4.65,
+   "aft_overtravel": 2.5,
    "aft_valve_cavities": [
     [
      [
@@ -2331,6 +2342,7 @@
    "connected_release_travel": 2.15,
    "exterior_abs_x": 107.5,
    "finger_run": 16.0,
+   "finger_run_at_aft_limit": 13.5,
    "finger_y": [
     110.46800010000001,
     126.46800010000001
@@ -2394,6 +2406,7 @@
      ]
     ]
    ],
+   "fore_overlap_at_aft_limit": 1.5,
    "grip_aft_t": 3.0,
    "grip_aft_x": [
     90.395,
@@ -2443,7 +2456,7 @@
     225.69
    ],
    "guide_slide_air": 0.25,
-   "guide_travel": 2.15,
+   "guide_travel": 4.65,
    "half_entry_lift_z": 70.0,
    "half_entry_offsets_y": [
     0.0,
@@ -2479,7 +2492,7 @@
     206.5650001,
     220.06500000000003
    ],
-   "park_aft_stop_y": 112.61800010000002,
+   "nominal_tongue_aft_y": 112.61800010000002,
    "park_offset_y": 2.15,
    "printed_grip_back_z": [
     167.24500009999997,
@@ -2530,6 +2543,7 @@
     225.94
    ],
    "spring_bearing_lengths": {
+    "aft_limit": 21.818,
     "connected": 19.318,
     "park": 19.318,
     "release": 17.168,
@@ -2557,6 +2571,7 @@
    "spring_load_fore_y": 98.50800010000002,
    "spring_load_length": 9.61,
    "spring_nominal_pair_forces_n": {
+    "aft_limit": 11.258432,
     "connected": 14.698432,
     "park": 14.698432,
     "release": 17.656832,
@@ -2582,6 +2597,14 @@
    "squeeze_offset_y": 0.0,
    "squeeze_reference_aft_y": 110.46800010000001,
    "states": {
+    "aft_limit": {
+     "cartridge_offset_y": null,
+     "collet_depression": 0.0,
+     "offset_y": 4.65,
+     "plate_gap": 3.0,
+     "tube_bottom_y": 97.344,
+     "tube_depth": null
+    },
     "connected": {
      "cartridge_offset_y": 0.0,
      "collet_depression": 0.0,
@@ -2615,11 +2638,11 @@
      "tube_depth": 10.0
     }
    },
-   "stop_channel_aft_y": 112.61800010000002,
+   "stop_channel_aft_y": 115.11800010000002,
    "stop_channel_inner_x": 101.25,
    "stop_offsets": [
     0.0,
-    2.15
+    4.65
    ],
    "supported_surface_air": 0.25,
    "tab_count": 2,
@@ -2804,11 +2827,11 @@
      ],
      [
       97.61029135614396,
-      106.73629575400209
+      109.30240138659555
      ],
      [
       206.015,
-      220.6150002
+      220.61500020000003
      ]
     ],
     [
@@ -2818,11 +2841,11 @@
      ],
      [
       97.61029135614395,
-      106.73629575400207
+      109.30240138659553
      ],
      [
       206.015,
-      220.6150002
+      220.61500020000003
      ]
     ],
     [
@@ -2832,11 +2855,11 @@
      ],
      [
       97.61029135614396,
-      106.73629575400209
+      109.30240138659555
      ],
      [
       206.01500000000001,
-      220.6150002
+      220.61500020000003
      ]
     ],
     [
@@ -2846,11 +2869,11 @@
      ],
      [
       97.61029135614396,
-      106.7362957540021
+      109.30240138659556
      ],
      [
       206.015,
-      220.6150002
+      220.61500020000003
      ]
     ],
     [
@@ -2860,10 +2883,10 @@
      ],
      [
       97.63499989999998,
-      165.73500009999998
+      165.7350001
      ],
      [
-      146.82599263888582,
+      144.64779965740374,
       170.47500010000002
      ]
     ],
@@ -2877,7 +2900,7 @@
       165.7350001
      ],
      [
-      146.8166662265746,
+      144.62674323421945,
       170.47500010000002
      ]
     ],
@@ -2891,7 +2914,7 @@
       165.7350001
      ],
      [
-      146.82599263888582,
+      144.64779965740374,
       170.47500010000002
      ]
     ],
@@ -2905,7 +2928,7 @@
       165.7350001
      ],
      [
-      146.8166662265746,
+      144.62674323421945,
       170.47500010000002
      ]
     ]
@@ -3263,7 +3286,7 @@
    true
   ]
  },
- "card": "470bb626fa6aceb9d3e94744443ecc2d",
+ "card": "d72d31333941d77ac8788a1b6f8da30f",
  "card_ports": {
   "asse1022-assembly": {
    "tube-in": {
@@ -4358,8 +4381,8 @@
   }
  ],
  "schema": 2,
- "sources": "19bb3fac8a4c592bfa2c612e0621b7f4",
- "step": "973c3913600ada3b7ecb87b5851d7c1d",
+ "sources": "10966892a263e84475f4b05b6f642a4c",
+ "step": "2ca44073a60e9a3d15edafbfb507c88b",
  "valve_tray_stations": [
   [
    173.56,
