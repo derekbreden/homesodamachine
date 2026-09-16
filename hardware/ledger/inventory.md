@@ -106,11 +106,12 @@ One-time fabrication-support stock used to build jigs, templates, and bench fixt
 
 ## Consumable (non-per-unit)
 
-Used during fabrication but not allocated per-unit in bom.md. Welding practice stock, recurring gas fills, bench reference materials.
+Used during fabrication and documentation but not allocated per-unit in bom.md. Welding practice stock, recurring gas fills, bench reference materials, printed guides.
 
 | Item | Source | Use |
 |---|---|---|
 | **Airgas argon fill, 85 SCF (CY-AR 80)** | Airgas #8162013342, [purchases.md §1](/hardware/ledger/purchases.md) | Recurring fill for the argon cylinder. Consumed across welding + braze-purge sessions. |
+| **Lulu Install Guide, Comic Book** | Lulu USD-C4432578, [purchases.md §22](/hardware/ledger/purchases.md#22-printed-documentation) | Three copies on order, Express Shipping; Lulu status Processing Order, verified 2026-09-16. |
 | **Airgas CO2 fill (prototype cylinder), 5 lb** | Airgas #8160436286, [purchases.md §2](/hardware/ledger/purchases.md) | Recurring fill for the prototype's running CO2 cylinder. |
 | **Airgas CO2 fill (testing cylinder), 5 lb** | Airgas #8162013342, [purchases.md §2](/hardware/ledger/purchases.md) | Recurring fill for the test-bench CO2 cylinder. |
 | **Blue Demon ER308L .030 MIG wire, 2 lb** | [B0025Q2HIU](https://www.amazon.com/dp/B0025Q2HIU), [purchases.md §1](/hardware/ledger/purchases.md) | Welding practice on 304 SS coupons. Production filler is ER316L. |
