@@ -4,7 +4,6 @@ from pathlib import Path
 import io
 import json
 import math
-import shutil
 import subprocess
 import sys
 from PIL import Image
@@ -14,7 +13,9 @@ from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.lib.colors import HexColor, white
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.platypus import Paragraph
+from reportlab.lib.utils import ImageReader
 from contours import Contours, PAD
+from press import TRIM_W, TRIM_H, BLEED, write_editions, make_order_bundle
 
 ROOT = Path(__file__).resolve().parents[2]
 DIR = ROOT / 'hardware/install-guide'
@@ -23,8 +24,8 @@ OUT = DIR / 'out'
 PDF = DIR / 'install-guide.pdf'
 W, H = 396, 612
 M, CW = 32, 332
-PRESS = '--press' in sys.argv
-B = 9 if PRESS else 0
+SX, SY = TRIM_W/W, TRIM_H/H
+BX, BY = BLEED/SX, BLEED/SY
 PRESS_DIR = DIR / 'press'
 BLUE, NAVY, ICE, ORANGE = '#1749D1', '#10319C', '#DCE6FF', '#FF9152'
 INK, MUTED, RULE, CORAL = '#202337', '#606A78', '#DCE2EB', '#D64050'
@@ -33,12 +34,28 @@ for name in ['Regular','Semibold','Bold']:
 pdfmetrics.registerFontFamily('Regular',normal='Regular',bold='Bold',italic='Regular',boldItalic='Bold')
 contours = Contours('#46515b')
 buffer = io.BytesIO()
-c = canvas.Canvas(buffer,pagesize=(W+2*B,H+2*B),pageCompression=1,invariant=1)
+c = canvas.Canvas(buffer,pagesize=(TRIM_W+2*BLEED,TRIM_H+2*BLEED),pageCompression=1,invariant=1,initialFontName='Regular')
 c.setTitle('Home Soda Machine - Install guide')
 c.setAuthor('Derek Bredensteiner')
-c.setSubject('Seven steps from installation through the first glass. 24 half-letter pages.')
+c.setSubject('Seven steps from installation through the first glass. 24 Comic Book pages.')
 page_no = 0
 checks=[]
+image_checks=[]
+resolution_file=ART/'print-resolution.json'
+resolutions=json.loads(resolution_file.read_text())['assets'] if resolution_file.exists() else {}
+
+def begin_page():
+    c.translate(BLEED,BLEED)
+    c.scale(SX,SY)
+
+def ground(color):
+    rect(-BX,-BY,W+2*BX,H+2*BY,color)
+
+def image_reader(source,background='#FFFFFF'):
+    image=Image.open(source).convert('RGBA') if isinstance(source,(str,Path)) else source.convert('RGBA')
+    flat=Image.new('RGB',image.size,background)
+    flat.paste(image,mask=image.getchannel('A'))
+    return ImageReader(flat)
 
 def rect(x,y,w,h,fill,stroke=None,r=0):
     c.setFillColor(HexColor(fill));c.setStrokeColor(HexColor(stroke or fill));c.setLineWidth(.6)
@@ -71,12 +88,12 @@ def badge(n,x,y,r=12):
 def header(title,phase='BEFORE YOU START',step=None,sub=None):
     global page_no
     page_no+=1
-    c.translate(B,B)
-    rect(-B,-B,W+2*B,H+2*B,'#FFFFFF')
-    rect(-B,-B,W+2*B,7+B,BLUE)
+    begin_page()
+    ground('#FFFFFF')
+    rect(-BX,-BY,W+2*BX,7+BY,BLUE)
     label(phase,M,30)
     if step is not None:
-        badge(step,340,25,12)
+        badge(step,340,30,12)
     for i,t in enumerate(title.split('\n')):
         size=min(27,27*CW/pdfmetrics.stringWidth(t,'Bold',27))
         text(t,M,55+i*30,size,'Bold',NAVY)
@@ -86,26 +103,34 @@ def header(title,phase='BEFORE YOU START',step=None,sub=None):
     c.addOutlineEntry(f'{page_no}. {title.replace(chr(10)," ")}',f'page-{page_no}',0,False)
 
 def end():
-    line(M,574,W-M,574)
-    text('HOME SODA MACHINE',M,584,7.4,'Bold',NAVY)
-    text('Install guide',173,584,7.4,'Regular',MUTED)
-    text(str(page_no),W-M-pdfmetrics.stringWidth(str(page_no),'Semibold',8),583,8,'Semibold',NAVY)
+    line(M,566,W-M,566)
+    text('HOME SODA MACHINE',M,574,7.4,'Bold',NAVY)
+    text('Install guide',173,574,7.4,'Regular',MUTED)
+    text(str(page_no),W-M-pdfmetrics.stringWidth(str(page_no),'Semibold',8),573,8,'Semibold',NAVY)
     c.showPage()
 
 def pic(name,x,y,w,h,crop=None,outline=True,fade_crops=True):
     source=ART/name
     im=Image.open(source)
+    resolution=resolutions.get(name,{})
+    if resolution and list(im.size)!=resolution['render_size']:
+        raise ValueError(f'{name}: dimensions disagree with print-resolution.json')
+    rx,ry=resolution.get('scale',[1,1])
+    if crop:crop=tuple(value*factor for value,factor in zip(crop,(rx,ry,rx,ry)))
     bounds=crop or (im.getchannel('A').getbbox() if im.mode=='RGBA' else None) or (0,0,im.width,im.height)
     a,b,cc,d=bounds;scale=min(w/(cc-a),h/(d-b));iw,ih=(cc-a)*scale,(d-b)*scale
+    ppi=(72/(scale*SX),72/(scale*SY))
+    if min(ppi)<300:
+        raise ValueError(f'Page {page_no}, {name}: native artwork is only {min(ppi):.1f} PPI')
+    image_checks.append({'page':page_no,'source':name,'native_pixels':list(im.size),'ppi':list(ppi)})
     ox,oy=x+(w-iw)/2,y+(h-ih)/2
     if outline:
         target,(pw,ph)=contours.picture(source,bounds,iw,ih,fade_crops=fade_crops)
-        if target.exists():c.drawImage(str(target),ox-PAD,H-oy-ih-PAD,width=pw,height=ph,mask='auto')
+        if target.exists():c.drawImage(image_reader(target),ox-PAD,H-oy-ih-PAD,width=pw,height=ph)
     else:
         image=im.crop(bounds)
-        from reportlab.lib.utils import ImageReader
-        c.drawImage(ImageReader(image),ox,H-oy-ih,width=iw,height=ih,mask='auto')
-    return lambda px,py:(ox+(px-a)*scale,oy+(py-b)*scale)
+        c.drawImage(image_reader(image),ox,H-oy-ih,width=iw,height=ih)
+    return lambda px,py:(ox+(px*rx-a)*scale,oy+(py*ry-b)*scale)
 
 def caption(s,y,x=M,w=CW):return para(s,x,y,w,9,12,MUTED,limit=36)
 
@@ -167,9 +192,10 @@ def projected(mapper,point,cam,target,span,size=(1600,1500)):
     return mapper(size[0]/2+sum(a*b for a,b in zip(delta,right))*scale,size[1]/2-sum(a*b for a,b in zip(delta,up))*scale)
 
 # 1
-def front_cover(ground=True):
-    if ground:rect(-B,-B,W+2*B,H+2*B,BLUE)
-    c.drawImage(str(ART/'brand/mark-1024.png'),M-17,H-175,width=160,height=160,mask='auto')
+def front_cover():
+    begin_page()
+    ground(BLUE)
+    c.drawImage(image_reader(ART/'brand/mark-1024.png',BLUE),M-17,H-175,width=160,height=160)
     label('HOME SODA MACHINE',M,191,'#FFFFFF',10)
     text('Install',M,236,54,'Bold','#FFFFFF');text('guide',M,293,54,'Bold','#FFFFFF')
     rect(M,365,56,5,ORANGE)
@@ -177,9 +203,8 @@ def front_cover(ground=True):
     text('SEVEN STEPS. EVERY CONNECTION.',M,519,9,'Semibold',ICE)
     text('homesodamachine.com',M,558,10,'Regular','#FFFFFF')
 page_no=1
-if not PRESS:
-    front_cover()
-    c.bookmarkPage('page-1');c.addOutlineEntry('1. Install guide','page-1',0,False);c.showPage()
+front_cover()
+c.bookmarkPage('page-1');c.addOutlineEntry('1. Install guide','page-1',0,False);c.showPage()
 
 # 2
 header('Your route to soda',sub='Use this booklet on its own, or beside the quick start. The same seven steps appear in both.')
@@ -190,9 +215,9 @@ for phase,rows in route:
     for n,title,pages,target in rows:
         badge(n,M,y-2,9);text(title,M+27,y+1,10.7,'Semibold',NAVY)
         text(pages,335-pdfmetrics.stringWidth(pages,'Regular',10),y+1,10,'Regular',MUTED)
-        c.linkAbsolute('',f'page-{target}',(M,H-y-23,W-M,H-y+5));y+=31
+        c.linkRect('',f'page-{target}',(M,H-y-23,W-M,H-y+5),relative=1,thickness=0);y+=31
     y+=13
-note('BEFORE THE FIRST CONNECTION','Check the kit and the space on pages 3-4. Keep the cylinder valve closed and the power cord unplugged while you install.',451)
+note('BEFORE THE FIRST CONNECTION','Check the kit and the space on pages 3-4. Keep the cylinder valve closed and the power cord unplugged while you install.',459)
 end()
 
 # 3
@@ -460,9 +485,10 @@ para('<b>After repair:</b> repeat the water and gas checks on pages 16-17. Conne
 end()
 
 # 24
-def back_cover(ground=True,links=True):
-    if ground:rect(-B,-B,W+2*B,H+2*B,BLUE)
-    c.drawImage(str(ART/'brand/mark-1024.png'),M-10,H-139,width=120,height=120,mask='auto')
+def back_cover():
+    begin_page()
+    ground(BLUE)
+    c.drawImage(image_reader(ART/'brand/mark-1024.png',BLUE),M-10,H-139,width=120,height=120)
     label('HOME SODA MACHINE',M,164,'#FFFFFF',9)
     text('On tap.',M,212,45,'Bold','#FFFFFF')
     rect(M,282,49,4,ORANGE)
@@ -471,42 +497,24 @@ def back_cover(ground=True,links=True):
     para('<b>Sealed cooling circuit</b><br/>R-600a (isobutane), flammable refrigerant.<br/>Under 1.5 oz (40 g). Do not open, puncture or heat.',M,472,CW,9,12,ICE,limit=48)
     text('homesodamachine.com',M,533,16,'Semibold','#FFFFFF')
     text('Guides: homesodamachine.com/drawings',M,563,9,'Regular',ICE)
-    if links:
-        c.linkURL('https://homesodamachine.com',(M,H-550,W-M,H-530),relative=0)
-        c.linkURL('https://homesodamachine.com/drawings',(M,H-577,W-M,H-560),relative=0)
+    c.linkURL('https://homesodamachine.com',(M,H-550,W-M,H-530),relative=1)
+    c.linkURL('https://homesodamachine.com/drawings',(M,H-577,W-M,H-560),relative=1)
 page_no+=1
-if PRESS:
-    c.showPage();c.showPage()
-else:
-    back_cover()
-    c.bookmarkPage('page-24');c.addOutlineEntry('24. Keep your guide','page-24',0,False)
-    c.showPage()
+back_cover()
+c.bookmarkPage('page-24');c.addOutlineEntry('24. Keep your guide','page-24',0,False)
+c.showPage()
 c.save()
 assert page_no==24
 if contours.pending:
     contours.render()
     subprocess.run([sys.executable,str(Path(__file__).resolve())]+sys.argv[1:],cwd=ROOT,check=True)
     sys.exit(0)
-if PRESS:
-    PRESS_DIR.mkdir(parents=True,exist_ok=True)
-    interior=PRESS_DIR/'interior.pdf';interior.write_bytes(buffer.getvalue())
-    spread=PRESS_DIR/'cover.pdf'
-    c=canvas.Canvas(str(spread),pagesize=(2*W+2*B,H+2*B),pageCompression=1,invariant=1)
-    c.setTitle('Home Soda Machine - Install guide cover')
-    c.setAuthor('Derek Bredensteiner')
-    c.translate(B,B)
-    rect(-B,-B,2*W+2*B,H+2*B,BLUE)
-    back_cover(ground=False,links=False)
-    c.saveState();c.translate(W,0);front_cover(ground=False);c.restoreState()
-    c.showPage();c.save()
-    print(f'{interior}: 24 pages at {(W+2*B)/72:g} x {(H+2*B)/72:g} in')
-    print(f'{spread}: 1 page at {(2*W+2*B)/72:g} x {(H+2*B)/72:g} in')
-    sys.exit(0)
-PDF.write_bytes(buffer.getvalue())
-output=ROOT/'output/pdf/install-guide.pdf';output.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(PDF,output)
+write_editions(buffer.getvalue(),PDF,PRESS_DIR,ROOT/'output/pdf',OUT)
 subprocess.run(['pdftoppm','-f','1','-l','1','-scale-to','1200','-singlefile','-png',str(PDF),str(OUT/'cover')],check=True)
 im=Image.open(OUT/'cover.png');im.thumbnail((800,1200));im.save(DIR/'install-guide.cover.png')
-(DIR/'install-guide.pdf.json').write_text(json.dumps({'title':'Home Soda Machine install guide','subtitle':'Owner install guide - seven steps in detail - 24 pages, 5.5 x 8.5 in','pages':24,'cover':'install-guide.cover.png','cover_size':list(im.size)},indent=2)+'\n')
+(DIR/'install-guide.pdf.json').write_text(json.dumps({'title':'Home Soda Machine install guide','subtitle':'Owner install guide - seven steps in detail - 24 pages, 6.625 x 10.25 in','pages':24,'cover':'install-guide.cover.png','cover_size':list(im.size)},indent=2)+'\n')
 (OUT/'layout-checks.json').write_text(json.dumps(checks,indent=2)+'\n')
+(OUT/'image-checks.json').write_text(json.dumps(image_checks,indent=2)+'\n')
 print(f'{PDF}: {page_no} pages, {PDF.stat().st_size//1024} KB')
-subprocess.run([sys.executable,str(Path(__file__).resolve()),'--press'],cwd=ROOT,check=True)
+subprocess.run([sys.executable,str(Path(__file__).with_name('preflight.py'))],cwd=ROOT,check=True)
+make_order_bundle(PRESS_DIR,ROOT/'output/pdf')
