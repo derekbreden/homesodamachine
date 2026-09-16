@@ -414,7 +414,7 @@ press=projected(p,(0,-38,39),*pose)
 arrow(press[0],press[1]-23,press[0],press[1]-2,head=7)
 leader('Press down',287,355,(press[0]+6,press[1]-12),side='left')
 item('1','Choose at the faucet','Tap the faucet display to select a flavor. If the screen is dim, the first tap wakes it.',430)
-item('2','Pour your glass','Put a glass below the faucet and press the lever down. Release the lever to stop.',505)
+item('2','Fill your glass with ice','Put it below the faucet and press the lever down to pour over the ice. Release the lever to stop.',505)
 end()
 
 # 22

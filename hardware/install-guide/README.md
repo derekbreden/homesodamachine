@@ -25,7 +25,9 @@ The Fill spread shows the Big Blue enclosure display and its current **Start fil
 The [On tap identity](../../brand/README.md) supplies cobalt, navy, ice and orange. Instructional
 scenes use white paper, 0.6 pt slate contours (`#46515b`) and coral arrows with white outlines.
 Tube and connector colors match the hardware. The power scene carries the white faucet mark on
-its black nameplate. The glass contains dark cola with a visible rim and no falling streams.
+its black nameplate. The glass contains dark cola and three rounded, partly submerged ice cubes,
+with a visible rim and no falling streams. The first-pour instructions call for a glass filled
+with ice. The illustration is a snapshot of the quick start's `ice_scene.py` render.
 
 The PDF, cover, fonts and illustration snapshots are committed here. `assets/` contains the
 booklet's artwork, including its Fill-screen illustration and hose-removal scene. Manual page
