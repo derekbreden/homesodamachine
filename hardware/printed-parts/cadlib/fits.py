@@ -17,5 +17,16 @@ down on — each of those stands on the plane the two pieces share.
 #: Assembly clearance at a printed seat.
 slip = 0.15
 
+#: Additional clearance on each face that slides past its mate.
+sliding_extra = 0.10
+
 #: Clearance on each face of a moving service fit.
-running = 0.25
+running = slip + sliding_extra
+
+#: Extra room per supported mating face, assigned once to either part of its gap.
+supported_surface = 0.25
+
+
+def clearance(*, sliding=False, supported=False):
+    """One mating-face allowance, including motion and bridge finish where present."""
+    return slip + (sliding_extra if sliding else 0.0) + (supported_surface if supported else 0.0)

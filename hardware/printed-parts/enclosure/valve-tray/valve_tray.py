@@ -184,7 +184,7 @@ def build_body_clearance():
     ever asked to clear.
 
     THE FOUR POSTS ARE LEFT OUT ON PURPOSE. They are exactly what `valve_seat.build_sockets`
-    cuts its sockets to GRIP — a press fit at `socket_clearance` (0.2 mm), not this function's
+    cuts its sockets at the shared static `socket_clearance`, not this function's
     `PORT_SLIP` (1.0 mm) — over the whole length `valve_seat.grip` reads off this same body. A
     post-shaped cutter here, at any radius past the socket's own, reams every socket out to a
     free hole along that whole grip length and a valve seated in it is no longer held by

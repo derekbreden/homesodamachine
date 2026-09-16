@@ -15,8 +15,8 @@ One part prints here: the **clamp**.
 |---|---|
 | type | printed PETG |
 | width | [18](CLAMP_PART_X) mm, the whole part |
-| head | [18](CLAMP_HEAD_Y) mm tall × [6.7](CLAMP_HEAD_Z) on the seating plane |
-| channel | [4.6](CLAMP_CHANNEL_H) × [4.2](CLAMP_CASE_D) mm through it, open both ends |
+| head | [17.9](CLAMP_HEAD_Y) mm tall × [6.7](CLAMP_HEAD_Z) on the seating plane |
+| channel | [4.5](CLAMP_CHANNEL_H) × [4.2](CLAMP_CASE_D) mm through it, open both ends |
 | neck | [3.5](CLAMP_NECK_Z) mm out of the face |
 | leaves | [2.5](CLAMP_LEAF_Y) mm thick, [22](CLAMP_LEAF_REACH) inboard, [10](CLAMP_LEAF_SLOT) of slot between |
 | volume | [5.56](CLAMP_VOL) cm³ |

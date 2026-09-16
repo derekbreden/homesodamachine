@@ -20,6 +20,7 @@ sys.path.insert(0, str(_here.parent))
 sys.path.insert(0, str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"))
 
 from world_workplane import WorldWorkplane, xz_plane_y_up, xy_plane_z_up
+import fits
 from _cadq_export import export_assembly
 import _materials as _mat
 from _materials import one_body
@@ -74,9 +75,9 @@ reservoir_wall_thickness = reservoir_floor_thickness
 
 
 # Fillets where the centerward curve meets the ±Y walls. At
-# y = ±[70 mm](OUTER_Y_MAX) the outer centerward curve (radius
-# [81 mm](OUTER_CENTERWARD_R)) meets the outer ±Y walls at a [30°](OUTER_TAB_ANGLE)
-# interior-angle tab; at y = ±[67 mm](INNER_Y_MAX) the inner centerward curve
+# y = ±[70.25 mm](OUTER_Y_MAX) the outer centerward curve (radius
+# [80.75 mm](OUTER_CENTERWARD_R)) meets the outer ±Y walls at a [30°](OUTER_TAB_ANGLE)
+# interior-angle tab; at y = ±[67.25 mm](INNER_Y_MAX) the inner centerward curve
 # meets the inner ±Y walls inside the syrup volume at [37°](INNER_CORNER_ANGLE).
 # [6 mm](OUTER_FILLET_R) is at least body_boss_radius ([5 mm](BODY_BOSS_R)), so the
 # corner bosses (positions 4/5, centered on the outer fillet) sit fully inside
@@ -94,20 +95,22 @@ cap_base_thickness = 4.0  # flat top spans the cavity unsupported and hosts the 
 cap_wall_height = 5.0
 cap_wall_width = 6.0
 
-# Screw recess geometry. M3 SHCS head OD ~5.5 mm → ⌀[6 mm](CAP_COUNTERBORE_D)
+# Screw recess geometry. M3 SHCS head OD ~5.5 mm → ⌀[5.8 mm](CAP_COUNTERBORE_D)
 # counterbore. The counterbore recesses the head through the full base plate;
 # the clearance hole through the perimeter wall carries the shaft to the
 # gasket + body insert below.
-cap_counterbore_diameter = 6.0
-cap_counterbore_depth = cap_base_thickness
-cap_clearance_hole_diameter = 3.5
+cap_counterbore_diameter = 5.5 + 2.0 * fits.slip
+# Cap prints exterior-face-down (-Z). The supported screw seats retreat into
+# the 5 mm perimeter wall; screw axes and the gasket rim retain their datums.
+cap_counterbore_depth = cap_base_thickness + fits.supported_surface
+cap_clearance_hole_diameter = 3.0 + 2.0 * fits.slip
 
 
 # TPU 85A flat gasket between the body wall top and the cap base plate
 # bottom, compressed by the six M3 × 12 screws. [5 mm](GASKET_STRIP_W)-wide perimeter ring
 # covering the body wall top and extending inward over the cavity opening;
 # circular pads at each insert position give the screw clamp a uniform
-# compressed disk; ⌀[3.5 mm](CAP_CLEARANCE_HOLE_D) clearance holes through each pad.
+# compressed disk; ⌀[3.3 mm](CAP_CLEARANCE_HOLE_D) clearance holes through each pad.
 gasket_thickness = 2.0
 gasket_strip_width = 5.0
 
@@ -136,21 +139,23 @@ filter_diameter = 13.0
 filter_thickness = 0.5
 
 retaining_ring_thickness = 2.0
-retaining_ring_outer_diameter = 13.4  # 0.1 mm interference per side vs the ⌀[13.2 mm](VENT_POCKET_D) pocket, so the TPU 90A ring compresses in for a light press-fit
+retaining_ring_outer_diameter = filter_diameter + 2.0 * fits.slip + 0.2  # retain 0.1 mm/side TPU interference
 retaining_ring_inner_diameter = 9.0   # leaves most of the membrane exposed for airflow
 
 # Filter pocket (cylindrical recess in the cap top) holds the
-# filter + ring stack with 0.2 mm of slip-fit clearance.
-# [13.2 mm](VENT_POCKET_D) — filter ⌀ + 0.1 mm/side clearance.
-vent_pocket_diameter = filter_diameter + 0.2
-vent_pocket_depth = filter_thickness + retaining_ring_thickness
+# filter + ring stack with 0.15 mm radial static clearance.
+# [13.3 mm](VENT_POCKET_D) — filter ⌀ + 0.15 mm/side clearance.
+vent_pocket_diameter = filter_diameter + 2.0 * fits.slip
+# The membrane pocket opens on the print bed face. Grow its depth while the
+# derived boss below it grows with it, preserving vent_below_pocket_material.
+vent_pocket_depth = filter_thickness + retaining_ring_thickness + fits.supported_surface
 
 # Below the pocket the cap thickens locally into a boss carrying the
 # small vent hole; the boss protrudes below the standard base plate bottom.
 vent_hole_diameter = 5.0
 vent_below_pocket_material = 2.5  # cap material thickness between pocket bottom and boss bottom
 vent_boss_wall_around_pocket = 2.0
-# [17.2 mm](VENT_BOSS_OD) — pocket ⌀ + 2 × wall around pocket.
+# [17.3 mm](VENT_BOSS_OD) — pocket ⌀ + 2 × wall around pocket.
 vent_boss_outer_diameter = vent_pocket_diameter + 2 * vent_boss_wall_around_pocket
 _vent_boss_depth = vent_pocket_depth + vent_below_pocket_material
 _vent_boss_extension_below_base_plate = _vent_boss_depth - cap_base_thickness
@@ -179,7 +184,7 @@ vent_slot_height = 2.0
 vent_cylinder_length = vent_slot_height + vent_brim_thickness
 
 # Vent position on the cap, in the side=+1 frame. Centered between
-# the y=0 and y=−[64](CORNER_XY_Y) rows of screw bosses (so the ø[17.2 mm](VENT_BOSS_OD) vent boss and
+# the y=0 and y=−[64.25](CORNER_XY_Y) rows of screw bosses (so the ø[17.3 mm](VENT_BOSS_OD) vent boss and
 # its counterbore-sized pocket clear every screw counterbore and
 # every cap-side boss), and inside the perimeter wall. Mirrored
 # across x=0 for side=−1.
@@ -200,7 +205,7 @@ vent_brim_bottom_z = vent_cylinder_walls_bottom_z - vent_brim_thickness
 # here, above the liquid, so the two never share a mouth and everything entering
 # has to cross the cavity to leave by the trough.
 #
-# The bore is the ⌀[6.65 mm](FILL_BORE_D) every penetration in the cold core takes, carried on a
+# The bore is the ⌀[6.8 mm](FILL_BORE_D) every penetration in the cold core takes, carried on a
 # boss hanging below the base plate so the joint has bore length to seat in.
 #
 # EACH SIDE HAS ITS OWN STATION and they are not a mirrored pair — A at
@@ -248,9 +253,9 @@ reservoir_count = len(fill_position)
 rod_position_y = level_rod_y  # y of the rod centerline; does NOT mirror with side —
 # the reed column outside stands on this same station (`_cold_core_interface.level_rod_y`)
 rod_diameter = 3.175  # 1/8" 316 SS round rod OD
-# [3.675 mm](ROD_BORE) — rod ⌀ + 0.5 mm slip-fit clearance; shared by body anchor boss and cap register boss.
-rod_bore = rod_diameter + 0.5  # ~0.5 mm radial slip-fit clearance; shared by body anchor boss and cap register boss
-# [7.675 mm](ROD_BOSS_OD) — bore ⌀ + 4 mm (2 mm radial wall); shared by body anchor and cap register bosses.
+# [3.475 mm](ROD_BORE) — rod ⌀ + 0.5 mm slip-fit clearance; shared by body anchor boss and cap register boss.
+rod_bore = rod_diameter + 2.0 * fits.slip  # stationary rod seats; float's running bore is separate
+# [7.475 mm](ROD_BOSS_OD) — bore ⌀ + 4 mm (2 mm radial wall); shared by body anchor and cap register bosses.
 rod_boss_od = rod_bore + 4.0  # 2 mm radial wall around the bore
 rod_register_boss_height = 2.0  # CAP-side boss EXTRA height beyond cap rim
 rod_anchor_boss_height = 6.0  # BODY-side anchor boss
@@ -296,7 +301,7 @@ rod_anchor_boss_floor = 0.0  # printed-solid PETG floor INSIDE the body boss
 #   the concave arc's peak (imported from _cold_core_interface); the trough/
 #   port X center. The port sits at y=0.
 
-bulkhead_panel_hole_diameter = 16.0  # PureSec thread OD ⌀15.5 + 0.5 mm slip; well under the ⌀[18.7 mm](BULKHEAD_DRY_FLANGE_OD) dry-side flange so the below flange can't pull up through the hole. Cut straight through the trough floor on the barrel axis.
+bulkhead_panel_hole_diameter = 15.5 + 2.0 * fits.slip  # clearance around the external thread, not a threaded mating hole
 
 # The hex nut sits in open cavity (wet side) above the trough floor,
 # threaded onto the barrel from above against the wet-side TPU washer, with
@@ -315,15 +320,17 @@ bulkhead_dry_flange_od = 18.7  # elbow-side flange OD (dry/under)
 # set by nut torque). The DRY (under) face is a printed TPU 85A washer
 # compressed by the ⌀[18.7 mm](BULKHEAD_DRY_FLANGE_OD) elbow flange, seating
 # flush on the PETG rim outside its counterbore — (thickness − depth)/thickness
-# = 30%.
-bulkhead_seal_id = 16.0  # SHARED washer ID = PureSec barrel OD ⌀15.5 + 0.5 mm so the washer slips over the barrel. Equals the ⌀[16 mm](BULKHEAD_PANEL_HOLE_D) panel hole — a face seal (against the clamping face + the floor face), not a radial seal on the barrel.
+# = nominally 30%, before the dry roof's bridge-skin allowance.
+bulkhead_seal_id = 16.0  # purchased wet washer ID; face seal, not a radial seal on the barrel.
+bulkhead_seal_dry_id = bulkhead_panel_hole_diameter
 bulkhead_seal_thickness = 2.0  # printed DRY washer thickness (the purchased wet washer is 3 mm — a part spec, not a CAD value)
-bulkhead_seal_counterbore_depth = 1.4  # SHARED counterbore depth (both faces): 30% squeeze of the 2 mm dry washer; the 3 mm wet washer sits recessed 1.4 mm (proud 1.6 mm), compressed by the nut
+bulkhead_seal_counterbore_depth = 1.4  # nominal contact depth, before retained bridge-skin allowance
+bulkhead_seal_dry_depth = bulkhead_seal_counterbore_depth + fits.supported_surface
 # WET (top) face — the PURCHASED silicone washer (⌀24 × 3 mm) sits in this counterbore; the ⌀[21.9 mm](BULKHEAD_WET_NUT_OD) nut compresses it.
 bulkhead_seal_wet_od = 24.0  # ⌀[16 mm](BULKHEAD_SEAL_ID)–[24 mm](BULKHEAD_SEAL_WET_OD) purchased uxcell B07D23JJMR silicone washer; ⌀16 ID slips over the barrel
-bulkhead_seal_wet_counterbore_diameter = 24.3  # ⌀[24.3 mm](BULKHEAD_SEAL_WET_CB_D): 0.15 mm/side around the ⌀24 washer; the ⌀[21.9 mm](BULKHEAD_WET_NUT_OD) nut presses the washer down inside it (OD > nut, so no PETG rim outside)
+bulkhead_seal_wet_counterbore_diameter = bulkhead_seal_wet_od + 2.0 * fits.slip
 # DRY (under) washer + counterbore — clamped by the ⌀[18.7 mm](BULKHEAD_DRY_FLANGE_OD) elbow flange.
-bulkhead_seal_dry_od = 18.5  # ⌀[16 mm](BULKHEAD_SEAL_ID)–[18.5 mm](BULKHEAD_SEAL_DRY_OD) ring; the ⌀[18.7 mm](BULKHEAD_DRY_FLANGE_OD) flange caps how wide this can go
+bulkhead_seal_dry_od = 18.5  # ⌀[15.8 mm](BULKHEAD_DRY_SEAL_ID)–[18.5 mm](BULKHEAD_SEAL_DRY_OD) ring; the ⌀[18.7 mm](BULKHEAD_DRY_FLANGE_OD) flange caps how wide this can go
 bulkhead_seal_dry_counterbore_diameter = bulkhead_seal_dry_od  # ⌀[18.5 mm](BULKHEAD_SEAL_DRY_CB_D) = the dry washer OD ⌀[18.5 mm](BULKHEAD_SEAL_DRY_OD): hugs it with no radial clearance (the soft TPU compresses), leaving the maximum PETG rim under the ⌀[18.7 mm](BULKHEAD_DRY_FLANGE_OD) flange.
 state(
     "dry-seal-rim", "The dry seal's counterbore leaves a PETG rim under the elbow flange",
@@ -486,8 +493,8 @@ inner_corner_interior_angle = math.degrees(math.acos(inner_y_max / inner_centerw
 # outer face to wall top). inner_z_range is the cavity's extent (cavity
 # floor sits one wall up; top opens to the cap above the gasket).
 # cap_stack_above_body is how much room the gasket + cap takes above
-# the body's wall top — leaves the cap's top face flush at z=[212.9 mm](CAP_TOP_Z)
-# ([0.5 mm](RESERVOIR_CLEARANCE) clear of the bag-pocket wall top); body alone is [199.4 mm](RESERVOIR_H) tall.
+# the body's wall top — leaves the cap's top face flush at z=[213.2 mm](CAP_TOP_Z)
+# ([0.25 mm](RESERVOIR_CLEARANCE) clear of the bag-pocket wall top); body alone is [199.9 mm](RESERVOIR_H) tall.
 # [11 mm](CAP_STACK_H) — gasket + cap perimeter wall + cap base plate.
 cap_stack_above_body = gasket_thickness + cap_wall_height + cap_base_thickness
 outer_z_range = (
@@ -497,7 +504,7 @@ outer_z_range = (
 inner_z_range = (outer_z_range[0] + reservoir_wall_thickness, outer_z_range[1])
 # Assembled-stack references — pinned into the docstring/comments below so they
 # can never drift again (an earlier hand-typed "214.9" did exactly that).
-cap_assembly_lift = outer_z_range[1] + gasket_thickness  # [203.9 mm](CAP_ASSEMBLY_LIFT) — cap-local z=0 lands here on the body
+cap_assembly_lift = outer_z_range[1] + gasket_thickness  # [204.2 mm](CAP_ASSEMBLY_LIFT) — cap-local z=0 lands here on the body
 cap_top_z = cap_assembly_lift + cap_total_height          # assembled cap top face
 
 # V-floor derived geometry (needs inner_z_range / inner_y_max above).
@@ -519,6 +526,14 @@ floor_trough_z = inner_z_range[0] + floor_trough_lift  # wet (top) surface of th
 # bag-pocket space where the ⌀[18.7 mm](BULKHEAD_DRY_FLANGE_OD) flange + 90°
 # elbow hang.
 floor_flat_bottom_z = floor_trough_z - bulkhead_seal_counterbore_depth - bulkhead_seal_seat_thickness
+# Only the local seal boss rises. Its wet pocket follows the compensated dry
+# roof by the same amount, preserving the 3 mm web and 1.4 mm wet recess while
+# the wet V, body seat, dry flange, tube axis and both washer thicknesses stay put.
+bulkhead_seal_wet_top_z = floor_trough_z + fits.supported_surface
+bulkhead_seal_wet_floor_z = bulkhead_seal_wet_top_z - bulkhead_seal_counterbore_depth
+bulkhead_seal_dry_roof_z = floor_flat_bottom_z + bulkhead_seal_dry_depth
+assert abs(bulkhead_seal_wet_floor_z - bulkhead_seal_dry_roof_z
+           - reservoir_wall_thickness) < 1e-9
 # Open headroom below the flat exterior bottom, down to the bag-pocket floor
 # (the foam-shell pocket the reservoir drops into). The flat bottom is the
 # reservoir's lowest point, so this is also how far that lowest point clears
@@ -531,14 +546,14 @@ floor_slope_rate = floor_slope_rise / floor_slope_y_distance
 # cap_wall_height, raised to assembled coords by cap_assembly_lift) minus the
 # body anchor-boss bore floor at the rod's y; cut reservoir_rod_clearance under
 # so the rod never holds the cap off its gasket. (Seat-to-seat
-# [176.4 mm](RESERVOIR_SEAT_TO_SEAT); this is the cut figure.)
-reservoir_rod_clearance = 1.0  # mm
+# [176.7 mm](RESERVOIR_SEAT_TO_SEAT); this is the cut figure.)
+reservoir_rod_clearance = fits.slip  # static end clearance; the lower end seats on its datum
 reservoir_rod_len = (
     (cap_assembly_lift + cap_wall_height)
     - (floor_trough_z + floor_slope_rate * (abs(rod_position_y) - floor_trough_half_width_y)
        + rod_anchor_boss_floor)
     - reservoir_rod_clearance
-)  # [175.4 mm (6.91 in)](RESERVOIR_ROD_LEN) — 1/8" 316 SS rod, seat-to-seat − 1 mm
+)  # [176.5 mm (6.95 in)](RESERVOIR_ROD_LEN) — 1/8" 316 SS rod, seat-to-seat − 1 mm
 # Floor wedge extrusion top — above the highest slope point so the
 # slope half-spaces cut a clean upper face on the wedge fill.
 floor_wedge_top_z = floor_trough_z + floor_slope_rise + 2.0
@@ -596,7 +611,7 @@ insert_positions_for_side_plus_1 = [
 # above, cut below. Bosses 4/5 (corner-of-curve positions) use a
 # virtual pivot 2 mm along wall_dir from the boss center because the
 # literal inner-wall corner is too far for a sensible cut depth (a
-# [8.794 mm](CORNER_CURVE_DIST) cut depth would eat into the 7 mm heat-set pocket).
+# [8.894 mm](CORNER_CURVE_DIST) cut depth would eat into the 7 mm heat-set pocket).
 #
 # Values stored for side=+1; the x component is multiplied by `side`
 # in the body-boss loop to mirror across x=0 for side=−1.
@@ -607,13 +622,13 @@ _inv_sqrt2 = 1.0 / math.sqrt(2.0)
 
 # Bosses 4 / 5 need their cut direction pointed at the inner-wall
 # CORNER (where the inner curve at radius _curve_inner_x_at_y0 = 76
-# meets the inner ±Y wall at y = ±_plus_y_wall_inner_y = ±[67 mm](INNER_Y_MAX)), not
+# meets the inner ±Y wall at y = ±_plus_y_wall_inner_y = ±[67.25 mm](INNER_Y_MAX)), not
 # at the closest point on the curve along the inward radial line.
 # Pointing at the corner is the same pattern bosses 1 / 2 use (their
 # cuts slope down away from the +X × ±Y inner corner). For boss 4
-# the corner is at (≈[50.67 mm](INNER_CORNER_CURVE_X), [67 mm](INNER_Y_MAX)),
-# [8.794 mm](CORNER_CURVE_DIST) from the boss in the (−X, +Y) direction — too
-# far to use as a literal pivot (a [8.794 mm](CORNER_CURVE_DIST) cut depth would
+# the corner is at (≈[49.91 mm](INNER_CORNER_CURVE_X), [67.25 mm](INNER_Y_MAX)),
+# [8.894 mm](CORNER_CURVE_DIST) from the boss in the (−X, +Y) direction — too
+# far to use as a literal pivot (a [8.894 mm](CORNER_CURVE_DIST) cut depth would
 # eat into the 7 mm heat-set pocket). Instead, take
 # the unit vector toward the corner as wall_dir, and place the pivot
 # VIRTUALLY at 2 mm along that direction from the boss center, so
@@ -712,7 +727,7 @@ def build_reservoir_body(side=1):
     # Fillet the four sharp corners where the centerward concave curve
     # meets the ±Y walls — applied to the bare wall geometry BEFORE
     # unioning the insert bosses, because two of the inner corners
-    # coincide with boss positions ([50.67 mm](INNER_CORNER_CURVE_X), ±[67 mm](INNER_Y_MAX)) and unioning a cylinder
+    # coincide with boss positions ([49.91 mm](INNER_CORNER_CURVE_X), ±[67.25 mm](INNER_Y_MAX)) and unioning a cylinder
     # there would replace the sharp edge with a curved boss-to-wall
     # transition that the fillet operation can't pick up.
     #
@@ -903,17 +918,17 @@ def build_reservoir_body(side=1):
     # it. It hosts a face-seal counterbore on BOTH faces (wet top + dry under).
     seal_boss = _z_cylinder(
         (port_x_signed, 0.0),
-        (floor_flat_bottom_z, floor_trough_z),
+        (floor_flat_bottom_z, bulkhead_seal_wet_top_z),
         bulkhead_seal_boss_diameter,
     )
     body = body.union(seal_boss)
 
-    # Panel hole — ⌀[16 mm](BULKHEAD_PANEL_HOLE_D) cut straight through the
+    # Panel hole — ⌀[15.8 mm](BULKHEAD_PANEL_HOLE_D) cut straight through the
     # trough floor on the barrel axis, from above the trough wet surface
     # down through the flat exterior bottom into the open space below.
     panel_hole = _z_cylinder(
         (port_x_signed, 0.0),
-        (outer_z_range[0] - 5.0, floor_trough_z + 0.1),
+        (outer_z_range[0] - 5.0, bulkhead_seal_wet_top_z + 0.1),
         bulkhead_panel_hole_diameter,
     )
     body = body.cut(panel_hole)
@@ -923,7 +938,7 @@ def build_reservoir_body(side=1):
     # nut presses the washer down inside this bore (OD > nut, no rim outside).
     wet_seal_counterbore = _z_cylinder(
         (port_x_signed, 0.0),
-        (floor_trough_z - bulkhead_seal_counterbore_depth, floor_trough_z + 0.1),
+        (bulkhead_seal_wet_floor_z, bulkhead_seal_wet_top_z + 0.1),
         bulkhead_seal_wet_counterbore_diameter,
     )
     body = body.cut(wet_seal_counterbore)
@@ -931,13 +946,14 @@ def build_reservoir_body(side=1):
     # Dry-side TPU face-seal counterbore — a shallow recess opening flush in
     # the flat exterior bottom (floor_flat_bottom_z = the seal-boss underside),
     # cut UP from it. The ⌀[18.7 mm](BULKHEAD_DRY_FLANGE_OD) elbow-side flange
-    # seats on the PETG rim outside it, compressing the dry washer 30%. The two
+    # seats on the PETG rim outside it; retained bridge skin is allowed above the
+    # nominal washer compression depth. The two
     # counterbores leave a [3 mm](RESERVOIR_WALL_T) solid PETG mid-rim between
     # them (= the wall thickness; see bulkhead_seal_seat_thickness).
     dry_seal_counterbore = _z_cylinder(
         (port_x_signed, 0.0),
         (floor_flat_bottom_z - 0.1,
-         floor_flat_bottom_z + bulkhead_seal_counterbore_depth),
+         bulkhead_seal_dry_roof_z),
         bulkhead_seal_dry_counterbore_diameter,
     )
     body = body.cut(dry_seal_counterbore)
@@ -1024,8 +1040,8 @@ def build_reservoir_cap(side=1):
 
     # At each insert position: cap-side boss thickening the perimeter
     # wall inward (matching the body boss footprint so the gasket sees
-    # a consistent compression cross-section), ø[3.5 mm](CAP_CLEARANCE_HOLE_D) clearance hole
-    # through the cap for the screw shaft, and ø[6 mm](CAP_COUNTERBORE_D) counterbore recessing
+    # a consistent compression cross-section), ø[3.3 mm](CAP_CLEARANCE_HOLE_D) clearance hole
+    # through the cap for the screw shaft, and ø[5.8 mm](CAP_COUNTERBORE_D) counterbore recessing
     # the M3 SHCS head flush with the cap's top face.
     insert_anchors = [(px * side, py) for (px, py) in insert_positions_for_side_plus_1]
     bosses = (
@@ -1054,7 +1070,7 @@ def build_reservoir_cap(side=1):
     cap = cap.cut(counterbores)
 
     # Vent feature. Z-stack runs top→bottom from cap_total_height: filter
-    # pocket (ø[13.2 mm](VENT_POCKET_D)) at the top of the base plate, then the small vent
+    # pocket (ø[13.3 mm](VENT_POCKET_D)) at the top of the base plate, then the small vent
     # hole through the remaining base plate material, then the boss
     # extension below the base plate, then the cylinder shell (slot
     # zone), then the closed brim. Z-anchors live at module scope
@@ -1097,7 +1113,7 @@ def build_reservoir_cap(side=1):
     # Cut the air column: ø[5 mm](VENT_HOLE_D) from the cylinder bottom (top of brim) up
     # to the pocket bottom. This both hollows out the cylinder body we
     # just unioned in and drills the small vent hole through the boss
-    # and the [1.5 mm](VENT_BASE_PLATE_T) of base plate below the pocket.
+    # and the [1.25 mm](VENT_BASE_PLATE_T) of base plate below the pocket.
     air_column = _z_cylinder(
         vent_anchor_xy,
         (vent_cylinder_walls_bottom_z, vent_pocket_bottom_z),
@@ -1185,7 +1201,7 @@ def build_reservoir_gasket(side=1):
     """Flat TPU 85A gasket between the reservoir body wall top and the
     cap base plate bottom. Same `[ø10](GASKET_PAD_D) pad extending inward
     beyond the ring so the screw clamp compresses a uniform disk of
-    TPU (matching the body boss footprint), with an ø[3.5 mm](CAP_CLEARANCE_HOLE_D) clearance
+    TPU (matching the body boss footprint), with an ø[3.3 mm](CAP_CLEARANCE_HOLE_D) clearance
     hole through its center. side=+1 builds the +X gasket; side=−1
     builds the −X (mirror)."""
     gasket_z_range = (0.0, gasket_thickness)
@@ -1227,8 +1243,8 @@ def build_reservoir_retaining_ring():
     """TPU 90A annular retaining ring that presses into the cap's
     filter pocket above the membrane and clamps it against the
     pocket floor (the shelf around the small ø[5 mm](VENT_HOLE_D) vent hole). [2 mm](RETAINING_RING_T)
-    thick. Outer [ø13.4](RETAINING_RING_OD) nominal — sized for a light interference
-    press-fit into the ø[13.2 mm](VENT_POCKET_D) pocket (TPU 90A is soft enough to
+    thick. Outer [ø13.5](RETAINING_RING_OD) nominal — sized for a light interference
+    press-fit into the ø[13.3 mm](VENT_POCKET_D) pocket (TPU 90A is soft enough to
     compress 0.1 mm per side without trouble). Inner ø[9 mm](RETAINING_RING_ID) leaves
     most of the membrane exposed for airflow.
 
@@ -1245,9 +1261,10 @@ def build_reservoir_retaining_ring():
 
 def build_reservoir_bulkhead_seal(od):
     """Flat TPU 85A washer for the DRY (under) bulkhead face — od=bulkhead_seal_dry_od,
-    shared ID + thickness. Sits in a [1.4 mm](BULKHEAD_SEAL_CB_DEPTH)-deep counterbore in the seal boss;
-    the exposed 0.6 mm compresses ~30% when the elbow flange seats flush against
-    the PETG rim outside the counterbore. Print 2 per build (one per reservoir).
+    ID [15.8 mm](BULKHEAD_DRY_SEAL_ID) and thickness [2 mm](BULKHEAD_SEAL_THICKNESS).
+    The dry recess is [1.65 mm](BULKHEAD_DRY_SEAL_CB_DEPTH) deep, including 0.25 mm
+    for retained bridge skin over the nominal 1.4 mm sealing recess.
+    The flange seats on the surrounding PETG rim. Print 2 per build (one per reservoir).
 
     The WET (top) face is no longer printed — it is a purchased silicone washer
     (uxcell B07D23JJMR, ⌀24 × 3 mm) that the body's wet counterbore seats. See
@@ -1255,7 +1272,7 @@ def build_reservoir_bulkhead_seal(od):
     return (
         WorldWorkplane(xy_plane_z_up)
         .circle(od / 2.0)
-        .circle(bulkhead_seal_id / 2.0)
+        .circle(bulkhead_seal_dry_id / 2.0)
         .extrude(bulkhead_seal_thickness)
         .unwrap()
     )
@@ -1372,6 +1389,8 @@ def main():
         "BULKHEAD_WET_NUT_OD": f"{bulkhead_wet_nut_od:.4g} mm",
         "BULKHEAD_DRY_FLANGE_OD": f"{bulkhead_dry_flange_od:.4g} mm",
         "BULKHEAD_SEAL_ID": f"{bulkhead_seal_id:.4g} mm",
+        "BULKHEAD_DRY_SEAL_ID": f"{bulkhead_seal_dry_id:.4g} mm",
+        "BULKHEAD_DRY_SEAL_CB_DEPTH": f"{bulkhead_seal_dry_depth:.4g} mm",
         "BULKHEAD_SEAL_WET_OD": f"{bulkhead_seal_wet_od:.4g} mm",
         "BULKHEAD_SEAL_DRY_OD": f"{bulkhead_seal_dry_od:.4g} mm",
         "BULKHEAD_SEAL_WET_CB_D": f"{bulkhead_seal_wet_counterbore_diameter:.4g} mm",

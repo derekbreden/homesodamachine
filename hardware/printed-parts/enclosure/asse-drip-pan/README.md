@@ -94,7 +94,7 @@ face — the pan is a plain box and the berth is a plain slot.
 
 **The floor carries it.** The pan lies on the block's floor across its whole
 footprint, so nothing bears on the rim and nothing hangs off the wall. What the
-lid does is close back over the flange, [3.70](PAN_LAP) mm of it a side
+lid does is close back over the flange, [3.75](PAN_LAP) mm of it a side
 (`lap_w()`), which is what makes this a **mount** rather than a shelf: the pan
 cannot lift out of its berth. Over the pan's mouth that lid is open, so the
 drip falls straight through it.

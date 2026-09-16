@@ -63,7 +63,7 @@ boss_half = _pc.bore_half_span
 # The boss's whole run off the bracket plane — the bore wall's depth.
 boss_depth = _pc.bore_bottom_z
 # The bore the case turns the can in, half of it — what rises out of the shoulder.
-can_half = _pc.cylinder_id / 2.0
+can_half = _kp.motor_dia / 2.0 + fits.running
 # The mounting bracket the part carries at that plane, stated by `kamoer_kphm400` and drawn by
 # nobody. It stands proud of the head all the way round. The cradle bears below it and the
 # clamp's restored pressing plate lands above it.
@@ -99,7 +99,7 @@ skirt_body_open_y_bounds = (
     _kp.skirt_body_y_max + skirt_support_xy_air,
 )
 skirt_y = _kp.skirt_y
-skirt_y_plus_air = _kp.skirt_y_plus_air
+skirt_y_plus_air = fits.running
 skirt_open_y_max = _kp.skirt_y_max + skirt_y_plus_air
 skirt_upper_band = _kp.skirt_upper_band
 skirt_support_y_minus = (_kp.skirt_support_y_minus
@@ -146,6 +146,23 @@ def _in_pump_frame(solid):
     return solid.translate((-_pc.center_x, -_pc.center_y, 0.0))
 
 
+def _normal_lower_ramp(room, air):
+    """Give the lower 45-degree flanks `air` normal clearance at fixed pump datums.
+
+    The case profiles open laterally by `air`. Carry their lower ramp down by the
+    remaining axial projection, clipped to that ramp's band. Its adjoining vertical
+    walls, the skirt's support plane and the well's bottom remain on their own planes.
+    """
+    extra = air * (2.0 ** 0.5 - 1.0)
+    if extra <= 0.0:
+        return room
+    top = _pc.skirt_bottom_z - _pc.lower_footprint_straight
+    bottom = top - _pc.lower_ramp_height - extra
+    bounds = room.val().BoundingBox()
+    band = _slab(bounds.xmin, bounds.xmax, bounds.ymin, bounds.ymax, bottom, top)
+    return room.union(room.translate((0.0, 0.0, -extra)).intersect(band))
+
+
 def head_room(air: float):
     """THE ROOM THE CASE LEAVES A HEAD, struck `air` off it — `pump_case.cavity` in this
     module's frame.
@@ -160,8 +177,9 @@ def head_room(air: float):
     THE FITTED FACES COME WITH IT. The narrow-side skirt transition is one horizontal step
     8 mm below the bracket plane; `kamoer_kphm400.build_head` clips the pump to this same
     figure. The lower extension keeps its case-derived sections below that step."""
-    return _in_pump_frame(_pc.stepped_skirt_cavity(
+    room = _in_pump_frame(_pc.stepped_skirt_cavity(
         air, -skirt_depth, skirt_body_open_y_bounds, skirt_open_y_max))
+    return _normal_lower_ramp(room, air)
 
 
 def outlet_fore_miter(air: float):
@@ -239,8 +257,8 @@ def drop_well(air: float, support_top: float = None):
 
     The 8 mm skirt lands over one flat horizontal support plane, with ``skirt_support_air``
     below it. A continuous ``skirt_support_band`` land holds its X-, X+ and Y- flanks. The
-    measured 54 mm body passes through a 54.3 mm Y opening, leaving 5 mm of land on Y- and
-    3.482 mm on Y+; there the two tube passages leave support only between their inside edges.
+    measured 54 mm body passes through a 54.5 mm Y opening, leaving 4.9 mm of land on Y- and
+    3.332 mm on Y+; there the two tube passages leave support only between their inside edges.
     Those passages continue to the same 73 mm boundary as the upper well, with no flare or
     fractional X step.
     """
@@ -248,6 +266,7 @@ def drop_well(air: float, support_top: float = None):
         support_top = -(skirt_depth + skirt_support_air)
     room = _in_pump_frame(_pc.stepped_skirt_drop_well(
         air, support_top, skirt_body_open_y_bounds, skirt_open_y_max))
+    room = _normal_lower_ramp(room, air)
     extensions = _outlet_span_extensions(air)
     return room if extensions is None else room.union(extensions)
 
@@ -399,6 +418,22 @@ def selftest() -> int:
                          "shoulder with the cylinder")
     except Exception as exc:                                     # noqa: BLE001
         fails.append(str(exc))
+    try:
+        head = _in_pump_frame(_kp.build_head()).val()
+        well = drop_well(fits.running).val()
+        ramps = [face for face in head.Faces()
+                 if abs(face.normalAt().x) > 0.6 and abs(face.normalAt().z) > 0.6]
+        if not ramps:
+            fails.append("the pump reference has no lower flank ramps to verify")
+        for face in ramps:
+            mates = [mate for mate in well.Faces()
+                     if mate.normalAt().dot(face.normalAt()) > 1.0 - 1e-6]
+            gap = min((face.distance(mate) for mate in mates), default=float("inf"))
+            if abs(gap - fits.running) > 1e-6:
+                fails.append(f"the lower pump flank has {gap:.6f} mm normal air, "
+                             f"expected {fits.running:g}")
+    except Exception as exc:                                     # noqa: BLE001
+        fails.append(f"lower pump flank clearance: {exc}")
     for what, bad in (("a tray rooted short of the head's own edge", head_half),
                       ("a tray rooted on the pump's axis", 0.0)):
         try:

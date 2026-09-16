@@ -4,6 +4,7 @@ outer shell's face. The two ends are the same cup and the same plate divided dif
 top lid is solid to its full height and its cup one head pad shorter for it."""
 
 from world_workplane import WorldWorkplane, xy_plane_z_up
+import fits
 from _cold_core_interface import (
     wall_and_floor_thickness,
     outer_shell_wall,
@@ -152,7 +153,7 @@ def build_foam_cap(open_down=False):
     on all of them at once.
 
     A CONDUIT column runs the full height to the mouth rim, where the lid's plate lands on
-    it, and carries a ⌀[6.65 mm](FCAP_BORE_D) bore through itself and the floor under it. Only
+    it, and carries a ⌀[6.8 mm](FCAP_BORE_D) bore through itself and the floor under it. Only
     the mouth-up top cap has them: `cap_conduits` is everything that leaves by the top —
     `cap_fluid_conduits` and a reed cable apiece in the other two — and the service bay is on
     the top cap's outer face."""
@@ -202,6 +203,7 @@ def build_foam_cap_lid(open_down=False):
     plane, and the band they stood in is wall its cup does not carry."""
     plate_height = wall_and_floor_thickness if open_down else lid_total_height
     cbore_z0 = 0.0 if open_down else lid_total_height - head_cbore_depth
+    cbore_depth = head_cbore_depth + (fits.supported_surface if open_down else 0.0)
 
     lid = (
         WorldWorkplane(xy_plane_z_up)
@@ -220,7 +222,7 @@ def build_foam_cap_lid(open_down=False):
         .workplane(offset=cbore_z0)
         .pushPoints(attachment_xy_positions)
         .circle(head_cbore_radius)
-        .extrude(head_cbore_depth)
+        .extrude(cbore_depth)
     )
 
     # Pour hole on the +X half, off the centreline by whatever the deck-mount stations and

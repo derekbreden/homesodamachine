@@ -99,6 +99,8 @@ from _cold_core_interface import (  # noqa: E402
     carbonator_top_plate_z,
     carbonator_port_offset,
     wall_and_floor_thickness,
+    water_outlet_upper_climb_x,
+    water_outlet_drift_z,
     west_lane_mid_y,
 )
 from _foam_cap import cap_face_z  # noqa: E402
@@ -266,6 +268,8 @@ def _routes():
     b_wall_y = -reservoir_bulkhead_port_y                   # B crosses the +Y one
     carb_x = water_outlet_ring_crossing_x
     carb_riser_y = coil_standoff_y(carb_x)
+    carb_upper_x = water_outlet_upper_climb_x
+    carb_upper_y = coil_standoff_y(carb_upper_x)
     co2_x, co2_lane_y = cap_conduit_shell_xy("co2-in")
     carb_lane_y = cap_conduit_shell_xy("carb-water-out")[1]
     # The carbonated water's LEAN at the top, and the rise it owes anything under the carbonator.
@@ -282,14 +286,11 @@ def _routes():
     # and the last of the rise are one move, so two square corners on a step's own width
     # become two shallow ones on a diagonal half again as long. It ends on
     # `lane_step_top_z`, one stock arc under the shell's top.
-    carb_lane_step = abs(carb_lane_y - carb_riser_y)
-    #   THAT STEP CARRIES THE RUN BETWEEN TWO COLUMNS, because the climb cannot. The crossing
-    # below answers to the support ring's own slot and the cap bore to the deck above, so the
-    # two are not one column — but the climb between them is pinned by the annulus it rises in,
-    # between the wrapped coil and a reservoir pocket's centreward arc, and a lean of even a
-    # few millimetres puts it in the pocket. The step is already leaving that annulus for the
-    # lane, so it takes the X with it and costs no corner: the run keeps the four points it
-    # always had, and the crossing stays square on `water_outlet_climb_x`.
+    carb_lane_step = abs(carb_lane_y - carb_upper_y)
+    # The lower column clears the inlet copper and crosses the support ring's slot.
+    # Above that crossing a shallow lean reaches the upper column beside reservoir B.
+    # The final diagonal then takes both X and Y onto the cap conduit, retaining the
+    # stock bend radius at every corner and the conduit's unchanged endpoint.
     carb_cap_x = cap_conduit_shell_xy("carb-water-out")[0]
     water_in_y = cap_conduit_shell_xy("water-in")[1]
     a_riser_y = cap_conduit_shell_xy("reservoir-a")[1]
@@ -361,7 +362,9 @@ def _routes():
             (0.0, +carbonator_port_offset, plate_storey_z),
             (carb_x, +carbonator_port_offset, plate_storey_z),
             (carb_x, carb_riser_y, plate_storey_z + carb_co2_rise),
-            (carb_x, carb_riser_y, lane_step_top_z - carb_lane_step),
+            (carb_x, carb_riser_y, water_outlet_drift_z[0]),
+            (carb_upper_x, carb_upper_y, water_outlet_drift_z[1]),
+            (carb_upper_x, carb_upper_y, lane_step_top_z - carb_lane_step),
             (carb_cap_x, carb_lane_y, lane_step_top_z),
             (carb_cap_x, carb_lane_y, conduit_mouth_z),
         ],
