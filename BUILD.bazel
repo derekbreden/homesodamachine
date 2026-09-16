@@ -203,6 +203,7 @@ cp hardware/printed-parts/cold-core/_port_cuts.py $$O3
 genrule(
     name = "electronics-bay-sync",
     srcs = [
+        "brand/mark.svg",
         "pysrc/hardware/assembly/_electronics_bay_sync.py",
         "hardware/assembly/electronics-bay.md",
         "pysrc/hardware/cold-core-layout/_bom.py",
@@ -350,6 +351,7 @@ cp hardware/assembly/electronics-bay.md $$O1
 genrule(
     name = "enclosure-mechanical-sync",
     srcs = [
+        "brand/mark.svg",
         "pysrc/hardware/assembly/_enclosure_mechanical_sync.py",
         "hardware/assembly/enclosure-mechanical.md",
         "pysrc/hardware/cold-core-layout/_bom.py",
@@ -750,6 +752,7 @@ cp hardware/assembly/handwork.md $$O1
 genrule(
     name = "internal-plumbing-sync",
     srcs = [
+        "brand/mark.svg",
         "pysrc/hardware/assembly/_internal_plumbing_sync.py",
         "hardware/assembly/internal-plumbing.md",
         "pysrc/hardware/cold-core-layout/_bom.py",
@@ -1111,6 +1114,7 @@ cp hardware/assembly/wiring.md $$O1
 genrule(
     name = "cards-build",
     srcs = [
+        "brand/mark.svg",
         "pysrc/hardware/assembly/_acceptance_and_burn_in_sync.py",
         "pysrc/hardware/assembly/_cable_assemblies_sync.py",
         "pysrc/hardware/assembly/_finish_pack_ship_sync.py",
@@ -2437,6 +2441,7 @@ cp hardware/assembly/cards/tools/out/vc-vacuum-charge.png $$O13
 genrule(
     name = "render-scene-cards",
     srcs = [
+        "brand/mark.svg",
         "pysrc/hardware/assembly/scenes/_scenes.py",
         "pysrc/hardware/assembly/scenes/render_scene_cards.py",
         "pysrc/hardware/assembly/scenes/render_scenes.py",
@@ -3577,6 +3582,7 @@ cp hardware/install-guide/art/two-tees.png $$O16
 genrule(
     name = "enclosure-assembly",
     srcs = [
+        "brand/mark.svg",
         "pysrc/hardware/assembly/scenes/_scenes.py",
         "pysrc/hardware/assembly/scenes/render_scenes.py",
         "pysrc/hardware/cold-core-layout/_bom.py",
@@ -3894,6 +3900,7 @@ cp hardware/manifold-layout/enclosure-assembly.step.mesh $$O14
 genrule(
     name = "enclosure-box",
     srcs = [
+        "brand/mark.svg",
         "pysrc/hardware/cold-core-layout/_bom.py",
         "pysrc/hardware/cold-core-layout/_carbonator.py",
         "pysrc/hardware/cold-core-layout/_coil.py",
@@ -4902,6 +4909,7 @@ cp hardware/printed-parts/electronics/pcba-tray/pcba_tray.py $$O0
 genrule(
     name = "enclosure-dimensions",
     srcs = [
+        "brand/mark.svg",
         "pysrc/hardware/cold-core-layout/_bom.py",
         "pysrc/hardware/cold-core-layout/_carbonator.py",
         "pysrc/hardware/cold-core-layout/_coil.py",
@@ -5290,6 +5298,7 @@ cp hardware/printed-parts/enclosure/display-gasket/display_gasket.py $$O3
 genrule(
     name = "appliance-model",
     srcs = [
+        "brand/mark.svg",
         "pysrc/hardware/cold-core-layout/_bom.py",
         "pysrc/hardware/cold-core-layout/_carbonator.py",
         "pysrc/hardware/cold-core-layout/_coil.py",
@@ -5671,6 +5680,7 @@ cp hardware/printed-parts/enclosure/tee-carrier/README.md $$O30
 genrule(
     name = "nameplate-dimensions",
     srcs = [
+        "brand/mark.svg",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py",
@@ -5765,6 +5775,7 @@ cp hardware/printed-parts/enclosure/pump-tray/pump_case.py $$O0
 genrule(
     name = "pump-tray",
     srcs = [
+        "brand/mark.svg",
         "pysrc/hardware/cold-core-layout/_bom.py",
         "pysrc/hardware/cold-core-layout/_carbonator.py",
         "pysrc/hardware/cold-core-layout/_coil.py",
@@ -5912,6 +5923,7 @@ cp hardware/printed-parts/enclosure/pump-tray/README.md $$O1
 genrule(
     name = "valve-tray",
     srcs = [
+        "brand/mark.svg",
         "pysrc/hardware/cold-core-layout/_bom.py",
         "pysrc/hardware/cold-core-layout/_carbonator.py",
         "pysrc/hardware/cold-core-layout/_coil.py",
@@ -6059,6 +6071,7 @@ cp hardware/printed-parts/enclosure/valve-tray/README.md $$O1
 genrule(
     name = "y-wall-dimensions",
     srcs = [
+        "brand/mark.svg",
         "pysrc/hardware/cold-core-layout/_bom.py",
         "pysrc/hardware/cold-core-layout/_carbonator.py",
         "pysrc/hardware/cold-core-layout/_coil.py",
@@ -9015,6 +9028,7 @@ cp hardware/reference/wr1110-regulator/wr1110-regulator.step $$O0
 genrule(
     name = "bom-masses",
     srcs = [
+        "brand/mark.svg",
         "pysrc/hardware/cold-core-layout/_bom.py",
         "pysrc/hardware/cold-core-layout/_carbonator.py",
         "pysrc/hardware/cold-core-layout/_coil.py",
@@ -9502,6 +9516,7 @@ cp hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh $$O0
 genrule(
     name = "tube-routes",
     srcs = [
+        "brand/mark.svg",
         "hardware/assembly/scenes/_scenes.py",
         "hardware/assembly/scenes/render_scenes.py",
         "hardware/cold-core-layout/_bom.py",
@@ -9871,6 +9886,7 @@ cp hardware/service/pump-replacement.md $$O1
 genrule(
     name = "fluid-topology-sync",
     srcs = [
+        "brand/mark.svg",
         "pysrc/hardware/cold-core-layout/_bom.py",
         "pysrc/hardware/cold-core-layout/_carbonator.py",
         "pysrc/hardware/cold-core-layout/_coil.py",
@@ -11735,6 +11751,7 @@ sh_test(
     name = "render-scenes-selftest",
     srcs = ["tools/bazel/selftest.sh"],
     data = [
+        "brand/mark.svg",
         "hardware/assembly/scenes/_scenes.py",
         "hardware/assembly/scenes/render_scenes.py",
         "hardware/cold-core-layout/_bom.py",
@@ -12086,6 +12103,7 @@ sh_test(
     name = "scorecard-selftest",
     srcs = ["tools/bazel/selftest.sh"],
     data = [
+        "brand/mark.svg",
         "hardware/assembly/scenes/_scenes.py",
         "hardware/assembly/scenes/render_scenes.py",
         "hardware/cold-core-layout/_bom.py",
@@ -12437,6 +12455,7 @@ sh_test(
     name = "enclosure-assembly-selftest",
     srcs = ["tools/bazel/selftest.sh"],
     data = [
+        "brand/mark.svg",
         "hardware/assembly/scenes/_scenes.py",
         "hardware/assembly/scenes/render_scenes.py",
         "hardware/cold-core-layout/_bom.py",
@@ -12788,6 +12807,7 @@ sh_test(
     name = "manifold-layout-selftest",
     srcs = ["tools/bazel/selftest.sh"],
     data = [
+        "brand/mark.svg",
         "hardware/assembly/scenes/_scenes.py",
         "hardware/assembly/scenes/render_scenes.py",
         "hardware/cold-core-layout/_bom.py",
@@ -13150,6 +13170,7 @@ sh_test(
     name = "bulkhead-ring-selftest",
     srcs = ["tools/bazel/selftest.sh"],
     data = [
+        "brand/mark.svg",
         "hardware/assembly/scenes/_scenes.py",
         "hardware/assembly/scenes/render_scenes.py",
         "hardware/cold-core-layout/_bom.py",
@@ -13501,6 +13522,7 @@ sh_test(
     name = "display-cover-selftest",
     srcs = ["tools/bazel/selftest.sh"],
     data = [
+        "brand/mark.svg",
         "hardware/assembly/scenes/_scenes.py",
         "hardware/assembly/scenes/render_scenes.py",
         "hardware/cold-core-layout/_bom.py",
@@ -13852,6 +13874,7 @@ sh_test(
     name = "nameplate-selftest",
     srcs = ["tools/bazel/selftest.sh"],
     data = [
+        "brand/mark.svg",
         "hardware/assembly/scenes/_scenes.py",
         "hardware/assembly/scenes/render_scenes.py",
         "hardware/cold-core-layout/_bom.py",
@@ -14203,6 +14226,7 @@ sh_test(
     name = "pump-tray-selftest",
     srcs = ["tools/bazel/selftest.sh"],
     data = [
+        "brand/mark.svg",
         "hardware/assembly/scenes/_scenes.py",
         "hardware/assembly/scenes/render_scenes.py",
         "hardware/cold-core-layout/_bom.py",
@@ -14554,6 +14578,7 @@ sh_test(
     name = "tee-carrier-selftest",
     srcs = ["tools/bazel/selftest.sh"],
     data = [
+        "brand/mark.svg",
         "hardware/assembly/scenes/_scenes.py",
         "hardware/assembly/scenes/render_scenes.py",
         "hardware/cold-core-layout/_bom.py",
@@ -14905,6 +14930,7 @@ sh_test(
     name = "valve-tray-selftest",
     srcs = ["tools/bazel/selftest.sh"],
     data = [
+        "brand/mark.svg",
         "hardware/assembly/scenes/_scenes.py",
         "hardware/assembly/scenes/render_scenes.py",
         "hardware/cold-core-layout/_bom.py",
@@ -15256,6 +15282,7 @@ sh_test(
     name = "faucet-display-cover-selftest",
     srcs = ["tools/bazel/selftest.sh"],
     data = [
+        "brand/mark.svg",
         "hardware/assembly/scenes/_scenes.py",
         "hardware/assembly/scenes/render_scenes.py",
         "hardware/cold-core-layout/_bom.py",
@@ -15611,6 +15638,7 @@ sh_test(
     name = "tube-collar-selftest",
     srcs = ["tools/bazel/selftest.sh"],
     data = [
+        "brand/mark.svg",
         "hardware/assembly/scenes/_scenes.py",
         "hardware/assembly/scenes/render_scenes.py",
         "hardware/cold-core-layout/_bom.py",
@@ -15962,6 +15990,7 @@ sh_test(
     name = "tee-valve-bow-trial-selftest",
     srcs = ["tools/bazel/selftest.sh"],
     data = [
+        "brand/mark.svg",
         "hardware/assembly/scenes/_scenes.py",
         "hardware/assembly/scenes/render_scenes.py",
         "hardware/cold-core-layout/_bom.py",
@@ -16350,6 +16379,7 @@ sh_test(
     name = "fuse-clamp-selftest",
     srcs = ["tools/bazel/selftest.sh"],
     data = [
+        "brand/mark.svg",
         "hardware/assembly/scenes/_scenes.py",
         "hardware/assembly/scenes/render_scenes.py",
         "hardware/cold-core-layout/_bom.py",
@@ -16712,6 +16742,7 @@ sh_test(
     name = "kit-selftest",
     srcs = ["tools/bazel/selftest.sh"],
     data = [
+        "brand/mark.svg",
         "hardware/assembly/scenes/_scenes.py",
         "hardware/assembly/scenes/render_scenes.py",
         "hardware/cold-core-layout/_bom.py",
@@ -17064,6 +17095,7 @@ sh_test(
     name = "compressor-selftest",
     srcs = ["tools/bazel/selftest.sh"],
     data = [
+        "brand/mark.svg",
         "hardware/assembly/scenes/_scenes.py",
         "hardware/assembly/scenes/render_scenes.py",
         "hardware/cold-core-layout/_bom.py",
@@ -17441,6 +17473,7 @@ sh_test(
     name = "funnel-drain-stub-selftest",
     srcs = ["tools/bazel/selftest.sh"],
     data = [
+        "brand/mark.svg",
         "hardware/assembly/scenes/_scenes.py",
         "hardware/assembly/scenes/render_scenes.py",
         "hardware/cold-core-layout/_bom.py",
@@ -17792,6 +17825,7 @@ sh_test(
     name = "iec-c14-inlet-selftest",
     srcs = ["tools/bazel/selftest.sh"],
     data = [
+        "brand/mark.svg",
         "hardware/assembly/scenes/_scenes.py",
         "hardware/assembly/scenes/render_scenes.py",
         "hardware/cold-core-layout/_bom.py",
@@ -18157,6 +18191,7 @@ sh_test(
     name = "molex-micro-fit-4-selftest",
     srcs = ["tools/bazel/selftest.sh"],
     data = [
+        "brand/mark.svg",
         "hardware/assembly/scenes/_scenes.py",
         "hardware/assembly/scenes/render_scenes.py",
         "hardware/cold-core-layout/_bom.py",
@@ -18508,6 +18543,7 @@ sh_test(
     name = "neofit-bulkhead-selftest",
     srcs = ["tools/bazel/selftest.sh"],
     data = [
+        "brand/mark.svg",
         "hardware/assembly/scenes/_scenes.py",
         "hardware/assembly/scenes/render_scenes.py",
         "hardware/cold-core-layout/_bom.py",
@@ -18859,6 +18895,7 @@ sh_test(
     name = "riteav-keystone-selftest",
     srcs = ["tools/bazel/selftest.sh"],
     data = [
+        "brand/mark.svg",
         "hardware/assembly/scenes/_scenes.py",
         "hardware/assembly/scenes/render_scenes.py",
         "hardware/cold-core-layout/_bom.py",
@@ -19256,6 +19293,7 @@ sh_test(
     name = "bom-totals-selftest",
     srcs = ["tools/bazel/selftest.sh"],
     data = [
+        "brand/mark.svg",
         "hardware/assembly/scenes/_scenes.py",
         "hardware/assembly/scenes/render_scenes.py",
         "hardware/cold-core-layout/_bom.py",
@@ -19658,6 +19696,7 @@ sh_test(
     name = "facts-selftest",
     srcs = ["tools/bazel/selftest.sh"],
     data = [
+        "brand/mark.svg",
         "hardware/assembly/scenes/_scenes.py",
         "hardware/assembly/scenes/render_scenes.py",
         "hardware/cold-core-layout/_bom.py",
@@ -20037,6 +20076,7 @@ sh_test(
     name = "overlap-selftest",
     srcs = ["tools/bazel/selftest.sh"],
     data = [
+        "brand/mark.svg",
         "hardware/assembly/scenes/_scenes.py",
         "hardware/assembly/scenes/render_scenes.py",
         "hardware/cold-core-layout/_bom.py",
@@ -20437,6 +20477,7 @@ sh_test(
     name = "check-show-faces-selftest",
     srcs = ["tools/bazel/selftest.sh"],
     data = [
+        "brand/mark.svg",
         "hardware/assembly/scenes/_scenes.py",
         "hardware/assembly/scenes/render_scenes.py",
         "hardware/cold-core-layout/_bom.py",
@@ -20789,6 +20830,7 @@ sh_test(
     name = "fit-selftest",
     srcs = ["tools/bazel/selftest.sh"],
     data = [
+        "brand/mark.svg",
         "hardware/assembly/scenes/_scenes.py",
         "hardware/assembly/scenes/render_scenes.py",
         "hardware/cold-core-layout/_bom.py",
@@ -21181,6 +21223,7 @@ sh_test(
     name = "lanes-selftest",
     srcs = ["tools/bazel/selftest.sh"],
     data = [
+        "brand/mark.svg",
         "hardware/assembly/scenes/_scenes.py",
         "hardware/assembly/scenes/render_scenes.py",
         "hardware/cold-core-layout/_bom.py",
@@ -21546,6 +21589,7 @@ sh_test(
     name = "probe-selftest",
     srcs = ["tools/bazel/selftest.sh"],
     data = [
+        "brand/mark.svg",
         "hardware/assembly/scenes/_scenes.py",
         "hardware/assembly/scenes/render_scenes.py",
         "hardware/cold-core-layout/_bom.py",
