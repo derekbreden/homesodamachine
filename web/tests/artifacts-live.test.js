@@ -19,6 +19,7 @@ import { execFile } from "node:child_process";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { promisify } from "node:util";
+import { pathToFileURL } from "node:url";
 
 import { pointersMoved, refreshArtifacts, retireSolids } from "../lib/artifacts-live.js";
 
@@ -127,3 +128,101 @@ test("CAD adoption and retirement keep the committed install guide", async () =>
     await rm(root, { recursive: true, force: true });
   }
 });
+
+for (const failure of ["download-error", "stale-success"]) {
+  test(`CAD adoption backs off after ${failure} and verifies recovery`, async (t) => {
+    const root = await mkdtemp(path.join(tmpdir(), "hsm-adoption-retry-"));
+    const realFetch = globalThis.fetch;
+    t.mock.timers.enable({ apis: ["Date"], now: 60_000 });
+    try {
+      for (const dir of ["hardware", "web/scripts", "web/public", "web/lib", "web/contracts"]) {
+        await mkdir(path.join(root, dir), { recursive: true });
+      }
+      await writeFile(path.join(root, "package.json"), '{"type":"module"}');
+      for (const relative of ["lib/artifacts-live.js", "contracts/documents.js", "contracts/scorecard-sidecar.js"]) {
+        await copyFile(new URL("../" + relative, import.meta.url), path.join(root, "web", relative));
+      }
+      const have = {
+        bundle: { sha256: "bundle" },
+        release: { url: "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/bundle.gz" },
+        solids: { "hardware/body.step": "old" },
+      };
+      let next = { ...have, solids: { "hardware/body.step": "new" } };
+      const pointerPath = path.join(root, "hardware/cad-artifacts.json");
+      await writeFile(pointerPath, JSON.stringify(have));
+      await writeFile(path.join(root, "hardware/body.step"), "old");
+      await writeFile(path.join(root, "mode"), failure);
+      await writeFile(path.join(root, "web/scripts/fetch-cad-artifacts.mjs"), `
+        import { readFileSync, writeFileSync, appendFileSync } from 'node:fs';
+        const root = new URL('../../', import.meta.url);
+        const check = process.argv.includes('--check');
+        appendFileSync(new URL('calls', root), check ? 'check\\n' : 'download\\n');
+        const mode = readFileSync(new URL('mode', root), 'utf8');
+        const body = new URL('hardware/body.step', root);
+        if (check) process.exit(readFileSync(body, 'utf8') === 'new' ? 0 : 1);
+        if (mode === 'download-error') process.exit(1);
+        if (mode === 'recovered') writeFileSync(body, 'new');
+      `);
+      globalThis.fetch = async (url) => {
+        const value = String(url).includes("cad-artifacts.json") ? next : { checks: [] };
+        return new Response(JSON.stringify({
+          encoding: "base64", content: Buffer.from(JSON.stringify(value)).toString("base64"),
+        }));
+      };
+      const module = await import(pathToFileURL(path.join(root, "web/lib/artifacts-live.js")));
+      const events = [];
+      const context = {
+        broadcast(event) { events.push(event); }, setRecent() {}, commit: "fixture",
+        hardwareDir: path.join(root, "hardware"), detect: [async () => ["body.step"]],
+      };
+      const failed = await module.refreshArtifacts(context, { force: true });
+      assert.ok(failed.error, "failed download or stale bytes must not complete adoption");
+      assert.deepEqual(JSON.parse(await readFile(pointerPath, "utf8")), have);
+      assert.equal(events.length, 0, "the viewer is not told to load an unverified adoption");
+
+      // Both an explicit post and the ordinary poll keep checking the publication,
+      // but neither launches a child process until its retry delay expires.
+      for (const delay of [120_000, 240_000, 480_000, 960_000, 1_800_000]) {
+        const before = await readFile(path.join(root, "calls"), "utf8");
+        const held = await module.refreshArtifacts(context, { force: true });
+        assert.equal(held.retryAt, Date.now() + delay);
+        t.mock.timers.tick(delay - 1);
+        const early = await module.refreshArtifacts(context);
+        assert.equal(early.retryAt, held.retryAt);
+        assert.equal(await readFile(path.join(root, "calls"), "utf8"), before,
+          "a repeated failure does not hash the tree during backoff");
+        assert.deepEqual(JSON.parse(await readFile(pointerPath, "utf8")), have);
+        t.mock.timers.tick(1);
+        assert.ok((await module.refreshArtifacts(context, { force: true })).error);
+      }
+
+      const capped = await module.refreshArtifacts(context, { force: true });
+      assert.equal(capped.retryAt, Date.now() + 1_800_000, "the delay stays capped at 30 minutes");
+
+      // New pointer bytes get an immediate attempt even while the previous
+      // publication is backing off, and start their own delay on failure.
+      next = { ...next, bundle: { sha256: "another-bundle" } };
+      assert.ok((await module.refreshArtifacts(context, { force: true })).error);
+      const fresh = await module.refreshArtifacts(context, { force: true });
+      assert.equal(fresh.retryAt, Date.now() + 120_000);
+
+      await writeFile(path.join(root, "mode"), "recovered");
+      t.mock.timers.tick(120_000);
+      const beforeRecovery = (await readFile(path.join(root, "calls"), "utf8")).trim().split("\n");
+      const recovered = await module.refreshArtifacts(context, { force: true });
+      assert.equal(recovered.moved, true, "the same publication is retried after storage recovers");
+      assert.deepEqual(JSON.parse(await readFile(pointerPath, "utf8")), next);
+      assert.equal(await readFile(path.join(root, "hardware/body.step"), "utf8"), "new");
+      assert.equal(events.length, 1);
+      const afterRecovery = (await readFile(path.join(root, "calls"), "utf8")).trim().split("\n");
+      assert.deepEqual(afterRecovery.slice(beforeRecovery.length), ["download", "check"]);
+      assert.deepEqual(await module.refreshArtifacts(context, { force: true }),
+        { moved: false, scorecards: 0 }, "success clears the retry state");
+      assert.equal((await readFile(path.join(root, "calls"), "utf8")).trim().split("\n").length,
+        afterRecovery.length, "an adopted publication requires no further child processes");
+    } finally {
+      globalThis.fetch = realFetch;
+      await rm(root, { recursive: true, force: true });
+    }
+  });
+}
