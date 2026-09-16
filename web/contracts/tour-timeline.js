@@ -14,6 +14,25 @@ export function locateTime(timeline, milliseconds) {
   return { ...beat, time, local: time - beat.start, progress: (time - beat.start) / beat.duration };
 }
 
+export function motionEnd(step) {
+  return Math.max(step.motion ?? step.dwell * 0.7,
+    ...Object.values(step.motions || {}).map((range) => range[1]));
+}
+
+export function stageAt(steps, index, milliseconds) {
+  const step = steps[index];
+  const from = steps[index - 1]?.reveal || {};
+  const to = step.reveal;
+  const state = {};
+  for (const key of new Set([...Object.keys(from), ...Object.keys(to)])) {
+    const [start, end] = step.motions?.[key] || [0, step.motion ?? step.dwell * 0.7];
+    const p = Math.max(0, Math.min(1, (milliseconds - start) / Math.max(1, end - start)));
+    const eased = p * p * (3 - 2 * p);
+    state[key] = (from[key] || 0) + ((to[key] || 0) - (from[key] || 0)) * eased;
+  }
+  return state;
+}
+
 export function captionVtt(steps) {
   const stamp = (ms) => {
     const seconds = Math.floor(ms / 1000);

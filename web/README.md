@@ -115,10 +115,13 @@ The Puppeteer escape hatch `window.__hsm` is set from `main.js` after all module
 
 ## Machine tour
 
-`/tour` plays the 111.5-second sequence in `contracts/tour-water.js`: timed captions,
-camera poses, highlighted bodies and exploded positions. The enclosure opens before
-the internal scenes; the cold core and carbonator have their own reveal motions.
-`public/js/tour/reveal-plan.js` holds the component motions and screw stations.
+`/tour` plays the 130-second sequence in `contracts/tour-water.js`: timed captions,
+camera poses, highlighted bodies and exploded positions. Screws release the enclosure
+before the internal scenes. The cold core isolates, sheds its caps and printed shell,
+and separates its coil, carbonator and reservoirs. Labels identify the four subjects
+while the camera moves between them. Reassembly reverses those motions before the
+rest of the machine returns. `public/js/tour/reveal-plan.js` holds component motions
+and screw stations; per-channel timings live alongside the captions.
 
 The caption file is `/tour/captions.vtt`; the narration text is `/tour/script.txt`.
 `?paused=1` opens a still frame, and `#10` opens scene ten. The browser's `window.__tour`

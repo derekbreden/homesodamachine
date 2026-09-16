@@ -182,7 +182,6 @@ function bodiesNamed(names) {
   for (const m of hostGroup.children) {
     if (!m.isMesh || m.userData.isXrayEdge) continue;
     if (!m.name || !want.has(m.name)) continue;
-    if (m.visible === false) continue;   // taken out of the view: taken out of the light
     if (seen.has(m.geometry)) continue;  // one highlight per solid
     seen.add(m.geometry);
     out.push(m);
@@ -208,11 +207,15 @@ function fill(key, tier, hue, names) {
   layer.sig = sig;
   for (const c of [...layer.group.children]) layer.group.remove(c);
   for (const mesh of bodiesNamed(list)) {
-    const edge = new LineSegments2(edgesFor(mesh.geometry), edgeMat(tier, hue));
-    edge.userData.tourSource = mesh;
-    edge.matrixAutoUpdate = false;
-    layer.group.add(edge);
-    if (TIERS[tier].shell && fillable(mesh)) {
+    // The coil's dense tessellation reads clearly with a surface tint.
+    const surfaceOnly = mesh.name === "cold-core/evap-coil";
+    if (!surfaceOnly) {
+      const edge = new LineSegments2(edgesFor(mesh.geometry), edgeMat(tier, hue));
+      edge.userData.tourSource = mesh;
+      edge.matrixAutoUpdate = false;
+      layer.group.add(edge);
+    }
+    if (TIERS[tier].shell && (surfaceOnly || fillable(mesh))) {
       const s = new THREE.Mesh(mesh.geometry, shellMat(hue));
       s.renderOrder = TIERS[tier].order - 1;
       s.userData.tourSource = mesh;
@@ -256,7 +259,7 @@ export function paint({ paths = [], hue = "water", trail, active, out, crest,
       const source = child.userData.tourSource;
       source.updateMatrix();
       child.matrix.copy(source.matrix);
-      child.visible = source.visible;
+      child.visible = source.visible && (source.userData.tourOpacity ?? 1) > 0.05;
     }
   }
 
