@@ -113,6 +113,18 @@ State sharing pattern is **one shared object** (`state.js`'s exported `state`). 
 
 The Puppeteer escape hatch `window.__hsm` is set from `main.js` after all modules have loaded; its shape is part of the contract with [`tools/render/render-step*.js`](/tools/render/) (which lives at the repo root and imports `web/server.js`) and must not change without updating those.
 
+## Machine tour
+
+`/tour` plays the 111.5-second sequence in `contracts/tour-water.js`: timed captions,
+camera poses, highlighted bodies and exploded positions. The enclosure opens before
+the internal scenes; the cold core and carbonator have their own reveal motions.
+`public/js/tour/reveal-plan.js` holds the component motions and screw stations.
+
+The caption file is `/tour/captions.vtt`; the narration text is `/tour/script.txt`.
+`?paused=1` opens a still frame, and `#10` opens scene ten. The browser's `window.__tour`
+exposes `seekTime(milliseconds)` and `advance(milliseconds)` for deterministic capture,
+along with `timeline`, `renderer`, and `camera`. All timing uses the same caption timeline.
+
 ## Tube shape review
 
 Open the enclosure assembly at `/3d`, then turn on **Tubes** in the Show tools. Choose an

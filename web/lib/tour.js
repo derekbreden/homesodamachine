@@ -9,6 +9,8 @@ import path from "path";
 import fs from "fs";
 import { fileURLToPath } from "url";
 import { renderHead, renderNav, renderFooter } from "./shell.js";
+import { TOUR } from "../contracts/tour-water.js";
+import { captionVtt } from "../contracts/tour-timeline.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const FRAGMENT = path.join(__dirname, "templates", "tour-body.html");
@@ -29,6 +31,14 @@ export function mountTourRoutes(app) {
   }
 
   app.get("/tour", render);
+  app.get("/tour/captions.vtt", (_req, res) => {
+    res.type("text/vtt").send(captionVtt(TOUR.steps));
+  });
+  app.get("/tour/script.txt", (_req, res) => {
+    res.type("text/plain").send(TOUR.title + "\n\n" + TOUR.steps.map((s, i) =>
+      `${i + 1}. ${s.title}\n${s.body}`,
+    ).join("\n\n") + "\n");
+  });
   // /tour/5 is the same page; the client reads the number off the path and
   // rewrites it as the hash it keeps the position in.
   app.get("/tour/:step", (req, res) => {

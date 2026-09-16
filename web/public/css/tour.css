@@ -1,365 +1,199 @@
-/* /tour — the walkthrough page. The stage takes whatever the nav leaves and
-   everything else floats over it: the machine is the page, and the words are
-   a caption on it. */
-
+/* The picture and captions each have their own space. The player reads the
+   footer height when sizing its 3D viewport. */
 .tour-stage {
+  --tour-footer-height: 230px;
+  --tour-accent: #79ded4;
+  --tour-ink: #f2f3f6;
+  --tour-muted: #9cacc1;
   flex: 1;
   min-height: 0;
   position: relative;
+  background: #101923;
 }
-
-/* The dip a model swap passes through — the background colour, brought up over
-   the picture while the next model lands and taken back down as it comes in.
-   The camera keeps moving underneath, so the move reads as passing through a
-   wall rather than as a cut. */
+.tour-stage:fullscreen { height: 100dvh; }
+.tour-picture::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 95px;
+  background: linear-gradient(#101923cf, transparent);
+  pointer-events: none;
+  z-index: 3;
+}
+.tour-stage > canvas.cad-viewport { height: calc(100% - var(--tour-footer-height)); }
 .tour-veil {
   position: absolute;
-  inset: 0;
+  inset: 0 0 var(--tour-footer-height);
   z-index: 12;
   background: var(--bg);
   opacity: 0;
   pointer-events: none;
   transition: opacity 90ms linear;
 }
-
-/* THE PICKER'S PANEL IS NOT PART OF A WALKTHROUGH. Isolating a sub-assembly
-   puts bodies in `state.hiddenComponents`, and component-picker.js shows its
-   panel whenever that set is non-empty — reasonably, because on /3d a hidden
-   body needs a way back. Here the same rule opened a list of 137 hidden bodies
-   over the narration on the beat that enters the vessel. The panel is built and
-   parented as always; it is only not drawn, so nothing about the picker's own
-   surface changes and this cannot reach /3d. */
 #tour-stage > .component-panel { display: none; }
-
-/* The loader's scrim and pill stand ABOVE the dip. A model swap raises the
-   veil and then waits for the next model, and on a cold cache that wait is
-   seconds — a page holding a flat colour with nothing on it reads as broken
-   where the same page holding "Loading…" reads as working. */
-.tour-stage > .cad-loading { z-index: 13; }
-
+.tour-stage > .cad-loading { z-index: 13; bottom: var(--tour-footer-height); }
+.tour-stage > canvas.cad-gizmo { display: none; }
 #tour-hud-host { position: absolute; inset: 0; pointer-events: none; z-index: 14; }
-.tour-hud { position: absolute; inset: 0; }
-.tour-hud > * { pointer-events: auto; }
+.tour-hud { position: absolute; inset: 0; color: var(--tour-ink); }
+.tour-hud button { font-family: inherit; touch-action: manipulation; }
+.tour-hud button:focus-visible { outline: 2px solid var(--tour-accent); outline-offset: 4px; }
 
-/* ── the banner ─────────────────────────────────────────────────────────── */
 .tour-banner {
   position: absolute;
-  top: calc(env(safe-area-inset-top, 0px) + 16px);
-  left: calc(env(safe-area-inset-left, 0px) + 18px);
+  top: calc(env(safe-area-inset-top, 0px) + 22px);
+  left: calc(env(safe-area-inset-left, 0px) + 30px);
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 5px;
   pointer-events: none;
-  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.7);
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.7);
 }
-.tour-banner-title { font-size: 15px; font-weight: 600; letter-spacing: 0.01em; }
-.tour-banner-sub { font-size: 12px; color: var(--text-2); }
+.tour-banner-title { font-size: 12px; font-weight: 650; letter-spacing: 0.14em; text-transform: uppercase; }
+.tour-banner-sub { font-size: 12px; color: var(--tour-muted); }
 
-/* ── the narration card ─────────────────────────────────────────────────── */
-.tour-card {
+.tour-footer {
   position: absolute;
-  left: calc(env(safe-area-inset-left, 0px) + 18px);
-  bottom: calc(env(safe-area-inset-bottom, 0px) + 92px);
-  width: min(30rem, calc(100vw - 36px));
-  padding: 16px 18px 14px;
-  background: rgba(35, 35, 66, 0.9);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  box-sizing: border-box;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: var(--tour-footer-height);
+  padding: 14px max(30px, env(safe-area-inset-left, 0px)) max(14px, env(safe-area-inset-bottom, 0px));
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, transparent, rgba(3, 9, 23, 0.25) 30%, rgba(3, 9, 23, 0.6));
+  pointer-events: none;
+}
+.tour-card {
+  width: min(960px, 100%);
+  margin: 0 auto;
+  min-height: 0;
+  flex: 1;
   opacity: 0;
-  transform: translateY(8px);
-  transition: opacity 260ms ease, transform 260ms ease;
+  transform: translateY(5px);
+  transition: opacity 170ms ease, transform 240ms ease;
 }
 .tour-card.in { opacity: 1; transform: none; }
+.tour-card.gone, .tour-hud.captions-off .tour-card { opacity: 0; transform: translateY(5px); }
+.tour-kicker { display: flex; align-items: baseline; gap: 13px; margin-bottom: 7px; font-size: 10px; line-height: 1.4; letter-spacing: 0.16em; text-transform: uppercase; }
+.tour-kicker-name { color: var(--tour-accent); transition: color 500ms; }
+.tour-kicker-count { color: var(--tour-muted); font-variant-numeric: tabular-nums; letter-spacing: 0.04em; }
+.tour-title { margin: 0 0 7px; font-size: clamp(21px, 2.4vw, 27px); line-height: 1.2; font-weight: 600; letter-spacing: -0.025em; }
+.tour-body { max-width: 80ch; margin: 0; font-size: 15px; line-height: 1.55; color: #cad3df; text-wrap: pretty; }
+.tour-chips { flex-wrap: wrap; gap: 5px; margin-top: 8px; }
+.tour-chip { padding: 1px 6px; font: 10px/1.6 ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--tour-accent); background: #061329; border-radius: 4px; }
+.tour-chip-missing { color: #ffa6a6; text-decoration: line-through; }
 
-.tour-kicker {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 12px;
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  margin-bottom: 6px;
-}
-.tour-kicker-name { color: #35e0d0; }
-.tour-kicker-count { color: var(--text-3); letter-spacing: 0.08em; flex: none; }
-.tour-title { margin: 0 0 6px; font-size: 20px; line-height: 1.25; font-weight: 600; }
-.tour-body { margin: 0; font-size: 14px; line-height: 1.55; color: #d6d6e4; }
-
-.tour-chips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 11px; }
-.tour-chip {
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 10.5px;
-  line-height: 1.6;
-  padding: 1px 7px;
-  border-radius: 999px;
-  color: #9fe9e0;
-  background: color-mix(in srgb, #35e0d0 14%, transparent);
-  border: 1px solid color-mix(in srgb, #35e0d0 34%, transparent);
-}
-
-/* ── transport ──────────────────────────────────────────────────────────── */
-.tour-bar {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: calc(env(safe-area-inset-bottom, 0px) + 18px);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 12px;
-  max-width: calc(100vw - 24px);
-  background: rgba(16, 49, 156, 0.86);
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-}
+.tour-transport { width: min(960px, 100%); margin: 0 auto; pointer-events: auto; }
+.tour-rail { display: flex; align-items: flex-end; gap: 10px; margin-top: 10px; }
+.tour-chapter { min-width: 0; flex-basis: 0; }
+.tour-chapter-label { display: block; color: #8090a7; font-size: 10px; line-height: 1.4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: color 200ms; }
+.tour-chapter.now .tour-chapter-label { color: var(--tour-ink); }
+.tour-chapter-beats { display: flex; gap: 3px; }
+.tour-dot { position: relative; flex: 1; min-width: 0; height: 21px; padding: 0; border: 0; background: transparent; cursor: pointer; }
+.tour-dot::before, .tour-dot-fill { position: absolute; top: 8px; left: 0; right: 0; height: 3px; border-radius: 3px; }
+.tour-dot::before { content: ""; background: rgba(162, 184, 213, 0.23); transition: background 160ms; }
+.tour-dot-fill { background: var(--tour-accent); transform: scaleX(var(--fill-x, 0)); transform-origin: left; opacity: 0; transition: background 500ms; }
+.tour-dot.done .tour-dot-fill, .tour-dot.now .tour-dot-fill { opacity: 1; }
+.tour-dot.done .tour-dot-fill { opacity: 0.55; }
+.tour-dot:hover::before { background: rgba(202, 220, 244, 0.55); }
+.tour-dot.now::before { background: rgba(202, 220, 244, 0.32); }
+.tour-bar { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+.tour-playback, .tour-options { display: flex; align-items: center; gap: 6px; }
 .tour-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 34px; height: 34px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   border: 1px solid transparent;
   background: transparent;
-  color: var(--text);
+  color: var(--tour-ink);
   cursor: pointer;
 }
-.tour-btn:hover { background: var(--surface-2); }
-.tour-play { background: var(--surface-2); border-color: var(--border); }
-
-/* One dot per beat. `--fill` is how far through the beat the player is, so the
-   rail is a progress bar and a table of contents at once. */
-/* Chapters, and the beats inside them. The gap between groups is what makes
-   thirty ticks readable as eight things. */
-.tour-rail { display: flex; align-items: center; gap: 9px; }
-.tour-chapter { display: flex; align-items: center; gap: 3px; }
-.tour-dot {
-  position: relative;
-  width: 8px; height: 26px;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  cursor: pointer;
-}
-.tour-dot::before {
-  content: "";
-  position: absolute;
-  left: 2px; right: 2px; top: 11px;
-  height: 4px;
-  border-radius: 2px;
-  background: var(--border);
-}
-.tour-dot.done::before { background: color-mix(in srgb, #4d8dff 60%, transparent); }
-.tour-dot-fill {
-  position: absolute;
-  left: 2px; right: 2px; top: 11px;
-  height: 4px;
-  border-radius: 2px;
-  background: #35e0d0;
-  opacity: 0;
-  transform: scaleX(0);
-  transform-origin: left;
-}
-.tour-dot.now { width: 18px; }
-.tour-dot.now .tour-dot-fill { opacity: 1; transform: scaleX(var(--fill-x, 0)); }
-.tour-dot:hover::before { background: var(--text-2); }
-
-.tour-chip-btn {
-  font-size: 11.5px;
-  padding: 5px 10px;
-  border-radius: 999px;
-  border: 1px solid var(--border);
-  background: transparent;
-  color: var(--text-2);
-  cursor: pointer;
-  white-space: nowrap;
-}
-.tour-chip-btn:hover { color: var(--text); border-color: var(--text-3); }
-.tour-chip-btn.on {
-  color: var(--text);
-  border-color: color-mix(in srgb, var(--accent) 60%, transparent);
-  background: color-mix(in srgb, var(--accent) 22%, transparent);
-}
-/* The pose readout is a tool for whoever is writing the tour, not for whoever
-   is watching it. */
+.tour-btn:hover { background: rgba(190, 213, 245, 0.1); }
+.tour-btn:disabled { opacity: 0.28; cursor: default; }
+.tour-btn:disabled:hover { background: transparent; }
+.tour-play { width: 40px; height: 40px; border-color: rgba(192, 218, 244, 0.2); background: rgba(190, 213, 245, 0.06); }
+.tour-play:hover { border-color: var(--tour-accent); }
+.tour-time { padding-left: 10px; color: var(--tour-muted); font-size: 12px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.tour-chip-btn { min-width: 36px; min-height: 34px; padding: 5px 8px; border: 1px solid transparent; border-radius: 6px; background: transparent; color: var(--tour-muted); font-size: 12px; cursor: pointer; white-space: nowrap; }
+.tour-chip-btn:hover { color: var(--tour-ink); background: rgba(190, 213, 245, 0.08); }
+.tour-chip-btn.on { color: var(--tour-ink); }
+.tour-captions { font-size: 11px; font-weight: 650; letter-spacing: 0.03em; position: relative; }
+.tour-captions.on::after { content: ""; position: absolute; bottom: 3px; left: 11px; right: 11px; height: 2px; background: var(--tour-accent); border-radius: 2px; }
 .tour-dev { display: none; }
-html.dev-mode .tour-dev { display: inline-block; }
+html.dev-mode .tour-dev { display: inline-flex; }
 
-/* ── grabbed ────────────────────────────────────────────────────────────── */
 .tour-resume {
   position: absolute;
-  top: calc(env(safe-area-inset-top, 0px) + 16px);
-  left: 50%;
-  transform: translateX(-50%) translateY(-8px);
-  padding: 8px 18px;
-  font-size: 13px;
-  border-radius: 999px;
-  border: 1px solid color-mix(in srgb, #35e0d0 50%, transparent);
-  background: color-mix(in srgb, #35e0d0 18%, rgba(16, 49, 156, 0.92));
-  color: var(--text);
+  top: calc(env(safe-area-inset-top, 0px) + 22px);
+  right: calc(env(safe-area-inset-right, 0px) + 30px);
+  transform: translateY(-5px);
+  padding: 9px 14px;
+  font-size: 12px;
+  border: 1px solid rgba(121, 222, 212, 0.5);
+  border-radius: 7px;
+  background: rgba(6, 19, 41, 0.9);
+  color: var(--tour-ink);
   cursor: pointer;
   opacity: 0;
+  visibility: hidden;
   pointer-events: none;
-  transition: opacity 200ms ease, transform 200ms ease;
+  transition: opacity 180ms ease, transform 180ms ease, visibility 180ms;
 }
-.tour-hud.grabbed .tour-resume {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translateX(-50%) translateY(0);
-}
+.tour-hud.grabbed .tour-resume { opacity: 1; visibility: visible; pointer-events: auto; transform: none; }
+.tour-flash { position: absolute; left: 50%; bottom: calc(var(--tour-footer-height) + 20px); max-width: calc(100% - 40px); transform: translateX(-50%) translateY(6px); padding: 9px 14px; font-size: 12px; border-radius: 7px; background: #061329; border: 1px solid rgba(192, 218, 244, 0.2); opacity: 0; transition: opacity 200ms ease, transform 200ms ease; pointer-events: none; }
+.tour-flash.in { opacity: 1; transform: translateX(-50%); }
 
-/* ── the pose flash ─────────────────────────────────────────────────────── */
-.tour-flash {
-  position: absolute;
-  left: 50%;
-  bottom: calc(env(safe-area-inset-bottom, 0px) + 72px);
-  transform: translateX(-50%) translateY(6px);
-  padding: 7px 14px;
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 12px;
-  border-radius: 10px;
-  background: rgba(16, 49, 156, 0.95);
-  border: 1px solid var(--border);
-  opacity: 0;
-  transition: opacity 200ms ease, transform 200ms ease;
-  pointer-events: none;
-}
-.tour-flash.in { opacity: 1; transform: translateX(-50%) translateY(0); }
+/* Labels follow the highlighted subject inside the picture. */
+.tour-tag { position: absolute; top: 0; left: 0; display: inline-flex; align-items: center; gap: 7px; padding: 7px 11px; font-size: 12px; line-height: 1.35; white-space: nowrap; border-radius: 5px; border: 1px solid rgba(192, 218, 244, 0.24); background: rgba(4, 15, 31, 0.91); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25); color: var(--tour-ink); pointer-events: none; opacity: 0; will-change: transform, opacity; }
+.tour-tag-arrow { color: var(--tour-accent); }
+.tour-tag-from { color: var(--tour-muted); }
+.tour-tag-from .tour-tag-arrow { color: #86afde; }
+.tour-tag-to { border-color: color-mix(in srgb, var(--tour-accent) 55%, transparent); }
 
-/* ── phone ──────────────────────────────────────────────────────────────── */
 @media (max-width: 720px) {
-  .tour-card {
-    left: 10px; right: 10px;
-    width: auto;
-    bottom: calc(env(safe-area-inset-bottom, 0px) + 84px);
-    padding: 13px 14px 12px;
-  }
-  .tour-title { font-size: 17px; }
-  .tour-body { font-size: 13px; }
-  .tour-bar { gap: 7px; padding: 7px 9px; bottom: calc(env(safe-area-inset-bottom, 0px) + 10px); }
+  .tour-stage { --tour-footer-height: 250px; }
+  .tour-banner { top: 17px; left: 18px; gap: 4px; }
+  .tour-banner-title { font-size: 10px; letter-spacing: 0.11em; }
+  .tour-banner-sub { font-size: 11px; }
+  .tour-footer { padding: 9px 18px max(12px, env(safe-area-inset-bottom, 0px)); }
+  .tour-kicker { font-size: 9px; margin-bottom: 7px; }
+  .tour-title { font-size: 21px; margin-bottom: 7px; }
+  .tour-body { font-size: 13px; line-height: 1.5; }
   .tour-rail { gap: 6px; }
-  .tour-chapter { gap: 2px; }
-  .tour-dot { width: 5px; }
-  .tour-dot.now { width: 12px; }
+  .tour-chapter-label { font-size: 8px; }
+  .tour-chapter-beats { gap: 2px; }
+  .tour-playback, .tour-options { gap: 2px; }
+  .tour-time { padding-left: 5px; font-size: 11px; }
+  .tour-btn { width: 32px; height: 36px; }
+  .tour-play { width: 38px; height: 38px; }
+  .tour-chip-btn { min-width: 31px; padding: 5px 6px; }
+  .tour-fullscreen { width: 30px; }
+  .tour-resume { top: 16px; right: 18px; padding: 7px 10px; font-size: 11px; }
+  .tour-hud.grabbed .tour-banner-sub { visibility: hidden; }
+  .tour-tag { font-size: 11px; padding: 5px 8px; }
+  .tour-chips { display: none !important; }
+}
+@media (max-height: 600px) and (min-width: 721px) {
+  .tour-stage { --tour-footer-height: 195px; }
+  .tour-footer { padding-top: 8px; }
+  .tour-title { font-size: 22px; margin-bottom: 5px; }
+  .tour-body { font-size: 13px; }
+  .tour-kicker { margin-bottom: 5px; }
+}
+@media (max-height: 520px) and (max-width: 720px) {
+  .tour-stage { --tour-footer-height: 178px; }
+  .tour-footer { padding-top: 5px; padding-bottom: 7px; }
+  .tour-kicker { margin-bottom: 3px; font-size: 8px; }
+  .tour-title { font-size: 17px; margin-bottom: 4px; }
+  .tour-body { font-size: 11px; }
+  .tour-chapter-label { display: none; }
+  .tour-rail { margin-top: 4px; }
   .tour-banner-sub { display: none; }
-  .tour-chips { display: none; }
 }
-
-.tour-chip-more {
-  color: var(--text-2);
-  background: transparent;
-  border-color: var(--border);
-}
-/* A beat naming a body this model does not carry. The tree renames solids and
-   the tour names them, so the chip says which name went stale rather than
-   leaving a beat that frames the whole machine and lights nothing. */
-.tour-chip-missing {
-  color: var(--err);
-  background: color-mix(in srgb, var(--err) 12%, transparent);
-  border-color: color-mix(in srgb, var(--err) 45%, transparent);
-  text-decoration: line-through;
-}
-
-/* ── the from/to pins ───────────────────────────────────────────────────── */
-/* Screen-space labels on the two subjects of a move, positioned each frame by
-   tags.js. `will-change` because they move every frame while a flight runs. */
-.tour-tag {
-  position: absolute;
-  top: 0; left: 0;
-  display: inline-flex;
-  align-items: baseline;
-  gap: 6px;
-  padding: 4px 11px;
-  font-size: 12px;
-  line-height: 1.4;
-  white-space: nowrap;
-  border-radius: 999px;
-  border: 1px solid var(--border);
-  background: rgba(16, 49, 156, 0.9);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
-  pointer-events: none;
-  opacity: 0;
-  will-change: transform, opacity;
-}
-.tour-tag-arrow { font-size: 13px; opacity: 0.9; }
-.tour-tag-from { color: var(--text-2); }
-.tour-tag-from .tour-tag-arrow { color: #4d8dff; }
-.tour-tag-to {
-  color: var(--text);
-  border-color: color-mix(in srgb, #35e0d0 45%, transparent);
-}
-.tour-tag-to .tour-tag-arrow { color: #35e0d0; }
-
-@media (max-width: 720px) {
-  .tour-tag { font-size: 11px; padding: 3px 9px; }
-}
-
-/* ── the chapter's name, when the chapter turns over ───────────────────────
-   Arrives over the shot and leaves again. Big enough to be read without being
-   looked at, and out of the narration card's way — it sits above it, so the
-   two never occupy the same line of sight. */
-.tour-chapter-card {
-  position: absolute;
-  left: calc(env(safe-area-inset-left, 0px) + 18px);
-  bottom: calc(env(safe-area-inset-bottom, 0px) + 250px);
-  max-width: min(30rem, calc(100vw - 36px));
-  opacity: 0;
-  transform: translateY(10px);
-  transition: opacity 520ms ease, transform 520ms ease;
-  pointer-events: none;
-}
-.tour-chapter-card.in { opacity: 1; transform: none; }
-.tour-chapter-name {
-  font-size: clamp(1.6rem, 4vw, 2.4rem);
-  font-weight: 600;
-  line-height: 1.1;
-  letter-spacing: -0.01em;
-  color: #eaeaf4;
-  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.85), 0 0 60px rgba(0, 0, 0, 0.6);
-}
-
-/* ── the title, over the machine while it is still closed ─────────────────
-   The tour opens on the appliance as an object; this is what stands on it for
-   those three seconds, and it leaves as the machine dissolves so the two
-   motions read as one. */
-.tour-title-card {
-  position: absolute;
-  left: 50%;
-  top: 42%;
-  transform: translate(-50%, -50%) scale(0.985);
-  text-align: center;
-  opacity: 0;
-  transition: opacity 900ms ease, transform 1400ms ease;
-  pointer-events: none;
-}
-.tour-title-card.in { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-.tour-title-main {
-  font-size: clamp(2rem, 6vw, 3.4rem);
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  line-height: 1.05;
-  text-shadow: 0 2px 30px rgba(0, 0, 0, 0.9);
-}
-.tour-title-sub {
-  margin-top: 8px;
-  font-size: clamp(0.85rem, 2vw, 1rem);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: #9aa0bd;
-  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.9);
-}
-
-/* The closing beat drops the words entirely: the last thing on screen is the
-   machine and the line through it. */
-.tour-card.gone { opacity: 0 !important; transform: translateY(8px); }
-
-@media (max-width: 720px) {
-  .tour-chapter-card { bottom: calc(env(safe-area-inset-bottom, 0px) + 232px); right: 10px; left: 10px; }
-  .tour-title-card { top: 38%; }
+@media (prefers-reduced-motion: reduce) {
+  .tour-card, .tour-resume, .tour-flash { transition: none; }
 }

@@ -172,9 +172,11 @@ export function applyXray(group) {
   }
 }
 
-export function setXrayEnabled(on) {
+export function setXrayEnabled(on, { persist = true } = {}) {
   enabled = !!on;
-  try { localStorage.setItem(LS_KEY, enabled ? "1" : "0"); } catch {}
+  if (persist) {
+    try { localStorage.setItem(LS_KEY, enabled ? "1" : "0"); } catch {}
+  }
   applyXray(state.currentGroup);
 }
 

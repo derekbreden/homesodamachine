@@ -1,223 +1,231 @@
-// EVERYTHING ON SCREEN THAT IS NOT THE MACHINE. The narration card, the
-// transport, the rail of steps, and the two toggles.
-//
-// The card is the modal the tour narrates through: it holds a beat's title,
-// two or three sentences, and the bodies that beat lights, and it cross-fades
-// rather than swapping, so a step change is one event to the eye and not two.
-// It stands in the corner the shot is composed away from rather than over the
-// middle, because the subject is the point and the words are the caption.
-//
-// THE RAIL IS THE FAST WAY IN. Every step is a dot, the dot is a link, and the
-// step the player is on is written into the URL — so a reload, a deploy that
-// reloads the page under you, or a pasted link all land on the same beat
-// instead of at the top. Iterating on beat nine costs one reload, not the
-// eight beats before it.
-
+// Captions, chapter navigation, and playback controls for the guided tour.
 import { leafOf } from "/contracts/body-path.js";
 
-const PLAY = `<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M8 5v14l11-7z"/></svg>`;
-const PAUSE = `<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>`;
-const PREV = `<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M18 5v14l-9-7zM7 5h2v14H7z"/></svg>`;
-const NEXT = `<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M6 5l9 7-9 7zM15 5h2v14h-2z"/></svg>`;
-
+const svg = (path) => `<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="${path}"/></svg>`;
+const PLAY = svg("M8 5v14l11-7z");
+const PAUSE = svg("M6 5h4v14H6zM14 5h4v14h-4z");
+const PREV = svg("M18 5v14l-9-7zM7 5h2v14H7z");
+const NEXT = svg("M6 5l9 7-9 7zM15 5h2v14h-2z");
+const REPLAY = svg("M12 4a8 8 0 1 1-7.4 11H7a5.8 5.8 0 1 0 1.1-6.9L11 11H3V3l3.5 3.5A8 8 0 0 1 12 4z");
+const FULLSCREEN = svg("M4 4h6v2H6v4H4zm10 0h6v6h-2V6h-4zM4 14h2v4h4v2H4zm14 0h2v6h-6v-2h4z");
+const EXIT_FULLSCREEN = svg("M8 4h2v6H4V8h4zm6 0h2v4h4v2h-6zM4 14h6v6H8v-4H4zm10 0h6v2h-4v4h-2z");
 const CHIP_LIMIT = 7;
 
-// A body inside a sub-assembly carries its path — `cold-core/sparge-stone`.
-// The chip shows the body's own name and keeps the whole of it on hover: the
-// path is what the model calls it and the leaf is what the sentence calls it,
-// and a row of chips is reading, not addressing.
-//
-// From the contract rather than inline, because there is one rule for reading a
-// body's path and it has a test. The contract is pure — no three.js, no viewer
-// state — so a caption can have it without pulling the picker in behind it.
+function el(tag, cls, text) {
+  const node = document.createElement(tag);
+  if (cls) node.className = cls;
+  if (text != null) node.textContent = text;
+  return node;
+}
 
-const el = (tag, cls, html) => {
-  const n = document.createElement(tag);
-  if (cls) n.className = cls;
-  if (html != null) n.innerHTML = html;
-  return n;
-};
+function button(cls, label, icon) {
+  const node = el("button", cls);
+  node.type = "button";
+  node.title = label;
+  node.ariaLabel = label;
+  if (icon) node.innerHTML = icon;
+  return node;
+}
 
-const escapeText = (v) => String(v == null ? "" : v);
-
-// The two announcements are shown by setting opacity and transform on the
-// element rather than by toggling a class the stylesheet answers. Both work;
-// this one puts the state where it can be read straight off the node, which is
-// worth something on an overlay that is only up for two seconds at a time and
-// is otherwise very hard to catch in the act.
-function show(node, on) {
-  node.style.opacity = on ? "1" : "0";
-  node.style.transform = node.dataset.rest && !on
-    ? node.dataset.rest
-    : (node.dataset.shown || "none");
+function clock(ms) {
+  const seconds = Math.max(0, Math.floor((Number(ms) || 0) / 1000));
+  return `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, "0")}`;
 }
 
 export function mountHud(host, { steps, title: titleText, subtitle, on }) {
   const hud = el("div", "tour-hud");
+  const stage = host.closest(".tour-stage") || host.parentElement;
 
-  // --- the narration card -------------------------------------------------
-  const card = el("div", "tour-card");
+  const banner = el("div", "tour-banner");
+  const bannerTitle = el("span", "tour-banner-title", titleText);
+  const bannerSub = el("span", "tour-banner-sub", subtitle || "A guided look inside");
+  banner.append(bannerTitle, bannerSub);
+
+  const footer = el("div", "tour-footer");
+  const card = el("section", "tour-card");
+  card.ariaLabel = "Tour captions";
+  card.setAttribute("aria-live", "polite");
+  card.setAttribute("aria-atomic", "true");
   const kicker = el("div", "tour-kicker");
   const kickerName = el("span", "tour-kicker-name");
   const kickerCount = el("span", "tour-kicker-count");
   kicker.append(kickerName, kickerCount);
   const heading = el("h2", "tour-title");
   const body = el("p", "tour-body");
-  const chips = el("div", "tour-chips");
+  const chips = el("div", "tour-chips tour-dev");
   card.append(kicker, heading, body, chips);
 
-  // --- transport ----------------------------------------------------------
-  const bar = el("div", "tour-bar");
-  const prev = el("button", "tour-btn", PREV);
-  prev.type = "button"; prev.title = "Previous step (←)"; prev.ariaLabel = "Previous step";
-  const play = el("button", "tour-btn tour-play", PAUSE);
-  play.type = "button"; play.title = "Play / pause (space)"; play.ariaLabel = "Play or pause";
-  const next = el("button", "tour-btn", NEXT);
-  next.type = "button"; next.title = "Next step (→)"; next.ariaLabel = "Next step";
-
-  const rail = el("div", "tour-rail");
-  const dots = steps.map((s, i) => {
-    const d = el("button", "tour-dot");
-    d.type = "button";
-    d.title = `${i + 1}. ${s.title}`;
-    d.ariaLabel = d.title;
-    d.append(el("span", "tour-dot-fill"));
-    d.addEventListener("click", () => on.goto(i));
-    rail.append(d);
-    return d;
+  const transport = el("div", "tour-transport");
+  const rail = el("nav", "tour-rail");
+  rail.ariaLabel = "Tour chapters";
+  const chapters = [];
+  const dots = steps.map((step, i) => {
+    const chapterName = step.chapter || "The tour";
+    let chapter = chapters[chapters.length - 1];
+    if (!chapter || chapter.name !== chapterName) {
+      const group = el("div", "tour-chapter");
+      const label = el("span", "tour-chapter-label", chapterName);
+      const beats = el("div", "tour-chapter-beats");
+      group.append(label, beats);
+      rail.append(group);
+      chapter = { name: chapterName, group, beats, first: i, last: i };
+      chapters.push(chapter);
+    }
+    chapter.last = i;
+    const dot = button("tour-dot", `${i + 1}. ${step.title}`);
+    dot.append(el("span", "tour-dot-fill"));
+    dot.addEventListener("click", () => on.goto(i));
+    chapter.beats.append(dot);
+    return dot;
   });
+  for (const chapter of chapters) chapter.group.style.flexGrow = String(chapter.last - chapter.first + 1);
 
-  const speed = el("button", "tour-chip-btn", "1&times;");
-  speed.type = "button"; speed.title = "Playback speed";
-  const ghost = el("button", "tour-chip-btn", "Ghost");
-  ghost.type = "button"; ghost.title = "X-ray: ghost every solid and draw its feature edges";
-  const pose = el("button", "tour-chip-btn tour-dev", "Pose");
-  pose.type = "button";
-  pose.title = "Copy this camera as the dir/pad the tour data wants";
+  const bar = el("div", "tour-bar");
+  const playback = el("div", "tour-playback");
+  const prev = button("tour-btn", "Previous scene (←)", PREV);
+  const play = button("tour-btn tour-play", "Pause (space)", PAUSE);
+  const next = button("tour-btn", "Next scene (→)", NEXT);
+  const time = el("span", "tour-time", "0:00 / 0:00");
+  time.ariaLabel = "Playback time";
+  playback.append(prev, play, next, time);
 
-  speed.addEventListener("click", () => on.cycleSpeed());
-  ghost.addEventListener("click", () => on.toggleGhost());
-  pose.addEventListener("click", () => on.copyPose());
-  prev.addEventListener("click", () => on.prev());
-  next.addEventListener("click", () => on.next());
-  play.addEventListener("click", () => on.togglePlay());
+  const options = el("div", "tour-options");
+  const speed = button("tour-chip-btn", "Playback speed");
+  speed.textContent = "1×";
+  const captions = button("tour-chip-btn tour-captions on", "Hide captions (C)");
+  captions.textContent = "CC";
+  captions.setAttribute("aria-pressed", "true");
+  const fullscreen = button("tour-btn tour-fullscreen", "Enter fullscreen", FULLSCREEN);
+  const ghost = button("tour-chip-btn tour-dev", "Show all bodies as an X-ray");
+  ghost.textContent = "Ghost";
+  const pose = button("tour-chip-btn tour-dev", "Copy camera position");
+  pose.textContent = "Pose";
+  options.append(ghost, pose, speed, captions);
+  if (stage.requestFullscreen && document.fullscreenEnabled) options.append(fullscreen);
+  bar.append(playback, options);
+  transport.append(rail, bar);
+  footer.append(card, transport);
 
-  bar.append(prev, play, next, rail, speed, ghost, pose);
-
-  // --- the resume shade, for a tour someone has grabbed --------------------
-  const resume = el("button", "tour-resume", "Resume tour");
-  resume.type = "button";
-  resume.addEventListener("click", () => on.resume());
-
-  const banner = el("div", "tour-banner");
-  banner.append(el("span", "tour-banner-title", escapeText(titleText)),
-                el("span", "tour-banner-sub", escapeText(subtitle || "")));
-
-  // ── the chapter's name, when the chapter turns over ─────────────────────
-  // Fifty-six beats in a row is a list. Eleven names that arrive over the shot
-  // and leave again is a piece with movements in it, and it costs the reader
-  // nothing to ignore.
-  const chapterCard = el("div", "tour-chapter-card");
-  chapterCard.dataset.rest = "translateY(10px)";
-  chapterCard.dataset.shown = "none";
-  const chapterName = el("div", "tour-chapter-name");
-  chapterCard.append(chapterName);
-
-  // ── the title, over the machine while it is still solid ─────────────────
-  const title = el("div", "tour-title-card");
-  title.dataset.rest = "translate(-50%, -50%) scale(0.985)";
-  title.dataset.shown = "translate(-50%, -50%) scale(1)";
-  title.append(el("div", "tour-title-main", escapeText(titleText)),
-               el("div", "tour-title-sub", escapeText(subtitle || "")));
-
-  hud.append(banner, chapterCard, title, card, resume, bar);
+  const resume = button("tour-resume", "Return to the guided camera");
+  resume.textContent = "Resume tour";
+  hud.append(banner, resume, footer);
   host.append(hud);
 
   let shownIndex = -1;
-  let swapTimer = null;
-  let shownChapter = null;
-  let chapterTimer = null;
+  let playing = true;
+  let ended = false;
+  let captionsVisible = true;
+  let timeText = "";
+
+  function updatePlay() {
+    play.innerHTML = ended ? REPLAY : (playing ? PAUSE : PLAY);
+    play.ariaLabel = ended ? "Replay tour (space)" : (playing ? "Pause (space)" : "Play (space)");
+    play.title = play.ariaLabel;
+    hud.classList.toggle("paused", !playing);
+    hud.classList.toggle("ended", ended);
+  }
+
+  function setCaptions(visible) {
+    captionsVisible = !!visible;
+    hud.classList.toggle("captions-off", !captionsVisible);
+    card.setAttribute("aria-hidden", String(!captionsVisible));
+    captions.classList.toggle("on", captionsVisible);
+    captions.setAttribute("aria-pressed", String(captionsVisible));
+    captions.ariaLabel = captionsVisible ? "Hide captions (C)" : "Show captions (C)";
+    captions.title = captions.ariaLabel;
+  }
 
   function setStep(i, step, missing = []) {
-    dots.forEach((d, n) => {
-      d.classList.toggle("done", n < i);
-      d.classList.toggle("now", n === i);
+    dots.forEach((dot, n) => {
+      dot.classList.toggle("done", n < i);
+      dot.classList.toggle("now", n === i);
+      dot.style.setProperty("--fill-x", n < i ? "1" : "0");
+      if (n === i) dot.setAttribute("aria-current", "step");
+      else dot.removeAttribute("aria-current");
     });
+    chapters.forEach(({ group, first, last }) => group.classList.toggle("now", i >= first && i <= last));
+    prev.disabled = i <= 0;
+    next.disabled = i >= steps.length - 1;
     if (i === shownIndex) return;
-    const first = shownIndex < 0;
     shownIndex = i;
-
-    // A NEW CHAPTER ANNOUNCES ITSELF, except the first one — the title is
-    // already on screen there and two cards arriving together is neither.
-    if (step.chapter && step.chapter !== shownChapter) {
-      shownChapter = step.chapter;
-      if (!first) {
-        chapterName.textContent = step.chapter;
-        show(chapterCard, true);
-        clearTimeout(chapterTimer);
-        chapterTimer = setTimeout(() => show(chapterCard, false), 2100);
-      }
-    }
-
-    // Out, then in: the card fades down, swaps its words while it is
-    // invisible, and comes back — so a step change never shows two texts. On a
-    // timer rather than on frames, because a page nobody is looking at is a
-    // page with no frames, and it still has to be showing the right beat when
-    // someone looks back at it.
     card.classList.remove("in");
-    clearTimeout(swapTimer);
-    swapTimer = setTimeout(() => {
-      kickerName.textContent = step.chapter || "";
-      kickerCount.textContent = `${i + 1} / ${steps.length}`;
+    const replaceCaption = () => {
+      kickerName.textContent = step.chapter || "Inside the machine";
+      kickerCount.textContent = `${String(i + 1).padStart(2, "0")} / ${String(steps.length).padStart(2, "0")}`;
       heading.textContent = step.title;
       body.textContent = step.body;
-      chips.textContent = "";
-      // A beat that lights eighteen bodies is a beat about the whole run, and
-      // eighteen chips under three sentences is a wall. Name a few and count
-      // the rest.
+      chips.replaceChildren();
       const named = step.parts || [];
       const gone = new Set(missing);
-      for (const p of named.slice(0, CHIP_LIMIT)) {
-        const c = el("span", `tour-chip${gone.has(p) ? " tour-chip-missing" : ""}`, leafOf(p));
-        c.title = gone.has(p) ? `${p} — this model carries no body by that name` : p;
-        chips.append(c);
+      for (const part of named.slice(0, CHIP_LIMIT)) {
+        const chip = el("span", `tour-chip${gone.has(part) ? " tour-chip-missing" : ""}`, leafOf(part));
+        chip.title = gone.has(part) ? `${part} — missing from the model` : part;
+        chips.append(chip);
       }
-      if (named.length > CHIP_LIMIT) {
-        chips.append(el("span", "tour-chip tour-chip-more",
-                        `+${named.length - CHIP_LIMIT} more`));
-      }
-      void card.offsetWidth; // restart the transition rather than continue it
+      if (named.length > CHIP_LIMIT) chips.append(el("span", "tour-chip", `+${named.length - CHIP_LIMIT} more`));
       card.classList.add("in");
-    }, 220);
+    };
+    replaceCaption();
   }
 
-  // How far through the beat the player is, as the scale of the dot's fill.
-  function setProgress(i, frac) {
-    const d = dots[i];
-    if (d) d.style.setProperty("--fill-x", String(Math.max(0, Math.min(frac, 1))));
-  }
+  prev.addEventListener("click", () => on.prev());
+  next.addEventListener("click", () => on.next());
+  play.addEventListener("click", () => on.togglePlay());
+  speed.addEventListener("click", () => on.cycleSpeed());
+  captions.addEventListener("click", () => setCaptions(!captionsVisible));
+  ghost.addEventListener("click", () => on.toggleGhost());
+  pose.addEventListener("click", () => on.copyPose());
+  resume.addEventListener("click", () => on.resume());
+  fullscreen.addEventListener("click", async () => {
+    try {
+      if (document.fullscreenElement === stage) await document.exitFullscreen();
+      else await stage.requestFullscreen();
+    } catch { /* A browser may decline fullscreen without changing playback. */ }
+  });
+  document.addEventListener("fullscreenchange", () => {
+    const active = document.fullscreenElement === stage;
+    fullscreen.innerHTML = active ? EXIT_FULLSCREEN : FULLSCREEN;
+    fullscreen.ariaLabel = active ? "Exit fullscreen" : "Enter fullscreen";
+    fullscreen.title = fullscreen.ariaLabel;
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.code !== "KeyC" || event.metaKey || event.ctrlKey || event.altKey) return;
+    if (event.target.closest?.("input, textarea, select, [contenteditable=true]")) return;
+    event.preventDefault();
+    setCaptions(!captionsVisible);
+  });
 
   return {
     setStep,
-    setProgress,
-    setPlaying(playing) {
-      play.innerHTML = playing ? PAUSE : PLAY;
-      hud.classList.toggle("grabbed", !playing);
+    setProgress(i, fraction) {
+      dots[i]?.style.setProperty("--fill-x", String(Math.max(0, Math.min(fraction, 1))));
     },
-    setGrabbed(grabbed) { hud.classList.toggle("grabbed", grabbed); },
-    setSpeed(x) { speed.innerHTML = `${x}&times;`; },
-    setGhost(onNow) { ghost.classList.toggle("on", !!onNow); },
-    flash(msg) {
-      const t = el("div", "tour-flash", msg);
-      hud.append(t);
-      requestAnimationFrame(() => t.classList.add("in"));
-      setTimeout(() => { t.classList.remove("in"); setTimeout(() => t.remove(), 300); }, 1600);
+    setTime(elapsedMs, totalMs) {
+      const nextText = `${clock(elapsedMs)} / ${clock(totalMs)}`;
+      if (nextText !== timeText) {
+        time.textContent = nextText;
+        timeText = nextText;
+      }
     },
+    setPlaying(value) { playing = !!value; updatePlay(); },
+    setEnded(value) {
+      if (ended === !!value) return;
+      ended = !!value;
+      updatePlay();
+    },
+    setGrabbed(value) { hud.classList.toggle("grabbed", !!value); },
+    setCaptions,
+    setSpeed(value) { speed.textContent = `${value}×`; speed.ariaLabel = `Playback speed: ${value} times`; },
+    setGhost(value) { ghost.classList.toggle("on", !!value); ghost.setAttribute("aria-pressed", String(!!value)); },
+    flash(message) {
+      const flash = el("div", "tour-flash", message);
+      flash.setAttribute("role", "status");
+      hud.append(flash);
+      requestAnimationFrame(() => flash.classList.add("in"));
+      setTimeout(() => { flash.classList.remove("in"); setTimeout(() => flash.remove(), 300); }, 1800);
+    },
+    showTitle(value) { banner.classList.toggle("intro", !!value); },
+    setCardVisible(value) { card.classList.toggle("gone", !value); },
     element: hud,
-    /** The title, over the machine while it is still solid at the top of the
-     *  tour. It leaves as the machine dissolves, so the two motions are one. */
-    showTitle(on) { show(title, !!on); },
-    /** The last beat is the machine and the line and nothing else. */
-    setCardVisible(on) { card.classList.toggle("gone", !on); },
   };
 }

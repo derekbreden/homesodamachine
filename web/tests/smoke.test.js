@@ -62,6 +62,8 @@ const routes = [
   { path: "/drawings", expect: 200, ct: "text/html" },
   { path: "/cost",     expect: 200, ct: "text/html" },
   { path: "/tour",     expect: 200, ct: "text/html" },
+  { path: "/tour/captions.vtt", expect: 200, ct: "text/vtt" },
+  { path: "/tour/script.txt", expect: 200, ct: "text/plain" },
   { path: "/spin",     expect: 200, ct: "text/html" },
   { path: "/settings", expect: 200, ct: "text/html" },
 

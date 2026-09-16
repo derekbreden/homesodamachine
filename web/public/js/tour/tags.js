@@ -1,60 +1,48 @@
-// WHERE WE ARE COMING FROM, AND WHERE WE ARE GOING TO — written on the two
-// places themselves, while the camera is between them.
-//
-// The wide shot in the middle of a flight holds both subjects, which is what
-// makes the move legible; these are what make it unambiguous. Two chips pinned
-// to the two subjects in screen space: the one being left, fading out as the
-// move ends, and the one being arrived at, fading in as it begins. Between
-// them the reader has the answer without having to recognise a fitting.
-//
-// They exist only during a move. A held beat has the card for its name and
-// everything lit is its subject, so a pin there would be a third label saying
-// what two already say.
-
 import * as THREE from "three";
 
-const OUT = "←"; // from here
-const IN = "→";  // to there
-
-const _v = new THREE.Vector3();
-
-function chip(cls) {
-  const n = document.createElement("div");
-  n.className = `tour-tag ${cls}`;
-  n.innerHTML = '<span class="tour-tag-arrow"></span><span class="tour-tag-text"></span>';
-  return n;
-}
-
 export function mountTags(host) {
-  const from = chip("tour-tag-from");
-  const to = chip("tour-tag-to");
-  host.append(from, to);
-
-  function place(node, box, camera, rect, alpha, arrow, text) {
-    if (!box || box.isEmpty() || alpha <= 0.02) { node.style.opacity = "0"; return; }
-    box.getCenter(_v);
-    _v.project(camera);
-    // Behind the camera: the projection wraps and the chip would land on the
-    // opposite side of the frame from the thing it names.
-    if (_v.z > 1) { node.style.opacity = "0"; return; }
-    const x = THREE.MathUtils.clamp((_v.x * 0.5 + 0.5) * rect.width, 70, rect.width - 70);
-    const y = THREE.MathUtils.clamp((-_v.y * 0.5 + 0.5) * rect.height, 40, rect.height - 120);
-    node.style.transform = `translate(-50%, -50%) translate(${x}px, ${y}px)`;
-    node.style.opacity = String(alpha);
-    node.querySelector(".tour-tag-arrow").textContent = arrow;
-    const t = node.querySelector(".tour-tag-text");
-    if (t.textContent !== text) t.textContent = text;
-  }
-
+  const layer = document.createElement("div");
+  layer.className = "tour-callout-layer";
+  layer.style.cssText = "position:absolute;inset:0;pointer-events:none;z-index:5";
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  svg.setAttribute("aria-hidden", "true");
+  svg.style.cssText = "position:absolute;width:100%;height:100%;overflow:visible";
+  const line = document.createElementNS(svg.namespaceURI, "path");
+  line.setAttribute("fill", "none");
+  line.setAttribute("stroke", "var(--tour-accent,#86dfd3)");
+  line.setAttribute("stroke-width", "1.2");
+  const dot = document.createElementNS(svg.namespaceURI, "circle");
+  dot.setAttribute("r", "3");
+  dot.setAttribute("fill", "var(--tour-accent,#86dfd3)");
+  svg.append(line, dot);
+  const label = document.createElement("div");
+  label.className = "tour-subject-label";
+  label.style.cssText = "position:absolute;padding:7px 11px;border-left:2px solid var(--tour-accent,#86dfd3);background:rgba(16,25,35,.94);color:#f4f7fb;font-size:12px;line-height:1.3;letter-spacing:.02em;max-width:180px;border-radius:0 4px 4px 0";
+  layer.append(svg, label);
+  host.append(layer);
+  const point = new THREE.Vector3();
   return {
-    /** `mix` is the move's own 0→1. Both chips are up through the middle of it,
-     *  which is where the wide shot is. */
-    update({ camera, rect, mix, fromBox, fromText, toBox, toText, active }) {
-      if (!active) { from.style.opacity = "0"; to.style.opacity = "0"; return; }
+    update({ camera, rect, box, text, active, alpha = 1 }) {
+      if (!active || !box || box.isEmpty()) { layer.style.opacity = "0"; return; }
       camera.updateMatrixWorld();
-      place(from, fromBox, camera, rect, Math.min(1, (1 - mix) * 1.9), OUT, fromText || "");
-      place(to, toBox, camera, rect, Math.min(1, mix * 1.9), IN, toText || "");
+      box.getCenter(point).project(camera);
+      if (point.z > 1 || point.z < -1 || Math.abs(point.x) > 1 || Math.abs(point.y) > 1) {
+        layer.style.opacity = "0"; return;
+      }
+      const x = (point.x * .5 + .5) * rect.width;
+      const y = (-point.y * .5 + .5) * rect.height;
+      const right = x < rect.width * .55;
+      const labelX = right ? Math.min(x + 55, rect.width - 185) : Math.max(16, x - 200);
+      const labelY = THREE.MathUtils.clamp(y - 75, 65, rect.height - 50);
+      label.textContent = text;
+      label.style.left = `${labelX}px`;
+      label.style.top = `${labelY}px`;
+      const endX = right ? labelX : labelX + label.offsetWidth;
+      const endY = labelY + label.offsetHeight / 2;
+      line.setAttribute("d", `M${x},${y} L${endX - (right ? 15 : -15)},${endY} L${endX},${endY}`);
+      dot.setAttribute("cx", x); dot.setAttribute("cy", y);
+      layer.style.opacity = String(alpha);
     },
-    hide() { from.style.opacity = "0"; to.style.opacity = "0"; },
+    hide() { layer.style.opacity = "0"; },
   };
 }
