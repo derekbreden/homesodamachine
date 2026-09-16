@@ -241,6 +241,7 @@ window.addEventListener("pageshow", (event) => {
 
 window.__tour = {
   TOUR, THREE, scene, camera, controls, renderer, timeline, actions,
+  assetVersion: new URL(import.meta.url).pathname.match(/^\/tour-assets\/([^/]+)\//)?.[1] || null,
   get group() { return state.currentGroup; },
   get state() {
     const at = locateTime(timeline, time);
