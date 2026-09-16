@@ -5746,7 +5746,7 @@ def _tee_carrier_service_slots(carrier):
     """Open finger slots, bar guides and internal recesses for inside-out assembly.
 
     Above each bar, the outer strip of its retaining tongue runs in a short channel whose
-    aft end is the park stop. The full-height entry passage sits inboard of that strip.
+    aft end is the travel limit beyond nominal rest. The full-height entry passage sits inboard of that strip.
     """
     if not carrier:
         return ()

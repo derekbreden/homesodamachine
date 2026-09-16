@@ -29,6 +29,10 @@ pump_station_lead = -0.124
 pump_station_drop = 3.0
 manifold_rise = 2.0
 
+# Aft travel available beyond the connected tee-carrier datum, for elastic bending.
+# The connected pose, tube projections and moving carrier dimensions stay independent.
+tee_carrier_aft_overtravel = 2.5
+
 # THE FIELD THE BOX'S SHOW FACES CARRY, in the two figures a piece that does NOT carry it still
 # has to know. The fade is driven by how far a station stands from the nearest edge of the show
 # face (`cadlib/flute_skin._depth_field`), so a band's own two faces are both edges and the
