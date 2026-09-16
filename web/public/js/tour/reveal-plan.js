@@ -37,7 +37,7 @@ const COIL = new Set(["evap-coil", "evap-tail-inlet", "evap-tail-outlet", "probe
 const CARBONATOR = new Set([
   "carbonator-tube", "endcap-top", "endcap-bottom", "float-rod-carb", "float-carb",
   "reed-bridge", "reed-carb-1", "reed-carb-2", "probe-carbonator-ds18b20",
-  "sparge-barb", "sparge-silicone-stub", "sparge-stone",
+  "water-inlet-jet-cap-nominal",
   "collet-co2-in", "collet-carb-water-out", "collet-water-in", "prv-sv125", "prv-shroud",
   "line-water-in", "line-carb-water-out", "line-co2-in", "line-prv-vent",
 ]);
@@ -48,7 +48,7 @@ export function corePartGroup(name) {
   if (name.startsWith("foam-cap-")) return "caps";
   if (name === "foam-shell" || name.startsWith("copper-plug-")) return "shell";
   if (COIL.has(name)) return "coil";
-  if (CARBONATOR.has(name) || name.startsWith("carbonator-elbow-") || name.startsWith("sparge-stone-")) return "carbonator";
+  if (CARBONATOR.has(name) || name.startsWith("carbonator-elbow-")) return "carbonator";
   for (const side of ["a", "b"]) {
     if (name === `reservoir-${side}` || name.startsWith(`reservoir-${side}-`)
         || name === `bulkhead-reservoir-${side}` || name === `bulkhead-seal-${side}`

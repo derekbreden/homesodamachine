@@ -64,7 +64,7 @@ test("the coil, intact carbonator and reservoirs separate with all their accesso
   const groups = {
     coil: ["evap-coil", "evap-tail-inlet", "evap-tail-outlet", "probe-coil-ds18s20"],
     carbonator: ["carbonator-tube", "endcap-top", "endcap-bottom", "float-rod-carb", "float-carb",
-      "sparge-stone", "sparge-silicone-stub", "sparge-barb", "collet-co2-in", "collet-water-in",
+      "water-inlet-jet-cap-nominal", "collet-co2-in", "collet-water-in", "collet-carb-water-out",
       "carbonator-elbow-prv", "prv-sv125", "prv-shroud", "probe-carbonator-ds18b20", "reed-bridge",
       "reed-carb-1", "line-co2-in", "line-water-in", "line-carb-water-out", "line-prv-vent"],
     "reservoir-a": ["reservoir-a", "reservoir-a-cap", "bulkhead-reservoir-a", "bulkhead-seal-a",
